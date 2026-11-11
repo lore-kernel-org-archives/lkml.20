@@ -1,101 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.174
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794416662;
-	b=YR1jDcjEGaDuNwqjYiZL9f9Zs14iw9vN+vqg6vxQ6T7dZHJoFjt9VYfNBJJMHoA6y5fJ
-	 M5RY1BwAeAkCSyThsfK96pe6zGDTKMOrGnum/pRvXecvCOF2QlXp0FCIM7f/bFuV3frey
-	 PB00bq1yRae6Lq53Dk5JLOqZB0zq2N+nTmcce2XJjQ7JtZxgsOhkGAAPHQ95rFD8HPoqC
-	 SYfCyzDtO7D7qUoEQorpyLRhPP3qRQzbQsBBibzBamqxdbkw7yQfH1oBrSpRjIMdw5tc3
-	 KK8jlvfC/S6PsLtN5GZDGlxLUEoYqIIACTGa6HcbIcTWH1nVf/x5OEBDmUelP1tQlFA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794416662;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.44
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794416664;
+	b=gprB+Y9gZ7ChBoa8SCwQWfeRdjJk2XCo8TOLOL/owD8xB8qfLd8tUw4yRkUEZS748Qfs
+	 Uhn5sHv6C5r2PDriO4Dece8n7Qq/HsalKeC4g/DZ0Rx7je84J4q0ZrVh53C4A4qWxuixJ
+	 NIoqaqnYB9xTdTvnnEidx2ZzmHzTrkVOlAq+gwqgKAprnCUDfMc2y3TTaBkDA6hBLRiKM
+	 Z//GY/wZpdWF8HmD/8IZrmUBccIwhupMxFrHLl8ihC3D0KbV0/w2MIqDR2Z0f3XwAluum
+	 BWPMR44+pikgagxH7dI4+HR/m4s+aaBbxrAvxi/IAUYtzWO65Sy6tekCmeq2eVR0G1g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794416664;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=sz1fBEHUL8IGMULI0g/KGEQw0Ms9ofA5l42B+4Sj0Rc=;
-	b=zAUxq0iP5LsFkNN4GR1n2T2MIpRPMPcn4J47u4d14Y5lXtPTnFSzbAeM75AzxEUFhUsd
-	 GYJxa+zqx+J5mlfJqJDnSbHTjgMAGq++wznAqvt3ttPBJEQTKi4UItUBVBgxp68V4FW6s
-	 zh4Ix3vGMwcfbhsGxrSIhytltzk/fivqCjUznvQOQwomMjexN//hllxa2FK+pepDc7krC
-	 RISkXsRC0/kVsaRuiLV4ok9dlszpvSyaLyA2k9+chgn1J0MakmGG3Fy7bmZScjU2osXct
-	 yEtlxK4sOwYE1WI3VIS19mcFFWw4qCu77VgOs0Z8hF5O4uIf3tNPw2JCSXpf6sFYpQg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="DbiXO5/q";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.174
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=UbADhzE1xi4qyLEBY5pOxlcVGmXzPk2Jq0OH/tDEmxY=;
+	b=izveFL3hEa1sXtZwQ0cWpxuVFjz7m3VnobzuFZ/ge6YO1X582q95Clz69OI1Bwc9vdhv
+	 RTlvjH6mJu5JlEfsbhvziAPcNCmWGnb7yp9EgTnl6jV0+xOyCnovdR38ovZFq1oIv/5YS
+	 DQrFYNz7WTvSFd6VkR25JTWLcWAznr5plGsCaKdGmgMDfH0SgU5lVEPaL6yGbwyRN4+xC
+	 brdLq85PXJkD/fw2VFShTzOSAqiGWiy/6x8XhiJh+ZzMpRuDu5NejRCjV2eziclCuBsMS
+	 eXc/b1VHSkDlTExy4s5AhgITrd6m/uUq2s+hO7OxRs93Zvmlr8Lrc3Dn9k3QHb1PRPg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=miget.com;
+	spf=pass smtp.mailfrom=miget.com;
+	dkim=pass header.d=miget.com header.i=@miget.com header.a=rsa-sha256 header.s=google header.b=D7psJ64N;
+	arc=none smtp.remote-ip=209.85.208.44
+Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFC9F60A2620
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 17:04:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CFC9F60A2620
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55A3960A2639
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 17:04:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55A3960A2639
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=miget.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=miget.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DbiXO5/q
-Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-35159e0092aso77439eec.2
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 09:04:21 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794416661; cv=none;
-        d=google.com; s=arc-20260327;
-        b=NNnZY/Np/kNbcMSrG+un5wsdlg+4u7BzhIW0lUkh70EPKQqlTNx/XMyViJcFMBXJ9E
-         QZxjutX6fqsqaN4rzDS47PI/OcgxVQ13aMuscHQbDep98OuF8u0nDArfd17OEPFCvc4r
-         +RLaEWGuS4ITZcNVmWaLI6atG4zb1Ssryv4KoIDfkqjJSipXRdBzTfI8KJjWjVKf1v/M
-         1L8Q5R6qkeH7LHONAIwOyA9rW0DCEAHAo6ANLbLzvGGNwjWERGeJ8TvCzRJpRnLJXdLt
-         1xm+gYTdvlwpMFD13nFXPfYBYWGBxQABW/7jTAkumBIzG51L5qRwyk6QMuA5msCcZT/7
-         LGFg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=sz1fBEHUL8IGMULI0g/KGEQw0Ms9ofA5l42B+4Sj0Rc=;
-        fh=oBpdhUEnis8nhJT7qTYckKnZvv+e+GbumnjJYzLgIQ4=;
-        b=dK5coSH6X/sD2cd1dxkFzJN7Vrv6uBHD/PFGZvkQB30GYUqPfZX5ksRFTCK4JzNlNr
-         OlPVIhG8b05f5MfRv7OE8L2e0rYxqQaakaLQ/W2hYtU0QlUGoD79HWm440AcLLSZHz8v
-         PUFwq9Rf8rvRU5isia/t9ZokY8fkWNUNn1z1eR5dvy7Iucckn0rEMAmG/WdWPz8BPUdg
-         3Sp4pnBb/pc8/RQLNoqZTDrUAjtor1bwq8LGhzYCMTIgyLa1Sfh37RQ5Ls0X2adNDv3P
-         wEfIO96+LMc4YYafCEoG/ZduFMV6HMk1f5DfhUVxnuMXlJ9lz7j7vYXD/d0lpAx7s+e9
-         6z+g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key) header.d=miget.com header.i=@miget.com header.a=rsa-sha256 header.s=google header.b=D7psJ64N
+Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6b2237b596cso7406356a12.0
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 09:04:24 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794416661; x=1795021461; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=sz1fBEHUL8IGMULI0g/KGEQw0Ms9ofA5l42B+4Sj0Rc=;
-        b=DbiXO5/qKP5+obHII9O4C5HJTKGFJGcDU6JfqAXM8n9EjMmsFsXtgtHkyDj4n61YHZ
-         onMjS738COn4YbszdC9ZRBO4VgmvwPnKesJ93Trq7MDundSCM7HH83n+CVX8YZav+Oek
-         5zE9tGRUk3nE84Lp6XShTCI9elU5NB5tLGkMaSY1Grwx0p4smiz0uMapVDT5yOScpz5G
-         v4uZ7XksEYy7OkF+dqzwEKq3eA20VZzpsRFeNNAsX8NKMkHlFXUCoOSpGrIchQWffwRx
-         Yz5f/Rwmd3/wkz8r+AF5yOo4X8MzTdnC/5avQWHOtMDfyDr6Ms7xraM1/xCyGci+8P6U
-         kENg==
+        d=miget.com; s=google; t=1794416663; x=1795021463; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=UbADhzE1xi4qyLEBY5pOxlcVGmXzPk2Jq0OH/tDEmxY=;
+        b=D7psJ64N3wKKQ3To2jwtXS27l+L0plE7v6TUqPceYhSNmqpzr5QzSUnDUg9IHpl5o+
+         R4o7GNL044HJeHV0t5JE7Y/GkF77rBO80a24pbCamk0b0Aj3gzIo3Uta1zajBw6To/Rv
+         tmRaNqrTIJLeMmt57T7usNxQdzDLC+84Vx2GM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794416661; x=1795021461;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=sz1fBEHUL8IGMULI0g/KGEQw0Ms9ofA5l42B+4Sj0Rc=;
-        b=Q4DwA67CVKuMo+0MIZElCRprm6xvo0NnUM0Hd1Y4lPKaHKhaHNrxdjEp98ZCTd7reL
-         dAOL0N7b0hEMsOFIBb3gLkrcO98NVbX5YDosi0FsKmVV6buuD8P0wrlcYf2TaCOwdofx
-         xYoZHNk+vFNxy6xU5A4s7+SQOwVmhf7r5wtTDwHKYSlxoQszgBQx6lH7MrnlXE9YqbID
-         8Fcfw4NMHJ1MCykSWXpG3URn9NwjXT9tvxwyIjqTiZxuW/tPukeJtggODrxS4PjIrs+Z
-         MGk7wvN2jO8BBsmhMQeDMQYWsDWhdaPzJFUXMtJoEovyVSyiqi1KEmlrqfJ4T+blRLvg
-         daSw==
-X-Forwarded-Encrypted: i=1; AL+hErH3rLluehrezW07HT2saVvUx1KzonaifhK8oQhJ0MGHPeCiEFOVHnB2dccMkT3ZsF6iDD707A5LP/04CHQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9xWWvnMDAeZWef9xgi+CyXsBNtQ//5u3D+qt4p7qiRdG22SoSl
-	0NFpefprEavFE21f/b6ZCVUAe+zKvZklWRNI4s3era5mihQN454cCXOMEgOAQFtjMQu13MOfnQ7
-	Mzrk2CPf/NWcf89kfFeBba+lKuBSSiD7usQ==
-X-Gm-Gg: AYBFou0RHHDfqDSCfQT65yrTIFUbzmb2cXxwAHDlXq2mNwYqXSoem3WmHa6WR0ekoNU
-	vJ5cQbRons8me3h3rR7wIVpNPrLfN8vbUhLDRcPnaAz8F+41GDR3QNsrCZgYEq7h5WphYaJYuik
-	ZOj8NkvuV/xQ4c5hxO1k0vr24lc8qlad22t8AgHKgf5WSSegZ2L0xN7tAVMWUZ4vRFQMj/yRgMX
-	yFAtIf96qteedWAuDbdyG0RT2hgnOXvKqpBpsVG9LzNA5EeB3c4nKv0dIH3Wt89/RfC/UY357la
-	psIZFLGF5eNbNMRoLvhEyQw8hJ3japZF73dRoSSwxAicNEoMnZqsKqmnr3p8tSQeZEYNllWT/Zp
-	vbNunba3KIrElwYL0fcA4V//jKAPy3Ng97CakIcif8RI+fi33wpV8YZ8kUTzy4cSiDPuGAKVJUa
-	xmlSe5q5sI4QQVfj2CEfJ75rQomziB6K0/Jhj2k005E0gkJ54rGhFmuNxqJ9o=
-X-Received: by 2002:a05:701b:450c:20b0:17f:641e:7f6b with SMTP id
- a92af1059eb24-1b3c02cf135mr4314767c88.1.1794416660805; Wed, 11 Nov 2026
- 09:04:20 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794416663; x=1795021463;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=UbADhzE1xi4qyLEBY5pOxlcVGmXzPk2Jq0OH/tDEmxY=;
+        b=owRqk8QU0i5sztK/4UI4rL8b0qJbK3xDCfb4Er6d+04TOSYIbH8x012ye2r7EWNwsY
+         CWFxzfgier1Cfm3vOJHlLHRvraKtJHuu05sAtbvyKnlJsEGV4dXNW7OOuj6o6dflMvkc
+         BGuxsAY6Isj/Y391FU2JU0XmK2l2AbuGtZhtUiErCrFPKke/1WmwswHxnxa0/V3hR1gh
+         b72IAcUlkp420F4tuBOYy3ceKn8L9S0eFjS6f8W2eHnTzVjz+ckS2D+QpKy/Z/kWtVf8
+         vuOa8N7RmrXS9sG1lxQxR7bMzd5WJTzsKd/x9s/NXuyly3LaGnbH9dxcdTanAkJcnP5e
+         UwQw==
+X-Forwarded-Encrypted: i=1; AL+hErFIOabV6VZ9a5UWfzVXiVrMWQ920SvI2atZFXChhAP/gk/V7Sr5wjwAQZTcITbwG16ozpbfhWXMdc+Im9Y=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/eP50CBZ2K3vXAXw2ahxmvL+m9MQnTr3VYTa0JWwPvbTvgvT60
+	eIg3hF+E2hH3NVj5UJ3PlDN7vXQWfGRBYoLa9eGPH1qQ+F6S7wzXWsqsPCIu+oNztXo=
+X-Gm-Gg: AYBFou20WXFwlirA+KVp4uJAu5ijL6KUl/G6N+JuEeGb1rhdfi8yxqtqYy9Dmg5EHl5
+	74mB9/FsR+V6eD3lCZk0d6Y1/zy5CuE6Ad5hhkA5ZK3UpqMtKzuNk3nU1rK5Ek/cMVRSTe1kA75
+	QyYrpw+Jo3gCX6NJxchaiWwKZSwYkAXsYMKj39aOu8c8kMhzJF3tF7IaU9sc51bzZp13buLFjtH
+	zoO5qnOsW7LrVGJMEjgCE3P3TfjGMqlZnQJuv7vBq6NP5V7BKk3W5tWSaLEF+sXoSx5Mov+6Du6
+	UtuaaOvZL+3CdnoBK9WETZ84YgCtfzKYhK/iDRZSvXWYbROuTHjMcFUYF0CQnE5uKYysAODU7Zj
+	sqafEtiyzsbnmkXFqcSnPJAbWBU9/v9b01IWLi+EclHJOWt4s8KQ9oE0/gn5l28J6JOksdCIyWE
+	aWVjO0BQZY5vmtxGXe+sV4a4kA2rVFzx+jAO4PRBEUlEg8YfexRn9Ris/L2ZCAXoM/CuF53uWu6
+	Vw3rAHsvJjFdk5IZsConby+wLw30iDfeOCcBvaZ+uHDNf4kWx9S94cuwoO4mLpbtKaAQUBcdmLB
+	BP32vP8NGIwzDs1jLOwgV86uuENXP2NHP0wvA6+juswbVI4K9Www3TANHd9LXrg+inuNwdINlzx
+	HRmhhjIlIF3/fZJup4OijADNofaXPg27+SplK
+X-Received: by 2002:a05:6402:134c:b0:6b6:f3ca:94c7 with SMTP id 4fb4d7f45d1cf-6b7773edfe9mr1852684a12.12.1794416662568;
+        Wed, 11 Nov 2026 09:04:22 -0800 (PST)
+Received: from xia.tail836dc0.ts.net (user-46-112-106-110.play-internet.pl. [46.112.106.110])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b7834cdc23sm871660a12.12.2026.11.11.09.04.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 09:04:22 -0800 (PST)
+From: Chris Taraszka <chris@miget.com>
+To: Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: platform-driver-x86@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Mingyou Chen <qby140326@gmail.com>,
+	Ilya Gladyshev <ilya.gladyshev@linux.dev>,
+	Armin Wolf <W_Armin@gmx.de>,
+	KentoNion <kento@kekto.ru>,
+	Matias Civadda <matias.civadda2342001@gmail.com>,
+	Yun Wang <7z0423arsenova@proton.me>,
+	Oleg Rybalov <rybalov.oleg.dev@gmail.com>,
+	Chris Taraszka <chris@miget.com>
+Subject: [PATCH v5 2/4] platform/x86: bitland-mifs-wmi: Support a separate profile value on battery
+Date: Wed, 11 Nov 2026 18:04:04 +0100
+Message-ID: <20261111170406.1634428-3-chris@miget.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261111170406.1634428-1-chris@miget.com>
+References: <20261111170406.1634428-1-chris@miget.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,111 +104,222 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261109-smu8-sclk-fix-v1-1-47c6c0c8c2c9@etsu.edu>
-In-Reply-To: <20261109-smu8-sclk-fix-v1-1-47c6c0c8c2c9@etsu.edu>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 11 Nov 2026 12:04:09 -0500
-X-Gm-Features: AclHuK-qUsJmbGMoQgyzTNraWEn4fQl-1Spvcdq8IIpAnzBeguVmCP2_i5NrNHY
-Message-ID: <CADnq5_OQfN6fqdW8OzhPAE=iOmy7OtH9VV=6-dxfwT5=R39OPA@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/pm: send smu8 sclk level indices, not the level mask
-To: hornejd@etsu.edu
-Cc: Kenneth Feng <kenneth.feng@amd.com>, Alex Deucher <alexander.deucher@amd.com>, 
-	=?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Eric Huang <JinHuiEric.Huang@amd.com>, amd-gfx@lists.freedesktop.org, 
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Reviewed and applied.  Thanks!
+Some firmware uses a different SystemPerMode value for a profile
+depending on the power source. The Xiaomi Book Pro 14 uses 0x04 for
+performance on AC and 0x03 on battery, both with a 50-58 W sustained
+power limit. Its DTT tables have no battery entry for 0x04, and BIOS
+0707 refuses 0x04 on battery.
 
-Alex
+Let a profile entry be marked for battery use. It is set in place of
+the AC entry for the same profile while the system runs on battery,
+without the AC check. The firmware does not change the mode when the
+power source changes, so re-apply the current profile from an ACPI AC
+notifier, taking the AC state from the event. A mutex keeps this from
+racing with profile changes from userspace.
 
-On Mon, Nov 9, 2026 at 9:21=E2=80=AFPM Joshua Horne via B4 Relay
-<devnull+hornejd.etsu.edu@kernel.org> wrote:
->
-> From: Joshua Horne <hornejd@etsu.edu>
->
-> smu8_force_clock_level() passes the pp_dpm_sclk level mask straight to
-> PPSMC_MSG_SetSclkSoftMin and PPSMC_MSG_SetSclkSoftMax, which take a
-> level index, as the other smu8 callers do through smu8_get_sclk_level().
-> In manual mode, "echo 0 > pp_dpm_sclk" thus selects level 1, "echo 2"
-> selects level 4, and masks above the highest level index are out of
-> range for the SMU, so e.g. "echo 3", "echo 7" or "echo 0 1 2 3 4 5 6 7"
-> do not select the requested levels. The original single level version
-> sent 1 << level and had the same problem.
->
-> Send the lowest and highest level in the mask, as smu10 does, and reject
-> levels above those the SMU has enabled, as smu10 and vega20 do.
->
-> Fixes: d7341ef66870 ("drm/amd/powerplay: add some hwmgr functions for sys=
-fs interface on Carrizo")
-> Signed-off-by: Joshua Horne <hornejd@etsu.edu>
-> ---
-> I found this while working on overdrive support for Carrizo/Stoney on my
-> laptop (ASUS X555DA, A10-8700P); that series will follow separately.
->
-> Tested on that laptop, 7.3.1 with this patch applied to amdgpu. In manual
-> mode:
-> - "echo N > pp_dpm_sclk" for each N from 0 to 7 moves the current level
->   marker to N
-> - under GPU load, "echo 2 3 4 5" keeps the clock between levels 2 and 5,
->   and "echo 0 1 2 3 4 5 6 7" lets it reach level 7 again
-> - "echo 8" and "echo 0 8" fail with -EINVAL and leave the level unchanged
-> Without the patch, "echo 0" selected level 1, "echo 3" and "echo 7" did n=
-ot
-> select the requested level, and "echo 8" was accepted.
-> On amd-staging-drm-next the patch applies unchanged and builds without ne=
-w
-> warnings with W=3D1, sparse and smatch.
->
-> I used an AI coding assistant (Claude Code) while working on this. It
-> found the bug, wrote the change and a draft of the changelog, and wrote
-> and ran the build checks and test scripts. I reviewed the change and the
-> changelog, ran the tests on my hardware, and I am responsible for the
-> patch.
-> ---
->  drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c | 14 ++++++++++++--
->  1 file changed, 12 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c b/driver=
-s/gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c
-> index 8f82d7c07e8c..5a3f697a37a2 100644
-> --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c
-> +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c
-> @@ -1483,15 +1483,25 @@ static int smu8_store_cc6_data(struct pp_hwmgr *h=
-wmgr, uint32_t separation_time,
->  static int smu8_force_clock_level(struct pp_hwmgr *hwmgr,
->                 enum pp_clock_type type, uint32_t mask)
->  {
-> +       struct phm_clock_voltage_dependency_table *table =3D
-> +                               hwmgr->dyn_state.vddc_dependency_on_sclk;
-> +       uint32_t low, high;
-> +
->         switch (type) {
->         case PP_SCLK:
-> +               /* the SMU takes level indices, not a mask of levels */
-> +               low =3D mask ? (ffs(mask) - 1) : 0;
-> +               high =3D mask ? (fls(mask) - 1) : 0;
-> +               if (high >=3D min(table->count, smu8_get_max_sclk_level(h=
-wmgr)))
-> +                       return -EINVAL;
-> +
->                 smum_send_msg_to_smc_with_parameter(hwmgr,
->                                 PPSMC_MSG_SetSclkSoftMin,
-> -                               mask,
-> +                               low,
->                                 NULL);
->                 smum_send_msg_to_smc_with_parameter(hwmgr,
->                                 PPSMC_MSG_SetSclkSoftMax,
-> -                               mask,
-> +                               high,
->                                 NULL);
->                 break;
->         default:
->
-> ---
-> base-commit: 47df73aa49d1988c8f684b7caf8be6570e966844
-> change-id: 20261109-smu8-sclk-fix-2eacba2cbfc0
->
->
+The notifier is only registered when the quirks have a battery entry,
+so models without one are not affected.
+
+Suggested-by: KentoNion <kento@kekto.ru>
+Signed-off-by: Chris Taraszka <chris@miget.com>
+---
+
+Notes:
+    Unchanged since v4.
+    
+    Tested together with patch 3, with ftrace kprobes on the AC notifier
+    and on the WMI calls:
+    
+      AC, performance (0x04), unplug: the notifier sets 0x03 within 1 ms
+      battery, performance: set 0x03, PL1 58 W
+      battery, performance (0x03), plug in: the notifier sets 0x04
+      s2idle from performance on AC: resume restores 0x04
+    
+    Battery class events are ignored. Here Omarchy also switches to its
+    saved per-source profile about a second later, which goes through
+    laptop_profile_set() after the notifier.
+
+ drivers/platform/x86/bitland-mifs-wmi.c | 120 +++++++++++++++++++++---
+ 1 file changed, 107 insertions(+), 13 deletions(-)
+
+diff --git a/drivers/platform/x86/bitland-mifs-wmi.c b/drivers/platform/x86/bitland-mifs-wmi.c
+index 6217486fece8..4bbf38651ed7 100644
+--- a/drivers/platform/x86/bitland-mifs-wmi.c
++++ b/drivers/platform/x86/bitland-mifs-wmi.c
+@@ -91,6 +91,7 @@ struct bitland_profile_entry {
+ 	enum platform_profile_option profile;
+ 	u8 wmi_val;
+ 	bool no_set;
++	bool battery;	/* Set in place of the AC entry while on battery */
+ };
+ 
+ struct bitland_mifs_quirks {
+@@ -206,8 +207,10 @@ struct bitland_fan_notify_data {
+ struct bitland_mifs_wmi_data {
+ 	struct wmi_device *wdev;
+ 	struct mutex lock;		/* Protects WMI calls */
++	struct mutex profile_lock;	/* Serializes profile changes */
+ 	struct led_classdev kbd_led;
+ 	struct notifier_block notifier;
++	struct notifier_block ac_notifier;
+ 	struct input_dev *input_dev;
+ 	struct device *hwmon_dev;
+ 	struct device *pp_dev;
+@@ -329,34 +332,108 @@ static int bitland_pp_check_capability(struct bitland_mifs_wmi_data *data)
+ 	return 0;
+ }
+ 
+-static int laptop_profile_set(struct device *dev,
+-			      enum platform_profile_option profile)
++static const struct bitland_profile_entry *
++bitland_profile_set_entry(const struct bitland_mifs_quirks *quirks,
++			  enum platform_profile_option profile, bool on_battery)
++{
++	const struct bitland_profile_entry *entry = NULL;
++	size_t i;
++
++	for (i = 0; i < quirks->num_profile_entries; i++) {
++		const struct bitland_profile_entry *e = &quirks->profile_entries[i];
++
++		if (e->profile != profile || e->no_set)
++			continue;
++
++		if (e->battery && on_battery)
++			return e;
++
++		if (!e->battery && !entry)
++			entry = e;
++	}
++
++	return entry;
++}
++
++static int bitland_profile_set(struct bitland_mifs_wmi_data *data,
++			       enum platform_profile_option profile,
++			       bool on_battery)
+ {
+-	struct bitland_mifs_wmi_data *data = dev_get_drvdata(dev);
+-	const struct bitland_mifs_quirks *quirks = data->quirks;
+ 	struct bitland_mifs_input input = {
+ 		.operation = cpu_to_le16(WMI_METHOD_SET),
+ 		.function = cpu_to_le16(WMI_FN_SYSTEM_PER_MODE),
+ 	};
+-	size_t i;
++	const struct bitland_profile_entry *entry;
+ 	int ret;
+ 
+-	if (profile == PLATFORM_PROFILE_PERFORMANCE ||
+-	    profile == PLATFORM_PROFILE_BALANCED_PERFORMANCE) {
++	entry = bitland_profile_set_entry(data->quirks, profile, on_battery);
++	if (!entry)
++		return -EOPNOTSUPP;
++
++	if (!entry->battery &&
++	    (profile == PLATFORM_PROFILE_PERFORMANCE ||
++	     profile == PLATFORM_PROFILE_BALANCED_PERFORMANCE)) {
+ 		ret = bitland_pp_check_capability(data);
+ 		if (ret)
+ 			return ret;
+ 	}
+ 
++	input.payload[0] = entry->wmi_val;
++
++	return bitland_mifs_wmi_call(data, &input, NULL);
++}
++
++static int laptop_profile_set(struct device *dev,
++			      enum platform_profile_option profile)
++{
++	struct bitland_mifs_wmi_data *data = dev_get_drvdata(dev);
++
++	guard(mutex)(&data->profile_lock);
++
++	return bitland_profile_set(data, profile,
++				   !power_supply_is_system_supplied());
++}
++
++static int bitland_ac_notify(struct notifier_block *nb, unsigned long action,
++			     void *data)
++{
++	struct bitland_mifs_wmi_data *drv_data =
++		container_of(nb, struct bitland_mifs_wmi_data, ac_notifier);
++	struct acpi_bus_event *event = data;
++	enum platform_profile_option profile;
++	int ret;
++
++	if (strcmp(event->device_class, ACPI_AC_CLASS))
++		return NOTIFY_DONE;
++
++	guard(mutex)(&drv_data->profile_lock);
++
++	/* Switch to the AC or battery value of the current profile */
++	ret = laptop_profile_get(drv_data->pp_dev, &profile);
++	if (!ret)
++		ret = bitland_profile_set(drv_data, profile, !event->data);
++	if (ret)
++		dev_warn(&drv_data->wdev->dev,
++			 "Failed to update platform profile on AC change: %d\n", ret);
++
++	return NOTIFY_DONE;
++}
++
++static void bitland_ac_notifier_unregister(void *data)
++{
++	unregister_acpi_notifier(data);
++}
++
++static bool bitland_has_battery_entries(const struct bitland_mifs_quirks *quirks)
++{
++	size_t i;
++
+ 	for (i = 0; i < quirks->num_profile_entries; i++) {
+-		if (quirks->profile_entries[i].profile == profile &&
+-		    !quirks->profile_entries[i].no_set) {
+-			input.payload[0] = quirks->profile_entries[i].wmi_val;
+-			return bitland_mifs_wmi_call(data, &input, NULL);
+-		}
++		if (quirks->profile_entries[i].battery)
++			return true;
+ 	}
+ 
+-	return -EOPNOTSUPP;
++	return false;
+ }
+ 
+ static int platform_profile_probe(void *drvdata, unsigned long *choices)
+@@ -805,6 +882,10 @@ static int bitland_mifs_wmi_probe(struct wmi_device *wdev, const void *context)
+ 	if (ret)
+ 		return ret;
+ 
++	ret = devm_mutex_init(&wdev->dev, &drv_data->profile_lock);
++	if (ret)
++		return ret;
++
+ 	dev_set_drvdata(&wdev->dev, drv_data);
+ 
+ 	drv_data->quirks = &default_quirks;
+@@ -837,6 +918,19 @@ static int bitland_mifs_wmi_probe(struct wmi_device *wdev, const void *context)
+ 	if (IS_ERR(drv_data->pp_dev))
+ 		return PTR_ERR(drv_data->pp_dev);
+ 
++	if (bitland_has_battery_entries(drv_data->quirks)) {
++		drv_data->ac_notifier.notifier_call = bitland_ac_notify;
++		ret = register_acpi_notifier(&drv_data->ac_notifier);
++		if (ret)
++			return ret;
++
++		ret = devm_add_action_or_reset(&wdev->dev,
++					       bitland_ac_notifier_unregister,
++					       &drv_data->ac_notifier);
++		if (ret)
++			return ret;
++	}
++
+ 	/* Register hwmon */
+ 	drv_data->hwmon_dev = devm_hwmon_device_register_with_info(&wdev->dev,
+ 								   "bitland_mifs",
+-- 
+2.56.0
+
