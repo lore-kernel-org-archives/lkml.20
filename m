@@ -1,59 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794372637;
-	b=Pne9MUwSDJD+VIabD50NEZNVtOPyxw3B99mMGrzoCvstZymu2+3TEj4MLnKWQHTV9Omt
-	 tlrkZwis0pR9W7KZdr7YTEomC3cl8IFQ+qpGwdyBAh2H9yOsJd/iYrKVdrCcDMatihijm
-	 CVV54Wjs4RnhhRRQ8i+VrOTtDwsx7NYBcJ02E9z65nBqN9xNeGCaniH6hgGkVEWiqtl6J
-	 ZZca8Ev4aM6qhEqo1WPn4PJJeKxVsG2q7jlsHGyJYt3/yauPRDqxlT2AV8fLQzjtguOzl
-	 CLgxO48DO/AXnBUZXiJA26KZoL+VxiQawODRyj4pDHrLYpFM2JDmnUIv8kPJpYfvhQg==
+	t=1794372663;
+	b=zIEayphMCbvyEdCP6kTZlZjMYGldE+K7mXVrXxqKXQON6Kv4YacW/VVxF8T00ZX6e4SC
+	 43UcLS4h+YM/yMztxnyoZWPH1kgj3aU6Zz/0FO4DJMrXe1waR4WF2INkDOUt6Gc4SVIXA
+	 VRjnA/VsGXQx95C89edaWv1lJZ1kskkW08uWedrHd2dtWnGoBUasIMd6XXC3qm6Jr5oT4
+	 v6EG9XjVGON/qpEejTM/OYBEjtP66Q8kUEgJIoEe8LvLhexN6ovFssyf5xoy+l0wyggJ6
+	 hI4+aqi1F//++7l6F7kxJrH7VQ60VIAKtL9L3PwoYiZIn4bJ73K5/w59t66bqGZAbrA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794372637;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 Mime-Version:Subject:Reply-To:Sender:From:To:CC:X-Priority:
-	 X-Content-Kind-Code:In-Reply-To:X-CPGS-Detection:X-Drm-Type:
-	 X-Msg-Generator:X-Msg-Type:X-Reply-Demand:Message-ID:Date:
-	 X-CMS-MailID:Content-Transfer-Encoding:Content-Type:X-Sendblock-Type:
-	 CMS-TYPE:X-CPGSPASS:X-CPGSPASS:cpgsPolicy:X-CFilter-Loop:
-	 X-CMS-RootMailID:References;
-	bh=2z6RcZw+0FfmTvfxA7IX1opzEG1e0lSubruCi28CNaU=;
-	b=ityftkf3DVfv3ogisX9Fwa/lsxdMjLauZ0bXDUvJikVRYLF81IiWEnCIzcJfUnxRoKSz
-	 UQ9KKxRp3j900VLLUhjAjaK01CR1CieTcUv+d/KGwHKSgg+eEZdYkzRs7Onld4rFaeqEe
-	 6WtPiDeR83FmTY0dUS4KQudd2npk8pjGQmFZ9zzoYCHqndCnA8gS+NtPF+2VjOsQT8khz
-	 Iqs0kNutmCiW3L4CwLHKrBDld7TnhWLg3cOmu0uCjvo7otsT2VwbuV7jUQBQO5J66p/6J
-	 4yA7N7+kkWGf7Nu/TLyZvZ8YCQK8nAh/6UbjoGcnB9UgtZfmZQU/IFVxNAmRYBFKAVg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794372663;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
+	 MIME-Version:X-Received:Date:In-Reply-To:X-Google-Appengine-App-Id:
+	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
+	 Content-Type;
+	bh=/F39+d5jm7TvFntDuZ/rqZMu1N7lCVM5pP/2Xlm8kik=;
+	b=j8LZQId7qjkGGMCC4ahg6I9lZNGIrN6i6+1xF+EADHsL57PLT2OBRTKCDEi90g1Z+62m
+	 rD14PAX2UYFHmnDgD9xU+M8bdYuyam3XUFF1srvkSTTvW8fY9QUOZaNOXXFwyYF1eyL1a
+	 LYDnkJSc9icuTwH2SuKSZKs5B1CfD1/M0HfyRNOU/xqTl/+wogdSsRA13WvHDRwAB1B3N
+	 7C9xl8YZv8sg+tPUfXqxML5UKSdFqe7zlDXXgToQY7/fxXNBafgQtDySMPvvTcGMmb1v0
+	 FhMNh6gJeIQK3Ca1SR4HUY9Zp/au9tKObJKjycTkwlk3o/SuODPiUNnCkuxlJaW3XEg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=A4pcxok0;
-	arc=none smtp.remote-ip=203.254.224.34
-Received: from mailout4.samsung.com (mailout4.samsung.com [203.254.224.34])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.199
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E59C3606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 04:50:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E59C3606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=A4pcxok0
-Received: from epcas2p3.samsung.com (unknown [182.195.41.55])
-	by mailout4.samsung.com (KnoxPortal) with ESMTP id 20261111045028epoutp0463426e090130527fd9af24f36f35a9e3~m5GXwV9Ml2886928869epoutp04v
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 04:50:28 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout4.samsung.com 20261111045028epoutp0463426e090130527fd9af24f36f35a9e3~m5GXwV9Ml2886928869epoutp04v
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1794372628;
-	bh=2z6RcZw+0FfmTvfxA7IX1opzEG1e0lSubruCi28CNaU=;
-	h=Subject:Reply-To:From:To:CC:In-Reply-To:Date:References:From;
-	b=A4pcxok0BGKbCEtgBaA+AKid2yaTFMI/ViICSeKRvq4d1clKrNHxTjWJ2MqKwCth5
-	 qrf6rZ3mZtLicuClvuo6obGs3/lbieWczlq7OoXJIyLz6w4Xq1zjtLR6tcQHcN2FC4
-	 9BEVl5MqvENgSgZFNx9u7LkczcT+G8wyrhEJPu9Q=
-Received: from epsnrtp02.localdomain (unknown [182.195.42.154]) by
-	epcas2p3.samsung.com (KnoxPortal) with ESMTPS id
-	20261111045027epcas2p325b3ab664a77cb2058b12dcc3a79ea93~m5GXPutme3085130851epcas2p3O;
-	Wed, 11 Nov 2026 04:50:27 +0000 (GMT)
-Received: from epcas2p3.samsung.com (unknown [182.195.38.210]) by
-	epsnrtp02.localdomain (Postfix) with ESMTP id 4jPWKv1yV6z2SSKg; Wed, 11 Nov
-	2026 04:50:27 +0000 (GMT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06B9A606A321
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 04:51:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 06B9A606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4a7de733fa9so3285248b6e.3
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 20:51:02 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794372662; x=1794977462;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=/F39+d5jm7TvFntDuZ/rqZMu1N7lCVM5pP/2Xlm8kik=;
+        b=VJlNgEk7ZibSHusStgTe6L0gDbKQ6nG22XNWRzvdbjrFc9sSdHciaJLgowlt74quHi
+         BsKP6n/DQe41iLRpgU9g46z743kl/BuEO4aGF2p3iRx2imJmCDYfty0g5hTtTud0+TCR
+         HZjvzs3XjsHIGwUIibsJHQICGWbJ5B+lNUyZ1NH32UtavoGrljnBYCXBexmMxg0df3B4
+         Kefd3vv13Hx5CaSLahdeG82jlu42ip7VjUiyz2UnhX5xrm1u9giuIpTNsIV+CmXlk+hE
+         YhdW0UOzhyqDxXXe+9yZnm4ayZo8K3BcWyzhl6RIP/UV1eg0veKFGpuE1gN3sA0EZuya
+         xWZA==
+X-Gm-Message-State: APuU4Z89XGFn1Yvk59UtYNMSgMLktYMsuhzz9PrQhqKqBxlnohcCUEoa
+	dmgyutrLJCUgfWyuvwf3PjgXb9tsxn9ii8o5WTSXxMfztEhp4Y8FHJNfEzaNwPr1t8GDfmt6es2
+	r++oyqBpz2W/ZrlXE5PMi8MmHgCFfrtj2NorxWHspwQFCnFKeiG57V7ge1uE=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,61 +56,99 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Subject: RE: [PATCH] ovl: skip stale entries in impure dir iteration
-Reply-To: daejun7.park@samsung.com
-Sender: Daejun Park <daejun7.park@samsung.com>
-From: Daejun Park <daejun7.park@samsung.com>
-To: Daejun Park <daejun7.park@samsung.com>, Miklos Szeredi
-	<miklos@szeredi.hu>, Amir Goldstein <amir73il@gmail.com>
-CC: Hungyu Lin <dennylin0707@gmail.com>, "linux-unionfs@vger.kernel.org"
-	<linux-unionfs@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>
-X-Priority: 3
-X-Content-Kind-Code: NORMAL
-In-Reply-To: <20261110-ovl-impure-stale-v1-1-1a4c2039e89d@samsung.com>
-X-CPGS-Detection: blocking_info_exchange
-X-Drm-Type: N,general
-X-Msg-Generator: Mail
-X-Msg-Type: PERSONAL
-X-Reply-Demand: N
-Message-ID: <20261111045026epcms2p63d9818fa6ad5600eff4f74deca4a6e7a@epcms2p6>
-Date: Wed, 11 Nov 2026 13:50:26 +0900
-X-CMS-MailID: 20261111045026epcms2p63d9818fa6ad5600eff4f74deca4a6e7a
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="utf-8"
-X-Sendblock-Type: AUTO_CONFIDENTIAL
-CMS-TYPE: 102P
-X-CPGSPASS: Y
-X-CPGSPASS: Y
-cpgsPolicy: CPGSC10-223,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20261110080419epcas2p24eb47374d80929645076c4d81f512c62
-References: <20261110-ovl-impure-stale-v1-1-1a4c2039e89d@samsung.com>
-	<CGME20261110080419epcas2p24eb47374d80929645076c4d81f512c62@epcms2p6>
+MIME-Version: 1.0
+X-Received: by 2002:a05:6808:13c1:b0:53a:2f73:29ff with SMTP id
+ 5614622812f47-56b9325050bmr1121814b6e.6.1794372661873; Tue, 10 Nov 2026
+ 20:51:01 -0800 (PST)
+Date: Tue, 10 Nov 2026 20:51:01 -0800
+In-Reply-To: <CAO7_G+xSmFavmMUAKYcLVBFaDt4okxAFx0XZT5t-3v=hULmO5w@mail.gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6af3f435.926a6ce0.263fd.019a.GAE@google.com>
+Subject: Re: [syzbot] [block?] BUG: unable to handle kernel paging request in blk_mq_complete_request_remote
+From: syzbot <syzbot+2e3bf0bd49acd9b21d4b@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, nenkov2004@gmail.com, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-Your mail below did not reach my mailbox, so I could not reply to it
-directly.
+Hello,
 
-https://lore.kernel.org/all/CAOQ4uxgxYZqE=rv5ZYrbyB0cYi_qS-bv_4UCbDwGJoMGg1iNhQ@mail.gmail.com/
+syzbot has tested the proposed patch but the reproducer is still triggering an issue:
+BUG: unable to handle kernel paging request in tomoyo_realpath_from_path
 
-On Tue, Nov 10, 2026 at 04:28:32PM +0100, Amir Goldstein wrote:
-> I am sorry, but this is way too complex to deal with a problem which
-> is not important enough IMO.
->
-> POSIX does not define the exact behavior of readdir of a directory
-> being changed in this way and I don't think that the current behavior
-> of ext or overlayfs+ext4 is a gross violation of POSIX or that it could
-> break applications.
->
-> I would be happy to be proven otherwise.
+Unable to handle kernel paging request at virtual address dfff80000000000c
+KASAN: null-ptr-deref in range [0x0000000000000060-0x0000000000000067]
+Mem abort info:
+  ESR = 0x0000000096000005
+  EC = 0x25: DABT (current EL), IL = 32 bits
+  SET = 0, FnV = 0
+  EA = 0, S1PTW = 0
+  FSC = 0x05: level 1 translation fault
+Data abort info:
+  ISV = 0, ISS = 0x00000005, ISS2 = 0x00000000
+  CM = 0, WnR = 0, TnD = 0, TagAccess = 0
+  GCS = 0, Overlay = 0, DirtyBit = 0
+[dfff80000000000c] address between user and kernel address ranges
+Internal error: Oops: 0000000096000005 [#1]  SMP
+Modules linked in:
+CPU: 1 UID: 0 PID: 5306 Comm: syz-executor Not tainted syzkaller #0 PREEMPT 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 11/06/2026
+pstate: 83400005 (Nzcv daif +PAN -UAO +TCO +DIT -SSBS BTYPE=--)
+pc : tomoyo_realpath_from_path+0x1a0/0x4dc security/tomoyo/realpath.c:265
+lr : tomoyo_realpath_from_path+0x140/0x4dc security/tomoyo/realpath.c:257
+sp : ffff800093a67510
+x29: ffff800093a67540 x28: ffff0000c39b8fff x27: dfff800000000000
+x26: 0000000000000fff x25: 0000000000000060 x24: 0000000000001000
+x23: 1fffe0001e436caf x22: ffff0000d3d16090 x21: ffff0000c39b8000
+x20: ffff0000f21b64e0 x19: ffff0000d3d16050 x18: 0000000000000000
+x17: 0000000000000000 x16: 0000000000000000 x15: 0000000000000001
+x14: 00000000ffff8000 x13: 00000000ac727a19 x12: ffff800080021608
+x11: ffff800080021608 x10: 0000000000000003 x9 : 0000000000000000
+x8 : 000000000000000c x7 : 0000000000000000 x6 : 000000000000003f
+x5 : 00000000ffffffff x4 : 0000000000000c40 x3 : 0000000000002000
+x2 : 0000000000001000 x1 : ffff0000c8e2bb00 x0 : 0000000000000000
+Call trace:
+ tomoyo_realpath_from_path+0x1a0/0x4dc security/tomoyo/realpath.c:265 (P)
+ tomoyo_get_realpath security/tomoyo/file.c:151 [inline]
+ tomoyo_check_open_permission+0x1c4/0x394 security/tomoyo/file.c:776
+ tomoyo_file_open+0x78/0xcc security/tomoyo/tomoyo.c:334
+ security_file_open+0xbc/0x258 security/security.c:2760
+ do_dentry_open+0x2a0/0xfb4 fs/open.c:977
+ vfs_open_consume+0x54/0x2ec fs/open.c:1131
+ do_open fs/namei.c:4851 [inline]
+ path_openat+0x1098/0x1910 fs/namei.c:5016
+ do_file_open+0x1c8/0x2e8 fs/namei.c:5045
+ do_sys_openat2+0x114/0x1ec fs/open.c:1442
+ do_sys_open+0xb0/0xe0 fs/open.c:1448
+ __do_sys_openat fs/open.c:1464 [inline]
+ __se_sys_openat fs/open.c:1459 [inline]
+ __arm64_sys_openat+0xa8/0xc4 fs/open.c:1459
+ __invoke_syscall arch/arm64/kernel/syscall.c:35 [inline]
+ invoke_syscall+0x98/0x244 arch/arm64/kernel/syscall.c:49
+ el0_svc_common+0xec/0x23c arch/arm64/kernel/syscall.c:121
+ do_el0_svc+0x4c/0x5c arch/arm64/kernel/syscall.c:140
+ el0_svc+0x60/0x1d8 arch/arm64/kernel/entry-common.c:797
+ el0t_64_sync_handler+0x44/0x104 arch/arm64/kernel/entry-common.c:816
+ el0t_64_sync+0x198/0x19c arch/arm64/kernel/entry.S:606
+Code: 97d64865 f9400328 91018119 d343ff28 (387b6908) 
+---[ end trace 0000000000000000 ]---
+----------------
+Code disassembly (best guess):
+   0:	97d64865 	bl	0xffffffffff592194
+   4:	f9400328 	ldr	x8, [x25]
+   8:	91018119 	add	x25, x8, #0x60
+   c:	d343ff28 	lsr	x8, x25, #3
+* 10:	387b6908 	ldrb	w8, [x8, x27] <-- trapping instruction
 
-Thanks for the review. I'll drop this patch.
 
-I looked for a program that breaks on the stale d_ino and did not find
-one. Of the d_ino users I read (find -inum, gnulib fts, glibc getcwd(),
-nfsd READDIRPLUS), none does anything wrong with an entry whose file
-is already gone.
+Tested on:
 
-Best regards,
-Daejun
+commit:         58c1eb84 arm64: sdei: Preserve the interrupted context..
+git tree:       https://github.com/torvalds/linux.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=141d05a1580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=a58b6b4d667e7a61
+dashboard link: https://syzkaller.appspot.com/bug?extid=2e3bf0bd49acd9b21d4b
+compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+userspace arch: arm64
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=1141b4c3580000
+
