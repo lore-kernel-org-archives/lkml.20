@@ -1,93 +1,156 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.182
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794420043;
-	b=yX6Uqbc+16HFRx2foVfrShBswv26+TIxsw6pWWpSClE4mLVREoXVO67tmoDyUDT2vB6/
-	 gV/D5KdDFuXHWzDUQgKzTRm4Ui5SdCDg/c73mGMXLPmO42exZDuJZWEajLsxM4dZvUHfF
-	 DCQnfIoUNSpYdKU3OtNWOvsjgyNnPYB4oFQaUxNTqI00GzzocQ5cBc3WFLUv5ZFdMUMLJ
-	 JhG9CGaFSMSukUNnBGjUnMIcuhWkXKQzdriBmF/tv41UZvCflsQnPm6DXA0sZEcgoBEdF
-	 sSIGx1ypXxWlevs7TP+6BYW1NXL5PiyRzfHDz+yQygxl94k1PEdzZMteq4LTw7hQ3wA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794420043;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=gXZUEJAo9ogNRdsof/4yd/DRB/vaqcwMDVHHocdwiu4=;
-	b=OpaVxzrzkKCkFXJb4gJPbEIQXW/buWE3JOWhU/p+WamHC72ljKGFcfLTfDiGE936iY/+
-	 IzI9jEZ57y3mbIWM3zS26KZAHsY3jdnM1Adxa9VlU99tvsq7cB5ILFnn5XMkWWNY84g00
-	 P6+LSSpLZZZYNQz/Q8FxMl09eW/FpsHwM9u4c+xUvsLN4ZNKTDhUlP0Gqwd4fRO8dYllb
-	 /wyKyKGQK/MdqWeXhqjOa0XWzJYRqjXnouarjxcIum82jFVmoGNpZ8TKSyuEjD3yRl2lP
-	 NS5LMW3/qL3SwGVWS031Xbzf2YNu1CoXhO5KH+aUuL7dy3bhWFkGcEBqJ4qvkBqgSKA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cLhevcER;
-	arc=none smtp.remote-ip=209.85.210.182
-Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.10.89
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794420077;
+	b=01Id9UlkRFseoUloZ99NwgQyRhiSVSF02Gxgxp61X6SRAQ54tX6pscBHfsrzZ3aOMBRE
+	 T3a1vnw8AxTGQuiUJLf0aTAqfnwXfQkNm++9xAHcEGSzT3OMIF0efjcFg8an9zgcxkU1J
+	 1lZf/amjkRsw4Q4WIP8ejkew2LcmCg/DuyQsJ2IRrnul6N6YgGLHUhR8xsvIzKHHS1/GH
+	 kkf29BNr0BNgLZrZfbDqW+HhsyVpMT+CuSLWR3yAJ+AExrhOfAKgu0jARnIMBiYU7Epgq
+	 0nzWJhGDbCC8zMq6cp8dbsU+nZEhosc4PIsqKRG6QQAIGA5XMngeGDFg1pr6kJ+k9Yw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794420077;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
+	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
+	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
+	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
+	 x-ms-office365-filtering-correlation-id:x-microsoft-antispam:
+	 x-microsoft-antispam-message-info:
+	 x-ms-exchange-antispam-messagedata-chunkcount:
+	 x-ms-exchange-antispam-messagedata-0:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-originalarrivaltime:
+	 X-MS-Exchange-CrossTenant-fromentityheader:
+	 X-MS-Exchange-CrossTenant-id:
+	 X-MS-Exchange-CrossTenant-rms-persistedconsumerorg:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=PQrXxJ1/ywpu0AZjyo32Go5eqEwExS2ugX3bLOHHimM=;
+	b=uFduXEsZZMhQT8u3q5YnIJCSVP0F1Rynv0MHAShZ0pdixWstOPCF3rxSORFis52+HR7U
+	 vAIjxGHxRR4DBY2QBHiqW6rW3RDrWlr9C9tL/TdhH9MlhIiBSkLeE89inneHKqPcIy+oG
+	 LOKZyX1O1WyRsY+vFCL5tMZo0Z3FVD+5FQCgQNb0OFlycUm0v9usg9FEz8Ld31XtdT3c3
+	 3k8l0k2umkESXR1b/tYEXKmQVDlh20kXF7fRVoYjluVBxdq/L+lEV5boaO+5SUgscleTB
+	 7dLzWruw4JyOTETGWfsgM5sooEgYx3obBmqta1ajxAXyfeyXAHNQgFU/KumM3euIulQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=outlook.com;
+	spf=pass smtp.mailfrom=outlook.com;
+	dkim=pass header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=t04v5gUe;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.10.89
+Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azolkn19010089.outbound.protection.outlook.com [52.103.10.89])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEECE606B753
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 18:00:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BEECE606B753
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53742606A321;
+	Wed, 11 Nov 2026 18:01:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53742606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cLhevcER
-Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-8b3577deeb0so1726646b3a.3
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 10:00:42 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794420042; x=1795024842; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=gXZUEJAo9ogNRdsof/4yd/DRB/vaqcwMDVHHocdwiu4=;
-        b=cLhevcER5F0cC1w/qvx8koU/5KEhFGypHAezF5O9BGPPNqIeXMakQ46AM3CgshFBIv
-         Giqd0YQJGavVCxRE9Q9DKotrEQFnTzzTJvItuYlhjXZBq+xM5+WNEwhlTdovfwLXA5EC
-         mM+hyPnIzlg3Gw79i5YO55EkUhlI6WrGVXTbq7M5o9i/Jx8tNf42NUwD/TcktzxLSwo/
-         7me3Op8YcBEwnMQSEHF2BhTC+V+s9/fFQ6Ds/Cg5VDkufc/QRv2WOQEQUafqfwvPrM92
-         1uizui1kOGViIYLowAmaZXoxuLAfOFV6yIDMb6B9GO6N1lRu2Bf/NfS0KH7epcbfdYoF
-         8pDQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794420042; x=1795024842;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=gXZUEJAo9ogNRdsof/4yd/DRB/vaqcwMDVHHocdwiu4=;
-        b=hFJCXUpUJOjqYjOzsxLPtFbkwP71AyFuQnAf41ZqghVAFGp5Y42Mv/pPM45x+HkqAW
-         AwfrskhzPE78CsPX/nKI9vtlMXv2TdvTcFpm73QSSry084me7RC+x3NpMzanreXR55Vi
-         fHkH3dnAbRBcTq3BqJSFKGZobCRNO6mxT1AzyKmvScVuc4ek7ZDV+3l1anNdq6Ib9K3r
-         S5SPMCntJY4ONdbaSi4LbWtLs3VLL/ClJ3b5sDwlNt3PCy2jIuZurCzSr2AQiYb39kZ9
-         keD4VvJMunhV0SX65M9QnBG0aAO1cLSExjKrubD42mXq/QPotyb3wozN12Sch3/kDI29
-         W9Iw==
-X-Forwarded-Encrypted: i=1; AL+hErF3Xy4ZSYrXOLtMVFAhak5JKZlvGYcnRSveREe42bmBPVs9kikYrxkD3H102RoNg4hy7Gyng3lmZQMjbT4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+hsOy1ZhGMVLKUVjRxIkokkg303tVo7dLv7jtITG6ejwTF19Rq
-	GiWBvA/Hf3tBIYokigsoLiSjqoNK2cTYkQUYDLs0fPoE40y/QsanxI9o
-X-Gm-Gg: AYBFou1bs/2QkZQYps+U4xcsKxTCFUchhw1oEV024BEI8S5JLxKBOIyM5k8/RDLAUYO
-	rdBDazcqj5fUHsYEL3rDcCRSR3Iwhhem7e2s89aeQW3TX2vPmAMotRQ/rMnsgH5tupWyUze1iIQ
-	FT9whndJbyagbUx8xs8TPw6D59LluMu3znLliKpfz8wn3COwwo/9LWNBFsu3PZyuiDRJ2QcKZ2C
-	LiCzFyTTnP9BgTdWjx/dM+G01zlCYOgfybSLJ/TM1FxcK0U1NSLsRTJdTujJ2ZvtjXqfroXb8wD
-	f4hTtISTftcsJ3HmtzwtwaSzTquF+54mTV6OTpOeScoaozIFJoQ3cj740wUVrbl91VY97ubYq8p
-	yXpKJI+qYjo/iJP9fYMWaPQ1xoILD7RB/iF4uGEWu7OnjXC0HdSfaowk4U135VGCjqh+cyoFkxp
-	UrowSXr6vIuMzl23Qvy8Uwx4HYgTSOVK2zDctF9MNJtnPtZD2COeRqQCh/6Tq+KNxrheG2WSN7i
-	7BwNirT5BXlPKpdJmycyhgX2hXGVV7FDMAUVuYq5EV2tJCTRAPdW3MDwsU5RDrj7I1zc9A/iEiJ
-	APKjkadQHb3WeT8cAMItR72Vznh35t9LTReYdgXQaQGMFuzVFQnTQgOmC8JR0j0QFu568gbvKPg
-	V1NVUNgQWYaCo5zef
-X-Received: by 2002:a05:6a00:4193:b0:89f:9ea6:1ddb with SMTP id d2e1a72fcca58-8bc1c0b732cmr2911078b3a.23.1794420041911;
-        Wed, 11 Nov 2026 10:00:41 -0800 (PST)
-Received: from google.com ([2a00:79e0:2ebe:8:311a:ad7a:93f8:96c8])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8baaae3da61sm2331243b3a.35.2026.11.11.10.00.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 10:00:38 -0800 (PST)
-Date: Wed, 11 Nov 2026 10:00:35 -0800
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Henri Ommer <henri.ommer@gmx.net>
-Cc: job@noorman.info, phone-devel@vger.kernel.org, 
-	linux-input@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] input: himax_hx83112b: Add hx83102d support
-Message-ID: <avStFjE4coB0C0q3@google.com>
-References: <20261111163354.36751-1-henri.ommer@gmx.net>
+	dkim=pass (2048-bit key, unprotected) header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=t04v5gUe
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=fD9XZ69rl4Lqi3EwH8cZL6l5Vl6jAZOH4xlRWvgqiHLOnDOvrx6gBFTmatPBtqUvibhliSOV1BZ2j2XZOoSBGF47JWZJmd2jFHxDnbif6KIt3dpVNUfDgcSG8bHGOslzpQphygNlDfWN8ll8tngU+iUO/nJOFUsfh2dfop5TFsM3wC04VPmpHoVnG7GIv/OprOw1BJaoRI8ahWfnWTsTstMeR/C0JLAHCyyoCBxQ+ad+RJE85R/5mrD2ndRcEs2y5LViW1+yUKWIvpQSfHTpF5rxvSrCHoJBkjy8rpNAaE68a7qmX36ZQ8HImoMw1UGntUG2BCLfSDH45Q7bKsYBHw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=PQrXxJ1/ywpu0AZjyo32Go5eqEwExS2ugX3bLOHHimM=;
+ b=d8IUnjycr/1p7pB0q5Bmo5xpOdXIKP3ULLN6IMUT1kIMavLEbe1H+glixomwcCMdvCnViXwj+BIkVHnzFFL8bALAn53CyBeAVanY4UdkyzNiFS37Iv3Pa30Hq3sb47P+GIiGFqwh0s9G6Tv2I4ABsU40d7pVMki7x5H5TpoP68ysCIgalh/qBI4Wvmb7DfOEY7hr7cEH3n8SAAWn5UFuGjyt4uaEDK5M6R1SjKWYI6l7blK9AQxBYxuCThIbS1elYq5JcGq8HTeXaSvhP9IsN/G7K+eyre6hLZ3pYKePUge4W7HNE31BK/vHBFCba0d3ne23IEo5fW4CI9VAv8URxw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=PQrXxJ1/ywpu0AZjyo32Go5eqEwExS2ugX3bLOHHimM=;
+ b=t04v5gUetL3oDNLQWS+wrbZ3dEHn17e8Q/oYJAedQwskgtoXM9E42lsfCjR1LepeUPKA2vg/QaesJsb9yAKhfbxjXqp2w+/cYJIvueWGXJq6+Kuwyk1QwBKduLX/AuhlUq7z+Os+HdWw82tYrE27OzOTUZIjvwFqcAEEayH5umDq4fDYWviHTe97FhP+0CcTahDNpJpc9fq0ZkGf3qo3mxnCRavw02fyoWlyWMZ3HCCRi4m1zAfbyQvrgAn5xblSshA68eHyxZh2O7vz3kngyXYuX88X6qGL2mki9e4V3d9GLKbiZZ6jDrLvHlLYAcJ8+5e4yKHBw7RgMa0+76Tbig==
+Received: from MN2PR02MB6863.namprd02.prod.outlook.com (2603:10b6:208:1d7::20)
+ by PH7PR02MB9965.namprd02.prod.outlook.com (2603:10b6:510:2f9::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.12; Wed, 11 Nov
+ 2026 18:01:14 +0000
+Received: from MN2PR02MB6863.namprd02.prod.outlook.com
+ ([fe80::da67:fd0f:d96d:ac53]) by MN2PR02MB6863.namprd02.prod.outlook.com
+ ([fe80::da67:fd0f:d96d:ac53%4]) with mapi id 15.21.0615.007; Wed, 11 Nov 2026
+ 18:01:14 +0000
+From: Michael Kelley <mhklinux@outlook.com>
+To: Kameron Carr <kameroncarr@linux.microsoft.com>, "decui@microsoft.com"
+	<decui@microsoft.com>, "haiyangz@microsoft.com" <haiyangz@microsoft.com>,
+	"wei.liu@kernel.org" <wei.liu@kernel.org>
+CC: "arnd@arndb.de" <arnd@arndb.de>, "catalin.marinas@arm.com"
+	<catalin.marinas@arm.com>, "linux-arch@vger.kernel.org"
+	<linux-arch@vger.kernel.org>, "linux-arm-kernel@lists.infradead.org"
+	<linux-arm-kernel@lists.infradead.org>, "linux-hyperv@vger.kernel.org"
+	<linux-hyperv@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "lpieralisi@kernel.org"
+	<lpieralisi@kernel.org>, "mark.rutland@arm.com" <mark.rutland@arm.com>,
+	"sudeep.holla@kernel.org" <sudeep.holla@kernel.org>, "thuth@redhat.com"
+	<thuth@redhat.com>, "will@kernel.org" <will@kernel.org>
+Subject: RE: [PATCH v6 6/6] arm64: hyperv: Implement
+ hv_is_isolation_supported() for CCA Realms
+Thread-Topic: [PATCH v6 6/6] arm64: hyperv: Implement
+ hv_is_isolation_supported() for CCA Realms
+Thread-Index: AQHdaMzUwBqnDDzAzUa5/RZhe88vXLcpO6xQ
+Date: Wed, 11 Nov 2026 18:01:13 +0000
+Message-ID:
+ <MN2PR02MB6863D42CE499C3D423EDBC10D4712@MN2PR02MB6863.namprd02.prod.outlook.com>
+References: <20261031001412.4150488-1-kameroncarr@linux.microsoft.com>
+ <20261031001412.4150488-7-kameroncarr@linux.microsoft.com>
+In-Reply-To: <20261031001412.4150488-7-kameroncarr@linux.microsoft.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: MN2PR02MB6863:EE_|PH7PR02MB9965:EE_
+x-ms-office365-filtering-correlation-id: 9700bb47-3da5-4a8b-66c0-08df401dc695
+x-microsoft-antispam:
+ BCL:0;ARA:14566002|31061999003|37011999003|19110799012|8062599012|15080799012|8060799015|12121999013|41001999006|51005399006|13091999003|25010399006|55001999006|24021099003|3412199025|440099028|102099032|40105399003;
+x-microsoft-antispam-message-info:
+ =?us-ascii?Q?pjB8Ls2M7s4tyZH+7hsB7XjsMN+k732f+t2k4gB398h+fyNSrC9rybbtIVoC?=
+ =?us-ascii?Q?iz42C1DELkfEMOhFfQTqIj0oOSP36VUsweigSWw26VVyFV3nJASZggq3wTAQ?=
+ =?us-ascii?Q?Awa7Mh2wmJLfZNWEg72wT2rJ+vR5YEPs5zCaa7veVL66pVaXmOLFPQAMMYlG?=
+ =?us-ascii?Q?YeeEjBNNkByfWI0b43jhCR8LSwVwHJJKAng8ZoJXU7hWfhKTE+ejMoU4vJFE?=
+ =?us-ascii?Q?I8ZA0Yc6z+Juh1elK5SIETT5gaqZtqEXONBI8mFOs+yjxZN9Fcu/h4AugoNA?=
+ =?us-ascii?Q?clCWBsMw8YjFvPvbSz3l0l1Eg9us31wHmarfkfx59QdrYGjewei7xuD/0qiw?=
+ =?us-ascii?Q?PYOdGHUqnAT8b1h0UMBvSOs/M4DSWUO/7QMYpvKV62r4vmXkyoyHTDd6adLY?=
+ =?us-ascii?Q?W6zcCXqMvJE192T4DsODpvZIrZMxyKI3QUSa2bOQzQkH1k8oX8T1BY3047zT?=
+ =?us-ascii?Q?W7LotyaWN6oeQIyK0JxMukTEi+Q9AglVAHnBJzw64kmCDlo57VuHYQS54s0Q?=
+ =?us-ascii?Q?J7TBtspuA7qkDPAn7i4gsnMzx8zh/NsW7ejFlThJd+W1ZOrWS3ryavJ7zW1s?=
+ =?us-ascii?Q?J57EFWmuDbfGRx9kSBlcZHpjB4Fr/pgFDoqNkerbOtIJ3aI0p1kiP1xnI6IW?=
+ =?us-ascii?Q?F8mil56cvOaPZSdtFc9pmySuO/SDwJxq7zB7VwDssQhMxnIpcp33urWRnvf8?=
+ =?us-ascii?Q?xm5w/t5dP6dUlwypn2i/+mcgVnR7anabUspRaalQyziGyYcDs+F5ra6t+NWO?=
+ =?us-ascii?Q?mIXaRG6Tgw/H9QZH4ByBb1ePtTSMSARlLwCoWYAnTfNi5fH1JWdf+YnQ6cwN?=
+ =?us-ascii?Q?XdKwNZbDospMBmKt9NkrfVnLGUCfrpYd9SUqo2IloNyHQ9ep8bIR9wgax8In?=
+ =?us-ascii?Q?B+Qqs6Ai/JRzD3XCPzwHza+03kNIPMImUSw659wyVqgl7UA3pUAbHnU2+NqY?=
+ =?us-ascii?Q?J02xtyd/PWSKaJD7L+eXrzknPHKmoIydQYnB/8wY3mtLyn1c9IV21ToKZup2?=
+ =?us-ascii?Q?t//evwyZ7r6pTfQadXASldgFmH+oAyJzHXRs9r7psQC9i+zr82VxtXB9D9Rq?=
+ =?us-ascii?Q?TsYfcM7gMyFFWBJ0FlekJvfQnI8VGRFN+rqyBsud9JYUQB+vqYo=3D?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?Q5ptC9ciNkt5nSUFUYpxQYVagNQ3bqB0d9tP2j6ZuMmiq9Qx8UcZ3vin8knF?=
+ =?us-ascii?Q?SjODKDmIgkDFz28HqHy8CqLBhcSBfbHbkrrIyS+n2JTt/2PTp/+5EyXYffoC?=
+ =?us-ascii?Q?t+HCmuxigHkYmJmg7eQ54L/xyCH1FF38e9Cu501jCGrH7LmDLac36iE9y00h?=
+ =?us-ascii?Q?MUhc1zS3iHBw1OJw/elKJMRUBuK+6e01AOZcnMrbj3R3Fkx7z6pm9nJ9g2PG?=
+ =?us-ascii?Q?4zKLh6k+9jgElVxlhIHyroFsi5OaZ83FyYynlt6jferaA4vGFb6dzzyoe2lT?=
+ =?us-ascii?Q?ddwSZgbZjES7MGEzY9LGtMlaO0YzSQJnvsb1fT4Vy8FCSVklxewocvSg6c8g?=
+ =?us-ascii?Q?Re5lwi/I12C3E8F6T07YO5EtWIDzfDhTAmSruLrW4ppL4EHpE8B0KRjLNaJj?=
+ =?us-ascii?Q?ed85LhlSiiwRQSJgojpSFQJPcFfC3nNrmcTK0ZuNfoTqowzVIdbjc3mAUNkj?=
+ =?us-ascii?Q?eEzcVe2bwl3cnyCO9dLiZWgOkYsmLkle5fmR2CULPLn15XD+E4bB7CD4n5rs?=
+ =?us-ascii?Q?r2TjC5L2jV5xNvNqGLk3czrx5rsHt4f8q37Ivrxep69cM20dPrjPDa3cLKDT?=
+ =?us-ascii?Q?kqyjxAn104usikDiuOlj1ihG7OOjDaILGYRB9bMpb5C7Oh8GR3e0x6al0t87?=
+ =?us-ascii?Q?QKV5uO/qZQC96BOf+yOxsuNbDsKYAcOazKga4RplbblXoI6z3Hka9UkwGBK6?=
+ =?us-ascii?Q?fYepm6GKSdLHIsHd7aUAV3CvOE/bjIsNDSIUl3zjq7f+sx7tGNlI5Dd/tuGG?=
+ =?us-ascii?Q?M9Y/BErwMLTsghGkmW9s3cB41X8WvtdzENDmxrX0FbPYST7eXapxv37b13/l?=
+ =?us-ascii?Q?4pdK1vIhBe1ykN51HmoVRdBJG+B0RkKziQfGez33CmzIJb7BjJdo6WaiKouv?=
+ =?us-ascii?Q?kiVBzyZRNmalbvcg/3/cUTgyTCzhlk2ywRdJOo/8R4LFy/3rdrjYCzMLUJ2y?=
+ =?us-ascii?Q?gqqCmrjf8sx7cGyf3ZLD99jfmSTo8Rl9zrUOuz15Je2cmL9KZlcnFsMJv243?=
+ =?us-ascii?Q?759GzLZ64o+2E9WbHC3D8pdr4WV3qwlRs52E8f1V61k/lcV7LAFmCivAOziS?=
+ =?us-ascii?Q?C2mMiH/ubB3w+cM8Jzbn96nIdIoToy7g3QLaUZY2jIZVc5d+fPonyrs16d/S?=
+ =?us-ascii?Q?VCFDGL5tuYHRQ7rj2fdeXJl8YJuP/jdgaA1Xl95L5WIvUdcFHUzTQluvL3tj?=
+ =?us-ascii?Q?DEARkUkV9ZHgjj7IjguNx0qiOqknxh32DqZ0vZZWj/kGhMoEvEG7UCNY+M4T?=
+ =?us-ascii?Q?9cw1l7xVJZnlj8+wwXwwPnM48TT4tPal+x5NOTwemwlEUguhLyN9m6/ogflI?=
+ =?us-ascii?Q?/25ZKxiIAcq8+jfTzhtvgAu5MrMQzQnnfOCBS5AhdgWrv/GeibumIec2spFw?=
+ =?us-ascii?Q?jFunOrE=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,60 +160,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261111163354.36751-1-henri.ommer@gmx.net>
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR02MB6863.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9700bb47-3da5-4a8b-66c0-08df401dc695
+X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Nov 2026 18:01:13.9319
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR02MB9965
 
-On Wed, Nov 11, 2026 at 05:33:54PM +0100, Henri Ommer wrote:
-> The core functionality of the hx83102d is software-compatible with the hx83112b. As with the hx83112b, firmware flashing is unimplemented.
-> This commit also adds support for touchscreen chips which do not have a reset GPIO, like the hx83102d in the Samsung Galaxy A20e.
-> 
-> Tested on: Samsung Galaxy A20e (SM-A202F)
-> 
-> Signed-off-by: Henri Ommer <henri.ommer@gmx.net>
+From: Kameron Carr <kameroncarr@linux.microsoft.com> Sent: Friday, October =
+30, 2026 5:14 PM
+>=20
+> Provide an arm64 implementation of hv_is_isolation_supported() that
+> overrides the __weak default in drivers/hv/hv_common.c.
+>=20
+> The implementation deliberately does not depend on
+> hv_is_hyperv_initialized() because hv_common_init() consults
+> hv_is_isolation_supported() before hyperv_initialized is set.
+
+Quibble: What's the genesis of this statement about
+hv_is_hyperv_initialized()? On the x86 side, hv_is_isolation_supported()
+doesn't depend on hv_is_hyperv_initialized(), so I don't think you
+are making a distinction vs. what x86 does. The statement seems
+like it might be a leftover from an early version of this patch set.
+
+Michael
+
+>=20
+> Reviewed-by: Michael Kelley <mhklinux@outlook.com>
+> Signed-off-by: Kameron Carr <kameroncarr@linux.microsoft.com>
 > ---
->  drivers/input/touchscreen/himax_hx83112b.c | 21 ++++++++++++++++++++-
->  1 file changed, 20 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/input/touchscreen/himax_hx83112b.c b/drivers/input/touchscreen/himax_hx83112b.c
-> index 345ece27fe74..04c9c6aba396 100644
-> --- a/drivers/input/touchscreen/himax_hx83112b.c
-> +++ b/drivers/input/touchscreen/himax_hx83112b.c
-> @@ -7,6 +7,9 @@
->   * HX83100A support
->   * Copyright (C) 2024 Felix Kaechele <felix@kaechele.ca>
->   *
-> + * HX83102D support
-> + * Copyright (C) 2026 Henri Ommer <henri.ommer@gmx.net>
-> + *
->   * This code is based on "Himax Android Driver Sample Code for QCT platform":
->   *
->   * Copyright (C) 2017 Himax Corporation.
-> @@ -132,6 +135,14 @@ static int himax_bus_read(struct himax_ts_data *ts, u32 address, void *dst,
->  
->  static void himax_reset(struct himax_ts_data *ts)
+>  arch/arm64/hyperv/mshyperv.c | 5 +++++
+>  1 file changed, 5 insertions(+)
+>=20
+> diff --git a/arch/arm64/hyperv/mshyperv.c b/arch/arm64/hyperv/mshyperv.c
+> index da6c3aa0..8a2c446 100644
+> --- a/arch/arm64/hyperv/mshyperv.c
+> +++ b/arch/arm64/hyperv/mshyperv.c
+> @@ -187,3 +187,8 @@ bool hv_isolation_type_cca(void)
 >  {
-> +	/*
-> +	 * Some versions of himax touchscreen chips do not contain a reset
-> +	 * GPIO. The downstream driver only resets these chips for firmware
-> +	 * updates (which aren't implemented in this driver)
-> +	 */
-> +	if (!ts->gpiod_rst)
-> +		return;
+>  	return is_realm_world();
+>  }
 > +
->  	gpiod_set_value_cansleep(ts->gpiod_rst, 1);
->  
->  	/* Delay copied from downstream driver */
-> @@ -349,7 +360,7 @@ static int himax_probe(struct i2c_client *client)
->  		return error;
->  	}
->  
-> -	ts->gpiod_rst = devm_gpiod_get(dev, "reset", GPIOD_OUT_HIGH);
-> +	ts->gpiod_rst = devm_gpiod_get_optional(dev, "reset", GPIOD_OUT_HIGH);
+> +bool hv_is_isolation_supported(void)
+> +{
+> +	return is_realm_world();
+> +}
+> --
+> 2.45.4
+>=20
 
-This should be a separate patch please.
-
-Thanks.
-
--- 
-Dmitry
