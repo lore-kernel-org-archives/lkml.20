@@ -1,45 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794411842;
-	b=FSSoh02hiSMHN+FYsgvyEJ/UM+0MWMOmhKO28dz/63DdN/EWcGhvZGGWdL9CJetm5FUv
-	 w4IZPHlCzAA5wSxG3UaVpvqvpL7YUSbPRJlPs3iIW8Zd9ZMBHb1GFCrGdBFak79Wrm7bg
-	 PKgdAk9IOIEZkxajtciCjaWHAdqxWbUIHh6LFnsYc50wm2ypIvYkR8VFjY9RBpGddN/Sx
-	 8FeGvQXJOFILI9ndd/u1Ph7ij7oJFiy6Z8yEf+hb5PWeY0SEKWGGmZx4zZ8Q4xyozGIx7
-	 YN6YN4cb3cKQx8SMx9kI188PhI+EaXiGtTu9p+LddTODsOJOLn6dyhDCbpgfGncIDIw==
+	t=1794411843;
+	b=GRfztecC9bJOdyzF+YpCfSJxJmaqgU0nHH9Vxb45Q3t358RaeJky//MBW/76RwlF8ew8
+	 e8Ii7SVUXNa6oyml+jRxBC1LNMehazN6hKucNCD1jiTYdpb8glP8zLRCGCyJR0mx8eqa9
+	 TdDmIr+649Ovmxm3pPRUWySVAxbiQUYRlioqkBf5xxZ4tIBj84GkoyOeIGlBP/87siXbP
+	 8N21b2YFPH3Hxw8gf4umVZYzNS9qU8JjilMyrdMicsh7wSfQ5WF0Ccuu9rdOgVv4GJkTk
+	 MWwG2P3qtuEdpBVO/skh3JWhFvTPckSw4+On+EFsSblACIQheGqPdwvL/Izp9y/40bg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794411842;
-	h=Received:DKIM-Signature:Mime-Version:Content-Transfer-Encoding:
-	 Content-Type:Date:Message-Id:Subject:Cc:To:From:References:
-	 In-Reply-To;
-	bh=ld4XtXK2SQe+LqDkNkGzQrapNgCtkHSKWE+dahSdXTg=;
-	b=m1qB82dXt5qvWhm7pQnftuiCM6/08kzZ2b8ncZcLt8g29eXs9+xxChnjdW6ZuHKRZ0Cg
-	 WND8tReXtoH2oJ4jnZGyER0TtfogH5PK/kGmujx/upYKvtujxJKkMNg4+18+SQsk3d7A9
-	 w+ICM70BWw3zMrFNlkIdDPSMlHfGtCiEWeNO4mRNb7nU11WDXfpUbXMRJT2l87I81Rq85
-	 JBYOIsd9GH4Al+eslP+5Ea2a23FdLpXHDUjn7HkNg/A7SMMnwYYIXbw+n9uHVE7Nyd0O4
-	 Ubbf6YnLb+sXs42UMj8aGiedAl9Op9xGelVDnBHge9XKkTwT8VAlA2nECcQ78+grsiA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794411843;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:Content-Language:To:Cc:References:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=sGZsPOiIfmsPmYtcqZWbb30z+VsRcrH1VH92p1yDihA=;
+	b=C5cmBoRcTMgYQE3oiPMjAvaimX92DvkY3eGCDQocNuoE3zCS46iegFcuC8CNrFS1cAVu
+	 +MA0cxNxlmvWFF5Pa2qauc/zQL+xaMPkJeZn0sHLh17eayDlhOEmpQCdR5KWwq2c/VXQl
+	 pt92uiUFK3TXFu/zqwc0nDC9pNZWlrTDQZPtksNf4samvYjs84NQ6e7TWxUxghVrdMouR
+	 63b6vBDs+OMuEuxGEQZyfgmSzyHJUWnI18FgIlg3bmHgyl8dQ2j1YGIBXZQPiLWkaebL4
+	 SlKYB/8Wl7GS90mh0RScLztKDMW9tVhURYMuZjB4Tm1LzTYf1FnrBzSblZ8751YSnyw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DeH+Fv5m;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bnwKN41t;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33BE9606A326;
-	Wed, 11 Nov 2026 15:44:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67DC7606A337;
+	Wed, 11 Nov 2026 15:44:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DeH+Fv5m
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F18B81F00A05;
-	Wed, 11 Nov 2026 15:43:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bnwKN41t
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D5711F00A07;
+	Wed, 11 Nov 2026 15:44:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794411842;
-	bh=ld4XtXK2SQe+LqDkNkGzQrapNgCtkHSKWE+dahSdXTg=;
-	h=Date:Subject:Cc:To:From:References:In-Reply-To;
-	b=DeH+Fv5mAMeLLg/J+R9mfE7F4/t0xvH8wO6g2P7seRNnqSJIpTnX/oASqbOQ/+dD1
-	 SA2LMDjRVaXwN/K5z6Q3+BsgXMUBtWa7BPQOw9K7P3UnzPD2GTODEuvgKTFtQ9oMs/
-	 j/kk53uAet017VgJ9rNq7XGTOn9h9MolMaWGGyWYbkV/daEGTrUwS4euT0BYHUQhZb
-	 /tK3eoRGLWn27cGr+ElPot9GR6bh1xwpToBtNf+BDSYxv5Hk6uYQyGo2L071WEbswQ
-	 1P1uyNzoAWVhMUDD+5DnojfwjgRYnI/lF4Ztqfr4QUj/E1M77mSg3OpxKhCpluwl6G
-	 bRXhBmWlgsrAw==
+	s=k20260515; t=1794411843;
+	bh=sGZsPOiIfmsPmYtcqZWbb30z+VsRcrH1VH92p1yDihA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=bnwKN41tiMDWegJQL3lMFUN/kBXPGY7tkOpwBLMR9dSbQqcNASqYAn4QfxFahHdwH
+	 eG/OzF0E/7tQ8SiCLwkeoPaZLRRznXMYvUdVifHqaN+mVXxgIqEV9GBgKCoZWKvPnh
+	 2vTX7TBbVLMIy5xLv9l3O7ajuS+iKYEcigzD83F7g4UZittxQ3OE66EsJzSn76iqwU
+	 6ik7h2vHF5BoApmoeG4BoQni2cwH7KjK+QUs4OQueKvUJeux9vNhsaecGT4ddRjPku
+	 tUoknm/9chw3n69iZvspFGOZhtcTa9o9MYiJI7iafCtFJ9Qa+qe+H/rrCYmg7GEqPK
+	 oCYQpHH2BXI2A==
+Message-ID: <2b277604-0452-41c7-b0a3-f6f935d802fd@kernel.org>
+Date: Wed, 11 Nov 2026 09:44:01 -0600
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -48,28 +50,59 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 11 Nov 2026 16:43:58 +0100
-Message-Id: <DMSHWQDVXVD5.H1UNOAA8I6XB@kernel.org>
-Subject: Re: [PATCH] gpu: nova-core: use pin-init self-referential support
-Cc: <acourbot@nvidia.com>, <aliceryhl@google.com>, <airlied@gmail.com>,
- <simona@ffwll.ch>, <lossin@kernel.org>, <nova-gpu@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>, <rust-for-linux@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-To: "Gary Guo" <gary@garyguo.net>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20261110152746.140351-1-dakr@kernel.org>
- <DMSCIQ1NOV15.383LSC2I0TMON@garyguo.net>
-In-Reply-To: <DMSCIQ1NOV15.383LSC2I0TMON@garyguo.net>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCHv2 2/4] dt-bindings: edac: altera: agilex5: document new
+ edac support
+Content-Language: en-US
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: bp@alien8.de, tony.luck@intel.com, rounakdas2025@gmail.com,
+ niravkumar.l.rabara@altera.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, linux-edac@vger.kernel.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+References: <20261109162523.1698129-1-dinguyen@kernel.org>
+ <20261109162523.1698129-2-dinguyen@kernel.org>
+ <20261111-tunneling-elated-grouse-1f8bf7@quoll>
+ <9d87c457-d692-4c55-835b-796029a5e54b@kernel.org>
+From: Dinh Nguyen <dinguyen@kernel.org>
+In-Reply-To: <9d87c457-d692-4c55-835b-796029a5e54b@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Wed Nov 11, 2026 at 12:30 PM CET, Gary Guo wrote:
-> From the changes made related to GspSubtree and other types I think I'm m=
-ore
-> inclined to just make `Cmdq` lifetime covariant using existential lifetim=
-es.
 
-Hm...this would also get us rid of the need for the existential lifetime bo=
-und
-on NovaCoreApi. At least for now.
+
+On 11/11/26 06:04, Krzysztof Kozlowski wrote:
+> On 11/11/2026 13:02, Krzysztof Kozlowski wrote:
+>> On Mon, Nov 09, 2026 at 10:25:21AM -0600, Dinh Nguyen wrote:
+>>> +  - if:
+>>> +      properties:
+>>> +        compatible:
+>>> +          contains:
+>>> +            const: altr,socfpga-agilex5-ecc-manager
+>>> +    then:
+>>> +      properties:
+>>> +        interrupts:
+>>> +          maxItems: 7
+>>
+>> minItems
+>>
+>> Also, missing constraint for interrupt-names.
+>>
+>>> +      required:
+>>> +        - interrupt-names
+>>> +    else:
+>>> +      properties:
+>>> +        interrupts:
+>>> +          maxItems: 2
+>>
+>> interrupt-names: false
+>>
+> 
+> And I already asked for this which you did not respond to.
+> 
+
+Apologies for missing that. All comments will be addressed in v3.
+
+Thanks,
+Dinh
+
