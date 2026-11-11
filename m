@@ -1,101 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.96.140
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794390777;
-	b=nGkznytmZcb8rapL12RFJmTDswDhb7yAA+nWUo03UNukptHTgA1iDTJnF8szaV/VLRgM
-	 aPSoFM+syb7UsV5Q+nmi6MbLy2Bo4MaLmnzeJJxVWHmn1gJZDyAMzir8+ObuB9GjcGLst
-	 vqC4s6LS6A3tY9KTPMqpwFd6fZ2lHPvT+HLSsmv7JgnR/WsOz3HYnK0OPciNwWkTk9mR+
-	 mJrzfpDrSJgCA+nkpPvYe9OWu3/L5cRpQxVJ0BZJoe6ky00dWgHBHJ+Sh+SCv609OY8zx
-	 tsXuSjqyE1OfkF9HAmUSTV0W6wO3S8yKgHALTXQN3DRkYs8JK6pfQWkHFxxoFdvMH/w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794390777;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Cc:Subject:
-	 From:To:X-Mailer:References:In-Reply-To:X-ClientProxiedBy:
-	 MIME-Version:X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=SdhRWh7k3xNLlyD+HHTgoBv1iS6P3q5aSPf/cstv8hI=;
-	b=4Qe3RYjCBADmmyIh3clJLaR4c9LWkLoM65vULRjJyU6G4Mmzv7Xqqjj7F3lXZyx8zUv2
-	 V/aTge1LaRLR5CAQYKKWnj/KHqiJCbOu7E24gwqOKOY1x+VW/5mZfbjvemY5BRRkj70AU
-	 FWjJR0QfUSyGnolMPTV+l6bSY1vgUxnjlowqHhxHO5z/Jg21SYqeRTX952Gkn2UqoZS8E
-	 ahUGIX7jcqR0zWT6mK5APm7+PE5czcUq6FOeUQX3ntmyo/klaYdYrm3JTmlr4DKYcTSOr
-	 SUP7oPCgtKA9rKxLBhDTsbRzwXvUagUf8A+hCcKIN4Rj6MhXphnbwlLFCMQhdK1H7rA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=garyguo.net;
-	spf=pass smtp.mailfrom=garyguo.net;
-	dkim=pass header.d=garyguo.net header.i=@garyguo.net header.a=rsa-sha256 header.s=selector1 header.b=g4FUvZ34;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.96.140
-Received: from LO0P265CU003.outbound.protection.outlook.com (mail-uksouthazon11022140.outbound.protection.outlook.com [52.101.96.140])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794390786;
+	b=RL595cG/S+TI/dEAWeKbGoWLBCvFY3wcJDKZbkSJ5cmFC9gS/L61k609wfDUk1OxWubk
+	 gRuWhKIQ69ZwPGQM1pZmd5vGaBRKbdKU/FKyQrbYqlEhGJVru7CTYH6Zl//9UegymTGfL
+	 KZvkX/dIJfdsX0a1Y25GiLRnRCoSKtMi99ulp/b5fz2NTB4+5m1t4xtlJfRm6OIg6piAg
+	 X2syuGHxwDL4XydcjLU4FK4v4kH1bNuV6a474D6EQfN8gzuPTqWmjz1iWSmUVZQECD4dD
+	 mJcZ8sd5CfX8vZaHLNAccTO1J5XZK94FzDEg72GbtZF8e5M+bk50FLp9XU7nu0Lb5Bw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794390786;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=XT6BWjf3e2H2CZG/NlymA92TO1byQpSSnVJi47YMPVw=;
+	b=WZfiFeBPQJafZCGOsMsU0b82iDYbXZtwKcM/1SMliSobkFsCcYAuaFXaa+EE3VKtTuGC
+	 dnHNHaRcgB2NoONUNv4REsINyAtQLRcPHQ16hV40zuqekcZbvngznX9YVaeF/Tn8+YeBE
+	 pseP24hwb0m7KAWuT2m/K4bJDbpwmrdp07aNYwvGA+4/ieQI8ENjO/A+pTNYf7+7QETon
+	 3NNYMkSlVsoVzynyz1JljaKDfLrfSDGLLMaKSO3j08tavL7n5EhsueyWiUoNLAHxbC0Sm
+	 0/OlnVusMMSSduEv2B9wpgeJtHCjaG5m8QDBwKad6ONYmsZgmD8nPcqdsgOSraO3ltw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Edvf/VAz";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E40F8606A32D;
-	Wed, 11 Nov 2026 09:52:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E40F8606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 467BF606A33B;
+	Wed, 11 Nov 2026 09:53:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=garyguo.net header.i=@garyguo.net header.a=rsa-sha256 header.s=selector1 header.b=g4FUvZ34
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mMXZ/Oye61TAYdAPxhvHCmyRPGAPm6FVIGkRI+pb3mZZja2ojRTlZpkVtyBht/W7KrnJrk8xK3aNMpK3rKCIcXLGkM+JWLtp6IHxwCZDEg80mC/4g0j2x7D/gFcq6+fDi1ocwaCbJ+d+HaJdGIQ/Yt7Juu01ovwA3/rT/dEvufA71CZPg5spXTS9lGBTqcBhjJ5uE9xrLcRj2vQWI5YH8WwoS9ZxPZ21iA4THULLb9KQ+vznGD4dC7mrAVwnXbUKG6JCfZnf1AyuLJ11km0eZvWHgQs8WJ/MtJeYginfaPeiNPTMOcYnGJZChUMPumCU/MUstXVPQTo9nBoMsquCAA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SdhRWh7k3xNLlyD+HHTgoBv1iS6P3q5aSPf/cstv8hI=;
- b=l65FSyfi5xar0A56VvueqaGcPoKhK16/LiIEpLYy3H4nysE7e0U6QYjjImz439g+8RLpa2vPjjgGsovL2zvIkftxBpOXQGcCjr2Qt4YcUgnRaKIxxaZpOMXgAmcVO79jWkDB+Id5RYBVGMM1xi+2VwA6VqrEKpfbbOhkSfsaOMxQKUD5XV/2MQZg82W33qwfNZzcxBHTU/dyQySBb5KcCviS3IEr66boe9b42WKDmgw2kUSPEdKhyWVFtn6aBIsSGWtxdTImY7sDsJHBCD6dkNX3N3q67oZHharQPU3uKJU5aoqc2W5c3tAv3EN5NXnff587hi83hkIMRYyxkRwAYg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SdhRWh7k3xNLlyD+HHTgoBv1iS6P3q5aSPf/cstv8hI=;
- b=g4FUvZ34czqr0MEu/XOpdt241LSXkR2uNlthbiohrgXP8XbqcQzflFAnNlMWT7XU2reITmvy0BRix74aVOJgxr2OHYhrNG/XLhjAH+gkzkws1LHrq56/tnCOel0vI5kRohksJQr3aFoeB+mNfQGIOhufZiSvWTBpuUN14VLYfoc=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:1cb::9)
- by LOBP265MB9156.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:483::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Wed, 11 Nov
- 2026 09:52:53 +0000
-Received: from CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM
- ([fe80::55f6:f98b:7fad:c6e3]) by CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM
- ([fe80::55f6:f98b:7fad:c6e3%2]) with mapi id 15.21.0615.008; Wed, 11 Nov 2026
- 09:52:53 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 11 Nov 2026 09:52:52 +0000
-Message-Id: <DMSAFWOHB29R.3G082C94OM7AQ@garyguo.net>
-Cc: <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2 6/7] rust: drm: return impl PinInit from
- DriverFile::open()
-From: "Gary Guo" <gary@garyguo.net>
-To: "Danilo Krummrich" <dakr@kernel.org>, <aliceryhl@google.com>,
- <acourbot@nvidia.com>, <daniel.almeida@collabora.com>, <ojeda@kernel.org>,
- <boqun@kernel.org>, <gary@garyguo.net>, <bjorn3_gh@protonmail.com>,
- <lossin@kernel.org>, <a.hindborg@kernel.org>, <tmgross@umich.edu>,
- <tamird@kernel.org>, <work@onurozkan.dev>, <brauner@kernel.org>,
- <lyude@redhat.com>, <j@jananu.net>, <alvin.sun@linux.dev>,
- <deborah.brouwer@collabora.com>, <laura.nao@collabora.com>,
- <beata.michalska@arm.com>
-X-Mailer: aerc 0.22.0
-References: <20261107021427.2105374-1-dakr@kernel.org>
- <20261107021427.2105374-7-dakr@kernel.org>
-In-Reply-To: <20261107021427.2105374-7-dakr@kernel.org>
-X-ClientProxiedBy: LO4P302CA0009.GBRP302.PROD.OUTLOOK.COM
- (2603:10a6:600:2c2::17) To CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:400:1cb::9)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Edvf/VAz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8624D1F00A09;
+	Wed, 11 Nov 2026 09:53:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794390785;
+	bh=XT6BWjf3e2H2CZG/NlymA92TO1byQpSSnVJi47YMPVw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Edvf/VAzHbtYaB6SGLqNNuQrY6tn2AxZui0ULEp46nZrw4K3zZk9Wu6J4oQsRvuPf
+	 TVUEnJ44FOaTXZWgB7PMlbbkrnLSq5ulB+MOuffoMo+m93hsJiQ0CBT2wN6GwYSW0R
+	 ym+Z+mITLcZEE84igwJOXX5sScBa2MDCBqPC9SCjKxBuxXs9SzgUlMSA9Pn10senYg
+	 F/rWKYIRZdflDZyjj5V8A6S5aBr2KxFNeUvtRlDFm2ZIU++Z9EXBi6PwlRdcD8+lxS
+	 HbV+AY1bfvxBgM7TT1r9gG7PXwpwNJEFABMlwmTE1q/d22XSCVt7itKVw93iPu1ZBs
+	 +bayyvWeaJX4g==
+From: Imre Kaloz <kaloz@kernel.org>
+To: Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	netdev@vger.kernel.org
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	linux-mips@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net-next 1/2] net: sgi: ioc3-eth: apply the DMA attributes only to 64-bit addresses
+Date: Wed, 11 Nov 2026 10:51:37 +0100
+Message-ID: <20261111095138.1757-2-kaloz@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261111095138.1757-1-kaloz@kernel.org>
+References: <20261111095138.1757-1-kaloz@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,87 +64,77 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CWLP265MB6051:EE_|LOBP265MB9156:EE_
-X-MS-Office365-Filtering-Correlation-Id: a48d2c6f-7acb-457a-f21f-08df3fd98dc0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|10070799003|376014|7416014|1800799024|23010399003|366016|10067099003|261009223027099003|261021121427099003|261021123027099003|261102123227099003|56012099006|4143699003|22082099003|18002099003|921020;
-X-Microsoft-Antispam-Message-Info:
-	T3tEAce0qjQXdMNN0Ivc1G/qXpMEwhNjtdZBPjjzBV2tihG/UXVM9I2/f3UYmhQAKhrF+2lK0N8t+c2VL32pXtggojSq2gAb3jR7+mXJTS9CWWiaj8KdxEjBePhc59g49zBnXksWZPf011lCZ0X9rCMjqKal5yGPhbd57vGku20APqi1p80gMltaIpaq8hzrod4gHUPtweOqW1Ti32wK6/AhVxWlvv/EatNVmEhA0CCVdki+c4cUvtiznZVIyv8KFBfPYrpjbu0VOP1YQqY/LiVyr2AUB4cgJiSorho21LfPBjwUwJpYkQs7xEekf6M3XmFPwOdji/jsFMF019Cip2tml2w/2ogWFNFmI5XmPTfP8hDaRz8vp9SdEXGyJEzrrCQ6qc6mvVoE05D/ZtMGc+WYtNftHpM47ws2qXLOvCT8GsmAo/kD9Nwdgt93eiy7UGo8N6lLlqi7y0IV7ZG93EAgxX0KI8FS38JZToRK9LtPoXqT04rRaGwMBM7q9OIgrkRpS4iMMmJpiBXoFEeDcreFAZW6r5tM0R2NagpH/zkNJ+x8ZYkBELvVCRygQDEuIqJVlHnTXkyO3S6Vb0zAK35JOtHFeogQ3lXtVorVGTEAfAWj4jjDaSZcuiVIABaWAun/XYmYjxC/OKgqjrXtU/EcfcqmkjeubX49uiJHwtkeXCA322cyAaGgqWEcawx3bBi0LnUP2k89asz75oOoVA==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(376014)(7416014)(1800799024)(23010399003)(366016)(10067099003)(261009223027099003)(261021121427099003)(261021123027099003)(261102123227099003)(56012099006)(4143699003)(22082099003)(18002099003)(921020);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?a1JXWmIrR1FmSGxzd0J5bEFmdkNReHFHMDUzaHJlZXo5cnUyVUlnNHlLL2N6?=
- =?utf-8?B?TDkvMXRhZVVUUDh1bDdKQnlDWnBBV0hYY3ZEak5oL2MxeE1STlc2a0VqbXR6?=
- =?utf-8?B?MlU4UUJGcmRMYm90anNQQTBGcjlJYmQ4WW5JSThmSVo5ZzJJTmN5SjArdm5w?=
- =?utf-8?B?bkRwOGlHZk1rcjV0dFdBWlRmbHBScjcvaWVkMWlRcG51d045V1hwVlF1SjVq?=
- =?utf-8?B?dTlRVjIvdFNEaUFDRzlYZXZsbEFsSWd5WFpYZGlnUjZjbWZPdzZ1Z2R1aEJI?=
- =?utf-8?B?bUxOZE43blhyNlNHMG1jVHVmQlBpRWRvMytUNDE2cDQwUmN4RDBvbEU0amJK?=
- =?utf-8?B?NjVjcS9FUlRZSHgzaFd2THZpS3ZsR0xvQ1loRUw4WnFGRndDVWQyekE3OEZO?=
- =?utf-8?B?UnREbE1iSUxsNkt5aTJNTnRwaC9PL0xmQ3BoUTYxWHAyajY2cHBQWDBHeWxQ?=
- =?utf-8?B?ZmhIZFJQSGlMUWNqYTZXaTQ0Y2VoQzhHSEZhRzFZWUlXUVZ3L2RLOGdZN3o2?=
- =?utf-8?B?Z3ZDaERkOUM2ZmdRSHMyaDluMFJ3bGt5WVJ5SmxJNGhtZ0cxalpuS3ROeC9P?=
- =?utf-8?B?RllJZXdCKyszTzBReVFTMlREOXV4L212UnNYLy9lMW5UU3E3Szdlb1RXNXcv?=
- =?utf-8?B?eUhLdDBhOG1uLzZTWFJYRTZmelFwVHVQUTgzSXc1cTlMcDJSd0FhNWNLUmFC?=
- =?utf-8?B?UDBJdXNOOER6a0h2VjFrZ1p4WG9RUWRNR1FhNEdhYlE0SGR3UVUvQ0pNNkZ0?=
- =?utf-8?B?cU1LNkNRTVRwQi9BdHhzOENWaGFEci9MTWlOZ1M3dGg5Sng4MXFDb294aHBQ?=
- =?utf-8?B?TENlQ1VOYytsWkFJNlhrNDEva003MWxUYWRtTWYvM2tDTUZ5K2U5R1V5Wmlx?=
- =?utf-8?B?VVl0MENxM3BJdE0rM0tuRkRuZmpXQzF5SGdqdDZUaERSY0pQRGUzNGtoUXox?=
- =?utf-8?B?TzF3VjJBdm1KNWMzbThqSkpkbzJ4NVVFMWRCVXJWYzk0bkdRcWlQNlplN0d4?=
- =?utf-8?B?N1FKTWZlbzZFd0lWc2llWVp1eURGcWVpZGlKYmZsaEtmZDRiOFFpaDJsaGZF?=
- =?utf-8?B?Y3ZBc1FKWW5aT3ZlZi9uZDRJWWJWTDZQSkFnYmJnUGlSL1VEeHBaMXA0M1Ax?=
- =?utf-8?B?K0x5VTZSUFBpbGd6c2N6blNHd1RLeUZkZEtCTmIvZjh0N2RSS2QxcGVwQmVG?=
- =?utf-8?B?SWdSYi9qcWxxVWVRVWkra1ZtTi91UGZsd0pnWVg2aFd6VkNqZ2t5VmZNN0Jk?=
- =?utf-8?B?M1VqODZIS05zaDk5MlplSXYyODM2czRrRERBQmQ4cXU2UkRBc3B2K0RHRURJ?=
- =?utf-8?B?U2x0STRDaUJoNHcwSlFDTFV5T0hMeEIzbkJmeUIzc0xRS0FyQkpLUjVQMnYz?=
- =?utf-8?B?Y3FCOWJML3RtYWZhaFQ2RjhiRVV2a0h5QURCTWY3aHdJaHlIdmlobGdOdGlO?=
- =?utf-8?B?VG9YMTdsVGl6alM1NUtROUMxc3BsYjJ6OUdpbERrdFVNNmw1OURId0R4d0lB?=
- =?utf-8?B?THZWUURBZEMzMW5NaERBSUNlemRzZHBOdXNOUHY3WmVNZk9PTWJYc1N3WU8r?=
- =?utf-8?B?NnZxcEJnSFRBTUZDUXNKT3JOUVBSR2ZmMjZsNkZkMkVhYjZXUkVBL0hGVE1n?=
- =?utf-8?B?WVQyRDUyanFVQVhaYko1ejM1ME5EMS82VExleXNPdUY3d1B6NzlCdlFsVFUr?=
- =?utf-8?B?QlIvOVFYQzFRQ2JnVXFhT1F4eW9MeE9DaVNRN0tXeEZrVHdtR2UyTEdLTVQv?=
- =?utf-8?B?ZTF5c0VoMFEwSU1WNGJTeUhwZGtqaE5YM1JDaTU5Qnk2VGVYdHl0R0hOejA4?=
- =?utf-8?B?c2Jxd1RUQmZUcm0vb1BXSW9YYWZoWE5VM2VLbmw5Sk5vNDB6UnJJc2ZLN3hQ?=
- =?utf-8?B?NzNqZHR6WWVEZStsYkoveUxROGc1K2taSktZdnR0R0ZQQ2VGQUUva1J0L01h?=
- =?utf-8?B?TkdieVNOOURSQ2g3MjExTXcySnYxdEhuT3MyaUpSMVd6TTYwWTZ2Wm1STVNJ?=
- =?utf-8?B?RFB5MVIyRmNBNlFMcGJtYjR0WU5RQm9JL2RkUjVMN0gxZk5aNnM5aWM5MGF0?=
- =?utf-8?B?UUIrYVZ1QlZJRVRzYzVORkdkUFozM2dPUjhPbmhXL1QreTYvakxPRktpTVZV?=
- =?utf-8?B?WmdzeDBHUHY0TTdocDJrOEFIWW9MWE5leXE5U21Za2NVb3B4Ri9oNzY1ZG81?=
- =?utf-8?B?MVF6bjVYSDE5dmZvS0JwZzdWaTl1ek9XVVhLa25iYXd2UklML1RTUEFFRFNO?=
- =?utf-8?B?NFVDdUR5NEo2RzhPd25ZMDg5MHBqYnJyenpxMy90RFhHbjd4N29uMzlaRGk1?=
- =?utf-8?B?c1ZHczVCZFV4VnNzenpVVTdidWk4cEp6cHprbmhna1lxaGliNjh2Zz09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: a48d2c6f-7acb-457a-f21f-08df3fd98dc0
-X-MS-Exchange-CrossTenant-AuthSource: CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 09:52:52.9824
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 03Cp5hXt1R1rF2VyxVc4q/mg+Ci69BmDbhL0b7L7o+flw0DnihuXevwX/me+llBYXdIL60UI7b1iA+sC5LHjQA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LOBP265MB9156
+Content-Transfer-Encoding: 8bit
 
-On Sat Nov 7, 2026 at 2:03 AM GMT, Danilo Krummrich wrote:
-> Change DriverFile::open() to return impl PinInit<Self, Error> instead of
-> Result<Pin<KBox<Self>>>, consistent with how bus device private data
-> works.
->=20
-> Drivers no longer need to allocate a Pin<KBox<_>> themselves; they just
-> return an initializer and the subsystem takes care of the allocation.
->=20
-> Reviewed-by: Alice Ryhl <aliceryhl@google.com>
-> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+A Bridge 64-bit direct-mapped DMA address carries the target widget and
+the DMA attributes. An address in the 2GB 32-bit direct window carries
+neither, so attributes OR-ed onto one aim it at widget 0, and every
+receive raises a PCI error.
 
-Reviewed-by: Gary Guo <gary@garyguo.net>
+Apply them, and the RX barrier's upper address bits, only to 64-bit
+addresses. IP27 and IP30 give the IOC3 64-bit addresses; behind an
+XBridge or PIC it can use the window.
 
-> ---
->  drivers/gpu/drm/nova/file.rs | 5 ++---
->  drivers/gpu/drm/tyr/file.rs  | 4 ++--
->  rust/kernel/drm/file.rs      | 5 +++--
->  rust/kernel/drm/gem/shmem.rs | 4 ++--
->  4 files changed, 9 insertions(+), 9 deletions(-)
+Signed-off-by: Imre Kaloz <kaloz@kernel.org>
+---
+Previously posted as 25/53 of the IP35 series v2: https://lore.kernel.org/all/cover.1791890466.git.kaloz@kernel.org/
+
+ drivers/net/ethernet/sgi/ioc3-eth.c | 24 +++++++++++++++++++++---
+ 1 file changed, 21 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/net/ethernet/sgi/ioc3-eth.c b/drivers/net/ethernet/sgi/ioc3-eth.c
+index 009f37105eaf..25139cf5ff62 100644
+--- a/drivers/net/ethernet/sgi/ioc3-eth.c
++++ b/drivers/net/ethernet/sgi/ioc3-eth.c
+@@ -152,19 +152,37 @@ static inline int ioc3_alloc_skb(struct ioc3_private *ip, struct sk_buff **skb,
+ }
+ 
+ #ifdef CONFIG_PCI_XTALK_BRIDGE
++/* A Bridge 64-bit direct-mapped DMA address carries the target widget in
++ * bits 63:60 and the DMA attributes below it.  An address in the 32-bit
++ * direct window carries neither, so attributes OR-ed onto one form a
++ * 64-bit address aimed at widget 0.
++ */
+ static inline unsigned long ioc3_map(dma_addr_t addr, unsigned long attr)
+ {
++	if (!(addr & PCI64_ATTR_TARG_MASK))
++		return addr;
++
+ 	return (addr & ~PCI64_ATTR_BAR) | attr;
+ }
+ 
+-#define ERBAR_VAL	(ERBAR_BARRIER_BIT << ERBAR_RXBARR_SHIFT)
++/* The RX barrier's upper address bits follow the same form. */
++static inline u32 ioc3_erbar(dma_addr_t addr)
++{
++	if (!(addr & PCI64_ATTR_TARG_MASK))
++		return 0;
++
++	return ERBAR_BARRIER_BIT << ERBAR_RXBARR_SHIFT;
++}
+ #else
+ static inline unsigned long ioc3_map(dma_addr_t addr, unsigned long attr)
+ {
+ 	return addr;
+ }
+ 
+-#define ERBAR_VAL	0
++static inline u32 ioc3_erbar(dma_addr_t addr)
++{
++	return 0;
++}
+ #endif
+ 
+ static int ioc3eth_nvmem_match(struct device *dev, const void *data)
+@@ -727,7 +745,7 @@ static void ioc3_init(struct net_device *dev)
+ 	readl(&regs->emcr);
+ 
+ 	/* Misc registers  */
+-	writel(ERBAR_VAL, &regs->erbar);
++	writel(ioc3_erbar(ip->rxr_dma), &regs->erbar);
+ 	readl(&regs->etcdc);			/* Clear on read */
+ 	writel(15, &regs->ercsr);		/* RX low watermark  */
+ 	writel(0, &regs->ertr);			/* Interrupt immediately */
+-- 
+2.47.3
 
