@@ -1,77 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794391726;
-	b=uwePMBeSd7yLN8PWoX4qtdlXQhWvYwvfsCv/Rv+msX5Sd2rEEki+sjT7WAE+PKKmEsub
-	 dTzvuDtj0tvHm20O3srBn07l0vIwhJUwixHmbUht2L8/pofDutF5Hw6ysWyNVHo3k8tpS
-	 uPVNKB1hlKMRAlyICQFnLIHoLFAecYl4HJzqAyhDhDHSyTOucpFHTrcKeJAonj0Rzvi1g
-	 KvPsVuMJ/9o8iMGhn9Or3kSR6AgwswpRn3DcBzuKQf5WCYXf1IXfCo6Ds0I1hfrT8gJL+
-	 BVnI9pdmYbRFiCJCPu8JekMyNHYvz/T/7y3GZYrmLHv9xv1fIHcxDR2Ac7phYrSbwbg==
+	t=1794391729;
+	b=QLI3iB7U2LIDeE1LoYRbmy78KI5Kg8ptwVcNy2VzAq8ib9NvXIF4zZm1lcGnir3Hr3SQ
+	 4UYGj1oBVgzdlOrZwjkxq3dhDoPkZ//WzrkOvwuDHi1DtEdnYM+ARbmTBqfA48o1AI+Y3
+	 iFjwke48Evpy7Z0Jg655p/ZgGyyGUF/Iga08QNOgc+3DF+QxJH8nco3ublRpXf8DEBA25
+	 +j/XCA922cEdGq+jZNn7moQjiJM9TRxgnPBPN83ly87uRo6QiCk3f9AKbaqKI6JlX8jhx
+	 2lj/W/4mhElWUOYQ11JlV71ai6ymh/b8IrqTCHI/flCRtfHdMF0nG+3SCrBLfW1j7Gw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794391726;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=FhBibYlotlIoriDD1qZMd/y5gNpVeKGTwgYsEGhsCmk=;
-	b=t1Hg2StYA4h/BDh1N2fEiMNHBtnXE8rtaZsLD2pM+tXV+bgP3ebC2GZ1+yE78Gjaiz4D
-	 LnDYvLKZcCS8ixYq8fAY6OqEf0Ts9/6omogXvgY7qfbbqb1Bh9FGnYu6HvZbtP6z7gjLc
-	 mkK///mswyxRNG7GpyTMGwF729cJlEaSYR1gtJDn7p+0QhwsGfXLv2WFDhaofz79agXud
-	 rUx/ByP1+gQ3oLOfM3Tx1HdVU5iPsx/aBPClKfOvEMU8ae50Oi6ifO5A4imZVpOgoJ0S8
-	 zXMqnf5alDxKJZvadEuFbKP6JllPMr4W7bGG1Fv24BNuAldd/9e5BYg/ykebIbu05zQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794391729;
+	h=Received:DKIM-Signature:Received:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
+	 X-SA-Exim-Connect-IP:X-SA-Exim-Rcpt-To:X-SA-Exim-Mail-From:
+	 X-SA-Exim-Scanned;
+	bh=H3Ry/FbjG7A2sh6BAhOs+YbZP+AAuJe7onGIRnzyJ68=;
+	b=ptMQJK3kQ4GSEuOAbjURapEdVSq16RXYuSwsb53ki77utFDpxF+IO1dmYT4hoQ9THYYs
+	 e2xBs/wbIt2RUntrBCNnVdtv6HlOC5vNQ4RiTYzhLqAb5IWbIu6TbOQkoXYvL89/+iKz7
+	 yjg5glpADxX4dtgwYKwEOx7Nin96qHSi1nyzxitf4eD9yG7lhoUnw9DGXXGfMFwa98orX
+	 2s8reMwT6ZEDv47uUm9p7aysDe6FlRpkoSgihiG6gycXBwEBdtk0JwbdLWoYrCbsyecUz
+	 LLLBmlMRfOA+zD0ISc2Q7owrm2sz18rErOG9yaAsoVekoUFLR3U1wzgCfEcjClPUm2Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=UMBw5aEW;
-	arc=none smtp.remote-ip=192.198.163.10
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V2AKnn9t;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C753E606A321;
-	Wed, 11 Nov 2026 10:08:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C753E606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F2EE606A326;
+	Wed, 11 Nov 2026 10:08:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=UMBw5aEW
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794391725; x=1825927725;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=IVhhbKFchMhBrB8bslTPRbh+ZFM/fCOPyUOsFOiln2E=;
-  b=UMBw5aEW9rKqG7y1cUqfLrVfSY3wr8eKOhajStvNV2RvNs9GbmxoYoUF
-   /GSs/yw00uvQ6Wd30WQl4ifk4CDfZwmslLOV57wSpJBUdEwwbCkvOggZG
-   w9gMlalJGFRaKYoIB52BZ3jiW4oq9PioVDO7OuKYZCtMPzUmeF2ZjAAha
-   CAswvpQAJewGweXgs3lRXvqwsOk2Xrp0osg8+6UHywmkm8Wj/b1eLok+2
-   /C30pKrbOVv/TQO+w1FaoTiCDldS1ZaZQhJZH9LGxvgJrbjEo3Hb9TaRZ
-   6gfByet1DeUltPh6A3J8LMwJx0InQRracTB7IcJVPN5/0JBwBRTKOE2pX
-   g==;
-X-CSE-ConnectionGUID: FjoPB2UwTN2oKlHGbivkTg==
-X-CSE-MsgGUID: wJbQ9TttR4mfxr2hET/EeA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11962"; a="3061356"
-X-IronPort-AV: E=Sophos;i="6.27,207,1787036400"; 
-   d="scan'208";a="3061356"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 02:08:45 -0800
-X-CSE-ConnectionGUID: 8UP6BIxpQnCYIyMsm7H+tw==
-X-CSE-MsgGUID: 1Ovx2FjoR5iUqstVISgPNQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,207,1787036400"; 
-   d="scan'208";a="8456495"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.142])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 02:08:43 -0800
-Date: Wed, 11 Nov 2026 12:08:39 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Mark Brown <broonie@kernel.org>
-Cc: Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Hans de Goede <hansg@kernel.org>, Mark Gross <markgross@kernel.org>,
-	Muhammad Bilal <meatuni001@gmail.com>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linux Next Mailing List <linux-next@vger.kernel.org>
-Subject: Re: linux-next: build failure after merge of the drivers-x86 tree
-Message-ID: <avQ-pxuGfWjcaDGt@ashevche-desk.local>
-References: <avO8Wax_1SEQ3Yy5@sirena.org.uk>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V2AKnn9t
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E1DF1F00A0A;
+	Wed, 11 Nov 2026 10:08:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794391729;
+	bh=H3Ry/FbjG7A2sh6BAhOs+YbZP+AAuJe7onGIRnzyJ68=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=V2AKnn9tdnAn6jL8kfwG0cy9iE7vD5xijchVzwwAzjfWIprSbpC5q/oixuEl75VkU
+	 gv4mbcMkx5GsmkAw0MnFXj3iYWlOuG3+QcDYWV/XVgIPIK7AKvhcPz14eqUhoIYWGq
+	 GMp2pLARv4UVz8ORVuNB99e3DzRZsgP4zg30nFERye8GPA8B4e84ApmUkO6nWoV0+j
+	 7jO2eIL78EpTsQBNT4D9gokF5ekFo1ZKDiYb4BLKtQHyCQ8pN0RuW7NoEiEqMe1Le6
+	 Q5gEWu1c4wchLYe3renNhpnDiGf5ku0AwEKEkF9x5ElZ3r44yxAFEWA2ipnv7gq/tx
+	 btV6vc7y+cysQ==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1xR5G3-0000000EEJx-0wjw;
+	Wed, 11 Nov 2026 10:08:47 +0000
+Date: Wed, 11 Nov 2026 10:08:46 +0000
+Message-ID: <86o6bv1xzl.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Dan Carpenter <dan@cryspen.com>
+Cc: Oliver Upton <oupton@kernel.org>,	Fuad Tabba <fuad.tabba@linux.dev>,
+	Joey Gouly <joey.gouly@arm.com>,	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,	Zenghui Yu
+ <yuzenghui@huawei.com>,	Catalin Marinas <catalin.marinas@arm.com>,	Will
+ Deacon <will@kernel.org>,	Mark Rutland <mark.rutland@arm.com>,
+	linux-arm-kernel@lists.infradead.org,	kvmarm@lists.linux.dev,
+	linux-kernel@vger.kernel.org,	Karthik Bhargavan <karthik@pereq.eu>,
+	=?UTF-8?B?Q2zDqW1lbnQ=?= Blaudeau <clement@cryspen.com>
+Subject: Re: [PATCH] KVM: arm64: nv: Invalidate whole L1 blocks on TLBI RIPAS2E1
+In-Reply-To: <6817d113e5f0a9cafe0ce5bc0847276b7f14aacc.1794210561.git.dan@cryspen.com>
+References: <6817d113e5f0a9cafe0ce5bc0847276b7f14aacc.1794210561.git.dan@cryspen.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,33 +73,113 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <avO8Wax_1SEQ3Yy5@sirena.org.uk>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: dan@cryspen.com, oupton@kernel.org, fuad.tabba@linux.dev, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, linux-kernel@vger.kernel.org, karthik@pereq.eu, clement@cryspen.com
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-On Wed, Nov 11, 2026 at 12:52:41AM +0000, Mark Brown wrote:
-> Hi all,
-> 
-> After merging the drivers-x86 tree, today's linux-next build (x86_64
-> allmodconfig) failed like this:
-> 
-> ERROR: modpost: drivers/platform/x86/hp/hp-bioscfg/hp-bioscfg.ko: symbol 'strnchrnul' undefined!
-> 
-> Caused by commit
-> 
->    e7cf4282a8694 (platform/x86: hp-bioscfg: fix heap OOB in hp_enforce_single_line_input())
-> 
-> I have used the tree from next-20261109 instead.
+Hi Dan,
 
-The fix patch is available.
-https://git.kernel.org/pub/scm/linux/kernel/git/pdx86/platform-drivers-x86.git/commit/?h=for-next&id=4815f2e9494dc258c0d3a35e384ce41b92b690ea
-Today's PDx86 snapshot should be good AFAICS.
+Thanks for this patch.
+
+On Tue, 10 Nov 2026 06:14:20 +0000,
+Dan Carpenter <dan@cryspen.com> wrote:
+> 
+> The shadow stage-2 can map one of the L1's stage-2 blocks with several
+> smaller leaves.  This happens when the host backs the memory with
+> smaller pages, when the memslot is dirty logging, or when the L1 block
+> size falls between two host block sizes.
+> 
+> When the L1 invalidates part of such a block, handle_ripas2e1is() only
+> unmaps the requested range, so the shadow leaves for the rest of the
+> block stay valid.  A TLBI must remove every TLB entry for a block it
+> touches, including the parts outside the range.  The L1 does not need
+> to issue another TLBI before reusing the rest of the block, so the L2
+> can still reach those pages through the stale shadow entries.
+> 
+> Use compute_tlb_inval_range() in s2_mmu_unmap_range() to find the L1
+> block size, the same as the IPAS2E1 path does, and widen the range to
+> whole L1 blocks.  The other caller, handle_vmalls12e1is(), unmaps the
+> whole IPA space, so the widening does not change anything there.
+> 
+> This only affects nested virtualization: the host must be booted with
+> kvm-arm.mode=nested and the VM must be given a virtual EL2.  In such a
+> VM it breaks the isolation that the L1 hypervisor provides.  An L2 can
+> keep reading and writing pages that the L1 has taken back and reused,
+> either for itself or for another L2.  The host, other VMs and VMs
+> without nested virtualization are not affected, because the shadow
+> stage-2 only maps the L1 VM's own memory.
+> 
+> Fixes: 5d476ca57d7d ("KVM: arm64: nv: Add handling of range-based TLBI operations")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Dan Carpenter <dan@cryspen.com>
+> ---
+> This is part of our formal analysis work at Pereq.  I'm not super
+> familiar with this code.  Claude wrote a self test that I used to
+> test, but it's crap and not worth preserving.
+
+Is there any chance you could get Claude to decrapify the self-test?
+This is the sort of things that would be very valuable to have in our
+toolbox.
+
+> 
+> I also considered widening the range in handle_ripas2e1is().  We would
+> need to use the largest block size in that scenario and it seemed like
+> it might hurt performance.
+
+It would probably result in over-invalidation, and only benefit guests
+that play terrible games (multiple S2s tagged with the same VMID).
+We're better off just computing the correct range for the given MMU
+context as you are doing here.
+
+> 
+>  arch/arm64/kvm/sys_regs.c | 13 ++++++++++++++--
+>  1 file changed, 12 insertions(+), 1 deletions(-)
+> 
+> diff --git a/arch/arm64/kvm/sys_regs.c b/arch/arm64/kvm/sys_regs.c
+> index 3d3f4eb82fbd..e1a687dfeea7 100644
+> --- a/arch/arm64/kvm/sys_regs.c
+> +++ b/arch/arm64/kvm/sys_regs.c
+> @@ -4116,6 +4116,17 @@ union tlbi_info {
+>  static void s2_mmu_unmap_range(struct kvm_s2_mmu *mmu,
+>  			       const union tlbi_info *info)
+>  {
+> +	u64 start = info->range.start;
+> +	u64 end = start + info->range.size;
+> +
+> +	/*
+> +	 * An L1 stage-2 block may be held in the shadow S2 as several smaller
+> +	 * leaves, and R_TVTYQ requires the TLBI to invalidate all of them, so
+> +	 * widen each end of the range to the L1 block containing it.
+> +	 */
+> +	start = ALIGN_DOWN(start, compute_tlb_inval_range(mmu, start >> 12));
+> +	end = ALIGN(end, compute_tlb_inval_range(mmu, (end - 1) >> 12));
+> +
+>  	/*
+>  	 * The unmap operation is allowed to drop the MMU lock and block, which
+>  	 * means that @mmu could be used for a different context than the one
+> @@ -4139,7 +4150,7 @@ static void s2_mmu_unmap_range(struct kvm_s2_mmu *mmu,
+>  	 * the L1 needs to put its stage-2 in a consistent state before doing
+>  	 * the TLBI.
+>  	 */
+> -	kvm_stage2_unmap_range(mmu, info->range.start, info->range.size, true);
+> +	kvm_stage2_unmap_range(mmu, start, end - start, true);
+>  }
+>  
+>  static bool handle_vmalls12e1is(struct kvm_vcpu *vcpu, struct sys_reg_params *p,
+
+The only snag here is that we end-up with two extra walks for the
+(pretty common) TLBI VMALLS12E1* case (which by definition covers the
+whole IPA space). I don't think I'll lose any sleep over it, but it
+may come back to bite us at a later point.
+
+In any case, I'll queue this.
+
+Thanks,
+
+	M.
 
 -- 
-With Best Regards,
-Andy Shevchenko
-
-
+Without deviation from the norm, progress is not possible.
