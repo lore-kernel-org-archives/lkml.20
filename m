@@ -1,98 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.38
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794361100;
-	b=WaBvNkyWCDlJ1WHDLbEf+qflNwwQgZNdKf3AMJGm/uVMd55W9qx9TGMKLp0rZuy+xirN
-	 08aS3nyIjgHfe6R5XdIRTOEofkYfBBLu/uxNAL3c/Q5bJHyXShmi8Ah3lF0qao/edlQFe
-	 Md6OfBwI7l1usrlka95AbiBCdhPqUqs4lahqpBE1XT9nLc8lFTrM8dXHYiaM3vWhRUMEm
-	 Z9u7DKF3odTQbqQXrGBFCiuzNhoDwSp4dvvKhHLDasXdgfd8Lmcns0DXHezlakH0XkhoZ
-	 gx3zUEXh8tIh+2m4H6VFJLMEoRGol1u5wexb1R3TJHscKfn+lzpeJ65Uixvmjr59f8g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794361100;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:
-	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=INzt2kvc53lQnTIy/JzhsnHZB5hpdtEpI9sDgB1ns8M=;
-	b=vFu9FEidbmrgbETmeyrgfix+R5/e66aVlipAfjKmA9KW7cE4cBtBEc3awItN3QXtBhTz
-	 9eGVmFGVJLPfdbqosC4438j0sTePbgI6+/+wpfcjlDkee6gsqNNbe2LT3HMPCoH6feW3y
-	 67DtuSojSecKSCCUg2oak5Sd85exUoofCBE0v91Y/zTVlQrCCm3ws95HQZiRGwc3ElLn7
-	 dNDKA21Lc71GVeHgI1O5iHyq6FZMkDeI14X/GMWgBVesi2Tr8I5xSxF5kmLxR3+nt6x8B
-	 Gi2dNjfcDNjK4KIv0rg6fvIfDn3ndITNtUzTQToKmJf8+6Axx+xaoZmbQFxjoDQABjA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=cCIAJCkH;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.38
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012038.outbound.protection.outlook.com [40.93.195.38])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794361141;
+	b=p7aGTOxTl+90Asw/9AGk+SvxqdEv13KCACzUELtt4whIYyQihTtlZy02eCDNtw1Pxvng
+	 dph4m3dc7DmTWi5VnFGMe62SXKGzeuMWYfz5TpvlTB+9qHob+iTDAjl8csVyWED/hO93Z
+	 X5/uesLYQZbr+Owrqt4vI7ceD0S66hbF3F3CuD1es3z68kLDSDVRQ+MH/jwTOVpikd+mU
+	 I64GC345X8c64BlNkOKlqcnfFVWnRpKjwSIZ01ljTdZ79EyJlHoLnYjxq6W3VAAx97LoN
+	 m6u2fbjVf3lbfhPeIaG5Rc2zCZcN71G0Sx2Dz8VJ31RUenKErxACTxJnydNyGikIbFA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794361141;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 MIME-Version:Content-Type:Content-Disposition;
+	bh=YN32uCiQtqq9aFcjtm+9jPqhd3Nau3hVhZJ0Lm2Cc7E=;
+	b=CxA3pvtUiAaQ6FEy5+CLkBIuHVs1vdiU/FDRLPb4tOCgtDlQzJcF6wxY1zSYMpIBpo9H
+	 e0lQjsIiMXgycQMycEvJP40QEq9vcYSavfni6mks3lMcwAUPqAFBhMtcLDWQW3G2x5/Xd
+	 XJy3BJX0QJcetXqbTLl4MbFxsF/2I6tWTt0hUKpjS0JuHuEhzDMpuCRt+bDt2SLtNrBqB
+	 eZ46Glbv6gNNLG5ufY5BZegzWlLLUOJFOIAqkJ7nRsMckLr6ECEiA3+NOf2XVhoN7ek34
+	 3UDpwJqJXCPWHynKm8arypbD/yq5e1+xGapEat4NdPbt6hXZgSWEuqYgUYCjogLi4Xg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hGsQ7bJ2;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6F11606A320
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 01:38:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D6F11606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9B4C606A31C;
+	Wed, 11 Nov 2026 01:39:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=cCIAJCkH
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ZSjUloYKaiyE9Iii19J3O5wonQBqz0YH/tVAWw3PvY2Zh41n8R15jTNRGpyuQJoY9d3IZBTRs3vXsqeO/818mNVE/TZFXXUzjO5iwlBdIubMHosuicxRbd6O7yOmk9aRNFiDtckpVOS2UfOpO1Q6gemrDI1WzdpSmB1iH70MpbtkkSE3raHcZBa4AWnGopXadYzDFsoOkTo82PlGTwvPtsHI1s864a9Zku4jwErhLDHez9NXYpUjwabo4VPC3hZawGysZG35Qd0t5umESGneoC+9MIxeB6V3jaGHNw3S9cJ0LPJIteTkDyn4RhOfm7GRpzTYlYnQUm28MYtiL9YfWQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=INzt2kvc53lQnTIy/JzhsnHZB5hpdtEpI9sDgB1ns8M=;
- b=KdwobGTzEGWvjOU71wVxi64/T2rAMUEAveKDwE3uFQZvQuQtNz009/goWQZpvwocWSAVADsDyfalhupWv/TNg916GQnlEypE9iWK3kGJbKGcQGD5me3b94r6XncUxQK2dYuhsdI7edyucAkdIe9sSSvS918yQeSjdWbfpOBMXSlp4nQmL+y25dC2Oa/TF74nmaNRN2Vo1wWLhuwV9hjYSiCWRcuG1C38ooXgH/CPfltMaowdNZeM+BaS/k+/nHi5x6dNyYo3b0aauGmWY5u4zKmaSq2bGOmxuWFOKnrU7+1kD2fntpRFD01gICBuSGMI5trdJmB0tBMZ91bqOd594g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=INzt2kvc53lQnTIy/JzhsnHZB5hpdtEpI9sDgB1ns8M=;
- b=cCIAJCkH62qUvs3/n3jzc52Tqneo4Bbl/+hZpjRE6696xOMN0iHckgRWgoQZpOkWizKqwNWXkyQL7tRvN4gS5Br2o4BLxe8/iLnhMWGIYlsHi/MI0Scy9tADJ5X2yJzmDD3UIoAPD8LlwJWMkaNn+5ratDrKu0lfFjHjPPBKXynviYws7oFSPGnHvUDgcaeWQSfiE5OqbGiQDTYLtC/QbEtg72Ed2Dzz11SAmfxCxE/TcOjfG57dykrlqvNo4gId/EQDH6/KkiEC09ZF/kUX8OuxNxHxIhpglghNOdS+0tzCnuTSeIU7ruJslEVUxBh8UX8boz2VOoCPcD1yAOmvgA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
- IA3PR12MB243666.namprd12.prod.outlook.com (2603:10b6:208:712::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Wed, 11 Nov
- 2026 01:38:17 +0000
-Received: from DS0PR12MB6413.namprd12.prod.outlook.com
- ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
- ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0592.010; Wed, 11 Nov 2026
- 01:38:17 +0000
-From: Eliot Courtney <ecourtney@nvidia.com>
-Date: Wed, 11 Nov 2026 10:37:35 +0900
-Subject: [PATCH 2/2] gpu: nova-core: gsp: cmdq: increase MSGQ_NUM_PAGES to
- 64
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261111-msgq-64-pages-v1-2-d8c56b6fdd6c@nvidia.com>
-References: <20261111-msgq-64-pages-v1-0-d8c56b6fdd6c@nvidia.com>
-In-Reply-To: <20261111-msgq-64-pages-v1-0-d8c56b6fdd6c@nvidia.com>
-To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Alexandre Courbot <acourbot@nvidia.com>
-Cc: John Hubbard <jhubbard@nvidia.com>, 
- Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, 
- nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Eliot Courtney <ecourtney@nvidia.com>
-X-Mailer: b4 0.15.2
-X-ClientProxiedBy: TYCP286CA0336.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:38e::7) To DS0PR12MB6413.namprd12.prod.outlook.com
- (2603:10b6:8:ce::10)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hGsQ7bJ2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCB531F0093C;
+	Wed, 11 Nov 2026 01:39:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794361141;
+	bh=YN32uCiQtqq9aFcjtm+9jPqhd3Nau3hVhZJ0Lm2Cc7E=;
+	h=Date:From:To:Cc:Subject;
+	b=hGsQ7bJ2nEehftUdQDQiS1UAGwNwCCvWw4Q3+3OSV182sO4pvURYdwK7zmCdG68lv
+	 zA2Z+qXr8j1zJhndFo5cLn2EATNkk+5+6TXf9y2wT0hPsj/Hc3KhcllnmxKGk28j0a
+	 RANZSqrbLF7FA+2HTCNnTsqPCuCp5yGODauHAXbkwU1ivkKL0Wmp/FgyPIejxoTAvV
+	 hh3olRG1/3JNb5LcOzqzSkhqqRS5MQkixttxM3dihjrFCQhSgAv2N/RyWtXIH9U3v6
+	 T8xFj9sQNUJBtMHTeZMGxdx648/QjGey5xUQu3d3nqXMwVK4dKgHh6VkKkj+rflmS7
+	 TCw9hgEB02rLA==
+Date: Wed, 11 Nov 2026 01:38:58 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Linux Next Mailing List <linux-next@vger.kernel.org>
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+Subject: linux-next: Tree for Nov 10
+Message-ID: <avPHMuq_SfegVdhe@sirena.org.uk>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,116 +54,95 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|IA3PR12MB243666:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0bb8e4fe-0684-48b0-d7c2-08df3f9475a8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|10070799003|1800799024|23010399003|376014|11063799006|56012099006|18002099003|22082099003|3023799007|261022105027099003|10067099003|261102123227099003|261021135927099003|261028144727099003|261026140227099003|261026121527099003|261021123027099003|261021121427099003|261009223027099003;
-X-Microsoft-Antispam-Message-Info:
-	Tsa/yKImkt9RjndZCjqk6+7Xz6bX+9388mLAm3SuyMtiU20NquXwHscKxcCZ8Ot+BqejSNaFL0WtlYxmHMSheDsHp219PiJOZeqr+MSfChG2yxIMMWni/PrnSSCyI8vEpEgvXk4gkyYPwBYQeQQ/A1e7mIug3zvJm9WN14t5uua6GqWMmAqoM+wWIqGc/tznJf6IIEKqaIecsVyvZQobXroCXA2avTUHJkTEvmIlskWd9zqOpPnnfMRnZSKHMiqx2ZntvLl72juQVwaLU4bwqO/8Kf8unrJVXE61d9iTaZPYa7/RDF7nv4rXTqHqLLWHgCBKcoIiVn91KdUV+j8qzzmLKqbMIBZ1Wgc2Z/GVxloN0og5iUC9HIw+PaF0Tib0HkMp/Buzs2MT+AvZXg7MbjP8ChwAQBbo9DiYd2QJjYFVH+sj6APMqlbx4VmfQ1oHKO2cJkyEwjS2i0IyDmkDBIEIp7OS/oE5ccpl3b5/seQyoPhV05y1CexScztHgrFWOI1cYCl6hWK1D/YL1vCm+KzjYN8Nqfw7Wb2SvshHtm0DjPBfIdXCx8gNCwofkcXNBqvG+1CeP5F6qAkPu2L2T37vBpK7E0C5CVGMi8fWfyZGSqehUxmzea169EDUxPRBmcdR000RhJDz1kEkqdXWfw83J4nxAn3c7uMihzhzitM=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB6413.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(10070799003)(1800799024)(23010399003)(376014)(11063799006)(56012099006)(18002099003)(22082099003)(3023799007)(261022105027099003)(10067099003)(261102123227099003)(261021135927099003)(261028144727099003)(261026140227099003)(261026121527099003)(261021123027099003)(261021121427099003)(261009223027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Rlc0YTVCbVZBTXBSTHV0MmFPOEFSczl3Tmg5RWVqU1ZPVGlRT0FvQWF5Vlln?=
- =?utf-8?B?ZnhpVkdhS0UzdXVNeCtrQ29ML3BQbmQ5dFZzcjBqK3hBd20zMzZ2aGZKYmpR?=
- =?utf-8?B?Y3NsQ2w4a3VsU2d2UVZUc3NvMnRKUzNEbU42UVJpSStQQzRnL2JIemJaYjQr?=
- =?utf-8?B?Yi82Z2lScFhKQnVrb1FVT0VtdXlrbFFVVitSbzJDYTBmYzdtUDJPV1RoVVpy?=
- =?utf-8?B?T2pLSkl1RGZIaFFmZksxZllSK3FXYUN5MnlWNk1qUkZzd28wUnBrRnNPUW1W?=
- =?utf-8?B?MmVNei9XY2JsQlVRdDVxM1oxSDQxS1pPSlBiMHErOGExb0d4dDQ1QWl5bUFM?=
- =?utf-8?B?WkQ4K1g5WjN4cXE3Z3BTY2ZSM29qazA2dm1yL2dhUlEzeFBjN1gwc3EzS25I?=
- =?utf-8?B?LzY1bHJGczhvN29ZOFNMUTVodzUzcDJGSEVJZjFnNnozay9wSlN6R0RQWEp0?=
- =?utf-8?B?a0J2UGF3dnVDYXBXcmNWMUhZQlFjL1hxR090STFZZUp0UXB1NExWOHVnVkhy?=
- =?utf-8?B?MjVPQjlpcGVKNGs2VTJNS1pvNllFV1dqSHNvQjRLLzIxUXYzSnFaQlJIcHE1?=
- =?utf-8?B?Z3pSRXExaHVqdS8xR2hhMTdlcXpuK3o1V2ZHbnJHQW5oNUJGaTBvam8wa1Ra?=
- =?utf-8?B?bEtTMTZ5b3pCWDI2MnJsWHg1UGRkcjU4VWhnQ0hJbk9HRVg3ZG1DZHdQYnhY?=
- =?utf-8?B?RkR2aUM0WHlWUVVvdG9MSjJVMUpCUnM1ZGJsd0JlNTJrUDVBT2VEeGgvZTJ4?=
- =?utf-8?B?cVRJc2ZwcFVTcitqeTcvckZZaDhHTldHNlJVcWhaNG11ZVVtemJQOGNlSW9Q?=
- =?utf-8?B?Ukp5L0ZDb2czUkd6bEVKdHNPRWkyeG53d1kwWElMUXF0aTRDc0F5UldoVU1h?=
- =?utf-8?B?bWtPcUpmbG84T1EzOHkrTm80V3c5VXV6dm1lVCtiK092VG1MUGpXanhzTXN0?=
- =?utf-8?B?NFBwczlPc3JlYVJxaVJtaW1HUnhGSDFER1BBQVd3cVZ5OEhhVnN4ajF6dmZs?=
- =?utf-8?B?VEhqTjVPUGhsbllOWnhFcXFRR1Y5ZWZuRkNLSmgrWURPWmFzMjFPNEJubVFT?=
- =?utf-8?B?WG5qWlBDTG83QjFZd0hIWG9xTEpGV3U2VHFCTTBlRHAraE5nekpPaytyODk2?=
- =?utf-8?B?eDg4VlhOYnlJVUJ0WmNSa3BST0tiOEVqYk9DWUtxRjJTVFpBZzQ5blIwYjRS?=
- =?utf-8?B?aThOQ040OEYyV0pNUWR6RUMrbTN0T2xQcmJ1emlpNVNoanBmb3B2b3VvaUpK?=
- =?utf-8?B?RjVZd0pBS1cxS2Z1T242bExOUGF3UUJwREh4dXBDSXJNSXhUSDJEc2xjRm9R?=
- =?utf-8?B?cTY2SmFwbWlHVXN6SmlGajZKZlBVZmNpMG1UamNycVptSmZxUkNpK2dVSlBo?=
- =?utf-8?B?d3c5UWpUbHJXampzUnFSdVRjWkFYRzIydDMzb2NNMlUvdmtqQytDQmgxTi9w?=
- =?utf-8?B?OHdxQTNFeTR2cVhFVFhGV0FZVjV4NmcvMHNEZ2ZpcE1GK1V4YVhRWlFDajlU?=
- =?utf-8?B?YXFmSElyb0xUNUkydDZhVlgrSHRmcW1uVXFObzVQQUlvT3B0Q3Bidkkzb2h1?=
- =?utf-8?B?c1p3LzlnUXlUcHdCVFN5N2hZVlpEUlZYMEloaHFRUWM5VENqdHFkdzZFUnJT?=
- =?utf-8?B?aWxBM0JWUkJrSW1YUlNyK2U4WW1vZ1ZpU0x2cUpjT0lkWnUwM1BaS3diNDFz?=
- =?utf-8?B?bWszNnlZTlVLMHlnQzJMaTNzTWx4by9EelNTV2VhT2I2SVpQVGV6Y0FQSkJz?=
- =?utf-8?B?bVRkMEl3Nm0rOGY3cDQ3WVRFd0tGTlFwbXZFVS95UWtVS05WZnhXY2ZjclNp?=
- =?utf-8?B?NWZSaGFGRWMveDNVcEpmSGpFNks0aExpL2p2alRoSk5nTFZ1NTVmNG8yWENp?=
- =?utf-8?B?VSt3VGlMektuZEdJcXR2cXhqOVZBVmlMYitrVXRoTGhmT3Vic29DODZXOTBB?=
- =?utf-8?B?Y1F0QnZPU09wdWlQNTVXTldaZnloVlBWSXBBZGJVS2pyRzVRYi95VkdSbUZI?=
- =?utf-8?B?MTB6QVhCSzRSV2RmTGc5Y3BSTG1HNzNyOUFaYmVBN0ZuMmxsY0wzNUhldVlX?=
- =?utf-8?B?TFBnQSs2U2pvc0hiUERicWRpYWdIcDIrUkJQV0xMcm9jMWlNdkR5SWRsTWdx?=
- =?utf-8?B?M25STzJLRXcxZkpWU1ZmVHV3VVVac1BOcXJBOVgwVGtkT25MQzhBMVhRMC9O?=
- =?utf-8?B?V3h2M0dLOEJWWlllU25WdHh5eTJ1b0hnd1E1RFBmVi96MUxmZkxwTHVLcUV2?=
- =?utf-8?B?bU54a25vNklreW1MR252UER3a2l5Sk0yMVBSNHdSRFZEWERzejdrelhJK3VG?=
- =?utf-8?B?alMxekN0dnZnZnVQVnhzUzJVYU1yNUdJUlVaTHg1eWdGWU5ra1NGclRoTU5X?=
- =?utf-8?Q?27hOcUUVPollvr6wCXwvPslYB/QClAPkP9Uq5Mu78X3CI?=
-X-MS-Exchange-AntiSpam-MessageData-1: skKdNfaTEXHpQQ==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0bb8e4fe-0684-48b0-d7c2-08df3f9475a8
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 01:38:17.4352
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: rQiAYfBVipmWbWY5emeNwEzodkTEL1TgvoAYDSWNT66fUXngxD4nL9QRT52oSagqEsKqPVyj3UrxM1uBh9HuMQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA3PR12MB243666
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="m9R3FbLwzhyismd4"
+Content-Disposition: inline
 
-In the msgq v2 protocol, which the r000 firmware uses, the queue
-pointers are kept in u32 registers and increase monotonically until they
-wrap at 2^32.
 
-`MSGQ_NUM_PAGES` is currently 63 and does not divide 2^32. This means
-that on msgq v2, the slot can jump backwards when the counters wrap.
-For example:
+--m9R3FbLwzhyismd4
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-    (2^32 - 2) % 63 == 2
-    (2^32 - 1) % 63 == 3
-             0 % 63 == 0    (slot 0 instead of slot 4)
+Hi all,
 
-The writer can then overwrite slots before the reader has read them.
+Changes since 20261109:
 
-Increase `MSGQ_NUM_PAGES` to 64 and check at compile time that
-`MSGQ_NUM_PAGES` divides 2^32.
+The btrfs tree acquired a conflict with the btrfs-fixes tree.
 
-Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
----
- drivers/gpu/nova-core/gsp/cmdq.rs | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+The pmdomain-fixes tree acquired a build failure, I used the version
+=66rom next-20261109 instead.
 
-diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/gsp/cmdq.rs
-index 33074bb53e8c..240ab42db557 100644
---- a/drivers/gpu/nova-core/gsp/cmdq.rs
-+++ b/drivers/gpu/nova-core/gsp/cmdq.rs
-@@ -84,7 +84,15 @@ trait CommandElement {
- }
- 
- /// Number of GSP pages making the [`Msgq`].
--pub(crate) const MSGQ_NUM_PAGES: u32 = 0x3f;
-+pub(crate) const MSGQ_NUM_PAGES: u32 = 64;
-+
-+// From version 2 of the msgq protocol, the queue pointers increase
-+// monotonically in `u32` counters until they wrap. If `MSGQ_NUM_PAGES` does not
-+// divide `1 << 32`, then the slot, `counter % MSGQ_NUM_PAGES`, can jump
-+// backwards when wrapping, which could overwrite slots that still need to be
-+// read. So, require that the last counter value, `u32::MAX`, maps to the last
-+// slot.
-+static_assert!(u32::MAX % MSGQ_NUM_PAGES == MSGQ_NUM_PAGES - 1);
- 
- /// Circular buffer of a [`Msgq`].
- ///
+The tegra tree acquired multiple conflicts with the origin tree.
 
--- 
-2.56.0
+The clk tree acquired a conflict with the origin tree.
 
+The net-next tree acquired a conflict with the origin tree.
+
+The bpf-next tree acquired a conflict with the origin tree.
+
+The wireless-next tree acquired multiple conflicts with the wireless tree.
+
+The mm tree acquired a conflict with the mm-fixes tree.
+
+The pmdomain tree acquired a build failure, I used the version from
+next-20261109 instead.
+
+The amdgpu tree acquired substantial conflicts with the origin and
+amdgpu-fixes trees.
+
+The rcu tree acquired a conflict with the origin tree.
+
+The drivers-x86 tree acquired a build failure, I used the version from
+next-20261109 instead.
+
+Non-merge commits (relative to Linus' tree): 5254
+
+
+----------------------------------------------------------------------------
+
+I have created today's linux-next tree at
+https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
+(patches at https://www.kernel.org/pub/linux/kernel/next/ ).  If you
+are tracking the linux-next tree using git, you should not use "git pull"
+to do so as that will try to merge the new linux-next release with the
+old one.  You should use "git fetch" and checkout or reset to the new
+master.
+
+You can see which trees have been included by looking in the Next/Trees
+file in the source.  There is also the merge.log file in the Next
+directory.  Between each merge, the tree was built with a defconfig
+for arm64, an allmodconfig for x86_64, a multi_v7_defconfig for arm,
+an arm64 build of various kselftests, a KUnit build and run on arm64,
+and a native build of tools/perf.  After the final fixups (if any), I do
+an x86_64 modules_install followed by builds for x86_64 allnoconfig,
+arm64 allyesconfig, powerpc allnoconfig (32 and 64 bit),
+ppc44x_defconfig and pseries_le_defconfig and i386, s390, sparc and
+sparc64 defconfig and htmldocs.
+
+Below is a summary of the state of the merge.
+
+I am currently merging 436 trees (counting Linus' and 135 trees of bug
+fix patches pending for the current release).
+
+Stats about the size of the tree over time can be seen at
+http://neuling.org/linux-next-size.html .
+
+Thanks to Paul Gortmaker for triage and bug fixes.
+
+--m9R3FbLwzhyismd4
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrzxzEACgkQJNaLcl1U
+h9AGrAgAgmsObGbn5DBk6iPv81T8n7NY69myCbzHMAr2lQ/XG1zYmtxr9LNU9eis
+foxVLQEax4gc3sI3pvxdizW2oFU4DBoMaipw8XxgKsQiVfiMHjMVK4pE9+S5l1O2
+T9+RbSVdhYrI+whwFAWQgMRpPQmexAlAx0+IqHYOIxGsVddY8jNZRV1cH+OREsMT
+IdqmImxBxlwSlcTcnBz9JJTMvcm6UvZ1HgAnfop0Im3WpgLNWVZIXzKPjJjAU4jS
+xaJnFkWRaBm4GlEQXwUd+/Fy15ueIQG8pNosyX29RQvDm3wnchyIB1ByyKFNXnL2
+BpZQHm7E7w4mcv1hMGGg/Ay8NCYrtg==
+=EbrE
+-----END PGP SIGNATURE-----
+
+--m9R3FbLwzhyismd4--
