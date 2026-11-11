@@ -1,73 +1,115 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.159.188.251
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.8
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794439262;
-	b=XhLyC74orji4dISeN+ITuptgrluR/dV4QF/6//qYuNkL0FN5hXo2EgeAyy8SuZvikScp
-	 nmUIloEGFoutB+tzLfdVS5n0lepqt5prgFQRYnRLq526BEJbWPAS5r8fCwyGmW4H41VsI
-	 sMrABw//D/W9jQZdbINI101sRmzV6Ly69NgcCenl7mYUEQbZYaeZvIlTYm0UwvJsk0o/v
-	 4/VRHEMBlg4iw5vldrL0tABJZdhMlPyzFfYzNTWG4TAiNkQINNNw88PBy6jNJei/cH8xn
-	 /1axsbdrXlsJjWFwI+7RZc1fBbf0C9Zs7GXm24VqZV8Kt0DgbxHj3bCp6aZPEFNryfw==
+	t=1794439268;
+	b=GTwJ15ZKG6Sxp610EYYZRfAxw79I2ZzWQYIItBu25tyHLfHr8NWdf2jQRFN1XE9vi2qZ
+	 T0KzTUrTVfGIyT+N0it7XtbV0Jt/8KMHIgjR7sni0FvE71XJKZfw5cDefztnVpW7GCy3A
+	 WFI+TqwcGpa5gsV80hXPbF5RljNSPct4nQln1HJ6CgToh1fmhR+PRc7wK5jGZ8XYGrwHz
+	 gdM3MtL/LwGrwjyKQKef3+rm3wOuWsyg/bxeVDn7K1InkEr4NgvFY9M//Ow82VwLuWpIb
+	 IXq7T3G1b3tLwepT9PVDb70pIZ6rJF6FnPqhQbALKqT+DwqVwushqztff3pMgP2MvbA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794439262;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-Get-Message-Sender-Via:
-	 X-Authenticated-Sender:X-Source:X-Source-Args:X-Source-Dir;
-	bh=CEsjwLaNHkM5WLJ0P0t7rAQQhvHBPzyPeBDAleNn9vk=;
-	b=5GImqkmx+O+98/N2W3kZcTbyxHbCs19BmN6pBvbahSPoH7L+PFXWeAbT7xfKK+JZbR8d
-	 MtFjwm3bkaDk5eqUMvM70wWuDGgIjFCWKccAsCALV44mAIjLTAeRxENl7eotRALcpn6J4
-	 oLIKVz98k4aQWaAHE+yMlkZFRoPqtzhqk+nw9dohq/ZPZYaMiTOH+7CQ5d90+2JMj7UFH
-	 MYNqpgLVLh3Ypxt359YIObkFyJAmDhRMi7FGoTG6vZURJ0hPO2ktNd4VJjOKvfMgVM33f
-	 YS3tvsLhFrCvhWABgJqzDTjpd5z4DbPVEALI+9Syx6wOWWITp/VEGFC9WjYNJ4iEL5Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794439268;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
+	 In-Reply-To;
+	bh=F43DNKKfhUAoEAOcfO/HFf7w3xTwpvN1c5+q7kJ/AJQ=;
+	b=lscfQr02TWWL94xZGqupwUw2mfc8HRcOUYVdM9k457Z6gWApfmiJz9GZKmoGBu7kxUUU
+	 svfIedXtesyV1KGX3C09K3kezvyqS2MSIhU/niQZZySmQgp2cEf3Q5gwHTh6NHeNUYIel
+	 P9hu6R7pXGy3hUP/kQbpBgNWLBR4VyAKcG5kBYK6xk9L+USJF7/KPX88isBOclcvNYkEb
+	 Cxlz0VauF75EaoP+rB1X3YnvguNsunvS3nI9wqUdSwKU46vueqX0VBzr8tT6lD60yEBnS
+	 8ggYuk3Znj6voot9gVnB91w6EYNCx2nV7osdnZaD8kAuawIIgqugxcFeAE65/ZsD00w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.cyber.gouv.fr;
-	spf=pass smtp.mailfrom=oss.cyber.gouv.fr;
-	dkim=pass header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=DyGdmWmF;
-	arc=none smtp.remote-ip=51.159.188.251
-Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=O0ntajgG;
+	arc=none smtp.remote-ip=74.125.229.8
+Received: from mail-dy2-f8.google.com (mail-dy2-f8.google.com [74.125.229.8])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 101F2606A32A;
-	Wed, 11 Nov 2026 23:21:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 101F2606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E85360A3807
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 23:21:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9E85360A3807
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=DyGdmWmF
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
-	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
-	Reply-To:Sender:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=CEsjwLaNHkM5WLJ0P0t7rAQQhvHBPzyPeBDAleNn9vk=; b=DyGdmWmFOdrLP3dX7GJLySlDks
-	5+T63oMQa96rtEWTJWzG3c5PWTPd026p3ryhOvB0S/TDDalySdQ5HhQeHxSs1Ac0G6N3D5sb/My3m
-	kRpFXjVROYjAoKimO3N+K6RsNE6Z3UQjKsEjftlKShnMHnQcf+FkEs39ukQ3DCv6LbTiqgLJFdZjO
-	Tg/q/b2lGTJfMiNzNMOmNRbl+EGZ0aJIwabl42au4eQJu6UPikLklS2ebCYhNvRyFWV00eSx9vyAX
-	DKGZP5TFIZjnfkj41UrK7I20ZheCUKbP7uZVQsXzixu+ipxo0sod9A/iWwXRuVQsuyNwSvWYBqTy7
-	XJ02Ss6g==;
-Received: from [151.115.150.205] (port=46196 helo=gepetto..)
-	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
-	id 1xRHcj-0000000EP1N-0yEM;
-	Thu, 12 Nov 2026 00:20:59 +0100
-From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
-To: Steffen Klassert <steffen.klassert@secunet.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S. Miller" <davem@davemloft.net>,
-	David Ahern <dsahern@kernel.org>,
-	Ido Schimmel <idosch@nvidia.com>
-Cc: netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
-	stable@vger.kernel.org
-Subject: [PATCH net v5 2/2] xfrm: fix selector matching for IPv6 atomic fragments
-Date: Wed, 11 Nov 2026 23:18:53 +0000
-Message-ID: <20261111231853.2504833-4-Jeremy.Jean@oss.cyber.gouv.fr>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261111231853.2504833-2-Jeremy.Jean@oss.cyber.gouv.fr>
-References: <20261111231853.2504833-2-Jeremy.Jean@oss.cyber.gouv.fr>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=O0ntajgG
+Received: by mail-dy2-f8.google.com with SMTP id 5a478bee46e88-36a6ce64b95so2171576eec.1
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 15:21:07 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794439267; x=1795044067; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=F43DNKKfhUAoEAOcfO/HFf7w3xTwpvN1c5+q7kJ/AJQ=;
+        b=O0ntajgGNrfKFATlaSWgSLejjNVQgDjxhVsVSDttqGtq5aviS683LBngKpx4uv3XAj
+         dDXGAMnqhsJSWt+XdWei6LCeTtI0eQn5Nl+kVt5xLA7YMoToNjUv3RXoZQnXBzmCAAon
+         58HWQLnHa7Grvb7KMRM3cEQbiFQWgxyWzConOroVYW5bzGieZJD/P3DhTxaoXAjODtdB
+         g8pGGYhCkd+NRGJqXJU/6bLHnDl0nv1mZ9iVzHlkbKadEUNRBQGHmA6oJ1OCXi/IwLID
+         e7Vg3qQ2RpyRtzo25N8hBpRXogew+6Y7BNCYMMxSdgjwXmY/3cPgCHBTPC3v80B5QRTi
+         7uyw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794439267; x=1795044067;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=F43DNKKfhUAoEAOcfO/HFf7w3xTwpvN1c5+q7kJ/AJQ=;
+        b=HkMi/VINBdFPXhjUNhRwY0DPKRqlIaTuY8kSX/QAbI9hBRAmw3HxyCYYFjajVcJCUy
+         iw91MtEL7/1GXGra9SzpCYqxp3D8PoT8y8/VtRJIP9GL3d93hFIJ1n+gn8IJWAWwDd+i
+         CCp/DqcS5mBSflu/DUtLKZoRvrm8F5pxTRDYSsEfLpt6tTOCXwR8Uk56hpGIJbBffJKX
+         tujv2f8s167SaFPm6SKtBO8/fIVL38eoHib9A1a/otN11KVdkGTkmpX5Yoz2LzONyYfn
+         pPcd5cX4xTXNuhhB0QOAt1iBDJJbGV/iQ+IVrWgo5FOy7Rml8t1xz0MN2waxWaJUC5hK
+         1grA==
+X-Forwarded-Encrypted: i=1; AL+hErG2GkZ4OS7JLqokzGBLeLBiHO5Gjo1RIgbEfve6BejAR2zf23pk4fsLgilR3abXJ0UEEZn3CNF6NAROYSg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9U3egtwKUusuYW9OUpR0C4aEArXknHQYaUBDfW1DmCEt7b1gF6
+	uWcsyBXvenGZzWsRfdqUHHHp8jP5lm9PWSrqXsA7pCQQjAOi9Nz5KMuX
+X-Gm-Gg: AYBFou00ge/qXw71rzc2/C2veBT3Z8FmabfY1atsMB+0s/+vAJKjO0AbBGCT0icruuG
+	NuuH6MioSBmwOTUFzvxwGFFynt7ciiRvcyTEa6MMy0hZlQZ8wkhM/lZ4rwBLaKffVZan6aN6gFl
+	W57KG6SNtp65O+HFkikQcv0cpnYE2zuOvtX0PTrUYz98bXG9JULHrJ4/r81+piKh7cj96by9n91
+	V4yBz9RsWr1LgOdCJUSo6bxULpZ8d5N2zOunbjx1ASn3brKf1B8MqVnr64WY3sRQ4zmHjK5kw9U
+	O+Fjg26/gOM5rfhG+zjsJzNlKqAg71OfnriHs3JmNYx+/Fuztg8D61JvOe3aghPMGbTl9skL//M
+	ZNaXo4s9fWNRY6uQkiaoxmGgx96W5UUhTE4Uh6+v6mBfOlYNOm1P99IsFRvEjMQ77HhFpcLwJ+n
+	kBUBOYp8pXimPPv6HjaWrCTEEElWyaVVK9jrTjybnacSYbTLtofP7AblevD/Pd4TwTjDML3ZLd5
+	8LOgQc/Y8hEZ+QLLPZA34FeJh+HYk4fRPzciO1GbkS8v4z10t8xtdeFjPZKT8QoilJa4HVIIpev
+	L4LYTUy9rdB7NCtafht7auvrv9K68CxupOTc31ks23PCaQ==
+X-Received: by 2002:a05:7300:6dac:b0:36f:4981:da16 with SMTP id 5a478bee46e88-37686754f0cmr6158044eec.25.1794439265724;
+        Wed, 11 Nov 2026 15:21:05 -0800 (PST)
+Received: from localhost ([2a03:2880:9ff:72::])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3752060899asm19142236eec.11.2026.11.11.15.21.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 15:21:05 -0800 (PST)
+Date: Wed, 11 Nov 2026 15:13:02 -0800
+From: Stanislav Fomichev <sdf.kernel@gmail.com>
+To: =?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>
+Cc: Magnus Karlsson <magnus.karlsson@intel.com>, 
+	Maciej Fijalkowski <maciej.fijalkowski@intel.com>, Stanislav Fomichev <sdf@fomichev.me>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Randy Dunlap <rdunlap@infradead.org>, Alexander Duyck <alexanderduyck@fb.com>, kernel-team@meta.com, 
+	Andrew Lunn <andrew+netdev@lunn.ch>, Jesper Dangaard Brouer <hawk@kernel.org>, 
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Alexei Starovoitov <ast@kernel.org>, 
+	Daniel Borkmann <daniel@iogearbox.net>, John Fastabend <john.fastabend@gmail.com>, 
+	Pavel Begunkov <asml.silence@gmail.com>, Jens Axboe <axboe@kernel.dk>, 
+	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Martin KaFai Lau <martin.lau@linux.dev>, 
+	Song Liu <song@kernel.org>, Yonghong Song <yonghong.song@linux.dev>, 
+	Jiri Olsa <jolsa@kernel.org>, Emil Tsalapatis <emil@etsalapatis.com>, 
+	Ihor Solodrai <ihor.solodrai@linux.dev>, netdev@vger.kernel.org, bpf@vger.kernel.org, 
+	io-uring@vger.kernel.org, Mina Almasry <almasrymina@google.com>, 
+	"Mike Marciniszyn (Meta)" <mike.marciniszyn@gmail.com>, Weiming Shi <bestswngs@gmail.com>, 
+	Nikolay Aleksandrov <razor@blackwall.org>, David Wei <dw@davidwei.uk>, 
+	Alexander Lobakin <aleksander.lobakin@intel.com>, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Stuart Clark <stuclar@meta.com>
+Subject: Re: [PATCH net-next v1 06/11] page_pool: Coordinate refill with
+ memory providers
+Message-ID: <avT2Fj5qjbJkArpg@devvm16445.scu0.facebook.com>
+References: <20261110102039.1002605-1-bjorn@kernel.org>
+ <20261110102039.1002605-7-bjorn@kernel.org>
+ <avOtxBw_grmuDJae@devvm16445.scu0.facebook.com>
+ <87tslnrwgt.fsf@all.your.base.are.belong.to.us>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,137 +119,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
-X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
-X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
+In-Reply-To: <87tslnrwgt.fsf@all.your.base.are.belong.to.us>
 
-IPv6 atomic fragments contain a complete packet, but XFRM leaves the
-port, ICMPv6 and GRE selector fields unset. Plaintext can then miss a
-matching policy.
+On 11/11, Björn Töpel wrote:
+> Stanislav Fomichev <sdf.kernel@gmail.com> writes:
+> 
+> > On 11/10, Björn Töpel wrote:
+> 
+> >> diff --git a/include/net/netdev_rx_queue.h b/include/net/netdev_rx_queue.h
+> >> index 989120cbf452..ca12cbf7b825 100644
+> >> --- a/include/net/netdev_rx_queue.h
+> >> +++ b/include/net/netdev_rx_queue.h
+> >> @@ -33,6 +33,12 @@ struct netdev_rx_queue {
+> >>  	struct pp_memory_provider_params mp_params;
+> >>  	/* stamps the page pools of each queue allocation */
+> >>  	u32				mp_gen;
+> >> +	/* NAPI of the running queue, for memory provider wakeups. Set while
+> >> +	 * mp_armed, and if the provider has a refill_done op. Written under
+> >> +	 * the ops lock, read under RCU, see netif_mp_wake().
+> >> +	 */
+> >> +	struct napi_struct __rcu	*mp_napi;
+> >> +	bool				mp_armed;
+> >
+> > The comment should explain why mp_napi != napi? (I do not understand why)
+> 
+> Fair. It's the same NAPI, with other rules. napi is the driver's
+> association: read under the ops lock, and not cleared when the NAPI is
+> deleted. Provider wakeups run without that lock, from socket syscalls
+> and ->release_netmem().
+> 
+> mp_napi is an RCU copy, set only while the device is up and the queue
+> isn't restarting, for providers with ->refill_done(). netif_napi_del()
+> clears it before its grace period. Setting it also schedules the NAPI
+> once, which replays wakeups lost while the queue was stopped. I'll put
+> that in the comment.
 
-Have ipv6_find_hdr() mark non-atomic Fragment headers. Restore the fields
-only when every Fragment header is atomic. Use its offset when the
-transport header is before skb->data. Read with skb_header_pointer() so
-decoding does not pull or reallocate the skb.
-
-Fixes: 7e3a42a12c4b ("xfrm6: handling fragment")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
----
- include/net/ipv6.h      |  1 +
- net/ipv6/exthdrs_core.c | 25 +++++++++++++------------
- net/xfrm/xfrm_policy.c  | 19 ++++++++++++++++++-
- 3 files changed, 32 insertions(+), 13 deletions(-)
-
-diff --git a/include/net/ipv6.h b/include/net/ipv6.h
-index 3de07e738538..10785721b013 100644
---- a/include/net/ipv6.h
-+++ b/include/net/ipv6.h
-@@ -1110,6 +1110,7 @@ enum {
- 	IP6_FH_F_FRAG		= (1 << 0),
- 	IP6_FH_F_AUTH		= (1 << 1),
- 	IP6_FH_F_SKIP_RH	= (1 << 2),
-+	IP6_FH_F_NON_ATOMIC	= (1 << 3),
- };
- 
- /* find specified header and get offset to it */
-diff --git a/net/ipv6/exthdrs_core.c b/net/ipv6/exthdrs_core.c
-index 4a9748338cf4..f00c28ce2f1e 100644
---- a/net/ipv6/exthdrs_core.c
-+++ b/net/ipv6/exthdrs_core.c
-@@ -183,7 +183,8 @@ EXPORT_SYMBOL_GPL(ipv6_find_tlv);
-  * isn't NULL.
-  *
-  * if flags is not NULL and it's a fragment, then the frag flag
-- * IP6_FH_F_FRAG will be set. If it's an AH header, the
-+ * IP6_FH_F_FRAG will be set. IP6_FH_F_NON_ATOMIC will be set for a
-+ * non-atomic Fragment header. If it's an AH header, the
-  * IP6_FH_F_AUTH flag is set and target < 0, then this function will
-  * stop at the AH header. If IP6_FH_F_SKIP_RH flag was passed, then this
-  * function will skip all those routing headers, where segements_left was 0.
-@@ -191,23 +192,20 @@ EXPORT_SYMBOL_GPL(ipv6_find_tlv);
- int ipv6_find_hdr(const struct sk_buff *skb, unsigned int *offset,
- 		  int target, unsigned short *fragoff, int *flags)
- {
--	unsigned int start = skb_network_offset(skb) + sizeof(struct ipv6hdr);
--	u8 nexthdr = ipv6_hdr(skb)->nexthdr;
-+	unsigned int start = *offset ?: skb_network_offset(skb);
-+	struct ipv6hdr _ip6, *ip6;
- 	int exthdr_cnt = 0;
-+	u8 nexthdr;
- 	bool found;
- 
- 	if (fragoff)
- 		*fragoff = 0;
- 
--	if (*offset) {
--		struct ipv6hdr _ip6, *ip6;
--
--		ip6 = skb_header_pointer(skb, *offset, sizeof(_ip6), &_ip6);
--		if (!ip6 || (ip6->version != 6))
--			return -EBADMSG;
--		start = *offset + sizeof(struct ipv6hdr);
--		nexthdr = ip6->nexthdr;
--	}
-+	ip6 = skb_header_pointer(skb, start, sizeof(_ip6), &_ip6);
-+	if (!ip6 || (*offset && ip6->version != 6))
-+		return -EBADMSG;
-+	nexthdr = ip6->nexthdr;
-+	start += sizeof(struct ipv6hdr);
- 
- 	do {
- 		struct ipv6_opt_hdr _hdr, *hp;
-@@ -254,6 +252,9 @@ int ipv6_find_hdr(const struct sk_buff *skb, unsigned int *offset,
- 			if (!fp)
- 				return -EBADMSG;
- 
-+			if (flags && (*fp & htons(IP6_OFFSET | IP6_MF)))
-+				*flags |= IP6_FH_F_NON_ATOMIC;
-+
- 			_frag_off = ntohs(*fp) & ~0x7;
- 			if (_frag_off) {
- 				if (target < 0 &&
-diff --git a/net/xfrm/xfrm_policy.c b/net/xfrm/xfrm_policy.c
-index bda5100c9fdb..e551af50da5f 100644
---- a/net/xfrm/xfrm_policy.c
-+++ b/net/xfrm/xfrm_policy.c
-@@ -3526,9 +3526,26 @@ int __xfrm_decode_session(struct net *net, struct sk_buff *skb, struct flowi *fl
- 		decode_session4(&flkeys, fl, reverse);
- 		break;
- #if IS_ENABLED(CONFIG_IPV6)
--	case AF_INET6:
-+	case AF_INET6: {
-+		unsigned int offset = 0;
-+		int thoff = flkeys.control.thoff;
-+		int fh_flags = 0;
-+
-+		if ((flkeys.control.flags & FLOW_DIS_IS_FRAGMENT) &&
-+		    ipv6_find_hdr(skb, &offset, -1, NULL, &fh_flags) >= 0 &&
-+		    (fh_flags & IP6_FH_F_FRAG) &&
-+		    !(fh_flags & IP6_FH_F_NON_ATOMIC)) {
-+			if (offset > U16_MAX)
-+				thoff = (int)offset;
-+			flkeys.control.flags &= ~FLOW_DIS_IS_FRAGMENT;
-+			flkeys.ports.ports = skb_flow_get_ports(skb,
-+								thoff,
-+								flkeys.basic.ip_proto,
-+								NULL, 0);
-+		}
- 		decode_session6(&flkeys, fl, reverse);
- 		break;
-+	}
- #endif
- 	default:
- 		return -EAFNOSUPPORT;
--- 
-2.47.3
-
+And all this only to make sure that we are not recycling something from
+the old pp into the new one? And reworking existing pointer to change/update
+its lifetime is not gonna do it?
