@@ -1,96 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.65
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794425890;
-	b=q0tnjPariBwLZiRhxx2eRYl1nsC6JqjB3mNeY281lXopwTQWWJAdfFPU9B7sqDoFTN7/
-	 D1AkZ4k8zcKd1qaV7GLcB9AlFMs0YJLr4GDn5uuxxMqoLKNFtsCGlCDK6d8s5uuFo8Uv0
-	 fRnX6M1jb6RxT5IFPUbfLhxVXbSME5bSxArqH5hMacNNgeZsytetzlHwV3yHuuml5yuDM
-	 sUSRiiSyFH+Jw9/twbewUok5Ws9bKAnC2kqPqRZBwqi9p5dJ0zwjH4q0wjs9UF2dhQXA4
-	 K5j32yKvryKiU7pJqsZCKh3Bcih+f+LH9g+mHLVT+JqDknvSFiVPEvqBlvhg8lZ+EDw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794425890;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=/9XY6Ur1XETOoVyIS37zXAqklRsqHJaMAWXZ+BRmw4Y=;
-	b=N1lMpaIWfnTXEzzVUVrrGV2qMN0LdJAm1PjBTRpn2bLgBx8g3fmvqCnD2Gbih0DiH4jQ
-	 1GRZAx3yRXR0ZRpI6OHamjJtNZvEmYsyO9Bt1WF+1CxSPCpIwCVZPfFZB8msPTqmYjhnr
-	 js1TrACuCXHkbNH6ysfz9JZvYBzENqCIBPGUrmLbQqrSB63ZI1mJCTt4SjmRLD+oU7dsy
-	 GV/XAYlTh/0ehaT1Y2bWU0x4ttZYtPKS2eGFE5pGm3oJS1V8/6jtUB+NoQ5fsTGnfFqLz
-	 S89RKD5YHPmvZC+eIsww6/l4vDJO4HrvtcYMR/mvH3ekAGt5u5pAhXgivG3rqpnsTRg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=CtTbxQq5;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.65
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011065.outbound.protection.outlook.com [40.107.130.65])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794425922;
+	b=YYwkmTkahY6gcu8GBzXL14GCDfatVkk9Ksdy3sJ3OmYOULE9P5E7Hr8cnD2an+qA99Yz
+	 KOACBO+1xD4ugxFGjyAkHW65Pub9ZeYvvmEzKH55/LC9WgwEtcdcYOVbZpxiNkRnkhjL9
+	 NnT/4nOgP/NF8jCjo0WsAar8feyyWM/SGhqPjmFMNIMJddjqPiJ/Ec2oEJXzyXfj6HstZ
+	 RWtK7zq83GWYs7rhMJk5XzJj1WpRxl4gvmLRTYFNx98zvd+VSyyDFkTkpD9j05haEdUQ5
+	 U8CMzR3C6oyVv/5aFI1vlbVQaPgfU30ghQsh7BYq38CyLUneM6ReNW+RijkgRMj/WVA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794425922;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=g92/il0bdnKLCyE4JgR9jwJFFOkgMpsOM/aOg+gnG7M=;
+	b=VJJQzQ82kSety5QamVn0Ft3kEJIzU9ITS7kbuleGWAjIos8gYI4TpphzDRw9GT6Zhc1p
+	 TZI11sWCQobyCJiG714/dqQ5x+Wwije82A4N2r0HlF9NDzFuHYTF2I0fC0/+53gqg2Eex
+	 WdB7LlvlFD1vbrlWEV4Icob1+HSvTaV4sl/7EHEwjFglu7Q2IncCaIv2IiwUt/io27anm
+	 aTPFz9f2BFR1E9KjPH5bIoh8BJVyxiqpYw2UnOsz18/xMvZf3RJjpuzNwnt6QL4Nj1Apt
+	 8vPC9kjOaKx1CyRa3q87P/3PNrWBk7V3QmK2jlrjXNZeHk5dBsc12ky6OarR/HQZPfA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=jlnPx7Ja;
+	arc=none smtp.remote-ip=198.137.202.133
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8278F606A324
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 19:38:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8278F606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCAF7606A31C;
+	Wed, 11 Nov 2026 19:38:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BCAF7606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=CtTbxQq5
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=MSy0e16TPLBbtUcgGLoc8I2TbxS1o+RaY3wd6Kvvuy6QRPNMsUpBfjXSzxRSX1La0/Zl9i1hc+Y6Jqb50HvDNTcpwwALAzuaGgDwJOsw3+YVdWjo2e2N0nfId1nQnUjy2Q6yEZSQCRCbdcWLyzP+4QBqhUJ6+Em/SBDBXqIkLb0j2EPU/uLXsdr5XP9iSd5o5vle0oowsYk1vMGtki/tc5kk3BjhOrKK+jj4aPxuSRadK2662OhCcWOy0B0nL5/wOOrLOJfT1ptqSbZ7/Lr3ZiPnWM7s05hg9bBxIGzNCYBVQ1y2WazCR4Yk8KNSii76LuDZFirgkvLc45t7DU7ORw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/9XY6Ur1XETOoVyIS37zXAqklRsqHJaMAWXZ+BRmw4Y=;
- b=HdjnaTxRnEPG+HN0M4Eoau1HZpUMlGew1/6FrBkyP5FN/FFUJkS5CjQAr535Q8UyFijUwBS+JCbhVybSPMWEYlnScKzMCDnhG4IjicFa81E/zPJtGNaNDQo8xpr19gio8rQEENnTC69ovERwlOIBbXDyHeWd1oEW69aVbg05ezyKWJLQz8Rd6FvZeDC04vbRak7cJjNX2lJZ4016nKThRFuq+2oG9Xk+O6Q5gZa/o0nuzUgRQ8n2aOyNQQfe/aB6yAZjccldfGTTAg9EHkuu/ZNiZVN3exWvi+PzpR8QdLfbI15zBlR7YYcj80l45I8Fgoqdu6V9OYjtPafw9sPfdA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/9XY6Ur1XETOoVyIS37zXAqklRsqHJaMAWXZ+BRmw4Y=;
- b=CtTbxQq5ZcQRWJUlf9FjfH15hIGg5dxDvVzwbLkqxaY5JPI6WQh8ITCyDrg18FaIEn1NxsY+CJEnjnb6/5FhYSSNxg5vLYdTJ95z0A8cU6kNCULalwzp4HwfzJ/Lli0OR4Dw46pgU9allnJXNQ+FcgjIG5iHhecVhKiL4YT9zhhX2O9ViR/1ej18OxisrTWpWW6sJ12SzLy8o0XdOnAdu8mTW/hDybc93fqktUU+MWJMfylYGXBZs5+FHifmN/CaEzmwGosm3hc3XWxfFOAla3uziK20JKakA58zV+K8ldGMC2B0fvOaqT2QJ7BgNbvLKlFC1Z+I+fb6rgn5o+8DzQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by DB4PR04MB11279.eurprd04.prod.outlook.com (2603:10a6:10:5e5::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.9; Wed, 11 Nov
- 2026 19:38:06 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0615.007; Wed, 11 Nov 2026
- 19:38:06 +0000
-Date: Wed, 11 Nov 2026 14:37:58 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Joshua Crofts <crofts@kernel.org>
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	Miquel Raynal <miquel.raynal@bootlin.com>,
-	linux-i3c@lists.infradead.org, linux-kernel@vger.kernel.org,
-	imx@lists.linux.dev
-Subject: Re: [PATCH 1/2] i3c: dw: remove redundant
- pm_runtime_dont_use_autosuspend() calls
-Message-ID: <avTEFqDZwy7nbaqH@lizhi-Precision-Tower-5810>
-References: <20261107-dont-use-autosuspend-i3c-v1-0-80a1546354ce@kernel.org>
- <20261107-dont-use-autosuspend-i3c-v1-1-80a1546354ce@kernel.org>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261107-dont-use-autosuspend-i3c-v1-1-80a1546354ce@kernel.org>
-X-ClientProxiedBy: PH8P220CA0049.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:510:2d9::18) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=jlnPx7Ja
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
+	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=g92/il0bdnKLCyE4JgR9jwJFFOkgMpsOM/aOg+gnG7M=; b=jlnPx7JaZTv+HkxBq4hFzcRKF1
+	FAVbB9IvYoTkS/H/wMxg4Nvwm1VRjtW+9weqlYODR6eU9oa0/Fdq8bNUWXFcv0dk1CDn/ZUE9jFPE
+	3X/uTHKZyngrWeRp0GUMXCUNBP+8Tmy6YRC3O/gGsBH6wjjV4A5vxloGfMZjMB06NanGMyWT/b/Hm
+	WG2aszi2qxEVY3M2rpHxIWKzsBG//vPU482sYIG3wA4VyTyxNtv7gE0YNAf8+fIyvJ6Tb0LmpWPkv
+	RbItdB4qvwJxM/XK4fra6J+MyKAFOP6kVXGuzmsq1dapLieF34ML/JHQ8SZI06fT22RA8CVh5uiBC
+	IRcSMjsw==;
+Received: from [38.23.173.23] (helo=localhost)
+	by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xRE9Y-00000007XP5-0ora;
+	Wed, 11 Nov 2026 19:38:40 +0000
+Date: Wed, 11 Nov 2026 14:38:38 -0500
+From: "Liam R. Howlett" <liam@infradead.org>
+To: Suren Baghdasaryan <surenb@google.com>
+Cc: david@kernel.org, akpm@linux-foundation.org, ljs@kernel.org, 
+	jannh@google.com, willy@infradead.org, paulmck@kernel.org, pfalcato@suse.de, 
+	usama.arif@linux.dev, vbabka@kernel.org, linux-fsdevel@vger.kernel.org, 
+	yi1.lai@intel.com, oe-lkp@lists.linux.dev, lkp@intel.com, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 1/1] selftests/proc: use RSS in /proc/pid/smaps_rollup
+ tearing tests
+Message-ID: <ltaxnwd2hiirbpsc6r3mj5z7hgjeebnm3e35iobd7algqiqhma@ycpdd427abrq>
+References: <20261104015447.363602-1-surenb@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,97 +68,282 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|DB4PR04MB11279:EE_
-X-MS-Office365-Filtering-Correlation-Id: 52c37970-363f-4895-2b73-08df402b4f0d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|19092799006|376014|23010399003|18002099003|22082099003|261009221727099003|261009221227099003|261009223327099003|261009223027099003|261009220027099003|56012099006|4143699003|11063799006|261102130727099003|261026121527099003|261022075727099003|261021123027099003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	+J+dnn0AGd2DuPftk33FuT20tXcOw9pSTJWrHT2S/uZN3btM3ROGt1pcLTWbVFEp5tTEhb6s1csUa9qfCgxKh3y7elPyULNN9MtTpI2GPFGyVehvB23wkkApFAduiTFEB4yBtdrAHCtvtO0609cXifYlVXVFsqVo6sbiLWuck0id8SDygd6qp6aflUVsWsJEe5pCqRTBmHeXMNDVH3N7KGFZUXQHKg6pKLjot04xYlSNfGCuQgN2lWVX8VbqtgZjvl3BdiSxwXR2434UP7iY2FjIWBzvJvnDZsTYrEP3KzU+Jwve10TMkKNbNQomWJoheTXNxAwUUtYXmflJGDNWMLh/HOcl/gJshrl9ub6maCNtGDAkOb8hlo/FsssaACwy3UvQEke3U7Y677yiCmQDyOiS6smbKfn3d3m+dt23yRMA+VzGd69XEZAK7aalsAkla2cm5r7a483oqoKIyoiH25zvmuLUbyEATPJCIjRWM0NdAGq16+7YV3W0Dw1tlwGPPjUqc0q9wq4aYn4Eu1VsIoQ8t84tvDG6AV/xu3SRpDMPLDHT9bMRQ7TUq5qTxrJeu7FMdfNJbOn1+e2zIFYsK0qMXuxyVdxx+9nnWhyeymuuJQ0OdN+vJmI5C96fx7cbFWlsQ6bjjFBcYHvXbqZk6SvaytXW3H0v+j1NnR+EHbA=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(19092799006)(376014)(23010399003)(18002099003)(22082099003)(261009221727099003)(261009221227099003)(261009223327099003)(261009223027099003)(261009220027099003)(56012099006)(4143699003)(11063799006)(261102130727099003)(261026121527099003)(261022075727099003)(261021123027099003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?NoKxSoptcWYhb3eDOLCdomj7np3ny97jEykfqO8jtq4cipDmS3wNEozPjVAl?=
- =?us-ascii?Q?4uHuzUf7xCrssDqz/COHUUtbA5/psO1Jv1CP+KAO1WjfD7PZj4HsYWdS4IsG?=
- =?us-ascii?Q?SJpYjLNZ5gc3CzFB3ShRjAmVUtVzuW5z+eFxqHDo5h6X+FZmi9oTMo12j/wY?=
- =?us-ascii?Q?r6sAgor+T6WhJjHMxLgTEIFxSlKzF40qyjIzIifx1WkfNpqsnqqNPNT7bmWB?=
- =?us-ascii?Q?cY0NnoRxhksyharp9xmWAnzc1C9A8ODaZTgkUwQOEiD6nFPBvc9OWJSabyST?=
- =?us-ascii?Q?5TaAuIjwsL0OIvE9bi8harbX0q/kf4EYjbEWmeGnN3qZ+yGpABLQ1+IJbRzg?=
- =?us-ascii?Q?NFpdpjQ0p7JlKZvTNsxdS1pt2G/zXcUKyWwccUR0pkH7JW/khqEQJd3JXyn3?=
- =?us-ascii?Q?fy9mL8cVVjlFuIeNjopb7Ape+qhAAiohBZ1l5sOUfKYvgGZ6Zv7Zj3LmmJTZ?=
- =?us-ascii?Q?P52hdKaND3DgP7IZ0rifE5SN2CJEAIMgY5DCZEXGlj+RnCq9VyMHKRAbyB1U?=
- =?us-ascii?Q?6n2NhpnlwpnMakg1vhycexMbVwsqnwPLXzjObYwmq6Dh4UfD8Fo52ISzvSTg?=
- =?us-ascii?Q?Iop8lVB8lUwExkRBpW1w/er11iX6c4OLDhzWOpXFZMgYIxwwePig+/SwOZcO?=
- =?us-ascii?Q?/L+tkDLBHIJ0z+tToseOl0W9K7u+xmfqJcUJRk6fCBebmf+YVxzwpKTMM7HT?=
- =?us-ascii?Q?/9xOm0ly5/2LFpRnhfY5bmPfuZ9yXX660BB3hw/fx5O59ocBmVcuh42ZxN1E?=
- =?us-ascii?Q?FSahJQb0Z5lQLli9nM0i9S3rukuXArOhd0OyNxWqsj9B/sYWkkyM7VVhWYg7?=
- =?us-ascii?Q?NzXnWZjGCgWywLHf6bGTxZ+MfvOL4xH5TWjOsnOtpSFrtN8XUdj1U5ds8Ux3?=
- =?us-ascii?Q?ST9g5rDWdzSppuEOTTTQI3TNU5iLj2eRolLy8m+VAl1pBfC8pmd+iEmWSUU7?=
- =?us-ascii?Q?CPGXJRZVvbpdVCAxy6xlGhH5owFFY8j43hW/f8cUyEDLwNvlHQdkIg8i1/On?=
- =?us-ascii?Q?veNK22BHElIXvcSEZPiV+SVFuE5KaAEuAk9P0d5epbaFYgV8Wa1gqgu39JJV?=
- =?us-ascii?Q?Y+IIuoeakNlA9VSIb1dQ/BJkoY1znUT0dk2dMpB2Tf6oINJ1DwBbvRW8hwiu?=
- =?us-ascii?Q?LpPKnLe5KMT2o3iqJVghpwTMwm6oX33nmHTjrRVuchBqbbI/jhpJcSs2MPyc?=
- =?us-ascii?Q?UXLWf1GwyZKzaJ2EDZSg9OpbDHc8wtswovO4TglsiGbg7ViTESnQsfASY1El?=
- =?us-ascii?Q?5s9UkSexIFEpfDCCSPxoFvRgbqgO/EBlWEF5RIqCyZ3M1yLKgzU1OnjmAgEv?=
- =?us-ascii?Q?UlN6TxheRGNHaRSmuPhdbH/zDUWltxKtLk1X2LHUJtEvGPrVW2bP8kdLeCFL?=
- =?us-ascii?Q?WVnsRASx9NcR/LBJn+3f+ETJ4dDVNW+wX9zosm6x5VuiLW6dHpkb91DfUWUV?=
- =?us-ascii?Q?kQVhdoISpjzVTwpxfB+2r9ZugSxXRKT56HkbLGXqxiamjLt1fnYMii1v7KBN?=
- =?us-ascii?Q?fIRJrv4v5ZteUtLwstIuiw40jE8IdbeagEZJfMgY/cpQl3iQeE0sPIlEYtn+?=
- =?us-ascii?Q?qe0r4ZWhrWV0UsdYzkglnObsOofUAS3Dd9G9HWA2HOUyTfg2gWAbuanAy2/R?=
- =?us-ascii?Q?8PCOcVnJG211cJo67dyTgtR11MCNbhuEDws8zz2/0VzO4lIji1gCQBqz5pf+?=
- =?us-ascii?Q?NPkr+X6Bms1d2QKh6Qk7QLPif0lXLrEP8klzMFMDzD9bXkeYg+QGsXsd4uWz?=
- =?us-ascii?Q?PokGMnBa3vOHwM002+H2bdV/aKK4CHXCCfRbNigPBHQitw3kz2Ax?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 52c37970-363f-4895-2b73-08df402b4f0d
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 19:38:06.6526
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: RhW6CfAyGajiWMZUqgBxtivLY0VC46Cfflrj6UraC/dME3BNlNhc+HGIudtjzcGn9EDoZFBrIcb0VQtsR6OBOyj/bDez6DOsN5Y977p6OevEl8eoncuOHJ/NuuydAkL5
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB4PR04MB11279
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261104015447.363602-1-surenb@google.com>
 
-On Sat, Nov 07, 2026 at 12:06:23PM +0100, Joshua Crofts wrote:
-> Since commit d1706f9da9f4 ("PM: runtime: call pm_runtime_dont_use_autosuspend() on reinit()"),
-> driver core is now responsible for undoing any
-> pm_runtime_use_autosuspend() calls on driver exit.
->
-> Remove the redundant function calls.
->
-> Signed-off-by: Joshua Crofts <crofts@kernel.org>
+On 26/11/03 05:54PM, Suren Baghdasaryan wrote:
+> Pss metrics can be affected by map count even if VMA tree stays unchanged,
+> therefore tests checking VMA tree integrity can't use them. Use Rss instead
+> and pre-populate the VMAs so that Rss changes if a VMA gets skipped or
+> double-counted.
+> 
+> To ensure all test VMAs are populated with anonymous pages, remain
+> mergeable across VMA operations, and do not have their Rss changed by
+> memory reclaim:
+> 
+> - Map and populate VMAs as writable so that MAP_POPULATE faults in
+>   anonymous pages rather than the shared zero page, which is not
+>   accounted in Rss. After mapping, toggle PROT_WRITE using mprotect()
+>   to make odd mappings read-only and prevent adjacent VMAs from merging.
+>   This is preferable to toggling PROT_EXEC as it keeps adjacent VMAs
+>   distinct regardless of READ_IMPLIES_EXEC. Supporting READ_IMPLIES_EXEC
+>   is important since it is set by default on pre-ARMv6 CPUs.
+> 
+> - Use mprotect() instead of mmap(..., MAP_FIXED) in split_vma() and
+>   merge_vma() so the first page of the split VMA stays resident.
+>   mprotect(..., PROT_NONE) splits the VMA without unmapping the first
+>   page (pte_present() remains true for PAGE_NONE PTEs), and
+>   mprotect(..., self->mod_info->prot) merges it back. Both parts of the
+>   split VMA retain their non-zero Rss.
+> 
+> - Lock all present pages in the child so memory pressure cannot reclaim
+>   pages and alter Rss during the test.
+> 
+> Exclude smaps_rollup checks from test_maps_tearing_from_remap since
+> mremap(..., MREMAP_DONTUNMAP) moves the last page of the VMA at
+> next_addr, changing Rss.
+> 
+> Introduce a vma_setup test stage, used by test_maps_tearing_from_remap
+> to munlock() next_addr once before remapping, so that
+> mremap(..., MREMAP_DONTUNMAP) does not split the VMA at next_addr.
+> Use mmap(..., MAP_FIXED) in patch_vma() to restore the whole three-page
+> destination after remapping, rather than replacing only its middle page
+> and relying on the remaining anonymous VMAs to merge.
+> 
+> Handle mlockall() failure and skip the tests in case locking violates
+> locked memory allowance.
+> 
+> Fixes: ca5480fb53fa ("selftests/proc: add /proc/pid/smaps_rollup tearing tests")
+> Reported-by: kernel test robot <yi1.lai@intel.com>
+> Closes: https://lore.kernel.org/oe-lkp/202610271934.fd287c3f-lkp@intel.com
+> Signed-off-by: Suren Baghdasaryan <surenb@google.com>
+
+Acked-by: Liam R. Howlett (Google) <liam@infradead.org>
+
 > ---
-
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
-
->  drivers/i3c/master/dw-i3c-master.c | 2 --
->  1 file changed, 2 deletions(-)
->
-> diff --git a/drivers/i3c/master/dw-i3c-master.c b/drivers/i3c/master/dw-i3c-master.c
-> index d1119f203d1b..f8fed797e0e4 100644
-> --- a/drivers/i3c/master/dw-i3c-master.c
-> +++ b/drivers/i3c/master/dw-i3c-master.c
-> @@ -1776,7 +1776,6 @@ int dw_i3c_common_probe(struct dw_i3c_master *master,
->  		pm_runtime_put_noidle(&pdev->dev);
->  	pm_runtime_disable(&pdev->dev);
->  	pm_runtime_set_suspended(&pdev->dev);
-> -	pm_runtime_dont_use_autosuspend(&pdev->dev);
->
->  	return ret;
+> Changes from v2 [1]:
+> - changed the way we populate VMAs to ensure the test works with
+>   READ_IMPLIES_EXEC personality, per Andrew Morton
+> - handle possiblity of mlockall() failing, per Andrew Morton
+> - changed patch_vma() to restore the entire three-page destination VMA,
+>   per Andrew Morton
+> - added vma_setup test stage to munlock() next_addr VMA only once
+> 
+> [1] https://lore.kernel.org/all/20261101154503.3203036-1-surenb@google.com/
+> 
+>  tools/testing/selftests/proc/proc-maps-race.c | 86 +++++++++++++------
+>  1 file changed, 58 insertions(+), 28 deletions(-)
+> 
+> diff --git a/tools/testing/selftests/proc/proc-maps-race.c b/tools/testing/selftests/proc/proc-maps-race.c
+> index bf4c5073f6fc..ed048b0ff418 100644
+> --- a/tools/testing/selftests/proc/proc-maps-race.c
+> +++ b/tools/testing/selftests/proc/proc-maps-race.c
+> @@ -174,10 +174,12 @@ typedef bool (*vma_mod_result_check_op)(struct line_content *mod_last_line,
+>  					struct line_content *restored_first_line);
+>  
+>  struct vma_modifier_info {
+> +	int mlock_error;
+>  	int vma_count;
+>  	void *addr;
+>  	int prot;
+>  	void *next_addr;
+> +	vma_modifier_op vma_setup;
+>  	vma_modifier_op vma_modify;
+>  	vma_modifier_op vma_restore;
+>  	vma_mod_result_check_op vma_mod_check;
+> @@ -528,13 +530,10 @@ static bool compare_smaps_rollup(FIXTURE_DATA(proc_maps_race) *self,
+>  		struct smaps_rollup_stats *actual)
+>  {
+>  	/*
+> -	 * Clean/dirty metrics might change but Pss-related ones
+> -	 * should stay constant.
+> +	 * Clean/dirty metrics might change. Pss depends on map count and might
+> +	 * change as well. Rss should stay constant.
+>  	 */
+> -	if (cmp_smaps_rollup_stat(expected, actual, Pss) &&
+> -	    cmp_smaps_rollup_stat(expected, actual, Pss_Anon) &&
+> -	    cmp_smaps_rollup_stat(expected, actual, Pss_File) &&
+> -	    cmp_smaps_rollup_stat(expected, actual, Pss_Shmem))
+> +	if (cmp_smaps_rollup_stat(expected, actual, Rss))
+>  		return true;
+>  
+>  	print_smaps_rollup_stats("Expected stats:", self, expected);
+> @@ -637,14 +636,13 @@ static bool query_addr_at(int maps_fd, void *addr,
+>  static inline bool split_vma(FIXTURE_DATA(proc_maps_race) *self)
+>  {
+>  	/* PROT_NONE differs from both readable neighbors. */
+> -	return mmap(self->mod_info->addr, self->page_size, PROT_NONE,
+> -		    MAP_PRIVATE | MAP_ANONYMOUS | MAP_FIXED, -1, 0) != MAP_FAILED;
+> +	return mprotect(self->mod_info->addr, self->page_size, PROT_NONE) == 0;
 >  }
-> @@ -1792,7 +1791,6 @@ void dw_i3c_common_remove(struct dw_i3c_master *master)
->
->  	pm_runtime_disable(master->dev);
->  	pm_runtime_set_suspended(master->dev);
-> -	pm_runtime_dont_use_autosuspend(master->dev);
+>  
+>  static inline bool merge_vma(FIXTURE_DATA(proc_maps_race) *self)
+>  {
+> -	return mmap(self->mod_info->addr, self->page_size, self->mod_info->prot,
+> -		    MAP_PRIVATE | MAP_ANONYMOUS | MAP_FIXED, -1, 0) != MAP_FAILED;
+> +	return mprotect(self->mod_info->addr, self->page_size,
+> +			self->mod_info->prot) == 0;
 >  }
->  EXPORT_SYMBOL_GPL(dw_i3c_common_remove);
->
->
-> --
-> 2.56.0
->
+>  
+>  static inline bool check_split_result(struct line_content *mod_last_line,
+> @@ -679,6 +677,12 @@ static inline bool check_shrink_result(struct line_content *mod_last_line,
+>  	       strcmp(mod_first_line->text, restored_first_line->text) == 0;
+>  }
+>  
+> +static inline bool setup_remap_vma(FIXTURE_DATA(proc_maps_race) *self)
+> +{
+> +	/* Unlock next_addr so MREMAP_DONTUNMAP does not split it. */
+> +	return munlock(self->mod_info->next_addr, self->page_size * 3) == 0;
+> +}
+> +
+>  static inline bool remap_vma(FIXTURE_DATA(proc_maps_race) *self)
+>  {
+>  	/*
+> @@ -694,8 +698,10 @@ static inline bool remap_vma(FIXTURE_DATA(proc_maps_race) *self)
+>  
+>  static inline bool patch_vma(FIXTURE_DATA(proc_maps_race) *self)
+>  {
+> -	return mprotect(self->mod_info->addr + self->page_size, self->page_size,
+> -			self->mod_info->prot) == 0;
+> +	/* Replace all three pieces without relying on anon_vma merging. */
+> +	return mmap(self->mod_info->addr, self->page_size * 3,
+> +		    self->mod_info->prot,
+> +		    MAP_PRIVATE | MAP_ANONYMOUS | MAP_FIXED, -1, 0) != MAP_FAILED;
+>  }
+>  
+>  static inline bool check_remap_result(struct line_content *mod_last_line,
+> @@ -754,15 +760,30 @@ FIXTURE_SETUP(proc_maps_race)
+>  	self->pid = fork();
+>  	if (!self->pid) {
+>  		/* Child process modifying the address space */
+> -		int prot = PROT_READ | PROT_WRITE;
+>  		int i;
+>  
+>  		for (i = 0; i < mod_info->vma_count; i++) {
+> -			mod_info->child_mapped_addr[i] = mmap(NULL, self->page_size * 3, prot,
+> -					MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+> +			mod_info->child_mapped_addr[i] = mmap(NULL, self->page_size * 3,
+> +					PROT_READ | PROT_WRITE,
+> +					MAP_PRIVATE | MAP_ANONYMOUS | MAP_POPULATE, -1, 0);
+>  			ASSERT_NE(mod_info->child_mapped_addr[i], MAP_FAILED);
+> -			/* change protection in adjacent maps to prevent merging */
+> -			prot ^= PROT_WRITE;
+> +			/*
+> +			 * Populate writable to get anonymous pages, then alternate
+> +			 * write permission even with READ_IMPLIES_EXEC enabled.
+> +			 */
+> +			if (i % 2)
+> +				ASSERT_EQ(mprotect(mod_info->child_mapped_addr[i],
+> +						   self->page_size * 3, PROT_READ), 0);
+> +		}
+> +		/*
+> +		 * Lock all present pages in memory so memory reclaim cannot
+> +		 * change RSS during the test, and use MCL_ONFAULT so
+> +		 * mremap() expansion does not populate new pages.
+> +		 */
+> +		if (mlockall(MCL_CURRENT | MCL_FUTURE | MCL_ONFAULT)) {
+> +			mod_info->mlock_error = errno;
+> +			signal_state(mod_info, CHILD_READY);
+> +			_exit(0);
+>  		}
+>  		signal_state(mod_info, CHILD_READY);
+>  		wait_for_state(mod_info, PARENT_READY);
+> @@ -772,6 +793,8 @@ FIXTURE_SETUP(proc_maps_race)
+>  			if (mod_info->exit)
+>  				break;
+>  
+> +			if (mod_info->vma_setup)
+> +				ASSERT_TRUE(mod_info->vma_setup(self));
+>  			ASSERT_TRUE(mod_info->vma_modify(self));
+>  			signal_state(mod_info, SETUP_MAPS_MODIFIED);
+>  			wait_for_state(mod_info, SETUP_RESTORE_MAPS);
+> @@ -790,6 +813,21 @@ FIXTURE_SETUP(proc_maps_race)
+>  		exit(0);
+>  	}
+>  
+> +	/* Check setup before opening proc files: the child may have exited. */
+> +	wait_for_state(mod_info, CHILD_READY);
+> +	if (mod_info->mlock_error) {
+> +		int error = mod_info->mlock_error;
+> +		int status;
+> +
+> +		ASSERT_EQ(waitpid(self->pid, &status, 0), self->pid);
+> +		pthread_cond_destroy(&mod_info->sync_cond);
+> +		pthread_mutex_destroy(&mod_info->sync_lock);
+> +		munmap(mod_info, self->shared_mem_size);
+> +		if (error == ENOMEM || error == EPERM || error == EAGAIN)
+> +			SKIP(return, "Cannot lock test mappings: %s", strerror(error));
+> +		ASSERT_EQ(error, 0);
+> +	}
+> +
+>  	switch (self->maps_file) {
+>  	case MAPS:
+>  		sprintf(fname, "/proc/%d/maps", self->pid);
+> @@ -806,9 +844,6 @@ FIXTURE_SETUP(proc_maps_race)
+>  	self->maps_fd = open(fname, O_RDONLY);
+>  	ASSERT_NE(self->maps_fd, -1);
+>  
+> -	/* Wait for the child to map the VMAs */
+> -	wait_for_state(mod_info, CHILD_READY);
+> -
+>  	/* Read first two pages */
+>  	self->page1.data = malloc(self->page_size);
+>  	ASSERT_NE(self->page1.data, NULL);
+> @@ -882,6 +917,7 @@ TEST_F(proc_maps_race, test_maps_tearing_from_split)
+>  	/* re-read the file to avoid using stale data from previous test */
+>  	ASSERT_TRUE(read_boundary_lines(self, &self->last_line, &self->first_line));
+>  
+> +	mod_info->vma_setup = NULL;
+>  	mod_info->vma_modify = split_vma;
+>  	mod_info->vma_restore = merge_vma;
+>  	mod_info->vma_mod_check = check_split_result;
+> @@ -984,6 +1020,7 @@ TEST_F(proc_maps_race, test_maps_tearing_from_resize)
+>  	/* re-read the file to avoid using stale data from previous test */
+>  	ASSERT_TRUE(read_boundary_lines(self, &self->last_line, &self->first_line));
+>  
+> +	mod_info->vma_setup = NULL;
+>  	mod_info->vma_modify = shrink_vma;
+>  	mod_info->vma_restore = expand_vma;
+>  	mod_info->vma_mod_check = check_shrink_result;
+> @@ -1066,13 +1103,13 @@ TEST_F(proc_maps_race, test_maps_tearing_from_remap)
+>  	struct line_content remapped_first_line;
+>  	struct line_content restored_last_line;
+>  	struct line_content restored_first_line;
+> -	struct smaps_rollup_stats orig_stats;
+>  
+>  	wait_for_state(mod_info, SETUP_READY);
+>  
+>  	/* re-read the file to avoid using stale data from previous test */
+>  	ASSERT_TRUE(read_boundary_lines(self, &self->last_line, &self->first_line));
+>  
+> +	mod_info->vma_setup = setup_remap_vma;
+>  	mod_info->vma_modify = remap_vma;
+>  	mod_info->vma_restore = patch_vma;
+>  	mod_info->vma_mod_check = check_remap_result;
+> @@ -1080,8 +1117,6 @@ TEST_F(proc_maps_race, test_maps_tearing_from_remap)
+>  	report_test_start("Tearing from remap", self->verbose);
+>  	ASSERT_TRUE(capture_mod_pattern(self, &remapped_last_line, &remapped_first_line,
+>  					&restored_last_line, &restored_first_line));
+> -	if (self->maps_file == SMAPS)
+> -		ASSERT_TRUE(parse_smaps_rollup(self, &orig_stats));
+>  
+>  	/* Now start concurrent modifications for self->duration_sec */
+>  	signal_state(mod_info, TEST_READY);
+> @@ -1134,11 +1169,6 @@ TEST_F(proc_maps_race, test_maps_tearing_from_remap)
+>  				     vma_end - vma_start == self->page_size * 3) ||
+>  				    (vma_start == self->last_line.start_addr + self->page_size &&
+>  				     vma_end - vma_start == self->page_size));
+> -		} else {
+> -			struct smaps_rollup_stats stats;
+> -
+> -			ASSERT_TRUE(parse_smaps_rollup(self, &stats));
+> -			ASSERT_TRUE(compare_smaps_rollup(self, &orig_stats, &stats));
+>  		}
+>  		clock_gettime(CLOCK_MONOTONIC_COARSE, &end_ts);
+>  		end_test_iteration(&end_ts, self->verbose);
+> 
+> base-commit: 0ea6dc8c4a2192227ec25768625686b8fcd5cb09
+> -- 
+> 2.56.0.385.gac671c819a-goog
+> 
