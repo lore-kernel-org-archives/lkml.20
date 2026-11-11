@@ -1,73 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1794409668;
-	b=MU75tVQnZEJ8FighoN2qn1ha530kguFtNHjO3SREOoxSIqvb0DulLWvMnmopaAKLJne+
-	 0obwwDGV2vnQywYa+yxi8yAWINsTLiSY1KPS5F3g7tyG5xNKPg1C+vspLgVnyrMlWDC0s
-	 HUpHaTZDupTOBbZkFgJhVnGXIS3jmV7aPbVtIPeYkCWrv1EqVaQ+hxtTB/7T57vH1HZ2k
-	 WS4vHCt6kAyTg0hqEYRKsOem3IAAErVo67zzEYA6+iIbMJfaoxMG8/ANyDIiJHLs+k9bX
-	 PvtA3mQCQuQm4MSSct6fOP9DiE0q67KkT9v7/u6yGcflUnKfJym8O4dXZk4J5QyoJ+w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	b=ra6hqelMDYeJkpFpJnRidOZv+YXchP1IUDkM1455JE6HEtkoK5MwYzRRuJ5aoNLB2kJT
+	 mv186ReePxPyaIlRw4iOll/tjda65FqDzPBvjgkx9hCuT+yCcDDpRUK5G3ACmVS4GA6P4
+	 iFxbiM/eJgVKn8p6xK2k/ik9m+JNEbxFx+zpU7XHdN74XYw4ScCD43NFtVS++aZFBKY4x
+	 DVEROwFmfYe+O/aVvu04kC5comYcjXCVTYAqt5VxNunQTSaERpGIx+3cSCP9PwoE+BVqL
+	 fte3E6yq9jKcZZd/oTd/sCEitCzrS/W/4hb3fBdxuVzeTUyySmpUjb3+TadO4L07cQA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794409668;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=IVSW7dlEtBAkMcVOOPixBHDjudsel8asjWSLmfExFeY=;
-	b=ln/7Elik0HceRsya8erH6Hx6mJK0UupxIaODXPUbMgxYuXYFxl/vHXzPqY0j6LIbpoRV
-	 nRHSgq8OfHUL7NpfoguQbKhwje7kEueJRJbb0Cz+Md1K5VldMt/wd3mEvxk1r9Rq+Qu9L
-	 rD/z1Lc8f8snowjBQ//wOqFghW9AnGuqb8XIMtTDSY5Mk/eFNHQeD397ZDfjVnyuQ6D7s
-	 pODJrHrsRBFFShmEHzpGKU/B/bg4S3VVPQjC/QLpGl/nblZCb1tr7tkVLNIaHTi4uv4Ps
-	 4f0FLz6SwK7X0+MqoVVEM3ySIn51zPL5O4dQJWAiuakhYQxy+kUQ6ZOG7m2qKfv1cDQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=VfZrepJ0;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D24C5606A332;
-	Wed, 11 Nov 2026 15:07:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D24C5606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=gHnVCEKxdsmaK16E0lZXeSP6WMsz+23TB2UbsGIuRSc=;
+	b=dNlw1/yTF/sNcWPVEW+/TDBT43qea5YCZv6oPOn144mXYWt1DhYIMzMyo/61NoBgNBQE
+	 QZxYdcvTjWB34zHwgnJgGoH1EtZTqOmQPrQEzg1gK+Sxg1mFxW5RI6TiPLy4wVqaod8d5
+	 PHS5x1b0iYVgOT5qsTqsir2icG/FnKzdoiEmTdqU6n7hV8GX4nVMO6nrwl7iVVHJTqsg3
+	 obBNWc6EYN8MWH1unHfEGUKMPiSgDnQalWFoq23ouqUsBCKGUXi5KumpHBFf8f9gW5HTC
+	 gCOOz4gAbM6KIJCmTfdTbScHXh0EDB7jdSYe6FJSNw0a/oCThUsg9y+WjPWrfVfKDOQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="iLq3+/1p";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2780606A8A5;
+	Wed, 11 Nov 2026 15:07:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=VfZrepJ0
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3D8491576;
-	Wed, 11 Nov 2026 07:07:44 -0800 (PST)
-Received: from localhost (unknown [10.2.196.114])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D2F9F3F632;
-	Wed, 11 Nov 2026 07:07:46 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794409667; bh=62Mu4OB+5wrqIV2cz1Z1/DAKB6v44So/0ueSDYAy0eM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=VfZrepJ0INs9KzNnKkWmxJLRps9nRBYmn6mnATtZK6oQjjzaP2Cyyx2TN1dldFmns
-	 KnTJe8UyD60giCl785gSW8Jmg3o+OmikZi0qe5odXs+y92IHy7hf9N4u3BnGiR7mLQ
-	 cTG6viDoj2FMuBt2iHZiJm0wx8HO+9LXwSRHRZbg=
-Date: Wed, 11 Nov 2026 15:07:44 +0000
-From: Leo Yan <leo.yan@arm.com>
-To: Suzuki K Poulose <suzuki.poulose@arm.com>
-Cc: Rob Herring <robh@kernel.org>, Jie Gan <jie.gan@oss.qualcomm.com>,
-	Mike Leach <mike.leach@arm.com>,
-	James Clark <james.clark@linaro.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Tingwei Zhang <tingwei.zhang@oss.qualcomm.com>,
-	Yuanfang Zhang <yuanfang.zhang@oss.qualcomm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Jingyi Wang <jingyi.wang@oss.qualcomm.com>,
-	linux-arm-msm@vger.kernel.org, coresight@lists.linaro.org,
-	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v7 0/5] Fix traceNoC probe issue on multiple QCOM
- platforms
-Message-ID: <20261111150744.GC9176@e132581.arm.com>
-References: <20261110-fix-trace-noc-probe-issue-v7-0-2f06905c77fe@oss.qualcomm.com>
- <20261110154643.GA4159803-robh@kernel.org>
- <14c0956c-904e-4a6a-98a0-882514d77b08@arm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iLq3+/1p
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794409668;
+	b=woXEiSSDEiAntI8hPpRkaw/TE1r+CrBcvGyv60PiMHaUKDgE5sIXleDHIDFxn1xfjZDa
+	 EXhZ27OpCxR6Q3QqB7kxnuffTxN865B1A7cDLFYYHxi3YWZwaUrX2jh1puMFfcUfxqi/p
+	 oa9e2+8O271Mc+GeGLjB9FtG0T0zDbQiUZjw+bYir1Fyv2pg+4V25EwuJyMiQByxcIMSc
+	 vpo0k7Z3g0+2T07bN3zWwutZN6iVnl+OuBAxoZu4LA+CaimEaDgixf+9OB5G8sEUi+9xC
+	 ldoRp+SZzfwyM8zdoqkoumljS7q75yp76sIi7MWAioD5pmikzOeUXu+hGBPkR/tCiLA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794409668;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=gHnVCEKxdsmaK16E0lZXeSP6WMsz+23TB2UbsGIuRSc=;
+	b=QUEkZSw08KU1ch+/+l0YFhMds0XG2CUgSv1AEjmSCSEbtYTEnk2WZh4K7pEJZtNe6FqQ
+	 qXhsOFvrgHVIDzbRnMb7WhyjyY2CeVy7ON7OtKnS7nBV0E3pbAdwXPbcr1Qz4qU+7jJQq
+	 lLB2W6rXJ5OB0Wncn6wVVq2AJ8zqrsqUamurCNlUVvJ1yG/imGFL9GxWU3GAQD8C0cq2u
+	 uVYzbcQHWt8+Ip2Ktm5ocCk2JWdMs6YC02ZVYX6Rb9n/75m6M+0MZc65SE2QlnrHnD6Jf
+	 lyAjvo6ZN6ASAEWpp/adxPgAVMyUhG9GPHwHBZkI9LZa78OH7gmol0zIzaIoVp3zUNQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 8B7171F00A05;
+	Wed, 11 Nov 2026 15:07:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794409668;
+	bh=gHnVCEKxdsmaK16E0lZXeSP6WMsz+23TB2UbsGIuRSc=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=iLq3+/1pV3CNPflvY83XGiRAub/ih19w+fmO+Yf0xUd0Cy3mzD2+RQ9Gr0qnO2x26
+	 DAKR3zzYblFoG9gMdBfP6Er3VAbPPhXOyk5HabWyKYaFLyiysOfPOjCU3fckPta7w3
+	 CiI5Dt/1A49QYHeueYNY8OrrcVjP5w/BtPl0CUN2VhP3V86LoLnvwWgZlMh+fDDMK6
+	 gIeT0jNdvhGa4KnrGZPPtuoULSo6TKDXHjQUqLoGrPhwnpOcqZ5tYij9K+hIzY2wAW
+	 cAPOalDQkREuZyaHAktY8y6U0uKrQ82Au+0RUc7Y4e6zIxwV7fRcfMlZLL+Fij2R5e
+	 cPhmoT6KqR7jQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id D190648FE7;
+	Wed, 11 Nov 2026 15:07:46 +0000 (UTC)
+From: Asdlerto Korry via B4 Relay <devnull+korryasdlerto.gmail.com@kernel.org>
+Subject: [PATCH v2 0/4] arm64: dts: qcom: Add Samsung Galaxy M52 5G
+Date: Wed, 11 Nov 2026 17:07:44 +0200
+Message-Id: <20261111-m52xq-dts-v2-0-063289405882@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,32 +83,101 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <14c0956c-904e-4a6a-98a0-882514d77b08@arm.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAMGE9GoC/23MQQ6CMBCF4auQWVvTGdFQV97DsIDSwiSWYksaD
+ Ondraxd/i8v3w7RBDYR7tUOwSSO7OcSdKpAT908GsFDaSBJN0RZC3el7S2GNQpqLtpIq3tdKyj
+ /JRjL22E929ITx9WHz0En/K3/lIRCih5VYyUpJGsfo+v4ddbeQZtz/gKBjxXKogAAAA==
+X-Change-ID: 20261104-m52xq-dts-283ce0fcbc49
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Kees Cook <kees@kernel.org>, 
+ Tony Luck <tony.luck@intel.com>, 
+ "Guilherme G. Piccoli" <gpiccoli@igalia.com>, 
+ Krzysztof Kozlowski <krzk@kernel.org>, David Heidelberg <david@ixit.cz>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, oe-linux-nfc@lists.linux.dev, 
+ netdev@vger.kernel.org, Asdlerto Korry <korryasdlerto@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794409665; l=3039;
+ i=korryasdlerto@gmail.com; s=20261104; h=from:subject:message-id;
+ bh=XfNua7PAV4kckWXtmCx56IqauZbV+Xj3aih6wYA69X0=;
+ b=hlEHBlU91uiogwNELsRP1uTsAlQH/qJAfSeJKUVyPS7aTgJKc/kwJW15queGzapffIldwXd1C
+ qNHldpxRX87Cd05qWSEa7vqMolfGCelWeAQ+1HzFvdauVKW6LhZ2Fry
+X-Developer-Key: i=korryasdlerto@gmail.com; a=ed25519;
+ pk=RqttIGkm2XZ8NhLQBzPgpXXawOdVa1uODGsk+sagbxs=
+X-Endpoint-Received: by B4 Relay for korryasdlerto@gmail.com/20261104 with
+ auth_id=1411
+X-Original-From: Asdlerto Korry <korryasdlerto@gmail.com>
+Reply-To: korryasdlerto@gmail.com
 
-On Wed, Nov 11, 2026 at 12:58:59PM +0000, Suzuki K Poulose wrote:
-> On 10/11/2026 15:46, Rob Herring wrote:
-> > On Tue, Nov 10, 2026 at 09:21:13AM +0800, Jie Gan wrote:
-> > > The CoreSight TNOC (Trace Network-On-Chip) binding so far only allowed the
-> > > two-string AMBA form "qcom,coresight-tnoc", "arm,primecell". That form
-> > > forces the device onto the AMBA bus, where the driver must read the
-> > > peripheral ID from the device registers during probe. On several QCOM
-> > > platforms this AMBA peripheral-ID probing fails, so the traceNoC device
-> > > never probes and its trace path is unavailable.
-> > 
-> > But it works fine on some platforms? We have a property to override the
-> > peripheral-ID which would solve your issue. That would be much simpler
-> > and avoid the ABI break on any of the working platforms.
+This series adds initial support for the Samsung Galaxy M52 5G
+(SM-M526B, codename m52xq), a smartphone based on the Qualcomm SM7325
+SoC.
 
-This series preserves support AMBA driver probe, "arm,primecell" would
-continue to work.
+Tested on next-20261030 with only this series applied: the device boots
+to a postmarketOS userspace from UFS. ADSP, MPSS and WPSS come up, WiFi
+connects, Venus probes, the microSD card is detected and readable, and
+USB peripheral mode works in both plug orientations. The kernel log
+shows no errors from the nodes described here. Bluetooth, NFC, IPA
+mobile data and the GPU were tested with the same nodes on a 7.1
+kernel.
 
-> That is true ! Sorry, I didn't think of the quirk.
+Not included yet: the display panel, touchscreen, cameras, audio, the
+fuel gauge/charger and the USB Type-C controller (SM5714). They need
+drivers that are not upstream yet. The display works through
+simple-framebuffer for now.
 
-If adding "arm,primecell-periphid" property resolves the issue, I agree
-that updating the DTS nodes would be better way to resolve issue (for
-this case, anyway it requires to update DT blobs on broken platforms).
+Notes:
+* The stock ABL picks the DTB by qcom,msm-id/qcom,board-id. These
+  properties are left out as required for new SM7325 boards, so users
+  add them when packaging the boot image.
+* The reserved memory map follows the stock device tree. The removed
+  region is larger than on other SM7325 devices (0x5f00000). With the
+  common size, the kernel livelocks when it touches the memory the
+  hypervisor keeps.
+* Several regulators need a fixed voltage or must stay always-on (UFS
+  VCC on L7b, the ADSP-managed sensors on L12c). With the stock ranges
+  Linux sets the minimum and UFS or the ADSP fail.
 
-Thanks,
-Leo
+Signed-off-by: Asdlerto Korry <korryasdlerto@gmail.com>
+---
+Changes in v2:
+- framebuffer: drop reg and unit address, memory-region is enough (Konrad)
+- dt-bindings: nfc: samsung,s3fwrn5: add pvdd-supply; the s3fwrn5 driver
+  enables it, so the NFC regulator is no longer always-on (Konrad)
+- enable qupv3_id_0, it holds uart7 for Bluetooth (Sashiko)
+- reserved memory: drop cdsp_mem/remoteproc_cdsp, the ADSP region covers
+  them; replace the overlapping video region with camera_mem (Sashiko)
+- Bluetooth: fix the vddrfa1p2/vddrfa2p2 supplies (Sashiko)
+- NFC: edge-triggered interrupt (Sashiko)
+- raise the minimum voltage of S1b/S7b/S8b to the stock levels, lower
+  values starve the LDOs and the touchscreen loses touches
+- Link to v1: https://lore.kernel.org/r/20261104-m52xq-dts-v1-0-b198f02912ff@gmail.com
+
+---
+Asdlerto Korry (4):
+      dt-bindings: arm: qcom: Add Samsung Galaxy M52 5G
+      dt-bindings: net: nfc: samsung,s3fwrn5: Add pvdd-supply
+      nfc: s3fwrn5: i2c: Enable the pvdd supply
+      arm64: dts: qcom: sm7325: Add Samsung Galaxy M52 5G
+
+ Documentation/devicetree/bindings/arm/qcom.yaml    |   1 +
+ .../bindings/net/nfc/samsung,s3fwrn5.yaml          |   5 +
+ arch/arm64/boot/dts/qcom/Makefile                  |   1 +
+ arch/arm64/boot/dts/qcom/sm7325-samsung-m52xq.dts  | 839 +++++++++++++++++++++
+ drivers/nfc/s3fwrn5/i2c.c                          |   7 +
+ 5 files changed, 853 insertions(+)
+---
+base-commit: 7649ba73f9e7e1e04d0b46213e39c79ae09dd55c
+change-id: 20261104-m52xq-dts-283ce0fcbc49
+
+Best regards,
+-- 
+Asdlerto Korry <korryasdlerto@gmail.com>
+
+
