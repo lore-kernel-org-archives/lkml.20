@@ -1,109 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.56.87.1
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794434206;
-	b=coZ3WKBCeZI/nb/x8lSlhsA8qPEvNey6B9qpQWDoseqsoaxTLnDasjGQ1YwLzN61ZVd9
-	 1pFIk8dzatJRJtd9O4olNIEkYDsrBS2lbldSHBnHzgMbEmK62tU7Bj0NdcGQZTYWStzz6
-	 YCQBlYhpstq8aDIfqUOf8FzJTUqz5cXNehfWm2o6JEfFdDhl/c+6w7awtiPN7xkdERKZs
-	 CiGRhMWDElKKvq8EIdyKt9QkIyCzeMB37NUbyrqH4mIprtAqkc6BYmpAS5LU5r9qn3aFc
-	 1q052+OvIbkEaeclYJyz12Kfg5NwUY+Rz0YVdUYFd0Oa//QFtOk5JXtPbobyQyF8R7g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794434206;
-	h=DMARC-Filter:DKIM-Signature:Received:DKIM-Signature:Received:Date:
-	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-Source:
-	 X-Source-Args:X-Source-Dir:X-SGantispam-id:X-AntiAbuse:AntiSpam-DLS:
-	 AntiSpam-DLSP:AntiSpam-DLSRS:AntiSpam-TS:CFBL-Address:
-	 CFBL-Feedback-ID;
-	bh=dJgiLhwnxl07OmJUhfJ5CpoeivoNNwCPag679Wtgjv0=;
-	b=vu1LBd+VTTKQS2sk0OHZwxcBLEZPvE5yvFT7n458jJfKRaXoC/icIbACSohJ/3GW3Ff8
-	 coPaZ7Tlh4dRL7cc24dX/LtGfcu/gGOGakmTCb/CPOtjNTryZtxl53iqrblJmkRCT/ivb
-	 RfOma/En5aOd3F+epqXMFXubNIKQlj9yX9ZhKV+DAUCLWMtyX4cdoXB8Vf86D9yUax9FR
-	 nUbadyHzTamnLtObPAlU4SUcMJIRQltLjrF7vEQiPGPcXcI1N24d2/STzo6Nf2z/5JDU8
-	 7aJLddjkY83/bcMr9I+t7tIm/ByeBZ1gBBXuFVgB2/SGeyqJjYfXj3wmg7N+RiYGELw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=valla.it;
-	spf=pass smtp.mailfrom=valla.it;
-	dkim=pass header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.a=rsa-sha256 header.s=default header.b=1GpxIO77;
-	dkim=pass header.d=valla.it header.i=@valla.it header.a=rsa-sha256 header.s=default header.b=df24bgxE;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.56.87.1
-Received: from delivery.antispam.mailspamprotection.com (delivery.antispam.mailspamprotection.com [185.56.87.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.180
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794434251;
+	b=OfXEHwBRpiMCCyAvHuPXAO1grAY/q68qDk1EdVvUwYVTkqQx8sonLbvUpL7jwGzoCoxs
+	 VMqYRMkz4c462ZCutMkQDv5qS5RsOweqUk4JsL3Sv1uDXJxPfLORfzNxsz2OcbRt1h0tD
+	 7xCitCWlsdwT4p6eMvJ6Swxdhq+n+ZdIkjBBVHFYNokhKIU4hGAWtoHZpuUkYMaLHibkn
+	 R+y5VWty4/jjaMY53t6+FaXOelXN4oQ/MSXSgKbJEXk16KRVCrz9bbam9as0o58ljQqZd
+	 iBl6Cgmu3aIGT4ZjEYNIPFl7PrTJTC+OAtS9NzwsQPJAQlUoOoMnv89kn6DR8UvCEaw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794434251;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=1ggCgsA+NJ3WO/E1t+Aq1JDPeicUUtkRHraZJ7K1wtc=;
+	b=T4ylGaFYdaLrzBxb6CoQrZ+PYobWfsVAtYf1aiR0TyWNQXIgIiEckcNb+/H38ThcfADY
+	 xbXzEm9H805Aecit7Bfmsg4CrncOke1atFfbDdyCqCJYR6TuhIZ7FBvQMc2f4bu5Y6Qps
+	 6mf8jA/Smszh4b2JU8q0mlbhvVxJrulnBprKLyrZ5dJ62fkezbUdCU6+kLovsNrplMD/8
+	 XiJSbyTtvgsl6ALH4y1lJ9NubKA3m62wfL2qGp4aI/AdwD6y6qlWp0KkbFYSdN3Yv/HqT
+	 HnBhbfdU6S9eVR+eYjBp2e10pRDQ4bkC0yqKWF2PolmGVgsCyDTYDLret0Ls+PB6bBw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dpRqHE6w;
+	arc=none smtp.remote-ip=74.125.82.180
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 607A3606A321;
-	Wed, 11 Nov 2026 21:56:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 607A3606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valla.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valla.it
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07F6B606A327
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 21:57:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 07F6B606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.a=rsa-sha256 header.s=default header.b=1GpxIO77;
-	dkim=pass (1024-bit key, unprotected) header.d=valla.it header.i=@valla.it header.a=rsa-sha256 header.s=default header.b=df24bgxE
-ARC-Seal: i=1; cv=none; a=rsa-sha256; d=outgoing.instance-europe-west4-qv6g.prod.antispam.mailspamprotection.com; s=arckey; t=1794434205;
-	 b=NZMQzMdi1AT2LEr4lRcZW7rd0hLeUdrmSa2N5cIII/3+/1aPWIwisQU/+n1L5XW0O40Qi3BcjC
-	  xe3Uo8dPvBXRZ3V2qbI+CkmmjDFmB0HpvKTUcq/v7b3v0YPZxvbPdcVwBWNJpJ46vLhE3koDC5
-	  bGjT7PKUinhnQPY7JLRgd2sy0rljWPdfACtc78Uz+AvZzEs5w8GIkh8cqf9cKM1iimu1CRiK8y
-	  sEA0aJA4mwMOkhjwsTmUNYRuGfuyvDBypjb7gRa5jjwmBqNzCzxvDWFoCBC44MBuT3jPGunmyT
-	  NI2PgGpGa6Fx7gTN7Lu/cs6Wx9P7AwhpldhsytUmAFvdVg==;
-ARC-Authentication-Results: i=1; outgoing.instance-europe-west4-qv6g.prod.antispam.mailspamprotection.com; smtp.remote-ip=35.214.173.214;
-	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
-	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
-	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
-	arc=none
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed; d=outgoing.instance-europe-west4-qv6g.prod.antispam.mailspamprotection.com; s=arckey; t=1794434205;
-	bh=ZWHYAXJh8M23GgTHS9F/68nHKMuIi5pIeMMp0ENqHgI=;
-	h=In-Reply-To:Content-Transfer-Encoding:Content-Type:MIME-Version:References:
-	  Message-ID:Subject:Cc:To:From:Date:DKIM-Signature:DKIM-Signature;
-	b=UKc3a9BHkS7SzDCYd/Zk16HBFPzJT16vK47exNMCPUjsGrKAtvkeKYTHTKCzEeF2I7T6esNq67
-	  ru2Buu8e9RReiuBIwwtGoEuKsMgbSE2Wm1JhIHL9oIw89iKkZwtRdlbGZ8thvi/82cK7nY8vy2
-	  8d0Hx/RXu1KgE+n/e9DkrOD5URa8VtAgLsnMNbGbDAS5oB4vFZ5bVREyYJ8H7fETrgfQGpwHWy
-	  s+48AKaidemed4W+MuyH7oH55cqcTGBajnlz1Uyf3k4RtrFW/lUTzagIUIBH7tMBeaBYvMtcya
-	  CyztzREt5j6kuRIS4M6BgGcTIYM1Ja2kpFmRVzAjOA6OEA==;
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=antispam.mailspamprotection.com; s=default; h=CFBL-Feedback-ID:CFBL-Address
-	:Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:Subject:Cc:To
-	:From:Date:Reply-To:List-Unsubscribe;
-	bh=dJgiLhwnxl07OmJUhfJ5CpoeivoNNwCPag679Wtgjv0=; b=1GpxIO77H+pCebtcOry2W7wEMN
-	N6o1Z6ypcRnNwhq3YdLr3vc2TcMLzRxd0twNOm3tu8Sz6QucYIiAWNOYwS6nAwR+hnDaJLYgYoQIg
-	k2UoOvY+lGFBmpZZAUghe6F909QcjcRmAEJfy+R4QcrGKdJV5P6x4SkZmyMU48WhBAr4=;
-Received: from 214.173.214.35.bc.googleusercontent.com ([35.214.173.214] helo=esm19.siteground.biz)
-	by instance-europe-west4-qv6g.prod.antispam.mailspamprotection.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <francesco@valla.it>)
-	id 1xRGJ3-0000000HACC-376R;
-	Wed, 11 Nov 2026 21:56:38 +0000
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=valla.it;
-	s=default; h=Subject:Cc:To:From:Date:list-help:list-unsubscribe:
-	list-subscribe:list-post:list-owner:list-archive;
-	bh=dJgiLhwnxl07OmJUhfJ5CpoeivoNNwCPag679Wtgjv0=; b=df24bgxEnOqCeuhgE5/Vkt7aYo
-	NqMMrcKi2X0+MPYvvdEA0l97DuzRosc+bZCoNUxVo+/HXKbeAjRI+DthEMN0VJGE9pJu2Bf5zBWHf
-	3b1JA1B2t61gBHNDk6N2At/yfb9+GePnBCmJTdpKBhvEqfCSddqPd/rtIfIgv14ZgF8k=;
-Received: from [79.17.15.196] (port=60109 helo=bywater)
-	by esm19.siteground.biz with essmtpa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <francesco@valla.it>)
-	id 1xRGIe-00000000J0c-38Lm;
-	Wed, 11 Nov 2026 21:56:12 +0000
-Date: Wed, 11 Nov 2026 22:56:10 +0100
-From: Francesco Valla <francesco@valla.it>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: =?utf-8?B?TcOgeGlt?= Pedraza Padilla <maximpedraza@gmail.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Ard Biesheuvel <ardb@kernel.org>, Jonathan Corbet <corbet@lwn.net>, Helge Deller <deller@gmx.de>, 
-	Peter Jones <pjones@redhat.com>, Jani Nikula <jani.nikula@linux.intel.com>, 
-	Mario Limonciello <mario.limonciello@amd.com>, Javier Martinez Canillas <javierm@redhat.com>, 
-	Jocelyn Falempe <jfalempe@redhat.com>, Sam Ravnborg <sam@ravnborg.org>, 
-	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Randy Dunlap <rdunlap@infradead.org>, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
-	linux-efi@vger.kernel.org, linux-fbdev@vger.kernel.org, linux-doc@vger.kernel.org, 
-	linux-embedded@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 05/15] MAINTAINERS: add entry for DRM splash client
-Message-ID: <avTjrfIEPgyvPDti@bywater>
-References: <20261027135342.2003632-1-maximpedraza@gmail.com>
- <20261027135342.2003632-6-maximpedraza@gmail.com>
- <ed28619d-6ca7-46aa-82c0-c83f30a836e3@suse.de>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dpRqHE6w
+Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-37071c0f42aso6201221eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:57:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794434250; x=1795039050; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1ggCgsA+NJ3WO/E1t+Aq1JDPeicUUtkRHraZJ7K1wtc=;
+        b=dpRqHE6wmn5/kypQAavyk2ufy8OymjXbdHszRThOGjX0jhpHZE2qgnjwzT3Vy1/b41
+         yQ4Gi3hSMKciusY7qlEJ5+14hX1uBKQfaMxw5cA9h2m6f2Am4HkhyTRKppbGkixO96I9
+         4xshsjXZE3rQFOSViTCZVmT9vw1xcGdCrxvzRzieFMx4zhtiRLUIObcxOwBbp+LDcplg
+         A6OM9KKLpskJGQyuytSPCIf/ZJCEx7YbYp9PX4Rpv6SrtWlfX1tPBRbZKQWvjwWIf2fz
+         TQxHreUPkPkn9Z+C4+hQ+743rtYhXfedsICOSLIje0r6hLPhyzp3psTVzDLlw1t16rGn
+         EHxA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794434250; x=1795039050;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1ggCgsA+NJ3WO/E1t+Aq1JDPeicUUtkRHraZJ7K1wtc=;
+        b=ICqXF08x+z6qLNUrXJ7UV/j7VwUK2EdsBQMtMywphKk87lcxJr8UXvVulaPmoK5uiq
+         B1XaPO3vcBpMOcvF3A0L/6GwBZCBGrDtv+2HDQrJ9geOe094sdet4qFpzYHe4QCb00JF
+         7zP6ki9LgZ3GpNxeJr5qprdcWE41Dp8fnTM5712cDgiTBKs0nvwpKoYvKmSw86e7PtOa
+         cQ+NvjS0v3/ONX/0ROybTHMQs02ClH72XsxNkKq8mLUew0vRH13I+0dbzouDwzK7IOym
+         DK5wpIUihmyPZHL07j7uQJsoPhM0EBbdEhs+1I5tSf9cHxWXidBdA+0GylnOjwM39Q8e
+         6pjw==
+X-Forwarded-Encrypted: i=1; AL+hErGKMmK8bi4/X0Tcoo4uwUehUX2iSNWuCdxS//CLuwtcmKlgxc9NXzYH2VoQMBGthXatMtoEyxPH6flwDM8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/GTsuk+1LdQT+iYO2yRcjrHFQksK070IigJXHsHmIhdlJtnktZ
+	5jpIwrcVZQrl2UoKYcjZdrMT+WfoxYkoCwS6EL7Xzg1qGsj9byezY6ir
+X-Gm-Gg: AYBFou3fFDwxePVtIhSng6Z4kYinDvGFtcwCbvwCPIyF59XMYsb7vnLLLUU6Dnvfff7
+	9LinF/HkbS+hzPOP29yEdqJWgq5hyRJxsHEtFGf+qi8McvASKtRF3r87psVkbh7ElOQDNrbNaVT
+	WmKQSj3bh9snvcVIK3uMUuqZoSdF+801L/wBSmO+17M0SkCTn5bxBQjqXJgxycDqIDYqDSuelCx
+	Of0FMrMhsrQ08dJPsZ62i+0QRQrhSnMoEpk7mXQE42HYemh7LPX92AdBjM8u+h/fUX9hYT1GIhW
+	mbaEDI4120Y55xIhhqEEXAHhLIpuMfspJM1qvoyhrPIULJlau7sofsSPXFhmZO4cxOP/UieoQTy
+	OiJSB0v91XYCIoFsbK2R58i3kGqfQzzAynIzSQlhZYVdpIwA1q7IitJBle9yMMGj3K+yBKbWsBd
+	Gs8QtILdDjKo6050qcOWzuG+ZWQYx2GzJHbveQUrS+0LZvoBoZ6673OCgFuF4NbHfvTZiVuxR47
+	iGE/aMu1kZPqlLSWcPDfmRq5+S7Yn0q+QveWBP8axbJCOtOCnqg1g4q+lpTmw8kBCLhxgbfTudv
+	I+bHRJ5O7aIud2Se1Eqs2oiYP+eln69fwa0jJ2hI9HUAj46i6oTNdoMAeEXX1xWDFJ2FtXLos70
+	5d/UliD6Cer4BDK5RpQ==
+X-Received: by 2002:a05:7300:2d2b:b0:36d:2704:6adf with SMTP id 5a478bee46e88-3768579df8bmr5681391eec.11.1794434249909;
+        Wed, 11 Nov 2026 13:57:29 -0800 (PST)
+Received: from dtor-ws.sjc.corp.google.com ([2a00:79e0:2ebe:8:eb83:637b:7b26:8dfe])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3751dae6377sm17823523eec.3.2026.11.11.13.57.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 13:57:27 -0800 (PST)
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Henk Vergonet <Henk.Vergonet@gmail.com>,
+	Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Christophe Leroy <chleroy@kernel.org>
+Cc: Oliver Neukum <oneukum@suse.com>,
+	Martin Diehl <m-diehl@gmx.de>,
+	"Alfred E . Heggestad" <aeh@db.org>,
+	Thomas Reitmayr <treitmayr@devbase.at>,
+	Slawomir Stepien <sst@poczta.fm>,
+	Jie Wang <jie.wang@intel.com>,
+	Manuel Ebner <manuelebnerli@mailbox.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	usbb2k-api-dev@nongnu.org,
+	linux-input@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/2] Input: remove obsolete yealink USB phone driver
+Date: Wed, 11 Nov 2026 13:57:21 -0800
+Message-ID: <20261111215723.3802209-1-dmitry.torokhov@gmail.com>
+X-Mailer: git-send-email 2.56.0.567.gdb80ae8cd5-goog
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -113,80 +114,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <ed28619d-6ca7-46aa-82c0-c83f30a836e3@suse.de>
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - esm19.siteground.biz
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - valla.it
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-SGantispam-id: 409e35b0fa1265cbd8659dabe4aea8a7
-X-AntiAbuse: ID - 409e35b0fa1265cbd8659dabe4aea8a7
-AntiSpam-DLS: false
-AntiSpam-DLSP: 
-AntiSpam-DLSRS: 
-AntiSpam-TS: 1.0
-CFBL-Address: feedback@antispam.mailspamprotection.com; report=arf
-CFBL-Feedback-ID: 1xRGJ3-0000000HACC-376R-feedback@antispam.mailspamprotection.com
-Authentication-Results: outgoing.instance-europe-west4-qv6g.prod.antispam.mailspamprotection.com;
-	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
-	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
-	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
-	arc=none
 
-Hi,
+This short series removes the obsolete yealink driver for the mid-2000s
+Yealink USB-P1K (0x6993:0xb001) USB 1.1 Skype/VoIP telephone handset
+and drops its module selection from ppc6xx_defconfig.
 
-On Wed, Nov 11, 2026 at 02:31:51PM +0100, Thomas Zimmermann wrote:
-> Hi
-> 
-> Am 27.10.26 um 14:53 schrieb Màxim Pedraza Padilla:
-> > From: Francesco Valla <francesco@valla.it>
-> > 
-> > Add myself as maintainer for the DRM splash client.
-> > 
-> > Signed-off-by: Francesco Valla <francesco@valla.it>
-> > [Màxim: add myself as co-maintainer]
-> > Signed-off-by: Màxim Pedraza Padilla <maximpedraza@gmail.com>
-> > ---
-> >   MAINTAINERS | 8 ++++++++
-> >   1 file changed, 8 insertions(+)
-> > 
-> > diff --git a/MAINTAINERS b/MAINTAINERS
-> > index a08087fb6e67..321ecb9f5b5b 100644
-> > --- a/MAINTAINERS
-> > +++ b/MAINTAINERS
-> > @@ -9168,6 +9168,14 @@ F:	Documentation/gpu/drm-ras.rst
-> >   F:	drivers/gpu/drm/drm_ras*
-> >   F:	include/drm/drm_ras*
-> > +DRM SPLASH
-> > +M:	Francesco Valla <francesco@valla.it>
-> > +M:	Màxim Pedraza Padilla <maximpedraza@gmail.com>
-> 
-> I don't think Francesco should be listed here. Although he wrote the initial
-> implementation, it's yours now.  Maybe list him as R: if you want to.
-> 
+The hardware relied on dedicated userspace bridge utilities (such as
+usbb2k-api / kb2kskype for the defunct legacy Skype desktop API, or
+yeaphone for liblinphone) to drive its keypad, segmented LCD, and tones
+through custom sysfs attributes. That userspace ecosystem has been
+unmaintained for over 15 years, and the driver itself has seen no
+functional updates, hardware testing, or new device IDs since 2008
+while continuing to attract syzbot USB fuzzing reports and drive-by
+cleanup patches.
 
-I agree with Thomas here, you definitely did most of the work and
-deserve to be the maintainer. Feel free to keep me as a reviewer though,
-I'll be happy to help!
+Thanks.
 
-> 
-> > +L:	dri-devel@lists.freedesktop.org
-> > +S:	Maintained
-> > +T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
-> > +F:	drivers/gpu/drm/clients/drm_splash.c
-> 
-> This patch should be merged with the one that added drm_splash.c.
-> 
-> Best regards
-> Thomas
->
+Dmitry Torokhov (2):
+  powerpc/configs: drop CONFIG_INPUT_YEALINK from ppc6xx_defconfig
+  Input: yealink - remove driver
 
-Regards,
-Francesco
+ Documentation/.renames.txt              |   1 -
+ Documentation/input/devices/yealink.rst | 226 ------
+ MAINTAINERS                             |   6 -
+ arch/powerpc/configs/ppc6xx_defconfig   |   1 -
+ drivers/hid/hid-ids.h                   |   3 -
+ drivers/hid/hid-quirks.c                |   1 -
+ drivers/input/misc/Kconfig              |  15 -
+ drivers/input/misc/Makefile             |   1 -
+ drivers/input/misc/yealink.c            | 950 ------------------------
+ drivers/input/misc/yealink.h            | 206 -----
+ 10 files changed, 1410 deletions(-)
+ delete mode 100644 Documentation/input/devices/yealink.rst
+ delete mode 100644 drivers/input/misc/yealink.c
+ delete mode 100644 drivers/input/misc/yealink.h
+
+-- 
+2.56.0.567.gdb80ae8cd5-goog
 
