@@ -1,71 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.246.1.125
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.42.203.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794406027;
-	b=Xc3EN/zrvUkLNMyJmylpCRIDJKpq7VT2TDNBfPFGPXtnM945mNtl8ZN1GVt1rtB9qY2v
-	 K0a965BXdgwKNz+R61n1SXmBZu2zBQ4eJ//bY353YcD9pbeimDvPsujKcG75FZiMm1UjW
-	 HI1RsjCSbVOwHZrm3Tb9AO2TWfuQ1wUdi2GUuyMJrvEcb48YwXt+uKfxMr7fNiyy7HI4/
-	 gAvjM6AG/T+PGf6Al2g4vMSl+Fi6Pt8YZ8fCcUglREqfuGUm1jsWj8sNT9aq6KS1SV05R
-	 JR+BBchZn2x5q+QxdLmblWkaZVCKOx4OGxv/ZrsUOU/Y/mIvtojxc/j1lH0GcpL7GWQ==
+	t=1794406032;
+	b=VWQ2Od2bjy5QIInMcYRwnhNuhtkHVFi4EeVMnq531WrgHz5K4qNRXXzHLWOHgBA+Xc6s
+	 O+wq6mEhO02YC9P8jOGeZjBlvWpfNCbY6O7/P1RxnNOjZH/obnD36ocTO+Zkc9BiOp027
+	 bTLNXIA+V6qnTtJe8gKUgbZPkV+QJXIfndEciNCznF6XuzuYQnSj3om40YHFbf2k7LW26
+	 ogmUKQHFhVkvF5/rRphvvvAkMwdstWhIEyX2zWZfUAkpRDpSWOPi25YdLIV/0KpqW0GPf
+	 SS1TtkZq4/Fnku6elONuya81kY6c7basQ9qX2YX5QdKNZUrR5+DjlAAsPuM/KebAl5Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794406027;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794406032;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
 	 X-ClientProxiedBy;
-	bh=K2nNRLcpYTPb5gaqwgdSOeA/IdYOEH/Ikmqus0O+Qls=;
-	b=CaW3ADCUyeuGtdvDSsao9qhgBUFECNnyMMAsvQf5LDborvf2ssl+UxDS56g1yYaVebJE
-	 16X1JVrK2K2/a2pycj2FbR9h6LRZrvF9sSpMWWyNj3XLKTaW8UAxvQEKkKbh0Wb+hLQNg
-	 5USiHMzQ6qvAAyuMaxaGwwL9DqPGwS58SxVLvoSxenm+5s5APid9sjVnpcddw2+vFIxcP
-	 lXy27QqzJ44oyBNLcTppgNH6yndYQZyl0qFrCL1gzLqKWmkJ0Xht0HWBYp1RgIYAlvlre
-	 H3h3EDgoSeSNi5j9GIZEXaYctdL0hZ94exEeywOoeYwkufCD7iEBUZgACnzZju4LcPw==
+	bh=lNsmVLumwuxsRxdUtkzWmrN8JhUX0gR0pEJL5hni08w=;
+	b=hKGQdmjF4ASIJEAicacEkiqYv1AyukMNDbRsts0bNz5x26er5l329uRBkEffncrgP4LJ
+	 FsqeonMj0vPYo6pYXAl41LjnXCflJPjWddh8dWZx1B9Hd386438CMSXzC1ch6zKQ47e8P
+	 kjnAsL5euUmNDM74KbUL+HrpGJBTJsvy0hqvUvgDZnMnTUqBK2TadPGOumMDTJGYwjtVx
+	 ajEa2kVv+G6vTmYvhYW+3lekTmx4Z7QBqukZDeMrDg1fXTgmOz4YEV1S+BbgdbjfEHkID
+	 Rgw5XnLex7WU5pp9xwTlP29jd9YAb+IdC5pKISaOCVJRgIcCiiUqIEywQ3AI+KHPGgg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=amazon.com;
 	spf=pass smtp.mailfrom=amazon.com;
-	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b="f7Qy9/BD";
-	arc=none smtp.remote-ip=44.246.1.125
-Received: from pdx-out-002.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-002.esa.us-west-2.outbound.mail-perimeter.amazon.com [44.246.1.125])
+	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=OQe5sorW;
+	arc=none smtp.remote-ip=52.42.203.116
+Received: from pdx-out-008.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-008.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.42.203.116])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4805B606A326
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 14:07:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4805B606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 463B3606A331
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 14:07:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 463B3606A331
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=f7Qy9/BD
+	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=OQe5sorW
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
   d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1794406027; x=1825942027;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=K2nNRLcpYTPb5gaqwgdSOeA/IdYOEH/Ikmqus0O+Qls=;
-  b=f7Qy9/BDN8VlRu7eCmwsF/zLPlmEDm/2e5pK5/A/AQD0NfLmIcVDiVqr
-   j3ai1JSKHJGYm5FDKkwgN2m30qLGSRsm96wP65OS40VZXqluTWBu2jeEs
-   GW1wNyGALS797eXsf9FWaEAjJ62SVW5s6JEJyQmp5+yZC++X3r2Q+wclE
-   Qd/nKFV5155ssqFvhu4wQIVokpFMYp4ABcwNbJ7n6c3kE7qZwg/amxSsH
-   vIOIIbsDHojlc1s7BAQIjPcjn0S/B8fNy9+KUMH61NanvmXqsoAGA4dlX
-   RjWD73RP1EsY2bJhTQYTBghkY1SJq9iq+4ZxVHxUqrNNuJAWIzKmyt+M9
+  t=1794406032; x=1825942032;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=lNsmVLumwuxsRxdUtkzWmrN8JhUX0gR0pEJL5hni08w=;
+  b=OQe5sorWGNB7Pz99Wz6Fx0cqw3juNPIioomfUcRcmNoKwjTe32jgsBXG
+   YRDj2A/B3viZJk2AMXZKhMJNg5GH2VmysOifObKSmETB+t2uHrrHZuwNC
+   H7VbXl4648s5aLyzJmrCDbojym1dlbUgRnmC/27199SsNPKP+km3JQflM
+   R0j5M3sSxgoESV3d6/kgDCZePM+KJulmcdOzY5acvfxAQAAZMsxdokGTp
+   HuawBKpkdUNWFtoDLA1kdkqSUa/tTp8QsxijzScGFu8mO+p/kRx2zQgvD
+   XxMXhk10EjlIEiCi89iEKdgqglRo6nqwVEf5i50mJrAmMQrf51gKxrd1O
    Q==;
-X-CSE-ConnectionGUID: G8P4hRZMTzy/IyI356dWfg==
-X-CSE-MsgGUID: c0RFt+J3Tli3GAOeA81K3A==
+X-CSE-ConnectionGUID: s7rBCfALT0qsy+rJMuzW9Q==
+X-CSE-MsgGUID: Qg955fbHQp2UbEVkoLD+Mw==
 X-IronPort-AV: E=Sophos;i="6.27,207,1787011200"; 
-   d="scan'208";a="33724742"
+   d="scan'208";a="33751585"
 Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
-  by internal-pdx-out-002.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 14:07:04 +0000
-Received: from EX19MTAUWB002.ant.amazon.com [205.251.233.48:21398]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.50.212:2525] with esmtp (Farcaster)
- id e07d0b7b-3834-4409-be63-1f6699e7212a; Wed, 11 Nov 2026 14:07:04 +0000 (UTC)
-X-Farcaster-Flow-ID: e07d0b7b-3834-4409-be63-1f6699e7212a
+  by internal-pdx-out-008.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 14:07:09 +0000
+Received: from EX19MTAUWA002.ant.amazon.com [205.251.233.178:31323]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.12.127:2525] with esmtp (Farcaster)
+ id c170e4e6-a4d9-4391-83cf-d1cbdfa528a3; Wed, 11 Nov 2026 14:07:08 +0000 (UTC)
+X-Farcaster-Flow-ID: c170e4e6-a4d9-4391-83cf-d1cbdfa528a3
 Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWB002.ant.amazon.com (10.250.64.231) with Microsoft SMTP Server
+ EX19MTAUWA002.ant.amazon.com (10.250.64.202) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Wed, 11 Nov 2026 14:07:04 +0000
+ Wed, 11 Nov 2026 14:07:08 +0000
 Received: from dev-dsk-farbere-1a-46ecabed.eu-west-1.amazon.com
  (172.19.116.181) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56; Wed, 11 Nov 2026
- 14:07:00 +0000
+ 14:07:04 +0000
 From: Eliav Farber <farbere@amazon.com>
 To: Andrew Morton <akpm@linux-foundation.org>
 CC: David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
@@ -83,10 +83,12 @@ CC: David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
  Williamson" <alex@shazbot.org>, Peter Xu <peterx@redhat.com>,
 	<linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>, Eliav Farber
 	<farbere@amazon.com>
-Subject: [PATCH 0/4] mm: fixes for huge PFN mappings
-Date: Wed, 11 Nov 2026 14:06:51 +0000
-Message-ID: <20261111140655.34281-1-farbere@amazon.com>
+Subject: [PATCH 1/4] mm: drop the huge PMD assertion from walk_to_pmd()
+Date: Wed, 11 Nov 2026 14:06:52 +0000
+Message-ID: <20261111140655.34281-2-farbere@amazon.com>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261111140655.34281-1-farbere@amazon.com>
+References: <20261111140655.34281-1-farbere@amazon.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,109 +103,41 @@ Content-Type: text/plain
 X-ClientProxiedBy: EX19D031UWA002.ant.amazon.com (10.13.139.96) To
  EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-Four independent fixes to the existing huge PFN mapping code. They are
-not dependent on each other and can be taken separately.
+walk_to_pmd() asserts that the PMD it returns is not a huge entry. That
+held when commit c2febafc6773 ("mm: convert generic code to 5-level
+paging") added the assertion: nothing installed a huge PMD over the
+mappings its callers walk.
 
-Patches 1-3 are three symptoms of one race. A VM_PFNMAP mapping that
-provides both ->fault and ->huge_fault can take faults of different
-orders on the same entry, because the mm's THP policy is read early in
-each fault and is not held across it. Flipping it while faults are in
-flight, for example with prctl(PR_SET_THP_DISABLE), is enough: one
-fault takes the PTE path while another installs a PMD leaf over the
-same address, or the reverse.
+ARCH_SUPPORTS_HUGE_PFNMAP changed that. A VM_PFNMAP mapping whose driver
+provides both ->fault and ->huge_fault can have a PMD leaf installed by a
+concurrent huge fault over the same address, so a caller can observe one
+and BUG on CONFIG_DEBUG_VM=y.
 
-This is reachable today. vfio-pci has exactly that shape:
-vfio_pci_mmap_ops provides .fault, which reaches insert_pfn() for
-order 0, and .huge_fault, which reaches insert_pmd(); mshv_vtl_main and
-nvgrace-gpu are built the same way.
+The walk does not need the invariant. pmd_alloc() only allocates when the
+PUD is empty and otherwise returns pmd_offset(), so a leaf is returned
+rather than overwritten. Every caller already copes with one, because
+they all reach pte_offset_map_lock(), which refuses to walk a leaf and
+returns NULL: insert_pages() turns that into -EFAULT, get_locked_pte()
+passes the NULL to its callers, and insert_pfn() returns a fault code.
 
-  1. walk_to_pmd() asserts that the PMD is not a leaf. With
-     CONFIG_DEBUG_VM=y the losing fault hits that assertion instead of
-     recovering.
-  2. insert_pfn() treats a NULL return from the PTE map as an
-     allocation failure, so the losing fault reports VM_FAULT_OOM for a
-     mapping that is healthy.
-  3. insert_pmd() and insert_pud() compare the PFN of a non-empty entry
-     without checking that it is a leaf. A page table installed by a
-     concurrent order-0 fault makes pmd_pfn()/pud_pfn() report the
-     table's own PFN, which never matches, and the mismatch is warned
-     about. Under panic_on_warn that is fatal.
+Fixes: f9e54c3a2f5b ("vfio/pci: implement huge_fault support")
+Signed-off-by: Eliav Farber <farbere@amazon.com>
+---
+ mm/memory.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-Patch 4 is unrelated to the race. insert_pmd() and insert_pud() build a
-huge entry from a pgprot laid out for a PTE. On x86 the PAT bit sits at
-bit 7 in a PTE and at bit 12 in a large entry, and bit 7 in a large
-entry is _PAGE_PSE, so the attribute is silently dropped: write-through
-degrades to UC and write-protect degrades to write-combining, which
-loses the write protection. Run the pgprot through
-pgprot_4k_2_large(), with a generic identity fallback for
-architectures that encode the levels alike.
-
-How these were observed, since it differs between them:
-
-Patches 1-3 were reproduced on x86_64 under QEMU with four threads
-colliding on one address of each PMD window of a VM_PFNMAP mapping
-while another thread flipped PR_SET_THP_DISABLE. With patches 1 and 2
-reverted and CONFIG_DEBUG_VM=y, that lands within three seconds:
-
-  kernel BUG at mm/memory.c:2392!
-  RIP: 0010:walk_to_pmd+0x188/0x190
-  Call Trace:
-   get_locked_pte+0x1b/0x70
-   insert_pfn+0x40/0x230
-   vmf_insert_pfn_prot+0x94/0x100
-   __do_fault+0x30/0xb0
-   __handle_mm_fault+0xbb2/0x1a90
-   handle_mm_fault+0x9b/0x270
-   do_user_addr_fault+0x15d/0x630
-
-and BUG() leaves mmap_lock held, so the system then wedges. With those
-two applied the race is survived, and patch 3's warning appears
-instead:
-
-  WARNING: mm/huge_memory.c:1649 at insert_pmd.isra.0+0x1d3/0x430
-  Call Trace:
-   vmf_insert_pfn_pmd+0xa6/0xf0
-   __handle_mm_fault+0x45b/0x1a90
-
-With all four applied the same test runs 51200 colliding faults with no
-BUG, no warning, no OOM and no incorrect data. Debug counters placed at
-each site in a throwaway tree confirmed the recovery path in patch 2 is
-taken rather than merely not crashing.
-
-Patch 4 was found by inspection rather than from a failure report. The
-in-tree ->huge_fault providers map write-back or uncached memory, and
-only write-through and write-protect set _PAGE_PAT, so I have not seen
-the dropped attribute in practice. The entry is still built from the
-wrong encoding, and a caller asking for write-protect would lose it
-silently.
-
-Found while adding huge_fault support for /dev/mem and UIO:
-https://lore.kernel.org/all/20261111113045.35368-1-farbere@amazon.com/
-That series is not a prerequisite for any of these.
-
-Tested on x86_64 under QEMU with CONFIG_DEBUG_VM=y. The race above needs
-a VM_PFNMAP mapping providing both ->fault and ->huge_fault, so the
-reproducer ran on these four patches applied on top of the /dev/mem and
-UIO series linked above, which gave it one to use; vfio-pci would serve
-the same purpose. This series on its own boots clean and was
-cross-built for riscv64, the other architecture selecting
-ARCH_SUPPORTS_PUD_PFNMAP, so insert_pud() and pud_leaf() are compiled.
-checkpatch --strict is clean on all four.
-
-Based on v7.4-rc2 (067c5c24cef2).
-
-Eliav Farber (4):
-  mm: drop the huge PMD assertion from walk_to_pmd()
-  mm: don't report OOM when a huge PMD race blocks a pfn insert
-  mm/huge_memory: don't warn when a page table blocks a huge pfn insert
-  mm/huge_memory: use the large-page PAT encoding for huge pfn mappings
-
- arch/x86/include/asm/pgtable_types.h |  2 ++
- include/linux/pgtable.h              |  9 +++++++++
- mm/huge_memory.c                     | 20 ++++++++++++++++++--
- mm/memory.c                          | 20 +++++++++++++++++---
- 4 files changed, 46 insertions(+), 5 deletions(-)
-
+diff --git a/mm/memory.c b/mm/memory.c
+index ec3d9d99ccee..0f54ee0a6d88 100644
+--- a/mm/memory.c
++++ b/mm/memory.c
+@@ -2384,7 +2384,6 @@ static pmd_t *walk_to_pmd(struct mm_struct *mm, unsigned long addr)
+ 	if (!pmd)
+ 		return NULL;
+ 
+-	VM_BUG_ON(pmd_trans_huge(*pmd));
+ 	return pmd;
+ }
+ 
 -- 
 2.47.3
 
