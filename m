@@ -1,54 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794402915;
-	b=dNuV1FznviP1JmcBKZhK9C+uMG0TU6iHwzG7lheiwQiJgbM5Ehg/KSMDH0no14B528SM
-	 aYJ4kOc4ABt2OzYfLLs3tEjuKtfGtO6w62qLKBCRzmon4HklMO/uYK6T7E/T/u6bC+snW
-	 enBvB8SqwV7HFW6Ouf7jMLqYtvyvSqjYjF9juta84Bn7Cz/TtGq+aIjtGpA8J0iHF3TU6
-	 gzPoYa0Kfts308nFpvwJWRHPedWsVx33Y34FI3DyOMqWuGuxM1y3K+kDwMUxDAyMblgqw
-	 d2drdCk72r1TfhdvPx+Fp2lvh2tIC39aG08x2SVb9Q7mXqzLE8MpxKtNVaTHLM3Wh9Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794402915;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ZohoMailClient;
-	bh=Xc10+7RwQyckt9OcmRiolWc/n8l2uHi554tCZyrtaaA=;
-	b=YVTfxDKhKMRX+ez4WZSSFZukPTHsykZZSrqaUzQ3ARsoHd/gsbMdF+zXEmx+ab/NpOzm
-	 fxRzoE4XkguZNdDR0iucF+cCA/t+YYSdwvIKHVAZjlX/Bvs7prcLQPaZsTSEW/ctuRMj8
-	 Z+CS0rT17Sz/gH8ENTdryfc4REGqWLZddtQYiNezM8n5SmhyKrzghcTORRMGcgfsGQpjH
-	 FbMveeO0eSgc2gR+dgryId+lGePxj9Ca6VmZpPy/ZFGaUTuOXngc7Uz9EK0gV4aYuCymz
-	 fQp0PEmLoNNONfBn3L3WUB7uzsK7oF1dLARoWzW+3bML9fFNkGN9Escn0Jl/uJUe67Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=FMEwYNIu;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=34.2.82.16
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794402939;
+	b=vXK7ArHGeenPtY8LvgPyYiABR3jc+fiAZGp6U4K5VIqVKn0gGYAZi408WopuwqlgUCj+
+	 P0IFfPWN+ojEKMnupGczbOe37c0Bworhgrs2oFPrfAJTMithIdiw6gseIr/p84wvHjBT8
+	 0qqchQvrLJHM9vYRYvIXn5osbOpytJdxlZUNb/sOtoGCrES6tPjYubcxZlRnpG5I1FJTU
+	 YwbR0VnchLPz1j8EKty6vXI0+32HS5/KZAsF662rTeRPyz1yWWRXUvNPRzSLWH7Vr8A3Q
+	 1OygYmunOSe6odPKSS8D9H5snrKPtQIjErxf3t1no/qeTqZffPND9m+wvSZgcz2W0dQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794402939;
+	h=DMARC-Filter:DKIM-Signature:X-SONIC-DKIM-SIGN:X-YMail-OSG:X-Sonic-MF:
+	 X-Sonic-ID:Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=un6Cg/JaWBewh3OO+4QpLueZbnB1h/rfN4CCfZyiO8g=;
+	b=kunaGqC8H+gqzVi3Y6VfW83MOOOGwGVFVYKlud5AP2nnWj7PaYusKFxnfnwOBTzhz9Sf
+	 hV0TMHuqH5fMs0dy6X9zKlz9QAP8C6Ud2e8IPf8hbKSMX7ulz6BO1juWlLrQ1y+ym4nV8
+	 kail2BDpVNE7L5/vx8sSTdTugcZgfuc171c6ZlhXi3d8xSgSI3Yv+ExB2uq/mtZAsknFe
+	 68AkRfNGUxZbVbjexGg/4O/9o/YPthwVlj2mUr9Ago/seGsYJiupGqNZ2A72j1GGwUjvE
+	 3j6daRmn8LSbKDvPJnJqdu+93GDNSAIJ3d7zY7Lg1pS2k8Wx31BSQoMlu18TgNhtY1g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=yahoo.pl;
+	spf=pass smtp.mailfrom=yahoo.pl;
+	dkim=pass header.d=yahoo.pl header.i=@yahoo.pl header.a=rsa-sha256 header.s=s2048 header.b=hhgjCw6K;
+	arc=none smtp.remote-ip=34.2.82.16
+Received: from sonic.asd.mail.yahoo.com (sonic-euwe1-0017.asd.mail.yahoo.com [34.2.82.16])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94CA9606A32A;
-	Wed, 11 Nov 2026 13:15:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 94CA9606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81F02606A32E
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:15:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81F02606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.pl
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.pl
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=FMEwYNIu
-ARC-Seal: i=1; a=rsa-sha256; t=1794402893; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=JiuYMiq8RBihKialjLq+csYOnvm3N2aGmzrVaPUdaxvEAGDkPBxmVCOfFs6FTNdvs8DMSwCszTFIdhdlyLUUjeS26WRTtCiigVfvezJ7wMJznjlUe7a8t6wr1kPUUs015VeOrMosw9xKCVyMwUCPpIjkGCXqL2Ot9fUlRjdgWVc=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1794402893; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=Xc10+7RwQyckt9OcmRiolWc/n8l2uHi554tCZyrtaaA=; 
-	b=WRC+mpP8UxmcLQ1/dFMf2anla6V/WKnVGXjxsW26lk3jCxzb2C2+RqLA9gctpu47GQRLxQLQx64tr2k7UMhLCDw9aylRuEcnuS5Xf4H1hsxe+ZxFTlpdVleg5//DbNRHXvPbN8PU8vt2EmyC2bcrIKl+W2RHLBh209w0PAZE5kM=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=michael.riesch@collabora.com;
-	dmarc=pass header.from=<michael.riesch@collabora.com>
-DKIM-Signature: a=rsa-sha256; b=FMEwYNIu/lXOWYXTUwtQ/tATog2J9nKcRKlIZJh9KEmvFKR2PTUyfW8pVrU6YcesQub3HJNv2LjrsIdGY69Xe230rVICykok7XU6GTYZlbnteedow490LMElkus7ZqD+P2Z4yAeFoUvm1KBK2XQEncus9AyCZTTzjp030n1C6X0=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=Xc10+7RwQyckt9OcmRiolWc/n8l2uHi554tCZyrtaaA=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 179440289194724.462775649189325;
-	Wed, 11 Nov 2026 05:14:51 -0800 (PST)
-Message-ID: <6fbe6fed-3ed4-4f87-a92b-dbd01e1674d3@collabora.com>
-Date: Wed, 11 Nov 2026 14:14:47 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=yahoo.pl header.i=@yahoo.pl header.a=rsa-sha256 header.s=s2048 header.b=hhgjCw6K
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.pl; s=s2048; t=1794402936; bh=un6Cg/JaWBewh3OO+4QpLueZbnB1h/rfN4CCfZyiO8g=; h=From:To:Cc:Subject:Date:In-Reply-To:References:From:Subject:Reply-To; b=hhgjCw6KxbR8KjROpxupQ5Q1PhUsWmSU7FEKxL102ymVCgfYm+cXvvpbBQEPcqMSIHrTwYBRx5bsXlLcp32NF+tefUOxSfHJGVkDyF/bUFrOr5Xi+U1+7dBPTfIJho3u4wQc8Ot8soUC3jGiujUXJuJQNbq461NaUsI1wnb7n2wIpsv/ydDOfir55ABz2j0ARwcBY9ErzlakEH5tKwHTWFRByyKIpIkBqv6lPMomFu6T5FWtE9X8mmD9y7z149hAha5Re0+Lndx98/CAAfyOwLBjNTBijs5nqhQ7nKaOrEjOQhEdTyfYlf7KNwcA/E8m8e9pWEbt7xP7zw3BF3GCJw==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1794402936; bh=Uced0Nr1LSWqajptznLpqSgTpzBcUKA+4a9I6wILcg4=; h=X-Sonic-MF:From:To:Subject:Date:From:Subject; b=S51C+icI/ApKiDgo9Am5BeLUgJC+if24zeAK/LjvUi5uYlMQOx6A+i4McKHioy2QOJvyn+x35BDor1ES8VsbRu+bzw+oCtAgzx/VRALYCwJUp1YyRodpyuoFHXDZDzG2CcoSO/BR1dR5rY97qb53zZ7TCbI6WMuMSYuuWy5L07I8VIo7WSFSpPzqulICo/0k5+fgujP2s8NqMi9KkjJQfKH8uCQ6Rnt2kyzLwXu4vPBQJmuGBypNPcMJMD1MMNkvQBr6EpLbOIztCUeBOLH7OJLeGPn7xBlhobRSqR843Dfdf/1gEcBwarIS3dYwnw93tOJbpXYYKV1D91tO7R/iLw==
+X-YMail-OSG: d2ZOL8IVM1l3ymETAry4SqG0L2rtmc.Jn9Q5.0Htt3Xv7qxRYRnYDYBeUftyJb2
+ 11JIOPF0JNr6FIFnohbwoZgkvr00pDB9pEDOA47Wh7IwRa54Ow_.J6Hk.IGiKGUv3wqxgWjGy0Sm
+ 3TTN.77JCISO5_RUMXcSsNr8X9m79rsN4JsZPxrbYULUruzePtHfU9wo02785RmxIfvuP4AFVzSR
+ zrgM3qky7sv3Capmdtq.bHMPK5Tr1KST3Xhkk.bxRORPICMSaxKPMVL5QOtx69p56OISa0pgVhIQ
+ yMY78GifGVEr5iDz8NBCezil0ebZdL3WtKHSjYP1VPZXpapWBph4.tIxzJdQW1gbJMELVAu9BPVp
+ ouDFMzpTtjV.I6Bj5qnYRRs7S6doh47Iuq0s0y2lKYHIuoWdPFuUyyex5RK_T6wproDSlJUkxVHX
+ kCC3whYWD1a8FfQ1nC0q8GX1XYrAEGDHRYcN9vBFR4j7inQRPydfCUo8J6Hz_rwISLQaqKWIoDC_
+ 1kF.TIbDptGc0lGZaUOwIuUHd8exm45hAlJ0uf3dYV720owHKGZTUvQI1FQBxEmwVQ4wqsJoJ1_R
+ 169hd.Fc2bOCAk96KtIBFAbJK0dzl7S8K5jOHcgMJX9wpFUHx4T7IQoP7xc.LKt5Cnw805UAKtx6
+ dpE0atMGupqxwdhIrRsuTBUOsrLKOipD.LtrroSShDs5qVSe4hdPley4G2AUBiybczey_Nlo9Avj
+ RwJPct1o09wQy01e0GXoPDMAsiQOTCGZbpCkKyNsBzfG41hE2OmMx34ljhYL3iLcaExMkTY4Vjpv
+ 51rzenWwTrknQolQBudWzasGjm16cQWqKxOXgInoBPByKQOoxRiXfukU5lyny0MKRM1V6SvT4rXa
+ W6ZYT63snNU..3dJLm5OhPOlbYj_Ly21J8Simi.MpOrTm.VjI3q7dHnoz2amlIDIzZHs6Utk6scX
+ HvpB30kf6S2Jxiy3lWYX67XrqzJ3rSoKTgGSTa5MCwE6u24zX0ObJG_hCaA35yAibs7OpkxNTh.g
+ zlDoUmzJlbW4biA5bPuZfVN2_vwuTVYA5_65zKwuQpnRFjWK31vKWWW2Uk8ES9rkKTwnmAZ0YBq9
+ RxxnwkTby_nsVEoKTmrD.ZKdEhyZNAybVVSz9eSIiGYDvLiZ2zfdaG1Bee_C_OXhq7OE9G_m.d.U
+ oCawIFICWOb6rXZ3Gk04DyrmYfVcnEWdu4KsayaYKZzJ8pxTwqXSr06mpZIAlMiQGXmK.USpv_Dt
+ 3uocnze6gdWiMKZPzeAPe0bJvBM69Hu7FDwGvS.K_WRWeuDVZ5uMNWk4KVugNmMNmMJpFrtUEXjX
+ RAf1J_GfvcL_B_Og2ZuZWrobQCDC645qRqTNoEXU21RkExFhj7kE73FHKuXEpZqdxqQ4sXLVTKha
+ RM0lU3AxesYl7ZHFR8Du_CQl0oIaHAfuZWB05hmnLJGx4fg7SX3V8X893K2RJJ12mkpug6SsiRM0
+ 1Nm87olfNLmf0RKQsPEX.PzJOWPAsMvvaLfSfndQYoxTRsg4SWlpbpcdrK7HwPzNmXZxoWphWzbY
+ Xu2G6OnGCn7DWbNuaHTuvdisbbXlUnl58utE.gTSMTrACSVvFJDdIF7GWdOPdlI7P0AZT5BuunOb
+ EP.2o_yAwmhKvDlJ0wNkhzqoGNpyKkTSIiu54rIyPXtTSC9sTVwx7XeVZXRNx_fjx8cSrGmqxsmf
+ P64F1DBzfQ753tz6nNo.aEm7H_U4HdMo6ZiaGU4FZTjTz.emhyuC8NHSer_xkHr9XbmEpBW9DsAC
+ Yy2vSlO7WAnxsMm_tgCuXV4NQuaaF14EJGBibq23x756HvsYrSB.2ydOoaSdMN7US344_jZOj7gR
+ IBBn63PmHQ30bTpeqD4qujBvLTHp3B2IzZe401rSrg5ksvdKgkVlZLziP1M8bKTtKZvbq9DQhNA3
+ cuvi6clY6pXh97miL5u.jSJXEdGiU595l2bqmv1G2z4sk638jIPBVqANKhZ.deTTG6lRVI0O7fGV
+ jVpqBdu7NyDF9xwnJMZmmXgxmNB8YM9RIFMY-
+X-Sonic-MF: <tomasz.unger@yahoo.pl>
+X-Sonic-ID: a082e9e7-3626-4fd6-aad3-de587b5863c9
+Received: from sonic.gate.mail.ne1.yahoo.com by mail-asdoutdeli-p-cin-euwe1-prod-sonicconsumer-svc-102 with HTTP; Wed, 11 Nov 2026 13:15:36 +0000
+Received: from dip74.lsn.ir2.yahoo.com ([87.248.99.83])
+          by hello (SMTP) with SMTP ID 93c53469449c8fb958d76cf31038daa8;
+          Wed, 11 Nov 2026 13:15:31 +0000 (UTC)
+From: Tomasz Unger <tomasz.unger@yahoo.pl>
+To: Dan Carpenter <dan.carpenter@linaro.org>
+Cc: Maxime Ripard <mripard@kernel.org>,
+	Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	=?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
+	Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	kernel-janitors@vger.kernel.org
+Subject: Re: [PATCH v2] drm/vc4: release firmware on error paths in vc4_hvs_bind()
+Date: Wed, 11 Nov 2026 14:15:28 +0100
+Message-ID: <20261111131528.316472-1-tomasz.unger@yahoo.pl>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <ee4989e2-f55e-4d09-8a0d-306b78b9c9d0@stanley.mountain>
+References: <ee4989e2-f55e-4d09-8a0d-306b78b9c9d0@stanley.mountain>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,101 +98,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 5/9] phy: rockchip-samsung-dcphy: Move block-level
- setup to runtime resume
-To: Jason Yang <jason98166@gmail.com>, Vinod Koul <vkoul@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- Guochun Huang <hero.huang@rock-chips.com>,
- Philipp Zabel <p.zabel@pengutronix.de>
-Cc: Sebastian Reichel <sebastian.reichel@collabora.com>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20261110-dcphy-rx-v1-v6-0-d681ba20b36a@gmail.com>
- <20261110-dcphy-rx-v1-v6-5-d681ba20b36a@gmail.com>
-Content-Language: en-US
-From: Michael Riesch <michael.riesch@collabora.com>
-In-Reply-To: <20261110-dcphy-rx-v1-v6-5-d681ba20b36a@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
+Content-Transfer-Encoding: 8bit
 
-Hi Jason,
+On Thu, Apr 03, 2025 at 03:14:33PM +0300, Dan Carpenter wrote:
+> There was a bug where we should have called rpi_firmware_put(firmware)
+> if devm_clk_get() failed.  Really, it's better and more readable to
+> move all the firmware code together so that we can release it one
+> time.
+>
+> Fixes: 2fa4ef5fb943 ("drm/vc4: hvs: Create hw_init function")
+> Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
 
-Thanks for the patch!
+Hi Dan,
 
-On 11/10/26 09:18, Jason Yang wrote:
-> The APB reset and the BIAS references have to be treated as block-level
-> [1]: both the transmitter and the receiver need them, and they only have
-> to be programmed once. They are programmed from the transmitter's
-> power-on path today.
-> 
-> A later change registers one struct phy for each of them, and a second
-> consumer coming up would then reset the block underneath a PHY that is
-> already running.
-> 
-> Program them from runtime resume instead, where whichever of the two
-> comes up first brings the block up and a second one no longer resets it.
-> 
-> This puts the BIAS writes ahead of the per-PHY reset assert, where the
-> TRM's worked example has them after [1]. That is safe: neither M_RESETN
-> nor S_RESETN covers the BIAS registers, and the values written are those
-> registers' reset defaults.
-> 
-> [1] RK3588 TRM: sections 22.4.1 (address map), 22.4.2 (reset values),
->     22.6.1.2 (reset) and 22.6.4.1 (D-PHY transmitter start-up)
-> 
-> Signed-off-by: Jason Yang <jason98166@gmail.com>
+It looks like this patch was never applied: the leak is still there in
+v7.4-rc1. The patch still applies on top of v7.4-rc1 (with an offset), so
+I gave it a test on a Raspberry Pi 4 Model B Rev 1.5 (arm64 defconfig).
 
-Reviewed-by: Michael Riesch <michael.riesch@collabora.com>
+Normal path: with and without the patch vc4 binds the HVS and the other
+components in the same way, the core clock is acquired by fe400000.hvs
+and dmesg shows the same messages in both cases.
 
-Best regards,
-Michael
+Error path: to reach it I forced the core clock lookup to fail with a
+test-only change (hvs->core_clk = ERR_PTR(-ENODEV) right after the
+devm_clk_get() call) and traced rpi_firmware_get()/rpi_firmware_put()
+with the function tracer while re-binding the vc4-drm driver.
 
-> ---
->  drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c | 11 ++++++-----
->  1 file changed, 6 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c b/drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c
-> index 7a009d87a665..d6acc3e2d448 100644
-> --- a/drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c
-> +++ b/drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c
-> @@ -1346,7 +1346,6 @@ static int samsung_mipi_dphy_power_on(struct samsung_mipi_dcphy *samsung)
->  
->  	reset_control_assert(samsung->m_phy_rst);
->  
-> -	samsung_mipi_dcphy_bias_block_enable(samsung);
->  	samsung_mipi_dcphy_pll_configure(samsung);
->  	samsung_mipi_dphy_clk_lane_timing_init(samsung);
->  	samsung_mipi_dphy_data_lane_timing_init(samsung);
-> @@ -1373,10 +1372,6 @@ static int samsung_mipi_dcphy_power_on(struct phy *phy)
->  {
->  	struct samsung_mipi_dcphy *samsung = phy_get_drvdata(phy);
->  
-> -	reset_control_assert(samsung->apb_rst);
-> -	udelay(1);
-> -	reset_control_deassert(samsung->apb_rst);
-> -
->  	switch (samsung->type) {
->  	case PHY_TYPE_DPHY:
->  		return samsung_mipi_dphy_power_on(samsung);
-> @@ -1667,6 +1662,12 @@ static __maybe_unused int samsung_mipi_dcphy_runtime_resume(struct device *dev)
->  		return ret;
->  	}
->  
-> +	reset_control_assert(samsung->apb_rst);
-> +	udelay(1);
-> +	reset_control_deassert(samsung->apb_rst);
-> +
-> +	samsung_mipi_dcphy_bias_block_enable(samsung);
-> +
->  	return 0;
->  }
->  
-> 
+Without the patch:
 
+  rpi_firmware_get <-vc4_drm_bind
+  rpi_firmware_put <-vc4_drm_bind
+  rpi_firmware_get <-vc4_hvs_bind
+
+With the patch:
+
+  rpi_firmware_get <-vc4_drm_bind
+  rpi_firmware_put <-vc4_drm_bind
+  rpi_firmware_get <-vc4_hvs_bind
+  rpi_firmware_put <-vc4_hvs_bind
+
+So without the patch every failed bind leaks one reference, and with the
+patch the reference is dropped.
+
+Tested-by: Tomasz Unger <tomasz.unger@yahoo.pl>
+
+One note about the Fixes tag: 2fa4ef5fb943 only moved this code around.
+As far as I can tell, the rpi_firmware_get() before devm_clk_get()
+without a put on the error path was introduced by commit 2a001ca00ad5
+("drm/vc4: hdmi: Rework hdmi_enable_4kp60 detection code"), which went
+into v6.2.
+
+Thanks,
+Tomasz
