@@ -1,80 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=57.103.88.23
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794439587;
-	b=wxKZ7OnU4mZLgdAi1thbMMw1ewJYkBChaxKdG/1JRERMLJOeGtLHxhIxxNs2Og1u/tem
-	 CD2LqsBbQ5KW/EdhuFJA8Sycx6bycZNPnpPENMKDu9Q3OwSxXKA0nVn5FQBSNvsy4X+eX
-	 m/ei/Fe2W5PtJMiLz0IMn7SWffCAFmRCl4UBlPtvmLrYM2zmPpSXYn8ihKd9/h/zYfMjD
-	 4EQ/jBPZJpQfUICKySCCXHg/fOn8HwTHzdtykQp+yVkUecDtgb+fdT+6PuhOYOdTYWbyN
-	 AXIAjiqvG8MR7ePp4Y8o+vpyOl7GANtjWi5NlE05qMKyygw4YIX2DPoEO95Yw3/e84g==
+	t=1794439583;
+	b=UTd4FybPo1QrIf8E2Vl9MwrGb6M5rQrg+cxilfkbR+BIzZGc4zNG8ECBjG9vMRbgUVgB
+	 GtJsx9ibqEDnHWQywuV40wq55UB/wcGLJAOXZKp7XSePDsGKFkuicVfRTtHeq7LukAfgG
+	 ssj27zrQe1Aah89kB+h37AWD1ALPvgV4h0U+Lk2rhXsFPFPdd4jVaDuce7+Aj0jVNBWPe
+	 zffDiCXQx3ABCvANsmS86zc2U+YgdWF4EEQoZnXzaQjwb5PRMj2MgQ+TMgjDPLYlpqKu+
+	 F2jyR+zYuHbB/tJHD7G8B5023A8mCGnYhDnfCeBWxcbYDyUp6E5xEIuMPw7SHtf9b1A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794439587;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=wkOurhuE3F+xoJ1NIf+lBrhllBPRtPbJRVx8vBGAF64=;
-	b=1dxmfoXPFHs4UsEnHBc0aeA3y7+mxkwx7hczCyTVs/CyctlgZQOkVDaK1j1CSAu54T1H
-	 T709Kk6awewb12HhRu7uDC+0VOsuAc/uAjRYTvGhaD4iBiPBI0jU9uT6FNiUgWuxfhQme
-	 QkN/5oquAvTPM5RazQOwUKsFDSxp1BLZ1+JL+lfWgPJT0mg48eyxOfSVv2dHBCyImoDqu
-	 WAMTtAYbKOeuJpYq7lNUeEleKKnFXDdjxhoj2VkbyxJpSOAQhP/Nfw6VumDKTcjSVwIhV
-	 rhtQGUsy3r4fCHzanL5X1uIqgn3x+AF1S4YIMGIXOdT/lFtKkYAp2kYVX2C0buSD3qw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794439583;
+	h=DMARC-Filter:Received:X-ICL-RepId:Dkim-Signature:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
+	 X-Authority-Info-Out:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-JNJ:X-Apple-Category-Label;
+	bh=Q0nP5DdkcJ+oG5DRzHz/udyR2V/2gbvh0o/Ol8PCi/8=;
+	b=G0LqPuEU8Xj5YHRAdA1ycu0mXM8R3++ZDxx4hXjoquH7EdO2m4ogy1/ea76yS1dd2pwU
+	 w9pFQHnChxx5bZCq8tnwHOIWu0naUxQ4p0p9JQCbMYjYofXZjw+DOQA3kzf8JkszMIVlx
+	 qsVrDjAgJ+tB0cYWHKoTvVaTGyZ/TbR084jI6zWeLpIe3wMPvs0nWH4G8rrYhqvMLiEbc
+	 zC39d86aack7R7uh9ECL9dO3m0z9AuePfZM6gsnkGPpYZoyZs5GXv+ezWKfbui7oRGzO5
+	 mVX+Mzpe8bQL8oeUOW7dDy+tkV3fA6k5X14J2Nsg3OvpXM/T4AKStDDYwR38tA/0rIg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N7qTndZy;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=icloud.com;
+	spf=pass smtp.mailfrom=icloud.com;
+	dkim=pass header.d=icloud.com header.i=@icloud.com header.a=rsa-sha256 header.s=1a1hai header.b=ib0CQ+k4;
+	arc=none smtp.remote-ip=57.103.88.23
+Received: from outbound.ci.icloud.com (ci-2007b-snip4-11.eps.apple.com [57.103.88.23])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCC6F606A324
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 23:26:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70A1C606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 23:26:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70A1C606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icloud.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N7qTndZy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 108291F00A05;
-	Wed, 11 Nov 2026 23:26:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794439587;
-	bh=wkOurhuE3F+xoJ1NIf+lBrhllBPRtPbJRVx8vBGAF64=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=N7qTndZy51hJSLb2jLsVlTO9p4LWaiKauDpNXcI9ENwwtyksDNVox1LnC8aguYU49
-	 Fld5SISK+3jDxT1OJurHngw7fOIoXLbn6AfwID9QESU8/B2fx0rz/Clb0TrANrSR69
-	 ENqVWZvnHEW8AKrHNx7s0PZWcl4xrjhCxLJvYwxidR07xFgmQ47eDTWbDwxCyrC4Fj
-	 1F34Gp2kfcVL5pzG7nerRsnheauTM5uNGDTAHqu5x7BUrsRZn1NpcKwDYlC5OnWH1r
-	 m2pWcTpNV6W6lk7FWAuLn3/so7R4Zg0KBlQ3jpAUPsS31C6KZCO5rYGuT/odnOZaOj
-	 JJcLH0nkCMGWQ==
-From: "Barry Song (Xiaomi)" <baohua@kernel.org>
-To: akpm@linux-foundation.org
-Cc: axelrasmussen@google.com,
-	baolin.wang@linux.alibaba.com,
-	baoquan.he@linux.dev,
-	hannes@cmpxchg.org,
-	hui.zhu@linux.dev,
-	kasong@tencent.com,
-	kunwu.chan@gmail.com,
-	liam@infradead.org,
-	lianux.mm@gmail.com,
+	dkim=pass (2048-bit key, unprotected) header.d=icloud.com header.i=@icloud.com header.a=rsa-sha256 header.s=1a1hai header.b=ib0CQ+k4
+Received: from outbound.ci.icloud.com (unknown [127.0.0.2])
+	by p00-icloudmta-asmtp-us-central-1k-60-percent-11 (Postfix) with ESMTPS id 96BC91800145;
+	Wed, 11 Nov 2026 23:26:19 +0000 (UTC)
+X-ICL-RepId: 01a1ccef-07a2-73d3-9a50-990d88191322
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai; t=1794439581; x=1825975581; bh=Q0nP5DdkcJ+oG5DRzHz/udyR2V/2gbvh0o/Ol8PCi/8=; h=From:To:Subject:Date:Message-ID:MIME-Version:x-icloud-hme; b=ib0CQ+k4xAG2nSIUnu/r7KgvGPV/S/3ELMpyvxKmisNx7471EF5pMZxsYL8kVRl4v3zox05fyOKE5J0tEDqjQbWKKH02IN8RKIm+3cp6ystpumbRL8PkWbftiHmpr1It88PjuxtvIP89otCs3lcZRGYaOjjoAZbRlg/dB7878o98T7FcaSkFLNSzIBj698ICjTNEmJYEy7IYz+Y2j34GrerlwzmnzVpXzHzlqOciFduAUjK6N9AoF1/7rVdbqST4AQEbzEPU+xp/J38xMVvxLpXN6PyYBSCVZdFPVS5SgOUZ+meRyqzfyvKFWvC0ak0k6dinrESkuP0vSpIcR2sNcQ==
+Received: from 252-PC-W (unknown [17.57.156.36])
+	by p00-icloudmta-asmtp-us-central-1k-60-percent-11 (Postfix) with ESMTPSA id 7F4C71800169;
+	Wed, 11 Nov 2026 23:26:18 +0000 (UTC)
+From: Finn Zeruhn <fzeruhn@icloud.com>
+To: dri-devel@lists.freedesktop.org
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Jani Nikula <jani.nikula@linux.intel.com>,
+	Coreforge <BC549b@gmail.com>,
 	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	liuxiang.277@bytedance.com,
-	lyugaofei@xiaomi.com,
-	mhocko@kernel.org,
-	mhocko@suse.com,
-	qi.zheng@linux.dev,
-	ridong.chen@linux.dev,
-	rppt@kernel.org,
-	ryncsn@gmail.com,
-	shakeel.butt@linux.dev,
-	surenb@google.com,
-	wangzicheng@honor.com,
-	weixugc@google.com,
-	yuanchu@google.com,
-	zhangbo56@xiaomi.com,
-	zhuhui@kylinos.cn,
-	sidchintamaneni@gmail.com,
-	Barry Song <baohua@kernel.org>
-Subject: [PATCH v7 03/16] mm/mglru: reclaim from the oldest populated gen
-Date: Thu, 12 Nov 2026 07:25:50 +0800
-Message-Id: <20261111232603.9934-4-baohua@kernel.org>
-X-Mailer: git-send-email 2.39.3 (Apple Git-146)
-In-Reply-To: <20261111232603.9934-1-baohua@kernel.org>
-References: <20261111232603.9934-1-baohua@kernel.org>
+	Finn Zeruhn <fzeruhn@icloud.com>,
+	Sefa Eyeoglu <contact@scrumplex.net>
+Subject: [PATCH v3] drm/edid: add non-desktop quirk for Pimax VR headsets
+Date: Wed, 11 Nov 2026 18:26:06 -0500
+Message-ID: <20261111232606.2986-1-fzeruhn@icloud.com>
+X-Mailer: git-send-email 2.54.0.windows.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,145 +69,149 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDA5MyBTYWx0ZWRfX69j5URkb1Xnx
+ Ze2aVZmsRxZwOLNVMv4HNQRkfQpN9z3+hS9y2UU2wQirNKs3w3BmSdb49l7fC0z7kl1tzCptguW
+ 46r+jGzE9r7uYylqg7WJo8Vl0QLhOrF/F15lUKQjnWNgJfeJodcMTEUXmeDQad/b1EIptXoXT4A
+ mcYYVe3Ksw2nmzycx0c7kryVYYUYqF2CbXOr4ROr9poHBsAIPPKmKy42cPNxbsqqut7u0YetsZ4
+ ikdcPmN9YdfHsiD3Kqj3j7zm/UO46ZMz3RVaPCcR+Bsjn7L89jc33JD0GbecW1JUYmg0roquqhv
+ uDRhEo7xjTH+IXRTPrpxmIQbsQ8jaNYdI3e1N47JMdthff3aIVR+prgIOk3ICo=
+X-Authority-Info-Out: v=2.4 cv=a9WlZkSF c=1 sm=1 tr=0 ts=6af4f99c
+ cx=c_apl:c_pps:t_out a=2G65uMN5HjSv0sBfM2Yj2w==:117
+ a=2G65uMN5HjSv0sBfM2Yj2w==:17 a=zJRp6_cAMcgA:10 a=x7bEGLp0ZPQA:10
+ a=UWokjQvqbcQA:10 a=VkNPw1HP01LnGYTKEx00:22 a=EYaFdmsEC1CjpenOt5ir:22
+ a=jdzSJ-FtRUh52-zZQ77r:22 a=Tau1HEJIAAAA:20 a=NEAV23lmAAAA:8 a=e5mUnYsNAAAA:8
+ a=VwQbUJbxAAAA:8 a=v3ZZPjhaAAAA:8 a=9LFCdArbAAAA:8 a=ougUob9Pha3KhaONunMA:9
+ a=Vxmtnl_E_bksehYqCbjh:22 a=Qd14GjuWW7UXhWQsD3Mv:22 a=bA3UWDv6hWIuX7UZL3qL:22
+X-Proofpoint-GUID: f_Wrhe618QUMRDz3H3KWWya7RxS1vUhD
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDA5MyBTYWx0ZWRfX+HYEqv3Agppk
+ Vy3oP8E+wyC9bDYcPc5x3KZkbo+gogmTTEtEckV0H8x78fWqqupWDWFQyayEOhFmg0RuDUPH4qE
+ w+796sNg/ksYKtyvseCu0hSJugoIo1A=
+X-Proofpoint-ORIG-GUID: f_Wrhe618QUMRDz3H3KWWya7RxS1vUhD
+X-JNJ: AAAAAAABlabcNIdCLpoBHk62ipbZW7323196+AeXmCItgzddApsa2j6QHaba6YFRW7n/4s
+ SpFP1xPMg1D+smgxDvKiMjq8BlVUcoukboYxOx7gJVDt309M4h5cvteH9h0KNPRgJkTsN4
+ OvLegFkCleZsNFMUjNheHAm5Eba2at13EX/IwLMXh0neG3++ZYInIqoGHM94hPCFxIbpyc
+ gIxMAQtZDoyY8lotLuBvWDBNzPbE+Sj9LAumEU0ntANkYrFWIijKcYt0SzpF7fvhAy/hqo
+ nwzCiIt+KQCSJfXrmj/2jy+wyc6vIS48QEwprHbFodHe78V944unjGoaDTRiSAIi38TpeT
+ w+4sUPIgdlf0REO7s29E1jUv3YVOhwYEpqWjtHMx0A3RROnIS+1mZgOIR3dZlspsoS4Oeq
+ OPnQjR8xzdYXBWw2qlz5OLaOdgjqmafeeo34LFhY5q3+VyFmI78K7T6sSA9l/f7WqrBNev
+ yrhUOp/pddeLrSwKMrpv8BIqXvb4fVqPs4zthRqrwXw2Qpeq2VSmx88ZsYOFHeGd6h2q48
+ zRzUpWhIc6g0zyl9lsU4XDyty5c6jPl74yOfMYZpkoUPIgHhESs1+QTXHnIhaw7zQgZuHo
+ 0BmaA1fiUdOxXXQbSjzMerkPFk9aYrCzmMnhMlJd5DEByVLDeJ0XUHkr4vybyy6SRfJYGu
+ qSRsStf2I/si3a6hlowB3ifGHAQmdGrwuNyVl05kiWbn+h9+CfP96J51pa36eEfaNvQ9ZY
+ 8U3WuLfd0VbMfJFTxu0jgRSyJvJX9YMGcv35/ds0aTcXCAd2QBs2iZQGzZHQHVZZBYl1QS
+ B5VY3zpHQq4tswGlPS6cOaPfceWNcqeNQK0nB27Qmm1RhOPJTwfkW5/0HYImaBwPkF59xD
+ 6c2gDJtYTCB3MMNnyLWrJpGWVGnDJ+2fftiIU9KNd+8c0pD6Huno07EUkjtxAUet2JLJTt
+ Ogzy6Cpn36Vg1WtBGeVHMYHdAZTYgcwF3Ja09pEvXAfktUt2f2PNaoZoIIycQTKBFUmdrE
+ 5t6Vnj2MU4dERDmJXm/vpyiLt8GObReL3/IA2XbQp8Ra48OH+wSJjoGZD6kohi6lA/JBtv
+ caKmuxeUfAD3xkKmRAC014XN2ydSPDQSvzs7DzTHJo8PIpKMu4cHgtfMV2JlSW9Qz+HmJ+
+ gfBBUj43aBgW6qFX1XfJ4JinDqBnKSTlTPYip1aJUEsHe58xRWf1xfXbNeITCyondNS4jR
+ wkwMsLrpIFBk+Dgn4yAnCBd/0cz3zLsZp/Ptc6OL8SVWoQ7XJaA5HOkz3UGXnTtd77Tg3J
+ Dc+nde7hga2+tN8JSKb3WiaX+9Jhsrgtlohsebp9jVgZjDSu8I6nye
+X-Apple-Category-Label: MTE1NzgzMjUxMzU6JGNhdGVnb3J5JF9QZXJzb25hbCw=
 
-From: Kairui Song <kasong@tencent.com>
+Pimax headsets have no Microsoft HMD VSDB, and their DisplayID
+extension is version 1.2, while the kernel only checks the primary use
+on DisplayID 2.0. They are therefore exposed as desktop monitors and
+VR runtimes cannot lease them.
 
-Currently MGLRU tries to keep the gen numbers of the two types in sync,
-avoiding reducing the gen number of one type when the other type has
-more gens, as described in the comment in try_to_inc_min_seq().
+Add non-desktop quirks for the IDs confirmed by EDIDs:
 
-This makes scan_folios() stuck reclaiming the type with fewer gens: it
-always scanned the oldest gen of the type, even when that gen was
-empty, so reclaim made no progress on that type unless forced aging
-created a new gen and eliminated the dead empty gen.
+  PVR 0x1019  Dream Air, Dream Air SE, Crystal Light,
+              Crystal Super Micro-OLED, P2 8K models
+  PVR 0x101a  P2 5K XR and 5K+
+  PVR 0x101b  P2 5K Super
+  PVR 0x101c  Crystal Super 50 PPD QLED
+  VRT 0x4c31  Crystal Super 57 PPD and Ultrawide QLED
 
-There are other approaches, like lifting the gen number
-synchronization [1]. However, that would break the gen layout used by
-lru_gen_folio_seq(): newly added folios would no longer have a
-well-defined hotness according to their gen number, which reduces
-accuracy. It is also not pressure-aware, since with gentle reclaim we
-still want to respect the gen layout (hotness).
+The 57 PPD and Ultrawide QLED report Varjo's vendor ID "VRT".
+The older Pimax P1 headsets report SVR 0x1019 [1], which is already
+covered by the OSVR entry: name them in its comment.
 
-Instead, reclaim from whichever populated oldest gen is left, but only
-when the default reclaim priority can't satisfy the reclaimer's
-requirement. This is typical for swappiness limitations: e.g., low
-swappiness asks the reclaimer to reclaim from file, but file gens are
-drained, so the reclaim cycle fails and priority is raised.
+Tested on a Dream Air. sboys3 collected most of the EDIDs, namely those
+of the Crystal and Dream Air models [2]. The P2 EDIDs are in the linked
+issue #40.
 
-At the default priority the scan quota is 1/4096 of the evictable
-size, and the old behavior is kept there to respect the hotness
-distribution. Once priority is raised, the quota is at least 1/2048,
-so the hotness bias introduced by reclaiming from a younger gen is
-bounded by that quota, which seems fair. Global reclaim for MGLRU may
-start with DEF_PRIORITY / 2 (1/64); the ratio is still reasonable at
-that point, and when global pressure is more critical, we should
-reclaim harder.
+Dream Air EDID:
 
-Note that scan_folios() still refuses to reclaim a type left with only
-MIN_NR_GENS gens, so a completely drained type still requires aging.
-This change only avoids scanning empty gens when populated reclaimable
-gens remain.
+  00 ff ff ff ff ff ff 00 42 d2 19 10 01 00 00 00
+  ff 23 01 04 a5 00 00 78 00 30 fd ae 50 3b b2 23
+  0c 47 4a 00 00 00 01 01 01 01 01 01 01 01 01 01
+  01 01 01 01 01 01 00 00 00 10 00 00 00 00 00 00
+  00 00 00 00 00 00 00 00 00 00 00 10 00 00 00 00
+  00 00 00 00 00 00 00 00 00 00 00 00 00 fc 00 50
+  69 6d 61 78 0a 20 20 20 20 20 20 20 00 00 00 fd
+  08 3c 64 e9 7b ff 01 0a 20 20 20 20 20 20 02 c2
 
-Link: https://lore.kernel.org/linux-mm/20260726122123.7614-4-baohua@kernel.org/ [1]
-Signed-off-by: Kairui Song <kasong@tencent.com>
-Reviewed-by: Kunwu Chan <kunwu.chan@gmail.com>
-Signed-off-by: Barry Song <baohua@kernel.org>
+  02 03 0f c0 23 09 07 07 83 01 00 00 e2 00 4a 00
+  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 42
+
+  70 12 2b 00 00 03 01 28 43 08 04 88 bf 1b bf 01
+  c7 80 2f 00 ff 0e 2f 00 1c 80 00 00 cf 39 03 08
+  bf 1b bf 01 c7 80 2f 00 ff 0e 2f 00 1c 80 00 00
+  dd 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 90
+
+Link: https://github.com/linuxhw/EDID/blob/master/Digital/Sensics/SVR1019/302D58069F6B [1]
+Link: https://github.com/sboys3/DisplayInfo/tree/main/outputs-nv [2]
+Suggested-by: Sefa Eyeoglu <contact@scrumplex.net>
+Closes: https://gitlab.freedesktop.org/drm/misc/kernel/-/issues/40
+Signed-off-by: Finn Zeruhn <fzeruhn@icloud.com>
 ---
- mm/vmscan.c | 30 +++++++++++++++++++-----------
- 1 file changed, 19 insertions(+), 11 deletions(-)
+An LLM helped prepare this patch.
 
-diff --git a/mm/vmscan.c b/mm/vmscan.c
-index 4ac80968e634..593f407c0668 100644
---- a/mm/vmscan.c
-+++ b/mm/vmscan.c
-@@ -3311,11 +3311,9 @@ static int __folio_inc_gen(struct folio *folio, int old_gen, bool *increased)
- }
+v3:
+- Add PVR 0x101a and 0x101b: EDIDs from a 5K XR, a 5K+ and a 5K Super
+  show them in use.
+- Drop the Assisted-by tag, which checkpatch rejects.
+v2: https://lore.kernel.org/dri-devel/20261016225621.37572-1-fzeruhn@icloud.com/
+- Add PVR 0x101c and VRT 0x4c31 for the Crystal Super QLED models.
+- Name the Pimax P1 in the comment of the existing SVR 0x1019 entry.
+- Leave out PVR 0x101a and 0x101b from the issue, they are only in
+  Pimax Play's device list with no EDID showing them in use.
+v1: https://lore.kernel.org/dri-devel/20261002013500.16903-1-fzeruhn@icloud.com/
+
+ drivers/gpu/drm/drm_edid.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+index 314803874..9e1324454 100644
+--- a/drivers/gpu/drm/drm_edid.c
++++ b/drivers/gpu/drm/drm_edid.c
+@@ -278,6 +278,14 @@ static const struct edid_quirk {
+ 	EDID_QUIRK('H', 'V', 'R', 0xaa01, BIT(EDID_QUIRK_NON_DESKTOP)),
+ 	EDID_QUIRK('H', 'V', 'R', 0xaa02, BIT(EDID_QUIRK_NON_DESKTOP)),
  
- /* protect pages accessed multiple times through file descriptors */
--static int folio_inc_gen(struct lruvec *lruvec, struct folio *folio)
-+static int folio_inc_gen(struct lruvec *lruvec, struct folio *folio, int old_gen)
- {
--	int type = folio_is_file_lru(folio);
--	struct lru_gen_folio *lrugen = &lruvec->lrugen;
--	int new_gen, old_gen = lru_gen_from_seq(lrugen->min_seq[type]);
-+	int new_gen;
- 	bool gen_increased;
- 
- 	new_gen = __folio_inc_gen(folio, old_gen, &gen_increased);
-@@ -4674,7 +4672,7 @@ void lru_gen_reparent_memcg(struct mem_cgroup *memcg, struct mem_cgroup *parent,
-  ******************************************************************************/
- 
- static bool sort_folio(struct lruvec *lruvec, struct folio *folio, struct scan_control *sc,
--		       int tier_idx)
-+		       int min_gen, int tier_idx)
- {
- 	int gen = folio_lru_gen(folio);
- 	int type = folio_is_file_lru(folio);
-@@ -4692,14 +4690,14 @@ static bool sort_folio(struct lruvec *lruvec, struct folio *folio, struct scan_c
- 		return false;
- 
- 	/* promoted */
--	if (gen != lru_gen_from_seq(lrugen->min_seq[type])) {
-+	if (gen != min_gen) {
- 		list_move(&folio->lru, &lrugen->folios[gen][type][zone]);
- 		return true;
- 	}
- 
- 	/* protected */
- 	if (tier > tier_idx || refs + workingset == BIT(LRU_REFS_WIDTH) + 1) {
--		gen = folio_inc_gen(lruvec, folio);
-+		gen = folio_inc_gen(lruvec, folio, min_gen);
- 		list_move(&folio->lru, &lrugen->folios[gen][type][zone]);
- 
- 		/* don't count the workingset being lazily promoted */
-@@ -4714,7 +4712,7 @@ static bool sort_folio(struct lruvec *lruvec, struct folio *folio, struct scan_c
- 
- 	/* ineligible */
- 	if (zone > sc->reclaim_idx) {
--		gen = folio_inc_gen(lruvec, folio);
-+		gen = folio_inc_gen(lruvec, folio, min_gen);
- 		list_move_tail(&folio->lru, &lrugen->folios[gen][type][zone]);
- 		return true;
- 	}
-@@ -4757,17 +4755,27 @@ static int scan_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
- 	int scanned = 0;
- 	int isolated = 0;
- 	int skipped = 0;
-+	unsigned long min_seq;
- 	unsigned long remaining = nr_to_scan;
- 	struct lru_gen_folio *lrugen = &lruvec->lrugen;
- 
- 	VM_WARN_ON_ONCE(nr_to_scan > MAX_LRU_BATCH);
- 	VM_WARN_ON_ONCE(!list_empty(list));
- 
-+	/*
-+	 * Respect the gen hotness distribution at low priority to avoid
-+	 * aging and scan cost, but prefer to satisfy the reclaimers request
-+	 * when under pressure to respect swappiness more and reduce IO cost.
-+	 */
-+	if (sc->priority == DEF_PRIORITY)
-+		min_seq = lrugen->min_seq[type];
-+	else
-+		min_seq = lruvec_populated_min_seq(lruvec, type, lrugen->max_seq - MIN_NR_GENS + 1);
++	/* Pimax VR Headsets */
++	EDID_QUIRK('P', 'V', 'R', 0x1019, BIT(EDID_QUIRK_NON_DESKTOP)),
++	EDID_QUIRK('P', 'V', 'R', 0x101a, BIT(EDID_QUIRK_NON_DESKTOP)),
++	EDID_QUIRK('P', 'V', 'R', 0x101b, BIT(EDID_QUIRK_NON_DESKTOP)),
++	EDID_QUIRK('P', 'V', 'R', 0x101c, BIT(EDID_QUIRK_NON_DESKTOP)),
++	/* Pimax Crystal Super 57 PPD and Ultrawide QLED, uses Varjo's vendor ID */
++	EDID_QUIRK('V', 'R', 'T', 0x4c31, BIT(EDID_QUIRK_NON_DESKTOP)),
 +
- 	if (get_nr_gens(lruvec, type) == MIN_NR_GENS)
- 		return 0;
+ 	/* Oculus Rift DK1, DK2, CV1 and Rift S VR Headsets */
+ 	EDID_QUIRK('O', 'V', 'R', 0x0001, BIT(EDID_QUIRK_NON_DESKTOP)),
+ 	EDID_QUIRK('O', 'V', 'R', 0x0003, BIT(EDID_QUIRK_NON_DESKTOP)),
+@@ -298,7 +306,7 @@ static const struct edid_quirk {
+ 	/* Sensics VR Headsets */
+ 	EDID_QUIRK('S', 'E', 'N', 0x1019, BIT(EDID_QUIRK_NON_DESKTOP)),
  
--	gen = lru_gen_from_seq(lrugen->min_seq[type]);
--
-+	gen = lru_gen_from_seq(min_seq);
- 	for (i = MAX_NR_ZONES; i > 0; i--) {
- 		LIST_HEAD(moved);
- 		int skipped_zone = 0;
-@@ -4785,7 +4793,7 @@ static int scan_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
+-	/* OSVR HDK and HDK2 VR Headsets */
++	/* OSVR HDK and HDK2, Pimax P1 VR Headsets */
+ 	EDID_QUIRK('S', 'V', 'R', 0x1019, BIT(EDID_QUIRK_NON_DESKTOP)),
+ 	EDID_QUIRK('A', 'U', 'O', 0x1111, BIT(EDID_QUIRK_NON_DESKTOP)),
  
- 			scanned += delta;
- 
--			if (sort_folio(lruvec, folio, sc, tier))
-+			if (sort_folio(lruvec, folio, sc, gen, tier))
- 				sorted += delta;
- 			else if (isolate_folio(lruvec, folio, sc)) {
- 				list_add(&folio->lru, list);
+
+base-commit: 3944ca3e6b7d25e545e8ef6498f69941e8e0c8ae
 -- 
-2.34.1
+2.54.0.windows.1
 
