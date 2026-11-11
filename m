@@ -1,61 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.100
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794366139;
-	b=xJb+/iv9ujg2/V0FgLixawzMOHKmMrZgMmRZsD0ZBPEp60Sgs7qc5cTOnOFWaqaMY8d5
-	 KCxINEzaenW3p4KTwE/7pzVI5OaIp1Ck9P17aLjz2G5nK96wQcAVijfp8Zaselq/KuiKj
-	 +kUPQ0PZyclKgXU6pjN7nWBBy56vH2xWRP5ouGdymLmD9HNswHSNORBE7fEH+OHr32ltp
-	 vI5M9Wfy529oAXP4/xAtujs75okFIH9JfNzToIUZFMfIxEgOLf/UFzxovAsw401WX1+3E
-	 iBEguWYny8Ok9lP68QJJiaXatQrJbs1e+OB0bLz54q/9qQ0rRCkpf98MNEwD9g3No2Q==
+	t=1794366342;
+	b=rmj1p33DRUYXUhE0+sOIkrbda1g8VgfsfQCAXd94lwgPlsAgGak4tCnKupasMDcMA1T5
+	 gWO0sRSkhkq4B0fKK3aGQ9F0YYg0KAmHN69GHxWZapEz93SrWtjlWW8Z4iofHzds19L9N
+	 dwDrXyDXLZowdJC+MO9H2gjLzwFMxhvaFFp9tgk5nv9B6JIq0aGmWd5bT444TD/7N4YMR
+	 UxeUYIWy9W1jLO6Gq6XRH+Smf+r4vE2+7ZiYjyltYbvzf922P+qga+8ksZk4mJ3uNxia9
+	 NIZKMAZEsjNlUyA+mvOt/AjbZiIJOrmUuQfQwgnglLqGMt2Fn3SuMY0yA77XdwLJYGQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794366139;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=KQ5hKSkXjTEw8NyA3dDB+jLHVek2ETy4pxYZDW9Dn5c=;
-	b=JH979MaH60LauKm3p7N/wTiMQXIB+2mBZXprA5211D7JVTfMXrHbP2yQzp5dQFbykpfy
-	 xwxyvAbMl2gE/XkHv8D/nTdPEm81ZihoXNMl8JXf1OBx5S1VzorvLoJTwtgmBjH5tLR5f
-	 RSmHwFysJqbHFnzcTZkvj90oJThQOceTb2z+6eBkSPZsi7u+dQpC7yBHX4sd7FZoEBxr6
-	 J6ZN255v+IiZuZ9GYYvOw9GJpyVUf2wB75uSZw5fCqs7AbKzyJwuh7iPjWXSSVM3SBkGa
-	 B78T8YEBXmzUQG/25D9ZkxZB2e67jAJqB1DpeojJaLY64nFjWRcJgOwJ5HYEJmPovfQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794366342;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=uMTNYUkii6qLQJ9ZEEqnYSkjnjc4c5VnVsIGkdlEd14=;
+	b=4/99ApTqeZKpF7JY4alN1ohXyYk5BvVQniEsMEsUfPOr7Jf5UApYOCUxhELdMuqTgtnv
+	 McDnUj4SFN0XNL5MIcXcUs3H1/hozQHy8GH2OgDAqG23TKh42v5VNtbgvHIK2XjExcltq
+	 t1MdJCSMryQwE6kzQsnBkU4zfg5sGxxaLygGxJ5Si/j6IPbciQf48pSL2CLhbBnUc3fjO
+	 joOcgo3ZaTxeU6V3lG15jdAIj1sOgx+qcvqUBUPngksK1tGZRvHrq2sV6/yzTonNM5f0I
+	 2n2H2OFsYjGOKFWE/pk/u0Z4oVG9evhoyormrjkBZiNpeWPhJGPrEh9SwMKNur7MuZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=xiaopeng.com;
-	spf=pass smtp.mailfrom=xiaopeng.com;
-	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=fi7l2q1k;
-	arc=none smtp.remote-ip=115.124.28.100
-Received: from out28-100.mail.aliyun.com (out28-100.mail.aliyun.com [115.124.28.100])
+	dmarc=pass header.from=pm.me;
+	spf=pass smtp.mailfrom=pm.me;
+	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=mAJk9qXe;
+	arc=none smtp.remote-ip=109.224.244.17
+Received: from mail-24417.protonmail.ch (mail-24417.protonmail.ch [109.224.244.17])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C121F606A31C;
-	Wed, 11 Nov 2026 03:02:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C121F606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8755E606A32E;
+	Wed, 11 Nov 2026 03:05:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8755E606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=fi7l2q1k
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xiaopeng.com; s=default;
-	t=1794366128; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=KQ5hKSkXjTEw8NyA3dDB+jLHVek2ETy4pxYZDW9Dn5c=;
-	b=fi7l2q1k8jlVJtbdHxPLfcQ5y0LRan/bjZDyQza4bRHyZDvk0R6Qkp1a/lzkE/xIqENgbHFrRomJ+jH7grl/zIShNDXDauSd86Zw0VlPWA0pVtw8mm9SDThQW0WQ+SSshBiSTW7sgMUGbkdo+p8ousjdb/PC6wJXg4YUbX/TBoI=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.04480233|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.0194357-0.000237223-0.980327;FP=9691735388033927120|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam011083032240;MF=fangxy@xiaopeng.com;NM=1;PH=DS;RN=9;RT=9;SR=0;TI=SMTPD_---.k.Jtk90_1794366126;
-Received: from localhost.localdomain(mailfrom:fangxy@xiaopeng.com fp:SMTPD_---.k.Jtk90_1794366126 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Wed, 11 Nov 2026 11:02:07 +0800
-From: Fang Xieyan <fangxy@xiaopeng.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-usb@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	Yoshihiro Shimoda <shimoda.yoshihiro@renesas.com>,
-	Paul Mundt <lethal@linux-sh.org>,
-	Hongyan Xu <getshell@seu.edu.cn>,
-	Slavin Liu <220245772@seu.edu.cn>,
-	stable@vger.kernel.org,
-	Liu Chao <liuc63@xiaopeng.com>
-Subject: [PATCH] usb: gadget: r8a66597: fix NULL dereference for unmapped endpoints
-Date: Wed, 11 Nov 2026 11:02:06 +0800
-Message-ID: <20261111030206.64608-1-fangxy@xiaopeng.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=mAJk9qXe
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1794366339; x=1794625539;
+	bh=uMTNYUkii6qLQJ9ZEEqnYSkjnjc4c5VnVsIGkdlEd14=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=mAJk9qXef5Dg92eNFgL1RRe5OnKLf1i0HsXA+8ARikr6+LWggcz8YnnZ0V5PncB/t
+	 Ojz8P7QUm+rYOjpXVaXOBSXbULCSXHtp8DZFqLMZ/sQenvK1IonhyF3/cUdqIAnvVS
+	 8+O+JPUmuhPnDxxe9oBKZbhEKkEh6+v1bVQ8UHsG6ur5t0UsRPKiTHkYNxRTlBxC/p
+	 TtePKLvBY0Bu+YbefdTscuwyWQmglSmWFHFbiaQUptV8Qn+zHzGG1TqazMQQ5t2wqT
+	 0ZAm0lJWuakoyuB2b8ydv+poW7XTlRIthyO3ZgNh1VVTu78b/8C0BsFhvM/OMGW5Y/
+	 d25vK0KqGLdwA==
+Date: Wed, 11 Nov 2026 03:05:33 +0000
+To: Pragnesh Papaniya <pragnesh.papaniya@oss.qualcomm.com>, Sibi Sankar <sibi.sankar@oss.qualcomm.com>
+From: Birk Skyum <birk.skyum@pm.me>
+Cc: sudeep.holla@kernel.org, cristian.marussi@arm.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, myungjoo.ham@samsung.com, kyungmin.park@samsung.com, cw00.choi@samsung.com, digetx@gmail.com, thierry.reding@kernel.org, jonathanh@nvidia.com, andersson@kernel.org, konradybcio@kernel.org, rajendra.nayak@oss.qualcomm.com, pankaj.patil@oss.qualcomm.com, linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, arm-scmi@vger.kernel.org, linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, linux-pm@vger.kernel.org, linux-tegra@vger.kernel.org
+Subject: Re: [PATCH RFC 09/10] arm64: dts: qcom: hamoa: Enable LLCC/DDR/DDR_QOS DVFS
+Message-ID: <179436632843.48104.13255943696510307622@pm.me>
+In-Reply-To: <20260724-rfc_v8_scmi_memlat-v1-9-cb732bcff1f4@oss.qualcomm.com>
+References: <20260724-rfc_v8_scmi_memlat-v1-0-cb732bcff1f4@oss.qualcomm.com> <20260724-rfc_v8_scmi_memlat-v1-9-cb732bcff1f4@oss.qualcomm.com>
+Feedback-ID: 21326998:user:proton
+X-Pm-Message-ID: 4df2f6e52051d98663eb4d196577dc26e996a70d
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,71 +64,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-The epaddr2ep[] table is initialized with EP0 at probe time and
-populated for other endpoints when the gadget driver successfully
-enables them.  Entries for endpoint numbers that have never been
-enabled remain NULL.  The table is indexed by endpoint number and the
-lookup mask is USB_ENDPOINT_NUMBER_MASK, so the access itself stays in
-bounds; what is missing is the check for the NULL entry.
+Hi Pragnesh, Sibi,
 
-get_status(), clear_feature() and set_feature() index this table using
-the host-controlled wIndex and immediately dereference the result
-without checking it.  A malicious host can send a standard
-endpoint-recipient GET_STATUS, CLEAR_FEATURE or SET_FEATURE request for
-an unmapped endpoint number, triggering a NULL pointer dereference and
-crashing the kernel.
+I tried this on a Lenovo Yoga Slim 7x (X1E80100, 83ED, firmware
+NHCN62WW) running 7.3 with patches 1-8 of this series and the
+protocol@80 node from this patch added to the board's DTB.
 
-Check the looked-up endpoint before using it.  If the entry is NULL,
-stall the control pipe (pipe_stall(r8a66597, 0)) and abort the request,
-matching the existing handling of unsupported recipients.
+Memlat probes, and the ddr, llcc and ddr-qos devfreq devices come up
+under the remote governor. CPU read bandwidth goes from about 51 GB/s
+to 117 GB/s with six threads, and suspend and resume work.
 
-Fixes: c41442474a26 ("usb: gadget: R8A66597 peripheral controller support.")
-Cc: stable@vger.kernel.org
-Reviewed-by: Liu Chao <liuc63@xiaopeng.com>
-Signed-off-by: Fang Xieyan <fangxy@xiaopeng.com>
----
- drivers/usb/gadget/udc/r8a66597-udc.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+Under GPU load it isn't stable here, though. I ran Speedometer 3.1 in
+Chrome twice with memlat active:
 
-diff --git a/drivers/usb/gadget/udc/r8a66597-udc.c b/drivers/usb/gadget/udc/r8a66597-udc.c
-index d190e16d43fc..d769ea530409 100644
---- a/drivers/usb/gadget/udc/r8a66597-udc.c
-+++ b/drivers/usb/gadget/udc/r8a66597-udc.c
-@@ -1174,6 +1174,10 @@ __acquires(r8a66597->lock)
- 		break;
- 	case USB_RECIP_ENDPOINT:
- 		ep = r8a66597->epaddr2ep[w_index & USB_ENDPOINT_NUMBER_MASK];
-+		if (!ep) {
-+			pipe_stall(r8a66597, 0);
-+			return;		/* exit */
-+		}
- 		pid = control_reg_get_pid(r8a66597, ep->pipenum);
- 		if (pid == PID_STALL)
- 			status = 1 << USB_ENDPOINT_HALT;
-@@ -1210,6 +1214,10 @@ static void clear_feature(struct r8a66597 *r8a66597,
- 		u16 w_index = le16_to_cpu(ctrl->wIndex);
- 
- 		ep = r8a66597->epaddr2ep[w_index & USB_ENDPOINT_NUMBER_MASK];
-+		if (!ep) {
-+			pipe_stall(r8a66597, 0);
-+			break;
-+		}
- 		if (!ep->wedge) {
- 			pipe_stop(r8a66597, ep->pipenum);
- 			control_reg_sqclr(r8a66597, ep->pipenum);
-@@ -1270,6 +1278,10 @@ static void set_feature(struct r8a66597 *r8a66597, struct usb_ctrlrequest *ctrl)
- 		u16 w_index = le16_to_cpu(ctrl->wIndex);
- 
- 		ep = r8a66597->epaddr2ep[w_index & USB_ENDPOINT_NUMBER_MASK];
-+		if (!ep) {
-+			pipe_stall(r8a66597, 0);
-+			break;
-+		}
- 		pipe_stall(r8a66597, ep->pipenum);
- 
- 		control_end(r8a66597, 1);
--- 
-2.50.1
+- The first time the run finished, but after a warm reboot into a
+  kernel whose DTB lacks protocol@80, the GPU never came up:
+
+  adreno_gmu 3d6a000.gmu: [drm:a6xx_hfi_wait_for_msg_interrupt [msm]] *ERRO=
+R* Message HFI_H2F_MSG_GX_BW_PERF_VOTE id 34 timed out waiting for response
+  adreno_gmu 3d6a000.gmu: [drm:a6xx_gmu_set_oob [msm]] *ERROR* Timeout wait=
+ing for GMU OOB set GPU_SET: 0x4
+
+  A cold boot of the same kernel was fine.
+
+- The second time the machine reset partway through the run, with
+  nothing in pstore.
+
+Four runs without the GPU load (a CPU bandwidth test, with and without
+a suspend), each followed by the same warm reboot, were clean, as were
+about ten boots without memlat.
+
+Separately, the memlat driver sends MEMLAT_STOP_TIMER only from its
+.remove callback, and the SCMI bus has no shutdown hook, so on a
+reboot the monitors keep running on the CPUCP into whatever boots
+next. That would fit the first failure if the GMU's GX bandwidth votes
+and the CPUCP's DDR votes get in each other's way. Would it make sense
+to stop the timers from a reboot notifier as well?
+
+I'm happy to test a follow-up on this machine.
+
+Thanks,
+Birk
 
