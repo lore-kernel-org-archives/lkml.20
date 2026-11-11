@@ -1,41 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.15
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794379239;
-	b=AY1q07WypYjTMYnjxwq5QuGxdKmdjUfLm+vdC148ab/XsO4T8Qy/5WyVBysYNaHsYFRp
-	 ypjeNR6RrAAvqTdsTgvOAqiA/g/0aFgxEJL+0cyZLNjeT6HNmN/FWZdJxRqz97SwewHaN
-	 a9T1QI0vng+14lHiYz2keN/RVz/AkEto0GYkgZg+m3zxw+AZjeAQxO3WgePvVrZG4wI/x
-	 vjL8EEfUufvdSaleOuFFvyv78vCoV0ucgZMghHxtL4Nh0qsIdvUiWTpIymiZTmlFQBaB2
-	 fogQd8vBKtHpThDgkoYgQG68d5HeBZLP6WsFxh97neKRro61XM8GeZ4/XvNsipOalbw==
+	t=1794379259;
+	b=1eDYcp5k6+A73LNBSHRUI1OoSIdQj2A+YKe6zmD+Z/XigmqxKkDUlp4V/2G44TLm2+oR
+	 PyiZC4BWPG5fJCBD2pLprRdyOSGSqbC4rl354DRWd26g4ukc6ZhZVdIbSmyw9IZ+lYd9I
+	 LSd4jZxQL0wrchXZOMVnO+Ix8Qa42g5MECCH+qW0u99cciQO42phCTkcN7qKnXzqYiiyC
+	 7Vgyvxkltv7LAAHw5ySZRAcTE9ImLByUSYUJYDujcJum4CH8n/U2o55Q5sfv++ZFV4iuE
+	 Nq/CqTnxGRhphchgL9DbXEB3P/O5GRTL7/tfIqSyAT6SS2etHbfGxf9F00OmRYBMFYw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794379239;
-	h=DMARC-Filter:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-CM-TRANSID:X-CM-SenderInfo:
-	 X-Coremail-Antispam;
-	bh=mS7f3LBNsYvviLImdAlV+37u0J808vqvFdf+W/WMDc0=;
-	b=LQ1LE+B58pi18U6bO9WTnkRbGmvvkBNRJFa3gHZk9nR1jSb8euZHQqVvJzIdIvhU0eKA
-	 TTMSlgv3VaF+vY2OA45FctlNaLnMnkNg+RuU4OLHWifBBuGeW+1AMcq9RwTCE+V1CcYVC
-	 mE6OxQGNRxJS3685g/ZTwDJ4Oz9qrkgCNFQybOIRCXlwNnycSx558xwpU5He8l3S74D0+
-	 hxesSy37ESKVnvTUTnk1ag3lAdX9L7k99TbninaYKlPr1zF79xbFzw3HK0TmhpeKqeKeL
-	 2VB1JE8wiq8TFNwoqe6PeH29pf7AxQ0ElqYGGdFuCMxZHpMEN8rhGK95Y/C36S+ZWGQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794379259;
+	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Rspamd-Server:X-Rspamd-Queue-Id:
+	 X-Stat-Signature:X-Spam-Status:X-Session-Marker:X-Session-ID:
+	 DKIM-Signature:X-HE-Tag:X-HE-Meta;
+	bh=8bkDBSyUcvT2hacuHSOWV/Kpr2sMAXhIXLb1rh0obIg=;
+	b=VhkzSa76heXRcqtmv3FEwyevk087B4QGAluR/nIZSCjOKkc668a0QlBR6QsAn2PxXZ5P
+	 EzQeIFpRHD7VR+y4UHufobqV+sGrbxhj1eP4yPPoozi4TCxgm8fEU9yWg0j202iBneRNR
+	 8ftLqwiKQ8D2EU8d6Yn6h4UnVJs6KIsClY0Yb8TzR8slK4pKT7osB3aGCtPwlntTNqmox
+	 a3mPVxIj+UgAqr/NO/aM/R1LykpM6ETx5yR7pOYKXY6aufolsc1jeVufmkz+kB2X0c/di
+	 D/V6LgJWUulA80c5e4ZX57U6ya6bdE199abzChEIUHAJc0FcWn/+AkbIC+ctO120pDA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=loongson.cn;
-	spf=pass smtp.mailfrom=loongson.cn;
-	arc=none smtp.remote-ip=114.242.206.163
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 91361606A321;
-	Wed, 11 Nov 2026 06:40:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91361606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [10.20.42.102])
-	by gateway (Coremail) with SMTP id _____8BxbdLeDfRqQXQeAA--.24050S3;
-	Wed, 11 Nov 2026 14:40:30 +0800 (CST)
-Received: from [127.0.0.1] (unknown [127.0.0.1])
-	by front1 (Coremail) with SMTP id qMiowJCxtMzaDfRq3akzAA--.13034S2;
-	Wed, 11 Nov 2026 14:40:29 +0800 (CST)
-Message-ID: <f34b681b-1499-43c8-b8a7-1437409bd709@loongson.cn>
-Date: Wed, 11 Nov 2026 14:37:39 +0800
+	dmarc=pass header.from=goodmis.org;
+	spf=pass smtp.mailfrom=goodmis.org;
+	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=yhUsaWwf;
+	arc=none smtp.remote-ip=216.40.44.15
+Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB858606A31C;
+	Wed, 11 Nov 2026 06:40:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB858606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=yhUsaWwf
+Received: from omf04.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay04.hostedemail.com (Postfix) with ESMTP id 1C8511A0228;
+	Wed, 11 Nov 2026 06:40:56 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf04.hostedemail.com (Postfix) with ESMTPA id 7A97C20027;
+	Wed, 11 Nov 2026 06:40:52 +0000 (UTC)
+Date: Wed, 11 Nov 2026 01:40:46 -0500
+From: Steven Rostedt <rostedt@goodmis.org>
+To: n3rd <18670333770@163.com>
+Cc: "linux-trace-kernel@vger.kernel.org"
+ <linux-trace-kernel@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>, "Masami Hiramatsu" <mhiramat@kernel.org>,
+ "Mathieu Desnoyers" <mathieu.desnoyers@efficios.com>, "security@kernel.org"
+ <security@kernel.org>
+Subject: Re: [SECURITY] tracing: splice(2) trace_pipe peek outside the
+ access lock
+Message-ID: <20261111014046.07a658bd@fedora>
+In-Reply-To: <6bc59ae6.bbe98.1a1c54ca872.Coremail.18670333770@163.com>
+References: <6bc59ae6.bbe98.1a1c54ca872.Coremail.18670333770@163.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -45,143 +63,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 2/4] EDAC/loongson: Encode node and MC info into mc_idx
-To: Borislav Petkov <bp@alien8.de>
-Cc: Qunqin Zhao <zhaoqunqin@163.com>, tony.luck@intel.com,
- linux-edac@vger.kernel.org, chenhuacai@kernel.org,
- linux-kernel@vger.kernel.org, Wang Jinwei <wangjinwei@loongson.cn>,
- Yulong Wang <wangyulong@loongson.cn>, Dongyan Qian
- <qiandongyan@loongson.cn>, Chao Li <lichao@loongson.cn>,
- Huacai Chen <chenhuacai@loongson.cn>
-References: <20261105025532.2055-1-zhaoqunqin@163.com>
- <20261105025532.2055-3-zhaoqunqin@163.com>
- <20261110064106.GAavK8ghva7DgZ35DK@fat_crate.local>
- <809041a2-ebdd-409d-a1f4-3ac7884513d2@loongson.cn>
- <20261110080338.GJavLP2h448voZSQRE@fat_crate.local>
- <61dc34e7-e872-42cb-a0b1-be100a78053a@loongson.cn>
- <20261110183101.GEavNi5Qrv3eLe80VL@fat_crate.local>
-Content-Language: en-US
-From: Qunqin Zhao <zhaoqunqin@loongson.cn>
-In-Reply-To: <20261110183101.GEavNi5Qrv3eLe80VL@fat_crate.local>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJCxtMzaDfRq3akzAA--.13034S2
-X-CM-SenderInfo: 52kd01pxqtx0o6or00hjvr0hdfq/
-X-Coremail-Antispam: 1Uk129KBj93XoWxXF1kKrWrtFyUKF13tFyrGrX_yoW5CF18pF
-	4UCa1Y9rWrtryDWw1vyF4UZa4a93WrKasFgw4xZa18Kr9FkryUXryfWrW2vFyDA348CF15
-	Z3WrGr4xCFWDGFgCm3ZEXasCq-sJn29KB7ZKAUJUUUUr529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUvKb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r106r15M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv6xkF7I0E14v2
-	6r4UJVWxJr1ln4kS14v26r1Y6r17M2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12
-	xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1Y
-	6r17McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr4
-	1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1l4IxYO2xFxVAFwI0_Jrv_
-	JF1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17
-	CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0
-	I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I
-	8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r1j6r4UYxBIdaVFxhVjvjDU
-	0xZFpf9x07je0PfUUUUU=
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Server: rspamout05
+X-Rspamd-Queue-Id: 7A97C20027
+X-Stat-Signature: k5rzm1jao8iocr9aw1btkche3cmuspxz
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX18feHyx77vQXCWFfcQ+TamY8B9+BuW9zq0=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=8bkDBSyUcvT2hacuHSOWV/Kpr2sMAXhIXLb1rh0obIg=; b=yhUsaWwfMDL3LiiJLDCkGgV0Ob+8yqFMfVafdb95zWomeGEWz+OodxBU/svY0tFT22rfzSnUgA7qRXmqVeQnYGfIM7hT/yVyV03r9e3l7eil/BUogrJvsKYQAL+vxWetZkXSzyJgv6v2WSQGb6m2n5gb2YFYNoQM7jOLhSC9tRw=
+X-HE-Tag: 1794379252-706247
+X-HE-Meta: U2FsdGVkX18BK7tC25J3516d7ovVixR1TnBRGjakuPM3yRbjAQungXSdAgydFjEkQDY8HKqCpL2+YS1I9V+60R4msApA04VWD/kriZDRL6eACWD4dVEznrEV9cHNliRqpsm/1NhLGbk91TAU69l1oVzN0hby7F7YE7KWP4PH69LpuuPX40dbe2wy/K2Dg6GYtNrPxx0E9odO54X45oFZwH9lISh761TtafsNMzyJnj3yIdznk/r5383WZaBBTgdd4jehSjufYiPTFCV2+4vKUB6zUwIo4OTrJi9CoZWlT06WsFRKR5JGRM+evri0JXzIp5MxbaWVkaHcZy3OVNKc+QrEdOqHG71Q
+
+On Tue, 10 Nov 2026 19:51:37 +0800 (GMT+08:00)
+n3rd <18670333770@163.com> wrote:
+
+> 4. Conditions
+> Requires local root to write
+
+Here you state that it requires local root to exploit.
+
+> /sys/kernel/tracing/buffer_subbuf_size_kb and trace_marker and to
+> read trace_pipe, tracefs mounted, and at least two CPUs so that the
+> order change and the splice reader really run concurrently. The order
+> change is what frees the page; a splice(2) reader without concurrent
+> order changes does not trigger it. CONFIG_TRACING=y is required for
+> the tracefs files and CONFIG_KASAN=y makes the read visible as a
+> KASAN report; without KASAN the read is silent. Tested on x86_64
+> only, with QEMU TCG and two vCPUs.
+> 
 
 
-在 2026/11/11 02:31, Borislav Petkov 写道:
-> On Tue, Nov 10, 2026 at 04:23:29PM +0800, Qunqin Zhao wrote:
->> mc-idx is not guaranteed. There is firmware that does not provide the property.
-> Ok, I guess you can do something like this then. It should work naturally with
-> the rest of the EDAC MC index handling:
->
-> diff --git a/drivers/edac/loongson_edac.c b/drivers/edac/loongson_edac.c
-> index 3c5d29941a38..78fa8d87da0b 100644
-> --- a/drivers/edac/loongson_edac.c
-> +++ b/drivers/edac/loongson_edac.c
-> @@ -14,6 +14,9 @@
->  
->  #define ECC_CS_COUNT_REG	0x18
->  
-> +/* Memory controller index invalid due to inability to read it from ACPI, etc */
-> +#define MC_IDX_INVALID		BIT(16)
-> +
->  struct loongson_pvt {
->  	void __iomem *ecc_base;
->  
-> @@ -25,7 +28,6 @@ struct loongson_pvt {
->  	 */
->  	int last_ce_count;
->  	u32 mcs_per_node;
-> -	bool mc_idx_valid;
->  };
->  
->  static int read_ecc(struct mem_ctl_info *mci)
-> @@ -56,7 +58,7 @@ static void loongson_check(struct mem_ctl_info *mci)
->  	if (add <= 0)
->  		return;
->  
-> -	if (pvt->mc_idx_valid) {
-> +	if (pvt->mc_idx >= MC_IDX_INVALID) {
->  		node = mci->mc_idx / pvt->mcs_per_node;
->  		mc = mci->mc_idx % pvt->mcs_per_node;
->  		snprintf(other_detail, sizeof(other_detail), "node:%d mc:%d", node, mc);
-> @@ -82,14 +84,12 @@ static void dimm_config_init(struct mem_ctl_info *mci)
->  	dimm->grain = 8;
->  }
->  
-> -static void pvt_init(struct mem_ctl_info *mci, void __iomem *vbase,
-> -		     bool mc_idx_valid, u32 mcs_per_node)
-> +static void pvt_init(struct mem_ctl_info *mci, void __iomem *vbase, u32 mcs_per_node)
->  {
->  	struct loongson_pvt *pvt = mci->pvt_info;
->  
->  	pvt->ecc_base = vbase;
->  	pvt->last_ce_count = read_ecc(mci);
-> -	pvt->mc_idx_valid = mc_idx_valid;
->  	pvt->mcs_per_node = mcs_per_node;
->  }
->  
-> @@ -100,7 +100,6 @@ static int loongson_probe(struct platform_device *pdev)
->  	struct device *dev = &pdev->dev;
->  	void __iomem *vbase;
->  	u32 mcs_per_node;
-> -	bool mc_idx_valid = true;
->  	int ret;
->  
->  	vbase = devm_platform_ioremap_resource(pdev, 0);
-> @@ -129,15 +128,13 @@ static int loongson_probe(struct platform_device *pdev)
->  	mci->error_desc.grain = 8;
->  	mci->edac_check = loongson_check;
->  
-> -	if (device_property_read_u32(dev, "mc-idx", &mci->mc_idx)) {
-> -		mci->mc_idx = edac_device_alloc_index();
-> -		mc_idx_valid = false;
-> -	}
-> +	if (device_property_read_u32(dev, "mc-idx", &mci->mc_idx))
-> +		mci->mc_idx = edac_device_alloc_index() | MC_IDX_INVALID;
+> 
+> 6. Suggested fix
+> Move the trace_find_next_entry_inc() call in
+> tracing_splice_read_pipe() below trace_event_read_lock() and
+> trace_access_lock(), matching tracing_read_pipe(), so that the peek
+> is covered by the same RING_BUFFER_ALL_CPUS access lock that
+> serializes ring_buffer_subbuf_order_set(). Alternatively copy the
+> event out while the reader lock is held, the way rb_iter_head_event()
+> does. No upstream patch exists as of v7.3-rc7.
 
-Thanks for your patch. I’ve tested it and found a minor issue. 
+Feel free to send a patch.
 
-If we encode the presence of the _DSD property into mc_idx, 
+> 
+> 
+> 7. Mitigation
+> Restrict write access to tracefs to trusted processes and avoid
+> changing buffer_subbuf_size_kb while trace_pipe is being read with
+> splice(2). This reduces exposure but does not fix the root cause.
 
-the sysfs representation will become confusing. For example:
+Now you state the mitigation in to only allow access to tracefs to
+trusted processes, which as you stated above, is the default.
 
-loongson@loongson:~$ ls /sys/devices/system/edac/mc/
-mc65536  power  subsystem  uevent
-^^^^^^
+This is *not* a security bug. Please continue this conversation in the
+linux-trace-kernel. mailing list.
 
+Thanks,
 
-Qunqin,
-
-Thanks.
-
->  
->  	if (device_property_read_u32(dev, "mcs-per-node", &mcs_per_node) || mcs_per_node == 0)
->  		mcs_per_node = 4;
->  
-> -	pvt_init(mci, vbase, mc_idx_valid, mcs_per_node);
-> +	pvt_init(mci, vbase, mcs_per_node);
->  	dimm_config_init(mci);
->  
->  	ret = edac_mc_add_mc(mci);
->
-
+-- Steve
