@@ -1,105 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.84.34
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794390657;
-	b=Ti/ut/DZNKBTmfyXE7p5WTr8YztBm+V1VegnS4AK4ggqx0vCSLCbULlnKRDt28CAW5gH
-	 +HLx2BxrA7nNdNLb+FfyeecNlRglXRy/1k/JKma1SaWaGi8/tVz3QfTIo4Bx7TJBywnxn
-	 I0UXfDOABj07FWn2ncKSxrSwd1LjfjN9vzdkvmbyO5KEi5yLG3bqDpn+EVddsY6jzpdzm
-	 4Rl+COHiGMNjhf2a+Ev27QnwmwaE4HU2N/IMtSwFcFsHNsf82mzr302BiW79mz+xpslso
-	 sDPKyvk9UovpJLPy2Hj/c3gpug6pl0rDr+j6CU/gRzmUv70WaxbkIjI/EQ5ot8b951A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794390657;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=j7iZqE67eldTeECQ66TpmwgLBpF52JYzleGvG1epJ8A=;
-	b=P9ArNXYXfeZqKf7Yv7v54y9cdBGkhv0s5RoA/4X9XXGsUu0EqyxApnm+kWWA299Dl6YL
-	 1xp/SNu6KQsSHioNbAJZrfDnG4T5w97rY6eXE+O/5ZcMf74oqabmJnpK6UmV0UUvcNG+p
-	 P9F5Hz0gQqCd8zSK/YFqQkZruKQq0S/LAUstcoHTGUwXc3w4gGhtgt5Xp6dwt+TMqPxZd
-	 TgoqnzPEsAF/m61gCR/owLGz7VMuUyjWEZ6NA3LOcO1AHMyVqOTrk1DzkrleWkr9X3c/I
-	 UUVLlSx0koEL3lKJ4h5mk6CIAeRK0fWAb9+uWvrVjle6X0MVPKShyawj9bzCXDCJXgQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=KYQJR4H6;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.84.34
-Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010034.outbound.protection.outlook.com [52.101.84.34])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794390672;
+	b=hHVqqQD1L7wca5gnI1dL1U8+0VLB5AJdTVeDHI6CWwOrpyaWUPxdBJ2Sj47bagtaQngz
+	 X2wAsIASPY7kFYSheKHzeleqrxmKpd6Wjm/L2LyDoHAqwx7+VPMAzETVR+p51WLJTKuE2
+	 H3d4HwDvnXx9fQ1KiPktQRmRMU0Ii4OhQqIVx3UpUVlGB0LMjjL6EqbrYHq7gmnBMozt8
+	 0MwUNYNNLud8Qrd+hG1fSxZVtS6tYE0N91+W2peWZ/Sz6n2rSu++xIXhDqfYpOw7DGbLf
+	 YWVVqEbweKyMANdOWroLafXBoOIgEKwz5ZrI//8XSDA7BeQWGlWBu6s2ZaMEgR7SZaw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794390672;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=L4XaMe1XbOvnrjzdlHkxdaauhP01YTI9M/d43wkBUnw=;
+	b=QzZ2/4q4nQXAsbAITtFKgALWGAsmH6CIS0860npOKTSoGJmUQkxHBO6J9zHkPDBP6Tnd
+	 NuH9LW3AzEXvXotUx5sG29AHUiMZ0h4jWaJ0zJDuHAL0FszPXK3FEhasCgZe9ajSw2Wx8
+	 DZV9g/QRybsJlD8p8tcI060E9W0FxueFvEKyiZO4EDBrnBBaMrDw1Rsb7PTy2Wlt5OAN0
+	 bnTiUyl5ii8SIp5A5La4RJs0K9pffZ6RH1fkZ0NFAXPxuGsYUp5VHsGER5OheTQXOT3iR
+	 yzNt99QjnStW1YTcu8vCsloPZirSSTo/xPkDW017gqg5mTdPNJipFy2M1sIIP4u9OXw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FHgCWGbU;
+	arc=none smtp.remote-ip=209.85.128.43
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D20FE606A31C;
-	Wed, 11 Nov 2026 09:50:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D20FE606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9038D606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 09:51:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9038D606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=KYQJR4H6
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=x1ltcDhN6GoBE46uzyqq2gBIo1x1P75ZWiTT/VD2MztICbK2lg9nHhsif051iF5gP4bR5fXvDqas1tpmBR2mxNViymHexxCZ3XyrwjOQoPve46AnfrerU1lXMlvIa+7XMtAJVYjmkrL+ghjl1Aozm4/8qUL1Z8yz6ky5UssK8baJZHp3TwozTScsGGDj6KthwEhH8HzbK/BU6DlIVMOpnDFVi1mJHpHr5iZ1CGp2k6Nx+DJOiGE0+wfBLiydYptYcYJ/M3R9etut2Q2e2cpMd0+3Seigyb88K72J/oWprfgDoB2LhuIaftVJ2diSVy1Xass8YvTiTv8R+nC44sMifw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=j7iZqE67eldTeECQ66TpmwgLBpF52JYzleGvG1epJ8A=;
- b=irZZ0MkoHPgQS8ggBTUxPdRVs7xtBkAkaSJbSksLMnmFbo2eFsw0jw60GndSmXz5hHbjuqW4J+GrD1nkby4tbYi2vH3+W3FlRHeY4+Zz9UPrQS5izJzI89M8QDL87ivlZLmPVEUHEVzFn80TH9XLZm4r7qtz0CpRHbard6D1gMlsYDHvaitz7vz/4Wl1kHNqzjZcsjlN9Z0gLVXmBgeMyCyYlWqXpfB1FNWa4ZgddAV00giEcjU5TuJVYuS1HWtHPrBXNGKGq28IihCWKPPZjolpMQd7g8sSHBxs7lK/ojSji1g7o4+ew22lZGCbB40purLzB13omcG9JwfEY+rI1g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=j7iZqE67eldTeECQ66TpmwgLBpF52JYzleGvG1epJ8A=;
- b=KYQJR4H6gcW8bcdeW5/X4fuNVuSExBCbku+GEHW9xfQQ8Cm53bthiZHit6lrisClELfHyEQv++uQiibJW39hn2hCKfWFHp1L8BMfYy9D/GjTTOGDnLPhAWO/xlnDFNrpotMctKY0e4DWkdoUMAB1ZqwOG1+FeaH0uAR06Dsz+keorQG/7JB8MNP4XLgbtXTy1OElr8cV7PunHk2Spo4PvZBPZWHSULQ6WfSgX7554EpCqOZsmxQofFtlsUXtyALFBPwZ6AL4H31k0nFUaqAbMF4OeWVEK8ymRzEsBtRsZh962fcYvbqm3PrwGJtWs1jKO1KNLoNCUYrXVqxIC9Mk7A==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from VI2PR04MB11276.eurprd04.prod.outlook.com (2603:10a6:800:296::7)
- by WA4PR04MB000486.eurprd04.prod.outlook.com (2603:10a6:1d0:30::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Wed, 11 Nov
- 2026 09:50:54 +0000
-Received: from VI2PR04MB11276.eurprd04.prod.outlook.com
- ([fe80::60d7:a8e5:eb88:9be]) by VI2PR04MB11276.eurprd04.prod.outlook.com
- ([fe80::60d7:a8e5:eb88:9be%6]) with mapi id 15.21.0615.007; Wed, 11 Nov 2026
- 09:50:54 +0000
-From: "Sherry Sun (OSS)" <sherry.sun@oss.nxp.com>
-Date: Wed, 11 Nov 2026 17:53:34 +0800
-Subject: [PATCH] tty: serial: lpuart: Add port lock for registers read in
- lpuart32_set_termios()
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261111-lpuart_port_lock-v1-1-5d332c51edfe@nxp.com>
-X-B4-Tracking: v=1; b=H4sIAB479GoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzNDINDNKShNLCqJL8gHEjn5ydm6BoZp5impiUkmpoaJSkBtBUWpaZkVYCO
- jY2trAed7y2BiAAAA
-X-Change-ID: 20261111-lpuart_port_lock-01f7deab451a
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Jiri Slaby <jirislaby@kernel.org>, 
- Jingchang Lu <jingchang.lu@freescale.com>
-Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
- imx@lists.linux.dev, sherry.sun@nxp.com
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794390827; l=1964;
- i=sherry.sun@nxp.com; s=20260723; h=from:subject:message-id;
- bh=OqpwdwQRftdIYC+oWxGYN2zGiQKOOHHD+skIKbiGWjM=;
- b=RmSRWc8r37/VLQM2AxujrjQZ7rFspPhcFt3gjR3TpkevpDOYtvvXpRyV6t8myl68TLO5/rw+C
- 9A+q2+1PeMwCznHrAqan1BcypiQu1UafpDxoEg6iOEdCpr1A0yVySBV
-X-Developer-Key: i=sherry.sun@nxp.com; a=ed25519;
- pk=YnYnIFJ2l+5v951x9shBVfHhminNi+3LTfFa3PxSdnI=
-X-ClientProxiedBy: SI2PR01CA0050.apcprd01.prod.exchangelabs.com
- (2603:1096:4:193::21) To VI2PR04MB11276.eurprd04.prod.outlook.com
- (2603:10a6:800:296::7)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FHgCWGbU
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a59ffacb51so569755e9.2
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 01:51:11 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794390670; x=1794995470; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=L4XaMe1XbOvnrjzdlHkxdaauhP01YTI9M/d43wkBUnw=;
+        b=FHgCWGbUOAHFYWjmrjhTZlDPt7Ait/9jDh/Y2DlEvdk83DyFGJ7fHDBP/nbcnWrb7S
+         2Cz7LQA+2ESOCeTiju1THwaepiXAC7nUJMDEpc2qTlgOcI3wLD/S7N2GuEgvQML+KJ/s
+         watz/SW4UdkEdq4jM8ipTg/ytsPGU0hZTdkiobtrlhjSdwXfCxunPZd8pArvTBXFBs8H
+         9w75QzjiS2y01hwmBHp3FLwcqikxzuuERIXYKFuDFIItUwObAQQBA3pNzNBt0DA/YHYc
+         ZzmXvGNrr1EiCq3rIsrrA3Mj0NS95fNC/XTc96RYzU0c8YLE3NUVylxv+iFjJgc8Oa9Y
+         FSdg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794390670; x=1794995470;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=L4XaMe1XbOvnrjzdlHkxdaauhP01YTI9M/d43wkBUnw=;
+        b=AKJYHze7saLzxEdS6f/Pg/HUKD+nXBDYmvQAWipYLbpw48EuI50S5zwb1DiH1rsKLy
+         PRLIBnHxt2A6xYOc89+aeczFP6p4FJG8TZw9wvMy+b/mFqnYnpRhLnqpZkpisCGcIm7J
+         zc/YkmF/CGaeyOph83jT+ji+aQK8RWGpE3YYvhLK1caiTMdoU+sOlxRIl2r1B69eGysg
+         kMvrdzkb1nFPm2DcQyhbzpKFeb0NHmNR4Xo/arjv24175C3YOy23uE9ffju2nGRn+O90
+         /J7jd668lOHRRWHfXB9Ee22E0GYKGy3r6oMmlq4ViJnJT9pSpr5/A2DlAZaDK3lUj4PI
+         c3ng==
+X-Forwarded-Encrypted: i=1; AL+hErHRhxuRys7euRXCuuXEcJLYuHkTZJlrQl/QUoZhiUrrHHc9e9NUHDEr1LAIr5RNbfMM6xV6RqbcdH6LtJA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9GVcmZhghvU6Qt0rbyHDBLb2Mh+jxwsh4tjS6RjizrPyxLBRm3
+	7/ydULQBmY/WereA3LUxTIQS52qL0oZgLjNl9UEVcbKILYxBsuC4VkGF
+X-Gm-Gg: AYBFou0d21xoJVZfc5AbziBSoqPHUBxBXl8JvXs6/Rc0ZjvXy8Cog0BwCZRVkIdLvJr
+	htfgTy008IJeR/ohcZH7XjxmN6ZGp1i70dSUtJ8IGhFb/PoJb/P3azjTZpHaAySdOafI3JZhanb
+	YHgR14j+u69GeLy7E7KmHLtcjDtJzr3Uv0L7JPSfnFAKpZUpA1NSB1X4ViFdPjSuIENYQpn10E7
+	YCU4pCLbyEb1S9hytlcDceTDOQbp9ubRImgSe605pSCECkc9VPZbc6zX8HLaE05N4hLe5IgtHch
+	Pv34N77sBHy9UI9cXlLqbNGji59MW0WZi4l3Dt+Ay+IpmrRCrWN0qvn7K1c8lVXQy8T5AXZINsK
+	wfwcjCKwoMmWyeGC7XJ2wRhKseUgMT7TS7EOPjCeGu/MeGLR5MDXtEJQlmCV+Mgwf+qyriR2qn6
+	p5cu6DR5pvVsZsfzg5GXUzeBZ1d3LcCoLys5SAtJr/BeUpq1jjiXw68WvEFXXvCZNxGZBRS2Kv4
+	322n8ITSXzzww4vdZ6B/KVCQqBnzBNg/6XO8ZHn3Yk/d3ZT6GYl4+wUyYRh+rf1PNs046bNDzF0
+	2BLq2ysjWVazp2yv2p0pVu3LGchIlM4vySu0y3qJtIlSsk6vu7lULbNcF4WpMd+AxNKRlOh+rVo
+	Cdg==
+X-Received: by 2002:a05:600c:150a:b0:4b8:af10:d795 with SMTP id 5b1f17b1804b1-4ba091aa3c2mr19523215e9.0.1794390669711;
+        Wed, 11 Nov 2026 01:51:09 -0800 (PST)
+Received: from scheduler.schedules ([85.100.66.184])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba0204785dsm132365325e9.9.2026.11.11.01.51.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 01:51:09 -0800 (PST)
+Date: Wed, 11 Nov 2026 12:51:05 +0300
+From: Kayra Cizmeci <kayracizmeci@gmail.com>
+To: K Prateek Nayak <kprateek.nayak@amd.com>
+Cc: Peter Zijlstra <peterz@infradead.org>, mingo@kernel.org, 
+	juri.lelli@redhat.com, vincent.guittot@linaro.org, dietmar.eggemann@arm.com, 
+	rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de, vschneid@redhat.com, 
+	linux-kernel@vger.kernel.org, tj@kernel.org, ziqianlu@bytedance.com
+Subject: Re: [PATCH v2 05/12] sched/core: Abstract/fix
+ rq_clock_start_loop_update()
+Message-ID: <avQ2igWsNJ6ci9CY@scheduler.schedules>
+References: <20261107115913.261163891@infradead.org>
+ <20261107120207.242460109@infradead.org>
+ <avBDWS-AY6QQtCuH@scheduler.schedules>
+ <b3ded9e9-2b4b-48c4-8e18-5c213601b96e@amd.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,118 +103,242 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VI2PR04MB11276:EE_|WA4PR04MB000486:EE_
-X-MS-Office365-Filtering-Correlation-Id: d90c06cf-3145-4b96-0b6a-08df3fd946a0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|366016|1800799024|19092799006|10067099003|11063799006|56012099006|261022105027099003|261021121427099003|261026140227099003|261026121527099003|261028144727099003|261102123227099003|261009221227099003|261009223027099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	kNsr+lTurqTS+z3pp7VrdC8bF1sskIGytd8yLL5/faQE/0liOAryqCMiwEP5ltgRPTlCXG3LxHIOXLOlV26zFdLi03dZ3v34P0swbVALvdoo/Y5dVr2nLe1NAp2fUkdFebyRAHqv4MKscLAMNtrBeILxoz45HkcdJ2Hh1Dtvquo55HYZw+FKb0KZxss96v8zwXYp8+Yo203dopv2EModnO3mdeciJ/PovS7sqSSJ+kaFr6GQZD7S5a4+EWCl06WZDN46kz1ajZPLcNCnRn7wVq0OuEhw1eD/BCL4ZFPIoXDPveMsqy56UnGnIgKb33ZvVMlZSGqlqH1Oo7AuIakq5LiGAObtwNkyK33YR6KEv185bE1Lot1VvFzB+zDws2FkpyGGQ1jdK2CW+TnUnUZz3d6uxsZs5mMLW8yqSVy07wzy/u5PV1nIloq1pXwyWrTcWwoRgP60R0pmpjLyRKrIU4Yo5pLEd1Y0oXyjuk1oV7JCDkxwVRtWiml3otysxinwtdDgRpRbJ9M3+TRokk4PkzNomwfa7lJeyecPC9l/JWpbM6yKS5zdG15RoGcveEIU7Bs8Qj6V/NDWC2scaORlT7U6sKLOfuuweN1mijy/i3NKaKL3HvqJJNOmuySJOMX3rs8IM0+vii8u8EMQ3Ty83OnexDIT7UY3x3dEKR7/xm0=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI2PR04MB11276.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(19092799006)(10067099003)(11063799006)(56012099006)(261022105027099003)(261021121427099003)(261026140227099003)(261026121527099003)(261028144727099003)(261102123227099003)(261009221227099003)(261009223027099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?dlptSVl5MUJDRFhWZ3BrcFZIL3hqZ1NCdi9YUTkydm16YU1NMkMrRHBLeXB3?=
- =?utf-8?B?TVYwMmgxVi94Qy95aGtQZjBZcmU1NDFuK0pvTEUwTXhNdWRxN2FXME5PY2wz?=
- =?utf-8?B?SDFsanUzRzNDcUNVb3Z6eXFHbjJtblgvSElzVDFHajdEU2hZNTBHSVQrOGZ6?=
- =?utf-8?B?ZmY3TGw3aXBicmNWL2grWnJFTStudS9yZFNBQXE0bWtLUkttN3AxUlJkYWVq?=
- =?utf-8?B?d2g1MHY2ZHdoTEJvdG8zM0psMldTSkliWVF2cXBVK2FHZGhnYnBpYkRFMXhm?=
- =?utf-8?B?OXZqOU5uZWNKRWRBaEgyeldGNzNJOWw1K2NXSmFOOFowQVZmM1NmVVk0UEl0?=
- =?utf-8?B?Y0ZtcXAyUzhwUU5qLzhwMVpEUlE3TXpBR0lFY1JYd2NKeWg0KzB1MitucUMz?=
- =?utf-8?B?SXc4bkZNbkZQYTlVT3FVbUQxZ1F5SFlvWVRrRUl0SVJpdEhWRG9sRUF2NXBs?=
- =?utf-8?B?ODM5Ujd6SC9pZEN2cVVjUjF3RDZjdXUzNkdwTmhyTmQ2RHJtTEdaVDAxeFY2?=
- =?utf-8?B?OUJTdHl5VCtJQzhUTDdmS3B4cjFNTGs3dW9PNmxJNWMxdWFuZzI5L0RsTGp5?=
- =?utf-8?B?ZlBJVlNXc3Z5T2Fib1NzSm5tcUt0U0t5V2Z6TnladVZNV05rRGxHYXUvR2JZ?=
- =?utf-8?B?bDhsL2NCaldJSThUWUpsMHErUERjT3RQbXNPdnJka0trMzIyQ3ZpV0xUTGhl?=
- =?utf-8?B?ME1VNTFXRjlRUlp4Wm1kL0orQmJrL2o2ME1lREJOZTR3dEpDbDhhdmVoTEhv?=
- =?utf-8?B?M05oa2lmWFdMTlJteEozSWlOWGVxbFh5V1dveUo1YXByZ1ZYT0YvUjB6TTVQ?=
- =?utf-8?B?T2YySG9IS1Z5WjVMK1N2MTJqMzRIdkltd3lOTUV2VWdPWW9xUVNGekw3ckNU?=
- =?utf-8?B?Yms2bCtaSFV4cWJ4NWxUWGJTNHRDMmNneEx6cTh2YWd6aGl3dUhiTTQxeW8y?=
- =?utf-8?B?dkpDcS9RVDFvTVVFTXRqVnlDSjJjMDEySVVGdFZwRVMxVTF4cVBlRS9NYThV?=
- =?utf-8?B?eGlSZ1l0SzJ6TU11Y29IRHFFQmYwS0V2SmVLbjFqKzB1RVo4SWxWWGdNek0y?=
- =?utf-8?B?RTY3c1lpZlBMeWxnQi9QM2tVY2Q4YTNOd3RZRDVoTkhSZHhxejc1TUw0N2FY?=
- =?utf-8?B?NEFuOElRK1VIY1pTbVgwRjJWKzRicDE0R1Yya3FGcHQ4MkpORm8rd2FyMThM?=
- =?utf-8?B?MGV5aWpRSW1kU2NXN0l6eWk0UFNNdzJDc2JMOG43dS8wKy9xdlVWRlhndUlx?=
- =?utf-8?B?L0R5RmUyZWZMK3Q0MjBhMHJCNnBvZEEwL25jNkV2cDVjL2VTU0YxUWxyLzBS?=
- =?utf-8?B?OTRhS0NBZHNjVzJsT2dTcjRrVk10RFpucGZ2NDZvTVFJT1puaXZMa2xPZXVU?=
- =?utf-8?B?WkdoMXBVNW4wTm5OaHEwZm9TTHkyc1VlbXBESEVDWGs4Ny8vQXQrR2Zsckpl?=
- =?utf-8?B?RWpZZE1pZWV2TDl6dUtHUXRUeVZoeEFYYUowNDhNODVKSk5vbkYrUW02VlJI?=
- =?utf-8?B?VWtMLzFTRHIwQm1RSmpvY2hUL29DSkJkQUk0bzRTaEhKQ21IYTRZVWcwWS8z?=
- =?utf-8?B?ZGdyQmlzam96VUdRKzV6RVR1b2RsK2Z4NHVWSndmK2RvVTNnS2MxQlp2azI2?=
- =?utf-8?B?RGZHTWpJc2hlV05FMXpwdElmQ05uWFd4cXl5V0owMGU4Z3F1TkVQSHZ4VEpI?=
- =?utf-8?B?Y0U3OG1mWVhQTmx6dHRqWnZBSWhITTRDTTJzSlF3ZjcwNDAzc1ZoM0N5ZHRt?=
- =?utf-8?B?TjljVm1RYVExWlo5OVpYQjFvRWdkZDNucGw2cnZBYjJ6T0dTenN2YXdCdHl0?=
- =?utf-8?B?QkpkVGluUStHdmNCblhLMjJoYUJUdDlCeERLVGhSOTZ6RHpDOWVjc1VIUXI3?=
- =?utf-8?B?clZmWHk3ZW5uT2ZYYTBMMFl0azkvNEYyMTFVajdoWnJmUXozUmFIYmptUzFK?=
- =?utf-8?B?SWJHbjZid2F1TXZRSW9BWVdZdXUxeWx5ZHVZTUhPY0tvRHlsL1h6b1F6RVpn?=
- =?utf-8?B?L2RJMHhoU1FoSytkWGltbWlnYTRKUzNTdmN0dFBPYmNVQ1JNcVYyK3hUcXpS?=
- =?utf-8?B?SHBiYVBhSjlEK0themhkL0xQTzFqRTh4ekp6ems3cUtsMzdEOHBwOUYyeDhV?=
- =?utf-8?B?QnU0SDVrY1JqSHJmV2lGNUFrMCtQekR2bTlUVHMyV3JZVXBPTG5sUGVxbllx?=
- =?utf-8?B?OTRsUlFxL2VzdEtMMU1yb3pEaUpsS1lYOHYzaGlmaUNzalJpcFR4WXZGdVdS?=
- =?utf-8?B?NHFkc3BFWFgwZXROYzBabGRCbzcybFhQZ1A1R1RaUDNTMFBCaHJHTHBQK3c3?=
- =?utf-8?B?NlBuOXk5L3I0ODFQR1U0bVY3U0ZiUGhoWGxQdWYyekdBRk1ZbUR3WUtrVy9s?=
- =?utf-8?Q?yfc2aNm+6ZQYpOtMi6jbkQVl5XItDiaER/2jf?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d90c06cf-3145-4b96-0b6a-08df3fd946a0
-X-MS-Exchange-CrossTenant-AuthSource: VI2PR04MB11276.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 09:50:53.9037
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: FwoQK0vV08M0dUez2vSMjbamPDxfEGAM85SG9zKdsq53Q4jznw1aFLJquE1XF9T1MAzDJJrz1s5N7ad2l8KMYJtBRu4QB9047j0QQQmTJj+GH/1DKDa5mLXMxzq1j6tT
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: WA4PR04MB000486
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <b3ded9e9-2b4b-48c4-8e18-5c213601b96e@amd.com>
 
-From: Sherry Sun <sherry.sun@nxp.com>
+Hi!
 
-lpuart32_set_termios() reads UARTCTRL at function entry without holding
-the port lock. lpuart32_console_write() can run concurrently on another
-CPU and temporarily clears the RIE (Receiver Interrupt Enable) bit while
-it polls characters out. If the unlocked read in set_termios lands inside
-that window, the stale snapshot is written back, permanently clearing
-RIE. Once lost, no normal code path re-enables them, so the UART stops
-receiving characters and becomes unresponsive.
+On Wed, Nov 11, 2026 at 02:40:36PM +0530, K Prateek Nayak wrote:
+> Hello Kayre, Peter,
+> 
+> On 11/9/2026 3:56 AM, Kayra Cizmeci wrote:
+> > So to fix both of these I would suggest something like so, not tested:
+> > 
+> > 
+> > diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
+> > index 339a77864ec8..a91d12640f37 100644
+> > --- a/kernel/sched/sched.h
+> > +++ b/kernel/sched/sched.h
+> > @@ -1911,7 +1911,7 @@ static inline unsigned int rq_clock_freeze(struct rq *rq)
+> >  	return flags;
+> >  }
+> >  
+> > -static inline void rq_clock_thaw(struct rq *rq, bool flags)
+> > +static inline void rq_clock_thaw(struct rq *rq, unsigned int flags)
+> >  {
+> >  	lockdep_assert_rq_held(rq);
+> >  	rq->clock_update_flags &= ~RQCF_FREEZE;
+> > @@ -3357,8 +3357,8 @@ unsigned long arch_scale_freq_capacity(int cpu)
+> >   */
+> >  static inline void double_rq_clock_clear_update(struct rq *rq1, struct rq *rq2)
+> >  {
+> > -	rq1->clock_update_flags &= (RQCF_REQ_SKIP|RQCF_ACT_SKIP);
+> > -	rq2->clock_update_flags &= (RQCF_REQ_SKIP|RQCF_ACT_SKIP);
+> > +	rq1->clock_update_flags &= ~RQCF_UPDATED;
+> > +	rq2->clock_update_flags &= ~RQCF_UPDATED;
+> >  }
+> >  
+> >  #define DEFINE_LOCK_GUARD_2(name, type, _lock, _unlock, ...)				\
+> 
+> So with this, I still get a clock_update_flags warning like:
+> 
+>     ------------[ cut here ]------------
+>     !(rq->clock_update_flags & RQCF_UPDATED)
+>     WARNING: kernel/sched/sched.h:1862 at set_next_task_idle+0xe1/0x100, CPU#262: sched-messaging/8375
+>     Modules linked in: ...
+>     CPU: 262 UID: 0 PID: 8375 Comm: sched-messaging Tainted: G        W           7.4.0-rc1-test+ #463 PREEMPT(lazy)
+>     Tainted: [W]=WARN
+>     Hardware name: AMD Corporation Titanite_4G/Titanite_4G, BIOS RTI100CC 03/28/2024
+>     RIP: 0010:set_next_task_idle+0xe1/0x100
+>     Code: ...
+>     RSP: 0018:ff919f922f4e7c80 EFLAGS: 00010046
+>     RAX: 0000000000000000 RBX: ff49b96ece1b33c0 RCX: 0000000000000007
+>     RDX: 000000128e40504c RSI: 0000000000000200 RDI: ff49b8b30f2d8000
+>     RBP: ff49b8b28ed84280 R08: 0000000000000200 R09: ff49b8b28ed84280
+>     R10: 0000000000000008 R11: 0000000000000008 R12: ff49b8b28ed84280
+>     R13: ffffffff86a043c0 R14: ff49b8b28dfca700 R15: 0000000000000200
+>     FS:  00007fddd81237c0(0000) GS:ff49b96f477af000(0000) knlGS:0000000000000000
+>     CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+>     CR2: 000055ce59162840 CR3: 00000001a1f11004 CR4: 0000000000f71ef0
+>     PKRU: 55555554
+>     Call Trace:
+>      <TASK>
+>      __schedule+0x93b/0x1ca0
+>      schedule+0x28/0xa0
+>      anon_pipe_read+0x302/0x410
+>      ? __pfx_autoremove_wake_function+0x10/0x10
+>      vfs_read+0x30b/0x340
+>      ksys_read+0xb8/0xe0
+>      do_syscall_64+0xce/0x550
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? do_syscall_64+0x35/0x550
+>      entry_SYSCALL_64_after_hwframe+0x76/0x7e
+>     RIP: 0033:0x7fddd6514932
+>     Code: ...
+>     RSP: 002b:00007fffd6dcde28 EFLAGS: 00000246 ORIG_RAX: 0000000000000000
+>     RAX: ffffffffffffffda RBX: 0000000000000000 RCX: 00007fddd6514932
+>     RDX: 0000000000000064 RSI: 00007fffd6dcde40 RDI: 0000000000000007
+>     RBP: 00007fffd6dcdee0 R08: 0000000000000000 R09: 00007fddd81237c0
+>     R10: 00007fddd84ed0c8 R11: 0000000000000246 R12: 0000000000000064
+>     R13: 00007fffd6dcde40 R14: 00000000000001c7 R15: 000055ce88d5e840
+>      </TASK>
+>     ---[ end trace 0000000000000000 ]---
+> 
+> with:
+> 
+>   coresched new -t pid -- perf bench sched messaging -p -l 100000 -g 8
+> 
+> on queue:sched/hackery.
+> 
+> If I do:
+> 
+> diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
+> index 339a77864ec8..fd900d1419c6 100644
+> --- a/kernel/sched/sched.h
+> +++ b/kernel/sched/sched.h
+> @@ -3357,8 +3357,8 @@ unsigned long arch_scale_freq_capacity(int cpu)
+>   */
+>  static inline void double_rq_clock_clear_update(struct rq *rq1, struct rq *rq2)
+>  {
+> -	rq1->clock_update_flags &= (RQCF_REQ_SKIP|RQCF_ACT_SKIP);
+> -	rq2->clock_update_flags &= (RQCF_REQ_SKIP|RQCF_ACT_SKIP);
+> +	__rq_clock_clear(rq1);
+> +	__rq_clock_clear(rq2);
+>  }
+>  
+>  #define DEFINE_LOCK_GUARD_2(name, type, _lock, _unlock, ...)				\
+> ---
+> 
+> I don't see that warning anymore. Must be the "core_pick_in_flight"
+> check keeping everything sane.
+> 
 
-Add port lock for the registers read in lpuart32_set_termios() to avoid
-the unlocked snapshot captured.
+Thanks for testing! Well, I missed that :-(. Core Scheduling...
 
-Please note that this only fix the normal printk path, in the
-oops_in_progress path of lpuart32_console_write(), when trylock fails,
-RIE is cleared and old_cr restored without the port lock held, there is
-still a risk of stale snapshot, but it's acceptable for the post-oops
-state and the trylock-fail window.
+> > In a case like this:
+> > 
+> > CPU1 calls rq_drop_lock(), saves FREEZE = 0, and changes FREEZE to 1,
+> > and drops the lock.
+> > 
+> > CPU2 gets the lock, saves FREEZE = 1 and changes FREEZE to 1, and then
+> > drops the lock.
+> > 
+> > In this period CPU1 gets the lock again, makes FREEZE 0.
+> > 
+> > And later CPU2 comes and makes it FREEZE 1.
+> > 
+> > 
+> > Not sure above could happen tho. Could it happen?
+> 
+> I suppose it is possible.
+> 
+> Generally rq_lock is dropped in middle of __schedule() when NEED_RESCHED is still
+> set so ->task_woken() would generally bail out early for dl and rt (ext doesn't
+> seem to drop the rq_lock on that path).
+> 
+> That said, a concurrent wakeup can grab the rq_lock when another ->task_woken()
+> dropped the rq_lock or a __balance_callbacks() for setprio or sched_move_task()
+> can interleave with a ->task_woken() and lead to your scenario.
+> 
+> > I tried to fix this assuming it could happen.
+> > 
+> > I'm not really happy with below diff, but I couldn't find a better way
+> > neither, so please tell me that this case can't happen or there
+> > is a better way to fix it :-(. This is on top of the current code BTW.
+> > Only compile tested.
+> 
+> [..snip..]
+> 
+> >  bool cfs_task_bw_constrained(struct task_struct *p)
+> > diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
+> > index 339a77864ec8..d8f1784d0640 100644
+> > --- a/kernel/sched/sched.h
+> > +++ b/kernel/sched/sched.h
+> > @@ -1281,6 +1281,7 @@ struct rq {
+> >  	u64			clock;
+> >  	unsigned long		lost_idle_time;
+> >  	unsigned int		clock_update_flags;
+> > +	unsigned int		clock_update_depth;
+> 
+> I think this can stand-in for the freeze flag too if you do
+> something like:
+> 
+> diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
+> index 339a77864ec8..49c732d3f3bb 100644
+> --- a/kernel/sched/sched.h
+> +++ b/kernel/sched/sched.h
+> @@ -1280,7 +1280,18 @@ struct rq {
+>  	u64			clock_pelt;
+>  	u64			clock;
+>  	unsigned long		lost_idle_time;
+> -	unsigned int		clock_update_flags;
+> +	union {
+> +		struct {
+> +			s16	clock_update_flags;
+> +			u16	freeze_depth;
+> +		};
+> +		/*
+> +		 * Inspect both clock_update_flags and
+> +		 * freeze_depth together in
+> +		 * __update_rq_clock().
+> +		 */
+> +		u32		__clock_update_flags;
+> +	};
+>  	u64			clock_pelt_idle;
+>  	u64			clock_idle;
+>  
+> ---
+> 
+> Probably makes it very ugly :-)
+> 
 
-Fixes: 380c966c093e ("tty: serial: fsl_lpuart: add 32-bit register interface support")
-Signed-off-by: Sherry Sun <sherry.sun@nxp.com>
----
- drivers/tty/serial/fsl_lpuart.c | 2 ++
- 1 file changed, 2 insertions(+)
+TBH, I don't know which one is better. And if I were to decide,
+I'd be wrong 50% of the time, so it's up to Peter :-).
 
-diff --git a/drivers/tty/serial/fsl_lpuart.c b/drivers/tty/serial/fsl_lpuart.c
-index cd2575a3aef7..7c249b9371ae 100644
---- a/drivers/tty/serial/fsl_lpuart.c
-+++ b/drivers/tty/serial/fsl_lpuart.c
-@@ -2241,9 +2241,11 @@ lpuart32_set_termios(struct uart_port *port, struct ktermios *termios,
- 	unsigned int  baud;
- 	unsigned int old_csize = old ? old->c_cflag & CSIZE : CS8;
- 
-+	uart_port_lock_irqsave(port, &flags);
- 	ctrl = old_ctrl = lpuart32_read(port, UARTCTRL);
- 	bd = lpuart32_read(port, UARTBAUD);
- 	modem = lpuart32_read(port, UARTMODIR);
-+	uart_port_unlock_irqrestore(port, flags);
- 	sport->is_cs7 = false;
- 	/*
- 	 * only support CS8 and CS7
+> >  	u64			clock_pelt_idle;
+> >  	u64			clock_idle;
+> >  
+> > @@ -1902,31 +1903,28 @@ static inline void rq_clock_cancel_skipupdate(struct rq *rq)
+> >   * update_rq_clock() for several cfs and rt runqueues (Typically when using
+> >   * list_for_each_entry_*)
+> >   */
+> > -static inline unsigned int rq_clock_freeze(struct rq *rq)
+> > +static inline void rq_clock_freeze(struct rq *rq)
+> >  {
+> > -	unsigned int flags = rq->clock_update_flags;
+> >  	lockdep_assert_rq_held(rq);
+> >  	assert_clock_updated(rq);
+> > +	rq->clock_update_depth++;
+> >  	rq->clock_update_flags |= RQCF_FREEZE;
+> > -	return flags;
+> >  }
+> >  
+> > -static inline void rq_clock_thaw(struct rq *rq, bool flags)
+> > +static inline void rq_clock_thaw(struct rq *rq)
+> >  {
+> >  	lockdep_assert_rq_held(rq);
+> > +	WARN_ON_ONCE(!rq->clock_update_depth);
+> > +	rq->clock_update_flags |= RQCF_UPDATED;
+> > +	rq->clock_update_depth--;
+> > +	if (rq->clock_update_depth)
+> > +		return;
+> >  	rq->clock_update_flags &= ~RQCF_FREEZE;
+> > -	rq->clock_update_flags |= RQCF_UPDATED | (flags & RQCF_FREEZE);
+> >  }
+> 
+> This seems like a legit problem one can run into and
+> your solutions works well!
 
----
-base-commit: 793807ca13bf3072fc6d16ce6d90e9ab9beff2a5
-change-id: 20261111-lpuart_port_lock-01f7deab451a
+Thanks for having a look at this!
 
-Best regards,
--- 
-Sherry Sun <sherry.sun@nxp.com>
+> 
+> -- 
+> Thanks and Regards,
+> Prateek
+> 
 
+Cheers,
+
+Kayra
