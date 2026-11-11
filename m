@@ -1,113 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.139.74
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794419772;
-	b=AbGuCb8AeWniXHwckPPkVBd13ErRKoGMFVOve6G0NvwhGYAuoIePcm4aEWLWcBq+pNLU
-	 hM5lGF7mtA+0WqnmOteUfCLdXrNW5UxusrKzDBU28neAS+1EJyg//jUSXle3dkJGMfoQD
-	 WmJ9pRr2WsGeijI7FsFRb5d8CRSWYrbVAcX4y0HHjN9malfVD6T6dxtsh8K+ulcTeSkCs
-	 V9gu1T2zqN0uP0E4DGeQcEI3ftvweWpIVVFaBEjhcV2p7oGbDvr4s+2zM2BzqANpHTN/0
-	 JK5KWwi88zd/+AEVRFuZULHzmKdE1oJaYNCf2lpTocxIRhHWO3oNX+If0IJ2rYlYEXQ==
+	t=1794419821;
+	b=L1yhOVZLZrkRwqZzhl5nQv/YMXKKp8/H6qA90DBQSeEq4c7A3bEDBqkzIBYbXXr6Dzz3
+	 JNrmb6HjR3/S3CRMYJvuVAripUN/zH6xA0gBbPLwR/urbxFDrwSnTkqQwCawEry5d5fdg
+	 9f5hZXNx1KSFFr0BiB3nCFy4rYvpNcLISdI59CkfeI5cyigT9IlKgWEFADLapYT5Vd2Sv
+	 6w4mhzw6/tKGWNo1y28i4PT7Z0bG2uFpDiO5lhaOj2BBk51w/R2/tAcdXZIAmPRPD9IEj
+	 EFYnizs0gs8aMICype8rOlvrjVuGiPw5mqBiEwe50xDMfzWbvKLTdlINsUhqHWtXIXA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794419772;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=zQXiGUDfX4nhGSBE/hoqgNBZ3AZrbYE3C3VVsm2sLEk=;
-	b=121q0DqAHJ+sFmuOwOj5o/IPMQh1jfudAIAkfvnhHpeU9cnzy+MCKJpaaXkMn34fbIGR
-	 +A/NcyPj3wB9ckKQ0OqtwGFjXKAuauDz2CpYUEgvNDK0kEa4wWjjnBRFC/P75t9U8YFKc
-	 CRNv3qhfoK9i8MR6A+TwGBhxW2KEv2juiWlxykryuQcJ8wPO3HHWblZZei3UtSnxxh8OC
-	 o/cgqZsv9Q99LNN3GDWBHfxLiwfMctNS5NBLhjqZzcUxSKQU2kvaMmQW2lvgXGqwwGERl
-	 8cVPgXcUxj7lWnZJZndhOJOz77F6iXecPKLrhYC1QRMZ1+Qd4YERNp1jM2J395nHwbg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794419821;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=q6s/xV2lHPq5GEMGWwRYYdRwrT5Ecmz5ksS9o79wQoo=;
+	b=e13RAKT4s083MKQKgXr+b3cWKy9lbjNXusD6cOMhKyPWp0c2Z9PvgSeqjrl1ev3qlq2z
+	 5gcI4DKS6+QZjS3bz28HuWd2ALTbyNlhbFDuiqeffebzAvsDtBxB3sFkeqQ5sbbX+ajAU
+	 FGlqkJflTgq808yWMHhY32G6ub6Njeu1HAD2u9Rgl1tfDDqkNQ1JBMfxf/W+TZcCiCOPa
+	 OwnCsdtgutgJoncGqRZcTowTrG4nZqBrWcXGnIBsxOcyz2lVSr5hdBONPkZR8IOSIR9oC
+	 j1oVpDj/FrSPAKh4SpWek0nwSrjOwsfRgwuyeeQC/MMbxo8zVtgfmh4KRiL78liuo4w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=columbia.edu;
-	spf=pass smtp.mailfrom=columbia.edu;
-	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b="V/ZwGOro";
-	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=QEyFBYDH;
-	arc=none smtp.remote-ip=148.163.139.74
-Received: from mx0b-00364e01.pphosted.com (mx0b-00364e01.pphosted.com [148.163.139.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CK5GSXWO;
+	arc=none smtp.remote-ip=209.85.128.51
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1782606A883
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 17:56:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1782606A883
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC9C9606A334
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 17:57:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC9C9606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=V/ZwGOro;
-	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=QEyFBYDH
-Received: from pps.filterd (m0167077.ppops.net [127.0.0.1])
-	by mx0b-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ABHYU5t257093
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 12:56:10 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pps01; bh=zQXi
-	GUDfX4nhGSBE/hoqgNBZ3AZrbYE3C3VVsm2sLEk=; b=V/ZwGOroO1zo48pZ66bT
-	L/ZvfSo66O62PCEkxH/hfRJgDsDlkZGZfJRgbYbCmi1+dtxRgQrXBp2H4NRmmwdp
-	bupXC1WKqxHvCYocksf2dKhoqDOAGhPpDArKxAyoTLC6JyeewK89IEMXB5zRH4pf
-	0Pb50jIoIV/sL7YHOXogwszUeqq0LBS9FavtCT6taGOh7vIcEvKR+lqrh4KqVkU/
-	LMURGMKc6WKV0JmJNYE0thUhmAc9f9qR1S3+A8hN4defBp9qzKNuVrahAnqRl9js
-	3bff7yJo2jxt9NF8vBhFxqqr6TmnnMPUnmC3slxmbWTBzgR4H2DeOemaHvgead3I
-	Yg==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
-	by mx0b-00364e01.pphosted.com (PPS) with ESMTPS id 4hvdfs5604-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 12:56:10 -0500 (EST)
-Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-533928ef33aso50712201cf.1
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 09:56:10 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CK5GSXWO
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a5720b0a57so561215e9.0
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 09:57:00 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=columbia.edu; s=lionmail; t=1794419770; x=1795024570; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1794419819; x=1795024619; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=zQXiGUDfX4nhGSBE/hoqgNBZ3AZrbYE3C3VVsm2sLEk=;
-        b=QEyFBYDHdLxLP0NG8l134bbUAbyoyjgg4vRaA1BZsmntj2XrEiuz6oRHDnRTj4hF1C
-         hs4Pv+R864u8bQnD+F7fCgKwIpOakZnWHC1QMbYiwp0XceujeegaQSBbThp3Lxh1g684
-         BXrUI5lzir29IaDooAHyCFdAJMlOhiZ3EOjINtFcpAGz31h79ooJsaHGkiWopOZffl8a
-         L1Z+SQRLrB8gdKJL8sFxVWrdunsY+pA3XbaApUqUsOJqgDeKkpMK1tn9ZTjbkMXmUPUj
-         +UW59z9th/vSXIS9ObZ6wx5TVqojQTFJ8FckaMOiGuQ4cbIoPEd1Om/lYi1vzmFKJwAC
-         ABVQ==
+        bh=q6s/xV2lHPq5GEMGWwRYYdRwrT5Ecmz5ksS9o79wQoo=;
+        b=CK5GSXWOn1oYayqCNqvVbeqP3J4g0n6PDbu7/b+cMsYfwBRIcQdYmArPTVXYfzEwUG
+         QJQtkVr4B3J1HHP1KQAbfqm5jlLenZ5YhhZc4DhiKQ971Fa84gGks7hRysI82OlLepCw
+         0LAfjbJC44/AiTfm6Ex0KGQkvPUT32MFPG5YF2Bx9P//yCa4BYTKBd8Sr4BcDqKNGEly
+         a4j2gE1xNefgrVYZ0pDY54/QC0HLNfo9YEuN1TxZ9r8KeQxb4U7/Yt9bjVnz3GLsv9Rl
+         ipynvkuzMS+FgAuov42upxWQuYWqChJm6iII36nWsnxV1EEWqESj811TMHY76UR+xNXd
+         cMWA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794419770; x=1795024570;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=zQXiGUDfX4nhGSBE/hoqgNBZ3AZrbYE3C3VVsm2sLEk=;
-        b=n9N5U/udzsm5nQEKphqNFnRVSNfntmROENTggj8U3PiTbHxOvrYQI/JVuqUlwbg2LZ
-         wlFUjXZe4jQ7jO4k2qMFruoRUfgbFBYZ0nufupCE6Mj5G3mtWWiYobAlTQ/uQ6Sg0ZTj
-         Y4jYv3+LC/vkTpjF/HUJJTavMi8gHlZCwo7GkdNVGau3Uzz7uxQVKjJMYH28RWvDU/Gn
-         Paa+lYqfrlYmix7a6ZEOUk2YTy3376sCkttP8M4vUEl/fAbks5cY9mgetBJ+cFMsSfbw
-         XtHimA5dXPUcxHCItjKZ0MnNggraJQw0gv5X7qM9uYMLQFAXg/54j6c85QznHzUgQFs3
-         Nt5A==
-X-Forwarded-Encrypted: i=1; AL+hErGY0f1ivMi8YrZdf5+G67gwX2vp3ArsnNmD3xi8PrC32T9PMmonKuyGnXHUtaDWM/JuvsgKcDU3xfvC2p4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9HChO4/lecunb+HkgVFO6+kKcs+A+EnrI6GC7yrpPw7F/mMqmK
-	UuzwQXVHg3UiC8337nlBiFw6csPPbj1Q3mnYOqPeUZVbdWNFIB+q1W3SiVKHEBcOPNJeOmiwI5a
-	ToDv7hLP6sm2PFB39j+xpKFauDwSr+oKhYBMPUHUmnODafjsT7Tc5AwrxcUbVgQ==
-X-Gm-Gg: AYBFou3GYdoCpBoK9C73NaaxeNSEeQ+/lTm0NcPrsozEtT2uQtWriiuDRy2wmbtsHi1
-	OMl0WTUUbnUmy6FW3R3pTwPczegHORUY/w6YZezHKf4HhynzFZUNGczY9VCL4GfGe8iUzL/ap8N
-	cyxhWtF7p6DRbbHzCVBwpAUSqoCIcnv61Ux9bcCoREGrWj/SOoMuosxgIXA9YD2pW3J2O1AI6n1
-	0dvvkqbRMyHSG0QHm0A2Job+B0lq1bDQUUnTOlj1IJcRZpDTU5qYA8wKD7cpGwrOSNg+GTKqFCs
-	WiuLD/fG4XGop+cvLx1iswRYfn7OwPbbYcu+YmKFK6mIuTkJjlRPHJOBmL1wEIfO9vXqz0PF0vh
-	jCs/bNNgQEig3+USB6VusPlPE8J8HSOxEUZaarrbEkH0ekWF5MQV4Z21b1DhgIj0YwZWb7LCPZm
-	Pg+HamdDQqVvmHAshdOg==
-X-Received: by 2002:a05:622a:514c:b0:533:3af3:43b9 with SMTP id d75a77b69052e-556c0cb83a1mr49123941cf.44.1794419769632;
-        Wed, 11 Nov 2026 09:56:09 -0800 (PST)
-X-Received: by 2002:a05:622a:514c:b0:533:3af3:43b9 with SMTP id d75a77b69052e-556c0cb83a1mr49123161cf.44.1794419768938;
-        Wed, 11 Nov 2026 09:56:08 -0800 (PST)
-Received: from [127.0.1.1] (dyn-160-39-33-242.dyn.columbia.edu. [160.39.33.242])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5550b93ee00sm54974231cf.16.2026.11.11.09.56.07
+        d=1e100.net; s=20260707; t=1794419819; x=1795024619;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=q6s/xV2lHPq5GEMGWwRYYdRwrT5Ecmz5ksS9o79wQoo=;
+        b=sKevP5c/nYf4K4UA4SjTzejdKNPEm32DxepXZ4pAIY2511PszHlOlOjwBjSNc5fPuF
+         Bin+n4kjyb9ZVXNdTm8S0qh1MXCcBNZeHhnTg6ZtAeV3R9Wk4i2LI1JmtCNoMwjEjMRE
+         E1oU0ZE4nTZH4dCBdZ+XNGdk3/cTbhtUakKAJOr19G+3Tg9hYEp5C3zEu9kYgdKY0PHW
+         gmqQdkUni4XJRbLxNnq6yWGeFVh4FQfdZhxt3Dp9SmINiOpinCzGEjjzlfGJoA+1D7xl
+         Si+yWsFW2/FrEoVXlgP42YZ1xvl1/fUraZ70toWq1NKO0+0Xyg6goTeIqxYBo3hFbfbZ
+         86dA==
+X-Forwarded-Encrypted: i=1; AL+hErFMmDTJXdNcAeXSOk3sFrTgLrSAoPfrPWtdhfxQIImz9MOCENiBchhHD/wQqxcJK+qH8OhrWGoqxqItKWc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+dypYyAEnjPfJlrIrT+9aSUBhWq1b7gnP4tGctBDxm5+vlefx3
+	JmxawNogxpHlNNi9qLUXsdtJe7QyLgsMJ0z2WHU4yUJF0WgtMhCv+uPE
+X-Gm-Gg: AYBFou2dT209r7d9w7B4V2EBllcrnod9Pv76Lq2t9eS91pcfWpS0A2ECuGUp0L9ic8s
+	/MSDjqVtAP5+LIeKpierIgQbhTWpKOLWZrXYRqiuP8O4Kc/0PZegOKITdVbGBaJ9Wn+xhHIiMwx
+	YeMQDgWtXxoroQEbgLhkWfw8P9yjm/6PivDLHLgqoNE14cVeNcJytEo/dIkvtaGZp83XXNficez
+	+x5HhUl0natm4nXKb8nBbrwq4M/4B6BePHKIir25d0MwcVEbLfpiFDpM6FJhyB4a1fXRIVRoCZL
+	xHAZrRbA9eDgvfhOE2M8oja+1iocILT/7Yw/F9OXAXVIL5X2nkp7IuGKN4CMR/Yg2ayNicRFxlb
+	iQeD5WBAl7wmulE65EgsPkrQKz3z8A/VtvARi7dKy3kgibOZUJ2cYAPxHngeoyn1IeIiLyA+2Vi
+	ngU7UbKL4jq/u2LtgHhdnlklKD+QjSZqTm2kI8o/rM4ec/aNcy7OFk3vZeFVHQ1LUiTF15HDvCI
+	bmeQQ5VBiuoC5KauTvpt4CD+Mwpyr2oRTeOVSRmfcGb+hk6CR5lo+TEhj/sEjxn/FFyV/1SHYal
+	aSiivw8K8Lu29FACcX8eVLLnsQ==
+X-Received: by 2002:a05:600c:4850:b0:4b7:76b8:348f with SMTP id 5b1f17b1804b1-4bb4e3076b4mr2214315e9.19.1794419819018;
+        Wed, 11 Nov 2026 09:56:59 -0800 (PST)
+Received: from victus-lab ([193.205.81.5])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49836c83432sm11271749f8f.58.2026.11.11.09.56.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 09:56:08 -0800 (PST)
-From: Tal Zussman <tz2294@columbia.edu>
-Date: Wed, 11 Nov 2026 12:55:19 -0500
-Subject: [PATCH 11/12] mm/madvise: send UFFD_EVENT_REMOVE when installing
- guard regions
+        Wed, 11 Nov 2026 09:56:58 -0800 (PST)
+From: Yuri Andriaccio <yurand2000@gmail.com>
+To: tj@kernel.org
+Cc: bsegall@google.com,
+	cgroups@vger.kernel.org,
+	dietmar.eggemann@arm.com,
+	hannes@cmpxchg.org,
+	juri.lelli@redhat.com,
+	kprateek.nayak@amd.com,
+	linux-kernel@vger.kernel.org,
+	luca.abeni@santannapisa.it,
+	mgorman@suse.de,
+	mingo@redhat.com,
+	mkoutny@suse.com,
+	peterz@infradead.org,
+	rostedt@goodmis.org,
+	vincent.guittot@linaro.org,
+	vschneid@redhat.com,
+	yuri.andriaccio@santannapisa.it
+Subject: Re: [RFC PATCH v7 00/29] Hierarchical Constant Bandwidth Server
+Date: Wed, 11 Nov 2026 18:56:57 +0100
+Message-ID: <20261111175657.250354-1-yurand2000@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <212c244d534ee1fdb0538a980789e16c@kernel.org>
+References: <212c244d534ee1fdb0538a980789e16c@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,136 +111,145 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261111-uffd-state-fixes-v1-11-00713d368976@columbia.edu>
-References: <20261111-uffd-state-fixes-v1-0-00713d368976@columbia.edu>
-In-Reply-To: <20261111-uffd-state-fixes-v1-0-00713d368976@columbia.edu>
-To: Andrew Morton <akpm@linux-foundation.org>, Mike Rapoport <rppt@kernel.org>,
-        Peter Xu <peterx@redhat.com>, James Houghton <jthoughton@google.com>,
-        Andrea Arcangeli <aarcange@redhat.com>,
-        Suren Baghdasaryan <surenb@google.com>,
-        Balbir Singh <balbirs@nvidia.com>,
-        "Liam R. Howlett" <liam@infradead.org>,
-        Lorenzo Stoakes <ljs@kernel.org>, Vlastimil Babka <vbabka@kernel.org>,
-        Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
-        =?utf-8?q?Micha=C5=82_Miros=C5=82aw?= <mirq-linux@rere.qmqm.pl>,
-        Andrei Vagin <avagin@gmail.com>,
-        Stephen Rothwell <sfr@canb.auug.org.au>, Arnd Bergmann <arnd@arndb.de>,
-        Muhammad Usama Anjum <usama.anjum@arm.com>,
-        David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>,
-        Matthew Brost <matthew.brost@intel.com>,
-        Joshua Hahn <joshua.hahnjy@gmail.com>,
-        Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>,
-        Ying Huang <ying.huang@linux.alibaba.com>,
-        Alistair Popple <apopple@nvidia.com>,
-        Baolin Wang <baolin.wang@linux.alibaba.com>,
-        Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
-        Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
-        Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
-        Kiryl Shutsemau <kas@kernel.org>, Chris Down <chris@chrisdown.name>,
-        Muchun Song <muchun.song@linux.dev>,
-        Oscar Salvador <osalvador@suse.de>,
-        =?utf-8?q?Miko=C5=82aj_Lenczewski?= <miko.lenczewski@arm.com>,
-        Michal Hocko <mhocko@suse.com>, Mike Kravetz <mike.kravetz@oracle.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
-        linux-fsdevel@vger.kernel.org, Tal Zussman <tz2294@columbia.edu>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794419750; l=2548;
- i=tz2294@columbia.edu; s=20250528; h=from:subject:message-id;
- bh=kEdcltU5qeZ7eK7b5dl+oNbbR7olPAATUNygSBtDqx0=;
- b=GjNOWnuSdk/55WU96LIrcc2S9e1J9GWjLD+AXNsWkcA9q1s0rpxpdn5CaqoIq5RA1eqiRV6v4
- +w/Sz2zM37YDGSHG9tKMkiXliEld8eZF962ZxuFjv4RugUrUbbLap7+
-X-Developer-Key: i=tz2294@columbia.edu; a=ed25519;
- pk=BIj5KdACscEOyAC0oIkeZqLB3L94fzBnDccEooxeM5Y=
-X-Proofpoint-GUID: lwTiV86Jyp179fuTqaQoIVNF1OXa3w2x
-X-Authority-Analysis: v=2.4 cv=AaokjHXG c=1 sm=1 tr=0 ts=6af4ac3a cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=GaPK54s0Se3oFqK5NkZy0g==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=QOCMdifcju39GKoXhKua:22
- a=VwQbUJbxAAAA:8 a=Byx-y9mGAAAA:8 a=H9KHOoA6oAAipju2C2wA:9 a=QEXdDO2ut3YA:10
- a=dawVfQjAaf238kedN5IG:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDA3MSBTYWx0ZWRfX76iUbeWVYMc2
- x04arEZ9k8qXYzThuF0hGuJQEifAeDP72SGLNe9scI0YxY9O5r6fnJX4oDqHBb7aje9fVjThqgz
- A/DJnc9TSvm3Hu2F1FYHT5B0O3ELgZnHFYGepkuApcV3/WouoFhS
-X-Proofpoint-ORIG-GUID: lwTiV86Jyp179fuTqaQoIVNF1OXa3w2x
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDA3MSBTYWx0ZWRfX2NAb5BqvsLyR
- moXxFt5jyWOFr7O5FU+irJJgm4rva4VFrKtoIzVk9NHzCWuHHD2UnMiftFYsUia0XnV+pHY54Ns
- QXAWETyNzcYtzX+l5EwR5Rt1eVZrNpX/M+38QrZqIF1DR5jPPrxEGR40wvuQ0/MhUSA26xeQM8a
- b6SDOM/OC4hPxesIPmkQ+KPlx6dY/gEe6tY0SamJwa7iB8+0tKUHl5nesL//GraBMFlz/EB+mLz
- s63dmUkdblI2z42MOt4Z9MQ+SK2kpwmqGhUUdVKvl0AXjfaigWxjpqX9qaO+n71jManCcPm3WzT
- uHh9qgJkQdCZ7Xl1+ewxbU4/FYH91jx1YsUyKPhHCLrmb1X0bh3I3ixmiIqs1R9iE7UBBbGPqwh
- hobvhCbjhctc7M9TXfaXuOeyLvzKgirU8W4z4YFgpJh9NnHQvaI2EJ53VI2Wrpo2E+R03AdLg/9
- RDXiZfkWjUEcHna48Hg==
-X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11963
- signatures=596817
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 priorityscore=1501 phishscore=0 lowpriorityscore=10 spamscore=0
- impostorscore=10 bulkscore=10 adultscore=0 suspectscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611110071
+Content-Transfer-Encoding: 8bit
 
-MADV_GUARD_INSTALL zaps whatever is mapped in the range before
-installing the guard markers. However, unlike MADV_DONTNEED and
-MADV_REMOVE, madvise_guard_install() does not call userfaultfd_remove(),
-so the userfaultfd manager is not told that the pages are gone.
+Hello Tejun,
 
-On an anonymous VMA, the zap drops uffd-wp and RWP protection along with
-the pages. Writes and accesses to the range after the guard is removed
-are then not reported, and the manager cannot know that it has to
-protect the range again.
+Thanks for taking a look. I'm answering some of your comments first and at the
+end I'm proposing a summary of changes that will appear in the next RFC to
+then "stabilize" the user interface.
 
-To fix it, send UFFD_EVENT_REMOVE before zapping. Guard install on a VMA
-registered with userfaultfd already takes the mmap lock instead of the
-VMA lock, so we can drop the lock for the event and look the VMA up
-again afterwards.
 
-As with MADV_DONTNEED, the call can now return -ENOMEM if the VMA goes
-away while the lock is dropped, or -EINVAL if it is replaced by a VMA
-that does not support guard regions.
 
-Fixes: 662df3e5c376 ("mm: madvise: implement lightweight guard page mechanism")
-Closes: https://lore.kernel.org/linux-mm/3f4b0d1b.bbf84.1a1c55cb666.Coremail.18670333770@163.com/
-Signed-off-by: Tal Zussman <tz2294@columbia.edu>
----
- mm/madvise.c | 23 +++++++++++++++++++++++
- 1 file changed, 23 insertions(+)
+> The new name still doesn't follow the cgroup2 naming convention.
 
-diff --git a/mm/madvise.c b/mm/madvise.c
-index e8b05dc899f1..6413f0e65381 100644
---- a/mm/madvise.c
-+++ b/mm/madvise.c
-@@ -1166,6 +1166,29 @@ static long madvise_guard_install(struct madvise_behavior *madv_behavior)
- 	if (!is_valid_guard_vma(vma, /* allow_locked = */false))
- 		return -EINVAL;
- 
-+	/*
-+	 * Installing guards zaps the range, so report it to a userfaultfd
-+	 * manager like MADV_DONTNEED does. The VMA can change while the mmap
-+	 * lock is dropped for the event, so look it up again.
-+	 */
-+	if (!userfaultfd_remove(vma, range->start, range->end)) {
-+		mark_mmap_lock_dropped(madv_behavior);
-+		mmap_read_lock(madv_behavior->mm);
-+		madv_behavior->vma = vma = vma_lookup(madv_behavior->mm,
-+						      range->start);
-+		if (!vma)
-+			return -ENOMEM;
-+		if (!is_valid_guard_vma(vma, /* allow_locked = */false))
-+			return -EINVAL;
-+		/*
-+		 * The VMA may have been split while the lock was dropped.
-+		 * Handle the part in this VMA. The remainder is handled by the
-+		 * next iteration of madvise_walk_vmas().
-+		 */
-+		if (range->end > vma->vm_end)
-+			range->end = vma->vm_end;
-+	}
-+
- 	/*
- 	 * Set atomically under read lock. All pertinent readers will need to
- 	 * acquire an mmap/VMA write lock to read it. All remaining readers may
+Thanks for pointing this out, it was a mistake on my end. This will be fixed
+in the next RFC.
 
--- 
-2.39.5
+> The file prints a "CPU runtime=R period=P" line for each possible CPU.
 
+We will condense the displaying for same runtime/period CPUs and omit zeroed
+ones.
+
+
+
+> Switching between "max" and a budget is refused while the cgroup or its
+> "max" descendants have RT tasks. That's okay as a restriction for now.
+> Ideally, the switch wouldn't be restricted as long as the budget is
+> sufficient, but that can be left for the future.
+
+The restriction is in place to simplify the initial implementation: switching
+between "max" and non-"max" requires to migrate all tasks from one cgroup's
+runqueues to another cgroup ones, and could potentially be an expensive
+operation if there are lots of tasks. If you think the restriction is
+acceptable (for now), we will keep this unchanged in hte next RFC, and fix it
+later.
+
+
+
+> Can we separate cpu.rt.max from cpuset?
+
+Maybe we misunderstood, but in some previous discussion it was asked us to
+integrate the `cpuset` and `cpu` controllers somehow. Your proposal of having
+the `cpu` and `cpuset` controllers orthogonal simplifies things, but it is
+similar to the previous (cgroup-v1-based) implementation, or before the
+integration patch itself (i.e. just allow the per-CPU overrides but remove the
+tighter coupling). What is the final verdict on this?
+
+
+
+> On the per-CPU budgets themselves, they don't match cpu.max, and giving
+> a budget per CPU is a bit odd when the consumption isn't per CPU. The
+> threads move around. Maybe it can't be avoided, but I'd like to see a
+> discussion of the rationale behind the design choice and some
+> exploration of alternatives.
+
+I'm not sure if I'm understanding correctly here, but the budget for
+`cpu.rt.max`, differently from `cpu.max`, is meant to be per-CPU and not
+global. Sure the initial patches have a single setting that is the same on all
+CPUs, but it was meant to be a per-CPU limit that is the same across all cores.
+Notice that threads move around, but we prevent migrating them to cores with
+zero runtime (hence, there is some overlap of functionality between cpusets
+and rt-cgroups).
+
+The rationale behind this is that, from a real-time theoretical pov, it is
+necessary to know how much budget and how it is distributed on the CPUs, as
+changing the number of CPUs or the budget distribution radically changes the
+schedulability outputs. The most complete and flexible interface is therefore
+having per-CPU budgets.
+
+This is also necessary to prevent over-provisioning and allowing partitioning
+of the total bandwidth:
+
+- If implementing solution 1, a request of 10% of budget reserves 10% of
+  runtime on all cores, regardless of `cpuset` settings. Of course a `cpuset`
+  mask that is smaller than the total allows limiting the tasks on a subset
+  of CPUs, yet the budget on the unused cores is still allocated, and therefore
+  wasted. This is a case of over-provisioning.
+- On the other hand, allowing per-CPU controls allows to potentially partition
+  the total bandwidth in the CPU hierarchy, for example reserving some 10%
+  runtime on some cores, while still allowing other cgroups to make use of the
+  unused 10% bandwidth on the other cores.
+
+From this limited discussion it appears to us that solution 2, which is
+similar to what we already had but without the "default" case, is the most
+suitable. Solutions 1 and 3 are more or less what already exists before
+the `cpuset` integration patches.
+
+
+
+> AFAICS, disabling the cpuset controller above a budgeted cgroup moves it to
+> the ancestor's cpuset and changes its effective CPUs without going through
+> the lockout at all.
+
+You are right, we tried to prevent changes in the `cpuset` when an active
+rt-cgroup was involved but this was clearly missed out.
+
+The lockout is in place because, in the current integration, it is necessary
+to rerun the bandwdith admission test on every `cpuset` change, which greatly
+complicates the code. Nonetheless, a more permissive integration still needs
+to couple updates in both controllers and run some admission tests.
+
+
+
+> Skipping the boost when the target has no runtime is fine as long
+> as nothing stalls.
+
+For PI and zero-budget cgroups, if this is an acceptable solution, it seems
+the most straightforward one: disallow switching to RT for zeroed cgroups and
+disable zeroing the budget of any parent which has active RT tasks.
+
+- - -
+
+As mentioned at the beginning, here is a summary of what the interface
+would be after the discussed points:
+
+- `cpu.rt.max` and `cpu.rt.max.effective.local` files. When displaying the
+  per-CPU settings, zero runtimes are skipped and same runtime/period cpus
+  are condensed in the same cpuset.
+
+- `cpu.rt.max` only accepts per-CPU settings, so the global "default" is
+  removed. Removing all overrides means the cgroup is a "max" cgroup, while
+  just a single override means that the cgroup has its own budget.
+  + This new interface disallows zero-runtime overrides, as a zero override
+    is equal to an empty override when there is at least one non-zero override.
+    As an example: [<CPU0 10ms 100ms>, <CPU1 0ms 100ms>] is equal to just
+    having [<CPU0 10ms 100ms>]. This seems a bit odd, how to make this better?
+
+- Switching between `max` and non-`max` is still disallowed for active
+  real-time cgroups (to be left for the future).
+
+- `cpu` and `cpuset` controllers are decoupled, as it was before the `cpuset`
+  integration patch. The user/admin is responsible for inconsistencies between
+  the two controllers (i.e. empty intersection between active server in the
+  rt-cgroup and the allowed cpuset just disallows executing RT tasks entirely).
+
+- zero "internal" runtime cgroups will disallow RT tasks and prevent
+  priority boosting. Admission controls will disallow zeroing the "internal"
+  budget of a parent which has active tasks running.
+
+Hopefully we can agree on the ideas posted here. If you have any doubts or
+better suggestions let us know.
+
+Thanks,
+Yuri
