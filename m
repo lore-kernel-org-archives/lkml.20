@@ -1,55 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794393365;
-	b=baz0YQIAVzMoo2XqlOMwOAvgRm36Il7MgNXggV0YPwsVbCWcwzVLBhGXZ3INZxFN+VVh
-	 jryYffRd/vyV79lls/f6BOaGYFDtRcLWBnlsVYQp7MyQih+wdt3BaIvmry/2oFtj3TdgJ
-	 H9cqhoo3o2961dQrSF2bhzV2YPkD77//C2IvmDzC9SqnNhoQjJgZa/nLdmmuiB4PfNWhX
-	 u1WY7EJyQzau75HJ7RR/w9N0rzmEVXD18dItgVzQlhPExFMbTSbkgLZ6mrfcATIeUVIg0
-	 0UcPvAVmgd6lcm7ZVR+tKVv+P57g3PEi3h848FxP1GkM32C7unMFSJaXgcNXRZjoR/g==
+	t=1794393366;
+	b=SloFuej+CxoAfgzAVRAkfe3PETZmUmtvWWlwXUt9TPbSjBGpp9FtnWaAELeExKUBla+4
+	 zOMdtkDfqcdFN93DYN4O3Nk1/7nG1WUg4Vs4ZvZRSTz8hJvRpwJ7Fit4gO5+MXwVi+zai
+	 7LJJb7ZoDBbgV+VdrfzEOd3aVERk96azXN46YUFnm73rPyYwkxmwhZOBR1k459y/fk0rL
+	 6ZWU0V5GhHIA19HZz+PMwkov8t4jvWWSpynjNMQemuC+bhbeEye/RX2/jEQgIz37bc/4s
+	 CMynz23V9bIMIAUC97CayDrDq54P0zPYW+YqNySuF2PaZlz0G41jVpvO/acMfrWEL7Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794393365;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794393366;
 	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
 	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=p5JSa0bx8XJ/WrOKH8JXKlh5zXhjuHQcMoZ3qXzM6TE=;
-	b=c3EnTE9BJ16hNcC6e/PHX4PJTiaeKj8ZNtASyf9sRzEN+18xUyk0ZGquE0gz9P/j6+aQ
-	 oBr24upRm1CmndX9kVZoHB7Tv1SISY6b4kldjnUp9LHQov1qvU5U1lED62XXeUUV+jzRK
-	 OCo2G3i3w6FX5OEfQ7ILWxDdEgdA+QRIST6JNVnVGYYKH391o5Mxm/qYVFoO47UH3MZSs
-	 v0cQNNwnjT3868SZRFKJzLgcqI/BN0SwMEh6mTs5jHXxy5UKKePrsUh0U6M5D02xcbj4y
-	 AyKern+JoKmorU6BexyZQHlvGAeJ+EpXsbPiXXitXztDatUjDYQKdNH3jOJS1w2jTdQ==
+	bh=fpePK/0d0d0lXzlJvMKO6HJskD1MK4TqDY4IFNa6L7U=;
+	b=QX5AG7H5of9jP6kPAM32FBSNRj5aFPROidr/opM74dAsDMR7lenHSuNTKSaElrEOci01
+	 wvCefbo8EFE5sUJMYA6tw7+q0fiN9x5dj6vImhwU8CtbEXfnetezKI7UWp85btTXhqW8s
+	 zNhmpu+SB9n2/9vGtJwtvSnaxAgr6dnu7xlcT7rMAKGLrFJ2m4OkMHmNRxZ+c3ONdKgAO
+	 gUrKcgNuCo7otcSSJSIJQBdh/L2752ZIYC4QUl3k/9eyu2+fnBg5ymdRI3ECOlAP3mESA
+	 gGvz1UofeV2u/viuq0OKidOj30o0Eb1UY34HiIDIoEDjNiup+EO8GvDjOTQqEb6QwKA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=bootlin.com;
 	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=j+edLPGw;
-	arc=none smtp.remote-ip=185.246.85.4
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Tb3R9rMq;
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 142BB606A8A1
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 10:36:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 142BB606A8A1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3986606A8AF;
+	Wed, 11 Nov 2026 10:36:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F3986606A8AF
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=j+edLPGw
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Tb3R9rMq
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id D2AD04E41573;
-	Wed, 11 Nov 2026 10:35:57 +0000 (UTC)
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 42A30C79A86;
+	Wed, 11 Nov 2026 10:36:01 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id A75806017E;
-	Wed, 11 Nov 2026 10:35:57 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id CDA7311BC17BE;
-	Wed, 11 Nov 2026 11:35:55 +0100 (CET)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 890716017E;
+	Wed, 11 Nov 2026 10:35:59 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 7C14A11BC1D79;
+	Wed, 11 Nov 2026 11:35:57 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1794393357; h=from:subject:date:message-id:to:cc:mime-version:
+	t=1794393358; h=from:subject:date:message-id:to:cc:mime-version:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=p5JSa0bx8XJ/WrOKH8JXKlh5zXhjuHQcMoZ3qXzM6TE=;
-	b=j+edLPGwasyV6HAyS4hFg5KhjSuMdMX54j0lF7sN8ytL8eR7blL7yTu3lrhT5A5oV8z9wQ
-	sppHD6XAKiDUUPwYqasoKEIeMe47igi15FOQEebNUD0jVx58UjtS+Tj1f2HdBwJXZNwfdY
-	53q+tgT5uWkpqmrtjeNz/JyM+5iQi2MalSOQVjA4giRa7K0x52/7Qt/vsIjHS96ijdz5qy
-	RQZ1phjYl+ctrnJsevFvN5/zxCxutyaqydp0aSOh4v4QBz438S2qbzki11Um9ZuKiLvYd2
-	SCfca9ogjBE6KZz9aVZt4/afbTPFWiQlVJNTW3lajUXKdtNDtbdmcI0/6yh6OA==
+	bh=fpePK/0d0d0lXzlJvMKO6HJskD1MK4TqDY4IFNa6L7U=;
+	b=Tb3R9rMqytO47cwb8BouPxt9OsdiyBpZgg6czw/jkzUOzgk6EknnWeSpzrh/BDzrNUQH2I
+	0USb8h0A3sFUplppxurFck+A/mNERo4MITl5xEchHIC3DFa61lsY6wVTeCgRIKXevG/OY9
+	cx1UVIHiJ0nSm45nGzhx1PDhsIbMKW2ZPPzZ2OnNUDWVmxa7fbr5tqlJIcA62oh/xIkvDO
+	hdvquVj72ZUAbMvWwoVCpHhPTTvTyKDF3q0fLSRgyoam9y7O2W+PbxX9LgeVqXzLTiAgOr
+	oNIl7/PqwXz5kMygTxRYVF4D4HTdxma4m8zRTNF1Rb4ZCU+K4Xm+Yql95bD9LQ==
 From: Paul Cercueil <paul.cercueil@bootlin.com>
 To: Mark Brown <broonie@kernel.org>
 Cc: linux-spi@vger.kernel.org,
@@ -60,9 +60,9 @@ Cc: linux-spi@vger.kernel.org,
 	Tanmay Jagdale <tanmay@marvell.com>,
 	Jisheng Zhang <jszhang@kernel.org>,
 	Paul Cercueil <paul.cercueil@bootlin.com>
-Subject: [PATCH v2 2/6] spi: cadence-xspi: Reconfigure to STIG mode before SPI message
-Date: Wed, 11 Nov 2026 11:35:37 +0100
-Message-ID: <20261111103541.100848-3-paul.cercueil@bootlin.com>
+Subject: [PATCH v2 3/6] spi: cadence-xspi: Inform SPI core about size transferred
+Date: Wed, 11 Nov 2026 11:35:38 +0100
+Message-ID: <20261111103541.100848-4-paul.cercueil@bootlin.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261111103541.100848-1-paul.cercueil@bootlin.com>
 References: <20261111103541.100848-1-paul.cercueil@bootlin.com>
@@ -80,11 +80,8 @@ X-Last-TLS-Session-Version: TLSv1.3
 
 From: Tanmay Jagdale <tanmay@marvell.com>
 
-The .transfer_one_message() function uses the STIG mode, therefore the
-xSPI needs to be configured to STIG mode before starting any transfer.
-
-Without this, .transfer_one_message() simply won't work, at least on the
-CN10K SoC.
+The SPI core expects the 'actual_length' field of the spi_message to be
+updated with the number of bytes transferred.
 
 Fixes: 931e389ded0f ("spi: cadence: Add Marvell xfer operation support")
 Signed-off-by: Tanmay Jagdale <tanmay@marvell.com>
@@ -93,67 +90,23 @@ Signed-off-by: Paul Cercueil <paul.cercueil@bootlin.com>
 
 ---
 
-v2: Adapt the code slightly to work on top of [1/6]
+v2: No change
 ---
- drivers/spi/spi-cadence-xspi.c | 31 ++++++++++++++++++++++++-------
- 1 file changed, 24 insertions(+), 7 deletions(-)
+ drivers/spi/spi-cadence-xspi.c | 1 +
+ 1 file changed, 1 insertion(+)
 
 diff --git a/drivers/spi/spi-cadence-xspi.c b/drivers/spi/spi-cadence-xspi.c
-index a584a3c395d0..87b986a318f3 100644
+index 87b986a318f3..189f87321777 100644
 --- a/drivers/spi/spi-cadence-xspi.c
 +++ b/drivers/spi/spi-cadence-xspi.c
-@@ -367,6 +367,20 @@ static int cdns_xspi_wait_for_controller_idle(struct cdns_xspi_dev *cdns_xspi)
- 					  100, 1000);
- }
- 
-+static int cdns_xspi_set_stig_mode(struct cdns_xspi_dev *cdns_xspi)
-+{
-+	int ret;
-+
-+	ret = cdns_xspi_wait_for_controller_idle(cdns_xspi);
-+	if (ret < 0)
-+		return -EIO;
-+
-+	writel(FIELD_PREP(CDNS_XSPI_CTRL_WORK_MODE, CDNS_XSPI_WORK_MODE_STIG),
-+	       cdns_xspi->iobase + CDNS_XSPI_CTRL_CONFIG_REG);
-+
-+	return 0;
-+}
-+
- static void cdns_xspi_trigger_command(struct cdns_xspi_dev *cdns_xspi,
- 				      u32 cmd_regs[6])
- {
-@@ -536,12 +550,9 @@ static int cdns_xspi_send_stig_command(struct cdns_xspi_dev *cdns_xspi,
- 	int ret;
- 	int dummybytes = op->dummy.nbytes;
- 
--	ret = cdns_xspi_wait_for_controller_idle(cdns_xspi);
--	if (ret < 0)
--		return -EIO;
--
--	writel(FIELD_PREP(CDNS_XSPI_CTRL_WORK_MODE, CDNS_XSPI_WORK_MODE_STIG),
--	       cdns_xspi->iobase + CDNS_XSPI_CTRL_CONFIG_REG);
-+	ret = cdns_xspi_set_stig_mode(cdns_xspi);
-+	if (ret)
-+		return ret;
- 
- 	cdns_xspi->set_interrupts_handler(cdns_xspi, true);
- 	cdns_xspi->sdma_error = false;
-@@ -1112,7 +1123,13 @@ static int cdns_xspi_transfer_one_message_b0(struct spi_controller *controller,
- 	int current_transfer_len;
- 	int cs = spi_get_chipselect(spi, 0);
- 	int cs_change = 0;
--	int ret = -EIO;
-+	int ret;
-+
-+	ret = cdns_xspi_set_stig_mode(cdns_xspi);
-+	if (ret)
-+		goto out;
-+
-+	ret = -EIO;
- 
- 	/* Enable xfer state machine */
- 	if (!cdns_xspi->xfer_in_progress) {
+@@ -1207,6 +1207,7 @@ static int cdns_xspi_transfer_one_message_b0(struct spi_controller *controller,
+ 			}
+ 			cs_change = t->cs_change;
+ 			t->len -= current_transfer_len;
++			m->actual_length += current_transfer_len;
+ 		}
+ 		spi_transfer_delay_exec(t);
+ 	}
 -- 
 2.47.3
 
