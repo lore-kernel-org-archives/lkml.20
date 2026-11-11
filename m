@@ -1,84 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794396081;
-	b=HTTfebDqTNUr13CwTsGvaNPt9CxeAVuvEnC5PKDbiS4f1zlONf9PEg/EPvL2VwnIIvCm
-	 MLJh+wvAjZE36ijB5n41Ub2bgpXBNvubx9cfm3mFpjoZAQihGHJuiblgtBmPEErCxm56g
-	 aaq0QIPK8i3TF5nsWG7AWzTzb5SxTATLsbM3VopWKpOTlQlaALDJghDkIsQC+kg5lEnu/
-	 N7hxUaZFKSeXYUER9jOuSdqM71H5jHpsvHfPp2O0Hk2G50ydUxmbbkRo0NtYFOWDmQkoT
-	 7B/jYAeVanBgMRZSW6DizdlQ+n+a+U5kEiR6b8mY4RZ+aN8SnC0uF+jZyw+K1FhDUcg==
+	t=1794396131;
+	b=kOYJByP5Fug18XZqtQ9Sm8mDJAokDYIkvOXAeHocODNvvTnlSWBKaSDXjxrZJUENrMQz
+	 cwY1JWD0HIpm39ae0ehs+kBLg3iYmDDnujhmBp8NerbthygAGNRyjmXy8mQVANa1eGvNq
+	 yRAOcUBVnYP4qn9Dz+y/miqGv9psA7wLlC1saS4RSo+PYJelFpLmzToKy/VmF7thC2Z8N
+	 XUrCisEYo8tdkq7yTCmJll82XWImoYtLSFB0yC2IMP92igYeVR6BdOalNsn5RCKDot/bv
+	 Mt6u0sRXGOPuR1Jh1MOAzBtn1zgvKJhofBsBoOXqBNbpfUIUkoAcCDUd/jSJSXl915A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794396081;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
-	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
-	bh=wr9LUpNEHOOjAzDkbtOdFfPOarAUZcRS58IEDQefKL8=;
-	b=28eFytvG4aQhKGwGz8znxvkc7n9oz+IYgR8ZQsKWfVR9hH5NLJMVpF1itiZus2chz7oK
-	 L9BcdnjifoSXtJyqjY4SUmnAp8hFbOeRmpYnAKuuk/bnMqAQP2xKIcPkxWJxAXuEV7+L/
-	 bIOfienRCAmfX4nMplsu1FSO7LefPZUpGZ2xonEZjRL1Jtqqg7BODbpdv68jlz+mAjVYN
-	 g7fUPuKCjMbPq3y4eQSnqnA023ieP45XG9DFL1+OFd6mG/POd+uUJmkhSYEPbxeQdh2WA
-	 NhpLZKe4UbvGxUlJvstfVAzbQF2KkeMRODyIBryS1QIfXmX1FRAdOCTggQs4KnQsCTA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794396131;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=q3uvYkOZjdrvPs2HRdExTdIgvGA4FrRTNjbjAdqeYns=;
+	b=NmoDj7BjrWdXr1Um9QUVwXn+CVLaNe85wF0zGK/poFzT8iZkdrbD9WSUGwvV6IE/DA/Z
+	 ZXobxm/P6RrmBFph0uSHtksl4c+txed8J62/GFdOGMTGSPzCmJA7hkLOn5iplQg8gb1x4
+	 AmRECBSL9rcRwSzvHe+I7up4dzpnY5Ne6Wchr5oUFipam6YIY486FwUtWuWBQKkunaAtj
+	 FtSJthwW0FCiFAGAThp1iQFOV5XoULwmop+7eLBRN7cH97reXv8o2Zbrp2RSAYw6+Ij1U
+	 b+11fTokLrLV71qbmqHqy8YM/393khI8QeGdiYiWJFjYSCtfAZGabtfH7Cs8FZpHh5Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="XRsRD/3i";
-	arc=none smtp.remote-ip=74.125.82.175
-Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l5iahbXV;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6606B606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 11:21:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6606B606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DEE4606A324;
+	Wed, 11 Nov 2026 11:22:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XRsRD/3i
-Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-35159e0092aso43141eec.2
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 03:21:21 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794396080; x=1795000880; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=wr9LUpNEHOOjAzDkbtOdFfPOarAUZcRS58IEDQefKL8=;
-        b=XRsRD/3iB7VLko7slMbrsse3CjsFdMqIuAXlCtaKhgMpO1RYJchg0/kiqPBCf4yuuA
-         ZRjdtflHU6dZ9uYUtt+MULpmMLUwWnqGFnNv5QEIxoBBWtOrbJGKq6W1G6l6QbPu03+p
-         sA0eV0oh/40hu0tfJL5De7FUhr9WvMG9zaSO9/fjchyyoeTuKZWjE7PCnhjYLKx7MpRc
-         EH0Qj6IDVShITQH3kn8vlSWrVE+vyIFQmBrjZYTfiZt/VJAT7hs5wziWwxn1xGbSQNJ0
-         H0fzemWoMOR9F9ccNNMsUU4EV62koIvRogWOAYUTbqf1FsEyMZSp9kbxlKQasCuemumF
-         63Xw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794396080; x=1795000880;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wr9LUpNEHOOjAzDkbtOdFfPOarAUZcRS58IEDQefKL8=;
-        b=TY059QIOeCrwkAsX7Wbcyxe+CvuTvJNlgxKliYK9SibOU5UMHJempK74ziu2Tu2dV8
-         BDR1oSWtZ5pySGcCN2gJuqtUSZ/Tio6GGfCbMc7lPat+kz9Wubh1j8dnsUK2363ZsT2M
-         Tb8ONTdW98+qeso1iWdTSTwmpNE4rcAWguowGbcDH3/peXOIEXTUus2hhcNdY9VpNaMh
-         ahbqylEdSX6qvS0yOsGUJvF92haL77Ee14793J35W7NNf1BUO8FlRxj6ET3hjckWdDIr
-         WIa7C+t/UaxLkFcg3kobKEUVVn22vckUrXqNBskNfXhCbY/69wruWG2fPNp/bNfTCOAz
-         f2gw==
-X-Forwarded-Encrypted: i=1; AL+hErGJgAQqXdhTnGo4UF5SpmHGyiwRvcUOYhAx96qbxQNlWSoum13V5GEHpV8qWrW6tC3SmaVQR3D8DDE2n9w=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9pERgOuf2e3jy1lmpFf4JYGnPx4KXLQdCwC6PZy0kHz+NhKj2A
-	UbcJRTz9tLnfdJB0MPdHUWxLSiSdqPZVGvlGDy3ojpXhR5WI6g9hU1tY
-X-Gm-Gg: AYBFou1Nce48addHnQL70GPL6z4bkXY+5a+iTpNQIcs6Q/KEAeJfeFPqhmdmVSSjpxQ
-	R0RRcXMA430N2qfmtz7/lUdkyNmsyFRPrjy4tAdnT6WB7lAiZtbDAazClwRtBCuQNJxKYLf4KSN
-	1f42anNaq00eXiuN0Cuxp8p70ZNyxa4Piw6RUYQjoBF/l2FYHFrQ+rB5CPYUhbSO0rZkSPSqprb
-	WEv6Gh5OO540xzE8NURX+zcWHSydxYFZuC8mhUNCnOyC1CNeGQDdLC8bb5bfG1pSzPB1g9FOWoT
-	T6LNZC4VrPle04gpZDnRR/KEKvisUGeD74+LKB49JV9ua27dDtwa6upbgXEWZGwBT+DQpLJNNGU
-	eQOuXhKK3INX+cRwirwU5fMwDtkz2mtNWYG0EXOYY0hR+TmxsABW7dm1rYXPMWzrRh8Saavg9Y8
-	Kk9TgUmWwroKcJqcJ8seySe4SnIiEKRw0LDR5Z4Vlk5mFM3VScFR9pr+duKq/K4p3Z+uBiIsQfI
-	Q/M2ZzmlyVcFVL5XFKjDxsnQ4Lz846sWAA0cMs728Z1hTNjoKh8Ou8n/g5kd81f9LrJOPP210re
-	4+Bdz+U4vKWXW1fIQFfkDAO4mHTCNaCUqziddL+6vNQTxHDrF4Kx3a31Plt1PvSBTtE=
-X-Received: by 2002:a05:7300:f547:b0:36a:13fd:b5c with SMTP id 5a478bee46e88-376854b73ddmr4138428eec.2.1794396079980;
-        Wed, 11 Nov 2026 03:21:19 -0800 (PST)
-Received: from o6.lan ([2602:fce1:44f:115e::])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-375212e7d24sm24474631eec.22.2026.11.11.03.21.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 03:21:19 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l5iahbXV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF76F1F00A05;
+	Wed, 11 Nov 2026 11:22:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794396131;
+	bh=q3uvYkOZjdrvPs2HRdExTdIgvGA4FrRTNjbjAdqeYns=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=l5iahbXVODhXP5BYaVz3lVdaFKAxPbIAV3hq96sXjhxKI9HOoR2/3E6F8yc6p2lnn
+	 WYOV4BO44d1ftIV1pYZaZ3P7x+X/K2hOfbck3hrxOLF7+DjUwkP1dkVZwOTp5bdgG/
+	 0sA2Mynj4aVVQBX02rcqTENjrjW6h1cFMupMrd/VGuNMR4fGbbJcQi3AXAHtjHVf1/
+	 R1xIHOd1CRUUf0iqhEH6Io8GPTn2iXxZ6MYFs44afGFgnuAJUfVFUAkbbw8wWdoxMh
+	 HWHJFOAMcvVoy7TPU9c2M72++kukupwo9oRI6P9ZjxkO/HHrCoWN2dajaitGrzKiKw
+	 BW28RKsWw6/CQ==
+Date: Wed, 11 Nov 2026 12:22:08 +0100
+From: Lorenzo Bianconi <lorenzo@kernel.org>
+To: John Crispin <john@phrozen.org>
+Cc: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Ahmed Naseef <naseefkm@gmail.com>,
+	Benjamin Larsson <benjamin.larsson@genexis.eu>,
+	Christian Marangi <ansuelsmth@gmail.com>,
+	devicetree@vger.kernel.org, lei.dong@airoha.com,
+	Linqi.zhang@airoha.com, linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-mediatek@lists.infradead.org,
+	mfd@lists.linux.dev,
+	Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>,
+	Rajeev.kumar@airoha.com, upstream@airoha.com, Weifeng.xu@airoha.com,
+	zhengping.zhang@airoha.com
+Subject: Re: [PATCH 1/7] pinctrl: airoha: make gpio register layout per SoC
+Message-ID: <avRP4MTHKRkP00oh@lore-desk>
+References: <20261110173941.301478-1-john@phrozen.org>
+ <20261110173941.301478-2-john@phrozen.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,61 +70,233 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH v2 1/3] mm/zsmalloc: remove CONFIG_ZSMALLOC_STAT
-From: Xueyuan Chen <xueyuan.chen21@gmail.com>
-To: Nhat Pham <nphamcs@gmail.com>
-Cc: Xueyuan Chen <xueyuan.chen21@gmail.com>, 
- Minchan Kim <minchan@kernel.org>, 
- Sergey Senozhatsky <senozhatsky@chromium.org>, 
- Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <CAKEwX=M6dJMccGcDqp2S-66cbegdivnB6MqQRj6tQ2u18UH62g@mail.gmail.com>
-References: <20261109-zsmalloc_stat-v2-0-caee41684aba@gmail.com>
- <20261109-zsmalloc_stat-v2-1-caee41684aba@gmail.com>
- <CAKEwX=M6dJMccGcDqp2S-66cbegdivnB6MqQRj6tQ2u18UH62g@mail.gmail.com>
-Date: Wed, 11 Nov 2026 19:21:15 +0800
-Message-Id: <179439607522.2142163.11892098572560820648.b4-reply@b4>
-X-Mailer: b4 0.16.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="WqyvA75ADRGpy4XY"
+Content-Disposition: inline
+In-Reply-To: <20261110173941.301478-2-john@phrozen.org>
 
-On 2026-11-10 08:00 -0700, Nhat Pham wrote:
-> On Mon, Nov 9, 2026 at 5:59 AM Xueyuan Chen <xueyuan.chen21@gmail.com> wrote:
-> >
-> > CONFIG_ZSMALLOC_STAT only controls the debugfs interface. The class
-> > counters are updated regardless of this option.
-> >
-> > Remove the CONFIG_ZSMALLOC_STAT guards and rely on the debugfs API
-> > stubs when CONFIG_DEBUG_FS=n. Skip statistics setup silently when
-> > debugfs is unavailable.
-> >
-> > Suggested-by: Nhat Pham <nphamcs@gmail.com>
-> > Signed-off-by: Xueyuan Chen <xueyuan.chen21@gmail.com>
-> > ---
-> >  mm/zsmalloc.c | 33 ++-------------------------------
-> >  1 file changed, 2 insertions(+), 31 deletions(-)
-> 
-> FWIW, LGTM:
-> 
-> Reviewed-by: Nhat Pham <nphamcs@gmail.com>
+--WqyvA75ADRGpy4XY
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Thanks for the review!
+> The GPIO register layout is fixed to 64 pins in two 32 pin banks and
+> four 16 pin direction banks. Every SoC uses the single static
+> airoha_gpiochip_regs and the compile time AIROHA_NUM_PINS.
+>=20
+> Move the layout into the match data. The gpiochip register table
+> carries its own pin count, and the five existing SoCs point at the
+> shared 64 pin table.
+>=20
+> No functional change for the existing SoCs.
+>=20
+> Signed-off-by: John Crispin <john@phrozen.org>
 
-> 
-> But I come from the perspective of large(r) server machines - I'd wait
-> for the feedback of embedded folks too :)
+Acked-by: Lorenzo Bianconi <lorenzo@kernel.org>
 
-I also tested the memory overhead. For a typical Android setup with
-one zram pool, the additional inode/dentry slab object footprint is about 2.11 KB.
-Even with 32 pools, it's only about 45.7 KB.
+> ---
+>  drivers/pinctrl/airoha/airoha-common.h  |  6 +++++-
+>  drivers/pinctrl/airoha/pinctrl-airoha.c | 14 ++++++++------
+>  drivers/pinctrl/airoha/pinctrl-an7563.c |  1 +
+>  drivers/pinctrl/airoha/pinctrl-an7581.c |  1 +
+>  drivers/pinctrl/airoha/pinctrl-an7583.c |  1 +
+>  drivers/pinctrl/airoha/pinctrl-en7523.c |  1 +
+>  drivers/pinctrl/airoha/pinctrl-en7528.c |  1 +
+>  7 files changed, 18 insertions(+), 7 deletions(-)
+>=20
+> diff --git a/drivers/pinctrl/airoha/airoha-common.h b/drivers/pinctrl/air=
+oha/airoha-common.h
+> index 16f7abcdfb83..850e733db15a 100644
+> --- a/drivers/pinctrl/airoha/airoha-common.h
+> +++ b/drivers/pinctrl/airoha/airoha-common.h
+> @@ -89,6 +89,7 @@ struct airoha_pinctrl_conf {
+>  };
+> =20
+>  struct airoha_gpiochip_regs {
+> +	unsigned int ngpio;
+>  	/* gpio */
+>  	const u32 *data;
+>  	const u32 *dir;
+> @@ -99,6 +100,8 @@ struct airoha_gpiochip_regs {
+>  	const u32 *edge;
+>  };
+> =20
+> +extern const struct airoha_gpiochip_regs airoha_gpiochip_regs_64;
+> +
+>  struct airoha_pinctrl_confs_info {
+>  	const struct airoha_pinctrl_conf *confs;
+>  	unsigned int num_confs;
+> @@ -126,7 +129,7 @@ struct airoha_pinctrl {
+>  	struct regmap *regmap;
+> =20
+>  	struct gpio_chip gpiochip;
+> -	struct airoha_gpiochip_regs *gpio_regs;
+> +	const struct airoha_gpiochip_regs *gpio_regs;
+>  	unsigned int num_irq_pins;
+>  };
+> =20
+> @@ -134,6 +137,7 @@ struct airoha_pinctrl_match_data {
+>  	const char *chip_scu_compatible;
+>  	const char *pinctrl_name;
+>  	struct module *pinctrl_owner;
+> +	const struct airoha_gpiochip_regs *gpio_regs;
+>  	const struct pinctrl_pin_desc *pins;
+>  	const unsigned int num_pins;
+>  	const struct pingroup *grps;
+> diff --git a/drivers/pinctrl/airoha/pinctrl-airoha.c b/drivers/pinctrl/ai=
+roha/pinctrl-airoha.c
+> index 52a768c859b7..b50108826d8d 100644
+> --- a/drivers/pinctrl/airoha/pinctrl-airoha.c
+> +++ b/drivers/pinctrl/airoha/pinctrl-airoha.c
+> @@ -94,7 +94,8 @@ static const u32 irq_edge_regs[] =3D {
+>  	REG_GPIO_INT_EDGE3
+>  };
+> =20
+> -static struct airoha_gpiochip_regs airoha_gpiochip_regs =3D {
+> +const struct airoha_gpiochip_regs airoha_gpiochip_regs_64 =3D {
+> +	.ngpio =3D AIROHA_NUM_PINS,
+>  	.data =3D gpio_data_regs,
+>  	.dir =3D gpio_dir_regs,
+>  	.out =3D gpio_out_regs,
+> @@ -102,6 +103,7 @@ static struct airoha_gpiochip_regs airoha_gpiochip_re=
+gs =3D {
+>  	.level =3D irq_level_regs,
+>  	.edge =3D irq_edge_regs,
+>  };
+> +EXPORT_SYMBOL_GPL(airoha_gpiochip_regs_64);
+> =20
+>  static int airoha_convert_pin_to_reg_offset(struct pinctrl_dev *pctrl_de=
+v,
+>  					    struct pinctrl_gpio_range *range,
+> @@ -207,7 +209,7 @@ static void airoha_irq_unmask(struct irq_data *data)
+>  {
+>  	struct gpio_chip *gc =3D irq_data_get_irq_chip_data(data);
+>  	struct airoha_pinctrl *pinctrl =3D gpiochip_get_data(gc);
+> -	struct airoha_gpiochip_regs *gpio_regs =3D pinctrl->gpio_regs;
+> +	const struct airoha_gpiochip_regs *gpio_regs =3D pinctrl->gpio_regs;
+>  	u8 offset =3D data->hwirq % AIROHA_REG_GPIOCTRL_NUM_PIN;
+>  	u8 index =3D data->hwirq / AIROHA_REG_GPIOCTRL_NUM_PIN;
+>  	u32 mask =3D GENMASK(2 * offset + 1, 2 * offset);
+> @@ -244,7 +246,7 @@ static void airoha_irq_mask(struct irq_data *data)
+>  {
+>  	struct gpio_chip *gc =3D irq_data_get_irq_chip_data(data);
+>  	struct airoha_pinctrl *pinctrl =3D gpiochip_get_data(gc);
+> -	struct airoha_gpiochip_regs *gpio_regs =3D pinctrl->gpio_regs;
+> +	const struct airoha_gpiochip_regs *gpio_regs =3D pinctrl->gpio_regs;
+>  	u8 offset =3D data->hwirq % AIROHA_REG_GPIOCTRL_NUM_PIN;
+>  	u8 index =3D data->hwirq / AIROHA_REG_GPIOCTRL_NUM_PIN;
+>  	u32 mask =3D GENMASK(2 * offset + 1, 2 * offset);
+> @@ -261,7 +263,7 @@ static void airoha_irq_ack(struct irq_data *data)
+>  {
+>  	struct gpio_chip *gc =3D irq_data_get_irq_chip_data(data);
+>  	struct airoha_pinctrl *pinctrl =3D gpiochip_get_data(gc);
+> -	struct airoha_gpiochip_regs *gpio_regs =3D pinctrl->gpio_regs;
+> +	const struct airoha_gpiochip_regs *gpio_regs =3D pinctrl->gpio_regs;
+>  	u8 offset =3D data->hwirq % AIROHA_PIN_BANK_SIZE;
+>  	u8 index =3D data->hwirq / AIROHA_PIN_BANK_SIZE;
+> =20
+> @@ -379,7 +381,7 @@ static int airoha_pinctrl_add_gpiochip(struct airoha_=
+pinctrl *pinctrl,
+>  	gc->set =3D airoha_gpio_set;
+>  	gc->get =3D airoha_gpio_get;
+>  	gc->base =3D -1;
+> -	gc->ngpio =3D AIROHA_NUM_PINS;
+> +	gc->ngpio =3D pinctrl->gpio_regs->ngpio;
+> =20
+>  	girq->default_type =3D IRQ_TYPE_NONE;
+>  	girq->handler =3D handle_bad_irq;
+> @@ -831,7 +833,7 @@ int airoha_pinctrl_probe(struct platform_device *pdev)
+>  	pinctrl->desc.pins =3D data->pins;
+>  	pinctrl->desc.npins =3D data->num_pins;
+> =20
+> -	pinctrl->gpio_regs =3D &airoha_gpiochip_regs;
+> +	pinctrl->gpio_regs =3D data->gpio_regs;
+> =20
+>  	err =3D devm_pinctrl_register_and_init(dev, &pinctrl->desc,
+>  					     pinctrl, &pinctrl->ctrl);
+> diff --git a/drivers/pinctrl/airoha/pinctrl-an7563.c b/drivers/pinctrl/ai=
+roha/pinctrl-an7563.c
+> index f011c6c9ccce..6a2a307807e3 100644
+> --- a/drivers/pinctrl/airoha/pinctrl-an7563.c
+> +++ b/drivers/pinctrl/airoha/pinctrl-an7563.c
+> @@ -1063,6 +1063,7 @@ static const struct airoha_pinctrl_match_data pinct=
+rl_match_data =3D {
+>  	.chip_scu_compatible =3D "airoha,en7581-chip-scu",
+>  	.pinctrl_name =3D KBUILD_MODNAME,
+>  	.pinctrl_owner =3D THIS_MODULE,
+> +	.gpio_regs =3D &airoha_gpiochip_regs_64,
+>  	.pins =3D pinctrl_pins,
+>  	.num_pins =3D ARRAY_SIZE(pinctrl_pins),
+>  	.grps =3D pinctrl_groups,
+> diff --git a/drivers/pinctrl/airoha/pinctrl-an7581.c b/drivers/pinctrl/ai=
+roha/pinctrl-an7581.c
+> index bfb777594811..6bec1d44b8a0 100644
+> --- a/drivers/pinctrl/airoha/pinctrl-an7581.c
+> +++ b/drivers/pinctrl/airoha/pinctrl-an7581.c
+> @@ -1435,6 +1435,7 @@ static const struct airoha_pinctrl_match_data pinct=
+rl_match_data =3D {
+>  	.chip_scu_compatible =3D "airoha,en7581-chip-scu",
+>  	.pinctrl_name =3D KBUILD_MODNAME,
+>  	.pinctrl_owner =3D THIS_MODULE,
+> +	.gpio_regs =3D &airoha_gpiochip_regs_64,
+>  	.pins =3D pinctrl_pins,
+>  	.num_pins =3D ARRAY_SIZE(pinctrl_pins),
+>  	.grps =3D pinctrl_groups,
+> diff --git a/drivers/pinctrl/airoha/pinctrl-an7583.c b/drivers/pinctrl/ai=
+roha/pinctrl-an7583.c
+> index 1cd0f442ddc1..2689bbd9ebba 100644
+> --- a/drivers/pinctrl/airoha/pinctrl-an7583.c
+> +++ b/drivers/pinctrl/airoha/pinctrl-an7583.c
+> @@ -1465,6 +1465,7 @@ static const struct airoha_pinctrl_match_data pinct=
+rl_match_data =3D {
+>  	.chip_scu_compatible =3D "airoha,en7581-chip-scu",
+>  	.pinctrl_name =3D KBUILD_MODNAME,
+>  	.pinctrl_owner =3D THIS_MODULE,
+> +	.gpio_regs =3D &airoha_gpiochip_regs_64,
+>  	.pins =3D pinctrl_pins,
+>  	.num_pins =3D ARRAY_SIZE(pinctrl_pins),
+>  	.grps =3D pinctrl_groups,
+> diff --git a/drivers/pinctrl/airoha/pinctrl-en7523.c b/drivers/pinctrl/ai=
+roha/pinctrl-en7523.c
+> index b0c5e60f0aeb..1589acef683f 100644
+> --- a/drivers/pinctrl/airoha/pinctrl-en7523.c
+> +++ b/drivers/pinctrl/airoha/pinctrl-en7523.c
+> @@ -1107,6 +1107,7 @@ static const struct airoha_pinctrl_match_data pinct=
+rl_match_data =3D {
+>  	.chip_scu_compatible =3D "airoha,en7523-chip-scu",
+>  	.pinctrl_name =3D KBUILD_MODNAME,
+>  	.pinctrl_owner =3D THIS_MODULE,
+> +	.gpio_regs =3D &airoha_gpiochip_regs_64,
+>  	.pins =3D pinctrl_pins,
+>  	.num_pins =3D ARRAY_SIZE(pinctrl_pins),
+>  	.grps =3D pinctrl_groups,
+> diff --git a/drivers/pinctrl/airoha/pinctrl-en7528.c b/drivers/pinctrl/ai=
+roha/pinctrl-en7528.c
+> index f6c8f834421f..9854e9530219 100644
+> --- a/drivers/pinctrl/airoha/pinctrl-en7528.c
+> +++ b/drivers/pinctrl/airoha/pinctrl-en7528.c
+> @@ -1155,6 +1155,7 @@ static const struct airoha_pinctrl_match_data pinct=
+rl_match_data =3D {
+>  	.chip_scu_compatible =3D "econet,en7528-chip-scu",
+>  	.pinctrl_name =3D KBUILD_MODNAME,
+>  	.pinctrl_owner =3D THIS_MODULE,
+> +	.gpio_regs =3D &airoha_gpiochip_regs_64,
+>  	.pins =3D pinctrl_pins,
+>  	.num_pins =3D ARRAY_SIZE(pinctrl_pins),
+>  	.grps =3D pinctrl_groups,
+> --=20
+> 2.34.1
+>=20
 
-I think this overhead is acceptable for embedded devices.
+--WqyvA75ADRGpy4XY
+Content-Type: application/pgp-signature; name=signature.asc
 
->
-> Sergey, how do you feel about this direction? We've run the stats
-> collection (even before we select CONFIG_ZSMALLOC_STAT to expose the
-> stats to userspace) for eons, and it was never a bottleneck AFAICS in
-> our fleet...  And the stats files seem trivial, relatively speaking?
-> 
+-----BEGIN PGP SIGNATURE-----
 
+iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCavRP4AAKCRA6cBh0uS2t
+rDPBAPwN08fBuOv0LvZ5GSpm3nNQBDO/6ajcZnEG7ZqY1ifYrAEAz42H7L6jUwuY
+Lj4bMSvEqOwOxZTxPFWF6i03FlMFWwE=
+=7ilg
+-----END PGP SIGNATURE-----
 
+--WqyvA75ADRGpy4XY--
