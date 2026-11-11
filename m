@@ -1,75 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794427186;
-	b=LC08J1GXsmhKo1MsJM2LVY/f1hb7iZkrumG7DVSdJczYOp/IWSfOFXP0PuORrX6JwF4h
-	 nGBs8mdAx7toq3NR4Y7gGy9f98ovtCzCQCy+BDW3uXXdX5kstGC3QITA2SdhFn9xiuj7m
-	 x5c5K1BVRMtdbkuCnSA3xdACvfdL0H6e6XNPyfmJ6OEulcEODiqgTCwtQaTa6rn/6UfiV
-	 UWGz85S0wVUbWvFJIbVWSCo2Lq/Q/VLpJ4noiYpMGmjSVTcdK3et4TZ3e1wxOME5GeVik
-	 UVSlXZcMxdVb6evIV0dDEng3GgNd46pdxonQ9Uz1WqKwQlfzPdAA4ORWcGd1LWF04Wg==
+	t=1794427231;
+	b=AmOSZ/4QtYtEUIdK9GT4gDQTs9cAyP/ElQlCUGZi2Zjt2Lna0Id91TWSxQgoREs9EIkr
+	 c/tFUc8voriFTKHTQf/29JoB/E631sXl/LsGgacLMoinI5JtWLxDJx+GKnjbdgPZQloGP
+	 yFHSJc5BUDvvToq27OLSdhm6hyU/c8ErtCjqcSmRgbnluDQl/tDrYbxqG/304zSU6h18+
+	 RXSVy6hv9xd1IPLULFcvtI2vGQ/Db228TM18Ink/1Hndmdl70AvaE+Ob93BoN//+Bgk1T
+	 WH3xml9q2dc5i7+N3pECAxk1fqZdJo9la9P+nmh4qDV59eZVkKZikePicxaL0WnwfEA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794427186;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794427231;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=EZv892Hp/w8YN/pcYxItocv35LQiqipWkaKIWNQFLHU=;
-	b=TIuH5kQ1UbBc/1F6r+TOrzCn8kSn/fxpKY3Gch7YVfEjfxT2fxKC+fpBzEq+WWeXPQm8
-	 miBZE+mXwokgcBeqxypNyLztqsY9CIbCpKS8JFm9e0u9RVYyol4pVmoaZNFLKDESUx8/G
-	 N0BozA139cHNPFQtebHvwwAX37D5kMOUDpFQY69Vl1444IDx6XRYn0MqMrFeL2wFQ9S7S
-	 2ud+OyU2xS/IyHogneNaJETYxZNF5lL3bpwF0KzqrONpLlbJV4AKfxwElk+I5hcplY/8z
-	 rJgxAGlxFHkC3CEt/37LCTd2uEs6wnP82Sj3L0gVKN+kmqe8IRBnUwfzi4/9k4gw8OQ==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=p+2Z0iAhcp8VOXafcysdCm6gOgr7IJoVThJ4qYkpC4o=;
+	b=ZRlo7MsGQLzTnx8C6IlurUKdGG8VFijvs7E+3UL89cUWreRsU/NsLEF5jGFMgcfnLxtO
+	 68qSMeyr7RgTk73o/J8x6QC6V57V7EtHYS+J138K4TBsxgwsG9v4u+sn7ejI/zwYYFF1Q
+	 VzoEVcLg8YfJBILlLRwUl1TYOCigVqY6NvXDTqUDH244E+sf8XahPOwBfyOxCzxZFvtPC
+	 FvL2cUD5my8HQLez23o9sEcCH+qv9eZdMRwacVbnn95JACJfgqtQOECfqVHj0Y171/32a
+	 JgHrfGaY9JXSCqN0W5t45Jes+DXA+mX4vFMNYxeOl9z77+BzVj+ayv5gE7/DLjoEvXA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--tjmercier.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=DvA5NGbS;
-	arc=none smtp.remote-ip=209.85.167.199
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ICpsNtDj;
+	arc=none smtp.remote-ip=209.85.167.53
+Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com [209.85.167.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58CC1606A327
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 19:59:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58CC1606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--tjmercier.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B226606A326
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 20:00:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B226606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=DvA5NGbS
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4c55ba309c2so4358205b6e.1
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 11:59:46 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ICpsNtDj
+Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-5bfa7c09c9eso2411999e87.2
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 12:00:31 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794427185; x=1795031985; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=EZv892Hp/w8YN/pcYxItocv35LQiqipWkaKIWNQFLHU=;
-        b=DvA5NGbS4keLHXdDRcrF7eUh1hbwSglEr3/uOLAcWxofxfxXp+XfkzcdCOYorAzARe
-         B6g94luwL0Ffh6liz0Ud0TMNolfZcUwtBuzHjdBGgfZCOiVM/Kl6EnyqFZY2iWZr4wb6
-         G6Rzgzj+i7SA7HuJMZ8jf7eK9Sd/Jh3aa27gd1BVSay7wUy8xGcqrFS89D28hkkexPI5
-         6rcFzmNLPEpWztfCLI2X6m6o9V7L4laQd+6nW7p4YwDuQNkjdrKMqnYJ3VXwikxY/VA8
-         atsV6zFsssF0LALTvFHVVE2rmig5jx3NNnMivkHT/M6x3X//wvtWb+DWi0IgLSyyBGDW
-         3nkQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794427185; x=1795031985;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1794427230; x=1795032030; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=EZv892Hp/w8YN/pcYxItocv35LQiqipWkaKIWNQFLHU=;
-        b=z8MFTun2pXob46cQuQXlX1k0FYIOA//r3V5ZQHtzhToCAXCt+Xt3lAJm+8Aeq2KD4i
-         0AgPEl6HRxqk7G68/RmrDODwD7hoZvP6JbGwUqFEpJyhROyU9LhdgAe7f5wgmFoqm9gW
-         Fm/1u4687mpXcGyGT38hGSOIcqtL2Xt1DZg52V8iF3BYW+REI5eFp+JYsZUt5dnG2mYH
-         6Yimo4+93iHcszGfe6dFoOK90V98/X92MYsMkwFNm1J29ulyfHJJRR8Dd02ZW9VWvRpJ
-         LmCE2jPABcOkSsbGR6MjNkAd+GMwd6B/LKwa2UVEQJphkBgkneGH1iT7JOPd3qxBiLkv
-         uOYQ==
-X-Forwarded-Encrypted: i=1; AL+hErGB9gWbcTDxRcZHvZ3dpjhyW9JHsgQcdFRfkTMe8AmdcbgQ0pdJjpRlyURRI2ECMq30Uzj8GJ3x2tKaJEU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8ezsGGH7sc29tqYHWC2+r/cDyJxdFYeD5lpVyH0cCHAarEv4Ot
-	NDKsaZZ95zjiuYACm2GKtopc/9ifmaMQ9DuuFZTRWIQeCd6mnu9pC0sD0qi2GKSRivj2uEqC3aR
-	MaD7EGnN+avsd72h5Rg==
-X-Received: from iohf22-n2.prod.google.com ([2002:a05:6602:a5d6:20b0:9e3:4b87:936d])
- (user=tjmercier job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6808:c1b2:b0:4d6:90f4:48ab with SMTP id 5614622812f47-56b97c18413mr3271887b6e.45.1794427184911;
- Wed, 11 Nov 2026 11:59:44 -0800 (PST)
-Date: Wed, 11 Nov 2026 11:59:42 -0800
-In-Reply-To: <20261110125106.2935677-1-k.chen@smail.nju.edu.cn>
+        bh=p+2Z0iAhcp8VOXafcysdCm6gOgr7IJoVThJ4qYkpC4o=;
+        b=ICpsNtDjl8RpGDWPxeboydSu/EEH2dc3F1U/ihmVr5TvqmB9GXzkPDgrSdb4pTybmq
+         rSXYND5og4GcBCQzlUFJdJ7g1a0Wg25xXHOc0oR5VBOQCimogGtybB77X2IzzJAL4QCY
+         u/rPxDk7NZAtRuT5zgOxildkgI8fjUqWbzfA8BpS1lDpmeugNImYN4GZjcm5G/yE5pEa
+         Bmh8Ui1PeSQVZNNz0MEFnx4+oVTDI3tlGl04FCJBhH39Bt9Bpi3W0D18XWQJ6YEjdkdF
+         oF1V2Lh3uJOAsQow9V6jQCoClk4BzSTaL6w3T4gVUiqgEkTBavTQWVWq12QqWIUd5r1n
+         sSSA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794427230; x=1795032030;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=p+2Z0iAhcp8VOXafcysdCm6gOgr7IJoVThJ4qYkpC4o=;
+        b=dE6fuWan3WBZhrmYiIksD+Vdz6b4PCh6GH3iDadQ7+Lfk4VOS3/wsTVc9kvIRU2P+5
+         LGmkkR+fiLqYDdINU69rrXssPhWWOBFs0DaYdqAzWpfcb9wlpuN+98/E4PRF5DI2ww7p
+         Qh5Vafhne7HDEil+LgN3hFpAVAAs06wGxKoynhzh9jtCEk4mSB1Q1I/2dbH0i/vP/y8c
+         mIwlbkyttnhepv/hgE32zCzrxaBmy/REQUNu4FPBtiHtFXFN9OQuuv2mFuulkwU71GDB
+         VsE4c+7NPhLDYe6pF5lmV2RvOgx58eX9QyTSOrLGc4rJgPUELJZKb58qWB7YFuhuFFfH
+         bEmg==
+X-Forwarded-Encrypted: i=1; AL+hErEuvT8acrBsyWPC0vGvvIKjLq0IKLsjaPZow9TyzQl7CZ3QxZngfUBb8ESiv0HfdcKk17NnOIePPscTptM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+mxFL5rgN/Hpw3XWTbgtDAIylFSFQ3YF612XkRVUCr6niNCq8D
+	l6QJm06Elj0vHUal/YKu/MJn0O7HwM7QrG/wSJ6ouhhYWimzPQ7khhjMcq1JzLFn
+X-Gm-Gg: AYBFou3poSpy631cIcUsFl6a9c+vU4txEjzqs2Ba9WA3bZ+Toih1jKXIVuQ2VC0Zd7J
+	3txjIEaM00pWKhxprN7RcFbdoHpaNWA2NKX+AK6DlP+kicnFa6NA/AxG/nSIvB62hsts8BcFAxK
+	154uAP7Bnr8bOLPqVO8pF2yLCWHxiU8dZUZfyVDDnbqak2npPKeFDkIe8oN8eHkRuU9NfstPnf2
+	hPdGTFTx/0qSmLLcUmeFrSY6ls/Yj8YjTnM3e3YwjHdBv9CD6QpBwzNY9GpGtsVBfwvxC764Lnx
+	qvgmRlFjGgc/UMclc0M/vzf4B0ocqnEJfTNoDfqyHXx15kJrXyB2X/5XG2f5VoeKrDWcEZ5KEfD
+	LrWWQmPTrYwdCxkaDxWNoDEbUvXNw0r5Q3k11cfxcnszmYEX6cWmQoRkERY4iVBt075DBLUQsQA
+	xiIAKsHmEMoPCKu75MC+Yk3TySiwwjYKmu9pa3bJL3esbQl0+YxLNM6G9Ht8SIW/sjZeL85yH9x
+	gM3DP/PvwrcwK8bhMGvE7cJjGYexLrTl7SjLSkTd9lyBe3fflkWeuIRELOjWImt7v89v5/p63HR
+	E1amgL6Ic7uKkSNWi+kcwJTWQiRljtAmAQNtNXUYa+Wpf2FZyPnKUnKqjOD7/iQ17kzrKMzLuGj
+	KhUDvHJc8QC0UxLYn5yxaZCh8BcmH7WJkHF9E
+X-Received: by 2002:a05:6512:b8e:b0:5c1:5cce:7f1d with SMTP id 2adb3069b0e04-5c15d58a87amr1050525e87.9.1794427229586;
+        Wed, 11 Nov 2026 12:00:29 -0800 (PST)
+Received: from yantra.. (nekmmqtce067ylb1za0-1.v6.elisa-laajakaista.fi. [2001:99a:d7d:c300:5558:447:baa4:a7d8])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c157bbe89csm1102957e87.81.2026.11.11.12.00.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 12:00:29 -0800 (PST)
+From: Rupesh Majhi <zoone.rupert@gmail.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: Andy Shevchenko <andy@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Eddie James <eajames@linux.ibm.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Rob Herring <robh@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Paulius Zaleckas <paulius.zaleckas@gmail.com>
+Subject: Re: [PATCH 2/2] iio: pressure: dps310: add a data-ready trigger
+Date: Wed, 11 Nov 2026 22:00:25 +0200
+Message-ID: <20261111200025.38344-1-zoone.rupert@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <sashiko-outbox-208073@kernel.org>
+References: <20261110154254.39092-1-zoone.rupert@gmail.com> <20261110154254.39092-3-zoone.rupert@gmail.com> <sashiko-outbox-208073@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,109 +107,22 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261110125106.2935677-1-k.chen@smail.nju.edu.cn>
-X-Mailer: git-send-email 2.56.0.567.gdb80ae8cd5-goog
-Message-ID: <20261111195942.1283060-1-tjmercier@google.com>
-Subject: [PATCH bpf] selftests/bpf: Test that a drained dmabuf iterator keeps
- returning NULL
-From: "T.J. Mercier" <tjmercier@google.com>
-To: k.chen@smail.nju.edu.cn, ast@kernel.org, daniel@iogearbox.net, 
-	andrii@kernel.org, eddyz87@gmail.com, memxor@gmail.com, shuah@kernel.org
-Cc: martin.lau@linux.dev, song@kernel.org, yonghong.song@linux.dev, 
-	jolsa@kernel.org, emil@etsalapatis.com, ihor.solodrai@linux.dev, 
-	christian.koenig@amd.com, sumit.semwal@linaro.org, phasta@kernel.org, 
-	tj@kernel.org, bpf@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	linaro-mm-sig@lists.linaro.org, linux-kselftest@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-The BPF iterator docs in bpf_iterators.rst specify that the next
-function of an open-coded iterator should keep returning NULL after it
-has been returned once.
+On Wed, 11 Nov 2026 02:15:48 +0000
+sashiko-bot@kernel.org wrote:
 
-Add a subtest that checks this for the dmabuf iterator. It drains an
-iterator, calls bpf_iter_dmabuf_next() once more and checks that the
-result is NULL. The dma-bufs the test creates keep the list from being
-empty, so an iterator that starts over would return one of them.
+> Should dps310_fill_channels() read pressure first and use
+> dps310_refresh_temp_locked() like dps310_read_pressure_value() does?
 
-The existing open_coded subtest uses bpf_for_each(), which stops at the
-first NULL and never calls next() on a drained iterator.
+Yes. The wait came with the triggered buffer support, so it is older
+than this patch and holds any trigger faster than temperature to the
+temperature rate. Fixed on its own:
 
-Signed-off-by: T.J. Mercier <tjmercier@google.com>
----
-This depends on Kang Chen's fix and fails without it:
-https://lore.kernel.org/bpf/20261110125106.2935677-1-k.chen@smail.nju.edu.cn/
-Kang, feel free to carry it as 2/2 in your v2.
+https://lore.kernel.org/linux-iio/20261111195118.36853-1-zoone.rupert@gmail.com/
 
- .../selftests/bpf/prog_tests/dmabuf_iter.c    | 19 +++++++++++++++++++
- .../testing/selftests/bpf/progs/dmabuf_iter.c | 19 +++++++++++++++++++
- 2 files changed, 38 insertions(+)
+With the fix, this trigger keeps up at 8 and 32 Hz with temperature at
+1 Hz. I'll mention it in v2.
 
-diff --git a/tools/testing/selftests/bpf/prog_tests/dmabuf_iter.c b/tools/testing/selftests/bpf/prog_tests/dmabuf_iter.c
-index 1a5dc1adae73..c1f81b5dccdc 100644
---- a/tools/testing/selftests/bpf/prog_tests/dmabuf_iter.c
-+++ b/tools/testing/selftests/bpf/prog_tests/dmabuf_iter.c
-@@ -265,6 +265,23 @@ static void subtest_dmabuf_iter_check_open_coded(struct dmabuf_iter *skel, int m
- 	} while (bpf_map_get_next_key(map_fd, key, key));
- }
- 
-+static void subtest_dmabuf_iter_check_next_after_drain(struct dmabuf_iter *skel)
-+{
-+	LIBBPF_OPTS(bpf_test_run_opts, topts);
-+	int err, fd;
-+
-+	fd = bpf_program__fd(skel->progs.iter_dmabuf_next_after_drain);
-+
-+	err = bpf_prog_test_run_opts(fd, &topts);
-+	if (!ASSERT_OK(err, "test_run_opts err"))
-+		return;
-+	if (!ASSERT_OK(topts.retval, "test_run_opts retval"))
-+		return;
-+
-+	/* The test buffers exist, so a restarted iteration would find one */
-+	ASSERT_EQ(skel->data->next_after_drain, 0, "next_after_drain");
-+}
-+
- void test_dmabuf_iter(void)
- {
- 	struct dmabuf_iter *skel = NULL;
-@@ -315,6 +332,8 @@ void test_dmabuf_iter(void)
- 	}
- 	if (test__start_subtest("open_coded"))
- 		subtest_dmabuf_iter_check_open_coded(skel, map_fd);
-+	if (test__start_subtest("next_after_drain"))
-+		subtest_dmabuf_iter_check_next_after_drain(skel);
- 
- destroy:
- 	destroy_test_buffers();
-diff --git a/tools/testing/selftests/bpf/progs/dmabuf_iter.c b/tools/testing/selftests/bpf/progs/dmabuf_iter.c
-index 9cbb7442646e..d5421b75c39c 100644
---- a/tools/testing/selftests/bpf/progs/dmabuf_iter.c
-+++ b/tools/testing/selftests/bpf/progs/dmabuf_iter.c
-@@ -99,3 +99,22 @@ int iter_dmabuf_for_each(const void *ctx)
- 
- 	return 0;
- }
-+
-+/* Result of a bpf_iter_dmabuf_next() call after the iterator was drained */
-+__u64 next_after_drain = -1;
-+
-+SEC("syscall")
-+int iter_dmabuf_next_after_drain(const void *ctx)
-+{
-+	struct bpf_iter_dmabuf it;
-+
-+	bpf_iter_dmabuf_new(&it);
-+	while (bpf_iter_dmabuf_next(&it))
-+		;
-+
-+	/* Store the raw value; the verifier would remove a branch on it */
-+	next_after_drain = (__u64)bpf_iter_dmabuf_next(&it);
-+	bpf_iter_dmabuf_destroy(&it);
-+
-+	return 0;
-+}
--- 
-2.56.0.567.gdb80ae8cd5-goog
-
+Rupesh
