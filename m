@@ -1,128 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.146
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794413546;
-	b=qlRNJRIZC0n6HXWPEZm8gC2UTQLpdYB/AXSrkcjcsiqSaVMUuXTRDgWlyb5F9axr130V
-	 G+fynIauw9Zw+gmfA8+aPV6Eg6nf28zl+1LWJ2ADTqTK+hw9jDZzcDpBLlPII2769gX09
-	 1OdAWbAYGmiOmcWXt6DQR/LCQZRXSM3libAAy46oDdPfZfns687IHJ2ZN362pXjuZch0Y
-	 Qdt42LH4YTUMzaCDuDZotQiSskepK6D88Idz3AfcTbbjRg+RDpt8i82D1SuSHD4286rgP
-	 BUNazpd91K5URKgJt5bwN7MkVmYb7YZ40GmTGs6kXE9GKv8jJzt1kq3vHeszL+4dejA==
+	t=1794413670;
+	b=3ipKfLezdW4w5dyplK4KukEMTrtWpzbyafUIMks4yUhmmDUPuz9+1Lo4+fc1anQyDrGH
+	 +Kai+afz0hYpiSOvclGiCGIRTvV7UAV+vCWQKMJTgT/BCZeO2w6zDnpiVYOyCYPryvSx7
+	 O2ea1kN9uWlO3yEtKT6joq//wDwz8NoSjSK5kBPg7r90vIwwotspuTryXDFgRIufEckdr
+	 AWQvgL5DKtO/882aTqJ5/JoRptkRBVSc5NBR8eOK1nsy798bkuoiWQ2Ta4ZQSzxQ/Q5fh
+	 Ufl6m4Xc2KICLC5XVd1XA8zuxyoM5Bi30F3r8uy/iUSQKI0SnkdnDcFKT43UAjvj7Rw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794413546;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding;
-	bh=4LWIfz0LXniS79CwSXUL1sTo15BzWIHPZTTjWShoiso=;
-	b=MXD45ISz9xe85LGo4ThMM/AYRkn3RvLlaYS8ZcunaFf12v0SbXCHr1upw6Ol3u6zS5hE
-	 zeFbWn7l+7I/GfF+55PsR15URS6EVfRy+oMFngyRapsmDI7atEDLk+6fKuTueFx8932Py
-	 cXDJxa39MgFgjwHXkTjv6l2pfpaM3IGK4nBRMvu9qLz0fyRQMWXvaQA3zgptOFUsdNoV6
-	 /zR0tadINTiU6LSsDKtVQvtcMwaojB6xr7mkejTaGJ7iPAoPPqfYzFon9VIpNNEntGweM
-	 mo83Z1CrjjQl80TqtVjvqKFcXnj/0UQU/4ODufTxhZBRZdodEAMrzjVoPexhuxw2zSw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794413670;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=waVa0swUhVILDQ3Fdt9NwC388Zn+UttTKWbxLoq2k0s=;
+	b=ehtlpvbhtYOI6/21ByST0fQLgf3T0Ij/Vv7xDOa8Cm2SauBqK6H21KxwXze6Qs/sp/Fu
+	 wPz5xnO2+bVLw1X4ENrOFYqxXnO92lZbCxO/yDqGVptjLtjLqi9Vtb57nj3gp9vVaosap
+	 dfvcER43IIXnuH9WKB3QDad2hnOWGXg6uMO+qbiny3hPe7OIefnDMr0Wa696FwE2mLxWs
+	 TK228EomX6b0qlnoaMEtCIHbOL7JMkfEbhsZ+31W7tg7xRZsnOkqmg8HW/f7ou4jr3VNE
+	 BtTJIp9eNxQNG7KLeYUl4pUsvknGZVSuNnGLou07wl6AbgS6rSlym2Zh4da4PWbBF8w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fastmail.org;
-	spf=pass smtp.mailfrom=fastmail.org;
-	dkim=pass header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=0hkJRnZ9;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b="w/NgFr8g";
-	arc=none smtp.remote-ip=103.168.172.146
-Received: from fout-a3-smtp.messagingengine.com (fout-a3-smtp.messagingengine.com [103.168.172.146])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=To8g6BJ6;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 443BB606A32E
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 16:12:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 443BB606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BC6A606A324;
+	Wed, 11 Nov 2026 16:14:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=0hkJRnZ9;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=w/NgFr8g
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailfout.phl.internal (Postfix) with ESMTP id 77080EC0685
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 11:12:25 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-06.internal (MEProxy); Wed, 11 Nov 2026 11:12:25 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.org; h=
-	cc:cc:content-transfer-encoding:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm3; t=1794413545; x=
-	1794499945; bh=4LWIfz0LXniS79CwSXUL1sTo15BzWIHPZTTjWShoiso=; b=0
-	hkJRnZ9DToq3a1vzW9IdMIRvvetyzWyVmqRC7GIuxQg7Y9z0cAkszPvH/n+csGEr
-	pE3R7fBpzZDE5dGeJ2UIZ0xEP1YiwZjM8KcuwA84O7EhhwKuRuOlYiUYVDsZSNHp
-	D7mdmgdO9TQ9evl1RkybdPRI1aEG9XiqoXLN4bHLtv5Z/RE6siJmmRfc8n9GIZwO
-	bkMK/V3DLKyGuj5dyjAXSXtd8+fTfQfgYMVW9w8996MluFJUeXXkoDKENmMYvG4P
-	+z7ybiCBg/2BPzV6Y/dM7hYupnxtlIbGGJd1RRi54gtTL9gvHpv+ELt1XizHESXV
-	MsV/aB8yd6BMs0v8x5Jnw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm3; t=1794413545; x=1794499945; bh=4
-	LWIfz0LXniS79CwSXUL1sTo15BzWIHPZTTjWShoiso=; b=w/NgFr8gGNS5GQ4rO
-	XXlIGn9PvPizdUPfi7WFXo9FeUVvaw/tjLiJkg6dAL3Ezcqa56URbHD5cLyU/Gwv
-	DioXaNh/8yG7Q/RxCnrg+A8kNCIS36ViwIpdjT4+6hgs8RUkrUWbeAneopnSoUfB
-	X3+I1Y3TS4JJnxG0+wsfan5flmOKfT3Vw6DCAYGXG3sRif8ORqJks99FcV7qEeXq
-	UB65JlgUA69ZA1gIW+ZfGe1+7xvDO9ae25sBkCdXHoagfmLISSNCXuq+H05stgNd
-	QP4mKFNm/fJES0ZYIVWwXbR7Zuh1cEQzADmnGlzR2sqSiSnnkhieJvH6Nit3jcWu
-	TkStw==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=fastmail.org a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794413545; d=fastmail.org;
-	mf=PGljYkBmYXN0bWFpbC5vcmc+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm3:rsa-sha256:p6R+RAcU3X+isGEIFWAFA20nkq7dSibN4iKgoTggqTy6CVk
-	Zd6AFGItihvoRNwcKlQ4h/35HryPwtrd0cmrrdmCAgsiFdoVsxbq5+O2G/COGZxI
-	wqnQf381c/dXPs+b4vrO2ItAjPqWWGctRpX0q/QJRsV8BHcnQW+qSghSxIYI8gkG
-	ZJtJ7xSozDccPFam8zmfQQUNR/j/zVF0i94yKMuMvQN92S7SDnioLE8aJwvf9SV7
-	7yofCKC2WdTxovimbyxOVfSfU3Ehl2XF0I2Khk5dcMaNASJZbDQID9v/0VF4CHGn
-	n6fjmcQj1q4Gc6wDPJnhuXAOB+imhRyyCMEdNVg==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=11;
-	hn=cc,content-transfer-encoding,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:jZAot0+yAGnEvPYGis+eFBQ5dZDgM7hmab2s5LnTOIk=:igzaP6AJEXP1a40IWvxYxVxWGW0gJZkrWuBBgHF48YA=;
-X-ME-Sender: <xms:6ZP0agpH1BdyI_c3Y_Hpbp_Cfgp73L4vXnde9uNa0cTFCebxgBRp8w>
-    <xme:6ZP0asqyb9-BmKz2tvFfWOBEQWXuovzcwf3-t2kYxPuZvS9K77g7yUO5LOHbHb-rb
-    AnSKBqML_AZJLT49zuRb4y2xnSl6V5Ty5CP0TYIp6RPIS3Z-AR5_Vhq>
-X-ME-Received: <xmr:6ZP0agAFKQ8QTP6orNapbONeLqycyw4jeOWsLcZKG5TkSfPyh7BwXfWoPIkVZg2C>
-X-ME-Proxy-Cause: dmFkZTEEdbrRFWR0eBKe5v/KfypfLLl/fRZb14YgUijhe01X8oiOT4nHPo8rMe7bc2/Ckq
-    sCGCuwV/iK89RoqtMD+/hj2wVUekqHuNWusm9yUS3FP3mh/Dzsu8iO5RWo+jDsgEDYG2Vu
-    Vhc/k1nrAqISnXm4S67v7t0D+Ix1sNE+1y7OelDhqwkIFG2E0xP0i8OsTKDjqKVRgAB4Yk
-    87DTR7uoK12BdAKefs0htoSFphplUjmmGgDczfWsq93xlzc7hjqcmmoMKIVb7qobZJnIKx
-    k+NOZIiCtqmqRGi83enLRpJm/s183W5wQSVSbrS1PSqCA0GAxxm9f3cCcfZvoaD84wX9aM
-    7dTBnOMn4gliL3OvwY91vsDIAraMp9M0p9V/do8RtotKsZIqVylj0PbcLwinbRcHtwt4Yf
-    4oOCcoR8Lxje3uOaj847if67Pck8pMh6sZ4ZCaNJQy7Dseqmh3D8rxBBKgpOfAedyZFCSo
-    rND4TbnETICVumobqxf0CDQX7OEC13B2emPCuREnnstGq6Tl1IbQczClPaTNaXayvZgNJL
-    1JAf/+xU6MVkDKMPYVlSqfJYXhkRfKh22dbMXvAjyfokbkLWeR3lXv7HqQqKAct7dlK4t8
-    USIMFkF1J+5bq5samcn3/p+TObtQ5rsS+znd+RE+K1zuicV48KDEZz4nwq0Q
-X-ME-Proxy: <xmx:6ZP0aqsxZ61oGGaBr7FLgC6wH1_CSMmGoToVqXikTk9zU8rGTOyHLA>
-    <xmx:6ZP0avKJrijaLqAIdU9YE3cauYNUnOhV3bJF8-Xt5hpHt6SiGxz2OQ>
-    <xmx:6ZP0ahau0IsBkDlihU0DmIxIRAiK9lTvovpS6QQ8XeLbBE2a__wKwg>
-    <xmx:6ZP0ahAn2IsV3QuLL3vsszQsAcj5nEdC_oT7rt6ZQGY_Kz_aodklCw>
-    <xmx:6ZP0ajyJZSg3f1kF6udaxuo-wrN47t6EIHa_Zyy9YCYyg2gOb2ACULCN>
-Feedback-ID: ib53e4b78:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 11 Nov 2026 11:12:23 -0500 (EST)
-From: Ian Bridges <icb@fastmail.org>
-To: jan.koester@tuxist.de
-Cc: linkinjeon@kernel.org,
-	senozhatsky@chromium.org,
-	tom@talpey.com,
-	chenxiaosong@chenxiaosong.com,
-	brauner@kernel.org,
-	linux-cifs@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=To8g6BJ6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D25B1F00A07;
+	Wed, 11 Nov 2026 16:14:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794413670;
+	bh=waVa0swUhVILDQ3Fdt9NwC388Zn+UttTKWbxLoq2k0s=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=To8g6BJ6/R18EgHt+BPeAHAVBQbuXk+t6aIFx2fn332bSqauYGxIX/MhTCqN4+MGd
+	 ONerEaPLhIWKa6BYiQzy9Dt9em18MCRu5Z+LROMLZse3SPa18WvY1YByGKq/Q80ZVA
+	 IybU0qgALTugrvS/EnJa/0gmU4kIQqopiAZHZJnggWryksTuMTqRkL+IZXxgi6S/+C
+	 hDWhJWIRxfSbtd6BScuCTFZMH4NIBoOB0hE/y26arVXZ6a1H5DlUP82BcxDL1ayokQ
+	 BrNA5M+ZSvTYC+LbA2xAFIBtmSz4zlZoGkfaxvlkVO5KhPcaqZhiiLy9/vmka5XMvo
+	 g8MGR+fGcvhIQ==
+From: Sasha Levin <sashal@kernel.org>
+To: Mark Brown <broonie@kernel.org>
+Cc: Alex Deucher <alexdeucher@gmail.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	Alex Hung <alex.hung@amd.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	amd-gfx@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org,
-	Ian Bridges <icb@fastmail.org>
-Subject: Re: [RFC PATCH 6/6] Documentation: uid_r: describe ksmbd's SID mapping
-Date: Wed, 11 Nov 2026 10:12:17 -0600
-Message-ID: <20261111161217.4128662-1-icb@fastmail.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <ae30e40693d0f8b9f21a27e0@groupi3>
-References: <ae30e40693d0f8b9f21a27e0@groupi3>
+	linux-next@vger.kernel.org
+Subject: [PATCH linux-next] drm/amd/display: give the dprx CRC test its connector state back
+Date: Wed, 11 Nov 2026 11:14:27 -0500
+Message-ID: <20261111161427.3274232-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <avNxxfHK_Zh2GN2o@sirena.org.uk>
+References: <avNxxfHK_Zh2GN2o@sirena.org.uk>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -134,18 +65,50 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi Jan,
+The merge fixup in commit c62c2736d82f ("amdgpu: Merge merge merge
+cherry-pick cherry-pick cherry-pick") dropped the call to
+drm_atomic_helper_connector_reset(), which drm-misc removed. But that
+call is what gave the test's connector a state, so the assert right
+after it always fails now.
 
-On Tue, Nov 10, 2026 at 09:02:57AM +0000, Jan Koester wrote:
-> +	rather than ignored. A session's user matches ACL entries naming its
-> +	own or its groups' SIDs, mapped or not.
+Create the state with drm_atomic_helper_connector_create_state()
+instead, and check it before storing it: cleanup would choke on an
+error pointer in connector->state.
 
-As I read 4/6, the token is built only at login. Would a mapping that
-user space cannot give then stay missing for the whole session, so the
-session does not match ACL entries naming that mapped SID until a new
-login gets the mapping? If so, could the text say that? For a deny
-entry the session could then get access through another allow entry,
-though that part would need a fix in 4/6 rather than in the text.
+Fixes: af8e519642bd ("Merge branch 'drm-next' of https://gitlab.freedesktop.org/agd5f/linux.git")
+Link: https://lore.kernel.org/all/avNxxfHK_Zh2GN2o@sirena.org.uk/
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+The amdgpu_dm_crc KUnit suite goes from 34/35 to 35/35 with this.
 
-Thanks,
-Ian
+ .../gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_crc_test.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_crc_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_crc_test.c
+index 2b94d1bcaf62c..32b33d72dd0f3 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_crc_test.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_crc_test.c
+@@ -694,6 +694,7 @@ static void dm_test_crtc_set_crc_source_dprx_connector(struct kunit *test)
+ 	struct amdgpu_device *adev = dm_kunit_alloc_adev(test);
+ 	struct amdgpu_crtc *acrtc = dm_test_alloc_crc_crtc(test, adev);
+ 	struct amdgpu_dm_connector *aconn;
++	struct drm_connector_state *state;
+ 	int ret;
+ 
+ 	aconn = kunit_kzalloc(test, sizeof(*aconn), GFP_KERNEL);
+@@ -704,7 +705,9 @@ static void dm_test_crtc_set_crc_source_dprx_connector(struct kunit *test)
+ 	KUNIT_ASSERT_EQ(test, ret, 0);
+ 	ret = kunit_add_action_or_reset(test, dm_test_crc_connector_cleanup, &aconn->base);
+ 	KUNIT_ASSERT_EQ(test, ret, 0);
+-	KUNIT_ASSERT_NOT_NULL(test, aconn->base.state);
++	state = drm_atomic_helper_connector_create_state(&aconn->base);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, state);
++	aconn->base.state = state;
+ 	aconn->base.state->crtc = &acrtc->base;
+ 	/* Balance the reference the state destroy drops for a set CRTC. */
+ 	drm_connector_get(&aconn->base);
+
+base-commit: 793807ca13bf3072fc6d16ce6d90e9ab9beff2a5
+-- 
+2.53.0
+
