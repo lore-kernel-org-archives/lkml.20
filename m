@@ -1,113 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.150.240
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794367981;
-	b=A4j0eGHfamDIkh4u22VHA02zv9/NcuqPCL9ktQmspkOBuKZ6TfHkYhLxMZI+WmWzscQy
-	 19K7ne7YCyyN7PWjCX6/HbHsqpHNlJsKPYLzqBq09bGBlyW92cewRy8Hl3n98hJ8/Tq0p
-	 570vOjjQXyJn0cweGx2ddj10ZIGO1s7Mt0pK3WGxHA6F7tZzEAx7woPCWVFEZ1z0Ub6lP
-	 QZlDVh6HeXvoW43wI8G49qvLG8mqdICEE8yLLn7uIG7gPNPhNDCLamnf2BPsD9Xur9aUB
-	 BGJCm64OL13gH9AUEcqcZmL9fsfhY4qMI9S4J2608XK0nzhQGX9rlyFoOpDI68DBnKA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794367981;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
-	 X-Authority-Analysis:X-Orig-IP:X-Proofpoint-Spam-Details;
-	bh=bQ7xCGeyKivCNLHanIQkVR3eV/kMY2IG8KqwPvVm/cM=;
-	b=4C21ml+J8SDjN0Qk9F8zRQQ2MVy7oUQZSV2tcf3jHTTw8senR+yicBI+mlLu+G+8ZY/2
-	 0RlRHbtCoAfQh1wunDi8WFX0TidezOtOlbxWGqZ5uTrU388KZZj188g/YfwMynVezTUjv
-	 g0RptVlJTUq2zv7WZujLGr+OUtoEsUpng4ePkR0DfXyi0MIS/J6KD9l7TL4n04PSwwVh+
-	 bVGR4LSYyCA6zxNV4lAiuMUfM2nHL/O41JvdtyRBo+lo5a2fmjwsd9DtL5SoxW1Xv5peO
-	 v7fZfOjDTHPIgSWW+yPnSDDputSe3W1dBf+RmHPVXfmT+G3J8PE6PPq9YZ7KIlJ1BEA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nyu.edu;
-	spf=pass smtp.mailfrom=nyu.edu;
-	dkim=pass header.d=nyu.edu header.i=@nyu.edu header.a=rsa-sha256 header.s=20180315 header.b=v6iMNFcf;
-	dkim=pass header.d=nyu.edu header.i=@nyu.edu header.a=rsa-sha256 header.s=nyu-googleapps1 header.b=uPsmbQ47;
-	arc=none smtp.remote-ip=148.163.150.240
-Received: from mx0a-00256a01.pphosted.com (mx0a-00256a01.pphosted.com [148.163.150.240])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.62
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794368095;
+	b=qJMqefa04sfY7phwcNorc/iZ/IVFf+mbKoQyuJXc0cJJ/PNXLV+Q/p1M8Q8PyEljjGzx
+	 IsJXTX3tfgbndUQGt++C3C07RRZPpEAFUiGQkKj8FBe7eIw87saulcUnlPU7aNOHudNr4
+	 rVm9PJ/TfPol/hGXgzqLHbnDfhU8vAfkQr38NI06MHCxlILzlBY12YUYyQS0UtaZOZr6V
+	 3sUkqQTPbCTN7vYAzioP36UZULinjvNX+W5bulR41p0LAEptXBlTvGftA1Zv6SZFiDdHH
+	 HugzTmzHS8stReknWWcDvXc+n0wbSuRgVg0U3AluoP//+X/jfCc7aB7uBRyThnITzsw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794368095;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:From:Subject:Date:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:CC:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Originating-IP:
+	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=enokiadHO5dXxABbBcazqdN7iexetKJszb/hMskTV6E=;
+	b=qmmNzIf0QjCSvWW/EhbYN1juImtDoSZSHCxuTN7JU+7JhR+Kmi+fjtc5wT5Aa/pX8sXU
+	 2F1g6GAFLy+RSxVWwBnzWZLfZGHI2UInnsvKy4ETo/mMMNfT8xaWkoyBJBAuzsSiF5oWB
+	 TjTFBLi0j+NvJbccjPOhtF73X8i5Qx456oYHHw7lIQYaKNcWl37GStmnpvTRLj9gCws/f
+	 Y8U7ckK52koVZ8e3bp81RZ9M5azA9llQNyzNhIvNN5MagPPRqRAxvvIWrU9Xv3bwp+cWB
+	 9lyCzBrpIEywM73vsg5lJYCbXpo9nQN3UlDsJggXCTPeAlbdxZDRqr3JdXrZNF2+qJw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=MfPZk956;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.62
+Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010062.outbound.protection.outlook.com [52.101.85.62])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF9BB606A320
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 03:32:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF9BB606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nyu.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nyu.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C439606A320
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 03:34:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2C439606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nyu.edu header.i=@nyu.edu header.a=rsa-sha256 header.s=20180315 header.b=v6iMNFcf;
-	dkim=pass (2048-bit key) header.d=nyu.edu header.i=@nyu.edu header.a=rsa-sha256 header.s=nyu-googleapps1 header.b=uPsmbQ47
-Received: from pps.filterd (m0355795.ppops.net [127.0.0.1])
-	by mx0b-00256a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AB13ZXw2258103
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 22:32:53 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nyu.edu; h=cc
-	:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=20180315; bh=bQ7xCGeyKivCNLHanIQkVR3eV/kMY2IG8Kqw
-	PvVm/cM=; b=v6iMNFcfWrjyl90pLk/uRuozJ2Go+1iAeDdwrlxiLR1pqH5vbGQe
-	SxJ+LwDeaezfrmtmCOpyB9Z8gp39d3hZbjRomWPgPmu8okU552Qkw2waE3qMPdsO
-	nz+Q53ytBGWVuXJyNWVsnTR4GJSHddCE/R1/F+7fCrvs0Cp1ojfe4C2fHsWHH572
-	6Bayfen+GQgz2My+usDvdC+QmM1SGNZO7IgnCOFUw+QhSxAxPxfwXJAQ6u2mv9OM
-	HTqltuNDwdjBNSEkSViLg/+49bSA8cxzzxTPmhJwobWBb/0BTVp49llGSQoIAbCo
-	8Th4nC14oJHg47HvxPyvpn6mejnYhqigzQ==
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
-	by mx0b-00256a01.pphosted.com (PPS) with ESMTPS id 4hvantmwn6-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 22:32:52 -0500 (EST)
-Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-91ebc622dc8so73170086d6.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 19:32:52 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nyu.edu; s=nyu-googleapps1; t=1794367972; x=1794972772; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=bQ7xCGeyKivCNLHanIQkVR3eV/kMY2IG8KqwPvVm/cM=;
-        b=uPsmbQ47UIY/FJS/RsCm1j9cJWsT6UksWf44W0uJthuxDbn/9DqBG2RT/dencJlEGi
-         uOmpKPw7WSyTglYAjNYkR7JK1ZhUlZdiF9NZi3gCEDaEZBTrpuD4JQddz4GjvfggZqFc
-         n/qrUZfv3DDrl4n13wP5UROlDNy3XLGfuTQs9WMa1ZA/qNdWqsJ2AK0vX5D0wrXub4pS
-         yF3THlErtlk6xyFRZ20LvnNcFy+oxGVkVgij3q+Bw2wg3WvFD0DpmidXSJIQ2DdzgytO
-         5au7W1JDtDoXllGOQdDglUSoNU27hxijDiT0jg72aSbNIQ/Pz51MDCvfMLVE82ogRSy/
-         GPeg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794367972; x=1794972772;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bQ7xCGeyKivCNLHanIQkVR3eV/kMY2IG8KqwPvVm/cM=;
-        b=C1z8ThdWxg3edS2DYhbVU7iGTSzUwO7k1OgtZMnTJG4IuMJbeaONAF6in51JiJqlRF
-         7V91h3llls/oDzk9AAZKjhrWV8+FCWxGqqcpF2DlP82MQp8sqJBo7HbG6jaBhLcXw+q7
-         IBSaOVgEfYRM6Gk/51UjJrxUByc3vesjWv3mq+E1+1lfwFu1+Xzhw74ovpQ/FLX705ZW
-         RXZN+dWiD1jB9Z0NgBepnaccqzChdHeY++Hu/QFRFWrFk2jxXtybNpp7nahl8X8mdhlf
-         wU1aAV8niuUUvpKSB/1xeJH7lE9ziQYomxTxGb7YgRjBYyjUJG5k7uS7SPX83gK5NiKB
-         5zoA==
-X-Forwarded-Encrypted: i=1; AL+hErFLNo4Owm2BERZcDKQ/g5IQrKd79WedfEDpIs27C9SuudkulWS1osepT4f4EZ0GnvPcUB8kRwncrbjHBoc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+Ol3gFWAJqU9yJIU6RaJUAQOgVvk6lfctragmVlZtDgUEqj99X
-	JEedSctUw3sInHbc543XZmnv2FSCiE7zzOPYpc0B8zb48Ntv8pAfD77uXqyylhknIqon50SXF0M
-	fov6NCuXBRBuwq+bTa/Qwd1cNGr/qxNdRGATGf0iQ0eqRKxVhAnWM8/FQ1swt9wM=
-X-Gm-Gg: AYBFou1K1DsYOkPxhq0/XscY3fy+efoogOKrBdBSV9F5JK65C7QOwYWXOU5wwOH+Qt+
-	gux8zbOdtYHDGGZOnqLdPw6thVDL63m5mUxFDWmFsdvcRwG+zj4fJaxON6HBWftp7KcbUENqSKL
-	20CVtrDoS3HMwC1Ij9u3DaC7kIWfEY+v4giTa8sqE1saU0TK6crBYmSNH74P6edaUEFkLWBkQW9
-	FCtQRXeZTaHpn9BaE3iTMw+Vhb+xiiE9pH4djm49nr69Jw7WhsMXut2vMZ+JTJX5ppqBeodHaWs
-	/PFKvKjlkd8/eSU3ww2RzkWoyKlBAGajWFMqUZGG0aS9woB+mJO56nAXnQzC2D2zV1RsXt6SRUj
-	KJLANTBhKUlj/7QnE+gR21qlsnLNxlnoMw6FSGDgAY98Gs02LH/W/XgKYHImOHUK9OIO7t6IToV
-	lXhMGS2KWGQg==
-X-Received: by 2002:a05:6214:c2f:b0:91e:a762:94e5 with SMTP id 6a1803df08f44-91f0404accamr24041366d6.14.1794367971952;
-        Tue, 10 Nov 2026 19:32:51 -0800 (PST)
-X-Received: by 2002:a05:6214:c2f:b0:91e:a762:94e5 with SMTP id 6a1803df08f44-91f0404accamr24041056d6.14.1794367971473;
-        Tue, 10 Nov 2026 19:32:51 -0800 (PST)
-Received: from jerrythepro.nyu.edu (216-165-95-164.natpool.nyu.edu. [216.165.95.164])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ef051dc53sm37025576d6.32.2026.11.10.19.32.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 19:32:51 -0800 (PST)
-From: Kaho Jiang <kj2864@nyu.edu>
-To: idryomov@gmail.com, amarkuze@redhat.com, slava@dubeyko.com
-Cc: ceph-devel@vger.kernel.org, linux-kernel@vger.kernel.org,
-        co+408fcc361565713f@bugs.sh, Kaho Jiang <kj2864@nyu.edu>,
-        stable@vger.kernel.org
-Subject: [PATCH] ceph: Use unsigned types for snapshot split counts
-Date: Tue, 10 Nov 2026 22:31:50 -0500
-Message-ID: <20261111033150.847104-1-kj2864@nyu.edu>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=MfPZk956
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=G48enS5LcP1u9wFBZJxL2VS9lflph4Q+M7qFYooRDUMvXCgq7HrkcCDikQF5Cs9RmsTF91Y21jU08YLa5OTW7uENWP9v8SvQWu4QlwGkSJGDIVb1MHP2wAd8quo6AL/a7pNYNQ21SSlqs6ENtMKWgzy51+GQuhOer10bW4fWeW+/Q+ZmbdWi1ZWnQB9H1VlXU9n679J76P3xj7Ur7myR6V65hK2beW/PJYVrGgCMlTmz9LqKJevlbHOJSnvmJCuS9tLAZQGvsxdgHli0WLzb+765zvSrlf+0Fg6pNZ7wGaj+w0mIxGi52k4G/xcxuYFR+gKXfL44ekWtfPQLelpXPQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=enokiadHO5dXxABbBcazqdN7iexetKJszb/hMskTV6E=;
+ b=c7759iThad0e4DXfGNYJGjJ3Io2C6EGVMhwVOzksBs9xv+1qdfJ3LwejIK4cGOH7uK69YVZ+aot3jYLvLZ/n+2lE5sVs8XcqNGla9biUs2+AwiyIZsXaYRBlZt2s+bSlMYBRWBiaWtjGcf79BQP5zJs1uF2fH306FLN9uyrAwAMZl8n77CtxhJjH9GZENARM8E5lWnJj/MlAktCTOiWxaGiU5ntI94pkOECW1T+kPIQLftgH7xk34DwoHfRtAmlcldF7tEEBv/GuR0N+cQ6StTYHn35/80YKEeaoS6UuARe+2wUTodW16EiTKa748imxcL0X2E6oyBcyR8/zgj6fpA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=enokiadHO5dXxABbBcazqdN7iexetKJszb/hMskTV6E=;
+ b=MfPZk956ReMxha2tL+yV5mDm2YJ/8+lluyatbdz74IryN+zd2aZXhwh0AYrmsaEx6pHkTolY9KKDERDkwG+j3qRge+FHCBPyNh2gQjnZcBkxjslVtpn5sZrdFdpHw+Zi7T+qHsZgHdk3IFfDRVC5fBwgeuT/+oqYgBHWOsMWNRw=
+Received: from DS1PR03CA0023.namprd03.prod.outlook.com (2603:10b6:8:233::11)
+ by SA1PR12MB6800.namprd12.prod.outlook.com (2603:10b6:806:25c::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Wed, 11 Nov
+ 2026 03:34:51 +0000
+Received: from DM3PEPF000265BA.namprd04.prod.outlook.com
+ (2603:10b6:8:233:cafe::a7) by DS1PR03CA0023.outlook.office365.com
+ (2603:10b6:8:233::11) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.9 via Frontend Transport; Wed, 11
+ Nov 2026 03:34:51 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ DM3PEPF000265BA.mail.protection.outlook.com (10.167.23.247) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Wed, 11 Nov 2026 03:34:50 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 10 Nov
+ 2026 21:34:50 -0600
+Received: from [127.0.1.1] (10.180.168.240) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 10 Nov
+ 2026 21:34:47 -0600
+From: Shivank Garg <shivankg@amd.com>
+Subject: [PATCH v2 0/2] mm: remove unused vmstat and folio refcount helpers
+Date: Wed, 11 Nov 2026 03:34:32 +0000
+Message-ID: <20261111-unused-sym-core-v2-0-3edc7fb8581f@amd.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,92 +105,86 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: a2-j_zz9ze0kN7V0eCja9YhdXJjmKpkw
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDAxMyBTYWx0ZWRfX53yLJnhhvkRz
- ZmExhrVhZCRzmCCjORHizB6b8AqN1pe9BWHzw7ZyqN5CXIgQFi2mbosiQTZrLhGXZ8uoJcs+Hzo
- 4KqCXwx3KYMfupze5MEt8CBux3qy5qQ=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDAxMyBTYWx0ZWRfX1W79gGcKVdxI
- iKPpAn0IesU4NLgaj9len0m1NkLwdXRLrDV+MpvhxNN9eKyPsdSRwbMO+C9L2aORbTAy7vcYbfb
- BHjASJE6DarvIG2RIXLCsXOcc4qfKtCgAcVQt8QiInovaER7PQpxvxYaSJ9h4Xd3K7oY/OvqF9I
- GuGc0s05BofTuvG1RkdKAMH7IrcjuosOry+am7nYtCIWDgJnHb3zYLh68Nh6JpMWI11JOKuvKxk
- RynS++bAIkv4x+YtDqsiDRw2fk/yyoMewq5tu7kvyHwOHuX45eCorWuRaXbmaL1EnvkPG8dwBuH
- qJlwEgzjlKt/URxi32bbuYNzDpok9DG8fckGSNE/FwpDSM9C1z0WQpyCE/+7gA4Qd6rM5L6TsQq
- pp2InPIXSIW37WETPM1O8H7eBj4UiO3aXtMHFy8Sygn4i2k5/g/iRMFRiYqvSlHKioP3rhsZyVl
- iq2JwkbXicLk6OXze4Q==
-X-Proofpoint-ORIG-GUID: a2-j_zz9ze0kN7V0eCja9YhdXJjmKpkw
-X-Authority-Analysis: v=2.4 cv=NshE4MdJ c=1 sm=1 tr=0 ts=6af3e1e4 cx=c_pps
- a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=ZtTe6gSuN0kH6OIYMjA5WQ==:17
- a=zJRp6_cAMcgA:10 a=x7bEGLp0ZPQA:10 a=S0S_EcBMpFAA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Se5WoFf3ZZRiLcel0nel:22 a=Lu3rmdZLeA08KL8VqJdF:22
- a=VwQbUJbxAAAA:8 a=yYqStf5IHDHNmpx8MkMA:9 a=pJ04lnu7RYOZP9TFuWaZ:22
-X-Orig-IP: 209.85.219.72
-X-Proofpoint-Spam-Details: rule=outbound_bp_notspam policy=outbound_bp score=0
- suspectscore=0 bulkscore=0 clxscore=1015 lowpriorityscore=0 impostorscore=0
- malwarescore=0 spamscore=0 priorityscore=1501 adultscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611110013
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MQQ5AMBBA0avIrE1SJairiAXtYBZKOqkQcXeN5
+ Vv8/4BQYBLosgcCnSy8+wSdZ2DX0S+E7JJBK10XhTIYfRRyKPeGdg+EqrWNcZU2ZT1Bqo5AM1/
+ /sR/e9wM4dVIrYQAAAA==
+X-Change-ID: 20261109-unused-sym-core-08c79d42936b
+To: David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>, Matthew Wilcox <willy@infradead.org>
+CC: <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>, Shivank Garg
+	<shivankg@amd.com>
+X-Mailer: b4 0.15-dev-47d62
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794368087; l=1164;
+ i=shivankg@amd.com; s=20260518; h=from:subject:message-id;
+ bh=a7rfllFB9pEo73S9E89qz5htRD+ZCafRKGzOwhMkzrM=;
+ b=MAdbXqYsoTmqU4JEoYzUYunALKCOkAT5AJe/2aA8282DGXr4m7XcHZ/h0XeVHSsdI6e+F53m+
+ XkxmPiYOmkWDF/r8yR+8nNdz7ONZO5+ZNTHx/CK+NxATkjSGx5RJU0y
+X-Developer-Key: i=shivankg@amd.com; a=ed25519;
+ pk=2l2QGTeXuGkZTtfmx0nPQU8iFZfjYmX/ymMojitevx4=
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb09.amd.com
+ (10.181.42.218)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM3PEPF000265BA:EE_|SA1PR12MB6800:EE_
+X-MS-Office365-Filtering-Correlation-Id: c0144346-ec5e-46f9-927a-08df3fa4be51
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|376014|36860700016|7416014|82310400026|13003099007|261009223027099003|10067099003|261028144727099003|261026140227099003|261021123027099003|261022105027099003|11063799006|56012099006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	5dYbRGXWkoZ9Q5yDp+TEgzqq0jBJCSG271vwqOkaKLF8KT9G3fI48C/pI1Ltc3VDmoQgX6yQmKcvZ/XwCcz+3nVerj9/LXPmwpJ/xQVJvPWPA2q8+CEEccc+oPQr1/tr5SXf0Gw81cOaMBC6EQII9Nc+H92YT/RWyZvDGBWKFt90oFUmC6SdMUuRDicyd2b+tHWb8eqUWmRYHouXwg8K9vuAM/EKR+NIxLFRH+s1vjdEi35Ys88h6yQOYaMbt9sn4tmUZ2HEVnI+E914EaQcw7M8FwfpyYkCbvD20M6yuMsLyhIJiELJsbeNQzrfwH3TjmrTAZojncnUzWZW4mr+aaky51mtoYEuFQJKwHSIwJeJXZnMO+6aBaZEliKDel9vQy/zgjQEnKi7DJLOaTsVOB2LyyEWCiuWxN7H2WDx/QfPLgopR+32oah9DrKbE//FddPU6FY3vCWzePgNtKxUkVkWy9Vm4Yz3qh1koCNsItAookZhbOyHp9pgfYCq6EfoJWpWrZx/iNhRR62Yx0DNrTGCVMi/WXGq0lO8jrFdEsSoIXNifC8eGoGsikjB4oSHU4butXeioKHOf5tylocEIhGsuccBbAPnwZ3sgbGTUi47BrFmlx2VBG6o+tq4A5iWh7SVdT0o6W7TE2dXuZCYryo9AzuoQKpyIxrk5IWzXhQ=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(36860700016)(7416014)(82310400026)(13003099007)(261009223027099003)(10067099003)(261028144727099003)(261026140227099003)(261021123027099003)(261022105027099003)(11063799006)(56012099006)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	YeIsnSaVLUd6HEPmM8D0wFgWJ3E8QJ2B7wbI/Lg5ZaaR+Xx1qBlvVLBA+k3b6GrxLB3PXc/kNRzcQsIPhvmwo0ribXuftsiKbUIHtVYq8TuQLEGbs3HkSPpcwfE6IL59StYPmYsLAJRtpy4FmFpxVXM3qZvKyDrMhvkxkFcqZ30JSTNvl4l9kiLT6P2nICpfY6Y5WBQfTnoXLCsZrtYJkiosHkhkDLTkD4KBQzQulFsdw8/UUb3hQzximxaiyWw5XT1d6p6XTjgZRarsS489wlxF4WYpCPpdAVXwGx7QKDpN1LRkNeVejtT1AQJviJFshzEDfyYzRSPJ40KRA+gYPSaQ1XW615LnDro5DJeGs3IP8TjLNKLGcLTfjnTiznSkymZaAA0KWGI3euKpUwUdF665mfOKDESCC+S5DWRV4ILxImWbQZSsU2sdEaAtBL3+
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 03:34:50.9704
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c0144346-ec5e-46f9-927a-08df3fa4be51
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DM3PEPF000265BA.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6800
 
-ceph_handle_snap() stores the unsigned 32-bit split counts from the
-message header in signed integers. Values with the high bit set become
-negative and, on 64-bit systems, cause the subsequent pointer arithmetic
-to move backwards before the message buffer.
+This series removes ten static inline helpers from
+include/linux/vmstat.h and include/linux/page_ref.h that have no users
+left anywhere in the tree.
 
-BUG: KASAN: slab-out-of-bounds in ceph_update_snap_trace (fs/ceph/snap.c:815)
-Read of size 8 at addr ffff888024f45478 by task kworker/1:3/2220
-CPU: 1 UID: 0 PID: 2220 Comm: kworker/1:3 Not tainted 7.4.0-rc2-g7475ea8b5861 #1 PREEMPT(full)
-Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-Workqueue: ceph-msgr ceph_con_workfn
-Call Trace:
- <TASK>
- dump_stack_lvl (lib/dump_stack.c:94 lib/dump_stack.c:120)
- print_report (mm/kasan/report.c:378 mm/kasan/report.c:482)
- ceph_update_snap_trace (fs/ceph/snap.c:815)
- ceph_handle_snap (fs/ceph/snap.c:1057)
- __pfx_ceph_update_snap_trace (./include/linux/list.h:172)
- down_write (kernel/locking/rwsem.c:1350 kernel/locking/rwsem.c:1356 kernel/locking/rwsem.c:1632)
- __pfx_down_write (kernel/locking/rwsem.c:602)
- ceph_handle_snap (fs/ceph/snap.c:1158)
- mds_dispatch (fs/ceph/mds_client.c:7298)
- find_held_lock (kernel/locking/lockdep.c:5401)
- ceph_con_process_message (net/ceph/messenger.c:1413)
- ceph_con_process_message (net/ceph/messenger.c:1424)
- ceph_con_in_msg_alloc (net/ceph/messenger.c:2094)
- ceph_con_v1_try_read (net/ceph/messenger_v1.c:1434)
- ceph_con_workfn (net/ceph/messenger.c:1576)
- process_one_work (kernel/workqueue.c:3495)
- worker_thread (kernel/workqueue.c:3578 kernel/workqueue.c:3659)
- kthread (kernel/kthread.c:436)
- ret_from_fork (arch/x86/kernel/process.c:158)
- ret_from_fork_asm (arch/x86/entry/entry_64.S:245)
- </TASK>
-Kernel Offset: disabled
+I found them with the kunused scripts [1], which I wrote with LLM's help.
+The v1 cover letter [2] has more details on the scripts and how LLM was
+used.
 
-Use u32 for both counts to prevent negative
-counts from moving the pointer backwards.
+Changes in v2:
+- Split v1 [2] up by MM tree, as David suggested. These two patches are
+  rebased on mm/core.git/for-next. Remaining patches will be sent
+  separately.
+- No changes to the patches themselves.
 
-Fixes: 963b61eb041e ("ceph: snapshot management")
-Cc: stable@vger.kernel.org
-Reported-by: co+408fcc361565713f@bugs.sh
-Assisted-by: LLM
-Signed-off-by: Kaho Jiang <kj2864@nyu.edu>
+[1] https://github.com/AMDESE/linux-mm/tree/shivank/kunused
+[2] https://lore.kernel.org/r/20261026-unused-sym-v1-0-82ca2dceabe1@amd.com
+
+Signed-off-by: Shivank Garg <shivankg@amd.com>
 ---
- fs/ceph/snap.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Shivank Garg (2):
+      mm/vmstat: remove unused folio stat helpers
+      mm: remove unused folio refcount helpers
 
-diff --git a/fs/ceph/snap.c b/fs/ceph/snap.c
-index 9b79a5eaca93..7ed782abfbbc 100644
---- a/fs/ceph/snap.c
-+++ b/fs/ceph/snap.c
-@@ -1027,7 +1027,7 @@ void ceph_handle_snap(struct ceph_mds_client *mdsc,
- 	void *p = msg->front.iov_base;
- 	void *e = p + msg->front.iov_len;
- 	struct ceph_mds_snap_head *h;
--	int num_split_inos, num_split_realms;
-+	u32 num_split_inos, num_split_realms;
- 	__le64 *split_inos = NULL, *split_realms = NULL;
- 	int i;
- 	int locked_rwsem = 0;
+ include/linux/page_ref.h | 24 ------------------------
+ include/linux/vmstat.h   | 36 ------------------------------------
+ 2 files changed, 60 deletions(-)
+---
+base-commit: 94c0b03721e5a7187b7a017a18f58a50cee4f29e
+change-id: 20261109-unused-sym-core-08c79d42936b
+
+Best regards,
 -- 
-2.43.0
+Shivank Garg <shivankg@amd.com>
 
