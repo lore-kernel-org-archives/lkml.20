@@ -1,58 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.178.41.114
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794395686;
-	b=CqEkuEZnK9h9zxnG+5PEn80fAYRwGCPWiPVa2uP8A3EBgphMnqmQYoW3++R0HeDgrUYf
-	 sSEpkZXXMO/oGt8pQ+CWXpwq4FZd/7m3TzE2MDTI5kP7Z3Kvj7/DrlqjQNfqWIyUJAWQi
-	 Ad4OSQfcmOLcqC8CI4Hbr++W+nkfFgAcZ++Ivp+9xeZU8hNBVizxdH1em9OQxoJxLmfXH
-	 xMEdzzUuaqNsVxxPujqwdRgvE1xENx4JRABLsyzjQTC9zp+iCSUCSqPFdWgCg3UQMK/LN
-	 Xz3vBkugTqrhbgluOHbMMmpV4KmqWmUXpRXtigU6chZ/hWxgnMWxzB4qX7ABXjVscgQ==
+	t=1794395702;
+	b=RfxctJPM34IbXntpUjyMKqHjukao1fdiWeA2BDowLO64m+vnr/O+0k5JAktKV9LLbC2i
+	 lAIgEs3U2gvLAcQ9+7tTwOKnAc80tZEdQ7LPsiE4pHapKXDNsc18iJU2Zh6UsnkeMy4m3
+	 OxQErm2maDVwfv56yzXyrOVqSEHgVEU41UxXP3RvhuxFfPi6p5rDE8YlEZmywYqh09Mm+
+	 gP9j8kuzRLw7Vs1qg7FtglGH+C9E77xJuROky1f2FCxybrx7nSSocF/RAWnTtgn76Rvkx
+	 r4nSu7Qz03uvqKD4RemBt1HaGYuIwjpeZBKqC6nhG1W4k1aGpAi7P622yk8eKCVPKaw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794395686;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=IUS094t/EG0Nqjx5FbPVKURk9CJm5VD7S7UnCo9K22s=;
-	b=yUdktr97cH8V30SvukJ4JYMym5gkZ/YEpBcqt+rhQ0l3ADQ8h0INCGPhfVp45kTzmTNz
-	 F85mwwWwG2vh3W8efPN1Q8uRE7MH0f9hKytwp8kPIANYCp7ktstTiW6D1fj+P7yiZl9Fh
-	 vqNnP3BGArDxLHH7/HRNz8bjSVL4UjnQRsXarr37dX0ODY/1oKQgT6/vzJFtEQK8l37Hm
-	 x7d06Nnq1Hs4UMwAKQihTuv/+UuKWF3Q7S+zNLnb4IC8pt30CAaI2vCnG831IqO1wpiOi
-	 xbfMRaQQ+hQHFTCr4XypOEa2ESzGDSk+H7I1agJiCPvHf4fcwjNRHyPY2DofbrqEpCg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794395702;
+	h=Received:DKIM-Signature:Received:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
+	 X-SA-Exim-Connect-IP:X-SA-Exim-Rcpt-To:X-SA-Exim-Mail-From:
+	 X-SA-Exim-Scanned;
+	bh=Ee5/U40Wmc87ctgtQ5qWbKs42KkK5ylSG9FBEDvI45s=;
+	b=ssvyHUkqrxEtZfIFu4ZZXHo1mpd5IxxN3kErNKA4AimxVbH+tm74/zP5tHOHcWQ/F8Zk
+	 NWhQ2MHaNd3L7W6oPeR2yFmZmnxyzZ6GCmtfrJh8lnWdUwlVKpaCF7pFQdNv30iZQWts2
+	 keQRVZcWovBjphPs9lkiThidcSlnOBQ2gmwTQFUzR0HQYx6eZ/PdcwDUh5BR8YW1viMDd
+	 oSztFD7V7SRk9WbWDldIhhKG6Yw5DxMZEZNM3idKyIYtqeoeS9V5Srsp4hS9DmhFNairj
+	 I4x42ramcR+ee/h5yKyuPlnMIBxF9+XcGKmCFjxt4aIjVRt1dXE/x7/l9bOwWmnEy8g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bencteux.fr;
-	spf=pass smtp.mailfrom=bencteux.fr;
-	dkim=pass header.d=bencteux.fr header.i=@bencteux.fr header.a=rsa-sha256 header.s=mail header.b=GaQVSnNt;
-	arc=none smtp.remote-ip=51.178.41.114
-Received: from beta.bencteux.fr (114.ip-51-178-41.eu [51.178.41.114])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J4crJRAW;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7C12606A31C;
-	Wed, 11 Nov 2026 11:14:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D7C12606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bencteux.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bencteux.fr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D113606A32A;
+	Wed, 11 Nov 2026 11:15:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=bencteux.fr header.i=@bencteux.fr header.a=rsa-sha256 header.s=mail header.b=GaQVSnNt
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bencteux.fr; s=mail;
-	t=1794395498; bh=Sr1DZRwa7vdnE6C7z7QEYbMUy3pFbSOLd4oJHfOm+80=;
-	h=From:To:Cc:Subject:Date:From;
-	b=GaQVSnNtmiX/3XnbMpzbSLKBnYhn6TAAfXAwHHQ8mIBj0GHL85omy4s09WM/1AElk
-	 DA0cV+Q34siywIYIGuYE1gkBeX8aKe1Lu0rKpW8GFkoAMpWSvEaI3NgbhVCVL3DoXb
-	 CipeccpiGAu3Mve2xH0Jh/Il3Ij9+zfC1uKrZNcY=
-Received: from localhost (88-178-48-87.subs.proxad.net [88.178.48.87])
-	by beta.bencteux.fr (Postfix) with ESMTPSA id 1443B4029F;
-	Wed, 11 Nov 2026 12:11:38 +0100 (CET)
-From: Jeffrey Bencteux <jeff@bencteux.fr>
-To: paul@paul-moore.com,
-	eparis@redhat.com,
-	arnd@arndb.de,
-	audit@vger.kernel.org
-Cc: linux-arch@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J4crJRAW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8F401F00A07;
+	Wed, 11 Nov 2026 11:15:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794395701;
+	bh=Ee5/U40Wmc87ctgtQ5qWbKs42KkK5ylSG9FBEDvI45s=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=J4crJRAWVbfvpdEzzoxakFYHfrQBJgWnHpCMW2Kdomb2jIV3qrQHMed342gp/F/mX
+	 kMsU/wWTaTrJ6WuKKxWc5SdZXQBP1m5RyX4tD33uZ65HkxsaWzycCvcbLQYmpXkOhi
+	 hXqFRlwDzuPTHJ069Evgl8jbqESxbodTIp/51sSn/Y1uZu/uvez/sFJdZwFPdCDmoh
+	 wHteVqLRMxG6LUS46ETgj+PtY6wmrNjznaLBqL2TM3eaYo8LvgYwN5L/iKG/iEJTwg
+	 xNzZJneP4bM3aQChDRAUYW4FwKsSNLpLi4lX/HSQCyigtaju02uLntFoesibkJok8c
+	 GHw24TtYWW67Q==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1xR6I7-0000000EG77-2con;
+	Wed, 11 Nov 2026 11:14:59 +0000
+Date: Wed, 11 Nov 2026 11:14:59 +0000
+Message-ID: <86mrrf1ux8.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Fuad Tabba <fuad.tabba@linux.dev>
+Cc: Oliver Upton <oupton@kernel.org>,
+	kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	jeff@bencteux.fr
-Subject: [PATCH] audit: add missing syscalls to signal class
-Date: Wed, 11 Nov 2026 12:01:54 +0100
-Message-ID: <20261111110200.30415-1-jeff@bencteux.fr>
-X-Mailer: git-send-email 2.56.0
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Vincent Donnefort <vdonnefort@google.com>,
+	Fuad Tabba <tabba@google.com>
+Subject: Re: [PATCH] KVM: arm64: Sync SCTLR_EL1 before a pVM's CPU_ON reads its endianness
+In-Reply-To: <20261111082746.1064567-1-fuad.tabba@linux.dev>
+References: <20261111082746.1064567-1-fuad.tabba@linux.dev>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,46 +78,113 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: fuad.tabba@linux.dev, oupton@kernel.org, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, vdonnefort@google.com, tabba@google.com
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-The pidfd_send_signal(), rt_sigqueueinfo() and rt_tgsigqueueinfo()
-system calls are missing from the AUDIT_CLASS_SIGNAL* class. It seems
-to be used only in kernel/auditfilter.c to increment the audit_signals
-counter.
+On Wed, 11 Nov 2026 08:27:46 +0000,
+Fuad Tabba <fuad.tabba@linux.dev> wrote:
+> 
+> pKVM handles a protected guest's PSCI CPU_ON at EL2 before the guest's
+> EL1 sysregs are saved, so kvm_vcpu_is_be() reads a stale SCTLR_EL1. A
+> guest that changes SCTLR_EL1.EE and calls CPU_ON before its next exit
+> to the host starts the target vCPU with the old endianness.
+> 
+> Sync SCTLR_EL1 before the read, as inject_sync64() does.
+> 
+> Fixes: 9d4ec80be2eb4 ("KVM: arm64: Handle PSCI calls for protected VMs at EL2")
+> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+> ---
+> 
+> Notes:
+>     inject_sync64() is the only other reader on a protected guest's exit
+>     path of a guest-writable EL1 sysreg's copy, and it syncs that register
+>     first. Saving SCTLR_EL1 before the in-loop exit handlers instead would
+>     put the save on every protected exit for two readers. A non-protected
+>     guest's CPU_ON is handled by the host, after the sysregs are saved.
+> 
+>  arch/arm64/kvm/hyp/nvhe/pkvm.c | 3 +++
+>  1 file changed, 3 insertions(+)
+> 
+> diff --git a/arch/arm64/kvm/hyp/nvhe/pkvm.c b/arch/arm64/kvm/hyp/nvhe/pkvm.c
+> index fc0475f0877d1..e421f45383e0d 100644
+> --- a/arch/arm64/kvm/hyp/nvhe/pkvm.c
+> +++ b/arch/arm64/kvm/hyp/nvhe/pkvm.c
+> @@ -1321,6 +1321,9 @@ static bool pvm_psci_vcpu_on(struct pkvm_hyp_vcpu *hyp_vcpu)
+>  		goto error;
+>  	}
+>  
+> +	/* Sync SCTLR_EL1 for kvm_vcpu_is_be(), as HVCs are handled before sysregs are resync'ed. */
+> +	__vcpu_assign_sys_reg(&hyp_vcpu->vcpu, SCTLR_EL1, read_sysreg_el1(SYS_SCTLR));
+> +
+>  	reset_state = &target->vcpu.arch.reset_state;
+>  	WRITE_ONCE(reset_state->pc, smccc_get_arg2(&hyp_vcpu->vcpu));
+>  	WRITE_ONCE(reset_state->r0, smccc_get_arg3(&hyp_vcpu->vcpu));
+> 
 
-This counter is used to determine if information related to a target
-process of a syscall audit rule using signals, such as its pid,
-should be logged (e54dc2431d740a79a6bd013babade99d71b1714f).
+I think it'd make more sense to have a global primitive that pKVM
+calls to synchronise whatever affects the control flow of a vcpu (yes,
+control flow for PSCI_ON is a bit abusive, but hey...). It's a bit
+more invasive, but at least we have a single spot to deal with this
+stuff, and it doesn't affect the hot path.
 
-Information related to signals sent via these system calls are
-currently not correctly logged. The current patch adds it to the
-AUDIT_CLASS_SIGNAL* class.
+Something like the hack below.
 
-Signed-off-by: Jeffrey Bencteux <jeff@bencteux.fr>
----
- include/asm-generic/audit_signal.h | 9 +++++++++
- 1 file changed, 9 insertions(+)
+	M.
 
-diff --git a/include/asm-generic/audit_signal.h b/include/asm-generic/audit_signal.h
-index 6feab7f18a53..65336a9aef7b 100644
---- a/include/asm-generic/audit_signal.h
-+++ b/include/asm-generic/audit_signal.h
-@@ -1,3 +1,12 @@
- __NR_kill,
- __NR_tgkill,
- __NR_tkill,
-+#ifdef __NR_rt_sigqueueinfo
-+__NR_rt_sigqueueinfo,
-+#endif
-+#ifdef __NR_rt_tgsigqueueinfo
-+__NR_rt_tgsigqueueinfo,
-+#endif
-+#ifdef __NR_pidfd_send_signal
-+__NR_pidfd_send_signal,
-+#endif
+diff --git a/arch/arm64/kvm/hyp/include/nvhe/pkvm.h b/arch/arm64/kvm/hyp/include/nvhe/pkvm.h
+index 0261b2bc681f7..ef05265626b7c 100644
+--- a/arch/arm64/kvm/hyp/include/nvhe/pkvm.h
++++ b/arch/arm64/kvm/hyp/include/nvhe/pkvm.h
+@@ -134,6 +134,7 @@ void kvm_init_pvm_id_regs(struct kvm_vcpu *vcpu);
+ void kvm_reset_pvm_sys_regs(struct kvm_vcpu *vcpu);
+ int kvm_check_pvm_sysreg_table(void);
+ 
++void pkvm_sync_before_exception(struct kvm_vcpu *vcpu);
+ int pkvm_reset_vcpu(struct pkvm_hyp_vcpu *hyp_vcpu);
+ struct pkvm_hyp_vcpu *pkvm_mpidr_to_hyp_vcpu(struct pkvm_hyp_vm *vm, unsigned long mpidr);
+ #endif /* __ARM64_KVM_NVHE_PKVM_H__ */
+diff --git a/arch/arm64/kvm/hyp/nvhe/pkvm.c b/arch/arm64/kvm/hyp/nvhe/pkvm.c
+index fc0475f0877d1..85da570ae1032 100644
+--- a/arch/arm64/kvm/hyp/nvhe/pkvm.c
++++ b/arch/arm64/kvm/hyp/nvhe/pkvm.c
+@@ -1321,6 +1321,8 @@ static bool pvm_psci_vcpu_on(struct pkvm_hyp_vcpu *hyp_vcpu)
+ 		goto error;
+ 	}
+ 
++	pkvm_sync_before_exception(&hyp_vcpu->vcpu);
++
+ 	reset_state = &target->vcpu.arch.reset_state;
+ 	WRITE_ONCE(reset_state->pc, smccc_get_arg2(&hyp_vcpu->vcpu));
+ 	WRITE_ONCE(reset_state->r0, smccc_get_arg3(&hyp_vcpu->vcpu));
+diff --git a/arch/arm64/kvm/hyp/nvhe/sys_regs.c b/arch/arm64/kvm/hyp/nvhe/sys_regs.c
+index 32e82653ebf7e..f28a96d0e50de 100644
+--- a/arch/arm64/kvm/hyp/nvhe/sys_regs.c
++++ b/arch/arm64/kvm/hyp/nvhe/sys_regs.c
+@@ -254,7 +254,7 @@ static u64 pvm_calc_id_reg(const struct kvm_vcpu *vcpu, u32 id)
+ 	}
+ }
+ 
+-static void inject_sync64(struct kvm_vcpu *vcpu, u64 esr)
++void pkvm_sync_before_exception(struct kvm_vcpu *vcpu)
+ {
+ 	*vcpu_pc(vcpu) = read_sysreg_el2(SYS_ELR);
+ 	*vcpu_cpsr(vcpu) = read_sysreg_el2(SYS_SPSR);
+@@ -265,6 +265,11 @@ static void inject_sync64(struct kvm_vcpu *vcpu, u64 esr)
+ 	 */
+ 	__vcpu_assign_sys_reg(vcpu, VBAR_EL1, read_sysreg_el1(SYS_VBAR));
+ 	__vcpu_assign_sys_reg(vcpu, SCTLR_EL1, read_sysreg_el1(SYS_SCTLR));
++}
++
++static void inject_sync64(struct kvm_vcpu *vcpu, u64 esr)
++{
++	pkvm_sync_before_exception(vcpu);
+ 
+ 	kvm_pend_exception(vcpu, EXCEPT_AA64_EL1_SYNC);
+ 
 
-base-commit: 6614d4c05c7a661a925b3d8dbf9c70faac3bd2da
 -- 
-2.56.0
-
+Without deviation from the norm, progress is not possible.
