@@ -1,111 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.157
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794395909;
-	b=1aCScthIIxdxmuSTICBko5ULFvKKDvg5GzCdaFOcbX3Kqj3csfm0fiCb+DKAfik3dH1R
-	 Cx68tDU+G7Y99MBGKbf9ofQuh08sZelgAUJTbxXAY6EW2sMKLCwVR0ZesskRX4F6ZqPkO
-	 rXE1nPOIVcHjPcoYodS9v2sZEksWFFNEYFWEWHUJB/0juOQbjESRD5ZAJWgfUfAi8mgaC
-	 I6msd9111fkTjOEd2s1FU3adGVcMVxP/Xls1nF59liD5u4FgELZKDnaubzGeXskxEi7yr
-	 fRzwmvN7fLoOOQ3tLrIu185PolZQa3KA1yAvsyRUOSp/tuNZ704Z9ZixfS0dHcae1bQ==
+	t=1794395923;
+	b=C2bJHfIzSy/iuDCcEe0LVFSW4q5pIi8z584RlDvcMBoj9Yu+hE+xIbZFqtrXi28mXZLz
+	 ZuiFsRqrgeIfMdxGgJJus1Sm50nq+Rxq+84iTdDjVIu5ZqEToRgT2ozYF2785qndLortw
+	 iza3R7M5NjVf2jU4TpZgscHKrYz6eiGS7qOoD38T5+Kk+F/xVtjJmfSVxtkY5y2SUBtUM
+	 OTKy81XgMapksayggJrG3hWLlq3ZldFNxdJ+1oDdcojBfUD1lyjWjXtRMAzyswR5qKUpK
+	 t4qKOIl6Zr1HZjkGTMNubHPsR26xPZyJbCm0VC2zMo7tjPZIL094djQeVsG5+Iuc3oQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794395909;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
-	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
-	 References:Subject:Content-Type:Content-Transfer-Encoding;
-	bh=2naI8V6x44s+b3e0fqUVTpUd5KiO9jYz1ZEuXTSEtHc=;
-	b=L3LGqcB3X2IWvd50AQPvyjJ559RVrxxp8eHs9g/45WkNlZ528gi6jn8yTIrjU7FoTDZ0
-	 k+4DgIyWGZ8Uje/gGs7e1Iud2NOwcebxmzT8uTdA+d2ms3gPxLhAgE8wxyvhE3LCxWpe+
-	 qSn3k8PMhG+hZua+nGq8EU2ow4gtVNXr6CBUxVDSg3r+4D/82jXRUIUGN+6PwKPxHKfHR
-	 VB2hTTq268Sj/R5A37GIdawc6R3nHgZoDLJt5NsvGxFrtnsOfuMksgBtBVe7YWlih6IL0
-	 AsKlEx+HRUGL17f0xT99RLDTS0VryCnIGjCL1skSvAdZr0TO77SgTccxDNN4qAvp5rg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794395923;
+	h=Received:DKIM-Signature:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=gbb5/JrvocffQuZSaZam6/3YrXzZsMmpr77C9zCyhqA=;
+	b=Nox4jg1N2F/Xf4wFAAX52eARvYC6Yu0DHM+GUttle83/jWxT1YTMSeY4wvGFMIOtpNS1
+	 JY8hD3dFBv08IESbosRaItLqj79pkb0mFc9MTakbjJ3WREE1VbKKT5sL87FGGt2WFKkvR
+	 Gp8Tyjk+AdGsAMnmX9g+9JbShvL1L4CgH9bjk6HZFgkNfVGxo9giOsjLJ95ppYMSFLGlm
+	 Rmn3MReWdUkCbuONn7yoRWEemy8HQFNhwatow/4NFNbxAjw1r6tfKcaov37vntepzrCDO
+	 f6gwFs3iSImCHKubYkrELrvnLl9nhYqEPCjPa3S2w+dwypqhowFbNvVqBuFUDbbWprA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arndb.de;
-	spf=pass smtp.mailfrom=arndb.de;
-	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=DANd6YRb;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=RDgbgZk5;
-	arc=none smtp.remote-ip=103.168.172.157
-Received: from fhigh-a6-smtp.messagingengine.com (fhigh-a6-smtp.messagingengine.com [103.168.172.157])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mxen09gE;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6858F606A326
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 11:18:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6858F606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A24B606A321
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 11:18:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=DANd6YRb;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=RDgbgZk5
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 9A71714000E7
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 06:18:28 -0500 (EST)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Wed, 11 Nov 2026 06:18:28 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1794395905;
-	 x=1794482305; bh=2naI8V6x44s+b3e0fqUVTpUd5KiO9jYz1ZEuXTSEtHc=; b=
-	DANd6YRb6JnLSJlZxt0H/DrJgMRh6Bwi+3uwNYrWjLz+D1n7StDZ7GhA5n3Pgl3Q
-	QA2GO9AOOlbd2U7fG1itud6TZKs1wuB7YQw8DF29RYpoiDtQjqEGu2Xem9KiuXiD
-	ywQ3D1H9bpZNQuqAr8DEZpEeZafD30lSSQwthAPfDQUEUhGfk3cffB4K/xSN6o4o
-	YlytyspignpmGXqYOonGd1zVPNPC+xWIDfroQqSAMhPfGgq9J6ntJpbinCNotcNx
-	zVX2PUKrod8HXHa2mTexvRMS6g1+uXQpHoCxpY1VKGNXTyQ0pYCZp+2CbzLXX6mB
-	abypSxQW72D1Ua+Lo9Wc0Q==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794395905; x=
-	1794482305; bh=2naI8V6x44s+b3e0fqUVTpUd5KiO9jYz1ZEuXTSEtHc=; b=R
-	DgbgZk5DdHL+slhmhBkM2Js5wx0DEIQMxcx3uqNgfVVjTNi3LYkmidAM45U5RBT5
-	tBwvAp8eiJgmWemShWmuYarq3Izvx8VVIWgc5/sxGj7dqNiGX7uDM9OK1dMVuzzL
-	rPx88zZelyzVkF4KRIxY3cjdNRBXC53SnlPYAZy8Npfo9vBsYjWu4ThSdIK8aOXZ
-	R4xuc7kOAp8vDgA2pV69uCIdWJTzJSJHRqyB299JxY+mA33Wq2G2Mjhnf8rddl1b
-	plSP15mTVjxn3aBn6mvRa6oeQP0bc5ctzi1I6ngs4eyRQ+4iJq/6+CKnUglwhqwF
-	EpBqutLuXgRTHuNlvI9ug==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=arndb.de a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794395905; d=arndb.de;
-	mf=PGFybmRAYXJuZGIuZGU+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:N4yOR898D59w1h3Se3IamV9f+18uZHtb6Tjx4OkhmCDl4K1
-	igegI7ovUsEJnRjuQFSEJ6bDtJwPuZ+SiRtv91T74ikkBDyTxaAdjEL0q1HH/Pxg
-	sjUY2wfjckNYW5Viuntbq7SZ2yzicyRNTFNW0SsT5eKtglR/hjg24dUtbNUjNuMa
-	mSx+1dNj4QFYMSBvXLK2Wl47dgWY68Z5kG6HtRCAM2Z7Y8h1keJdU0wVdXFxDPaG
-	rDMANIFwRI4gBCsd0+p/UmqQ8N+WRo+n44MrLIB+HTPfLro75D+QI7x97yNWkawp
-	YVxQioHehFg/244AtDQi3EQXzfJLqMc4pLpWltA==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:8Mi958utAakp2sYxBNcZabiO06Gm3v8zp1gjOI3Wo0o=:bICPIpF/J9LCSVxxGsuyc1UB0Kkifxs4nyUb4LlfVbQ=;
-X-ME-Sender: <xms:_k70ahc-fQTpUwTJ9TQb5A75LqpbQmfc_t76yCItVKenqNr8QS-HOQ>
-    <xme:_k70aqDt3nnNk7L1NYBr0glSiD3BZ3tP9YzzzLcPmG56UZW3BVORUK3IbYnEVPwJV
-    tkEX99v63aXy-tG4HD76rs8j7BtJMQOLR-_pqfr3ivOdq4PS8hwT94>
-X-ME-Proxy-Cause: dmFkZTFboftFQnktVHHeCwK8Qq4eUL/jmPMFmYesiFAf6XsVAajF8mVles1YhuR5y6FN1c
-    UrDA9MSOSOM/sxCmWqE9dyCLtqseCcJg0yWk4dT9DWq6ReBhV8II7NUB9tvuaRBfOoo5/2
-    ljEBV4aZHn09/XqRWrCzuT4hK2TKMyLnli77tHwdyqPSBAKM+3Eb7MJNzv9hZmQonEYdZw
-    sWBK284ikST/Rdy3KQRmxG8Fm4ov/hyQktNjys8b8hpBw5jtkkwYV3ZgQH0k1CdHCFPw+s
-    r91V4KzJZl4JMgMkQZb0fUXTmRt95XW6D+15o2lv8NG4aQd9g1FP8LKC5vftzY3QC2IuLZ
-    3O0rQv5OMnzauQYRe2EgtUFIzHee5MYoZSxBjMU4yM8JKFwad4mARpuuQxE1+O2aAHRpGL
-    7LjH8AgTz+AOZbfO++P2O32r4+ju0/msqvq+FWLhuLZlk/aPgj6FZk2Dke1+jP9Rfb2p26
-    IVENzzWUG7aPIXfJdcNo68lU4cFUeTlUNxbh0TPH3Gi0Hk99cExAgHt9Yvk6/GOF3eBnIn
-    Q7Wb9G7HytZPodblVsrQX829fW6WoQnQLCCTAxua9mnayHF6DroGYrwfLmtQ9R+3Hwwo84
-    Pj9EaLS1HOZAkqo7jjbWXHEMahTJOWo04z/nQK8J3i+DQIFvIt8OduUVN6gQ
-X-ME-Proxy: <xmx:_070anCiSlkFqJB4u1hK6DnPzTESE6rR-NAkHEcmFW17fMjdkERDjA>
-    <xmx:_070avzNxfAImndN5QEReW2dIGfGRKyizWJ00A3ANsUT2OQFPGJEDQ>
-    <xmx:_070ak343JJ99NJGTM-49rzdZ_fFPSU1R-TOxBEkIgQeEA5G5497PA>
-    <xmx:_070avxU1koAQIOvRUS02VHJd_hFoV4b7BlmN0pnI_qEQgWsND6hiQ>
-    <xmx:AU_0aulfXZvb40rC2PQkJLs7y_kbOkruk1QJiSEnFZFqJAZCs8RE2j6n>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 34DB232A009B; Wed, 11 Nov 2026 06:18:22 -0500 (EST)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mxen09gE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8D5A1F00A05;
+	Wed, 11 Nov 2026 11:18:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794395923;
+	bh=gbb5/JrvocffQuZSaZam6/3YrXzZsMmpr77C9zCyhqA=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=mxen09gE5XaD4VgrOvldmvy70LCI25w2vvwvVGJMhgZrmM0hxTeDgkwkBYWnxGuX5
+	 eYXqN78265OXPLZ8k56vDssY7kWSrtflkhY9vkTmCuFtBXkrm376s9S4D3Di3T+eoD
+	 p9yyb0eIaXLARayPYcdxMcNJ59/1BDbLGl+Bc7T3r5prrgTaZli+Ee0JvJ5CpGiFpb
+	 KbM+vm7pqTduO0JnMVPi9g3Sc77z1qwWINpagYyzhb5bfGAlQFpMWeE4WKpMLoc9H/
+	 Kh0pdALCeVe1+pZ2ohjkZNoLFGCk0LXJtFUutZWwMiSQ28Emvmhy2TleIMoSqkrMoS
+	 Nwlkrr8SbVyZQ==
+Date: Wed, 11 Nov 2026 01:18:42 -1000
+Message-ID: <a98c40701cc874318e7fe475d90795c6@kernel.org>
+From: Tejun Heo <tj@kernel.org>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: mingo@kernel.org, juri.lelli@redhat.com, vincent.guittot@linaro.org,
+ dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com,
+ mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com,
+ linux-kernel@vger.kernel.org, ziqianlu@bytedance.com
+Subject: Re: [PATCH v2 12/12] sched: Remove sched_class::balance()
+In-Reply-To: <20261107120208.153536827@infradead.org>
+References: <20261107115913.261163891@infradead.org> <20261107120208.153536827@infradead.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,39 +60,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ThreadId: AgpoH-kgjtug
-Date: Wed, 11 Nov 2026 12:18:01 +0100
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Jeffrey Bencteux" <jeff@bencteux.fr>, "Paul Moore" <paul@paul-moore.com>,
- "Eric Paris" <eparis@redhat.com>, audit@vger.kernel.org
-Cc: Linux-Arch <linux-arch@vger.kernel.org>, linux-kernel@vger.kernel.org
-Message-Id: <e817126f-83b7-4450-a893-ac4e59460ae1@app.fastmail.com>
-In-Reply-To: <20261111110200.30415-1-jeff@bencteux.fr>
-References: <20261111110200.30415-1-jeff@bencteux.fr>
-Subject: Re: [PATCH] audit: add missing syscalls to signal class
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: 7bit
 
-On Wed, Nov 11, 2026, at 12:01, Jeffrey Bencteux wrote:
-> diff --git a/include/asm-generic/audit_signal.h 
-> b/include/asm-generic/audit_signal.h
-> index 6feab7f18a53..65336a9aef7b 100644
-> --- a/include/asm-generic/audit_signal.h
-> +++ b/include/asm-generic/audit_signal.h
-> @@ -1,3 +1,12 @@
->  __NR_kill,
->  __NR_tgkill,
->  __NR_tkill,
-> +#ifdef __NR_rt_sigqueueinfo
-> +__NR_rt_sigqueueinfo,
-> +#endif
-> +#ifdef __NR_rt_tgsigqueueinfo
-> +__NR_rt_tgsigqueueinfo,
-> +#endif
-> +#ifdef __NR_pidfd_send_signal
-> +__NR_pidfd_send_signal,
-> +#endif
+Hello,
 
-Why the #ifdef checks? These should be available on all architectures.
+On Sat, Nov 07, 2026 at 12:59:25PM +0100, Peter Zijlstra wrote:
+>  static struct task_struct *pick_task_rt(struct rq *rq, struct rq_flags *rf)
+>  {
+> -	struct task_struct *p;
+> +	rq_modified_begin(rq, &rt_sched_class);
+> +	balance_rt(rq, rf);
+> +	if (rq_modified_above(rq, &rt_sched_class))
+> +		return RETRY_TASK;
 
-     Arnd
+This exposes an underlying problem on the DL side. rq->next_class is
+raised only by wakeup_preempt(), but dl_server_start(), dl_task_timer()
+and dl_server_timer() enqueue a DL entity and open-code resched_curr()
+without going through it. prev_balance() ran before any class was
+picked, so it didn't matter. Now, pick_task_dl() has already returned
+NULL when balance_rt() drops the lock, and rq_modified_above() is the
+only thing which can notice a DL entity queued in the meantime:
+
+  CPU0 RT task blocks, pick_task_dl() returns NULL
+       pick_task_rt(), balance_rt() drops the rq lock
+  CPU1 wakes a fair task onto CPU0, dl_server_start()
+  CPU0 relocks, rq_modified_above() is false
+       picks an RT task with the fair server queued
+
+resched_curr() doesn't help as __schedule() clears it on prev after the
+pick. I can trigger this with NO_RT_PUSH_IPI and a delay added in the
+lock drop. With RT_PUSH_IPI, pull_rt_task() doesn't drop the lock.
+
+Maybe the DL sites should raise rq->next_class where they enqueue and
+resched, so that they behave the same as regular wakeups?
+
+Thanks.
+
+--
+tejun
