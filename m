@@ -1,76 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.119
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.216
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794401919;
-	b=lPnetKAJNiN4h1Y1r2sv1mWGr6+KaDgLlYRATOox1Db1hs44NIaKKmG8bfWlyZYiuuRR
-	 S8w62sYTeg9qpKqaCOLshf3WnvXVO2LXIC+lJdfOwoYMLkwjgoystpKtSpyotgqq3dX4a
-	 OC7BDf8C+gs++kk8zVDQaum49ug6SWh1HoTw3oOt5stuT5tqbtTAjeUxHw/HFRI0u3k+K
-	 5BlXSBzBHh9xHjL2CtlpaWgz36iLwBJXQ1HvdkokFo3JrS4apy/mOnSi5/mjQnfQB2P6g
-	 0NcoYswSob7x7YuCvyGya2xHLG+rEPllMZpYVGXRpTdRyNc/w0s9VTFvYJQa+lXxCOA==
+	t=1794401937;
+	b=USvbqhn6js1H0cD6D4TRe0bJiwn9su7nYBSO0kznHVUHSKrCxDCqzBisffy5qYgbHnob
+	 +xlPHH5BQyOaUc98q7NDKx/8uBF/bZWHptIB6oyCX4qPMvWH5psPfIzD9lvDaLSptNy+n
+	 E4eGvUqrDbTV44z7x/ihpdfrw8TFnzMGDCGpdOcI07Cz/sT07xdOpEbmdfkdeBvs+xqQH
+	 6nWAne8UJdnC23C8lVx5HSv3xztFcVypmeyUtk4O8fHjlZXR+0db7gIo9v+KlWe07rIb0
+	 bNOZcOXlLCb71k6asn19qb3i34SLWGS5N140zpTh33bK18QBsZ8SaxuTPoPo0QVjF3w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794401919;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=KPyZooxb6qLTcTHsMRqiLji62F6SisPppeJ+HvjwccY=;
-	b=Hu6atFOwJDerf+H04vSPdUqd6uL10jHsxhoYpjkX/UgaudXfR1nf8uZAdBvFvbyKmVN5
-	 uLQ08fq6Y3PvdTd8xe9qB1cLdBXoVqC3bE/p9SNYjcgqp1XDjK+GlDjlp810myXx2ICde
-	 6YKzlENOYzioqkv7CX1da4uyE23op3DMW6RcU59Q9evU4my931brk0oQgkN+hwuHkh0LL
-	 hXl0/c1uWBjeHt7YS15rBsgaaDS3khK19kYm4m2MmvLhEH+wrr4xR3NS3ubotVTKQXAVV
-	 QSnDL3jNj9n6QVowxxPwEc5/2fZ4+i6X0bILUyaLkKR0PH++WV9GzzP6XTbr+IMHX7g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794401937;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=Q8x5FW0GZ0QdCGdfAFTweAPmtPMaW+h6b1JkoX4m6JM=;
+	b=CzD80Shvpttm50J955E7ve99ZawGu3nFIuusRtCHrsWJpa3Rp87IXhDPXG7Eh6R7qQD5
+	 VPCs15ZBmBqyFznY+Tiz3fkYWohRXePsx81siiObWLK1+Mz7lO0vs3ojXccitEfcsvVjL
+	 6dKroIZdjC+k7kiQaOilXA2Za8vALjjeyQryiCq7qAhrVlqGU+59CVxOTiXq6sV1VPpXN
+	 F2Qyd1QbMGmlFJtgDk9TUxRDoPNq2LCRhcHz8tjHXw7lqC+U/wpHQyDKtmmqxlLJSGxqL
+	 qdgFvdv1vPsYpe5625CQ0CiwnNKvDH0mJhW8iL7oCr6TeEJtW/+wbcmvriwxEQGvgiQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=WqVIZZLa;
-	arc=none smtp.remote-ip=91.218.175.119
-Received: from mta0.migadu.com (out-119.mta0.migadu.com [91.218.175.119])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b="BP4/BEFk";
+	arc=none smtp.remote-ip=113.46.200.216
+Received: from canpmsgout01.his.huawei.com (canpmsgout01.his.huawei.com [113.46.200.216])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE5C4606A321
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 12:58:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EE5C4606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F5AB606A321;
+	Wed, 11 Nov 2026 12:58:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F5AB606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=WqVIZZLa
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=n/PhzmNIQD84p7mGnPzCf9PKwY4qk4+A+Cw7fHrUV8o=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794401916; v=1; x=1795006716;
- b=WqVIZZLa4GK37345ROW+Ob8Q+kSA4cLQOkz/jVxSiz6A9WSQd3Kraj96k598UZaaGyHzRRjf
- 1qXXFLJn+z87uXaBZycNLEqHR/27Ws13tfqv+Kwur6oyq+Ki+IuWi5EfIAbUZrcwzjYHhk3Edvm
- Wem0thTpo+ygyTGTiON4k60w=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id 7d6ab9f2b976eeb0;
-	Wed, 11 Nov 2026 12:58:36 +0000
-X-Mizu-Trace-ID: 7d6ab9f2b976eeb0
-X-Migadu-Flow: FLOW_OUT
-From: Usama Arif <usama.arif@linux.dev>
-To: Kiryl Shutsemau <kas@kernel.org>
-Cc: Usama Arif <usama.arif@linux.dev>,
-	david.laight.linux@gmail.com,
-	bp@alien8.de,
-	dave.hansen@linux.intel.com,
-	dsterba@suse.com,
-	hpa@zytor.com,
-	linux-kernel@vger.kernel.org,
-	mingo@redhat.com,
-	terrelln@fb.com,
-	tglx@kernel.org,
-	x86@kernel.org,
-	torvalds@linux-foundation.org,
-	hannes@cmpxchg.org,
-	riel@surriel.com,
-	shakeel.butt@linux.dev,
-	kernel-team@meta.com
-Subject: Re: [PATCH v2] x86/lib: Use REP MOVSB for large memcpy() on ERMS CPUs without FSRM
-Date: Wed, 11 Nov 2026 04:58:31 -0800
-Message-ID: <20261111125832.2541683-1-usama.arif@linux.dev>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <avNEZ6Zz5IhN2Zao@thinkstation>
-References: 
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=BP4/BEFk
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=Q8x5FW0GZ0QdCGdfAFTweAPmtPMaW+h6b1JkoX4m6JM=;
+	b=BP4/BEFkXTSp8ChQayBGODVXiFYKZHyBBaCITu1Bgh8Cidksi6zh09c6as/lmPm+lS6l7saOp
+	88IsSGc8bEXNVlYJRlthPSrNSGWUonvw/31vgQMBF3sNsSxfRB9Oh/m0aLaS2iylF0/hzJ8OgZ6
+	zk3DiOZadf7nDQGn804KW2c=
+Received: from mail.maildlp.com (unknown [172.19.163.104])
+	by canpmsgout01.his.huawei.com (SkyGuard) with ESMTPS id 4jPk8t50Pdz1T4MF;
+	Wed, 11 Nov 2026 20:58:22 +0800 (CST)
+Received: from kwepemo500018.china.huawei.com (unknown [7.202.195.199])
+	by mail.maildlp.com (Postfix) with ESMTPS id 9C0F14056E;
+	Wed, 11 Nov 2026 20:58:52 +0800 (CST)
+Received: from localhost.localdomain (10.50.163.32) by
+ kwepemo500018.china.huawei.com (7.202.195.199) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Wed, 11 Nov 2026 20:58:51 +0800
+From: Jijie Shao <shaojijie@huawei.com>
+To: <davem@davemloft.net>, <edumazet@kernel.org>, <kuba@kernel.org>,
+	<pabeni@redhat.com>, <andrew+netdev@lunn.ch>
+CC: <shenjian15@huawei.com>, <liuyonglong@huawei.com>,
+	<chenhao418@huawei.com>, <yangshuaisong@h-partners.com>,
+	<ningwei15@huawei.com>, <netdev@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <shaojijie@huawei.com>
+Subject: [PATCH v4 net 0/4] net: hns3: fix multiple bugs in reset/error paths
+Date: Wed, 11 Nov 2026 20:58:06 +0800
+Message-ID: <20261111125810.3359030-1-shaojijie@huawei.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,130 +72,115 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
+ kwepemo500018.china.huawei.com (7.202.195.199)
 
-On Tue, 10 Nov 2026 16:25:54 +0000 Kiryl Shutsemau <kas@kernel.org> wrote:
+This series contains four bug fixes for the HNS3 driver, all related
+to resource lifecycle management on reset, driver unload, or error
+paths.
 
-> On Wed, Nov 04, 2026 at 02:28:06PM -0800, Usama Arif wrote:
-> > +#ifdef CONFIG_MITIGATION_ITS
-> > +	/*
-> > +	 * Returns are patched before alternatives. Align the replacement
-> > +	 * source so its return is in the first half of a cache line and ITS
-> > +	 * retains its thunk. The copied return can then execute in either
-> > +	 * half of a cache line.
-> > +	 */
-> > +	.pushsection .altinstr_replacement, "ax"
-> > +	.balign 64
-> > +	.popsection
-> > +#endif
-> > +	ALTERNATIVE __stringify(cmpq $0x20, %rcx; jb .Lhandle_tail), \
-> > +		    __stringify(rep movsb; RET), X86_FEATURE_FSRM
-> 
-> Does this mean any RET in a replacement needs the same alignment? Would
-> anything catch it if the next one doesn't have it?
+Patch 1 fixes a vector resource leak in the error path of
+hns3_nic_alloc_vector_data, where a devm_kcalloc failure after
+successful get_vector() leaves allocated vectors unreleased.
 
-The issue is specific to address-dependent return handling, such as
-ITS. apply_returns() runs before alternatives, so its decision uses
-the replacement source address. Copying an unthunked return from the
-safe half to the vulnerable half can invalidate that decision. The
-patch had no check of the copied return's final ITS placement.
+Patch 2 fixes a page_pool leak in the error path of
+hns3_alloc_ring_memory, where an hns3_alloc_ring_buffers() failure
+for an RX ring frees the descriptor ring but not the page_pool
+allocated just before.
 
-I have kept RET in ordinary text, so the decision now uses the address
-where it executes. There is no return in either replacement and no
-replacement alignment to maintain.
+Patch 3 fixes an interface stall that occurs when the hardware RX
+queue is full and memory allocation fails.  Without an RX interrupt,
+NAPI is never scheduled and the queue cannot drain.  A delayed work
+re-arms NAPI polling on affected rings to break the deadlock.
+
+Patch 4 fixes a use-after-free in debugfs read callbacks that can
+access priv->ring and ring->desc while reset, driver unload, or
+ethtool ring resize is freeing those resources.  A mutex is added
+to synchronize debugfs readers against resource teardown.
+
+---
+Changes in v4:
+  - Patch 1: correct the reason for resetting priv->vector_num, as
+    reported by Sashiko.  hns3_nic_dealloc_vector_data() is not
+    reachable after hns3_nic_alloc_vector_data() fails, so the reset
+    is not protecting that path; it keeps the count from describing
+    vectors that were already handed back.
+  - Patch 2: name hns3_fini_ring() instead of the non-existent
+    hns3_free_ring_memory(), and drop "mirroring" because the destroy
+    order differs.  The pool is destroyed before the descriptor ring
+    here, which is safe because hns3_alloc_ring_buffers() has already
+    detached every buffer.
+  - Patch 3:
+    * Allocate rx_ring_oom_bm in hns3_init_all_ring() only after every
+      ring has been set up, and free it in hns3_uninit_all_ring().
+      This fixes the leak and the NULL bitmap dereference reported for
+      hns3_set_ringparam(), which calls hns3_init_all_ring() without a
+      matching hns3_uninit_all_ring(); the allocation is reused when
+      the pointer is already set.
+    * Cancel the delayed work in hns3_nic_uninit_vector_data() instead
+      of hns3_nic_net_down(), so every teardown path cancels it before
+      the bitmap is freed.  This closes the use-after-free reported
+      for the self-test and external loopback paths, which set DOWN
+      without going through hns3_nic_net_down().
+    * Drop the cancel and bitmap_zero from hns3_nic_net_down().  A
+      pending work that runs while DOWN is set zeroes the bitmap and
+      exits, and one that runs after the interface is brought back up
+      only schedules a single extra poll round.
+    * Always attempt the exit refill in hns3_clean_rx_ring(), so the
+      descriptors cleaned by this poll stay armed and the head pointer
+      is written as before.
+    * Document why rx_oom_cnt is not the standard rx-alloc-fail
+      counter, as requested in review.
+  - Patch 4: describe both writer paths (client_uninit/reset_uninit vs
+    set_ringparam) explicitly, note the -EBUSY user-visible change, and
+    return -EBUSY from hns3_dbg_page_pool_info() instead of -EFAULT so
+    that sibling readers agree.
+v3: https://lore.kernel.org/all/20261030095633.377289-1-shaojijie@huawei.com/
+Changes in v3:
+  - Patch 1: simplify commit message; drop the accumulated-leak
+    consequence paragraph and clarify that the vector_num reset avoids
+    a NULL deref in hns3_nic_dealloc_vector_data().
+  - Patch 2: new patch, fixes a page_pool leak in the error path of
+    hns3_alloc_ring_memory().
+  - Patch 3: rework the OOM bitmap from per-vector to per-ring,
+    indexed by ring->queue_index.  Add cancel_delayed_work_sync() in
+    hns3_nic_net_down() after hns3_disable_irqs_and_tqps().  Remove
+    the OOM marking in hns3_handle_rx_copybreak() since the packet is
+    still delivered via the original page.
+  - Patch 4: add Fixes tag for the ring resize path.  Add per-ring
+    page_pool NULL check at hns3_dump_page_pool_info() entry.
+v2: https://lore.kernel.org/all/20261021121426.3096838-1-shaojijie@huawei.com/
+Changes in v2:
+Patch 1:
+  - No change.
+Patch 2:
+  - Clear per-vector OOM bitmap when device is DOWN to avoid
+    spurious napi_schedule() on next up event.
+  - Move rx_oom_cnt accounting to hns3_ring_set_oom_state() with
+    test_and_set_bit() for per-event counting.
+Patch 3:
+  - Drop hclge_debugfs.c changes; mutex only protects enet-layer.
+  - Replace guard(mutex) with explicit mutex_lock/unlock.
+  - Remove redundant NULL checks; unify -EPERM to -EBUSY.
+v1: https://lore.kernel.org/all/20260915132434.1141742-1-shaojijie@huawei.com/
+---
+
+Jijie Shao (4):
+  net: hns3: fix vector resource leak in hns3_nic_alloc_vector_data
+  net: hns3: fix page_pool leak in hns3_alloc_ring_memory error path
+  net: hns3: fix interface stuck after OOM with full hardware rx queue
+  net: hns3: fix use-after-free in debugfs read during reset/unload
+
+ drivers/net/ethernet/hisilicon/hns3/hnae3.h   |   1 +
+ .../ethernet/hisilicon/hns3/hns3_debugfs.c    | 127 +++++++++++-------
+ .../net/ethernet/hisilicon/hns3/hns3_enet.c   |  80 ++++++++++-
+ .../net/ethernet/hisilicon/hns3/hns3_enet.h   |  18 +++
+ .../ethernet/hisilicon/hns3/hns3_ethtool.c    |   3 +
+ 5 files changed, 179 insertions(+), 50 deletions(-)
 
 
-> 
-> Linus' layout keeps the RET out of the replacement, with no padding:
-> 
-> 	movq %rdi, %rax
-> 	movq %rdx, %rcx
-> 	ALTERNATIVE "jmp memcpy_orig", "rep movsb", X86_FEATURE_FSRM
-> 	RET
-> 
-> Non-FSRM takes the same jump it takes today. Does that avoid the ITS
-> problem? Why not this layout?
+base-commit: 8d5ce4751fad9499ea408163af7f410f18a85782
+-- 
+2.43.0
 
-Yes. I have adopted that layout and kept memcpy_orig() separate.
-The entry prepares RAX and RCX; the scalar function no longer repeats
-that preparation. FSRM replaces only the jump with REP MOVSB, leaving
-RET in ordinary text. This resolves the ITS source-address issue.
-
-
-> 
-> > +	/*
-> > +	 * RCX holds the count for REP MOVSB and scalar copying; RDX is scratch.
-> > +	 * Shift RDX to check length >= 2048 without destroying the REP count.
-> > +	 * The 10-byte alternative fits a NOP without ERMS.
-> > +	 */
-> > +	ALTERNATIVE "", __stringify(shrq $11, %rdx; jnz .Lerms), X86_FEATURE_ERMS
-> 
-> The RCX/RDX swap is most of the diff, and all it saves is one MOV on
-> copies of 2K and up.
-
-Agreed that the register change obscured the functional change. I have
-split it into a preparatory patch. It consistently uses RCX for scalar
-counts and indexes, and RDX for small-copy data. The subsequent ERMS
-patch can shift RDX while preserving RCX for REP MOVSB.
-
-
-> 
-> What about something like this? Untested.
-
-The entry layout is now the one you suggested. I retained the RCX
-count in a separate patch, so the ERMS arm needs no count reload.
-The gate remains after the 32-byte check and keeps the 2048 threshold.
-
-
-> 
-> diff --git a/arch/x86/lib/memcpy_64.S b/arch/x86/lib/memcpy_64.S
-> --- a/arch/x86/lib/memcpy_64.S
-> +++ b/arch/x86/lib/memcpy_64.S
-> @@ -31,11 +31,9 @@
->   * which the compiler could/should do much better anyway.
->   */
->  SYM_TYPED_FUNC_START(__memcpy)
-> -	ALTERNATIVE "jmp memcpy_orig", "", X86_FEATURE_FSRM
-> -
->  	movq %rdi, %rax
->  	movq %rdx, %rcx
-> -	rep movsb
-> +	ALTERNATIVE "jmp memcpy_orig", "rep movsb", X86_FEATURE_FSRM
->  	RET
->  SYM_FUNC_END(__memcpy)
->  EXPORT_SYMBOL(__memcpy)
-> @@ -45,11 +43,11 @@ SYM_PIC_ALIAS(memcpy)
->  EXPORT_SYMBOL(memcpy)
-> 
->  SYM_FUNC_START_LOCAL(memcpy_orig)
-> -	movq %rdi, %rax
-> -
->  	cmpq $0x20, %rdx
->  	jb .Lhandle_tail
-> 
-> +	ALTERNATIVE "", __stringify(shrq $11, %rcx; jnz .Lerms), X86_FEATURE_ERMS
-> +
->  	/*
->  	 * We check whether memory false dependence could occur,
->  	 * then jump to corresponding copy mode.
-> @@ -169,5 +167,10 @@ SYM_FUNC_START_LOCAL(memcpy_orig)
-> 
->  .Lend:
->  	RET
-> +
-> +.Lerms:
-> +	movq %rdx, %rcx
-> +	rep movsb
-> +	RET
->  SYM_FUNC_END(memcpy_orig)
-> 
-> If you keep the swap, please make it a separate patch with no functional
-> change.
-
-Done. The first patch changes the scalar register allocation and
-initializes RCX in memcpy_orig(), with no copy-policy change. The second
-patch hoists that preparation and adds the ERMS path and FSRM layout.
-
-> 
-> -- 
->   Kiryl Shutsemau / Kirill A. Shutemov
-> 
