@@ -1,70 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.34.181.151
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794436902;
-	b=tyfneguWVDcS883Pal5capYnvAg8OmNh97o8ABD/io0UEiPUR4atAeoAhHcjeN0IHF4y
-	 +QOTxD2b4VtSq3io8ZnGwvcUaHrNaaMOj0dWpQcjxhv2ujEV70JLfwD7vKzMw63/9H7xa
-	 k4P0CBp5tcE2KICGxW8tPOHMdX/Rx7jltsL3ZU4SfHsNr36+8g7qnhb5Q4OB5MjbQEz3V
-	 AGNhrI40ZWIMHlAdWIZqAAT/gGWDBHhrhJzw5OXmw+vIv6wjHCSoKQJgmjUwsvEAKnIK5
-	 dNo1FJFUN9kP8HNsjEhGvTILC29mlJl5RvtjvjSUIoJ0lE0tQ5AMZyp0RQusDZsNMQw==
+	t=1794436954;
+	b=NG8jnydX4wnOa/wJmSnK8GVt+jjtBQxsqfMB6091Fl9fTSi/IuaK6hoSDQyxmCVzRmof
+	 eK1urbg9AwBWWlcGR5lymTbn/vL0QbRGnoimgbnIdZ/DPuG/xDOkfGHZPLGu4h5klAhlv
+	 i55iZYHyoGdCfoTtZTGzq6GAslJKWIZZ+OVcstRE2KCP5Cp1RC1beG/mfJo3qIPYjkGdb
+	 ZFFboP+VlzU1Yzt8KLGb0Lo7HlGQNS6f0IS5C2bY4BapiLnvAhpw8JnRpe36dfrEBv0TY
+	 4EjFUp/ZRUGVfCA3clEPcLbx/uIHuARYy2M6CBQcOGCq8Kbm7+s68vlslG7ALTmofwQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794436902;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=YXZE4/JCiF0eACXrRw2VIV6D7SpvemyMj7K6scSqWvc=;
-	b=0g22U73FmauiNgdmH5saOoQ0XJ6ePl3tXBUj2TQbXkIMlKT6nmpvt0rpeGNd15g4fVLp
-	 gMtHL8EN7A6WXl/7pasjx48ZCzJ53Dsg+gc9dY5Ocw67I51wSJ0Jh9keP60gijMxx/em6
-	 Bu+zSTsSCWA9aP5+r1/FFwghdo7EVU8cb39G6YZkGMluU2I5kw8EnOILZSDehq6VwhJfw
-	 WXw+SZV2+AS4eHrKyv6xlMFZKsLRplwBba2Buoq73XrPKkhU/oorLa/MmQ2jOux+jg1xZ
-	 iVi5C42qFieWdOncFVppc+juoYdyxPrAMvfQNFO5Dp96OeG+FWVTRgfgHfD1slwbTxw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794436954;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
+	 From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=Nf/e7h6zi5zw9Vu4WfB0GEyN8EmLcf8HjHUMJ9G9oow=;
+	b=BLJGtXsE/M4T0KefrDhT/xsHGk2xl5Ic6MmH51crDZZveExo5EfkHVmfz0VpG40IE6m+
+	 20RbvYqlVABuBVRBK7dHB8h4SCzzwszkYAJfUL8se0wt1ZZmEAv/RTgXU6CfWDHhVuP0w
+	 hNQCT7qojAD0UPrbiv32rM0M/orOYkNiDIHMXRuBVQFEWyvxuv87JfJ9+K88UdQc/jPOS
+	 v20JZ4jA39MjN+jhnEub3CL7I9eGFT7J2wgt4tMHczEs47KJ2ayKWuEOsCMqH/r6dKHrj
+	 TcX8Eef/2l0BIl0Od+Azi7/fSaTu3syzSkZptyQCHiyThhjbjPRaPIh0B4emQy3FzxQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Bid5kCCS;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=amazon.com;
+	spf=pass smtp.mailfrom=amazon.de;
+	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b="REWBOM2/";
+	arc=none smtp.remote-ip=52.34.181.151
+Received: from pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.34.181.151])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0649360A5BE0;
-	Wed, 11 Nov 2026 22:41:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AF05606A327;
+	Wed, 11 Nov 2026 22:42:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5AF05606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Bid5kCCS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B2321F00ACC;
-	Wed, 11 Nov 2026 22:41:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794436901;
-	bh=YXZE4/JCiF0eACXrRw2VIV6D7SpvemyMj7K6scSqWvc=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=Bid5kCCSu5WypSvc7Yy6AMkIfdUDrJWusTlL6nlybv/UiOv7dlV09KEKfNBGlnJP8
-	 Mo8DovxcVZhczOzVDrvnyRhRfAI6mKNGf4k5MQXl9i2KUjR9F5VhUthV46nUQXx5oy
-	 STo1r6hrkydhg3ZeViNw3zqvmgw7dlrVsfUYk5zaTfKclmxpMN9J8Z8wox2WT7IKsv
-	 osRhc3iDgQbp5YtFlgScoTScFaPYL4heyGJWa9ouZh26p8aSDk5HV1dteEtMysO3T2
-	 x8jITzi8cuxxVCv/Gsk+HL1rUbt2a/M9cq/w4vZu93JIaAHruDGz4yZLzJq29ZqG7T
-	 JrV5qY+YEVpbg==
-Subject:
- Re: [PATCH net-next v1 10/11] eth: fbnic: Support RX buffers it cannot split
-From: netdev-bot+sashiko@kernel.org
-To: bjorn@kernel.org
-Cc: magnus.karlsson@intel.com, maciej.fijalkowski@intel.com, sdf@fomichev.me,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- horms@kernel.org, corbet@lwn.net, skhan@linuxfoundation.org,
- rdunlap@infradead.org, alexanderduyck@fb.com, kernel-team@meta.com,
- andrew+netdev@lunn.ch, hawk@kernel.org, ilias.apalodimas@linaro.org,
- ast@kernel.org, daniel@iogearbox.net, john.fastabend@gmail.com,
- asml.silence@gmail.com, axboe@kernel.dk, andrii@kernel.org, eddyz87@gmail.com,
- memxor@gmail.com, martin.lau@linux.dev, song@kernel.org,
- yonghong.song@linux.dev, jolsa@kernel.org, emil@etsalapatis.com,
- ihor.solodrai@linux.dev, netdev@vger.kernel.org, bpf@vger.kernel.org,
- io-uring@vger.kernel.org, almasrymina@google.com, mike.marciniszyn@gmail.com,
- bestswngs@gmail.com, razor@blackwall.org, dw@davidwei.uk,
- aleksander.lobakin@intel.com, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, stuclar@meta.com
-Date: Wed, 11 Nov 2026 22:41:39 +0000
-Message-ID: <179443689907.2199510.5966675063900520158@kernel.org>
-In-Reply-To: <20261110102039.1002605-11-bjorn@kernel.org>
-References: <20261110102039.1002605-11-bjorn@kernel.org>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=REWBOM2/
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+  t=1794436953; x=1825972953;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=Nf/e7h6zi5zw9Vu4WfB0GEyN8EmLcf8HjHUMJ9G9oow=;
+  b=REWBOM2/S7wRYVmCVCWDrMVbS0ZXNm1hzfNkRG3O0IUy76btBalKfOZd
+   H3tVWfp51d7m/okS0aLhlH+gRK+KRLplsqqvAaSoFcon2qoyPif5cVfBR
+   OcZpxbGeFhAUSvigkuwMyw14iqwpql0Q6L05XodjdZAr8Zj3i5uLYV7xX
+   fSgj1nUHiQ0XFNpROJCVvI1bZ3YakSiLhPoAERRju6uThfqxGMeboDdK1
+   JCZ9LbPUxVh0QNlQpimP20E57WLLc++1lcc8kEwfM3DOaBfYHdZQLqttX
+   R4gMfx87Rnqg0IGKcHKCENfXvMp9imfXcaF+rcmQ2kPVjWW8jurulrkMf
+   w==;
+X-CSE-ConnectionGUID: G7TPEGiWQRSBLwmwzCQc/A==
+X-CSE-MsgGUID: DDSJSqkBS+O+gJ5y7ySdsA==
+X-IronPort-AV: E=Sophos;i="6.27,208,1787011200"; 
+   d="scan'208";a="33756163"
+Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
+  by internal-pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 22:42:30 +0000
+Received: from EX19MTAUWA002.ant.amazon.com [205.251.233.178:31849]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.31.142:2525] with esmtp (Farcaster)
+ id 152a9830-b7c4-42e9-a68c-30a0443400c8; Wed, 11 Nov 2026 22:42:30 +0000 (UTC)
+X-Farcaster-Flow-ID: 152a9830-b7c4-42e9-a68c-30a0443400c8
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWA002.ant.amazon.com (10.250.64.202) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
+ Wed, 11 Nov 2026 22:42:29 +0000
+Received: from ip-10-253-83-51.amazon.com (172.19.99.218) by
+ EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
+ Wed, 11 Nov 2026 22:42:27 +0000
+From: Alexander Graf <graf@amazon.com>
+To: <linux-kernel@vger.kernel.org>, Greg Kroah-Hartman
+	<gregkh@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>
+CC: The AWS Nitro Enclaves Team <aws-nitro-enclaves-devel@amazon.com>, "Shuah
+ Khan" <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>,
+	Marek Szyprowski <m.szyprowski@samsung.com>, Robin Murphy
+	<robin.murphy@arm.com>, <linux-doc@vger.kernel.org>, <iommu@lists.linux.dev>,
+	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand
+	<david@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+	<nh-open-source@amazon.com>, <linux-mm@kvack.org>, Jonathan Corbet
+	<corbet@lwn.net>
+Subject: [PATCH 00/40] nitro_enclaves: Add support for Nitro Sandboxes
+Date: Wed, 11 Nov 2026 22:41:45 +0000
+Message-ID: <cover.1794300002.git.graf@amazon.com>
+X-Mailer: git-send-email 2.47.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,219 +89,147 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D031UWC004.ant.amazon.com (10.13.139.246) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider.
+Nitro Sandboxes [1] are a new EC2 feature that build on top of the
+technical foundations of Nitro Enclaves - an EC2 feature that allows
+you to spawn a virtio-vsock-only VM sibling constructed out of resources
+donated by the VM you execute in.
 
-Critical: 0 · High: 0 · Medium: 2 · Low: 1
+Nitro Sandboxes build on that concept and the same hypervisor interface,
+but add the ability to implement virtio devices in the parent, run vCPUs
+oversubscribed, add device hotplug support and allow to spawn a sandbox
+without attestation, but shared memory. They also boot a full EC2-like VM
+that runs with a UEFI stack and executes the EIF-wrapped kernel as UEFI
+executable.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+In combination, Nitro Sandboxes provide a way to create a confidential
+compute VM for almost all workloads, but without the biggest gaps that
+other confidential compute offerings have: The parent has no timing
+control and the parent also has no control over the base device model,
+such as timers, PCIe, UART, etc. All base devices are implemented in
+Nitro.
 
-- [Medium] fbnic_config_drop_mode() in
-  drivers/net/ethernet/meta/fbnic/fbnic_txrx.c changes the drop mode in…
-- [Medium] eth: fbnic: incomplete split-buffer checks in
-  fbnic_bd_one_desc() callers
-- [Low] (Baseline: rejected.) At this commit none of the whole-buffer
-  code can run.
+This series adds parent-side support for Nitro Sandboxes to the
+nitro_enclaves driver.
 
---
+This supports adds a few non-obvious technical foundations:
 
-eth: fbnic: Support RX buffers it cannot split
+guest_memfd like CMA allocator - With Nitro Enclaves, memory came from
+hugetlbfs and user space maintained visibility into it. That led to a
+few problems. With this new enablement, we add a guest_memfd like
+allocator that seeds from CMA, allows the parent to seed the EIF before
+hand-over and then loses any mechanism to access donated memory. Thanks
+to CMA, it also provides much larger contiguous chunks than 2M huge pages.
 
-The patch lets fbnic RX queues use a page pool provider without
-MP_CAP_FRAG. Each such buffer gets a single reference, the queue is
-programmed so each header and payload takes its own buffer, and packets
-that break this are dropped. Header split is now set per queue, and link
-up only modifies the drop mode in RDE_CTL0.
+Virtio notifications - To implement virtio in the parent, we need to
+handle notifications in both directions. Parent to sandbox goes through
+a BAR write; sandbox to parent through multiplexed IRQs. We provide
+eventfd support in both directions, which also enables vhost support.
 
-> diff --git a/drivers/net/ethernet/meta/fbnic/fbnic_txrx.c b/drivers/net/ethernet/meta/fbnic/fbnic_txrx.c
-> index bfaa284e497eb..d96c957d6fbad 100644
-> --- a/drivers/net/ethernet/meta/fbnic/fbnic_txrx.c
-> +++ b/drivers/net/ethernet/meta/fbnic/fbnic_txrx.c
+NUMA - With Nitro Sandboxes, NUMA became a first class citizen and all
+APIs now support NUMA targeting.
 
-[ ... ]
+Memory Donations - Every sandbox requires hypervisor memory. To allow
+for a larger scale of sandboxes you can run, we add a way to donate
+memory from the parent to the hypervisor. The user visible effect of
+that is that there is a slot limit sysfs file which you can increase.
+On write, we allocate physically contiguous CMA memory and donate it.
 
-> @@ -1644,6 +1693,9 @@ fbnic_alloc_qt_page_pools(struct fbnic_net *fbn, struct fbnic_q_triad *qt,
->  		return PTR_ERR(pp);
->  
->  	qt->sub0.page_pool = pp;
-> +	qt->hdr_max = 0;
-> +	if (!page_pool_supports_frag(pp))
-> +		qt->hdr_max = fbnic_whole_hdr_max(FBNIC_RX_HROOM);
+This series depends on "nitro_enclaves: Fix enclave release, command
+retries and the CPU pool", which I posted earlier today.
 
-[Severity: Low]
-This isn't a bug, but can this branch be reached at this commit?
+I used Kiro, an AI coding assistant running Claude Opus and GPT models,
+to draft the initial code and patch descritptions.
 
-Both fbnic page pools are still created without PP_FLAG_MEM_PROVIDER.
-That means no provider without MP_CAP_FRAG can be attached (xsk_pp only
-advertises MP_CAP_READABLE), so page_pool_supports_frag() is always true
-here.
+I validated all new functionality on x86_64 and arm64 as well as ensured
+that Nitro Enclaves are still fully functional after this patch series.
 
-As a result, qt->hdr_max stays 0. The whole-buffer paths in
-fbnic_bd_one_desc(), fbnic_page_pool_init() and fbnic_enable_rcq() are
-not used until the later patch "eth: fbnic: Support AF_XDP page pool zero
-copy" sets PP_FLAG_MEM_PROVIDER.
+[1] https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/amazon-ec2-nitro-sandboxes.html
 
-Could the commit message say that a later patch in the series enables
-this?
+Alex
 
->  	if (netif_rxq_has_unreadable_mp(fbn->netdev, rxq_idx)) {
->  		pp_params.order = get_order(rx_page_size);
->  		pp_params.max_len = rx_page_size;
+Alexander Graf (40):
+  nitro_enclaves: Allow the CPU pool to span NUMA nodes
+  nitro_enclaves: Add NE_ADD_ANY_VCPU
+  nitro_enclaves: Expose CPU pool state under sysfs
+  nitro_enclaves: Document multi-NUMA CPU pools
+  dma-contiguous: add dma_get_numa_cma_area() accessor
+  nitro_enclaves: Allocate physically contiguous enclave memory
+  nitro_enclaves: Add NE_MEMORY_SHARED
+  nitro_enclaves: Add NE_ADD_MEMORY_REGION
+  nitro_enclaves: Document the memory pool
+  nitro_enclaves: Add NE_CREATE_VM2 with a launch flag word
+  nitro_enclaves: Add NE_ENCLAVE_PCIE_MODE launch flag
+  nitro_enclaves: Name the device's error codes in the UAPI header
+  nitro_enclaves: Log a reached device limit at info level
+  nitro_enclaves: Add NE_SET_INFO_PAGE
+  nitro_enclaves: Document the info page in the memory pool
+  nitro_enclaves: Turn the command reply into a per-command union
+  nitro_enclaves: Add the slot pool donation commands
+  nitro_enclaves: Donate memory for the slot pool
+  nitro_enclaves: Add the slot pool growth commands
+  nitro_enclaves: Add a helper to grow the slot pool
+  nitro_enclaves: Document the slot pool
+  nitro_enclaves: Expose slot pool state under sysfs
+  nitro_enclaves: Add the device add command
+  nitro_enclaves: Add NE_ADD_DEVICE
+  nitro_enclaves: Read the interrupt multiplexer geometry at probe
+  nitro_enclaves: Donate a bitmap page per multiplexed vector
+  nitro_enclaves: Dispatch multiplexed interrupts to per-queue bindings
+  nitro_enclaves: Add NE_SET_NOTIFY_EVENTFD
+  nitro_enclaves: Report the device's info notification
+  nitro_enclaves: Count multiplexed interrupts under debugfs
+  nitro_enclaves: Map the doorbell window at probe
+  nitro_enclaves: Add NE_SET_VRING_CALL
+  nitro_enclaves: Assert the layout of the ioctl argument structs
+  nitro_enclaves: Pass on the Nitro Sandbox launch flags
+  nitro_enclaves: Add NE_ENCLAVE_DIRECT_MODE
+  nitro_enclaves: Add NE_ENCLAVE_PCIE_HOTPLUG_MODE
+  nitro_enclaves: Add NE_ENCLAVE_CPU_OVERCOMMIT_MODE
+  nitro_enclaves: Add NE_GET_CAPS
+  nitro_enclaves: Add NE_UPDATE_DEVICE_CONFIG
+  nitro_enclaves: Document the driver side of Nitro Sandboxes
 
-[ ... ]
+ .../sysfs-devices-virtual-misc-nitro_enclaves |  232 +
+ Documentation/virt/ne_overview.rst            |  256 +-
+ MAINTAINERS                                   |    1 +
+ drivers/virt/nitro_enclaves/Kconfig           |   19 +
+ drivers/virt/nitro_enclaves/ne_misc_dev.c     | 4832 +++++++++++++++--
+ drivers/virt/nitro_enclaves/ne_misc_dev.h     |  206 +-
+ drivers/virt/nitro_enclaves/ne_pci_dev.c      | 1568 +++++-
+ drivers/virt/nitro_enclaves/ne_pci_dev.h      |  599 +-
+ include/linux/dma-map-ops.h                   |    7 +
+ include/uapi/linux/nitro_enclaves.h           | 1182 +++-
+ kernel/dma/contiguous.c                       |   36 +
+ samples/nitro_enclaves/ne_ioctl_sample.c      |   10 +-
+ 12 files changed, 8282 insertions(+), 666 deletions(-)
+ create mode 100644 Documentation/ABI/testing/sysfs-devices-virtual-misc-nitro_enclaves
 
-> @@ -2693,20 +2750,32 @@ static void fbnic_config_drop_mode_rcq(struct fbnic_napi_vector *nv,
->  	fbnic_ring_wr32(rcq, FBNIC_QUEUE_RDE_CTL0, rcq_ctl);
->  }
->  
-> +static u32 fbnic_rcq_hds_thresh(const struct fbnic_net *fbn,
-> +				const struct fbnic_ring *rcq)
-> +{
-> +	const struct fbnic_q_triad *qt;
-> +
-> +	qt = container_of_const(rcq, struct fbnic_q_triad, cmpl);
-> +	return qt->hdr_max ? : fbn->hds_thresh;
-> +}
-> +
-> +/* Only the drop mode: a queue start may write the rest of the register */
->  void fbnic_config_drop_mode(struct fbnic_net *fbn, bool txp)
->  {
-> -	bool hds;
-> +	struct fbnic_ring *rcq;
-> +	u32 drop_mode, rcq_ctl;
->  	int i, t;
->  
-> -	hds = fbn->hds_thresh < FBNIC_HDR_BYTES_MIN;
-> -
-> +	drop_mode = fbnic_drop_mode(fbn, txp);
->  	for (i = 0; i < fbn->num_napi; i++) {
->  		struct fbnic_napi_vector *nv = fbn->napi[i];
->  
->  		for (t = 0; t < nv->rxt_count; t++) {
-> -			struct fbnic_q_triad *qt = &nv->qt[nv->txt_count + t];
-> -
-> -			fbnic_config_drop_mode_rcq(nv, &qt->cmpl, txp, hds);
-> +			rcq = &nv->qt[nv->txt_count + t].cmpl;
-> +			rcq_ctl = fbnic_ring_rd32(rcq, FBNIC_QUEUE_RDE_CTL0);
-> +			FIELD_MODIFY(FBNIC_QUEUE_RDE_CTL0_DROP_MODE_MASK,
-> +				     &rcq_ctl, drop_mode);
-> +			fbnic_ring_wr32(rcq, FBNIC_QUEUE_RDE_CTL0, rcq_ctl);
 
-[Severity: Medium]
-Does anything serialize this read-modify-write of FBNIC_QUEUE_RDE_CTL0
-against a queue restart?
-
-fbnic_config_drop_mode() is called from fbnic_phylink_mac_link_up():
-
-fbnic_phylink.c:fbnic_phylink_mac_link_up() {
-    ...
-	fbn->tx_pause = tx_pause;
-	fbnic_config_drop_mode(fbn, tx_pause);
-    ...
-}
-
-That runs from the phylink_resolve() work item. The work item holds
-pl->state_mutex and the phy locks, but not rtnl or the netdev instance
-lock.
-
-The queue start path runs under the netdev instance lock and writes the
-whole register from per-queue state:
-
-fbnic_queue_start()
-  __fbnic_nv_restart()
-    fbnic_enable_rcq()
-      fbnic_config_drop_mode_rcq()
-        fbnic_ring_wr32(rcq, FBNIC_QUEUE_RDE_CTL0, rcq_ctl);
-
-Suppose the link up worker reads CTL0. A queue start then writes a new
-CTL0 with a different EN_HDR_SPLIT, derived from qt->hdr_max. The worker
-then writes its saved copy back.
-
-Wouldn't the restarted queue keep the old EN_HDR_SPLIT, which no longer
-matches the MAX_HDR, PAYLD_OFF and PAYLD_PG_CL values in CTL1? Nothing
-corrects it until the next restart of that queue.
-
-At this commit qt->hdr_max is always 0, so the written-back value still
-matches. Later in the series, "eth: fbnic: Support AF_XDP page pool zero
-copy" makes hdr_max and MIN_HROOM (from qt->rx_hroom) truly per queue.
-
-After that, an AF_XDP bind or unbind that overlaps a link up event could
-leave the queue misconfigured. For example, a stale EN_HDR_SPLIT on a
-non-SG AF_XDP queue would make every packet multi-buffer, and
-fbnic_run_xdp() would drop it.
-
->  		}
->  	}
->  }
-
-[ ... ]
-
-> @@ -993,6 +1000,19 @@ static unsigned int fbnic_hdr_pg_end(unsigned int pg_off, unsigned int len)
->  	return ALIGN(pg_off, 128) - FBNIC_RX_HROOM;
->  }
->  
-> +/* A buffer that cannot be split has one reference and takes one descriptor */
-> +static bool fbnic_bd_one_desc(struct fbnic_napi_vector *nv,
-> +			      const struct fbnic_ring *bdq, unsigned int idx,
-> +			      bool ok)
-> +{
-> +	if (likely(page_pool_supports_frag(bdq->page_pool) ||
-> +		   (bdq->rx_buf[idx].pagecnt_bias == 1 && ok)))
-> +		return true;
-> +
-> +	netdev_err_once(nv->napi.dev, "Bad descriptor for a whole RX buffer\n");
-> +	return false;
-> +}
-> +
->  static void fbnic_pkt_prepare(struct fbnic_napi_vector *nv, u64 rcd,
->  			      struct fbnic_pkt_buff *pkt,
->  			      struct fbnic_q_triad *qt)
-
-[Severity: Medium]
-Do the two callers of fbnic_bd_one_desc() check enough to catch a
-whole buffer that the device splits across more than one completion?
-
-The commit message says packets that break the one descriptor per
-buffer rule are dropped. Each caller only checks half of that
-condition, though.
-
-In fbnic_add_rx_frag() the ok argument is only !pg_off, and
-FBNIC_RCD_AL_PAGE_FIN is not checked. Suppose a payload buffer ends up
-holding more than one payload. The first completion then has
-pg_off == 0 and PAGE_FIN == 0, so it passes. fbnic_page_pool_get_data()
-drops pagecnt_bias from 1 to 0, and the packet takes the only reference
-to the netmem.
-
-That reference can then go back to the pool through
-page_pool_put_full_netmem(), or be handed to the AF_XDP socket. The
-device still has the buffer open at that point and may DMA the next
-payload into it. The next completion for that buffer is rejected
-because pagecnt_bias is now 0, but the buffer has already been
-released by then.
-
-fbnic_pkt_prepare() has the opposite gap. It checks only PAGE_FIN, not
-where the header sits in the buffer. Suppose two headers land in the
-same header buffer. The first completion has PAGE_FIN == 0 and is
-rejected before fbnic_page_pool_get_head() runs, so pagecnt_bias stays
-at 1.
-
-The second completion has PAGE_FIN == 1 at a non-zero offset. It still
-sees pagecnt_bias == 1 and is accepted. An xdp_buff is then built from
-the middle of a buffer that was meant to hold a single header.
-
-A conforming device should not do either of these with the MAX_HDR,
-PAYLD_OFF and PAYLD_PG_CL values programmed in fbnic_enable_rcq().
-However, these checks exist to catch the case where it does.
-
-Should both callers require that the completion starts the buffer and
-also closes it, i.e. a zero offset and PAGE_FIN set? Passing the rcd
-into fbnic_bd_one_desc() and doing both checks there might keep the
-header and payload paths from drifting apart again.
-
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+prerequisite-patch-id: 542b3d78fda912095b75a49becd1b93109befdbc
+prerequisite-patch-id: 318368e966c1925652b7976948f435d42b87c72f
+prerequisite-patch-id: eb35b5d713e7f50f6d1d02310c9afe10b1628fc6
+prerequisite-patch-id: 223bf6e60620ca8fe72f3ff6f3bd3f5839cdd6d5
+prerequisite-patch-id: e5305ce0515a02f7f88e72adf02c6a2bee2fd2e0
+prerequisite-patch-id: 759b5920f842d70e675770608d9088639c10559e
+prerequisite-patch-id: e1837df37663da3d3ce53afa4594828b2d602152
+prerequisite-patch-id: f0d4302bd36f94de95951a0db1ae9eb9747076aa
+prerequisite-patch-id: 41159b92e250fef705be52f714b6e2761a2cd1f7
+prerequisite-patch-id: a0c3a56907acac2297c800209faa2849a8df0e48
+prerequisite-patch-id: a80a95bd682b540be5760e8fdf7044379fe32d61
+prerequisite-patch-id: 9c01e0fecd6810f3448582715c87cd3dd7a6cdf1
+prerequisite-patch-id: b94dfc8bb1039740d88a30535445bb7b3dd1fe74
+prerequisite-patch-id: bd76f15728dc0ee2ca3417cd95a6b23a7d63e91f
+prerequisite-patch-id: 0c60f1574b590f68885a25760017e9ff87752f66
+prerequisite-patch-id: 63dff43da52934a6e6f5e65c3e235a7114b6b4dc
+prerequisite-patch-id: af52cf938525874cadd6d879aa76495e563876d2
+prerequisite-patch-id: f53ee22764b5f13708cacd3e48a59a82d71a270c
+prerequisite-patch-id: 258b8c18168db49aacbda5156e33978b539666ab
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261110102039.1002605-1-bjorn%40kernel.org
+2.47.1
+
