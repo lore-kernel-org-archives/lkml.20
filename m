@@ -1,62 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.19
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794408170;
-	b=5VVjFPGysqhcogVXAn2kOLVashJ8YM+1gtj+WTgwy99uEHkxsdE1c+Ra7WZoq30QB/7Z
-	 XWnECJD5jKwAmeSAEkgx3R+VwZhdPR7bgTX//yIa5cwQi6K7CUxZGxarB7FtVNlomMtIz
-	 M/JN9/QWYohcQ+QVEzbk5CqpfrzfFAndnUblon4rLHMmOaVC9CcqGKRMuoOQFMX9aAlbg
-	 cofSsTWn6XZlH62G9Cg8No8fXAe1+KEkMnrvOSOh5IFDk/RKuVA1w7Zg80f/lV+Yclg31
-	 AFrHMWJQoeox42VorR/ViazW9vc/B98jk0YM3pu0tLBrvS4n0TPTIvqwxRenKcaHLSw==
+	t=1794408169;
+	b=5aTOIq+BdSimelGkLw+iSdULN0JgabxmCY9O/+BgvoVkZtfG2RMmhysL1+dMhydkfX7G
+	 gwRZfsOr6DP2uJuT96ixwMweUP59ZtIKX5KeEqee4pZ96dE4y5GpU0Fa6MuftGhSdaiba
+	 XxIm4Y4CwLCXKvhYYsdpMVJpilaqFChRJg+U/sdAgINeZASODfMdpdQ0t8gHspAwK18mE
+	 Pa1vvPlB3mDDnrS0IeeIu12HdtebMXXfXlY3Ok185rW1y2wMvDPxR+hnYj5/A0GJW2Jvq
+	 lEG4UtSbY7+7dA9fK99q0mbDRU03d5mYhJOfw0FPC0owkfhbqoAgBhOqcCfW8jQLVjg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794408170;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=LEUOEvYWNj7E1ZyLE8IW+ae/bA1XEfjmbaEAK8yH2KE=;
-	b=MqcjadbOa2ncwjoxnB1RRo1jdXF7ul4aMVmJoqyHt5xiaG1PcNw1azNLh7ZpkJ4lXGGw
-	 N0ooLaGJ754PuTEUjxGXCgtVhjHoIdHI39Wm5VsWgC3i5o7sTOflFagi4lh3pEriPqpgH
-	 2f7v7WIPsEnhujcOTwX1OgS6Mbg0TrooOo0ESbdyD2hzHBlzmkQH47vo/ODALIV4x/xHI
-	 Z/E2xf6UcYtARY6DARqVC3/xoB+bnde8o+3LdMBqAxEgn/iM7kpo7qYJpCCVYEPWibmJ1
-	 RYl29oYPS44qwRfaM2BY0G/5cSf4Sqh4lLH9cdkyEyOGGPcYdUlnSlWYwj0mUaHsC5Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794408169;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=6tjmltYVQMwKRzhKorT3QY4wRHxrjP68gO+DVLDAJDQ=;
+	b=124GZQTh8JR4FKR9BFFVf0i1GQRKSmCQuRc4bKmLa9GFW5k03eym/TcjfA6tpF7g/aBc
+	 iD6nB/1IZM0lOnrULIotxRK0JYrxdS5m2B2T9U+Zy+3OaEkDjs3RsQ9KqzdJU/9TPhSpA
+	 cHip6vbg1NI/6yE1AiMrxM4MztNoPV41aumIf7JUzosN4GTygRtgJyXW4QBIrcEwuS/I8
+	 qPMxj7UblDHhKML3XJKiAnnntPv9t2TdeAVvPCzF9kzTqGso1eXCQMy6Uxx8TxpwiRa9p
+	 y+gbJAS0+ilhjeVOdW6PFI5cBDGjm8RTWISoR01wjzmGN1PMCoXExzSC2bXoeQhrsZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ALziLNVu;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="Q3/Sf2VZ";
+	arc=none smtp.remote-ip=192.198.163.19
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A8F2606A32A;
-	Wed, 11 Nov 2026 14:42:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CD92606A326;
+	Wed, 11 Nov 2026 14:42:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6CD92606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ALziLNVu
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 818BE1F00A06;
-	Wed, 11 Nov 2026 14:42:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794408169;
-	bh=LEUOEvYWNj7E1ZyLE8IW+ae/bA1XEfjmbaEAK8yH2KE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ALziLNVu3wa+LaDP9x3ssBcCGzk85Mbmk1r1TzuM4bBYeS+kPKqcDoONyyd+dBSfM
-	 IggHjPvsPBRmf2TvrXHxprxWqgdx6k/uuhR5nDg8nI3ZsB7GPz8Ccqk0uX3MLNHorp
-	 vjY/opfg/1htNZ7KozoS7mOonllKDA3qdzYmxJQufGISMXZcs+pbjGlJvbXkSVWa6N
-	 ozth1YbAa4H7Q/KaLNgp9WSDPRdJNUlLRKMMdjdyvNFytlP378AnB4mdok/5rZsw1H
-	 4L7DK9dZhBz7nmkrnQgZYiLggvgZV/neQuQgWJyKeJm74KPO7Ec5EYpi0N5G/xGY5o
-	 5MCtT1hioyxWw==
-Date: Wed, 11 Nov 2026 08:42:47 -0600
-From: Rob Herring <robh@kernel.org>
-To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Christoph Niedermaier <cniedermaier@dh-electronics.com>,
-	Marek Vasut <marex@nabladev.com>,
-	Goran =?utf-8?B?UmHEkWVub3ZpxIc=?= <goran.radni@gmail.com>,
-	=?iso-8859-1?Q?B=F6rge_Str=FCmpfel?= <boerge.struempfel@gmail.com>,
-	devicetree@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	kernel@dh-electronics.com
-Subject: Re: [PATCH 0/4] ARM: dts: stm32: adopt hex format for timers
-Message-ID: <20261111144247.GA2193350-robh@kernel.org>
-References: <20261109-timer-use-hex-unit-addr-v1-0-b4abfa457adb@foss.st.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Q3/Sf2VZ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794408170; x=1825944170;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=LTRtbYUSvuOvDrINHce2yN9Y3VQGYk6txmPnyABK2p4=;
+  b=Q3/Sf2VZ8VAuXBZlpm2niP+YfEwB1N2bT9CP7XXFil0NimkS9NJPSO4R
+   zBvLqUzrTVeybDyhgmcrDBrjBbN2LbelLWXvBuPXEX2wcLq+AgSu2jsR1
+   e61kqEgxwV3XcUiWWCSCx6g+fDPHafPkhvbBLCuWJIefuIV+SRvZk5Srz
+   sW1XTuD3WHU8FiDV7nYqACLVXL1UKnK01dQAP5b2TYlpkvtbP5l4lAWRQ
+   ASkSzJQtyIVR2WNo2ZPTUJvEyyEQTJLhNYtdjpC/Vp0zvymosWzwzy28a
+   plQVVfq3/5iWDrNQGqf/eFLn6Cu0DF8ofw47zPYjzFeMAAlXIKTKoPDWW
+   A==;
+X-CSE-ConnectionGUID: fa1egDfnQOOwgsZgzlygtA==
+X-CSE-MsgGUID: v8nPib2mQIWP9hShtt8sJA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3276454"
+X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
+   d="scan'208";a="3276454"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 06:42:49 -0800
+X-CSE-ConnectionGUID: Q6tdEbuDRv2QuCSnLFA5Gw==
+X-CSE-MsgGUID: q343t+bPQzisM5Ry5UfRMg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
+   d="scan'208";a="8322463"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.142])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 06:42:46 -0800
+Date: Wed, 11 Nov 2026 16:42:44 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Zhu Jun <zhujun2@cmss.chinamobile.com>
+Cc: jic23@kernel.org, dlechner@baylibre.com, nuno.sa@analog.com,
+	crofts@kernel.org, linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] iio: temperature: mcp9600: Bound thresholds before
+ scaling
+Message-ID: <avR-5DNJ7_xfyH61@ashevche-desk.local>
+References: <20261111030538.10565-1-zhujun2@cmss.chinamobile.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,30 +82,30 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261109-timer-use-hex-unit-addr-v1-0-b4abfa457adb@foss.st.com>
+In-Reply-To: <20261111030538.10565-1-zhujun2@cmss.chinamobile.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Mon, Nov 09, 2026 at 05:25:02PM +0100, Fabrice Gasnier wrote:
-> This series intends to comply with hexadecimal unit addresses for timer
-> subnodes as described in  ("dt-bindings: Use hex unit address patterns").
+On Wed, Nov 11, 2026 at 11:05:38AM +0800, Zhu Jun wrote:
+> mcp9600_write_thresh() multiplies the integer part by 1000000 before
+> clamping to the supported temperature range. The multiplication can
+> overflow int, so a request such as 3000 degrees can select the lower
+> threshold instead of the upper threshold.
 > 
-> Also update hexadecimal format for 'reg' property in these nodes. Take
-> care to update the boards accordingly. Note there aren't in-tree overlays
-> impacted.
-> 
-> Purpose is to avoid upcoming new dtbs_check logs like:
-> make CHECK_DTBS=y st/stm32mp135f-dk.dtb
-> ...
-> stm32mp135f-dk.dtb: timer@4c00a000 (st,stm32-timers): 'timer@14' does not
-> match any of the regexes: '^pinctrl-[0-9]+$', '^timer@([0-9a-f]|1[0-3])$'
-> from schema $id: http://devicetree.org/schemas/mfd/st,stm32-timers.yaml
-> ...
-> 
-> Link: https://patch.msgid.link/linux-devicetree/20261102135330.2493332-1-robh@kernel.org/
-> ---
-> Fabrice Gasnier (4):
->       ARM: dts: stm32: Use hex timer addresses on stm32mp13
->       ARM: dts: stm32: Use hex timer addresses on stm32mp15
->       ARM: dts: stm32: use hex reg for timer2 on stm32mp15xx-dhcom-overlay
->       arm64: dts: stm32: Use hex timer addresses on stm32mp251
+> Clamp the integer part to the hot-junction range before scaling. Keep
+> the existing final clamp for fractional values and the narrower cold-
+> junction range.
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+...
+
+> +		val = clamp_val(val, MCP9600_MIN_TEMP_HOT_JUNCTION_MICRO / (int)MICRO,
+
+Btw, why do we need to use _val() variant of clamp*()?
+
+> +				MCP9600_MAX_TEMP_HOT_JUNCTION_MICRO / (int)MICRO);
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
