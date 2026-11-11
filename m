@@ -1,69 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=68.232.154.123
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794407504;
-	b=J+cYaIimGXgN4KuYWVxBR5TPaEmP5Wwx0B928WUHHopmhGCHXMyl2nG+oIcapyVi/4fn
-	 dqEtf3i2vibfhWOTKHtE9rNHWi+VPQa/x+jlMTCrpnd+pYdBL0vSkrFF3RH4fzfVS926o
-	 72GAB8vYv+zoyiiPxVe568vq1nP/QE4k4ryI3FEp6T3uhGEOKCkNIKpIEJTXgcyUQDinc
-	 nEm29gq72imrCQeiYdBj8PnaoUYHVOOHVSfQhx4x93eh5U68sd9JXfjY8P3YXctarVg74
-	 Deb1N+Dz5ZdtEvkao7pFTe+PR2VcM2jNqCCFAU9vX/k8itcw2Ke/tBsCaeMjqB0Ab9w==
+	t=1794407510;
+	b=esjUjIlFTGzavq7etdc7yTogj+ggcv0f5r3dtMO0mxSf4y5T2rSp7wPt1aS7bHvvyX0T
+	 cQJycTPs1LWeuA4v1jCIHw7Wui0emOW8wym42cEewAr+vrpu5hE8NKhFguzlk/9bGw6gR
+	 5jZbyq954u1gSkzTY51ZM+LodI8SUP64szZxRILG/igNdZqFM67wMOPrMiW+LQRRQrEIC
+	 W/39hO52yctw3Ymn5vhidg+9NPdKVeYJs3Unr1msVTaf6GxFovB5Nf6uu73siTPhTCUD2
+	 ugJzYQXXHXn1L3OyuMH5Il0wBQSzbGeykYlTNw2u3Uj4ZU6uG8jMG4NkC+iE8MEDZmg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794407504;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 X-Zmail-TransId:X-Mailer:Message-ID:In-Reply-To:References:Date:
-	 Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:X-TLS:
-	 X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:X-Fangmail-Anti-Spam-Filtered:
-	 X-Fangmail-MID-QID;
-	bh=AfMlI3WfPqq8tKJdmFujBWQddYXZnTduVJGezxZ066c=;
-	b=D7FVU/+zy3siFa4i4gvRYojn3oGTkKJpdQCh9YbCpDF/6rDSf1hAnzW0bzFMqzZdJgM9
-	 wyPwWdfdJMQJxsPoPP4MBhyLwlHwWZQn4BqPBDstTP7fH+Ylvy/QT7vHzYpGJ//ZYp6ZZ
-	 4fUkwIfMnmWco7zn2iDAQSV6qmShh0qFb9K1oOR429fmTtevpiyivr+QkhAh1LPdxXwji
-	 meyetHGTV6qhH+pEr9meKhRsHELUsML+Klll6pMiXwEKjEXJpDu/vUFpaL/4bzSmbTTRa
-	 hlf5nk4fmmEmY6ZP9KUlfqw33I3qKBETatUNHD9AJTxWJ7t+5VpyaaVvaK3aBQ6SSZQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794407510;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-Amp-Result:Received:Received:Received:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-ID:References:In-Reply-To:To:CC:X-Mailer;
+	bh=FpqThEAQq884gGkXUq0nZfGLBOXswodMtHb28S6gKq8=;
+	b=kxqhiI+qDRa2y12BVmCNM0jZCaIkOSmBYWMUxMT2oUI2s71zC0JL2MVpidG/YXT1Yju2
+	 BQ3V2h+pUI2jmXCzcPbk/g1Yc6muSLpJ6owKgk+aCY4sBDFSnBKC43NdyJssET1uwXEoG
+	 IGXUeD2ThhpcONsgItqE8qbnQUo9V/cjXznas1oGng/V9CSbjJOJeMEipipW9T84We4te
+	 8b1cND864cVQx39pyJnhtGidT6yUDv2h8VdbTbRivsoFo7T2imde+z+m6cfLyRdvlhjMg
+	 CYUR4VBvDAnotHRzssHv1eizJhkRrzc2l8ducNQsxtgikLc0ERAHYsjLbHeB4lsYHLg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=zte.com.cn;
-	spf=pass smtp.mailfrom=zte.com.cn;
-	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b="cn2S/T3B";
-	arc=none smtp.remote-ip=160.30.148.34
-Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.34])
+	dmarc=pass header.from=microchip.com;
+	spf=pass smtp.mailfrom=microchip.com;
+	dkim=pass header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=cxOCjnpd;
+	arc=none smtp.remote-ip=68.232.154.123
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0B9360A3806;
-	Wed, 11 Nov 2026 14:31:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B0B9360A3806
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 073A160A6F5A;
+	Wed, 11 Nov 2026 14:31:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 073A160A6F5A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=cn2S/T3B
-Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jPmDZ29dTz4yjjH;
-	Wed, 11 Nov 2026 22:31:42 +0800 (CST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=zte.com.cn;
-	s=z202610; t=1794407502;
-	bh=azTcS144VCtm1cmX8Y0OcBHPAttJzVsHThFAhZvd3uQ=;
-	h=In-Reply-To:References:Date:From:To:Cc:Subject;
-	b=cn2S/T3B6G0jADeZddXaIFRdZqpwX5Hmn8m+OR92UBT2mytcFKHRfTcssJ+3PDy7w
-	 nNd6Z8g10lUn2EK0ysPkEyQ4uEXKg9kLX2YijnMEZxQwPkstzxLDd2qF4JJLMTjuXs
-	 /6m2Q79RwemCkZ+1al1odKaX+n1arWBvtVKcpoqZYmx1MXu4W8xPqUf4GsGiMLoJ1O
-	 kh9sbs0kMa7cUR8pjBcE+NAf30NGBypeXvs7ZJw+11eAOdKJrUMb56U1S+893DW4Oz
-	 uEcH+QO1bPGZZ9uVsweHobvCbmiA/6S0RAVCoqImQscYEN0E1IrpbmCCBDsEEiXh7H
-	 t92jqwRcilSsA==
-Received: from xaxapp04.zte.com.cn ([10.99.98.157])
-	by mse-fl1.zte.com.cn with SMTP id 6ABEVR3m089035;
-	Wed, 11 Nov 2026 22:31:27 +0800 (+08)
-	(envelope-from shao.mingyin@zte.com.cn)
-Received: from mapi (xaxapp05[null])
-	by mapi (Zmail) with MAPI id mid32;
-	Wed, 11 Nov 2026 22:31:29 +0800 (CST)
-X-Zmail-TransId: 2afc6af47c41ad9-519d4
-X-Mailer: Zmail v1.0
-Message-ID: <20261111223129430zClEJF8TDgu_h8ZYM843Q@zte.com.cn>
-In-Reply-To: <20261111223123952mgPDVsbO8uOyaDWL2KELB@zte.com.cn>
-References: 20261111223123952mgPDVsbO8uOyaDWL2KELB@zte.com.cn
-Date: Wed, 11 Nov 2026 22:31:29 +0800 (CST)
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=cxOCjnpd
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1794407517; x=1825943517;
+  h=from:date:subject:mime-version:content-transfer-encoding:
+   message-id:references:in-reply-to:to:cc;
+  bh=63C2l/35fgXhbv9pkZTuopuvnN7R8G2katEZp0sbTQ8=;
+  b=cxOCjnpd7S+0hE4zEZi3RswCk4SToTCy1mi315mPjPUv9iRyKQfP6XaO
+   jTYQH0Z7Oppcjxr6hDEOePWX6S2Ms6j0JgUWGx1rLKRPlgYIcZFAaTORH
+   GWZpZTP8/n2mWAJVp/X/K0pwyx8E7+ajg2pWr+gBaMziU8ERtwgT3oAhY
+   8/YurG09ztXihDEvo3xNpe8YtCOGPOkQ3/zDtJY1BYkeeJL8d8hvl5t8C
+   HqpDh0lUpKINDi/RjGqgVLXiBo4qP+j7hDYsVSLsHrapIJyEx9y5ReCmo
+   cLY+7dLHJGUZw9dM9FlwrCvs28/0J1AX5HZiwG0LIIgUcbfoB46PphqXu
+   A==;
+X-CSE-ConnectionGUID: Y/6r8e8iQM6KjuVKGsvmtg==
+X-CSE-MsgGUID: KU6b1T8PR+W3dpXWkxJmDQ==
+X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
+   d="scan'208";a="65390788"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa4.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 11 Nov 2026 07:31:56 -0700
+Received: from chn-vm-ex04.mchp-main.com (10.10.85.152) by
+ chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.58; Wed, 11 Nov 2026 07:31:48 -0700
+Received: from DEN-DL-M70577.microsemi.net (10.10.85.11) by
+ chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server id
+ 15.1.2507.58 via Frontend Transport; Wed, 11 Nov 2026 07:31:46 -0700
+From: Daniel Machon <daniel.machon@microchip.com>
+Date: Wed, 11 Nov 2026 15:31:18 +0100
+Subject: [PATCH net-next v2 8/9] net: sparx5/lan969x: scale the TAS guard
+ band with the MTU
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,104 +73,162 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-From: <shao.mingyin@zte.com.cn>
-To: <dlemoal@kernel.org>, <cassel@kernel.org>, <linux-ide@vger.kernel.org>
-Cc: <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-Subject: =?UTF-8?B?W1BBVENIIHYyIDEvNF0gYXRhOiBsaWJhdGEtc2NzaTogc2tpcCBNVUxUSVBMRV9DT1VOVCBmb3IgMzItYnl0ZSBwYXNzdGhydQ==?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-fl1.zte.com.cn 6ABEVR3m089035
-X-TLS: YES
-X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
-X-SOURCE-IP: 10.5.228.132 unknown Wed, 11 Nov 2026 22:31:42 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AF47C4E.000/4jPmDZ29dTz4yjjH
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20261111-sparx5-mtu-change-v2-8-59c91357e8f6@microchip.com>
+References: <20261111-sparx5-mtu-change-v2-0-59c91357e8f6@microchip.com>
+In-Reply-To: <20261111-sparx5-mtu-change-v2-0-59c91357e8f6@microchip.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+	<davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski
+	<kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Steen Hegelund
+	<Steen.Hegelund@microchip.com>, <UNGLinuxDriver@microchip.com>, "Richard
+ Cochran" <richardcochran@gmail.com>, Russell King <linux@armlinux.org.uk>
+CC: <netdev@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-kernel@vger.kernel.org>, Robert Marko <robert.marko@sartura.hr>,
+	Horatiu Vultur <horatiu.vultur@microchip.com>,
+	=?utf-8?q?Jens_Emil_Schulz_=C3=98stergaard?=
+	<jensemil.schulzostergaard@microchip.com>
+X-Mailer: b4 0.14.3
 
-From: Shao Mingyin <shao.mingyin@zte.com.cn>
+The TAS guard band (QMAXSDU_VAL, in units of 64 bytes) is how long
+before a gate closes the scheduler stops starting frames of a traffic
+class, so that a frame started just before the close still finishes in
+time. The driver leaves it at the reset value of 24 x 64 = 1536 bytes,
+so with a larger MTU, a frame started inside the guard band would
+overrun the gate close.
 
-ATA PASS-THROUGH(32) has no MULTIPLE_COUNT field. Reading byte 1 as
-that field instead interprets the variable-length CDB CONTROL byte,
-which can reject a non-multiple command or cause a spurious count
-mismatch warning for READ/WRITE MULTIPLE.
+The MAC maximum frame length only limits the frames a port receives, so
+a port can transmit frames of the largest MTU of all ports, for example
+when forwarding from a port with a larger MTU. Therefore, size the guard
+band of all ports for a frame of the largest MTU, plus the Ethernet
+header, FCS and two VLAN tags, rounded up to 64 bytes. Add the
+HSCH_TAS_QMAXSDU_CFG register, program the guard band at init, and add
+sparx5_tas_gb_update() for use when the MTU changes.
 
-Skip the CDB count checks for the 32-byte form while retaining the
-check that multiple mode is enabled on the device. Also report byte 10
-for an invalid PROTOCOL, where that field resides in a 32-byte CDB.
-The 12- and 16-byte MULTIPLE_COUNT checks remain unchanged.
+With the default MTU of 1500 the guard band is unchanged. As the
+scheduler does not start a frame inside the guard band, a gate window
+shorter than the guard band at the link speed cannot transmit, as is
+already the case for the default 1536 byte guard band.
 
-Fixes: b1ffbf854e08 ("libata: Support for an ATA PASS-THROUGH(32) command.")
-Suggested-by: Niklas Cassel <cassel@kernel.org>
-Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
+Signed-off-by: Daniel Machon <daniel.machon@microchip.com>
 ---
-Changes in v2 (Niklas Cassel):
-- Skip the nonexistent MULTIPLE_COUNT field for the 32-byte CDB;
-  preserve the device multiple-mode check and the short-CDB checks.
-- Move the invalid-PROTOCOL field pointer fix here from patch 3.
-- Regenerate with git format-patch; do not edit diff hunks or indexes.
-- Do not carry the v1 Reviewed-by tag over the reworked code.
-v1: https://lore.kernel.org/all/20261104220939917jqg8_alGN5sACGWq5M9D-@zte.com.cn/
+ .../net/ethernet/microchip/sparx5/sparx5_main.h    |  1 +
+ .../ethernet/microchip/sparx5/sparx5_main_regs.h   | 12 ++++++
+ drivers/net/ethernet/microchip/sparx5/sparx5_tas.c | 43 +++++++++++++++++++++-
+ 3 files changed, 54 insertions(+), 2 deletions(-)
 
-Validation on x86-64 with GCC 13 and UBSAN: a userspace harness compiled
-ata_scsi_pass_thru() verbatim with SCSI/device stubs. An invalid PROTOCOL
-in a 32-byte CDB passed field pointer 1 to the invalid-field helper before
-the fix and 10 afterwards. CONTROL-byte variations no longer caused
-false rejection or multiple-count warnings. A device with multiple mode
-disabled still rejected READ/WRITE MULTIPLE; short-CDB checks were kept.
-
- drivers/ata/libata-scsi.c | 23 ++++++++++++-----------
- 1 file changed, 12 insertions(+), 11 deletions(-)
-
-diff --git a/drivers/ata/libata-scsi.c b/drivers/ata/libata-scsi.c
-index a61fb03312793ca94d81d8061a16c66e786c4cf3..227240514651ada8b5feb87a154833fb2cddf064 100644
---- a/drivers/ata/libata-scsi.c
-+++ b/drivers/ata/libata-scsi.c
-@@ -3388,7 +3388,7 @@ static unsigned int ata_scsi_pass_thru(struct ata_queued_cmd *qc)
+diff --git a/drivers/net/ethernet/microchip/sparx5/sparx5_main.h b/drivers/net/ethernet/microchip/sparx5/sparx5_main.h
+index 59deeb91ad921..9bd3f7827b1f2 100644
+--- a/drivers/net/ethernet/microchip/sparx5/sparx5_main.h
++++ b/drivers/net/ethernet/microchip/sparx5/sparx5_main.h
+@@ -746,6 +746,7 @@ int sparx5_tas_enable(struct sparx5_port *port,
+ 		      struct tc_taprio_qopt_offload *qopt);
+ int sparx5_tas_disable(struct sparx5_port *port);
+ void sparx5_tas_speed(struct sparx5_port *port, int speed);
++void sparx5_tas_gb_update(struct sparx5 *sparx5);
  
- 	tf->protocol = ata_scsi_map_proto(cdb[1 + cdb_offset]);
- 	if (tf->protocol == ATA_PROT_UNKNOWN) {
--		fp = 1;
-+		fp = 1 + cdb_offset;
- 		goto invalid_fld;
- 	}
+ /* sparx5_mirror.c */
+ int sparx5_mirror_add(struct sparx5_mall_entry *entry);
+diff --git a/drivers/net/ethernet/microchip/sparx5/sparx5_main_regs.h b/drivers/net/ethernet/microchip/sparx5/sparx5_main_regs.h
+index 5302c7686e207..8a6de30042b5d 100644
+--- a/drivers/net/ethernet/microchip/sparx5/sparx5_main_regs.h
++++ b/drivers/net/ethernet/microchip/sparx5/sparx5_main_regs.h
+@@ -5424,6 +5424,18 @@ extern const struct sparx5_regs *regs;
+ #define HSCH_TAS_STATEMACHINE_CFG_REVISIT_DLY_GET(x)\
+ 	FIELD_GET(HSCH_TAS_STATEMACHINE_CFG_REVISIT_DLY, x)
  
-@@ -3573,27 +3573,28 @@ static unsigned int ata_scsi_pass_thru(struct ata_queued_cmd *qc)
- 		goto invalid_fld;
- 	}
- 
--	/* sanity check for pio multi commands */
--	if ((cdb[1] & 0xe0) && !is_multi_taskfile(tf)) {
-+	/* The 32-byte CDB has no MULTIPLE_COUNT field. */
-+	if (cdb[0] != VARIABLE_LENGTH_CMD &&
-+	    (cdb[1] & 0xe0) && !is_multi_taskfile(tf)) {
- 		fp = 1;
- 		goto invalid_fld;
- 	}
- 
- 	if (is_multi_taskfile(tf)) {
--		unsigned int multi_count = 1 << (cdb[1] >> 5);
--
- 		if (!dev->multi_count) {
- 			ata_scsi_set_sense(dev, scmd, ABORTED_COMMAND,
- 					   NO_ADDITIONAL_SENSE_INFORMATION);
- 			return 1;
- 		}
- 
--		/* compare the passed through multi_count
--		 * with the cached multi_count of libata
--		 */
--		if (multi_count != dev->multi_count)
--			ata_dev_warn(dev, "invalid multi_count %u ignored\n",
--				     multi_count);
-+		if (cdb[0] != VARIABLE_LENGTH_CMD) {
-+			unsigned int multi_count = 1 << (cdb[1] >> 5);
++/* HSCH:TAS_PROFILE_CFG:TAS_QMAXSDU_CFG */
++#define HSCH_TAS_QMAXSDU_CFG(g, r)                                             \
++	__REG(TARGET_HSCH, 0, 1, regs->gaddr[GA_HSCH_TAS_PROFILE_CFG], g,       \
++	      regs->gcnt[GC_HSCH_TAS_PROFILE_CFG],                              \
++	      regs->gsize[GW_HSCH_TAS_PROFILE_CFG], 0, r, 8, 4)
 +
-+			/* Compare with the cached multiple count of libata. */
-+			if (multi_count != dev->multi_count)
-+				ata_dev_warn(dev, "invalid multi_count %u ignored\n",
-+					     multi_count);
-+		}
++#define HSCH_TAS_QMAXSDU_CFG_QMAXSDU_VAL         GENMASK(7, 0)
++#define HSCH_TAS_QMAXSDU_CFG_QMAXSDU_VAL_SET(x)\
++	FIELD_PREP(HSCH_TAS_QMAXSDU_CFG_QMAXSDU_VAL, x)
++#define HSCH_TAS_QMAXSDU_CFG_QMAXSDU_VAL_GET(x)\
++	FIELD_GET(HSCH_TAS_QMAXSDU_CFG_QMAXSDU_VAL, x)
++
+ /* HSCH:TAS_PROFILE_CFG:TAS_PROFILE_CONFIG */
+ #define HSCH_TAS_PROFILE_CONFIG(g)                                             \
+ 	__REG(TARGET_HSCH, 0, 1, regs->gaddr[GA_HSCH_TAS_PROFILE_CFG], g,       \
+diff --git a/drivers/net/ethernet/microchip/sparx5/sparx5_tas.c b/drivers/net/ethernet/microchip/sparx5/sparx5_tas.c
+index ec80bc69371ab..32e502bc4f18f 100644
+--- a/drivers/net/ethernet/microchip/sparx5/sparx5_tas.c
++++ b/drivers/net/ethernet/microchip/sparx5/sparx5_tas.c
+@@ -29,6 +29,9 @@ enum sparx5_tas_link_speed {
+ /* Maximum supported cycle time in nanoseconds */
+ #define TAS_MAX_CYCLE_TIME_NS ((1 * NSEC_PER_SEC) - 1) /* 999.999.999 nsec */
+ 
++/* HSCH_TAS_QMAXSDU_CFG.QMAXSDU_VAL, the guard band, counts 64 byte units */
++#define TAS_QMAXSDU_UNIT 64
++
+ /* STARTUP_TIME in units of 256 ns, must be non-zero for a list to start */
+ #define TAS_STARTUP_TIME_DEFAULT 8
+ 
+@@ -48,8 +51,8 @@ enum sparx5_tas_link_speed {
+  * We use 1 TAS profile per port, shared by both of its lists:
+  * index = portno;
+  *
+- * We do not yet support frame preemption and the default guard band
+- * of 1536 bytes is always used on all queues.
++ * We do not yet support frame preemption. All queues of all ports use a
++ * guard band that fits the largest frame that can be forwarded.
+  *
+  * The gate mask of each entry is written as is to the port's 8 queues,
+  * where bit n gates queue (QoS class) n. The mqprio parameters of the
+@@ -718,6 +721,40 @@ int sparx5_tas_disable(struct sparx5_port *port)
+ 	return err;
+ }
+ 
++/* Size the guard band of all ports for a frame of the largest MTU of all
++ * ports, as a port can transmit frames forwarded from any port.
++ */
++void sparx5_tas_gb_update(struct sparx5 *sparx5)
++{
++	u32 max_mtu = 0, gb;
++	int i, tc;
++
++	for (i = 0; i < sparx5->data->consts->n_ports; i++) {
++		if (sparx5->ports[i])
++			max_mtu = max_t(u32, max_mtu,
++					READ_ONCE(sparx5->ports[i]->ndev->mtu));
++	}
++
++	gb = DIV_ROUND_UP(SPX5_HW_MTU(max_mtu) + 2 * VLAN_HLEN,
++			  TAS_QMAXSDU_UNIT);
++
++	mutex_lock(&sparx5->tas_lock);
++
++	/* Each port uses the TAS profile of its own number */
++	for (i = 0; i < sparx5->data->consts->n_ports; i++) {
++		if (!sparx5->ports[i])
++			continue;
++
++		for (tc = 0; tc < SPX5_PRIOS; tc++)
++			spx5_rmw(HSCH_TAS_QMAXSDU_CFG_QMAXSDU_VAL_SET(gb),
++				 HSCH_TAS_QMAXSDU_CFG_QMAXSDU_VAL,
++				 sparx5,
++				 HSCH_TAS_QMAXSDU_CFG(i, tc));
++	}
++
++	mutex_unlock(&sparx5->tas_lock);
++}
++
+ int sparx5_tas_init(struct sparx5 *sparx5)
+ {
+ 	const struct sparx5_consts *consts = sparx5->data->consts;
+@@ -764,6 +801,8 @@ int sparx5_tas_init(struct sparx5 *sparx5)
+ 		}
  	}
  
- 	/*
++	sparx5_tas_gb_update(sparx5);
++
+ 	return 0;
+ }
+ 
+
+-- 
+2.34.1
+
