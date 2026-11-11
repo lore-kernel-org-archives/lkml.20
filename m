@@ -1,103 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.28
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794359512;
-	b=hqjGpRpitgyN8E++5USILcpI19xXokj7FY3sXIAUlaWMy1r1Q2Ms/xf9NQsUQgENDV5p
-	 YrV1H8/Id3h0PQBXr96Sb7UlbDTDXitNxr90iVY6iVKYwrBa2MmeAgahL5jL98Bes+Tfd
-	 pfrp3/IYw+g631KHsqzJlOmRNlh/aKnGX2TNUVOV+KvtwQpT6YhrnbNZpNXvTCotnu0Mm
-	 DzcuowjC57Toqh5cLw8xeSjw6XmusJW1ISrlqM5x0R73FaBdFT8oZqK+6rdg7fGcU3yzG
-	 mtc7qM6z7bnCMtsujt9S0QPv5rvSXnFagoan7fypLyvQ2DQ9VysdB4ibAy5vS37Rtmg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794359512;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:To:Cc:Subject:
-	 From:References:In-Reply-To:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:
-	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=klamGhN65K8ipUBLWt2gDGRDqctZ8vVDMeAW1wCZ4bI=;
-	b=HSrhmmBpaSvZqtdMrRJuv185tTZaxoFB1I0nEED6OEODhqW9xRWstG/cYKhBNtfsSskc
-	 kEKa1hlxiQCkREyNBTHNgwHnVVreS8QmGnwuTXgNPqAVoDwM6/UIxht6cXP78LokxUeA4
-	 p7zMhzffG+0nfN4NFowOGbNPkFKZAqd6WICamBA/KezaBeq75L9bh9Q9TXBy5+C4OkhFe
-	 zbcyXeePHPZUN01OocEIudRVZhcnNgLnbASaSoVetfibUdIlGgIrODdlUTBosYsI+Q05R
-	 zL5fSyZFc6KX8doQk+5iEjmvR9esqlqSx7mMvy8TmtQWJlcn2JLen372MArrv2rrV/w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=a21Wlag8;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.28
-Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011028.outbound.protection.outlook.com [40.107.208.28])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.197
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794359556;
+	b=NLnLcuNUFd/f0t3jUTupsK+ExIBGCwxlxTLMHvy1lj51gcsB51s9jF7krX8zW/5gtxWz
+	 igpbiJQHJIpgxx6YuAhIuBXkmcJkrP8KNRZl1vKqanZI4wm9oa6wzant4/MM42lC+zDiC
+	 50igg/gI9U5JtuSAkE+ZWnQyNetAiiTOLRCGuqB1PfBdvQbOVZG1alzHF25SaSH4XpcpW
+	 dmKe6JcKpM4TqLpoiHRGULVVWDX1vHoB6S+qsschGsSI52lc/R8oo/LrCu3GAA7ipRhtr
+	 r4dpGLqxg8/mFY0LUQLCcWck+4M/M1/+UTcqXn6EWSq4NcrFe7KJ7fFP5RHAfm9UUhg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794359556;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
+	 MIME-Version:X-Received:Date:In-Reply-To:X-Google-Appengine-App-Id:
+	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
+	 Content-Type;
+	bh=SIWfoxvOGQzQzHQfjEY1KjwfR1NJq/Fzgk+eBIX7VSE=;
+	b=VM6aCSlyIP+usNfftTlDGFw4PBrpBKGceN91C+awAGInej87kTjlBiM35C0u8RxruDND
+	 oJoNfMCLOEYotk7bxGD+Tw7bfo4tRdqrlHUrvar7a4lvs21ziKc/HD4qXnmkQloFXt82q
+	 6xkwIqycyT2v1Nqeb/MnMlgNio0kABwTIpjGhUhFRIu3nIAMq4t2pj133h6x0HUrGsSdf
+	 YECNY3O0tN8yWAebXeA75Ekp/C/l4EemuUsb+xniFyzk3/g2xVNKG4nEMD6/44TH8YEr6
+	 undMuzRblU2+XgAKODqfl+1hX3VKXT1YqV2bCjt3K4vPuvF5Ybfo4MTulcHYbQJB6Cg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.197
+Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73191606A321;
-	Wed, 11 Nov 2026 01:11:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73191606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=a21Wlag8
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=tamvwrhwaRuu2teG+uEoExDyyRtqgGmpvidpEIvKUKufi225zkO3vyBXe2XUvDWD+hIoYT01o7r2FxiWYPhY1ntO4nCpDQ0tAG052rLigWdlH6EhYdQfUYlEkMwjTHjwqiSRVZGsKcN6P3tzWK7THAfGXnaHSyKh8KYg5UUoeK9G+AkbP6htiOnGrW9t9SJjgZnLxMTklrFuzfefXqFodjW4sGlHtwySoiTLtw+bHFV89XNiTUhMuvGV9jMXmywpKyMT7vqlttqUeScL4hGwXP47CM3rmo5JMX68Ii4aRiR92LCn21vPSwGQI9Oxgo6t43ou1Y8auRrrBy4YDWrvmw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=klamGhN65K8ipUBLWt2gDGRDqctZ8vVDMeAW1wCZ4bI=;
- b=EMEqBVniqHC2fA988i8p8pAeGtgUfsOXixSWAF2J1SC8xwXyquvz+1EcoJ8noQj8Ldi8Mu8/zFUJdCtkCvUHC62awx/vm9hr6HANNsIm0vOyXkNPsfhMQrqmZPysVYQApIwxjuDd2yZ0UsJMG0D3tHUpqrt+/kKfjQedyzJabMCwwIesGU4O7I7aWC/G/iQsR3uOZT10ooXfy2ekWCY5MFfc/C2Cw0Q7quESmiotUo3InqiM1gb2RB1gO4WX0k0b44OpOk8YkYGE+W2XpVBZVOEiJMFAYhwm+F8CWj4Xb287/jj74tmzHwgKULJpKBTq1S1SaVr3Y2VOHzf6Q7hklw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=klamGhN65K8ipUBLWt2gDGRDqctZ8vVDMeAW1wCZ4bI=;
- b=a21Wlag8AweDYOCP/3AnRgMjAMYPMQdvcFFQq7mt9x7I2HWBqHINe/GoN7Oi4kEOumNLpDdKJSDboSVX/q0035nZOBbb8M6IAgUPF+sv6snzuRL7JMBgCgASbxyIvCo83cQZial9rdc6Z2WNQ3/LbIR/j76Uh9KvTgbD+jmCf+Bgq6ypa1nEXBboXJsXVH7E+WUUrP8h+QMuro3sajQD1jDc86frNxQ6j63kH3jro9eATsL1py/T4MZRwpkGcnFouqL0WM3S6JqYBb1coopRheYARZ1EfYvchlg1p40Nwqz3bep2W2cgefS1rx6Zl5s2r8munUXrrSN+6zWaJZSPow==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
- by PH8PR12MB7230.namprd12.prod.outlook.com (2603:10b6:510:226::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.13; Wed, 11 Nov
- 2026 01:11:47 +0000
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0592.010; Wed, 11 Nov 2026
- 01:11:47 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 11 Nov 2026 10:11:39 +0900
-Message-Id: <DMRZCU0UJL9Q.251K7FN6X4GTW@nvidia.com>
-To: "Sami Tolvanen via B4 Relay"
- <devnull+samitolvanen.google.com@kernel.org>
-Cc: <samitolvanen@google.com>, "David Airlie" <airlied@gmail.com>, "Simona
- Vetter" <simona@ffwll.ch>, "Danilo Krummrich" <dakr@kernel.org>, "Alice
- Ryhl" <aliceryhl@google.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun
- Feng" <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
- Gross" <tmgross@umich.edu>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "Lyude Paul"
- <lyude@redhat.com>, <dri-devel@lists.freedesktop.org>,
- <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] rust: drm: gem: shmem: do not leak pages when
- sg_table() fails
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-References: <20261019-rust-shmem-fixes-v1-1-3f7f6de5b5e7@google.com>
-In-Reply-To: <20261019-rust-shmem-fixes-v1-1-3f7f6de5b5e7@google.com>
-X-ClientProxiedBy: TY4PR01CA0055.jpnprd01.prod.outlook.com
- (2603:1096:405:372::11) To MW4PR12MB6873.namprd12.prod.outlook.com
- (2603:10b6:303:20c::17)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 056CF606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 01:12:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 056CF606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-5640a2d9708so2987404b6e.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 17:12:35 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794359555; x=1794964355;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=SIWfoxvOGQzQzHQfjEY1KjwfR1NJq/Fzgk+eBIX7VSE=;
+        b=JnNkp0KiSYWT17rc0FGPJcmhzvQoVTmGFzXGFmPfhyrU8Dz9BMQulD9n6E4aDos345
+         U6epx/adQYANFqyiibQ7urB/WhyUJO1BHxdyvHhWCK26vS9/ridsUhHfkxL5XzZ68irW
+         6mZOL5UJptqDUOKYGv1kxlEXsLl2NemoTEZ+gIJj6j0BV4oPLiIcsm6Yyyw92pZ0w/Ux
+         2Bl0kmqGHWime7tX5vuXgUJe/aAWd9ohqcmEWnfZr+BWlgTEUhvRXAySzKhX+UYAFXNV
+         JkllrglJXuBmGwoTXWfNgHeagcigZHOxHHqISAFCkII/hYHOxKD5kuq56+JgehDB631k
+         8MXA==
+X-Gm-Message-State: APuU4Z9T85m7w7UrOu55RrUUIkQYTe2p8bCIX+kBrazc6Ay9JnDBeBt4
+	RYJOwDeRyI7D2O9Tzsqi8cTse28M3XZ2ueX9yDD8JxqB/G0wP3p8eA5eYyHQYAK/+7WPxQoUvwE
+	/HiQ+6WXiDG8sSBVYV7lKD5JlE3+0I8zxJNSb87hcSm4XinuzlCFs3UuHjEY=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,94 +57,180 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|PH8PR12MB7230:EE_
-X-MS-Office365-Filtering-Correlation-Id: 68e09c75-9717-43cb-3eb3-08df3f90c20a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|10070799003|23010399003|376014|7416014|1800799024|366016|261026121527099003|11063799006|261009223027099003|261022075727099003|261021121427099003|56012099006|261026140227099003|261022105027099003|261028144727099003|261102123227099003|22082099003|18002099003|6133799003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	eozQps1KACa+v0PVYnR3I32+DvfULPoNsGNqTK2EwvIs5epXDZpuqPiwH03Ao9qmESlWY/BQmjKSXePrVe+GQSgPb2XFyH7SkiQ9KwDdLUnDBs6LAx4uvNMrPvHATSSDnhNaMyzbqjuK5Meio7uzq14F9JANjgUu4EGxSesjvY+SQMsY8Zcu/LvQPoAIVxh3dDdaxjal6XAWoTEJVMt8JnxF+sQcEohS7sHJ9qzTdGYFUKDBBoPReiBcszICK+FaNSmj4H+DAdzmiBxXIZKAjLsFN5JpaGSP3ncL26j283ngThx5l29lC+5UUgE+1hnvgT/NdoXXQ98ps1RB7riTWJQXeVckZZiH4zfKCancKhRLX2mDYJSa+0bfQh/KnaAm72+SmsSWHz03HBRyTJZKFHCpkzL6DwatNxFFOaBL0X1CmfegMU2QXsKh3CzvXVF09TclU0mDllfP8L3d0jiuXahMhYlg6IteBwnNfpNf9QFwdApqOp4Ws1yMAZ0zmRd5qLnD5msMxdfKNkTsZVr2Vxwak9+WoStVI1rNky4C0wtiO+EjUJ08OhtisnxheaSHXbXUMXBNe8G+tdWDOjXmUM+CsbItZFpjgrPhpkBvXpZWsCyzHyfwULRkrQYKxTe7dU3imLyPFHdfqJY5tPEP6Y3V3FZA/uQgI+M0uNRTwjs=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(23010399003)(376014)(7416014)(1800799024)(366016)(261026121527099003)(11063799006)(261009223027099003)(261022075727099003)(261021121427099003)(56012099006)(261026140227099003)(261022105027099003)(261028144727099003)(261102123227099003)(22082099003)(18002099003)(6133799003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?RCs2c1hVdVkwd2tUbFIwbUdEaU1SWk9tdXJrNkwvdGQ3Qm01U1VxVVdlYkNF?=
- =?utf-8?B?QnNYeEw1dXFkb3YwbjBhSnVsdjVId0JVYkxrMWpja2h4a3lncUVGUEFGUlk1?=
- =?utf-8?B?aW9mTG5zcU03dHR1M0RRSlRyN1cyU3FmOGkzRTh6cG83LytkQjJleW5YcHZS?=
- =?utf-8?B?bFhUUVNhRk5WZWpLYnlFTE1ZOHJrY25oUHkxcUJVZU1nZHd0K3ZvSHVlVnQx?=
- =?utf-8?B?cTlIVWpVeGk5aFhUbEd2QWdSTFk3Kzk2N1UwUGxQaEJ6OHI4UFFkcndBV0xw?=
- =?utf-8?B?alliSElRaW13SjBWYWFOSnZDbnR0T05QZVVnaHp2Ni9ZazlnZ1c5TW5zQXBm?=
- =?utf-8?B?dGNJM1AxV3NBNEsyTktOM3JqL2RQSnZJbUJrRHRUalZYZ25QZlQ1TTV3Q3Qr?=
- =?utf-8?B?ejE0VG54YnVkM1VFNG9pczAxTFRwYnRuUUFzQlpnUVhxdDMxQnJVSUVyeEdz?=
- =?utf-8?B?MVlWZG9DSlB5T1NFQTd1RDFLQnpuZktnZFZXSXZRejVzNWF3TjE3eE5PaTlL?=
- =?utf-8?B?NlRaeUZwZjQrbmxrbGpaSXZ3eEptc0pPaXo1UVg5SUxGTUlKRVgwcHpIV0tS?=
- =?utf-8?B?K3lBMTRxRTFvWkR5TkY0UDhXaXp4N01NYk9vaUFQb0lqVUhua05sSHdaN0FG?=
- =?utf-8?B?ZXdweVNhcVYxUmYrOG9IdXpvUFpHbFpaL1daUnpGdVh3bnVtN0pQRVRpU3Bu?=
- =?utf-8?B?V3JaQllMclpXNDNOYUIwc0t2aHhQc2xJNHpNamwwa0xzTzQ3bGRmaWgxZmdB?=
- =?utf-8?B?R0FzdWZpYnNjM2VQTnlXd1dLU0pwbkdEODg2UFBKejFTcEF5a0FRWS80SUJj?=
- =?utf-8?B?RDFiN1hsaUhLVUl4NlcrYXhYV1RxQzRNSzAzZlJmdUQxWHRZZmw0OFB6eFI2?=
- =?utf-8?B?NnFSNHR2NWZ4bEtRTHprcnVhMHBxaVNhZEx0SityTXN6eWpTakphaWJ5SDZV?=
- =?utf-8?B?RWtpWFJITzZaaThyV3I0WHVSRXl5UGdhTHRMdEtLTVF1N3diL2hUWDNrTjBi?=
- =?utf-8?B?SFhoWHFuSERKd29yc1Z0SlJ1T0o1SVZzTTVwM2xMVW5VVTR4T0hodnorVGRD?=
- =?utf-8?B?Sjc4ampHL3FmN001MVcxWmhkTEZhWElJZUZWLy9FTThqdVhISEQ5dXdvSHZ1?=
- =?utf-8?B?bW1FakxyRSs5ZWVUekxVdWNnak1hWmZ3Q1pQOXcxbXZ5d2I3bVB6TjJzb2ti?=
- =?utf-8?B?OUVXTmdKdWpucEIyWnpVczRkeGx2bndGQkl6Umo0Q3ErRTVBNXhaenFET2tt?=
- =?utf-8?B?enJtUXVySzM0UGdlR3hGWUdjbkZwU3pSRTFZcHhQN1J0Zmd6WlcrWEtqY2l6?=
- =?utf-8?B?bXV0aHB0STlLZy9DVnNMVW9nQk0zYWVZTnJTc0ZQbEpiR1BWWFZ3ajVxb21D?=
- =?utf-8?B?bVhIN1JDaG9ENGs3elM5M3pZWHFRRWxSVjRucnlXN3VZbC9HdGpnUzJVakdE?=
- =?utf-8?B?RmhqQTlwY080TS9HWDRYZjZXb25YVDhhd1FuVXh1THlnRXlKdEdqckpDNmdx?=
- =?utf-8?B?WnkrVms3dG5kTkFXS1lQWU1HUUVPZm0xUEwvL2Q5Tmw1TkZ1VzA4SEptU2N0?=
- =?utf-8?B?b2krSE1tbTFnUVBEZnV6NHI1cVArOHFMOWFBNHZrazFKbnQzeXdWUVdaRDJU?=
- =?utf-8?B?YlhLOG9hUEtJR0thbkF4V29QQk5nYjZCdW1uekJPMGRqZndla1BFejc0N3pv?=
- =?utf-8?B?ZU9GYlBmNi9xZWpvOVgxL3BNN0hyYUtDZVlrTWtFZ0NJWnNQQlNsMFZQYnNo?=
- =?utf-8?B?UDVWOVVVZHpBWW54dC9veWxPd2hKRkVWQktCSDZ5L3JVWEp3Z01wM1o1SGw5?=
- =?utf-8?B?MUpFdkFwOWRjN1FqS3JhWVRJdlZLWnN3REU5VTBGYkNKbm9DUkdtczhyV1dQ?=
- =?utf-8?B?Ryt0YUZObkgxa1ppc010QlJTZnBJM3ZQWEZ0YXlUTm5NdmZyZkZtWEdjSi9J?=
- =?utf-8?B?Vk00czFYdm9zT0NTc2hGcXd6NzFCWVpHb2g3enhYMEJlb3hIYWlpc2tIUzRj?=
- =?utf-8?B?Z0ZnaWxUamhkdVZoR2syK0RXMWtUTEtINE5FOTBxeDNlTWRURVg3dTlxc0po?=
- =?utf-8?B?Q3N6RXlSWExzNkdoMTBnWkRPditmYXJNRE91WUxHZ3ZXNlc3YXlTZlE3Umpt?=
- =?utf-8?B?eDd4blZ5OUJQb2xIV2xienphWHBHVXZHQ0JBTFI1VWk4VGN1K0g5R0dVcFVO?=
- =?utf-8?B?U0pOYnlCWDBIQ1BiRHNVQmpFT3A0dWdCWVdDNzMvWGVuYUFCWitkNmlaK3VJ?=
- =?utf-8?B?L3owQmR3ellIRXJ2VkN1YndDMGJVZGcrMmlqUi8xMjY3ZXl0clM2bHIzZDdv?=
- =?utf-8?B?d1BqejFZS3VQVmRyM013QzVnZmE3NzRXc2ZoczZDK1NCb3JjclJNWVBZT0Ro?=
- =?utf-8?Q?plsrgLTSAXbsiqarCAsS6fsQwkEWa5Kl+0nMkJvNY8YMB?=
-X-MS-Exchange-AntiSpam-MessageData-1: 7WmebA/QcdAK5g==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 68e09c75-9717-43cb-3eb3-08df3f90c20a
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 01:11:47.5102
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ai4RGfJuVSgJNcjc1Ve8MOvqd0airhnN4WTf3Zhm+OcDRMiD4G5gt+hHXrP8pw68Y1pZIAHpc370/87ezUKXmw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7230
+X-Received: by 2002:a05:6808:6614:b0:4d6:90f3:74a1 with SMTP id
+ 5614622812f47-56b9771889emr610667b6e.44.1794359555068; Tue, 10 Nov 2026
+ 17:12:35 -0800 (PST)
+Date: Tue, 10 Nov 2026 17:12:35 -0800
+In-Reply-To: <6a900c70.50659fcc.60cd.0013.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6af3c103.c2a1e073.10a5a1.117d.GAE@google.com>
+Subject: Forwarded: Re: [syzbot] [block?] BUG: unable to handle kernel paging
+ request in blk_mq_complete_request_remote
+From: syzbot <syzbot+2e3bf0bd49acd9b21d4b@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue Oct 20, 2026 at 5:21 AM JST, Sami Tolvanen via B4 Relay wrote:
-> From: Sami Tolvanen <samitolvanen@google.com>
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
+
+***
+
+Subject: Re: [syzbot] [block?] BUG: unable to handle kernel paging request in blk_mq_complete_request_remote
+Author: nenkov2004@gmail.com
+
+#syz test: https://github.com/torvalds/linux.git
+58c1eb84e97701c583605ba2fd553b69afba2245
+
+
+On Tue, 10 Nov 2026 13:49:04 -0800, syzbot
+<syzbot+2e3bf0bd49acd9b21d4b@syzkaller.appspotmail.com> wrote:
+> Hello,
 >
-> `SGTableMap::new()` takes a pages reference and maps the table before
-> `Devres::new()` allocates. If the allocation fails, dropping the map
-> frees the table but keeps the reference, and the next `sg_table()`
-> takes another one. `drm_gem_shmem_release()` puts only one, so the
-> pages leak.
+> syzbot has tested the proposed patch but the reproducer is still triggering an issue:
+> KASAN: null-ptr-deref Write in fib_insert_alias
 >
-> Take the pages in the initializer, after the allocation.
+> ==================================================================
+> BUG: KASAN: null-ptr-deref in hlist_add_before_rcu include/linux/rculist.h:744 [inline]
+> BUG: KASAN: null-ptr-deref in fib_insert_alias+0xb0/0xb08 net/ipv4/fib_trie.c:1160
+> Write of size 8 at addr 0000000000000000 by task syz-executor/5244
 >
-> Fixes: 616c229ab010 ("rust: drm: gem: Introduce shmem::Object::sg_table()=
-")
-> Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
-
-Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
-
-As Alice mentioned we probably want a follow-up that makes the API more
-symmetric (by calling `drm_gem_shmem_put_pages_locked()` in the
-destructor?), as right now SGTableMap's Drop implementation doesn't undo
-its constructor completely.
-
-But this change is good to have regardless as we want to acquire the
-pages after Devres' allocation succeeds, otherwise there is not point
-returning an `impl Init`.
+> CPU: 1 UID: 0 PID: 5244 Comm: syz-executor Not tainted syzkaller #0 PREEMPT
+> Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 11/06/2026
+> Call trace:
+> show_stack+0x2c/0x3c arch/arm64/kernel/stacktrace.c:499 (C)
+> __dump_stack+0x30/0x40 lib/dump_stack.c:94
+> dump_stack_lvl+0xd8/0x12c lib/dump_stack.c:120
+> print_report+0x58/0x84 mm/kasan/report.c:485
+> kasan_report+0x8c/0xc4 mm/kasan/report.c:595
+> check_region_inline mm/kasan/generic.c:-1 [inline]
+> kasan_check_range+0x17c/0x1ac mm/kasan/generic.c:200
+> __kasan_check_write+0x20/0x30 mm/kasan/shadow.c:37
+> hlist_add_before_rcu include/linux/rculist.h:744 [inline]
+> fib_insert_alias+0xb0/0xb08 net/ipv4/fib_trie.c:1160
+> fib_table_insert+0x5dc/0x12bc net/ipv4/fib_trie.c:1352
+> fib_magic+0x26c/0x344 net/ipv4/fib_frontend.c:1147
+> fib_add_ifaddr+0x2e0/0x500 net/ipv4/fib_frontend.c:1184
+> fib_netdev_event+0x35c/0x49c net/ipv4/fib_frontend.c:1529
+> notifier_call_chain+0x1a4/0x4cc kernel/notifier.c:86
+> raw_notifier_call_chain+0x3c/0x50 kernel/notifier.c:558
+> call_netdevice_notifiers_info+0xb8/0x120 net/core/dev.c:2313
+> call_netdevice_notifiers_extack net/core/dev.c:2351 [inline]
+> call_netdevice_notifiers net/core/dev.c:2365 [inline]
+> __dev_notify_flags+0x288/0x438 net/core/dev.c:10051
+> netif_change_flags+0xd0/0x15c net/core/dev.c:10080
+> do_setlink+0xc28/0x32d4 net/core/rtnetlink.c:3294
+> rtnl_changelink net/core/rtnetlink.c:3942 [inline]
+> __rtnl_newlink net/core/rtnetlink.c:4113 [inline]
+> rtnl_newlink+0xf48/0x1390 net/core/rtnetlink.c:4252
+> rtnetlink_rcv_msg+0x66c/0x9bc net/core/rtnetlink.c:7169
+> netlink_rcv_skb+0x238/0x414 net/netlink/af_netlink.c:2584
+> rtnetlink_rcv+0x28/0x38 net/core/rtnetlink.c:7196
+> netlink_unicast_kernel net/netlink/af_netlink.c:1335 [inline]
+> netlink_unicast+0x73c/0x934 net/netlink/af_netlink.c:1361
+> netlink_sendmsg+0x670/0x98c net/netlink/af_netlink.c:1920
+> sock_sendmsg_nosec net/socket.c:800 [inline]
+> __sock_sendmsg+0xc8/0x188 net/socket.c:818
+> __sys_sendto+0x250/0x328 net/socket.c:2283
+> __do_sys_sendto net/socket.c:2290 [inline]
+> __se_sys_sendto net/socket.c:2286 [inline]
+> __arm64_sys_sendto+0xec/0x10c net/socket.c:2286
+> __invoke_syscall arch/arm64/kernel/syscall.c:35 [inline]
+> invoke_syscall+0x98/0x244 arch/arm64/kernel/syscall.c:49
+> el0_svc_common+0xec/0x23c arch/arm64/kernel/syscall.c:121
+> do_el0_svc+0x4c/0x5c arch/arm64/kernel/syscall.c:140
+> el0_svc+0x60/0x1d8 arch/arm64/kernel/entry-common.c:797
+> el0t_64_sync_handler+0x44/0x104 arch/arm64/kernel/entry-common.c:816
+> el0t_64_sync+0x198/0x19c arch/arm64/kernel/entry.S:606
+> ==================================================================
+> Unable to handle kernel NULL pointer dereference at virtual address 0000000000000000
+> Mem abort info:
+> ESR = 0x0000000096000044
+> EC = 0x25: DABT (current EL), IL = 32 bits
+> SET = 0, FnV = 0
+> EA = 0, S1PTW = 0
+> FSC = 0x04: level 0 translation fault
+> Data abort info:
+> ISV = 0, ISS = 0x00000044, ISS2 = 0x00000000
+> CM = 0, WnR = 1, TnD = 0, TagAccess = 0
+> GCS = 0, Overlay = 0, DirtyBit = 0
+> user pgtable: 4k pages, 48-bit VAs, pgdp=00000001173dd000
+> [0000000000000000] pgd=0000000000000000, p4d=0000000000000000
+> Internal error: Oops: 0000000096000044 [#1] SMP
+> Modules linked in:
+> CPU: 1 UID: 0 PID: 5244 Comm: syz-executor Tainted: G B syzkaller #0 PREEMPT
+> Tainted: [B]=BAD_PAGE
+> Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 11/06/2026
+> pstate: 83400005 (Nzcv daif +PAN -UAO +TCO +DIT -SSBS BTYPE=--)
+> pc : hlist_add_before_rcu include/linux/rculist.h:744 [inline]
+> pc : fib_insert_alias+0xb0/0xb08 net/ipv4/fib_trie.c:1160
+> lr : hlist_add_before_rcu include/linux/rculist.h:744 [inline]
+> lr : fib_insert_alias+0xb0/0xb08 net/ipv4/fib_trie.c:1160
+> sp : ffff800096b86750
+> x29: ffff800096b86780 x28: ffff0000c8fb8528 x27: ffff0000eb35fc20
+> x26: dfff800000000000 x25: 0000000000000018 x24: ffff0000c8fb8210
+> x23: ffff0000dcc87660 x22: 0000000000000000 x21: ffff0000c8fb8528
+> x20: ffff0000c8fb8218 x19: 1fffe000191f7043 x18: 0000000000000000
+> x17: 3d3d3d3d3d3d3d3d x16: 3d3d3d3d3d3d3d3d x15: 3d3d3d3d3d3d3d3d
+> x14: 00000000000006f9 x13: 0000000000000001 x12: 0000000000000000
+> x11: 0000000000000000 x10: ffff70001161f92d x9 : 0000000000000000
+> x8 : 0000000000000000 x7 : 0000000000000000 x6 : ffff8000804a0c38
+> x5 : 0000000000000000 x4 : 0000000000000000 x3 : ffff80008030c9a8
+> x2 : 0000000000000000 x1 : ffff0000c1fb1d80 x0 : 0000000000000000
+> Call trace:
+> hlist_add_before_rcu include/linux/rculist.h:744 [inline] (P)
+> fib_insert_alias+0xb0/0xb08 net/ipv4/fib_trie.c:1160 (P)
+> fib_table_insert+0x5dc/0x12bc net/ipv4/fib_trie.c:1352
+> fib_magic+0x26c/0x344 net/ipv4/fib_frontend.c:1147
+> fib_add_ifaddr+0x2e0/0x500 net/ipv4/fib_frontend.c:1184
+> fib_netdev_event+0x35c/0x49c net/ipv4/fib_frontend.c:1529
+> notifier_call_chain+0x1a4/0x4cc kernel/notifier.c:86
+> raw_notifier_call_chain+0x3c/0x50 kernel/notifier.c:558
+> call_netdevice_notifiers_info+0xb8/0x120 net/core/dev.c:2313
+> call_netdevice_notifiers_extack net/core/dev.c:2351 [inline]
+> call_netdevice_notifiers net/core/dev.c:2365 [inline]
+> __dev_notify_flags+0x288/0x438 net/core/dev.c:10051
+> netif_change_flags+0xd0/0x15c net/core/dev.c:10080
+> do_setlink+0xc28/0x32d4 net/core/rtnetlink.c:3294
+> rtnl_changelink net/core/rtnetlink.c:3942 [inline]
+> __rtnl_newlink net/core/rtnetlink.c:4113 [inline]
+> rtnl_newlink+0xf48/0x1390 net/core/rtnetlink.c:4252
+> rtnetlink_rcv_msg+0x66c/0x9bc net/core/rtnetlink.c:7169
+> netlink_rcv_skb+0x238/0x414 net/netlink/af_netlink.c:2584
+> rtnetlink_rcv+0x28/0x38 net/core/rtnetlink.c:7196
+> netlink_unicast_kernel net/netlink/af_netlink.c:1335 [inline]
+> netlink_unicast+0x73c/0x934 net/netlink/af_netlink.c:1361
+> netlink_sendmsg+0x670/0x98c net/netlink/af_netlink.c:1920
+> sock_sendmsg_nosec net/socket.c:800 [inline]
+> __sock_sendmsg+0xc8/0x188 net/socket.c:818
+> __sys_sendto+0x250/0x328 net/socket.c:2283
+> __do_sys_sendto net/socket.c:2290 [inline]
+> __se_sys_sendto net/socket.c:2286 [inline]
+> __arm64_sys_sendto+0xec/0x10c net/socket.c:2286
+> __invoke_syscall arch/arm64/kernel/syscall.c:35 [inline]
+> invoke_syscall+0x98/0x244 arch/arm64/kernel/syscall.c:49
+> el0_svc_common+0xec/0x23c arch/arm64/kernel/syscall.c:121
+> do_el0_svc+0x4c/0x5c arch/arm64/kernel/syscall.c:140
+> el0_svc+0x60/0x1d8 arch/arm64/kernel/entry-common.c:797
+> el0t_64_sync_handler+0x44/0x104 arch/arm64/kernel/entry-common.c:816
+> el0t_64_sync+0x198/0x19c arch/arm64/kernel/entry.S:606
+> Code: aa1603e0 52800101 f90002b8 96d8b07a (c89ffed5)
+> ---[ end trace 0000000000000000 ]---
+> ----------------
+> Code disassembly (best guess):
+> 0: aa1603e0 mov x0, x22
+> 4: 52800101 mov w1, #0x8 // #8
+> 8: f90002b8 str x24, [x21]
+> c: 96d8b07a bl 0xfffffffffb62c1f4
+> * 10: c89ffed5 stlr x21, [x22] <-- trapping instruction
+>
+> Tested on:
+>
+> commit: 067c5c24 Merge tag 'page_alloc-for-7.4-rc2' of git://g..
+> git tree: upstream
+> console output: https://syzkaller.appspot.com/x/log.txt?x=12c7b1fd580000
+> kernel config: https://syzkaller.appspot.com/x/.config?x=c06331d9bb9c8204
+> dashboard link: https://syzkaller.appspot.com/bug?extid=2e3bf0bd49acd9b21d4b
+> compiler: Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+> userspace arch: arm64
+> patch: https://syzkaller.appspot.com/x/patch.diff?x=16dccebe580000
