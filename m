@@ -1,65 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794386594;
-	b=aAETEpR2lea3YFIzFKfK6VL6ef6JlWzNh8ndpKej60d+4tl8Mip55F9q8W/lwTP+IveM
-	 FEWFMRb3lYDkRpJ1V6Y3JjKoo5M5Xf60Vu0jcBz1xzaVRi7KvsJyF2v/BAPm6/jQmhk9h
-	 rsHMX5cX7CRSNssAvlNQQs10+yTupwHadsUV2lTsYHRCy2vV3UnW0pKgnH+JuM0CcWj1I
-	 I03zkrPjHTJlvvJPoEBwHva8I67Dukx9QlhOFpTLjXy2MCWnFF5DgbwAdiV1q+ACOH8I1
-	 3xyozjCiZzg8wS9hZYFTppOhxbb7I1XkqX1w3nkgS7wSYSLoFvyVrwGxL5FPxQfCKrA==
+	t=1794386658;
+	b=KG9rQKCoaGbpXB1JzGgppaWItPYZRSWY9dbxJUHhl6qZxojErsX+KvDeELUC4LyE+Dd+
+	 W4yrnI5zZ3ixQfSZAYJvOHzkZ2+U/0Hh/l5/EHRVjm9B+3/uQCw0yvcD1HZzdvCM/9hEK
+	 FJ+0UpuhI1jQN5Bc1G6DE2EmdPMs15ExwDZLlhISgqssZoiXaKeUX1CpBNNVFYRYN9AMB
+	 J7uokswprQDljLWrFyHiHFbpPvN8R+R4zPXiAiMoJrkvVKPShLcGRXyHYwBzaSQA1LN3a
+	 Pcws2s3QePOIysrMzw247V2sBdU4sN7k8Edd+1fdhvqkS3qCn6gOFvlZSEqbFJJyGPQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794386594;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=wN2OC1t+3U09rHRWjhqWomp66EIWenKx57TtkIRB3aA=;
-	b=AooqkM5I8pkWVHmU5e8B9pL/Q8fk/oTA9zVlkrr/s0mFuJYXQgQgBtxkgLlSDUhqnLVd
-	 4OSAxK2AeLmW9V980lzk4c2kZCuSpx+LmNXP40KfW578XF1uWmpve95fbKV3E/g/koGWp
-	 ohsEktUVzpQ31mCvlOCqxVEvv0RBiug/5ewMjFP5KykLdtJQxV+JWdfgj2enQi+EoSQN6
-	 lUnHATdKPw97j5NAaZbdJKp+RFyoJcTnBglz29UtawP+NzC+zV272NtLcaOFGxnqRYcju
-	 fGla8Myotv2hDIjbIxnCpfxkvmEh63Sah8CHinmIqWG+stI2JBPllabou8H5rFNBuLA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794386658;
+	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Stat-Signature:X-Rspamd-Server:
+	 X-Rspamd-Queue-Id:X-Spam-Status:X-Session-Marker:X-Session-ID:
+	 DKIM-Signature:X-HE-Tag:X-HE-Meta;
+	bh=kj4d2juRbTUyjRObk5lhKiw8KbvGP7+NJHQ2SToNLJA=;
+	b=1F8LlE8nwcnkne5BLHvQDqmv0ePyNEN0/Ua2befT7JSQNjZIOvFBIXZ1OvTkik1Ww7ot
+	 qYfhaORAmR6G7TET9NQD0RIsm4jFtI2ZInCB7dn/8ps8TmWdP6qiaMYft/pRjGDOwfWiV
+	 u2GTDRWCCzMpJVLsYNtVgw/dRsi+5AO3du5uNg7Y8XbpXTsX6I4zCuc4BeEjnutNczITW
+	 P0YRajegbzf44DtAB87oXDReuK3r6K4in0yBOhmyx+WulNgB3uFpoB9t1ZzK6gBF9sWg7
+	 oS6BS+A9Pu9QbKuitgMGGJYYBtFAgZG4bGGHKrGzpgc6ppb+qg7Dl1e2uuHlIU6t9Tw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b="nWF/Qw4B";
-	arc=none smtp.remote-ip=111.22.67.139
-Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 65814606A330
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 08:43:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65814606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dmarc=pass header.from=goodmis.org;
+	spf=pass smtp.mailfrom=goodmis.org;
+	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b="4q/KfQgV";
+	arc=none smtp.remote-ip=216.40.44.17
+Received: from relay.hostedemail.com (smtprelay0017.hostedemail.com [216.40.44.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D691606A320;
+	Wed, 11 Nov 2026 08:44:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9D691606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=nWF/Qw4B
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=nWF/Qw4Bbem7LWAt+8VWjlRkzwe989aBTlzW87OaBG619/wdJz1LF4ZL1EtX/SSXBqvgrGco80yoL
-	 TQEPKpL2dJVNkvjFcy75c8i9uUCs/d3Q7xjhwSJ46xtER8CA+j2qx6XQNjRxy6zOq955la1ycBCe/K
-	 BW+AoESW1Gq7Lw4I=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app01-12001 (RichMail) with SMTP id 2ee16af42a9c5ef-b2a7a;
-	Wed, 11 Nov 2026 16:43:12 +0800 (CST)
-X-RM-TRANSID:2ee16af42a9c5ef-b2a7a
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from devin-VMware-Virtual-Platform.localdomain (unknown[10.55.1.72])
-	by rmsmtp-syy-appsvr04-12004 (RichMail) with SMTP id 2ee46af42a9fae4-d5c11;
-	Wed, 11 Nov 2026 16:43:12 +0800 (CST)
-X-RM-TRANSID:2ee46af42a9fae4-d5c11
-From: Zhu Jun <zhujun2@cmss.chinamobile.com>
-To: oleg@redhat.com
-Cc: brauner@kernel.org,
-	linux-kernel@vger.kernel.org,
-	syzbot+0f4d5234b6cb5e479e5d@syzkaller.appspotmail.com,
-	Zhu Jun <zhujun2@cmss.chinamobile.com>
-Subject: [PATCH] signal: Preserve the ptrace stop code for SIGCHLD notification
-Date: Wed, 11 Nov 2026 16:43:10 +0800
-Message-ID: <20261111084310.81013-1-zhujun2@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.51.0
+	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=4q/KfQgV
+Received: from omf07.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay06.hostedemail.com (Postfix) with ESMTP id B1896A794B;
+	Wed, 11 Nov 2026 08:44:13 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf07.hostedemail.com (Postfix) with ESMTPA id AF7D02002D;
+	Wed, 11 Nov 2026 08:43:59 +0000 (UTC)
+Date: Wed, 11 Nov 2026 03:43:52 -0500
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: linux-hardening@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>,
+ "Maciej W. Rozycki" <macro@orcam.me.uk>, Geert Uytterhoeven
+ <geert@linux-m68k.org>, Andreas Schwab <schwab@linux-m68k.org>, Andy
+ Shevchenko <andy@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Daniel
+ Scally <djrscally@gmail.com>, Danilo Krummrich <dakr@kernel.org>, Greg
+ Kroah-Hartman <gregkh@linuxfoundation.org>, Hans Verkuil
+ <hverkuil-cisco@xs4all.nl>, Heikki Krogerus
+ <heikki.krogerus@linux.intel.com>, Joe Perches <joe@perches.com>, Johan
+ Hovold <johan@kernel.org>, Kees Cook <kees@kernel.org>, Laurent Pinchart
+ <laurent.pinchart@ideasonboard.com>, Len Brown <lenb@kernel.org>, Linus
+ Torvalds <torvalds@linux-foundation.org>, Linus Walleij
+ <linusw@kernel.org>, Namhyung Kim <namhyung@kernel.org>, "Rafael J.
+ Wysocki" <rafael@kernel.org>, Rob Herring <robh@kernel.org>, Sakari Ailus
+ <sakari.ailus@linux.intel.com>, Saravana Kannan <saravanak@kernel.org>, Tom
+ Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org,
+ driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, Bartosz Golaszewski
+ <bartosz.golaszewski@oss.qualcomm.com>
+Subject: Re: [PATCH v3 1/5] string: Add strprefix(), and deprecate
+ str_has_prefix()
+Message-ID: <20261111034352.5c45e30f@fedora>
+In-Reply-To: <556766412884389a7cecfe6affcc9fa3a78f9807.1794323750.git.alx@kernel.org>
+References: <cover.1794323750.git.alx@kernel.org>
+	<556766412884389a7cecfe6affcc9fa3a78f9807.1794323750.git.alx@kernel.org>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,99 +77,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Stat-Signature: 9reopibxfacub77xym1aj6ezurap8jk8
+X-Rspamd-Server: rspamout04
+X-Rspamd-Queue-Id: AF7D02002D
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX1/dz/mQgZDwHS78NvaXBjDCWjyDcEshuPI=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=kj4d2juRbTUyjRObk5lhKiw8KbvGP7+NJHQ2SToNLJA=; b=4q/KfQgVhXoeg8xxMeWFbqjrWg46MH1GvbRkZIHunPPEhGE2FUz3n26rVbQKu7mQEd3oLUVEREy1FX2Z7IQPxf5GoltXzV/840+Y6haIl3aFDHw3C1e6iwsAhmkyrsa0rV6Ud+cjmoPNFR4DjsrldCCabHIkWJ2YSuSlxaffT/k=
+X-HE-Tag: 1794386639-904136
+X-HE-Meta: U2FsdGVkX1/C781zNDqzzzHmIbqsmLh06ijPMbUYTNeFmEftFAzWFbEeoukyycUuSbCaZii994t1DsdsTGSfeaDSTYrLJIKWL0NXbWbZyZRqYcTZtA8hOGedLXB25zjW0dUgWN8qmnqKDkOX1Sa+103QOaHyhExVRadf5Ttml/P5URtJEB+pEyGY56v/iWfRffSuoBC69xXt0ioMcQUxW3ka6yhxD7p0Hfg2UVzA87r1+YwE0GTPH4nQCr6t5z4DBNkHW7EAKQli0TZEiqo8Bq+Bdd73SWVl5pWGGlU/u6CSuuEuopC9IQKy8y0kS4BKyg7ajHjxBP9sI1/eA9aMLuoKckNRCBTB
 
-After ptrace_stop() drops siglock, the tracer can consume the stop with
-waitpid() and clear the tracee's exit_code. do_notify_parent_cldstop()
-then rereads that field without siglock and can report CLD_TRAPPED with
-a zero si_status instead of the stop signal.
+On Tue, 10 Nov 2026 16:33:23 +0100
+Alejandro Colomar <alx@kernel.org> wrote:
 
-Pass the stop code saved in ptrace_stop() to the notification helper.
-The other notification reasons continue to obtain their status from
-the existing group-stop and continuation state.
+> +/**
+> + * str_has_prefix - Test if a string has a given prefix
+> + * @str: The string to test
+> + * @prefix: The string to see if @str starts with
+> + *
+> + * DEPRECATED: Use strprefix()
 
-Fixes: 1da177e4c3f41 ("Linux-2.6.12-rc2")
-Signed-off-by: Zhu Jun <zhujun2@cmss.chinamobile.com>
----
- kernel/signal.c | 17 +++++++++--------
- 1 file changed, 9 insertions(+), 8 deletions(-)
+I'm still not convinced, so NAK on this part.
 
-diff --git a/kernel/signal.c b/kernel/signal.c
-index dd770e68faee..d3afa9b846f6 100644
---- a/kernel/signal.c
-+++ b/kernel/signal.c
-@@ -2346,6 +2346,7 @@ bool do_notify_parent(struct task_struct *tsk, int sig)
-  * @tsk: task reporting the state change
-  * @for_ptracer: the notification is for ptracer
-  * @why: CLD_{CONTINUED|STOPPED|TRAPPED} to report
-+ * @exit_code: saved ptrace stop code when @why is CLD_TRAPPED
-  *
-  * Notify @tsk's parent that the stopped/continued state has changed.  If
-  * @for_ptracer is %false, @tsk's group leader notifies to its real parent.
-@@ -2355,7 +2356,7 @@ bool do_notify_parent(struct task_struct *tsk, int sig)
-  * Must be called with tasklist_lock at least read locked.
-  */
- static void do_notify_parent_cldstop(struct task_struct *tsk,
--				     bool for_ptracer, int why)
-+				     bool for_ptracer, int why, int exit_code)
- {
- 	struct kernel_siginfo info;
- 	unsigned long flags;
-@@ -2394,7 +2395,7 @@ static void do_notify_parent_cldstop(struct task_struct *tsk,
-  		info.si_status = tsk->signal->group_exit_code & 0x7f;
-  		break;
-  	case CLD_TRAPPED:
-- 		info.si_status = tsk->exit_code & 0x7f;
-+		info.si_status = exit_code & 0x7f;
-  		break;
-  	default:
-  		BUG();
-@@ -2512,9 +2513,9 @@ static int ptrace_stop(int exit_code, int why, unsigned long message,
- 	 * separately unless they're gonna be duplicates.
- 	 */
- 	if (current->ptrace)
--		do_notify_parent_cldstop(current, true, why);
-+		do_notify_parent_cldstop(current, true, why, exit_code);
- 	if (gstop_done && (!current->ptrace || ptrace_reparented(current)))
--		do_notify_parent_cldstop(current, false, why);
-+		do_notify_parent_cldstop(current, false, why, 0);
- 
- 	/*
- 	 * The previous do_notify_parent_cldstop() invocation woke ptracer.
-@@ -2710,7 +2711,7 @@ static bool do_signal_stop(int signr)
- 		 */
- 		if (notify) {
- 			read_lock(&tasklist_lock);
--			do_notify_parent_cldstop(current, false, notify);
-+			do_notify_parent_cldstop(current, false, notify, 0);
- 			read_unlock(&tasklist_lock);
- 		}
- 
-@@ -2927,11 +2928,11 @@ bool get_signal(struct ksignal *ksig)
- 		 * a duplicate.
- 		 */
- 		read_lock(&tasklist_lock);
--		do_notify_parent_cldstop(current, false, why);
-+		do_notify_parent_cldstop(current, false, why, 0);
- 
- 		if (ptrace_reparented(current->group_leader))
- 			do_notify_parent_cldstop(current->group_leader,
--						true, why);
-+						true, why, 0);
- 		read_unlock(&tasklist_lock);
- 
- 		goto relock;
-@@ -3235,7 +3236,7 @@ void exit_signals(struct task_struct *tsk)
- 	 */
- 	if (unlikely(group_stop)) {
- 		read_lock(&tasklist_lock);
--		do_notify_parent_cldstop(tsk, false, group_stop);
-+		do_notify_parent_cldstop(tsk, false, group_stop, 0);
- 		read_unlock(&tasklist_lock);
- 	}
- }
--- 
-2.51.0
+-- Steve
 
 
-
+> + *
+> + * A common way to test a prefix of a string is to do:
+> + *  strncmp(str, prefix, sizeof(prefix) - 1)
+> + *
+> + * But this can lead to bugs due to typos, or if prefix is a pointer
+> + * and not a constant. Instead use strprefix().
+>   *
