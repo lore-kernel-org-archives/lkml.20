@@ -1,62 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794404220;
-	b=TI6/q3VCuph/cyqbpfE4sMBoKSPalOxM2I2mTmsKc0ElpXnrEjvnlQeWKwn+xDVwHAKd
-	 IsR/xEq0QoXA9aUwmO7UUQA/YILV43HyKq4iwEeB7iVJa5IRnisz06s5JQtFCB6w1wfiD
-	 ZIR6Dw+0uphF4cW/bgxRkmd8C3z4PDmGasagnA0GC8ecBFcyW7ov9SRpoXkIrvc8i9KFF
-	 En/n7QNGr6uh6gdx/X67Soqh2CTcaDJwu3qamQaLLhex9XXvY5c2DJ2JfCLNfkf04chUi
-	 RCq5UUhYFd9+wMLhfbxACajLm77I0mz0sXpe3UhJxl2KFLpmQ2G65Ix+CrtZWvT84sA==
+	t=1794404223;
+	b=XCIumGlhLpqD3E+IkHlFs3P1Q547unD55gMsRR1Oz72Epy5XEuoMLmJaSznxgew6rxVw
+	 Dd59ifHfKNwAVs3TMj99hv238nasq+tepBowP8PlUvdA2VmJkzNY7xKOfvEvq+MiRakkn
+	 6t7vVLLjMhncxpwBzhh83fBqYi1xWtRHdIkAM9oVxeVdBXd5siSoEtxZl41WPB8vpRx0q
+	 noyIlb6US/ntbiG9+K/1Tn+iimDLWgujF5YARTw6xiWorDEaeJXO+OigRyPmsTC01Oy/O
+	 Y2BXTGd0Yd55iRjstObY9DUBRAtKePKuuaVLmMR1LHyjTpr8LKmY4R6At7InAVIxUXA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794404220;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794404223;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:X-Developer-Signature:X-Developer-Key:
-	 Content-Transfer-Encoding;
-	bh=WET0xlYV7rXuRE+d7+OZIC1CPgEIolv+NtAvCsaAG0w=;
-	b=xLbjJQjye9SC3ARqJULbEIa3zDOei2FNrmc2/csNOoJ0o6e1wzhY4RHtsTKJ5DmwHQOt
-	 BSjRfpPRfBloMo21cLV14AArAJdqR65Xf89xjLWR6+yMrHQp7QW1DmsRCwPcIfQHl+aoB
-	 OXAiTbHu6gVF1GwlYPZJ1z0e8R/nmRtAztWq4cD+ntkk3GUzQ9xESBIbhxGJCLBiifgd7
-	 WAEr/GQYbOY+A/EIf7Z/GV0GUmnjBcXnHd2zbcbtM0pdzjHM1+z7o+KYTEmbODiRjmWUf
-	 5HPuJobCY0oTIaKH/tEvBSis9F5cB2TxRDPLJKmQ/TT2HgEpIoPy8GZTegPSKPkAIEw==
+	 In-Reply-To:References:MIME-Version:X-Developer-Signature:
+	 X-Developer-Key:Content-Transfer-Encoding;
+	bh=wfWLdiHNFBQdWNacF/GCPagly5pHlhMKOHF4T+ktheY=;
+	b=TLPneuI+lzmOxveunwIEJyH0K2V3G8LIgDt0PIjX/fjKyBhBzSFTFLNVw4ZkS3YpekJp
+	 HlI3QlTuMdq2RdYRohX65f4oCkP6n1ehBhf6gQwac/uyiJ8SZ1qh3CUh4gxmihg/H/tBA
+	 P+SNnQeEq+TEgZj+CkzPQ4kShbZ4rrNLGp/zLaxnlqKvKK3eXPd9iHHxE4tfP3BS2JT/o
+	 HCrIPpD5lMZdRH2EVoDLa4EBU6jta0tUbrqQ3+1QxZgZeSZP4X+1egpk/bltl5DUN6GVz
+	 Rz5l5rcM9KTlWzjtXHcLtq9vbnHjARj3ivOcB1Qu/U18CSX4hdxtMx3GfGBVGnWUT8g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mwyARJPd;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h5R6pmsp;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7887E606A327
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:37:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52A9C606A33E
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:37:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mwyARJPd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EE5F1F00A05;
-	Wed, 11 Nov 2026 13:36:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h5R6pmsp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A86CC1F00A05;
+	Wed, 11 Nov 2026 13:37:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794404219;
-	bh=WET0xlYV7rXuRE+d7+OZIC1CPgEIolv+NtAvCsaAG0w=;
-	h=From:To:Cc:Subject:Date;
-	b=mwyARJPdm3b3e5qMSPk95IYFuFI1WnwQMb3IrPTcBE5WoCX4vh+2wWDWdYIn5O/Ph
-	 BZ/Ezk1c4FC8DzAxOWr+g97SyEhP9RHzHp3wah/d0ynIYmBkevQRHN87MDKJHy/sR4
-	 pRjrOXNxj2tQuQQzanI1PbqRajLW/VtDQ32FWyOufB16qfVokKLfyhP9K6flcAJ3Ga
-	 HKfcrD3bgirC4SUsVH0uKQTqUUSCqN14DqbfwfDQDwKkdfvUln7FrkBV7JkqZR4dJ0
-	 6msArhbwLiVQo+7WbLGeOdNbIxYYz9rGN2mHXjamlWAM98ntYe/84soJUvbN8HH4wY
-	 g+9340udv7E/Q==
+	s=k20260515; t=1794404223;
+	bh=wfWLdiHNFBQdWNacF/GCPagly5pHlhMKOHF4T+ktheY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=h5R6pmspt2PC3yM0LxVgrf0VkpV42K2HhwlvbJ66y47F3WXycOS47E55VN1tjoVKe
+	 rcpVnQlipmxjr7cM7Spd7HGpOM1Jtg8kfk/Dn12uuVFo8SCnlOyaGmopcv/MKaSnPD
+	 ND5eShIOGxbQ9vWg1VRxHKXFH+zVAgM2v/wAn/SThnKqc2SfAplA73fnky9mSxfkVx
+	 6nH9NjfbMhttA3l0xMFpfvHqMtYp5o7SKtfLH1IphOjrdRskeQpKCMZ2G0i64lCTXn
+	 y1+PgNW9bmW8Y3LzilF5wPc1oUjeP4wYTHLVI3bBhK0kQ+xO4a5NSKLfQ5jlA+rHHD
+	 6rd0YGAqY2BIA==
 From: Thorsten Blum <blum@kernel.org>
 To: "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	Andy Lutomirski <luto@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
 	Thomas Gleixner <tglx@kernel.org>,
 	Ingo Molnar <mingo@redhat.com>,
 	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
 	x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Andy Lutomirski <luto@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Juergen Gross <jgross@suse.com>
+	"H. Peter Anvin" <hpa@zytor.com>
 Cc: Thorsten Blum <blum@kernel.org>,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 1/2] x86/mm: Make highstart_pfn and highend_pfn local to initmem_init()
-Date: Wed, 11 Nov 2026 14:36:34 +0100
-Message-ID: <20261111133635.75044-3-blum@kernel.org>
+Subject: [PATCH 2/2] x86/mm: Convert printk(KERN_*) to pr_*() in initmem_init()
+Date: Wed, 11 Nov 2026 14:36:35 +0100
+Message-ID: <20261111133635.75044-4-blum@kernel.org>
 X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261111133635.75044-3-blum@kernel.org>
+References: <20261111133635.75044-3-blum@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,62 +67,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1824; i=blum@kernel.org; h=from:subject; bh=J8CWfehBozpbvQSbVKv+hYbNyWna8OSl3L8/aXEoDOk=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFlf8pODPWQnyX2cXiuxwi5y1+4ZDx9IuEh2J+nNMN546 H3Enr0hHaUsDGJcDLJiiiwPZv2Y4VtaU7nJJGInzBxWJpAhDFycAjCRY/cYGX5n87UURf7IPVC3 YsITxbwVwV06tuqRF3c4OCQ2LdPSrmRkaPDJbnRXfhJyidFEbc7ahvKZH+9XFEpPY7S9IbfQqz6 AAQA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1508; i=blum@kernel.org; h=from:subject; bh=t/825LBm9ZGT/1Vvy5eL6aAEkruXSI7f9R2b0Df9Dh8=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFlf8nMUzl5uTmU/psDwOZcj4lD51ef+asf1dHJfKN5Ys nXFh2lfO0pZGMS4GGTFFFkezPoxw7e0pnKTScROmDmsTCBDGLg4BWAi5i6MDAf9vlwOSHYsmrd7 t/v0BS0cR5J/HIx/Xffm7RlV9em7bDcyMnzYeqXLKv0Kw8N1K7yXsh5UC5biPfEkM8ZOeaJkSdz 5axwA
 X-Developer-Key: i=blum@kernel.org; a=openpgp; fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
 Content-Transfer-Encoding: 8bit
 
-Since commit 35c3151a98a6 ("x86/mm: Consolidate initmem_init()") removed
-arch/x86/mm/numa_32.c, highstart_pfn and highend_pfn are only used in
-initmem_init().
-
-Declare both variables locally and remove their unused extern
-declaration. Use min() to initialize highstart_pfn.
+Convert printk(KERN_*) to pr_notice() and pr_info(), use %lu for the
+unsigned long arguments, and add spaces around the shift operators.
 
 No functional change.
 
 Signed-off-by: Thorsten Blum <blum@kernel.org>
 ---
- arch/x86/include/asm/highmem.h | 3 ---
- arch/x86/mm/init_32.c          | 8 +++-----
- 2 files changed, 3 insertions(+), 8 deletions(-)
+ arch/x86/mm/init_32.c | 11 ++++-------
+ 1 file changed, 4 insertions(+), 7 deletions(-)
 
-diff --git a/arch/x86/include/asm/highmem.h b/arch/x86/include/asm/highmem.h
-index decfaaf52326..31d6d2a556f6 100644
---- a/arch/x86/include/asm/highmem.h
-+++ b/arch/x86/include/asm/highmem.h
-@@ -27,9 +27,6 @@
- #include <asm/fixmap.h>
- #include <asm/pgtable_areas.h>
- 
--/* declarations for highmem.c */
--extern unsigned long highstart_pfn, highend_pfn;
--
- /*
-  * Right now we initialize only a single pte table. It can be extended
-  * easily, subsequent pte tables have to be allocated in one physical
 diff --git a/arch/x86/mm/init_32.c b/arch/x86/mm/init_32.c
-index 0908c44d51e6..9b0a3dd02da0 100644
+index 9b0a3dd02da0..a799f4cff63f 100644
 --- a/arch/x86/mm/init_32.c
 +++ b/arch/x86/mm/init_32.c
-@@ -55,8 +55,6 @@
+@@ -616,8 +616,7 @@ void __init initmem_init(void)
+ 	unsigned long highstart_pfn = min(max_pfn, max_low_pfn);
+ 	unsigned long highend_pfn = max_pfn;
  
- #include "mm_internal.h"
+-	printk(KERN_NOTICE "%ldMB HIGHMEM available.\n",
+-		pages_to_mb(highend_pfn - highstart_pfn));
++	pr_notice("%luMB HIGHMEM available.\n", pages_to_mb(highend_pfn - highstart_pfn));
+ 	high_memory = (void *) __va(highstart_pfn * PAGE_SIZE - 1) + 1;
+ #else
+ 	high_memory = (void *) __va(max_low_pfn * PAGE_SIZE - 1) + 1;
+@@ -627,12 +626,10 @@ void __init initmem_init(void)
  
--unsigned long highstart_pfn, highend_pfn;
--
- bool __read_mostly __vmalloc_start_set = false;
+ 	__vmalloc_start_set = true;
+ 
+-	printk(KERN_NOTICE "%ldMB LOWMEM available.\n",
+-			pages_to_mb(max_low_pfn));
++	pr_notice("%luMB LOWMEM available.\n", pages_to_mb(max_low_pfn));
+ 
+-	printk(KERN_INFO "  mapped low ram: 0 - %08lx\n",
+-		 max_pfn_mapped<<PAGE_SHIFT);
+-	printk(KERN_INFO "  low ram: 0 - %08lx\n", max_low_pfn<<PAGE_SHIFT);
++	pr_info("  mapped low ram: 0 - %08lx\n", max_pfn_mapped << PAGE_SHIFT);
++	pr_info("  low ram: 0 - %08lx\n", max_low_pfn << PAGE_SHIFT);
+ }
  
  /*
-@@ -615,9 +613,9 @@ void __init find_low_pfn_range(void)
- void __init initmem_init(void)
- {
- #ifdef CONFIG_HIGHMEM
--	highstart_pfn = highend_pfn = max_pfn;
--	if (max_pfn > max_low_pfn)
--		highstart_pfn = max_low_pfn;
-+	unsigned long highstart_pfn = min(max_pfn, max_low_pfn);
-+	unsigned long highend_pfn = max_pfn;
-+
- 	printk(KERN_NOTICE "%ldMB HIGHMEM available.\n",
- 		pages_to_mb(highend_pfn - highstart_pfn));
- 	high_memory = (void *) __va(highstart_pfn * PAGE_SIZE - 1) + 1;
