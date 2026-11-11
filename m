@@ -1,71 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=180.181.231.80
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.133
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794395416;
-	b=BfxsKPBSF/GpUDlrKym13cWWX3aoeX1HaNRlPNFcbOA0rbB+TFwzuw/BCEFm9Mn4xoaG
-	 5dHr/AuB+VVsSjuSq564mq9558YXXgF7HhMD6RHdIPdqlLl6GZp5JN1l1reVPeeGxw/Ke
-	 s5IfjqSMCCl9bvUJVBh6es9XHyAXDNm6lpCrx/+nSMOARLShRA1jpCHQ12tbePcQw7vSX
-	 rnFTKOEdhwU/S+RMWXSTLID8oDtePccck4TJYa9mNmsv4k3fi9Jk6eZ9vi+kv9jHgKxfW
-	 w4NzGwt2MTb01C9uWgC3ttfGQuME6ZjMKR0dD1BdY+YFZfs4kOrYCDBHqGFKc1VNfyA==
+	t=1794395462;
+	b=2E4IgpyLIURUjrG63HjuB0zqbFnAXl7yxKI0evaHFC8BsXV1N1xAPJ2uCFgL6oSrQev7
+	 JrF7cXI/EIKh3oC1YBGpqiZfuk/vOiDSnwYRNS6rQaYXy1hB82jRZz1BV0GKn5cN/X5ym
+	 ejlX79Kuk1bK8BOrrqGUmpPrdAypeUrLkgdZi1+7z95zNgNt9GLrrlmwnL0BLEtg81QOd
+	 Gi64GghB8AXMjDLSe77j49FN07Kb63EQ0rva8yHrzIc+i3QTM7otPBatsnrkTYANSXxsF
+	 B/du5QmFnGnkvXu1anoyZtg7K93rKKhkCHVeHTeNU21FsMjA5bHqXA55UfNXAvW1NpA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794395416;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=W4Zd/TWVFnT//vb4/FFMwAQIXVyfGZrnD6iu7ob72UI=;
-	b=hMNfgwYdV/syULWug1rshRpXIQg7b5GKe8i8Q8p+9wEy7bvvREDRp8UMS80wpgb6P4dL
-	 K9HA7Xc9x5N6IHhdd0ZRwL9EZyh1S6zKhjL114LLvkxrswFGrlxNofE2OogNwNl2iurOd
-	 avNViRabyVSn8sv+e2sm53+m4vt/HVPlt7AOgjlvERdsbnmaDqTG03D54qHD+SUXidh/G
-	 uaFlmWVR+dFdcecLpzrWeIo28t22/kobrkEoydr3Sfg7nikp/NKNQCVvd/0oaOYFx16Wp
-	 +i2LB094u6avYiB7uuyhjdvO7qPXsUGk/Sn14AEk4SdsBku+c8dTgVudRETjI4LL4og==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794395462;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=41dldmnzUpbVdvTasv/OLzoqF6WSHnIdkg3e9karzSg=;
+	b=RduD2pTvXpOTtrvsl6Z3XxBVaypT2pk3kZTn4uXLdD2X7tzRJCWfglQeejDoF+AnzCH5
+	 gspOuryiXtlsHtx++G4G4Lq9T3U70cEaStJgi6NcVjHGNe02SfqqseOBXWAqwN+ZKueAA
+	 AtXV6Ou2PLpHTZQMR+ZO3cmieARVtwJC/VCqWDzqeARlGqaVql0uWY6Z+VHgY2aEAZA8p
+	 BM+IUlhY8dGI93Z7w/Ux4YBuMnbzE5VSmuXhAGc9ZMLFlbcfFS5W0PIcQIO4CQ8+sziMq
+	 wLvLVpPA+6Ne5HZo8p6vfC+UTtApCrb1QWQq9O1YkocwrGVXFV8humDKhIEBRsOVchg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gondor.apana.org.au;
-	spf=pass smtp.mailfrom=gondor.apana.org.au;
-	dkim=pass header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=DHMlKQv2;
-	arc=none smtp.remote-ip=180.181.231.80
-Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=xZOfzZ+r;
+	arc=none smtp.remote-ip=115.124.30.133
+Received: from out30-133.freemail.mail.aliyun.com (out30-133.freemail.mail.aliyun.com [115.124.30.133])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF484606A895;
-	Wed, 11 Nov 2026 11:10:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF484606A895
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1869C606A321
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 11:11:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1869C606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=DHMlKQv2
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
-	from:content-type:reply-to; bh=W4Zd/TWVFnT//vb4/FFMwAQIXVyfGZrnD6iu7ob72UI=; 
-	b=DHMlKQv2B02Hb+AoRBrod1bVe2mTBfhVxzmEX+pAngretmvXktRfmCHXjVGAuo8n8DHCLLOJf9s
-	I5GIgyY0+9EMX0S57Ho32uBuQEtqgUcMZmTlRqwJEM7kCCMbAFp9xDcygSw/pVgOinuf9cx85RWxh
-	rNqs63P9P6tFB4ur/rkr5mUjnP0vYiGOS17UK0DX1i6b/BzS3Pb1FQLMYpVDLF7DZnkAVC03lrgYi
-	guGKtUkyt5PRNt7+7IK/Y0xTO/hT/EF5fCL4d53ORsEsV/ieoswqDmQIHEM7YVPyCcsaXbCI4VWFJ
-	MbUortb9+5QZD4lvZYOD+E6Pza3MuohhGamw==;
-Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
-	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
-	id 1xR6DT-0000000DmPX-467m;
-	Wed, 11 Nov 2026 19:10:13 +0800
-Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Wed, 11 Nov 2026 19:10:11 +0800
-Date: Wed, 11 Nov 2026 19:10:11 +0800
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Cc: Bartosz Golaszewski <brgl@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eneas U de Queiroz <cotequeiroz@gmail.com>,
-	Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
-	Eric Biggers <ebiggers@kernel.org>,
-	Demi Marie Obenour <demiobenour@gmail.com>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Russell King <linux@armlinux.org.uk>,
-	Abel Vesa <abelvesa@kernel.org>, linux-crypto@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Pankaj Patil <pankaj.patil@oss.qualcomm.com>
-Subject: Re: [PATCH v12 0/4] crypto: qce - fix self-test issues in skcipher
-Message-ID: <avRNE-rPQDTNWvMh@gondor.apana.org.au>
-References: <20261019-qce-fixes-skcipher-v12-0-046e6be9bd83@oss.qualcomm.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=xZOfzZ+r
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1794395453; h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type;
+	bh=41dldmnzUpbVdvTasv/OLzoqF6WSHnIdkg3e9karzSg=;
+	b=xZOfzZ+r+sCgyLorDtVHk+jeyh3Wq5Tlz1F1NkGeaVCo6Cz8c8aJtYKTmZ0oVubeat46Bzlrhal3eOLgoFDWteZ8JtqBWWMfrsyV/pexGAll+G5uV+4O1+x9keEOYyvgqIdOWqElrwLKdk0meJz2AuX4e3qI4lE0pcIEq/OdxCM=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R191e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045098064;MF=tongweilin@linux.alibaba.com;NM=1;PH=DS;RN=27;SR=0;TI=SMTPD_---0XEYmuI._1794395440;
+Received: from x31l07246.sqa.na131.tbsite.net(mailfrom:tongweilin@linux.alibaba.com fp:SMTPD_---0XEYmuI._1794395440 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Wed, 11 Nov 2026 19:10:51 +0800
+From: Weilin Tong <tongweilin@linux.alibaba.com>
+To: wangkefeng.wang@huawei.com
+Cc: david@kernel.org,
+	xiangzao@linux.alibaba.com,
+	akpm@linux-foundation.org,
+	ying.huang@linux.alibaba.com,
+	kaitao.cheng@linux.dev,
+	shivankg@amd.com,
+	vbabka@kernel.org,
+	ljs@kernel.org,
+	liam@infradead.org,
+	rppt@kernel.org,
+	surenb@google.com,
+	mhocko@suse.com,
+	linmiaohe@huawei.com,
+	nao.horiguchi@gmail.com,
+	ziy@nvidia.com,
+	tujinjiang@huawei.com,
+	mgorman@techsingularity.net,
+	chengkaitao@kylinos.cn,
+	muchun.song@linux.dev,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	catalin.marinas@arm.com,
+	tianruidong@linux.alibaba.com,
+	tongtiangen@huawei.com,
+	xueshuai@linux.alibaba.com,
+	baolin.wang@linux.alibaba.com
+Subject: Re: [PATCH v3] mm/highmem: refuse to copy hwpoisoned folios in the !copy_mc fallbacks
+Date: Wed, 11 Nov 2026 19:10:33 +0800
+Message-ID: <20261111111033.627610-1-tongweilin@linux.alibaba.com>
+X-Mailer: git-send-email 2.43.7
+In-Reply-To: <64df30e9-4297-4e37-9e9c-2760d68af24f@huawei.com>
+References: <20261110112641.1196786-1-xiangzao@linux.alibaba.com> <16cf88a0-6652-4276-95fb-12306e417701@kernel.org> <64df30e9-4297-4e37-9e9c-2760d68af24f@huawei.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,108 +85,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261019-qce-fixes-skcipher-v12-0-046e6be9bd83@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 19, 2026 at 04:46:04PM +0200, Bartosz Golaszewski wrote:
-> This iteration will hopefully fix the final remaining comment from
-> sashiko.
-> 
-> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> ---
-> Changes in v12:
-> - Also reject messages shorter than a full block for AES-XTS
-> - Link to v11: https://patch.msgid.link/20261016-qce-fixes-skcipher-v11-0-d13ddfe609a4@oss.qualcomm.com
-> 
-> Changes in v11:
-> - Split out the skcipher patches into a smaller series for easier review
-> - Drop patch "crypto: qce - Fix CTR-AES for partial block requests" as a
->   subsequent commit makes this adjustment effectively dead code
-> - Fix a mid-series build failure due to an earlier bad rebase
-> - Link to v10: https://patch.msgid.link/20261013-qce-fix-self-tests-v10-0-57162a38a554@oss.qualcomm.com
-> 
-> Changes in v10:
-> - don't pass a NULL buffer to sg_init_one()
-> - fix byte order of the imported hash state on empty finalization
-> - don't recompute the CTR counter in software for every request
-> - reject skcipher requests with a too short scatterlist
-> - check fragmentation for empty CCM decryption requests too
-> - don't use a static loop iterator (duh...)
-> - initialize the return value in qce_handle_queue()
-> - Link to v9: https://patch.msgid.link/20260922-qce-fix-self-tests-v9-0-b1aa742e79af@oss.qualcomm.com
-> 
-> Changes in v9:
-> - Rebase on top of cryptodev/master
-> - Rephrase Kconfig help text changes
-> - Link to v8: https://patch.msgid.link/20260921-qce-fix-self-tests-v8-0-107537869a72@oss.qualcomm.com
-> 
-> Changes in v8:
-> - Add a patch making the crypto driver *not* register algos by default
->   but only if the user explicitly requests it with the provided module
->   parameter
-> - Use the "offloader" name for the crypto IP instead of "accelerator"
-> - Fix device module table issues
-> - Make the core driver use a list (despite it only having a single
->   member now) of child auxiliary devices to register to make it clear we
->   have the intention of extending this once we start the work on secure
->   media playback
-> - Link to v7: https://patch.msgid.link/20260910-qce-fix-self-tests-v7-0-cdbd2718af14@oss.qualcomm.com
-> 
-> Changes in v7:
-> - Add follow-up changes converting the QCE crypto driver to auxiliary
->   bus, adding the core QCE driver under drivers/soc/ registering the
->   auxiliary device and removing the BROKEN Kconfig label
-> - Link to v6: https://patch.msgid.link/20260717-qce-fix-self-tests-v6-0-455775fe5f6c@oss.qualcomm.com
-> 
-> Changes in v6:
-> - Handle all zero-length HMAC finalizations (like imported state with
->   data already hashed), not only the genuinely empty message case
-> - Add an additional patch addressing the fragmented skcipher payload
->   issue
-> - Link to v5: https://patch.msgid.link/20260706-qce-fix-self-tests-v5-0-86f461ff1829@oss.qualcomm.com
-> 
-> Changes in v5:
-> - Dropped patch 1/8 that's already queued
-> - Use the pre-allocated fallback ahash for HMAC transforms (Herbert)
-> - Link to v4: https://patch.msgid.link/20260622-qce-fix-self-tests-v4-0-4f82ffa716c6@oss.qualcomm.com
-> 
-> Changes in v4:
-> - Remove remaining ECB and DES3 bits
-> - Pick up tags
-> - Link to v3: https://patch.msgid.link/20260617-qce-fix-self-tests-v3-0-ecc2b4dedcfd@oss.qualcomm.com
-> 
-> Changes in v3:
-> - Remove even more algorithms and dead code in patch 1/8
-> - Link to v2: https://patch.msgid.link/20260615-qce-fix-self-tests-v2-0-dc911f1aad42@oss.qualcomm.com
-> 
-> Changes in v2:
-> - Add fixes for the full suite of crypto self-tests
-> - Add Fixes and Cc tags
-> - Link to v1: https://patch.msgid.link/20260610-qce_selftest_fix-v1-0-1b0504783a46@oss.qualcomm.com/
-> 
-> ---
-> Bartosz Golaszewski (3):
->       crypto: qce - Reject messages shorter than a block for AES-XTS
->       crypto: qce - Use a fallback for AES-CTR with a partial final block
->       crypto: qce - Use fallback for fragmented skcipher payloads
-> 
-> Kuldeep Singh (1):
->       crypto: qce - Fix xts-aes-qce for weak keys
-> 
->  drivers/crypto/qce/cipher.h   |  1 +
->  drivers/crypto/qce/skcipher.c | 41 +++++++++++++++++++++++++++++++++--------
->  2 files changed, 34 insertions(+), 8 deletions(-)
-> ---
-> base-commit: f0f20b900bbb8bdcfaf6cb282787854067d8eec8
-> change-id: 20261016-qce-fixes-skcipher-e0384a650e25
-> 
-> Best regards,
-> -- 
-> Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Hi Kefeng, David, Catalin, Tiangen, and Ying,
 
-All applied.  Thanks.
--- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+Thank you for raising this and for the continued work and review
+on arm64 COPY_MC support.
+
+I would like to provide an update on our side. Ruidong has left
+Alibaba and is no longer focusing on kernel development. I will
+be taking over the development and upstreaming of the arm64
+ARCH_HAS_COPY_MC series, building on Tiangen's and Ruidong's work.
+
+This work is already underway. I will follow up on the feedback
+from previous revisions and plan to submit an updated series
+in the near future.
+
+I have also added my colleagues Shuai Xue and Baolin Wang to Cc.
+Please keep me copied on further discussions of this series.
+Any additional guidance on outstanding issues or priorities for
+the next revision would be appreciated.
+
+Best regards,
+Weilin
