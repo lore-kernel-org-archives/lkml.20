@@ -1,74 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.137
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.15
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794376931;
-	b=42Sh1bT0WAv1UCVIGEpiaJwBmxfX5Eerr+DWHsw/6RCsoQeZ7kEKb5Fx76/0f6nvv7at
-	 RAhrH7UvIK1FeLuyuiDag3dMmFrhtiPyjkWxUM8WN4koQ6CbL45fZsNeVWY1uLGMmj1S+
-	 XouCNzp2ANomt0LNyU6zGRKNZF0qppHGq3AHG73WBY/QBSD1p6/2oqtNiyVRKRChe4NMm
-	 26eEj4tcH/ODYoqPOUi24jbh6j5RN2s+lphgGJ4EEWPMt3z4q1mvrwXcmZAtzz2FVXrJd
-	 WS+/ElUAPJYFjgHwBpyQM2uyX94hGjm76yWAu0CdErN47oMLJgYJ2clNRlkTE4pB4gQ==
+	t=1794376933;
+	b=zgywrERPFnlSwQJ/I49oCOEMB2zjYcsjRHBtzIMrl4NwumFBdXZymG7JKTosEuL5l1+2
+	 fzXR1M3VyPfASTPxNSbwaB9+XqJh6yeLdf5iGwilWMP51JJsJttDibaAK7p24dPGL/z2l
+	 CN7C3L6zZWRpSMs3+Zv6d5oA7y9CN/wIq5sq2RSDozcBKbR3mVpwTTqvdC34SdVIxnABi
+	 vr3ejAbbbyXkWuOVZ3syIJVSD39lE8SG9JP0sxCMsYxUSK/nAF79dmclBJBUDUhVDAie3
+	 dXIgXEgsh1ebcZRHnHCgdtMwnyMuQRL+QchO31E+CVHtbBPfsYbR3HcXdQDnw4uRqww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794376931;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=clJ16mqtaU4VebO6eCORWaZIIouvMDiu9cYs0vhp9oQ=;
-	b=cFs5lV92PZcv9/iFripYKFCRgMGyFtQk+AJM7bFr1SDbIMXeyTbrmvqlLtTsJTdpLnPu
-	 NUsPAx0AnWzMoqign7j20WCVANDcNJvm6npmo0NYAjnhs/5T0NP6k92UcZPnxeRndRaJp
-	 ydXCLvq77ii249pQUMISy02PK132hPBPM+4WStEaWcuhq4xo/bXaP5YTTq3jatA7kzZLp
-	 VOP8avz8ki7K9zj/kgyZIlovh+xa0bxiT36NrfqsGDlcgrR/EEMSl6effYd+hEU9zwSLf
-	 JdboBb1hJQ24WkFJ6iGR111ZqjDEQzjK+CLjNwme2ID1BmgOPcrcLr3V3VdtD3isfdw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794376933;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=EBXimyKc1it/KxK5bNdiXlKjJH276vdebWnV1cX0e3Y=;
+	b=L+xiWfPssk5KNMJqy/adk2FPFgw41EQTx2lH33myxwG5fioJ0N38gXdi1emjsXmAyD1G
+	 3IG0jeP/mnAaj6g+xGc77F1o10lHjTL1+QqiflueEIq5pezQgTcpN9aZsgY9UIJi9UIoD
+	 gD/QXnth7qVNvH38mI6/wWu/udpaIDFRP8EFT2VHFqORKbHBwNFQOCFBpExZhSHZGroal
+	 d0ilg95YDy9jelqS2jAots7QFxt1LMOGpe9z+SDiQAp0UQ/zcjRZbfVbQeU5hzGXRpFRT
+	 5V0xo74MsZhtGqvQPWzxAq8UNWOPlLhADlNZfaxzYeZaFpzk/hhTrezDWmWacL6U+XQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=B82NAHBp;
-	arc=none smtp.remote-ip=111.22.67.137
-Received: from cmccmta4.chinamobile.com (cmccmta4.chinamobile.com [111.22.67.137])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id CD52E606A31C;
-	Wed, 11 Nov 2026 06:02:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CD52E606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=iJnzOVHI;
+	arc=none smtp.remote-ip=198.175.65.15
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62AF6606AC6D;
+	Wed, 11 Nov 2026 06:02:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62AF6606AC6D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=B82NAHBp
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=B82NAHBpjl5lwEA6S+7NHHaJ3+WCHX1PyueGyZBoHRhwg7f03Ul61dwCezWxA2wJZliN5P2Sc26DL
-	 rhRWs14sNiO460es2ftG/VzduG7v8ZEr1PRnxi3u6zCV29VwHT8nJsuhifCRTapY4vfCLY0sZSwDFV
-	 EWplzW/7ChQ6KCPY=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app04-12004 (RichMail) with SMTP id 2ee46af404da9d7-74870;
-	Wed, 11 Nov 2026 14:02:05 +0800 (CST)
-X-RM-TRANSID:2ee46af404da9d7-74870
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from localhost.net (unknown[223.64.115.200])
-	by rmsmtp-syy-appsvr08-12008 (RichMail) with SMTP id 2ee86af404dc3a6-d03ed;
-	Wed, 11 Nov 2026 14:02:05 +0800 (CST)
-X-RM-TRANSID:2ee86af404dc3a6-d03ed
-From: Wenbo Sun <sunwenbo@cmss.chinamobile.com>
-To: "David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: Simon Horman <horms@kernel.org>,
-	Fernando Fernandez Mancera <fmancera@suse.de>,
-	MD Danish Anwar <danishanwar@ti.com>,
-	Murali Karicheri <m-karicheri2@ti.com>,
-	Wojciech Drewek <wojciech.drewek@intel.com>,
-	Ravi Gunasekaran <r-gunasekaran@ti.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	sunwenbo@cmss.chinamobile.com,
-	1342116488@qq.com
-Subject: [PATCH net] net: hsr: clean up synced addresses and allmulti in hsr_del_port()
-Date: Wed, 11 Nov 2026 14:01:43 +0800
-Message-Id: <20261111060143.183670-1-sunwenbo@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.33.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=iJnzOVHI
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794376934; x=1825912934;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=2/6PoKpF2TFtdqVTOCp6q1iPfEWPxp8sOLejEI8tLVk=;
+  b=iJnzOVHI0ihLBn1+tQaZwOe3LnFUrvnZ/OGxmi3a7oUfzRjlsSlvrW4U
+   3QkqSyx0cUSr43mZV06TpALmrSOB5GuldBN7rjdnN9o4/zX4owzL+md4u
+   1wkCU1iumRJ/fKu1auHKOOIvHdUXLohgMh2gmB8UlvD3/vk44vSNLjSP8
+   Ge1k3ItNvRc+WkXXWjbdVwrqtG4e4fTPD6a99GrD9tbMMk+CHS0qdOZXx
+   q0Juh/Jn7srHVTXa/TaljRjKn2h7ZmJufSTBoXMkZBZ30CELkBHS7YJSY
+   m/eNEZNhurIYk0zn2dRLmRVMo9QD5eIGNixz+wbiUpFjZyO8YjODnznBv
+   g==;
+X-CSE-ConnectionGUID: YxYpFWS5QICiN1flZSygDA==
+X-CSE-MsgGUID: OmMu3PIFS1e8r1msIY9ODA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11962"; a="3147440"
+X-IronPort-AV: E=Sophos;i="6.27,207,1787036400"; 
+   d="scan'208";a="3147440"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 22:02:13 -0800
+X-CSE-ConnectionGUID: tsvKuNOJQsmrUuC69pHrbg==
+X-CSE-MsgGUID: iwByyT5kTcuDOj/gnAcyBQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,207,1787036400"; 
+   d="scan'208";a="10076430"
+Received: from xiaoyaol-hp-g830.ccr.corp.intel.com (HELO [10.124.240.71]) ([10.124.240.71])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 22:02:05 -0800
+Message-ID: <833af78b-60b9-4031-88e0-555363f8dd0b@intel.com>
+Date: Wed, 11 Nov 2026 14:02:03 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,61 +72,91 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v16 12/20] KVM: selftests: Call KVM_TDX_INIT_VCPU when
+ creating a new TDX vcpu
+To: Lisa Wang <wyihan@google.com>, Andrew Jones <ajones@ventanamicro.com>,
+ Ackerley Tng <ackerleytng@google.com>, Binbin Wu
+ <binbin.wu@linux.intel.com>, Chao Gao <chao.gao@intel.com>,
+ Chenyi Qiang <chenyi.qiang@intel.com>,
+ Dave Hansen <dave.hansen@linux.intel.com>,
+ Erdem Aktas <erdemaktas@google.com>, Ira Weiny <iweiny@kernel.org>,
+ Isaku Yamahata <isaku.yamahata@intel.com>, Kiryl Shutsemau <kas@kernel.org>,
+ linux-kselftest@vger.kernel.org, Paolo Bonzini <pbonzini@redhat.com>,
+ "Pratik R. Sampat" <pratikrajesh.sampat@amd.com>,
+ Reinette Chatre <reinette.chatre@intel.com>,
+ Rick Edgecombe <rick.p.edgecombe@intel.com>,
+ Roger Wang <runanwang@google.com>, Ryan Afranji <afranji@google.com>,
+ Sagi Shahar <sagis@google.com>, Sean Christopherson <seanjc@google.com>,
+ Shuah Khan <shuah@kernel.org>, Oliver Upton <oupton@kernel.org>
+Cc: Jeremiah McReynolds <jmcrey@google.com>, kvm@vger.kernel.org,
+ linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org, x86@kernel.org
+References: <20261105-tdx-selftests-v16-0-2024e8fa517a@google.com>
+ <20261105-tdx-selftests-v16-12-2024e8fa517a@google.com>
+Content-Language: en-US
+From: Xiaoyao Li <xiaoyao.li@intel.com>
+In-Reply-To: <20261105-tdx-selftests-v16-12-2024e8fa517a@google.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-hsr_set_rx_mode() syncs unicast and multicast addresses to slave A and
-slave B devices via dev_uc_sync_multiple() and dev_mc_sync_multiple(),
-and hsr_change_rx_flags() propagates IFF_ALLMULTI via
-dev_set_allmulti().
+On 11/6/2026 7:46 AM, Lisa Wang wrote:
+> From: Sagi Shahar <sagis@google.com>
+> 
+> TDX VMs need to issue the KVM_TDX_INIT_VCPU ioctl for each vcpu after
+> vcpu creation.
+> 
+> KVM_TDX_INIT_VCPU has a strict prerequisite for the CPUID state. To
+> satisfy this requirement, call KVM_TDX_GET_CPUID and KVM_SET_CPUID2 to
+> pull the CPUID configuration from the TDCS and commit it into KVM,
+> allowing KVM_TDX_INIT_VCPU to succeed.
+> 
+> Additionally, unlike tdx_vm_ioctl(), tdx_vcpu_ioctl() doesn't check
+> hw_error. KVM's vCPU-scoped TDX ioctl handlers don't propagate SEAMCALL
+> errors into hw_error: the error is handled in the kernel and only an
+> errno is returned. Checking the ioctl's return value and errno is
+> therefore sufficient.
+> 
+> Signed-off-by: Sagi Shahar <sagis@google.com>
+> Signed-off-by: Lisa Wang <wyihan@google.com>
 
-However, when an HSR device is deleted via hsr_dellink(),
-hsr_del_ports() removes all ports from hsr->ports before
-unregister_netdevice_queue() invokes hsr_dev_close(). Similarly, when a
-slave device is unregistered while the HSR master is UP,
-hsr_netdev_notify() calls hsr_del_port() directly. Because
-hsr_del_port() does not unsync unicast/multicast addresses or restore
-the allmulti count, the slave devices permanently retain synced hardware
-addresses and a leaked allmulti reference count after port deletion.
+Reviewed-by: Xiaoyao <xiaoyao.li@intel.com>
 
-Fix this by calling dev_uc_unsync() and dev_mc_unsync(), and
-decrementing allmulti via dev_set_allmulti(port->dev, -1) if
-IFF_ALLMULTI is set on the master device, when detaching slave A or
-slave B in hsr_del_port().
+> ---
+>  .../selftests/kvm/include/x86/tdx/tdx_util.h       | 22 ++++++++++++++++++
+>  tools/testing/selftests/kvm/lib/x86/processor.c    | 27 +++++++++++++++-------
+>  tools/testing/selftests/kvm/lib/x86/tdx/tdx_util.c | 11 +++++++++
+>  3 files changed, 52 insertions(+), 8 deletions(-)
+> 
+> diff --git a/tools/testing/selftests/kvm/include/x86/tdx/tdx_util.h b/tools/testing/selftests/kvm/include/x86/tdx/tdx_util.h
+> index 4330290d29e9..9d951f67b3b5 100644
+> --- a/tools/testing/selftests/kvm/include/x86/tdx/tdx_util.h
+> +++ b/tools/testing/selftests/kvm/include/x86/tdx/tdx_util.h
+> @@ -46,9 +46,31 @@ static inline bool is_tdx_vm(struct kvm_vm *vm)
+>  		    #cmd, ret, errno, strerror(errno), hw_error);	\
+>  })
+>  
+> +#define __tdx_vcpu_ioctl(vcpu, cmd, _flags, arg)			\
+> +({									\
+> +	union {								\
+> +		struct kvm_tdx_cmd c;					\
+> +		unsigned long raw;					\
+> +	} tdx_cmd = { .c = {						\
+> +		.id = (cmd),						\
+> +		.flags = (u32)(_flags),					\
+> +		.data = (u64)(arg),					\
+> +	} };								\
+> +									\
+> +	__vcpu_ioctl(vcpu, KVM_MEMORY_ENCRYPT_OP, &tdx_cmd.raw);	\
+> +})
+> +
+> +#define tdx_vcpu_ioctl(vcpu, cmd, flags, arg)				\
+> +({									\
+> +	int ret = __tdx_vcpu_ioctl(vcpu, cmd, flags, arg);		\
+> +									\
+> +	TEST_ASSERT(!ret, "%s failed, rc: %i errno: %i (%s)",		\
 
-This issue was identified with the assistance of an LLM-based code
-review tool, confirmed by reproducing the leaked allmulti reference
-count and synced multicast address in a User-Mode Linux (UML)
-environment, and verified in UML that both states are properly cleaned
-up upon HSR port deletion.
+Nit: tdx_vm_ioctl() uses %d for ret, while it uses %i for ret. It's better to
+make them consitent.
 
-Fixes: 36b20fcdd966 ("net: hsr: Add support for MC filtering at the slave device")
-Signed-off-by: Wenbo Sun <sunwenbo@cmss.chinamobile.com>
----
- net/hsr/hsr_slave.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
-
-diff --git a/net/hsr/hsr_slave.c b/net/hsr/hsr_slave.c
-index a546f70f9cc8..bab0c27dd06a 100644
---- a/net/hsr/hsr_slave.c
-+++ b/net/hsr/hsr_slave.c
-@@ -245,8 +245,14 @@ void hsr_del_port(struct hsr_port *port)
- 		netdev_rx_handler_unregister(port->dev);
- 		if (!port->hsr->fwd_offloaded || port->type == HSR_PT_INTERLINK)
- 			dev_set_promiscuity(port->dev, -1);
--		if (port->type == HSR_PT_SLAVE_A || port->type == HSR_PT_SLAVE_B)
-+		if (port->type == HSR_PT_SLAVE_A ||
-+		    port->type == HSR_PT_SLAVE_B) {
- 			vlan_vids_del_by_dev(port->dev, master->dev);
-+			dev_uc_unsync(port->dev, master->dev);
-+			dev_mc_unsync(port->dev, master->dev);
-+			if (master->dev->flags & IFF_ALLMULTI)
-+				dev_set_allmulti(port->dev, -1);
-+		}
- 		netdev_upper_dev_unlink(port->dev, master->dev);
- 		if (hsr->prot_version == PRP_V1 &&
- 		    port->type == HSR_PT_SLAVE_B) {
--- 
-2.33.0
-
-
+I think we can fix it when applying.
 
