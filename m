@@ -1,58 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794390783;
-	b=vAL3oAaiEkP/BcqUxa+uGN/xj+OjTQsxYC45l9XB3RywzSJR2vLgiW9B1qPwbjs6eZ02
-	 Ok+fDmQnnEsrxRXbU0KL/dSmh0RFyWswZaJFxXOjpwO9QES6EHjO0LaEr8+bfnbW/xhS8
-	 JDuMQFfz1wv21ONnCI4qqkobwQ8sFPb8mEitrIaY/it6KwA2jI9YGio2mJ+GSjccsx5ue
-	 D/UyZqDkg3GuF36cdSKf3NzIxhGcJDsBXfD/1S3mzktabN5wKuYRhg9ezb9EiCh+WwTZN
-	 nnul4M8/qJgc1R6ziVitc9eJP8VGNandWcPTKyTVAy9lCXJ1KELp3Eec5K6fuL4c/DA==
+	t=1794390821;
+	b=Gv/kBhunH2s0eqdR5qEcrSOA9xxyGxsGHy8ZNjAmHDOxQiOXOkacEcz0gTOKWOuASLjz
+	 osbYXHoeG8oZc+inq2W6wu5mYjRjT3y6wxhv51CTavYMFJgHfrP+YowWluXIDV4fUoOqV
+	 mz4VtrTylhcgVQpT5lLqQjXS/xB2JSwqlfyOFqtAPlDKPmAqcaGTiuTfJshOX4KAZHU8T
+	 JTrt9hYQd76uidx9LSYZDlARbIunjIwv2cneL5kDuaki0PpNBBpSzPdSL+iJ/265Y+wCi
+	 Xqil6mYE8gtcz756tkVl/uIU9GFAm5Z9aNXESgWC4ke1a/S40d5AKuiRkoZo2VqZCMA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794390783;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=dosgcgtYnwjGfg33mXVJN1zPstrhDPbH2LgaYc37HQ4=;
-	b=Nc2Xwm9UMn5bmxEKQYMn/vhsKuvpUddCSUGxH81o0FhnNPmKQ26Erx1H3CLMeJpDi/1T
-	 wOUpJqsmvD/soQH51VAaZJ+vMp3DMKnO7mDDGMDvWltTxmSZMKuEOmwVTaadDtJsBICRX
-	 DsXzr4ZK6td6bqJO9c+mLdGg3cITRApcoFFFETRzdXkwDclgqAz9i1DBymavXcRLcpEJO
-	 PT/tC9AwrvBkyrtPgIFkGya2xUtoqhZFLtWf7CKRTiv/64SCaeOzKykuQvWedDIwP7Dcn
-	 tM1NTqXeUSvN+f1HH/V3+JMPSInjJOYyZslhsGjoZlrtTrJaj4EHQ4H5b8O5kme8U+Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794390821;
+	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 Content-Type;
+	bh=rOYijy98RgI2qIIiyL+QLiDNYX9ODiA3qXMCnsWdXVU=;
+	b=lpVan8fj6OaYhRbZWuPcunHI0BSP9CyCM1ey5Nx9g2Wfz8RzqvPr/7IJyusOf4YYjYO3
+	 AM87iTYix/8REfeXCbR1TYwEv+gmO6PKLELHGgx7mHVezBpGFDHotOd6lN9Q13wCLpo26
+	 81oxQwOTOB/FsSJHYbQoL3btxhi/OdSE268czgZQhvNdX8SrrfoVnzamwBtvGbl1Qfoyc
+	 SY3MnurSVXizICXfJ3+j5+B3Mn9BgOVBZA12/T2O0sfjWgrTsoXWYllqbQHEVYH4wiZMT
+	 Fj/ODmcPvq22+BVNZ4zYsO0zgK32uOOJK47TZcseF/mDInhX6Wyme7uMyZR7WvXl/MQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BA0j1gTn;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=sntech.de;
+	spf=pass smtp.mailfrom=sntech.de;
+	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=28SzyvUr;
+	arc=none smtp.remote-ip=185.11.138.130
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DFF560A2615;
-	Wed, 11 Nov 2026 09:53:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB78F606A324;
+	Wed, 11 Nov 2026 09:53:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EB78F606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BA0j1gTn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2D791F00A06;
-	Wed, 11 Nov 2026 09:53:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794390783;
-	bh=dosgcgtYnwjGfg33mXVJN1zPstrhDPbH2LgaYc37HQ4=;
-	h=From:To:Cc:Subject:Date;
-	b=BA0j1gTn9JckxqLcIm6KxVmr7UL/nxUDp1DN3aVZ3IpISTEjfDkYWKmJj4RVTXfON
-	 p1GhjTKkKofZMBNnhijiFHs4vMHgtIwmuMQn9bFur59fY8CF9ytpMJgOVhaFKEyeMt
-	 scBaMAMCPX9SxY1eLoR3UBIkWCsjD6wCQ+6UqUGSfZvTAoY/RWRplmCUsdjHy9KJMO
-	 NBIcMa7lwuu8GX2y7LvSXeppn5Fj4f+hdq+6SfFkX5dvQpEI3fkJBoH0yJKZd3Ur+b
-	 US2yGSDHa8jXeC2RTdvNAOsF23N/2DWGzqUBlZRKoQvAf1YKXGOOguW90Tc+Q0uDps
-	 MQN9hTLe1Uzqw==
-From: Imre Kaloz <kaloz@kernel.org>
-To: Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	netdev@vger.kernel.org
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	linux-mips@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next 0/2] net: sgi: ioc3-eth: two changes for the IOC3 on SGI IP35 machines
-Date: Wed, 11 Nov 2026 10:51:36 +0100
-Message-ID: <20261111095138.1757-1-kaloz@kernel.org>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=28SzyvUr
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=rOYijy98RgI2qIIiyL+QLiDNYX9ODiA3qXMCnsWdXVU=; b=28SzyvUrJWEKkHHZXCa1oDz4JF
+	PlSX5euAAMQyENwudCVR6cTty+VH1jG/mgo73RBjbiZivnZXrK+AHWj4VHdAF7otI7kK0Ynp2wXix
+	WRr27PFPkEjrC5iXrkptO3jjbv/C5C4O6OsdamoQ/Zew2t5ZPng/9RL6GZtaX0pN5yybStTSI/Wni
+	VkuKQaOUKYWbYnyU/Mdd2eaVbg0rSr+BKaCuckVeOyYGhiGO/sF2AJtcyfDT4SKsWXQf44zSah16c
+	onKYsT1a7e5TG2rx/E6cxZ/NNmWFX9JRutQCBH8O6CmfwPXX/5a1UWBneR8+DnlP7+TH4FMCM/KdP
+	3HqbLhtg==;
+From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
+To: aiyengar1990@gmail.com, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, "Joerg Roedel (AMD)" <joro@8bytes.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Niklas Cassel <cassel@kernel.org>,
+ Shawn Lin <shawn.lin@rock-chips.com>
+Cc: shawn.lin@rock-chips.com, linux-arm-kernel@lists.infradead.org,
+ iommu@lists.linux.dev, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ Simon Xue <xxm@rock-chips.com>, "finley.xiao" <finley.xiao@rock-chips.com>
+Subject:
+ Re: [PATCH 0/5] iommu/arm-smmu-v3: power domain and clock of the RK3588 PCIe
+ SMMU
+Date: Wed, 11 Nov 2026 10:53:28 +0100
+Message-ID: <9_7qTfdNSViwtNUGq9D13w@sntech.de>
+In-Reply-To: <ea8fa04c-4a8c-4c55-b4fa-f37d74267e93@rock-chips.com>
+References:
+ <20261110-smmu-v3-pcie-pd-v1-0-628819ca44b9@gmail.com>
+ <10924894.NyiUUSuA9g@diego>
+ <ea8fa04c-4a8c-4c55-b4fa-f37d74267e93@rock-chips.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,39 +71,77 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-With the IP35 support series [1] posted, these two changes let ioc3-eth
-drive the IOC3 of the SGI Fuel, which sits behind an XBridge and has no
-MAC PROM.
+Am Mittwoch, 11. November 2026, 09:02:30 Mitteleurop=C3=A4ische Normalzeit =
+schrieb Shawn Lin:
+> Hi Heiko
+>=20
+> =E5=9C=A8 2026/11/10 =E6=98=9F=E6=9C=9F=E4=BA=8C 16:49, Heiko St=C3=BCbne=
+r =E5=86=99=E9=81=93:
+> > Am Dienstag, 10. November 2026, 09:40:44 Mitteleurop=C3=A4ische Normalz=
+eit schrieb Shawn Lin:
+> >> Cc: Simon and Finley
+> >>
+> >> =E5=9C=A8 2026/11/10 =E6=98=9F=E6=9C=9F=E4=BA=8C 15:11, Arun Iyengar v=
+ia B4 Relay =E5=86=99=E9=81=93:
+> >>> The MMU-600 in front of the PCIe controllers of the Rockchip RK3588
+> >>> (mmu600_pcie) is enabled for every RK3588 board, but its node describ=
+es
+> >>> neither the power domain it lives in (RK3588_PD_PCIE) nor its clock
+> >>> (ACLK_MMU_PCIE). Both are held by any enabled PCIe controller, which =
+is
+> >>> why nobody noticed: on a board that enables no PCIe controller in that
+> >>> domain (an Orange Pi 5 with its M.2 slot in SATA mode, or any RK3588
+> >>> board without PCIe), genpd powers the domain off and the clock framew=
+ork
+> >>> gates the clock as unused after boot, while arm-smmu-v3 stays bound.
+> >>> At reboot, arm_smmu_device_shutdown() then writes CR0 and polls CR0AC=
+K on
+> >>> the dead block, the interconnect stalls, "reboot: Restarting system" =
+is
+> >>> never reached and the board only comes back ~90 s later when the
+> >>> watchdog fires.
+> >=20
+> > We have a work-around for that in some boards, manually disabling the
+> > smmu until now. As the SMMU is part of the SoC and always present
+> > the general DT practice is to have it always enabled, as it does not
+> > depend on the actual board design.
+> >=20
+> > Hence we end up in the situation described above.
+> >=20
+>=20
+> I notice that mmu600_php is disabled in rk3588-base.dtsi. If describing
+> the SMMU that way is incorrect, should we enable mmu600_php as well? I'm
+> asking because I see a different picture in the RK3588 TRM: both
+> mmu600_php and mmu600_pcie reside under PD_PHP, not PD_PCIE. Therefore,
+> even without any PCIe controller enabled, PD_PHP should remain powered
+> on (it is never added in rk3588-base.dtsi, so it should be outside the
+> kernel=E2=80=99s scope). How does the original problem occur in that case?
 
-Patch 1 applies the DMA attributes and the RX barrier's upper address
-bits only to 64-bit direct-mapped addresses, so the IOC3 can use a
-bridge's 32-bit direct window. Patch 2 asks
-eth_platform_get_mac_address() when the 1-wire MAC PROM read fails,
-and uses a random address once deferred probing gives up.
+The original problem is the smmu probing (probably during boot when
+everything is still powered), not doing anything with it and on shutdown
+the smmu driver wanting to access the smmu registers and thus ending
+in a hang.
 
-Both were posted as 25/53 and 38/53 of the IP35 series v2 [1] and are
-reposted on their own for net-next, as Jakub asked [2]. The rest of that
-series puts an IOC3 behind an XBridge or PIC on the 32-bit window and
-supplies the MAC address from the L1 system controller. There is no
-build dependency in either direction, and IOC3 Ethernet on IP35 machines
-needs both sides.
-
-Tested on an SGI Fuel.
-
-[1] https://lore.kernel.org/all/cover.1791890466.git.kaloz@kernel.org/
-[2] https://lore.kernel.org/all/20261021073921.07632a37@kernel.org/
-
-Imre Kaloz (2):
-  net: sgi: ioc3-eth: apply the DMA attributes only to 64-bit addresses
-  net: sgi: ioc3-eth: fall back to the platform MAC address
-
- drivers/net/ethernet/sgi/ioc3-eth.c | 43 ++++++++++++++++++++++++-----
- 1 file changed, 36 insertions(+), 7 deletions(-)
+So the problem is not necessarily the power-domain, but can also be
+the clocks getting turned off during clk_disable_unused.
 
 
-base-commit: 97ced2c090bfc2156db31fca9f52cf253e4bc186
--- 
-2.47.3
+As for not disabling it, the case is also the some for things like the
+video-encoders - they are also present all the time, so we don't have
+devicetree wiggling for them.
+
+The fully correct thing would be, power-domain + clock handling
+and adding runtime-pm to the smmu for when it is not in use.
+So this would then not require any special thinking
+
+And yes, I think the other smmu should also use the same handling.
+
+@Arun care to also add a runtime-pm patch? :-)
+
+
+Heiko
+
 
