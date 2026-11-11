@@ -1,102 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.39
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794423039;
-	b=T6jzc24mWcMKmbU2bq3aOY/ulMgsDztYi5ae/m+ySMVHmZlQOqs4+GgJiwvngMU4XoU5
-	 eBBaxx3SKin2rrO8ERJhRDbupeiltEIlrdf7s0hNMrbGODjRJrNO02jQrt8s4wNzUXSK0
-	 eKm33BHdIcwf581sEVfAF6L0lDaUOUSB+RrsVMShu4IfHB7So2KiZaYlXGk0eIJxdAC7I
-	 D9hPoKqmss+yktKJmS4LUKPn0FZc4mgAaosiDt4tiDj2/yO7E7X2lVE/zjC5YScXve2mP
-	 NfXTA5do987IyEZXuBr7/qTe4zGiIIZaEVq5ZMuvYxsHUhAsGy1M0+pOsYYgme2giag==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794423039;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:X-Mailer:Message-ID:In-Reply-To:References:Content-Type:
-	 X-MS-Reactions:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=S9WuI9PTUeiv5O5AStKEefptoT4aWnKBezJfaA7uZAs=;
-	b=WbwbbIZXW+WM48QaQW1uScfV3dJJnbNHssFTv51Cq/PtNK6UDkLS2A7QTOUlcXGwyW7B
-	 A8amalonWegAuiyqbYTSof2Cw6zdzG++8anK8uGnBxNOqoGsq872L0HIC3kmFBIuzewi9
-	 xwJ9JZCCf8jPp8R2K9QOKHgO8ZpQmBMDCk44NjoEDqL+wLIlqFZQ4lY8Ago23B7pc3MtJ
-	 42PYoFCqIX4WBXI/DSMPr37TiZibtQkpHGvNt6xrnYFU+pom4WRfw/GruqtmVdjADV1Nq
-	 FSuPdEbUcHzaDz0kIFXeGlAWhpD9oMeEYvX0B+65zq/9t7dSYY7yhKjG9aAl8MTa7iA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=Uu5pNF6k;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.39
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010039.outbound.protection.outlook.com [52.101.193.39])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794423089;
+	b=T19lwAijl/P0yN4fm1ylSc5IdtwKfcgUPypanoX6QbSe+ShR0qBckmzn2wY5r/xd3fxD
+	 QDt0c+CDIeimBWkptWLhUTA4sWePWkB9NUKANRgKk1eYBi8Oo3DLtuFI5a9mxCwsmWsoq
+	 bsqd/wb8zO+b3WGDgkTQv+Xz1gKCB9JfKLC+sZwIBpLs3u30PVTQEyHOIlvddw292ueu/
+	 TjT2/gFSqktN7v8KnpBOoPs2aAJaV4HbR6l2QGb7wkEGLJ8S5x0cws6w0+1ymu6fV+/yN
+	 Bovx0lbdGv43oe5djTPf+S1r08xYr4buutXxI38VIPHCLwtG1qvoC6GdWEZgIDgdKYQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794423089;
+	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
+	 Reply-To:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=f4bvjKyGGW7LYi9Wi0u6NoBT6lJr9jDxOjSufAj5kjA=;
+	b=EKGurJ8RJ0wkdyKp0CxqOxPj2MyNXwGTBtnCX7sWNRcX1zAUbOGbP3vs0MTH/1LdyZ5i
+	 0yTfAG06anGD4AjUimLZ9+6VYGguqoz9cMdOz7dz3/5n1WKS4TiV3xOkbwTQ+gwm9z5xM
+	 COfhA78Ii/53T1dot12riKZ2kNiN7oqBFa2XY81Ry4f84NRlU9FAt0l5ydsQvYtdA2SAY
+	 75vuoh5ZvhHBY6JcTJMGKmnL8GjeWnvTwWb7//6hityeSe9SUnh+FfZLG/3ey9/eG5LgL
+	 hw0VCooPN5sbtcSTdkjs7HatF+fBTHFLBXugf4+D8ec2dhRB3gyB+yt745pqMQ8iJjw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="V/RZNUAt";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAB30606A324;
-	Wed, 11 Nov 2026 18:50:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EAB30606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55729606A321;
+	Wed, 11 Nov 2026 18:51:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=Uu5pNF6k
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bPi1Dx7GMkpj+qyUXhDxT1t/NwGo8nr1U5AVdZpUGXabB2oV3MKIj0dbUEbrvMAMpF6g1CXZE6O0jAGxeLDonDE83krSVzpJuW3p5rI5GxHdpE9oPzHQFfqtXQruKUHN/MqS+YfLBuYjYjWABeI6qOXS4NzQnUMUxqsS7cVpMOfaVUuCUiUafxGuNQA8D8zaalncDKuoP1jjuusZo49Lrq2YC+IVYLLjhXaM7XO7HxEYKPydip+qc5caKhZSzzUkr6V2rohTYYUYACciTB2owPMduUNoyRHsByxyFua+IJ1vcQVcWB+a67QcVkpxZBgxxzDuNNryt8uowGuIQXOpIg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=S9WuI9PTUeiv5O5AStKEefptoT4aWnKBezJfaA7uZAs=;
- b=GP4bTd52ZxoU21x4ShcPU4r25+FA3clE2gGoYHS4yOZLW2sbc9x3x5iZKTikJn+coqvQCnBDt79toPjlmLDSXIqeTOvDffYwVTwyTvfCFJpf0SxWzOYO+p52Lq3jlRODLeHN9ZGNCaXfRzNGmvykt0hxqYiJ5rykz9zaQ+yvibPhP3uMZ1sWVLBJl1t+maWxIREK2y/eL4Ndwn9Jiujgjhhbm5o+Dx8Oib7061P6/ySJai0QVKd0JiXo4EZ3bbuOlMS12BlCMvAIHqzOj5F2whNS70GHCyisDEEwZ1VcBCQSjHUxjz/2hCXGXlWSfJK1ThVROn3cWYpkIJZh3Hc9Dg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=S9WuI9PTUeiv5O5AStKEefptoT4aWnKBezJfaA7uZAs=;
- b=Uu5pNF6k+pWE2vvGyeQF0y/Nb4jfPkn482MR6iTVjk9OES134lLpEMAhuNbo6bYnkWegVymgypVV2S7GEuxULCGcbCGGnp8KVDVcN2oapUHnhq7xm9QvGZORNhUUjI5hB/EeKKxBSkjHkFXsPeA1Amf/AC0W8BzoRvrm+yNxLCq1YWITI6bzvq9q1PT4vN6ZfDbsFytgwrdtKHra1ezlX28YzbJ2T9EA+JAQQa7FkghBPZ6lFd6FGnpQe3EE/XTVsOfjR5FnF9OKcck91jgDtp26mkHPOtzaAwvT/23wTVYMXaHEtYHspJvpEjk27p0YXLY3bp51Ojwt6hGK03ye8g==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
- by DS5PR12MB610447.namprd12.prod.outlook.com (2603:10b6:8:47e::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.9; Wed, 11 Nov
- 2026 18:50:32 +0000
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16%6]) with mapi id 15.21.0615.007; Wed, 11 Nov 2026
- 18:50:31 +0000
-From: Zi Yan <ziy@nvidia.com>
-To: Usama Arif <usama.arif@linux.dev>
-Cc: Andrew Morton <akpm@linux-foundation.org>, apopple@nvidia.com,
- byungchul@sk.com, david@kernel.org, gourry@gourry.net, jannh@google.com,
- joshua.hahnjy@gmail.com, liam@infradead.org, linux-fsdevel@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org, ljs@kernel.org,
- matthew.brost@intel.com, mhocko@suse.com, pfalcato@suse.de, rppt@kernel.org,
- surenb@google.com, vbabka@kernel.org, ying.huang@linux.alibaba.com,
- kas@kernel.org, hannes@cmpxchg.org, riel@surriel.com, shakeel.butt@linux.dev,
- kernel-team@meta.com, baolin.wang@linux.alibaba.com,
- Nico Pache <nico.pache@linux.dev>, ryan.roberts@arm.com, dev.jain@arm.com,
- baohua@kernel.org, lance.yang@linux.dev, stable@vger.kernel.org
-Subject: Re: [PATCH 1/3] mm: don't PTE-batch a swap-in over a
- hardware-poisoned subpage
-Date: Wed, 11 Nov 2026 13:50:29 -0500
-X-Mailer: MailMate (3.0r7038)
-Message-ID: <2214E459-71AA-42FD-AAAD-07C49C81A676@nvidia.com>
-In-Reply-To: <20261111113904.650722-2-usama.arif@linux.dev>
-References: <20261111113904.650722-1-usama.arif@linux.dev>
- <20261111113904.650722-2-usama.arif@linux.dev>
-Content-Type: text/plain
-X-MS-Reactions: disallow
-X-ClientProxiedBy: BN1PR12CA0018.namprd12.prod.outlook.com
- (2603:10b6:408:e1::23) To IA0PR12MB8374.namprd12.prod.outlook.com
- (2603:10b6:208:40e::7)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V/RZNUAt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E38FE1F00A06;
+	Wed, 11 Nov 2026 18:51:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794423088;
+	bh=f4bvjKyGGW7LYi9Wi0u6NoBT6lJr9jDxOjSufAj5kjA=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=V/RZNUAt5e61roHVGUqZTjp8d4FpVn7OH9QglKyo1GxtSzC8dOWp/MSSFbhEmGq3V
+	 qeV2ELlINFZQSRZjeilO0Oz5yNSzulqdwcprizT3X2WESvI2GT5fx4OiuOAXr8ZXqI
+	 tfOt3772A0YPURm9Bm2JCQALhlptYKRsdT+ZGhPiMCcWBipSRyGXzDZtu+aPCaZ8jA
+	 xRlunQwWhiCxkepNbsJ1KrfLIcEurlgxxhEHEOCWesU9zqVxCUX6AtsIP86XmtkZvh
+	 QjAfgnUBS6vOClK8JqZONmXot/XPH7nMXVL4zj4boZUrq0VtJIHaJO0biL5cRzQxfA
+	 YNiSmBdhNCaXQ==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id A71D1CE0840; Wed, 11 Nov 2026 10:51:28 -0800 (PST)
+Date: Wed, 11 Nov 2026 10:51:28 -0800
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: Song Liu <song@kernel.org>
+Cc: rcu@vger.kernel.org, linux-kernel@vger.kernel.org, kernel-team@meta.com,
+	rostedt@goodmis.org, leitao@debian.org, david.dai@linux.dev
+Subject: Re: [PATCH] rcu-tasks: Use pr_debug() for callback contend/collapse
+ messages
+Message-ID: <b8b61147-2446-4843-b5f4-a8f845a748f6@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <20261111053551.3367903-1-song@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,133 +61,112 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|DS5PR12MB610447:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2c32f3b9-35d2-4c90-b82e-08df4024a96b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|376014|7416014|23010399003|18002099003|22082099003|261009223027099003|261022105027099003|261021121427099003|261102123227099003|261028144727099003|261026140227099003|261026121527099003|56012099006|10067099003|4143699003|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	he+ZVwj0+LviejQYdcsw/NGx8lSlMlMk4rBWxVZwpfeX6jP66N3OW7g1QLSQ0LaDBzH3xlnExf+7rK9ZxwsfsyuTlavLYwtcluaOGr7ScHad7E06n/brHAx5c85he99S9eLyi14w9kSNFJYZczCjNvAix2+lYSW4w7QbhLMDy6IDeYYG00X7y07CAXmxLd2GxgrZJ0bPyhxnqRLyMdsBahsX/QxtnOSGY1IPvF5Puwl7f8DMB0n7kCYWeDcvK03xbrISfaDlqCXx5SEoBo3hfHtu5QLYXPfcCnte/fKJbww33YvI+jUHyVzOwnZEqcLIj+61GMeVSzflP5uGx5Z1powqLT8GYbFL34v9c9npFXDwoTlnAY52z3c9/a5sopfdfcAjySVRjML8mef37gXRgklyGygQce0bff8LNhdz94J23J/wP3kh30ROBBVNDgGB2DjousnlZNyNv4o7OFZ68ylKweLhQ5dDFcaVItbaGJP6DnC/b5odPNuWjoiZ81HHKNZT6kWSeml4Xezk0gzDC9HRjgLDDIkohTs2Ph5Ib0nlDSxtwgues9ZOR27sw1KqXubJVpAFhFOTV55Gb6d/XOSajKcJPLT/OPp8J/EWaJU55ik4BY+28mc+pHhp8Eq/tNVTtM1sVCpi8G4BWY6Z5GnpVPeH6MsnpubR9L7C7p0=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(7416014)(23010399003)(18002099003)(22082099003)(261009223027099003)(261022105027099003)(261021121427099003)(261102123227099003)(261028144727099003)(261026140227099003)(261026121527099003)(56012099006)(10067099003)(4143699003)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?3XsgDbMIkftEZ8P+l+IzJZ71n3bmPtDzXsL5kgnveTOUiBNKWek75Af1XmNN?=
- =?us-ascii?Q?/mPNpwpG4Oy9+rvXWj5CsN6X0jIQgZm2YcWrlWCa0bvvVLxPpULpJgKzz04M?=
- =?us-ascii?Q?jVxXcsgoFMStCp6OrcOnMd5ryO7wkC+X/6NWxwyPnHe5zRpqzcO+SxGyMypf?=
- =?us-ascii?Q?c1WayMcJxgxj+lm1yhzHCUMCmVVmquzIsRAWU5jZruSUwVIqyjUiNe/U1EO5?=
- =?us-ascii?Q?VNf/FMvU8omcpGjvfvqUmHRi4kV8oyTRykLfXXPAY1RWf95+tbdMZPGoSXdh?=
- =?us-ascii?Q?WtsVx0E3pDjjqclDvbsIzjvKw5Xad3kEj0RgD1rtB/RlYv4qDhPwD+r7qSWj?=
- =?us-ascii?Q?3d2vBWBsK3q+y0ww8MH78kwEfLyN4MC6A4i1oAZc3pMekQjpTaDGV5BR7FlZ?=
- =?us-ascii?Q?N/4NLwn+B/Y7zxd1BvgpfR7YV+XtKnXJ/Dt0LQOoAXpHSUWdg81B8aUGqLSc?=
- =?us-ascii?Q?SKGrIxV04ZFL1zHDNkfMDMLUdl/+T0LeOzChtCHsHh5u5Psdv2IPCYaCmNUa?=
- =?us-ascii?Q?WnT3wH11JFX/XCuGua7TXVExxgm8GdQELWjW2BEfCHdrXKVDIuwQOQC6s5jc?=
- =?us-ascii?Q?nJaMZr9I4OP4XSquie0wPdIcNDHHi3siOWB+haxyBGQ4op8uzX7h+U7bGapX?=
- =?us-ascii?Q?pAstoUiz+UwlopWCR95f7L+gxgd7pqD8wCS84gyOYd3rgXbrt/1e7H4EOqov?=
- =?us-ascii?Q?HsYHSG+It+vxMJXgfaOoWGR1kK648yWm/wXCEzUnWf4vAQxNWJ37mux1i40c?=
- =?us-ascii?Q?G0S32z5RrCn2H3Vp4Ljmbl2T+jOBKJrKkHzf4YHnV/mrfkckt+TBJSm0oNWk?=
- =?us-ascii?Q?xCc1l0+A8IC4kVmtVqe/LRlNaxDCanVKjaIlE2fitgwvhH828TjGI2/Q2rW4?=
- =?us-ascii?Q?VGplQIVQdkjvsSskfo5QyufNC1SGl8z3IoSmzoWwACo8QJ7q/wNHVp82OGuM?=
- =?us-ascii?Q?TUD3T6O3ZTdnpDoHbSaL5Q1ucPp3gymYFKHOJMEA9OnA9yirECFNla0zHEs5?=
- =?us-ascii?Q?n+8n2g8X0/ZMkYN+Ivi33fN1IomWzGiiUNYSrHu0yAiBWUNeSEmspGondwiL?=
- =?us-ascii?Q?PdwB5dHvV2wmrhP3WzSRWHHoz91vojtd1P+pqBuiJtJ9ZX2gUP3zI36Rf3MH?=
- =?us-ascii?Q?h5/d95bD6kkufBUKNOtqJtM7AdFVP+2pMrxiHfoPys3EdHD24XCXRFNR1VQs?=
- =?us-ascii?Q?Q8wZzQZz+84KnRdqxu6Sd+wh3+foRO4eYq218q5YH34F94XwIp33K4t6x/oA?=
- =?us-ascii?Q?GB7KxI0oEwHHhZ2K2Y5FjwrnVGrvL35lxhlF98R8XKK5fNmUdB0uE90m9+oW?=
- =?us-ascii?Q?zS0g4QXGeL1ClBE4+le985Q5yE6wDZq/j+fgQ52MtH6TgcV6QIOOQMtuSkym?=
- =?us-ascii?Q?wbH3fpjdVdmgjVIyzAc5RdYe/24eBBOBX/CTHkBfs3zXnsj3DmNtGKKXjo6G?=
- =?us-ascii?Q?cgakHDbrQMZi+87aV20RNpBadLec1aPPU7HZw36sf3SLBrUDBUXu3xKhwkwd?=
- =?us-ascii?Q?nqRyTajbyH/K6JrzPYsJV0T8Jlxcep9KugWOtjKR3AEd8r3LdMmifTu+Rgxi?=
- =?us-ascii?Q?0naPQFA6iimerP4mQ11K4sE1Kgbjxo/jsdpaZpJPXskPlUK3NvQ5nggWVB79?=
- =?us-ascii?Q?hO0bKqpsXNmE7Dmur5Iagp1GMmnFk2rmfVpWoIVwd6KgK6vxinfiqw8UQg9A?=
- =?us-ascii?Q?KcrDBUHiK/ZxU2RHJWLH2/soE/JA+WQLuZT/KLSRmLrZuhKF?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2c32f3b9-35d2-4c90-b82e-08df4024a96b
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 18:50:31.6353
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ilBwrFiuRtmzObXv0uACuKYow2t12J8FndqAWDKi7Yp73c3sNhhHpyV1roZq7OzV
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS5PR12MB610447
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261111053551.3367903-1-song@kernel.org>
 
-On 11 Nov 2026, at 6:38, Usama Arif wrote:
+On Tue, Nov 10, 2026 at 09:35:51PM -0800, Song Liu wrote:
+> Commit 5de907d24919 ("rcu-tasks: Disable callback contend/collapse
+> messages by default") added the rcupdate.rcu_task_collapse_debug module
+> parameter to gate the three pr_info() messages that report RCU Tasks
+> switching between CPU-0 and per-CPU callback queuing.
+> 
+> The kernel already has a mechanism for debug-only messages that are off
+> by default: pr_debug().  Use pr_debug() for these messages, and remove
+> the rcu_task_collapse_debug module parameter, its documentation, and
+> its boot-time announcement.
+> 
+> The messages stay off by default.  On CONFIG_DYNAMIC_DEBUG=y kernels,
+> they can be enabled at boot with:
+> 
+>   dyndbg="file kernel/rcu/tasks.h +p"
+> 
+> or at runtime with:
+> 
+>   echo 'file kernel/rcu/tasks.h +p' > /proc/dynamic_debug/control
+> 
+> Assisted-by: Claude:claude-opus-5
+> Signed-off-by: Song Liu <song@kernel.org>
 
-> do_swap_page() checks PageHWPoison() on the faulting page, but the
-> large-folio batching path then maps the rest of the folio without looking
-> at the other subpages. A poisoned subpage that is not the one being
-> faulted gets mapped anyway, and the fault that would have reported it
-> never happens.
->
-> Skip batching for such a folio and let each page take its own fault,
-> where the existing check catches it.
->
-> Scan the subpages rather than testing the folio-level PG_has_hwpoisoned:
-> memory_failure() sets PageHWPoison() on the subpage first and only sets
-> the folio flag much later, and the bail-outs in between - for example
-> get_hwpoison_page() losing a page lifecycle race - return with the
-> subpage marked and the folio flag never set.
->
-> Fixes: 508758960b8d ("mm: swap: entirely map large folios found in swapcache")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Usama Arif <usama.arif@linux.dev>
+Reviewed-by: Paul E. McKenney <paulmck@kernel.org>
+
 > ---
->  mm/internal.h | 15 +++++++++++++++
->  mm/memory.c   |  4 ++++
->  2 files changed, 19 insertions(+)
->
-> diff --git a/mm/internal.h b/mm/internal.h
-> index cd3675c044e0a..e61c02f4019b0 100644
-> --- a/mm/internal.h
-> +++ b/mm/internal.h
-> @@ -28,6 +28,21 @@ struct folio_batch;
->  int __copy_remote_mm_str(struct mm_struct *mm, unsigned long addr,
->  		void *buf, int len, unsigned int gup_flags);
->
-> +/*
-> + * Check every page of the folio for HWPoison, rather than relying on the
-> + * folio-level PG_has_hwpoisoned, which memory_failure() can leave clear.
-> + */
-> +static inline bool folio_has_any_hwpoisoned_page(const struct folio *folio)
-> +{
-> +	long nr = folio_nr_pages(folio);
-> +	long i;
-> +
-> +	for (i = 0; i < nr; i++)
-> +		if (PageHWPoison(folio_page(folio, i)))
-> +			return true;
-> +	return false;
-> +}
-
-It looks almost the same as page_range_has_hwpoisoned() in mm/huge_memory.c.
-Maybe change the function to call page_range_has_hwpoisoned() instead.
-
-> +
->  /* mm/workingset.c */
->  bool workingset_test_recent(void *shadow, bool file, bool *workingset,
->  			    bool flush);
-> diff --git a/mm/memory.c b/mm/memory.c
-> index d477a4f986bc8..4b7d456332200 100644
-> --- a/mm/memory.c
-> +++ b/mm/memory.c
-> @@ -5158,6 +5158,10 @@ vm_fault_t do_swap_page(struct vm_fault *vmf)
->  		    swap_pte_batch(folio_ptep, nr, folio_pte) != nr)
->  			goto check_folio;
->
-> +		/* Let a poisoned subpage take its own fault. */
-> +		if (folio_has_any_hwpoisoned_page(folio))
-> +			goto check_folio;
-> +
->  		page_idx = idx;
->  		address = folio_start;
->  		ptep = folio_ptep;
+>  Documentation/admin-guide/kernel-parameters.txt |  7 -------
+>  kernel/rcu/tasks.h                              | 15 +++------------
+>  2 files changed, 3 insertions(+), 19 deletions(-)
+> 
+> diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
+> index 0b3c140babd9..176648941aec 100644
+> --- a/Documentation/admin-guide/kernel-parameters.txt
+> +++ b/Documentation/admin-guide/kernel-parameters.txt
+> @@ -6369,13 +6369,6 @@ Kernel parameters
+>  			period to instead use normal non-expedited
+>  			grace-period processing.
+>  
+> -	rcupdate.rcu_task_collapse_debug= [KNL]
+> -			Enable debugging prints that record when RCU Tasks
+> -			and RCU Tasks Trace expand to per-CPU callback
+> -			queuing and collapse back to CPU-0 queuing.
+> -			This is default-disabled due to the fact that
+> -			some workloads can make it quite noisy.
+> -
+>  	rcupdate.rcu_task_collapse_lim= [KNL]
+>  			Set the maximum number of callbacks present
+>  			at the beginning of a grace period that allows
+> diff --git a/kernel/rcu/tasks.h b/kernel/rcu/tasks.h
+> index fcac7361ec51..743f777b4c18 100644
+> --- a/kernel/rcu/tasks.h
+> +++ b/kernel/rcu/tasks.h
+> @@ -178,8 +178,6 @@ static int rcu_task_contend_lim __read_mostly = 100;
+>  module_param(rcu_task_contend_lim, int, 0444);
+>  static int rcu_task_collapse_lim __read_mostly = 10;
+>  module_param(rcu_task_collapse_lim, int, 0444);
+> -static bool rcu_task_collapse_debug __read_mostly;
+> -module_param(rcu_task_collapse_debug, bool, 0644);
+>  static int rcu_task_lazy_lim __read_mostly = 32;
+>  module_param(rcu_task_lazy_lim, int, 0444);
+>  
+> @@ -392,8 +390,7 @@ static void call_rcu_tasks_generic(struct rcu_head *rhp, rcu_callback_t func,
+>  			WRITE_ONCE(rtp->percpu_enqueue_shift, 0);
+>  			WRITE_ONCE(rtp->percpu_dequeue_lim, rcu_task_cpu_ids);
+>  			smp_store_release(&rtp->percpu_enqueue_lim, rcu_task_cpu_ids);
+> -			if (data_race(rcu_task_collapse_debug))
+> -				pr_info("Switching %s to per-CPU callback queuing.\n", rtp->name);
+> +			pr_debug("Switching %s to per-CPU callback queuing.\n", rtp->name);
+>  		}
+>  		raw_spin_unlock_irqrestore(&rtp->cbs_gbl_lock, flags);
+>  	}
+> @@ -514,9 +511,7 @@ static int rcu_tasks_need_gpcb(struct rcu_tasks *rtp)
+>  			smp_store_release(&rtp->percpu_enqueue_lim, 1);
+>  			rtp->percpu_dequeue_gpseq = get_state_synchronize_rcu();
+>  			gpdone = false;
+> -			if (data_race(rcu_task_collapse_debug))
+> -				pr_info("Starting switch %s to CPU-0 callback queuing.\n",
+> -					rtp->name);
+> +			pr_debug("Starting switch %s to CPU-0 callback queuing.\n", rtp->name);
+>  		}
+>  		raw_spin_unlock_irqrestore(&rtp->cbs_gbl_lock, flags);
+>  	}
+> @@ -524,9 +519,7 @@ static int rcu_tasks_need_gpcb(struct rcu_tasks *rtp)
+>  		raw_spin_lock_irqsave(&rtp->cbs_gbl_lock, flags);
+>  		if (rtp->percpu_enqueue_lim < rtp->percpu_dequeue_lim) {
+>  			WRITE_ONCE(rtp->percpu_dequeue_lim, 1);
+> -			if (data_race(rcu_task_collapse_debug))
+> -				pr_info("Completing switch %s to CPU-0 callback queuing.\n",
+> -					rtp->name);
+> +			pr_debug("Completing switch %s to CPU-0 callback queuing.\n", rtp->name);
+>  		}
+>  		if (rtp->percpu_dequeue_lim == 1) {
+>  			for (cpu = rtp->percpu_dequeue_lim; cpu < rcu_task_cpu_ids; cpu++) {
+> @@ -711,8 +704,6 @@ static void __init rcu_tasks_bootup_oddness(void)
+>  		pr_info("\tTasks-RCU CPU stall info multiplier clamped to %d (rcu_task_stall_info_mult).\n", rtsimc);
+>  		rcu_task_stall_info_mult = rtsimc;
+>  	}
+> -	if (rcu_task_collapse_debug)
+> -		pr_info("\tTasks-RCU callback contend/collapse debug enabled.\n");
+>  #endif /* #ifdef CONFIG_TASKS_RCU */
+>  #ifdef CONFIG_TASKS_RCU
+>  	pr_info("\tTrampoline variant of Tasks RCU enabled.\n");
 > -- 
 > 2.53.0-Meta
-
-
-Best Regards,
-Yan, Zi
+> 
