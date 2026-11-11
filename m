@@ -1,80 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794439644;
-	b=5UtLzx2jCQB7IW1UVCwceQTy1To2JtdKWkboFYosCj3m9T1bxnHWZBknj9DR8ZBb+gdY
-	 bJEzX/UsUIOdNVgGSLKDJbg+NCq7XLDcsPk846yO6rJHJItGKLaHy1H3OsfMn6R2QkmsL
-	 hb7bcJVEe323peDGP8QLxK3A/n+67t+nQgipIe+1eWN1czqNfvzZ9bEIByaKKB8LbB6d2
-	 r8veDiEqTAi79QDTKpj/j+XzOtec+YKPr1BAK3i/qCH5Z63pWlo+KIvykePUCmd9bngC+
-	 1HiF3u0d1glGax/VxPiCGk+XkS9rtr9ukVnZVRqYa+4/lLEF/M8l4l6avykvZ0NIhNQ==
+	t=1794439648;
+	b=XyhvS9n3YCgX30jJCTH/bWizDl+TfdUBEGek9Qgzj/qvxmcvSXqZkwnTC9io2Hj8TMiE
+	 sCz8tkVH+mFvluYR7nt1Pit6PB9jwwCOHQDQqcd+zNwhs7NkAhJInrokUGt+9eADYlSIn
+	 8zks7JAdGqcqj+pNg9fAYoU3DYIMHpb+46qFuv/+/LC7bMr9Q+iJBlgQSOMtholW5R74K
+	 36BQAFJhi/8FQz5m8fd3NgOU1loLH1nEVyMs/QivXHMNvRhC/FkF28+GypIhjneynx8mJ
+	 6XSrVN35Wk0kNCdtlbNTlOEV11qMf/gaF21sWrilg7V27hfyV4RcZ09S+J04VYZllUg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794439644;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=zlKFVUc+Cq7/iu4xyn5/uvDHqyvVKC45Z+ABVWfXn4I=;
-	b=ixkHoBtzAI5Q1U3f52cP4aQjFK3kY/t2ey+j93olVGnfKvL59bPEL9JmWkoAPCh/4vRe
-	 PjoIZbmxWPhxeZv+UM2XojujR6jNO4vx/7dbbXf9QHIloBWbdsz6ndLtQ1guxGW6h1KsA
-	 euH3KIKGDPksbrusS8OH0oX6ULAZcKCEH+ZMeo4HOt0/hPl9uR9YYaVNVbT+oVWEdO9Sq
-	 A/DkFFdj8Ex2+qGXBYHyALWSMbtX79t79jFwIO8rnuNfKOmfE8BRW/5dC5FXs4TUwHFy9
-	 7yp9WWaPwoT+zVnUpzFjipS62zR7GzyLclI+ccpTZcdV8mirig33umtQLaUN3qDpKTA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794439648;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=l3ncA7LGC0e8S60f6Aii7X3fJT4GkRwmt3Q/dedOq/0=;
+	b=4TDW4ahqt7N7/9/5PkRHhPM2mwo5ey0XBdnrrNJXrSiEKfs9W0w7z7b1Kx6emyOfCRAn
+	 Mao4Ql79tRj0aCL943yeUjYDeZm754SzjwT1ILKGmYPKTOmrGRH8WHD0Lr8NxIMccehIW
+	 XvqDayTybBfMLyBECj598A5wlFDBiBrrHQbiCip1g0tDGcj5Gc3c5ESWy/431d2akFsEV
+	 lPjv67gLdc6FZRYHWQ5754Ax+NYHY2HcWYkg2nUbNMOW5JI8HhT52GOJq8kGf+bWxobwA
+	 2d39+CE2LmnjtD+ZYy/4kSdog6Q9OZU397REfV2W7YbapPWVrX685ou/2NndBH6bG8A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JLi7dqh2;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--justinstitt.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=m3oPiefK;
+	arc=none smtp.remote-ip=209.85.167.200
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34F76606A332
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 23:27:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74C4C606A89F
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 23:27:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 74C4C606A89F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--justinstitt.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JLi7dqh2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E3CD1F00A0B;
-	Wed, 11 Nov 2026 23:27:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794439643;
-	bh=zlKFVUc+Cq7/iu4xyn5/uvDHqyvVKC45Z+ABVWfXn4I=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=JLi7dqh2JUvmWCHop4iEUWFNVgNnoLK6MUvtG2HxGhHLlK9eEjD2Ut/St51XS2ahX
-	 nUwltJLf3OmxE4+hXOl8YdKOa1Q7kkG4/eTPiMgfIVgWXWXyMP3ZXU18CLMG2WDtiC
-	 Sgl15FpuSMZfxH98ybz+j+yCYdsQeHjzGFOt473Q5nmHfDmKXAqLADmJ/SrzSX/INg
-	 roUjPVMTyXTyuEiKDhHvuCw7ygoDiFrngZKKucD29PfF1sOy7B/6diQRoThndGm9TP
-	 yXJ4gKmhkZ4kfNyXvoKeImIfNROgXEuKd1yarcBKRcRDKD16YQvGk7t56RIy6yYM2R
-	 CCkUJYcX++T8w==
-From: "Barry Song (Xiaomi)" <baohua@kernel.org>
-To: akpm@linux-foundation.org
-Cc: axelrasmussen@google.com,
-	baolin.wang@linux.alibaba.com,
-	baoquan.he@linux.dev,
-	hannes@cmpxchg.org,
-	hui.zhu@linux.dev,
-	kasong@tencent.com,
-	kunwu.chan@gmail.com,
-	liam@infradead.org,
-	lianux.mm@gmail.com,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	liuxiang.277@bytedance.com,
-	lyugaofei@xiaomi.com,
-	mhocko@kernel.org,
-	mhocko@suse.com,
-	qi.zheng@linux.dev,
-	ridong.chen@linux.dev,
-	rppt@kernel.org,
-	ryncsn@gmail.com,
-	shakeel.butt@linux.dev,
-	surenb@google.com,
-	wangzicheng@honor.com,
-	weixugc@google.com,
-	yuanchu@google.com,
-	zhangbo56@xiaomi.com,
-	zhuhui@kylinos.cn,
-	sidchintamaneni@gmail.com,
-	Barry Song <baohua@kernel.org>
-Subject: [PATCH v7 14/16] mm/mglru: Avoid prolonged anon reclaim with swappiness=200
-Date: Thu, 12 Nov 2026 07:26:01 +0800
-Message-Id: <20261111232603.9934-15-baohua@kernel.org>
-X-Mailer: git-send-email 2.39.3 (Apple Git-146)
-In-Reply-To: <20261111232603.9934-1-baohua@kernel.org>
-References: <20261111232603.9934-1-baohua@kernel.org>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=m3oPiefK
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4db3db8687fso4530556b6e.0
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 15:27:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794439647; x=1795044447; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=l3ncA7LGC0e8S60f6Aii7X3fJT4GkRwmt3Q/dedOq/0=;
+        b=m3oPiefKK1pKNC1ByZp+CXLtguk52lx3tFmKkDLzRxnW2ziQO1e7nwERWF0O++DoaM
+         DBil3J92yz5eO8nWIXRIFFQs2SnwU27FC0s0xcywJek3tgeb92DrIYoLHbKkp9/sLqo7
+         W92iZI+qpSCm3StXd5Foqhvo6NMJ//IsqYGlPyGXzBa9EIaLtbCadT6935bd9YxWR4X7
+         YzQxVqH3jCrkZjGe/cm0dpVdShRlJc2McL67UEAYvFd51oJ1Z5PIbINQciNLla9oAebb
+         yh3jgtSDjBYWuDG1/dP0T9eCHun8+1or8gEJHXVs9vC5iqafDiryJd8GmIszleNBR7Qt
+         2LgQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794439647; x=1795044447;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=l3ncA7LGC0e8S60f6Aii7X3fJT4GkRwmt3Q/dedOq/0=;
+        b=OtOCqEdGEG4/66Vh1FjjUvUbcJnjre74cLk0BD3uivYVJAgsXdIb6H75W0BhWPF1Ke
+         5nrcJigYOjvDAp+CiC2lNnswquSE+RVtzddFYUE9IVBFeoJIFSLSxcxLlorR4PV9PS/E
+         ja1t3zy6rQf2DeyvMBYT9h9zLq7KmxOUwDd1mSJrVq9e7wFovPKM1YJtbdaM3ampIVKQ
+         F9Dzzw738PgayuMfHLqS6uGxPJ1IKMVak/sTRYcS1/ZWp8K4p3oYlHYFVXl6O8zjpZe6
+         mKhdv6bdhXAaFOfva0hQfNih98A4dH8p+xLBc3gFxYt+oz2/mo6IDoVfcvkL3FdofLTP
+         jkYA==
+X-Forwarded-Encrypted: i=1; AL+hErG8jbgRanrgWNHjqMbfIT534Qc5JH1cb615VxiTBW5sGi5ONS76PMaBDG7/TBR5iszdMAXYhAT5cqLxyyA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/l9g6xf6rGsQfaqBlj1wvTGC+cuNR+bxs53SRZA1MMyq97tnOy
+	i4UMTxnCSFuloysp+bnLfMl1LNJ6VEPem8qaqeav+U8M/q0dRiid0FJ8HknFnjhVRh2+r4WMNUA
+	qzRJZ3huHnyyLk0lC3hc7TsZkiQ==
+X-Received: from ioz8.prod.google.com ([2002:a05:6602:20c8:b0:9c7:7bc8:8c7b])
+ (user=justinstitt job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6808:2388:b0:517:dd67:aeb7 with SMTP id 5614622812f47-56b97e2b6cbmr3870593b6e.56.1794439646997;
+ Wed, 11 Nov 2026 15:27:26 -0800 (PST)
+Date: Wed, 11 Nov 2026 15:27:25 -0800
+In-Reply-To: <20261105084518.386234-1-nikitash.mariiaw@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,73 +77,75 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20261105084518.386234-1-nikitash.mariiaw@gmail.com>
+Message-ID: <avT5yrP3PYemJNCI@google.com>
+Subject: Re: [PATCH] media: verisilicon: Replace strlcat() with seq_buf
+From: Justin Stitt <justinstitt@google.com>
+To: Mariia Nikitash <nikitash.mariiaw@gmail.com>
+Cc: nicolas.dufresne@collabora.com, benjamin.gaignard@collabora.com, 
+	p.zabel@pengutronix.de, mchehab@kernel.org, linux-media@vger.kernel.org, 
+	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	linux-hardening@vger.kernel.org, kees@kernel.org, morbo@google.com
+Content-Type: text/plain; charset="us-ascii"
 
-From: lyugaofei <lyugaofei@xiaomi.com>
+Hi,
 
-It has been observed that swappiness=200 can significantly slow down
-reclaim on some machines, with some workloads running 3x slower
-under MGLRU than under CLRU.
+On Thu, Nov 05, 2026 at 12:45:18AM -0800, Mariia Nikitash wrote:
+> In preparation for removing the deprecated strlcat() API[1], replace
+> the strscpy() and strlcat() calls with seq_buf operations when
+> constructing Hantro video device names.
+> 
+> This preserves the resulting strings, including truncation
+> when the compatible string and suffix exceed the destination
+> buffer's capacity.
+> 
+> Link: https://github.com/KSPP/linux/issues/370 [1]
+> Signed-off-by: Mariia Nikitash <nikitash.mariiaw@gmail.com>
+> ---
+>  drivers/media/platform/verisilicon/hantro_drv.c | 11 ++++++++---
+>  1 file changed, 8 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/media/platform/verisilicon/hantro_drv.c b/drivers/media/platform/verisilicon/hantro_drv.c
+> index 26e5d5547466..2bfcd45cc55e 100644
+> --- a/drivers/media/platform/verisilicon/hantro_drv.c
+> +++ b/drivers/media/platform/verisilicon/hantro_drv.c
+> @@ -17,6 +17,7 @@
+>  #include <linux/platform_device.h>
+>  #include <linux/pm.h>
+>  #include <linux/pm_runtime.h>
+> +#include <linux/seq_buf.h>
+>  #include <linux/slab.h>
+>  #include <linux/videodev2.h>
+>  #include <linux/workqueue.h>
+> @@ -883,6 +884,7 @@ static int hantro_add_func(struct hantro_dev *vpu, unsigned int funcid)
+>  	const struct of_device_id *match;
+>  	struct hantro_func *func;
+>  	struct video_device *vfd;
+> +	struct seq_buf s;
+>  	int ret;
+>  
+>  	match = of_match_node(of_hantro_match, vpu->dev->of_node);
+> @@ -902,9 +904,12 @@ static int hantro_add_func(struct hantro_dev *vpu, unsigned int funcid)
+>  	vfd->vfl_dir = VFL_DIR_M2M;
+>  	vfd->device_caps = V4L2_CAP_STREAMING | V4L2_CAP_VIDEO_M2M_MPLANE;
+>  	vfd->ioctl_ops = &hantro_ioctl_ops;
+> -	strscpy(vfd->name, match->compatible, sizeof(vfd->name));
+> -	strlcat(vfd->name, funcid == MEDIA_ENT_F_PROC_VIDEO_ENCODER ?
+> -		"-enc" : "-dec", sizeof(vfd->name));
+> +
+> +	seq_buf_init(&s, vfd->name, sizeof(vfd->name));
+> +	seq_buf_puts(&s, match->compatible);
+> +	seq_buf_puts(&s, funcid == MEDIA_ENT_F_PROC_VIDEO_ENCODER ?
+> +			"-enc" : "-dec");
+> +	seq_buf_terminate(&s);
+>  
+>  	if (funcid == MEDIA_ENT_F_PROC_VIDEO_ENCODER) {
+>  		vpu->encoder = func;
+> -- 
+> 2.43.0
+> 
 
-This is because swappiness=200 currently results in file_factor=0.
-Give file reclaim a small factor at lower priorities, for example,
-when sc->priority < DEF_PRIORITY / 2.
+Reviewed-by: Justin Stitt <justinstitt@google.com>
 
-Signed-off-by: lyugaofei <lyugaofei@xiaomi.com>
-Co-developed-by: Barry Song (Xiaomi) <baohua@kernel.org>
-Signed-off-by: Barry Song (Xiaomi) <baohua@kernel.org>
----
- mm/vmscan.c | 15 ++++++++++-----
- 1 file changed, 10 insertions(+), 5 deletions(-)
-
-diff --git a/mm/vmscan.c b/mm/vmscan.c
-index 6315edf50376..3872305bac2a 100644
---- a/mm/vmscan.c
-+++ b/mm/vmscan.c
-@@ -4888,8 +4888,8 @@ static int get_tier_idx(struct lruvec *lruvec, int type)
-  * We don't calculate the scan cost, MGLRU uses lazy promotion, which will
-  * cancel the scan budget natually.
-  */
--static void lru_gen_balance_scan(struct lruvec *lruvec, int swappiness,
--		unsigned long total_scan, unsigned long nr[])
-+static void lru_gen_balance_scan(struct lruvec *lruvec, struct scan_control *sc,
-+		int swappiness, unsigned long total_scan, unsigned long nr[])
- {
- 	struct lru_gen_folio *lrugen = &lruvec->lrugen;
- 	u64 refault_rate[ANON_AND_FILE], anon_factor, file_factor;
-@@ -4946,7 +4946,12 @@ static void lru_gen_balance_scan(struct lruvec *lruvec, int swappiness,
- 	file_weight = nr[LRU_GEN_FILE] + nr[LRU_GEN_ANON] / size_bias;
- 
- 	anon_factor = (u64)swappiness * refault_rate[LRU_GEN_FILE] * anon_weight;
--	file_factor = (u64)(MAX_SWAPPINESS - swappiness) * refault_rate[LRU_GEN_ANON] * file_weight;
-+	if (swappiness == MAX_SWAPPINESS)
-+		file_factor = sc->priority < DEF_PRIORITY / 2 ?
-+			      refault_rate[LRU_GEN_ANON] * file_weight : 0;
-+	else
-+		file_factor = (u64)(MAX_SWAPPINESS - swappiness) *
-+			      refault_rate[LRU_GEN_ANON] * file_weight;
- 
- 	/* Cross-multiply the ratio above. */
- 	anon_scan = mul_u64_u64_div_u64(total_scan, anon_factor, anon_factor + file_factor);
-@@ -5143,7 +5148,7 @@ static void lru_gen_prepare_scan(struct lruvec *lruvec, struct scan_control *sc,
- 
- 	total = apply_proportional_protection(memcg, sc, total);
- 	total >>= sc->priority;
--	lru_gen_balance_scan(lruvec, swappiness, total, nr_to_scan);
-+	lru_gen_balance_scan(lruvec, sc, swappiness, total, nr_to_scan);
- }
- 
- static bool should_abort_scan(struct lruvec *lruvec, struct scan_control *sc)
-@@ -5890,7 +5895,7 @@ static int run_eviction(struct lruvec *lruvec, unsigned long seq, struct scan_co
- 			return 0;
- 
- 		lruvec_evictable_size(lruvec, sc, swappiness, nr_to_scan);
--		lru_gen_balance_scan(lruvec, swappiness,
-+		lru_gen_balance_scan(lruvec, sc, swappiness,
- 				     nr_to_reclaim - sc->nr_reclaimed, nr_to_scan);
- 
- 		if (!evict_folio_lists(nr_to_scan, lruvec, sc, swappiness, MAX_LRU_BATCH))
--- 
-2.34.1
-
+Justin
