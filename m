@@ -1,84 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.53
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794415799;
-	b=rd6dNOra4zBiBTNxAeybdZMAL0BU1DWltWINMGlojreihB34wO6WPQd8CslGCK6ygUhW
-	 f+07Zds/H3nRrZCtMULq0DS3gtkU9QiF70WJLyncS09MX0P9fv9d0mbzHWkxB7Wwsquz9
-	 HLWPyv5Mp7HjNPtOkSEYfY97mLeLaf+GT/W3fcYgRxXf4YJOfLOrzw8RioDRXpxrHxM0G
-	 3TsMDXdxWiLhvCo6B00LpO0vKV/D5wlaDuSfLInvuXWDd/C3JWTN0QdDH0Khrvz+VcDVm
-	 aCZ3aU/12qLX4s0vUKG0WF6QpLXZyBySqw5TuQXMp3ei1MibTiboAQHpmYh9r1s+BkA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794415799;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Message-Id:
-	 Cc:Subject:From:To:X-Mailer:References:In-Reply-To;
-	bh=rFud020d6ZqbAIZTEaEuXG8erb5QVVdBjItcD5kJ9qU=;
-	b=Vjq2HCeeB+RcWmFmLKtrCNHZ0RswQSlOR2xEsWSqQPUssbm3GRV/vySr5+/JI8C+POTz
-	 B2MdAzyjTjxlnCVdjV8eZ9tKNoZPD656xENehBIkthkOUWD1CXN3Qxuf3hZ4D0dGvF9Az
-	 kseIfYgTElb130c1cdu/ORVxGZR42hEbXd9g8pVAd6+4XjxxFzuc4P4cPajdc4eqDPmWF
-	 TlJHeZ3/zFo1L2JGf8dxeymybIG/xekcgYyzg35LrmBA4FU9W5RpsWuDnh8Jlep+EKyqO
-	 /j0k8ScP/J/ovc+4K5RxKJy+upifkB5z+IUUtYrVhoOHI3d6xBpGAgc0Y98s/RypG1g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HJL1TZqY;
-	arc=none smtp.remote-ip=209.85.219.53
-Received: from mail-qv1-f53.google.com (mail-qv1-f53.google.com [209.85.219.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.12
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794415834;
+	b=fN9CtqcmmsUM3kqr7c9LVGLl0PR9shR08XNVeq2qC2waqP3PntwMTEjY5oIBsebjpHyw
+	 xfGE3tTVr1qgszIYJHPguPW11DA2HLbwuGul5jZrKrU8XDwrDoLFAnR5JeXvdQ0xwnb1I
+	 gO0hu2eGq4QFJlOwZ8v54z1GSzf25dENJSO7pg4N/aDAD4W3q0MRqqnmCi3hVs6uGYboO
+	 INs0YK4QydxquFB4wZl2J7briOb2gezBLx0rNfDfeFastGyE3fgdaxUKoIhnwgPovsG1r
+	 WZcJaFBMU3YMfOJmOYz0dXlik5JjUYODOxFUKgJvNG/C90RcDn1aqV4eImYxytyqadw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794415834;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=1NN0HbzSKxHThYGDasp4fu7PUBHzIf6sPu96a0RGN/I=;
+	b=Ij/N8o/0tRan8jJ7taYoI1vSzKTyzoYyAvFVmyi9QLsa0ylUVE8Qd/yQAulydG22Ia1F
+	 jkLdBVQWVeQtEGEeZ02TW9dnBnD0PU+w6bfIDy+iNsQLvdLS5cioMqw0N0WKXxmnq1DD/
+	 T5Ulps5bDGVfHyeIOEZySc46dZLeiyI59yC3/DPru6nOFOkXA/4LgzE48/xCbUQXYW2v3
+	 85YV4iosCk7JAhGgqN04JF4W6D6tIbvtyOdWN05XdQe73XJp3MNxhScFtJt6YTAaePNXJ
+	 JlOLg5vsd/rc91Py1VhKe/lFdcdcCbCae9sclbuiNY3HkanLinNmFpyRCr3bFZbgiZQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b="CJRYa/Po";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.12
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011012.outbound.protection.outlook.com [52.101.70.12])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28FD6606A321
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 16:49:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28FD6606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9E89606A324;
+	Wed, 11 Nov 2026 16:50:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9E89606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HJL1TZqY
-Received: by mail-qv1-f53.google.com with SMTP id 6a1803df08f44-91eda36322fso15996136d6.1
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 08:49:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794415798; x=1795020598; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=rFud020d6ZqbAIZTEaEuXG8erb5QVVdBjItcD5kJ9qU=;
-        b=HJL1TZqY3pycAyt7sUA767m90KqajI8zY0xT1ZfuAA/QfImIGgMx+vAqH5Imyi/a6+
-         aMEZPSuWC0VKrlzb13m1Nrwk3QQ1wPZefNNmLRBLCtq5cxDePjkDtwTpye0fVTiEcWB6
-         aQ5mmiFm7UHTtv3f/HgmSB/WAizRAoppvvJqsmn96SgIn97pqx1oC1BFwsrGLw8pgc3I
-         Zt2pBuE1m63/KLFVCv993l8Nq/ZcD/Q9G+j++A6DU9uB42JKnPgnXP5fvqJ5tv1540yF
-         pMvXIlsts3LByVlAX0I2AnxgbnLfwxfrlIL0MQSTx9vfi1sV4y8WMcWGj2UrnyRyZjKB
-         Frcg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794415798; x=1795020598;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rFud020d6ZqbAIZTEaEuXG8erb5QVVdBjItcD5kJ9qU=;
-        b=cE5fXwGxBnO1EgMPujX9SJce+qTxIuTpOv/LL6un984O2WlDGCEfRnlVqhDo89BYIS
-         RBMkNgRtOwNXn0LFDOP6au/Q3kO7b4BCQb4gmTEnua9QgssH7KHkYfLYt03oLBK44kNk
-         P1xkZektieyO3Z0uRLzhwaMayCOIyTPHtsdS+33iFdC91vmZO1XdJ+DPslvVaH1V0avp
-         /Cr8Fd/j2813Mp3dnoHpsK6KgKqmvr0dBEPrFsAL1MeHnFmxJ7IReJX0rIkC/HaFjMkO
-         98+jxdwzvLZQ4Pp+K9ZmUKX4jZmvSJOdJiei7pz8////W90XtY+MHyYBHlvzIT6SH23Z
-         tjtA==
-X-Forwarded-Encrypted: i=1; AL+hErH3kHwdANZ8NLazjEfk+5ITt78LK13DOEDCocazkAsOLivoV6I1itRVEalHrs5Qx/Fc8nWxFgkTtbseo6A=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9Pfznx76sQBDkHhWPxvsrPP0Gc1wL+yrKEdrzre/ktislQVZUG
-	zBgYTVeLDpfPu0/NCtzj5Qkyy+grfEIphduKYxeiJPD68DEBdEdg+oaO
-X-Gm-Gg: AYBFou0RofiRp4Ti79EuQKkgBYpwAKlU7sTvoz8RYJViD0cYI986I9USH+r/oeF2Lc1
-	MIz0p+0+ZjhUcyjAxo+7d1NAOhBN1HbA+ER+ejTJAI4UulOzUBYtdRSR8Wu7UgFDX7D8c+MU4zL
-	vf0XSaszlX+xDlPFo78SpeM18lXHN3+iBAxsdotBvxtcS7vBAEaylG6F6IYzbt9Ttd7hZro0OmH
-	NWqJKFkVqLfkNWjBnzbgwZeYCn1bOWqAjO+E5R97Rp4C/J2ouLUGS2SBJWoFqUVqg7YF2jzfDTE
-	UHDpWL77VX6HA381Rcfi1uhUWDPqgzZVXDL+SkULp3POqxhDCj9mJnsNMTql7ZEEUBQPkTEpGFd
-	MCAr3ynAlGfVWBSMjIQinoI3R3qP9mfRBoUNHz2ZF5qPhx5w/drdf1E8ZrTMpjEizHtrDfFNpA7
-	n8GmR0X4QPxkLGjso2UJCI3MTlFOAVW06oN+1X0uB/rXInZfjyhBp9ngxesxygJgipFfYfR3fP1
-	Wi/mZsWADDUSdjBCkABZuUgzu/a2j8mXxeZM27Pi4H45yPYRj6yCjvFmBalWLAKrpewnuXyg/Q6
-	VqmwVx5D2Bj2dRqf
-X-Received: by 2002:a05:6214:398d:b0:91e:aa6d:d408 with SMTP id 6a1803df08f44-91f03e88ff2mr51627976d6.7.1794415797982;
-        Wed, 11 Nov 2026 08:49:57 -0800 (PST)
-Received: from localhost ([2620:10d:c091:500::6:868a])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ef04ab626sm51981516d6.15.2026.11.11.08.49.56
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 11 Nov 2026 08:49:57 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=CJRYa/Po
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=UZm2sKic8UttRCL0SChy/SugyFelrL4k6AuBOGrMSMYQwJ3iMZVHO/Tjhhl0akdlKLTbFMT0aCk59wIBGV9yl4417x/XnWecHhe4Ne6H8VZcUtxXUHGIDi5ZqDhVmkGp5UBy24a5YXnG2JhDdxtidrC8vxZJHyLwomV9eXsxYjxi9MBtwLtV2dUy1I/Ck6s7DSZRduPoB3OXhDx5sS8I2t0M60Em9Bd4Uq/HzUqMLvVcnat1ArytH/gKiml1Y8CPRnq7Oa2h1rxZKUJJxNDPCNt8HV94h5bFKsXtIaYP9Uigbn2uBNaFkQXDmOiWKdRRovOa2GQl+6y7e6CUw4D/Xw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1NN0HbzSKxHThYGDasp4fu7PUBHzIf6sPu96a0RGN/I=;
+ b=bbJDUDD38OLnufTTu6m7ZBe7cOqub5BvSHfN41yCPs0ld89+MEFBeMtNHjPqMARStVrvmr8n+ZBmTXi1P3ZuHmBSDHlDCf9GuVimZXBhhGeKZM4ECUIvDfECWRFivePiH6+0NT/TMafkbRl2Fsil8mg4B0SFFMnrDEpreKFxbr+MiAFtKRm99KB2BF30GG0XfmSeWsGRMkR/TNsXIAjhmxUQJg7Sn5AMYoi+kpTGojD03Hg8ynqJJdDLiqc0C3QUN1AGDED01b3xk8c9ksiuEhS428bZliZuJmLiz48f2MfGhYyt2tLYG7h+NvLRgjOsalgeI/EqOAbZfx/zvx9o8Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1NN0HbzSKxHThYGDasp4fu7PUBHzIf6sPu96a0RGN/I=;
+ b=CJRYa/PoDnEK26VM0d9J30vADR/NAiV3n7jtO7DsO4i0uEt9CuhSWGdck8cfWltljFuC9A/os7Xb7Bk/H+MO8zNgaSAhBmgib/XffzmUFmDIeOIAcvqsBLIf7+DeAex00vKuhsUGuGf9ugN7mu/8sGUhCOPU6e2esA/SP2s4Iby1AULEGVlHVhiNU+N9E/1KUE3oT67GnXDlIetvVra8Z7ZLSWdWquAU4DdGtwXm34Ze9hBlvm+1F7QRTh5bSkeJkN04fRwSqNEVb4AjTInPXQSjmm6S5s29ph0ijAuPwZWjRuTQDSalm/Zfg3h1SB2V0yUT2+auvWA99qAnQ7ry8Q==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by DB9PR04MB8379.eurprd04.prod.outlook.com (2603:10a6:10:241::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Wed, 11 Nov
+ 2026 16:50:30 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0615.007; Wed, 11 Nov 2026
+ 16:50:29 +0000
+Date: Wed, 11 Nov 2026 11:50:22 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Billy Tsai <billy_tsai@aspeedtech.com>
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Frank Li <Frank.Li@nxp.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>,
+	Andrew Jeffery <andrew@codeconstruct.com.au>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
+	Ryan Chen <ryan_chen@aspeedtech.com>, tbevis@amazon.com,
+	linux-i3c@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/9] dt-bindings: i3c: Document generic bus timing
+ properties
+Message-ID: <avSczhZGS9cCcNSu@lizhi-Precision-Tower-5810>
+References: <20261111-b4-i3c-hci-ast2700-v2-0-4d8fff5c5196@aspeedtech.com>
+ <20261111-b4-i3c-hci-ast2700-v2-1-4d8fff5c5196@aspeedtech.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261111-b4-i3c-hci-ast2700-v2-1-4d8fff5c5196@aspeedtech.com>
+X-ClientProxiedBy: DS7PR03CA0119.namprd03.prod.outlook.com
+ (2603:10b6:5:3b7::34) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,187 +105,155 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 11 Nov 2026 11:49:56 -0500
-Message-Id: <DMSJB8MZZCXK.MCEBRZQDAM5Q@gmail.com>
-Cc: "David S. Miller" <davem@davemloft.net>, "Andrew Lunn"
- <andrew+netdev@lunn.ch>, =?utf-8?q?Bj=C3=B6rn_T=C3=B6pel?=
- <bjorn@kernel.org>, <bpf@vger.kernel.org>, "Daniel Borkmann"
- <daniel@iogearbox.net>, "Daniel Zahka" <daniel.zahka@gmail.com>, "Donald
- Hunter" <donald.hunter@gmail.com>, "Eric Dumazet" <edumazet@kernel.org>,
- "Jakub Kicinski" <kuba@kernel.org>, "Jamal Hadi Salim" <jhs@mojatatu.com>,
- "Jiri Pirko" <jiri@resnulli.us>, "John Fastabend"
- <john.fastabend@gmail.com>, <linux-doc@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-kselftest@vger.kernel.org>,
- <linux-rdma@vger.kernel.org>, "Martin KaFai Lau" <martin.lau@linux.dev>,
- "Paolo Abeni" <pabeni@redhat.com>, "Saeed Mahameed" <saeedm@nvidia.com>,
- "Simon Horman" <horms@kernel.org>, "Tariq Toukan" <tariqt@nvidia.com>, "Wei
- Wang" <weiwan@google.com>, "Willem de Bruijn"
- <willemdebruijn.kernel@gmail.com>
-Subject: Re: [PATCH net-next v1 04/15] psp: add support for socket-less psp
- associations
-From: "Daniel Zahka" <daniel.zahka@gmail.com>
-To: "Todd Freed" <toddfreed@meta.com>, <netdev@vger.kernel.org>
-X-Mailer: aerc 0.21.0-threadmapfix
-References: <20261111005533.6436-1-toddfreed@meta.com>
- <20261111005533.6436-5-toddfreed@meta.com>
-In-Reply-To: <20261111005533.6436-5-toddfreed@meta.com>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|DB9PR04MB8379:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1d53db86-b58c-4362-5675-08df4013e4d2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|7416014|23010399003|19092799006|366016|22082099003|18002099003|261009223027099003|3023799007|11063799006|4143699003|56012099006|261028144727099003|261102123227099003|261026121527099003|261021121427099003|261026140227099003|261022105027099003|261022075727099003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	AKpj/MhLO/Xla+SgHmOliGOSmtR64MQvGHAdn1LISVxH4TtFrz+vFtsdTK0wq8frF96ebHqIxirig+tZY2kVivBhpLCdXv1GNMe3ByU/9xVHSRc7DlTIb/7jDovBCiXPvKvpSx5PWW/jx1Q5KkrH1+rqPbShOtfav8EmGjkzJ3Hr4tDykTFSIH4P8GI43qFeFkExzXhwEo8MCUn2fPH/SDcQBLN90vRk/X4ZmK0ZzxjAjqoeRgyHIfDobYbEUIWwDBJ2+QvC7jTkol2fZTuV+tSX06iESKqeG+gmVsIlwT2fHBwVm0S4okAPsAYlXIs6kVcI4ijhIDYLjeBuStpDRR21huhsKXh837hEFLv9gPzZF0VByLkUJFaHoMvNc+siWpC3TemiorrMH8QMFdQ6nVaJnHgYCp6Hgv1Rjf/jiOMIUHULhbvg1g8nCEqn93/BKUDH+efqoH9CFnckMHWjt+LtyDPIAtHBG0yN0yTJeXT9rWHHHSHhcvvENQmEBSNOY9gaUbOyFexfi4vAMY2T8BRn8aPM9Q3jcV6JA7Z6FG/HamP/SoNRBazcRzcWhLEDBafQJJGVSoGgb8bPuRZ2SRlVuGUrsS8RSLOl+Kz4TN/Fbq4E6jox1ajWTYYF+Zd0YZ+lsXJfM3BwdNUd8rhHJTzdWcWMnMf0esuNm2LeT2c=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(23010399003)(19092799006)(366016)(22082099003)(18002099003)(261009223027099003)(3023799007)(11063799006)(4143699003)(56012099006)(261028144727099003)(261102123227099003)(261026121527099003)(261021121427099003)(261026140227099003)(261022105027099003)(261022075727099003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?9GWnyXibWy0s0KHsl+iGoPsXXZWjN9xGtM9plB8QWbNy7vL/OgPQSA5bFJRH?=
+ =?us-ascii?Q?4C2iGuSlab9RX913Jti0otfJufynzPfCsh99q+oXGQR77r8WN/8OCFjR0wa+?=
+ =?us-ascii?Q?0GqHRVulGFvw/AFEjAFce3n7+uEzZPv4DiZlLgMQ0f67LqF89EToTVPVwmK7?=
+ =?us-ascii?Q?NUDe3XVV/D8ClkwKG5xnESh4b7jTKsAddv6+k70beL2fuNHg1iw15Z6ZhEba?=
+ =?us-ascii?Q?TXcSbuh2VrGatVwZ6mxbMbJW/XA8wKM4luddObnyNRxxgyt6miY7qmTW4ofU?=
+ =?us-ascii?Q?mOkI7SUQr9lD+fthTmCXRtqZxXMXXE0X09AKtX3Kfipz9fQVsn8EjgpzasWW?=
+ =?us-ascii?Q?YwfeFJaGQar6wlDI3Uwy1AMW9CVjqejWdmMU11+0Q87/e9lhSf1NJyzL0yPP?=
+ =?us-ascii?Q?X/+khhKpBy5/mS2zGhHpOhPBoveqv7HZg3yB3Lna4uLaoRR0lS4sy7My4IP+?=
+ =?us-ascii?Q?YG/oeB3vrXdxRZrzh2ue/qYyDXG9UUMB8mBlzeRwwi3q7Nel7quimThdgOVg?=
+ =?us-ascii?Q?Sl1DViDNJXrDf5gnUW/wD+9A2TgBIELzmDGRAtq16820G6M3Mwyah/qsNnHj?=
+ =?us-ascii?Q?be2qgmhmYOsRT8BSxVzs1tuzrGWN9BX/MGPMVssPxFFQ2dZ+zo/natdgziJ/?=
+ =?us-ascii?Q?fJ0PBFbfgirnli7j+6wyX+RPpcglN5P6a0amdBPELVf/dRHc3wGIY3m7+X6k?=
+ =?us-ascii?Q?v0qSBaLCDCizsHUiRc3x6HSqmRqSguXlyH62Yvblhli9CEtdmwp6008yekzB?=
+ =?us-ascii?Q?3kM+xYs1vp4wyeR91WEKyBi36uebsBagZJGf5xbjxYzoZ8BTzDBAAWhI1rPd?=
+ =?us-ascii?Q?hYTc5uwlJhL6ntDJarz0gGVW+sQBgUEyFOoGBzvw2ciEL9w3JEqczIbyQRhJ?=
+ =?us-ascii?Q?3KIzI55AAJoXKjQ10qicrWq/9Ijj5wEuT28sTGPsOmBcLSCu/bZ20PHrvd2m?=
+ =?us-ascii?Q?C31cSTKeCCs+i1hCHnMy4IGW4YNKO8hThJMNbc8u4F6Ib9BH2EjwKT0B2TbB?=
+ =?us-ascii?Q?FblbnUx1pc/uet4vYL73dDfoiyt7z/gmy621TKisZFb34/NWSue0l7OJ0fws?=
+ =?us-ascii?Q?vCVlBLESCRhxf+zykyDETgaQ7InnC7f8FqUyCQ0rbzmev1iDG+tn+3TwfsPt?=
+ =?us-ascii?Q?Kohl2PSHDH+ekgUJlm4TAsp15QkOps71A+cvWK0yzRYo5UavN5C1ZUx92Sg0?=
+ =?us-ascii?Q?Rvc0PdTg78DSgNm1ef+eLw8m3r1+Y9/s0tIyD3tb5Wci8u/KIPwxbgENght+?=
+ =?us-ascii?Q?sizMHfJvm00FyKEsvF/l3PM3KtFXPmj6coGfjdiRAPTDwHH8h3XAhYbLub9/?=
+ =?us-ascii?Q?YXKE/Ff6D3WWUkN4ZCf/RoPQwr1sjaSMWr/EL6WiKuZMns1RcI6QCuKFEkNB?=
+ =?us-ascii?Q?Xzcn9VdZapPADn1tWaqpmjOjpuhtf62TZpdG5jBEwIagr/ccqj7KakCwp/hS?=
+ =?us-ascii?Q?7OgNohqPpDUm2z1DLG2TIIviyWViLJLd8GOhP8XHB6iIZn6Ny8Dq4EwonE0d?=
+ =?us-ascii?Q?lq0rMHAgIsGfRdj5OktbC0RarfpG/e4Tt+tp7EMdVNjot2RPCH7qY0KwkX/c?=
+ =?us-ascii?Q?FjUC0pvndnti82b+/eCeUGaKYPKtPEI+zHZbsMuYKHQWYcClTy9U34Z5DahS?=
+ =?us-ascii?Q?W52JhEQa57lUT01eAWTRG8DUUwWBNPlgm8eFuAdYem1DP7CNxPUsiX4rxrTK?=
+ =?us-ascii?Q?eZo/ilXjBVk84tXK3hk6uWFYIJ9fE+JTcG3+tPXmixPmlkIR9CTztBJr5lvI?=
+ =?us-ascii?Q?zhtbtp/o27s8Rl+3SzJnZ5ds8Ug/l7MI+zBG9C6StaXqWYhRCZMK?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1d53db86-b58c-4362-5675-08df4013e4d2
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 16:50:29.8540
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 38iLylBEaCBpHuEVRuSOAZpMfQo5tubd2PmZgpU4w9Yzhvkiet60V9LuthNfhD06CDuzulRGlQZzZ/Cko2i+7Vh/noQVSlb2l0dRX/54oRJKr3D7CRI/apCY1E8lNEC0
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB8379
 
-On Tue Nov 10, 2026 at 7:55 PM EST, Todd Freed wrote:
-> currently, a psp association is bound to a tcp socket when it is
-> created, and can hold both an rx and a tx key.
+On Wed, Nov 11, 2026 at 11:16:29AM +0800, Billy Tsai wrote:
+> The push-pull and open-drain SCL periods, push-pull SDA output hold
+> time, and the tCAS/tCBP periods around START and STOP conditions are
+> normally derived from i3c-scl-hz, but board-level trace length,
+> pull-up strength and capacitive loading can require different values
+> than what that derivation produces for a given board.
 >
-> add a small registry of un-bound associations. These have either an rx
-> or tx flavor, and are referenced by an id. other parts of the stack can
-> then attach them to packets. see the subsequent patches, where the tc
-> psp action does just this.
+> Document properties to override each of these independently, naming
+> them after the MIPI I3C Basic Specification v1.1.1 timing parameters
+> they adjust:
 >
-> an rx association records the spi, version, and device key generation,
-> primarily for describe (assoc-get). a tc filter matches these fields
-> with the flower keys psp_spi, psp_ver, and psp_dev instead of
-> referencing the association by id, to facilitate hw offload. these
-> matches are added in a subsequent patch.
+>  - i3c-pp-scl-high-period-ns, i3c-pp-scl-low-period-ns
+>    tHIGH, tLOW: Table 87 (I3C Push-Pull Timing Parameters)
 >
-> adds the following new netlink commands for managing these associations.
-> note, these are admin-only and restricted to the netns of the psp device
+>  - i3c-od-scl-high-period-ns, i3c-od-scl-low-period-ns
+>    tHIGH, tLOW_OD: Table 86 (I3C Open Drain Timing Parameters)
 >
->   rx-spi-alloc  allocate an rx spi + derived key, and publish an rx
->                 association for it, returns its id. the key is
->                 delivered to the peer out of band
->   assoc-add     create a tx association and install a tx key, returns
->                 its id
->   assoc-del     drop the registry's reference to an association
->   assoc-get     get / dump associations ; only the spi is reported
+>  - i3c-pp-sda-hold-ns
+>    tHD_PP: Table 87 (I3C Push-Pull Timing Parameters)
 >
-> assoc-get and assoc-del operate on both rx and tx associations.
+>  - i3c-cas-period-ns, i3c-cbp-period-ns
+>    tCAS, tCBP: Table 86, Figures 144/145 (I3C Open Drain Timing
+>    Parameters). These carry the protocol minima as constraints.
 >
-> socket associations do not go into the registry, and these apis do not
-> address them. so for example, assoc-get does not list them.
+>  - i3c-sr-p-scl-low-period-ns
+>    The SCL low period held while a Controller stalls the clock in
+>    the T-Bit phase before a STOP or repeated START, per Section
+>    5.1.2.5 "Controller Clock Stalling" (Figures 19 and 20). The
+>    specification describes this requirement qualitatively and does
+>    not assign it a dedicated timing symbol, unlike the other
+>    properties above.
 >
-> socket-less associations are on the device's association lists, like
-> socket associations. they are therefore marked stale by key rotation in
-> the same way, except tx ones: they hold the peer's key, which the
-> rotation of the device key doesn't affect. assoc-get reports it
-> (stale), so that user space can identify such entries.
+> Any property left out keeps the derived default.
 >
-> key material enters through netlink and is never reported back. no key
-> is stored for rx associations, and users reference associations by id
-> and never handle keys
+> Signed-off-by: Billy Tsai <billy_tsai@aspeedtech.com>
+> ---
+>  Documentation/devicetree/bindings/i3c/i3c.yaml | 86 ++++++++++++++++++++++++++
+>  1 file changed, 86 insertions(+)
 >
-> published associations are dropped from the registry when their psp
-> device is unregistered.
+> diff --git a/Documentation/devicetree/bindings/i3c/i3c.yaml b/Documentation/devicetree/bindings/i3c/i3c.yaml
+> index 5603f2e7807d..30f65fd1afa7 100644
+> --- a/Documentation/devicetree/bindings/i3c/i3c.yaml
+> +++ b/Documentation/devicetree/bindings/i3c/i3c.yaml
+> @@ -57,6 +57,82 @@ properties:
 >
+>        May not be supported by all controllers.
+>
+> +  i3c-pp-scl-high-period-ns:
+> +    description: |
 
-I think the design could be improved by not reusing struct psp_assoc for
-the socketless rx spi accounting, and by not placing the socketless tx
-assoc on the active, prev, and stale lists next to the socket
-associations. I'll try to comment inline to give you a better idea of
-what I'm talking about.
+Needn't |
 
-In general, what I'd like to minimize is having one object used for
-three different things, where each usecase has its own subset of fields
-active, and then having a bunch of glue in places like
-psp_assocs_key_rotated(), where you have to check if the assoc is
-socketless, followed by if it is tx or rx.
+> +      Push-pull SCL high period override, in nanoseconds (tHIGH, MIPI
+> +      I3C Basic Specification v1.1.1 Table 87). When undefined, the
+> +      value is derived from i3c-scl-hz.
+> +
+> +      May not be supported by all controllers.
 
-[...]
+Add
 
-> +int psp_nl_rx_spi_alloc_doit(struct sk_buff *skb, struct genl_info *info=
-)
-> +{
-> +	struct psp_dev *psd =3D info->user_ptr[0];
-> +	struct psp_key_parsed key;
-> +	struct psp_assoc *pas;
-> +	struct sk_buff *rsp;
-> +	u32 version;
-> +	int err;
-> +
-> +	if (GENL_REQ_ATTR_CHECK(info, PSP_A_ASSOC_VERSION))
-> +		return -EINVAL;
-> +
-> +	version =3D nla_get_u32(info->attrs[PSP_A_ASSOC_VERSION]);
-> +	if (!(psd->caps->versions & (1 << version))) {
-> +		NL_SET_BAD_ATTR(info->extack, info->attrs[PSP_A_ASSOC_VERSION]);
-> +		return -EOPNOTSUPP;
-> +	}
-> +
-> +	rsp =3D psp_nl_reply_new(info);
-> +	if (!rsp)
-> +		return -ENOMEM;
-> +
-> +	err =3D psd->ops->rx_spi_alloc(psd, version, &key, info->extack);
-> +	if (err)
-> +		goto err_free_rsp;
-> +
-> +	pas =3D psp_assoc_create(psd);
+    minimum:
+    maximum:
 
-I'm not sure the kernel actually needs any bookkeeping at all for these
-generic rx spi allocations. You could probably just pass the spi, dev
-id, key, and probably rotation count (as a device key generation of
-sorts) to the user without creating a kernel object. For socket
-psp_assocs, the rx state is consulted on the datapath before queueing to
-the socket. For tx state in all psp_assocs, there is the possibility
-that an SADB handle needs to be cleaned up. Neither of those apply here
-or in the rest of the series as I understand it.
+to restrict validate rang.
 
-I figure the tc ingress rule can just take the spi and dev id by value
-rather than needing a reference to an object that we create here.
-
-> +	if (!pas) {
-> +		err =3D -ENOMEM;
-> +		goto err_free_rsp;
-> +	}
-> +	pas->version =3D version;
-> +	pas->rx.spi =3D key.spi;
 > +
-> +	err =3D psp_assoc_publish(pas);
-> +	if (err)
-> +		goto err_put_pas;
-> +
-> +	if (nla_put_u32(rsp, PSP_A_ASSOC_ID, pas->id) ||
-> +	    nla_put_u32(rsp, PSP_A_ASSOC_DEV_ID, psd->id) ||
-> +	    psp_nl_put_key(rsp, PSP_A_ASSOC_RX_KEY, version, &key)) {
-> +		psp_assoc_unpublish(pas);
-> +		err =3D -EMSGSIZE;
-> +		goto err_put_pas;
-> +	}
-> +
-> +	psp_assoc_put(pas);
-> +	memzero_explicit(&key, sizeof(key));
-> +
-> +	return psp_nl_reply_send(rsp, info);
-> +
-> +err_put_pas:
-> +	psp_assoc_put(pas);
-> +err_free_rsp:
-> +	memzero_explicit(&key, sizeof(key));
-> +	nlmsg_free(rsp);
-> +	return err;
-> +}
+...
+>      type: boolean
+>      description: |
+> @@ -67,6 +143,16 @@ required:
+>    - "#address-cells"
+>    - "#size-cells"
+>
+> +dependencies:
+> +  i3c-pp-scl-high-period-ns:
+> +    - i3c-pp-scl-low-period-ns
+> +  i3c-pp-scl-low-period-ns:
+> +    - i3c-pp-scl-high-period-ns
+> +  i3c-od-scl-high-period-ns:
+> +    - i3c-od-scl-low-period-ns
+> +  i3c-od-scl-low-period-ns:
+> +    - i3c-od-scl-high-period-ns
 > +
 
-[...]
+why need these dependencies? Suppose it should be default value if not
+existing.
 
-> @@ -310,7 +311,13 @@ void psp_assocs_key_rotated(struct psp_dev *psd)
->  	 * be able to Rx any traffic.
->  	 */
->  	list_for_each_entry_safe(pas, next, &psd->prev_assocs, assocs_list) {
-> -		pas->generation |=3D ~PSP_GEN_VALID_MASK;
-> +		/* A socket-less Tx association holds the peer's key, which
-> +		 * the rotation of the device key doesn't affect
-> +		 */
-> +		if (pas->id && psp_assoc_is_tx(pas))
-> +			continue;
-> +		WRITE_ONCE(pas->generation,
-> +			   pas->generation | ~PSP_GEN_VALID_MASK);
->  		psd->stats.stales++;
->  	}
->  	list_splice_init(&psd->prev_assocs, &psd->stale_assocs);
+Frank
 
-I would create a separate list for the socketless tx assocs, so that
-SADB handles can be flushed on psp_dev_unregister(). Then you can just
-leave this function untouched, because invalidating the generation is
-only for __psp_sk_rx_policy_check(), which isn't used by the socketless
-rx assocs.
+>  patternProperties:
+>    "@[0-9a-f]+$":
+>      type: object
+>
+> --
+> 2.34.1
+>
