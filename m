@@ -1,86 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.134
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794360686;
-	b=M9NyojyxshT3Bm1Dx1LPmEyw+EBXFiKkaRG8/8Nv/a0vzuRv0TGB4Eg0POPz2x1qNLz8
-	 +OqJUahopDSts0QuxVfu9e8ZZpPo66ounR6hyaZaZWLwNwd0MPEpFZdW5yXY/K4HTnUVe
-	 snROivxszE8agw8kVcoho9PX+/MUyxmfQOViPaqoccUEKPiv/cbZwk2ur/I/3yitJv/C+
-	 XzSbNlkQ0DmviUoZEdsVKbozpom1kXLbPvVrC+3BR8QPbffKO9ZiGIjcFvs/7IoWf01I+
-	 EQm6UJyFPx/kyXws0nKP0Pc8umTEgwsJ75IcjYZHAaEaq10w0x27VqxLRck32vLVVEg==
+	t=1794360717;
+	b=U3fpPsZ8XQQLP29WyPQ0Ogc89z4oiL60dqADfylgPzCz/mSBJWoumNxUqKfUqUIf99/g
+	 x738SQ2RmtcMf0hE2u48McWw13rlkq4UDpxv7A3uDllCWVGCdlZcSqPUJRPOOdhjsX15q
+	 MX2LwGI0bdu7jFdi1xPt0FjLpxRncbulQ7UoIUY6/FgxflPFIlplnHyJelkTuSUUlyHrK
+	 tb0J65nUKgVotJwp4NJqVGGmw0YmHjtxURMxhHS44/i/uIZXGnucrws/uCdxYkaBD0V8C
+	 bdweizwTuJXDRHlSRtORIZZVmAsa9ftlXWGIACGaG5rIJcjoSLdx+q20ETGiGfrxlxw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794360686;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:From:To:Cc:References:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=vvimweWXdTkslV51aQTQuVA5EhGHU7gBJImiZfr2+Uo=;
-	b=Ka9/S3VmA87CrpbmVK77u0GVODCallxHLF0oquPsZZSCeRgktjcUle2R8KcRExmhuy2g
-	 sVwsL6E+MZFV6art/7s7dgXJnAY/Qujl0abd0aKNxzEHuQrawsCs9XzPt8Lcnd6OhrRMw
-	 vV1mup8nrzRLHocXGS7+UBk4vOhX5Kn3nbTWHaVGCdl94q5LSKRThGcKWa8tckLORewv9
-	 ViBE3RJxCYJe/F+IQXtN4ZQRb0VhWbetDyuPByeYOI+OSKSSmAXn6CBAPRU1qILzaSO6Y
-	 6YUMuUxd97kdWhEa1O7g4tTghLcZDzEMIKOI9rfxUdp2TVWy7fQn1atRQc6l/BBASNg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794360717;
+	h=DMARC-Filter:DKIM-Signature:Date:Message-Id:
+	 Content-Transfer-Encoding:X-Lms-Return-Path:Cc:From:Received:
+	 X-Original-From:User-Agent:To:Mime-Version:References:Content-Type:
+	 Reply-To:Subject:In-Reply-To;
+	bh=nosRokf2rzMXQO5aZbNLHOgklK5mj7VQkcm9fnGDXDE=;
+	b=yJHBVXTyQEBGyatFYpam6Hgu3Bpxr8O4LK9ezsS5tURDUeCM3wUGFQrjOew0oKp5FCsU
+	 m6zUp82e57lbHl0u7ecWnDqttVtcd0iJ3HkygkKJ6CRmojwPTYyYJPhXwEemnQ92qlJWH
+	 yYydkDt/3e3qxE5RY5cyCtM+g8rRBgBldlKpFbrLLnqrs9jd+IOw8P4Gs8TvAPhumZj6G
+	 tpT3pwkZ/T9Ya2j34LYNwnMaeFxwfJ4tRK7p52dOgCztdGp/UP4iPaA45neOZxS+4yS+l
+	 sIeS8Q092P9eZ0B63YZXC9fpySZucjF33Yc6WTjkkqcYnkirOSj+a19MAjJkGOde5og==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rhQE7oNj;
-	arc=none smtp.remote-ip=74.125.227.134
-Received: from mail-pj2-f6.google.com (mail-pj2-f6.google.com [74.125.227.134])
+	dmarc=pass header.from=fygo.io;
+	spf=pass smtp.mailfrom=fygo.io;
+	dkim=pass header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.a=rsa-sha256 header.s=s1 header.b="nlxO2/KM";
+	arc=none smtp.remote-ip=209.127.231.48
+Received: from va-2-48.ptr.blmpb.com (va-2-48.ptr.blmpb.com [209.127.231.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DAFF606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 01:31:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1DAFF606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 637D6606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 01:31:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 637D6606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fygo.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rhQE7oNj
-Received: by mail-pj2-f6.google.com with SMTP id 98e67ed59e1d1-3ad211ad92bso980625a91.1
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 17:31:25 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794360685; x=1794965485; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vvimweWXdTkslV51aQTQuVA5EhGHU7gBJImiZfr2+Uo=;
-        b=rhQE7oNjT/ClBPXKDRzn/ic9tgZvv+IsW9XdK9Yr4Ao5PoVhF8RyspCbwNn347QtSL
-         dBumovkerfirOsD5INbjJvgG1/5XJeZmLMPaeVJy1Vita6/nSw03gQD7Fpm/wz2gkQ6P
-         iH3SnKYMy70xsgPW6WzQf+TV8V5/rjqUmxiUcV2kmpiCxNGNJrGWSei/Chit4UW1ocWy
-         l1VOuNMRBKxKYw/Q/ByErZI5COZbHJQuARn9ugGTQ0G1V0XQVJUqAHcQN9zo3xtzPkKL
-         RIiWPjk5ylibqsQTG/TfOuu/6KrVIIENgdou7fW+nvwh7+Fx3/eEhqQdcSfOsS+99tfS
-         QZeg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794360685; x=1794965485;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vvimweWXdTkslV51aQTQuVA5EhGHU7gBJImiZfr2+Uo=;
-        b=TviPaDH0E4lY7gW0WhwFxGIyPPdkUgs9TFkpFpfmw0ea68EhsAeQxaHFJlgDe/zPdV
-         SBmMI1SVK+Pash0tCdf+r/z1/bjZXAcEd1lHdx9/McqnfPW5SJ5gLTkh/iabJw5kNZqN
-         VJhjPXRW6OCACK5GxDZ+V4cNQZ/dFrbez+FJF5qMZYr8ug/M4dYgVEbhDlhQu1Id2S7Q
-         Y92cSInrSQLbERyEf4evNMeLE70pO4MHM8oySQvEYyXOE/vnOpU2ggPtNN+0xQDLdZu0
-         ddTA0LPpbtPqZDfuuuuizCpcHBKKgKq5to5sGOTU/LsdMUesdMbj5zcac71Q/iMsdbw9
-         jtXA==
-X-Forwarded-Encrypted: i=1; AL+hErGDG6K10kYO6BaU4CkBzTOaXElGI+fuNSoK11uhjys/hkfJW3LvkcLl7Vuz86cHbjBRmDjHahkAKOIUA2g=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/9xUVlxp1JAQXB1yji0lQkVGZaSd7ExiiXq8A0pL76duAEDgGx
-	UuYcAWTEHIEN4burZ0uo5YFImAn1kplgq3Zkay9iGKGvRJ9xsmHeJvM5
-X-Gm-Gg: AYBFou2e+F8M2XCPL5zTQmprUuoCZhY5hxtjMSso5sGVMFl5KiJDckrMiyRFJjDk8Qy
-	33jA0G/Wa33gr70ZK6xUdIPJGVjAo4Jcx1vgysFfVLUB5nYDn6ffC6NrI7eckfYzc6f9f2E9RnP
-	wz17/uuvdMfbu68ShfjtDSqIIbu/zNpWN5iAuaR2N5KBIT2H6AuIgN8q5o9sRwipYxWVWL9V/S6
-	Xenrh9WEa0FnCfzvGbaSIUsbFUj9m9J8N5zlD9BoKLKLdzQ6rKXBniMbudxmV6RjIM2fltMRzUe
-	r3bJNlOT3DRvJmXVP+06aPprCH5ekdfeglh17msSe2dHcvWLTVeYEz9F/Z+LvgO9G+K/rjH5exh
-	aqy2Zw+FIMpyVh85/rCGhmqVFS/FhKxHNvZfZrdYkbp1xzB1EF07rOy67+NL9qKpZk4cszBvtUQ
-	XjOh34fuXAT1oiXfKWKFfYZ+Cht386UlcHbl7fOWkNs+XlDOt5vGxonh2LKbTfpdKqAA/jgBSWj
-	1nIiYU0Nw/gReYle0t39+qKDo39QMugz2Yb3PzPsjWN/asaGVLD0ubarknghUvWrYpsxlSo2kQb
-	tzGN1vFbYePfdBQSOyjbzAYeYAnguKwPpeM8
-X-Received: by 2002:a17:90b:5487:b0:3a0:516d:9f88 with SMTP id 98e67ed59e1d1-3b182eac822mr798734a91.26.1794360685246;
-        Tue, 10 Nov 2026 17:31:25 -0800 (PST)
-Received: from [10.125.112.22] ([122.11.210.25])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b182e0ecd3sm441451a91.3.2026.11.10.17.31.18
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 10 Nov 2026 17:31:24 -0800 (PST)
-Message-ID: <e83df8e0-f48c-4262-b96a-6f99a53df9d9@gmail.com>
-Date: Wed, 11 Nov 2026 09:31:14 +0800
+	dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.a=rsa-sha256 header.s=s1 header.b=nlxO2/KM
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=s1; d=fygo-io.20200929.dkim.larksuite.com; t=1794360708;
+  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=nosRokf2rzMXQO5aZbNLHOgklK5mj7VQkcm9fnGDXDE=;
+ b=nlxO2/KMLrCRGNtmeJXMms8xUl4WoMD/BSn1elx6qKv/smPKCvVMPp+N1tXf2ZzpP2jS/A
+ D4TMH2aWceLVOo5AjujKRWgGf5LsJ4b45lKsKZU7YEI+lTg2htkwXRCL9LEhm10aouMBBT
+ fQ9gTlqITc/8+HXuMAZsviqQpr9kC9LVopJWo6jcoqYP3QfHFjB1xRQn6aFtwooC0VQMrj
+ SZQ8rpoJdxnVenbjJpn7pDsdkLOOp2Goi7RYDk9fDHxgUehc+nEKXIGBiYzgboLP6na+YD
+ N8qG+ceHzkBRM2WCVJsE3l50c0jELdvEowabq4/ltayazymTEcRHmRa8XkFb9w==
+Date: Wed, 11 Nov 2026 09:31:43 +0800
+Message-Id: <385681bd-5b0c-409f-a295-4307812d077f@fygo.io>
+Content-Transfer-Encoding: quoted-printable
+X-Lms-Return-Path: <lba+26af3c584+f67c35+vger.kernel.org+yukuai@fygo.io>
+Cc: "Li Nan" <magiclinan@didiglobal.com>, "Xiao Ni" <xiao@kernel.org>, 
+	<linux-raid@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
+	<syzbot+0a8119ab801b078213ea@syzkaller.appspotmail.com>
+From: "yu kuai" <yukuai@fygo.io>
+Received: from [192.168.1.104] ([39.182.0.55]) by smtp.larksuite.com with ESMTPS; Wed, 11 Nov 2026 01:31:47 +0000
+X-Original-From: yu kuai <yukuai@fygo.io>
+User-Agent: Mozilla Thunderbird
+To: "Nguyen Ngoc Thang" <ngocthang2710.1999@gmail.com>, 
+	"Song Liu" <song@kernel.org>, "yu kuai" <yukuai@fygo.io>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,82 +65,53 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] mm/migrate: improve mlock tracking for PTE-mapped
- large folios
-From: Wandun <chenwandun1@gmail.com>
-To: david@kernel.org, hughd@google.com, akpm@linux-foundation.org
-Cc: ziy@nvidia.com, matthew.brost@intel.com, joshua.hahnjy@gmail.com,
- byungchul@sk.com, gourry@gourry.net, ying.huang@linux.alibaba.com,
- apopple@nvidia.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org
-References: <20261110123218.1579490-1-chenwandun1@gmail.com>
-Content-Language: en-US
-In-Reply-To: <20261110123218.1579490-1-chenwandun1@gmail.com>
+Mime-Version: 1.0
+References: <20261108040232.43694-1-ngocthang2710.1999@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Reply-To: yukuai@fygo.io
+Subject: Re: [PATCH] md: don't ignore bd_link_disk_holder() failure in bind_rdev_to_array()
+In-Reply-To: <20261108040232.43694-1-ngocthang2710.1999@gmail.com>
 
+=E5=9C=A8 2026/11/8 12:02, Nguyen Ngoc Thang =E5=86=99=E9=81=93:
 
-
-On 11/10/26 20:32, Wandun Chen wrote:
-> From: Wandun Chen <chenwandun@lixiang.com>
-> 
-> Commit ab521b4142aa ("mm/rmap: improve mlock tracking for large folios")
-> mlocks a large folio when all its pages are added in one rmap operation.
-> However, when a PTE-mapped large folio is migrated, remove_migration_pte()
-> restores PTEs individually, passing nr_pages = 1 to the rmap helpers. As a
-> result, PG_mlocked is not set on the destination folio.
-> 
-> Reclaim can restore mlock in try_to_unmap(), but Mlocked in /proc/meminfo
-> remains undercounted until that scan occurs.
-> 
-> Restore mlock once the full mapping has been restored in a locked VMA
-> under one page table lock, rather than waiting for try_to_unmap() to
-> restore the mlock state.
-
-I forgot to include the v1-to-v2 changelog:
-
-Changes in v2:
-1. Reword the subject and commit message.
-2. Drop the Fixes tag.
-
-Best regards,
-Wandun
-
-> 
-> Signed-off-by: Wandun Chen <chenwandun@lixiang.com>
+> bind_rdev_to_array() adds the rdev to mddev->disks and then calls
+> bd_link_disk_holder() without checking the result. If the link fails
+> (e.g. an allocation failure in the holder or symlink setup), no
+> bd_holder_disk is recorded for the member, but the rdev stays bound.
+>
+> Stopping the array later calls bd_unlink_disk_holder() for every
+> member, which finds no holder and warns:
+>
+>    WARNING: block/holder.c:147 at bd_unlink_disk_holder+0xd8/0x2d4
+>    Call trace:
+>     bd_unlink_disk_holder+0xd8/0x2d4 block/holder.c:146
+>     md_kick_rdev_from_array+0x8c/0x324 drivers/md/md.c:2683
+>     export_array drivers/md/md.c:2714 [inline]
+>     do_md_stop+0x708/0xe6c drivers/md/md.c:7252
+>     md_ioctl+0x14ec/0x23e4 drivers/md/md.c:8462
+>
+> Link the holder before registering the rdev kobject, fail the bind
+> if it cannot be created, and drop it again if kobject_add() fails.
+> All callers already export the rdev when binding fails.
+>
+> Fixes: e09b457bdb7e ("block: simplify holder symlink handling")
+> Reported-by:syzbot+0a8119ab801b078213ea@syzkaller.appspotmail.com
+> Closes:https://syzkaller.appspot.com/bug?extid=3D0a8119ab801b078213ea
+> Signed-off-by: Nguyen Ngoc Thang<ngocthang2710.1999@gmail.com>
 > ---
->  mm/migrate.c | 10 +++++++++-
->  1 file changed, 9 insertions(+), 1 deletion(-)
-> 
-> diff --git a/mm/migrate.c b/mm/migrate.c
-> index 94033c222e04..140e291d4587 100644
-> --- a/mm/migrate.c
-> +++ b/mm/migrate.c
-> @@ -353,6 +353,7 @@ static bool remove_migration_pte(struct folio *folio,
->  {
->  	struct rmap_walk_arg *rmap_walk_arg = arg;
->  	DEFINE_FOLIO_VMA_WALK(pvmw, rmap_walk_arg->folio, vma, addr, PVMW_SYNC | PVMW_MIGRATION);
-> +	unsigned long nr_ptes = 0;
->  
->  	while (page_vma_mapped_walk(&pvmw)) {
->  		rmap_t rmap_flags = RMAP_NONE;
-> @@ -446,9 +447,16 @@ static bool remove_migration_pte(struct folio *folio,
->  			else
->  				folio_add_file_rmap_pte(folio, new, vma);
->  			set_pte_at(vma->vm_mm, pvmw.address, pvmw.pte, pte);
-> +
-> +			nr_ptes++;
->  		}
-> -		if (READ_ONCE(vma->vm_flags) & VM_LOCKED)
-> +		if (READ_ONCE(vma->vm_flags) & VM_LOCKED) {
-> +			if (folio_test_large(folio) &&
-> +			    nr_ptes == folio_nr_pages(folio) &&
-> +			    !(pvmw.flags & PVMW_PGTABLE_CROSSED))
-> +				mlock_vma_folio(folio, vma);
->  			mlock_drain_local();
-> +		}
->  
->  		trace_remove_migration_pte(pvmw.address, pte_val(pte),
->  					   compound_order(new));
+> Tested in QEMU (x86_64, KASAN + lockdep + failslab) with a reproducer
+> that sweeps fail-nth over ADD_NEW_DISK on a RAID1 /dev/md0 backed by
+> /dev/ram0 and stops the array after each attempt:
+>
+>    before: ADD_NEW_DISK returns 0 after the holder link fails, and the
+>            next STOP_ARRAY hits WARNING at block/holder.c:147
+>    after:  ADD_NEW_DISK fails with -ENOMEM instead, no warning, and
+>            no KASAN or lockdep reports
+>
+>   drivers/md/md.c | 11 ++++++++---
+>   1 file changed, 8 insertions(+), 3 deletions(-)
+Applied
 
+--=20
+Thanks,
+Kuai
