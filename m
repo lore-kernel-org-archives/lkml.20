@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1794367033;
-	b=XQvdmK5xEiig40AMRyqcvIdlQOT9H5nGersixFpRHWnnuu7x878RlTiefELe8GqLWrQt
-	 y0WvTSBkhQd5dVZTX2DdXFDrimaO9aZ3E5qkE/2qql9M6WZEqRZsFawF9mh8lyhiJSwl0
-	 rwAPLrh+WW/QjUeEiY7QERa+WWqkBPiUXmNdCX/6cHxYB/I2sUG4Q0yFuqMFIt4GfNktw
-	 UEAnZYKBHx6CUlmFDaibnUDTFthXmXdxO9m52+EUbzo/RTvEy5iR+/f16BU//in8sJCmm
-	 FWpIJow3zUYXnhODeIRRMXjysnL/TdQyYIg5P7e4YJrqg3hVo6ROtvonn0v0hhWGXBQ==
+	b=Sv0HcHINp23ADuLvWL/TK4EYRQqKukezbvmf8/1Ps+boKtSC9sd/w8zTYjkcJ0Ur369W
+	 Akv2wzzUAuk1wGJ8Py+TcgzE0iDWR6SKQIXHnu02+HN9eVa44abt2LKjuQGWJGxFcFHNS
+	 lFC9mW7YWmVa8M7FbICUL3HRUPYy1pqRE5dVqcQN4/cYGobNOT7D/wuxo/qM0ztqAal/8
+	 GJJvFW4zQxg73HgJrrME2b9tT/sbLY73XgOZkb+hhhUHmEk5CVWxfqU6ClBduAK9lzzcC
+	 r+JfTZWmOa/BIvLFzfE7vkXhRC8pVRj7HrC5U4GwbsWhGfLjPYsBm7QIEB9a2SwybFQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794367033;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=+wI1mZWoT6Mnke7scNGse6Cr/qexVaiKrujtoyz4/OI=;
-	b=XfOcSKAQ+QX1CGI8ZQdTyaN3cXW6kljxt1PbOP+jEi00YwUzuv5A7dZrbbX8avT69FjG
-	 DYI09fxg9/RIQOLGBzYXTUHkwHagMzpPhOQagnfSyr5TQAC+Iotn8GVZ6czMUWL5l8B7k
-	 AofEHiOkTl71Ca5/3t9ezAw6U3sZYGdyr3sIlvuzPUMbWBsmpBrQdG8oMPzMsxx/IuLxS
-	 lCLjAEmKNk+6fSCHsga8fuOqrfk6mbvXZ32AowKiA2GslzfXqLW86qqCbYr/j9TKZD4VV
-	 v2xBAgFgOa/7bhRQY8wvUzXSv73xsrh8ZsXNO9L/I7mw2wP6dAHs+VMmhqqiotqNKWw==
+	bh=hVUd/DRXCspK9V2Lzg5Oynqn82hdtWRNBwzwhiBD+hk=;
+	b=cHgMUKkpCq9rOfR00PYAgS69cUzEzX45myf4oGClVwYyoduT43PVHPkcimb5VnVfCVkm
+	 zHaEmmh8TcJNmJoUmFb0NOOocUIsA03fxeB2ajYAa+q1ViFmnetbRMgsMssreav/ZJRnX
+	 Htx/A9yAH5PLi2ejU3GeaMehQ6Me/JddsYjPW3uy+zfskl1S9upUL7OJDsiv0mgtOQD7V
+	 nP+GRRARBQBEPtwiLJpa5TQa6J0pOeHrHg++kZtaIf3awkEwhJLMe/K74WM0JFaCyn9xC
+	 ddrTS7q1TV3UfahuAhMspImH0vu8tYP0o/45nxC6bnypw9FeU2x3Ff3MoQ1ZyQiUiWg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cliLVGLe;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dRJOI55N;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D94D360A2619;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D953E60A261A;
 	Wed, 11 Nov 2026 03:17:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cliLVGLe
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dRJOI55N
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1794367033;
-	b=qhxWSkEX6mHGQkKV5z+nLxn66lWWsCnVaS/VlNOkQ45IdtjcPbaUFNT/zx4yzdFvUzci
-	 9ukhJLvfk8fZfKhATZO9KfdXDxUzZZhIHmiZBF4DtqGRDX7BB/Fg+k7+KTv8xuli2vsVx
-	 QPCq87p6CHS9Zq1A0i1gKANTn7VSgf0f2xdQJCrmJ6ic9MDZwA+TklonYJHCTVSdv2APz
-	 08li9zKcyMFQQzIFFVrFMMLg1OripeLbAtJDM/OWbhTZ1wgfVay/VI4ESjZewumdXJsP6
-	 lmlhXHTiYck0XQW8Za7TMFzUpDmnQGVrIJvqNCV0FU8xZqvIcYa8IJjcgee1LFCqDuQ==
+	b=LM8wLSZPf74O2tTq0BF4BqPm1syPvsq7A1FWQ5Eo3vq8vEmPO/uBvjTq90iE+QRyUcCA
+	 Z5hZ8kXCDXEfjcWKFd9RknboJkIKK2mG6Btp0VHzjE+loDOKpnknJ0rxvDDoBzrhJfC/f
+	 uIpweP6uME6bldAOGMFBXJFjg2evHyHnSrO754XH+Y+z9IOMKDK7JG7//oTdx8AjgOrG2
+	 idWFwCs3MG/jbhRLMxabB8oguDIPq+dga32MWiXVhNrunILHouTlQ612kCnRFOiu3zIKd
+	 5rNTHSrJcImjP8TmwGmbOOq4P46bsRIwoeVKg5t+XizH0saU74iDa/XYUYVHindjwSw==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1794367033;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=+wI1mZWoT6Mnke7scNGse6Cr/qexVaiKrujtoyz4/OI=;
-	b=gpUa/BfRhcLMuKlyIKuHQdEwMruzCUw5UwU/tF/mjOgwYR9XEIXagHnl06FHPcmKz12A
-	 5WyKGKtCbQVJGyz2mYg4el5P10ZSHGV7E44N8oEItzbz9Dcb5U+PJ9d13fYdHL/qWu1Ko
-	 QNwq2skXPi/IvXcdPgj7SQ3+7bSrSYHWBk486vhNfKmpmN/K4buc1pK2dlkM/Vr2cnEDW
-	 yht/ycnm4n4iAGt2mKlELl5WWotlWsq4+X0ILCUq9poEz0rCQPzx8CXvTSmggyNjtnFfV
-	 hFIn8yYramKMzDGCN+N0K63dqNZgIRw10/Rw6WwPrG5KgSpmaicpZZeHFeEkXWhpEYg==
+	bh=hVUd/DRXCspK9V2Lzg5Oynqn82hdtWRNBwzwhiBD+hk=;
+	b=CPn1wRxzIypbvVrs4m15rRM9jbhNkn71Vb98nAeO3L6i4qSdMUSIc8CZG3LdYn9z8A95
+	 rLJ3ThE4SQY/lGwRykmtiLDWcaLZkJKMnLrDVAewzXSUZujuBKW/xVPs09Sjijkho6nhS
+	 oBC4/mUeLxgeNjQiUs0cKLA1lNVMWXHgJkf0ndT+5ywCk5NR2AUHoxnIOP+5lfLN8cIvG
+	 7ph8StUTLEyTOFP1H0rlnwwPfSiG//j8aT19jp11iBCScu9A9mg6pYl4oMERreF1VsWq6
+	 Psz79J1Lo/aSBDosNCQZDsXSZ1lV7Kvo9hx7i+F/b1jcEvFMW/T0dm5YAbDqBfApWyg==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 44E291F00A00;
+	by smtp.kernel.org (Postfix) with ESMTPS id 439AB1F0089F;
 	Wed, 11 Nov 2026 03:17:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1794367033;
-	bh=+wI1mZWoT6Mnke7scNGse6Cr/qexVaiKrujtoyz4/OI=;
+	bh=hVUd/DRXCspK9V2Lzg5Oynqn82hdtWRNBwzwhiBD+hk=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=cliLVGLechOC7+NiBdWiTobtRHdANR1QaPsXl1rut34awzgvFIpNw6/meHNW031Vo
-	 LhtjaJ5cL1HBpbbFsiJTTutYOsjrvIwrf33OeJzfA3AlgXwXgvkOPqX5XMHcWl5oeR
-	 srlXwbm536Y++ntzpaPwnhv9fpE8N2xdBSmNYxIz4QuoAbHI2CiLs9dXO/sy9q7i7S
-	 CDBA7RNRpbhOyIMrsbpMt5VYx1yoUAgTI52py/X7Fm4+KmMeW0GypFFEMSYkNjLaLL
-	 dLKlEVzBPuWq5JDCfSc0dYwbtm2fxrdho0rTEUXH4Gn4/5RrnzgoREgEglhqOl51uz
-	 hGgNYhjm4qrVw==
+	b=dRJOI55N4VrFhPkfqyPOqabWSuc8K0gxlsc313+kiYqdk292ad1M/H9ejbjRMAqM5
+	 1ZpTMhA4omNevAselpN8Sg/6shsTvWnawUqmTtDbzO9xLEaFQ2OAz5oEN58oopcUpb
+	 zb0SL1WuUvQbFBLQjstTKHDAqvc1rv8bLByJ5V2hNUg0sOz8VkQyN54XUMDiLVgpHX
+	 bbNghFDnEI9KHBWJx/jCCpyAqGRxskOIPaXCiBvuxFO3/tElJ/Uu6tSn81nwwS7Kjp
+	 /EiHUiAhOrY5OZ0YtP6IhAKcrvCl7o+J8lvrLA70K3J4QQ4/S/FrwEjMXEzuNqxzq2
+	 sGSkN4IzU/N5A==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id B69B848D48;
+	by lkml.kernel.org (Postfix) with ESMTP id A467548D26;
 	Wed, 11 Nov 2026 03:17:11 +0000 (UTC)
 From: Daejun Park via B4 Relay <devnull+daejun7.park.samsung.com@kernel.org>
-Date: Wed, 11 Nov 2026 12:17:12 +0900
-Subject: [PATCH v2 2/2] xfs: skip the fsync flush when a later flush has
- completed
+Date: Wed, 11 Nov 2026 12:17:11 +0900
+Subject: [PATCH v2 1/2] xfs: number the cache flushes submitted to each
+ buftarg
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261111-xfs-fsync-flush-seq-v2-2-b5c00c25d276@samsung.com>
+Message-Id: <20261111-xfs-fsync-flush-seq-v2-1-b5c00c25d276@samsung.com>
 References: <20261111-xfs-fsync-flush-seq-v2-0-b5c00c25d276@samsung.com>
 In-Reply-To: <20261111-xfs-fsync-flush-seq-v2-0-b5c00c25d276@samsung.com>
 To: Carlos Maiolino <cem@kernel.org>, linux-xfs@vger.kernel.org
@@ -93,11 +93,11 @@ Cc: Christoph Hellwig <hch@lst.de>, Dave Chinner <david@fromorbit.com>,
  Brian Foster <bfoster@redhat.com>, linux-kernel@vger.kernel.org, 
  Daejun Park <daejun7.park@samsung.com>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794367030; l=6060;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794367030; l=6071;
  i=daejun7.park@samsung.com; s=20261006; h=from:subject:message-id;
- bh=Bu2pX8WdvM2qQVP0L3dIEdFR9WG+YEt77lCKNNzn4Xs=;
- b=KkcbXmFSJU5ZJu6JFzfDkJZtrAPNcre9rxyAPMvJ9SsVlNcByyHo+0jwhbwvIGh2bJWXb3biL
- uK/Tk5l7xILA01rC+HOb3GwG9Ybw1skcrMaJE2B8wu3+IMOUokRVKKS
+ bh=mlu8b3VIDIEC+tkvxr/Au3ocaXOUYf50xG4hnTEy3s4=;
+ b=sYLoC4RZKmMayZoSju20I/1KilbVxs6ON7SxQUo80Xqj/cmUQP+eaXG5TFitoDl2VxKk3LcZJ
+ usoKvYZEClIBkWKUYJnEpELbR53j/DWPqNH4CncHCUOXedYlsd6xPZO
 X-Developer-Key: i=daejun7.park@samsung.com; a=ed25519;
  pk=4yUfDqGRZTIj0Ik43z1GoMZRWCNm/rgX6uJuM9dtNIg=
 X-Endpoint-Received: by B4 Relay for daejun7.park@samsung.com/20261006 with
@@ -108,175 +108,194 @@ Content-Transfer-Encoding: 7bit
 
 From: Daejun Park <daejun7.park@samsung.com>
 
-Since commit 47c7d0b19502 ("xfs: fix incorrect log_flushed on
-fsync"), fsync sends its own cache flush whenever another task wrote
-out the iclog it waited for. With concurrent fsyncs, these flushes can
-limit throughput.
+fsync can only skip its own cache flush when its log force wrote out
+the iclog. It cannot tell whether a flush that another task submitted
+covers its data.
 
-Skip the flush when a flush submitted after the data writes completed
-has finished. DAX files keep the old behavior.
+Number the cache flushes that the log code submits to each buftarg,
+and record the highest number that completed without error. Nothing
+reads the numbers yet.
 
-fio 4k append + fsync in a QEMU guest, virtio-blk (cache=none) on a
-Samsung 990 PRO NVMe SSD without power loss protection, before ->
-after:
-
-  16 jobs: 1111 -> 4498 fsyncs/s, mean fsync latency 14.4 -> 3.6 ms
-   1 job:  399 -> 396 fsyncs/s
-
-Suggested-by: Christoph Hellwig <hch@lst.de>
 Signed-off-by: Daejun Park <daejun7.park@samsung.com>
 ---
-Christoph's 2017 mail with the sequence counter idea:
-https://lore.kernel.org/20170830142134.GA650@lst.de
-
-A dm-log-writes test written for this series (8 fsync writers,
-internal log) lost no fsync-ed block in 528 replays. At least 33319
-of 48048 fsyncs skipped their flush through the new check. A variant
-that samples before the writeback loses 16 of 528. The test needs
-"dm-log-writes: log earlier flushes' writes when a later flush
-completes", sent to dm-devel.
-
-With an internal log, an fsync that takes the new skip can miss a
-failed flush on bio-based dm. dm drops the error of a preflush sent
-with data, unless the table is linear or stripe on a single device.
-The skip trusts the status of the iclog bio, as the log and the fsync
-that wrote the iclog already do. Before this patch the other fsyncs
-sent their own flush and returned its result. With 8 writers on a
-two-device linear table whose second device fails every flush, 2590
-of 4000 fsyncs returned EIO before and 37 do now. From the code,
-bcache in writeback mode drops that error too. md reports no flush
-error at all. Neither was tested.
----
- fs/xfs/xfs_buf.c  | 27 +++++++++++++++++++++++++++
- fs/xfs/xfs_buf.h  | 22 ++++++++++++++++++++++
- fs/xfs/xfs_file.c | 18 +++++++++++++++---
- 3 files changed, 64 insertions(+), 3 deletions(-)
+ fs/xfs/xfs_buf.c      | 13 +++++++++++++
+ fs/xfs/xfs_buf.h      | 21 +++++++++++++++++++++
+ fs/xfs/xfs_log.c      | 28 +++++++++++++++++++++-------
+ fs/xfs/xfs_log_priv.h |  1 +
+ 4 files changed, 56 insertions(+), 7 deletions(-)
 
 diff --git a/fs/xfs/xfs_buf.c b/fs/xfs/xfs_buf.c
-index 9025b177931..2862cbdeda4 100644
+index 6c93b4f5629..9025b177931 100644
 --- a/fs/xfs/xfs_buf.c
 +++ b/fs/xfs/xfs_buf.c
-@@ -1785,6 +1785,33 @@ xfs_buftarg_flush_done(
- 		;
+@@ -1772,6 +1772,19 @@ xfs_init_buftarg(
+ 	return -ENOMEM;
  }
  
-+/*
-+ * Return true if a flush has been submitted and completed since @submit_seq
-+ * was sampled. If so, all writes that completed before @submit_seq was sampled
-+ * are on stable storage.
-+ */
-+bool
-+xfs_buftarg_flushed_since(
++/* Record that the flush numbered @seq completed successfully. */
++void
++xfs_buftarg_flush_done(
 +	struct xfs_buftarg	*btp,
-+	s64			submit_seq)
++	s64			seq)
 +{
-+	return atomic64_read(&btp->bt_flush_completed) > submit_seq;
-+}
++	s64			old = atomic64_read(&btp->bt_flush_completed);
 +
-+/* Flush the device cache and record it. */
-+int
-+xfs_buftarg_flush(
-+	struct xfs_buftarg	*btp)
-+{
-+	s64			seq = xfs_buftarg_flush_start(btp);
-+	int			error;
-+
-+	error = blkdev_issue_flush(btp->bt_bdev);
-+	if (!error)
-+		xfs_buftarg_flush_done(btp, seq);
-+	return error;
++	while (seq > old &&
++	       !atomic64_try_cmpxchg(&btp->bt_flush_completed, &old, seq))
++		;
 +}
 +
  struct xfs_buftarg *
  xfs_alloc_buftarg(
  	struct xfs_mount	*mp,
 diff --git a/fs/xfs/xfs_buf.h b/fs/xfs/xfs_buf.h
-index 6e6f0dbfef6..08282e1b3c8 100644
+index a4729253b56..6e6f0dbfef6 100644
 --- a/fs/xfs/xfs_buf.h
 +++ b/fs/xfs/xfs_buf.h
-@@ -368,6 +368,26 @@ struct xfs_buftarg *xfs_alloc_buftarg(struct xfs_mount *mp,
+@@ -103,6 +103,17 @@ struct xfs_buftarg {
+ 	unsigned int		bt_awu_max;
+ 
+ 	struct rhashtable	bt_hash;
++
++	/*
++	 * Cache flush tracking: a flush that takes the next number from
++	 * xfs_buftarg_flush_start() before it is submitted records it here
++	 * once it completes without error, keeping the highest number. A
++	 * completed flush with a number above a sample taken after some
++	 * writes completed covers those writes. Flushes without a number
++	 * are not counted.
++	 */
++	atomic64_t		bt_flush_submitted;
++	atomic64_t		bt_flush_completed;
+ };
+ 
+ struct xfs_buf_map {
+@@ -356,6 +367,16 @@ xfs_buf_update_cksum(struct xfs_buf *bp, unsigned long cksum_offset)
+ struct xfs_buftarg *xfs_alloc_buftarg(struct xfs_mount *mp,
  		struct file *bdev_file);
  extern void xfs_free_buftarg(struct xfs_buftarg *);
- 
-+/*
-+ * Sample the flush submit counter of @btp. Call this after the writes that a
-+ * flush must cover have completed. Flushes take their number before they are
-+ * submitted, so a flush numbered above the sample was submitted after it and
-+ * covers those writes once it succeeds. xfs_buftarg_flushed_since() checks
-+ * for such a flush.
-+ */
++
++/* Call right before submitting a cache flush to @btp. */
 +static inline s64
-+xfs_buftarg_flush_seq(
++xfs_buftarg_flush_start(
 +	struct xfs_buftarg	*btp)
 +{
-+	/*
-+	 * Order the read after the write completions the caller waited for.
-+	 * Pairs with the fully ordered atomic64_inc_return() that
-+	 * xfs_buftarg_flush_start() does before the flush is submitted.
-+	 */
-+	smp_mb();
-+	return atomic64_read(&btp->bt_flush_submitted);
++	return atomic64_inc_return(&btp->bt_flush_submitted);
 +}
 +
- /* Call right before submitting a cache flush to @btp. */
- static inline s64
- xfs_buftarg_flush_start(
-@@ -377,6 +397,8 @@ xfs_buftarg_flush_start(
- }
- 
- void xfs_buftarg_flush_done(struct xfs_buftarg *btp, s64 seq);
-+bool xfs_buftarg_flushed_since(struct xfs_buftarg *btp, s64 submit_seq);
-+int xfs_buftarg_flush(struct xfs_buftarg *btp);
++void xfs_buftarg_flush_done(struct xfs_buftarg *btp, s64 seq);
  extern void xfs_buftarg_wait(struct xfs_buftarg *);
  extern void xfs_buftarg_drain(struct xfs_buftarg *);
  int xfs_configure_buftarg(struct xfs_buftarg *btp, unsigned int sectorsize,
-diff --git a/fs/xfs/xfs_file.c b/fs/xfs/xfs_file.c
-index 396aca8c66a..5af00520cbe 100644
---- a/fs/xfs/xfs_file.c
-+++ b/fs/xfs/xfs_file.c
-@@ -87,7 +87,9 @@ xfs_file_fsync(
- 	int			datasync)
- {
- 	struct xfs_inode	*ip = XFS_I(file->f_mapping->host);
-+	struct xfs_buftarg	*btp = xfs_inode_buftarg(ip);
- 	int			log_flushed = 0;
-+	s64			submit_seq;
- 	int			error;
+diff --git a/fs/xfs/xfs_log.c b/fs/xfs/xfs_log.c
+index 74b324f915a..d99a5b678cf 100644
+--- a/fs/xfs/xfs_log.c
++++ b/fs/xfs/xfs_log.c
+@@ -1211,6 +1211,8 @@ xlog_ioend_work(
+ 		xlog_force_shutdown(log, SHUTDOWN_LOG_IO_ERROR);
+ 	}
  
- 	trace_xfs_file_fsync(ip);
-@@ -95,6 +97,7 @@ xfs_file_fsync(
- 	error = file_write_and_wait_range(file, start, end);
- 	if (error)
- 		return error;
-+	submit_seq = xfs_buftarg_flush_seq(btp);
++	if (!error && iclog->ic_flush_seq)
++		xfs_buftarg_flush_done(log->l_targ, iclog->ic_flush_seq);
+ 	xlog_state_done_syncing(iclog);
+ 	bio_uninit(&iclog->ic_bio);
  
- 	if (xfs_is_shutdown(ip->i_mount))
- 		return -EIO;
-@@ -119,12 +122,21 @@ xfs_file_fsync(
- 	 * file data target cache here. This can happen for fdatasync/O_DSYNC
- 	 * when no metadata needed to be committed.
- 	 *
-+	 * Flush the file data target unless a flush submitted to it after the
-+	 * data writes above completed has already finished. That is usually
-+	 * the flush before an iclog written out by this log force or by
-+	 * another task, or another fsync's flush.
-+	 *
-+	 * DAX writes are not block I/O, so DAX only skips the flush when
-+	 * this log force flushed, as before.
-+	 *
- 	 * Use the inode's actual file data target rather than assuming the
- 	 * main data device.
- 	 */
--	if (!log_flushed)
--		return blkdev_issue_flush(xfs_inode_buftarg(ip)->bt_bdev);
--	return 0;
-+	if (log_flushed ||
-+	    (!IS_DAX(VFS_I(ip)) && xfs_buftarg_flushed_since(btp, submit_seq)))
-+		return 0;
-+	return xfs_buftarg_flush(btp);
+@@ -1570,19 +1572,21 @@ xlog_flush_end_io(
+ 	bio_put(bio);
  }
  
- static int
+-static void
++static s64
+ xlog_flush_async(
+ 	struct xlog_flush_done	*done,
+-	struct block_device	*bdev)
++	struct xfs_buftarg	*btp)
+ {
+ 	struct bio		*bio;
++	s64			seq = xfs_buftarg_flush_start(btp);
+ 
+-	bio = bio_alloc(bdev, 0, REQ_OP_WRITE | REQ_PREFLUSH | REQ_SYNC,
++	bio = bio_alloc(btp->bt_bdev, 0, REQ_OP_WRITE | REQ_PREFLUSH | REQ_SYNC,
+ 			GFP_NOFS);
+ 	bio->bi_private = done;
+ 	bio->bi_end_io = xlog_flush_end_io;
+ 	atomic_inc(&done->pending);
+ 	submit_bio(bio);
++	return seq;
+ }
+ 
+ /*
+@@ -1605,16 +1609,17 @@ xlog_flush_data_caches(
+ 		.pending	= ATOMIC_INIT(1),
+ 		.done		= COMPLETION_INITIALIZER_ONSTACK(done.done),
+ 	};
++	s64			dseq = 0, rseq = 0, lseq;
+ 
+ 	*did_flush = false;
+ 	if (mp->m_ddev_targp != mp->m_logdev_targp &&
+ 	    bdev_write_cache(mp->m_ddev_targp->bt_bdev)) {
+-		xlog_flush_async(&done, mp->m_ddev_targp->bt_bdev);
++		dseq = xlog_flush_async(&done, mp->m_ddev_targp);
+ 		*did_flush = true;
+ 	}
+ 	if (mp->m_rtdev_targp && mp->m_rtdev_targp != mp->m_ddev_targp &&
+ 	    bdev_write_cache(mp->m_rtdev_targp->bt_bdev)) {
+-		xlog_flush_async(&done, mp->m_rtdev_targp->bt_bdev);
++		rseq = xlog_flush_async(&done, mp->m_rtdev_targp);
+ 		*did_flush = true;
+ 	}
+ 
+@@ -1623,12 +1628,17 @@ xlog_flush_data_caches(
+ 		 * If we flushed any other device, also use an async flush for
+ 		 * the log device so that all flushes happen in parallel.
+ 		 */
+-		xlog_flush_async(&done, mp->m_logdev_targp->bt_bdev);
++		lseq = xlog_flush_async(&done, mp->m_logdev_targp);
+ 
+ 		xlog_flush_done(&done);
+ 		wait_for_completion(&done.done);
+ 		if (done.status)
+ 			return -EIO;
++		if (dseq)
++			xfs_buftarg_flush_done(mp->m_ddev_targp, dseq);
++		if (rseq)
++			xfs_buftarg_flush_done(mp->m_rtdev_targp, rseq);
++		xfs_buftarg_flush_done(mp->m_logdev_targp, lseq);
+ 	}
+ 
+ 	return 0;
+@@ -1678,14 +1688,18 @@ xlog_write_iclog(
+ 	iclog->ic_bio.bi_iter.bi_sector = log->l_logBBstart + bno;
+ 	iclog->ic_bio.bi_end_io = xlog_bio_end_io;
+ 	iclog->ic_bio.bi_private = iclog;
++	iclog->ic_flush_seq = 0;
+ 
+ 	if (iclog->ic_flags & XLOG_ICL_NEED_FLUSH) {
+ 		if (xlog_flush_data_caches(log->l_mp, &did_flush))
+ 			goto shutdown;
+ 	}
+ 	if (!did_flush &&
+-	    (iclog->ic_flags & (XLOG_ICL_NEED_FLUSH | XLOG_ICL_NEED_FLUSH_LOG)))
++	    (iclog->ic_flags &
++	     (XLOG_ICL_NEED_FLUSH | XLOG_ICL_NEED_FLUSH_LOG))) {
+ 		iclog->ic_bio.bi_opf |= REQ_PREFLUSH;
++		iclog->ic_flush_seq = xfs_buftarg_flush_start(log->l_targ);
++	}
+ 	if (iclog->ic_flags & XLOG_ICL_NEED_FUA)
+ 		iclog->ic_bio.bi_opf |= REQ_FUA;
+ 
+diff --git a/fs/xfs/xfs_log_priv.h b/fs/xfs/xfs_log_priv.h
+index 529720a4984..df0f13c4e04 100644
+--- a/fs/xfs/xfs_log_priv.h
++++ b/fs/xfs/xfs_log_priv.h
+@@ -222,6 +222,7 @@ struct xlog_in_core {
+ #endif
+ 	struct semaphore	ic_sema;
+ 	struct work_struct	ic_end_io_work;
++	s64			ic_flush_seq;	/* buftarg flush number */
+ 	struct bio		ic_bio;
+ 	struct bio_vec		ic_bvec[];
+ };
 
 -- 
 2.43.0
