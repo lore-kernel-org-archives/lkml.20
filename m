@@ -1,70 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=68.232.153.233
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794407513;
-	b=5jzeHp+M1xh91pN4IyMMT286hFGUOlHwtaDvZYr/7nNNxYMhq8SBiQcMRYHp1Xmh6Lm8
-	 6dPdZ3Cl5rZWgXUCNwhjWatnULfheWZw248UtDOQdsyZGG0yGv+COBD4eXHRCGF4I1RBB
-	 HFuDrf/yt8A+JswOfunUP1sqBkEPhL1S8SEu7arY8J18vqoslzF8QhBj7asdyKauPEolU
-	 BvYfOj66eE1SVblZR/dGJqpYB4OjNqqDFZ2GZJEw4koze1BIX95CSoNG5HrfO6KCTpEET
-	 xZld1WyeP3VJSJwqmVQbUd3q62461ZL1huoiC38l3HdzotP9dYRvl16G0axIC7ac2lQ==
+	t=1794407504;
+	b=J+cYaIimGXgN4KuYWVxBR5TPaEmP5Wwx0B928WUHHopmhGCHXMyl2nG+oIcapyVi/4fn
+	 dqEtf3i2vibfhWOTKHtE9rNHWi+VPQa/x+jlMTCrpnd+pYdBL0vSkrFF3RH4fzfVS926o
+	 72GAB8vYv+zoyiiPxVe568vq1nP/QE4k4ryI3FEp6T3uhGEOKCkNIKpIEJTXgcyUQDinc
+	 nEm29gq72imrCQeiYdBj8PnaoUYHVOOHVSfQhx4x93eh5U68sd9JXfjY8P3YXctarVg74
+	 Deb1N+Dz5ZdtEvkao7pFTe+PR2VcM2jNqCCFAU9vX/k8itcw2Ke/tBsCaeMjqB0Ab9w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794407513;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-Amp-Result:Received:Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-ID:References:In-Reply-To:To:CC:X-Mailer;
-	bh=duB/7yveMF318wQ7CMLtGRf7OYC9sLd5x47PpD/rS48=;
-	b=TZFTjNq37LB/JmJCZ6dVhw/OSCHOUFdU0fOZBsXUDnFPZf76q3VTfFAl0XH4OQaCYApe
-	 lOWovdxRuDjrUhmkfZRflgo3Z8JrW3zg9OOjRlyBPkfIRVUvBc5hvzpRelRokQCiLe+1h
-	 QRuqCx4fhFfgJiLX93FbLTfFFQj4NivwvCi6i37FDX0Tjgt59u+KH+6vxtncI4okMwR+d
-	 zgho1qWDxIzQz/BAqoZW00BcmYRkQSMFIvFgQPW4gNwIrLIMXt3DAsXUK5jLWmo4JAVx4
-	 9OFgfPzokPcjd4ES5NaYwTH4oaeLuDshBKB3E+JRK0VpwA5odPzWQz9vD+hBm3nobbg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794407504;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 X-Zmail-TransId:X-Mailer:Message-ID:In-Reply-To:References:Date:
+	 Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:X-TLS:
+	 X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:X-Fangmail-Anti-Spam-Filtered:
+	 X-Fangmail-MID-QID;
+	bh=AfMlI3WfPqq8tKJdmFujBWQddYXZnTduVJGezxZ066c=;
+	b=D7FVU/+zy3siFa4i4gvRYojn3oGTkKJpdQCh9YbCpDF/6rDSf1hAnzW0bzFMqzZdJgM9
+	 wyPwWdfdJMQJxsPoPP4MBhyLwlHwWZQn4BqPBDstTP7fH+Ylvy/QT7vHzYpGJ//ZYp6ZZ
+	 4fUkwIfMnmWco7zn2iDAQSV6qmShh0qFb9K1oOR429fmTtevpiyivr+QkhAh1LPdxXwji
+	 meyetHGTV6qhH+pEr9meKhRsHELUsML+Klll6pMiXwEKjEXJpDu/vUFpaL/4bzSmbTTRa
+	 hlf5nk4fmmEmY6ZP9KUlfqw33I3qKBETatUNHD9AJTxWJ7t+5VpyaaVvaK3aBQ6SSZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=microchip.com;
-	spf=pass smtp.mailfrom=microchip.com;
-	dkim=pass header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=KAanVS+v;
-	arc=none smtp.remote-ip=68.232.153.233
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
+	dmarc=pass header.from=zte.com.cn;
+	spf=pass smtp.mailfrom=zte.com.cn;
+	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b="cn2S/T3B";
+	arc=none smtp.remote-ip=160.30.148.34
+Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.34])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 578EB606A336;
-	Wed, 11 Nov 2026 14:31:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 578EB606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0B9360A3806;
+	Wed, 11 Nov 2026 14:31:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B0B9360A3806
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=KAanVS+v
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1794407513; x=1825943513;
-  h=from:date:subject:mime-version:content-transfer-encoding:
-   message-id:references:in-reply-to:to:cc;
-  bh=HjGJZDFB9RuMeUYwAAgJUELvVAcflCgKhSmOu1n/eNo=;
-  b=KAanVS+vILwEtcBlxXAitxKsy15L2bVlS/euiInksPUnES5mtSasERPp
-   N1wVJY15fs69cXU+B5t7UNwuBOMUTIfxM6HZc1zwn0Qu6U7ILCBt217Us
-   BHRe/1M9dKlrycw9P618nP/rWShLIVVVxPlWS16IC220apErRFeBEcXNv
-   2z+Y2l2nkCsk/fvw/go4GcQSTj22viBa/iZHlUpjwcHn8UuU2m0QQX0Jo
-   HiA1vn2WO89gO8Eg/WL/lVVhtJVMxM3oqIiOD3ZYjj9jF/ssXRpvCoRqR
-   OhBnwI3WVhqDwHFospVnG0jl1XRQokmfxa1ZKt0kvmteaecSGVxeJzE7/
-   Q==;
-X-CSE-ConnectionGUID: CW6Ii7iwQtSQ+rA+SSjv2Q==
-X-CSE-MsgGUID: q5bXFfvxQhSKSg+t2E48PQ==
-X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
-   d="scan'208";a="297775349"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa5.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 07:31:52 -0700
-Received: from chn-vm-ex04.mchp-main.com (10.10.87.151) by
- chn-vm-ex1.mchp-main.com (10.10.87.30) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.56; Wed, 11 Nov 2026 07:31:52 -0700
-Received: from DEN-DL-M70577.microsemi.net (10.10.85.11) by
- chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server id
- 15.1.2507.58 via Frontend Transport; Wed, 11 Nov 2026 07:31:49 -0700
-From: Daniel Machon <daniel.machon@microchip.com>
-Date: Wed, 11 Nov 2026 15:31:19 +0100
-Subject: [PATCH net-next v2 9/9] net: sparx5/lan969x: add support for
- changing the MTU
+	dkim=pass (2048-bit key) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=cn2S/T3B
+Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jPmDZ29dTz4yjjH;
+	Wed, 11 Nov 2026 22:31:42 +0800 (CST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=zte.com.cn;
+	s=z202610; t=1794407502;
+	bh=azTcS144VCtm1cmX8Y0OcBHPAttJzVsHThFAhZvd3uQ=;
+	h=In-Reply-To:References:Date:From:To:Cc:Subject;
+	b=cn2S/T3B6G0jADeZddXaIFRdZqpwX5Hmn8m+OR92UBT2mytcFKHRfTcssJ+3PDy7w
+	 nNd6Z8g10lUn2EK0ysPkEyQ4uEXKg9kLX2YijnMEZxQwPkstzxLDd2qF4JJLMTjuXs
+	 /6m2Q79RwemCkZ+1al1odKaX+n1arWBvtVKcpoqZYmx1MXu4W8xPqUf4GsGiMLoJ1O
+	 kh9sbs0kMa7cUR8pjBcE+NAf30NGBypeXvs7ZJw+11eAOdKJrUMb56U1S+893DW4Oz
+	 uEcH+QO1bPGZZ9uVsweHobvCbmiA/6S0RAVCoqImQscYEN0E1IrpbmCCBDsEEiXh7H
+	 t92jqwRcilSsA==
+Received: from xaxapp04.zte.com.cn ([10.99.98.157])
+	by mse-fl1.zte.com.cn with SMTP id 6ABEVR3m089035;
+	Wed, 11 Nov 2026 22:31:27 +0800 (+08)
+	(envelope-from shao.mingyin@zte.com.cn)
+Received: from mapi (xaxapp05[null])
+	by mapi (Zmail) with MAPI id mid32;
+	Wed, 11 Nov 2026 22:31:29 +0800 (CST)
+X-Zmail-TransId: 2afc6af47c41ad9-519d4
+X-Mailer: Zmail v1.0
+Message-ID: <20261111223129430zClEJF8TDgu_h8ZYM843Q@zte.com.cn>
+In-Reply-To: <20261111223123952mgPDVsbO8uOyaDWL2KELB@zte.com.cn>
+References: 20261111223123952mgPDVsbO8uOyaDWL2KELB@zte.com.cn
+Date: Wed, 11 Nov 2026 22:31:29 +0800 (CST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,145 +72,104 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20261111-sparx5-mtu-change-v2-9-59c91357e8f6@microchip.com>
-References: <20261111-sparx5-mtu-change-v2-0-59c91357e8f6@microchip.com>
-In-Reply-To: <20261111-sparx5-mtu-change-v2-0-59c91357e8f6@microchip.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
-	<davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski
-	<kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Steen Hegelund
-	<Steen.Hegelund@microchip.com>, <UNGLinuxDriver@microchip.com>, "Richard
- Cochran" <richardcochran@gmail.com>, Russell King <linux@armlinux.org.uk>
-CC: <netdev@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>, Robert Marko <robert.marko@sartura.hr>,
-	Horatiu Vultur <horatiu.vultur@microchip.com>,
-	=?utf-8?q?Jens_Emil_Schulz_=C3=98stergaard?=
-	<jensemil.schulzostergaard@microchip.com>
-X-Mailer: b4 0.14.3
+Mime-Version: 1.0
+From: <shao.mingyin@zte.com.cn>
+To: <dlemoal@kernel.org>, <cassel@kernel.org>, <linux-ide@vger.kernel.org>
+Cc: <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+Subject: =?UTF-8?B?W1BBVENIIHYyIDEvNF0gYXRhOiBsaWJhdGEtc2NzaTogc2tpcCBNVUxUSVBMRV9DT1VOVCBmb3IgMzItYnl0ZSBwYXNzdGhydQ==?=
+Content-Type: text/plain;
+	charset="UTF-8"
+X-MAIL:mse-fl1.zte.com.cn 6ABEVR3m089035
+X-TLS: YES
+X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
+X-SOURCE-IP: 10.5.228.132 unknown Wed, 11 Nov 2026 22:31:42 +0800
+X-CLEAN: YES
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6AF47C4E.000/4jPmDZ29dTz4yjjH
 
-The MTU of a port is currently fixed to 1500, as the MAC maximum frame
-length, the FDMA buffers, the queue watermarks and the TAS guard band
-are all sized for a 1518 byte frame. The previous patches make the
-buffers, watermarks and guard band follow the MTU, so changing the MTU
-is a matter of programming the MAC and updating these.
+From: Shao Mingyin <shao.mingyin@zte.com.cn>
 
-Add an ndo_change_mtu callback that sets the MAC maximum frame length of
-the port and resizes the FDMA buffers. The MAC must never accept frames
-that are larger than the RX buffers, so when decreasing the MTU, the
-maximum frame length is lowered before the buffers are shrunk, and when
-increasing it, it is only raised once the buffers have been grown. The
-new MTU is only published once the buffers fit it. If the buffers cannot
-be grown, the MTU is not changed. If they cannot be shrunk, the current
-buffers still fit all frames, so the new MTU is kept. Once the new MTU
-is published, update the queue watermarks of the port and the TAS guard
-band.
+ATA PASS-THROUGH(32) has no MULTIPLE_COUNT field. Reading byte 1 as
+that field instead interprets the variable-length CDB CONTROL byte,
+which can reject a non-multiple command or cause a spurious count
+mismatch warning for READ/WRITE MULTIPLE.
 
-As the FDMA is shared by all ports, resizing its buffers briefly stops
-CPU traffic on all ports. This only happens when the change affects the
-buffer size needed for the largest MTU of the ports.
+Skip the CDB count checks for the 32-byte form while retaining the
+check that multiple mode is enabled on the device. Also report byte 10
+for an invalid PROTOCOL, where that field resides in a 32-byte CDB.
+The 12- and 16-byte MULTIPLE_COUNT checks remain unchanged.
 
-Register based extraction, which is used when the FDMA is not, sizes
-its skbs from the MTU at the time a frame is read, so frames queued
-before an MTU decrease would not fit. Therefore, only allow the MTU to be
-changed when the FDMA is used.
-
-The MACs of both Sparx5 and lan969x support frames of up to 14000 bytes,
-so set the maximum MTU accordingly when the FDMA is used.
-
-Signed-off-by: Daniel Machon <daniel.machon@microchip.com>
+Fixes: b1ffbf854e08 ("libata: Support for an ATA PASS-THROUGH(32) command.")
+Suggested-by: Niklas Cassel <cassel@kernel.org>
+Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
 ---
- .../net/ethernet/microchip/sparx5/sparx5_main.h    |  1 +
- .../net/ethernet/microchip/sparx5/sparx5_netdev.c  | 48 +++++++++++++++++++++-
- 2 files changed, 48 insertions(+), 1 deletion(-)
+Changes in v2 (Niklas Cassel):
+- Skip the nonexistent MULTIPLE_COUNT field for the 32-byte CDB;
+  preserve the device multiple-mode check and the short-CDB checks.
+- Move the invalid-PROTOCOL field pointer fix here from patch 3.
+- Regenerate with git format-patch; do not edit diff hunks or indexes.
+- Do not carry the v1 Reviewed-by tag over the reworked code.
+v1: https://lore.kernel.org/all/20261104220939917jqg8_alGN5sACGWq5M9D-@zte.com.cn/
 
-diff --git a/drivers/net/ethernet/microchip/sparx5/sparx5_main.h b/drivers/net/ethernet/microchip/sparx5/sparx5_main.h
-index 9bd3f7827b1f2..03643adad4caf 100644
---- a/drivers/net/ethernet/microchip/sparx5/sparx5_main.h
-+++ b/drivers/net/ethernet/microchip/sparx5/sparx5_main.h
-@@ -110,6 +110,7 @@ enum sparx5_feature {
- #define SPX5_BUFFER_MEMORY     4194280 /* 22795 words * 184 bytes */
- #define SPX5_TAS_ENTRIES_PER_PORT 2 /* TAS lists per port */
- #define SPX5_HW_MTU(mtu)       ((mtu) + ETH_HLEN + ETH_FCS_LEN)
-+#define SPX5_MAX_FRAME_LEN     14000 /* Max frame length supported by the MACs */
- 
- #define XTR_QUEUE     0
- #define INJ_QUEUE     0
-diff --git a/drivers/net/ethernet/microchip/sparx5/sparx5_netdev.c b/drivers/net/ethernet/microchip/sparx5/sparx5_netdev.c
-index b3725cf2dd44c..095925752f5f6 100644
---- a/drivers/net/ethernet/microchip/sparx5/sparx5_netdev.c
-+++ b/drivers/net/ethernet/microchip/sparx5/sparx5_netdev.c
-@@ -250,6 +250,44 @@ static int sparx5_port_hwtstamp_set(struct net_device *dev,
- 	return sparx5_ptp_hwtstamp_set(sparx5_port, cfg, extack);
- }
- 
-+static int sparx5_port_change_mtu(struct net_device *dev, int new_mtu)
-+{
-+	struct sparx5_port *port = netdev_priv(dev);
-+	struct sparx5 *sparx5 = port->sparx5;
-+	bool resize = new_mtu > dev->mtu;
-+	int err;
-+
-+	/* Register based extraction sizes its skbs from the MTU at the time
-+	 * a frame is read, so it cannot handle frames queued before an MTU
-+	 * decrease.
-+	 */
-+	if (sparx5->fdma_irq <= 0)
-+		return -EOPNOTSUPP;
-+
-+	/* Never let the MAC accept frames larger than the RX buffers */
-+	if (!resize)
-+		sparx5_port_max_len_set(sparx5, port, SPX5_HW_MTU(new_mtu));
-+
-+	err = sparx5->data->ops->fdma_resize(sparx5, port, new_mtu);
-+	if (err) {
-+		if (resize)
-+			return err;
-+
-+		/* The current, larger, buffers still fit all frames */
-+		netdev_warn(dev, "Failed to resize FDMA buffers: %d\n", err);
-+	}
-+
-+	WRITE_ONCE(dev->mtu, new_mtu);
-+
-+	sparx5_port_wm_update(sparx5, port);
-+	sparx5_tas_gb_update(sparx5);
-+
-+	if (resize)
-+		sparx5_port_max_len_set(sparx5, port, SPX5_HW_MTU(new_mtu));
-+
-+	return 0;
-+}
-+
- static const struct net_device_ops sparx5_port_netdev_ops = {
- 	.ndo_open               = sparx5_port_open,
- 	.ndo_stop               = sparx5_port_stop,
-@@ -257,6 +295,7 @@ static const struct net_device_ops sparx5_port_netdev_ops = {
- 	.ndo_set_rx_mode_async  = sparx5_set_rx_mode,
- 	.ndo_get_phys_port_name = sparx5_port_get_phys_port_name,
- 	.ndo_set_mac_address    = sparx5_set_mac_address,
-+	.ndo_change_mtu         = sparx5_port_change_mtu,
- 	.ndo_validate_addr      = eth_validate_addr,
- 	.ndo_get_stats64        = sparx5_get_stats64,
- 	.ndo_get_port_parent_id = sparx5_get_port_parent_id,
-@@ -306,7 +345,14 @@ int sparx5_register_netdevs(struct sparx5 *sparx5)
- 
- 	for (portno = 0; portno < sparx5->data->consts->n_ports; portno++)
- 		if (sparx5->ports[portno]) {
--			err = register_netdev(sparx5->ports[portno]->ndev);
-+			struct net_device *ndev = sparx5->ports[portno]->ndev;
-+
-+			/* The MTU can only be changed when FDMA is used */
-+			if (sparx5->fdma_irq > 0)
-+				ndev->max_mtu = SPX5_MAX_FRAME_LEN - ETH_HLEN -
-+						ETH_FCS_LEN;
-+
-+			err = register_netdev(ndev);
- 			if (err) {
- 				dev_err(sparx5->dev,
- 					"port: %02u: netdev registration failed\n",
+Validation on x86-64 with GCC 13 and UBSAN: a userspace harness compiled
+ata_scsi_pass_thru() verbatim with SCSI/device stubs. An invalid PROTOCOL
+in a 32-byte CDB passed field pointer 1 to the invalid-field helper before
+the fix and 10 afterwards. CONTROL-byte variations no longer caused
+false rejection or multiple-count warnings. A device with multiple mode
+disabled still rejected READ/WRITE MULTIPLE; short-CDB checks were kept.
 
--- 
-2.34.1
+ drivers/ata/libata-scsi.c | 23 ++++++++++++-----------
+ 1 file changed, 12 insertions(+), 11 deletions(-)
 
+diff --git a/drivers/ata/libata-scsi.c b/drivers/ata/libata-scsi.c
+index a61fb03312793ca94d81d8061a16c66e786c4cf3..227240514651ada8b5feb87a154833fb2cddf064 100644
+--- a/drivers/ata/libata-scsi.c
++++ b/drivers/ata/libata-scsi.c
+@@ -3388,7 +3388,7 @@ static unsigned int ata_scsi_pass_thru(struct ata_queued_cmd *qc)
+ 
+ 	tf->protocol = ata_scsi_map_proto(cdb[1 + cdb_offset]);
+ 	if (tf->protocol == ATA_PROT_UNKNOWN) {
+-		fp = 1;
++		fp = 1 + cdb_offset;
+ 		goto invalid_fld;
+ 	}
+ 
+@@ -3573,27 +3573,28 @@ static unsigned int ata_scsi_pass_thru(struct ata_queued_cmd *qc)
+ 		goto invalid_fld;
+ 	}
+ 
+-	/* sanity check for pio multi commands */
+-	if ((cdb[1] & 0xe0) && !is_multi_taskfile(tf)) {
++	/* The 32-byte CDB has no MULTIPLE_COUNT field. */
++	if (cdb[0] != VARIABLE_LENGTH_CMD &&
++	    (cdb[1] & 0xe0) && !is_multi_taskfile(tf)) {
+ 		fp = 1;
+ 		goto invalid_fld;
+ 	}
+ 
+ 	if (is_multi_taskfile(tf)) {
+-		unsigned int multi_count = 1 << (cdb[1] >> 5);
+-
+ 		if (!dev->multi_count) {
+ 			ata_scsi_set_sense(dev, scmd, ABORTED_COMMAND,
+ 					   NO_ADDITIONAL_SENSE_INFORMATION);
+ 			return 1;
+ 		}
+ 
+-		/* compare the passed through multi_count
+-		 * with the cached multi_count of libata
+-		 */
+-		if (multi_count != dev->multi_count)
+-			ata_dev_warn(dev, "invalid multi_count %u ignored\n",
+-				     multi_count);
++		if (cdb[0] != VARIABLE_LENGTH_CMD) {
++			unsigned int multi_count = 1 << (cdb[1] >> 5);
++
++			/* Compare with the cached multiple count of libata. */
++			if (multi_count != dev->multi_count)
++				ata_dev_warn(dev, "invalid multi_count %u ignored\n",
++					     multi_count);
++		}
+ 	}
+ 
+ 	/*
