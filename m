@@ -1,65 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794421181;
-	b=N83uKj1VLDJED4mAIz0obsHQ6CBiIpEv/OLHr6EaZ1Ew+8QGB4EnKoUYSDYCZ0HsnJ54
-	 wxFwESDIQYEcSjwDhALJ1uRaxPlt+yeEDa0G1kwLxpmnHo5vI9Rw+2R1jtMDCynjoi4Zv
-	 GenjlFXnjM/mkvtpCVBf1aIeApN8OlzAxbF3RfRvlUOMic21VyLGmbgGxFRamr43pE1nS
-	 gVrOmoLnF1AQiqBExHfV1B/IUC3jt8vjr66Ucum9CdoKprJUGDtwWEIiz94lDpvQ39ciG
-	 Hv5c9S1VC2dBxAqpx+eO4H0ZveoVbJ8XEJyfBEPLWVPtin2807FuvE3RWEFgx2k122A==
+	t=1794421186;
+	b=s3fD4q/luU6PLoTXEHqAW8wUfls5UfJusn3WPMUlDMkqHJiiMqXWxDAZpUBxk5QwSf5V
+	 KAdyOryeQxRWU/nbIJF9KnY20bM/tbzsJSigebLyAoZk8Y/zGgLzbL9Re8X3f6ov3taaG
+	 wPrthIh1sMW7KT3KBm9BhprLrp6HpdH8jfj/B6PavbEPbKIHsNws3co7vFcQQ/2nnFQoH
+	 9Rnan8KNyXG8IXA/W76c0YVEPxkAzyzLVMDMfiH9Ilo3INZUq88FcbCEhiL57INJu0f1H
+	 qeJ2j1qBDR0zaOW3opZeM9pXefiAMtbsmK6IHju3fbR2DeWlpsENE6Tvh/qW8OjlGFg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794421181;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=pfXEXdjQzZILw838pgfZ70Et9pyX3bVcetws/5uL/zw=;
-	b=U30VPwm+mAHP5d7zFDS7q6H4C1BUZzuN6Nqtlorr3otvGOMubm69ZfbmQSoZdZTo5BGT
-	 m7wuPFT6QwVwc/8r16/KQsgDOyH9TrbjVxq18GZ/WH4AZVKzfridNLcRUzTIYDjiBR3lT
-	 KAQnLtZkXklWL3fmRqVY5aC3iOj+YE2LKA1TH9JoRYyNv8LxQOq3pxU7kJ+/hTIzWxtGJ
-	 33MAeYXgoVawmSBX2DpxQUGb5K6KMACXGYdnNvqcrD6FuT20oCTJJH68iqVLGoIDzwyO7
-	 fT6Zu901FYrVmAz8QyJLRIQUv+fIZF2c2EToVNvfygOLM5NC7q47YeOhtszvpfBA3Bg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794421186;
+	h=DMARC-Filter:From:DKIM-Signature:DKIM-Signature:To:Cc:Subject:Date:
+	 Message-ID:MIME-Version:Content-Transfer-Encoding;
+	bh=miHmWkTPhUcAEvpsJtGNKtqPm0O9WXg4DLHkHhO3x30=;
+	b=R1HdPnGof7E9CYjvxMzTOvwA/WtY2hehRN6X2SZgfTRzZK36xjGT+NqUStQxk27oq43P
+	 5Xsy8A8ptTGS0FVukQV/GJAYFH6uecy7gDfRCAbxAXuPnxTFDUF6B+6OOX0V9itc/fKYV
+	 6z5LFERecJn3rmCXmXeHg3S0Gkr28fEU5PnpbbFG01CMMx1eKZjb6vj9bF1gS4cFxwQHX
+	 w+b6ORkvmFjs7YS8QuSsoiOiP14EBxC+wv4nNvaL2smdUQ7wzNjvXeglNX8J2PqCYCriG
+	 LmrsVT9ebHz7N1kv7ZdddwDemjGnYopRvwpwcXlB5EaUqz5O+kMyR+VFW6hXOqS2Bdg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Cj5Tvm3G;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id F304A606A326
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 18:19:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F304A606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=rXyV+V8m;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b="67f/wVrW";
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F8C8606AE1E;
+	Wed, 11 Nov 2026 18:19:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F8C8606AE1E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Cj5Tvm3G
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4A15E1576;
-	Wed, 11 Nov 2026 10:19:37 -0800 (PST)
-Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 1BBAA3F632;
-	Wed, 11 Nov 2026 10:19:36 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794421180; bh=pxMbuBYnl7smF+fcq5aPZzge8JNq0PsIOWBvviY84Ik=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Cj5Tvm3GOgQ6hwsYhv5MYuKsZdtkk5Gxs/yjbSHzfcAJbDMNnsmY077R/ag8kn/wg
-	 7wi6Zvd1tg/X9S2bA3EtIvFKuopik1Auxq+lW5Ku+MDefJSPklDMDjSXkW0lw2MCC6
-	 +QzpnS9PTiDv/BBv5Fw2y6/jB1jiKY0wjM4snZoM=
-Date: Wed, 11 Nov 2026 18:19:34 +0000
-From: Catalin Marinas <catalin.marinas@arm.com>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Yuanhe Shu <xiangzao@linux.alibaba.com>, akpm@linux-foundation.org,
-	"Huang, Ying" <ying.huang@linux.alibaba.com>,
-	Kaitao Cheng <kaitao.cheng@linux.dev>,
-	"Garg, Shivank" <shivankg@amd.com>, vbabka@kernel.org,
-	ljs@kernel.org, liam@infradead.org, rppt@kernel.org,
-	surenb@google.com, mhocko@suse.com, linmiaohe@huawei.com,
-	nao.horiguchi@gmail.com, ziy@nvidia.com, wangkefeng.wang@huawei.com,
-	tujinjiang@huawei.com, mgorman@techsingularity.net,
-	chengkaitao@kylinos.cn, muchun.song@linux.dev, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] mm/highmem: refuse to copy hwpoisoned folios in the
- !copy_mc fallbacks
-Message-ID: <avSxtpwhTbfHi4zh@arm.com>
-References: <20261110112641.1196786-1-xiangzao@linux.alibaba.com>
- <16cf88a0-6652-4276-95fb-12306e417701@kernel.org>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=rXyV+V8m;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=67f/wVrW
+From: John Ogness <john.ogness@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1794421184;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=miHmWkTPhUcAEvpsJtGNKtqPm0O9WXg4DLHkHhO3x30=;
+	b=rXyV+V8mB3WGQYt0D1cbKm+3TdQH5P7EkBB0BuarwzijqP3FTDgXeDtU+702Qha3Vjesjd
+	ZOM+Cs2Cjqf95W9HPfwGmTijj2qXHfWvu2anJBtqLqoaWKO9FjvL7fGv6zbAmkaqKvsvsQ
+	RLNM7MfGFGooJ30UY9ORSGfoi0Y4Pd/bLfBvxxCuZ0XnCWN6lhknFqGFfTdjfbjgodCXyL
+	9khOfeXGPBb8Che0NlD4shfupUeTEen9ahuAZgPlfkyLNV7YY0wetUpUm0wM8itMWW7+PD
+	8f+X28nEXLQlCNh1FQ2LsARwu+5HxRkTrDJVnz2voRACc/e1f7hBk3Crxa9Caw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1794421184;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=miHmWkTPhUcAEvpsJtGNKtqPm0O9WXg4DLHkHhO3x30=;
+	b=67f/wVrWqykxVxVPvO3YPpqenX7yBp2KyE+jBcUbzvEX+HrwwBjv1vgxB6QxoqLtZqXPOF
+	cVUFfC/MqkcyEyAw==
+To: Petr Mladek <pmladek@suse.com>
+Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Breno Leitao <leitao@debian.org>,
+	printk@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Huacai Chen <chenhuacai@kernel.org>,
+	WANG Xuerui <kernel@xen0n.name>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jason Wessel <jason.wessel@windriver.com>,
+	Daniel Thompson <danielt@kernel.org>,
+	Douglas Anderson <dianders@chromium.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Mukesh Kumar Chaurasiya <mchauras@linux.ibm.com>,
+	Feng Tang <feng.tang@linux.alibaba.com>,
+	Rio <rioo.tsukatsukii@gmail.com>,
+	Bradley Morgan <brads@mainlining.org>,
+	Pnina Feder <pnina.feder@mobileye.com>,
+	Gal Pressman <gal@nvidia.com>,
+	Petr Pavlu <petr.pavlu@suse.com>,
+	Pavel Tikhomirov <ptikhomirov@virtuozzo.com>,
+	Oleg Nesterov <oleg@redhat.com>,
+	"Cen Zhang (Microsoft)" <blbllhy@gmail.com>,
+	loongarch@lists.linux.dev,
+	linuxppc-dev@lists.ozlabs.org,
+	kgdb-bugreport@lists.sourceforge.net,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Alessandro Carminati <acarmina@redhat.com>,
+	Baoquan He <baoquan.he@linux.dev>,
+	Mike Rapoport <rppt@kernel.org>,
+	Pasha Tatashin <pasha.tatashin@soleen.com>,
+	Pratyush Yadav <pratyush@kernel.org>,
+	Dave Young <ruirui.yang@linux.dev>,
+	kexec@lists.infradead.org,
+	Gustavo Luiz Duarte <gustavold@gmail.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org
+Subject: [PATCH printk v2 0/6] Introduce policies for unsafe flushing
+Date: Wed, 11 Nov 2026 19:25:16 +0106
+Message-ID: <20261111181942.593695-1-john.ogness@linutronix.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,43 +114,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <16cf88a0-6652-4276-95fb-12306e417701@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 11, 2026 at 10:36:40AM +0100, David Hildenbrand wrote:
-> On 11/10/26 12:26, Yuanhe Shu wrote:
-> 
-> While the file touches highmem.h, this really isn't about highmem at all, right?
-> 
-> This really affects any architecture except the ones that define
-> copy_mc_to_kernel (x86+powerpc).
+v1 is here [0].
 
-I think is_page_hwpoison() is compiled out unless CONFIG_MEMORY_FAILURE
-is enabled. Only arm64, parisc, powerpc and x86 enable it with the
-latter two having proper mc support.
+Until now unsafe flushing is only performed at the very end of
+panic(), before entering the infinite loop. For other situations
+(such as panic-kexec or panic-reboot or emergency-reboot) no
+unsafe flushing is performed. The reasoning for this is because
+an unsafe flush could lead to fireworks, which could prevent the
+kexec or reboot from occurring.
 
-> > The !copy_mc fallbacks of copy_mc_user_highpage() and
-> > copy_mc_highpage() return 0 after a plain copy.  With PG_hwpoison
-> > set while the data stays readable, there is no fault to recover
-> > from: the copy completes, the destination folio carries no poison
-> > marker, and the poison is consumed silently.
-> > 
-> > Check the source page with is_page_hwpoison() in both fallbacks,
-> > before the copy, and return PAGE_SIZE, the not-copied-bytes
-> > convention of the real copy_mc paths, so the callers take their
-> > existing error paths.  On archs with copy_mc this code does not
-> > compile.
-> > 
-> > Measured on arm64, where the fallback code compiles: a
-> > kernel-space microbenchmark measures 90.00 ns per copy before the
-> > patch and 90.71 ns after, 0.8% of the copy itself.
-> 
-> CCing Catalin. I'm surprised that arm64 cannot recover from a copy from a
-> hwpoisoned page.
+However, some users may be willing to take on such risks in order
+to see panic output. Indeed, for the netconsole (which does not
+support safe atomic printing) it is a regression that such unsafe
+printing does not occur. [1] 
 
-Yeah, it's been around for some time. Lack of review cycles on our side
-as well.
+This series adds unsafe flushing policy flags per-console to
+allow individual consoles to perform unsafe flushing for such
+scenarios. The unsafe flushing is hard-code-enabled for the
+netconsole in patch 6/6. The justification is that this is not
+less safe than the legacy netconsole.
 
+Later these policy flags could be easily exposed to userspace
+via /sys/class/consoles/, once the sysfs per-console interface
+is available.
+
+Changes since v1:
+
+- Make console.unsafe_flush_flags unsigned.
+
+- Add missing kerneldoc description for printk_trigger_flush().
+
+- Remove the WARN_ON_ONCE() in
+  nbcon_context_try_acquire_hostile() since hostile takeovers
+  are now possible from non-panic contexts.
+
+- Also provide a flush reason for console_flush_on_panic().
+
+- Add a global variable @legacy_flush_reason to track reason
+  for legacy flushing.
+
+- Explicitly set PR_FLUSH_RUNTIME to 0 since it is now used to
+  initialize @legacy_flush_reason.
+
+- Temporarily set @legacy_flush_reason during legacy flushing
+  of console_flush_on_panic() and printk_trigger_flush().
+
+- Also set/check ctxt->allow_unsafe_takeover in
+  nbcon_legacy_emit_next_record() to enforce flush policies
+  for legacy flushing.
+
+John Ogness
+
+[0] https://lore.kernel.org/lkml/20261109123127.489676-1-john.ogness@linutronix.de
+[1] https://lore.kernel.org/lkml/20260915100140.3631650-1-ryan.roberts@arm.com
+
+John Ogness (6):
+  printk: Introduce and specify flush reasons
+  console: Introduce unsafe flush policy flags
+  printk: Evaluate flush policy in nbcon_allow_unsafe_takeover()
+  printk: Remove nbcon_atomic_flush_unsafe()
+  printk: Add panic+kexec flush point
+  netconsole: Always perform unsafe flushing on panic/kdb/restart
+
+ arch/loongarch/kernel/reset.c  |   2 +-
+ arch/powerpc/kernel/traps.c    |   2 +-
+ arch/powerpc/kernel/watchdog.c |   2 +-
+ drivers/net/netconsole.c       |   4 +
+ include/linux/console.h        |  39 +++++++---
+ include/linux/printk.h         |  27 +++++--
+ kernel/crash_core.c            |   1 +
+ kernel/debug/debug_core.c      |   2 +-
+ kernel/panic.c                 |   8 +-
+ kernel/printk/internal.h       |   5 +-
+ kernel/printk/nbcon.c          | 129 ++++++++++++++++++++++-----------
+ kernel/printk/printk.c         |  38 +++++++---
+ kernel/reboot.c                |   2 +-
+ lib/nmi_backtrace.c            |   2 +-
+ 14 files changed, 181 insertions(+), 82 deletions(-)
+
+
+base-commit: d01f86a7da8161aac8c6304b377cf58fb75861ca
 -- 
-Catalin
+2.47.3
+
