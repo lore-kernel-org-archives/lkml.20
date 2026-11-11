@@ -1,82 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794408271;
-	b=sJnhsc0rbMcFCqfl5ncQk3ckJBUWVsBLpy8yS8xyQZIk2UJNbNh0hO0W3ONriVl7cZyS
-	 MTVDpTWdBGrgtAUSnTFchY+OtcPRO5TW31O2jn4yJ2xqFywXn6pm8oRmhPCKqQK1Z19Kp
-	 Oof6fX9kp1rIZkrzMVN4n8zM9yiIQ2AJReRoJImwvoAtL2fUsSoIUa5fjPOEEo5bfsMnj
-	 /f/puiKcjP2LxQhq0bNAAAYw9OT9am4L1T4wd6x9CATe6Y1XM8WMSG3Hl+cTt1IonroCy
-	 AKmiPxsb1y69de4fHWVsDaU9KBNgSrQrAwpO+wSDy75/MbX7W3Fwr+FCJ2H68/sUdlw==
+	t=1794408273;
+	b=Y2NszCW41DngeGDJTAYbJtuFyW+B0YVbKOsqnWWwMj0WWokOuJoY/GkVndDuoQBIJ8jr
+	 +ePR3y+LDA0I8K8w49orer3+cVnFoFgI4bHBQae0xFM/MiiFi/DC4mXFhaw1s3sL5zYFX
+	 /745hc8dWHjYf8eMS60sX9czjvst/J/l9/XL7poMG5wyTQgPnZYZr9CEk9fvDI9zro2pu
+	 E4lpmDBrGj8+tl0ESjvxaf1+KUo6n+i7CwzqsBEGqEJzkvS0mICbEb7eRJUC17lWqOSTK
+	 5+iCJfmWg96gHMAneXKE1vuPh27gbjvDN1rCWGlTm+VHsxEG68VOOGweKAScEvmJO8Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794408271;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794408273;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=dr/c6inyZfcsokKdZljfnN0MuHP4f675XnQJYTzje7k=;
-	b=x9v3a/tElyPYfFCNvmzMbVdQuMeJOG6YretYFou7o/lL1q3W3fSvjHaAHYcvHwsOR4Bz
-	 ffYPv4qYRniQSW0mqmx0I0KzYERrRTDFRlFxMfk/P2v1eYUzC6ktfhjlR6Q8BpXHFegv8
-	 IH45pG/nTIEPdnx7G+DG1u7O37iQ4HgX7+IXTVEsxAfcG0PYt6ysLYjRmPhyzVWd2qQD+
-	 pzAB3PWRFaxKZchOLGpIrvfa5d9Ra/Iwu8o5Bw3e3Fesx7VO+XKAcfDNbCjSZworIrL+s
-	 mg3IDUuMFkq3FUJmVWQ6sygq1T6/Crw3G40Y/mkVukJe5vETYwNrIXngxDvPUYoZYRw==
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=PxiG0vYjBvAPwvPa+T1dR5DMoDYMoXM5SR2pagqHWyA=;
+	b=qusxBxCnvGRajmww3QV5W8XRmWizQlblKapVP1Xp/ByTgeLMiIu4iKhOvx0cbk5GW9eK
+	 bVNQ3gHn90D5AR6Rd5l7bCTWfEZnPUIIydHVRC/pfoHzAWtAXnt8LJuSEAaGCx73hWts4
+	 oRoBBUAs5OO73i2iLrKbiCBSyjIComMDXCyxAFpZ+DgeeX7DC0Umd1FeW3/6CaKt6hGBy
+	 4jQk9376V6x8TTVScMhLAC+42ipYANZZyp3FCpfsDxL2d4klqE6cXwaSmIIgq2m3C4O7r
+	 5Ha4hIbasqUHot+uWv3BMXX0YTCbKcJaPgbvwEazZjUWdBmFq9nr3NAhbB+cIsPCGxg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VcsgH8HM;
-	arc=none smtp.remote-ip=209.85.128.52
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=B1yyVtKW;
+	arc=none smtp.remote-ip=209.85.128.53
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2DC5606A32A
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 14:44:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F2DC5606A32A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D44D3606A888
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 14:44:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D44D3606A888
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VcsgH8HM
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4ba013938d7so19782445e9.2
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 06:44:30 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=B1yyVtKW
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a3517554f7so34227155e9.2
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 06:44:32 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794408269; x=1795013069; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=dr/c6inyZfcsokKdZljfnN0MuHP4f675XnQJYTzje7k=;
-        b=VcsgH8HMjHh6IbbGvxMNETPS9g8apuKNu5eJ5iW0JHzhfFRLyj3NgajkhFNAEktPCH
-         Tcxkxens/u5o9tOI+SgiHKSYztMgHT+ABtnAa/EAIdKklMdVcpK/v+qBjQ3JgYAoAv0G
-         A9u/9sqv+BXhyVzbudCWvmcPV77gPHc2wZ0H38yV0/1VK7iOn3oNH2rTeh57ASrPNQvt
-         GpJtOGRaKmmxu3k94Y0w8XyI6IjWqm4UuXTIwEOYbo1fe/1UaHehatmslLRrbI803Tr9
-         3b6AW5APnF0RV//L+nunU1R1VTFuVOtQUv0FnhGENHp8O7W6phoFeNWzKEF2RVFBnyIG
-         ZUmw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794408269; x=1795013069;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1794408271; x=1795013071; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=dr/c6inyZfcsokKdZljfnN0MuHP4f675XnQJYTzje7k=;
-        b=mNCcVt6qNJhJnPzx+n7AFV+H8FJSkl8ew+h/X+oFi3rJmKZEFAqBye639NlEZxfG3o
-         8Dq4wC92wQwaBOdxNGlRBeRWNApzusUj6a+2nj6hkheLG/KI7HP7eBEItJxG/AxiN4yM
-         c8yvtanXr/+6wacQS15EgMPPTNAnPRgeZ7l4ns0LfzUVKS6WOqBnO7DLpep11bAPx9be
-         045OUMwINGTo9yZBghMeSB09Q6dE8rg8g35e2A1QT/b9rYIAx3wZieGa04Z5rXMabEi9
-         bAYvl985xJWZ2Jtc7GOxwxwYlbtfil84joGCLEwhzeOz3pgjQrsM5bmSeTWoFy3BdZLB
-         kSqg==
-X-Forwarded-Encrypted: i=1; AL+hErHVU/UNoxuTT2wnhgIbd3J9I9+D32B8tmeGIxzJ5I8pBFfYkCM5eDesdjDOkt0xt9NQ16UZbZXnIXKG9Bw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/h6RjAz7hooQuVOr6zt+VO7vhS+7t1tTGL7tNGvHJ6H9g3kJ1b
-	MIpqVEeKjlcTMlUDt7zB4dCZolEnpbTfIOY7f6s76AvPe6f174qNSiOf
-X-Gm-Gg: AYBFou1En9ucN21xr/Nnhx4XflwLuhNEVegT7RguRun+TNptN4OrXo9HkyRofr6seXn
-	1AH9hMwnRtuw2RMA98R4DlFA5L7ADoZ6Z+AEiO/LmPd0HtW9ds9KLuXEZxWzk7crY0Yh0iXMMk9
-	LUXfQU1tWWnKaDT86Ccq66S2/TU69u/JXyajJcQyw1/oInRJnMpfLR4LRwvTMqtbUoVtuPOZNAN
-	+k3hE48YhesW0FEUNa4iEsfJFhjpPZQbT0+IP1eJNDdemBK3karz0hORTQOJZkgviFsVPdO5Rxo
-	HjY0r4BJOl0X+7BygzTIZv9GMCygcFAeq3hZ2RqKfdaVfHQu0gJHDFPqGjoQKJb4t2qq3OltcNC
-	uPRIBwW14+VtS8uebD/nOn59Lww74FB9r7pDdOnHS+HK5A34f4wi4iLXWNSsUuajkW6630FUTUD
-	LQD9LtUkvT/O0a2Pkvs5nWy6s3ClA+LjW4MqotBAdVJ2dnmY7/OGilwn/Av+xqdik0vSSbT2c3h
-	KqPD0dtlPjOrbdk5KT4eskHQMB9P5v0sjZ57k+rAy5wT9xCjlENHyDICd8ctMmZ3tqNjxOCRPmm
-	5tP20S1M/UfarKX4Utmkc542GwYf4CmvWP0=
-X-Received: by 2002:a05:600c:3b01:b0:4a2:a3b:7aa8 with SMTP id 5b1f17b1804b1-4ba09344326mr47001535e9.3.1794408269178;
-        Wed, 11 Nov 2026 06:44:29 -0800 (PST)
+        bh=PxiG0vYjBvAPwvPa+T1dR5DMoDYMoXM5SR2pagqHWyA=;
+        b=B1yyVtKWJ5NV0CiF7ka9DSnfzre11MMuYuCtwZYQBcDWhpEP6f6UJ5spZq4Uy7MbM/
+         oNtKHy0AyOdn9Ls8Oiu0sAIPTNYdKg5PRn5ldTW8M7Pn2bVwSvJ7uZgA5CeMerwaG08B
+         gIJPqaXCCHRQ4Ld4niiB3+hypf2g6fzwMo4zbaJ2i/BGvbq/kxG98hQKQFoHv/+jwyxK
+         kVslqCzOunlj5KMoI/v2QP4pkzWnGAmdgCO1yCtkITGNyNXn+gd/m+kfI3ddpBTid+JH
+         JJ6+tI7PG3+CbNT+tqrv0Bk0m018299UuszXB99OJhoaTCSk6FHRS9Kd1F7jycJEafcA
+         nJyA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794408271; x=1795013071;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=PxiG0vYjBvAPwvPa+T1dR5DMoDYMoXM5SR2pagqHWyA=;
+        b=FNC1CK633pzNYWmGE32ECeyFxjQKyHNa5VgIm2FECNNUNTc2m5u/GPx2I2JhV7/6XM
+         FkQlPVocYIGwAzurhJSa16wtOpvEF+Ok5zUrhG++VfN4/gtxAzB6pmgbiF628VPTwxPR
+         VdPV4De5xBRd9W6ehWB4jQO157CleOvq8nVQOElB3vIJo/5HmAvF+F0ACLgUj7QIRGR8
+         7d/VYtg96BUyyzD3HPQe/Evz4b7773N3VMw1JzMvq1Mk/aLyylcsbgWBaeIHj6YcoZ+b
+         sQCT6cAKIT1TS6NesoJ93QobCj8xEA4nsCjESDJvH9Z2G7DkNXUUDTNxq968IXdYBSM9
+         lwTg==
+X-Forwarded-Encrypted: i=1; AL+hErGZAuhzIDNadiAdziqK34J7e1t4fGzI0UThDXN6hiQGeHCRkIWrl2JQIwwD0ErLtlVCS1056hchUeonuEA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+JEvISbr3rvFnZbMxSPUKWMOEXWo50cyr7KjGWxPfi4V2NkkY6
+	A7Crbw+GyMrytiZ/cS3bBV/5r6WUcbzgFko2/6YoCBIS8JgEB+hMF1XA
+X-Gm-Gg: AYBFou2D3JEvrqooUZNSamttOwYsLYuhlCg5Lxr4T2WPizHD6D23CuuAwUkYHTzN/4L
+	Ssf1Fh5H07HNM/RHphf31/tVJj3WLoI8mxTj65afb+6ohMlyNdXCs2ehNwD3vAo9AYDhGbpIfGt
+	hdbTBeSB1syvqkSZMM4TcfHFEC2N0h5JFSFSKV3WoktrgbO7Fd8jsYqF8Ved7q2tdWumkT7P4Ug
+	FTiELbX/NKX7mck+DE7kA9XDaDoX5qAqhmXwMFpkNxNbGbeV8TDlo0VH7F2cGU7w1bV5bg0Gx/A
+	KVkshIGDUPR+CyYienxnmMaweiD1NbNDfDh/d9ZlKHiqLssbRtaDzO7toq8PDwpxBDkTjECVpC0
+	ZHUOkTUYxIJ6SNqD5q6ydBqbvUoPp7qBvxrrBhqWh9edlTc2xkBlrF+ZaIyTiQGlZ6plCZlbMgq
+	/1HcklOmRHKove5SK+H8dGx7pc3zfmhGmB+KvPM2lLI+H2sZi8O7Fdiu9a/pzZBJWenCbzjRixE
+	QVvp++T0FGbhYpzVAXGcsMbBtjvTc7h/ULaLNf744S67atz6jKZGAwnOcOioNoVP7D7Bq8BVJKv
+	AYNGRW/SlIjQ6Z+7Ugub5EhUdcg9Vh94R+owC+lU4fX0m8RplxuTHFe3
+X-Received: by 2002:a05:600c:4e0e:b0:4a6:eca1:7d5c with SMTP id 5b1f17b1804b1-4ba093ac8f6mr46752285e9.32.1794408271122;
+        Wed, 11 Nov 2026 06:44:31 -0800 (PST)
 Received: from dev.Default ([86.127.229.203])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba08de826asm46656495e9.0.2026.11.11.06.44.27
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba08de826asm46656495e9.0.2026.11.11.06.44.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 06:44:28 -0800 (PST)
+        Wed, 11 Nov 2026 06:44:30 -0800 (PST)
 From: Agustin Santiago Isasmendi <isasmendi.agus@gmail.com>
 To: Navid Ghahremani <ghahramani.navid@gmail.com>,
 	Andrew Lunn <andrew+netdev@lunn.ch>
@@ -95,10 +96,12 @@ Cc: "David S . Miller" <davem@davemloft.net>,
 	linux-wireless@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [RFC PATCH net-next 0/5] net: ethernet: zte: zx279128s: offload flows to and from WLAN interfaces
-Date: Wed, 11 Nov 2026 15:44:21 +0100
-Message-Id: <20261111144426.1321237-1-isasmendi.agus@gmail.com>
+Subject: [RFC PATCH net-next 1/5] dt-bindings: net: zte,zx279128s-gmac: add the WLAN DMA interrupt
+Date: Wed, 11 Nov 2026 15:44:22 +0100
+Message-Id: <20261111144426.1321237-2-isasmendi.agus@gmail.com>
 X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20261111144426.1321237-1-isasmendi.agus@gmail.com>
+References: <20261111144426.1321237-1-isasmendi.agus@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,96 +113,55 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi,
+Besides the traffic manager's interrupt the switch has a second DMA
+engine with its own interrupt line, the ring pair the vendor firmware
+uses to exchange frames of offloaded flows with the WLAN drivers.
+Describe it as an optional second interrupt, named "wlan".
 
-This series lets the ZX279128S switch driver offload flows whose ingress
-or egress is a mac80211 AP interface, so that WiFi <-> WAN NAT traffic
-no longer goes through the CPU's forwarding path.  It is based on Navid
-Ghahremani's v2 platform series, which adds the SoC and the driver:
+Assisted-by: LLM
+Signed-off-by: Agustin Santiago Isasmendi <isasmendi.agus@gmail.com>
+---
+ .../bindings/net/zte,zx279128s-gmac.yaml      | 20 +++++++++++++++----
+ 1 file changed, 16 insertions(+), 4 deletions(-)
 
-  https://lore.kernel.org/r/20261014072109.1759502-1-ghahramani.navid@gmail.com
-
-The switch fabric has a second DMA engine (a ring pair the vendor
-firmware uses for exactly this) and 16 "WLAN logical ports" that a
-classifier entry can name as ingress or egress.  Patch 3 adds the ring
-and the ports; patch 4 binds a mac80211 interface to a port on first
-use and accepts flows from the flowtable in both directions; patch 5
-adds debugfs testing aids.  Patches 1 and 2 describe the engine's
-interrupt.  The WLAN drivers are not touched: the frames the fabric
-forwards are handed to the interface's normal transmit path, and the
-frames of offloaded flows are picked up on the interface's ingress hook
-and injected into the ring.  Any mac80211 driver works.
-
-This is not a WED-like path: the SoC has no block that chains the two
-DMA engines, so the CPU still runs the WLAN driver's own transmit and
-receive paths for these frames and moves the buffers between the rings
-(no copies on the forwarded path).  What it no longer does is the
-bridge, routing, conntrack and NAT work, which is where the CPU time
-went: CPU0 drops from 54 % to 13-25 % at the rates below.  This is also
-how the vendor firmware uses the engine.
-
-Sent as RFC because:
-
-- the base series is not merged yet, so this cannot be applied as is;
-- a mac80211 AP interface cannot be put in an offload-enabled flowtable
-  today, since mac80211 answers -EOPNOTSUPP to TC_SETUP_FT and
-  nf_tables rejects the device.  This series was tested with Felix
-  Fietkau's OpenWrt patch that ignores -EOPNOTSUPP there
-  (target/linux/generic/pending-6.18/
-  701-netfilter-nf_tables-ignore-EOPNOTSUPP-on-flowtable-d.patch).
-  Felix, do you plan to send that upstream?  Without it, or something
-  like it, this feature cannot be enabled on mainline;
-- design: binding a WLAN interface to a switch port from the ethernet
-  driver, through the interface's regular paths, keeps the WLAN drivers
-  out of it.  I would like to know whether that is acceptable or
-  whether this should go through something closer to the mediatek WED
-  model.
-
-The SoC has an unrelated problem under WiFi traffic: a PCIe read on one
-CPU deadlocks against L2C-310 maintenance on the other, discussed in
-
-  https://lore.kernel.org/r/20261110153522.1620088-1-isasmendi.agus@gmail.com
-
-This series was tested with both workarounds under discussion (a lock
-around the PCIe reads, and the L2 cache off through the device tree)
-with the same results.
-
-Results on a ZTE ZXHN H3600 (MT7915 as AP, a phone as client, flowtable
-with lan, wan and the AP interface, NAT on wan):
-
-  WAN -> WiFi download     393 Mbps offloaded, 109 Mbps on the CPU path
-  WiFi -> WAN upload       186 Mbps (capped by the upload server), 60
-  30 min soak              111 transfers, none failed, ring counters
-                           consistent, kernel log clean
-  cold / warm boot gate    17/17 and 5/5 boots, offloaded traffic on
-                           each, no hang
-
-IPv6 flows are not offloaded, as in the base driver.  The register
-sequence and descriptor layout were reverse engineered from the
-vendor's GPL kernel.  Builds without warnings with W=1 (board config
-and multi_v7_defconfig); checkpatch --strict, dt_binding_check and
-dtbs_check are clean.
-
-Agustin Santiago Isasmendi (5):
-  dt-bindings: net: zte,zx279128s-gmac: add the WLAN DMA interrupt
-  ARM: dts: zte: zx279128s: add the WLAN DMA interrupt
-  net: ethernet: zte: zx279128s: WLAN DMA ring and logical ports
-  net: ethernet: zte: zx279128s: offload flows to and from WLAN ports
-  net: ethernet: zte: zx279128s: debugfs knobs for the WLAN ring
-
- .../bindings/net/zte,zx279128s-gmac.yaml      |  20 +-
- arch/arm/boot/dts/zte/zx279128s.dtsi          |   4 +-
- drivers/net/ethernet/zte/Kconfig              |   5 +-
- drivers/net/ethernet/zte/Makefile             |   3 +-
- drivers/net/ethernet/zte/zx279128s-eth.h      | 124 ++-
- drivers/net/ethernet/zte/zx279128s-main.c     |  18 +-
- drivers/net/ethernet/zte/zx279128s-ppe.c      |  92 +-
- drivers/net/ethernet/zte/zx279128s-wlan.c     | 874 ++++++++++++++++++
- 8 files changed, 1114 insertions(+), 26 deletions(-)
- create mode 100644 drivers/net/ethernet/zte/zx279128s-wlan.c
-
-
-base-commit: 96b4b72978e9fcfdd74f809c159f26813995631b
+diff --git a/Documentation/devicetree/bindings/net/zte,zx279128s-gmac.yaml b/Documentation/devicetree/bindings/net/zte,zx279128s-gmac.yaml
+index fcbdbafa766d..b9a419e5d44a 100644
+--- a/Documentation/devicetree/bindings/net/zte,zx279128s-gmac.yaml
++++ b/Documentation/devicetree/bindings/net/zte,zx279128s-gmac.yaml
+@@ -23,9 +23,19 @@ properties:
+     maxItems: 1
+ 
+   interrupts:
+-    maxItems: 1
+-    description: The traffic manager's interrupt, which signals frames
+-      received for the CPU.
++    minItems: 1
++    items:
++      - description: The traffic manager's interrupt, which signals frames
++          received for the CPU.
++      - description: The WLAN DMA ring's interrupt, through which the
++          switch exchanges frames of offloaded flows with the WLAN
++          interfaces.
++
++  interrupt-names:
++    minItems: 1
++    items:
++      - const: tm
++      - const: wlan
+ 
+   ethernet-ports:
+     type: object
+@@ -98,7 +108,9 @@ examples:
+     ethernet@92000000 {
+         compatible = "zte,zx279128s-gmac";
+         reg = <0x92000000 0x400000>;
+-        interrupts = <GIC_SPI 36 IRQ_TYPE_LEVEL_HIGH>;
++        interrupts = <GIC_SPI 36 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 38 IRQ_TYPE_LEVEL_HIGH>;
++        interrupt-names = "tm", "wlan";
+ 
+         ethernet-ports {
+             #address-cells = <1>;
 -- 
 2.30.2
 
