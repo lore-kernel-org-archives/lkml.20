@@ -1,95 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.53.14
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794389733;
-	b=FHYF5KcAt7/S2XbJ1Br800nsu+Ej6PQZzAXIAE7Sxx1z47I8ny8VfQWJqR7OUFNYt39D
-	 3wSB9pR9uPfq+eX7CQfNLZmhRSTPef0ZwKFuEYKRcpPbA5qyLR8FVqeO/8NDeJiNprsnh
-	 QSmUNnRERQZxx+6GlNApj0G7a5ZOT+Pv5c2xq9VKxufru93agDEsDG86DDCh04XPsEBLa
-	 /kaiVPDLT1zpngFOy8U3zDhw6XSZE7uzY0/ZdaXi7DRdO4ysR0YQCrT2UK2bZzlVOR4mw
-	 vGz8wIrRZTYhHUyl27uh4YePH+cD1ARYuel4/9gkLFRqX+vX63gvb7uakalRsZjrUmQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794389733;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=aYhYJ0Pn/kw47L2f7Bw5f7orCu8Df38zI6mVGbTsLA8=;
-	b=eNcNtuHzijwoZQTBuRXtpdan8kyOwhFdtD9mTjncdtKIjU1CuvYcXx7eflQiDwAI61Hs
-	 4fLllhRvpdG2JDf5YhK14ws0yNUJhAhCBLV6hT4I4KfryiQxkub5BSSAyf9GPxSSZKzSv
-	 MPN8Smu4uaNHCvg2P2nKznB5yBUa04nS8F1chSSjYvu+Lowc+s6R7Z2yDvOUTMI8axy5/
-	 vw5sq11bPsDnhRX0z3peyeViHCIlQiJhPY3JaVoeWlTGwNcByVS5cpDepFCzir+tfiW+M
-	 r3oKheDgpc1f796TFSPbaB9+Nu11bGcsTHUnFDNiHgjsiJfSJglszpusAg2dTzIXtyA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=WkIoDFV0;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.53.14
-Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012014.outbound.protection.outlook.com [52.101.53.14])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794389745;
+	b=ZGVIMExjN7NP+uRO8FtL3cF07sEML2sF2IRUOBfM+Oy1VS8vtjfLnyScb5mTbqgWMKiN
+	 dgktRHW0YJjc9TjGDXkrc43IvX/XpvQcPrtbZ2KSNfNFYjjSrx6hyokVTFcu6voncd+2v
+	 u4OWLj4APYr0lZ9gjp6We/qZMXWnNoDFue5GS7xu37ct8zYCqw8nndqesD7ep+mFTqpDh
+	 8Q6qZ33HppldIxeFkArFJFiUG8tWG8xxvSud4ScC8FFdm0cMsVZvMExDlL3Lu108p9o6s
+	 D7Vb+hbtrJMp7I0hjgkcjG3IPU9F6FLwwVZ7P5TpovE9OifufC3cNYcB25J/XjQIC1A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794389745;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:Content-Language:To:Cc:References:From:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=9X8CCswIaiCe2k/d80ea7S7jWAHEKF+u255fg2VFMFw=;
+	b=s4Z6ETJmw4UX80EHJFJpnPUsDyn9HJAXcJjsTukdOdd6NIQHzjvQpUvNwDeayG4D588e
+	 XNI4HESmNelZXoAACkywpSn456MU52NxpBVFjrzQiu+aOWbjCx0ihJKdT427+wAHOLmXH
+	 +lelFhEryPAWpV+cUJgX13rI2m4bhe/fePPs4VzWIqMRqA4FfQrdqtbzXArShwcgJtgfa
+	 LWc5IU0YZtWwl2qluJDitHW/XXXOfeG8gpA+r1ePihQqzK8esF7JX1SpCdzROe5nYKu41
+	 9lLSmcB4QUYx0As/yZifGcfSJo2L2P7wr53fO7zohfWqFEkEfaaivC/7ak6+M0UPm5w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T2qNYQkE;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E3C0606A324
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 09:35:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E3C0606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7FB2606A321
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 09:35:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=WkIoDFV0
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=m87pW9yBSfXUjkzRZbkNcM60lGl8AokpdkdW4vcLSNRB6Mk6rpKJEx3aQRJCkVEJc/ZENFSXGmfimdso3YYTWm3BgPJ13rcMmBgLCTaRI1NpCmuzA9om8BxZYR/wX+al6LIQg+x+KO/S+EEov+a8JyfNn7b2fqOI5PrDksUEhPDcsMIB/j+R517JuSDkxQkZRF0dnjPFBMmDAYje5G2fwW73dEe3I8vECI6Om84IZXpCxnLLsA/KbgGnextBf1XTVPUml4SQNavmKOUrE3dlRSsiUr2YEd59mtEiQrEjlGh2b5wsHQh+utv62xBqVaFgIjwSVCt7E5OTeNMFdnhqIQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=aYhYJ0Pn/kw47L2f7Bw5f7orCu8Df38zI6mVGbTsLA8=;
- b=EnzdlQ8VyRzGgY4koNCCP8y6i+A3gzZ5Aho/g55dKhfnGu3QAOKtxyTIDRZUaDmOhLFDPlroJe65tp3hRZC/Ncp4gn3vO453XgKc1qkqYReFEQM3ErIUWFpXdPLLV72+T9eGsK0fh9a9ogb52WBxzhiToRxqeFw9eKjOpJ2FntEi3RIKJaVkyYZBPYzvkbH+0rB5MEbCnF75ZShjNimpY8MoKVU/g/g1KeTLC/X7T4+mi6ibgiYMVvE70kV1HONHBjtDdhsECyeQDhhZ7SdbofNWK56sA9EY85WuLiCWnFaFgW9L8EKilUD819mdwlwgVdrv1drGcApYOVD3JteE4w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=aYhYJ0Pn/kw47L2f7Bw5f7orCu8Df38zI6mVGbTsLA8=;
- b=WkIoDFV0y6EoGxJcyHLHH4GW34KlcN5WGUuVN0TGqPGqWJB2uP7SX9zscWP/YkMNJpW8cCoULwazjUNDaA6FMShzvdQtxWR1T46iFvU9Qi/VuShzC38TjKDFlRM1gWyMBGKV++5JJy4udIUCc6eo7Sp+rYNtDh36ez1RdQ9Gc5c=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CHAPR12MB999225.namprd12.prod.outlook.com
- (2603:10b6:610:2fe::11) by CH1PPF73CDB1C12.namprd12.prod.outlook.com
- (2603:10b6:61f:fc00::615) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Wed, 11 Nov
- 2026 09:35:30 +0000
-Received: from CHAPR12MB999225.namprd12.prod.outlook.com
- ([fe80::a4c2:82c3:da88:c585]) by CHAPR12MB999225.namprd12.prod.outlook.com
- ([fe80::a4c2:82c3:da88:c585%6]) with mapi id 15.21.0615.008; Wed, 11 Nov 2026
- 09:35:30 +0000
-Message-ID: <30437e95-2104-4bce-9565-d672d3e97d8a@amd.com>
-Date: Wed, 11 Nov 2026 17:35:23 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 3/3] drm/amd/display: Warn about an invalid ATIF
- backlight signal range
-To: Hugo Sales <hugo@hsal.es>, harry.wentland@amd.com, siqueira@igalia.com,
- amd-gfx@lists.freedesktop.org, sunpeng.li@amd.com, alexander.deucher@amd.com
-Cc: mario.limonciello@amd.com, christian.koenig@amd.com,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- simona@ffwll.ch, alex.hung@amd.com, airlied@gmail.com
-References: <20261104-backlight-curve-validate-v1-0-10c688880e85@hsal.es>
- <20261104-backlight-curve-validate-v1-3-10c688880e85@hsal.es>
-Content-Language: en-US
-From: Ray Wu <ray.wu@amd.com>
-In-Reply-To: <20261104-backlight-curve-validate-v1-3-10c688880e85@hsal.es>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: TPYP295CA0029.TWNP295.PROD.OUTLOOK.COM (2603:1096:7d0:a::6)
- To CHAPR12MB999225.namprd12.prod.outlook.com (2603:10b6:610:2fe::11)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T2qNYQkE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E19881F00A05;
+	Wed, 11 Nov 2026 09:35:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794389745;
+	bh=9X8CCswIaiCe2k/d80ea7S7jWAHEKF+u255fg2VFMFw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=T2qNYQkE61kCIR/UriUiEp2Xe+xDAU4E1joo4LXujXTT1NiLFqQTbEsOAsAo2g5bK
+	 hG0PCYjhQ2JRcdXyUEN7VcGwBsupQZ6hAxvCLVilPlRb4MlylhqRGPyxI+BFNutXCt
+	 D0PHRPnp4Nz7HgQeYs1joXy4FBbJUpsLYykHZoqr4I+1MwtIetWyqpKOam8RZAV5u2
+	 4ELqRRMIndDcRR4uw8FynIaqqaRRRb04+OVZl2kxVj186R/6T/2+swrwHPsSk235q0
+	 LK/ktYI3fqYgg3oGJ8cVWMbvVzIdCQRYtvjdprwTT78fEBSuTVxMJBHQSIBUMepRuk
+	 7nL0CN6YmKO8Q==
+Message-ID: <f796b3fc-90e4-4fa7-997f-8df8cd5d2b47@kernel.org>
+Date: Wed, 11 Nov 2026 10:35:42 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,101 +51,107 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CHAPR12MB999225:EE_|CH1PPF73CDB1C12:EE_
-X-MS-Office365-Filtering-Correlation-Id: 36597511-c1de-46ab-4749-08df3fd72039
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|1800799024|376014|18002099003|22082099003|4143699003|10067099003|11063799006|5023799004|261102123227099003|261021123027099003|261021121427099003|56012099006|261009223027099003;
-X-Microsoft-Antispam-Message-Info:
-	/Z4uRq4fpRHrYMKg9d8lUSfdPHNDmuJSHq4Joymq0s3fG1XCvXjtPcwb4caIAuwHOgTwaFMcMVoMAbXbJm9MBANJO7ur14suwbWlSzEkaT27BJvUGx+kVtgu4n5emTEsuaoWthz9b1k744UUxYKHCYD07+yfV/Yh+9PD9RwUEoQ/9XH3HTgOjn6hudFcak2tEAPBkkQeEcCIKizIkwZYtmBY6ZZC/mbwEEoWJUU7xFPXCAe6oFmEsIOu17+Q51acae4WzGhPEqvFHBSNFDphiEFoeZa5ea134fuovdtKnmTIMvM81dAUIgKKC4XwGVWuAxlDdF0ywQQvcK5r+xOWFoctc7F4LXgHLbFxFQgPcD4LuIaG/LMNlH8Q7FvbnlkLFkNvtHj1R7DDk4PWf/km5nP58Q+eLwH35vxjp1B9789nFiaM/Y/FfudZLvT2glpw2RDh8rvxabXrzrAvIGAzOGJ/heieUV0NqNBLToY3pDoozQYaMgXTCuCOZEbVrCT53zoeH8Uhm0s0ip1p026DBddNjwri1e5QtsowmxH+xtauu9K+Q7eGBaYl1oKvDtQP8OQ7ueSbYRn5CaPANaLVRA3vUbfeWbfFpNpBsbpwbroQLLx5LDbPQ7yOM7P/cu1OC9pdWjpfmJzWGNerEttPLr09V7yEFJzp1TysSlxyRkw=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CHAPR12MB999225.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(18002099003)(22082099003)(4143699003)(10067099003)(11063799006)(5023799004)(261102123227099003)(261021123027099003)(261021121427099003)(56012099006)(261009223027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?UnByRUoxYWlFdDUvUTZKR1ZkYXV5SzVDamhUaGxScmJmWmN5R1BvalNXaXdI?=
- =?utf-8?B?L09Lc0lWSkhjQmpjSk1YcTFGRUNjRUZEeGxqcFN3SDNaeVlDcDN3R2lxTEZw?=
- =?utf-8?B?c0VjTkdCMytmSnBIdXdWY3ZFRmkrdHFwakQ5MXNCWHNYUHlVNGoyOW1PMml1?=
- =?utf-8?B?RlFTY3hVWDBoOXVSeFluY29La3oycktNMU9BY0ZrK1NBajBMZ1pMVk5nditl?=
- =?utf-8?B?dFNEenVycTErb3I4amh6T2NPUWg0aUEwTEJMMTJJd0lzQ0ZIRHlSYnFIWE1P?=
- =?utf-8?B?YjVDNE9BcTJUVnlUVEpXYW1WQlNMUytaMTZzeHJUQys2eS9ZVC9uQVZlUnJz?=
- =?utf-8?B?SFFURVpObk80RStNUU5scGFlckVTL0FMYVc0NWhnMTBQdDVLeE9OUVNnTVo2?=
- =?utf-8?B?NXJRK09Wakd5SVlKUzF6U045N1pSVWJWZXN4YnZGU3ZjOUswVTl4OFowZlRq?=
- =?utf-8?B?Ykp0ZmRVbjJmVjA1ZG1KTmx6QUk1T09INkxEdWZrUkJ0WXRBVTN4UmtDRG5v?=
- =?utf-8?B?K3puYzhuNFgwbEZreFZOWkNTdmxsWW9oUHgyeE8yQVhlZnlzLzRPVzlhWUUr?=
- =?utf-8?B?aG9JVnhDa1lucExRcVpGSVhBOFh5WnpDZldVWk5BSDQyWm0wNXJ2bjA0YlBr?=
- =?utf-8?B?Q0JGRld0Vkl1V2IzUEFtZzdqNVNpMnVqUWlCdXVXZGFxQUZqN2pIcTVYSW1k?=
- =?utf-8?B?ckNJUmU1TW5DaTdUM25YSVdLMUFTWGFEQXhLTURvcllKYWYyYWcvQW1pYldx?=
- =?utf-8?B?VzZMY0FXRDRUUkQ4T1Ztdk1YUS91ZE9xV3ZMRzFORTYrQkJpbE1wNWpZNXhV?=
- =?utf-8?B?TFR2bU1XbXBYeWxXV01wQWJKTSt0V0xHb2puelphbEpSNDQ0ME1lQ0VNcVJI?=
- =?utf-8?B?SXJZZnpsRUR4ZnlTN1BacnZodjMwOUlnQTB0NjFiYjcxdVlTSGtocS9xU0hD?=
- =?utf-8?B?dXRWLy9oSkpIWEtaUlozUFV5MXJCOXVYOEFPV0t2ZTcydFJYekRlRlJnS01p?=
- =?utf-8?B?c3pKWVB2RDU5dFozNERhMWF1ZXU1cWdSYU4wVHBXc0F0UGhlR2w1U0VlRHBa?=
- =?utf-8?B?QVpEemZJNEJJaDd0clVyN3JveHU0eUxJRlJlNGhLeU82Q1ZCaWR6dzhoVjNy?=
- =?utf-8?B?Z3ZWOWtCKy9tWXZnNjJJdyt3OXJycHh2UWx1SUliSVVyTnZlTFVYU3dRNWYy?=
- =?utf-8?B?TWVwQmFEQzIwVXQ2SkNYTzJScHFwcFZDa0JtRXl4akJzYktiNzMwY2pEQ2VJ?=
- =?utf-8?B?SkNPWkp0TXBIMWZYd3U3VTcxYzB4UzB6WnI3eHpxaU9WUS9ZTUxHK2ZTdlJC?=
- =?utf-8?B?ZTAzLzFuYzNlWW5Ua01OeUxaNms5QWViNnBVcFYya1NiNzB1SUN0T3hCTkhP?=
- =?utf-8?B?Tm9Wc25jK3JlSVZRMDZLRjBGdEhzb2x2VmpsWmR1a0I3RklZRHZmV05nam1y?=
- =?utf-8?B?R1UwL1FpQzNlV3NCV1pUYlE0RUlyL3ZLa1p2UjlNZHllbnlMUVIzZVlCc1Er?=
- =?utf-8?B?VC9XelIrWVZDT0tQMUZGTWY3T1lSMHRIL0pNQjUvak9wOEZXdDNvUG9iVjRW?=
- =?utf-8?B?UG1mK1g0VjZLQkJHdzRZT0tvaEZjdGdzNEJVOWNkMWd5c3RGSVVsQXNiUldr?=
- =?utf-8?B?QTNqTG9JMHlsVUhURG9kVkNRWmxKS0FhQ2h5V0FOb09OOHFaYk9HRUkzc3ZD?=
- =?utf-8?B?VmxoSHgrVjYreXJFS3NxdWc0TWRIcUtJTjBHSkh1N1I1WVdQaVkyVzRRMnJa?=
- =?utf-8?B?WUtvNTcwZjB6SkRUWkU1WWJHY1hreWMyUTdJS1puYWhqc1ZhekhIYVQ4bEs3?=
- =?utf-8?B?d2hHSHpmSCtyMkFlbjFFZkF3cURCZzNXR2lJTDRyY3B0RUsyQ2VUWnN0cHJy?=
- =?utf-8?B?UEdqSmlNR054dk53NnNyZzI1Qitsa1dpR0VzbDhGN0VSS0JNU1A2VDR2cjBI?=
- =?utf-8?B?K3JiUmZVV3d1aUlOYWNocFVzODdIeUdHR2U4MGxwd0FDWjBvMHJJbUozZzBx?=
- =?utf-8?B?emh2Q25xYkc4YlY2NVNVVVU0T2Y3T01LT0pQTUlIUkZ0OXRjTW1EYnp1MUhD?=
- =?utf-8?B?azg4OVNNM2JoQlVtdUdpRjhkdVpkUC9oOE5Eb05MYWx1alQzVklnUExKYjhU?=
- =?utf-8?B?bmZ2K0VmU0tMYWtjWDdlTWlFQVJHWGVVajBqTW9HR0F5NGtKU1dYSkM2bW1w?=
- =?utf-8?B?cU9CTnlQbFg1Mmo0aWdtVlN1L1g4K0wvR1JJbE9oTm1LUW1DZ3ZCVlRwZy94?=
- =?utf-8?B?aUJveGxWQUJZZEk0S3NDTk9XT0VOTmEvWWJITUJ6R2ZsTUU2aGhZQmRnNzB5?=
- =?utf-8?B?d0QxdlNOL3lFYm54SzZCaWk4RDhLR29EYnpzV0lkWEZuNTEvVlJUZz09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 36597511-c1de-46ab-4749-08df3fd72039
-X-MS-Exchange-CrossTenant-AuthSource: CHAPR12MB999225.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 09:35:30.3615
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: uIE7QJdJwRCmo5p4Dbj/Wl5UgUOMJOkCIzZsEh9JCPTouR+yMaMTp8lZVFKsM0r6WUstnKoXp+R0FeBsx6RmWQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PPF73CDB1C12
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/3] mm: only assert mmap locks if CONFIG_DEBUG_VM or
+ lockdep is set
+Content-Language: en-US
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Suren Baghdasaryan <surenb@google.com>, "Liam R. Howlett"
+ <liam@infradead.org>, Shakeel Butt <shakeel.butt@linux.dev>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org
+References: <20261110-tame-vma-asserts-v1-0-be293ff499a7@kernel.org>
+ <20261110-tame-vma-asserts-v1-1-be293ff499a7@kernel.org>
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Autocrypt: addr=vbabka@kernel.org; keydata=
+ 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
+In-Reply-To: <20261110-tame-vma-asserts-v1-1-be293ff499a7@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Reviewed-by: Ray Wu <ray.wu@amd.com>
+On 11/10/26 17:57, Lorenzo Stoakes (ARM) wrote:
+> For a long while we have asserted the mmap lock being held regardless of
+> whether or not the kernel is a debug build or not.
+> 
+> In general, given that these have been added as programmatic asserts that
+> nobody did something stupid, production kernels are simply wasting their
+> time checking for this.
+> 
+> It also means there is a two tier system - where some programmatic
+> asserts (e.g. VM_WARN_ON_ONCE()-checked conditions) are only checked for if
+> CONFIG_DEBUG_VM is enabled, whereas others are checked unconditionally.
+> 
+> If we genuinely want to unconditionally check for the mmap lock being held
+> at runtime, then that should be made clear in the code doing it.
+> 
+> Regardless, if CONFIG_LOCKDEP is enabled, ensure that the lockdep
+> assertions are performed.
+> 
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-On 11/4/2026 6:31 PM, Hugo Sales wrote:
-> When the ATIF signal range is out of bounds or narrower than
-> AMDGPU_DM_MIN_SPREAD, amdgpu_dm_validate_backlight_caps() drops the
-> firmware caps and the driver falls back to a range of 12-255. It only
-> says so with drm_dbg_kms(), so a user whose brightness range changed
-> finds nothing in dmesg to report
->
-> Make it a drm_warn() with FW_BUG, like the custom curve warnings
->
-> Signed-off-by: Hugo Sales <hugo@hsal.es>
+Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+
 > ---
->   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c | 6 ++++--
->   1 file changed, 4 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
-> index 3a27fb956627a..68b34654fca02 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
-> @@ -104,8 +104,10 @@ void amdgpu_dm_validate_backlight_caps(struct amdgpu_display_manager *dm, int bl
->   	    caps->min_input_signal < 0 ||
->   	    spread > AMDGPU_DM_DEFAULT_MAX_BACKLIGHT ||
->   	    spread < AMDGPU_DM_MIN_SPREAD) {
-> -		drm_dbg_kms(adev_to_drm(dm->adev), "DM: Invalid backlight caps: min=%d, max=%d\n",
-> -			    caps->min_input_signal, caps->max_input_signal);
-> +		drm_warn(adev_to_drm(dm->adev), FW_BUG
-> +			 "ATIF: backlight signal range %d to %d is invalid, using %d to %d\n",
-> +			 caps->min_input_signal, caps->max_input_signal,
-> +			 AMDGPU_DM_DEFAULT_MIN_BACKLIGHT, AMDGPU_DM_DEFAULT_MAX_BACKLIGHT);
->   		caps->caps_valid = false;
->   	}
->   
->
+>  include/linux/mmap_lock.h | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
+> 
+> diff --git a/include/linux/mmap_lock.h b/include/linux/mmap_lock.h
+> index 9c3a9c6525c1..9367430ee53c 100644
+> --- a/include/linux/mmap_lock.h
+> +++ b/include/linux/mmap_lock.h
+> @@ -75,12 +75,14 @@ static inline void __mmap_lock_trace_released(struct mm_struct *mm, bool write)
+>  
+>  static inline void mmap_assert_locked(const struct mm_struct *mm)
+>  {
+> -	rwsem_assert_held(&mm->mmap_lock);
+> +	if (IS_ENABLED(CONFIG_DEBUG_VM) || IS_ENABLED(CONFIG_LOCKDEP))
+> +		rwsem_assert_held(&mm->mmap_lock);
+>  }
+>  
+>  static inline void mmap_assert_write_locked(const struct mm_struct *mm)
+>  {
+> -	rwsem_assert_held_write(&mm->mmap_lock);
+> +	if (IS_ENABLED(CONFIG_DEBUG_VM) || IS_ENABLED(CONFIG_LOCKDEP))
+> +		rwsem_assert_held_write(&mm->mmap_lock);
+>  }
+>  
+>  #ifdef CONFIG_LOCKDEP
+> 
+
