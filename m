@@ -1,67 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794411055;
-	b=bq4Yy02YG9g/o9adewNCXkz/nBBvl70N4iTCb3zQ9J3/AqsjtfwKTjkg/dl/xrDF8adC
-	 WpNNGzdm1POt1DFCbV1Q1cvUPWzJjDf0MBV0mDkCv59sSSxBSXN7Z4ngXZ5DF9ca7EIAQ
-	 94JeFVHPLeVU2KVnC8nPDnmtVTmE7stSIOF60IuYDuxQDvsOaNaGrWun9zKLlrxV5x9D/
-	 sAtzTEKgmcGK8fgOFCGLzUFkOjZO6PIu6ybKHaDelOqRFw6ttSeZOm4B4vGzDi3o2r3Oj
-	 GsZ1uvxFjsQyqFeWj/98ATarxPpq1Bx2L/MYcWNvQ06VvTZ6XbTujRg3pnknDvV2bFA==
+	t=1794411078;
+	b=OBJlV5LXVUWV6nLL5ZyFRdyNwK8OKG9AVoDyfJOySAKEZzcvfKG9w1gLATvqY8nTePHw
+	 fSOkEJvCc/R18gTAUDKcUnFZJnhWW61ZGaBu2zNmZR8grkt/mSTpQ9ONQGPWdJP33jxR7
+	 On/TQzzuYeLKyHukfP50+EBgDOJCFrfd4RD2QV4JEcD1/RwGgkyPC7FGjQAK7SoA+TlGu
+	 H7U7+S6Qh6o6OFLQywe5PXFK6IxUe2Fz8SsLzvUUkldHMWTHy/UTzGMG/I3WJsCM+r8iq
+	 /T7zVmk6oTLDf01Ek0Wm8QoFryXWw8Q6PqR3zLrp4qDcuMgPjDgxlbpXo3l/fpFOF8w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794411055;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=2qK2aGIye1HX+d13MbJVaOFMfu42XDmA8K7eVHsgcko=;
-	b=yVnoupEbtzGLMTR8F+UP6rgCOZsBtcR4ZPxBDfp0nTe/glQPtcyAC076vMIAHnRwiwlb
-	 fiQoQC1yOblvDW2F8XF83OxSH17M6KdWUtIYh7QtAg5mVUCHRej+0hV9DgaBFQKGRS1eK
-	 bLW20U9i3Un/O7OBFPmnD0TtGi7yhtEi/wAYNCAyVFNKNxNbbr/7Lk9jTk5+sbxRNlM6h
-	 4nVoLiQ8zbt/nHFYgSVsxBdUuT4dAYhbBxRCxpauDkaxH+m+bqNRPRZEbXo+VEd6puT7h
-	 T2P4wDEry7NWukW6O9ipFUz/bVoqHoIJHLlVuXK65KjBmhUGYCsrcfO7CpzjxJqm9IQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794411078;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=jMbE98rH640PDimDt/5oPcA8BfJO9FWfDPET1eqatTE=;
+	b=QWEBOydhjNThNyYDtjflx1EzpE9eLCfM5LIzXEP/AeD9dvCTUDS182MkxLIAxuYPFyqi
+	 IurWJA3ABfrJxUpRCRUoc4wcFCoH61pq7+GYWJGi9sPCiCO3g1nKzKs8gYT+JCxeTOVug
+	 x5T1EgcbAtu1ihZaKyGvb2N7KF+Jryms5fTMDBuPX3PG1JzP2nhaCG/fo93hcOuRKcIDu
+	 iSEpgZ7Vv5xadH8FhwKJYpfrGC1jUBwXrEyEl6uWggOGeZkFFq4+hlMAbRGl3Uh+NId62
+	 98XI0568Pgpk73g1zzDAIs8u0oG5dfhmWY6V5cjeuGrzkSfmoGUGDYku8ffe3u/6ofA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZceZ+7Nr;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QwZFkqnk;
+	arc=none smtp.remote-ip=209.85.128.42
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A64C7606A321;
-	Wed, 11 Nov 2026 15:30:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67F6D606A32A
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 15:31:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67F6D606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZceZ+7Nr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 161A11F00A05;
-	Wed, 11 Nov 2026 15:30:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794411055;
-	bh=2qK2aGIye1HX+d13MbJVaOFMfu42XDmA8K7eVHsgcko=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ZceZ+7NrP14MGcOiFM03sWRRXENDOZXhRkrZ4/QNcwj0xgc1F2yz+EKuOVWVsLofE
-	 u0OHQ8NXUqLQ7+yp1A6dFg68NjW6YMDNv3IeeCbWh5CiU1Tz9xHU5zG9U03lSQiORd
-	 KJw2bdKFd96en/Ce4PI72efbnUG+P3uu9IrQO0ebQ0TQC1puayuZbQVxlDKOt0YmPF
-	 MQnqVaIXvvxEWhqoeQyNCRlEN6SJVxpi65+6a65b+dsrtXNiXMStsIYpTIMxMXoo00
-	 d8lX5ioZrmSNmSC0zdXs5BEYxoAz3VnWjm5ueWZPbzPUopJxulr4J++5L1VROtFWwk
-	 i0z027nC4re2A==
-Date: Wed, 11 Nov 2026 09:30:49 -0600
-From: Rob Herring <robh@kernel.org>
-To: Gregor Herburger <gregor.herburger@linutronix.de>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Eric Anholt <eric@anholt.net>, Stefan Wahren <wahrenst@gmx.net>,
-	Srinivas Kandagatla <srini@kernel.org>, Kees Cook <kees@kernel.org>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	Thomas =?iso-8859-1?Q?Wei=DFschuh?= <thomas.weissschuh@linutronix.de>,
-	Russell King <linux@armlinux.org.uk>, devicetree@vger.kernel.org,
-	linux-rpi-kernel@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	linux-hardening@vger.kernel.org,
-	Conor Dooley <conor.dooley@microchip.com>
-Subject: Re: [PATCH v9 00/12] nvmem: Add Raspberry Pi OTP nvmem driver
-Message-ID: <20261111153049.GA2640564-robh@kernel.org>
-References: <20261111-rpi-otp-driver-v9-0-0a7292a7a5b4@linutronix.de>
- <66bf8629-225d-4f65-84dd-67f02aa4cab6@kernel.org>
- <y2ocj374gtrwf3ozptwgmqhsy5k26y45uwlbgtyvvmlxkftc2k@gjs3jsbxbm4w>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QwZFkqnk
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a59100fa83so28984795e9.0
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 07:31:18 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794411077; x=1795015877; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=jMbE98rH640PDimDt/5oPcA8BfJO9FWfDPET1eqatTE=;
+        b=QwZFkqnkqQgmKMaucvqUUEhBhCr0CHfKdRo56wmiBm1nt1B06ewHmhGQFcN1McJkGi
+         Y/h/HgWV5gvyg000piSpcg7wedMpZsjEd0iTLO+PD30VerIoqP9qIeSPzs/jGZpZAAWl
+         p3YkVlhx22iVP4VgqJXKfdnOtzciiHM5NqJO5vHBstLl/najug9+sUBetrRtwIFoufl5
+         JQJGDf20tM/YDaiCXhIvherz/n7N6yUNO8dsm59dUOnRPnhMWvVQgCm2Xg0jmnmKH5fy
+         vB5OHjhNq00CTpz2vuPlCSMcqs12L90cc4QJi2Rxbh4lE18kbfkYVfn4K0CY/Gds6XLg
+         89YA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794411077; x=1795015877;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=jMbE98rH640PDimDt/5oPcA8BfJO9FWfDPET1eqatTE=;
+        b=xMnG+sS/2RfmNM42pncuDn6nLByi5TONa1xVnuJTqjxp6UBIp9c931rhgfXznf4j09
+         p4xCVq+DnZ64FfUo7mXBQvd6BsxuhpbbmeNaQu20fSGlIjGAUOB/J7U/qdF09Qu+VAOv
+         kqc7x7xWQggC2vni1nlPxK0PYMyvWxqC2JcWGkYvGPMK/cpu4G/XHI7ghZu3CMZNyh7Q
+         C2fctkE7/Dff/qIukArnwnCyoVbX37sunmz+rGlUA4H7g8KECUKrqLm3TzuIN+xkAbZO
+         H2XANJyr+U04Pcp2zsQm8FD5NDNPyFRrkB7hq1S/7UO942bNw7eYZ5iyHQvRYYY/GT40
+         0/Qw==
+X-Forwarded-Encrypted: i=1; AL+hErGp93lXQYeevY+EGt58E9KFiwl5QQxX9pUxCHNZOIzN8142De+p97mi/zDtSoS3WrRn9nuczM/ywGDJ1WM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+jPV0qCGVP1dttXOhXkThnYU90q6o58soXSc2YvW16ZkI6FuFI
+	+4NFUvy7qFmfpKPpbfiDf3j8VVNmPU9yGkprus6se58OWEHc7rFX+Ys=
+X-Gm-Gg: AYBFou0gLX47v04+qevWgvAmmG1WQMaNSx5/hcs009NGD8NR3IKHPpRcs/Vz9fskzk2
+	85/N5sQBLDkmSeqOviUyQAzhm9p2vKmH+YE41Eovpblbj0WrePsS6WQfVe7AkdBfBe1saMy6hHW
+	0pmdLJ5GWuddNy2s50rthxb3G6vU3Z0fERwsrtNKiUAbEbu85HPpH+zgffvtBAwEDM78oOOBm+C
+	2lD+9C/60V+FF7lMNpLhRCu+fqLiPpXgs58xmdaEDVG8V1cUrMYfE23ntl9EAbtxv05oJ4lKhgK
+	zhlrBldgBjIhmlv5b2IVk4bf6dMXy38mKIcHqPAaDVJNGO/im4O9qZZwpMs8HRZ1Es6vMA6Y95F
+	V+zsotb4p+qiaWUH1muZO4Y2rja6yx62BVck5SoLwf3EeHK4dSK7hqnPr0Ceq80ZOk2PK+Gtiyb
+	xJLDyjix3swhXOOuLVAoB7peSPH25G1FJmEJ4yeZp++0z4SVv1oITb4bxOUji359ojaq+pz+rY7
+	b38hjzlA8MihJx1bx0cDkdRWw0xNNkB3PnYojdjm8sOiwDrtkUyNhezOmKtdI1LZF3PBm/RIT4t
+	9K9/10eUncXK4Ak=
+X-Received: by 2002:a05:600c:1986:b0:4ba:eb:eb9b with SMTP id 5b1f17b1804b1-4ba0935dad6mr50320995e9.8.1794411076662;
+        Wed, 11 Nov 2026 07:31:16 -0800 (PST)
+Received: from localhost.localdomain ([2001:41d0:303:db6b::])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb4c5e2fd6sm2261365e9.10.2026.11.11.07.31.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 07:31:15 -0800 (PST)
+From: Tristan Madani <tristmd@gmail.com>
+To: Jamal Hadi Salim <jhs@mojatatu.com>,
+	Jiri Pirko <jiri@resnulli.us>
+Cc: "David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Christian Brauner <brauner@kernel.org>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Tristan Madani <tristan@talencesecurity.com>
+Subject: [PATCH net] net/sched: cls_flow: pin file with get_file_rcu before reading f_cred
+Date: Wed, 11 Nov 2026 15:31:06 +0000
+Message-ID: <20261111153106.580776-1-tristmd@gmail.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,38 +103,75 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <y2ocj374gtrwf3ozptwgmqhsy5k26y45uwlbgtyvvmlxkftc2k@gjs3jsbxbm4w>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 11, 2026 at 09:14:32AM +0100, Gregor Herburger wrote:
-> On Wed, Nov 11, 2026 at 09:02:19AM +0100, Krzysztof Kozlowski wrote:
-> > On 11/11/2026 08:23, Gregor Herburger wrote:
-> > > Hi,
-> > > 
-> > > This series adds support for the Raspberry Pis OTP registers. The
-> > > Raspberry Pi has one or more OTP regions. These registers are accessible
-> > > through the firmware. Add a driver for it and add updates the devicetree
-> > > for the Raspberry Pi 5.
-> > > 
-> > > ---
-> > > Changes in v9:
-> > > - Fix sashiko comment and use fwbuf->count instead of bytes in memcpy
-> > > - Link to v8: https://patch.msgid.link/20261110-rpi-otp-driver-v8-0-797e0577d414@linutronix.de
-> > > 
-> > 
-> > Big series sent three times within last 24 h. Please slow down and give
-> > people chance to review your work.
-> I sent v7 with a missing commit and based on an wrong commit so Sashiko could
-> not apply the series. Sashiko found an issue in v8 so I tried to fix it in v9.
-> 
-> I have the impression people are not reviewing stuff as long as sashiko has
-> issues. So I wanted to fix those things quick.
+From: Tristan Madani <tristan@talencesecurity.com>
 
-Like many things, depends on the maintainer...
+flow_get_skuid() and flow_get_skgid() read sk->sk_socket->file->f_cred
+without holding a reference to the file. Since the file slab uses
+SLAB_TYPESAFE_BY_RCU, a concurrent close() may free and recycle the file
+object, causing stale credential data to be read through f_cred.
 
-sashiko found something on every patch? I only look at the binding 
-patches, so it is not going to matter to me if sashiko points out issues 
-on driver patches. Vice-versa is probably true too.
+Pin the file with get_file_rcu() before accessing its credentials and
+release with fput() afterwards.
 
-Rob
+Fixes: 0ede61d8589cc ("file: convert to SLAB_TYPESAFE_BY_RCU")
+Cc: stable@vger.kernel.org
+Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
+---
+ net/sched/cls_flow.c | 21 +++++++++++++++++----
+ 1 file changed, 17 insertions(+), 4 deletions(-)
+
+diff --git a/net/sched/cls_flow.c b/net/sched/cls_flow.c
+index a9ac3acf6eda0..233ca13299930 100644
+--- a/net/sched/cls_flow.c
++++ b/net/sched/cls_flow.c
+@@ -17,6 +17,7 @@
+ #include <linux/ipv6.h>
+ #include <linux/if_vlan.h>
+ #include <linux/slab.h>
++#include <linux/fs.h>
+ #include <linux/module.h>
+ #include <net/inet_sock.h>
+ 
+@@ -208,10 +209,16 @@ static u32 flow_get_rtclassid(const struct sk_buff *skb)
+ static u32 flow_get_skuid(const struct sk_buff *skb)
+ {
+ 	struct sock *sk = skb_to_full_sk(skb);
++	struct file *filp;
+ 
+-	if (sk && sk->sk_socket && sk->sk_socket->file) {
+-		kuid_t skuid = sk->sk_socket->file->f_cred->fsuid;
++	if (!sk || !sk->sk_socket)
++		return 0;
++
++	filp = get_file_rcu(&sk->sk_socket->file);
++	if (filp) {
++		kuid_t skuid = filp->f_cred->fsuid;
+ 
++		fput(filp);
+ 		return from_kuid(&init_user_ns, skuid);
+ 	}
+ 	return 0;
+@@ -220,10 +227,16 @@ static u32 flow_get_skuid(const struct sk_buff *skb)
+ static u32 flow_get_skgid(const struct sk_buff *skb)
+ {
+ 	struct sock *sk = skb_to_full_sk(skb);
++	struct file *filp;
++
++	if (!sk || !sk->sk_socket)
++		return 0;
+ 
+-	if (sk && sk->sk_socket && sk->sk_socket->file) {
+-		kgid_t skgid = sk->sk_socket->file->f_cred->fsgid;
++	filp = get_file_rcu(&sk->sk_socket->file);
++	if (filp) {
++		kgid_t skgid = filp->f_cred->fsgid;
+ 
++		fput(filp);
+ 		return from_kgid(&init_user_ns, skgid);
+ 	}
+ 	return 0;
+-- 
+2.47.3
+
