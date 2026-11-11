@@ -1,99 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.41
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794395152;
-	b=m544eZCR/mOmtzp5d855I650tDjo1+91f7v3wZiWl+EWz0TOs22oCQe+DPFaZvfpJgsW
-	 QbBYE4/cd0J4E9a6zM7Sn7rvHPeKpO3y55sfY2WH6A/EL+v/1uwxcN+zx8QT0iFDA3B10
-	 WRKf8GT9KXf+EIkz/a08D/deVRtTp0EkFcgRD/AQ+fweai2oI/67jROvBMAU3oTS5MDHx
-	 VaJkAFEPrK17bqd2/ZcYj2RGtXaOtExl6SV6xCIf6auhaJBbHWADpQWGijdexIe67tCrF
-	 eAE2VOgr+YSSZexGbcRjA0UA1PoSdkOactWckzByGA+JGc35GpQU9YQ9McLR9ptR3Kw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794395152;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.43
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794395181;
+	b=0jB0kFCxMDfztSzZhFBqCztxT9Ga100YcZ4aAn5l+klnZWBUYJMET7jCiZVCv1xFHnpG
+	 BfpOvxwHK9Chigu3c8PZISi5Yz2CJ9AB4v4ikw+z/XuD6i5ADYCmdEQ7oUlx70N5mndGe
+	 dvrq8FPjGLcvxlvCcQpQAhkWprxPWLOSPbAK8TGdEcCfpBcURXj0mt6ne1L5Rsu5X1FWC
+	 H6dYUFDKsJ5PcANQltaQUaQiSJ+qbUrK0RO+xfPFuMeZ8uZPtQvChNsut44KxhTz3fixa
+	 phWkbehkSFEPcStTsvaORZU4NqzOWCQyhKTdCzavLQu2D5x7+VVHsc5fH3lS0HYJUyQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794395181;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Content-Type;
-	bh=1din0TNnBV2KJ8sSuRJVbvK1d3dMFjZgO4N2assoioU=;
-	b=iAIXaQmYKuHakCaCiOVMgTp6XkJee8TsXHsNd02qIg7CGbPex/onP15W8H6lPswlvE5/
-	 LQxv2QuA5SRrCG0HDV9JUwUK1ZuToiYpMDpTKCtSC+lynbcbfxFHk81ENP93qpwduLqp3
-	 vAnle3Q8thhu0hSqK8J2zq60cSFINrWq7bxxgNgDvIOE/CHKYEeNd2LKnK3g4Y3OKe6/0
-	 82sd+HHIwyDTMAPorFt0VwMWqFfL4m30bF6L13pP7p2vQuRI58aIhAlQKoN4Fxk0HGDmM
-	 cSv/x+w6fjWzTTXpTuYAeH3VSyiiC3ptf8os26Tp97DdbF+pOlrjsiREN1/cPWyfdtQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=Rz5XATv4ChRAq+veF11y3ZXTbQQ72xxD/k7Itg2J/PQ=;
+	b=Y6psnwlE/VA4pD56/jz7jRqxTUETQRp79JPWnSGBfibxRqaadtGbYrPQK55CViLaoGtm
+	 DtNG6GEZeFGtIhaXQkeAskVmbZsKBZXeNDUgM08a4S6Hj1XfjY1O+NuhiWFpXsuHmtza6
+	 W1p+IdjLYZKp/KMe+04P2RjcH3bzjQQHRYeQ2yQtm2nF/qVavq1soNeISPs+JbYmzrM41
+	 lW2afQFDnf19wxiwFJNsWsDIbCiJJqqifBPnpc+QMRUjSuw3M6yVDDMVOa760KbaOheoF
+	 i9f+CiuIZ32tNQmwDCF4eOtfY7bZOxDmAMHNEtUBahqNZcOhFt80RNE+uwsUnyWtNaA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=S9Oe343o;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.41
-Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nUuMJSq1;
+	arc=none smtp.remote-ip=74.125.82.43
+Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0CD8606A326
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 11:05:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D0CD8606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9966C606A321
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 11:06:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9966C606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=S9Oe343o
-Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6b71b012e3cso1857003a12.1
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 03:05:51 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794395150; cv=none;
-        d=google.com; s=arc-20260327;
-        b=QcazxlAOAIUXBHJEZUrCCHxlMHJ+Iie6xP6UKje5IyP6jXlAhqdJKgKX1PrSH6LY8C
-         hMSWpChextzioo1nbwuiuIjLqXvFosSAffraBQLbLB0w0VvAJYiSgI0JiSO6p7YlBU/X
-         6QaGnh5jPVaZNrbftYDN6MJeIIJweE9bXTMqYo7rF7MtgKU9qPE7MMWmJ69kDDRouoGJ
-         ImnAmg2dZSIobFPgGpmGSS3SsxSx4cz2C8h4KHyELI0cnYSS/DJ6ocBpx1pJ5LG4TtPj
-         moTIIoSAj4A1lc/E1CpBcC4V0xIJFA1WltvmULpshKuWXjcXjw1MKjRZb/vFC7o2GoLJ
-         qaHw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=to:subject:message-id:date:from:in-reply-to:references:mime-version
-         :dkim-signature;
-        bh=1din0TNnBV2KJ8sSuRJVbvK1d3dMFjZgO4N2assoioU=;
-        fh=GnQvctoWwtOAmYLmLo9gVhJR63b1qdpAOmvbeNNS1+4=;
-        b=HcOlQT9NsARJsjQkwpsGtGSPU94XiV7EF5jMQOeXHLJ3/iTNpcblE33bLyo0jsOlqI
-         Kjip628A4+tjp4K2yFLG/v190oS/HfJP0wNWwi/oY0zO5WNS4xe2nDiuIFvM3xfmqMoo
-         0DUISBDK4RmXTFi4e4R1rHMYudZfWq/a2r6iRG2Y5tkb/O+8dVRlA3TgY/VuegwLvce7
-         rYlFD0/YQg0Lln21+xsRHfjwp/RKcQqkoQCHzzWBx22QoDsqhqff0+UkLbIlrefq/N0h
-         HT6echvjEnXs7TrtwPT+eCkPXHAx/dzh7jP+SWk3GcRxJhdgalXtfK4o4BCeqFvayzm2
-         Weaw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nUuMJSq1
+Received: by mail-dl1-f43.google.com with SMTP id a92af1059eb24-1b3beeaf6f9so950647c88.0
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 03:06:20 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794395150; x=1794999950; darn=vger.kernel.org;
-        h=content-type:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1din0TNnBV2KJ8sSuRJVbvK1d3dMFjZgO4N2assoioU=;
-        b=S9Oe343oExiTS2KfqhZKo8v9uzSzroybxuYjiW8R/Epw+w2UBG78inWqMxbr9l/twP
-         IDfc5RiZTs0v3oNc30kUYhmeFjo6joVPSdzWo9eDD2E56eKpbXMMggSFIt4pw/Xsh7Mp
-         jg0IQcZK/HSW3c4+/RwSwMF5/WeoGpyQ711u4rm/d46EmrPOT3AVokqdONUfWCXM7cW1
-         q+rx2pezIcC36mdu99xLYU03oreM5hPxRRJ/YkBoL8BKnLgshzid8AdfzXlBPvQ3sQVj
-         k0oTp68pmXdeJAwHt69hJ7KCvAKvvDtOy7E5283OJ7zKW4mHzxvEmTgAq4sQOs1gi8jI
-         HkVA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794395150; x=1794999950;
-        h=content-type:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1794395180; x=1794999980; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=1din0TNnBV2KJ8sSuRJVbvK1d3dMFjZgO4N2assoioU=;
-        b=rbnh34rApQWwt8zFTOheBl+d6sovVf+A018iOKMn0/IQwz94pN5QPdG+RUBQonVIWw
-         zoXCF+og45Gahxe8lfqsAy5Wj8w9mwtBTrZYQ0pWxP6Pf66Cc70bsVnJ4D4qZsaZYEqK
-         jMuZqiF4ksbyQqooNg7ghlzebvHHS9CRiVyN8FQS0XcmObBwEK0FA0vLyBiX1+mZDt3d
-         JN0nXZVvL1julKoiKAY7X2F3eFGu6+Kl8dkH7yPLWSTWXwMMJCoJmni3GPOScUoSskPe
-         MH3CQ+T3D8SUC7OW8rr+jDuOEeSf7dqdPELzw9y5OQkTErppYK7sy9YDO6iAhUhugQJV
-         rMsQ==
-X-Forwarded-Encrypted: i=1; AL+hErEi41mkCmQ1AHaI+tvRTwAP+Yz94EJ5IColjD2zK0AWLhXgOp8iUGp0ua4mrdlzhq+8hFyEXg9uphnWizE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9sCVKiYFpexsGUwS8I2UCkFvcjmzgGRCJL19xtRZr6hUO9PSdd
-	7jpbuYvnj/zAQOCFanScgyxnQq/Y9aO3kd5FxjnTMbY66JxzZaUFqvoAz/hccAJBQkLw63RD6tF
-	ghwer9PU7Gj8HJmoiFfckm0wkUPMBAKQ=
-X-Gm-Gg: AYBFou3651+zhW8PZzsNXPk5D/BC4oRFl/jKxAYiauy+kkeCdR0qdpXWi1W/0Ar4hNr
-	bQefVL2eB0ts0Z0mYBiGTRpWIwFBpFsrl+SLWn5OG5UIvANTuyzIT4UA038nDHJxYiG1QuQflq6
-	50c0tugHDWsOIVkRJXbgkOzp3jH/hRoMOFFf4WTsZW8guzI/Vf6K9PVAvNmYfpcSdpvz8rYmXOH
-	pVKPDCxfWRmz0yi4t9ZiSXMQ9C+bzoChKRFk8p24Ab7L4uwn/yU7JA6pfaqU1a4+1hWO4smtzws
-	2lrn9owiSpFy6tvZlAOqGVbUjfbnNKVhFHzAYFUwkovfxU9Yvei9gIMmqH6a6OFzmWDg8FHwXoJ
-	CJsedEwSkrM6jtVS9GKTAOD+OguKgxasBwTo=
-X-Received: by 2002:aa7:cd5b:0:b0:6b4:87b8:1348 with SMTP id
- 4fb4d7f45d1cf-6b77780f23fmr1150131a12.27.1794395149944; Wed, 11 Nov 2026
- 03:05:49 -0800 (PST)
+        bh=Rz5XATv4ChRAq+veF11y3ZXTbQQ72xxD/k7Itg2J/PQ=;
+        b=nUuMJSq1RkoMVmyH5IXe05PU61LuKNLDdkfRF8q/i+TpueNlD10ZC+P/LCVYcZIbdG
+         7x0YjH0cAuFhXxJHYg+2JE7GR+3zM//CfFaGQ3rRa0E2xfrccnJg+QD8nZZer8X7nHFc
+         aeEL4LsVC3IWe2qfbF78pK0MCFHXX89UugfL7m5xTnVC24eGxH8Ip1U/osufbI/lPmMT
+         AG10wGj4U/50XSNNUeRcD00rt+IEPAEAriT1IkA69gI++U1XDmFbnxuUTjmeAwV2AYNo
+         mhBbe9aVbyOB/yTDXM+Y7rqMpHj6BXgnyd5TB9Zmkg2SVQfddlNtCnvenKg/cuvxKx0v
+         awVQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794395180; x=1794999980;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Rz5XATv4ChRAq+veF11y3ZXTbQQ72xxD/k7Itg2J/PQ=;
+        b=MJq1sUeulzti39n0rc9K2UA4QVY2z5HODW9FfTKglNjD2ds/PPl/RLYibjl0YZqamk
+         E0ijdgd/Y5LWDs3dRNQEGrgiuE+gZB9wLrQoMiAoE9kPgqAGQkuDN8NUiiYDPv01dd8l
+         Z6eZZY/lGJIBKswwYiOjQWeU9ncjqnkDitFIF85+SvGfK0aIA7pJ7hnyv6MFKNGKhOA7
+         6Xw5ZqjC6wEkFocPn3NVG/WOCy6r7ND2AJPO0Cs5weepYvSQZs2D144274yQZAUOSijD
+         R1Yysq/azYvXAPjJ9EBVHX+ICCMHjzl07bDdiAQf0Lw7B2+1NJMlaCn8sP3q6Kg3srlt
+         lh7Q==
+X-Forwarded-Encrypted: i=1; AL+hErGn5oIf+gez1DUnwmJ2/rm6UUrJBdox/vmgtuRZd2IhUQa885bhLZvrLNRelJI0uJ4gjmZO3BNKdBpKv3g=@vger.kernel.org
+X-Gm-Message-State: APuU4Z81Vo4VKDxRZ+EM7InP+q2i3ofA8bHF73OIH2wumQfF1r5sYDBt
+	sfL5i6esn8T1z8/195xHV53F58/cC61nscyfGY4WLQ+Vsi+JenZletFL
+X-Gm-Gg: AYBFou0kb9tnhX0mLpPkHAFUjVGlpDDlIRcz2AeyUc7D53bPDnTEpEkhOtaId5vmIjD
+	EEm4cl3vLbpYqMXllHTglOC5e2Gm0gDn6WHtuUBORuWAq4qvWorM0emXsoriSCxQV2qiiZzUn60
+	YwM3wwx28zJPgVBbhupZvM/9pATrORcK7fnaUpoIuIJ9lFcAQjF4RnnMX2vbCB4CZZaodvjREmA
+	WObkD19yvK3eq3vczjUbD4rxjuCXedRV4VxgPNDjzoGbsuOA81hF/qjHRVZHbSOLjDu9M/Wmc4j
+	QQNkV9IDZESFeUOk4AvSj6DxEzUcnokDJd7dUklDCMc70B0vjOAvKchxzxiJwu51aWQKAnDBm0s
+	+T4w4VF1CW+368nYibw2O2Gh3gKT48Jkj0WuNQnqwE+9hhtvDm19NwzuQNEH2UUOKDJRfON5Rq+
+	KVMJg7EgBn2e01mW7WSKA2kra8lypsHGgrP0UKfbt6jYIjjD7z62YhTaXi3JTwpV4kzfD7aPInB
+	10ZUlyIkxgVenWCVzHY/wvXftxf1ur7B4Tfk3ufA1Quj5m2cQb38SZMrqjDuDJ5ce08gl0oMVXV
+	oWYEFrM2yGJeK7H4LEK2
+X-Received: by 2002:a05:701b:4590:10b0:1a4:c892:b14f with SMTP id a92af1059eb24-1b3c033909cmr2110912c88.29.1794395179359;
+        Wed, 11 Nov 2026 03:06:19 -0800 (PST)
+Received: from a1-free ([161.33.196.121])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b11346sm17328735c88.7.2026.11.11.03.06.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 03:06:18 -0800 (PST)
+From: TAKANO Mitsuhiro <takano32@gmail.com>
+To: linux-perf-users@vger.kernel.org,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>
+Cc: Ian Rogers <irogers@google.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Hang Zhengyang <hang.zhengyang1010@gmail.com>,
+	linux-kernel@vger.kernel.org,
+	TAKANO Mitsuhiro <takano32@gmail.com>
+Subject: [PATCH v3] perf stat: Count kernel events in a group led by a tool event
+Date: Wed, 11 Nov 2026 11:06:16 +0000
+Message-ID: <20261111110616.2249764-1-takano32@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261111-tool-pmu-leader-v2-1-3faa0fb98c51@gmail.com>
+References: <20261111-tool-pmu-leader-v2-1-3faa0fb98c51@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,193 +104,121 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261110061429.2036-1-linux.amoon@gmail.com> <20261110061429.2036-2-linux.amoon@gmail.com>
- <avOL1mCkI4YSaDeO@aurel32.net> <DMRZGMGRLD4S.KT6VEU28902E@linux.spacemit.com> <avQ1kVTvdCmS1MxN@aurel32.net>
-In-Reply-To: <avQ1kVTvdCmS1MxN@aurel32.net>
-From: Anand Moon <linux.amoon@gmail.com>
-Date: Wed, 11 Nov 2026 16:35:27 +0530
-X-Gm-Features: AclHuK9H8LcNFBf6OiW50_NDYDV5SRfOSw_9EFpDafFKu57Cw77PmBIsH4iiL2Y
-Message-ID: <CANAwSgQgtEvgEfkBMC6meDzT4O28oEX-R16STeiUnP77UOQe_Q@mail.gmail.com>
-Subject: Re: [PATCH v1 2/2] power: reset: spacemit-p1: Use atomic I2C
- transfers for power-off and restart
-To: Troy Mitchell <troy.mitchell@linux.spacemit.com>, Anand Moon <linux.amoon@gmail.com>, 
-	Andi Shyti <andi.shyti@kernel.org>, Sebastian Reichel <sre@kernel.org>, Yixun Lan <dlan@kernel.org>, 
-	"open list:I2C SUBSYSTEM HOST DRIVERS" <linux-i2c@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>, 
-	"open list:SYSTEM RESET/SHUTDOWN DRIVERS" <linux-pm@vger.kernel.org>, 
-	"open list:RISC-V SPACEMIT SoC Support" <linux-riscv@lists.infradead.org>, 
-	"open list:RISC-V SPACEMIT SoC Support" <spacemit@lists.linux.dev>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hi Troy. Aurelien,
+From: Hang Zhengyang <hang.zhengyang1010@gmail.com>
 
-Thanks for your review comments.
+A tool event like user_time has no perf event in the kernel, but
+get_group_fd() still passes its fd, the /proc/stat fd, as the group_fd
+of the members.  The kernel rejects each member with EBADF and nothing
+is counted:
 
-On Wed, 11 Nov 2026 at 14:59, Aurelien Jarno <aurelien@aurel32.net> wrote:
->
-> Hi Troy,
->
-> On 2026-11-11 01:16, Troy Mitchell wrote:
-> > Hi Aurelien,
-> >
-> > On Tue Nov 10, 2026 at 9:25 PM GMT, Aurelien Jarno wrote:
-> > > Hi Anand,
-> > >
-> > > On 2026-11-10 11:44, Anand Moon wrote:
-> > >> The SpacemiT P1 power-off and restart handlers use regmap_set_bits()
-> > >> to access the PMIC. However, these handlers run in an atomic notifier
-> > >> context (specifically within an rcu_read_lock() critical section), while
-> > >> the I2C-backed regmap uses a sleepable mutex.
-> > >>
-> > >> This triggers a "WARNING: suspicious RCU usage" warning due to an illegal
-> > >> context switch in the RCU read-side critical section during shutdown on the
-> > >> Banana Pi BPI-F3:
-> > >>
-> > >> [  563.803475] WARNING: suspicious RCU usage
-> > >> [  563.807813] 7.3.1-ARCH-RISC-V #1 Not tainted
-> > >> [  563.816614] ./include/linux/rcupdate.h:387 Illegal context switch in RCU read-side critical section!
-> > >> ...
-> > >> [  563.841445] locks held by shutdown/1: 2, last CPU#0:
-> > >> [  563.846694]  #0: ffffffff8404fb20 (system_transition_mutex){+.+.}-{4:4}, at: __do_sys_reboot+0x230/0x29e
-> > >> [  563.856806]  #1: ffffffff84167860 (rcu_read_lock){....}-{1:3}, at: atomic_notifier_call_chain+0x4a/0x1c2
-> > >>
-> > >> Replace the regmap operations with atomic I2C transfers to avoid sleeping
-> > >> in an atomic context. Preserve unrelated register bits through
-> > >> read-modify-write operations and check for atomic I2C support before
-> > >> registering the handlers.
-> > >>
-> > >> Obtain the I2C client from the parent device and verify that the adapter
-> > >> supports atomic transfers before registering the handlers.
-> > >>
-> > >> Tested on the Banana Pi BPI-F3 (SpacemiT K1).
-> > >
-> > > While the patch looks correct, I am not sure this is the correct
-> > > approach, as opposed to the one proposed by Troy [1].
-> > >
-> > > Indeed bypassing regmap and using i2c atomic transfers needs to be done
-> > > by all affected drivers. For instance the VisionFive 2 board, which use
-> > > an axp15060 PMIC is also affected by this issue. And the corresponding
-> > > driver is shared between architectures, which make this kind of change
-> > > more difficult.
-> > >
-> > > For the BPI-F3, note that with OpenSBI 1.9, the reboot is handled
-> > > through the SBI SRST extension, preventing this issue to happen. On the
-> > > long term, I am not sure we should keep this driver.
-> > >
-> > That only covers restart. The SBI restart handler is registered at
-> > priority 192 and runs before the P1 one at SYS_OFF_PRIO_DEFAULT. Power
-> > off is the other way around: sbi_srst_power_off() goes through
-> > register_platform_power_off(), i.e. SYS_OFF_PRIO_PLATFORM, so the P1
-> > power-off handler still runs first and still hits this on shutdown,
-> > even with OpenSBI 1.9.
-> >
+  $ perf stat -a -e '{user_time,cycles,instructions}' -- sleep 0.05
+                   0      user_time
+     <not supported>      cycles
+     <not supported>      instructions
 
-I had previously tested the OpenSBI P1 PMIC driver in a Yocto-based environment:
+Open the members with group_fd = -1, as the enable/disable code already
+assumes, and read them on their own: the leader is not asked for counts
+of events that are not in its kernel group.  A kernel event member is
+opened disabled, as a leader is, so that it starts with the workload
+and still honours -D and --control.  A tool event member is left as it
+is: it counts from open and an explicit disable is what stops it, so
+disabling it here would leave nobody to start it when perf relies on
+enable_on_exec.
 
-[1] https://lore.kernel.org/all/20260419150857.2705843-3-aurelien@aurel32.net/
+  $ perf stat -a -e '{user_time,cycles,instructions}' -- sleep 0.05
+                   0      user_time
+            38257394      cycles
+            21228043      instructions
 
-With this driver registered in OpenSBI, Linux can delegate reboot and power-off
-operations to firmware through the SBI SRST extension.
+The kernel events in such a group are no longer scheduled together,
+which is the price of counting them at all.  A tool event used as a
+member, as in '{cycles,user_time}', is still not counted; that also
+needs the leader's group read to be handled and is left for a
+follow-up.
 
-The power-off sequence is:
-    Linux kernel_power_off()
-      -> RISC-V machine power-off
-      -> SBI SRST shutdown
-      -> OpenSBI system_reset()
-      -> SpacemiT P1 PMIC
-      -> Power off
+Fixes: 6828d6929b76 ("perf evsel: Refactor tool events")
+Written with LLM assistants: the group_fd change and its testing by
+Hang Zhengyang with Claude, the v3 condition and its measurement by
+TAKANO Mitsuhiro with Hermes Agent.  perf was built here and
+'perf test -v 10' passes with and without the change.
+Signed-off-by: Hang Zhengyang <hang.zhengyang1010@gmail.com>
+Signed-off-by: TAKANO Mitsuhiro <takano32@gmail.com>
+---
+v3: open only the kernel event members disabled.  A tool event member
+    counts from open and an explicit disable is what stops it, so
+    opening it disabled left nobody to start it when perf relies on
+    enable_on_exec: 'perf stat -e "{user_time,system_time}" -- sleep
+    0.2' went from ~2.7 ms of system_time to 0 on an arm64 KVM guest.
+    The non-standard Assisted-by tag is replaced by a prose
+    disclosure, and the patch is regenerated on 7.4-rc2.
 
-I have now rebuilt the Linux kernel with:
+    The libperf fix that stops the NULL dereference is a separate
+    patch (<20261111101625.2204836-1-takano32@gmail.com>); this one
+    does not depend on it.
 
- # CONFIG_POWER_RESET_SPACEMIT_P1 is not set
+ tools/perf/builtin-stat.c | 16 ++++++++++++----
+ tools/perf/util/evsel.c   |  8 ++++++++
+ 2 files changed, 20 insertions(+), 4 deletions(-)
 
-Both reboot and power-off work correctly on the Banana Pi BPI-F3,
-and I have not observed any issues.
+diff --git a/tools/perf/builtin-stat.c b/tools/perf/builtin-stat.c
+index 37752d6bfef4..57956f55ea09 100644
+--- a/tools/perf/builtin-stat.c
++++ b/tools/perf/builtin-stat.c
+@@ -719,9 +719,10 @@ static int create_perf_stat_counter(struct evsel *evsel,
+ 	/*
+ 	 * The event is part of non trivial group, let's enable
+ 	 * the group read (for leader) and ID retrieval for all
+-	 * members.
++	 * members.  Members of a tool event leader are opened and
++	 * read on their own.
+ 	 */
+-	if (leader->core.nr_members > 1)
++	if (leader->core.nr_members > 1 && !evsel__is_tool(leader))
+ 		attr->read_format |= PERF_FORMAT_ID|PERF_FORMAT_GROUP;
+ 
+ 	attr->inherit = !config->no_inherit && list_empty(&evsel->bpf_counter_list);
+@@ -748,9 +749,16 @@ static int create_perf_stat_counter(struct evsel *evsel,
+ 	/*
+ 	 * Disabling all counters initially, they will be enabled
+ 	 * either manually by us or by kernel via enable_on_exec
+-	 * set later.
++	 * set later.  A kernel event that a tool event leader has as
++	 * a member is not in the kernel's group either, so it has to
++	 * be opened disabled to start together with the workload.
++	 * A tool event member counts from open and is only stopped by
++	 * an explicit disable, so leaving it enabled here keeps its
++	 * count; disabling it would leave nobody to start it when
++	 * perf relies on enable_on_exec.
+ 	 */
+-	if (evsel__is_group_leader(evsel)) {
++	if (evsel__is_group_leader(evsel) ||
++	    (evsel__is_tool(leader) && !evsel__is_tool(evsel))) {
+ 		attr->disabled = 1;
+ 
+ 		if (target__enable_on_exec(&target))
+diff --git a/tools/perf/util/evsel.c b/tools/perf/util/evsel.c
+index d060fca8090f..7f514cde6840 100644
+--- a/tools/perf/util/evsel.c
++++ b/tools/perf/util/evsel.c
+@@ -2370,6 +2370,14 @@ static int get_group_fd(struct evsel *evsel, int cpu_map_idx, int thread)
+ 	if (!evsel->supported || evsel__is_group_leader(evsel))
+ 		return -1;
+ 
++	/*
++	 * A tool event leader has no perf event to group with, so open
++	 * the member on its own, or report the group as broken (-2) if
++	 * the leader failed to open.
++	 */
++	if (evsel__is_tool(leader))
++		return leader->supported ? -1 : -2;
++
+ 	/*
+ 	 * Leader must be already processed/open,
+ 	 * if not it's a bug.
 
-alarm@k1:~$ sudo poweroff
+base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
+-- 
+2.53.0
 
-Broadcast message from root@k1 on pts/1 (Wed 2026-11-11 10:34:03 UTC):
-
-The system will power off now!
-
-[ 1744.735287] systemd-shutdown[1]: Sending SIGTERM to remaining processes...
-[ 1745.071304] systemd-journald[245]: Received SIGTERM from PID 1
-(systemd-shutdow).
-[ 1745.504595] systemd-shutdown[1]: Sending SIGKILL to remaining processes...
-[ 1745.790159] systemd-shutdown[1]: Unmounting file systems.
-[ 1745.822902] (sd-umount)[658]: Unmounting
-'/run/credentials/systemd-journald.service'.
-[ 1745.861214] (sd-remount)[659]: Remounting '/' read-only with options ''.
-[ 1746.079291] EXT4-fs (mmcblk1p7): re-mounted
-ccb95ca0-2804-4ade-938f-23116f90c193 ro.
-[ 1746.272104] systemd-shutdown[1]: All filesystems unmounted.
-[ 1746.272471] systemd-shutdown[1]: Deactivating swaps.
-[ 1746.273712] systemd-shutdown[1]: All swaps deactivated.
-[ 1746.273956] systemd-shutdown[1]: Detaching loop devices.
-[ 1746.464867] systemd-shutdown[1]: All loop devices detached.
-[ 1746.465346] systemd-shutdown[1]: Stopping MD devices.
-[ 1746.471149] systemd-shutdown[1]: All MD devices stopped.
-[ 1746.471417] systemd-shutdown[1]: Detaching DM devices.
-[ 1746.476047] systemd-shutdown[1]: All DM devices detached.
-[ 1746.476377] systemd-shutdown[1]: All filesystems, swaps, loop
-devices, MD devices and DM devices detached.
-[ 1746.533569] systemd-shutdown[1]: Successfully changed into root pivot.
-[ 1746.533862] systemd-shutdown[1]: Entering exitrd...
-[ 1746.686127] shutdown[1]: Syncing filesystems and block devices.
-[ 1746.701832] shutdown[1]: Sending SIGTERM to remaining processes...
-[ 1746.934370] shutdown[1]: Sending SIGKILL to remaining processes...
-[ 1747.164219] shutdown[1]: Unmounting file systems.
-[ 1747.203935] (sd-umoun[662]: Unmounting '/run/credentials'.
-[ 1747.232643] (sd-umoun[663]: Unmounting '/oldroot/sys/kernel/config'.
-[ 1747.269882] (sd-umoun[664]: Unmounting '/oldroot/sys/kernel/tracing'.
-[ 1747.298218] (sd-umoun[665]: Unmounting '/oldroot/sys/kernel/debug'.
-[ 1747.327488] (sd-umoun[666]: Unmounting '/oldroot/dev/hugepages'.
-[ 1747.359053] (sd-umoun[667]: Unmounting '/oldroot/dev/mqueue'.
-[ 1747.387798] (sd-umoun[668]: Unmounting '/oldroot/run'.
-[ 1747.425939] (sd-umoun[669]: Unmounting '/oldroot/proc'.
-[ 1747.473927] (sd-umoun[670]: Unmounting '/oldroot/sys/fs/bpf'.
-[ 1747.527910] (sd-umoun[671]: Unmounting '/oldroot/sys/fs/pstore'.
-[ 1747.588367] (sd-umoun[672]: Unmounting '/oldroot/sys/fs/cgroup'.
-[ 1747.630489] (sd-umoun[673]: Unmounting '/oldroot/sys/kernel/security'.
-[ 1747.664244] (sd-umoun[674]: Unmounting '/oldroot/sys'.
-[ 1747.704716] (sd-umoun[675]: Unmounting '/oldroot/dev/pts'.
-[ 1747.755218] (sd-umoun[676]: Unmounting '/oldroot/dev/shm'.
-[ 1747.791652] (sd-umoun[677]: Unmounting '/oldroot/dev'.
-[ 1747.826501] (sd-umoun[678]: Unmounting '/oldroot'.
-[ 1748.451336] EXT4-fs (mmcblk1p7): unmounting filesystem
-ccb95ca0-2804-4ade-938f-23116f90c193.
-[ 1748.643359] shutdown[1]: All filesystems unmounted.
-[ 1748.643640] shutdown[1]: Deactivating swaps.
-[ 1748.644512] shutdown[1]: All swaps deactivated.
-[ 1748.644722] shutdown[1]: Detaching loop devices.
-[ 1748.732490] shutdown[1]: All loop devices detached.
-[ 1748.732764] shutdown[1]: Stopping MD devices.
-[ 1748.754002] shutdown[1]: All MD devices stopped.
-[ 1748.754286] shutdown[1]: Detaching DM devices.
-[ 1748.759617] shutdown[1]: All DM devices detached.
-[ 1748.759885] shutdown[1]: All filesystems, swaps, loop devices, MD
-devices and DM devices detached.
-[ 1748.770510] shutdown[1]: Syncing filesystems and block devices.
-[ 1748.791699] shutdown[1]: Powering off.
-[ 1749.009246] reboot: Power down
-
-Given that OpenSBI already handles both operations,
-I agree that the Linux P1 power-off and reset driver may no longer be necessary,
-at least on systems using firmware with the appropriate SBI SRST support.
-
-> > So until this driver goes away, BPI-F3 still needs the arch fix [1]
-> > for power-off.
-> >
-> > Link: https://lore.kernel.org/linux-riscv/20261104-v7-0-rc1-rv-dis-int-before-restart-v5-1-956ec09c900d@linux.dev/ [1]
->
-> We also need a more global fix for the other boards like the VisionFive
-> 2, so definitely we need the above fix instead of patching the drivers.
->
-Maybe we need an opensbi driver for VisionFive 2 dev boards; any thoughts
-> Aurelien
->
-> --
-> Aurelien Jarno                          GPG: 4096R/1DDD8C9B
-> aurelien@aurel32.net                     http://aurel32.net
-
-Thanks
--Anand
