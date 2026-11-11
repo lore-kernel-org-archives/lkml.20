@@ -1,58 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.251.229.89
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794385360;
-	b=Ctv+1uxWAHkwxZna5fn7QHoWfHLUJMM5aEVKON+HrlexOo7QChuTJQCkoHSXOmJ/ITNu
-	 rcSGdtF2Zu77F6UYw+vvARdDaWtYRUKrP4LjPdDzyz6B1NFTp2WxdI5e/gHDqp16llaCJ
-	 nkdAkk870jHQIIkrsIr2IQSMDHrVQgev/HYpraxP+Hxi2W/hOccioY5kZ86iCIrTavIZr
-	 u786vWThsCQ+egQHTpHWM5Iqjyz2WtWcEecRjsxb6ADR4nBVXpTHa0y7bxb6rqKfsDl71
-	 X5zUAuedJV4wqG/vbIXEm0335SCdzjXOC2iLS2MG8z8jhuGjjDXeWpQ7w6B1WCtMSbw==
+	t=1794385400;
+	b=QgPmyQ2NoCdyqnfGDU+lW1TbtjMbBWIaaJMgU3d9H11vaNG5tna+jrsnpq1PiTpjiMPy
+	 eDY6ed66H10rfncAMuWukfvpanjLB2ZD3wIrsK7U/YRgwcD3JxXfyaoPZYh/ICCDMISJ/
+	 SwZ4lsTf8NKsX/VPqdd2iVRSl/yNc0uSAxxUQAbnnECj2ThWBzxvjbdWpZyAEGVYpNO8g
+	 8cdcaK7YSCtbkzOZWY6rb8h/S2s3DyCLgFLZPlb/teZmu9qZ/afbpnH50Vbt4DXXJm/oU
+	 nUa5yXV+NmABNfE42VfaDEmsqoEslEnKzdVGfygikLl3Uhsg9OrlzEGVgwifwzNrE5w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794385360;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-Last-TLS-Session-Version;
-	bh=v1FQrKsL5f19EKemgEuMcNZOXhqO95k4RyWWOAZDF0E=;
-	b=Sd2IAT2jZwN4jDCdSlr9aa/SJYTeO4SdQ9CfOk/+oFjOTIw9eLpTxu29sA0diBqO3ZKs
-	 1oxEY8X9tSnPXoos6fQIjbq01BknTw5n0kN4f4HBZOVk9XeBdJcDuAZu7nIUAZUCFkxFs
-	 bDZ2BfAAr68HfwnD8iwzBT9T4EyaLL/QJHAvcesDBlc/QgGhwLc7vBGX1gn1k8poHLh95
-	 o09HCCWiJxqWcHgCfEpl2C78yBvZVGsv2cKp8byocHT3fZfNq1HuWzYjJ77caW5+xt/Lq
-	 TznMUcstcjV0XcndxTebbJpcj2aFWtnTYw9YAh6xvr9FmTQ8yNljEy7kiqBoy64L4jA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794385400;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:In-Reply-To:References:Organization:X-Mailer:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=ifmwbZ7zmQQpgrEhXpcBXt0uPaTlKXU6d7DPwm1kaGg=;
+	b=2btqPRAV29M6jJ5dua6Gyrg0PGIo6BXsFqizxIZ8HE+4jocXwPnP3Wk1QeZl/QSE4CpZ
+	 73iNMK4KCwhGCA2Ar/jHJ6OMPB4sbxUJvi4yXo+fR1gVehj0jKa9oryCo0LUY2oVDsChx
+	 4b6Y38ber92mg+vBRjUtl3UqFihqgsCpnbBLzzFzIYk3uXJxBVP4SIaZn0gpb53VQTtXP
+	 oiocLwV+5wiStw5DABIRFloBSa8ycjBLg4Z5XX+5dOlcTVU6eAxunfjqBgrbJW/lw0mLo
+	 KQ3ANPRT2+VuQ+GftFx0r2gBEEWag25zZVx4BPkEYqf93kWHheo4+hRohyvhbu+pN3A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Du1c83Xm;
-	arc=none smtp.remote-ip=185.246.84.56
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	dmarc=pass header.from=nabladev.com;
+	spf=pass smtp.mailfrom=nabladev.com;
+	dkim=pass header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=aZqZJZpv;
+	arc=none smtp.remote-ip=178.251.229.89
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF981606A32E;
-	Wed, 11 Nov 2026 08:22:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CF981606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99449606A31C;
+	Wed, 11 Nov 2026 08:23:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99449606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Du1c83Xm
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 14EF71A1604;
-	Wed, 11 Nov 2026 08:22:37 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id D65FA6017E;
-	Wed, 11 Nov 2026 08:22:36 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 363D511BC1818;
-	Wed, 11 Nov 2026 09:22:17 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1794385355; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=v1FQrKsL5f19EKemgEuMcNZOXhqO95k4RyWWOAZDF0E=;
-	b=Du1c83XmXW4RTimL6RazFjOTZSXCRppgWXP+IdIvbn/X2D4IBE0iiaUsR3hh8xqLynNr9O
-	lJN+MWtFrgRQ2HbY5V85hhJrn4QiBS63udBRm9KPD/dzTEf07yMMw3MlIbrYpufi0UQKR0
-	5VkOJ+BbsNdT8upae4Ljl5ggK6neDz0ThfitQpvaQSnePUULFr9rp23f0Mz/fUN+Tq02Wo
-	awcfcNdE0WGdpQ0yWSFbTZuJB3VAbIi5+E0NBYPc050nLuxflJnLQbqSjIPTXtzbRokQI7
-	K6f7lgqYji2FffX9R/G0xRUPexgvQziDmVplapkl3keH32raQu2JRy3CJvDRMw==
-Message-ID: <d3ba44a2-1692-4c18-a297-b04bf82c18d0@bootlin.com>
-Date: Wed, 11 Nov 2026 09:22:17 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=aZqZJZpv
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 94CCB10DE0B;
+	Wed, 11 Nov 2026 09:23:12 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1794385393;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=ifmwbZ7zmQQpgrEhXpcBXt0uPaTlKXU6d7DPwm1kaGg=;
+	b=aZqZJZpvJZACDEjTMHG+NFcMhBOfrPMfFOAwo6of958wEMSYvnn1pPQKWza5C4EyIIqLr9
+	VoA0flARrj5EjZ9nBnu7kNncDyqHcpqhzAsgvvvhaYuGSKzf+HbrwKrvNBwh6xh8LsTthk
+	F/SKU0XrIi6kjdpFOy+/9sb0Uk3y0cJWoYPhOazIb0ADSBDOJjTC55vMZaRk+/JnuF2DPQ
+	2Jsu0bS3IQ4bDO++lqLPP5LTUEkxH4VUgOpIaK2Zi10fEC1pYyCXw8rc/9Mb6nFpw0h/Em
+	7NL97Gb9Fv+6qgfaaKpqMBxYnO7tj4qwqou22lLjbe51aNmnZ+1wxz8Q4NXG+g==
+Date: Wed, 11 Nov 2026 09:23:11 +0100
+From: =?UTF-8?B?xYF1a2Fzeg==?= Majewski <lukma@nabladev.com>
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, Shawn Guo
+ <shawnguo@kernel.org>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: trivial-devices: Add National lm77
+ temperature sensor
+Message-ID: <20261111092311.54928fd3@wsk>
+In-Reply-To: <20b8e15f-70fb-4844-abb6-d91d7d7e9849@roeck-us.net>
+References: <20261110150243.1531953-1-lukma@nabladev.com>
+	<20b8e15f-70fb-4844-abb6-d91d7d7e9849@roeck-us.net>
+Organization: Nabla
+X-Mailer: Claws Mail 3.19.0 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,51 +69,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v2] net: stmmac: Clear DMA errors for multi-channel
- interrupts
-To: Magnus Leatti <magnusleatti@kernelriot.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, Jakub Kicinski <kuba@kernel.org>,
- davem@davemloft.net, Eric Dumazet <edumazet@google.com>,
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Russell King <linux@armlinux.org.uk>,
- Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>,
- Nicolai Buchwitz <nb@tipi-net.de>, thomas.petazzoni@bootlin.com,
- =?UTF-8?Q?Alexis_Lothor=C3=A9?= <alexis.lothore@bootlin.com>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org
-References: <20261103125430.962715-1-maxime.chevallier@bootlin.com>
- <179379704484.488856.2140619507341432623@kernel.org>
- <20261110091901.7080-1-magnusleatti@kernelriot.com>
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Content-Language: en-US
-In-Reply-To: <20261110091901.7080-1-magnusleatti@kernelriot.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
 X-Last-TLS-Session-Version: TLSv1.3
 
-Hi,
+Hi Guenter,
 
-On 11/10/26 10:19, Magnus Leatti wrote:
->> Since RBU and RPS were enabled only for statistics, was masking them in
->> multi-MSI mode considered as an alternative?
-> 
-> Hi Maxime,
-> 
-> Tested that route on dwmac4 (YT6801, 7.3.3) next to v2.
+> On 11/10/26 07:02, Lukasz Majewski wrote:
+> > Add "national,lm77" as compatible for the National (now TI) LM77
+> > digital I2C temperature sensor.
+> >=20
+> > Signed-off-by: Lukasz Majewski <lukma@nabladev.com>
+> > ---
+> >   Documentation/devicetree/bindings/trivial-devices.yaml | 2 ++
+> >   1 file changed, 2 insertions(+)
+> >=20
+> > diff --git a/Documentation/devicetree/bindings/trivial-devices.yaml
+> > b/Documentation/devicetree/bindings/trivial-devices.yaml index
+> > a8b2b9deade4..9413ee0626f5 100644 ---
+> > a/Documentation/devicetree/bindings/trivial-devices.yaml +++
+> > b/Documentation/devicetree/bindings/trivial-devices.yaml @@ -387,6
+> > +387,8 @@ properties:
+> >             - national,lm85c
+> >               # I2C =C2=B10.33=C2=B0C Accurate, 12-Bit + Sign Temperatu=
+re
+> > Sensor and Thermal Window Comparator
+> >             - national,lm92
+> > +            # Temperature sensor
+> > +          - national,lm77 =20
+>=20
+> I'd suggest to retain alphabetic order.
+>=20
 
-Sorry I was away for the past days.
+The "alphabetic" order for "national," is already "disturbed" in this
+file - that is why I've put it in the end.
 
-Thanks for testing,
+Now, the question - shall I "order" properly all of "national,"
+bindings in a single patch (including the new one)?
 
-RBU exposes the problem, but it's still lurking even if we mask it, it's only
-a matter of another interrupt being enabled and we hit that again...
+Or prepare two patches:
+- One to make the alphabetic order for already in-tree properties=20
 
-Let's deal with RBU separately, I'm still not clear wether re-masking it is
-the right call, now that the counter works, people may want to use that :(
+and
 
-I'll send a V3 shortly
+- Add the "national,lm77" afterwards ?
 
-Maxime
+> Having said that, is there any evidence that this chip is used
+> on a system supporting devicetree ?
+
+Yes, it is required for CBASE board (also send to the devicetree mailing
+list for review).
+
+>=20
+> Thanks,
+> Guenter
+>=20
+> >               # Nuvoton Temperature Sensor
+> >             - nuvoton,w83773g
+> >               # NXP ISP1301 USB transceiver =20
+>=20
+
+
+
+--=20
+Best regards,
+
+Lukasz Majewski
+
+--
+Nabla Software Engineering GmbH
+HRB 40522 Augsburg
+Phone: +49 821 45592596
+E-Mail: office@nabladev.com
+Managing Director : Stefano Babic
