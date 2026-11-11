@@ -1,22 +1,22 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.20.114.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794367001;
-	b=bUh42pZSHuZqhB/NJ9/LHLKY2VGz20xvN/VMjsJDDuBW/k9PPWjIjPQcIfXca0zkr59H
-	 rqvBR7MeERhGKndLgwwhZQw28uBAuEO4I+NXR421grC5wVBP5bZKVBVwCYOJQRg4/Va8F
-	 iqcHgvyMwualgbSzAf53HnOTn9CzvX/d3YFebaZszxSmdumZHXc3xvg+e4ZkjIpFM18TZ
-	 SIG03Tht5PvYl/8Jr2ZU/xUldeXraeq7jS6bfXvt1Byiz4WLJrgtMruXJ1HNSKqPABYlR
-	 v5buDMdg8hoUOGQBuYhJCVquYx1puy0uHS4KSvadcNW22P1GJcKbQOhM+b3UwzZSDxA==
+	t=1794367003;
+	b=yWRLoaOzk1sNmGHMaGYcljL/ycG+6ticYbCHJlT5G8rM2VgeTusumgeLJMGap6UbI3xt
+	 Yb9vhTAU8fAEGiuKa3rtqHuUAtlw9A20DcTh1PRVJKfxwkOmBtawQuWpzzLwZkfRcmps7
+	 Bz4GcY+ipWcnY0u1/5f6VjmNundlFvhiGZZQe8VRfBiupaY0SQncXoXPvtb6YKs1i2u0G
+	 4XYdOGIzUJ6WQlHDybEVUr6elgrW7SbpB7cPwycQgHVXmAJ7XrTJylr8X1P128ShGkDOa
+	 yryJkOc8qhFETTVTEiWCQ9z5aUJikqdEjJhfi9zv3Ka8AyG4GEINAgJi/yu4bT1wThA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794367001;
-	h=DMARC-Filter:Received:Received:From:Subject:Date:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:CC:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=6arbNQhtMgz8wXXZokXmBFsJFiQEOhX4Thl2tbkOhwE=;
-	b=XJ37E6smyt6hItdV8Lyf7byP79xa4Kg2PCzDFvYACrq1tQGVrWTYXJwuVH1nuuslZjHl
-	 /xhbRhOkk4aRoC7BAP/CjSvxBfeXLYEvBOHaNuyV5DMaB+Rb/gof1xBZFFZFEUN+VxczH
-	 1xGrrjfLeTSXI7jdeT6BST0ruadlv8lue4CvvxC91VhCpTecozk+6wecolj7TqpoCG1lq
-	 XUH2tTeBXCV23xe1DpmpoX7p9HMsK4kElqX/MyqiR1NNcbG3taKEFVmJU1rqyIO9ILIyD
-	 Elgzqc8g78i6ECUg2ffWGcJuz7us/iMXFey0WYNphvQXdWZBmLYeg1PCv2j3i60+RqA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794367003;
+	h=DMARC-Filter:Received:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-ID:References:
+	 In-Reply-To:To:CC:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=pTpHXh+6GIcBH2u8eXmz9beVVwGcEeGGblkqfMDni5M=;
+	b=baRAQxRnLzKqChdGMcZPyqLv7kkh75Cbd1Kv2ipaJ85vm6h8mUrtG/zVAIFsirTErddZ
+	 P3eutzrLRAXmRY0s1muI2HJtYFjFoZH66unznY84Lc8iqX3IEdZPrv6JzQpfeoFBnp0bK
+	 cZJTFjpCT9Kmn6hTbBReVO74Ieylemp8jaAQNU0uyyJESl1V1b2+guzGEU2KtOv4NxZng
+	 L/1PGD9s/iHXusAhdwwVDbWT2xmLO54yanENZk5aT91DG2jOWmc/fKkLkun6z1lrkmkI7
+	 yDocd52OD0otAL7oydw8XcF/7rt4y1p2zfvJ/jHL4HG2cqhtZ8sLJtqChEJDyQMq6LA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=aspeedtech.com;
 	spf=pass smtp.mailfrom=aspeedtech.com;
@@ -24,9 +24,9 @@ ARC-Authentication-Results: i=1; smtp.subspace.kernel.org;
 Received: from twmbx01.aspeedtech.com (mail.aspeedtech.com [211.20.114.72])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BFD0606A31C;
-	Wed, 11 Nov 2026 03:16:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0BFD0606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C64E260A2605;
+	Wed, 11 Nov 2026 03:16:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C64E260A2605
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
 Received: from TWMBX01.aspeed.com (192.168.0.62) by TWMBX01.aspeed.com
@@ -37,9 +37,9 @@ Received: from [127.0.1.1] (192.168.10.13) by TWMBX01.aspeed.com
  (192.168.0.62) with Microsoft SMTP Server id 15.2.1748.39 via Frontend
  Transport; Wed, 11 Nov 2026 11:16:31 +0800
 From: Billy Tsai <billy_tsai@aspeedtech.com>
-Subject: [PATCH v2 0/9] i3c: mipi-i3c-hci: Add Aspeed AST2700 support
-Date: Wed, 11 Nov 2026 11:16:28 +0800
-Message-ID: <20261111-b4-i3c-hci-ast2700-v2-0-4d8fff5c5196@aspeedtech.com>
+Date: Wed, 11 Nov 2026 11:16:31 +0800
+Subject: [PATCH v2 3/9] i3c: mipi-i3c-hci: Support address-indexed DAT
+ slots
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,11 +51,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAze82oC/22NMQ7CMAxFr1J5xsgJVaMwcQ/UIXUM8UCLkqoCV
- b07oayM70n//RWKZJUC52aFLIsWncYK9tAApzDeBTVWBku2I2daHFrUE2NixVBm64hwCNHZTiw
- xGajDZ5abvvbota+ctMxTfu8fi/naX86T+ZdbDBIa78mL4yE6uYTyFImzcDry9IB+27YPvnXzF
- bkAAAA=
-X-Change-ID: 20260714-b4-i3c-hci-ast2700-bad726e20c01
+Message-ID: <20261111-b4-i3c-hci-ast2700-v2-3-4d8fff5c5196@aspeedtech.com>
+References: <20261111-b4-i3c-hci-ast2700-v2-0-4d8fff5c5196@aspeedtech.com>
+In-Reply-To: <20261111-b4-i3c-hci-ast2700-v2-0-4d8fff5c5196@aspeedtech.com>
 To: Alexandre Belloni <alexandre.belloni@bootlin.com>, Frank Li
 	<Frank.Li@nxp.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
 	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Joel Stanley
@@ -67,135 +65,344 @@ CC: <tbevis@amazon.com>, <linux-i3c@lists.infradead.org>,
 	<linux-aspeed@lists.ozlabs.org>, <linux-kernel@vger.kernel.org>, Billy Tsai
 	<billy_tsai@aspeedtech.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794366991; l=6016;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794366991; l=12266;
  i=billy_tsai@aspeedtech.com; s=20251118; h=from:subject:message-id;
- bh=k/05GBdEuOCHYT2tE6tl/pfCWjwczfKbQjqgNVW4GHY=;
- b=3sBYcFGi4TNh39OLSvoEkqO8purEYuhlzRuSJSSH0plJkPMGiyJrK0bWb3CdnMqmARjxwp4Xy
- 2mjQX9RMXGTCVQvbKwYr4+TVl4KEQJSzYkU5ve58Pr8sr3O4Q+rBIYF
+ bh=ZEArbW99/d8elY8GLPj1BDMwgVwpVLvCWRK2HM2uP1M=;
+ b=5P5gN77ujcHZD2Xmaa11CdOaglkSqaeXPeHN2F5bCNhew8BN6PloozXW0WODpgXFbmJqCxoSc
+ 2WHnq+5EyPVCvHHDQQHaSUJqoT9qh/KXi52RfC2hjnoZas2mYjKfzAL
 X-Developer-Key: i=billy_tsai@aspeedtech.com; a=ed25519;
  pk=/A8qvgZ6CPfnwKgT6/+k+nvXOkN477MshEGJvVdzeeQ=
 
-The Aspeed AST2700 SoC integrates an I3C host controller based on the
-MIPI I3C HCI v1.1 programming model, extended with an in-house control
-block and a PHY programming window. Both extra register regions are
-advertised through a standard HCI vendor extended capability. This
-series teaches the existing mipi-i3c-hci driver to drive the AST2700
-controller without forking the driver.
+HCI v1's DEV_INDEX allocation is sequential: the driver picks any free
+DAT slot, with no relationship between the slot number and the
+device's I3C address. ASPEED's I3C controllers have long needed to
+support more devices than the standard 5-bit DEV_INDEX field
+(addresses 0-31) allows, so they use a layout where the DAT slot
+number is itself the device's address, requiring DEV_INDEX to widen
+to 7 bits (addresses 0-127).
 
-AST2700 specifics are expressed entirely as quirks in the match data:
-the existing HCI_QUIRK_DMA_ABORT_REQUIRES_PIO_RESET, then four generic
-quirks:
+The existence of I2C devices on the bus identifies why the ASPEED
+controller design can't work with the driver assuming the 5-bit
+DEV_INDEX field: their addresses are fixed by the device or board
+configuration, not assigned by the controller, so they cannot be
+restricted to addresses below 0x20. The same is true for I3C devices
+that only support SETAASA: their dynamic address is their existing
+static address, again fixed by the device or board rather than chosen
+by the controller. With a 5-bit DEV_INDEX, only slots 0-31 exist, so
+any such device landing at 0x20 or above cannot be placed in the DAT
+at all, regardless of how many other devices are on the bus.
 
- - HCI_QUIRK_DAT_INDEX_IS_ADDR for address-indexed DAT slots,
- - HCI_QUIRK_DMA_64BIT to configure a 64-bit DMA mask,
- - HCI_QUIRK_TX_START_THLD to clear the TX start threshold in DMA mode, and
- - HCI_QUIRK_BOARD_PHY_TIMINGS to apply board-specific PHY timing from DT
-
-plus six quirks for everything that depends on the ASPEED vendor
-capability:
-
- - HCI_QUIRK_VENDOR_BUS_SETUP to bring up the bus
- - HCI_QUIRK_VENDOR_INTR_SUMMARY for ASPEED's interrupt roll-up
- - HCI_QUIRK_VENDOR_RESOURCES for further clocks and resets
- - HCI_QUIRK_VENDOR_DAA_INDEX for access to DAA index registers
- - HCI_QUIRK_IBI_PAYLOAD_THLD to bound IBI transfers at the controller
- - HCI_QUIRK_VENDOR_TX_AVAIL for precise ringbuffer operations
-
-Generic MIPI I3C HCI controllers are unaffected.
-
-The series is organised as follows:
-
- - Patch 1 defines timing properties for the devicetree to manage the
-   impact of board design on bus operation.
-
- - Patch 2 documents the AST2700 devicetree binding.
-
- - Patches 3-5 add the generic HCI quirks AST2700 needs --
-   address-indexed DAT slots, 64-bit DMA addressing, and clearing the
-   TX start threshold in DMA mode -- with no AST2700-specific code yet;
-   nothing sets these quirks until patch 6.
-
- - Patch 6 adds support for the AST2700 I3C controller by implementing
-   the controller-specific quirks and enabling all necessary quirks in
-   the MIPI HCI driver to drive the AST2700 controller. It recognizes
-   the ASPEED vendor extended capability, brings the controller up for
-   transfers (master mode, PHY timing, reset/clock resources, the
-   interrupt summary path, master clock stall), and enables all eleven
-   quirks for the "aspeed,ast2700-i3c-hci" compatible.
-
- - Patch 7 adds the IBI termination threshold, a safeguard against a
-   misbehaving device that never terminates a payload IBI on its own.
-
- - Patches 8-9 tune bus behaviour: PIO TX queue utilization, and the
-   PHY's built-in pull-ups for boards without external resistors.
-
-Tested on an AST2700 EVB: the controller probes in both DMA and PIO modes,
-completes DAA, and runs CCC, IBI, and private transfers in DMA mode.
+Add HCI_QUIRK_DAT_INDEX_IS_ADDR for controllers with this layout:
+allocate address-indexed DAT slots and emit the wider DEV_INDEX field
+mask. Moving an entry on a dynamic address change can fail if its slot
+is already taken, so set_dynamic_addr() now returns an error that the
+reattach and DAA paths propagate. Controllers without the quirk keep
+the existing behavior.
 
 Signed-off-by: Billy Tsai <billy_tsai@aspeedtech.com>
 ---
-Changes in v2:
-- Rebase onto the latest i3c/next
-- New patch: move the AST2700 timing properties into the generic
-  i3c.yaml binding, renamed to match its existing i3c-prefixed naming
-  convention
-- Remove is_aspeed(), replace it with seven discrete quirk bits
-- Rename vendor_aspeed.{c,h} to aspeed.{c,h}; keep struct
-  aspeed_i3c_vendor_data private to aspeed.c
-- Add a probe-time check for the ASPEED vendor capability being
-  missing, ahead of the first vendor register access
-- Drop the NULL check in hci_extcap_vendor_ASPEED(); vendor_data is
-  always allocated by the time it runs
-- Fix aspeed_i3c_set_daa_index() to clear all four DAA index register
-  banks, not just the one it is about to set
-- Drop the dma_set_mask_and_coherent() return value check; it cannot
-  fail for a 64-bit mask
-- Revert the pio.h register split; add an accessor function instead
-- Drop the unused HCI_DAT_ANY_ADDRESS macro
-- Make the Open Drain PHY timing pair all-or-nothing, matching the
-  Push-Pull pair
-- Acquire the vendor clock as mandatory, matching the binding's
-  required clocks
-- Acquire the dma reset with
-  devm_reset_control_get_optional_shared_deasserted(), instead of a
-  manual deassert and cleanup action
-- Pulse the core reset at probe instead of only deasserting it, and
-  reassert it on driver detach.
-- Limit the SDA hold time override (i3c-pp-sda-hold-ns) to Push-Pull
-  timing; Open Drain always uses its hardware default
-- Link to v1: https://lore.kernel.org/r/20260901-b4-i3c-hci-ast2700-v1-0-19909e7cbd7e@aspeedtech.com
+ drivers/i3c/master/mipi-i3c-hci/cmd_v1.c | 35 ++++++++++++------
+ drivers/i3c/master/mipi-i3c-hci/core.c   | 19 +++++++---
+ drivers/i3c/master/mipi-i3c-hci/dat.h    |  6 ++-
+ drivers/i3c/master/mipi-i3c-hci/dat_v1.c | 63 +++++++++++++++++++++++++++++---
+ drivers/i3c/master/mipi-i3c-hci/hci.h    |  1 +
+ 5 files changed, 99 insertions(+), 25 deletions(-)
 
----
-Billy Tsai (9):
-      dt-bindings: i3c: Document generic bus timing properties
-      dt-bindings: i3c: Document the AST2700 I3C controller
-      i3c: mipi-i3c-hci: Support address-indexed DAT slots
-      i3c: mipi-i3c-hci: Add a quirk for 64-bit DMA addressing
-      i3c: mipi-i3c-hci: Add a quirk to clear the TX start threshold
-      i3c: mipi-i3c-hci: Add support for the AST2700 I3C controller
-      i3c: mipi-i3c-hci: Program AST2700 IBI termination threshold
-      i3c: mipi-i3c-hci: Improve AST2700 PIO TX queue utilization
-      i3c: mipi-i3c-hci: Support the AST2700 internal pull-ups
+diff --git a/drivers/i3c/master/mipi-i3c-hci/cmd_v1.c b/drivers/i3c/master/mipi-i3c-hci/cmd_v1.c
+index 78ad2ec2bd93..d267aa19cb75 100644
+--- a/drivers/i3c/master/mipi-i3c-hci/cmd_v1.c
++++ b/drivers/i3c/master/mipi-i3c-hci/cmd_v1.c
+@@ -139,6 +139,14 @@ static enum hci_cmd_mode get_i2c_mode(struct i3c_hci *hci)
+ 	return MODE_I2C_Fm;
+ }
+ 
++static u32 cmd_v1_dev_index(struct i3c_hci *hci, unsigned int dat_idx)
++{
++	u32 mask = hci->quirks & HCI_QUIRK_DAT_INDEX_IS_ADDR ?
++		   W0_MASK(22, 16) : W0_MASK(20, 16);
++
++	return field_prep(mask, dat_idx);
++}
++
+ static void fill_data_bytes(struct hci_xfer *xfer, u8 *data,
+ 			    unsigned int data_len)
+ {
+@@ -193,7 +201,7 @@ static int hci_cmd_v1_prep_ccc(struct i3c_hci *hci,
+ 			CMD_0_ATTR_I |
+ 			CMD_I0_TID(xfer->cmd_tid) |
+ 			CMD_I0_CMD(ccc_cmd) | CMD_I0_CP |
+-			CMD_I0_DEV_INDEX(dat_idx) |
++			cmd_v1_dev_index(hci, dat_idx) |
+ 			CMD_I0_DTT(data_len) |
+ 			CMD_I0_MODE(mode);
+ 		fill_data_bytes(xfer, data, data_len);
+@@ -203,7 +211,7 @@ static int hci_cmd_v1_prep_ccc(struct i3c_hci *hci,
+ 			CMD_0_ATTR_R |
+ 			CMD_R0_TID(xfer->cmd_tid) |
+ 			CMD_R0_CMD(ccc_cmd) | CMD_R0_CP |
+-			CMD_R0_DEV_INDEX(dat_idx) |
++			cmd_v1_dev_index(hci, dat_idx) |
+ 			CMD_R0_MODE(mode) |
+ 			(rnw ? CMD_R0_RNW : 0);
+ 		xfer->cmd_desc[1] =
+@@ -247,7 +255,7 @@ static void hci_cmd_v1_prep_i3c_xfer(struct i3c_hci *hci,
+ 		xfer->cmd_desc[0] =
+ 			CMD_0_ATTR_I |
+ 			CMD_I0_TID(xfer->cmd_tid) |
+-			CMD_I0_DEV_INDEX(dat_idx) |
++			cmd_v1_dev_index(hci, dat_idx) |
+ 			CMD_I0_DTT(data_len) |
+ 			CMD_I0_MODE(mode) |
+ 			cp_cmd;
+@@ -257,7 +265,7 @@ static void hci_cmd_v1_prep_i3c_xfer(struct i3c_hci *hci,
+ 		xfer->cmd_desc[0] =
+ 			CMD_0_ATTR_R |
+ 			CMD_R0_TID(xfer->cmd_tid) |
+-			CMD_R0_DEV_INDEX(dat_idx) |
++			cmd_v1_dev_index(hci, dat_idx) |
+ 			CMD_R0_MODE(mode) |
+ 			(rnw ? CMD_R0_RNW : 0) |
+ 			cp_cmd;
+@@ -284,7 +292,7 @@ static void hci_cmd_v1_prep_i2c_xfer(struct i3c_hci *hci,
+ 		xfer->cmd_desc[0] =
+ 			CMD_0_ATTR_I |
+ 			CMD_I0_TID(xfer->cmd_tid) |
+-			CMD_I0_DEV_INDEX(dat_idx) |
++			cmd_v1_dev_index(hci, dat_idx) |
+ 			CMD_I0_DTT(data_len) |
+ 			CMD_I0_MODE(mode);
+ 		fill_data_bytes(xfer, data, data_len);
+@@ -293,7 +301,7 @@ static void hci_cmd_v1_prep_i2c_xfer(struct i3c_hci *hci,
+ 		xfer->cmd_desc[0] =
+ 			CMD_0_ATTR_R |
+ 			CMD_R0_TID(xfer->cmd_tid) |
+-			CMD_R0_DEV_INDEX(dat_idx) |
++			cmd_v1_dev_index(hci, dat_idx) |
+ 			CMD_R0_MODE(mode) |
+ 			(rnw ? CMD_R0_RNW : 0);
+ 		xfer->cmd_desc[1] =
+@@ -322,19 +330,22 @@ static int hci_cmd_v1_daa(struct i3c_hci *hci)
+ 	 * Yes, there is room for improvements.
+ 	 */
+ 	for (;;) {
+-		ret = mipi_i3c_hci_dat_v1.alloc_entry(hci);
+-		if (ret < 0)
+-			break;
+-		dat_idx = ret;
+ 		ret = i3c_master_get_free_addr(&hci->master, next_addr);
+ 		if (ret < 0)
+ 			break;
+ 		next_addr = ret;
++		ret = mipi_i3c_hci_dat_v1.alloc_entry(hci, next_addr);
++		if (ret < 0)
++			break;
++		dat_idx = ret;
+ 
+ 		dev_dbg(&hci->master.dev,
+ 			"next_addr = 0x%02x, DAA using DAT %d",
+ 			next_addr, dat_idx);
+-		mipi_i3c_hci_dat_v1.set_dynamic_addr(hci, dat_idx, next_addr);
++		ret = mipi_i3c_hci_dat_v1.set_dynamic_addr(hci, dat_idx,
++							   next_addr);
++		if (ret < 0)
++			break;
+ 		mipi_i3c_hci_dct_index_reset(hci);
+ 
+ 		xfer->cmd_tid = hci_get_tid();
+@@ -342,7 +353,7 @@ static int hci_cmd_v1_daa(struct i3c_hci *hci)
+ 			CMD_0_ATTR_A |
+ 			CMD_A0_TID(xfer->cmd_tid) |
+ 			CMD_A0_CMD(I3C_CCC_ENTDAA) |
+-			CMD_A0_DEV_INDEX(dat_idx) |
++			cmd_v1_dev_index(hci, dat_idx) |
+ 			CMD_A0_DEV_COUNT(1) |
+ 			CMD_A0_ROC | CMD_A0_TOC;
+ 		xfer->cmd_desc[1] = 0;
+diff --git a/drivers/i3c/master/mipi-i3c-hci/core.c b/drivers/i3c/master/mipi-i3c-hci/core.c
+index 23853ca134fb..b8f8254ed19c 100644
+--- a/drivers/i3c/master/mipi-i3c-hci/core.c
++++ b/drivers/i3c/master/mipi-i3c-hci/core.c
+@@ -608,7 +608,8 @@ static int i3c_hci_attach_i3c_dev(struct i3c_dev_desc *dev)
+ 	if (!dev_data)
+ 		return -ENOMEM;
+ 	if (hci->cmd == &mipi_i3c_hci_cmd_v1) {
+-		ret = mipi_i3c_hci_dat_v1.alloc_entry(hci);
++		ret = mipi_i3c_hci_dat_v1.alloc_entry(hci,
++				dev->info.dyn_addr ?: dev->info.static_addr);
+ 		if (ret < 0) {
+ 			kfree(dev_data);
+ 			return ret;
+@@ -628,9 +629,17 @@ static int i3c_hci_reattach_i3c_dev(struct i3c_dev_desc *dev, u8 old_dyn_addr)
+ 	struct i3c_hci *hci = to_i3c_hci(m);
+ 	struct i3c_hci_dev_data *dev_data = i3c_dev_get_master_data(dev);
+ 
+-	if (hci->cmd == &mipi_i3c_hci_cmd_v1)
+-		mipi_i3c_hci_dat_v1.set_dynamic_addr(hci, dev_data->dat_idx,
+-					     dev->info.dyn_addr);
++	if (hci->cmd == &mipi_i3c_hci_cmd_v1) {
++		int ret;
++
++		ret = mipi_i3c_hci_dat_v1.set_dynamic_addr(hci,
++							   dev_data->dat_idx,
++							   dev->info.dyn_addr);
++		if (ret)
++			return ret;
++		if (hci->quirks & HCI_QUIRK_DAT_INDEX_IS_ADDR)
++			dev_data->dat_idx = dev->info.dyn_addr;
++	}
+ 	return 0;
+ }
+ 
+@@ -658,7 +667,7 @@ static int i3c_hci_attach_i2c_dev(struct i2c_dev_desc *dev)
+ 	dev_data = kzalloc_obj(*dev_data);
+ 	if (!dev_data)
+ 		return -ENOMEM;
+-	ret = mipi_i3c_hci_dat_v1.alloc_entry(hci);
++	ret = mipi_i3c_hci_dat_v1.alloc_entry(hci, dev->addr);
+ 	if (ret < 0) {
+ 		kfree(dev_data);
+ 		return ret;
+diff --git a/drivers/i3c/master/mipi-i3c-hci/dat.h b/drivers/i3c/master/mipi-i3c-hci/dat.h
+index 31becc6f9aec..622f8e248463 100644
+--- a/drivers/i3c/master/mipi-i3c-hci/dat.h
++++ b/drivers/i3c/master/mipi-i3c-hci/dat.h
+@@ -10,6 +10,8 @@
+ #ifndef DAT_H
+ #define DAT_H
+ 
++struct i3c_hci;
++
+ /* Global DAT flags */
+ #define DAT_0_I2C_DEVICE		W0_BIT_(31)
+ #define DAT_0_DEV_NACK_RETRY_CNT	W0_MASK(30, 29)
+@@ -18,9 +20,9 @@
+ 
+ struct hci_dat_ops {
+ 	int (*init)(struct i3c_hci *hci);
+-	int (*alloc_entry)(struct i3c_hci *hci);
++	int (*alloc_entry)(struct i3c_hci *hci, unsigned int address);
+ 	void (*free_entry)(struct i3c_hci *hci, unsigned int dat_idx);
+-	void (*set_dynamic_addr)(struct i3c_hci *hci, unsigned int dat_idx, u8 addr);
++	int (*set_dynamic_addr)(struct i3c_hci *hci, unsigned int dat_idx, u8 addr);
+ 	void (*set_static_addr)(struct i3c_hci *hci, unsigned int dat_idx, u8 addr);
+ 	void (*set_flags)(struct i3c_hci *hci, unsigned int dat_idx, u32 w0, u32 w1);
+ 	void (*clear_flags)(struct i3c_hci *hci, unsigned int dat_idx, u32 w0, u32 w1);
+diff --git a/drivers/i3c/master/mipi-i3c-hci/dat_v1.c b/drivers/i3c/master/mipi-i3c-hci/dat_v1.c
+index ec0764a27c62..485ad0a44b34 100644
+--- a/drivers/i3c/master/mipi-i3c-hci/dat_v1.c
++++ b/drivers/i3c/master/mipi-i3c-hci/dat_v1.c
+@@ -89,7 +89,7 @@ static int hci_dat_v1_init(struct i3c_hci *hci)
+ 	return 0;
+ }
+ 
+-static int hci_dat_v1_alloc_entry(struct i3c_hci *hci)
++static int hci_dat_v1_alloc_entry(struct i3c_hci *hci, unsigned int address)
+ {
+ 	unsigned int dat_idx;
+ 	int ret;
+@@ -99,9 +99,17 @@ static int hci_dat_v1_alloc_entry(struct i3c_hci *hci)
+ 		if (ret)
+ 			return ret;
+ 	}
+-	dat_idx = find_first_zero_bit(hci->DAT_data, hci->DAT_entries);
+-	if (dat_idx >= hci->DAT_entries)
+-		return -ENOENT;
++	if (hci->quirks & HCI_QUIRK_DAT_INDEX_IS_ADDR) {
++		if (address >= hci->DAT_entries)
++			return -EINVAL;
++		if (test_bit_acquire(address, hci->DAT_data))
++			return -ENOENT;
++		dat_idx = address;
++	} else {
++		dat_idx = find_first_zero_bit(hci->DAT_data, hci->DAT_entries);
++		if (dat_idx >= hci->DAT_entries)
++			return -ENOENT;
++	}
+ 	__set_bit(dat_idx, hci->DAT_data);
+ 
+ 	/* default flags */
+@@ -118,9 +126,43 @@ static void hci_dat_v1_free_entry(struct i3c_hci *hci, unsigned int dat_idx)
+ 		__clear_bit(dat_idx, hci->DAT_data);
+ }
+ 
+-static void hci_dat_v1_set_dynamic_addr(struct i3c_hci *hci,
+-					unsigned int dat_idx, u8 address)
++static int hci_dat_v1_set_dynamic_addr(struct i3c_hci *hci,
++				       unsigned int dat_idx, u8 address)
+ {
++	if (hci->quirks & HCI_QUIRK_DAT_INDEX_IS_ADDR) {
++		u32 dat_w0, dat_w1;
++
++		/*
++		 * The controller derives the device address from the DAT slot
++		 * index, so DAT_0_DYNAMIC_ADDRESS is never written: an address
++		 * change moves the whole entry to the slot named by the new
++		 * address instead.
++		 */
++		if (dat_idx == address)
++			return 0;
++		if (address >= hci->DAT_entries) {
++			dev_err(&hci->master.dev, "invalid DAT slot %u\n", address);
++			return -EINVAL;
++		}
++		if (test_bit(address, hci->DAT_data)) {
++			dev_err(&hci->master.dev, "DAT slot %u already in use\n",
++				address);
++			return -EBUSY;
++		}
++
++		dat_w0 = dat_w0_read(dat_idx);
++		dat_w1 = dat_w1_read(dat_idx);
++
++		__set_bit(address, hci->DAT_data);
++		dat_w0_write(address, dat_w0);
++		dat_w1_write(address, dat_w1);
++
++		dat_w0_write(dat_idx, 0);
++		dat_w1_write(dat_idx, 0);
++		__clear_bit(dat_idx, hci->DAT_data);
++		return 0;
++	}
++
+ 	u32 dat_w0;
+ 
+ 	dat_w0 = dat_w0_read(dat_idx);
+@@ -128,6 +170,8 @@ static void hci_dat_v1_set_dynamic_addr(struct i3c_hci *hci,
+ 	dat_w0 |= FIELD_PREP(DAT_0_DYNAMIC_ADDRESS, address) |
+ 		  (parity8(address) ? 0 : DAT_0_DYNADDR_PARITY);
+ 	dat_w0_write(dat_idx, dat_w0);
++
++	return 0;
+ }
+ 
+ static void hci_dat_v1_set_static_addr(struct i3c_hci *hci,
+@@ -172,6 +216,13 @@ static int hci_dat_v1_get_index(struct i3c_hci *hci, u8 dev_addr)
+ 	unsigned int dat_idx;
+ 	u32 dat_w0;
+ 
++	if (hci->quirks & HCI_QUIRK_DAT_INDEX_IS_ADDR) {
++		if (dev_addr < hci->DAT_entries &&
++		    test_bit(dev_addr, hci->DAT_data))
++			return dev_addr;
++		return -ENODEV;
++	}
++
+ 	for_each_set_bit(dat_idx, hci->DAT_data, hci->DAT_entries) {
+ 		dat_w0 = dat_w0_read(dat_idx);
+ 		if (FIELD_GET(DAT_0_DYNAMIC_ADDRESS, dat_w0) == dev_addr)
+diff --git a/drivers/i3c/master/mipi-i3c-hci/hci.h b/drivers/i3c/master/mipi-i3c-hci/hci.h
+index 4288a1b5b491..2e610373600e 100644
+--- a/drivers/i3c/master/mipi-i3c-hci/hci.h
++++ b/drivers/i3c/master/mipi-i3c-hci/hci.h
+@@ -178,6 +178,7 @@ struct i3c_hci_dev_data {
+ #define HCI_QUIRK_RPM_PARENT_MANAGED	BIT(7)  /* Runtime PM managed by parent device */
+ #define HCI_QUIRK_DMA_ABORT_REQUIRES_PIO_RESET	BIT(8)  /* Do PIO queue SW resets after DMA abort */
+ #define HCI_QUIRK_DMA_REQUIRES_HC_ABORT		BIT(9)  /* Use HC_CONTROL ABORT to abort DMA */
++#define HCI_QUIRK_DAT_INDEX_IS_ADDR	BIT(10)  /* DAT entries are indexed by device address */
+ 
+ /* global functions */
+ void mipi_i3c_hci_resume(struct i3c_hci *hci);
 
- .../bindings/i3c/aspeed,ast2700-i3c-hci.yaml       |  89 ++++
- Documentation/devicetree/bindings/i3c/i3c.yaml     |  86 ++++
- drivers/i3c/master/mipi-i3c-hci/Makefile           |   2 +-
- drivers/i3c/master/mipi-i3c-hci/aspeed.c           | 500 +++++++++++++++++++++
- drivers/i3c/master/mipi-i3c-hci/aspeed.h           | 177 ++++++++
- drivers/i3c/master/mipi-i3c-hci/cmd_v1.c           |  38 +-
- drivers/i3c/master/mipi-i3c-hci/core.c             | 195 +++++++-
- drivers/i3c/master/mipi-i3c-hci/dat.h              |   6 +-
- drivers/i3c/master/mipi-i3c-hci/dat_v1.c           |  63 ++-
- drivers/i3c/master/mipi-i3c-hci/ext_caps.c         |   2 +
- drivers/i3c/master/mipi-i3c-hci/ext_caps.h         |   1 +
- drivers/i3c/master/mipi-i3c-hci/hci.h              |  11 +
- drivers/i3c/master/mipi-i3c-hci/pio.c              |  32 +-
- 13 files changed, 1153 insertions(+), 49 deletions(-)
----
-base-commit: c899ff589ac6922c7ff72badd8f0664b974bc850
-change-id: 20260714-b4-i3c-hci-ast2700-bad726e20c01
-
-Best regards,
 -- 
-Billy Tsai <billy_tsai@aspeedtech.com>
+2.34.1
 
