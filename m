@@ -1,98 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.55
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794408247;
-	b=M7cz5WZuo1T716mLqxKju2CN1EvV2El0R/JcZjFhuYvSzPdUhQX1EDkwbUor4qmNL2pD
-	 JaxumVX8PiN/DUyqDzBhd78vSjACKTxLsN0/9tgqUhs6QjplOqJVC+HRIvKAQ2lTX23Dj
-	 Y0GGgE8kEXd4CTIrHWwuARBS2eL1WKG3gfo+f7IwHp+CrxiiK61iN5wRcW2RWJ5e+oAN+
-	 5aFsRYNFNQYFuXTwyKR8kn5kFWN70G4r5uxw4u7S8+mqYtR9KPCLZskJkdq7kHd6aX5ha
-	 5Hr12rnsK3agRfw2oJvfwNpagJjfdioNi6uImKyc9Vzq1+Dfs5I3JYw2WDx93EPGfyw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794408247;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Content-Type:Date:
-	 Message-Id:Cc:Subject:From:To:Content-Transfer-Encoding:References:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:
-	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=b5WgpDLR+syWnxL2NGPguulS12tSuYnGQp3CY6he0lo=;
-	b=dRxUudU4SlkfC/UOuMropBlaUJunV2mSjaHiQ/bnXxq2gpf34tZunC6Jv6ENKKso46b7
-	 Zh19YCEnHVJBsRqsKaRRVSib+Ww96lTJkTG6OekGulLbA4EaJyaktN3gZ1CDOnFDab6aO
-	 zhNnNPHJfsz01+Js2N+VUz182O6yxcWOYqRLaH20PA6LY4+JhEjmURMhRDSvQ3VwUYu6I
-	 zyKBzDb8hr/cs2RdXZiCi0yMXqTnreG03O0biPDyWFS2WX+GJk2M6uP3T7tPbNoWAhZqn
-	 jO6c6NgDgd3ArPu0zJ6lsmXcWsZLmukrQIz39vpJvEsOUrCXsiS1bQwFZhnhM73llpQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=rjybC9b1;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.55
-Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011055.outbound.protection.outlook.com [52.101.52.55])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794408271;
+	b=sJnhsc0rbMcFCqfl5ncQk3ckJBUWVsBLpy8yS8xyQZIk2UJNbNh0hO0W3ONriVl7cZyS
+	 MTVDpTWdBGrgtAUSnTFchY+OtcPRO5TW31O2jn4yJ2xqFywXn6pm8oRmhPCKqQK1Z19Kp
+	 Oof6fX9kp1rIZkrzMVN4n8zM9yiIQ2AJReRoJImwvoAtL2fUsSoIUa5fjPOEEo5bfsMnj
+	 /f/puiKcjP2LxQhq0bNAAAYw9OT9am4L1T4wd6x9CATe6Y1XM8WMSG3Hl+cTt1IonroCy
+	 AKmiPxsb1y69de4fHWVsDaU9KBNgSrQrAwpO+wSDy75/MbX7W3Fwr+FCJ2H68/sUdlw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794408271;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=dr/c6inyZfcsokKdZljfnN0MuHP4f675XnQJYTzje7k=;
+	b=x9v3a/tElyPYfFCNvmzMbVdQuMeJOG6YretYFou7o/lL1q3W3fSvjHaAHYcvHwsOR4Bz
+	 ffYPv4qYRniQSW0mqmx0I0KzYERrRTDFRlFxMfk/P2v1eYUzC6ktfhjlR6Q8BpXHFegv8
+	 IH45pG/nTIEPdnx7G+DG1u7O37iQ4HgX7+IXTVEsxAfcG0PYt6ysLYjRmPhyzVWd2qQD+
+	 pzAB3PWRFaxKZchOLGpIrvfa5d9Ra/Iwu8o5Bw3e3Fesx7VO+XKAcfDNbCjSZworIrL+s
+	 mg3IDUuMFkq3FUJmVWQ6sygq1T6/Crw3G40Y/mkVukJe5vETYwNrIXngxDvPUYoZYRw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VcsgH8HM;
+	arc=none smtp.remote-ip=209.85.128.52
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF19B606A326
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 14:44:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF19B606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2DC5606A32A
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 14:44:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F2DC5606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=rjybC9b1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=SRJSW57xUlmFUWGSFlpcLWBG/n05weUVI+LKB9n6sA6yShqEY9wHEgtrBtuFoQCpBz2OxxUbp9fdOY0BAXLNQyNWhNDb0aC1ekAXoxscGoKjKKCICDncAS0mLTQgeggLUa5IlTm9+c4WZJIArrWOvOFaKrkYxZpgMtuWtOjhXIxSxep4xTKVjKqX5ByMYawyDcPelitNzysOi3rzXaKKg8D52v6jTc0lGRbYLrcvaM4Ay/nrRCIRZWmanLhQVsArRD1TBEpHBw5y27QTQVGDGhzrYyomlwVCXaEhOsQKw+eX8xGmzt8nBzhwocYN7msQQqbzokEKcqVMY8ipiCyDyw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=b5WgpDLR+syWnxL2NGPguulS12tSuYnGQp3CY6he0lo=;
- b=jGnw8sbfmO5fdHqnaV3Joya7SzKyv99f1Ifh6OUYpoBvxq/5MGo+apnGVeU+9Nx40TTNv8eX+P7XPTUjELOemo1HNJZ4WZcyCCoJlMJ164pnBJXIYQmd04uJ3d4lPhfMV7PcrP2XC+GFw/XYBCNMst3GB80sLxQFieK+f9BfrAcMOao5mxVbeReP6nuaqy3vhF5IvwKyurR2K0vwzqxmvVdDswXctbBfOsu/ODSxyYVlH1KXNi74zZUAVUth/vAtL9B5iHgOEO77D/W+viphAI8uO71uM1wY1f3Sxpda2luxhP+ITiIIt5vuUDoa0GKmPTRqL9X+mtpb7hwBnM+AeQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=b5WgpDLR+syWnxL2NGPguulS12tSuYnGQp3CY6he0lo=;
- b=rjybC9b1uhdV53O+RUUu1oIvR8B/G2jiu64EK3tXYT9IiYrq+1UecWLEI9RYg6sQLLkh99Tt2H8XSc3Nzf307svfo3aXrsqdnYeVCk+1AgHtSWDT2+0d7owvEonnMH0mDNBRGdXmTAUPCIA08bnxwVDCkY6wjQ+n+rrBJ40Y6EW1SkLWOVPp8FovLpNi/NeVYJr+PuPhEOTiKgX09zSehtc4EalFaGrPF+GaU80s8auENnxYkroazJOL83kviYSCi2Hulr2yt8dJVWN0zHPVaxRmCmQFYj6pz8ICeAjCJgFCL9/3U2lPjBzDuDLeiBhqGnx8iErKvr2mi0Q4Mg0t1A==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
- by MW5PR12MB5651.namprd12.prod.outlook.com (2603:10b6:303:19f::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Wed, 11 Nov
- 2026 14:44:03 +0000
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0592.010; Wed, 11 Nov 2026
- 14:44:03 +0000
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 11 Nov 2026 23:43:58 +0900
-Message-Id: <DMSGMSTFI1SV.136MRMDX1YXLN@nvidia.com>
-Cc: "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
- <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
- <simona@ffwll.ch>, "John Hubbard" <jhubbard@nvidia.com>, "Alistair Popple"
- <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 1/2] gpu: nova-core: gsp: cmdq: wrap the sequence number
- on overflow
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Eliot Courtney" <ecourtney@nvidia.com>
-Content-Transfer-Encoding: quoted-printable
-References: <20261111-msgq-64-pages-v1-0-d8c56b6fdd6c@nvidia.com>
- <20261111-msgq-64-pages-v1-1-d8c56b6fdd6c@nvidia.com>
-In-Reply-To: <20261111-msgq-64-pages-v1-1-d8c56b6fdd6c@nvidia.com>
-X-ClientProxiedBy: TY4P301CA0112.JPNP301.PROD.OUTLOOK.COM
- (2603:1096:405:37b::7) To MW4PR12MB6873.namprd12.prod.outlook.com
- (2603:10b6:303:20c::17)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VcsgH8HM
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4ba013938d7so19782445e9.2
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 06:44:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794408269; x=1795013069; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=dr/c6inyZfcsokKdZljfnN0MuHP4f675XnQJYTzje7k=;
+        b=VcsgH8HMjHh6IbbGvxMNETPS9g8apuKNu5eJ5iW0JHzhfFRLyj3NgajkhFNAEktPCH
+         Tcxkxens/u5o9tOI+SgiHKSYztMgHT+ABtnAa/EAIdKklMdVcpK/v+qBjQ3JgYAoAv0G
+         A9u/9sqv+BXhyVzbudCWvmcPV77gPHc2wZ0H38yV0/1VK7iOn3oNH2rTeh57ASrPNQvt
+         GpJtOGRaKmmxu3k94Y0w8XyI6IjWqm4UuXTIwEOYbo1fe/1UaHehatmslLRrbI803Tr9
+         3b6AW5APnF0RV//L+nunU1R1VTFuVOtQUv0FnhGENHp8O7W6phoFeNWzKEF2RVFBnyIG
+         ZUmw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794408269; x=1795013069;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=dr/c6inyZfcsokKdZljfnN0MuHP4f675XnQJYTzje7k=;
+        b=mNCcVt6qNJhJnPzx+n7AFV+H8FJSkl8ew+h/X+oFi3rJmKZEFAqBye639NlEZxfG3o
+         8Dq4wC92wQwaBOdxNGlRBeRWNApzusUj6a+2nj6hkheLG/KI7HP7eBEItJxG/AxiN4yM
+         c8yvtanXr/+6wacQS15EgMPPTNAnPRgeZ7l4ns0LfzUVKS6WOqBnO7DLpep11bAPx9be
+         045OUMwINGTo9yZBghMeSB09Q6dE8rg8g35e2A1QT/b9rYIAx3wZieGa04Z5rXMabEi9
+         bAYvl985xJWZ2Jtc7GOxwxwYlbtfil84joGCLEwhzeOz3pgjQrsM5bmSeTWoFy3BdZLB
+         kSqg==
+X-Forwarded-Encrypted: i=1; AL+hErHVU/UNoxuTT2wnhgIbd3J9I9+D32B8tmeGIxzJ5I8pBFfYkCM5eDesdjDOkt0xt9NQ16UZbZXnIXKG9Bw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/h6RjAz7hooQuVOr6zt+VO7vhS+7t1tTGL7tNGvHJ6H9g3kJ1b
+	MIpqVEeKjlcTMlUDt7zB4dCZolEnpbTfIOY7f6s76AvPe6f174qNSiOf
+X-Gm-Gg: AYBFou1En9ucN21xr/Nnhx4XflwLuhNEVegT7RguRun+TNptN4OrXo9HkyRofr6seXn
+	1AH9hMwnRtuw2RMA98R4DlFA5L7ADoZ6Z+AEiO/LmPd0HtW9ds9KLuXEZxWzk7crY0Yh0iXMMk9
+	LUXfQU1tWWnKaDT86Ccq66S2/TU69u/JXyajJcQyw1/oInRJnMpfLR4LRwvTMqtbUoVtuPOZNAN
+	+k3hE48YhesW0FEUNa4iEsfJFhjpPZQbT0+IP1eJNDdemBK3karz0hORTQOJZkgviFsVPdO5Rxo
+	HjY0r4BJOl0X+7BygzTIZv9GMCygcFAeq3hZ2RqKfdaVfHQu0gJHDFPqGjoQKJb4t2qq3OltcNC
+	uPRIBwW14+VtS8uebD/nOn59Lww74FB9r7pDdOnHS+HK5A34f4wi4iLXWNSsUuajkW6630FUTUD
+	LQD9LtUkvT/O0a2Pkvs5nWy6s3ClA+LjW4MqotBAdVJ2dnmY7/OGilwn/Av+xqdik0vSSbT2c3h
+	KqPD0dtlPjOrbdk5KT4eskHQMB9P5v0sjZ57k+rAy5wT9xCjlENHyDICd8ctMmZ3tqNjxOCRPmm
+	5tP20S1M/UfarKX4Utmkc542GwYf4CmvWP0=
+X-Received: by 2002:a05:600c:3b01:b0:4a2:a3b:7aa8 with SMTP id 5b1f17b1804b1-4ba09344326mr47001535e9.3.1794408269178;
+        Wed, 11 Nov 2026 06:44:29 -0800 (PST)
+Received: from dev.Default ([86.127.229.203])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba08de826asm46656495e9.0.2026.11.11.06.44.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 06:44:28 -0800 (PST)
+From: Agustin Santiago Isasmendi <isasmendi.agus@gmail.com>
+To: Navid Ghahremani <ghahramani.navid@gmail.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>
+Cc: "David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Junyang Han <han.junyang@zte.com.cn>,
+	=?UTF-8?q?Stefan=20D=C3=B6singer?= <stefandoesinger@gmail.com>,
+	Felix Fietkau <nbd@nbd.name>,
+	netdev@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-wireless@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [RFC PATCH net-next 0/5] net: ethernet: zte: zx279128s: offload flows to and from WLAN interfaces
+Date: Wed, 11 Nov 2026 15:44:21 +0100
+Message-Id: <20261111144426.1321237-1-isasmendi.agus@gmail.com>
+X-Mailer: git-send-email 2.30.2
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,78 +108,98 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|MW5PR12MB5651:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9e602954-f2fd-4c4f-4f53-08df40023a71
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|23010399003|376014|10070799003|10067099003|11063799006|4143699003|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	eJM8DFRI+suki+R2xH5hHb9t5mCB41h8E5JeTID4LiNR+pF9n0lRY+9BojLMo7HfGvfOEaYO1rPSSmmVDBnpC8YlbBxXp/fowAe/IcsqcWCpCot2UPzNAM69pBbWivACKYmPmkHpiuYYrvsKh6NcnRJMulGzozpbv7RIeacYr2aH4n+odoyInspfKk/RlSJJu79YWPraAzGh3pUWS0QQo+7dadJEbkMznFT42OAYFh339oCxGbvTyJh3Ufn+f2E1PCFqa7dELbFlDvIpkzE+dIXgFnLLnyshSfE5am6pMW9lF5oAp+N7VKRqGv/2VI56ReVa/CqoSIZdip5ehubJ2tH4PwazmnSZpjCuAFWQ7UgCjvq6g3EBErosuyuRteiboTmy7g8AgWA7K79J1tzi4ZtvLQyZZLxxTlvNfiroMzXCTZH34P2BzFmxTWp+1iIoAHr56hre1MiHevRt/NQ7eal8x0rnU+IqdVL1q3GdVFTOeIgh/tGTUyL73yZfqHq/6jrprQjj1xyY1xmhjRqNUzm2iAH+TX/4ehTqt1o9HVcaiWTy/AyweOk4O5jF5DctlpN/dXa3rmAyVU0KnNPPZA8VdBRYFtrHyn6FlT0oC3A8Pr3S5PrByrIH+Ru19k3dcfXJeuDGPMynzTJN5zJhoPm1o+ZyXgcNatozd6osx/s=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(10070799003)(10067099003)(11063799006)(4143699003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?U1NxWm5FZEJEUUFPdlgreFNHZUkyZjlFRWYyR1pPZ2ZjWHFlYmlZd1N2ZEdS?=
- =?utf-8?B?RWh3THZBREdlRTB3ZXgwaEtvWXhQVWhndWhPU1BUNVA4Rkl5a0ovTXZLQmhl?=
- =?utf-8?B?TnJHbnZqVDIwSjd3cEtSQUNaWTJCQS9PdU5ndmpFZWtiRWVZVVhhMml6K3Jr?=
- =?utf-8?B?NmUzNTRBbmZVbDZLNHdhcjlGMEp0QUI5a01Idk9zR1p0SkNkRWVhK3l4aEdU?=
- =?utf-8?B?RmFNS09WbzRWWnhLWU5KRVkreWVYNWE2dzZ2bFp2V05rNDdrUFRWSEpUUi9q?=
- =?utf-8?B?VGlEZlVTbVFzUjI0MFBmMVJBT2FnQ2wrUGJOTlhpZ28ycEl4U0FYQVJlOWMw?=
- =?utf-8?B?TXI1Um0yOHNBOTZ5ZnpFb2pzSTkzWEcrMVp5VGgzU09MVWJ1S0plWnE3dU8x?=
- =?utf-8?B?WVdVNVZnZCt0RXRueUM1VUFIcjFYVFJsR3U3MDNMZ05hYVp6KzNDZjFYcHpL?=
- =?utf-8?B?TmlVMlBHa2tXa3JzZ1kybFRZaTY3WWRMZHFKVWhTRTB5RWk0cjFQbXUwOXNl?=
- =?utf-8?B?aUpCcW00TTJPY0h0Nm0xQlJqZkFiSDZJQjlITkozUUs4ZGdNMXQyei9aM3VO?=
- =?utf-8?B?WTJXdGlub09mV3l2ZjZwaXZ6ckRYUWVxbzQ2b1M3YUNWRXZqajVjL2lrdVIy?=
- =?utf-8?B?OVRNdXNXQTQ0ZWFGY0hnY0Z6bjhza2p2L2pwU0dWSlBsdk9mUDQyMmJkZTJJ?=
- =?utf-8?B?bzBGNnVjblU1QnhEVXVEdDhmRkN6eXZTSk5wYVJiQnp1bXl5Vk1sTjREemg3?=
- =?utf-8?B?cWNmTGxHa0s5YXpHM1d2YjZoa29KMklvaFZSQXlPUjRQbkc0bFJPMFdmbjhi?=
- =?utf-8?B?ZGg3V0lPeE9YTEFUZmFtQko3NlpBTCs0QS9abGpwTWs0V3JwcTlPWmY5NTZH?=
- =?utf-8?B?aWJ0aDk5Vktnd0R2ZEdXOHlKYktOZmxPeG1pcnVPQjU1emlZZkd1a0ZiWklT?=
- =?utf-8?B?OHRlK1RhcElDYmM3SkpCYmxtbGpCc25oSDcrSTlITmV3czJDZjZFb2s0cDQ1?=
- =?utf-8?B?Um5qWFU5UjQvUHhxVUFGcFl3RlpKdXJFQUxvV0o4RXB0Vm0rOUIwc1VOdHhZ?=
- =?utf-8?B?Z1FNZ1gvUDZFWFpWb2xjRnJtdFhRcGo5NGpXd05hT1E2ZFB0ZU5oV3lYYW5G?=
- =?utf-8?B?VTJuemdGd1ArVXdSMmYzUFdDYmcwVHM0S0hFazdmTGlPVG5GK05ON3l5VHht?=
- =?utf-8?B?Uk91dURpZVVTOUIyRVQ5Qm8rNVpEOEFGNHpTNzBHcVhjZ3JHMGNuTlpFYUdC?=
- =?utf-8?B?U2U5c2tWbkZOVzNKRHRVeWVEVTZkS1cxam1PWGNpSGc5Tzh3Q0R3TWtYRFNO?=
- =?utf-8?B?dTVlbW80VFNra3M4UkZVWVhsOVFYeE12SllQdnJ6MWZ5NWhiVVYrTGx5MmxF?=
- =?utf-8?B?dkRNZVdaMXVSOWdUT2N1U0tHdjdvc0ZmcVRFTWl1L3lZRUwrYlE5ZEhBWlN6?=
- =?utf-8?B?YlVuNFlrTmxtQ082TzVLQlg0TjBvQmxPRFBWc3EzdjRsR0NYaW83QkZPUCtq?=
- =?utf-8?B?YTVHei9uMTVpYmN6bytkeTBTRThMbWpUeHV5WFdyTnJVMEM1dG15cUtCTnRC?=
- =?utf-8?B?Y0Z0TDdhVWtPMm9icHVTQWJ1ZUZwSXVGQmR0ODdWL2ZWUGxPYU5OaW9ZZ09u?=
- =?utf-8?B?bHZrWkFlbVk5UzBEeHJtakEwbm9XbW5zVGg5WnZoS3VlRVk3UlAvbWZNYzBH?=
- =?utf-8?B?Y3JFMVp4M0xyV0JwanZYWitjbFR2WlQ4T3EzcHZYQjE4cnY2eTdUSTFHbGE0?=
- =?utf-8?B?TWlLMy82dlR4SHdHaHoweEpYaVcrQ2lZSDZtcGtBN2R1TjkrNVdnUkdqVlBQ?=
- =?utf-8?B?YkRVMDhJVHdjTlpvNWh6S0NiMkVtYnpWSEdidmZCeHpSc0pmWFhuUEQxQ3NE?=
- =?utf-8?B?TkxUTmoyNTQxRTNWcFlORGtDWmN0WGx3SVNjRjcyenQyRXk0ajFlZEg5b1NZ?=
- =?utf-8?B?SFliNHdmYUlydGJ2U2tNc1hnZEZUeGdHNzNXVWJERjBHdFNGTDEzSDZPbCth?=
- =?utf-8?B?S0l4K0pQVTh3Y3VZdjZTYnFSWTY1eUY2aFN1aWxndzFDYm1jTlR0U0wveFEr?=
- =?utf-8?B?SkVWUlc2RXRuSDVPUkRBbUtpSStkNURZWWE5UE9mUWpOS29jaExXWnA0UkxP?=
- =?utf-8?B?eXhKMkNoMCtadVBvelhCbDlab2FkelBFVnBjQkRuWEszdm53K2cyRlFjL0pM?=
- =?utf-8?B?U0dLSlRJOXlEeFdybm5ad0JhNmJWM2ZRVUpKT3k0aStmaHUxS3lWbkRuZGR4?=
- =?utf-8?B?THJ4Y1hwKy9HcFB4bm0yMG44eDduRmVmNlkvdVNTZ1BwV1B2SFZvdHNTN2RV?=
- =?utf-8?B?SzBEYmtHT1V2VnpncVN6N1FuQUZtSFdLWnh1U2FMbVYzNFo0b09oTjY0VUo3?=
- =?utf-8?Q?keq9V3UjlYKeCIQfcGCpJRLQ02y89rlVF2cZ+/0+4eA/U?=
-X-MS-Exchange-AntiSpam-MessageData-1: oB7Q1oUQcZrppA==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9e602954-f2fd-4c4f-4f53-08df40023a71
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 14:44:02.9306
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: C5QP/xirSnZG7p1qrsilhXJWyWYjw/YKJuElOzXGp1jfoSGHmfcF/IdjSyd0tGVrtox0tUjWgUnpU8Af4pcHAQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW5PR12MB5651
+Content-Transfer-Encoding: 8bit
 
-On Wed Nov 11, 2026 at 10:37 AM JST, Eliot Courtney wrote:
-> The sequence number can (eventually) overflow, in which case we should
-> just wrap it around.
->
-> Fixes: 75f6b1de8133 ("gpu: nova-core: gsp: Add GSP command queue bindings=
- and handling")
-> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+Hi,
 
-Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
+This series lets the ZX279128S switch driver offload flows whose ingress
+or egress is a mac80211 AP interface, so that WiFi <-> WAN NAT traffic
+no longer goes through the CPU's forwarding path.  It is based on Navid
+Ghahremani's v2 platform series, which adds the SoC and the driver:
+
+  https://lore.kernel.org/r/20261014072109.1759502-1-ghahramani.navid@gmail.com
+
+The switch fabric has a second DMA engine (a ring pair the vendor
+firmware uses for exactly this) and 16 "WLAN logical ports" that a
+classifier entry can name as ingress or egress.  Patch 3 adds the ring
+and the ports; patch 4 binds a mac80211 interface to a port on first
+use and accepts flows from the flowtable in both directions; patch 5
+adds debugfs testing aids.  Patches 1 and 2 describe the engine's
+interrupt.  The WLAN drivers are not touched: the frames the fabric
+forwards are handed to the interface's normal transmit path, and the
+frames of offloaded flows are picked up on the interface's ingress hook
+and injected into the ring.  Any mac80211 driver works.
+
+This is not a WED-like path: the SoC has no block that chains the two
+DMA engines, so the CPU still runs the WLAN driver's own transmit and
+receive paths for these frames and moves the buffers between the rings
+(no copies on the forwarded path).  What it no longer does is the
+bridge, routing, conntrack and NAT work, which is where the CPU time
+went: CPU0 drops from 54 % to 13-25 % at the rates below.  This is also
+how the vendor firmware uses the engine.
+
+Sent as RFC because:
+
+- the base series is not merged yet, so this cannot be applied as is;
+- a mac80211 AP interface cannot be put in an offload-enabled flowtable
+  today, since mac80211 answers -EOPNOTSUPP to TC_SETUP_FT and
+  nf_tables rejects the device.  This series was tested with Felix
+  Fietkau's OpenWrt patch that ignores -EOPNOTSUPP there
+  (target/linux/generic/pending-6.18/
+  701-netfilter-nf_tables-ignore-EOPNOTSUPP-on-flowtable-d.patch).
+  Felix, do you plan to send that upstream?  Without it, or something
+  like it, this feature cannot be enabled on mainline;
+- design: binding a WLAN interface to a switch port from the ethernet
+  driver, through the interface's regular paths, keeps the WLAN drivers
+  out of it.  I would like to know whether that is acceptable or
+  whether this should go through something closer to the mediatek WED
+  model.
+
+The SoC has an unrelated problem under WiFi traffic: a PCIe read on one
+CPU deadlocks against L2C-310 maintenance on the other, discussed in
+
+  https://lore.kernel.org/r/20261110153522.1620088-1-isasmendi.agus@gmail.com
+
+This series was tested with both workarounds under discussion (a lock
+around the PCIe reads, and the L2 cache off through the device tree)
+with the same results.
+
+Results on a ZTE ZXHN H3600 (MT7915 as AP, a phone as client, flowtable
+with lan, wan and the AP interface, NAT on wan):
+
+  WAN -> WiFi download     393 Mbps offloaded, 109 Mbps on the CPU path
+  WiFi -> WAN upload       186 Mbps (capped by the upload server), 60
+  30 min soak              111 transfers, none failed, ring counters
+                           consistent, kernel log clean
+  cold / warm boot gate    17/17 and 5/5 boots, offloaded traffic on
+                           each, no hang
+
+IPv6 flows are not offloaded, as in the base driver.  The register
+sequence and descriptor layout were reverse engineered from the
+vendor's GPL kernel.  Builds without warnings with W=1 (board config
+and multi_v7_defconfig); checkpatch --strict, dt_binding_check and
+dtbs_check are clean.
+
+Agustin Santiago Isasmendi (5):
+  dt-bindings: net: zte,zx279128s-gmac: add the WLAN DMA interrupt
+  ARM: dts: zte: zx279128s: add the WLAN DMA interrupt
+  net: ethernet: zte: zx279128s: WLAN DMA ring and logical ports
+  net: ethernet: zte: zx279128s: offload flows to and from WLAN ports
+  net: ethernet: zte: zx279128s: debugfs knobs for the WLAN ring
+
+ .../bindings/net/zte,zx279128s-gmac.yaml      |  20 +-
+ arch/arm/boot/dts/zte/zx279128s.dtsi          |   4 +-
+ drivers/net/ethernet/zte/Kconfig              |   5 +-
+ drivers/net/ethernet/zte/Makefile             |   3 +-
+ drivers/net/ethernet/zte/zx279128s-eth.h      | 124 ++-
+ drivers/net/ethernet/zte/zx279128s-main.c     |  18 +-
+ drivers/net/ethernet/zte/zx279128s-ppe.c      |  92 +-
+ drivers/net/ethernet/zte/zx279128s-wlan.c     | 874 ++++++++++++++++++
+ 8 files changed, 1114 insertions(+), 26 deletions(-)
+ create mode 100644 drivers/net/ethernet/zte/zx279128s-wlan.c
+
+
+base-commit: 96b4b72978e9fcfdd74f809c159f26813995631b
+-- 
+2.30.2
+
