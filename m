@@ -1,98 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.100
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.99
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794376813;
-	b=HvB9ubiyfFvaLoi6yCIseweMMg+4gzr0m7Lq9X2O12/hx4thFluZVi3OULeqJJZVSVUK
-	 LUV9Ff/syWuMYkMcqsYLTcDb8GV7aTu+srB31S7K5XXU9Kc/DZNOdW83siUTNel1w5dOH
-	 uRXb2giSbA5CwJC9SxSpyebCZComEcApmh7VjKWLExCaduRET5qGKUtN50tmXBxJQKhg2
-	 e3DVDqVxpeH1eL2oXGBKkCVin9Ry4Sk7EBPmkdtgIALC9PWHPY2spB0SyIj3650/lPrym
-	 7S1a6RCIyhmeTjAEke6XgyKeRgOOBMdO7c8TuXV0KFfgUGNhlSkc5dBYC9SYWzt8TEg==
+	t=1794376808;
+	b=y7qhJgR3o1Gvm0wbMGJf7WPATMAearwyyKUR+3nXkHb7MlGK70LchHvYrWLIOCcp0ld+
+	 FRCshLVD2Ip0NgAOCQ5NRk+pAD3RGxGeDnLmx0n7eA130/QwUbn534dDgs77far9+Tc3i
+	 HzqpEPQzTZ/3nDM07Ix4eFlZbj48fMUWEvDiGyuNnC2RZElL96GAsmeyBvVoUTw+KJ5n/
+	 gWyfDR+Vdg+fiD8R9sls5xYjTgQYiiNdDgDWiVWTpu+znGR0OVBrIyAvmO9nraWwj1ceF
+	 r1cfeJB4+FL/orUa0Keb66TroFYIJEH5blvXIZlx35kRKyJYEMzpPRNMT7DPjPJ06ww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794376813;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794376808;
 	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
 	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Received:X-Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-DetectorID-Processed;
-	bh=Op/9/DpgcKIe0jcvYLiJPNqXkkmx6XxpHhTMkcCwGrc=;
-	b=2jB0BjijKuSmHmgRuledT+zRIxd4Ppa678x0ePeogQFKsF/FBBDvMo6w5f7cDnwdIagJ
-	 7AHnJ4Gy6LLiUx5PBbwxyOeikZt+FH/HmiUsjlGHzkpyDe0EKKGMQrI9Rhro+s6Z/l79X
-	 zzgEU9gcXH93/5aS853Ww7cK0WApNEm0hQquCDlzDmbcNCAzs4vI9No9JcgDxz6RETAth
-	 g431X/h4PnBiIH0nNTkZCxOwAvqgIvsJtRLJ03sX1A+m1DRcFT8xl7gQXGU2FO3t7DeVU
-	 WFKuc7rF6yqavjsCkdEi6nOr8QL2VZE4oaB+vHEhgEyHb9jLaoUVkMcGMQXaSHpEgqA==
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-DetectorID-Processed;
+	bh=M7BMGXRbrng59A71K+mamsi43ullJvLvqNPOWu4+ieU=;
+	b=nG+adDyU06Apn/8qy07BsuvmYO4bH4ZomhmRcB7cboh0AzdYGTjPhFeMK244crBrsdiV
+	 cBVedvxno0pnnYlHK9Em5syEvxqPA+ENJTlyx9QmLsYU9/ctlosF87RoxSQHeXWBg8szb
+	 7HhJkStbdaJi0nrmLFxOMdO+nBAFA43dV40EvJWUJE+5X+rrsph93h/dQeJ6zCaTIvRvO
+	 r5moEMFTaqkIuXy7V+U3RJtFZStZqBeCir7jLFx79zEWFXqOVQG7eMcbwfvwxLQ/Elq0P
+	 TzMIqeRHLfIedwDiG8jtY0iQLI2VJfadRGRGvN0/3FLr+eSAIR/73BGf4xVJO2gYAbw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=broadcom.com;
 	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=ZjFvApRI;
-	arc=none smtp.remote-ip=209.85.219.100
-Received: from mail-qv1-f100.google.com (mail-qv1-f100.google.com [209.85.219.100])
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=KgLmSMU3;
+	arc=none smtp.remote-ip=209.85.216.99
+Received: from mail-pj1-f99.google.com (mail-pj1-f99.google.com [209.85.216.99])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 406A260A2637
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 06:00:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 406A260A2637
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56E5A606A321
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 06:00:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56E5A606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=ZjFvApRI
-Received: by mail-qv1-f100.google.com with SMTP id 6a1803df08f44-91eb46044c4so35277066d6.1
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 22:00:13 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=KgLmSMU3
+Received: by mail-pj1-f99.google.com with SMTP id 98e67ed59e1d1-3b12cb3c37bso1433806a91.2
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 22:00:08 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794376812; x=1794981612;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:dkim-signature:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Op/9/DpgcKIe0jcvYLiJPNqXkkmx6XxpHhTMkcCwGrc=;
-        b=mm4csvSF0b76Qx54lMhXJgdjEZWw/q8FYyL9PBHk05GA/B3/Ysi0F/5hSn6LqhktzR
-         TLuy5uRQwtlemCeV+7GR4RVtFtkzgEj/71aVKjZpmb9wxJXws2KuazaPKDHpdt2HOG1L
-         VieZ1uwLXb1kbowJH0WaRKyr+7IMcGpklrO3QLetUSUDq1yeD4XCNmBOhZRhUspvK/PR
-         yXQbEU2GRR5qJ+pmqCo4Ttuv7dA8iqMV+YHWwf6xEzM67BuX0BfAiZluqvH996DXOeI9
-         2THytkiW0Vqg/i4L2J3A9jFRlgenED6jl3VS71KT3F/+wM4Wo2Ke092fIsoEwmdnOePw
-         zaaQ==
-X-Forwarded-Encrypted: i=1; AL+hErFcKwMVO3xPYI6XjTNTZkXkJiMuyEXE6KHi7v/b+oQCgTlfXVnDPc3Co8gB3uSsGwvkFUli+j2BzIL5ojY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z933gQc6PYuT2dBpVc4CwsUISp3cJhDMgXw3i7ayImYN7iEm1nj
-	b/y5sgLBNpNTHp4jF9bC48pRA8Q6nAovs0e7/RjaCKN/UbHG0dIhjzYRJfy9gODhTlCrQAqY85c
-	q/GtuNW6rdSYbqTwGo7H8yGG8t3698YCIWGPYQPPO+6RResW5bXOmPTvHsqI9PR/X2kEtD7bRXZ
-	GzEYpfrLTrXUzFhB6TrO0vjj174x68zg95O/MsMHtl8wv+DK4KMYaxYJ/WHux9OYB7hPs/QfhmK
-	UZ9d6FqieTCcXu8
-X-Gm-Gg: AYBFou2NHTtOnQMeop/xZFQF9FiAaEeK/Dm1yhvG1y1sOaoAaOa7fiT+dhzABY9Gc0Z
-	05mlJ2Is0HM0HE7ZtDhqH0hG7p51EkkfBBAJGpaOFBN5VSVtAfTfw8csmrgQ5/8lziys9Q3maVd
-	y4v0HEJWBxNYygfcS+gGmIwueOjdneAJtaR0uKY1MyRVI+y8kdAgUJyd6+u1Kd0ZoLXNJDU4DU9
-	WSGev3DdQ1WYE3FrDgNogW76amJsTGbw43hCCRleL0rAsb4n7UUXhQsNO6Qye/w56nUz4k6bBcr
-	vTul5vExLppuddPM85GA7CoQ+q3iQ17cfnfn+6nshLkajrBnCZ/qPys0Gi+KyjjDnUlRcJ/h1//
-	mkt157B7trnRr63/anhavlGaslRKGWNkgPk6g3DajhAvIYDBa0XamFaxQAVHjNqoQOBCmGFCx8C
-	DyyhgLiAWms9SO1S3C0EJU/YxU2dhl4v/t
-X-Received: by 2002:a05:620a:1713:b0:93f:334e:df25 with SMTP id af79cd13be357-947b00388e2mr222328985a.41.1794376811991;
-        Tue, 10 Nov 2026 22:00:11 -0800 (PST)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-28.dlp.protect.broadcom.com. [144.49.247.28])
-        by smtp-relay.gmail.com with ESMTPS id af79cd13be357-9479efcea89sm53476285a.12.2026.11.10.22.00.07
+        d=1e100.net; s=20260707; t=1794376808; x=1794981608;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=M7BMGXRbrng59A71K+mamsi43ullJvLvqNPOWu4+ieU=;
+        b=mOKfvfXsCIYEz4YU1Ahn7Wfdcn1O/3uZB3lJw3JIOHSRmtRKwGaEOJFhNbprBt0cDk
+         vO+FFLtRnBOHUJji1EOzvdZbM4GpZMfrI8m09flDo1vI4PZqBmmGx+cUf7yoEIokhyP5
+         0V2aRJ8aqOJyaDxbxYXUmFSzWvkZxIpl9t2a2KV8uC112pzlThLHFRYRVftNb98Nk07S
+         LvUFycyfdlyccikRM0sgg/rRmlfCilrn2jvjROnLLCRMTX9mnKBVlfdTFt0Ol2xjpc4C
+         CyJhaDfd7Sms0g8PrZIClyADuhd3SNO2pleljukdgNYf/KMeVbT6ooH1AXGK4EhNbXbB
+         ypQA==
+X-Forwarded-Encrypted: i=1; AL+hErHUjx5/Q8PVGkMXlSPYRREpgKxTlEyn9D3xVisvXxcjji0sFujS9P46Ouz/RMdk7gGZn8qw1nKg6KvquOU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/JSuS7Y73gBTFWYIt7hBj4DoYkhO5xP+VeNhMARJiwf1+DsjdQ
+	63cvQ1x7JXJ9eooJcdN1HRBmDpQARlkx2BIQGG0kNUbPW70afqWKQZtCx0k6jNcQ26tuG5NxwlT
+	LohzB5s3/mnlFmBADcmMuHuHwjpqkiueKpbFesqjjrd1dFOl59nmTs180fxM+ew27CjDtdpWc71
+	fc73YO5FqqAtucrT+ywyppNTUjOuY40M0eBnswHw3eDXri1KzUALoTReod8aPISZwb4Fes6mZ6X
+	shqie+AmtZvesvh
+X-Gm-Gg: AYBFou0sZV90RfsVW7jw6V7XrJJU2MVW1K1li4MsiNWAlRe72D9/IvN5VxBWlbNq4rp
+	QPV3gjp9xAFh76loKxdBOFEArok1+XnEuL4QdvhN9j96lHCbU3poQYeOjEyLaVZ211divhDLcLz
+	0xw8IDE8oJDjFpisRjnm4Jhlw9z4fdfWBEJkWYbJ0QH2q0yqWHM8UiE91vXYqo8MJPBHekRkskV
+	i3xC5oDEJvHv18gEDnS9ECd6ud5JRLWqgfa4t7E246Tk2PyAi+Z2oynBbt1AbJ4T59e5Qxgd+6V
+	gmNaIUJ/hwKWrEm3ZHHPIWO5xX++dYNLpDwdLJT10TSUc7WDIWw44+hvwfd5ZQ0ehlWNRxz/5bF
+	PGtclA/6w6Wdpd9lYotGs8/UouWor25jD68Z7xNEm7FvFVbx3d/tZMGySE0qHqUl5loJ7Y/iXad
+	4WlEByH0WSXYPy0m57+1myMjdesg4hWH2d
+X-Received: by 2002:a17:90a:c888:b0:3ad:1da4:2ddf with SMTP id 98e67ed59e1d1-3b182f852d5mr1328365a91.51.1794376807392;
+        Tue, 10 Nov 2026 22:00:07 -0800 (PST)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-22.dlp.protect.broadcom.com. [144.49.247.22])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b17e0dcaf8sm1370050a91.3.2026.11.10.22.00.06
         for <linux-kernel@vger.kernel.org>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 10 Nov 2026 22:00:11 -0800 (PST)
+        Tue, 10 Nov 2026 22:00:07 -0800 (PST)
 X-Relaying-Domain: broadcom.com
 X-CFilter-Loop: Reflected
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93e49a1d3b1so677351485a.2
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 22:00:07 -0800 (PST)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93f2005ce21so545376985a.3
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 22:00:06 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1794376807; x=1794981607; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Op/9/DpgcKIe0jcvYLiJPNqXkkmx6XxpHhTMkcCwGrc=;
-        b=ZjFvApRIFsh5X67BEGnT6S/tCiy4gMnxOiTiBifW6Drt+KGNJIneE5/tzwMbbqtCaI
-         wWn/hwbp5ViDEJsqFOytKVMZJF4tQsgDlD81YvXuiLTVio1CuU3HnOXlzvqLWikXEJ58
-         EQa5SyazNYqU9R5FDBYimR48SIikcfIev0Xto=
-X-Forwarded-Encrypted: i=1; AL+hErFn2YHf6RbBigVK84p8r/PYmW0sduVuZ3dgI7aoE6iDTJFU+xt0UicsugKbZVEOS4mzds0zxQcg+49yG6I=@vger.kernel.org
-X-Received: by 2002:a05:620a:29c8:b0:93c:720c:94e0 with SMTP id af79cd13be357-947b001c6afmr209721285a.30.1794376807011;
-        Tue, 10 Nov 2026 22:00:07 -0800 (PST)
-X-Received: by 2002:a05:620a:29c8:b0:93c:720c:94e0 with SMTP id af79cd13be357-947b001c6afmr209716085a.30.1794376806575;
-        Tue, 10 Nov 2026 22:00:06 -0800 (PST)
-Received: from vertex.localdomain (pool-173-49-113-140.phlapa.fios.verizon.net. [173.49.113.140])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9479e7e7f3bsm411506885a.37.2026.11.10.22.00.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        d=broadcom.com; s=google; t=1794376806; x=1794981606; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=M7BMGXRbrng59A71K+mamsi43ullJvLvqNPOWu4+ieU=;
+        b=KgLmSMU39jn2ZO/Iecl0H912lW7nAg+5ovWj+Fwg9uXEIM2MVHcN3t4RDQaylVBXpB
+         blgT9YKLqbaIFOuRJsWYDFA0FaBsS/JsuzTTtWUCT+MR7IBb49P5qWnpwWujba/1cUSz
+         Hjwx/Y8SD5HBstupks730+55UFfBXPDBN89Eo=
+X-Forwarded-Encrypted: i=1; AL+hErGI460gfynoyEBOzKMV1hGk5Lsx0RYD+bXRT0lEbjPcFnpTlEeVVip5cH41aPRzQcIxW/eXA2N3zDgyFh0=@vger.kernel.org
+X-Received: by 2002:a05:620a:2693:b0:93f:2635:b6f1 with SMTP id af79cd13be357-947afb8c005mr186505785a.8.1794376805751;
         Tue, 10 Nov 2026 22:00:05 -0800 (PST)
+X-Received: by 2002:a05:620a:2693:b0:93f:2635:b6f1 with SMTP id af79cd13be357-947afb8c005mr186501185a.8.1794376805091;
+        Tue, 10 Nov 2026 22:00:05 -0800 (PST)
+Received: from vertex.localdomain (pool-173-49-113-140.phlapa.fios.verizon.net. [173.49.113.140])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9479e7e7f3bsm411506885a.37.2026.11.10.22.00.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 22:00:04 -0800 (PST)
 From: Zack Rusin <zack.rusin@broadcom.com>
 To: Sean Christopherson <seanjc@google.com>,
 	Paolo Bonzini <pbonzini@redhat.com>,
@@ -120,12 +118,10 @@ Cc: Doug Covelli <doug.covelli@broadcom.com>,
 	bcm-kernel-feedback-list@broadcom.com,
 	linux-kernel@vger.kernel.org,
 	Zack Rusin <zack.rusin@broadcom.com>
-Subject: [PATCH v3 01/12] KVM: x86/pmu: Honor enable_vmware_backdoor for VMware pseudo-PMCs
-Date: Wed, 11 Nov 2026 00:59:50 -0500
-Message-ID: <e08e3b6d0a8dcd25f1ee3e97a64acc1cbd3c0f1d.1794374897.git.zack.rusin@broadcom.com>
+Subject: [PATCH v3 00/12] KVM: Improve VMware guest support
+Date: Wed, 11 Nov 2026 00:59:49 -0500
+Message-ID: <cover.1794374897.git.zack.rusin@broadcom.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <cover.1794374897.git.zack.rusin@broadcom.com>
-References: <cover.1794374897.git.zack.rusin@broadcom.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -138,35 +134,125 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-Check enable_vmware_backdoor before kvm_pmu_rdpmc() hands an RDPMC of a
-VMware pseudo-PMC to the VMware emulation.
+This series lets userspace VMMs run unmodified VMware guests on KVM;
+VMware Workstation uses it to run on top of KVM.  I'm sorry this
+version took a lot longer than I'd have liked, but I think it addresses
+all the comments and results in a very nice cleanup for KVM in general.
 
-The pseudo-PMCs are part of the VMware backdoor, but only the
-emulator's check for RDPMC at CPL3 with CR4.PCE clear honors
-enable_vmware_backdoor.  An RDPMC that KVM intercepts at CPL0, or at
-CPL3 with CR4.PCE set, returns the host TSC or time to any guest, even
-with the backdoor disabled.  Inject #GP instead, as for any other
-invalid PMC index.
+VMware guests talk to the hypervisor through the "backdoor", a set of
+about one hundred commands implemented in VMware's userspace.  Guests
+reach it through IN/OUT/INS/OUTS on two I/O ports, which VMware allows
+from CPL3 regardless of I/O permissions, through RDPMC on three
+pseudo-PMCs, and, on newer guests, through VMCALL/VMMCALL with VMware's
+magic value in EAX.  KVM already emulates the I/O-port and pseudo-PMC
+interfaces, but only behind a module parameter that applies to every VM
+on the host.
 
-Fixes: 2d7921c499af ("KVM: x86: Add support for VMware backdoor Pseudo-PMCs")
-Signed-off-by: Zack Rusin <zack.rusin@broadcom.com>
----
- arch/x86/kvm/pmu.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Patch 1 makes the pseudo-PMCs honor enable_vmware_backdoor.
+Patches 2-4 move VMware code to vmware.{c,h} and add CONFIG_KVM_VMWARE.
+Patches 5-7 add a per-VM capability, hypercall exits and nested routing.
+Patches 8-12 add CPL3 selftest helpers and tests.
 
-diff --git a/arch/x86/kvm/pmu.c b/arch/x86/kvm/pmu.c
-index eef2f792dc9e..ca6dfb44949f 100644
---- a/arch/x86/kvm/pmu.c
-+++ b/arch/x86/kvm/pmu.c
-@@ -759,7 +759,7 @@ int kvm_pmu_rdpmc(struct kvm_vcpu *vcpu, unsigned idx, u64 *data)
- 	if (!pmu->version)
- 		return 1;
- 
--	if (is_vmware_backdoor_pmc(idx))
-+	if (enable_vmware_backdoor && is_vmware_backdoor_pmc(idx))
- 		return kvm_pmu_rdpmc_vmware(vcpu, idx, data);
- 
- 	pmc = kvm_pmu_call(rdpmc_ecx_to_pmc)(vcpu, idx, &mask);
+Notes:
+ - Paolo asked in v1 for someone with the spec to go through the
+   commands; Doug did that in the v1 thread and none needs KVM
+   (SGDT/SIDT/SLDT/STR are obsolete with UMIP, GET_VCPU_INFO flags are
+   constants on KVM, GETTIME returns host time without the TSC,
+   STEALCLOCK is ESX-only).
+ - The I/O-port and pseudo-PMC interfaces share one flag, as two parts
+   of the legacy backdoor.
+ - VMware hypercalls are never claimed from L2, so a Hyper-V L2 TLB
+   flush that KVM handles in L0 stays a Hyper-V hypercall.
+ - SEV: KVM doesn't intercept #GP, so the flag can't bypass I/O
+   permissions there.  Protected-state VMs can't enable hypercall exits,
+   and KVM doesn't forward hypercalls from protected vCPUs of legacy
+   SEV-ES VMs either.
+ - tools/include/uapi is left to the perf sync, per its README.
+ - Sean, Paolo: the new MAINTAINERS entry lists Doug and me; do you want
+   to be listed as for Hyper-V and Xen?
+
+The series is based on kvm-x86/next.
+
+Testing:
+ - every patch builds with GCC and Clang, CONFIG_KVM_VMWARE=y and =n
+ - KVM selftests and KVM-unit-tests on Intel and AMD, with and without
+   the series, enable_vmware_backdoor=0 and =1: no differences besides
+   the new tests
+ - a legacy KVM_SEV_ES_INIT guest on bare-metal AMD gets no
+   KVM_EXIT_VMWARE
+ - Windows 11 with VBS runs under VMware Workstation on the series
+
+Changes since v2:
+ - New patch 1: the pseudo-PMCs honor enable_vmware_backdoor
+ - Split the first patch into code movement, helpers and Kconfig; all
+   code in vmware.{c,h}; CONFIG_KVM_VMWARE depends on KVM_X86 (Sean)
+ - kvm_is_vmware_*() predicates with the enabled check inside (Sean)
+ - One KVM_CAP_X86_VMWARE with flags in the x86 UAPI header instead of
+   three capabilities; flags are one-way and only accepted before vCPU
+   creation (Xin, Sean); "_L0" dropped from the nested flag (Sean)
+ - No stub for the hypercall handler, no #ifdef plus stub (Sean)
+ - struct kvm_vmware_exit in the x86 UAPI header (Sean); the exit now
+   carries only mode and CPL, registers go through KVM_SYNC_X86_REGS,
+   and exception completion is validated
+ - Only L1 hypercalls with VMware's magic are claimed
+ - Nested SVM fixed: v2's nested_svm_exit_special() hook never fired
+ - Selftests: KUT port (Sean), hypercall, Hyper-V coexistence and
+   nested routing tests
+
+v2: https://lore.kernel.org/all/20250422161304.579394-1-zack.rusin@broadcom.com
+v1: https://lore.kernel.org/all/20241030033514.1728937-1-zack.rusin@broadcom.com
+
+Zack Rusin (12):
+  KVM: x86/pmu: Honor enable_vmware_backdoor for VMware pseudo-PMCs
+  KVM: x86: Move VMware backdoor support to separate files
+  KVM: x86: Encapsulate VMware backdoor checks
+  KVM: x86: Add CONFIG_KVM_VMWARE
+  KVM: x86: Add a unified VMware capability
+  KVM: x86: Forward VMware hypercalls to userspace
+  KVM: x86: Route nested VMware backdoors to KVM
+  KVM: selftests: Add helpers to run x86 guest code in user mode
+  KVM: selftests: Port VMware backdoor coverage
+  KVM: selftests: Test VMware hypercall exits
+  KVM: selftests: Test VMware hypercall exits with nested Hyper-V
+    flushes
+  KVM: selftests: Test nested VMware backdoor routing
+
+ Documentation/virt/kvm/api.rst                | 119 +++++-
+ MAINTAINERS                                   |  10 +
+ arch/x86/include/asm/kvm_host.h               |  11 +
+ arch/x86/include/uapi/asm/kvm.h               |  27 ++
+ arch/x86/kvm/Kconfig                          |  12 +
+ arch/x86/kvm/Makefile                         |   1 +
+ arch/x86/kvm/emulate.c                        |   9 +-
+ arch/x86/kvm/pmu.c                            |  41 +-
+ arch/x86/kvm/pmu.h                            |   5 -
+ arch/x86/kvm/svm/svm.c                        |  12 +-
+ arch/x86/kvm/vmware.c                         | 201 +++++++++
+ arch/x86/kvm/vmware.h                         | 102 +++++
+ arch/x86/kvm/vmx/nested.c                     |   5 +
+ arch/x86/kvm/vmx/vmx.c                        |   5 +-
+ arch/x86/kvm/x86.c                            |  63 ++-
+ arch/x86/kvm/x86.h                            |   2 -
+ include/uapi/linux/kvm.h                      |   6 +
+ tools/testing/selftests/kvm/Makefile.kvm      |   3 +
+ .../selftests/kvm/include/x86/hyperv.h        |  21 +
+ .../selftests/kvm/include/x86/processor.h     |   7 +
+ .../testing/selftests/kvm/lib/x86/processor.c |  87 ++++
+ .../testing/selftests/kvm/x86/hyperv_evmcs.c  |  27 +-
+ .../selftests/kvm/x86/hyperv_svm_test.c       |  21 +-
+ .../selftests/kvm/x86/vmware_backdoor_test.c  | 272 ++++++++++++
+ .../selftests/kvm/x86/vmware_hypercall_test.c | 388 ++++++++++++++++++
+ .../kvm/x86/vmware_nested_backdoor_test.c     | 223 ++++++++++
+ .../selftests/kvm/x86/xen_vmcall_test.c       |  12 +-
+ 27 files changed, 1587 insertions(+), 105 deletions(-)
+ create mode 100644 arch/x86/kvm/vmware.c
+ create mode 100644 arch/x86/kvm/vmware.h
+ create mode 100644 tools/testing/selftests/kvm/x86/vmware_backdoor_test.c
+ create mode 100644 tools/testing/selftests/kvm/x86/vmware_hypercall_test.c
+ create mode 100644 tools/testing/selftests/kvm/x86/vmware_nested_backdoor_test.c
+
+
+base-commit: c37cd5acfc3762e3fec1bf8418dc1471e3d6297d
 -- 
 2.53.0
 
