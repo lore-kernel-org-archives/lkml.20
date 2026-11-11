@@ -1,98 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794389434;
-	b=WiJcf5qGaLUGy/KabyrCf+OZMcls6c8TS5ayDdJz66u6tam5ovz6hn252QqCpPIQA0qy
-	 v8JfWks9xy4p0/Ib0OkKiGLfeAIFUVVx6oCme8FwKjGbXsZMLPc4635VXfu3bx9if9plS
-	 wOMlsBU4h00RtU9b5IYH/CBFDpjhoa9do6K60peJC52oNpOrsY1kqZOaQSUWgAEFeO/+y
-	 X6mL0e0+kJ6aVg/sp7oAO0iAMFvf6ElJ3PXCvHganvjkL0hnQXga/hDrUadn4eXxnmsfB
-	 bMNPgBeiuk1uNGCm5BXE0bmMRk14H5QhV926Q2EElIe0R35SjNg/uhcsnetbSFsxBiw==
+	t=1794389452;
+	b=hPDTZ5aq/M7l7rgIwNYK/kf2hmf5bMoDhNhMfZKtek+p6wQdJ9Xylpe7ljTO95lCmCa1
+	 yKhtX/Z2hkoGJj8+NeBAXz8ds8mU7d9U7fjONuMlFGhQz1im4DH5coTvKfwadsFq2yCOm
+	 wkOuYJnwGlgdRbFgoJEodZNi9ZwoItEozWHsBbkHJv9Zg4ex/UT/bKjE0SJLU9bEa+Fjy
+	 GAigb9mS6XgiZE89qOBlFvHX0kugBSBc5c0Wf4iikBjYd4ELpGh2de+T3UJfsDuAKRNrZ
+	 ULWm+BvZAF5Acp0YqUO1mqPScnrJ5FuGThHymU3N5fmg63OUxOvu3QT+vHXDzhzxvHw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794389434;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794389452;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=ps3gDcvNwJjXoCzLSLfFMwOwMQ5OQSsnttkC3qI2NdA=;
-	b=fY6XzgJnwBqAxPXD5w5VeCeSNDNseXF3vQ4CJkMbvFrK5hZ7GBji1jsdijLPWODiS5kq
-	 kFF1lJDcJYq3RVJiln3NMj2fugzVrCZWtx7u/1CRefZugo0d3vivob2FQwZtvlLRcnGBm
-	 o2jt6tdVYzz26Va+E3JrNv3bp6Ga9iCb9COQ7E2Z076RZRtKafyI2QzV43/2yGgQv9ABX
-	 XXWDpE8BbNqCywK7sEhXdjpyZ5ZTBD0YKm30m/rUPJAHIHvNmp+7VmMrGhNXB/vEq7Gm5
-	 9z9u105MGKVc9Z7dq+yoIkvvLWaYjk9QyjkBBf77mlzt1iVwPAjsoeH4nZVclqu9Pjw==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=B3ZS/U6BiBBD5fGeH1R5VkY9NPLOvEtcvatjGhH2bZ0=;
+	b=DHXi24Z19PPeEtpMPbDRa4HiSh9T/9yPlkkDFL16PsqqGGCj+NxtrjTAIVEvE4KOcrrY
+	 zICDvY31fSvAnWRrfA1zdN1rabwzOsfqwgwZY9rNln2P5fqmzyzpePWWSFUMlJXYTatNq
+	 eLT3C+ttTk2g7Pghap/1tvezlDj3ezVohfYqqY1Ny9OmCjhIF7MZqgrTSjjrzjv1lpK/m
+	 +5RMoIPsZPZiGqv7mYlmF9RlQZNpSWnbv9RvCki4XGnR7lCmFhuMJwwm8YeltMiqqqv0Z
+	 +r8sPB5TeGXT1htIDmPxalyXoP9pKR20gfq36C6YIVRSg3/pI4ZKckddqju+M0Jiqpg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=F6TsuvHB;
-	arc=none smtp.remote-ip=209.85.221.47
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bjJSDUbt;
+	arc=none smtp.remote-ip=209.85.221.46
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4D10606A332
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 09:30:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4D10606A332
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B771A606A321
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 09:30:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B771A606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=F6TsuvHB
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-490b7266f7bso6124f8f.0
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 01:30:33 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bjJSDUbt
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-49318428d98so1583620f8f.1
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 01:30:51 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794389432; x=1794994232; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ps3gDcvNwJjXoCzLSLfFMwOwMQ5OQSsnttkC3qI2NdA=;
-        b=F6TsuvHBpiPjUFKlfjnDMHu4aPR7JZf3Cq8IK9BJuwRcV2eubDi4zS+tdVA04laq1C
-         zSr47lbygMsh2sw641i6yyaFqOOwF5SPU/kpW1VBNZU1sYz4pmHoBAaKx4/lhcK4WKkD
-         C3adKU2ju/CIdhWqVaTZQDsQ1DF2Dg7enIIoETW2fQ9l3akIyIDc2n8kp/Frnp6P2JPi
-         TyekyPl/pvbn+o6PY/0RGNeahNcvW2Uz2rSh4hBUrckrQzC+L2mfLdDtudw6RCiAm1Ck
-         uPvS3gMmv1+S2IM7UFW2134p58LSksL0+RIc75hxcXrzSNEfyT3Om/8Cl4q2pD91Kksy
-         6mfA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794389432; x=1794994232;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20260707; t=1794389450; x=1794994250; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ps3gDcvNwJjXoCzLSLfFMwOwMQ5OQSsnttkC3qI2NdA=;
-        b=ASa2y7fn2ZTEnDlAcGqBus14eKu0RJ9F71dH8hri3GQo+SKuwYzeG4wrDR6wJy/1MC
-         6xD+m/mxe38X99oVATph1cQcmDoOb+nJ7Dn/met6WnIrVUgOn76NKg/bYeuK5pRgzHj3
-         O8XL9ZHteshtPaHT1OKqYrGEeQ3cAuZ+iYM0A8cFVrEaG4W/b0mLwYXYjwKKVyqG9JAc
-         O/YOJOcVvBha9L3ZemZdP8RqGMEPDxv+ydJDh+Zc7Ix485idgX9wL+6W47OPjiwYzFEg
-         9K0Cvo3+oKEJI2vcx9RzB37CJ5zKBhatoYLh4OFvsspLm2afM6syWjbKrLvOq8YEmuhl
-         35EQ==
-X-Forwarded-Encrypted: i=1; AL+hErFaVE9O4VLkdfKPwxHsSdxtr9/Xd7ivjGTlIV8y10M/OPznZ0i7mNl4j9rRGcvfYIKGrLiY0U56OJ3OELk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+cd4nbyuT6nUzFfttI/q/ZpHU0TjbjY/sJd7waxg+gcpQv5OER
-	/LQoJD1Bfaxcmmes17u1Jg+QAJNOuPork2E18oFAjBp+z19SPAA6EIfb
-X-Gm-Gg: AYBFou2jbzCDJyIt3Xhx/W5qMRc5Um1VyMb+0r7AL7noXuVCToSTigIaoEgc9cZNUs6
-	gWWeO7DZ3G5tH+GgMVOFkMkdq9QsKNJXY1ObchVTnvQS36hekPHU9i4I9h4EGnfBpYJslin859C
-	kUO3qt7rdGVMM7cL67+1yOc3S1oQ3T9o742Y7sajbrV/xhzAb2o/CZcYOHYBeS+fTtv5nI5h+J/
-	o9se2D5rimVJUt1+h0ZEN0pAcSwoEviNNLkIbVJ4XkJqR+1uDP/nqf+kajW2ZjpykqUpO7hs1+M
-	VpModJsrWVMKf7ip6GJ060m8EwcvG/xpLfr9l6FtUV6cDM3GLkkwsjnK4ditTBCfWrYjaiLp7iy
-	NCfbjGsvuUIJ63kx+ak2OwKF2okO4BWEdxwLeX2d09YrXTFW7n0XOjs6x0guL6Q7uAw+KAKnWFs
-	facP7YwRU0FraoomQ0IYz2DqFdhIjusyPw71UDDFdWzgPt1X4XrcnIPxuMrHE+jxckzrneF332i
-	LTbdT/XldDoGvQf+rkWG9C+7lTk5OAeHIXeUYHZqN//wLayf/IDhSyKX0lh34BIi/M4fDQq+5g4
-	SrR/tYMF3NLVZi09CUYPaZxbVf3tOCg0PwWRI7LSNIjwwVe1eSrJ22JS
-X-Received: by 2002:a05:6000:4020:b0:492:3672:eea5 with SMTP id ffacd0b85a97d-499c434b84amr2742023f8f.2.1794389431893;
-        Wed, 11 Nov 2026 01:30:31 -0800 (PST)
-Received: from scheduler.schedules ([85.100.66.184])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4983284cce7sm10241570f8f.8.2026.11.11.01.30.30
+        bh=B3ZS/U6BiBBD5fGeH1R5VkY9NPLOvEtcvatjGhH2bZ0=;
+        b=bjJSDUbtOzaOAQpSLf50C7xoz9mpqk5qHohnCIlWIv+4dIzFCWT8uBWQH1BMHIwq92
+         Sp0skk7bQEZLBgS9CBlRt3NPDx8HuxaDGWyvWfkZ1t5b9SklX5+Z5vQDrp+iOrJ3CWzk
+         5anlnWL/yOmkvajDxM0Sfb0kdjTXD7vcoBuTVSvmPr/cSe5SV0IKMaZEs066FbMiPLUX
+         Aap9BpEE1/6enil0jBizKD5Uh6mVeY0FLVDtPivV8kKXMLwefcdUh/80Q5IJTKpbNejz
+         jXcY705DjPDXEcwVQ21YLgF81sG8rxoLoWlBnl9XRE0iNOJ6xgfV2KOcCCdcTYXutmYh
+         s9tg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794389450; x=1794994250;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=B3ZS/U6BiBBD5fGeH1R5VkY9NPLOvEtcvatjGhH2bZ0=;
+        b=m1I74DB0IOCirmzGG/9ss01taNep7/rfeZhQQ/lTIVrPyGOrh8Kz3kuNK1hB9GIe/6
+         +wxCt07t/BRoLet5zH7n8IFdivvrMkv7xfxr/MY42Vjb3qiMxAF7S0ub+mmhwPC24ocN
+         0ZByCJOrt0vS/AXhKKeg5SO+O8+RKSKHcUilPYJvjx7sSHmzyozBMsl/Izr4NhV3Y2dP
+         CzK2SNHu970qq/jsAt+dLOj8DH4b5ipqY/wkHVV5icOO4wS9wj8D54UOx+zZVLOfiyj7
+         7UWOgEIHOHgH78fbF2pIKM3pU5RnRROEnREOKCxEgxGBuDenpnSsis09H6RmVhN9wjut
+         b1LQ==
+X-Forwarded-Encrypted: i=1; AL+hErHTYywX//RWqSjko0kyQEY914KC3gBu76Dkpps72G4KuOK/3Qj9yZpWG68j1Tf7k6MHh4QZz0ydONC6TYU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/+cFC8lxxWxY5zsXEn/RAEEuklakoit3p4DEHi/qN7oUGvZpN6
+	HYXIeA/fD7DS68QNozjpXsilBfic8B37kz9UtSH9NaP8TVieozOMUEWT
+X-Gm-Gg: AYBFou29AzC6c5TEBKQUr3AZOzGlC/P+hX6gqiPLISyID/5uWBudHd4YMrOp0QUYA9a
+	Mjxdg12xh0EBofphuz4b9mWL0gGmejm05TSE3djWqXsIpqkeJMhnGRpjkUbHXfWggD2mXpEmrSI
+	zJLciJZLbe9i1ycjKE2CsCWD1jFBiA83l6zrS2EaEWaBqqZw1tI+FOJRI7RLXW4JR+iHHPX6+ok
+	KvRpMEwkhx8+vhacBhhVUgz8u0gUnI72S7hd1Np+5w7I502nmjfVCibHjSQfEHxNDwYDHEsnLfg
+	x9SxqWK5h1OEhuSzbrPl2vgvecso2V7cIVU2Q0morJaYZM/XXsqb0mIL0x00sJm/n8CZcHPrkZH
+	0RPQ+XCXaQxEfKQByACDpT6ka2nGokrAakd8wbgUWgLIIGYCk/abI0BLm1SuDrxLCNffDvNTV7D
+	ZhAUZl4yfp3+LMxBmjjYQl1uyZKpuUo4XLxb4jx1zRS/gsSqm1mZdOMsjjswNqaKvgA29wtzLds
+	/ilGMIVwfp+P5CA2HAw7DMLuuwhfU/IHOzhbpzjezVXKJLPCF9qn4GoyPUquXhuyD8QDrWIxuZc
+	80nc/pkZM8vW2MBvLgMtt29ENe5UjLqforx0Dg4A3wR0khqE8eA9djQiyAH3Dxkzq8ozKOwfVCX
+	bzL4GqP4Rfb31xdJqLLtf/2qVm4aDXs2BdJexxWXy1HCKk69AgsxMd46mG8T8tFkBRX16Yp7Zcd
+	PpLo1bAGr0mAc=
+X-Received: by 2002:a05:6000:25ee:b0:48e:932:aefa with SMTP id ffacd0b85a97d-499c630fe5cmr2820902f8f.26.1794389449756;
+        Wed, 11 Nov 2026 01:30:49 -0800 (PST)
+Received: from AHERLNXVDANI01.lgs-net.com ([193.8.40.126])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498362eb14asm9175839f8f.34.2026.11.11.01.30.48
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 01:30:31 -0800 (PST)
-Date: Wed, 11 Nov 2026 12:30:28 +0300
-From: Kayra Cizmeci <kayracizmeci@gmail.com>
-To: "Shubhang Kaushik (Ampere)" <sh@gentwo.org>
-Cc: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
-	Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot <vincent.guittot@linaro.org>, 
-	Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt <rostedt@goodmis.org>, 
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, 
-	Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, 
-	Shubhang Kaushik <shubhang@os.amperecomputing.com>, "Christopher Lameter (Ampere)" <cl@gentwo.org>, 
-	John Stultz <jstultz@google.com>, Johannes Weiner <hannes@cmpxchg.org>, 
-	linux-kernel@vger.kernel.org, Ingo Molnar <mingo@kernel.org>
-Subject: Re: [PATCH v2] sched/psi: Preserve PSI state on delayed dequeue
-Message-ID: <avQfCeibnuffnZUE@scheduler.schedules>
-References: <20261110-psi-delayed-deq-v2-1-17ac1688f0e9@gentwo.org>
+        Wed, 11 Nov 2026 01:30:49 -0800 (PST)
+From: =?UTF-8?q?Daniel=20Via=C3=B1o?= <danividanivi@gmail.com>
+To: intel-wired-lan@lists.osuosl.org,
+	netdev@vger.kernel.org
+Cc: anthony.l.nguyen@intel.com,
+	przemyslaw.kitszel@intel.com,
+	dima.ruinskiy@intel.com,
+	bhelgaas@google.com,
+	linux-pci@vger.kernel.org,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?Daniel=20Via=C3=B1o?= <danividanivi@gmail.com>
+Subject: [PATCH iwl-net v2 0/2] igc: fix L1.2 disable on resume, add I226-LMvP to I226 helper
+Date: Wed, 11 Nov 2026 10:30:33 +0100
+Message-ID: <20261111093035.513635-1-danividanivi@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,115 +108,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261110-psi-delayed-deq-v2-1-17ac1688f0e9@gentwo.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Shubhang!
+This series replaces "igc: Disable PCIe L1.2 substate on I225-LMvP and
+I226-LMvP devices" [1], split up as suggested by Dima Ruinskiy.
 
-On Tue, Nov 10, 2026 at 11:09:59PM -0800, Shubhang Kaushik (Ampere) wrote:
-> EEVDF can retain a blocked fair task as sched_delayed until it becomes
-> eligible for final removal.
+Patch 1 removes pci_disable_link_state() from __igc_resume(). That
+function is also the runtime resume callback and can be reached with
+pci_bus_sem already held for read (pcie_do_recovery() runtime-resumes
+the affected devices from within pci_walk_bus()), so taking the lock
+again risks a deadlock. The L1.2 disable done in probe persists in the
+link's aspm_disable mask, so the call is not needed on resume.
 
-Yup.
+Patch 2 adds the missing IGC_DEV_ID_I226_LMVP to igc_is_device_id_i226().
+Besides the L1.2 disable, this also moves I226-LMvP onto the I226 TSN
+code paths; Dima confirmed that this is correct for 0x5503 [2]. Patch 1
+comes first so that I226-LMvP never picks up the problematic
+resume-path call.
 
-> 
-> On the initial sleep, psi_dequeue() does nothing because the task is
-> still TSK_ONCPU. psi_sched_switch(..., sleep=true) then converts the
-> task from runnable to sleeping, retaining TSK_IOWAIT and persistent
-> memory-stall state.
-> 
-> A delayed task can later be physically removed after it has switched
-> out via:
-> 
->   wait_task_inactive()
->     -> dequeue_task(DEQUEUE_SLEEP | DEQUEUE_DELAYED)
-> 
-> or:
-> 
->   switching_from_fair()
->     -> dequeue_task(DEQUEUE_SLEEP | DEQUEUE_DELAYED | DEQUEUE_NOCLOCK)
-> 
-> Commit c2ae8b0df2d1 ("sched/core: Fix psi_dequeue() for Proxy
-> Execution") made the DEQUEUE_SLEEP shortcut conditional on TSK_ONCPU
-> so that post-switch proxy-execution dequeues clear PSI state. However,
-> a delayed dequeue also occurs after the task switch, when its sleeping
-> PSI state has already been accounted by psi_sched_switch().
-> 
-> Consequently, psi_dequeue() clears TSK_IOWAIT for a still-sleeping
-> delayed task. A later wakeup attempts to clear TSK_IOWAIT again and can
-> trigger "psi: inconsistent task state".
-> 
-> Keep PSI state unchanged for DEQUEUE_DELAYED, as for DEQUEUE_SAVE.
+The I225-LMvP part of v1 is dropped. On the setup where I saw the
+errors (HP Thunderbolt Dock G4), the I225-LMvP does not advertise L1.2
+and the upstream port has no L1 PM Substates capability, so L1.2 is not
+the cause; I will investigate that separately. As agreed with Dima
+[2], disabling L1.2 unconditionally is not part of this series.
 
+Testing: compile-tested only (igc builds cleanly with W=1). I have no
+I226 hardware, so neither change has been runtime-tested on the
+affected devices; testing on I226 / I226-LMvP would be appreciated.
 
-So something like this happens:
+The resume-path issue was reported by the Sashiko AI review of v1.
+I used an AI coding assistant (Claude) to help with the locking
+analysis and to draft the patches; I have reviewed them, compile-tested
+them and take responsibility for them.
 
+Changes in v2:
+- Split v1 into separate patches, as suggested by Dima.
+- Dropped the I225-LMvP L1.2 disable: L1.2 is not supported on that
+  link, so it cannot explain the dock errors.
+- New patch 1: stop calling pci_disable_link_state() from
+  __igc_resume() (reported by Sashiko).
+- Corrected the Fixes: tags.
+- Changed the subject prefix to iwl-net.
 
-We enter delayed dequeue. Then for some reason we leave the delayed
-dequeue before we really wake up. Then we enter psi_dequeue() and we reset
-the flags. Later when we really wake up and enqueue, we try to reset the
-flags again.
+[1] https://lore.kernel.org/all/20260925112850.189302-1-danividanivi@gmail.com/
+[2] https://lore.kernel.org/all/5d45a583-198c-467d-afbe-8f19398e82f3@intel.com/
 
-With this fix, that doesn't happen since when we leave delayed dequeue
-without really waking up we don't try to clear the flags.
+Daniel Viaño (2):
+  igc: don't disable ASPM L1.2 from __igc_resume()
+  igc: treat I226-LMvP as an I226 device
 
-> 
-> Fixes: c2ae8b0df2d1 ("sched/core: Fix psi_dequeue() for Proxy Execution")
-> Signed-off-by: Shubhang Kaushik (Ampere) <sh@gentwo.org>
-> ---
-> Testing on 80-core Ampere Altra:
-> - On v7.4-rc1 (6628e7d4c6b2), switching a delayed direct-I/O task
->   from SCHED_OTHER to SCHED_FIFO triggered:
->   "psi: inconsistent task state".
-> - With the patch applied, the identical test emitted no PSI warning.
-> 
-> Changes in v2:
-> - Correct the Fixes tag to c2ae8b0df2d1 ("sched/core: Fix psi_dequeue()
->   for Proxy Execution").
-> - Clarify that the regression was introduced when post-switch sleeping
->   dequeues began clearing PSI state.
-> 
-> Link to v1: https://lore.kernel.org/r/20261102-psi-delayed-deq-v1-1-8cd517c8fe51@gentwo.org
-> ---
->  kernel/sched/stats.h | 9 +++++++--
->  1 file changed, 7 insertions(+), 2 deletions(-)
-> 
-> diff --git a/kernel/sched/stats.h b/kernel/sched/stats.h
-> index ebe0a7765f98e733af9f576033a0f8da65757f08..3e3f5cf4524d281816b01ba8165905fd1cbefc87 100644
-> --- a/kernel/sched/stats.h
-> +++ b/kernel/sched/stats.h
-> @@ -164,8 +164,13 @@ static inline void psi_dequeue(struct task_struct *p, int flags)
->  	if (static_branch_likely(&psi_disabled))
->  		return;
->  
-> -	/* Same runqueue, nothing changed for psi */
-> -	if (flags & DEQUEUE_SAVE)
-> +	/*
-> +	 * Saved dequeues retain task state across a dequeue/enqueue pair. A
-> +	 * delayed dequeue completes a prior sleep dequeue after
-> +	 * psi_sched_switch() accounted the runnable-to-sleeping transition.
-> +	 * In both cases, keep the task's PSI state unchanged.
-> +	 */
-> +	if (flags & (DEQUEUE_SAVE | DEQUEUE_DELAYED))
->  		return;
->  
->  	/*
-> 
-> ---
-> base-commit: 067c5c24cef23d913b67eaaf71ae67e7169a6620
-> change-id: 20261102-psi-delayed-deq-9535d7ffd138
-> 
-> Best regards,
-> -- 
-> Shubhang Kaushik (Ampere) <sh@gentwo.org>
-> 
+ drivers/net/ethernet/intel/igc/igc_base.c | 1 +
+ drivers/net/ethernet/intel/igc/igc_main.c | 3 ---
+ 2 files changed, 1 insertion(+), 3 deletions(-)
 
+-- 
+2.53.0
 
-Reviewed-by: Kayra Cizmeci <kayracizmeci@gmail.com>
-
-
-
-Cheers,
-
-Kayra
