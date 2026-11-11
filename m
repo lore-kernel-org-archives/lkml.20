@@ -1,65 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.6
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794382116;
-	b=Hf4x3h3BEJvHAJ3xbKi1WBFw/r4c9qZH0+bfqaiLDvYrlZEYSmrLDZ69KHuAo55uY087
-	 elz0//PunLcstJFiDIK2Td+SujcwghMrY6h2PLA5qHIajGMdBxXswJcSMkJvSYvF1nzyR
-	 iuuri7rfXWd3wvJJ/a0cZqqRQMRXwbSy/05j9jBU+ksd4VfgHq5ExOvkDnb2f/ruQ34w0
-	 mPYBScww2L+6M4L1UffCBa6Rj1nHh+2mrx4HkQXBruXA3e4VN514mU8EbbgafJ5XYHeAT
-	 KKP5UpiCwZ5xJrxGc8XYcbUSWi6OXFbWgE+ejpX2H7RZqvFajfcjUc0ctsyZ1f4TdaA==
+	t=1794382133;
+	b=hGlLbBF0O8hKuWzKFYyCBgVFSCGlUmvltEPJdqg35NJ91IMQn6ltL7rHlgL9tfTalwiQ
+	 LJl6rFUJPE0usYmEQW+xbKLypBXs8WTFBsLZ8N2RX5l/Qfj/qeZckFbu2tuy5UFzVAGd8
+	 2UXLmezoEVgWHSsxBMbN1D4ryHHOk2TdaSDMPGTshrOgq6KRne2CItB3mQRFO75nHAbhb
+	 ejWd3i6q4nSLUO0X/P9G5+MvGwq9gy7QBZrGZRbCZLYRk06fAbf6IhKedOyecIRjgw763
+	 1GxCFYStG+13UCA/DIWpHFjXPHm/JSHGvzKC7OfanKDNbWIZzuw3uyuojBd5Qy+gFyQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794382116;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=fvA4caXYy5BSpxvCaqEJeTCv8onAojVykrQnaCc9pCY=;
-	b=BlZABpF2XLMw62460CSGKcuDWiBAOyv3mot4fInmoBeKTVHf4kb8H1ysuB/OAF3YY+Pz
-	 5D6xe/yC1AOzUdcLHidXmu8vi8IXkyOEcO+TJE8xMJj3hnvqwOUbyxS6mmqZKDF7TBP3x
-	 RUmEa99tjiPhp9uqroQrLekB7j0VojksEHgpebH+ZByBHVfsQ6t4T59kd/ybLnnoyuRY7
-	 VAcAeb10QO8la2ufRl/oic+P8a3W/IFeNR18UoiSlTYhjgsC/qa8VahY8anqV3GwXTyuP
-	 4D2guKM2EgXeNN0RKlZ49dYiI5Gc3vueqeOxDqHwjcXzyYR34wAGamRXxwiVNv30/Og==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794382133;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=V0HrLuJAtlC0soQN/5wC6HITjQMD/GmMYN1vKaj00R8=;
+	b=Eks/9D0EvkjbL+r/YpyzOv6FZ49WPNsjtP/y9pj1aNY46+G9l5MEioxfKCwt1FXhZzrN
+	 YURmeKBncpuFWp670gCmw4HAem5Yr2OhLgzDpgsM9j6dYoUJ2BKasZ3ZOWCp2v36Ws5tW
+	 MTtHeSNW33PU0A7sAWYZ6j/Bc49PGNaIF/eKk/ipZn+17M9kme9yhxaeOszHTmJAw3iZY
+	 ru5lExXdIUvJETI2UdXGoUQPdhGHJKlgbak4mJcpvkW1ZLpNxF1zkfWV/6/Wf7kHVAuX8
+	 sam+aS2qNOZZla1xKzO6ogbCOpskIwTIVr85FbCv55EUR6GtkFtv0XKerusLQloPqnw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=126.com;
-	spf=pass smtp.mailfrom=126.com;
-	dkim=pass header.d=126.com header.i=@126.com header.a=rsa-sha256 header.s=s110527 header.b=eRjJGj5E;
-	arc=none smtp.remote-ip=117.135.210.6
-Received: from m16.mail.126.com (m16.mail.126.com [117.135.210.6])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nx+9A8lf;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BC32606A321;
-	Wed, 11 Nov 2026 07:28:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1BC32606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E222E606A324;
+	Wed, 11 Nov 2026 07:28:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.a=rsa-sha256 header.s=s110527 header.b=eRjJGj5E
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=fv
-	A4caXYy5BSpxvCaqEJeTCv8onAojVykrQnaCc9pCY=; b=eRjJGj5EJf9WJSHZLI
-	TMy626n8dvUKL9EFq/cet51zQnlQNo9AogKL0aHCFaTff39jrcwfgmR7bBt6Q0dn
-	J9L9CZHx2/tCLk6FaK67rnWrEZbb4jodk6Qpp//H2wUnhiYdKQLOFt35Xrka3fvm
-	/0sn40CE5nY/UbEp6ErOasGlA=
-Received: from localhost.localdomain (unknown [])
-	by gzsmtp5 (Coremail) with SMTP id QCkvCgD3f__eGPRqKBYdDQ--.2187S2;
-	Wed, 11 Nov 2026 15:27:26 +0800 (CST)
-From: Linkui Xiao <xiaolinkui@126.com>
-To: andrew@lunn.ch,
-	kuba@kernel.org,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	sdf@fomichev.me,
-	jacob.e.keller@intel.com,
-	bjorn@kernel.org,
-	alexanderduyck@fb.com
-Cc: netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Linkui Xiao <xiaolinkui@kylinos.cn>
-Subject: [PATCH net-next] net: ethtool: request rtnl_lock for ETHTOOL_MSG_PORT_GET
-Date: Wed, 11 Nov 2026 15:27:24 +0800
-Message-Id: <20261111072724.3295527-1-xiaolinkui@126.com>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nx+9A8lf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09F591F00A06;
+	Wed, 11 Nov 2026 07:28:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794382132;
+	bh=V0HrLuJAtlC0soQN/5wC6HITjQMD/GmMYN1vKaj00R8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Nx+9A8lfHMYZgE+ZyzuvryRRFjElroAP9q3KOn371xuH0oMpkeC8/wB6LTlViQxWs
+	 cXIuEBxZzMOC+9xb+d9kFSVgMJ2AtPBizjMoDgsfkRyz6YEdHN6rxuAuY/4Cnd0B2a
+	 EpcSBeG/UTqtA+UY2VjCv0swfpjmQzUkkWSaVLrZittFp1/WCYB+adpZ/jjTqZyzPS
+	 1pzEadCwRNewM4SJ2y/vRyGNj54NxpozSoEk8l8bmhyvx7grBpJp6vpDGgrCxCazwz
+	 MLXzsJZ3nZ0BZ5eV7dS30rjEJHFNzfAz+cr7W2+RWg1j/AiwQHPIZiqtUt8XPWQPo3
+	 Ylm6eVTzwWaaA==
+Date: Wed, 11 Nov 2026 09:28:48 +0200
+From: Leon Romanovsky <leon@kernel.org>
+To: Konstantin Taranov <kotaranov@microsoft.com>
+Cc: Konstantin Taranov <kotaranov@linux.microsoft.com>,
+	Snehal Sanghvi <snsanghvi@microsoft.com>,
+	"longli@microsoft.com" <longli@microsoft.com>,
+	"jgg@ziepe.ca" <jgg@ziepe.ca>,
+	"linux-rdma@vger.kernel.org" <linux-rdma@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH rdma-next v9 2/9] RDMA/mana: Create and destroy kernel RC
+ QPs
+Message-ID: <20261111072848.GO8635@unreal>
+References: <20261105175928.1326682-1-kotaranov@linux.microsoft.com>
+ <20261105175928.1326682-3-kotaranov@linux.microsoft.com>
+ <20261110154117.GN8635@unreal>
+ <MA8PR83MB46500225F6F556D2D6D930B45CB4722@MA8PR83MB465002.EURPRD83.prod.outlook.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,80 +64,250 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:QCkvCgD3f__eGPRqKBYdDQ--.2187S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxZr1rKF4fGF4rGFy7tFykGrg_yoW5GF18p3
-	srAFyUCrWUuwn2qFnrXa1rWFyrAanxWw15Ar18tFy3Wr15Xr4xAFW7K3y3W3W5ZrsaqF95
-	ArZ8XrZ5uanFyaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UYiiDUUUUU=
-X-CM-SenderInfo: p0ld0z5lqn3xa6rslhhfrp/xtbBlB4V62r0GN7g3gAA3S
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <MA8PR83MB46500225F6F556D2D6D930B45CB4722@MA8PR83MB465002.EURPRD83.prod.outlook.com>
 
-From: Linkui Xiao <xiaolinkui@kylinos.cn>
+On Tue, Nov 10, 2026 at 06:55:49PM +0000, Konstantin Taranov wrote:
+> > On Thu, Nov 05, 2026 at 09:59:21AM -0800, Konstantin Taranov wrote:
+> > > From: Konstantin Taranov <kotaranov@microsoft.com>
+> > >
+> > > Implement kernel RC QP creation and destruction. This feature requires
+> > > extended-WQE and power-of-two-SQ support from the HW.
+> > >
+> > > Signed-off-by: Konstantin Taranov <kotaranov@microsoft.com>
+> > > ---
+> > > v5:
+> > > - Validate kernel QP queue sizes before allocating queues.
+> > > - Bound SGE counts and enforce the TX/RX WQE size limits.
+> > > v4:
+> > > - Reject RNIC firmware send-SGE counts below 2.
+> > > - Subtract the reserved SGE for extra-large OOB only for RNIC mana_ib.
+> > >
+> > >  drivers/infiniband/hw/mana/main.c    |  10 +-
+> > >  drivers/infiniband/hw/mana/mana_ib.h |   6 +
+> > >  drivers/infiniband/hw/mana/qp.c      | 206 +++++++++++++++++++++++++--
+> > >  3 files changed, 211 insertions(+), 11 deletions(-)
+> > >
+> > > diff --git a/drivers/infiniband/hw/mana/main.c
+> > b/drivers/infiniband/hw/mana/main.c
+> > > index ceb4ec58023a..f54905764f59 100644
+> > > --- a/drivers/infiniband/hw/mana/main.c
+> > > +++ b/drivers/infiniband/hw/mana/main.c
+> > > @@ -733,6 +733,13 @@ int mana_ib_gd_query_adapter_caps(struct
+> > mana_ib_dev *dev)
+> > >  	if (err)
+> > >  		return err;
+> > >
+> > > +	/* Hardware supports at least one data SGE plus one reserved for extra-
+> > large OOB. */
+> > > +	if (resp.max_send_sge_count < 2) {
+> > > +		ibdev_err(&dev->ib_dev, "Invalid max_send_sge_count %u,
+> > expected at least 2\n",
+> > > +			  resp.max_send_sge_count);
+> > > +		return -EINVAL;
+> > > +	}
+> > 
+> > This check does not make sense here. If this firmware is present, continue to
+> > support it; do not fail just because the kernel has been upgraded. If it is
+> > not present, why check for it?
+> 
+> It was Sashiko comment at some point that I should add this protection as
+> a faulty HW could respond with sge cap to be 0 or 1. I can remove this check as 
+> it is useless, but it is true that a faulty HW could return 0 or 1 and it may result
+> in a bug. I am happy to remove, but I also think that AI had a point.
+> 
+> Leon, should I remote it?
 
-port_prepare_data() resolves the requested port through
-phy_link_topo_get_port(), which requires rtnl_lock to be held before it
-reads topo->ports:
+You should review Sashiko's reports and reply to them. This helps ensure that
+your responses are taken into account in subsequent review iterations, reducing
+hallucinations and preventing the AI from silently resubmitting the same
+suggestions. If you do not reply, the AI assumes it was right.
 
-	/* ports in the topo are RTNL protected, but may be accessed under
-	 * netdev_lock for ops-locked devices. For now keep them under rtnl
-	 * protection, as no ops-locked devices have phy_port capabilities
-	 * yet.
-	 */
-	ASSERT_RTNL();
+Reports are classified into three levels:
 
-The dump side honours this, port_dump_one_dev() takes rtnl_lock()
-itself. The doit side does not. ETHTOOL_MSG_PORT_GET is served by
-ethnl_default_doit(), which keeps rtnl_lock only when the device is not
-ops-locked, or when ethtool_nl_msg_needs_rtnl() asks for it:
+- **High**: Mostly correct.
+- **Medium**: May be correct if you agree with the assumption, but most
+  assumptions are wrong.
+- **Low**: Worth a look, but can usually be ignored.
 
-	need_rtnl = !netdev_need_ops_lock(req_info->dev) ||
-		    ethtool_nl_msg_needs_rtnl(req_info->dev, cmd);
+Regarding your question, I don't want to see dead or unreachable code,
+especially in drivers, which need to act as a conduit between the core
+and its firmware. The less logic in a driver, the better.
 
-ethtool_nl_msg_needs_rtnl() has no case for ETHTOOL_MSG_PORT_GET and
-falls through to "return false", so on a device that opts into the
-instance lock (request_ops_lock, queue_mgmt_ops or net_shaper_ops)
-PORT_GET runs with netdev_lock only. Such a device that does have a
-link topology trips the ASSERT_RTNL() warning and reads topo->ports
-without the protection the xarray is documented to need.
+> 
+> > 
+> > > +
+> > >  	caps->max_sq_id = resp.max_sq_id;
+> > >  	caps->max_rq_id = resp.max_rq_id;
+> > >  	caps->max_cq_id = resp.max_cq_id;
+> > > @@ -748,7 +755,8 @@ int mana_ib_gd_query_adapter_caps(struct
+> > mana_ib_dev *dev)
+> > >  				resp.max_requester_sq_size /
+> > GDMA_MAX_SQE_SIZE,
+> > >  				resp.max_requester_rq_size /
+> > GDMA_MAX_RQE_SIZE);
+> > >  	caps->max_inline_data_size = resp.max_inline_data_size;
+> > > -	caps->max_send_sge_count = resp.max_send_sge_count;
+> > > +	/* Account for the SGE reserved for extra-large OOB. */
+> > > +	caps->max_send_sge_count = resp.max_send_sge_count - 1;
+> > >  	caps->max_recv_sge_count = resp.max_recv_sge_count;
+> > >  	caps->feature_flags = resp.feature_flags;
+> > >
+> > > diff --git a/drivers/infiniband/hw/mana/mana_ib.h
+> > b/drivers/infiniband/hw/mana/mana_ib.h
+> > > index 5ca6e2acf974..6f5df64e838a 100644
+> > > --- a/drivers/infiniband/hw/mana/mana_ib.h
+> > > +++ b/drivers/infiniband/hw/mana/mana_ib.h
+> > > @@ -267,6 +267,10 @@ struct mana_ib_qp {
+> > >  	u32 sq_psn;
+> > >  	bool sq_sig_all;
+> > >
+> > > +	/* Serializes receive WR posting. */
+> > > +	spinlock_t rq_lock;
+> > > +	/* Serializes send and memory-management WR posting. */
+> > > +	spinlock_t sq_lock;
+> > >  	/* Serializes QP modification and error-list transitions. */
+> > >  	struct mutex modify_lock;
+> > >
+> > > @@ -274,6 +278,7 @@ struct mana_ib_qp {
+> > >  	struct list_head recv_err_node;
+> > >  	struct shadow_queue shadow_rq;
+> > >  	struct shadow_queue shadow_sq;
+> > > +	struct shadow_queue shadow_mmq;
+> > >
+> > >  	refcount_t		refcount;
+> > >  	struct completion	free;
+> > > @@ -315,6 +320,7 @@ enum mana_ib_adapter_features {
+> > >  	MANA_IB_FEATURE_DEV_COUNTERS_SUPPORT = BIT(5),
+> > >  	MANA_IB_FEATURE_MULTI_PORTS_SUPPORT = BIT(6),
+> > >  	MANA_IB_FEATURE_MSN_IN_WQE_SUPPORT = BIT(7),
+> > > +	MANA_IB_FEATURE_EXTENDED_WQE_FORMAT = BIT(9),
+> > >  	MANA_IB_FEATURE_RC_QP_SQ_POW2_SUPPORT = BIT(14),
+> > >  	MANA_IB_FEATURE_MULTI_PORT_GSI_SUPPORT = BIT(15),
+> > >  };
+> > > diff --git a/drivers/infiniband/hw/mana/qp.c
+> > b/drivers/infiniband/hw/mana/qp.c
+> > > index ae2ebbcc759a..387586c45aa0 100644
+> > > --- a/drivers/infiniband/hw/mana/qp.c
+> > > +++ b/drivers/infiniband/hw/mana/qp.c
+> > > @@ -427,27 +427,88 @@ static u32 mana_ib_fixed_wqe_size(u32 sge, u32
+> > oob_size)
+> > >  	return roundup_pow_of_two(mana_ib_wqe_size(sge, oob_size));
+> > >  }
+> > >
+> > > -static u32 mana_ib_queue_size(struct ib_qp_init_attr *attr, u32 queue_type)
+> > > +static u32 mana_ib_queue_size(struct mana_ib_dev *mdev, struct
+> > ib_qp_init_attr *attr,
+> > > +			      u32 queue_type)
+> > >  {
+> > > -	u32 queue_size;
+> > > +	u32 send_wr = max(attr->cap.max_send_wr, 1U);
+> > > +	u32 recv_wr = max(attr->cap.max_recv_wr, 1U);
+> > > +	u32 max_wqe_size = MAX_TX_WQE_SIZE;
+> > > +	u32 wr, wqe_size, read_sge;
+> > > +	u64 queue_size;
+> > > +
+> > > +	if (attr->cap.max_send_sge > MAX_TX_WQE_SIZE / sizeof(struct
+> > gdma_sge) ||
+> > > +	    attr->cap.max_recv_sge > MAX_RX_WQE_SIZE / sizeof(struct
+> > gdma_sge))
+> > > +		return 0;
+> > >
+> > >  	switch (attr->qp_type) {
+> > >  	case IB_QPT_UD:
+> > >  	case IB_QPT_GSI:
+> > > -		if (queue_type == MANA_UD_SEND_QUEUE)
+> > > -			queue_size = attr->cap.max_send_wr *
+> > > -				mana_ib_wqe_size(attr->cap.max_send_sge,
+> > INLINE_OOB_LARGE_SIZE);
+> > > -		else
+> > > -			queue_size = attr->cap.max_recv_wr *
+> > > -				mana_ib_wqe_size(attr->cap.max_recv_sge,
+> > INLINE_OOB_SMALL_SIZE);
+> > > +		if (queue_type == MANA_UD_SEND_QUEUE) {
+> > > +			wr = send_wr;
+> > > +			wqe_size = mana_ib_wqe_size(attr-
+> > >cap.max_send_sge, INLINE_OOB_LARGE_SIZE);
+> > > +		} else {
+> > > +			wr = recv_wr;
+> > > +			max_wqe_size = MAX_RX_WQE_SIZE;
+> > > +			wqe_size = mana_ib_wqe_size(attr->cap.max_recv_sge,
+> > INLINE_OOB_SMALL_SIZE);
+> > > +		}
+> > > +		break;
+> > > +	case IB_QPT_RC:
+> > > +		switch (queue_type) {
+> > > +		case MANA_RC_SEND_QUEUE_REQUESTER:
+> > > +			wr = send_wr;
+> > > +			wqe_size = mana_ib_fixed_wqe_size(attr-
+> > >cap.max_send_sge,
+> > > +
+> > INLINE_OOB_EXTRA_LARGE_SIZE);
+> > > +			break;
+> > > +		case MANA_RC_SEND_QUEUE_MMQ:
+> > > +			wr = send_wr;
+> > > +			wqe_size = mana_ib_wqe_size(1U,
+> > INLINE_OOB_EXTRA_LARGE_SIZE);
+> > > +			break;
+> > > +		case MANA_RC_SEND_QUEUE_RESPONDER:
+> > > +			return MANA_PAGE_SIZE;
+> > > +		case MANA_RC_RECV_QUEUE_REQUESTER:
+> > > +			wr = send_wr;
+> > > +			max_wqe_size = MAX_RX_WQE_SIZE;
+> > > +			read_sge = min(attr->cap.max_send_sge, mdev-
+> > >ib_dev.attrs.max_sge_rd);
+> > > +			wqe_size = mana_ib_wqe_size(read_sge,
+> > INLINE_OOB_SMALL_SIZE);
+> > > +			break;
+> > > +		case MANA_RC_RECV_QUEUE_RESPONDER:
+> > > +			wr = recv_wr;
+> > > +			max_wqe_size = MAX_RX_WQE_SIZE;
+> > > +			wqe_size = mana_ib_wqe_size(attr->cap.max_recv_sge,
+> > INLINE_OOB_SMALL_SIZE);
+> > > +			break;
+> > > +		default:
+> > > +			return 0;
+> > > +		}
+> > >  		break;
+> > >  	default:
+> > >  		return 0;
+> > >  	}
+> > >
+> > > +	if (!wqe_size || wqe_size > max_wqe_size)
+> > > +		return 0;
+> > > +
+> > > +	queue_size = (u64)wr * wqe_size;
+> > > +	if (queue_size > U32_MAX / 2 + 1)
+> > > +		return 0;
+> > > +
+> > >  	return MANA_PAGE_ALIGN(roundup_pow_of_two(queue_size));
+> > >  }
+> > >
+> > > +static int mana_ib_check_kernel_qp_sizes(struct mana_ib_dev *mdev,
+> > > +					 struct ib_qp_init_attr *attr, u32
+> > num_queues)
+> > > +{
+> > > +	u32 i;
+> > > +
+> > > +	for (i = 0; i < num_queues; i++) {
+> > > +		if (!mana_ib_queue_size(mdev, attr, i)) {
+> > > +			ibdev_dbg(&mdev->ib_dev, "Invalid kernel QP queue
+> > %u size\n", i);
+> > 
+> > If your code needs to validate in-kernel users, something is fundamentally
+> > wrong
+> > with your design. We trust them.
+> 
+> It was Sashiko comment at some point. I also agree that it is partially redundant, but it also
+> helps to detect u32 overflow. I think we should keep as we had a similar comment
+> for CQ u32 overflow, and Sashiko rated it as High. I think better safe than sorry
 
-Add the missing case. Like TSCONFIG_GET/SET, PORT_GET has no
-corresponding ethtool ioctl, so it is Netlink-only and always needs
-rtnl_lock.
+In these cases, we fix the core in-kernel API to supply the correct values without overflow.
 
-The bug is latent as no device opts into the instance lock while also
-carrying a link topology, so it cannot be observed yet and the change is
-compile-tested only.
+Thanks
 
-This was found during an audit of net/ethtool/ performed with the help
-of an AI coding assistant (Codex), which also proposed the analysis and
-the fix. I verified the Fixes commit and the callers of
-ethtool_nl_msg_needs_rtnl().
 
-Fixes: 27859d18bf41 ("net: ethtool: Introduce ethtool command to list ports")
-Signed-off-by: Linkui Xiao <xiaolinkui@kylinos.cn>
----
- net/ethtool/common.h | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/net/ethtool/common.h b/net/ethtool/common.h
-index b062e99e89db..372304722ecc 100644
---- a/net/ethtool/common.h
-+++ b/net/ethtool/common.h
-@@ -124,6 +124,14 @@ ethtool_nl_msg_needs_rtnl(const struct net_device *dev, u8 cmd)
- 		 * these cases are Netlink-only.
- 		 */
- 		return true;
-+	case ETHTOOL_MSG_PORT_GET:
-+		/*
-+		 * port_prepare_data() resolves the port through
-+		 * phy_link_topo_get_port(), which asserts rtnl_lock before
-+		 * reading topo->ports. There is no corresponding ethtool
-+		 * ioctl, so this case is Netlink-only.
-+		 */
-+		return true;
- 	}
- 	return false;
- }
--- 
-2.25.1
-
+> 
+> > 
+> > Thanks
