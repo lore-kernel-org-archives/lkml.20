@@ -1,67 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794424601;
-	b=u9j8vKpGgmTl+0QKKtAQ4LrgqaGcZALR50eg2WgFiYN1K9PFJMD8Cnw2leqhGNSDXiIf
-	 OIcdMbS8g6mEoOV7jQGNGjPgyYdBjVYmBhC0DH0onWdSO845zIOCmzkcSrKeVSwolbX9Q
-	 7HVB4x88RLMrRMzFTyA7UKtHt1iWTZAqtMXshjiAh5AcfSRgjZ/DOwfJdfpUO85DRUlYh
-	 m7pVFhNM1BmiRRzmtEmHIMX5dmTL1AzUd6mb1yG6TX9s/v7WrHBj74gnuHiuezxun+bzi
-	 T2hieBkHxNxLJnyiqbKrGMrLf+ELzdY3FA9pHdcSK1gW10pqEpUUIuWjICE+pkOQtlw==
+	t=1794424680;
+	b=BK6n5rRVr7ZIuGuF31wb2mw0RArn2zy2Uhd9vFxgHuCNtmz4nzKPoQpY47m8A0XnsR6v
+	 n5YnejarhSuSsZ+GhiB0trAWEqJxqUNDrv5u286WLtBbXDZ5Ac7XaskXSG2WaLA9rUvMk
+	 qYBDuANIB7TZdbm7ClKYerYeUtmd/kFFiMvmM18pyuMLRfAp/UtT2lNhG5A3NWoWVY4+k
+	 tRxaoegZWkC3YDgicBpE/b07oeGQNEkLVoNhwyFr3NxU9cLuQtgADar43+hF5D9Ktb5mb
+	 kVu8oAsXSNO9PVsUlw7Lm85SxfejyCY0Q8hUvvgXS/FeXz82INLklWkI0N7Dez0ntyQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794424601;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-MBO-RS-META:X-MBO-RS-ID;
-	bh=xGW3FnTmdbB8uuNYE75kGhqCUP64KC7XWwkoBlt2Qmg=;
-	b=cYPHxpTXo4LvpgpRdro37wKHv6K9cbqWyQCIjUd9//6Kp/JgXNVn/wXxgXhgIdZSzEoe
-	 QnyNJwHCkocqwhWF7O6MNOrHTa8c0o+uBlYySVgK7uM8JBUKabQcE5VvUC2qeiJFQkDXO
-	 DhvIc4mjjXkfUARDxuwcjLP401ppW3VN+418LoU9/6/eDMc/QK5YXbrUsUWRznWY5qDZq
-	 /VWGdGgRWauvb58QNaEjMFvJES9a7ANtT/jsOpbrAmJM6qggc9LfKiYYuXEXHQcJ7YgVI
-	 hQim55mmkf5MapHAantJv2qsPMGd4g3KcomDyLwFCz3M0KH9XH86gznyE6ymvhDQc5w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794424680;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=FbGsBkq80dTXDcXRO3OyP/kA9RBJVrCTbNnkA3YaMcQ=;
+	b=LzYBxnhcVrb/bzRkjIap8jjdA+5qtwvG9lGT3gcesbVb3Lchf/RtrQQKSiIqUV2fDLtC
+	 GrF/9J3y8uIpF1JfV5zCCdYAplVUj7kxe3/ExDlOVAsc5tHMbpLSS7ASmpB5IsphtHWqI
+	 x62GRxOy7z74P+oZYMJ1IWg/DL2mtenwYjJ4Pkp/XP6zfoFxsbSaF89e9tNnSszdEYqJh
+	 aGpF2ot+Bru15wXOYHL/4Sa/7NXnyJxbfVkW0xQt0NhUXX7LVvew9zZhad3wLXcuveiGy
+	 OZbUrCzDqYj7jOvz6i3CCXG6nrRHSnGYTapQr4o8Ki1HRxFAU1fx1ol9CGzeKKRzMpQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mailbox.org;
-	spf=pass smtp.mailfrom=mailbox.org;
-	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=cow0q8t8;
-	arc=none smtp.remote-ip=80.241.56.172
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K28nOICW;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6881A606A324;
-	Wed, 11 Nov 2026 19:16:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6881A606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BBE8606A324;
+	Wed, 11 Nov 2026 19:18:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=cow0q8t8
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4jPtYK012yzMljk;
-	Wed, 11 Nov 2026 20:16:37 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1794424597;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=xGW3FnTmdbB8uuNYE75kGhqCUP64KC7XWwkoBlt2Qmg=;
-	b=cow0q8t8VgRdWTsNPPzjhO5EzWuDqUu2bz8qH97lUlfB9TcuGtLUlNjRW/zp0hlL6nAwUF
-	5BUnKPzfV81pPm4SY7ZNKQ0CbLgJg/TV/jhUZEqx4lvrUgZmhkacaI5UlAKmeYDwAiHaft
-	KLB7i5k/rFoaCOfjQHg+zrmH1T1XbB1civazwAjWa34RIA6K2ehQsKo3KWaqj0B/HjXW5T
-	SFAvK9PfhGrtg8CFL8t9Wu90gd54CLr3sVPlJHcf3DwbcmJUgkxnsjqz/p/LQkro1L2Q/E
-	j+PmdCTfqEd4KZBX9rTOt5Vv0v26DaZLYm6RXznrqhXhHyJ0cxmVUZ9kp06Jkw==
-From: Manuel Ebner <manuelebnerli@mailbox.org>
-To: Casey Schaufler <casey@schaufler-ca.com>,
-	Paul Moore <paul@paul-moore.com>,
-	James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>
-Cc: Manuel Ebner <manuelebnerli@mailbox.org>,
-	linux-security-module@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] security: smack: fix typo in kernel-doc
-Date: Wed, 11 Nov 2026 20:15:47 +0100
-Message-ID: <20261111191548.538644-1-manuelebnerli@mailbox.org>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K28nOICW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A499B1F00A05;
+	Wed, 11 Nov 2026 19:17:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794424680;
+	bh=FbGsBkq80dTXDcXRO3OyP/kA9RBJVrCTbNnkA3YaMcQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=K28nOICWilHBG7YzxMSQh0SxT0VsVxB0J/CWM0TQkAcAFbkikEwMcpJo/uBe17gKu
+	 5D1Pw0fSGhW3aheo4iegmfxooOxhZ8/cqVmJukXfcfvNup6Nr+AtHJ7pYlVAk/IW/e
+	 LEzArB8JhmJ1Sx+mX2HuPXMQWwFS9D2x9Bgqkvlw5efkAJADe7ErITKvagfkEWD6tP
+	 l3mTk3/CoXKys6wsx+ThT6vELjCi2wrhpERH8VvgwpfMUCaXzA3QBv6JseuEXyA87u
+	 s/AJd6qLegmBFEuxOJFggMjvStqx8pQZ8PSbINn5mgRrd3/QueHlw0+QSr6T8N5l5Z
+	 Txj+rYf4OWLAw==
+From: SJ Park <sj@kernel.org>
+To: SJ Park <sj@kernel.org>
+Cc: Aveline Noir <jm5905938@gmail.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	damon@lists.linux.dev,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	Ravi Jonnalagadda <ravis.opensrc@gmail.com>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Shuah Khan <skhan@linuxfoundation.org>
+Subject: Re: [RFC PATCH v0] Docs/mm/damon/design: document data attributes report infra design (beyond page table accessed-bit milestone 2)
+Date: Wed, 11 Nov 2026 11:17:51 -0800
+Message-ID: <20261111191752.145919-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261111185412.145514-1-sj@kernel.org>
+References: 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,32 +66,41 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-MBO-RS-META: urjskrpc45qrf11y3tsscownk58ftf6z
-X-MBO-RS-ID: 8e34503e0a639313ebd
 
-Fix function name in kernel-doc, fixing:
-  $ ./scripts/kernel-doc --none security/smack/smack_access.c
-  Warning: security/smack/smack_access.c:593 expecting prototype for smk_import_valid_allocated_label(). Prototype was for smk_import_allocated_label() instead
+On Wed, 11 Nov 2026 10:54:11 -0800 SJ Park <sj@kernel.org> wrote:
 
-Fixes: 674e2b24791c ("smack: fix bug: setting task label silently ignores input garbage")
-Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
----
- security/smack/smack_access.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> Hi Aveline,
+> 
+> On Wed, 11 Nov 2026 18:35:52 +1100 Aveline Noir <jm5905938@gmail.com> wrote:
+> 
+> > Hi SJ,
+> > 
+> > On Sat, 17 Oct 2026 12:57:45 -0700 SJ Park wrote:
+> > 
+> > > +The data attribute probe supports the reports.  The probes can be configured to
+> > > +hit for a given memory region depending on the existence of specific types of
+> > > +reports that associated with the memory region in given report buffers.
+> > 
+> > I'm wondering how this would interact with the region size.  If each
+> > page of a region is reported with probability q, a region of s pages
+> > would hit with probability 1 - (1 - q)^s, so a large region may hit
+> > more often than a small region of the same access density.
+> 
+> Thank you for sharing this finding.  Seems this theory assumes the probe will
+> hit for report of any byte of the region exists in the report buffers.  Under
+> the assumption, that makes sense.
+> 
+> But I'd say the assumed implementation is not realistic.  That's because DAMON
+> design does probing for only single sampling byte of the region, not the entire
+> bytes of the region.  In a real implementation that is aligned with the design,
+> the probe will hit if a report associated with the sampling byte exists.
 
-diff --git a/security/smack/smack_access.c b/security/smack/smack_access.c
-index fb85356266..085b75ce6d 100644
---- a/security/smack/smack_access.c
-+++ b/security/smack/smack_access.c
-@@ -582,7 +582,7 @@ int smack_populate_secattr(struct smack_known *skp)
- }
- 
- /**
-- * smk_import_valid_allocated_label - import a label, return the list entry
-+ * smk_import_allocated_label - import a label, return the list entry
-  * @smack: a text string that is a valid Smack label and may be kfree()ed.
-  *         It is consumed: either becomes a part of the entry or kfree'ed.
-  * @gfp: Allocation type
--- 
-2.56.0
+I will rephrase the document in the next spin to make this be more clear.
+E.g., The probes can be configured to hit for existence of specific types of
+reports that associated with the probing memory in the report buffers.
 
+
+Thanks,
+SJ
+
+[...]
