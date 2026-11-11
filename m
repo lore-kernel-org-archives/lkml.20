@@ -1,82 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=188.40.3.216
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794392385;
-	b=QI1XXQ21DTHO8lkv4f2WEFLq/2WOURpet4zxjrMYs3OH38LG0XemZuP06SM3zNVIqWVc
-	 7rgY6p/NXXYe7m/DXpRh0CHfuS/IMQGkW9oNe1R75aDEVIAbwcvjCkB0NWkfuSKCfzZbw
-	 C4EQJx1Ix7G73iqTfxp6AjF7t5WB+Wml1zbeS2pDswXBGMPQ7+4voXUfcoFotK4Ofi9T4
-	 /O4hmRGip5cblFZ/XRDhGuma/TdbBPNMcyw3jSLmmpwhi1iNxIwgp+zYXlkt9mVlnwQtP
-	 Zyz/Hmcv0veVR+4NwBAY204jqtvWhAQx7sIL9a+4D3Adu7GaeWrn4yvfOyD0++e/DZg==
+	t=1794392425;
+	b=XmqDLio9sjPjBrgL9SIoTk48ExXuSVmujkuTkVWzo3IWfA/NIjFn5KrUEWMq2D+P/p5C
+	 hK1qxQdzqgFVM2dEjOLG3pXdyne6nw5D84pTnYBGQfDVEMYYS6FQbJhjVoqYUeSmuGSLE
+	 kKGnA/DqZH6bUdlCAx3WiqcKuV/J2Kvx3OVh9ZHDEELuR/NQvtO08HgRlk+RHRRsuO1G3
+	 D2YGHKwHJEB9z8Y+AalrXRuzPOV2ph5rs1ylfmCnn34KMT01lekTER5jEbJhbooWv5g14
+	 tIHZ8n7gBzbNiEyw6nBbO83dVaQxlocZXrJrsKTTrwxg14DfKRbBTGXTk29MwZzEFPg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794392385;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Virus-Scanned;
-	bh=5dU+D6xlqx5np/vrlxZeszcBuxHck87mXFaV/490fx4=;
-	b=kcOogc/ykM4SHs4ai4uFOY9UOPYDouRxgnLwypi3UpG2PPJNAduniiRs9+aSQfvjpQho
-	 h3CImWkzMil6xAYbtO/am3/Mj8g23+7txAAaccRFoA10q+84gI2QMhTWAZD8HN0xN93h8
-	 vvfV8MVEs7HbRq/wWpkpKerh8eu9sRMuSEaVuUxzz+vccb7rcVw6AuZEWPWAkgZG7XIXD
-	 pauKb2pRVjUwZS31FA2i/Y8ixZGoO0mE626lH7b0xvqypWAOH85un3pgv2ESXtKNb+Vcj
-	 GRCBPj/5Ma7V3EIVT9tCIS2LWsUXRkeDTi5aqPCVhZMAtNx3rFwBYmH5bm0Cs/38iFg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794392425;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Debian-User;
+	bh=+wcp/kB2lBcCVUGz1/nNSNwOHKuLsx1qYPo3ER8SQH8=;
+	b=sllDMaXGAnMowco/fcE57qQLmqiQ6yBi96BuDLBpLOZz5ml6/CzDXDagAX9VjTegT/Ef
+	 b/dwpdHhq2BgFtOktmm1F6OwZOlpLqe5yJjCrChdlNrQQuoYmirmZc/c9qKtdqAKY+Xd8
+	 jg8b1NvcIwHdixJea0rN9tlHoqjpS3FYtySNYyJNkIPb/E8AC/W2M+j2PwjqGu69Rf80y
+	 Z7f3FpR12OJC0xooSdkjBRZV3b7E/P1hO6K5g7h+WAVAAX7jvyAj3DVCwL6d3PmAENSgd
+	 bzU/7+qBerazdFd2eT6b29qtqPSBMBbc+AgEbL6XIzR4urnSK2DO1nIXe9o0HaF6TVQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ew.tq-group.com;
-	spf=pass smtp.mailfrom=ew.tq-group.com;
-	dkim=pass header.d=ew.tq-group.com header.i=@ew.tq-group.com header.a=rsa-sha256 header.s=default2602 header.b=IncZHQik;
-	arc=none smtp.remote-ip=188.40.3.216
-Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
+	dmarc=pass header.from=debian.org;
+	spf=pass smtp.mailfrom=debian.org;
+	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=Jz0coMMD;
+	arc=none smtp.remote-ip=82.195.75.108
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F8F9606A32A;
-	Wed, 11 Nov 2026 10:19:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F8F9606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D684C606A321;
+	Wed, 11 Nov 2026 10:20:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D684C606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.a=rsa-sha256 header.s=default2602 header.b=IncZHQik
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=ew.tq-group.com; s=default2602; h=Content-Transfer-Encoding:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:
-	Content-Type:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=5dU+D6xlqx5np/vrlxZeszcBuxHck87mXFaV/490fx4=; b=IncZHQikyfwYYAMIGTmxTbsGhS
-	dspfCsA1baFPrJxCe5+m3zZVw5VQZNroMgKmjXezR2GrwQnGl2PDFSY0EXn3Pc56+lJ1hZuj6g6Se
-	3GH8rEVuY3awTkgCqNKA+ffUXTp+7iKCLORNLGZ8Mi2Vkmxn15A0nCTCdaOmWFESSNWcXzo5XBD5p
-	/jtlnj1MbtcHDntG2kXRGOAzEqIEEtKYTvMM3fSeoEIBKTMr8P1hjSHRUvviSjVfrry729xiSXXb4
-	5vGxU79vycY4w8Nj6XH1Yg+B0GvqijZYFCQJ3ksETBlTxl9lFBaryzw9ukEl3ivNtRopRpMlA+Lic
-	Q6ZRQXXQ==;
-Received: from sslproxy02.your-server.de ([78.47.166.47])
-	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96.2)
-	(envelope-from <alexander.stein@ew.tq-group.com>)
-	id 1xR5Qc-0006fC-0w;
-	Wed, 11 Nov 2026 11:19:42 +0100
-Received: from localhost ([127.0.0.1])
-	by sslproxy02.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=Jz0coMMD
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=+wcp/kB2lBcCVUGz1/nNSNwOHKuLsx1qYPo3ER8SQH8=; b=Jz0coMMDNGkRDu6dzsTw5jimJy
+	5x/G51dDjFkMFVlX4hFH6HPoMNkylnH0IzUazy+wO3O/fGHbIToU7LruG+P4m/j5zqsfmDbOsqY8y
+	Ke/E7u8+A87rgj19j2lFNKvLAT1WXCZxiKXDnAzzbyiG099gNnlXwsWa9xj2Cb9DJVyWK4kig6Jqm
+	IVHYY4flGitylhY/qLUVbgNgn0N6UM9kDplr6rfYnVvToJi3rTUSaq3H9HuKk+Z38epPEs8PStu7m
+	XvqWqi7M+Wff/o6irIW3W3RHQWtrXZ+c06jlpA9/VuR4E5/QEmnXqydntz8QTVkMsoVy1U1Tq39Rn
+	jnY+ACBA==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
 	(Exim 4.96)
-	(envelope-from <alexander.stein@ew.tq-group.com>)
-	id 1xR5Qb-000NjR-1b;
-	Wed, 11 Nov 2026 11:19:41 +0100
-From: Alexander Stein <alexander.stein@ew.tq-group.com>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>
-Cc: Markus Niebel <Markus.Niebel@ew.tq-group.com>,
-	linux@ew.tq-group.com,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Alexander Stein <alexander.stein@ew.tq-group.com>
-Subject: [PATCH 2/2] ARM: dts: imx6ul-tqma6ulxl-common: add vref-supply for ADC
-Date: Wed, 11 Nov 2026 11:19:24 +0100
-Message-ID: <20261111101934.1216887-2-alexander.stein@ew.tq-group.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261111101934.1216887-1-alexander.stein@ew.tq-group.com>
-References: <20261111101934.1216887-1-alexander.stein@ew.tq-group.com>
+	(envelope-from <leitao@debian.org>)
+	id 1xR5R7-00D6xA-2U;
+	Wed, 11 Nov 2026 10:20:13 +0000
+Date: Wed, 11 Nov 2026 02:20:08 -0800
+From: Breno Leitao <leitao@debian.org>
+To: Hangbin Liu <hangbin.liu@linux.dev>
+Cc: Gustavo Luiz Duarte <gustavold@gmail.com>, 
+	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
+	Paolo Abeni <pabeni@redhat.com>, Shuah Khan <shuah@kernel.org>, Simon Horman <horms@kernel.org>, 
+	netdev@vger.kernel.org, linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	kernel-team@meta.com
+Subject: Re: [PATCH net] selftests: netconsole: enable the targets created by
+ the torture test
+Message-ID: <avRBD4SMHnfoqn3k@gmail.com>
+References: <20261110-netcons_selftest_fix-v1-1-86643b837216@debian.org>
+ <avPLyMTFkhCRqRAS@fedora>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,36 +72,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Virus-Scanned: Clear (ClamAV 1.4.6/28180/Wed Nov 11 07:24:27 2026)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <avPLyMTFkhCRqRAS@fedora>
+X-Debian-User: leitao
 
-From: Markus Niebel <Markus.Niebel@ew.tq-group.com>
+Hello Hangbin,
 
-On MBa6ULx no ADC channel is available as the pads are muxed to different
-functions. Provide the correct reference voltage in case ADC is used on
-a different mainboard.
+On Wed, Nov 11, 2026 at 09:58:32AM +0800, Hangbin Liu wrote:
+> On Tue, Nov 10, 2026 at 04:32:25AM -0800, Breno Leitao wrote:
+> > create_and_delete_random_target() is meant to create, enable and remove
+> > targets while messages are sent, but it only creates and removes them.
+> > The helper it calls, _create_dynamic_target(), stopped enabling the
+> > target when the bonding test moved that step into
+> > create_dynamic_target().
+> > 
+> > Enable the targets again, so they come up while messages flow and are
+> > disabled before being removed. Like toggle_netcons_target(), ignore a
+> > failed enable, which would otherwise end the function and leave the
+> > targets behind. With a console per target, this also registers and
+> > unregisters their consoles under load.
+> > 
+> > Fixes: 236682db3b6f ("selftest: netcons: add test for netconsole over bonded interfaces")
+> > Signed-off-by: Breno Leitao <leitao@debian.org>
+> > ---
+> >  tools/testing/selftests/drivers/net/netconsole/netcons_torture.sh | 1 +
+> >  1 file changed, 1 insertion(+)
+> > 
+> > diff --git a/tools/testing/selftests/drivers/net/netconsole/netcons_torture.sh b/tools/testing/selftests/drivers/net/netconsole/netcons_torture.sh
+> > index 33a44adb6f8f3a..3dfab0bf1b0756 100755
+> > --- a/tools/testing/selftests/drivers/net/netconsole/netcons_torture.sh
+> > +++ b/tools/testing/selftests/drivers/net/netconsole/netcons_torture.sh
+> > @@ -46,6 +46,7 @@ create_and_delete_random_target() {
+> >  
+> >  		# Basic population so the target can come up
+> >  		_create_dynamic_target "${FORMAT}" "${RND_TARGET_PATH}"
+> > +		echo 1 > "${RND_TARGET_PATH}"/enabled 2> /dev/null || true
+> >  	done
+> >  
+> >  	echo "netconsole selftest: ${COUNT} additional targets were created" > /dev/kmsg
+> > 
+> > ---
+> > base-commit: b3dfbde62cf1981c4638939c159dfd087b7a72e9
+> > change-id: 20261110-netcons_selftest_fix-4cbf633295ef
+> > 
+> > Best regards,
+> > --  
+> > Breno Leitao <leitao@debian.org>
+> > 
+> 
+> Ignore the failed enable makes sense to me, as we enabled `set -e`
+> and use random target.
 
-Signed-off-by: Markus Niebel <Markus.Niebel@ew.tq-group.com>
-Signed-off-by: Alexander Stein <alexander.stein@ew.tq-group.com>
----
- arch/arm/boot/dts/nxp/imx/imx6ul-tqma6ulxl-common.dtsi | 4 ++++
- 1 file changed, 4 insertions(+)
+ack!
 
-diff --git a/arch/arm/boot/dts/nxp/imx/imx6ul-tqma6ulxl-common.dtsi b/arch/arm/boot/dts/nxp/imx/imx6ul-tqma6ulxl-common.dtsi
-index 133961ee72831..fa117acdfcb27 100644
---- a/arch/arm/boot/dts/nxp/imx/imx6ul-tqma6ulxl-common.dtsi
-+++ b/arch/arm/boot/dts/nxp/imx/imx6ul-tqma6ulxl-common.dtsi
-@@ -20,6 +20,10 @@ reg_vin: reg-vin {
- 	};
- };
- 
-+&adc1 {
-+	vref-supply = <&reg_vin>;
-+};
-+
- &m24c64_50 {
- 	vcc-supply = <&reg_vin>;
- };
--- 
-2.55.0
+> Do we need sleep 1s like create_dynamic_target() to make sure the
+> configuration loaded?
+
+I don't think we need it. The write to enabled is synchronous:
+enabled_store() sets up netpoll and moves the target to STATE_ENABLED
+before it returns. If the setup fails, enabled reads back 0, and the
+disable loop checks enabled before writing 0 to it.
+
+The other reason for that sleep, keeping the console messages in
+order, does not apply either, since the torture test does not read
+back any message.
+
+Thanks for the review,
+--breno
 
