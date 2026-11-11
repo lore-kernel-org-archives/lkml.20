@@ -1,47 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794392574;
-	b=PNPY5Y2asurj8g7fXgxoXG7LE+RBYkEnx+d0GHw8ZnZPPquDoUKvLFat6syIgzcyus28
-	 S8KWNx0GvSfA7NROFegyBnmdxtP9qTquyNfXlUdpHP2Amp1nL4VVyNzMcwhsAtUrP+SUz
-	 VPIV+NW+WTqMpp0YSWWogGTHb/Ylm8ticblXUKeYNHpnPcqfnd7Zin00d4edK0mEQV8x+
-	 UhwQ/x/Za9qIks36+dNwG8KqTRsslbbWbbdGu/muRTtvSh2EriPceCHIw6mlAP8Bur1be
-	 ybyZ2Nkoh4NGchuSuk0r/iHlCvbQXh0JoGBLMuLJ57D4S42iX+F4Dz1vGp5qNOzV9Dg==
+	t=1794392601;
+	b=crOvm05M58Lq6PaJ4q8b5t0bpulR5TPHUmheY9Kglpgkqcc1+QV5IUCFXS/R5gJ0sZX0
+	 mIiY6fcZLl0uAVEa723Q+MekLavHCEf6WtxAcAxLXeBZInC3qWd42V4H6NGyz9e3FPE0v
+	 9xylsHJNd9hRWS+ShToTjYjl3rNqIfG51/Pe2YEV73ptbJfNtAa418mYZT3aC9+ev6dlG
+	 nWJ+NxauG+Gut47SED2l6PkMrbvMBoFnIIphWbLWMiwIEv1x918w9vUQEvYi+tZVzN0TY
+	 lsAt/BILELm7UiLK4uKzeXtRnZLOU0Q6/U8hb84LE/WNGYteIzWxZqttYquPwVXa3aw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794392574;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:Content-Language:To:Cc:References:From:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=xL48yn2OGhXARt11XybDpQ6QVcFFK2xgF3IOcOSuGFY=;
-	b=0duk3yBfZeTtEwTo9OgslP4vS7ulWuye3Y1ulLOwdc7WbkENpQMXJO8S3BNw3feYDHOC
-	 7DBAqO/rMpu9YQ476W8w+mIt6ISsGsW8nJuUvnnHHh+Yut+ThN7h8AnF+H8tZlRNTMlfA
-	 yYRllngXJ+4MvRzPWVPY0RkWEhNBr7rRzcuRu/FM2u4efTtb075eyj0ambQSUTCVdHd2N
-	 3jH91XteIZK9hcBMQ8AttsOn0alxHBcHb+uzrHcWlIiHmtnc1g8O0YJEhBTprKC+j4hwg
-	 r+9A56psnf0uBoJCycM0JhsIXh4bdwWKLXvVHFLKwUD7wdLJFLieTAwDDeDV3VPmgRQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794392601;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=4ULj0NXijTq3R1zAP8uyHKnM0ACD9LxvphraQmHtKkA=;
+	b=Vx55VDYMqUFMqRDUHfGIa/QSR/hkW5OBNRvfmpyzUx08w9AspyMuxWQdiVfE7BDKksiH
+	 ygSw1mZ5gXYyuhtYD4RpaWFMWFcfEy6tIUWb2DKkDPfxZ0r1eqH566Mjmz+ovHniPlrF6
+	 VNbYsWvxabeGyU+bstuWukxceg5wXYXJiii5ZWEA4ghXtTwxaTVegVgpfTnmYdEFrijBF
+	 9+3hGUf1h1JYanLEf0K176u9z723uapxk3gbXNRWVvszD7UTnEsLSVE/Soy50K8q30rF3
+	 EPKBCcimfyFwetYIjRJqgpqx1BS3jLv9e2cnO4baTSx7fVO9BN3b4CbKB8Ky4WU041w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OHbVXo2O;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=aeK3Uqod;
+	arc=none smtp.remote-ip=90.155.92.199
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26228606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 10:22:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDD69606A324;
+	Wed, 11 Nov 2026 10:23:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CDD69606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OHbVXo2O
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55E951F00A06;
-	Wed, 11 Nov 2026 10:22:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794392573;
-	bh=xL48yn2OGhXARt11XybDpQ6QVcFFK2xgF3IOcOSuGFY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=OHbVXo2O2RfSkpn2doyIKxnrGsXhG3R45Ni9WY6n1ISklH80KnOANB/JVgcGGcR2B
-	 ef0h3EYh5dBbieP6ZDz+MsV5X0bJuaLVyPk68QEuXOgW2raVUwD6PyAYzV+URQNCJF
-	 NuRdGbp1PNqskDcCXSAMIa+e9d6ZgOb4sIOG5PLJoFhwpHH92xWxm5KGl6Uoz3Bkr6
-	 T/9rlBYXGWh0vw/OSJwU2Uyrxo16KHBAlbMmbpi5NRKQMCAizVql64LLWve1ro0HYN
-	 PViOLAzvpl4LR3td4qobd+/CC2y9xZqNT+/0uii0NQTRtunL0WecccnTC7TRMpfkoX
-	 nhTFaYBuzNHSA==
-Message-ID: <96ab7886-2f8d-4bad-9e22-67c4d1163768@kernel.org>
-Date: Wed, 11 Nov 2026 11:22:47 +0100
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=aeK3Uqod
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=4ULj0NXijTq3R1zAP8uyHKnM0ACD9LxvphraQmHtKkA=; b=aeK3UqodNlDWjBScGAVJ8KTmuy
+	Cdsgqaz7P9Avj5eIOHiUlVFx1jai/GcydbFP8Lme3YNPd80i59nXuTrwAnZCoh2UpnUB7Ab0QFSb6
+	BIwv7I13irUypCepClj8HBG8qoLa8ElVklAHKtygKB1scRfFjqKJR1sQODjuqVbbOW+Itf7sWqQES
+	4VHlsEAfXSEC2aFEXu8zWClvKXtxHscqRVYyFct07Ng0+fKdPzikJO1Qw1ORI1IO3vgDSu1st2pSe
+	Aqd8HRxQm15Q/TmeXKD9qUtvDSYkk9hBH8ljj2+H2+lcqjGTnOzjiyFeCyFSJTTneszC0+D/qMal+
+	iSk6Bqcw==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xR5U3-000000091IT-1x2s;
+	Wed, 11 Nov 2026 10:23:15 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 27E4B30025D; Wed, 11 Nov 2026 11:23:14 +0100 (CET)
+Date: Wed, 11 Nov 2026 11:23:14 +0100
+From: Peter Zijlstra <peterz@infradead.org>
+To: Marco Elver <elver@google.com>
+Cc: Arnd Bergmann <arnd@kernel.org>,
+	Andrey Ryabinin <ryabinin.a.a@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Alexander Potapenko <glider@google.com>,
+	Arnd Bergmann <arnd@arndb.de>, Heiko Carstens <hca@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Sven Schnelle <svens@linux.ibm.com>,
+	Andrey Konovalov <andreyknvl@gmail.com>,
+	Dmitry Vyukov <dvyukov@google.com>,
+	Vincenzo Frascino <vincenzo.frascino@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Aleksei Nikiforov <aleksei.nikiforov@linux.ibm.com>,
+	Andreas Grapentin <gra@linux.ibm.com>,
+	Finn Thain <fthain@linux-m68k.org>,
+	Anshuman Khandual <anshuman.khandual@arm.com>,
+	David Hildenbrand <david@kernel.org>, linux-s390@vger.kernel.org,
+	linux-kernel@vger.kernel.org, kasan-dev@googlegroups.com,
+	linux-mm@kvack.org
+Subject: Re: [PATCH] [RFC] instrumented.h: mark instrument_write non-const
+Message-ID: <20261111102314.GM1779021@noisy.programming.kicks-ass.net>
+References: <20261111092231.2027735-1-arnd@kernel.org>
+ <CANpmjNP5p-N6v=GiETYQMxgRMsOgKOdUjDCxSHj-6=pa4NkA8w@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,96 +85,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] mm, vmscan: make kswapd unreserve highatomic
- pageblocks
-Content-Language: en-US
-To: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>,
- Johannes Weiner <hannes@cmpxchg.org>
-Cc: Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Brendan Jackman <brendan.jackman@linux.dev>, Zi Yan <ziy@nvidia.com>,
- David Hildenbrand <david@kernel.org>, Qi Zheng <qi.zheng@linux.dev>,
- Shakeel Butt <shakeel.butt@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>,
- Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>,
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
- Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>,
- Baolin Wang <baolin.wang@linux.alibaba.com>, JP Kobryn
- <jp.kobryn@linux.dev>, Frank van der Linden <fvdl@google.com>,
- Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
- Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org
-References: <20261109-kswapd-highatomic-unreserve-v2-1-6587ca75c77f@kernel.org>
- <057dc7a4-cdf6-48dd-b326-49c92a936b9b@gmail.com>
-From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Autocrypt: addr=vbabka@kernel.org; keydata=
- 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
-In-Reply-To: <057dc7a4-cdf6-48dd-b326-49c92a936b9b@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CANpmjNP5p-N6v=GiETYQMxgRMsOgKOdUjDCxSHj-6=pa4NkA8w@mail.gmail.com>
 
-On 11/10/26 14:25, Jose A. Perez de Azpillaga wrote:
-> On 11/9/26 11:20 AM, Vlastimil Babka (SUSE) wrote:
-> [snip]
+On Wed, Nov 11, 2026 at 10:59:51AM +0100, Marco Elver wrote:
+> On Wed, 11 Nov 2026 at 10:22, Arnd Bergmann <arnd@kernel.org> wrote:
+> >
+> > From: Arnd Bergmann <arnd@arndb.de>
+> >
+> > I got another instance of a -Wmaybe-uninitialized in ntfs, as this is
+> > the only place that enables the warning:
+> >
+> > In file included from include/asm-generic/rwonce.h:26,
+> >                  from fs/ntfs3/file.c:10:
+> > In function 'instrument_copy_from_user_before',
+> >     inlined from '_inline_copy_from_user' at include/linux/uaccess.h:184:2,
+> >     inlined from 'copy_from_user' at include/linux/uaccess.h:222:9,
+> >     inlined from 'ntfs_ioctl_fitrim' at fs/ntfs3/file.c:78:6,
+> >     inlined from 'ntfs_ioctl' at fs/ntfs3/file.c:246:10:
+> > include/linux/kasan-checks.h:38:27: error: 'range' may be used uninitialized [-Werror=maybe-uninitialized]
+> >    38 | #define kasan_check_write __kasan_check_write
+> > include/linux/instrumented.h:146:9: note: in expansion of macro 'kasan_check_write'
+> >   146 |         kasan_check_write(to, n);
+> >       |         ^~~~~~~~~~~~~~~~~
+> > include/linux/kasan-checks.h: In function 'ntfs_ioctl':
+> > include/linux/kasan-checks.h:20:6: note: by argument 1 of type 'const volatile void *' to '__kasan_check_write' declared here
+> >    20 | bool __kasan_check_write(const volatile void *p, unsigned int size);
+> >       |      ^~~~~~~~~~~~~~~~~~~
+> > fs/ntfs3/file.c:66:29: note: 'range' declared here
+> >    66 |         struct fstrim_range range;
+> >       |                             ^~~~~
+> >
+> > The problem here is that copy_from_user() is called on an uninitialized
+> > object, but the instrumentation passes the pointer into a function that
+> > takes a const object. gcc deduces that any access to that object is
+> > undefined behavior and warns about it.
+> >
+> > The only workaround I could come up with is to remove the 'const' keyword
+> > from these annotations, which of course is not great either, as the
+> > functions do not actually access the data at all.
 > 
->> Hook this highatomic unreserve to the moment we exit the loop in
->> balance_pgdat() due to exhausting reclaim priority, which means pgdat
->> was not balanced and the last kswapd_shrink_node() attempt returned
->> false or failed to reclaim anything. Even if that last attempt made the
->> pgdat balanced, kswapd was struggling enough, so unreserving is far from
->> premature. This should be a more conservative variant of when direct
->> reclaim failure triggers the unreserving. Pass force as true to make
->> sure repeated failures fully unreserve everything. Also make sure we
->> don't count kswapd failures until then. Don't restart immediately as
->> the kswapd() loop will call balance_pgdat() again if the unreserve does
->> not lead to a balanced pgdat.
->> 
+> Agree, but the code where a real 'write' happens ought to never pass
+> in a const-qualified variable or pointer anyway, so I think it's fine.
 > 
-> the lowest priority gating looks good to me.
+> > This also found incorrect 'const' annotations in
+> > arch/s390/include/asm/fpu-insn.h, which writes to those pointers.
 > 
-> however, sashiko found some concerns [1].
+> That looks like a bug. Maybe split it into a separate patch.
+> 
+> > Any ideas?
+> >
+> > Fixes: 33b75c1d884e ("instrumented.h: allow instrumenting both sides of copy_from_user()")
+> > Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+> 
+> If there are no warnings that appear because of this elsewhere, then:
+> 
+> Acked-by: Marco Elver <elver@google.com>
 
-Yeah I saw, and I wonder why there was no email this time.
-The inability to unreserve when there's no free highatomic pages to grab
-onto is concerning on its own. Should be a pfn scanner probably.
-
-> [1]:
-> https://sashiko.dev/#/patchset/20261109-kswapd-highatomic-unreserve-v2-1-6587ca75c77f%40kernel.org
-> 
-
+Yeah, this looks sane enough for me too. Shall I take this (after s390
+acks it), or do we want to have it sit in a CI first?
