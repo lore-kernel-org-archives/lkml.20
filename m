@@ -1,77 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=188.121.53.23
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794440681;
-	b=Mq9wJyscLAPuUxu8KHAt6xePRY2nrz9/ie4JSk5NwzPOv/7uIi6T7OjKbkETrqKuFmWu
-	 AR9R23voMIDLhZMqwYT2XhhyTmaAfeIdAbLDkzU6coXJ3LBVsHRrflAVs5m2NnxWa35t6
-	 UPpRHEsdG8SlVUlBiMT4ykffQlwjZV3P+MxlrSDU2KeqQumuzO6PRBiX9BA/neH5abOjO
-	 YCiP2erdm6c6SPYD1dmbJzu/AOI/Gs0sSTjZ5Fzg77veDyrPr5RqLWD3I738qPCqV6qvX
-	 Pg4UWlQvXJN/hLrdhPAsHM9LyFOglfiisEVuK5dZtxJCZtngoSyrhRacLeftZKKvwpA==
+	t=1794440687;
+	b=kA4TBLOT6B0x+xkyQNbJIP27fEBOjbyB3wqUJ3peULiWUEEmwq4YZ1pmqe9gbg5e9z3g
+	 aDRiC4lC6rI6WKMOIxfzYsqgqWvtYnl8CYXq4AX5Fqg7vUIyJfKTqYDWB/KVrXLOcPOsI
+	 fLnUSC7scsafB8eS8eiqycifMQsGxb4T9LV8fXhI9GItxSt/BK52GN1h5+tiXjF4S0kGA
+	 jwzaMr8UA/R8vXVUjgvqIrA1Oligdzf+HmHcj4020WlY0MOjtYTvd79kE50wiLXLfaRrq
+	 9J8i2Ze5f++20LjB1rfCIddC8YJdYSvbcpK1ARmX0dBgWE8xQc1EE9mzong6eSoui4Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794440681;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:X-CMAE-Analysis:
-	 Feedback-ID:X-SECURESERVER-ACCT:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding:X-CMAE-Envelope;
-	bh=u+EO2KajcR8rLgZz+Ry4/vTQecm/jaLHNu7Gm6VV60Q=;
-	b=HKIHaAwywspTYh1Hohbp2pklk2BIbbfUhWe7+0hZaRvbiqFJnDeVwG98hlcJ6KM3dCuU
-	 K3yEzOaMa/ooK7o4fQIwN6ucsd/OySkAoB2mXQcejKhMhuGN7/dWtfQdSJ5dFdOGzFSAe
-	 Hw1oOd+kT10RdR6zscEkrG2ybM5suJ3K9Utv7mSSGWPIl98Q5pLtz1ELBuzMumVtvfpua
-	 xO5E3SSrL7bF+bCK2vIawHTLUIz9vXNCJcSkX81iWLd2qynR4Rky/PcwCOI8yF581eTru
-	 PmScjxxJqZgHija+tCpUpBBpyEBgfLGsbN8ROmK4pDbobtfkwjUNNMluoN9xpzju+Rw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794440687;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=I0fFVuwofq/UFgVDjwtEw5LgWKHDdS/HD+gmpNBafaU=;
+	b=o2OrZMwFRGT6zbyJMnUbaXc5Fy0K+9wtaTeeS9CQOahzsTxnL2FdYOkOJIMZjk9Yh8+W
+	 eTL+9Pky5Zi3kDjJazJmX4dYQJBFJbzfR2s+R8JVW2jKs2Y1nAeLo43C2cgjhbZH8vNlJ
+	 2PQY68ip/lxfoKWzg36MoMwP/xCrY/LS/f6hp63HSfOb8kOZHtOYW0ljjYK65rjmFTPh8
+	 P5TPKbAODkhyv1iryNy/eJTyqqvKkpaN7f1kxftM6s2e8YwouDeeJ2HLXvGnah/+3vE9f
+	 PO0Z1YHk6WrjXEXJZes2KHs7WzI8Nnh945jbegWXXfw1wEPn3PXg4dPH9e25cKzxPUg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=squashfs.org.uk;
-	spf=pass smtp.mailfrom=squashfs.org.uk;
-	dkim=pass header.d=secureserver.net header.i=@secureserver.net header.a=rsa-sha256 header.s=secureserver2 header.b=rIKw6S7d;
-	dkim=pass header.d=squashfs.org.uk header.i=@squashfs.org.uk header.a=rsa-sha256 header.s=secureserver1 header.b=BnD1cYz1;
-	arc=none smtp.remote-ip=188.121.53.23
-Received: from sxplsmtpa04-03.prod.sxb1.secureserver.net (sxplsmtpa04-03.prod.sxb1.secureserver.net [188.121.53.23])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Nv9QrP71;
+	arc=none smtp.remote-ip=192.198.163.9
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81C52606A327
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 23:44:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81C52606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=squashfs.org.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=squashfs.org.uk
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C05E5606A8B7;
+	Wed, 11 Nov 2026 23:44:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C05E5606A8B7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=secureserver.net header.i=@secureserver.net header.a=rsa-sha256 header.s=secureserver2 header.b=rIKw6S7d;
-	dkim=pass (2048-bit key, unprotected) header.d=squashfs.org.uk header.i=@squashfs.org.uk header.a=rsa-sha256 header.s=secureserver1 header.b=BnD1cYz1
-Received: from avalon.fritz.box ([82.69.79.175])
-	by :SMTPAUTH: with ESMTPA
-	id RHz6xtxIpLwCURHzLxAFXZ; Wed, 11 Nov 2026 23:44:24 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=secureserver.net;
-	s=secureserver2; t=1794440666;
-	bh=u+EO2KajcR8rLgZz+Ry4/vTQecm/jaLHNu7Gm6VV60Q=;
-	h=From:To:Cc:Subject:Date;
-	b=rIKw6S7dnpN0/AP4kxH0ijQhZwE0VCuV0N2du0IIzxwdiviAMRxCKACnE7cOlAtBN
-	 w6gkVus1OqiA4ks1v2HI4c2wUheZBzCbMgnpha1z7sKpol/q9Aax32/LjB8wEqD/2T
-	 6wBO6SWClRmgdeegQdnLiqBmdAyMJ3vayJciWO7Ito8GCyuColEIl1OpMCT3enTGLb
-	 MN3She0lqqZGcJqg1/Ym6ubRigmrW5r+avv7ix3AcBrH5Jm0JOuJ7c3yjpidzTLTxA
-	 1W/Cd0Qf+dpGjAVkZg5fnC17Q+fiDmPK8yq0h4acjDSEjTaBTiF9Len4zz9QHv6lYA
-	 Iyg0d/6H5m4Cg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=squashfs.org.uk;
-	s=secureserver1; t=1794440666;
-	bh=u+EO2KajcR8rLgZz+Ry4/vTQecm/jaLHNu7Gm6VV60Q=;
-	h=From:To:Cc:Subject:Date;
-	b=BnD1cYz1ysFFcQgBJxZHfqF5+kNhntL299p7hFN8VdSW5nJMAclbc4a2Z4KHJ980h
-	 6Deik4IXzLEQDLOHeb5FjahDbLYBJUbwFSKFfwer8YgisPO0j9LDAilgsDtfGlaFtn
-	 xwZ+gXH1gk8s8WWCt/XND8y/P/IRsxNGVDgQFBFTICvdkDsYO8wDCC8oaADRGnLvWl
-	 6NLN1EltoeZwwubLm5nPZPMR7ktMfTpC4+kIztQtW7+6dcVP/62fVeySlRKJxHATNT
-	 5vmTRsLJRw4YVmkxM76mPEsNbeOk+YLathr1V0NqDWtBuWji6M8emMQK22u/RuqrSq
-	 xGAaEZzvavFvQ==
-X-CMAE-Analysis: v=2.4 cv=XZYcX455 c=1 sm=1 tr=0 ts=6af4fdd9
- a=84ok6UeoqCVsigPHarzEiQ==:117 a=84ok6UeoqCVsigPHarzEiQ==:17
- a=1KwyjEPoHUs1rspk:21 a=axh2pikBN2kqpKA8ZLUA:9
-Feedback-ID: 85b9d5beff298dd9b5d1e668d4768538:squashfs.org.uk:ssnet
-X-SECURESERVER-ACCT: phillip@squashfs.org.uk
-From: Phillip Lougher <phillip@squashfs.org.uk>
-To: linux-kernel@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	akpm@linux-foundation.org
-Cc: Phillip Lougher <phillip@squashfs.org.uk>
-Subject: [PATCH v2 00/22] Squashfs: fix a lot of AI issues and AI style issues
-Date: Wed, 11 Nov 2026 23:43:40 +0000
-Message-ID: <20261111234402.252354-1-phillip@squashfs.org.uk>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Nv9QrP71
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794440685; x=1825976685;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=PkDXqhiJGj1+9nHIcsbg58aoG97zoWIJiMiw7qrLzFM=;
+  b=Nv9QrP71IxDtTMoyGZDYFlUBm4uI+P81lbGw7829NrnCn05UZR9kh8f3
+   Gqleh7z0tL0lTfEXzbenDzMXMtRE7MitaijRGGEXITK0wqGZzAB1XyzJR
+   A7NGdIrSuk7kvpR08dHdJy7I+xybL+1TFsEjD/kLrER6/NMDJQ9MkWT8k
+   28pyIcOMJs8mko3c4heEkJxBDzELCFvjU267/Tn3JwJQEU7U+ghcoPMtj
+   SpSbZxqfyEFaVZqcZ/cC0qlB0uPev9SEVaIFPNPK3AjX+usoz4Xfjn5r0
+   GqsMq1EVNN95EWIt9hz9zDOjCdxlzxozNDI1fzpJM8W7997A3MtHoizRW
+   A==;
+X-CSE-ConnectionGUID: 0iSJolwhTvGurvt/YVgWLA==
+X-CSE-MsgGUID: W8meQ1CGTEasfzrh057TSA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3099111"
+X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
+   d="scan'208";a="3099111"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 15:44:44 -0800
+X-CSE-ConnectionGUID: PNnPqmP1Q7yHiP3QKAKyFg==
+X-CSE-MsgGUID: 499YSC7UQfmiBrqt/kz+nQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
+   d="scan'208";a="10241293"
+Received: from pavel-dev.sc.intel.com (HELO pepopov-mobl2.intel.com) ([10.3.206.11])
+  by fmviesa012.fm.intel.com with ESMTP; 11 Nov 2026 15:44:43 -0800
+From: Pavel Popov <pavel.e.popov@intel.com>
+To: Bjorn Helgaas <bhelgaas@google.com>,
+	Logan Gunthorpe <logang@deltatee.com>,
+	Arnd Bergmann <arnd@arndb.de>
+Cc: Pavel Popov <pavel.e.popov@intel.com>,
+	Leon Romanovsky <leon@kernel.org>,
+	Lukas Wunner <lukas@wunner.de>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	x86@kernel.org,
+	Jim Chow <jim.chow@broadcom.com>,
+	Radu Rugina <radu.rugina@broadcom.com>,
+	Alexey Makhalov <alexey.makhalov@broadcom.com>,
+	Wei Liu <wei.liu@kernel.org>,
+	Michael Kelley <mhklinux@outlook.com>,
+	Nathan Ciobanu <nathan.d.ciobanu@linux.intel.com>,
+	bcm-kernel-feedback-list@broadcom.com,
+	virtualization@lists.linux.dev,
+	linux-hyperv@vger.kernel.org,
+	linux-arch@vger.kernel.org,
+	linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v5 2/3] PCI/P2PDMA: Move CONFIG_X86 #ifdef out of cpu_supports_p2pdma()
+Date: Wed, 11 Nov 2026 16:44:38 -0700
+Message-ID: <20261111234439.4098-3-pavel.e.popov@intel.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261111234439.4098-1-pavel.e.popov@intel.com>
+References: <20261111234439.4098-1-pavel.e.popov@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,76 +101,49 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CMAE-Envelope: MS4xfEMM73upIyMCXWr2Keg0UixUPiYj3YgtoNHIV9RnK7jGrIHGpTe6BbTnoPnfPaXajFBgrRXF1T6Ded/ohgwdEbt6eLWigq6XE7yfVUM/klKMZ3aBLZkT
- xwLHjrq1H7GUg3YrQHMZROcFukhB7dcJKsDyaDwbzEZUxbGCqpd09UMUorTjyhNmR/rIiuiqRgfVtqOljQ3ZLVhgpIeKjXSpto+TGDmPOaAziorqbA9H7+Ox
- AshPIJAg6Jaw4FQUZnMkUyryBOp0mfmct5IK9qlpQP7rZPTeEI1FLAHSqU2RpDwPcRMlQeRzMjDK4ycJbV1A0to3vSAVaFbEDTY6NW1QNLQ=
 
-This large patch-set is inspired by the recent spate of AI generated
-code reports.  Four of the patches directly fix AI reported issues, and
-the rest have been found manually by a read-through and testing of the
-code.
+cpu_supports_p2pdma() has an #ifdef CONFIG_X86 block inside the
+function body. Put the whole function under #ifdef CONFIG_X86 instead,
+with a stub returning false for !CONFIG_X86.
 
-In all cases (except patches 17, 18 and 19) the patches deal with
-over-sights relating to variable overflow, arithmetic overflow, variable
-signedness or just lack of sanity checking of data read from disk.
-These can cause the code to fail, and which could be used as a potential
-exploit.  
+No functional change.
 
-Patches 17, 18, and 19 fix potential excessive memory use exploits.  The
-code in question was written in the early days when Squashfs filesystems
-were small, but with very large filesystems it could try to allocate
-memory in excess of 4 MiB, and up to 64 MiB.   
+Suggested-by: Logan Gunthorpe <logang@deltatee.com>
+Signed-off-by: Pavel Popov <pavel.e.popov@intel.com>
+---
+ drivers/pci/p2pdma.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
-The patches can be broken down as follows:
+diff --git a/drivers/pci/p2pdma.c b/drivers/pci/p2pdma.c
+index 9e6e22542a9..180fe5d6228 100644
+--- a/drivers/pci/p2pdma.c
++++ b/drivers/pci/p2pdma.c
+@@ -520,18 +520,23 @@ static void seq_buf_print_bus_devfn(struct seq_buf *buf, struct pci_dev *pdev)
+ 	seq_buf_printf(buf, "%s;", pci_name(pdev));
+ }
+ 
++#ifdef CONFIG_X86
+ static bool cpu_supports_p2pdma(void)
+ {
+-#ifdef CONFIG_X86
+ 	struct cpuinfo_x86 *c = &cpu_data(0);
+ 
+ 	/* Any AMD CPU whose family ID is Zen or newer supports p2pdma */
+ 	if (c->x86_vendor == X86_VENDOR_AMD && c->x86 >= 0x17)
+ 		return true;
+-#endif
+ 
+ 	return false;
+ }
++#else /* !CONFIG_X86 */
++static bool cpu_supports_p2pdma(void)
++{
++	return false;
++}
++#endif /* CONFIG_X86 */
+ 
+ static const struct pci_p2pdma_whitelist_entry {
+ 	unsigned short vendor;
+-- 
+2.54.0
 
-Patches 1 - 6 are preparatory patches.  They convert old fashioned
-#define macros into inline functions.  These being typed make widths and
-signedness explicit, and allow additional checking to be added in later
-patches.
-
-Patch 7 fixes an incorrect offset value in TRACE statements in
-squashfs_read_inode().  This new to this V2 patch-set.
-
-Patches 8 - 16 fix various issues relating to variable overflow,
-arithmetic overflow and add additional sanity checking to prevent these
-issues from occurring.
-
-Patches 17 - 19 remove the excessive allocation of memory by introducing
-caches, which limit the maximum usage to 4 pages.
-
-Patches 20 - 21 are new to this V2 patch-set.  They deal with some
-issues Sashiko reported in the original patch-set.
-
-Patch 22 is also new to this V2 patch-set.  It adds an additional belts
-and braces sanity check.
-
-Patches 8 - 20 have reproducers which show how the existing code faults
-can be exploited, in some cases which can allow a Squashfs filesystem
-to be tampered with to make files readable by unprivileged users.
-
-BTW checkpatch.pl complains about the '#' lines in the BASH script
-reproducers. Let me know if that will cause problems.
-
- fs/squashfs/block.c            |  20 ++-
- fs/squashfs/cache.c            |   8 +-
- fs/squashfs/dir.c              |  91 ++++++++---
- fs/squashfs/export.c           | 146 ++++++++++++-----
- fs/squashfs/file.c             |  89 ++++++----
- fs/squashfs/fragment.c         | 113 ++++++++++---
- fs/squashfs/id.c               |   9 +-
- fs/squashfs/inode.c            |  73 +++++----
- fs/squashfs/namei.c            | 116 +++++++++----
- fs/squashfs/squashfs.h         |   9 +-
- fs/squashfs/squashfs_fs.h      | 101 ------------
- fs/squashfs/squashfs_fs_i.h    |   2 +-
- fs/squashfs/squashfs_fs_sb.h   |  25 ++-
- fs/squashfs/squashfs_helpers.h | 363 +++++++++++++++++++++++++++++++++++++++++
- fs/squashfs/super.c            |  96 +++++++----
- fs/squashfs/xattr.c            |  49 ++++--
- fs/squashfs/xattr.h            |  21 ++-
- fs/squashfs/xattr_id.c         | 173 ++++++++++++++------
- 18 files changed, 1099 insertions(+), 405 deletions(-)
-
- Phillip
- ---
- Squashfs maintainer and author
