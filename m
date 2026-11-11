@@ -1,87 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.246.1.125
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794436988;
-	b=c11Io5Yz19YXKyaFQHzAkC/83aU47NdgN6f7ViKSqBXBFpSgBGH4KrDRUhLS5xQgVKfk
-	 QtYFbMo0kTwH5u7F/5y8+tjgJWIPdhH/cpEwQd73QpGfyc/gz+OUDXdU0Icxlb5uL1uOr
-	 tzhwJN8UYPE6NFSRTvxzJJTIDm5wn3+KFKF56qpbe6K8nob4pXg1kw0qWuHjL//e3IIv+
-	 mcVW32nyz7tviyL+J/HSw8n/blKU8Nf6/FdYdj/dWlCM1R1V7iGwFqqFuB9iz0/KtyQKY
-	 JWmBko435U+uZuloUFoIw0n7VkRKyqYho1XI+KlsWFJ5e8e1Qd+1F4h12PtbZk/P9vw==
+	t=1794436994;
+	b=NKSn03UGAsDaOk0IsUiN5anwBdisJtI1AkyiCu+B+TwXrnjQOGD5kzbpf4PVkyTBm1KI
+	 4xHCVDXrKY3gb4mlVEcQ3deNro7a287jtGu7TAvS5rrNnrD30JD4qqHQMyybMxuhpdB1z
+	 opbyi9V6I8/llNiOopB0rhS7X2WKuELkclkR5yNVpjb4e2+DsTqrXakkNhW6S44AzMvJz
+	 YNosqzqquyru1XfjPPRpdZWOGItoHuIGwm/e+eDx8HCJt/ejVKpNSpQhzcXtjHsirCjjd
+	 jCTX4tWpKu+pV/j22kQBZBGebL/Wp4m41r+mdeFp/o3fIQEXuYYH0PTNQ8MJlms3keQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794436988;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=RBoTs6r5wYqfFVcu6Z9h9kAjCr3YDmQNMbyd7fcbAzM=;
-	b=kYRGhXDldwVid6mUR3M1hw4pBx0Ec2NXWpbVHyiOXYJQtFlXaKm8TzrVim3Q4Fiuzajk
-	 vrtbWJFYdXorGysCtu40SDS5yCIpxsy+AA2FiXAOJyqU7/aAu4jR2FeBxOxwDZgxrnlGa
-	 aH5Q8F+fs8emlv8BJOlwZE+aUskCWNRGDh077TTFad8MbRTyooaZomAu6Eh9pEN17Jylw
-	 qfrtIm8tcI7lNK3k0ZPqteo+FrIf8Zi9DXiBa/qDr+NOqS+lvjzvIIhxgKnO+nT6xXYST
-	 R09mBJDkoq1lHTNlnBf3V4VfVh7JcQYm76RtYoQgMDbG17d74wJP9xDFu4MPLIV4xIw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794436994;
+	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer;
+	bh=jSZ/tjih5hHmj7xJU8RhvBRDAwsZICp5Fjl1qfyATP8=;
+	b=v+7Ze2TadWizL/YPw7Hn3DpPnUF8pObg5c7JWWyVxw8knW3tgz9kz3qgjlie97W2MtQl
+	 MIn1y9wMcjOnyIEkCdGzTXYDmi4e+VjYjKim1YlBNiiS++mvrOSdf55AQkb2NLck4ugAF
+	 +VEgD6CbFMQGP9OAswmrBIdhjAST7UfyYko+6bYgEGoP5gJYGuXDHNgUpOj89KD98vGaS
+	 iJYc7RMU+83neXmMD8jcUal9bK6tmdfw1LIBNSjUkO46PCaZ9FbuksIktHfy3g1S+LkaO
+	 NqapLjEU2w+R+DpAVPAx6oXIer7R2n4jlrmEMVq4eIShXGcU2MIFaqd4QDB8PpIceTA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amazon.com;
-	spf=pass smtp.mailfrom=amazon.de;
-	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=tcF+cbuL;
-	arc=none smtp.remote-ip=44.246.1.125
-Received: from pdx-out-002.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-002.esa.us-west-2.outbound.mail-perimeter.amazon.com [44.246.1.125])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bZGMYYR6;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7FF260A262D;
-	Wed, 11 Nov 2026 22:43:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D7FF260A262D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E17660A380B;
+	Wed, 11 Nov 2026 22:43:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=tcF+cbuL
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1794436987; x=1825972987;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=RBoTs6r5wYqfFVcu6Z9h9kAjCr3YDmQNMbyd7fcbAzM=;
-  b=tcF+cbuL+pXX6pnp1JOFtZEOAjdI7RgU3w9aT59Qlc/BIYfdQ9517XJJ
-   1UGmkgz980K2cWnGE96tI8aZTHemTtt/qH5XHUy/ebdPbiieVdtni9OLj
-   fI8mZNOnzizUQTUAS0nhUC6/+QX3xCs3j3QWrzaiNFjNtOJbwQs73L4ym
-   +mgGKRirzoGb06EE+kGhodXPrGasiTqvn4lB0wtacVswm7BxioecMlNgc
-   VFQbch3SpZc7QffsfvxjNV9HLTrPJIEauryqm+aT+M3yGvDWn6USLEMA2
-   O63htuqgtJObYcArRRrTB9nPoy7T2+OHTmpB02C2315Hhl+WzlIQnYL4h
-   w==;
-X-CSE-ConnectionGUID: Rso91KE1TdiVCucbxbm6og==
-X-CSE-MsgGUID: B0cPfbwwSJiu+2CdqbxQQg==
-X-IronPort-AV: E=Sophos;i="6.27,208,1787011200"; 
-   d="scan'208";a="33769022"
-Received: from ip-10-5-9-48.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.9.48])
-  by internal-pdx-out-002.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 22:43:04 +0000
-Received: from EX19MTAUWB002.ant.amazon.com [205.251.233.48:29544]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.24.250:2525] with esmtp (Farcaster)
- id ae4ac7d1-cb28-48b7-a577-32d39a81e1a6; Wed, 11 Nov 2026 22:43:04 +0000 (UTC)
-X-Farcaster-Flow-ID: ae4ac7d1-cb28-48b7-a577-32d39a81e1a6
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWB002.ant.amazon.com (10.250.64.231) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Wed, 11 Nov 2026 22:43:04 +0000
-Received: from ip-10-253-83-51.amazon.com (172.19.99.218) by
- EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Wed, 11 Nov 2026 22:43:01 +0000
-From: Alexander Graf <graf@amazon.com>
-To: <linux-kernel@vger.kernel.org>, Greg Kroah-Hartman
-	<gregkh@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>
-CC: The AWS Nitro Enclaves Team <aws-nitro-enclaves-devel@amazon.com>, "Shuah
- Khan" <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>,
-	Marek Szyprowski <m.szyprowski@samsung.com>, Robin Murphy
-	<robin.murphy@arm.com>, <linux-doc@vger.kernel.org>, <iommu@lists.linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand
-	<david@kernel.org>, Mike Rapoport <rppt@kernel.org>,
-	<nh-open-source@amazon.com>, <linux-mm@kvack.org>, Jonathan Corbet
-	<corbet@lwn.net>
-Subject: [PATCH 05/40] dma-contiguous: add dma_get_numa_cma_area() accessor
-Date: Wed, 11 Nov 2026 22:41:50 +0000
-Message-ID: <a1294df95fbe0a2ef5cc3585824d396854c7242c.1794393490.git.graf@amazon.com>
-X-Mailer: git-send-email 2.47.1
-In-Reply-To: <cover.1794300002.git.graf@amazon.com>
-References: <cover.1794300002.git.graf@amazon.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bZGMYYR6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC2171F00A0B;
+	Wed, 11 Nov 2026 22:43:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794436994;
+	bh=jSZ/tjih5hHmj7xJU8RhvBRDAwsZICp5Fjl1qfyATP8=;
+	h=From:Subject:Date:To:Cc;
+	b=bZGMYYR6ICYIXG4sVGzvCmAJ5cf5CEYiNJmVWUbh4xI8+btF/uN9c9JhFnthl2C4V
+	 3UqQ3Wu+mqH75H9MYds+ChKVCtS3cjq7sZZJFQXU5rRSGXXyNVi8MBMvuKmlX35A+k
+	 CZ+F6CSdrYI8oD4nt2qpq0cF85XF+MhhMVC6bUecncyDqnxlpaSMszUCrIBWi9V8k1
+	 RbAlGYR5sNs93EFpeQ7KQ8e9pRGlsk8oawIAEWxDanjEHKmxyuS6Ex/bzBzakRPuSM
+	 8R/XOCXy8d4iidubanz56TNblhz+JkH1okxRHjPwPdElBsaFlEVlWg7o8LsppRomk2
+	 iTckEI2ouBJeg==
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Subject: [PATCH 0/9] arm64: dts: marvell: DT warning fixes
+Date: Wed, 11 Nov 2026 16:42:57 -0600
+Message-Id: <20261111-dtbs-marvell-v1-0-938788aff3ae@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,99 +53,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D031UWA004.ant.amazon.com (10.13.139.19) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMyw5AMBCF4VeRWWuiJYhXEYtqByNu6ZRIxLsrz
+ u5bnP8CRkfIUEUXODyIaV0CZByBGfTSoyAbDCpRuQwT1rcsZu0OnCaRalTSlNpkhYVw2Rx2dH6
+ 5uvnNezui8W8D7vsBwqAgHHAAAAA=
+X-Change-ID: 20261111-dtbs-marvell-3ae21c8ac47d
+To: Lee Jones <lee@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Andrew Lunn <andrew@lunn.ch>, 
+ Gregory Clement <gregory.clement@bootlin.com>, 
+ Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>
+Cc: mfd@lists.linux.dev, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+X-Mailer: b4 0.16-dev
 
-With Nitro Sandboxes, we want to allocate per-NUMA memory from the DMA
-contiguous allocator, but have no per-NUMA struct device to pass in.
-dma_alloc_contiguous() takes the node from dev_to_node(dev), and the
-per-node areas sit in dma_contiguous_numa_area[], which is static.
+Another batch of DT schema warning fixes for Marvell platforms. This
+fixes most of the remaining warnings on Marvell platforms.
 
-So instead, introduce dma_get_numa_cma_area(), which returns the generic
-per-NUMA DMA CMA area that cma_alloc() would use. This way, the
-nitro_enclaves driver can build its own generic CMA pool per-node
-allocation logic on top of those pools.
+It's best if the whole series is taken together.
 
-Signed-off-by: Alexander Graf <graf@amazon.com>
+Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
 ---
- include/linux/dma-map-ops.h |  7 +++++++
- kernel/dma/contiguous.c     | 36 ++++++++++++++++++++++++++++++++++++
- 2 files changed, 43 insertions(+)
+Rob Herring (Arm) (9):
+      dt-bindings: mfd: Add Marvell AP806/CP110 system controller schema
+      arm64: dts: marvell: Add AP806/CP110 syscon compatibles
+      arm64: dts: marvell: Drop unused USB connector PHY supplies
+      arm64: dts: marvell: Drop SPI max frequency
+      arm64: dts: marvell: Fix node names
+      arm64: dts: marvell: Fix w25q32 compatible strings
+      arm64: dts: marvell: Drop unused USB 'phy-names'
+      arm64: dts: marvell: cn9131-cf-solidwan: Drop st,m41t80 reset-gpios
+      arm64: dts: marvell: armada-3720-gl-mv1000: Add switch fixed-link
 
-diff --git a/include/linux/dma-map-ops.h b/include/linux/dma-map-ops.h
-index afaf2c12189b8..5f7138ea6899a 100644
---- a/include/linux/dma-map-ops.h
-+++ b/include/linux/dma-map-ops.h
-@@ -93,6 +93,7 @@ static inline void set_dma_ops(struct device *dev,
- #ifdef CONFIG_DMA_CMA
- struct cma *dev_get_cma_area(struct device *dev);
- struct cma *dma_contiguous_get_area_by_idx(unsigned int idx);
-+struct cma *dma_get_numa_cma_area(int nid);
- 
- void dma_contiguous_reserve(phys_addr_t addr_limit);
- int __init dma_contiguous_reserve_area(phys_addr_t size, phys_addr_t base,
-@@ -115,6 +116,12 @@ static inline struct cma *dma_contiguous_get_area_by_idx(unsigned int idx)
- {
- 	return NULL;
- }
-+
-+static inline struct cma *dma_get_numa_cma_area(int nid)
-+{
-+	return NULL;
-+}
-+
- static inline void dma_contiguous_reserve(phys_addr_t limit)
- {
- }
-diff --git a/kernel/dma/contiguous.c b/kernel/dma/contiguous.c
-index 90937dc7c627d..363b84284d087 100644
---- a/kernel/dma/contiguous.c
-+++ b/kernel/dma/contiguous.c
-@@ -443,6 +443,42 @@ struct page *dma_alloc_contiguous(struct device *dev, size_t size, gfp_t gfp)
- 	return cma_alloc_aligned(dma_contiguous_default_area, size, gfp);
- }
- 
-+/**
-+ * dma_get_numa_cma_area() - get the CMA area a NUMA node can allocate from
-+ * @nid: NUMA node id
-+ *
-+ * dma_alloc_contiguous() picks a per-node CMA area from dev_to_node(dev),
-+ * which a caller cannot override on a per-request basis. This accessor
-+ * returns the area a specific node can allocate from, so a caller can
-+ * cma_alloc() from the node it wants.
-+ *
-+ * A per-node area comes from numa_cma= or cma_pernuma=, or from
-+ * CONFIG_CMA_SIZE_PERNUMA, which reserves the default area's size on every
-+ * online node on top of the default area itself, all three of which are
-+ * CONFIG_DMA_NUMA_CMA. Where there is one online node this returns the default
-+ * area, so a host that reserved only cma= reaches its reservation through this
-+ * accessor as well, and that holds however CONFIG_DMA_NUMA_CMA is set.
-+ *
-+ * Return: the area @nid can allocate from, or NULL if @nid has none or is not
-+ * a valid node (including NUMA_NO_NODE).
-+ */
-+struct cma *dma_get_numa_cma_area(int nid)
-+{
-+	if ((unsigned int)nid >= MAX_NUMNODES)
-+		return NULL;
-+
-+#ifdef CONFIG_DMA_NUMA_CMA
-+	if (dma_contiguous_numa_area[nid])
-+		return dma_contiguous_numa_area[nid];
-+#endif
-+
-+	if (nr_online_nodes == 1 && node_online(nid))
-+		return dma_contiguous_default_area;
-+
-+	return NULL;
-+}
-+EXPORT_SYMBOL_GPL(dma_get_numa_cma_area);
-+
- /**
-  * dma_free_contiguous() - release allocated pages
-  * @dev:   Pointer to device for which the pages were allocated.
--- 
-2.47.1
+ .../mfd/marvell,ap806-cp110-system-controller.yaml | 59 ++++++++++++++++++++++
+ arch/arm64/boot/dts/marvell/ac5-98dx25xx.dtsi      |  2 +-
+ .../boot/dts/marvell/armada-3720-gl-mv1000.dts     |  6 +++
+ .../boot/dts/marvell/armada-3720-turris-mox.dts    |  1 -
+ arch/arm64/boot/dts/marvell/armada-7040-db.dts     |  2 -
+ .../dts/marvell/armada-8040-clearfog-gt-8k.dts     |  5 +-
+ arch/arm64/boot/dts/marvell/armada-8040-db.dts     |  1 -
+ arch/arm64/boot/dts/marvell/armada-8040-mcbin.dtsi |  3 +-
+ .../boot/dts/marvell/armada-8040-puzzle-m801.dts   | 11 ++--
+ arch/arm64/boot/dts/marvell/armada-ap80x.dtsi      |  6 ++-
+ arch/arm64/boot/dts/marvell/armada-cp11x.dtsi      |  6 ++-
+ arch/arm64/boot/dts/marvell/cn9130-crb-A.dts       |  2 -
+ arch/arm64/boot/dts/marvell/cn9130-sr-som.dtsi     |  2 -
+ arch/arm64/boot/dts/marvell/cn9131-cf-solidwan.dts |  1 -
+ .../boot/dts/marvell/cn9131-db-comexpress.dtsi     |  4 +-
+ 15 files changed, 84 insertions(+), 27 deletions(-)
+---
+base-commit: aaa2f954c21b205a0bcd0961e5b2be4e82e58455
+change-id: 20261111-dtbs-marvell-3ae21c8ac47d
+
+Best regards,
+--  
+Rob Herring (Arm) <robh@kernel.org>
 
