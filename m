@@ -1,100 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.53
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794368677;
-	b=JiujqPlDD6SF6BY734/l+vdTkRJa1s5nLiMVMXLUGrZEKNX53Rp5VdFReoIjSR2qt1pN
-	 jPT0kRtVHQO+b9V9IvA1LaZ+UUJVaO5x7DS+4C9dF6PMdixLtwV3jV1kjs/D4SSdIZugV
-	 gBPDRU0klRtsGw2/riRWJAqU7AnTVcAJp/2cEOPet+MVQMe2z6eYAEO2OeAexN1P1GcuE
-	 QG/1e28w0gVaQ9O268AUmXvGdBKMFWWIZme+MiPAz1PPEODQqlGLNfhEIK9YocVtLnjxn
-	 pAEOm8DCssPx2mkMkOPmJv37ZE6osk+Ka/y+g2jR7RncvVNg+0SxjMAYbyvFJ5f1Seg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794368677;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.46
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794368771;
+	b=nE012upqUI3NMZ1vuCVO8qDnoFI7QVa6G2uTOizmryUqFDG7W3vkSU/y+NF0JsPI/G75
+	 pSJ7MxMpoFUKrqlLJK0kc+WXpQNvkALKhw1vsxbh2deokkczS4tNZjYsRwcAfaYb2ubld
+	 9pzVINC12tXvLhWEwZnbx0kdsUx7++Z7KPed1JEAtec20mP7IND+XXF8mIaCdg7ThUgBp
+	 ksplPhZzpiq1QHgi4urC/HdfgzqIbDqVM4GBnFgsWd05SxZqgHfMlgOiHP1N19lr71wGB
+	 JFIoSSqy5imDy4bC2M4t12VUfrTNGaxaGbCs4+czxoCWsFSp/wJ8VNseMPbsSYQp0Yw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794368771;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=7Rx2xMMXNqFSdZ4hSTTgyPdyZObPE5Ic1lNABuktusY=;
-	b=TH6ruLhHLn8Ghalp4Y80pwz4JJ3Wv8t2tybdVMYxKYv9yxxqa4da9w4bURYiI1lf/S2O
-	 j6bYlNimmnE8glMuWM6xHTdByBVktyVKB1BtS/hZwzHQU4+jOAXe8VndjaVTTW5AjvjjE
-	 2jQjtEEA5nX3ah/+Fbd7JAPtcRX/J4RQ9Ir1WaKpdjipsrIim3Jl2pwG5ZK+UQ8+F3zYy
-	 nviHhwnbitae1Tjep0zr4ojvVZOAHvx49a4pkf5fJxtngl1sQxy1s2DT2A5ir6DZvtDHg
-	 nYUc6F6rzkhLSNAkPhRDeFLi5w9E3nD6Hw5qfyRs9JtuyAU0QOmUoddtLTu/3AjWPXg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=RXpnzG8jc2yYtoFLBv7ZARt98Mz5wOXGm+EBvSjKUfM=;
+	b=aoTWrKCVILGCO+4cGRLcdgTa9N9OhSxXodH8pDTMOSAT+OWHuo8/bK+fUhFi4d7Y689l
+	 /Oomu6knHcqoU3ihJ99lWdKVSrkVbfTZS2xvsXkG0gfgg7ljvZrdgX4OPZpshWqlTwYTF
+	 IVBtg5TdJgfWRacQz4HxmNiRklaDUhXX7fUGFF8XAxJicVk3K69l6sAmb4ATGtxIQuu3x
+	 Ih+iyW3ZMKVim/RYGDYaWnzuiGQqHh/sQfX1r1CsX9tlBUSZSLjsVtO1d+Oo4Q8pmw6+w
+	 qWCKbZDeaN8YV8uHpeEIErj/6ZZgVMUjT1iiuvb6zx1l6IPa1owNfMREu7AWzaIQt/Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lIyqBdXK;
-	arc=none smtp.remote-ip=74.125.82.53
-Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wDmRvi5U;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.46
+Received: from mail-yx1-f46.google.com (mail-yx1-f46.google.com [74.125.224.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EC41606A321
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 03:44:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7EC41606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8686A606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 03:46:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8686A606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lIyqBdXK
-Received: by mail-dl1-f53.google.com with SMTP id a92af1059eb24-1a3c08d6928so4725659c88.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 19:44:36 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wDmRvi5U
+Received: by mail-yx1-f46.google.com with SMTP id 956f58d0204a3-67be4f2f4d4so3518651d50.2
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 19:46:11 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794368770; cv=none;
+        d=google.com; s=arc-20260327;
+        b=AX2syiB0NvHeT4EKErWIgxEPzcX+5j8MA4dd5q0PUARQEx8yon5dT1sh8A/g4v6rpk
+         3nNx0HKShIG11XngMkIMPuUIPHL9iRrX+aDvSVh8Pkm9e8K5H2Z/oSpBeanD6WsAf5tp
+         1Ij0GuNN52dHTdIEn1gmV/ZJLTAfbhfuG802zw9s7GY1kPyzYEIaayc3DGru8VYMPV4/
+         XPohEALA+q7LWq6S0eZcrnpHvqAaQtVWR7RReFZmADanCTJVLTQ5tMEJv+h/KiTHCrhH
+         qVWhJafOQ5aZk/L0zpd6Orp5iac8XpJVHLuNj9TQRvNJprm7Fe4P/xWOoIWR+YbberMA
+         2Ovg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=RXpnzG8jc2yYtoFLBv7ZARt98Mz5wOXGm+EBvSjKUfM=;
+        fh=aDeiniIoQvnYkiAbIgz/ze/4uEVHFBF1afju1RmLfmw=;
+        b=ecDYYWxOEn4233YjaeGsmw1sy0B3XlsBKflDvg4G1u10kgZyvOH8r9jLlbHgeCkN7Q
+         1NOHyfEzYyHJsR5T6q7pjJbL9Kikh5GKBzR5Dsrt33POV+HTvr3D+/ZUb81z4JQOG2Vh
+         QLa1yP7y75T903zin0U0KaIrsqlxq5mg6nJANM8zxdjDDB6jhnD0Pq/h5kWYU3fSrDs6
+         P4EKNOKaj+qxMnqKdWbpHIff5slgiyNfezYbwhVla6K/ELn3lCKo2XSHpXZcoy3ru2RU
+         xH5PDjrVp+xBqJh32dTpuhjYdM7L7QwLfFy4E5t+g2WT6EcnnoKzHpgrAqKviViFSlQC
+         1PKw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794368676; x=1794973476; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7Rx2xMMXNqFSdZ4hSTTgyPdyZObPE5Ic1lNABuktusY=;
-        b=lIyqBdXKGql3khtJNo74Hqj4TjQMXuuoxuhrMpLFYWjnDtGb8b4AaaXgnFjsD32cUO
-         dnt4b1XGFfw/q3SPZhnl4Myui4WbMv+Es2IswVTKSPfbg6jqmWQm/BqmjX4SB8p6CEI0
-         Ogmg8yyzC/AlWcVbL0ML32c5HjiPzvp0vyVxrck36MfwfBxcc1xryewy0JbNVuNGYb2q
-         CsU3rvFG4zL7scIGYU2C3N+svp9U8d33bp7zvZreYcS2EKZ+WZ2bL3WF617d+kb4xNcW
-         H1VGxMeQfLJ+EtYXHiRa9ANbQB/ikMZG9+/1FXsIWt2LYqjcZoJ8pp/TiegEfcsyA6oI
-         IOyg==
+        d=gmail.com; s=20260707; t=1794368770; x=1794973570; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=RXpnzG8jc2yYtoFLBv7ZARt98Mz5wOXGm+EBvSjKUfM=;
+        b=wDmRvi5UDOHoU7lvv5PYFvNw/6ZCjkQMZd1A9CuYNK61SeWNpUw7SFVHSuXK81Jftx
+         LqFrl+MMeAfNQ1dN4VgAkPSGL4mGMkvB85vU/HldNCWDivRC/cNo4PAavvHG3u6/x6iD
+         NvRqkYXq0KioY9aYKfoeF3x7hZmb4oN/Cqv1MDDJdEPflYm+1hQTIMTqO/hDwl2WXw+g
+         lbD5aDQpTz5+uWMvoBX+3lAEIgoX1bdI53Fov3ccsCW6voIrj/vZlzWrwWwJdofq3w17
+         T8mGbovHjlrnUYPSCtJpVDvopcd/+XZlW3WKBxmeYfVmguC1aytJJ6cwhXCyv3d0lwMT
+         X/zw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794368676; x=1794973476;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7Rx2xMMXNqFSdZ4hSTTgyPdyZObPE5Ic1lNABuktusY=;
-        b=TBgc6Wy88lJxw4xKdARjpgLa47sU9zx3LSRhbfZtYBLlj1rt5/xExneeT2zE80PU7O
-         qJtXp8hV+caHtDlI6jWM6deVh59DqC/z5xXrzGGtr1IW/J71Q5NYztUMbed8qzsO6AQ1
-         G/KsBRnO40nalmedyDukooxKWNfF7X/i+OKlXfdvx1ImZm5vRdzzTRdGj/rOGP2gJFZA
-         BA1VwJ0sagT3LLJ/ihgcnyU++cRnwCvjheSsGnoFNZ7K9meW0l4P5qOU/39d3CiR17Kp
-         /oAKPS85NZsY8t2fgqcPo6GKIjDQuiMcvLLM16VADLnKw35IBxx3zUrqGvS7dVmIpATY
-         t/wQ==
-X-Forwarded-Encrypted: i=1; AL+hErFsTQQ+2M1fL78kGefnJGMEeZwMVlsYAf9lJmejgPoSFS32A28RgNFwBqMtkXwUNByZ51EHYgfLmvA/IKs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+MGVqq1hRGNDBKh3yPA+ekqb93cy5/a1B3o21y4hc9HcOVOt5f
-	XZkxxyXQrnCjq5uyxHPh2r0qdNb62eeQu1A12iKhz/yS3YVXVl+y5qljArNH5gSg
-X-Gm-Gg: AYBFou2o78ujGfnP18Rex2RaoDKxocUltXut1Oh67YxmFuN4ns2oeMGHSzIi3eCf6Iw
-	Je+IauZhvi8+zqmvvHme2Au71sdbGR4r09gRYLN/JWU5pHbDSZlJH7cjrUaHUTBElHgtA2jsvxl
-	oxYuovOyAKXi5gO+XSRAiFvNpF9hKP4gi6UL5J/RnXy12BGwrYI9mEW/MabroMHijo6UjpNZDdA
-	9NiOVZXJoQRHxrkJvrX2FPF55j1CDTkWInqRf6hQzlnwKf0aX5hozTMWynQBTK8W1gL/+bVYH7O
-	y3nMdnJaRTfwKXWPBTC1lSms7Lcgw/d5d9ZTkcrebBs/zUndeW3S0rkJ6wlyZp625tsKFwKwnfJ
-	lpDvcxnn6YCnWi/YaGKpKDJteXlhNpV6dj43B0uLHvanmrKvkucxQ2AfPJlx2lPN5lgW8cdTV57
-	KcvSd4IWsKCDRcaaHb1iW4pvM9Kl/GiDuZ+/A+tS0+WWNsEzK7muV+nonN015yz561hZL1eBflg
-	YCp9m1FtZH/6qnI6uElRMB0G8col4hJzUcKZ7PBG4dfBdQEwrMVApVGHLmNBaXFgMe+AGRKieje
-	mzg5zjHdAZ3uE/LcPBQu
-X-Received: by 2002:a05:701b:261c:b0:1b2:46ca:242e with SMTP id a92af1059eb24-1b3c02f34camr1200137c88.14.1794368675565;
-        Tue, 10 Nov 2026 19:44:35 -0800 (PST)
-Received: from a1-free ([161.33.196.121])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b2fc09sm23664862c88.10.2026.11.10.19.44.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 19:44:35 -0800 (PST)
-From: TAKANO Mitsuhiro <takano32@gmail.com>
-To: Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>
-Cc: Mark Rutland <mark.rutland@arm.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Namhyung Kim <namhyung@kernel.org>,
-	James Clark <james.clark@linaro.org>,
-	linux-doc@vger.kernel.org,
-	linux-perf-users@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	TAKANO Mitsuhiro <takano32@gmail.com>
-Subject: [PATCH v3] arm64: perf: Drop the example the userspace counter section points at
-Date: Wed, 11 Nov 2026 03:44:32 +0000
-Message-ID: <20261111034432.2020955-1-takano32@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261111023550.1971639-1-takano32@gmail.com>
-References: <20261111023550.1971639-1-takano32@gmail.com>
+        d=1e100.net; s=20260707; t=1794368770; x=1794973570;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=RXpnzG8jc2yYtoFLBv7ZARt98Mz5wOXGm+EBvSjKUfM=;
+        b=cBlWC31QdZDgcRp/4gHm2f1Y8QAyr8M0lcmIMS4Bj2JCE58qkp4eSM7zAyMRV61HiR
+         FUfz0yB1VVHdp2V8lK7b0N8kAjlS1DCnwD2rSp4T05J2s1iIZAx4FekpIfK7PaNuwEi6
+         osOgCgvqJGn/vkeHZk23pHHhdEoVE7ncuxNqxNEIhr02f9D+bu6BGY9OI4vtx47OJM+4
+         PTx/Ocg1TUbvDpOQSBNu466vnybgZBwFco6Pypya09Walb2lyL8rxetF/yt4b/cQ0eEk
+         xLLsDIIts7KwF7OkZzPkKZwwtjr0c+fIqDge4XtTrJY89LBgsSKTg0KNFG7Pq3qkOf9M
+         ny2Q==
+X-Forwarded-Encrypted: i=1; AL+hErEDzNUcOKf9o9QRrmHqzn4XQmLfi25jqc1zkaOBRuYnL2k3EynZA4xACNHJDzJrdowOJJT+W5rsPuv6aJM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9E1k+DjH7RnUTYV6YY+tFosdtpQBr1AiHrn1436bVev5dnjR5K
+	fcVDkp71H8ImQNdfvfV3p+qUt6FWdfVj/UjoHXuKdkvOLJLP4qcDJYgejzj8x05buwdgnKfL0+Y
+	WY2OpfVprzloIoPM8Nk/Itw3ECs8r58I=
+X-Gm-Gg: AYBFou3pLHL74ZCrPkH5N1dMASSz1DwWIy3S2ZOnD8UWzlyy92xV14g2JkNZovErrE0
+	hKJlixoRmqsXKAvKNzj6LyiDygb5troG/D3ZDCOU6cOSgrjTqcAdjFQmHOjbRilUpabyZ3KBoPO
+	rbemLchw47ZaYtDVOFebNL63esp9djbD19d2EZkIyKktLhttA5thHNq/4cIcRqQzZ2n3vxZIEFx
+	6OwdtIq8eAf1Gx7yt6K6e/SUgV3WyaFtixWrh94fsfAgH5BQ7dJWXH95yOpdt3H4CAz1Fl6t8Df
+	zr4BHfSDaJ47XL3k9zJHTa7LPt8av49mTnXkqLQRNF7jDVyDHiXMPh38cUjAwHH152igj22E9Lo
+	tZxXcXLiiJnynkPviMvUgE96ONANCyqZtkqbMKi5uQjgxas2NL2aFct7Xqxk2z11ACJU=
+X-Received: by 2002:a05:690c:f04:b0:8b1:567c:e7ae with SMTP id
+ 00721157ae682-8b3a8114a85mr9107737b3.47.1794368770490; Tue, 10 Nov 2026
+ 19:46:10 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,73 +104,114 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261110032913.71974-1-laoar.shao@gmail.com> <3296ff1ecad6573e1719cb205d9128f7@kernel.org>
+In-Reply-To: <3296ff1ecad6573e1719cb205d9128f7@kernel.org>
+From: Yafang Shao <laoar.shao@gmail.com>
+Date: Wed, 11 Nov 2026 11:45:33 +0800
+X-Gm-Features: AclHuK_EYuNKM1uN4O291ubvtl6N0s-HDZmJBzZexNtlBKQbnavU5QXTx2HKC3E
+Message-ID: <CALOAHbDqE5qD7y5_A25wxWR603QcGnSVFFoBe6iZ4TH7t4a_Sw@mail.gmail.com>
+Subject: Re: [RFC PATCH bpf-next v4 0/4] BPF-based per-cgroup NUMA balancing
+ mode selection
+To: Tejun Heo <tj@kernel.org>
+Cc: ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org, eddyz87@gmail.com, 
+	memxor@gmail.com, mingo@redhat.com, peterz@infradead.org, 
+	juri.lelli@redhat.com, vincent.guittot@linaro.org, akpm@linux-foundation.org, 
+	david@kernel.org, gourry@gourry.net, hannes@cmpxchg.org, mkoutny@suse.com, 
+	shakeel.butt@linux.dev, roman.gushchin@linux.dev, yu.c.chen@intel.com, 
+	zhao1.liu@intel.com, tim.c.chen@linux.intel.com, lizhe.67@bytedance.com, 
+	ziy@nvidia.com, mgorman@suse.de, bpf@vger.kernel.org, linux-mm@kvack.org, 
+	cgroups@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Documentation/arch/arm64/perf.rst points at
-tools/perf/arch/arm64/tests/user-events.c, in the text and in the link
-target, but that file is not in the tree and no commit in the history
-leading to this base has added one.
+On Wed, Nov 11, 2026 at 2:45=E2=80=AFAM Tejun Heo <tj@kernel.org> wrote:
+>
+> Hello, Yafang.
+>
+> I'm not going to engage further in this series until the situation
+> changes.
+>
+> LLMs have made it much cheaper to produce plausible-looking patchsets
+> for new features. That makes it easy to keep sending iterations of a
+> feature which touches code that the submitter doesn't really understand
+> or hasn't thought through in depth. The reviewer ends up doing much of
+> the developer's work while the submitter sits between the reviewer and
+> whatever the LLM produces. I think this series is an example of that.
 
-The section already describes how to use the libperf helpers and points at
-tools/lib/perf/tests/test-evsel.c as the example, so the sentence that
-sends the reader elsewhere is redundant.  Remove it and the link target
-rather than pointing at another test, and move the instruction for running
-the example into the How-to section, next to the reference it belongs to.
+Thanks, and I'm sorry for the time this has taken.
 
-Signed-off-by: TAKANO Mitsuhiro <takano32@gmail.com>
----
-v2: drop the reference instead of pointing it at another file, and move
-    the instruction for running the example into the How-to section.
-v3: the v1 history moves here, so the commit log is the change alone; the
-    sentence about the missing file is stated once.  Raised by Sashiko.
+>
+> Some examples from v4:
+>
+> - A folio belongs to a memcg and that memcg decides the policies around
+>   it. That's how memcg works for every other memory policy, and tasks
+>   belong to a memcg too. The series still splits NUMA balancing into a
+>   task side and a folio side with different semantics. DISABLED applies
+>   to tasks but not to their memory, and the two sides combine the
+>   hierarchy differently.
+>
+>   On v3, I asked why. v4 moves the storage into memcg and keeps the
+>   split, but doesn't give a high-level reason why NUMA balancing should
+>   work differently from how memcg handles every other memory policy.
+>   More generally, the major design decisions come without the reasoning
+>   behind them, and asking didn't produce it. Each iteration only barely
+>   updates what was pointed out in the previous one.
 
- Documentation/arch/arm64/perf.rst | 17 ++++++-----------
- 1 file changed, 6 insertions(+), 11 deletions(-)
+The task/folio split was my attempt to avoid defining a single owner
+for shared folios. That was not a principled design choice.
 
-diff --git a/Documentation/arch/arm64/perf.rst b/Documentation/arch/arm64/perf.rst
-index 997fd716b82f..5b9cc2aeb642 100644
---- a/Documentation/arch/arm64/perf.rst
-+++ b/Documentation/arch/arm64/perf.rst
-@@ -131,7 +131,12 @@ changed.
- 
- The userspace access is supported in libperf using the perf_evsel__mmap()
- and perf_evsel__read() functions. See `tools/lib/perf/tests/test-evsel.c`_ for
--an example.
-+an example, which can be built and run from the source tree:
-+
-+.. code-block:: sh
-+
-+  make -C tools/lib/perf make-tests
-+  tools/lib/perf/tests-static
- 
- About heterogeneous systems
- ---------------------------
-@@ -140,14 +145,6 @@ only be enabled when the tasks are pinned to a homogeneous subset of cores and
- the corresponding PMU instance is opened by specifying the 'type' attribute.
- The use of generic event types is not supported in this case.
- 
--Have a look at `tools/perf/arch/arm64/tests/user-events.c`_ for an example. It
--can be run using the perf tool to check that the access to the registers works
--correctly from userspace:
--
--.. code-block:: sh
--
--  perf test -v user
--
- About chained events and counter sizes
- --------------------------------------
- The user can request either a 32-bit (config1:0 == 0) or 64-bit (config1:0 == 1)
-@@ -160,8 +157,6 @@ userspace must treat the upper 32-bits read from the counter as UNKNOWN. The
- and should be used to mask the upper bits as needed.
- 
- .. Links
--.. _tools/perf/arch/arm64/tests/user-events.c:
--   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/tools/perf/arch/arm64/tests/user-events.c
- .. _tools/lib/perf/tests/test-evsel.c:
-    https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/tools/lib/perf/tests/test-evsel.c
- 
+Shared page-cache accounting in memcg is not a clean ownership model:
+pages can remain charged to a memcg after the tasks that used them
+have moved on or exited. That limitation is real, but it does not
+justify giving tasks and folios different policy semantics, and I
+don't currently have a defensible model for the split.
 
-base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
--- 
-2.53.0
+>
+> - numab_memcg_mode() walks up to the root memcg and recombines the
+>   requests on every call. The callers include every load-balancing
+>   candidate in can_migrate_task(), every task migration, every NUMA hint
+>   fault and every page migration including compaction. This happens
+>   whenever any cgroup has a mode set, although the result changes only
+>   when a mode is set or a memcg goes offline.
 
+You're right: the ancestor walk is not an optional optimization. It is
+on hot paths, and leaving it for follow-up measurements is not
+acceptable.
+
+>
+> - numab_memcg_active() reads css->flags once and the comment says that
+>   this makes the three state bits describe the same moment. However,
+>   nothing synchronizes those flags with the mode. In the lookups, the
+>   check is redundant anyway because offlining a memcg or disabling its
+>   controller already clears the mode.
+
+For numab_memcg_active(): the technical point is that the check is
+only needed where the memcg does not come from a task/folio.
+
+In the task/folio lookups, the memcg is tied to the object being
+examined, So the active check is indeed redundant there, and I'll
+remove it.
+
+bpf_numab_get_mode() is different: it resolves an arbitrary cgroup id.
+There is no task/folio context that pins the policy. So I use
+numab_memcg_active() there to skip an unusable memcg and continue with
+its parent.
+
+I agree the check should not be in the task/folio lookups.
+
+>
+> A developer could cost reviewers time before too, but each round took
+> the developer much more effort in comparison. That kept the effort
+> balanced between developer and reviewer in a sustainable way, and it
+> made sure that the developer learned and improved while working through
+> each iteration. LLMs broke that balance.
+>
+> I don't know what the right solution is, but at this point shepherding
+> patchsets like this doesn't make sense for me.
+
+Anyway thanks for taking time into it.
+
+
+--
+Regards
+Yafang
