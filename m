@@ -1,52 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=62.149.156.86
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.164
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794405023;
-	b=aMFurA/Qw3NFKqEw3p8AE44yDDaMUfqihIpiOEzXhYBaxfqsmng6dFLSbto4aYxfxvef
-	 1K51e/pj7dmszPAutS6m2pzBiPhEqmyFEunlb5MMAOXpt8BoG5cFKqP2hZuAS8q2hZbiA
-	 L+iVlen/vqo6FSpd5BiWUpB8YnrjuSYIKvzaelxkuCEZ7+s9pkk2aQVmH9xvdeqpzupoE
-	 XNA/NT8SP+uN69hpwu8jUerL1otq0buqw2UjKbjbZeFeaEM32qrwhrLNOREpHeLa6YtAr
-	 CBWJjnzV+l7dHldXhNFnTVfgrcslgM8ZeFrLTnet6ytmA/lhqJjOA4E37oRtbj25LwA==
+	t=1794405031;
+	b=ptia4uP+5F6r+uAWjhlifUMxNtQLHVwBMBDkGX+38QN0HmxAqYIk9uYHRp5dwi9K0VcX
+	 p6WuTJjbVFGp3uanbncnHQt66nbmknSjgAwc74PQ0ZDstyikVA6vzccERJjw1jyg2Ju7M
+	 b9/CPY9tn5ngsXEsAIOcMiN91sQqt4RbJpcT2OyAnHauLZ9tLw/nxjyyuxf5YTMF9+ja9
+	 5Sj0+7fE6GzFKpEfsILbNCBWhkgWd73UqSpllahhwb6geiQd7+ognrOmYS68SmsObLSpD
+	 1hNtQ9YeagSbkRelTbrlQPiTzUtT05D3XZIBz/K7YZArsqB9eClpf0VeGKn2ZAtXLRw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794405023;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:Content-Language:To:Cc:References:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-CMAE-Envelope;
-	bh=PMhvGI9ERAg7fhsMSdsC/hmF3rE9akJlGOplemvTp/I=;
-	b=M+3I0W1szxvaGOSFmnz35o6giBk6zQWwXWMM4WFaQGTsQGYslBRaxP+gJo4adL5VR+Ea
-	 kkgNOyvEoQw0lE1xXXuD6Z1r3hnnpj1NaMDFNteon8GojiyIJtTshFy1iHcChV7BuesAE
-	 hj2hu/06fenDiBCrgCYQchb9F/euu58b0fZ0V2ANMm0VN4wX6Tl3+FgCWbr64x5sCBKea
-	 6mnYyGDI/HV+eFCdh0ahRpwmIrpSvOGOW61TsI5Z6z6RBG5+zSwNstOZhXA0F/zdrpBsm
-	 fmXOQzT8v8sTIKhV0sqIEuUiKJxHaEaulFOnQLLaiBboqqg4V6CFHJPibqWmtcDiFcw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794405031;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=W0fVDpxe9XYsp0i+6ZgSyoLxBF06zc9LwPS7rJSHqiY=;
+	b=jFMtmQ2lFxofJwIVpImS1W/7C2eMX9UvV2frAY78hJ716B20OuUvufblheJUQJCkz1F3
+	 st51e6PeMSfFDNGEWUfMeXAft84nTFZjGv3owLbrNMSDObvzAZyh+Kqr3XAes+fIbmYQp
+	 NPVz9COFT1h/zvpplVU2E4Uqduu5+D4iEMi5Sm6XEEb0cCp8hrqR/S4M58R6B6gNSsPV9
+	 zusUgETRQAq1MMRNZ6+eXyUHJDN3/T/nOgNAuFdNkXvKZIWQhbxYkGIpqkGveoB2nCcT6
+	 Ac1VQUxBvMSqzLh0sUtzWxnAZ147rA/Rqk4/o0eCZc4x1xENG2KqdwPuiTcNLhbgTfA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=enneenne.com;
-	spf=pass smtp.mailfrom=enneenne.com;
-	dkim=pass header.d=aruba.it header.i=@aruba.it header.a=rsa-sha256 header.s=a1 header.b=AEACPrrm;
-	arc=none smtp.remote-ip=62.149.156.86
-Received: from smtpcmd0986.aruba.it (smtpcmd0986.aruba.it [62.149.156.86])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b="rPme4P+/";
+	arc=none smtp.remote-ip=203.205.221.164
+Received: from out203-205-221-164.mail.qq.com (out203-205-221-164.mail.qq.com [203.205.221.164])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A70560A2603
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:50:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A70560A2603
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=enneenne.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=enneenne.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A643606A330
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:50:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A643606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=aruba.it header.i=@aruba.it header.a=rsa-sha256 header.s=a1 header.b=AEACPrrm
-Received: from [192.168.0.186] ([101.57.122.26])
-	by Aruba SMTP with ESMTPSA
-	id R8iKxqxKS6q8sR8iKxsQjf; Wed, 11 Nov 2026 14:50:12 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=aruba.it; s=a1;
-	t=1794405012; bh=SyFOrM7z60lMT225ZMupQKCXLeoZIrXfO4i0UdnOE0Q=;
-	h=Date:MIME-Version:Subject:To:From:Content-Type;
-	b=AEACPrrmJ6KLa3nyNHmLCKaPmH+S4MoNWn+D+hVVEfo+nUVoqxZCyM+git9D24wIH
-	 XpGhvyzGyNQH4s7DjvpDmXHznCROfMWdGFoyeUEkJx7eQRHAJa1AbAAS2kr0y5toUZ
-	 wfmFRSN6UeUKeegaU4tVvTUze367zE6BUv7bzwkP7B1DhqTFE9yU4uQwIkjcadTB7O
-	 VlwaQCWib4+dvfUXUkKDBKpB5hhx11ChwEnMVQWcQBgBcu9cZO204I7D8jcZRikdP8
-	 JfPsgjHDBy9oB2ArhQT5PFoDpxs4YQMcwIIXR6ketEJV8s1zn0WFAYLYHLFsdVWmfq
-	 vQLjhZ4bsOELQ==
-Message-ID: <e73c9835-f17d-409f-bb9a-365212823c1e@enneenne.com>
-Date: Wed, 11 Nov 2026 14:50:12 +0100
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=rPme4P+/
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1794405022; bh=W0fVDpxe9XYsp0i+6ZgSyoLxBF06zc9LwPS7rJSHqiY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=rPme4P+/qiH/Pg+F4luIQYFEUSNQStcJZLz1LMFChkiE4oK4kzNgRBsA3bxkm53bl
+	 bfZ+XthEg54ZyffI1B7v0OEWHJN4ZtsCFS3TaVuBrCOXBhG8q97k7uVD4MUjQj6rN8
+	 kuV3fvqqBErq3pf52DYPNjLslSneAAJcRDmQ08bo=
+Received: from ubuntu.. ([112.3.92.91])
+	by newxmesmtplogicsvrszc43-0.qq.com (NewEsmtp) with SMTP
+	id C92862E4; Wed, 11 Nov 2026 21:50:18 +0800
+X-QQ-mid: xmsmtpt1794405018t57z251ok
+Message-ID: <tencent_74EA7A2E8BF5758E9C5EF18C9B1CED401D06@qq.com>
+X-QQ-XMAILINFO: NBPcaZsd6bGOn8PNIyEDiAC51qdQli4kKvysCslyWIriXpR9YHSu/ay962/2Ft
+	 B2HFSrnWFcTaaj2G/smw6YmkSR9rApmrNbyiXuxSZWVF8KYN7+RfiU43ImKHcFX9pkbkqD1JFxtN
+	 SRrtWGdG+RF8XG0Oxcf0cQWPEwNFRlxNYq/IEhc5Zz9miMOMps4ze5/YEemkLZzTNPJuwuLBG54m
+	 wcjGi1M9w2cZ3+zaudwK8g7lcbusUq3/Uscyxj6UmuBW6//OEMOqR1ZD1LIIi628MalH3dbi6JOf
+	 7EprQ8hq499q02sjEtVwAEhy57L6Y1RMPNCX2Zk+CbIHz8v2UWxpBNNbxGZRaE9qmT/TiB49EYEb
+	 GWsF4S9yRMqmcLdjQB4PFBlg1TiRp8FUIYNhKCldDJvHsB6pZ2cZLtFFOkv1TJlLhZbVvu/RlaoL
+	 LAODtPl7OSiV5ee2nGsJEhK5H2kODChJznoo0egtwQ8o6wDvtC2y5oWgQ/Hsp5WAHpH9c0GhCyVZ
+	 y3jf2kKbCKakxqK/Oz1Uup1A1AKXLWrAfiA7yEvHQWhL2uRvH80f4UqXLK+rWbXguo/PCTIqxYL5
+	 Bw1hlYixyzmrP28LbiLFVvjRsBBm6BJ6i7BF9S5rBvaJDQPmbheIenbXCNemYkG7+zhJCOtgyK5m
+	 oVwFSQevSHB/OzrC093FMWBOTPIkXlug3I+3QozfrTP9Y9laXnK/G6TimoF4V4p4pn+OClYkfoPX
+	 MQ16IMz8xIPiUp4g7rLbuTUFqIsp7GnQuTo6z88DaWtnowRJEba1e9FeRbhl98aqAOCJ2jLzv+Oz
+	 G21LSKIAqr5SHUDSnvkxLLt7Vz/3S47Cs2KBO7J+cYd+tGDXXH/Ekr+YY9VqnN29n/Z3iZVtTHBQ
+	 Gz5nJKBRnidh4P14uQ1Uzcrt1vTQ7bjj4s2hRtA91PWDVXBjG2AfKiWTjA+35T1BG+Z9AfmybWIr
+	 L42LlFDM7tJVxOXWZ7ISxKl51h5DtCp90uCLKtnHg5oxNFjCEMdSbaGV4KUDj77llWpXrlJLGFpU
+	 3NnXy//iKXgFVyoasNnAJ6CIx3evYU/IIyhP9E5W3kuhWKngg7KFUn89us/VcZpB+MQ1r8eHImS+
+	 sCYmYytPqyDC0gyWOuh3BhZZYLAsx6p8rjn1qfhMXfdx6ED+w8ojqF12HxgBXdZk7E5A3ECH47G5
+	 mC3m9jpdG9J9NRwQ==
+X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
+From: Congjie Zhou <zcjie0802@qq.com>
+To: netdev@vger.kernel.org
+Cc: mst@redhat.com,
+	jasowangio@gmail.com,
+	eperezma@redhat.com,
+	xuanzhuo@linux.alibaba.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	virtualization@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	zcjie0802@qq.com
+Subject: [PATCH net 1/2] net: napi: add completion with an ordered IRQ mask callback
+Date: Wed, 11 Nov 2026 21:50:07 +0800
+X-OQ-MSGID: <20261111135008.1048054-1-zcjie0802@qq.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <tencent_AA4F39DA7ADE330C721C03AAA832B92DD608@qq.com>
+References: <tencent_AA4F39DA7ADE330C721C03AAA832B92DD608@qq.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,61 +92,123 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] pps: reject N_PPS on pseudo-terminals
-Content-Language: en-US
-To: Hungyu Lin <dennylin0707@gmail.com>,
- Andrew Morton <akpm@linux-foundation.org>
-Cc: akpm@linux-foundation.org, linux-kernel@vger.kernel.org
-References: <20261111132709.5959-1-dennylin0707@gmail.com>
-From: Rodolfo Giometti <giometti@enneenne.com>
-In-Reply-To: <20261111132709.5959-1-dennylin0707@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-CMAE-Envelope: MS4xfN9LwweBv96Z7xTG5t868Q1CyswA0yisg7E/8KPwv2qgJp1EMdhsBCTnv20nGJkREBmK+BZOlp1LbrntA/IdcugHsVyw0UjeVeD98oUwBXxVQQ78dDru
- DsroarUjwb94QWwuE2qbhQxF3Z6wdLRL1cu1lZTvefaZz0LABvCXp9nzbWCPShITHEfxLBgLM6MDY0/626gSqg1OHKMVyvvz3LetIyV7lvd5rIlb/DxyY0Fr
- K6ofdobNN3XEruvkD9KwoA7xDSy/X2c3a7FwBopUOVY=
+Content-Transfer-Encoding: 8bit
 
-On 11/11/2026 14:27, Hungyu Lin wrote:
-> Attaching N_PPS to a PTY registers a PPS source even though PTYs do not
-> report DCD changes. An unprivileged user can exhaust the PPS source IDs
-> this way, causing registration of a real PPS source to fail with
-> -EBUSY.
-> 
-> Reject N_PPS on PTYs before allocating a source.
-> 
-> Fixes: a0880df0ccde ("pps: serial clients support")
-> Suggested-by: Rodolfo Giometti <giometti@enneenne.com>
-> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
-> ---
-> Changes in v2:
-> - Reject PTYs before registering a PPS source, as suggested by Rodolfo.
-> - Drop the stable Cc.
-> 
-> v1: https://lore.kernel.org/r/20261107211753.75932-1-dennylin0707@gmail.com
-> 
->  drivers/pps/clients/pps-ldisc.c | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/drivers/pps/clients/pps-ldisc.c b/drivers/pps/clients/pps-ldisc.c
-> index fa5660f3c4b7..83f4caced0c9 100644
-> --- a/drivers/pps/clients/pps-ldisc.c
-> +++ b/drivers/pps/clients/pps-ldisc.c
-> @@ -46,6 +46,9 @@ static int pps_tty_open(struct tty_struct *tty)
->  	struct pps_device *pps;
->  	int ret;
->  
-> +	if (drv->type == TTY_DRIVER_TYPE_PTY)
-> +		return -EINVAL;
-> +
->  	info.owner = THIS_MODULE;
->  	info.dev = NULL;
->  	snprintf(info.name, PPS_MAX_NAME_LEN, "%s%d", drv->driver_name, index);
+napi_complete_done() can clear SCHED, arm the watchdog and return false
+when deferring hard IRQs. A false return therefore does not guarantee
+that the caller still owns NAPI. Masking interrupts after this return
+can overwrite the interrupt state established by a successor poll.
 
-Acked-by: Rodolfo Giometti <giometti@enneenne.com>
+Add napi_complete_done_with_irq_mask() with a mask callback that runs on
+false-return paths before ownership can be handed off. The callback
+must be non-sleeping, idempotent and leave NAPI state unchanged, since
+a state-update retry may invoke it more than once.
 
+Keep napi_complete_done() as a wrapper without a callback, and inline
+the shared implementation to eliminate the callback path for existing
+callers.
+
+Signed-off-by: Congjie Zhou <zcjie0802@qq.com>
+---
+ include/linux/netdevice.h | 18 ++++++++++++++++++
+ net/core/dev.c            | 29 +++++++++++++++++++++++++++--
+ 2 files changed, 45 insertions(+), 2 deletions(-)
+
+diff --git a/include/linux/netdevice.h b/include/linux/netdevice.h
+index 435be7880..810527cd8 100644
+--- a/include/linux/netdevice.h
++++ b/include/linux/netdevice.h
+@@ -601,6 +601,24 @@ static inline void napi_schedule_irqoff(struct napi_struct *n)
+  */
+ bool napi_complete_done(struct napi_struct *n, int work_done);
+ 
++/**
++ * napi_complete_done_with_irq_mask - complete with an ordered IRQ mask callback
++ * @n: NAPI context
++ * @work_done: number of packets processed
++ * @mask: non-sleeping, idempotent device interrupt mask callback
++ * @data: callback argument
++ *
++ * Like napi_complete_done(), but call @mask on false-return paths before
++ * releasing NAPI ownership. Drivers which prepare interrupt rearming before
++ * completion must not mask interrupts after ownership has been released.
++ * The callback must not modify NAPI state and may run more than once if the
++ * state update is retried.
++ *
++ * Return: false if device interrupts have been masked by the callback.
++ */
++bool napi_complete_done_with_irq_mask(struct napi_struct *n, int work_done,
++				      void (*mask)(void *data), void *data);
++
+ static inline bool napi_complete(struct napi_struct *n)
+ {
+ 	return napi_complete_done(n, 0);
+diff --git a/net/core/dev.c b/net/core/dev.c
+index df1a840b0..4ba9e4c1b 100644
+--- a/net/core/dev.c
++++ b/net/core/dev.c
+@@ -7001,7 +7001,10 @@ void __napi_schedule_irqoff(struct napi_struct *n)
+ }
+ EXPORT_SYMBOL(__napi_schedule_irqoff);
+ 
+-bool napi_complete_done(struct napi_struct *n, int work_done)
++/* Inline so the legacy API eliminates the optional mask callback path. */
++static __always_inline bool
++__napi_complete_done(struct napi_struct *n, int work_done,
++		     void (*mask)(void *data), void *data)
+ {
+ 	unsigned long flags, val, new, timeout = 0;
+ 	bool ret = true;
+@@ -7013,8 +7016,11 @@ bool napi_complete_done(struct napi_struct *n, int work_done)
+ 	 *    the guarantee we will be called later.
+ 	 */
+ 	if (unlikely(n->state & (NAPIF_STATE_NPSVC |
+-				 NAPIF_STATE_IN_BUSY_POLL)))
++				 NAPIF_STATE_IN_BUSY_POLL))) {
++		if (mask)
++			mask(data);
+ 		return false;
++	}
+ 
+ 	if (work_done) {
+ 		if (n->gro.bitmask)
+@@ -7047,6 +7053,13 @@ bool napi_complete_done(struct napi_struct *n, int work_done)
+ 	do {
+ 		WARN_ON_ONCE(!(val & NAPIF_STATE_SCHED));
+ 
++		/*
++		 * A false result is not proof of retained ownership. Mask
++		 * before the state transition lets another CPU enter poll.
++		 */
++		if (mask && (!ret || (val & NAPIF_STATE_MISSED)))
++			mask(data);
++
+ 		new = val & ~(NAPIF_STATE_MISSED | NAPIF_STATE_SCHED |
+ 			      NAPIF_STATE_SCHED_THREADED |
+ 			      NAPIF_STATE_PREFER_BUSY_POLL);
+@@ -7069,8 +7082,20 @@ bool napi_complete_done(struct napi_struct *n, int work_done)
+ 			      HRTIMER_MODE_REL_PINNED);
+ 	return ret;
+ }
++
++bool napi_complete_done(struct napi_struct *n, int work_done)
++{
++	return __napi_complete_done(n, work_done, NULL, NULL);
++}
+ EXPORT_SYMBOL(napi_complete_done);
+ 
++bool napi_complete_done_with_irq_mask(struct napi_struct *n, int work_done,
++				      void (*mask)(void *data), void *data)
++{
++	return __napi_complete_done(n, work_done, mask, data);
++}
++EXPORT_SYMBOL(napi_complete_done_with_irq_mask);
++
+ static void __skb_defer_free_flush(struct skb_defer_node *sdn, int budget)
+ {
+ 	struct llist_node *free_list;
+
+base-commit: b3dfbde62cf1981c4638939c159dfd087b7a72e9
 -- 
-GNU/Linux Solutions                  e-mail: giometti@enneenne.com
-Linux Device Driver                          giometti@linux.it
-Embedded Systems                     phone:  +39 349 2432127
-UNIX programming
+2.43.0
+
