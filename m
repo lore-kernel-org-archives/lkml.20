@@ -1,88 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794392186;
-	b=LufmlXllwiuYL4CShPj0S76OO6Fz+y1pF2CD+qSmnEvc2BGg07B5I6GjAb1GtfWqnIEd
-	 WeXFqn2qxTWw07IqUkdB9+V6EHgMJD36MuD5bofLDzWY2qZDFrHDlGPXAWvWyTFMse3Ou
-	 5Jk3U+ETHKV328uCIod650Tvmnr6n6PdhH05BBe2npuCNzdShHHqJTAeqO+9yYfjqNPoh
-	 yMIGxkFZoQiVmlT12boYNHb7SEY4zcs0AOY4bBQsNIkkysxqyfO3ASoPc3wSocseZ+Iou
-	 5rwh0cuaPevcG+lm9SuxXdxUSHBK04/FMRg8B7P6M0bQaYhj8ychl9YogTh8eI/uBZw==
+	t=1794392190;
+	b=trYVFSTXRavKX0cEVYkxQarKimR66t+OmCP60SzAW+Wk1qOuCSeKvxpdZfk6AFRHOm9y
+	 Rpp2LThb9CGsUiqpcGkhu+VtNSRza73U5flC4rfDqMzsMgm8VU+sMvz1csBxQEjojGNlw
+	 S/Liy4syQR6ofhU4B+GR6qqElF8pn4Sic2bx8Sdd4pMXORWZqtre8c6D1X/J23QO+Pi+8
+	 DXvv2crAZC1yOKkycW/3s9PuGDjPG4KOCtrgzgmsRSWtaJQIT7Qs0EEMfKeGGTSiJhbcS
+	 Urflf2UMhLWi4+fdmxEock6oVnY0zFHNfnzkxKOBoLO5QIVd6I3Equp+10ihxLDwRvA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794392186;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794392190;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=PvjHD5xBoQ0K8cdpA5aBSTc2W83sPTGK/ro8kbHtLgQ=;
-	b=w2EQAiXxI1bgxgmMnaAdlUkIwSfci8W6qsTgaPolTAZdMRjSA0ZEzS9MUyegzbD8i8Iz
-	 jsQMKV08vYPVBrU7xEymyWtKm8e9H69bETrm7/OmoEC8lXXGHRcZKwt7fO1DKbi4uPAR+
-	 7e3bilmvvYZaHHIlrw0kzsRTMqL1ojSWizIvYJIdHFHkNUcdk3rlSU4aJeqjHPi87n/jT
-	 5fVdH/kmUc6JY1Wbh6FErujV7MGgMDecKBK96CnQZ8euQjfHPqmucLo7OA9advdp+PYrx
-	 xlqq7VupM2gOn6miKUX7+BupqcywNgdQ5CVXE3TfSaeoqTiK2u2pScLlCjYGn8TREKg==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=d/IvGYdSU0x2hRQxBE1JjbZsWM2RLe7/sTpyhUbllAo=;
+	b=FH/crjzshHg0EaFgPyLJ+u0nOgxwEhn+/YoXNxTs/0M29ypU8ZMH7hjyuRz0VyLl/2ZW
+	 WX2nE9UJEDlq8HcBWwvc6dtRnoa+peefEBnki5fFIjMC0DH+gltnDAjNBAjjeSflMsYjE
+	 ITTtCnggm6//kVDs2YaPuzum+gAz29/QKbBA/HwfPrM4K/GHrLZyE6GXKfpGX8i5dMeT7
+	 L6ep3WcH1k3FEANTLU1TXcVbfqYn5CrgtXU53tAD6UpG/whiiKK/pHkj6kEE63ZCIXiSl
+	 0pih2GqsUdrP/gDthsW225eEjuKD1Jlf6cKBljgkg/NMp5yQ7e2NbvPchZS2jZLEm0w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b="l8/uvvXQ";
-	arc=none smtp.remote-ip=209.85.221.50
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zu6x9jvf;
+	arc=none smtp.remote-ip=74.125.82.176
+Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C08C606A326
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 10:16:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C08C606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 351AC606A336
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 10:16:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 351AC606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=l8/uvvXQ
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-492f0a1b685so2055025f8f.0
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 02:16:25 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zu6x9jvf
+Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-3720addb068so5493163eec.1
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 02:16:28 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1794392184; x=1794996984; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PvjHD5xBoQ0K8cdpA5aBSTc2W83sPTGK/ro8kbHtLgQ=;
-        b=l8/uvvXQyUpDwc2GLjrDT1bnuyDZE6FuDzWdb2uwISwSZ5EyLuDoHo/dPhB2W+b+Sm
-         M9u/hR1EcnrqKuaMpXUEV7wKcx5m4bc6f7YwVZCXeEbRjVH1QkXKeUjAVMphw/FkAu2J
-         VG5aIqboFM1lzT6dAEh+pgKraaSY78EmvqhioAwrkJ4wk4S30tplLN9qR455UG6Npxau
-         gkejjbHdehkSB9tftfuUQeaj7tkGV7dtFDL4xx49Ep1xzmokz1EsYoB//4DPsrZ9GkZS
-         dKoSr01miwOl4cCPd3nXTpReSmcIz3FcvzTWuteIecTP1tEvG4lvViRDIOeL0BmBqKOo
-         aLGg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794392184; x=1794996984;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1794392188; x=1794996988; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=PvjHD5xBoQ0K8cdpA5aBSTc2W83sPTGK/ro8kbHtLgQ=;
-        b=fsQaZ6z0nFhtToOwC9u0akoCzC6lOZOgnRuAM0KiCtueNPK3IGl009NCE9WQk20DZI
-         Dx0zCBC19GKIWi/dblH3NnwiZxKj30p0+6PqIq8LVVX6Fep+WyOhgXMPNpz27DDbTcWF
-         aJ4D+KgNTDQQC9wmY2u1Lwcp1CzCpCGLFwEojpHtkmk/rOOF9oK7YXuXNBa5ldbbo+sg
-         B7L5Fk6SlAdMLH6ixB+WeHbLl03+frm7Iwh9LnpH2N051gAO+5p9VRXfqIVO22ziLcS0
-         d8fs7JL21Pt8e1MhxcFfv0fCp9lERu2rCOTCeSZ1BErJ/NOeHYulHiRutfPTvdWd9ooD
-         1zWQ==
-X-Forwarded-Encrypted: i=1; AL+hErE7V9DZ5YkfslTNa3Nwmm00pKMC1L5P6685tpTYjerOyyp+4K09dk6XAJd8LwFHchinZKyv5BdhwZ/vJU8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+mQoOFNUFYI/+kjwDtSOX3FqTpfwA5Sfk9bC9xjepjQcUZmCBx
-	5PffdLku9WPeJaXzRPCj0dJY5Y1q1JUAUq7WA3+0MTWnG+ul+7ex3D2s4wEIbvrLdr4=
-X-Gm-Gg: AYBFou3ql8mQ2viB7WMNtqJYZ7vNTOpMTsiFGHVGjN74/OS/P8846kqKuI51TIsZP1/
-	u9Xiz1vDk5lEw3lOMM9OtfSRFr84rTk3um9jzUU9yq36cBh8Bvp34NshaQ5rjmHbJgVh0F7Ujaf
-	SkW+RbKjSXOV6vgfzNsKay+AKwscUDXOm/YW9k5QLAk6n6psERFCc9jKyiqM/oGmtXkDPITgd3s
-	1UZr+9qzeqwxlRMMzzgYyD9ocBDupYXUlZTafbDTyFEnACrrVAsl85aLcdLvRmfluMxJv3CmMQ6
-	6gwu6tuB0PljgGqYTmIAES2kkJmEzIOU/sLdCI/cqbcS5BD4WSa+TV25WBazwOpQ9L2PQM9C36V
-	dFtU5esCBDhk3x/r87NAuFbY1uht3kX6GWj6JzqgadK4FqrsiY2S6vC0cO+zo3dyRxQOa19Xqng
-	AeTAx6cW28+eHuO024AevX4rhfehzciw2I2mjNK871TPjMdMNEPy3T6Su1Sl1KMJCh1n2oxwpRE
-	oidaPvE5/jsG4pYngadFxT3LFAjUzxzgo+GMgTiWRLtH+r4qkhBQ0DfwLijdyfM7zh+CJdZ6WSb
-	DxO4Dk1izMw0ZuCL3xidyeNitD4b6LFx36w5rOoT8VMkp5N/p0n8sZk=
-X-Received: by 2002:a05:6000:288f:b0:48d:ff06:c626 with SMTP id ffacd0b85a97d-499c6cac56dmr3026544f8f.35.1794392184151;
-        Wed, 11 Nov 2026 02:16:24 -0800 (PST)
-Received: from [192.168.1.3] ([37.18.141.193])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498366c2793sm10054961f8f.45.2026.11.11.02.16.23
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 11 Nov 2026 02:16:23 -0800 (PST)
-Message-ID: <39ac224f-2903-496e-9a08-b4c5a33dc87f@linaro.org>
-Date: Wed, 11 Nov 2026 10:16:22 +0000
+        bh=d/IvGYdSU0x2hRQxBE1JjbZsWM2RLe7/sTpyhUbllAo=;
+        b=zu6x9jvf/Y3EYKErT5IhySBfSvma7bgcPl3N8bj7rO1deIOsdjwDsOzNRTj7JUAVRw
+         n3pJKYeNcD7xkEej0G+uil1L/QZZS7fW/8pCweCtJlfM6AwhR0WGB1GQnlNPrCjhDZG6
+         TopgFcf2SwZyMir0eFewYeUjTgZGxmbxCKnVB4y9/SDyW/KAzC0yiD2fd8CrM1+y6NIt
+         ezQnXbTySqtaWSCtYf8EnHmqNse/A20j3OBaOw6OJ50ayWpw0VpUJMlUdRUFSBEnaasH
+         AHCyiIr+8ZK+vb2xKhs/PUrZXDc1l6FJqIBOg62Qe4QJfX1LVrIHoKFTNiOrahtEaHzx
+         9Hqw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794392188; x=1794996988;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=d/IvGYdSU0x2hRQxBE1JjbZsWM2RLe7/sTpyhUbllAo=;
+        b=PGjoyFvngGYgfZfOYFqDAXb6BQmHHvgvPLPemYap2QSguDdRc+P1ShaTv5pVdqem6y
+         HBJSVSK+ajIvF+/QPRRP7g4T2Ymu3b/50X9OszFtMsjEIPC0kPVbkx19TM+WtLHEFfX+
+         uLnJ9GFru3KGuxHlm2tU3X93nz0APVBfowhfqtuF2ClNR0+WCAONFeAm7kCKJio9/G9A
+         bonOW0wASOj/aN+jhdiI01pdjzb5QRq9PZ4qjpOZ8pWS12pFXYev+Yx7hWZEOTyMoHdZ
+         zvGENndI40HNBRg8FOBCHdzARkJGtlfnvY+/vdyf63xHYoR4LRtf/GExORpZybtdw6Sb
+         fLDw==
+X-Forwarded-Encrypted: i=1; AL+hErEhUNpNFSP1LA9oBQGjivJwOzvC+k1VRCA0P3/f4ebG9TUlCATCDjj8qAZXdD7pC/YBXYxHrRo2JJ8zCis=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+kyMW1qM6ZovMOstuQYF7VrlEob9oL3B/1e9mm3j7p3LIEub9b
+	9HOgDnzOdsTziz+P0txdVf1NumS9S+IEdldl31uojpyr1KWH8Hbe57nZF3Z8KBeq
+X-Gm-Gg: AYBFou03R/MYAnY64mZQATs3lA9QLlMf9CWZ3xxYr7RBewZBY+IgNnkx9uWiqkWJXWY
+	2PlUlVE2KqLbpsqv+8ODOcJBGE2dP51nyQuxfYlkuMF/q+qx7T9NtD7w/nVr0Hz0LNLNPvKePrI
+	dcVhNWd3gUZc4Fjt1AmiU/omVCvl/0ANVEO5tP0WDPaZqv8oRXn7jSNqHIf6jiJ0wyIkovXqXCX
+	HyqalOyiWkn7/3WWECFVQG1tPya2nqRyrIG1aoASgAFShz07e7nZgENWf5CIb2ePbcd4lc3Zhom
+	CwGAzh3eEsEoHS0tBcGk7r30QMpfLEn1wCyEFPSPxIZ95uCg0NodyJ3+h+aznH0uokay1OMfDci
+	cn9VF9G9MehB+l2lGGwhYpFJjzivb1W53EIdlDo2ECGScttelcinAQeAU/VV60Ut4TkslgmGhVn
+	4w5F5LJlkwLAzE481ADMaClMNpz6gmPlU+zd6STgHsFLG+kTQUzAtLqrUi5FzeczJde+v0NSwpx
+	gQ8vg9D5uVJC6FPoYSrHlJqaUbKEk9YTemEbswDfpHozu82xZWNVaq7EXJnrWhCSrs4VP0xkrRl
+	Ra3u0N7/zgd00jdLiHqT
+X-Received: by 2002:a05:701b:2219:b0:18d:9eec:e0be with SMTP id a92af1059eb24-1b3c023e33cmr1755383c88.2.1794392188110;
+        Wed, 11 Nov 2026 02:16:28 -0800 (PST)
+Received: from a1-free ([161.33.196.121])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b2fc14sm14134634c88.12.2026.11.11.02.16.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 02:16:27 -0800 (PST)
+From: TAKANO Mitsuhiro <takano32@gmail.com>
+To: linux-perf-users@vger.kernel.org,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>
+Cc: Ian Rogers <irogers@google.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Mark Rutland <mark.rutland@arm.com>,
+	stable@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	TAKANO Mitsuhiro <takano32@gmail.com>
+Subject: [PATCH v2] libperf: Handle an evsel without an fd array in enable/disable
+Date: Wed, 11 Nov 2026 10:16:24 +0000
+Message-ID: <20261111101625.2204836-1-takano32@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261023085629.1694941-1-takano32@gmail.com>
+References: <20261023085629.1694941-1-takano32@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,121 +104,103 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] perf vendor events arm64 AmpereOneX: Fix misspelled
- PublicDescription keys
-To: TAKANO Mitsuhiro <takano32@gmail.com>
-Cc: linux-perf-users@vger.kernel.org,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Ian Rogers <irogers@google.com>,
- John Garry <john.garry@linux.dev>,
- Ilkka Koskinen <ilkka@os.amperecomputing.com>,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20261108183846.3804875-1-takano32@gmail.com>
- <bf6925f6-613f-4e20-8491-2a99183f34fb@linaro.org>
- <179433972506.1746408.6665119010100304383@gmail.com>
-Content-Language: en-US
-From: James Clark <james.clark@linaro.org>
-In-Reply-To: <179433972506.1746408.6665119010100304383@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+A group led by a tool PMU event is opened with the members' group_fd set
+to the leader's file descriptor.  For a tool event that descriptor comes
+from open("/proc/stat"), not from perf_event_open(), so a member the
+kernel refuses is marked unsupported; perf stat then releases the fd
+array of that member while the evsel stays in the group.
 
+Enabling the group goes through evsel__enable_cpu(), which enables the
+members of a mixed PMU group from userspace because the kernel does not
+do it along with the leader.  The member has no fd array left, so
+perf_evsel__run_ioctl() reads its loop bound through xyarray__max_y()
+and dereferences a NULL pointer:
 
-On 10/11/2026 19:42, TAKANO Mitsuhiro wrote:
-> On 2026-11-09 10:24, James Clark wrote:
-> 
->> Shouldn't jevents enforce some kind of schema? This seems like a bug in
->> the generator that it's allowed. And we have all the json files in one
->> repo, so we can fix everything when adding strict validation.
-> 
-> You are right, and there is a patch for it now:
-> 
-> https://lore.kernel.org/linux-perf-users/20261110193239.1741014-1-takano32@gmail.com/
-> 
-> It is not a schema, and I don't think it should be one yet.  It checks
-> nothing about types, required fields or value ranges.  It reports the keys
-> that jevents.py never asks for, when the spelling is a near miss for a
+  $ perf stat -a -e '{user_time,cycles}' -- sleep 0.05
+  Segmentation fault
 
-IMO I would rather have something that's incredibly strict and simple, 
-or nothing at all. Having to work around edge cases and report near 
-misses doesn't sound great.
+Guard the array in both places: FD() returns NULL when it is absent,
+which perf_evsel__ioctl() and perf_evsel__read() already test for, and
+xyarray__max_x()/max_y() return 0, so the enable and disable paths that
+walk the array become no-ops; perf_evsel__ioctl() returns -1 for such an
+evsel, as it already does for a closed fd.  The FD() guard alone is not
+enough because that loop bound is read first; measured on the same tree,
+rc=139 with the FD() change only and rc=0 with both.
 
-> name it does ask for.  The failure here is that "PublicDescrition" was
-> never read, so the field was dead in 16 objects and nothing in the build or
-> in the tables said so.  What makes it cost something is the AMD tables:
-> "BriefDescript6ion" is the only description those three objects have, so
-> the generated table carries an empty text field for ls_inef_sw_pref.all on
-> Zen 4, Zen 5 and Zen 6.  In your table the output is unchanged, because the
-> value repeats BriefDescription and jevents.py drops the long description
-> when the two are equal - which is exactly why the typo could sit there
-> unnoticed.
-> 
-> I did not go the schema route because a table may legitimately carry a
-> field for another reader: the Intel tables carry Counter, CountersNumFixed,
-> CountersNumGeneric and Experimental, none of which jevents.py reads, and
-> Experimental is read by metric.py.  A schema, or an allow list inside
+Verified on an arm64 KVM guest (Neoverse-N1) with a perf built from this
+tree.  '{user_time,cycles}' and '{system_time,cycles}' segfault on the
+unpatched tree (rc=139) and exit 0 here, reporting user_time (resp.
+system_time) and a '<not supported> cycles:u' line.  Real-PMU groups
+such as '{cycles,instructions}', 'perf stat' with no event and '-r 2'
+print identical output on both trees, and 'perf test -v 10' passes the
+same 78 subtests.  The libperf tests report the same five test-evlist
+failures on both trees: the events cannot be opened by this user
+(perf_event_paranoid=4), and two cases cannot read the syscall tracepoint
+id because /sys/kernel/debug is mounted root-only.
 
-But we can have a schema for json files that are checked into 
-tools/perf/pmu-events/arch/ regardless of who reads them. The schema can 
-say that "Counter" is valid as long as we agree that it's ok for that 
-field to exist, even if jevents.py doesn't read it.
+The events are still not counted: a member the kernel refused stays
+unsupported.  Hang Zhengyang's follow-up opens these members with
+group_fd = -1 so that they are counted.
 
-Then it's as simple as:
+Written with Hermes Agent, an LLM assistant, which made the change and
+wrote this changelog.  I built perf with it, reproduced the segfault on
+the unpatched tree and confirmed it is gone with the patch, and ran
+'perf test' and the libperf tests on this box.
 
-   from jsonschema import validate
-   for path in Path(pmu-data).rglob("*.json"):
-     validate(json.loads(path.read_text()), schema)
+Fixes: 0b18bced5444 ("perf tool_pmu: Make tool PMU events respect enable/disable")
+Link: https://lore.kernel.org/avQIOtt7Y67oXQem@z2
+Suggested-by: Namhyung Kim <namhyung@kernel.org>
+Cc: stable@vger.kernel.org
+Signed-off-by: TAKANO Mitsuhiro <takano32@gmail.com>
+---
+v2: follow Namhyung's suggestion and fix it in libperf instead of
+    skipping the members in tools/perf/util/evsel.c. The FD() guard
+    alone leaves the crash in place, because the loop bound is read
+    from the same NULL array through xyarray__max_y(), so the
+    xyarray accessors get a NULL check as well. Measured on the same
+    box with the FD() guard only: rc=139, with both: rc=0.
 
-Where 'schema' is something like:
+ tools/lib/perf/evsel.c                    | 3 ++-
+ tools/lib/perf/include/internal/xyarray.h | 4 ++--
+ 2 files changed, 4 insertions(+), 3 deletions(-)
 
-   schema = {
-     "type": "array",
-     "items": {
-         "type": "object",
-         "required": ["EventCode", "EventName", "BriefDescription"],
-     ...
+diff --git a/tools/lib/perf/evsel.c b/tools/lib/perf/evsel.c
+index f747c0bc692d..e23df3b2c1f1 100644
+--- a/tools/lib/perf/evsel.c
++++ b/tools/lib/perf/evsel.c
+@@ -57,7 +57,8 @@ void perf_evsel__delete(struct perf_evsel *evsel)
+ }
+ 
+ #define FD(_evsel, _cpu_map_idx, _thread)				\
+-	((int *)xyarray__entry(_evsel->fd, _cpu_map_idx, _thread))
++	(_evsel->fd ? (int *)xyarray__entry(_evsel->fd, _cpu_map_idx, _thread) \
++		     : NULL)
+ #define MMAP(_evsel, _cpu_map_idx, _thread)				\
+ 	(_evsel->mmap ? ((struct perf_mmap *) xyarray__entry(_evsel->mmap, _cpu_map_idx, _thread)) \
+ 		      : NULL)
+diff --git a/tools/lib/perf/include/internal/xyarray.h b/tools/lib/perf/include/internal/xyarray.h
+index f10af3da7b21..8bf76c12984e 100644
+--- a/tools/lib/perf/include/internal/xyarray.h
++++ b/tools/lib/perf/include/internal/xyarray.h
+@@ -32,12 +32,12 @@ static inline void *xyarray__entry(struct xyarray *xy, size_t x, size_t y)
+ 
+ static inline int xyarray__max_y(struct xyarray *xy)
+ {
+-	return xy->max_y;
++	return xy ? xy->max_y : 0;
+ }
+ 
+ static inline int xyarray__max_x(struct xyarray *xy)
+ {
+-	return xy->max_x;
++	return xy ? xy->max_x : 0;
+ }
+ 
+ #endif /* __LIBPERF_INTERNAL_XYARRAY_H */
 
-> jevents.py, would mean asking every vendor that adds such a field to edit
-> perf's Python first.  So the set of names jevents.py reads is the only
-> list, and a key below the similarity cutoff is left alone.  It will not
-> catch everything -- a key that is a word of its own, or a misspelling that
-> lands on another existing key, gets through -- which is why I would rather
-> not present it as validation.
-> 
-> It reads the whole tree, not just the architecture being built: the typo is
-> cheapest to fix by whoever reads that table next, and that person may be
-> building something else -- this arm64 one shows up in a run over the whole
-> tree from an x86 box.  The exit status is 0 for a clean tree, 1 when
-> something was reported and 2 when a table could not be read.  make turns
-> both failures into its own status, so a script that has to tell them apart
-> should run pmu-events/jevents.py directly; for a person it is
-> 
->    make -C tools/perf jevents-check
-> 
-> which reads the whole tree, and JEVENTS_CHECK_ARCH=x86 reads x86 plus the
-> common and test tables every build reads.  I kept it out of `make check`,
-> which is the sparse run over the C sources and needs a configured tree and a
-> C parser, and out of perf test as well: tests/pmu-events.c compares what it
-> generates from testarch/testcpu against a fixed list, and a key jevents.py
-> never read leaves no trace in the generated C, so a runtime test has
-> nothing to assert on.
-> 
-> It is not wired into the build: I had a version that ran it from
-> pmu-events/Build on every build and dropped it, because a report about a
-> table this build does not use would fail the build for everyone.  It costs
-> nothing when it does not run, since the tracking that makes a report
-> possible is switched off unless the check asked for it.
-> 
-> The two misspellings it finds were posted separately: the arm64 one is
-> this thread, the AMD one is
-> 
-> https://lore.kernel.org/linux-perf-users/20261108184600.3810059-1-takano32@gmail.com/
-> 
-> The generated tables are byte for byte the same as before on x86, arm64 and
-> the whole tree.
-> 
-> Written with Hermes Agent, an LLM assistant; the author reviewed it and ran
-> the checks it describes.
-> 
+base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
+-- 
+2.53.0
 
