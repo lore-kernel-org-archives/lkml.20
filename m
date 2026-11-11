@@ -1,74 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794356670;
-	b=SUr/PUNp8tjm5ShgM2tQc2J9Kxp3Du5vyf3d5sIKpShtugi6c4esw3jhGxkL2L+7x9MA
-	 R4/k+VqTXBJCYXS1DbeFfI/hq7zAwIATdmwUP/sfjlxyWUDZ7Us8p1vEQ5g/ilSblSMT7
-	 ltWdNvUHMV9mccHcJgiPMh/k2w7sYbHEZQhHMneVoS0yiisETNIgwZBIXcWrMSh3gDZme
-	 DIxEmDK+KVnReqNzF4+2gRPGFsbRiuYPUHEuCsTO9UbTkUod0L7ckkKLpS2y7JwS4AQPM
-	 wsGzPZzLJm3M5j5q+dryi41BFNBc2FxTqZ5ad4sQ78uMh3G1lnFKx3ChKsIsOWxIv+A==
+	t=1794356672;
+	b=uyBt+Y/GZtnhy5nrnUILUSORSY/A1fBAk+WbTlNWPY4fPs6/OWqkXDxCvGmyphpwydBY
+	 x6HwD6M+/zXZprzS11et4INdfQgrBH6Pd6pvjaZMl/uoVHZCUG20vzsV1Ic2rABIEDNj+
+	 bCSCNPY/wEHQ3364wnJQ6xDY1558M7J/nXjtIqzb+yeEBcaTt6+8Acebof2QnxdjNcU2U
+	 1UsBDKL5ebEKohq9YeWI2id0ockkqHLE1kexOFUBUV2YxC8iWf1C3qxpYP1kApb0i8Im8
+	 wOrP86BIa5K3hCN1Svq89DcwHlcktqAIz8CWlQCoSgi2KztR72vfIkFGPqTR83EVbzw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794356670;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794356672;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type;
-	bh=i6UwDZkR60zC1jRdfetesrUGnOJ3v7sbV3p0GqEZ7UY=;
-	b=453YaP+YGi+sw/KJ3M2dHdAuGXHcFVxs7jkYICbzJTKYPPE+8IR0YyWB9WWxLCKgWGdk
-	 rgCJEIVB6tlUAuPtyWszspJloeLfzn3NKnEcIzR1+ZGHuWJLr1wJZJXUqDkfOOWfozqvl
-	 5EAaOaJxDoibeGAV6z19ZV0Hszy52xEqiPTmfcqfbA8+/Aw2i4IOkRvWka5pBuUdJQiMp
-	 zpujz7vscJNTjiUgYvGnVJK3XS3QJ+NCJHhVauTxLw5puBZCPMo5A91OtEV5j+HO8M1SS
-	 e1AOBlba4PfPL6rFeuWRxBTdOk4gQuqm6nVc3wcR0+nuWzfHXhK2vfb1d6tTtej6cNQ==
+	bh=JWNWBuYt8VDk6MSopmwG6WRR0xCPHmDtNzfk+bYbRIM=;
+	b=i3IC0ieq1qFFTKn7cpP8H50rs9fGY51EYPf4h1tx/IG3jy/crFsHiyjKQGQPEaKn1DD2
+	 mZJQulluEQ4untXqZC4Vzm6UeKQQDWFAxEPMSje2zfd+gnrbh1SVSR3oYGhe671R98vfb
+	 WMpbaAal7sAK95nWo3cFAYcoGKeWJDqF7fW6J4i41qaZh9iwLBA+Rr83F6cL3w1lKA9D/
+	 hU1dNjU/R9foIcuSCjRt8k3oIZtp+s+zcsGJboJHbhACP98+9zoIPt8X44Al20O61QScb
+	 WLL3bOWV8y2Ipit1HI/Ro6EFWkIsIiZ04KbzC3mbfnA6tAsmnW2Nyy2MFOCXw5E8oCQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--dmatlack.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=JGM0gHvX;
-	arc=none smtp.remote-ip=209.85.167.197
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=lhqBXt1z;
+	arc=none smtp.remote-ip=209.85.167.200
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08E1260700BC
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 00:24:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 08E1260700BC
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F0DA606AAA1
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 00:24:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7F0DA606AAA1
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--dmatlack.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=JGM0gHvX
-Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-5641cd2cc13so3003300b6e.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 16:24:29 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=lhqBXt1z
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4a41f46d629so3639632b6e.3
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 16:24:32 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794356669; x=1794961469; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1794356671; x=1794961471; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=i6UwDZkR60zC1jRdfetesrUGnOJ3v7sbV3p0GqEZ7UY=;
-        b=JGM0gHvX/G7BbRdeuyC61/6m3bQFybn5glgwyfuuOIeyTVYWoqOujPRQ62U0rE7qc9
-         giPo6tsqTfrCTtjpUv4zTfMD6pnknqJXzkTsp/KqctJAG+/iobHHyIiF0E2PdfeZnsnZ
-         RmzFwISo4CR7k+B1n/lND/vsKCY4hHMSHdfrY7SKwxwbDf62Sh6IsVu7R3hCNgX94HxV
-         1dYjQu6UUoZ0PNmN7cURq2LnATjO/k3mEE91iLcEstOWnTj0sklMypArOl19Zbsb6O2u
-         /oCDvPNuCQEihWXcRFZJnmB6PlNXrhd7Zaf3Jq38XdEXmTdvnYUSubq7SYt+sPxDbuYC
-         /7jw==
+        bh=JWNWBuYt8VDk6MSopmwG6WRR0xCPHmDtNzfk+bYbRIM=;
+        b=lhqBXt1zqzxYObFe8xWJ0k/+Gw12MBM9jHOmOyMWXBfCuC7AMjtNuJR3ioMPmsd4E5
+         EKHmXxcwvASBD5Bc6OozopYeJX7IHxPsCQq5vdxTRgPOSQAjXN7xfMR8BKlPW9ntNavG
+         YQ96p9zkk7K3k2BfnOcgiQuAUANMLcLjNXXVwF8aE4op1XCr+h8PCKxztQVytHL2Up+m
+         y8pBkBhm2FFP81XcgDLvqfb1Oq3Pc1h2nzxppooryF9Rt4B48jQWFyjLFWZLvM9KiONq
+         /3C3c9UjLaVclNyXMLZsc9is9YcNFLsDBsqLwqhVuPZlRCqlPW9r+qZaDUfppyONdg4D
+         NEZA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794356669; x=1794961469;
+        d=1e100.net; s=20260707; t=1794356671; x=1794961471;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=i6UwDZkR60zC1jRdfetesrUGnOJ3v7sbV3p0GqEZ7UY=;
-        b=NC7DxDuCu0ycx4+VPdtGotT+EAKUgDVMilkEr+jL3ImnwSVesDTDQDrcHvHktuEDiJ
-         IuuxBGmuMRFhHGTDA8ggDhd/CkHWPToRTwiVOkRjoxENPgtB5gnHSBJLl4D6/U4oYmyB
-         Mx8e+maWrDPNmRcsjhZesHwXNB5aLIpHWU2tKGNB9/Rum2bVVKIkfuJ1r5zHVY61k4bx
-         xV9ugOCjCXVwnXUnjxsv8+DNg9/DSFzuif3mDcs+L5mGQwrOY8kJS2z4gee/i5DUbpcM
-         ocOAAZmoFIK8+q7VqFf42amo+jTmZDjRxqu8Vsn7LBSNQWqgqQ9UW7CCKWEHDiGiQbFg
-         PEWg==
-X-Forwarded-Encrypted: i=1; AL+hErELv09B3OxZW57geUJVhx2C46OR7eNAidgt5HAvRXxomc5KP04NvBzDgOu57LuqjyGbnp7auXbVCzdIrR0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8mQ66U8F4H5zmOMv+YEpgWfuy/Z2W8nWLwBsp9tWgt+YW02/w3
-	eH4Q7CUN9BKkz7Mg7AffEgHjghtW7WI2ruNhS+Ot56niAWkKqcoRhbiaqdCjVD6Hcy5UcIS1zsM
-	G9wIy3wJj1Zy//A==
-X-Received: from jahl24-n2.prod.google.com ([2002:a05:6638:8c18:20b0:61c:f613:9335])
+        bh=JWNWBuYt8VDk6MSopmwG6WRR0xCPHmDtNzfk+bYbRIM=;
+        b=BC2yf+sTudHxwEyLh9Cq+LJSFl7JYOZfhoxhk4TGYsNwQ7FyGsjb0zq8WtvSXJ5H7z
+         j11msxsZU4M/7INyrm6DfXBBE5IxIjJTTVX/3PIziKMzZNEA7o5xH5QJiOxiJfpDT7be
+         Ne/zwNf3SbyYbi40jp/8/l6Agm57V5V/B75YF2tHKLQ0MvD/QTOyPLwrb+CMGkqLqikJ
+         f2mUyLvegO4u3tXoQBVdAE+RPiYv2Me5cRff3/NYK3yJp+vOu5GeixjX1trhIWGVYskl
+         dsb2mSwuaGN4MiEQMu2wl5cP7Gh/r4Z8X3sJzqXLsPmynIlz9YKdNGvPn413AEpGCUrE
+         JtDA==
+X-Forwarded-Encrypted: i=1; AL+hErFn0Q8zI3adT4nbVUz/wiEm579xh8N492IQ++q+e0fzcW6ffGD+MmCAbMdtqwE4liR76vWCzVNV/BBh+D4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8FI772ehvBdFA/VHzlQsjJ50TnjkfUUgIxMpFGcRTS1CUVmNqi
+	nF9a6k7QH8d8Sn6lsKGkRgtyVFDhGPWj8mpLdxt2eCc/gwtVFh5tJ2EGkvw7NoERWJtgKaFG3jz
+	MfcCC5kCZSKn92A==
+X-Received: from ileb20.prod.google.com ([2002:a05:6e02:c94:b0:53e:21cf:3e01])
  (user=dmatlack job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6808:c1b2:b0:4d6:90f4:48ab with SMTP id 5614622812f47-56b97c18413mr582521b6e.45.1794356668774;
- Tue, 10 Nov 2026 16:24:28 -0800 (PST)
-Date: Wed, 11 Nov 2026 00:23:55 +0000
+ 2002:a05:6808:309d:b0:4b3:3e1:4a25 with SMTP id 5614622812f47-56b963a8dfemr634281b6e.11.1794356671089;
+ Tue, 10 Nov 2026 16:24:31 -0800 (PST)
+Date: Wed, 11 Nov 2026 00:23:57 +0000
 In-Reply-To: <20261111002358.1842967-1-dmatlack@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,9 +81,9 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261111002358.1842967-1-dmatlack@google.com>
 X-Mailer: git-send-email 2.56.0.542.g3ef89b7020-goog
-Message-ID: <20261111002358.1842967-18-dmatlack@google.com>
-Subject: [PATCH v4 17/19] selftests/liveupdate: Test the targets of retrieved
- tmpfs files
+Message-ID: <20261111002358.1842967-20-dmatlack@google.com>
+Subject: [PATCH v4 19/19] selftests/liveupdate: Test block accounting of
+ retrieved tmpfs files
 From: David Matlack <dmatlack@google.com>
 To: kexec@lists.infradead.org, linux-doc@vger.kernel.org, 
 	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
@@ -99,598 +99,383 @@ Cc: Alexander Graf <graf@amazon.com>, Andrew Morton <akpm@linux-foundation.org>,
 	David Matlack <dmatlack@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Add test cases to luo_tmpfs for the file that a tmpfs file is retrieved
-into. It must be opened for writing, but can be write-only, and it keeps
-its file status flags. It must be an empty regular file on a tmpfs
-mount, so files with data, a size or blocks past the end of the file are
-rejected, and so are memfds, pipes, directories and immutable files. All
-of these failures can be retried with another file.
+Add test cases to luo_tmpfs for how the blocks of a retrieved file are
+charged: The file fits a mount of exactly its size, and a large folio
+that extends past the end of the file is charged in full. Running out of
+space on the mount, or hitting the memcg limit, fails permanently,
+leaves the target empty and nothing charged to the mount or the memcg,
+and the session can still be finished.
 
-Also check that an unprivileged process can retrieve into a file it
-created, which keeps its owner and mode, that a running binary can be
-preserved through a read-only fd, and that the retrieved binary can't be
-executed until the session is finished, since LUO keeps it open for
-writing until then. The exec test case runs a copy of the test binary.
+Enable CONFIG_TRANSPARENT_HUGEPAGE for the large folio test cases, and
+CONFIG_CGROUPS and CONFIG_MEMCG for the memcg test case. They are
+skipped without them.
+
+tmpfs quotas are not tested.
 
 Signed-off-by: David Matlack <dmatlack@google.com>
 ---
- .../testing/selftests/liveupdate/luo_tmpfs.c  | 490 +++++++++++++++++-
- 1 file changed, 488 insertions(+), 2 deletions(-)
+ tools/testing/selftests/liveupdate/config     |   3 +
+ .../testing/selftests/liveupdate/luo_tmpfs.c  | 278 +++++++++++++++++-
+ 2 files changed, 279 insertions(+), 2 deletions(-)
 
+diff --git a/tools/testing/selftests/liveupdate/config b/tools/testing/selftests/liveupdate/config
+index 37230f4c488f..7f38291c979d 100644
+--- a/tools/testing/selftests/liveupdate/config
++++ b/tools/testing/selftests/liveupdate/config
+@@ -1,4 +1,5 @@
+ CONFIG_BLK_DEV_INITRD=y
++CONFIG_CGROUPS=y
+ CONFIG_DEVTMPFS=y
+ CONFIG_KEXEC_FILE=y
+ CONFIG_KEXEC_HANDOVER=y
+@@ -7,7 +8,9 @@ CONFIG_KEXEC_HANDOVER_DEBUGFS=y
+ CONFIG_KEXEC_HANDOVER_DEBUG=y
+ CONFIG_LIVEUPDATE=y
+ CONFIG_LIVEUPDATE_TEST=y
++CONFIG_MEMCG=y
+ CONFIG_MEMFD_CREATE=y
+ CONFIG_TMPFS=y
+ CONFIG_TMPFS_XATTR=y
+ CONFIG_SHMEM=y
++CONFIG_TRANSPARENT_HUGEPAGE=y
 diff --git a/tools/testing/selftests/liveupdate/luo_tmpfs.c b/tools/testing/selftests/liveupdate/luo_tmpfs.c
-index 91a607752ee2..2d6dd8f0e138 100644
+index 0bd9b95f0575..783c46715fc1 100644
 --- a/tools/testing/selftests/liveupdate/luo_tmpfs.c
 +++ b/tools/testing/selftests/liveupdate/luo_tmpfs.c
-@@ -69,8 +69,13 @@
+@@ -62,8 +62,9 @@
  
- #define SMALL_SIZE		8192
- #define SPARSE_PAGES		8
-+#define NOBODY			65534
- #define TEST_UMASK		022
+ /*
+  * Everything happens on a tmpfs mounted at TEST_DIR. In stage 1, the source
+- * files are created on the tmpfs mounted at TEST_DIR/src. In stage 2, each
+- * case runs in the directory TEST_DIR/<name of the case>.
++ * files are created on the tmpfs mounted at TEST_DIR/src, or at
++ * TEST_DIR/src_huge for files that need large folios. In stage 2, each case
++ * runs in the directory TEST_DIR/<name of the case>.
+  */
+ #define TEST_DIR		"/luo_tmpfs"
  
-+/* The exec case runs a copy of this test with EXEC_ARG, see exec_main(). */
-+#define EXEC_ARG		"--exec"
-+#define EXEC_STATUS		200
-+
- /* TAINT_BAD_PAGE, TAINT_DIE and TAINT_WARN. */
- #define BAD_TAINT		((1L << 5) | (1L << 7) | (1L << 9))
- 
-@@ -129,8 +134,12 @@ struct test_case {
- 	int (*preserve)(struct test_case *tc);
- 	/* Stage 2: Retrieve the files and check them. */
- 	int (*verify)(struct test_case *tc);
-+	/* Stage 2: Optional checks after the session is finished. */
-+	int (*after_finish)(struct test_case *tc);
- 	/* The tokens of the case are token to token + 0xff. */
- 	__u64 token;
-+	/* State kept from verify() for after_finish(). */
-+	int result;
- };
- 
+@@ -145,6 +146,7 @@ struct test_case {
  static unsigned long page_size;
-@@ -143,6 +152,11 @@ static int do_fcntl(int fd, int cmd, long arg)
- 	return syscall(__NR_fcntl, fd, cmd, arg);
+ static int dev_fd;
+ static int session_fd;
++static bool have_huge_src;
+ 
+ /* nolibc doesn't have these, so use syscall() where needed. */
+ static int do_fcntl(int fd, int cmd, long arg)
+@@ -209,6 +211,16 @@ static long mnt_used(const char *path)
+ 	return buf.f_blocks - buf.f_bfree;
  }
  
-+static int do_fallocate(int fd, int mode, off_t offset, off_t len)
++static long mnt_free(const char *path)
 +{
-+	return syscall(__NR_fallocate, fd, mode, offset, len);
-+}
++	struct statfs buf;
 +
- static int do_mount(const char *source, const char *target, const char *type,
- 		    unsigned long flags, const char *data)
- {
-@@ -437,6 +451,200 @@ static int preserve_memfd(struct test_case *tc, unsigned int flags,
- 	return ret;
- }
- 
-+static int drop_privileges(void)
-+{
-+	CHECK_EQ(syscall(__NR_setgroups, 0, NULL), 0);
-+	CHECK_EQ(syscall(__NR_setresgid, NOBODY, NOBODY, NOBODY), 0);
-+	CHECK_EQ(syscall(__NR_setresuid, NOBODY, NOBODY, NOBODY), 0);
-+	return KSFT_PASS;
-+}
-+
-+/* Run @fn(@tc) in a child process, and return its result. */
-+static int run_child(int (*fn)(struct test_case *tc), struct test_case *tc)
-+{
-+	int status, ret;
-+	pid_t pid;
-+
-+	fflush(stdout);
-+	pid = fork();
-+	CHECK(pid >= 0);
-+	if (!pid) {
-+		ret = fn(tc);
-+		fflush(stdout);
-+		_exit(ret);
-+	}
-+
-+	CHECK_EQ(waitpid(pid, &status, 0), pid);
-+	CHECK(WIFEXITED(status));
-+	return WEXITSTATUS(status);
-+}
-+
-+/*
-+ * A copy of this test that is executed with EXEC_ARG writes a 0 byte to stdout
-+ * once it runs, and exits with EXEC_STATUS once stdin is closed.
-+ */
-+static int exec_main(void)
-+{
-+	char c;
-+
-+	if (write(STDOUT_FILENO, "", 1) != 1)
-+		return 1;
-+
-+	while (read(STDIN_FILENO, &c, 1) > 0)
-+		continue;
-+
-+	return EXEC_STATUS;
-+}
-+
-+/* Copy the binary of this test to a new file at @path. */
-+static int copy_self(const char *path)
-+{
-+	static char buf[65536];
-+	int in_fd, out_fd;
-+	ssize_t len;
-+
-+	in_fd = open("/proc/self/exe", O_RDONLY);
-+	CHECK(in_fd >= 0);
-+	out_fd = open(path, O_CREAT | O_EXCL | O_WRONLY, 0755);
-+	CHECK(out_fd >= 0);
-+
-+	while ((len = read(in_fd, buf, sizeof(buf))) > 0)
-+		CHECK_EQ(write(out_fd, buf, len), len);
-+	CHECK_EQ(len, 0);
-+
-+	close(out_fd);
-+	close(in_fd);
-+	return KSFT_PASS;
-+}
-+
-+/* Return the number of pages of the binary of this test. */
-+static long self_pages(void)
-+{
-+	struct stat st;
-+
-+	if (stat("/proc/self/exe", &st))
++	if (do_statfs(path, &buf))
 +		return -1;
 +
-+	return nr_pages(st.st_size);
++	return buf.f_bfree;
 +}
 +
-+/* Check that @fd has the contents of the binary of this test. */
-+static int check_self(int fd)
-+{
-+	long long size = file_size(fd);
-+	void *p, *self;
-+	int self_fd;
-+
-+	self_fd = open("/proc/self/exe", O_RDONLY);
-+	CHECK(self_fd >= 0);
-+	CHECK(size > 0);
-+	CHECK_EQ(file_size(self_fd), size);
-+
-+	p = mmap(NULL, size, PROT_READ, MAP_SHARED, fd, 0);
-+	CHECK(p != MAP_FAILED);
-+	self = mmap(NULL, size, PROT_READ, MAP_SHARED, self_fd, 0);
-+	CHECK(self != MAP_FAILED);
-+	CHECK(!memcmp(p, self, size));
-+
-+	munmap(self, size);
-+	munmap(p, size);
-+	close(self_fd);
-+	return KSFT_PASS;
-+}
-+
-+/*
-+ * Execute the copy of this test at @path and wait until it runs. Return the
-+ * write end of its stdin, which ends it when closed, or -errno if it can't be
-+ * executed.
-+ */
-+static int start_exe(const char *path, pid_t *pid)
-+{
-+	char *const argv[] = { (char *)path, EXEC_ARG, NULL };
-+	char *const envp[] = { NULL };
-+	unsigned char err = EIO;
-+	int in[2], out[2], status;
-+
-+	if (pipe2(in, O_CLOEXEC) || pipe2(out, O_CLOEXEC))
-+		return -errno;
-+
-+	fflush(stdout);
-+	*pid = fork();
-+	if (!*pid) {
-+		if (dup2(in[0], STDIN_FILENO) >= 0 &&
-+		    dup2(out[1], STDOUT_FILENO) >= 0)
-+			execve(path, argv, envp);
-+
-+		/* Report the error instead of the 0 byte from exec_main(). */
-+		err = errno;
-+		if (write(out[1], &err, 1) != 1)
-+			_exit(2);
-+		_exit(1);
-+	}
-+
-+	close(in[0]);
-+	close(out[1]);
-+	if (*pid > 0 && read(out[0], &err, 1) != 1)
-+		err = EIO;
-+	close(out[0]);
-+	if (!err)
-+		return in[1];
-+
-+	close(in[1]);
-+	if (*pid > 0)
-+		waitpid(*pid, &status, 0);
-+	return -err;
-+}
-+
-+/* End a program started by start_exe() and check its exit status. */
-+static int stop_exe(pid_t pid, int stdin_fd)
-+{
-+	int status;
-+
-+	close(stdin_fd);
-+	CHECK_EQ(waitpid(pid, &status, 0), pid);
-+	CHECK(WIFEXITED(status));
-+	CHECK_EQ(WEXITSTATUS(status), EXEC_STATUS);
-+	return KSFT_PASS;
-+}
-+
-+/* Execute the copy of this test at @path. Return 0 or -errno. */
-+static int run_exe(const char *path)
-+{
-+	pid_t pid = -1;
-+	int stdin_fd;
-+
-+	stdin_fd = start_exe(path, &pid);
-+	if (stdin_fd < 0)
-+		return stdin_fd;
-+
-+	return stop_exe(pid, stdin_fd) == KSFT_PASS ? 0 : -ECHILD;
-+}
-+
-+/*
-+ * Preserve a copy of the binary of this test while it runs, through a
-+ * read-only fd, since it can't be opened for writing.
-+ */
-+static int preserve_running_exe(struct test_case *tc)
-+{
-+	int fd, stdin_fd;
-+	char path[128];
-+	pid_t pid;
-+
-+	snprintf(path, sizeof(path), "src/%s", tc->name);
-+	TRY(copy_self(path));
-+
-+	stdin_fd = start_exe(path, &pid);
-+	CHECK(stdin_fd >= 0);
-+	CHECK_ERRNO(open(path, O_RDWR), ETXTBSY);
-+
-+	fd = open(path, O_RDONLY);
-+	CHECK(fd >= 0);
-+	CHECK_EQ(luo_session_preserve_fd(session_fd, fd, tc->token), 0);
-+	close(fd);
-+
-+	return stop_exe(pid, stdin_fd);
-+}
-+
- /* Retrieve the file of @tc into a new file on a new mount at dst. */
- static int restore_verify(struct test_case *tc)
+ /* Mount a tmpfs with room for @pages pages at @dir. */
+ static int mount_tmpfs(const char *dir, unsigned long pages, const char *opts)
  {
-@@ -600,6 +808,229 @@ static int linked_target_verify(struct test_case *tc)
- 	return KSFT_PASS;
+@@ -244,6 +256,26 @@ static long read_long(const char *path)
+ 	return strtol(buf, NULL, 10);
  }
  
-+/* Set the inode flag @flag, e.g. FS_IMMUTABLE_FL, on the file at @path. */
-+static int set_inode_flag(const char *path, int flag)
++/* Write @str to the file at @path. Return 0 or -errno. */
++static int write_file(const char *path, const char *str)
 +{
-+	int fd, flags, ret = 0;
++	ssize_t len = strlen(str), ret;
++	int fd;
 +
-+	fd = open(path, O_RDONLY);
++	fd = open(path, O_WRONLY);
 +	if (fd < 0)
 +		return -errno;
 +
-+	if (ioctl(fd, FS_IOC_GETFLAGS, &flags)) {
-+		ret = -errno;
-+	} else {
-+		flags |= flag;
-+		if (ioctl(fd, FS_IOC_SETFLAGS, &flags))
-+			ret = -errno;
-+	}
++	ret = write(fd, str, len);
++	if (ret != len)
++		ret = ret < 0 ? -errno : -EIO;
++	else
++		ret = 0;
 +
 +	close(fd);
 +	return ret;
 +}
 +
-+static int target_rdonly_verify(struct test_case *tc)
+ /* Retrieve with the argument @arg. Return the retrieved fd or -errno. */
+ static int retrieve_arg(__u64 token, struct liveupdate_shmem_retrieve_arg *arg)
+ {
+@@ -451,6 +483,33 @@ static int preserve_memfd(struct test_case *tc, unsigned int flags,
+ 	return ret;
+ }
+ 
++/* Preserve a file from the tmpfs mounted with huge=always. */
++static int preserve_huge_file(struct test_case *tc)
 +{
-+	int target, rd_fd;
++	char path[128];
++	int fd, ret;
 +
-+	CHECK_EQ(mount_tmpfs("dst", 16, NULL), 0);
-+	target = new_target("dst");
-+	CHECK(target >= 0);
-+	rd_fd = reopen_fd(target, O_RDONLY);
-+	CHECK(rd_fd >= 0);
++	if (!have_huge_src)
++		return KSFT_SKIP;
 +
-+	/* The target must be opened for writing. */
-+	CHECK_EQ(retrieve_into(tc->token, rd_fd), -EBADF);
-+	CHECK_EQ(file_size(target), 0);
-+
-+	/* The failure didn't consume the preserved file. */
-+	CHECK_EQ(retrieve_into(tc->token, target), target);
-+	TRY(check_restored(tc, target));
-+
-+	close(rd_fd);
-+	close(target);
-+	return KSFT_PASS;
-+}
-+
-+static int target_wronly_verify(struct test_case *tc)
-+{
-+	int target, rd_fd;
-+
-+	CHECK_EQ(mount_tmpfs("dst", 16, NULL), 0);
-+	target = open("dst", O_TMPFILE | O_WRONLY | O_APPEND, 0644);
-+	CHECK(target >= 0);
-+	CHECK_EQ(retrieve_into(tc->token, target), target);
-+
-+	/* The target keeps its flags. */
-+	CHECK_EQ(do_fcntl(target, F_GETFL, 0) & (O_ACCMODE | O_APPEND),
-+		 O_WRONLY | O_APPEND);
-+	CHECK_EQ(file_size(target), tc->size);
-+
-+	rd_fd = reopen_fd(target, O_RDONLY);
-+	CHECK(rd_fd >= 0);
-+	TRY(check_contents(rd_fd, tc->size, tc->token));
-+
-+	close(rd_fd);
-+	close(target);
-+	return KSFT_PASS;
-+}
-+
-+static int target_not_empty_verify(struct test_case *tc)
-+{
-+	int target, fd;
-+
-+	/* The target must be empty: It can't have data... */
-+	CHECK_EQ(mount_tmpfs("dst", 16, NULL), 0);
-+	target = new_target("dst");
-+	CHECK(target >= 0);
-+	CHECK_EQ(write(target, "x", 1), 1);
-+	CHECK_EQ(retrieve_into(tc->token, target), -EINVAL);
-+	close(target);
-+
-+	/* ... a size... */
-+	target = new_target("dst");
-+	CHECK(target >= 0);
-+	CHECK_EQ(ftruncate(target, page_size), 0);
-+	CHECK_EQ(retrieve_into(tc->token, target), -EINVAL);
-+	close(target);
-+
-+	/* ... or blocks past the end of the file. */
-+	target = new_target("dst");
-+	CHECK(target >= 0);
-+	CHECK_EQ(do_fallocate(target, FALLOC_FL_KEEP_SIZE, 0, page_size), 0);
-+	CHECK_EQ(file_size(target), 0);
-+	CHECK_EQ(retrieve_into(tc->token, target), -EINVAL);
-+	close(target);
-+
-+	/* The failures didn't consume the preserved file. */
-+	fd = retrieve_new(tc->token, "dst");
++	snprintf(path, sizeof(path), "src_huge/%s", tc->name);
++	fd = create_source(path, tc->size, tc->token);
 +	CHECK(fd >= 0);
-+	TRY(check_restored(tc, fd));
 +
-+	close(fd);
-+	return KSFT_PASS;
-+}
-+
-+static int target_not_tmpfs_verify(struct test_case *tc)
-+{
-+	int target, pipe_fds[2], fd;
-+
-+	/* Like the preserved file, the target must be on a tmpfs mount. */
-+	target = memfd_create(tc->name, 0);
-+	CHECK(target >= 0);
-+	CHECK_EQ(retrieve_into(tc->token, target), -EINVAL);
-+	close(target);
-+
-+	CHECK_EQ(pipe2(pipe_fds, O_CLOEXEC), 0);
-+	CHECK_EQ(retrieve_into(tc->token, pipe_fds[1]), -EINVAL);
-+	close(pipe_fds[0]);
-+	close(pipe_fds[1]);
-+
-+	/* It must also be a regular file. */
-+	CHECK_EQ(mount_tmpfs("dst", 16, NULL), 0);
-+	target = open("dst", O_RDONLY | O_DIRECTORY);
-+	CHECK(target >= 0);
-+	CHECK_EQ(retrieve_into(tc->token, target), -EINVAL);
-+	close(target);
-+
-+	/* The failures didn't consume the preserved file. */
-+	fd = retrieve_new(tc->token, "dst");
-+	CHECK(fd >= 0);
-+	TRY(check_restored(tc, fd));
-+
-+	close(fd);
-+	return KSFT_PASS;
-+}
-+
-+static int target_immutable_verify(struct test_case *tc)
-+{
-+	int target, fd, ret;
-+
-+	CHECK_EQ(mount_tmpfs("dst", 16, NULL), 0);
-+	target = open("dst/f", O_CREAT | O_EXCL | O_RDWR, 0644);
-+	CHECK(target >= 0);
-+	ret = set_inode_flag("dst/f", FS_IMMUTABLE_FL);
-+	if (ret == -ENOTTY || ret == -EOPNOTSUPP) {
-+		ksft_print_msg("%s: FS_IOC_SETFLAGS is not supported\n",
++	/* The test needs the last, partial page to be in a large folio. */
++	if (tc->size % page_size && file_pages(fd) <= nr_pages(tc->size)) {
++		ksft_print_msg("%s: No large folio for the source file\n",
 +			       tc->name);
-+		close(target);
++		close(fd);
 +		return KSFT_SKIP;
 +	}
-+	CHECK_EQ(ret, 0);
 +
-+	/* An immutable file can't be the target, even if opened before. */
-+	CHECK_EQ(retrieve_into(tc->token, target), -EPERM);
-+	CHECK_EQ(file_size(target), 0);
-+	close(target);
++	ret = preserve_fd(fd, tc->pos, tc->token);
++	close(fd);
 +
-+	/* The failure didn't consume the preserved file. */
-+	fd = retrieve_new(tc->token, "dst");
++	return ret;
++}
++
+ /* Skip a case whose source file couldn't be preserved in stage 1. */
+ static int skip_not_preserved(struct test_case *tc)
+ {
+@@ -1305,6 +1364,181 @@ static int exec_after_finish(struct test_case *tc)
+ 	return KSFT_PASS;
+ }
+ 
++static int mount_fits_verify(struct test_case *tc)
++{
++	unsigned long pages = nr_pages(tc->size);
++	int fd;
++
++	/* The file can be retrieved into a mount it fits exactly. */
++	CHECK_EQ(mount_tmpfs("fit", pages, NULL), 0);
++	fd = retrieve_new(tc->token, "fit");
 +	CHECK(fd >= 0);
 +	TRY(check_restored(tc, fd));
++	CHECK_EQ(mnt_used("fit"), pages);
++	CHECK_EQ(mnt_free("fit"), 0);
++
++	CHECK_EQ(ftruncate(fd, 0), 0);
++	CHECK_EQ(mnt_used("fit"), 0);
 +
 +	close(fd);
 +	return KSFT_PASS;
 +}
 +
-+static int unprivileged_child(struct test_case *tc)
++static int mount_too_small_verify(struct test_case *tc)
 +{
-+	struct stat st;
++	unsigned long pages = nr_pages(tc->size);
 +	int target;
 +
-+	TRY(drop_privileges());
-+
-+	/* The file keeps the owner and mode it was created with. */
-+	target = open("dst/nobody", O_TMPFILE | O_RDWR, 0600);
++	/* The failure leaves the target empty, and the mount untouched... */
++	CHECK_EQ(mount_tmpfs("small", pages - 1, NULL), 0);
++	target = new_target("small");
 +	CHECK(target >= 0);
-+	CHECK_EQ(retrieve_into(tc->token, target), target);
-+	TRY(check_restored(tc, target));
-+	CHECK(!fstat(target, &st));
-+	CHECK_EQ(st.st_uid, NOBODY);
-+	CHECK_EQ(st.st_gid, NOBODY);
-+	CHECK_EQ(st.st_mode & 07777, 0600);
-+
-+	close(target);
-+	return KSFT_PASS;
-+}
-+
-+static int unprivileged_verify(struct test_case *tc)
-+{
-+	CHECK_EQ(mount_tmpfs("dst", 16, "mode=0755"), 0);
-+	CHECK_EQ(mkdir("dst/nobody", 0755), 0);
-+	CHECK_EQ(chown("dst/nobody", NOBODY, NOBODY), 0);
-+
-+	return run_child(unprivileged_child, tc);
-+}
-+
-+static int exec_verify(struct test_case *tc)
-+{
-+	long pages = self_pages();
-+	int target;
-+
-+	CHECK(pages > 0);
-+	CHECK_EQ(mount_tmpfs("dst", pages, NULL), 0);
-+	target = open("dst", O_TMPFILE | O_RDWR, 0755);
-+	CHECK(target >= 0);
-+	CHECK_EQ(retrieve_into(tc->token, target), target);
-+	TRY(check_self(target));
-+	CHECK_EQ(mnt_used("dst"), pages);
-+	CHECK_EQ(link_fd(target, "dst/exe"), 0);
++	CHECK_EQ(retrieve_into(tc->token, target), -ENOSPC);
++	CHECK_EQ(file_size(target), 0);
++	CHECK_EQ(file_pages(target), 0);
++	CHECK_EQ(mnt_used("small"), 0);
 +	close(target);
 +
 +	/*
-+	 * LUO keeps the file open for writing until the session is finished,
-+	 * so the binary can't be executed before that.
++	 * ... but the preserved contents were restored before it was detected,
++	 * so the failure is permanent. Finishing the session frees them.
 +	 */
-+	CHECK_EQ(run_exe("dst/exe"), -ETXTBSY);
++	CHECK_EQ(mount_tmpfs("big", pages, NULL), 0);
++	CHECK_EQ(retrieve_new(tc->token, "big"), -ENOSPC);
++	CHECK_EQ(luo_session_retrieve_fd(session_fd, tc->token), -ENOSPC);
++	CHECK_EQ(mnt_used("big"), 0);
++
 +	return KSFT_PASS;
 +}
 +
-+static int exec_after_finish(struct test_case *tc)
++static int huge_folios_verify(struct test_case *tc)
 +{
-+	CHECK_EQ(run_exe("dst/exe"), 0);
++	unsigned long pages = nr_pages(tc->size);
++	int fd;
++
++	CHECK_EQ(mount_tmpfs("dst", pages, "huge=never"), 0);
++	fd = retrieve_new(tc->token, "dst");
++	if (fd == -ENOENT)
++		return skip_not_preserved(tc);
++	CHECK(fd >= 0);
++	TRY(check_restored(tc, fd));
++	CHECK_EQ(mnt_used("dst"), pages);
++
++	/* LUO keeps a reference to the file until the session is finished. */
++	close(fd);
++	CHECK_EQ(mnt_used("dst"), pages);
++
++	return KSFT_PASS;
++}
++
++static int huge_folios_after_finish(struct test_case *tc)
++{
++	CHECK_EQ(mnt_used("dst"), 0);
++	return KSFT_PASS;
++}
++
++static int huge_folio_tail_verify(struct test_case *tc)
++{
++	long pages;
++	int fd;
++
++	CHECK_EQ(mount_tmpfs("dst", 4096, "huge=never"), 0);
++	fd = retrieve_new(tc->token, "dst");
++	if (fd == -ENOENT)
++		return skip_not_preserved(tc);
++	CHECK(fd >= 0);
++	CHECK_EQ(file_size(fd), tc->size);
++	TRY(check_contents(fd, tc->size, tc->token));
++
++	/* The whole folio is charged, including the part past EOF. */
++	pages = file_pages(fd);
++	CHECK(pages > 1);
++	CHECK_EQ(mnt_used("dst"), pages);
++
++	CHECK_EQ(ftruncate(fd, 0), 0);
++	CHECK_EQ(mnt_used("dst"), 0);
++
++	close(fd);
++	return KSFT_PASS;
++}
++
++static int huge_folio_tail_enospc_verify(struct test_case *tc)
++{
++	int ret;
++
++	/* There is room for the file, but not for its last folio. */
++	CHECK_EQ(mount_tmpfs("small", 1, "huge=never"), 0);
++	ret = retrieve_new(tc->token, "small");
++	if (ret == -ENOENT)
++		return skip_not_preserved(tc);
++	CHECK_EQ(ret, -ENOSPC);
++	CHECK_EQ(mnt_used("small"), 0);
++
++	return KSFT_PASS;
++}
++
++static int memcg_limit_child(struct test_case *tc)
++{
++	long limit = tc->size / 2, usage;
++	int ret;
++
++	/*
++	 * Charging small folios may invoke the memcg OOM killer. Protect the
++	 * child, so that the retrieve fails with -ENOMEM instead. Charging a
++	 * large folio doesn't invoke it.
++	 */
++	CHECK_EQ(write_file("/proc/self/oom_score_adj", "-1000"), 0);
++	CHECK_EQ(write_file("memcg/small/cgroup.procs", "0"), 0);
++
++	/* The folios are charged to the memcg of the caller, which is full. */
++	ret = retrieve_new(tc->token, "dst");
++	if (ret == -ENOENT)
++		return skip_not_preserved(tc);
++	CHECK_EQ(ret, -ENOMEM);
++
++	/* The failure leaves the mount and the memcg untouched. */
++	CHECK_EQ(mnt_used("dst"), 0);
++	usage = read_long("memcg/small/memory.current");
++	CHECK(usage >= 0 && usage < limit);
++
++	return KSFT_PASS;
++}
++
++static int memcg_limit_verify(struct test_case *tc)
++{
++	unsigned long pages = nr_pages(tc->size);
++	char limit[32];
++	int ret;
++
++	CHECK_EQ(mkdir("memcg", 0755), 0);
++	if (do_mount("cgroup2", "memcg", "cgroup2", 0, NULL)) {
++		ksft_print_msg("%s: cgroup2 is not available\n", tc->name);
++		return KSFT_SKIP;
++	}
++	if (write_file("memcg/cgroup.subtree_control", "+memory")) {
++		ksft_print_msg("%s: The memory controller is not available\n",
++			       tc->name);
++		return KSFT_SKIP;
++	}
++
++	/* A memcg without room for the file. */
++	CHECK_EQ(mkdir("memcg/small", 0755), 0);
++	snprintf(limit, sizeof(limit), "%zu", tc->size * 3 / 4);
++	CHECK_EQ(write_file("memcg/small/memory.max", limit), 0);
++	CHECK_EQ(mount_tmpfs("dst", pages, "huge=never"), 0);
++
++	ret = run_child(memcg_limit_child, tc);
++	rmdir("memcg/small");
++	if (ret != KSFT_PASS)
++		return ret;
++
++	/* The preserved contents were restored, so the failure is permanent. */
++	CHECK_EQ(retrieve_new(tc->token, "dst"), -ENOMEM);
++	CHECK_EQ(mnt_used("dst"), 0);
++
 +	return KSFT_PASS;
 +}
 +
  static int memfd_preserve(struct test_case *tc)
  {
  	return preserve_memfd(tc, 0, 0);
-@@ -856,6 +1287,43 @@ static struct test_case test_cases[] = {
- 		.size = SMALL_SIZE,
- 		.verify = linked_target_verify,
+@@ -1629,6 +1863,42 @@ static struct test_case test_cases[] = {
+ 		.verify = exec_verify,
+ 		.after_finish = exec_after_finish,
  	},
-+	/* The target file. */
++	/* Block accounting. */
 +	{
-+		.name = "target_rdonly",
-+		.size = SMALL_SIZE,
-+		.verify = target_rdonly_verify,
++		.name = "mount_fits",
++		.size = 2 << 20,
++		.verify = mount_fits_verify,
 +	},
 +	{
-+		.name = "target_wronly",
-+		.size = SMALL_SIZE,
-+		.verify = target_wronly_verify,
++		.name = "mount_too_small",
++		.size = 2 << 20,
++		.verify = mount_too_small_verify,
 +	},
 +	{
-+		.name = "target_not_empty",
-+		.size = SMALL_SIZE,
-+		.verify = target_not_empty_verify,
++		.name = "huge_folios",
++		.size = 4 << 20,
++		.preserve = preserve_huge_file,
++		.verify = huge_folios_verify,
++		.after_finish = huge_folios_after_finish,
 +	},
 +	{
-+		.name = "target_not_tmpfs",
-+		.size = SMALL_SIZE,
-+		.verify = target_not_tmpfs_verify,
++		.name = "huge_folio_tail",
++		.size = 100,
++		.preserve = preserve_huge_file,
++		.verify = huge_folio_tail_verify,
 +	},
 +	{
-+		.name = "target_immutable",
-+		.size = SMALL_SIZE,
-+		.verify = target_immutable_verify,
++		.name = "huge_folio_tail_enospc",
++		.size = 100,
++		.preserve = preserve_huge_file,
++		.verify = huge_folio_tail_enospc_verify,
 +	},
 +	{
-+		.name = "unprivileged",
-+		.size = SMALL_SIZE,
-+		.verify = unprivileged_verify,
-+	},
-+	{
-+		.name = "exec",
-+		.preserve = preserve_running_exe,
-+		.verify = exec_verify,
-+		.after_finish = exec_after_finish,
++		.name = "memcg_limit",
++		.size = 4 << 20,
++		.preserve = preserve_huge_file,
++		.verify = memcg_limit_verify,
 +	},
  	/* memfds. */
  	{
  		.name = "memfd",
-@@ -987,7 +1455,7 @@ static void run_stage_2(int luo_fd, int state_session_fd)
- 	long taint = read_taint();
- 	unsigned int i, nr_tests;
- 	struct test_case *tc;
--	int stage;
-+	int stage, ret;
+@@ -1733,6 +2003,10 @@ static void run_stage_1(int luo_fd)
+ 	if (chdir(TEST_DIR) || mount_tmpfs("src", 4096, "huge=never"))
+ 		fail_exit("Failed to mount the source tmpfs");
  
- 	ksft_print_msg("[STAGE 2] Starting post-kexec verification...\n");
- 	restore_and_read_stage(state_session_fd, STATE_TOKEN, &stage);
-@@ -1001,6 +1469,8 @@ static void run_stage_2(int luo_fd, int state_session_fd)
- 		fail_exit("luo_retrieve_session for '%s'", SESSION_NAME);
- 
- 	nr_tests = ARRAY_SIZE(test_cases) + 1;
-+	for (i = 0; i < ARRAY_SIZE(test_cases); i++)
-+		nr_tests += !!test_cases[i].after_finish;
- 
- 	ksft_print_header();
- 	ksft_set_plan(nr_tests);
-@@ -1008,13 +1478,26 @@ static void run_stage_2(int luo_fd, int state_session_fd)
- 	for (i = 0; i < ARRAY_SIZE(test_cases); i++) {
- 		tc = &test_cases[i];
- 		enter_case_dir(tc);
--		ksft_test_result_report(tc->verify(tc), "%s\n", tc->name);
-+		tc->result = tc->verify(tc);
-+		ksft_test_result_report(tc->result, "%s\n", tc->name);
- 	}
- 
- 	if (luo_session_finish(session_fd))
- 		fail_exit("luo_session_finish for '%s'", SESSION_NAME);
- 	close(session_fd);
- 
-+	for (i = 0; i < ARRAY_SIZE(test_cases); i++) {
-+		tc = &test_cases[i];
-+		if (!tc->after_finish)
-+			continue;
++	have_huge_src = !mount_tmpfs("src_huge", 4096, "huge=always");
++	if (!have_huge_src)
++		ksft_print_msg("[STAGE 1] huge=always is not supported\n");
 +
-+		enter_case_dir(tc);
-+		ret = KSFT_SKIP;
-+		if (tc->result == KSFT_PASS)
-+			ret = tc->after_finish(tc);
-+		ksft_test_result_report(ret, "%s_after_finish\n", tc->name);
-+	}
-+
- 	if (chdir("/") || syscall(__NR_umount2, TEST_DIR, MNT_DETACH) ||
- 	    rmdir(TEST_DIR))
- 		fail_exit("Failed to clean up %s", TEST_DIR);
-@@ -1033,6 +1516,9 @@ static void run_stage_2(int luo_fd, int state_session_fd)
- 
- int main(int argc, char *argv[])
- {
-+	if (argc == 2 && !strcmp(argv[1], EXEC_ARG))
-+		return exec_main();
-+
- 	return luo_test(argc, argv, STATE_SESSION_NAME,
- 			run_stage_1, run_stage_2);
- }
+ 	session_fd = luo_create_session(luo_fd, SESSION_NAME);
+ 	if (session_fd < 0)
+ 		fail_exit("luo_create_session for '%s'", SESSION_NAME);
 -- 
 2.56.0.542.g3ef89b7020-goog
 
