@@ -1,62 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=180.181.231.80
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794393896;
-	b=XrF9lzznfVCKPMqX47zbYIb+a/OThEHGLKsFKHwlsipvtpf0ib7HAwdZzHJM8zjsjmOT
-	 T6IIhZDMKRYpLnova5FfXSGc+6vht2d5YTiXvyM0UIKA6SwWPX6+3AOpQ63/dAXjsH7uE
-	 nDm6egqME2J4QLfUQB5TyVXBJWvOIWO7l5JpisZ6I+HL3iC111gRpg2ngFK2VXGn2J3aA
-	 go1qFt6bwvy7Q1KF/JXg8ZUKu7FGWmnL93zPhLHl0NBE7c36if/yiC3YTTkOnSNrtTJyv
-	 qDmfiZQtpRtV/xGq+WLgX6IBxv6f4Jx1184XU6s0Bf+TJlcNLR6+cK4GMmyhOOyHX5w==
+	t=1794393909;
+	b=bwx20wIwz2PEPr4xKHfvoyJG00TseMiCDZD1jWgUe4I/Bi453aua2zPtxTF0wU+o9cCS
+	 Djdzqxb3voVKRtCkMOkp/0/YMgeqII/yypUwlnpT9obxCwhVSCybq7C5JjYBg3aAe4rHl
+	 Lcs4ZozvAgL/j6+3/p6QcY2SfpoFMEXUHAD3qvk8ev85RL8NP6zI/mpnE0baPtT9VAaw5
+	 oSSCaqZodVx0X5YjFEfo3FVpzfP3qkXI9bCqZfiR493+ftACZwvH8vs+eTz+vk8o8TFWk
+	 AZfyk1IiBpNzpyiJqzThGlqwXoh3gBPjv1uO+CogbyUwhmqHw5TUsSvEWVlMhbz7i4w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794393896;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=QXEhi4g+1QbPElhmNqyuHB6NGR5M3lkugk5YWNvi+aM=;
-	b=htHgf5as9f8LVXKCP9//yysTQWFJ9GhppRCkL2x3q53KNqNKMOMT93MtCrFzulAYm5/E
-	 I2+dqJHYd9Mmz5QYqvwWiviVj4n9KmjFkY5GV6UNfqRR9mtXZvmV+S1/0D4iRSpOgoLEz
-	 9WkKoEXFndEn0WElMWw2kh195C567Prkpdwoc60jHIJngN3krjiLHCy12QNiUREfsESAF
-	 ehabSrneUIHDhmwYAY1eL6EuN2IyzngdohHFkSMA8FPIxwx8bc5a5ocj9f16ZcTQTSOsU
-	 3FebeSFDlJdq4ap2KdyrtN4a9TT8IkarznnXohxA+BzPjK1SQIWvVgep5Z8efoHzi/A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794393909;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding:
+	 X-Proofpoint-Reinject:X-QCInternal:X-QCInternal:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=S9ZN/zEiV6O4JaUeBTeg9wyMfo3tph/uH8eWT6D8b4w=;
+	b=mzv+Yr3og4mmBp1P01JZ3IHYxVhghBlUmgeLPLdFrFF1MoVJy6uVwHDWhRiVPNg/jkVH
+	 s/zM0zM6XeDTrj9GeRJ4ZWTR3Q4umR5Gl/A4YaYW2mz4Tnom4Yz8X3NsBy2bJNrUMnBBC
+	 8WIiVZK0lVY9NDjlI2S//0+VqY5EkAIofqLZO1sg89HnrvPYeCR3CbaKd/bp2al8c8qIJ
+	 lqdkv56qnekNt+nuUmvGJWbIzXq24Q5s4FPrkJfeNoAhmzV+qzmUKCgJY4SJmvOz+F27I
+	 sst1AgYP7s/3UcjcCzGFlv5E9EVVRcmR6b+hOREFIXzLoreh8iA1PYajxG7A3bjGA5A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gondor.apana.org.au;
-	spf=pass smtp.mailfrom=gondor.apana.org.au;
-	dkim=pass header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=KbRa+Eee;
-	arc=none smtp.remote-ip=180.181.231.80
-Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=kCSJqdf2;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D20B606A31C;
-	Wed, 11 Nov 2026 10:44:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5D20B606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F03E0606A32A;
+	Wed, 11 Nov 2026 10:45:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F03E0606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=KbRa+Eee
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
-	from:content-type:reply-to; bh=QXEhi4g+1QbPElhmNqyuHB6NGR5M3lkugk5YWNvi+aM=; 
-	b=KbRa+Eeeo1zU2vH++8/Ff0bpzI3/EAl29l+JDm56IiwP+sbf+AyrN9hmgX7ebEDbokJssqeBRMK
-	AwVF4ZC3vGKCA4acaZLkip6jgFicG3/iYntf2SG6hkmwz2TJ7WHkLo+HI9JXmJT1q+eF8DJMow4Ue
-	q7JPE8CTLRB1n84gjPFGEy5rQKYEwD2OyqFeyw4eLlhiKUj71NNeCiabT/Qhi5gf9vwgNkCbC6vFH
-	9bLFdkD85vOUn88QaJraTS7qcsjn1W+s0gDbw7sEvOrFWEjAGzcVT8ieLKKCd9Etki8uRqXw70qAn
-	E8u5IdNSo+4VPChLefApzzoZJjQxw/vOmb7Q==;
-Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
-	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
-	id 1xR5ow-0000000Dlpg-19Rw;
-	Wed, 11 Nov 2026 18:44:51 +0800
-Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Wed, 11 Nov 2026 18:44:50 +0800
-Date: Wed, 11 Nov 2026 18:44:50 +0800
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: Vinicius Costa Gomes <vinicius.gomes@intel.com>
-Cc: Kristen Accardi <kristen.c.accardi@intel.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/4] crypto: iaa - use RCU per-package WQ tables
-Message-ID: <avRHIuISSNUxfAU4@gondor.apana.org.au>
-References: <20261019-iaa-crypto-wq-tables-v1-0-fab67b2a1538@intel.com>
- <20261019-iaa-crypto-wq-tables-v1-3-fab67b2a1538@intel.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=kCSJqdf2
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AB5KIlb1386357;
+	Wed, 11 Nov 2026 10:44:51 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=S9ZN/zEiV6O
+	4JaUeBTeg9wyMfo3tph/uH8eWT6D8b4w=; b=kCSJqdf2QsnLhMpEAjMtPRozU0W
+	0I2VfSMz/vu30YjwKBJxjQQY7UQkd4mI1y6k4p+40iStRqBUvTYRytUda4fNmwc1
+	MscNjokfwzsA5Aig88Ggj9ksWauS1TbjfB3gzhgxkOhTMtxtQXRdiU6f3SWHW88V
+	UNX3x+ARTt1Rx556DS1Kz9E2VppfTxGyZO87777efRo8wZEEf790fecr4JdcZuCI
+	fB/qNK9lzjZS3DLIBR+8OBUNc+TDXrm3ImX1yfcGCJ4Zd5PUBerlmfQ0QphcftCQ
+	kxzwFCPQb7XeAGG/xSVuapseHectTa0PUV6OUlJtNfBLNzBcwuLv+/uRCAw==
+Received: from apblrppmta01.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvdnma63j-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 11 Nov 2026 10:44:51 +0000 (GMT)
+Received: from pps.filterd (apblrppmta01.qualcomm.com [127.0.0.1])
+	by APBLRPPMTA01.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 6ABAilo9010140;
+	Wed, 11 Nov 2026 10:44:47 GMT
+Received: from hu-devc-hyd-u24-a.qualcomm.com (hu-vnama-hyd.qualcomm.com [10.147.248.182])
+	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 6ABAilmn010119
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 11 Nov 2026 10:44:47 +0000 (GMT)
+Received: by hu-devc-hyd-u24-a.qualcomm.com (Postfix, from userid 4857718)
+	id 49B9721874; Wed, 11 Nov 2026 16:14:46 +0530 (+0530)
+From: naidu nama <naidu.nama@oss.qualcomm.com>
+To: vkoul@kernel.org, neil.armstrong@linaro.org, mani@kernel.org,
+        robin.clark@oss.qualcomm.com, lumag@kernel.org,
+        abhinav.kumar@linux.dev, jesszhan0024@gmail.com, sean@poorly.run,
+        marijn.suijten@somainline.org, irlied@gmail.com, simona@ffwll.ch
+Cc: Saurabh Anand <saurabh.anand@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+        linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+        quic_riteshk@quicinc.com, quic_vproddut@quicinc.com,
+        quic_mkuntuma@quicinc.com, mahadevan.p@oss.qualcomm.com,
+        naidu.nama@oss.qualcomm.com
+Subject: [PATCH v2 1/3] phy: qcom: qmp-combo: delay Type-C mux switch while DP PHY is initializing
+Date: Wed, 11 Nov 2026 16:13:53 +0530
+Message-ID: <20261111104434.2222182-2-naidu.nama@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261111104434.2222182-1-naidu.nama@oss.qualcomm.com>
+References: <20261111104434.2222182-1-naidu.nama@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,45 +88,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261019-iaa-crypto-wq-tables-v1-3-fab67b2a1538@intel.com>
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-ORIG-GUID: _MDfzaLR0t6kavM2-HEdlz2A-VFrY0zm
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDA0MiBTYWx0ZWRfXzhv1040x9ldJ
+ kDEy0rT8IP9zg6ZM2gim2mjJPWoCNGdxnxdkawDnIz90QwMHelopO6MF4568CRh97NHRBsqk42U
+ yQaVvTU9uvMlIa8kaKqJNOylGhGAcbI=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDA0MiBTYWx0ZWRfX+kHtzig9zO+h
+ FPZfP2LnjtxLORXJc+VswgXgH5Qi8h8YXqv4bx6rYPmLRn4HTSC2zvrMlyOtlhD5KqSBjXBNdAw
+ 44D/e7MH6MmXl5UkWE2PsK0zAoj4o5Dimzp4fuZNfpjo9g0LDzGEKS1+r0hiuTxpmtLfAJld19d
+ p2zaaW6d0Ur5HXqqQZn76RgyI6/3NG4q4vKhIf8ImiI5AiaPtNcGSTaDNCvpjp56qal6K5Leh7h
+ JotfdIb8ybfktp3Wg+P2ELBOSOi5xIZIMZNZK0Lc1fLSesDiboCQt9R2i9XCNZv5K2pg2063bxP
+ gdLuPhlroN1TDXptPJvdFfXEhXzvmPFxGRuH4SsbGsp9sjl+JbD+hScBmcFycZKCaoLOBZI9JIU
+ l50kyxOYbauaQCv+BfL0dKxxZ4c7u9rDAx2Qr+x3F5kWd+3w/vS3gsfLxdg46FL5reTDunifVuP
+ pObRl7Q8fk8UCGsoTvA==
+X-Proofpoint-GUID: _MDfzaLR0t6kavM2-HEdlz2A-VFrY0zm
+X-Authority-Analysis: v=2.4 cv=MpzHeGae c=1 sm=1 tr=0 ts=6af44723 cx=c_pps
+ a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=gowsoOTTUOVcmtlkKump:22 a=EUspDBNiAAAA:8 a=HxeoS3nH6iSbXD-5zs0A:9
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-11_02,2026-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 clxscore=1011 impostorscore=0 lowpriorityscore=0 phishscore=0
+ suspectscore=0 spamscore=0 malwarescore=0 priorityscore=1501 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611110042
 
-On Mon, Oct 19, 2026 at 04:06:22PM -0700, Vinicius Costa Gomes wrote:
-> rebalance_wq_table() gives CPU n all the WQs of IAA device
-> n / cpus_per_iaa. The flat index ignores package boundaries, so a CPU
-> can be paired with a device on another package, and each CPU sends all
-> its requests to one device while the other devices of its package stay
-> idle. The table is also rebuilt in place, so a request issued during a
-> probe or remove can read a NULL WQ and fail with -ENODEV.
-> 
-> Replace it with one table per package, holding the WQs of every IAA
-> device on that package, and have each CPU round-robin over its package's
-> table. Rebalance builds the whole set of tables and publishes it with
-> rcu_replace_pointer(). The submit paths look the WQ up, and take their
-> reference on it, inside an RCU read-side section.
-> 
-> - A package without IAA devices gets a copy of another package's table,
->   so the lookup needs no fallback.
-> - Every table has room for all the WQs, a few pointers more than it
->   needs, so they can be sized without counting per package.
-> - If a rebalance fails, the current tables are kept. On removal they
->   are cleared instead, because they still hold the removed WQ. Removal
->   then waits for a grace period before returning, because the idxd_wq
->   can be freed after that.
-> 
-> Signed-off-by: Vinicius Costa Gomes <vinicius.gomes@intel.com>
-> ---
->  drivers/crypto/intel/iaa/iaa_crypto.h      |   7 -
->  drivers/crypto/intel/iaa/iaa_crypto_main.c | 346 ++++++++++-------------------
->  2 files changed, 117 insertions(+), 236 deletions(-)
+From: Saurabh Anand <saurabh.anand@oss.qualcomm.com>
 
-Please respond to this comment:
+The Type-C mux switch guard only checked dp_powered_on, which is set in
+qmp_combo_dp_power_on(). However there is a race window between
+qmp_combo_dp_init() and qmp_combo_dp_power_on() during which dp_init_count
+is non-zero but dp_powered_on is still false. A Type-C orientation change
+arriving in this window would proceed with the mux switch while the DP PHY
+is mid-initialization, corrupting the PHY state.
 
-https://sashiko.dev/#/patchset/20261019-iaa-crypto-wq-tables-v1-0-fab67b2a1538%40intel.com
+Extend the guard to also block the mux switch when dp_init_count is
+non-zero, covering the full period from dp_init through dp_power_on.
 
-Thanks,
+Signed-off-by: Saurabh Anand <saurabh.anand@oss.qualcomm.com>
+---
+ drivers/phy/qualcomm/phy-qcom-qmp-combo.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
+index 61d8b7a5ce8f..3f93043f94e5 100644
+--- a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
++++ b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
+@@ -5163,7 +5163,8 @@ static int qmp_combo_typec_mux_set(struct typec_mux_dev *mux, struct typec_mux_s
+ 		return 0;
+ 	}
+ 
+-	if (qmp->qmpphy_mode != QMPPHY_MODE_USB3_ONLY && qmp->dp_powered_on) {
++	if (qmp->qmpphy_mode != QMPPHY_MODE_USB3_ONLY &&
++	    (qmp->dp_powered_on || qmp->dp_init_count)) {
+ 		dev_dbg(qmp->dev, "typec_mux_set: DP PHY is still in use, delaying switch\n");
+ 		return 0;
+ 	}
 -- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+2.43.0
+
