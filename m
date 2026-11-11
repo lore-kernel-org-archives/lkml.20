@@ -1,80 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794419271;
-	b=mt7iBoYRdbKWAV8aEQ1uQme75HlliALnbJ/Sixf9dZVLnQidfikBJhGyxyecHFwGTYlT
-	 m9aGm+Op8MSExU2hs0uZ7WQnBRy2wXTawW6s1KBrn8ZhP1rBsd405Wpt/xg4vVVsArofA
-	 cLU7S9xjP4FtYr1AEjqx+g9h+PSAoxDNVUWKpt82jis8cFgmZDAfo0I1L2M1XQsQBciBY
-	 8T/u6iXbFtuWQB3le1Rqnzl1O52QdhTXtsF25kGZ6q7Ka1hN9EO10WUpHdakzxxiemOAI
-	 3zyHQp7U0c3BmOFr0VmbWQlI0pa/O9BF2RuHAyU2J9eKXxppjl6ujqUSPl/TeQOudKQ==
+	t=1794419280;
+	b=Dr3e4fi15p4HTYZ8/NZrpW8uyjMgJkgV2U/M+px6iOfKrXegGB7GHXGbffDiTPA401uS
+	 ldQrAaGjRIfaVWfOg66bVrcXFoTmMl4evz3QwK7yPmZXy8q8Kc8vvFR8+idgOkFjvborm
+	 K/P74eLTMc4rXuGIcHcXoLy2LwfmKwUIQu+pwWUor3f9pMSL8kvzwEoUJVRvIFaTmFK4z
+	 a+vhneqO4I+O/5nlRaQ3X7heTSItGDyFJFhJuhZE/z65WS6p2hTip9zhakseOzx5qtECz
+	 mXurzUscuoiGF3f2eei2uciJI+LOVF2vJHODrKNNYV2d/TGX193XN0j+ICDhHcX5mkQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794419271;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:From:Subject:To:Content-Language:Cc:Content-Type:
-	 Content-Transfer-Encoding:X-TM-AS-GCONF:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=bRXpA5Hyu4UhWX5g9RklULNga9AqhfZ0PdkETI674+Y=;
-	b=UJC3Uuwu+8nZ0jnVdxtH/AqQnPf2JgkAfwVGigjMMXUhubugVGxzubNvHsK+8r31BAu+
-	 rjK2l8kMWUn5LRBtIMnskO2+/ikfi5AoZJlAIP4u6BUg1zWnVBSZa5Bbm3sz3iRxgnUNL
-	 dcmmZy2He6BBP5wEK6N1LXHVGP1aFpvcNe4IJIsjnL77mzEsHJ8ZQe5V8ajQflBaFuKnM
-	 PhNHbG1R93mSB5HV9hbn/FnRHnK53QxoJfrSoFvgOF4+dp8TXTdiPlPo1/Shu8BZWxJjI
-	 tOU5Srnudj4ztxJyFvKVeZve3pjL1Pq2zVpEMz8oIS9TAYKlaPTPwA3hSC7vVoI70bA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794419280;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=wGzKPyIc6e0sQq1pu1RR+JZZd6ZgGrGLpyyYyUORI+Y=;
+	b=ufi11cdG7hO0V9w32IarTdIuFTNNs83gvXKM2laV263PXOna265aboYpaYzlBwrWqnMy
+	 LumcsdrE9cbZGFKDFuiC0ZOURFAav2EzaqxEBUE/dajr5bvbtN6DhxcXT1zJCsK2y6Aom
+	 TcaBDm3/gEA8b7TuEskAcgxLLnr70Bogm6fCLdXdHlSgCUy06Qeh396em169N1EUXfRgw
+	 71kpzmihwP+X9hskJ6fmNBVlhcvCKGMDexa7P1uhnthISqQUZpqq350U598hBYBmaeq4M
+	 auzmlIw5c5Tse4cGWXTnUBQM/Qy9gocgIR7CfqmcWcHBMU7Qm3ImlZ+ndI2Lv3thLjQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=dlqFzcfx;
-	arc=none smtp.remote-ip=148.163.158.5
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mzPpOiav;
+	arc=none smtp.remote-ip=74.125.224.48
+Received: from mail-yx1-f48.google.com (mail-yx1-f48.google.com [74.125.224.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A226F606A326;
-	Wed, 11 Nov 2026 17:47:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A226F606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F79F606A331
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 17:48:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F79F606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=dlqFzcfx
-Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ABFESgD1392206;
-	Wed, 11 Nov 2026 17:47:43 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=pp1; bh=bRXpA5Hyu4UhWX5g9RklULNga9Aq
-	hfZ0PdkETI674+Y=; b=dlqFzcfxLPJnwqpk5fQHORS8KOJ0ILt475jNgvaoRQCc
-	gDEEh6z9KJSyVyHYischs7cq5e0iMJ8zoAN+oiC9hOvnFtFnUgxR1zDHj3hO/YnP
-	zHesu9agGiv1Pu6pKQXTPvgriRWfMnwq8L5iw6QpoqgJ7QKgIKroLmXRXimltCzd
-	7T7aKi+XDh+GxA0OssCeiSQrDpDI+i1XURnf1SP9AVuCnRtSt34nWE3MsS0XIQsF
-	BCeYsHuVDQkjvcKRlWcGK50B2sCn722lN1TGa+bWjQTbwK3MsfY52txJIfwx5pwY
-	6d8urofS5kL4iQ7dJJlDpA2M7CAR5GpxsylWPcRhxA==
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hssdkueyx-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 11 Nov 2026 17:47:43 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6ABF54pQ2382072;
-	Wed, 11 Nov 2026 17:47:42 GMT
-Received: from smtprelay05.dal12v.mail.ibm.com ([172.16.1.7])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hvd51u58f-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 11 Nov 2026 17:47:42 +0000 (GMT)
-Received: from smtpav02.dal12v.mail.ibm.com (smtpav02.dal12v.mail.ibm.com [10.241.53.101])
-	by smtprelay05.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6ABHlgej32244312
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 11 Nov 2026 17:47:42 GMT
-Received: from smtpav02.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 34F965805A;
-	Wed, 11 Nov 2026 17:47:42 +0000 (GMT)
-Received: from smtpav02.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id B0BF158051;
-	Wed, 11 Nov 2026 17:47:41 +0000 (GMT)
-Received: from [9.61.45.73] (unknown [9.61.45.73])
-	by smtpav02.dal12v.mail.ibm.com (Postfix) with ESMTP;
-	Wed, 11 Nov 2026 17:47:41 +0000 (GMT)
-Message-ID: <dcea48dd-f76c-4bb0-9275-c12ef9bd78a2@linux.ibm.com>
-Date: Wed, 11 Nov 2026 11:47:41 -0600
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mzPpOiav
+Received: by mail-yx1-f48.google.com with SMTP id 956f58d0204a3-67be1e468a8so2732432d50.0
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 09:48:00 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794419279; x=1795024079; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=wGzKPyIc6e0sQq1pu1RR+JZZd6ZgGrGLpyyYyUORI+Y=;
+        b=mzPpOiavZjWGC0VpKLXkiQTk7jWoAOSjROcU2NNkp2/udg76bL0g9eUJdQkMGbxkTh
+         Zc1kPkeMv9ZBOMw3G0+h+HnDlcBf7fNY/o1IivdREn+um+JymdJNJjuawplssP7xEmut
+         V1RdxnoNpCuXOQ0QiEMH/XtC88DYUNQEY2urQo1lZaKPhyova0/mEOOD7YPh7hip+wdC
+         z26uYPMFc9Mx4FRiiz1kH6t//38s2+72XwfBgsD2OEO7PH6hb9MhdXHjumzrhWMYCetr
+         gnYbnLlqcHlyfQsAdqqAmP5VUhrOTF6DwWFBnjKREsXg7+OVprhfoJxzjdQa9KepzYXt
+         ZWyg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794419279; x=1795024079;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=wGzKPyIc6e0sQq1pu1RR+JZZd6ZgGrGLpyyYyUORI+Y=;
+        b=kknv0QpF93UONOFHoQZDI0lTvuZVytTzAOnuzRqvalzH5ZkOI8hwULLhFtnsSZbbtN
+         2INT+93BxZCjdQPUK9eYSpNdy2Z9tM5H2KIkL8xQXsO16X9vXvbD/nyS0BmINP42epZF
+         6fUbXJy6e3Fbbk1uI3m5nBHt9VOJiZw0A2JiRY0/btrgHpuRD9xG9x0k3gZAMqHrYvDR
+         CDPXtWcgXImdYNokwN6TnIyuXrE+q5+T/LnKbgbeA3ENI53cH4Y0KSnDaIwdlEM205Gn
+         LKOXFoDBrP2udWdQJ2LHvmvtMYE3SAMYwIdNNzxEsfUXe2PPB0zH3Oi32Oi8BeioGye3
+         W5ig==
+X-Forwarded-Encrypted: i=1; AL+hErFyAHhRbzZtaW+lyYV1qxDIUfDR/ASy1z4cwM++VLmTPCUMDBplvV6Gf6OUIfNUHDG94jZ0q2k+5p1zliI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+ld8jJ7nJ0Yrodzzc5ybGsCOQAigRq6Hrxtm1dlgWVslHknZfN
+	ywxNgUcWFdxkgDYKxb4F7LgrLUBaWZE9fF15EGljOlZ5srqbyJq5PAW3
+X-Gm-Gg: AYBFou0rhcyrFu3ydEmkVVVsv3iFkdFCZmJ0x4oAQLY8GfAMIow7etiKyh9sh1axfpx
+	5Jp2uUpa6xS/pQuRzDjwqIQ3rhte+QnCi+XnR3Oz8QvFu2KZASR1Nzlxck5ECFT7TDDohjz5jYs
+	qDgULpqER3+fuz/SWSB+wxsfcyyirQocjMM1hANdqdkyjB5EKzvnApnezyfob+tjGy1uYVNG7lR
+	L7L3Us3LjnxFS0zIAI58QiM8ryqFq2PfJ0Mn8wwo73S9ywxBrJdUj7GZYPq1jVyROakvIwcHdjv
+	hXKjqF+23c2+HaazBJhzBduhRSIAfbq5Uv9jGKXijT5heXSzsV62vqGCRyC6c+OihI23iKW7JDr
+	1nVZJV7EtngjQajLhx/v9v3d7ZUawHjVXiQTUGeX97x4TRENtUE0/Aq1JnOiRyQGLbqxJKvPrw8
+	/QAX6QUmaUY6/hV17BL10x2Fvj6yTjmePIhvc11dR0AsETPlgvlMpFruWBUuPKn0t+11liQMDPW
+	NdCUILa2nLwK4itXYEynRqsE8e74sPx/6ZkmYYgu4eGOk1P6C1hojPRHesNGfcd0UqN9dxWilDn
+	UCREm8hgezrw2ye1w79frtgsw0005u1IzceT8YNosVg/1GOcNp11Zg==
+X-Received: by 2002:a53:c7c2:0:b0:679:9afd:c0de with SMTP id 956f58d0204a3-67c6805a592mr1606256d50.97.1794419279142;
+        Wed, 11 Nov 2026 09:47:59 -0800 (PST)
+Received: from VPN-156-197.vpn.usf.edu ([2607:fe50:0:f802::4046])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67c589c6f24sm5077708d50.12.2026.11.11.09.47.56
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 11 Nov 2026 09:47:58 -0800 (PST)
+From: Juan Agustin Niccolini <juanagusnicco@gmail.com>
+To: davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com
+Cc: horms@kernel.org,
+	ncardwell@google.com,
+	kuniyu@google.com,
+	josef@toxicpanda.com,
+	jbacik@fb.com,
+	shuah@kernel.org,
+	linux-kselftest@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Juan Agustin Niccolini <juanagusnicco@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH net v2 1/2] tcp: Fix the SO_REUSEPORT bind cache admitting a conflicting socket
+Date: Wed, 11 Nov 2026 12:47:03 -0500
+Message-ID: <20261111174704.24312-2-juanagusnicco@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261111174704.24312-1-juanagusnicco@gmail.com>
+References: <20261111174704.24312-1-juanagusnicco@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,150 +109,99 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Kyle Mahlkuch <kmahlkuc@linux.ibm.com>
-Subject: [PATCH v4] scsi: lpfc: Fix race conditions in ELS retry handling
-To: linux-kernel@vger.kernel.org, linux-scsi@vger.kernel.org,
-        Paul Ely <paul.ely@broadcom.com>
-Content-Language: en-US
-Cc: msmurthy@linux.ibm.com, mkp@kernel.org, Hannes Reinecke <hare@suse.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Authority-Analysis: v=2.4 cv=POqaavqC c=1 sm=1 tr=0 ts=6af4aa3f cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VwQbUJbxAAAA:8
- a=VnNF1IyMAAAA:8 a=8EvOkyO9o1yzKg11qnMA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDA3MCBTYWx0ZWRfXyzuiA3KGXnk2
- GEv+2WsKATv7n8fQ9DSCdGWrW3S1YqBBZWto+Qm6yN0cwNH5on+nyP6FgkKlhBNBkoFQ1MmS7It
- rv5VaCLj6yHL0tYz8BQmeAi/xXLO0oLoC640dR4RHaMGrmdwbzXy7ccQzlItTkxHFG5FkMBeEHv
- 9xis81cD6x5goJX/xY28/fXYWQQmKhglBX1piqv5jHUm51wpAh1+/qfsiDXD44VhV7XWZ1n2qFg
- QGYNmJqmF825UL7ryyZ275Ei5EyK+FhWEgvY2W2CWNppqEV5d8E4PehXyPnGoQtvI3rFYMXZymi
- zVtRSP9JzaiP9c71wR/AJIvfDbMb9/1wW4Cxyg1WX8S6720INjqco33QIfj7Cyoe7HidNR4wOVr
- 1KNisq/O5SwiU1Hho+5cYhC3dvi1hKnWNlbpS1sk8EcOkSP00tEQHadZ5LPxcQlBcXkXurclAYk
- vayu40cUZwzJMSOayfw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDA3MCBTYWx0ZWRfXxCzA3qXmfPd6
- EcYzjG0Os9x+vV7thhkvKkJq77Uo202uv8HEWP98dbXenm/KSdcE0OwlBnGYBqFi++BICwCJV9M
- 3Bp085c3yNb7MRDOZUlgaIqC15U5h3A=
-X-Proofpoint-ORIG-GUID: DC63c8bWx2QC1HU6EBK7MgmKi971GZ5j
-X-Proofpoint-GUID: DC63c8bWx2QC1HU6EBK7MgmKi971GZ5j
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-11_04,2026-11-11_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 bulkscore=0 impostorscore=0 malwarescore=0 phishscore=0
- lowpriorityscore=0 suspectscore=0 adultscore=0 spamscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611110070
+Content-Transfer-Encoding: 8bit
 
-This patch addresses a race condition in the lpfc driver's ELS retry
-event handling that can lead to a use-after-free in the
-lpfc_cancel_retry_delay_tmo(), where the NLP_DELAY_TMO flag is cleared
-before acquiring the lock to check if the retry event is queued. This
-creates a window where the timer can be rescheduled and fire, causing
-both the cancel path and the worker thread to release the same reference,
-resulting in a double-put and use-after-free.
+When the port is in the FASTREUSEPORT_STRICT state, inet_csk_get_port()
+skips the bind conflict check if sk_reuseport_match() finds the new
+socket's address covered by the socket cached in tb->fast_*.
 
-Moved capture ndlp and clear evt_arg1 under hbalock while dequeuing
-LPFC_EVT_ELS_RETRY in lpfc_work_list_done().
+This is only safe if both sockets match on everything
+inet_bind_conflict() reads. The cache misses some of it:
 
-Signed-off-by: Kyle Mahlkuch <kmahlkuc@linux.ibm.com>
+- It does not record sk_bound_dev_if or sk_reuse.
+- It records the family and IPV6_V6ONLY but never compares them with
+  the new socket, so a cached v6only [::] (or 0.0.0.0) socket covers
+  a dual-stack [::] socket.
+
+As a result, an unprivileged user can bind and listen on a port that
+another user is listening on, for example a dual-stack [::] socket on
+top of a 0.0.0.0 listener:
+
+  victim:   bind(0.0.0.0:P), listen()
+  attacker: SO_REUSEPORT + IPV6_V6ONLY, bind([::]:P)   /* fills cache */
+  attacker: SO_REUSEPORT, bind([::]:P), listen()       /* should fail */
+
+Only take the fast path when the new socket matches the cached one in
+family, IPV6_V6ONLY, bound device and SO_REUSEADDR. Identical
+SO_REUSEPORT listeners, the workload this cache was added for, still
+skip the scan (binding 16384 of them: 9.80 ms before, 9.86 ms after,
+5874 ms with the full check every time).
+
+Fixes: 637bc8bbe6c0 ("inet: reset tb->fastreuseport when adding a reuseport sk")
+Cc: stable@vger.kernel.org
+Signed-off-by: Juan Agustin Niccolini <juanagusnicco@gmail.com>
 ---
-Changes since v3:
-- More whitespace cleanup. (Paul Ely)
+ include/net/inet_hashtables.h   |  2 ++
+ net/ipv4/inet_connection_sock.c | 15 ++++++++++++---
+ 2 files changed, 14 insertions(+), 3 deletions(-)
 
-Changes since v2:
-- Capture ndlp and clear evt_arg1 under hbalock while dequeuing
-  LPFC_EVT_ELS_RETRY in lpfc_work_list_done(). A requeue by
-  lpfc_els_retry_delay() could cause a NULL dereference in the worker.
-  (AI review)
-- Whitespace and line-wrapping cleanup.
+diff --git a/include/net/inet_hashtables.h b/include/net/inet_hashtables.h
+index 6e2fe186d0dc..44b7e39a1245 100644
+--- a/include/net/inet_hashtables.h
++++ b/include/net/inet_hashtables.h
+@@ -87,6 +87,8 @@ struct inet_bind_bucket {
+ 	__be32			fast_rcv_saddr;
+ 	unsigned short		fast_sk_family;
+ 	bool			fast_ipv6_only;
++	unsigned char		fast_sk_reuse;
++	int			fast_bound_dev_if;
+ 	struct hlist_node	node;
+ 	struct hlist_head	bhash2;
+ 	struct rcu_head		rcu;
+diff --git a/net/ipv4/inet_connection_sock.c b/net/ipv4/inet_connection_sock.c
+index e56beec43877..70b8662b3004 100644
+--- a/net/ipv4/inet_connection_sock.c
++++ b/net/ipv4/inet_connection_sock.c
+@@ -420,13 +420,18 @@ static inline int sk_reuseport_match(struct inet_bind_bucket *tb,
+ 		return 0;
+ 	if (!uid_eq(tb->fastuid, sk_uid(sk)))
+ 		return 0;
+-	/* We only need to check the rcv_saddr if this tb was once marked
++	/* We only need to check the fast_* fields if this tb was once marked
+ 	 * without fastreuseport and then was reset, as we can only know that
+-	 * the fast_*rcv_saddr doesn't have any conflicts with the socks on the
+-	 * owners list.
++	 * the socket they describe doesn't have any conflicts with the socks
++	 * on the owners list.
+ 	 */
+ 	if (tb->fastreuseport == FASTREUSEPORT_ANY)
+ 		return 1;
++	if (tb->fast_sk_family != sk->sk_family ||
++	    tb->fast_ipv6_only != ipv6_only_sock(sk) ||
++	    tb->fast_bound_dev_if != sk->sk_bound_dev_if ||
++	    tb->fast_sk_reuse != sk->sk_reuse)
++		return 0;
+ #if IS_ENABLED(CONFIG_IPV6)
+ 	if (tb->fast_sk_family == AF_INET6)
+ 		return ipv6_rcv_saddr_equal(&tb->fast_v6_rcv_saddr,
+@@ -455,6 +460,8 @@ void inet_csk_update_fastreuse(const struct sock *sk,
+ 			tb->fast_rcv_saddr = sk->sk_rcv_saddr;
+ 			tb->fast_ipv6_only = ipv6_only_sock(sk);
+ 			tb->fast_sk_family = sk->sk_family;
++			tb->fast_sk_reuse = sk->sk_reuse;
++			tb->fast_bound_dev_if = sk->sk_bound_dev_if;
+ #if IS_ENABLED(CONFIG_IPV6)
+ 			tb->fast_v6_rcv_saddr = sk->sk_v6_rcv_saddr;
+ #endif
+@@ -482,6 +489,8 @@ void inet_csk_update_fastreuse(const struct sock *sk,
+ 				tb->fast_rcv_saddr = sk->sk_rcv_saddr;
+ 				tb->fast_ipv6_only = ipv6_only_sock(sk);
+ 				tb->fast_sk_family = sk->sk_family;
++				tb->fast_sk_reuse = sk->sk_reuse;
++				tb->fast_bound_dev_if = sk->sk_bound_dev_if;
+ #if IS_ENABLED(CONFIG_IPV6)
+ 				tb->fast_v6_rcv_saddr = sk->sk_v6_rcv_saddr;
+ #endif
+-- 
+2.43.0
 
-Link: https://lore.kernel.org/lkml/29073ebc-b616-475b-bc05-384da09fbb54@linux.ibm.com/T/#u
-
-Changes since v1:
-- Leave test_and_clear_bit op and timer_delete_sync at the beginning of
-  lpfc_cancel_retry_delay_tmo() outside of lock. (Paul Ely)
-
-Link: https://lore.kernel.org/lkml/1c8a764c-fce1-4ce1-b797-47ac328cf3f2@linux.ibm.com/T/#u
----
- drivers/scsi/lpfc/lpfc_els.c     | 29 +++++++++++++++++++++++------
- drivers/scsi/lpfc/lpfc_hbadisc.c | 11 ++++++++++-
- 2 files changed, 33 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/scsi/lpfc/lpfc_els.c b/drivers/scsi/lpfc/lpfc_els.c
-index 6f6394a0047c..98d1824aefe1 100644
---- a/drivers/scsi/lpfc/lpfc_els.c
-+++ b/drivers/scsi/lpfc/lpfc_els.c
-@@ -4477,18 +4477,35 @@ lpfc_issue_els_edc(struct lpfc_vport *vport, uint8_t retry)
- void
- lpfc_cancel_retry_delay_tmo(struct lpfc_vport *vport, struct lpfc_nodelist *nlp)
- {
--	struct lpfc_work_evt *evtp;
-+	struct lpfc_hba *phba = vport->phba;
-+	struct lpfc_work_evt *evtp = &nlp->els_retry_evt;
-+	struct lpfc_nodelist *arg_ndlp = NULL;
-+	unsigned long flags;
- 
- 	if (!test_and_clear_bit(NLP_DELAY_TMO, &nlp->nlp_flag))
- 		return;
- 	timer_delete_sync(&nlp->nlp_delayfunc);
- 	nlp->nlp_last_elscmd = 0;
--	if (!list_empty(&nlp->els_retry_evt.evt_listp)) {
--		list_del_init(&nlp->els_retry_evt.evt_listp);
--		/* Decrement nlp reference count held for the delayed retry */
--		evtp = &nlp->els_retry_evt;
--		lpfc_nlp_put((struct lpfc_nodelist *)evtp->evt_arg1);
-+
-+	/*
-+	 * If retry event is queued, remove it under lock and consume
-+	 * its payload to prevent double-put. The event holds a reference
-+	 * to the nodelist that must be released exactly once.
-+	 */
-+	spin_lock_irqsave(&phba->hbalock, flags);
-+	if (!list_empty(&evtp->evt_listp)) {
-+		list_del_init(&evtp->evt_listp);
-+		/* Take local copy and clear to prevent reuse */
-+		arg_ndlp = (struct lpfc_nodelist *)evtp->evt_arg1;
-+		evtp->evt_arg1 = NULL;
-+		smp_wmb(); /* Ensure NULL visible before unlock */
- 	}
-+	spin_unlock_irqrestore(&phba->hbalock, flags);
-+
-+	/* Drop the event-held reference outside the lock */
-+	if (arg_ndlp)
-+		lpfc_nlp_put(arg_ndlp);
-+
- 	if (test_and_clear_bit(NLP_NPR_2B_DISC, &nlp->nlp_flag)) {
- 		if (vport->num_disc_nodes) {
- 			if (vport->port_state < LPFC_VPORT_READY) {
-diff --git a/drivers/scsi/lpfc/lpfc_hbadisc.c b/drivers/scsi/lpfc/lpfc_hbadisc.c
-index 4c673dffa671..75457f19d4ea 100644
---- a/drivers/scsi/lpfc/lpfc_hbadisc.c
-+++ b/drivers/scsi/lpfc/lpfc_hbadisc.c
-@@ -840,12 +840,21 @@ lpfc_work_list_done(struct lpfc_hba *phba)
- 	while (!list_empty(&phba->work_list)) {
- 		list_remove_head((&phba->work_list), evtp, typeof(*evtp),
- 				 evt_listp);
-+		/*
-+		 * The ELS retry event can be requeued by lpfc_els_retry_delay()
-+		 * as soon as hbalock is dropped. Consume the payload within the
-+		 * hbalock to prevent reuse or double-put.
-+		 */
-+		if (evtp->evt == LPFC_EVT_ELS_RETRY) {
-+			ndlp = (struct lpfc_nodelist *)(evtp->evt_arg1);
-+			evtp->evt_arg1 = NULL;
-+		}
- 		spin_unlock_irq(&phba->hbalock);
- 		hba_pci_err = test_bit(HBA_PCI_ERR, &phba->bit_flags);
- 		free_evt = 1;
- 		switch (evtp->evt) {
- 		case LPFC_EVT_ELS_RETRY:
--			ndlp = (struct lpfc_nodelist *) (evtp->evt_arg1);
-+			/* ndlp was already captured under hbalock */
- 			if (!hba_pci_err) {
- 				lpfc_els_retry_delay_handler(ndlp);
- 				free_evt = 0; /* evt is part of ndlp */
---
-2.55.0
