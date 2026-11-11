@@ -1,62 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.113
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.137
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794379987;
-	b=jLD7pqZp5eLbmpgBhlB1mppCtOTjeE3imZrXOu7RST2LcZA7mTpmDNuQMJp34XGRsWek
-	 S6aLAaUTGfawbwuR9huKeBIzdwEVh4GXr9GLnMGOmfXk1sbw3mhlIuOEfFWJdxgJOvOQq
-	 /rPzgP19AhReNEIfXhYhMfL/Q/e1savkbQ/kPJcedaUZ5h3ICpSpR6+sIP0s2FyECspqz
-	 uGTDFl2vDy8tzWX+FUrTkY/S8fN8vaidahnyEmzjPEiMgFcJZWnWe/6wwxdXm1JF6f2IT
-	 meRml8h2LI0hapgqArCtM2hHnzNmlFAi07LsDSXaIvTvsvE34YKuCy/HveJoAtYZOog==
+	t=1794379990;
+	b=hG8RFl/mQ35dHIXEZiqXbRSRktsGynIxYesgbHPJw4bTtc3UOH+zIhrodDmXi/j+mhev
+	 iOHW/3sBI5De98ndMvRq59gFMoX6dR9HfSC6dRrGS0WKBHFKE4IMVcljcf4gMuPZuS7Jx
+	 2llvRQwkLREQ9BU/Gh+R/659Z6RTtezyNZuY3/k0fvVbf2C1/lGfeA7on6wzKYGdWdA5r
+	 ITKKU4+4YCi9HPc7b6cQHwFUOxnru4cbsCzP3mR0qw7xlZYYDtHdcT+eReTd5+07tMkT6
+	 5HG6pOol0efCgqakX880XGG/rK4naE15l1gGQ9jWmMqEuPL+xoARYFh+c4DZZYO0hkA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794379987;
-	h=DMARC-Filter:DKIM-Signature:To:From:Content-Transfer-Encoding:
-	 X-Lms-Return-Path:X-Original-From:Cc:Subject:Message-Id:References:
-	 Date:Content-Type:Mime-Version:User-Agent:In-Reply-To;
-	bh=WWvXwf/HB1PDEXpuXx9F2cLGqVaTcytjyLMkY2k569Y=;
-	b=NkB6CxrcRotXpMoHUIKahV61q9dZDEffc+fS/9Ww6GMRGrZp9w0Sv2ISv5vdK+vFo0a8
-	 rylmKtoGs69S+cPN7x2adzCl76OfWqtUMf7UaNyikfIJ2gLeN4plIxML3CUcH5rReADfQ
-	 NbyExkn/Q3ZWVog3wrc5r7rgQjmUvUWP9vEGJPbuhZUFgDLoKxLZHMeQQvQcg4UiHzQbe
-	 7Dga6lHP0aBjaco8H0n7r4KeiCZcmnBmqW3Tmt7nybJczbnvqoLu/qHUCXquGZA3bCNU1
-	 FbVAz6UsG8yqMuO3GVNfIclfOcYSyWMd8WFMhY8RTcRoElUq0bWfNNnAOxgjJry787A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794379990;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=FHnXSqUbFlkuTaX7b2PW4LqXPvnPDYC4FCyfsdCC63E=;
+	b=ren+5BVrmbMtPxGlip6E17Cp/I9QqEm2sD6KXVPSexsU/U0jvfJokIhw0DWvVS83txm6
+	 83Qjsnj3lkfQWCYIbSY97KxuNJ5gf7aDgYQFMkJvBPhWGypfHvA1iD9CbFKS7/JhyQA4y
+	 e2g5jbBLI2o+us7Vay+WHPK9rzmeywjtWuZDuOD1WiqvnNkSlpeNqXK3h2NWPyFHDxnWd
+	 YMqI8FLIu1pdtV9wAF5TrdXi1ARW+4Qf3rkKjNPC4ugDNf7Fji/nW6P9gxNVeP2C+6i2c
+	 6YodqSMRgGUGbCiC6vxU1PwV9CjnhwQy0RcBJYem0KEG6JKlxjCrKJnnoBVutX1fCZA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bytedance.com;
-	spf=pass smtp.mailfrom=bytedance.com;
-	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=E6W1UrtA;
-	arc=none smtp.remote-ip=209.127.230.113
-Received: from va-1-113.ptr.blmpb.com (va-1-113.ptr.blmpb.com [209.127.230.113])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EF79606A331
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 06:53:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0EF79606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=Zmxqv7Pj;
+	arc=none smtp.remote-ip=111.22.67.137
+Received: from cmccmta4.chinamobile.com (cmccmta4.chinamobile.com [111.22.67.137])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B25A060A2602;
+	Wed, 11 Nov 2026 06:53:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B25A060A2602
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=E6W1UrtA
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1794379982; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=WWvXwf/HB1PDEXpuXx9F2cLGqVaTcytjyLMkY2k569Y=;
- b=E6W1UrtA69SYn1W9a9oorBiMtgz06JLW2RILWngLuFkAhHst94f8FrlGbzl+jW+LfjS+K9
- uEXThHvux72CdXGLDCCu30W6QsBuw+yBzhVM6fBf3UV9nLm4Asd3F0W7CeaMrt+qTm0WZN
- cfNXrOJPQJyKi4KpQid6UrK5lEwTlnnISjsvrGOYlcZ/Vq9Ol57bNyjyfsaoOpFIE3qXry
- Jo6amyaN6aJ4A2eUd/aqxzsOxFrPjnWtssjze08Z8BIgXrHGpBaaINTw/zwS4Hg5EaXp/z
- 5PlUohLyKwuMfJ+1wta8+3uFwp1yqykDd83oFj4EG0aEoVxvD0ms0HK53ajMJQ==
-To: "Catalin Marinas" <catalin.marinas@arm.com>
-From: "Rui Qi" <qirui.001@bytedance.com>
-Content-Transfer-Encoding: 7bit
-X-Lms-Return-Path: <lba+26af410cc+bd1395+vger.kernel.org+qirui.001@bytedance.com>
-X-Original-From: Rui Qi <qirui.001@bytedance.com>
-Cc: <will@kernel.org>, <mark.rutland@arm.com>, <ardb@kernel.org>, 
-	<song@kernel.org>, <dylanbhatch@google.com>, 
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>, 
-	<stable@vger.kernel.org>
-Subject: Re: [PATCH 2/3] arm64: patching: Fix instruction byte order in aarch64_insn_set()
-Message-Id: <3b540bc9-69b3-42a8-8431-75dd6079bf4f@bytedance.com>
-References: <20261010084721.2197683-1-qirui.001@bytedance.com> <20261010085055.2200241-1-qirui.001@bytedance.com> <atEGBsR3eI3cXKay@arm.com>
-Date: Wed, 11 Nov 2026 14:52:44 +0800
-Content-Type: text/plain; charset=UTF-8
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=Zmxqv7Pj
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=Zmxqv7Pj6diJT2dCEjzGD8xnx2GCevjmDmE2H2m3inlIGTgKX/C2IjzmaEx7Mv6oYkt+mqlAAEV6p
+	 3SsQmKMkLQ0T4Pba9M6ECSef9/u2qPHH+HpPBxxyprjreru7pLVDZ+eecHz7cI1+uqqZ40wO+/fHVM
+	 G9Ylgr4nSqv8GivY=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app04-12004 (RichMail) with SMTP id 2ee46af410d0319-751b4;
+	Wed, 11 Nov 2026 14:53:08 +0800 (CST)
+X-RM-TRANSID:2ee46af410d0319-751b4
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from devin-VMware-Virtual-Platform.localdomain (unknown[10.55.1.72])
+	by rmsmtp-syy-appsvr09-12009 (RichMail) with SMTP id 2ee96af410d3247-d248a;
+	Wed, 11 Nov 2026 14:53:08 +0800 (CST)
+X-RM-TRANSID:2ee96af410d3247-d248a
+From: Zhu Jun <zhujun2@cmss.chinamobile.com>
+To: linux@roeck-us.net
+Cc: linux-hwmon@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Zhu Jun <zhujun2@cmss.chinamobile.com>
+Subject: [PATCH] hwmon: (w83781d) Clamp voltage limits before rounding
+Date: Wed, 11 Nov 2026 14:53:07 +0800
+Message-ID: <20261111065307.17735-1-zhujun2@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.51.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,44 +67,36 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-User-Agent: Mozilla Thunderbird
-In-Reply-To: <atEGBsR3eI3cXKay@arm.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On 10/16/26 12:57 AM, Catalin Marinas wrote:
-> On Sat, Oct 10, 2026 at 04:50:54PM +0800, Rui Qi wrote:
->> aarch64_insn_set() passes the host-endian u32 instruction straight to
->> text_poke_memset(), which memset32()'s it into memory in host byte order.
->> AArch64 instructions must be little-endian in memory, so on a big-endian
->> kernel the written bytes are reversed and the CPU takes an UNDEFINED
->> instruction exception when fetching them.  The sibling aarch64_insn_write()
->> already converts with cpu_to_le32(); aarch64_insn_set() does not.
->>
->> This is reachable in-tree: bpf_arch_text_invalidate() fills freed JIT
->> regions with AARCH64_BREAK_FAULT through aarch64_insn_set(), and arm64
->> selects HAVE_EBPF_JIT without a big-endian guard, so the path is taken on
->> BE kernels with BPF JIT.  The direct-fill loop in the same file already
->> cpu_to_le32()'s the constant, confirming the expected byte order.
->>
->> Convert the instruction to little-endian before the memset, mirroring
->> aarch64_insn_write().  On LE the conversion is a no-op, so behaviour is
->> unchanged.
-> 
-> We are just about to remove big-endian support (in 7.4).
-> 
+IN_TO_REG() adds 8 to an unsigned long before clamping. Writing
+ULONG_MAX to a voltage limit therefore wraps and programs register zero
+instead of 255.
 
-Understood.  In -next arm64 no longer has a config CPU_BIG_ENDIAN and
-nothing selects it, so 1/3 and 2/3 are fixing a configuration that no
-longer exists.  I'll drop both.
+Bound the input to the 0..4080 mV register range before adding the
+rounding adjustment.
 
-3/3 ("arm64: module: Use text-poke for late PLT/veneer emission") is
-independent of the byte-order work: it routes
-module_emit_plt_entry() / module_emit_veneer_for_adrp() through
-aarch64_insn_copy() so a late livepatch relocation that falls back to
-PLT emission does not write into the ROX .plt and Data Abort.  That
-path is reachable on LE today (klp_write_section_relocs() on a
-MODULE_STATE_LIVE patch module), so it is not BE-specific; it carries
-Fixes: 91b89a634487 and Cc: stable.
+Fixes: 1da177e4c3f41 ("Linux-2.6.12-rc2")
+Signed-off-by: Zhu Jun <zhujun2@cmss.chinamobile.com>
+---
+ drivers/hwmon/w83781d.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-I'll resend 3/3 as a standalone patch in a new thread.  Happy to route
-it a particular way if you'd prefer.
+diff --git a/drivers/hwmon/w83781d.c b/drivers/hwmon/w83781d.c
+index 59d2b9d40920..0a820e64a7a4 100644
+--- a/drivers/hwmon/w83781d.c
++++ b/drivers/hwmon/w83781d.c
+@@ -146,7 +146,7 @@ static const u8 BIT_SCFG2[] = { 0x10, 0x20, 0x40 };
+ #define W83781D_DEFAULT_BETA		3435
+ 
+ /* Conversions */
+-#define IN_TO_REG(val)			clamp_val(((val) + 8) / 16, 0, 255)
++#define IN_TO_REG(val)			((clamp_val((val), 0, 4080) + 8) / 16)
+ #define IN_FROM_REG(val)		((val) * 16)
+ 
+ static inline u8
+-- 
+2.51.0
+
+
