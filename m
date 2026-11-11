@@ -1,85 +1,86 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794389452;
-	b=hPDTZ5aq/M7l7rgIwNYK/kf2hmf5bMoDhNhMfZKtek+p6wQdJ9Xylpe7ljTO95lCmCa1
-	 yKhtX/Z2hkoGJj8+NeBAXz8ds8mU7d9U7fjONuMlFGhQz1im4DH5coTvKfwadsFq2yCOm
-	 wkOuYJnwGlgdRbFgoJEodZNi9ZwoItEozWHsBbkHJv9Zg4ex/UT/bKjE0SJLU9bEa+Fjy
-	 GAigb9mS6XgiZE89qOBlFvHX0kugBSBc5c0Wf4iikBjYd4ELpGh2de+T3UJfsDuAKRNrZ
-	 ULWm+BvZAF5Acp0YqUO1mqPScnrJ5FuGThHymU3N5fmg63OUxOvu3QT+vHXDzhzxvHw==
+	b=TP5mwU2zFXRhlDpQckm7M62svy7bk+5BP+Fv3STbmGQY9i3Rbpz9NJ5a2xXvKb+s6XwI
+	 692EBYmopbGRXOqmvyedyaEQ2HqYnTFzGR1cLg0joJMkrpxHL90zUL7Qy/AfMbFXwrfSN
+	 FNIflS7mJMZPHrSZjy3gkmkrdxmuqaacUprdgcXgnrV+KNU5tIxODmPdGoC/zUsLtX8da
+	 2kszFN8IRzX7rvjFCDDDX3xhowgiZT9iARRB6hUwgTyFJ6uiOrhfi+t/vnEHLKoYWXERO
+	 rv3PcK2DGvrs/6u8lvnC7M4Lv/ALaZIsrMSB+ELsG7yPnGOBZpBlBQedWcnC2K5gXNQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794389452;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=B3ZS/U6BiBBD5fGeH1R5VkY9NPLOvEtcvatjGhH2bZ0=;
-	b=DHXi24Z19PPeEtpMPbDRa4HiSh9T/9yPlkkDFL16PsqqGGCj+NxtrjTAIVEvE4KOcrrY
-	 zICDvY31fSvAnWRrfA1zdN1rabwzOsfqwgwZY9rNln2P5fqmzyzpePWWSFUMlJXYTatNq
-	 eLT3C+ttTk2g7Pghap/1tvezlDj3ezVohfYqqY1Ny9OmCjhIF7MZqgrTSjjrzjv1lpK/m
-	 +5RMoIPsZPZiGqv7mYlmF9RlQZNpSWnbv9RvCki4XGnR7lCmFhuMJwwm8YeltMiqqqv0Z
-	 +r8sPB5TeGXT1htIDmPxalyXoP9pKR20gfq36C6YIVRSg3/pI4ZKckddqju+M0Jiqpg==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=um2R5SpVc8daNcOs4qf45cuP9GuM58HqVfWdcuuni5U=;
+	b=SH879gHVjCGEowm/WRMJlxsieKB4ICB9o9lV6CumfTiwyR3VToFAfO4ZZG2WsY9vxpJa
+	 2NvCRbhLxL2Z+skTF7XJnD3VdnM6+8BDVWsBm0l+oVS1bMD/ARNMY9mRQD/IyCtwaXGKk
+	 1fILaSv2LIsU5ng4yh6BC0Hv5bQsB76F5NV6VRv/wMuCBf7t5h3KeYF09R5kedePUN8h4
+	 7xNEqpKxLw27eALGqOmlBLXf37pa2wi2jW3J3sz3YzXhHuIltlUNASEAPeRehfPzeF9k2
+	 4lyYVF57EBmvPV7sg8+B0pOZBOTIg2KkFOAuj8QqLQPrqDKq1ryFO/+8ldhttMdDzYA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bjJSDUbt;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=E57jlpa6;
 	arc=none smtp.remote-ip=209.85.221.46
 Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B771A606A321
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 09:30:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B771A606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A943606A32D
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 09:30:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A943606A32D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bjJSDUbt
-Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-49318428d98so1583620f8f.1
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 01:30:51 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=E57jlpa6
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-48e20ed3b9dso2602600f8f.2
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 01:30:52 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794389450; x=1794994250; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=B3ZS/U6BiBBD5fGeH1R5VkY9NPLOvEtcvatjGhH2bZ0=;
-        b=bjJSDUbtOzaOAQpSLf50C7xoz9mpqk5qHohnCIlWIv+4dIzFCWT8uBWQH1BMHIwq92
-         Sp0skk7bQEZLBgS9CBlRt3NPDx8HuxaDGWyvWfkZ1t5b9SklX5+Z5vQDrp+iOrJ3CWzk
-         5anlnWL/yOmkvajDxM0Sfb0kdjTXD7vcoBuTVSvmPr/cSe5SV0IKMaZEs066FbMiPLUX
-         Aap9BpEE1/6enil0jBizKD5Uh6mVeY0FLVDtPivV8kKXMLwefcdUh/80Q5IJTKpbNejz
-         jXcY705DjPDXEcwVQ21YLgF81sG8rxoLoWlBnl9XRE0iNOJ6xgfV2KOcCCdcTYXutmYh
-         s9tg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794389450; x=1794994250;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+        d=gmail.com; s=20260707; t=1794389451; x=1794994251; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=B3ZS/U6BiBBD5fGeH1R5VkY9NPLOvEtcvatjGhH2bZ0=;
-        b=m1I74DB0IOCirmzGG/9ss01taNep7/rfeZhQQ/lTIVrPyGOrh8Kz3kuNK1hB9GIe/6
-         +wxCt07t/BRoLet5zH7n8IFdivvrMkv7xfxr/MY42Vjb3qiMxAF7S0ub+mmhwPC24ocN
-         0ZByCJOrt0vS/AXhKKeg5SO+O8+RKSKHcUilPYJvjx7sSHmzyozBMsl/Izr4NhV3Y2dP
-         CzK2SNHu970qq/jsAt+dLOj8DH4b5ipqY/wkHVV5icOO4wS9wj8D54UOx+zZVLOfiyj7
-         7UWOgEIHOHgH78fbF2pIKM3pU5RnRROEnREOKCxEgxGBuDenpnSsis09H6RmVhN9wjut
-         b1LQ==
-X-Forwarded-Encrypted: i=1; AL+hErHTYywX//RWqSjko0kyQEY914KC3gBu76Dkpps72G4KuOK/3Qj9yZpWG68j1Tf7k6MHh4QZz0ydONC6TYU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/+cFC8lxxWxY5zsXEn/RAEEuklakoit3p4DEHi/qN7oUGvZpN6
-	HYXIeA/fD7DS68QNozjpXsilBfic8B37kz9UtSH9NaP8TVieozOMUEWT
-X-Gm-Gg: AYBFou29AzC6c5TEBKQUr3AZOzGlC/P+hX6gqiPLISyID/5uWBudHd4YMrOp0QUYA9a
-	Mjxdg12xh0EBofphuz4b9mWL0gGmejm05TSE3djWqXsIpqkeJMhnGRpjkUbHXfWggD2mXpEmrSI
-	zJLciJZLbe9i1ycjKE2CsCWD1jFBiA83l6zrS2EaEWaBqqZw1tI+FOJRI7RLXW4JR+iHHPX6+ok
-	KvRpMEwkhx8+vhacBhhVUgz8u0gUnI72S7hd1Np+5w7I502nmjfVCibHjSQfEHxNDwYDHEsnLfg
-	x9SxqWK5h1OEhuSzbrPl2vgvecso2V7cIVU2Q0morJaYZM/XXsqb0mIL0x00sJm/n8CZcHPrkZH
-	0RPQ+XCXaQxEfKQByACDpT6ka2nGokrAakd8wbgUWgLIIGYCk/abI0BLm1SuDrxLCNffDvNTV7D
-	ZhAUZl4yfp3+LMxBmjjYQl1uyZKpuUo4XLxb4jx1zRS/gsSqm1mZdOMsjjswNqaKvgA29wtzLds
-	/ilGMIVwfp+P5CA2HAw7DMLuuwhfU/IHOzhbpzjezVXKJLPCF9qn4GoyPUquXhuyD8QDrWIxuZc
-	80nc/pkZM8vW2MBvLgMtt29ENe5UjLqforx0Dg4A3wR0khqE8eA9djQiyAH3Dxkzq8ozKOwfVCX
-	bzL4GqP4Rfb31xdJqLLtf/2qVm4aDXs2BdJexxWXy1HCKk69AgsxMd46mG8T8tFkBRX16Yp7Zcd
-	PpLo1bAGr0mAc=
-X-Received: by 2002:a05:6000:25ee:b0:48e:932:aefa with SMTP id ffacd0b85a97d-499c630fe5cmr2820902f8f.26.1794389449756;
-        Wed, 11 Nov 2026 01:30:49 -0800 (PST)
+        bh=um2R5SpVc8daNcOs4qf45cuP9GuM58HqVfWdcuuni5U=;
+        b=E57jlpa6Vs6e1i3nKvCpjZpzm7ci9u/J/XqtTCOZMfFfoteIFJuP7zC3sPtujEAAmG
+         wYTXJn3Rbk+jy+0+vDXyjlfgggPeaJIkcgOiEkiVy0OPc0B2WzyzBMlg/wYB0VMfLDie
+         y8+re7NbvCoPWAZaAw0U+pf2QyHfldwnyLBqbnET+OwAlIpHSrs2xgm1BuQIkz/8Oi4v
+         44g/A4qGsnjH+Gtsthd8C3Azy8y3N0deRf/ZD5GzIiir8uJPU2ipD7V0PaFLANwGIBs1
+         rPU2ZSo4gsMPdAxqk4BQXMo8TGyXU7xkbG7FmFRtgdcV9CbhHKJMIOZZrAUSs1TMj423
+         8cZA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794389451; x=1794994251;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=um2R5SpVc8daNcOs4qf45cuP9GuM58HqVfWdcuuni5U=;
+        b=V/5RJfzI21fGNTcMsyNwOTyU3/vTz1LmRr/QOTBqCewWWHKHliDn2F5gr2JNkw5F3j
+         sBRxYkdvqWCmldng1ftA4lGAUoIZnZAwL6gDCZu90+WOhlDOmBZYufBFJv648+ZH3u6n
+         L4S5kblBz/xo9UoDEvA1XhHFKxR+iZkfyqAhbDo7CjCIcj8QaOCt8+Pefq63Ftvp1Qt9
+         dkDurc4x1UBi7S6DSQ9IFxQyJutCyWCLS2ANZrD1gYkeraDDRK74ZdoaIPNA6jBTy5D6
+         4povy2pUrug6qArN/7YAzdE4iaogkt8h70iUO0PJHZpT7TSLHnWYdJwq6iKa/WVJ8w0B
+         Sh7A==
+X-Forwarded-Encrypted: i=1; AL+hErGv1tzt3kmANKxfaspYBjdiO2FTsk1ZhD383SqyzfJlTqodIk997YUyB2I5hVBHzphnPXKk30J23o9sEzs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z88Vmghi3wNRG42w6f9WvNpq9R4qb7yJNX1Sv2Kn8mHaW4vGDy5
+	14yxdnQY320bvHAQi/XRnztl6pSmv6vHsuKkCo01dmKy4Jze7G4ch4Y+
+X-Gm-Gg: AYBFou2m2j5vDTRyXWdCGjBX8j5U2Pvrk9NYN+0Djxr/TUjHCfqbl/IGfdpzrSiMn2z
+	hjOun0JaWemfmcZYrRndpaoj7yYeF20j3Fpr0en7PNZGoxlp6HCzoIixB/Rok2Wzw7e1KtCnZnW
+	6URfVkV6YkTGObciPeGVs0pbG2lFsOI0IuPtgcAfPVJHcKkUHoJdLXkbGwCnBRj8i2p3nnpvYkG
+	R9dsyCNZOktgXbhVFueHEFrqjk3j/mrE0vck4yo/+5J4BjH2ilWxhxSObcVbkIPK2J04ywrOw3+
+	hxkTPsShEh0zbwTI9msiFhzcWrEMgxcXBGOaCh0PCI6dYgE6mRFaIkEZwzkG8/DzHS9JHfBNfAa
+	SC8YZPIJU0QXJTo7mcWdFTFm0p/gN71yiirkhrSVMRFSqTekuBy4nYSXLRAR0WTrQIrH8arHy5W
+	hetDYjpZV5bL/uuVSUkaM2AImZlsi3VkPmM0LjYcs7hdOVbWqabamSwD+AzOULa0NUh2gk9qyCT
+	EWdbBIcas2SvgYCmT1RanTWDM3phxo9DTPYjPvWL4n/qUvRxOnO7lMsi8AAd21A1QMJX++4K/R8
+	GcBPKPB1NDhSPPynMF6gwaXhVL9DXzQZoZEjQ7c/BKSaqT3myLwmVtHKbsZKw07VPpA0pMJQrO5
+	3MgHI7N4IFgFnTt8YS15xdE9vu8TlEJRuDB+HF+Drz5jfNpDPYkSvN5Et3hGI1HRNSNRlzzrWpP
+	raMKI7WO/AKZQ=
+X-Received: by 2002:a05:6000:4917:b0:490:6e0f:a024 with SMTP id ffacd0b85a97d-499c69ca529mr2701747f8f.13.1794389450677;
+        Wed, 11 Nov 2026 01:30:50 -0800 (PST)
 Received: from AHERLNXVDANI01.lgs-net.com ([193.8.40.126])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498362eb14asm9175839f8f.34.2026.11.11.01.30.48
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498362eb14asm9175839f8f.34.2026.11.11.01.30.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 01:30:49 -0800 (PST)
+        Wed, 11 Nov 2026 01:30:50 -0800 (PST)
 From: =?UTF-8?q?Daniel=20Via=C3=B1o?= <danividanivi@gmail.com>
 To: intel-wired-lan@lists.osuosl.org,
 	netdev@vger.kernel.org
@@ -95,10 +96,12 @@ Cc: anthony.l.nguyen@intel.com,
 	pabeni@redhat.com,
 	linux-kernel@vger.kernel.org,
 	=?UTF-8?q?Daniel=20Via=C3=B1o?= <danividanivi@gmail.com>
-Subject: [PATCH iwl-net v2 0/2] igc: fix L1.2 disable on resume, add I226-LMvP to I226 helper
-Date: Wed, 11 Nov 2026 10:30:33 +0100
-Message-ID: <20261111093035.513635-1-danividanivi@gmail.com>
+Subject: [PATCH iwl-net v2 1/2] igc: don't disable ASPM L1.2 from __igc_resume()
+Date: Wed, 11 Nov 2026 10:30:34 +0100
+Message-ID: <20261111093035.513635-2-danividanivi@gmail.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261111093035.513635-1-danividanivi@gmail.com>
+References: <20261111093035.513635-1-danividanivi@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,57 +114,63 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-This series replaces "igc: Disable PCIe L1.2 substate on I225-LMvP and
-I226-LMvP devices" [1], split up as suggested by Dima Ruinskiy.
+Commit 0325143b59c6 ("igc: disable L1.2 PCI-E link substate to avoid
+performance issue") disables L1.2 on I226 in probe, in __igc_resume()
+and in igc_io_slot_reset(). The resume path uses
+pci_disable_link_state(), which takes pci_bus_sem for read.
 
-Patch 1 removes pci_disable_link_state() from __igc_resume(). That
-function is also the runtime resume callback and can be reached with
-pci_bus_sem already held for read (pcie_do_recovery() runtime-resumes
-the affected devices from within pci_walk_bus()), so taking the lock
-again risks a deadlock. The L1.2 disable done in probe persists in the
-link's aspm_disable mask, so the call is not needed on resume.
+__igc_resume() is also the runtime resume callback, and it can be
+called with pci_bus_sem already held: pcie_do_recovery() runtime-
+resumes all affected devices through
 
-Patch 2 adds the missing IGC_DEV_ID_I226_LMVP to igc_is_device_id_i226().
-Besides the L1.2 disable, this also moves I226-LMvP onto the I226 TSN
-code paths; Dima confirmed that this is correct for 0x5503 [2]. Patch 1
-comes first so that I226-LMvP never picks up the problematic
-resume-path call.
+  pci_walk_bridge(bridge, pci_pm_runtime_get_sync, NULL)
 
-The I225-LMvP part of v1 is dropped. On the setup where I saw the
-errors (HP Thunderbolt Dock G4), the I225-LMvP does not advertise L1.2
-and the upstream port has no L1 PM Substates capability, so L1.2 is not
-the cause; I will investigate that separately. As agreed with Dima
-[2], disabling L1.2 unconditionally is not part of this series.
+i.e. from within pci_walk_bus(), which holds pci_bus_sem for read. If
+the igc device is runtime-suspended at that point, the call chain is
 
-Testing: compile-tested only (igc builds cleanly with W=1). I have no
-I226 hardware, so neither change has been runtime-tested on the
-affected devices; testing on I226 / I226-LMvP would be appreciated.
+  pci_walk_bus()                      down_read(&pci_bus_sem)
+    pci_pm_runtime_get_sync()
+      igc_runtime_resume()
+        __igc_resume()
+          pci_disable_link_state()    down_read(&pci_bus_sem)
 
-The resume-path issue was reported by the Sashiko AI review of v1.
-I used an AI coding assistant (Claude) to help with the locking
-analysis and to draft the patches; I have reviewed them, compile-tested
-them and take responsibility for them.
+A recursive down_read() deadlocks if a writer (e.g. a hot-plug event
+adding or removing a device) queues on pci_bus_sem between the two
+acquisitions. pci_disable_link_state_locked() cannot be used instead,
+because on the system suspend/resume and ordinary runtime resume paths
+the lock is not held.
 
-Changes in v2:
-- Split v1 into separate patches, as suggested by Dima.
-- Dropped the I225-LMvP L1.2 disable: L1.2 is not supported on that
-  link, so it cannot explain the dock errors.
-- New patch 1: stop calling pci_disable_link_state() from
-  __igc_resume() (reported by Sashiko).
-- Corrected the Fixes: tags.
-- Changed the subject prefix to iwl-net.
+The call is not needed on resume in the first place. The disable done
+in igc_probe() is recorded in the link's aspm_disable mask, which is
+only cleared through the ASPM sysfs interface. The PCI core honours
+that mask whenever it reconfigures the link, including when the device
+returns to D0 (pcie_aspm_pm_state_change()), and pci_restore_state()
+restores the L1 PM Substates control registers saved with L1.2
+already disabled. Drop the call from __igc_resume().
 
-[1] https://lore.kernel.org/all/20260925112850.189302-1-danividanivi@gmail.com/
-[2] https://lore.kernel.org/all/5d45a583-198c-467d-afbe-8f19398e82f3@intel.com/
+The issue was found by the Sashiko AI review of an earlier version of
+this series.
 
-Daniel Viaño (2):
-  igc: don't disable ASPM L1.2 from __igc_resume()
-  igc: treat I226-LMvP as an I226 device
-
- drivers/net/ethernet/intel/igc/igc_base.c | 1 +
+Fixes: 0325143b59c6 ("igc: disable L1.2 PCI-E link substate to avoid performance issue")
+Signed-off-by: Daniel Viaño <danividanivi@gmail.com>
+---
  drivers/net/ethernet/intel/igc/igc_main.c | 3 ---
- 2 files changed, 1 insertion(+), 3 deletions(-)
+ 1 file changed, 3 deletions(-)
 
+diff --git a/drivers/net/ethernet/intel/igc/igc_main.c b/drivers/net/ethernet/intel/igc/igc_main.c
+index 62a7c5178..1b5dcc166 100644
+--- a/drivers/net/ethernet/intel/igc/igc_main.c
++++ b/drivers/net/ethernet/intel/igc/igc_main.c
+@@ -7585,9 +7585,6 @@ static int __igc_resume(struct device *dev, bool rpm)
+ 	pci_enable_wake(pdev, PCI_D3hot, 0);
+ 	pci_enable_wake(pdev, PCI_D3cold, 0);
+ 
+-	if (igc_is_device_id_i226(hw))
+-		pci_disable_link_state(pdev, PCIE_LINK_STATE_L1_2);
+-
+ 	if (igc_init_interrupt_scheme(adapter, true)) {
+ 		netdev_err(netdev, "Unable to allocate memory for queues\n");
+ 		return -ENOMEM;
 -- 
 2.53.0
 
