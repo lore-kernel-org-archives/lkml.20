@@ -1,13 +1,13 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.28
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.27
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794368100;
-	b=xrO1e+8Vy2BYrtpYpDuynXzsb8j+bhURIJ3i0BU+1J8FKewUHzTU/wbhumGnMnklgorD
-	 1q0GXxE2LfVT30khHiGwy1UCLx28ejAGJ01EN+qpIok6CCDE5BslCPKzgxQjnygvXwV6S
-	 EWtCtXoJCBGC8uH6grmHihWS7/1zhiIhbLxXVP2l62YNXgfI/w8bmXAYoEKv0bmlOSEmE
-	 goo813rSh2PpF1u/HrraBOABUKuATUwfayOCuk3OKqI3r50o4vskwhzlS0TFrohvKjYps
-	 2nvWq8pwy/un4p1AtKcDl2f3cgDuPPalEGF6ck/VfK6ZbpGcdzt5C+Z3piraInlkNxw==
+	t=1794368102;
+	b=oPnwTPEq8xWFY9soH3DrRsfLVsZc0P6F00EBhaRC6IYBoHzIqua3aPJSrSx+ycgLujrR
+	 xpDqgjOYMlokEewjlRvpYoNBpQcfCwrj/ADs9g/SU3sJH207Qx5Ib1AYr4u6DkQ/vhEsM
+	 wxguWo8yjnrPo8ST3LcfLVMbkAo3ji2CnLT+1CJrTUpL02eThPR+4Z/EyBHWA+6IwIfeK
+	 H3HaP6t9YAe+5bNMiu8spvInwKCTIiXv49hdZg97xBJq8n3r0Q58Ec2JQWuSF7cZTy1vX
+	 shj1LSBOcNrd/V8XySAitm/+H8ChkVZPo8nN4VwYGlYJbrlyteEt8FMoH4if7Ja0rkw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794368100;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794368102;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:
 	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
 	 Received:From:Date:Subject:MIME-Version:Content-Type:
@@ -27,52 +27,52 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=Mc0sPreXhVH6cmYLfjxr+IUGiTNgAlutU7ThX8zMT/M=;
-	b=hGRBH4DXBYyTDObjW8hCrv/YRvLRzwNWij32JHLYn/tn7KrCXF+5rOdlhq1UC88Gc17M
-	 SEAnvSZ1NfP4R8ExNxq4UlongDmxGApLPxM9NYqYrULPXl4UnfUotF33cXGZxMkX7dm0h
-	 qQg7CkSDmIizmPp8h8nfrhzkYsFcaL+GX5h9B7BK7v6oRNRJIQ/sVl4v3vhdkOgys08hK
-	 Cakf4PXG0wRSlzw+GYzgsp/im2COCfh0U4j5sa1EHtcZx8RAzzbpL7POa2dO5v2hKcSD1
-	 pDt8XEYEImt02HGXE7es7yP+FRjNwbnsrOvyePxCnedVes0mp0o8dgm/H7CpQQTv6kg==
+	bh=uRZuzCALYYn0kyXMscCwy6W1PH7kAxdyRjJUlsHCVUk=;
+	b=U32RTccF1ittcSOjedKUfod2cRZK9slL6oeUqgiRDqErhA0Dr6gA7t3dPWmBba7LYsm+
+	 nY4q1WenTpXlBAgFNZomin+R+IWTdDD0CgblLvygN67fl5i/bDgkvzRZtxJ0reqThR3f/
+	 darNBT9jFS447NRsImZPXf9ZtHwqPg58hRx2dFVEXTQLkDlbWtxGup14EDrMU2DY56Nn/
+	 1QNRzSbnnKLED+ZVoDQ+tRxHVlTI7gdG8AMkj0IL5ynZXH/z5DJVC1zcMI2u1yfFzB5dV
+	 9MObGRn6WR248o4Xr1z7qnf95/7H77wz6NRRzlsIDJ6KA9cbUJUPnJX6Yn1PVcEMXGQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=amd.com;
 	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b="BEW158Q/";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.28
-Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010028.outbound.protection.outlook.com [52.101.46.28])
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=11nyelda;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.27
+Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010027.outbound.protection.outlook.com [52.101.46.27])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE473606A320
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 03:34:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE473606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6126D606A335
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 03:35:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6126D606A335
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=BEW158Q/
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=11nyelda
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Q/ceGJ93Q5t8hgnRi2eUD9kdtpec8jvEgfsTo8ztG1NSF4V+On4I6rN72qaGBgBhpxtqF+/rxz6UOBzfcQDZyRAk1QobFcsT/XkKc1hStaKR5gfyen3AH2W/WbigWOlDOAUqP1XVEg8empc9Cjp5L53coatX43+5ueeRLDAm4swFov8V79I1vStZ6GF0uOjNS8ShNkW74YmmJ+cD9N0/Gq/ZET/oB3IFzuHSiYSOAi/boKyZl8SiWMfcPFytafKvn3K/BWB71rnkFtobE8seBRU5XAQbAFdbINJ/I7F+CQQgiKvUlN4UbMYNv3dBA2JiWN9WaxFha2AGljs1MWblvQ==
+ b=CjrBBc0bngGSBdsSNfmuttzA09bOSGDjZ+mUfZvCYRJrmq2Wzwo8CerCT/qTYbj/iC7G7AqJRsLZQ5Z6RLsuSgSQT2RanG0wS0SuhT/IBdunFSfMwezpTmBJ61LugPhGmG+hEaERA798sqdss8q+Ai+Wy804XTOe/FQ15WUxtuByBv81qEeLrAxPHF7ZoBxVwiipX2c0jhN+M04DymsVC13esGWkk3tzvMqzz6UtR/gfEBwG2vDeAHUtZLknO1Qh/Ue30Ktq9KZwurAj15jUhKuw50VcisgsUC4/I4GhOfeP8evKtg1NIs1tQPMuLkry6DtWn/mzLCeyusgE78bpzQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Mc0sPreXhVH6cmYLfjxr+IUGiTNgAlutU7ThX8zMT/M=;
- b=rhE4OeMol6geuk5OLzNAJGW6t6PXISoMfgE+X8JOWGvWpFv0jXqoULx5oMhVW2LKhsVolJTuhGAvEEvXtnYE2zJmFVGPru+VzsiHAYBDyvcmbpLix0nkp3mLBJXYOgbZXCyU8s+H7eQNpD5ZSwZ3RarZCWCe5lMCnJro8Z2hsKdbP5/JanaTLK04WMJ+odGY2jMCVEk4tRZfV0Js+1xBeIgUTIMLfTAT/j7OsVdg9SOopVuyZDlo1sayyOD4mljRc+Rrq94q3lhnyuQvf8Xmh3ORNVJrFA6DtUw5Z5hV2f/HmexZga2MPuxf3FS0bfetycZoCrNzY5Ikk7oJYQcApg==
+ bh=uRZuzCALYYn0kyXMscCwy6W1PH7kAxdyRjJUlsHCVUk=;
+ b=gHb2/BFznJSvgSc43rg75IZbqRGVyE2L/PRXQv9Yc3z+I6/c4bhlnrU9B2sg43Xo3TwBKRQR89GeAg4Awt83BhfgVi99YNakmFeD24I08bYtoB48ULZ1RL6LIff07iObSv5I2fN87Li39e2cxP4CFJzEWF48O+buxu7B6s2ptDGyH9CSZEqeKUHbNRVQKVO28cqS3F+QMT6CLPvSOP1hYMZ1vtbNMT1dVHlg+YxUgMMvmBZ0Hqd6xBdMua+gOjqCHzSXTTwCzqbwsXg5mfElvIyhxl+82EylsTA0hMYYID08qgXnu1eCEoBIvGTxbZTlempeVZmelP7G1yTRPv8/ig==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Mc0sPreXhVH6cmYLfjxr+IUGiTNgAlutU7ThX8zMT/M=;
- b=BEW158Q/An7Oo/R2zKiVxMhR6Bj7aUU1o+XIoqObsOw+nFgi1gkEP+9WeNuZHwthwkU15e57qnHJaERZ4Q7etCW5N97+v1zpaWs3y1PN5QvKMYu1pV8ZWKWTuq4En8NjeprtJM0rO0sT3KorxLXf8ADBTx5BOlOvQE6o1I+XiVk=
-Received: from DS1PR03CA0016.namprd03.prod.outlook.com (2603:10b6:8:233::6) by
- PH0PR12MB8031.namprd12.prod.outlook.com (2603:10b6:510:28e::7) with Microsoft
+ bh=uRZuzCALYYn0kyXMscCwy6W1PH7kAxdyRjJUlsHCVUk=;
+ b=11nyeldati2waF07aPQ03qaY+m9+zR33vZ7T6FNm1UjPkGNb7CnlMtaYDAdK3gP3kwcF3z8hNK2OAWesyUtlV3lT2/aZlQFvuQmEgnhJ/uYyQwBEflwxxjn/tVh3anBsMiFKFXGHo57/djTly5JSKhTOCcabdu7qUA0Fmojr+hM=
+Received: from DSZP220CA0011.NAMP220.PROD.OUTLOOK.COM (2603:10b6:5:280::17) by
+ DS0PR12MB6462.namprd12.prod.outlook.com (2603:10b6:8:c6::19) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.8; Wed, 11 Nov 2026 03:34:54 +0000
-Received: from DM3PEPF000265BA.namprd04.prod.outlook.com
- (2603:10b6:8:233:cafe::7d) by DS1PR03CA0016.outlook.office365.com
- (2603:10b6:8:233::6) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.8 via Frontend Transport; Wed, 11
- Nov 2026 03:34:54 +0000
+ 15.21.592.12; Wed, 11 Nov 2026 03:34:57 +0000
+Received: from DM3PEPF000265BB.namprd04.prod.outlook.com
+ (2603:10b6:5:280:cafe::94) by DSZP220CA0011.outlook.office365.com
+ (2603:10b6:5:280::17) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.9 via Frontend Transport; Wed, 11
+ Nov 2026 03:34:57 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -80,20 +80,20 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
 Received: from satlexmb08.amd.com (165.204.84.17) by
- DM3PEPF000265BA.mail.protection.outlook.com (10.167.23.247) with Microsoft
+ DM3PEPF000265BB.mail.protection.outlook.com (10.167.23.248) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Wed, 11 Nov 2026 03:34:54 +0000
+ 15.21.615.4 via Frontend Transport; Wed, 11 Nov 2026 03:34:57 +0000
 Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 10 Nov
- 2026 21:34:53 -0600
+ 2026 21:34:57 -0600
 Received: from [127.0.1.1] (10.180.168.240) by satlexmb09.amd.com
  (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 10 Nov
- 2026 21:34:50 -0600
+ 2026 21:34:53 -0600
 From: Shivank Garg <shivankg@amd.com>
-Date: Wed, 11 Nov 2026 03:34:33 +0000
-Subject: [PATCH v2 1/2] mm/vmstat: remove unused folio stat helpers
+Date: Wed, 11 Nov 2026 03:34:34 +0000
+Subject: [PATCH v2 2/2] mm: remove unused folio refcount helpers
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,7 +105,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID: <20261111-unused-sym-core-v2-1-3edc7fb8581f@amd.com>
+Message-ID: <20261111-unused-sym-core-v2-2-3edc7fb8581f@amd.com>
 References: <20261111-unused-sym-core-v2-0-3edc7fb8581f@amd.com>
 In-Reply-To: <20261111-unused-sym-core-v2-0-3edc7fb8581f@amd.com>
 To: David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
@@ -115,113 +115,109 @@ To: David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
 CC: <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>, Shivank Garg
 	<shivankg@amd.com>
 X-Mailer: b4 0.15-dev-47d62
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794368087; l=2371;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794368087; l=2154;
  i=shivankg@amd.com; s=20260518; h=from:subject:message-id;
- bh=oFAB94gxnhPd2K18rBNKPJgU8AMrMtnlf3sgrZ4T7/k=;
- b=cIPDzLnHbNJ0Ga4+qhzo60fJ6E8Ftdq/KZ8ixFejfBdom8VTww8+Sqm8VHBoO6jNz171OZlLo
- /07kpVe5EGVCiQQMBcRbE5AMgmZs5A4Dxb912iQkGOh4uQxs+o08zwV
+ bh=M+/pny9yuCAqKJNhALtl0LQlutxxgfbmdI0JnRD5gJU=;
+ b=xqXii487oOE8Wrsdjw6TLK7BLtNsQFkhj5x2rYDQ5k6N1B17ziNwrd9yb2k86gI523PpIRz+T
+ seXrq0dF9zoADSH+8LQGxqPML98FXDEDMFX2XF2p/uA4nyNoN9HqmP+
 X-Developer-Key: i=shivankg@amd.com; a=ed25519;
  pk=2l2QGTeXuGkZTtfmx0nPQU8iFZfjYmX/ymMojitevx4=
 X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb09.amd.com
  (10.181.42.218)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM3PEPF000265BA:EE_|PH0PR12MB8031:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0b0aebe3-db96-471e-11c2-08df3fa4c036
+X-MS-TrafficTypeDiagnostic: DM3PEPF000265BB:EE_|DS0PR12MB6462:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3dc66e5d-ad71-4cf5-5fb5-08df3fa4c221
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|23010399003|376014|1800799024|82310400026|36860700016|261009223027099003|261021123027099003|261021121427099003|10067099003|261102123227099003|11063799006|56012099006|6133799003|22082099003|18002099003;
+	BCL:0;ARA:13230040|36860700016|7416014|1800799024|376014|82310400026|23010399003|261102123227099003|56012099006|11063799006|261021123027099003|261021121427099003|261009223027099003|10067099003|22082099003|18002099003|6133799003;
 X-Microsoft-Antispam-Message-Info:
-	jsk9L4yQRECXzl/OKrqhAjNu60J3fRJSzYffjLhsAqtymAmsLAs1yqjFaTqCFeLpw7vUPk4h3j7QFXb+Nmku5R4FDdUQSf3f5Zq0oUPmxFFUMX5HqDQ5UniAb7xgt7AfhbGIF5XQMotW5kNKbK5wDt+3Mt/Xx0F3ML/ZAHDq4ngCSrJtkv4w54GFFsOZg35E0D+jvmcQwZFziR0Lpm7T51K9/A6tzZyE6oJzhijJ8/SRcA4v/Esl7mvKEjEJUUfWevyHTkmFmgNJipIKpMp+YIsE8r64rtgCvvYfqgr9BdewR2A+zEyCP4P7oPDT5Nkm+Bfs4RYgQvGYKFg3dvPoxXFwONropfdheOZOdEhi0M+Dz11d+hVVkhHhfv1Gh1rOqgHkwLnxgzPAnuAPJzkeo8GHkE+/yC6d/X2iwLv59H2sdoH3RSfpAqdWSgjnljVgZG6bYZFbqXMv3MPRV52CbqCCpaHoefSLJgDiZYl0QY7Yl2ifjUuOz3TMV+ZWu62aCigOm+EM6RsLgiL9XzZrcwk7nYb4PxCqSRukjnuxa3I7KNVCCGeGuasgMlSWTFbxGQ7k2HmMU6syFYPS2gtmn5et0uEzE7fsR++dzCfBySC3baJGsOpBbYqM9dxT4szQzcIgdC0JNt6eDSMxhv9dMlcEu8eCSI/qhdCwOLKoQiNE9fPLF6UX8vBp0E2hKHHHQ+1P1hyRZn1Gcuf5RvY0ag==
+	d1KH74EFbxNCfIQeR/+9MgHEZo6eXzpJ/V1dbtUZ4MV4X3B/5iqENBYoVTm+VyRO/mxwdJ5VDYHHfMfb1eXik3RzPS94OmYvqzwnoViby6ks3xETFaR+RUUBv9jl7AWHrQf6CZ2Tt0nWwYDKb/7FcUoZlwX0B2nOqGetzuyT5YG8SM4G0KzwEwwX6nTVRcG8804cMDPkzx/xrtXXa6IUdpCDAla+w9726pruV6GGRWVXZ/00crjOszCxtbMiYZrkx1eO0yVGacvL95JKQ7oxAamScnXP7AwSzxiOgCiRhQ4OBjtYHTnhxEg+f68+az1PM0UjPJjoumjM4yx2kKy8JuNXc43V+qP1aZWnfTaHMAUvIU6V/cwwAldH6w2W+/uUi1WCfv3IlGtYvvoH1ugGMna+u6xP9xbkbyB257OVrud0X96jIsOs+nP55l0BXe+YnzIMvdK+6EjUCfIcyt8qbyTr1/u3VhDF9uk+t0YfnJSnvdtAcPrMj53TpQ8fX4FD/Zfw3oazifhSapynSPj63c0yFofbkwfhs4tP19XwgadpNfy6RriW7EmXn/nZ7IqAPE181JJXgKAPXcM0+euO4jckW6/3MJgjO6VGmoJd1vOTgN/ibQ5GVJmhi5XorjQGOpr/+wowwqnxS1SHvjG6v+gp/IZ8wq9qbafkuusfBJ+opQt/jAiMwEvmFVGGeyQg6wtdRBABe6UCRSjv6vMH5Q==
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(23010399003)(376014)(1800799024)(82310400026)(36860700016)(261009223027099003)(261021123027099003)(261021121427099003)(10067099003)(261102123227099003)(11063799006)(56012099006)(6133799003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(7416014)(1800799024)(376014)(82310400026)(23010399003)(261102123227099003)(56012099006)(11063799006)(261021123027099003)(261021121427099003)(261009223027099003)(10067099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	SUsMILYkwnRHafD1IAwIHwOA7D1g1s3dxN1lq+2CK7Y+wgwY1kCRE/rZMyNH/0gJbBnDQton0ubul9d8EzcUsnIZ0c4Dya33cJRFjhJ8zcUoC+2Sx+Z+d1KHyVfcv1Fz8WwUtUHu0F4W43jQa1yUbQdghFRCcgBuBw3WF77rWMUZ1ol304CgWWQm5Xa0FQkqm6efp2WSnuw63VV+809klbRVGAwFy7Ab44EpZJ9rUK2xGyfbKN3QRLYXmTlJ93WnvpG9zgOxXCUfx3MBrQAqR7Ies4KmxTl0BgqYD+ONPySsV7+kW6RnM1kClyt8eKWIRrH3dKKaVfE0PS2OJ3jCT96rUMjTKoKcx+y6zzpmRUuAKmpsI8btJ5OzC8sdEwfLsj4t4qgjEqi7HGsFv99eJchsGkwP7gvjAxEexzRhUbtdw9NhmwW59Ye8tigbKtJl
+	NcCXNQh2p5Fpca1MYul6moxUopldkCqNwUTgys3pumcDmjrB81fhZgfvL5wlMO8r85KD84OMrMl6JRq9YxnAgr9fPC6gNgBzxooqOAJ1k5054rPh0dMaYbobKqYS3V5s+Afk7rbRBxH/GVOpO+z8k+UMpfIO1+o2JdW57Hw1x72rgDiNjYKkgSsCu/O02T7msIEUmBbzNwz6ACzrVpqf2K2+8TpefvjRDNBgC1O00XStS8/TxZIaN9tK0kaRXwuDGE7gWI2uL3WA2AxVRWE0EcBdw1D5eLQ+ZDDdE4OQaC41bT5YkVbvedR/6D/D/IRba9xScptQwKwUISfKbrf38HLQSQ3jq3fCa5q8vyikxKG8Kb0p9YsQZja7Qydz4k/OobxScCVYNnwJBkEeQd/amd3NtxLiEkQBx3UY/0PO6kgGn/VwSQBW/3EwNkjMoQYF
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 03:34:54.1124
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 03:34:57.3542
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0b0aebe3-db96-471e-11c2-08df3fa4c036
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3dc66e5d-ad71-4cf5-5fb5-08df3fa4c221
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	DM3PEPF000265BA.namprd04.prod.outlook.com
+	DM3PEPF000265BB.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB8031
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6462
 
-__zone_stat_add_folio(), __zone_stat_sub_folio(), zone_stat_add_folio(),
-__node_stat_add_folio() and __node_stat_sub_folio() have had no callers
-since they were added in commit a53e17e4e97b ("mm/vmstat: Add functions
-to account folio statistics"). The last zone_stat_sub_folio() user was
-removed in commit f1ee018baee9 ("mm: use __page_cache_release() in
-folios_put()").
+folio_ref_inc_return(), folio_ref_dec_and_test() and folio_ref_dec_return()
+have had no callers since they were added in commit c24016ac3a62 ("mm: Add
+folio reference count functions"). The last folio_ref_sub_return() user
+was removed in commit 38607c62b34b ("fs/dax: properly refcount fs dax
+pages").
 
 Signed-off-by: Shivank Garg <shivankg@amd.com>
 ---
- include/linux/vmstat.h | 36 ------------------------------------
- 1 file changed, 36 deletions(-)
+ include/linux/page_ref.h | 24 ------------------------
+ 1 file changed, 24 deletions(-)
 
-diff --git a/include/linux/vmstat.h b/include/linux/vmstat.h
-index 5b31d8e7ae40..953d8ef65400 100644
---- a/include/linux/vmstat.h
-+++ b/include/linux/vmstat.h
-@@ -425,54 +425,18 @@ static inline void __zone_stat_mod_folio(struct folio *folio,
- 	__mod_zone_page_state(folio_zone(folio), item, nr);
+diff --git a/include/linux/page_ref.h b/include/linux/page_ref.h
+index 9f5c75d06f76..6fc20a49fa84 100644
+--- a/include/linux/page_ref.h
++++ b/include/linux/page_ref.h
+@@ -157,15 +157,6 @@ static inline void folio_ref_sub(struct folio *folio, int nr)
+ 	page_ref_sub(&folio->page, nr);
  }
  
--static inline void __zone_stat_add_folio(struct folio *folio,
--		enum zone_stat_item item)
+-static inline int folio_ref_sub_return(struct folio *folio, int nr)
 -{
--	__mod_zone_page_state(folio_zone(folio), item, folio_nr_pages(folio));
+-	int ret = atomic_sub_return(nr, &folio->_refcount);
+-
+-	if (page_ref_tracepoint_active(page_ref_mod_and_return))
+-		__page_ref_mod_and_return(&folio->page, -nr, ret);
+-	return ret;
 -}
 -
--static inline void __zone_stat_sub_folio(struct folio *folio,
--		enum zone_stat_item item)
--{
--	__mod_zone_page_state(folio_zone(folio), item, -folio_nr_pages(folio));
--}
--
- static inline void zone_stat_mod_folio(struct folio *folio,
- 		enum zone_stat_item item, long nr)
+ static inline void page_ref_inc(struct page *page)
  {
- 	mod_zone_page_state(folio_zone(folio), item, nr);
+ 	atomic_inc(&page->_refcount);
+@@ -213,11 +204,6 @@ static inline int page_ref_inc_return(struct page *page)
+ 	return ret;
  }
  
--static inline void zone_stat_add_folio(struct folio *folio,
--		enum zone_stat_item item)
+-static inline int folio_ref_inc_return(struct folio *folio)
 -{
--	mod_zone_page_state(folio_zone(folio), item, folio_nr_pages(folio));
+-	return page_ref_inc_return(&folio->page);
 -}
 -
--static inline void zone_stat_sub_folio(struct folio *folio,
--		enum zone_stat_item item)
--{
--	mod_zone_page_state(folio_zone(folio), item, -folio_nr_pages(folio));
--}
--
- static inline void __node_stat_mod_folio(struct folio *folio,
- 		enum node_stat_item item, long nr)
+ static inline int page_ref_dec_and_test(struct page *page)
  {
- 	__mod_node_page_state(folio_pgdat(folio), item, nr);
+ 	int ret = atomic_dec_and_test(&page->_refcount);
+@@ -227,11 +213,6 @@ static inline int page_ref_dec_and_test(struct page *page)
+ 	return ret;
  }
  
--static inline void __node_stat_add_folio(struct folio *folio,
--		enum node_stat_item item)
+-static inline int folio_ref_dec_and_test(struct folio *folio)
 -{
--	__mod_node_page_state(folio_pgdat(folio), item, folio_nr_pages(folio));
+-	return page_ref_dec_and_test(&folio->page);
 -}
 -
--static inline void __node_stat_sub_folio(struct folio *folio,
--		enum node_stat_item item)
--{
--	__mod_node_page_state(folio_pgdat(folio), item, -folio_nr_pages(folio));
--}
--
- static inline void node_stat_mod_folio(struct folio *folio,
- 		enum node_stat_item item, long nr)
+ static inline int page_ref_dec_return(struct page *page)
  {
+ 	int ret = atomic_dec_return(&page->_refcount);
+@@ -241,11 +222,6 @@ static inline int page_ref_dec_return(struct page *page)
+ 	return ret;
+ }
+ 
+-static inline int folio_ref_dec_return(struct folio *folio)
+-{
+-	return page_ref_dec_return(&folio->page);
+-}
+-
+ static inline bool page_ref_add_unless_zero(struct page *page, int nr)
+ {
+ 	bool ret = atomic_add_unless(&page->_refcount, nr, 0);
 
 -- 
 2.53.0
