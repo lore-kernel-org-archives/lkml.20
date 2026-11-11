@@ -1,71 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.202.169.39
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794415935;
-	b=uT153DlBMQ9Q/hSIywoEIeCWVdZlv2dSdAT29XHwoHM1xaGRg24uv0u/BwzrcLzD+Qnt
-	 tHP1RBIyl7ebhZNNZxKYNHwyOZAhICxIVNbbKF8vY1GTQnSDEUz6cWDTq1mKBZiZfsaiP
-	 omWCetahRJVsVY4Y0QcECZfR1MfFbHNufmK8tgKCbWNfC4fsGHBJhkVdg9lC34SU6ldTw
-	 lQgUFSc4N8dSsYRO4wjctFsA9GxRZmcBKt8MmG8P49YA/3E+wKm2iJBFVLr+3LQnLpOP3
-	 7XiDnNasdXh6p5GCEq+4d+alduXG8Wb7qRQPnrN1RyECVo4rdgHV+9pobH/htAqMpkQ==
+	t=1794415958;
+	b=DEh2S39N8jWNWuT5RTIdrAnLz2ilkZUynYf7FIRNXg4x6sftZUS0BQn6HeKWcYNOkfIF
+	 spw28lEhbfuBlBKYzwys3X5GOJba8FKVjBBtVI1c4gwLWi6isRg24Eo+Y9BughsjoYuDS
+	 1GKX7ZmIEAEU2VNWFTJuUjWCgfdlZ9KaTAoB/ep4VahIuvAaXCGd5CeXzMAgx3z0zDabl
+	 nN/6z7UAGvTS7mmPseNZkbg5OZ7c0tEY4C7ntlwU+rbJF/WEpmP7wp2yRiHMm2XLepIsR
+	 +C50mtnwvhsy25yGRN8rugLagahGpCeWTCB2LzM09ON/DMvCTjhjLo1dYeMs75bnNdQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794415935;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
-	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
-	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
-	bh=lMj+PC6vZNG06L6ZF2lvr1tCXacfKNDXsoXkCXlojPg=;
-	b=I8fM5MzhRhAjIGpRH/lbXGsYdj0/SaZ7Jmb2gtKloAWpBltQOX5LPi+9fRRgslNXcNd9
-	 di1lXmdmjXj1cav6Z8yw5mR3dVKKNFm+Mw+ABXj1Q0+ElxnpgmOpUw+DTJOMM/tKh0YCO
-	 Ev5bRKsb+PpGRNYHllyVIPAFMmciRWbpBRssFx+dD4AtM+f3ifCetoOJ9QslOjSpCculH
-	 j2fxnwsyg1eYzW/s9IXsqqXO0TY4V+aIdUeH4XagCoiYW9XLfLqnVfD3oz3eQm/FAuKIi
-	 0NdrDAH1cWB5e9HqUzMPPQzLkMP6ZD0GifZtsrnNHQmP3VD8FPWuoNF9gy2Oexhhd0g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794415958;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=OkZUJWdT/s5JOCVNB0A7LbBvMJ84RVXohV1PrRaEdAo=;
+	b=E/5TzwFkVDiDH8yoCr1YkFcIeXlIRkkomJd7OQFsUujy4ZPLHlFXRYDKsi9HwkyC+wQS
+	 FYLFXxe9JJ+5lXdQmF1uCnLMwB/FDxIB9EZYj4s2ehDdZFhFrVNEBPp/EqPIm1TRUrNRb
+	 vWOxEKLGn5yrqQ9s45AttM0YT+YwePe+8KZIaAzeNkyCFRt3Uy95h1GoZQn95iBTfBVcG
+	 oJgAxp7076gzsUypPvbJer7ZfvfUsmfZM8nqpN6i9V9uqan1BXFDCdwU5GoybkTsc9ND4
+	 gJ9j65EsW8GeD+3Qe6R+51tMzlHbw+Y4uhMEk5DOCdvyzSVJO6B6qcdH/dqVE1T7Afw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=fail smtp.mailfrom=roeck-us.net;
-	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=Z3V5NPbY;
-	arc=none smtp.remote-ip=44.202.169.39
-Received: from omta040.useast.a.cloudfilter.net (omta040.useast.a.cloudfilter.net [44.202.169.39])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rAqU5aQm;
+	arc=none smtp.remote-ip=209.85.221.54
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C06AE606A324
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 16:52:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C06AE606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AEF4606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 16:52:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1AEF4606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=Z3V5NPbY
-Received: from eig-obgw-5003b.ext.cloudfilter.net ([10.0.29.155])
-	by cmsmtp with ESMTPS
-	id RBA0xIC9HOOJnRBYTxQucH; Wed, 11 Nov 2026 16:52:13 +0000
-Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
-	by cmsmtp with ESMTPS
-	id RBYTxvgVOSgq1RBYTxcAZJ; Wed, 11 Nov 2026 16:52:13 +0000
-X-Authority-Analysis: v=2.4 cv=c8KrQQ9l c=1 sm=1 tr=0 ts=6af49d3d
- a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=R5C9hjxsAAAA:8
- a=lr9QKadaxpsK283a4h8A:9 a=QEXdDO2ut3YA:10 a=KPbNTLLc3YvdawN95zVk:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=roeck-us.net; s=default; h=Content-Transfer-Encoding:Content-Type:
-	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
-	List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
-	List-Archive; bh=lMj+PC6vZNG06L6ZF2lvr1tCXacfKNDXsoXkCXlojPg=; b=Z3V5NPbYpfGE
-	nFTa9skQO7BajZCT8vIEQs8GG5ZN5jKkjokO0aMZK9BDX+W5E+SekmetRQYJzFjLEvqke2FRNvOct
-	npKjYFsShCm4GclTw79cjTcB4KvZQ1ue54gNCM/MoeYi9xHGd0KUz0js4AzD2IC2kJgMKwfBdzs2A
-	+IkxqHJBW+uWO0qcKXiAWot/Y+weg6pGf3EmOre0WOYkVjZvHf25QT8Ssgs/wPLKfdHCZ37Tkd21D
-	iXr/TTtoWD9T4yW/T+Ut3744tNJyYBVV+H0qlVNFVsmFYDhsMPDM4k3sbFeseHd4QB8x/lCFK/he1
-	ipIm9+zFG88xB8HfcFsjwQ==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:35196)
-	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <linux@roeck-us.net>)
-	id 1xRBYS-00000001ERI-3aod;
-	Wed, 11 Nov 2026 22:22:12 +0530
-Message-ID: <d0a3730f-80d7-4870-899f-1d4acc00a773@roeck-us.net>
-Date: Wed, 11 Nov 2026 08:52:11 -0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rAqU5aQm
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-490c3ae81d3so2264403f8f.2
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 08:52:37 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794415956; x=1795020756; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=OkZUJWdT/s5JOCVNB0A7LbBvMJ84RVXohV1PrRaEdAo=;
+        b=rAqU5aQmDbl3ePR29OnKVYFslPpmzVV2P6NF3PZ+VvEdlOxp+R7IDHMbMkzLtxi6T7
+         EdbOJC8TF95bNbCG2IM5Wxn4A1n9gKztU4eLD1KUOnWwwL9nVAF4IPErWYv2hMePO/uU
+         L48gR85ixuLklqRLs+pqFbjrhcowqvEGcYKM0yXBOyFncp3WB9/de9XglRStwprKsH87
+         oqgSQAyRdwDtZTsSWs4zqsTuTL9MLWl3xvc/kVj8tAs+aLce69EAYQI7uoBEU1mfrvPK
+         zw7bTP8Ke9h0nTBdpEvdUoc1ouc0cWvnEP6rSr2JiMVimRrk7e0HCO9d8CXEnvb8gOc2
+         l+JQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794415956; x=1795020756;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=OkZUJWdT/s5JOCVNB0A7LbBvMJ84RVXohV1PrRaEdAo=;
+        b=LhMXs7LA83ho/rWvv9RQ31DA5EnfN9/ZcUWU5ELzgA+wH0pnPkQFs14JxE96wXHXGg
+         CxYMHcP991BcPv4ru5JRQLRDuhcIPv7t4Y60P4J02iue66pwbh8SlwqsYvfgM4wEB6uz
+         42wxewzph0N8U6TT8tNTxccVnfwgJGmGpz699nkedjVSMOkVXZHT5rzap5KMa5KLsemo
+         Lu9tMaypICWBOyYiR/twNFiFMzS1hm+vzgF6buJmh1msi3ZUCAU9/kikyQqdjcFF7Ahq
+         8J+4nKd5yUnvVO6j420q1t0hGIC016T9KGv/H9iwWA3hRBimL0XpSbWnBHVv4GymxugL
+         DYug==
+X-Forwarded-Encrypted: i=1; AL+hErEdbyV90A+tJqdqBwr/J/6C+kj/NctF8palxddvoPUwWPILj1rHD1o9H8YaY750CgNrPnC6A6K4+n2WuuQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9SWNwbCJvb8rQ+vHu69oYljhc0LnxPvdrhsK1UHYCt8NgDMNt9
+	5VfzWnjsHa8pdgzLB2kIzIHzjTsjY97q192lae+/yAq5y9zp3EmnPofZ
+X-Gm-Gg: AYBFou1N0r21HT9gOHiuFWBaxAEAkuxmaMUQhKGmYeM5r9mhb8u0DT6LDgy3pBHLEal
+	rIISBGqN/vs8ht4f/pgDLibBRhnnCwRE3XHO3Psd156FfQ7oCrxMuzzg/liAPIF3AvckAHwyBwn
+	l34XylvbDgUTcpwBm0XkRBKeexxu5yMuubR+ct98vHojI6phuujKGN0uKa3/QB7il9CvVR/L9HO
+	3mJWizRi5dQWY8Xg8DQmaTztX+3R8wtpvpweggoTvAQPTo4AQSeFIhJgDadNMgheP9/EckVAtYl
+	WnfluYFBj0hVoVlCvv/OtrnDvQJDneCTm7fpGisyS2QjptrVYn4Q6yD8QF6YRk2gn8ndPCI0IAr
+	+ylVKrq21aPeDdjTIJMpJZmCofx9eMcKdiBPXdYhZyRRAMgb0xPJhRH5hSW5u6BD0lCosWlW+lI
+	qTFm8MGKqk6zDC5Km42ehSZPr4/164EWKL9nd/9cMUPOxqhzEFly/FY20oocg5d0Du+QjqeISlK
+	d+Z46X/N1KNHb+bjwMKIsZMsytUqcvV+inndhC1Kepk8gHXCMK2Q+mcUaYgeQ9MRBrCYjHfqrKJ
+	t/HEhAxo3bRDWDipce5fN8bomK6EndpTt3yt0C9zJk/eaZm5puLwCfPRzxSs3a4pBm0t
+X-Received: by 2002:a05:6000:25c1:b0:48e:720a:ccaf with SMTP id ffacd0b85a97d-499c38bb2c8mr5760029f8f.5.1794415956141;
+        Wed, 11 Nov 2026 08:52:36 -0800 (PST)
+Received: from [172.31.15.113] (6.red-83-60-147.dynamicip.rima-tde.net. [83.60.147.6])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498363dffa1sm11516874f8f.39.2026.11.11.08.52.33
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 11 Nov 2026 08:52:35 -0800 (PST)
+Message-ID: <9d4ce24b-7799-4d71-84ae-983028366ae1@gmail.com>
+Date: Wed, 11 Nov 2026 17:52:33 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,137 +93,57 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] hwmon: (w83627ehf) Clamp voltage limits before scaling
-To: David Laight <david.laight.linux@gmail.com>,
- Zhu Jun <zhujun2@cmss.chinamobile.com>
-Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261111064831.17299-1-zhujun2@cmss.chinamobile.com>
- <20261111111145.1694eb70@pumpkin>
+Subject: Re: [PATCH 1/4] mm: drop the huge PMD assertion from walk_to_pmd()
+To: Eliav Farber <farbere@amazon.com>,
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+ Kiryl Shutsemau <kas@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>,
+ x86@kernel.org, William Kucharski <william.kucharski@linux.dev>,
+ Vishal Moola <vishal.moola@gmail.com>, Alex Williamson <alex@shazbot.org>,
+ Peter Xu <peterx@redhat.com>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org
+References: <20261111140655.34281-1-farbere@amazon.com>
+ <20261111140655.34281-2-farbere@amazon.com>
 Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <20261111111145.1694eb70@pumpkin>
+From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+In-Reply-To: <20261111140655.34281-2-farbere@amazon.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-BWhitelist: no
-X-Source-IP: 108.223.40.66
-X-Source-L: No
-X-Exim-ID: 1xRBYS-00000001ERI-3aod
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net [108.223.40.66]:35196
-X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 7
-X-Org: HG=direseller_whb_net_legacy;ORG=directi;
-X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfKZVorC6SsNrNQGAODw4Bgw6nRA7JKoazb4d/31IxcHho1suh3qHWxZyPiA1995ertrXhEDb3OoiA7jJFdyQu3dwfNLFbJ2e/LTR8bQqFuTgrAb8v5+U
- MUdqTX0s2hyj2boDmZTKf1d8VjuP4ZQEtync5931fit42pdTo/Ot+J7u2akq3W4Dw0n+U1V1pGtRWZxiZen2Fhcezmat9PnPrrZe3qkuvBIzV5SQSGu1Z/aZ
 
-On 11/11/26 03:11, David Laight wrote:
-> On Wed, 11 Nov 2026 14:48:31 +0800
-> Zhu Jun <zhujun2@cmss.chinamobile.com> wrote:
+On 11/11/26 3:06 PM, Eliav Farber wrote:
+> walk_to_pmd() asserts that the PMD it returns is not a huge entry. That
+> held when commit c2febafc6773 ("mm: convert generic code to 5-level
+> paging") added the assertion: nothing installed a huge PMD over the
+> mappings its callers walk.
 > 
->> in_to_reg() narrows the sysfs value to u32 and multiplies it by 100
->> before clamping. A large positive voltage limit can consequently be
->> programmed as zero instead of the maximum; 4294967296 mV reproduces this
->> on a 64-bit system.
->>
->> Preserve the input width and clamp to the representable voltage range
->> before multiplication.
->>
->> Fixes: cf0676fe42c8 ("[PATCH] w83627ehf: Add voltage inputs support")
->> Signed-off-by: Zhu Jun <zhujun2@cmss.chinamobile.com>
->> ---
->>   drivers/hwmon/w83627ehf.c | 3 ++-
->>   1 file changed, 2 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/hwmon/w83627ehf.c b/drivers/hwmon/w83627ehf.c
->> index 9c08ab662dc6..5c04b9c52b76 100644
->> --- a/drivers/hwmon/w83627ehf.c
->> +++ b/drivers/hwmon/w83627ehf.c
->> @@ -293,8 +293,9 @@ static inline long in_from_reg(u8 reg, u8 nr, const u16 *scale_in)
->>   	return DIV_ROUND_CLOSEST(reg * scale_in[nr], 100);
->>   }
->>   
->> -static inline u8 in_to_reg(u32 val, u8 nr, const u16 *scale_in)
->> +static inline u8 in_to_reg(unsigned long val, u8 nr, const u16 *scale_in)
->>   {
->> +	val = min(val, 255UL * scale_in[nr] / 100);
+> ARCH_SUPPORTS_HUGE_PFNMAP changed that. A VM_PFNMAP mapping whose driver
+> provides both ->fault and ->huge_fault can have a PMD leaf installed by a
+> concurrent huge fault over the same address, so a caller can observe one
+> and BUG on CONFIG_DEBUG_VM=y.
 > 
-> You need to think about these more.
-> Either it really doesn't matter because no one would really try to write
-> an over large value unless they are trying to break things - and they can
-> just write zero, or you just need to stop the n * 100 + x overflowing.
+> The walk does not need the invariant. pmd_alloc() only allocates when the
+> PUD is empty and otherwise returns pmd_offset(), so a leaf is returned
+> rather than overwritten. Every caller already copes with one, because
+> they all reach pte_offset_map_lock(), which refuses to walk a leaf and
+> returns NULL: insert_pages() turns that into -EFAULT, get_locked_pte()
+> passes the NULL to its callers, and insert_pfn() returns a fault code.
+> 
+> Fixes: f9e54c3a2f5b ("vfio/pci: implement huge_fault support")
+> Signed-off-by: Eliav Farber <farbere@amazon.com>
 
-Writing 0 would be intentional. Writing a large value, however, _can_
-be accidental (or just someone trying to find the highest possible value),
-so I accept such patches (and sometimes, if I have too much time, hunt
-for it as well). My module tests actually depend on it - they on purpose
-write a large value to see what happens.
+LGTM:
 
-Thanks,
-Guenter
+Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
 
-> So at least avoid the extra divide by using:
-> 	val = min(val, (~0ul - 32768) / 100)
-> 
->>   	return clamp_val(DIV_ROUND_CLOSEST(val * 100, scale_in[nr]), 0, 255);
-> 
-> Another clamp_val() that should never have been added.
-> The type checks are there for a reason, not to be killed by casts.
-> 
-> David
-> 
->>   }
->>   
-> 
-
+-- 
+cheers,
+jose a. p-a
