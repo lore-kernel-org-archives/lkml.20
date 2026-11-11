@@ -1,79 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.201.16
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794391445;
-	b=ja3ZWbxHkdvW6o4MKaSIXbabfCECsebs93zeaPrBhVi4krH0sclw/XF4dehMn6LQoek5
-	 JCJd5ggxflk2njBkRRCkGSaC/UYGEDfD+Z5FQXvyO9omjipsD4aQJllik0xLfAoum1U8B
-	 F4fKehai8C6u9H07bJnve6EKzhS1wyVTxr017Bx7e3cSqFMAm2LEm2v6OpwVfTioE0Msm
-	 a/kDbzPxAoqfEMtu3oOBR3xZqb8/1XiGwLdkhE02EzmYXbnFI2ulE8PMMJGbChg35SEcJ
-	 tQbxttFEWyA4cng26EBSu0vAkxG0qhw+OUACjmIds4Bboz2vpwEB0Opr0dUfhUyKlag==
+	t=1794391483;
+	b=J6iUNeJP5HG1uARWiTchilpi5EX0aA7lczP6cBVR33Sru7msS28rbwb9kwziHyawMWh1
+	 KziNYo8pYhCA5BqZ46ft9FstfKUa97+HkewGn9xMwkpQ4P40OEkVD6uGWeE4UD5B1RiPL
+	 KXo5RWG35DWJXEWjZ1Fb9QSBRagXQgLWYTxhRGx4UMtH+ULSxhGw5Jy54CGy2ZycYkcid
+	 TaYinF/El0/xc1QTmsW6w6dZ3JfcUA0+UiPIdSlAFNYUa4xS2Q6E5NHKqA3SoTxfxR23Y
+	 CSLUPkh4YQWwLIH5KUmKXhggXMBEKZw7zyD4qE62Vd4rTQpVV3WFNRXH2iMm3jLK00w==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794391445;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=LERhbt5Ytdc1ar8GQ07npP5kbNMAPKzHwGZphCtzgew=;
-	b=j8W2gBJPgHGOt5FnECdqj71e6I/gAPGelrm9PSOJ8xehkTjMFvP8JxnmjcIxSTJju/uw
-	 ypq6KXwx2lQMEVkPd7V5mTNPB1Z/MjHx5B1zS4OukiP8TQPXRHop2k82V0pHxt/RQ7tfu
-	 FnPfB794w6bYLhHl1smDee8K3M5C6Wov3KW6+2nGFjP6e2rc+T3nvaNjm2OsDTmcPmmAJ
-	 PHC87q5w4kpGeDZLi8sScFnIgVk1uQW85uvIOM+Y2uHAlN8vGRwWqnVPacVcCAUwprABD
-	 TczqhFuMrVmtFup7BfUassJTmfMLiqdjS5mgrcEBUiQMkNsR6gG6KF57uckRKEVP4+g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794391483;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:CC:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=oVhgG1D34iAaFPpyW2HKAfJcIy1AudwUf4aBHqGSZjY=;
+	b=rZHSWYGsO1kbL0HUpmKTaVPSeayOJgjCyX5bdmeGL9v9sHz4aCrytr1nb6w+LcFEe9Ht
+	 yPbAL5aMzCg0GgXYUHc5Ps1l61psaxIYJ86ddnolvW2/gXS0EnBvBgrJn/lbOsI9Q9i3B
+	 8pRi3sFndJZV3pIXfdaLL8Dj9KMWU3sE1Cg1XtfgfUB8bOVjmrsqvETjQVKqqvsXrKQx6
+	 dOmNrmgTOi1Fa7qsCSUsLUUKkTowRYcGdm6p8oNq6xmiaHWJ+T4/QaPaICrq0bSdTKZwr
+	 GqoKq6Pqiq3DFp3g8fs3q7fcXniQ+sWzJA7wzcLlcrokNOrM2gvmRCCASTgV751/CpQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=erGcS59I;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=UKu6c68L;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.201.16
+Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013016.outbound.protection.outlook.com [40.93.201.16])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EC7D606A32A;
-	Wed, 11 Nov 2026 10:04:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 063B5606A324;
+	Wed, 11 Nov 2026 10:04:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 063B5606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=erGcS59I
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794391444;
-	b=ENq6XChdbDLF1JaAvQwDGna7DJL5Xd8McgeltnnZqrz/Vxcw3ZAxSsDm+StvFsw/Kqlg
-	 xw+621TPLXl0bX7IafGupbJUclk7URLqxBS6NsfQpCGXke3Cqq8b9URWmvYPZqQU3rDAa
-	 8/5jRZ+kbxvuGGEmsYNkdlJtpqkWlyNCM9+CIyqmG1vHXgS0wsD+unYANFhtVfg3VF9YQ
-	 7g6qvdTKRJILP7l8CQTcTPA4S1k0CY0fqNbYNaf7Ty89QXbAdNclFgsvDgtmrJYxz/U5D
-	 RUFhyK4CGg1dEpx9CASC4V6tYyyS3tZABZnHPUa5ewOpLdwF+yJ8+/C+s8tuTiYPBTg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794391444;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=LERhbt5Ytdc1ar8GQ07npP5kbNMAPKzHwGZphCtzgew=;
-	b=zVWRF5YLBahFkpHOy27bVTANsVO4rnFZwq/ehsDeZUHeCzQF04/D74AKjPad3DHYsLfY
-	 8axNndbBHKiQVhZRuQshaAAeEXBY79Zpio2VRui7fDq/28JD1LmalfMdP2UcjmnyuS4QH
-	 /tViVCrg6cmxHtK5LvGllTvQdHsOD1zaAhYzOD5f9puWszuCT5TIbuZnkpxkVrQzQNFWA
-	 RYmtBaZWW+ck/g8wuTmlB3bvnxjsYwcNkRgq6nz6j1OazhJFj16bzVMJu+FU779Akun15
-	 jHSqq/cOUjpPzBhwr5d1WjCVaEs0cljBtMP8VFnWuIX/fU+UPRDpgKPpTUrFJ/sugrw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 293001F00A0E;
-	Wed, 11 Nov 2026 10:04:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794391444;
-	bh=LERhbt5Ytdc1ar8GQ07npP5kbNMAPKzHwGZphCtzgew=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=erGcS59ItktfZQvpSga90WTUkr0BM3wtiQdlaPLLxwCA8YjSI5FDbY/8Bbmyp4A8q
-	 muYzMDEj8teuRZURdrm3jZWCQvZVbiiUx7sM8q7wQ+ch/ud7KcTScVqyH4qG/dKEV3
-	 O3p7t5nkttCuCfK9hBfyQjUDPu3z6NIIAkjYPNLIMI3Yw1/aooBuzH0kLZjByhSEZa
-	 qhF5bEscz+b9vDdZjNp4nzeQG7eTkYVgbT1ZELgiWBm/8VWb1qrycnuZq5LS+FVY1w
-	 WPggkOwMxOX45Mh1nJjSYD4T0kBlJdX/feSBv/ASdC9nzeaZwBC2brnY50V1AeR10z
-	 Dsisy3ovVBxEg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 714EE48F1A;
-	Wed, 11 Nov 2026 10:04:03 +0000 (UTC)
-From: Eric Yang via B4 Relay <devnull+eric.yang.wiwynn.gmail.com@kernel.org>
-Date: Wed, 11 Nov 2026 10:04:03 +0000
-Subject: [PATCH v2] ARM: dts: aspeed: yosemite4: Remove Floating Falls
- board nodes
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=UKu6c68L
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=RX08IaMGtklfnl9qZdTq+oo2PWWg7ib3ZS/R5cP4ph2oicplgiXZ3+bgqIfLElpdBawhJO8kDqDc/iYn7CEZe1cvcsS0sxwkBNcl4NJ3bwfKXFAEk7gc003KM/Q70kaX9ohLL5mDsGn3yEhSSlWkHvJYJESElu/Jn2GI3TxlgU2IAiF0BKxRR/0v+AyYZK1taTZYY2sP5NvdxCWIdjp3AVS/7mY29L2LwcfRAHFmsr1yP4WC6Ng8VXRJ5BY9BCKa5um9KBMqnEPEnbrp5dSPaZt7SEOiY055EuUiowMOwA5abbVpFXGJ8DWL2/i35ZQ0ZhAHpk8WMdJJ53sfZsF9mA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=oVhgG1D34iAaFPpyW2HKAfJcIy1AudwUf4aBHqGSZjY=;
+ b=olId59uIUT9jEN99u8eTbYomB/gZUqVr+wnkK99yA5Tt9hIS56sT0inmcSa1LkA+j7nEvXuaWxuqDDhKR0Qark4FGqUpUj+WfgTKvqrY/sqW7c5CBwcDa6CKptdlZOoOQ2uFpNKX1Jo+DC29lEpiq20YUKhZobnPAZdi9ZO8ftLl4zihol38rK+UYYhYvMbLod/pCGRV0jddOlOD7hkmYNZbuoDdE8Ye30FtvzpMCTjIsKZLErzZkN3Ryhmuxkye1Y7PYFZc/BM84i8Zbfw1fcK5AU1sFpXZhmfPHeDWvV+xihFepwe0wIPW+jbyFk6ATgXpwIZmmMxM8LweO+sUwA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=linaro.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=oVhgG1D34iAaFPpyW2HKAfJcIy1AudwUf4aBHqGSZjY=;
+ b=UKu6c68LO1yzr+OaNC1Xz7WdPcOONVbXuq/XvAQBLjWBC+FfXlKqDjrlWdR/rakyRs4O2Dk9+vd+ngg6s9TnAZmUWQQH0RD1gzxWsPNIHqwF9fuAAvRMvTCkNq24Ks+DPMNyx1hh8UinnJFOCza/YyGSc3wH6PUYOs4IHZaQyes=
+Received: from PH7PR02CA0008.namprd02.prod.outlook.com (2603:10b6:510:33d::27)
+ by IA3PR12MB692094.namprd12.prod.outlook.com (2603:10b6:208:712::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.9; Wed, 11 Nov
+ 2026 10:04:39 +0000
+Received: from BY1PEPF000264B2.namprd02.prod.outlook.com
+ (2603:10b6:510:33d:cafe::9b) by PH7PR02CA0008.outlook.office365.com
+ (2603:10b6:510:33d::27) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.9 via Frontend Transport; Wed, 11
+ Nov 2026 10:04:39 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ BY1PEPF000264B2.mail.protection.outlook.com (10.167.242.118) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Wed, 11 Nov 2026 10:04:39 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 11 Nov
+ 2026 04:04:38 -0600
+Received: from [10.85.41.63] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
+ Transport; Wed, 11 Nov 2026 04:04:32 -0600
+Message-ID: <f0bdf36b-4453-4d2f-b82c-85d1d62c5f78@amd.com>
+Date: Wed, 11 Nov 2026 15:34:30 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,223 +101,73 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 02/20 v3] sched/eevdf: Reset lag at wakeup when prev CPU
+ has been idle
+To: Vincent Guittot <vincent.guittot@linaro.org>, <mingo@redhat.com>,
+	<peterz@infradead.org>, <juri.lelli@redhat.com>, <dietmar.eggemann@arm.com>,
+	<rostedt@goodmis.org>, <bsegall@google.com>, <mgorman@suse.de>,
+	<vschneid@redhat.com>, <linux-kernel@vger.kernel.org>, <lukasz.luba@arm.com>,
+	<rafael@kernel.org>, <linux-pm@vger.kernel.org>, <tj@kernel.org>,
+	<void@manifault.com>, <arighi@nvidia.com>, <changwoo@igalia.com>,
+	<sched-ext@lists.linux.dev>
+CC: <qyousef@layalina.io>, <christian.loehle@arm.com>,
+	<pierre.gondois@arm.com>, <sshegde@linux.ibm.com>, <kayracizmeci@gmail.com>,
+	<tim.c.chen@linux.intel.com>
+References: <20261106151947.3991524-1-vincent.guittot@linaro.org>
+ <20261106151947.3991524-3-vincent.guittot@linaro.org>
+Content-Language: en-US
+From: K Prateek Nayak <kprateek.nayak@amd.com>
+In-Reply-To: <20261106151947.3991524-3-vincent.guittot@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261111-yv4-remove-ff-nodes-v2-1-aab5516c4305@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAJI99GoC/22NywrCMBBFf6XM2pEkfYS68j+ki9hM2gHbSCLBU
- vLvxoI7l+fAPXeHSIEpwqXaIVDiyH4toE4VjLNZJ0K2hUEJ1UkpatxSg4EWnwidw9VbitiTElI
- 0VtWdgrJ8BnL8Pqq3ofDM8eXDdpwk+bW/Xvu3lyRKNEYLbfpW67u+Tovhx3n0Cww55w+UQAn4t
- gAAAA==
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, 
- Andrew Jeffery <andrew@codeconstruct.com.au>, 
- Ryan Chen <ryan_chen@aspeedtech.com>, 
- Billy Tsai <billy_tsai@aspeedtech.com>, patrick@stwcx.xyz
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
- Sean He <sean.he.wiwynn@gmail.com>, Eric Yang <eric.yang.wiwynn@gmail.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794391442; l=4734;
- i=eric.yang.wiwynn@gmail.com; s=20260911; h=from:subject:message-id;
- bh=jDtTAj/Xi/uCMH8VnoQE52JIB7Rtfet3e3fs7uQ9GG0=;
- b=6j7fFHyE16rD+I6wFBU7rNrZH/Pwk6/JFc/Y3u8ad9ZoOEw7fAPq7vrc5Bz0zsEb6/Y5QpAIa
- 1QFhsb/whLGBRd3X59J73KJHRCK+S8p23PaaS/yGQggi07DZxhbFqCW
-X-Developer-Key: i=eric.yang.wiwynn@gmail.com; a=ed25519;
- pk=XYQiwgPZNUCt1JCbsO7zX8ODEiRKocz7fYwt+aWnXBs=
-X-Endpoint-Received: by B4 Relay for eric.yang.wiwynn@gmail.com/20260911
- with auth_id=1023
-X-Original-From: Eric Yang <eric.yang.wiwynn@gmail.com>
-Reply-To: eric.yang.wiwynn@gmail.com
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BY1PEPF000264B2:EE_|IA3PR12MB692094:EE_
+X-MS-Office365-Filtering-Correlation-Id: f6274983-a2a1-4606-96bd-08df3fdb32c7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|23010399003|82310400026|1800799024|376014|7416014|261028144727099003|261026140227099003|261022105027099003|261022075727099003|921020|11063799006|4143699003|56012099006|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	vXvqy3euHbzuDjjvP4JTZ53YB05+P7CjkVqQIAOPDx5C+yS8asfBQFZ4DOL0DUAPfv1AOw41QCSGyHPGy0QJlJ5ytjY0c36B4NhlnB8ji7eXPDbXfV8FFIESpAiBqyPvmQJ4QuxknDtLdxrEdvpivT7AvtknKbST8yRsTdGA7IEKNixc0DPEiZGtbwdW6AKO3QceherRgVF+BRogE3PtM9w811ymykzUXHRgZeJCzRBoJ+ga2/x+4qOOG56+1iXt8Jy+72PYyxdQ7pc66sTi6OEyWKbyh7oaJ8wAVsFA8Wlvfg1z1per9kqLn3uVsLZx6EoBbM63ThFRvDsTmeEEmeWzDuQzrkurQiyPMDUFAkf0MlCY41S2g+r6M5hhYxvz+n82co0yUtVD1L9x2iRepx1DPl2M5nbsQgBKm67LDwjS/nq+Cs5rOa3QUVTZmG26z7hIubRirlEd8Gu5bOiqbQzp9m3Mk5QgiEZchG0UAqBMzZa4yS5Hqjj7C86rfc+dKQEJAhsm8PXgvqwivLIEqQghU8gzTQe0OYQK6FIs4GTrgsdrQgmixTBkh5Q2He2QlZypu4UlSvwj1Ah6iGUi7mEzS67F27ibm5e54zCIyjFLRKw1C9NcgM6xoFfI2DGqVgYqmvo35wYQAUmYKVFnUoJ7vKkhOMkGyMNgfuUAcSCM3NrVnfnn7a5Yi4egv8x8jRQdwwz5t3tUjXzxYMqZ7p5xrjFjm94pN3dYqZKG0eDLcTWxAsYmcIR7HhKmm3G0
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(82310400026)(1800799024)(376014)(7416014)(261028144727099003)(261026140227099003)(261022105027099003)(261022075727099003)(921020)(11063799006)(4143699003)(56012099006)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	FV8SwxJT8IFAYGCu6fIVnByz1XYwKmhWVgOF/Xbev6IJxRvNJcNuWqgx2qC7PxZutq9gaCMHnks+AHA2zly1wbJc8+z3TAPSolGmDyKyWCtxf5i5Oa80dNeLqC2mRGGyVkQm6wIL4QHJfuRtANfQ14tPonHuMI7RJ/LfKoug3/SIooYnRu4RikBDkafnaLupiUttUlX72zyqh8sssHew3R+QtxyDK5oEFBHSScGa9ziaoaHn28CsbTR6Gpy0PK2628kXKcGJjy3xjaSj8uhTX2TAwwtWhTpCNdE9H7T7pT/TXuLlphMMs98k1V0WLG42j6yGt8EOe61fC0WSl2XusNHh2i3u+0X2I3yDcPARMbsyPlwDLWRWICDc5cVr8TPaWxS0ijyxNlm8wAqkPGkIBh8A+fxH8ubrLsLs8m+J+6dLcbPr+RiSEhVEHfCBToEg
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 10:04:39.1481
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f6274983-a2a1-4606-96bd-08df3fdb32c7
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BY1PEPF000264B2.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA3PR12MB692094
 
-From: Sean He <sean.he.wiwynn@gmail.com>
+Hello Vincent,
 
-The Floating Falls (FF) board connects to the Sentinel Dome through a
-connector and carries a PCA9537 GPIO expander at address 0x49 and a FRU
-EEPROM at address 0x50 on each slot I2C bus. No system currently in use
-has an FF board, and its connector on the Sentinel Dome is not populated,
-so these addresses never acknowledge: the pca953x driver fails to probe
-the eight PCA9537 nodes on every boot and the at24 driver does not bind
-to the eight EEPROM nodes. Remove the nodes so that the devicetree
-matches the actual hardware.
+On 11/6/2026 8:49 PM, Vincent Guittot wrote:
+> @@ -8376,6 +8383,9 @@ static bool __dequeue_task(struct rq *rq, struct task_struct *p, int flags)
+>  
+>  	dequeue_hierarchy(p, flags);
+>  
+> +	if (!(flags & DEQUEUE_SAVE) && !cfs_rq->h_nr_queued)
 
-Signed-off-by: Sean He <sean.he.wiwynn@gmail.com>
-Signed-off-by: Eric Yang <eric.yang.wiwynn@gmail.com>
----
-The changelog was drafted with an AI assistant (Claude Code) and
-reviewed by the submitter.
----
-Changes in v2:
-- Reworded the commit message: the FF board is a separate board, no
-  system in use has it, and its connector is not populated
-- Dropped the verification paragraph
-- Link to v1: https://lore.kernel.org/r/20261105-yv4-remove-ff-nodes-v1-1-aa707a9577b7@gmail.com
----
- .../dts/aspeed/aspeed-bmc-facebook-yosemite4.dts   | 96 ----------------------
- 1 file changed, 96 deletions(-)
+Should this also consider DEQUEUE_CLASS which will move the task out
+of fair class and leave the rq idle? setscheduler just adds it with
+DEQUEUE_SAVE when moving classes.
 
-diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-yosemite4.dts b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-yosemite4.dts
-index e4172be84..4c7c96ce4 100644
---- a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-yosemite4.dts
-+++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-yosemite4.dts
-@@ -604,18 +604,6 @@ imux16: i2c@0 {
- 			reg = <0>;
- 			#address-cells = <1>;
- 			#size-cells = <0>;
--			gpio@49 {
--				compatible = "nxp,pca9537";
--				reg = <0x49>;
--				gpio-controller;
--				#gpio-cells = <2>;
--			};
--
--			eeprom@50 {
--				compatible = "atmel,24c128";
--				reg = <0x50>;
--			};
--
- 			eeprom@51 {
- 				compatible = "atmel,24c128";
- 				reg = <0x51>;
-@@ -631,18 +619,6 @@ imux17: i2c@1 {
- 			reg = <1>;
- 			#address-cells = <1>;
- 			#size-cells = <0>;
--			gpio@49 {
--				compatible = "nxp,pca9537";
--				reg = <0x49>;
--				gpio-controller;
--				#gpio-cells = <2>;
--			};
--
--			eeprom@50 {
--				compatible = "atmel,24c128";
--				reg = <0x50>;
--			};
--
- 			eeprom@51 {
- 				compatible = "atmel,24c128";
- 				reg = <0x51>;
-@@ -658,18 +634,6 @@ imux18: i2c@2 {
- 			reg = <2>;
- 			#address-cells = <1>;
- 			#size-cells = <0>;
--			gpio@49 {
--				compatible = "nxp,pca9537";
--				reg = <0x49>;
--				gpio-controller;
--				#gpio-cells = <2>;
--			};
--
--			eeprom@50 {
--				compatible = "atmel,24c128";
--				reg = <0x50>;
--			};
--
- 			eeprom@51 {
- 				compatible = "atmel,24c128";
- 				reg = <0x51>;
-@@ -685,18 +649,6 @@ imux19: i2c@3 {
- 			reg = <3>;
- 			#address-cells = <1>;
- 			#size-cells = <0>;
--			gpio@49 {
--				compatible = "nxp,pca9537";
--				reg = <0x49>;
--				gpio-controller;
--				#gpio-cells = <2>;
--			};
--
--			eeprom@50 {
--				compatible = "atmel,24c128";
--				reg = <0x50>;
--			};
--
- 			eeprom@51 {
- 				compatible = "atmel,24c128";
- 				reg = <0x51>;
-@@ -726,18 +678,6 @@ imux20: i2c@0 {
- 			reg = <0>;
- 			#address-cells = <1>;
- 			#size-cells = <0>;
--			gpio@49 {
--				compatible = "nxp,pca9537";
--				reg = <0x49>;
--				gpio-controller;
--				#gpio-cells = <2>;
--			};
--
--			eeprom@50 {
--				compatible = "atmel,24c128";
--				reg = <0x50>;
--			};
--
- 			eeprom@51 {
- 				compatible = "atmel,24c128";
- 				reg = <0x51>;
-@@ -753,18 +693,6 @@ imux21: i2c@1 {
- 			reg = <1>;
- 			#address-cells = <1>;
- 			#size-cells = <0>;
--			gpio@49 {
--				compatible = "nxp,pca9537";
--				reg = <0x49>;
--				gpio-controller;
--				#gpio-cells = <2>;
--			};
--
--			eeprom@50 {
--				compatible = "atmel,24c128";
--				reg = <0x50>;
--			};
--
- 			eeprom@51 {
- 				compatible = "atmel,24c128";
- 				reg = <0x51>;
-@@ -780,18 +708,6 @@ imux22: i2c@2 {
- 			reg = <2>;
- 			#address-cells = <1>;
- 			#size-cells = <0>;
--			gpio@49 {
--				compatible = "nxp,pca9537";
--				reg = <0x49>;
--				gpio-controller;
--				#gpio-cells = <2>;
--			};
--
--			eeprom@50 {
--				compatible = "atmel,24c128";
--				reg = <0x50>;
--			};
--
- 			eeprom@51 {
- 				compatible = "atmel,24c128";
- 				reg = <0x51>;
-@@ -807,18 +723,6 @@ imux23: i2c@3 {
- 			reg = <3>;
- 			#address-cells = <1>;
- 			#size-cells = <0>;
--			gpio@49 {
--				compatible = "nxp,pca9537";
--				reg = <0x49>;
--				gpio-controller;
--				#gpio-cells = <2>;
--			};
--
--			eeprom@50 {
--				compatible = "atmel,24c128";
--				reg = <0x50>;
--			};
--
- 			eeprom@51 {
- 				compatible = "atmel,24c128";
- 				reg = <0x51>;
+> +		cfs_rq->idle_seq++;
+> +
+>  	if (sched_feat(PLACE_REL_DEADLINE) && !task_sleep) {
+>  		se->deadline -= se->vruntime;
+>  		se->rel_deadline = 1;
 
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261103-yv4-remove-ff-nodes-9e20104d2362
-
-Best regards,
 -- 
-Eric Yang <eric.yang.wiwynn@gmail.com>
-
+Thanks and Regards,
+Prateek
 
