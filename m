@@ -1,79 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794428913;
-	b=YALKlVqeR1yilXLkk9//j6ZCZUuIomJVXi6//MTAH8Ts5rt1A457HL6P61DV8ljs9oPt
-	 6bKSEQVgDzfVsbepzXmbprxmmvwT75SjBrYvD5m0ZRoFrL+UpElnQ0Dbfc5lYoL+oxxGI
-	 z0KjpxDj9OGmWD36yXdWXF5+LN0Dzv4dAFN8SuZm0OKA6cRJh25oIOT/lVMx7tEW+vJ5X
-	 3RqzeX6n8S5+0KGlPPLerhXKdYiHvv7wrL9t/s5Pc4FW2fG8vYoZ4C5YmVk7K9W2OhmG/
-	 gGMa0JDcZXWVVKcJH6bKu/TL5J15nJ8duqBOWzMHf7otx2vHBTL8ALj2IR8JYk95nUQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794428913;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=66fuXiduK3IeRm3mD9KEzj6ZCYStXeHjOEc3p2JBPkg=;
-	b=RtawUi1XuJyEzY0tnoRmBuKVW4h73NsyMqFTmMKiuxQ8mdMzto/I+VjV9qwofYzKzWKu
-	 18A1yVZC4yIaY4iwTZjCC9ZOhzZqEbG0ScB6SK8TJHxxRnFt3YrXLgv5PJwguWRwA/j3E
-	 i1WoZMZxJFpHF66FbnTWq9B9id9cjdN9gtphz7bfnkpwUMbpiq9YMLYeum0aqbbLw3uVW
-	 kJbKdE2cCZB4hA396VgcTNZ1qgPC798On2A4GuVTr3SKCxL7hQxbvt8+cgNLe0o3uryPd
-	 wiRFP/5JtL/fLQWxetI05ot7qai2DFavMZnaZFrNQ74H/y2gbdDQ+K4fAmCN+baUGTg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VSu7JKrA;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90806606A31C;
-	Wed, 11 Nov 2026 20:28:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VSu7JKrA
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794428913;
-	b=YNFG+6LDS0C8Eic9oiZ2dfbHzzIPt12vDf3JTU16/92RSXjCWg1JAV4+v/7+yqLDdh7M
-	 +RRyBvRpY1QLPZloOnesSTKJqDfDVGP+qZPZEjxwDbSMf+AuQIygpZWv2B+KcAdWWXJMu
-	 zn0EDokBp8D4crNsBPoqQ/1wVpD0QqVU69SvgZFKbfTxDk32SELAzOIK99oi7cY1JkYiw
-	 90regsMKJMj+I8fSsJIA3hZ98tA/hR1IDp7SNt5S2B9/fnWN5r1l4KlxL3mKEscFnm/Po
-	 LGRxGetoSRlxONaedyIi9KujjCiwb9oMWItG+cO91bq7vPE18NQF3nQLr7MMkE+sDqg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794428913;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=66fuXiduK3IeRm3mD9KEzj6ZCYStXeHjOEc3p2JBPkg=;
-	b=ycSmbH21SWyg4E4zENF8tTOP/GdZ6T796ykxKstFjo4J64kxgDKmTAqdvZ+3Uzk+CiKJ
-	 Mw539ncD1trLmEr40iFsc+2bCpmUm7Yvpwbgj1gzlh0O/vW1HrxlWLJqtiVpOpZgWSHjp
-	 SQp9NSNz0hhrthc5CdNeAIX9OKZ0os5S51pssUKramH7LlYyVA8wUuSxuO4fU6Dj2OPxw
-	 eyuZFQIiwfGXwgFzjBRFBi+6onF7wHTr+j3L2t+bk/JzlDzDvqbZqyWiL/Tuc2TslRD+S
-	 TComZk87GgAxfopHgRJP+Vp/zFuAqpWcbNPkUDJJpEgkTMbzAmNmFJJ2E8m4QtRCKfQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794428959;
+	b=w5Rz91omE5fCAgdVM7R/TTSg6BlwlUapm3Tnnebzyo+g2Ekv+u1OjXV38/SJsRkOqbtF
+	 BwjQJWs9Eh7RST4Ka0Z5xigmD2JMMAGDk2hgjRsTetU2g7MIxG4P8uW8uQ4vnS7VoUoQv
+	 6MjhJOQOEroRpAtxsDGvE/SmZCp7towa3P1bdAybYXcVacH7nitw4ThVdgcQ9objkpGnP
+	 t5zxtdjjbR9ETwE0HM4yH+BCaIiuEWFIuic/OkcCWrdW/3jyE+TIVSE2Ga4L16IFZxzco
+	 Je5r50tLUX87htwvy7c8jaqG6Jfjdp6piZNd1d8a+wNzGMLnxq4uI3oUnOHgRP6SPsw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794428959;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=9It4hMqtt49l3ULmVv9787KtA2OXBi4xbJqqG9UksKs=;
+	b=OJLogZSbXXDOMjNjkR1Q2u0Y6aj1WOIYQhvl4vQR8oCrrHWJX2t9hfHwtoOh2s4Y2nBT
+	 qlD2sJ0czBwuEWKPpjuedYGSq+AHwfBz6W05wskNxirj1r4TYL7DIXAGDngSBRjPuzKFx
+	 wfo2kYuLOYRBLdwWjw1tFKB5M1/r00Zz1p91tTRHgzim2gIIF4FrX+rPd8UUDX58QP4wB
+	 eJOA1YsoRqpeZhpR2YBOKWQcIgWacLkJ0Yn6xLAB//5gjnMyt5Yn1B225pkiWiZgNRbqq
+	 ++BMch6Yl54NAJMEsut74jD/cndGPUmh8/i+JBhcNSfrXyt/Lubh66PyjfThR7HwguQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nzhTUC8T;
+	arc=none smtp.remote-ip=74.125.82.178
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 987571F00A05;
-	Wed, 11 Nov 2026 20:28:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794428913;
-	bh=66fuXiduK3IeRm3mD9KEzj6ZCYStXeHjOEc3p2JBPkg=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=VSu7JKrAcTjUUhdknDtyNrjQLTkAvg6wDreqhXiwqbvcIINRKZL5lKpBCyBva3ux9
-	 mxXwJSgOK3n3XE0M8A6aVPt3QQ0BR1D0qFyuwFfA7jde5vYXEWZ1mO5PKDtPeHEKUm
-	 jAL8g/ZwB2GadwFoaIisHyWj2b7pCzUlYPGD65gekml5ipkJwH46Y84lBOTL0JXuZc
-	 h6gHehnFOij6G7i6vxVNYtzc/P5YvpORLnOebuV1JSy2xJMu8qpW2rShQhlp7T3yE+
-	 JFIYnLByWcrY+6+96r62WKc3AJ2DTm+QkTYFww93CcTM1wRpk9TfvzF3kWA2dWVPfP
-	 gEIyiRO9pqvVQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id F16BF490E0;
-	Wed, 11 Nov 2026 20:28:31 +0000 (UTC)
-From: Weidong Wang via B4 Relay <devnull+weidongw.illinois.edu@kernel.org>
-Date: Wed, 11 Nov 2026 14:27:28 -0600
-Subject: [PATCH net] net/rds: tcp: bound the message length announced by
- the peer
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B8E7606A321
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 20:29:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B8E7606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nzhTUC8T
+Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-37071c0f42aso6071358eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 12:29:18 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794428958; x=1795033758; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=9It4hMqtt49l3ULmVv9787KtA2OXBi4xbJqqG9UksKs=;
+        b=nzhTUC8TZZHNyEVGlhL/XBoNxd3gthYF16MskDBFwLq60PWD/gnXVaMSmTIRjmR/3n
+         bxRRUjJX3qYjfa01AqbOzdd3bMGEZr36YaA9hTczhm/Ec2RQH2nTeRncbwbLLabYp2Dv
+         C2/q7V5KPNLPqFV+aauaygaRa7e3EkMeBs5ilwLpVWQOlusG1mwostFd2Bev3tScNNjM
+         73CRZDjRfcbIeQ20Vr3eS65HTPdVs+J0Di5tcV3diCM/J5yhajM3BSIsWgaHCkc9csUp
+         sg8d6CoXXfcCAaaQswrtsKhHwLxHzJYFqhlevtuMg7fIUXvIsiCLllw0FZENXksUmITB
+         8RjQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794428958; x=1795033758;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=9It4hMqtt49l3ULmVv9787KtA2OXBi4xbJqqG9UksKs=;
+        b=XfzUY4/DegOmd1HNLDQli6icFu+nGpY8YcJ8DeevUKFccXTQC781OmBH4ZqvePpPbf
+         hwjde58X33vwAPO1cqsJwZMsah/pCW0FggPADHV0bp67Sw929DC1tK8e1LYuHsQltIBQ
+         yXPIX7zm8namM2iOG10WuXCYElR1BhIPNlnWRlAsreV3GxWE9bPgPJDtAB4s5f/3//IC
+         Yq9OSn3cbRhiYRnYNm/oA4ZPhN7sirAOWQK//mtamG5dxcQEfuP7GFs+P7E9wYR99QEl
+         phsL8/5HY1c7dKMa3IQLZUhLRVBOUXmTJc8PhIr5c5YfL7xMBywqNG6A3f6BGZNCwntx
+         OlIQ==
+X-Forwarded-Encrypted: i=1; AL+hErGaOLoZKxVKKPKYcz3JPqCRh44tf2bDqr3kWjx8yp+KyV7keHqpNmisK+uiqONdXnia3HokTuYJllenpis=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+xCwIDUkBtHN5Ck8BNCB51ukI8Vcz4DPf9rVHzdubGYnQQmrjY
+	UEjYMB2CjsAqD+REBuOeswCxLQZ2Z0UJKhIgqugaaS7YXy3ZyQ1HDsEz
+X-Gm-Gg: AYBFou07EgKtBWLMXs+TesjTy60WBpjqQI75g4JRW3lnC1PH6pLoa5/JtaIMcrm/q89
+	OgrF3bJiuhymClF/NkLgQp+DfWp1h/sk1lTow/rOI5KaXDOnLz48DJXUTcre+u7u+M9tGIRQiCM
+	FYxlMyiCbd55CIqtwbkKYVLurU6/qAr9amnH7Qa6zaVsRtDv6YhlotSCxnrQdcrGjOhFyj0uCDy
+	5pes/nhYiEq1fNvOHYV7UaXDYGAvz0tU8JSVQb9S7ffNPt7lxpRxlONZ4Hi/xuUldVIYWo+S9UX
+	PCV1Q6DrdvLvLBXkGm7VfKrbwKax1ojhnSYnnj2M2hQrbgfxDryFKnBVfxtnRzAE5bs7gePz+p7
+	n0b6FnhOQ/LkpEHX0HSkm4fDkUzfIdRh+7D1OGXfChpXX8sCDduZB4VRAoN+/f45sYmZDDjmJVf
+	7qPUzvBFuJwCOxFo2W3aI+6aUM7CQfq1uwPDZQa7i//bkfZmycun8fZbmAf45gT5Nd9V7SJma2z
+	DzsCqqH5wedfMHQy6WZKHowLZKWh+oZEAiWVxhwegJxtlzDWxOsBmVVw8xf0b1s3bIDLQvYsYdg
+	8qBMccnWSsLe6pf3/JiPKC6dyC0UypUWudUH5UJCBQ==
+X-Received: by 2002:a05:693c:42d3:b0:366:9f06:3c4c with SMTP id 5a478bee46e88-3768694ff22mr3227743eec.32.1794428957949;
+        Wed, 11 Nov 2026 12:29:17 -0800 (PST)
+Received: from a1-free ([161.33.196.121])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37520cfdfc6sm20740200eec.17.2026.11.11.12.29.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 12:29:17 -0800 (PST)
+From: TAKANO Mitsuhiro <takano32@gmail.com>
+To: soc@lists.linux.dev
+Cc: Arnd Bergmann <arnd@arndb.de>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Mikko Rapeli <mikko.rapeli@linaro.org>,
+	Vincent Mailhol <mailhol@kernel.org>,
+	TAKANO Mitsuhiro <takano32@gmail.com>
+Subject: [PATCH] arm64: defconfig: drop four symbols that no longer exist
+Date: Wed, 11 Nov 2026 20:29:14 +0000
+Message-ID: <20261111202914.2558187-1-takano32@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,126 +99,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261111-h047-send-v1-1-2727a38dbfcd@illinois.edu>
-X-B4-Tracking: v=1; b=H4sIALDP9GoC/yWMQQ7CIBQFr0LeWhKgoMarGBdt+S3fBRp+NSakd
- y+2y5lMpkKoMAluqqLQl4VfuYE9KYypzzNpjo3hjDtba41Oxl+0UI46NBei9+7qOrT+XWji3/6
- 6I9OCxyHlMzxpXP4XrOsGARgGNHIAAAA=
-X-Change-ID: 20261110-h047-send-52025d442823
-To: Allison Henderson <achender@kernel.org>
-Cc: "David S. Miller" <davem@davemloft.net>, 
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
- netdev@vger.kernel.org, linux-rdma@vger.kernel.org, 
- rds-devel@oss.oracle.com, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Zijie Zhao <zijie4@illinois.edu>, 
- Weidong Wang <weidongw@illinois.edu>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794428911; l=3897;
- i=weidongw@illinois.edu; s=20261108; h=from:subject:message-id;
- bh=1rMOxnrBK7wy6KAVesScdDJ1MghCm+cPgQRTPaFaXQk=;
- b=VbzedWxmkJGCPF1wkXLDwAkKq6e+6vzQkgf60JbkS/QnFUdwExDzi+sEynvRmZIazgJr+hAUm
- zNPE4eTD8fdDAPomMgp9MWq9GHCrxhcxnQHdRYj14lPjYILvT/GJmto
-X-Developer-Key: i=weidongw@illinois.edu; a=ed25519;
- pk=DR2S1xPEa5sELrWPfOpvUphJQ2VHC+MDc/wJavE/ifg=
-X-Endpoint-Received: by B4 Relay for weidongw@illinois.edu/20261108 with
- auth_id=1449
-X-Original-From: Weidong Wang <weidongw@illinois.edu>
-Reply-To: weidongw@illinois.edu
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-From: Weidong Wang <weidongw@illinois.edu>
+None of these symbols exists any more, so the lines look like options that
+can still be chosen:
 
-rds_tcp_data_recv() takes the payload length of an incoming message from
-the peer's header and queues pskb_extract() clones of the received data
-on the incoming message until that many bytes have arrived. Nothing
-checks the length, so a peer that announces h_len = 0xffffffff and keeps
-sending makes the receiver hold up to 4 GiB per connection. The clones
-are no longer on the socket's receive queue, so they are not charged to
-the socket and TCP keeps the receive window open.
+  NFS_V4_1                  folded into NFS_V4 (7537db24806f, 2025-12-04)
+  SLIM_QCOM_CTRL            driver removed     (7cbba32a2d62, 2025-09-12)
+  NET_VENDOR_PACKET_ENGINES vendor removed     (aec3202247b4, 2026-04-22)
+  SCHED_DEBUG               option removed     (b52173065e0a, 2025-03-17)
 
-Senders are limited to RDS_MAX_MSG_SIZE in rds_sendmsg(). Apply the same
-limit on receive and drop the connection when a header exceeds it. That
-limit has been enforced on send since v4.11; a peer running an older
-kernel could still send larger messages over TCP, and such connections
-are now dropped.
+Three of the lines went stale when their symbol disappeared.  The Ethernet
+line was added by commit 32379ad4060b ("arm64: defconfig: Drop unused
+Ethernet vendors") on 2026-04-29, a week after the packetengines vendor
+directory had been removed, so it was stale from the start.
 
-The issue was discovered by an AI code review agent (an LLM-based
-bug-finding tool developed by Zijie Zhao and the submitter) and
-confirmed by triggering it on an unmodified kernel, without error
-injection, on x86_64 under QEMU: a plain TCP client in a second network
-namespace connects to the rds_tcp listener (port 16385), sends one RDS
-header with h_len = 0xffffffff and then 1 GiB of payload. The receiver
-held about 1.1 GiB until the connection was closed; the same 1 GiB sent
-as 1 MiB messages held about 60 MiB.
+Scanning every Kconfig definition in the tree leaves no other stale line
+in this file.  Similar leftovers remain in other architectures'
+defconfigs; those are not touched here.
 
-With this patch the connection is dropped right after the header and
-nothing is held, while the 1 MiB messages are processed as before. The
-RDS selftest (tools/testing/selftests/net/rds, rds_run.sh -T tcp, also
-with -l 10 -c 10 -u 10) passes with the patch applied.
+Mikko Rapeli sent a patch for the SLIM_QCOM_CTRL line in December 2025,
+and Vincent Mailhol's "configs: cleanup obsolete or incorrect assignments"
+series carried the NFS_V4_1 and SLIM_QCOM_CTRL lines in March 2026; both
+submissions are still unmerged.  This patch covers all four lines and
+would supersede those hunks; I am happy to drop the corresponding hunk if
+either author would rather keep their own.
 
-The reproducer, fix and changelog were drafted with AI assistance
-(Claude), then reviewed and tested by the submitter.
+Tested as configuration text only: "make ARCH=arm64 defconfig" on v7.4-rc2
+with and without this change gives a byte-identical .config, and "make
+savedefconfig" emits none of the four lines.  No kernel was built or
+booted from this change.
 
-Fixes: 70041088e3b9 ("RDS: Add TCP transport to RDS")
-Cc: stable@vger.kernel.org
-Cc: Zijie Zhao <zijie4@illinois.edu>
-Signed-off-by: Weidong Wang <weidongw@illinois.edu>
+The change and the changelog text were produced with an AI coding
+assistant (Hermes Agent, model deepseek-v4.1-flash) working from the tree
+and the git history.  I reviewed the diff and the reasoning, and I am
+responsible for the submission.
+
+Link: https://lore.kernel.org/all/20251223134807.3543642-1-mikko.rapeli@linaro.org/
+Link: https://lore.kernel.org/all/20260317-arm_defconf_cleanup-v1-3-8eecb7fdd24d@kernel.org/
+Link: https://lore.kernel.org/all/20260317-arm_defconf_cleanup-v1-9-8eecb7fdd24d@kernel.org/
+Signed-off-by: TAKANO Mitsuhiro <takano32@gmail.com>
 ---
-Tested on v7.4-rc1 (05441d697f7f) and on net (ae89f2724e), x86_64,
-KASAN, QEMU/KVM, 3 GiB guest. Setup: rds_tcp listener in the initial
-netns (10.0.0.2); a plain TCP client (no AF_RDS) in a second netns
-(10.0.0.1) over a veth pair.
+ arch/arm64/configs/defconfig | 4 ----
+ 1 file changed, 4 deletions(-)
 
-                   1 GiB after one header     1 GiB as 1 MiB
-                   with h_len = 0xffffffff    messages (control)
-  unpatched        ~1.1 GiB held until close  ~60 MiB
-  patched          connection reset after     ~60 MiB, processed
-                   the header, nothing held   as before
+diff --git a/arch/arm64/configs/defconfig b/arch/arm64/configs/defconfig
+index 7b4985b29b21..513f8d6be073 100644
+--- a/arch/arm64/configs/defconfig
++++ b/arch/arm64/configs/defconfig
+@@ -424,7 +424,6 @@ CONFIG_MLX5_CORE_EN=y
+ # CONFIG_NET_VENDOR_NETRONOME is not set
+ # CONFIG_NET_VENDOR_NVIDIA is not set
+ # CONFIG_NET_VENDOR_OKI is not set
+-# CONFIG_NET_VENDOR_PACKET_ENGINES is not set
+ # CONFIG_NET_VENDOR_QLOGIC is not set
+ # CONFIG_NET_VENDOR_BROCADE is not set
+ CONFIG_QCOM_EMAC=m
+@@ -1756,7 +1755,6 @@ CONFIG_QCOMTEE=m
+ CONFIG_MUX_GPIO=m
+ CONFIG_MUX_MMIO=y
+ CONFIG_SLIMBUS=m
+-CONFIG_SLIM_QCOM_CTRL=m
+ CONFIG_SLIM_QCOM_NGD_CTRL=m
+ CONFIG_INTERCONNECT=y
+ CONFIG_INTERCONNECT_IMX=y
+@@ -1824,7 +1822,6 @@ CONFIG_SQUASHFS=y
+ CONFIG_PSTORE_RAM=m
+ CONFIG_NFS_FS=y
+ CONFIG_NFS_V4=y
+-CONFIG_NFS_V4_1=y
+ CONFIG_NFS_V4_2=y
+ CONFIG_ROOT_NFS=y
+ CONFIG_9P_FS=m
+@@ -1861,7 +1858,6 @@ CONFIG_DEBUG_INFO_DWARF_TOOLCHAIN_DEFAULT=y
+ CONFIG_DEBUG_INFO_REDUCED=y
+ CONFIG_MAGIC_SYSRQ=y
+ CONFIG_DEBUG_FS=y
+-# CONFIG_SCHED_DEBUG is not set
+ # CONFIG_DEBUG_PREEMPT is not set
+ # CONFIG_FTRACE is not set
+ CONFIG_CORESIGHT=m
 
-selftests/net/rds: rds_run.sh -T tcp and rds_run.sh -T tcp -l 10 -c 10
--u 10 pass on both trees with the patch. No KASAN/UBSAN reports;
-checkpatch clean.
-
-The limit is per connection; a peer with several source addresses gets
-one connection per address. The reproducer is not attached (AI-found
-issue, see security-bugs.rst) and can be shared on request.
----
- net/rds/tcp_recv.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
-
-diff --git a/net/rds/tcp_recv.c b/net/rds/tcp_recv.c
-index ffe843ca2..29db73df8 100644
---- a/net/rds/tcp_recv.c
-+++ b/net/rds/tcp_recv.c
-@@ -213,6 +213,20 @@ static int rds_tcp_data_recv(read_descriptor_t *desc, struct sk_buff *skb,
- 			}
- 		}
- 
-+		/*
-+		 * The payload is queued on tinc until the whole message has
-+		 * arrived, so a peer must not announce more than a sender is
-+		 * allowed to send. Check on every pass, not only when the
-+		 * header completes: the drop is asynchronous and more data
-+		 * can arrive before the connection is shut down.
-+		 */
-+		if (!tc->t_tinc_hdr_rem &&
-+		    tc->t_tinc_data_rem > RDS_MAX_MSG_SIZE) {
-+			rds_conn_path_drop(cp, false);
-+			desc->error = -EPROTO;
-+			goto out;
-+		}
-+
- 		if (left && tc->t_tinc_data_rem) {
- 			to_copy = min(tc->t_tinc_data_rem, left);
- 
-
----
-base-commit: 05441d697f7f9a927264f4058cbbc6a03dfcac9d
-change-id: 20261110-h047-send-52025d442823
-
-Best regards,
---  
-Weidong Wang <weidongw@illinois.edu>
-
+base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
+-- 
+2.53.0
 
