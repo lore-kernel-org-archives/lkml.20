@@ -1,69 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=183.62.165.209
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794409091;
-	b=HrmEP8Fvl4sDIIYMea6jxQJWUgcosdtppvkx1Iz8IkF88fJupwpJIMkaai8noln8drks
-	 uI55isrnwRKPhYG/ZvMgxhJoMurCDkiKT8/TtHqIGRyqsUiWBLzbUrilXaEJ2enlaYq6D
-	 sJ5SaLUqDHVw3zFLfCtvljyya4CsYNuoIpD/VI8N4v/QH/8Ty9gRZ24lZfvPvVyLHStWY
-	 bW1lWFIXdbIyB7p/rZRlq4/mF4lttvoFwUgqgONDUBEyirfLyb8L81XqQugmAugo6EIuB
-	 W+p9f48Mki1lmOzWeh9gLZx6sUwmF84xnxUmEdLxilCdDwWHWUPNxO8RkUQXJOYX6Gw==
+	t=1794409092;
+	b=m62cEZ8xc1cBjBI6jVyTVYUUqf79duhyxeMGsyYqShbpO+/3Wda5nR8t0Hm/v3OZeRmn
+	 GkCmVVM4lKTm6V46/zQjBalHb139YvolhGY6mwLWbh359rOMekDSD5+26QgIVP79SEdvW
+	 /sFM6DSAubs+40gB6DTXkd1K9DSc7qazizhM/AnTezjFihvCfSjJGB7UkxjeSC1j0OyAE
+	 S9kK/jhcQYktbZOnPAk9eOHRM5s4adpzw7YAZeO7gB66gqrIBv1Ywco1REJtRp8qAOTre
+	 9HDvc6sTd7crqHWoFbrOsGor6OJIChZee/9Sm+v+dIN7bqHsMc+SEonsGay4um+U8nQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794409091;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 X-Zmail-TransId:X-Mailer:Message-ID:In-Reply-To:References:Date:
-	 Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:X-TLS:
-	 X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:X-Fangmail-Anti-Spam-Filtered:
-	 X-Fangmail-MID-QID;
-	bh=3UcmAD2O5M6J4W2MnDVVK7WCpwTBcwfIWTbYAgmShto=;
-	b=NUYMuPD9Ji7v7TNT+5FT7cdRywI+IV20ozrYpIy75BxTYIKJst/eOLhyZ+N9osKqTWwt
-	 +EWG4WvKUoZlIV+dsWsBwsfe/9EAHHOOmozvIA93k/RDXrDhk07l5vgBWmNxFzcJRwMwo
-	 a009fOqOAW/OZUeh7HdTZP0yvsKgtryq2VL0A6QKvAyHQtYxFhhejtgn2gyAKr+AfD53H
-	 mOQ8RRuQI+Gw91FuRL2WI+OBLdEarD4hlogxFpHHlfhmwv4tfZUuqg6MrBk14EsMS2DLm
-	 PtmEsrAaITuoDINo7dbCY3RCUH2O3n+AysoJZME+2Cs6CgR/Q4TgJ9U/olIEyQoi/aQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794409092;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=4oexicqlKkgDocERMEx4v8VNyMOo/fmHzBt5H4YEt40=;
+	b=FKRsORFHt8VW5jmw2/nNE4tNvmUHWeRFJsji5yCbgWWGD1dfhzQxI2eiWCvu2sl8Btpr
+	 p230SFix6crK3UMP5Ui9lMtdy4AF/993r962C4d1WEVpjBVRvEyFKOS21p/q5532TaZta
+	 v67k5NHruhF+7C0nkLtJ8ja8jrokd5i2azZbqxVO1l65+WBnCRYFlvcAuJ9UfXGE4//8d
+	 6dwOvnY0jegSLjt/TJ4ZJdlQkjooL2xqVw3vSutIGErIgRKrScCEMAn6DEAByLOMhLbnS
+	 XdPAYoM1W3l/KG1iIZ34KAK1BI/xqgHhmQSHj/OQ68iqUCY+Y3sg+SgurI1ufJRn5Pg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=zte.com.cn;
-	spf=pass smtp.mailfrom=zte.com.cn;
-	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=dSaDc9gC;
-	arc=none smtp.remote-ip=183.62.165.209
-Received: from mxct.zte.com.cn (mxct.zte.com.cn [183.62.165.209])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79EEC606A8B6;
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=p+rBH1Wp;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1AADA606A89F;
 	Wed, 11 Nov 2026 14:58:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 79EEC606A8B6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1AADA606A89F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=dSaDc9gC
-Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxct.zte.com.cn (FangMail) with ESMTPS id 4jPmpv0Wcfz4xPSp;
-	Wed, 11 Nov 2026 22:57:59 +0800 (CST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=zte.com.cn;
-	s=z202610; t=1794409079;
-	bh=wQvKiUyO5od0WgKA+S14UEB4DR0uKqEqs67IGBDqK5Y=;
-	h=In-Reply-To:References:Date:From:To:Cc:Subject;
-	b=dSaDc9gCovkB34zjXxN/LnupcnCQ5nsurDrqvW3GRz2JfOBIdvYA9A6gC3KAgNXJg
-	 S5SnGGejkmRxhGqMvYB2gOdwcddFbUGO+rCwJZUvdW7MoGAFL20RVx54sG0k1PFhKO
-	 dXtjBSJWGhklc8Cm7M3wqHVB3fXeX9Mg/L6wTt/S4QP9CvxegI2JVlDZdXD7hm4D+Q
-	 2a11uAksLmleO9A21uTRgBxKjTXDhqv7FEEq/G4i4gRQhOasCIftVo1cV96hDr8Cku
-	 RM14PYqOqDIJDDzYUT0iwCW3+acrMDBhs7xYoOwFwvpCNLkWyRBHGyN0PaaIVBTZYR
-	 iXUVlngg1f8uw==
-Received: from xaxapp02.zte.com.cn ([10.88.97.241])
-	by mse-fl2.zte.com.cn with SMTP id 6ABEvvxq073370;
-	Wed, 11 Nov 2026 22:57:57 +0800 (+08)
-	(envelope-from shao.mingyin@zte.com.cn)
-Received: from mapi (xaxapp04[null])
-	by mapi (Zmail) with MAPI id mid32;
-	Wed, 11 Nov 2026 22:58:01 +0800 (CST)
-X-Zmail-TransId: 2afb6af48279b97-70a73
-X-Mailer: Zmail v1.0
-Message-ID: <20261111225801025TKHDW7iZbMR4sFQAc8af5@zte.com.cn>
-In-Reply-To: <202611112257529855AMDZLzg8ZmFDQ3fBstbi@zte.com.cn>
-References: 202611112257529855AMDZLzg8ZmFDQ3fBstbi@zte.com.cn
-Date: Wed, 11 Nov 2026 22:58:01 +0800 (CST)
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=p+rBH1Wp
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 307691576;
+	Wed, 11 Nov 2026 06:58:07 -0800 (PST)
+Received: from e122027.arm.com (unknown [10.57.58.72])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B7E773F632;
+	Wed, 11 Nov 2026 06:58:04 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794409090; bh=T0N8qo5+1VMrs2ox5XW1dEpZFcq610OBfeD56CkYpKA=;
+	h=From:To:Cc:Subject:Date:From;
+	b=p+rBH1WpylC0VUzXRB1q0lrvXOFutUTQdZgZuphMmKau1O6BIyepVDzTSqJDP9dve
+	 y6a0NoaxnVXtOq/Wyd4ray1op4b4Z+I5fhLVAhTndDu7/LLQD0yppjfXETP7NXRsqJ
+	 OQb/um1WL7FGAp3VM0xtWq441gJg2hAZw4HH1STs=
+From: Steven Price <steven.price@arm.com>
+To: kvm@vger.kernel.org,
+	kvmarm@lists.linux.dev
+Cc: Steven Price <steven.price@arm.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Marc Zyngier <maz@kernel.org>,
+	Will Deacon <will@kernel.org>,
+	James Morse <james.morse@arm.com>,
+	Oliver Upton <oliver.upton@linux.dev>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Joey Gouly <joey.gouly@arm.com>,
+	Alexandru Elisei <alexandru.elisei@arm.com>,
+	Christoffer Dall <christoffer.dall@arm.com>,
+	Fuad Tabba <tabba@google.com>,
+	linux-coco@lists.linux.dev,
+	Ganapatrao Kulkarni <gankulkarni@os.amperecomputing.com>,
+	Gavin Shan <gshan@redhat.com>,
+	Shanker Donthineni <sdonthineni@nvidia.com>,
+	Alper Gun <alpergun@google.com>,
+	"Aneesh Kumar K . V" <aneesh.kumar@kernel.org>,
+	Emi Kisanuki <fj0570is@fujitsu.com>,
+	Vishal Annapurve <vannapurve@google.com>,
+	WeiLin.Chang@arm.com,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Kohei Enju <enju.kohei@fujitsu.com>
+Subject: [PATCH v2 00/12] KVM: arm64: CCA: Prepare Realm memory management
+Date: Wed, 11 Nov 2026 14:57:44 +0000
+Message-ID: <20261111145758.217946-1-steven.price@arm.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,121 +81,87 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-From: <shao.mingyin@zte.com.cn>
-To: <tom.leiming@gmail.com>, <shuah@kernel.org>, <linux-block@vger.kernel.org>,
-        <linux-kselftest@vger.kernel.org>
-Cc: <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-Subject: =?UTF-8?B?W1BBVENIIDMvNF0gdWJsazogY2FuY2VsIGNvbW1pdHMgYXJyaXZpbmcgYWZ0ZXIgdGhlIHF1aWVzY2Ugc2Nhbg==?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-fl2.zte.com.cn 6ABEvvxq073370
-X-TLS: YES
-X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
-X-SOURCE-IP: 10.5.228.133 unknown Wed, 11 Nov 2026 22:57:59 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AF48277.000/4jPmpv0Wcfz4xPSp
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-From: Shao Mingyin <shao.mingyin@zte.com.cn>
+This series adds the memory management plumbing for CCA, building on the
+basic RMM support [1]. Thank you to those who reviewed v1 - I'm
+attempted to address all the comments.
 
-QUIESCE_DEV marks the queues canceling and cancels pending commands.
-A server can still be processing an I/O when that scan passes its slot.
-If it submits COMMIT_AND_FETCH_REQ afterwards, the newly published
-command can remain queued without a future request to complete it.
-The server waits for that completion and the device remains LIVE.
+The patches introduce internal Realm VM state and RMI feature checks,
+prepare Realm stage-2 setup and teardown, and provide RTT mapping and
+invalidation helpers. Realm memslots are restricted to the lower half
+of the IPA space because the protected and shared halves alias each
+other. The final patch connects the helpers to KVM's stage-2 MMU
+operations.
 
-Share the cancellation claim with the command handler and use it after
-processing a commit when the queue is canceling. The cancel lock and
-CANCELED flag ensure that the control path and command handler cannot
-complete the same command twice.
+This is the memory management portion of the larger Realm host series.
+Realm descriptor creation, REC entry and exit, activation, and the new
+uAPI follow in the integration stack. This series alone does not enable
+Realm creation.
 
-Fixes: b465ae7b2524 ("ublk: add feature UBLK_F_QUIESCE")
-Cc: stable@vger.kernel.org
-Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
----
-Tested on next-20261105 with CONFIG_BLK_DEV_UBLK=y in a local QEMU/KVM
-VM (4 vCPUs, 4 GiB), using real ublk devices and fio. A test-only server
-hook held one COMMIT across a successful quiesce, then released it.
-In two runs per version, the original kernel left the device LIVE until
-a second quiesce; the fixed kernel reached QUIESCED without that retry.
-The paired runs used the same userspace probe and no kernel diagnostics.
+As before there's an integration branch[2] that includes the realm
+creation, REC entry/exit etc building on top of this series. I've also
+pushed a git branch[3] of just this series.
 
-The four original recovery scripts also passed twice with this change
-and a separate batch SQE initialization fix, without C or driver
-diagnostic instrumentation or reduced fio load.
+Changes since v1:
+- Add a guest_memfd prerequisite patch that checks whether the backing
+  file supports mmap when preparing an arm64 memslot.
+- Combine the RMI availability and feature checks into one patch, and
+  move Realm vCPU feature restrictions to the integration stack.
+- Correct Realm IPA sizing and RTT teardown, including teardown before
+  activation, RTT accounting, and handling of missing or folded RTTs.
+- Rework RTT mapping to respect IPA and physical alignment, handle
+  partial RMI progress, and retry interrupted operations.
+- Preserve private mappings when a Realm guest_memfd memslot deletion is
+  rejected, and tighten Realm fault handling and stage-2 destruction.
 
- drivers/block/ublk_drv.c |   40 ++++++++++++++++++++++++++--------------
- 1 file changed, 26 insertions(+), 14 deletions(-)
+[1] https://lore.kernel.org/all/20261007073537.2454351-1-suzuki.poulose@arm.com/
+[2] https://gitlab.arm.com/linux-arm/linux-cca
+    branch: cca-host-mm/v2/integration
+[3] https://gitlab.arm.com/linux-arm/linux-cca
+    branch: cca-host-mm/v2/mm
 
-diff --git a/drivers/block/ublk_drv.c b/drivers/block/ublk_drv.c
-index 3d322fa1b..082f105f1 100644
---- a/drivers/block/ublk_drv.c
-+++ b/drivers/block/ublk_drv.c
-@@ -2792,14 +2792,33 @@ static void ublk_start_cancel(struct ublk_device *ub)
- 	ublk_put_disk(disk);
- }
- 
-+static void ublk_complete_cancelled_cmd(struct ublk_queue *ubq,
-+					struct ublk_io *io,
-+					unsigned int issue_flags)
-+{
-+	struct io_uring_cmd *cmd = NULL;
-+	bool done;
-+
-+	spin_lock(&ubq->cancel_lock);
-+	done = !!(io->flags & UBLK_IO_FLAG_CANCELED);
-+	if (!done) {
-+		io->flags |= UBLK_IO_FLAG_CANCELED;
-+		/* dependency ordered against smp_wmb() in ublk_prep_cancel() */
-+		cmd = READ_ONCE(io->cmd);
-+		io->cmd = NULL;
-+	}
-+	spin_unlock(&ubq->cancel_lock);
-+
-+	if (!done && cmd)
-+		io_uring_cmd_done(cmd, UBLK_IO_RES_ABORT, issue_flags);
-+}
-+
- static void ublk_cancel_cmd(struct ublk_queue *ubq, u16 tag,
- 		unsigned int issue_flags)
- {
- 	struct ublk_io *io = &ubq->ios[tag];
- 	struct ublk_device *ub = ubq->dev;
--	struct io_uring_cmd *cmd = NULL;
- 	struct request *req;
--	bool done;
- 
- 	if (!(io->flags & UBLK_IO_FLAG_ACTIVE))
- 		return;
-@@ -2818,18 +2837,7 @@ static void ublk_cancel_cmd(struct ublk_queue *ubq, u16 tag,
- 	if (req && blk_mq_request_started(req) && req->tag == tag)
- 		return;
- 
--	spin_lock(&ubq->cancel_lock);
--	done = !!(io->flags & UBLK_IO_FLAG_CANCELED);
--	if (!done) {
--		io->flags |= UBLK_IO_FLAG_CANCELED;
--		/* dependency ordered against smp_wmb() in ublk_prep_cancel() */
--		cmd = READ_ONCE(io->cmd);
--		io->cmd = NULL;
--	}
--	spin_unlock(&ubq->cancel_lock);
--
--	if (!done && cmd)
--		io_uring_cmd_done(cmd, UBLK_IO_RES_ABORT, issue_flags);
-+	ublk_complete_cancelled_cmd(ubq, io, issue_flags);
- }
- 
- /*
-@@ -3560,6 +3568,10 @@ static int ublk_ch_uring_cmd_local(struct io_uring_cmd *cmd,
- 			req->__sector = addr;
- 		if (compl)
- 			__ublk_complete_rq(req, io, ublk_dev_need_map_io(ub), NULL);
-+
-+		/* Quiesce may have scanned this slot before this command arrived. */
-+		if (unlikely(READ_ONCE(ubq->canceling)))
-+			ublk_complete_cancelled_cmd(ubq, io, issue_flags);
- 		break;
- 	}
- 	case UBLK_IO_NEED_GET_DATA:
+Steven Price (7):
+  KVM: arm64: CCA: Reserve the RMM mode
+  KVM: arm64: guest_memfd: Check mmap support when preparing memslot
+  KVM: arm64: CCA: Check RMI support and features at init
+  KVM: arm64: CCA: Add basic infrastructure for creating a realm
+  KVM: arm64: CCA: Tear down RTTs
+  KVM: arm64: CCA: Add Realm RTT mapping and invalidation helpers
+  KVM: arm64: CCA: Support runtime faulting of memory
+
+Suzuki K Poulose (5):
+  KVM: arm64: CCA: Introduce Realms
+  KVM: arm64: Handle attributes in stage2_unmap_range
+  KVM: Allow architectures to reject memslot changes before invalidation
+  KVM: arm64: CCA: Prevent memslot modifications after Realm creation
+  KVM: arm64: CCA: Add Realm stage-2 MMU operations
+
+ arch/arm64/include/asm/kvm_emulate.h   |  29 +
+ arch/arm64/include/asm/kvm_host.h      |  53 +-
+ arch/arm64/include/asm/kvm_mmu.h       |   4 +-
+ arch/arm64/include/asm/kvm_rmi.h       | 104 +++
+ arch/arm64/include/asm/virt.h          |   1 +
+ arch/arm64/kvm/Kconfig                 |   1 +
+ arch/arm64/kvm/Makefile                |   2 +-
+ arch/arm64/kvm/arm.c                   |  21 +-
+ arch/arm64/kvm/hyp/include/nvhe/pkvm.h |   2 +-
+ arch/arm64/kvm/hyp/nvhe/switch.c       |   4 +-
+ arch/arm64/kvm/hyp/nvhe/timer-sr.c     |   2 +-
+ arch/arm64/kvm/mmu.c                   | 311 +++++++--
+ arch/arm64/kvm/pkvm.c                  |   4 +-
+ arch/arm64/kvm/psci.c                  |   2 +-
+ arch/arm64/kvm/rmi.c                   | 883 +++++++++++++++++++++++++
+ drivers/firmware/arm_rmm/rmi.c         |  10 -
+ include/linux/arm-rmi-cmds.h           |  13 +
+ include/linux/kvm_host.h               |   5 +
+ virt/kvm/guest_memfd.c                 |   6 +
+ virt/kvm/kvm_main.c                    |  33 +-
+ 20 files changed, 1391 insertions(+), 99 deletions(-)
+ create mode 100644 arch/arm64/include/asm/kvm_rmi.h
+ create mode 100644 arch/arm64/kvm/rmi.c
+
+-- 
+2.43.0
+
