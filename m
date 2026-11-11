@@ -1,79 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794359218;
-	b=0f8IXa+FZ8LTO1X6Urykus/LH9a+LsX48dTH9UWzuvAbVoxNkzS2OncdLAiQ3mXQFE1k
-	 4CF8thH/vvVDWJVINvogguGCHeiGmJojaLK4Xkx4V2oraP8Qj+DuKegfgwENj+v5x50Gk
-	 lA6nvPIsq3EBYFBzIefNQMZ/DzBLytwbeBzGb4KLRxV8zbsai8zSrZjIFR2R8hUz0l2be
-	 9e7SUWbUVBgB0AFqjVne0fAxghh+9zCfLCp/CYWoGUwHPKlx16dbR15eCwgb22rviFXsw
-	 CVr8ZCif/IC6VRBoVWL0dKuEXvo0Sjz8K9iJes85hg70sLM00On+d9YDpuDNiD/LPSQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794359218;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=jtmK1+bR8Vpcga/gdTbnHubufTCEtNPEJ3YD6hd7teM=;
-	b=HImIm0tUzF1EIgdCWlDzL9J5o2XW1+4d5SB7eQdfGOWFOIGNrz77HeC3S418m5PYWaQu
-	 DZ2pAdU5KN2cTg65QKNP/Hvimt7AIaAGzL8MFYRi8H0aBjguLk5FZfNiaZsEiMiUVexyF
-	 1cpWcWyZtuBRJr9PoaAAOse4Zq22ElB3S59wvIKfJ4JOJ059VBq45V+gk28Xl5SrOvzEf
-	 djhY61k4eewfJVo8ajHz0afptLVX1XaXRT6YSOeFJz4HRkjmCE7NlFyDa+M+PaJj8b2di
-	 Hb1hsHB23uAMQliFR+HNefEeIZ4VJwCCcPcpByJKu1oLHIrNBVbD9J2p3GGm7fOXmgg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XcugkCBo;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49310606A31C;
-	Wed, 11 Nov 2026 01:06:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XcugkCBo
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794359218;
-	b=tgtYKebY6S4+u06/g3RpoLckz1BT1Wlgn0P8EPt9Mon/6NEBTk7Z2fmXgRPnRrJT1Qg9
-	 f17kwFnQ2QWIRdIPjnjhKTs7l2tAx8X8iaht+4GYXLoyO7qkzVXSa9jD73XBLJhCOeIRy
-	 4LeF7nSf3djC/VaGcuuFc6nbZkGd4SfuWycUuIokeT3T9UMJUhZfSgHJq940EWCAT7zge
-	 TuJqj1mHKlHKzpBIlbaIg15xwwyApxnHdAeBRTUrqXzPwvjETlrxURB8phAPL17hUxfPr
-	 GcEH0QowWRdjfthwbFl5Oh+LRoH7npVrR4vGbMZ+T2/P9V0do0xT4BpsTXjvNZCRUlA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794359218;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=jtmK1+bR8Vpcga/gdTbnHubufTCEtNPEJ3YD6hd7teM=;
-	b=Rr21Of+zcpczI2KQadRHHuqJ2kE3YRq1m7J2yV+bys6wUsc7JJS2gPLw0u49uPGN1r4i
-	 kvpzxNqIVSxswb8mqoGQLqVT0z0Q8n1noM4MLpvWKs3pKzuJEHwTuhyUD4j8n/LcIOTgi
-	 mX3PM+pRaNFmxkNzDKp7mpR+IyYGWr8ezrXZT307sQh2Zc9al20APFhAGE7TP18CHHvSJ
-	 okFDdD+J4yPabqGXZi7d0bM//fqfwlHecIDHZLGlf9PWWD1AEEWtui3gSx++4BSVWM56W
-	 H9VRt4zceIy3DVPZCDC/vwUw4MabPniPBT68fq3DHbGJcJ3b2vTrd+iv2B22jR4s8EA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.174
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794359238;
+	b=CITIqu5Wdo8aRkyLS+ikS0E4yF73Z+MbVE47e/ifV0neXmMqTab2SvwimAT4T1w5KODh
+	 bxiuct/oR1Hc2lyBzvHMV9OK2gnkxMvVV/mJvN1pz7yiYiOwDy2y25rc8dVUzUePTjGB0
+	 sAjaT9HyAJQBv4UzvixvbyrmXJe3sLlPLKOB0sLlL3suzEbqF8Ue4w0HQZymXQ4ouuOYD
+	 QvA3XiUTI3q7ooMNrwDbekGutXgd2pyiqVRExbnKqvdRsl6R4+iRLv9v54v9wUpINgGKD
+	 0XNV2bOOiglxRj3Iqef/M79PbO3X73D4HGATnLBKT5Jgt1KXZywkcJMesbwtbxtYgQg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794359238;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=6LbzmDz7qPraA+XTAGiVYeN9C//rOWw8KeOnHh6tdK8=;
+	b=o8rLJPuo94b2cJPg9cNrPUBJxo4MfQoq+ji83tOr/ZO5QLCQBAAhJVr4kdJj1hU38lVK
+	 dV0MU8lr3Opil1+T5gRUz4Roe//17Zl7suk9TLgxgR9C+KL+/gerHrfAsC+CdQtDgg9zm
+	 FePp9PEbaXluWq6YSpMhxnu6TDy8Xss23h83aXI9bv5ooltA1hrgI8CZDYYk1L9wveIRi
+	 nmYXVKsI2EUbqBlgefvL5+yRCKn+jizP5dfjn/c8LDAlXlHMtewCY8WF9Sn9tsrlTRd7r
+	 Y4CwCJOkrjD/o8k7LPDf3ewb3Zxwla0ThUS7HXaKTWEvoKupNyiBHLGwmsmCzbpgSiQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="eJebg/TK";
+	arc=none smtp.remote-ip=209.85.215.174
+Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 363D01F0089F;
-	Wed, 11 Nov 2026 01:06:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794359217;
-	bh=jtmK1+bR8Vpcga/gdTbnHubufTCEtNPEJ3YD6hd7teM=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=XcugkCBox/wXm7usJasRdokWSHYEY4g9uT610gzsl+E94KhgaaxDeOATg5ovM7sW2
-	 cjBEhWwGYydRDzWDqgtjoufriaoASfABmLxw80pkw33r/YnId/ymXW0wHm3XtMr9nb
-	 NaIFmFwlBZK14EhfKroFACmAWZRRxVmDOcMHYCSOur4Bh4OYkszhyW5/32qTZGkNfU
-	 OrFkL12sP0kUaX/lyYtEjmyCYK1UfPvcwqmcR4FR+YZQ2K9P34sNwXQvxJq7vE0SeN
-	 ekRIkPcjbvptLdl4oGDehcN4yQpWU2iJoRvZi/F5L1HJ5gRQR3RXhia7Nc27MEsFf8
-	 ZaBj1GqAzyc7A==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 9579148742;
-	Wed, 11 Nov 2026 01:06:56 +0000 (UTC)
-From: Haipeng Lin via B4 Relay <devnull+jimmie.lin.gmail.com@kernel.org>
-Date: Tue, 10 Nov 2026 20:06:30 -0500
-Subject: [PATCH RFC v2] bus: mhi: host: pci_generic: Add MBIM-mode config
- for generic SDX65
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DFF0606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 01:07:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0DFF0606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eJebg/TK
+Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-cd69954c755so1883807a12.3
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 17:07:17 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794359237; x=1794964037; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6LbzmDz7qPraA+XTAGiVYeN9C//rOWw8KeOnHh6tdK8=;
+        b=eJebg/TKvg9sXmzHFGcMsw8BxRGn+Xpnifgl0BcLeTAg6afBoa4phoLi1zBN2ow7nv
+         Cigr/AilJUn6A7n2WHJ6UavUzaO5qxvQjaqdAWMh9w8PEIlyYmB4tZfP2nLYAGzatesR
+         pH+H624g64fCOouYMmsDJEP0K3lC/i8hDHvtj1UbMPMK7kgkSg7A18THNcrqOQrpbVAJ
+         rEyLPx+1oUygIwtTkZrbG2m4NiYGAGtz0e758vrdjLHOk88N7PpsNtJzQQF82E0Sm3kS
+         fiNAfsUEhF9L9X5GaerDWwVsvhbmxdyAKjygd2mogGPq/KKkUJdPer1vTwiMCZWuXgJQ
+         jGhw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794359237; x=1794964037;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6LbzmDz7qPraA+XTAGiVYeN9C//rOWw8KeOnHh6tdK8=;
+        b=fxEfAsqh2/tD/56vR9ahB3m5bp5YsrRdDRmkK7sv+jM8AYFVzxjQJrTGLr7/TUYLWj
+         GXLmGTjbuDFMIgTb2USS3HkyhrCmabVgFfHZrQ2JI7OY1Ehdl6HzTuLvqpvxbc2Af4an
+         xzojefNstoDEacFTYbb81d7NwawEeQtATxvjmFEqL67VWNXf5LeGzgbYj4rITUvUQzL1
+         VHLjFFTj8fC6c2DsXzhB4ca4JVFwpOYdkFYeWPMIkQ/COnH/z8qryhFwNapnrRqvcZ8p
+         2Qcs6+NJVK9ekyrZFieYq5rFpcz1FSTJJ8izYQyKissIznBIrL7wh/LOKuIdQLolK0Xd
+         Ndfg==
+X-Forwarded-Encrypted: i=1; AL+hErEM/cGInOC6aAO1DFYs2K9P5cWKDbl3e+5t2OmzPLtcXrxaImjLjaia5cAWqlyMEN33nS/ZDx83Ww5CaP8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z95BevtD8YTE7o5MZTwBwDl2HmLI0VIm0CJ2E80jHrWMCkKI2ad
+	vBvf/+QIwwNrkZyJGRJrSt6IyNr+sxfCdilJbBdE12gnEIrIVZ4emmTUCcScZHRF3N8=
+X-Gm-Gg: AYBFou3RJJNYw9IMt90REF0ss+IZAPCNbhNBFi6ZXlpybGU5THF5YdVJokOp0NGQA56
+	AAVtguna18OaExMJ+qqFYF38NwkiR6z3h4d9q9YrzU//SvDWMCdXXci2rOMDfVZ95wtFynIdEkj
+	HDozoVL4Zn6HV7lDayZ0XlWFwoeIqTQsje/7vCLJ/ylBEYhsO/cSyeooIU/x3xKpDnwo99kBZGu
+	RglJaOZ7Qg3ZMB/Fr2eMWQKoWWluqEIMkFFVXwpINaw07kmdC0RH9q6ZP7o530kO7egktcup4Re
+	dodLStdiWr8v3aIV0/oW3aV/7Zu+3CARO7OLkB9I5PGrxWSnEZJDKiGvAq7yHFEeuFvuSlne+Bv
+	P3ou0oWBBxoa+Q/uz5T08m6t2DRH19W4mSgGEVwiaZrbmVUJEiLw1LNt6pT9bp5i/HFVWKTqrpc
+	jUURt5eLgLChgzx0uw7hzBlsi/bfpj91uOWWG9YfM5IiXTO02SulGoinn2DzKmA8AwSh33TIiTS
+	zXLaZr8USfOjfAYDIMURpSqGrQyGhHk19hNGTFt/AgMANe/kK4Z5gCIttXri/JKvNHVYTj6UcbI
+	YfUY9VT03PyqMdGxslhm14dYUk/RPVJ/obDGvGp6gHUyha3alzGZxCZCXZl2WgQ1
+X-Received: by 2002:a17:90b:4f42:b0:3ab:b39f:41b9 with SMTP id 98e67ed59e1d1-3b182f1f60dmr736828a91.61.1794359237411;
+        Tue, 10 Nov 2026 17:07:17 -0800 (PST)
+Received: from fedora.lan (d173-183-236-7.abhsia.telus.net. [173.183.236.7])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b181f8fd59sm701711a91.1.2026.11.10.17.07.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 17:07:16 -0800 (PST)
+From: Artem Novak <artem122novak@gmail.com>
+To: ysato@users.sourceforge.jp,
+	dalias@libc.org,
+	glaubitz@physik.fu-berlin.de,
+	geert+renesas@glider.be
+Cc: linux-sh@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Artem Novak <artem122novak@gmail.com>
+Subject: [PATCH v4 0/2] sh: sh7305: add TMU0 clock support
+Date: Tue, 10 Nov 2026 19:07:12 -0600
+Message-ID: <20261111010714.227429-1-artem122novak@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,152 +98,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261110-mhi-sdx65-mbim-rfc-v2-1-f1d71a5ac9ab@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32NTQrCMBSEr1Le2idJa9voShA8gFvpIn9tH5hGE
- gmV0rsbcgCX3wzzzQbRBrIRLtUGwSaK5JcM9aECPctlskgmM9Ss7jjjHN1MGM3ategUOQyjRiG
- 1UJKZvhcS8vAd7EhrkT7hcb/BkMOZ4seHbzlKvFT/nIkjR8HEWZ1M05hWXScn6XXU3sGw7/sPr
- DEQQLkAAAA=
-X-Change-ID: 20261011-mhi-sdx65-mbim-rfc-8ac8ba0d778a
-To: Manivannan Sadhasivam <mani@kernel.org>, 
- Jeff Hugo <jeff.hugo@oss.qualcomm.com>
-Cc: mhi@lists.linux.dev, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, daleyo@gmail.com, 
- Johan Hovold <johan@kernel.org>, Haipeng Lin <jimmie.lin@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794359216; l=4467;
- i=jimmie.lin@gmail.com; s=20261011; h=from:subject:message-id;
- bh=ZLVxxQwkggsrloBrxJyjFyMexniwKJn2AL6lIKjlQ4w=;
- b=QboCyMkwfvriVeAw1+gALoE8intbzqfiWahZTM9uJq33pOwZ/IHc2Yt5cJW6tboFn5cL8/ey3
- J/ycjjJzXIhAcJLA4TBrt4m78+WfpJzLBmsDfnmRpbyr/pvzebI9x+A
-X-Developer-Key: i=jimmie.lin@gmail.com; a=ed25519;
- pk=3KDRF1RQ/9A7ZUVTdRVEZnVrGltdmq1bRocsOYeXezI=
-X-Endpoint-Received: by B4 Relay for jimmie.lin@gmail.com/20261011 with
- auth_id=1164
-X-Original-From: Haipeng Lin <jimmie.lin@gmail.com>
-Reply-To: jimmie.lin@gmail.com
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-From: Haipeng Lin <jimmie.lin@gmail.com>
+This series adds Common Clock Framework support for the SH7305.
 
-The Surface Pro 11 5G carries an SDX65 that enumerates with Qualcomm's
-generic IDs (17cb:0308, subsystem 17cb:0308) but runs the MBIM-mode
-firmware it ships with for Windows.
+The existing SH7305 clock implementation is converted to CCF,
+including the master clock, CPU, bus and peripheral divider clocks,
+and the TMU0 module clock gate.
+The legacy CPG clock framework is then excluded for SH7305
+to avoid enabling both clock implementations.
 
-Control is MBIM only (the QMI channel never answers), and data on
-channels 100/101 is framed as MBIM NTBs: the modem reports a WDA data
-format of raw IP with MBIM aggregation, up to 32 KiB downlink.
+The series consists of:
 
-The generic qcom-sdx65m entry names channels 100/101 "IP_HW0", which
-binds mhi_net. mhi_net expects raw IP, so no data session can work.
-The MBIM-mode modules in this driver name them "IP_HW0_MBIM" instead
-which binds mhi_wwan_mbim.
+sh: sh7305: add TMU0 clock support
+Convert the SH7305 clock implementation to CCF and
+provide the TMU0 functional clock through clkdev.
 
-Boards with a Qualcomm-ID modem in MBIM mode have so far been told
-apart by subsystem ID, like the SC8280XP CRD's SDX55 (17cb:010c).
-This modem carries the generic subsystem ID, so select an MBIM
-configuration by machine compatible instead.
+sh: sh7305: exclude from legacy CPG clock framework
+Exclude SH7305 from SH_CLK_CPG_LEGACY.
 
-Like the SC8280XP CRD entry, reuse the Foxconn SDX55 channel config
-which works with this firmware. The MRU is 32 KiB to match the
-modem's downlink aggregation size.
+Changes since v3:
+ - Split the legacy CPG exclusion into a separate second patch.
+ - Keep the SH7305 CCF clock implementation and TMU0 gate
+   together in the first patch.
 
-Tested on a Surface Pro 11 5G (Surface_Pro_with_5G_11th_Edition_2077,
-modem firmware 251216-DE-dc49bb9-00197) on a v7.2.11-based kernel:
-ModemManager registers the modem on wwan0mbim0, uses wwan0 for data and
-wwan0at0 for AT commands, and connects over LTE and 5G NR.
+Artem Novak (2):
+  sh: sh7305: add TMU0 clock support
+  sh: sh7305: exclude from legacy CPG clock framework
 
-Assisted-by: LLM
-Signed-off-by: Haipeng Lin <jimmie.lin@gmail.com>
----
-Hi Mani and Jeff,
+ arch/sh/Kconfig                        |   2 +-
+ arch/sh/include/asm/clock-sh7305.h     |  11 ++
+ arch/sh/kernel/cpu/sh4a/clock-sh7305.c | 262 +++++++++++++++++--------
+ 3 files changed, 196 insertions(+), 79 deletions(-)
+ create mode 100644 arch/sh/include/asm/clock-sh7305.h
 
-A follow-up to the RFC I sent last month (linked below). 
-
-I tested the Foxconn SDX55 channel configuration on this modem and it
-works, so v2 reuses it like the SC8280XP CRD entry does, and only the
-selection is new. Hope this makes the patch clearer.
-
-I would appreciate comments on whether matching the machine compatible
-in probe is the acceptable approach, or if you would prefer a property
-on the PCIe endpoint's DT node (although that would be a bigger patch)
-
-Thanks.
----
-Changes in v2:
-- Reuse modem_foxconn_sdx55_config instead of adding a channel table.
-  This adds the DUN channel (tested: answers AT commands) and drops
-  IPCR which is unused by the Surface Pro 11.
-- Link to v1: https://lore.kernel.org/r/20261011-mhi-sdx65-mbim-rfc-v1-1-8089b4d33d5b@gmail.com
----
- drivers/bus/mhi/host/pci_generic.c | 33 +++++++++++++++++++++++++++++++++
- 1 file changed, 33 insertions(+)
-
-diff --git a/drivers/bus/mhi/host/pci_generic.c b/drivers/bus/mhi/host/pci_generic.c
-index 7193a384cca4..29b275572603 100644
---- a/drivers/bus/mhi/host/pci_generic.c
-+++ b/drivers/bus/mhi/host/pci_generic.c
-@@ -12,6 +12,7 @@
- #include <linux/device.h>
- #include <linux/mhi.h>
- #include <linux/module.h>
-+#include <linux/of.h>
- #include <linux/pci.h>
- #include <linux/pm_runtime.h>
- #include <linux/timer.h>
-@@ -582,6 +583,34 @@ static const struct mhi_pci_dev_info mhi_foxconn_sdx55_info = {
- 	.sideband_wake = false,
- };
- 
-+/*
-+ * Some machines have an SDX65 with the generic Qualcomm IDs
-+ * (17cb:0308, subsystem 17cb:0308) running MBIM-mode firmware
-+ * they ship with for Windows.
-+ * The exact channel configuration is not known but the Foxconn SDX55
-+ * configuration works with this firmware.
-+ */
-+static const struct mhi_pci_dev_info mhi_qcom_sdx65_mbim_info = {
-+	.name = "qcom-sdx65m-mbim",
-+	.fw = "qcom/sdx65m/xbl.elf",
-+	.edl = "qcom/sdx65m/edl.mbn",
-+	.edl_trigger = true,
-+	.config = &modem_foxconn_sdx55_config,
-+	.bar_num = MHI_PCI_DEFAULT_BAR_NUM,
-+	.dma_data_width = 32,
-+	.mru_default = 32768,
-+	.sideband_wake = false,
-+};
-+
-+/*
-+ * The PCI IDs cannot tell these modems apart from QMI-mode modules,
-+ * so match the machine instead.
-+ */
-+static const char *const mhi_qcom_sdx65_mbim_machines[] = {
-+	"microsoft,denali",
-+	NULL
-+};
-+
- static const struct mhi_pci_dev_info mhi_foxconn_t99w175_info = {
- 	.name = "foxconn-t99w175",
- 	.edl = "qcom/sdx55m/foxconn/prog_firehose_sdx55.mbn",
-@@ -1389,6 +1418,10 @@ static int mhi_pci_probe(struct pci_dev *pdev, const struct pci_device_id *id)
- 	unsigned int dma_data_width;
- 	int err;
- 
-+	if (info == &mhi_qcom_sdx65_info &&
-+	    of_machine_compatible_match(mhi_qcom_sdx65_mbim_machines))
-+		info = &mhi_qcom_sdx65_mbim_info;
-+
- 	dev_info(&pdev->dev, "MHI PCI device found: %s\n", info->name);
- 
- 	/* mhi_pdev.mhi_cntrl must be zero-initialized */
-
----
-base-commit: 0b1883ca75c0005ab5ca52c7bc1a26329bc39746
-change-id: 20261011-mhi-sdx65-mbim-rfc-8ac8ba0d778a
-
-Best regards,
 -- 
-Haipeng Lin <jimmie.lin@gmail.com>
-
+2.56.0
 
