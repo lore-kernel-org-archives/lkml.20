@@ -1,54 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794420571;
-	b=nlT1fuArCa/Yt6RMXueCDdHuglt2YpXUiDdTHNLpYOr3lN4aPOj3VndnoIVtCVcMorCN
-	 zVvPvMyQCHe2va7ywrPMR/Cue0YFES0phHL5byvvw2u3+4Wn09vDjotWzA0kqy2JpFE/v
-	 gz6k+c9rSXkIjZEUrluZusewV7MX4rsQ0PbWmlfT6X8aOfa2m6m5RDIzqc2UfuS4YCUqZ
-	 N9hYrg5GjxtCBgNPwyy1UtP30hF8gRJQZse4+gru6Wf9XcfyIWVBCdEcmS2o9NbWVK8pL
-	 p5IJcCgbCRx8VkA969ZD/bbI34Kb5JzqsSneG1laDt+D/fHPfQZ72eyLNVCQHGt6/mg==
+	t=1794420578;
+	b=fjGLwlkmSJIvTPH1YjG2s59lt6XIWGN3EVOYKSYCHSDfu3FWnWtcbAKfxhumCSFHtuhn
+	 LvrMRXmT4RlhQfbctAQfzam6R15WJiRsHTRh2sesfTlyuEO7fFYXIZA/lmgHA8aPmqb/T
+	 GHmemD/IBFuFFj5Ef+JwVg30WuoQ21Yb0N82Vv7h2y8j4/22Ao/UyOUMpSurHgK7vvpif
+	 uQktza/N8O5DRFPE/Zcu6aGrz0UF34il707ki0AEZKmsOfSS7zc+NAHCAbP2Gc6yFMFXW
+	 l+ahQRd3kdLj807nd0g27kCIik661lAh0OshWZUWd2wJUVThRMr03rhh1u1KT6vZ/+g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794420571;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794420578;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Sender:X-SRS-Rewrite;
-	bh=UkL+2EqqLZWeKCYphLSu8F5DwrRa+T7c95HDl48bUzo=;
-	b=gFpe0uo5DTRi748PxQB2jpxcUWpQ60iP8zgZ8fbXf4N7YpHfrG2KnRMS//yyT2HI/mP5
-	 +XxdDEvac9luuTd7qXotpRWQltsdZ+ojIZ5cfNu/KQWH3/Bv/nR8Tir5VLkbvGqPnn2d2
-	 /Wfx8pDb3eikISoG3FSbRYhVLsUDMCi8MD6CFf0Fo4dwCyCF0PD4y7f5sOSGIQ98J4RaG
-	 8WoovMRKLQL8+wcj82ZWVcn4NCoAiwFiejgJ4l3zRknG79F2PwB/FKRKbyTFK4cCoSvsI
-	 78FpAyaUeVbQjSKmyUBXkzbOBar875vCuAWnVNEtgVC39xSygE4y4Taf6r3RiEPfq7Q==
+	bh=1V/mMwjMcC+MDxHM1oxRcKL+FYzfa4UsShC/QgnT6ts=;
+	b=UHvq9hO1ACn4MJ/p20Ma1jzzPw5ZMs9jC21sTYxsHjwUlTYEBJebh/lkgou4+a6vSQ9v
+	 gXm+I0BtwpHagULJ+OukpXUqnij0t1OKCO/if7bOXI/WhcTLYjgDMzoHSnvsR7m5XjGky
+	 5Ehs19KE6tUlhDQ4NO3qUmWiFfXcpFD20zU/lHuv3NY/J8nhLdzt2nGpde2uDWndJDrnH
+	 eLWa2Evz8+zzdrWzer6imeVcP2M6Afh3PV29WGmfHmJZHgZxAhSrgxUTGZgrL0ASJOVZY
+	 d87XR/8MFpF3nnrwSs6ys5bk1Jce4Mg1s2xitJRCeZnaDpeO8scHQVd5kiZ27TqMhTA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=infradead.org;
-	spf=none smtp.mailfrom=casper.srs.infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b="sZNh/csW";
-	arc=none smtp.remote-ip=90.155.50.34
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	spf=none smtp.mailfrom=desiato.srs.infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=rdCdM0Bg;
+	arc=none smtp.remote-ip=90.155.92.199
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D06E960A260E;
-	Wed, 11 Nov 2026 18:09:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D06E960A260E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B09A606C155;
+	Wed, 11 Nov 2026 18:09:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B09A606C155
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=casper.srs.infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=desiato.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=sZNh/csW
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=rdCdM0Bg
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=Sender:Content-Transfer-Encoding:
+	d=infradead.org; s=desiato.20200630; h=Sender:Content-Transfer-Encoding:
 	Content-Type:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:
 	To:From:Reply-To:Content-ID:Content-Description;
-	bh=UkL+2EqqLZWeKCYphLSu8F5DwrRa+T7c95HDl48bUzo=; b=sZNh/csWJLZTNxolsU2BKknfNs
-	Qo3U14mot2qyCMtFvD9jtZisiBr/I7ogzhnU9xRkrWV6H9GRcR77uA+SP/DW9/oFAKho1+vpbl6nV
-	k/o+ygtKtoplpCD0cOl+l/V8tA3N0rZrux2exarY//L0Puagr8bACfFFjR6w0BlPgn5ab+YfmqTjt
-	jvtgW2NeNsopaInB7Vj/ZfQ4Btlijyx2r1SZ3HApttlBpFSzD74xX4GjcxzaTM6YtpdfJW9kyPvkt
-	zamsqJf7mfEI0WtfR0/adfos4lWf3nhifZQy/BgisEixdn03aiKUwnz6N/iUGoRuQCP+gdIcrCye1
-	gtHpGXVg==;
+	bh=1V/mMwjMcC+MDxHM1oxRcKL+FYzfa4UsShC/QgnT6ts=; b=rdCdM0Bga8RtX//t2h5oWGV5nk
+	NrobMdHnlsWWu0fgt/I6d+ha7L+1JiD2Yc69jvBxcI0t87Fu1wdOzrbXUF9Sl9320wCVdwrZw9cJj
+	NbhmdPRAuOGTvIuEGQLSGH9X+krDkyse4Uw4uoGtbdSBbLPrCx26hLJfYW/Yiz3obm/FgivEyR71R
+	KOTaGZLj6mqMvr1sMoN9zYhouAr/CwehIYcUGB+yqMCzdNILkxNX+221aePpyOCf+nOIMb5T6xD5m
+	B1LVp9DnDtrKs93W47JR2nQ+MoRKidU8EDEwvrJ/xvN0opSznxIg6wJh1sgPhmS7Vl3rjPD7iBDcr
+	4P99dECw==;
 Received: from [2001:8b0:10b:1::425] (helo=i7.infradead.org)
-	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xRClA-0000000CKxH-09O8;
-	Wed, 11 Nov 2026 18:09:24 +0000
+	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xRClB-00000009PvM-3ChP;
+	Wed, 11 Nov 2026 18:09:30 +0000
 Received: from dwoodhou by i7.infradead.org with local (Exim 4.99.5 #2 (Red Hat Linux))
-	id 1xRCl9-0000000HWtd-3VQ5;
+	id 1xRCl9-0000000HWsS-0BMB;
 	Wed, 11 Nov 2026 18:09:23 +0000
 From: David Woodhouse <dwmw2@infradead.org>
 To: kvm@vger.kernel.org
@@ -78,9 +78,9 @@ Cc: linux-kernel@vger.kernel.org,
 	Dongli Zhang <dongli.zhang@oracle.com>,
 	joe.jin@oracle.com,
 	David Woodhouse <dwmw@amazon.co.uk>
-Subject: [PATCH v13 24/26] KVM: x86/xen: Drop open-coded fallback clock read in kvm_xen_start_timer()
-Date: Wed, 11 Nov 2026 10:09:20 -0800
-Message-ID: <20261111180922.4177927-25-dwmw2@infradead.org>
+Subject: [PATCH v13 07/26] KVM: x86: Don't latch the Hyper-V TSC page from a superseded snapshot
+Date: Wed, 11 Nov 2026 10:09:03 -0800
+Message-ID: <20261111180922.4177927-8-dwmw2@infradead.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261111180922.4177927-1-dwmw2@infradead.org>
 References: <20261111180922.4177927-1-dwmw2@infradead.org>
@@ -96,131 +96,191 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 Sender: David Woodhouse <dwmw2@infradead.org>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by desiato.infradead.org. See http://www.infradead.org/rpr.html
 
 From: David Woodhouse <dwmw@amazon.co.uk>
 
-When no coherent (CLOCK_MONOTONIC, TSC) pair was available,
-kvm_xen_start_timer() computed one from separate ktime_get() and
-rdtsc() calls rather than using get_kvmclock_ns(), with a comment
-explaining that the latter had a systemic error from scaling host TSC
-directly to nanoseconds instead of scaling to the guest TSC first.
+The Hyper-V TSC page is rewritten from kvm_guest_time_update() when its
+HOST_CHANGED state is set, and latches to HV_TSC_PAGE_SET, which blocks
+further rewrites. But the state is set before the new pvclock snapshot
+is published (setting it takes hv_lock, a mutex, so it cannot happen
+inside the tsc_write_lock section), and nothing validates the snapshot
+the consumer is holding. Two interleavings latch stale parameters which
+nothing then rewrites until some unrelated clock event invalidates the
+page again:
 
-Commit abdef42276d8 ("KVM: x86: Fix KVM clock precision in
-get_kvmclock() with TSC scaling") removed that systemic error: in
-master clock mode, get_kvmclock_ns() now scales the host TSC delta to
-the guest TSC and converts it with the guest's own mul/shift,
-computing precisely what the guest would.
+ - A vCPU handling an unrelated KVM_REQ_CLOCK_UPDATE completes its
+   pvclock read, is preempted (or sleeps in kvm_write_guest(), holding
+   hv_lock), a KVM_SET_CLOCK completes meanwhile, and the vCPU then
+   writes the page from the old snapshot and sets HV_TSC_PAGE_SET —
+   consuming the state intended for the new one.
 
-The fallback is also nearly unreachable. It sits behind the
-use_master_clock check, so on 32-bit (where the master clock is never
-active) it is dead code, and on 64-bit kvm_get_monotonic_and_clockread()
-can only fail there if the host clocksource changed after the last
-master clock update, in the window before the resulting masterclock
-update is processed. In exactly that window get_kvmclock_ns() takes
-its raw-clock fallback path rather than the guest TSC computation,
-which is continuous with the last valid snapshot — though up to
-~0.1ppm of the snapshot's age (multiplier quantization) away from the
-guest's own pvclock arithmetic — and tolerable for the timers that
-can be started before the pending masterclock update lands (the
-clocksource change is noticed via a two-stage deferral, so it is not
-strictly one).
+ - The state is consumed legitimately an instant before the publish,
+   writing values which were current at that moment and superseded the
+   next; the CLOCK_UPDATE broadcast which follows the publish finds
+   HV_TSC_PAGE_SET and rewrites nothing.
 
-Drop it and fall back to the existing get_kvmclock_ns() path.
+For a KVM_SET_CLOCK stepping kvmclock_offset — a live migration
+restore — the page is left disagreeing with the restored clock by the
+full step.
 
+Close the first at the consumer: kvm_hv_setup_tsc_page() revalidates
+the pvclock seqcount under hv_lock — it must be under the lock, or the
+consumer could be preempted between a check and the consumption — and
+requeues the clock update rather than consume the state against a
+superseded snapshot. Close the second by re-marking the page once the
+new snapshot is published, with a CLOCK_UPDATE queued on every vCPU
+behind the re-mark: the broadcast from kvm_end_pvclock_update() can
+have been entirely consumed by then, and no vCPU in particular is
+guaranteed to ever run again. The hv_lock mutex which lets a consumer
+sleep across the whole update is also what serializes its write
+against the re-mark, so the queued consumer always finds either fresh
+page contents or the HOST_CHANGED state; guests which never enabled
+the page skip the broadcast entirely.
+
+Fixes: cc9cfddb0433 ("KVM: x86: hyper-v: Track Hyper-V TSC page status")
 Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
 ---
- arch/x86/kvm/xen.c | 50 +++++++++++++++++++++++-----------------------
- 1 file changed, 25 insertions(+), 25 deletions(-)
+ arch/x86/kvm/hyperv.c | 20 ++++++++++++++++++--
+ arch/x86/kvm/hyperv.h | 10 ++++++----
+ arch/x86/kvm/x86.c    | 36 +++++++++++++++++++++++++++++++++++-
+ 3 files changed, 59 insertions(+), 7 deletions(-)
 
-diff --git a/arch/x86/kvm/xen.c b/arch/x86/kvm/xen.c
-index 6aa00f746cba..2a157cba1c7c 100644
---- a/arch/x86/kvm/xen.c
-+++ b/arch/x86/kvm/xen.c
-@@ -188,7 +188,7 @@ static void kvm_xen_start_timer(struct kvm_vcpu *vcpu, u64 guest_abs,
- 	struct kvm_vcpu_xen *xen = &vcpu->arch.xen;
- 	int64_t kernel_now, delta;
- 	uint64_t guest_now;
--	int r = -EOPNOTSUPP;
-+	bool fallback = true;
+diff --git a/arch/x86/kvm/hyperv.c b/arch/x86/kvm/hyperv.c
+index 5d2e3617c952..56da410a7f32 100644
+--- a/arch/x86/kvm/hyperv.c
++++ b/arch/x86/kvm/hyperv.c
+@@ -1182,9 +1182,11 @@ static inline bool tsc_page_update_unsafe(struct kvm_hv *hv)
+ 		hv->hv_tsc_emulation_control;
+ }
  
+-void kvm_hv_setup_tsc_page(struct kvm *kvm,
+-			   struct pvclock_vcpu_time_info *hv_clock)
++void kvm_hv_setup_tsc_page(struct kvm_vcpu *v,
++			   struct pvclock_vcpu_time_info *hv_clock,
++			   unsigned int seq)
+ {
++	struct kvm *kvm = v->kvm;
+ 	struct kvm_hv *hv = to_kvm_hv(kvm);
+ 	u32 tsc_seq;
+ 	u64 gfn;
+@@ -1202,6 +1204,20 @@ void kvm_hv_setup_tsc_page(struct kvm *kvm,
+ 	if (!(hv->hv_tsc_page & HV_X64_MSR_TSC_REFERENCE_ENABLE))
+ 		return;
+ 
++	/*
++	 * @hv_clock derives from the pvclock snapshot current at @seq.
++	 * Consuming the HOST_CHANGED state against a superseded snapshot
++	 * would latch stale parameters as HV_TSC_PAGE_SET, which nothing
++	 * then rewrites; the check must be made here, under hv_lock, or
++	 * this vCPU could be preempted between a check and the
++	 * consumption while an update completes. Leave the state alone
++	 * and requeue; the retry reads the new snapshot.
++	 */
++	if (read_seqcount_retry(&kvm->arch.pvclock_sc, seq)) {
++		kvm_make_request(KVM_REQ_CLOCK_UPDATE, v);
++		return;
++	}
++
+ 	gfn = hv->hv_tsc_page >> HV_X64_MSR_TSC_REFERENCE_ADDRESS_SHIFT;
  	/*
- 	 * The guest provides the requested timeout in absolute nanoseconds
-@@ -210,6 +210,7 @@ static void kvm_xen_start_timer(struct kvm_vcpu *vcpu, u64 guest_abs,
- 	do {
- 		struct pvclock_vcpu_time_info hv_clock;
- 		uint64_t host_tsc, guest_tsc;
-+		int r = -EOPNOTSUPP;
+ 	 * Because the TSC parameters only vary when there is a
+diff --git a/arch/x86/kvm/hyperv.h b/arch/x86/kvm/hyperv.h
+index 622a6553e9ac..62e7922440aa 100644
+--- a/arch/x86/kvm/hyperv.h
++++ b/arch/x86/kvm/hyperv.h
+@@ -284,8 +284,9 @@ static inline bool kvm_hv_invtsc_suppressed(struct kvm_vcpu *vcpu)
  
- 		if (!cpu_feature_enabled(X86_FEATURE_CONSTANT_TSC) ||
- 		    !vcpu->kvm->arch.use_master_clock)
-@@ -230,43 +231,42 @@ static void kvm_xen_start_timer(struct kvm_vcpu *vcpu, u64 guest_abs,
- 		if (r)
- 			break;
+ void kvm_hv_process_stimers(struct kvm_vcpu *vcpu);
  
-+		/*
-+		 * With use_master_clock set, the clocksource was TSC-based
-+		 * when the master clock was last updated. The clockread can
-+		 * only fail here if the clocksource has changed since, in
-+		 * which case a masterclock update is already pending and
-+		 * get_kvmclock_ns() returns the raw-clock fallback value —
-+		 * continuous with the last valid snapshot, though it may
-+		 * sit up to ~0.1ppm of the snapshot's age away from the
-+		 * guest's own pvclock arithmetic. Only timers armed
-+		 * before the pending update is consumed see it.
-+		 */
- 		if (!IS_ENABLED(CONFIG_64BIT) ||
--		    !kvm_get_monotonic_and_clockread(&kernel_now, &host_tsc)) {
--			/*
--			 * Don't fall back to get_kvmclock_ns() because it's
--			 * broken; it has a systemic error in its results
--			 * because it scales directly from host TSC to
--			 * nanoseconds, and doesn't scale first to guest TSC
--			 * and *then* to nanoseconds as the guest does.
--			 *
--			 * There is a small error introduced here because time
--			 * continues to elapse between the ktime_get() and the
--			 * subsequent rdtsc(). But not the systemic drift due
--			 * to get_kvmclock_ns().
--			 */
--			kernel_now = ktime_get(); /* This is CLOCK_MONOTONIC */
--			host_tsc = rdtsc();
--		}
-+		    !kvm_get_monotonic_and_clockread(&kernel_now, &host_tsc))
-+			break;
+-void kvm_hv_setup_tsc_page(struct kvm *kvm,
+-			   struct pvclock_vcpu_time_info *hv_clock);
++void kvm_hv_setup_tsc_page(struct kvm_vcpu *v,
++			   struct pvclock_vcpu_time_info *hv_clock,
++			   unsigned int seq);
+ void kvm_hv_request_tsc_page_update(struct kvm *kvm);
  
- 		/* Calculate the guest kvmclock as the guest would do it. */
- 		guest_tsc = kvm_read_l1_tsc(vcpu, host_tsc);
- 		guest_now = __pvclock_read_cycles(&hv_clock, guest_tsc);
-+		fallback = false;
- 	} while (0);
+ void kvm_hv_xsaves_xsavec_maybe_warn(struct kvm_vcpu *vcpu);
+@@ -377,8 +378,9 @@ static inline void kvm_hv_nested_transtion_tlb_flush(struct kvm_vcpu *vcpu,
  
--	if (r) {
-+	if (fallback) {
- 		/*
--		 * Without CONSTANT_TSC, get_kvmclock_ns() is the only option.
-+		 * Without CONSTANT_TSC and the master clock,
-+		 * get_kvmclock_ns() is the only option.
- 		 *
- 		 * Also if the guest PV clock hasn't been set up yet, as is
- 		 * likely to be the case during migration when the vCPU has
- 		 * not been run yet. It would be possible to calculate the
- 		 * scaling factors properly in that case but there's not much
--		 * point in doing so. The get_kvmclock_ns() drift accumulates
--		 * over time, so it's OK to use it at startup. Besides, on
--		 * migration there's going to be a little bit of skew in the
--		 * precise moment at which timers fire anyway. Often they'll
--		 * be in the "past" by the time the VM is running again after
--		 * migration.
-+		 * point in doing so. Without the master clock, the
-+		 * get_kvmclock_ns() drift accumulates over time, so it's OK
-+		 * to use it at startup. Besides, on migration there's going
-+		 * to be a little bit of skew in the precise moment at which
-+		 * timers fire anyway. Often they'll be in the "past" by the
-+		 * time the VM is running again after migration.
- 		 */
- 		guest_now = get_kvmclock_ns(vcpu->kvm);
- 		kernel_now = ktime_get();
+ int kvm_hv_vcpu_flush_tlb(struct kvm_vcpu *vcpu);
+ #else /* CONFIG_KVM_HYPERV */
+-static inline void kvm_hv_setup_tsc_page(struct kvm *kvm,
+-					 struct pvclock_vcpu_time_info *hv_clock) {}
++static inline void kvm_hv_setup_tsc_page(struct kvm_vcpu *v,
++					 struct pvclock_vcpu_time_info *hv_clock,
++					 unsigned int seq) {}
+ static inline void kvm_hv_request_tsc_page_update(struct kvm *kvm) {}
+ static inline void kvm_hv_xsaves_xsavec_maybe_warn(struct kvm_vcpu *vcpu) {}
+ static inline void kvm_hv_init_vm(struct kvm *kvm) {}
+diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
+index 05c801973a7f..f7af94d8b3bb 100644
+--- a/arch/x86/kvm/x86.c
++++ b/arch/x86/kvm/x86.c
+@@ -1789,6 +1789,36 @@ static void kvm_end_pvclock_update(struct kvm *kvm)
+ 		kvm_clear_request(KVM_REQ_MCLOCK_INPROGRESS, vcpu);
+ }
+ 
++/*
++ * Re-mark the Hyper-V TSC page once a new pvclock snapshot is published:
++ * the mark made before the update may have been legitimately consumed an
++ * instant before the publish, writing values the publish then superseded.
++ * The consumer must be queued after the re-mark: the CLOCK_UPDATE
++ * broadcast from kvm_end_pvclock_update() can have been entirely consumed
++ * by the time the re-mark lands, since a consumer may sleep in
++ * kvm_hv_setup_tsc_page() (hv_lock is a mutex) across the whole update —
++ * the same sleep which serializes it against this re-mark. Queue on
++ * every vCPU: any one suffices (the page is VM-wide), but none in
++ * particular is guaranteed to ever run again.
++ */
++static void kvm_hv_remark_tsc_page(struct kvm *kvm)
++{
++#ifdef CONFIG_KVM_HYPERV
++	kvm_hv_request_tsc_page_update(kvm);
++
++	/*
++	 * Racy, but benign: a transition to HV_TSC_PAGE_SET in the
++	 * instants after the re-mark means a consumer has just written
++	 * the page from the current snapshot, and a guest which never
++	 * enabled the page (UNSET/BROKEN, the common case) needs no
++	 * broadcast at all.
++	 */
++	if (READ_ONCE(to_kvm_hv(kvm)->hv_tsc_page_status) ==
++	    HV_TSC_PAGE_HOST_CHANGED)
++		kvm_make_all_cpus_request(kvm, KVM_REQ_CLOCK_UPDATE);
++#endif
++}
++
+ static void kvm_update_masterclock(struct kvm *kvm)
+ {
+ 	kvm_hv_request_tsc_page_update(kvm);
+@@ -1961,6 +1991,7 @@ int kvm_guest_time_update(struct kvm_vcpu *v)
+ 	} while (read_seqcount_retry(&ka->pvclock_sc, seq));
+ #else
+ 	const bool use_master_clock = false;
++	unsigned int seq = read_seqcount_begin(&ka->pvclock_sc);
+ #endif
+ 	/*
+ 	 * Ensure reading the TSC+frequency pair is done on the same CPU.  When
+@@ -2056,7 +2087,7 @@ int kvm_guest_time_update(struct kvm_vcpu *v)
+ 		hv_clock.flags &= ~PVCLOCK_GUEST_STOPPED;
+ 	}
+ 
+-	kvm_hv_setup_tsc_page(v->kvm, &hv_clock);
++	kvm_hv_setup_tsc_page(v, &hv_clock, seq);
+ 
+ #ifdef CONFIG_KVM_XEN
+ 	/*
+@@ -4572,6 +4603,9 @@ static int kvm_vm_ioctl_set_clock(struct kvm *kvm, void __user *argp)
+ 		now_raw_ns = get_kvmclock_base_ns();
+ 	ka->kvmclock_offset = data.clock - now_raw_ns;
+ 	kvm_end_pvclock_update(kvm);
++
++	/* As in kvm_update_masterclock(): re-mark after publishing. */
++	kvm_hv_remark_tsc_page(kvm);
+ 	return 0;
+ }
+ 
 -- 
 2.43.0
 
