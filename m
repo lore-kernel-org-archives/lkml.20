@@ -1,96 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.137
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794372295;
-	b=A45mFOPPlEtHY+dKn0piDRuW64QAQV+AtrB8n/AJjMHvlevXW+IK2Mld2Yo4zHbDRmZF
-	 I8yqFsayq3E/dbcAmn1lW3ev9qFHeJyDoVFVa7sJjVQAxsV+A4sz/dDVcXv6aPqxjzFx6
-	 9fQdJhbQQCd/hRfRxJ0VVawpnhCuZReVHwOOZgI9RasXEdUe5t3CDwYpYOpAgGevPfV+c
-	 Ul8qnQzW0oDI6L+h4U1B+wOZk5CqmAMG+whi7VQt2MSzYTUBfOjyNC+ywZ8XD8e0BRogc
-	 0wcs5b0YGKJ2m+dDKG5HGaSGYo7XACvdxaGQvoCzL72mAUDJ+gIaVWAmABmWEZMqK9g==
+	t=1794372352;
+	b=LKGMzNjXLbPJMEwpTclQ+KohEbdvgIdykb99NV395Ar8vAFJKTFQ7Kn+JV7F4zX0ZHMw
+	 GZF+kC6ejRyw9hMHH3aeadYoHoQCzGPyX5a9bS1g0id9ylVMpxzVsvtAKkJ/udK1+fgW9
+	 yNNyfKwsYRLUUwYrkSK68BuRnKlKp1WOUQ+Rd43Q0WUSVpEFM+ttns4STrNCwTVukZlyf
+	 Cf22vRN/0WwFq/r9gfpb9SBaQN05fBoHLWVwhjerPED/h7B+hI+e++oJXPPA3CAlyJKud
+	 7dsddMolHTjjanGWLMwrEE1DYVHBwxvslvZvrU2EPc1zuhf1hxUTUyOH/bnGV0dNaow==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794372295;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=KoYYrzQCypT7hiVPNIFQ9/YTWNz1K37xLoWsOPOqb/g=;
-	b=iVRU4QpTN22/2jV8Ngv8RJeESA3HtaRZvtJMTyoEoRZZyxwfVJQeZQvR65txpF6WZLmX
-	 Nmpto/aylKerT5Ct5UYN3I5s2+neFm0rgXGAh+gfigZWNrT4/BFJRabJAu9kbj0dhORJK
-	 J7P5/t8anVHmcHLBVWmhYN/hwt+FQ3qVgVDrEi1Pi2scIkk/4iQCEVlSLy4d8Z7MO3lwF
-	 95cJa9FFeBN5kTX6BSwHb4oODZH79KGCfXEKcrsX71uGh6zZ96UyKdfJMIgJn1QjouJPf
-	 JuQz3vWGmNgb3yC3sD58TTgTZTdb8Xa29L4AxV3S1U2OJU9r54UjnsZIVjQFTnMwZRg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794372352;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=QihW/6Enmbr2pJagUmwIuHLjXObwQ7XXA7JRjeBMr20=;
+	b=s+lr9GKZzpu9AM1Z7W7Oz8/x1GFhmkBtgHjL7DJpBb+wtVgqSDA2HFdWPYnpfWcDklj/
+	 2RFN9kOFe/YMD2fQcvnfHgBt6UZvpQVXv5mJXo7EcIerEZV23h1/cNp3uqqu3BGM2ODNR
+	 92L93Sggia2lOVJ/YItmefpwsgPWCbOkL6BJf7KI7rteR0C4kMflVFt3Qg87dB/iqvjol
+	 5u3Q9rtAA0cFDJ1XOSOThHt6U0TgxFx2uYcuDl02klG4yoOi4IT/kEVu9c14YDW/7hXH5
+	 TMdMt6i+QI76NzQ4Sr90puaFB4l91/rF3qmFlpshPBB+B9DTlBvqWuTcxFN7I+ZOGgg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=clUU+nVL;
-	arc=none smtp.remote-ip=209.85.216.54
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E8B460A260C
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 04:44:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E8B460A260C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=XmnuiKDa;
+	arc=none smtp.remote-ip=111.22.67.137
+Received: from cmccmta4.chinamobile.com (cmccmta4.chinamobile.com [111.22.67.137])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D7A7C606A327;
+	Wed, 11 Nov 2026 04:45:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D7A7C606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=clUU+nVL
-Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-3ad41b47541so1736379a91.1
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 20:44:55 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=XmnuiKDa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1794372295; x=1794977095; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=KoYYrzQCypT7hiVPNIFQ9/YTWNz1K37xLoWsOPOqb/g=;
-        b=clUU+nVLi3g78VSHR4IbHtS+EX2/WopjzD4YtK9dLlnxn8DhvsIvLE/rPMCtgiZPAD
-         RMVEsb8O5AGRKTbCix4KZOgzMhE7VT/HxN2bm3cXHMtzxsj2gcadmfF12cFJrARTs8hJ
-         9QD+WAU6tcuJSIQ8qOeMV0hIAmxhVD5kMKybc=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794372295; x=1794977095;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=KoYYrzQCypT7hiVPNIFQ9/YTWNz1K37xLoWsOPOqb/g=;
-        b=mHqYEUlwQTKSFuC0q2kQo1y7liTlr0JC20eAOnXPTkN653GuR7qLkQ/UDR2SNEcF9z
-         o4DT5XKCeI9gLxHEAHqhB+4VonUUJ0N4oxSIk+XGhj5JeH6v092pJN7JgyTR6kiowKO5
-         pvMxDlgP6D74XJyaWtbtGSkfGatAD5kN4i8OxRcszyOfK5bpqbgRFpPeO5OEM9CWkWTD
-         s0XV0Q/Bv6NUuvGC5N9uUKiYcQrslXny3yWaMt4Ymya9HrxrD5mzzJSRaXILCyshNcFI
-         ICDNH610VI0G1l6UooYUM6tFWfba+WX90Imdu9OwN8LQ6oDkz9KHPTrT6xNVsAnKv7qz
-         YeXQ==
-X-Forwarded-Encrypted: i=1; AL+hErEWnKQixBz7AKBwEkVNHAwReN7c1XboznBiGRiPPLhWx2gbl6wn6F9Hfy9cQsblvWfi75kATPk0ugovDCI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/XswTmsNbrZbjakV7/7tesXo4cry9m145U9STwQQA7j8ANdkpp
-	M48X3mstPH/XLUWwTvEU0CEuL1ykROnEkMo5o2jW7B/hghFU5RPeKgCIdnSje0Vp/g==
-X-Gm-Gg: AYBFou343Yl5AmfzklU/aSZ8PFJeZF9DFzx+hqiQr/cf1ztsWLVzP0MHyklHNv4d9/+
-	f7/SH0N7t5jrV8l9x13XnE1VfL0W1hN4MroaygfXuF6CdQrEucEIM3sS9JV5/wSRSqLNmUUS9Wc
-	Crmq/wkQkiyIsT+qDAFD0vsVp29yd2Jat2on/d+qo/MWlNnGt6DggDdOs06WYmvgY9CHrZH/0EW
-	tAITEYJiVNOyu+NLG9gOSjPO8BgqUtVar0K1ZIVGXNgUDVqGMwsrbaernD6ich0et9qRRJhUwbb
-	r3Mg8Lz+YSM9nSHrD6ZiLsfrYxauu6yWws8tlde9A3zA43h94QlXql86LCsdN1awTVqmu2n/C5l
-	x2Ya/IoniyiZ3XUjBlWYNDsirqrFS2hNn/Reb49UV2oZv662IuIHBbCQRcDDrCeNNAGqt4phsV7
-	KkpuHU8QUdF5T/ppad2dxhWYQyRKikopLaXqPL+Yy2JlzJYzSlz4ppLnzqvgo/TVLXGjlg62x53
-	W+zjEqK8AJYJovwwHU2OXvmprd8l4LNNBg9+Pyc4xRfLIxkNfCtvdCpDSVb1IODO/jfB2sUp7wR
-	bZ+9nP3Zq6wx7++phpnB/SJ4BzNu7L5EUpRAFu3qc3Ey7Y2FaqMlbw0wzghRLGfKSsO87Q==
-X-Received: by 2002:a17:90b:17c8:b0:3ac:a521:95c with SMTP id 98e67ed59e1d1-3b182f1b3bamr1359541a91.58.1794372294543;
-        Tue, 10 Nov 2026 20:44:54 -0800 (PST)
-Received: from google.com ([2a00:79e0:2031:6:ad6a:b446:df00:78dc])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b17db5cc73sm2535622a91.10.2026.11.10.20.44.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 20:44:53 -0800 (PST)
-Date: Wed, 11 Nov 2026 13:44:49 +0900
-From: Sergey Senozhatsky <senozhatsky@chromium.org>
-To: Yosry Ahmed <yosry@kernel.org>
-Cc: Sergey Senozhatsky <senozhatsky@chromium.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, Nhat Pham <nphamcs@gmail.com>, 
-	Yosry Ahmed <yosry.ahmed@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>, 
-	Brian Geffon <bgeffon@google.com>, Minchan Kim <minchan@kernel.org>, 
-	Richard Chang <richardycc@google.com>, linux-kernel@vger.kernel.org, linux-block@vger.kernel.org, 
-	linux-mm@kvack.org
-Subject: Re: [PATCH v2 08/11] zsmalloc: encode 1-based obj_idx so valid obj
- is never 0
-Message-ID: <avPyH5Dbb0MI-JXQ@google.com>
-References: <20261110054836.1515030-1-senozhatsky@chromium.org>
- <20261110054836.1515030-9-senozhatsky@chromium.org>
- <avNJ0p1v6FZ-wnQE@google.com>
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=XmnuiKDa+irRScHJeAQ407Qg8eRyVnqZEtGyobhUKrQpvlj84Tdj8l1nIGosOQg6Cpn4u97cPaUhx
+	 lV1h2S9yB2qHg1AQiZJeD8M42VyeFVTteRDLXOt6ETOwh/Csf3OfHP9e2a//UmQlkH0iQYvxn0onEW
+	 /OHRR7IlsQCnANpI=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app04-12004 (RichMail) with SMTP id 2ee46af3f2fd437-742bd;
+	Wed, 11 Nov 2026 12:45:49 +0800 (CST)
+X-RM-TRANSID:2ee46af3f2fd437-742bd
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from [25.255.2.225] (unknown[10.55.1.70])
+	by rmsmtp-syy-appsvr10-12010 (RichMail) with SMTP id 2eea6af3f2fb415-ce5b3;
+	Wed, 11 Nov 2026 12:45:49 +0800 (CST)
+X-RM-TRANSID:2eea6af3f2fb415-ce5b3
+From: Jiahao Xu <xujiahao@cmss.chinamobile.com>
+To: netdev@vger.kernel.org
+Cc: Oliver Neukum <oliver@neukum.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
+	David S . Miller <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org, syzbot+1994e2ecf323ed90f255@syzkaller.appspotmail.com,
+	Jiahao Xu <xujiahao@cmss.chinamobile.com>
+Subject: Re: [PATCH net] net: usb: cdc_ncm: don't underflow the NDP room check
+Date: Wed, 11 Nov 2026 12:45:46 +0800
+Message-ID: <20261111124546.992581-1-xujiahao@cmss.chinamobile.com>
+In-Reply-To: <179431970794.994134.5397680174063039863@kernel.org>
+References: <20261109060913.526268-1-xujiahao@cmss.chinamobile.com> <179431970794.994134.5397680174063039863@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,40 +71,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <avNJ0p1v6FZ-wnQE@google.com>
+Content-Transfer-Encoding: 8bit
 
-On (26/11/10 16:44), Yosry Ahmed wrote:
-[..]
-> > Store obj_idx + 1 in obj, so that a valid obj is never 0, and adjust
-> > ZS_MIN_ALLOC_SIZE so that the largest index still fits.  Unlike a
-> > separate tag bit, this doesn't take any bits from obj.  zsmalloc did
-> > the same before handles moved to handle_cachep, see
-> > commit 67296874eb1c ("staging: zsmalloc: Ensure handle is never 0 on
-> > success").
-> > 
-> > Signed-off-by: Sergey Senozhatsky <senozhatsky@chromium.org>
-> > ---
-> >  mm/zsmalloc.c | 19 +++++++++++++------
-> >  1 file changed, 13 insertions(+), 6 deletions(-)
-> > 
-> > diff --git a/mm/zsmalloc.c b/mm/zsmalloc.c
-> > index 3a6a7253fd01..aa436df0cc4d 100644
-> > --- a/mm/zsmalloc.c
-> > +++ b/mm/zsmalloc.c
-> > @@ -61,7 +61,8 @@
-> >   * Object location (<PFN>, <obj_idx>) is encoded as
-> >   * a single (unsigned long) handle value.
-> >   *
-> > - * Note that object index <obj_idx> starts from 0.
-> > + * Note that object index <obj_idx> starts from 0, and is encoded as
-> > + * <obj_idx> + 1 so that a valid encoded obj value is never 0.
-> 
-> Well, this may be a stupid question, but why not make obj_idx start at
-> 1?
+On Tue, 2026-11-10 at 14:08 +0000, netdev-bot+sashiko@kernel.org wrote:
+> [Medium] The code change looks right, but does this paragraph describe
+> the trigger and the root cause accurately?  Can a second datagram in the
+> same NTB reach this check at all?
 
-I didn't write that code!  I just resurrected 67296874eb1c! Just joking.
+You are right, my description of the trigger was wrong.  I re-read the
+code and your analysis holds on every point:
 
-We use idx to calculate offset, we need it to start from 0:
-	off = offset_in_page(class->size * obj_idx)
+ - cdc_ncm_ndp16() returns the NDP it finds in the chain when the
+   signature matches, so on plain cdc_ncm, which always uses the same
+   signature, the create path here is normally reached for the first
+   datagram of an NTB only.  An additional NDP for an NTB that already
+   holds datagrams comes from cdc_mbim_tx_fixup(), which uses a
+   different signature per MBIM session.
+ - cdc_ncm_setup() clamps tx_max through cdc_ncm_update_rxtx_max()
+   before cdc_ncm_set_dgram_size() runs, so cdc_ncm_check_tx_max()
+   computes its lower bound with ctx->max_datagram_size still 0.  The
+   bound is therefore max_ndp_size plus the NTH header only, not one
+   datagram plus one NDP.
+ - In the report, end 0x140 = 320 is tx_max derived from a device
+   dwNtbOutMaxSize of 320, and the 256 bytes already in the skb are the
+   12 byte NTH header padded by cdc_ncm_align_tail() to the 256 byte
+   wNdpOutAlignment that cdc_ncm_fix_modulus() accepts because it is
+   smaller than tx_max.
+
+So the reachable triggers are the device controlled
+dwNtbOutMaxSize/wNdpOutAlignment combination, or MBIM multi-session
+NDPs, and not a second datagram on plain cdc_ncm.
+
+v3 keeps the code unchanged and only fixes the commit message:
+
+  https://lore.kernel.org/all/20261111124156.637661-1-xujiahao@cmss.chinamobile.com/
+
+The Fixes: tags you asked for are already part of it.
+
+pw-bot: cr
+
+
