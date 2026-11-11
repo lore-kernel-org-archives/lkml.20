@@ -1,136 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=198.175.65.19
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1794383881;
-	b=H/HdoIA9l0W9fgrCHimDzGTUnY3/WINJRtlXN1PNBCjuk0jDGl8Wxs9BsFNZKP8vP9ov
-	 N92GHL52W4KwZf2cx/aBs7Xx1hKAaXTYfru175iLd/5HXbepv7a9Ecm9hySH3NY28cxaM
-	 EN7iyWesU2os/voXh0IWEpAa4Fsfc/HffmkFgne4ZgsuH7smmlEp5CBmIH4OWsPNkMUrO
-	 zL3ceLLaOVX4T3sBcEDHCXRn3pzH7Ojl3qDTUyPyv29FOfNEQjKGvXA5sdOV6gvYrLUA/
-	 SKKfOdxXdpbADe/fGG+SKzWXfB1BStbIj8DySi+bEf1oQUbUF+Lm6kiYinC+ID2z/Xg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794383881;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
-	 Received:Received:Received:Date:From:To:CC:Subject:Message-ID:
-	 References:Content-Type:Content-Disposition:In-Reply-To:
-	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
-	bh=K5n/FQvKhipajNUNAc44zdwaemBJbMHgCBPfhAJsjTE=;
-	b=DV7/lYhV4RH8p9mrXYGnfwmXNanwn84gezO3dESsvSwG2rc6UOaLZz7VFIvTZyMBiCq9
-	 QF5xx5ISbWsRdxkqgamlOsNhI/LJvu/qXC0gpUkNBtgRSYuqboaMHbuVeKjxF383IgsS/
-	 PSw4q5ptur0P75D5PrOrXVHqSjI3GM4ukQfPUdjRPIwUxTNmyEDojLtWyIeGa5HFojIzv
-	 w3+aymUgwjqBdmvzgSm7/LPS9e+Kk+qNx/u+3loPs+0CjbxWBG7bzDLZzZgfsJ5HJB5cO
-	 BdZLGIFJlFRJ6X4PWMwSB99P9FbIy72mkrgMfK/oTaxXIRmIKzZUICojGC2LyuUXcPA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Hratg650;
-	arc=fail smtp.remote-ip=198.175.65.19
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794383935;
+	b=fM77Vz/6HIFERt9QUef8RzWbPJqsuMNdr/TDowC4EPxIZvtE1iHJ0hvZmMeFnjBUL+uU
+	 aD61mmZULqOiN3HEFSepktvaVYz5A+dxqNSVGCWaHzs4//ZO+fojT6vcZcT79ZoXbcScW
+	 15Av/8R7IJhg1GltV7jr1K7nYGgDayZQDFEsw48Sx9GcPHxmxKWuyr3SngJ0SJoEEDiL4
+	 imAz+l90WJRCKb2538e8Pu+4HlDbqU/Neq2sJJBgF+TpXYgCX+d7BfluL5P8WaVqjZsWG
+	 bmW1GDNtunBDE1/lejdjsOEGy+ppXmAC7zCt0CQOzhe2YBgwANW2oCJ6kK0ViKAve6A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794383935;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
+	 X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
+	bh=XDG6basHzxkilEUcwbulHoyH0xra7DSJQosb/MDBTsE=;
+	b=FvcZElqNascsoUVErUIBuX7sITv0A9CQagdW1JoOtXKfLlfAYUl47FkrggBn6MRbYbLF
+	 KykOi1nP6kNpNZWik8YSUnBgZnRQQ8I2FaF8hkQdZYL1ozB5nhLhB2VNOf5mAPBxya3PF
+	 dNENrpW9kTP/S7bbomXBWlLRs+CBft2JtdNob1T/AOiXkdK2bXzFTaRACbE8UhuSTubmY
+	 gbZsWys/+zYGgfRBA5tVF4TTperTW708IEbZZj0QIg5zzSLGdfE2EeX6lP61icl/i9Yln
+	 UMcCD/L93UJO6eoZ/ZadyW+LKQbItoLKeeOnqX6yGNtPARf0OIEdrndq6BYxVhCpVdw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b="hZKvS5/g";
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b="hZKvS5/g";
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1CE5606A321;
-	Wed, 11 Nov 2026 07:58:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1CE5606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BDAA606A320;
+	Wed, 11 Nov 2026 07:58:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5BDAA606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Hratg650
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794383881; x=1825919881;
-  h=date:from:to:cc:subject:message-id:references:
-   in-reply-to:mime-version;
-  bh=XQIWPlJOggAchJCUyuilIbvP46JemBDdgqNuZi1ZbwQ=;
-  b=Hratg650Gw4YYcgR0cVLBhJ2kp+93A9o1BFMXbnVh52d5K6gTR4jez0d
-   8xnjY4tksTmN7JSENRtkO2aMseON+eHzzg0Po/fHxS4x8Un+7CxK0VWA9
-   OcTTaYA1VFNoPJrUINyhP8m6SXYDyCxbTI7RsepsKcReCYt487nNhLhR3
-   CTgYfX56VNGCFoft1udOORSnos20C5YACIILo8eFKUTCn3qNfGFqHlEG7
-   eIGyD/x7Gt1EgT9ZG01FIpzIIBMBQmW7in89Ee31XxR09dMmoTrA+uyJX
-   tlHUSw4WxKjv/xozdBssiSuSftYpU+r7lTgk5Bkmuw3LlVxZhHSSnkayE
-   w==;
-X-CSE-ConnectionGUID: 7ZQOxjwTQ5mfzVYnnhdQGA==
-X-CSE-MsgGUID: 8OYXVKkrTgWd+n+Olz8IbQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11962"; a="3194283"
-X-IronPort-AV: E=Sophos;i="6.27,207,1787036400"; 
-   d="scan'208";a="3194283"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 23:57:58 -0800
-X-CSE-ConnectionGUID: lzHQiXHzTAyJ1Up+0hvNVg==
-X-CSE-MsgGUID: AoloGWjzQUiggKNsNZSsrA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,207,1787036400"; 
-   d="scan'208";a="8704032"
-Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
-  by fmviesa001.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 23:57:57 -0800
-Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Tue, 10 Nov 2026 23:57:57 -0800
-Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56 via Frontend Transport; Tue, 10 Nov 2026 23:57:57 -0800
-Received: from BL0PR03CU003.outbound.protection.outlook.com (52.101.53.39) by
- edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Tue, 10 Nov 2026 23:57:57 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jv+8XUlqKTYM5KMTe3ojZtNrnc1q3x6goBvzxx1LbBe3fWXHZahRi7SXT64ZhaUCNauFShqraYgYQJnpGwmDfSxi9RtbNOAAWdk/0ZEvUXOkoLkux3XDjsdqbz+WwZSOuL5V88lg/6TS26QaGa8PgexMLCY6umpcHV5r7e6fQESQYQbFOO6jvGxT31gV3ovpdDQsN2z7LVpfXE+oWYX0Z5JOnSZqv03usuOB+dItNglZpi7p9tJ0xJGbH5G16MdZE/tTWu3c3kUueKEXVfSGQKIYBPTPddEWBwK0BOX6TEpoVFtH4ay0ASHhAekqjrhvpP8T4aMYNzgs7F0axvWvOg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=K5n/FQvKhipajNUNAc44zdwaemBJbMHgCBPfhAJsjTE=;
- b=bfkB0d9XCDcloQrgAOr3J2EUvDe4fIJo6yUqSY8WnER/5UI5gBSUhyzK+S73lLoo3EV5a1Hu0wReWP7XztVImpZvrMbujuZXtasILymOVgNEGTs+C3VWqv27rmN+AxiTcbfjNk78HPOVNWukXonYZTRwgt6Nr/lEKNNhBm9un/ATCYJG0K1xK4q2drXw1eX57GZlyxF9QCORd7bBl3uyTuSJq+zNMUJwi7QAIxB+zk/NwJR5JBV1aNd1+KIEmxMi7rhCwosC1LybuDdVqFjFNx5gZgsVcbbJL8o4HwISZGOkzrCx88AEmgZIwHzjCmD7KcqfFVAMhB7Syw4L/Q9jVQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from IA0PR11MB8380.namprd11.prod.outlook.com (2603:10b6:208:485::21)
- by DS0PR11MB7261.namprd11.prod.outlook.com (2603:10b6:8:13d::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Wed, 11 Nov
- 2026 07:57:54 +0000
-Received: from IA0PR11MB8380.namprd11.prod.outlook.com
- ([fe80::ea8e:eec4:f8d3:f95d]) by IA0PR11MB8380.namprd11.prod.outlook.com
- ([fe80::ea8e:eec4:f8d3:f95d%5]) with mapi id 15.21.0592.010; Wed, 11 Nov 2026
- 07:57:54 +0000
-Date: Wed, 11 Nov 2026 15:57:40 +0800
-From: Chao Gao <chao.gao@intel.com>
-To: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>
-CC: "kvm@vger.kernel.org" <kvm@vger.kernel.org>, "linux-coco@lists.linux.dev"
-	<linux-coco@lists.linux.dev>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "Van De Ven, Arjan"
-	<arjan.van.de.ven@intel.com>, "Xu, Yilun" <yilun.xu@intel.com>,
-	"dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>, "x86@kernel.org"
-	<x86@kernel.org>, "kas@kernel.org" <kas@kernel.org>, "hpa@zytor.com"
-	<hpa@zytor.com>, "mingo@redhat.com" <mingo@redhat.com>, "bp@alien8.de"
-	<bp@alien8.de>, "tglx@kernel.org" <tglx@kernel.org>
-Subject: Re: [RFC PATCH v2 1/2] x86/virt/seamldr: Support large TDX module
- binaries
-Message-ID: <avQf9L0CYU0LfgJh@intel.com>
-References: <20261106132159.1551365-1-chao.gao@intel.com>
- <20261106132159.1551365-2-chao.gao@intel.com>
- <0ee3d9592e4e73bd0e5bedafc836033fdfc9f120.camel@intel.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <0ee3d9592e4e73bd0e5bedafc836033fdfc9f120.camel@intel.com>
-X-ClientProxiedBy: JH0PR01CA0061.apcprd01.prod.exchangelabs.com
- (2603:1096:990:57::8) To IA0PR11MB8380.namprd11.prod.outlook.com
- (2603:10b6:208:485::21)
+	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=hZKvS5/g;
+	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=hZKvS5/g
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 6B47521E1A;
+	Wed, 11 Nov 2026 07:58:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1794383932; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=XDG6basHzxkilEUcwbulHoyH0xra7DSJQosb/MDBTsE=;
+	b=hZKvS5/gINNgUiyHsS1Ie7DeAUUdW60Evm43EGjtaCV5qv3foZJkeJBMCxQJ7mmQi9tiiE
+	tZ8HyoCeeNnjkiLOjotFUtkYdzz3d5qFM4xMkU+5JuuQO6LYbmUOOpCScg0ULmzRY8age8
+	3s/aiIZMS3ZoSM1jFG4yoCzL97mV2To=
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1794383932; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=XDG6basHzxkilEUcwbulHoyH0xra7DSJQosb/MDBTsE=;
+	b=hZKvS5/gINNgUiyHsS1Ie7DeAUUdW60Evm43EGjtaCV5qv3foZJkeJBMCxQJ7mmQi9tiiE
+	tZ8HyoCeeNnjkiLOjotFUtkYdzz3d5qFM4xMkU+5JuuQO6LYbmUOOpCScg0ULmzRY8age8
+	3s/aiIZMS3ZoSM1jFG4yoCzL97mV2To=
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 09683134E5;
+	Wed, 11 Nov 2026 07:58:52 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id WLIYMzsg9GradgAAD6G6ig
+	(envelope-from <jgross@suse.com>); Wed, 11 Nov 2026 07:58:52 +0000
+Message-ID: <353a0b62-0396-48c4-9e5d-fae5351d6abd@suse.com>
+Date: Wed, 11 Nov 2026 08:58:51 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -140,202 +81,285 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR11MB8380:EE_|DS0PR11MB7261:EE_
-X-MS-Office365-Filtering-Correlation-Id: ec785bd9-b0d8-497b-25b9-08df3fc97d4e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|23010399003|7416014|376014|18002099003|22082099003|10067099003|261022105027099003|56012099006|11063799006|261102123227099003|261026121527099003|261022115727099003|261028144727099003|261026140227099003|261021121427099003|261009223027099003|4143699003|261022075727099003;
-X-Microsoft-Antispam-Message-Info: qGT/M/1c4rBx7A/qyPXtTUwtBSILrksN0vUNggyKQsRTNdq9X6D4PzUd9Af+hqk3Un4eCpcz4C/2XkVDqQe/qxPvnNWVhMN+AhlwYzSEgVhHXhuRw1izGRPGKL3J/erQ2FGUJ8sqA0+4DHMseIqZ8MRaQ3uInl97ud/nSOTABunYtuwuvGPRI2l04CuwKwIaHb+Cc6WLv13Jy6/Rf83xD1WaDguGlAbmUBNcQkR+JzVFooq7zYjZk5lrWNOlVm503BX8C559cnWNMmFWB2ljVndEvhrhcfTCqig05SvooZ/KalD8lE0euCfluZNFEuc4mcSVS9puX6tH8mNPZULx7v5F/Z22ntGkkXbJniQHk2X1UCBRaSaf4QF19TR8J+euu738sVE8vOklr02teQeyL47Hi26Uycnuh6aaZOT2fzN/Libx6EW2PEz6qVKq2Lu754kZsKuMNcYTxwPo/yi1ybUn9TR9ykwf5j36voBoofVhtW1ojs2EWN+iRSKf/DNZ/sgDszUCr9Ld2LigmUH5O6xVgAZXwC4jZYFtkePEejxkqLfTCZvZqhZ9qhvFivm8BhGAnDTt11p7jcpmmmsD99wNH50lMTYtEuCC5EIl3LKAxFDyrg6KpnrJnE4S8VYiQ9vZsN+KpFjupP2OP2vhWLVBOsawIR5NEUkEqlMlevQ=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR11MB8380.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(7416014)(376014)(18002099003)(22082099003)(10067099003)(261022105027099003)(56012099006)(11063799006)(261102123227099003)(261026121527099003)(261022115727099003)(261028144727099003)(261026140227099003)(261021121427099003)(261009223027099003)(4143699003)(261022075727099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?F/H3cr9LTAQN06EkP+8UcREq4bTPu50zvsI1WgwjdDYgqEN/CjdLvxvSQ8sS?=
- =?us-ascii?Q?V2HWZiOPpGCHclH1KdEgAfZko5c2ylixtp1zFOMZGYKOu7zF+S3QeQeasZZE?=
- =?us-ascii?Q?gt2OKlSRHbaoOLMgSEgrD32Iuu12ef9QdTX67Kjm7LKQYIMpTOtYhH810mUY?=
- =?us-ascii?Q?TS2OsnV+Rt1zDnhxvRPKTl1h1FaaTHFFfVn9NHgCbzTOeBIdN55QrqMEM8u3?=
- =?us-ascii?Q?eUH3XRccBlS6UpfFRuK1KciUx61AxpGZIMG/1vkZDtAh2aDKHQWbV/6L06kE?=
- =?us-ascii?Q?IZwIKFOMjoY6cqfWmBCtAP1linpLvfubw2YUgvQql+16vUOGvkzJ46ZEnnOa?=
- =?us-ascii?Q?YJU2A7cgIF/1oHGvmImQuDh48sckwdmP8gRbI8CqfvJmieyGhbkoQEBHPDVA?=
- =?us-ascii?Q?d0QtUuySOxb+9i0lKM3WvGt4M7AAO8MIlKkpyLZ4iPklIgqCTRrywFrIar9y?=
- =?us-ascii?Q?hkBGRB74OlVH0a6zMndKu2TZXpsGRkHPwO3s0r+WOf3YHAZmrfoAqf1Cavvx?=
- =?us-ascii?Q?4orjjdOY5LUJK8yB1OCrHpS0qSV8amGRyDosq2GHYW2pkSI91tGVztp1zmHW?=
- =?us-ascii?Q?qBIWhs8et6AFaTSse8aQc7jZen2vdGfq+yP1HPkTnFKsk+mkndPl9eIz0FCI?=
- =?us-ascii?Q?4+6M3zpIUgbs5guRzGRD9fkgWkLfTr7Dufwa4rvXqrwawmjyW2R0GNFCJm/t?=
- =?us-ascii?Q?GwNfUBdUHcaEfxm4ZhLQVQUwwbZMKimoljBwadooBK0/kDQ9kA7DSf32Tp0q?=
- =?us-ascii?Q?bLGpdOJ6bdabIzSa3w4k4JMsVX+I6K5jc2t1rVHbCxOrO/nMb7g6eBzPQojv?=
- =?us-ascii?Q?juIL7/WdH790/OxWGHorDtL+z8wgqg13WaCVD7LX2OajFhPqBOqyV8MmcAm/?=
- =?us-ascii?Q?k+mK89bQL0CyO+Ge1nE2larrCXc92UMC2aROjRRQqLu2wifoG0gAtmvPQPP1?=
- =?us-ascii?Q?pZuoAFkhZO22spzq8nIZ1ySpI1Yf5rqEytMQtxWSqWYFf7RUkLj9I8bciqK3?=
- =?us-ascii?Q?7TukobRWnFGqs34GRlrxlhxdg7LzjKn2S1NxOWj6gqq+ZxMDq0Fqpx7R986g?=
- =?us-ascii?Q?wpWIp8+r72Jk/fmiS4KHAPY8dSp33LLDEJ73px1rAQ+myLyBu1RHe085IvQa?=
- =?us-ascii?Q?mvqbXzN8skWWA0RFT5fUjJVaYW902ahF1DEI6QOjyzWdjxqIeXhnckpGI1d4?=
- =?us-ascii?Q?Xo2jX7mcEjRl3veVNN50l0WZ/pdEThcVfiApmaPMSLJgrJLR1q8Eqtv4PxxX?=
- =?us-ascii?Q?nV7FQLhFsuOA8TBbxzRLYlYs5xzbS0QZltGrKMIJtYkiTwo1kdWhws1etFx+?=
- =?us-ascii?Q?/PQ76It9shUhbqnqSpA0TYfe/fdbYNxUV0g7qClNVvWOchCWX2QpYvdUrjuy?=
- =?us-ascii?Q?gu4D6DvsmO7bLcWky1iSMqYsBr+oJh186xAxuDMFPPtHszi7N6hNqazbRXNa?=
- =?us-ascii?Q?rOEh8TP5qu+KSNmkdps6OEvSwbakY+qP1TyqCaONsMHNLDWXYFjUqPUhF0AD?=
- =?us-ascii?Q?N3cXFiLYnFIduJqvWCLzvqZzBT2sKJI+3RCYkLA1EpN9EyoPruBIc4j0g+6n?=
- =?us-ascii?Q?TnSjC2AqTLCm884mzrZKGmRiZZUfB1wDRT55jL3E/83VEDusNRy+YnJExR7E?=
- =?us-ascii?Q?bYa1dX+aYRhU9ueyIxJxHJGqa/n6R6Y5WaZKgRf6e1XTuMs8AwwkHFcTKX26?=
- =?us-ascii?Q?Sphh4OLGzv0noIQl085e7d8sYtL4hHExRwQA4kGpZCbGVf7pZnQSB8NsyJ6i?=
- =?us-ascii?Q?aFCY61gjKg=3D=3D?=
-X-Exchange-RoutingPolicyChecked: xJRfsfErWAvpDGhwdp9CbHnFvv7fUNZc/v80TOgjYmDSn+ftrG0EwS8sHqw8tQMReKAeCpdwsNqkyGc8JEdURYRKVcMAghBYn6aNE7u2unqpuxrS7f4ndlOqplqhNjwbGAc1EHuUM8NYNhBOu78WGQ5ABqp12HIJQwvJPswycQn+zHi5ObW+CIwukctI124Pm+EOHrowoHhzw1+DtlYFSJaTmOw8UHa6dNxsc16vThys0cfKTQ6A6CIV3RPpqAn2j+NBF+XRIUz631NaAiIy8sVXJV0WJlotS8ZAZTYb7chWAvhqNEWxZmaU2kJ0Xtp2SY5W6gXWXCgunye05txFHA==
-X-MS-Exchange-CrossTenant-Network-Message-Id: ec785bd9-b0d8-497b-25b9-08df3fc97d4e
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR11MB8380.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 07:57:54.0181
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4uAMyH0FBre56TV1wgZ3VXt6gJi1CCWQdxVHxBdzIW4KtbJAdApg3qbCvp0kwORCq2irS14DflkBmAXW7IntQA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR11MB7261
-X-OriginatorOrg: intel.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] xen/scsiback: unbind the IRQ before draining in-flight
+ requests
+To: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+Cc: sstabellini@kernel.org, oleksandr_tyshchenko@epam.com,
+ xen-devel@lists.xenproject.org, linux-scsi@vger.kernel.org,
+ linux-kernel@vger.kernel.org, martin.petersen@oracle.com,
+ stable@vger.kernel.org
+References: <20261109122654.30859-1-yhlee@isslab.korea.ac.kr>
+Content-Language: en-US
+From: Juergen Gross <jgross@suse.com>
+Autocrypt: addr=jgross@suse.com; keydata=
+ xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
+ ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
+ dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
+ NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
+ XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
+ AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
+ CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
+ mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
+ G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
+ kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
+ Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
+ RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
+ vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
+ sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
+ aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
+ w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
+ auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
+ 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
+ fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
+ HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
+ QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
+ ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
+In-Reply-To: <20261109122654.30859-1-yhlee@isslab.korea.ac.kr>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------DYT4LtVi7lOHSSaAYUc4WYme"
+X-Spam-Flag: NO
+X-Spam-Level: 
+X-Spamd-Result: default: False [-9.80 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	NEURAL_SPAM_LONG(3.49)[0.996];
+	BAYES_HAM(-3.00)[100.00%];
+	SIGNED_PGP(-2.00)[];
+	MIME_BASE64_TEXT_BOGUS(1.00)[];
+	MIME_GOOD(-0.20)[multipart/signed,multipart/mixed,text/plain];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_BASE64_TEXT(0.10)[];
+	XM_UA_NO_VERSION(0.01)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MIME_TRACE(0.00)[0:+,1:+,2:+,3:~];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	RCVD_TLS_ALL(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	DKIM_SIGNED(0.00)[suse.com:s=susede1];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo];
+	HAS_ATTACHMENT(0.00)[]
+X-Spam-Score: -9.80
 
-On Tue, Nov 10, 2026 at 06:34:29AM +0800, Edgecombe, Rick P wrote:
->On Fri, 2026-11-06 at 05:21 -0800, Chao Gao wrote:
->> The module binary is handed to P-SEAMLDR as a list of page physical
->> addresses in 'struct seamldr_params'. The list has 496 entries, which
->> caps a module at 496 pages.
->
->nit. change it to "...caps a module at the same number of pages".
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------DYT4LtVi7lOHSSaAYUc4WYme
+Content-Type: multipart/mixed; boundary="------------6MHWeXlZpmNFcy2heHyg8pAR";
+ protected-headers="v1"; hp="clear"
+Message-ID: <353a0b62-0396-48c4-9e5d-fae5351d6abd@suse.com>
+Date: Wed, 11 Nov 2026 08:58:51 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] xen/scsiback: unbind the IRQ before draining in-flight
+ requests
+To: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+Cc: sstabellini@kernel.org, oleksandr_tyshchenko@epam.com,
+ xen-devel@lists.xenproject.org, linux-scsi@vger.kernel.org,
+ linux-kernel@vger.kernel.org, martin.petersen@oracle.com,
+ stable@vger.kernel.org
+References: <20261109122654.30859-1-yhlee@isslab.korea.ac.kr>
+Content-Language: en-US
+From: Juergen Gross <jgross@suse.com>
+Autocrypt: addr=jgross@suse.com; keydata=
+ xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
+ ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
+ dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
+ NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
+ XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
+ AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
+ CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
+ mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
+ G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
+ kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
+ Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
+ RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
+ vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
+ sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
+ aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
+ w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
+ auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
+ 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
+ fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
+ HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
+ QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
+ ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
+In-Reply-To: <20261109122654.30859-1-yhlee@isslab.korea.ac.kr>
 
-Ack.
+--------------6MHWeXlZpmNFcy2heHyg8pAR
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
->
->> 
->> TDX modules are gaining features and are about to outgrow that limit.
->> 
->> The P-SEAMLDR ABI was extended to chain the list across 4KB pages. For
->> a module over 495 pages, the last of the 496 entries points to another
->> page of entries instead of to a module page. The last entry of that
->> page can point to yet another page, and so on, until every module page
->> is listed.
->> 
->> Grow module_pages_pa_list[] so that 'struct seamldr_params' spans
->> multiple pages (16 for now), and use the extra pages as the chained
->> pages. The last entry of each page then points to the entry right after
->> it, which starts the next page. These link entries do not hold module
->> pages, so leave them out of the maximum module page count.
->> 
->> The 16-page size is somewhat arbitrary. It fits modules of up to about
->> 32MB, far above the roughly 2MB of current modules. It wastes 60KB for
->> today's modules, which is fine because the memory is freed right after
->> the update. Sizing module_pages_pa_list[] per module would mean either
->> moving the allocation after the image header is validated, or allocating
->> from an unvalidated page count. Either way it is more code churn.
->> 
->> Do not query P-SEAMLDR for chaining support. Userspace selects the update
->> image and is responsible for ensuring the module is compatible with
->> P-SEAMLDR.
->> 
->> Thanks to Yilun for the idea of allocating the chain pages together
->> with 'struct seamldr_params'.
->
->I'm not sure what this means.
+T24gMDkuMTEuMjYgMTM6MjYsIFllaHllb25nIExlZSB3cm90ZToNCj4gc2NzaWJhY2tfZGlz
+Y29ubmVjdCgpIGRyYWlucyB0aGUgaW4tZmxpZ2h0IGNvdW50IGJlZm9yZSBzdG9wcGluZyB0
+aGUgb25seQ0KPiB0aGluZyB0aGF0IGNhbiByYWlzZSBpdC4gIHNjc2liYWNrX2NtZF9leGVj
+KCkgKHhlbi1zY3NpYmFjay5jOjQyNikgcnVucyBpbg0KPiB0aGUgYmFja2VuZCdzIHRocmVh
+ZGVkIElSUSBoYW5kbGVyLCBzbyBhIHJlcXVlc3QgY2FuIGJlIGFkbWl0dGVkIGp1c3QgYWZ0
+ZXINCj4gd2FpdF9ldmVudCgpIGhhcyBzZWVuIHplcm8sIGFuZCBpdHMgcmVzcG9uc2UgaXMg
+d3JpdHRlbiBsYXRlciBmcm9tIHRhcmdldA0KPiBjb3JlIGNvbnRleHQgYnkgc2NzaWJhY2tf
+c2VuZF9yZXNwb25zZSgpICg6MzQ3KSAtIGFmdGVyIHRoZSByaW5nIGhhcyBiZWVuDQo+IHVu
+bWFwcGVkLCBhbmQgb24gdGhlIHNjc2liYWNrX3JlbW92ZSgpIHBhdGggKDoxMjY4LTEyODAp
+IGFmdGVyIGtmcmVlKGluZm8pLg0KPiANCj4geGVuLWJsa2JhY2sgYW5kIHhlbi1uZXRiYWNr
+IHN0b3AgdGhlaXIgcmVxdWVzdCBwcm9jZXNzaW5nIGZpcnN0Og0KPiBrdGhyZWFkX3N0b3Ao
+KSBiZWZvcmUgcmVhZGluZyByaW5nLT5pbmZsaWdodA0KPiAoeGVuLWJsa2JhY2sveGVuYnVz
+LmM6MjkwLTMwNCksIGFuZCB0aGUga3RocmVhZHMgYW5kIG5hcGkgYmVmb3JlDQo+IHVuYmlu
+ZGluZyBhbmQgdW5tYXBwaW5nICh4ZW4tbmV0YmFjay9pbnRlcmZhY2UuYzo2NzMtNzAwKS4N
+Cj4gDQo+IFVuYmluZCBhbmQgY2xlYXIgaW5mby0+aXJxIGJlZm9yZSB0aGUgZHJhaW46IG5v
+dGhpbmcgaXMgYWRtaXR0ZWQgb25jZSB0aGUNCj4gaGFuZGxlciBpcyBnb25lLCBhbmQgdGhl
+IHJpbmcgc3RheXMgbWFwcGVkIHVudGlsIHRoZSBkcmFpbiBmaW5pc2hlcy4gIFRoZQ0KPiBu
+b3RpZnkgYXQgdGhlIGVuZCBvZiBzY3NpYmFja19zZW5kX3Jlc3BvbnNlKCkgaXMgdGhlbiBh
+IG5vLW9wLCBiZWNhdXNlDQo+IG5vdGlmeV9yZW1vdGVfdmlhX2lycSgpIHJlc29sdmVzIGly
+cSAwIHRocm91Z2ggZXZ0Y2huX2Zyb21faXJxKCkgdG8gcG9ydCAwLA0KPiB3aGljaCBWQUxJ
+RF9FVlRDSE4oKSByZWplY3RzIChldmVudHNfYmFzZS5jOjUzOS01NDUsIDo0MTEtNDIxKS4N
+Cj4gDQo+IFJlcHJvZHVjZWQgaW4gYSBuZXN0ZWQtWGVuIGxhYiB3aXRoIEtBU0FOLiAgUmVh
+Y2hpbmcgdGhlIHdpbmRvdyBuZWVkZWQgdHdvDQo+IHRlc3Qtb25seSB1c2xlZXBfcmFuZ2Uo
+KSBkZWxheXMsIG9uZSBhZnRlciB3YWl0X2V2ZW50KCkgcmV0dXJucyBhbmQgb25lIGF0DQo+
+IHRoZSB0b3Agb2Ygc2NzaWJhY2tfZG9fcmVzcF93aXRoX3NlbnNlKCkgb25jZSB0aGUgdGVh
+cmRvd24gaGFzIHN0YXJ0ZWQuDQo+IFdpdGggYm90aCBvZmYgbmVpdGhlciBhcm0gcHJvZHVj
+ZWQgYW55dGhpbmcgaW4gNCByb3VuZHMgZWFjaDsgd2l0aCBib3RoIG9uDQo+IHRoZSB1bnBh
+dGNoZWQgZHJpdmVyIGNyYXNoZWQgaW4gNiBvZiA2IHZhbGlkIGNlbGxzLCB0aGUgcGF0Y2hl
+ZCBpbiAwIG9mIDc6DQo+IA0KPiBbICAxNjguNTQ2NzA5XSBCVUc6IEtBU0FOOiB2bWFsbG9j
+LW91dC1vZi1ib3VuZHMgaW4gc2NzaWJhY2tfc2VuZF9yZXNwb25zZSsweDUxNi8weDVkMA0K
+PiBbICAxNjguNTUxMDEyXSBXcml0ZSBvZiBzaXplIDQgYXQgYWRkciBmZmZmYzkwMDAwMDIz
+MGE0IGJ5IHRhc2sga3dvcmtlci8wOjEvMTENCj4gWyAgMTY4LjU1NDc1N10NCj4gWyAgMTY4
+LjU1NTkwOF0gQ1BVOiAwIFVJRDogMCBQSUQ6IDExIENvbW06IGt3b3JrZXIvMDoxIE5vdCB0
+YWludGVkIDcuMy4wLWtDVExibGsyLTE1NDgyLWcyMWE3ZjQ0ZmQwNzYtZGlydHkgIzEwIFBS
+RUVNUFQoZnVsbCkNCj4gWyAgMTY4LjU1NTkxNF0gSGFyZHdhcmUgbmFtZTogUUVNVSBTdGFu
+ZGFyZCBQQyAoUTM1ICsgSUNIOSwgMjAwOSksIEJJT1MgMS4xNi4zLWRlYmlhbi0xLjE2LjMt
+MiAwNC8wMS8yMDE0DQo+IFsgIDE2OC41NTU5MThdIFdvcmtxdWV1ZTogdGFyZ2V0X2NvbXBs
+ZXRpb24gdGFyZ2V0X2NvbXBsZXRlX29rX3dvcmsNCj4gWyAgMTY4LjU1NTkzOV0gQ2FsbCBU
+cmFjZToNCj4gWyAgMTY4LjU1NTk0Nl0gIDxUQVNLPg0KPiBbICAxNjguNTU1OTQ5XSAgZHVt
+cF9zdGFja19sdmwrMHg2NC8weDgwDQo+IFsgIDE2OC41NTU5NThdICBwcmludF9yZXBvcnQr
+MHhkMC8weDYzMA0KPiBbICAxNjguNTU1OTY2XSAgPyBfX3BmeF9fcmF3X3NwaW5fbG9ja19p
+cnFzYXZlKzB4MTAvMHgxMA0KPiBbICAxNjguNTU1OTc4XSAgPyBzY3NpYmFja19zZW5kX3Jl
+c3BvbnNlKzB4NTE2LzB4NWQwDQo+IFsgIDE2OC41NTU5ODNdICBrYXNhbl9yZXBvcnQrMHhj
+ZS8weDEwMA0KPiBbICAxNjguNTU1OTg4XSAgPyBzY3NpYmFja19zZW5kX3Jlc3BvbnNlKzB4
+NTE2LzB4NWQwDQo+IFsgIDE2OC41NTU5OTJdICBzY3NpYmFja19zZW5kX3Jlc3BvbnNlKzB4
+NTE2LzB4NWQwDQo+IFsgIDE2OC41NTU5OTddICA/IF9fcGZ4X3Njc2liYWNrX3NlbmRfcmVz
+cG9uc2UrMHgxMC8weDEwDQo+IFsgIDE2OC41NTYwMDFdICBzY3NpYmFja19kb19yZXNwX3dp
+dGhfc2Vuc2UrMHg4Ny8weDIzMA0KPiBbICAxNjguNTU2MDA3XSAgc2NzaWJhY2tfY21kX2Rv
+bmUrMHhjMC8weDI5MA0KPiBbICAxNjguNTU2MDExXSAgPyB1cGRhdGVfY2ZzX3JxX2xvYWRf
+YXZnKzB4NWEvMHg1NjANCj4gWyAgMTY4LjU1NjAyM10gIHNjc2liYWNrX3F1ZXVlX3N0YXR1
+cysweGQzLzB4MTAwDQo+IFsgIDE2OC41NTYwMjhdICB0YXJnZXRfY29tcGxldGVfb2tfd29y
+aysweDQ2Ny8weGMzMA0KPiBbICAxNjguNTU2MDMyXSAgPyBfX3BmeF90YXJnZXRfY29tcGxl
+dGVfb2tfd29yaysweDEwLzB4MTANCj4gWyAgMTY4LjU1NjAzNl0gID8gcHV0X3ByZXZfdGFz
+a19mYWlyKzB4NDRkLzB4YTMwDQo+IFsgIDE2OC41NTYwMzldICA/IGZpbmlzaF90YXNrX3N3
+aXRjaC5pc3JhLjArMHgxZDkvMHhhNzANCj4gWyAgMTY4LjU1NjA0N10gIHByb2Nlc3Nfb25l
+X3dvcmsrMHg2OTcvMHgxMDYwDQo+IFsgIDE2OC41NTYwNTJdICA/IF9fcGZ4X19fc2NoZWR1
+bGUrMHgxMC8weDEwDQo+IFsgIDE2OC41NTYwNThdICA/IF9fcGZ4X3Byb2Nlc3Nfb25lX3dv
+cmsrMHgxMC8weDEwDQo+IFsgIDE2OC41NTYwNjFdICA/IF9yYXdfc3Bpbl9sb2NrX2lycSsw
+eDg2LzB4ZTANCj4gWyAgMTY4LjU1NjA2NV0gID8gX19wZnhfdGFyZ2V0X2NvbXBsZXRlX29r
+X3dvcmsrMHgxMC8weDEwDQo+IFsgIDE2OC41NTYwNjldICA/IGFzc2lnbl93b3JrKzB4MTFk
+LzB4MzcwDQo+IFsgIDE2OC41NTYwNzRdICB3b3JrZXJfdGhyZWFkKzB4NDViLzB4ZDEwDQo+
+IFsgIDE2OC41NTYwNzhdICA/IF9fcGZ4X3dvcmtlcl90aHJlYWQrMHgxMC8weDEwDQo+IFsg
+IDE2OC41NTYwODFdICA/IF9fcGZ4X3dvcmtlcl90aHJlYWQrMHgxMC8weDEwDQo+IFsgIDE2
+OC41NTYwODNdICBrdGhyZWFkKzB4MmM4LzB4M2IwDQo+IFsgIDE2OC41NTYwOTBdICA/IHJl
+Y2FsY19zaWdwZW5kaW5nKzB4MTVjLzB4MWUwDQo+IFsgIDE2OC41NTYwOTRdICA/IF9fcGZ4
+X2t0aHJlYWQrMHgxMC8weDEwDQo+IFsgIDE2OC41NTYwOThdICByZXRfZnJvbV9mb3JrKzB4
+MzczLzB4NWIwDQo+IFsgIDE2OC41NTYxMDRdICA/IF9fcGZ4X3JldF9mcm9tX2ZvcmsrMHgx
+MC8weDEwDQo+IFsgIDE2OC41NTYxMDddICA/IF9fc3dpdGNoX3RvKzB4M2M0LzB4YjQwDQo+
+IFsgIDE2OC41NTYxMTVdICA/IF9fcGZ4X2t0aHJlYWQrMHgxMC8weDEwDQo+IFsgIDE2OC41
+NTYxMjBdICByZXRfZnJvbV9mb3JrX2FzbSsweDFhLzB4MzANCj4gWyAgMTY4LjU1NjEyN10g
+IDwvVEFTSz4NCj4gWyAgMTY4LjU1NjEyOV0NCj4gWyAgMTY4LjYzOTcwNF0gVGhlIGJ1Z2d5
+IGFkZHJlc3MgYmVsb25ncyB0byBhIHZtYWxsb2MgdmlydHVhbCBtYXBwaW5nDQo+IFsgIDE2
+OC42NDIzMjRdIE1lbW9yeSBzdGF0ZSBhcm91bmQgdGhlIGJ1Z2d5IGFkZHJlc3M6DQo+IFsg
+IDE2OC42NDQ0MzldICBmZmZmYzkwMDAwMDIyZjgwOiBmOCBmOCBmOCBmOCBmOCBmOCBmOCBm
+OCBmOCBmOCBmOCBmOCBmOCBmOCBmOCBmOA0KPiBbICAxNjguNjQ3Njk4XSAgZmZmZmM5MDAw
+MDAyMzAwMDogZjggZjggZjggZjggZjggZjggZjggZjggZjggZjggZjggZjggZjggZjggZjgg
+ZjgNCj4gWyAgMTY4LjY1MDk1MV0gPmZmZmZjOTAwMDAwMjMwODA6IGY4IGY4IGY4IGY4IGY4
+IGY4IGY4IGY4IGY4IGY4IGY4IGY4IGY4IGY4IGY4IGY4DQo+IFsgIDE2OC42NjkxOTldICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICBeDQo+IFsgIDE2OC42NzEwNTZdICBmZmZm
+YzkwMDAwMDIzMTAwOiBmOCBmOCBmOCBmOCBmOCBmOCBmOCBmOCBmOCBmOCBmOCBmOCBmOCBm
+OCBmOCBmOA0KPiBbICAxNjguNjc0MDUwXSAgZmZmZmM5MDAwMDAyMzE4MDogZjggZjggZjgg
+ZjggZjggZjggZjggZjggZjggZjggZjggZjggZjggZjggZjggZjgNCj4gWyAgMTY4LjY3Njk3
+NF0gPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
+PT09PT09PT09PT09PT09DQo+IA0KPiBbICAxNjguNjgyMTE3XSBCVUc6IHVuYWJsZSB0byBo
+YW5kbGUgcGFnZSBmYXVsdCBmb3IgYWRkcmVzczogZmZmZmM5MDAwMDAyMzBhNA0KPiBbICAx
+NjguNjg0Nzg0XSAjUEY6IHN1cGVydmlzb3Igd3JpdGUgYWNjZXNzIGluIGtlcm5lbCBtb2Rl
+DQo+IFsgIDE2OC42ODY3OTddICNQRjogZXJyb3JfY29kZSgweDAwMDIpIC0gbm90LXByZXNl
+bnQgcGFnZQ0KPiBbICAxNjguNjg4Nzk3XSBQR0QgMTAwMDAwMDY3IFA0RCAxMDAwMDAwNjcg
+UFVEIDEwMDE5YzA2NyBQTUQgMTAwMWExMDY3IFBURSAwDQo+IFsgIDE2OC42OTEzMTldIE9v
+cHM6IE9vcHM6IDAwMDIgWyMxXSBTTVAgS0FTQU4gTk9QVEkNCj4gWyAgMTY4LjY5MzI0Nl0g
+Q1BVOiAwIFVJRDogMCBQSUQ6IDExIENvbW06IGt3b3JrZXIvMDoxIFRhaW50ZWQ6IEcgICAg
+QiAgICAgICAgICAgICAgICA3LjMuMC1rQ1RMYmxrMi0xNTQ4Mi1nMjFhN2Y0NGZkMDc2LWRp
+cnR5ICMxMCBQUkVFTVBUKGZ1bGwpDQo+IFsgIDE2OC42OTkxNDJdIFRhaW50ZWQ6IFtCXT1C
+QURfUEFHRQ0KPiBbICAxNjguNzAwODk2XSBIYXJkd2FyZSBuYW1lOiBRRU1VIFN0YW5kYXJk
+IFBDIChRMzUgKyBJQ0g5LCAyMDA5KSwgQklPUyAxLjE2LjMtZGViaWFuLTEuMTYuMy0yIDA0
+LzAxLzIwMTQNCj4gWyAgMTY4LjcwNTA1Nl0gV29ya3F1ZXVlOiB0YXJnZXRfY29tcGxldGlv
+biB0YXJnZXRfY29tcGxldGVfb2tfd29yaw0KPiBbICAxNjguNzA3NzAxXSBSSVA6IDAwMTA6
+c2NzaWJhY2tfc2VuZF9yZXNwb25zZSsweDFiNi8weDVkMA0KPiBbICAxNjguNzEwMTQ3XSBD
+b2RlOiA0OCA4OSBmOCA4MyBlMCAwNyA4MyBjMCAwMyA0MCAzOCBmMCA3YyAwOSA0MCA4NCBm
+NiAwZiA4NSA2MCAwMyAwMCAwMCA0OCA4OSBkOCA0OCBjMSBlMCAwNiA0OCAyOSBkOCA0OCBj
+MSBlMCAwMiA0OCA4ZCA3YyAwMSA0MCA8ODk+IDk0IDAxIGE0IDAwIDAwIDAwIDQ4IGI4IDAw
+IDAwIDAwIDAwIDAwIGZjIGZmIGRmIDQ4IDg5IGZhIDQ4IGMxDQo+IFsgIDE2OC43MTg4ODNd
+IFJTUDogMDAxODpmZmZmYzkwMDAwMGJmYWEwIEVGTEFHUzogMDAwMTAwNDYNCj4gWyAgMTY4
+LjcyMTQ0N10gUkFYOiAwMDAwMDAwMDAwMDAwMDAwIFJCWDogMDAwMDAwMDAwMDAwMDAwMCBS
+Q1g6IGZmZmZjOTAwMDAwMjMwMDANCj4gWyAgMTY4LjcyNDc4NV0gUkRYOiAwMDAwMDAwMDAw
+MDAwMDAwIFJTSTogMDAwMDAwMDAwMDAwMDAwOCBSREk6IGZmZmZjOTAwMDAwMjMwNDANCj4g
+WyAgMTY4LjcyNzkxM10gUkJQOiBmZmZmODg4MTBhNGE3MjM4IFIwODogMDAwMDAwMDAwMDAw
+MDI0NiBSMDk6IGZmZmZmYmZmZjBkZTI2MzgNCj4gWyAgMTY4LjczMDkzOF0gUjEwOiBmZmZm
+ZmZmZjg2ZjEzMWM3IFIxMTogZmZmZjg4ODEwMDA3NzMyMCBSMTI6IDFmZmZmOTIwMDAwMTdm
+NTkNCj4gWyAgMTY4LjczMzkwMl0gUjEzOiAwMDAwMDAwMDAwMDAwMDAwIFIxNDogMDAwMDAw
+MDAwMDAwMDAwMCBSMTU6IGZmZmY4ODgxMGE2ZGUyMDANCj4gWyAgMTY4LjczNjg3NF0gRlM6
+ICAwMDAwMDAwMDAwMDAwMDAwKDAwMDApIEdTOmZmZmY4ODgxYjAzNGQwMDAoMDAwMCkga25s
+R1M6MDAwMDAwMDAwMDAwMDAwMA0KPiBbICAxNjguNzQwMTcxXSBDUzogIDAwMTAgRFM6IDAw
+MDAgRVM6IDAwMDAgQ1IwOiAwMDAwMDAwMDgwMDUwMDMzDQo+IFsgIDE2OC43NDI0OTBdIENS
+MjogZmZmZmM5MDAwMDAyMzBhNCBDUjM6IDAwMDAwMDAxMDMyNzEwMDUgQ1I0OiAwMDAwMDAw
+MDAwNzcwZWYwDQo+IFsgIDE2OC43NDUzNTBdIFBLUlU6IDU1NTU1NTU0DQo+IFsgIDE2OC43
+NDY1NzddIENhbGwgVHJhY2U6DQo+IFsgIDE2OC43NDc3NzJdICA8VEFTSz4NCj4gWyAgMTY4
+Ljc0ODg3Ml0gID8gX19wZnhfc2NzaWJhY2tfc2VuZF9yZXNwb25zZSsweDEwLzB4MTANCj4g
+WyAgMTY4Ljc1MTAyMl0gIHNjc2liYWNrX2RvX3Jlc3Bfd2l0aF9zZW5zZSsweDg3LzB4MjMw
+DQo+IFsgIDE2OC43NTMxMDldICBzY3NpYmFja19jbWRfZG9uZSsweGMwLzB4MjkwDQo+IFsg
+IDE2OC43NTQ4NDddICA/IHVwZGF0ZV9jZnNfcnFfbG9hZF9hdmcrMHg1YS8weDU2MA0KPiBb
+ICAxNjguNzU2NzgyXSAgc2NzaWJhY2tfcXVldWVfc3RhdHVzKzB4ZDMvMHgxMDANCj4gWyAg
+MTY4Ljc1ODYzMF0gIHRhcmdldF9jb21wbGV0ZV9va193b3JrKzB4NDY3LzB4YzMwDQo+IFsg
+IDE2OC43NjA1NTZdICA/IF9fcGZ4X3RhcmdldF9jb21wbGV0ZV9va193b3JrKzB4MTAvMHgx
+MA0KPiBbICAxNjguNzYyNjQ0XSAgPyBwdXRfcHJldl90YXNrX2ZhaXIrMHg0NGQvMHhhMzAN
+Cj4gWyAgMTY4Ljc2NDUxMl0gID8gZmluaXNoX3Rhc2tfc3dpdGNoLmlzcmEuMCsweDFkOS8w
+eGE3MA0KPiBbICAxNjguNzY2NTg0XSAgcHJvY2Vzc19vbmVfd29yaysweDY5Ny8weDEwNjAN
+Cj4gWyAgMTY4Ljc2ODI4Ml0gID8gX19wZnhfX19zY2hlZHVsZSsweDEwLzB4MTANCj4gWyAg
+MTY4Ljc2OTk3M10gID8gX19wZnhfcHJvY2Vzc19vbmVfd29yaysweDEwLzB4MTANCj4gWyAg
+MTY4Ljc3MTg4MF0gID8gX3Jhd19zcGluX2xvY2tfaXJxKzB4ODYvMHhlMA0KPiBbICAxNjgu
+NzczNTk5XSAgPyBfX3BmeF90YXJnZXRfY29tcGxldGVfb2tfd29yaysweDEwLzB4MTANCj4g
+WyAgMTY4Ljc3NTcyMV0gID8gYXNzaWduX3dvcmsrMHgxMWQvMHgzNzANCj4gWyAgMTY4Ljc3
+NzMyNF0gIHdvcmtlcl90aHJlYWQrMHg0NWIvMHhkMTANCj4gWyAgMTY4Ljc3ODg5OV0gID8g
+X19wZnhfd29ya2VyX3RocmVhZCsweDEwLzB4MTANCj4gWyAgMTY4Ljc4MDY0OF0gID8gX19w
+Znhfd29ya2VyX3RocmVhZCsweDEwLzB4MTANCj4gWyAgMTY4Ljc4MjQxNV0gIGt0aHJlYWQr
+MHgyYzgvMHgzYjANCj4gWyAgMTY4Ljc4Mzg3N10gID8gcmVjYWxjX3NpZ3BlbmRpbmcrMHgx
+NWMvMHgxZTANCj4gWyAgMTY4Ljc4NTY5N10gID8gX19wZnhfa3RocmVhZCsweDEwLzB4MTAN
+Cj4gWyAgMTY4Ljc4NzIxOF0gIHJldF9mcm9tX2ZvcmsrMHgzNzMvMHg1YjANCj4gWyAgMTY4
+Ljc4ODc1Ml0gID8gX19wZnhfcmV0X2Zyb21fZm9yaysweDEwLzB4MTANCj4gWyAgMTY4Ljc5
+MDUwMF0gID8gX19zd2l0Y2hfdG8rMHgzYzQvMHhiNDANCj4gWyAgMTY4Ljc5MjAyOV0gID8g
+X19wZnhfa3RocmVhZCsweDEwLzB4MTANCj4gWyAgMTY4Ljc5MzU1NV0gIHJldF9mcm9tX2Zv
+cmtfYXNtKzB4MWEvMHgzMA0KPiBbICAxNjguNzk1MTgwXSAgPC9UQVNLPg0KPiBbICAxNjgu
+Nzk2MjA1XSBNb2R1bGVzIGxpbmtlZCBpbjoNCj4gWyAgMTY4Ljc5NzU5Nl0gQ1IyOiBmZmZm
+YzkwMDAwMDIzMGE0DQo+IFsgIDE2OC43OTkwODRdIC0tLVsgZW5kIHRyYWNlIDAwMDAwMDAw
+MDAwMDAwMDAgXS0tLQ0KPiANCj4gRml4ZXM6IGQ5ZDY2MGY2ZTU2MiAoInhlbi1zY3NpYmFj
+azogQWRkIFhlbiBQViBTQ1NJIGJhY2tlbmQgZHJpdmVyIikNCj4gQ2M6IHN0YWJsZUB2Z2Vy
+Lmtlcm5lbC5vcmcNCj4gU2lnbmVkLW9mZi1ieTogWWVoeWVvbmcgTGVlIDx5aGxlZUBpc3Ns
+YWIua29yZWEuYWMua3I+DQpSZXZpZXdlZC1ieTogSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1
+c2UuY29tPg0KDQoNCkp1ZXJnZW4NCg==
 
-I previously allocated the chained pages separately, as many as the module
-needed, and linked them from 'struct seamldr_params'. Yilun suggested
-growing 'struct seamldr_params' to include the chained pages, so a single
-allocation covers both.
+--------------6MHWeXlZpmNFcy2heHyg8pAR--
 
-I will credit Yilun with a Suggested-by tag.
+--------------DYT4LtVi7lOHSSaAYUc4WYme
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
->> -#define SEAMLDR_MAX_NR_MODULE_PAGES	496
->> +/*
->> + * module_pages_pa_list[] spans multiple pages. The last entry of each
->> + * page points to the next page and does not hold a module page, so the
->> + * maximum number of module pages is the array size minus one entry per
->> + * page.
->> + *
->> + * SEAMLDR_PARAMS_NR_PAGES is somewhat arbitrary. It allows modules of
->> + * up to about 32MB. Increase it if modules outgrow that.
->> + */
->> +#define SEAMLDR_PARAMS_NR_PAGES		16
->> +#define SEAMLDR_NR_MODULE_PA_ENTRIES	(496 + 512 * (SEAMLDR_PARAMS_NR_PAGES - 1))
->
->I think you should describe the math a little bit here. 496 is the space in the
->original format, but the last one is now a pa pointer, right? So can't be used
->as a page of module data. And then each successive page is 511 entries and then
->a pa pointer? So is the math actually right?
+-----BEGIN PGP SIGNATURE-----
 
-As Binbin explained, SEAMLDR_NR_MODULE_PA_ENTRIES counts all entries,
-including the ones that point to the next page. That is 496 in the first
-page and 512 in each following page ...
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmr0IDsFAwAAAAAACgkQsN6d1ii/Ey9a
+JQf/cw9cOj+gYUgg2BTLkDOavGCZN638L2cDk3CYAufjwuJJhAjfrepgJ3NwOz6cHDT8hqUuk1Ow
+D+PLt2bL2zhKj0qWwNi93yooi4YXr6L3Awtb35+CMhW3oMfytGT2TtMszKRvfNiIClkz5xtQHATQ
+JyiazEaFYTIbW03PWOh7CBedk7uds+TerKFqsbeabq37wD6ti48MeTTHSdMNcwIkCFHK+VsAUeVm
+V4oi9L0xs3huJY7LiEVBtMgKRerDfZFCEz1PG95kOlqd1EwGOHpvS3g8a0f8jDpNOBa5U6dAIwmz
+o3a1uDgMccDNUCNN72C5Y7fbj3pKWIvQ2NTUWJVWfQ==
+=P4sL
+-----END PGP SIGNATURE-----
 
->
->> +#define SEAMLDR_MAX_NR_MODULE_PAGES	(SEAMLDR_NR_MODULE_PA_ENTRIES - SEAMLDR_PARAMS_NR_PAGES)
-
-... this subtracts one pointer entry per page.
-
-How about:
-
-/*
- * 'struct seamldr_params' spans this many pages. The number is somewhat
- * arbitrary. Increase it if modules outgrow it.
- */
-#define SEAMLDR_PARAMS_NR_PAGES         16
-
-/*
- * module_pages_pa_list[] has 496 entries in the first page and 512 in
- * each following page. The last entry of each page is reserved to point
- * to the next page and cannot hold a module page.
- */
-#define SEAMLDR_NR_MODULE_PA_ENTRIES    (496 + 512 * (SEAMLDR_PARAMS_NR_PAGES - 1))
-#define SEAMLDR_MAX_NR_MODULE_PAGES     (SEAMLDR_NR_MODULE_PA_ENTRIES - SEAMLDR_PARAMS_NR_PAGES)
-
->>  #define SEAMLDR_MAX_NR_SIG_PAGES	1
->>  
->>  /*
->> @@ -48,10 +59,10 @@ struct seamldr_params {
->>  	u64	sigstruct_pages_pa_list[SEAMLDR_MAX_NR_SIG_PAGES];
->>  	u8	reserved[104];
->>  	u64	module_nr_pages;
->> -	u64	module_pages_pa_list[SEAMLDR_MAX_NR_MODULE_PAGES];
->> +	u64	module_pages_pa_list[SEAMLDR_NR_MODULE_PA_ENTRIES];
->>  } __packed;
->>  
->> -static_assert(sizeof(struct seamldr_params) == 4096);
->> +static_assert(sizeof(struct seamldr_params) == SEAMLDR_PARAMS_NR_PAGES * PAGE_SIZE);
->>  
->>  /*
->>   * Serialize P-SEAMLDR calls since the hardware only allows a single CPU to
->> @@ -129,17 +140,24 @@ struct tdx_image {
->>  /*
->>   * Given a vmalloc() allocation, write all of the backing physical
->>   * addresses to pa_list[]. Caller guarantees that the array is big
->> - * enough.
->> + * enough. If pa_list[] spans multiple pages, point the last entry
->> + * of each page to the next page.
->>   */
->>  static void populate_pa_list(u64 *pa_list, const u8 *vmalloc_addr, u32 vmalloc_len_pages)
->>  {
->> -	int i;
->> +	int i, j;
->>  
->> -	for (i = 0; i < vmalloc_len_pages; i++) {
->> +	for (i = 0, j = 0; i < vmalloc_len_pages; i++) {
->>  		unsigned long offset = i * PAGE_SIZE;
->>  		unsigned long pfn = vmalloc_to_pfn(&vmalloc_addr[offset]);
->>  
->> -		pa_list[i] = pfn << PAGE_SHIFT;
->
->How about a little:
->/* If the current entry is the last in the page. */
-
-Sure. I reworded it slightly to also say what the hunk does:
-
-		/* Point the last entry of a page to the next page. */
-
->
->> +		if (PAGE_ALIGNED(&pa_list[j + 1])) {
->> +			pa_list[j] = __pa(&pa_list[j + 1]);
->> +			j++;
->> +		}
->> +
->> +		pa_list[j] = pfn << PAGE_SHIFT;
->> +		j++;
->>  	}
->>  }
->>  
->
+--------------DYT4LtVi7lOHSSaAYUc4WYme--
