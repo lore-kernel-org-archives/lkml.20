@@ -1,63 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.57
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794402570;
-	b=yby5hZDcYEJP05nSmf8d7DItd1RTEB8rEvuI8I3OnaG+JpSsr40nCzJK0wh9DdxJnzMO
-	 PlRUvdnT5hHqFKn//rPoAdEvgK4uwg6C3aKCYt1uPwejwsNxVD3B4NAhzTH+O8pcEwchV
-	 zkvN4L9yWBbUw1hVtYjDwHiKnO0paPCK3mHqE62ZVaDIBrbjHxF65U1cdNQ+T8U9gedDn
-	 /HM2jFeLq0vNZDmbRx8x4Ymze5KBI4T9pB5o2c1DWJuJf14d6w6twKx8gVOzIXo1bEBcg
-	 1yjF2sXq0cz0O+86ChlBSxVI+90CDyekaguHiYOZsxdFd5DzUmdiSzKIkJQ38BLjQPg==
+	t=1794402647;
+	b=wIWmWE5wiCp3b5/oL5blp0Jr6/e137KK2s393rqxGIZfzygj2Roy0QaLN5I1zhpABt7E
+	 tiqLWhuBILMFKccG/VLfQingheR4flXmaQofwh5E44B8iQm8JSzvTUKl2Dafii2tsUh82
+	 7yzgRZuRHJ8GHJYR+FShy/DYh2oibvQZgViJn/3uWTtApq0F+aQydvZFcr+zbzOpylDpt
+	 R/4eVvqZrJxeV4qY6LjtLfQj5M1VECzkRYn+Zu6AVCW/E+qOKHa9vwBIKJOmI2rQWxtFQ
+	 wq0HrH3QG8ZUpV6XCQBTY1SJps+VBO9euchRnl4Cq9YYlnsgt/pQr5UhKqozu6hMz2g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794402570;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Cookie;
-	bh=myTzMTEVgNJ9R2A9o9uEj3ASLDjoWKyGqA3BNP4iJWk=;
-	b=hSDFd7wsLUiL1/zQvmYZkjp8uLXfx8JpLU5sycMpJsxWuCorNQUvLO3sycTWRLtFHgMr
-	 OIQbmScuzSeyJRSQI2CI8TnLl/PfxUNBaMU/dBHvQ8uOFdByreOm0TrzfVJ63i44UtVt4
-	 I/812tOLI4/K9ZrPh77vVrzabYm+YvTGIz8Drqaht95h0rk6sp/JSnOZ6jIHExL1fVT+l
-	 r8L20xqd8ApaZd22cxTkGi3q+L4UI9PzZW9IvsYtuZO1SIvRPAWT5gPBCWy2uzFp1iNVc
-	 vovPwFJY4JhIl95EHgCiswO29abHmEzVzBkr5FK3UYRBDWMtHbGUWbd2FTvpBlemiEQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794402647;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:To:
+	 Cc:X-Mailer;
+	bh=j1vhH616yYJJATvrRAm08rA9jOsgZV21h5QRiE4wUNA=;
+	b=zgbPfDIz+xrUQjoFcF5yc1XaVYjADvxjQxrD/8Y6S0EF4G/ckHNsqkH6aFV0Rxhv8xuc
+	 WcQnIO9cl98n/GyBR9ci9pQq6sXBhNrkON5iF7o/ijrA9Q2WkeFxS8Q1rLLJWDEGHl7Yk
+	 SSnwSJmUtkhrrGmMlflTD0ZZWFwaffAUQ8xuLSmAU+1HhZappN5xwZKGc7eNNhuXD6JoN
+	 6lQuzi3kgbLltdBWfdoBshs4jNxhe4BzcY0VI2BB70Ip8PoXDLqCxSlO0v+rPIzJX0JvC
+	 +t5YrZKtv0Q55Qvm/8OAEUM7qfLLhv3ubyGQU7dByNxfYjSZLz3pnFTbPvF4cWP9gAw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B1HsNoS3;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=cDMA6M5s;
+	arc=none smtp.remote-ip=95.215.58.57
+Received: from mta1.migadu.com (out-57.mta1.migadu.com [95.215.58.57])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BE66606A888;
-	Wed, 11 Nov 2026 13:09:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63667606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:10:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 63667606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B1HsNoS3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C05631F00A06;
-	Wed, 11 Nov 2026 13:09:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794402570;
-	bh=myTzMTEVgNJ9R2A9o9uEj3ASLDjoWKyGqA3BNP4iJWk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=B1HsNoS3ZmRDWZNuYSbODVDeuktqIoLR2c1a6m8O18dO/Tj3h7a3jwY7KJaLMROW2
-	 WcRjv0oYpnT/zVPk8zwYtfhRUf7ZRTmiQbax4uzSs4S2FzIZhEWsEhwY6wKTPYXywQ
-	 LwtpUVRr8Tm+IYUmQ+OUXah4oBsYYhID014GbwaA0iz9ioLQZ1hdZ5jffVTt7fScJ1
-	 FVWfjRXvcPzbZKbsg4pz0pzkcq4F6z5NzC84VNV4ERwWDf5lCCNIht7/pcNRpOTiyP
-	 83HLodIFXqbHtrUMD60fOuoVv4777BzkpKlk4YPeD+7t1afOoTu2SSlEcjmtKnUKhp
-	 I1PT6bjqp+XWQ==
-Date: Wed, 11 Nov 2026 13:09:25 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Kees Cook <kees@kernel.org>
-Cc: Takashi Iwai <tiwai@suse.de>,
-	Emanuele Ghidoli <ghidoliemanuele@gmail.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Emanuele Ghidoli <emanuele.ghidoli@toradex.com>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	linux-sound@vger.kernel.org, linux-hardening@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ASoC: soc-core: reset rtd->num_components after
- allocation
-Message-ID: <853110dc-2ab9-4271-9e81-20ce5068ecc0@sirena.org.uk>
-References: <20261109102536.357134-1-ghidoliemanuele@gmail.com>
- <87bj7yw9e2.wl-tiwai@suse.de>
- <87FF4A7B-853C-466A-AB01-2D9137DEE6CC@kernel.org>
- <EAAF07EF-6B11-4EA5-A5AF-A7787CA2F196@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=cDMA6M5s
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=8vsTho+fDtWw7vDJPfwLqBwvgAWnKw0AjJdAWw/f8TM=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794402643; v=1; x=1795007443;
+ b=cDMA6M5s8fSo2w4M1BMUTh91sL3O1o8xwvFrPxF8wY8umbQdVGAhnOmMWhZu4VBoir1iRah6
+ RCa9ZM1sC9Vv+/lYqO4PN3LMNixClTKC8PwD7W1RK52dmXpsCHRqGLQJjhk7XbbMAeP+xMXy/TW
+ GxKfwJUE36Jdbd7utI3+fkSk=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 86378f046b01e2b2;
+	Wed, 11 Nov 2026 13:10:32 +0000
+X-Mizu-Trace-ID: 86378f046b01e2b2
+X-Migadu-Flow: FLOW_OUT
+From: Qiliang Yuan <qiliang.yuan@linux.dev>
+Subject: [PATCH v2 0/2] nvme-multipath: requeue work fixes
+Date: Wed, 11 Nov 2026 08:10:20 -0500
+Message-Id: <20261111-bug-nvme-mpath-set-live-srcu-v2-0-fc772914d293@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,46 +60,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="+JyK9ecf3AVrKjur"
-Content-Disposition: inline
-In-Reply-To: <EAAF07EF-6B11-4EA5-A5AF-A7787CA2F196@kernel.org>
-X-Cookie: Do not pick the flowers.
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAD1p9GoC/42NQQqDMBBFryKz7pREjLVdeY/iwuhEBzRKEoNFv
+ HtTT1D+6v3Fewd4ckweXtkBjiJ7XmyC/JZBN7Z2IOQ+MeQiL6WUAvU2oI0z4by2YURPASeOhN5
+ 1G3a6r56lMrJQD0iK1ZHh/dK/m8Qj+7C4z1WL8vf+KY4S04yqdCGUFqaqJ7bbfu8pQnOe5xdMQ
+ A7MyAAAAA==
+To: Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>, 
+ Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>, 
+ Nilay Shroff <nilay@linux.ibm.com>, Hannes Reinecke <hare@suse.de>
+Cc: linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Qiliang Yuan <qiliang.yuan@linux.dev>
+X-Mailer: b4 0.13.0
 
+Patch 1 fails I/O queued without a path as soon as delayed_removal_secs
+is cleared, instead of when the delayed removal runs.
 
---+JyK9ecf3AVrKjur
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Patch 2 stops nvme_mpath_set_live() from waiting for an SRCU grace
+period per namespace, which makes an ANA change with many namespaces
+take tens to hundreds of milliseconds.
 
-On Tue, Nov 10, 2026 at 09:59:12PM -0800, Kees Cook wrote:
+Signed-off-by: Qiliang Yuan <qiliang.yuan@linux.dev>
+---
+V1 -> V2:
+- Add patch 1
+- Take the SRCU cookie under head->lock in patch 2 (Sashiko)
+- Rerun the tests
 
-> For example, what keeps snd_soc_rtd_add_component() from overflowing
-> that array? If you want to protect the array, add another member, say
-> max_component, and use that for the counter, which gets set at
-> allocation time and protects the array from indexing beyond the actual
-> allocation size.
+v1: https://lore.kernel.org/r/20261110-bug-nvme-mpath-set-live-srcu-v1-1-1f58b405b0f8@linux.dev
 
-We could do that, and it'd certainly be good to do so, but anything
-that's in a position to do anything here will already have sufficient
-access to the system that it can just directly cause issues.
+---
+Qiliang Yuan (2):
+      nvme-multipath: fail queued I/O when delayed_removal_secs is cleared
+      nvme-multipath: don't wait for a grace period in nvme_mpath_set_live()
 
-Please fix your mail client to word wrap within paragraphs at something
-substantially less than 80 columns.  Doing this makes your messages much
-easier to read and reply to.
+ drivers/nvme/host/multipath.c | 19 ++++++++++++++++++-
+ drivers/nvme/host/nvme.h      |  1 +
+ 2 files changed, 19 insertions(+), 1 deletion(-)
+---
+base-commit: b3dfbde62cf1981c4638939c159dfd087b7a72e9
+change-id: 20261110-bug-nvme-mpath-set-live-srcu-cbd8965f1457
 
---+JyK9ecf3AVrKjur
-Content-Type: application/pgp-signature; name="signature.asc"
+Best regards,
+-- 
+Qiliang Yuan <qiliang.yuan@linux.dev>
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmr0aQQACgkQJNaLcl1U
-h9CDogf/S3na6XdVpn5IhiTtPHeH6LC6TYfn8B33uirn/dIJ54WsGUXcX64eocfM
-p3hLO+Y6AEQg9cbbeexeLqmF+pNbyC7AozLPIkhtLQjQRCdsfjPXFn6Q7HGgjJyD
-hvWOdhAW2KrDE0/TFplotVcYyWwMCspu5QsIORFSIE8ckoUkCppCEmmcsHYxjvIm
-IroNxhmPQJrXFbBveGZhRhdgONBkucVoBoYm9evLazFa1dbb3GrvLG6yZLNcE1fF
-bSafzYSHj02eVuEGuCI8w2/pYu7bPkCO77KgunPYBBtvW0bPZBhIq6ykxLR26Hb+
-LVTnSa/HAJQ3F91CFZJNrf3NLHJToQ==
-=6thM
------END PGP SIGNATURE-----
-
---+JyK9ecf3AVrKjur--
