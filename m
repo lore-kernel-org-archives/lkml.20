@@ -1,60 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794434044;
-	b=AyxksrE1+Uu2+FvUM9s6wVgZSAuF2OyLchbpNYMwLf/4LBSqWOLgkRpSPmtbvh/uW9ZM
-	 VgDjo1kzqIfbe14IiAY567seHKfc1YxjcstNoylNhZJGZECRieiR90flUaAABEloS7mYd
-	 6rhSpuuCcep6gWsoNqtNb7m3ZWYYXYnEQ30mVF/yaOZj1eMCZ0WmfRgLwXMeVSY3CfRk3
-	 7Gpk91zOtvtQyRYx6yfJgxrXjEpbq4Ps6n4noMBxKQQSD1sorxmDkRo9sR0UMPaT28t1e
-	 1yhebPvNIOB5vjVR35M84cdT2kLNrFgsw2SuDVEq5H14QoambBDs2mIaEx4FsKL9Y9A==
+	t=1794434063;
+	b=efwrTfcUqe3RmRMmdU3u2emCROBghsW6QtUtqQ8ogGLQlwv4McpgNW9FcFYbH9zp6Zrj
+	 pJgZmIkTW7ku/GuSqdDibE9MJNvkEi2IUp2YuLrkBc1Xy/7XxrMD8ZyMAuG4lghrL0nHd
+	 oUmYo5ehp7z1SklS0FIiHa1Lymg4DgWH+1ICSOSPrcrnALnjf+97OOvm5afIJiSSE+3FX
+	 xCA+mro/olTSEBl04iKBVxAmLQRTapHYRINHQp4xuj65jqrbdwHHawtH/D/qLLE3BVVfu
+	 PGyViEB2FmLdZ2KBNDYAaDn1RxcBK+hp2XEBgYUtddv3zrEuPaDVLPw7knQCm8cazfA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794434044;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794434063;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=tuf8c1dlqjfS6dbHyCUO3x+DWJUmuzX7o0coWObKxGQ=;
-	b=wflcZTPCIo847szK/z9ER11h5B95n/bkNP0J4mf9oCjfokQ6n+wHNLzt03uPPuS8xKVr
-	 8328UC7yTGFnf6AXwJGfwjzj/K3jZEAbX6QDy3UnmhEw/ofbGM82vVyyJ+gB6L/2XFSC0
-	 5I6991YNEMb/04zIqeizr5GKIAoB1cnz17fMRbHkASeDwcrR0nkxe3Gy2Xar0csGFdrqy
-	 FnFstZidsecyA7S1dA8WXWxHt2+MWN9+9CqPOQvPIFgPa4YZWinWSBQataXsIuX/SiyST
-	 zQ5aD5+oQZN8Xrvmb4pQFikaEDl80U2ckpcFLIwBBxVzzDdShryOmZbJ7xhX92wen9w==
+	bh=ddmwTTE4OrnrhabR1xw8Jv7Wv16fLWDKLghb2wkDmiM=;
+	b=WKgdyVfWg9/DXz6YvlYgB/0is876ja2GS6v8FdGod7Sd3o6WQ0z5qIhAyrVpcZiUVVsh
+	 G2gvl2JIPa25/hDGD2J94YaFnFi4FH/ItHElqZoeTwMR76Ivy1ZXfyXZiHAsIDtl/ErLz
+	 bbKEF4h6VHI/e9QAFKUcbwszYCYOx5OFvWVHpbOkPpG+p0rRtemjuaVDR+tcNXbAROVX9
+	 2W/DKVIqKkNL+sHzU8xq6HJQKv43nhR8gSHMqRkXwV+U+z3Ti70+EMtCUrdd+M0P8glx3
+	 WnVvE9il+psIhF4jtAGyLxlQBCzJKan0FNUsFKEtNVdmLgZT1bartJR5jzzL1w14IQg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GhDBxcV5;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YTlG7oHo;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BACA606A335;
-	Wed, 11 Nov 2026 21:54:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F78B606A332;
+	Wed, 11 Nov 2026 21:54:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GhDBxcV5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05D2B1F00A06;
-	Wed, 11 Nov 2026 21:54:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YTlG7oHo
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA87E1F00ACC;
+	Wed, 11 Nov 2026 21:54:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794434043;
-	bh=tuf8c1dlqjfS6dbHyCUO3x+DWJUmuzX7o0coWObKxGQ=;
+	s=k20260515; t=1794434063;
+	bh=ddmwTTE4OrnrhabR1xw8Jv7Wv16fLWDKLghb2wkDmiM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=GhDBxcV54Kva1Fq+NJm+2XQQubAC/+TC/eESoUhg68uhbvb599SE9NubrZ1l6ZPCj
-	 ILR7HbuWX3ep560jXWlyfTGlIIfE3WCMhKujFeqvzIEarxxMswXuTGjqJoXSQG7uVy
-	 e1j+hJl1lDpzWNe/WM1SXcUKD6S+mFbZHeDBVjBeHkFouySnjStY3QBi41Tq0RdVxj
-	 Ew5gYAcS72WQ50q/WkRIPmMU0mtZroTt4W1wZOIUXxVtJ61VI/O6XRxwm+Ppmg4bJJ
-	 XuPQ0gAypiXPvYPvYncq84vNmikJjuYFWaAPKgTDRbl7fNRk16n5AGoGnT+ZepTAsL
-	 KmEh7LA81HONg==
+	b=YTlG7oHoXHKdOz+rtjvkx5K6EqiBq6f+zu8H6ytM0ieezyYwzEg504QkpCWzigi1+
+	 dT2vl+rMbGEMWIMAO+LcOSxfra4Bemf1L8LpeIfX3NBnLAJm4DtdJKgd+8SLqBFNcW
+	 JjSE16zMoYqlv/KU9XN3GNaEv+z4DCnBlB2LxfIcrIPYjXC9zndvpJdXZYB+UqTWX+
+	 MMnqn/pqWR1s+/cUkDqQgUtegR93i0CUg+HzQ/+13cML8RO0/H6+AgFI36KOSdLddC
+	 0RLpgQiSwzGTwiY0eWuXO5T3MJF9gvBHcGWp2XGOgoZBvpnPjjSQa7/xXIGfuwqN/5
+	 wxpbV/ge17hKA==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
-	Tony Lindgren <tony@atomide.com>,
-	Haojian Zhuang <haojian.zhuang@linaro.org>,
-	Linus Walleij <linusw@kernel.org>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-omap@vger.kernel.org,
-	linux-gpio@vger.kernel.org,
+	Basavaraj Natikar <Basavaraj.Natikar@amd.com>,
+	Vinod Koul <vkoul@kernel.org>,
+	Frank Li <Frank.Li@kernel.org>,
+	Sanjay R Mehta <sanju.mehta@amd.com>,
+	Gary R Hook <gary.hook@amd.com>,
+	dmaengine@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 08/10] pinctrl: single: Free pinconf settings array in pcs_dt_free_map()
-Date: Wed, 11 Nov 2026 21:51:53 +0000
-Message-ID: <20261111215256.1982044-9-lee@kernel.org>
+Subject: [PATCH 03/10] dmaengine: ptdma: Unmap descriptor in pt_do_cleanup()
+Date: Wed, 11 Nov 2026 21:52:41 +0000
+Message-ID: <20261111215349.1983909-4-lee@kernel.org>
 X-Mailer: git-send-email 2.56.0.567.gdb80ae8cd5-goog
-In-Reply-To: <20261111215256.1982044-1-lee@kernel.org>
-References: <20261111215256.1982044-1-lee@kernel.org>
+In-Reply-To: <20261111215349.1983909-1-lee@kernel.org>
+References: <20261111215349.1983909-1-lee@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,42 +66,32 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-pcs_parse_pinconf() allocates a settings array via devm_kcalloc() on the
-pin controller device and attaches it to map[1].data.configs.configs.
-When the pinctrl core copies the map entries into its internal tables or
-tears down a consumer device mapping, it invokes pcs_dt_free_map(),
-which only frees the outer map array and leaves the per-map configs
-array allocated on pcs->dev until the pin controller itself is unbound.
+When descriptors are freed on abort via vchan_dma_desc_free_list(),
+pt_do_cleanup() frees the descriptor without calling
+dma_descriptor_unmap(), leaking any attached dmaengine_unmap_data and
+DMA mappings.
 
-Free map[i].data.configs.configs for PIN_MAP_TYPE_CONFIGS_GROUP entries
-in pcs_dt_free_map().
+Call dma_descriptor_unmap(&vd->tx) in pt_do_cleanup() before freeing the
+descriptor.
 
-Fixes: 9dddb4df90d1 ("pinctrl: single: support generic pinconf")
-Closes: https://sashiko.dev/#/bug/linux-fcedec46-4487-4392-a882-3d3bef07e56f
+Fixes: b0b4a6b10577 ("dmaengine: ptdma: register PTDMA controller as a DMA resource")
+Closes: https://sashiko.dev/#/bug/linux-58b8113b-167a-4398-9be2-c2f3cbf73358
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/pinctrl/pinctrl-single.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ drivers/dma/amd/ptdma/ptdma-dmaengine.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/pinctrl/pinctrl-single.c b/drivers/pinctrl/pinctrl-single.c
-index 13e0ae8bb389..fcd86dbf6869 100644
---- a/drivers/pinctrl/pinctrl-single.c
-+++ b/drivers/pinctrl/pinctrl-single.c
-@@ -311,9 +311,13 @@ static void pcs_pin_dbg_show(struct pinctrl_dev *pctldev,
- static void pcs_dt_free_map(struct pinctrl_dev *pctldev,
- 				struct pinctrl_map *map, unsigned num_maps)
- {
--	struct pcs_device *pcs;
-+	struct pcs_device *pcs = pinctrl_dev_get_drvdata(pctldev);
-+
-+	for (unsigned int i = 0; i < num_maps; i++) {
-+		if (map[i].type == PIN_MAP_TYPE_CONFIGS_GROUP)
-+			devm_kfree(pcs->dev, map[i].data.configs.configs);
-+	}
+diff --git a/drivers/dma/amd/ptdma/ptdma-dmaengine.c b/drivers/dma/amd/ptdma/ptdma-dmaengine.c
+index 22e7b3ae26a1..405d3d3b7f8a 100644
+--- a/drivers/dma/amd/ptdma/ptdma-dmaengine.c
++++ b/drivers/dma/amd/ptdma/ptdma-dmaengine.c
+@@ -91,6 +91,7 @@ static void pt_do_cleanup(struct virt_dma_desc *vd)
+ 	struct pt_dma_desc *desc = to_pt_desc(vd);
+ 	struct pt_device *pt = desc->pt;
  
--	pcs = pinctrl_dev_get_drvdata(pctldev);
- 	devm_kfree(pcs->dev, map);
++	dma_descriptor_unmap(&vd->tx);
+ 	kmem_cache_free(pt->dma_desc_cache, desc);
  }
  
 -- 
