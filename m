@@ -1,102 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.99
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794417749;
-	b=GuCW+6pXAsUxEM2F6vTD+mLdSfmoxLlBCZfBYAZrJHKqfQKzTClC++Xh0Eltj3XCovp+
-	 i6ZiV0g14q72vm7fLakt3WZnzr6H99LVlMOYRdFw9eKhpf8uGFPXE5d1uM+W8xQj7DS4F
-	 iPPu/1epkHhH3KEtzCisTwFiAVjx4wBZkLmRbakSFHEckASJAQdcU1bMNDKhBvFYw3CDh
-	 s7ENxznYuvJX2vnT2yMgwJ8vr19Yuh0rUw/9ICkWhazK7ST0R6PEQ8kaLJthhs9Pw1uXD
-	 zBvUQzg/SYCVx1sa7CPi3ngi0q/1v7I5bYezasyJaWOVmyHUuEN5MME9wMgoz6uWA7g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794417749;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
-	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Received:X-Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-DetectorID-Processed;
-	bh=94chnNwV7jUuGablQmYGqu0VRRLsEEyNiKC8ktRDRaA=;
-	b=XxkODrV2yio6Bj0rxg1fc9weJd2/QfvwTxXdIhv1K/dHL4FdkeEcsS0DK4TrFouYlAoi
-	 Fhx9gnnXC5Mdnd1Cta/WXJLmfpAoTHLK8SnH81b+wyng8N+o7G4YPGtveqVMociGEg0br
-	 /oeUSkYpukaNbklmQot5YLgC3Ver3CUEuMra7/Jc+09vQW3SKXUyleJY6i9py6FSZlFKX
-	 9SVsbVnkxwiL2RFYIYKg/OhpquSDj0KxyOMd8WXsoMVbZeoqee0bfI2xP1rtIj6pl/W6Q
-	 DWvoPYhwZctGTzi40Fa2R0xigxXoXDZUsH/5yAlztYH/qPiMRGNY+mba7GY9oAmy/DA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=broadcom.com;
-	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=iR6aFo0r;
-	arc=none smtp.remote-ip=209.85.216.99
-Received: from mail-pj1-f99.google.com (mail-pj1-f99.google.com [209.85.216.99])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794417772;
+	b=G0QGSsmrxyJ/LX6gh3nOZplTgCJKDs3xDDQzYDwpdbTGpj26wTHOzepan6UdN9/GPO9b
+	 kBWC5/i04bz/tsI8cdP4gUSXmDCdekBNBnc82tDI3TmXJnW5CIQlcoUHlwqphrU4JQTZW
+	 V7p/hriSbeavUu4nL8FZQJZYc8ZFi2N+gH2zXB+ASlRvC34NH9xa11NcugO6kWu5NTTQc
+	 y8cgegxkbo54jokHmR2UFwtVTfXCHfIQ7SSyXLYiNGI2t8zh5/36rrqHzX9ldb8STJT+v
+	 9jQHAra+4+1Exza1tbdlg7VoZNGmIQ4bJ6qUdqXKuKriJyzpuO7gfyC3b4k0neblHDA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794417772;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:Content-Transfer-Encoding:Content-Type:
+	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=FoQpm34+4/MGXQkByEg4Zgpwi/vW+obpD6WlXIuUk0A=;
+	b=gwfp3jjxyHpj7PY2/LD6dYdBfFPwzpjte7fI1gMutegBvPZ7NrVVpm964SFaumgZ4/OL
+	 5TpNOzJGGEmGvSflEpCWrk5n1BXFwycf1jogSfdwmY41AcbmhtI2/atoBo/bGCvZNaeuc
+	 o73j10/7Wem+3ouAMRvB8Z34hoRQT/U1x+YvI0tFPDjKVLsFOpqWlaMEWq7AwgeR4kU12
+	 vuuJeMMb6OoE8YSJZlYxRUrBXrntlujwuk8gM9OanTKr+IB/s6UnT7ObpLtT7bnCa30sd
+	 yIza30vZeMPegTY9QObzVsOi1YzuGtbyAE5HdFapbWxiOQWWJFU9KsH6gp9ouin4odA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=jSXEd5k6;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.13
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011013.outbound.protection.outlook.com [40.107.130.13])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9200B606A327
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 17:22:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9200B606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35B0B606A324;
+	Wed, 11 Nov 2026 17:22:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 35B0B606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=iR6aFo0r
-Received: by mail-pj1-f99.google.com with SMTP id 98e67ed59e1d1-3b0ae87069dso1676356a91.2
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 09:22:28 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794417748; x=1795022548;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=94chnNwV7jUuGablQmYGqu0VRRLsEEyNiKC8ktRDRaA=;
-        b=mgTYKXxUvfxLjfR0L7UJD/Zn+2pi7G4gVX0zh4p+x52zmMX0B5feDlLVsqoFUvxV+Q
-         COhFoiKYjJKPHHsF5/ajL/mHewwfuJMq/YCG6mYcWYeUVQ2Pf9t+aetuj8fFNWNVZrwb
-         bbeuDxgbkUUTm1SbRwpEtL+S5ibsRRrRvjwHCr7MO9C4CFTbYeQL5qHcaE+gST9xizwT
-         3j/RP0tjFA2CbNwD4DCh+Jyho9vpz2tq4dPdRCdLgVEGPMq3RhP+21w4rzZIKr/bnuoc
-         s/slkiCkaXBn5ipSfIXyEDPxuTRajhxu9oR22ZlVb7gYJUlnKYEqWN4DpmRrZCCUANN1
-         Kbuw==
-X-Forwarded-Encrypted: i=1; AL+hErHf/DPjHI4LyRNr4BTglOvqyLPxFSe5MA/o52smbY3lIId9WvJ0lgYb4ghDNQIDtF3Hq74A8/jsUSlYksY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8Xebexc4VSclU8+EFQo6QpN9nPSATrQF+XdRpFeRA5P0rAd8qJ
-	TAFE0lA3hYvlx6yaiU9bXGqMNeCF9V+0NCnmhxFXQhWbVV4pHUGJzzNfRJeSVxyd3ktys7LsXE5
-	p4NxBPJ5b1lVH8JseMAoDc2VLWJk8x0M1JbAdTmSXtZ28drmMq2yzni/uQD1iBTkhodTusxrVec
-	wSs28IliZOWQO/XIcz1/YQMUeCL815MG7d9ffcBdicPfnJ6CNM54/KJ9zeLuiMKBFSTBZtFUNGl
-	ECASR68jPn0hihw5d+bQnDt
-X-Gm-Gg: AYBFou2ex2o0sbJCV0GLOPyjPNbwzKciyLhQqEnRGsKyrZKCIIDG2iUz2NhjEQSa+2h
-	1QLcqwoOouOxHuxsK+pYtHqp0M2O6t+y2SKMVVYYP3MzzlKucESrtwrsKMbBc6Jk3UN3MDRmbUv
-	+ci3wJBxc8O0Xd6xoQxmF0nBk1Rgh7RnKUFNug2Q3WPwZ1zknVMp27o8ctaNr0iXMOUfpz/ssUP
-	gT1Xp7G0rDf3QzEWRg5qhfKl7ARuUCergSiEGm7x5EnrDQi/4zyKvxDRU5uAbbosxveWzFZjc/V
-	s5wtq9QJ7PVJSVvrsPobI3HkXK7bohnRnM94Ntvh5mqNgIVQhogzidh2hBmNW1WIeZstquIQvNm
-	EkMbGKDkoQzueUOBpHrnpxCkHrBz2w8xAhd/x9KWnsph7zdHPK5C//tGbCNmwMvUM1pQGVpr6l8
-	Y5vemKMK3U3WExxd+AEpA1RzGwMQsVfID77bj9fZbn
-X-Received: by 2002:a17:90b:4b84:b0:3ad:8a14:bc73 with SMTP id 98e67ed59e1d1-3b182f93ae7mr3047151a91.50.1794417747782;
-        Wed, 11 Nov 2026 09:22:27 -0800 (PST)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-22.dlp.protect.broadcom.com. [144.49.247.22])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b197c77e92sm72338a91.8.2026.11.11.09.22.27
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Wed, 11 Nov 2026 09:22:27 -0800 (PST)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-91ea3a6c1a0so64528056d6.2
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 09:22:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1794417746; x=1795022546; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=94chnNwV7jUuGablQmYGqu0VRRLsEEyNiKC8ktRDRaA=;
-        b=iR6aFo0r506woL1zShoDXOtQG67IzLCqy6XtpipingCSWqBgKrcpr+UBhiWvyMFGi2
-         GlVRafIhPXUXmQU+h02jB3pMalazJy3dS89j6E3vDdzkIP2QWW58pvfIC6vcjlzBJprX
-         azZpi6H5IMM9g0wjc02ICDpViO2C9B+tYWCtE=
-X-Forwarded-Encrypted: i=1; AL+hErEIAtERlaZorzLDQwCS1S9h6A7RTsBFrxyToa0jevp0PAr5OT5VCCDVNY5Ga1cTV9k9l1gj82SBMXUTg2E=@vger.kernel.org
-X-Received: by 2002:a05:6214:590a:b0:91e:9a4e:8cb with SMTP id 6a1803df08f44-91f03dc9be3mr55802546d6.7.1794417746250;
-        Wed, 11 Nov 2026 09:22:26 -0800 (PST)
-X-Received: by 2002:a05:6214:590a:b0:91e:9a4e:8cb with SMTP id 6a1803df08f44-91f03dc9be3mr55802026d6.7.1794417745685;
-        Wed, 11 Nov 2026 09:22:25 -0800 (PST)
-Received: from [10.67.48.245] ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91f046e42a7sm24311426d6.31.2026.11.11.09.22.23
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 11 Nov 2026 09:22:24 -0800 (PST)
-Message-ID: <52c38c53-7806-48c7-a0a4-9e1aa40cc55e@broadcom.com>
-Date: Wed, 11 Nov 2026 09:22:22 -0800
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=jSXEd5k6
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Cn0fsSfSPA5dbGYGpJGfX6TyFGXaT6AmfOs82VxCk35MBXI0DJ07ZxWBwlWZ06D5SXjpJS8epS4ToeRgsvEDOtrQdKoPCvIrc9WOzA7bHtzW55ai6HgelOH2rCU0miLGfDRONhDtipCQiO8q/vbULOhbYZqfjuNjjrvX+0XMRe8k3n4em83CcNWAxxEJxajWok7Vj5YoPVHf6uBbPWMnXx0UFMzwqOwavJk8tMP8Qax0VtISp1CHjqoJaKb9UWMpEJkedZqUqelT+4TQLahNXw4XerBnsbjGTs+Y+rXFeCpXLYetB9A2O54OCV5ZpajP5gO68lYXQS2892Vy9omGeg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=FoQpm34+4/MGXQkByEg4Zgpwi/vW+obpD6WlXIuUk0A=;
+ b=c27k7TU667jWlncJXzkblbPfofaK8WEGpBCZL6OpMuru4+zDSQ41tZlTmUPr2PiGmXUKxS2AFGBeygXleknzfss0Iu82Op4l5QVU/vunXheQyk13qLCa5D/onrO0V/NFJ6DAB0hNyYmAx0xB+ZkiR3QWAs07CP111vQaAQoziCSpKcZBE2mbUirRsj1PHwZ2sBH4nlftUOYtPWjFuOCJrGr7pPMQewHeGIs7i4fEUc0uexMvwBJ3TK+O8PCXTlsA+nCD38I4VexGzxQXoi6NqD6zRwbgI9NM/MPmxoWkCzXFc4qzMSeRxDy/SMqHr7dpfl1eXjFnFU+CwxHG87GxAQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=FoQpm34+4/MGXQkByEg4Zgpwi/vW+obpD6WlXIuUk0A=;
+ b=jSXEd5k6//BAqS3yoLpPkgoDYi/jB3u0c6Pyr8okV++i28iqRUNLGlth99Zad3ha/1cn6oqs6v4/bKSJjS7m7aI+dq6hPBIZ7WrGTYK66r3VWT3tcZ9ejF43mWK0N5P//kjJHyepa9My0Wb1/R5OChS8kJWkel1xQuHTaq5WT99SoM61xup+kwJbNzmpb6l/bLXgvufAyhHe4IyAz4tLj7317ez4DVYL621EydwwAkt2jeAygrVF26xnizjZjdeNYMCjTF+JaPndDh3vaKqoIqlYRPhUiT8DFGohkM5tGxxQieJgFNgyQih7JkUjJ2/jQquI+4GA6M+euGZXaTNkLQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by DBBPR04MB7882.eurprd04.prod.outlook.com (2603:10a6:10:1e7::23) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Wed, 11 Nov
+ 2026 17:22:48 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0615.007; Wed, 11 Nov 2026
+ 17:22:48 +0000
+From: Frank.Li@oss.nxp.com
+To: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Kees Cook <kees+treewide@kernel.org>,
+	Vinod Koul <vkoul@kernel.org>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	Xu Rao <raoxu@uniontech.com>,
+	linux-media@vger.kernel.org (open list:MEDIA INPUT INFRASTRUCTURE (V4L/DVB)),
+	linux-kernel@vger.kernel.org (open list)
+Cc: imx@lists.linux.dev
+Subject: [PATCH 1/1] media: m2m-deinterlace: use dmaengine_has_cap() instead of dma_has_cap()
+Date: Wed, 11 Nov 2026 12:22:39 -0500
+Message-ID: <20261111172243.3440103-1-Frank.Li@oss.nxp.com>
+X-Mailer: git-send-email 2.43.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: DS7PR03CA0242.namprd03.prod.outlook.com
+ (2603:10b6:5:3b3::7) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,167 +101,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next] net: dsa: b53: mirror BPDUs to CPU port 5 when
- port 8 is not a CPU port
-To: Jonas Gorski <jonas.gorski@gmail.com>, Joseph Telaak <joseph@telaak.dev>
-Cc: Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261111-b53-bpdu-mirror-v1-1-f9f32e9d25db@telaak.dev>
- <CAOiHx=kTUBtFVgFhNqGhP135CdUmK8imCE_+pdk7qsdZKMqByQ@mail.gmail.com>
-Content-Language: en-US, fr-FR
-From: Florian Fainelli <florian.fainelli@broadcom.com>
-Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
- xsBNBFPAG8ABCAC3EO02urEwipgbUNJ1r6oI2Vr/+uE389lSEShN2PmL3MVnzhViSAtrYxeT
- M0Txqn1tOWoIc4QUl6Ggqf5KP6FoRkCrgMMTnUAINsINYXK+3OLe7HjP10h2jDRX4Ajs4Ghs
- JrZOBru6rH0YrgAhr6O5gG7NE1jhly+EsOa2MpwOiXO4DE/YKZGuVe6Bh87WqmILs9KvnNrQ
- PcycQnYKTVpqE95d4M824M5cuRB6D1GrYovCsjA9uxo22kPdOoQRAu5gBBn3AdtALFyQj9DQ
- KQuc39/i/Kt6XLZ/RsBc6qLs+p+JnEuPJngTSfWvzGjpx0nkwCMi4yBb+xk7Hki4kEslABEB
- AAHNMEZsb3JpYW4gRmFpbmVsbGkgPGZsb3JpYW4uZmFpbmVsbGlAYnJvYWRjb20uY29tPsLB
- IQQQAQgAywUCZWl41AUJI+Jo+hcKAAG/SMv+fS3xUQWa0NryPuoRGjsA3SAUAAAAAAAWAAFr
- ZXktdXNhZ2UtbWFza0BwZ3AuY29tjDAUgAAAAAAgAAdwcmVmZXJyZWQtZW1haWwtZW5jb2Rp
- bmdAcGdwLmNvbXBncG1pbWUICwkIBwMCAQoFF4AAAAAZGGxkYXA6Ly9rZXlzLmJyb2FkY29t
- Lm5ldAUbAwAAAAMWAgEFHgEAAAAEFQgJChYhBNXZKpfnkVze1+R8aIExtcQpvGagAAoJEIEx
- tcQpvGagWPEH/2l0DNr9QkTwJUxOoP9wgHfmVhqc0ZlDsBFv91I3BbhGKI5UATbipKNqG13Z
- TsBrJHcrnCqnTRS+8n9/myOF0ng2A4YT0EJnayzHugXm+hrkO5O9UEPJ8a+0553VqyoFhHqA
- zjxj8fUu1px5cbb4R9G4UAySqyeLLeqnYLCKb4+GklGSBGsLMYvLmIDNYlkhMdnnzsSUAS61
- WJYW6jjnzMwuKJ0ZHv7xZvSHyhIsFRiYiEs44kiYjbUUMcXor/uLEuTIazGrE3MahuGdjpT2
- IOjoMiTsbMc0yfhHp6G/2E769oDXMVxCCbMVpA+LUtVIQEA+8Zr6mX0Yk4nDS7OiBlvOwE0E
- U8AbwQEIAKxr71oqe+0+MYCc7WafWEcpQHFUwvYLcdBoOnmJPxDwDRpvU5LhqSPvk/yJdh9k
- 4xUDQu3rm1qIW2I9Puk5n/Jz/lZsqGw8T13DKyu8eMcvaA/irm9lX9El27DPHy/0qsxmxVmU
- pu9y9S+BmaMb2CM9IuyxMWEl9ruWFS2jAWh/R8CrdnL6+zLk60R7XGzmSJqF09vYNlJ6Bdbs
- MWDXkYWWP5Ub1ZJGNJQ4qT7g8IN0qXxzLQsmz6tbgLMEHYBGx80bBF8AkdThd6SLhreCN7Uh
- IR/5NXGqotAZao2xlDpJLuOMQtoH9WVNuuxQQZHVd8if+yp6yRJ5DAmIUt5CCPcAEQEAAcLB
- gQQYAQIBKwUCU8AbwgUbDAAAAMBdIAQZAQgABgUCU8AbwQAKCRCTYAaomC8PVQ0VCACWk3n+
- obFABEp5Rg6Qvspi9kWXcwCcfZV41OIYWhXMoc57ssjCand5noZi8bKg0bxw4qsg+9cNgZ3P
- N/DFWcNKcAT3Z2/4fTnJqdJS//YcEhlr8uGs+ZWFcqAPbteFCM4dGDRruo69IrHfyyQGx16s
- CcFlrN8vD066RKevFepb/ml7eYEdN5SRALyEdQMKeCSf3mectdoECEqdF/MWpfWIYQ1hEfdm
- C2Kztm+h3Nkt9ZQLqc3wsPJZmbD9T0c9Rphfypgw/SfTf2/CHoYVkKqwUIzI59itl5Lze+R5
- wDByhWHx2Ud2R7SudmT9XK1e0x7W7a5z11Q6vrzuED5nQvkhAAoJEIExtcQpvGagugcIAJd5
- EYe6KM6Y6RvI6TvHp+QgbU5dxvjqSiSvam0Ms3QrLidCtantcGT2Wz/2PlbZqkoJxMQc40rb
- fXa4xQSvJYj0GWpadrDJUvUu3LEsunDCxdWrmbmwGRKqZraV2oG7YEddmDqOe0Xm/NxeSobc
- MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
- 7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
- 95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
-In-Reply-To: <CAOiHx=kTUBtFVgFhNqGhP135CdUmK8imCE_+pdk7qsdZKMqByQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|DBBPR04MB7882:EE_
+X-MS-Office365-Filtering-Correlation-Id: f5c37835-8c0c-4c0a-0538-08df4018688f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|366016|23010399003|19092799006|10067099003|56012099006|11063799006|261026121527099003|261021121427099003|261021123027099003|261102123227099003|261009223027099003|18002099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	iKDDA2em0liSwbm42cRHG3JOcyvfM5pHnLg+bW945+eRz3s2BDC7vdODHQUDmrWFnvPUxxGp4IUcf3YIiDW2mmbYLtjZk3E9MsnTwhwb3hDzmgpQ3/bIF/1TyEbZYySelEZKyBGkZyJxSxPN5Mi2FtWsZtG3kfwEho038fHPpMTJLyixiAKRkRv5Z8jK+mfHtUX9CQE1df9LG6DmTwq8Pk+yjYI2krHAPykUV6nrrT7MlEPGFEyvz0GIWFr4xwudPxmm/dWhwqp1RDAjes90CrRnZqWyQS1neKrSR9+AeiS60b7/Pp9bVr5BzCbMGvK92VtUoY02T0Oh3OVdHZZGkmbyrOYUJ+LSpmbTEIma5WBgBoFjRxifU/tipEFFJaYE71ypm/2I1hXhD8uGaHVGRf65ZBXWAPyWDf1Z1zxr37HWrO4yoH7vKMdex6zsUbkfgWK8GAOT8FKhlJ/+8ZiKZywKfFeDpbY89qY2d0255/+CxH78n+gKfJV2ojvKvhq/UyuTfGXKkEPpL/nOTorpLvOPWeSP7T27H79Fw1OdTu37Z0YJ2WU2qb0AH2K5OEPAoxihbMMHI1rHcKQikCJVC8dFLBZluVyFuJjbd6POU5icYwMwzhCvbmUQNMXvBsgTFq8sPNo4atpdtIgWHnhHIkJXL/ptQc5oYK62XGuGhzY=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(19092799006)(10067099003)(56012099006)(11063799006)(261026121527099003)(261021121427099003)(261021123027099003)(261102123227099003)(261009223027099003)(18002099003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?uFz/wo/0/W0lFnrl2reWZRwh/ptbsqayghloAUpbWbVq+g8LfEyxZ/eIoSp5?=
+ =?us-ascii?Q?r1u9TFZWuGmWrGYqjCUopnXPtbyW5daiBMY0w63c8hCVlYFfv4sP0Wvh2Hsr?=
+ =?us-ascii?Q?X6oPMhtMqlo7Mv6sZtwU3E191AqD9GNiWufhkx8xGqMcZ2QaXFcdm2PKL2np?=
+ =?us-ascii?Q?pxM2+R1i2WxC6XNXfPf34shKD1/GynKEZRQQdu9xTcjaOr7Cg0TeQ6jnOkGB?=
+ =?us-ascii?Q?LvIXn/uNfioweuU8IvoJTvATtqGgCZRjIGUiRIef3TVnVI8z969opqulIme/?=
+ =?us-ascii?Q?ybQdtnuMFBbGFIAQxOnD6RZxysbqLBWJprEj8hmZS0Y+L9qj1WcxdnfHmU5F?=
+ =?us-ascii?Q?a8aecsofRu7fBksnFwC+CkaK8KJNMOVy1ZwjWmWfTOebBZBucUsAoPRRTeOQ?=
+ =?us-ascii?Q?OnNXLta+HSxUkr/wUrh7YVXMmwUIB3EzsPQLmHPoFzG2z2RSQFUjmNn6/LkE?=
+ =?us-ascii?Q?4nDyxusOd3m3It0J2jAufIhJsIqyAWtw74MuA3s4gm2Rebn0aAVvQ2jo8b0n?=
+ =?us-ascii?Q?otBEXkEthub2DTpdIG7AEYwIC/gM5i2vb1A4jBiMSrxJ6utrbdrod1mquluS?=
+ =?us-ascii?Q?eVROKvtbBSfShyPZNrlz7GQCy9muXxk067+KZ6yRaeFSFxDRhDQJNEiuGa1h?=
+ =?us-ascii?Q?a7ja9JSyMN+KPy2bZVRg01RM16OJ78vKXi8coh9+Mj2si34/+pR5NzCznf47?=
+ =?us-ascii?Q?4LTEf63iPnkaEx0lvaD+tjob4g848Tlgu3UTrFQG82ti7YET+hgMyetHhJW9?=
+ =?us-ascii?Q?jXQG5CDM/cAP+gnHR3RBhH1xVV0TA/BstDAMYkPprKwxkGhnhddqnbOkAbd0?=
+ =?us-ascii?Q?iMEA5SwnCETIT7+qpnUM7Aka/1hyeFpIhTIZU7pflEu61XboKHnhBgZ06bYT?=
+ =?us-ascii?Q?VUSy2JkkyidJ59lAD8GYaKnj7lEuOhytQokm7atBoUfOJ8dfAeXtYxdpiphi?=
+ =?us-ascii?Q?tfCu5dhZtEezM7cfyGQtvpYWp/YwtLAnSOt2ZR8YcCyCLWHchiSi4FGDkSz1?=
+ =?us-ascii?Q?6mSw1qjfs2wesg8gUaq4x3dZkLIeWBtCqZRnG+AgJIIp06RKTMjccoUPIttm?=
+ =?us-ascii?Q?Xfg/CDWe8ZhiewwzODo8iXcwwXwWIG0wajxFIuAfR1XHPeYXZZ5SkPjvoquD?=
+ =?us-ascii?Q?xz4+uGNeSGelmye+kos8BCSO5qcVvafTl1WLoGyU2kp27OynnNL3Zbb4evrb?=
+ =?us-ascii?Q?GTkZgbW25OfNWKmvuxthElbW+1eQAQMm2ZYNhe+DUGi6mTH2Pnbj2DUV14Nf?=
+ =?us-ascii?Q?HdRlilNFS4CD0uaPlq57X6eEN+dK+F7O6nZy9z/auudLlbHnSp/Nz6J7Wks5?=
+ =?us-ascii?Q?hVYIuaGSl8LKmzb+Db+W8tDFjTv/8/17UrOR/R7+r3/aGwTlKSmXMsI6nbzT?=
+ =?us-ascii?Q?o6dikqejmb3K6bjbWvEE+EdSNjUDA0rlg6WJ0wOSyMUM96H7P2enCm1jFvOJ?=
+ =?us-ascii?Q?1L+q1Bg4RD2diq2V3nj2VPXsTDt0MiX/OzmsfIV3GIG/Yu4IXsNvE2R6Q3sy?=
+ =?us-ascii?Q?mUzX+vI39kZM9FCTIqbJ81Fki3oLnq8eHNQKm7gQL4+KTdDc2aY6DZ4z5Ce4?=
+ =?us-ascii?Q?kGeHtWMpTJyGTg0c8/lj8Ydf0l+4F5eu1PPETVzbam3opEnjzIICX3emDnRS?=
+ =?us-ascii?Q?eYrj0/l0McNd4D63osgYhselNdVi7GaMFwRkvpaFrHJpkmH6jIsAbHsNrFtA?=
+ =?us-ascii?Q?tDzVpCKBvI8qVPNT82RmJqCEt1kYghccytfnJam8GJ6foPULSwUyldtGDF4a?=
+ =?us-ascii?Q?z5lMAeigtA7KLmOelZrdiP7atj5EgDg=3D?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f5c37835-8c0c-4c0a-0538-08df4018688f
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 17:22:48.8150
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: wHQReLHMdjjOv4GNThcUl7Q31IBVJRYpKYSmpHBf5wewnY07WMVOXsGaLdQaBdz9ilczj8qXrTz7BLi0OyRurce2hajvBLvH04bg0rC95yMaX7he2kw0DvCpcKsdipAa
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR04MB7882
 
-On 11/11/26 02:11, Jonas Gorski wrote:
-> Hi,
-> 
-> On Wed, Nov 11, 2026 at 7:31 AM Joseph Telaak <joseph@telaak.dev> wrote:
->>
->> A BCM531x5 can be connected to the host through its IMP port (8) or
->> through port 5. With port 5 as the CPU port, b53_brcm_hdr_setup() puts
->> the switch in dual-IMP mode, in which frames trapped for the CPU, BPDUs
->> among them, go to port 8 when they come from a LAN port. b53 sets up no
->> WAN ports, so that is every user port. On boards that use only port 5
->> and leave port 8 unconnected, BPDUs are lost: STP never sees its peers,
->> and a loop between two user ports takes the host off the network.
->>
->> Mirror frames sent to the bridge group address from the user ports to
->> port 5 instead. The multiport address registers cannot do this, since
->> the RoboSwitch data sheets resolve reserved multicast before them, and
->> marking the user ports as WAN ports stopped forwarding between them
->> when tried. Other frames trapped for the CPU still go to port 8, as the
->> mirror matches a single destination address. The switch has one mirror,
->> so tc mirroring is refused on these boards.
->>
->> This was observed on a BCM53125 board in real use, when both user ports
->> were cabled into the same LAN. Tested on that board with a host sending
->> BPDUs into a user port: before, none reached the CPU and the bridge
->> stayed its own root; after, all of them did, the bridge took the sender
->> as root, and forwarding between the user ports kept working. No
->> selftests were run.
-> 
-> So on your board only port 5 is wired up, and port 8 is unpopulated
-> and no way to make it work?
-> 
-> Be aware that more than BPDUs are broken by this, as anything trapped
-> to CPU is not working. This also affects traffic on ports outside of
-> the bridge, other trapped packets in the 01:80:c2:00:00:0* range, or
-> IGMP/MLD snooped packets (or any other L2 protocol snooping).
-> 
->>
->> Signed-off-by: Joseph Telaak <joseph@telaak.dev>
->> ---
->> Sent to net-next rather than net because it takes the mirror away from
->> tc on these boards. I can resend to net with Fixes: 8fab459e69ab ("net:
->> dsa: b53: Enable Broadcom tags for 531x5/539x families") if you prefer.
->>
->> Only checked on a BCM53125. BCM5301x boards with port 5 as the only CPU
->> port may have the same problem, but I could not confirm it.
-> 
-> They do, though there it's "easy" to fix by switching to port 8 in the
-> device tree, since all three ports are AFAIK always hardwired in the
-> SoC.
+From: Frank Li <Frank.Li@nxp.com>
 
-Yes, I have a series of patches doing that, because using port 5 is just 
-not working for everything.
+Replace the open-coded dma_has_cap(DMA_INTERLEAVE,
+pcdev->dma_chan->device->cap_mask) with the dmaengine_has_cap()
+helper, which encapsulates the capability check and takes the
+dma_chan pointer directly.
 
-> 
->> ---
->>   drivers/net/dsa/b53/b53_common.c | 24 ++++++++++++++++++++++++
->>   drivers/net/dsa/b53/b53_priv.h   |  1 +
->>   2 files changed, 25 insertions(+)
->>
->> diff --git a/drivers/net/dsa/b53/b53_common.c b/drivers/net/dsa/b53/b53_common.c
->> index a2a5754c413c..6b33775c7598 100644
->> --- a/drivers/net/dsa/b53/b53_common.c
->> +++ b/drivers/net/dsa/b53/b53_common.c
->> @@ -797,6 +797,24 @@ void b53_brcm_hdr_setup(struct dsa_switch *ds, int port)
->>                  hdr_ctl |= GC_FRM_MGMT_PORT_M;
->>          b53_write8(dev, B53_MGMT_PAGE, B53_GLOBAL_CONFIG, hdr_ctl);
->>
->> +       /* With port 5 as the CPU port, a BCM531x5 runs in dual-IMP mode and
->> +        * traps BPDUs from LAN ports to port 8. When port 8 is not a CPU
->> +        * port, mirror them to port 5 instead. This takes the switch's only
->> +        * mirror, so tc mirroring is refused.
->> +        */
->> +       if (tag_en && port == 5 && is531x5(dev) &&
->> +           !dsa_is_cpu_port(ds, B53_CPU_PORT)) {
-> 
-> So this should be extended to all dual IMP capable chips, because they
-> are all equally affected.
-> 
->> +               b53_write48(dev, B53_MGMT_PAGE, B53_IG_MIR_MAC,
->> +                           ether_addr_to_u64(eth_stp_addr));
->> +               b53_write16(dev, B53_MGMT_PAGE, B53_IG_MIR_CTL,
->> +                           (MIRROR_DA << MIRROR_FILTER_SHIFT) |
->> +                           (dsa_user_ports(ds) & MIRROR_MASK));
->> +               b53_write16(dev, B53_MGMT_PAGE, B53_EG_MIR_CTL, 0);
->> +               b53_write16(dev, B53_MGMT_PAGE, B53_MIR_CAP_CTL,
->> +                           MIRROR_EN | port);
-> 
-> Have you tried a catch-all port 8 egress to port 5 mirror? If that
-> happens to work, it should catch any trapped traffic. May not work
-> while the port is disabled in software though.
+No functional change and prepare to move struct dma_device to private.
 
-We could also try to use the CFP to perform a full redirection to port 8.
+Signed-off-by: Frank Li <Frank.Li@nxp.com>
+---
+ drivers/media/platform/m2m-deinterlace.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> 
->> +               dev->bpdu_mirror = true;
->> +       }
->> +
->>          /* B53_BRCM_HDR not present on devices with legacy tags */
->>          if (dev->tag_protocol == DSA_TAG_PROTO_BRCM_LEGACY ||
->>              dev->tag_protocol == DSA_TAG_PROTO_BRCM_LEGACY_FCS)
->> @@ -2604,6 +2622,12 @@ int b53_mirror_add(struct dsa_switch *ds, int port,
->>          struct b53_device *dev = ds->priv;
->>          u16 reg, loc;
->>
->> +       if (dev->bpdu_mirror) {
->> +               NL_SET_ERR_MSG_MOD(extack,
->> +                                  "The mirror carries BPDUs to CPU port 5");
->> +               return -EBUSY;
-> 
-> I think this should be rather -EOPNOTSUPP, as with this setup we will
-> never be able to support it; -EBUSY feels more like a temporary state.
-
-Agreed.
+diff --git a/drivers/media/platform/m2m-deinterlace.c b/drivers/media/platform/m2m-deinterlace.c
+index df291b5f7501f..33f05d2baed6a 100644
+--- a/drivers/media/platform/m2m-deinterlace.c
++++ b/drivers/media/platform/m2m-deinterlace.c
+@@ -924,7 +924,7 @@ static int deinterlace_probe(struct platform_device *pdev)
+ 	if (!pcdev->dma_chan)
+ 		return -ENODEV;
+ 
+-	if (!dma_has_cap(DMA_INTERLEAVE, pcdev->dma_chan->device->cap_mask)) {
++	if (!dmaengine_has_cap(pcdev->dma_chan, DMA_INTERLEAVE)) {
+ 		dev_err(&pdev->dev, "DMA does not support INTERLEAVE\n");
+ 		ret = -ENODEV;
+ 		goto rel_dma;
 -- 
-Florian
+2.43.0
+
