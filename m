@@ -1,86 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.238.236.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794431612;
-	b=DLhs0zKWws1nBxgc4HgNgEUiUtUT4Gb+UKAB78Mhgiuaa8ot6ITtMBZ4iPUksnuPE1Np
-	 zlSjVUvSiMtZ6rW6nbQ3MTG0nUVOHNzI3DY3I0n4goPYAM0G9dv5AgQ/clRzZb2HYILYp
-	 flzRTzY3EmaPfnr/wlf81CcE6hWWmpsWcGT4siHk344g8eGJ7I0TcrDIQ9kOgDq2Rkbpu
-	 pfp9ngoElqF2jS2UO5eoBNc3zIHp08p7jem4yuEXSKZ+TB965LKNoAvwbufpRzFZNkPFj
-	 hfIJXYdcx5yRU7bIhWBpW70PEFb3O58CuDcKienye9h9nU9OgsH2tQz0absSiXaxSKw==
+	t=1794431689;
+	b=tEn80JYl63ADs2YNltwlhMrZ1XTwhbZQWRIe6LFHHtM1mubielCWWk6CURI/t4dTVEkx
+	 bHBunR2V17xoIR9atVJr01iyJm7hVjouE8ZvDJzrTQLMs5029fBQcbt/ss3E2LzVB/Pn5
+	 cxycHzyMMl9FWFU4EnzEz6o6yKtUzPC/eLlkx7sXwNa4aSEVdQoyyUwa8ZW45RflcVit6
+	 HAAK+9jUZI3Mj/RXqRXdPWrMA27iDqX2uGPC/b6OxOpH4lASOi4lU6geAz6HboMCdOLBL
+	 3tJBArZ7YzoqME+rAD4TdbZlssudB0hTGB8dmXP4QmVJfXzcUvYS5VP7W7RIHerHbJg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794431612;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Message-Id:
-	 Subject:From:To:Cc:X-Mailer:References:In-Reply-To;
-	bh=3IrB6l2ge+kT+1cpfqcWAfjg5pGysZEjTO7L0UKFQf8=;
-	b=Z/tWJN4BunQ/tiUaz/NoXMbkNsI3aNSP/BIaGFEhlUjuMv1EVYVFj4Rbc23wVZNny5iN
-	 /jY+O67k5I57QHe0SksQLcmB8wTAMbVvMFjCpwzV0giKD8AZoBxYZRXxm/bOxxMZXHgTI
-	 XB1EabrRX47PtKOqMidvOqwHr5SnnoiTc+ct7Iex1YDvohwlxJHb5Qt3tYJ61nBnddE0e
-	 0PVuu/BT5uVghTcDAJx6+jHtijRBLdgUckSXk2yn0gpN++F8qkJgoWGAXi79p74MZdgY/
-	 XIAfPB04kLjEsedfW9KuAjUROUwrH9bqrZ679rHZ8g6YsEhLLL/eKhybVxGUj5LBzsA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794431689;
+	h=DMARC-Filter:DKIM-Signature:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=YZA0mL/g+XaMvzLe7dWFyFSxxKt5KDjWkQKQzVStFdo=;
+	b=oqjVn4+0bhi+hzce5xdHEpmySHLe7GRGjbFNYPgdFC0IJJBiq5AUJgCuGhZWp+W6Im4L
+	 zBbuldaem8+NlKb71yz+slgLhBhdWnJRAaYLdkqUpt1stKhrgyDmUEMLn2kAZNb4t/3CL
+	 a8VDWCfT6y+MyotRPIT3yHi8VOD8bux53SQN3ugExyD0+6cmQuPnL2t24q+uPaLW5M7vk
+	 4yGNLg70YPmBESFOWNFwuRkX4gCDJLA+KOqCnTeLFzwx8rwH0G8FWQ2hAY350ovnmHQ0E
+	 c694Psbi1zNh2+A/pm3okiTUkBaq6RgMP8uKqWnYNws9eubHC/BiNuj+lYYWPTtATQA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=soleen.com;
-	spf=pass smtp.mailfrom=soleen.com;
-	dkim=pass header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=lOKYDDEa;
-	arc=none smtp.remote-ip=209.85.217.44
-Received: from mail-vs1-f44.google.com (mail-vs1-f44.google.com [209.85.217.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=kemnade.info;
+	spf=pass smtp.mailfrom=kemnade.info;
+	dkim=pass header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=a+HGgVlg;
+	arc=none smtp.remote-ip=178.238.236.174
+Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6377D606A324
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 21:13:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6377D606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=soleen.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA94A606A31C;
+	Wed, 11 Nov 2026 21:14:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA94A606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kemnade.info
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=lOKYDDEa
-Received: by mail-vs1-f44.google.com with SMTP id ada2fe7eead31-7cc53938a8fso2367794137.2
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:13:32 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=soleen.com; s=google; t=1794431611; x=1795036411; darn=vger.kernel.org;
-        h=in-reply-to:references:cc:to:from:subject:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=3IrB6l2ge+kT+1cpfqcWAfjg5pGysZEjTO7L0UKFQf8=;
-        b=lOKYDDEaWLLmAvnd3LQM0bZSGO0Yo4zxUjhMLVMO/5rygvi8q8nMWDBolKHpWEnZ7I
-         8IjHA09+4z1l6wWIPKTnsWvBSjL7gYDA3ctTpeAx6z9ZK337J6Uf5jjqFo6G3+wBdeY0
-         dsYm8PuwGPaQ1azj/WiNEYekFt/Vbp40p4yon3qKCZ+EUmprRGmN0dxN7v8AxfFM1AFa
-         62G1cV6MN0GEOuYVWOf4swqYwLcEmmyAgk9tMyz+iwa/jiUA1R6LHxWtIcgpkT9qAnD+
-         ulFbXBewxvne7l4vQnGgmrXU4rw3c4cxc5H8SCq+zK1ahVJkKWQMH2F8eKWHTiT1Odli
-         f7Ag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794431611; x=1795036411;
-        h=in-reply-to:references:cc:to:from:subject:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3IrB6l2ge+kT+1cpfqcWAfjg5pGysZEjTO7L0UKFQf8=;
-        b=t1l7jT1uBlpBLW5tdt0OQGp4kAEzbD37XmZ87YJkNiAFHyCqR4aAf/DcT7y+QhF28R
-         1pPH1jgrvBgMHUiZDAnADt4E//nXa/h9wrnfdB8X3aUfbDnrKdNteC2h8ztERw86fMEv
-         XXUUHcP82HawB7Gatk0HXcMrlu78w/iF5CHV8om8yimp7KSza/4CFfJb7blc0TBQFwzx
-         VhMTljktJiZ5CbMOfKHXqKnvmLa05xhqqrSM0aFl7D21u0TjYBsqe2XD6tqTYeiK6gtI
-         d7Nind6eSOl2YjPF0IkaMbUTymnSxh1VoeYbqDS9tYZ1iTtED8wTE0mZZZssEOsoOFP6
-         2kng==
-X-Forwarded-Encrypted: i=1; AL+hErEto+s/UY0358EtSbgTr+/ANbCXbrTp+yb3jCyF+nzCjfUPUl4RPgyns7vpz6I8EwkVsHa6piAoZwltfuk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/0H2z5zyfo63U6UpPQuE4r3F9LMnD5Hd33zRnDJopVdwnnBfNV
-	2wmhALMgHSFy4hP9FfCvIZn2zCFu9V30AjqjavoHLsP1xSncVNGf3GxvtGVOsi6u8NoAf6htqcs
-	cadB0
-X-Gm-Gg: AYBFou2vsGEHbfy5/izASSepYf0egF08KthMKW4SMqldj6YNVCKLQCmUn9dJmGKKIOk
-	zPYzhtx4SktgU+w4vT3cHtkYjfyeIpJQC1U2pY36nNp9iuWEwQwFSNX04Ieso8/7WGjdl7LSCmd
-	muubwFKyBqgmQqHKv0uce/dobs4Wrl8u2y11q7P/QlzlnIrhFwhfYHJqAioOFMV7JaNaws6OCQH
-	2H2a62EFE2zzF0e79DmCIOvb+uhh4E6xD7aHXPzN1zpxrTr5fYJj4/OVrf616UAzKeRhazl2xBM
-	KcRmuW39PVdIiypD4EIYCtWJXvTXOVzFiwjCLfTCLx3UvPZKtIDRIbs3oBhU9w5Mvt3DJ7H91pv
-	/5loLGQxtbUhrzCZjDR2F9787ef0/RfyyEybQzqtg3txGAYwJ+sYIqjciiUZE2N+r4bW/2PGyFl
-	/o2v8Nv3I/U23lwVvOlVUqbzsbmVzDrqkBlphYLM62M8Hwa0l7sRKUkuNKfFzou0ofwlmLQXK5U
-	y0+cd28bEqOKPS1my1QOFiIr40sB7mTF1xeczvSQxu94dbmDqM4loVT0DJOTirmagX2OKGINbc/
-	fgOMW1U366HMx4TJ0olaWQlGVDM1PlfEMbv15ZbMcDnZVzqfxYXl5NyfqJnuSpNOd6L7/kGny4H
-	m0zgv+1GSQwWXMiiJ0QFV6M73LsDg
-X-Received: by 2002:a05:6102:2d0e:b0:7cb:bc5e:7d9f with SMTP id ada2fe7eead31-7d4fb2577edmr1659351137.11.1794431611247;
-        Wed, 11 Nov 2026 13:13:31 -0800 (PST)
-Received: from localhost (16.49.199.35.bc.googleusercontent.com. [35.199.49.16])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7d3023838a9sm4907083137.7.2026.11.11.13.13.29
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 11 Nov 2026 13:13:30 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=a+HGgVlg
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=kemnade.info; s=20220719; h=Cc:To:Subject:From:Reply-To:Content-ID:
+	Content-Description:In-Reply-To:References;
+	bh=YZA0mL/g+XaMvzLe7dWFyFSxxKt5KDjWkQKQzVStFdo=; t=1794431688; x=1795641288; 
+	b=a+HGgVlgzoRDc3jQLlPI6rHDIAMdRF24ca9hPGAzb7LtSUM+CF33QBndFyiR9BOxpRwtoG0jOCE
+	mepHqKKbDy9DJF1yDNnFtThteMsMv6wCgd8iErkcli0qMOQtALA8t28Co4Kz/ZhPILCmNpG56k13D
+	FDc8DOCrcH2bjA1TTCU98XMYknMNbn2o00rHlkN4+Wt/FJhCnqrBVUW2TV5MG4daQvgqZoOIay03R
+	iSJXfdUPuKPUlifWoo8RtViNMO/OdNhKaXoBeE20NN4pyX1uda3+Dh15Y0Ml0BoP3i0XjVDHWmL1T
+	ywT/IjoWgdgpjBNBrpGUe2VM87CVT7NgQtBw==;
+From: Andreas Kemnade <andreas@kemnade.info>
+Date: Wed, 11 Nov 2026 22:14:02 +0100
+Subject: [PATCH v2] drm/omap: dss: fix handling deferrals
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,72 +53,77 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 11 Nov 2026 16:13:29 -0500
-Message-Id: <DMSOX12JE1BL.33ASGRFO04NUM@soleen.com>
-Subject: Re: [PATCH v5 5/6] liveupdate: Add LIVEUPDATE_SESSION_FREEZE ioctl
- to freeze sessions early
-From: "Pasha Tatashin" <pasha.tatashin@soleen.com>
-To: "Mike Rapoport" <rppt@kernel.org>, "Pasha Tatashin"
- <pasha.tatashin@soleen.com>
-Cc: <linux-kselftest@vger.kernel.org>, <shuah@kernel.org>,
- <linux-mm@kvack.org>, <skhan@linuxfoundation.org>,
- <linux-doc@vger.kernel.org>, <vipinsh@google.com>,
- <linux-kernel@vger.kernel.org>, <corbet@lwn.net>, <dmatlack@google.com>,
- <kexec@lists.infradead.org>, <pratyush@kernel.org>,
- <rdunlap@infradead.org>, <graf@amazon.com>
-X-Mailer: aerc 0.22.0-39-g5d7784875be2
-References: <20261105050053.3063001-1-pasha.tatashin@soleen.com>
- <20261105050053.3063001-6-pasha.tatashin@soleen.com>
- <179439592041.425130.6098227055493441109.b4-review@b4>
-In-Reply-To: <179439592041.425130.6098227055493441109.b4-review@b4>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261111-gta04-drm-regression-fix-v2-1-010caf3b08bd@kemnade.info>
+X-B4-Tracking: v=1; b=H4sIAJna9GoC/42NTQ6CMBCFr0Jm7RhaoSSuvIdhUegURmMxUyQaw
+ t1t8QLOrL6X97NCJGGKcC5WEFo48hQS6EMB/WjDQMguMehSG5UOh9mWFTp5oNAgFHMAPb/RN+R
+ r1RtD7gQp/hRK8l59bX8cX92N+jn3ZcfIcZ7ks28vKvv+mFkUpnekG1d3tjL2cqdHsI6OHPwE7
+ bZtXzMUpenVAAAA
+X-Change-ID: 20261111-gta04-drm-regression-fix-f7ef51c66ed3
+To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>
+Cc: dri-devel@lists.freedesktop.org, linux-omap@vger.kernel.org, 
+ hns@goldelico.com, linux-kernel@vger.kernel.org, 
+ Andreas Kemnade <andreas@kemnade.info>
+X-Mailer: b4 0.17-dev-e5168
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1348; i=andreas@kemnade.info;
+ h=from:subject:message-id; bh=K1/4nD/blrdt+2IR2NBi2vL6dVXYJQk3uUPTTqOJMN4=;
+ b=kA0DAAoBhGFF+kAo3PEByyZiAGr02pygYASQbIaOAroFim6KIiMDqNJTEu+EB3RlC6JZu8djR
+ 4kCMwQAAQoAHRYhBNjrEJkvRMQTVcd8WIRhRfpAKNzxBQJq9NqcAAoJEIRhRfpAKNzxrPEP/1LO
+ z9iYICL7nom1ymbXEbuEKu20tqWn7eVXIBr4I+ceFI5mjKUatVEmYmFHWS+J+E0DtU6ls+Ybf1p
+ nyVK2W7UACJ2DotrtKLGdphTcyRuyXpzqLdQtviI/fMOTq/VGJr3dsiy45r3JTcx6ezxOEAkW9b
+ 5mwQGwtpa4SQYrgBs93DuEb5tOEjLM7Kg9pvqGE39jeUC3K+8wan2YkLR9v4sMiFxKkvM8GGPoY
+ hQrZUBmS+luTG6mNMrQfbY6cyOf/s1IFFCZso6441UIj/XF9MSxPS2TR3QFAyLXCSNOYISy4i5T
+ MScssy2ZyxFspdtiSQZn/JS0tBHv6JhaxScHbCz8GAwOji0Qxjo0Nqk4UodBn1wt8mcfGyplzLr
+ pfIiqqPpeCl8DToFqeuEUEdjxeSHtiT/FEJyUAoCbnv9e8LitSQ5CyPfUynKxH9KOhpEy9eXg8L
+ rblKMqyj/Drb3EbUE6XRXr1XJIlRzD1Jq5by+bp3i9hvkGtuCxLPjJ/2fHpmh1iHufrTML4HOPJ
+ 1qcccX5fa3QIhh/FHs8XCpI1veksy/BDxVoBDdAb1066gNR00NKsL3YQa5R0IwKXtB/hhBxV3i3
+ mjh6brmjri+P5E/AkkLagifMcyTSl0eMJjzcDIx80ByTamb3Rgu/Uhs9TyEPGf42uwOrev3+m7q
+ CZGGG
+X-Developer-Key: i=andreas@kemnade.info; a=openpgp;
+ fpr=EEC0DB858E66C0DA70620AC07DBD6AC74DE29324
 
-On Wed Nov 11, 2026 at 6:18 AM EST, Mike Rapoport wrote:
-> Hi,
->
->> Currently, LUO sessions are frozen automatically only inside the
->> reboot(LINUX_REBOOT_CMD_KEXEC) pathway, where luo_session_serialize()
->> iterates through all outgoing sessions under global write locks and
->> freezes them serially during shutdown. On hosts running multiple
->> workloads that quiesce one by one ahead of kexec, userspace needs an
->> explicit per-session freeze point so each session can capture final file
->> state under its per-session mutex as soon as its workload pauses.
->>=20
->> Introduce LIVEUPDATE_SESSION_FREEZE on session FDs to freeze an outgoing
->> session early. The ioctl runs .freeze() across all preserved files in
->> the session and serializes their metadata. Once frozen, no additional
->> files can be added to the session, and subsequent freeze calls return
->> -EBUSY. Freeze is only valid on outgoing sessions and returns -EINVAL on
->> incoming ones.
->>=20
->> By default (flags =3D=3D 0), session lifetime remains bound to the sessi=
-on
->> FD: the session stays frozen while the FD remains open, and closing the
->> session FD before reboot (for example, to abort the session or on
->> process exit/crash) unfreezes it via .unfreeze(), unpreserves its files,
->> and reclaims all resources. During kexec, already-frozen sessions skip
->> the late auto-freeze and are published into the outgoing KHO subtree.
->>=20
->> With LIVEUPDATE_SESSION_FREEZE_COMMIT set in
->> struct liveupdate_session_freeze.flags, the frozen session is committed:
->> it and its FLB dependencies are immediately inserted into the outgoing
->> KHO subtree via luo_session_publish_one(), and the session survives
->> close() with full ownership retained by LUO until reboot. Once
->> committed, closing the session FD (or another session failing to freeze
->> during reboot) never unfreezes or unpreserves the session, allowing
->> processes to hand off preserved state and exit prior to kexec.
->>=20
->> Update the uAPI and core LUO documentation to describe session freeze
->> and commit semantics.
->
-> Please teach your LLM to use shorter paragraphs, focus on why and don't
-> list every implementation detail, but only important ones.
+Forward the error given by of_drm_get_bridge_by_endpoint() if it is
+EPROBE_DEFER to ensure output gets initialized later when available.
 
-The first paragraph explains exactly why; however, I agree that it needs=20
-to be more concise. I will address your comments in v6. Thanks!
+On GTA04/OMAP3 no display was found, but it appeared after doing
+rmmod omapdrm ; modprobe omapdrm
 
---=20
-Pasha
+Fixes: b7e9b93fc8ecf ("drm/omap: dss: don't create a panel_bridge")
+Signed-off-by: Andreas Kemnade <andreas@kemnade.info>
+---
+Changes in v2:
+- do not use the error goto
+- Link to v1: https://patch.msgid.link/20261111-gta04-drm-regression-fix-v1-1-1de27d5ba46a@kemnade.info
+---
+ drivers/gpu/drm/omapdrm/dss/output.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/drivers/gpu/drm/omapdrm/dss/output.c b/drivers/gpu/drm/omapdrm/dss/output.c
+index 36d37deac8026..b5cef5093a883 100644
+--- a/drivers/gpu/drm/omapdrm/dss/output.c
++++ b/drivers/gpu/drm/omapdrm/dss/output.c
+@@ -24,6 +24,9 @@ int omapdss_device_init_output(struct omap_dss_device *out,
+ 
+ 	bridge = of_drm_get_bridge_by_endpoint(out->dev->of_node, out->of_port, 0);
+ 	if (IS_ERR(bridge)) {
++		if (PTR_ERR(bridge) == -EPROBE_DEFER)
++			return PTR_ERR(bridge);
++
+ 		dev_dbg(out->dev, "failed to find video sink\n");
+ 		return 0;
+ 	}
+
+---
+base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
+change-id: 20261111-gta04-drm-regression-fix-f7ef51c66ed3
+
+Best regards,
+--  
+Andreas Kemnade <andreas@kemnade.info>
 
