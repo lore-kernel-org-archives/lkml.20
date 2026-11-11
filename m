@@ -1,60 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.226.149.38
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.226.149.37
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794398390;
-	b=t603C9HERgHg9WR42eUqYCPwL44XaxigjlTDFPVd9xuS6zjQxjrEicddFoSIILHoN8uG
-	 13h5UxtVgbwrnd/H3juYtcIulMxI//V1am8a9I2j5fGyem0TEPFIVxmRDlhvO0pnoQTUw
-	 uXN6KQram9pqf3vctxoaxdtB2QfSMv+fxO/HmyeVi/bvLY/Qv2Q86uzg/vwxGGjd2C4tW
-	 k75KwjGcN7mvOO6e7KkPMfgU04UxXxiYM/AmbDmcQBNJkYkDu6nZXIcgEcDTJrpeKX1CA
-	 jVx/6t7BRO/lE+kyJvbOgvy95wObIENt6Pv2F5p66JgFJKDpHwnWarBM+m3afjc7O1w==
+	b=2cZaCb7NsgTuZ7xn3K6We1Pbfmc8QTarlFRPwhkT16zW3P5maLFRfLix2fFPlVnFcsUv
+	 rKzRoESDYvg6FAY1LukfdHpdGd+mUnS2XSTlGN9NFGuwWbvZoMImmyUFwLLjmy8pGFZnm
+	 2xSA9c7QTpeKcDZcuYP+O8xsJTTH2izgsQXZuTycbVlM4nDHhmmw1jsNm/8wi0Z9nyD/U
+	 3lOrxejrm62Y5OR7yaefZpWBOPa27aPNSnbBnTdTbsOAv+uclYfkdJz7EneI5RLnsvz3k
+	 GDg7TTU+qdu17dc5NoBuhcfboLqk8srHvPN4yLAaIU0ankK2zO8UQxCoC+KSlZtnNIQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794398390;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:To:Cc:
 	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=BTWP8zi+NN7GRVNOkAvhYtzstcTb4v5k6ptDvwPVk4w=;
-	b=tE6IAlqkwyUG0e+avWb3z2o80w8PBrb5fuglJoxwuzQzdrryv/EM3I9TNWW7djNHMOFL
-	 QoD6jaCH54C9gpl7JPacL1dmu/oeebTA1Zu90lZxP4PHuzh8a8N79YB45ngpjgc37sipo
-	 mGvM8Rr1vq4WApuw/vdt0MxmIHlghzHrcsk9lnwz8hRXNXdtXZXc6EkCZHZVjv0hi58O5
-	 P7oNz0KvRIP1Mw4PHY3ejjh/ArTnrNS22PhhJ6BQf4Yy0rbxW7kdTbGJh03xE2ZKuhacd
-	 fVZm11XUA8BEMSuv0REGnEn5tJLn5ma4gkYlZr8GCiZzbktfVrTsI2UHJOQvrtppfYg==
+	bh=xlBa0++MchyYF2HXCkHIh6FGi/jkZlKN4wycmf7jXd0=;
+	b=zViQMX3cj0P6VUmmpaRntvbe4hrq5NKl/IgjfMo5sUBXWJ6BYkDgF6gG+34xyTzYNFC2
+	 lIoFa1PJ7oju2ycxnrInRsqLEI73Y6Him8TxTkxOVmTMPorun7O9IWekrdlvHShzYR/HV
+	 KlVVDO+Zk0ps5KklwqFOp9HVNrXSbZh40igZNZn3sgoCjblieO9gEEA+4PXr/Jyh9nNjg
+	 6Q+IATCB7ul28HOw6cj+7UnU5SfsAoSdfuzSH+6aLG0FMLtA2UbRKgfsKDbigcaopsqb7
+	 GCHxalKxlkWt2kyfN1nPn5EjQ1PeBFi0Sg7NCh/1iFEhtAzTzAogqnBHwYBkC2QCd0w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=fail header.from=gmail.com;
 	spf=pass smtp.mailfrom=runbox.com;
-	dkim=pass header.d=runbox.com header.i=@runbox.com header.a=rsa-sha256 header.s=selector1 header.b=eGS6kLG9;
-	arc=none smtp.remote-ip=185.226.149.38
-Received: from mailtransmit05.runbox.com (mailtransmit05.runbox.com [185.226.149.38])
+	dkim=pass header.d=runbox.com header.i=@runbox.com header.a=rsa-sha256 header.s=selector1 header.b=J8C8eJ1F;
+	arc=none smtp.remote-ip=185.226.149.37
+Received: from mailtransmit04.runbox.com (mailtransmit04.runbox.com [185.226.149.37])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C2B3606A338;
-	Wed, 11 Nov 2026 11:59:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C2B3606A338
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4310C606A31C;
+	Wed, 11 Nov 2026 11:59:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4310C606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=runbox.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=runbox.com header.i=@runbox.com header.a=rsa-sha256 header.s=selector1 header.b=eGS6kLG9
-Received: from mailtransmit02.runbox ([10.9.9.162] helo=aibo.runbox.com)
-	by mailtransmit05.runbox.com with esmtps  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+	dkim=pass (2048-bit key, unprotected) header.d=runbox.com header.i=@runbox.com header.a=rsa-sha256 header.s=selector1 header.b=J8C8eJ1F
+Received: from mailtransmit03.runbox ([10.9.9.163] helo=aibo.runbox.com)
+	by mailtransmit04.runbox.com with esmtps  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
 	(Exim 4.93)
 	(envelope-from <david.laight.linux_spam@runbox.com>)
-	id 1xR6zM-001rxU-F1; Wed, 11 Nov 2026 12:59:40 +0100
+	id 1xR6zN-001Svi-GL; Wed, 11 Nov 2026 12:59:41 +0100
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=runbox.com;
 	 s=selector1; h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To
 	:Message-Id:Date:Subject:Cc:To:From;
-	bh=BTWP8zi+NN7GRVNOkAvhYtzstcTb4v5k6ptDvwPVk4w=; b=eGS6kLG9cZoXT02o/GypABMT9x
-	DQyFA2jlsAXF5w9ZKXGEtL8zkUAfMf0Iny7TH3ovLkmG5OygdkmvZ7/AQOJaR5cm8gq63ipzmO9Dy
-	FYWH+wsSiLobWulIBQOq4FmLPaq9ksmUYeT2OT4+rgaCrTvziCIUnbOmVsHFt0geE1oklP9WtZAt5
-	Vb6a9kydf26TiFsNRF79MYizX2e89R42MwLCkDDspX/NyRaaA9slbFccwW93eVLWXCZO/3CVUTPYA
-	RrOnDNu0IMjkvqkyU/pASb+HtheUePCNHFNawGt3tM/k72pKeWiK2XBMEBPdBDuVsMgD69SzyC8/z
-	ISJRgYdg==;
+	bh=xlBa0++MchyYF2HXCkHIh6FGi/jkZlKN4wycmf7jXd0=; b=J8C8eJ1FbXW8j34Z/Nkm2L61su
+	/R6bsAiFvlUCLkAAGU58MiB90vo67GsWEHc0ghxzi6ePaO/c3DrK1L6c1POofeSqorJPyRFajI3ZF
+	lu68hA11Hoxgmyn+q0T3Vvhqazp7XYehH0yNpwGm0WT9sw4nPBmIHqCy47q9yyOYFCE7zHnLH9dK/
+	pqNMvrzmcl+Rnnxq0Bj2929bnTitZfj6I2vVn/XzqpIPPbRsmrrPAtgkwCku+7WOfeTeSHlectlhV
+	86StXH+I3s6yylbCrEh3dq5rtUKVZfXdzeB9uV64MvooubJPY70VAth6RD/RibDIl8xnA0I15Qm5t
+	S6JE9Yug==;
 Received: from [10.9.9.73] (helo=submission02.runbox)
-	by mailtransmit02.runbox with esmtp (Exim 4.86_2)
+	by mailtransmit03.runbox with esmtp (Exim 4.86_2)
 	(envelope-from <david.laight.linux_spam@runbox.com>)
-	id 1xR6zH-0004Jn-4u; Wed, 11 Nov 2026 12:59:35 +0100
+	id 1xR6zI-0000VZ-13; Wed, 11 Nov 2026 12:59:36 +0100
 Received: by submission02.runbox with esmtpsa  [Authenticated ID (1493616)]  (TLS1.2:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
 	(Exim 4.95)
-	id 1xR6z9-001mRM-PX;
-	Wed, 11 Nov 2026 12:59:27 +0100
+	id 1xR6zC-001mRM-CE;
+	Wed, 11 Nov 2026 12:59:30 +0100
 From: David Laight <david.laight.linux@gmail.com>
 To: Petr Mladek <pmladek@suse.com>,
 	Kees Cook <kees@kernel.org>,
@@ -70,9 +70,9 @@ Cc: Luis Chamberlain <mcgrof@kernel.org>,
 	Andrii Nakryiko <andrii@kernel.org>,
 	Samuel Wu <wusamuel@google.com>,
 	linux-kselftest@vger.kernel.org
-Subject: [PATCH v3 next 09/13] kallsyms: Add a kernel parameter to change the kallsyms_markers[] density
-Date: Wed, 11 Nov 2026 11:59:07 +0000
-Message-Id: <20261111115911.1142000-10-david.laight.linux@gmail.com>
+Subject: [PATCH v3 next 13/13] scripts/kallsyms: Reuse little-used compression tokens
+Date: Wed, 11 Nov 2026 11:59:11 +0000
+Message-Id: <20261111115911.1142000-14-david.laight.linux@gmail.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20261111115911.1142000-1-david.laight.linux@gmail.com>
 References: <20261111115911.1142000-1-david.laight.linux@gmail.com>
@@ -87,250 +87,346 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The density is a tradeoff between data size and execution speed.
-Reducing it from 256 to 64 gives a 35% improvement for name lookups.
+If the symbols contain a lot of "abc" and "abd" and a few "abe" then
+the compression code first substitutes (say) 'x' for "ab" giving
+"xc", "xd" and "xe".
+It might later substitute 'y' for "xc" and 'z' for "xd" giving
+"y", "z" and "xe".
+The token 'x' is then hardly used, expanding "xe" back to "abe"
+costs one byte every time it is used, but frees up 'x' to be used
+for a much more common symbol pair.
 
-Change scripts/kallsyms to take the density from a --marker-shift command
-line parameter so that it can be build specific.
-Write the value used to the output file to ensure the kernel uses the
-correct value.
+Add a check at the end of the compression that all the counts still match.
 
-The program's default is unchanged at 1 marker per 256 symbols,
-The kernel config defaults to 1 marker per 64 symbols.
-This increases the static data by a little less than 1 bit for every
-two symbols.
+Increases the compression ratio by about 3% on both the 'normal'
+kernel I'm building and on the x86-64 allyesconfig kernel.
+Since the compression ration is about 50% this is a 6% reduction.
+
+For simplicity the code will only expand tokens where the two tokens
+that were merged are still in the table and tokens that expand to
+three characters (which are never removed).
+
+It is possible to find some others, but the cost of locating them
+adds completity and slows down the build and the gains are limited.
 
 Signed-off-by: David Laight <david.laight.linux@gmail.com>
 ---
 
-v3: Previously patches 8 and 9
+v3:
+- Formally patch 15, rebased on 7.4-rc1
+- Additionally support splitting tokens that contain three characters.
 
- init/Kconfig               | 19 +++++++++++++++
- kernel/kallsyms.c          | 16 ++++++-------
- kernel/kallsyms_internal.h |  1 +
- scripts/kallsyms.c         | 49 ++++++++++++++++++++++++++------------
- scripts/link-vmlinux.sh    |  6 +++++
- 5 files changed, 67 insertions(+), 24 deletions(-)
+ scripts/kallsyms.c | 223 +++++++++++++++++++++++++++++++++++++++------
+ 1 file changed, 196 insertions(+), 27 deletions(-)
 
-diff --git a/init/Kconfig b/init/Kconfig
-index 4013781e0a02..b2db123a51d7 100644
---- a/init/Kconfig
-+++ b/init/Kconfig
-@@ -1908,6 +1908,25 @@ config KALLSYMS
- 	  symbolic stack backtraces. This increases the size of the kernel
- 	  somewhat, as all symbols have to be loaded into the kernel image.
- 
-+config KALLSYMS_MARKER_SHIFT
-+	int "Interval between kallsyms markers (6 => 64, 8 => 256)"
-+	depends on KALLSYMS
-+	default 6
-+	range 0 24
-+	help
-+	  Set the interval between the kallsyms marker entries as a power of 2.
-+
-+	  This bounds the linear search when locating the name of a symbol
-+	  from its index in the array of values (and v.v.).
-+
-+	  Smaller values speed up the search but increase the memory footprint.
-+	  Values below 5 (one 32 bit marker every 32 symbols) are unlikely to
-+	  make a significant difference because other parts of the code
-+	  dominate.
-+
-+	  The default of 6 is a reasonable compromise. It makes looking up a
-+	  symbol by name around 35% faster than setting it to 8.
-+
- config KALLSYMS_SELFTEST
- 	bool "Test the basic functions and performance of kallsyms"
- 	depends on KALLSYMS
-diff --git a/kernel/kallsyms.c b/kernel/kallsyms.c
-index fd42a1a8ed3e..2c4264a3e0c5 100644
---- a/kernel/kallsyms.c
-+++ b/kernel/kallsyms.c
-@@ -147,13 +147,11 @@ static int kallsyms_strcmp_symbol(unsigned int off, const char *name)
- static unsigned int get_symbol_offset(unsigned long pos)
- {
- 	const u8 *name;
--	int i, len;
-+	int len;
- 
--	/*
--	 * Use the closest marker we have. We have markers every 256 positions,
--	 * so that should be close enough.
--	 */
--	name = &kallsyms_names[kallsyms_markers[pos >> 8]];
-+	/* Scan from the marker before the requested symbol number */
-+	name = &kallsyms_names[kallsyms_markers[pos >> kallsyms_marker_shift]];
-+	pos &= (1 << kallsyms_marker_shift) - 1;
- 
- 	/*
- 	 * Sequentially scan all the symbols up to the point we're searching
-@@ -161,7 +159,7 @@ static unsigned int get_symbol_offset(unsigned long pos)
- 	 * so we just need to add the len to the current pointer for every
- 	 * symbol we wish to skip.
- 	 */
--	for (i = 0; i < (pos & 0xFF); i++) {
-+	while (pos--) {
- 		len = *name;
- 
- 		/*
-@@ -185,7 +183,7 @@ static unsigned long get_name_address(unsigned int name_offset)
- 	unsigned int low, pos, high;
- 
- 	low = 0;
--	high = ((kallsyms_num_syms - 1) >> 8) + 1;
-+	high = ((kallsyms_num_syms - 1) >> kallsyms_marker_shift) + 1;
- 
- 	while (high - low > 1) {
- 		pos = low + (high - low) / 2;
-@@ -196,7 +194,7 @@ static unsigned long get_name_address(unsigned int name_offset)
- 	}
- 
- 	pos = kallsyms_markers[low];
--	for (low <<= 8; pos < name_offset; low++) {
-+	for (low <<= kallsyms_marker_shift; pos < name_offset; low++) {
- 		unsigned int len = kallsyms_names[pos];
- 		if (len & 0x80)
- 			len += (kallsyms_names[pos + 1] << 7) - 0x7f;
-diff --git a/kernel/kallsyms_internal.h b/kernel/kallsyms_internal.h
-index 11fb0de92ede..9137870ad00f 100644
---- a/kernel/kallsyms_internal.h
-+++ b/kernel/kallsyms_internal.h
-@@ -12,6 +12,7 @@ extern const unsigned int kallsyms_num_syms;
- extern const char kallsyms_token_table[];
- extern const u16 kallsyms_token_index[];
- 
-+extern const unsigned int kallsyms_marker_shift;
- extern const unsigned int kallsyms_markers[];
- 
- /* Although constant, size is volatile for better code generation. */
 diff --git a/scripts/kallsyms.c b/scripts/kallsyms.c
-index 930ec27a53c0..c27aaabccd1b 100644
+index 2f517873e9b4..8370347a9ab0 100644
 --- a/scripts/kallsyms.c
 +++ b/scripts/kallsyms.c
-@@ -59,6 +59,8 @@ static unsigned int table_size, table_cnt;
- static int all_symbols;
- static int pc_relative;
- static int verbose;
-+/* Default to one kallsyms_markers[] entry for each 256 symbols */
-+static unsigned long marker_shift = 8;
+@@ -91,7 +91,10 @@ static struct sym_arr token_syms[NR_TOKENS];
+ static struct best_table {
+ 	char           *str;		/* Full expansion, '\0' terminated */
+ 	unsigned short len;		/* Length of str */
++	unsigned short token;		/* Original token pair for this entry */
++	unsigned char  splits;		/* Number of times this token has been split */
+ 	unsigned int   refs;		/* Number of times used in a symbol */
++	struct sym_arr syms;		/* Symbols using this token (if len != 1) */
+ } best_table[256];
  
- static int big_endian;	/* Extracted from the elf file */
- 
-@@ -441,8 +443,8 @@ static void write_src(void)
- 	stamp("write token table");
- 
- 	/* table of offset markers, that give the offset in the compressed stream
--	 * every 256 symbols */
--	markers_cnt = (table_cnt + 255) / 256;
-+	 * every (1 << marker_shift) (typically 64 or 256) symbols */
-+	markers_cnt = (table_cnt + 255) >> marker_shift;
- 	markers = xmalloc(sizeof(*markers) * markers_cnt);
- 
- 	output_label("kallsyms_names");
-@@ -476,14 +478,14 @@ static void write_src(void)
- 		}
- 
- 		if (out_bin_file) {
--			if ((i & 0xFF) == 0)
--				markers[i >> 8] = big_endian ? htobe32(off) : htole32(off);
-+			if ((i & ((1u << marker_shift) - 1)) == 0)
-+				markers[i >> marker_shift] = big_endian ? htobe32(off) : htole32(off);
- 
- 			fwrite(len, 1, len_len, out_bin_file);
- 			fwrite(se->sym, 1, se->len, out_bin_file);
- 		} else {
--			if ((i & 0xFF) == 0)
--				markers[i >> 8] = off;
-+			if ((i & ((1u << marker_shift) - 1)) == 0)
-+				markers[i >> marker_shift] = off;
- 
- 			printf("\t/* n:%u */\t.byte\t%u", off, len[0]);
- 			if (len_len == 2)
-@@ -504,6 +506,10 @@ static void write_src(void)
- 	printf(".size kallsyms_names, . - kallsyms_names\n");
- 	printf("\n");
- 
-+	output_label("kallsyms_marker_shift");
-+	printf("\t.long\t%lu\n" , marker_shift);
-+	printf("\n");
-+
- 	output_label("kallsyms_markers");
- 	if (out_bin_file) {
- 		write_incbin_header("markers", &bin_offset);
-@@ -926,6 +932,7 @@ static void usage(void)
- 		"Usage: kallsyms [options] [vmlinux [out.bin]] > out.S\n"
- 		"       kallsyms --sysmap vmlinux > out.map\n"
- 		"           --all-symbols     Include all local symbols\n"
-+		"           --marker-shift=n  Interval between makers (6 => 64, 8 => 256)\n"
- 		"           --pc-relative     Output symbol offsets\n"
- 		"           --sysmap=out.map  Text map file\n"
- 		"           --verbose         Extra diagnostic output\n"
-@@ -946,21 +953,33 @@ int main(int argc, char **argv)
- 
- 	while (1) {
- 		static const struct option long_options[] = {
--			{"all-symbols",     no_argument, &all_symbols,     1},
--			{"pc-relative",     no_argument, &pc_relative,     1},
--			{"sysmap",    optional_argument, NULL,           's'},
--			{"verbose",         no_argument, &verbose,         1},
-+			{"all-symbols",        no_argument, &all_symbols,     1},
-+			{"marker-shift", required_argument, NULL,           'm'},
-+			{"pc-relative",        no_argument, &pc_relative,     1},
-+			{"sysmap",       optional_argument, NULL,           's'},
-+			{"verbose",            no_argument, &verbose,         1},
- 			{},
- 		};
- 
--		int c = getopt_long(argc, argv, "", long_options, NULL);
--
--		if (c == -1)
-+		switch (getopt_long(argc, argv, "", long_options, NULL)) {
-+		case -1:
- 			break;
--		if (c == 's')
-+		case 0:
-+			continue;
-+		case 'm':
-+			if (!optarg[0])
-+				continue;
-+			marker_shift = strtoul(optarg, NULL, 10);
-+			if (marker_shift > 24)
-+				usage();
-+			continue;
-+		case 's':
- 			sysmap = optarg ?: "";
--		else if (c != 0)
-+			continue;
-+		default:
- 			usage();
-+		}
-+		break;
- 	}
- 
- 	stamp(NULL);
-diff --git a/scripts/link-vmlinux.sh b/scripts/link-vmlinux.sh
-index 44b5a6d78ce5..61cf8f287ebe 100755
---- a/scripts/link-vmlinux.sh
-+++ b/scripts/link-vmlinux.sh
-@@ -37,6 +37,10 @@ is_enabled() {
- 	grep -q "^$1=y" include/config/auto.conf
+ static void stamp(const char *where)
+@@ -111,11 +114,6 @@ static void stamp(const char *where)
+ 			where, delta / 10, delta % 10);
  }
  
-+value() {
-+	sed -n "/^$1=/{s///;p;q}" include/config/auto.conf
+-static unsigned int sym_arr_last(const struct sym_arr *arr)
+-{
+-	return arr->cnt ? arr->sym_indexes[arr->cnt - 1] : UINT_MAX;
+-}
+-
+ static void sym_arr_maybe_expand(struct sym_arr *arr)
+ {
+ 	if (arr->cap > arr->cnt)
+@@ -126,10 +124,55 @@ static void sym_arr_maybe_expand(struct sym_arr *arr)
+ 				    arr->cap * sizeof(*arr->sym_indexes));
+ }
+ 
+-static void sym_arr_add(struct sym_arr *arr, unsigned int sym_idx)
++static void sym_arr_add(struct sym_arr *sa, unsigned int sym_idx)
+ {
+-	sym_arr_maybe_expand(arr);
+-	arr->sym_indexes[arr->cnt++] = sym_idx;
++	unsigned int cnt = sa->cnt;
++	unsigned int lo, hi, try;
++	unsigned int *syms;
++
++	/* Ensure there is space to add a new entry */
++	sym_arr_maybe_expand(sa);
++	syms = sa->sym_indexes;
++
++	/* Mostly we are adding a new symbol in number order */
++	if (!cnt || sym_idx > syms[cnt - 1]) {
++		syms[cnt] = sym_idx;
++		sa->cnt = cnt + 1;
++		return;
++	}
++
++	/* Or we found the same pair of characters twice in the same symbol */
++	if (sym_idx == syms[cnt - 1])
++		return;
++
++	/* split_token() can generate an out of order reference, insert. */
++	if (sym_idx <= syms[0]) {
++		if (sym_idx == syms[0])
++			return;
++		try = 0;
++	} else {
++		lo = 0;
++		hi = cnt - 1;
++		for (;;) {
++			try = (lo + hi) / 2;
++			if (sym_idx == syms[try])
++				/* Already present - common. */
++				return;
++			if (try == lo)
++				break;
++			if (sym_idx > syms[try])
++				lo = try;
++			else
++				hi = try;
++		}
++		try++;
++	}
++
++	/* Insert before syms[try] */
++	syms += try;
++	memmove(syms + 1, syms, (cnt - try) * sizeof(*syms));
++	*syms = sym_idx;
++	sa->cnt = cnt + 1;
+ }
+ 
+ static void sym_arr_free(struct sym_arr *arr)
+@@ -140,6 +183,15 @@ static void sym_arr_free(struct sym_arr *arr)
+ 	arr->cap = 0;
+ }
+ 
++static void sym_arr_prealloc(struct sym_arr *sa, unsigned int count)
++{
++	if (sa->cap >= count)
++		return;
++
++	sa->cap = count;
++	sa->sym_indexes = xrealloc(sa->sym_indexes, count * sizeof(sa->sym_indexes[0]));
 +}
 +
- # Nice output in kbuild format
- # Will be suppressed by "make -s"
- info()
-@@ -140,6 +144,8 @@ kallsyms()
- 		kallsymopt="${kallsymopt} --pc-relative"
- 	fi
+ static char *sym_entry_name(const struct sym_entry *s)
+ {
+ 	return (char *)s->sym + 1;
+@@ -724,13 +776,7 @@ static void learn_symbol(const unsigned char *symbol, int len)
  
-+	kallsymopt="${kallsymopt} --marker-shift=$(value CONFIG_KALLSYMS_MARKER_SHIFT)"
+ static void token_add_symbol(unsigned int token_idx, unsigned int sym_idx)
+ {
+-	struct sym_arr *arr = &token_syms[token_idx];
+-
+-	/* Symbol indexes kept in sorted order, check for duplicate. */
+-	if (sym_arr_last(arr) == sym_idx)
+-		return;
+-
+-	sym_arr_add(arr, sym_idx);
++	sym_arr_add(&token_syms[token_idx], sym_idx);
+ }
+ 
+ static unsigned int sym_arr_free_all(unsigned int ch)
+@@ -779,16 +825,8 @@ static void build_initial_token_table(void)
+ 	 * The initial occurrence counts tell us exactly how much memory should
+ 	 * be reserved for each token's symbol array.
+ 	 */
+-	for (i = 0; i < ARRAY_SIZE(token_syms); i++) {
+-		const int nr_syms = token_profit[i];
+-
+-		if (!nr_syms)
+-			continue;
+-
+-		token_syms[i].cap = nr_syms;
+-		token_syms[i].sym_indexes =
+-			xmalloc(nr_syms * sizeof(unsigned int));
+-	}
++	for (i = 0; i < ARRAY_SIZE(token_syms); i++)
++		sym_arr_prealloc(&token_syms[i], token_profit[i]);
+ 
+ 	/* For every symbol, index every token -> symbol it is present in. */
+ 	for (i = 0; i < table_cnt; i++)
+@@ -819,6 +857,8 @@ compress_symbols(unsigned int token_idx, int compressed_chr)
+ 	unsigned char *sym, *p, *end;
+ 	struct sym_entry *se;
+ 
++	sym_arr_prealloc(&best_table[compressed_chr].syms, token_profit[token_idx]);
 +
- 	info KSYMS "${2}.S"
- 	scripts/kallsyms ${kallsymopt} ${1:+"${1}" "${2}.bin"} > "${2}.S"
+ 	/* Iterate through all symbols this token is found in and compress. */
+ 	for (j = 0; j < arr->cnt; j++) {
+ 		sym_idx = arr->sym_indexes[j];
+@@ -839,7 +879,11 @@ compress_symbols(unsigned int token_idx, int compressed_chr)
+ 			adjust_profit(sym_idx, token_second(token_idx), compressed_chr, p[2], p[2]);
+ 			memmove(p + 1, p + 2, len);
+ 		}
++		if (se->len == end - sym)
++			/* No substitutions. */
++			continue;
+ 		se->len = end - sym;
++		sym_arr_add(&best_table[compressed_chr].syms, sym_idx);
+ 	}
+ 
+ 	/* No symbol contains this token any more. */
+@@ -850,6 +894,123 @@ compress_symbols(unsigned int token_idx, int compressed_chr)
+ 	return subs;
+ }
+ 
++/* Change every occurance of idx back to token_pair/triple.
++ * This extends all the symbol table entries but frees up a token. */
++static __attribute__((noinline)) void
++uncompress_symbols(unsigned int token_pair, int idx)
++{
++	struct best_table *bt = best_table + idx;
++	unsigned int sym_idx, len;
++	unsigned char *sym, *p, *end;
++	unsigned int substitutions;
++	unsigned int third_char;
++
++	third_char = token_pair >> 16;
++	token_pair &= 0xffff;
++
++	for (int j = 0; j < bt->syms.cnt; j++) {
++		sym_idx = bt->syms.sym_indexes[j];
++
++		sym = table[sym_idx]->sym;
++		len = table[sym_idx]->len;
++		end = sym + len;
++
++		for (p = sym; (p = memchr(p, idx, len)); p += 2) {
++			len = end - p - 1;
++			if (len) {
++				if (third_char) {
++					/* Adding three characters */
++					adjust_profit(sym_idx, idx, third_char, p[1], p[1]);
++					memmove(p + 3, p + 1, len);
++				} else {
++					adjust_profit(sym_idx, idx, token_second(token_pair), p[1], p[1]);
++					memmove(p + 2, p + 1, len);
++				}
++			}
++			if (p != sym)
++				adjust_profit(sym_idx, p[-1], p[-1], idx, token_first(token_pair));
++			token_add_symbol(token_pair, sym_idx);
++			p[0] = token_first(token_pair);
++			p[1] = token_second(token_pair);
++			end++;
++			if (third_char) {
++				token_add_symbol(token_index(p[1], third_char), sym_idx);
++				p[2] = third_char;
++				end++;
++				p++;
++			}
++		}
++		table[sym_idx]->len = end - sym;
++	}
++
++	substitutions = bt->refs;
++
++	bt->refs = 0;
++	bt->syms.cnt = 0;
++	sym_arr_free_all(idx);
++
++	token_profit[token_pair] += substitutions;
++	best_table[token_first(token_pair)].refs += substitutions;
++	best_table[token_second(token_pair)].refs += substitutions;
++
++	if (third_char) {
++		best_table[third_char].refs += substitutions;
++		token_profit[token_index(token_second(token_pair), third_char)] += substitutions;
++	}
++}
++
++static int split_token(unsigned int profit)
++{
++	struct best_table *bt, *first, *second;
++	const unsigned int max_splits = 10;
++	unsigned int i, best_token;
++	int best_ch = -1;
++
++	for (i = 0; i < 256; i++) {
++		bt = best_table + i;
++
++		if (bt->len == 1 || bt->refs >= profit || bt->splits >= max_splits)
++			continue;
++
++		/* Ignore tokens where the original parts have been reused ... */
++		first = &best_table[token_first(bt->token)];
++		second = &best_table[token_second(bt->token)];
++		if (bt->len != first->len + second->len ||
++		    memcmp(bt->str, first->str, first->len) ||
++		    memcmp(bt->str + first->len, second->str, second->len)) {
++			/* ... unless they are three characters. */
++			if (bt->len != 3 || bt->refs * 2 >= profit) {
++				/* Don't consider again */
++				bt->splits = max_splits;
++				continue;
++			}
++			best_token = token_index(bt->str[0], bt->str[1]) | bt->str[2] << 16;
++			profit = bt->refs * 2;
++		} else {
++			best_token = bt->token;
++			profit = bt->refs;
++		}
++
++		best_ch = i;
++	}
++	if (best_ch < 0)
++		return -1;
++
++	/*
++	 * Triplets (eg foo_xxx_bar) count as two pairs (in token_profit[]) but
++	 * the substitution only saves one byte making the recently merged token
++	 * a candidate for splitting again. This might cause an infinite loop.
++	 * But I have seen t_/alloc_tag get merged then t_alloc_tag/_cntr merged
++	 * leaving a single referece to t_alloc_tag - so it is split again.
++	 * So only allow a token to be split a few times.
++	 */
++	best_table[best_ch].splits++;
++
++	uncompress_symbols(best_token, best_ch);
++
++	return best_ch;
++}
++
+ /* search the token with the maximum profit */
+ static int find_best_token(void)
+ {
+@@ -882,17 +1043,25 @@ static void optimize_result(void)
+ 			to_process[idx++] = i;
+ 	}
+ 
+-	while (idx) {
++	for (;;) {
+ 		/* find the token that appears most often */
+ 		best = find_best_token();
+ 		if (best < 0)
+ 			break;
+-		i = to_process[--idx];
++		if (idx) {
++			i = to_process[--idx];
++		} else {
++			/* Try to free up a little-used token. */
++			i = split_token(token_profit[best]);
++			if (i < 0)
++				break;
++		}
+ 
+ 		/* Replace this token in all the valid symbols. */
+ 		refs = compress_symbols(best, i);
+ 
+ 		bt = best_table + i;
++		bt->token = best;
+ 		first = best_table + token_first(best);
+ 		second = best_table + token_second(best);
  
 -- 
 2.39.5
