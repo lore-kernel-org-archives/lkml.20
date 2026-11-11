@@ -1,106 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.126.137
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794385646;
-	b=pXqqanvR+K3Rp8dm2IyXRIeUplLm4rY57+AwbvBsD1rW/miMIDcLj3c/EIegAJQXBapF
-	 jq/hb6Ypapbd4bpUjL5oUSNk2/019Y+f3u00MXZ88HiQlipEMAoGf913Jrlm0GVhipqS1
-	 9Ri2P8zEtQIYyfJGHabGqKNhTawke9p4J61aACfRSr6gs9QFGj3uyZ5daNthWGcxCeUxB
-	 bNyrAVT34QI4MNKHbEpuoSYtiyvS0itgRyM8Vx0mVcoPAvkrDJLaKkkjUHLCnCtkIEpMi
-	 GbxCJJFZGfpO0CnVfwWs/Zcf+RkMPR5WZ3IJKpX9BuXXIq1Z2f98ZncvsNTX8ylK2gQ==
+	t=1794385654;
+	b=UZEM9pP9XpyoL6Ff7uLIdZUtBfxDaXZiMxpokNbm1WlNNOl+6H2r3D+vTRrX1NFc0U9W
+	 ewhIZa8Qr9PuJn7Hm5UeW5Isl3eouJxL9shJaA+sLCj1LR4ErNw3Tf7SjsmVxUp2GhMjH
+	 EVQ1Y9+SwugUOV+/+feurAWgkNVkzYik/IWycWxz4pLzO5hcgNRSWRX/W16MgY6WKSaso
+	 ZX2iHJ3QXLC/B2PbE1Qzy7d8LRo4rjh1XKk1TwFJB2aUe96BzTf35036qvBNovxpXM7lf
+	 3GsjkpCSmylLgi9FIA+o+CSzkpQbR0HElpxqu1/ltsKzh4pvhB1gSypiR+hhqfRrzQA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794385646;
-	h=DMARC-Filter:Received:Received:X-MS-Exchange-Authentication-Results:
-	 Received-SPF:Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=BOwotnidikqQf0wJI/t7ZdfX05IOsYgLhRdRnw0c6TI=;
-	b=DDXeP0uo1PV8p6AwEsEzr2GZ+jh/kUmNvoGtc2lY7Tcf2p7Rw6rnONlAC4aJ0F3DUHh+
-	 OUtxpZh17XrAdxHxE4JuyPFSuzQMa0AYdL9F8rL4J/nCZwy8Z57AN/k04x5fdUYQbyKTk
-	 G0DpPoMAP5ghjWwvZN6xvVVoowaQi70mR6xf4oD9urcP2M/LVcC7Mnxn2/VZxN+Wzp8Lw
-	 JDz78/1KkEHnXhD+60qbyizuxO7m9HCYusv2fnEfpzuQpuXSeskLvspMfjmfHnCi+Lsi5
-	 fGGKf6hEQiNUW8e9H/Bq/kUG6OBujpotNyQUIffE17M6QOQXufQeNxpjGzzV1RyFAng==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794385654;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=pRSOQNdGBNDj9KHkxI6BeTSDsLqF0DvLbwR1A+RGPZY=;
+	b=RF76qqvsOaEy4oCGT8xDWw2a5OAgVCSKLSZHUI4BMVytwvDgGVWauHtn9fRx+lBPEAN6
+	 2lFVjVj+sbTJ8SdUhI7lukEYnuiLnx1ehwt4erfe657rMrbRqv3hgqhHqFSzuX+VSmGX6
+	 Fw0pCEYH4JbqPPCHWIo9xcIKOHA5mw1q0mDGd0XRWtce6RadHSD8g10/ALvmjEHto48/B
+	 WH082yEcjybr4zsZX2APiL0fFJ3WvIqBwoRsciDibYAvPuiV8hDQWJ8xaERyuiG8ZGT+Z
+	 ERItnsVUvS6+6QOooE3sKzE1z41xvgGKxlSe/x9pw6M3S3PjDAsdIjGJ41fauwem8mQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=cixtech.com;
-	spf=pass smtp.mailfrom=cixtech.com;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.126.137
-Received: from TYPPR03CU001.outbound.protection.outlook.com (mail-japaneastazon11022137.outbound.protection.outlook.com [52.101.126.137])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OZK+Kttk;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 791C3606A326;
-	Wed, 11 Nov 2026 08:27:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 791C3606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Lmo7mDpME0L2w+DQcKnmuEfaB38gxSqR++a8kuCfZSTw0xE92MiyjwNLy7cq49c/B0ZVDSe85414U5u4G7yxidTOMDlgkSJHKscLDUWdzd/ospUhcPDsE9LqXff1t48flUjH0wLUhWzqS0KjNM7vkc46RuSn5keuWsL4oCH68yrnsiOE3iuS67gwMmtbEYuJM6YYfwch3xzWTzonvts5mnru4WSov4xLskMaV+qrxi4MIqY45epbg9rwmXt09bjL/Zsj5S3tgWNuvyVdsIgGjWdCXWBCuyACwW5V/cVFBfc+brbu6c7bGlYuuscw8tKXg7LosapDFXIP6u9cNObIag==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BOwotnidikqQf0wJI/t7ZdfX05IOsYgLhRdRnw0c6TI=;
- b=IgF8QpvkHlKP33wRhdu7jiaAZXYl1vQQ73TYN5TqfZvaXvfv1xQXzQKYxGv6gM9O8Nan7d2+Q9QZw+GLg+sEJBIRKoIqFRmzhu2PVDAJMI1R3P2v4lFKeTvERXfmhPVGxUvwz5aBDV5zCvNc1Bg2kR1FcUqjUNhgz+bAenhfc0K9AiMC+9OdKguIf4wiWYQTqUsWL9zS5xPAqFQ1Dt+57O7vK2MlVxP+og4G1sHX4UcpeSUlxmzzZ/+zcdn59Ur/y1Z61mwpnSCXy9Ip8njKgq8jmmgo7AvzURal2iJR7M3mKlF0B0fqAeQLOmeALe8Pt7FlySr2wh0L/Tj3FnHllw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 222.71.101.198) smtp.rcpttodomain=cixtech.com smtp.mailfrom=cixtech.com;
- dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
- not signed); arc=none (0)
-Received: from JH0PR01CA0164.apcprd01.prod.exchangelabs.com
- (2603:1096:990:7::20) by KUXPR06MB8029.apcprd06.prod.outlook.com
- (2603:1096:d10:53::9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Wed, 11 Nov
- 2026 08:27:21 +0000
-Received: from SG1PEPF000082E1.apcprd02.prod.outlook.com
- (2603:1096:990:7:cafe::2f) by JH0PR01CA0164.outlook.office365.com
- (2603:1096:990:7::20) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.9 via Frontend Transport; Wed, 11
- Nov 2026 08:27:21 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 222.71.101.198) smtp.mailfrom=cixtech.com; dkim=none (message not signed)
- header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
-Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
- 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
- client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
-Received: from smtprelay.cixcomputing.com (222.71.101.198) by
- SG1PEPF000082E1.mail.protection.outlook.com (10.167.240.10) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Wed, 11 Nov 2026 08:27:20 +0000
-Received: from hongliang-System-Product-Name (unknown [172.20.64.180])
-	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id 41CDC4102E73;
-	Wed, 11 Nov 2026 16:27:19 +0800 (CST)
-From: Hongliang Yang <hongliang.yang@cixtech.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Hongliang Yang <hongliang.yang@cixtech.com>,
-	Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Gary Yang <Gary.Yang@cixtech.com>,
-	Fugang Duan <fugang.duan@cixtech.com>,
-	linux-phy@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	cix-kernel-upstream <cix-kernel-upstream@cixtech.com>
-Subject: Re: [PATCH v7 1/2] dt-bindings: phy: Add CIX Sky1 USB3 PHY
-Date: Wed, 11 Nov 2026 16:27:18 +0800
-Message-ID: <20261111082718.3425848-2-hongliang.yang@cixtech.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <5fcaf2c0-d38b-42c7-96fe-52dccbe87f14@kernel.org>
-References: <20261111030937.2954646-1-hongliang.yang@cixtech.com> <20261111030937.2954646-2-hongliang.yang@cixtech.com> <5fcaf2c0-d38b-42c7-96fe-52dccbe87f14@kernel.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A8A2606A332;
+	Wed, 11 Nov 2026 08:27:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OZK+Kttk
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794385654;
+	b=G145VUVsfiWkbDmDXg5X4beUtYuuaO21XfkblumMsoMMrh0XL/7svXkxLEy0q0j/WNmp
+	 BeG7Hngt0kQCQk5zCeOJZB24bfDt+iln7FQwNZ5RMbsUNylZUAvlht3RcC7HnS909Bn9H
+	 HqN+p4u4dGCT53jfDTKTSPda/0oRW1F/E6zUB3WxX+lzsAC+QyflKnaDrEL4BfAb2QrW1
+	 y0hpnw03xdy6PZpKSHx94xFTEXqytN0yGAcS5SUaQPhtJPZkG0YP7NR7Apngm4hVZshB9
+	 T5WyOD1Zb5TpHVcEeNdefBCNsHYxCu9lBt7zcD3KjHyd/705j0PxW4KU3R3DzF2OZfg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794385654;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=pRSOQNdGBNDj9KHkxI6BeTSDsLqF0DvLbwR1A+RGPZY=;
+	b=gRaD7//w0uR2cnh1IuODAQ/CJXcZGxb9MoQo9HbQ6STZUIkdMO3lzDP5WzuEGWUHalF2
+	 jsjLiD8CMiHsmt79vcIMw1K3WxxMUyZLiPa0OYFnEorStyQLHntP5nC4+ssab7sIdhYU+
+	 mfvceXWBwi3kTMyBjNpipMf2ZqRt/emPxPjHKWPWw44QwT8mL2mQUVI428D18SaXPJBQl
+	 IJPf0UuGGXMfdYRAnBxGeSQZkhMfiCQ7hgpu/qH7GkIyuVBTn748ai1/W9OXNOHz0KpsX
+	 xE8cSg0TihxkT09hUWO7YDlZ4I7hSLc65fnsHjLDX+t219uJJ4M7PaAmrgzPaDJ+r+Q==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 4CB391F00A06;
+	Wed, 11 Nov 2026 08:27:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794385654;
+	bh=pRSOQNdGBNDj9KHkxI6BeTSDsLqF0DvLbwR1A+RGPZY=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=OZK+KttkHbrbjazjpBZ7unjvgWXLZPMshFVZfYgCOjyvA9nNiiJ3WMf2VaGFXzj2s
+	 fEH9EQPnHnvZ85EEUUCVM+613GlQwnp2UwCSApr+4Z3ZUBtypyhAa+cOCjnU4cyL4s
+	 /1VaUgFpbXCi/AmBv2O0NBBpK+z8P9Hf0gssolK19Q4iZRljgYAif0fFaQ4V7JyUgU
+	 6iW0fTkaFwFYAYHEv7rPxToB8maDDq7Ai8ypTb505AnBx4eEtirpF87XXgthHEhFdH
+	 283sStvr3WfpkfqIels9JbXtKyK6KXHkHMGUkzHnwLkMK4tdhH9Hcji+Quc0fVddfK
+	 GdlQNn95RUH3g==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id CC84B48E90;
+	Wed, 11 Nov 2026 08:27:32 +0000 (UTC)
+From: Joseph Telaak via B4 Relay <devnull+joseph.telaak.dev@kernel.org>
+Subject: [PATCH v2 0/4] MIPS: Add support for the Siflower SF19A2890
+Date: Wed, 11 Nov 2026 03:27:14 -0500
+Message-Id: <20261111-sf19a2890-mips-v2-0-36730fa4f5a6@telaak.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,42 +83,114 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SG1PEPF000082E1:EE_|KUXPR06MB8029:EE_
-X-MS-Office365-Filtering-Correlation-Id: a8ff3cd5-e479-4eb9-bfbd-08df3fcd9ad1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|36860700016|1800799024|7416014|376014|82310400026|10067099003|4143699003|56012099006|261026140227099003|261022105027099003|261028144727099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	Eqeu6UWRyTYp0yLI7DMLFwnQ6sHi8U2UtjfpTUgNwXNUp5sLvp0A3o8Bg+PzK5bSYMI9vuIFoX4PzTLW6ctFRQjkQByDZsf4H3dJLIZC6BkNnr759pPJeyBTkMpWJf11N0MaOV99w+9ye5b+evcoFlNPA0VnWBom1EagkCYWInwoTTPWZ9I8A+rx0bW/uxvr58lO50ZYeFT6ZSzllrP5One4jlJ70ZYrbmfxuQ22QdbfI2pjY2MX3gzQNw4oJpO8CA162AKXsotwiWlYQv0OEvBcr7FGP6znbSutRblLFYII/lB6URDDYv1cPQYYFryZ8HJhEYmQFy4Et2RYz63fS0tq0JdDq3KMbh1ed9I9fgvBkiw715z2etRkzM0vcjCf+V8N+oVtbtTXtQuGN0017/2SlFzgDQ5dQJr7c8iKlR2I2X4yZ18eMICCJbhoOGpUIds2XKQ+iS1SFb8yFj4bgqX4w4qN3GzSc+J3t2j6WgNL1d5quCYRtBvpDSGRSOpIlclwMYaqN6bjpV9vAI+I48SK9u8TSFoZ4ESaQmsXI1WRWHp6CyD9RAszPGofFIbH8snfZL2t8N4d4rR5BFuLM0j0+9MvORUXr4YPtwz/8zjHPKjnyvkVUhasDuaLTHW3nIYt7kCpf00omAkryVCTujPGZisZpudj7sdL13X1hGchpFZPs6GOeNRR1ShTb7WxE2fBafcH77ZE5xAmldSoGQ==
-X-Forefront-Antispam-Report:
-	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(1800799024)(7416014)(376014)(82310400026)(10067099003)(4143699003)(56012099006)(261026140227099003)(261022105027099003)(261028144727099003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	DAbbFTuPLQ3VXtDlNuP9pC9Fn1xTUheCqcA7tubiw2i84NTiM+c505k6oxKcyl+E3aipHH+3YCu3mwzSvKrM9xn74xergDVE1wNUQ07xvZDDe0XkzrLXc0dlNYciBvDlrHXdK5W4Dxyrr3K9UlJ/sPtVaq/1rgBRp+w6sKE8iH8qcQy+eF22ITrXuil/puJql1LEru1+Q6uyxvwSHZG0ikxwq/04YErsgoFn015HSNmMTlAMz2IBt8/dGfUp99mt0NJabUePrPG6lKuKBmbL5OavdP8VJD9drFozm2jxcC3F0n3AexxS7p2kY1/gQ5r8XbzumCKJbTDfD3c4Y7D4vsNI4rifKcnOFXO6ZtAJ+8RBhsukQVEPQI4VEZZ4xxhCcyWRfCzYpmDeMtGM6OHsJVEqy/225Z5n5cEbQinabhpThLdbJV1+zZlHXQmOAk1K
-X-OriginatorOrg: cixtech.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 08:27:20.6376
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a8ff3cd5-e479-4eb9-bfbd-08df3fcd9ad1
-X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SG1PEPF000082E1.apcprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: KUXPR06MB8029
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAOQm9GoC/12Nyw6CMBBFf4V0bU07MdC68j8MiwGmMj6AdLDRE
+ P5dwLhxeZJzz52UUGQSdcwmFSmxcN8tALtM1S12F9LcLKzAQG6tAS3BegTnjX7wIBqrAhrvMRS
+ +UMtoiBT4tQXP5ZflWV2pHtfKarQsYx/f22Oyq/eLH/7jyWqjCckZBwZD7k4j3RFv+4aSKud5/
+ gDvcMjFvwAAAA==
+X-Change-ID: 20261102-sf19a2890-mips-ab72d99af797
+To: Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Paul Burton <paulburton@kernel.org>
+Cc: Jiaxun Yang <jiaxun.yang@flygoat.com>, 
+ Chuanhong Guo <gch981213@gmail.com>, linux-mips@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Joseph Telaak <joseph@telaak.dev>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794385651; l=3973;
+ i=joseph@telaak.dev; s=20261104; h=from:subject:message-id;
+ bh=fNtQMrwhc9IhmMCGlFC3FW2vYrQH+RedPZ5jVpQML1I=;
+ b=smHLuaml02zJCWo1iJnWieATlWapyzVeI2ZtFjFL7HhhE3x35AaeM0Mr0YvIYECQA1ncqbWxW
+ IrHSGo1QAYbA/7Dx3AjeCEqTmxwz4lhOeyZqeExoUQUOfP4Go7S271z
+X-Developer-Key: i=joseph@telaak.dev; a=ed25519;
+ pk=oQI+UfddlZ0wK2ac4WKOGNjUl1ZEN8j9ZVFSqEDoNP0=
+X-Endpoint-Received: by B4 Relay for joseph@telaak.dev/20261104 with
+ auth_id=1404
+X-Original-From: Joseph Telaak <joseph@telaak.dev>
+Reply-To: joseph@telaak.dev
 
-> You gave me exactly 0 minutes to reply to your answer on v6.
+This series adds basic support for the Siflower SF19A2890, a MIPS
+interAptiv SoC (two cores, two VPEs each) for home routers, and for the
+GL.iNet GL-SFT1200 ("Opal") travel router built on it. It boots to a
+shell on the PL011 console with all four CPUs up.
 
-That is on me. I sent the answer and the new version together, and I
-should have waited for your reply before posting v7.
+Patch 2 is Chuanhong Guo's patch from January 2025 [1], rebased. Jiaxun
+asked then why it does not use MIPS_GENERIC. It does: MACH_SIFLOWER_MIPS
+selects MIPS_GENERIC and MACH_GENERIC_CORE and boots through
+arch/mips/generic, the way MACH_REALTEK_RTL and MACH_INGENIC_SOC do. What
+it avoids is MIPS_GENERIC_KERNEL, which selects MIPS_L1_CACHE_SHIFT_7 and
+takes ARCH_DMA_MINALIGN 128 from mach-generic/kmalloc.h, so that with
+DMA_NONCOHERENT no kmalloc cache below 128 bytes exists. The interAptiv's
+L1 and L2 lines are 32 bytes (the boot log reports both).
 
-I will not send another version of this series until the PHY question is
-settled. Leaving it out of the patchwork queue until then is fine.
+On a GL-SFT1200 (128 MB) booted to an idle initramfs, 62 s after boot:
+
+                                       MemFree   Slab   kmalloc-128 objs
+  this series (MACH_SIFLOWER_MIPS)     107444    4832   1497
+  MIPS_GENERIC_KERNEL                  106442    5252   5538
+  MIPS_GENERIC_KERNEL, DMA_MINALIGN 32 107660    4732   1497
+
+(kB, means of two boots.) So the whole difference, about 1 MB, comes
+from the 128-byte kmalloc alignment; the larger L1_CACHE_SHIFT costs
+nothing measurable. If the generic kernel sized its kmalloc alignment
+from the probed cache lines at run time, as arm64 does, this board could
+use MIPS_GENERIC_KERNEL, and I can send that change in place of a
+platform of its own if you prefer.
+
+The SoC's clock controller has a driver of its own, sent to the clk tree.
+Until it is merged, the dtsi describes the clock rates the bootloader
+programs with fixed clocks; a later patch replaces them. The pin
+controller, GPIO, USB PHY, DWC2 and GMAC drivers go to their own trees.
+
+Patch 1 adds a MAINTAINERS entry for the SoC. Its "N: sf19a2890" also
+matches the SoC's drivers in other trees, which add entries of their
+own.
+
+Tested on a GL-SFT1200, booted from U-Boot over TFTP: the initramfs
+shell on ttyAMA0; four CPUs, with CPUs 1-3 taken offline and back
+online; the GIC timer within 0.06 s of a reference clock over 298 s; and
+the UART divisors U-Boot programs (IBRD 0x43, FBRD 0x34), which confirm
+the 125 MHz UART clock in the device tree.
+
+[1] https://lore.kernel.org/r/20250120015254.124447-1-gch981213@gmail.com
+
+---
+Changes in v2:
+- Write my note on Chuanhong's patch as a list.
+- Drop drivers/gpio/gpio-siflower.c from the MAINTAINERS entry; the GPIO
+  series now adds an entry of its own (Conor).
+- Use the current SPDX identifiers in the new files.
+- Order the dtsi's nodes and properties as dt-check-style --mode=strict
+  expects, with a blank line before status.
+- Link to v1: https://patch.msgid.link/20261104-sf19a2890-mips-v1-0-eae80820af68@telaak.dev
+
+---
+Chuanhong Guo (1):
+      MIPS: Add support for Siflower MIPS SoCs
+
+Joseph Telaak (3):
+      dt-bindings: mips: Add Siflower SF19A2890 based boards
+      MIPS: dts: Add Siflower SF19A2890 and GL.iNet GL-SFT1200
+      MIPS: configs: Add sf19a2890_defconfig
+
+ .../devicetree/bindings/mips/siflower.yaml         | 26 ++++++
+ MAINTAINERS                                        | 10 +++
+ arch/mips/Kconfig                                  | 32 +++++++
+ arch/mips/boot/dts/Makefile                        |  1 +
+ arch/mips/boot/dts/siflower/Makefile               |  2 +
+ .../dts/siflower/sf19a2890-glinet-gl-sft1200.dts   | 27 ++++++
+ arch/mips/boot/dts/siflower/sf19a2890.dtsi         | 97 ++++++++++++++++++++++
+ arch/mips/configs/sf19a2890_defconfig              | 15 ++++
+ arch/mips/generic/Platform                         |  1 +
+ arch/mips/include/asm/mach-siflower/kmalloc.h      |  9 ++
+ 10 files changed, 220 insertions(+)
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261102-sf19a2890-mips-ab72d99af797
 
 Best regards,
-Hongliang Yang
+--  
+Joseph Telaak <joseph@telaak.dev>
+
+
