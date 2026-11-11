@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794383616;
-	b=yc/G71V8Gxk5NobCgmKdD4F3Veb2kccP+CP5zs5LDGDZDBNSnBW//mVSzNxkgIrmj+kW
-	 NN//kUV+1W9NRnqdnPqsZtv+5Zw6qkPbk2QPux3eI2X3t1TdqZd/JuqzRUpX9uQPeGhbV
-	 O69qc6lsJSQVmIMWUqpjvA+LDuGNlxFZpy2xzamM+H9DC20ASST2Rg/VOyNvEAJiRprb/
-	 yA8vTawOARMe24BY76L2HFZQ4TPOEEmyvAUdgHZ7m0bDlPj9+rcxqXPxO/WYnBH3AQxy/
-	 Zeu023Od/FVD5eLl3Va3tt3fLmIEj0iL6egIq2tGKy35pZBSQioxqAqNHMf7rc+zqsA==
+	t=1794383621;
+	b=NKdCnc18MIBH+XjrlfyAMYn55Fwu0Va2RHvIQbdsa350Ev8bv/tQOiLk3weRF3GjOgSo
+	 d4Gkv4I7Cc6VIxAe3QOVYRevJSTrHry7ZemLIVL76v7LLXi+NEK7r3WqReAMIu1x/yFDd
+	 6/SnOyCTRnRx/cW3f+9SC80jBX3BoJpYB8Yngv7xwsTxiWJGZl/eNJXpldp3lxmW7udQZ
+	 dC+Fza+rDtCn2AIf6jMeG3ChFtBu/j3v0xPZSoTd+j5odPzoEnmUgAnhFLCbah3SUnv0y
+	 DnS83XjyQsMZfZWOfsdSfeNX4SRz9tDrtf6VdnL7IvMtJAB7cx2p+qEr76NZi/rvsJQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794383616;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794383621;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
 	 Content-Type:Content-Disposition:In-Reply-To:User-Agent;
-	bh=+8ppAZ4kI36SkHC2JSY1XPhx8Cnr7U+W7X/gURi12I4=;
-	b=fPsvpy1J+QuTT8rTXaPaUx30BCGYnqwHNQ1lFGsw/WXeUby9TIl5Ac0IecPuhHs4lt3H
-	 bkzNc6U0/7pwHqQEvH+tCVppAsmxCiG9+9qfyngO1/lj2ZksFIzQd471BVwsD3KOoOLhL
-	 NPmiBYRwuT8zVuFaMwXXHBZdNsuMXfwEUd5lLwaMwiB/8dtq3NLYhWmVHVTVXiMSs9T1c
-	 LNR7gCjiOdCi/Ji9IMkBON9F8uxA/JSBLW435qPAGDUZyYV+n3EiStRAhrfyQYmOwXyqy
-	 TmkZ/LhTTkpI34FO8rYAuwb19CQWOBWUYDmxBa6SSu0KH+cC98gG1k5D9J8CzYfTbqw==
+	bh=sK/H9HvHFSTiGugEGJQyMUnIkFUyigqct4WxtQyCZAI=;
+	b=Ru4vo4WHQFBBM+nlRBH+5W0qtY40fP9oXL+mFUVx447bGAyTJX5Kyj4Dukwg8tbhceME
+	 WDYVx4WKlem2FQYlvrOUhDmp0LFgbgmRYzgGX1aH/1zrfqmukk3yxhIzLVAeKmZgPsKp/
+	 /Bnibv7mDZJNf2b20KTk2RnGH3BBr4fkflcT0oY/NVSzOdlioH9L6MGqJa2W79jb+ObRQ
+	 aIT0yFYM2uM+MvIEZH22Xxjw8TlzHuYpQ5Ki15S8p2dHOctClSzHAAQx86HraUbPUL8m/
+	 ki9x3dMPqw/WA7P24FhUtUXf0hU6+JLVu/3vIzAaVJuVuIIyYrnpqESHA/MvVlX2r+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=chrisdown.name;
 	spf=pass smtp.mailfrom=chrisdown.name;
-	dkim=pass header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=GTCbL3hh;
-	arc=none smtp.remote-ip=209.85.214.177
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
+	dkim=pass header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=xaDRSLAB;
+	arc=none smtp.remote-ip=209.85.210.179
+Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F172F606A33F
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 07:53:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F172F606A33F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E81060A2611
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 07:53:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9E81060A2611
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=chrisdown.name
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chrisdown.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=GTCbL3hh
-Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2e9eb579c0eso16360805ad.3
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 23:53:34 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=xaDRSLAB
+Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-8b904d10882so1303137b3a.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 23:53:40 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chrisdown.name; s=google; t=1794383614; x=1794988414; darn=vger.kernel.org;
+        d=chrisdown.name; s=google; t=1794383620; x=1794988420; darn=vger.kernel.org;
         h=user-agent:in-reply-to:content-disposition:content-type
          :mime-version:references:message-id:subject:cc:to:from:date:from:to
          :cc:subject:date:message-id:reply-to:content-type;
-        bh=+8ppAZ4kI36SkHC2JSY1XPhx8Cnr7U+W7X/gURi12I4=;
-        b=GTCbL3hhGoh0IEuShmnZd0s6MpqUCVHMB28hFhie2IoVPHfTrh9csg+/ol4FMk/vpn
-         VBxAigtfoJooFSpDVd51SAHCavWTI7d7qeZX5xhLt+m6+d4cHlB5lsCeYZM80IX+3Ud0
-         OZLaVEH1zoIDQRNm6u/krQdNirI4zfBn1IqHA=
+        bh=sK/H9HvHFSTiGugEGJQyMUnIkFUyigqct4WxtQyCZAI=;
+        b=xaDRSLABpfcz35+Jp7pKiITUvAgjZWk7/Jh/8WetpYrTZp9CkHwV1EFlgkfEgMjmYv
+         CAloFN3rxioko73QaTac1MJq4Cz7jyUCaeLiA6+2dXFCbPQpfk0fEAMmN6TJuRIhT/jM
+         r4DvfBb3kH3jy0wwVbSjIj9ATNuoAA338rnD8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794383614; x=1794988414;
+        d=1e100.net; s=20260707; t=1794383620; x=1794988420;
         h=user-agent:in-reply-to:content-disposition:content-type
          :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=+8ppAZ4kI36SkHC2JSY1XPhx8Cnr7U+W7X/gURi12I4=;
-        b=tCyZyPKHKLVNJzBzgnJJNNZXSxSXfT7MMoLRrDw4YJ85GWNmOyUTyrWxzJKnFYLkSF
-         T3IJ9pXD07oChZMyy+kVLoMLAXmj7eS7wrEdcJ05R1F4J1vgIXLMiPsy/DdYz80XfLCs
-         bGQDw950tPqmfkRCZBYlG91vctp8ZofwtzeNW+ogoVwN0ET5/8PAatx1grAMc/3nr3gt
-         XZmNTQF4YffPyQMnsXW78SjF9/jyWwzB6WifTcaXAsrDoHNDuwJQKoHUiu64zW3dwTQ0
-         8p/Ud/vQz0j3KwWkDc9sxn+FNM4DOG6pqEkccB7MmHQsKe2Yp0mD+PORlwGyl1O0gGRy
-         v/5A==
-X-Forwarded-Encrypted: i=1; AL+hErFf/n99fuJs1uC+TU7CK6ZBxwSBawZh6UicqnvZsYb1+XgPf9/yFaGzwv8WLAznNZijr71ayboJvcDVQHw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8A+e569aOL2ypir3DjT9lCXhOfVP3WDJ6vP4LYQAhAF16+cS6c
-	sK+kVHUg5Uws4Q33mrCUBerD/U6yZhrwQdeJzEJPK0PFnYXmU+HFrBo3UmCJCRlJGKU=
-X-Gm-Gg: AYBFou3776RCMV0YHUr5Y8f02vOHbX/hcEZuJfg7Z74+ycr4Doitbsgeq0q3q1T47iY
-	2lLM0Edsmj3kSUWOPmE04U9PKWHj9lLqnOZGzYWtfv2NILkkTrlyt5/VB4JAYRWcp8gE/FU/rlj
-	5a7x/uTHpWztm0yCh7Ny725i3fP98ItdicdjGN4Sn9GQBYtpEVRUysjBo5Gv4uq8U3iB607Y3y5
-	1lBUpGJ0L65GktoBJ3bekxgERJ9QUCgjoQe/XVRFGRPXEUqgg/VsxeNfFSXpJiGzwutLcvESW2P
-	Ye5xxay9aRW64MeTnyWEVPLSyCiPmvuK2VB5J7ggm4xc0pn0u5CkDMm7XSG5aFn9tpfM9aTzUlr
-	L3+Uq3mAge5+yBmx8zkcHqEkjUH59CfvoDFGfxGTBGlX7QT9gnSEMFL/E+YfJr7TphAZAjsytQn
-	i50zD2y1wtw2o+ruKWFAG6jNZ/EaJQXzdvXLbmuK0WbXshZHYdvAd7I6Xp5Vdu46iGAzTxLstyk
-	p9iZ9joq8uvKaoUp9z9hq78gVeDWDWyM2B+XkgNBb4iw8kHi+RMnV/PALypP1cguFahMHbb7Wmm
-	ZDZ7JyhsXF9a+rhC1jGEpYzt12MdxeHsv1LFDyHK4p7Ii6ez3qk+ep2YQYAz1yGVuRkDF5BeP5c
-	HcIFo1hOaqU/wosY0ti7pQeDgQoXu66jDwDo2psHyJQthRSKiOcQc+S36/RPX7whoD+UIDUDBr8
-	maUYAnFYXNYa7HHmA4awF/Riwg4lsWtKQyUgiWlID2Z6WE8LNXloNX
-X-Received: by 2002:a17:902:da87:b0:2ed:294c:2b9c with SMTP id d9443c01a7336-2edd7ac1ea6mr21231125ad.51.1794383614325;
-        Tue, 10 Nov 2026 23:53:34 -0800 (PST)
+        bh=sK/H9HvHFSTiGugEGJQyMUnIkFUyigqct4WxtQyCZAI=;
+        b=unIrOR7dy+rD9dikGMtbw3ZaPZ230z2AwbtwVqtLsZozdOu0fUR3b4N18GpLgC1fft
+         YQju1uvLDyOZo3TNdIC3TGz3OePcAAfHgaJ1pVn/4r1+ULZyjbMMuJ0clcfJ6DPq9U/I
+         /eJB8JxaRXzBd+D8Qq/sj5sN4T+8GssB8i3A5657ykpFWJKvg3LIMw16SjaJNPiGP5VU
+         sr0JiPcj/PkjYVGMbVtcey+tIdYcbuOUAVyuPbVVzO5+MmKafmC018UN6+uMprmr4IXz
+         8QrCe1fPonYvCMAcCMLrYQTNI9Ggb/RTACyR725LrnpnJ9sJXRRGo/SLovZEIPLbIZVa
+         T2fw==
+X-Forwarded-Encrypted: i=1; AL+hErE4B7JfBeVSGvEeWC0jxaXF3/Rpr8QHHvCC53am1OMeYWw9hJ0r7I6MzTIgI+i201kKhbmEbzL5Pq+yMyk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z//glNWIpku/P/6J7CaQjsOJCDOj1Gx3t4MY8kl6zu5X8CFWmvQ
+	TByK6TqP4boil3fUtj4trtLj55sW0Mpj1CfsIFPrwSaHi5cK7mQjTD6IZMwPyU6UvNk=
+X-Gm-Gg: AYBFou3Z6cT+DGn1tlakO1rYlR+fOS9AJffQMXhYUzisgHdxCom38OOKQv1kb6sYLCy
+	S17o3DBWBxWxtiDWc72iRj1QmW4VufbP1h9LSpN6ENDlqjX+RwZ6sDiH7BV5Fg/e4LuYG8uakCe
+	CXFW2xMz0KBXPCRTcmhbEbHWYEEFtTlZOONX/RRY8AxalkHSZy7HUO8c3W3EtnbpRVeVDUL1Uxq
+	jXWR4TYBD7fSLWYIvehVQe8mQkuM9cC/Q7LJuNWnUEJCRgwcwcMXcs9y0VMBYgOXsJ5QFso7sGQ
+	T8bQKx8OO5Pd1EwcUxR9UYe2f4y4ctdajc1AK4+xB9MdpXsr1AB4vRQIDz2mQOW3X2PSM1euCzz
+	zOqzjEt2BBPzZCtMfkYGiqvOjCynA/Ud/VIVz0Z2m0yzYfJTP0KhFt5Yc6v9yEgDWOj5Yy0X35z
+	6MDq5NoucHz5J7OXzG1UKcpgrTxlA80gE7wrIhYshD8V3yJVBRczyDMNM9IqOwJim+Yyhj42bft
+	2QhTvGnBXNx4jifub7lv/d8lNsfsu/ra4nmIAQAjlYe4GSjMF42wZifAhYlBsjF/s7FRtQbCaUS
+	IQOJ1MibFOXjMaNd99+NFQD96mMEBZl7dHn+3Plpwh3KeY9kvEYhb0knbnaSI/mBmfK0c/d4MPp
+	rpgo9EX6YPzuK5vnifCHnEdXmwP2NWXdUT/uv6uhvN8jNrURgz4lo7kbWJKk48+WimiVxBp1Pwb
+	cKWLjrmbMnkbpcyKN6ch5a7lYe1CZ1MvH6h6laTS5zexLD1zCvxajw/g==
+X-Received: by 2002:a05:6a00:2d2a:b0:8a0:1e49:71bb with SMTP id d2e1a72fcca58-8bc1ddf8792mr1803838b3a.57.1794383619946;
+        Tue, 10 Nov 2026 23:53:39 -0800 (PST)
 Received: from localhost ([199.201.64.8])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2edb6a3f730sm18051095ad.5.2026.11.10.23.53.32
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8baaa2a6c51sm1842597b3a.14.2026.11.10.23.53.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 23:53:33 -0800 (PST)
-Date: Tue, 10 Nov 2026 23:53:30 -0800
+        Tue, 10 Nov 2026 23:53:39 -0800 (PST)
+Date: Tue, 10 Nov 2026 23:53:35 -0800
 From: Chris Down <chris@chrisdown.name>
 To: Pasha Tatashin <pasha.tatashin@soleen.com>,
 	Mike Rapoport <rppt@kernel.org>,
@@ -89,8 +89,9 @@ Cc: Alexander Graf <graf@amazon.com>, Baoquan He <baoquan.he@linux.dev>,
 	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
 	linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org,
 	kernel-team@meta.com
-Subject: [PATCH 6/9] kho: Expose rejected handovers that look like cold boots
-Message-ID: <abfe907e8da92802cd5e0c843d8013e4d229aab3.1794383544.git.chris@chrisdown.name>
+Subject: [PATCH 7/9] kho: Report how much handover memory is preserved and
+ restored
+Message-ID: <920192d01c6534b5754648e12840f73cdcfa73de.1794383544.git.chris@chrisdown.name>
 References: <cover.1794383544.git.chris@chrisdown.name>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -106,198 +107,129 @@ Content-Disposition: inline
 In-Reply-To: <cover.1794383544.git.chris@chrisdown.name>
 User-Agent: Mutt/2.3.3 (9073d26d) (2026-06-12)
 
-At Meta, our rollout needs to stop if the new kernel rejects the KHO
-handover. For example, if it doesn't recognise the handover FDT's
-compatible string, it can boot normally with all the preserved state
-lost. LUO's incoming/state reads "none", as on a cold boot. We log
-"disabling KHO revival", but our fleet collector reads procfs and sysfs
-and can't rely on kernel logs from every host.
+Most memory the previous kernel preserved stays reserved until its user
+restores it through KHO, either to use it again or to free it. If
+nothing does, it stays reserved for as long as the kernel runs. On a
+hypervisor host that can be gigabytes, but amusingly nothing really
+shows it reliably. The host simply has less memory than it should, which
+is not exactly obvious.
 
-Let's add /sys/kernel/kexec/kho_incoming/state so the collector can tell
-a rejected handover from an ordinary boot. "revived" means the kernel
-accepted the handover and completed the preserved memory map walk. LUO
-reports the outcome of restoring sessions separately.
+All preserved memory is reserved in kho_preserved_memory_reserve(), and
+everything restored through KHO goes through kho_restore_page(), so KHO
+can count both easily. Let's add preserved_size and restored_size, in
+bytes, to /sys/kernel/kexec/kho_incoming/.
+
+For example, after a live update preserving a 64 MiB memfd:
+
+                     preserved_size  restored_size
+    before retrieval       67403776           8192
+    after retrieval        67403776       67395584
+
+The 8 KiB left are the incoming KHO FDT and LUO's FLB header.
 
 Signed-off-by: Chris Down <chris@chrisdown.name>
 ---
- .../ABI/testing/sysfs-class-misc-liveupdate   |  3 ++
- .../ABI/testing/sysfs-kernel-kexec-kdump      | 12 +++++++
- Documentation/admin-guide/mm/kho.rst          |  3 ++
- include/linux/kexec_handover.h                |  2 ++
- kernel/kexec_core.c                           | 13 ++++++-
- kernel/liveupdate/kexec_handover.c            | 34 +++++++++++++++++++
- 6 files changed, 66 insertions(+), 1 deletion(-)
+ .../ABI/testing/sysfs-kernel-kexec-kdump      | 10 ++++++++
+ Documentation/admin-guide/mm/kho.rst          |  3 +++
+ kernel/liveupdate/kexec_handover.c            | 23 +++++++++++++++++++
+ 3 files changed, 36 insertions(+)
 
-diff --git a/Documentation/ABI/testing/sysfs-class-misc-liveupdate b/Documentation/ABI/testing/sysfs-class-misc-liveupdate
-index 25e3b49d7aeb..608f788ef0fa 100644
---- a/Documentation/ABI/testing/sysfs-class-misc-liveupdate
-+++ b/Documentation/ABI/testing/sysfs-class-misc-liveupdate
-@@ -19,6 +19,9 @@ Description:	read only
- 		"deserialized"  The sessions can be retrieved.
- 		"failed"        Deserialization failed. Opening
- 		                /dev/liveupdate returns -EIO.
-+
-+		See /sys/kernel/kexec/kho_incoming/state for the status of
-+		the underlying KHO handover.
- Users:		system monitoring
- 
- What:		/sys/class/misc/liveupdate/incoming/sessions
 diff --git a/Documentation/ABI/testing/sysfs-kernel-kexec-kdump b/Documentation/ABI/testing/sysfs-kernel-kexec-kdump
-index 80941a7d8a7c..5636cd060cb2 100644
+index 5636cd060cb2..2b9f9917d2d4 100644
 --- a/Documentation/ABI/testing/sysfs-kernel-kexec-kdump
 +++ b/Documentation/ABI/testing/sysfs-kernel-kexec-kdump
-@@ -67,3 +67,15 @@ Description:	read only
- 		Total size of the KHO bootmem regions in bytes. Returns 0
- 		when KHO is disabled.
+@@ -79,3 +79,13 @@ Description:	read only
+ 		           the walk of its preserved memory map.
+ 		"failed"   The kernel rejected the handover.
  User:		system monitoring
 +
-+What:		/sys/kernel/kexec/kho_incoming/state
++What:		/sys/kernel/kexec/kho_incoming/preserved_size
++What:		/sys/kernel/kexec/kho_incoming/restored_size
 +Date:		Nov 2026
 +Contact:	kexec@lists.infradead.org
 +Description:	read only
-+		Status of the incoming KHO handover:
-+
-+		"none"     No handover was passed to this kernel.
-+		"revived"  The kernel accepted the handover and completed
-+		           the walk of its preserved memory map.
-+		"failed"   The kernel rejected the handover.
++		Bytes preserved by the previous kernel and bytes restored
++		through KHO, respectively. Both are 0 unless the incoming
++		state is "revived".
 +User:		system monitoring
 diff --git a/Documentation/admin-guide/mm/kho.rst b/Documentation/admin-guide/mm/kho.rst
-index c329d720bf25..9d74d4ce18b5 100644
+index 9d74d4ce18b5..37a62daa7622 100644
 --- a/Documentation/admin-guide/mm/kho.rst
 +++ b/Documentation/admin-guide/mm/kho.rst
-@@ -88,6 +88,9 @@ sysfs Interfaces
-     Total size of the KHO bootmem regions in bytes, or 0 when KHO is
-     disabled.
+@@ -91,6 +91,9 @@ sysfs Interfaces
+ ``/sys/kernel/kexec/kho_incoming/state``
+     Status of the incoming KHO handover.
  
-+``/sys/kernel/kexec/kho_incoming/state``
-+    Status of the incoming KHO handover.
++``/sys/kernel/kexec/kho_incoming/preserved_size`` and ``restored_size``
++    Bytes preserved by the previous kernel and bytes restored through KHO.
 +
  See Documentation/ABI/testing/sysfs-kernel-kexec-kdump for the sysfs ABI.
  
  debugfs Interfaces
-diff --git a/include/linux/kexec_handover.h b/include/linux/kexec_handover.h
-index 736d51e79fd2..1f37d2300e26 100644
---- a/include/linux/kexec_handover.h
-+++ b/include/linux/kexec_handover.h
-@@ -42,6 +42,8 @@ void kho_populate(phys_addr_t fdt_phys, u64 fdt_len, phys_addr_t bootmem_phys,
- bool kho_bootmem_overlap(phys_addr_t phys, size_t size);
- phys_addr_t kho_bootmem_size(void);
- 
-+extern const struct attribute_group kho_incoming_attr_group;
-+
- static inline enum migratetype kho_bootmem_migratetype(unsigned long pfn,
- 						       enum migratetype mt)
- {
-diff --git a/kernel/kexec_core.c b/kernel/kexec_core.c
-index ed105e6351eb..c1085a53b7f4 100644
---- a/kernel/kexec_core.c
-+++ b/kernel/kexec_core.c
-@@ -1372,7 +1372,18 @@ static struct kexec_link_entry kexec_links[] = {
- };
- 
- static struct kobject *kexec_kobj;
--ATTRIBUTE_GROUPS(kexec);
-+
-+static const struct attribute_group kexec_group = {
-+	.attrs = kexec_attrs,
-+};
-+
-+static const struct attribute_group *kexec_groups[] = {
-+	&kexec_group,
-+#ifdef CONFIG_KEXEC_HANDOVER
-+	&kho_incoming_attr_group,
-+#endif
-+	NULL
-+};
- 
- static int __init init_kexec_sysctl(void)
- {
 diff --git a/kernel/liveupdate/kexec_handover.c b/kernel/liveupdate/kexec_handover.c
-index 21d77e29d2bb..dfd6fa7e4a71 100644
+index dfd6fa7e4a71..fe6b66270124 100644
 --- a/kernel/liveupdate/kexec_handover.c
 +++ b/kernel/liveupdate/kexec_handover.c
-@@ -19,6 +19,7 @@
- #include <linux/kexec.h>
- #include <linux/kexec_handover.h>
- #include <linux/kho_radix_tree.h>
-+#include <linux/kobject.h>
- #include <linux/utsname.h>
- #include <linux/kho/abi/kexec_handover.h>
- #include <linux/kho/abi/kexec_metadata.h>
-@@ -97,11 +98,18 @@ static struct kho_out kho_out = {
- 	},
- };
- 
-+enum kho_incoming_state {
-+	KHO_INCOMING_NONE,
-+	KHO_INCOMING_REVIVED,
-+	KHO_INCOMING_FAILED,
-+};
-+
- struct kho_in {
- 	phys_addr_t fdt_phys;
- 	phys_addr_t bootmem_phys;
+@@ -110,6 +110,8 @@ struct kho_in {
  	char previous_release[__NEW_UTS_LEN + 1];
  	u32 kexec_count;
-+	enum kho_incoming_state state;
+ 	enum kho_incoming_state state;
++	unsigned long preserved_pages;
++	atomic_long_t restored_pages;
  	struct kho_debugfs dbg;
  	struct kho_radix_tree radix_tree;
  };
-@@ -957,6 +965,29 @@ phys_addr_t kho_bootmem_size(void)
- 	return size;
+@@ -552,6 +554,7 @@ static struct page *kho_restore_page(phys_addr_t phys, bool is_folio,
+ 		kho_init_pages(page, nr_pages);
+ 
+ 	adjust_managed_page_count(page, nr_pages);
++	atomic_long_add(nr_pages, &kho_in.restored_pages);
+ 	return page;
  }
  
-+static const char * const kho_incoming_state_names[] = {
-+	[KHO_INCOMING_NONE]	= "none",
-+	[KHO_INCOMING_REVIVED]	= "revived",
-+	[KHO_INCOMING_FAILED]	= "failed",
-+};
-+
-+static ssize_t state_show(struct kobject *kobj, struct kobj_attribute *attr,
-+			  char *buf)
+@@ -643,6 +646,7 @@ static int __init kho_preserved_memory_reserve(unsigned long key, void *data)
+ 	info.magic = KHO_PAGE_MAGIC;
+ 	info.order = order;
+ 	page->private = info.page_private;
++	kho_in.preserved_pages += 1UL << order;
+ 
+ 	return 0;
+ }
+@@ -978,8 +982,26 @@ static ssize_t state_show(struct kobject *kobj, struct kobj_attribute *attr,
+ }
+ static struct kobj_attribute state_attr = __ATTR_RO(state);
+ 
++static ssize_t preserved_size_show(struct kobject *kobj,
++				   struct kobj_attribute *attr, char *buf)
 +{
-+	return sysfs_emit(buf, "%s\n", kho_incoming_state_names[kho_in.state]);
++	return sysfs_emit(buf, "%llu\n", (u64)kho_in.preserved_pages << PAGE_SHIFT);
 +}
-+static struct kobj_attribute state_attr = __ATTR_RO(state);
++static struct kobj_attribute preserved_size_attr = __ATTR_RO(preserved_size);
 +
-+static struct attribute *kho_incoming_attrs[] = {
-+	&state_attr.attr,
-+	NULL
-+};
++static ssize_t restored_size_show(struct kobject *kobj,
++				  struct kobj_attribute *attr, char *buf)
++{
++	u64 pages = atomic_long_read(&kho_in.restored_pages);
 +
-+const struct attribute_group kho_incoming_attr_group = {
-+	.name	= "kho_incoming",
-+	.attrs	= kho_incoming_attrs,
-+};
++	return sysfs_emit(buf, "%llu\n", pages << PAGE_SHIFT);
++}
++static struct kobj_attribute restored_size_attr = __ATTR_RO(restored_size);
 +
- /*
-  * Look for free blocks of 1G. This is a heuristic chosen to work efficiently
-  * with large systems with hundreds of gigabytes of memory. It will work poorly
-@@ -1753,6 +1784,7 @@ static void __init kho_mem_retrieve(void)
- 	 */
+ static struct attribute *kho_incoming_attrs[] = {
+ 	&state_attr.attr,
++	&preserved_size_attr.attr,
++	&restored_size_attr.attr,
+ 	NULL
+ };
+ 
+@@ -1785,6 +1807,7 @@ static void __init kho_mem_retrieve(void)
  	kho_in.fdt_phys = 0;
  	kho_in.radix_tree.root = NULL;
-+	kho_in.state = KHO_INCOMING_FAILED;
+ 	kho_in.state = KHO_INCOMING_FAILED;
++	kho_in.preserved_pages = 0;
  }
  
  static __init int kho_out_fdt_setup(void)
-@@ -1992,6 +2024,7 @@ void __init kho_memory_init_early(void)
- 	 */
- 	kho_in.fdt_phys = 0;
- 	kho_in.bootmem_phys = 0;
-+	kho_in.state = KHO_INCOMING_FAILED;
- }
- 
- void __init kho_memory_init(void)
-@@ -2090,6 +2123,7 @@ void __init kho_populate(phys_addr_t fdt_phys, u64 fdt_len,
- unmap_fdt:
- 	early_memunmap(fdt, fdt_len);
- report:
-+	kho_in.state = populated ? KHO_INCOMING_REVIVED : KHO_INCOMING_FAILED;
- 	if (!populated)
- 		pr_warn("disabling KHO revival\n");
- }
 -- 
 2.54.0
 
