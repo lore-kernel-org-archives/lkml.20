@@ -1,69 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=188.68.63.102
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794388905;
-	b=MBa6sSShIBAvlb2Hjo07oRg8h9ix8y2TKwb+u6MwvfwdcvicxvwkLVXjDLxky/kNJ33g
-	 vERb2D1CAqHvc4OHSERsGpsX015mGVjw//jw/Nx58pRaNlm6tCVHSb2SzfwEtfoRFohW+
-	 C9V3qjG/ApXcJk+dYlAW7T3FbaJiUwJOdatyBz0bIXIhNINwJvr74yFnixIkqU37CtKGX
-	 svuPUxcUlM+o/fY7GQcxmsh+JUe2sktSwXil8hK0pMDcCUHe5z5mH1CU4+LXoc6amPf5b
-	 Vsy5GFbP/Mj71PeBPSJhlJBPo/wodL+advCg8FGLf8o3TZCHx732uRYCq6eQ9DYc1RA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794388905;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received-SPF:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:From:Content-Language:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-PPP-Message-ID:X-NC-CID;
-	bh=aIRoXJDNqceBdKb+7VcVD0zb/w7fLipsmo4NYHpzbxA=;
-	b=t4Xy4hNxaZpuqJHGXO9CdOOQZDl73SzKegFgLuZ+4uEqu0lT2JnWF2oeVRzfyXqD0t9O
-	 WOXKBulaZO4GwZkzWyF32PSNy7+ajcRE/P01YXi2Cc9PXuZmWTArrc/55KybRGbLVRct0
-	 sCGakm0Q9PpICmJHOjK5LZAtDBTIw0UQLLX61is66bV9wKism2sybGtaBAjyVwiTupVw6
-	 v7CZ59WrVu+9+Huj/3bLd/MMQJgedtM6p9rd8UVAjAM+FSRuM2iUiNVfm0jGxQK0OztxL
-	 fb3AilClrjoC19+4Sq0OBqZ7iUk0eVQw2M5wFnpBOUVo2+DzQecKOyFJEuGzHIKLcjg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=leemhuis.info;
-	spf=pass smtp.mailfrom=leemhuis.info;
-	dkim=pass header.d=leemhuis.info header.i=@leemhuis.info header.a=rsa-sha256 header.s=key2 header.b=XWTLav8F;
-	arc=none smtp.remote-ip=188.68.63.102
-Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [188.68.63.102])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.101.109
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794388914;
+	b=vQUlYbI9pVyR9uhheCsQCvMhWgNYoBVJYH6do0eImwfP75KInjISz55QkYrnKuihPGXI
+	 Jr8GvEqM1EF2Ns8cF8g25niR55chZ22jP546vGEd5IXXI2SIXK5YDqNgyvrBzIOQPqRMf
+	 BaFL543EFKgDLQelyqd2N91IC8r2sIA2f610J1H/O36yjHx3nUFKyJnlZODHcZYPhlVze
+	 tD7VOxmc6UxpV3DQt7d0j7Wz6yT7UHK+biJ2gBXxiTNP5we8usQ9hVzVabGZc1Xb7xwwz
+	 oFMIsiA6aqj6vuyyMvmYTzL7YGga/t766kjt5I6UVsEMKTt5GC/MHdWoX7QAqvo7Xow==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794388914;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Subject:From:
+	 To:Cc:X-Mailer:References:In-Reply-To:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=RtR3j1pBRkkMQ7seDNzYwy/UpIHGuZ0BrcXgGlNdkXo=;
+	b=Ce88J8RhkehDVKXn201oY+aVoJDwhcT9NDcZP/3yn8Qmvo/g5Mc7lsGDDLO9ETK0DXhO
+	 eTosznoobDlhJvDl6AGCkL01TSZj0ZwyWtUazEYOXUO06xpdRboUpm5FVEPxXiU3AaDWy
+	 Aa0EzJbzMhP8SEmuPh1Dg3ElKAQlmNA7JdxWdXh4J0HW+YhewfserG2IrGufZHNAKN/oe
+	 iMpPbjl6oC4G1TFx/ioNE3Ftu5tSIvl6sLUI+Ilhvap3WfIk0KloBMW8OlAf9oNXAmRQ8
+	 qIuLLwn2jWbD6uhlzEsp6QhShAIG/skbdntunvRlsmY6eEGuHF5gtcSHKWcK7mN7W9g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=garyguo.net;
+	spf=pass smtp.mailfrom=garyguo.net;
+	dkim=pass header.d=garyguo.net header.i=@garyguo.net header.a=rsa-sha256 header.s=selector1 header.b=rAGrgQrz;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.101.109
+Received: from CWXP265CU010.outbound.protection.outlook.com (mail-ukwestazon11022109.outbound.protection.outlook.com [52.101.101.109])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFCE5606A31C;
-	Wed, 11 Nov 2026 09:21:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AFCE5606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F82A606A332;
+	Wed, 11 Nov 2026 09:21:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F82A606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=leemhuis.info header.i=@leemhuis.info header.a=rsa-sha256 header.s=key2 header.b=XWTLav8F
-Received: from mors-relay-2502.netcup.net (localhost [127.0.0.1])
-	by mors-relay-2502.netcup.net (Postfix) with ESMTPS id 4jPdLD3NM8z6WXB;
-	Wed, 11 Nov 2026 10:21:08 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
-	s=key2; t=1794388868;
-	bh=7pdryiipz0j+iu+O9ky1Ab58BI7pr16Jg8JAQ1379Q0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=XWTLav8FutN8UmK2+geCara6gCpeOBKuxKRLarsz+LQRfOqFzJZGxLbsxjCyBjKFV
-	 79TZOgSYui3duOF5Tl+ZWdqkkc1mRS9sfzmEUBmE0S89Euk4XpxFbl5S5qfsyXTgum
-	 QiU+NOA/4fiEbr2YDoBTPRcAGUcbZgrBkETGX8KRfsXldHZZUWmKmpR/stS5ownhQm
-	 3I93C5pYi+zjLFnPJUHPvByXCqdHKW9BfClnGuoKaOnqWrFwqjSKBDVH2g/f/dCc8N
-	 bVJqXSFMPWOcAVVnAuk4MqJ8wTM/zeyLdzcIQV5dUF69mbSSi+hHa5lKBySTfhLErD
-	 SA+Kws+c2L+wA==
-Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
-	by mors-relay-2502.netcup.net (Postfix) with ESMTPS id 4jPdLD2fj0z52NB;
-	Wed, 11 Nov 2026 10:21:08 +0100 (CET)
-Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by policy02-mors.netcup.net (Postfix) with ESMTPS id 4jPdLB5SqLz8svk;
-	Wed, 11 Nov 2026 10:21:06 +0100 (CET)
-Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
-	by mxe9fb.netcup.net (Postfix) with ESMTPSA id DDE155F9C5;
-	Wed, 11 Nov 2026 10:20:57 +0100 (CET)
-Authentication-Results: mxe9fb;
-        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
-Received-SPF: pass (mxe9fb: connection is authenticated)
-Message-ID: <c92bf044-3a04-4fd7-b1a3-e7ea89cf1e4c@leemhuis.info>
-Date: Wed, 11 Nov 2026 10:20:57 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=garyguo.net header.i=@garyguo.net header.a=rsa-sha256 header.s=selector1 header.b=rAGrgQrz
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=IWCmicY4u7mBtj9cwoqsCk3pnjM4BWcKyaZz0bCc1dpD9sAPwdes708bWgNDjLEry3m9tEpTgzFdJJo1Ux6/65vNEFVaOraMzetQUCwKpgIJGYpZ6IAWtjet4y0SuaazTACTyXEHQH68nBpJJwpHkvwg7iKJR7tKmq1ufoyTZPCHRVOWwR1Fv1Uy8G2RjnWeyddNvVxc36wPUc//6ZGC01quzUuEejEbRxnEBfPKPJ81MnoRzsrHQdnK24srVG+r2DSBiZdmWc43AMbYTPKEZzErZf5VuFS7hpdB09RQfZvMPRcGLkIxt9+XBSVuLAqJtoXOymbbVPomjA0y0koj7g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=RtR3j1pBRkkMQ7seDNzYwy/UpIHGuZ0BrcXgGlNdkXo=;
+ b=FSCg/NaRmNUI4bX8dQblud8j2tPV9b/w1l24tcdVA7hXQGsSJXbw667k+m25tjPzl3KMX+vR6EwEsZUxBOEKwVunQnuelIXaLynOaZ506mRUFYdk5D3htb7YYPuWM/AkMVZhAE0Yt2EdYY87DjOxLtsceBp0V5PGlvs3OS/CeMBokOhmtKkgZrxwL0ef49a1y9C9lxUmh5hlnlZrBOliYOXIu2oIlPuYLx/E04sLgttlOJD0PcJu31pImnRLvnpizkyjCCVJF3tOzkM/yl3uZpaKS5Uw7Jfu8w2JOiI5RqCdLUrujFk/r+ZzT8OadCUUigVPpFGIbXx0ThDywkmfwA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=RtR3j1pBRkkMQ7seDNzYwy/UpIHGuZ0BrcXgGlNdkXo=;
+ b=rAGrgQrzN/gwoQnvN82yc9VvS7vckFRUz3yhpQSkY+l+u07Sljzcq+sJuOLx6fNLJfiToKm0PhB+cjlxPgrLJREy+5uiljXzuN7SDrcrF8FlT57aG6/hs7SWq1ZoUqjoLmfev2uwb1X+KLjc009ghIPDmoHRTZJuRLdOnIiEPrk=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:1cb::9)
+ by LO6P265MB6206.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:2b5::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Wed, 11 Nov
+ 2026 09:21:50 +0000
+Received: from CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::55f6:f98b:7fad:c6e3]) by CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::55f6:f98b:7fad:c6e3%2]) with mapi id 15.21.0615.008; Wed, 11 Nov 2026
+ 09:21:50 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 11 Nov 2026 09:21:49 +0000
+Message-Id: <DMS9S521X3BT.17VUFWPMII88C@garyguo.net>
+Subject: Re: [PATCH v2 2/7] rust: drm: gem: gate open/close callbacks with
+ RegistrationGuard
+From: "Gary Guo" <gary@garyguo.net>
+To: "Danilo Krummrich" <dakr@kernel.org>, <aliceryhl@google.com>,
+ <acourbot@nvidia.com>, <daniel.almeida@collabora.com>, <ojeda@kernel.org>,
+ <boqun@kernel.org>, <gary@garyguo.net>, <bjorn3_gh@protonmail.com>,
+ <lossin@kernel.org>, <a.hindborg@kernel.org>, <tmgross@umich.edu>,
+ <tamird@kernel.org>, <work@onurozkan.dev>, <brauner@kernel.org>,
+ <lyude@redhat.com>, <j@jananu.net>, <alvin.sun@linux.dev>,
+ <deborah.brouwer@collabora.com>, <laura.nao@collabora.com>,
+ <beata.michalska@arm.com>
+Cc: <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+X-Mailer: aerc 0.22.0
+References: <20261107021427.2105374-1-dakr@kernel.org>
+ <20261107021427.2105374-3-dakr@kernel.org>
+In-Reply-To: <20261107021427.2105374-3-dakr@kernel.org>
+X-ClientProxiedBy: LO4P265CA0110.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:2c3::14) To CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:400:1cb::9)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,58 +105,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] sched/idle: Stop the tick when no cpuidle driver is
- available
-To: Florian Fainelli <florian.fainelli@broadcom.com>,
- Christian Loehle <christian.loehle@arm.com>,
- Joseph Salisbury <joseph.salisbury@oracle.com>,
- "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Cc: rafael.j.wysocki@intel.com, Ingo Molnar <mingo@redhat.com>,
- Peter Zijlstra <peterz@infradead.org>, Juri Lelli <juri.lelli@redhat.com>,
- Vincent Guittot <vincent.guittot@linaro.org>,
- Dietmar Eggemann <dietmar.eggemann@arm.com>, frederic@kernel.org,
- linux-pm@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>,
- regressions@lists.linux.dev
-References: <096b42fa-107f-450d-b3b1-03bcad3f1e04@oracle.com>
- <CAJZ5v0g+SkTxuP5fqUMisQAh19v-JzpmRZHiKtYzJH1sVt656g@mail.gmail.com>
- <5f5cb821-92ae-4539-ae81-a43e33a7ded5@arm.com>
- <f5946a8a-43be-49d4-a827-25149112b21f@oracle.com>
- <774c3a68-6a6b-4e2e-a347-03e36953b750@arm.com>
- <0b9b9c3d-8ba0-4329-9504-b9d33c627649@arm.com>
- <097f4855-eca1-414a-932c-107d9eee5088@broadcom.com>
-From: Thorsten Leemhuis <regressions@leemhuis.info>
-Content-Language: de-DE, en-US
-In-Reply-To: <097f4855-eca1-414a-932c-107d9eee5088@broadcom.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-PPP-Message-ID: <179438885852.683699.2690732334273648782@mxe9fb.netcup.net>
-X-NC-CID: XD/K3O4gQ183UQRoZIs2OH3cLb2x+hy0xzzYw5B1Oui9uqVdcTc=
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CWLP265MB6051:EE_|LO6P265MB6206:EE_
+X-MS-Office365-Filtering-Correlation-Id: f62a0e37-2e78-4d99-b90d-08df3fd5379e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|7416014|376014|366016|10070799003|1800799024|921020|4143699003|10067099003|56012099006|261021121427099003|261102123227099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	n6uvszmUWTbkyQPcfl/qhmyzjp/nbVBZHY0I+TYjKQQilbmyBkVWNBJTKmeFx5yql60hgGICowdM2MyyMTo1l514yrYmkWUhDV60WSeBzO+GgrTy5xuQlb565ilgEAyx2yEtkUtlwQkJiK1+Nv5SCThwJHjEIvBGytcguHXJGpAt1+4F6uY0JBx5M5x3oAmn41BNeNMEWm503KieiaF0zYSBbUvQ4mIAhIaG16guN+BXd++vbTJslYQyRLcmLlHklEOpMdsd0GtePpSPCjSVa/xpyYjDJVu+sKxXANi7QXKYbDHorJZHeuFIVbyLLNle1sVyRecPilTX8rhscjmSP8cggurLt05BsSDaIq21hCjUrX0kEi6UDO5HGNbqR6WtZi7KZkwXW1Se8cuHiMGe7fhb1hhB7OYKgaxNiCtchTr3Exku7zm+fEPY+dW9PYeqkKzgrsamjOLb8Yx/djs9+riW3OpVMSmFDjFHwIBD5rGz22fTGEvRTlvRd8LxGpUE4QDp7jSvtMc4ML4dtQZhQw+kVPLlJLBuhMHekmDfUK8G7dk15RHiC/L1ea6cXajSXXRk2sY5RPgpgDbCVM6IYNPRThGedDlqqYbFI56nm7eYeOsGNt7naSqaSTwyvORMGJds4HbmLH4jJHGg3vLlSFqgJLOchtr3dFnK2HoXA0nXz7Xzf/pBUsqOJyqxNO5ymCZfhEWLYSRYrA0TsJUuBQ==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(366016)(10070799003)(1800799024)(921020)(4143699003)(10067099003)(56012099006)(261021121427099003)(261102123227099003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?N2ZyeGNNWUZuc0xyTEt1TkpqKzQxRmZtUlVsQlJWNFdZZWR0ejROdkxUZytX?=
+ =?utf-8?B?cDVWaElIcG9GOFd4WExEZk4wejQzTThhN1R1czVlNG5sY0ZyQlFBc0dnVTNk?=
+ =?utf-8?B?SkxsemNqZDJzcUVSbWo0SEdGOFJYQUp4RHp2TUJ3Y3l3ei9WRU1tK3JuQ0p0?=
+ =?utf-8?B?SmI4ZXNVTWptb1AyNVBoeHRXUVBBck4rN29DNGpRcXRmVEE2ZGhzK21ZOWhj?=
+ =?utf-8?B?aW04dTA2SXdwTXBydkhUSXdiZVJDYnBZRW82cFhWZnFTKytxeG5pWS9ITGFG?=
+ =?utf-8?B?YVdiR2NpRXUwMmEvU2xLUkdwVXI4MnYxNkRCYW5qWVNUT2R2R3kxcHh4WE42?=
+ =?utf-8?B?VVVKQTFNdDRkVVp5bmx1cngyeEx3NEZINHhOY1BISTJJSEN0UU9MSkV6djZv?=
+ =?utf-8?B?OVdlcUkzcFR0QTE2UDUrNFBzVVU4Y1lUeWJyeHQ0RFdaT29qM2tQRWs0STVB?=
+ =?utf-8?B?SHpubWdub2VmaUNJYjhzQkZGTTM3c3JzdXBHdk4wcnpJRVhpeUZ0UzNCc09X?=
+ =?utf-8?B?aStMNTJWM3Y5TGsyS2VnbVlPZjk0VEF2ZjNVRkRqTmwzUDRwT3RrVHhOZVc1?=
+ =?utf-8?B?OHJGZDFlOVMraGVaenJXTHl4Qi9sZzdoejNueTlQRHErUWdhb1pURjBtQUdZ?=
+ =?utf-8?B?OGFyNEJWdE4zbzBkcWVUQnBtRFNkUWFzQ0lYU3FFbWQ5MVZ6VDB5VlNVNmcv?=
+ =?utf-8?B?NEY0UVJuWmVMempzUDAwWklHbWtrM0VhVlBkNWpHaThWa1ZubUFqRHdEWlV1?=
+ =?utf-8?B?Q0JDZDdoelNJR3RadVJGYks3a2hUM1Q2WmpFd1lQWk9HTFdQcTI5M1gzc2d6?=
+ =?utf-8?B?T3pUaUFQYkE3ZEQxYU5oU1Vjc2ZkVXJHcFduaDVIREQ2QzlySUdnT00rb3Fk?=
+ =?utf-8?B?OTByaFRLMXZJSHFqanErMFh2VzcxS2VScmxzbk5mRjlCa1p2Mjl5b1ZFWVlS?=
+ =?utf-8?B?ZmswUmZJMDR2VGxJWjk1NGtFY3VYK0I1SHhEOFc4YnlQR0Q4NDlpRTBFUmpO?=
+ =?utf-8?B?ODNvcm12L0tvL2gydEREV0YxRkp1cDhoSDYyTWNSN0NUdFI5eDA2TnlHMG1o?=
+ =?utf-8?B?blJkRmF2N25QVCtBSFErZXdleWVQVFV2bnFPUWE3Ukd6K2hCOG0wTVVJN1ZW?=
+ =?utf-8?B?MmtZV1U3QXZ0TFRFTWN5MWJqZDBJekdXN0NPN2pGQmtxbTFBZnp2YWdIcVE4?=
+ =?utf-8?B?bFdqK2NaMnB3Mm9GNXBtWW5yek1ZSE04YnMxZmJSNXB6OVZpK1pRVXpiVDdo?=
+ =?utf-8?B?cGdHRG9zQUR0TDZrVHZ2WXJoYzVlWEg1RlFMN3NKRHhxY28wY25KTVdLK05R?=
+ =?utf-8?B?Ly92ek5OdE03MUF6MXdYcTdZK1VqNjhRNG9sMkJ3d3ozeUs1aEJkSTlMbU45?=
+ =?utf-8?B?cUN4c2VDV1M2NTZ3YXZCZ2tBeW1FcUhTTzVOUGRhMmZWYTRXVm90MWtPcWZx?=
+ =?utf-8?B?bCtRdkZXYUN0R3UvbXBxY21pU09oVU1xNnF0QmFENnZZdWNncGRHR01QajRP?=
+ =?utf-8?B?a2xpMGNaNmhubnpEOTFnYnl6aVdpYUdhQ2pVcDVRSWU3TjUvSWE1VUlXclRw?=
+ =?utf-8?B?b0VYTGxDOGVVWCs4STNIeTJPWjZlZU5kcEdVenFqUndwKy9VcUVxdVh0N2dt?=
+ =?utf-8?B?MWxqKzY5dDNGTVFrdWtCaElvTkNkWUxEMmVXSUFFalp3d2ZXMVoxWmkvd2pm?=
+ =?utf-8?B?L1pCR2JxaFllKzJkUHd3a0dhRDRzUEF5T2FsMytIdW55bElzUFpGcGtqaWlm?=
+ =?utf-8?B?YWxMRmRBQXErTitkYU4vYkFpcW4xbEZVM0ZWWDdndVVzR3dBMWhoM25YTGJk?=
+ =?utf-8?B?WnZxK0tOaGlIK2FiSnA1REpLd2ppdjlnSVA4cHFubmxyWndNZ2Z1cW5GZEk1?=
+ =?utf-8?B?eUhSVGZTOE9KRVVna1hValkzczZucm5hRzZWV2ZrNmQ1SnE2bnZhclZvRzAr?=
+ =?utf-8?B?SWdsRkhhM1FOb3RaOGRrM204SVdNK0ljU0lsdytWSGowRnQyWEdEYU5ZT00x?=
+ =?utf-8?B?TnZnVUhuU2FxYXFHMDZyaVJONjU4ZFdDeklXN1ZVLytKNWtoNWhTR2tQOTRt?=
+ =?utf-8?B?SzhRUnNvVGc2NmdTV3owZE12U3k5RCtMVTJEaUR1M0J5czRRRWhkNm1rUkVn?=
+ =?utf-8?B?MjY2azdJanM0b2gzYk5HUk9jMm9zYVc0S01JdE0ycUtTUDZ0NmN2ZzNNYXda?=
+ =?utf-8?B?Qzk1emdGTHNHbW1JdEppc3pyc2RqZ0hMeG5IeHp3Q3JBSkJKSXdRL0NCT29J?=
+ =?utf-8?B?TGVKV1N1a2Ztb2RDWkdtWnE2KzkwUkR1bzJkUVFjZU1SdENKV0ZDMUFpSHdi?=
+ =?utf-8?B?c2NyZ0VwY053UGxDNWkrSFZmaEd1ekF6Z2NldHZWUVl1WjVBZ1pydz09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: f62a0e37-2e78-4d99-b90d-08df3fd5379e
+X-MS-Exchange-CrossTenant-AuthSource: CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 09:21:50.4701
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: r0S7c6SmDms8a5+YT+vt+2RtIghYdW3XB4WJfzDJVA2G3qh2VSMMgPGmujTA/w2IV8+VSZoi8ZCDwO8Z2JyFgg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO6P265MB6206
 
-On 11/6/26 00:59, Florian Fainelli wrote:
-> On 7/28/26 09:37, Christian Loehle wrote:
->> Commit f4c31b07b136 ("sched: idle: Consolidate the handling of two
->> special cases") changed the no-cpuidle-driver path to use the previous
->> tick wakeup heuristic.
->>
->> Oracle reported a substantial sysbench regression on small OCI VM shapes
->> with no cpuidle driver available. Reverting the commit recovered the lost
->> performance.
->>
->> Restore the previous tick handling for the no-driver case while retaining
->> the heuristic for the single-state cpuidle case.
->>
->> Fixes: f4c31b07b136 ("sched: idle: Consolidate the handling of two
->> special cases")
-> [...]
-> 
-> We also hit this issue after it got back ported into stable trees (5.15,
-> 6.1, etc.) and this is seen during a network throughput test. 
-FWIW, a fix for the above-mentioned commit recently hit mainline, so I
-wonder if that might change anything:
+On Sat Nov 7, 2026 at 2:03 AM GMT, Danilo Krummrich wrote:
+> Wrap the GEM object open and close callbacks with a RegistrationGuard
+> (drm_dev_enter / drm_dev_exit) to ensure the driver callbacks only run
+> while the parent bus device is bound.
+>=20
+> If the device has been unbound, open returns -ENODEV and close silently
+> returns. This prevents driver code from accessing device resources after
+> unbind and is a prerequisite for making drm::Driver::File
+> lifetime-parameterized, since GEM callbacks receive a &drm::File that
+> could otherwise be used to access invalidated file private data.
+>=20
+> Reviewed-by: Alice Ryhl <aliceryhl@google.com>
+> Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
+> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
 
-96a494c9cfd8f4 ("sched/cputime: Don't account idle time twice after
-dyntick-idle") [v7.4-rc1]
-https://lore.kernel.org/all/20261005194010.168299-1-stian@itx.no/
+Reviewed-by: Gary Guo <gary@garyguo.net>
 
-Ciao, Thorsten
+> ---
+>  rust/kernel/drm/gem/mod.rs | 16 ++++++++++++++++
+>  1 file changed, 16 insertions(+)
+
