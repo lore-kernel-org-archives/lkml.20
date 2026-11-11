@@ -1,85 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.61.82.184
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.157.23.187
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794388497;
-	b=upgK+IsFSkETXuhoVWqrK7UCXg+1sYFp51pPjFGTJ6xBIt5owv/B60aES4AaMAnHm5OY
-	 J5gLcYVs5PikJQqFTgLnlyo/ZA2udsWw8pHcoX4vviksmbNkyPU/Duyu/vqCxLe70uZPt
-	 M48zs9LVDAz4dAIU9BD8Bs8uViCwPzm25NyuRColxc0i14l9Z4o9GhFZ2q40EhhHDv9If
-	 6VEjMqz4rOzBj+XXpoNd291ZSGlK1XtnTSXRLIQVKkUsCslLo2tmVtAm44X/0+5Sqxl+o
-	 9GL2vDhfOt0T21NLtbn22u2chnaSGFA/om1BvBjc239je6g7tEdLRvqusVmvnYnftfQ==
+	t=1794388507;
+	b=irKD1ebFlYmtRcN6KpXfa0cErOcthyDE+yI6vJ58y9M34Q3/H4+JW4sVoOz7TQAjaR4K
+	 lViOKY18Ef0nLSTUwDXRdeEJgkmpzEd7+obJCJQYOVwtxXq1yqUcEb3ImGk9Vc+WHp3B5
+	 SYm/CwuMmMYMD671ONCpOfrwe7LWUMDT//zs3axILfLJiCD7A1lsXmR0ak1Dm8U3VeQzt
+	 vIm7b9dTIVisXO2DJ8gUXq6pE/Drjib80OhrF4odekWdpx090gsLcN1UwDxjrJ5f9m3I7
+	 NAbds3GDoyvdPA9hTqPOdQcaCFIYq3/SWdoBH6L+dXgzjB9YEwlcITvtmE2JRixNCaA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794388497;
-	h=DMARC-Filter:X-UUID:DKIM-Signature:X-CID-P-RULE:X-CID-O-INFO:
-	 X-CID-META:X-CID-BVR:X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:Received:
-	 Received:Received:Message-ID:Subject:From:To:CC:Date:In-Reply-To:
-	 References:Content-Type:Content-Transfer-Encoding:User-Agent:
-	 MIME-Version:X-MTK;
-	bh=zvaUldV391V5uNeMjr+9WAAbMevw73xdsml0k5INe88=;
-	b=tn7sG6MVGdnIXeVTXUbMg712+P4cTkOXKgQDtElLYF/8dx1AECNATI6Y7oQPg7+TZ5JN
-	 guM/7JcLAYGQrA+0dSj13+j0cxIlwPOlP9t2KK0yydMq/ZiLNgo5r50eBMQudLZCbvnBa
-	 VQVSX3ra//a3p6FeoUwrtsNAe1piezhXjiRI7GOHjtTN4sU2/nRfKxgvzTIYJV2VT1wvh
-	 uZAjQzULeWX8bTkkhtTO6tMXr8uchcCK2JGIyGrtErxlM9kJdTvrKc7Ig0E9GEFrfJQcV
-	 MTvems+e3D1JmrntRXCN5nAtCRQ1vbvcRV2BMKGqaZXJkuMD2Abf8mbWa0aBtqXty/A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794388507;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:CC:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Originating-IP:X-ClientProxiedBy;
+	bh=0+CgbwybaiTL/onVXenjL9lJTFScjyLVLl+Z42tjuTM=;
+	b=1PTJmxwlKYoipqVTxjWJgAjbZudt8hF6KOPuZGQ4KPFVR9cZmsNpEMl/84pivckok1hC
+	 yB1AVRnXp6uRV9G+3AtHhuiIgzSNR98MxSXsl4Ew9C7/SqL7PwDmwjNciK5ReaC8jXSfn
+	 PlevgRuYaeF+svKpz0f4kL5X81OpGcH9kExidhfpuQkstFOKMT9P2al5harW+d5QkeJ95
+	 gA9TuJwsn8R5NTMF/sYTN6JXILZQhkiRBu4d3zJ+KjlB+s0YrHq3Eruygi1jD09In2quh
+	 jsB/8KcqGOa2Y08QbSGMQFChmHJi6wRU7R78F36OvEDMhMo9jsattnvfIebHyaWtJLA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mediatek.com;
-	spf=pass smtp.mailfrom=mediatek.com;
-	dkim=pass header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=Iu1mFkUN;
-	arc=none smtp.remote-ip=210.61.82.184
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=paragon-software.com;
+	spf=pass smtp.mailfrom=paragon-software.com;
+	dkim=pass header.d=paragon-software.com header.i=@paragon-software.com header.a=rsa-sha256 header.s=mail header.b=nFjuETd7;
+	arc=none smtp.remote-ip=35.157.23.187
+Received: from relayaws-01.paragon-software.com (relayaws-01.paragon-software.com [35.157.23.187])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69D37606A331;
-	Wed, 11 Nov 2026 09:14:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 69D37606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8223C60A2601
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 09:15:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8223C60A2601
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=paragon-software.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paragon-software.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=Iu1mFkUN
-X-UUID: 58f00800ddb011f18dc8c9802ae25ab1-20261111
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:In-Reply-To:Date:CC:To:From:Subject:Message-ID; bh=zvaUldV391V5uNeMjr+9WAAbMevw73xdsml0k5INe88=;
-	b=Iu1mFkUN1qfFbTxDATBi4zHufWjXAqMgTLKFyL/eIu5Ooy+mGSzChu1cz08wsGC3n5Vj+Y9lJTWrIwEakw6H61+59TRNgyQvhQFK+5i3iJ2t1ajo2MeZS5EFJJFsMc6CM3iCTXt2oss1FgFuUiKXu7r9JK6IkM8yAaOx9Wo3Vkg=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.21,REQID:38b42ae4-17b2-4cf1-9617-9a7929c9fad8,IP:0,U
-	RL:0,TC:0,Content:0,EDM:-25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
-	N:release,TS:-25
-X-CID-META: VersionHash:b0318ac,CLOUDID:22c8bdd2-e65c-440c-82e1-af2977a3d424,B
-	ulkID:nil,BulkQuantity:0,SF:81|82|83|102|836|865|888|898,TC:-5,Content:0|1
-	5|50|99,EDM:2,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI
-	:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 58f00800ddb011f18dc8c9802ae25ab1-20261111
-Received: from mtkmbs10n1.mediatek.inc [(172.21.101.34)] by mailgw02.mediatek.com
-	(envelope-from <allen.ye@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 2135581844; Wed, 11 Nov 2026 17:14:50 +0800
-Received: from mtkmbs13n2.mediatek.inc (172.21.101.108) by
- MTKMBS14N2.mediatek.inc (172.21.101.76) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Wed, 11 Nov 2026 17:14:48 +0800
-Received: from [10.233.130.16] (10.233.130.16) by mtkmbs13n2.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.2.2562.29 via Frontend
- Transport; Wed, 11 Nov 2026 17:14:48 +0800
-Message-ID: <ea313f0127e2cfa72a3572f1893e59c6e2c22cd1.camel@mediatek.com>
-Subject: Re: [PATCH wireless-next v4 08/21] wifi: nl80211/cfg80211: pack SMD
- dynamic context along with frame
-From: Allen Ye <Allen.Ye@mediatek.com>
-To: Pooventhiran G <pooventhiran.g@oss.qualcomm.com>
-CC: Johannes Berg <johannes@sipsolutions.net>,
-	"linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Jouni
- Malinen" <jouni.malinen@oss.qualcomm.com>, Aditya Sathish
-	<asathish@qti.qualcomm.com>
-Date: Wed, 11 Nov 2026 17:14:48 +0800
-In-Reply-To: <20261106-smd-v4-8-62e39487f51a@oss.qualcomm.com>
-References: <20261106-smd-v4-0-62e39487f51a@oss.qualcomm.com>
-	 <20261106-smd-v4-8-62e39487f51a@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3-0ubuntu1.1 
+	dkim=pass (1024-bit key, unprotected) header.d=paragon-software.com header.i=@paragon-software.com header.a=rsa-sha256 header.s=mail header.b=nFjuETd7
+Received: from relayfre-01.paragon-software.com (relayfre-01.paragon-software.com [176.12.100.13])
+	by relayaws-01.paragon-software.com (Postfix) with ESMTPS id 5AD021D28;
+	Wed, 11 Nov 2026 09:15:49 +0000 (UTC)
+Authentication-Results: relayaws-01.paragon-software.com;
+	dkim=pass (1024-bit key; unprotected) header.d=paragon-software.com header.i=@paragon-software.com header.b=nFjuETd7;
+	dkim-atps=neutral
+Received: from dlg2.mail.paragon-software.com (vdlg-exch-02.paragon-software.com [172.30.1.105])
+	by relayfre-01.paragon-software.com (Postfix) with ESMTPS id 8F800238A;
+	Wed, 11 Nov 2026 09:15:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=paragon-software.com; s=mail; t=1794388504;
+	bh=0+CgbwybaiTL/onVXenjL9lJTFScjyLVLl+Z42tjuTM=;
+	h=Date:Subject:To:CC:References:From:In-Reply-To;
+	b=nFjuETd7yrUkbrpX4qd5bLhlioecIpVTSBW1RNvpZi4jA5axmrmbtwBmm50Hs5nxf
+	 SNLm3S52gC8fIQqK6ru7LuCki3plRrihFi/evQ1OP750h+eZF2aOVdkStmGRvjW58C
+	 f+zY1mymUvYERypzM/qF/A08txJWxpqOwp03P5cs=
+Received: from [192.168.95.128] (172.30.20.190) by
+ vdlg-exch-02.paragon-software.com (172.30.1.105) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.7; Wed, 11 Nov 2026 12:15:03 +0300
+Message-ID: <c465cde4-727e-4ff5-bd2a-324f444c330a@paragon-software.com>
+Date: Wed, 11 Nov 2026 10:15:01 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,37 +64,102 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MTK: N
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ntfs3: Update only the member values without replacing
+ the opts pointer
+To: Edward Adam Davis <eadavis@qq.com>,
+	<syzbot+4c22f022eb39c86b9d19@syzkaller.appspotmail.com>
+CC: <ntfs3@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
+	<syzkaller-bugs@googlegroups.com>
+References: <6a778cc0.01d0871a.3a0d52.006c.GAE@google.com>
+ <tencent_1C66CE3D8B3704962236124B067405761909@qq.com>
+Content-Language: en-US
+From: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
+In-Reply-To: <tencent_1C66CE3D8B3704962236124B067405761909@qq.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: vdlg-exch-02.paragon-software.com (172.30.1.105) To
+ vdlg-exch-02.paragon-software.com (172.30.1.105)
 
-On Fri, 2026-11-06 at 13:28 +0530, Pooventhiran G wrote:
+On 8/9/26 08:07, Edward Adam Davis wrote:
 
-Hi Pooventhiran,
+> There is a potential race condition when accessing options during remount
+> and read operations. This would trigger a uaf [1].
+>
+> CPU0: remount				CPU1: read options
+> ==================================	==================
+> do_remount()
+> reconfigure_super()
+>   ntfs_fs_reconfigure()
+>    sbi->options = fc->fs_private
+> put_fs_context()
+>   ntfs_fs_free()
+>    put_mount_options()			ntfs_show_options()
+>     kfree(sbi->options)			 opts = sbi->options
+> 				         opts->dmask //trigger uaf
+>
+> The fix involves not updating the sbi->options pointer during
+> reconfiguration, but instead using fc->fs_private to update the
+> corresponding member values.
+>
+> [1]
+> BUG: KASAN: slab-use-after-free in ntfs_show_options+0x656/0x800 fs/ntfs3/super.c:762
+> Call Trace:
+>   ntfs_show_options+0x656/0x800 fs/ntfs3/super.c:762
+>   show_vfsmnt+0x637/0x780 fs/proc_namespace.c:129
+>   seq_read_iter+0x8d6/0xcb0 fs/seq_file.c:273
+>   new_sync_read fs/read_write.c:493 [inline]
+>   vfs_read+0x59e/0xa90 fs/read_write.c:574
+>
+> Allocated by task 6027:
+>   ntfs_init_fs_context+0x55/0x570 fs/ntfs3/super.c:1862
+>   alloc_fs_context+0x9a3/0xd00 fs/fs_context.c:295
+>   do_remount fs/namespace.c:3392 [inline]
+>   path_mount+0xc5e/0x1040 fs/namespace.c:4153
+>   do_mount fs/namespace.c:4174 [inline]
+>
+> Freed by task 6026:
+>   kfree+0x1c5/0x6c0 mm/slub.c:6692
+>   put_fs_context+0x123/0xb00 fs/fs_context.c:498
+>   do_remount fs/namespace.c:3419 [inline]
+>   path_mount+0xef9/0x1040 fs/namespace.c:4153
+>   do_mount fs/namespace.c:4174 [inline]
+>
+> Fixes: cd39981fb92a ("fs/ntfs3: Fix double free on remount")
+> Reported-by: syzbot+4c22f022eb39c86b9d19@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=4c22f022eb39c86b9d19
+> Tested-by: syzbot+4c22f022eb39c86b9d19@syzkaller.appspotmail.com
+> Signed-off-by: Edward Adam Davis <eadavis@qq.com>
+> ---
+>   fs/ntfs3/super.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/fs/ntfs3/super.c b/fs/ntfs3/super.c
+> index 3305fe406cb2..58540491e68b 100644
+> --- a/fs/ntfs3/super.c
+> +++ b/fs/ntfs3/super.c
+> @@ -461,7 +461,7 @@ static int ntfs_fs_reconfigure(struct fs_context *fc)
+>   	}
+>   
+>   	sync_filesystem(sb);
+> -	swap(sbi->options, fc->fs_private);
+> +	memcpy(sbi->options, fc->fs_private, sizeof(*sbi->options));
+>   
+>   	return 0;
+>   }
 
-A question on how the context is collected here.
+Hello,
 
-> While packing the received management frame in nl80211_send_mgmt() to
-> send to userspace, nest the SMD dynamic context along with the frame
-> message.
+Sorry for the delay.
 
-On MediaTek chipsets (mt76), the dynamic context is kept in FW/HW, so
-the driver has to fetch it from the firmware with an MCU command. This
-means the driver has to hold the ST request frame until the firmware
-replies with an event, and only then pass the frame up. Holding RX
-frames in the driver is the problematic part: the frame has to be kept
-outside the normal RX path, kept in order with the frames that follow
-it, and handled if the firmware reply is delayed or never arrives.
+In the meantime commit 56c3824de56b ("ntfs3: free replaced mount
+options after a grace period") went upstream. It addresses the same
+root cause: sbi->options is replaced and the old options are now freed
+after an RCU grace period instead of immediately. Since that approach
+is already merged, I won't apply your patch.
 
-1. With the context attached to the frame, how it gets collected
-depends on each vendor driver's own implementation (on mt76, this may
-mean holding the frame in the driver as described above). If userspace
-instead queried it via GET_SMD_CTX / SMD_CTX_EVENT for ST preparation
-and ST execution via the current AP MLD, as it already does for ST
-execution via the target AP MLD, the flow would be the same for every
-driver, regardless of where the context is kept. Would that be
-acceptable?
+Thanks for the work and the report.
 
-2. If not, could the frame-attached context be optional (e.g. behind a
-capability flag), with userspace falling back to GET_SMD_CTX?
+Regards,
+Konstantin
 
-Thanks,
-Allen
