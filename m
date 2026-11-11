@@ -1,59 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794401221;
-	b=lPU5H5/BDr5tPJ9DknYW9CCCOkHKInt5sdpmR8Not59tt8/LIMhnGYnSC7UUUMowV5f+
-	 Xy5g8mtTqAoUXyDzsXB7om3+jrjXMn/uZie/JpNsxwTu3abr4I/khSxkN+qRQXCai6xGe
-	 TKQjETEIe4e9UbOM7Cg/nnTEJWuNVdVni96tRtkhCQG01nu15cFIZEUMpxdFFMsWgjneG
-	 ewDPmJWlc04dPFFW7gjn9bEiZEdYCSVFgbGgOZY7kh0xOMosykluGLrz9br8DyQU5Oc1i
-	 IeImVw5rRXPHYgcX4EZf4NCSTXp9hmsp75pzuQ6JhTaf3qwGbTqBDkZAVhf2wKgdrYA==
+	t=1794401295;
+	b=LcRgWXqx8dKHxdGW0wT7yr40QZVeTzcYSGRawsLneuuikbxOZ+1VkhTL1oFu9grqv6md
+	 C6iSuv6bSdmMRbK38k+Gfn6qlAfpgNABMUdecZsKxVcWFhvP1amFY+oyqCBWZsmN9y6oH
+	 DlPiXQEXf9LyXvtwqDnlGdLEXBiNtc2RBl/twmJMef0rg9+YP7VO3hAmJ0SA5OI0Z3Xyz
+	 6BTQ08ghNgwvDBSr6lGlza4byEjJAEPz2qEq0n1i1/Ycc5oognR1dgODWs7/wWe/FCiE3
+	 M8NRtNV5ExacpowVIEXYQsibtHe8YOqmKxcIDpnkjJzuC7YtvWJC9J8hlVB7MWnvqiA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794401221;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794401295;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=K4KsszHoQU25eoLKNk19Xgiydvgb75r3NOFjVZOwVl4=;
-	b=c35cVPjQgLN5mVUfR+rxRdN/Udidv8WDh61ecZVZlffFXNmOPUjWloHKNMANH8c3Thot
-	 mxJLF0ELOhfvvI65t+O6odrzbL6i6sagA6ABVGMmqzytk4cn+aj5xjwy3NYvmAKKLvuNe
-	 xrfRmKASWn51hEM5tRfAsO2i6MVayFZrz2fklcBXbThf0cSfy1BorH4CZWeVBb2LM1zT6
-	 ezBoxA5oPnIl/HDi6SWX32r64PJ4oKhcb4xFiXdW93cSjYi2wY3/ybqk3+14kFxOI8gS/
-	 i0kInOKU4+9G7PMyh83kF2jWIIPInVX4l5DMybs8LBcR5v3YN+33EaY16H58gOzXsFA==
+	bh=47cP6sCHM+8MK6KsXLe7ISSxj0cMocCxnyu79OonuIY=;
+	b=uqyxBUHhhOoFUTSuJPl8n9fnicNRcsbdvMdy/j5wMUbTRnqHSV49enEQNKfcmDF76h+t
+	 sKvxqFoPsA/8YavriyYLMt99IH3lR4j0EslTzQYYGzy5R9tok54xf7ixp8EI8N+IzxRA7
+	 YsW6Xd+DlvE2sKv2aoWwp/kzc9ya/zVEwNw7m2koZIxuW8d3JkYH4xB4h4XZk4D2RWgW2
+	 V60brkzCnHJIeyKLlfopK9CvsBoUo0zUUhVxlrxAnAtJ2joU6Ewl3/Cp6YWeU3DG3IhvQ
+	 sSj0YHRfvtfyiduP1T5G+Y40RXHlB9gduH1WXBjoNbL6Lj1SdJXIqPctpZKZxlI1QhA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nOefZ9Au;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FOX8JCzm;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2DE8606A324;
-	Wed, 11 Nov 2026 12:47:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98E17606A31C;
+	Wed, 11 Nov 2026 12:48:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nOefZ9Au
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D58021F00A05;
-	Wed, 11 Nov 2026 12:47:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FOX8JCzm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 606BD1F00A05;
+	Wed, 11 Nov 2026 12:48:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794401221;
-	bh=K4KsszHoQU25eoLKNk19Xgiydvgb75r3NOFjVZOwVl4=;
+	s=k20260515; t=1794401295;
+	bh=47cP6sCHM+8MK6KsXLe7ISSxj0cMocCxnyu79OonuIY=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=nOefZ9AuKw2af0APzYszhjr9lNBNl3iOe4vesBFAvwseV8O/YjueOjx9WG9DNBwLd
-	 NypvJUnQlFaSejzvulYLfdeiZJtNPVgZufvsyxv0yFFTJfcVuOc/qCOg0ZHcMmYr3J
-	 f+FjyOWBHRomV2AlXfPiVBeiHVInrosetF5wOTfszdzObI9HOsIryW2oKcfBk8bTcI
-	 SbK9G++K283ZWgbQ7spQFteD0RxsJB/2SNGLj6u6pKpzYn5Yl84ygFyFISdOwbzbZc
-	 Dnv2NY6jg8OyNdc8mev6W87CwEcVtuJEy6a4ZzqP2xl1AA3rFkvCiev5sIfTCkwXF3
-	 a9RN4LBuAd3Hg==
-Date: Wed, 11 Nov 2026 13:46:58 +0100
+	b=FOX8JCzm+rNCf/MV3s7IzCmW9YnpXGiQF5zzAUddAXvZKJ7HdB1A0w7kVkCjYx7yQ
+	 yLrb8tcisMwf4quLlOOHaCB+bJM5x981rywR3C68rrStbn41rutC7IWvy4y8YPJmV1
+	 e32LHYnfjhEo1RlpYwlS2xuOpLUJGUjsX+V/9542kVybBUfzusBQfb+6+CIbsFBPwt
+	 tPEf7IWTmD/uu5xuE4XY4QFTEAAfHBdTlXpo+hBhUMLfRXDA4sBb6w3c5F24xz2xFp
+	 5MSX9KRv/8VcHSZtU4HtH0Efn7tX+Sm+ATz6/1NHCrvtaxK8CXx8iaIi5gRDAc9lCV
+	 DIRu8aN2SMXpA==
+Date: Wed, 11 Nov 2026 13:48:11 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Yureka Lilian <yureka@cyberchaos.dev>
-Cc: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
-	Neal Gompa <neal@gompa.dev>, Jassi Brar <jassisinghbrar@gmail.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Hector Martin <marcan@marcan.st>, 
-	"Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
-	Robin Murphy <robin.murphy@arm.com>, asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, iommu@lists.linux.dev
-Subject: Re: [PATCH 07/15] dt-bindings: mailbox: apple,mailbox: Add t8142
- compatible
-Message-ID: <20261111-daring-tacky-cockatrice-a9bae9@quoll>
-References: <20261106-apple-dts-m4-m5-nvme-v1-0-22f4827b4ece@cyberchaos.dev>
- <20261106-apple-dts-m4-m5-nvme-v1-7-22f4827b4ece@cyberchaos.dev>
+To: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Cc: Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Hans de Goede <hansg@kernel.org>, Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>, 
+	Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH 1/3] dt-bindings: embedded-controller:
+ lenovo,thinkpad-t14s-ec: Add Gen 7 support
+Message-ID: <20261111-amorphous-koel-of-thunder-69a08c@quoll>
+References: <20261107-t14s-gen7-ec-v1-0-f4a8edaac447@oss.qualcomm.com>
+ <20261107-t14s-gen7-ec-v1-1-f4a8edaac447@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,16 +65,21 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261106-apple-dts-m4-m5-nvme-v1-7-22f4827b4ece@cyberchaos.dev>
+In-Reply-To: <20261107-t14s-gen7-ec-v1-1-f4a8edaac447@oss.qualcomm.com>
 
-On Fri, Nov 06, 2026 at 10:04:16PM +0100, Yureka Lilian wrote:
-> The mailbox hardware remains unchanged on M5 SoC so just add its per-SoC
-> compatible.
+On Sat, Nov 07, 2026 at 12:01:52AM +0200, Abel Vesa wrote:
+> The ThinkPad T14s Gen 7 (Snapdragon X2) has an embedded controller at
+> the same I2C address as the Gen 6 one and reports the same kind of
+> events, but it talks a different command protocol.
+> 
+> Add a compatible for it.
+> 
+> Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+> ---
+>  .../bindings/embedded-controller/lenovo,thinkpad-t14s-ec.yaml         | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
 
-Please stop inflating this. You are only making it difficult to review
-your work.
-
-I am dropping entire set from DT patchwork.
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
