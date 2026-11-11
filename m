@@ -1,94 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.96.91
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794396642;
-	b=LFMNRIh9a73JNGxI8YOVpAjiaZzJRsGWIgNXIF/KU0snVGn1elBOMlXwHbA9AhV+1QIE
-	 6y8XiRtubNgN8ruCi99lcjJAuLkmbFgA1a8LPn2Xb1Kq6kY1vxIu3QZknjuYG68aDjtEt
-	 os1nmVeoYzONwHn83YzhT745U4W8Y0bxOOjHICrIcRKJitEV1njU3+IUdc35K+FJD9T39
-	 CGBh3crIH1PLaIXBJJ+anXtfoYbhE4DVCfG7oOkRP5sbPnbDOy3RiW7Xs/zN9fg8YVSVU
-	 /aH/Gpg+4ac1nbroAWbUDoJV3mjPdAQrJg7wJ+0BtykZJ9/ScGL3pMcPrNNH7mNgAvw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794396642;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Cc:Subject:
-	 From:To:X-Mailer:References:In-Reply-To:X-ClientProxiedBy:
-	 MIME-Version:X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=GITQUz5rm9u31VXH/1wD9hahAvpvRI8gOQ8K1ReLT7c=;
-	b=HIiF5mXETJURCSgxzvmYBlz1jhhMQVJZsmAiua7ArBXD6lMYj8rZaEtJLoNPkPl+juLZ
-	 LN0GvrfwCXz1+zlibQ15vM4oAa5t8+zOAgUaj8sRF+qinHqVtQ4Ji2OA6fALtADCCvK0N
-	 gufLii116TkVz5XNesjhbLprDSiumLvlxnT2n9WzsZ4YoF3kT9lHv/94WY775zpwgKYYe
-	 Dr/oRab8kH4Z9HvbPH+zXhfFAoJhG3kvb+voSuqtEXC0YnZnFpOlx6aVAuxVgJU3KXyMO
-	 tdnGSwVwfqb+RaHsuVIaZqJbZcX4Y8ly5prHFWTlo6EJNZln44jhTaKEXrWQh+vMF3g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=garyguo.net;
-	spf=pass smtp.mailfrom=garyguo.net;
-	dkim=pass header.d=garyguo.net header.i=@garyguo.net header.a=rsa-sha256 header.s=selector1 header.b=wyzYWjbK;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.96.91
-Received: from LO0P265CU003.outbound.protection.outlook.com (mail-uksouthazon11022091.outbound.protection.outlook.com [52.101.96.91])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.13.214.179
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794396656;
+	b=4H05WBatQqoi6U1Um8J3LohrcJFzjjgDPpEDQMHXLBfLghS0vfGZpCnBA78bhMqGTx3P
+	 1yZxbnT88HyjMhbe4pBiJQu/TRI0AXJWfXtAPDlJ7H6t5dmar/O43lb5B5uPSpuK9Wi5L
+	 37wKKp5ccmwfJNEhkS10pqd4j1aYfOMIUs+OBQKRxL8HictY7LY/7L+n7fpq0c8yD5a7B
+	 85rW6G3nNiaylfVf4JG919KCxYbGrJgQG8CQT7UVNV/IhMPxT63BonfYvrfQtLjxKRwgD
+	 LfWdCIaLtP10pRGg7WmNJoXaTxYXTwNli35wbPO0MwVggQig58J3RLahbgLIARf4NzQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794396656;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
+	 From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=Ji3jLiDdzuyM9cCPX1vdBLGPhGAltfdidVumS7/FERc=;
+	b=EdSvNkopjcflWvM1V9djTgR3+dsXvux559z8h+SfEhrBUNyXLVPfjdvf3piQIYBTkr7x
+	 ZqXh583OE78zM8GbAVmfzDt7AuXPHOyAVlDRt2IWfPSsTsviHIJAKARsVdX7Lq+FoNkiH
+	 3IG5/9yWKjsOUV64XAWoxYgHmTOjUpdAzd/mEgJaDGU67uk/s2EO4aH2ZL5NEweL29+GP
+	 FGUPnm9GHQ1FVosh0OP4XiSYppPzQ8o8/237WWy5Z+3jEQl52nJrMNxhu7MtV+27+07Zk
+	 +NljQHvCjY7RP3a4T8BxFxUseKdI9FDALp6hdmPG5BDhE3G+4kL0FWKdCceNFBOHLaQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amazon.com;
+	spf=pass smtp.mailfrom=amazon.com;
+	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=Z1iDUL2k;
+	arc=none smtp.remote-ip=52.13.214.179
+Received: from pdx-out-005.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-005.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.13.214.179])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D326606A31C;
-	Wed, 11 Nov 2026 11:30:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4D326606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D20E9606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 11:30:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D20E9606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=garyguo.net header.i=@garyguo.net header.a=rsa-sha256 header.s=selector1 header.b=wyzYWjbK
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=winJGb523W/SD9EK5ZZbdgV5J0bGWmUTXMJipzemYXQnARS3w8KJdTIJ/yoBWIb+mHmlRM5yqqZWxK9ln/yc4pQPabpDRamvzAyJAQoyVW6c2xwa/AtenteRLMQuV0GdirhSEgtMWTr6RvaCLGCg7QGbMkUYNkuRqX8uW/mIcfFN3LAILUFbBpqAJO8WyCWFGXuxAScKUYhCzOlyWsL3lsc6RknJfp9shJqrf6PzMZcg6+4T857w9Lc0VIMQXUJsEioGGQhbYBKGAqgCgyxWOdcQ8DDcEHwOrii3V00h3+aIq+zA7L++QgV0gjXEeOyK1CgKwHaJWCWozBkcaNHGrA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GITQUz5rm9u31VXH/1wD9hahAvpvRI8gOQ8K1ReLT7c=;
- b=KxposD8d62aJdLFT+a++wXyLTKJG5JKiCGZWKGWY0dWZZ3tvf8g+N1bRFbXexQE7j6HtudQHlz+PWY8l8Rg4/hHa+wjxu84iEFPVknQtsixcyq4e7gkFjw7nZcXv4GwnuCH+v9Jggr6qkIB98LiJlxlc/1HufLPeFnFlmU+zgzsyZnvngvQzuz4QmlfdibRBG09KyvCrQ/65ZP6AtPvJZUdcdVi97os2h79dyZ09AoNkKBME6eE8zfjtokQXZQcR2rc0/wmTujURiUYagjHqPd1fgWBLdXlkd/M4mQQzHq7BuPHjRlo6EyhU8XbHqUBAACoP85M6gxsVU+dFJwHu7A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GITQUz5rm9u31VXH/1wD9hahAvpvRI8gOQ8K1ReLT7c=;
- b=wyzYWjbKqwNvzeYtwJd28WvagUAz6rze14a5KymHHWIAn1L1Fc7L7zhsePTqV8n5py0bN87Ao/2bX0DiTGMhWccZQvJIdrZ7fBAL99I4feBGTbEDNRAeLpw/AXkzoRLKdLO+SLIBVPSmY0vLyfFUqOc49y5CsOKEQZOP5DNpShY=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:1cb::9)
- by LO6P265MB7334.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:322::9) with
+	dkim=pass (2048-bit key, unprotected) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=Z1iDUL2k
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+  t=1794396655; x=1825932655;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=Ji3jLiDdzuyM9cCPX1vdBLGPhGAltfdidVumS7/FERc=;
+  b=Z1iDUL2ktq0Ye0VPnAm5nY5KCJdM6/jeCz5D7ZuS6ZCd/oNk1uP97mUf
+   T1DhVULHERsyupXhdFMI4GVpIeVMo+Lo8VeOQ1z5LfYbdFIVAZv3sG9TT
+   d2tVcpOCX9XI4jrpCPy71GRKGUBL5N6ozXP86GUCB99YT2jBqmtOj96F6
+   wKudz4ACbmUrN6GaZzcK5XQeCOss0m43QZ2xn+ZZupZ3SptahuKKcSul4
+   Wbch6JOR/lFg4/RS6uFvl1/umhuNnjMi5r5An7D+cd7nL57S7RqvtkNYE
+   MP1xC5WvX9WlM1koseZYZZCGho6EVcp5J0cWNPtczMnYwFvCf10bZCNQi
+   Q==;
+X-CSE-ConnectionGUID: 3LoDkxEJQ6exd/6yaixCOQ==
+X-CSE-MsgGUID: 8bP7UMmdQySmcmYyfGCm1Q==
+X-IronPort-AV: E=Sophos;i="6.27,207,1787011200"; 
+   d="scan'208";a="33684258"
+Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
+  by internal-pdx-out-005.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 11:30:52 +0000
+Received: from EX19MTAUWB001.ant.amazon.com [205.251.233.104:8220]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.31.142:2525] with esmtp (Farcaster)
+ id 075fdd73-6fe3-4028-bf84-b350b66b4ee3; Wed, 11 Nov 2026 11:30:52 +0000 (UTC)
+X-Farcaster-Flow-ID: 075fdd73-6fe3-4028-bf84-b350b66b4ee3
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWB001.ant.amazon.com (10.250.64.248) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
+ Wed, 11 Nov 2026 11:30:52 +0000
+Received: from dev-dsk-farbere-1a-46ecabed.eu-west-1.amazon.com
+ (172.19.116.181) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Wed, 11 Nov
- 2026 11:30:36 +0000
-Received: from CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM
- ([fe80::55f6:f98b:7fad:c6e3]) by CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM
- ([fe80::55f6:f98b:7fad:c6e3%2]) with mapi id 15.21.0615.008; Wed, 11 Nov 2026
- 11:30:35 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 11 Nov 2026 11:30:34 +0000
-Message-Id: <DMSCIQ1NOV15.383LSC2I0TMON@garyguo.net>
-Cc: <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] gpu: nova-core: use pin-init self-referential support
-From: "Gary Guo" <gary@garyguo.net>
-To: "Danilo Krummrich" <dakr@kernel.org>, <acourbot@nvidia.com>,
- <aliceryhl@google.com>, <airlied@gmail.com>, <simona@ffwll.ch>,
- <lossin@kernel.org>, <gary@garyguo.net>
-X-Mailer: aerc 0.22.0
-References: <20261110152746.140351-1-dakr@kernel.org>
-In-Reply-To: <20261110152746.140351-1-dakr@kernel.org>
-X-ClientProxiedBy: LO4P123CA0013.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:150::18) To CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:400:1cb::9)
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56; Wed, 11 Nov 2026
+ 11:30:49 +0000
+From: Eliav Farber <farbere@amazon.com>
+To: Andrew Morton <akpm@linux-foundation.org>, Greg Kroah-Hartman
+	<gregkh@linuxfoundation.org>
+CC: David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>, Jann Horn <jannh@google.com>, Pedro Falcato
+	<pfalcato@suse.de>, <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>,
+	Eliav Farber <farbere@amazon.com>
+Subject: [PATCH 0/4] mm, uio: huge PFN mappings for /dev/mem and UIO
+Date: Wed, 11 Nov 2026 11:30:41 +0000
+Message-ID: <20261111113045.35368-1-farbere@amazon.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,154 +88,181 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CWLP265MB6051:EE_|LO6P265MB7334:EE_
-X-MS-Office365-Filtering-Correlation-Id: d2af1a9d-334c-4fec-a9a0-08df3fe73428
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|366016|23010399003|1800799024|10070799003|22082099003|18002099003|6133799003|261009223027099003|56012099006|261028144727099003|261102123227099003|261021123027099003|261026140227099003|261022105027099003|261021121427099003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	rCKigi3r5RFXFXUtSRmmUIiT/+Mo36qIcVme3Z0lFvbsMuh5vA1VQiYLPm6NFrszTVs534SgRmyHcAPnPeCRdwehE3rkDns1MMp/8kHieSsJiz/Oulj3TF6WkKnBz7xP9nGi64MFE3hKaKuaU/D/yJammBHZkKXPXACH/tRSaw/SpHS0Mph+43Y6enJM6x/cCabXovO1oDaKb+QI+5wjD0leD6pT1vlYeEu49kJcdB6joK8a+M1RKx7D3OhIKAPCe4igAZ9UJ+VajkmU8d5osUFYQc/S4/J1kr2yzGr/0PMwWHtJafMiHb5zxgqQa359LpgD7qPM4Tt7x3eClauEsgtAkmMhMcXz3dQCJXFAIaI5PQOqx9C71TokhnRi6p7WFietnmyeuqLPhZBbE8qjLJ0CJUMbgWZk/HBR7FYjcJKLQkLuviaRvJk1InrkHGUsmkT26HP9vaMJ5BOSL6jORSFsVf+BAENfm98Vos8qlEM1LhbCoVmoBPZdSPqQx6yC5vfvZW5NVKxP4dq8FAqgK9xQAmN+LsiYqQWkgdL4XvgN0gq1FP+Ea6w7OoDovCFLI6Nx5D4xkBmp8mIGQAjnMMAlYSuXgCbBu7BVgskmrwsgUqryN8xuiBNy5ubPefm2
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(23010399003)(1800799024)(10070799003)(22082099003)(18002099003)(6133799003)(261009223027099003)(56012099006)(261028144727099003)(261102123227099003)(261021123027099003)(261026140227099003)(261022105027099003)(261021121427099003)(10067099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?QnlkNHpNWVVJQ2ExY3VjM0d5Um1DVjJkV1hkcW5sWWQ5N0o2cWF0Y04wSnZF?=
- =?utf-8?B?bjdVblZtZGVEYnhWUHVTTThvazBMUnJkR200dzJOS3JwLzZ1eldvb2lENjYy?=
- =?utf-8?B?c3ZKWmJ3Tkp0UWlJY2s0TytNWmQxRXNVaXV4MjZ1dFRFK2RiL3c2NUswbGlJ?=
- =?utf-8?B?S0EyS0I0amJUeFdrV1FFRXY4N3Z2U1RRc0V2WkUwUTl5U081d3ViWDJmQTdn?=
- =?utf-8?B?NDUvdEhhTCtuWVlJcWxzMlRmMFlET215TnNEcXJVenJaSXBLMjFqLzNyUFhk?=
- =?utf-8?B?dEtVLytQcnBqSVZvT0c0V2F4cVh6OG02NjBJYm1hd29sVWxXWVYrTVI4MnJU?=
- =?utf-8?B?NHZ2Sk15VFVYT09EcjRkdGZtazB2YURzM0lBMmdobXl1WWpWVGZUSFdqNHMx?=
- =?utf-8?B?ZmVDbDBzVUhLV3NjSFk2Yk1pUUFxNWd1SGttbk9OVGZseHVFRXV6Tm5uV3lZ?=
- =?utf-8?B?M0I0dE12aUszZXJ6YlB5WFg4ZTZUbzFaUkRKaXA5aVd6ZVZsMHZYYmt0QlBC?=
- =?utf-8?B?dkthZnhVVklvUnJJYjJTZXN2Nk9BL1U5NzFyUElMK0J3VjRXdGREVzNzc0RW?=
- =?utf-8?B?eVB6cy9RNFYvMVA3M0lVczlKV2E1Tk9uMVVlWnpGZUsrOWZGK3RNWHpKVkJK?=
- =?utf-8?B?dmpESkJxSU42YXZmN3gyYjR1YVB4RDNrenI4bEh4aVM2WHhKZlNGK1RsYVhV?=
- =?utf-8?B?QzZ1UlNoSWlTYVU5OFQrRys4ZlhwV3l1L043WVdFMzBtUXFlQlg0eHRxSVVS?=
- =?utf-8?B?L25TTkhtSS9XMTVua3ovbE1hZGIzWEhYNFdmVWlRWkJ2UmpkMUs2RkxiR1R6?=
- =?utf-8?B?UGhyL0Z4Y0lQTEZvNlRiVGowakVISnowSFJxb25KRHA2QlRwcEtocmx1U2dh?=
- =?utf-8?B?VEJvOFBkSUMvQ3VrdkM1K0VMUEZtK1RONEwrZnlKdDFUSnNhdURkUHArYzdJ?=
- =?utf-8?B?VXZSTWVnNHhVRFlHMkNlMldVNld0UDFqQWFWWHppVE1YQW5VV0hkSkdSY1Rr?=
- =?utf-8?B?V2xLUUlrVllTaitNMy8yOVU2VEFPNXk5Zm5WdHNpS3RUNWZvQ0lyQVJHVFZw?=
- =?utf-8?B?NFM2bVJnWGdyVUd1aVU3bmJKTWRLWXVoTDlGdDR3N2NqTVhKZ3dKbnRzK0VR?=
- =?utf-8?B?QUZMdC84ZE0zVERwT3RBbDF5VWVIUW5uMG9zTjF2dUc3dEt0SXM4MTVhZnpC?=
- =?utf-8?B?NWhJaEVaRWVrMEdlUVp3M3NYM1llWkhWVkFNRnQ0OGtWVmFyRzN6Y1RUOWdZ?=
- =?utf-8?B?RVMveVBJdUtsVlM0QzN3cXFVMnljbmVJQVA3OUlFSFpET09DME11TDR2L09w?=
- =?utf-8?B?SUl1K0lOQUdMWnV6Y1kvUFpOV2V0RU4veHZ6bzdRSlEwdmYrTmRwNzE5S28w?=
- =?utf-8?B?SHBZYjNqZFZNdXhhVmlxZUs2WTJLMll1ZUZxc1BFQjUvTGZOd1VpOHVWNi9z?=
- =?utf-8?B?Qld5ZlAvN000WGJ1L2g1WUs4TERUcEszaFdvUEJLNC9nTE5rcDNrc0ZuZWJo?=
- =?utf-8?B?ZGFaUDJMb3FIeDUwSmhPRnlLVVVkbUZhaUxSL0RhZDA4YXVEMVM4c0ZVWGNE?=
- =?utf-8?B?SmJENUdiN0RFQ2RlYmc5VGNRZjFkay83UGlFa3lyODJUSHRVQU1EU2JhWlk2?=
- =?utf-8?B?VWFhSUVEZVdRVlhnUFZ2TmlkSitPeDJSdTJtYi9VNlAwRUhEb0FVMkZXbzJH?=
- =?utf-8?B?b1NyQTUweTNFRkdIOXJWeDl1TFlWSmkzZ0VhS3JWMDh3ZkM4TTZKRm1zdk5M?=
- =?utf-8?B?OE5wQUV4Q1FMOGFUTnZYU3JLREk1TFB6RGVoak9HQXFCVk81SVNJMDAwamFo?=
- =?utf-8?B?KzdvYVVTSEM5K3R2bllpeHoxQi9nQnZqazZQQ3BFQTFpeVd5MWE3V1dUeWRJ?=
- =?utf-8?B?c1Q3TGVmbVhQUFhYVm5LeGZSa0dRbWdDUGVzbFYrYnc0b29oR04vNlR0YXdG?=
- =?utf-8?B?VEgyd09GT2FwSWJweTFDWW1haEY5UDN4WGhGeTRUR2p4S25UZFpYRkg2UWdH?=
- =?utf-8?B?S1VodzBZc2VjMFlSaUVMeXYyT21QOFhhMlh1cGd0UUpVamZpUmpHRzhBdDNY?=
- =?utf-8?B?akZmV2FCTnJsTUMzVlkybFhKNEdHTWZqRXR0S0NzUlppNm5PM2Y4aGpIS2Ey?=
- =?utf-8?B?OTRiT1VWaVlQbnRVQWJPcGlGVFJ5ZDBsTE53MUY1UXBCNXdWV3JmZGQ4MlJj?=
- =?utf-8?B?SHo4UjFXMUtRdGFhbk9iaWIzajdidUp2YmwzUDVwUmYwbUJEdTN5NXcxRkQ2?=
- =?utf-8?B?KzhCdmlKRHBJSjAwb0xIb1lWM1Fua2h4RHA4YzEyU1pxNXFUcE1wV2F0WWpX?=
- =?utf-8?B?SVFNRmlvYWRPdGNNQ21tMFRTVDQ5SnpSQjN3NkdrVmFmYmVQYmtjZz09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: d2af1a9d-334c-4fec-a9a0-08df3fe73428
-X-MS-Exchange-CrossTenant-AuthSource: CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 11:30:35.6146
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 1OlR7kwkLomHnGJlcBaSS6sZDUEGJM090PtFNZ/fciBx7FZiKp00iWcdHfSpamnVio204F8AftGWshldUaevDA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO6P265MB7334
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D031UWC004.ant.amazon.com (10.13.139.246) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-On Tue Nov 10, 2026 at 3:27 PM GMT, Danilo Krummrich wrote:
-> Express all self-referential borrows through pin-init's self-referential
-> support [1], replacing unsafely derived references.
->
-> Cc: Gary Guo <gary@garyguo.net>
-> Link: https://lore.kernel.org/all/20261008-dev-selfref-v2-0-e280b3c8fba5@=
-garyguo.net/ [1]
-> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
-> ---
->  drivers/gpu/nova-core/api.rs     | 24 ++++++++++++---
->  drivers/gpu/nova-core/driver.rs  | 53 +++++++++++---------------------
->  drivers/gpu/nova-core/gpu.rs     | 32 ++++++++-----------
->  drivers/gpu/nova-core/irq/gsp.rs | 17 +++++-----
->  4 files changed, 59 insertions(+), 67 deletions(-)
->
-> diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
-> index d185e927233f..cbd720a4d11f 100644
-> --- a/drivers/gpu/nova-core/gpu.rs
-> +++ b/drivers/gpu/nova-core/gpu.rs
-> @@ -342,15 +342,15 @@ struct GspResources<'gpu> {
->  /// The two drop as a unit, the handler first, on the drop of [`Gpu`] an=
-d on the error path of
->  /// its constructor alike, so that the subtree is disabled only after th=
-e handler is freed.
->  #[pin_data]
-> -struct GspSubtree<'a> {
-> +struct GspSubtree<'a, 'gpu> {
->      #[pin]
-> -    irq: GspIrq<'a>,
-> +    irq: GspIrq<'a, 'gpu>,
->      /// Must be kept declared *after* `irq`. A handler still in flight e=
-nables the subtree again
->      /// through its rearm.
->      _top: TopEnableGuard<'a>,
->  }
-> =20
-> -impl<'a> GspSubtree<'a> {
-> +impl<'a, 'gpu: 'a> GspSubtree<'a, 'gpu> {
->      /// Returns an initializer that registers the GSP event handler and =
-then enables its subtree at
->      /// `TOP`.
->      ///
-> @@ -362,7 +362,7 @@ unsafe fn new(
->          pdev: &'a pci::Device<device::Bound>,
->          tree: &'a Tree<'a>,
->          falcon: &'a Falcon<'a, GspFalcon>,
-> -        cmdq: &'a Cmdq<'a>,
-> +        cmdq: &'a Cmdq<'gpu>,
+/dev/mem and UIO both hand large, well-aligned physical regions to
+userspace, and both populate them eagerly at mmap() time with
+remap_pfn_range(), that is with 4K PTEs however large and well aligned
+the region is. vfio-pci moved to fault-driven population in commit
+f9e54c3a2f5b ("vfio/pci: implement huge_fault support") and gets PMD and
+PUD mappings where alignment allows. This series does the same for
+/dev/mem and UIO, and factors out the logic vfio-pci open-codes so that a
+third driver does not have to repeat it.
 
-From the changes made related to GspSubtree and other types I think I'm mor=
-e
-inclined to just make `Cmdq` lifetime covariant using existential lifetimes=
-.
+Two things have to be solved to do this outside vfio-pci:
 
-Best,
-Gary
+1. remap_pfn_range() reserves the range's memory type in the PAT memtype
+   tree, via pfnmap_track() -> reserve_pfn_range(). The vmf_insert_pfn*()
+   helpers only look the memory type up, they never reserve. A driver
+   that populates lazily therefore loses the conflict detection that
+   rejects a second mapping of the same physical range with a
+   conflicting cache attribute. Patch 1 adds pfn_range_track(), which
+   sets the VMA up as remap_pfn_range() would and reserves the range for
+   the VMA's lifetime, but leaves population to the fault handler. For
+   ->mmap_prepare drivers, where no VMA exists yet, it adds an
+   MMAP_PFN_TRACK action.
 
->      ) -> impl PinInit<Self, Error> + 'a {
->          try_pin_init!(Self {
->              // SAFETY: this function's caller must not leak the `GspSubt=
-ree` that owns this
-> @@ -383,7 +383,8 @@ pub(crate) struct Gpu<'gpu> {
->      /// any in-flight run of it has finished, before the command queue t=
-hat it drains and the
->      /// falcon that it reads are freed, and before the GSP is unloaded.
->      #[pin]
-> -    _gsp_subtree: GspSubtree<'gpu>,
-> +    #[uses('tree)]
-> +    _gsp_subtree: GspSubtree<'gsp_resources, 'gpu>,
->      /// Static GPU information as provided by the GSP.
->      pub(crate) gsp_static_info: GetGspStaticInfoReply,
->      /// GPU memory manager owning memory management resources.
-> @@ -403,9 +404,6 @@ pub(crate) struct Gpu<'gpu> {
->      /// Must be kept declared *after* `gsp_resources`, as the latter's `=
-PinnedDrop` implementation
->      /// requires the sysmem flush page to be in place.
->      sysmem_flush: SysmemFlush<'gpu>,
-> -    /// Borrow of `tree` that `_gsp_subtree` holds. A field that borrows=
- a sibling field is
-> -    /// self-referential, which `pin_init` cannot express, so the borrow=
- is taken by hand.
-> -    tree_ref: &'gpu Tree<'gpu>,
->      /// The GIN CPU interrupt tree and the PCI vectors that deliver it.
->      ///
->      /// Must be kept declared *after* `_gsp_subtree`, which holds a borr=
-ow of it.
+2. The order dispatch itself: the window and alignment checks, and the
+   pfn_modify_allowed() check that vmf_insert_pfn_pmd() and
+   vmf_insert_pfn_pud() skip but the order-0 path performs. Patch 2 adds
+   vmf_pfn_order_ok() and vmf_insert_pfn_order(), split in two so a
+   driver can apply its own policy between the check and the insert.
+
+Patches 3 and 4 convert /dev/mem and UIO to use them.
+
+Patch 2 also passes the fault's write flag to vmf_insert_pfn_pmd() and
+vmf_insert_pfn_pud(), as the DAX and DRM ->huge_fault handlers do, rather
+than the literal false that vfio-pci passes. With write=false,
+insert_pmd() leaves a present read-only entry in place and returns
+VM_FAULT_NOPAGE, and wp_huge_pmd() splits the entry only on
+VM_FAULT_FALLBACK, so a store to a mapping that mm write-protected for
+tracking (soft-dirty, uffd-wp, fs writeback) faults forever. vfio-pci has
+the same problem today and has no ->pfn_mkwrite either; that needs a
+separate patch, which I have not written.
+
+Testing
+=======
+
+Tested on x86_64 at 7.4-rc2, and on arm64 at 7.3.4, which is what the
+test hardware runs. The four patches are identical in both trees.
+
+On arm64 Cortex-A75: a local selftest over UIO map0, UIO map1 and
+/dev/mem reports 64 passed, 0 failed and 3 skipped of 67, the skips
+being the soft-dirty case, which needs CONFIG_MEM_SOFT_DIRTY.
+tools/testing/selftests/mm/pfnmap.c passes 6/6 on /dev/mem and 6/6 on
+/dev/uio0. dmesg is free of warnings and call traces. The fault counts
+confirm the huge path: 4 faults for four PMD windows where a 4K mapping
+needs 2048, 2 faults for a two-window PMD-offset mapping, 1024 for a
+4K-offset mapping of 1024 pages, 2048 for a deliberately misaligned VA,
+and 0 on a second pass.
+
+x86_64 under QEMU, four kernel configs, with a 4G ivshmem BAR as the test
+region and a small lab module exposing it through UIO:
+
+  THP always, DEBUG_VM=y                30/30
+  the same plus lockdep                 30/30
+  THP=n                                 30/30
+  THP always, MEM_SOFT_DIRTY=y          31/31
+
+The checks cover the PMD and PUD paths and their fallbacks, PAT
+reservation and the rejection of a conflicting cache attribute over a
+tracked range, iomem revoke and re-population after release, COW
+mappings, fork, remote access through /proc/pid/mem, and the UIO entry
+point. The soft-dirty config adds the write-protected store case; the
+others report it as a single skip.
+
+On x86, tools/testing/selftests/mm/pfnmap.c passes 6/6 pointed at the
+UIO device. Reaching the /dev/mem entry point needs STRICT_DEVMEM=n, as
+the test's System RAM target is otherwise refused, so a fifth config was
+built with it disabled; it passes 6/6 there too. The suite above is not
+a useful instrument in that config, four of its checks being
+STRICT_DEVMEM behaviour that inverts when it is off.
+
+The write flag in patch 2 was confirmed by building the same tree twice
+and changing nothing else: with the fault's write flag passed, a store to
+a soft-dirty write-protected PUD and PMD mapping completes; with the
+literal false restored, both stores time out in a fault loop under a 10s
+alarm.
+
+Build-only checks, all with KCFLAGS=-Werror W=1:
+
+  m68k ColdFire, CONFIG_MMU=n           vmlinux links
+  riscv64, THP and UIO enabled          mm/ and drivers/uio/ build
+  tools/testing/vma                     29/29
+
+riscv64 is the only other architecture selecting
+HAVE_ARCH_TRANSPARENT_HUGEPAGE_PUD, and its defconfig leaves THP and UIO
+off, so both were turned on for that build.
+
+Two things none of this reaches: 1G PUD mappings anywhere but x86, as
+the test hardware has no suitable 1G-aligned region, and the huge zero
+folio fallback in patch 2, which needs STRICT_DEVMEM=n and has no check
+targeting it.
+
+Performance
+===========
+
+Measured on arm64 Cortex-A75 at 7.3.4, 64-byte stride, medians of 5
+runs. Three kernels: the base commit, which populates eagerly at mmap()
+as today; this series; and this series with CONFIG_TRANSPARENT_HUGEPAGE
+off, which disables ARCH_SUPPORTS_HUGE_PFNMAP and so makes
+vmf_insert_pfn_order() fall back to order 0.
+
+A 256MB /dev/mem region:
+
+                       eager 4K     series      series, 4K
+  mmap()               421,536 ns   4,456 ns    3,912 ns
+  first touch          2.60 ms      2.66 ms     41.42 ms
+  faults               0            128         65536
+  setup total          3.03 ms      2.66 ms     41.42 ms
+  dTLB read misses     658,700      8,247       660,730
+  sweep per access     39.01 ns     39.49 ns    39.28 ns
+
+An 8MB UIO region:
+
+                       eager 4K     series      series, 4K
+  mmap()               16,048 ns    2,888 ns    2,536 ns
+  first touch          81 us        82 us       1.34 ms
+  faults               0            4           2048
+  setup total          97 us        85 us       1.34 ms
+  dTLB read misses     20,503       70          20,499
+  sweep per access     39.12 ns     38.77 ns    39.80 ns
+
+Against today's eager mapping, the series cuts mmap() by 95x on the
+256MB region and 5.6x on the 8MB one, as populating the range no longer
+happens inside the syscall. Total setup, for a consumer that goes on to
+touch every page, improves by about 12% on both targets: the work moves
+out of mmap() into the fault handler rather than disappearing. A
+consumer that touches only part of the range pays only for that part,
+which this benchmark cannot show because it touches everything.
+
+The dTLB footprint falls about 80x on the 256MB region, and from 20,503
+to 70 on the UIO one. That does not become throughput here: the
+per-access sweep cost is the same in all three kernels, because at 39 ns
+per 64-byte access the sweep is bound by the device memory path and
+page-table walks hide underneath it.
+
+The third column is the series with huge entries disabled. Nobody would
+run it; it is there to separate what huge entries contribute from what
+fault-driven population contributes, and it is the worst of the three,
+paying 65536 faults at about 600 ns each.
+
+Touching the same 256MB region in random page order leaves the dTLB
+counts at 552,176 for the series against 662,577 eager. I do not have an
+explanation for that: 128 PMD entries should cover the region, so random
+order was expected to benefit as well.
+
+Eliav Farber (4):
+  mm: add MMAP_PFN_TRACK action and pfn_range_track() for lazy PFN maps
+  mm: add vmf_insert_pfn_order() and vmf_pfn_order_ok() helpers
+  mm/char-mem: implement huge_fault support for /dev/mem
+  uio: implement huge_fault support for physical mappings
+
+ drivers/uio/uio.c               | 102 +++++++++++++++++++++--
+ include/linux/mm.h              |  47 +++++++++++
+ include/linux/mm_types.h        |   1 +
+ mm/char-mem.c                   | 103 ++++++++++++++++++++++-
+ mm/internal.h                   |   3 +
+ mm/memory.c                     | 142 ++++++++++++++++++++++++++++++++
+ mm/util.c                       |   7 ++
+ tools/testing/vma/include/dup.h |   1 +
+ 8 files changed, 396 insertions(+), 10 deletions(-)
+
+
+base-commit: 067c5c24cef23d913b67eaaf71ae67e7169a6620
+-- 
+2.47.3
 
