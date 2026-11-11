@@ -1,89 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794430079;
-	b=3wjNHJEtI23exliE+Vyn3ZVv6EKC8VbadAy3ODofA9WymipQFWH8caP0QxhuQL9o3+fN
-	 ClwlPjsz0dz0mDr28jnYN2KvxsrvKMC2+oiCBrQsbOfMPDnlCVQ/cnMV1+cqSGPixfx/w
-	 4lz0H2Q1Rk5lian74kPKxxXfzbETksscR3KCvvAYh9AzI00fijez/oGALuK+aXLI3VCJ/
-	 GzFaBUEZvGEE+PIipgQMT9tlVZ0kFeoFKLKd3QFNxMArcomL/tSE1XGKulTPwBPDcf9BS
-	 31tCN854Owyxb9gltyPhAMJ0IjLLuJdMhQAVjrCzXy8XTJvWDSJnvvWbhMDzMulJHew==
+	t=1794430117;
+	b=JBbWaMtKDrknLohNxdLhZwWW01yJs2m5D6s58qjbcimbGyo5+PEunvBkQcw3rAZafZDI
+	 jGsA6pSYPeABl5+yTgWpa2ejKTjN9cIf+mUD3OEXGJbnySGFx76bL7zmBYJjPuWo+bsVf
+	 PRBjUbeive2j+MNoZRtNom15WsEvSy9q0i4sYeunmn//IdI/A/1By+0gy622SuBO4AFoa
+	 /kdL7AIfgEUsuq0xYcrCHWFga1/NI27o2Sl2tv7nChDoQq9x7TQhEvADUY97wxjeaEajS
+	 canlH9C0e5S24c6ssm4EVTy6n8CwAcbTVXFDMIsKJlRLWYqs7LKAJ4h5GXn/VDzvwNg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794430079;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794430117;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key;
-	bh=FBve0q5RsMt0tuOsSSuYRtfgKdHBNbRkQQlqWhy08ic=;
-	b=U8CsqkBmrtNSKeehqsGg5Nl0MP33jGnBnjkOZ/cji87bKyBE1GGzwHhn0KGtoskGmozC
-	 M3RQ4fMn2IWi0FqUF7mH3AM/R/X0TlktwkZhiL/bZBq5p6jMUMKnm44O3bqQ0z7UBOJVm
-	 cg+CJ8Xnsl2s/WqTVaR5ja8FLLlogUd0oZC5p1SB+ggc9KhFtBJjV5C/tdVEXU82v4tMv
-	 ZiAXWCGP9RHvkS5AWNtkWK5kn1SWcg95+14ta4Mhqf02ZHrIfaIlfrq0NnVfgHirDq9cp
-	 3lNq9UwrqRCafXOS/agEE2y8Q+uTBkMPp50bKhFDo5l1MHdz1cdNAyd5uT+oYqUqSFg==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=IZYnbqYkHqkELVkKDLojhWjQ3BIxvmQ0PHO33MEnp+4=;
+	b=lyKnnAOVrEGDFxacQP17WISTAKbRlyV06DnKxxNdYZBKiXc5mr2QbESOj3+Eh6cLk52o
+	 oVRHXJhxxBGBuZu5JrJYAoG3gLzBi0gIxKPoAfsqSur1jAE4gjbmYxDLyYZmHeFjnP6Gz
+	 h++7GkntD0333i9q0H2fa3KAZKTJmOU18MNedWeLMcDZbmiokFqeTZ+32DomNNOiwldv6
+	 FeJEpJozd+sCCH4nTVa/L1frxQudOwKoAquMgod0zusiodjNvmTnAKd9cIO+0LyTn5kIw
+	 pXa/arQfsvj6CqNmcBCDn+NNCTqVasE6PwO0Z5VlvbSEfPyFiqyNnuY4Du5M7S9O7yw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tjk11Zji;
-	arc=none smtp.remote-ip=74.125.82.43
-Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yAzlYn1S;
+	arc=none smtp.remote-ip=209.85.128.52
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DF28606A321
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 20:47:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4DF28606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81955606A324
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 20:48:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81955606A324
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tjk11Zji
-Received: by mail-dl1-f43.google.com with SMTP id a92af1059eb24-14394530ec6so4791572c88.1
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 12:47:59 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yAzlYn1S
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a20bde60a0so36244045e9.3
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 12:48:37 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794430078; x=1795034878; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=FBve0q5RsMt0tuOsSSuYRtfgKdHBNbRkQQlqWhy08ic=;
-        b=tjk11Zji+duBbyhWU2BAujfuUXoTJ+WMfauewxmQg7/8cJu9rYl8cLCWGY5hahEL+7
-         31Q2AjrzCRGdvHkQgnBT4YCqIHHDDdoYiRil0UQFfWuoOxOkt2otPPrPiFYE3tpLxHKU
-         AOijL/KVR8iKA7crrhH/rGTsW/njiAyLqC3OjY3BfoR2IwLW4CLW2NWfxrq3x3ZoTKIk
-         0Cd/tYUFB/rWwPxRdriVmh6MLSnSg+iQos89j489HeYJySzW472TDqd2XgpiYyJAfzb1
-         WZT1JgwEVNmxhS1QfTLp8dZFSY73Pb7skBJAbbk4hbElut9q/uGKx+wETozzoIR0GhEC
-         QTGA==
+        d=gmail.com; s=20260707; t=1794430116; x=1795034916; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=IZYnbqYkHqkELVkKDLojhWjQ3BIxvmQ0PHO33MEnp+4=;
+        b=yAzlYn1Sm9ckYmfdgpgSMaY7CxevFGTQY0xRQ+HNtnVifbXT6qkTqts8ZLWCQLzIey
+         0yu054+3aQ5KnsmcKxCQcNcqDArGWnOiPEEjn5Sg7Ni4lwEdZc4z7slBkIQle4Z1rCmc
+         MUwHN68L/6pwgGxFRro5voYsBibVqB/d6qE8Ghu4Oefc6IfknySLI95lqEgECv/7YI25
+         yCHqAlcBhD5M4c/28q4+X3pYJUBpp60O9jF+yVSxy7XTstNb9xT6uuOv6ffE0K+i5bgO
+         jxb47SeBXWn37oHvCgPyzNb+gyq7a/Gqi+wakKtIILMutPW3sdRGad21TYDH4L+33Pbt
+         c3jw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794430078; x=1795034878;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=FBve0q5RsMt0tuOsSSuYRtfgKdHBNbRkQQlqWhy08ic=;
-        b=2aKS3yjMBcCOIhkF3Lt8EXwoK0fuUSPrYd9irP/c3Id0priLLsNQcdmr2jqlA7Ct+l
-         FBuBXCT9KGOQHZF978vdpeBZPXgTdEwXu1Vvpeuk8BfAvYXgc3ROT1fyRk3XuGDLWBSI
-         WZ2t5CXjvXpYVDV5Qq4ZYN5K18P0QqMsc5BqenMBZ8Bd6APyPzI10EA/kACakrFyODex
-         xnkXxRG7MykYLKZPZPBTNll2z59XO9vd1dwXvkVDkowZ2fxKmA0iEGcIZF/AFBVuXPWJ
-         agdPxCmy36PPMpNV4Fc7K1cOMqFe8nooxuYWfmkZp9xWMGC062SPM34w4JJIzFpE/2+Y
-         KFag==
-X-Forwarded-Encrypted: i=1; AL+hErGlQ7QNMR+l42TOKzrfEpOxgcD9X5kHITT7vNLijsb8jnoMROe/oBpuG0Y/ClLXwN/T3GxdN6GTKAN+KOg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z93KYRHA9mwGTYQ2orhnD86YJUdh48Q/sozC7bSu0aMri58opnb
-	eYqpkfPGQXVYXSN21NKcnPQl+szJtkoT1FxUoPsyiLYM3MxWmlaZKvIy
-X-Gm-Gg: AYBFou33Mm5l1DUYaGkSCwsr7n+ipZ2Ryw7Dk2jD7knWN7yHakBeXHvi/HthOiX4XFG
-	9H0Bv27K0jtPbjmCx/PafoFbe8raVe93tjHyTPcDmW293B9F6FVPMJnuZq8WE+VOChP3v5hH9bn
-	6FLKTujqsAD17L2lb8/OMHUP+Rexp25jnie/BIiCvFNsh3/p2cemveoFL+29IyesoIeUPGj/Jp4
-	Hrd5FtMdBIvO4TJCm9Np8h6SnN2KqXPY8L1Lu7Gplyle6jJacfxxCDcEUOG/IbYfW09ynicC7Ik
-	I2mPEDB4Swmnia15d+n38TAwLi99tSK9BV3C7AGNEiIpx8B4HIbTMsreH8cjOZNU/FgqR2ON92D
-	Eb3I3gIMoZhqe2xskRm5DucnaTXvzrEPa1iEnKBU5sZCODHeaMPKZx4rXCCJhVuQG+hfgdHPcDs
-	sxRl+5kOjdRRl6uJeQBGLYrbVJEyQX4Ty7UOpANNItEkLJf2GtjpnrKS4tcNNO3C2hJuROUtX4o
-	/vd6TSde8PEXv9U9UOfmzGJ++ifzwFHBzNrcyPq49vXrXYyT5TJueR0YKc1fLJyU2AYYmJLjEKT
-	HqTJlCxa6CEshcxS6lSsTW9gUf3oSUPKZWXfQVRMJAn1vWlbOWLeVUB1o5za7jvzXKeOopzmKGE
-	iKhDg
-X-Received: by 2002:a05:701b:4349:b0:144:eb46:be0 with SMTP id a92af1059eb24-1b3c033451dmr3326215c88.13.1794430078157;
-        Wed, 11 Nov 2026 12:47:58 -0800 (PST)
-Received: from smalls.localdomain (ip-198-145-71-161.az.bambroadband.net. [198.145.71.161])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5890e04sm18469021c88.2.2026.11.11.12.47.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 12:47:57 -0800 (PST)
-From: Hunter Laux <hunterlaux@gmail.com>
-Date: Wed, 11 Nov 2026 13:47:58 -0700
-Subject: [PATCH] MIPS: ingenic: Work around stale L2 data after DMA on
- XBurst II
+        d=1e100.net; s=20260707; t=1794430116; x=1795034916;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=IZYnbqYkHqkELVkKDLojhWjQ3BIxvmQ0PHO33MEnp+4=;
+        b=NZME1aM7FvtoL7Kr6qYxpYucdeR5l6C25W27dbk+7lPYeScgliqUZZWYHGjHkYnpu8
+         Ft7Cj1ye9kULiFZ7HlFsOk0vrE1aeq6ysq7qjfMBWrb+tIONLFkchOYXDyLVv0YCtpiW
+         /HeqakBnDnrCR1Swxqdn8oo6C1KOvBuloNy/AbPjPXJJMY1u6Mx2IJc9QBUGoTFhndHH
+         OMIvDQMa4Fr53uBrCZw4ebxpg9fcTBlWoeZ4jxMkSfaC4xp+svFGok2GDxIUJv4o+CYP
+         pDgWieSU8Rr7kxFDYO4If3OON9diUojOUCdjb62Fhv1j9s3xEmxvLeWOA4F8GcfgzJvt
+         3eJw==
+X-Forwarded-Encrypted: i=1; AL+hErGgaeMxvEM+vBMAEogJ5soMFggtJLyppddcW69iLzPc9jSUOeVyRLJwmNHocdm5ipLRs5ETi6b/AVRhRPc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8w+By9GhJNaivT5wV5pH/JnOfcdHtVyrtjiQUWlLZiwP/Yl/OA
+	BGD/TokQ9f2Irf86Zg1P9+X2Wl3C+hqUPm0f95YUo8KjIyOMxeZkmzpD
+X-Gm-Gg: AYBFou1gB8fNtQ/3TCURTaJZ7a3Io833KWSGITjLkec99/8Tk667yaJuxCBfU36SPMg
+	vkRXiBYVfbn8B/m/tF1DKetxzmsJJL5vp1VFeOg2X4ZlT2EEmE8dgNkudNFciLVnx5QBCwW/gfG
+	l+cggAAR/ixtA9TUeXzBhiuCADHECMPbvXGxfpkd9MsSF9oQQ26qTPShodF0WFVPZoASGUGlITw
+	zrMpQY2V5MoZdKIFvvRoaiv/+4k3sWANwf32PmDt8nuUlB4tl6Sk0gnptecilILxqetCgGlm4Ch
+	z1vWfaRr8/IPKkCosa+/Xlh0XIAYd7Ur3AvkNBR7QVA//FZ7Mqu3pMu1r8iUKmLxub/LR6qei3R
+	2Kgj7hile9tiQL6tuxDp39IG3JxuBydeFYX0SQajluzwcQfp7nOHHa31/CNG5xHd9Eb4Bd16DmC
+	sZ82x/xpesNrMrkBc6Q3gEWYV8DZ6HhZi55Wz+1RXoeD4G3RXNy4TDJMbuqqusbudEVCsLEEZzb
+	QnqugYnxQG0j7vdgmpVNKaf7xGdZB2kyQff+6XJvcTdhCCXn2iZcLR+Kicf2vZbwyOK207N5MZL
+	aEw8NPGwvkt+oA8Elt2nqopBXaC/ZYdJDciTJ2E2Ai09WsyGCDk1KWgPDRlMty1J6vaLNjxKI+0
+	Ae2gQgk8KEM9qPj6DQNyjFpxuRPiRoSKUBrfJ9D+tHwc/kQhFX5tTBumyznS/vgLD8Jcy6ZXhUp
+	k2o4hZfggJPCVAMNLbqrSW0M4S
+X-Received: by 2002:a05:600c:3551:b0:4a6:b49f:9ae5 with SMTP id 5b1f17b1804b1-4ba0938b879mr61055775e9.34.1794430115719;
+        Wed, 11 Nov 2026 12:48:35 -0800 (PST)
+Received: from ADM-D9YH122JTV.home.lan (58-119.dsl.iskon.hr. [89.164.58.119])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb4e2842e6sm15063795e9.4.2026.11.11.12.48.32
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 11 Nov 2026 12:48:34 -0800 (PST)
+From: Goran Sustek <gsustek@gmail.com>
+To: Jeff Johnson <jjohnson@kernel.org>
+Cc: Kalle Valo <kvalo@kernel.org>,
+	Baochen Qiang <baochen.qiang@oss.qualcomm.com>,
+	linux-wireless@vger.kernel.org,
+	ath12k@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH ath-next v2 RESEND 0/2] wifi: ath12k: PPDU stats user count fixes
+Date: Wed, 11 Nov 2026 21:48:21 +0100
+Message-ID: <20261111204823.88785-1-gsustek@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,112 +99,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261111-mips-ingenic-l2-war-v1-1-0d9dec232a7a@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAH3U9GoC/x2MSwqAMAwFryJZG6j1i1cRF1ajBrSWFlQovbvB2
- Q3DexECeaYAfRbB082BLytS5BnM+2Q3Ql7EQSvdFAKe7AKyBMszHhqfyeOqyJRUtWVtOpCl87T
- y+78OY0ofzheCZWUAAAA=
-To: Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
- Paul Cercueil <paul@crapouillou.net>
-Cc: linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Hunter Laux <hunterlaux@gmail.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794430077; l=3270;
- i=hunterlaux@gmail.com; s=20261109; h=from:subject:message-id;
- bh=67LE0kGufq3au4XmWv1z0ZrUAGrmejn8GG09kq5SEfg=;
- b=xCHTSsmMUgPp4K3sd0mSo/bVuFVGxFVdG0sDg/ZVkqV/qrKCBWF7JY74GxAtWojmUMciCbScf
- pGJ9gR7JcwmCHiXUdbbcPL0C+q/hBv77y+m2k6uLvu1spqbAUQP7HRc
-X-Developer-Key: i=hunterlaux@gmail.com; a=ed25519;
- pk=Z5VTsE4CAwditt0CNeG+rpPk7xDUVh+oHWDZlNNm8FI=
+Content-Transfer-Encoding: 8bit
 
-On XBurst II, with the L2-to-DDR prefetcher enabled, invalidating the
-L2 with Hit CACHE operations can leave stale data there: a buffer read
-after a device has written to it returns what it held before the
-transfer, although it is invalidated before and after the DMA.
+This is a resend of v2 without changes. The first posting [1] reached the
+lists on 2026-11-09 but never showed up in patchwork.
 
-The RTL8821CU USB Wi-Fi driver, rtw88, shows it in its register reads,
-which go through 4-byte buffers: about one read in 500 is stale with
-the driver's buffers, and one in 12 when each buffer starts its own L2
-line. None are with the L2-to-DDR prefetcher turned off (CCU
-MSCR.DisPFB2), or with a load from an uncached address before the L2
-is invalidated, which Ingenic's kernels issue: none in 20000 reads
-over 4 boots.
+[1] https://lore.kernel.org/r/20261109225355.23161-1-gsustek@gmail.com
 
-Add that load to mips_sc_inv() under a WAR_INGENIC_L2_HIT_CACHEOP
-option, on XBurst II only.
+ath12k_htt_pull_ppdu_stats() rejects PPDU stats messages whose common
+TLV reports num_users == HTT_PPDU_STATS_MAX_USERS, although that value
+is in bounds for the loop the check protects. QCN9274 firmware
+WLAN.WBE.1.6-01243 sends it in BE MU BSRP trigger messages addressed to
+two Wi-Fi 7 clients, which makes the warning fire on every such trigger
+and fill the log on a two-client AP.
 
-Cc: Paul Cercueil <paul@crapouillou.net>
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Hunter Laux <hunterlaux@gmail.com>
----
-No XBurst II SoC is in mainline yet; this came up on the X2600, whose
-support I'm preparing.
----
- arch/mips/Kconfig      | 9 +++++++++
- arch/mips/mm/sc-mips.c | 9 +++++++++
- 2 files changed, 18 insertions(+)
+Patch 1 corrects the bound and keeps the warning for larger values.
+Patch 2 fixes a related off-by-one: the per-user slot finder and the
+per-user statistics update skip the last user_stats[] slot.
 
-diff --git a/arch/mips/Kconfig b/arch/mips/Kconfig
-index dac3ec5120..fd438b52fd 100644
---- a/arch/mips/Kconfig
-+++ b/arch/mips/Kconfig
-@@ -131,6 +131,7 @@ config MACH_INGENIC
- 	select USE_OF
- 	select CPU_SUPPORTS_CPUFREQ
- 	select MIPS_EXTERNAL_TIMER
-+	select WAR_INGENIC_L2_HIT_CACHEOP
- 
- menu "Machine selection"
- 
-@@ -2524,6 +2525,14 @@ config WAR_R4600_V1_HIT_CACHEOP
- config WAR_R4600_V2_HIT_CACHEOP
- 	bool
- 
-+# Ingenic XBurst II: with the L2-to-DDR prefetcher enabled, invalidating
-+# the L2 with Hit CACHE operations can leave stale data there, so that a
-+# buffer read after DMA returns what it held before the transfer.  A load
-+# from an uncached address before the operations avoids it.  Only XBurst II
-+# CPUs run it: XBurst1 shares the platform code but not the prefetcher.
-+config WAR_INGENIC_L2_HIT_CACHEOP
-+	bool
-+
- # From TX49/H2 manual: "If the instruction (i.e. CACHE) is issued for
- # the line which this instruction itself exists, the following
- # operation is not guaranteed."
-diff --git a/arch/mips/mm/sc-mips.c b/arch/mips/mm/sc-mips.c
-index 06ec304ad4..41ad4905e5 100644
---- a/arch/mips/mm/sc-mips.c
-+++ b/arch/mips/mm/sc-mips.c
-@@ -21,6 +21,14 @@
-  * MIPS32/MIPS64 L2 cache handling
-  */
- 
-+static inline void mips_sc_hit_cacheop_war(void)
-+{
-+	if (IS_ENABLED(CONFIG_WAR_INGENIC_L2_HIT_CACHEOP) &&
-+	    current_cpu_type() == CPU_XBURST &&
-+	    (current_cpu_data.processor_id & PRID_IMP_MASK) == PRID_IMP_XBURST2)
-+		__fast_iob();
-+}
-+
- /*
-  * Writeback and invalidate the secondary cache before DMA.
-  */
-@@ -37,6 +45,7 @@ static void mips_sc_inv(unsigned long addr, unsigned long size)
- 	unsigned long lsize = cpu_scache_line_size();
- 	unsigned long almask = ~(lsize - 1);
- 
-+	mips_sc_hit_cacheop_war();
- 	cache_op(Hit_Writeback_Inv_SD, addr & almask);
- 	cache_op(Hit_Writeback_Inv_SD, (addr + size - 1) & almask);
- 	blast_inv_scache_range(addr, addr + size);
+What the data shows (diagnostic build on an AP MLD, 5 and 6 GHz, two
+Wi-Fi 7 clients, 2026-11-02 to 2026-11-09):
 
----
-base-commit: b3dfbde62cf1981c4638939c159dfd087b7a72e9
-change-id: 20261111-mips-ingenic-l2-war-f0eb3e4735b8
+- Every message with num_users 7 or 8 was frame type 25
+  (HTT_STATS_FTYPE_SGEN_BE_MU_BSRP) and carried user TLVs for exactly
+  two stations, with up to four user records per station. num_users
+  equals the number of user records, not the number of stations.
 
-Best regards,
+- The same firmware advertises max_user_per_ppdu_ofdma of 8 in
+  WMI_SERVICE_READY_EXT2, so 8 is the largest value it produces.
+
+- Rejecting a message has no functional effect beyond the warning: the
+  user TLVs are already stored when the check runs, and the per-peer
+  statistics are applied when the entry leaves the list.
+
+Changes in v2:
+- Keep ath12k_warn() (Jeff Johnson); only the bound and the text change.
+- Add patch 2 for the slot finder and update loop.
+- Base on current ath-next.
+
+v1: https://lore.kernel.org/r/20261101203718.60679-1-gsustek@gmail.com
+
+Goran Sustek (2):
+  wifi: ath12k: accept num_users equal to HTT_PPDU_STATS_MAX_USERS
+  wifi: ath12k: use all HTT_PPDU_STATS_MAX_USERS slots for PPDU users
+
+ drivers/net/wireless/ath/ath12k/dp_htt.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+
+base-commit: d0fbb39d65dc9dcb4175fa6b23e473dec3670f4d
 -- 
-Hunter Laux <hunterlaux@gmail.com>
+2.56.0
 
