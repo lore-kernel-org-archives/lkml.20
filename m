@@ -1,58 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.111
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.45
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1794382999;
-	b=Bj29rikHiMTuW+X++TwJvOBVOmKvsiOAhtHQ0wmhPpC55nG5flxj75JcibAHVtgEG6QJ
-	 mUVc3QPmWYWCbK658fT/NiVF7EF0i4e7z4LQDTTmSFCuqos9AC7ocBzKdm+Zf4TV3US2n
-	 kGasB+LTl2zG6kQBeJcYQ9Bqg5zO1fehMKTa27eh2zxtFoDC4CepaUX2w4F7e/nMccex6
-	 GhE9CBqoFBhYkv9h07kV8Ie3qbNqgTTy1HNBrfZghgG7KBi8HCRG6pHK+5pEH9ld8rDb+
-	 rNlIL1OkcRgdsMpXKitNs8TkDJ1OKdJQU0x/V75yITZtlzHnb2PtbQnFBcMr+TKRayQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	b=3SY4dLXvhNReD4MSdAduOqraqbWqdfSkrRdsZFXWo71ZDxiVSyXvXJwsbAHv59YA0KYb
+	 8JlOgwTa+b/ymmMswNqw6BCR1BUQxo8TRtXPFi8rrk8rj+vE4h53y9FhycOtUrqwl97S/
+	 t36MywKH4DDXjCWc5Yt70aaMgXoAkGkbiHvCQUVseMA+d1hFNik6kzqqBx4E6qoi6Tdf9
+	 6vDjJwk1G6zgJU2wZEELdGr7rXenMWSglg7Slbb++xJxy3aaYDnmPkjsszarJ2KXag6+z
+	 PRvMe/5oYp2X69p5/6TPi8J5I+r/sfHlZ/iyIq8+0eFCbUM/lJpHE4a3E536d7lzb7w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794382999;
-	h=DMARC-Filter:DKIM-Signature:Cc:From:X-Original-From:
-	 Content-Transfer-Encoding:To:Date:Message-Id:Mime-Version:X-Mailer:
-	 X-Lms-Return-Path:Content-Type:Subject;
-	bh=8mTErck5JGupQOghrZ2jPp0xZxOQ50MpStd/zzuxbSw=;
-	b=c4CHSpVh8pcBcT86q4O8/CU4rihOoitiBWZ35kBLH0ZV5dlG5Habo1RCyGryhUuzHLgk
-	 qG2G7/o2Al302O+7zObzxmqce+IpqQlwFBEk+SHiC/Aer6u4zHIxpGb4QSJ5DcGcnJKn3
-	 nzDwUKUKS7Gko9cfMLZitB2SWmCGxTjMRxmX+HcBxyLsXFJlmjivZY3xHYcgbC48Pqbmv
-	 VqTJMBW5JobgH98FZgYXaeD+b4tRSdoHYEgpmO9+5emE5YMzOJ+b+wU/W3pe5kWUxVbW4
-	 IUmG7gFTtkanrQMj7WmB3Paf61CfPKMZw7cUM6Q4Lj8JFWFlrXwlQxnBn8LfdnAtqHA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bytedance.com;
-	spf=pass smtp.mailfrom=bytedance.com;
-	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=ZvK0RM0r;
-	arc=none smtp.remote-ip=209.127.230.111
-Received: from va-1-111.ptr.blmpb.com (va-1-111.ptr.blmpb.com [209.127.230.111])
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=27U7oUdIa14bzFyO20wq2H7dyWDMznLD1QtfCXJzapQ=;
+	b=ViyBVemuAUZRidvlvTivjuWdsEdwyU6F5cFCQnbQG6DSbZ3CRubjjFR39MxhunSd6mh8
+	 A/f/f9LdaoUyZXa7/pnaLtSvWsI/2z/cnX0yPSFTqE45nRifFCz7KduSa5czOh/h1RBUO
+	 Fe4d6InPsPkxuUVqJrQRelh0AY+45dhByG+jWxj9NbI70v7jCNz7fsGFAtMPFvJ9Tb5pu
+	 4MwPbwEgpRsLrzpPmMKrU0WWHsVOrLNYn7MT88lNiRpZ9eOeIL61WdIM2V0xXttSyGGCA
+	 KFWNZjH/xtsvTCqeVzBSvRW67Mu1POgvTW8vDy7bZtWERyJb9gr/CqFt60lhKRXjhDg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=h5NQKG5D;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.45
+Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com [209.85.208.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6E74606A33A
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 07:43:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B6E74606A33A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5CAC606A324
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 07:43:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5CAC606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=ZvK0RM0r
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1794382993; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=8mTErck5JGupQOghrZ2jPp0xZxOQ50MpStd/zzuxbSw=;
- b=ZvK0RM0rk3texxolpefRSbHA0nw3r4NI741nNA3qTotMIvcEsn+CVGZiflch1lfTyu8sjD
- KTbTksmTsBj1Erulw84awAQ7CkWw68V1EoYEyDy14nhTxfVGyBRtU5CG7U1Ss2f+fDz91U
- KNb5+R6wksdrCqaCjdvDiTiHnHBBWibO3Tkr6K2WOESPi5khmXeCunC9IP54Ep8RT+/pwn
- HY0i6tcs2Fr7G4gluViq9n0XpjN1f6W/KY3MIACox9RUYfkQtPNq7LWCoENMvHdHcK4H92
- BpyHx+FbYAOjvwgAyFCHzMMAPke2tmAss+oXJW3V9S2AL/hIbwyZL70SmXIhVw==
-Cc: <mark.rutland@arm.com>, <ardb@kernel.org>, <song@kernel.org>, 
-	<dylanbhatch@google.com>, <linux-arm-kernel@lists.infradead.org>, 
-	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>, 
-	"Rui Qi" <qirui.001@bytedance.com>
-From: "Rui Qi" <qirui.001@bytedance.com>
-X-Original-From: Rui Qi <qirui.001@bytedance.com>
-Content-Transfer-Encoding: 7bit
-To: "Catalin Marinas" <catalin.marinas@arm.com>, <will@kernel.org>
-Date: Wed, 11 Nov 2026 15:39:06 +0800
-Message-Id: <20261111073906.652400-1-qirui.001@bytedance.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=h5NQKG5D
+Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-6b71b012e3cso1704780a12.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 23:43:18 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794382997; cv=none;
+        d=google.com; s=arc-20260327;
+        b=LIkMD3+ZLRyWQEPNBNRdTk/XLMEytaFTJf2zBkvu4w6/UClerW5ssakK+fU/+ideSj
+         DzvAzJXAieRD2MVGXePGZPDe4agKHhXjBTwJjnDe9zLWE7MSSjnt7ZOtQQYtz36kw5hi
+         tvAgzfZvLZ3IVRiY1Iqlcyv4pJsnCIblEfs8SlXXjj1nS/LoyonpjDa/nMat3GWusSwi
+         7/F6C/idkobOsZmy0sAbVkaR3Fs/N309zpBmTEImUPx9W8hNd5steh6iqqYSObvepE5d
+         FQ+/H+mLmzHcM3PsDpIUIgP87V5yrWCLTwISRekjd/Qj+QYXlkiMEKiNQPqcCvtcr8Po
+         JSYQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=27U7oUdIa14bzFyO20wq2H7dyWDMznLD1QtfCXJzapQ=;
+        fh=G6HUJYRpyBPsc/GtW9vve9/iNtBjoPHwAPihZvgqoUo=;
+        b=a2AMRca+770oMCD/mxWRDTaDq2tSqTQXXu8newYLzN7Wv9II65PMw7NEkby09xBIth
+         JDiv8FqnxYieVwwyITQTHLt35YZ3K7iI7Q0A3h69TYkkcLi7rjc1uML0+K7QZ642oz9F
+         IhweheNblt59yin7JnP2rlfl5t0qMnzGZqUrCJ8n2EXkoJkEJzV1Eh87QZne8u0AhTc3
+         ML/mgELSrk8PnKMwsenSl0STU0i57G6hugkMR/WjbLUXcNX+HwYPfO+1Zu+KoN/V5ltF
+         ByFCYoHnm2S/MsdvXpwdMFZ2oQVlaWNV5Im+ka6y7YMC6RqZ0rrFFDsRayJ6tp7vTOQw
+         oA7A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794382997; x=1794987797; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=27U7oUdIa14bzFyO20wq2H7dyWDMznLD1QtfCXJzapQ=;
+        b=h5NQKG5DsH5k0QdRiJVJ86KtbHIpBxOZtiNveHnZG/t4JAkAZl11gGqvbZh2gbx+CZ
+         U7R2l09uEN9Mz6txyG/VHZJvSvlNiFdQj+V+bgbOtkQgjiNZU0CA5FMY6smQ/+4XBAH3
+         TyiknHwqbS9a1ikRyqP2U11AjltnFdJ0aJiSYxxvbDIdddHQa9rv+KTy80xEhAMzl3C+
+         bIpY5WP4LhG5OSEIpLn1ynS3EgjFFWznVldcdS2uIAoKSyrP0PX27WalhA9H67xC1xsv
+         oVv9D9PpI4KM5wKfG/3AUYQbehBCy8YKKKaBfMQR6O76UfhYBDJ2qQ9F1ZaCwVdZpUw3
+         DTXw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794382997; x=1794987797;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=27U7oUdIa14bzFyO20wq2H7dyWDMznLD1QtfCXJzapQ=;
+        b=LInj4kPrxlgL/g1l5Fcb3T3UyEhOq1Ah7LlrTQiT+GqZReiVEsikM1WYYWg643vC6M
+         ycDl2yy0bH/I1xKzOK5h3QJSAonf4W3DI4G90LrFDVgtnZCEpEIf5/eQpwwEMbefIs6u
+         aBA05G2vdwm75l0dgfTWRy9j/nRAsN5CuuLzrNts8STnJ5C+4s0Lv+jW2RH4EeejXa16
+         NKE2hK9ulnfWVkJPbK5dxpwl8JNYIBVKpe4+aZ3giMYpRtpSmF7c5NmHgZIcrRpHSeE3
+         sMsNB3jeKyCvMECb5R0wMm2EGViJUaoqP6HxcuINBibvceuIHvLzLsP/sTBeKos8505+
+         3ssQ==
+X-Forwarded-Encrypted: i=1; AL+hErGkC20qw50qXylnO4tNJGl95TnP3+ifoPoSp7ivK0iRAXT91DgWzPhUDsvU2m5831mNg3YJc6iSUNEbGvU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9nPaEWaJUHGEQAHHOc+i1P7Q8cn2l/qS6a41rXYIoXw6Knx++6
+	3GT2ySHsaZpf2FEnKoN0YeXxEH4UarHvQ4vMrnx4+2jNR7nxS1+0pUUVQGrjOZZbJTr8GzSSI36
+	/fjNHYpuOWtXjfwh4kLcZyGevuZ48GzQ=
+X-Gm-Gg: AYBFou2e2TDqI7uLuoc8eoVVDfRub8YJXxcxN7t7JwANVqL8a70+A2+IZpdl7spL/Zh
+	TtF8j74mN7f8CpzuYK3uqpRQ6QwjvpID82pKlPJykcxX/6uQMNXht+tKQ1soX+NEAAw4hH5IIly
+	aSGHAvmIls2wsKsIqMcu3ueoD8QvonxQaTpaLwP0CI3o+krYum99lzBDEOzC/WiwPkO0tDC2CW1
+	Es96YVuFgJFgoTnISepXAe12oEFGRxtDbDWotQitQcHXSXGEUs1k8n4gsnFTV514GAdhQt9/kNY
+	17Jajx808WcMcd1QBl24G5vAJarNJaa5Mv8w/3jD3/z49NykuetDeJrh2rVa6QnUoqdHS6tBfC9
+	9EMaEkcx72+HZ/VfOAAaZNRp/dReb7Ywillktljxn8jXA9I+KiSPBeaxtsXxZahlATqfY8w==
+X-Received: by 2002:aa7:c1c4:0:b0:6b5:90b9:e1f4 with SMTP id
+ 4fb4d7f45d1cf-6b7773edf4bmr819135a12.15.1794382997169; Tue, 10 Nov 2026
+ 23:43:17 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,207 +103,137 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.20.1
-X-Lms-Return-Path: <lba+26af41c8e+a5c8dd+vger.kernel.org+qirui.001@bytedance.com>
-Content-Type: text/plain; charset=UTF-8
-Subject: [PATCH v2] arm64: module: Use text-poke for late PLT/veneer emission
+MIME-Version: 1.0
+References: <20261105-tonyk-syscall_table-v9-0-8d1275885d9c@igalia.com> <20261105-tonyk-syscall_table-v9-11-8d1275885d9c@igalia.com>
+In-Reply-To: <20261105-tonyk-syscall_table-v9-11-8d1275885d9c@igalia.com>
+From: Magnus Lindholm <linmag7@gmail.com>
+Date: Wed, 11 Nov 2026 08:43:04 +0100
+X-Gm-Features: AclHuK-WWcZzAuRTugYoSHBXz8aDMS8vLzO87BtuVYEGxCZ10b0uUmgcqCUEPe8
+Message-ID: <CA+=Fv5Tm4-DV9KEKxO11ta84EvqigB-KDemhOML1hx9zoxx0cA@mail.gmail.com>
+Subject: Re: [PATCH v9 11/15] alpha: Remove alpha_ prefix from custom syscall entries
+To: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
+Cc: Masami Hiramatsu <mhiramat@kernel.org>, Arnd Bergmanon <arnd@arndb.de>, 
+	Christian Brauner <brauner@kernel.org>, linux-kernel@vger.kernel.org, 
+	linux-kbuild@vger.kernel.org, kernel-dev@igalia.com, 
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>, linux-alpha@vger.kernel.org, 
+	linux-s390@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	soc@lists.linux.dev, linux-mips@vger.kernel.org, sparclinux@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-module_emit_plt_entry() and module_emit_veneer_for_adrp() write PLT
-entries into the .plt section by direct assignment.  Once a module is
-fully formed its .plt is read-only/executable, so a late (livepatch)
-relocation that falls back to PLT emission -- an out-of-range
-R_AARCH64_CALL26/JUMP26, or an ADRP under CONFIG_ARM64_ERRATUM_843419
--- triggers a synchronous Data Abort and panics.
+Hi Andr=C3=A9
 
-This is the same ROX premise that commit 91b89a634487
-("arm64/module: Use text-poke API for late relocations.") handled for
-the relocation writes through WRITE_PLACE(); the PLT/veneer emitters
-were left using direct assignment.
+On Thu, Nov 5, 2026 at 9:26=E2=80=AFPM Andr=C3=A9 Almeida <andrealmeid@igal=
+ia.com> wrote:
+>
+> Some architectures need special entry points for some syscalls (like
+> clone3). The current approach is, instead of having a special name like
+> arch_syscall, to name if as __syscall. This is enough to different the
+> common entry point to the architecture specific entry point.
+>
+> Change alpha special syscall entries to do the same. This makes easier to
+> join the syscall tables. Leave alpha_syscall_zero because this syscall on=
+ly
+> exists in alpha anyway.
+>
+> Signed-off-by: Andr=C3=A9 Almeida <andrealmeid@igalia.com>
+> ---
+> Changes from v7:
+> - Fix __clone3 entry
+> ---
+>  arch/alpha/kernel/entry.S              | 8 ++++----
+>  arch/alpha/kernel/syscalls/syscall.tbl | 8 ++++----
+>  2 files changed, 8 insertions(+), 8 deletions(-)
+>
+> diff --git a/arch/alpha/kernel/entry.S b/arch/alpha/kernel/entry.S
+> index 790389a15c3c..25d05f45512d 100644
+> --- a/arch/alpha/kernel/entry.S
+> +++ b/arch/alpha/kernel/entry.S
+> @@ -729,9 +729,9 @@ ret_from_kernel_thread:
+>
+>  .macro fork_like name
+>         .align  4
+> -       .globl  alpha_\name
+> -       .ent    alpha_\name
+> -alpha_\name:
+> +       .globl  __sys_\name
+> +       .ent    __sys_\name
+> +__sys_\name:
+>         .prologue 0
+>         bsr     $1, do_switch_stack
+>         // NB: if anyone adds preemption, this block will need to be prot=
+ected
+> @@ -746,7 +746,7 @@ alpha_\name:
+>         ldq     $26, 56($sp)
+>         lda     $sp, SWITCH_STACK_SIZE($sp)
+>         ret
+> -.end   alpha_\name
+> +.end   __sys_\name
+>  .endm
+>
+>  fork_like fork
+> diff --git a/arch/alpha/kernel/syscalls/syscall.tbl b/arch/alpha/kernel/s=
+yscalls/syscall.tbl
+> index 8fc4701a6328..59eb066a40bf 100644
+> --- a/arch/alpha/kernel/syscalls/syscall.tbl
+> +++ b/arch/alpha/kernel/syscalls/syscall.tbl
+> @@ -9,7 +9,7 @@
+>  #
+>  0      common  osf_syscall                     alpha_syscall_zero
+>  1      common  exit                            sys_exit
+> -2      common  fork                            alpha_fork
+> +2      common  fork                            __sys_fork
+>  3      common  read                            sys_read
+>  4      common  write                           sys_write
+>  5      common  osf_old_open                    sys_ni_syscall
+> @@ -72,7 +72,7 @@
+>  63     common  getpgrp                         sys_getpgrp
+>  64     common  getpagesize                     sys_getpagesize
+>  65     common  osf_mremap                      sys_ni_syscall
+> -66     common  vfork                           alpha_vfork
+> +66     common  vfork                           __sys_vfork
+>  67     common  stat                            sys_newstat
+>  68     common  lstat                           sys_newlstat
+>  69     common  osf_sbrk                        sys_ni_syscall
+> @@ -242,7 +242,7 @@
+>  309    common  get_kernel_syms                 sys_ni_syscall
+>  310    common  syslog                          sys_syslog
+>  311    common  reboot                          sys_reboot
+> -312    common  clone                           alpha_clone
+> +312    common  clone                           __sys_clone
+>  313    common  uselib                          sys_uselib
+>  314    common  mlock                           sys_mlock
+>  315    common  munlock                         sys_munlock
+> @@ -474,7 +474,7 @@
+>  542    common  fsmount                         sys_fsmount
+>  543    common  fspick                          sys_fspick
+>  544    common  pidfd_open                      sys_pidfd_open
+> -545    common  clone3                          alpha_clone3
+> +545    common  clone3                          __sys__clone3
+>  546    common  close_range                     sys_close_range
+>  547    common  openat2                         sys_openat2
+>  548    common  pidfd_getfd                     sys_pidfd_getfd
+>
+> --
+> 2.56.0
+>
+>
 
-The late path is reachable without remapping:
-klp_write_section_relocs() applies .klp.rela.* sections through
-apply_relocate_add() with the patch module already MODULE_STATE_LIVE,
-so .plt is ROX.
+This conflicts with my Alpha for-next:
 
-Route the emitters through the same text-poke write path the relocation
-code already uses, rather than open-coding a parallel helper.
+  https://git.kernel.org/pub/scm/linux/kernel/git/lindholm/alpha.git
+  branch: for-next
 
-Fixes: 91b89a634487d5614e51ee773a889ed57f5551ca ("arm64/module: Use text-poke API for late relocations.")
-Cc: stable@vger.kernel.org
-Signed-off-by: Rui Qi <qirui.001@bytedance.com>
----
-Changes since v1 (formerly 3/3 of a 3-patch series, now standalone):
+Commit d38895ba9330 ("alpha: dispatch system calls from C") removes
+the fork_like assembly wrappers and changes the table entries to
+sys_fork, sys_vfork, sys_clone and sys_clone3.
 
-- Dropped the former 1/3 and 2/3 (big-endian byte-order fixups): arm64
-  big-endian support is being removed in v7.4 (Catalin Marinas), so the
-  BE-only paths are no longer reachable.
+Consequently, this rename is no longer needed when integrating your
+series on top of that branch. I skipped this patch for my integration
+test and retained those existing entries.
 
-- Incorporated review (Catalin Marinas): unify the relocation write
-  helper and the open-coded PLT/veneer write helper into a single
-  module_write_place() macro in asm/module.h, used by module.c and
-  module-plts.c; drop the redundant aarch64_insn_copy() NULL check
-  (destination is always sufficiently aligned, __text_poke() !NULL).
+My for-next is registered with linux-next, so this is an interaction
+we should account for when the trees are combined.
 
- arch/arm64/include/asm/module.h | 16 ++++++++++++++++
- arch/arm64/kernel/module-plts.c | 10 +++++++---
- arch/arm64/kernel/module.c      | 22 ++++++----------------
- 3 files changed, 29 insertions(+), 19 deletions(-)
-
-diff --git a/arch/arm64/include/asm/module.h b/arch/arm64/include/asm/module.h
-index fb9b88eebeb1..4a1a47f8ba1a 100644
---- a/arch/arm64/include/asm/module.h
-+++ b/arch/arm64/include/asm/module.h
-@@ -6,6 +6,7 @@
- #define __ASM_MODULE_H
- 
- #include <asm-generic/module.h>
-+#include <asm/text-patching.h>
- 
- struct mod_plt_sec {
- 	int			plt_shndx;
-@@ -29,6 +30,21 @@ u64 module_emit_plt_entry(struct module *mod, Elf64_Shdr *sechdrs,
- u64 module_emit_veneer_for_adrp(struct module *mod, Elf64_Shdr *sechdrs,
- 				void *loc, u64 val);
- 
-+/*
-+ * Write a relocation value to @place within a module.  While the module
-+ * is MODULE_STATE_UNFORMED the destination is writable and a direct store
-+ * is used; once the module is fully formed the region is read-only and
-+ * executable, so the write is routed through the text-poke API.
-+ */
-+#define module_write_place(place, val, mod) do {			\
-+	__typeof__(*place) __val = (val);				\
-+									\
-+	if (mod->state == MODULE_STATE_UNFORMED)			\
-+		*(place) = __val;					\
-+	else								\
-+		aarch64_insn_copy(place, &(__val), sizeof(*place));	\
-+} while (0)
-+
- struct plt_entry {
- 	/*
- 	 * A program that conforms to the AArch64 Procedure Call Standard
-diff --git a/arch/arm64/kernel/module-plts.c b/arch/arm64/kernel/module-plts.c
-index 7afd370da9f4..87d623789265 100644
---- a/arch/arm64/kernel/module-plts.c
-+++ b/arch/arm64/kernel/module-plts.c
-@@ -76,11 +76,13 @@ u64 module_emit_plt_entry(struct module *mod, Elf64_Shdr *sechdrs,
- 	int i = pltsec->plt_num_entries;
- 	int j = i - 1;
- 	u64 val = sym->st_value + rela->r_addend;
-+	struct plt_entry entry;
- 
- 	if (is_forbidden_offset_for_adrp(&plt[i].adrp))
- 		i++;
- 
--	plt[i] = get_plt_entry(val, &plt[i]);
-+	entry = get_plt_entry(val, &plt[i]);
-+	module_write_place(&plt[i], entry, mod);
- 
- 	/*
- 	 * Check if the entry we just created is a duplicate. Given that the
-@@ -107,6 +109,7 @@ u64 module_emit_veneer_for_adrp(struct module *mod, Elf64_Shdr *sechdrs,
- 	int i = pltsec->plt_num_entries++;
- 	u32 br;
- 	int rd;
-+	struct plt_entry entry;
- 
- 	if (WARN_ON(pltsec->plt_num_entries > pltsec->plt_max_entries))
- 		return 0;
-@@ -121,8 +124,9 @@ u64 module_emit_veneer_for_adrp(struct module *mod, Elf64_Shdr *sechdrs,
- 	br = aarch64_insn_gen_branch_imm((u64)&plt[i].br, (u64)loc + 4,
- 					 AARCH64_INSN_BRANCH_NOLINK);
- 
--	plt[i] = __get_adrp_add_pair(val, (u64)&plt[i], rd);
--	plt[i].br = cpu_to_le32(br);
-+	entry = __get_adrp_add_pair(val, (u64)&plt[i], rd);
-+	entry.br = cpu_to_le32(br);
-+	module_write_place(&plt[i], entry, mod);
- 
- 	return (u64)&plt[i];
- }
-diff --git a/arch/arm64/kernel/module.c b/arch/arm64/kernel/module.c
-index 24adb581af0e..595c358b4f0e 100644
---- a/arch/arm64/kernel/module.c
-+++ b/arch/arm64/kernel/module.c
-@@ -23,7 +23,6 @@
- #include <asm/insn.h>
- #include <asm/scs.h>
- #include <asm/sections.h>
--#include <asm/text-patching.h>
- 
- enum aarch64_reloc_op {
- 	RELOC_OP_NONE,
-@@ -49,15 +48,6 @@ static u64 do_reloc(enum aarch64_reloc_op reloc_op, __le32 *place, u64 val)
- 	return 0;
- }
- 
--#define WRITE_PLACE(place, val, mod) do {				\
--	__typeof__(val) __val = (val);					\
--									\
--	if (mod->state == MODULE_STATE_UNFORMED)			\
--		*(place) = __val;					\
--	else								\
--		aarch64_insn_copy(place, &(__val), sizeof(*place));	\
--} while (0)
--
- static int reloc_data(enum aarch64_reloc_op op, void *place, u64 val, int len,
- 		      struct module *me)
- {
-@@ -77,7 +67,7 @@ static int reloc_data(enum aarch64_reloc_op op, void *place, u64 val, int len,
- 
- 	switch (len) {
- 	case 16:
--		WRITE_PLACE((s16 *)place, sval, me);
-+		module_write_place((s16 *)place, sval, me);
- 		switch (op) {
- 		case RELOC_OP_ABS:
- 			if (sval < 0 || sval > U16_MAX)
-@@ -93,7 +83,7 @@ static int reloc_data(enum aarch64_reloc_op op, void *place, u64 val, int len,
- 		}
- 		break;
- 	case 32:
--		WRITE_PLACE((s32 *)place, sval, me);
-+		module_write_place((s32 *)place, sval, me);
- 		switch (op) {
- 		case RELOC_OP_ABS:
- 			if (sval < 0 || sval > U32_MAX)
-@@ -109,7 +99,7 @@ static int reloc_data(enum aarch64_reloc_op op, void *place, u64 val, int len,
- 		}
- 		break;
- 	case 64:
--		WRITE_PLACE((s64 *)place, sval, me);
-+		module_write_place((s64 *)place, sval, me);
- 		break;
- 	default:
- 		pr_err("Invalid length (%d) for data relocation\n", len);
-@@ -157,7 +147,7 @@ static int reloc_insn_movw(enum aarch64_reloc_op op, __le32 *place, u64 val,
- 
- 	/* Update the instruction with the new encoding. */
- 	insn = aarch64_insn_encode_immediate(AARCH64_INSN_IMM_16, insn, imm);
--	WRITE_PLACE(place, cpu_to_le32(insn), me);
-+	module_write_place(place, cpu_to_le32(insn), me);
- 
- 	if (imm > U16_MAX)
- 		return -ERANGE;
-@@ -183,7 +173,7 @@ static int reloc_insn_imm(enum aarch64_reloc_op op, __le32 *place, u64 val,
- 
- 	/* Update the instruction's immediate field. */
- 	insn = aarch64_insn_encode_immediate(imm_type, insn, imm);
--	WRITE_PLACE(place, cpu_to_le32(insn), me);
-+	module_write_place(place, cpu_to_le32(insn), me);
- 
- 	/*
- 	 * Extract the upper value bits (including the sign bit) and
-@@ -224,7 +214,7 @@ static int reloc_insn_adrp(struct module *mod, Elf64_Shdr *sechdrs,
- 						   AARCH64_INSN_BRANCH_NOLINK);
- 	}
- 
--	WRITE_PLACE(place, cpu_to_le32(insn), me);
-+	module_write_place(place, cpu_to_le32(insn), me);
- 	return 0;
- }
- 
--- 
-2.20.1
+Thanks,
+Magnus
