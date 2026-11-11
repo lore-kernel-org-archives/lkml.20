@@ -1,59 +1,128 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.146
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794413295;
-	b=fJxcTJpR0S9/j94aVA4pnDLtkojYQWzyKKU5e09ZFXxoif0imepKi2DffcI8Ovn71ykG
-	 UiPjY7+zy0w7yuddfyriGo/TnXRMmNU3D0NBGVzbCgKAr/ulqTsFGWuduYBQmkuIVKmlZ
-	 6bAFoda6RFnjMGD3xP3+htEi2zCrnRHgZ6U8utoR7Wl8dZJl35fxint7XBscvIbMbpe7c
-	 kdEc+5JwJx5O5eSfO9LG790yfpa1iPW2Kx8tWNzZANts9nbtogR4wYLaslAdMTYJlRjPI
-	 KUUG+/UjSIKdTg7AN2ykFIbSf7uAEUB6LQJ4CdpmuCJwovIpLPnBmEuiYAUFG56hN+g==
+	t=1794413291;
+	b=OTapRwhOc7wIWMHlXpb8An2NP1SOcyImTuaZ2zbC4XdQ283VMXAXi9vDYjHzsEJgR992
+	 HwIL3UYwIAQuSz0pxRQ6/TGeej8hAgYR57+nbbsb2K9P+KYXVbZqTLSyGx1Z9lGEJX9Fv
+	 CxEmw7JYayYKV5+QAaWzscIaymN6Xv0AdOwxsnooAlJTfd+fujHDg7/SlZRCmnYztgzjU
+	 CuRTH+TZd1bu8Q6fpcaB53xkhPrsEXBH0G3T/5/Hr6DTcvHyyt/2toLfUE3iwevos9QYh
+	 eQepnvYnH1VC5qLjvy4OYSL1ov2KnPbb5UFS9HMnG7mJhuiBGE1iqzQfTHHHxfwLBfA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794413295;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=bqR+F5Cu2cpA5OZAVf1AXWWlYtWd7xJLjOh702/W4M8=;
-	b=UeFE9AorQfjnX+DL1ooMFh7ToLtQWaHQrJcyIPzNgjoioTUkBBoR8hGPtG246Tkgebvz
-	 VkAgN49Y4tbCwUTFLIy6q8HxqEMt6u0kHZBr93+hYiVJhKM7IY2H4lyAADW87hSGYJ8tz
-	 2ukrNE5z0qaajtaxYXtrZTGz+TqkO6c81i1HFK4SN/rg7tJqwlE6epsHoE0E8Pjst366Y
-	 NDcMITmKUf3YxjVp0re/kR42NznivloXnk6eBW2M3oHvi4PtwrMm9GtOk0qqTpD6Gn/WR
-	 kLzSddQeen8ntai4gJgiPOnrLBMmbszlmrRVFNSglsm6YjYbziiLdjTubzHRuK92MPA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794413291;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding;
+	bh=xNI7FhhWXJTVEfgFdiCjAwu1qJ5S7uLHPAT406qre8I=;
+	b=yRTemLlxTCuTIeq/BDenpZNcu/mtqL3o/HaGQ1gFmP8lwifE3PilbRrvcUEF9UmUAK7x
+	 tiZoCBHV6FIwgPQiyUxTZ3WDmmhbKPXlsJcVaKvvx3hC+nhw2uWlJe4vpEqhIvYMKvVT1
+	 /6ktWscG+cxQLHVeUhDQnL2J8spnVD+u1k1XJ2iUQj0cS6V0w/6zbEA5fNwNehSWkenN7
+	 /OyDhAuIr0KBtingnJcLpKO1oUH9/aYWcDzW4OrsNNthwHREFkiyF5CNStmNuQuLpuiqN
+	 LSit9npTkbo18hDM/DKHXQqTzhgitsdmGpXSJnM0NICkunyOY1+W2C43SKTQm85+6QQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dWx0jylW;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=fastmail.org;
+	spf=pass smtp.mailfrom=fastmail.org;
+	dkim=pass header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=h49wniB0;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=IFU7woW5;
+	arc=none smtp.remote-ip=103.168.172.146
+Received: from fout-a3-smtp.messagingengine.com (fout-a3-smtp.messagingengine.com [103.168.172.146])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75310606A321;
-	Wed, 11 Nov 2026 16:08:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 095B9606A32D
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 16:08:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 095B9606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dWx0jylW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B0A31F00A07;
-	Wed, 11 Nov 2026 16:08:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794413295;
-	bh=bqR+F5Cu2cpA5OZAVf1AXWWlYtWd7xJLjOh702/W4M8=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=dWx0jylWZSrsY/6pvcQw2KjLLIT/sFqNulj9Q3oSOlS3VkE/LN1p+2124qDB3+kc+
-	 yF/9BugE86YznVa4A4huWrcyNqnO1cMlL9D4cK4XV7fQwSuzSa4p4jBB5gVNbR9wc7
-	 Y0gRq4FyPWrEHdQ+6UvOPXrCAuVONfAsZ2ntNLJvprLe8tYim50xzqmPbC6EHs+uVV
-	 dd2gtaMcyoeJeof8Vj3xPZ7a8ooiFXd4EIAJAngv+WjgQF0IHp0TVfu1tiqeydcCSL
-	 lNlQd/ys5aaUVulcNG7Z+MvLP+jqlvEmLm8K7ynrs60UxzQq6xw/XsjvyLbaiRNJA9
-	 OCReJ69uGWJzg==
-Subject: Re: [PATCH v3] libcxgb: use raw_cpu_ptr() in ppm_get_cpu_entries()
-From: netdev-bot+sashiko@kernel.org
-To: haoranwangsec@gmail.com
-Cc: bigeasy@linutronix.de, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, rostedt@goodmis.org
-Date: Wed, 11 Nov 2026 16:08:14 +0000
-Message-ID: <179441329408.2199510.4180666422903927699@kernel.org>
-In-Reply-To: <20261109180748.33682-1-haoranwangsec@gmail.com>
-References: <20261109180748.33682-1-haoranwangsec@gmail.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=h49wniB0;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=IFU7woW5
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+	by mailfout.phl.internal (Postfix) with ESMTP id 58051EC0652
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 11:08:10 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-06.internal (MEProxy); Wed, 11 Nov 2026 11:08:10 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.org; h=
+	cc:cc:content-transfer-encoding:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm3; t=1794413290; x=
+	1794499690; bh=xNI7FhhWXJTVEfgFdiCjAwu1qJ5S7uLHPAT406qre8I=; b=h
+	49wniB068XoKCYc16cwroR95107cIRIUqZArGJasPF8iCfif6ZrWhE6+n/8MQtNI
+	WnEoF9SZE98wxsJORStlWBY+jXqsvavVfKm98js7heddFmR5coDb4km5lwAjdppQ
+	Z+CiR6m3PUxB52b/itq0+H0QdG0n79KsL1E3R3Mi23aFK6uj6U46SZwVLU+g/idW
+	NFkY2aPRX/DcdVOqiS45e9NWwV2jCDF9lGXDW0ip1bkqP1nPIkxM1p26GdeRgxlq
+	YQCGppdAAaDd92Aw9aXYr0zCdmMVLuhqSPcPnyr+80CX9ncJXQd7b0QZ5T0KD8JT
+	8Ybgn/KZOsEk/8ijMJkuA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
+	:x-me-sender:x-sasl-enc; s=fm3; t=1794413290; x=1794499690; bh=x
+	NI7FhhWXJTVEfgFdiCjAwu1qJ5S7uLHPAT406qre8I=; b=IFU7woW5wrHXHZG6t
+	AFBd4EO8pbxiv8ZpiZJl3EvLfPIjZRZuLwX3DxVVBYW1m4i29mWHCAz+xh6PAqdc
+	qclQlYnC3xOhKsuaUtF09J4AWZgUBi8OdaDuMpmLyuQp7y0zosPdSHAF2z5v1gVU
+	ZH6iAMe6pZ9oBBVNTabAykD03GwWXjgaOaEOHHNVNPUjSTFZWDNBZkqUjCyfxg4A
+	ziapT0EZPQBYjcsRDLf1YDUjJu/Qx/Ih0X/fIB8b4J3zqL9u9IF2lOUMiJ80VyPr
+	2BR+M2QT3NQKGvhdqm1lEftcjsqDt9m8W+0nEoeSGa7m61FfD1jBAMmVGJZyNdY9
+	J10+g==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=fastmail.org a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1794413290; d=fastmail.org;
+	mf=PGljYkBmYXN0bWFpbC5vcmc+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm3:rsa-sha256:Zupp7CkAKJWdV7tytXdM50fPhq0tUlE+hKeWf8EHp40owXe
+	fSLRtZuK2u2sxrZlhBWo8pqXwRED7SjR3QJnOY9gJSH9mw6xpCKmtI9J692jVIal
+	FNDDajvT87OdH8knf+jGKWPlKfbLYr2lQCJue52UWz8aPRZCqHC9LRre7afOUAEL
+	vuLF5bHmR0v3dbdpeEcDjskGOig4JLIe58dFtcajFn4iSusFBItkiSvgBMxqLXk5
+	3yaVf3U50PsgeVQ/4n8lix8TsCC9yqRDNZVPRLODUf8DcD9Oa35zZxUKql/0QjGa
+	s4VTIE8MypSfvm+NNNUuPBfi6gysg+pPH09X6+A==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=11;
+	hn=cc,content-transfer-encoding,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:IrfuLGt7KRhZcItFVJOYu4jJrkvaWCkKSe7X6yBCEEI=:j3mfKCSAZysz8cOYO4xunMlz4f8Xoig17FxZxB7+pAQ=;
+X-ME-Sender: <xms:6ZL0ary0rHHpQoM4cPwCYPEiNyO65BbgIZkXBV9349ApxK4THaxCfw>
+    <xme:6ZL0apRTPA_GWoFNE2tksT8XUIrYt6FLi5-OCgvup5-W1T63p6PCTj1qTl1FDILLa
+    9W8NhJLoxZPuZj6x28V8g57H1ZeOIbE2KLHUztdks4RpEIuTGKApxNi>
+X-ME-Received: <xmr:6ZL0agL39qcEeSwgbzDAQ44KyR9Mnz73oE0padfW55j7E_wtELaAoYUDHjg49c-W>
+X-ME-Proxy-Cause: dmFkZTEGiWpjkAqvpdpTZAueIN2nKSWOBCp/471wSdPjoZ6M4A7svfpQVH1R8hL0xV027/
+    e/Kc7t5m5zPL0cbReHQKNc5TdJDTo0B9hXmMzycYcte96r8JDR2uPmZPqUWM0DzimKCgdm
+    Js4TJUWLPj3WH9yiGOKX/Z1Ijz8WIQ05VA35XI6CHJrBzU7UWxlE6R9xvZ0B/cyNv7Xm3L
+    5rKv8i28Vg4bQXfxrtySwyKEQjLwngDFIhc2+Q1N+AdzaJ/KasUAdq5US6/JhmoAqVXSW0
+    54pZcTWvZ9LtMFIjdyMWDcT6HAVQSBA88K+xj9JEI1cA3aG9bWoe5ScMMuy4q18OWdN7tI
+    bAd79twYMGOTX2E1qNkzINWfv0r6Z6XOhRmW7hTOQ/IhU+52ziBJE0ONQiT+L95WCFeEne
+    4VigZaFsXqwpQZyRqzuSpi7MGKUuE/+I59r7EfS+86c9r6+PxkYwXnnDAL1ehVDi3TZ/Df
+    n4lUsk+bZtNrg89Ea42L75BsP8lzCwkKX/c+EalxIeCzxQiVmV7MSuFidWX0+iYcS9zt5Z
+    GuWXtgR+wr8vk1vIxwHui/eqD8QuN+9kdkKhBUe2kfngaf7H2iw4KiCLKOFYNgumrFh3De
+    TYu3EBqN5BEC6lVykz6+9v+wOVJ7jet88Dxl46gZFIuF4XcA4z3skmGCv6Ug
+X-ME-Proxy: <xmx:6ZL0aoUIXZqnGP3XzM7_cl2wOFH2u01Z3i8jyqT6upYAmRhsYFgipg>
+    <xmx:6ZL0asTgWgkMOULmkRu1L1LAutocht9pR6-WEDi1eYbChGkeDRNtdQ>
+    <xmx:6ZL0aoBRyjD1sr8U_rFkeRPleyGnAoCJ7PW1CF5ZU_GF9N1KbFTxqw>
+    <xmx:6ZL0ajL3q6S2ZI26zS8UlkqCvAKbxtg2BExMzLZkR8d4gbA-66K3Xg>
+    <xmx:6pL0an4d-6UGIVGINvBC8bnevHSc054WhOc-JtjyKMEXnY65LXE2iTGr>
+Feedback-ID: ib53e4b78:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 11 Nov 2026 11:08:08 -0500 (EST)
+From: Ian Bridges <icb@fastmail.org>
+To: jan.koester@tuxist.de
+Cc: linkinjeon@kernel.org,
+	senozhatsky@chromium.org,
+	tom@talpey.com,
+	chenxiaosong@chenxiaosong.com,
+	brauner@kernel.org,
+	linux-cifs@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Ian Bridges <icb@fastmail.org>
+Subject: Re: [RFC PATCH 4/6] ksmbd: map user and group ids to Windows SIDs through user space
+Date: Wed, 11 Nov 2026 10:08:03 -0600
+Message-ID: <20261111160803.4128207-1-icb@fastmail.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <a1eda764f3c867c02a5a5ce0@groupi3>
+References: <a1eda764f3c867c02a5a5ce0@groupi3>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,131 +132,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+Hi Jan,
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 1
+On Tue, Nov 10, 2026 at 09:02:46AM +0000, Jan Koester wrote:
+> + * one) and ksmbd's. Built at login; a
+> + * mapping user space couldn't give then is missing for the session (its
+> + * ACL entries don't match: access is denied, not granted).
+[...]
+> +	sids = kcalloc(max, sizeof(*sids), KSMBD_DEFAULT_GFP);
+> +	if (!sids)
+> +		return;
+> +	if (!mapped_uid_sid(user->kuid, &sids[n]))
+> +		n++;
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+If user space cannot answer at login (-EAGAIN), ksmbd_user_set_token()
+seems to leave that domain SID out of the token. It builds no token at
+all when the allocation fails. The comment says access is then denied.
+That holds for an allow ACE on that SID, but wouldn't a deny ACE on it
+stop applying? Take a DACL with a deny of WRITE_DATA for a mapped
+group, followed by an allow of full access for Everyone. Would a member
+whose group SID is missing get write access through the Everyone entry
+for the whole session? Could -EAGAIN and allocation failures be
+returned from the token build so the login fails, while -ENOENT, for an
+account with no mapping, stays as it is?
 
-- [High] The patch changes how ppm_get_cpu_entries() encodes the global
-  ppod index but leaves the release path decoding it the old way.
-- [Low] The commit fixes a user-visible PREEMPT_RT bug in
-  ppm_get_cpu_entries()…
-
---
-
-libcxgb: use raw_cpu_ptr() in ppm_get_cpu_entries()
-
-The commit removes the get_cpu()/put_cpu() pair around spin_lock_bh() in
-ppm_get_cpu_entries(), so the code no longer takes a sleeping lock with
-preemption disabled on PREEMPT_RT. It reads the pool with raw_cpu_ptr().
-It also builds the global ppod index from a new pool->base, set in
-ppm_alloc_cpu_pool(), instead of cpu * pool_index_max.
-
-> diff --git a/drivers/net/ethernet/chelsio/libcxgb/libcxgb_ppm.c b/drivers/net/ethernet/chelsio/libcxgb/libcxgb_ppm.c
-> index 2e3973a32d9d1..7fb6c8a41e98f 100644
-> --- a/drivers/net/ethernet/chelsio/libcxgb/libcxgb_ppm.c
-> +++ b/drivers/net/ethernet/chelsio/libcxgb/libcxgb_ppm.c
-> @@ -119,16 +119,13 @@ static int ppm_get_cpu_entries(struct cxgbi_ppm *ppm, unsigned int count,
->  			       unsigned long caller_data)
->  {
->  	struct cxgbi_ppm_pool *pool;
-> -	unsigned int cpu;
->  	int i;
->  
->  	if (!ppm->pool)
->  		return -EINVAL;
->  
-> -	cpu = get_cpu();
-> -	pool = per_cpu_ptr(ppm->pool, cpu);
-> +	pool = raw_cpu_ptr(ppm->pool);
->  	spin_lock_bh(&pool->lock);
-> -	put_cpu();
-
-[Severity: Low]
-This isn't a bug, but should the patch have a Fixes: tag? The sequence
-get_cpu(); per_cpu_ptr(); spin_lock_bh(); put_cpu(); dates back to the
-original page pod manager, before the file moved to libcxgb:
-
-Fixes: 47da7e62b391 ("cxgb4: add iSCSI DDP page pod manager")
-
->  
->  	i = ppm_find_unused_entries(pool->bmap, ppm->pool_index_max,
->  				    pool->next, count, 0);
-> @@ -145,10 +142,10 @@ static int ppm_get_cpu_entries(struct cxgbi_ppm *ppm, unsigned int count,
->  	spin_unlock_bh(&pool->lock);
->  
->  	pr_debug("%s: cpu %u, idx %d + %d (%d), next %u.\n",
-> -		 __func__, cpu, i, count, i + cpu * ppm->pool_index_max,
-> -		pool->next);
-> +		 __func__, pool->base / ppm->pool_index_max, i, count,
-> +		i + pool->base, pool->next);
->  
-> -	i += cpu * ppm->pool_index_max;
-> +	i += pool->base;
->  	ppm_mark_entries(ppm, i, count, caller_data);
->  
->  	return i;
-> @@ -375,6 +372,7 @@ ppm_alloc_cpu_pool(unsigned int *total, unsigned int *pcpu_ppmax)
->  
->  		memset(ppool, 0, alloc_sz);
->  		spin_lock_init(&ppool->lock);
-> +		ppool->base = count;
->  		count += ppmax;
->  	}
-
-[Severity: High]
-Does the new encoding still match the release path?
-
-ppm_alloc_cpu_pool() walks the pools with for_each_possible_cpu(), so
-pool->base is the CPU's position in cpu_possible_mask times ppmax. It is
-not cpu * ppmax. ppm_get_cpu_entries() now returns i + pool->base.
-
-ppm_unmark_entries() is unchanged and still treats that value as a CPU
-id:
-
-drivers/net/ethernet/chelsio/libcxgb/libcxgb_ppm.c:ppm_unmark_entries() {
-    ...
-		cpu = i / ppm->pool_index_max;
-		i %= ppm->pool_index_max;
-
-		pool = per_cpu_ptr(ppm->pool, cpu);
-		spin_lock_bh(&pool->lock);
-		bitmap_clear(pool->bmap, i, count);
-    ...
-}
-
-If cpu_possible_mask has no holes, position and CPU id are the same.
-If it has holes, they differ.
-
-With possible = {0,2,3}, CPU 3 is at position 2. So
-cxgbi_ppm_ppod_release()->ppm_unmark_entries() clears CPU 3's entries in
-CPU 2's pool:
-
-- CPU 3's bits are never freed.
-- CPU 2 can hand out an index that is still in use, so two live DDP tags
-  could share one hardware page pod.
-
-With possible = {0,2}, CPU 2's entries decode to cpu 1, which is not a
-possible CPU. per_cpu_ptr(ppm->pool, 1) then points at a slot that was
-never memset() or spin_lock_init()'d. The code takes a lock in it and
-clears bits in it.
-
-The new pr_debug() above also prints this position as "cpu".
-
-The v1 changelog says "ppm_unmark_entries() derives the owning pool from
-the index itself". After this patch, the index it decodes no longer
-matches how ppm_get_cpu_entries() builds it.
-
-Should ppm_unmark_entries() be updated as well? For example, it could
-find the possible CPU whose [base, base + pool_index_max) range holds
-the index, or the owning CPU could be recorded.
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261109180748.33682-1-haoranwangsec%40gmail.com
+Thanks,
+Ian
