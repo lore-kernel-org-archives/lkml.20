@@ -1,74 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794417807;
-	b=OtKldCGINAQeJzf2Sr5wrQ0lFj/VKA7V5vbbuoA3fRjDjrcrmZBEfEhkQS9IXDDIKBa4
-	 iwK5x1vdtNFRYdYErCIZlmrxs87NTJQtvgeZFVAuXKYqovyFZl1uPbBEC2WmAVHyymn/y
-	 3eixO5LZLH6aa2xUyP5VP4NfflSr+JwIIMU5zvpo8mOr5QI/WqB1G+p2//jLfyjyD2bwA
-	 Q1MIq3zjrLDSbGwgDp9el8dBBRI89R4yEQjwG7GZ1Lv7gAiNOSwrJ/vW+20GsNcwywLxX
-	 hU8Woj+01QP1CdbDhB1DRGrYg/nbPElQVylM/2VPBo1zvEU7TdJYn34RYX31DIFMgcg==
+	t=1794417815;
+	b=qKBAnXyaq2+M9juaI9w3vK2QLILGwOXhELZEg9xw6BRsPKFHqbrPTYDNeeD+pCwepTF+
+	 FQTMPeyISpmWWKvRVJFRuwNLCqt2hA82IP/7EcSQVoLj7IPq984bV0J2BExwLC9nqNhcS
+	 5fj9/iHgMwzeRmseegsGeQ+TMlEmOqtJ059yq4E8W/8j1LjPmTLY+00hKEJp+SH/3ofjQ
+	 G65z+hppJn/RMfSLFIdXbN0JRCniU1UoiJR2BmHlcBplLoC7k/VFzH9IDeEO8jkB/Ju+n
+	 YN9u68TluH2SMdIYrB7+jcLukx8ZmUAC5jqWFrIh3nx4ENeFmqfr43o4vaquCw5dRRA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794417807;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=mNxsse4bfiCdfhVUp0bFSnRTdLzHTdzeDYz8TXmmhJU=;
-	b=wetN++q0vRIfXDbvYNw+pn1WmAOvkV7naw91nX+6q+MLA0qtW5pGuKINq5a2NLK6gOe0
-	 rjaBJ/DRWu1UGa5nO9Fth4BhvkfIo9g/bugLgMJpd443TbeAkKw8j0QFAzaEDJ1OdxX2A
-	 vAApcYS2Ilxznszzc0GLmIwgkdQvd4CNOsFSKX16MDkB/yxKFpf77MHGH5bol5vHF1zp8
-	 9I7JrMWvKNB89HSGOmUrbMhBUQ47UF2gAAIrm66DqWo3vhZaUPxSehoLDseyfuU+fcdA5
-	 unDEuCkG1rV9YCAFpwOVlfGa6qG/gf2O0smkr60nXIfOONfyprvOoaR53BqJ5/nm7Jg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794417815;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Reply-To:Organization:Content-Transfer-Encoding;
+	bh=amdozvEXKjSjaaYnV4Mv1pVbh2XMgfKLrjXQ4vsAgUI=;
+	b=f3CKrSO/dAJmTpPPrYcMO6UorXoBsnpo1ha/BM+M0WPg26gJ3v31bGIunkl8Tsq/O0Rr
+	 I16QTL8DskvMMhS/m7gLy2eMp0TF5GVsK1+QfWDAGXYlFzuCRNJh9XP3K3Kj6uo08KeCE
+	 3LyPedD5qS4CG20zYfwJqlcZhzBDM8OK0jcL/QRjXP722TSRPKoQIE/0+J/Bj6HZLWW+S
+	 rrH8UkM9eFdfYceD76KV6tVTZISiP/fo4td28tjTakfpnI6MP2UognLUn5EuNusaNLYm6
+	 CUgHnhdXbQIVlCBDQF5vWeXAtbiHJB43ecROOts8XF5+2GevldpiNFXpRfWrRwFfpsQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--chriswiseman.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=XCGxseVY;
-	arc=none smtp.remote-ip=74.125.82.197
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ooY2l0aw;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20547606A88D
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 17:23:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 20547606A88D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--chriswiseman.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1449606A337;
+	Wed, 11 Nov 2026 17:23:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=XCGxseVY
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-36d1353fdcdso2117231eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 09:23:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794417806; x=1795022606; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mNxsse4bfiCdfhVUp0bFSnRTdLzHTdzeDYz8TXmmhJU=;
-        b=XCGxseVYCgbeUYTVWsJLUbMkJSp48CG9x2RJTDfO81GN4yaAIc6+f80/LF39zLrr7v
-         1kMf2rohJOpeVXoGTSBA1ASaQXier2gE4xCtkqzqo7q+qYaccHzGqCT6UDHcPMGV/5pX
-         q3WDP6acxOQifgDq8nOulKWjxXJnnmWTC5lFmzVf6AqafsIXLNm/iD76XCbmf/EHvj6d
-         tlnFG7kC27C033CUyYJ8iEQDuorJ0xXd0sBBVK6obAwMzJX1CIP+nNpY7mgMUP7+7pKJ
-         H6QgcBKfkSYK2xjNiRu/syw50CvnUUPShJjI8673qQCcmH8dgWIAXBP7TFrsQpw91x+s
-         VIYQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794417806; x=1795022606;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mNxsse4bfiCdfhVUp0bFSnRTdLzHTdzeDYz8TXmmhJU=;
-        b=mwuB9tjPUlGdO0FxxNB9AUUBiPymtujb7ScB+/fVbe0JYVKQe287q1gVUlIL7mE7ml
-         qGUQ90I8GWKuySnBS5ceagjsd3vMG0+59dnnPGkEINgwhFm86REzboyWXQURoG5VGwWn
-         aV9oq7nvFSUTQbl8T2NtwSDqXdnnBujMpTwBzpShSO7lNUNwWJYB//dGzJQjgMnZMJp8
-         7cYPFN45bzoppyCpWCEYAdOKXmMrKTvj6ALOJM8pwdtAk8+xSh84m9q320bEJjCocXYC
-         NxYF7v/mC9cJAm0UHU8LQLNlEYcYwJ5YbAQPaL2wWFZ1MaxiFeFo1+S4IsFRDxTUni9P
-         UqMw==
-X-Forwarded-Encrypted: i=1; AL+hErFXRATKmnTIaZzw3h/y8EZHQVwuSIY8TJ+S2pfzAehIITI9BvLN/C4g++8/W5uHpGbp+iwsd1tg5fo3ACU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9lru855mra6DbJq0eBS4f0PVK5wRhU0hvMFTyTklC/dgW/vAsi
-	tUu7nFPCQGo7hMvwEyt634uRxQkzkwX2/itFRi62q8GmsrZMNI5yvpZkD5dIwojfzzNUE9U+Pq/
-	O/jsj8jD2OKyuYhYAj1R/eqg3HNfAdQ==
-X-Received: from dlbej1.prod.google.com ([2002:a05:7022:c41:b0:1a0:100d:fd6])
- (user=chriswiseman job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:7022:7f1b:b0:149:50cb:2175 with SMTP id a92af1059eb24-1b3c034a4f1mr2618122c88.33.1794417805919;
- Wed, 11 Nov 2026 09:23:25 -0800 (PST)
-Date: Wed, 11 Nov 2026 17:23:24 GMT
-In-Reply-To: <>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ooY2l0aw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D72661F00A05;
+	Wed, 11 Nov 2026 17:23:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794417815;
+	bh=amdozvEXKjSjaaYnV4Mv1pVbh2XMgfKLrjXQ4vsAgUI=;
+	h=From:To:Cc:Subject:Date:Reply-To;
+	b=ooY2l0awGQBdAUWEwaogJFVPGkUGlz3YBBCBOt56rW5Y6r4PGf3lNQAKSoTkKXZCh
+	 kMZKQHa74jlSh+lZPzfj9ltJkj0O3igk6fOQVOzj6Tqonu0AQtuFaK/YDAeD1Fttqr
+	 eMzYgQWFQH/v/Lx6ZOrkYpTtxEsDoUAtg9VrlyU/65QuJsfK/JOKceYOJS+caDr4gn
+	 szJAWqVzhh7ZnIwv9MsejDg1mWjk8BaJ55OZ+fa+nbRBphyAUP87F099BGfWUQ2ZS0
+	 cB1cGWtYuIGZJvEtQ1FgCvFXFbFiUMKL2UtTOk7cc8T52Of4EDa7pzOUJP3WwkERd5
+	 N6uDlRsgH4W0g==
+From: Len Brown <lenb@kernel.org>
+To: rafael@kernel.org,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Loic Poulain <loic.poulain@oss.qualcomm.com>
+Cc: linux-pm@vger.kernel.org,
+	mhi@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] bus: mhi: pci_generic: Fix erroneous system suspend abort
+Date: Wed, 11 Nov 2026 14:23:26 -0300
+Message-ID: <b47282f1514a9012ac51d0915afb83782c3c0050.1794417398.git.len.brown@intel.com>
+X-Mailer: git-send-email 2.45.2
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,300 +58,49 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <>
-Message-ID: <18e70d7cbc2831c0.3137322e32332e3235332e313736.1920de.0000sendgmr@google.com>
-Subject: [PATCH v3 2/2] rust_binder: account for deferred work size in Thread::read()
-From: Chris Wiseman <chriswiseman@google.com>
-To: Alice Ryhl <aliceryhl@google.com>, Carlos Llamas <cmllamas@google.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: =?UTF-8?B?QXJ2ZSBIasO4bm5ldsOlZw==?= <arve@android.com>, 
-	Todd Kjos <tkjos@android.com>, Christian Brauner <brauner@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
-	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, Chris Wiseman <chriswiseman@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Reply-To: Len Brown <lenb@kernel.org>
+Organization: Intel Open Source Technology Center
+Content-Transfer-Encoding: 8bit
 
-When a looper thread replies with TF_DEFER_COMPLETE, its 4-byte
-BR_TRANSACTION_COMPLETE work item is queued via push_work_deferred() in
-inner.work_list without setting inner.process_work_list. On the next
-blocking BINDER_WRITE_READ ioctl, inner.should_use_process_work_queue()
-returns true and Thread::read() checks only whether the remaining output
-buffer can fit a single transaction (4-byte command code plus
-size_of::<uapi::binder_transaction_data_secctx>()).
+From: Len Brown <len.brown@intel.com>
 
-If userspace provides a read buffer with 76 bytes remaining after the
-initial 4-byte BR_NOOP placeholder (read_size = 80), Thread::read()
-calls Self::get_work(), sleeps in Process.ready_threads, and receives an
-incoming synchronous transaction queued behind the deferred
-BR_TRANSACTION_COMPLETE in inner.work_list. Iteration 1 of the loop
-writes the 4-byte BR_TRANSACTION_COMPLETE, reducing writer.len() to 72
-bytes, and iteration 2 exits the loop without delivering the incoming
-transaction, leaving it stranded in the thread-local work_list.
+mhi sometimes aborts system suspend on the thinkpad T16 gen3:
 
-Add a size(&self) -> usize method to DeliverToRead returning the maximum
-number of bytes that do_work() may write to the user read buffer, and
-add InnerThread::pop_deferred_work() and Thread::pop_deferred_work() to
-drain deferred items from inner.work_list before entering the main work
-loop in Thread::read() when the remaining buffer is at least 76 bytes
-but cannot fit both the queued deferred items and an incoming
-transaction. If any deferred item writes bytes to the buffer, skip the
-main work loop and return the drained deferred items immediately without
-mutating inner.process_work_list or waiting for new work.
+mhi-pci-generic 0000:08:00.0: failed to suspend device: -16
+mhi-pci-generic 0000:08:00.0: PM: pci_pm_suspend(): mhi_pci_suspend [mhi_pci_generic] returns -16
+mhi-pci-generic 0000:08:00.0: PM: dpm_run_callback(): pci_pm_suspend returns -16
+mhi-pci-generic 0000:08:00.0: PM: pci_pm_suspend returned -16 after 15145 usecs
+mhi-pci-generic 0000:08:00.0: PM: failed to suspend async: error -16
 
-Suggested-by: Alice Ryhl <aliceryhl@google.com>
-Fixes: 8eb05e8e47f1 ("rust_binder: add TF_DEFER_COMPLETE flag for avoiding userspace roundtrip")
-Cc: stable@vger.kernel.org
-Signed-off-by: Chris Wiseman <chriswiseman@google.com>
+When a driver returns -EBUSY for its runtime suspend method,
+that means "try again later".
+
+But when a driver returns anything but 0 from its system-suspend
+method, that means "abort system suspend".
+
+Always return 0 from mhi_pci_suspend().
+
+Fixes: d3800c1dce24 ("bus: mhi: pci_generic: Add support for runtime PM")
+Signed-off-by: Len Brown <len.brown@intel.com>
 ---
-v2 -> v3:
-  - Add InnerThread::pop_deferred_work() and Thread::pop_deferred_work()
-    to drain deferred items in Thread::read() without mutating
-    inner.process_work_list or gating on
-    inner.should_use_process_work_queue(), avoiding looper hangs in
-    get_work_local() on zero-byte deferred work, handling local work
-    queue paths, avoiding setting process_work_list when the buffer is
-    under 76 bytes, and draining all deferred items that fit in the
-    remaining buffer (Sashiko).
+ drivers/bus/mhi/host/pci_generic.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-v1 -> v2:
-  - Reserve BR_NOOP before checking the work queue and drain deferred
-    items when writer.len() < 76 + deferred_size instead of skipping the
-    read loop and returning only BR_NOOP, and avoid the per-iteration
-    work.size() dynamic call inside the read loop when deferred_size is
-    zero (Alice Ryhl, Sashiko, Carlos Llamas).
-
- drivers/android/binder/freeze.rs           |  4 +
- drivers/android/binder/node.rs             |  8 ++
- drivers/android/binder/node/wrapper.rs     |  4 +
- drivers/android/binder/rust_binder_main.rs |  8 ++
- drivers/android/binder/thread.rs           | 91 +++++++++++++++++-----
- drivers/android/binder/transaction.rs      |  4 +
- 6 files changed, 99 insertions(+), 20 deletions(-)
-
-diff --git a/drivers/android/binder/freeze.rs b/drivers/android/binder/freeze.rs
-index 69e058e6d818..5103bfac781f 100644
---- a/drivers/android/binder/freeze.rs
-+++ b/drivers/android/binder/freeze.rs
-@@ -152,6 +152,10 @@ fn should_sync_wakeup(&self) -> bool {
-         false
-     }
- 
-+    fn size(&self) -> usize {
-+        size_of::<u32>() + size_of::<BinderFrozenStateInfo>()
-+    }
-+
-     #[inline(never)]
-     fn debug_print(&self, m: &SeqFile, prefix: &str, _tprefix: &str) -> Result {
-         seq_print!(m, "{}has frozen binder\n", prefix);
-diff --git a/drivers/android/binder/node.rs b/drivers/android/binder/node.rs
-index efdafc202e27..4f4c892cba58 100644
---- a/drivers/android/binder/node.rs
-+++ b/drivers/android/binder/node.rs
-@@ -754,6 +754,10 @@ fn should_sync_wakeup(&self) -> bool {
-         false
-     }
- 
-+    fn size(&self) -> usize {
-+        2 * (size_of::<u32>() + 2 * size_of::<u64>())
-+    }
-+
-     #[inline(never)]
-     fn debug_print(&self, m: &SeqFile, prefix: &str, _tprefix: &str) -> Result {
-         seq_print!(
-@@ -1149,6 +1153,10 @@ fn should_sync_wakeup(&self) -> bool {
-         false
-     }
- 
-+    fn size(&self) -> usize {
-+        size_of::<u32>() + size_of::<u64>()
-+    }
-+
-     #[inline(never)]
-     fn debug_print(&self, m: &SeqFile, prefix: &str, _tprefix: &str) -> Result {
-         let inner = self.inner.lock();
-diff --git a/drivers/android/binder/node/wrapper.rs b/drivers/android/binder/node/wrapper.rs
-index edfbccf6e6da..37826349eafb 100644
---- a/drivers/android/binder/node/wrapper.rs
-+++ b/drivers/android/binder/node/wrapper.rs
-@@ -93,6 +93,10 @@ fn should_sync_wakeup(&self) -> bool {
-         false
-     }
- 
-+    fn size(&self) -> usize {
-+        2 * (size_of::<u32>() + 2 * size_of::<u64>())
-+    }
-+
-     #[inline(never)]
-     fn debug_print(&self, m: &SeqFile, prefix: &str, _tprefix: &str) -> Result {
-         seq_print!(
-diff --git a/drivers/android/binder/rust_binder_main.rs b/drivers/android/binder/rust_binder_main.rs
-index 56c786475237..361f3a987235 100644
---- a/drivers/android/binder/rust_binder_main.rs
-+++ b/drivers/android/binder/rust_binder_main.rs
-@@ -163,6 +163,10 @@ fn do_work(
-     /// Generally only set to true for non-oneway transactions.
-     fn should_sync_wakeup(&self) -> bool;
- 
-+    /// Returns the maximum size in bytes that [`DeliverToRead::do_work`] may write to the read
-+    /// buffer.
-+    fn size(&self) -> usize;
-+
-     fn debug_print(&self, m: &SeqFile, prefix: &str, transaction_prefix: &str) -> Result;
+diff --git a/drivers/bus/mhi/host/pci_generic.c b/drivers/bus/mhi/host/pci_generic.c
+index 7193a384cca4..b036fa6e06c4 100644
+--- a/drivers/bus/mhi/host/pci_generic.c
++++ b/drivers/bus/mhi/host/pci_generic.c
+@@ -1727,7 +1727,8 @@ static int __maybe_unused mhi_pci_runtime_resume(struct device *dev)
+ static int  __maybe_unused mhi_pci_suspend(struct device *dev)
+ {
+ 	pm_runtime_disable(dev);
+-	return mhi_pci_runtime_suspend(dev);
++	mhi_pci_runtime_suspend(dev);
++	return 0;
  }
  
-@@ -279,6 +283,10 @@ fn should_sync_wakeup(&self) -> bool {
-         false
-     }
- 
-+    fn size(&self) -> usize {
-+        size_of::<u32>()
-+    }
-+
-     fn debug_print(&self, m: &SeqFile, prefix: &str, _tprefix: &str) -> Result {
-         seq_print!(m, "{}", prefix);
-         if self.skip.load(Relaxed) {
-diff --git a/drivers/android/binder/thread.rs b/drivers/android/binder/thread.rs
-index 763f0646a1e9..90569477e502 100644
---- a/drivers/android/binder/thread.rs
-+++ b/drivers/android/binder/thread.rs
-@@ -322,6 +322,31 @@ fn pop_work(&mut self) -> Option<DLArc<dyn DeliverToRead>> {
-         ret
-     }
- 
-+    fn pop_deferred_work(
-+        &mut self,
-+        rem_space: usize,
-+        has_written: bool,
-+    ) -> Option<DLArc<dyn DeliverToRead>> {
-+        if self.process_work_list {
-+            return None;
-+        }
-+        if !has_written {
-+            let min_txn_space = size_of::<uapi::binder_transaction_data_secctx>() + 4;
-+            if rem_space < min_txn_space {
-+                return None;
-+            }
-+            let deferred_size: usize = self.work_list.iter().map(|w| w.size()).sum();
-+            if rem_space >= min_txn_space + deferred_size {
-+                return None;
-+            }
-+        }
-+        let front_size = self.work_list.iter().next()?.size();
-+        if rem_space < front_size {
-+            return None;
-+        }
-+        self.work_list.pop_front()
-+    }
-+
-     fn push_work(&mut self, work: DLArc<dyn DeliverToRead>) -> PushWorkRes {
-         if self.is_dead {
-             return PushWorkRes::FailedDead(work);
-@@ -725,6 +750,14 @@ pub(crate) fn pop_work_even_if_deferred(&self) -> Option<DLArc<dyn DeliverToRead
-         thread_inner.pop_work()
-     }
- 
-+    fn pop_deferred_work(
-+        &self,
-+        rem_space: usize,
-+        has_written: bool,
-+    ) -> Option<DLArc<dyn DeliverToRead>> {
-+        self.inner.lock().pop_deferred_work(rem_space, has_written)
-+    }
-+
-     fn translate_object(
-         &self,
-         obj_index: usize,
-@@ -1630,30 +1663,44 @@ fn read(self: &Arc<Self>, req: &mut BinderWriteRead, wait: bool) -> Result {
-             has_noop_placeholder = true;
-         }
- 
--        // Loop doing work while there is room in the buffer.
-+        // Drain deferred work if the buffer cannot fit both the queued deferred items and a
-+        // transaction.
-         let initial_len = writer.len();
--        while writer.len() >= size_of::<uapi::binder_transaction_data_secctx>() + 4 {
--            match getter(self, wait && initial_len == writer.len()) {
--                Ok(Some(work)) => match work.into_arc().do_work(self, &mut writer) {
--                    Ok(true) => {}
--                    Ok(false) => break,
--                    Err(err) => {
--                        return Err(err);
--                    }
--                },
--                Ok(None) => {
--                    break;
--                }
-+        while let Some(work) = self.pop_deferred_work(writer.len(), writer.len() < initial_len) {
-+            match work.into_arc().do_work(self, &mut writer) {
-+                Ok(true) => {}
-+                Ok(false) => break,
-                 Err(err) => {
--                    // Propagate the error if we haven't written anything else.
--                    if err != EINTR && err != EAGAIN {
--                        pr_warn_ratelimited!("Failure in work getter: {:?}\n", err);
--                    }
--                    if initial_len == writer.len() {
--                        return Err(err);
--                    } else {
-+                    return Err(err);
-+                }
-+            }
-+        }
-+
-+        // Loop doing work while there is room in the buffer.
-+        if initial_len == writer.len() {
-+            while writer.len() >= size_of::<uapi::binder_transaction_data_secctx>() + 4 {
-+                match getter(self, wait && initial_len == writer.len()) {
-+                    Ok(Some(work)) => match work.into_arc().do_work(self, &mut writer) {
-+                        Ok(true) => {}
-+                        Ok(false) => break,
-+                        Err(err) => {
-+                            return Err(err);
-+                        }
-+                    },
-+                    Ok(None) => {
-                         break;
-                     }
-+                    Err(err) => {
-+                        // Propagate the error if we haven't written anything else.
-+                        if err != EINTR && err != EAGAIN {
-+                            pr_warn_ratelimited!("Failure in work getter: {:?}\n", err);
-+                        }
-+                        if initial_len == writer.len() {
-+                            return Err(err);
-+                        } else {
-+                            break;
-+                        }
-+                    }
-                 }
-             }
-         }
-@@ -1800,6 +1847,10 @@ fn should_sync_wakeup(&self) -> bool {
-         false
-     }
- 
-+    fn size(&self) -> usize {
-+        size_of::<u32>()
-+    }
-+
-     fn debug_print(&self, m: &SeqFile, prefix: &str, _tprefix: &str) -> Result {
-         seq_print!(
-             m,
-diff --git a/drivers/android/binder/transaction.rs b/drivers/android/binder/transaction.rs
-index 48ac942bb75a..6909d7a8a219 100644
---- a/drivers/android/binder/transaction.rs
-+++ b/drivers/android/binder/transaction.rs
-@@ -762,6 +762,10 @@ fn should_sync_wakeup(&self) -> bool {
-         !self.flags.is_oneway()
-     }
- 
-+    fn size(&self) -> usize {
-+        size_of::<u32>() + size_of::<BinderTransactionDataSecctx>()
-+    }
-+
-     fn debug_print(&self, m: &SeqFile, _prefix: &str, tprefix: &str) -> Result {
-         self.debug_print_inner(m, tprefix);
-         Ok(())
+ static int __maybe_unused mhi_pci_resume(struct device *dev)
 -- 
-2.47.0
+2.45.2
 
