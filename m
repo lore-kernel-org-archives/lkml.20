@@ -1,55 +1,136 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794356884;
-	b=h8HieNcg9o5h7avakyeT5q2sO8Y4pnJ549W2ao0V+P+KNhQMw/SHaZurhIjC1b+zavhM
-	 F1LXkQDqOz2W8/F78B/JNvdTISyYcxVef4GZ+8YMSwP5S5vEuuZfwfj1CPsaCgun/uUhB
-	 4RP3NF6DZ9kDt4DlyqhxzHU2QJGqPt9JzorbjjekLRsHnZlEXV8s97AdG8L7gHlJSOTsZ
-	 S9586HKQ78t/urocOcX3kE17AyXXb+F5CVvmRbE/sPwIwMyvsexLt/QBLJFbZ1tb6SxwB
-	 Pm9Ehjm2And7qMoD0gaYHquTO3oepfJhPDoyBKWOBgzYU0tlF27lLemmEfW+lZWCJoA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794356884;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=bbBaRo/7L6iOQrhDinfNIJ3r1kvuz8qfg44WFld2veY=;
-	b=EPgngcIMYTIsn96EtdoDBhsYuiTIjTpRaj+K/z1lN5lVC5Ka/jQ2uVcJbYuHUd2Ceeci
-	 xcyL+xg0zGSWe0Bl2cME/m37G3Tnx4x5k4QjByY4RdKZ39LLOYTHdjlCNTeElzfqPNLVk
-	 K5W6xlSn74FdRDECkOHr7/x/qU+z+vcPwG9LaVu4mICwb2lqoMA8SChavjXKlzmnCvoxg
-	 wWzj+P0BKZKsJNGU/EasGAYKSLF0tbBc76sZ0KYkCCJprifuFP5dGYNJyQgEcyDv16WpN
-	 9byjSUNuRX4wTbpETU6xxHQFyeDXC2fHG/e15qniCN2dF9yjqKzcheo8KB4bhsIm7kQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nwUM4nyk;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=192.198.163.15
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1794356958;
+	b=FLVpYUHZ/h+MlOLByof8IKCBKlpidKaFoECXf3eEASqUyh8J7mJqw/EbvM5/yJDrHcZE
+	 FTc6wsQLIUwUPhio1f4S6aOge7rCN7+Awv6etrIfUXev9+PAhCVyXnBkmdaJOjEuHhH99
+	 QRlKUOp9R6+tZhM0xRWFrcJ+5DJspdBUwalfv3Che2urjW81W85QzcdfbAthMPuVQKAlO
+	 e+wvXq7Ozsc+YLHTZVkCiFvcQ/RBlcnjX1GzwIxc1tXnSvjKk8CXuWvRxiaotFSUgo56/
+	 s7ZKF4c042fqEbfc71GCshMI6zN8HMo3WVCBpC5UtZ+wqWDTRvly8a7XOD0aRkR6Czg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794356958;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
+	 Received:Received:Received:Date:From:To:CC:Subject:Message-ID:
+	 References:Content-Type:Content-Disposition:Content-Transfer-Encoding:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-LD-Processed:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
+	bh=gqOGsBMA9FI9k4+zb9kVw8js0eXBbgrAv+pL6Qxu/+U=;
+	b=bzieapeOl6ghCS0KX1OaroSO9MeGykp9hQTi94O8mBJQbSYIHB0yPKqa6yXE/uixxVNz
+	 t3GtURCJIWwh60Ysu4IQ2+iF3R6pQHtCkhEOydp9oS8VLeaxSprVmiS+a4XkKKIIOZUWx
+	 mLE8LApbM5pqdUKtfD+UOyJ3YwG2JQZe1anErzTk5J0rpwxOgatOIAsiwhuXOX23UnHMe
+	 dGZMPS/7EUfiToVrihxfenyXUd0P/8ElwbHU+FtuQ6LxixWYRyZWeTO1hGoxTSwu72zYB
+	 Ym9FwjWaAFe61T+MOMbrjqO1xdT/9/6kPn2vWjme7KZdyRD0+v6vxE8slC8k4DWTFDQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=NIm0Nq7b;
+	arc=fail smtp.remote-ip=192.198.163.15
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EF27606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 00:28:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E87BB606A320
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 00:29:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E87BB606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nwUM4nyk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA88B1F00A04
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 00:28:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794356883;
-	bh=bbBaRo/7L6iOQrhDinfNIJ3r1kvuz8qfg44WFld2veY=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=nwUM4nykXPopNGTyscZh/s7QXJS/OKgc04ASib+wR47Y2WPuiWkNkx/dQzj5zR/fd
-	 KdpC2qkBAGTl8LwWYm/rlheh54DOzdjT9vxQyhOeM5znZ4AXE+cnNUSX80gcPLdQiw
-	 8PcPac/FGedKA40KsOEC8D+7UB8oe/mJzwNSMqCrGJ6iP3Cgrp90Ap3foEn3bo53d4
-	 428fKlQ+5H1/ZDRfOKnvB2pQ+1zpjfbG2/1IQ9HbOisOOFYNfPGl6NIor4BwbtH0de
-	 8kLiFMwAGC5gB9G07ADVCmQnbYydJJDpKjuhai2m6JfkEk86PW4JlcpMLgRUw4PlOm
-	 QzbFUP7+5OY7g==
-Received: by mail-vk1-f178.google.com with SMTP id 71dfb90a1353d-5eaefe5b523so1741174e0c.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 16:28:03 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErHvdqLDGP01eg8irGvLUmPw4N1eLuMSXIUoNQYwoW3p0HJPvK/R7MNNKlMN2TTxqgD6zL5lAWzPWoX4fqs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8gmPjOyLNRi6g2CyHJo5ZhwFz47+Ay7X7otzA19CMqEJ3RaUW0
-	hcaDs3JXOj8NVCT8zU7vet0AYezQwti53WTWF3GlcnqzgYF7Mkwo2P6Rkf6c4PqFmBNMIdJFBrY
-	smX1pJ80TOAtlOKJ8DeHUfd9ItHgSnTE=
-X-Received: by 2002:a05:6123:64:b0:5ea:c98d:768 with SMTP id
- 71dfb90a1353d-5ee1c3b55f5mr233673e0c.6.1794356883023; Tue, 10 Nov 2026
- 16:28:03 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=NIm0Nq7b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794356958; x=1825892958;
+  h=date:from:to:cc:subject:message-id:references:
+   content-transfer-encoding:in-reply-to:mime-version;
+  bh=wSuzEkeIaKC9wLCt4B7EplZE6JMeIgYLw+o38Psp5/Y=;
+  b=NIm0Nq7bXLje5CkyTMScMKkICgg1EpiKTEzFtUWI9Lw0x1LKYxMbgPoH
+   gvwqBK7MfJ0p/pg+XoZnPB38qJ8VGj8FAImoMlB3MZ5mU7KIZ0tqSw2/K
+   X675PGobfvGABLQ669nwJv7tXhr5KVNAZidhQ/tdY6Dv8nxuP5baZ+h44
+   CG3EKY4KpFY4hzWC0YJG0zz2uYYZHdz4gD9js3z90Spr9ZkQtTvm/l/dR
+   5PqFr7AsvhqwawQX0qQ/3y/ZgYOFN2JSsQo8AueyA4lqMqy2Iya/diMsu
+   Z2usc9c3lIY1dWSWqyjvavb+893CaHLYqiUYLE1oji4h0LqqHUABIjqEs
+   Q==;
+X-CSE-ConnectionGUID: yOWR9QdGTWCeX/IQP3Maqg==
+X-CSE-MsgGUID: ZuR8Jh1YS6GkN7weD/uaOw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11962"; a="3124135"
+X-IronPort-AV: E=Sophos;i="6.27,206,1787036400"; 
+   d="scan'208";a="3124135"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 16:29:17 -0800
+X-CSE-ConnectionGUID: X81uEXQBR/mYdj0uQDHWdA==
+X-CSE-MsgGUID: ZubT4X1zS3OLq4/fjSInWA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,206,1787036400"; 
+   d="scan'208";a="8453027"
+Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
+  by fmviesa002.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 16:29:17 -0800
+Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Tue, 10 Nov 2026 16:29:16 -0800
+Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56 via Frontend Transport; Tue, 10 Nov 2026 16:29:16 -0800
+Received: from BYAPR05CU005.outbound.protection.outlook.com (52.101.85.35) by
+ edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Tue, 10 Nov 2026 16:29:16 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Yj1JG7YmQJwl4/54x3V8BlU1ikK/Vvc/TpBxS0Od34WmMzJz8br5YrCudltoQrKJ9XjV8EC7dlll6K0Zq1f2kLPjZfWrB8AlI6e4LqSLKkETTJ3lB7XH9syEE+kM5N6OUYXQXizdkvrQUlj9Mixe4DN81OvPEF4+ZubGY+rFm991YT8K6yH9VgZLJ+2p9OSlrylLkFJrdBGWte8eEpneniovwxZUzpbSkgEHtF4GzN5ZQIdaHNk7BpMIzvdZbmLZADgBxcIKkFXd7d3u9z/5lvUPFcUKz65AVYL/5dsNVCMtKi2HDv4Qqw1CYZzo5rD94RMzSG+lWAR2613MuMxWXw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=GVf5eVchTBhOZBpUEcUHHHDrsmCwfx2OAO+h/x99Klo=;
+ b=wtHzrmLrmD1oxfzwxVPcumMsrVap/7M7vud9rIFMmFmGnuz1MYbpgSOrugMvQshaH+sHxqNVN2QCMEBGHGg37Qk1zJH/THCNVHSRUzvlMrMIeDMRpooDp9IXEVQdmqYS5c3IGajyxFuI2lIpF7J88CiNonNhBXQCoNZYZWN3ysFfBDcjFOLUQGnq3KJk6qBjng5F5A7FoxUGVjo3m4+i+eu8oh9zH08bN0CpK6IncZUfCcel7I6iH6epLp/bRPmUHq7gKsWc0R/LOieZE21cwow3cVYjQjXW5y/2ixM5nK7Do2JoNtbHHZCJ3ozryEQaZ42eXAH4YWDMFqFdhgtcxA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from MW3PR11MB4684.namprd11.prod.outlook.com (2603:10b6:303:5d::14)
+ by IA3PR11MB9205.namprd11.prod.outlook.com (2603:10b6:208:573::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.11; Wed, 11 Nov
+ 2026 00:29:13 +0000
+Received: from MW3PR11MB4684.namprd11.prod.outlook.com
+ ([fe80::2f5a:96ce:f7e4:c315]) by MW3PR11MB4684.namprd11.prod.outlook.com
+ ([fe80::2f5a:96ce:f7e4:c315%7]) with mapi id 15.21.0615.007; Wed, 11 Nov 2026
+ 00:29:12 +0000
+Date: Tue, 10 Nov 2026 16:29:09 -0800
+From: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
+To: Matthew Brost <matthew.brost@intel.com>
+CC: <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+	Carlos Santa <carlos.santa@intel.com>, Ryan Neph <ryanneph@google.com>,
+	Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
+	Matthew Auld <matthew.auld@intel.com>, Maarten Lankhorst
+	<maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>, <linux-kernel@vger.kernel.org>, Thomas
+ =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+Subject: Re: [PATCH v3 09/33] drm/ttm: Preallocate beneficial-order defrag
+ pages outside the lock
+Message-ID: <avO21YykLwQbPbZx@nvishwa1-desk>
+References: <20260711025619.2540575-1-matthew.brost@intel.com>
+ <20260711025619.2540575-10-matthew.brost@intel.com>
+Content-Type: text/plain; charset="iso-8859-1"; format=flowed
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260711025619.2540575-10-matthew.brost@intel.com>
+X-ClientProxiedBy: SJ0PR03CA0037.namprd03.prod.outlook.com
+ (2603:10b6:a03:33e::12) To MW3PR11MB4684.namprd11.prod.outlook.com
+ (2603:10b6:303:5d::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,128 +140,623 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261111000913.22943-1-shakeel.butt@linux.dev>
-In-Reply-To: <20261111000913.22943-1-shakeel.butt@linux.dev>
-From: Barry Song <baohua@kernel.org>
-Date: Wed, 11 Nov 2026 08:27:51 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4zRycX9dcW6P1J2R6f+xyO4+z6_LXz1i+qbNbMEnYm9uA@mail.gmail.com>
-X-Gm-Features: AclHuK8i5C1ziLIFv7nuGyug3gNnUasxxchiBj9TPgocQ0U6mI78FyGiazCDdjg
-Message-ID: <CAGsJ_4zRycX9dcW6P1J2R6f+xyO4+z6_LXz1i+qbNbMEnYm9uA@mail.gmail.com>
-Subject: Re: [PATCH] mm: mglru: splice all generations when reparenting a memcg
-To: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Johannes Weiner <hannes@cmpxchg.org>, 
-	David Hildenbrand <david@kernel.org>, Qi Zheng <qi.zheng@linux.dev>, Kairui Song <kasong@tencent.com>, 
-	Meta kernel team <kernel-team@meta.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	Noah Feldt <noah@feldt.systems>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW3PR11MB4684:EE_|IA3PR11MB9205:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1a143901-c52d-44b3-b069-08df3f8acf3b
+X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|7416014|376014|23010399003|1800799024|366016|5023799004|18002099003|22082099003|56012099006|11063799006|261009223327099003|261009221727099003|261102130727099003|261026121527099003|261022113327099003|261022105027099003|261021121427099003|261022075727099003|261026140227099003|261021123027099003|261009221227099003|261028144727099003|261009220027099003|261102123227099003|261009223027099003|10067099003|4143699003;
+X-Microsoft-Antispam-Message-Info: DAwSvSvPnZPK8ehCmxgHDFN1JU/mHrJiv7OgX5sjRX2KiwkGueUsR9BWJ+Mg9oTmz48UgoQp/1/qnk1IZxV+wnbGe02YRV6nebhx6huopa3ZwGV0u6czedekIq/qvjRfbkPt7ZSaaoFpG5yvdPDAJbkE/TvmyAvQd+S9mmqB980mZxuuF3AP3pnM/JBeUIzEm5zYww7hVnzxBG23LmkmPE6S1fnjj7zyh54Q+o5zhorsq/1aoPuCPBUzjeGrUgM73UZYy+GAhcFXCH4SpOTgWAoJkMaen8az2Le5M/Q9ziFbSV7AqMLQIYJ3bWeACQmEFNAT6bYrcV+wVIRx9gKMWMppmEK8z+pyb70ii/S3jwmaqJCKmK4NTynP5BRwf6SvUclqBdr3lImH6TNnZRlIu7HkEKA1/EPjz5HI+MNJjgxO6H/iE6qV44HXF00Mf6fLuiWXVPcwO1LTTvsr6RSRvfIQT1EU0/F9WEHw27MA0veMAmDm6fI+eXWloy9xHlxTNSTgMgTjk9dP+Ic2Dz1GeAZdwJI/knv8SSWf+ih7O2OvXV6w43waMGVSpQmzxt8xrLFEq7MIn8sbOs9u5xH/xvXNo+frT+N2a6CYhnTdg3L/i09bVyo4nHh6qnB+d3BmkXNg9vhfMOyVPHHb1s+9D6pW3V5EC57Tsga2FZpN1kI=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW3PR11MB4684.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(1800799024)(366016)(5023799004)(18002099003)(22082099003)(56012099006)(11063799006)(261009223327099003)(261009221727099003)(261102130727099003)(261026121527099003)(261022113327099003)(261022105027099003)(261021121427099003)(261022075727099003)(261026140227099003)(261021123027099003)(261009221227099003)(261028144727099003)(261009220027099003)(261102123227099003)(261009223027099003)(10067099003)(4143699003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?lyGjMRrRA43MCsJNkXzbLJawxlxJp7CsDuOVnf6hwtufd81wi6yo6wF3mw?=
+ =?iso-8859-1?Q?jMUWJkweP/+MYxYrErcIPH/XeXykfyY5TVPotMSjdJJa7ChWeIMLkQXJOi?=
+ =?iso-8859-1?Q?XkIpD8PvcBTfoa6mIhDCKaWeMo1ElQdJhBX2XkbfJ+Px3/5MQoVlmJnV+S?=
+ =?iso-8859-1?Q?L+R51vLW45u99o8/gJo4N0fn3W+LdaacmxmS9RvYcsytRCgfB+33/YQC1S?=
+ =?iso-8859-1?Q?/M+2XeIaxKPRl7HfOZAesiTg0njP0bGkcDo0g6be8kNSwHn438kt8/rulB?=
+ =?iso-8859-1?Q?EwZUeb7NtOwRfX+fnusmjsohLtEyDTRmt2ltMc+0xjkqpriRBYTL/t+nVL?=
+ =?iso-8859-1?Q?kd1gWl+fqKCnDjXxhoEd856SPZ6rAadgPE7jCGU+9+A/KSJ/j6PhE9pCSM?=
+ =?iso-8859-1?Q?/ZI3lDTzvvv2TzJ188mBtQGcFsdaFs4slDZixjEYnewROLeNDFcSCairuR?=
+ =?iso-8859-1?Q?9wbs/YCtcDtBEwsGKNlXE8fyGuav7jwnzyoayd1oVF6zxA3NBwm1aU2Qms?=
+ =?iso-8859-1?Q?tEZcb5T59Wh0f1DsyX4g/wTp1es2kUMqGSDEzGYmnOxSYNipGfolHTADT6?=
+ =?iso-8859-1?Q?i04ii9b2Ldzl4AtFp9ZglqthW6zdkQLOPfDthp4F4kltqUebYOPzoYyUBu?=
+ =?iso-8859-1?Q?x7OY47scoq/IrZQ05Bcog6w8J7atVT1hbbpNTLbIiY2jteWc60cpCwJekW?=
+ =?iso-8859-1?Q?0YnbXNEaw756pc6G9PZtOatcZkltHw4NmJGN5CxFUtiJqLtfAWafds10ra?=
+ =?iso-8859-1?Q?6095H7ApaQQVkSuKag/s1Jx/KDHxLMpH40GeFoxpcXtQKL14X+qdH6O6kK?=
+ =?iso-8859-1?Q?Vl8g/F0uGknUNiqLpbVrkdVfXwQ1I0vjovTSMsmlhtysXe9BMeU+Pgg752?=
+ =?iso-8859-1?Q?43FWMPrJZfzquAY+vNheWPDmnklZM3mpljOAPniKLjkX5eliscjGI8Wksd?=
+ =?iso-8859-1?Q?sULRUMQdmk5ziFjKrGjLGn7wnvzyA/M7We1omgIsewXuiHawK71I243zGN?=
+ =?iso-8859-1?Q?FKygl14gbQEBtxo7YP+fh8IkP+5ccBH3yrNd6AZy+QZiz0XSh71LJDdsHV?=
+ =?iso-8859-1?Q?lI3zxCCJVy+q3fCiqvTXzL9nWRvPKCnDz178hIhvT+Nq9D4EsiNbGfkcPY?=
+ =?iso-8859-1?Q?YgKkn3GNmyJsh/ArFqrne5Y0fn4cZVqSxTSZjUlC5wNdBI/fed0JULhJ7O?=
+ =?iso-8859-1?Q?XnWYNuty0hcBVtpFdItjQ5Rd0xwwh95BlH31Ge0IE2LR1ywNlYdVtO3bxx?=
+ =?iso-8859-1?Q?d1SmmnSOs9Xr0KA4pJiX6Gi+DPa/AosUlBlRq6X+IWNbjfrs+F+L+EwaI7?=
+ =?iso-8859-1?Q?xspcStTawzhAu7P4D7VdCWr4+QMOFqpyitmK/QBqi3ung5c6VOB+zPJyZl?=
+ =?iso-8859-1?Q?QMWW8Hpwm67ybb7f7PdWbsm9RpwajO3G+1QpLndRF4xxsDblD6El+/YfFz?=
+ =?iso-8859-1?Q?SzjbNHZI33IPTmw8cEqcFTuwaHqNKl1XKy0rZxZd4vWpCzy4o24h5AfYdO?=
+ =?iso-8859-1?Q?z6p077M9gcxHGAJhrYqNGpFu2gPK7B4m9mtwx++OODUvZ+SI0H+loynECV?=
+ =?iso-8859-1?Q?CtpRVUuXPY9vpBlKL7WTfbI70iWOVrSTOtqdMnrxHDEN+j2yb/mn5ENEjF?=
+ =?iso-8859-1?Q?YcwOE3DjOSRDp+GTXfwuIB5MGXD37sfZ9OMIvzL9QX3WUnOe+TF8Q7N+zi?=
+ =?iso-8859-1?Q?0nBVbwvm6JmNdA8ouN266qodcyg3CCrzVpYupZ7NjdZg7CjwzbaP625Lqp?=
+ =?iso-8859-1?Q?BY0QA2PZH9bvZcH5wLaQ+BYtSD62lE3MHXaf3WjrNHFA2Heua/nqp52O4H?=
+ =?iso-8859-1?Q?ImSSGJZiJNGPAI86g/BV1k4Fzu3f4rhWOXz8/9vR8EntiTCodli+?=
+X-Exchange-RoutingPolicyChecked: GU+PkhEJwXZRroDtpXCUsQzvLtJPmaoIpgKcKSCUoVfC+Ds0oPXsPVbluJuNEygMgmzgi6nEt5IZM9MU+j3hsjSGdwO/olnsrgCg9gu0Recw1mUrSZiaJy9CIa4LLN+ctXAIJfk+ke9CTbsyiYpO9ssDKwz9tX80piPVkY5csvYO8QvpEHybYEkAj4VOzV/FXRGWac4+5nSSSZw/IO3j0VmAflJxxqJkJD9gLg6mdVucad1nFOpX64PKbY7cUEqLwl/OwyFh1XNYRvhR5sNfXhWeyNy39eFY3cy+/oxXF/jBb9JbTCfjiu4QHzslGr/bqvnerCOW3+WtsoChe9vO7Q==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1a143901-c52d-44b3-b069-08df3f8acf3b
+X-MS-Exchange-CrossTenant-AuthSource: MW3PR11MB4684.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 00:29:12.6645
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: /VRJ5rx8v6fnm2SzTnRUzAWs9okXgMPHw/2uNcWDB2lfKK19NdoDbQ5BxRJtTddebIvheoXGNxk/Kn0LDj2ic+BTv81994Bk/LG+WHiBD7PNjaGf2oUCqYlQf+0SBieT
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA3PR11MB9205
+X-OriginatorOrg: intel.com
 
-On Wed, Nov 11, 2026 at 8:09=E2=80=AFAM Shakeel Butt <shakeel.butt@linux.de=
-v> wrote:
+On Fri, Jul 10, 2026 at 07:55:55PM -0700, Matthew Brost wrote:
+>Defragmentation moves reallocate a BO's backing at the pool's beneficial
+>order. On a fragmented system those high-order allocations frequently
+>stall in direct reclaim/compaction, and they run under the BO dma-resv
+>lock, holding up concurrent rendering. The defrag worker does not care
+>how long the work takes; it only cares about minimizing locked time.
 >
-> Noah reported list_del corruption on single-node hosts running 7.2.11,
-> which already has commit bf4ade7dbd76 ("memcg: keep folio's objcg same
-> as its node"). The bad pointer is an MGLRU list head in a freed
-> mem_cgroup_per_node:
+>Add a preallocation bag so the expensive allocations can be hoisted out
+>of the lock:
 >
->   slab mem_cgroup_per_node start ff31bfa36a3c9e00 pointer offset 528 size=
- 1920
->   list_del corruption. next->prev should be ffacf881ccc70e08, but was ff3=
-1bfa36a3ca010. (next=3Dff31bfa36a3ca010)
+> - struct ttm_pool_prealloc carries beneficial-order pages preallocated
+>   outside the lock; ttm_pool_prealloc_fill()/_fini() allocate and
+>   release them. __ttm_pool_alloc() consumes them via ctx->prealloc.
+> - Apply the requested cpu-caching to the bag pages during fill, so the
+>   set_memory_*() cost is paid outside the lock too; consumed pages are
+>   already cache-consistent and leftovers are restored to write-back on
+>   free. Bag pages are never highmem so the kernel mapping is always
+>   valid for set_memory_*().
+> - Record the exact number of sub-optimal pages on the tt
+>   (nr_suboptimal_pages) at populate time so a defrag pass can size its
+>   prealloc precisely instead of guessing.
+> - Once a defrag move exhausts the prealloc bag, harvest the remainder
+>   of the old tt rather than entering reclaim under the lock, and flag
+>   the tt sub-optimal so the driver re-queues it for a later pass.
 >
-> When a memcg goes offline, __lru_gen_reparent_memcg() moves its MGLRU
-> lists to the parent. It moves only the generations (gens) from min_seq
-> to max_seq, and it puts each list at the same index in the parent.
+>This keeps all reclaim/compaction stalls and cache mode changes out of
+>the dma-resv critical section: lock-held time then tracks only the bytes
+>actually copied.
 >
-> A folio's gen in folio->flags can be ahead of the list it is on. In the
-> parent, the same index can stand for an older gen, so the folio's gen
-> can end up older than its list. Once the parent's min_seq passes that
-> gen, sort_folio() puts the folio on the list for max_seq + 1, where it
-> stays until the next aging.
+>Cc: Carlos Santa <carlos.santa@intel.com>
+>Cc: Ryan Neph <ryanneph@google.com>
+>Cc: Christian Koenig <christian.koenig@amd.com>
+>Cc: Huang Rui <ray.huang@amd.com>
+>Cc: Matthew Auld <matthew.auld@intel.com>
+>Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+>Cc: Maxime Ripard <mripard@kernel.org>
+>Cc: Thomas Zimmermann <tzimmermann@suse.de>
+>Cc: David Airlie <airlied@gmail.com>
+>Cc: Simona Vetter <simona@ffwll.ch>
+>Cc: dri-devel@lists.freedesktop.org
+>Cc: linux-kernel@vger.kernel.org
+>Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+>Assisted-by: GitHub_Copilot:claude-opus-4.8
+>Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+>---
+> drivers/gpu/drm/ttm/ttm_pool.c | 244 +++++++++++++++++++++++++++++++--
+> include/drm/ttm/ttm_bo.h       |  11 ++
+> include/drm/ttm/ttm_pool.h     |  29 ++++
+> include/drm/ttm/ttm_tt.h       |  17 +++
+> 4 files changed, 287 insertions(+), 14 deletions(-)
 >
-> If the parent goes offline before that aging, the folio is not moved to
-> the grandparent. It stays on the parent's list after the parent is
-> freed, and the next list_del() on it touches freed memory. This needs
-> two cgroups on one branch to go offline one after the other, such as a
-> container and then its pod.
+>diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_pool.c
+>index 1673e81b8df8..da7d132c8297 100644
+>--- a/drivers/gpu/drm/ttm/ttm_pool.c
+>+++ b/drivers/gpu/drm/ttm/ttm_pool.c
+>@@ -82,6 +82,9 @@ struct ttm_pool_dma {
+>  * Pages harvested (borrowed) from the old tt are free and do not count; once
+>  * this drops to zero the allocator stops upgrading and harvests the remainder.
+>  * On completion it holds the unused budget. 0 means unlimited (no defrag cap).
+>+ * @nr_suboptimal_pages: Number of pages backed below the pool's beneficial
+>+ * order. Recorded by the pool allocator after populate; a defrag pass reads it
+>+ * to size its out-of-lock preallocation exactly.
+>  */
+> struct ttm_pool_alloc_state {
+> 	struct page **pages;
+>@@ -90,6 +93,7 @@ struct ttm_pool_alloc_state {
+> 	pgoff_t remaining_pages;
+> 	enum ttm_caching tt_caching;
+> 	s64 defrag_bytes_remaining;
+>+	u32 nr_suboptimal_pages;
+> };
 >
-> The parent always has MAX_NR_GENS gens at this point, so every index is
-> valid in it. Move all MAX_NR_GENS lists, not only the gens from min_seq
-> to max_seq.
+> /**
+>@@ -787,6 +791,7 @@ static void ttm_pool_alloc_state_init(const struct ttm_tt *tt,
+> 	alloc->remaining_pages = tt->num_pages;
+> 	alloc->tt_caching = tt->caching;
+> 	alloc->defrag_bytes_remaining = 0;
+>+	alloc->nr_suboptimal_pages = 0;
+> }
 >
-> A reproducer that drives these steps through the lru_gen debugfs file
-> gets a KASAN use-after-free on the freed mem_cgroup_per_node without
-> this patch, and no report with it.
+> /*
+>@@ -852,7 +857,8 @@ static unsigned int ttm_pool_defrag_old_order(struct ttm_pool *pool,
+>  * pages stay owned by the old tt until the move commits.
+>  */
+> static int ttm_pool_harvest_page(struct ttm_tt *old_tt, unsigned int order,
+>-				 pgoff_t off, struct ttm_pool_alloc_state *alloc)
+>+				 unsigned int beneficial_order, pgoff_t off,
+>+				 struct ttm_pool_alloc_state *alloc)
+> {
+> 	pgoff_t nr = 1UL << order;
+> 	int r;
+>@@ -887,6 +893,9 @@ static int ttm_pool_harvest_page(struct ttm_tt *old_tt, unsigned int order,
 >
-> Fixes: f304652609ea ("mm: vmscan: prepare for reparenting MGLRU folios")
-> Reported-by: Noah Feldt <noah@feldt.systems>
-> Closes: https://lore.kernel.org/all/20261110132853.71228-1-noah@feldt.sys=
-tems/
-> Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
-> Cc: <stable@vger.kernel.org>
+> 	alloc->caching_divide = alloc->pages;
+>
+>+	if (order < beneficial_order)
+>+		alloc->nr_suboptimal_pages += 0x1 << order;
+>+
+> 	return 0;
+> }
+>
+>@@ -934,7 +943,8 @@ static int ttm_pool_harvest_remaining(struct ttm_pool *pool,
+> 		    round_down(off, bnr) + bnr <= num_pages)
+> 			*suboptimal = true;
+>
+>-		r = ttm_pool_harvest_page(old_tt, order, off, alloc);
+>+		r = ttm_pool_harvest_page(old_tt, order, beneficial, off,
+>+					  alloc);
+> 		if (r)
+> 			return r;
+>
+>@@ -944,6 +954,173 @@ static int ttm_pool_harvest_remaining(struct ttm_pool *pool,
+> 	return 0;
+> }
+>
+>+unsigned int ttm_pool_prealloc_order(struct ttm_pool *pool)
+>+{
+>+	return ttm_pool_beneficial_order(pool);
+>+}
+>+EXPORT_SYMBOL(ttm_pool_prealloc_order);
+>+
+>+/*
+>+ * Build the gfp flags used for the high-order, possibly reclaiming, beneficial
+>+ * order page allocations, matching the in-line defrag alloc path.
+>+ */
+>+static gfp_t ttm_pool_prealloc_gfp(struct ttm_pool *pool)
+>+{
+>+	gfp_t gfp = GFP_USER;
+>+
+>+	/*
+>+	 * No highmem: prealloc applies caching in bulk via set_pages_array_*()
+>+	 * on the kernel mapping, so the pages must be permanently mapped.
+>+	 */
+>+	if (ttm_pool_uses_dma32(pool))
+>+		gfp |= GFP_DMA32;
+>+
+>+	return gfp;
+>+}
+>+
+>+/*
+>+ * Apply a tt's cpu-caching to a batch of freshly system-allocated (write-back)
+>+ * prealloc pages in one shot. @cpages is an unpacked array of @ncpages
+>+ * individual 4K pages (the constituent pages of the mixed-order chunks, expanded
+>+ * so set_pages_array_*() sees one entry per page), since the packed prealloc bag
+>+ * holds multi-order chunks. Prealloc pages are never highmem (see
+>+ * ttm_pool_prealloc_gfp), so their kernel mapping is valid. No-op for cached
+>+ * pages and on non-x86. Returns non-zero if the caching change failed (the
+>+ * caller drops the whole bag and falls back to in-line allocation).
+>+ */
+>+static int ttm_pool_prealloc_apply_caching(enum ttm_caching caching,
+>+					   struct page **cpages,
+>+					   unsigned int ncpages)
+>+{
+>+#ifdef CONFIG_X86
+>+	if (!ncpages)
+>+		return 0;
+>+
+>+	switch (caching) {
+>+	case ttm_cached:
+>+		break;
+>+	case ttm_write_combined:
+>+		return set_pages_array_wc(cpages, ncpages);
+>+	case ttm_uncached:
+>+		return set_pages_array_uc(cpages, ncpages);
+>+	}
+>+#endif
+>+	return 0;
+>+}
+>+
+>+/* Expand an @order chunk into its constituent 4K pages for bulk caching. */
+>+static void ttm_pool_prealloc_stage_caching(struct page **cpages,
+>+					    unsigned int *ncpages,
+>+					    struct page *p, unsigned int order)
+>+{
+>+	unsigned int i, nr = 1u << order;
+>+
+>+	for (i = 0; i < nr; i++)
+>+		cpages[(*ncpages)++] = p + i;
+>+}
+>+
+>+/**
+>+ * ttm_pool_prealloc_fill() - Preallocate beneficial-order pages outside any lock
+>+ * @pool: The pool to allocate from.
+>+ * @tt_caching: The requested cpu-caching for the pages allocated.
+>+ * @pp: Prealloc bag to fill; @pp->order is set to the beneficial order.
+>+ * @count: Number of beneficial-order chunks to attempt.
+>+ *
+>+ * Allocate up to @count beneficial-order chunks, parking them in @pp for a
+>+ * later __ttm_pool_alloc() defrag move to consume under the dma-resv lock. May
+>+ * sleep/reclaim freely as it runs unlocked. A short fill is fine: the pool
+>+ * falls back to in-line allocation for the shortfall. DMA-alloc pools are not
+>+ * supported (count stays 0). Returns 0 (release with ttm_pool_prealloc_fini()).
+>+ */
+>+int ttm_pool_prealloc_fill(struct ttm_pool *pool, enum ttm_caching tt_caching,
+>+			   struct ttm_pool_prealloc *pp, unsigned int count)
+>+{
+>+	unsigned int order = ttm_pool_beneficial_order(pool);
+>+	gfp_t gfp = ttm_pool_prealloc_gfp(pool);
+>+	struct page **cpages = NULL;
+>+	unsigned int ncpages = 0;
+>+	int r;
+>+
+>+	pp->pages = NULL;
+>+	pp->order = order;
+>+	pp->caching = tt_caching;
+>+	pp->count = 0;
+>+	pp->used = 0;
+>+
+>+	/* Nothing to gain without a beneficial order or for DMA-alloc pools. */
+>+	if (!order || !count || ttm_pool_uses_dma_alloc(pool))
+>+		return 0;
+>+
+>+	pp->pages = kvzalloc_objs(*pp->pages, count);
+>+	if (!pp->pages)
+>+		return 0;
+>+
+>+	/*
+>+	 * Every chunk is a fresh write-back system page of @order that needs a
+>+	 * caching change; collect their constituent pages into an unpacked
+>+	 * scratch array and issue a single set_pages_array_*() after the fill.
+>+	 * Cached tts need no change (and non-x86 handles caching at map time).
+>+	 */
+>+	if (IS_ENABLED(CONFIG_X86) && tt_caching != ttm_cached) {
+>+		cpages = kvzalloc_objs(*cpages, (size_t)count << order);
 
-Thanks very much, Shakeel! I saw Kairui has exactly the same code here:
+Assisted-by: LLM
 
-[PATCH v4 14/17] mm/mglru: reparent folios from all generations
-https://lore.kernel.org/linux-mm/20261016-mglru-fg-v4-14-2106750c0bfa@tence=
-nt.com/
+NIT..cpages is tansient memory. Though it is bounded here by 'budget',
+may be it can be avoided altogether by using a one static 4k page in the
+pool and flush it with set_pages_array*() as and when it fill up?
 
-somehow, Shakeel's patch makes us need the change earlier even before
-mglru-fg lands?
+>+		if (!cpages) {
+>+			kvfree(pp->pages);
+>+			pp->pages = NULL;
+>+			return 0;
+>+		}
+>+	}
+>+
+>+	while (pp->count < count) {
+>+		struct page *p = ttm_pool_alloc_page(pool, gfp, order, false);
+>+
+>+		if (!p)
+>+			break;
+>+
+>+		pp->pages[pp->count++] = p;
+>+		if (cpages)
+>+			ttm_pool_prealloc_stage_caching(cpages, &ncpages, p,
+>+							order);
+>+	}
+>+
+>+	/*
+>+	 * Apply the requested caching to every collected page in one shot. On
+>+	 * failure the pages' caching is indeterminate, so drop the whole bag
+>+	 * (freeing restores write-back) and let the consumer allocate in-line.
+>+	 */
+>+	r = ttm_pool_prealloc_apply_caching(tt_caching, cpages, ncpages);
+>+	kvfree(cpages);
+>+	if (r) {
+>+		unsigned int i;
+>+
+>+		for (i = 0; i < pp->count; i++)
+>+			ttm_pool_free_page(pool, tt_caching, order,
+>+					   pp->pages[i], false);
+>+		pp->count = 0;
+>+	}
+>+
+>+	return 0;
+>+}
+>+EXPORT_SYMBOL(ttm_pool_prealloc_fill);
+>+
+>+/**
+>+ * ttm_pool_prealloc_fini() - Release unconsumed preallocated pages
+>+ * @pool: The pool the pages came from.
+>+ * @pp: Prealloc bag to drain. Consumed pages (< @used) are now owned by the tt.
+>+ */
+>+void ttm_pool_prealloc_fini(struct ttm_pool *pool, struct ttm_pool_prealloc *pp)
+>+{
+>+	unsigned int i;
+>+
+>+	for (i = pp->used; i < pp->count; ++i)
+>+		ttm_pool_free_page(pool, pp->caching, pp->order, pp->pages[i],
+>+				   false);
+>+	kvfree(pp->pages);
+>+	pp->pages = NULL;
+>+	pp->count = 0;
+>+	pp->used = 0;
+>+}
+>+EXPORT_SYMBOL(ttm_pool_prealloc_fini);
+>+
+> /**
+>  * enum ttm_pool_iter_action - Outcome of a per-order allocation phase
+>  * @TTM_POOL_ITER_FILL: A page (@it->p) was acquired; proceed to fill it in.
+>@@ -975,6 +1152,7 @@ struct ttm_pool_alloc_iter {
+> 	struct ttm_pool_alloc_state *alloc;
+> 	struct ttm_pool_tt_restore *restore;
+> 	struct ttm_tt *defrag_old_tt;
+>+	struct ttm_pool_prealloc *prealloc;
+> 	unsigned int beneficial_order;
+> 	gfp_t gfp_flags;
+> 	bool defrag_capped;
+>@@ -990,16 +1168,20 @@ struct ttm_pool_alloc_iter {
+> };
+>
+> /*
+>- * Defrag move budget exhausted: the upgrade can make no further progress this
+>- * pass. Snapshot @defrag_capped is set only when a byte budget was in force at
+>- * entry.
+>+ * Defrag move budget exhausted, or the out-of-lock prealloc bag ran dry: the
+>+ * upgrade can make no further progress this pass. Snapshot @defrag_capped is
+>+ * set only when a byte budget was in force at entry.
+>  */
+> static bool ttm_pool_iter_defrag_exhausted(const struct ttm_pool_alloc_iter *it)
+> {
+>+	const struct ttm_pool_prealloc *pp = it->prealloc;
+>+
+> 	if (!it->defrag_old_tt)
+> 		return false;
+>+	if (it->defrag_capped && it->alloc->defrag_bytes_remaining <= 0)
+>+		return true;
+>
+>-	return it->defrag_capped && it->alloc->defrag_bytes_remaining <= 0;
+>+	return pp && pp->count && pp->used >= pp->count;
+> }
+>
+> /*
+>@@ -1056,7 +1238,8 @@ static int ttm_pool_iter_reuse_old(struct ttm_pool_alloc_iter *it)
+> 		return TTM_POOL_ITER_FILL;
+>
+> 	it->order = harvest_order;
+>-	r = ttm_pool_harvest_page(it->defrag_old_tt, it->order, off, it->alloc);
+>+	r = ttm_pool_harvest_page(it->defrag_old_tt, it->order,
+>+				  it->beneficial_order, off, it->alloc);
+> 	if (r)
+> 		return r;
+>
+>@@ -1068,11 +1251,13 @@ static int ttm_pool_iter_reuse_old(struct ttm_pool_alloc_iter *it)
+>
+> /*
+>  * Acquire a single page for the current order, leaving it in @it->p (NULL on
+>- * failure). Tries a same-order pool page, then a fresh system allocation. Fault
+>- * injection can force the beneficial-order paths to "fail".
+>+ * failure). Tries, in order: a beneficial-order page preallocated outside the
+>+ * dma-resv lock (defrag), a same-order pool page, then a fresh system
+>+ * allocation. Fault injection can force the beneficial-order paths to "fail".
+>  */
+> static void ttm_pool_iter_acquire_page(struct ttm_pool_alloc_iter *it)
+> {
+>+	struct ttm_pool_prealloc *pp = it->prealloc;
+> 	struct ttm_pool_type *pt;
+>
+> 	it->p = NULL;
+>@@ -1087,7 +1272,18 @@ static void ttm_pool_iter_acquire_page(struct ttm_pool_alloc_iter *it)
+> 		it->beneficial_order && it->order >= it->beneficial_order &&
+> 		should_fail(&beneficial_order_fault_inject, 1);
+>
+>-	/* First, try to allocate a page from a pool if one exists. */
+>+	/*
+>+	 * Defrag move: consume a beneficial-order page preallocated outside the
+>+	 * dma-resv lock instead of allocating one in-line (which may stall in
+>+	 * reclaim/compaction). Falls through once the bag is empty.
+>+	 */
+>+	if (pp && !it->fail_beneficial && it->order >= it->beneficial_order &&
+>+	    pp->used < pp->count) {
+>+		it->order = it->beneficial_order;
+>+		it->p = pp->pages[pp->used++];
+>+		it->page_caching = it->tt->caching;
+>+	}
+>+
+> 	pt = ttm_pool_select_type(it->pool, it->page_caching, it->order);
+> 	if (!it->p && pt && it->allow_pools && !it->fail_beneficial)
+> 		it->p = ttm_pool_type_take(pt, ttm_pool_nid(it->pool));
+>@@ -1164,6 +1360,7 @@ static int __ttm_pool_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
+> 		.alloc = alloc,
+> 		.restore = restore,
+> 		.defrag_old_tt = restore ? NULL : ctx->defrag_old_tt,
+>+		.prealloc = restore ? NULL : ctx->prealloc,
+> 		.beneficial_order = ttm_pool_beneficial_order(pool),
+> 		.page_caching = tt->caching,
+> 		.allow_pools = true,
+>@@ -1193,8 +1390,8 @@ static int __ttm_pool_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
+> 	     alloc->remaining_pages;
+> 	     it.order = ttm_pool_alloc_find_order(it.order, alloc)) {
+> 		/*
+>-		 * Out of defrag budget: harvest the rest of the old tt as-is and
+>-		 * stop (the tt is re-queued if the remainder is still
+>+		 * Out of defrag budget/prealloc: harvest the rest of the old tt
+>+		 * as-is and stop (the tt is re-queued if the remainder is still
+> 		 * sub-optimal).
+> 		 */
+> 		if (ttm_pool_iter_defrag_exhausted(&it)) {
+>@@ -1211,7 +1408,7 @@ static int __ttm_pool_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
+> 		if (r == TTM_POOL_ITER_RETRY)
+> 			continue;
+>
+>-		/* Acquire a page (pool / system) for this order. */
+>+		/* Acquire a page (prealloc / pool / system) for this order. */
+> 		ttm_pool_iter_acquire_page(&it);
+> 		if (!it.p) {
+> 			r = ttm_pool_iter_lower_order(&it);
+>@@ -1243,6 +1440,8 @@ static int __ttm_pool_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
+> 			alloc->defrag_bytes_remaining -=
+> 				(s64)(1UL << it.order) << PAGE_SHIFT;
+>
+>+		if (it.order < it.beneficial_order)
+>+			alloc->nr_suboptimal_pages += 0x1 << it.order;
 
-> ---
->  mm/vmscan.c | 12 +++++++++---
->  1 file changed, 9 insertions(+), 3 deletions(-)
->
-> diff --git a/mm/vmscan.c b/mm/vmscan.c
-> index 6a1af9b92349..902616a3b755 100644
-> --- a/mm/vmscan.c
-> +++ b/mm/vmscan.c
-> @@ -4751,19 +4751,25 @@ void max_lru_gen_memcg(struct mem_cgroup *memcg, =
-int nid)
->   * The same generation has different meanings in the parent and child me=
-mcg,
->   * so this compromise method will cause the LRU inversion problem. But a=
-s the
->   * system runs, this problem will be fixed automatically.
-> + *
-> + * Move all MAX_NR_GENS lists, not only the gens from min_seq to max_seq=
-.
-> + * An earlier reparenting can leave a folio whose gen is older than the =
-list
-> + * it is on. Once min_seq passes that gen, sort_folio() puts the folio o=
-n the
-> + * list for max_seq + 1, where it stays until the next aging. If that li=
-st
-> + * were skipped, the folio would stay behind on a memcg that is about to=
- be
-> + * freed. The parent has MAX_NR_GENS gens here, so every index is valid =
-in it.
->   */
->  static void __lru_gen_reparent_memcg(struct lruvec *child_lruvec, struct=
- lruvec *parent_lruvec,
->                                      int zone, int type)
->  {
->         struct lru_gen_folio *child_lrugen, *parent_lrugen;
->         enum lru_list lru =3D type * LRU_INACTIVE_FILE;
-> -       int i;
-> +       int gen;
->
->         child_lrugen =3D &child_lruvec->lrugen;
->         parent_lrugen =3D &parent_lruvec->lrugen;
->
-> -       for (i =3D 0; i < get_nr_gens(child_lruvec, type); i++) {
-> -               int gen =3D lru_gen_from_seq(child_lrugen->max_seq - i);
-> +       for (gen =3D 0; gen < MAX_NR_GENS; gen++) {
->                 long nr_pages =3D child_lrugen->nr_pages[gen][type][zone]=
-;
->                 int child_lru_active =3D lru_gen_is_active(child_lruvec, =
-gen) ? LRU_ACTIVE : 0;
->                 int parent_lru_active =3D lru_gen_is_active(parent_lruvec=
-, gen) ? LRU_ACTIVE : 0;
-> --
-> 2.51.0
->
+NIT..This counts any tail bytes also as suboptimal. Should be fine as it only leads
+to extra prealloc, but just noticing that TTM_TT_FLAG_BENEFICIAL_ORDER_FAILED
+is not flagged for tail bytes.
 
-Thanks,
-Barry
+> 		it.alloc_count++;
+> 	}
+>
+>@@ -1306,6 +1505,9 @@ int ttm_pool_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
+> 	/* Report the unused defrag budget back to the caller. */
+> 	ctx->defrag_bytes_remaining = alloc.defrag_bytes_remaining;
+>
+>+	if (!ret)
+>+		tt->nr_suboptimal_pages = alloc.nr_suboptimal_pages;
+>+
+> 	return ret;
+> }
+> EXPORT_SYMBOL(ttm_pool_alloc);
+>@@ -1358,6 +1560,15 @@ int ttm_pool_restore_and_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
+>
+> 			if (ret)
+> 				return ret;
+>+
+>+			/*
+>+			 * __ttm_pool_alloc() counts each freshly (re)allocated
+>+			 * chunk against nr_suboptimal_pages, but a chunk whose
+>+			 * backup copy was interrupted and is finished here
+>+			 * resumes past that loop, so account for it directly.
+>+			 */
+>+			if (restore->order < ttm_pool_beneficial_order(pool))
+>+				alloc.nr_suboptimal_pages += 1U << restore->order;
+
+NIT...'1U << order' vs '0x1 << order' in other places. Should be fine, probably
+good to be consistent.
+
+> 		}
+> 		if (!alloc.remaining_pages) {
+> 			ret = ttm_pool_apply_caching(&alloc);
+>@@ -1367,11 +1578,16 @@ int ttm_pool_restore_and_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
+> 			kfree(tt->restore);
+> 			tt->restore = NULL;
+>
+>+			tt->nr_suboptimal_pages = alloc.nr_suboptimal_pages;
+> 			return 0;
+> 		}
+> 	}
+>
+>-	return __ttm_pool_alloc(pool, tt, ctx, &alloc, restore);
+>+	ret = __ttm_pool_alloc(pool, tt, ctx, &alloc, restore);
+>+	if (!ret)
+>+		tt->nr_suboptimal_pages = alloc.nr_suboptimal_pages;
+>+
+>+	return ret;
+> }
+>
+> /**
+>diff --git a/include/drm/ttm/ttm_bo.h b/include/drm/ttm/ttm_bo.h
+>index 6124d2627b47..a80304f179ba 100644
+>--- a/include/drm/ttm/ttm_bo.h
+>+++ b/include/drm/ttm/ttm_bo.h
+>@@ -237,6 +237,17 @@ struct ttm_operation_ctx {
+> 	 * @defrag_old_tt is set.
+> 	 */
+> 	s64 defrag_bytes_remaining;
+>+	/**
+>+	 * @prealloc: Pages preallocated outside the dma-resv lock for a defrag
+>+	 * move. The pool allocator consumes these instead of allocating fresh
+>+	 * beneficial-order pages under the lock, moving the (potentially
+>+	 * reclaim/compaction stalling) high-order allocations out of the
+>+	 * critical section. NULL means allocate in-line as usual. The pool
+>+	 * silently falls back to in-line allocation for any shortfall. The
+>+	 * allocator consumes it for beneficial-order chunks of any populate;
+>+	 * drivers only set it for a defrag move.
+>+	 */
+>+	struct ttm_pool_prealloc *prealloc;
+> 	/**
+> 	 * @resv: Reservation object to be used together with
+> 	 * @allow_res_evict.
+>diff --git a/include/drm/ttm/ttm_pool.h b/include/drm/ttm/ttm_pool.h
+>index 753203980e2c..71670350eb15 100644
+>--- a/include/drm/ttm/ttm_pool.h
+>+++ b/include/drm/ttm/ttm_pool.h
+>@@ -81,6 +81,35 @@ int ttm_pool_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
+> 		   struct ttm_operation_ctx *ctx);
+> void ttm_pool_free(struct ttm_pool *pool, struct ttm_tt *tt);
+>
+>+/**
+>+ * struct ttm_pool_prealloc - Pages preallocated outside the dma-resv lock
+>+ * @pages: Array of @count beneficial-order pages (or fewer if a fill fell
+>+ *         short); each entry is the head page of a 1 << @order chunk.
+>+ * @order: Page order of every preallocated chunk.
+>+ * @caching: CPU caching applied to the pages, so leftovers can be restored
+>+ *           to write-back before being freed.
+>+ * @count: Number of valid entries in @pages.
+>+ * @used: Number of entries already consumed by the pool allocator.
+>+ *
+>+ * Defrag pages are interchangeable, so only a count of beneficial-order chunks
+>+ * is needed. ttm_pool_prealloc_fill() populates this outside the lock and
+>+ * __ttm_pool_alloc() drains it; any unused tail is released by
+>+ * ttm_pool_prealloc_fini().
+>+ */
+>+struct ttm_pool_prealloc {
+>+	struct page **pages;
+>+	unsigned int order;
+>+	enum ttm_caching caching;
+>+	unsigned int count;
+>+	unsigned int used;
+>+};
+>+
+>+int ttm_pool_prealloc_fill(struct ttm_pool *pool, enum ttm_caching tt_caching,
+>+			   struct ttm_pool_prealloc *pp, unsigned int count);
+>+void ttm_pool_prealloc_fini(struct ttm_pool *pool,
+>+			    struct ttm_pool_prealloc *pp);
+>+unsigned int ttm_pool_prealloc_order(struct ttm_pool *pool);
+>+
+> void ttm_pool_init(struct ttm_pool *pool, struct device *dev,
+> 		   int nid, unsigned int alloc_flags);
+> void ttm_pool_fini(struct ttm_pool *pool);
+>diff --git a/include/drm/ttm/ttm_tt.h b/include/drm/ttm/ttm_tt.h
+>index 55c35bcf134d..81a5446ca693 100644
+>--- a/include/drm/ttm/ttm_tt.h
+>+++ b/include/drm/ttm/ttm_tt.h
+>@@ -135,6 +135,12 @@ struct ttm_tt {
+> 	enum ttm_caching caching;
+> 	/** @restore: Partial restoration from backup state. TTM private */
+> 	struct ttm_pool_tt_restore *restore;
+>+	/**
+>+	 * @nr_suboptimal_pages: Number of pages backed below the pool's
+>+	 * beneficial order. Recorded by the pool allocator after populate; a
+>+	 * defrag pass reads it to size its out-of-lock preallocation exactly.
+>+	 */
+
+NIT...may be not 'exactly' as patch 23 rounds it up.
+
+Niranjana
+
+>+	u32 nr_suboptimal_pages;
+> };
+>
+> /**
+>@@ -201,6 +207,17 @@ static inline bool ttm_tt_is_beneficial_order_failed(const struct ttm_tt *tt)
+> 	return tt->page_flags & TTM_TT_FLAG_BENEFICIAL_ORDER_FAILED;
+> }
+>
+>+/**
+>+ * ttm_tt_suboptimal_pages() - Pages backed below the pool's beneficial order
+>+ * @tt: The struct ttm_tt.
+>+ *
+>+ * Return: Number of pages a defrag move would (re)allocate at beneficial order.
+>+ */
+>+static inline u32 ttm_tt_suboptimal_pages(const struct ttm_tt *tt)
+>+{
+>+	return tt->nr_suboptimal_pages;
+>+}
+>+
+> /**
+>  * ttm_tt_create
+>  *
+>-- 
+>2.34.1
+>
