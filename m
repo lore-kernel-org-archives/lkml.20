@@ -1,60 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.206.16.166
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794389376;
-	b=qimP5SwlypZY5MRDF4NdjExq1wTspwiJ/BTpgnbR3Vvwk85MPU4wrEiO7x30J+HOWaeu
-	 4RDG3YRe0gFcrnFfStQtElH4g78/yHqFCN78AV6N1NvJcfOv6+yuOUEQmYzYshaoYnGFB
-	 KkXqQMb/sAV3wWU2Z514uWIfrwtQJpxdMRq4mtdjvnVgukHjZoc+h8Ctl/zZoawwuRc1b
-	 JUBHPJKW/xZG0DafTIMxyFHYrTX++L9wnBfzSeb6G2j9xoRXjOjbujlN2ipyU7nivsWj1
-	 KBQc8wPnZosVfLpXgDzJQh4pnLHCtmNBX27riHMNel+9jrOs2KuyL9JdOXGEPgkv18g==
+	t=1794389379;
+	b=v3UzQbtzE5HfOcyBlvDeyA/ocyTS+K8znPiMOdu7PFJOLvWmBKifqYTEZNRTERUvVOg0
+	 cOh47BPEnhcfqLxCfNhef9ENuZF/oTd3J22nF3T6H4QI/WIaGNbIJXTCc5uSFd/6v7Wua
+	 8X8C/UhwuSoZ+owOlXvKpiH3Xldwt4oObplfFNRWhJoclgkBJ5NbarrgOHXXKsWECeXP/
+	 d1DFzPLo+UuyvaoqrRpd9w68Nf/CZD5iNV2rr0OYN7xqJUrw3BxtEdwtXYrIkdqck0ewf
+	 40am5g5usKHm7AIddLJ8bS4WWOMkclqrGQ6FOql/umADX9lflkp9RXuf32YDUE00a8g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794389376;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-QQ-SENDSIZE:Feedback-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=1x6/q7+L9dxEYBNaqg2ktHXf+EsDRsOOjKgT005SyVg=;
-	b=HACw6TaR6DgMqj5X5UE58b+9t1LxVGMrcG/9idisvySkCZqD3zX6+k5eu0kX8CPwqbC7
-	 V5qWceuteAFCY9T3/IQK+TBrqozBG6VkFBQeLqJWWZyRAcwZEnoI5llyGvcyQLEzC4Y81
-	 MYb/j/0ctauOwmOFxirOPJH4nE/k4PEWAyE7jxHJojM61+wLKS7iThuWY8Tlfxb5c4y7m
-	 HkrrQBajI0+TWjja9umkAQaZsaRxz/5kulyZL9sXnnYn9ogK/ZjIiKbAsGYghh2RlWRk+
-	 LhstXBKHLOnGmXmBk41CjIc6GCqfUr5I/XG7UHJe6x8HlhjcwVRSJYLrG5G6ckeRdEA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794389379;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=/wyfEDWWDuIr1slw1zxcxTDWKymMx6jtSpk7SY5bUAw=;
+	b=sLMfHlVYUSJffPLH8PTPrlvq0u2462PDGK+tW/uRqKH2wSRNJJwlKuAL+RV/EcXnpc97
+	 OYirQDlXVQx6bzudKc43uPzxuzlbEY56zKB5h0LdOEO4TPJnYcD2FHD4I2LgX59WsGz0C
+	 +rxLqdCj5zr0uC3ZrxQ/i1Iw8iMtwTBr0X12bI1wCDBna+dwGdxcnRZUPbnf6GkieaZrn
+	 9aag0qZAbj7k/uCoNSG2oODzPRBOK6ihP04AB/ehfPgdXDFBJZKjFa2o6DdalAfqAVviG
+	 5luiVtWQpKQojb7gCer19r6a+FUgje3+ssIVxvIAC8Qdt7STI94llyAb9cbYclABYQQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux.spacemit.com;
-	spf=none smtp.mailfrom=linux.spacemit.com;
-	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=XQN8FHoR;
-	arc=none smtp.remote-ip=54.206.16.166
-Received: from smtpbgau1.qq.com (smtpbgau1.qq.com [54.206.16.166])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mIz+x5NO;
+	arc=none smtp.remote-ip=209.85.221.42
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8249606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 09:29:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D8249606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79A65606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 09:29:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 79A65606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=XQN8FHoR
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1794389303;
-	bh=1x6/q7+L9dxEYBNaqg2ktHXf+EsDRsOOjKgT005SyVg=;
-	h=From:Date:Subject:MIME-Version:Message-Id:To;
-	b=XQN8FHoRTkEzuOstNYTqZfTRafJorAlJCnVk8USfAdG3gjrPVrHvSCBO58jNUR+WC
-	 L7EZiH/WarNfa7BLMItRuQATpubfy7e3X6XStbUF9sqAdstKPhFZjZ1cKdsGTH/x9p
-	 LWmGqkRKoB/RRDRIdXqvt2IAFCzvQd1TIxkHKzgk=
-X-QQ-mid: zesmtpsz9t1794389297t3edad2e2
-X-QQ-Originating-IP: +XOiLYpaIA0jQa7S1Ua/duinw3+aYlE6x4ssoBLSJ1g=
-Received: from LT-LIANGBAIHUI.dc.com ( [120.237.158.181])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Wed, 11 Nov 2026 17:28:13 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 9060423660867139962
-EX-QQ-RecipientCnt: 19
-From: Baihui Liang <liangbaihui@linux.spacemit.com>
-Date: Wed, 11 Nov 2026 17:26:38 +0800
-Subject: [PATCH v2] drm/imagination: re-check firmware idle state before
- runtime suspend
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mIz+x5NO
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-491aaed7565so1770846f8f.2
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 01:29:39 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794389378; x=1794994178; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=/wyfEDWWDuIr1slw1zxcxTDWKymMx6jtSpk7SY5bUAw=;
+        b=mIz+x5NOpN2cIR1fstIXQYnCW6VsEYNhbJ5YAA4meZT+odupw2IgpROiY5YB5r7r+c
+         mOJp+AdCWXCV8euzxhSfUecwtVnnQx6Cm6lKaIOf72GX6vB5NbP36m7XxayqEzrlDDye
+         h7JdokGCk4+FYZRXUrHOIzSsGy2r1+W1dB/VK53iq19VzP8AjqWhJbuHwsZa39J3h+62
+         CLdXEoJgSJVs0DHIW/THzxH0zM9+UGWQX4smgoEEoiexr6wF6DS1LIlx/phcG9iY1eBk
+         rQ8rqqKfkn8zLr2LbSEPNwkwQGoNBwiCmB9M0uiXjHKcgQyBN/Segh6x2BRAGsjX0fLX
+         zISw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794389378; x=1794994178;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/wyfEDWWDuIr1slw1zxcxTDWKymMx6jtSpk7SY5bUAw=;
+        b=oSRdgczUrXLqpLlWw/Q+gMZ9/g2OxWgnGJLz22mC8yorzR19P2iCIMuYkdDqYbJtiw
+         5H31O5R+JvbyzWk/gbrQw3BETocD7T/Hq4R7t/xjGbWFKJPZLclFyfFJCMShcmeNkBG6
+         PfVJJN0gPgGHopMZheY1Zp3tjpfXcMBaZNybJbQFZR4A9GEMBvfWVW8LUkLidcBqXEyK
+         JcxCS7oCxH9Nvae+Kk7mlQ/+FpJgPimE3Klw8zlQ/d/uWB6SmNIHzbNoZ1NO5X15oRbL
+         biAYyilTqfP30l2/2k8xiIy8JhPrmLLRxYyUw0y7VQ54cXP3y0l66uJHMa4iStgWZR1B
+         at2g==
+X-Forwarded-Encrypted: i=1; AL+hErGMaJG/kxvOXE570K2OlHdAHtRQi1ulZ+03tVOR6DVYOcAjGduBkfO2xikOtevpxm4bFfr7NcdFNzDJIC0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8sGmj6BPTMywMBIsacpy3lx9cAVEZm9+ZTRT/ySaiFGJNGzZh1
+	9br4VcGaNVQTzObmaaAGyUhuQvzc1a/M+lsA/uDyVlfFiCfLdz+tn3f/
+X-Gm-Gg: AYBFou0NeceeyGvzCxTxem8wSg3cyvCt7eNU2IAMv1HGPmML2POsUAcSf8jBKDxA7ap
+	aBJILAR2FV6B5fVnyObiD9Z69MeSkNxbMWFX5kIMfTHdvWDv6iAvMQ0ohTUyOu1stuK70XyXYep
+	X1kfy0FNmhXESgZnKSWHuJ1PbkgMF8GTnZ3QsmPhWTp50Bfyfw9B10gTYYQEQSw9lOIzS46o6Kf
+	8wW+N42keh3g2VDSbsq+aPOXJyG2+m/SPfJ4i5Gg/fCqW4fdtLAOI/a8I0X1PUdAG0jeiQJtDXm
+	EQyldDI0W47dyv16EXhnIq4eAVlumU9eFFusu38rQL8DdGwfeIdRZj4JQ7rdKp4GXUI3mc8vAl2
+	IuqsGbu8ptzWDKmICqxPMXniyxBu3s/2JRgPm49ssAB8YinCHoB64wd5wfo9jAqzXQoFCRAgeab
+	dtkQn/dVbCLSRL3hJFrylX1bTB0/k2Hdr30GG7PYF+U/IbdgaDbuxNwd9pk7iZGMimgxiVCHBE7
+	lpERSnGYMGTaGGQ2j+05hkCDpmhUzYYLRaRZ1/GdyQGDu83pfBAkGdRMTZVgd5vkLYzTKa9fD64
+	hFxdPkb3ErQWZJrOUwlDya4z+YOdiaMQ4/in+hOwaA5yjkBLRoL8lLv9TqDz+htJhg==
+X-Received: by 2002:a05:6000:4011:b0:492:e1a6:90f9 with SMTP id ffacd0b85a97d-499c72712e8mr3087990f8f.18.1794389377659;
+        Wed, 11 Nov 2026 01:29:37 -0800 (PST)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4983585923bsm10160123f8f.11.2026.11.11.01.29.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 01:29:36 -0800 (PST)
+Date: Wed, 11 Nov 2026 09:29:35 +0000
+From: David Laight <david.laight.linux@gmail.com>
+To: "Rui Qi" <qirui.001@bytedance.com>
+Cc: "Catalin Marinas" <catalin.marinas@arm.com>, <will@kernel.org>,
+ <mark.rutland@arm.com>, <ardb@kernel.org>, <song@kernel.org>,
+ <dylanbhatch@google.com>, <linux-arm-kernel@lists.infradead.org>,
+ <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+Subject: Re: [PATCH 2/3] arm64: patching: Fix instruction byte order in
+ aarch64_insn_set()
+Message-ID: <20261111092935.4d6060ee@pumpkin>
+In-Reply-To: <3b540bc9-69b3-42a8-8431-75dd6079bf4f@bytedance.com>
+References: <20261010084721.2197683-1-qirui.001@bytedance.com>
+	<20261010085055.2200241-1-qirui.001@bytedance.com>
+	<atEGBsR3eI3cXKay@arm.com>
+	<3b540bc9-69b3-42a8-8431-75dd6079bf4f@bytedance.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,148 +104,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261111-img-pm-autosuspend-v2-1-427689f6f2f9@linux.spacemit.com>
-X-B4-Tracking: v=1; b=H4sIAM009GoC/32NwQ6CMBAFf8X0bAktSNGT/2E41LLAGmmbbkswh
- H8X8O5xknnzFkYQEIjdTgsLMCGhsxvI84mZQdseOLYbM5nLSuTyynHsuR+5TtFRIg+25Uop2dZ
- FKapOsW3oA3Q4H9FH82NKzxeYuJd2Y0CKLnyO10ns3t+DSXDBZVVfRF3muijh/kab5oy8NjBiz
- IwbWbOu6xc4aKxxzwAAAA==
-X-Change-ID: 20261029-img-pm-autosuspend-7772d83416f7
-To: Alessio Belle <alessio.belle@imgtec.com>, 
- Luigi Santivetti <luigi.santivetti@imgtec.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Yixun Lan <dlan@kernel.org>, 
- Troy Mitchell <troy.mitchell@linux.spacemit.com>
-Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
- imagination@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, 
- spacemit@lists.linux.dev, Baihui Liang <liangbaihui@linux.spacemit.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794389294; l=3688;
- i=liangbaihui@linux.spacemit.com; s=20261015; h=from:subject:message-id;
- bh=x6K34nWpBSBqZdwbwRIhO9SVuy6u2jufX/yBvPX5t3s=;
- b=Nj5gTEREc6EDBnytR7IQoe/3SnxudUrSdxdlKMaGc9y3JbQk6N5bF/u8ohmdtVft9Via5jINg
- tcmXPIUZt3uBOWXEoPob0o7ZFn0SkE8dVwDYC9hYEVFUI7O9FLtmeYU
-X-Developer-Key: i=liangbaihui@linux.spacemit.com; a=ed25519;
- pk=L9Pa1YBHFuJrRPNu/FfSW/likBvv9j2dUrR3r+YyJ5M=
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpsz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz6b-0
-X-QQ-XMAILINFO: NjuDfT6zrIZctbTuX7v6lwY5Cf/QCqoCeG3BScg0IQVlz/ZpxYISa+k8
-	VHdGjlZJXiXl01u4QuLJhPa2Uht09CaaMvf1rNyatshuTmCadGwYMopuBr5uFTJZchRdG2u
-	bxe7qkPdhmC2ISvH25Gc1vM6+MeWw8UGIZb6TzItxvpMyEDyBtgXGxUGbdcWL8Pjh221mDL
-	hioJQOh5ZnuIRXI/Zm1CaEdypxdygXwQ6kIUYS/LQissz4ruOydg0rEtLaDVMgn1HJ5+0Q4
-	QPurfRKo44Ydc6zD3aapz3hRyx/9K+QbFj2SL1VIDmQvpO5Czw/qSraXeiZIFSlS16qp1FS
-	6RpXAW91zcUIEO01nGOYGywoFrjNWIowIeQxFOXJFvNUZUyvJzlv5Yut1tySUVRZMd+PUML
-	ZDZjFzShBSjjHGi/lSBFFA+V+l3FCZ5X+I4Ld9hJ+9Dw4apqPhbBoHkV0DDnkzGE0Ah8/1M
-	EKiBoV/yFnhrvjYFd8tin+Y72KcJ1g+iLE5MSu1xd3h2qyp7oHgfUKv/aHxnwae5KInDSNd
-	uoQvgXMZCP6XXCIPJNaysyQmRzBVq0azxUCuj2Beqm69o6tfSWNvnF3EinlbO0YBYYOcCHR
-	7rFMzAKgqJRecgayccL1rg97zn5BcpnGEzSjAV6t/PDBNTXyNHtmFGtfSFwNbnQkJgp9oK+
-	PxO97F6ij3MlzuDpuMgFh0v+diw73RIYQ/dI79/IgNahgRWH6xIKQziqSjBVK5uwO3NJqGk
-	G6Dq+1lztqsJFYEdhGPRKrLiTm+rANsIASTcKeLe6r7R+f1Al3yisXtbPEgpQBQ9rrJxxyV
-	yJBnW2nsG7g+toSi5or8PAB7N61Qo6ckUd0sK8Lt9InWYoyq0GKcsl4SoVYAUhYCQ3fYQVe
-	gecK4XrXv8e2K26Ks3pIGzOKWuqfQOvsAy6Ipc7OehnjZmdwbm2swy5+Jq1hP9Xw8a9Jaep
-	5uNQSscBQbSOgRewyA4pce/0wadPgWA5gcynuiU04LRafzzp557M13NX8p8x8/xtUeE1T1X
-	DgymDSTTzvZPxayPv9PPisOypcKmHBDv7yXNF7+l+s6FvgoBGh1+VLLBz7rAU=
-X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
-X-QQ-RECHKSPAM: 0
 
-pvr_power_device_idle() rejects runtime suspend while the firmware
-hasn't reached ROGUE_FWIF_POW_IDLE. The PM core doesn't reschedule
-idle notification after rejection, so no further pm_runtime_put()
-arrives on an idle GPU and the device stays powered indefinitely.
+On Wed, 11 Nov 2026 14:52:44 +0800
+"Rui Qi" <qirui.001@bytedance.com> wrote:
 
-Move the idle check into pvr_power_device_suspend() and return -EBUSY
-after pm_runtime_mark_last_busy() so the PM core reschedules the
-autosuspend timer and retries until the firmware is idle.
+> On 10/16/26 12:57 AM, Catalin Marinas wrote:
+> > On Sat, Oct 10, 2026 at 04:50:54PM +0800, Rui Qi wrote:  
+> >> aarch64_insn_set() passes the host-endian u32 instruction straight to
+> >> text_poke_memset(), which memset32()'s it into memory in host byte order.
+> >> AArch64 instructions must be little-endian in memory, so on a big-endian
+> >> kernel the written bytes are reversed and the CPU takes an UNDEFINED
+> >> instruction exception when fetching them.  The sibling aarch64_insn_write()
+> >> already converts with cpu_to_le32(); aarch64_insn_set() does not.
+> >>
+> >> This is reachable in-tree: bpf_arch_text_invalidate() fills freed JIT
+> >> regions with AARCH64_BREAK_FAULT through aarch64_insn_set(), and arm64
+> >> selects HAVE_EBPF_JIT without a big-endian guard, so the path is taken on
+> >> BE kernels with BPF JIT.  The direct-fill loop in the same file already
+> >> cpu_to_le32()'s the constant, confirming the expected byte order.
+> >>
+> >> Convert the instruction to little-endian before the memset, mirroring
+> >> aarch64_insn_write().  On LE the conversion is a no-op, so behaviour is
+> >> unchanged.  
+> > 
+> > We are just about to remove big-endian support (in 7.4).
+> >   
+> 
+> Understood.  In -next arm64 no longer has a config CPU_BIG_ENDIAN and
+> nothing selects it, so 1/3 and 2/3 are fixing a configuration that no
+> longer exists.  I'll drop both.
 
-Signed-off-by: Baihui Liang <liangbaihui@linux.spacemit.com>
----
-Changes in v2:
-- Move the pvr_power_is_idle() check into pvr_power_device_suspend()
-  and return -EBUSY after pm_runtime_mark_last_busy().
-- Drop pvr_power_device_idle() and pass NULL in RUNTIME_PM_OPS().
-- Link to v1: https://patch.msgid.link/20261029-img-pm-autosuspend-v1-1-26851840a34e@linux.spacemit.com
----
- drivers/gpu/drm/imagination/pvr_drv.c   |  2 +-
- drivers/gpu/drm/imagination/pvr_power.c | 22 ++++++++++++----------
- drivers/gpu/drm/imagination/pvr_power.h |  1 -
- 3 files changed, 13 insertions(+), 12 deletions(-)
+Should it still be fixed in the LTS kernels?
+(or disable BPF JIT for arm BE)
 
-diff --git a/drivers/gpu/drm/imagination/pvr_drv.c b/drivers/gpu/drm/imagination/pvr_drv.c
-index 5c965ef0274..541351d4bb6 100644
---- a/drivers/gpu/drm/imagination/pvr_drv.c
-+++ b/drivers/gpu/drm/imagination/pvr_drv.c
-@@ -1516,7 +1516,7 @@ static const struct of_device_id dt_match[] = {
- MODULE_DEVICE_TABLE(of, dt_match);
- 
- static const struct dev_pm_ops pvr_pm_ops = {
--	RUNTIME_PM_OPS(pvr_power_device_suspend, pvr_power_device_resume, pvr_power_device_idle)
-+	RUNTIME_PM_OPS(pvr_power_device_suspend, pvr_power_device_resume, NULL)
- };
- 
- static struct platform_driver pvr_driver = {
-diff --git a/drivers/gpu/drm/imagination/pvr_power.c b/drivers/gpu/drm/imagination/pvr_power.c
-index eb4b6ecdf4f..71267f714c7 100644
---- a/drivers/gpu/drm/imagination/pvr_power.c
-+++ b/drivers/gpu/drm/imagination/pvr_power.c
-@@ -378,6 +378,18 @@ pvr_power_device_suspend(struct device *dev)
- 	if (!drm_dev_enter(drm_dev, &idx))
- 		return -EIO;
- 
-+	if (READ_ONCE(pvr_dev->fw_dev.initialised) && !pvr_power_is_idle(pvr_dev)) {
-+		/*
-+		 * The firmware has not drained the GPU yet. Refresh last_busy so
-+		 * the PM core reschedules the autosuspend and retries this callback
-+		 * until the firmware becomes idle.
-+		 */
-+		pm_runtime_mark_last_busy(dev);
-+		drm_dev_exit(idx);
-+
-+		return -EBUSY;
-+	}
-+
- 	if (READ_ONCE(pvr_dev->fw_dev.initialised)) {
- 		err = pvr_power_fw_disable(pvr_dev, false, true);
- 		if (err)
-@@ -427,16 +439,6 @@ pvr_power_device_resume(struct device *dev)
- 	return err;
- }
- 
--int
--pvr_power_device_idle(struct device *dev)
--{
--	struct platform_device *plat_dev = to_platform_device(dev);
--	struct drm_device *drm_dev = platform_get_drvdata(plat_dev);
--	struct pvr_device *pvr_dev = to_pvr_device(drm_dev);
--
--	return pvr_power_is_idle(pvr_dev) ? 0 : -EBUSY;
--}
--
- static int
- pvr_power_clear_error(struct pvr_device *pvr_dev)
- {
-diff --git a/drivers/gpu/drm/imagination/pvr_power.h b/drivers/gpu/drm/imagination/pvr_power.h
-index c34252bda07..7d8df45c7b1 100644
---- a/drivers/gpu/drm/imagination/pvr_power.h
-+++ b/drivers/gpu/drm/imagination/pvr_power.h
-@@ -18,7 +18,6 @@ bool pvr_power_is_idle(struct pvr_device *pvr_dev);
- 
- int pvr_power_device_suspend(struct device *dev);
- int pvr_power_device_resume(struct device *dev);
--int pvr_power_device_idle(struct device *dev);
- 
- int pvr_power_reset(struct pvr_device *pvr_dev, bool hard_reset);
- 
+David
 
----
-base-commit: 067c5c24cef23d913b67eaaf71ae67e7169a6620
-change-id: 20261029-img-pm-autosuspend-7772d83416f7
-
-Best regards,
---  
-Baihui Liang <liangbaihui@linux.spacemit.com>
+> 
+> 3/3 ("arm64: module: Use text-poke for late PLT/veneer emission") is
+> independent of the byte-order work: it routes
+> module_emit_plt_entry() / module_emit_veneer_for_adrp() through
+> aarch64_insn_copy() so a late livepatch relocation that falls back to
+> PLT emission does not write into the ROX .plt and Data Abort.  That
+> path is reachable on LE today (klp_write_section_relocs() on a
+> MODULE_STATE_LIVE patch module), so it is not BE-specific; it carries
+> Fixes: 91b89a634487 and Cc: stable.
+> 
+> I'll resend 3/3 as a standalone patch in a new thread.  Happy to route
+> it a particular way if you'd prefer.
+> 
 
