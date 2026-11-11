@@ -1,44 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.236.53.96
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794385448;
-	b=iEY8olPiuTMb2AObTCe2C0cXDECwd5o6wvo8GyoBfUcmYAraaJt3wp65aIYDAMrbZJ8k
-	 8dqvEcj07JB4OdOg24SwtjWqeObXhyx1D3CDtfxrEqRQWbyfY8EhG3sybR26tblRG9RYh
-	 7LEwNNSrEzOyRX7oI9V6W1d69hmgejM3lNIkWAPLGN+3O3iVPJ4NNsfiPKPSmbOjgCZuX
-	 xRsEmIX7vmYkbwnGN8/tLR1BN6Tub1Rex0sN9V7I1bSLnYzPB3deaIiPDdf/D/y/erF2l
-	 xxAaSp41H9ko3KoynzIIPlKJXyPlAddjP4d0XFh+8IqMckKJXVOf5r6o/b/u3uyPioQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794385448;
-	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:X-HM-Spam-Status:
-	 DKIM-Signature;
-	bh=HIGazGLFZ+omnPFGXPeDAtvbrPwPKBLIFOy6gFksbCA=;
-	b=pztsf76jB/cTfyi8zijQNM6Oo9iFsBzrjd+JIPU10K4cjctMK1fpb6aLXd4n3C7Zn6YS
-	 PjDpU1lr17Rdt2sCxPk/9e4xDylBrqV9RieP1E/L+okLFrXNsUvwGOY2njgdxWJ87HyQK
-	 5BqG3rHvnl66mcUxQU1EU3KgiiSmOwwPRGP09lgNtNIuEl9mijrx952doS9ufjB2uN5EX
-	 wS1/f2zfZHVHUVutKsuTsaxN21yJelYxtqrZ7aWiaV/tfXzCV38cIa0nHYSJHtGmtkuB3
-	 PpkVKj7D2dwsXT9nT2dSCQEFh6HIWgIS6Thi+MvPnY7hgMGlyLMNq5v8qosF+k84YCg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rock-chips.com;
-	spf=pass smtp.mailfrom=rock-chips.com;
-	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=PNe5BUeX;
-	arc=none smtp.remote-ip=160.236.53.96
-Received: from mail-m1602365396.xmail.ntesmail.com (mail-m1602365396.xmail.ntesmail.com [160.236.53.96])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794385589;
+	b=ObgTbygm4HUingcPyjXf1imCEOuTkjIY4LNZPRhLZdIANXTQilNi8eIERLlDNIdyU0cU
+	 PQ4jeMxjLzRFXhKFoycIpjzSMssmJeWW5TocC66m6QhVDlXXZMWZUYH+lkGzGYIYWbK3P
+	 Xo0pmjbuWxkakJMLwS3NRsmEl3oyzTXZGHOZ5Tp7xtBkRZNPWrjv3K2XKUEDJX3/i0/dk
+	 wZ90MjWxmlDluMRPSihne58CpvALrGeLvIbZ7e+mEXRMWr7DBCrRob/HethBymAX84+mE
+	 jUG63onPIngTiYqWW6xun9rbfG0P1JlmEygf1Dil6akRwpPT/bSQ4jiJvggK92/Honw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794385589;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=hD0P8YXXxdvtIjmhK8x/tbWxpC2Iq/MwQl2yqUlO1Hs=;
+	b=zxaKq9Npeft9kfRvpZ79jJ6TAQh83Wqi6BG1mCIref4ZElaSPopr7VL6CuiuFzGdceNn
+	 hTrfK3E3RGGtjFPh/X7eQVRfCBbTFuJKm17DBmpjdqVRimgW5QKxbUEijaIVw9Vw2v9TZ
+	 nZ9AJUH/32lkcA4Vg68FLPqGzJbAz5PDElPV/PS4TxCTVKyGEzlAtV/K41ADZiYIY0PXS
+	 VvPuquwhcW1nPX9+vlyGa5Jv4f9sOomLEVpN13+mWFc/ltkMX7yGVy83MoMUXW9WzPlVD
+	 R1gw0DTnyaNAob1m7McIBN1kCfi/OZMh/FOCO3niS1jnpB75lSNI8yHFdkabtFkyWoQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W0lM+jDN;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18F32606A31C;
+	Wed, 11 Nov 2026 08:26:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W0lM+jDN
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794385588;
+	b=gRLIiqEJRNhnSoTsh6Qpv5NQSYH1hMRE5Wbym52Va2egnMmIMegnU3ZlHgyZ1i4VN11M
+	 BgzzJ/jq98zs/p8Pu8FEeIgtcgkYm+e07bruTUSlZ+WmbKmveV5mc6BdiWcTmNMF2FEVm
+	 7sm9JH9wiBClzMQyL2QmpDaETjxliK2uDJcgfit3aLP3CIKJaSEpuGI0nlF3+4hNApRFl
+	 VRRE3M2AvJgE1cAMuZzWifNKcm8/7sHWHa+tAfED7A137+Y6C910rnDvIjNzoFaksdpUw
+	 0eqP3zERmWhinCdjlr5Xl1P/zXAJpYcjLM3tu/XA/V77BJddnPYKoC/W9dJvxV8aJyw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794385588;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=hD0P8YXXxdvtIjmhK8x/tbWxpC2Iq/MwQl2yqUlO1Hs=;
+	b=duzokdYPGZtCrtN05fr93dA+PYPGKYyOktDuE20RaT/V+hrJhAK3+wEUKBIxKSSPE2H+
+	 QzmbGE450XAamq8rUHMrtDZkJ4nPKS1gUK5ygD9uG7AFbXik6OPIOS16ugtRE+/gK3ngt
+	 /aM0aACKaHSMz98mVnXv79cKl7mM6eaV2tJGJVbYulVTmAHPTy66p2KeqFbaRL5CjJYjv
+	 6xmqdgakg6jaavwLXKTiNRAFmsesVLehOUBeOLO+clXMKQ+VYTIgxnLZSlqp9v7hUi7vI
+	 8Zyw/45ezStwhTzsRuwE9OT0MaxTUyGw3ODNQBv6RqcZilhrnS3nEOFiS34/dY5+mNg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A0A6606A321;
-	Wed, 11 Nov 2026 08:24:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A0A6606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=PNe5BUeX
-Received: from [172.16.12.11] (gyproxy-mailtls1-entmail-virt216.gy.ntes [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 544931115;
-	Wed, 11 Nov 2026 16:23:45 +0800 (GMT+08:00)
-Message-ID: <ca90a994-70cc-410a-902d-5c4c0aacc9b7@rock-chips.com>
-Date: Wed, 11 Nov 2026 16:23:45 +0800
+	by smtp.kernel.org (Postfix) with ESMTPS id 06B051F00A07;
+	Wed, 11 Nov 2026 08:26:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794385588;
+	bh=hD0P8YXXxdvtIjmhK8x/tbWxpC2Iq/MwQl2yqUlO1Hs=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=W0lM+jDN9VA35pmw17wf46MwLies/1Lduuc5F+eCnu4kCSMvK8xx+rNk4JPqu5fpx
+	 SJ7v5VxFnUJoVvhHGvB///ABL8K21uQZYLgrRA99Fr6XJ9KF5HXgcEmqrxcwiufVbR
+	 b2WI7+oVk9BTzddhcLu7QbGMjlgnK+/bQI2WmVrrnjyRKdSp+CBxGFe+E/tL7Vx2ln
+	 KwFtmkUWvMtZuhzJRKlC1ptCcjlEBIje1zSPE3bUbGFmgjC8MJnKYZFnDykhTV/uK6
+	 pfm3kjK/8gypJolFVCmuF2HqgBZUNI9ubAOCvvLvfImWUAT9u7g01IuW+KOoftfuGc
+	 AA+eNRmoEVUoQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 7BFAE48E93;
+	Wed, 11 Nov 2026 08:26:27 +0000 (UTC)
+From: Joseph Telaak via B4 Relay <devnull+joseph.telaak.dev@kernel.org>
+Date: Wed, 11 Nov 2026 03:26:02 -0500
+Subject: [PATCH v2 2/3] usb: dwc2: Add Siflower SF19A2890 support
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -48,169 +82,75 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v16 10/16] pmdomain: rockchip: cycle an optional
- power-domain reset on power-on
-To: Jiaxing Hu <gahing@gahingwoo.com>, tomeu@tomeuvizoso.net,
- heiko@sntech.de, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- joro@8bytes.org, will@kernel.org, robin.murphy@arm.com, ulfh@kernel.org,
- p.zabel@pengutronix.de, ogabbay@kernel.org, zhangqing@rock-chips.com
-Cc: royalnet026@gmail.com, abel.vesa@oss.qualcomm.com,
- sebastian.reichel@collabora.com, sidong.yang@furiosa.ai,
- u.kleine-koenig@baylibre.com, chaoyi.chen@rock-chips.com,
- shawn.lin@rock-chips.com, diederik@cknow-tech.com, alchark@flipper.net,
- leonard@lausen.nl, jeff.hugo@oss.qualcomm.com, rfoss@kernel.org,
- dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- iommu@lists.linux.dev, linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20261108065917.135194-1-gahing@gahingwoo.com>
- <20261108065917.135194-11-gahing@gahingwoo.com>
-From: Finley Xiao <finley.xiao@rock-chips.com>
-In-Reply-To: <20261108065917.135194-11-gahing@gahingwoo.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa1c9b4b55703a8kunm2d5d490d3aa52c
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDTE5OVh5ITUIdGRoZS05CH1YVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pKQk1VSktLVUpCWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=PNe5BUeXIVF4MzdxsakPs8/fbX+x0vjN/3ButBeQnwAzztEQ3I7la/27YHllx5kc1gRV4ixYgpoX1S3VjkkRgaqWsU9UlWaVfc3sYg1A0zzfrMFB2c5xo3ARIWcAg+yLjwkUGuiSG43F1a1sPJfl4bh9g4zSQLZugv05/J69mD8=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
-	bh=HIGazGLFZ+omnPFGXPeDAtvbrPwPKBLIFOy6gFksbCA=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261111-sf19a2890-dwc2-v2-2-cba9dd4a4256@telaak.dev>
+References: <20261111-sf19a2890-dwc2-v2-0-cba9dd4a4256@telaak.dev>
+In-Reply-To: <20261111-sf19a2890-dwc2-v2-0-cba9dd4a4256@telaak.dev>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Minas Harutyunyan <hminas@synopsys.com>
+Cc: Chuanhong Guo <gch981213@gmail.com>, linux-mips@vger.kernel.org, 
+ linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Joseph Telaak <joseph@telaak.dev>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794385586; l=1619;
+ i=joseph@telaak.dev; s=20261104; h=from:subject:message-id;
+ bh=nQKb53x4kS6TUNVquwYjce7H9GBsH2tS7RH2pY4HKw8=;
+ b=a8hF7jD8+wGLj45IBtGTJ6U3mPI2ivMNDb9cwpRa6nTl63O35D19TalR4isiXM9W34IRBFU4s
+ iUlgq61tyEXBbnDCcFABnU7zAuxunQJbFyQg0cG8Yk3QCNztzuMPWJX
+X-Developer-Key: i=joseph@telaak.dev; a=ed25519;
+ pk=oQI+UfddlZ0wK2ac4WKOGNjUl1ZEN8j9ZVFSqEDoNP0=
+X-Endpoint-Received: by B4 Relay for joseph@telaak.dev/20261104 with
+ auth_id=1404
+X-Original-From: Joseph Telaak <joseph@telaak.dev>
+Reply-To: joseph@telaak.dev
 
+From: Chuanhong Guo <gch981213@gmail.com>
 
-在 2026/11/8 14:59, Jiaxing Hu 写道:
-> The bus interface of some power domains can be left in an undefined state
-> after power-on.
->
-> On the RK3576 NPU this shows up as a hang on the first register access
-> after power-on. Resetting the power domain once makes access work again.
->
-> When the power domain node has a reset, the driver gets it and cycles it
-> after releasing the idle request and before restoring QoS.
->
-> This is optional. Power domains without a reset are not affected.
->
-> Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
-> Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-> Reviewed-by: Heiko Stuebner <heiko@sntech.de>
-> ---
->   drivers/pmdomain/rockchip/pm-domains.c | 33 +++++++++++++++++++++++++-
->   1 file changed, 32 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/pmdomain/rockchip/pm-domains.c b/drivers/pmdomain/rockchip/pm-domains.c
-> index e3cc60fa2277..0f4ea5471792 100644
-> --- a/drivers/pmdomain/rockchip/pm-domains.c
-> +++ b/drivers/pmdomain/rockchip/pm-domains.c
-> @@ -19,6 +19,7 @@
->   #include <linux/of_clk.h>
->   #include <linux/clk.h>
->   #include <linux/delay.h>
-> +#include <linux/reset.h>
->   #include <linux/regmap.h>
->   #include <linux/regulator/consumer.h>
->   #include <linux/mfd/syscon.h>
-> @@ -103,6 +104,7 @@ struct rockchip_pm_domain {
->   	struct clk_bulk_data *clks;
->   	struct device_node *node;
->   	struct regulator *supply;
-> +	struct reset_control *reset;
->   };
->   
->   struct rockchip_pmu {
-> @@ -688,6 +690,21 @@ static int rockchip_pd_power(struct rockchip_pm_domain *pd, bool power_on)
->   		if (ret < 0)
->   			goto out;
->   
-> +		/*
-> +		 * Optional: some domains need their reset cycled once power
-> +		 * is on. This goes BEFORE the settle delay, not after: a
-> +		 * domain that asks for both is asking to settle before the
-> +		 * QoS registers answer, and a reset deasserted after the
-> +		 * delay would leave nothing between it and the QoS writes.
-> +		 * On RK3576 the reset being cycled is the NPU core's bus
-> +		 * interface, which is what those writes go through.
-> +		 */
-> +		if (pd->reset) {
-> +			reset_control_assert(pd->reset);
-> +			usleep_range(10, 20);
-> +			reset_control_deassert(pd->reset);
-> +		}
-> +
-We have tested this across a large number of RK3576 chips and have
-never seen this problem. From the design side there is no such issue
-either: the bus interface does not come up in an undefined state
-after the power domain switches on, so no reset cycle is needed.
+The Siflower SF19A2890 has a DWC OTG 3.30a controller. Limit its
+transfers to 65535 bytes and its AHB bursts to INCR4, the settings the
+OpenWrt port has run it with.
 
-The settle delay, on the other hand, is needed - but as discussed
-earlier in this series, only on NPUTOP, not on PD_NPU0/PD_NPU1 and
-not together with a reset.
+Signed-off-by: Chuanhong Guo <gch981213@gmail.com>
+[Joseph Telaak:
+  - take it from OpenWrt's siflower target and rebase on v7.4-rc1
+  - commit message and subject]
+Signed-off-by: Joseph Telaak <joseph@telaak.dev>
+---
+ drivers/usb/dwc2/params.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-If you are seeing a hang on the first register access, could you
-share the exact conditions (which code performs the access and
-whether its clocks are enabled, firmware/boot state)? That would
-help us understand the difference from our testing.
->   		/* Some domains need to settle before the QoS registers answer. */
->   		if (pd->info->delay_us)
->   			udelay(pd->info->delay_us);
-> @@ -873,6 +890,14 @@ static int rockchip_pm_add_one_domain(struct rockchip_pmu *pmu,
->   	if (error)
->   		goto err_put_clocks;
->   
-> +	pd->reset = of_reset_control_get_optional_exclusive(node, NULL);
-> +	if (IS_ERR(pd->reset)) {
-> +		error = dev_err_probe(pmu->dev, PTR_ERR(pd->reset),
-> +				      "%pOFn: failed to get reset\n", node);
-> +		pd->reset = NULL;
-> +		goto err_unprepare_clocks;
-> +	}
-> +
->   	pd->num_qos = of_count_phandle_with_args(node, "pm_qos",
->   						 NULL);
->   
-> @@ -943,11 +968,13 @@ static int rockchip_pm_add_one_domain(struct rockchip_pmu *pmu,
->   	clk_bulk_unprepare(pd->num_clks, pd->clks);
->   err_put_clocks:
->   	clk_bulk_put(pd->num_clks, pd->clks);
-> +	reset_control_put(pd->reset);
->   	return error;
->   }
->   
->   static void rockchip_pm_remove_one_domain(struct rockchip_pm_domain *pd)
->   {
-> +	struct reset_control *reset;
->   	int ret;
->   
->   	/*
-> @@ -962,11 +989,15 @@ static void rockchip_pm_remove_one_domain(struct rockchip_pm_domain *pd)
->   	clk_bulk_unprepare(pd->num_clks, pd->clks);
->   	clk_bulk_put(pd->num_clks, pd->clks);
->   
-> -	/* protect the zeroing of pm->num_clks */
-> +	/* protect the zeroing of pd->num_clks and pd->reset */
->   	mutex_lock(&pd->pmu->mutex);
->   	pd->num_clks = 0;
-> +	reset = pd->reset;
-> +	pd->reset = NULL;
->   	mutex_unlock(&pd->pmu->mutex);
->   
-> +	reset_control_put(reset);
-> +
->   	/* devm will free our memory */
->   }
->   
+diff --git a/drivers/usb/dwc2/params.c b/drivers/usb/dwc2/params.c
+index 091bfcfef753..b31fa1f5ad64 100644
+--- a/drivers/usb/dwc2/params.c
++++ b/drivers/usb/dwc2/params.c
+@@ -237,6 +237,14 @@ static void dwc2_set_cv1800_params(struct dwc2_hsotg *hsotg)
+ 	p->power_down = DWC2_POWER_DOWN_PARAM_NONE;
+ }
+ 
++static void dwc2_set_sf19a2890_params(struct dwc2_hsotg *hsotg)
++{
++	struct dwc2_core_params *p = &hsotg->params;
++
++	p->max_transfer_size = 65535;
++	p->ahbcfg = GAHBCFG_HBSTLEN_INCR4 << GAHBCFG_HBSTLEN_SHIFT;
++}
++
+ static void dwc2_set_stm32f4x9_fsotg_params(struct dwc2_hsotg *hsotg)
+ {
+ 	struct dwc2_core_params *p = &hsotg->params;
+@@ -334,6 +342,8 @@ const struct of_device_id dwc2_of_match_table[] = {
+ 	  .data = dwc2_set_amlogic_a1_params },
+ 	{ .compatible = "amcc,dwc-otg", .data = dwc2_set_amcc_params },
+ 	{ .compatible = "apm,apm82181-dwc-otg", .data = dwc2_set_amcc_params },
++	{ .compatible = "siflower,sf19a2890-usb",
++	  .data = dwc2_set_sf19a2890_params },
+ 	{ .compatible = "sophgo,cv1800b-usb",
+ 	  .data = dwc2_set_cv1800_params },
+ 	{ .compatible = "st,stm32f4x9-fsotg",
 
 -- 
-Best regards,
+Git-155)
 
-底层平台中心 肖锋（Finley Xiao）
-************************************************************************************
-瑞芯微电子股份有限公司
-Rockchip Electronics Co., Ltd.
-福建省福州市铜盘路软件大道89号软件园A区21号楼 350003
-No.21 Building, A District, Fuzhou Software Park, Fuzhou, Fujian 350003, P.R. China
-Tel: 0591-83991906-8602 Mobile: 18506057603
-************************************************************************************
 
