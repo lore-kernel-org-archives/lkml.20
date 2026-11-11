@@ -1,75 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794388204;
-	b=pBcKgftDu+R7r6gaLoNAGc9AgxbxkbYSjJ1kyeImoBx8GVJfdR1u7vL7CPcmZxR1fMBc
-	 YZeXla7yFY4r1FlMjtPouIYz3gZJ8xhC/c11Fl3yjeSxU9b6YjUbDBsXl5PpfdXG37vHj
-	 ys4NWPPf5ZdlfNh+Uyqh677ZnrOz/kFzBq358rRxS1L0ZiIIxdz04xOlRJz1w8tih3ycI
-	 sub0Ml76kuH2YLG7PwSwJ8FKW5dflIFPWUrZMH+3e9xr/lYeTW/zMN10eGAhv2/qcd9I6
-	 ZbrxYRJx0741BhHEtoWTAJW0fZ3rehbQ8KOMGKX/cv8AVT8Jirj5OfT91oEuIHigr8Q==
+	t=1794388217;
+	b=BPQ7GCzPkrQAx2mpongMrWbAgzHnOPmbbyH8ou+pkANonwnt4uMFQlLDlLCsI0pihqKp
+	 ZG0HcqK9NT9HSuezM5JjHvbPlDSlZC3Kff4EZ18UTmsZPqtmpR8HONq1e9DtvOU819n3h
+	 SUzdtF4gkFnbmy8dnbRF7GH6NxvoocvzBdfyc99r6P9dwrib7vtEdJ9efsC+jgkX9Gmbm
+	 XuOLp+asXthf4mWzUxljHd8hkhp4fGvR6LmPjaIbgrVtygAvr6UNQ1YKeF1DeNqKYF1pi
+	 4AMk3rCgkHitNdnajXWuaKJ8XVMHcZPOOF3hAycWA7a5EPCkd6CTg3uy93ewe2JRGdQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794388204;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-Proofpoint-Reinject:X-QCInternal:
-	 X-QCInternal:X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=XgLnzmBJ/52xSWR2u5GUX3lLfKIgiP3SuFOToBjszW8=;
-	b=otWSFI2Q8od0cCFBxZrQ/bmvQBsgoPEf7bSR6RicOWUNFqe5HaxTPJ6OV4gCvR6GerSA
-	 Gba1Ov5SlFIVhMEWcBMGshHFUq68K/QnRrSSvXq25KIu0y+a6QEwYGky2tXPciOW6Slh5
-	 nSQYIC5wyfaanY47+XllmBfBswJm61G2nhBoGsgcwpjlJpPAWXk1vQNma3oz11e1RAx82
-	 ORfx280qncg2HCWnmB1tRKWpXzvn29VyYLCW3S2RUVlTgE7vvqffcZcK75Bqb2wvdmoYW
-	 aMREM4tWeU16RiOrMfrj/tsCVaOeTtpQNiy1wWcLqZicH65MWJ7iVQDD23HnBm+I7LQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794388217;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=xH9l3vH/C4QDmuSYkhVbjVTYTvtMqxmFM17WSOqQ34E=;
+	b=fOnxGnNM/luZRSVYtrNP0EG4mB4pYppC9zAT7dMAhySESTA8e29kXjHKJsqRKp3G1Le3
+	 9lMFoqSWh6rPWhNjNbUr/GC4qynt/oCpU2SA8sSb0I5lIvBqHkdi8NLGG7LoIBW/0lgEO
+	 Vcx7S9hwfxhAqSfzj+KIRCKNy3yX2p5k/TWZORpJYmfGahywJIMk8GEHBK3/tKNeustgm
+	 0t0gq9ZSjrrzIO0EAleRqRmthpgLdLSF9M0j9G+x4cYwCVL+z0bfgbvTT1FTaOgpegCqq
+	 tQQzUbsxqPX9682omzPKBG04DtwnplKjBTqbCvzfP8QX5GpqiNzN8KexPBLyyOv1IeA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qti.qualcomm.com;
-	spf=pass smtp.mailfrom=qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=PcfMw3Ts;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QQZJDCma;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE47E60A2607;
-	Wed, 11 Nov 2026 09:10:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CE47E60A2607
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=qti.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7C6E606A31C;
+	Wed, 11 Nov 2026 09:10:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=PcfMw3Ts
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AB5KhYt300709;
-	Wed, 11 Nov 2026 09:10:01 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=XgLnzmBJ/52xSWR2u5GUX3lLfKIgiP3SuFO
-	ToBjszW8=; b=PcfMw3TsqEWkNUoaQZhlF/5ciYmaOxkYES65CSwrrDw0hpdCbQQ
-	qSiXPHuN8dwFM9+tUzXpN5XY4QTNScFeYbdNncOUcUV9KUHou4aif2VLO2CX3R/d
-	9eTdgbBzUADADT6FCMngroE2zvOCOFbdzUivDObdvvkZQxuoAX8MDSL6EpF5A83i
-	0e3DODMm/Ej3R1KMlXtR22QRjt4M5n1lL4UZ4GGZG6CsBALwU5BlWZKZMWTJIk/p
-	6JA522YINqxLnRGUBt2N3NWl1ESEQJ7NA7cm20eh7yIjiVnjGQPkS/u6mhKN99/n
-	3duzo3ZbyWypdkcnwkS5sPyf+vGU2chgn5w==
-Received: from aptaippmta01.qualcomm.com (tpe-colo-wan-fw-bordernet.qualcomm.com [103.229.16.4])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hv7c5kfej-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 11 Nov 2026 09:10:00 +0000 (GMT)
-Received: from pps.filterd (aptaippmta01.qualcomm.com [127.0.0.1])
-	by APTAIPPMTA01.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 6AB99w622380743;
-	Wed, 11 Nov 2026 09:09:58 GMT
-Received: from perf-sh02-lnx.ap.qualcomm.com (smtphost-taiwan.qualcomm.com [10.249.136.33])
-	by APTAIPPMTA01.qualcomm.com (PPS) with ESMTPS id 6AB99vLi2380715
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 11 Nov 2026 09:09:58 +0000 (GMT)
-Received: by perf-sh02-lnx.ap.qualcomm.com (Postfix, from userid 3975139)
-	id DE527AC9; Wed, 11 Nov 2026 17:09:56 +0800 (CST)
-From: Wenwen Fu <wenwfu@qti.qualcomm.com>
-To: andi.shyti@kernel.org
-Cc: mukesh.savaliya@oss.qualcomm.com, viken.dadhaniya@oss.qualcomm.com,
-        linux-i2c@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, Wenwen Fu <wenwfu@qti.qualcomm.com>
-Subject: [PATCH] i2c: qcom-geni: Prefer asynchronous probing
-Date: Wed, 11 Nov 2026 17:09:55 +0800
-Message-ID: <20261111090955.3378623-1-wenwfu@qti.qualcomm.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QQZJDCma
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77FE21F00A05;
+	Wed, 11 Nov 2026 09:10:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794388217;
+	bh=xH9l3vH/C4QDmuSYkhVbjVTYTvtMqxmFM17WSOqQ34E=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=QQZJDCmaKacfblRcagLi02rbg4jcCBwjp9GW5ASiJ8taKOiX+os9eVBIIXUG8CZHs
+	 UP9BXvgSxs3gHLnqayo3DnLh2wb3rk/JbGvU6a2Io0b/Qu2Bd3x2ZmAk28LVJCpAk+
+	 ROfQ3iEyQKObZevE0BedWNZrvGK9ayUJyuyshutw3A7iSM3s91J3IqkZRMyQDb6FVn
+	 NlCjXqDr0jV4ZgvARvuY0guxenbSBTpwGYlUJhfJv1baYnkjQO1x0ZAR/uT0QPwIee
+	 ETXVJTcYUe87V8Vk3RT0Nw7bfpV2NeR7mTFNYEW/olNUeI4L4wYcR9EQ718KHiEL0y
+	 hRM9iGghejhlg==
+Message-ID: <d43cf7bd-6a6a-4102-95cc-cb236eb49e0d@kernel.org>
+Date: Wed, 11 Nov 2026 10:10:07 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,62 +51,134 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/4] ksm: add only_merge_zero_pages to merge only empty
+ anonymous pages
+To: "Xu Xin (vivo)" <xu.xin@linux.dev>
+Cc: akpm@linux-foundation.org, chengming.zhou@linux.dev, corbet@lwn.net,
+ link@vivo.com, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, linux-mm@kvack.org, ljs@kernel.org,
+ odys.yuan@gmail.com, rppt@kernel.org, surenb@google.com,
+ tujinjiang@huawei.com, vbabka@kernel.org, xiao.wang@vivo.com
+References: <20261110074312.219847-1-xu.xin@linux.dev>
+ <20261110074451.220524-1-xu.xin@linux.dev>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20261110074451.220524-1-xu.xin@linux.dev>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDAzNiBTYWx0ZWRfXwTOC2tRMnlww
- BGFo1tjPuKlbY/c81//bJURN80CB8cjHscl7LRPGuEHShqeda4lhXq8B/RFbhB2pKZwFgMh8b3l
- 86Dq4OxxRHgOmk7XHxVul1HrGrGFBtZwD0eiN88hUtOQeJTifPtcqvoHT0iTN7TUk3Igb95zU99
- evhFj7gcRZ2cMv1gzUkd1itsp1utdFA1RQEjn75pGGWFpUjrMGBhY9BUw1NuQJHPEUa7BdHMebx
- dQ8M6Xk4xFFvXwGqlNMsjzezgBVsCkSk2LvR8rIwKV2WyTn9U1lAl+4tUBknGUHKOgs7P1oT6zI
- 0AOyZ9dqWu/uda2sO8BEAny5GDzryAg4YVy3rtxwSeEv29GAh7kZRaYfuzmi7rsGr8rX+jul+Ez
- 0y2wFtQX9wc2loM5th1JNVYWlx2R+Eu7ojOhjDox9S3oypJGvj1JwdATGSmoBNesIoki8lPRPi1
- yS8ttE1UuA40JCNrHyQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDAzNiBTYWx0ZWRfX2qych4OhnHHV
- /WA6Uyo6+YUhVAkk9LE3AsQA/NaVYKL3jBhe77Xkhmp7rcgtvLiH+Y+rWLFw/hRMVTlKMAypzPn
- plGL5IWpWOsFt4XFcScCqpAFWmcaOhY=
-X-Proofpoint-ORIG-GUID: agRRO3VdptEBKGtr-_9GAs_CicwRMstG
-X-Authority-Analysis: v=2.4 cv=eq9KXYpX c=1 sm=1 tr=0 ts=6af430e8 cx=c_pps
- a=nuhDOHQX5FNHPW3J6Bj6AA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8 a=OKjm1hKvba8UtKpOD6UA:9
-X-Proofpoint-GUID: agRRO3VdptEBKGtr-_9GAs_CicwRMstG
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-11_02,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 lowpriorityscore=0 suspectscore=0 adultscore=0 clxscore=1011
- malwarescore=0 spamscore=0 phishscore=0 priorityscore=1501 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611110036
 
-When built in, GENI I2C can request serial-engine firmware during
-probe. If initramfs unpacking is still in progress, request_firmware()
-waits for it to complete, blocking subsequent driver initialization.
+On 11/10/26 08:44, Xu Xin (vivo) wrote:
+> Add a new sysfs attribute, /sys/kernel/mm/ksm/only_merge_zero_pages,
+> which, when enabled, makes ksmd merge only empty (zeroed) anonymous
+> pages with the kernel zero page and skip the stable and unstable trees
+> entirely for pages that carry data.
+> 
+> The attribute requires use_zero_pages to be 1, and the two are kept
+> consistent by symmetric constraints: it cannot be enabled while
+> use_zero_pages is 0 (-EINVAL), and use_zero_pages cannot be turned
+> off while it is active (-EBUSY). Both store handlers take
+> ksm_thread_mutex around their check-and-set so that a concurrent write
+> to the two attributes cannot leave use_zero_pages=0 and
+> only_merge_zero_pages=1, a state in which ksmd would scan and checksum
+> pages but never merge any. The new attribute can be changed at any time
+> and is only effective for pages merged after the change.
+> 
+> Benefits in three aspects
+> =========================
+> - Memory saving:
+>   On memory-constrained systems such as Android and embedded devices,
+>   zero-filled anonymous pages are the largest source of duplicate
+>   anonymous memory. They are produced by userspace allocators: the
+>   zeroing of freshly allocated Java objects and buffers in the ART heap
+>   (new byte[]/int[], Bitmap buffers), calloc/memset in native code, and
+>   preallocated media buffers. Merging them with the kernel zero page
+>   frees a significant amount of physical memory, which matters as DRAM
+>   costs keep rising. With this enabled, we measured 100MB–300MB saving
+>   tested with several popular applications on aarch64 (Android).
+> 
+> - CPU overhead reduction:
+>   Merging only zero pages also reduces the overhead of ksmd. A page that
+>   is not merged with the zero page carries data and can never be merged
+>   with the zero page, so there is no point in searching the stable tree
+>   or inserting it into the unstable tree for it. Skipping those tree
+>   operations for data-bearing pages reduces both the CPU time and the
+>   rhashtable memory footprint of ksmd, which makes zero page merging
+>   practical on low-resource devices where full KSM scanning would be too
+>   expensive.
+> 
+> - Security:
+>   Finally, this shrinks the KSM side-channel attack surface: only zero
+>   pages are ever merged, so the sharing status of data-bearing pages is
+>   no longer observable through KSM timing side channels.
+> 
+> Note
+> =====
+> - Suitable for Android, embedded and low-memory devices, where zero-page
+>   deduplication is wanted but full KSM scanning is too costly, and reduced
+>   KSM side-channel exposure is desired. Many handset vendors may prefer
+>   this knob, which can be used as a default fallback policy.
+> 
+> - Not suitable for server and virtualization workloads containing many
+>   non-zero duplicate pages, where vanilla KSM provides better memory
+>   savings.
+> 
+> Signed-off-by: Xu Xin (vivo) <xu.xin@linux.dev>
+> Reviewed-by: Huan Yang <link@vivo.com>
+> Cc: Wang Xiao <xiao.wang@vivo.com>
+> ---
 
-Prefer asynchronous probing so that other drivers can initialize in
-parallel while the firmware request waits for initramfs unpacking.
+See my reply to #2. I think the overall feature makes sense, but reusing all of
+KSM infrastructure just to deduplicate zero-filled pages looks suboptimal.
 
-Assisted-by: Codex:GPT-6
-Signed-off-by: Wenwen Fu <wenwfu@qti.qualcomm.com>
----
- drivers/i2c/busses/i2c-qcom-geni.c | 1 +
- 1 file changed, 1 insertion(+)
+Please investigate how we could selectively reuse some pieces to just scan +
+dedulicate zero-filled pages, avoiding the whole rmap item stuff etc.
 
-diff --git a/drivers/i2c/busses/i2c-qcom-geni.c b/drivers/i2c/busses/i2c-qcom-geni.c
-index 96dbf04138be..13c1ea2af0bf 100644
---- a/drivers/i2c/busses/i2c-qcom-geni.c
-+++ b/drivers/i2c/busses/i2c-qcom-geni.c
-@@ -1277,6 +1277,7 @@
- 	.shutdown = geni_i2c_shutdown,
- 	.driver = {
- 		.name = "geni_i2c",
-+		.probe_type = PROBE_PREFER_ASYNCHRONOUS,
- 		.pm = &geni_i2c_pm_ops,
- 		.of_match_table = geni_i2c_dt_match,
- 		.acpi_match_table = ACPI_PTR(geni_i2c_acpi_match),
-
-base-commit: 04e9bf1648f846976b543e91c1838a712433772a
 -- 
-2.43.0
+Cheers,
+
+David
