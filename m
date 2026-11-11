@@ -1,111 +1,116 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794434392;
-	b=kKpVk4rsQPO5uA89j2PZ9cKsDcQXZ9He5BFyWCn8tB3qf9Y/atKG5U/66xzIA/gy+EEv
-	 tTsnmXf4gNn5+vvGNmBdFmcHCxOygco+yHJUeJ0lonIng3ipToxt9N1GL6zqsPDR8hk6x
-	 8NAVkF585SjxlAyIlOsSZuYd7mmMqAbGQaP3N0dLQLvE7X2SRy8abAxjSDDRFtWkQz5ep
-	 uad8NlQmFiIkRD1L8Qrf/7oI4t7qqF8BdsFGyCPbKCotOO1wzA8vqCPJD1tDoe7vVrlon
-	 Dp6DaVDHfqr98H7gkbgEUczHbVlydD+dznDL0ItSdG8aUdZcFqE+vbBi1j2WJsZWrng==
+	t=1794434393;
+	b=ofotHnPXdAeCtBEs04/1KiVR4KpwVtS/UaQ0Dc5wyewAJtZlv1oviN0gPwcGiiNG9vOL
+	 Xbjl7yAj3a4ZQdEngyoBMSTFb/SOzE4ndRffZSAcdou85WA7LpizQKCU+YYPczSNXM09E
+	 oxN+Jovq7nPZLVk4dSYl4RmyrsG8bmXMPf2dVXY94spDgo0sKNclVe6nhNaJx8PJMxuaF
+	 g6DBg42yp0Dgjuv2XkXcnvYmQbG1mB8PjnmumnRzar6jNdqb0yoJfaS2duz4vLTuq+hHx
+	 ObBO0TPKPJnsf77zq8A/XVRIdVVfBiZE3s2KBttkto0QDaVqQso+1LzCGx38rBZMC9A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794434392;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794434393;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 DKIM-Signature:X-Google-DKIM-Signature:X-Gm-Message-State:X-Gm-Gg:
 	 X-Received:X-Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding:X-Authority-Analysis:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=90pSFmld/fR1eS3PIVathWYp/h+Eq2KImJhG7d+ZIhY=;
-	b=DX3WMLQm1GP3ybssclgpahFpSh+EoCKK3lELtSykGw9o3X/sEGCLnQFUIEKywX4x2JsK
-	 zdlntHoiRyGNCAm6iVF9bSNyxrc5v5bJYfjaUhwY6C2fpsDhSB5xu6k2DqlqU7heoL4R+
-	 icUuA3pJWoqujLtpCjOKBkXMA7NMoWY4Yf266qGhaq0wOcDzttJ8zwWh4z/4d6qAU7mmu
-	 Sr1ZBU6ldmSER7XVWbS0ApARzVKB5XyCx55CnZIJONgn+fnwlBjHIQ8q9Uthms03BeZAR
-	 4VnpoicdBnkz+c9qOaxFT4O/HkGVTnd3ZSg4v6bOwmcfCi2dbF/WEumlpy9HYs7tLig==
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=QodUcOXLyAIazq5O2LPUc87O+SdP9GQkMMuSnXsarD0=;
+	b=E3DKJr/QQ54mIjnLCuxe0y72XQudK7DsqNSS1MxtoeezKNQzAleWmRIZgoGxv3CcZgrP
+	 VmKiY6fZmNCDnoIR4X74bNPmUtarzBtvCQZ/wmR5/w8VQqcppjO+RuqzjCy2BEiES/XDI
+	 KIR3uZW0f/8ymkAPUw+3Z8G6IucFdX1go5ggm/x9wKJRfyNMTDPS9YYcSiNZOh6Az+Sup
+	 Ml+pxbBwdem44eaBndi36EC+oAoIzomixRoYkKBVsc7ZyN8OtqbjYAFsCzw5e5Kgv4dVT
+	 LgHO4vI0PnozXfPiMAV9ML9Q5IiyDcacvCI8e3kpAF3K1uN/ZCIJq1F5GT6wZilknvg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.qualcomm.com;
 	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=SZppQVJt;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=LHWtaqBG;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=dPEbM2eX;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=eTxU0OJV;
 	arc=none smtp.remote-ip=205.220.168.131
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 801E0606A321
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 21:59:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 801E0606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 401D6606A880
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 21:59:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 401D6606A880
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=SZppQVJt;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=LHWtaqBG
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ABIpCbq3186600
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 21:59:50 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=dPEbM2eX;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=eTxU0OJV
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ABLnUHf3482302
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 21:59:52 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=90pSFmld/fR1eS3PIVathWYp/h+Eq2KImJh
-	G7d+ZIhY=; b=SZppQVJtZ6znTeobswqmlJMF487MG267OZ9DrVk2qcMkO3GL6B0
-	eA66nStjKBw6Vd+zK3p4cjKpqwllJOfpu6/Pb70TpJexuMYygroIBhqSvODszARi
-	Vga7S/9KkXC3akJ+NMVbNhMMCJZFQswtkf6TN+OFv2t4ukFG4zHYbiYxDzlhIK5k
-	cBxAozDrEUq51JZwyWIDROA3AeElj+b9BYXtFDjOJvSN73ctEUostewqHL8DGZe+
-	tbUR0M/h7h+nvlhwkx0glmsFfiGvAUjWYl4+JCvut03oafJlUNY6corbsP5Z6GeC
-	HAL/3quAdVFDBl8MsbiOaVQR25KDq1cYDdQ==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvgjdm3t4-1
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=QodUcOXLyAI
+	azq5O2LPUc87O+SdP9GQkMMuSnXsarD0=; b=dPEbM2eXW1I6bHrR95FMFDX0UvM
+	TKvQuwqsNEf+zjqlNMWMlJ2OgX4LZnpXOZjRAaBokkh4uXBKweXzbCZa9v+3+x2B
+	Xh1oeqtFqyrUaTon2JC0J64NIGPKFuHLtQu+/DOlqT7aurDURCjGCa1AoytWq7qd
+	lT2PHGwPKnp7joaPJq3Q55ucUwLxvHf4DhboF9fp3IDn43zbB9vn7hqJ4KNLAEno
+	rz3mbP/Q16LK41rB4YaNTMOjxg/U7wff+XtigIoSYFxC9ieRDYg9UJgnjUBIsY5a
+	54aMJM00WzqglU+SarwtSGPZi2cQ+S9Ipan44Qp/UR23A4wxpS6KXVZa2sQ==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hw0m8g15m-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 21:59:50 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93909014c85so761734485a.0
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:59:50 -0800 (PST)
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 21:59:52 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93cb93c874bso57366585a.0
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:59:52 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794434390; x=1795039190; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=90pSFmld/fR1eS3PIVathWYp/h+Eq2KImJhG7d+ZIhY=;
-        b=LHWtaqBGXNA4lgZB/xwqtJFpfgjvwFbhPoqWTMclGpPTgRUXfh76AF3m6ekqfBgkKZ
-         EGs3fvdWIeU6Qhl9TxbS7GPBpzMJOx3LsJqTkWG+OvTQk4QxwTWTzdYejk0woNeREUY9
-         kYKPMgliQqWK3nllWzlWml9CBqXk3GBa6ol2zxqcU13WV7JtKKQ3cwVsrPoU6UV3/dpz
-         Ic+iamV57afrQf7hyQRXvXJUXnbdj5hlkt3IVuq129LRTVIWiR02aBPCNyLzNsinF4dJ
-         wB5iZCcHQ8xjq+nZIYOm0JBg8KwljZtlUfYDiLi5KxNlMeFlDDT8/5jga8BvcwBHcEyt
-         GgnA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794434390; x=1795039190;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=oss.qualcomm.com; s=google; t=1794434391; x=1795039191; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=90pSFmld/fR1eS3PIVathWYp/h+Eq2KImJhG7d+ZIhY=;
-        b=OpvKDKuVy5YV8WTesvAGTR255yVInOhL4jv4hLuRqlvfJ98uPtbV4pnSwaR4FYtvh6
-         PED9ixwBafWcuRLefdzONo/HEH+RR3Q5j0fpBfV0sSHmrjrkL5OXXpPhIEtK9Mteav4Q
-         HsuA9w+SIDhcZWhNm3AAbYwaWW9czG/eWR7/PHE4ENrKocFeyA5IvQptHAUwrFTEUJTv
-         qdn0XlzBAub6+bPiq0Ncno1wJJJzxfKFO8jbFstjYxQ/AZwjafVjEvfeduZV34oaKeQC
-         mbwuLx160dq83IlIBimg5m1D0hygjkYc17T85gxbXIgctdLl+YvCMuseEK/9i6SCpEXV
-         5Mmw==
-X-Gm-Message-State: APuU4Z+5//xuu2hbbjv+fpbIZt1lsV7lAhpkkM/Y9aVkyuU7bVN4YycW
-	qJymwgKZOEuzzgCXzYhMpyILRU4sY/Ls2C7KTuGxXOa/HtaYb0wjMvyQ0hr9P67O7itea+jPsnp
-	/LfsMk60dOrssmUWIyyTBqG2HC/6+tfNQ1sLP1ezyrmQby2rQTxPxgcAO83RhMBxZBmE=
-X-Gm-Gg: AYBFou1Aezgv3p+LqZkjI+V21eFApw2UxGcUmZ9fhaMKkxz/7LSKJ6phY4Iev69ok7g
-	TCDL9L5H7gFH9aWl1MWAj/2VKlTo+weV/7rlVyKC/39zODOkZsyFxlXqut2Lk7Qb4oN1Q/Mza0f
-	jYqjU46A9Tn/jFazFZRup1owepj413ewV4Gjubf/BbCX4YrsRuGnV5yb/xrndvdsZs1JH+yej26
-	VcLU9SAVcmQCg4Ivh6wXnKdJUhsWfRTVV6or0TmmEvgWpgjjjF9IhB4v/Pr3QumWiWyzF6n1xuA
-	FO7P5ujGLX5qX/Y2FNVTnWnhmX0/MBlH6O0JWvYfbTLoCOZL0H1eeBR8NGO3xkApxxrXM+GCQsl
-	+5kTdMofHLuL+XMJhRsUeEjsencq5YXIi4VPGzhSXT4+lv47Coy9TO89ulXgFqifJZK6TS9ugdE
-	Ly074zQkPe8pOZLG/s4Q==
-X-Received: by 2002:a05:620a:6f01:b0:93c:5f3c:f485 with SMTP id af79cd13be357-947b005f191mr653305785a.53.1794434389589;
-        Wed, 11 Nov 2026 13:59:49 -0800 (PST)
-X-Received: by 2002:a05:620a:6f01:b0:93c:5f3c:f485 with SMTP id af79cd13be357-947b005f191mr653302685a.53.1794434389102;
-        Wed, 11 Nov 2026 13:59:49 -0800 (PST)
+        bh=QodUcOXLyAIazq5O2LPUc87O+SdP9GQkMMuSnXsarD0=;
+        b=eTxU0OJVfmonUjVfwBYe+/euEuLVx4q6QFvxfLcau7e38IfmhGryxUXOlYjQLTGkTH
+         EbKfNil1xRzeZJ4JN80PvrT1+16hqD4G4tgRyTQDgurX1iLTP8nseAnCzHH+cyE5VvHd
+         HQL0XmWJ7KERfVdoevuM6/+Z8bIkySnWmJBXDKe4UhqA2wqbZq/JSLIjXWMrnAZMaHDo
+         yoeAh2E4MgOomGB/UUHiot1nTvAdOwJrUmn/u/E1nxwlqQE1zuC2zFye46lQL4bHS2FC
+         NYbK2ujVt6g+GJq/wlVrVXlPpbVzv9Tm++sZ2eRBavnqpGvvqW50YTDJdHFtaWsoIKXk
+         IgMg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794434391; x=1795039191;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=QodUcOXLyAIazq5O2LPUc87O+SdP9GQkMMuSnXsarD0=;
+        b=TneKp24NGkvHCbDayKIH1+aMWWoz72qmglAAIUR+YomRkGBDOJMjc58dItlFCNpZMD
+         JY5+/jrKLrHe5rX6LOlkv8jH9xnplOStlIeBz/oPefS9zj2VAfMeg2v3d5vVGsnpuZ3E
+         wyewiAyQK4/Nvnu8nLoYXXVLvQvZL5VFZdZ87orvK4sIM6qoEwOqf5lJPusLaD7rr3Km
+         sfxKz5m0Nd5AccTIWFsQPVdYexEwxLaAdM5tGJGxkgxB+iKMPa/UOS4a0e5EYUtI5Dny
+         Uu+EGWYb9RDBv6Ltp4dfTaEbzQWVMOcXCwMBaUjeA+/YaXcjPwySjlYZoBgCVT4pb24L
+         fdnw==
+X-Gm-Message-State: APuU4Z9BiMCVZmmdvAqg5AJ0+uoFfvZJHChPLt6DS+QFpUh5rUlgXYMu
+	KPUhko8cRfTAUQf5IhdfkfxIAisrYE5fvoNKArpMw8y2DtxyywryPj3ME0mPLPsXlcDyVd012ih
+	gZM6vupCONzjOiySjZfWHGQRhedtm6cnxTKa0gvY0BQAbydnBsZE9kaiE+DZGDF7q6ozPIeRlWC
+	I=
+X-Gm-Gg: AYBFou0WLw9lWQViwo/FW7GHVMuvRkhopNOnOptUrYNrvEa6vgUsFyZ96zi8X3n48Xq
+	kduWbjEb9TAKz3q+W68BfoNvQAhv41Kzu/NnkTzs8Nevd0IzJAT9DIim8uAwbHcuPXsHJSJjleO
+	kdefvHgjahBG8L24iNGX1VTfnx/k49uZ+ItduoaS6z0CbTzZ9YZ5lGhhTLu1yXyso+vKRG+H9EY
+	TZOhuXsP+8Dx5qMhr9UvqR/OqKVCHf0viCb5xWZ8HM9KOhPMxL6AXDYOgCW8y7YqJEuyqneb23t
+	5wQPX5c72UMAtsmUlEqOKJX++wzp0aVm6Kew1Uym47xhjFUAyi6JCcUqu3o7PN7Hll3OFrgA/gE
+	JCvvzMLL6wAQsf3El1HLv0z7Htv9JMwTXduAwdIG2TTPu/OWuRNTx2uW+1kCw1Vqr7OZGbLHgTD
+	+7qCwHVqxHkDB9O1x4kQ==
+X-Received: by 2002:a05:620a:4890:b0:93f:2479:2b4 with SMTP id af79cd13be357-9493301ec52mr146855185a.10.1794434391002;
+        Wed, 11 Nov 2026 13:59:51 -0800 (PST)
+X-Received: by 2002:a05:620a:4890:b0:93f:2479:2b4 with SMTP id af79cd13be357-9493301ec52mr146852085a.10.1794434390454;
+        Wed, 11 Nov 2026 13:59:50 -0800 (PST)
 Received: from trex (50.red-81-37-172.dynamicip.rima-tde.net. [81.37.172.50])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4982eedfb36sm13244740f8f.0.2026.11.11.13.59.47
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4982eedfb36sm13244740f8f.0.2026.11.11.13.59.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 13:59:48 -0800 (PST)
+        Wed, 11 Nov 2026 13:59:49 -0800 (PST)
 From: Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>
 To: jorge.ramirez@oss.qualcomm.com, peterhuewe@gmx.de, jarkko@kernel.org,
         jgg@ziepe.ca, sumit.garg@oss.qualcomm.com
 Cc: linux-kernel@vger.kernel.org, linux-integrity@vger.kernel.org
-Subject: [PATCH v3 0/2] tpm: OP-TEE transport core for discrete and firmware TPMs
-Date: Wed, 11 Nov 2026 22:59:33 +0100
-Message-ID: <20261111215940.3503287-1-jorge.ramirez@oss.qualcomm.com>
+Subject: [PATCH v3 1/2] tpm: add OP-TEE transport core and a discrete TPM driver
+Date: Wed, 11 Nov 2026 22:59:34 +0100
+Message-ID: <20261111215940.3503287-2-jorge.ramirez@oss.qualcomm.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261111215940.3503287-1-jorge.ramirez@oss.qualcomm.com>
+References: <20261111215940.3503287-1-jorge.ramirez@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,109 +121,508 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=E7tYNqdl c=1 sm=1 tr=0 ts=6af4e556 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=VbO86HPdXvN82gCvB8O6pw==:17
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDA4NiBTYWx0ZWRfX6nyXiMxfmEIX
+ inT8xJTM3CeNFbMZOpC5S+HiZ/TQsYTuuv61his4Zvydns5aqrAClmsrhM3sm0AcwoUw69aPdDi
+ Hnmefrp0EwCjYO6YWQk6xz4mJjAQrd4=
+X-Proofpoint-GUID: 5y_qLdMsBF2aq0bJiAkiNt0uiXNcSW1q
+X-Proofpoint-ORIG-GUID: 5y_qLdMsBF2aq0bJiAkiNt0uiXNcSW1q
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDA4NiBTYWx0ZWRfX6MVGucjqorhN
+ 2lc9LcS7ZjENNSjxtwl0jFneo0/YSidqLywddQVDtwuhC32g0slHW/9u7CZlhiW4SFU8JtU7/hJ
+ NDcawZOFGW2Y+RKX+pHGYY6jS9tK/bM0+riPW2unkjHMRFpT3R8CIh99ijcjNVME8ni2OkfwylA
+ eB3TwB/33nvmmMcHzMr1JThB5m+ujY7Gg54U+QVGErrCS2ZaerYq1XcPl2wP46JvBE3PNN4gPsb
+ DD7hzuwlWriEtAgowevnMx3I9YOt+r/ktUG/UMKpRxH3QnITAVKrIWCCjT+heeQN/fVK975EQ8r
+ rp/5dbRbcC+GQ+OVzdAtbH5c2+ONs4g30Abvjbd+1r6ht+/dr8p+jbVbOcjqG7lrQfDBx+2Xar4
+ 8iWWFQ4JoZdIwypn5IScKuAbuhcQ7aooyNxVuc4Qf3zsHo152nNMNonCi1ZUooOW6xa39PzWo45
+ rimxRzaspqekrGGwtWQ==
+X-Authority-Analysis: v=2.4 cv=Q9dHcI2a c=1 sm=1 tr=0 ts=6af4e558 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=VbO86HPdXvN82gCvB8O6pw==:17
  a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=NEAV23lmAAAA:8
- a=McN5tr3TAAAA:8 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=9ZQdPFlokNCryPtFuLAA:9
- a=qcg49hLlgF0N60+LroqrWnV/Vu4=:19 a=IoWCM6iH3mJn3m4BftBB:22
- a=OiMWn5MEmObRqTLTTlUg:22
-X-Proofpoint-ORIG-GUID: Q9ouVyUdbVjvXr6QVy-7ZH4XaXfL8ZP8
-X-Proofpoint-GUID: Q9ouVyUdbVjvXr6QVy-7ZH4XaXfL8ZP8
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDA4NyBTYWx0ZWRfX4ukkLp2cSmDT
- +HAm1J3Ej2V1+eZZq/IBvdE9WTJ5K4R0JbZnzjfhP06e/g55K2eAKFTHiIyfxtHj8b9gIf6dyyg
- f3mrmHlcthx9TbzAb1XtpOK5a87tO32zzWFWVYL7AOImxNrXnNHSPOTzsTgXcQm4t/Dbmn8znFB
- G2m11FOiZvklg419YUnDejeKFt8laKkRE2NxQLTJjG47UAj9g1pcmAWZvll/rBVAy8VL5YKAgBT
- C1mYHfAgbmPrLT4dcL36iUXdbQavvj9ng+WdNKSw/BBr8wjE5AwkzLe0RzgnqQAcjM5WG4/4fIg
- 7DpRVKMvBCz6ntUqu1eQaIh5PMsO3K+SPLYTNDDR6piCKW4Ocgua+fwAVqN54CBdvXkGug+JoVE
- Zr7zV0aPkm5h7GybUO08+UXa4srMFoyRDYPxwEn69Ii3cSAi0oCf7Tu8xdIumwOTqp8hnBlh1yo
- 5P11rxSRdU1csQj/xBg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDA4NyBTYWx0ZWRfX97dqghpbAk+l
- 2FnDrAT4UKFTjgvLyKM99YLdDwKYz8xfdiwqRBLrQwKFPQrE0zM+3lNDwkRzn12F+fDsM+hEiAQ
- KazbYSdg+Ptf5Ndsshz4sIS734HQdGc=
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=EUspDBNiAAAA:8
+ a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8 a=eWAozK0ZnoFYOt3N-tIA:9
+ a=bTQJ7kPSJx9SKPbeHEYW:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-11_05,2026-11-11_03,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 suspectscore=0 priorityscore=1501 impostorscore=0 adultscore=0
- malwarescore=0 clxscore=1015 bulkscore=0 spamscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611110087
+ malwarescore=0 phishscore=0 impostorscore=0 adultscore=0 bulkscore=0
+ suspectscore=0 priorityscore=1501 spamscore=0 clxscore=1015
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
+ definitions=main-2611110086
 
-This adds a driver for a discrete TPM that OP-TEE owns and the normal
-world cannot reach directly, and factors the shared OP-TEE TEE transport
-into a small core so the existing fTPM driver uses it too:
+Some platforms place a real (discrete) TPM on a bus that only the secure
+world can drive. OP-TEE owns that bus, so the normal world cannot reach
+the chip directly; it instead exposes a mediator trusted application
+that relays TPM2 commands. Add a driver that talks to that application
+and presents the chip as a standard TPM2 character device, so the
+normal-world TPM stack works unchanged.
 
-  - a transport core shared by the OP-TEE TPM front-ends;
-  - a new discrete TPM front-end;
-  - the fTPM driver converted onto the core, keeping its name, its
-    platform/OF binding and its shutdown path.
+This is a separate driver from the firmware-TPM one rather than a reuse
+of it. The TEE transport is the same and is shared through a common
+core, but the device identity differs: the firmware TPM uses its own
+application and a public-login session, whereas a discrete chip needs
+its own application and is restricted to kernel access so that user
+space and other applications cannot submit raw commands to it. Folding
+both into one driver would also break on a platform that has both.
 
-Patch 1 is the feature; patch 2 is the fTPM conversion that justifies the
-core. Both front-ends were exercised on the Qualcomm Lemans EVK over the
-shared core: the discrete ST33 TPM (patch 1) and the MS-TPM-20 firmware
-TPM TA (patch 2), each presenting a working /dev/tpm0 (tpm2_getrandom,
-PCR read). The fTPM TA is the same MS-TPM-20 reference the existing
-tpm_ftpm_tee platforms use.
-
-This is the normal-world half. The secure-world OP-TEE support it binds
-to -- the in-core TPM2 SPI (TIS) driver and the mediator pseudo TA that
-relays commands to it -- is under review separately:
-
-  OP-TEE support: https://github.com/OP-TEE/optee_os/pull/8155
-  locality 4:     https://github.com/OP-TEE/optee_os/issues/8160
-                  (design follow-up: the secure world policing
-                  normal-world locality access to the shared chip)
-
-Build and test it on the Qualcomm Lemans EVK (a discrete ST33 TPM on
-SPI, owned by OP-TEE):
-
-  https://qualcomm-linux.github.io/qcom-buildroot/lemans/quick-start.html
-
-v1: https://lore.kernel.org/linux-integrity/20261026163259.1900439-1-jorge.ramirez@oss.qualcomm.com/
-v2: https://lore.kernel.org/linux-integrity/20261110141923.3100770-1-jorge.ramirez@oss.qualcomm.com/
-
-Changes since v2:
- - tpm_optee_dtpm: give the discrete-TPM front-end a .shutdown callback so
-   it releases its TEE session and dynamic shared memory on shutdown/kexec,
-   as the fTPM front-end already did; without it the session and the
-   normal-world pages stayed registered in OP-TEE across a kexec, which can
-   stop the next kernel opening a session to the chip.
- - move the shared tpm_optee_shutdown() helper into the core patch so that
-   patch builds on its own; the dTPM front-end no longer forward-references
-   a symbol that was added in patch 2.
-
-Changes since v1:
- - split the shared TEE transport into a core; the discrete chip is now a
-   thin front-end, the tpm_tis_core-style solution that was asked for.
- - convert the fTPM driver onto the same core instead of duplicating it.
- - use an optee-prefixed name for the new modules; the fTPM driver keeps
-   its name, no module rename.
- - rewrite the commit message with a plain description of the components
-   and the rationale for a separate front-end.
- - drop the explicit zeroing in favour of initialisers, and reword the
-   module description.
-
-Jorge Ramirez-Ortiz (2):
-  tpm: add OP-TEE transport core and a discrete TPM driver
-  tpm_ftpm_tee: use the tpm_optee transport core
-
+Signed-off-by: Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>
+---
  MAINTAINERS                       |   8 +
- drivers/char/tpm/Kconfig          |  28 +++
+ drivers/char/tpm/Kconfig          |  27 ++++
  drivers/char/tpm/Makefile         |   2 +
- drivers/char/tpm/tpm_ftpm_tee.c   | 295 ++----------------------------
- drivers/char/tpm/tpm_ftpm_tee.h   |  35 ----
- drivers/char/tpm/tpm_optee.c      | 253 +++++++++++++++++++++++++
+ drivers/char/tpm/tpm_optee.c      | 253 ++++++++++++++++++++++++++++++
  drivers/char/tpm/tpm_optee.h      |  32 ++++
- drivers/char/tpm/tpm_optee_dtpm.c |  73 ++++++++
- 8 files changed, 414 insertions(+), 312 deletions(-)
- delete mode 100644 drivers/char/tpm/tpm_ftpm_tee.h
+ drivers/char/tpm/tpm_optee_dtpm.c |  73 +++++++++
+ 6 files changed, 395 insertions(+)
  create mode 100644 drivers/char/tpm/tpm_optee.c
  create mode 100644 drivers/char/tpm/tpm_optee.h
  create mode 100644 drivers/char/tpm/tpm_optee_dtpm.c
 
-
-base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 782389bd5cd3..7c39a060ced2 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -27710,6 +27710,14 @@ F:	include/linux/tpm*.h
+ F:	include/uapi/linux/vtpm_proxy.h
+ F:	tools/testing/selftests/tpm2/
+ 
++TPM TEE DRIVER FOR DISCRETE TPM
++R:	Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>
++L:	linux-integrity@vger.kernel.org
++S:	Supported
++F:	drivers/char/tpm/tpm_optee.c
++F:	drivers/char/tpm/tpm_optee.h
++F:	drivers/char/tpm/tpm_optee_dtpm.c
++
+ TPS546D24 DRIVER
+ M:	Duke Du <dukedu83@gmail.com>
+ L:	linux-hwmon@vger.kernel.org
+diff --git a/drivers/char/tpm/Kconfig b/drivers/char/tpm/Kconfig
+index 5f672f2c01b0..779154e05204 100644
+--- a/drivers/char/tpm/Kconfig
++++ b/drivers/char/tpm/Kconfig
+@@ -243,6 +243,33 @@ config TCG_FTPM_TEE
+ 	help
+ 	  This driver proxies for firmware TPM running in TEE.
+ 
++config TCG_OPTEE
++	tristate
++	depends on TEE && OPTEE
++	help
++	  Shared transport for TPMs reached through an OP-TEE trusted
++	  application. It is selected by the front-end drivers and is not
++	  meant to be enabled on its own.
++
++config TCG_OPTEE_DTPM
++	tristate "OP-TEE based discrete TPM Interface"
++	depends on TEE && OPTEE
++	select TCG_OPTEE
++	help
++	  This driver proxies for a discrete TPM that is owned by OP-TEE and
++	  reachable only from the secure world (for example an SPI TPM behind
++	  OP-TEE's TPM TIS driver). OP-TEE exposes a mediator pseudo TA and
++	  this driver pipes TPM commands through it, presenting a standard
++	  TPM character device to the normal world.
++
++	  The secure world is the sole owner of the TPM and of the bus it
++	  sits on. That bus/controller must be disabled in the non-secure
++	  device tree: disabling only the in-kernel TPM driver (e.g.
++	  tpm_tis_spi) is not enough, because the normal-world bus controller
++	  would still drive the engine in parallel with OP-TEE and corrupt
++	  its transfers. With the bus disabled, the TPM is reached only
++	  through this driver.
++
+ config TCG_SVSM
+ 	tristate "SNP SVSM vTPM interface"
+ 	depends on AMD_MEM_ENCRYPT
+diff --git a/drivers/char/tpm/Makefile b/drivers/char/tpm/Makefile
+index 5b5cdc0d32e4..431d1351c2e3 100644
+--- a/drivers/char/tpm/Makefile
++++ b/drivers/char/tpm/Makefile
+@@ -45,5 +45,7 @@ obj-$(CONFIG_TCG_CRB) += tpm_crb.o
+ obj-$(CONFIG_TCG_ARM_CRB_FFA) += tpm_crb_ffa.o
+ obj-$(CONFIG_TCG_VTPM_PROXY) += tpm_vtpm_proxy.o
+ obj-$(CONFIG_TCG_FTPM_TEE) += tpm_ftpm_tee.o
++obj-$(CONFIG_TCG_OPTEE) += tpm_optee.o
++obj-$(CONFIG_TCG_OPTEE_DTPM) += tpm_optee_dtpm.o
+ obj-$(CONFIG_TCG_SVSM) += tpm_svsm.o
+ obj-$(CONFIG_TCG_LOONGSON) += tpm_loongson.o
+diff --git a/drivers/char/tpm/tpm_optee.c b/drivers/char/tpm/tpm_optee.c
+new file mode 100644
+index 000000000000..e2223242327e
+--- /dev/null
++++ b/drivers/char/tpm/tpm_optee.c
+@@ -0,0 +1,253 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
++ *
++ * Shared transport for TPMs reached through an OP-TEE trusted application:
++ * open the context and session, relay raw TPM2 commands over TEE shared
++ * memory, and register the result as a standard tpm_chip. A front-end driver
++ * supplies the per-device identity (TA UUID, client login, submit function
++ * ID) and binds the TA.
++ */
++
++#include <linux/module.h>
++#include <linux/tee_drv.h>
++#include <linux/tpm.h>
++#include <linux/uuid.h>
++
++#include "tpm.h"
++#include "tpm_optee.h"
++
++#define TPM_OPTEE_MAX_COMMAND_SIZE	4096
++#define TPM_OPTEE_MAX_RESPONSE_SIZE	4096
++
++struct tpm_optee_private {
++	struct tpm_chip *chip;
++	struct tee_context *ctx;
++	u32 session;
++	struct tee_shm *shm;
++	const struct tpm_optee_config *cfg;
++};
++
++/* Validate the response header the TA wrote back, return its length or -EIO */
++static int tpm_optee_resp_len(struct tpm_chip *chip, const u8 *resp,
++			      size_t bufsiz)
++{
++	size_t resp_len = be32_to_cpu(((struct tpm_header *)resp)->length);
++
++	if (resp_len < TPM_HEADER_SIZE || resp_len > TPM_OPTEE_MAX_RESPONSE_SIZE ||
++	    resp_len > bufsiz) {
++		dev_err(&chip->dev, "bad response length %zu (buffer %zu)\n",
++			resp_len, bufsiz);
++		return -EIO;
++	}
++
++	return resp_len;
++}
++
++/**
++ * tpm_optee_op_send() - relay a TPM command through TEE shared memory.
++ * @chip:	the tpm_chip description
++ * @buf:	command on entry, response on return
++ * @bufsiz:	size of @buf
++ * @cmd_len:	number of command bytes to send
++ *
++ * Return: number of response bytes on success, -errno on failure.
++ */
++static int tpm_optee_op_send(struct tpm_chip *chip, u8 *buf, size_t bufsiz,
++			     size_t cmd_len)
++{
++	struct tpm_optee_private *pvt_data = dev_get_drvdata(chip->dev.parent);
++	struct tee_shm *shm = pvt_data->shm;
++	struct tee_param command_params[4] = { };
++	struct tee_ioctl_invoke_arg transceive_args = {
++		.func = pvt_data->cfg->cmd_id,
++		.session = pvt_data->session,
++		.num_params = 4,
++	};
++	u8 *temp_buf;
++	int rc;
++
++	if (cmd_len > TPM_OPTEE_MAX_COMMAND_SIZE || cmd_len > bufsiz) {
++		dev_err(&chip->dev, "command length %zu (buffer %zu)\n",
++			cmd_len, bufsiz);
++		return -EIO;
++	}
++
++	/* memref[0]: command in, memref[1]: response in/out */
++	command_params[0] = (struct tee_param) {
++		.attr = TEE_IOCTL_PARAM_ATTR_TYPE_MEMREF_INPUT,
++		.u.memref = {
++			.shm = shm,
++			.size = cmd_len,
++			.shm_offs = 0,
++		},
++	};
++
++	temp_buf = tee_shm_get_va(shm, 0);
++	if (IS_ERR(temp_buf)) {
++		dev_err(&chip->dev, "tee_shm_get_va failed for transmit\n");
++		return PTR_ERR(temp_buf);
++	}
++	memset(temp_buf, 0, TPM_OPTEE_MAX_COMMAND_SIZE + TPM_OPTEE_MAX_RESPONSE_SIZE);
++	memcpy(temp_buf, buf, cmd_len);
++
++	command_params[1] = (struct tee_param) {
++		.attr = TEE_IOCTL_PARAM_ATTR_TYPE_MEMREF_INOUT,
++		.u.memref = {
++			.shm = shm,
++			.size = TPM_OPTEE_MAX_RESPONSE_SIZE,
++			.shm_offs = TPM_OPTEE_MAX_COMMAND_SIZE,
++		},
++	};
++
++	rc = tee_client_invoke_func(pvt_data->ctx, &transceive_args,
++				    command_params);
++	if (rc < 0 || transceive_args.ret != 0) {
++		dev_err(&chip->dev, "SUBMIT_COMMAND invoke error: 0x%x\n",
++			transceive_args.ret);
++		return (rc < 0) ? rc : -EIO;
++	}
++
++	temp_buf = tee_shm_get_va(shm, command_params[1].u.memref.shm_offs);
++	if (IS_ERR(temp_buf)) {
++		dev_err(&chip->dev, "tee_shm_get_va failed for receive\n");
++		return PTR_ERR(temp_buf);
++	}
++
++	rc = tpm_optee_resp_len(chip, temp_buf, bufsiz);
++	if (rc < 0)
++		return rc;
++
++	memcpy(buf, temp_buf, rc);
++
++	return rc;
++}
++
++static const struct tpm_class_ops tpm_optee_ops = {
++	.flags = TPM_OPS_AUTO_STARTUP,
++	.send = tpm_optee_op_send,
++};
++
++static int tpm_optee_match(struct tee_ioctl_version_data *ver, const void *data)
++{
++	/* Only GP-compliant OP-TEE is supported */
++	if (ver->impl_id == TEE_IMPL_ID_OPTEE && (ver->gen_caps & TEE_GEN_CAP_GP))
++		return 1;
++
++	return 0;
++}
++
++static int tpm_optee_open_session(struct device *dev, struct tee_context *ctx,
++				  const struct tpm_optee_config *cfg,
++				  u32 *session)
++{
++	struct tee_ioctl_open_session_arg sess_arg = {
++		.clnt_login = cfg->login,
++	};
++	int rc;
++
++	export_uuid(sess_arg.uuid, &cfg->ta_uuid);
++
++	rc = tee_client_open_session(ctx, &sess_arg, NULL);
++	if (rc < 0 || sess_arg.ret != 0) {
++		dev_err(dev, "tee_client_open_session failed, err=0x%x\n",
++			sess_arg.ret);
++		return -EINVAL;
++	}
++
++	*session = sess_arg.session;
++
++	return 0;
++}
++
++int tpm_optee_probe(struct device *dev, const struct tpm_optee_config *cfg)
++{
++	struct tpm_optee_private *pvt_data;
++	struct tpm_chip *chip;
++	int rc;
++
++	pvt_data = devm_kzalloc(dev, sizeof(*pvt_data), GFP_KERNEL);
++	if (!pvt_data)
++		return -ENOMEM;
++
++	pvt_data->cfg = cfg;
++	dev_set_drvdata(dev, pvt_data);
++
++	pvt_data->ctx = tee_client_open_context(NULL, tpm_optee_match, NULL,
++						NULL);
++	if (IS_ERR(pvt_data->ctx)) {
++		if (PTR_ERR(pvt_data->ctx) == -ENOENT)
++			return -EPROBE_DEFER;
++		dev_err(dev, "tee_client_open_context failed\n");
++		return PTR_ERR(pvt_data->ctx);
++	}
++
++	rc = tpm_optee_open_session(dev, pvt_data->ctx, cfg, &pvt_data->session);
++	if (rc)
++		goto out_tee_session;
++
++	pvt_data->shm = tee_shm_alloc_kernel_buf(pvt_data->ctx,
++						 TPM_OPTEE_MAX_COMMAND_SIZE +
++						 TPM_OPTEE_MAX_RESPONSE_SIZE);
++	if (IS_ERR(pvt_data->shm)) {
++		dev_err(dev, "tee_shm_alloc_kernel_buf failed\n");
++		rc = -ENOMEM;
++		goto out_shm_alloc;
++	}
++
++	chip = tpm_chip_alloc(dev, &tpm_optee_ops);
++	if (IS_ERR(chip)) {
++		dev_err(dev, "tpm_chip_alloc failed\n");
++		rc = PTR_ERR(chip);
++		goto out_chip_alloc;
++	}
++
++	pvt_data->chip = chip;
++	pvt_data->chip->flags |= TPM_CHIP_FLAG_TPM2 | TPM_CHIP_FLAG_SYNC;
++
++	rc = tpm_chip_register(pvt_data->chip);
++	if (rc) {
++		dev_err(dev, "tpm_chip_register failed with rc=%d\n", rc);
++		goto out_chip;
++	}
++
++	return 0;
++
++out_chip:
++	put_device(&pvt_data->chip->dev);
++out_chip_alloc:
++	tee_shm_free(pvt_data->shm);
++out_shm_alloc:
++	tee_client_close_session(pvt_data->ctx, pvt_data->session);
++out_tee_session:
++	tee_client_close_context(pvt_data->ctx);
++
++	return rc;
++}
++EXPORT_SYMBOL_GPL(tpm_optee_probe);
++
++void tpm_optee_remove(struct device *dev)
++{
++	struct tpm_optee_private *pvt_data = dev_get_drvdata(dev);
++
++	tpm_chip_unregister(pvt_data->chip);
++	put_device(&pvt_data->chip->dev);
++	tee_shm_free(pvt_data->shm);
++	tee_client_close_session(pvt_data->ctx, pvt_data->session);
++	tee_client_close_context(pvt_data->ctx);
++}
++EXPORT_SYMBOL_GPL(tpm_optee_remove);
++
++/* Release the TEE resources on shutdown, leaving the chip registered. */
++void tpm_optee_shutdown(struct device *dev)
++{
++	struct tpm_optee_private *pvt_data = dev_get_drvdata(dev);
++
++	tee_shm_free(pvt_data->shm);
++	tee_client_close_session(pvt_data->ctx, pvt_data->session);
++	tee_client_close_context(pvt_data->ctx);
++}
++EXPORT_SYMBOL_GPL(tpm_optee_shutdown);
++
++MODULE_DESCRIPTION("OP-TEE TPM transport core");
++MODULE_LICENSE("GPL");
+diff --git a/drivers/char/tpm/tpm_optee.h b/drivers/char/tpm/tpm_optee.h
+new file mode 100644
+index 000000000000..a3a2ea2a951d
+--- /dev/null
++++ b/drivers/char/tpm/tpm_optee.h
+@@ -0,0 +1,32 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++/*
++ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
++ *
++ * Shared transport for TPMs reached through an OP-TEE trusted application.
++ */
++
++#ifndef __TPM_OPTEE_H__
++#define __TPM_OPTEE_H__
++
++#include <linux/types.h>
++#include <linux/uuid.h>
++
++struct device;
++
++/**
++ * struct tpm_optee_config - identity of a TPM reached through an OP-TEE TA
++ * @ta_uuid:	UUID of the trusted application to bind
++ * @login:	TEE_IOCTL_LOGIN_* client login used to open the session
++ * @cmd_id:	TA function ID that submits a TPM command
++ */
++struct tpm_optee_config {
++	uuid_t	ta_uuid;
++	u32	login;
++	u32	cmd_id;
++};
++
++int tpm_optee_probe(struct device *dev, const struct tpm_optee_config *cfg);
++void tpm_optee_remove(struct device *dev);
++void tpm_optee_shutdown(struct device *dev);
++
++#endif /* __TPM_OPTEE_H__ */
+diff --git a/drivers/char/tpm/tpm_optee_dtpm.c b/drivers/char/tpm/tpm_optee_dtpm.c
+new file mode 100644
+index 000000000000..08385e72f7e5
+--- /dev/null
++++ b/drivers/char/tpm/tpm_optee_dtpm.c
+@@ -0,0 +1,73 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
++ *
++ * Front-end for a discrete TPM owned by OP-TEE and exposed to the normal
++ * world through a mediator pseudo TA. The chip sits on a bus only the
++ * secure world can reach (e.g. an SPI TPM behind OP-TEE's TPM TIS driver);
++ * this driver supplies the TA identity and binds it, the shared transport in
++ * tpm_optee does the rest.
++ */
++
++#include <linux/module.h>
++#include <linux/tee_drv.h>
++#include <linux/uuid.h>
++
++#include "tpm_optee.h"
++
++#define TPM_OPTEE_DTPM_SUBMIT_COMMAND	0
++
++static const struct tpm_optee_config tpm_optee_dtpm_config = {
++	.ta_uuid = UUID_INIT(0x50568cd9, 0x370a, 0x46b8,
++			     0x9f, 0x2c, 0x6f, 0xd9, 0x06, 0x64, 0xd2, 0xee),
++	.login	 = TEE_IOCTL_LOGIN_REE_KERNEL,
++	.cmd_id	 = TPM_OPTEE_DTPM_SUBMIT_COMMAND,
++};
++
++static int tpm_optee_dtpm_probe(struct tee_client_device *tee_device)
++{
++	return tpm_optee_probe(&tee_device->dev, &tpm_optee_dtpm_config);
++}
++
++static void tpm_optee_dtpm_remove(struct tee_client_device *tee_device)
++{
++	tpm_optee_remove(&tee_device->dev);
++}
++
++static void tpm_optee_dtpm_shutdown(struct tee_client_device *tee_device)
++{
++	tpm_optee_shutdown(&tee_device->dev);
++}
++
++static const struct tee_client_device_id tpm_optee_dtpm_id_table[] = {
++	{UUID_INIT(0x50568cd9, 0x370a, 0x46b8,
++		   0x9f, 0x2c, 0x6f, 0xd9, 0x06, 0x64, 0xd2, 0xee)},
++	{}
++};
++MODULE_DEVICE_TABLE(tee, tpm_optee_dtpm_id_table);
++
++static struct tee_client_driver tpm_optee_dtpm_driver = {
++	.id_table	= tpm_optee_dtpm_id_table,
++	.probe		= tpm_optee_dtpm_probe,
++	.remove		= tpm_optee_dtpm_remove,
++	.shutdown	= tpm_optee_dtpm_shutdown,
++	.driver		= {
++		.name		= "optee-dtpm",
++	},
++};
++
++static int __init tpm_optee_dtpm_init(void)
++{
++	return tee_client_driver_register(&tpm_optee_dtpm_driver);
++}
++
++static void __exit tpm_optee_dtpm_exit(void)
++{
++	tee_client_driver_unregister(&tpm_optee_dtpm_driver);
++}
++
++module_init(tpm_optee_dtpm_init);
++module_exit(tpm_optee_dtpm_exit);
++
++MODULE_DESCRIPTION("OP-TEE driver for a discrete TPM");
++MODULE_LICENSE("GPL");
 -- 
 2.55.0
 
