@@ -1,100 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.180
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794419371;
-	b=Q+VBr0oDTQUJjehh86RTAYegi3gcVlLsTD9yh3cYcP2JkejUUHxFFaIVBQBqQTjw05IK
-	 5q9C8216ezrX00bS30VualFgWZ7Zpn+N3BTap+ovbo50SISbJFAiwlefJBasvFhUtVDj1
-	 b+nA02CFtG690y908XxvlgUQxXI05LIzA94V8QXLFrWKfu13MGXVOiJyQ0gLu/myhveXG
-	 8jbBrXoQ1sGQ6ab81Bm03DkbfH2U5MgSuRkTzqHRfdiyIyOCTIbxjgh3Qj+BEGL0tyyK4
-	 ScqUa8N2j7e2h+wEpZ62CkWaC4nLwl3BsN7gYd1o7P3n/NRB84Pt7CJmWL0zEtcZ6ZA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794419371;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=P0LlEVmtKbYkhBHowVJUvrAVEwB7x6mCjbop+wAsjGs=;
-	b=OWefaECE6BLVxOF1367fCm6Hp/NDvOnifNmKisZ48d9pizKKXto97aZCmLClAvHxQTRH
-	 XsrXXL3pXa8xug1KsIqMo/kuRoDW6AEjn8osABV6tW6ySXPcda+Lz0ozq0lWuu0GPzqJH
-	 Eds4hohj4UAQnYOLS12DbxGn4WW2el+Xr2hKHPU7hyMF8iOYyfqFxHO1PllASNoESpolQ
-	 Ph2Ri0I8juO6LURKF9hHhjZCfgrh7XWgU6Gb0bgolbBalm3mR9LZsmh7QtJSB1bz58s5g
-	 vJS9LSi1J+/pUhk82bZj+9RJpOkJR5J+qEh2Dhe29L5+lbI35axQGA08/ifhNJEWd3Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WmWdrLTA;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.180
-Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DACAE606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 17:49:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DACAE606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794419437;
+	b=zOjR+WNqNSwa231szXE3pF9pF55/dx75pCyV+htKJTl5sEHqG6evEAHyP5Zmm1+Ah5Vr
+	 N3Kpi/l3xzri00wMyvIkEh7+0cP15jeIlAydt1i2vJMTj0Nm7kNU4HR3bdxGI90bZaLV7
+	 05k7HMcOYVaOsx5e8NHvvHo9Yv2fmarg6YipVId3XMjIIw+99d/NaCAS57k/JxR9JP27A
+	 FY8qQnmi3d3eTINCOgOBW3QRAZ+kCSms+jEjUkdKtj8MKeqmxJ4PHJwX0Qd0o0QB7VKja
+	 lktCexnzRx/KB/i/J10srUDX9f+urZaSYHvnxTfZBNJYGfdtQ1ey5uMwo1MBosuDcTw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794419437;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=Z8qU6+HvaIS0hGP6RSMrC3qaiOO8YyUA1e15Sl/ZGXE=;
+	b=Ey9XJPqeP7DWdMm6nt79ZH6C7LPdxd1awMcukOeY9GFubqkoJwblRl6KjRvwTPDEHtVf
+	 wIu3VFe8RRarC8984kgsHD8V1rWQyWW73KWqKJCpZnBVXJmbyrHxh1MWUJ+bkkGCOrNVq
+	 YozJWbNgev/DmZLg1aELEbwRppLc83CgcAU5tZzofpcbhXHYPoxbNAUsDoKwhEByFZChE
+	 HGzSGZK/IMzbrj4tclisOryYAh6lr0M6nPzQwNfGTUlENg7W7CcHIVsFjFP9z/tzCIuMS
+	 8fffm87pFLEwgC4FkBpZNym0dV/oMOrd5kHqTr+/FsQcFz9PW7g/KxZ1LBfq0dEidqg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=B0vx20da;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8CDB8606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 17:50:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8CDB8606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WmWdrLTA
-Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-36f8cdd30beso6052478eec.1
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 09:49:30 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794419370; cv=none;
-        d=google.com; s=arc-20260327;
-        b=rxsKnEk7g9YuXY8v8zcHFMpYs7K5seYp1jXT7+FbnUvp9JA53RsTajmzKPp0ESI1tA
-         OLLht/LXsj3PMHb99NAGHi3VQuekBB9tyApzF7yN+MJkFROgEg1IV6CgetBIyQ74SXJc
-         k4MGAeTgeivREvm1BbcYU6b6vEbbuiFIOfZnrl9coA99kVaqI8dNbBCiehTX9itPT0zw
-         GnQyPxhaK8Auzj73OtF8o8CUKOEUwg0bjhe/8ZkSGGcBianRIh3tqApShy+4mplc+rH5
-         mCXEnf+zc9IldPpr/LOd14ydSwmTow5RyD023+epmt9whBAWnwhQQciiaKy+hPTV+VyN
-         DVRA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=P0LlEVmtKbYkhBHowVJUvrAVEwB7x6mCjbop+wAsjGs=;
-        fh=iLc3eUB0fI383nnTbxqcYILMAEcaLTnTK0IAn7UhHC0=;
-        b=VKU4eLQqgHASaqsBl8E0bGAJoL4BpqbFNeTCcnzJyQ9FyPqMOyOW0Cq8pyCKfHrIW7
-         oOBlRpR/wx6RS54jIOQQFnmf+6gXeec6XIV7kt394I6XJpl4L9ElCQ8WFPR6tAULoKSx
-         MxB+UM3U1zG5qc6+pFfG2VQBTnydvAnrTLnmPDFcLShqdUWHfnwWPa8QLk+i1kPx6Yx1
-         9JEFDAFjx11oC43T9IIhspo0MVUrmC/D5mfWT0piYDMx+Ld0n7aoVO2NkGQCO6LN0RZw
-         ipqAn9oUQWBA4iiZ0jlknFUsIRKQYumYcrH7pVIopz7U+HkWp2gEHFKGweH8+9U4hvzG
-         B3TA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794419370; x=1795024170; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=P0LlEVmtKbYkhBHowVJUvrAVEwB7x6mCjbop+wAsjGs=;
-        b=WmWdrLTAMz51OJvfqBlkxREe8w5ZZlX9pq5Mjk5ePhW52XUz38wj54Wyp/6Cr+DzGx
-         JE+M3cZnUA7GzUAg9Mh11pxcBWfvK8CNRumwG+ZBobsrVgMVIhNFrioxpuuNf611MGW7
-         M/9qJ5zDbvTzNUbDPk5V4iaDpMjLnici/uUiv5ZleuEg0UHmdhIDV2GKxkU8+12wPyr5
-         E5xPiVS+YqxcGj9LWIPoOdIkVgnjzm4LBAupubZHdmjcSeDd6e4k4H00WJsHnKyUW8Qu
-         7L6pqAG2oymoUQuCLLlGG4XYXywN7E4TsjOwfyhs0yMcG1W1y9TlGPeW6JUpjOVrSddl
-         M79Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794419370; x=1795024170;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=P0LlEVmtKbYkhBHowVJUvrAVEwB7x6mCjbop+wAsjGs=;
-        b=RRNTWglyIGzWJDvBeZ4zM9JUw9HiKgnDQCK486W6C9Rmnqj/R2GXVC88QYy/WkoBWh
-         Hi6OF9nGVFIoachgwTMK5BzBoeRCJ3x5aXaA/T8+Ue6DtX2OzIT0d+vNVCmiN9P6L7wS
-         90cCtm+ao7QocWIQMQetH3qExbi3aawauAyAeHnE3A8xseEYUawVIVd735w62uVRwFx6
-         xmSkP377Sqz12ZBVXSN4pVTDqqlcNimT8pMQQityDP6K0PHBlK7iwmaVhA6y5ogE1u8m
-         s/c9CO8As/rJ58pvpr86Qq8C8l3Erwd+SniqDl6XZ4izrS803ayyqJg+NpzGAZ+tEp4B
-         u0gg==
-X-Forwarded-Encrypted: i=1; AL+hErEIqdNHcDVkhIE+0P2m3giewOnoVd5tIjy0NxP7vNsDIn0bGB1/b286O5AFSIHbJfvdJQQa7Avyl8xZqdM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+NxiZ9O0BSye/dKq0Q3iwypumqNdb+hSuknchLFw53ZyVAwxby
-	LsZN1kp7zfVGrbGhLbY136sjXi5xhZSEVIKv20UweovvNMVpX+ZmtPzAeUQhn+N00S3XqGi6GfM
-	DKRuaBOdOFvKFL4zfuMoadzCRuYC8flc=
-X-Gm-Gg: AYBFou2NZ8nYlPfKVMkntzmbDAy4Phz5yjbmgNpoj06Hz+l47m33KPzqUzJH/J9iAOn
-	o4boDDg3BraleYpTRz6IqzTMNoTfO25o+Z7yTv+ZYk3Sly9GnatMZo67XlBl3OKCqL2+lamPUFh
-	qxiXt1dUfdYEAqwDkS+YUQbcfsAyIeGGjCwTls5oowJc9bpL++pxqVfr2vdbyl0SH7GSWfvwvyn
-	JbMK/Hv2HXenSb3gsXvB8GPlY6WDmn5YiJAJvQcBc8lF5aEGZT168znaAEyp78oGpe3jge8Wrqg
-	qAQwHv8r0g3r4zh/95k1hM570ulFQEYW98u5ojQNfCf48pIRWErxz9YxldLOlA2d6lclUznqSmv
-	Rl3LCk5x31uMA1ujhU2ebwYdVsfjrS7q/aqdl83HdZRb5ZJWqS05WX2i5VnYpkUp/b++KO5nkBW
-	2Z/JAu4VXl6Xti3/1PDf7R6ufKwA==
-X-Received: by 2002:a05:693c:65cf:b0:375:fb27:2c59 with SMTP id
- 5a478bee46e88-376861744d2mr3628461eec.20.1794419369880; Wed, 11 Nov 2026
- 09:49:29 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=B0vx20da
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DADC11576;
+	Wed, 11 Nov 2026 09:50:32 -0800 (PST)
+Received: from [10.57.69.47] (unknown [10.57.69.47])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id DC4093F632;
+	Wed, 11 Nov 2026 09:50:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794419435; bh=mkeJMyoQ8Qv6RCg92gwoZ/tiJll4x2tHEGTQlboYilQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=B0vx20daoO+pjHgnuqgkbbdr6Am0qaJ+xSgQiGc5DV5qXM28UAODjDIdbLLg3j+P/
+	 JVlF8vJ8I0yzmAja1WatBIQIdsq/5ssyGRXt8SQoW39vxsUmwE3B3KibZBxalzjzoM
+	 52ANnchXJdVDMcsSysOPgEhvoy0NWAp+/DfnpoPE=
+Message-ID: <c426f5a3-d161-476d-8911-99903ecf8e46@arm.com>
+Date: Wed, 11 Nov 2026 17:50:31 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,32 +53,102 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261111-smsc75xx-rx-fcs-v2-1-216a5f26842a@gmail.com> <e4a20579-2576-4c2e-9120-b675a175a1da@lunn.ch>
-In-Reply-To: <e4a20579-2576-4c2e-9120-b675a175a1da@lunn.ch>
-From: Joas Antonio <joasantonio108@gmail.com>
-Date: Wed, 11 Nov 2026 14:49:17 -0300
-X-Gm-Features: AclHuK9J4PRZYynpn60Trwp0oScnHBsKAesx94T00Mrc6mS2wm4jqy4_tDb4sVM
-Message-ID: <CAOCBhwE84F8ZTAVXwxKEpZz06q3KvD12FkeXp6Nn+MXoUYOWfg@mail.gmail.com>
-Subject: Re: [PATCH net v2] net: usb: smsc75xx: reject frames without a full
- header and FCS
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: steve.glendinning@shawell.net, andrew+netdev@lunn.ch, davem@davemloft.net, 
-	edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, 
-	netdev@vger.kernel.org, linux-usb@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 09/18] KVM: arm64: Implement HVC handling for protected
+ guests at EL2
+To: Fuad Tabba <fuad.tabba@linux.dev>
+Cc: maz@kernel.org, oupton@kernel.org, kvmarm@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ catalin.marinas@arm.com, will@kernel.org, joey.gouly@arm.com,
+ seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com,
+ mark.rutland@arm.com, steven.price@arm.com, vdonnefort@google.com,
+ qperret@google.com
+References: <20261001135711.1640520-1-fuad.tabba@linux.dev>
+ <20261001135711.1640520-10-fuad.tabba@linux.dev>
+ <5fa8a1fb-4e2c-4746-8a70-a47f387ef0d6@arm.com>
+ <CA+EHjTyCcGPMte9=HuqyvCS7CCCt80Lc_JQuA+1e3ZE+3A0zqQ@mail.gmail.com>
+From: Ryan Roberts <ryan.roberts@arm.com>
+Content-Language: en-GB
+In-Reply-To: <CA+EHjTyCcGPMte9=HuqyvCS7CCCt80Lc_JQuA+1e3ZE+3A0zqQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-> What is the value of FLAG_RX_ASSEMBLE in flags?
+On 11/11/2026 16:45, Fuad Tabba wrote:
+> Hi Ryan,
+> 
+> On Wed, 11 Nov 2026 13:59:17 +0000, Ryan Roberts <ryan.roberts@arm.com> wrote:
+> [...]
+>>> diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
+> [...]
+>>> @@ -2622,6 +2622,10 @@ static void kvm_hyp_init_symbols(void)
+>>>          kvm_nvhe_sym(__icache_flags) = __icache_flags;
+>>>          kvm_nvhe_sym(kvm_arm_vmid_bits) = kvm_arm_vmid_bits;
+>>>
+>>> +        kvm_nvhe_sym(spectre_v2_state) = arm64_get_spectre_v2_state();
+>>> +        kvm_nvhe_sym(spectre_v4_state) = arm64_get_spectre_v4_state();
+>>> +        kvm_nvhe_sym(spectre_bhb_state) = arm64_get_spectre_bhb_state();
+>>
+>> Is it really correct to snapshot this state then use it at runtime assuming its
+>> still accurate? See below...
+> 
+> These can't change after this point: update_mitigation_state() doesn't
+> update a state once system_capabilities_finalized() is true, and
+> kvm_arm_init() runs after that.
+> 
+> [...]
+>>> diff --git a/arch/arm64/kvm/hyp/nvhe/pkvm.c b/arch/arm64/kvm/hyp/nvhe/pkvm.c
+> [...]
+>>> @@ -1181,8 +1187,70 @@ bool kvm_handle_pvm_hvc64(struct kvm_vcpu *vcpu, u64 *exit_code)
+> [...]
+>>> +        case ARM_SMCCC_ARCH_FEATURES_FUNC_ID:
+>>> +                /* The workaround calls themselves are handled on hyp entry. */
+>>> +                val[0] = SMCCC_RET_NOT_SUPPORTED;
+> [...]
+>>> +                case ARM_SMCCC_ARCH_WORKAROUND_2:
+>>> +                        switch (spectre_v4_state) {
+>>> +                        case SPECTRE_VULNERABLE:
+>>> +                                break;
+>>> +                        case SPECTRE_MITIGATED:
+>>> +                                /* With SSBS advertised the guest's default is safe. */
+>>> +                                if (kvm_has_feat(vcpu->kvm, ID_AA64PFR1_EL1, SSBS, IMP))
+>>> +                                        break;
+>>
+>> For this case (and the break immediately above) you return val[0] =
+>> SMCCC_RET_INVALID_PARAMETER (from init at top of this function). But the
+>> kernel's kvm_smccc_call_handler() returns val[0] = SMCCC_RET_NOT_SUPPORTED in
+>> these cases (which seems more likely to be correct). Does this violate the ABI?
+> 
+> Both return NOT_SUPPORTED. val[0] is set to it at the top of the
+> ARM_SMCCC_ARCH_FEATURES_FUNC_ID case.
 
-It is not set, smsc75xx_info has
+Ahh missed that oops!
 
-        .flags = FLAG_ETHER | FLAG_SEND_ZLP | FLAG_LINK_INTR,
+> 
+>>
+>>> +                                fallthrough;
+>>> +                        case SPECTRE_UNAFFECTED:
+>>> +                                val[0] = SMCCC_RET_NOT_REQUIRED;
+>>
+>> Is it possible that the (compromised) kernel could have disabled the mitigation
+>> after the state snapshot was taken? I.e. spectre_v4_state == SPECTRE_MITIGATED
+>> and the VM doesn't advertise SSBS so it returns SMCCC_RET_NOT_REQUIRED here. But
+>> the kernel has since turned off the mitigation?
+> 
+> Yes, where the mitigation is the firmware one. The host can disable it
+> with an ARM_SMCCC_ARCH_WORKAROUND_2 call, which EL2 forwards, and EL2
+> doesn't enable it again before running the guest. With TF-A that's
+> only on a Cortex-A76 without SSBS, the only CPU it implements the
+> dynamic workaround for.
 
-so usbnet counts rx_errors when smsc75xx_rx_fixup() returns 0.
+If the mitigation is via SSBS but SSBS is not exposed to the guest, I'm guessing
+this is safe because the guest is expected to set SSBS=0 in this case?
 
-> Should rx_length_errors also be incremented?
+Thanks,
+Ryan
 
-Yes, I will add that to the new check in v3.
+> 
+> I'll send out a fix. Thanks for spotting this!
+> 
+> Cheers,
+> /fuad
 
-Thanks for the review,
-Joas
