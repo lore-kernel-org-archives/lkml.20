@@ -1,81 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794392601;
-	b=crOvm05M58Lq6PaJ4q8b5t0bpulR5TPHUmheY9Kglpgkqcc1+QV5IUCFXS/R5gJ0sZX0
-	 mIiY6fcZLl0uAVEa723Q+MekLavHCEf6WtxAcAxLXeBZInC3qWd42V4H6NGyz9e3FPE0v
-	 9xylsHJNd9hRWS+ShToTjYjl3rNqIfG51/Pe2YEV73ptbJfNtAa418mYZT3aC9+ev6dlG
-	 nWJ+NxauG+Gut47SED2l6PkMrbvMBoFnIIphWbLWMiwIEv1x918w9vUQEvYi+tZVzN0TY
-	 lsAt/BILELm7UiLK4uKzeXtRnZLOU0Q6/U8hb84LE/WNGYteIzWxZqttYquPwVXa3aw==
+	t=1794392631;
+	b=a6jo8En+vqzGigK3TVqHKCl76nbmpz8gtfjxFjlNXBX9RferW76BEowepMePoffRbCK+
+	 vX4jFPlAD/cGfGhGY1wlgP71Hl4MahldAruaiRXutB2wckKGtHATQ2AhDWNSHWxidor/l
+	 p44MTZ3YO7n1+spFOMJmA+kVLPrp2jNH4IzEJQ35FSyd7PvtImJ2caJykfDockEnffUMK
+	 svuJTp/iypPe3PWcZYZDuWv1+b5ZVjp5XTVD4xvhhMpSthIHwfoqFmndK0AB+bTFtO8zF
+	 DHPoFiVcJnAE2JZXaZyVJsGVvFjLmb165gU0fDU56XGubu5ZetPaXlZ1AoDZh8pgn1A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794392601;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=4ULj0NXijTq3R1zAP8uyHKnM0ACD9LxvphraQmHtKkA=;
-	b=Vx55VDYMqUFMqRDUHfGIa/QSR/hkW5OBNRvfmpyzUx08w9AspyMuxWQdiVfE7BDKksiH
-	 ygSw1mZ5gXYyuhtYD4RpaWFMWFcfEy6tIUWb2DKkDPfxZ0r1eqH566Mjmz+ovHniPlrF6
-	 VNbYsWvxabeGyU+bstuWukxceg5wXYXJiii5ZWEA4ghXtTwxaTVegVgpfTnmYdEFrijBF
-	 9+3hGUf1h1JYanLEf0K176u9z723uapxk3gbXNRWVvszD7UTnEsLSVE/Soy50K8q30rF3
-	 EPKBCcimfyFwetYIjRJqgpqx1BS3jLv9e2cnO4baTSx7fVO9BN3b4CbKB8Ky4WU041w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794392631;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=lTtaukxftZVKFDau/7qTiVwTrbXKJ+iWU8/3orek9JQ=;
+	b=G7pETZR8wxRYdCssTE/USXzwx5m3r4nNtqX+XPrbu1uDocjTfUI8v/al5k01iKZi73we
+	 6suhz3eV8fduDG5qAivmiozeKienETwYuI7At10sNLHdiAOXpXCep6n8PVTvgDIPiCQqn
+	 ISz/gKUuGVUIXFajVogycn0T/mxihfIV+btWJIRWwYYv0+6Z9zI6NolQcOlje2Uzie+Eg
+	 wqbveokRzbLYmfF2Xu0ceN/WeKhc1as6PBvpJw1tEibXAvw7n4GTxjE0K/QT20SZ680HV
+	 K3uwRBb+plLnnNiOlZK78nY4S7hyWeV8niR/FLKRo1Ky/kjrHbPKipq9qk2TTcdUR7g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=aeK3Uqod;
-	arc=none smtp.remote-ip=90.155.92.199
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Xo4Og1TI;
+	arc=none smtp.remote-ip=209.85.128.53
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDD69606A324;
-	Wed, 11 Nov 2026 10:23:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CDD69606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79352606A321
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 10:23:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 79352606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=aeK3Uqod
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=4ULj0NXijTq3R1zAP8uyHKnM0ACD9LxvphraQmHtKkA=; b=aeK3UqodNlDWjBScGAVJ8KTmuy
-	Cdsgqaz7P9Avj5eIOHiUlVFx1jai/GcydbFP8Lme3YNPd80i59nXuTrwAnZCoh2UpnUB7Ab0QFSb6
-	BIwv7I13irUypCepClj8HBG8qoLa8ElVklAHKtygKB1scRfFjqKJR1sQODjuqVbbOW+Itf7sWqQES
-	4VHlsEAfXSEC2aFEXu8zWClvKXtxHscqRVYyFct07Ng0+fKdPzikJO1Qw1ORI1IO3vgDSu1st2pSe
-	Aqd8HRxQm15Q/TmeXKD9qUtvDSYkk9hBH8ljj2+H2+lcqjGTnOzjiyFeCyFSJTTneszC0+D/qMal+
-	iSk6Bqcw==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xR5U3-000000091IT-1x2s;
-	Wed, 11 Nov 2026 10:23:15 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 27E4B30025D; Wed, 11 Nov 2026 11:23:14 +0100 (CET)
-Date: Wed, 11 Nov 2026 11:23:14 +0100
-From: Peter Zijlstra <peterz@infradead.org>
-To: Marco Elver <elver@google.com>
-Cc: Arnd Bergmann <arnd@kernel.org>,
-	Andrey Ryabinin <ryabinin.a.a@gmail.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Alexander Potapenko <glider@google.com>,
-	Arnd Bergmann <arnd@arndb.de>, Heiko Carstens <hca@linux.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Sven Schnelle <svens@linux.ibm.com>,
-	Andrey Konovalov <andreyknvl@gmail.com>,
-	Dmitry Vyukov <dvyukov@google.com>,
-	Vincenzo Frascino <vincenzo.frascino@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Aleksei Nikiforov <aleksei.nikiforov@linux.ibm.com>,
-	Andreas Grapentin <gra@linux.ibm.com>,
-	Finn Thain <fthain@linux-m68k.org>,
-	Anshuman Khandual <anshuman.khandual@arm.com>,
-	David Hildenbrand <david@kernel.org>, linux-s390@vger.kernel.org,
-	linux-kernel@vger.kernel.org, kasan-dev@googlegroups.com,
-	linux-mm@kvack.org
-Subject: Re: [PATCH] [RFC] instrumented.h: mark instrument_write non-const
-Message-ID: <20261111102314.GM1779021@noisy.programming.kicks-ass.net>
-References: <20261111092231.2027735-1-arnd@kernel.org>
- <CANpmjNP5p-N6v=GiETYQMxgRMsOgKOdUjDCxSHj-6=pa4NkA8w@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Xo4Og1TI
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a2d6d01ecbso18819695e9.0
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 02:23:50 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794392629; x=1794997429; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=lTtaukxftZVKFDau/7qTiVwTrbXKJ+iWU8/3orek9JQ=;
+        b=Xo4Og1TIX7ckk/BjmhvZmduOYR5ibKUGmBw+E00VCP1DxneWaTMNz+ypsQdxgUBFMm
+         LxKEpdKuA/G8gxlNcYJYDOnPK0nMAxjmxYl09bCag/gjuqyxpT8NIWi6tlE+YSZl91+0
+         hu4ObsdE7AN9J+40QkU4dL0ojAXLCIrzuM0CFxdkDMQqXjOVJfkZS4p+UwIn3Rcphgte
+         3NuPgYm1ZsC5/MH2DAYXDncTmYFCt2UdUri7aa2KSx5b7K6+J17tPtaqWb5g3S6wfOg6
+         H2oFJXtQu3fp5zx6gMkoK+LLf4jtEYYD7nSmDaBVAiPNjVooXQeoIbfBXmukrIo0qB3e
+         YOLQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794392629; x=1794997429;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lTtaukxftZVKFDau/7qTiVwTrbXKJ+iWU8/3orek9JQ=;
+        b=ou8Xf6BKn6vZ2kJpHlzIMwcSMe611hkS78AdH8IBlaPVWjEcGNKuB1FpVqrqUfEyfI
+         2Kp333N748RVYdiXyc7R4kIEsTXafPvWWAk9HBlblBR/Lgvc6kQL/BrZ8yj3+BcIjn46
+         ys1hvJGLhKVs6nQRk5bMNVV+5rAM+5hNl69WhYV6xVph6sUV7WzGKThHrKz/fSPzqrFP
+         htEN0178EYawEZpqgs9grG7gUtqn81/JkjfBmYaB1xs8HplQmvED4GXil6BAQLpnWrCk
+         FSG0U0+6yZ3GZlWpMH99uIHYanXdFJ7E5+gOfOm1RST13IfU4Ego9SgIl/3LVRXlHJuo
+         X7gg==
+X-Forwarded-Encrypted: i=1; AL+hErGgn5ACtL2EEcOFcc+maAeIX/FCWkQunVmyaQMfJT18LoVHP2DwHfoKuGlyBqLRdb0Qv0hv70oSH3rpKZo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z87KaKDLCilZ7wAE7lEgcKMhgJfdXZ2cBJzNmQVFVb+GbOSelf5
+	aC+HyjutSrGyVhG34l4Q9HZJIKllmFRrwFZiILqKeh8fEdEB0eFpfyWY
+X-Gm-Gg: AYBFou35Mq9yAc6zDG6aSk2k/Bac2A4jyc0UvPI+SNf0AxxjDBuwcK0wJBQOZrhxuvV
+	/vyiweV3HRo3VUr8sBDF9Z6nDk1PmR4En9EYK+wqFmxs4z4kkRni7kZZd5EhmRQWYiu94gAvluK
+	CRXHVJMHRdWHvf4qxzVhfME4KgChCkBd/evbpbXDuxx/4mPqYtCaJcpP0Ttu/qykk6GJQxHXWdg
+	2xYosoi4ugKzcUHQlE8scHvprIf5Z63YMk4ZzmfNA7+zxFZCWKzfnLLobcx0rxhTkMQnEu/CLjB
+	mJTepnOkzMkhdVtUko/uzQYu9Al/ZKJ4AyjNdyX+WLbhdny72o8WoVnqZgE347Nz6DdLu9U0VGI
+	eGzFrE4noEds0k5ChWRLUbHD4pkRm9WgazNvR0zwTyGrP5LSD1R4Nt4BLixf7sMYWK+SOUWMXMg
+	ebDgh4vaNa0/fdTYUjasl9CTBLIXGmgxxO6rgUTi1V+87W+4GmJB5Zx/oF606/1xtpAmIRef6Au
+	EOYdItHO4HJgY/juYxc+hSU8zD8loBHz8p+ZFM/K6pV/0fl/TaWA+R/2BSsMhfDTX4vieZeizG4
+	pO7FiVt5UOyMBLCLWsM0YxA7FxoetdmJFFLhtMNkeAyTuTRC8uTthcriJw==
+X-Received: by 2002:a05:600c:190a:b0:4a1:f99e:f22d with SMTP id 5b1f17b1804b1-4ba0936c0d2mr36442075e9.6.1794392628711;
+        Wed, 11 Nov 2026 02:23:48 -0800 (PST)
+Received: from fedora ([154.182.80.200])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba0204e22csm121569065e9.12.2026.11.11.02.23.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 02:23:48 -0800 (PST)
+From: Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
+To: jic23@kernel.org,
+	linux-iio@vger.kernel.org
+Cc: dlechner@baylibre.com,
+	nuno.sa@analog.com,
+	andy@kernel.org,
+	nicolas.ferre@microchip.com,
+	alexandre.belloni@bootlin.com,
+	claudiu.beznea@tuxon.dev,
+	mripard@kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
+Subject: [PATCH v3] iio: adc: at91_adc: move to devm_* to fix NULL pointer deref
+Date: Wed, 11 Nov 2026 12:13:45 +0200
+Message-ID: <20261111101345.185122-1-abdelnasserhussein11@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,63 +103,365 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CANpmjNP5p-N6v=GiETYQMxgRMsOgKOdUjDCxSHj-6=pa4NkA8w@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 11, 2026 at 10:59:51AM +0100, Marco Elver wrote:
-> On Wed, 11 Nov 2026 at 10:22, Arnd Bergmann <arnd@kernel.org> wrote:
-> >
-> > From: Arnd Bergmann <arnd@arndb.de>
-> >
-> > I got another instance of a -Wmaybe-uninitialized in ntfs, as this is
-> > the only place that enables the warning:
-> >
-> > In file included from include/asm-generic/rwonce.h:26,
-> >                  from fs/ntfs3/file.c:10:
-> > In function 'instrument_copy_from_user_before',
-> >     inlined from '_inline_copy_from_user' at include/linux/uaccess.h:184:2,
-> >     inlined from 'copy_from_user' at include/linux/uaccess.h:222:9,
-> >     inlined from 'ntfs_ioctl_fitrim' at fs/ntfs3/file.c:78:6,
-> >     inlined from 'ntfs_ioctl' at fs/ntfs3/file.c:246:10:
-> > include/linux/kasan-checks.h:38:27: error: 'range' may be used uninitialized [-Werror=maybe-uninitialized]
-> >    38 | #define kasan_check_write __kasan_check_write
-> > include/linux/instrumented.h:146:9: note: in expansion of macro 'kasan_check_write'
-> >   146 |         kasan_check_write(to, n);
-> >       |         ^~~~~~~~~~~~~~~~~
-> > include/linux/kasan-checks.h: In function 'ntfs_ioctl':
-> > include/linux/kasan-checks.h:20:6: note: by argument 1 of type 'const volatile void *' to '__kasan_check_write' declared here
-> >    20 | bool __kasan_check_write(const volatile void *p, unsigned int size);
-> >       |      ^~~~~~~~~~~~~~~~~~~
-> > fs/ntfs3/file.c:66:29: note: 'range' declared here
-> >    66 |         struct fstrim_range range;
-> >       |                             ^~~~~
-> >
-> > The problem here is that copy_from_user() is called on an uninitialized
-> > object, but the instrumentation passes the pointer into a function that
-> > takes a const object. gcc deduces that any access to that object is
-> > undefined behavior and warns about it.
-> >
-> > The only workaround I could come up with is to remove the 'const' keyword
-> > from these annotations, which of course is not great either, as the
-> > functions do not actually access the data at all.
-> 
-> Agree, but the code where a real 'write' happens ought to never pass
-> in a const-qualified variable or pointer anyway, so I think it's fine.
-> 
-> > This also found incorrect 'const' annotations in
-> > arch/s390/include/asm/fpu-insn.h, which writes to those pointers.
-> 
-> That looks like a bug. Maybe split it into a separate patch.
-> 
-> > Any ideas?
-> >
-> > Fixes: 33b75c1d884e ("instrumented.h: allow instrumenting both sides of copy_from_user()")
-> > Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-> 
-> If there are no warnings that appear because of this elsewhere, then:
-> 
-> Acked-by: Marco Elver <elver@google.com>
+If 'atmel,adc-use-external-triggers' is not set in the device tree,
+at91_adc_trigger_init() leaves the external trigger slots in st->trig
+as NULL. The error paths and remove function unconditionally called
+iio_trigger_unregister() and iio_trigger_free() on them, causing a
+NULL pointer dereference.
 
-Yeah, this looks sane enough for me too. Shall I take this (after s390
-acks it), or do we want to have it sit in a CI first?
+Instead of just checking for NULL, refactor the driver to use the
+device-managed (devm_*) API for registration and allocation. This
+modernizes the code, eliminates the need for manual cleanup functions
+(at91_adc_trigger_remove, at91_adc_buffer_remove, at91_ts_unregister,
+and at91_adc_remove), and inherently fixes the NULL pointer dereference
+since the core handles the cleanup of properly allocated triggers.
+
+As part of this simplification, the remaining trigger initialization
+logic has been inlined into at91_adc_probe().
+
+Suggested-by: Jonathan Cameron <jic23@kernel.org>
+Fixes: 0e589d5fb317 ("ARM: AT91: IIO: Add AT91 ADC driver.")
+Signed-off-by: Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
+---
+v3:
+ - Addressed review comments from Andy Shevchenko:
+   - Removed the redundant dev_err() after devm_input_allocate_device().
+   - Declared a local 'struct device *dev = &pdev->dev' and used it in
+     at91_adc_probe().
+   - Declared the loop iterator inside the for-loop.
+
+v2:
+ - Dropped the simple NULL check approach.
+ - Refactored the driver to use devm_* API as suggested by Jonathan Cameron.
+ - Removed manual cleanup functions and error paths entirely.
+ - Inlined remaining trigger initialization into probe().
+
+ drivers/iio/adc/at91_adc.c | 185 +++++++++++--------------------------
+ 1 file changed, 52 insertions(+), 133 deletions(-)
+
+diff --git a/drivers/iio/adc/at91_adc.c b/drivers/iio/adc/at91_adc.c
+index 0ac74ad92fca..5293229f3dfa 100644
+--- a/drivers/iio/adc/at91_adc.c
++++ b/drivers/iio/adc/at91_adc.c
+@@ -608,85 +608,32 @@ static const struct iio_trigger_ops at91_adc_trigger_ops = {
+ static struct iio_trigger *at91_adc_allocate_trigger(struct iio_dev *idev,
+ 						     const struct at91_adc_trigger *trigger)
+ {
++	struct device *dev = idev->dev.parent;
+ 	struct iio_trigger *trig;
+ 	int ret;
+ 
+-	trig = iio_trigger_alloc(idev->dev.parent, "%s-dev%d-%s", idev->name,
+-				 iio_device_id(idev), trigger->name);
+-	if (trig == NULL)
++	trig = devm_iio_trigger_alloc(dev, "%s-dev%d-%s", idev->name,
++				      iio_device_id(idev), trigger->name);
++	if (!trig)
+ 		return NULL;
+ 
+ 	iio_trigger_set_drvdata(trig, idev);
+ 	trig->ops = &at91_adc_trigger_ops;
+ 
+-	ret = iio_trigger_register(trig);
+-	if (ret) {
+-		iio_trigger_free(trig);
++	ret = devm_iio_trigger_register(dev, trig);
++	if (ret)
+ 		return NULL;
+-	}
+ 
+ 	return trig;
+ }
+ 
+-static int at91_adc_trigger_init(struct iio_dev *idev)
+-{
+-	struct at91_adc_state *st = iio_priv(idev);
+-	int i, ret;
+-
+-	st->trig = devm_kcalloc(&idev->dev,
+-				st->caps->trigger_number, sizeof(*st->trig),
+-				GFP_KERNEL);
+-
+-	if (st->trig == NULL) {
+-		ret = -ENOMEM;
+-		goto error_ret;
+-	}
+-
+-	for (i = 0; i < st->caps->trigger_number; i++) {
+-		if (st->caps->triggers[i].is_external && !(st->use_external))
+-			continue;
+-
+-		st->trig[i] = at91_adc_allocate_trigger(idev,
+-							st->caps->triggers + i);
+-		if (st->trig[i] == NULL) {
+-			dev_err(&idev->dev,
+-				"Could not allocate trigger %d\n", i);
+-			ret = -ENOMEM;
+-			goto error_trigger;
+-		}
+-	}
+-
+-	return 0;
+-
+-error_trigger:
+-	for (i--; i >= 0; i--) {
+-		iio_trigger_unregister(st->trig[i]);
+-		iio_trigger_free(st->trig[i]);
+-	}
+-error_ret:
+-	return ret;
+-}
+-
+-static void at91_adc_trigger_remove(struct iio_dev *idev)
+-{
+-	struct at91_adc_state *st = iio_priv(idev);
+-	int i;
+-
+-	for (i = 0; i < st->caps->trigger_number; i++) {
+-		iio_trigger_unregister(st->trig[i]);
+-		iio_trigger_free(st->trig[i]);
+-	}
+-}
+-
+ static int at91_adc_buffer_init(struct iio_dev *idev)
+ {
+-	return iio_triggered_buffer_setup(idev, &iio_pollfunc_store_time,
+-		&at91_adc_trigger_handler, NULL);
+-}
++	struct device *dev = idev->dev.parent;
+ 
+-static void at91_adc_buffer_remove(struct iio_dev *idev)
+-{
+-	iio_triggered_buffer_cleanup(idev);
++	return devm_iio_triggered_buffer_setup(dev, idev,
++					       &iio_pollfunc_store_time,
++					       &at91_adc_trigger_handler, NULL);
+ }
+ 
+ static int at91_adc_read_raw(struct iio_dev *idev,
+@@ -924,13 +871,10 @@ static int at91_ts_register(struct iio_dev *idev,
+ {
+ 	struct at91_adc_state *st = iio_priv(idev);
+ 	struct input_dev *input;
+-	int ret;
+ 
+-	input = input_allocate_device();
+-	if (!input) {
+-		dev_err(&idev->dev, "Failed to allocate TS device!\n");
++	input = devm_input_allocate_device(&pdev->dev);
++	if (!input)
+ 		return -ENOMEM;
+-	}
+ 
+ 	input->name = DRIVER_NAME;
+ 	input->id.bustype = BUS_HOST;
+@@ -951,8 +895,7 @@ static int at91_ts_register(struct iio_dev *idev,
+ 		if (st->touchscreen_type != ATMEL_ADC_TOUCHSCREEN_4WIRE) {
+ 			dev_err(&pdev->dev,
+ 				"This touchscreen controller only support 4 wires\n");
+-			ret = -EINVAL;
+-			goto err;
++			return -EINVAL;
+ 		}
+ 
+ 		input_set_abs_params(input, ABS_X, 0, (1 << MAX_RLPOS_BITS) - 1,
+@@ -964,39 +907,27 @@ static int at91_ts_register(struct iio_dev *idev,
+ 	st->ts_input = input;
+ 	input_set_drvdata(input, st);
+ 
+-	ret = input_register_device(input);
+-	if (ret)
+-		goto err;
+-
+-	return ret;
+-
+-err:
+-	input_free_device(input);
+-	return ret;
+-}
+-
+-static void at91_ts_unregister(struct at91_adc_state *st)
+-{
+-	input_unregister_device(st->ts_input);
++	return input_register_device(input);
+ }
+ 
+ static int at91_adc_probe(struct platform_device *pdev)
+ {
++	struct device *dev = &pdev->dev;
+ 	unsigned int prsc, mstrclk, ticks, adc_clk, adc_clk_khz, shtim;
+-	struct device_node *node = pdev->dev.of_node;
++	struct device_node *node = dev->of_node;
+ 	int ret;
+ 	struct iio_dev *idev;
+ 	struct at91_adc_state *st;
+ 	u32 reg, prop;
+ 	const char *s;
+ 
+-	idev = devm_iio_device_alloc(&pdev->dev, sizeof(struct at91_adc_state));
++	idev = devm_iio_device_alloc(dev, sizeof(struct at91_adc_state));
+ 	if (!idev)
+ 		return -ENOMEM;
+ 
+ 	st = iio_priv(idev);
+ 
+-	st->caps = of_device_get_match_data(&pdev->dev);
++	st->caps = of_device_get_match_data(dev);
+ 
+ 	st->use_external = of_property_read_bool(node, "atmel,adc-use-external-triggers");
+ 
+@@ -1041,7 +972,7 @@ static int at91_adc_probe(struct platform_device *pdev)
+ 
+ 	platform_set_drvdata(pdev, idev);
+ 
+-	idev->name = dev_name(&pdev->dev);
++	idev->name = dev_name(dev);
+ 	idev->modes = INDIO_DIRECT_MODE;
+ 	idev->info = &at91_adc_info;
+ 
+@@ -1060,25 +991,25 @@ static int at91_adc_probe(struct platform_device *pdev)
+ 	at91_adc_writel(st, AT91_ADC_IDR, 0xFFFFFFFF);
+ 
+ 	if (st->caps->has_tsmr)
+-		ret = devm_request_irq(&pdev->dev, st->irq,
++		ret = devm_request_irq(dev, st->irq,
+ 				       at91_adc_9x5_interrupt, 0,
+-				       pdev->dev.driver->name, idev);
++				       dev->driver->name, idev);
+ 	else
+-		ret = devm_request_irq(&pdev->dev, st->irq,
++		ret = devm_request_irq(dev, st->irq,
+ 				       at91_adc_rl_interrupt, 0,
+-				       pdev->dev.driver->name, idev);
++				       dev->driver->name, idev);
+ 	if (ret)
+-		return dev_err_probe(&pdev->dev, ret,
++		return dev_err_probe(dev, ret,
+ 				     "Failed to allocate IRQ.\n");
+ 
+-	st->clk = devm_clk_get_enabled(&pdev->dev, "adc_clk");
++	st->clk = devm_clk_get_enabled(dev, "adc_clk");
+ 	if (IS_ERR(st->clk))
+-		return dev_err_probe(&pdev->dev, PTR_ERR(st->clk),
++		return dev_err_probe(dev, PTR_ERR(st->clk),
+ 				     "Could not prepare or enable the clock.\n");
+ 
+-	st->adc_clk = devm_clk_get_enabled(&pdev->dev, "adc_op_clk");
++	st->adc_clk = devm_clk_get_enabled(dev, "adc_op_clk");
+ 	if (IS_ERR(st->adc_clk))
+-		return dev_err_probe(&pdev->dev, PTR_ERR(st->adc_clk),
++		return dev_err_probe(dev, PTR_ERR(st->adc_clk),
+ 				     "Could not prepare or enable the ADC clock.\n");
+ 
+ 	/*
+@@ -1090,13 +1021,13 @@ static int at91_adc_probe(struct platform_device *pdev)
+ 	adc_clk = clk_get_rate(st->adc_clk);
+ 	adc_clk_khz = adc_clk / 1000;
+ 
+-	dev_dbg(&pdev->dev, "Master clock is set as: %d Hz, adc_clk should set as: %d Hz\n",
++	dev_dbg(dev, "Master clock is set as: %d Hz, adc_clk should set as: %d Hz\n",
+ 		mstrclk, adc_clk);
+ 
+ 	prsc = (mstrclk / (2 * adc_clk)) - 1;
+ 
+ 	if (!st->startup_time)
+-		return dev_err_probe(&pdev->dev, -EINVAL,
++		return dev_err_probe(dev, -EINVAL,
+ 				     "No startup time available.\n");
+ 	ticks = (*st->caps->calc_startup_ticks)(st->startup_time, adc_clk_khz);
+ 
+@@ -1123,7 +1054,7 @@ static int at91_adc_probe(struct platform_device *pdev)
+ 	/* Setup the ADC channels available on the board */
+ 	ret = at91_adc_channel_init(idev);
+ 	if (ret < 0)
+-		return dev_err_probe(&pdev->dev, ret,
++		return dev_err_probe(dev, ret,
+ 				     "Couldn't initialize the channels.\n");
+ 
+ 	init_waitqueue_head(&st->wq_data_avail);
+@@ -1137,14 +1068,26 @@ static int at91_adc_probe(struct platform_device *pdev)
+ 	if (!st->touchscreen_type) {
+ 		ret = at91_adc_buffer_init(idev);
+ 		if (ret < 0)
+-			return dev_err_probe(&pdev->dev, ret,
++			return dev_err_probe(dev, ret,
+ 					     "Couldn't initialize the buffer.\n");
+ 
+-		ret = at91_adc_trigger_init(idev);
+-		if (ret < 0) {
+-			dev_err(&pdev->dev, "Couldn't setup the triggers.\n");
+-			at91_adc_buffer_remove(idev);
+-			return ret;
++		st->trig = devm_kcalloc(dev,
++					st->caps->trigger_number, sizeof(*st->trig),
++					GFP_KERNEL);
++		if (!st->trig)
++			return -ENOMEM;
++
++		for (int i = 0; i < st->caps->trigger_number; i++) {
++			if (st->caps->triggers[i].is_external && !(st->use_external))
++				continue;
++
++			st->trig[i] = at91_adc_allocate_trigger(idev,
++								st->caps->triggers + i);
++			if (!st->trig[i]) {
++				dev_err(&idev->dev,
++					"Could not allocate trigger %d\n", i);
++				return -ENOMEM;
++			}
+ 		}
+ 	} else {
+ 		ret = at91_ts_register(idev, pdev);
+@@ -1154,36 +1097,13 @@ static int at91_adc_probe(struct platform_device *pdev)
+ 		at91_ts_hw_init(idev, adc_clk_khz);
+ 	}
+ 
+-	ret = iio_device_register(idev);
++	ret = devm_iio_device_register(dev, idev);
+ 	if (ret < 0) {
+-		dev_err(&pdev->dev, "Couldn't register the device.\n");
+-		goto error_iio_device_register;
++		dev_err(dev, "Couldn't register the device.\n");
++		return ret;
+ 	}
+ 
+ 	return 0;
+-
+-error_iio_device_register:
+-	if (!st->touchscreen_type) {
+-		at91_adc_trigger_remove(idev);
+-		at91_adc_buffer_remove(idev);
+-	} else {
+-		at91_ts_unregister(st);
+-	}
+-	return ret;
+-}
+-
+-static void at91_adc_remove(struct platform_device *pdev)
+-{
+-	struct iio_dev *idev = platform_get_drvdata(pdev);
+-	struct at91_adc_state *st = iio_priv(idev);
+-
+-	iio_device_unregister(idev);
+-	if (!st->touchscreen_type) {
+-		at91_adc_trigger_remove(idev);
+-		at91_adc_buffer_remove(idev);
+-	} else {
+-		at91_ts_unregister(st);
+-	}
+ }
+ 
+ static int at91_adc_suspend(struct device *dev)
+@@ -1333,7 +1253,6 @@ MODULE_DEVICE_TABLE(of, at91_adc_dt_ids);
+ 
+ static struct platform_driver at91_adc_driver = {
+ 	.probe = at91_adc_probe,
+-	.remove = at91_adc_remove,
+ 	.driver = {
+ 		   .name = DRIVER_NAME,
+ 		   .of_match_table = at91_adc_dt_ids,
+-- 
+2.56.0
+
