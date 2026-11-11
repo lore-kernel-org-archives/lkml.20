@@ -1,59 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794399262;
-	b=ZXD27vXIpIe2RI9GAiRRofGPHMdcz7BCW6khoMlFMT3yOMevXp2U8wLmyu9HQJW8Y08S
-	 7YWu3OcfdK0uBPmvZ9TdhlqypVR7/D+8QKtlFCQIQZqcjjf25z1cFGO43Orix3n6Dms9/
-	 Fb2CPQE0J5NOjNSK+d8SVkz+I6osM4MvEMpL4xfn/L83Gs5qkPNZ2/JGQjq2dEXuxmKQ9
-	 15ETTMe1Z5XNU9Tt//vf6OpEW+rXAkj61+NrPZgNDwQLh9AvXRtKVjsWlZF9OhFjMKKi1
-	 2N+pbQkEMV5AfuYctVHJdqpQCy5Vra66h+yN3quTX3YIH6ecRy7fMVdPr4/AE/2pW2A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794399262;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=ISsy2n5In7kSSTy13GnRZUnvl7C3DhCGTJD5adLQBE4=;
-	b=YlXQZq6Yudbx62/TL53PsItAd6wbTNbj2H1vc+K/rogKFDaT7QXexxe3ptHlSXGeNz+/
-	 HxRzlHpbMtIGHP8aOENIucXYKzFYhvp1ax4YvcyUPrLZ4lOD12uC7xU7QU12qp+UzL1Oj
-	 cSC2EriK2l3Q8iH4FJv3rOTZ6oh4pmy9FOl4fC9euC2x/DEQiIzQBBVuKQS+todloiCL7
-	 R+hV/wZxFKUGxyrUY6kS6PtrFc8HOvbdQxBSOsCiTTVb57x0Xb2k/BM9MZCTzy15PDtya
-	 1lNAkVFJo2AZVeEe29tRQB+Qh1XKsj18urhLy+Ij6c7HrwVjVGa0v5uE09t4tsTbquQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.microsoft.com;
-	spf=pass smtp.mailfrom=linux.microsoft.com;
-	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=QNMzVYvI;
-	arc=none smtp.remote-ip=13.77.154.182
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2A6ED606A33F;
-	Wed, 11 Nov 2026 12:14:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2A6ED606A33F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794399268;
+	b=5Snd1eBQu1ywDuZ5E+vdVERXwY3NAFv1KUeMJqrTOfBIlsrI54DYKZ8TNSstUNYBIDcj
+	 bb51fRChDU3f/Ek8Dny+O32VnlY3yXmUz5X9Xbj9lF4rKLRNwTnr5Ko5JZEswZnFLuykQ
+	 rpl9G+r6urzcgd+KsDrvunYa7QGeV0oSewr+lrn4mVbDP3sSlRU3g1OLFVtycrhPeS0wW
+	 oobVJdhhgrrQkTmG6KjGmRDUe3zfC62WnueSB6At589W8Jo71PkIa9ZtUfckbn9VX5gao
+	 FJs67FcGlYyrLjbvCaE9gpu5s6mHDqEj/TS1oxzXC7XNAIEFQ17bRW4vuTPA+6XaBaA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794399268;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date:
+	 MIME-Version:User-Agent:X-ZohoMailClient;
+	bh=linvlaNCCf5SRxkRFK7uD9eJnmWmUxVFfvuLb6bH3NI=;
+	b=VGu+bkpMExKeriTmha+T+BZYqMfRbi8yD8OOqsu1SCDZ7YEUk1V7QzYc5IGndxh1eMic
+	 URf8w+4P0/aXlpHoXvD3sqORf9COevFCmACkcdXYzdujsY6joXUn2aircOINhuTykihel
+	 V82sOTa6yX30iCxnKr1iF3SIc4BenEWOKQHwvaeLwdwk+ghDW+xILQWxiPFTqrfRml9Bp
+	 r2Hxgm0+3l6nSQjkNC+3BcEpCRfnZAGgRFj7QHtn9C/hQvMkge4NH3Dyv5yLqeoQisnjN
+	 6COIU4IgVlTj2icX36H1R87ZmDkXOdO7Hcy9w+S0Pt06i9luX/ho4DAVKlf2e2MLGaA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=rong.moe;
+	spf=pass smtp.mailfrom=rong.moe;
+	dkim=pass header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=VecoPJ+f;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AA8C606A883;
+	Wed, 11 Nov 2026 12:14:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0AA8C606A883
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rong.moe
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=QNMzVYvI
-Received: by linux.microsoft.com (Postfix, from userid 1186)
-	id 5BB2420B7172; Wed, 11 Nov 2026 04:14:18 -0800 (PST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 5BB2420B7172
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1794399258;
-	bh=ISsy2n5In7kSSTy13GnRZUnvl7C3DhCGTJD5adLQBE4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=QNMzVYvIp7b9ihVsWsUfrctcd4F5m/dJi0Kbjs9c7KpOHYc2dp6uTYL1gGKlHzcXp
-	 yiAs1KGm6pY/U6J+tDne9P24Mp5VRK+Ih+CceTcK5KSH0iPP3+GjF5V3wWkySRD650
-	 BLTIjW+ASsMADS5ResOwY4jOjteFqQ7Z5ah4yVuk=
-From: Konstantin Taranov <kotaranov@linux.microsoft.com>
-To: kotaranov@microsoft.com,
-	snsanghvi@microsoft.com,
-	longli@microsoft.com,
-	jgg@ziepe.ca,
-	leon@kernel.org
-Cc: linux-rdma@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH rdma-next v10 9/9] RDMA/mana_ib: Handle error CQEs for kernel QPs
-Date: Wed, 11 Nov 2026 04:14:17 -0800
-Message-ID: <20261111121417.1265896-10-kotaranov@linux.microsoft.com>
-X-Mailer: git-send-email 2.43.7
-In-Reply-To: <20261111121417.1265896-1-kotaranov@linux.microsoft.com>
-References: <20261111121417.1265896-1-kotaranov@linux.microsoft.com>
+	dkim=pass (2048-bit key) header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=VecoPJ+f
+ARC-Seal: i=1; a=rsa-sha256; t=1794399253; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=MGqbIGbseewGVO46+ctMk3CQ1h4agdT9o7HTqhfAIQkMfIdkdqp1l3g8qRa0jHbkuWN3jB6Xb9bnpeh1AmKLXN6YeAOm7Oj7Ypl2gWgVkkKQ63c6muXoj4Kks+6NTMa/JDw0JofiCV967ZgzrmleVIHGDPrL9MN+5XJlGmeFWrY=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1794399253; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=linvlaNCCf5SRxkRFK7uD9eJnmWmUxVFfvuLb6bH3NI=; 
+	b=clf5VdU4zVqNt+UaJdytlL13GBvUF4l3Z1BZNCJNE6gpms/EqhdfGyGp6wliE62jxrIaGQwjY2qGL1nCXNtlIHLBm6D6pxoS0sdorThW0+dRlKIZDQSPoYnX7jlHgYnXVrRNJFFr3GBfPId4cKhf7cSBwJKP0bGRiG4ZM0HWGXo=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=rong.moe;
+	spf=pass  smtp.mailfrom=i@rong.moe;
+	dmarc=pass header.from=<i@rong.moe>
+DKIM-Signature: a=rsa-sha256; b=VecoPJ+fJDeqFX8v8IxSuZavHQVJoPMZUZtD90GVMVkzl9JMiqQlQyRp0+sZqjxEDms2+Jyh1PxhsoI9Cz+mV9wyIucxonWo8vd4mvzvxVD3d/q6peWbr5pug3c5XYXa5TQ7GeEaCuwesBmsyXDHggy6PazS3LG/4/xRUOV0EI03wHp+YvlVyTsxAZML8qzaCmhVKinkf3eQT1aVzVKbOWmLpnw4vPjHMyp6RrqOZKiKD0BCFdCAwQs3RGzFCt3hqizfGItF2OM5wsAYM5ihPxcLHCHSwZ3ZqtETUBga5iFuXC1ZZOu8VwvOZFquY/xc11j6eRZ7U644FtelUsfuIA==; c=relaxed/relaxed; s=zmail2048; d=rong.moe; v=1; bh=linvlaNCCf5SRxkRFK7uD9eJnmWmUxVFfvuLb6bH3NI=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1794399251946685.9572231706311;
+	Wed, 11 Nov 2026 04:14:11 -0800 (PST)
+Message-ID: <9002537db845b7a0a900612fe3a4a3638f06cd37.camel@rong.moe>
+Subject: Re: [PATCH v2 2/2] HID: lenovo-legion: Add keyboard backlight
+ driver for Legion Gen 10
+From: Rong Zhang <i@rong.moe>
+To: ciro.pedrini@gmail.com, Mark Pearson <mpearson-lenovo@squebb.ca>,
+ "Derek J. Clark" <derekjohn.clark@gmail.com>, Ike Panhc
+ <ikepanhc@gmail.com>, Hans de Goede <hansg@kernel.org>,  Ilpo
+ =?ISO-8859-1?Q?J=E4rvinen?=	 <ilpo.jarvinen@linux.intel.com>, Jiri Kosina
+ <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>
+Cc: Werner Sembach <wse@tuxedocomputers.com>, Aaron Erhardt
+	 <aer@tuxedocomputers.com>, platform-driver-x86@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-input@vger.kernel.org
+In-Reply-To: <20261110-legion-lighting-rfc-v2-2-845726afb71c@gmail.com>
+References: <20261110-legion-lighting-rfc-v2-0-845726afb71c@gmail.com>
+	 <20261110-legion-lighting-rfc-v2-2-845726afb71c@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 11 Nov 2026 20:09:33 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,589 +74,513 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Evolution 3.62.1-3 
+X-ZohoMailClient: External
 
-From: Konstantin Taranov <kotaranov@microsoft.com>
+Hi Ciro,
 
-Decode hardware error CQEs and process them on the corresponding work
-queue. Complete the failing shadow entry with the vendor status from
-the CQE.
+On Tue, 2026-11-10 at 20:29 +0000, Ciro Pedrini via B4 Relay wrote:
+> From: Ciro Pedrini <ciro.pedrini@gmail.com>
+>=20
+> The keyboard backlight of the Lenovo Legion Pro 7 16IAX10H (2025) has no
+> Linux support: on the test unit nothing ever lit, because the keyboard
+> controller's brightness was 0 from the factory and nothing exposes it.
+>=20
+> The ITE 8258 keyboard controller (048d:c197) is the built-in keyboard and
+> carries a vendor protocol on feature report 0x07 (960 bytes): a request,
+> answered by reading the report back once the controller has prepared it.
+> Its hardware brightness, 0..9, is stored in the controller and applies to
+> every LED of the machine (keys, front strip, rear vents, lid logo).
+>=20
 
-Defer transitioning QPs to the ERR state so that the other work
-queues can be flushed. Complete software-flush setup even if the deferred
-ERR request fails, since the error CQE already guarantees whole QP
-shutdown.
+I don't know if it's appropriate to represent so many things with the
+name "legion::kbd_backlight".
 
-Clear pending CQEs for a kernel QP after a hardware RESET by setting
-their QIDs to zero. Discard CQEs with a zero QID.
+>  The
+> firmware handles Fn+Up and Fn+Down itself and reports the new level on
+> vendor input report 5.
+>=20
+> Expose the brightness as a kbd_backlight LED, legion::kbd_backlight, with
+> brightness_hw_changed for the hotkeys so that desktops show their OSD.
+> Unregistering keeps the level (LED_RETAIN_AT_SHUTDOWN): switching it off
+> would be stored by the controller.
+>=20
+> The colours stay the controller's own effects, which Fn+Space cycles.=C2=
+=A0
+>=20
 
-Mark deferred errors as pending when scheduling work to prevent stale
-work from moving a reset and reused QP to ERR.
+Just curious, can the software select which effect to use, or listen to
+an event when Fn+Space is pressed?
 
-Signed-off-by: Konstantin Taranov <kotaranov@microsoft.com>
----
-v9:
-- Preserve unsignaled retirement as in patch 7 for successful WCs, but
- require budget for failing WQEs.
-v7:
-- Schedule error work for GSI. Complete software-flush after an error CQE
-  even if the firmware ERR request fails. 
-v6:
-- Check fenced WQEs on error cqes to prevent flushing completed WQEs.
-- Add mana_ib_cq_clean on QP reset to discard stale CQEs. QID 0 is
- an invalid value for RNIC and safe dor discarding.
-- Add error_pending flag to prevent deffered ERR request to error reset QPs.
-- Update commit message
-v2:
-- Flush error_work after draining QP references during teardown.
+> The
+> machine's HID LampArray (048d:c193) is left to hid-generic, or to a
+> generic LampArray driver.
+>=20
+> Tested on the 16IAX10H (83F5) with 7.2 as a module: brightness from sysfs
+> and KDE, the hotkeys with KDE's OSD, suspend/resume, unbinding and
+> rebinding, and a userspace LampArray client alongside the driver.
+>=20
+> Signed-off-by: Ciro Pedrini <ciro.pedrini@gmail.com>
+> ---
+> Prepared with Claude Code (Claude Opus 5.5) from measurements on the
+> laptop (usbmon captures) and analysis of the vendor's Windows software
+> for interoperability; I reviewed and tested it.
+> ---
+>  MAINTAINERS                     |   1 +
+>  drivers/hid/Kconfig             |  13 ++
+>  drivers/hid/Makefile            |   1 +
+>  drivers/hid/hid-ids.h           |   1 +
+>  drivers/hid/hid-lenovo-legion.c | 261 ++++++++++++++++++++++++++++++++++=
+++++++
+>  5 files changed, 277 insertions(+)
+>=20
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 222b7fc2c3aa..843906a1f9d5 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -15187,6 +15187,7 @@ F:=09Documentation/ABI/testing/sysfs-driver-hid-l=
+enovo-go
+>  F:=09Documentation/ABI/testing/sysfs-driver-hid-lenovo-go-s
+>  F:=09drivers/hid/hid-lenovo-go-s.c
+>  F:=09drivers/hid/hid-lenovo-go.c
+> +F:=09drivers/hid/hid-lenovo-legion.c
+>  F:=09drivers/hid/hid-lenovo.c
+> =20
+>  LENOVO YOGA BOOK 9 KEYBOARD DOCK DRIVER
+> diff --git a/drivers/hid/Kconfig b/drivers/hid/Kconfig
+> index 2481bc01c435..55d25afddb69 100644
+> --- a/drivers/hid/Kconfig
+> +++ b/drivers/hid/Kconfig
+> @@ -652,6 +652,19 @@ config HID_LENOVO_GO_S
+>  =09S. Say M here to compile this driver as a module. The module will be =
+called
+>  =09hid-lenovo-go-s.
+> =20
+> +config HID_LENOVO_LEGION
+> +=09tristate "Lenovo Legion laptop keyboard backlight"
+> +=09depends on USB_HID
+> +=09depends on LEDS_CLASS
+> +=09help
+> +=09Support for the keyboard backlight of 2025 Lenovo Legion laptops
+> +=09(Legion Pro 7 Gen 10): the hardware brightness of the ITE keyboard
+> +=09controller as a kbd_backlight LED, with the Fn+Up/Down changes
+> +=09reported to userspace.
 
- drivers/infiniband/hw/mana/cq.c      | 206 +++++++++++++++++++++++++++++++----
- drivers/infiniband/hw/mana/mana_ib.h |  44 +++++++-
- drivers/infiniband/hw/mana/qp.c      |  46 +++++++-
- 3 files changed, 266 insertions(+), 30 deletions(-)
+Try not to mention too many hardware details in case it becomes
+inapplicable for future devices. Instead, focus on the functionality. It
+should be something like:
 
-diff --git a/drivers/infiniband/hw/mana/cq.c b/drivers/infiniband/hw/mana/cq.c
-index cc519d3e42f4..7be46baa1a6e 100644
---- a/drivers/infiniband/hw/mana/cq.c
-+++ b/drivers/infiniband/hw/mana/cq.c
-@@ -5,6 +5,8 @@
- 
- #include "mana_ib.h"
- 
-+#define MANA_CQE_INVALID_QID 0
-+
- #define PSN_SIGN_BIT 0x800000
- #define PSN_GE(PSN1, PSN2) ((((PSN1) - (PSN2)) & PSN_SIGN_BIT) == 0)
- #define PSN_GT(PSN1, PSN2) PSN_GE(PSN1, (PSN2) + 1)
-@@ -18,6 +20,7 @@ static enum ib_wc_status vendor_error_to_wc_error(uint32_t vendor_error)
- 		return IB_WC_SUCCESS;
- 	case VENDOR_ERR_RX_PKT_LEN:
- 	case VENDOR_ERR_RX_MSG_LEN_OVFL:
-+	case VENDOR_ERR_RX_READRESP_LEN_MISMATCH:
- 		return IB_WC_LOC_LEN_ERR;
- 	case VENDOR_ERR_TX_GDMA_CORRUPTED_WQE:
- 	case VENDOR_ERR_TX_PCIE_WQE:
-@@ -37,12 +40,30 @@ static enum ib_wc_status vendor_error_to_wc_error(uint32_t vendor_error)
- 	case VENDOR_ERR_TX_ATB_WQE_ACCESS_VIOLATION:
- 	case VENDOR_ERR_TX_ATB_WQE_ADDR_RANGE:
- 	case VENDOR_ERR_TX_ATB_WQE_CONFIG_ERR:
-+	case VENDOR_ERR_TX_RDMA_ATB_CMD_MISS:
-+	case VENDOR_ERR_TX_RDMA_ATB_CMD_IDX_ERROR:
-+	case VENDOR_ERR_TX_RDMA_ATB_CMD_TAG_MISMATCH_ERROR:
-+	case VENDOR_ERR_TX_RDMA_ATB_CMD_PDID_MISMATCH_ERROR:
-+	case VENDOR_ERR_TX_RDMA_ATB_CMD_AR_ERROR:
-+	case VENDOR_ERR_TX_RDMA_ATB_CMD_PT_OVF:
-+	case VENDOR_ERR_TX_RDMA_ATB_CMD_PT_LENGHT_MISMATCH:
-+	case VENDOR_ERR_TX_RDMA_ATB_CMD_ILLEGAL_CMD:
- 	case VENDOR_ERR_RX_ATB_SGE_ADDR_RANGE:
- 	case VENDOR_ERR_RX_ATB_SGE_MISSCONFIG:
- 		return IB_WC_LOC_PROT_ERR;
- 	case VENDOR_ERR_RX_ATB_SGE_ADDR_RIGHT:
- 	case VENDOR_ERR_RX_GFID:
- 		return IB_WC_LOC_ACCESS_ERR;
-+	case VENDOR_ERR_RX_OP_REQ:
-+		return IB_WC_REM_INV_REQ_ERR;
-+	case VENDOR_ERR_RX_ATB_RKEY_MISCONFIG_ERR:
-+	case VENDOR_ERR_RX_ATB_RKEY_ADDR_RIGHT:
-+	case VENDOR_ERR_RX_ATB_RKEY_ADDR_RANGE:
-+	case VENDOR_ERR_RX_REMOTE_ACCESS_NAK:
-+		return IB_WC_REM_ACCESS_ERR;
-+	case VENDOR_ERR_RX_INVALID_REQ_NAK:
-+	case VENDOR_ERR_RX_REMOTE_OP_ERR_NAK:
-+		return IB_WC_REM_OP_ERR;
- 	case VENDOR_ERR_RX_MISBEHAVING_CLIENT:
- 	case VENDOR_ERR_RX_CLIENT_ID:
- 	case VENDOR_ERR_RX_PCIE:
-@@ -58,6 +79,10 @@ static enum ib_wc_status vendor_error_to_wc_error(uint32_t vendor_error)
- 	case VENDOR_ERR_RX_NOT_EMPTY_ON_DISABLE:
- 	case VENDOR_ERR_SW_FLUSHED:
- 		return IB_WC_WR_FLUSH_ERR;
-+	case VENDOR_ERR_TX_RETRY_LIMIT_EXCEEDED:
-+		return IB_WC_RETRY_EXC_ERR;
-+	case VENDOR_ERR_RX_RNR_NAK:
-+		return IB_WC_RNR_RETRY_EXC_ERR;
- 	default:
- 		return IB_WC_GENERAL_ERR;
- 	}
-@@ -235,19 +260,24 @@ void mana_ib_remove_cq_cb(struct mana_ib_dev *mdev, struct mana_ib_cq *cq)
- 	gc->cq_table[cq->queue.id] = NULL;
- }
- 
--static inline bool gdma_cq_idx_produced(struct gdma_queue *gdma_cq, uint32_t idx)
-+static struct gdma_cqe *mana_ib_get_cqe(struct gdma_queue *gdma_cq, u32 idx)
- {
- 	struct gdma_mem_info *gmi = &gdma_cq->mem_info;
- 	u32 num_cqe = gdma_cq->queue_size / GDMA_CQE_SIZE;
--	u32 expected_bits = (idx / num_cqe) & GDMA_CQE_OWNER_MASK;
- 	u32 offset = (idx % num_cqe) * GDMA_CQE_SIZE;
--	struct gdma_cqe *cqe;
- 
- 	if (gmi->nr_pages)
--		cqe = gmi->pages_va[offset / PAGE_SIZE] +
--		      (offset & (PAGE_SIZE - 1));
--	else
--		cqe = gdma_cq->queue_mem_ptr + offset;
-+		return gmi->pages_va[offset / PAGE_SIZE] +
-+		       (offset & (PAGE_SIZE - 1));
-+
-+	return gdma_cq->queue_mem_ptr + offset;
-+}
-+
-+static inline bool gdma_cq_idx_produced(struct gdma_queue *gdma_cq, uint32_t idx)
-+{
-+	u32 num_cqe = gdma_cq->queue_size / GDMA_CQE_SIZE;
-+	u32 expected_bits = (idx / num_cqe) & GDMA_CQE_OWNER_MASK;
-+	struct gdma_cqe *cqe = mana_ib_get_cqe(gdma_cq, idx);
- 
- 	return cqe->cqe_info.owner_bits == expected_bits;
- }
-@@ -278,6 +308,43 @@ static inline void mana_ib_cq_doorbell(struct mana_ib_cq *cq, uint8_t arm)
- 	mana_gd_wq_ring_doorbell_ext(mdev_to_gc(mdev), gdma_cq, idx, arm, 0);
- }
- 
-+static bool mana_ib_cqe_matches_qp(struct mana_ib_qp *qp, u32 wq_num, bool is_sq)
-+{
-+	struct mana_ib_queue *wq = is_sq ? mana_qp_get_sq(qp) : mana_qp_get_rq(qp);
-+
-+	return (wq_num & ~MANA_QID_SUBTYPE_MASK) == (wq->id & ~MANA_QID_SUBTYPE_MASK);
-+}
-+
-+void mana_ib_cq_clean(struct mana_ib_cq *cq, struct mana_ib_qp *qp)
-+{
-+	struct gdma_queue *gdma_cq = cq->queue.kmem;
-+	struct gdma_cqe *cqe;
-+	u32 num_cqe, idx, i;
-+
-+	lockdep_assert_held(&cq->cq_lock);
-+
-+	if (!gdma_cq)
-+		return;
-+
-+	if (cq->has_pending_cqe &&
-+	    mana_ib_cqe_matches_qp(qp, cq->pending_cqe.wq_num, cq->pending_cqe.is_sq))
-+		cq->has_pending_cqe = false;
-+
-+	/* Hardware RESET has completed, so this QP cannot produce new CQEs. */
-+	num_cqe = gdma_cq->queue_size / GDMA_CQE_SIZE;
-+	for (i = 0; i < num_cqe; i++) {
-+		idx = gdma_cq->head + i;
-+		if (!gdma_cq_idx_produced(gdma_cq, idx))
-+			break;
-+
-+		/* Read CQE contents only after observing their owner bits. */
-+		rmb();
-+		cqe = mana_ib_get_cqe(gdma_cq, idx);
-+		if (mana_ib_cqe_matches_qp(qp, cqe->cqe_info.wq_num, cqe->cqe_info.is_sq))
-+			cqe->cqe_info.wq_num = MANA_CQE_INVALID_QID;
-+	}
-+}
-+
- static bool mana_ib_cq_has_flush_work(struct mana_ib_cq *cq)
- {
- 	struct mana_ib_qp *qp;
-@@ -452,31 +519,41 @@ static void handle_rq_cqe(struct mana_ib_qp *qp, struct gdma_comp *cqe,
-  * A fenced WQE can acknowledge the other send queue. Retire those dependencies
-  * first, without losing the fence when the caller's WC array fills up.
-  */
-+static bool mana_complete_send_dependencies(struct mana_ib_qp *qp, bool mmq,
-+					    const struct shadow_wqe_header *wqe,
-+					    struct mana_cq_poll *poll)
-+{
-+	struct shadow_queue *other = mmq ? &qp->shadow_sq : &qp->shadow_mmq;
-+	u32 dependency = mmq ? wqe->wqe_offset_or_psn : wqe->fsn;
-+	struct shadow_wqe_header *other_wqe;
-+
-+	if (!(wqe->flags & MANA_WQ_FENCE_WC))
-+		return true;
-+
-+	while ((other_wqe = shadow_queue_get_next_to_consume(other))) {
-+		if (PSN_LT(dependency, mmq ? other_wqe->wqe_offset_or_psn :
-+					  other_wqe->fsn))
-+			break;
-+		if (poll->produced == poll->budget &&
-+		    !(other_wqe->flags & MANA_WQ_NO_SIGNAL_WC))
-+			return false;
-+		mana_complete_send(qp, !mmq, poll, VENDOR_ERR_OK);
-+	}
-+
-+	return true;
-+}
-+
- static bool mana_advance_send(struct mana_ib_qp *qp, bool mmq, u32 seq,
- 			      struct mana_cq_poll *poll)
- {
- 	struct shadow_queue *shadow = mmq ? &qp->shadow_mmq : &qp->shadow_sq;
--	struct shadow_queue *other = mmq ? &qp->shadow_sq : &qp->shadow_mmq;
- 	struct shadow_wqe_header *shadow_wqe;
- 
- 	while ((shadow_wqe = shadow_queue_get_next_to_consume(shadow))) {
- 		if (PSN_LT(seq, mmq ? shadow_wqe->fsn : shadow_wqe->wqe_offset_or_psn))
- 			break;
--		if (shadow_wqe->flags & MANA_WQ_FENCE_WC) {
--			u32 dependency = mmq ? shadow_wqe->wqe_offset_or_psn : shadow_wqe->fsn;
--			struct shadow_wqe_header *other_wqe;
--
--			while ((other_wqe = shadow_queue_get_next_to_consume(other))) {
--				if (PSN_LT(dependency, mmq ? other_wqe->wqe_offset_or_psn :
--							     other_wqe->fsn))
--					break;
--				if (poll->produced == poll->budget &&
--				    !(other_wqe->flags & MANA_WQ_NO_SIGNAL_WC))
--					return false;
--				mana_complete_send(qp, !mmq, poll, VENDOR_ERR_OK);
--			}
--		}
--
-+		if (!mana_complete_send_dependencies(qp, mmq, shadow_wqe, poll))
-+			return false;
- 		if (poll->produced == poll->budget &&
- 		    !(shadow_wqe->flags & MANA_WQ_NO_SIGNAL_WC))
- 			return false;
-@@ -519,6 +596,80 @@ static bool handle_psn_cqe(struct mana_ib_qp *qp, u32 psn,
- 	return consumed;
- }
- 
-+static bool mana_cqe_is_send(struct mana_ib_qp *qp, struct gdma_comp *cqe)
-+{
-+	u32 qtype = cqe->wq_num & MANA_QID_SUBTYPE_MASK;
-+
-+	if (qp->ibqp.qp_type != IB_QPT_RC)
-+		return cqe->is_sq;
-+
-+	return cqe->is_sq ? (qtype == MANA_QID_SUBTYPE_SREQ ||
-+			    qtype == MANA_QID_SUBTYPE_MMQ) :
-+			    qtype == MANA_QID_SUBTYPE_RREQ;
-+}
-+
-+static void mana_ib_schedule_qp_error(struct mana_ib_qp *qp)
-+{
-+	/* CQ polling cannot sleep; teardown drains this reference before freeing. */
-+	atomic_set(&qp->error_pending, 1);
-+	refcount_inc(&qp->refcount);
-+	if (!schedule_work(&qp->error_work))
-+		mana_put_qp_ref(qp);
-+}
-+
-+static bool handle_error_cqe(struct mana_ib_cq *cq, struct mana_ib_qp *qp,
-+			     struct gdma_comp *cqe, struct mana_cq_poll *poll)
-+{
-+	bool mmq = cqe->is_sq && (cqe->wq_num & MANA_QID_SUBTYPE_MASK) == MANA_QID_SUBTYPE_MMQ;
-+	struct mana_rdma_cqe *rdma_cqe = (struct mana_rdma_cqe *)cqe->cqe_data;
-+	bool send = mana_cqe_is_send(qp, cqe);
-+	u32 vendor_err = rdma_cqe->error.vendor_error;
-+	struct shadow_wqe_header *shadow_wqe;
-+	struct shadow_queue *shadow_q;
-+
-+	if (send && qp->ibqp.qp_type == IB_QPT_RC) {
-+		/* The error PSN/FSN belongs to the failing WQE, not a success. */
-+		if (!mana_advance_send(qp, mmq, rdma_cqe->error.psn - 1, poll))
-+			return false;
-+		if (poll->produced == poll->budget)
-+			return false;
-+	}
-+
-+	if (!send)
-+		shadow_q = &qp->shadow_rq;
-+	else if (mmq)
-+		shadow_q = &qp->shadow_mmq;
-+	else
-+		shadow_q = &qp->shadow_sq;
-+
-+	shadow_wqe = shadow_queue_get_next_to_consume(shadow_q);
-+	if (shadow_wqe) {
-+		if (send) {
-+			if (!mana_complete_send_dependencies(qp, mmq, shadow_wqe, poll))
-+				return false;
-+			if (poll->produced == poll->budget)
-+				return false;
-+
-+			mana_complete_send(qp, mmq, poll, vendor_err);
-+		} else {
-+			mana_fill_wc(qp, poll, shadow_wqe, IB_WC_RECV, vendor_err);
-+			shadow_queue_advance_consumer(shadow_q);
-+		}
-+	}
-+
-+	/* Hardware has stopped DMA for the queues flushed below. */
-+	if (send) {
-+		if (list_empty(&qp->send_err_node))
-+			list_add_tail(&qp->send_err_node, &cq->send_err_qp_list);
-+	} else {
-+		if (list_empty(&qp->recv_err_node))
-+			list_add_tail(&qp->recv_err_node, &cq->recv_err_qp_list);
-+	}
-+	mana_ib_schedule_qp_error(qp);
-+
-+	return true;
-+}
-+
- static bool next_shadow_wqe_is_sq(struct shadow_wqe_header *shadow_wqe_sq,
- 				  struct shadow_wqe_header *shadow_wqe_mq)
- {
-@@ -537,9 +688,13 @@ static bool mana_handle_cqe(struct mana_ib_cq *cq, struct mana_ib_dev *mdev,
- {
- 	struct gdma_comp *cqe = &cq->pending_cqe;
- 	struct mana_rdma_cqe *rdma_cqe = (struct mana_rdma_cqe *)cqe->cqe_data;
--	struct mana_ib_qp *qp = mana_get_qp_ref(mdev, cqe->wq_num, cqe->is_sq);
-+	struct mana_ib_qp *qp;
- 	bool consumed = true;
- 
-+	if (cqe->wq_num == MANA_CQE_INVALID_QID)
-+		return true;
-+
-+	qp = mana_get_qp_ref(mdev, cqe->wq_num, cqe->is_sq);
- 	if (!qp)
- 		return true;
- 
-@@ -550,6 +705,9 @@ static bool mana_handle_cqe(struct mana_ib_cq *cq, struct mana_ib_dev *mdev,
- 	case CQE_TYPE_LWR:
- 		consumed = handle_mmq_cqe(qp, rdma_cqe->rc_mm.fsn, poll);
- 		break;
-+	case CQE_TYPE_ERROR:
-+		consumed = handle_error_cqe(cq, qp, cqe, poll);
-+		break;
- 	case CQE_TYPE_UD_SEND:
- 		if (cqe->is_sq) {
- 			handle_ud_sq_cqe(qp, rdma_cqe, poll);
-diff --git a/drivers/infiniband/hw/mana/mana_ib.h b/drivers/infiniband/hw/mana/mana_ib.h
-index ef20ec0ec77b..6f563f8bee3e 100644
---- a/drivers/infiniband/hw/mana/mana_ib.h
-+++ b/drivers/infiniband/hw/mana/mana_ib.h
-@@ -11,7 +11,9 @@
- #include <rdma/iter.h>
- #include <rdma/mana-abi.h>
- #include <rdma/uverbs_ioctl.h>
-+#include <linux/atomic.h>
- #include <linux/dmapool.h>
-+#include <linux/workqueue.h>
- 
- #include <net/mana/mana.h>
- #include "shadow_queue.h"
-@@ -33,6 +35,11 @@
- /* Queue ID encodes type in the lower 2 bits */
- #define MANA_QID_SUBTYPE_MASK 0x3
- 
-+#define MANA_QID_SUBTYPE_SREQ 0x0
-+#define MANA_QID_SUBTYPE_MMQ 0x2
-+#define MANA_QID_SUBTYPE_RRESP 0x0
-+#define MANA_QID_SUBTYPE_RREQ 0x1
-+
- /*
-  * The hardware limit of number of MRs is greater than maximum number of MRs
-  * that can possibly represent in 24 bits
-@@ -276,8 +283,10 @@ struct mana_ib_qp {
- 	spinlock_t rq_lock;
- 	/* Serializes send and memory-management WR posting. */
- 	spinlock_t sq_lock;
--	/* Serializes QP modification and error-list transitions. */
-+	/* Serializes QP modification and deferred error work. */
- 	struct mutex modify_lock;
-+	struct work_struct error_work;
-+	atomic_t error_pending;
- 
- 	struct list_head send_err_node;
- 	struct list_head recv_err_node;
-@@ -646,20 +655,30 @@ struct rdma_recv_oob {
- 
- enum mana_ib_error_code {
- 	VENDOR_ERR_OK					= 0x0,
-+	VENDOR_ERR_RX_OP_REQ                            = 0x03,
- 	VENDOR_ERR_RX_PKT_LEN                           = 0x05,
-+	VENDOR_ERR_RX_ATB_RKEY_MISCONFIG_ERR            = 0x43,
-+	VENDOR_ERR_RX_ATB_RKEY_ADDR_RIGHT               = 0x83,
-+	VENDOR_ERR_RX_ATB_RKEY_ADDR_RANGE               = 0xc3,
- 	VENDOR_ERR_RX_MSG_LEN_OVFL                      = 0x102,
- 	VENDOR_ERR_RX_MISBEHAVING_CLIENT                = 0x108,
- 	VENDOR_ERR_RX_MALFORMED_WQE                     = 0x109,
- 	VENDOR_ERR_RX_CLIENT_ID                         = 0x10a,
- 	VENDOR_ERR_RX_GFID                              = 0x10b,
-+	VENDOR_ERR_RX_READRESP_LEN_MISMATCH             = 0x10f,
- 	VENDOR_ERR_RX_PCIE                              = 0x10c,
- 	VENDOR_ERR_RX_NO_AVAIL_WQE                      = 0x111,
- 	VENDOR_ERR_RX_ATB_SGE_MISSCONFIG                = 0x143,
- 	VENDOR_ERR_RX_ATB_WQE_MISCONFIG                 = 0x145,
-+	VENDOR_ERR_RX_INVALID_REQ_NAK                   = 0x161,
-+	VENDOR_ERR_RX_REMOTE_ACCESS_NAK                 = 0x162,
-+	VENDOR_ERR_RX_REMOTE_OP_ERR_NAK                 = 0x163,
-+	VENDOR_ERR_RX_RNR_NAK                           = 0x164,
- 	VENDOR_ERR_RX_ATB_SGE_ADDR_RIGHT                = 0x183,
- 	VENDOR_ERR_RX_ATB_WQE_ADDR_RIGHT                = 0x185,
- 	VENDOR_ERR_RX_ATB_SGE_ADDR_RANGE                = 0x1c3,
- 	VENDOR_ERR_RX_ATB_WQE_ADDR_RANGE                = 0x1c5,
-+	VENDOR_ERR_TX_RETRY_LIMIT_EXCEEDED              = 0x1c6,
- 	VENDOR_ERR_RX_NOT_EMPTY_ON_DISABLE              = 0x1c7,
- 	VENDOR_ERR_TX_GDMA_CORRUPTED_WQE                = 0x201,
- 	VENDOR_ERR_TX_ATB_WQE_ACCESS_VIOLATION          = 0x202,
-@@ -681,6 +700,14 @@ enum mana_ib_error_code {
- 	VENDOR_ERR_TX_RDMA_WQE_LEN_ERR                  = 0x216,
- 	VENDOR_ERR_TX_RDMA_MTU_ERR                      = 0x217,
- 	VENDOR_ERR_TX_RDMA_VFID_MISMATCH                = 0x218,
-+	VENDOR_ERR_TX_RDMA_ATB_CMD_MISS                 = 0x220,
-+	VENDOR_ERR_TX_RDMA_ATB_CMD_IDX_ERROR            = 0x221,
-+	VENDOR_ERR_TX_RDMA_ATB_CMD_TAG_MISMATCH_ERROR   = 0x222,
-+	VENDOR_ERR_TX_RDMA_ATB_CMD_PDID_MISMATCH_ERROR  = 0x223,
-+	VENDOR_ERR_TX_RDMA_ATB_CMD_AR_ERROR             = 0x224,
-+	VENDOR_ERR_TX_RDMA_ATB_CMD_PT_OVF               = 0x225,
-+	VENDOR_ERR_TX_RDMA_ATB_CMD_PT_LENGHT_MISMATCH   = 0x226,
-+	VENDOR_ERR_TX_RDMA_ATB_CMD_ILLEGAL_CMD          = 0x227,
- 	VENDOR_ERR_HW_MAX                               = 0x3ff,
- 	/* SW vendor errors */
- 	VENDOR_ERR_SW_FLUSHED				= 0xfff,
-@@ -695,6 +722,7 @@ enum mana_ib_cqe_type {
- 	CQE_TYPE_RC_WRITE_IMM = 6,
- 	CQE_TYPE_ARMED_CMPL = 7,
- 	CQE_TYPE_LWR = 8,
-+	CQE_TYPE_ERROR = 34,
- }; /* HW DATA */
- 
- struct mana_rdma_cqe {
-@@ -727,6 +755,19 @@ struct mana_rdma_cqe {
- 			u32 imm_data;
- 			u32 rx_wqe_offset;
- 		} rc_recv;
-+		struct {
-+			u32 cqe_type		: 8;
-+			u32 vendor_error	: 10;
-+			u32 reserved1		: 14;
-+			u32 msn			: 24;
-+			u32 syndrome		: 8;
-+			u32 psn			: 24;
-+			u32 opcode		: 8;
-+			u32 rsp_msn		: 24;
-+			u32 reserved2		: 8;
-+			u32 rsp_psn		: 24;
-+			u32 reserved3		: 8;
-+		} error;
- 		struct {
- 			u32 cqe_type		: 8;
- 			u32 reserved1		: 24;
-@@ -1024,6 +1065,7 @@ int mana_ib_post_send(struct ib_qp *ibqp, const struct ib_send_wr *wr,
- void mana_drain_gsi_sqs(struct mana_ib_dev *mdev);
- int mana_ib_poll_cq(struct ib_cq *ibcq, int num_entries, struct ib_wc *wc);
- int mana_ib_arm_cq(struct ib_cq *ibcq, enum ib_cq_notify_flags flags);
-+void mana_ib_cq_clean(struct mana_ib_cq *cq, struct mana_ib_qp *qp);
- 
- int mana_ib_alloc_mw(struct ib_mw *mw, struct ib_udata *udata);
- int mana_ib_dealloc_mw(struct ib_mw *mw);
-diff --git a/drivers/infiniband/hw/mana/qp.c b/drivers/infiniband/hw/mana/qp.c
-index cebd88a5a19d..8fdd846307c5 100644
---- a/drivers/infiniband/hw/mana/qp.c
-+++ b/drivers/infiniband/hw/mana/qp.c
-@@ -5,6 +5,8 @@
- 
- #include "mana_ib.h"
- 
-+static void mana_ib_qp_error_work(struct work_struct *work);
-+
- static int mana_ib_cfg_vport_steering(struct mana_ib_dev *dev,
- 				      struct net_device *ndev,
- 				      mana_handle_t default_rxobj,
-@@ -518,6 +520,7 @@ static void mana_table_drain_qp_ref(struct mana_ib_qp *qp)
- {
- 	mana_put_qp_ref(qp);
- 	wait_for_completion(&qp->free);
-+	flush_work(&qp->error_work);
- }
- 
- static int mana_table_store_qp_qid(struct mana_ib_dev *mdev, struct mana_ib_qp *qp,
-@@ -773,6 +776,7 @@ static void mana_remove_qp_from_cqs(struct mana_ib_qp *qp, bool reset)
- 	list_del_init(&qp->send_err_node);
- 	/* Keep shadow reset serialized with hardware polling and SW flushing. */
- 	if (reset) {
-+		mana_ib_cq_clean(send_cq, qp);
- 		reset_shadow_queue(&qp->shadow_sq);
- 		reset_shadow_queue(&qp->shadow_mmq);
- 	}
-@@ -780,8 +784,11 @@ static void mana_remove_qp_from_cqs(struct mana_ib_qp *qp, bool reset)
- 
- 	spin_lock_irqsave(&recv_cq->cq_lock, flags);
- 	list_del_init(&qp->recv_err_node);
--	if (reset)
-+	if (reset) {
-+		if (recv_cq != send_cq)
-+			mana_ib_cq_clean(recv_cq, qp);
- 		reset_shadow_queue(&qp->shadow_rq);
-+	}
- 	spin_unlock_irqrestore(&recv_cq->cq_lock, flags);
- }
- 
-@@ -952,6 +959,8 @@ int mana_ib_create_qp(struct ib_qp *ibqp, struct ib_qp_init_attr *attr,
- 	spin_lock_init(&qp->rq_lock);
- 	spin_lock_init(&qp->sq_lock);
- 	mutex_init(&qp->modify_lock);
-+	INIT_WORK(&qp->error_work, mana_ib_qp_error_work);
-+	atomic_set(&qp->error_pending, 0);
- 	INIT_LIST_HEAD(&qp->send_err_node);
- 	INIT_LIST_HEAD(&qp->recv_err_node);
- 
-@@ -1073,6 +1082,8 @@ static bool mana_ib_modify_qp_state(struct ib_qp *ibqp, struct ib_qp_attr *attr,
- 		switch (attr->qp_state) {
- 		case IB_QPS_RESET:
- 			mana_remove_qp_from_cqs(qp, true);
-+			/* Both CQs are clean; no old CQE can queue another error. */
-+			atomic_set(&qp->error_pending, 0);
- 			break;
- 		default:
- 			break;
-@@ -1112,22 +1123,27 @@ static void mana_ib_notify_error_cqs(struct mana_ib_qp *qp)
- 		recv_cq->comp_handler(recv_cq, recv_cq->cq_context);
- }
- 
--int mana_ib_modify_qp(struct ib_qp *ibqp, struct ib_qp_attr *attr,
--		      int attr_mask, struct ib_udata *udata)
-+static int mana_ib_modify_qp_common(struct ib_qp *ibqp, struct ib_qp_attr *attr,
-+				    int attr_mask, struct ib_udata *udata,
-+				    bool error_work)
- {
- 	struct mana_ib_qp *qp = container_of(ibqp, struct mana_ib_qp, ibqp);
- 	bool notify = false;
--	int ret;
-+	int ret = 0;
- 
- 	mutex_lock(&qp->modify_lock);
- 
-+	if (error_work && !atomic_xchg(&qp->error_pending, 0))
-+		goto out_unlock;
-+
- 	switch (ibqp->qp_type) {
- 	case IB_QPT_RC:
- 	case IB_QPT_UC:
- 	case IB_QPT_UD:
- 	case IB_QPT_GSI:
- 		ret = mana_ib_gd_modify_qp(ibqp, attr, attr_mask, udata);
--		if (ret)
-+		/* Error CQEs guarantee whole-QP DMA shutdown. */
-+		if (ret && !error_work)
- 			goto out_unlock;
- 		break;
- 	default:
-@@ -1146,6 +1162,26 @@ out_unlock:
- 	return ret;
- }
- 
-+int mana_ib_modify_qp(struct ib_qp *ibqp, struct ib_qp_attr *attr,
-+		      int attr_mask, struct ib_udata *udata)
-+{
-+	return mana_ib_modify_qp_common(ibqp, attr, attr_mask, udata, false);
-+}
-+
-+static void mana_ib_qp_error_work(struct work_struct *work)
-+{
-+	struct mana_ib_qp *qp = container_of(work, struct mana_ib_qp, error_work);
-+	struct ib_qp_attr attr = { .qp_state = IB_QPS_ERR };
-+	int ret;
-+
-+	ret = mana_ib_modify_qp_common(&qp->ibqp, &attr, IB_QP_STATE, NULL, true);
-+	if (ret)
-+		ibdev_err(qp->ibqp.device, "Failed to move QP %u to ERR: %d\n",
-+			  qp->ibqp.qp_num, ret);
-+
-+	mana_put_qp_ref(qp);
-+}
-+
- static int mana_ib_destroy_qp_rss(struct mana_ib_qp *qp,
- 				  struct ib_rwq_ind_table *ind_tbl,
- 				  struct ib_udata *udata)
--- 
-2.43.0
+   Support for the LEDs of some Lenovo Legion laptops since 2025, with
+   the brightness changes initiated by predefined shortcuts (e.g.,
+   Fn+Up/Down) reported via brightness_hw_changed.
 
+> +
+> +=09Say M here to compile this driver as a module. The module will be cal=
+led
+> +=09hid-lenovo-legion.
+> +
+>  config HID_LETSKETCH
+>  =09tristate "Letsketch WP9620N tablets"
+>  =09depends on USB_HID
+> diff --git a/drivers/hid/Makefile b/drivers/hid/Makefile
+> index 43a8eb0f389b..713bb1c89861 100644
+> --- a/drivers/hid/Makefile
+> +++ b/drivers/hid/Makefile
+> @@ -78,6 +78,7 @@ obj-$(CONFIG_HID_LCPOWER)=09+=3D hid-lcpower.o
+>  obj-$(CONFIG_HID_LENOVO)=09+=3D hid-lenovo.o
+>  obj-$(CONFIG_HID_LENOVO_GO)=09+=3D hid-lenovo-go.o
+>  obj-$(CONFIG_HID_LENOVO_GO_S)=09+=3D hid-lenovo-go-s.o
+> +obj-$(CONFIG_HID_LENOVO_LEGION)=09+=3D hid-lenovo-legion.o
+>  obj-$(CONFIG_HID_LETSKETCH)=09+=3D hid-letsketch.o
+>  obj-$(CONFIG_HID_LOGITECH)=09+=3D hid-logitech.o
+>  obj-$(CONFIG_HID_LOGITECH)=09+=3D hid-lg-g15.o
+> diff --git a/drivers/hid/hid-ids.h b/drivers/hid/hid-ids.h
+> index 91319aa6516d..992b9b147e95 100644
+> --- a/drivers/hid/hid-ids.h
+> +++ b/drivers/hid/hid-ids.h
+> @@ -773,6 +773,7 @@
+>  #define USB_DEVICE_ID_ITE_LENOVO_YOGA2  0x8350
+>  #define I2C_DEVICE_ID_ITE_LENOVO_LEGION_Y720=090x837a
+>  #define USB_DEVICE_ID_ITE_LENOVO_YOGA900=090x8396
+> +#define USB_DEVICE_ID_ITE_LENOVO_LEGION_GEN10_KBD=090xc197
+>  #define I2C_DEVICE_ID_ITE_LENOVO_YOGA_SLIM_7X_KEYBOARD=090x8987
+>  #define I2C_DEVICE_ID_ITE_LENOVO_YOGA_SLIM_7X_G11_KEYBOARD=090x83db
+>  #define USB_DEVICE_ID_ITE8595=09=090x8595
+> diff --git a/drivers/hid/hid-lenovo-legion.c b/drivers/hid/hid-lenovo-leg=
+ion.c
+> new file mode 100644
+> index 000000000000..6d0b4adc6f49
+> --- /dev/null
+> +++ b/drivers/hid/hid-lenovo-legion.c
+> @@ -0,0 +1,261 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * HID driver for the keyboard backlight of Lenovo Legion laptops (2025)=
+.
+> + *
+> + * The ITE 8258 keyboard controller (048d:c197) is the built-in keyboard=
+ and
+> + * carries Lenovo's vendor lighting protocol: feature report 0x07, 960 b=
+ytes,
+> + * a request (struct legion_msg) answered by reading the report back wit=
+h a
+> + * GET_FEATURE once the controller has prepared it (up to ~50 ms).
+> + *
+> + * The backlight brightness is op 0xCE (set) / 0xCD (get), 0..9, stored =
+in the
+> + * controller; it applies to every LED of the machine (keys, front strip=
+, rear
+> + * vents, lid logo). The firmware handles Fn+Up / Fn+Down itself and rep=
+orts
+> + * the new level on vendor input report 5 (struct legion_event).
+> + *
+> + * The colours are the controller's own effects. The LEDs can also be ha=
+nded
+> + * to the HID LampArray of the "Lenovo Lighting" device (048d:c193), whi=
+ch
+> + * this driver leaves to others.
+> + */
+> +
+> +#include <linux/cleanup.h>
+> +#include <linux/compiler.h>
+> +#include <linux/container_of.h>
+> +#include <linux/delay.h>
+> +#include <linux/device.h>
+> +#include <linux/hid.h>
+> +#include <linux/leds.h>
+> +#include <linux/lockdep.h>
+> +#include <linux/minmax.h>
+> +#include <linux/module.h>
+> +#include <linux/mutex.h>
+> +#include <linux/slab.h>
+> +#include <linux/string.h>
+> +#include <linux/types.h>
+> +
+> +#include <asm/byteorder.h>
+> +
+> +#include "hid-ids.h"
+> +
+> +#define LEGION_REPORT_ID=09=090x07
+> +#define LEGION_REPORT_SIZE=09=09960
+
+Move it below struct legion_msg {}...
+
+> +#define LEGION_ANSWER_DELAY_MS=09=09100
+> +
+> +#define LEGION_OP_GET_BRIGHTNESS=090xcd
+> +#define LEGION_OP_SET_BRIGHTNESS=090xce
+> +#define LEGION_MAX_BRIGHTNESS=09=099
+> +
+> +#define LEGION_EVENT_REPORT_ID=09=090x05
+> +#define LEGION_EVENT_BRIGHTNESS_UP=090x02
+> +#define LEGION_EVENT_BRIGHTNESS_DOWN=090x03
+> +
+> +/* Request, and its answer: the value is params[0]. */
+> +struct legion_msg {
+> +=09u8 report_id;
+> +=09u8 op;
+> +=09__le16 len;=09=09=09/* of params */
+> +=09u8 params[];
+> +} __packed;
+
+#define LEGION_REPORT_PARAM_SIZE=09956
+#define LEGION_REPORT_SIZE=09=09960
+
+static_assert(struct_size_t(struct legion_msg, params, LEGION_REPORT_PARAM_=
+SIZE) =3D=3D
+=09      LEGION_REPORT_SIZE);
+
+> +
+> +struct legion_event {
+> +=09u8 report_id;
+> +=09u8 event;
+> +=09u8 level;=09=09=09/* brightness after the change */
+> +} __packed;
+> +
+> +struct legion_kbd {
+> +=09struct hid_device *hdev;
+> +=09struct mutex lock;=09=09/* one request/answer exchange at a time */
+> +=09struct legion_msg *msg;=09=09/* LEGION_REPORT_SIZE, DMA-safe */
+> +=09struct led_classdev led;
+> +};
+> +
+> +/*
+> + * Send one request. When @answer is non-NULL, wait for the controller t=
+o
+> + * prepare its answer and return its value there.
+> + */
+> +static int legion_exchange(struct legion_kbd *kbd, u8 op, const u8 *para=
+ms,
+> +=09=09=09   u16 len, u8 *answer)
+
+Weird naming. Why not call it legion_raw_command()?
+
+> +{
+> +=09struct hid_device *hdev =3D kbd->hdev;
+> +=09struct legion_msg *msg =3D kbd->msg;
+> +=09int ret;
+> +
+> +=09lockdep_assert_held(&kbd->lock);
+
+if (len > LEGION_REPORT_PARAM_SIZE)
+=09...
+
+> +
+> +=09memset(msg, 0, LEGION_REPORT_SIZE);
+> +=09msg->report_id =3D LEGION_REPORT_ID;
+> +=09msg->op =3D op;
+> +=09msg->len =3D cpu_to_le16(len);
+> +=09memcpy(msg->params, params, len);
+> +
+> +=09ret =3D hid_hw_raw_request(hdev, LEGION_REPORT_ID, (u8 *)msg,
+> +=09=09=09=09 LEGION_REPORT_SIZE, HID_FEATURE_REPORT,
+> +=09=09=09=09 HID_REQ_SET_REPORT);
+
+I wonder, what if we set the report with a short report size, say,
+struct_size(msg, params, len)? Could the device handle it properly in
+this case? If so, there is a chance that we don't need to sleep for 100ms
+later (I guess the device is processing too much data, causing the
+massive delay).
+
+> +=09if (ret < 0)
+> +=09=09return ret;
+> +=09if (!answer)
+> +=09=09return 0;
+> +
+> +=09msleep(LEGION_ANSWER_DELAY_MS);
+
+What a cursed device! 100ms sounds quite horrible.
+
+Fortunately this code path is unreachable in brightness_set_blocking(),
+or else we could be in trouble (holding triggers_list_lock for too long)
+when removing a trigger.
+
+This is just my random thought. Nothing needs to be fixed here.
+
+> +
+> +=09memset(msg, 0, LEGION_REPORT_SIZE);
+> +=09ret =3D hid_hw_raw_request(hdev, LEGION_REPORT_ID, (u8 *)msg,
+> +=09=09=09=09 LEGION_REPORT_SIZE, HID_FEATURE_REPORT,
+> +=09=09=09=09 HID_REQ_GET_REPORT);
+> +=09if (ret < 0)
+> +=09=09return ret;
+> +=09if (ret <=3D (int)sizeof(*msg) || msg->report_id !=3D LEGION_REPORT_I=
+D ||
+> +=09    msg->op !=3D op) {
+> +=09=09hid_warn(hdev, "unexpected answer to 0x%02x: %*ph\n", op,
+> +=09=09=09 min(ret, 8), msg);
+> +=09=09return -EIO;
+> +=09}
+> +
+> +=09*answer =3D msg->params[0];
+
+Ditto, what if we get the report with struct_size(msg, params, 1)?
+
+> +=09return 0;
+> +}
+
+Since it's frequently used with len=3D=3D1, let's add a additional wrapper
+like:
+
+   static int legion_simple_command(struct legion_kbd *kbd, u8 op, u8 param=
+, u8 *answer)
+
+so that we can simplify the following code.
+
+> +
+> +static int legion_brightness_set(struct led_classdev *led,
+> +=09=09=09=09 enum led_brightness value)
+> +{
+> +=09struct legion_kbd *kbd =3D container_of(led, struct legion_kbd, led);
+> +=09u8 level =3D min_t(unsigned int, value, LEGION_MAX_BRIGHTNESS);
+
+An insane value should cause -EINVAL. Why clamp it?
+
+Besides, don't check LEGION_MAX_BRIGHTNESS, but check led->max_brightness
+instead. The latter is scalable when adding support for other devices.
+
+> +
+> +=09guard(mutex)(&kbd->lock);
+> +=09return legion_exchange(kbd, LEGION_OP_SET_BRIGHTNESS, &level,
+> +=09=09=09       sizeof(level), NULL);
+> +}
+> +
+> +static enum led_brightness legion_brightness_get(struct led_classdev *le=
+d)
+> +{
+> +=09struct legion_kbd *kbd =3D container_of(led, struct legion_kbd, led);
+> +=09u8 zero =3D 0, value;
+> +=09int ret;
+> +
+> +=09guard(mutex)(&kbd->lock);
+> +=09ret =3D legion_exchange(kbd, LEGION_OP_GET_BRIGHTNESS, &zero,
+> +=09=09=09      sizeof(zero), &value);
+> +=09if (ret)
+> +=09=09return led->brightness;=09/* keep the last known level */
+
+Please return the error as is. The LED core has already done the same
+thing for you.
+
+> +
+> +=09return min_t(unsigned int, value, LEGION_MAX_BRIGHTNESS);
+
+An insane value should cause an error, too.
+
+Meanwhile, I'd prefer to add a dev_warn() when ret is an error or when
+value is out of range, so that we can identify faulty devices.
+
+> +}
+> +
+> +static int legion_raw_event(struct hid_device *hdev, struct hid_report *=
+report,
+> +=09=09=09    u8 *data, int size)
+> +{
+> +=09const struct legion_event *ev =3D (const struct legion_event *)data;
+> +=09struct legion_kbd *kbd =3D hid_get_drvdata(hdev);
+> +=09unsigned int level;
+> +
+> +=09if (size < (int)sizeof(*ev) || ev->report_id !=3D LEGION_EVENT_REPORT=
+_ID)
+> +=09=09return 0;
+> +
+> +=09if (ev->event !=3D LEGION_EVENT_BRIGHTNESS_UP &&
+> +=09    ev->event !=3D LEGION_EVENT_BRIGHTNESS_DOWN)
+> +=09=09return 0;
+> +
+> +=09/*
+> +=09 * hid-core calls this only after probe() has returned and not once
+> +=09 * remove() has started, so the LED is registered. The controller has
+> +=09 * already changed the level: keep led_cdev.brightness in step with i=
+t.
+> +=09 */
+> +=09level =3D min_t(unsigned int, ev->level, LEGION_MAX_BRIGHTNESS);
+
+Don't clamp. Either ignore insane values silently or add a dev_warn(),
+then return early.
+
+> +=09WRITE_ONCE(kbd->led.brightness, level);
+
+Usually this is needless as long as the driver provides brightness_get().
+
+> +=09led_classdev_notify_brightness_hw_changed(&kbd->led, level);
+> +
+> +=09return 0;=09/* let hid-core handle the report as usual */
+> +}
+> +
+> +static int legion_probe(struct hid_device *hdev, const struct hid_device=
+_id *id)
+> +{
+> +=09struct legion_kbd *kbd;
+> +=09int ret;
+> +
+> +=09/* As hid-generic: one input device per application collection. */
+
+Typical LLM tautology. Please explain why the driver needs this instead
+of repeating what the flag does.
+
+> +=09hdev->quirks |=3D HID_QUIRK_INPUT_PER_APP;
+> +
+> +=09ret =3D hid_parse(hdev);
+> +=09if (ret)
+> +=09=09return ret;
+> +
+> +=09kbd =3D devm_kzalloc_obj(&hdev->dev, *kbd);
+> +=09if (!kbd)
+> +=09=09return -ENOMEM;
+> +
+> +=09kbd->msg =3D devm_kzalloc(&hdev->dev, LEGION_REPORT_SIZE, GFP_KERNEL)=
+;
+> +=09if (!kbd->msg)
+> +=09=09return -ENOMEM;
+> +
+> +=09ret =3D devm_mutex_init(&hdev->dev, &kbd->lock);
+> +=09if (ret)
+> +=09=09return ret;
+> +
+> +=09kbd->hdev =3D hdev;
+> +=09hid_set_drvdata(hdev, kbd);
+> +
+> +=09ret =3D hid_hw_start(hdev, HID_CONNECT_DEFAULT);
+> +=09if (ret)
+> +=09=09return ret;
+> +
+> +=09/* Keep the interrupt endpoint polled so hotkey reports always arrive=
+. */
+> +=09ret =3D hid_hw_open(hdev);
+> +=09if (ret)
+> +=09=09goto err_stop;
+> +
+> +=09kbd->led.name =3D "legion::kbd_backlight";
+> +=09kbd->led.max_brightness =3D LEGION_MAX_BRIGHTNESS;
+> +=09kbd->led.brightness_set_blocking =3D legion_brightness_set;
+> +=09kbd->led.brightness_get =3D legion_brightness_get;
+> +=09/*
+> +=09 * LED_RETAIN_AT_SHUTDOWN: unregistering (unload, unbind) must not
+> +=09 * switch the backlight off, the controller would store 0.
+> +=09 * LED_BRIGHT_HW_CHANGED: Fn+Up/Down are reported to userspace.
+> +=09 */
+
+Usually you don't need the comment. The intent is very obvious.
+
+> +=09kbd->led.flags =3D LED_RETAIN_AT_SHUTDOWN | LED_BRIGHT_HW_CHANGED;
+> +
+> +=09/*
+> +=09 * Not devm: the LED must be gone before remove() stops the device,
+> +=09 * devm would release it only after that.
+> +=09 */
+
+Why? The comment doesn't answer anything at all.
+
+A lot of HID drivers have been using devm to manage LEDs for long, and
+there are also some drivers manually call led_classdev_unregister() after
+hid_hw_stop().
+
+> +=09ret =3D led_classdev_register(&hdev->dev, &kbd->led);
+> +=09if (ret)
+> +=09=09goto err_close;
+> +
+> +=09return 0;
+> +
+> +err_close:
+> +=09hid_hw_close(hdev);
+> +err_stop:
+> +=09hid_hw_stop(hdev);
+> +=09return ret;
+> +}
+> +
+> +static void legion_remove(struct hid_device *hdev)
+> +{
+> +=09struct legion_kbd *kbd =3D hid_get_drvdata(hdev);
+> +
+> +=09/* hid-core no longer calls legion_raw_event(): the LED can go. */
+> +=09led_classdev_unregister(&kbd->led);
+> +=09hid_hw_close(hdev);
+> +=09hid_hw_stop(hdev);
+> +}
+> +
+> +static const struct hid_device_id legion_devices[] =3D {
+> +=09{ HID_USB_DEVICE(USB_VENDOR_ID_ITE, USB_DEVICE_ID_ITE_LENOVO_LEGION_G=
+EN10_KBD) },
+> +=09{ }
+> +};
+> +MODULE_DEVICE_TABLE(hid, legion_devices);
+> +
+> +static struct hid_driver legion_driver =3D {
+> +=09.name =3D "hid-lenovo-legion",
+> +=09.id_table =3D legion_devices,
+> +=09.probe =3D legion_probe,
+> +=09.remove =3D legion_remove,
+> +=09.raw_event =3D legion_raw_event,
+> +};
+> +module_hid_driver(legion_driver);
+> +
+> +MODULE_AUTHOR("Ciro Pedrini <ciro.pedrini@gmail.com>");
+> +MODULE_DESCRIPTION("Keyboard backlight of Lenovo Legion laptops (2025)")=
+;
+
+s/ (2025)//
+
+Thanks,
+Rong
+
+> +MODULE_LICENSE("GPL");
