@@ -1,94 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794409346;
-	b=YzD3bVLzWdrukDn+KptUMrGarT1TMkisasr4B1mI+/35/iN7ZRWQX/UZMKxFDCJwlg8N
-	 erlt/ZRd9hmnz/+Pn8RdbDfK9f6Z9gFjUXQhai/R9mrJL2ZJSfFKmLtbZtE7Hfx08EwLW
-	 ffFqWIKLPJC8xkLqN5J1R4loasUXjwx46g75CSMzP4E9X1YEoxxcQHJQaKPAmbLHgqycR
-	 RZAghJjQK25/O4a3y2bLVoRsaCHgGQZd8F3CFhYFhuJ+TB8k1g1aTCpf/iYvqf51n984q
-	 vCqZsZn0p0C9+p9IcH59mw0uFTMWgNu/2GAaMMGw8mrBOuITAC8ZPjlZ/qHHVue+IDA==
+	t=1794409349;
+	b=SyNvWfLNYmIIXevR/WJKpZt22s0RnZ4p+LDKqgN3W7IIgucUiq/wzsxO4NpI6Rm/aQct
+	 HXf6gm2FjaIyuOqJwKSppRiqS3oi5G+nqg+U7Hjfqu6glY0ahP7h+aKysKkcdc5H8UN3p
+	 1NyDraqaegtqai6ioeAoPKjVTOvNUGvkksoFCKxaXOkejJKufU7TmtpYf6ArscNdSVjtm
+	 /f6GaRYVnAxSQ5scsoU6/NO/6W1RVqIhvRf5OiqNOMVvSkiYLeUMWVWODKSL/bF3BG+r6
+	 /GwSpDOOha5yUU6UUVSUJVoxy/cueGY2qzNCrjqfNOriPNMFL+MNUACmQykNA7CZD7w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794409346;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794409349;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:Content-Language:To:
+	 Cc:References:From:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=meWNXvMASPE39vwE27i8e5aNRxxg/xlneQl/BaplwNw=;
-	b=TbP/zmCohnf6poWi8FboFdT0cWjoKCJq2ea5qpDTfxy1ISK9zyj3Fy00iPi3oQ7e98PM
-	 ZehDpdOXe0Vc2ochEDYq1ETD1L0ocI74en74352gyQh3l/lbtGZTwE5WPGoQUXll9oC+9
-	 cboDg0pEvcZ9+OtWyOJ2PZrzWsFTRDSlUK7XZ+ySclVZi72mhF38ZyP5BwlRgjLA/JW7n
-	 t8XUPO0JrOOwL/7Rscsc8HUKNh0mnT4Xz+MiVHC8goXCpCT7/AoQxMfSg/QAnDu/NUNjX
-	 lYL5swL5k7TwA722KP8o/eG0S+SE+ofCwqN6xjhSTL/jDeLAsItMMB1+8/YmXExtuog==
+	bh=lmylWoSBcjoFdbnnC2yXhAwKd9dExj5cQI1Bvjae/xM=;
+	b=eZWgxlwjeueKfcjWJ0z/jqXbFUbU4fwPLGAKN4HC0bc3EOE31cWqad0+87+g+Ie7xUUD
+	 FrAzRr2gHki7GfUpugGC+aURmX3Qzt4pw18QRcg+g8GppxPXQw1JmqgK+TXpqEbqGbJfh
+	 8oSIIAFL05WU3tbIzTAKTlSUMUmstyqt2N75uKigFT6DNSx7+rhm/VRoffcSVRYcEpRi5
+	 NeQVsnn2fBVcp7TvqXShgupyho9n3v/HFG9u/MEiioavx94GrrcdQmWVIS2UxBW7BARKQ
+	 46/Ri2PnPyyBJV3sroPCHpUEi46Wyi8ynLSs506ef2XqE7vybOLLWzZx+nAj8CFuf2A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UQ5VFpay;
-	arc=none smtp.remote-ip=209.85.221.52
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lV2oKj86;
+	arc=none smtp.remote-ip=209.85.221.43
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3558E606A338
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 15:02:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3558E606A338
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82136606A890
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 15:02:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 82136606A890
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UQ5VFpay
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-497614c95f0so1796960f8f.1
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 07:02:25 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lV2oKj86
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-4919a880834so1978639f8f.0
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 07:02:29 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794409344; x=1795014144; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=meWNXvMASPE39vwE27i8e5aNRxxg/xlneQl/BaplwNw=;
-        b=UQ5VFpayE9CxUcVJjLg9m8k3212rMrE3w2g8bTETRaeTZGmJwXdK/iPr6idLYFo5lF
-         fIVqcP5zR+wj6RG1R726OpDUDz2py52q1cKoTj2a0Sr7EbFzHZUs6xfArCzJjf6pn+Ip
-         /mFujscxx4Nxo3a3LfKIGdEsEZ5rFc3l72gFAMxauhLiZoKPl+jILGzYojynnifJU2qa
-         rELSdlHKFkyEh1sOk7MZo8oARRRaKEIdLQJ5yj5zWbmmwuYTQaT6jwq4/HVyfjBWaK+L
-         Eb55SxwSHYC3x8LdvJ/FPQOxS3nV6QdwlXKxo5x7WFlAtNhYYrGRzAEwRkaCrn0tXU9w
-         TwLw==
+        d=gmail.com; s=20260707; t=1794409348; x=1795014148; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=lmylWoSBcjoFdbnnC2yXhAwKd9dExj5cQI1Bvjae/xM=;
+        b=lV2oKj86b+xYFtqr8A44TZfibZOkFAKibDBsIgxGfdlp7zekATSe10jMxau2SuDNw/
+         lW9uq+mbvvcHhIUr/ROsAIHCMw8LL3hojR8wKa4jMWX7473Y2rs+X6Bujwys/jFosKkF
+         hEtdh50Gq7hlJt93h8XgMomMVA0pa/1RE5HOx7GNHerdftgqpjBWDy0wzkcuMVEO4Ppj
+         eJqAz+TFldEO2YMPZDnbFroqnvYIb5mzWI14tnXafPm4kYycivxTLgGtLjUtQAWcokbA
+         H0fhbDrSZPtX5Qu6rdZhxBp5rhNEbxsF4mB+/s/4X5z5lUUgLDDwxXQnyLo8aF5j5tTg
+         8PUw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794409344; x=1795014144;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1794409348; x=1795014148;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=meWNXvMASPE39vwE27i8e5aNRxxg/xlneQl/BaplwNw=;
-        b=k4+eNlPPbAGXsFZXGwOTofomoivVXSlPqd64irKaQ0UG0BSJVoCRDmVYO0dTNybTXf
-         81IULUwCBBYHgfzEV52t11hN8lC2eXz16zhPhVDNRGHAqKOxLMsvs1rFTQunZjw6odGs
-         HrWQoKml1N24ydAILaUTDn0v8HdUxBxdlvmUN9dhcaiZSeocWH+clWjcY8dq09ZrghPU
-         VDqbleoIrOw/h7eA60ZvA5ceev7FLC+3irYuikwyo9ltwm1Kcap3bVMhxB++eYHps1JX
-         F2Uw3XF3FKEPs0EAP/EVYmQzn0tD2sIaHvUxMOiXhA3RG61AF76fuZYbqZf0usjXBFPP
-         St/A==
-X-Forwarded-Encrypted: i=1; AL+hErFS+0nafXRgp5nti1/OJP/gEkwT1e+Lpx9csO4T1NLuNEvTuIeHNipJjtTnFSALW8ZcYKgkb4gVYF0y5jI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/ZAX0TQFSc+ZEUC19sfZHCstHE8RdX3WyIOVc3fnuCto7pAhmk
-	kq34yc91s8ytGRnL2rsulgJY400yw8mJ/YkRGSe2OrV4CnMpLlH4fpNu
-X-Gm-Gg: AYBFou3ZBeqh/G5GmDNylDU9fssXXu8sIlB4y9WpZEr4fGNcdsk61YIr2Zr2FHV20bW
-	W3gOCAcSJoW7M0rTrFv/RUktUfBN1kFkAo2X7OyVvSHUJ3KfFT3jZpymZvOECy4hvITpQF4H2Mx
-	EjT0/XXFtVNHZLIYgawuasivbdNzJZuqNuq62agdslzurp1LD66F8KZRO3gM9qZE/jIYvKUXWSJ
-	0mRUgFd8fa4+zYEVNj2DwpCRh5GGTI9heQ/mnSKEmgcKV22BhOjLRtT5yQMdUks/Vhp/0ymm+WR
-	ID4CxREu6pNVYJm9Ug/AaDOp8TR85dtdpnzMfkQWy9Eu9tQeVxs/RTjCrVAtjSE+hueE0F5PMIh
-	TyyIC+0ie+jjLk9broo0IKSerJz6LeZx/JnOw8juAt6gMn2jkVUjG6C7OFqQbmkRkEp56Q4x2i+
-	GP5Tzo5LADuL2D5vhMN0apt8OBUO0rEUkqeCD95CTuW8RT1rAPjyOgr8ui/i2AP0E3pi4va8zzP
-	mVNpUkDWDFExsnv4NYJgBVtxS5xKOuAn3Ndz6kkTbV2E9aD3FeLXLT6jl03wcT3wBfTVXkTz49q
-	jDmOjHGDnbwvNqORW39YZlHzLeeqEe+XlZ55W8xrlHDs0zsa6V/UWx4=
-X-Received: by 2002:a05:6000:40c8:b0:488:8ab9:f74c with SMTP id ffacd0b85a97d-499c425746dmr5287776f8f.3.1794409344157;
-        Wed, 11 Nov 2026 07:02:24 -0800 (PST)
-Received: from localhost ([82.77.126.113])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49835e20327sm12054259f8f.26.2026.11.11.07.02.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 07:02:23 -0800 (PST)
-From: Daniel Matyas <matyasdaniel006@gmail.com>
-To: Jaya Kumar <jayalk@intworks.biz>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>,
-	Helge Deller <deller@gmx.de>,
-	linux-fbdev@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Daniel Matyas <matyasdaniel006@gmail.com>
-Subject: [PATCH] video: fbdev: Request IO ports
-Date: Wed, 11 Nov 2026 17:02:17 +0200
-Message-ID: <20261111150219.239706-1-matyasdaniel006@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        bh=lmylWoSBcjoFdbnnC2yXhAwKd9dExj5cQI1Bvjae/xM=;
+        b=cXhnxz1bYE6Lb5wyNi/6TtrrQyRQNwplN6j6Dw+RWwRWQGoV4boCSYV4JvstX8o3cH
+         XOPdj6mSWasObZjVfVD5WtPDwz0FRt/W+6D9IxIwnxjly3Tz7T7G6RcJWs+pmhIoWrxg
+         YSwUeHysq419Kvh1U2NAiQY0C/L+pweRGYTYzslBK7y1StSgrSevbZwn9Fv4NCYPuz8E
+         YIt/lIE+p1YsDurLJMh7zjEIhxapAgKJYu7vPGQ/w0gND8all2qQdbS7398f/wi1DJkD
+         3qLRsZHZIWa2mYp8zpIT9KuTygYS7N8Q47SozUxNfYlKMG4t09Gi3ifWXQYOHvq8nVmA
+         pOWw==
+X-Forwarded-Encrypted: i=1; AL+hErE0nAqL6YwPjeHNhTxZrzR87h8GO4Ijk+UNUmXZ72DYrEe4sy8COLp/G+ufAV1E5gIIqlwoqDFyGLRJqzA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+iOqdivfWykGHNiLeZdS33xKXglEqZ2k7YbrO2P5XtAEXeHc3V
+	9RbGxKDwQ+qQk93MxC2p9ZbeiVZXHL2iLt2kEG0mM+XcSwzmbd5MpsXe
+X-Gm-Gg: AYBFou17j8gJGQ9cm9FnEekRcii3stsCP9VhOf/IZUFJpRUUzd4WCGRa7VW1az3w86U
+	91+5vabbWkusC3AH4jPW2+2pLuxUWjM9ROsdWdfoacv+7CwZXVp1SsT1zWtpdRlMFJwL+mzD9Oa
+	uFH1jCqs0cmSGeWaWkWtrmEVeSzdX3lM80aB6n4dEVJKuRB8F3Qyu8wIk0v41VwdfmCZuqtv6kB
+	vQXIbDPJMOls4xUVLYchz8FxHSm79h87BySq/ReoZfQilpik9mNhMsAbN0DNUVxRxkEmgLVD8E6
+	4pAsxi7d/KvcLFaz3k5DtRb4nmDPVNdl6UpKxLnt1zVkrVM9JFYbZ34q9GQzR0gzjFqoa+QaoOd
+	S35H6THIU+1HuTsw7CEuO8i1uyfoEP+TUPAN12xmqduMP4XdAQ3F1BG8YIFEfhEV3guYsjQ6fTN
+	yG0jHd2wbe+OdGBlcblW2x+ojrIEC7fk1wHF5RKi7sau5/rw3WPqdry/4UJoovz+1nEahqqTB67
+	TvIzV3zoLhWyZU4CTLyg4MsoC0Uz3gMkfszJBlulRqZk6Lxab++HiIN3Am7b5xrEub4BQ5+bG3c
+	L6pvApLIodldJwSGM5uP809GfHGozAGrgWANN6RrBo7uPdPnTupMO2JOVbQty3CyiAwxRWFnNmN
+	TD66gRXnbGJp+xluQBYmhR1o/
+X-Received: by 2002:a05:6000:25c6:b0:490:f775:b00b with SMTP id ffacd0b85a97d-499c7552647mr4331095f8f.52.1794409347645;
+        Wed, 11 Nov 2026 07:02:27 -0800 (PST)
+Received: from ?IPV6:2001:9e8:f118:9201:bc72:ad54:993:306e? ([2001:9e8:f118:9201:bc72:ad54:993:306e])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4983600bc9asm10669151f8f.29.2026.11.11.07.02.25
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 11 Nov 2026 07:02:25 -0800 (PST)
+Message-ID: <1c42a9d1-643b-47bb-8f69-0ff0eebe5d47@gmail.com>
+Date: Wed, 11 Nov 2026 16:02:24 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,55 +92,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] gpio: line-mux: fix unsigned truncation of property
+ count error
+Content-Language: en-US
+To: shao.mingyin@zte.com.cn
+Cc: linusw@kernel.org, brgl@kernel.org, linux-gpio@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261111173546439alUdLx-iD6-ISoa9jqS5H@zte.com.cn>
+From: Jonas Jelonek <jelonek.jonas@gmail.com>
+In-Reply-To: <20261111173546439alUdLx-iD6-ISoa9jqS5H@zte.com.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Some fbdev drivers do not request their memory correctly. Request the IO
-ports' memory so no other driver may access them. Only request 1 byte,
-because the inb() and out() are used for reading and writing.
+Hi Shao,
 
-Did not test on hardware.
+On 11.11.26 10:35, shao.mingyin@zte.com.cn wrote:
+> --------------------------------------------------------------------------------
+> Hi Jonas,
+>
+> On 10.11.26 17:07, Jonas Jelonek wrote:
+>> I think you still need to move it up where 'unsigned int ngpio' was
+>> before for RCT.
+> I read RCT as ordering by decreasing declaration length, in which case
 
-Signed-off-by: Daniel Matyas <matyasdaniel006@gmail.com>
----
- drivers/video/fbdev/arcfb.c | 8 ++++++++
- drivers/video/fbdev/n411.c  | 5 +++++
- 2 files changed, 13 insertions(+)
+I understood it as plain line length. Not sure what declaration length really means.
 
-diff --git a/drivers/video/fbdev/arcfb.c b/drivers/video/fbdev/arcfb.c
-index b807cf07522d..6771a7409cde 100644
---- a/drivers/video/fbdev/arcfb.c
-+++ b/drivers/video/fbdev/arcfb.c
-@@ -481,6 +481,14 @@ static int arcfb_probe(struct platform_device *dev)
- 		printk(KERN_WARNING "no IO addresses supplied\n");
- 		goto err_addr;
- 	}
-+
-+	if (!devm_request_region(&dev->dev, dio_addr, 1, "arcfb") ||
-+		!devm_request_region(&dev->dev, cio_addr, 1, "arcfb") ||
-+		!devm_request_region(&dev->dev, c2io_addr, 1, "arcfb")) {
-+		retval = -EBUSY;
-+		goto err_addr;
-+	}
-+
- 	par->dio_addr = dio_addr;
- 	par->cio_addr = cio_addr;
- 	par->c2io_addr = c2io_addr;
-diff --git a/drivers/video/fbdev/n411.c b/drivers/video/fbdev/n411.c
-index a3677313396e..ed0281939d37 100644
---- a/drivers/video/fbdev/n411.c
-+++ b/drivers/video/fbdev/n411.c
-@@ -165,6 +165,11 @@ static int __init n411_init(void)
- 	if (!n411_device)
- 		return -ENOMEM;
- 
-+	if (!devm_request_region(&n411_device->dev, dio_addr, 1, "n411") ||
-+		!devm_request_region(&n411_device->dev, cio_addr, 1, "n411") ||
-+		!devm_request_region(&n411_device->dev, c2io_addr, 1, "n411"))
-+		return -EBUSY;
-+
- 	ret = platform_device_add_data(n411_device, &n411_board,
- 				       sizeof(n411_board));
- 	if (ret)
--- 
-2.55.0
+> `int ngpio, ret` after `size_t size` already complies.  But if you want
 
+with 'int ngpio, ret' being longer than 'size_t size'.
+
+> it in ngpio's old slot (right after `glm`), that's a one-line move --
+> say the word and I'll fold it into the next revision (v2 already has
+> your Reviewed-by, so I'd rather not respin just for this).
+>
+> Thanks,
+> Shao
+> --------------------------------------------------------------------------------
+
+But probably not worth to respin unless something else in the series needs
+a change.
+
+Best,
+Jonas
