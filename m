@@ -1,100 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.52
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794416205;
-	b=gutwGfVsNJbd/sf23dU0Wwy3z36jgntze1zfQb343eYtCEztz8zlKO/Kj/g9lr73pKuX
-	 yUBbCPClI9nIaptwQ5N9iWlych5G26kHVd4dqerN3espmNUDYEztMAby5cMNF+vB3ve5P
-	 uMg4bRNyuO7HOJEpwJ91aBvu/CAFV3vRxe6kHp/zXOK4BWQ5ImB5tiCGdUNxLZDfJ7FGr
-	 c/M+2wpkSk+GtQg9T4jhzRW2cQcgpM68GkuKYm0FtNh3uyuK2zuaK57rjzrrwHApsAAfx
-	 U0gSAGnXNdAuvSGIWO1vvYfXSG6OQEYxe3dro7qcdFkTq3/QAHzTmZg5qLI8F9c7zHQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794416205;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=Aqb51cKCA9gE4CD9ya0QHatgfv/z6SjRqePWGJDJD3A=;
-	b=bcMX2OtjX9lHFsqXKNi/ytWpOWUdRJ9BaD22ajnLzYIDGZF2O2Y0+5GTPccFudJMlF3O
-	 23WCFX2pzc300VhTxcponBj5GRuVCS350Sf/7THG2PNM/v4vIFpcEIxSpE2vY4kn2UhxC
-	 KTOHnoKl3bOCd4A+jqWjUwXFqIiMCwFBneAtPq6g0+3d7Y/25ziCRv/xCLOjZ4g8/T9XW
-	 lj7NEEGiYmmwjvNyf6Mh7mqD/34HKrbEZyco93kAB8rN6+2FbVS8ckRmZh9SULErR4hOT
-	 woJuNa6hjFWiO+R7QYhcIgVGEpR13GiNwjyjWYfP4n+Z4TPCiuQ720XOQDOnJyYbEkQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=HXkAfGVY;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.52
-Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794416208;
+	b=D/xAQfX1cjJhk2OKJmQfLRh5ij8gCWU7ivSnd9xTH1kg2Zv768D9NoC0AJV5vKUJmJIU
+	 u6DyoA/ITkpn+3Wlx6j3QX47FfX1vRDeCL8mMibfDdxLOX7FSkizTbirBfUUmIPepqhfd
+	 TxW6eiN0fjfDOD4HRE412R3JDpYmR/AT59wcK1OIyCHONWmmlojmdAdOnlVsqaHGDqzzA
+	 46hF3PJL399Wz9IbQzz5csA1AMoM4nxhWgo6ITvmEs8Uc41AQhC7jamXa81pxlJs/FQnX
+	 FTotRzOn/dc2aMaLwyhXorJFb/P/Dv6Je2oa8mdl/gOuMCSWLVmP7rDBkFpmxBq8sZw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794416208;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=479XHjyry+esrWGEqWJa1TbMqWU4kn9HwykCDUTXvDw=;
+	b=htsbjh8Ukz63eG3ESryT3KVcAvru3RDcDf+5NjcIn6zIJmD+6NZkzuZ8eNFEu9XfijGd
+	 1QuQXP63TR4ucU7Tk1DWENSfFFH+Sdi1xMnG6PhOZ4vJ2UdvBJo4eSHmSHlfuCCOQYxHl
+	 2vqLv9pff3pQIq29zn6PrX+EJOhEcwg7WTdD1Tg0EyP0PCyweveptYaIGaK/RYES4odC7
+	 RIgr2DxZqZJexlLaBafUZjrcPlM9WwWltNTrII8GAcM49s5+/jylEcuhDY+mnGLJ3hRmu
+	 JOoj3MutUXrPedJhGgndi6vOYp8KY20NHQkKIa4tXgC8KgdhJ88unZQ4SlUymVQMm/A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=utPeEWqs;
+	arc=none smtp.remote-ip=90.155.50.34
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2C14606A897
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 16:56:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F2C14606A897
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE708606A89C;
+	Wed, 11 Nov 2026 16:56:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE708606A89C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=HXkAfGVY
-Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c505c561fd5so278580466b.1
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 08:56:44 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794416203; cv=none;
-        d=google.com; s=arc-20260327;
-        b=cBh5QaZk8yool/6YTSEUapYxv+9QdbB5efb+iOZJ/pPqvqO37C6gxCuzXSPjZh8tB3
-         s4sslmGq1NqVDaIMxNsI+cLROit4NDuFQSPSf0s/4FbgucLQwb65t6QFkaJvSMS1Z/Fb
-         JmOmaaxQn6ooMJhxuOoyKmniI+v7pGuBp8PY2z2rOu9JlLoO0xcL7bFIUdt29zqZz0NH
-         AaVR6l83wvsFeHdp+rOYhVat6wEmPrQgsNicsq4/Ixm/kwLHvhqGeWJcwQ5x7OztP3B6
-         qC/PFOcZmt7LXmd9nxeAFJiBmDSQO3ICK5AATQkk8xQYUytmQk97F9xnVliN5sVogyY+
-         NATA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Aqb51cKCA9gE4CD9ya0QHatgfv/z6SjRqePWGJDJD3A=;
-        fh=mi57dN3Hqj2/IcLnJMDULHObMmmUoZtBQzdrxD8xl4c=;
-        b=Y916nRS/Zlv5sjM/dQfO7T8Xy3WlH5UZOsasrR7j4Vzngmj3aV6wS8dxm9+SUAuoUQ
-         V62K1OtV4EQKI4j4H2M0kqIBWSfElogD7IWI+HmHk+3i45Nu3p2KaBR3WcTm/CsdVcZW
-         ttdwkTtmWajoGRSUE96yLOY9CNvQz90HYVySlkR3JxeTKAHcjDSyGnjDxBYd3e9MPtXP
-         lu73tx5D9TpQ/4f1DNkkxT5sUs8MCYReqsN7dxeqNRqOK4wsHt91GPmQg4FlwrrziFow
-         9EEw0cJ5egDO8MHxVpJbxJ99YvgoqX7wD11q0x2r0/9kJ0R3WvdfStUUHHRhhdIjoudQ
-         hPUw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794416203; x=1795021003; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Aqb51cKCA9gE4CD9ya0QHatgfv/z6SjRqePWGJDJD3A=;
-        b=HXkAfGVYaHobTnKwMXtQYTmiJD0jmrjhANtEiRxnIBsZxg5VNbUKZfZhyghqhBt6ps
-         2+hg2BeuX2rjOPTUyzE/PFkdh4iAC+FIKuNhmS5fV+S8v/86CJdlFXEg9MBRHpINWo6Q
-         FRzcDEoOJ/uZ48jfJA6dMBlT995AvHltiIhd+/0Q7pFRGThyPATzGZGFfSYCNZZjcYOs
-         U2w5p5eNbfMr+dnvOX2HYodLYZ1PEx/3YlwzekqXEGyxgxeCPLy5UTqALnB4TZfXBrpo
-         hTjFjZGpgCXVJQRXViVWDUE2xNRLrKqNA4Jr0BWI/D4Kz2b3DFxJpUJXpw3bfFl46+SP
-         YmYg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794416203; x=1795021003;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Aqb51cKCA9gE4CD9ya0QHatgfv/z6SjRqePWGJDJD3A=;
-        b=s49pz8P5XRqEUyUtUJITR2Ir2cqjryMt+DBAV7+lYdMSYOkUrMoj6B9dWPXRlqVOj+
-         0oGQmXGHHPt1yI+G91KGp8/gD8JXtPE7jGGdA2GAs2y9TcuS9FKT+tmboTWoIlXI3u31
-         fnp+5dX8cXyOT8wVqDnsr670asfgpEtJm+AHO6M7hT8Nhl3v6MsmPnI4NXCsklzUM81a
-         y5FkADKZ8rIvjJirgb3jPsxodH6lFBefN6Ft4BSwYDDQJa1DKKglNZaDFk1F3pRDKDks
-         C/+ODBSFLseK+yUdYU92BY3IuNgtkero/V878QjiB+T3eIRShCldjKbci7mtIBfTA5hK
-         GC1g==
-X-Forwarded-Encrypted: i=1; AL+hErHXN2VRaLm6QD5PjSG+D9c4eInijT5HRoq25sINjF2xJsB8XKvNCnXFi5V8/9R4P/2FySTmIMuNIr/0Tsw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9o1k5flFZ6E/Xwy3g4SQ5JOnCAK1ii2zgg91E41VAPUZNWz2xs
-	HHGC43cA/qaVMx9Rm6FzZEm8BtiXUzEVckL9vlMC4ZCjksV1lJ7fXUfafBt14rlwSL/LwGkuk0i
-	bA677UwzFOT43s5RIQJSuidycEIbHnKC+7iGI7Y5C
-X-Gm-Gg: AYBFou1dqI3M4bydipIWhFN11TZiVh4dATqaUjTCJLBuJvjwg44vbr/XIc1Z9ArsAe8
-	+CE1ToUs1JfVs373ezfnAxFEHn+voOD81vZjYLe+/yLegKTbvRAs6lCcw+3absLgI8Fo/dmP73D
-	omLsKVs/8IkB/D6kWQ9pfq84+AAOvtfEW2OXFhMBcoL2dMqSGxxV+Ovb5AdlfXUBd5YdsYJJRt2
-	FMA6ZkOqnPqTCqh/DlUw8BSv1eydocI7f28pWESiaUYHOxp9toZHt0L6I1yND6ALL+exGCSZUjb
-	LYVn0t764AUSh56nmCOsI1EMBiXOF1Z9tlzg3inIR5OktNQK+W1TlS+bJYMMVaSwlIII+0qZJQU
-	kueu09Og13OtVa/kD3SVl/Hh6ZU8sJaUUBCJHpbU/Am7Kuomxv+mBk7GdVkGnCesqSipe4g==
-X-Received: by 2002:a17:907:a095:b0:c43:bf29:1517 with SMTP id
- a640c23a62f3a-c5066abbb12mr223619166b.12.1794416202670; Wed, 11 Nov 2026
- 08:56:42 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=utPeEWqs
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=479XHjyry+esrWGEqWJa1TbMqWU4kn9HwykCDUTXvDw=; b=utPeEWqsu11ZRvRHShfJxKmH3b
+	tsE+6dt9AXJKTWJBZDrEyUT2DFK9S8j+8tdtBVEqneXY40w6dkQeHnQ6iLsfCfaodm1Uc7upFM8xb
+	JRzM10Wr/jXLi8cNqMDkhA0Cfp2jMm4H+dmAHXj8f1rDxtM0NXRK57f4fr6Umvq89sl0Wk1FaJNHE
+	7dwaSw9Qh7ZVmQ6v7niM/njBzEFo2DLpIKnNEX5GQy9qcKe24eflIxpFbj2uAWkKX31s3vZ4p+HAV
+	lQV7fXFXCNcBULuVbGMGt8faW2RsSMWbaHiHaiO+peQGlnHu+Ru+a0+laalqDLEPr/wAdLXs5oQv8
+	qmaDGJDw==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xRBcn-0000000BhFe-2jRA;
+	Wed, 11 Nov 2026 16:56:41 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id A9661303154; Wed, 11 Nov 2026 17:56:40 +0100 (CET)
+Date: Wed, 11 Nov 2026 17:56:40 +0100
+From: Peter Zijlstra <peterz@infradead.org>
+To: Frederic Weisbecker <frederic@kernel.org>
+Cc: Radu Toader <radu.m.toader@gmail.com>, mingo@redhat.com,
+	tglx@kernel.org, tglx@linutronix.de, tj@kernel.org,
+	juri.lelli@redhat.com, vincent.guittot@linaro.org,
+	dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com,
+	mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com,
+	void@manifault.com, arighi@nvidia.com, changwoo@igalia.com,
+	anna-maria@linutronix.de, bigeasy@linutronix.de, joshdon@google.com,
+	haoluo@google.com, brho@google.com, boqun@kernel.org,
+	joelagnelf@nvidia.com, enlin.mu@linux.dev, brads@mainlining.org,
+	kmehltretter@gmail.com, sched-ext@lists.linux.dev,
+	bpf@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] softirq: Treat an interrupted idle task as idle in
+ tick_irq_exit()
+Message-ID: <20261111165640.GQ1779021@noisy.programming.kicks-ass.net>
+References: <20261111112944.3868822-1-radu.m.toader@gmail.com>
+ <avSTjihu0YXfFNUV@localhost.localdomain>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,73 +77,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261110-pm-runtime-summary-v1-0-12ebf283db78@kernel.org>
- <CAG2KctpRRDMXR8wG40PeohsTyAdoNC=+4Nc9pHGQc1fmw9AXeQ@mail.gmail.com> <20261111101152.00007785@kernel.org>
-In-Reply-To: <20261111101152.00007785@kernel.org>
-From: Samuel Wu <wusamuel@google.com>
-Date: Wed, 11 Nov 2026 08:56:30 -0800
-X-Gm-Features: AclHuK8kdD8VwnaBbzLQVqTUgoqU_vlxOQj4ngzBW18PxropehXDJ3jwX7C2L8c
-Message-ID: <CAG2KctqMYi+a-NZm7bAHTSc5Ch8=RAaEhY6CAZkvCnGW2VOeEA@mail.gmail.com>
-Subject: Re: [PATCH 0/3] PM: runtime: add new runtime metrics and summary
-To: Joshua Crofts <crofts@kernel.org>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, Pavel Machek <pavel@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Danilo Krummrich <dakr@kernel.org>, 
-	Johan Hovold <johan@kernel.org>, linux-pm@vger.kernel.org, driver-core@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, Dominik Brodowski <linux@dominikbrodowski.net>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <avSTjihu0YXfFNUV@localhost.localdomain>
 
-On Wed, Nov 11, 2026 at 1:12=E2=80=AFAM Joshua Crofts <crofts@kernel.org> w=
-rote:
->
-> On Tue, 10 Nov 2026 19:38:39 -0800
-> Samuel Wu <wusamuel@google.com> wrote:
->
-> ...
->
-> >
-> > What is the vision for using these runtime PM stats once surfaced to
-> > userspace? Runtime PM and suspend have disjoint portions, but I'm
-> > curious if you see any non-obvious areas where these stats would be
-> > insightful.
->
-> The main things this is useful for are detecting power "thrashing" and
-> tuning autosuspend delays. Currently, sysfs only shows the total time
-> a device spent in active and suspended mode; from an energy standpoint,
-> a continuous 50 second suspension is different from a device cycling
-> 1000 times for 50ms each (these transitions can be pretty power-hungry).
-> This could help userspace utilities like PowerTOP to more effectively
-> determine what is causing an increased power consumption.
->
-> From the kernel dev standpoint - this is genuinely useful when testing
-> runtime PM functions in new drivers (for example in the IIO subsystem we
-> deal with a lot of runtime PM stuff).
+On Wed, Nov 11, 2026 at 05:10:54PM +0100, Frederic Weisbecker wrote:
 
-Makes sense, there is value in this info.
+> > diff --git a/kernel/softirq.c b/kernel/softirq.c
+> > index 7fc2200392cd..e7d649c29c0c 100644
+> > --- a/kernel/softirq.c
+> > +++ b/kernel/softirq.c
+> > @@ -738,8 +738,16 @@ static inline void tick_irq_exit(void)
+> >  #ifdef CONFIG_NO_HZ_COMMON
+> >  	int cpu = smp_processor_id();
+> >  
+> > -	/* Make sure that timer wheel updates are propagated */
+> > -	if ((sched_core_idle_cpu(cpu) && !need_resched()) || tick_nohz_full_cpu(cpu)) {
+> > +	/*
+> > +	 * Make sure that timer wheel updates are propagated. An interrupted
+> > +	 * idle loop counts as idle even with runnable tasks queued on the
+> > +	 * CPU: forced idle under core scheduling, and the tasks sched_ext
+> > +	 * keeps on a CPU's run queue while its BPF scheduler holds them back.
+> > +	 * idle_cpu() would skip the idle bookkeeping of tick_nohz_irq_exit()
+> > +	 * for those, and with an unstable sched_clock the CPU's clock then
+> > +	 * isn't resynchronized when it leaves the idle loop.
+> > +	 */
+> > +	if ((is_idle_task(current) && !need_resched()) || tick_nohz_full_cpu(cpu)) {
+> >  		if (hardirq_count() == HARDIRQ_OFFSET)
+> >  			tick_nohz_irq_exit();
+> 
+> Works for me, but Peter might find something I haven't.
+> 
+> Acked-by: Frederic Weisbecker <frederic@kernel.org>
 
-> > And is there a reason the stats need to be surfaced in both sysfs and d=
-ebugfs?
->
-> sysfs definitely, as you should definitely be able to access this info
-> per-device (and this is the way userspace tools would get this info).
-
-Is there already a userspace user of these sysfs nodes?
-
-Adding these five sysfs nodes would easily create 10k+ new sysfs nodes
-(a typical Android device can easily have 2k+ devices). Most userspace
-apps would iterate through every possible node, meaning this would be
-an inconsistent snapshot across the 10k+ syscalls, in addition to
-being inefficient.
-
-These sysfs nodes would have a boot time impact, a non-negligible
-memory impact, and constitute a permanent ABI.
-
-> The debugfs summary is however pretty elegant IMO and useful. I'm sure a =
-lot
-> of people investigating odd device behaviour would like this (plus there
-> are overviews like this in the kernel already - clk_summary for example).
-
-The debugfs addition makes more sense IMO. It filters with
-pm_runtime_enabled() instead of presenting every device, and the
-spinlock at least keeps the view of each device consistent. It's also
-more flexible without the ABI guarantee.
+I looked at the previous version and didn't spot anything more than a
+case missed in the verbiage passed around as Changelog. I think I'll
+queue this thing, its simple enough, ableit the changelog is a chore to
+read.
