@@ -1,63 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.113
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.135
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794379833;
-	b=jrsEv5lwot8X4YUumM5OiPl+QlwybpTJs+7ArP0OrvhSK5GZXke8/IM3KpSNuL8ffffZ
-	 xT6z0A8YG5UAv0UbmbOu5kKqzKb2SSVSLWXM7m01koVKtWEpNgV/6Wj+q3rbmoVbUUtPM
-	 U8TshpWsE+Br3pWsLc1ny531KN5Qdp8CVJLI9i2uw3sZJLEXYZnYjpR2L5jLrtu/LEJ4e
-	 oraRDLDtzuyEGJBA3xcmhyMLpJT4y6ODavyY7LIwzaZ0+DThsybl4YDa+POTpuCUr1ak1
-	 aPQh6yXZnGf4JhZidJsMvn8jkV4U1JPjVmQwcFIB4MOKqCT9oSBp/PTwleILw5ymZfQ==
+	t=1794379841;
+	b=4loCDooBOW0U8WYj+OuX+tFqA9PlKpV01IdtfED9dI+FMeD5mBvgsS6AKkEM6spldf1y
+	 lE7XjSHZhgJOf9piwzwYuDaN0boR3J7MHeYI+7vZIbfeOJZagy7qzIdjwmvVyIdR6BEXV
+	 h/1U0/kqifQt99LJlrTg+KJeGBtYB3c9CPVSCA3KU3RApUUyF1+qEAud9s8xfpnO1XFQb
+	 AD4iVwobr/2cFJoiZ2ugKs4uy+1Fgl3CBuYlnIB1BzHqfwY7JcTe5XYPoggzUCJ3LGm0t
+	 Jnu41q38WvlEt5CbPoKdpDvqsCoaOJWH8/dJ/Qf/v2K37fHWdI5p/1NRZmBgB+Du6vg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794379833;
-	h=DMARC-Filter:DKIM-Signature:Content-Transfer-Encoding:Content-Type:
-	 X-Lms-Return-Path:To:From:Subject:Date:X-Original-From:User-Agent:
-	 In-Reply-To:Cc:Message-Id:Mime-Version:References;
-	bh=Kj1qT7xH8KbzLy1DvoEj1CIR3+rqk8hL80hQOakjzyQ=;
-	b=e/4aYTO66+TPkVXnwnOzQQUfsH2VQ4//9gbYLOWmiWiON09q0sExFFM8mgeAcFNYYMs7
-	 xFBCJIXR+CRsCZfUxO+Mg24fOREE6jd7zY8J1+wqKqG2VnCGx4bFbdDLST8mXfa3YNhGO
-	 AwbaJOcG0HbakjjAyqqaCghNp6KftcR1KzAIoWryxu4XftRuPYrm8AhKdTk/SxK4br7cd
-	 DrtHTNMkSQe18i6ec5tM5qO8eosgRMtQGQG+KYRqm14SAkWHxXlgk67eSIz7uV0l/1dQb
-	 pig8G+3FK6uc9mE8M/YXFj8R4fdJ7afg6/ZD48kgbQwGHszFY3uOQ3OpxK0u8kcnKVg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794379841;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=hnlG4i0jRfr6FtmkmVyNsdb+r7DVPqanS2R4csL1Vg8=;
+	b=KUicrHJylJRy/dy0YSs7lzkeS1uMVkXvmSA3H4W3BrJOH+NaWiXIDwgmLkf6bcn4ohQi
+	 3ufcL2hlqmzCAU0cbzjEIzXrSiZnCPgqLmYCF/21U71rh3HWvAfpr5JwL/bafa5UMUBks
+	 cK0nVk6oUgjkus/b7DAbrqEQMk6IJTKHtS2R8ieXKmlUQBCfsbK6ccJK7ZBrm8f3A/WQ4
+	 rMS/I2wuN5Ub/O6IUBJb6Nvag2iXfPnPFGd9jWqiuAiPs2I8J+xseS39IyHBwWnXOWZzq
+	 d0XRao6gKj6hcFi5rKt2wBS5VE05+ZWYueFNG2QDxC68fi9S7l2nkIfPOw1aUsbCiRA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bytedance.com;
-	spf=pass smtp.mailfrom=bytedance.com;
-	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=lVgzjNlx;
-	arc=none smtp.remote-ip=209.127.230.113
-Received: from va-1-113.ptr.blmpb.com (va-1-113.ptr.blmpb.com [209.127.230.113])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 985E6606A32E
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 06:50:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 985E6606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=rTbMt+eM;
+	arc=none smtp.remote-ip=111.22.67.135
+Received: from cmccmta2.chinamobile.com (cmccmta2.chinamobile.com [111.22.67.135])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 13439606A31C;
+	Wed, 11 Nov 2026 06:50:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 13439606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=lVgzjNlx
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1794379823; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=Kj1qT7xH8KbzLy1DvoEj1CIR3+rqk8hL80hQOakjzyQ=;
- b=lVgzjNlxC0tldr/JJeoiDkcEdSM7j8o/kzT08ZaQaxf2ITVnQqFJPBMrY+A9JVC65x4FTm
- e3d2ctbXKPjwv+pf0YVgtmOmJXR3gzQBKtBTnLeZHf47UeiNR2s8ZFjWaO8o48jTohxV9M
- 36F+9Lryoq+GrfR+ZYvKz6CddNzh9nKUrojdUJMAg/p6hePxL6R2SwANeJ9Qf2WqcUZ0ck
- c2im54Pkj0kEhQ3DM01/3R8I1AbSsDPGYwnxP7vK+Kn9DnfgIDlLG3OcEAZhlfLdacTU+k
- TptAhgVAkcn/BpGO6/1ESxOaWf7BXokH0yyiMb/R7IoWzNYA1c1CWl3U+3tn4w==
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset=UTF-8
-X-Lms-Return-Path: <lba+26af4102d+3975ae+vger.kernel.org+qirui.001@bytedance.com>
-To: "Catalin Marinas" <catalin.marinas@arm.com>
-From: "Rui Qi" <qirui.001@bytedance.com>
-Subject: Re: [PATCH 3/3] arm64: module: Use text-poke for late PLT/veneer emission
-Date: Wed, 11 Nov 2026 14:50:05 +0800
-X-Original-From: Rui Qi <qirui.001@bytedance.com>
-User-Agent: Mozilla Thunderbird
-In-Reply-To: <auoXmvKObg3IWWTD@arm.com>
-Cc: <will@kernel.org>, <mark.rutland@arm.com>, <ardb@kernel.org>, 
-	<song@kernel.org>, <dylanbhatch@google.com>, 
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>, 
-	<stable@vger.kernel.org>
-Message-Id: <f1f27a57-70e8-452a-9528-0af9b4247514@bytedance.com>
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=rTbMt+eM
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=rTbMt+eM4cqxphsiDi/cu2uyyEXk2h34B5eEmvRR016FIg+OxjJJOBz1P5inzcx3qLFNDT04/5fxm
+	 tDHwT90PhVh41fb6NbF0HIhD2mNfT6zX7/iYLFo+wKj6qpfEilgGxwKzAH7seqXFVD0oYt6AxlufE/
+	 iQ/tF6FmfUnGH020=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app03-12003 (RichMail) with SMTP id 2ee36af40fdcccc-a1516;
+	Wed, 11 Nov 2026 14:49:01 +0800 (CST)
+X-RM-TRANSID:2ee36af40fdcccc-a1516
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from devin-VMware-Virtual-Platform.localdomain (unknown[10.55.1.72])
+	by rmsmtp-syy-appsvr10-12010 (RichMail) with SMTP id 2eea6af40fdb861-d1a52;
+	Wed, 11 Nov 2026 14:49:01 +0800 (CST)
+X-RM-TRANSID:2eea6af40fdb861-d1a52
+From: Zhu Jun <zhujun2@cmss.chinamobile.com>
+To: linux@roeck-us.net
+Cc: linux-hwmon@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Zhu Jun <zhujun2@cmss.chinamobile.com>
+Subject: [PATCH] hwmon: (w83627hf) Clamp VRM9 voltage limits before subtracting
+Date: Wed, 11 Nov 2026 14:48:59 +0800
+Message-ID: <20261111064900.17338-1-zhujun2@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.51.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,63 +67,46 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261010084721.2197683-1-qirui.001@bytedance.com> <20261010085055.2200241-1-qirui.001@bytedance.com> <20261010085055.2200241-2-qirui.001@bytedance.com> <auoXmvKObg3IWWTD@arm.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On 11/4/26 1:19 AM, Catalin Marinas wrote:
-> On Sat, Oct 10, 2026 at 04:50:55PM +0800, Rui Qi wrote:
->> diff --git a/arch/arm64/kernel/module-plts.c b/arch/arm64/kernel/module-plts.c
->> index 7afd370da9f4..fa89ed014bd1 100644
->> --- a/arch/arm64/kernel/module-plts.c
->> +++ b/arch/arm64/kernel/module-plts.c
->> @@ -9,6 +9,29 @@
->>  #include <linux/module.h>
->>  #include <linux/moduleloader.h>
->>  #include <linux/sort.h>
->> +#include <linux/text-patching.h>
->> +
->> +/*
->> + * The .plt section is marked ROX once the module is fully formed, so
->> + * late (livepatch) relocations that emit PLT entries cannot use direct
->> + * assignment.  Mirror WRITE_PLACE() and route the write through the
->> + * text-poke API when the module is already loaded.
->> + *
->> + * Return: 0 on success, -EINVAL if the text-poke write failed.
->> + */
->> +static int plt_entry_write(struct plt_entry *plt,
->> +			   struct plt_entry *entry, struct module *mod)
->> +{
->> +	if (mod->state == MODULE_STATE_UNFORMED) {
->> +		*plt = *entry;
->> +		return 0;
->> +	}
->> +
->> +	if (!aarch64_insn_copy(plt, entry, sizeof(*plt)))
->> +		return -EINVAL;
->> +
->> +	return 0;
->> +}
-> 
-> As your comment says, this is fairly similar to WRITE_PLACE(). Can we
-> have a single macro that's used in both places (and maybe give it an
-> arm64 specific name if it ends up in a header)?
-> 
-> Also do we need the !NULL check? plt and entry should be 4-byte aligned
-> already, so it's an unnecessary check. WRITE_PLACE() doesn't do this
-> either.
-> 
+The VRM9 limit conversion subtracts the 700 mV offset from an unsigned
+value before clamping. Writing zero to in0_min or in0_max therefore
+selects register 255 instead of zero. Multiplication can also wrap for
+large inputs.
 
-Hi Catalin,
-Agreed on both points, and they interact nicely -- unifying the two
-removes the redundant NULL check as a side effect.
-On the NULL check: aarch64_insn_copy() returns NULL only when its dst
-is not 4-byte aligned -- that alignment check is the sole failure path,
-since __text_poke() always returns addr. &plt[i] is a struct plt_entry
-made of __le32 fields in the .plt array, so it is always 4-byte aligned
-and the check guards a condition that cannot occur. WRITE_PLACE() omits
-the check for the same reason.
-On unification: I moved WRITE_PLACE() into a shared header (asm/module.h,
-where struct plt_entry already lives), gave it a module_-prefixed name,
-and have module-plts.c use it directly. That drops the plt_entry_write()
-helper and its error-return path entirely.
-Addressed in v2.
+Bound the input before applying the VRM9 conversion. The chosen bounds
+cover the full register range and keep the arithmetic within range.
+
+Fixes: 1da177e4c3f41 ("Linux-2.6.12-rc2")
+Signed-off-by: Zhu Jun <zhujun2@cmss.chinamobile.com>
+---
+ drivers/hwmon/w83627hf.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/hwmon/w83627hf.c b/drivers/hwmon/w83627hf.c
+index a26f4cdfb8e2..3ebb41db5033 100644
+--- a/drivers/hwmon/w83627hf.c
++++ b/drivers/hwmon/w83627hf.c
+@@ -853,7 +853,7 @@ static ssize_t in0_min_store(struct device *dev,
+ 
+ 		/* use VRM9 calculation */
+ 		data->in_min[0] =
+-			clamp_val(((val * 100) - 70000 + 244) / 488, 0, 255);
++			clamp_val((clamp_val(val, 700, 2000) * 100 - 70000 + 244) / 488, 0, 255);
+ 	else
+ 		/* use VRM8 (standard) calculation */
+ 		data->in_min[0] = IN_TO_REG(val);
+@@ -892,7 +892,7 @@ static ssize_t in0_max_store(struct device *dev,
+ 		
+ 		/* use VRM9 calculation */
+ 		data->in_max[0] =
+-			clamp_val(((val * 100) - 70000 + 244) / 488, 0, 255);
++			clamp_val((clamp_val(val, 700, 2000) * 100 - 70000 + 244) / 488, 0, 255);
+ 	else
+ 		/* use VRM8 (standard) calculation */
+ 		data->in_max[0] = IN_TO_REG(val);
+-- 
+2.51.0
+
+
