@@ -1,64 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794400803;
-	b=gEyREl+QKmm9qo4V6AKAcdDvrPswGWOqlZzmBP4u+ikpxVBMyS6shg9CEhEMzwm2UP96
-	 mK4zLHhlM58Tp6UnEQ69gQ1gvHCgT0gfP/oFK2GK7Li+x9cK3L7Voj6PH/l9r0Rz240tu
-	 O/IDTdCA4zkvAwXNeB2Vu4LurzNGnEIfQWeCQMvmj7OUj+BPcrdFaBY/eGtLjz5Uy56/O
-	 dqMI3X5j0eqdGyKKbfVmEpy0MtLnV9gZOO48d2jVTuWqW7ui4vFVn5RW50nFDDmg8jijB
-	 82qhHhk32QZQwQL6YKGptDM1KLOd/czVHM+HYhBpsxg/6m/y+pyvzVqqTwLsvtZS5jg==
+	t=1794400813;
+	b=bqvfPL3csNiG1bncDbRhZ3rTHKsqi0bGGzhCSOnhspI0QwXCR3K2/+jg2JAQ0ko+U7S2
+	 zQ5/pa+Sj3NsGA60jFHoNBxrThWMPPC2SsQyWMA5eBHgrI5/WUvplmGCez/q1FDRgIyLE
+	 6noKKDp5hm1tbAi5AABilFuJHJYWLnMJ8vgiDIvIARyM70+4hEeTLZ4qvPiwqa9g1Di8H
+	 9gSGRVGU/Nf8i/a7HGahkAD816sdLMSJGuOkbbJ4yh06ZJSYzs+ULorfZ6D4BzVbS7AI9
+	 ULu3IpaM5PlBvls84ZM40+jD7vxGP8qY0KJLKAhOUGcyx/FHNU5VOQw5eF9v5d3UWXw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794400803;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=edaELw1AlTqC7iqRTi5ns1dhzRr1Rv3VqoRIG0vbW60=;
-	b=MhsR8KFRe9hn9D1sRmWossHkFxCByFa3qiKFS/Gv92YEJY3GS8G6t+tuoA0NIxy3oMqt
-	 iYL3xsmD/zivZrwyjU78JToO7isk5tXI4fn3b1RgDHJLGhFwIbgVOvgho8x06Qtu6yWQ0
-	 v2YnluMn/6Qggi6GiVoPL2V+CXPcLLZMnDj7xii7YR5T3Qr4suXsnlw3OwbHoRQdbfyPy
-	 3LudXAa2TeMpZ/RVASwFKrRXUWQmKdutPIY1sI8oY7XANdtNc1DWo1ZG4iv++c2PN+f1P
-	 lXoAvu1czSu8jRArSg0T5/1L3mq5TQ1UXiYpoJrohnLvJTmfSSGuU5NqvruttGVyRaw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794400813;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=qgplpSXFt9kNZV/HSecSD7mDG6E06HWpXDTh4/+g358=;
+	b=EnjJeHVuCzCMFsume7IKL8RHCa/hU6QIF/oGMP1nzs8X5gdTvZHqDByHc6nkJ5W7MaJf
+	 5lDzS/oEqPJI3L0Pd5w/N0sjGHK24b+AcigY3n4RnzSKIMTLGLvNbFGvV2lSqYhNaLFhP
+	 j2bjyUxEujiJnOs2KM/EPxHjA+4ianVFI7owEJHigYiF5XxS5cl9XymI5G0SBRlreeWpI
+	 +EhdJ3vKQ+zB7zsT3dSEpBZFuzKd7AspoEZn1pOQArkGBFROAQw6xsbzpPva9GK5pDQiO
+	 kOI9wt5gRDMZYWCRCICI1Vl+uNPaLFI/6KYpXoCLsIBRPLn6o7JSvDLJ6hCH+YYJqMw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=DrOPq8eJ;
-	arc=none smtp.remote-ip=115.124.30.101
-Received: from out30-101.freemail.mail.aliyun.com (out30-101.freemail.mail.aliyun.com [115.124.30.101])
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b="i/OUSg5+";
+	arc=none smtp.remote-ip=90.155.50.34
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C2F8606A31C;
-	Wed, 11 Nov 2026 12:40:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C2F8606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E643F606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 12:40:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E643F606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=DrOPq8eJ
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1794400791; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=edaELw1AlTqC7iqRTi5ns1dhzRr1Rv3VqoRIG0vbW60=;
-	b=DrOPq8eJBopDVX9sZ1TB21Nwe3BIBi+W6pN5OtyQmZVnclHGiYkNTmNa6rzbTkTFQ8PszAMWIjwiHMmmPfxPVYUzHejfwuQ5ZXbAn61EihYf98pI+7fGKwidgTes+G9yTm+MYcvqx7Q9/L7f6h7CnmYssKR9QCsab6t3WVSJ6AA=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R361e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=xiangzao@linux.alibaba.com;NM=1;PH=DS;RN=12;SR=0;TI=SMTPD_---0XEYtvFV_1794400783;
-Received: from banye.tbsite.net(mailfrom:xiangzao@linux.alibaba.com fp:SMTPD_---0XEYtvFV_1794400783 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Wed, 11 Nov 2026 20:39:50 +0800
-From: Yuanhe Shu <xiangzao@linux.alibaba.com>
-To: jarkko@kernel.org,
-	dave.hansen@linux.intel.com,
-	tglx@kernel.org,
-	mingo@redhat.com,
-	bp@alien8.de,
-	hpa@zytor.com
-Cc: x86@kernel.org,
-	linux-sgx@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	kexec@lists.infradead.org,
-	challvy.tee@gmail.com,
-	xiangzao@linux.alibaba.com
-Subject: [PATCH] x86/sgx: Skip EPC initialization in the kdump kernel
-Date: Wed, 11 Nov 2026 20:39:42 +0800
-Message-ID: <20261111123942.3842771-1-xiangzao@linux.alibaba.com>
-X-Mailer: git-send-email 2.43.7
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=i/OUSg5+
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=qgplpSXFt9kNZV/HSecSD7mDG6E06HWpXDTh4/+g358=; b=i/OUSg5+TWZLA3ta+dWabCdJVi
+	jY05z81FkSAAcSbMoB29HH0MA37UEyYshhkkQgNWPlCbrxAb/v4xM4M/M1SDmLsCBIDKayH18b/7i
+	U+sIAp+35gY2bayXcIthW38UCXVTVqbbmebLp1h+CMkep3t2A5U2Y/utsr5bZ+C+xVZIqYRvtZJ0l
+	zDBoSXGAoD+cGGObD8w9k7oHYQdD0uFAcVoF92iCT68qZ7MQ+Bgotwsz6iA2UdzP4CHb1K6Q7jfMb
+	11YO7tO3KrUSX488TbUxn0euCie3ZRlbCNgHtPYZk5+rKUocYl9xcNPQJrHDeDbP619XQNF45ObDQ
+	ZiYmtjGw==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xR7cV-00000009pUo-101v;
+	Wed, 11 Nov 2026 12:40:07 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id C10C8300969; Wed, 11 Nov 2026 13:40:06 +0100 (CET)
+Date: Wed, 11 Nov 2026 13:40:06 +0100
+From: Peter Zijlstra <peterz@infradead.org>
+To: Shivank Garg <shivankg@amd.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Ankur Arora <ankur.a.arora@oracle.com>,
+	Pedro Falcato <pfalcato@suse.de>, Borislav Petkov <bp@alien8.de>,
+	Bharata B Rao <bharata@amd.com>,
+	Hrushikesh Salunke <hsalunke@amd.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>, x86@kernel.org,
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] mm/memory: drop PROCESS_PAGES_NON_PREEMPT_BATCH
+Message-ID: <20261111124006.GI2668564@noisy.programming.kicks-ass.net>
+References: <20261109-clear-pages-batch-v3-1-6693efe18dff@amd.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,55 +78,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261109-clear-pages-batch-v3-1-6693efe18dff@amd.com>
 
-The kdump capture kernel cannot use SGX: EPC memory is e820-reserved,
-so it is not part of the crash dump, and no enclave will ever run
-during dump capture.  Yet sgx_init() runs unconditionally and pays the
-full EPC bookkeeping: sgx_setup_epc_section() allocates one struct
-sgx_epc_page (32 bytes) per 4K EPC page, i.e. EPC/128, plus a memremap
-of the whole EPC range.
+On Mon, Nov 09, 2026 at 07:15:51PM +0000, Shivank Garg wrote:
+>  static void clear_contig_highpages(struct page *page, unsigned long addr,
+> +		unsigned int nr_pages)
+>  {
+> +	unsigned int i;
+> +
+> +	might_sleep();
+> +
+>  	/*
+>  	 * When clearing we want to operate on the largest extent possible to
+>  	 * allow for architecture specific extent based optimizations.
+>  	 *
+> +	 * clear_user_highpages() (and primitives clear_user_pages(),
+> +	 * clear_pages()) do not call cond_resched(). That is fine on
+> +	 * preemptible kernels, where the scheduler can preempt the clearing
+> +	 * at any point, so clear the whole range at once. Otherwise, clear
+> +	 * one page at a time and reschedule in between.
+>  	 */
+> +	if (IS_ENABLED(CONFIG_PREEMPTION)) {
+> +		clear_user_highpages(page, addr, nr_pages);
+> +		return;
+> +	}
+>  
+> +	for (i = 0; i < nr_pages; i++) {
 
-The capture kernel has no memory other than the crashkernel
-reservation.  On a VM with 15.5G EPC the bookkeeping alone costs
-124 MB of vmalloc - nearly half of the stock crashkernel=256M -
-and the cost scales with EPC size, not RAM.
+FWIW one could do:
 
-That is enough to break kdump outright: with the default 256M the
-capture kernel OOMs in early userspace (udevadm and journald are killed
-before the root device is enumerated) and no vmcore is produced, while
-512M works.  With this change the same 256M reservation captures a
-complete vmcore; SGX initializes as usual on normal boots.
+	for (int i = 0; i < nr_pages; i++) {
 
-Reported-by: Challvy Tee <challvy.tee@gmail.com>
-Signed-off-by: Yuanhe Shu <xiangzao@linux.alibaba.com>
----
- arch/x86/kernel/cpu/sgx/main.c | 5 +++++
- 1 file changed, 5 insertions(+)
+and forgo the earlier variable declaration.
 
-diff --git a/arch/x86/kernel/cpu/sgx/main.c b/arch/x86/kernel/cpu/sgx/main.c
-index 4505f808af5e..5454cd3c976f 100644
---- a/arch/x86/kernel/cpu/sgx/main.c
-+++ b/arch/x86/kernel/cpu/sgx/main.c
-@@ -1,6 +1,7 @@
- // SPDX-License-Identifier: GPL-2.0
- /*  Copyright(c) 2016-20 Intel Corporation. */
- 
-+#include <linux/crash_dump.h>
- #include <linux/file.h>
- #include <linux/freezer.h>
- #include <linux/highmem.h>
-@@ -1027,6 +1028,10 @@ static int __init sgx_init(void)
- 	int ret;
- 	int i;
- 
-+	/* The kdump kernel has no use for SGX.  Skip it. */
-+	if (is_kdump_kernel())
-+		return -ENODEV;
-+
- 	if (!cpu_feature_enabled(X86_FEATURE_SGX))
- 		return -ENODEV;
- 
--- 
-2.43.7
-
+>  		cond_resched();
+> +		clear_user_highpage(page + i, addr + i * PAGE_SIZE);
+>  	}
+>  }
