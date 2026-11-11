@@ -1,65 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794426588;
-	b=3PntGXyv+fhKg8ZcoX9T6NVjRdBeLc4MWOkNtg+fSjqLis7QXEq8WB1RRVq7urbgFLoD
-	 lpiQAbddubqS+q5cOYBZFgHGU+069m/JG01nau/DWIpUu61WOy1fXQf2O1/874I6cYV70
-	 /RtWCcm44GPeHfkZU2LH9me1tu2P+8rO+EW71jAnbhi/4Wmwi4cKRMpO/ZcyUW3D35V4I
-	 KU3lVS9CRQ+BtxWEtbOQpFXh5QK8hoQzL2a6bcBgFtRgYkaEWX24dinH1gZu8hmGZJuJ4
-	 VnnDjYZIgLtpF+r6mmBePYaiGgljlB5dK/9WV3K+VfsYnATqPe9a0YwBFiQnURGwnnQ==
+	t=1794426632;
+	b=39z0Eye2U5MsspP6g0/Eq3iA2HZq2N44uRxL4BearjfKZLDGh4z+aBym9LZu1vegk0LJ
+	 YpgAGYLuagBrPIVY0h3HReCdMx5z78CmdUfoKjqJR3Vus9NGJoD9JG8uastNvPEwmeUuI
+	 DtJXx8LSJaaZAbO7CFMCyuifuCh3eRNG2E9OTNn/oCsEkjP25i2PNxLd6TmVOtGF/zuQR
+	 HT8uB/aI68SsRmtTGuYza6Ra9/VqD1NS+2YEzxMDzW6w0aezVyYl9g6KnLsRC+Rl7P4SV
+	 uoumVWOLydYFD3rfA28oA8DH4LoA8hfnNhkAEvTJ+fD7HMOvYX+iSBkjLX+/KZaV5Uw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794426588;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=zrvPkJULyEyiiTV7s5r2ZxB5yrxXRBtYdQX97+mN3Qw=;
-	b=ZDPN3C1gca8l7S4fRG++1oOAf3TOoqQN3mshQFWUKXXc6WcLm9IM3GsDIKS8fzEYLQW6
-	 XJGs1dvfcvuYuqI1Q4AYRf6iIjupaqf/BN4+XPGJjkLltAkHag6L8ldfWirTXXLKfT3j5
-	 LFP4QfuVpZrg8LC4myuCKujmSVYjUv8lurOuZuUbTAPvfhWQa64O5PZvIp6ZLxluE3osu
-	 XLj8TlC6lIvmkrYBYNGAxoyEIKXBYj1cThBaW7feccuD+3h2U6qwWWsWdkZUzQCXWaQdc
-	 W2wot4d5uxZTHjyCDV7T9umD+A2oF7FON0VHgzx4AO0sENh1ic81pULGIU1O8bXNrqQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794426632;
+	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
+	 Reply-To:References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=L3UVurAsGYKzoZpueYiC1v8hle2LfnSk0xkR20EDL5c=;
+	b=gussfwtfxD5QL7TcaTmx+/2eYy3rxvF+8WpsFVG0vDAaBabpAsM3oOypSDTi6vKKxtCh
+	 yJhROMTWDwj3RJPFX9emnfJjpG4aGrIOGIBTCDq0OklN8u6XJwoISH7UnOlKNBAXfHyzP
+	 uF9JVEpqqNdC0KZ/amg5Zsa/Zh+Z7K6ougOhcpZj34h5p7fmV2sFBJvFKPcjr+48BvaB5
+	 0YzRk4hSJnpQ03QwlD6qunI/NB7TrkSkUicwo8De0ZSdv0ZNIF8mhgo4FZtjOVdhT3mNe
+	 9nXYbnw5Iy4AdjTU9JUH28gqXXFFbUIE3au5SH/VPss9hFJF9o1PQs+9n6hx7v7QyGA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=Avl+JJgH;
-	arc=none smtp.remote-ip=198.137.202.133
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hDEUXvhu;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C91E606A31C;
-	Wed, 11 Nov 2026 19:49:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C91E606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96A22606A31C;
+	Wed, 11 Nov 2026 19:50:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=Avl+JJgH
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
-	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=zrvPkJULyEyiiTV7s5r2ZxB5yrxXRBtYdQX97+mN3Qw=; b=Avl+JJgHnfZt5VxJgZOf12120G
-	P1BzDPzgqQruxE1dTjcEezmt45xaOjJNw/FXIl94c6SOcW+WFg2gXY8/SSm6BY3jQckDwyVcwbGSy
-	/5Vk85yvw93AjywByPWi8S05ojcDoGBj1Sx7Y+NdRdW6uuNXeCGMA7ltQVNjSyKoLpEqoD7gtxqFv
-	y+DkEDepySNk9YjNdBPwxmlP7KRwfsx6TrrcqVtQDO9urYOHNRyhfNxJDtJDGRH1ZDC0g6qaBUGQn
-	riwWO/ZaZpWqn79A327n5cHZEtTwEdYDB4aFcaBGyRdR+6BeXKInaY6qSD2HGVmxLJBMxyyVnTAsL
-	LkqDOFtg==;
-Received: from [38.23.173.23] (helo=localhost)
-	by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xREKJ-00000007ZIj-0Mya;
-	Wed, 11 Nov 2026 19:49:47 +0000
-Date: Wed, 11 Nov 2026 14:49:44 -0500
-From: "Liam R. Howlett" <liam@infradead.org>
-To: Hongfu Li <hongfu.li@linux.dev>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>, 
-	linux-mm@kvack.org, linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Hongfu Li <lihongfu@kylinos.cn>
-Subject: Re: [PATCH] selftests/mm: mlock2-tests: fix fclose(NULL) in
- is_vmflag_set()
-Message-ID: <t4vjvdkdvmqcagvhw7z3p2x67p3iopcjqllrapwrzd7qyothb4@un6bq6otzb7w>
-References: <20261104-for-mlock2-v1-1-57e6dd74c2bd@kylinos.cn>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hDEUXvhu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F37E1F00A05;
+	Wed, 11 Nov 2026 19:50:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794426632;
+	bh=L3UVurAsGYKzoZpueYiC1v8hle2LfnSk0xkR20EDL5c=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=hDEUXvhu4EiG9gHrrFHayF1Rf8sUJ3aTyrhxV1YGCVhClwaBkLX3KjjfjLhN7aTTW
+	 XaMRzi8Z4fubV+oFAeJKsECDQA9qFPhXU54X2wVN+p/nxkQopUcTqBBKh8veBuXT8q
+	 5z4Kp3Ed1HVpYl8N8q2IT0dtGQHFrxZHcCpbFoMuA5d6ZbT7w/6UPuq3U5V0ysvJ3d
+	 5BdKxKmo2kERri2onCxpGpZJxI75maEOPDwPKHMuCRIHIQ7GLLuq8O9bS7iTWk9l62
+	 SMQ3Lvdaxj0J0aee7cgADUtHC+xFrqRAMCXG9HDfQNypbdFEFUadQLk13dPk9N2oAN
+	 STsJsfIQUxUZQ==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id 38E82CE08D1; Wed, 11 Nov 2026 11:50:32 -0800 (PST)
+Date: Wed, 11 Nov 2026 11:50:32 -0800
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Cc: David Woodhouse <dwmw2@infradead.org>, linux-kernel@vger.kernel.org,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
+	Joel Fernandes <joelagnelf@nvidia.com>,
+	Josh Triplett <josh@joshtriplett.org>,
+	Boqun Feng <boqun@kernel.org>, Uladzislau Rezki <urezki@gmail.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Lai Jiangshan <jiangshanlai@gmail.com>,
+	Zqiang <qiang.zhang@linux.dev>, Davidlohr Bueso <dave@stgolabs.net>,
+	Kunwu Chan <kunwu.chan@gmail.com>,
+	Puranjay Mohan <puranjay@kernel.org>, rcu@vger.kernel.org
+Subject: Re: [PATCH v2 0/7] srcu: NMI-safe atomic SRCU readers, and their
+ irqsave forms
+Message-ID: <5f4c0d2c-5abb-4aa5-9332-dc3da315cc76@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <20261111145949.70845-1-mathieu.desnoyers@efficios.com>
+ <50d177ddb1de4b84e9fd2cbd2ec5bdb7e32845d4.camel@infradead.org>
+ <0782c3e7-9766-440c-b21e-e89b822927ee@efficios.com>
+ <a8b4f18d81397124690a567b6a42da83ef2bc757.camel@infradead.org>
+ <5edbc292-0004-43b7-9371-c3695afd9128@efficios.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,53 +74,32 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <20261104-for-mlock2-v1-1-57e6dd74c2bd@kylinos.cn>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <5edbc292-0004-43b7-9371-c3695afd9128@efficios.com>
 
-On 26/11/04 04:49PM, Hongfu Li wrote:
-> From: Hongfu Li <lihongfu@kylinos.cn>
+On Wed, Nov 11, 2026 at 02:40:36PM -0500, Mathieu Desnoyers wrote:
+> On 2026-11-11 14:37, David Woodhouse wrote:
+> > On Wed, 2026-11-11 at 14:33 -0500, Mathieu Desnoyers wrote:
+> > > On 2026-11-11 14:02, David Woodhouse wrote:
+> > > > The latter claim is only true in __srcu_read_lock_fast()/_fast_updown()
+> > > > isn't it? Not in the atomic-SRCU. Unless we do something like this on
+> > > > top?
+> > > 
+> > > It is true for the atomic readers as well.  Without
+> > > CONFIG_NEED_SRCU_NMI_SAFE, include/linux/srcu.h defines
+> > > __srcu_read_lock_nmisafe() as an inline that calls __srcu_read_lock(),
+> > > and the same for unlock.  So x86 keeps this_cpu_inc() and smp_mb().
+> > > Your diff selects the same functions by hand.
+> > > 
+> > > Only the architectures that select NEED_SRCU_NMI_SAFE get the atomic
+> > > increments.
+> > 
+> > You are lost in a twisty maze of helper functions, all alike...
 > 
-> is_vmflag_set() jumps to the shared 'out' label when
-> seek_to_smaps_entry() fails. smaps is NULL on that path, and the
-> code at the 'out' label calls fclose(smaps) unconditionally.
-> fclose(NULL) is undefined behaviour, so the test crashes before
-> it can report a test result.
-> 
-> Signed-off-by: Hongfu Li <lihongfu@kylinos.cn>
+> I guess I had the best mentor in that regard! ;-)
 
-The sending address should match the sign off.
+I resemble that remark!  ;-)
 
-
-> ---
->  tools/testing/selftests/mm/mlock2-tests.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/tools/testing/selftests/mm/mlock2-tests.c b/tools/testing/selftests/mm/mlock2-tests.c
-> index 144b550813a6..85e6cd24515a 100644
-> --- a/tools/testing/selftests/mm/mlock2-tests.c
-> +++ b/tools/testing/selftests/mm/mlock2-tests.c
-> @@ -66,7 +66,7 @@ static bool is_vmflag_set(unsigned long addr, const char *vmflag)
->  	smaps = seek_to_smaps_entry(addr);
->  	if (!smaps) {
->  		ksft_print_msg("Unable to parse /proc/self/smaps\n");
-> -		goto out;
-> +		return false;
->  	}
-
-This looks better.
-
-The next function is also messy with the goto usage/ordering of
-unrolling and should probably be changed in the same way.
-
->  
->  	while (getline(&line, &size, smaps) > 0) {
-> 
-> ---
-> base-commit: 74d73ffcffe03804f97e9fb82301dadf75671282
-> change-id: 20261104-for-mlock2-a67f86dad498
-> 
-> Best regards,
-> --  
-> Hongfu Li <lihongfu@kylinos.cn>
-> 
+							Thanx, Paul
