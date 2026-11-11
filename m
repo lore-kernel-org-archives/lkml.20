@@ -1,79 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1794361737;
-	b=l+U4teiqH1ICh74kO7n+TWlOsg4fk/yavYONJCwVa5ox9NlLj6pX7zyiXEs0qjyeMS+o
-	 f7uNUpFs9THeiqioHvkVjTKINYv55Z30XTp/GIaqM81xiRbPF2slPKSv3+CdPi0PIHn/W
-	 0R9yNMVQb6KgSe4YCpXW2Cussznti+s5ww0whg/6dtpBHE/47Zu5x1ZR5HjSCJC1i9/T/
-	 RaoAlsLGT5b1MF6WhT6ZP8y8+xVVZC++aALX6TLlcBIxD8k1ZMBUsNNHTLQNickYYjdDQ
-	 ZD0V5nh8oRBQXQej1M/+ozcdrMM0qXaNe1zHWJmdnl1n1QsNFqJz9Q7Y4nI+yLx4CMQ==
+	b=e5TXi8fIw8Kqc68ayWB2fDp3aNZ6SZzDnW8CofU1lPAEJcag4QL3xOrbWY5F3UNB6Skg
+	 80FJHuYIb9oqfAYktJKJuyrDV876tRk3ElLGtWDfWrFmEAUVAybChTOPnKEf0TwWEB5EH
+	 RuKfUBiz8/LH+T+1DNEmYvwGXAJ6LsSGXD1mph2LPjS6jRth9HdIxJ4Xzne1R+fc4+T3B
+	 hTlrCsFghzuyzTQjnCxat/z438SukA2UewAzFNEMMRZxBf0MZlI8WtTonxdlcVzEOrTfv
+	 VD4AZduTeBBZ78Oj0veyYwjlCuR0/Xveo86qLaaIgJyqAitMZkIjc5og2lTVVaCX4Jg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794361737;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=rdK8pogkcDADwcKV/q341boHK0olYf2gsa/z6bYGdYk=;
-	b=ABQVBxCG9YcM5DTAkCDudH4uOoSzWcCMj/kcybUX5S+LN26uV3txlFH6vk+LJocJKQZ1
-	 EcYiGvh659ehtBdUPJfpUGvuzQ/DdL0uee0q4bg0u1NbYqe2Y7BH/JftISboqFn7gLh82
-	 qkZvRqxqJWsqTQxl93978yVYlnVLUh1xnW3WMP9mLm7uYPPU5sCHN8Gxy3BMI7xtfhH/F
-	 CFCbdGQ5bsg0/4vbJOJCmf0FOuz+bQwNQ6vy/BkFIjVKjjsN/guc1gbiW/e8xPX9k4W9w
-	 t4b2Mrnlr0sq7hS6XOqi748fdUMsGWp2HU+DH72K0MIi8lDmqZ6Hm8xOM9tcf9Uh04Q==
+	bh=33WJWI75AX3YWacDJW2bzE3Ity7fXYUwNoTbBEoJL7o=;
+	b=G/TEs5oMAVjpfS18Foc/RKzcFp8qAaiL2MONNbZ/k9vt98T3KWSp15q2GvP45QE9GAwT
+	 kt4QYS1sMkPN+OXu49xIzLHM6GOjILdlPgxa3V4YoBKNnG5xCJXJURZwfDYyTrjSF3AeA
+	 CVfXgDL/BLAJkL9jkfgJcPiZcARtOMaonxI68MpWFcvbCVNFqLedwUX1QB/HsQsIuR6Qc
+	 gdryonRPDLs2Ejt2kN6uTO8mFCl0pH8GqGD6R5jRZtwKRx83wlBJMTx5hiil33Bq5plYO
+	 rDHudO87YGk605dsOSxKkR0Ipt0Rxc56stOLAnd4KL9lAO8pLU+4T3fhkoJt8SKjy0A==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="F45mwB/D";
-	arc=fail smtp.remote-ip=100.103.45.18
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DjTJLgA+;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82C4D606A321;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82B9D606A31C;
 	Wed, 11 Nov 2026 01:48:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F45mwB/D
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DjTJLgA+
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1794361737;
-	b=iOKdR+OhPf1pfp3H4q5LEu//QU4Exzgai0C2fltBhtaXZ6016savzqIALCS5SsXj2+GF
-	 Z1Ir429myTbfOcdVMO5z5WLvRb7KBAaPeBlsewjYEZjg8DjVVEwztTYe41Jen+txfxoVy
-	 0Woyq6eqL7vUV9lLfRzJw3BYfKCK8EBYelPl8KAu0vJd0hCKFRmaopitOACzzlgy4mSz6
-	 JVUZOy4ny+3ny7uocT/RuGG/ih5hlPXQR+aH7yGtyV+BoizNfmLBD5IpVD+fQ/6ieRBQV
-	 B8dzf6GPAek4weJsCtnQ1rjSq2A4QJaHKOBTY2Ox/Cw6jpn595pla1WLlzmaVsifUww==
+	b=hxtEcRMm67qDgcXRy2hBozdOR2rsbnOQB2qgXMmdo01UOckobD8Iesw9tF1YrELVYYHi
+	 6bRTFDsN1j/2G+3FMWmYb5fS+OSG7fTiY9epYO2/NeK/2iriLasz9ZGfYdfgrtzURrrSQ
+	 Wy5PBVztrEZXg8m7YPB3buuKQ7QBOtUKEVtHOXOX/YRMzkC3gf+EoE5xfvNn15CJkdraE
+	 wy7fhgA4uu9t8mfEProJphrGCNsu/x9BDZ6GBx8Qn60BTRuJbHuDAc0Po0liZdg+lil1i
+	 cfpimW33BJNekRTza0YDaFt3AB3YiAicv6EafHIbZPuuAV8kdvvrI2I1e5G/yvUqRoA==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1794361737;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=rdK8pogkcDADwcKV/q341boHK0olYf2gsa/z6bYGdYk=;
-	b=HlBW+fCSkaKz0YunfIweDVDQw7CBpW7HIHJV+qiTAx7ChLAEe6+ZrvUoeHqC7gkUeTzm
-	 b6nhP1pgtBKOrWjrhXW7cwWlYRhWCHsDI0ECIsBYd8/mxhG3ZpqHZgpwMjymL0NQwUA/7
-	 Kt6qgYct841NFsq6ufddOF05Iko4SM5J7gPQTZSqxUujcfrlmG0+t7FfNlOS1+iC1fCbV
-	 IN5Ixc03OECo7UmUjGnyxmUA4gTXQ7CIiNsZzokLQDYKif5fzqaOj7FdMunP8230tsLx5
-	 a4S/x/8z8ON9g6Oxe/OoOS6pfwSaAkhRKrlUn1J0MHOcn4DmHsHyrIGWX8Shnjnd6Eg==
+	bh=33WJWI75AX3YWacDJW2bzE3Ity7fXYUwNoTbBEoJL7o=;
+	b=SqIpMUmN5Ubt6KB/SfTbWMCEhQdNZzzu2eG+HX0QqMZsc1ppRhn0TcMVBLzOUN/7OuP/
+	 0sU8q+Jh+1ufSdFNucFuQ9lgqmAMiLcJtw/1uAdccNWev7ru2MbkP0OOrcN8Kn2uK/Cag
+	 70dfzE7XdIKZt+UV0iNRj7R8NLcwbiw9LyulzXbf3J511PgthkhqSLmTYcaddQhXH70bW
+	 aVEy7M3ED7tns3bI4Tf/5ifjeKCYKFp6ZLko9CxZ8BdlIexjwv7XwJmqWpQQ32qFvGd1a
+	 +foGsTBAwWX0JEBSOPfRd380OIxeEYYi91QTMgHD2a1/yNM5qvRYRxcZft34n6G1Ykw==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 897D31F0093C;
+	by smtp.kernel.org (Postfix) with ESMTPS id 736EE1F0089F;
 	Wed, 11 Nov 2026 01:48:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1794361737;
-	bh=rdK8pogkcDADwcKV/q341boHK0olYf2gsa/z6bYGdYk=;
+	bh=33WJWI75AX3YWacDJW2bzE3Ity7fXYUwNoTbBEoJL7o=;
 	h=From:Date:Subject:To:Cc:Reply-To;
-	b=F45mwB/D6222erR43dR/hvQO7xVgLtA4JEP+uZ90jNrUntDIpPXbgc+/Zvp6ourWT
-	 brlzmyPgTEx9V6Rg3ONPl2YvPYJH4Wez9RNkpmOmrQSus+R50vqha5s/QAD0WOs15N
-	 4kYU7lUZahLXEgVO15cFZcq4iM4bLm+EoZECLf1VChr04LaEtfG3j6z/e9Ik+UOJSn
-	 R/tocHENAmLmotosNLFiGdTbKVKDQAX/TQjb3N3nHEF5NxKF3e4ZY7KNlOQrPI+pXD
-	 MkKMP6knBdeZl3qqC2VPuaUoMzcN0nopA27taZE7dTbSjRvrgi4ODH03PDGHjqkNYT
-	 LxptwQ1pFZmVg==
+	b=DjTJLgA+2iwpvBYpTUDBD8zNvU2wvqJXS/8sUN/RG9gpKEtn2V07wIWJde4n4h+/r
+	 HpmeNQDVyBi2DnnnpYnBNER2YJ7NYbE1/xLoQmP4mS2BN8q1XOH88PpOK0aLXfQ1gZ
+	 yW+U4Tr6FGz9aZ78FkV21uZc+fjoaKU0jNzigtVPswkh5ZQufxRSlMUxn4fo4tpSmN
+	 rUc+Fu8lMx80Wx7PtHLdzkDhTDhsaMPxEFO33cmSJJP0ELipU7rL6S0qlqKw+nEHn9
+	 ZrP9v4D69+yCDgWFZBaCFMwQLGXmoIUwyo2l5Ha5p/PSIs240qyR4ADjESfSjs6eKr
+	 AjVxbwHQ0i9DQ==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 1439648D0F;
-	Wed, 11 Nov 2026 01:48:56 +0000 (UTC)
-From: Hang Zhengyang via B4 Relay <devnull+hang.zhengyang1010.gmail.com@kernel.org>
-Date: Wed, 11 Nov 2026 09:48:50 +0800
-Subject: [PATCH v2] perf parse-events: Don't report unreadable tracepoint
- globs as unknown
+	by lkml.kernel.org (Postfix) with ESMTP id DFEBF48D0B;
+	Wed, 11 Nov 2026 01:48:55 +0000 (UTC)
+From: Charlie Jenkins via B4 Relay <devnull+charjenkins.tesla.com@kernel.org>
+Date: Tue, 10 Nov 2026 17:48:05 -0800
+Subject: [PATCH] scsi: ufs: exynos: Access HCI regs only while core_clk is
+ enabled
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,93 +84,108 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261111-tp-glob-errno-v2-1-ca45efb07d31@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3XMQQrCMBCF4auUWTuSCZhaV95Dumji2A60SUlKU
- Erubuze5f/gfTskjsIJbs0OkbMkCb6GPjXgpsGPjPKsDVppQ0QKtxXHOVjkGH1A02oeiG17NRb
- qZ438kvfhPfrak6QtxM/BZ/qt/6RMSGicdtaozl06dR+XQeazCwv0pZQvcthdzqoAAAA=
-X-Change-ID: 20261110-tp-glob-errno-672ea1eb786b
-To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
- Adrian Hunter <adrian.hunter@intel.com>, 
- James Clark <james.clark@linaro.org>
-Cc: linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Hang Zhengyang <hang.zhengyang1010@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794361735; l=2091;
- i=hang.zhengyang1010@gmail.com; s=20261008; h=from:subject:message-id;
- bh=oKOhzpzzihzjzROHP90IK3skpmdwiZ3od9qtUe5u8x0=;
- b=X16E1srTe/q4EZ1klblgXdNEd7t6M0s9GxwKTspiFMc3meJyyDw7zwYCiW72kql09RdtaBgze
- FAH1G29AinGAnydJqtp1/bdG2+cEBUnrugBG89z7HnMtlYT7dfFzdwa
-X-Developer-Key: i=hang.zhengyang1010@gmail.com; a=ed25519;
- pk=5drRny3PqRPLhKVB0YIQXN5YyD8miKCpXWhnEPvafAI=
-X-Endpoint-Received: by B4 Relay for hang.zhengyang1010@gmail.com/20261008
- with auth_id=1133
-X-Original-From: Hang Zhengyang <hang.zhengyang1010@gmail.com>
-Reply-To: hang.zhengyang1010@gmail.com
+Message-Id: <20261110-ufs_exynos_hci_order-v1-1-ce3cf68a74d5@tesla.com>
+X-B4-Tracking: v=1; b=H4sIAFTJ82oC/yXMyw6CMBBG4Vchs7ZJC95fhZgGyl8ZF62ZEYIhv
+ LtVl9/inJUUwlC6VisJZlbOqcDtKgpjl+4wPBRTbeujc86aKarH8k5Z/RjYZxkgxqK79GfbHOL
+ +RCV9CiIvv217+1un/oHw+r5o2z7Z+44JeAAAAA==
+X-Change-ID: 20261110-ufs_exynos_hci_order-0ea9b8035f47
+To: Alim Akhtar <alim.akhtar@samsung.com>, 
+ Peter Griffin <peter.griffin@linaro.org>, 
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
+ "Martin K. Petersen" <mkp@kernel.org>, 
+ Krzysztof Kozlowski <krzk@kernel.org>, 
+ Chanho Park <chanho61.park@samsung.com>
+Cc: linux-samsung-soc@vger.kernel.org, linux-scsi@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Charlie Jenkins <charjenkins@tesla.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794361735; l=2641;
+ i=charjenkins@tesla.com; s=20261111; h=from:subject:message-id;
+ bh=LAh4uxWJEJlM8NfNlEbxljfVuT2qoU7HqStq10W2Hns=;
+ b=haIPNM/jxHhhj/GSLWYwPRTnUfCL/f3zCVGefXGiNVccdK//pUwTS3Lc0hUuzWhloFIVkRzL2
+ GZ1rf3a9tJkDF7Dr5ZTJtqe18buZ0G92aaoVtxpEGl/wjADim/B72k5
+X-Developer-Key: i=charjenkins@tesla.com; a=ed25519;
+ pk=UcHY2MxMlGrG4OWEpbHAPZ2iB7xhVAktL8U7+7y1MhU=
+X-Endpoint-Received: by B4 Relay for charjenkins@tesla.com/20261111 with
+ auth_id=1484
+X-Original-From: Charlie Jenkins <charjenkins@tesla.com>
+Reply-To: charjenkins@tesla.com
 Content-Transfer-Encoding: 7bit
 
-From: Hang Zhengyang <hang.zhengyang1010@gmail.com>
+From: Charlie Jenkins <charjenkins@tesla.com>
 
-As a normal user, a tracepoint glob gets the wrong error:
+The current clock setup attempts to program the HCI clock-stop registers
+after the core clock has already been brought down. With this ordering
+on a reboot, the HCI bus clock is stopped before the clock-stop
+accesses, triggering an SError on the power-down path.
 
-  $ perf stat -e 'syscalls:*' true
-  event syntax error: 'syscalls:*'
-                       \___ unknown tracepoint
+SError Interrupt on CPU5, code 0x00000000bf000002 -- SError
+pc : readl+0x4/0x18
+lr : hci_readl.isra.0+0x14/0x20
+Kernel panic - not syncing: Asynchronous SError Interrupt
+Call trace:
+ readl+0x4/0x18
+ exynos_ufs_ctrl_clkstop+0x30/0xac
+ exynos_ufs_setup_clocks+0x8c/0xa4
+ ufshcd_setup_clocks+0x1c8/0x2a0
+ ufshcd_suspend+0x4c/0xa8
+ ufshcd_wl_shutdown+0x88/0xd4
+ device_shutdown+0x158/0x1d8
+ kernel_restart_prepare+0x40/0x4c
+ kernel_restart+0x20/0x88
+ __do_sys_reboot+0x198/0x218
 
-  Error:  File /sys/kernel/tracing//events/syscalls/* not found.
-  Hint:   Perhaps this kernel misses some CONFIG_ setting to enable this feature?.
+This is visible on FSD, where the CMU gates are in manual mode so
+disabling core_clk really stops the clock.
 
-add_tracepoint_multi_sys() returns ENOENT when nothing matched and
-drops the error from reading the directories.  Return that error
-instead, so the glob reports what a plain tracepoint name does:
+Ungate in POST_CHANGE when turning clocks on and gate in PRE_CHANGE
+when turning them off, so the HCI registers are only accessed while
+core_clk is running.
 
-  $ perf stat -e 'syscalls:*' true
-  event syntax error: 'syscalls:*'
-                       \___ can't access trace events
-
-  Error:  No permissions to read /sys/kernel/tracing//events/syscalls/*
-  Hint:   Try 'sudo mount -o remount,mode=755 /sys/kernel/tracing/'
-
-Fixes: d002aab87de8 ("perf tp_pmu: Factor existing tracepoint logic to new file")
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Hang Zhengyang <hang.zhengyang1010@gmail.com>
+Fixes: 91c49e7e82d7 ("scsi: ufs: ufs-exynos: Add setup_clocks callback")
+Signed-off-by: Charlie Jenkins <charjenkins@tesla.com>
 ---
-Thanks for the review, Ian.
+Found on a Tesla FSD board.
 ---
-Changes in v2:
-- Show the output after the fix (Ian)
-- Link to v1: https://lore.kernel.org/r/20261110-tp-glob-errno-v1-1-6c2cb609c590@gmail.com
----
- tools/perf/util/parse-events.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ drivers/ufs/host/ufs-exynos.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-diff --git a/tools/perf/util/parse-events.c b/tools/perf/util/parse-events.c
-index f3ba70d4f76b..8a6d5a13863d 100644
---- a/tools/perf/util/parse-events.c
-+++ b/tools/perf/util/parse-events.c
-@@ -572,8 +572,10 @@ static int add_tracepoint_multi_sys(struct parse_events_state *parse_state,
- 		ret = tp_pmu__for_each_tp_sys(&args, add_tracepoint_multi_sys_cb);
- 	}
- 	if (args.found == 0) {
--		tracepoint_error(err, ENOENT, sys_glob, evt_glob, loc->first_column);
--		return -ENOENT;
-+		if (!ret)
-+			ret = -ENOENT;
-+		tracepoint_error(err, ret, sys_glob, evt_glob, loc->first_column);
-+		return ret;
- 	}
- 	return ret;
- }
+diff --git a/drivers/ufs/host/ufs-exynos.c b/drivers/ufs/host/ufs-exynos.c
+index 3bcbc9ebbb283..d2a79ebf193e3 100644
+--- a/drivers/ufs/host/ufs-exynos.c
++++ b/drivers/ufs/host/ufs-exynos.c
+@@ -1116,11 +1116,11 @@ static int exynos_ufs_setup_clocks(struct ufs_hba *hba, bool on,
+ 	if (!ufs)
+ 		return 0;
+ 
+-	if (on && status == PRE_CHANGE) {
++	if (on && status == POST_CHANGE) {
+ 		if (ufs->opts & EXYNOS_UFS_OPT_BROKEN_AUTO_CLK_CTRL)
+ 			exynos_ufs_disable_auto_ctrl_hcc(ufs);
+ 		exynos_ufs_ungate_clks(ufs);
+-	} else if (!on && status == POST_CHANGE) {
++	} else if (!on && status == PRE_CHANGE) {
+ 		exynos_ufs_gate_clks(ufs);
+ 		if (ufs->opts & EXYNOS_UFS_OPT_BROKEN_AUTO_CLK_CTRL)
+ 			exynos_ufs_enable_auto_ctrl_hcc(ufs);
+@@ -1139,7 +1139,9 @@ static int exynos_ufs_pre_link(struct ufs_hba *hba)
+ 	exynos_ufs_config_intr(ufs, DFES_DEF_L4_ERRS, UNIPRO_L4);
+ 	exynos_ufs_set_unipro_pclk_div(ufs);
+ 
+-	exynos_ufs_setup_clocks(hba, true, PRE_CHANGE);
++	if (ufs->opts & EXYNOS_UFS_OPT_BROKEN_AUTO_CLK_CTRL)
++		exynos_ufs_disable_auto_ctrl_hcc(ufs);
++	exynos_ufs_ungate_clks(ufs);
+ 
+ 	/* unipro */
+ 	exynos_ufs_config_unipro(ufs);
 
 ---
-base-commit: 13a8d580433a3b72b10be34f0e26787fe5659d3c
-change-id: 20261110-tp-glob-errno-672ea1eb786b
+base-commit: e550f2b2b4aab4c5f12db89d04d8978ce4ed7b4e
+change-id: 20261110-ufs_exynos_hci_order-0ea9b8035f47
 
 Best regards,
--- 
-Hang Zhengyang <hang.zhengyang1010@gmail.com>
+--  
+Charlie Jenkins <charjenkins@tesla.com>
 
 
