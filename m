@@ -1,104 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.3
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.50
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794399724;
-	b=v0YMNquW522PzHbMyo5PNCSCzJroJtoE0nkcX6JlpxaDUawaoaqL8n8U1xfzCMoDZB9t
-	 R6Nn0SZ8phFdL6nDGTBvstGRnqSoyqhNzk4MtWUnIkkyRzmDwdGCopslEPOdWOrwM62YU
-	 meyvjFGHP1zrdeGGuwtr2p42TZHdCy3TpBOjoFSBThGoG97CZukU1McLtckFozo7WclCB
-	 ZUd1SGHL04yop56Vft4CaLpTBTkX4iYxHUIpo5oWKtTt5b7UNzW1PLoTsOLFPMReZVWhL
-	 QugVvfTK+1HHEP4Pnn4E90p/sgR5dwc5J28f3/QWlpoHakwtJKmtD2nJ04LPPkFlTkw==
+	t=1794399730;
+	b=sVstyt+Ey6iuuaHRIC1yrtQyuYisotsjWXdwuM6Daz0B2yTAoE1uiYHlCqGA0UVJtVwi
+	 WPlTg824WXvA0psKlJZhvrjQ9TnNE2OFiJ6YaTB7C9KKJ0hkOmrEx5X/U4p5RW5zEoTfs
+	 9px3M3a/dUxQoMOsDurJY+PjRtSxGPFN5GMuuF3JIuDbE3A4etnWQZ6SSZ928JZxgUwiq
+	 Ua+Rg+z2yxb/xcYmNbq2PRHt7/ryi4QN4kMMYb0yyHUY4Dd/4+3vgAA5WW0huumCCMEtP
+	 qj6A+N5mg8wsEJ4ZQqZIhuK6yJ0qeOr7CNu/gkSSonRIRgD157WIdO29zrBVS+ijQhQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794399724;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=8JPdXsScKDRO4V6wmZimadVOBHWu+41bQlh9Iz1/n3w=;
-	b=wk9z7tracpwldRlwd22o+bV8q0N2rsvREz0pc0V3f8Qne4kbkdlCVW07gebtC09dwg2d
-	 18PFS+QQegiPHGOFIY6yioXLppiBK7yC5Aj0fi68ZyWWVsV/+08V/XPNXP1aA/YK+LSHK
-	 zBh8hGYNPzxIZWjpUncSGHBHcC4ZJMGsxtf92HPrgeipHtWA/zqGfRMAX2vJrWyCVojgJ
-	 ObbND/MNpmdZWZS8CljE3N2filo9Hv1YwqW/xx3KzSZvEJyQ0TOiYJu4cpXrnms9nkzms
-	 LHfYHz14FeOHU0Dc7DjjuHIa/7lNfl/iw8O71JA3GbMuTfdUhjhVrPtlV/Ucftn9zlA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794399730;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=C3KBR3H9YyzSWZ/htLdN6t0rcyGsbU2SY2TDwqu/9VM=;
+	b=sOEAgbv8mLoNzFdsQevKbqiSYcE1+zSdqTR0PICsX1/on2YW7Do+iCGGwntSplhgjw9X
+	 u/txm1gFX3VG22hZBXhjtFXJm4vG2EFPtEajuKnOpfKQh1CIGk/o+nERgFLy3ws72UbVL
+	 9pDobwTbyiRpZPSoGdp6jjsr8Gb+NXb1Z72ORx8WGhG9s+TQW1ORnzE/B/VCMPbt9bxWf
+	 YyA2V91P9ccd5DZJ7oNTPh3UCKY0hOMlFu6BxzX7WfDycUkDMKamyZWio8ziY4k9AekBD
+	 MVOVACOD/TQGqCHOfqPE5VkzIGc4AAU3QqNVUNH0YXtDc2Bo92lln48MW55IkckPQ6g==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=qWv5OuFS;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.3
-Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012003.outbound.protection.outlook.com [40.107.209.3])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=sartura.hr;
+	spf=pass smtp.mailfrom=sartura.hr;
+	dkim=pass header.d=sartura.hr header.i=@sartura.hr header.a=rsa-sha256 header.s=sartura header.b=v2fr2S1D;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.50
+Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B03E606A332;
-	Wed, 11 Nov 2026 12:22:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B03E606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51CB5606A321
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 12:22:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 51CB5606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sartura.hr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=qWv5OuFS
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=q/u+IkbTp25m6b9cAyEPLGFmVJKp4Gi35L8QrcjFcsN2GIHN1dSaxY+0y9fn/K4q1SRKBo4M4eD6p3W1zgRVATjwXWCgE4haJznjGvEOl7mRH3oCw3mEuBnW3wM+qGzYAEivXnICrIRATft91FrgoySBiGkkT7mUpPgO6de5QhjwDvCmE4CeeDv6SnkjwN1w9arnboirhxhHUX0khydQyXulp7abziA/Pq8As3+OJljWZH61PtzpSK7061hdZgZWfMNneHXWuhiR9KgsDCII9v1GQsJtciwjurbnZJvRDrffoMnR68gJsRkj8fPPZknJ9ShYYSIiAVXii8SjDW+YdQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8JPdXsScKDRO4V6wmZimadVOBHWu+41bQlh9Iz1/n3w=;
- b=wghIj4Pk3VRIHSk6ytOungbnM1o5WTYG1Rb7vPnJpzts2MXya0UMphMcVBblhszjm9/q1DL7fjX9cqeTvtmgGCtfZC/Z3pWmVxd+rAS/rt534KwRpVSTMeOLiHLdTvpgtdtzExoHqd9ImUNt+Bs86w96CCjnYmAqMe+9cD1PGEEo2En8TVqghXacrgr0qw+xoBYmQvykAavYFoA1gycXTdFPRdNvU4wuHuGqZSC1VIIRryv9T2rWvaxihH4Oe3ExO9yyBa6LYTZ4TX9fp8z3Fq8YS0AyisfgVrPMevtQWUhod8wmuq2anH/h0dCoZcyVxXhOEC6UB/nPHBFS5ZqC+Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=zytor.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8JPdXsScKDRO4V6wmZimadVOBHWu+41bQlh9Iz1/n3w=;
- b=qWv5OuFSJleD/3Ymv/pNLaiG3qeDurUGc5n6RuwlSEH102uEwnPmeGMWYrWrM0QGaWH181zYzaPOo1ihhxeSi6oCguFhgAQM+UKRPETrCrNFaEidHDeSbbrbT0W7E+uA179sr95TqIueqzg+4yylrt8HrTQw/et4qCaCgRLKuzQ=
-Received: from CH0PR13CA0058.namprd13.prod.outlook.com (2603:10b6:610:b2::33)
- by PH6PR12MB338919.namprd12.prod.outlook.com (2603:10b6:510:3dc::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Wed, 11 Nov
- 2026 12:21:59 +0000
-Received: from CH01EPF000BE945.namprd02.prod.outlook.com
- (2603:10b6:610:b2:cafe::51) by CH0PR13CA0058.outlook.office365.com
- (2603:10b6:610:b2::33) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.639.0 via Frontend Transport; Wed, 11
- Nov 2026 12:21:59 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CH01EPF000BE945.mail.protection.outlook.com (10.167.244.137) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Wed, 11 Nov 2026 12:21:59 +0000
-Received: from BLR-L1-SARUNKOD.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 11 Nov
- 2026 06:21:54 -0600
-From: Sairaj Kodilkar <sarunkod@amd.com>
-To: "H. Peter Anvin" <hpa@zytor.com>, Borislav Petkov <bp@alien8.de>, "Dave
- Hansen" <dave.hansen@linux.intel.com>, Ingo Molnar <mingo@redhat.com>, "Paolo
- Bonzini" <pbonzini@redhat.com>, Sean Christopherson <seanjc@google.com>,
-	Thomas Gleixner <tglx@kernel.org>, <kvm@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <x86@kernel.org>
-CC: <vasant.hegde@amd.com>, <suravee.suthikulpanit@amd.com>, Sairaj Kodilkar
-	<sarunkod@amd.com>
-Subject: [PATCH v2] x86/kvm: Use RCU for svm_vm_data_hash
-Date: Wed, 11 Nov 2026 17:51:28 +0530
-Message-ID: <20261111122128.12998-1-sarunkod@amd.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.a=rsa-sha256 header.s=sartura header.b=v2fr2S1D
+Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6a642495d81so4895829a12.2
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 04:22:09 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794399727; cv=none;
+        d=google.com; s=arc-20260327;
+        b=g+4KSK3JxYbe8mvaR4d/81wq93jHbJyvWRZQjvJb/eQNarLN+LxsHZCwBAYRIkT3eA
+         0S8bsByla2sod6iZ8i7sDyJy3vc+xrQ+fpTOCXYaWBJ/EJ53vxvtxFfWW0DtnOAeu+50
+         uco0NPIGgcgYq+uDRIHKBkSwVn8yrq34geoyVt19xWszTow3Zknl5B4smYffiWgaAj0y
+         dZh/ubETr4pHdF2ch68+9UjyA8CJpgQmh1d+OZ7d3cX9i5KVs2VLDldVvmiIJkHA6DCV
+         hhcvnu5TeEdpTK5KFNnEOTeorOPj4oWpCrJaD7GrxwKZA2bRluFLH1zCVWhaAGsUBse4
+         r6qg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=C3KBR3H9YyzSWZ/htLdN6t0rcyGsbU2SY2TDwqu/9VM=;
+        fh=9vl9fJdI0VAUndeQnYbIzk48lxvyvMxMYlADTzoLzuw=;
+        b=P48kpzXVgR/vBgIe1zLziPrdErG8Cx6K/GIEcLap3fSLitdVCfgUr4bSKvCK8sb3pK
+         hcwWoRMkATwemxwxlfvKMxOHZEEIiy6gjFC/nd1y/L8ccVhjMdqr6Uw6j+WPeEND0VxC
+         nwGQzlSFR60xM5o5DUE2jD2vv3N9/sK4WXexp0h2SmwgiI2Eus/YOiis/62rsDhyaGo9
+         WX/AfC/PoU8iDFkkF4vi3B2iaxkjvK++oBO5wq2zVYZdP8tAr+ujBWbznCcmINFf22Ns
+         llr4+jWMZ2rbf/fvfu0IfZVL4OY9Tq4z39cUDypzDEYceQauDl3Dl23Tp5/5ky5bj6Bg
+         5HNg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=sartura.hr; s=sartura; t=1794399727; x=1795004527; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=C3KBR3H9YyzSWZ/htLdN6t0rcyGsbU2SY2TDwqu/9VM=;
+        b=v2fr2S1DGDPqqGLXJM0kfi9ZIPOyU1UGWmpu0npSnLbA5WBR6hpH/rG4VU2hltU8zS
+         za8CRsV2O3JrFsFAay/QLnZET+MOOqogxpuwOCnkNqfpmQ1OOjk6EHCFNLyYmjNRHzxx
+         TjP2pgMjGCIpG4tTyOZQcbXI4Nnc6nxvSqEiTiO9cRC3v2Jnu9cqa92QLc3o61kNV3VX
+         WVc98vaFKG2XP3+d7F6GrPJEPBz/iC8AXu7cLYI90LbSCgcfRB2tVGGcX908son6zGil
+         OfTYJPETnoL6UbrB/bGrDwnZFdamGY1XML70HVqyz/T9w0IzqnV3VYZ+yUaWUciFuudI
+         n1sQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794399727; x=1795004527;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=C3KBR3H9YyzSWZ/htLdN6t0rcyGsbU2SY2TDwqu/9VM=;
+        b=v5RLtwKFnYR4+PXLGmGpu/4ElxOxtudLO0ChSySZtWvD3IBYcYfo7UmLIi6eraatVt
+         UafDOnTX3kP7vMnFZi/pwgmSHVFtdh/p4L0Eh5JmP66TjsqxJaLs7+BP8bcUgM0cFYH3
+         HUjzyro4/CaBYXI5Bh6+Je+xCBwrzwPQTPNddZLE4aYWIy8M10PwbSW2tT18LLIZq74t
+         nm2PN9aY7EEa1akcREmi89ecNih4xtXXuoOlpRFRSxwmcohfzw+CofRD8hmCMyFJgI2/
+         LFZgtSTmeEdhj44ep7yMMsj3hTBObDroGQjzodJIsL9djm3+SN3zdHrD29YcZYb/Aa7S
+         obWw==
+X-Forwarded-Encrypted: i=1; AL+hErEaG2v5PSoNMq9WaMmjKHnoG6o5uvTyrmye572c3Ty6KasZGawRSYhQiKMIYAoixgDTAXRkVbJqOPt0nAE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+C8KM81SkWSeJxlXXf2jxLEiL6tczOtksWBjCOZLL7mVp+E9sz
+	1J8Hv6nSefbIb4gq5MY80ZlqdKfBaaeMJzRW2iPrQeSXVoo57IKVewDLiVh5b1haEY0oBcR5bv6
+	jqYMRrF1RdAVsKWxY6bV8z/UChGiWN6LS19R1qLUPnw==
+X-Gm-Gg: AYBFou0iZTACPaFIkhFrgldWN7e5YUp08J++fv1seF+n1esLHg3CPxxmXr4AJv8GLrc
+	l3IYWNNL2cM8QdpgG2LrA8ty8P88xbc3M65Cl2obIIVHVx9O7RxAj/xYscDeYAnjXuQ8Eoy0au2
+	nojzT5rcqXQsuVHA+f6IusmkJQu80+V4061lWzjNMD6i7kb+iaDzPDKGlwDnQzCjaJMgvejeF+a
+	5CKr6cloRHIKsLGg3rrKklpY0TzN06cwnDIsijYbmzFFiEJz7iN2/UFc/4asDLrvRjoih/qFk9U
+	kXa9K8zwHJvs8FJoHiiM3JznI0MCMzz+wbK3+dpj4VfBlTTW4zEOf3OuK9i66jUc4bGzaR66rxv
+	+IYqqz9Foac5566xOpry9C5+Hv8+6Gpej8K/g6OxBbnuIq6p9lQs6mGfdpFkjdKOlJeqWhJHi2H
+	SuiLrGEAf6AeHCFpSS0fe24GBs8rsftr3gIwL1biQwsTvsAlJmDUia9g==
+X-Received: by 2002:a05:6402:2b92:b0:6b6:eefc:ae78 with SMTP id
+ 4fb4d7f45d1cf-6b777341867mr1845043a12.2.1794399727628; Wed, 11 Nov 2026
+ 04:22:07 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,141 +105,161 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH01EPF000BE945:EE_|PH6PR12MB338919:EE_
-X-MS-Office365-Filtering-Correlation-Id: c7527deb-48b4-4741-a13f-08df3fee6268
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700016|7416014|376014|23010399003|1800799024|18002099003|10067099003|921020|11063799006|261028144727099003|261102123227099003|261009223027099003|261021121427099003|56012099006|261021123027099003|261022105027099003|261026140227099003;
-X-Microsoft-Antispam-Message-Info:
-	iFk1wMs0xWWd1QiBQ/Y8oafLvvgkKit9lP5F7Oa7WiSVgbTPZNGnECPggckNjqsII4wFf/nTCqXLK8m5CwVoFkiKGpnZiz0q9jNOY9RdpbI3OaZuMDoDEe43sZllXmJXS6NTFs8E96Ajp9I9GyiXOfPFVg+1ZZqZCZXY7hCe9jwL85hj6a0tun3JW4YJKIMty7HMnHiGKsN1ryowamibFZj8ub3w6wiwUwmeTOCz5xpgYr08DGkkcPvtBn0Pnk1Fxxco/eDc//Maqq1JH79atR3EEwCvG0iP3sbgFl/cKfmfSAy10ca2bYYLGf6yQFZiOHYUsDDNKhaA2bZFFijV3J02sCf/NOPVj8P7EOipcwncFgnwldW1CahHFmas0wzEXUCbRFwCkoKqzJtksookPr8GKS+x37vxcAXSPVqPFp0fJcXmgERJleGIApmoDEXlq2iRKOPsZKAe5aR9IPXaUjMu2WlhYok47l4nhZRU5LmjvS1mzlaFQXstUCOXifDGfntZ5YNEIjVfYdapbqEnMwGajqT5QRB6P3mvEnguV6dovzr3C75sxe3RlcdIvNfXXvE1LfcAMnxqrEGwEFGCLS5+WWhxWufGo2+2PHS2JUaGgmU33MS5L1YbR/Vbu8o324ifEkkhbFvQr6+kb+eBc2J92sFv9EysbvUJr5h1i6oexqF/g0NhRAeU/sephDWj
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(7416014)(376014)(23010399003)(1800799024)(18002099003)(10067099003)(921020)(11063799006)(261028144727099003)(261102123227099003)(261009223027099003)(261021121427099003)(56012099006)(261021123027099003)(261022105027099003)(261026140227099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	BDuY2oiykiaOSDoVtpQ7YepKy/jFqUstGD7BwpCLi6LYiSTtp+mq1ZPMzhpQKxRxEG8cDZQDZDOktCXSf9CbXSQnJI65LrxmNS9jPvCryliC0LGR911aCLe9Z3Hz/7pPTPTE5vDXd+sauwZW4CD8WbhyfKQH9fw6M7p+Pz5NNGiLx2/Ld0fjnie2fuPssAMH1Bfd3eSa4d9hoy0s/YUe2vD5kquZektmtQIX6B7UHmTZbcBgI7HFsY/ZR7bwdpCEgvunGTCouKb2h/ehfNF6H99Zk2VVpsn4DSzzz9S/cZeHY9CBxIYEvKKrsdaYQ3p38Sa51g/dU8BLKc9s/c/gTbcB3+EWTFhd1Gh4wWfCCGX1EVTknFCiTlfvWafQAmKiHiRyU6P+acLjpoxBhC6KPj53sqdXjOwCR8b+UaaL15HU4n9KFAtycF1ZXRgFv/hN
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 12:21:59.5127
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c7527deb-48b4-4741-a13f-08df3fee6268
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CH01EPF000BE945.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH6PR12MB338919
+References: <20261109133609.810876-1-robert.marko@sartura.hr> <20261110145414.GA3828324-robh@kernel.org>
+In-Reply-To: <20261110145414.GA3828324-robh@kernel.org>
+From: Robert Marko <robert.marko@sartura.hr>
+Date: Wed, 11 Nov 2026 13:21:56 +0100
+X-Gm-Features: AclHuK-NDRpRb_jYg5FQQ5B5fgUCjjm_CP_VsQUIeOlFZDuAlC2eNYg1mYw5Bfg
+Message-ID: <CA+HBbNFE7ud3omp1e8A9w=PYMM+JPW-y94MiM68K2sz4HitU7A@mail.gmail.com>
+Subject: Re: [PATCH v2 1/6] dt-bindings: hwmon: add Microchip LAN969x fan controller
+To: Rob Herring <robh@kernel.org>
+Cc: linux@roeck-us.net, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org, 
+	Steen.Hegelund@microchip.com, daniel.machon@microchip.com, 
+	UNGLinuxDriver@microchip.com, nicolas.ferre@microchip.com, 
+	claudiu.beznea@tuxon.dev, linux-hwmon@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-doc@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	luka.perkov@sartura.hr
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-GALOG notifier iterates svm_vm_data_hash to find the `struct kvm_vcpu`
-for the given vm id and vcpu id. Holding spinlock is not ideal here since
-it allows only a single reader to iterate over the hash. This degrades
-performance when interrupt rate is high and large number of readers are
-waiting for the spinlock. Hence replace spinlock with the RCU.
+On Tue, Nov 10, 2026 at 3:54=E2=80=AFPM Rob Herring <robh@kernel.org> wrote=
+:
+>
+> On Mon, Nov 09, 2026 at 02:35:05PM +0100, Robert Marko wrote:
+> > The LAN969x fan controller has a PWM output and tachometer input in a
+> > register block separate from the Sparx5-compatible temperature sensor.
+> > Describe it with its own compatible and binding.
+> >
+> > The optional fan child specifies PWM period and polarity, tachometer
+> > pulses per revolution, and thermal cooling levels.
+> >
+> > Signed-off-by: Robert Marko <robert.marko@sartura.hr>
+> > ---
+> > Changes in v2:
+> > - Describe the fan controller in a separate binding and compatible.
+> > - Keep the existing temperature-sensor binding unchanged.
+> >
+> >  .../bindings/hwmon/microchip,lan9691-fan.yaml | 83 +++++++++++++++++++
+> >  1 file changed, 83 insertions(+)
+> >  create mode 100644 Documentation/devicetree/bindings/hwmon/microchip,l=
+an9691-fan.yaml
+> >
+> > diff --git a/Documentation/devicetree/bindings/hwmon/microchip,lan9691-=
+fan.yaml b/Documentation/devicetree/bindings/hwmon/microchip,lan9691-fan.ya=
+ml
+> > new file mode 100644
+> > index 0000000000000..0b7d38a6d20ae
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/hwmon/microchip,lan9691-fan.yam=
+l
+> > @@ -0,0 +1,83 @@
+> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > +%YAML 1.2
+> > +---
+> > +$id: http://devicetree.org/schemas/hwmon/microchip,lan9691-fan.yaml#
+> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > +
+> > +title: Microchip LAN969x Fan Controller
+> > +
+> > +maintainers:
+> > +  - Robert Marko <robert.marko@sartura.hr>
+> > +
+> > +description: |
+>
+> Don't need '|'
 
-Signed-off-by: Sairaj Kodilkar <sarunkod@amd.com>
----
+Hi Rob,
 
-Tested on a 2-socket AMD EPYC 9965 host against the same kernel without
-this change:
+Got it, will drop in v3.
 
-  - 12 VMs, each with 32 vCPUs and one passed-through NVMe device
-  - vCPUs pinned NUMA-local, at 1:1, 1:2, 1:3 and 1:4 pCPU:vCPU
-  - fio in each guest: randread, bs=4k, iodepth=32, numjobs=32,
-    ioengine=libaio, direct=1, 60s
+>
+> > +  LAN969x fan controller with a PWM output and tachometer input. The f=
+an
+> > +  child's pwms property references this node to specify the PWM period=
+ and
+> > +  polarity.
+> > +
+> > +properties:
+> > +  compatible:
+> > +    const: microchip,lan9691-fan
+> > +
+> > +  reg:
+> > +    maxItems: 1
+> > +
+> > +  clocks:
+> > +    items:
+> > +      - description: System reference clock
+> > +
+> > +  '#pwm-cells':
+> > +    const: 2
+> > +    description: |
+> > +      Number of cells in a PWM specifier.
+> > +      - cell 0: PWM period in nanoseconds
+> > +      - cell 1: PWM polarity: 0 or PWM_POLARITY_INVERTED
+> > +
+> > +  fan:
+> > +    $ref: fan-common.yaml#
+> > +    unevaluatedProperties: false
+> > +
+> > +    properties:
+> > +      cooling-levels:
+> > +        description:
+> > +          PWM duty-cycle values corresponding to thermal cooling state=
+s.
+> > +        items:
+> > +          maximum: 255
+> > +
+> > +      pulses-per-revolution:
+> > +        minimum: 1
+> > +        maximum: 4
+>
+> Drop. That's already the max in fan-common.yaml. minimum should be added
+> there too as 0 would never make sense.
 
-Time spent in the hash lookup in avic_ga_log_notifier(), measured with
-a temporary tracepoint around the lookup, averaged over 12 VMs and
-3 runs:
+Ok, will add 1 as minimum in fan-common.yaml as a separate commit in v3.
 
-             |         mean           |          p99         |
-             |------------------------|----------------------|
-  pCPU:vCPU  | spinlock  |     RCU    | spinlock  |     RCU  |
--------------|-----------|------------|-----------|----------|
-  1:1        | 409.8 ns  |  132.6 ns  |   960 ns  |  750 ns  |
-  1:2        | 977.3 ns  |   21.9 ns  |  3530 ns  |   30 ns  |
-  1:3        | 747.5 ns  |   23.7 ns  |  2150 ns  |   40 ns  |
-  1:4        | 614.8 ns  |   23.5 ns  |  1610 ns  |   40 ns  |
+>
+> > +        default: 2
+> > +
+> > +    required:
+> > +      - pwms
+> > +
+> > +    dependencies:
+> > +      '#cooling-cells':
+> > +        - cooling-levels
+> > +      cooling-levels:
+> > +        - '#cooling-cells'
+>
+> The dependencies should also go in fan-common.yaml. Perhaps
+> cooling-levels without #cooling-cells might make sense sometimes?
 
-Total IOPS was unchanged at every ratio.
+I removed cooling-levels requiring #cooling-cells, as it can
+technically work without it, its not ideal, but it works.
 
-Changes since v1:
-================
-https://lore.kernel.org/all/a2a4c5e6-8264-47e1-80de-375dc2eac048@amd.com/
-- Restore spinlock guards.
-- Use synchronize_rcu() in destruction path.
+I am not sure if its feasible for fan-common.yaml though as we already
+have schemas for EMC2305, and more importantly
+DTS-es for freescale/imx95-tqma9596la-mba95xxca.dts and
+rockchip/rk3568-radxa-cm3j-rpi-cm4.dts
+that have #cooling-cells without cooling-levels.
+EMC2305 driver even calculates cooling states without a levels table.
 
----
- arch/x86/kvm/svm/avic.c | 17 ++++++++++-------
- 1 file changed, 10 insertions(+), 7 deletions(-)
+I would appreciate guidance on how to proceed with this.
 
-diff --git a/arch/x86/kvm/svm/avic.c b/arch/x86/kvm/svm/avic.c
-index 96ca39c0045f..84a0e8d406e4 100644
---- a/arch/x86/kvm/svm/avic.c
-+++ b/arch/x86/kvm/svm/avic.c
-@@ -250,7 +250,6 @@ static void avic_deactivate_vmcb(struct vcpu_svm *svm)
-  */
- static int avic_ga_log_notifier(u32 ga_tag)
- {
--	unsigned long flags;
- 	struct kvm_svm *kvm_svm;
- 	struct kvm_vcpu *vcpu = NULL;
- 	u32 vm_id = AVIC_GATAG_TO_VMID(ga_tag);
-@@ -259,14 +258,13 @@ static int avic_ga_log_notifier(u32 ga_tag)
- 	pr_debug("SVM: %s: vm_id=%#x, vcpu_idx=%#x\n", __func__, vm_id, vcpu_idx);
- 	trace_kvm_avic_ga_log(vm_id, vcpu_idx);
- 
--	spin_lock_irqsave(&svm_vm_data_hash_lock, flags);
--	hash_for_each_possible(svm_vm_data_hash, kvm_svm, hnode, vm_id) {
-+	rcu_read_lock();
-+	hash_for_each_possible_rcu(svm_vm_data_hash, kvm_svm, hnode, vm_id) {
- 		if (kvm_svm->avic_vm_id != vm_id)
- 			continue;
- 		vcpu = kvm_get_vcpu(&kvm_svm->kvm, vcpu_idx);
- 		break;
- 	}
--	spin_unlock_irqrestore(&svm_vm_data_hash_lock, flags);
- 
- 	/* Note:
- 	 * At this point, the IOMMU should have already set the pending
-@@ -276,6 +274,8 @@ static int avic_ga_log_notifier(u32 ga_tag)
- 	if (vcpu)
- 		kvm_vcpu_wake_up(vcpu);
- 
-+	rcu_read_unlock();
-+
- 	return 0;
- }
- 
-@@ -340,7 +340,7 @@ static void avic_add_vm_to_ga_log_list(struct kvm *kvm)
- 		}
- 	}
- 	kvm_svm->avic_vm_id = vm_id;
--	hash_add(svm_vm_data_hash, &kvm_svm->hnode, kvm_svm->avic_vm_id);
-+	hash_add_rcu(svm_vm_data_hash, &kvm_svm->hnode, kvm_svm->avic_vm_id);
- }
- 
- int avic_vcpu_precreate(struct kvm *kvm)
-@@ -373,9 +373,12 @@ void avic_vm_pre_destroy(struct kvm *kvm)
- 	if (WARN_ON_ONCE(!enable_apicv) || !kvm_svm->avic_vm_id)
- 		return;
- 
--	guard(spinlock_irqsave)(&svm_vm_data_hash_lock);
-+	{
-+		guard(spinlock_irqsave)(&svm_vm_data_hash_lock);
-+		hash_del_rcu(&kvm_svm->hnode);
-+	}
- 
--	hash_del(&kvm_svm->hnode);
-+	synchronize_rcu();
- }
- 
- void avic_vm_destroy(struct kvm *kvm)
--- 
-2.34.1
+Regards,
+Robert
 
+>
+> Rob
+
+
+
+--=20
+Robert Marko
+Staff Embedded Linux Engineer
+Sartura d.d.
+Lendavska ulica 16a
+10000 Zagreb, Croatia
+Email: robert.marko@sartura.hr
+Web: www.sartura.hr
