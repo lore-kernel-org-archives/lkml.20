@@ -1,93 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794370843;
-	b=Q9BcWBYbExW95zZyqGeqh2egpYG1BCkbcmDDqEaM96b9Jg83wUbz9XCaMFHKl7UEbbCO
-	 /fHJjmr1OVc8aP55m/+khG4kDyszjRwUvoXdPo/0a/FIqcoSN7G3G6ZM09L6KZxOX+hB+
-	 EQMUkfLOtpN4XUk4ZhtrSowAG5CU9zRVauTM4lfWgN9xIwzKSy5AtRSHGxPNy2CGZX7T8
-	 0qPGtkgfqiMzzQT92P+LNE0UfIGD6W3E7bkJY8BzpdHD8G5BwCczIins+kfwCV68guaL1
-	 voMHuKsOugPNfoWufgkuK6oFBl9QgWtw724/ROqygfh89EwxFzZrKGxfNhGpFhyFF3w==
+	t=1794370948;
+	b=V4frTW41PzT7QxpxDCz4CLVY4t4F8lHL2I0TV6xdqANtV3nWu1v/+e4tuoUg/+wfcaBB
+	 Kr89PGS6VqwYTGYB6MNzAQfRubEK48BZo96xGe234URml2uMc6FiHi6MtcP5POAeT5Rtv
+	 bcYyVe8uT0uFlosiX58GjXRaJ0eDlmOurGpggm0u7I5mw4t3wdF1K6klkvks/cmRDqISX
+	 rzlJRZQqsGULQaT7S7VCLP0xSvJxwpelHJsoiPX84dbNH2xICyRF0XhXFvwTxS3pHtbpC
+	 zeknwUUhHa8WnHNf1jVbD3StnDkl6Ag4S1O0q5VcjaDEvtnJS/5zLubV2hi9gMxFyTA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794370843;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=2y/k0vv1KZWvdv/tcZ3kHN2M7tA63Ao7aQ+R/TLoEBY=;
-	b=qDyxWmAc55SqaKidM1sVYNpEGWA1fSFoen3y9UGKNz8s91GQEae9Jxv7dElHYMvSTHkR
-	 e9eEuITpkVbxRWM81zIjjbw2W+D1xPn9NUtMXDt/jpjExdV9G8OHMMo37DNvgaevZazKG
-	 EGAVOoizmFaE0oX91Wuh5BWAr2FB26SIPkFfiUwjJGhsX10oRls9EUoYN6Qh/4zEnQS4j
-	 BX1eG+cqiP4iKlzlqKObtHzeUnGesMRtAdCp5MB0q6snRRZlvHfOqb4d/urub+/YNU3e0
-	 AATgGzVFbp7iFV6/jIGPfNcgFbqRXsGFQG9yC1vVsLlmggUszl25wXQxn955OIdH8Fg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794370948;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:Auto-Submitted:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=oVTc5I6nKpBiLsItkBZmeShBR8ASpkDeEBpnWBZ++aw=;
+	b=hr+aXXNKwy17HMFz/OmaHl811jCgPrEVkJezWiuhA2uDKSxb0UQAG8YxYfu9g6hGv+Mz
+	 YwtDS+vttN8H/nLDhKu8Hy4FdSje0KHppvK5UzB4PlmyUnxPelAEeRBlKvwS9OJZjAQqP
+	 VBztUJfxr8d8nkNQdcyI/m3eXtwUVfOfO/QKcDyaxlRYHRlFelAyrVUS8zqqC7Cf8v9XJ
+	 yvAjlBqoy7dUnCORpUqB8NrJDxuD9y8yGKhZ577FXrt+vdk1/FDixCcXIhNcMCOPwXcKk
+	 HCGiJ2K1HNdGt73hX+BaBgsihbEJD+PkA1SKoTWczp8gk7jE+8w/LG7J8NYkLrYOxQA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uYDcDVWe;
-	arc=none smtp.remote-ip=209.85.210.170
-Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Au8YfN1F;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80C35606A338
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 04:20:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 80C35606A338
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2742606A320;
+	Wed, 11 Nov 2026 04:22:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uYDcDVWe
-Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-8b32bc605d9so1202178b3a.2
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 20:20:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794370843; x=1794975643; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2y/k0vv1KZWvdv/tcZ3kHN2M7tA63Ao7aQ+R/TLoEBY=;
-        b=uYDcDVWeZFrbHF9vMV26+UGVFxPWRvQtoJIqvx4qNzOIngOFXdhm8vzZZS1gQ3fLAr
-         JX0y8XI2F4z6eD4bqeXVvyLZNZnW332lc1+gbGjBffXKFTqCtgNPtHKnXilCmBQj0pRj
-         Xmt5hAVOP0f/NAKzErpgM2gEZrRrggBAyor6jJp+a0iUAMb7DnoeW1bIBttmTa7P7Ana
-         OtCzGqSCpUb9fbhZ5pfg9/3WLAzlucpqWbPARzhxp2pJlPFbu2P9TsgPIdBTx4Xwk6yJ
-         F9x0H4woEb4gS85UMTVPzQArwPBs8/7QmVVF1Fd80irwKP4l9yFFUgy9Fa6z691zLIxj
-         zVpQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794370843; x=1794975643;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2y/k0vv1KZWvdv/tcZ3kHN2M7tA63Ao7aQ+R/TLoEBY=;
-        b=qO9k09UY+pcCYPa1w9BTiG6b7fxAYoN8KCYzhl5r9Y56XSKhT7ONB8uUvimvNiCrOD
-         6Wgtsk+CNI3FdSGTjqM7sW0ptQGmuFRr5pdHnj6mp29/vpF7HNvnPk4RAoy+EpYaFLGd
-         o8Ax5c7pDDctdRBog2yyqqi6tmBeSFRJEjX0So/l6pfCZO1id2EimaicapLuVsTUX5Mt
-         YjbCHuH7BnSVis6zKJaXUN2ZLiwuAyXE6CMuTZT+xjcXIBOrTD4HbbOD3KFb+ynl+Jx/
-         zcITaWxzVHgQppcnTAXt/9y18H1/PcFOpGaw6Vv+LeocIH5D5B/LpITdHP1ymPQYoglS
-         hNvg==
-X-Forwarded-Encrypted: i=1; AL+hErH/4nti8FIRjMXDySNgIgz+2mVh/uNteZycWsIz/arbQPte84Ir6L8/fMkt50kIAouwhUpsrlRKE/uwlA0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8arU/e1Q5GrQjfc/1BC5xPv6D8waVf1Q5GPOpEOJMx4hDMupky
-	bgmHjEgHMFpjJGsMBns+NugQwRUoB6OjaPdb/BwcVxxeQNTYxjw//kda
-X-Gm-Gg: AYBFou1jpmDrRmjR42EZegBnY9zs3qx6HlRM6mvpFnsiEXKLYpgtUSYFksuIBnGLApf
-	JkrXEFKDestTdqNaKX6UeElzi4MohUt7aROLOyech4r7VBWMlNJVubRnQcw3k+yjqgr3RgzE/yT
-	KWJOCUBCZrMXrlwyVcR/MIUvMiFGq8bfKZr87kAhoUyRMkveWDD+X/0GAApyUTvzWdKOs+K7ZHw
-	Tp2iKQgsTbCY0OQ1TlTr/1bPKUjaS8r7iE9Gy8AG4NGL++bnC0o67Ot0ChSgjOcQ18VpGEqZP4j
-	zP0yuXps1ZpJ6g0WWEH5EaA3Jz2/u2/wA0bE1pVQ3qhT1PNL4YgEWut7I2LYKFVgj4LgEf9yWUw
-	rtj7sd0yI0AezB5TIViRD4oGHWmvG27gzvkZ0lxV1/ODWqmyZPZhDpl1XR8Y3OgKZGi6t1hBRK9
-	g3a2PoL3vNHitvmg1yUVRhZmmwEBbRyc8/N+1yoIqcZl74aeicJSCgXBaT1cvhHpwqCedxqxQh9
-	lW6EhySrB2oiYosSRipqITOD3zlpuMJYH6Pf/5SJzNua+p5bqEww/spoJ7hBtF8V4P5nhV6HPpN
-	WBwv8LlCliIpOx79F94=
-X-Received: by 2002:a05:6300:220d:b0:3eb:affa:32c9 with SMTP id adf61e73a8af0-3f2f72992e9mr1463244637.0.1794370842730;
-        Tue, 10 Nov 2026 20:20:42 -0800 (PST)
-Received: from oslab.. ([101.6.42.129])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cdd8d7dd5bbsm1319947a12.30.2026.11.10.20.20.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 20:20:42 -0800 (PST)
-From: Tuo Li <islituo@gmail.com>
-To: mchehab@kernel.org
-Cc: Markus.Elfring@web.de,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Tuo Li <islituo@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] media: dvb-bt8xx: Fix double-free in dst_attach()
-Date: Wed, 11 Nov 2026 12:18:43 +0800
-Message-ID: <20261111041843.1278057-1-islituo@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Au8YfN1F
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19D151F0089F;
+	Wed, 11 Nov 2026 04:22:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794370948;
+	bh=oVTc5I6nKpBiLsItkBZmeShBR8ASpkDeEBpnWBZ++aw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Au8YfN1F+m7RyDz6DM00LTgAtvTiUnE4JrxDqxcVumVVmOgYnKbQXsSklLXcazGNh
+	 TEjajKHHx2XBpuDrHtEgP+lo0KvT2JcDktWk3SkB16Av3wyMBr8BX6k9U9+Hbo9IcZ
+	 N7P+HIF7I1ZVisHfpR2sE98Ix3P6ilte+6PIk9V4CjoN+rJmI55UumBT3Hsi5e6vc3
+	 S7q4mUVAvOB+E2Vt3W/dZLSnAR2ZObWfHkWKHyVinu6i5o4Tx6VURPZT9zHUTI1ED4
+	 Zvs/gU+CpDfIhfRRT15H6TGlsRavarYXBDrL3Ypt0Hc2FyvZorStabeK9AFwa1Drub
+	 7v0mnsur/jfFg==
+From: netdev-bot+sinfo@kernel.org
+To: Fan Gong <gongfan1@huawei.com>
+Cc: Wu Di <wudi234@huawei.com>, Teng Peisen <tengpeisen@huawei.com>,
+ netdev@vger.kernel.org, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Ioana Ciornei <ioana.ciornei@nxp.com>,
+ Maxime Chevallier <maxime.chevallier@bootlin.com>,
+ Mohsin Bashir <mohsin.bashr@gmail.com>,
+ Dimitri Daskalakis <dimitri.daskalakis1@gmail.com>,
+ Harshitha Ramamurthy <hramamurthy@google.com>,
+ Larysa Zaremba <larysa.zaremba@intel.com>,
+ Vadim Fedorenko <vadim.fedorenko@linux.dev>, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, Zhou Shuai <zhoushuai28@huawei.com>,
+ Wu Like <wulike1@huawei.com>
+Subject: Re: [PATCH net-next v02 0/5] net: hinic3: Bugfix for later patch-set.
+Date: Wed, 11 Nov 2026 04:22:26 +0000
+Message-ID: <179437094656.2168702.7238120951030130700@kernel.org>
+In-Reply-To: <cover.1794371175.git.gongfan1@huawei.com>
+References: <cover.1794371175.git.gongfan1@huawei.com>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,53 +72,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-The caller in dvb-bt8xx.c (frontend_init) already frees the allocated
-dst_state when dvb_attach(dst_attach, ...) returns NULL:
+Hi!
 
-  if (dvb_attach(dst_attach, state, &card->dvb_adapter) == NULL) {
-    pr_err("%s: Could not find a Twinhan DST\n", __func__);
-    kfree(state);
-    break;
-  }
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
-Remove the redundant kfree() calls from dst_attach() to avoid
-double-freeing the state on failure paths. This keeps ownership with the
-caller until a successful attachment transfers it to the frontend.
+ - How the issue was discovered, e.g. hit in production, hit during
+   development, syzbot report, manual code inspection, LLM or static
+   analysis tool scan.
 
-Fixes: 6792eb0cf931 ("[media] bt8xx: fix memory leak")
-Cc: stable@vger.kernel.org
-Signed-off-by: Tuo Li <islituo@gmail.com>
----
-v2:
-* Update the subject to refer to dst_attach() instead of frontend_init().
-* Add Fixes and Cc tags.
-* Thanks to Markus Elfring for the helpful suggestions.
----
- drivers/media/pci/bt8xx/dst.c | 2 --
- 1 file changed, 2 deletions(-)
+ - Whether the issue was actually triggered, or is only theoretical
+   (e.g. found by LLM and not proven at runtime). If it was triggered
+   please include the symptoms, like the stack trace or kernel messages.
 
-diff --git a/drivers/media/pci/bt8xx/dst.c b/drivers/media/pci/bt8xx/dst.c
-index 110651e47831..5cdf8a77260c 100644
---- a/drivers/media/pci/bt8xx/dst.c
-+++ b/drivers/media/pci/bt8xx/dst.c
-@@ -1694,7 +1694,6 @@ struct dst_state *dst_attach(struct dst_state *state, struct dvb_adapter *dvb_ad
- {
- 	/* check if the ASIC is there */
- 	if (dst_probe(state) < 0) {
--		kfree(state);
- 		return NULL;
- 	}
- 	/* determine settings based on type */
-@@ -1714,7 +1713,6 @@ struct dst_state *dst_attach(struct dst_state *state, struct dvb_adapter *dvb_ad
- 		break;
- 	default:
- 		pr_err("unknown DST type. please report to the LinuxTV.org DVB mailinglist.\n");
--		kfree(state);
- 		return NULL;
- 	}
- 	state->frontend.demodulator_priv = state;
--- 
-2.43.0
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
 
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
