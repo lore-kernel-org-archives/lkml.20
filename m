@@ -1,65 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794439029;
-	b=1OWbWo3tRD3Ihg7dQxwMNiWkSZCW4hrB5Wt2LLkhGRAKGEVXaIwvR4gNvPtTEl/13XL/
-	 4Zz3dTY/iUczCMtmanq5Ri5bg8wXCGoXuNFaRId/Wnn60ZrlYTIemtR8+a8AS04/ePl41
-	 e4g50sA43k69PQZSRWUOcYIWZ9nYqoX8Q0DroltGr1CzpvQnSH2pI3T2Fjs0AYY9g7ZhU
-	 /DnJJ2o9ORSDgmhgCRs0Y1t+yIfUUjqxI6YVfNhRjYQfiwYRzjFg8UsT8ekEeKD0EyJUo
-	 KBEDJpCl8BvtL6PyC1nQOOTOry7boNUpE6OGaOg8CI+yU/ylvGZ+5CTchk0WXXI1how==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794439029;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Zoho-Virus-Status:X-Zoho-AV-Stamp:
-	 X-ZohoMailClient;
-	bh=X566TSp1g08t2T54eFFHOyU2hPE+x6DCobn3glJTKO8=;
-	b=3Lt8AKvJCiNlu+U5RYlyDY4hdTVa+ZQg5G3WMu43fa2Yh3dA26sUvjXMbqr1FWcWIpIj
-	 owX9lIYyHBFDz+rPCXLP2TxerOYzXg3MjRrr+BS23Ep99F4tqPu1k42xzXR8e0oOI2dv8
-	 XJnWTupv7zjyZhbrt7rTigyEGafN4IVVSHKgjuKe8fduwuWRv1872IkiyHYwev104uwnI
-	 RjPzyXB6mOfuDCZE1TKmpOQvjrnSKPkmQ3KB1DUitiJdkJnpV1+LkIG3Fi/l0n/RslxCQ
-	 ss3pb1BUOeG8b68grNVnaXwBoFChrq3ZpVkAlOa/+9WWfY1dZBC3eTVASGKXqNIdWFQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=KLtxO6XD;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
-Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.178
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794439075;
+	b=wQvyRhtPb4dMj3geQ+lAFusBnz8tVF3wjUzTBrVpoifPQZf678Wq/bstmuola59dQcMc
+	 bwPu1jCKbS2ZRHSCtrro2iYUNJpBjnzHbcV1hK55zlLJVm9ClMOGVnvjzy1o8WbZGxmqj
+	 labM4OzRtu7wJ4lJeGixTHbwk12Ci1Loxb0elWX+y9e/aBXrcCuCfoapbHaq3rvh60iHK
+	 5XNzSd++ObiuYQZYnPE+zR40Hkrp7sT1+o2dn+P7zLQ7GYQcarhHudH96yVzFn/74EwRg
+	 TkNtNZ8ss3mR0FMkqlq65yb9/o3wGh89WzaI/qGqWAPIFArHiAw0jKeBrekP5z0rU/g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794439075;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
+	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=TJD/l2dgN60lOdRp5Ktchuk3+SNhKEQ8u28wOrvBKgY=;
+	b=mVvgsbhg6CYsB+Fp/Qhgd6gikhyOHBi9Vi8eFRLSt4N4zHFOQaoXqNBhhzlIWJYgciUr
+	 4LCfXlbsbHwsZzsgivfGwV8FzabLh652+DmaLkLcG24pDsvMTtSx7Ws8JqR0uka1xSC0j
+	 tUkj6wsfF0kQZEy2NbRIKrAh7+m0lVv2RomDEy9WoeapW79uA1oYlxjAdaHZgHWo52Epk
+	 W2v7dRzvHSHlbcdU5cEuW4QaOVt+ZmKVyIAUvJam/RVaW4FqqcI/ZTM9+wXEvW2PYQvf3
+	 i6D8iYtp/cMakk6syVYPF+wc/70p2NwcBIXkJaHzZEQXfGmdozJOOA/3tjrIWJc9TlA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=telaak.dev;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.215.178
+Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com [209.85.215.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4506C606A33D;
-	Wed, 11 Nov 2026 23:17:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4506C606A33D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=KLtxO6XD
-ARC-Seal: i=1; a=rsa-sha256; t=1794439022; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=GACz1vdHwqszkeQQlI9SH1FHiFyAKVZsqXHjf1RdQeuVn0GOqd2S75Rd7Nl6QBfiZ9Uoqh5BC9MH/ib1EOYZhR91Opx0pjhc5qaVsYCXYZYGAfW29RyiyPIiFhjL3hUqouA1jnn3m0KQIIl4bEC3x81CYl6mPYsdzdkPhncbPJg=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1794439022; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=X566TSp1g08t2T54eFFHOyU2hPE+x6DCobn3glJTKO8=; 
-	b=GUHiLz7pMXAg38RSVW5ppXaRns+TpAI3DkB96sSXbu1gdFUsnEOZVrjN8QUWIhe7/HWt4ny41gWEYv08JSVubxL4yOhKduGUGHh3k1N6eD1RGhDdMBJsZCQfOT0kWbwMkblp9tiDBqScZZd5Hm/atS+nIkRWLUWRfg2fGp3TZKI=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
-	dmarc=pass header.from=<sebastian.reichel@collabora.com>
-DKIM-Signature: a=rsa-sha256; b=KLtxO6XDpBsD4ifRhx8/ISMrL2Tj+s2nEkyODervBl1T3i1lK1h41qSzZOeN7KkoeGXZLCMfwfeXr442al5XW7K3pnUZ6Ndvt0HBGHIq9r5vDT0l2aMymAJm0a20ujMyHf6jCJw5b/zogmXkVxU1nycIiTvEq16OXEQe2os47XI=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=X566TSp1g08t2T54eFFHOyU2hPE+x6DCobn3glJTKO8=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1794439020559405.26800457098693;
-	Wed, 11 Nov 2026 15:17:00 -0800 (PST)
-Received: by venus (Postfix, from userid 1000)
-	id BDDBE180758; Thu, 12 Nov 2026 00:16:57 +0100 (CET)
-Date: Thu, 12 Nov 2026 00:16:57 +0100
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-To: Alexey Charkov <alchark@flipper.net>
-Cc: Badhri Jagan Sridharan <badhri@google.com>, 
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	RD Babiera <rdbabiera@google.com>, linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 5/5] usb: typec: fusb302: Enable SOP' communication
-Message-ID: <avT3VpGTdwkv3G40@venus>
-References: <20261103-husb311-cable-comm-v1-0-6217dabc1a85@flipper.net>
- <20261103-husb311-cable-comm-v1-5-6217dabc1a85@flipper.net>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B88F606A326
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 23:17:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0B88F606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=telaak.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-pg1-f178.google.com with SMTP id 41be03b00d2f7-cd60c5da24cso1886560a12.0
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 15:17:54 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794439074; x=1795043874;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=TJD/l2dgN60lOdRp5Ktchuk3+SNhKEQ8u28wOrvBKgY=;
+        b=0NghtFQA8NyxsnIt58dOAKU9kWUTKnHv+eX3JGerAXX4kjgpNjWYt2H5H79VQolZcn
+         tYEYG1Y+KOET07CHU4DGVDW71GZEdlXswSczwaNw0JEvXZjvpp3AXHrBAcqrBZsrnhlK
+         csdviF4Q2Gezwb4Ywkw8DYHnRjm5tf9Krz6DmpowSTH6kXx7L/YcZO5MBw8x4cuMC97A
+         0iW1pzCc/31HvuFBiHCtXMugvODEkauWTOqfuKFOdk8ZmbNnjYUwcDwnkkJCy5o0laXY
+         obkm23k6tXP0ISPpQiwsnAVUsJFzJt6JaDcGJG2Qy0LoKc7Ikf4YPjLnQTZ9kz0BeFX3
+         8qzA==
+X-Forwarded-Encrypted: i=1; AL+hErF3oqIFXVPi5SL+mUk3JAR2KFXjDWMxQhjHWEcwahu5hnHcK9JPHOfrELmQY38DKV/F0KFqnimtBpokFm4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z91bscq0Eb4MrWWR9FdAjNp/NiVA3PB38AKJ5rHZUGso5YI+XjH
+	wR04mJUn2Czwo8Xp4J/e2abr21NEHAnX3BSlWIkFLcG/xIRrUHIOXVkhofhtQryC
+X-Gm-Gg: AYBFou2bvDLYI8n5NR6lZhkebR9a8JdjCYzpUw5mn8pVpuTaW2f74R0oxKpqcZCpplX
+	sy+4Fvi2ImZpXualnEMt4qxcBU2FMTv1YFSNAqxNMmq+hrgIPXYpLhVrN1ZZ0OxSRXUPAKKHk4H
+	acaUBqV+c2TeqNqn6phYkwc85GmnRdfj7dkTyqHNGbBm5SKC0A+BU/f8o8TSDvhhbWfL75SUvJJ
+	x3vWS39wo3Ps3Pos5dzqrSYozpg2IoFLv3dq4R/EEBbFbwbEYBIKtIzX2X7K13ZbPrLkD1Acxii
+	HXK1vdQXd8qnUeKiU6C0PkV/pEbBbiT/LI1DpOVcbqxH5x+LDaPooI4twx3RtG5H1Qe+4dNHD0x
+	3E4DX2JMWG+L4ccaPxEDfPLBrKbm7M0GyBlraFbZ+15k4YfiqPjpSErLmif3orrpOWaApkjHNPL
+	vb8X8N3glNkmbgK2D06GpHNLYsIKoMpfXzms5X3w3twoanLRSd2avQ7Br71M22gJS2xGlwbkL8w
+	RhX/bbVFBngXINcXPnhx4WlAyOnH/xOA1Fiw5vsaLkKkSIl/2cZimCVLbEIDS/zcHkj/Wu/IRHS
+	hfxFl8tuGSPN4xhgCXr1ylhxdnJ1LlvLcA5ItwM//Rj6g/4DDGTgyqW74SBjL5+M02tz3PlxZCB
+	gvA7s3Y3TZK8fKwEcHbXKMi8OVKaaAM0u2UemrSi2A8rI
+X-Received: by 2002:a17:90b:4b0c:b0:3b1:4eb6:b3a with SMTP id 98e67ed59e1d1-3b182defaedmr3809903a91.8.1794439074390;
+        Wed, 11 Nov 2026 15:17:54 -0800 (PST)
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com. [74.125.82.181])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b197c8b2cdsm1211988a91.16.2026.11.11.15.17.53
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 11 Nov 2026 15:17:53 -0800 (PST)
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-36fc0a3fe93so7176794eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 15:17:53 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErHAZq4y32F51V+Fo6zyCl/ansz93oD+OOQpDewpU7pk6O8qa0KqFx+fANVqprWB/ccslSBz+p0BgjIZ03I=@vger.kernel.org
+X-Received: by 2002:a05:7300:1486:b0:376:feb:2df3 with SMTP id
+ 5a478bee46e88-376861801e9mr5815346eec.20.1794439072759; Wed, 11 Nov 2026
+ 15:17:52 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,179 +81,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="m353sa5fb4jbqqq7"
-Content-Disposition: inline
-In-Reply-To: <20261103-husb311-cable-comm-v1-5-6217dabc1a85@flipper.net>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/294.427.16
-X-ZohoMailClient: External
+References: <20261111-b53-bpdu-mirror-v1-1-f9f32e9d25db@telaak.dev>
+ <CAOiHx=kTUBtFVgFhNqGhP135CdUmK8imCE_+pdk7qsdZKMqByQ@mail.gmail.com>
+ <52c38c53-7806-48c7-a0a4-9e1aa40cc55e@broadcom.com> <CAOiHx==VFEgLf5Zs+VGYdhdsznSwTz-8Hp_aAF6UuGnKT-4=fA@mail.gmail.com>
+In-Reply-To: <CAOiHx==VFEgLf5Zs+VGYdhdsznSwTz-8Hp_aAF6UuGnKT-4=fA@mail.gmail.com>
+From: Joseph Telaak <joseph@telaak.dev>
+Date: Wed, 11 Nov 2026 18:17:41 -0500
+X-Gmail-Original-Message-ID: <CAPY4CJ5eHpzoYdZZud7sjhjYhCEko2qp9hpLFHRr1Wcdb8ps4A@mail.gmail.com>
+X-Gm-Features: AclHuK-EGy-sXJ-AuLMUcM56eR3CiFTSuahQBNsyhRLIPXPLjQHiN1ydrRXpFso
+Message-ID: <CAPY4CJ5eHpzoYdZZud7sjhjYhCEko2qp9hpLFHRr1Wcdb8ps4A@mail.gmail.com>
+Subject: Re: [PATCH net-next] net: dsa: b53: mirror BPDUs to CPU port 5 when
+ port 8 is not a CPU port
+To: Jonas Gorski <jonas.gorski@gmail.com>
+Cc: Florian Fainelli <florian.fainelli@broadcom.com>, Andrew Lunn <andrew@lunn.ch>, 
+	Vladimir Oltean <olteanv@gmail.com>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
+> > We could also try to use the CFP to perform a full redirection to port 8.
+>
+> CFP isn't supported in all bcm531x5 chip variants. E.g BCM53115M and
+> BCM53125 do, wile BCM53115S and BCM53125S don't. And likely the
+> presumably lower cost S variants will be found most (at least the
+> board I use for testing has one).
+>
+> So we could at most use it as an alternative path where supported to
+> free up mirroring. Checking if we have CFP can be done via the Bonding
+> Pad Status Register.
 
---m353sa5fb4jbqqq7
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 5/5] usb: typec: fusb302: Enable SOP' communication
-MIME-Version: 1.0
+The CFP redirect would be a nice fit where it exists, since it leaves
+the mirror free for tc. This board has a BCM53125M, so I can try it
+there. For v2 I'd start with the mirrors, since they work on both
+variants, and add the CFP path for the M parts as a follow-up if you
+think it's worth it.
 
-Hi,
-
-On Tue, Nov 03, 2026 at 03:21:26PM +0400, Alexey Charkov wrote:
-> Let TCPM discover e-marked cables through the FUSB302 and learn their
-> current and speed ratings.
->=20
-> Receive SOP' only while sourcing VCONN with PD reception on. Only the
-> VCONN Source talks to the cable plug, and acking the traffic between the
-> partner and the plug would collide with their own GoodCRC.
->=20
-> Switch SOP' reception off before VCONN or PD reception goes off and on
-> only once both are on. If that fails, log it instead of failing the
-> switch TCPM asked for: SOP' reception left off only costs cable
-> discovery, and left on with VCONN off makes the port ack the partner's
-> traffic with the cable plug until PD reception goes off, which beats
-> keeping VCONN or PD reception in a state TCPM did not request.
->=20
-> Tested on a FUSB302B as source with an e-marked 5A EPR cable. The
-> datasheet documents the auto-GoodCRC header bits for SOP only, but the
-> cable plug took the chip's acks to its SOP' replies without retrying.
->=20
-> Signed-off-by: Alexey Charkov <alchark@flipper.net>
-> ---
-
-Reviewed-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-
-Greetings,
-
--- Sebastian
-
->  drivers/usb/typec/tcpm/fusb302.c | 37 ++++++++++++++++++++++++++++++++++=
-+++
->  1 file changed, 37 insertions(+)
->=20
-> diff --git a/drivers/usb/typec/tcpm/fusb302.c b/drivers/usb/typec/tcpm/fu=
-sb302.c
-> index 8b3a2e095ef8..10f2dabf3318 100644
-> --- a/drivers/usb/typec/tcpm/fusb302.c
-> +++ b/drivers/usb/typec/tcpm/fusb302.c
-> @@ -725,6 +725,27 @@ static int tcpm_set_polarity(struct tcpc_dev *dev,
->  	return 0;
->  }
-> =20
-> +/*
-> + * Without VCONN from us, SOP' traffic is between the partner and the ca=
-ble
-> + * plug, and our GoodCRC would collide with theirs. So stop receiving SO=
-P'
-> + * before VCONN or PD reception goes off, and start only once both are o=
-n.
-> + * Neither is worth failing the VCONN or PD reception switch over.
-> + */
-> +static void fusb302_pd_set_sop_prime(struct fusb302_chip *chip, bool on)
-> +{
-> +	int ret;
-> +
-> +	if (on)
-> +		ret =3D fusb302_i2c_set_bits(chip, FUSB_REG_CONTROL1,
-> +					   FUSB_REG_CONTROL1_ENSOP1);
-> +	else
-> +		ret =3D fusb302_i2c_clear_bits(chip, FUSB_REG_CONTROL1,
-> +					     FUSB_REG_CONTROL1_ENSOP1);
-> +	if (ret < 0)
-> +		fusb302_log(chip, "cannot turn SOP' rx %s, ret=3D%d",
-> +			    str_on_off(on), ret);
-> +}
-> +
->  static int tcpm_set_vconn(struct tcpc_dev *dev, bool on)
->  {
->  	struct fusb302_chip *chip =3D container_of(dev, struct fusb302_chip,
-> @@ -743,6 +764,8 @@ static int tcpm_set_vconn(struct tcpc_dev *dev, bool =
-on)
->  		switches0_data =3D (chip->cc_polarity =3D=3D TYPEC_POLARITY_CC1) ?
->  				 FUSB_REG_SWITCHES0_VCONN_CC2 :
->  				 FUSB_REG_SWITCHES0_VCONN_CC1;
-> +	} else {
-> +		fusb302_pd_set_sop_prime(chip, false);
->  	}
->  	ret =3D fusb302_i2c_mask_write(chip, FUSB_REG_SWITCHES0,
->  				     switches0_mask, switches0_data);
-> @@ -750,6 +773,9 @@ static int tcpm_set_vconn(struct tcpc_dev *dev, bool =
-on)
->  		goto done;
->  	chip->vconn_on =3D on;
->  	fusb302_log(chip, "vconn :=3D %s", str_on_off(on));
-> +
-> +	if (on && chip->pd_rx_on)
-> +		fusb302_pd_set_sop_prime(chip, true);
->  done:
->  	mutex_unlock(&chip->lock);
-> =20
-> @@ -848,6 +874,8 @@ static int tcpm_set_pd_rx(struct tcpc_dev *dev, bool =
-on)
->  		goto done;
->  	}
-> =20
-> +	if (!on)
-> +		fusb302_pd_set_sop_prime(chip, false);
->  	ret =3D fusb302_pd_rx_flush(chip);
->  	if (ret < 0) {
->  		fusb302_log(chip, "cannot flush pd rx buffer, ret=3D%d", ret);
-> @@ -873,6 +901,9 @@ static int tcpm_set_pd_rx(struct tcpc_dev *dev, bool =
-on)
-> =20
->  	chip->pd_rx_on =3D on;
->  	fusb302_log(chip, "pd :=3D %s", str_on_off(on));
-> +
-> +	if (on && chip->vconn_on)
-> +		fusb302_pd_set_sop_prime(chip, true);
->  done:
->  	mutex_unlock(&chip->lock);
-> =20
-> @@ -1136,6 +1167,11 @@ static void fusb302_bc_lvl_handler_work(struct wor=
-k_struct *work)
->  	mutex_unlock(&chip->lock);
->  }
-> =20
-> +static bool tcpm_cable_comm_capable(struct tcpc_dev *dev)
-> +{
-> +	return true;
-> +}
-> +
->  static void init_tcpc_dev(struct tcpc_dev *fusb302_tcpc_dev)
->  {
->  	fusb302_tcpc_dev->init =3D tcpm_init;
-> @@ -1150,6 +1186,7 @@ static void init_tcpc_dev(struct tcpc_dev *fusb302_=
-tcpc_dev)
->  	fusb302_tcpc_dev->set_roles =3D tcpm_set_roles;
->  	fusb302_tcpc_dev->start_toggling =3D tcpm_start_toggling;
->  	fusb302_tcpc_dev->pd_transmit =3D tcpm_pd_transmit;
-> +	fusb302_tcpc_dev->cable_comm_capable =3D tcpm_cable_comm_capable;
->  }
-> =20
->  static const char * const cc_polarity_name[] =3D {
->=20
-> --=20
-> 2.56.0
->=20
-
---m353sa5fb4jbqqq7
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmr092kACgkQ2O7X88g7
-+pqe4RAAihWn2wGdOWmtb/tGwuuxkaDKyK1s2RcpjY1F/xsczD+qn62vfNMTTzbe
-gLSbZ9kYignBtorflHx3MMlTpyMyRKO0pH4c/LTAzL/VkEOzTZ7DCSyJ6q/jCbmW
-g64lW1uGDs7Dcni4gf/2PNhjss/hTHWJbVvqyBuwCHU0SOL7HZp6keNpIwK30fVT
-cA0QuVparSD4DThAwCwY6jZJtn6cKoeToS/4eRxWAK3WHriB0lnqGZSRsSmi/kV4
-uNKwlMwks5F9Ls+NVcRc0lgdASSZx4QymyIlK16enDSl2SchnbIyuA1FCMK0Ehse
-XGbgbgh0vLVdQzzWVGtPcGC+KJV3xPs9MLzLKeI67vbczJfoJXl29RkvD3JVoS24
-XWeAiflyVkSecji5pG/5yNO5x+SoOB56F1uyW9KMP9BchORQcQU7l7ukY4ZiTojI
-RfOwjJMwY6GJswBgRJR5vyQCTqCpoWa6TwSc3p22t/nMxFduV4+P0kZNz983hYQL
-Uz+Qb48ofnY4L7N9HuYTxJolQeRon6OD6HuSDCyNeHzxiQT2+zuE0yyHQxhaL5uf
-btDPXRj90DCrYv9FD3yKnCndQcTLOFlJMcm0l1iVlpAcZkQbIUN3JFmt0rM3WamX
-hqULwFJfwuJoh3ePDx6U5Sahcwe5PSRsbCI81JChwZgrcbIWdLI=
-=XVHM
------END PGP SIGNATURE-----
-
---m353sa5fb4jbqqq7--
+Joseph
