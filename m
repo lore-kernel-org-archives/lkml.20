@@ -1,63 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.151
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794364778;
-	b=rm0NxDbzBYjfLDWQMSEnVtWd8VEWqGX1vpO8kK6zsa0KYFUKubVwt5/LLdPj9JE26NMa
-	 0g71F56VUou2O60w7XtosXXI6eWBUhSx0sJQj0v1Kwa55ZcbFQTzTBoqInCMeYJ9xeUob
-	 +oN7ODu8WzN+Ntk4rma0ma3qTVJcve4olZ3cfwIH/NQlF3o4dMZpZ4cipc9czxf3nBYyv
-	 gXzGQIkK1Z5oppMJg8iNkX1I6YWsookNWZk5LtcwiJ0oJT0CO12XGGZ+f/BojNxF9KOqu
-	 q/83BTPovt42M1F0xhrklJSUn+w/ez52okNgFeHLTMOJ2fOBxcA84qoyaKbuCX2fYHw==
+	t=1794364784;
+	b=pg87/d3UNuA0cFypnSWvtgw473Hqe7rxOOqLOzXX7gDwpo7fRVdbQF1F8oqwXsoQrw3P
+	 DWqRPSX9PeqrEydKR+vDydqzxXU6th+f+uDlOESy/AxG2Pw943X8FZNxKZ4L0dUvQ63/E
+	 wIXz8bOaTrfYYIBI36PIsNPc/1LOhUMaWielcZJETwGyRUPvsInFsK3pNr1vpRv9TDTFL
+	 J/EppCxSB+Orp4p0LomrytsdL9KQQKngNYTqpFvybtReDu8v9SQVHlWWGoVUtl8GSWeje
+	 dhpQawZBUFqm1YkNOoN/OeZJ3zg4CU+KEKwlbVUi0JmETcgsIZQ0Bqabdm+tvy4Jk9g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794364778;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794364784;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=rFhbmKmMJi9mGdLbso/FKdXw9abtublD1KPqag2vqqQ=;
-	b=PsZiV8nM2yEepJ9yY2eyT0ackLgaKrDr0liMm4a+E1loVy8rE4mr+fwn7jkgRfLcQ77J
-	 KnyA7NqAam65IWevCSD/HBDkQbsrGd82sY+x6yaICOwEdsM//tyr4j/jrqndS2qDSvjeE
-	 ZgGdYXMJW6oykkqJOBVIb0ZmxBDCe95oafzFDRKv/dtbh/EcYUOooapkozVA3oJTAXqwW
-	 K9UsiFk1EINLLK6Rc4GHLRuZU77fW8VUvlnSDDD1RSBR/xY0c8W9vPDSg7KiGo81IdIgT
-	 NvY9xjQrWGzCzlnwtTfhcBe6QxV6mqD9vDGte7/3WUhhJg/Zb6yEk/OxT6BCGFonVvw==
+	bh=yWgatv2qYfrMiUj+V1Eg5nb2TyQSEHAlAGM5NfT6vts=;
+	b=fMo6Z35x3FsMKjhN7d4eHTqboIfi2uSWoX04N+ULTlI+oLyo3hHuEXXQgsDpykqhbT6z
+	 H8AV4SqDoeMr6NpjJ19kTt46Pvro2VKYB/5WdulPiEPgHq5GgstwaIUJ+I36RBV4jHHQI
+	 WqAhtHGmy8C5mL/f9eodj0q1igVlvb6XeZ4zn8JRKj9N5T6VCfVo+2m0l+LQ7c6wU26Iw
+	 6fR7KqlpHXk3MIwsm6Bh8PUPKvZGYGXMjGm+aRcr5r3KKgMcFB7WsWv6MmrA5wd5Pj22w
+	 D1adQFmuhdama2noEhXPVhumCZhPhsEtOThnd6/JNWvcVH9rWXiOv3jtoUqITOlClng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b="yf/yaPeO";
-	arc=none smtp.remote-ip=111.22.67.151
-Received: from cmccmta8.chinamobile.com (cmccmta8.chinamobile.com [111.22.67.151])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A0917606A31C;
-	Wed, 11 Nov 2026 02:39:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0917606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="Hqcs/u2r";
+	arc=none smtp.remote-ip=209.85.210.175
+Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9387606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 02:39:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9387606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=yf/yaPeO
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Hqcs/u2r
+Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-8b68e59ab33so2034604b3a.2
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 18:39:43 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=yf/yaPeOLeHRjMNpvpPa8DaYQQXQ9tXruXBAcJ6E6YhnXSva3ImqratZre7v7RoiLc+T4/4IqO6Nz
-	 IMVT2FpaoNdKHJmA+tOrkkv14ZoLINzZRQIHHZNAF9EhkE6bZELakjkievu7GQD6FJwMfdMhfa4jx9
-	 4hMxbxEqeIVTPZGg=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app06-12006 (RichMail) with SMTP id 2ee66af3d55f1c5-9fdbf;
-	Wed, 11 Nov 2026 10:39:28 +0800 (CST)
-X-RM-TRANSID:2ee66af3d55f1c5-9fdbf
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from devin-VMware-Virtual-Platform.localdomain (unknown[10.55.1.72])
-	by rmsmtp-syy-appsvr03-12003 (RichMail) with SMTP id 2ee36af3d55e33f-ca419;
-	Wed, 11 Nov 2026 10:39:28 +0800 (CST)
-X-RM-TRANSID:2ee36af3d55e33f-ca419
-From: Zhu Jun <zhujun2@cmss.chinamobile.com>
-To: linux@roeck-us.net
-Cc: linux-hwmon@vger.kernel.org,
+        d=gmail.com; s=20260707; t=1794364783; x=1794969583; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=yWgatv2qYfrMiUj+V1Eg5nb2TyQSEHAlAGM5NfT6vts=;
+        b=Hqcs/u2ra8lREdfSNyYvzfvusNIjK8yDCTNavHbuglAZMtxeAqPdHp41OpaHKumytM
+         M0KodzULDGxmfa9IGX2fa/FIa5AE11/kxw5WARdSM3UARuoV6IWAUMY0bb/MI8V9nufJ
+         mc0yt9tm8Vk8RUcJemGFiA9ucqcdIjvVSwvjn4dmP4YB14kJyIi9FUK3V700VI5lcN17
+         2p226IILmpoUFnJl9jYOs75bXKgVA3ODQFQwF96zDGyjyJfbo8QjZ3An9Fw2hDgnIEip
+         lCQByrwBrW45791C6Ts/4MEMtXOKLtZRovWFyvfMkT5vTe8A2sl401QZXJ7leMneeEFJ
+         bQ3w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794364783; x=1794969583;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=yWgatv2qYfrMiUj+V1Eg5nb2TyQSEHAlAGM5NfT6vts=;
+        b=KUoyTs2x6M0RTwBpn0xwR/0fDe3BU9GMWdPr8/VU9rwI5jvwRfAhIK2MvtWXYqqziU
+         o5VEQ5XVCZw/5sUxLCrDSFY1AkNsqXZ01C8qyHb3gRbqAAb42F4HW01yS/69icpUT5Sx
+         TuIQG5dHNhL5WMAiB9vW9bHLkNozHVz/s3MQumhmdmrISiQ9VmxesehjV38ju9CcooOh
+         FziA81f7mKXz2OUkplxLCLvGEnlPAxE+YLVW65eKuwNkQH2piyPb9IDPVFBPczmcXpyB
+         3tStqpbIOcDD9hSaYoWMtiLuFlExxrpjR2E7D0noBX4XYAUXnom/SgGnjS+7KyyqyMRa
+         jNaw==
+X-Forwarded-Encrypted: i=1; AL+hErE6+SCVMgTvckmbobK+p01aCpgNl2zi2XvUGj+loZuHwug7P8/G4auzIbaJWo/MpJrNAUw1bxd8AflnY1U=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+gIDGLmmA3+LGvadsPzGdRz1OETn4zwXvvwSwQoJ+Zj6/7vxX/
+	H1TtKyT7OCiV6Rx7mGZERE/t82mgTYVe1r91isqeiCgEZpTUJSTuE2I5
+X-Gm-Gg: AYBFou3qjFa9iZ4/1Zoy1ReGqHh0wP79pbAQfHRUnhs4XDzb7SaT8zvDGuy2+H0ne+F
+	YSMlykWBPTT8SFXf8X6kzadj2c1aWgQ/35MjPghJJslGmCmw3/+iL5lD1lIQNMKykVA3ir2OspA
+	LBYIOuCH8oRfzcJ1v0ITMY+Zr2hIs9Uj1MPGIPunyjB9ihPfln0Y9myNOpJwYAEfIKAgjpxnfQI
+	HAPbHTD5euDTbCOeUmZLIIHi19S5zvhUHgHlGGx4uqzve2hcFUjXzwJZl4R+cFxwNOKcequI9J3
+	u1lUp7tZIaZHeyLsJCsXWN1912r4HMY9AFR5pAMql3PDNSTJtU6B3TzhdcoCg70YnjiBO63AvcY
+	slV4R01r3YqGtUGQ3ySeLVqiGbQiGSjUH4QhsBScdDiq+Snnn/wD4aoR9liMrx2QSE9USHpqANJ
+	BKX1QVCu4bCEoLKL42yD3u2uYqnvLLI8Dr/M+mkuqJMyt9j+K+80rcoy1fa+pNCtZi+8gUw5cOS
+	TmBQFAzgosmWhtGFZ2X12iyYGUU6+J/0Rn3pbxxuQ2h7PGrz00NSYYXnZ4OFf6b+9OBmORgf7EL
+	culZuCWu61SHfdXqLLUlymxCT6c9mc9qk1+CVRXS4DXhkJMpt9Ut5XZOHVjKABQ4o64SKx/wKzx
+	mXlO79Pcp3xH6UcAexF0uiiYqgldlVOX5tp2wD7t0djnAN7wsedMpbAqSQFjnmQ7LWQqtteh4OD
+	f+ftFNEyc4z2FZugitOeYA2Vs=
+X-Received: by 2002:a05:6a00:4c15:b0:880:b709:cefb with SMTP id d2e1a72fcca58-8bc1d3324ecmr1077159b3a.45.1794364783094;
+        Tue, 10 Nov 2026 18:39:43 -0800 (PST)
+Received: from ryzen.lan ([2601:644:8000:37f::e34])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8baa7de3a55sm1488097b3a.3.2026.11.10.18.39.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 18:39:42 -0800 (PST)
+From: Rosen Penev <rosenp@gmail.com>
+To: Damien Le Moal <dlemoal@kernel.org>,
+	Niklas Cassel <cassel@kernel.org>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>
+Cc: linux-ide@vger.kernel.org,
+	linux-tegra@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] hwmon: (nct6775) Clamp voltage limits before narrowing and scaling
-Date: Wed, 11 Nov 2026 10:39:26 +0800
-Message-ID: <20261111023927.9234-1-zhujun2@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.51.0
+Subject: [PATCHv3] ata: ahci_tegra: use devm_kzalloc_flex()
+Date: Tue, 10 Nov 2026 18:39:39 -0800
+Message-ID: <20261111023939.75386-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,35 +102,68 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-store_in_reg() parses an unsigned long, but in_to_reg() takes a u32 and
-multiplies it by 100 before clamping. Large limits can therefore wrap to
-a low register value. For example, 4294967296 mV becomes zero on a
-64-bit system.
+Combine allocations into one by using a flexible array member.
 
-Keep the input as an unsigned long and bound it to the register range
-before scaling.
-
-Signed-off-by: Zhu Jun <zhujun2@cmss.chinamobile.com>
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
 ---
- drivers/hwmon/nct6775-core.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ v3: use devm_kzalloc_flex()
+ v2: Rebase
+ drivers/ata/ahci_tegra.c | 14 ++++++--------
+ 1 file changed, 6 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/hwmon/nct6775-core.c b/drivers/hwmon/nct6775-core.c
-index 6e97e4f08b90..b7c1e8ceaac9 100644
---- a/drivers/hwmon/nct6775-core.c
-+++ b/drivers/hwmon/nct6775-core.c
-@@ -1039,8 +1039,9 @@ static inline long in_from_reg(u8 reg, u8 nr, const u16 *scales)
- 	return DIV_ROUND_CLOSEST(reg * scales[nr], 100);
- }
+diff --git a/drivers/ata/ahci_tegra.c b/drivers/ata/ahci_tegra.c
+index 2b9b98643128..c6ec344c2e6c 100644
+--- a/drivers/ata/ahci_tegra.c
++++ b/drivers/ata/ahci_tegra.c
+@@ -176,8 +176,9 @@ struct tegra_ahci_priv {
+ 	/* Needs special handling, cannot use ahci_platform */
+ 	struct clk		   *sata_clk;
+ 	struct tegra_pmc	   *pmc;
+-	struct regulator_bulk_data *supplies;
+ 	const struct tegra_ahci_soc *soc;
++	/* this must be the last member */
++	struct regulator_bulk_data supplies[];
+ };
  
--static inline u8 in_to_reg(u32 val, u8 nr, const u16 *scales)
-+static inline u8 in_to_reg(unsigned long val, u8 nr, const u16 *scales)
+ static void tegra_ahci_handle_quirks(struct ahci_host_priv *hpriv)
+@@ -514,6 +515,7 @@ static const struct scsi_host_template ahci_platform_sht = {
+ 
+ static int tegra_ahci_probe(struct platform_device *pdev)
  {
-+	val = min(val, 255UL * scales[nr] / 100);
- 	return clamp_val(DIV_ROUND_CLOSEST(val * 100, scales[nr]), 0, 255);
- }
++	const struct tegra_ahci_soc *soc;
+ 	struct ahci_host_priv *hpriv;
+ 	struct tegra_ahci_priv *tegra;
+ 	struct resource *res;
+@@ -523,14 +525,15 @@ static int tegra_ahci_probe(struct platform_device *pdev)
+ 	if (IS_ERR(hpriv))
+ 		return PTR_ERR(hpriv);
  
+-	tegra = devm_kzalloc_obj(&pdev->dev, *tegra);
++	soc = of_device_get_match_data(&pdev->dev);
++	tegra = devm_kzalloc_flex(&pdev->dev, *tegra, supplies, soc->num_supplies);
+ 	if (!tegra)
+ 		return -ENOMEM;
+ 
+ 	hpriv->plat_data = tegra;
+ 
+ 	tegra->pdev = pdev;
+-	tegra->soc = of_device_get_match_data(&pdev->dev);
++	tegra->soc = soc;
+ 
+ 	tegra->sata_regs = devm_platform_ioremap_resource(pdev, 1);
+ 	if (IS_ERR(tegra->sata_regs))
+@@ -578,11 +581,6 @@ static int tegra_ahci_probe(struct platform_device *pdev)
+ 		return dev_err_probe(&pdev->dev, PTR_ERR(tegra->pmc),
+ 				     "failed to get PMC\n");
+ 
+-	tegra->supplies = devm_kzalloc_objs(&pdev->dev, *tegra->supplies,
+-					    tegra->soc->num_supplies);
+-	if (!tegra->supplies)
+-		return -ENOMEM;
+-
+ 	regulator_bulk_set_supply_names(tegra->supplies,
+ 					tegra->soc->supply_names,
+ 					tegra->soc->num_supplies);
 -- 
-2.51.0
-
+2.56.0
 
