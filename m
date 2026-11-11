@@ -1,100 +1,135 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=74.125.82.172
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1794411734;
-	b=TKYMculahkq/P2ukvq8Xy6bg0iXrc6/o7YY6k2kZnxJz8wV01UwFMJsXlAf4s/b1C38U
-	 3lUl9J366Rtms5lmbSqxgVdAkUTdPchB5y9dB2XOuhgCdAiN0yIXfiZlTdOi8FC42IgmE
-	 /HJ+oYZShG87CwLk9+FFCJchpscKy4wGHf8JH0/N7NP+UeOBRgioT+4cf9BxzrdrYhsWe
-	 bVsZYZGbrBHVdhPQabcB678jlLyN/wXeQD5emlfoP4pFsO/vIpW4XZHhW3EJnR2rjy51t
-	 9f5eYI3waKE+LbqvU6d0M1qRq/+SEvWU1s4KmErqp4drisEBg3WvIsIZGFBWBAcG3dw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794411734;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=ZD+vbtbPmFOJcN2OyXTBdL4gMWgwvLA87K5+LSebFco=;
-	b=G6qiVd6To6Ts4Tc5Zftz8RzZ+aD4Q0+VXxJx+cyGjPH4FvLEgsU70FhFqRn9HRBOR3J8
-	 BwQAjfepmuV92VUhubwWEklWhTZNI0VNCtm5JxhI84Y9GYDuK6uWyj6iBWTsOhhvRo71K
-	 aah+fo5QKxDmRUUJQci8DDnUVlRmtkyRi36g023+TZh4iuSHcgHl0GIWSJ7SQmkuKfys2
-	 JovSJM+08pljENLA/9fMdvrRINkmoh/77W44aKtHr2zs7hcDAWqQjV7LxKOnKCxirs3mq
-	 6EfoklQDYJP7+gYFtcnLy34qzXojGsyuiY+7yqMBBY18CKD3dzMQzkXqaFYS2O9Ecew==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ILrsDdmm;
-	arc=fail smtp.remote-ip=74.125.82.172
-Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794411776;
+	b=QF3lWYttTMk4126ZFRVTOr6OHsYHBMimd9iZSZUvqtltljucd5Cutg0Vyv0maO07PlLL
+	 XkYvgcJgu+SG4ZX9wncrNreGlQTDlfdHmH+faO2DsVWB1lvr/xGpTOnejWN5cJu/2glf6
+	 WkVMUsdapBCrMrbDKArXmvqn+qHZbL/PyWVljj5gE9mt/U3S86iup/7Xm1Zz17K/AOal0
+	 62Uc7NQkvvQ6JVgBTBjppqRLTC7WXlZtm+k5J76NpQI0gi0Heze9A5PaTsREZNxxBkzEO
+	 1O2uMMzzWR9Ssasaq/qdNBs5+usCastu/Yb1n+vaChVySHsbOuuQgHww5MgoG7Inj9Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794411776;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=Ka81IfeeRWUOIRXxY/Mzm37rR2+cA3vNQJzHgs09LJg=;
+	b=pkF3USti8vJdx7y/wlYeJ42Jv3tmCQzDxvNVOSC/EuedGWzEsdhg3/X6iHrxMe2Oz5eT
+	 dJ8y2ukx4w+6nPrm+J9UH2WxMU/IsU1V8c5y23EoZcDZAhgyIIAkSE512JTtepDhLJZMd
+	 U+NLnukZomq0lxBE3ZXWd2x0628f/Sz2aAkQDC0X4bXkX2DFwZEsCrJWXaEM/RkInRgTR
+	 T4ndDJ4RJuiCFQMe88TPP+1AalYzeQNzG4qdHArnDXXD5a7J07X5aclEL8JAMebzCRnEH
+	 iDZOjSCiGucR9HPIZOaojnjEI2A8gmVIwEXRCkkAu40p5A004AreOik5F4Zh6M0I7hg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=fhsA4Yuf;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=HOBDK3LG;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1777606A324
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 15:42:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1777606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4E45606A330
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 15:42:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4E45606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ILrsDdmm
-Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-37198ed3727so4021642eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 07:42:13 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794411733; cv=none;
-        d=google.com; s=arc-20260327;
-        b=L2UCwwTYqdyvReU/T0N7dMPEeHEFGlYEPK399LCWma9suL/HEd0WkK9g+pPD+nZNmC
-         t79t/u+oue/fGucBj/2GbLlT1+m5AL2s62am0s/owu4e56TArq3Hzu4C8848ycl00xqZ
-         X23zLVEa7MDC1bZmcxDUboY5G4bFcczXaxrrYoiPKIJiEUx3f5o0d7kYq8fuV5tIXwhJ
-         2Vv2M8nLzhL+CFZkQ2HZM+dqT1/Mvf4u3kJT2zEHBoJPiQcs60ghfnImY8d+DN1hH/SO
-         QCzCvof6PLDjVnukUHTCsaqFPsl6qkqVP3dFEW+HwLo0dx9dn/2IJJtzn2VSgLhLhK6B
-         fNOQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=ZD+vbtbPmFOJcN2OyXTBdL4gMWgwvLA87K5+LSebFco=;
-        fh=XTNSylZDlv/gFR0hAbuzN3MUNHn1mMgdetncJi3FNCA=;
-        b=DO8lwsBDtq92lTyWtoEsTcd3sj5rsRTp1LcmYQ6XONlcUt9ICUUpdsIsz/nfttfreY
-         8eRYJMLMp0qcaxJNWMe6pp/91VFIoSMar3C3R1OkItxBnmR89iQE//3psGaSVG/s7AVs
-         KVNdQcSwFhqjp2N//O99jzctTrcehtdidCBLCN5AHf8X2BFJA7TFjLVZxCctM+2lRfqu
-         YrS4t4pBRD64wK7QgbOPUdWueioYDJhYZ0JWz9rRLnCKVX9fjjOkz9yQK6fxjyoTKJw7
-         aTL6RPrI1VjSKXtQ9phb6D7XMgBD5RS3fP1pSOWgq/DLgwu2FLixl8Q39edjLwR8xoDe
-         Wn/Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=fhsA4Yuf;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=HOBDK3LG
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ABF04al3597137
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 15:42:55 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=Ka81IfeeRWUOIRXxY/Mzm37r
+	R2+cA3vNQJzHgs09LJg=; b=fhsA4YufaIN+kkNmUeaJjEhXD+Ay2S74Gbn9zVTK
+	CL+52LVeQ/1bp/2LFslDYc+04X2tLRxzv07I4P+zXc+39zxf57p5lzyev2ZIhlix
+	+/6Mn/DfKG+mBN+cyE5YrV47TWwkbC/xXIOTESGtKSFElRM/Xv7Dbh+MjqQYMjX8
+	ND2dQtH85W0vrQlyMkLCLnI9cTpeeoX3TCN2Mi+LfMHL9L3soCWXGC+W9gxjWgID
+	PSP7heUFaGzTm/0qUlmXBt4iVwnj3ecINoeUwWKPNGJUvI2QzqaJypFL9a2SQ02i
+	lbsDrcA80QUgYI6tkocFBjX5InTBX5JFLkN2bVX5YMhRPA==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvt1u8c70-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 15:42:54 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93f32050e72so805013485a.1
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 07:42:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794411733; x=1795016533; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=oss.qualcomm.com; s=google; t=1794411774; x=1795016574; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=ZD+vbtbPmFOJcN2OyXTBdL4gMWgwvLA87K5+LSebFco=;
-        b=ILrsDdmmAvzqhD3TiNivNeF0J3+4JJsWrW9RQqTyes0Jt/1NIaT38z1TSZwlRZiVcy
-         98MR5a4CwfT/wbSrYAoqvQgQnCONz6ZmLwipoJB32SrMrl1+ZbNF1O1Q1BC0mBBDcmDq
-         nR3JIdl15O8tUaCjVcBRZ5CgoCZCGtH8v5dOQEek1bcF/FejZXezQwcOGgDag3b92qxR
-         547BWc2HmXMoxFFxZqg0vESpxdfk1lcGoyHdtCM186PCuE1shfkKEioix2RrXy+5hVEE
-         uZ/FHlRnVle2GxQuaD0QmME5KVBngRYC2Lb7MYBKm0GvtOleg5aDWY6AjsIEIH8N5uXe
-         TAJg==
+        bh=Ka81IfeeRWUOIRXxY/Mzm37rR2+cA3vNQJzHgs09LJg=;
+        b=HOBDK3LGauY1QmsyfGncPeL9mUa8yG+nh/PyfJtlNeABYiOLM1goFjBu403O6ieAvz
+         4rB8E872JlmwDz2WmgRNShmD7Bh+lJ6hTHUD+XeOingsyLyPnwGpBWjxEbM6eXDFTJ/R
+         KZjp7A7tyUL3o7OYn8iCIWCJUJWpunEpxRCuYKNvAD6e50dwsE4dO65sjKOQqWZakUyZ
+         SSIMeN9XfZtFmzPHK8EKnsSwRbSW08dVzJoTBDnjfI9pgAJruPXYP6rp3mF7WLRyyWFB
+         gYnASl7kCsWfSUB6WK+N5/P0+kNDs37JLk3pFv70+O2GxUbQFVWmVPbwiP+PTG/omIGu
+         QgUQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794411733; x=1795016533;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1794411774; x=1795016574;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ZD+vbtbPmFOJcN2OyXTBdL4gMWgwvLA87K5+LSebFco=;
-        b=oqSkOtW9Yja1WpJlUiemmqf0vkS8n4HC7+CfUk3wQBHavQARyndcgRnKes2wCEVQ3s
-         +8w8XC7MWqa5m2iME/iuUensK3lShvEvaGWyQU63Ym9eKFb3xWxY1r3YGBKE4uN2qzCG
-         77cPJYQCSlElLoi9UoeWCZZsjdiNBFGgM11DgWVIkpiTSef69FZ8Z4PZKSaWhp0iHlLK
-         7Nka+NbknNEX8e5AM4d5OhN64hzdiPMVKJRTzpZJnVu7i6/CAEjV2HhICavqdM3wtat0
-         MhQ2Xy+aV6Mw62zA5g8JTfk7m3PWc4pdnWox5/U2sMFxyOEbeCPixYbLYHt2Lq2eVh3z
-         68uQ==
-X-Forwarded-Encrypted: i=1; AL+hErHAmo5To8oXIhxs/YLkdtB41rKt1pCL7RPNtrPcrxvspnOtb1iuS8VFwE18PrE2nnc2ujTPqjPIRRs9QBU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z++VcMwi2qtZRcWbphfHIiMwmrsSc5qDq/JlXf7Zj9AQo3AIPx/
-	PggFvM8NzcwC4irnafxBM3hT436Av5AIdIeJ5KSJ2AqpGrLiI95SMXx8k4OjEi6RERYLpqau0KM
-	7pvKsNZwUs30EBJF9F5oZExUzOH+eTiE=
-X-Gm-Gg: AYBFou0ua57Ncpz8y4mE1ZlW/AwkHC7+dSG2FJ14KmeTQaCxATT3wjIH/wJA+54QwJ3
-	vkbfG1FBUW4RNntZ9WVzsVV4g0+2y6eiyv2iXsvfskazfk0UhWPOzh6xolMBdOHGTqAZYHKPFyU
-	5PSC3m3eVnVjvDZgkP4OT/MnTmBQdduibi2H7OC3aOiGClRNLSYCNt5qhUawojOhtFIchlFYOgZ
-	yA58j3aMH6YQ/mueNIZ65CMMycnxJD25r9nSTgG31qpcO2ZvHUDztZqA5UWVUEH3UZ84XINRCkl
-	ySDuZ5iMb0fjoMh052MsFFgRZMoWQL6VY0FLDi40ZeS1ZCcQZoLhltL8ZLFwjbsr5uT3cdQexLz
-	8+wcjvhgHUx7HzHW9Pab19tTWCPVoU8B/eSeYdB9QEmFqrt33+OIu2cuEmzO6pCZm2eqo1A==
-X-Received: by 2002:a05:7300:d190:b0:361:2a55:b94e with SMTP id
- 5a478bee46e88-3766a2fc88bmr3428916eec.15.1794411732633; Wed, 11 Nov 2026
- 07:42:12 -0800 (PST)
+        bh=Ka81IfeeRWUOIRXxY/Mzm37rR2+cA3vNQJzHgs09LJg=;
+        b=qIDKX8IXYKRqkTsXRga6tFWo0iay61b/2HP+vNLn+FqJoXYSZI6a0gZZ+iYHKW4cp1
+         opBAgbLH4p0sXqniJb18MCFrx0BapAGi4Vl3Pc1OaUYcB1Qs800yXF3bYbJ6cpyBCy5n
+         FAky8hrhpcW/uIuBJZHS1nw42z/e2D/qQ1KcW44FCjUeR4/lJEykS3x4uMNPxnevx5Bg
+         yBu/D1vXuAStdMUzg+xPHQ1LHGgl63X+QTawtEGViBBqzyRPEpQzBhuFU9dIc9F6MC7I
+         4qN/7uGOlsz5cmQGskgtUkVWoyHkj/bj1PWFUEPRmSscFRTv+ggl88wSw4xiemAIg4N6
+         i0nA==
+X-Forwarded-Encrypted: i=1; AL+hErGdTaH0sq7ZZCbSHDwh6hu1lqwBStlvhu60KQtoX41M8m4Tz2KKSEHvLnopL5fvVk0wiAMVUzcZK+fR3xE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+bJpwojMQfYmlluhnX/Vbhgb0QmB7DO6/OcFfRFMwH+RrTQlmz
+	EqaGE0Cv95UnHPkBBOlV8baB51OHK6Nsq2KNdO7/CmGLS7JBsVdWTrSCu8cBigpP4pAu08A9iy4
+	JrjkezDJiXTq/2K3XuA4Dv2Ubd+Pt9UxZXPIflRjWT1+PKXJ9gWMkuYpqDlmW4rLTiew=
+X-Gm-Gg: AYBFou0ZHJDvlo5hMaI084lSg8/Vuex9SnVSI5BERR6egmqj+fRxGGsbmQEy+6g3D+b
+	pOUDYCH4Yl3xS56ArzjJCsef8yxKOTQ0gZ8jEkb3+lzgT+iQKldmIKfTKp55ub0f+VHktVwg/un
+	D0WZfwdVV6kHCn9shNc1SVKax/NQeTgaVCRP/K+6m9o5fORSjcp5x+BGEBHYYo0daxTv85Vp8CB
+	JKABLPg9xe7JI8zX+lBUIJRpzP+BeZqaIHEAc8C+X/ao5WMKL17kcHx5bRUOGdYqd1VAVbS/lPw
+	zq4vF+D8Xs2pyihIqp6jVV83BwMBEbRLMR8qdDufjzMrFwKhSyQfkFj148znwlvwFTxiv0gDEL+
+	GAKBKIbODf2WH6pU/41hdsbqStTreId3j5PkefEhFseljPAF10EtSPl8xLQoABlRxpdo2Gx5Skn
+	HEDd6JTZvZQCnSKIQo0FpF9JAHlWu6C2Cne+Sf6TvAXAJtxniRX6LLcLJob3BZrw==
+X-Received: by 2002:a05:620a:1b85:b0:937:6c0a:9b65 with SMTP id af79cd13be357-947afcd6309mr364200685a.7.1794411773333;
+        Wed, 11 Nov 2026 07:42:53 -0800 (PST)
+X-Received: by 2002:a05:620a:1b85:b0:937:6c0a:9b65 with SMTP id af79cd13be357-947afcd6309mr364193585a.7.1794411772617;
+        Wed, 11 Nov 2026 07:42:52 -0800 (PST)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c157ba565esm984546e87.19.2026.11.11.07.42.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 07:42:51 -0800 (PST)
+Date: Wed, 11 Nov 2026 17:42:49 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Krishna Manikandan <quic_mkrishn@quicinc.com>,
+        Abel Vesa <abelvesa@kernel.org>,
+        Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
+        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Abel Vesa <abel.vesa@oss.qualcomm.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Joonhoe Kim <26rote@gmail.com>
+Subject: Re: [PATCH v5 3/3] arm64: dts: qcom: Add INT2 GDSC to Kaanapali DPU
+Message-ID: <xih7e6366voj2awmlhdkmhtyn7qrcwsv4ejp7kz6vvszcxdrlt@fyn6e2wnwlkv>
+References: <20261109-msm_gdsc2-v5-0-4a3159b5e4b8@oss.qualcomm.com>
+ <20261109-msm_gdsc2-v5-3-4a3159b5e4b8@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,81 +139,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261111090447.3047656-1-hj351016@gmail.com> <avR_tx9ze-eAa0_N@ashevche-desk.local>
-In-Reply-To: <avR_tx9ze-eAa0_N@ashevche-desk.local>
-From: khj <hj351016@gmail.com>
-Date: Thu, 12 Nov 2026 00:42:01 +0900
-X-Gm-Features: AclHuK-fUYFWM7BPj5Q2pN3hGxopZ3Dab9DAvaDPkb3_oUwcCHkHx9Q25tIIqHI
-Message-ID: <CAGr5VtMvrt0OoJ58FPtaGy1tcQGqW9VMhZMb0dA9rg1gA5TSHQ@mail.gmail.com>
-Subject: Re: [PATCH] HSI: ssi_protocol: don't cancel_work_sync() under
- ssi->lock in ssip_reset
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Sebastian Reichel <sre@kernel.org>, Kaixin Wang <kxwang23@m.fudan.edu.cn>, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261109-msm_gdsc2-v5-3-4a3159b5e4b8@oss.qualcomm.com>
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDA2MiBTYWx0ZWRfX4NYqqIQHSJo0
+ pDOtRzSyWkQI/Fymf0UTCQTp1MIRc3aQ0HkVpA7Yv6FHJAJpo+0V3PL4KxUTuHb2RMOFZf9Xnza
+ C+rVeanFeasrpF2HR/BgigeI3GNOblQ=
+X-Proofpoint-GUID: VmYzpECWXOfZWOEFZSh4SjRf19hBe2fT
+X-Proofpoint-ORIG-GUID: VmYzpECWXOfZWOEFZSh4SjRf19hBe2fT
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDA2MiBTYWx0ZWRfXwWXUVR30GfRh
+ pTuDkdOvluVix++KvzqHzFEQKDcihBZfJle9zKHaUb1sJkk2Af5LG5U/0NGoPtbAhpQjI5Mx4az
+ vrrVswbk3ZntYsWmjN+8S2Gp82wYbPMOtVXJkkqiK/3bO5u0hip55kgdGXkYGVSeV5UcqqLE+44
+ B6jTOVxz0zLIfURGyvBKWDAe0d3DwOIBsa91fL/b37DLVKeki2pSAd/UBX9twAoYIXJQV1NwwyL
+ X3W8BWnzjlVbXzpijFvcDgzOgPjKR8BgtohiM8yI5lkxsvD1/HS/U0j8M0ps1PotXRnl3XWZPAX
+ dEKPKF1Xouok/upYCexN/SxE5OihFpJocsM39AhDgwpNIN1fs73B0jxCmN9K+Ch46rel2CcH61n
+ /QV3PTHkLUVMrWS14r9eQkNR46HSbwpWc0gY0aw8iwmNrRH6N1+zmUZQofJViBRFY/qN/xu5oj9
+ KcwHUccmEJlbeatEp6g==
+X-Authority-Analysis: v=2.4 cv=LvcHWXdc c=1 sm=1 tr=0 ts=6af48cfe cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=EUspDBNiAAAA:8
+ a=pGLkceISAAAA:8 a=lIS-3JFwHiDYKImdvy0A:9 a=CjuIK1q_8ugA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-11_04,2026-11-11_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 phishscore=0 adultscore=0 suspectscore=0 impostorscore=0
+ malwarescore=0 lowpriorityscore=0 bulkscore=0 priorityscore=1501
+ clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
+ definitions=main-2611110062
 
- > But is it okay to run before timers are gone
+On Mon, Nov 09, 2026 at 04:36:37PM +0800, Yongxing Mou wrote:
+> The INT2 GDSC on Kaanapali (SM8850) powers the VIG2, VIG3 and DMA5
+> source pipes. Without enabling it, these pipes remain inaccessible.
+> 
+> The DPU is supplied by both CORE and INT2, so describe both GDSCs as
+> its power domains rather than attaching the DPU directly to their
+> parent MMCX domain.
+> 
+> Keep CORE attached to the parent MDSS device because it also supplies
+> shared MDSS hardware outside the DPU.
+> 
+> Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> Tested-by: Joonhoe Kim <26rote@gmail.com>
+> Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+> ---
+>  arch/arm64/boot/dts/qcom/kaanapali.dtsi | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+> 
 
- Good question. The three timers never queue ssi->work, so cancelling the
- work before deleting them cannot let a timer re-arm it: keep_alive only
- re-arms itself, and rx_wd/tx_wd just call ssip_error(). ssi->work is
- queued only by the xmit path (ssip_pn_xmit(), SEND_READY). So the v1
- ordering is safe in that respect.
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
- But your question made me look harder, and the real problem is bigger
- than the lock: ssip_reset() is itself called from softirq context on
- several paths -- the rx_wd/tx_wd watchdog timers reach it via
- ssip_error(), and so do the ssip_*_complete() HSI message callbacks.
- cancel_work_sync() has an unconditional might_sleep(), so it is invalid
- in ssip_reset() on all of those, not just under ssi->lock. Moving it out
- of the lock (v1) does not fix that.
 
- The cancel guards teardown/free, so its right home is the process-context
- stop path, not ssip_reset(). I'll send a v2 that drops cancel_work_sync()
- from ssip_reset() and does it in ssip_pn_stop() instead, which is still on
- the remove path (unregister_netdev() -> ndo_stop), so the UAF fix is
- preserved. The watchdog/error reset paths do not free anything and
- ssip_xmit_work() bails once main_state !=3D ACTIVE, so they do not need a
- synchronous cancel.
-
- Thanks,
- Hyunjung
-
-2026=EB=85=84 11=EC=9B=94 11=EC=9D=BC (=EC=88=98) =EC=98=A4=ED=9B=84 11:46,=
- Andy Shevchenko
-<andriy.shevchenko@linux.intel.com>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
->
-> On Wed, Nov 11, 2026 at 06:04:47PM +0900, Hyunjung Ko wrote:
-> > ssip_reset() calls cancel_work_sync(&ssi->work) inside the
-> > spin_lock_bh(&ssi->lock) section. cancel_work_sync() calls might_sleep(=
-),
-> > so running it under the bh spinlock triggers "BUG: sleeping function ca=
-lled
-> > from invalid context". In addition, the cancelled work ssip_xmit_work()=
- ->
-> > ssip_xmit() takes ssi->lock itself, so waiting for it while holding the
-> > lock can deadlock.
-> >
-> > Move cancel_work_sync() out of the locked section. It still runs in
-> > ssip_reset() before teardown, so the use-after-free fix is preserved.
->
-> But is it okay to run before timers are gone?
->
-> ...
->
-> >       spin_unlock_bh(&ssi->lock);
-> >       if (test_and_clear_bit(SSIP_WAKETEST_FLAG, &ssi->flags))
-> >               ssi_waketest(cl, 0); /* FIXME: To be removed */
-> > +     cancel_work_sync(&ssi->work);
-> >       spin_lock_bh(&ssi->lock);
-> >       timer_delete(&ssi->rx_wd);
-> >       timer_delete(&ssi->tx_wd);
-> >       timer_delete(&ssi->keep_alive);
-> > -     cancel_work_sync(&ssi->work);
->
-> --
-> With Best Regards,
-> Andy Shevchenko
->
->
+-- 
+With best wishes
+Dmitry
