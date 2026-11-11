@@ -1,85 +1,136 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794423722;
-	b=0/RpAFn8dt3Sogynqgset95ajSfeh2MBks099ZDFCDPGhBMdB5QxKScgZXEHqLnE7nEF
-	 49HyFbYJIco00C7gmpbXLBcXBSnzoRyfHwdc3gtrRRNT1qdFHXy125GQvglQ65+QOtF2j
-	 zYBJfgEQdrZ/P78JIt8K/wTKJPQKNEzDXQ7Spg87A77LDJe6tnhNpQkJ1cMXV76Tc8Vyh
-	 HyezL2XOteq0bshQof+M0s41Hg4GAXfgKEP/TMyoPI0ZNVUtzVjF5hXZJWQh+O6Ny3ma3
-	 hU9hMzMW9PGI490GKL9oi07YEruTHieTH3YblmNq4+Mv9et4r/iGlbuTuj6HofkI5tA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794423722;
-	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=UGvA7aNbElvHdqmQ/xMwu/aFIwDZ9xdeje6P1XRIG3E=;
-	b=VCyELKpNxsCFLJIPSFSDowdEo/TK8Lq0Sjpu7KE3vi0SMIMIW5jBKJ3D/Wv6VgeFQc6w
-	 TJ1XT+XRzrWgfUfAPAtv0awEcPXjb/lUjTcgsD2oLeEEwwBY1xk7OYQhGkqKX8NKJDmqZ
-	 0L1/0C9gjbkySiaipELI7oQ3sy5OgP3FqLyvFa5d7Xrkz6UwYfipR0w6ma+ecOh+XYwwq
-	 EK5mix7Oqj4tL45kT0Qc/ezJjFHSNJkDnW1kXDjR95zSiWS0ctiLV1aODGHHDgMUTLFW3
-	 +5iTUoJ8XnaNPJJpq2pq6e/X2gYWfV1vx8bk2A6NXd7zK+TbMGgY7f0kXXb9LD9czfQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nYh0Hc5W;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=192.198.163.17
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1794423724;
+	b=rKTFuAsUO+BiYR3ED/XEgp8+V42ECuFB64zIP+29gMymomgVxDRQMgxGLQuvrcWpjjuH
+	 y+GhI7xB9ehsMNJ3ZpygbwzN+SuWzBW4tciqxqVDGMAAuDfqADen32eG15cCsx5OfBUYh
+	 Cr9iONGmjixk+Tv4UmaqsVIHnWiGv6GNconI2zKihXEngqpOJMoqUakFb35imDZZidXQf
+	 pK5vZZSsCN1Sike/OZbNiNXd7eL27vYMPXwanmi4Lpj221nKuFqbPQjPi71hxISf4UJZx
+	 AtoYqGMJnY4gRbBtGls6sg3weGqxokl4RRzkd14XyFFu1qVJOXo0pjp9aj8lGwtZaXg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794423724;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
+	 Received:Received:Received:Date:From:To:CC:Subject:Message-ID:
+	 References:Content-Type:Content-Disposition:In-Reply-To:
+	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
+	bh=Rmfub0q3RNztW1O6r7KnOCLyLi/80kYu8jJWsJJeFWQ=;
+	b=5YliGV8Px9QjQ0sGj+Yz2ixNXY1j5pW1drLAa6VuVo6i6/qMU0PAUFXmrspi/LCJhpxf
+	 N9WHmeMOJ0FuxWTL1tBM//gyDqVkUQCzMnpGRP6B0/ogqfSvlQdH55G9ioTE0yuCoH/Oj
+	 k0lBB7Qj8MXc9BM7r2m8TeggfhietstLixgoqP8hxjjo/cwV47DiZav8Lk4el1y43vm6j
+	 KTDaNXTj3YCw6Mj4dq8fIi66plV0tlxnBHqJl1UzQ23APHzDueSpojGaGDOYFsLcrBxnV
+	 9WwiUciqgR0VHFbQLNJwAZQoAZVEIUYWSi7QSsdh2jRC0UsMTTcUtBh34xQPv5E9T7g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=AIm0RjGM;
+	arc=fail smtp.remote-ip=192.198.163.17
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FDF5606A888
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 19:02:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A249D606A889
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 19:02:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A249D606A889
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nYh0Hc5W
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9B051F00A06;
-	Wed, 11 Nov 2026 19:02:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794423721;
-	bh=UGvA7aNbElvHdqmQ/xMwu/aFIwDZ9xdeje6P1XRIG3E=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=nYh0Hc5WTvLXWR0PpdeDEQycij6SQVynG/D9w8M6LNmJF6fZnX+KZhqmcr9+DofTL
-	 1t869zG0ixpyUwRsMt3QwMx5ThEG9Bs8ZLo8VfWWQs03p77SnH/0m4BPhxklYl5p4E
-	 qLnpsBM96i9dW1JgfsTos/MYnkoPxVDpBCVFBQHCJWqxB1Cu2A6lj5t076B63LWVYz
-	 pdtQrojzSvgJpSxUnaZ/WAP/T8jpr2H6hsgE/UDlifpjUWOel+gkuHuwUYFBf8Nmkz
-	 CiO2rDoMh/Uzwyh6wFvwy84CBThROr1FbbUXBEb1cfAn7v27vpKfkasmGPV0QRwnXS
-	 2dQy0JEAJJGFQ==
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 45AB9198004A;
-	Wed, 11 Nov 2026 14:01:57 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-02.internal (MEProxy); Wed, 11 Nov 2026 14:01:59 -0500
-X-ME-Sender: <xms:pLv0auFvRs13t94fambPBJxaah0jl9soK9jYvksUwEnSQMFUiv7_cQ>
-    <xme:pLv0avNH0BHJJysjdWJ0KAtbCZ2JluCm6hK8b7C_Tzf9l14Wp-zveuD2kDJmEmCzn
-    Lxjr-dasRnZykEn0_ssIzr-zAvor5YsYf5DIuhLOb6Ib69OgTj7StNE>
-X-ME-Received: <xmr:pLv0alf7Lhu2rO9745tEPXz2cD8D1p6-Jfg8z3UY9esl3NWls50yvUb07cU>
-X-ME-Proxy-Cause: dmFkZTGUrBls5w/UEENbc4QSrU45nLKjL4/o++nqxC9OJS9f5x3nG4z2h0vA9zTXVlIrwk
-    CwfDyXOcV7vO+BP7Z89KGrkm4YQkxS96v2gVR/kgVbZBHpUz2ZXhJO8sIGLtQj2Tn3CoVw
-    hG0wp+uaydBlisb2ScHtGCEd4zxa002LBa33wxBHeD1SO2skN4MjcRow7HuyZS+C9CHS3X
-    1FcU34iQECUsMDUhAG3tswsFel1JQc9DrrukwJo2Jx7ZCpcvn27jIuhpDvLHrUp+EucfbC
-    UuoCLpjHnrpn3/cNfboWDuvRCcwgCfNKam4Uj7NynoW0ZDHcY/FmkLsgm6RcxCgB13MxaY
-    qNJfZ63LHM1TLvxg9XzJ4AZzQh2FqHvqBn5XcefCQ7zln8J+tkHM7S7B3qyxFVOyLsCuG+
-    aXReTLfd7xIPgO+kPGAOWnEnz8FBaJOvZ2d3vb6i132Qck9TpIkgM/rYZXgiNKVOqYa42L
-    KA+Pt7RK+i5vWp3sEQpf7ObXQtNV+HFtkVgrWy6//p7vnTbQrBoqE6VZXWDe45Ooi5rv/e
-    mJwBUg0Sigiy6BNH4OymxE2Wgf794hMQ05VG4dg2BtZiuXTvEm7vo+sNZZO2hC66pNhjlm
-    BWq5x2q6oauGQt61tBKF3S+un8za9g8FYXHJAg/jFFoifSYnVYbwyGVsKt0w
-X-ME-Proxy: <xmx:pLv0akTltdapm9PFC0tYwCjfAj_TxsUfUqqFlu3hmg46Vn9rjKYBOg>
-    <xmx:pLv0aheLpWDc__1-d2kIRQApBXAWn3YxIOmEAOk47fqwuDNJZuG4gg>
-    <xmx:pLv0asoogV_DY8Y9z02GhVBDWQKjBO9Bmtqber5ICa1Iy4WbDj_Qig>
-    <xmx:pLv0aqeVLJlCdZkd1bX1rMWUV3dXQYLG_JvpLsklDqd7s3qtsgiPtQ>
-    <xmx:pLv0aslaqHjoC7cmEZh296IHSmUbxZ7gIMTcVtgfZSFfqKedoNBkqcuE>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 11 Nov 2026 14:01:56 -0500 (EST)
-Date: Wed, 11 Nov 2026 19:01:55 +0000
-From: Kiryl Shutsemau <kas@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Wandun Chen <chenwandun1@gmail.com>, hughd@google.com, 
-	akpm@linux-foundation.org, ziy@nvidia.com, matthew.brost@intel.com, joshua.hahnjy@gmail.com, 
-	byungchul@sk.com, gourry@gourry.net, ying.huang@linux.alibaba.com, 
-	apopple@nvidia.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] mm/migrate: improve mlock tracking for PTE-mapped
- large folios
-Message-ID: <avS7FfzvjieHufUE@thinkstation>
-References: <20261110123218.1579490-1-chenwandun1@gmail.com>
- <5f9c449e-43b3-4732-9c14-8199418cace0@kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=AIm0RjGM
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794423724; x=1825959724;
+  h=date:from:to:cc:subject:message-id:references:
+   in-reply-to:mime-version;
+  bh=wTK0fJZTv6g264VfYWOUeZwmI/BD9vVX8WTpRFjb6uc=;
+  b=AIm0RjGMcBZR9Y32ksyTOduiIhYOg0Te9JPZjpmcZs3aCewX0Wg/3I8u
+   Kk1ZJnDvQD4n9jWe774iJ06IHUf5EyKqWNqMbq/5094rMlJBMUpzd85wg
+   qsv7vtY87c5tGGIim0PTdSv70U+C1pdAl4DZ68JO++cFJkf5YwnvMrHq0
+   AV1L8jkVv+4R6F+D5dv1QNSqOrDdzCRH9msCGAY3KL9cFhclNfYvQDcwj
+   DYQUbZpO55hDO0qscRSER8euAE6hxovCpfvGz8h6szX2nyReTJxMEN1GQ
+   NQWA28vptvLQc1kjrC7A83d79ZoB61MoVAPMs6AckuaRuxtYq91+C3m36
+   Q==;
+X-CSE-ConnectionGUID: GIPVNAOQQsKHD1Hq/Vl3LQ==
+X-CSE-MsgGUID: pHHRvuhlSLSOzMF/2cFHCA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3204521"
+X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
+   d="scan'208";a="3204521"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 11:02:03 -0800
+X-CSE-ConnectionGUID: dLRLN/n+RNOOGD6Z8qWCFg==
+X-CSE-MsgGUID: btg7nDMHS6CL9Tp9YQVYWw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
+   d="scan'208";a="10201084"
+Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
+  by fmviesa012.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 11:02:02 -0800
+Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Wed, 11 Nov 2026 11:02:01 -0800
+Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56 via Frontend Transport; Wed, 11 Nov 2026 11:02:01 -0800
+Received: from CH4PR04CU002.outbound.protection.outlook.com (40.107.201.53) by
+ edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Wed, 11 Nov 2026 11:02:01 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=IPp75M14cGeswNp120rxORTq/RtxD/A8z6x09ZBOkQMszjU9XWb9TSUzJEhSTXrI+J3fX55SGMb/bl1uUt24PBkw8Hn8ZTxD5ganlk7fZwBWmCH2eGwdWxoOZfoRxo49DcWuyZWfvHlNOpDBzkrRPtZbdVeY+HCLb3j8qtd5GrYlM8QkxznR719THrewlMrx53N99AI0gVv5DGiqvP0T/7cG7Qk5elbZv+qdMjOK25+UAKMps4nGEjBQvCRkL7jFfFgtxh6nqablE+eOuB7uLonZGeqCyM9QqcGDIqUmJLeSXEeTspUFuQp7dyVAqh9wI/aLnPQJdeC/RGaHKDdzRw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Rmfub0q3RNztW1O6r7KnOCLyLi/80kYu8jJWsJJeFWQ=;
+ b=eqgchKxpbhLNHrivaL2dgg361qdpRsgQqWe6m7ipov3gKCXQEV0gjUr7Ifc5FwRBfvNbCFYFGDDgqAz+fhlavhxW+qFISLfLsgkdJX226TekE8gvqMFUauemeZ6e8T7mQOiOiV7PqdwH8MjLib0VKmu+7teZMJpPXySDY7Nrm+D8wFjljaEN9eaSJG3CS27DzUw80FND4kR3KT/MvaEecwpXYPYZQMWemBmWJxEwGa3DRmjsM11wnpAyeamL+liGmjB6efdV5Bnm9455/jbny6LW/I3z7IrsKwD1Nb6UpWLa1RI8UizuXpKfvr1cqfbmo/k83IIff5VJz5mVi2fiCw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from IA0PR11MB7187.namprd11.prod.outlook.com (2603:10b6:208:441::12)
+ by DSWPR11MB9845.namprd11.prod.outlook.com (2603:10b6:8:4e1::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.9; Wed, 11 Nov
+ 2026 19:01:54 +0000
+Received: from IA0PR11MB7187.namprd11.prod.outlook.com
+ ([fe80::be96:3f58:953d:6565]) by IA0PR11MB7187.namprd11.prod.outlook.com
+ ([fe80::be96:3f58:953d:6565%4]) with mapi id 15.21.0615.007; Wed, 11 Nov 2026
+ 19:01:54 +0000
+Date: Wed, 11 Nov 2026 14:01:45 -0500
+From: Rodrigo Vivi <rodrigo.vivi@intel.com>
+To: Arnd Bergmann <arnd@kernel.org>
+CC: Matthew Brost <matthew.brost@intel.com>, Thomas
+ =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>, David Airlie
+	<airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Matt Roper
+	<matthew.d.roper@intel.com>, Lucas De Marchi <demarchi@kernel.org>, "Riana
+ Tauro" <riana.tauro@intel.com>, Arnd Bergmann <arnd@arndb.de>, Matthew Auld
+	<matthew.auld@intel.com>, Shuicheng Lin <shuicheng.lin@intel.com>, Armin Wolf
+	<W_Armin@gmx.de>, Zhanjun Dong <zhanjun.dong@intel.com>, Michal Wajdeczko
+	<michal.wajdeczko@intel.com>, Piotr =?iso-8859-1?Q?Pi=F3rkowski?=
+	<piotr.piorkowski@intel.com>, Tejas Upadhyay <tejas.upadhyay@intel.com>,
+	<intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+	<linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] drm: xe: select configfs
+Message-ID: <avS7mZMrS7nQv_RK@intel.com>
+References: <20261026102603.2045493-1-arnd@kernel.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20261026102603.2045493-1-arnd@kernel.org>
+X-ClientProxiedBy: SJ0PR03CA0260.namprd03.prod.outlook.com
+ (2603:10b6:a03:3a0::25) To IA0PR11MB7187.namprd11.prod.outlook.com
+ (2603:10b6:208:441::12)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,85 +140,163 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <5f9c449e-43b3-4732-9c14-8199418cace0@kernel.org>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PR11MB7187:EE_|DSWPR11MB9845:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8fcb72a2-bfde-46eb-30aa-08df4026401e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|23010399003|366016|376014|1800799024|7416014|22082099003|18002099003|6133799003|10067099003|56012099006|11063799006|261102123227099003|261026140227099003|261022075727099003|261022105027099003|261021121427099003|261021123027099003|261026121527099003|261009221227099003|261009221727099003|261009223327099003|261009220027099003|261009223027099003|261028144727099003;
+X-Microsoft-Antispam-Message-Info: DxqMfI2aJMr/J64MsMYtqq4WF9PJ0WFMfk00OyqWWJGpUcKNkJ9IoSXUarPwQg19seFPcufiQaLwvinm9YCC8FZ0JWEFuuWZeD5OtZwRBSBwgl1GNxdzJW/nE+xcZL+eziqDlbB6bLHXXrcAFwJ7dUNGXrpen+6fBAqJI29ZW+dKGAWuTjReWklNinkOVUjvpRi71UZOkgky7llfI+hFj2RTJUf2z9GOE1vjssmhd7VPGpC5RhS1S54FWElNrGScnzcDRK1Ik7xnyNLVAiAWiKXvis/CXKD5/zDvn2vTGrGjycYgn2l54a20fX+YcNQV77Db/gmFxbZQbkSTv/X9HhmTZ1iYz+vqyoXvUtefHKtaRFkzgmTZcDV8NLOk71A5AdavqXUfUe6lgO21KxMxp40Lx08qzqpiO6uHzRazNkRDH/qvmCBq9hIDEyCQYnykUfZpmijKNNyFLw5eDbaMLe4s1UC9n5nP7m7Li8E73dBEwbM7iRmd1ZAKxiBCjj92tW5Ec6Bt0kaBEzRaiTTgWMexRQntwS8SA2xHxjE/GOf27stDsy3+0uivZPledCg+1U3On+/SZ/NsI95G/o2Mgpg2hiK4Zh5W1+92a0iM+UIS1Z9ZAf0oM2usKjbuGucboAMnKnAi3LY7uL9HrXae1o7kOUChL4kAnuJEB7z1Y5Y=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR11MB7187.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(7416014)(22082099003)(18002099003)(6133799003)(10067099003)(56012099006)(11063799006)(261102123227099003)(261026140227099003)(261022075727099003)(261022105027099003)(261021121427099003)(261021123027099003)(261026121527099003)(261009221227099003)(261009221727099003)(261009223327099003)(261009220027099003)(261009223027099003)(261028144727099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?Ndaxp6aBohmRRZZsrAdvfazQn9YGFLuENTK6SPk4HSR7OX8E3f4vZCP0Xy7t?=
+ =?us-ascii?Q?v4gTZSJVULeZqQtSjsnHbZXXQxa1jYoIlNoGb/jo7vbEhmYWWlbKIt00GjpV?=
+ =?us-ascii?Q?19CHvOX5eayBhun7aBREMxyC8qndgrj/tinb/PPxAlbHuab2eR3SygbusnUp?=
+ =?us-ascii?Q?Y6tw9/ieZMAYeppwij8X54Bzli0S5gc2urCNmDUS03sCBylK6PN14c1ARbZh?=
+ =?us-ascii?Q?9uZJC9ZcofODdxlpVXfG5Z5mb28z25eRhj+/BJm7skxgSeuFhlHdGXyNiyeP?=
+ =?us-ascii?Q?qgSUcWVn5xS+M7FSy4HgbFBOiP/tuZNsxqDdFR3Nb9Kfm9Ho/rXJt5880cUZ?=
+ =?us-ascii?Q?oZ8nrilfJeec0AHcSxHcVwINbbSxUZaW0DVtQVPGcq3MWpErSouCaC0Y8Oqs?=
+ =?us-ascii?Q?fpbWqsolV0S1MLjaZbDVvbYAX+VKMgHk4TY3nb6ypX7TKTCtu0SuUT3hQZB0?=
+ =?us-ascii?Q?AEDyZQILhmbT2U+3V+cd8Up/QfaTNyyZuzNmTjDgxDu2PMKM1V3/ubp/DVti?=
+ =?us-ascii?Q?BM3JVqTn+q5VdQ5G2WlD7SeunzebTMtS2FLtSdDNX4TeEYSPEEoz8mPFpnXm?=
+ =?us-ascii?Q?9cg4aums5QBGtxJ3MBIaSm3x+uiudiibEPZuy8ivtwfNiijQcrQqo0Ii3aqi?=
+ =?us-ascii?Q?oRAX0CXSJfQJNEDtvNW7I0+TC/53n+angHIxIM8wqc/8onMCYSS5N6y1qKjo?=
+ =?us-ascii?Q?iLvhH+qHJZfb+FRgUlhkzjOqnNJS7icTnBIqKpUc2z1Mjf3iwoeGrpq0oXT3?=
+ =?us-ascii?Q?z45tfY9bi58SgTK8uQVTO1rHdkPFNWpXZT2BqzrS7Rd+WX3qg5TaA7uJMQZi?=
+ =?us-ascii?Q?AxgTMrf8qf9jnMBNc/xAkzCIq9vkA3LON+6soAyrpvMiHck1NJAYHlk6vXad?=
+ =?us-ascii?Q?6dDawMX7dV+ZuRwmDbXa5b1W+Ov6JnUf8IC+0jTaCcVsh3IPa4vgwwon5RPk?=
+ =?us-ascii?Q?SEPryri6VFrPcel8QBJ3TyBtCD8bUZY4BSA6hQJw6XP1XQpEikJiUHouGZ0o?=
+ =?us-ascii?Q?ckmVFfKln6ws/AESJDxD2oJ7IGa9biNqa4JftRqkWyQqw8l/rF6DDbVzZdjb?=
+ =?us-ascii?Q?gVNtnunnKxW5GmN234llzCabUQ557psJo9Qmg/L3Q9G0m3TilDdvgMqcah6a?=
+ =?us-ascii?Q?vkG9QRPO23LttU5/JgwxDYSrC5czJgBoVr9/VpnlmX86AayDQZZdtbB+sHAz?=
+ =?us-ascii?Q?sVnZoIljDOZBxfu9MelTvRUl94BztciaIbPGzvTQ/xIqpfX3hka57Ujklu3K?=
+ =?us-ascii?Q?vHVj1SackWByWU4/DgoCL6/HUxci58rVELpqKHCF38B6rk9ZBSkTWxKpdPIQ?=
+ =?us-ascii?Q?GN8GMGFOpEeRbs/anvHvNPhjSQCc8vdHkfYiyXL4yG0M8517/azYTAfIdQwr?=
+ =?us-ascii?Q?GEJZ/FB7PbVNhH+3UAPbuc8X0ZpfiAptCMjhBNdyfdhIKDKa9iuFWIHHfm6A?=
+ =?us-ascii?Q?RVAooeAKRJyj4ON3Txx9mZdQyuIV5FjIDOsNzRzqjJekXK8e5jn52mlSPLxQ?=
+ =?us-ascii?Q?soACBkDLmXfIicZwqeS/V5fMyU7RpA46pldYrzMhx9SLjScPmYJdqjIcTrT7?=
+ =?us-ascii?Q?ra3uru+SxhbCCORAxw0SPo1y/iG9SS5d4J5IzgLEKWKqQaOfmspIWR6wGh/W?=
+ =?us-ascii?Q?8HOSJpBkz81yDZ+wJgwoNGSHOaPaKDbkmvpiKJxPi7T70gSSM9TismBgdeYA?=
+ =?us-ascii?Q?2Iqu2t9/keSGG3DVpigA4+WnbhIwMQo3K1M/ApXpfUyaJTIf8FnCVDJ1YWqa?=
+ =?us-ascii?Q?OUa1xNJngg=3D=3D?=
+X-Exchange-RoutingPolicyChecked: hJGEc0wgvlQeuhsVq3Rts4nmkwdQViikIAySyWMkGGTWEsAtLuALqAtkIT62iUESV3MjSSdFpq2rAWZ6h27kfYSB7BdFABg3Tszxi7NjMfUCu8WPSVt7/HvLaLnCsDESfoCnCVWA85QEHWFKVPeT1MsWwnvl3H1SY0C4kw3d+M9/5MR2Rye57fz9dQS/YWeiohRUohWE/XpRmEcd+Juui7YNfIa5DwBCUFGtw1H5tCYDpPhuVErPTofooMX1rBKGkcM+5ogWuuTPg3BAv6iW2W+lWJtU1AI7bPx6aYz5oqtjhv1czQ2UHsikg+ZsG8m69+jnW1Ihw8bJO0MKEJ+uug==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8fcb72a2-bfde-46eb-30aa-08df4026401e
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR11MB7187.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 19:01:54.2574
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 1HhdHtXzTt934Y+S/FIvdhP8Gj7EF7INGZSZHIYXBKAx+rikex3G5A3qiXZkkaxdTCK2jR3FEUZM1W/II7P2Sg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSWPR11MB9845
+X-OriginatorOrg: intel.com
 
-On Wed, Nov 11, 2026 at 09:00:10AM +0100, David Hildenbrand (Arm) wrote:
-> On 11/10/26 13:32, Wandun Chen wrote:
-> > From: Wandun Chen <chenwandun@lixiang.com>
-> > 
-> > Commit ab521b4142aa ("mm/rmap: improve mlock tracking for large folios")
-> > mlocks a large folio when all its pages are added in one rmap operation.
-> > However, when a PTE-mapped large folio is migrated, remove_migration_pte()
-> > restores PTEs individually, passing nr_pages = 1 to the rmap helpers. As a
-> > result, PG_mlocked is not set on the destination folio.
-> > 
-> > Reclaim can restore mlock in try_to_unmap(), but Mlocked in /proc/meminfo
-> > remains undercounted until that scan occurs.
-> > 
-> > Restore mlock once the full mapping has been restored in a locked VMA
-> > under one page table lock, rather than waiting for try_to_unmap() to
-> > restore the mlock state.
-> > 
-> > Signed-off-by: Wandun Chen <chenwandun@lixiang.com>
-> > ---
-> >  mm/migrate.c | 10 +++++++++-
-> >  1 file changed, 9 insertions(+), 1 deletion(-)
-> > 
-> > diff --git a/mm/migrate.c b/mm/migrate.c
-> > index 94033c222e04..140e291d4587 100644
-> > --- a/mm/migrate.c
-> > +++ b/mm/migrate.c
-> > @@ -353,6 +353,7 @@ static bool remove_migration_pte(struct folio *folio,
-> >  {
-> >  	struct rmap_walk_arg *rmap_walk_arg = arg;
-> >  	DEFINE_FOLIO_VMA_WALK(pvmw, rmap_walk_arg->folio, vma, addr, PVMW_SYNC | PVMW_MIGRATION);
-> > +	unsigned long nr_ptes = 0;
-> >  
-> >  	while (page_vma_mapped_walk(&pvmw)) {
-> >  		rmap_t rmap_flags = RMAP_NONE;
-> > @@ -446,9 +447,16 @@ static bool remove_migration_pte(struct folio *folio,
-> >  			else
-> >  				folio_add_file_rmap_pte(folio, new, vma);
-> >  			set_pte_at(vma->vm_mm, pvmw.address, pvmw.pte, pte);
-> > +
-> > +			nr_ptes++;
-> >  		}
-> > -		if (READ_ONCE(vma->vm_flags) & VM_LOCKED)
-> > +		if (READ_ONCE(vma->vm_flags) & VM_LOCKED) {
-> > +			if (folio_test_large(folio) &&
-> > +			    nr_ptes == folio_nr_pages(folio) &&
-> > +			    !(pvmw.flags & PVMW_PGTABLE_CROSSED))
-> > +				mlock_vma_folio(folio, vma);
-> >  			mlock_drain_local();
-> > +		}
-> >  
-> >  		trace_remove_migration_pte(pvmw.address, pte_val(pte),
-> >  					   compound_order(new));
+On Mon, Oct 26, 2026 at 11:25:50AM +0100, Arnd Bergmann wrote:
+> From: Arnd Bergmann <arnd@arndb.de>
 > 
-> I guess pte batching would be one way of handling it, but that requires more churn.
+> The original addition of configfs to xe missed a compile-time dependency,
+> which leads to a link failure when configfs is enabled as a loadable module:
 > 
-> The spirit is similar as in try_to_unmap_one(), where we count the number of
-> ptes in one VMA. For consistency, I would call it "ptes".
+> ld.lld-21: error: undefined symbol: xe_configfs_get_survivability_mode
+> >>> referenced by xe_survivability_mode.c:224
+> >>>               drivers/gpu/drm/xe/xe_survivability_mode.o:(xe_survivability_mode_is_requested) in archive vmlinux.a
 > 
-> @Kiryl, can you take a look?
-
-Looks right to me. Agreed on "ptes".
-
-With that adjusted:
-
-Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-
+> A recent workaround added a 'IS_REACHABLE()' check around the calls into
+> configfs, which makes it link in this configuration, but this is generally
+> a bad idea because it makes the actual behavior inconsistent and confusing
+> to users that expect configfs to work if both xe and configfs are enabled.
 > 
-> BTW, why don't we care about that in try_to_migrate?
+> Use 'select CONFIGFS_FS' instead, like every other configfs user does,
+> and remove the unnecessary stub functions. There is little practical
+> difference here as anyone using XE graphics is likely to have a complex
+> configuration that already selects configfs anyway, and the link error
+> or the IS_REACHABLE() would only manifest during randconfig testing.
+> 
+> Fixes: 30499cbd7961 ("drm/xe: Fix build with DRM_XE=y and CONFIGFS_FS=m")
+> Fixes: 16280ded45fb ("drm/xe: Add configfs to enable survivability mode")
+> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+> ---
+>  drivers/gpu/drm/xe/Kconfig       |  1 +
+>  drivers/gpu/drm/xe/xe_configfs.h | 30 ------------------------------
+>  2 files changed, 1 insertion(+), 30 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/xe/Kconfig b/drivers/gpu/drm/xe/Kconfig
+> index 4fc8abdc5cb6..b52a8dc28f97 100644
+> --- a/drivers/gpu/drm/xe/Kconfig
+> +++ b/drivers/gpu/drm/xe/Kconfig
+> @@ -11,6 +11,7 @@ config DRM_XE
+>  	# the shmem_readpage() which depends upon tmpfs
+>  	select SHMEM
+>  	select TMPFS
+> +	select CONFIGFS_FS
 
-try_to_migrate_one() unmaps the folio whether the VMA is VM_LOCKED or
-not, so there is no mapping left to keep mlocked; removing the rmap
-munlocks the source.
+Perhaps another option would be what Jani had suggested:
 
-The mlock is rebuilt on the destination in remove_migration_ptes(),
-which is the path this patch fixes.
+config DRM_XE_CONFIGFS
+	def_bool y
+	depends on DRM_XE && CONFIGFS_FS
+	depends on CONFIGFS_FS=y || DRM_XE=m
 
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+But anyway, we are depending more and more on the configfs for
+production choices. So, let's go with you select and close this
+for good.
+
+I'm pushing this to drm-xe-next.
+
+Thanks for the patch.
+
+
+>  	select DRM_BUDDY
+>  	select DRM_CLIENT_SELECTION
+>  	select DRM_KMS_HELPER
+> diff --git a/drivers/gpu/drm/xe/xe_configfs.h b/drivers/gpu/drm/xe/xe_configfs.h
+> index 327b648944ff..d726800de26a 100644
+> --- a/drivers/gpu/drm/xe/xe_configfs.h
+> +++ b/drivers/gpu/drm/xe/xe_configfs.h
+> @@ -14,7 +14,6 @@
+>  
+>  struct pci_dev;
+>  
+> -#if IS_REACHABLE(CONFIG_CONFIGFS_FS)
+>  int xe_configfs_init(void);
+>  void xe_configfs_exit(void);
+>  void xe_configfs_check_device(struct pci_dev *pdev);
+> @@ -36,34 +35,5 @@ u32 xe_configfs_get_ctx_restore_post_bb(struct pci_dev *pdev,
+>  unsigned int xe_configfs_get_max_vfs(struct pci_dev *pdev);
+>  bool xe_configfs_admin_only_pf(struct pci_dev *pdev);
+>  #endif
+> -#else
+> -static inline int xe_configfs_init(void) { return 0; }
+> -static inline void xe_configfs_exit(void) { }
+> -static inline void xe_configfs_check_device(struct pci_dev *pdev) { }
+> -static inline bool xe_configfs_get_survivability_mode(struct pci_dev *pdev) { return false; }
+> -static inline bool xe_configfs_primary_gt_allowed(struct pci_dev *pdev) { return true; }
+> -static inline bool xe_configfs_media_gt_allowed(struct pci_dev *pdev) { return true; }
+> -static inline u64 xe_configfs_get_engines_allowed(struct pci_dev *pdev) { return U64_MAX; }
+> -static inline bool xe_configfs_get_psmi_enabled(struct pci_dev *pdev) { return false; }
+> -static inline bool xe_configfs_get_enable_multi_queue(struct pci_dev *pdev) { return true; }
+> -static inline u32 xe_configfs_get_migrate_ulls_period_ms(struct pci_dev *pdev) { return 5; }
+> -static inline bool xe_configfs_get_disable_vram_page_offline(struct pci_dev *pdev) { return false; }
+> -static inline u32 xe_configfs_get_ctx_restore_mid_bb(struct pci_dev *pdev,
+> -						     enum xe_engine_class class,
+> -						     const u32 **cs) { return 0; }
+> -static inline u32 xe_configfs_get_ctx_restore_post_bb(struct pci_dev *pdev,
+> -						      enum xe_engine_class class,
+> -						      const u32 **cs) { return 0; }
+> -#ifdef CONFIG_PCI_IOV
+> -static inline unsigned int xe_configfs_get_max_vfs(struct pci_dev *pdev)
+> -{
+> -	return xe_modparam.max_vfs;
+> -}
+> -static inline bool xe_configfs_admin_only_pf(struct pci_dev *pdev)
+> -{
+> -	return XE_DEFAULT_ADMIN_ONLY_PF;
+> -}
+> -#endif
+> -#endif
+>  
+>  #endif
+> -- 
+> 2.53.0
+> 
