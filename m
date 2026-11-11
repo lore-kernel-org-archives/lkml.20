@@ -1,55 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794421434;
-	b=SOKVzF8geaFudyS3VXrrsisfHMASkGjoW+XRw9F1Q0s9duK+ckmuxAK1HKWcxTmZB2qJ
-	 nuAcSUIH12Q6GUNA/c21J7ZWJNxSQJyVT4XLXatDCmUzKfKXUmG38o2MorOqdN3VUt9Le
-	 SYyTdcSZSB6VU37pXtcexrMoszBphK31r69/WrxeEfoACMIfhyGOfbBIx1XSMOdIjfyuS
-	 eq83LBV7k5wa2lHnnddnXIvBgWM5uvpnI6H1/n3yJw3CTcdaF2YPjqDjkImEJ6Lp4sPtQ
-	 rUBS+s1XIZez+xeuiir2DDWNGmLL7ONmWGDem/AFPwF9T5zI1qLaFPYobzQIwlzFqNQ==
+	t=1794421443;
+	b=a0CPoyVHur77rcoty/DDuxzx9xpLtUBSmRH5sVh6JGjgUYnOkdhyyUP7sHeEVhvaG1ES
+	 VJ6Xkp58/Odl7YRu69zC11J7m+q7B/56o8I2UdoRsYn5LL/C8wstiorZk5CAuoPt6qrXA
+	 huSpThzTFeFeQvDtkckWMV9q2T/OFXqSHxtxj4VyZMwmQQD1iSlDqaRA425YrMoMrezpR
+	 1ULX9P5+GSHqNqyvBNPmUekRamgC8OtPQ8QRQP2irdikWbcLJm1ts/cvPr9uDYvbdqxbp
+	 M9AZrgS8FBxaUgbDxY01JvGY7vcFRnzm9QApwwhJa8J6sMmjcuOIERXwAiE57nI2ehw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794421434;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=+5r94kBhSyoTj9wXK6JW6+FDLjCWm0/KAzeGsgyJNkY=;
-	b=0KbjjDiJRoeHL4JBcpaNTCr4F4lcC+97XpVQ/Le+9yhHG4ErjbbazqyZrbwPAepBN+7e
-	 LcfLKyLO3A7mFjCY1hmjA95pNZQrTbfNO0vY4WiwyvLVkHT6BFFcTaKmtl9Xy0c5URBIw
-	 tvwEH/SRIOk+AfP1m2gzU/FrHpeyAV2v7qSRF4V47EtTx+SjQhFHyL5pxhETEmN5LW70D
-	 DQYZIZgbvBILi2ywnk4FXiXWen0bcr5GwsvBFEB3uIjZGStRAFc3kRSWS3tVQBKouY2hl
-	 ua9eZCmgtXM+N3mGRWXobWIqy4PDuymCe3M7KqEnCapjFCv6fdGPBYhlYxAJA9vtqQw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794421443;
+	h=Received:DKIM-Signature:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=DqnDace4KJcCuvOqrBqkR9Xmsw4qa9ua7zCmO3by2dA=;
+	b=U/gjiXqEdT+kgRN2A+j6kkqm58jCnTZAi7Ge5M5oxaDtg4oaXY8N5KC5/wvanl3wz5sP
+	 +sAjmddePiXKjH1BiJQKbWdyjox8eHGSTLEUteQIJDRwKsqQnTnMn7YjcxQ2mFVk8dLcn
+	 aRmsvq4UwDVjhyH8pXI1kqspzXANxSPfGm6WDFGFwZvaKdS7SsktfFkl4q2C1tLJE846W
+	 EipgcNPID/luZOycvq2SAlPFp3ogwr0gLpTzog+f/MIq3sIPc8yCBUacuNVseGMVj/T+8
+	 tvus6vSga9w44dNEXRJFaqbP7S7qmOfe+sLUz+5CdB84KmujtBnycdk+9e6b0HEJsvg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RfUUMbfu;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aYYw+V5p;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 823E0606A31C;
-	Wed, 11 Nov 2026 18:23:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5C19606A321;
+	Wed, 11 Nov 2026 18:24:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RfUUMbfu
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 965B81F00A05;
-	Wed, 11 Nov 2026 18:23:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aYYw+V5p
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 527D51F00A05;
+	Wed, 11 Nov 2026 18:24:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794421434;
-	bh=+5r94kBhSyoTj9wXK6JW6+FDLjCWm0/KAzeGsgyJNkY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RfUUMbfuQZDxcZFcfbwfYFolkkaKNSd4HnAqoWAsIYj6oUvs/G2J2KjHGMb6iUL5U
-	 2vz053gUP6fb4LF1BpZYHLfuQvTF2h+nngsLyiLW6X52uFDBNB4gtCfYibaid7z2HV
-	 /yAVGU0tWqlIVGQZAljs/H+KRY3p9PEA+ox+zwem8nr2pjSm5likGhvul7DfmswYaf
-	 thXXbMtIneTcA6CipoqlEHeAOB7LJr6IYVbSr/ofl6VuvyyEh3aHdJTbk+sSSZa/fO
-	 4El92gzNz7doMInBJSK2y5+oRjMqTaOKGo14UQMg5zbykAVqjKzmRU/hjICgXamLPz
-	 3Iy+/BWmH+scQ==
-Date: Wed, 11 Nov 2026 11:23:49 -0700
-From: Nathan Chancellor <nathan@kernel.org>
-To: Arnd Bergmann <arnd@arndb.de>
-Cc: Russell King <linux@armlinux.org.uk>, Nicolas Schier <nsc@kernel.org>,
-	linux-arm-kernel@lists.infradead.org, linux-kbuild@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Sasha Levin <sashal@kernel.org>
-Subject: Re: [PATCH] ARM: kprobes: Rename test-kprobes.ko to
- test-kprobes-arm.ko
-Message-ID: <20261111182349.GA1452558@ax162>
-References: <20261109-arm-test-kprobes-rename-v1-1-663cdbbb90c7@kernel.org>
- <09d5963c-4255-4da0-8c36-5624696ab633@app.fastmail.com>
+	s=k20260515; t=1794421443;
+	bh=DqnDace4KJcCuvOqrBqkR9Xmsw4qa9ua7zCmO3by2dA=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=aYYw+V5p6svw24nsCqDdq3ChCGYgqzxmHa3gemCLZe/0PyvqWP+PUFf935h4nFm1w
+	 0kwbZlYcZd4kJUPtIkGBTzj0x2HCQQu/TJObOaaksPcv63wj8ap0l9RdNduoHM7N4v
+	 ajum9uyW2hlke0vU1hht7G1qi1TIcUoVLtDqne0bJkns9mK7vyLWBXTrGWPVZvIUHt
+	 66yJ14TucjfX92NU8O4XgEPblhgaUBGSxg8BehGt+x+Ct8zfRjT0Qv8faLDOykp8Zs
+	 kgDOUjV+4tLquBP+Cf3TwZouWVulHloj0u5hkBBXQhw8mfzctUjmUslA6PScIqGfuj
+	 pF3lc/32fmbPA==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,40 +49,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <09d5963c-4255-4da0-8c36-5624696ab633@app.fastmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v2] spi: pic32-sqi: guard against empty BD list in
+ pic32_sqi_one_message()
+From: Mark Brown <broonie@kernel.org>
+To: Li Ximo <lixicaicai@gmail.com>
+Cc: Mark Brown <broonie@kernel.org>, linux-spi@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Wang Haoran <haoranwangsec@gmail.com>
+In-Reply-To: <20261103084707.1582675-1-lixicaicai@gmail.com>
+References: <20261103084707.1582675-1-lixicaicai@gmail.com>
+Date: Wed, 11 Nov 2026 18:23:59 +0000
+Message-Id: <179442143994.484483.536971203389481819.b4-review@b4>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1392; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=pj5VJ1URBgauxKXGbwy/jkenlc5qzkwxuw3NPQVbu9k=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLK+bDowf0n7h1efT/NkeTqucNt3fJkOV3V/7ba6lJXz/
+ 9y84MaW1lHKwiDGxSArpsgSl8X9sr7k9Rq+gwvbYOawMoEMYeDiFICJiLgw/JU+OdFQM2nZ6mPv
+ J80yv937eMXukzvUJwVu0mK99nYjU+Rmhv/l/Iw+Wa2eCo3X45ddUm5u6tzqa+dmFjCrzKDlot5
+ XZQYA
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Wed, Nov 11, 2026 at 08:24:44AM +0100, Arnd Bergmann wrote:
-> On Mon, Nov 9, 2026, at 07:46, Nathan Chancellor wrote:
-> > When scripts/modules-check.sh is fixed to normalize the module's name
-> > like name-fix-token does in scripts/Makefile.lib before checking that it
-> > is unique [1], there is an error due to lib/tests/test_kprobes.ko and
-> > arch/arm/probes/kprobes/test-kprobes.ko having the same module name.
-> >
-> >   error: the following would cause module name conflict:
-> >     arch/arm/probes/kprobes/test-kprobes.ko
-> >     lib/tests/test_kprobes.ko
-> >
-> >   $ modinfo arch/arm/probes/kprobes/test-kprobes.ko 
-> > lib/tests/test_kprobes.ko | grep name:
-> >   filename:       arch/arm/probes/kprobes/test-kprobes.ko
-> >   name:           test_kprobes
-> >   filename:       lib/tests/test_kprobes.ko
-> >   name:           test_kprobes
-> >
-> > Rename arch/arm/probes/kprobes/test-kprobes.ko to test-kprobes-arm.ko to
-> > make its module name unique and clear up the error.
-> >
-> > Reported-by: Sasha Levin <sashal@kernel.org>
-> > Closes: https://lore.kernel.org/20261108225808.1809266-1-sashal@kernel.org/
-> > Link: https://lore.kernel.org/20261103110411.11698-1-info@daylightlinux.ch/ [1]
-> > Signed-off-by: Nathan Chancellor <nathan@kernel.org>
+> list_first_entry()/list_last_entry() do not return NULL on an empty
+> list; they return the container_of() of the list head, i.e. a wild
+> pointer.
 > 
-> Acked-by: Arnd Bergmann <arnd@arndb.de>
+> The SPI core rejects a message with no transfers, but it accepts a
+> transfer that has neither tx_buf nor rx_buf. For such transfers
+> pic32_sqi_one_transfer() iterates an empty scatterlist, queues no
+> buffer descriptor and still returns success, so a message made up only
+> of buffer-less transfers leaves sqi->bd_list_used empty. The subsequent
+> list_last_entry() then returns a wild pointer through which the driver
+> sets BD_LAST/BD_CS_DEASSERT, and list_first_entry() returns another one
+> whose bd_dma is programmed as the DMA base address, corrupting memory.
+> 
+> Bail out with -EINVAL when the BD list is empty, setting msg->status
+> the same way the timeout path below does. The xfer_out cleanup path
+> tolerates an empty list, and normal messages are unaffected.
+> 
+> This issue was found by static analysis.
+> 
+> Reported-by: Wang Haoran <haoranwangsec@gmail.com>
+> Reported-by: Li Ximo <lixicaicai@gmail.com>
+> Signed-off-by: Wang Haoran <haoranwangsec@gmail.com>
+> ---
 
-Thanks a lot! Nicolas, can you pick this up?
+You've not provided a Signed-off-by for this so I can't do anything with
+it, please see Documentation/process/submitting-patches.rst for details
+on what this is and why it's important.
 
 -- 
-Cheers,
-Nathan
+Mark Brown <broonie@kernel.org>
