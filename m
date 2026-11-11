@@ -1,88 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.231.201
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.105
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794364016;
-	b=31bAeV9qwyVlz0tn273M03hi/rup6zf3mr/oEydEn4XI54MsvEUo3ue2pLXeRBuBc2DX
-	 6aUJW1QAK8NpJtLbjvPmI0lTeEX4DLp16rwQqROg2MvMpVhRjogko9daE2YGHtFJA66f+
-	 SY61nsF5UeJMHCAyTzX5xjxEwsVOUcoJ24NvnMcM9J4XRRBBzmPyVQ1y7nad0MRNU5+Tf
-	 6ugagC58gP/7ar6LG8FxXa9W6cGpJugCXWvrWgbqUjR4kka2QProSbXrEX2mNsre6LDh8
-	 r0+09b9pv/LiPGn2PlcMDqubKmYCa5G4/z38J6fFsg+Y2MtAq+EqSuwYm1meM1ogxAA==
+	t=1794364028;
+	b=1O9HF8DTteS/p25zwaDiJT99tyGGJgKM6T3yF+fK0Fph/d3Knkn713U6ef2UeO28zyuT
+	 izZQgQnpYc8z13DuvIchv9mqzzZitKXeIdk+dboOrRei6rEUEL+bT555oD2HmqmdQOWc5
+	 5NuwllESJ8a5dt5AOPyHIdziWamF5rdnlC2F2zt+fr4MnjmE3ElvRbFEN6PZXjS4ms1xa
+	 1BuitfEUmqOVGZ8b64lJnN3Tz5KOtNiKnC606SIanTMHAkidX2ve3RiRjhIoIlcvWG8bs
+	 UMuSpMoCNh4HrWe+1qQRGyXbEvh7nyhcKce2gfXvMEI3jNVPnDegtyICAU8xvQ/z8MA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794364016;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794364028;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Cc:Subject:To:References:From:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=D7F3TwUQ6dGzsMiU+yMtMue/xeRnuQuD+BhRm+g4jhU=;
-	b=KQf1QbzTG9GVosi8745uStpC+2GlL6qpRzBozI7JmOa/hlokl7nWNBbKV02t2eiBYyNE
-	 /wPDm3z03f1EF4a1GnQUd6R72PQF/RIbaIuGC05hkic7b3SuWfrY17ga9KqqXF+kWXQLK
-	 pHZqIVMRHrBa8OqAdwTbgVaMtUoFyYEYGgE6rJl3TVTpjzDs1so/y4Pz0EqZoLIBNGm47
-	 gSyxh/BKgjnbt2tAlEzqsuNovEY6kVdwy2f0q7TJFi/8/NbG0o8YNvIamx2eP0yr70WqL
-	 5SDu79k3Nz4925DEcuM4jPN1+Ul9PIQLIkLhWdvs/tfKq5LZ19qkMoDeJTdBfogbw9w==
+	bh=PhQURgUIcHKqh7HKNiSdZ1UHIXZTkSo2Cch6MWvnHLM=;
+	b=e+cC6osjOeFQxEyBrX58VVP5d1NqPiMnSA/kXxZlNyoIZxQoIFzqfNFZzAglZnWyY/0H
+	 5hd8DH6l7f1lc/v9BM7DfnFDNIwCw2gIN8bdsAVoVnvWBDNzpFif3T3tUGDgw/Vvc1lhA
+	 2UgN+ND99EbcoqPN7Qs0aOfRgTP4KwnQ6c1lhNr7e4chLma1l3AlaYkvi5x7WpKUz7j6q
+	 aJevxPKdISoSdCdOwCCk/OeXRiJ8DIt7S7blZP5eZBPlwohvjoT9EVe1+FaXE00ACHBQi
+	 rVS/AQbKxyyes0Eg1mzWC6geyvBGIFfvJh70TPKPbIMO48FvEQac8FHf4MIVtX1WN0Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="pEbO+iE/";
-	arc=none smtp.remote-ip=74.125.231.201
-Received: from mail-oi2-f9.google.com (mail-oi2-f9.google.com [74.125.231.201])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=o83sucRy;
+	arc=none smtp.remote-ip=95.215.58.105
+Received: from mta1.migadu.com (out-105.mta1.migadu.com [95.215.58.105])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 556F7606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 02:26:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 556F7606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9280B606A320
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 02:27:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9280B606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pEbO+iE/
-Received: by mail-oi2-f9.google.com with SMTP id 5614622812f47-4f61e12e8e0so506488b6e.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 18:26:56 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794364015; x=1794968815; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=D7F3TwUQ6dGzsMiU+yMtMue/xeRnuQuD+BhRm+g4jhU=;
-        b=pEbO+iE/MPg2zDij7Aje1g8wdN1YhFm7/BcmNNly+swHyJy22M3wDi6VoKS1P4CbOB
-         2U/tzXhLQCQri98JFfW1VMGVLqmPefWFr0duquAf6kcwzMdIUJJwLJwhaJJO/zbmSFHB
-         POO1mOgkMzPOrO5p+hoNaSTyMsvjnIHQb/fU7LLC3nr+1uz1RMf/j85gwHXxkmhDOcPK
-         JmIXmxi/9mErtsSJ/7xlexfCeGRB9DG1yX3cztwH5QagzHP/A40dku03l3hv09pguhZV
-         MpE0LfcChFyFvSww/eGoRZdzf+1VOVmTkz9F4LZqkKdFXTjxhXhLk+BMBd6hy7mqYxyp
-         oR9A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794364015; x=1794968815;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=D7F3TwUQ6dGzsMiU+yMtMue/xeRnuQuD+BhRm+g4jhU=;
-        b=ez68JxAoTu9Wwm5HmwHnoW6hokwnxwh4DYn8ShVw9rawlb1GR5BgYP/FrOhxmSMPW7
-         vGMNt8NDf4p30zoAF5BQc9L7pV/kNeM+r1+TWT1B9oT23r/Bvf3CCBbGLqyYx5qDokzi
-         HeJldQF9SgyH7KD+2BusFC6pQ6FzSrSmgCogVvV1ynoh/VYqVi0V1eqXpesJ1qRXJdQv
-         fP8Q4OStFwhYp/heQs6SrRa+bRs+/XksH0u0X1BcC4meBapGpPcI1uHYB0CwLeRyiOYU
-         sffOmwLSXJhwMozkJ8UD9ZY2ffvd/UUYB380aGXpHLHdjHXMHKpxyhTEuwDhIVeK2mnn
-         WKZw==
-X-Forwarded-Encrypted: i=1; AL+hErGHuyWlk0F6PFeutklOfBJ7bQ8xfmIjQWJcnm3lSTyV2TSVQM4jThkRH9LZPf9JxX2TnSe9l8iQRKO5rIQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9vxG9KXc9axl7W1DcEDKOk1dcu456fWMIXqMU/YchN6QP91gO9
-	f+FBiSoLtYcSceAdYai9GWvQ8Uio9kqYOB0F+03eptXC4RuZjfWfqPW3OIduvt92aqRUOQ==
-X-Gm-Gg: AYBFou2mIGIIjitka99JON+/YIIQE3iwwPDV3aexCA+tAnGZnK5LQ37XpVIjzU+yUrS
-	byKESZSf1EEVPcjnSFOyGR5xP5RQcGtAjzvQ6a57pEOY7EJGkT0vLr1t5IdFlBYxXgMMxQ4Q3CA
-	b1J6xVQTHp9yYFZLyhLSc4+2kH5jQc3vWMo6YPFATYp2Rxg27lsvp+pAkrp0IkWxrfX17uKwBMt
-	Z8xlG9FEPBb40bsJXF1KOiZmCT70pkmuGxEOLG2mi+ABKQGXJ5qwQp2ZOlZ9xTzOEo/CD3XtgON
-	l8BmNjAoFsRr2bsxNXur9TOaLeN+eNc1H5ZVDxMPY6+11B3gG4N7xdzVXkN8L9iXkFAVAr/rC4I
-	l6WmPisTPgmyF+4YOaT47BeLWo3YlaKcjIWncE0iuDpAWhVKQSIDUe5OFpPJKaDDBNXanH6KbTN
-	dYzeHXGnuqRLYDcqk4C/Z2T8rsckU4DXDahxDkv0XBoCBlAs+yWfi1tHBC0e6STMFNkU/qQTcPd
-	Ba8TOzyJ9j0bDntOdG/ACuCfexc19O6BlDhJRfig9ifL1mCZ1bkiOGdQlaTS/uJ+fCMWRTnS7iS
-	S3aGEJGKbwGJJxRWPBJtSoJyaVx3mQmt+/K1/7fc3oBBqA==
-X-Received: by 2002:a05:6870:1649:b0:48f:e0f6:c45c with SMTP id 586e51a60fabf-4ae46c42d59mr1213442fac.42.1794364015190;
-        Tue, 10 Nov 2026 18:26:55 -0800 (PST)
-Received: from ?IPV6:2600:8804:5716:d800::f01a? ([2600:8804:5716:d800::f01a])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4ae22d1d541sm2789026fac.2.2026.11.10.18.26.52
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 10 Nov 2026 18:26:53 -0800 (PST)
-Message-ID: <8c8ff7e2-d1a4-45c8-aacf-bca93439a32d@gmail.com>
-Date: Tue, 10 Nov 2026 20:26:51 -0600
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=o83sucRy
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Wv9122kMEZf/lFR0DCpqumkP3VwnY7IyQl5g+ItEPc8=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794364025; v=1; x=1794968825;
+ b=o83sucRymj2LXoKiyVVIXK6LuAaOSvns2VtDfVRFXz0P/Q0LJGDkPV43/jk8YnXpMEaBMT1U
+ eLwmiJYraKRvEYGWk7uFMJ+4RBKOb5oDnUmSEaw9Na7WvP6ANaOmGhQOsUejn05WeF4e8LnW5nG
+ lcpBkPFkKKnLXZmXjjCrl0l4=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 6bcbf81a8ca16547;
+	Wed, 11 Nov 2026 02:27:04 +0000
+X-Mizu-Trace-ID: 6bcbf81a8ca16547
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <b66188b8-3b55-416c-a296-9313f94b5cfe@linux.dev>
+Date: Wed, 11 Nov 2026 10:26:59 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,27 +59,91 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RESEND] drm/mediatek: dsi: force command mode in
- mtk_dsi_poweron()
-To: Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-References: <20261004-rbrue-suez-upstreaming-mtk-dsi-cmd-mode-v1-1-53a4f46ca489@gmail.com>
-Content-Language: en-US
-From: Ryan Brue <ryanbrue.dev@gmail.com>
-In-Reply-To: <20261004-rbrue-suez-upstreaming-mtk-dsi-cmd-mode-v1-1-53a4f46ca489@gmail.com>
+Cc: hongfu.li@linux.dev, Muchun Song <muchun.song@linux.dev>,
+ Oscar Salvador <osalvador@suse.de>, David Hildenbrand <david@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Gerd Hoffmann <kraxel@redhat.com>, Dave Airlie <airlied@redhat.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, Ackerley Tng <ackerleytng@google.com>,
+ Daehyeon Ko <4ncienth@gmail.com>, Hongfu Li <lihongfu@kylinos.cn>,
+ stable@vger.kernel.org
+Subject: Re: [PATCH v2] mm/hugetlb: charge hugetlb cgroup and memcg in
+ alloc_hugetlb_folio_reserve()
+To: "Gregory Price (Meta)" <gourry@gourry.net>
+References: <20261110-for-alloc_hugetlb-1109-v2-1-25795ce44f80@kylinos.cn>
+ <179431474443.789062.10429880669466859032.b4-reply@b4>
+From: Hongfu Li <hongfu.li@linux.dev>
+In-Reply-To: <179431474443.789062.10429880669466859032.b4-reply@b4>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi Chun-Kuang,
 
-Gentle ping on this one for mediatek-drm-next now that 7.4-rc1 is out. 
-It has CK's Reviewed-by and Roman's Acked-by, and it still applies 
-cleanly to v7.4-rc2 and mediatek-drm-next. I can resend it with the tags 
-if that's easier.
+在 11/10/26 20:45, Gregory Price (Meta) 写道:
+> On 2026-11-10 14:05 +0800, Hongfu Li wrote:
+>> From: Hongfu Li <lihongfu@kylinos.cn>
+>>
+>> alloc_hugetlb_folio_reserve() hands out a folio from the hugetlb pool and
+>> consumes a global reservation, but unlike the fault path it never charged
+>> the folio to the hugetlb cgroup or to the memcg.  Folios allocated for
+>> memfd_pin_folios() through memfd_alloc_folio() were therefore silently
+>> bypassing the accounting: they are never charged to the hugetlb cgroup
+>> usage counter (hugetlb.<size>.current or hugetlb.<size>.usage_in_bytes),
+>> so the limits (hugetlb.<size>.max or hugetlb.<size>.limit_in_bytes) are
+>> bypassed.  In cgroup v2, with memory_hugetlb_accounting enabled, these
+>> folios are also not accounted in memory.current and are not bounded by
+>> memory.max.
+>>
+>> Charge the folios to both the hugetlb cgroup and the memcg, just like
+>> hugetlb_alloc_folio() does.
+>>
+>> Test with a process that creates a hugetlb memfd and pins pages through
+>> UDMABUF_CREATE. The counters were read while the folio was still pinned:
+>>
+> ...
+>> Fixes: 89c1905d9c14 ("mm/gup: introduce memfd_pin_folios() for pinning memfd folios")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Hongfu Li <lihongfu@kylinos.cn>
+> Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+> Tested-by: Gregory Price (Meta) <gourry@gourry.net>
+>
+> one note below that is worth assessing but maybe not a blocker.
+>
+>> +		ret = mem_cgroup_charge_hugetlb(folio, current->mm,
+>> +						gfp_mask | __GFP_RETRY_MAYFAIL);
+>> +		if (ret == -ENOMEM) {
+>> +			folio_put(folio);
+>> +			/*
+>> +			 * Skip uncharging hugetlb_cgroup since the charges
+>> +			 * were committed to the folio and freeing the folio
+>> +			 * would have cleared those up.
+>> +			 */
+>> +			return NULL;
+>> +		}
+> This adds a new -ENOMEM condition on stable which may race subtly on
+> two tasks allocating against the same memory.max and cause failures.
+> In testing, it doesn't cause splats or anything, it may just cause
+> spurious allocation failures that fallback to other paths.
+>
+> This implication may be worth a comment in the changelog.
 
-Thanks,
-Ryan Brue
+Hi Gregory,
+
+Thanks for the review and the testing.
+
+Agreed on the new -ENOMEM condition. It is a real behaviour change that
+affects stable kernels. I will add the following to the commit message
+in v3:
+
+memfd_pin_folios() can now fail because the memcg charge fails. Two
+tasks allocating concurrently against the same memory.max may see a
+spurious failure. That failure frees the folio, returns the global
+reservation, and undoes the hugetlb cgroup charge, so no accounting is
+left behind.
+
+>
+> ~Gregory
+>
+-- 
+Best regards,
+Hongfu
+
