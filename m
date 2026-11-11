@@ -1,79 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794440189;
-	b=EidNKY0dC8jrFoiijVRIol0itWfa12vMqYLECkuY7PPXnMTviC2SmmIpOTEZMoQtSz1U
-	 7mttWh16/jb5Cs5uMPL+Ok4ECCcc20W7vAZXSH25wuo7Z2qAXjfRcxZi6xvcc4xa3FGkS
-	 3mOAJV6XibArqOe2hWzHM6Up993qsMu0DOlAj/SOZuCJhM6DS5LB4YDY7XoBXYGXFz023
-	 zwNf55ASokTf5FuXHOHbTECwAVzbN2KMfg3BMcffdoNGf6CJdt750l88ubRAxAiWNjC7X
-	 qCqx1OM0wK8b1OLn25sAwMk7WKUXMKhXShLA7dkaoxQD5z3T92bI3PoVrg25oFgDsuA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794440189;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=gO1MVgjoFguecuzNEI7qcANHnCjMPECnOHHKwejXJeg=;
-	b=nGCS9moIZkNugmqO5AxC0aZcDp63SFGoxVxOs6EVos/Fu7WDJjhFcSpOtIqO1rpxxj1G
-	 U25ovvi9mnFo0xjcj9NpSAdDmBFe7WNqMfpCwtKDiHNnOTOWI9z2hIz8ukJLBgpNWMxoc
-	 DZWUbFcKOFmm8Sc888tkD6Zk/zYHnEpshgNxcN9d7xvYxqTFSdqWsQt3V3YNcvPkh2pI1
-	 gv/SKQO4U6BcFAFaLvHa3+chm2AZ5aWTTpWe2BYyU1tHQpQODpU0znE9DCbtXlBb1sD6Y
-	 89vsmqTbcxAfWnauctlZfAZJSG9EDowtAahW3VVSddG9MQS002p1TDPmODv5ZTgvuiQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="TVpDvJB/";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3D8F606A31C;
-	Wed, 11 Nov 2026 23:36:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TVpDvJB/
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794440188;
-	b=rHBs/kXoq7CNQ1Qrgg/cde/N1UxwdCMRYCbPCZSQYyHocy9+P60bLZ5t8rjHw9Jb5FRY
-	 k8VUHY2V4mNNJ4adQ2roLOHs+ENk0yvJcztbdsjXtKcqWvaXar2Y+7vHfDIlexTeKrWv/
-	 gfCi13UKM4bR1YnUHyEznV7phFI29+Ikj4dDeXeMjJRC6BFlmrPKUXIoFoR9X0ChKJ4Lr
-	 jVDm9kAQ8AkX+8YNGaJtWj6l2klM6Q5u0MtGdkMyajrOgF4/kTkObBBoIUcPET0QiWWYS
-	 5ZL2w8nWBA1fNx8FAopuQ9reeQi6LoAsB5fsDsM1s6Hwh5eADE4c0IEA0l738mqcnBQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794440188;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=gO1MVgjoFguecuzNEI7qcANHnCjMPECnOHHKwejXJeg=;
-	b=D3bqVsCv23DDI8JVP2yP4LXiyG/SrLvWGlyDUT/m4u29Arh2dBwBxahpNzLkfvzIyugm
-	 BXbkK42BvhVCbHcrCDvlNFm29Y5flsAe/IudKyFl4SM4VeooHU+vNe77JdYIvtpqJWPyK
-	 DeO+TIJdt13uQgzJus8tR/P7ccQlRLTot8xfWMMtUT5eQ4+5TqK32G/v6srtMecS1Wx1i
-	 OLOLl8DT2+ox/bT18X3DnoH/UAiWHgGd92xsNHixuCVp17Ov4hxyt4SJ/GCNbzDzlL93N
-	 CKwdrbLdNpqebpw4jQnZMtP7yohOwy6L5B7WeT6A3j6ByJfnXts7F9J8gPMdmRTFoKg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.61
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794440210;
+	b=R60noWWzp/LmqCAZid7lDxbLok7iKs0jY+AI4aFW6qyR9AWJxMtR0wGRVQirTPRiDnB9
+	 q3qEzyvJ1bx0ApaduzLkKeDePP/Udjw//nSG1pYd9krI0URjlpaEIAoL8SNA8neoi5+TZ
+	 oLFui7JkbHbbdGwpywURcLxiZcU2zDr++UJWcNvPs8SJR0d4Z7JagLiPcbLFqUWataw2/
+	 w/w47qpb5exwC0PgygzHrYkQ7tLlVVkw5GD69KHgkiO262tSgZ9lZcxWRFeOmEKAJSY/a
+	 xhi7SQ2HzoXKkJwsEBYqg9+WWNq37GeTs4NWTvHyGXv4yq5wIzqL3qx5p2InT3ZUGfQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794440210;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Subject:X-Change-ID:To:Cc:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Date:Message-Id;
+	bh=klPxEVlV5vJD8T8vgL/Cq3QGPhsTWJ6oYKoaaEvavVc=;
+	b=FV0+wYAar21w03LvlQaeTNLa5n7M4hxVKggpHcmOYWjXMbnJ9yj0ucGc+yx0M27l+4le
+	 ru7kKKZdBfEF7/5O09kuR8so+p1KpRE8KuhARRd24Uh3+E2Lzk8D8eAkYkCZqgROr6cSt
+	 nl/BvKzlOA9HtP/D0cV4zfqYlswdRyAdQinjxiMsXo9/WfcLelmFgxpgYBMYhPW1TJroU
+	 EBlJk0ZiGXw7YkJ+P/H10cYAORQ51iLm/F7V9uZJXnHvGQKWFkOt4UhqYanG6G13ct6D9
+	 JcfYaVEkczCMvaFAl+SPZHb2B/D5Q+U6+ppBZMmhbYoL+FkSTIsJgTBGj34VMQea61w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=cressey.dev;
+	spf=pass smtp.mailfrom=cressey.dev;
+	dkim=pass header.d=cressey.dev header.i=@cressey.dev header.a=rsa-sha256 header.s=key1 header.b=q9eETb3J;
+	arc=none smtp.remote-ip=91.218.175.61
+Received: from mta0.migadu.com (out-61.mta0.migadu.com [91.218.175.61])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id DE8EB1F00A05;
-	Wed, 11 Nov 2026 23:36:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794440188;
-	bh=gO1MVgjoFguecuzNEI7qcANHnCjMPECnOHHKwejXJeg=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=TVpDvJB/ytWYNMDmGFLiiJYioOoR90BEibKcMJjK1KLMdvPXL3yoiYLRWnanYiTJw
-	 VMiFedjkN3LuxQELEewvhNYPkcUsRTmf8Mx6vOIunUCSrHpjJWzanrcmIvF+bULfJr
-	 i+1zoltOkOdj5Z4dTxfwNvO8h2xBy0eS5yAJwfIJT3PXrrIHwa60vCuFjRDH/dIhZV
-	 Y8ByDfKnhzlUzZ2U69WxEjccvBr3N+ot+UDhI/4YbCZIgW6DCxDJK8hm4H0svxXKsM
-	 mdLDMRjtSm50Lezo1iDCu+35XYkImaisrH73zJIeWwuYAgvQ+JepB6Lwe9WUZ6m1eE
-	 4voaGj56HQiKg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 3145B49156;
-	Wed, 11 Nov 2026 23:36:27 +0000 (UTC)
-From: Moad Tarrih via B4 Relay <devnull+tarrihmoad.proton.me@kernel.org>
-Date: Wed, 11 Nov 2026 23:36:26 +0000
-Subject: [PATCH v4] platform/x86: asus-wmi: Ignore unusable kbd backlight
- WMI device on ROG Strix G814FP
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8370F606A326
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 23:36:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8370F606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cressey.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cressey.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=cressey.dev header.i=@cressey.dev header.a=rsa-sha256 header.s=key1 header.b=q9eETb3J
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=jvnaHbrD3GKuc0kVTJXIvjvxRseCe9rmXMZmsYFOqy0=;
+ c=simple/simple; d=cressey.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794440207; v=1; x=1795045007;
+ b=q9eETb3JPeZxZBrD/mFXAIHDWksZmYd0/ZcBa/GduTVnJytZ6df6fPYIEd3Z07cXvInGRfpx
+ gChdfr15HLgv4Kmt/D/KVNYn2Ss4mSLgA5UiEldYxzZrWOEt7TdrXuHEGZ7wNhQ6T2HRqOpJEfk
+ yoDQ9pXEX5E4bdJz9qrQj0CtmjAUmK4y2XZKv7Dvx3aQk6fuD+Y+I0/7SdX4igt9STRdH1EzoPI
+ 09j/k5GXaoqLDoeIpxkmhGMFU7v4tpqS8OouNKa1dwt/KjBHrjgskVwLD1dLpsBF6ELC8tnGhZn
+ vJVQfDTnzf+gk1QWpn4EvWbhw/8kR4KwprNQVIXLZa2ew==
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id dba58aabdcacc9cc;
+	Wed, 11 Nov 2026 23:36:47 +0000
+X-Mizu-Trace-ID: dba58aabdcacc9cc
+X-Migadu-Flow: FLOW_OUT
+From: Ben Cressey <ben@cressey.dev>
+Subject: [PATCH v2] PCI: Add ID@path device format for pci= parameters
+X-Change-ID: 20260919-pci-idpath-selector-2847a8afe92c
+To: Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>, Bjorn Helgaas <bhelgaas@google.com>
+Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-pci@vger.kernel.org, 
+ =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+ Logan Gunthorpe <logang@deltatee.com>, Alex Williamson <alex@shazbot.org>, 
+ Wei Wang <wei.w.wang@hotmail.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
+ "Anthony Vardaro (Anthropic)" <me@anthonyvardaro.com>
+X-Mailer: b4 0.15.2
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,166 +71,153 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261111-asus-wmi-kbd-readback-v4-1-79df1567476d@proton.me>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4XQTQ7CIBAF4KsY1mJgQIKuvIdxwc+gaGwrtFVje
- nepumhijMuXzHwvMw+SMUXMZD17kIR9zLGuSpDzGXEHU+2RRl8yAQaKc6apyV2m13OkJ+tpQuO
- tcScKQoFcogaPmpTdJmGIt5e73b1z7uwRXTti48Qh5rZO91dxz8e5fx09p5zaIHRQkjHjcdOku
- q2rxRnJ2NHDVFn9UqAojkkd3FJ4jV+KmCic/VJEUZRUxgewWsFqqgzvgxNeuvLP9vOFYXgCZ4/
- i6G0BAAA=
-X-Change-ID: 20261108-asus-wmi-kbd-readback-236245e82de8
-To: Corentin Chary <corentin.chary@gmail.com>, 
- "Luke D. Jones" <luke@ljones.dev>, Denis Benato <denis.benato@linux.dev>, 
- Hans de Goede <hansg@kernel.org>, 
- =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
- Antheas Kapenekakis <lkml@antheas.dev>, 
- Benjamin Tissoires <bentiss@kernel.org>
-Cc: Sercan GOKMEN <gokmensercan@gmail.com>, 
- Burak Goncu <burakgon12@gmail.com>, Denis Benato <benato.denis96@gmail.com>, 
- platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Moad Tarrih <tarrihmoad@proton.me>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794440189; l=5327;
- i=tarrihmoad@proton.me; s=20261108; h=from:subject:message-id;
- bh=2DuMrNPPbmG4EK58GjRCWYX3JTlzq8zk3x5L5iXO+R4=;
- b=DbfGtdQqmZnbH4vi8ozqbeJ1yzktm11TKJN/TvPIGdcGufMdLcRthxvFIiwFN4hfWw5zlLrk5
- kLi6/0+BDieD2VqhRZ2b+G9sGC2eVtj5ajvv4kwbykYP/MDb7KTdTX4
-X-Developer-Key: i=tarrihmoad@proton.me; a=ed25519;
- pk=wtwpmYxZldK7Qebavgtx7P5WmSQOiWjicK0506NOKLg=
-X-Endpoint-Received: by B4 Relay for tarrihmoad@proton.me/20261108 with
- auth_id=1453
-X-Original-From: Moad Tarrih <tarrihmoad@proton.me>
-Reply-To: tarrihmoad@proton.me
 Content-Transfer-Encoding: 7bit
+Date: Wed, 11 Nov 2026 15:36:31 -0800
+Message-Id: <20261111-pci-idpath-selector-v2-1-83ea668e38f0@cressey.dev>
 
-From: Moad Tarrih <tarrihmoad@proton.me>
+The <pci_dev> grammar shared by pci=resource_alignment=,
+pci=disable_acs_redir= and pci=config_acs= names a device either by
+address, with an optional path, or by ID. When one command line serves
+more than one platform, neither form limits an entry to the intended
+device: an address applies to whatever occupies it on each platform, and
+an ID applies to every instance, such as all Downstream Ports of a
+switch rather than the one that needs different ACS settings.
 
-On the ASUS ROG Strix G18 G814FP, writing a level to the keyboard
-backlight brightness in sysfs works, but reading it back always gives
-0, and the read makes the Fn brightness keys misbehave.
+Accept pci:<vendor>:<device>[:<subvendor>:<subdevice>]@<path>, where
+<path> is the address format, and match only when both halves match. An
+entry written for one platform is then inert on another where that
+address holds a different device. For example,
 
-The firmware reports the keyboard backlight WMI device as present
-without implementing it, and the backlight is actually driven by
-hid-asus. DSTS(0x00050021) always returns 0x50000, which is level 0
-regardless of what the actual level is, and every DEVS(0x00050021)
-write is rejected as an unsupported method.
+  pci=config_acs=xx111x1@pci:10b5:8749@0000:80:02.0/00.0/08.0
 
-Add a kbd_led_no_wmi quirk that makes asus-wmi treat the keyboard
-backlight WMI device as absent, and set it for this board, matched on
-the DMI board name. asus-wmi then keeps the LED registered for hid-asus
-and no longer reads from or writes to the WMI device.
+configures ACS on the Downstream Port at that path only if it is a
+PEX 8749 port.
 
-As a side effect, the kbd_rgb_mode and kbd_rgb_mode_index attributes are
-no longer created on this board, they never worked here since the firmware
-rejects those writes as well.
+The path goes last since pci_dev_str_match_path() consumes up to the
+next ';'. The IDs are compared first, and the path is parsed only for a
+device that matches them. The <order>@ and <flags>@ prefixes of
+resource_alignment and config_acs are stripped before
+pci_dev_str_match() is called, so the callers are unchanged.
 
-Fixes: fac55d29581f ("platform/x86: asus-wmi: Add support for multiple kbd led handlers")
-Suggested-by: Antheas Kapenekakis <lkml@antheas.dev>
-Suggested-by: Denis Benato <denis.benato@linux.dev>
-Cc: stable@vger.kernel.org
-Signed-off-by: Moad Tarrih <tarrihmoad@proton.me>
-Reviewed-by: Antheas Kapenekakis <lkml@antheas.dev>
+Suggested-by: Wei Wang <wei.w.wang@hotmail.com>
+Signed-off-by: Ben Cressey <ben@cressey.dev>
 ---
-Tested on an ASUS ROG Strix G18 (board G814FP, BIOS G814FP.317) on
-7.2.14: the brightness attribute reads back the level that was set, the
-Fn keys step from it, and this survives suspend and reboot. W=1 and
-checkpatch --strict are clean. v4 only changes the commit message.
-
-Sercan GOKMEN's B9406CAA patch also adds a field to struct quirk_entry
-and a DMI entry, so whichever lands second may need a trivial rebase.
-
-AI assistance: Claude Code (Claude Opus 5.5) was used to trace the
-asus-wmi code, write the patch and draft the commit message. I reviewed
-it and tested it on the hardware.
----
-Changes in v4:
-- Trim the commit message and move the AI assistance note below the
-  --- line (Ilpo).
-- Link to v3: https://patch.msgid.link/20261110-asus-wmi-kbd-readback-v3-1-646adf2b8629@proton.me
-
-Changes in v3:
-- Drop the comment on kbd_led_no_wmi (Antheas).
-- Don't set wmi_backlight_set_devstate for this board: the firmware
-  rejects both DSTS and DEVS on 0x00050012, so the write did nothing
-  (Antheas).
-- Add Antheas's Reviewed-by.
-- Link to v2: https://patch.msgid.link/20261109-asus-wmi-kbd-readback-v2-1-c048fc53d8ee@proton.me
-
 Changes in v2:
-- Add a quirk that makes asus-wmi skip the keyboard backlight WMI
-  device on this board instead of detecting rejected writes at
-  runtime (Antheas), so no more WMI writes that are known to fail
-  are issued (Denis).
-- Link to v1: https://patch.msgid.link/20261108-asus-wmi-kbd-readback-v1-1-bf38f6400ade@proton.me
----
- drivers/platform/x86/asus-nb-wmi.c | 13 +++++++++++++
- drivers/platform/x86/asus-wmi.c    |  3 ++-
- drivers/platform/x86/asus-wmi.h    |  1 +
- 3 files changed, 16 insertions(+), 1 deletion(-)
+- Compare the IDs first and walk the path only for a device that matches
+  them. An entry whose IDs do not match skips its path up to the next
+  ';', so that later entries are still read. Thanks to Wei Wang for the
+  review and the suggestion.
+  https://lore.kernel.org/r/SI2PR01MB4393779B4E590C6D76FD12A3DC822@SI2PR01MB4393.apcprd01.prod.exchangelabs.com
+- A malformed path is now an error only for a device that matches the
+  IDs. Any other device skips it.
+- Rebase onto v7.4-rc1.
+- Drop Anthony Vardaro's Reviewed-by, since the matching logic moved.
+- Drop the Assisted-by tag. The notes below say how tools were used.
+- Link to v1: https://lore.kernel.org/r/20260919-pci-idpath-selector-v1-1-5881de83f248@cressey.dev
 
-diff --git a/drivers/platform/x86/asus-nb-wmi.c b/drivers/platform/x86/asus-nb-wmi.c
-index 3b0f3346dc60..9b2a4b829885 100644
---- a/drivers/platform/x86/asus-nb-wmi.c
-+++ b/drivers/platform/x86/asus-nb-wmi.c
-@@ -93,6 +93,10 @@ static struct quirk_entry quirk_asus_unknown = {
- 	.wmi_backlight_set_devstate = true,
- };
+The ID comparison is assigned to ret with the same lines as Wei Wang's
+"[PATCH v10 3/6] PCI: Consolidate delimiter handling into
+pci_dev_str_match()". The two conflict in that hunk, whichever is
+applied second; on top of 3/6 the hunk is an 8-line insertion.
+https://lore.kernel.org/r/SI2PR01MB4393A855D592C1F484DEF778DC832@SI2PR01MB4393.apcprd01.prod.exchangelabs.com
+
+Tested under QEMU (TCG). Each of the three options selected only the
+intended one of several devices with the same ID, and a later entry
+still applied after one that did not match. The two ACS options were
+tested on Root Ports, since QEMU's switch ports have no ACS capability.
+v2 has not been run on hardware; the test on two server models in v1's
+notes was of v1.
+
+An LLM wrote the patch, the changelog and these notes, wrote and ran
+the QEMU test, and ran W=1 builds of drivers/pci/ for x86_64 and arm64.
+---
+ Documentation/admin-guide/kernel-parameters.txt | 10 ++++++++-
+ drivers/pci/pci.c                               | 28 +++++++++++++++++++------
+ 2 files changed, 31 insertions(+), 7 deletions(-)
+
+diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
+index 0b3c140babd9..12b91186a1ec 100644
+--- a/Documentation/admin-guide/kernel-parameters.txt
++++ b/Documentation/admin-guide/kernel-parameters.txt
+@@ -5038,6 +5038,7 @@ Kernel parameters
  
-+static struct quirk_entry quirk_asus_g814fp = {
-+	.kbd_led_no_wmi = true,
-+};
+ 				[<domain>:]<bus>:<dev>.<func>[/<dev>.<func>]*
+ 				pci:<vendor>:<device>[:<subvendor>:<subdevice>]
++				pci:<vendor>:<device>[:<subvendor>:<subdevice>]@<path>
+ 
+ 				Note: the first format specifies a PCI
+ 				bus/device/function address which may change
+@@ -5052,7 +5053,14 @@ Kernel parameters
+ 				renumbering issues).  The second format
+ 				selects devices using IDs from the
+ 				configuration space which may match multiple
+-				devices in the system.
++				devices in the system.  The third format
++				combines the first two: the device must
++				match the IDs and also be at the address
++				given by <path>, which takes the first
++				format.  This allows an entry written for a
++				device on one system to have no effect on
++				another system where the same address is
++				occupied by a different device.
+ 
+ 		earlydump	dump PCI config space before the kernel
+ 				changes anything
+diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
+index 7c6f2aba8144..cd5b627da88d 100644
+--- a/drivers/pci/pci.c
++++ b/drivers/pci/pci.c
+@@ -343,6 +343,7 @@ static int pci_dev_str_match_path(struct pci_dev *dev, const char *path,
+  *
+  *   [<domain>:]<bus>:<device>.<func>[/<device>.<func>]*
+  *   pci:<vendor>:<device>[:<subvendor>:<subdevice>]
++ *   pci:<vendor>:<device>[:<subvendor>:<subdevice>]@<path>
+  *
+  * The first format specifies a PCI bus/device/function address which
+  * may change if new hardware is inserted, if motherboard firmware changes,
+@@ -359,6 +360,12 @@ static int pci_dev_str_match_path(struct pci_dev *dev, const char *path,
+  * legacy reasons and convenience so users don't have to specify
+  * FFFFFFFFs on the command line.)
+  *
++ * The third format combines the first two: the device must match the IDs
++ * and also be at the address given by <path>, which takes the first
++ * format.  This allows a parameter written for a device at a known
++ * address on one system to have no effect on another system where that
++ * address is occupied by a different device.
++ *
+  * Returns 1 if the string matches the device, 0 if it does not and
+  * a negative error code if the string cannot be parsed.
+  */
+@@ -385,12 +392,21 @@ static int pci_dev_str_match(struct pci_dev *dev, const char *p,
+ 
+ 		p += count;
+ 
+-		if ((!vendor || vendor == dev->vendor) &&
+-		    (!device || device == dev->device) &&
+-		    (!subsystem_vendor ||
+-			    subsystem_vendor == dev->subsystem_vendor) &&
+-		    (!subsystem_device ||
+-			    subsystem_device == dev->subsystem_device))
++		ret = (!vendor || vendor == dev->vendor) &&
++		      (!device || device == dev->device) &&
++		      (!subsystem_vendor ||
++		       subsystem_vendor == dev->subsystem_vendor) &&
++		      (!subsystem_device ||
++		       subsystem_device == dev->subsystem_device);
 +
- static struct quirk_entry quirk_asus_q500a = {
- 	.filter_i8042_e1_extended_codes = true,
- 	.wmi_backlight_set_devstate = true,
-@@ -167,6 +171,15 @@ static int dmi_matched(const struct dmi_system_id *dmi)
- }
- 
- static const struct dmi_system_id asus_quirks[] = {
-+	{
-+		.callback = dmi_matched,
-+		.ident = "ASUS ROG Strix G18 G814FP",
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "ASUSTeK COMPUTER INC."),
-+			DMI_MATCH(DMI_BOARD_NAME, "G814FP"),
-+		},
-+		.driver_data = &quirk_asus_g814fp,
-+	},
- 	{
- 		.callback = dmi_matched,
- 		.ident = "ASUSTeK COMPUTER INC. Q500A",
-diff --git a/drivers/platform/x86/asus-wmi.c b/drivers/platform/x86/asus-wmi.c
-index b33ebdb21aa2..51fea21ff247 100644
---- a/drivers/platform/x86/asus-wmi.c
-+++ b/drivers/platform/x86/asus-wmi.c
-@@ -2165,7 +2165,8 @@ static int asus_wmi_led_init(struct asus_wmi *asus)
- 	asus->kbd_led.brightness_set_blocking = kbd_led_set;
- 	asus->kbd_led.brightness_get = kbd_led_get;
- 	asus->kbd_led.max_brightness = ASUS_EV_MAX_BRIGHTNESS;
--	asus->kbd_led_avail = !kbd_led_read(asus, &led_val, NULL);
-+	asus->kbd_led_avail = !asus->driver->quirks->kbd_led_no_wmi &&
-+			      !kbd_led_read(asus, &led_val, NULL);
- 	INIT_WORK(&asus->kbd_led_work, kbd_led_update_all);
- 
- 	if (asus->kbd_led_avail) {
-diff --git a/drivers/platform/x86/asus-wmi.h b/drivers/platform/x86/asus-wmi.h
-index b45f81b38a47..e53c6b3fc619 100644
---- a/drivers/platform/x86/asus-wmi.h
-+++ b/drivers/platform/x86/asus-wmi.h
-@@ -41,6 +41,7 @@ struct quirk_entry {
- 	bool wmi_force_als_set;
- 	bool wmi_ignore_fan;
- 	bool filter_i8042_e1_extended_codes;
-+	bool kbd_led_no_wmi;
- 	int key_wlan_event;
- 	enum asus_wmi_tablet_switch_mode tablet_switch_mode;
- 	int wapf;
++		/* Third format: the device must also be at <path> */
++		if (ret && *p == '@')
++			ret = pci_dev_str_match_path(dev, p + 1, &p);
++		else if (*p == '@')
++			p = strchrnul(p, ';');
++		if (ret < 0)
++			return ret;
++		if (ret)
+ 			goto found;
+ 	} else {
+ 		/*
 
 ---
-base-commit: c339f4010dea8b0d754f84ace70cd1b089878ef8
-change-id: 20261108-asus-wmi-kbd-readback-236245e82de8
-
-Best regards,
---  
-Moad Tarrih <tarrihmoad@proton.me>
-
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20260919-pci-idpath-selector-2847a8afe92c
 
