@@ -1,93 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794364354;
-	b=N/KDNHNZqCc0c/LOhhrO/iXSWPQr6aTWE2/k7VcGNUr3V+QUM8WfOxiKrz4v+to8X8ZU
-	 p7dPt4UInyb+3B5cR6pyiSJ9Om6iBgFmsPmP2djjIUnyFUT70uUz/qEDCtuHS7hTXVPGu
-	 InhR66sXPzZ/tJ+hZP7/aN7D6nmh7gcOBEJAO9tWc0gBFWIYBs1xAYWcL0S2gFHPq9SEu
-	 v21PCrsTVceZYKxbcTPyd94zm21i+XrcPHNqVIVihai8lWUz538U1xuUKVInMnYqHcIIe
-	 X2egwMa3R+ztCC0zrorabK7vNoikGYycHyUlLZzkS5wt097MEZOMv4K7NOpq7YBiW1g==
+	t=1794364364;
+	b=a25a5kMA/sDudYMoTzc84vZL7HBmImaMhM/06SRVJQTqQfBxt65JHN3aLne1PVbb6I5s
+	 iBY8BJdPODmm2ZbMAr1PLN5o7abaoVUSXEW5W8OyGSLIhbR97wKrgtOp8AtaYQCq/bHr9
+	 qM1cu+mLcdSfcnjxsSq+K4fyRUepyJVYvRuVRifzsVPpljnlgx5KVRY6XL+0We4MZkefk
+	 5NUJGYyZs96AL8H/hISELd6msTxW7ZB3JetIpQOWqdJr98+NywFHWcT8fQz7gtxmOyPv5
+	 Mi/ABprdWIBbYrpVe5CWL/hAwF6sPHFdpcvbNecrjmL+I2TGDKPal9K3JzUsCIr814A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794364354;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794364364;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=LDdiip4JC5hPOAy/PQcmBPBdRiD+HONG44FBf5k6Tfc=;
-	b=YP8qdMO/SXIQQ4W52uDpndzn02/ZlZZZOwb07C+WpgrpLn/0LoIaXkbqhb05XQd7331I
-	 y2EHnkeFVm/2zo10Y8OS22zOMs5v+WapZ3LHc19FAwY3bOWukS5aIOCqSV2k6n8iQfdH0
-	 uZnrpGxf8Wjy6Rxi7IgvKIx8m9zRtA7GoEpRUdnAdky4kh+/xxzqzGAYoi5LOKpB25Z2k
-	 VlYJTed9g8NRQkK5a21BbOPcnurz59sopUHeVdxM4GhD5EBe4BiyVfGdG3SFbjh3GQ9mF
-	 7LAviU22z1fJlh6ypSi/iqct7VUd6XR3wZyLS+p70ACDOeERzZuW+0nfO2/inPani7g==
+	bh=EQFSFoL8MyPpZNCfc8yudcQ9h0bWkFsE0YoFpZPOjHo=;
+	b=EOZRnQDCaBjg8xX8ULEpstNXxwicfBhzsfzEV4Prnij8Qn+OyU7943LWo2YZ/j4/8vGy
+	 dsU+HPE8FFAhom+X13XdfWSLejvq8LG/8PMNXrpJABFMi0GVWNHvoR+mz0mcFQZBElmJ9
+	 OVH4tvj0kPXaVeWf3ZwUuAI0S0yZdi6jmRcXKAzO2l5DdH4pJ3pBubVuuNrf1PvL8v/wl
+	 u9x/eP4xHsJM6s/c8FbIiOnKPUyjTM9i3WbMKrc3MXBHhFgMhkMc8TPEoA0aal4TwWYlG
+	 PETWbHJf9LH+dtqeZvIjkCUfYpcqF8SFW6nvDY+ysoALquTov7UxQ6G2EynlUVGCZPQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ewb6ltT0;
-	arc=none smtp.remote-ip=209.85.167.170
-Received: from mail-oi1-f170.google.com (mail-oi1-f170.google.com [209.85.167.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68F90606A320
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 02:32:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68F90606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=j2dObdIj;
+	arc=none smtp.remote-ip=111.22.67.139
+Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5BDB1606A31C;
+	Wed, 11 Nov 2026 02:32:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5BDB1606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ewb6ltT0
-Received: by mail-oi1-f170.google.com with SMTP id 5614622812f47-55650fe1f0dso1408045b6e.2
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 18:32:34 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=j2dObdIj
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794364353; x=1794969153; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=LDdiip4JC5hPOAy/PQcmBPBdRiD+HONG44FBf5k6Tfc=;
-        b=ewb6ltT0oNcgOET9OClEThGLAWDJfZnrUIdUAN8Ir8iQ5AuAS46cbgxdsJ264rm8Jb
-         yMqgeKBeF6EdhjGjGHX0FUXsXacGGCpCFtUw85AiH2yL36Vxi7BhgHloWfGQ4aGIpKMl
-         kaXaKIo+M8Udnd9mMLGrZuiki1iCJ1r9MZV8vBZPJeOpR5bEQfcrrY/v/oVuGdEy2uOq
-         EZrH9xhUnbEIvpYci3SHnAA7/GstkBActbFZmaD88hT4ZThs4HeL4Bo4nyP+16Ggy/2O
-         z8AKMjXFgaKfZfUHpuN6bYZiW2gLsWxuy347qCEOKZM+5MFWtYcb9ExpmWEgRxYOwGiH
-         8A6A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794364353; x=1794969153;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=LDdiip4JC5hPOAy/PQcmBPBdRiD+HONG44FBf5k6Tfc=;
-        b=cL3CwaaGzvNFoVMoJCyU0st+8KmQt9emXts9zU9oKlI7RwhfXvchQB5c3Z34DzvAe8
-         Uw11RZYhvKg3zuBuldf6beABqSrNtSNgYJVJWTEPyI7dWoiS1uq/egUcykS+BwN6aweH
-         fM/1ntQPyA41qbzgCkc70er4u1MsNf1r+1BZZEYymZ4wyhSCZGz8YsANXbw/ybLleBjp
-         5QkOJi04BTWgTjLft4kPEaCyrC9fTHSMZTyiWiy4+r/impHZbe5FNHvcHm/Rpp7ggBC+
-         ZUjD9FNLbXysy8gHsBbtp/XqQuXjKr0rZxiWtU1XpmmJc/xuFsGMBxQbFDhBSzyNxAK+
-         Lm3g==
-X-Forwarded-Encrypted: i=1; AL+hErHPLAffp+pYQjY1ZQD0SpLVOJ1KvORqWkN6P2ZJR0io2g2vqv14sthOjwUfsgbIkMu6k20toKEYMl78ewI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+X5KW2Q7x/ytVLqNwYjl6w1a+VaVJMoEjzanb5jZ3V9BRbsnY7
-	aCYAZrZQ4J7CGuBiU/gfttv//+lFog9Nm6BP/0XoxquPIHTFShhr6+un
-X-Gm-Gg: AYBFou1Yg/um7mRQOCMEmkI1jNdlanyy+IZKdZaDGTAnQw+1VWXNE7Nhxs54hGwxWb6
-	C0ao0Rxuy/6NrFwifxVAP2DJMPElsXm2wUjj5yjXnuYY9AJY7dPSVBjypVqbkuA/hw2d+evU4H9
-	4PwEG53+rSGpjwY9iTJPS0Zd8VBDqiuYhsOAzE7fZcBS8HFiUw25+STojIl2yvZkkcGG1e8FfsR
-	/eNI472GId2bqgcX4Cmdq1Jz8z1ctR/BPvFpXQD06V+OU6/K6lHVAuvf/Emb/TYfCCLSwHTquu3
-	axkK52e3tRGAqcU2XeT4JhisidwrxkKoFfjsiZ5b4uKsFo70hWPA/CTn2PjfW7rUAyNp1a3dQFg
-	pGaxyAKxS02D/9GBd6VYMmw1n2mOa7RxlzpvPrgpg8/4viGrgDusftkEUl72IxMAoomqIkIP3NZ
-	/2HPtf67SwLTni4Z8omhQKwHaKdviPKaoNNmN6vcRxMU7EbrF2Xnlg7NVXTjSjkMZ7dPEwVnBg3
-	KkFPee91FJZmirpjCJN/rWwud+xapN5uno6KPLRNSoXNTVxg7rMQC3wwKe/e34MMGEKSKZSnYSG
-	Qc5T+eBLDqgYDx2Y3qRmtxywNsyBaiyrsZI0ApWED2ja+9+gcdGy93Wx8qqVNsWPia+OR+HL1jN
-	ESP8jhlQg4q6fI+VrpBZUTGIFDCHWPZ2YF/y3DFWz/JjxEYN7mmUBbBmuuv6DTEuuzzOu6O1LGv
-	HOvw==
-X-Received: by 2002:a05:6808:5391:b0:4d6:90d3:e183 with SMTP id 5614622812f47-56b97b1de0dmr793806b6e.44.1794364353319;
-        Tue, 10 Nov 2026 18:32:33 -0800 (PST)
-Received: from ryzen.lan ([2601:644:8000:37f::e34])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-5690504fdb5sm3917813b6e.3.2026.11.10.18.32.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 18:32:32 -0800 (PST)
-From: Rosen Penev <rosenp@gmail.com>
-To: Neill Kapron <nkapron@google.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] usb: gadget: udc: snps_udc_plat: use platform_get_irq for IRQ lookup
-Date: Tue, 10 Nov 2026 18:32:21 -0800
-Message-ID: <20261111023221.70102-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=j2dObdIjzEmi2cx2V6Lpu4VocFbiC/gQTjEEdvRqOkOC0zYGZoHHXa8r0Q5HLh8QT/22rGMxCBGa2
+	 NxwcJc8RZTSf3x5kSwJlyJv4Og9YRUIeipEkXdGODLWNLavLMGG9WMXeK1u2rlFZInYEKax+CjyfDC
+	 TLWhGiISddvVklsg=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app01-12001 (RichMail) with SMTP id 2ee16af3d3c5a2a-aee75;
+	Wed, 11 Nov 2026 10:32:41 +0800 (CST)
+X-RM-TRANSID:2ee16af3d3c5a2a-aee75
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from localhost.net (unknown[112.23.105.204])
+	by rmsmtp-syy-appsvr05-12005 (RichMail) with SMTP id 2ee56af3d3c7af0-caea1;
+	Wed, 11 Nov 2026 10:32:41 +0800 (CST)
+X-RM-TRANSID:2ee56af3d3c7af0-caea1
+From: Wenbo Sun <sunwenbo@cmss.chinamobile.com>
+To: kuniyu@google.com,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com
+Cc: horms@kernel.org,
+	willemb@google.com,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	sunwenbo@cmss.chinamobile.com,
+	1342116488@qq.com
+Subject: [PATCH net] af_unix: Inherit SO_INQ in unix_stream_connect()
+Date: Wed, 11 Nov 2026 10:32:22 +0800
+Message-Id: <20261111023222.77227-1-sunwenbo@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.33.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,47 +77,50 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Replace irq_of_parse_and_map() with platform_get_irq() and move the
-IRQ acquisition to the top of the probe function, before any resource
-allocation. This provides proper error propagation including
--EPROBE_DEFER support and removes the need for a manual error message.
+When SO_INQ is enabled on a listening AF_UNIX SOCK_STREAM socket,
+accepted sockets created by unix_stream_connect() do not inherit
+u->recvmsg_inq from the listener, unlike TCP_INQ, AF_VSOCK SO_INQ,
+and AF_UNIX SO_RIGHTS_NOTRUNC. As a result, recvmsg() on the
+accepted socket never puts an SCM_INQ control message unless SO_INQ
+is set again after accept().
 
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
+Copy otheru->recvmsg_inq to newu->recvmsg_inq in
+unix_stream_connect() using READ_ONCE() to pair with the lockless
+WRITE_ONCE() in unix_setsockopt().
+
+Found during LLM-assisted code review of unix_stream_connect() while
+comparing option inheritance between SO_INQ and SO_RIGHTS_NOTRUNC.
+
+Confirmed on UML (x86_64) by enabling SO_INQ on a listening AF_UNIX
+SOCK_STREAM socket before listen() and accept(), sending data from a
+connected client, and observing that recvmsg() on the accepted socket
+returned no SCM_INQ control message.
+
+Tested on UML (x86_64) against the reproducer, verifying that
+recvmsg() on the accepted socket now returns the expected SCM_INQ
+control message, and ran the tools/testing/selftests/net/af_unix/scm_inq
+selftest (all 6 test cases passed).
+
+Fixes: df30285b3670 ("af_unix: Introduce SO_INQ.")
+Signed-off-by: Wenbo Sun <sunwenbo@cmss.chinamobile.com>
 ---
- drivers/usb/gadget/udc/snps_udc_plat.c | 11 ++++++-----
- 1 file changed, 6 insertions(+), 5 deletions(-)
+ net/unix/af_unix.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/usb/gadget/udc/snps_udc_plat.c b/drivers/usb/gadget/udc/snps_udc_plat.c
-index 3687690ca33d..38aa077a56b5 100644
---- a/drivers/usb/gadget/udc/snps_udc_plat.c
-+++ b/drivers/usb/gadget/udc/snps_udc_plat.c
-@@ -102,8 +102,13 @@ static int udc_plat_probe(struct platform_device *pdev)
- 	struct device *dev = &pdev->dev;
- 	struct resource *res;
- 	struct udc *udc;
-+	int irq;
- 	int ret;
+diff --git a/net/unix/af_unix.c b/net/unix/af_unix.c
+index 98fcfd7301f6..f847cf1fbeaf 100644
+--- a/net/unix/af_unix.c
++++ b/net/unix/af_unix.c
+@@ -1750,6 +1750,7 @@ static int unix_stream_connect(struct socket *sock, struct sockaddr_unsized *uad
+ 	newu = unix_sk(newsk);
+ 	otheru = unix_sk(other);
+ 	newu->listener = other;
++	newu->recvmsg_inq = READ_ONCE(otheru->recvmsg_inq);
+ 	newu->scm_rights_notrunc = READ_ONCE(otheru->scm_rights_notrunc);
+ 	RCU_INIT_POINTER(newsk->sk_wq, &newu->peer_wq);
  
-+	irq = platform_get_irq(pdev, 0);
-+	if (irq < 0)
-+		return irq;
-+
- 	udc = devm_kzalloc_obj(dev, *udc);
- 	if (!udc)
- 		return -ENOMEM;
-@@ -130,11 +135,7 @@ static int udc_plat_probe(struct platform_device *pdev)
- 
- 	udc->phys_addr = (unsigned long)res->start;
- 
--	udc->irq = irq_of_parse_and_map(dev->of_node, 0);
--	if (udc->irq <= 0) {
--		dev_err(dev, "Can't parse and map interrupt\n");
--		return -EINVAL;
--	}
-+	udc->irq = irq;
- 
- 	udc->udc_phy = devm_of_phy_get_by_index(dev, dev->of_node, 0);
- 	if (IS_ERR(udc->udc_phy)) {
 -- 
-2.56.0
+2.33.0
+
+
 
