@@ -1,88 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.231.73
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794360321;
-	b=Vp3d23MJFa9cOUJrSUmYyYgGb3Xq9MxBnUx4hUpdmFIPY4TjmDg05g96Ekg1QvIqcb1a
-	 I+MwdojtyVlFbIwKhSgbTMwExJ5D76S++5tu4/I+Eh7iDEW45+XTAOlzlpwle0mRAafTe
-	 Ap9q6V086EK4oOsy2Eh4+ih86m111kdeW6ugiSenaBgLJNrw377P5/A/sQ/6FlWQcaPc2
-	 +zI9rsnNTQKwzP3gSueIeXjxPsZz0VsMEnsEGde/dvF86fCDG1OITFxR0mg4zbbi2cWm8
-	 Ws5wBVWb8XDRkt53xRHvdMTLPXXVI+sISGV1Qa+efqAwQ7L6sGmYPiIgJcw1ehccrbw==
+	t=1794360444;
+	b=ibvoARQvcv8vqUvEq1jUBOLLhA3L3uEYDnkDp48txOEv3GlsqvNdkfzO8/cgi+q7cPuI
+	 t02shvlwTpVzGBvVn5M1TyVQn4+mKmVTr+pdHtcV/39ij7wWYsRAMm1EFSQPMz1W71RlE
+	 z483skOrdRF7+UcMXuKhUMGvYH3SlYhrndnoPhdqkU085NP/avICRCRfMMpYv6+yzmgsZ
+	 c8XjYACntWtwEdNk/liaCLfY+wSfUDAqYtfY8bVEoQeFLvqWbffVfvs4SmcOX9qZGUu3X
+	 oEuLIqi1EMLtR4bXkzj0Vf9AIUWx4/JFXXZFxAvQ87d3Vi4PFni/lYqb7NG1s9KCc6g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794360321;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=pKNSEv8C73HiYzEB3RbrIHHT7Qnrx0wZsVyt2zdAEyo=;
-	b=ekqhgphrAIwta/x39Ae4UcVYrlAz5p6hMm+hxnuhYNAV/MIOKcX3NbtL/s+8gW4ZsPau
-	 sRD10rzsAfkQplynaw41bCSrDsx19nMjdOpIaK7EtsXDb2O+GTiBV8MEBSx21yCfcywZN
-	 jRbfV4jghtFWja3CsuD9Q/3uKQnLuRecFy8ZGLGB/OPfej1as62+SsRzVGQBJayCLkA7U
-	 onRJLaKKgZPRJcrBEiUJZMEKE4Gwfy8uCZkjnbjkUqftzHFeCYQ6zgvDhA5kP5y2VO7a1
-	 lTJ/hskjBODxtHd+uPl6iKUtQmZUR1tQGSWQyUS5p2y13cFtkTemeuhTT0uWASEfRgg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794360444;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=BLSB0jc+PDfoGDhBATE5rNyu65P6DKBdBa7UuDK+sb4=;
+	b=r7/ISRsKbUyjl+KXJZL+YZrEWyMfwKslHHMR4ewdhBrScb7w8OwmYUw8wqI9uC+Fj8K2
+	 MJLgp0IXbOGWc1Pws3OAnq+/yRmrPBYy9Ge+QrzEdcbHPL0UrAFtkOVCenWVa1SNyw2RW
+	 OM81VGQkcq6BEpklukEazrMG14Bmt5HnljosVRjuXUM5hY3f0V/rsEKi/GWiPntoY7KA4
+	 YUVUtRzWIlPAWpRhgPNzaQwzo5muMZ1qTp+BktkHM/gGCG3yTEX+WFRMjlskpOE86ord4
+	 afsDKP9xftNd9bl9pPIrOHS4bHYMmipX0OGJF4rEXzt8BmvLmr9lofx+Zr8/BZJwkYQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
+	dmarc=fail header.from=andrewgigena.dev;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rj9K+Zvs;
-	arc=none smtp.remote-ip=74.125.231.73
-Received: from mail-oa2-f9.google.com (mail-oa2-f9.google.com [74.125.231.73])
+	arc=none smtp.remote-ip=74.125.82.169
+Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BF1B606A320
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 01:25:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0BF1B606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5D7F606A324
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 01:27:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5D7F606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=andrewgigena.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rj9K+Zvs
-Received: by mail-oa2-f9.google.com with SMTP id 586e51a60fabf-4a86da07919so1189997fac.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 17:25:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794360319; x=1794965119; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=pKNSEv8C73HiYzEB3RbrIHHT7Qnrx0wZsVyt2zdAEyo=;
-        b=rj9K+ZvsSRbIAFrisvorRXaP8OalB0/8zWN4Ud6KXRzlWOtjnsYeBDtplRKy3Yj294
-         i4qoGnYw3zHVRvxGOFqZPPpOKfMzNHcxqNv+k7rAtVh8KpBMKe6m+NvexQXBrH8tw+QI
-         1JStVN1WhEHDURbaqGyAEjBkKXw/+l+RQI3OAvEcRTiJ1zexXjtFbC4BSTWCYEoMHt7K
-         S0Ln3sMVXSubPIOJLba9wnTLf8fxWlj9r0lP1EMmtYbFOa1nKiK/5FiXhi9QbXFo6zbb
-         aud4SJ/tS9GltIzUKERs32wdAIYoHs89w2gyc7wOtHkkreZ7zebveMKad1RzhqaUKHNX
-         ZASw==
+Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-36f6295304dso3518251eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 17:27:23 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794360319; x=1794965119;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=pKNSEv8C73HiYzEB3RbrIHHT7Qnrx0wZsVyt2zdAEyo=;
-        b=mbaDrgMsd9DzqkwM8cxd1mDnIV6yCYLG9MNwQdhehQsTEFFCxDIW5nqFHogUagv8Ez
-         24Vs5aX3paF1S6KtoQ34DFTMeG5beDQmVR80Y0V0EkadqKhSLQzUqIi9bURF9LYnHPFE
-         tnbYtk+X95QTBUISXUZ0YSKKWL+vxB/XfRA6ND+qtVK9jpA2dFDm17pHuMZToucOcTZA
-         le8PhLviVv2mmcRULOa1ZQgVNhmWqDq7udeDNWorVBZ4pp49JSNwWExFKyGPF9QLE8Ql
-         oDw9aqqEDDO3aMVq6LyynzG5puSAfeGR2B4598bOZCkcCwmPUopHvHIHzvCb+P9g5Hp0
-         EmDg==
-X-Forwarded-Encrypted: i=1; AL+hErHem59nRx5m7EYmTGioolEJL0fB3/e/ysT1j/Y5TrxgifiRtQE2D9q5UaFw71qTqzzm7I5bP3w8HvDSUMg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+GbDuHGgJGqiOqCaS2K5LbRA0YzGh9nVER7Au2KZ1vsXH24nFo
-	qhz90YAMtL3l7RX0eMZgUdWVx5ZuTsoZHtOksjCggdvRm3Kwdm23MAKu
-X-Gm-Gg: AYBFou129h3i+qGZsfho5/c2ei6XUuY4A3TUJw9KGHammk4xMusA7hyXMNCYvc8qZh7
-	PDB9t8P6vIeN4GKcfsjIwgDRgmajIspUAcgRX+gxiG5QlJUDKKjvgkJFd+SVQWQaUgV8uqSeV2u
-	rjSnEM6T5ucjs48Nj0bUawyVbW+iwd8XRDKHNQ8yeJAPKlwnsLxLeZUgPUfxkJvty0owTfWQpKX
-	U7emfcH+uc+kyRDqT7jDwgxdvB3OGAYv28Fa9kUDosxnV8wv1sskQIltejc4L+AK9GjQTlSorE8
-	JPYL77MWKq6pqqe/L0DeNcKRcNERYfyqIVTYIQvRPUICwK7OIELtdept94+YqN9si3yxi9R2FZI
-	jMmfkE6/EwWAIp5zwwov3XJuOS/COVxsXaW5yrjYf1HLUY+jNV4Q3Gr4PgPhYmEbvKFc+YmV8uN
-	2Xz/+UDK/e57N/saXsmg/I4gueJsRyquPFj84yxWRpA2Z+jr2fzmopUAix++9UBXwvEBjcdJngB
-	2KBHzz6JB8GD4691PEbygiNDITQQyWV5GO0ORmkd4c6t5QzhepzDl0P0ryN3HvYMlAFwjAphMww
-	7aavEtZEdWp5NLoR8Td0G7P4
-X-Received: by 2002:a05:6870:8127:b0:4a6:a925:e13 with SMTP id 586e51a60fabf-4ae46ab8173mr993348fac.14.1794360318595;
-        Tue, 10 Nov 2026 17:25:18 -0800 (PST)
-Received: from [192.168.18.164] ([2600:8804:5716:d800::f01a])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4ae22fc0d08sm2561558fac.8.2026.11.10.17.25.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 17:25:17 -0800 (PST)
-From: Ryan Brue <ryanbrue.dev@gmail.com>
-Date: Tue, 10 Nov 2026 19:23:57 -0600
-Subject: [PATCH v2] pmdomain: mediatek: Don't power cycle domains on probe
- deferral
+        d=1e100.net; s=20260707; t=1794360443; x=1794965243;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=BLSB0jc+PDfoGDhBATE5rNyu65P6DKBdBa7UuDK+sb4=;
+        b=d8CQPpb5ovdJUQVm7ZD4I3gS0Sn0IwBuhoAmmezBn5uXrBXbWjSpiAa1Ui0qIoKEZl
+         IrRl8TmAd5ybbUALAMgSKOOwjt13MFFjJ8pwW/sGOIaxoQVRdWZfBUMolGtSlii0lJiA
+         YRGGUMRyEPHsya6l821tzyzNKveppHHauLsXOe0o+KrMhmk8mkfeQmZx7OEhoxsifpCT
+         Eyw3z6hI4eGYfJGBwMC9omUQJe4ZTwv1SRtRtcHek139Ky/viE8NX4q43sMTRxeOxYx3
+         TOSXAi8i1ICOOoWDzozHDjdaestzqbc0GjbaffSvzlcKxv4qZPzAG8QhfBsvb5R6c9+m
+         didQ==
+X-Forwarded-Encrypted: i=1; AL+hErG0+hYIFJIus2EWXGYzXWFu9HfPPxwy5CJLWuWiGOO6Ka6c7zee09q0+Q5pUpx6hV7NoTlbxkXAUBRvkjU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+PQ2TB4Tbx+P9pmx0GNPwPWZ37kdYoMfvswVcNIQzHevWfp0kP
+	d5Y/47Mmsga7WB0ytM/iAWJnq5bcwBnfVTdwIIi6UkudNo5iEUN2D1hx
+X-Gm-Gg: AYBFou14rLVCwcFB2AsiVl9+yo/JHa6BDV8Yy8o7RyOVNvTT11riKZxicqy9pui+od8
+	QTdFvw1X0+GB/4gp3T12hrado/TONpEWl8HIzS4EI++uePFPsfLa+7UB+5fj2qWdbFk0/rFDgXc
+	QPuy5l5zmrXzo/AN4KbIi+wYB+AcUYwiUmDGtCJpgThwopZ4ZDWwkYtD/tPVFZpAMLW1nidOExv
+	iTPnpReGvqEYmnlyKrTY6QSyFoTr53Sxpj8t+sjHnHBX8OtJoLQ6Vp2u4hZTF2oh7RP2HvMy7EW
+	dLj09MHBTuPZ/RH6TU98MCU78nY0h/teySJ178+jqP8G9hWYRV1xc8Qxj2gpt2TwfN1qWbhCi+u
+	tg1hPa0hNlr3Auo3YNQngvPcFMsScV79kh1Ec/7oOvAMEBDQzTIz+xbZSrRMdijMOuuOuJAY2ff
+	ZwgeWh96itpOPQyn6RQgzN3fMrr3+MoA1HDR2+GUQscToz595QGbGZ5zDkSZpfxtWI+WK2EK3ZQ
+	CkdZxCxRW78929W2ALZ1Frqd27HJcUKhY5/Bu8nxZGD/tS5bHTaGx3Z3n6wQL8AfK1Wqpj2TiSV
+	V6udUoTAjT+/Q8lAGUUAE9kjkJET9T0xlc/msx9Ax6btncwi8wFf+SF5LrlpMmUTvEmKjUJ5
+X-Received: by 2002:a05:693c:8219:b0:36a:1008:5815 with SMTP id 5a478bee46e88-3768385dee6mr1611656eec.5.1794360442766;
+        Tue, 10 Nov 2026 17:27:22 -0800 (PST)
+Received: from ?IPV6:2800:a4:806:ef00:2f77:7097:372d:6d14? ([2800:a4:806:ef00:2f77:7097:372d:6d14])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-375212e7d24sm16548467eec.22.2026.11.10.17.27.17
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 10 Nov 2026 17:27:22 -0800 (PST)
+Message-ID: <9988b8c2-547e-405a-9c76-a4e6a59c7dbb@andrewgigena.dev>
+Date: Wed, 11 Nov 2026 01:27:15 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,224 +75,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20261110-rbrue-suez-upstreaming-mtk-pmdomain-defer-v2-1-3ad9ad0cc67c@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAA/5XNQQ6CMBAAwK80e2ZNW1CRk/8wHKBsYaNtSQtEJ
- fzdiC/wOpdZIVFkSlCJFSItnDh4qITOBJih8T0hd1AJ0FKflJQXjG2cCdNMb5zHNEVqHPse3XT
- H0XXBNeyxI0sRpTHlmdpSF1JCJmCMZPm5X7c6EzBwmkJ87fWivvpblFR/LItChW1hCmVsfsmP9
- tq7hh8HExzU27Z9APnT5Z3iAAAA
-X-Change-ID: 20261009-rbrue-suez-upstreaming-mtk-pmdomain-defer-0cc87eb82400
-To: Ulf Hansson <ulfh@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Enric Balletbo i Serra <eballetbo@kernel.org>
-Cc: =?utf-8?q?Nils_B=C3=BCchner?= <nils@buechner.me>, 
- Matthias Brugger <mbrugger@suse.com>, linux-pm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-mediatek@lists.infradead.org, Ryan Brue <ryanbrue.dev@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794360315; l=8041;
- i=ryanbrue.dev@gmail.com; s=20260906; h=from:subject:message-id;
- bh=SCW+i7LGMyAr5TBjjicZAEhFH9gU2c4NY/q5LOyF/r4=;
- b=hJgGJR2w7XjGB70xKQLeJ0QH6CLIplcyvd3j913D0ftk5/n1CoLWNiL/TmQshf7C6HjLCpmvN
- bGnN1Djp6nDDWOixBtpo1bLCWUwmPTKNwdYHE5UWz4eCVIUgc7d0rbI
-X-Developer-Key: i=ryanbrue.dev@gmail.com; a=ed25519;
- pk=KsUvVaP//v/2q+ZBuacc7cLbsyEYn+AD71Sn28oZWKo=
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 5/7] media: qcom: camss: Add support for SM8150
+To: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>, Robert Foss
+ <rfoss@kernel.org>, Andi Shyti <andi.shyti@linaro.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bryan O'Donoghue <bod@kernel.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+ Andi Shyti <andi.shyti@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Manivannan Sadhasivam <mani@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-i2c@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, linux-phy@lists.infradead.org
+References: <20261106-sm8150-v7.4-rc1-camss-v3-0-0103e8a0bbcd@andrewgigena.dev>
+ <20261106-sm8150-v7.4-rc1-camss-v3-5-0103e8a0bbcd@andrewgigena.dev>
+ <160aa94c-c726-4cfe-b8cc-b1f974b32f13@linaro.org>
+Content-Language: en-US
+From: Andrew Gigena <mail@andrewgigena.dev>
+In-Reply-To: <160aa94c-c726-4cfe-b8cc-b1f974b32f13@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-scpsys_add_one_domain() powers each domain on as soon as it is added,
-before the probe has looked up the supplies and clocks of the domains
-after it. When one of those is not available yet the probe defers, and
-the cleanup powers off every domain added so far, whatever state it was
-found in. The retry then powers them all on again.
+Hi Vladimir,
 
-A bootloader that leaves the display scanning out does not survive
-that. On the Amazon Fire HD 10 (MT8173), mfg_async's domain-supply comes
-from the MT6397 PMIC, which registers after the power controller first
-probes, and power cycling the MM domain under the running display hangs
-the SoC on almost every boot.
+> Drop csiphy_res_sm8150[], and pull this:
+>
+> * https://lore.kernel.org/all/20261026224957.1115370-4-vz@kernel.org/
 
-Power the domains on only once all of them have been added, so that a
-deferral leaves the hardware as it was found, and on cleanup power off
-only the domains this probe has turned on.
+Done in v4: csiphy_res_sm8150[] is gone and sm8150_resources.csiphy_res
+is NULL, so SM8150 goes through the PHY-API path and clocks, regulators,
+registers and interrupts are owned by the dedicated CSI2 PHY driver.
 
-Fixes: 59b644b01cf4 ("soc: mediatek: Add MediaTek SCPSYS power domains")
-Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
----
-Found on an Amazon Fire HD 10 (2017), an MT8173 tablet whose board DTS
-is not upstream yet. Its bootloader (LK) leaves DISP_OVL0 scanning out
-when it starts the kernel, and the MT6397 regulators register about 50 ms
-after the power controller first probes, so the probe often defers.
+I folded your change into this patch instead of carrying it as a
+separate commit, and credited you with
 
-The deferral was forced for the A/B with a local test knob that returns
--EPROBE_DEFER at the first domain with a domain-supply. Each boot attempt
-was counted from the host's USB log, since a hung board is reset by the
-watchdog into the same kernel. The hang does not happen when the
-display is stopped before the power controller probes, which is what
-our downstream kernel does today.
+  Co-developed-by: Vladimir Zapolskiy <vz@kernel.org>
+  Signed-off-by: Vladimir Zapolskiy <vz@kernel.org>
 
-elm, hana and the MT8173 EVB also give mfg_async a domain-supply, from a
-DA9211 on I2C, so they probably take the same deferral path. Whether
-their firmware leaves anything running across it, I don't know.
+ahead of my own Signed-off-by, plus a line in the changelog saying the
+fallback comes from your patch. If you would rather have it as a
+separate commit, or want the attribution worded differently, tell me and
+I will adjust before resending. I am not enterely sure if this is the
+correct way to cherry-pick commits since this is my first kernel contribution.
 
-Only MT8173 (direct control) was tested. The HW-voter cleanup changes
-the same way, powering off only what this probe powered on, but there is
-no such hardware here.
-
-This patch was developed with the help of an LLM.
----
-Changes in v2:
-- Rebased onto pmdomain next, on top of Nils Büchner's "pmdomain:
-  mediatek: Don't power off default-off domains in probe cleanup". Its
-  KEEP_DEFAULT_OFF check in scpsys_remove_one_domain() is kept as is, so
-  the cleanup no longer passes that condition itself. No other change.
-  The patch does not cover this case, since it skips only KEEP_DEFAULT_OFF
-  domains, and MT8173 has none, so there a deferral still powers off
-  every domain the probe has added, and the retry powers them on again.
-- Link to v1: https://lore.kernel.org/r/20261101-rbrue-suez-upstreaming-mtk-pmdomain-defer-v1-1-b4c41cf3935f@gmail.com
----
-With the deferral forced at mfg_async on every boot and the bootloader's
-display left running, 61 of 63 boot attempts hung before userspace
-without this patch, and none of 5 with it. With the patch, the cleanup
-left MM on as the bootloader had left it on every boot; without it, it
-powered off all seven domains the probe had turned on, MM included.
----
- drivers/pmdomain/mediatek/mtk-pm-domains.c | 59 ++++++++++++++++++------------
- 1 file changed, 36 insertions(+), 23 deletions(-)
-
-diff --git a/drivers/pmdomain/mediatek/mtk-pm-domains.c b/drivers/pmdomain/mediatek/mtk-pm-domains.c
-index 1b5cc9eb920a..6ec77ed0dd66 100644
---- a/drivers/pmdomain/mediatek/mtk-pm-domains.c
-+++ b/drivers/pmdomain/mediatek/mtk-pm-domains.c
-@@ -984,12 +984,6 @@ generic_pm_domain *scpsys_add_one_domain(struct scpsys *scpsys, struct device_no
- 		pd->genpd.flags |= GENPD_FLAG_IRQ_SAFE;
- 	}
- 
--	/*
--	 * Initially turn on all domains to make the domains usable
--	 * with !CONFIG_PM and to get the hardware in sync with the
--	 * software.  The unused domains will be switched off during
--	 * late_init time.
--	 */
- 	if (MTK_SCPD_CAPS(pd, MTK_SCPD_KEEP_DEFAULT_OFF)) {
- 		bool domain_is_on;
- 
-@@ -1001,15 +995,8 @@ generic_pm_domain *scpsys_add_one_domain(struct scpsys *scpsys, struct device_no
- 		if (domain_is_on)
- 			dev_warn(scpsys->dev,
- 				 "%pOF: A default off power domain has been ON\n", node);
--	} else {
--		ret = pd->genpd.power_on(&pd->genpd);
--		if (ret < 0) {
--			dev_err(scpsys->dev, "%pOF: failed to power on domain: %d\n", node, ret);
--			goto err_put_subsys_clocks;
--		}
--
--		if (MTK_SCPD_CAPS(pd, MTK_SCPD_ALWAYS_ON))
--			pd->genpd.flags |= GENPD_FLAG_ALWAYS_ON;
-+	} else if (MTK_SCPD_CAPS(pd, MTK_SCPD_ALWAYS_ON)) {
-+		pd->genpd.flags |= GENPD_FLAG_ALWAYS_ON;
- 	}
- 
- 	if (MTK_SCPD_CAPS(pd, MTK_SCPD_ACTIVE_WAKEUP))
-@@ -1087,7 +1074,7 @@ static int scpsys_add_subdomain(struct scpsys *scpsys, struct device_node *paren
- 	return ret;
- }
- 
--static void scpsys_remove_one_domain(struct scpsys_domain *pd)
-+static void scpsys_remove_one_domain(struct scpsys_domain *pd, bool powered_on)
- {
- 	struct scpsys *scpsys = pd->scpsys;
- 	int ret;
-@@ -1112,11 +1099,10 @@ static void scpsys_remove_one_domain(struct scpsys_domain *pd)
- 	if (MTK_SCPD_CAPS(pd, MTK_SCPD_KEEP_DEFAULT_OFF))
- 		goto put_clocks;
- 
--	if (scpsys->soc_data->type == SCPSYS_MTCMOS_TYPE_HW_VOTER) {
--		if (scpsys_hwv_domain_is_enable_done(pd))
-+	if (powered_on) {
-+		if (scpsys->soc_data->type == SCPSYS_MTCMOS_TYPE_HW_VOTER)
- 			scpsys_hwv_power_off_internal(pd);
--	} else {
--		if (scpsys_domain_is_on(pd) || MTK_SCPD_CAPS(pd, MTK_SCPD_SIMPLE_PWRSEQ))
-+		else
- 			scpsys_power_off_internal(pd);
- 	}
- 
-@@ -1125,7 +1111,8 @@ static void scpsys_remove_one_domain(struct scpsys_domain *pd)
- 	clk_bulk_put(pd->num_subsys_clks, pd->subsys_clks);
- }
- 
--static void scpsys_domain_cleanup(struct scpsys *scpsys, u8 *domains_idx, u8 num_probed)
-+static void scpsys_domain_cleanup(struct scpsys *scpsys, u8 *domains_idx,
-+				  u8 num_probed, u8 num_powered)
- {
- 	struct generic_pm_domain *genpd;
- 	struct scpsys_domain *pd;
-@@ -1137,7 +1124,7 @@ static void scpsys_domain_cleanup(struct scpsys *scpsys, u8 *domains_idx, u8 num
- 		genpd = scpsys->pd_data.domains[pd_idx];
- 		if (genpd) {
- 			pd = to_scpsys_domain(genpd);
--			scpsys_remove_one_domain(pd);
-+			scpsys_remove_one_domain(pd, i < num_powered);
- 		}
- 	}
- }
-@@ -1374,6 +1361,7 @@ static int scpsys_probe(struct platform_device *pdev)
- 	struct scpsys *scpsys;
- 	int num_domains, ret;
- 	u8 num_added_pds = 0;
-+	u8 num_powered_pds = 0;
- 	u8 *added_pds_idx;
- 
- 	soc = of_device_get_match_data(&pdev->dev);
-@@ -1449,6 +1437,31 @@ static int scpsys_probe(struct platform_device *pdev)
- 		return ret;
- 	}
- 
-+	/*
-+	 * Initially turn on all domains to make the domains usable
-+	 * with !CONFIG_PM and to get the hardware in sync with the
-+	 * software.  The unused domains will be switched off during
-+	 * late_init time.
-+	 *
-+	 * Do this only once every domain has got its supply and clocks,
-+	 * so that a probe deferral leaves the hardware as it was found:
-+	 * the bootloader may still be using a domain that is already on.
-+	 */
-+	for (; num_powered_pds < num_added_pds; num_powered_pds++) {
-+		struct scpsys_domain *pd;
-+
-+		pd = to_scpsys_domain(scpsys->domains[added_pds_idx[num_powered_pds]]);
-+		if (MTK_SCPD_CAPS(pd, MTK_SCPD_KEEP_DEFAULT_OFF))
-+			continue;
-+
-+		ret = pd->genpd.power_on(&pd->genpd);
-+		if (ret < 0) {
-+			dev_err(dev, "%s: failed to power on domain: %d\n",
-+				pd->genpd.name, ret);
-+			goto err_cleanup_domains;
-+		}
-+	}
-+
- 	ret = of_genpd_add_provider_onecell(np, &scpsys->pd_data);
- 	if (ret) {
- 		dev_err(dev, "failed to add provider: %d\n", ret);
-@@ -1459,7 +1472,7 @@ static int scpsys_probe(struct platform_device *pdev)
- 	return 0;
- 
- err_cleanup_domains:
--	scpsys_domain_cleanup(scpsys, added_pds_idx, num_added_pds);
-+	scpsys_domain_cleanup(scpsys, added_pds_idx, num_added_pds, num_powered_pds);
- 	return ret;
- }
- 
-
----
-base-commit: 09078f3f8a6fca5c3a2d674b7059f4d7b46e21c6
-change-id: 20261009-rbrue-suez-upstreaming-mtk-pmdomain-defer-0cc87eb82400
 
 Best regards,
--- 
-Ryan Brue <ryanbrue.dev@gmail.com>
-
+Andrew
