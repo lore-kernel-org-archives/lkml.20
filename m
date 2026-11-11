@@ -1,54 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794402065;
-	b=cdbvUO+Dp4bDjkvgLqwqeo4cPPN+5kbdatAsUXCdeHgT8fWt3E6991WNZ7RrkVFb9uHH
-	 AiGQ7j+xXTqGHjrFSlt9EePLicavPxydqYBJHv8WDPhkXg1EN1iDzIA4j1oA8WJhLb5t/
-	 Mjnxv0vagaCVm8Cv/myLG8IAUSOMFJRG+hm6E2/gadOQabuOKcUfvZEWYyULBmERIvbgJ
-	 TI/gUfq6vq6MxDixuFp0wUjAKkqRB9EV1HmElRTsP7HObHJGCNhFUdqDndmZQIWrfT3K+
-	 I2mzdKtZvXoRyLs+KDW8g2It8l5WixWw3Iq83WCUE5V1+NafB8Ih47CZwEucda1+oUQ==
+	b=DnH1dwVOknbDzwN0FONDz/7kzvlBzoQnPbeNB/wsNcW8toBEYy+gU8bVabKb9jUdGEJ6
+	 KbiEYnle/j3PWTba51fBRYhyDTCGmEDAx0sf4pXohCpjz7aCf8bUVu365kZjwLr1csRRx
+	 jfjQFZjCiGvENl/YL3HYU3p+TKN2FUO9YLnhPw8ofxs7/BPtRV1J9kpICXJ6fTtjihwRE
+	 hC0lwT77CNO2OE9SvGUX5FeK+T9pywQ/zjVgstnItsqqBiPxSEPaSlBuHNwX/k9vZTiqi
+	 rkoAg70nuN61rrX0Ep6rTrnejICEvHfo9uAhG6mj1mbZ7AQLnuwJIVDMq+VOBYc+8dQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794402065;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=MGhwOVfEFbGlg5V7wXp/+toXSAI9DHTPbFgkVl/KqBU=;
-	b=TxrAaRf1vaN9kxJd/JF+wJ/qaJqk2v5E0tziymPj9wyemU5WKWxPjgahfmPZa12Rl8tu
-	 gl7102LKEWyDbDG/5mJZcC8gBESEPi235OucTBTNsnd0pBuziSNZ4/wGa1bd8ghsM2ojP
-	 f1ozfTUcLTqODFaoOvXyMj2AYtHf37lc5dZt56lv8WKGYH7Dk9aBrwK2Ow1o0kBJA2KEU
-	 bdeUfCyzrgTtr9OSvk6jHCcKpbyYDhT2amKWVqegq7fvxx7dnu+f/yO0sRXAaa8LTGs5C
-	 TLXl0fE5KadZ9qFHgm1SUG7YUjyOjhMPbiChoPzTVUAmLNhMxOoxb7d3HkRyBoRKCxQ==
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:Auto-Submitted:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=QRKjoaIFdZcdNI6xhQFS3ddkteDcVtqc9gdnFl/fkT8=;
+	b=Lp+d1lKDWD+EoNjioGtSqfmg6GTgnHSV5Zf4uTiTucawQQ4OHWj7qWKdLR3sLntRSsOm
+	 EZbvIL5ffHzUhxYgKRJb3hnpmhjt67+P3Ex757ir76+mqYCKu8VXztwkKs56rZH8UiG17
+	 XH77PS9QNNEatajjVnwNosW5sKJBIizAy1wPovMIZWaJWJTdQhMJ98dXCirvtIJL1TXmu
+	 CcxcL6ZFaqwLWZowR2/1ro7d9PvsFVMt5YRWb6O/jLVHR2oG3oKUP7+gA0g8ybexRsMP3
+	 sZ5h24eKcAyLoDJGFUqVajFaqa/YUYspbZBXyDLWS7NcDOtcEEI1S1i7mIXBxbXMRDg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="BZ/eO3vH";
-	arc=none smtp.remote-ip=95.215.58.131
-Received: from mta1.migadu.com (out-131.mta1.migadu.com [95.215.58.131])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Exb/Q5gH";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24176606A32E
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:01:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24176606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EFE1606A337;
+	Wed, 11 Nov 2026 13:01:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=BZ/eO3vH
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=+SPNyAr5wEcYGYC1BWBrIIIA9wxF2i7BPl3rmhxghqU=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794402063; v=1; x=1795006863;
- b=BZ/eO3vH/1xIuYUIj98klffLAIrRd7e/ZiuS8q8LJbzL3wJfmlyaI+UPV92L8Mbozh4jZFOU
- 1x7LhtGZwG/Z8pLVKjXIV7WQ1Bwj/ohKiSMWmjvm+BBbcDiwbB0ZQsmZg2cE9UFPVVgYE4iTv1q
- waQHVc8R20zUwqnLE63LSCas=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id e80b374ed1e391c1;
-	Wed, 11 Nov 2026 13:00:58 +0000
-X-Mizu-Trace-ID: e80b374ed1e391c1
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <0e1edfd7-e1a6-4864-81c8-afa2fa9c2d9e@linux.dev>
-Date: Wed, 11 Nov 2026 21:00:48 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Exb/Q5gH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 062221F00A05;
+	Wed, 11 Nov 2026 13:01:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794402064;
+	bh=QRKjoaIFdZcdNI6xhQFS3ddkteDcVtqc9gdnFl/fkT8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Exb/Q5gHHQ2fZNBit+FT2B3qCdwOneS4R1yFRjwOIWpef3PQAM8QWKQqveb2kWGqq
+	 7p7MIt9OeeOTcAZxfNtjyvPU3Od/+eF6xcyZcwl+F6I9iOEcQZYhmLX2FympS6ai4E
+	 jxtAzexpWzQa7dLnRxVqM47htv+LnK5qZmCcszpRn/14etypRj9lAGKdPszx17B9xe
+	 uGseU21xj2NrnaJbLvg/wN8b8118GXx34U57xGvkBVVWj3SMQdvynBvaix/vH55Cj9
+	 pAmy8u108LzHEQzC8i/Ekv0F77d1HliJFTmgLHE/aEkKH/I9iwKTCYcBAWEHxaDNMy
+	 ZmW11CoUC7Big==
+From: netdev-bot+sinfo@kernel.org
+To: Jijie Shao <shaojijie@huawei.com>
+Cc: davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
+ pabeni@redhat.com, andrew+netdev@lunn.ch, shenjian15@huawei.com,
+ liuyonglong@huawei.com, chenhao418@huawei.com, yangshuaisong@h-partners.com,
+ ningwei15@huawei.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: 
+ Re: [PATCH v4 net 0/4] net: hns3: fix multiple bugs in reset/error paths
+Date: Wed, 11 Nov 2026 13:01:03 +0000
+Message-ID: <179440206352.2168702.1328392786936670574@kernel.org>
+In-Reply-To: <20261111125810.3359030-1-shaojijie@huawei.com>
+References: <20261111125810.3359030-1-shaojijie@huawei.com>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,85 +64,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH-next v3 1/3] cgroup/cpuset: Correctly set cpus_updated in
- cpuset_hotplug_update_tasks()
-To: Waiman Long <longman@redhat.com>, Tejun Heo <tj@kernel.org>,
- Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
- <mkoutny@suse.com>, Shuah Khan <shuah@kernel.org>
-Cc: cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org, Guopeng Zhang <guopeng.zhang@linux.dev>,
- Sashiko <sashiko-bot@kernel.org>
-References: <20261111020204.1660055-1-longman@redhat.com>
- <20261111020204.1660055-2-longman@redhat.com>
-From: Ridong Chen <ridong.chen@linux.dev>
-In-Reply-To: <20261111020204.1660055-2-longman@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
+Hi!
 
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
-On 11/11/2026 10:02 AM, Waiman Long wrote:
-> When cpuset_hotplug_update_tasks() is called with the conditions that
-> remote_partition_disable() has to be called, the cs->effective_cpus will
-> be updated such that it matches what is computed in new_cpus. In such
-> case, cpus_updated can be incorrectly set to false leading to stale CPU
-> afinity remained in the tasks not matching the new cpuset value. Fix that
-> by forcing cpus_updated to true after calling remote_partition_disable().
-> 
-> Fixes: 181c8e091aae ("cgroup/cpuset: Introduce remote partition")
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Link: https://sashiko.dev/#/bug/linux-ab90f7e8-0d60-40ca-83e9-e405075b24d2
-> Signed-off-by: Waiman Long <longman@redhat.com>
-> ---
->   kernel/cgroup/cpuset.c | 9 +++++++--
->   1 file changed, 7 insertions(+), 2 deletions(-)
-> 
-> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-> index 8a8a424a389f..862864b44960 100644
-> --- a/kernel/cgroup/cpuset.c
-> +++ b/kernel/cgroup/cpuset.c
-> @@ -4031,7 +4031,7 @@ static void cpuset_hotplug_update_tasks(struct cpuset *cs, struct tmpmasks *tmp)
->   {
->   	static cpumask_t new_cpus;
->   	static nodemask_t new_mems;
-> -	bool cpus_updated;
-> +	bool cpus_updated = false;
->   	bool mems_updated;
->   	int partcmd = -1;
->   	struct cpuset *parent;
-> @@ -4044,12 +4044,17 @@ static void cpuset_hotplug_update_tasks(struct cpuset *cs, struct tmpmasks *tmp)
->   	if (!tmp || !cs->partition_root_state)
->   		goto update_tasks;
->   
-> +	/*
-> +	 * cpus_updated should be set to true when remote_partition_disable()
-> +	 * is called as cs->effective_cpus will be modified.
-> +	 */
->   	if (is_remote_partition(cs) && (cpumask_empty(subpartitions_cpus) ||
->   				       (cpumask_empty(&new_cpus) &&
->   					partition_is_populated(cs, NULL)))) {
->   		WRITE_ONCE(cs->prs_err, PERR_HOTPLUG);
->   		remote_partition_disable(cs, tmp);
->   		compute_effective_cpumask(&new_cpus, cs, parent);
-> +		cpus_updated = true;
->   	}
->   
->   	/*
-> @@ -4082,7 +4087,7 @@ static void cpuset_hotplug_update_tasks(struct cpuset *cs, struct tmpmasks *tmp)
->   	}
->   
->   update_tasks:
-> -	cpus_updated = !cpumask_equal(&new_cpus, cs->effective_cpus);
-> +	cpus_updated |= !cpumask_equal(&new_cpus, cs->effective_cpus);
->   	mems_updated = !nodes_equal(new_mems, cs->effective_mems);
->   	if (!cpus_updated && !mems_updated)
->   		goto unlock;	/* Hotplug doesn't affect this cpuset */
+ - How the issue was discovered, e.g. hit in production, hit during
+   development, syzbot report, manual code inspection, LLM or static
+   analysis tool scan.
 
-Reviewed-by: Ridong Chen <ridong.chen@linux.dev>
-Thanks.
+ - Whether the issue was actually triggered, or is only theoretical
+   (e.g. found by LLM and not proven at runtime). If it was triggered
+   please include the symptoms, like the stack trace or kernel messages.
 
--- 
-Best regards
-Ridong
+ - What hardware the change was tested on. For driver fixes please
+   mention the device (and if relevant firmware version) used for
+   testing, or say that the change was not tested on real hardware.
 
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
+
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
