@@ -1,104 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794364129;
-	b=c8gsrWG8JYVm3Z1Hr2Awa7OuItiflz6fULbH4GzgfkpYDvgib+qLbPfkpSTj/BKI04jl
-	 /l/ogaDKaeen1P8DZd8fX17DwAHasqtNz5D9UEd3Oe64QKTsj3YxPGkix6XwiJMaMCBUA
-	 jc6/dFhsS7wNiYfzPQrNmEUMtYaBNjO+075K/9hUKUS1uBCy9E2DLJGNAHjH1iuQzpY7t
-	 tg/UNWJJUJbkNx/519vC82iw/0qWinlzC0OmuhYoJU7Y3KqMJhgPQEN7gBZMIqjUdtu3h
-	 LMPcDLG0dXaJEA5ZF8Z0HbWdkXZzKIsZoiE/Fw2v4WHRoHw4KmA71BGEt2uVty7lNcw==
+	t=1794364138;
+	b=Eyjfd+XDdRZg63n7wES/wCBk3yqXgLmeqOovwHTchFVbSBnfuUY7LrWCnvqMj1sx2eXD
+	 XHUl54XoEQjIE+egtxIPZATSAn30T1bk/RH3en66yZ9+Pomtzc25pi3FSeQrqAeWNcqwT
+	 pbL2gVocRL+ZoTGzOrs+C/urZPWweq95tW1e1UFkSfGOVHAxfuPy9k63/hbiy22nelGLh
+	 X3Ija/DOYzOleEuuSOEkPqWo5MqeCh6JqriL6Fwg8whXnf71Ly/fHaX0FBK2ld2Z7WAHB
+	 owzEwpKNojgzzD0DCfBSyv2RBMhsdqaE/O4+5RhC6NlHZJjmeMCjfekbWB+2yY1WgJg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794364129;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794364138;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=ep0tEvCtZO5eEY5qcruxpg/MqMxSezdFJKxvhcjiEIM=;
-	b=ZWxO2kUXsBqvBdvPu7Iu1gM3DkyjytnJUFr4uchuRXV4j1WFkU1KB5lJ7ZvGB2bdzCVj
-	 aZEShkQskQ17uNSuz9BkWK30EykqzHmG9NtlwHFIIG0cKQi+YVBigJ+JRvlWD4j/ULMPU
-	 drO/G+6wWqgnuB6s2PL0zUzhUBI7SosIiFR0besOKw2NWhuea7TBXbfYsCjLBKXkE5vw1
-	 ESZB2jj1J60hHG+htf7HbzPqwNryOSW11p6rrsUisT795Y+uwkBOY1znw4wqXS9cw5Ljo
-	 u8bQIDvJtpN1zzeGjpi9KescSV4xcQE323whmI5f0zNmdK8Pr+HwbWCYzWyByGwBREg==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=O32a4AiJGMwcCR/+4zjDOYox+W85VRB2HAzvlPxTqmU=;
+	b=Kp7Jaxb9ZmtRt8lX8icrtwYbVhLFcqYzLudpifT0h1rESTqns1ge1lG0gvW+sXe/+4Ib
+	 Z3wadhY0Kb1jmJwIa0cQ2T733xXSR4mFvtQJOuuVyfGVvPMMixuYNiYTGfvWQDjD7gX19
+	 WcEGui9ncdcIB6fpHSral2wErh86y7b63jZrhnkR5qhq1J5YoSRPAM9FovvuTgBe4RJp7
+	 ZtqbHIst/g3mvsc7x/jBD9hAfBSWdHIJVqtCBKHuj/qHci9LrCkJxWtg1pUxkZyV0Oi/g
+	 CoweLleF5k3T5ROZCHphZcjgSTKmZ68bRJHdoj6noi45AS/xU0SIIp5yIz+rgnc/kMQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LtICmUkN;
-	arc=none smtp.remote-ip=74.125.82.173
-Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=urm5Wpo6;
+	arc=none smtp.remote-ip=209.85.210.169
+Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83F71606A32A
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 02:28:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83F71606A32A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5463D606A335
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 02:28:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5463D606A335
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LtICmUkN
-Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-36dbde64409so5641488eec.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 18:28:49 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=urm5Wpo6
+Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-8b5efadd183so1279182b3a.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 18:28:58 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794364129; x=1794968929; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ep0tEvCtZO5eEY5qcruxpg/MqMxSezdFJKxvhcjiEIM=;
-        b=LtICmUkNQAnZAIXPMI7szx/lFOqwm+0CzhAVmu0wD7qN8HRBU6jkjqUF71iHCg6HEr
-         IXWWrgjAutTLZingpHwe3vL+S/5W5/cIvA9UyPbB4ak0ZoUNr+Lf1AOSPIG6faEZ7AQJ
-         Np0DUKG70ICah7uSCo6bLnjF3buY2f7UBg4tN/jP3xO52XhG+AUhvuJQMyHyLt1jy8fG
-         c7Hb9xc2oZeZ6pzYVnQZpJySK9e8mEYPcvulAa5wDxG1nB3xkmEs0olCh6+1dQYIHh5i
-         swI/XjCOH4s/UFvGVjFfusi1U0GJApHqgocMjMMKVWfR7iYaQ2oL7KjMUXYr7RQ+NGvu
-         I0mQ==
+        d=gmail.com; s=20260707; t=1794364137; x=1794968937; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=O32a4AiJGMwcCR/+4zjDOYox+W85VRB2HAzvlPxTqmU=;
+        b=urm5Wpo6Von7lDwPbrmT6beI/5qJ2yfOmVRcyJ+2i8dsZ6ESf4IddCDDbBL0c8y1tC
+         pPjicmjFC5T5hq2qggvLCEt1UKGW6C0q+T5/MR6tQO/jKK9UJKgutCAjP5P5/d3Vlk0A
+         +yhecjBbh8df0sHq8o+xkbEMKhI320DFBCEEZ/IzxAeAPgc+jhuRjt1P+PElwuRuv/aZ
+         sU0fl+38DOrn/z+fBBHgiIoUvew/KYyAG7TUTV2DbmNJuN5vvOHos3pOdWadbbVaaQ3I
+         XlvAHZaHB7j2yikWdSELncKOxpYw8TOcVLNouBpJ0AKwjnJeeqVjdw+ITxGy3BABkY8q
+         ppUw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794364129; x=1794968929;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ep0tEvCtZO5eEY5qcruxpg/MqMxSezdFJKxvhcjiEIM=;
-        b=IOERfQTb9UNbfCCVGZ0AcIZ6oL1D8KTgQIsJEp6BwfTFpxuNmtNol+pjKCTp/nWt4t
-         +sFC2dDkLlp+pekyQLpF4p0YWn3xF+xGS3eH7QS3dvFnUVTdsLgDqtQ3gmrQey6kfafy
-         yDwTxQFotztfMAyTVOiFe4Br4gvMb37MQ11InDxyN46l81jKfJ53PiSrhGDPp/HZw4TO
-         gJcu+P574jCDSjheM2O0gr5zKeXylk9qRpTyWj/9IYP4Ynristj82gt6Px0w2RA4aqph
-         rRfQrvFgZMYyDMsKFka47GocHpUniJQw7SG+4oBGzdLX7vip7HQ35/fvgz8GoAjevye+
-         jtlQ==
-X-Forwarded-Encrypted: i=1; AL+hErFDiJOjWedCQkgLYFCs7xksA870y2QC00rm22PO2nqvYA4OajuRNshjQNgoNpnTMzDbmvCbdaI3Sjfz6Ww=@vger.kernel.org
-X-Gm-Message-State: APuU4Z92E/Frj8GSkej3EIhcXkLwu+63g7Lt5p+8ZiUxd/0lmzoAywDd
-	7qcDJm4wjsGuA1xc3fNQbtfEeRW9cjsIyGBzQPSQ0+nQvJMl1Mcha3oj
-X-Gm-Gg: AYBFou04Tkk0v1ps47/g6iBK4lrLqjtSDF9k43cF/Ut7X+2oIW0B1qNABlkGDld7tru
-	GNvL8oKqE6STQi47TeQcifK5idk0vwf9w+0FhfmNtf8EpeATGrZxJ09Ylr0IMuKfBvoMHdpWjj1
-	Ch5f8nPbBSX3LmilP0FN8klDN7DnWmoyEYKOtCwH4bc2HCf2XK+FOw2I4taxuVz4j8GJ7Cuncbs
-	Y/rs7SWcSzCiBVNE2Qned9wcr+OmuY2X/ahMwsee5NWAx5BN3xkul8jUFNnbZERVdArxFZes70J
-	ZIvOAHWbeTp4zKOrEtqlq6FClbXo6glrJn7V19MIzE4PIcgfyeu+YEfrPaK1S0l6w9dCr0zO5ZY
-	kHRNuzbDpx1AOKbtLUh2Ww4j7UDntezStEcr/vlQFdVLfuhB33wT8ePLg0tpF9t+nfHRp/gJpvo
-	TndBDEa9pyRwldvyC88Rudh5rR+qM9yA782gArBMsdZCFMTQvHpFGjOTFuusqnqjnzJSHYLMtT2
-	h0hr0BzqjILG+/1Umy7RBF1WO9gJCOdaqHSj7vDvNOra/bnBmbwe4MiqCtAwjLjFzXPTk8Dc7Zy
-	WIn2diEa3gO6lyylH9CgAbCimkhZwL+cvuDiDzQ4HmG5WctfRVuY+YQl7wzebciGpZV5Mb1T2dT
-	p+cJydipyn1jeJYtXz+KdRtKdY9+yXMdpGIekVTxxM6+eHA==
-X-Received: by 2002:a05:701a:8148:20b0:194:f017:5a01 with SMTP id a92af1059eb24-1b3c039e744mr1031438c88.42.1794364128579;
-        Tue, 10 Nov 2026 18:28:48 -0800 (PST)
-Received: from phuc-desktop.. ([183.91.15.56])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b4b90csm10054285c88.14.2026.11.10.18.28.45
+        d=1e100.net; s=20260707; t=1794364137; x=1794968937;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=O32a4AiJGMwcCR/+4zjDOYox+W85VRB2HAzvlPxTqmU=;
+        b=mbZvp0jTFAO4s/FRf/buYEAGsDDg2abJbYqnMEzshRUVyThvT6Y1DsJox9vteMkFAs
+         6JP1gX0MUDp/CnEI4i1jVIc/e8VqV4zwgfTqPbITLa7eeHW6BK9nBzA+cJBbAC9185Wx
+         CSW04q8D66sNvq8jdJYshzTyX8/JSq9cjtLmOo4ohnH5GhJTuwSEk8j3DFIxXbq/mtVv
+         02JT6MivNNSNc3ZkhnNk5cWJY4qf4Ixx2Ic9tYpQpPTlWyNLGKuP//gM2C801sQwbNce
+         OXRiT/Wsws1AaTRzIaygF9oachlJf7ywk5VFJW+Zshph8K35rfVfbM76GjYNz4d/NOEo
+         8cvg==
+X-Forwarded-Encrypted: i=1; AL+hErGt041IxNHPg0wEQXRlhNC91sweVTv778cD/9IQTggPzHpUhHOOtbUsf13NIzdTeJRc3PViqo7F8WMROgA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/dL8yeS+agjU+bEPiQNWPkgiQbxBv/3XMqsQiRC1cRLcomJsPv
+	J1GLMBFh2EZzeT91wPcj3mmR1dlg9+tV3sRU66hPZ24OfwUqwQoWuqxw
+X-Gm-Gg: AYBFou3vsJsIqLs1Wnrlvnj+YF7tzSUXQ/flRI1UOQnYyMmrV2SURBh6FiOSKPtU/m+
+	/9mzLOUrMEa7iMOtAm6u24BtMPXUUQCsu221widuhfnKs/6rLO1WA2xZYclisOr5gx1gIl32LcU
+	E398kK7WuJW1uLNfonw7uMIYncKjWmL/icm9lE/ssawxa0/+0U2MLY8QAFJ4kEJWeyzc1m44DjF
+	Ll7YkplvBkHgRo9cHvxj2Crj0TkZQQERfIs7hw7dOWzn6UH+/dCGeDw/efcLs9mAGcDKa25I0t4
+	0Tgm1AkzIDXIjodXLFjpkSMgm3qH6Y6ytaC3ptW5iJTZIezKyljWqAY5+ORWSKjep0FbEuFy7M1
+	vlDY/79vLGnuva4QaAxEiAfGY5LeVBbRo0bALfaHdgSLrfHPoQJRxLJSEwSqsZhbqNYmBLDuYvJ
+	tDgdN0ksnEmSQ+DWNy8kGw9UWMI6aHKHyhgVNh7PrUUbd+XOAWVOuT3rBt9VVqYgmyXEu3JJRWZ
+	koWpnZcXOvl6MNVketFTZg6K2cqxERbv/mECzz5F3szVtvKkIY4l7clTbqTmwZWF75iiq79d0c1
+	VlRppVmJ3FIyQjSmXSvcfCIcvkHn8tbVlaVglndjIPAHscgNmJJODqXRdk//lUMOspTYgB7cOw8
+	8RdsVo6PYdwAvL7PvLZOqYGicK6rWzEf3vnXMYr0Adq7OFQaxDIsoe9YTV8JWw9tWyxVXy9U/4l
+	GMZA==
+X-Received: by 2002:a05:6a21:1391:b0:3e1:9071:acb2 with SMTP id adf61e73a8af0-3f2ff2e0b6cmr821227637.33.1794364137319;
+        Tue, 10 Nov 2026 18:28:57 -0800 (PST)
+Received: from ryzen.lan ([2601:644:8000:37f::e34])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8baaa86ce5fsm1603153b3a.21.2026.11.10.18.28.55
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 18:28:48 -0800 (PST)
-From: phucduc.bui@gmail.com
-To: Maxim Kochetkov <fido_max@inbox.ru>,
-	Andrew Jackson <Andrew.Jackson@arm.com>,
-	Mark Brown <broonie@kernel.org>,
-	Xingyu Wu <xingyu.wu@starfivetech.com>
-Cc: Tim Bird <tim.bird@sony.com>,
-	Yuri Zaporozhets <yuriz@vodafonemail.de>,
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	bui duc phuc <phucduc.bui@gmail.com>
-Subject: [PATCH v3 6/6] ASoC: dwc: Remove redundant error messages
-Date: Wed, 11 Nov 2026 09:27:31 +0700
-Message-ID: <20261111022731.8243-7-phucduc.bui@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261111022731.8243-1-phucduc.bui@gmail.com>
-References: <20261111022731.8243-1-phucduc.bui@gmail.com>
+        Tue, 10 Nov 2026 18:28:56 -0800 (PST)
+From: Rosen Penev <rosenp@gmail.com>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Dong Aisheng <aisheng.dong@nxp.com>,
+	Guoniu Zhou <guoniu.zhou@nxp.com>,
+	Jacopo Mondi <jacopo@jmondi.org>,
+	Stefan Riedmueller <s.riedmueller@phytec.de>
+Cc: Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Christian Hemp <c.hemp@phytec.de>,
+	linux-media@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3] media: nxp: imx8-isi: remove kzalloc_objs
+Date: Tue, 10 Nov 2026 18:28:22 -0800
+Message-ID: <20261111022822.67474-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,88 +110,75 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: bui duc phuc <phucduc.bui@gmail.com>
+Use a flexible array member to combine allocations.
 
-The underlying functions already report these errors deeper in
-the call chain, making the additional dev_err_probe() and
-dev_err() calls unnecessary.
+It looks like pipes never gets freed anywhere. Meaning this effectively
+fixes a memory leak.
 
-Also fix the indentation of the affected code and correct a typo
-in the DAI format error message.
-
-Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
+Fixes: cf21f328fcaf ("media: nxp: Add i.MX8 ISI driver")
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
 ---
+ v3: use devm_kzalloc_flex
+ v2: add fixes tag, fix typo, and move pdata assignment to original
+ place.
+ drivers/media/platform/nxp/imx8-isi/imx8-isi-core.c | 10 ++++------
+ drivers/media/platform/nxp/imx8-isi/imx8-isi-core.h |  3 ++-
+ 2 files changed, 6 insertions(+), 7 deletions(-)
 
-Changes in v2:
- - Add the indentation and typo fixes to this commit.
-
- sound/soc/dwc/dwc-i2s.c | 16 ++++++----------
- 1 file changed, 6 insertions(+), 10 deletions(-)
-
-diff --git a/sound/soc/dwc/dwc-i2s.c b/sound/soc/dwc/dwc-i2s.c
-index 55a5dca7b79f..8144a5843062 100644
---- a/sound/soc/dwc/dwc-i2s.c
-+++ b/sound/soc/dwc/dwc-i2s.c
-@@ -331,7 +331,7 @@ static int dw_i2s_hw_params(struct snd_pcm_substream *substream,
- 			}
- 		} else {
- 			u32 bitclk = config->sample_rate *
--					config->data_width * 2;
-+				     config->data_width * 2;
- 			if (dev->tdm_slots)
- 				bitclk = config->sample_rate *
- 					 config->data_width * dev->tdm_slots;
-@@ -417,7 +417,7 @@ static int dw_i2s_set_fmt(struct snd_soc_dai *cpu_dai, unsigned int fmt)
- 		dev->frame_offset = 0;
- 		break;
- 	default:
--		dev_err(dev->dev, "DAI format unsupported");
-+		dev_err(dev->dev, "DAI format unsupported\n");
- 		return -EINVAL;
- 	}
+diff --git a/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.c b/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.c
+index 2005584a1215..dcf6c25d7faa 100644
+--- a/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.c
++++ b/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.c
+@@ -473,24 +473,22 @@ static const struct dev_pm_ops mxc_isi_pm_ops = {
  
-@@ -752,7 +752,7 @@ static int jh7110_i2s_crg_master_init(struct dw_i2s_dev *dev)
+ static int mxc_isi_probe(struct platform_device *pdev)
+ {
++	const struct mxc_isi_plat_data *pdata;
+ 	struct device *dev = &pdev->dev;
+ 	struct mxc_isi_dev *isi;
+ 	unsigned int dma_size;
+ 	unsigned int i;
+ 	int ret = 0;
  
- 	ret = clk_bulk_get(dev->dev, ARRAY_SIZE(clks), clks);
- 	if (ret)
--		return dev_err_probe(dev->dev, ret, "failed to get i2s clocks\n");
-+		return ret;
+-	isi = devm_kzalloc_obj(dev, *isi);
++	pdata = of_device_get_match_data(dev);
++	isi = devm_kzalloc_flex(dev, *isi, pipes, pdata->num_channels);
+ 	if (!isi)
+ 		return -ENOMEM;
  
- 	mclk = clks[0].clk;
- 	mclk_ext = clks[1].clk;
-@@ -830,7 +830,7 @@ static int jh7110_i2s_crg_slave_init(struct dw_i2s_dev *dev)
+ 	isi->dev = dev;
+ 	platform_set_drvdata(pdev, isi);
  
- 	ret = clk_bulk_get(dev->dev, ARRAY_SIZE(clks), clks);
- 	if (ret)
--		return dev_err_probe(dev->dev, ret, "failed to get i2s clocks\n");
-+		return ret;
+-	isi->pdata = of_device_get_match_data(dev);
+-
+-	isi->pipes = kzalloc_objs(isi->pipes[0], isi->pdata->num_channels);
+-	if (!isi->pipes)
+-		return -ENOMEM;
++	isi->pdata = pdata;
  
- 	mclk = clks[0].clk;
- 	mclk_ext = clks[1].clk;
-@@ -968,10 +968,8 @@ static int dw_i2s_probe(struct platform_device *pdev)
- 	if (irq > 0) {
- 		ret = devm_request_irq(&pdev->dev, irq, i2s_irq_handler, 0,
- 				pdev->name, dev);
--		if (ret < 0) {
--			dev_err(&pdev->dev, "failed to request irq\n");
-+		if (ret < 0)
- 			goto err_assert_reset;
--		}
- 	}
+ 	isi->num_clks = devm_clk_bulk_get_all(dev, &isi->clks);
+ 	if (isi->num_clks < 0)
+diff --git a/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.h b/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.h
+index 58b47335afc7..3165a65391c1 100644
+--- a/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.h
++++ b/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.h
+@@ -297,7 +297,6 @@ struct mxc_isi_dev {
+ 	struct regmap			*gasket;
  
- 	dev->i2s_reg_comp1 = I2S_COMP_PARAM_1;
-@@ -1012,10 +1010,8 @@ static int dw_i2s_probe(struct platform_device *pdev)
- 	dev_set_drvdata(&pdev->dev, dev);
- 	ret = devm_snd_soc_register_component(&pdev->dev, &dw_i2s_component,
- 					 dw_i2s_dai, 1);
--	if (ret != 0) {
--		dev_err(&pdev->dev, "not able to register dai\n");
-+	if (ret)
- 		goto err_assert_reset;
--	}
+ 	struct mxc_isi_crossbar		crossbar;
+-	struct mxc_isi_pipe		*pipes;
+ 	struct mxc_isi_m2m		m2m;
  
- 	if (!pdata || dev->is_jh7110) {
- 		if (irq >= 0) {
+ 	struct media_device		media_dev;
+@@ -305,6 +304,8 @@ struct mxc_isi_dev {
+ 	struct v4l2_async_notifier	notifier;
+ 
+ 	struct dentry			*debugfs_root;
++
++	struct mxc_isi_pipe		pipes[];
+ };
+ 
+ extern const struct mxc_gasket_ops mxc_imx8_gasket_ops;
 -- 
-2.43.0
+2.56.0
 
