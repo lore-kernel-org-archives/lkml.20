@@ -1,59 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794415068;
-	b=auho2q8YO389GAUL2uFHSo11XY169wi4IZlbqWeL+0pmO3rjbeXaXoB8BtbXu4+APxhV
-	 lmjFZIt78qbAAQUEmpuyd+rr4gIQPW0CgXtnWDLMvFLMPACc61IMm509rRcGyvA3eW0r7
-	 RAREkREpPe08UyfnTmrdvdZ72tmt+wvDcDerpPUWSyJ9DLVRdy4ajGF/0/d90o3qCd8yv
-	 DciEysrMeJY8GRPSVLj0aGUJ5jnVDpPLfUdbPnQt5oVspRlDT33I9UiSIMSxCRPj/hzRO
-	 Ixw2PJuwxyjUt4TnkeKX1zr1LghNNE9meRe9QHSJOj46S6rgQl5iZr3W1raBQTJB53Q==
+	t=1794415064;
+	b=tBmwtuK+R7s1DOJRa/iBwCCJwKQNpunadoupDGomtXfD3VSxRboD0csyo+Z8UkFN7U3E
+	 0OhdZKgjqgpEiLHegqmpKvKXjQ5S7bGP1wZ0RxiD4Y4/QLVsRcQIZ8v5fut8WRPcukhlk
+	 yCRKSSkC8+RB7VF1df2EryMWejEVUkm2cwCCM1vyI8cveTGGf/TGXXDusqC5HJJ7st9X3
+	 Z1TCrSQz/uRw/sh8h9AN7ZoAEWWMtmUcz9Ktx1LKcyuazOw99UIC+lPkEXjrp4S51KXeE
+	 F0mXTzzM3wy+BfD0OvuXp4mlHdypaZtZUkAkr7Dfyk04313toek6sO/Ya/2dnUC+5Lg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794415068;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=E1QHDpc/aG9SReTwqdCX+OYwneXtbq0qKQ+Vh74y2Fc=;
-	b=WMgXsPjBqlrw//+M/wX9kH6W1+aj/b6PhUiyA6nqxv5DQFv9s2VUnkX1MP94sj39osMw
-	 3gJASLcNe3GjIGC3wBTYo9Gldzr5HPIsmaP3EhbVBjtSDsMzYI4jStAZYDgNJ7RyTVq7j
-	 +yhRoS2yON8qT2LgEUeWagQPCtPAvqDkaCVaR7R00SZsFRtyBN87uU5L/xI9Vm7NCxjfi
-	 CBOyo2/83yY6tfHE0XnTcYBunJuw21B8XQmLOgX0vamE4qC335VwdQwZFVPt/wtCiN9of
-	 48LbKKK+tM3k77R8uP0/+e2FoiSo9mFSWveuGvlYSyFXBrEY9e9Rpo98J0PT0Sla79A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794415064;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=O4LCoxfztIxiO4Ve6PdwkUlzn+vvBZo5he0KpnyIOes=;
+	b=r21xxyaHD5Q9X0yn99jMOBsxOltirfQSuivYUdeZ+TGswvKXrhbCtrh7QdYqTAlZxOni
+	 dA22LjvrCTpwHh1iGskmYi4JTsRRpCTr5DcBqZpstw8EBpjwqsYr0UwBLvhf6PglWfRj+
+	 irp7XOJndMAWbTMLEu123Tv+UEqV2gNJmbEV7Nb9MCzdIl6IpZMvW6Jdbrs/SFt96fb+M
+	 x/jZrppPYzWJhQGiJf3boW/h0DtOz07wupfjAjnSyey5G/mvU227sGfrKN3qipOvdpjEP
+	 l3JgFThNalXWYdWMG5uux7d+8XSq/IhExuWG3K+vj8KhxlBmdKJHxVW3RQNKu9hU6tg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iZX1dvXd;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0dae87Cy;
+	arc=none smtp.remote-ip=209.85.221.46
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FA58606A889;
-	Wed, 11 Nov 2026 16:37:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8533A606A8B2
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 16:37:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8533A606A8B2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iZX1dvXd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E77C1F00A13;
-	Wed, 11 Nov 2026 16:37:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794415068;
-	bh=E1QHDpc/aG9SReTwqdCX+OYwneXtbq0qKQ+Vh74y2Fc=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=iZX1dvXdE8G3oXJiuZCXpzW0nU5GMPALtQULiB8eGueTzpPrBYK9PKUV1Y7qp8I9n
-	 bUzBvsWwohUb8HsyyfQauUUfC20j+bp2GRN8z+oibr0cdmeQMym9v6lsCdiQY8dasK
-	 Vi2uQRfQkypUXQDBZc1ZrIhQGt7KOIWbEgy1Ei6fFf5pgIWyNZj6UUlthcgGA5WVwt
-	 n04L0UhW0Oofo1WZWRVx4uXL44v5Aw3jJWJgy7kTEyIdG3I6Hq3qEOeh39K8Xgv/kd
-	 VOKU/22hwVnb7eU5Zb2AGjOaP48BKaFGJyrrq3c43oS5SwZjEl1Jlr5Wmr+GdZJDVY
-	 oJiD1wLtxi6tA==
-Subject:
- Re: [PATCH net] net/sched: gred: reject table shrink with queued packets
-From: netdev-bot+sashiko@kernel.org
-To: shawnq1@163.com
-Cc: jhs@mojatatu.com, jiri@resnulli.us, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Wed, 11 Nov 2026 16:37:46 +0000
-Message-ID: <179441506699.2199510.1043654703064770302@kernel.org>
-In-Reply-To: <20261109163648.301164-1-shawnq1@163.com>
-References: <20261109163648.301164-1-shawnq1@163.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0dae87Cy
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-492690dd5daso2668211f8f.1
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 08:37:44 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794415063; x=1795019863; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=O4LCoxfztIxiO4Ve6PdwkUlzn+vvBZo5he0KpnyIOes=;
+        b=0dae87Cy/B9YUhxZrRX3+f0D/Rj3UEQYH6g+Gqwe8026eNj4hsPNt149zkXFJyMyvk
+         AruDO4TRtTFhYaSMu7KFHyzESFZeLSgahD4SBrUCsq9t6bYO0GpAIk3oc10M1B79b+QG
+         /YvQEQd4o2dPzysD+NhFds/Nf9fOmZmcugnPa/fw9ydl7KC7QTmvMf7fKjDTct8MDs5f
+         fZkuxH3qENaspZ6NvRbVllAdxh+Z3MyHEwqof4x+FPOMD7LMaqUI+N1KFbq7WWCCkA4e
+         ZV6EpQDdQfyGWUDYkyD1aLRntBfa4prMpXWfDV8hR08IdqHicaqDzOXJIsprZSuW1h0l
+         /nVw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794415063; x=1795019863;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=O4LCoxfztIxiO4Ve6PdwkUlzn+vvBZo5he0KpnyIOes=;
+        b=eQCwoP+BBn3mQnfxZ+3MyUgrdL3R7AFOq/xkRw59H9xEzvdYaxQrHTTxsJLl0YvOGM
+         ccu28JSGlV00AzBysP9zQv2vXUM9peAZA69POWibTd7mwtqd+rYQBMp/RZKbbfhbXY2+
+         +sPcbc6lUNV9gj7myE4oiojrULzu9spBm5xrxDD5NByTp8Ly1n4/tp0hoqQoOLdYVRRo
+         094Sb+MwSr4ots+sKXFjXIF8Reg9BQ2jUE7CMpHAcWT7dlEXF1qFP7rHG8/mQEDy2Y3d
+         82RqXyl0wGE228+p+wRSeV+oM5alNFwpEx1AjJT+AokCvWsVYSPib7J04HTZiwZRhdcQ
+         j3Lg==
+X-Forwarded-Encrypted: i=1; AL+hErH6E8UT9TFB7eY35b/GaFKeLAoQH/g5R9PITQtU5H2FkGiQ8jGYq/D8wSk1FHI0qnDafCr8MHprK88lI18=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8A6NPp7z+2tgpq8HPSIS62fcFYXMx+k9rGRQybZKRBhugj97iX
+	9Zsq/2Is7WNgDGHRQT5es6b86F/fL1Ye/KPPU8APkW8e5qxdp4vDr1Np
+X-Gm-Gg: AYBFou0+Ep2S91D2JHDDREL9JShiaYb8D0n/vEJEL0D6Gkf/JBr3rAIOm7l6etFrBPo
+	nFDVIGVttFZNpDnBoBXpetdMKfg/Gle0wv4HlxJeTEeVZ8MxYJigM65fKKB16T4QxETOYR0CXi8
+	lWu9hoV42PjdUiuMd9fCgS6YdNBeQ+b0TuV5+IwSA6S8IRDYYCIQJiKcPxHDTXVOPBynWl/txdM
+	njTBIPRBs4gCv3Oayxeip7aZ+vZpcR3DTjezx7sX1TZvWcVLtVpr3bkKWh6zU3Gfphy1YxgqVFz
+	msyVm9BiDLdO1dFqRV9xEPMx1gYpN5GFu6+1l8FDavqVwoWnMVVgWUBto/rRtWVXN1w5wonflb9
+	NW8UREl+vHLsJacCVFwg2X2g08Yx/9iSYxaG/2X6HT1iJ/Gpp2wmOz1Q6Ux1uo7Y/w9zeibmaTm
+	lDXmlk12VUsMZX1BaR/smX8NS1HqjlWd8UzOx/NHXYIeH6KhC9tGWKy3PlLMEfLYWK/n3ySE/ip
+	w1A72S/tPkMw7JxiB8sVrfd/KDGgIKuYSp/ZvB/cAtQ5tGFgGYxq9dNAA8x8nOE3nGj5TaIzGp0
+	cGcpzluqGdMkBjaKnXEA8WAj3nLjLfPsSQ6CwWuotWK2ZAEIyUTuqErJW8yyigyARNVwSuj7yoU
+	1suix88BU+laJohhQwMMdr6IMT1HxJSiV3T0=
+X-Received: by 2002:a05:6000:2213:b0:493:c7aa:7cef with SMTP id ffacd0b85a97d-499ca844595mr4406823f8f.52.1794415062584;
+        Wed, 11 Nov 2026 08:37:42 -0800 (PST)
+Received: from gmail.com ([2a01:e11:1403:8620:6e81:13fe:ca06:8db8])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4983600bc9asm11050119f8f.29.2026.11.11.08.37.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 08:37:42 -0800 (PST)
+From: Paolo Pisati <p.pisati@gmail.com>
+To: Geert Uytterhoeven <geert@linux-m68k.org>,
+	Damien Le Moal <dlemoal@kernel.org>,
+	Niklas Cassel <cassel@kernel.org>
+Cc: linux-m68k@lists.linux-m68k.org,
+	linux-ide@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Lee Jones <lee@kernel.org>,
+	mfd@lists.linux.dev
+Subject: [PATCH v1 5/7] zorro: warp mfd: expose the voltage and temperature sensors
+Date: Wed, 11 Nov 2026 17:37:32 +0100
+Message-ID: <20261111163735.227286-6-p.pisati@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261111163735.227286-1-p.pisati@gmail.com>
+References: <20261111163735.227286-1-p.pisati@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,242 +103,180 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 6 potential
-issue(s) to consider.
+The diagnostic frame carries the 5 V rail, the backup battery and three
+temperatures - the 68060, its NTC and the ARM - as IEEE-754 binary32.
 
-Critical: 0 · High: 1 · Medium: 2 · Low: 3
+Decode the bit pattern with integer arithmetic into milli-units.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Signed-off-by: Paolo Pisati <p.pisati@gmail.com>
+---
+ .../ABI/testing/sysfs-driver-warp-mfd         | 19 +++++
+ drivers/zorro/warp-mfd.c                      | 80 +++++++++++++++++++
+ drivers/zorro/warp-mfd.h                      |  4 +
+ 3 files changed, 103 insertions(+)
 
-- [High] The fix is incomplete.
-- [Medium] The patch changes the result of an existing control operation.
-- [Medium] The new shrink guard treats a non-zero table->tab[i]->backlog
-  as meaning software skbs are still queued and gred_dequeue() will…
-- [Low] The new walk over sch->gso_skb in gred_change_table_def()
-  (net/sched/sch_gred.c:441-448) protects no VQ accounting, and the…
-- [Low] In gred_change_table_def() (net/sched/sch_gred.c:411-413) the
-  patch moves `struct gred_sched *table = qdisc_priv(sch);` below…
-- [Low] On the table-definition path, gred_change()
-  (net/sched/sch_gred.c:681-684) writes `sch->limit =…
-
---
-
-net/sched: gred: reject table shrink with queued packets
-
-With this commit, gred_change_table_def() returns -EBUSY when a table
-shrink would remove a VQ that still has accounted backlog. It does the
-same when an skb in sch->gso_skb carries a DP that is being removed. The
-goal is to avoid a u32 backlog underflow in gred_dequeue() when a removed
-VQ is recreated later.
-
-Link: https://lists.openwall.net/linux-kernel/2026/10/22/1545
-
-> diff --git a/net/sched/sch_gred.c b/net/sched/sch_gred.c
-> index f3d9a7252949d..8ddbd7f058a6b 100644
-> --- a/net/sched/sch_gred.c
-> +++ b/net/sched/sch_gred.c
-> @@ -408,8 +408,9 @@ static inline void gred_destroy_vq(struct gred_sched_data *q)
->  static int gred_change_table_def(struct Qdisc *sch, struct nlattr *dps,
->  				 struct netlink_ext_ack *extack)
->  {
-> -	struct gred_sched *table = qdisc_priv(sch);
->  	struct tc_gred_sopt *sopt;
-> +	struct gred_sched *table = qdisc_priv(sch);
-> +	struct sk_buff *skb;
-
-[Severity: Low]
-This isn't a bug, but is there a reason to move the table declaration
-below sopt? The old order followed the netdev reverse christmas tree
-convention. Only the new struct sk_buff *skb line seems to be needed.
-
->  	bool red_flags_changed;
->  	int i;
->  
-> @@ -437,6 +438,25 @@ static int gred_change_table_def(struct Qdisc *sch, struct nlattr *dps,
->  	}
->  
->  	sch_tree_lock(sch);
-> +	skb_queue_walk(&sch->gso_skb, skb) {
-> +		if (tc_index_to_dp(skb) >= sopt->DPs) {
-> +			sch_tree_unlock(sch);
-> +			NL_SET_ERR_MSG_MOD(extack,
-> +					   "cannot remove a GRED VQ with queued packets");
-> +			return -EBUSY;
-> +		}
-> +	}
-
-[Severity: Low]
-Does this gso_skb walk protect any VQ accounting?
-
-GRED uses qdisc_peek_head as its .peek op, so qdisc_peek_dequeued() never
-fills GRED's gso_skb. The only other writer seems to be dev_requeue_skb(),
-and it runs after gred_dequeue() has already subtracted the skb from
-q->backlog:
-
-dequeue_skb()
-  gred_dequeue()
-    q->backlog -= qdisc_pkt_len(skb);
-...
-dev_requeue_skb()
-  skb_queue_splice(&requeue, &q->gso_skb);
-
-When the skb is sent again, dequeue_skb() takes it off gso_skb with
-__skb_dequeue() and does not call gred_dequeue() again. The VQ backlog is
-not touched a second time.
-
-The commit message says:
-
-    Reject a shrink while a removed VQ has accounted backlog or an skb
-    in gso_skb still carries a removed DP. This keeps the per-VQ
-    accounting state alive until all packets using it are drained.
-
-Is that accurate for the gso_skb part? The only effect of this walk seems
-to be a spurious -EBUSY while a requeued skb with a removed DP sits in
-gso_skb.
-
-> +
-> +	for (i = sopt->DPs; i < MAX_DPs; i++) {
-> +		struct gred_sched_data *q = table->tab[i];
-> +
-> +		if (q && q->backlog) {
-
-[Severity: High]
-Does this fully close the underflow the commit message describes? The
-same "dequeue subtracts the old skb length from the new VQ's zeroed u32
-backlog" case seems reachable without any table shrink.
-
-In gred_enqueue(), the skb's DP may have no VQ while tab[t->def] is also
-NULL. The skb is then passed through without charging any q->backlog,
-and the tc_index rewrite is skipped:
-
-net/sched/sch_gred.c:gred_enqueue() {
-    ...
-		q = t->tab[dp];
-		if (!q) {
-			...
-			if (likely((u64)sch->qstats.backlog + qdisc_pkt_len(skb) <=
-					sch->limit))
-				return qdisc_enqueue_tail(skb, sch);
-    ...
-}
-
-A VQ for that DP may be created later while those skbs are still queued.
-gred_change()->gred_change_vq() then installs a zeroed VQ:
-
-		table->tab[dp] = q = *prealloc;
-
-gred_dequeue() then finds tab[dp] != NULL and runs:
-
-			q->backlog -= qdisc_pkt_len(skb);
-
-This wraps the u32 backlog.
-
-This looks like the normal configuration sequence. gred_init() only
-takes the table definition, so "tc qdisc add ... gred setup vqs 4
-default 0" creates no VQs. All DP 0 traffic is passed through until
-"tc qdisc change ... DP 0 ..." creates VQ0 with backlog 0, while DP 0
-packets are still queued.
-
-This check only reads q->backlog of the VQs being removed. It can't see
-pass-through packets, because they were never charged.
-
-There is also a side effect. Once a VQ's backlog has wrapped, every later
-shrink that would remove that VQ fails with -EBUSY until the qdisc is
-reset. Before this patch, the shrink destroyed the corrupted VQ.
-
-Could this be fixed in the datapath instead? For example, dequeue could
-skip the subtraction for a VQ that never accounted the skb. That would
-also cover the shrink case, without the new -EBUSY behaviour.
-
-[Severity: Medium]
-Can this make "tc qdisc change ... gred setup vqs N" fail indefinitely
-under load?
-
-Before this patch, a shrink always succeeded. Shadowed VQs were destroyed
-with the "Destroying shadowed VQ" warning, so removing a VQ that still
-had traffic looks like intended behaviour.
-
-GRED uses a single FIFO. On a congested link with continuous traffic in a
-removed DP, that VQ's backlog is rarely zero. There is also no way to
-drain only those VQs.
-
-The commit message only covers a drained queue ("After the queue drains,
-shrinking and re-expanding succeeds"). Because of the Fixes: tag, stable
-backports would also bring the new -EBUSY to existing scripts that
-resize GRED tables at runtime.
-
-The underflow only happens once the VQ is recreated. Could the
-accounting be fixed at VQ creation or at dequeue instead?
-
-[Severity: Medium]
-On an offloaded GRED, does q->backlog only count software-queued skbs?
-
-gred_offload_dump_stats() adds hardware backlog into the same field
-under sch_tree_lock():
-
-net/sched/sch_gred.c:gred_offload_dump_stats() {
-    ...
-		table->tab[i]->backlog += hw_stats->stats.qstats[i].backlog;
-    ...
-}
-
-The nfp abm driver reports this value as the change in hardware backlog
-since the previous dump:
-
-drivers/net/ethernet/netronome/nfp/abm/qdisc.c:nfp_abm_stats_calculate() {
-    ...
-	qstats->backlog += new->backlog_bytes - old->backlog_bytes;
-    ...
-}
-
-gred_dequeue() never subtracts the hardware part. Only a later dump with
-a negative delta removes it. A shrink can therefore fail with "cannot
-remove a GRED VQ with queued packets" while the software queue is empty.
-
-The failure also continues after the hardware queue drains, until
-"tc -s qdisc show" runs again. Before this patch, shrinking an offloaded
-GRED always succeeded.
-
-> +			sch_tree_unlock(sch);
-> +			NL_SET_ERR_MSG_MOD(extack,
-> +					   "cannot remove a GRED VQ with queued packets");
-> +			return -EBUSY;
-
-[Severity: Low]
-Should this -EBUSY path leave sch->limit unchanged? gred_change() sets
-the limit before it calls gred_change_table_def():
-
-net/sched/sch_gred.c:gred_change() {
-    ...
-	if (tb[TCA_GRED_PARMS] == NULL && tb[TCA_GRED_STAB] == NULL) {
-		if (tb[TCA_GRED_LIMIT] != NULL)
-			sch->limit = nla_get_u32(tb[TCA_GRED_LIMIT]);
-		return gred_change_table_def(sch, tb[TCA_GRED_DPS], extack);
-	}
-    ...
-}
-
-iproute2 sends both TCA_GRED_LIMIT and TCA_GRED_DPS for "tc qdisc change
-... gred setup vqs N default D limit X". If that request shrinks the
-table while a removed VQ has backlog, userspace gets -EBUSY, but the new
-limit is already in effect.
-
-The earlier failures in this function are input validation errors. This
-one depends on how much traffic is queued at that moment, so userspace
-can't predict it.
-
-> +		}
-> +	}
->  	table->DPs = sopt->DPs;
->  	table->def = sopt->def_DP;
->  	red_flags_changed = table->red_flags != sopt->flags;
-
-[ ... ]
-
+diff --git a/Documentation/ABI/testing/sysfs-driver-warp-mfd b/Documentation/ABI/testing/sysfs-driver-warp-mfd
+index 8996d1961b96..fec712b8b9b0 100644
+--- a/Documentation/ABI/testing/sysfs-driver-warp-mfd
++++ b/Documentation/ABI/testing/sysfs-driver-warp-mfd
+@@ -14,3 +14,22 @@ Contact:	Paolo Pisati <p.pisati@gmail.com>
+ Description:
+ 		(RO) Firmware and hardware version, as four hexadecimal digits:
+ 		an fmwver of 2027 is firmware release 20.27.
++
++What:		/sys/bus/zorro/devices/zorro<N>/t60int
++What:		/sys/bus/zorro/devices/zorro<N>/t60ext
++What:		/sys/bus/zorro/devices/zorro<N>/tarm
++Date:		November 2026
++KernelVersion:	7.5
++Contact:	Paolo Pisati <p.pisati@gmail.com>
++Description:
++		(RO) Temperatures in degrees Celsius, with one decimal: t60int
++		is the 68060, t60ext its NTC, tarm the ARM co-processor.
++
++What:		/sys/bus/zorro/devices/zorro<N>/vbatt
++What:		/sys/bus/zorro/devices/zorro<N>/vcc5v
++Date:		November 2026
++KernelVersion:	7.5
++Contact:	Paolo Pisati <p.pisati@gmail.com>
++Description:
++		(RO) Voltages in volts, with two decimals: vbatt is the backup
++		battery, vcc5v the 5 V rail.
+diff --git a/drivers/zorro/warp-mfd.c b/drivers/zorro/warp-mfd.c
+index 61866f678b61..d407c786d44b 100644
+--- a/drivers/zorro/warp-mfd.c
++++ b/drivers/zorro/warp-mfd.c
+@@ -15,6 +15,7 @@
+  */
+ 
+ #include <linux/array_size.h>
++#include <linux/bits.h>
+ #include <linux/completion.h>
+ #include <linux/device.h>
+ #include <linux/init.h>
+@@ -22,6 +23,7 @@
+ #include <linux/io.h>
+ #include <linux/ioport.h>
+ #include <linux/jiffies.h>
++#include <linux/limits.h>
+ #include <linux/module.h>
+ #include <linux/mutex.h>
+ #include <linux/slab.h>
+@@ -190,6 +192,73 @@ static int warp_get_status(struct warp_mfd *warp, union warp_reply *rpl)
+ 	return 0;
+ }
+ 
++/*
++ * The board reports its sensors as IEEE-754 binary32: decode the
++ * bit pattern by hand and carry the result as milli-units.
++ */
++static int warp_f32_to_milli(u32 bits)
++{
++	int exp = (bits >> 23) & 0xff;
++	u32 frac = bits & GENMASK(22, 0);
++	int shift = exp - 127 - 23;
++	s64 v;
++
++	/*
++	 * inf, NaN, zero and subnormals all round to nothing useful here, and
++	 * so does anything of 2^23 or more: that is already past what an int
++	 * holds in milli-units, let alone what a sensor reports.
++	 */
++	if (exp == 0xff || exp == 0 || shift >= 0)
++		return 0;
++	if (shift <= -63)		/* smaller than a milli-unit */
++		return 0;
++
++	v = ((s64)(frac | BIT(23)) * 1000) >> -shift;
++	if (v > INT_MAX)		/* a shift of -1 or -2 can still overflow */
++		return 0;
++
++	return (bits & BIT(31)) ? -(int)v : (int)v;
++}
++
++/* Render milli-units with @dec decimal places, rounded, as WarpDiag shows them. */
++static int warp_print_milli(char *buf, int milli, unsigned int dec)
++{
++	unsigned int scale = (dec == 1) ? 100 : 10;
++	unsigned int units = (dec == 1) ? 10 : 100;
++	const char *sign = "";
++	unsigned int v;
++
++	if (milli < 0) {
++		sign = "-";
++		milli = -milli;
++	}
++	v = ((unsigned int)milli + scale / 2) / scale;
++
++	return sysfs_emit(buf, "%s%u.%0*u\n", sign, v / units, dec, v % units);
++}
++
++#define warp_config_sensor_attr(name, field, dec)			\
++static ssize_t name##_show(struct device *dev,				\
++			   struct device_attribute *attr, char *buf)	\
++{									\
++	int ret;							\
++	struct warp_mfd *warp = dev_get_drvdata(dev);			\
++	union warp_reply *rpl;						\
++									\
++	rpl = kmalloc_obj(*rpl);					\
++	if (!rpl)							\
++		return -ENOMEM;						\
++	ret = warp_get_status(warp, rpl);				\
++	if (ret)							\
++		goto out;						\
++	ret = warp_print_milli(buf,					\
++			       warp_f32_to_milli(rpl->diag.field), dec);\
++out:									\
++	kfree(rpl);							\
++	return ret;							\
++}									\
++static DEVICE_ATTR_RO(name)
++
+ #define warp_config_uint_attr(name, field, format_string)		\
+ static ssize_t name##_show(struct device *dev,				\
+ 			   struct device_attribute *attr, char *buf)	\
+@@ -236,12 +305,23 @@ static DEVICE_ATTR_RO(name)
+ warp_config_string_attr(boardname, board_name);
+ warp_config_uint_attr(fmwver, fmw_ver, "%04X");
+ warp_config_uint_attr(hwver, hw_ver, "%04X");
++/* board sensors: volts to 2 decimals, temperatures to 1, as WarpDiag shows them */
++warp_config_sensor_attr(t60int, t60_internal, 1);
++warp_config_sensor_attr(t60ext, t60_ntc, 1);
++warp_config_sensor_attr(tarm, t_arm, 1);
++warp_config_sensor_attr(vbatt, vbatt, 2);
++warp_config_sensor_attr(vcc5v, vcc5v, 2);
+ 
+ static struct attribute *warp_attrs[] = {
+ 	/* RO attr */
+ 	&dev_attr_boardname.attr,
+ 	&dev_attr_fmwver.attr,
+ 	&dev_attr_hwver.attr,
++	&dev_attr_t60int.attr,
++	&dev_attr_t60ext.attr,
++	&dev_attr_tarm.attr,
++	&dev_attr_vbatt.attr,
++	&dev_attr_vcc5v.attr,
+ 	NULL
+ };
+ 
+diff --git a/drivers/zorro/warp-mfd.h b/drivers/zorro/warp-mfd.h
+index 366848545ea4..4fa09fa972d4 100644
+--- a/drivers/zorro/warp-mfd.h
++++ b/drivers/zorro/warp-mfd.h
+@@ -84,6 +84,10 @@ struct warp_rpl_hdr {
+  * Reply to WARP_CMD_GET_DIAG. Fields this driver does not expose are kept
+  * so the ones after them land at the right offset.
+  *
++ * The board reports its sensors as IEEE-754 binary32. They are kept as raw
++ * bit patterns because the kernel cannot use the FPU; warp_f32_to_milli()
++ * decodes them with integer arithmetic.
++ *
+  * turbo_level and tz_corr_secs are reported by the firmware but no longer
+  * maintained by it; treat their contents as stale.
+  */
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261109163648.301164-1-shawnq1%40163.com
+2.43.0
+
