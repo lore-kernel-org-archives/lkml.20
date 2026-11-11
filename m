@@ -1,69 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.35
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794389807;
-	b=lJuLH/JsNM3NwGUUzmNWTaEsY3Hwzr0ecteuEFU3UWCL/uxvhq/IKzeUZwlCMw36aLS/
-	 VUBt/F3lNfYQwR2TK1Cuxk6WJRWqH8EnaNLuHx/zw5eRELcKjEp/kIb5iFbiqtFbeZkwG
-	 CjIYVf9LRlMQL1j4JpS92neVp06sQxWt5RY0/2IL9InClJy4UJmQdB/sIBEwMBt7TCfct
-	 3I3GDXfD/YhfB9zV92ol4xNey9FgWLhyqbd2sHehoPt2CwrpiNWcx+UJ2qg1EvITpWVSe
-	 tsn8xAxbgB9LHh63kKs72Ehf8Rt90s4bEoWtEM+TI2jk71CatnzX7vW6BN4YDLg+8eg==
+	t=1794389812;
+	b=tyhkCJMjk+vMlvxp/O0X8ya170O08x5XMHjvEjKSh4lLF58iji54A0qarnSHzGUh/AF2
+	 2Kmngk4sXXis3QlQDOI60PlQD46iufnRRi9uiz7IucKNce19y8AzN7j+8nQDYLdkmx57N
+	 +VGppOqagzbHuSfL1f2BG6xLXasivNGSKBlJxCMBbNrDTYTdNxsLmoXB7rYxjlkT5G751
+	 KzU2hfghJEtVZv3PfFVD642JF+W+c1Phql0bAHuWZy+7xheh/mAKvy/s4ktGdF/jP9P1C
+	 T64i71nIXO/Ryo1eKAdovdeOxBa7dg8a5cMJvP58cG3CkbZ2Kz/mgPHi0gh0c1bHHrQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794389807;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 X-Zmail-TransId:X-Mailer:Message-ID:In-Reply-To:References:Date:
-	 Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:X-TLS:
-	 X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:X-Fangmail-Anti-Spam-Filtered:
-	 X-Fangmail-MID-QID;
-	bh=egSqt+pQ6gz6nq0lUaXUWrPZgrt8DPk5rzDYl32E4KI=;
-	b=lIVu6raOg2Tqom7ut4ybC1mxBQ2Q9ljyPc6Z5KdfDUua2drmQbxWOjOoRIk2BJtdlT5X
-	 SEO2aeJy8bXg/MMlz3E+2VIZyXCrVRA43sPqJHXuejoJiRjV0K/arCKJAGthBZQJVNIbm
-	 aMMKmUftE2FTLSf3y5XhPUqlQIU7576gfVr8ddOnuFNOn1R96ZBRurwq/TArBQ/97WLU7
-	 5DsTRxznp8I5BLAS2BeUd+/AtTmL7AoM7PXsR5qz3BKc488hKPpVMorWubi37C29n955g
-	 mVhGEphjv0Ue1lmqHRpRGwVvzuLHWtXMlOBOBkYHcPacNjMN2Eq148BTGno/9/w4bzQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794389812;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=lO99n0mBXUzzZNB3zbmr0k9smIe/f8UwSrXdGVcTzcQ=;
+	b=POcae8Y68+GCQC8pMuooLfP4ISgZvOLy+bJ1peHOYCH2ic10oXYvs0L6Ckm/rzebVyIo
+	 BT6EgabVbJM0WcHc9Ea9g4lSLhKU1UU5P/p+KxsUuUq0uUXyJRwfbbVh6ouEeThmLOUYw
+	 IE7+DU1yH2kf19zqE/WzrXaScHRP3EwYQSbhkiUIo5mhN3Uw5UZxDQZi+YHuWWtsVwUWp
+	 2zsvuKCyxhQLxI9cfWk9h8GvAQ6QstxP3f5muvENt1HjkvpVVRMQk/43mxDFsLrF2mtEk
+	 TkxkHK5NkjlcDeFrYtn2sYR8SjzOCAUZ5TnUwBPPkuI6eWho6XH9nejM15Bm3m0pTIA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=zte.com.cn;
-	spf=pass smtp.mailfrom=zte.com.cn;
-	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=vTqNIyb8;
-	arc=none smtp.remote-ip=160.30.148.35
-Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.35])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FmhZfTAo;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE919606A31C;
-	Wed, 11 Nov 2026 09:36:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EE919606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 687CA606A324
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 09:36:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=vTqNIyb8
-Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jPdhF490Rz8XrrZ;
-	Wed, 11 Nov 2026 17:36:45 +0800 (CST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=zte.com.cn;
-	s=z202610; t=1794389805;
-	bh=OWQQz0Or3HEOmZllORXZ/evEFZ/NmfH5mW+Je0IlXnc=;
-	h=In-Reply-To:References:Date:From:To:Cc:Subject;
-	b=vTqNIyb8X8VOGgx/bgNK/ZyLw5ErsV0kjfTnrhqx+OoAZzsRmetcUREIQkeY5lqTt
-	 QBGKUTtFrD6Pe+eLKew9VciIlBsrBwi3xGBVwucMz1+Fmi9Xyq/eUvsCvtBnNO8Q7G
-	 aqZbctRTpGUMbAdCV+c5FhKztJqLoyodMcROkZ7qcsfiSGUJ8M03vichtVw/t4BS/y
-	 f1zX8OHKEhJB+BXE/mszizZT52CEhMF1lVVDQrS8gZsGuS+7KUem8VKZhHFmrMdJc2
-	 HwXUkSigxMMyn73Kwg33Ius/1fMxFqno23NRvh51XNYtgJv5KUaFxHshjNRDQ/bptN
-	 ybb8L1rHQUusg==
-Received: from xaxapp02.zte.com.cn ([10.88.97.241])
-	by mse-fl2.zte.com.cn with SMTP id 6AB9aZ4Q009552;
-	Wed, 11 Nov 2026 17:36:35 +0800 (+08)
-	(envelope-from shao.mingyin@zte.com.cn)
-Received: from mapi (xaxapp04[null])
-	by mapi (Zmail) with MAPI id mid32;
-	Wed, 11 Nov 2026 17:36:37 +0800 (CST)
-X-Zmail-TransId: 2afb6af4372505d-e70c0
-X-Mailer: Zmail v1.0
-Message-ID: <20261111173637687ugnRPRBKJkF0zihl662i2@zte.com.cn>
-In-Reply-To: <CAHi4H7GHGO27Q=O8Upfds8jk-ujSHU5h91hCZw6qjftNX7a2Ng@mail.gmail.com>
-References: 20261110233450305Smji446Uhvoxa7r8SHEgl@zte.com.cn,20261110233459277eFsXn1VXUPZl1EA9CCa5Q@zte.com.cn,CAHi4H7GHGO27Q=O8Upfds8jk-ujSHU5h91hCZw6qjftNX7a2Ng@mail.gmail.com
-Date: Wed, 11 Nov 2026 17:36:37 +0800 (CST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FmhZfTAo
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E41A1F00A05;
+	Wed, 11 Nov 2026 09:36:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794389812;
+	bh=lO99n0mBXUzzZNB3zbmr0k9smIe/f8UwSrXdGVcTzcQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=FmhZfTAo1X3X3nFSSyzD8frnc24Y9FbVvba8A95uU6qmtT5PRbmLfFC7voQTFDjkX
+	 hCNouXYuHBhZH1e41jreW3yR5nJUJGcyVoBwH80C7Xvg7qsmjz3apEnn31zvJgzHtF
+	 ZiFQTydKCmtQlmlryMiEQJoMK59Xl+9kgai1vaBuWoMIqZdmf7sMsb41/JBCjmIzeR
+	 ff+hsJtKrJrVcqCXzHPa73frEXjQMVTENjEYDK+4jl1YcN9a0crZoi8aGQgo1Gh+DU
+	 qjV0eJZQENUMAFAFXbpEhIPJwSJ0IJ4l1VxOhgHx+X13U0kTeEvyK33AbKfmrxmWsH
+	 BiK7CCEW3H4UA==
+Message-ID: <16cf88a0-6652-4276-95fb-12306e417701@kernel.org>
+Date: Wed, 11 Nov 2026 10:36:40 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,48 +50,100 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-From: <shao.mingyin@zte.com.cn>
-To: <william.zhang@broadcom.com>
-Cc: <broonie@kernel.org>, <linux-spi@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
-        <pjw@kernel.org>, <samuel.holland@sifive.com>,
-        <kursad.oney@broadcom.com>, <jonas.gorski@gmail.com>,
-        <bcm-kernel-feedback-list@broadcom.com>, <anand.gore@broadcom.com>,
-        <florian.fainelli@broadcom.com>, <rafal@milecki.pl>,
-        <linux-arm-kernel@lists.infradead.org>, <sven@kernel.org>,
-        <j@jannau.net>, <neal@gompa.dev>, <asahi@lists.linux.dev>,
-        <ryan.wanner@microchip.com>, <nicolas.ferre@microchip.com>,
-        <alexandre.belloni@bootlin.com>, <claudiu.beznea@tuxon.dev>
-Subject: =?UTF-8?B?UmU6IFtQQVRDSCB2MiAzLzVdIHNwaTogYmNtYmNhLWhzc3BpOiBmaXggZGl2aXNpb24gYnkgemVybyBmb3IgZGV2aWNlcyB3aXRob3V0IGEgbWF4IHNwZWVk?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-fl2.zte.com.cn 6AB9aZ4Q009552
-X-TLS: YES
-X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
-X-SOURCE-IP: 10.5.228.133 unknown Wed, 11 Nov 2026 17:36:45 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AF4372D.000/4jPdhF490Rz8XrrZ
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] mm/highmem: refuse to copy hwpoisoned folios in the
+ !copy_mc fallbacks
+To: Yuanhe Shu <xiangzao@linux.alibaba.com>, akpm@linux-foundation.org
+Cc: "Huang, Ying" <ying.huang@linux.alibaba.com>,
+ Kaitao Cheng <kaitao.cheng@linux.dev>, "Garg, Shivank" <shivankg@amd.com>,
+ vbabka@kernel.org, ljs@kernel.org, liam@infradead.org, rppt@kernel.org,
+ surenb@google.com, mhocko@suse.com, linmiaohe@huawei.com,
+ nao.horiguchi@gmail.com, ziy@nvidia.com, wangkefeng.wang@huawei.com,
+ tujinjiang@huawei.com, mgorman@techsingularity.net, chengkaitao@kylinos.cn,
+ muchun.song@linux.dev, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Catalin Marinas <catalin.marinas@arm.com>
+References: <20261110112641.1196786-1-xiangzao@linux.alibaba.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20261110112641.1196786-1-xiangzao@linux.alibaba.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
---------------------------------------------------------------------------------
-On Tue, Nov 10, 2026 at 12:30:05PM -0800, William Zhang wrote:
-> The bs->speed_hz is typcially 200MHz, reg(Frequency Control Word)
-> will be zero when hz clamp to 1.  It is not a valid reg setting.  FCW
-> must be 1 or larger.
-> The same applies to bcm63xx-hsspi driver.
+On 11/10/26 12:26, Yuanhe Shu wrote:
 
-You're right -- with speed_hz ~200 MHz the clamp yields FCW = 0, and
-2/5 (bcm63xx) has the same expression.
+While the file touches highmem.h, this really isn't about highmem at all, right?
 
-> IMHO the upper layer should fail ... rather than having the controller
-> driver to override with a risky 1Hz clock.
+This really affects any architecture except the ones that define
+copy_mc_to_kernel (x86+powerpc).
 
-Agreed; the fix belongs upstream of the driver, not in ->set_clk().
-Mark, which do you prefer: reject max_speed_hz == 0 in spi core, or
-have these two drivers clamp FCW >= 1?  I'll wait for your call and
-won't spin a v3 meanwhile.
+Or am I missing something? Would be good to clarify that.
 
-Thanks,
-Shao
---------------------------------------------------------------------------------
+> The !copy_mc fallbacks of copy_mc_user_highpage() and
+> copy_mc_highpage() return 0 after a plain copy.  With PG_hwpoison
+> set while the data stays readable, there is no fault to recover
+> from: the copy completes, the destination folio carries no poison
+> marker, and the poison is consumed silently.
+> 
+> Check the source page with is_page_hwpoison() in both fallbacks,
+> before the copy, and return PAGE_SIZE, the not-copied-bytes
+> convention of the real copy_mc paths, so the callers take their
+> existing error paths.  On archs with copy_mc this code does not
+> compile.
+> 
+> Measured on arm64, where the fallback code compiles: a
+> kernel-space microbenchmark measures 90.00 ns per copy before the
+> patch and 90.71 ns after, 0.8% of the copy itself.
+
+CCing Catalin. I'm surprised that arm64 cannot recover from a copy from a
+hwpoisoned page.
+
+
+-- 
+Cheers,
+
+David
