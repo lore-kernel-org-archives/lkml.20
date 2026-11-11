@@ -1,53 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794371223;
-	b=EtOmNxY1W48Ln+jXV99InC2wS4ro59aW7NLaRXGEpN9p97UUne1yDxqCRddO2XVDPAK7
-	 P1Dg4J4IiUoCrHKsfkRk76Ma5vsYrWaigMXM8cqFD/FdrZgTwTlzXcdNWNviR3rWhUbBM
-	 Trp2FKIeHCOnzHhOdB95rEUydUZDV9w6wQA8t8bxrnhrSxlwJrZHykTRuNR2TY8psPfDH
-	 rdyxem03y5aPEFUqgs2GF0TkVyo/P8abmSqSsmJ1qgKeXgL+bjzrmGrY45zMsbGGXU+L4
-	 n90xJR6tlwSoxTQcTuKswFk1qTSgjoGiQbC1D0dDviT8ixpGHM0GWso8IJY3OZYj7dw==
+	t=1794371232;
+	b=IQwHE15pWf7YRhFrnU9Hs2wUqxjuwsZbzqSxI8iwdDwmDhiYjIY8KrtpRVuqsOeRPX7x
+	 5OkNB1Cbf1zXOuTHOlrP6vTYsQs98Sb+cfQaX7jIL7aNo5PV6ksfVcY8MAkEv+4oS6SnG
+	 Ts/xg4lb65pHjsXaWaVbpxkyfERCxAO+YVVPWFRLYIHVOMSvIIQLeM45My9hOxU26mnKG
+	 zPpamhCMCQOrwGaOgY+Q/x2cyAVaPVWdHwwzLxidPLxkuy7iNkTH4P9fdfaApVQu9uPq+
+	 pgcPUDpb7xPnd2Hq01L+XaUEPMzA3jgI3VvQK4OpBUVQI2qu3KTJ4tmuVO8PtZi2dAw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794371223;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
-	 MIME-Version:X-Received:Date:In-Reply-To:X-Google-Appengine-App-Id:
-	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
-	 Content-Type;
-	bh=1/zSW8CzcKdLAea7yxOSQnU/8mQIkBY9zhEmhJqVqc0=;
-	b=oqYODDf72dDU39t2XOr3yMdIjoOuWahTg1CER7UpQV7Wfv25sFAihC9dsUvPpRmkP/L4
-	 FrSKrwmRVIW0mHJkADKUhQMZiBLNR32Wn/i2NfQ3x63a0OZFHL3DeaaixZDLM82j3giqp
-	 55BAbV6+HSqv/V+AAth46m8X+9Y4Fz+b2G/z+t1wBMK2oXmwSt7I6+DfPhik0SI8x5nsT
-	 NeNkHwKVTHLI5cD+nDguQ4FjPc0vgntekMV8ZO2vx2WRrQdLs29UKtQrCk+wTriyd4Jye
-	 A21axxtIakupXLOIIeQHexxMP355wHirTiQQAYkFUIt9N3MtANt+ZmUNGU6Pb1w1ltg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794371232;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=LGqKmclckj3cfZIxtbWVIyau2dPaTHxKuUbkCNQn1Fg=;
+	b=UT0HNeyViFO9HZr8DN5+VfSbkZEwndTz0za0ruFD+90C3IX1SeQIwQMaUqCbziFmuHP6
+	 BU2T6c8Lcy3GwrGo3iTRWH+pLkM3S5lyhGenKtY0VG1/JaRgI6zGm1e+K0kFRaf5fNvx9
+	 ohfTP3nLaH1TMhu8M3HjWtVgcUgY4c6wtiR8QHFL7yd91BCYX6DVewVOej2C4bKyMXDCZ
+	 4gRqy5+qxJj4lWLQYUaVBdZLh5JghL12IUH60/uRewVOC+5Ickve5hktx76Kaia31+twP
+	 uD3FfX82yPvguC7qksOIcwvF2sor0TIycUk/mKF0BE4F6xDNj72yYIIhvHiO2fU5+kA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.198
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nYQp7BFU;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B87860A2605
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 04:27:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6B87860A2605
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4f8281066c4so3195457b6e.2
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 20:27:03 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794371222; x=1794976022;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=1/zSW8CzcKdLAea7yxOSQnU/8mQIkBY9zhEmhJqVqc0=;
-        b=feOhXs7JcsLDF1v8jAjPwL58hRIN4QnYk0JiDO6cbuQJq4KDJ0eUtd+h/2HHWQ9TAN
-         4S6g6Keh7zuDWin/Xrwf2Itrr2eCTUK2LYn+kJchH66o54Hy4FAFFnXUPJkxGtbGmJIi
-         W+MBPQwwLl4QNgvGee5+6wWI1M9+1qEK7dShmWGiufk/jF+iKwBM3IKgCN+4OnWlqj/l
-         ncK2+aqPIeNOOzm7lQVNx3Kc1/MvJccl0yc+TB1EERLIeJYuaTItcg+pixO0tm8g0RYE
-         5+2qtdJ/DB7B8+8WSgWIoeYiuskuERkIBV+ZWymQ1w0sXgfOhZ6JrgkyOueqm/xXbeuu
-         uK6Q==
-X-Gm-Message-State: APuU4Z8vJhEZjqmO1QjFtxI2E8QTi6bS7Slbhhtz+IGZT+SFyi7rNft7
-	mVbDWNbAE8ouzUt0imCQgUqtkVdkWAVLdxN/UJGZrbw8Y1JOlCvmSvrLLpr2Kb7VlVzhi3Vnp80
-	iH9DoKkPATAMhcRTgDWFa9Q4niOJffbmapG1qnqYX7fY2Ezqd0eLib8HlZ2M=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8B7A606A338
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 04:27:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nYQp7BFU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 248441F0089F;
+	Wed, 11 Nov 2026 04:27:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794371231;
+	bh=LGqKmclckj3cfZIxtbWVIyau2dPaTHxKuUbkCNQn1Fg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=nYQp7BFUFIzdRgoawdyBqYZmI+w9TfSluiBVR+T8ogoyB0/FjHao6UO8D+4rOd2ci
+	 rInDmEbH4riktfAPkqHMKA53yP2clFtZOWVfuagK2zxph/Lm9wqfDTihu1dY/X9h1Z
+	 sKvn+NrYWiJjguH+lHFSqTWqB/eGpyeOUx5p4rFXKiyB799NPgv+SL7vItEsDXFFdw
+	 7Ww+p06xe4YYbX+ogc6c2cFzymlHXpMizpxx9FtVlLBw/JPrEjoOK869nLQNsqlVnS
+	 VTPpNwFoypMMYW8Agzr7KgCA+p21WQ0cGCcvWvfb6SUdSoAlXSt1pZ3F33okfSjvnN
+	 EMf8X5Agqxekw==
+Date: Tue, 10 Nov 2026 22:27:06 -0600
+From: Nathan Chancellor <nathan@kernel.org>
+To: Shrikanth Hegde <sshegde@linux.ibm.com>
+Cc: Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+	Kees Cook <kees@kernel.org>, linuxppc-dev@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] powerpc/smp: Handle of_property_count_u32_elems() error
+ in parse_thread_groups()
+Message-ID: <20261111042706.GA1385646@ax162>
+References: <20261109-powerpc-smp-handle-count-err-v1-1-e777fde7f71a@kernel.org>
+ <9da4b3b5-cc9d-4a55-9aba-b491f9b222e5@linux.ibm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,36 +63,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:4f1f:b0:564:4f93:709f with SMTP id
- 5614622812f47-56b9862080dmr993209b6e.67.1794371222487; Tue, 10 Nov 2026
- 20:27:02 -0800 (PST)
-Date: Tue, 10 Nov 2026 20:27:02 -0800
-In-Reply-To: <CAO7_G+xNhBX9OmcoLHLA_ygEArCRGEVvX1fHgT5DJpoG26BbJQ@mail.gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6af3ee96.9cda8233.15e390.0001.GAE@google.com>
-Subject: Re: [syzbot] [block?] BUG: unable to handle kernel paging request in blk_mq_complete_request_remote
-From: syzbot <syzbot+2e3bf0bd49acd9b21d4b@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, nenkov2004@gmail.com, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <9da4b3b5-cc9d-4a55-9aba-b491f9b222e5@linux.ibm.com>
 
-Hello,
+On Tue, Nov 10, 2026 at 02:58:32PM +0530, Shrikanth Hegde wrote:
+> Looks fine to me.
+> Reviewed-by: Shrikanth Hegde <sshegde@linux.ibm.com>
 
-syzbot tried to test the proposed patch but the build/boot failed:
+Thanks a lot for taking a look!
 
-failed to apply patch:
-error: corrupt patch at line 41
+> Should the similar fix is needed here as well?
+> 
+> arch/powerpc/platforms/powernv/idle.c:
+>         nr_idle_states = of_property_count_u32_elems(np,
+>                                                 "ibm,cpu-idle-state-flags");
+> 
+>         pnv_idle_states = kzalloc_objs(*pnv_idle_states, nr_idle_states);
+>         temp_u32 = kzalloc_objs(u32, nr_idle_states);
+>         temp_u64 = kzalloc_objs(u64, nr_idle_states);
+>         temp_string = kcalloc(nr_idle_states, sizeof(char *),  GFP_KERNEL);
 
+More than likely. Maybe someone from IBM can validate and send a patch.
 
-
-Tested on:
-
-commit:         58c1eb84 arm64: sdei: Preserve the interrupted context..
-git tree:       https://github.com/torvalds/linux.git
-kernel config:  https://syzkaller.appspot.com/x/.config?x=a58b6b4d667e7a61
-dashboard link: https://syzkaller.appspot.com/bug?extid=2e3bf0bd49acd9b21d4b
-compiler:       
-userspace arch: arm64
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=139d7b69580000
-
+-- 
+Cheers,
+Nathan
