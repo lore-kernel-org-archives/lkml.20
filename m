@@ -1,76 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.2
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794393484;
-	b=ORf8X4ePtiprj5Uh9j5UDBLjcwNuSRyLW8nAXXbbnH2sz9VbZCq0cDk0/z3iiiyjv/eb
-	 mexx7CkU+oOv7eLLMadymgiyrwvsfEnIKML5avhhmIKgqbdTHriOE2hdgFKbTBW2mNtXW
-	 WgsUoRu8ku16o+9aZObbVrKgjNm5KifJ/fmkZcPpU0sFdA/omKrfqg9GAvC7YUJVUUENE
-	 MKwHO8SwfJx4B4xbVi5lQhS4ApIEQUopmLD+Heq3WXDUnwXsOKldErfwNo+slcVUNF2ca
-	 FRQGJ6I1Sj1ILWZpavHIKKeprDzCr8mFzG3oSY3LJ2mj+wTti+5Yo5TwE28lXm4PIsw==
+	t=1794393493;
+	b=w+YxQpbz0DboYQmhfDksEqQlybnsFO/o4qvAWLLEN270M4478ZCdu+d1v9KpaPtr84kZ
+	 Nq1K6N3LK/BzuAa+6nMJpEGlkqHtXb+Imq0n8i3AtsxgRJk0pBywDKKgVvz8kp43a5fgm
+	 NOJNA6RXhYIfZzfl24+JZm/fRD7GWsfQr2/7xR8vWp30f7SwBGT601Dw/nO07ust+4NwH
+	 csPn6AASNV68ko/4JdBItN8/adYVQFrtuGYSewgarpN23QaYi8vIkhWLYDUrkkdV3nwsW
+	 dNIIAzyEGtvEBHCct8f4kFfbPxQEfHZu8qHeIVvXq/aoDjFbXquK2EamhGpogKEcDLw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794393484;
-	h=DMARC-Filter:DKIM-Signature:Received:From:Subject:Date:Message-ID:
-	 In-Reply-To:References:To:Cc:Content-Type:Content-Transfer-Encoding:
-	 MIME-Version:X-Debian-User;
-	bh=xbp7pSLhVxMYC2hVfg6GZZO7WIxGD+BRZdBndKeoUgk=;
-	b=Vy8Y7q/pyosgIeRWIQ4axZ98r3+hD9EhNsQ1vKwu90YOp7tktJtowfaleD8+8aIijVzG
-	 laqwSDVpNvPVPF2mEQuuXdg1c3Kf91huOaxyL3SiW0hZeShmEB5ylsO42Fd3OsOX6R24+
-	 LjR0rwQF3irZk6XIPT6SEfQ6QbQ2rdwdrlxMCy8Gaor1DPY4Th4M/fD3beTaJbCv2yAlp
-	 dTvEveuphqVTE0i/smEgtD1TuVcES3CAsrZgDSPhq89ZM6EAX383qAvVa+a9Zg758LCZw
-	 c+u1GaCfMF8mymynjuFOmWkgzAcrGq0H76kA3Jgf+xBLwuinAGsRXpmtRJnXtLoRU5w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794393493;
+	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 MIME-Version:X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=s1iSCWkosr8uugVmiar209VpIniv+jPLzqbiv1ogF2w=;
+	b=3x//uQ9RwsGJRqp9bH+SisehIWfm8E/26Ei+89gcyeeVPo0IezuXQdL/U0WQX1azqOLU
+	 d9xJIiYmWwGZMuG0e5IolGUKKV8HQ2wcdP6qHJhd1be7juQpHSzjQXYnp6bQhPlv4+WPV
+	 RyBCkbEEdeU6TZWC28/BQYBTlKfKwqhZ0Kl29DXZLbzFY7axmzfJQLKTOdjQZFhNhrOei
+	 8c9K2Gd2Q7R5M1nZPK3KrcscNa3G2lHtJHI/Hd0zecDqHfWRilXOUMJEVMV+LOvEBNMmR
+	 w57sxf2NtTpo4YtHurbZmJ42sxAp6NWb2mtEgBGP8VO1dRUEFbWVNemENFnsxpK7GBw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=debian.org;
-	spf=pass smtp.mailfrom=debian.org;
-	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=n5nSQ3XH;
-	arc=none smtp.remote-ip=82.195.75.108
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=RFJqj6SJ;
+	arc=none smtp.remote-ip=220.197.31.2
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4435606A32D;
-	Wed, 11 Nov 2026 10:38:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B4435606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D3C5606A33C;
+	Wed, 11 Nov 2026 10:38:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D3C5606A33C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=n5nSQ3XH
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:MIME-Version:Content-Transfer-Encoding
-	:Content-Type:Cc:To:References:In-Reply-To:Message-ID:Date:Subject:From:
-	Reply-To:Content-ID:Content-Description;
-	bh=xbp7pSLhVxMYC2hVfg6GZZO7WIxGD+BRZdBndKeoUgk=; b=n5nSQ3XHVM/rCaQFZKy4K+mtN1
-	YZb87iBqVze+2y568rQ8zZ4v/F4U5cAhzukTQLTCrUgxHG9zIPkIyK/qUlFMdO1TbegC+IGqHQcdI
-	0+XEY7F2cgk57Q/Or1yKqeZQ3GzBzWRP7f16FKRnA1zTdQuzRYkFZlesno54soHmOX6BaMKZEpv+7
-	oRRkiDyEyvE1wpLXD0ZMhqw7rJHzcWyZXmIDfDQ9qVQ4ODW0yFqDw1mH7Tj8XUUSFU6XZxUvDL9Kc
-	1VHN+EkKSAyNs43k9P4pZGuRNuJzqjK2PiHffHwL9QDPpBzpVgLG0Hzb4uo3/2TbayQlFdZpV85xR
-	oi58Za3w==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <emfox@debian.org>)
-	id 1xR5i7-00D7ZR-2N;
-	Wed, 11 Nov 2026 10:37:48 +0000
-From: Emfox Zhou <emfox@debian.org>
-Subject: Re: [PATCH v4 0/6] media: Add the ST VD55G0 global shutter sensor
-Date: Wed, 11 Nov 2026 18:37:32 +0800
-Message-ID: <179439345249.5.16817789862917866412@debian.org>
-In-Reply-To: <20261111095717.52181-1-lsa.uz@pm.me>
-References: <20261111095717.52181-1-lsa.uz@pm.me>
-To: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
- Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
- Sylvain Petinot <sylvain.petinot@foss.st.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Dan Scally <dan.scally@ideasonboard.com>, Hans de Goede <hansg@kernel.org>,
- Ilpo =?utf-8?q?J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Peter Marshall <pm@petermarshall.ca>,
- George Neacsu <geocausa@gmail.com>, Hao Yao <hao.yao@intel.com>,
- Fernando Rimoli <fernandorimoli11@gmail.com>, D. Manresa <dmanresa@gmail.com>,
- Jizhou Tong <fqwqf@fqwqf.xyz>, linux-media@vger.kernel.org,
- platform-driver-x86@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=RFJqj6SJ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:Content-Type:
+	MIME-Version; bh=s1iSCWkosr8uugVmiar209VpIniv+jPLzqbiv1ogF2w=;
+	b=RFJqj6SJfOte5eqye6/WLk5GNrh21QJSNpwe01joJG7XYLqU5X2uc3Xm3cfI5x
+	X34Tw0H8k3gR5jboEi6t8nFu9kiaBy1Sloe2s/Jb3BwfouyVRVZNEQhFwwsOmIk4
+	NP5eNRVMwHHZQHcBkG9vg/dz/s0qGG5HhQXv02irV2wLM=
+From: Chaosheng Qu <quchaosheng000406@163.com>
+To: Oleksij Rempel <o.rempel@pengutronix.de>
+Cc: Marc Kleine-Budde <mkl@pengutronix.de>,
+ Robin van der Gracht <robin@protonic.nl>,
+ Oliver Hartkopp <socketcan@hartkopp.net>, kernel@pengutronix.de,
+ linux-can@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v8 1/4] can: j1939: serialize cancel and rearm of the
+ receive timer
+Date: Wed, 11 Nov 2026 18:37:00 +0800
+Message-ID: <179439342083.276855.17693729235612665727@163.com>
+In-Reply-To: <1794300101.11111.1000001@163.com>
+References:
+ <1794300100.11111.1000000@163.com> <1794300101.11111.1000001@163.com>
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,24 +63,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Debian-User: emfox
+X-CM-TRANSID:_____wC3lSKARfRqQJBHGw--.11255S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7CF13WrWDJr43Zr13Zr45Awb_yoW8AFyDpF
+	Wqqr1DGw1kXayIkay0vr40gryrAFsayFs5J3WkKrWvyay5WF12yryFqw1YvF1DCwn8Ca4j
+	y3Wqq3s7u3Z0va7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U3kuxUUUUU=
+X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbC-wFJvmr0RYE09QAA3S
 
-Hi Sergey,
+Hi Oleksij,
 
-Here they are, for v5:
+Not a secret at all — and thanks for asking rather than assuming.  (My mail
+client lost the thread id of your message, so I am hanging this off the v8
+patch it is about; apologies for that.)
 
-3/6:
-Tested-by: Emfox Zhou <emfox@debian.org>
+The model is DeepSeek V4.1 Flash (`deepseek-v4.1-flash`), run through an agentic
+coding harness rather than a chat window: it reads the tree, builds the file,
+runs checkpatch and drafts the changelog. The analysis, the judgement calls and
+the mistakes are mine. v9 carries `Assisted-by: LLM` on all four patches, which
+is what `Documentation/process/coding-assistants.rst` asks for — that tag was
+missing in v8, and that was my omission.
 
-4/6:
-Tested-by: Emfox Zhou <emfox@debian.org>
+One thing about your attachment: it did not reach me. What I received has the
+line "In attachment is an extract from my setup" and nothing attached, so I have
+not seen it. If it is a config or a prompt/setup you use to get better patches
+out, please paste it inline and I will read it properly — I would rather learn
+from your setup than guess at it.
 
-6/6, with the Surface Pro 8 entry:
-Tested-by: Emfox Zhou <emfox@debian.org>
+On the first sentence: fixed in v9, all four changelogs now open in the
+imperative.
 
-The tag on 3/6 holds across the rename. This machine's ICL2 returns type
-0x10 on the line the driver maps, so the entry named AVDD takes it the
-same way "vana" does, on the same pin, 0x0A.
+  [1/4] Cancel and rearm the receive timer as one atomic step under
+        active_session_list_lock.
+  [2/4] Validate the packet number in ETP.CM_DPO, which is peer controlled and
+        currently accepted without any check.
+  [3/4] Check the skb that j1939_session_completed() hands to j1939_sk_recv(),
+        which dereferences oskb->sk.
+  [4/4] Reject a CTS packet number above pkt.total in j1939_xtp_rx_cts_one().
 
-Thanks,
-Emfox Zhou
+v9 is out. Code is functionally the same as v8 except one comment in [2/4]; the
+rest is the changelogs, the missing Fixes/Cc: stable tags and the cover letter.
+
+Thanks also for holding the duplicate patch on the Sun Yiqi thread for this one.
+I would rather get it right than get it in first.
+
+Chaosheng
+
