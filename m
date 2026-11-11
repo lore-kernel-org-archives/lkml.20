@@ -1,99 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794415062;
-	b=hdcGT8WyoCTemvdQx9bgqrgDLhregxw121MGSCTkJ1rx3ZlrM1qARQtFFJcZgYv7X7an
-	 LuzZhhrQ/Iwvf1UNNkH5MiaOzpv/R+M/KnUjf/0j8enSQjqkhT4H8Al78At4myg6cyS8c
-	 5UayKZ+jzPKQRqdeEVvkImJF5uOc/e4QXOgProCSSkHDAL1vvQ0EgDtt/4uj30fBu+eT0
-	 P8SNIU66WRmTCyLxrINve3Us4VSzZDmc/SRiYar5/jOKL9sivaLMkKSnoUSe5W9HlVJnW
-	 q/lSFSpKMLY0UlbZEcfQvV5ijH6by3+oyoabCvJZi9KukSqQWGKgXH4Pc49qEdzl9yw==
+	t=1794415068;
+	b=auho2q8YO389GAUL2uFHSo11XY169wi4IZlbqWeL+0pmO3rjbeXaXoB8BtbXu4+APxhV
+	 lmjFZIt78qbAAQUEmpuyd+rr4gIQPW0CgXtnWDLMvFLMPACc61IMm509rRcGyvA3eW0r7
+	 RAREkREpPe08UyfnTmrdvdZ72tmt+wvDcDerpPUWSyJ9DLVRdy4ajGF/0/d90o3qCd8yv
+	 DciEysrMeJY8GRPSVLj0aGUJ5jnVDpPLfUdbPnQt5oVspRlDT33I9UiSIMSxCRPj/hzRO
+	 Ixw2PJuwxyjUt4TnkeKX1zr1LghNNE9meRe9QHSJOj46S6rgQl5iZr3W1raBQTJB53Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794415062;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=urN55C0hSRid+Cb4EhN5hFHoQJs+a/cKjFFO3dJMiqc=;
-	b=YLTSrnhsVNniWArWqCkQv1Qy4vUVWLmMVcoN57dd7+kzZ5gpCj6JF8tx9PFmtjkyhqah
-	 inMeb5zRcwHsQGIKIP08miiKb8RYfvOFpOu6t2t28QkklJY77YQWq+gs+qapUcGPec/eS
-	 NkvCUbZ+fSxm4Guu6yOoNIoORKWerGKL8uWkE3Ozln1h3SLlCRqdWe0X5pn3J6OKADFgM
-	 4/QrwuOQbhPvidCXRj52b/fSs2Nqg0Z6vkFVUV0zlShCRrNr9xLmpZMnCdcSrknLRbJdG
-	 wl+888DwJXcgOpZeTONUfq0ItqI68h++uAuVu82Irul5Cn6v8E/COzNHnee7X0hUemw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794415068;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=E1QHDpc/aG9SReTwqdCX+OYwneXtbq0qKQ+Vh74y2Fc=;
+	b=WMgXsPjBqlrw//+M/wX9kH6W1+aj/b6PhUiyA6nqxv5DQFv9s2VUnkX1MP94sj39osMw
+	 3gJASLcNe3GjIGC3wBTYo9Gldzr5HPIsmaP3EhbVBjtSDsMzYI4jStAZYDgNJ7RyTVq7j
+	 +yhRoS2yON8qT2LgEUeWagQPCtPAvqDkaCVaR7R00SZsFRtyBN87uU5L/xI9Vm7NCxjfi
+	 CBOyo2/83yY6tfHE0XnTcYBunJuw21B8XQmLOgX0vamE4qC335VwdQwZFVPt/wtCiN9of
+	 48LbKKK+tM3k77R8uP0/+e2FoiSo9mFSWveuGvlYSyFXBrEY9e9Rpo98J0PT0Sla79A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=z8SKiMbt;
-	arc=none smtp.remote-ip=209.85.128.51
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iZX1dvXd;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E9BF606A894
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 16:37:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0E9BF606A894
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FA58606A889;
+	Wed, 11 Nov 2026 16:37:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=z8SKiMbt
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a210470b49so27964645e9.2
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 08:37:41 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794415060; x=1795019860; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=urN55C0hSRid+Cb4EhN5hFHoQJs+a/cKjFFO3dJMiqc=;
-        b=z8SKiMbtsioEG8BEDmDNhfB2vwKql5oh1BPP52d2Dpxsx/OemeCcemDPcThx6J7rKN
-         cXfp3TQkAUw4V6kEU4kgeU3Bph2WMo4EetbnMJc2/Tgujrq9scp+lAQqVKjMDwI0oitt
-         8E9DKhdn7ils0gksqKYfw57vlkMzxnSTg0LrbL9u6MPLBTv/kcWv6dtEaDxXigNi/hhj
-         lYHvyR8vMJczlxjFroYqh3l/WOiKlAZCo+h1Wfn99u7CCPPmrjUWwryGlo/LkVQeIbCp
-         9wBVHA6rFOf7pT/OIqMr1w6ybjX5a8BNhfFpsheqARETFob21JmhzpZNmee2dssuCJ8x
-         2WoA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794415060; x=1795019860;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=urN55C0hSRid+Cb4EhN5hFHoQJs+a/cKjFFO3dJMiqc=;
-        b=L3zDNy1yMt17vVUamcbV+SD6gGF0OplVArgb9WcPwxqNiV0oo6JVTnX+7wqJKKUy8p
-         lvoakCLhcHuTgCcAhJc94gAc7WzQ/MT8pz1ijh0fSRwFbkU+MJc+20t/A7d7zKtYfZwK
-         9d64mlynlCQao5VBTtINxxcUdUnKvNFwHcCoHT1e5+GlAS0bLcveNx7n6CVTOBfkdaGK
-         MwJHUPzCzFMa8MCz4lsZNsSgSluu2NTmR69yIn5LCQorX/oaQBqgREickS0DZ9mOp16G
-         f1T+uVGgfffUvKCbINUhjX/iXePSE8fkrh3fXvg1wQCkzDftWREuCxwRTqx81vDuvY5e
-         xnjQ==
-X-Forwarded-Encrypted: i=1; AL+hErEkluKDQjTEZqpqXtS8vvh02zF0yzGWUgH1ny8xQ0EAMUUDkXrScAjBCK5ux45WK228BRasoVCenPCH8Pw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+u86WykcwjfOHYtkKP9QgYp9ah8a96CC30OV9+7f1Atm2Jf+Gc
-	CGTvpHMDZODKhJJ4trtc94Kv5nPrd4VsRHHCck/HR8nO1KjiC8uLBd1g85cNDHb9
-X-Gm-Gg: AYBFou0bkB1p6OSbx+h5iHHiX7PT0UVGcS2hrn7GmKUT4aGO3dru6EDHf0c7QbtV/yJ
-	FqHAVoRgOSPd6R6/nzKV4y5RUqOuCKrCcwUrRWP2Ha7zVU+DNvJ1C2bPhF2S79roG0kobpqu2hy
-	AnZra8qtQgYqdGB1Q2xInpRqJh9viaHuHnVaohY4z3PG4m0AySxYYPn00FWIpVCwt17DCTmsooe
-	JsQ611XBLWjRchMPuUPdyl6P+gG6wEinhTW0gCdj8tgrW14KGuQvn8juz4eOrC0Fzw236Ho5uCV
-	XQgw4ZtrjbLoQiqpJDUGC9hnxTIeaC26oqlw69IhgFpEjUlDCDvzbM0UKm4hpdd7ogaUC/iJYm8
-	CPm02fbMXRA+1nmWfgwAuiV4tUu4djgxS91Rom6fDxxeOp11SiHhAC9zJcqrNagEIuwXw7Qppas
-	rIqIRaK73zQj3rjljhKtVDyCAEme6quSi91v62Tuyy3SBPPHd77Z+M5SP4tyw7Ge/X3uv5ceOjb
-	NWzf+uZsO0s1vIV3h9BpBGTxrwxlHbK3+IhAl2Fz6CVCxJ7D15dAIuCnftaK3SJVXM6a1SSeaaL
-	N6i7NrPo3Z1wWcQtOQG8leNZIjNONobCN961FeIU4701oKMcvSt4rhPF3WGzpM/iNWZa2TDLwnP
-	XJtz0Tg2G9VFZ
-X-Received: by 2002:a05:600c:3e1a:b0:4a1:ddca:8b66 with SMTP id 5b1f17b1804b1-4ba093b967fmr58000185e9.31.1794415060185;
-        Wed, 11 Nov 2026 08:37:40 -0800 (PST)
-Received: from gmail.com ([2a01:e11:1403:8620:6e81:13fe:ca06:8db8])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb4e28c882sm91135e9.6.2026.11.11.08.37.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 08:37:39 -0800 (PST)
-From: Paolo Pisati <p.pisati@gmail.com>
-To: Geert Uytterhoeven <geert@linux-m68k.org>,
-	Damien Le Moal <dlemoal@kernel.org>,
-	Niklas Cassel <cassel@kernel.org>
-Cc: linux-m68k@lists.linux-m68k.org,
-	linux-ide@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Lee Jones <lee@kernel.org>,
-	mfd@lists.linux.dev
-Subject: [PATCH v1 3/7] m68k: defconfig: enable WARP_MFD
-Date: Wed, 11 Nov 2026 17:37:30 +0100
-Message-ID: <20261111163735.227286-4-p.pisati@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261111163735.227286-1-p.pisati@gmail.com>
-References: <20261111163735.227286-1-p.pisati@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iZX1dvXd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E77C1F00A13;
+	Wed, 11 Nov 2026 16:37:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794415068;
+	bh=E1QHDpc/aG9SReTwqdCX+OYwneXtbq0qKQ+Vh74y2Fc=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=iZX1dvXdE8G3oXJiuZCXpzW0nU5GMPALtQULiB8eGueTzpPrBYK9PKUV1Y7qp8I9n
+	 bUzBvsWwohUb8HsyyfQauUUfC20j+bp2GRN8z+oibr0cdmeQMym9v6lsCdiQY8dasK
+	 Vi2uQRfQkypUXQDBZc1ZrIhQGt7KOIWbEgy1Ei6fFf5pgIWyNZj6UUlthcgGA5WVwt
+	 n04L0UhW0Oofo1WZWRVx4uXL44v5Aw3jJWJgy7kTEyIdG3I6Hq3qEOeh39K8Xgv/kd
+	 VOKU/22hwVnb7eU5Zb2AGjOaP48BKaFGJyrrq3c43oS5SwZjEl1Jlr5Wmr+GdZJDVY
+	 oJiD1wLtxi6tA==
+Subject:
+ Re: [PATCH net] net/sched: gred: reject table shrink with queued packets
+From: netdev-bot+sashiko@kernel.org
+To: shawnq1@163.com
+Cc: jhs@mojatatu.com, jiri@resnulli.us, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Wed, 11 Nov 2026 16:37:46 +0000
+Message-ID: <179441506699.2199510.1043654703064770302@kernel.org>
+In-Reply-To: <20261109163648.301164-1-shawnq1@163.com>
+References: <20261109163648.301164-1-shawnq1@163.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,41 +63,242 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Enable the CS-Lab Warp multifunction driver in the Amiga and multi
-defconfigs, which pata_cswarp now depends on.
+Thank you for your contribution! Sashiko AI review found 6 potential
+issue(s) to consider.
 
-Signed-off-by: Paolo Pisati <p.pisati@gmail.com>
----
- arch/m68k/configs/amiga_defconfig | 1 +
- arch/m68k/configs/multi_defconfig | 1 +
- 2 files changed, 2 insertions(+)
+Critical: 0 · High: 1 · Medium: 2 · Low: 3
 
-diff --git a/arch/m68k/configs/amiga_defconfig b/arch/m68k/configs/amiga_defconfig
-index e2d474e8cb8f..75d91d502545 100644
---- a/arch/m68k/configs/amiga_defconfig
-+++ b/arch/m68k/configs/amiga_defconfig
-@@ -20,6 +20,7 @@ CONFIG_AMIGA=y
- CONFIG_ZORRO=y
- CONFIG_AMIGA_PCMCIA=y
- CONFIG_ZORRO_NAMES=y
-+CONFIG_WARP_MFD=y
- CONFIG_HEARTBEAT=y
- CONFIG_PROC_HARDWARE=y
- CONFIG_AMIGA_BUILTIN_SERIAL=y
-diff --git a/arch/m68k/configs/multi_defconfig b/arch/m68k/configs/multi_defconfig
-index 1bbd2aa653c0..120dc68d492c 100644
---- a/arch/m68k/configs/multi_defconfig
-+++ b/arch/m68k/configs/multi_defconfig
-@@ -31,6 +31,7 @@ CONFIG_ZORRO=y
- CONFIG_AMIGA_PCMCIA=y
- CONFIG_ATARI_ROM_ISA=y
- CONFIG_ZORRO_NAMES=y
-+CONFIG_WARP_MFD=y
- CONFIG_HEARTBEAT=y
- CONFIG_PROC_HARDWARE=y
- CONFIG_NATFEAT=y
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [High] The fix is incomplete.
+- [Medium] The patch changes the result of an existing control operation.
+- [Medium] The new shrink guard treats a non-zero table->tab[i]->backlog
+  as meaning software skbs are still queued and gred_dequeue() will…
+- [Low] The new walk over sch->gso_skb in gred_change_table_def()
+  (net/sched/sch_gred.c:441-448) protects no VQ accounting, and the…
+- [Low] In gred_change_table_def() (net/sched/sch_gred.c:411-413) the
+  patch moves `struct gred_sched *table = qdisc_priv(sch);` below…
+- [Low] On the table-definition path, gred_change()
+  (net/sched/sch_gred.c:681-684) writes `sch->limit =…
+
+--
+
+net/sched: gred: reject table shrink with queued packets
+
+With this commit, gred_change_table_def() returns -EBUSY when a table
+shrink would remove a VQ that still has accounted backlog. It does the
+same when an skb in sch->gso_skb carries a DP that is being removed. The
+goal is to avoid a u32 backlog underflow in gred_dequeue() when a removed
+VQ is recreated later.
+
+Link: https://lists.openwall.net/linux-kernel/2026/10/22/1545
+
+> diff --git a/net/sched/sch_gred.c b/net/sched/sch_gred.c
+> index f3d9a7252949d..8ddbd7f058a6b 100644
+> --- a/net/sched/sch_gred.c
+> +++ b/net/sched/sch_gred.c
+> @@ -408,8 +408,9 @@ static inline void gred_destroy_vq(struct gred_sched_data *q)
+>  static int gred_change_table_def(struct Qdisc *sch, struct nlattr *dps,
+>  				 struct netlink_ext_ack *extack)
+>  {
+> -	struct gred_sched *table = qdisc_priv(sch);
+>  	struct tc_gred_sopt *sopt;
+> +	struct gred_sched *table = qdisc_priv(sch);
+> +	struct sk_buff *skb;
+
+[Severity: Low]
+This isn't a bug, but is there a reason to move the table declaration
+below sopt? The old order followed the netdev reverse christmas tree
+convention. Only the new struct sk_buff *skb line seems to be needed.
+
+>  	bool red_flags_changed;
+>  	int i;
+>  
+> @@ -437,6 +438,25 @@ static int gred_change_table_def(struct Qdisc *sch, struct nlattr *dps,
+>  	}
+>  
+>  	sch_tree_lock(sch);
+> +	skb_queue_walk(&sch->gso_skb, skb) {
+> +		if (tc_index_to_dp(skb) >= sopt->DPs) {
+> +			sch_tree_unlock(sch);
+> +			NL_SET_ERR_MSG_MOD(extack,
+> +					   "cannot remove a GRED VQ with queued packets");
+> +			return -EBUSY;
+> +		}
+> +	}
+
+[Severity: Low]
+Does this gso_skb walk protect any VQ accounting?
+
+GRED uses qdisc_peek_head as its .peek op, so qdisc_peek_dequeued() never
+fills GRED's gso_skb. The only other writer seems to be dev_requeue_skb(),
+and it runs after gred_dequeue() has already subtracted the skb from
+q->backlog:
+
+dequeue_skb()
+  gred_dequeue()
+    q->backlog -= qdisc_pkt_len(skb);
+...
+dev_requeue_skb()
+  skb_queue_splice(&requeue, &q->gso_skb);
+
+When the skb is sent again, dequeue_skb() takes it off gso_skb with
+__skb_dequeue() and does not call gred_dequeue() again. The VQ backlog is
+not touched a second time.
+
+The commit message says:
+
+    Reject a shrink while a removed VQ has accounted backlog or an skb
+    in gso_skb still carries a removed DP. This keeps the per-VQ
+    accounting state alive until all packets using it are drained.
+
+Is that accurate for the gso_skb part? The only effect of this walk seems
+to be a spurious -EBUSY while a requeued skb with a removed DP sits in
+gso_skb.
+
+> +
+> +	for (i = sopt->DPs; i < MAX_DPs; i++) {
+> +		struct gred_sched_data *q = table->tab[i];
+> +
+> +		if (q && q->backlog) {
+
+[Severity: High]
+Does this fully close the underflow the commit message describes? The
+same "dequeue subtracts the old skb length from the new VQ's zeroed u32
+backlog" case seems reachable without any table shrink.
+
+In gred_enqueue(), the skb's DP may have no VQ while tab[t->def] is also
+NULL. The skb is then passed through without charging any q->backlog,
+and the tc_index rewrite is skipped:
+
+net/sched/sch_gred.c:gred_enqueue() {
+    ...
+		q = t->tab[dp];
+		if (!q) {
+			...
+			if (likely((u64)sch->qstats.backlog + qdisc_pkt_len(skb) <=
+					sch->limit))
+				return qdisc_enqueue_tail(skb, sch);
+    ...
+}
+
+A VQ for that DP may be created later while those skbs are still queued.
+gred_change()->gred_change_vq() then installs a zeroed VQ:
+
+		table->tab[dp] = q = *prealloc;
+
+gred_dequeue() then finds tab[dp] != NULL and runs:
+
+			q->backlog -= qdisc_pkt_len(skb);
+
+This wraps the u32 backlog.
+
+This looks like the normal configuration sequence. gred_init() only
+takes the table definition, so "tc qdisc add ... gred setup vqs 4
+default 0" creates no VQs. All DP 0 traffic is passed through until
+"tc qdisc change ... DP 0 ..." creates VQ0 with backlog 0, while DP 0
+packets are still queued.
+
+This check only reads q->backlog of the VQs being removed. It can't see
+pass-through packets, because they were never charged.
+
+There is also a side effect. Once a VQ's backlog has wrapped, every later
+shrink that would remove that VQ fails with -EBUSY until the qdisc is
+reset. Before this patch, the shrink destroyed the corrupted VQ.
+
+Could this be fixed in the datapath instead? For example, dequeue could
+skip the subtraction for a VQ that never accounted the skb. That would
+also cover the shrink case, without the new -EBUSY behaviour.
+
+[Severity: Medium]
+Can this make "tc qdisc change ... gred setup vqs N" fail indefinitely
+under load?
+
+Before this patch, a shrink always succeeded. Shadowed VQs were destroyed
+with the "Destroying shadowed VQ" warning, so removing a VQ that still
+had traffic looks like intended behaviour.
+
+GRED uses a single FIFO. On a congested link with continuous traffic in a
+removed DP, that VQ's backlog is rarely zero. There is also no way to
+drain only those VQs.
+
+The commit message only covers a drained queue ("After the queue drains,
+shrinking and re-expanding succeeds"). Because of the Fixes: tag, stable
+backports would also bring the new -EBUSY to existing scripts that
+resize GRED tables at runtime.
+
+The underflow only happens once the VQ is recreated. Could the
+accounting be fixed at VQ creation or at dequeue instead?
+
+[Severity: Medium]
+On an offloaded GRED, does q->backlog only count software-queued skbs?
+
+gred_offload_dump_stats() adds hardware backlog into the same field
+under sch_tree_lock():
+
+net/sched/sch_gred.c:gred_offload_dump_stats() {
+    ...
+		table->tab[i]->backlog += hw_stats->stats.qstats[i].backlog;
+    ...
+}
+
+The nfp abm driver reports this value as the change in hardware backlog
+since the previous dump:
+
+drivers/net/ethernet/netronome/nfp/abm/qdisc.c:nfp_abm_stats_calculate() {
+    ...
+	qstats->backlog += new->backlog_bytes - old->backlog_bytes;
+    ...
+}
+
+gred_dequeue() never subtracts the hardware part. Only a later dump with
+a negative delta removes it. A shrink can therefore fail with "cannot
+remove a GRED VQ with queued packets" while the software queue is empty.
+
+The failure also continues after the hardware queue drains, until
+"tc -s qdisc show" runs again. Before this patch, shrinking an offloaded
+GRED always succeeded.
+
+> +			sch_tree_unlock(sch);
+> +			NL_SET_ERR_MSG_MOD(extack,
+> +					   "cannot remove a GRED VQ with queued packets");
+> +			return -EBUSY;
+
+[Severity: Low]
+Should this -EBUSY path leave sch->limit unchanged? gred_change() sets
+the limit before it calls gred_change_table_def():
+
+net/sched/sch_gred.c:gred_change() {
+    ...
+	if (tb[TCA_GRED_PARMS] == NULL && tb[TCA_GRED_STAB] == NULL) {
+		if (tb[TCA_GRED_LIMIT] != NULL)
+			sch->limit = nla_get_u32(tb[TCA_GRED_LIMIT]);
+		return gred_change_table_def(sch, tb[TCA_GRED_DPS], extack);
+	}
+    ...
+}
+
+iproute2 sends both TCA_GRED_LIMIT and TCA_GRED_DPS for "tc qdisc change
+... gred setup vqs N default D limit X". If that request shrinks the
+table while a removed VQ has backlog, userspace gets -EBUSY, but the new
+limit is already in effect.
+
+The earlier failures in this function are input validation errors. This
+one depends on how much traffic is queued at that moment, so userspace
+can't predict it.
+
+> +		}
+> +	}
+>  	table->DPs = sopt->DPs;
+>  	table->def = sopt->def_DP;
+>  	red_flags_changed = table->red_flags != sopt->flags;
+
+[ ... ]
+
 -- 
-2.43.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261109163648.301164-1-shawnq1%40163.com
