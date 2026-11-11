@@ -1,54 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794436610;
-	b=5JEjH43Qsz9uujsTmXXcg/EvOqPF2n8ulpIc9RS1HiN68fIY46V2bG6X+zqww0Ydc7A6
-	 fz2CV5wZKPZErk5pqLXOvJsfUxeI15hTI1gBtZR+ZxjW/5lBVjy2T55BjIC2mF2rX3nek
-	 pwo0+rOMj1luZ0lgo9mKTydtFcJRuvdtYKZtOR7TYbB9lc6UO6aV3Fe/uWmJbheQVVwr8
-	 Q0Cya66V3PcqsjTstbCzbR5+oiciyWtJsDIPEnGgpto9KdAdwXYzF+gdoMzNL9Rz0/ufF
-	 caXlbHVHaXz0mzrT0tOzjB8Y9tlr1ist062ItI2Kcul092aafToNFsVR/qp3AiZK7kA==
+	t=1794436653;
+	b=VPWekMVhcLPtIYB9cuYBC0WYxiKKJiTfzaf4eNxxWIUBZrtR9njCVNZS6Imhmb+ln0Zb
+	 UV2go754jU3dHvHJ7Vb7AFI4olE7qRZR918GU6uNfuT5BkrEpZ6Cr1zebJI+WH8d958Cb
+	 o2XMKlcQsx825TPBWM1iUGm/Z7sxJKj9ZTs42lHwE+zRcV9zRso693yXX47YP6Lqq2ztQ
+	 qNslgOK2fUCAUFhF4JQ/kcPtj0ehHuD5u15bvLDeIbKolSl+fMMM3IO+HhKickkP5docZ
+	 i+RSmv//6sszwcgA7C59OJHtrwUt+t/5ia6yok/9zm66xMQhKrRO5BKiABN4fv7ODgA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794436610;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:X-Developer-Signature:X-Developer-Key:
-	 Content-Transfer-Encoding;
-	bh=Kp6SWUPzNY3SnuEpqDyDKKx0eQvfF4FFcGru27vjJ+U=;
-	b=G+zRNsJQp5mg83ZR557Meh+M5W5x8Dc5/JFpAhusW7quupZbry1CoQmzCwRP43PCX3xj
-	 aN5608oEuMucHZmBNWG4k6HKpeUnCr14xUNeC52Hm2SEmtPwSl3LCZ8iTQHOQSLd8CCgQ
-	 BFTkLluB+NgwXkOKuJi+xb54cyThpTAmolPoHWntNCMC6z/DGuzAXhcjAmadvGZkQvD5u
-	 ZEFbFOaX0l8mJgwvh+giu4zKc0/uYr2SAtMKs/S/nYxYxdorkMItAOyi/i17Gf6Jahxyd
-	 er/NA6v60cjirjvijVTMQb9ZIzglMd2KDtoWW0jIXKyOprEBFsa/omvJpCyNBvggqHw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794436653;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Spam-Status:
+	 X-Spam-Checker-Version;
+	bh=iJrORkTKZetlPYnGNZA/pkmKUZubavEmrWi57SbUmv4=;
+	b=CIKfTR/4+ZxsucHp6et7ZqU/1EV4jX0uXfSPIGdBXAmc2sDV/lTf1h6K8LQZdS+UJJwV
+	 F2vP1xl6kcbJdK7sZCTR7MpRLk3ON+NgS/lRAeXCxjwCzlgxOpa6r+mBi/6ibQ/nCymKy
+	 KGMpuCp6VY961fqZaBzyihgUXASrTbmUMGzxOqo/9z3F1hAtMcy7vITNtBPHrlEEriDQH
+	 V6EZQ+KxBP+TaJfouu9xNI1AJQjGPnyVfwdQKZpU/E9hBTYXDArq/7JgeOHxBkldeXYoB
+	 aDnJAAH7NnDyzmvB0orrzuwehzKuRn1PBIYDZuv0gjB+85sYCb6aqzx24ajNaLF6V2g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bmy0Hz4C;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BEE4606A339;
-	Wed, 11 Nov 2026 22:36:50 +0000 (UTC)
+	dmarc=pass header.from=linux.microsoft.com;
+	spf=pass smtp.mailfrom=linux.microsoft.com;
+	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=dPZKH9zM;
+	arc=none smtp.remote-ip=13.77.154.182
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E7C2A606A324;
+	Wed, 11 Nov 2026 22:37:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E7C2A606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bmy0Hz4C
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87B431F00A05;
-	Wed, 11 Nov 2026 22:36:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794436609;
-	bh=Kp6SWUPzNY3SnuEpqDyDKKx0eQvfF4FFcGru27vjJ+U=;
-	h=From:To:Cc:Subject:Date;
-	b=bmy0Hz4CHiCfKltUIL+muGq5GLu8oWDVbPIrpqBKk7LXdSuR6U6OsK2FZ+L3hipNP
-	 mnxU3iIzDcLeQHM7LJGYRGRuC7fARGa9Ly67gO5rVSTenCgyNsUSmluQ4rZo+668G3
-	 jmkTl47mlI8FHQQsoeAjGRCATiUR+2uUrG4oSLlanq72fnPFFY62NC8hU97Qscmvs3
-	 EWyjtCqrxhvqapVAtLTw8U/k94QDtJZKMSDVGcFZmMeKJI7pbXMUIRUf09isZNM0pb
-	 lpTq1T3/dwupZasMlDUwmX9BHQrB7niHGx/qhoihlTh1PoyveOTE0bcF3PVvGFMtdk
-	 SbsR34/G2W11A==
-From: Christian Brauner <brauner@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Christian Brauner <brauner@kernel.org>,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [GIT PULL for v7.4] vfs fixes
-Date: Wed, 11 Nov 2026 23:36:23 +0100
-Message-ID: <20261111-vfs-7.4-rc3.fixes.2-6660a456a8e2@brauner>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=dPZKH9zM
+Received: from [10.4.158.9] (unknown [4.194.122.136])
+	by linux.microsoft.com (Postfix) with ESMTPSA id 53D8220B7166;
+	Wed, 11 Nov 2026 14:37:05 -0800 (PST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 53D8220B7166
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1794436648;
+	bh=iJrORkTKZetlPYnGNZA/pkmKUZubavEmrWi57SbUmv4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=dPZKH9zMDVcGATZlXDqvy/tVc2lf0uR4VyrTZtKpNH5QXkZiZQLnP/VcBimx5FE3T
+	 uImY8EV0e5m9I7fZIdCYLSIXQM4O815KVDGahs5UYll1dCfNWKY1zQIbJjL/uWjHQl
+	 mGkTB7JbsR3zeb+Wah0rI/ZBmKHIEKUd84s8Hqpg=
+Message-ID: <5d9dccba-61b0-4fac-8dc2-f09ce630157e@linux.microsoft.com>
+Date: Wed, 11 Nov 2026 14:36:57 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,202 +53,177 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=8937; i=brauner@kernel.org; h=from:subject:message-id; bh=hk6E6JBWz0x/ihgNONcGmK/Rdj0nRJuwS5nbVG+H++M=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWR9efvDsEN7xuzXh8VlRNqCNyXM4vH5r/nX0GNp1X+F+ RWFcYWvO0pZGMS4GGTFFFkc2k3C5ZbzVGw2ytSAmcPKBDKEgYtTACYydy4jw9xF049tvHnB2vGK zOuQd2xSUZZhLy81n1z5aFHC/oXHZYUY/ge7P+SS1ZihMMveReTi84T+81e0WHvYdQ5NuaphfjJ ChA0A
-X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 4/6] Drivers: hv: Mark shared memory as decrypted for
+ CCA Realms
+To: Michael Kelley <mhklinux@outlook.com>,
+ "decui@microsoft.com" <decui@microsoft.com>,
+ "haiyangz@microsoft.com" <haiyangz@microsoft.com>,
+ "wei.liu@kernel.org" <wei.liu@kernel.org>,
+ Mukesh R <mrathor@linux.microsoft.com>
+Cc: "arnd@arndb.de" <arnd@arndb.de>,
+ "catalin.marinas@arm.com" <catalin.marinas@arm.com>,
+ "linux-arch@vger.kernel.org" <linux-arch@vger.kernel.org>,
+ "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>,
+ "linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "lpieralisi@kernel.org" <lpieralisi@kernel.org>,
+ "mark.rutland@arm.com" <mark.rutland@arm.com>,
+ "sudeep.holla@kernel.org" <sudeep.holla@kernel.org>,
+ "thuth@redhat.com" <thuth@redhat.com>, "will@kernel.org" <will@kernel.org>
+References: <20261031001412.4150488-1-kameroncarr@linux.microsoft.com>
+ <20261031001412.4150488-5-kameroncarr@linux.microsoft.com>
+ <MN2PR02MB6863AA6357C8E0D4881F5FEAD4712@MN2PR02MB6863.namprd02.prod.outlook.com>
+Content-Language: en-US
+From: Kameron Carr <kameroncarr@linux.microsoft.com>
+In-Reply-To: <MN2PR02MB6863AA6357C8E0D4881F5FEAD4712@MN2PR02MB6863.namprd02.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hey Linus,
+On 11/11/2026 10:01 AM, Michael Kelley wrote:
+> From: Kameron Carr <kameroncarr@linux.microsoft.com> Sent: Friday, October 30, 2026 5:14 PM
+>>
+>> In hv_common_cpu_init(), the per-CPU hypercall input/output pages need
+>> to be marked as decrypted (shared) for confidential VM isolation types.
+>> This is already done for SNP and TDX isolation; extend the same handling
+>> to Arm CCA Realm guests so that the host hypervisor can access the
+>> shared hypercall buffers.
+>>
+>> is_realm_world() is declared in include/linux/arm-rsi-cmds.h which only
+>> builds on arm64 (it includes <asm/memory.h>), so using it directly in
+>> the arch-neutral drivers/hv/hv_common.c would break the x86 build.
+>> Introduce a Hyper-V-specific helper following the established
+>> hv_isolation_type_snp() / hv_isolation_type_tdx() pattern.
+>>
+>> On architectures other than arm64 the weak default keeps the existing
+>> behaviour.
+>>
+>> Reviewed-by: Michael Kelley <mhklinux@outlook.com>
+>> Signed-off-by: Kameron Carr <kameroncarr@linux.microsoft.com>
+>> ---
+>>  arch/arm64/hyperv/mshyperv.c   |  5 +++++
+>>  drivers/hv/hv_common.c         | 17 +++++++++++++----
+>>  include/asm-generic/mshyperv.h |  1 +
+>>  3 files changed, 19 insertions(+), 4 deletions(-)
+>>
+>> diff --git a/arch/arm64/hyperv/mshyperv.c b/arch/arm64/hyperv/mshyperv.c
+>> index 46ab2da..da6c3aa0 100644
+>> --- a/arch/arm64/hyperv/mshyperv.c
+>> +++ b/arch/arm64/hyperv/mshyperv.c
+>> @@ -182,3 +182,8 @@ bool hv_is_hyperv_initialized(void)
+>>  	return hyperv_initialized;
+>>  }
+>>  EXPORT_SYMBOL_GPL(hv_is_hyperv_initialized);
+>> +
+>> +bool hv_isolation_type_cca(void)
+>> +{
+>> +	return is_realm_world();
+>> +}
+>> diff --git a/drivers/hv/hv_common.c b/drivers/hv/hv_common.c
+>> index 31256cb..a60c92c 100644
+>> --- a/drivers/hv/hv_common.c
+>> +++ b/drivers/hv/hv_common.c
+>> @@ -476,6 +476,7 @@ int hv_common_cpu_init(unsigned int cpu)
+>>  	u64 msr_vp_index;
+>>  	gfp_t flags;
+>>  	const int pgcount = hv_output_page_exists() ? 2 : 1;
+>> +	const size_t alloc_size = ALIGN((size_t)pgcount * HV_HYP_PAGE_SIZE, PAGE_SIZE);
+>>  	void *mem;
+>>  	int ret = 0;
+>>
+>> @@ -489,7 +490,7 @@ int hv_common_cpu_init(unsigned int cpu)
+>>  	 * online and then taken offline
+>>  	 */
+>>  	if (!*inputarg) {
+>> -		mem = kmalloc_array(pgcount, HV_HYP_PAGE_SIZE, flags);
+>> +		mem = kmalloc(alloc_size, flags);
+>>  		if (!mem)
+>>  			return -ENOMEM;
+>>
+>> @@ -499,14 +500,16 @@ int hv_common_cpu_init(unsigned int cpu)
+>>  		}
+>>
+>>  		if (!ms_hyperv.paravisor_present &&
+>> -		    (hv_isolation_type_snp() || hv_isolation_type_tdx())) {
+>> -			ret = set_memory_decrypted((unsigned long)mem, pgcount);
+>> +		    (hv_isolation_type_snp() || hv_isolation_type_tdx() ||
+>> +		     hv_isolation_type_cca())) {
+> 
+> Could this big "if" statement use "hv_is_isolation_supported()" instead
+> of explicitly testing for each CoCo VM type? I ask partly because
+> Mukesh Rathor has just submitted a patch [1] that introduces a new
+> function that does something almost exactly the same as
+> hv_is_isolation_supported() and uses it here.
+> 
+> You don't provide the non-stub hv_is_isolation_supported() until
+> Patch 6 of this series, but the weak stub should allow everything to
+> build if a bisection splits this patch series.
 
-/* Summary */
+Including your response to Mukesh for context:
+> Any reason not to use hv_is_isolation_supported()? Your
+> new function seems conceptually equivalent, though at a
+> detailed level it handles VBS isolation differently from
+> hv_is_isolation_supported(). But I don't think including
+> VBS isolation here is a problem since set_memory_decrypted()
+> is a no-op with VBS isolation.
 
-This contains another round of fixes for the current development cycle:
+I'm not fully convinced that calling set_memory_decrypted() is always a
+no-op for VBS.
 
-- inode: Let the shrinker reclaim inodes with I_METADATA_WRITEBACK like
-  any other clean inode and have evict() write out what the bit tracks
-  unless the inode is being deleted.
+I see that on VBS VMs, ms_hyperv_init_platform() calls hv_vtom_init().
+If set_memory_decrypted() calls hv_mark_gpa_visibility(), you will try
+to use the inputarg before it has been initialized.
 
-  Since v7.3 ext2, ext4 without a journal, fat, udf and minix set
-  I_METADATA_WRITEBACK when they copy an inode into its buffer and only
-  fsync() and friends clear it again. inode_lru_isolate() took such
-  inodes off the LRU expecting something to put them back once the bit
-  was gone but nothing ever did. So they couldn't be reclaimed until
-  something fsynced them or the filesystem was unmounted. On ext4
-  without a journal an atime update was enough to pin an inode, and
-  creating 60000 small files in a memory cgroup limited to 96M got the
-  task OOM killed after about 43000 of them. Now all 60000 get created.
+Please let me know if my understanding is incorrect.
 
-- dcache:
+-- 
+Regards,
+Kameron
 
-  * Give d_set_mounted() a seqlock of its own that d_invalidate() waits
-    on after unhashing the dentry. Since v6.17 d_set_mounted() doesn't
-    bump the seqcount of rename_lock anymore, so a mount racing
-    d_invalidate() could end up below the unhashed directory. Nobody
-    can reach it there and it pins the subtree until the mount
-    namespace goes away. With a FUSE directory 3000 levels deep 151 of
-    200 bind mounts racing FUSE_NOTIFY_INVAL_ENTRY ended up there.
+> Michael
+> 
+> [1] https://lore.kernel.org/linux-hyperv/20261111022036.351231-2-mrathor@linux.microsoft.com/
+> 
+>> +			ret = set_memory_decrypted((unsigned long)mem,
+>> +						   alloc_size >> PAGE_SHIFT);
+>>  			if (ret) {
+>>  				/* It may be unsafe to free 'mem' */
+>>  				return ret;
+>>  			}
+>>
+>> -			memset(mem, 0x00, pgcount * HV_HYP_PAGE_SIZE);
+>> +			memset(mem, 0x00, alloc_size);
+>>  		}
+>>
+>>  		/*
+>> @@ -666,6 +669,12 @@ bool __weak hv_isolation_type_tdx(void)
+>>  }
+>>  EXPORT_SYMBOL_GPL(hv_isolation_type_tdx);
+>>
+>> +bool __weak hv_isolation_type_cca(void)
+>> +{
+>> +	return false;
+>> +}
+>> +EXPORT_SYMBOL_GPL(hv_isolation_type_cca);
+>> +
+>>  void __weak hv_setup_vmbus_handler(void (*handler)(void))
+>>  {
+>>  }
+>> diff --git a/include/asm-generic/mshyperv.h b/include/asm-generic/mshyperv.h
+>> index bf601d6..1fa79ab 100644
+>> --- a/include/asm-generic/mshyperv.h
+>> +++ b/include/asm-generic/mshyperv.h
+>> @@ -79,6 +79,7 @@ u64 hv_do_fast_hypercall16(u16 control, u64 input1, u64
+>> input2);
+>>
+>>  bool hv_isolation_type_snp(void);
+>>  bool hv_isolation_type_tdx(void);
+>> +bool hv_isolation_type_cca(void);
+>>
+>>  /*
+>>   * On architectures where Hyper-V doesn't support AEOI (e.g., ARM64),
+>> --
+>> 2.45.4
+>>
 
-  * Only take busy secondary roots off ->s_roots in do_one_tree() so
-    that umount waits for a racing eviction of an idle one. Since v7.3
-    it didn't, which ended in busy inodes after unmount and an iput()
-    on a dead superblock.
-
-  * Make a disconnected dentry a secondary root when the mount on it
-    goes away so that umount finds it and waits for its eviction. With
-    CAP_DAC_READ_SEARCH such a dentry can be mounted on via
-    open_by_handle_at() and move_mount() and umount racing its eviction
-    ended the same way.
-
-- splice:
-
-  * Remove pipe buffer stealing as you and David suggested. fuse and
-    virtio_console were the only users of ->try_steal() and now always
-    copy, as they already did when a steal failed. Stealing took page
-    cache folios out of their files and turned pages into page cache
-    folios and back. SPLICE_F_GIFT and SPLICE_F_MOVE are still accepted
-    and fuse still advertises FUSE_SPLICE_MOVE so servers that ask for
-    it mount as before.
-
-  * Clamp a ->write_iter() result that is larger than the iterator in
-    iter_file_splice_write() instead of only warning about it.
-    Otherwise the pipe releases buffers past its head.
-
-- ns:
-
-  * Allocate the namespace id before calling the namespace_init LSM hook
-    that was added this merge window. Landlock now logs the allocated id
-    instead of zero when it denies the creation of a namespace.
-
-  * Don't mark the arguments of the namespace_init and namespace_free
-    hooks as trusted for bpf LSM programs. Both see namespaces that are
-    only partially set up or on their way out.
-
-- proc: Don't let proc_sys_call_handler() report more bytes written than
-  it was passed when a cgroup/sysctl bpf program replaced the value with
-  a longer one. A splice() into the sysctl file then walked past the
-  pipe head.
-
-- coda: Pass the append state of each write on to the container file
-  with RWF_APPEND or RWF_NOAPPEND. coda_open() sets O_APPEND on the
-  container file after its iocb flags were cached, so an O_APPEND write
-  overwrote existing data instead of appending.
-
-- adfs: Reject big directory entries in adfs_fplus_getnext() whose name
-  doesn't fit into the name buffer. A crafted image overflowed it on the
-  stack.
-
-/* Conflicts */
-
-Merge conflicts with mainline
-=============================
-
-No known conflicts.
-
-Merge conflicts with other trees
-================================
-
-No known conflicts.
-
-The following changes since commit 1448959fe3d013ffdb8302d17e4a8fdad2d2da95:
-
-  fs: fix the SEEK_CUR f_lock condition (2026-11-09 16:04:55 +0100)
-
-are available in the Git repository at:
-
-  git@gitolite.kernel.org:pub/scm/linux/kernel/git/vfs/vfs tags/vfs-7.4-rc3.fixes.2
-
-for you to fetch changes up to 2cca8a6f6ae690755862f5b633125119dcf6bd0c:
-
-  Merge patch series "ns: fixes identifier fixes" (2026-11-11 12:41:49 +0100)
-
-----------------------------------------------------------------
-vfs-7.4-rc3.fixes.2
-
-Please consider pulling these changes from the signed vfs-7.4-rc3.fixes.2 tag.
-
-Thanks!
-Christian
-
-----------------------------------------------------------------
-Cheng Yongkang (2):
-      fs/proc: fix the write length returned by proc_sys_call_handler()
-      fs/splice: clamp an over-reported write_iter result
-
-Christian Brauner (22):
-      ext2: add ext2_inode_block() helper
-      ext2: don't read the inode block in ext2_sync_inode_metadata()
-      ext4: use sb_find_get_block_nonatomic() in ext4_get_inode_loc_noio()
-      ext4: don't read the inode block in ext4_sync_inode_metadata()
-      minix: add minix_inode_block() helper
-      minix: don't read the inode block in minix_sync_inode_metadata()
-      udf: don't allocate the inode block in udf_sync_inode_metadata()
-      fs: set I_METADATA_WRITEBACK in mmb_mark_buffer_dirty()
-      fs: don't strand I_METADATA_WRITEBACK inodes outside the LRU
-      ext2: drop mmb_sync() from ext2_evict_inode()
-      ext4: drop mmb_sync() from ext4_evict_inode()
-      minix: drop mmb_sync() from minix_evict_inode()
-      udf: drop mmb_sync() from udf_evict_inode()
-      fat: drop mmb_sync() from fat_evict_inode()
-      Merge patch series "fs: reclaim inodes with I_METADATA_WRITEBACK"
-      dcache: let d_invalidate() wait for a d_set_mounted() in flight
-      Merge patch series "dcache: fixes for mountpoints racing d_invalidate() and umount"
-      Merge patch series "splice: remove pipe buffer stealing"
-      bpf: don't mark namespace_init and namespace_free arguments as trusted
-      ns: allocate the namespace id before the namespace_init hook
-      nstree: drop ns_tree_add_raw()
-      Merge patch series "ns: fixes identifier fixes"
-
-Hungyu Lin (1):
-      coda: honor the append state of each write
-
-HyeongJun An (1):
-      fs/adfs: bound directory entry name length in adfs_fplus_getnext()
-
-Josef Bacik (2):
-      dcache: wait for a racing eviction of a secondary root
-      dcache: let umount find a disconnected ex-mountpoint
-
-Kiryl Shutsemau (Meta) (4):
-      virtio_console: copy pipe buffers in splice_write()
-      fuse: don't move pipe buffers into the page cache
-      splice: remove pipe buffer stealing
-      splice: replace nosteal_pipe_buf_ops with default_pipe_buf_ops
-
- Documentation/admin-guide/LSM/landlock.rst |   5 +-
- Documentation/trace/events-landlock.rst    |   5 +-
- drivers/char/virtio_console.c              |  39 +++-----
- fs/adfs/dir_fplus.c                        |   2 +
- fs/buffer.c                                |  16 +++-
- fs/coda/file.c                             |   3 +-
- fs/dcache.c                                |  44 +++++++--
- fs/ext2/inode.c                            |  63 ++++++++-----
- fs/ext4/inode.c                            |  22 ++---
- fs/fat/inode.c                             |   1 -
- fs/fuse/args.h                             |   1 -
- fs/fuse/dev.c                              | 146 +----------------------------
- fs/fuse/file.c                             |   1 -
- fs/fuse/fuse_dev_i.h                       |   1 -
- fs/inode.c                                 |  13 ++-
- fs/minix/bitmap.c                          |  37 +++++---
- fs/minix/inode.c                           |  18 ++--
- fs/minix/minix.h                           |   1 +
- fs/namespace.c                             |   6 +-
- fs/pipe.c                                  |  43 ---------
- fs/proc/proc_sysctl.c                      |   5 +-
- fs/splice.c                                | 113 +++-------------------
- fs/udf/inode.c                             |  33 +++----
- include/linux/fs/super_types.h             |   2 +-
- include/linux/ns_common.h                  |  16 ++--
- include/linux/nstree.h                     |  29 +-----
- include/linux/pipe_fs_i.h                  |  38 --------
- include/trace/events/landlock.h            |   3 +-
- ipc/namespace.c                            |   3 +-
- kernel/bpf/bpf_lsm.c                       |   2 +
- kernel/nscommon.c                          |   7 +-
- kernel/nstree.c                            |   2 +-
- kernel/watch_queue.c                       |   4 -
- mm/shmem.c                                 |   7 --
- net/core/net_namespace.c                   |   4 +-
- net/core/skbuff.c                          |   2 +-
- security/landlock/ns.c                     |   3 +-
- tools/testing/selftests/landlock/ns_test.c |   7 +-
- 38 files changed, 239 insertions(+), 508 deletions(-)
