@@ -1,99 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.136
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794397109;
-	b=WJ7srcWRvGXCFDEws4DFJHGimXXhwe3LcZQshAeeemvwX52f2Z3ahTvRCSenu6wjzJhh
-	 0clUdBZfMRp6scaEuwnuIudgtxOTUXk2VxeuVMi8WCfZT5l9aCYTRSoXo7E8QhW5WpGuK
-	 1/mQzPIhf2rSNhUqr2C8pR+Igz2uTLzTSLEYqN9AlJbxPnOFOyavvZPm6X/pv1vKHRml1
-	 7ZXj/YAiU+jGXGitX3WjZrAWqU/dEdN4KbrXG5D3ZTOsFQI7oE9cBYDqkmqIjBEP2tBrx
-	 4UDFfqzLpW5giKOEKcfg16N+YKbthKOnpTnz03yUAmtf935M/3jNcVGQNoEy/ut1yMQ==
+	t=1794397155;
+	b=whCR1zPhC4i7r5jmew/lO8yCe08FVvcYoLHOr90EiWQmF/gOcOdknUryRz2yvi8QD3mg
+	 WYsPhcJOhdRydb4LGFcD9bnm8Q0TXl8aBa9LkVIinPmgf2fpLfAAZeYFADNIzPAAxD0xG
+	 gBjYYWcGjPmnh6VSY8oOdABDbOL/IDbX+7I82N/t0h8CQwCain7CXjo4qh/Y7iQ60aUYu
+	 ngXgDFoaukAKK/5sr4dUykV9FGrEz0t3vP6yyzUM6cX/up27V5/nQ4yo5j94VQAh4xewt
+	 XaMEiddDv+HuUwTFu5vUFCpY+W4GWfcmMiNwHOhNgKdGDEWe/AUWN7q+iT6RRrWQWFg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794397109;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=4fTSg96yjoQMA+V2VPZldNNXe6tjLZP6OX5IOcXamiY=;
-	b=ZU6V2lcj4CpgV8RjM8VxUWqRg/5SZ+rMe5IJuO0gMridoFy14SNS1R+RD7jPwGfoSqZo
-	 9XdaBcBMCZ9Zm0gVevRCZCSjbvzPd70+FZuuz5St7vCVaHr1Yosh0jBMCgAlUNQ8SQMo8
-	 deGAJLFqUTxPBImsfn6rtMZO8T1dYY3AY3UF83P2b9muTIoXxdCxqE5F8XHdsLWqZ0zjK
-	 vhSMgCE1bKw6BMoj232wb/Mqg2fSeXSq0fHlPJVU3phbN7JGTZe3mOmLfOfirlQx5fOsG
-	 oAFeHUNXRuxMTlsmoMO6jYrLwzpJi8WY/2tz4Ajkw7nJh8HICIWeEuwOQvcbWfkphkw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794397155;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=sm9PXJr5TIiyZl5zOIT5PuR1aDglg76Y9OqldJz8H9E=;
+	b=h2txOat5WVnpsVBSrwsZB36bvfXRrRFejjkSnfceLokRBNdNKHYnD3FzN0ZnlvWz9U5c
+	 OXGfsf+xZdeLw08xXlT17XA7S7A9VUcngpymK3wKMC0ElbAFCBEzhZKybmoqHbBPG8Lki
+	 Aik9OkqW83bsvDJj7pPqnCexezUrIIYbgpymx3ME28B/93AqvweTnRzTafrxIheHT1DwV
+	 00aUN3eNLRr3EX8ESa72jufogOHLpRRv2HqHplIG3OicbVQVPFkXRAwC1pHujwk/gbGpo
+	 VbZxCvjj2z5rgJZCgjeHHDQML3wr6ObUz89IqByqNUbN+MEBrDWBsWp5LasjaDdWSEA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="vB/q3lbx";
-	arc=none smtp.remote-ip=209.85.128.178
-Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com [209.85.128.178])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="i0Eu/+F3";
+	arc=none smtp.remote-ip=95.215.58.136
+Received: from mta1.migadu.com (out-136.mta1.migadu.com [95.215.58.136])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A92EC606A32D
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 11:38:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A92EC606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6CC0606A324
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 11:39:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D6CC0606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vB/q3lbx
-Received: by mail-yw1-f178.google.com with SMTP id 00721157ae682-8b31ca7e0bcso34030137b3.0
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 03:38:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794397107; x=1795001907; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4fTSg96yjoQMA+V2VPZldNNXe6tjLZP6OX5IOcXamiY=;
-        b=vB/q3lbxzaYlSJ1+gXxktaNt86Jwvfy2jDt2MT+T7mKBFdt7mmeMZ53iEjIWNJFvHh
-         IIZL0qdkYyYYgN57HQSKr33WHgMlUF00IUwe1XHSHzeZ0vQeq04AS/NPTTYTwXteT5k3
-         oE04k47YKh3Ia+VqASIpobwla8xPQLSOThYuRjlsz7yg9lDbex7XBYVdr79DdDVBsJ0W
-         +XecGUII5mlSenRVyIIkho2Z+Sg6AHHqWpl5E/qPGEydBtWPi/CySJkw4iUku8AJ8nqX
-         3WpXH9hJEeg0qlAjq8gHoZDIvG2F7EpEqpUL31L7CafO6HFFbIROu7KCecTxOatcMbPy
-         hMDw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794397107; x=1795001907;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4fTSg96yjoQMA+V2VPZldNNXe6tjLZP6OX5IOcXamiY=;
-        b=FhkK8TAuJBLfu6/h75Zs4CXATlKrNpekAZ1dgSWUJ44hUQhePps5OL9QpKV+0i/tpb
-         LNu5JL8I5mcpIKxDvewmpwdhf4L/2kmKi+NtUQWLynlck0LAW0Z6B0/UwAPhs2T3bv8y
-         ng0jmqQJxG54bPeEPHDcd7Ce5zelwCCsnGPJ9K0/1gbOhhE8NGexw5Mhn1WJ5OKyw5PA
-         rzM0I4YoKGRGNTQPuRS6MRZ+0bdlevgO44Sr6uw3P4Da2zOs5nN05hcpoxEKKss6wjXh
-         hNWOwLb+MmXLKjj4V19gN+R6tyW54tsVgKy5ZER5jSTBh8zPPGxuPR1B6WI7r6/bR3WD
-         DQFQ==
-X-Forwarded-Encrypted: i=1; AL+hErEeTPXCvC0kEMn7q+VnlpMSBzPIvYPlyDJYeOZ5j9JCPrgo8f+0Zaww9s9S22NTeR5ZLcBFo6EFI/FbNCA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8YkYEIvoRJAUPuiXT2USfSkirYoS8Zq9JbyRcqViHLVCRBQxL4
-	el2XOxg+PD9y+2Nw+zO6nspTxFjIpp/1SQxhVTl3gvqnzYF8hMsW6J3r
-X-Gm-Gg: AYBFou3ReawOqacl2QBRVO0VLF0O8OPVORj616wZHcpPPmJ9EqBtXjc1KNOhxASsXbM
-	YR+G88lRwsh2Gv6dPEx1JvniFXR+r3/LduxGSSixzTLDG/AkykpKpACk2io1UwXnoVSnHYm5MW3
-	WF0yZ3Dgirgiqc/r935oo8CZROqGaf1L0lKpUyIoqzbWwe1WGq6QXb68DdjMsH4pnLhHKru0+E0
-	ernepZ24cpJ8RTdo6G0xg0E7wlb3ne0iP5Mor8WTCMLeZHhkQB+BGvinDwmUwSsWL6XcT/xhPo7
-	Gyw0RTSPXMfioKboeaXG2sfDcCCgjNokBFCIoqW77DSWiesvpfBPDwsy0ViLDtNpzQud7lQUCzP
-	ZYuAJB/J7tVNrgSb6YHAzyEHg6mzOzuyWj0KveifyzwQUP4WVgvqrr2NDOwG8wI/0V+ldQF8X97
-	0nJOWibHm4HcmtX9906UQSSkgP/Mj6951LPWgIt93o8nCuNGihDiZ0wlOPZgsQH49f7Of/Ue4l5
-	vUFBrKwvCX0Dy0axEM1Zg9wDLLbAIjJp+p2uACK5tPUteBbTc2HsVXycAG5TbomgxCD/harkoiK
-	4CQ8nQQ41K/6nxFDtVMfg/ApUJ8aP0hOQCPFNEap3hLbRJtHxPHItmr7zP1w5vRyvtvHf6EQhm2
-	vUQSVkv1B
-X-Received: by 2002:a05:690c:15:b0:8b0:d9ff:4f74 with SMTP id 00721157ae682-8b3a81ce1b9mr20456647b3.42.1794397107526;
-        Wed, 11 Nov 2026 03:38:27 -0800 (PST)
-Received: from fedora ([187.120.157.132])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b393426f13sm42133187b3.34.2026.11.11.03.38.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 03:38:27 -0800 (PST)
-From: Guilherme Giacomo Simoes <trintaeoitogc@gmail.com>
-To: trintaeoitogc@gmail.com
-Cc: axboe@kernel.dk,
-	bvanassche@acm.org,
-	josef@toxicpanda.com,
-	linux-block@vger.kernel.org,
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=i0Eu/+F3
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=4Mq5z6I5/MSe2xUzwOBENm+Vhd7unCO4r5C+7Fe1rDA=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794397151; v=1; x=1795001951;
+ b=i0Eu/+F3b/9EIe3orqhl3IDtDiqj4w5mYalWC3I9BI2zzPkKVtmddwZ2out4xDtscItFvv4Z
+ zw1nVFvdEnGmaBICuCkqy+b/02u54VlQdV1xPlQBGtCfHJA+z+BLwF0Smp5dKKDBTxDw9iHv6Ua
+ wc4mCiMli/81WCRU8/mACUy4=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id 48df2cab8c88d833;
+	Wed, 11 Nov 2026 11:39:11 +0000
+X-Mizu-Trace-ID: 48df2cab8c88d833
+X-Migadu-Flow: FLOW_OUT
+From: Usama Arif <usama.arif@linux.dev>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	apopple@nvidia.com,
+	byungchul@sk.com,
+	david@kernel.org,
+	gourry@gourry.net,
+	jannh@google.com,
+	joshua.hahnjy@gmail.com,
+	liam@infradead.org,
+	linux-fsdevel@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	nbd@other.debian.org,
-	syzbot+d7d72f3d467710442af0@syzkaller.appspotmail.com
-Subject: Re: [PATCH] nbd: fix circular lock dependency
-Date: Wed, 11 Nov 2026 08:38:14 -0300
-Message-ID: <20261111113814.221685-1-trintaeoitogc@gmail.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20261111101919.215767-1-trintaeoitogc@gmail.com>
-References: <20261111101919.215767-1-trintaeoitogc@gmail.com>
+	linux-mm@kvack.org,
+	ljs@kernel.org,
+	matthew.brost@intel.com,
+	mhocko@suse.com,
+	pfalcato@suse.de,
+	rppt@kernel.org,
+	surenb@google.com,
+	vbabka@kernel.org,
+	ying.huang@linux.alibaba.com,
+	ziy@nvidia.com,
+	kas@kernel.org,
+	hannes@cmpxchg.org,
+	riel@surriel.com,
+	shakeel.butt@linux.dev,
+	kernel-team@meta.com,
+	baolin.wang@linux.alibaba.com,
+	Nico Pache <nico.pache@linux.dev>,
+	ryan.roberts@arm.com,
+	dev.jain@arm.com,
+	baohua@kernel.org,
+	lance.yang@linux.dev
+Cc: Usama Arif <usama.arif@linux.dev>
+Subject: [PATCH 0/3] mm: fixes for THP migration, swap-in and device-private smaps
+Date: Wed, 11 Nov 2026 03:38:28 -0800
+Message-ID: <20261111113904.650722-1-usama.arif@linux.dev>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,47 +94,38 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Guilherme Giacomo Simoes <trintaeoitogc@gmail.com> wrote:
-> > There is no real circular lock dependency here. This patch addresses a
-> > lockdep false positive caused by the missing socket reclassification in
-> > the reconnect path. Please change the subject into something like
-> > "nbd: Also reclassify sockets in the reconnect path".
-> > 
-> >  > instead of the NBD-specific class leading to a possible lock dependency.
-> > 
-> > Please change "possible lock dependency" into "lockdep false positive".
-> > 
-> >  > Reported-by: syzbot+d7d72f3d467710442af0@syzkaller.appspotmail.com
-> >  > Link: https://syzkaller.appspot.com/bug?extid=d7d72f3d467710442af0
-> > 
-> > Please use Closes: instead of Link: for the syzbot report.
-> Ok, I will send a V2
-What do you think:
-```
-nbd: must reclassify socket when socket is created
+This series contains three fixes for existing THP migration, PTE swap-in
+and smaps paths. They were extracted from the work on PMD swap entries
+for anonymous THPs [1] and can be merged independently. Sending this
+separately as requested by Andrew (should have sent them separately
+anyways, my bad).
 
-When we need to connect or reconnect a new socket, we need to call
-nbd_reclassify_socket() to ensure that a false positive lock_dep
-circular warning fires. Inside nbd_add_socket(), after nbd_get_socket()
-call he already call nbd_reclassify_socket(). However inside
-nbd_genl_reconnect_sock_cb() the nbd_reclassify_socket() must be called
-too and this is not doing.
+1. Avoid a folio reference leak when concurrent MADV_DONTNEED clears
+   or splits a migration PMD before the device migration split helper
+   acquires the PMD lock.
 
-To ensure that even when nbd_get_socket() is called the
-nbd_reclassify_socket() will be called to, put the
-nbd_reclassify_socket() inside nbd_get_socket().
+2. Prevent PTE swap-in batching from mapping poisoned subpages of a
+   large swap-cache folio. Include the subpage scan helper with this
+   fix so it can be applied on its own.
 
-Move the nbd_get_socket() bellow of nbd_reclassify_socket().
+3. Account device-private PMDs using mapcounts in smaps, matching the
+   PTE path. Shared mappings get proportional PSS, and exclusive
+   mappings are counted as private.
 
-nbd_add_socket() no longer needs to do it.
-```
-?
+[1] PMD-level swap entries for anonymous THPs:
+https://lore.kernel.org/r/20261002095503.3585565-1-usama.arif@linux.dev/
 
-> > If the reclassification should happen in nbd_get_socket(), please move
-> > nbd_reclassify_socket() up instead of moving nbd_get_socket() down.
-> I was have moved nbd_reclassify_socket up, just like you suggested, but git
-> don't understanded this very well. But I will find way to get it
-No , I couldn't do it :(
+Usama Arif (3):
+  mm: don't PTE-batch a swap-in over a hardware-poisoned subpage
+  fs/proc/task_mmu: don't read young/dirty from a non-present PMD in
+    smaps
+  fs/proc/task_mmu: account device-private PMDs as present in smaps
 
-thanks, 
-Guilherme
+ fs/proc/task_mmu.c | 12 ++++++++----
+ mm/internal.h      | 15 +++++++++++++++
+ mm/memory.c        |  4 ++++
+ 3 files changed, 27 insertions(+), 4 deletions(-)
+
+-- 
+2.53.0-Meta
+
