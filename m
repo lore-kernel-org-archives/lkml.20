@@ -1,94 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794356564;
-	b=ld9QgBCllPYn8cqquatKwVa0+R7VU8cfmcZqu5xcRo6dudLv8SK/TDPX0xaQeDjkcm8y
-	 AqrmwRUxUucIPz/NsAkNil3DBRp+nJ7WrP1HiplPmhVDsm5U3tmOsdulo2FgmyagTSLO2
-	 FDdaajyQJFZoStAuvw7SdrUGFCdbPwPG+ooqxH5hBQZmmj3Z7brUsQHRHD4ZAVbELonhy
-	 Ue9Eo7Ij/U/npGXw0cCnDA1bj5p98Ne3pYM6PiSpnZOG3WbPR/cbvq7+0MdFsi8zK4WMg
-	 ESp3J6RYIwSkSzQrrm56Zcok9sPgWLSvX0YWNCw0Gut5mgYG2w86+NQU9I81GKa61Dg==
+	t=1794356649;
+	b=jb67xjz2XXnC/mnX6giaiW71tAxUC5YI2og59cdlwY79cjLZVB88gikO2MhvwvsXt3ee
+	 1rXk5vJ7hs2EAI8TVhDjTpdS2Qvd0xL5yL+IQ2V73O7sFoSd3NR14E2rzmvJa7XPyztO5
+	 YlTqfH30jn3ED056hkeCxP2QKM8Xhpf6jU0VR8KX3QKH4RWJKRJqhLkHj58qbbCxXlEoi
+	 SzvpvFpN+SxSgRDEDZmyVIMcpc3G4l1gd4OLmuys592lV+70LUUjfMDZ2FCICkcuvw2Fb
+	 EJ5HprNx7siDzifYTKMlXu7zCeu6VxdoUEnNbCLt3BZmHVs9pI6FKuAoQY38aNIEh5w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794356564;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794356649;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Subject:In-Reply-To:References:Date:Message-ID:MIME-Version:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type;
-	bh=J4oicOzhhzNrrESdfBNh/uYtU90CfHBxyRHjHAR9JIs=;
-	b=Q7e89/8PZrD5A2+UVRg1v09bwI7ZjhOeSup/NZOWF2P7HInImuA3San1F8qJQl/UxzC5
-	 tFJBv6MaG5ga89VhGyiU8wxGzZlvoxD0jQN7fNyXfcspyL9T9Zul6xPZ80rwThrUyF3IY
-	 Cconbc4BMjNB6W0REEfYSH2+U6hsZ2y0zv1ypA7TPTR3MT5oxkfU3IXXN8azAEQmjb9N8
-	 jXGU1xu2WiapXLY2CYYYC5Rce8eD5HZfqF1tCyRNVa+U5StM1oyUstzNaIB6cTZK+dkBd
-	 ZN4DJTJR01J5csTAtWinFQfkb6vw7M/744MA60xTmwQyTIMEPXkMGsWtQN4VBfSNoUg==
+	bh=8hRjHNT+bDawf2n+fS4w87yYb1rrNIQllzNnUpN3o7M=;
+	b=NR2pgJsFKq3j2QS7I6veJGiqvEIs28sAcZ4ZROIBLRHZi46HuAdDWpwJsPUVRFSLTupE
+	 vZyMlTgQSZI+DbfJvMPy1lsG94DQ2UHdwXrl4nq39m8CFNKc3Op1bKWJlBR4+PoZBdt/R
+	 3edYqbYZSzZ+MmmM84gp02887YpDcwLTE86lUQX0aIQpPSbHZC+8eIziwek7FlUAiLGfG
+	 R0kTQhI534440an8kbY1Moqwi8asCQOnVayKIpblga3jMsvjjFCb1XnuL88VnA8P9s3GT
+	 ks1vrYfsIQHI18CyLaXgC5oRT2pw8u+inSYfrDp6SZQ1+TOwF/6f30k8yRk9OxIWm/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=lxrnUnve;
-	arc=none smtp.remote-ip=209.85.214.182
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--dmatlack.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=NKjKVt5f;
+	arc=none smtp.remote-ip=209.85.167.197
+Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AB4B606A325
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 00:22:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0AB4B606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6144B606A32D
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 00:24:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6144B606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--dmatlack.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=lxrnUnve
-Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2e99b1e5b4cso15531235ad.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 16:22:42 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=NKjKVt5f
+Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4c467e19391so3965372b6e.3
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 16:24:09 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1794356562; x=1794961362; darn=vger.kernel.org;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:to:from:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20260707; t=1794356648; x=1794961448; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=J4oicOzhhzNrrESdfBNh/uYtU90CfHBxyRHjHAR9JIs=;
-        b=lxrnUnve40EXWhxMOyVdjBURsLMxnVf+IrFcqYPKBlfev186wtjus+SJLrXb4v0YVc
-         NmnyRnJKWo8xscWJZYVQJ+btdwHUB5woeG3IV5dbBkGds6npviMOquM/zWaggTK2wWLq
-         dH+50seMF0msvqI0NnS6NIgwYsXKKIWhIUSHlwmSrPMls02uz5Li4es3e/MO944Kkngn
-         FEhmP7vV+BYhqN6nyFN7JQXBRitXa0hdrycDrmUXuy8SkcLdREVIO1Yd5Jv0irc78yai
-         9lyJOTJyBcigAlXGpT8f67Z+F8FObd2xTsMm1yvnhaNIaWpuNOf5mxeF52UxYXerZ97Y
-         lf0A==
+        bh=8hRjHNT+bDawf2n+fS4w87yYb1rrNIQllzNnUpN3o7M=;
+        b=NKjKVt5f9XkfM7CuoIFDdkDQlHdtM0MKBEpsfvLZnwD9mUhdF49nghThwKCbg/tjdK
+         hgfZT8pLuZum4ckqFw7SeWG0cAhsoRsXo83NIItg2fmhSWU9fXZgGxQwiwOgZtcyrvHJ
+         73giSbswvAqqY7Na+Ukrt6vD3KdnejPS3opbZbg2vaB7dZzSAOQ7xRqyUohhuSOsT9oI
+         Cn80aCNPHwY0z/1hteK/M3Po8gexhZdicfOfS3XXdFjNML2utHPdR4Be98oqzhvmZ5g/
+         DGkADkkHabW+2AMRdEzsWN9Zsf/TGw5rTbQZljgGIebkGHoGyLULbzVzbfD9fV7Ruydk
+         mZAQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794356562; x=1794961362;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1794356648; x=1794961448;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=J4oicOzhhzNrrESdfBNh/uYtU90CfHBxyRHjHAR9JIs=;
-        b=NiMHNV9EYQUEc44aqAkmqHYu8m6NDDI4jcMiVh3kWL7rkjrN3OKaaqbbAVQYePm4Ck
-         k7a76uBgyWez3bBi0Oo1dDqeqrjhfDDEUNExP2SqA/dwsVPjvTSs5AoUnXJgtL6wEvx2
-         np7YkbiqrGBoYrmpP1+EUe9sNB/Yzh/KNGkwB93OoKgYyvAOkb2BGjdQ8AlA/OI4IYbl
-         ppfsj9aS+hTEGYT7dUZbOiEVkcetEdwKVBUgEyQ6bAmi54nxWYGFwW3I0vVGeRG/kNy9
-         v3CLEmNCbh/BQVX8lS7s/2Aenqn9b4urAPaeHbUubsyFSZGUH1AVDdZ1kU4OskwhwCjB
-         rxEg==
-X-Forwarded-Encrypted: i=1; AL+hErGp2NNh0NQGhPVtW8lFzcGPQWigekGXH3gwAsbTax8P1aXFfLvNcLLa19iL5fiS2Q5z5FWyr6Ajm1Kld4c=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/xn44ggpSENzwPdW22bWSuPfqL87VDFlR6Ueln9wW6ZJPrwkID
-	LPxKb+Jy6Qs/zDRK1nQDKKo0lS6Pm2mykmVQ7zFRZxUMeTPlMfTWVua+JW4g+4n3fwM=
-X-Gm-Gg: AYBFou3yhO3htzS6gwjMD7P1tNjhGca5p0hPwZoUKEV/HVwe+KZQt4/s538bdeyrOip
-	rTSCRIOv64JdrUN5knlhXp80a/BgbIWq6iJR4xJ/r3UbuQVhUtBQwzYWpcKe+8QiSaqLW004P8y
-	xIuBn74AQy6oOUgTWqiqnBn34w+oLbu/+JTTSotQTwLwf6Rcxo76fYMtBLC26MERlovACnMczsI
-	OOCHjVeFNzVB7rxEoBW9mDmgklrPSODWlsnm29PWa9T3C3XBPXZcHM844IS3+6DXQNyE9TzVqcX
-	GXns5QLN/GlsV4iooFb+zR5OWKfGzyg5vnO3MO2iujhyCuqYYx3m1hCsDFvOz1rRAa49ZiEbO/p
-	nhTT3BcV5JFI8Z0kpSTbjxl4l78IAqGyYQAYW08+4jsDlHDGdBAjvAZGAThBX3m0RiYiYRAKG/i
-	4USZ2MGpm7x9Y1gkD6clT4Nf4FD3yW0nudKxawYVn5/kBpHOFn3cWq2ivFAsdR3E0GeX+W8aL56
-	1HUODWwPfg716wxh4LIrEx/pmi0lbJ/GHtzi3/FqsOrYvm3OilMYq4zDCSZIYxnjesuhAZjUrmG
-	tfxO5BGOgk9XD3A+4Z6xsOvT
-X-Received: by 2002:a17:903:b47:b0:2e9:3395:cca8 with SMTP id d9443c01a7336-2edd7a4638dmr8404065ad.46.1794356562384;
-        Tue, 10 Nov 2026 16:22:42 -0800 (PST)
-Received: from localhost ([97.126.173.69])
-        by smtp.gmail.com with UTF8SMTPSA id d9443c01a7336-2edb6a4234csm14094595ad.10.2026.11.10.16.22.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 16:22:40 -0800 (PST)
-From: Kevin Hilman <khilman@baylibre.com>
-To: Andreas Kemnade <andreas@kemnade.info>, aaro.koskinen@iki.fi,
- andreas@kemnade.info, rogerq@kernel.org, tony@atomide.com,
- linux@armlinux.org.uk, andi.shyti@kernel.org, thomas.richard@bootlin.com,
- wsa+renesas@sang-engineering.com, linux-arm-kernel@lists.infradead.org,
- linux-omap@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH] ARM: OMAP2+: fix omap_device with noirq_suspend
-In-Reply-To: <20261110211531.679943-1-andreas@kemnade.info>
-References: <20261110211531.679943-1-andreas@kemnade.info>
-Date: Tue, 10 Nov 2026 16:22:39 -0800
-Message-ID: <7hwlqktdww.fsf@baylibre.com>
+        bh=8hRjHNT+bDawf2n+fS4w87yYb1rrNIQllzNnUpN3o7M=;
+        b=X2voiXMl1RXnFRjKJbUtZsTtFRFJm3+F4FvOht9Y/hEhjgvgmxW7ZsRzyIiv2yvB8p
+         SOj8D7q0iKyVq7e/y8QRmlwEj/hajWexQfpBmY82CcAuhgot9reI3JRqzrBemhNJnKqq
+         FqbjswcrWxSVjN4e150NeHFvjw9cjNtjnwbZLDh8gJ3RB+wkTselYK2T63MyuY3x21W/
+         gToO5Czzg2tk18hUw3Th7qjFHxc07YbP/Bopn659lVRQaLthTitF6sO/fqvA3ZZFmL7l
+         J8nrICQCHzDI21/A4EXUKwPvs9Op5XqjwgQuB+qB+1gD2L9BZq1+Of+glgikHIswLVYE
+         2iVw==
+X-Forwarded-Encrypted: i=1; AL+hErFJs0XmOi7LZSPnwW/CO9yJCoi8R9RkPE4s7uVUlcRrWwy6JujVHgBmRcVjutjbmYnYLNYawGVHBMt/SgA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9brh9q8iyAvBsF4GGzR6leCYkGLSlzQAqt3ryFGxbVT7/u1z4G
+	4NGsDT4XE5ANgzQ/K492lYnhlCGeS/OW+LqMeByU4nDVXbgGq/b1xZhUD+prA/MGM+ZAIirhDVl
+	vqFauXN/xkkrqmw==
+X-Received: from iohf2-n2.prod.google.com ([2002:a05:6602:a5c2:20b0:9e3:4940:4cc3])
+ (user=dmatlack job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6808:13cc:b0:567:fd8f:403b with SMTP id 5614622812f47-56b97b17653mr680403b6e.42.1794356648195;
+ Tue, 10 Nov 2026 16:24:08 -0800 (PST)
+Date: Wed, 11 Nov 2026 00:23:39 +0000
+In-Reply-To: <20261111002358.1842967-1-dmatlack@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,54 +78,63 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain
+Mime-Version: 1.0
+References: <20261111002358.1842967-1-dmatlack@google.com>
+X-Mailer: git-send-email 2.56.0.542.g3ef89b7020-goog
+Message-ID: <20261111002358.1842967-2-dmatlack@google.com>
+Subject: [PATCH v4 01/19] liveupdate: Remove the list of steps from
+ luo_preserve_file()'s comment
+From: David Matlack <dmatlack@google.com>
+To: kexec@lists.infradead.org, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	linux-mm@kvack.org
+Cc: Alexander Graf <graf@amazon.com>, Andrew Morton <akpm@linux-foundation.org>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Christian Brauner <brauner@kernel.org>, 
+	David Hildenbrand <david@kernel.org>, Hugh Dickins <hughd@google.com>, Jonathan Corbet <corbet@lwn.net>, 
+	"Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, Michal Hocko <mhocko@suse.com>, 
+	Mike Rapoport <rppt@kernel.org>, Pasha Tatashin <pasha.tatashin@soleen.com>, 
+	Pratyush Yadav <pratyush@kernel.org>, Randy Dunlap <rdunlap@infradead.org>, 
+	Samiullah Khawaja <skhawaja@google.com>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Vlastimil Babka <vbabka@kernel.org>, 
+	David Matlack <dmatlack@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Andreas Kemnade <andreas@kemnade.info> writes:
+Remove the numbered list of steps from the kernel-doc comment of
+luo_preserve_file(), along with the sentence that introduces it, which
+repeats the first sentence of the previous paragraph.
 
-> Fixes cases where device runtime gets resumed in _suspend but then
-> pm_runtime_force_suspend is used.  So the device is disabled, but runtime
-> active in _noirq_suspend leading to duplicate runtime_suspend calls. So
-> rather check for the device state directly to indicate if changes are
-> needed.
-> This relies on pm_runtime_force_resume being used in a balanced way.
->
-> Fixes: 7da7fd7e66ac9 ("i2c: omap: wakeup the controller during suspend() callback")
-> Signed-off-by: Andreas Kemnade <andreas@kemnade.info>
-> ---
-> This really needs intensive scrutiny but might be a less invasive patch
-> solution better suited for stable and paves the way to get out of the
-> omap_device theatre without too much hurry.
+The list only restates what the code does, and goes stale whenever the
+code changes.
 
-This looks & feels correct to me.
+Suggested-by: Pratyush Yadav (Google) <pratyush@kernel.org>
+Signed-off-by: David Matlack <dmatlack@google.com>
+---
+ kernel/liveupdate/luo_file.c | 12 ------------
+ 1 file changed, 12 deletions(-)
 
-I also tested this (along with my WIP patch for that NEON count
-mismatch) and I have a very stable suspend/resume on OMAP3.
+diff --git a/kernel/liveupdate/luo_file.c b/kernel/liveupdate/luo_file.c
+index a39992da504f..a42b60356d52 100644
+--- a/kernel/liveupdate/luo_file.c
++++ b/kernel/liveupdate/luo_file.c
+@@ -214,18 +214,6 @@ static bool luo_token_is_used(struct luo_file_set *file_set, u64 token)
+  * unpreserved or successfully finished in the next kernel, preventing the file
+  * from being prematurely destroyed.
+  *
+- * This function orchestrates the first phase of preserving a file. It performs
+- * the following steps:
+- *
+- * 1. Validates that the @token is not already in use within the file_set.
+- * 2. Ensures the file_set's memory for files serialization is allocated
+- *    (allocates if needed).
+- * 3. Iterates through registered handlers, calling can_preserve() to find one
+- *    compatible with the given @fd.
+- * 4. Calls the handler's .preserve() operation, which saves the file's state
+- *    and returns an opaque private data handle.
+- * 5. Adds the new instance to the file_set's internal list.
+- *
+  * On success, LUO takes a reference to the 'struct file' and considers it
+  * under its management until it is unpreserved or finished.
+  *
+-- 
+2.56.0.542.g3ef89b7020-goog
 
-I tested on omap3-beagle (retention) and omap3-beagle-xm (off-mode) and
-both are now reliable across multiple suspend/resume sequences with
-these two patches.
-
-Reviewed-by: Kevin Hilman <khilman@baylibre.com>
-Tested-by: Kevin Hilman <khilman@baylibre.com>
-
-Kevin
-
->  arch/arm/mach-omap2/omap_device.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/arch/arm/mach-omap2/omap_device.c b/arch/arm/mach-omap2/omap_device.c
-> index 77a75b0b9ae69..52afc9089a5a0 100644
-> --- a/arch/arm/mach-omap2/omap_device.c
-> +++ b/arch/arm/mach-omap2/omap_device.c
-> @@ -393,7 +393,7 @@ static int _od_suspend_noirq(struct device *dev)
->  
->  	ret = pm_generic_suspend_noirq(dev);
->  
-> -	if (!ret && !pm_runtime_status_suspended(dev)) {
-> +	if (!ret && (od->_state == OMAP_DEVICE_STATE_ENABLED)) {
->  		if (pm_generic_runtime_suspend(dev) == 0) {
->  			omap_device_idle(pdev);
->  			od->flags |= OMAP_DEVICE_SUSPENDED;
-> -- 
-> 2.47.3
