@@ -1,54 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794410590;
-	b=KK0M/mnj8x7ZcdUGNgj7Sr0cbRlGlr2kJ1jWimjPvr7yREgnTW4Ntm8Cbo5YDdWSxfzX
-	 P0xpHzokWi3g1SZGBaKR+Te9KiH5AwVYN6CIp6oY/laXdlFejZvYQY+mfy67oj52GZ3dQ
-	 yEOhWoPZEVNU9ytQzCrS2xINPfRvFKrtDPGDZvA6SKyW/iXqRFza2sDCqVXv1JhQXuGf1
-	 MltP+ZC6tRg13pMeG/07Ct9UdQgz9MsIRMOa1z1kw4WkK6THSO5SC/f2mDF771ElAd8Mk
-	 R3HBfCYFhs6N79TImaLhkHZaXk9jACn/k/a4btpjwp8gO+W7FkZfRIEBpD8wfngOQHw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794410590;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ZohoMailClient;
-	bh=Y/MlMaKErObWTkJAP1O/f3fHFrVRzBGbOZAvu7H6yRc=;
-	b=CYwgKNTz2vD6POJ0dZFDCG20a2EkjgXAzQHjpc4ac0rskVzjTyaEruMvZeTwNlrW4vDR
-	 Af2VpfAHl+jRuBMqQd/PBx2RvPTLUX3kiRSGeSPf7FOqXxd0ZJMgjC6+mZLzUMCWHBEdu
-	 EyPahaJO6vMh8WF44EE6gs+IQRIRykXiHKlbfsvzbMdu3aAyeyXBp55Bf9SWR5Xh1bvo2
-	 MDgnEohU1X0KrXvMLzKcCXRlQlCMcjl079GCA4nK+ITCy1H0N5wtu6sZyfDJ9el0XWM6C
-	 mj1FEr5vCrEk+U5UQChtCisAIPOCyYSbO/q4DWiWUbp20UxFzgAOVi+fc7ZF+uVA3WA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=UrZMGIBQ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794410645;
+	b=tNMGBAT9mgEB4qAtE4Bq0jyxd+jhQJQ4Yd/XVLRLgLnWrCeIAqS/YbekYzGk36Czkzw3
+	 8YTUneeemfV0tT/eZlm3Gh8nJt4swt3JpzZfLorBtM3IB4D7DWz1u7fChvwcai2kuZppe
+	 irhneXLEs9PURapnc4j7lWrOMrE18ITbDIaAi1+VdeNrBQblEVZmlMyDspdPmYftaTQpY
+	 TiSOFHfV5+q/PEnVTZ0YKn+Jka5orVs1g2OvrpKKVgo7FXlqe0wgiy/idrqa/RkFjmXHu
+	 kmYQjQS40BBjZD4ez4ShrvkqTQXmw+Wakbiv7AJPAkt+S3YNWh5aIIbzqP7OnyGZwMg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794410645;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer;
+	bh=l8E6CAg871M6o26VCTM4QGlPjPFhAzOzf3/AvOe/bZw=;
+	b=XCs3kAg1pIIg5YEsvGOkTIYfdxooVjWgbST4r3bG0SLRnOKQecubQLuOXS7jqDz+5klg
+	 /yK57AmbKkKJ7jhx1SkCpUJehYAQfHRAS9D9HaExyXTbGm/5rcbaAXIrBrKB/wcQJeiTF
+	 iUDlHsf7aujt9noqLSZ4zxJPK+8bTTMcWTyS2+AlHRXD8uqjlJX9GrygCi58nXcOghK2q
+	 ORt3ZkhFWahpXoebqEhpRHnLiFB2/KiSgkHnLSinax0OafIRn6UaZEhqCf8POttM+BVh3
+	 mbMdLZQN2Nq3pRUBNSPkKnwEBIZhdKBfn3OjvciXXJQuI9EwvB3UBGSSQ0wPRJ2jlKA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mVMUlHyQ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43B79606A324;
-	Wed, 11 Nov 2026 15:23:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 43B79606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BD20606A332
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 15:24:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=UrZMGIBQ
-ARC-Seal: i=1; a=rsa-sha256; t=1794410565; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=gBXb74t8VyXcyhF2U34LZjd/IUJj3d2VeYmcQwcVmhDgqYdt0aA7l4BF2EycZCovx+aXjoATAiB02Y/M51ryalVmhjkrhC4vlttiGVF6uMyV5tqaNzNd0tQYBIbnVGCct+sk5t0+BYv4Wnj3bz9feMny92y9aE9Cjs8Trt1RtI0=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1794410565; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=Y/MlMaKErObWTkJAP1O/f3fHFrVRzBGbOZAvu7H6yRc=; 
-	b=IPm3G8lZ0a0lC8SsV24HWlwwDfBP6W4rz4bY9DdjLaVpvnm8m/7sexyzQTTeVTLl3dqrCafCGvkxYiXnpi/i+XLIupHGqmIkzXY233oo6gQ5qkLZcbriw9xmfTnppHHlPHGaBhr3GyL+7fnAzYhhoAjhAb5ejKFlfWyg2GiFdp0=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=michael.riesch@collabora.com;
-	dmarc=pass header.from=<michael.riesch@collabora.com>
-DKIM-Signature: a=rsa-sha256; b=UrZMGIBQEwNvdRSMeyfv8q9k6o61Ee2F1LiS1C2mRPoIalF2xvjnL21zkDzXGaEOv/z9paE0HJsU5voIWxvZllirKR4WSYdPG7hxv0PyK2iAhqxeg0897VsJnDLW6rSGNsEMQulXjuEamsOW+NPiqeARAiAy0qaYuXAKO14jK4U=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=Y/MlMaKErObWTkJAP1O/f3fHFrVRzBGbOZAvu7H6yRc=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1794410563762127.88540542025612;
-	Wed, 11 Nov 2026 07:22:43 -0800 (PST)
-Message-ID: <fd9615e5-bc5a-4ce0-a43b-081f3e9c14c2@collabora.com>
-Date: Wed, 11 Nov 2026 16:22:38 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mVMUlHyQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB0B81F00A05;
+	Wed, 11 Nov 2026 15:24:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794410645;
+	bh=l8E6CAg871M6o26VCTM4QGlPjPFhAzOzf3/AvOe/bZw=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=mVMUlHyQqTAVZ1c4DLJvZbwcCJgUDUZpTbYZkG6wrtulkAMbkGPxk2NZdUwcFVBqq
+	 lmDEBuJa+vz44ituuC2uC76Co0foxlZON8fGb7kTjDNQzmZQnCltsiLAzLPoVKAa5z
+	 Tvyihu7VOquOgvua+XMrM+9/FL6BV3IbEmX6+TFzjNJU1aWhMudXLYRcCXp4whCSiL
+	 X0qNUBZbN6Fq4vx9VYqQ1lzsErh2qs8jU9BzR7DEuCobvL2Kqbyn/CKU5GVneiom6o
+	 pB9QKRPvjdFUmJasukWWGqNvxWDl2reGfRiZdfGHHqWxDnnK1q5aZ2/OS7AfBXyc+O
+	 mipV08l5OL/Jw==
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Sasha Levin <sashal@kernel.org>
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+ Reid Downing <skibletz@gmail.com>, linux-kernel@vger.kernel.org
+In-Reply-To: <20261109134708.263012-1-sashal@kernel.org>
+References: <20261109134708.263012-1-sashal@kernel.org>
+Subject: Re: [PATCH] memory: fsl_ifc: Do not dereference the unset global
+ pointer in probe
+Message-Id: <179441064353.189405.12967857924485810562.b4-ty@b4>
+Date: Wed, 11 Nov 2026 16:24:03 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,88 +59,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 8/9] phy: rockchip-samsung-dcphy: Add MIPI D-PHY
- receiver support
-To: Jason Yang <jason98166@gmail.com>, Vinod Koul <vkoul@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- Guochun Huang <hero.huang@rock-chips.com>,
- Philipp Zabel <p.zabel@pengutronix.de>
-Cc: Sebastian Reichel <sebastian.reichel@collabora.com>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20261110-dcphy-rx-v1-v6-0-d681ba20b36a@gmail.com>
- <20261110-dcphy-rx-v1-v6-8-d681ba20b36a@gmail.com>
-Content-Language: en-US
-From: Michael Riesch <michael.riesch@collabora.com>
-In-Reply-To: <20261110-dcphy-rx-v1-v6-8-d681ba20b36a@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
+X-Mailer: b4 0.16.0
 
-Hi Jason,
 
-Thanks for the patch!
-
-On 11/10/26 09:18, Jason Yang wrote:
+On Mon, 09 Nov 2026 08:47:08 -0500, Sasha Levin wrote:
+> Commit a78ee2e05f7c ("memory: fsl_ifc: Clear fsl_ifc_ctrl_dev on probe failure
+> and removal") assigns fsl_ifc_ctrl_dev near the end of probe, but probe still
+> reads the IFC revision and fsl_ifc_ctrl_init() still programs the event
+> registers before that. Both go through ifc_in32() and ifc_out32(), which take
+> the register endianness from fsl_ifc_ctrl_dev, so the first probe dereferences
+> a NULL pointer.
+> 
 > [...]
-> +static int samsung_mipi_dphy_rx_power_on(struct samsung_mipi_dcphy *samsung)
-> +{
-> +	struct samsung_mipi_phy *rx = &samsung->rx;
-> +	int ret;
-> +
-> +	if (!rx->hs_clk_rate || !rx->lanes)
-> +		return -EINVAL;
-> +
-> +	reset_control_assert(samsung->s_phy_rst);
-> +
-> +	samsung_mipi_dphy_rx_config_common(samsung);
-> +	samsung_mipi_dphy_rx_config_settle(samsung);
-> +
-> +	ret = samsung_mipi_dphy_rx_lane_enable(samsung);
-> +
-> +	reset_control_deassert(samsung->s_phy_rst);
-> +
-> +	return ret;
-> +}
-> +
-> +static int samsung_mipi_dphy_rx_power_off(struct samsung_mipi_dcphy *samsung)
-> +{
-> +	reset_control_assert(samsung->s_phy_rst);
 
-I wonder whether this is really a D-PHY specific thing. You can keep it
-as is for now, I'll try to bring up the C-PHY part on top of your
-series, and then we'll see.
+Applied, thanks!
 
-> [...]
->  static const struct phy_ops samsung_mipi_dcphy_tx_ops = {
->  	.configure = samsung_mipi_dcphy_tx_configure,
->  	.power_on  = samsung_mipi_dcphy_tx_power_on,
-> @@ -1535,6 +1905,15 @@ static const struct phy_ops samsung_mipi_dcphy_tx_ops = {
->  	.owner	   = THIS_MODULE,
->  };
->  
-> +static const struct phy_ops samsung_mipi_dcphy_rx_ops = {
-> +	.configure = samsung_mipi_dcphy_rx_configure,
-> +	.power_on  = samsung_mipi_dcphy_rx_power_on,
-> +	.power_off = samsung_mipi_dcphy_rx_power_off,
-> +	.init = samsung_mipi_dcphy_init,
-> +	.exit = samsung_mipi_dcphy_exit,
-> +	.owner	   = THIS_MODULE,
-
-Nit: either align all = or just use a single space (personally I would
-prefer the latter).
-
-> [...]
-Looks all good to me!
-
-Reviewed-by: Michael Riesch <michael.riesch@collabora.com>
+[1/1] memory: fsl_ifc: Do not dereference the unset global pointer in probe
+      https://git.kernel.org/krzk/linux-mem-ctrl/c/1a509eca07176bc3363031c030d038ca9be9dfc0
 
 Best regards,
-Michael
+-- 
+Krzysztof Kozlowski <krzk@kernel.org>
 
