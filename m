@@ -1,64 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.75.126.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794368188;
-	b=KhcXSwGdXe5wHmgpgxPvqgn1oT1C9A/Z3QcastOQgfqMQTtK0z9wQEfKYZI43CmyHMQ1
-	 KEloonok4RItJXI/qYn+WxyHV+W5kSeRaNOTOaKcWXc/SMDlpsk0lOI4x5IwmwGobmM2s
-	 QCfcfIw+0+5b1izGYAAmZ8QQGBFLYdNeZpXcztbFKV07aKJyOaXw3/5NqX/OesRdcwUGN
-	 w7LsOKsBCPuNva1uRnyeDgG1PgUo0W1WwKMwKgHIJz15tQqJdUiwJMD2D9gyWX6xPTi3P
-	 5ZwJII8T4dlyaUriXh5Sq04ulIHNlOmNKsVX177CHswsUy0UiYIeDTix46f/PhHSGCw==
+	t=1794368261;
+	b=vnTs77w4YyWJsHblXbu0N4pHSPUsyKIPSXlo+rJIjCxsPDK66llXBHte8eaAbf9aC8Kl
+	 RtOvak3eSTzfpsjNBDvjoQPzezaGCz1lF8rQ7qEqwLkLbvhSx5I5S74sJATsuiaqXnEzK
+	 gOvDbqXCWyAfV07rmm+VRdasQBLTNc/YmTepgvgvd/9UU0fBRL0EkMuklqpqFwd/NzdX6
+	 Cztdd8tyVb+oyzJnOCRITsHWWBEiMoU4VysLvf+oSeS3Xc4/pr7KmDj8ST0yznILQfCLX
+	 QmG1TfTqrSSsbT5KL7J/hvYjoKtBJ0znr0raXd9kViYiCmy+0WSEb1Xul6MVZ2dXOhg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794368188;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=h+asT6Z6u2feDlgtLUhSK+NEqUgeX4OV2tY+xo+MfSE=;
-	b=XU34FSVM+dKtskbJk3Pz0L0tszypoDbP3GukGCk7exWVtEW9E6ni4bUV7Ko/JngfCo2U
-	 WwuTOhW2R5zMB8JsgycGMAQOs8iqFPKapW71U1bOj8ffw/XgMF5TGXduXOBj/W4W3oCLe
-	 65F2TPyGsSB8ZrFibhJV7uPRf4JSX3vX6oYv8lHEfQ89s1mMIYxF7QfKaowBorgvzBYwa
-	 zAJ7/1YRqvRe5BLVK329bqxsMH0npuu3uNH3s2tBiAVhEvO6CZVNoOQY/MjhHCmkzvRSv
-	 oafl/hB1um08zo3g36DA7loMtBh7cjnkyHYpW+45s3Bbv7j4CNl/J4xQNemhV5czh8w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794368261;
+	h=DMARC-Filter:X-SpamFilter-By:DKIM-Signature:Received:Received:
+	 Received:From:To:CC:Subject:Thread-Topic:Thread-Index:Date:Message-ID:
+	 References:In-Reply-To:Accept-Language:Content-Language:
+	 x-originating-ip:Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=WZm6Ui0hK63YavF1uUPDflys0iexgAevPAlf6/md1AI=;
+	b=ArpWmpVqCFEyzUu6LwpooKFbJkHvOyx+2Y0K5QeTY2b6trJb/6QqlbG5uGlSudLKyGkd
+	 WQk3DJoyJgYj0WJQzLHC9kGVp8YXJhpvc2O3TpLJE4sU75NyP3EG1OXRIysaUZlVnfsFO
+	 Mt66ObWdA1DPp4OuTso16yiOayIhT6vo1uipe/WRQJa4SA1nH5/mN2zYCgI6T2671rC/5
+	 J4+dntYN4ztbsXCXRZhiEb7O1OspvraKkFPgYvUZDuAy4EBtppBNQz58SQG+NBDGVf1+h
+	 bsrwNMWWl49ElSFiZAkLZT9nZ8g8o0rPDOO5uB2aaH65fUFV8MNwN0c3Yzw+SNPHc2Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=D7LtlWdB;
-	arc=none smtp.remote-ip=111.22.67.139
-Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1CB31606A31C;
-	Wed, 11 Nov 2026 03:36:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1CB31606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dmarc=pass header.from=realtek.com;
+	spf=pass smtp.mailfrom=realtek.com;
+	dkim=pass header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=MifvZgkj;
+	arc=none smtp.remote-ip=211.75.126.72
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5F85606A31C;
+	Wed, 11 Nov 2026 03:37:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5F85606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=D7LtlWdB
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=D7LtlWdBqsM14Qxp/UAaofNttIDNF8Pw8qAafLYh3xXuQVSb1XdMCstU9SdQLgAlkN45OMnnFs7CX
-	 x/ZdHhgBg1eSM7mfUAEO2nMajeiN5kjzFSLf6RS6mKXOjIET2UiUXs7nocMFtyeKzsQv67pFxSzDBI
-	 oVwOCv1H35FHQ/Gg=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app05-12005 (RichMail) with SMTP id 2ee56af3e2b9fe8-d15d0;
-	Wed, 11 Nov 2026 11:36:25 +0800 (CST)
-X-RM-TRANSID:2ee56af3e2b9fe8-d15d0
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from devin-VMware-Virtual-Platform.localdomain (unknown[10.55.1.72])
-	by rmsmtp-syy-appsvr10-12010 (RichMail) with SMTP id 2eea6af3e2b886d-cc97f;
-	Wed, 11 Nov 2026 11:36:25 +0800 (CST)
-X-RM-TRANSID:2eea6af3e2b886d-cc97f
-From: Zhu Jun <zhujun2@cmss.chinamobile.com>
-To: linux@roeck-us.net
-Cc: linux-hwmon@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Zhu Jun <zhujun2@cmss.chinamobile.com>
-Subject: [PATCH] hwmon: (nct6775) Clamp voltage limits before narrowing and scaling
-Date: Wed, 11 Nov 2026 11:36:23 +0800
-Message-ID: <20261111033623.12046-1-zhujun2@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.51.0
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=MifvZgkj
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6AB3bIukD2020572, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1794368238; bh=WZm6Ui0hK63YavF1uUPDflys0iexgAevPAlf6/md1AI=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=MifvZgkj5WPnrJZ/4b3/CdZHPLHvIXOkdEe4ITGQb+lo2jAE5BP2PXZJyHAxdnR+j
+	 612fdz7zfKE56YW/XIrp3n4wiHulOB2TrjCYriE/7XfXYTHk5TOSGI4pra0CJAuRUZ
+	 HPFLFYZZMU/KO4/GkMPqKBzmC2vUo8QaKjz4OKCrhZk7DRNoyc9ICfXpqczg1Q8hma
+	 v7e1P4WyQn9l/lfpdDvK6cc08AYgDf5glljD42wL20eHFVc1AZpx0ONbeWcIxEFXgz
+	 IS4BS2ptTnXXH86pMNf2lPLZ6Z7XxhqK3L0b9nakKy0xVS4s4mGZblJEMP0J8YvdST
+	 4vSec0IyIwntQ==
+Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6AB3bIukD2020572
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Wed, 11 Nov 2026 11:37:18 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Wed, 11 Nov 2026 11:37:18 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef%10]) with mapi id
+ 15.02.2562.056; Wed, 11 Nov 2026 11:37:18 +0800
+From: Ping-Ke Shih <pkshih@realtek.com>
+To: Kalpesh Solanki <skalpesh942@gmail.com>, "luka.gejak@linux.dev"
+	<luka.gejak@linux.dev>
+CC: "kvalo@kernel.org" <kvalo@kernel.org>, "linux-wireless@vger.kernel.org"
+	<linux-wireless@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH v4 0/3] wifi: rtw88: firmware recovery fixes and LPS hang
+ handling
+Thread-Topic: [PATCH v4 0/3] wifi: rtw88: firmware recovery fixes and LPS hang
+ handling
+Thread-Index: AQHdb41QSnErllZH10GRoAb+TdNRY7coPI/g
+Date: Wed, 11 Nov 2026 03:37:18 +0000
+Message-ID: <3fa52468b46142639eb6800cb52b146c@realtek.com>
+References: <20261108142708.489067-1-skalpesh942@gmail.com>
+In-Reply-To: <20261108142708.489067-1-skalpesh942@gmail.com>
+Accept-Language: en-US, zh-TW
+Content-Language: zh-TW
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,38 +84,19 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-store_in_reg() parses an unsigned long, but in_to_reg() takes a u32 and
-multiplies it by 100 before clamping. Large limits can therefore wrap to
-a low register value. For example, 4294967296 mV becomes zero on a
-64-bit system.
+Kalpesh Solanki <skalpesh942@gmail.com> wrote:
+> Changes in v4:
+> - In patch 1/3: Also clear RTW_FLAG_RESTARTING in rtw_ops_start() if
+>   rtw_core_start() fails.
+> - Add patch 2/3: Prevent double free and sta_cnt underflow in
+>   rtw_sta_remove() when recovery races with station disconnect.
+> - In patch 3/3:
+>   - Keep rtw_fw_dump_dbg_info() in place on first failure.
+>   - Restrict firmware recovery invocation to PCIe devices to prevent
+>     scheduling while atomic panic on USB and SDIO.
+>   - Explicitly check rtw_hci_type() in rtw_fw_recovery().
 
-Keep the input as an unsigned long and bound it to the register range
-before scaling.
-
-Fixes: 9de2e2e84e7d ("hwmon: Driver for Nuvoton NCT6775F, NCT6776F, and NCT6779D")
-Signed-off-by: Zhu Jun <zhujun2@cmss.chinamobile.com>
----
- drivers/hwmon/nct6775-core.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/hwmon/nct6775-core.c b/drivers/hwmon/nct6775-core.c
-index 6e97e4f08b90..b7c1e8ceaac9 100644
---- a/drivers/hwmon/nct6775-core.c
-+++ b/drivers/hwmon/nct6775-core.c
-@@ -1039,8 +1039,9 @@ static inline long in_from_reg(u8 reg, u8 nr, const u16 *scales)
- 	return DIV_ROUND_CLOSEST(reg * scales[nr], 100);
- }
- 
--static inline u8 in_to_reg(u32 val, u8 nr, const u16 *scales)
-+static inline u8 in_to_reg(unsigned long val, u8 nr, const u16 *scales)
- {
-+	val = min(val, 255UL * scales[nr] / 100);
- 	return clamp_val(DIV_ROUND_CLOSEST(val * 100, scales[nr]), 0, 255);
- }
- 
--- 
-2.51.0
+I can't see v4 in lore nor patchwork. Please send v5 (identical to v4).
 
 
