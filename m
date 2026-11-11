@@ -1,83 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.210
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794382504;
-	b=Jl/vmRjIGZXtBroFO0v8TmYp7Ryu5JECZqi581+Z8yYsO8x6iBPl7kmZrkaCxPRcE3Mx
-	 maCGerVFT0DFBDxUBAtlQguPYzYpVRf41Ku3UWGo5+Sxh57lWwFTtzXDP/MmZjJfxZHRI
-	 9GRO9PhOLsXmbGu6r4W0lK307b+DyWa9Ui+IKKSOg7iFKHITXg4CO1JTi9NgAvUTfUJK3
-	 2kog4k3GoQ609spfTy1xHdwTLkSzYiqraTxzBnCA3CJBSTXZ0P4XBQemqCL51TIOy96m/
-	 DzQBF5bH4xg/ak7isVOhrrGEw12xrq72Qeg9ouUL2H+JAMIzay7zRQsGwDAEwsItXQA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794382504;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=7XkhAgg5EYqR+h9/JZjrfrLfFurW0BTJZdJ2iN0yVDI=;
-	b=elGlMUHYkuS832depBlqwcWkdUYsWXg7bHJTBop4o1A12WC3YkmfB3zImDUGA8qfxdlN
-	 lgQEyi3Pg5ARQhnFmGpJQc4qlwYqrjKuFDOkj23bGgOoYY0MM14Ym0vVH81ikR7LCz2a5
-	 Ls52LwcOV25hZ9EO0xbKICXV3QQ6eFXRFRI+YVqv3S9frgvlsfUab5AYQIYtbfpYR32cx
-	 aPZAEb1yPEsAimq8PG1sl9kPxbWscCfc+Q3vTObbbcbpM5TA7piZQYlMmjravS/hWRuoH
-	 mUFBsxYei9Y+2rTbMdg1xRiRbicqz7dYWNoSJQPexi5o51m3dld8zFtYHlUwoM7Ys/Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b="sUD/0eU5";
-	arc=none smtp.remote-ip=162.62.57.210
-Received: from out162-62-57-210.mail.qq.com (out162-62-57-210.mail.qq.com [162.62.57.210])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=74.125.224.42
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1794382539;
+	b=jsO5/A+Uk7LmqNfDJV0hQFQKwgLiPnvp1RKHgdDuxJPIojY3TcZdt2FScIDTlZ7D3bGO
+	 VujuQZpKFBpinyYN+jCmKZ+ZcKEF/5GbQ2hYXSmGEOIFevJ7/juRhl59CB08un/R/Pwtg
+	 Rn0PgRDUopsMoxjAjeoWo52hqta+8SIhAl28uImtpVTymd7RPuQNP1MiDr51dCeu4js14
+	 HvZyF1tOkoZ4WW332P7eyrP0wgovM3q0OCEyG6QtW+UssW6W6iV2t57745SZaysMoNeN/
+	 XsplHEqWWzLiiFt71oBzcd5txzNXHXCRXlRgnfwhjtqx9RjrpON+brojDNwL6zIx3hw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794382539;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=NgL3StqkmoZikoXpv80FJYJalx8ySs4tPeli0UX+OHY=;
+	b=VlW+MYsbjyEwZ9MXu21FAc7UJfy0gqwV7S+VwaYyvTiIVj/B9QJW6TLSqQPw2Fe0RnoY
+	 8ukRj/r9qaaQqVDp8/0xn024L9Pi49efqIbY9pm0yTS3hl759xPhBSCRVpD7Yx55q4Ya1
+	 Fl7ke0uBUXHuv2u9SNvUErLuJoUQfj61CUzU8eWmJZqV4E3bLRWdor1NAb0lKshRY3xa7
+	 cc0bUkdRjtj1wcp+hcExWz9aPMJuxWOZei1Xm8ewZWLzPqM5MoAHxRxJXkZncI4tfylCO
+	 1XeeV3ynFuj7d2PN68ba1W6qvgwGUOWshaoKOYuYbRFMcCApnZ4e7yA0l49qSqdPoxA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Bs9eM0U7;
+	arc=fail smtp.remote-ip=74.125.224.42
+Received: from mail-yx1-f42.google.com (mail-yx1-f42.google.com [74.125.224.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D28EA606A31C;
-	Wed, 11 Nov 2026 07:35:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D28EA606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61E65606A321
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 07:35:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 61E65606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=sUD/0eU5
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1794382492; bh=7XkhAgg5EYqR+h9/JZjrfrLfFurW0BTJZdJ2iN0yVDI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=sUD/0eU51KAKT+5BIYGAw1KDMR5geF54yfxZhDB2pbz5SyPuvoga562pXCzM9AVwA
-	 Vifoc4YeqS4AL8XlS2LmsZWzcS+hP/boHUpHeWkXY8eZGx1F78bGo755Vs046xR5Ut
-	 ypaEDV2n88Wf2Tx+WwyMxW26+cNDkwOeqcrQAX+o=
-Received: from ikun ([221.176.157.247])
-	by newxmesmtplogicsvrszb51-1.qq.com (NewEsmtp) with SMTP
-	id 8AFBA842; Wed, 11 Nov 2026 15:34:47 +0800
-X-QQ-mid: xmsmtpt1794382487tu8l56qym
-Message-ID: <tencent_DF25FDEF46DA68C4E18D6DB40F08E30BB705@qq.com>
-X-QQ-XMAILINFO: NbgegmlEc3JuquLCMXRl+TrdTYLmF7QIdAEhfhdx0EhL8xJwR36g2aX4Ycvf36
-	 jpL2Suh5WvWzW+XmtuLHY2S/Z+o0cGn43pPpJ3tbd4IUr5qXeClnVv1jfFGnMB8ub5m4XWFH5ngt
-	 QTsGd3xBQsn5MxGyXtUXKu/KkOCglTKKjbaHwOyPMouIo/9nFZ7IExub80ea9QGsScCH3I9n3g/X
-	 du4b67ieZK0TnC/3XtIR3/r1rTjiqpCNzAUcgQCSW/dBwrTDZYa6z71dbRXej5/hw0LQXvByGQZz
-	 hEBDnP2afYxRsOLIOu0oW503Om+LafHuITp/1sDKdu6ozr/4O3FLsqjQEgNGxonI9AHHfVYsYxe+
-	 ZYo/q4p/0a5YytvowfG1HpCBvpA4fWAA/dRMbANF18su8vN+OZRrRET5Dy111UN29Q36AOx3XLIk
-	 Q2iPLT7pDUIJMgPWDEGozs7bvUfeqiH/6PdgZiDQG9EUcrYs3UHXPlRBTprCRe+5OMSSdOnvkPYP
-	 WQp0p7AeIFakhAdTlAdEBsKhR4Veibv43jx1D3BE45akFow6ObEYq+bm1BXzkr5hJAxvqpoUexED
-	 rFbXeUCvA4vLWJI8TEP9LxR4GCcVJi4/sXTuRc9K3F6BIJ1vM735WzDYTmXvNKMt/hrp/1c+Ychn
-	 uVa/bHd2V+fiPY21orc+JtGfCpQieqTDvhU8KAUWFdJ3vstyRuaHgnH7713K/ylQwJIRD3Jyeou/
-	 xHX/NDIXR3SgwrZb8dcXQHoY30ELwIeheh3+02McWcyj5nB7K/vEbdmcHnGwaZ7GVDKFYTEqgJrG
-	 Ok5eP9Sxd9wvroeVi8QrmAvK7Q+FINsGNG6QYCcExow5SqVPHIY1luFlDlVAAFmxZAynZWvoul7v
-	 HfxskOCzIVcXIDsFPLahT8aK6OrdF5EqJQx6LPGkdMh4cdCjjlUiv7vtW0f8lW1yezgTgUvpG4hc
-	 PBHj2byoUcW51rjoyzrvq+97j83RHlBES981gHQZJsQekpSkuqoZjTqd5Xha+pWQiHHguNCRiScw
-	 7fb8YzBlWiV4RX/FJxFnrJBbL9pU8=
-X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
-From: Alan <3164729207@qq.com>
-To: tytso@mit.edu
-Cc: Alan <3164729207@qq.com>,
-	Andreas Dilger <adilger.kernel@dilger.ca>,
-	Baokun Li <libaokun@linux.alibaba.com>,
-	Jan Kara <jack@suse.cz>,
-	Ojaswin Mujoo <ojaswin@linux.ibm.com>,
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-	Zhang Yi <yi.zhang@huawei.com>,
-	linux-ext4@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v2] ext4: free the new extent block on failure to grow the tree
-Date: Wed, 11 Nov 2026 15:34:44 +0800
-X-OQ-MSGID: <20261111073444.8059-1-3164729207@qq.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <tencent_9EB8EBE910378E46C80E006C6A7DA918BA08@qq.com>
-References: <tencent_9EB8EBE910378E46C80E006C6A7DA918BA08@qq.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Bs9eM0U7
+Received: by mail-yx1-f42.google.com with SMTP id 956f58d0204a3-677bc4704cbso3355588d50.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 23:35:39 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794382538; cv=none;
+        d=google.com; s=arc-20260327;
+        b=gn6HcWEaOLQs71H5i5WAFfY6Yn3l7rnYtykW53qPQ86MaFse1mkm/TnzNBPgDH6RYO
+         vB9LOSMjBufPlGnH+U75DMaQKODcLnr4EEJDbUHKTF1ObxRs/+Bjf5KsYpYq5Zur9l5A
+         aNVz4ST4UW4vqvdaNKn2bhzEHiprGfZQ3tHlFwXIdOrWXHk3O/i7dxB4rZKLZnx9/kLw
+         ZZxaqVUhjlhm88kWqFcTxTaALWSZlEGcKzrJBjOcPvhhbfc+E2cHNlJGT/V6dEUtUi7o
+         AxRXsegAnz7BgnWDazEOYKrCY9Lv7Sgt0FUo7QaMcpKAMZ6mw0GLNrW5vRGEf+Roo6j+
+         MsmA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=NgL3StqkmoZikoXpv80FJYJalx8ySs4tPeli0UX+OHY=;
+        fh=V8Tr/hgHxqq7JjsMMcaLOzkKBTU/JJt/Go0uXDswkdA=;
+        b=jg5VHX4NZYXTjbdGC5IbsEGmHMCvpjYthgYe6PTyjvqmEvArMsSKRVstoujsVdWf0f
+         Vw5vAcohZXk8Kiagd7VkR43FDUFsbIj59hrq1m2utEYUYh+x4DI9y8rApoY/KtB7uuvN
+         CJDhq+CpqweqavPKceO4RnRS4i0O8XEUMgQBHfyi/cKG6S/Ux0rLwNNzJWhOpeWpfUPt
+         xCGeMSDmnQFVwNOUdLGaX/UsEOkDN3bLsPPwv/GOepRMtkPP6F0/oLvwY4lkmEqyHFgu
+         jLXJcwdFLNgP4mKvlrAlD8t9jZxRWtoPPx4fmjLme0ZDVCUxA5v2QMMl/03XzsPOyFon
+         Z7HQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794382538; x=1794987338; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=NgL3StqkmoZikoXpv80FJYJalx8ySs4tPeli0UX+OHY=;
+        b=Bs9eM0U7T9Dcv5j/5o6EYk57qJQ9YereO3VjDhNRI7o0jefiQBCYSZvkDuzs5EwpBN
+         blRufjR4fCW8K+7KZdBTktL1Oysu96mn3f33wyPmfUtrTyjJovE4HraeAPJacqdqXOpf
+         c+UMmNoEWg6tqorJMjC//jzZDfGvuXeJCVKCwGtXLIPNIp6sEN3Xw28diurSQC6zziIy
+         +vZrkBN1glEIUn+b+JGhdsLZewUBhUhy4GOrq2OAiXlhw6oR3XJWl3EcyCQn0thlZwvU
+         MM3TgPBc/rYX70fGGbaYOt3JF+YcjSCUi+iJtenLk966aIlfbcD7Cb27P626B9thBRBE
+         o9JA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794382538; x=1794987338;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=NgL3StqkmoZikoXpv80FJYJalx8ySs4tPeli0UX+OHY=;
+        b=u2Liegn3SH4i+Tr87HhdHjzNyCszEogCApB+xSbSpz/40lyQMyQic+mCa3pSPXM5RU
+         to2jQNZa9VR7OLIfFlXKbDar2fyrljV0IYIOHs1gSLsb6njRG7D+BTJ25KpDxY4UzPL3
+         vNm1kiKBQQCysQHnx1eFxeWgi2Hiw3Bp4TjGytam0S9RNM0sZbzH1LHdnSoRtoNQ5mrP
+         y+9dDwKGEgRCIHFHyvmTNPQV5Jhw1TkeTXDoeMNM46We5PTBkIULAAVzwSeAHUsWrHBY
+         yyOlk9h11lj0fTiHXMMSGYYt/Oeik0K77oks/STXcDURhJ1wUm+osTVHu0420TF2c/21
+         wjxA==
+X-Forwarded-Encrypted: i=1; AL+hErGnL7518lFQRVW9tbJnmOIO8155oh086q9dlvzO9gaS85szv6axTjHe7duDM6DUfE7OAYoUMeCvKimip1E=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+fwQDq97ldu3wfgy4SkrH9jWrSiJqBFENXlmDGhK/Hv404GGVU
+	/I+PkrfjTJ3d0s/1NaRB2EetP7L3n69yZakgjB+wu/eiSlaNUuHM3y6TKuE0xrKdejNcVJDudLC
+	CKD0sC3pgEvtSBxLk5Z12BPaMFisrPc8aA1XlW4m+
+X-Gm-Gg: AYBFou2Tyc2nwIbFTnnvlR7Uc/MqGRDL2XiHFINiO2EB+dm2hVb1tDT+Tc2AwePyMi9
+	GLzwhElE70J6bxxY/C22YXtgjPcscjpvzrVoYsT+3e/o3L+Lj/57lfTKdphn8fCeXzDZU+sKDm2
+	7Fj00UzIhiExCQ2/hXCkTujN56YEKOv5hj005/qYDTZPtLRTV+v5NjMCYaLLTOqcWgNOCpnsOmv
+	go1bgJHcrG0QVRg80caByqree7MEHFPsGV2ZHfF5DzENkoKC3mQyEsTVpArX/ISXevREkw478S8
+	DmXIrZmDmK3/xHpKAUfuBlPR/xGrS7ZlFya8+JZWB3lERphv9Yr34j8YCw/jJ5TqeXDnue/fJmn
+	CHM98DmDtczq94Xhbql9VtMq23PvJKGgMz57J
+X-Received: by 2002:a05:690e:4504:10b0:67c:7c1:bdac with SMTP id
+ 956f58d0204a3-67c6801c387mr697001d50.58.1794382537762; Tue, 10 Nov 2026
+ 23:35:37 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,90 +104,98 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261106-lskel-struct-ops-v1-0-a4486ffc79cb@google.com>
+ <f5a22a46-0fd8-4739-bf11-a20e0b3a443b@linux.dev> <DMR088J2OR6L.9TOD4IDBHTZ8@gmail.com>
+ <CAGn_ityW5Z+JEcTL9wKnQOgLXhjXxC357Q=h95AgR9xP+pcmjA@mail.gmail.com>
+In-Reply-To: <CAGn_ityW5Z+JEcTL9wKnQOgLXhjXxC357Q=h95AgR9xP+pcmjA@mail.gmail.com>
+From: Sid Nayyar <sidnayyar@google.com>
+Date: Wed, 11 Nov 2026 13:05:25 +0530
+X-Gm-Features: AclHuK-gFbPnqlWbdZN8aht-FIvpFP1KgQo9SMmyTpNb0jJxnVbTrvwFSqbrNnA
+Message-ID: <CA+OvW8ZADPDZJYURT+a2kwvWcsgdJvzP5Q9sJuvXnnL2kgZ2dQ@mail.gmail.com>
+Subject: Re: [PATCH RFC bpf-next 0/7] bpf: Support struct_ops in light skeletons
+To: Anton Protopopov <aspsk2@gmail.com>
+Cc: Alexei Starovoitov <alexei.starovoitov@gmail.com>, Ihor Solodrai <ihor.solodrai@linux.dev>, 
+	Daniel Borkmann <daniel@iogearbox.net>, John Fastabend <john.fastabend@gmail.com>, 
+	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+	Emil Tsalapatis <emil@etsalapatis.com>, Quentin Monnet <qmo@kernel.org>, Shuah Khan <shuah@kernel.org>, 
+	bpf@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, Giuliano Procida <gprocida@google.com>, 
+	Neill Kapron <nkapron@google.com>, =?UTF-8?Q?Thi=C3=A9baud_Weksteen?= <tweek@google.com>, 
+	Maxime Ripard <mripard@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-ext4_ext_grow_indepth() allocates and accounts a metadata block before
-getting its buffer, obtaining journal create access and dirtying the
-new extent block. If any of these operations fails, the new block has
-not been linked into the extent tree. However, the error paths return
-without freeing it, leaking the block and leaving i_blocks larger
-than the number of blocks reachable from the inode.
-
-Commit 8a83ac54940d ("ext4: call bdev_getblk() from sb_getblk_gfp()")
-removed the implicit __GFP_NOFAIL from the buffer allocation, making
-the allocation failure path reachable. The two journal error paths
-already lacked cleanup before that commit and are fixed here as well.
-
-Route all three failures through a common cleanup label to free the
-unpublished metadata block and undo its inode accounting. Keep the
-existing buffer unlock and release handling. Once the new block has
-been linked by ext4_idx_store_pblock(), an ext4_mark_inode_dirty()
-failure must not free it because the extent tree already references it.
-
-Tested on Linux 6.12.1 by injecting NULL for buffer acquisition and
--EIO for each of the two metadata helper calls at their caller
-boundaries. Each unfixed case leaves seven unreachable blocks and
-i_blocks of 40 instead of 32 on a filesystem with 4 KiB blocks. With
-the fix, all three cases retain i_blocks of 32, preserve the original
-data and pass e2fsck -fn after a normal unmount. Retry, truncate and
-uninjected growth also pass for each case.
-
-Fixes: 8a83ac54940d ("ext4: call bdev_getblk() from sb_getblk_gfp()")
-Cc: stable@vger.kernel.org
-Signed-off-by: Alan <3164729207@qq.com>
+On Tue, Nov 10, 2026 at 6:43=E2=80=AFPM Anton Protopopov <aspsk2@gmail.com>=
+ wrote:
+>
+> On Mon, Nov 9, 2026 at 10:40=E2=80=AFPM Alexei Starovoitov
+> <alexei.starovoitov@gmail.com> wrote:
+> >
+> > On Mon, Nov 09, 2026 at 11:46 AM Ihor Solodrai <ihor.solodrai@linux.dev=
+> wrote:
+> >
+> > > Andrii, Alexei, wdyt? Any other ideas?
+> >
+> > The loader asks the kernel for ids, sizes and offsets only to pass them
+> > back in the next three commands:
+> >
+> >   the loader asks                   and passes it back in
+> >   --------------------------------  -----------------------------------=
+-
+> >   id, size of bpf_struct_ops_<t>    BPF_MAP_CREATE
+> >   id of <t>, index of the member    BPF_PROG_LOAD
+> >   offset of data, of every member   BPF_MAP_UPDATE_ELEM
+> >
+> > the kernel can match by name instead.
+> >
+> > The kernel has both BTFs. BPF_MAP_CREATE of a struct_ops map demands
+> > btf_fd of the object already, and bpf_struct_ops.c doesn't use it.
+> > The kernel can find its struct_ops and the members by name,
+> > like btf_parse_kptr() finds the type of a kptr.
+> > Then the loader passes what bpftool knows when it generates
+> > the skeleton:
+> >
+> >   command              the loader passes
+> >   -------------------  ------------------------------------------------=
 ---
- fs/ext4/extents.c | 16 ++++++++++++----
- 1 file changed, 12 insertions(+), 4 deletions(-)
+> >   BPF_MAP_CREATE       btf_fd, btf_value_type_id and value_size of the
+> >                        struct in the BTF of the object
+> >   BPF_PROG_LOAD        attach_btf_obj_fd =3D btf_fd, attach_btf_id =3D =
+that
+> >                        struct, expected_attach_type =3D index of its me=
+mber
+> >   BPF_MAP_UPDATE_ELEM  that struct with the prog fds in it
+> >
+> > The kernel rejects such BPF_MAP_CREATE and BPF_PROG_LOAD today.
+> > Nothing changes for existing users.
+> > The BTF of the object is in the blob, so the signature covers the names=
+.
+> >
+> > Then no need for a helper or a kfunc. The 4k buffer, the fds of module
+> > BTF and the offsets at run time go away.
+> > map->def.value_size, prog->attach_btf_id and prog->expected_attach_type
+> > don't hold offsets into the blob.
+> >
+> > The diff below replaces patches 1-5. Patches 6 and 7 stay.
+>
+> I like Alexei's approach here, it fits with shirudo. I also have tested i=
+t.
+> (Patches 6,7 weren't tested, shirudo uses libbpf without bpftool.)
+>
 
-diff --git a/fs/ext4/extents.c b/fs/ext4/extents.c
-index ad0d80e33f6090..f0b2852f8a9342 100644
---- a/fs/ext4/extents.c
-+++ b/fs/ext4/extents.c
-@@ -1333,15 +1333,17 @@ static int ext4_ext_grow_indepth(handle_t *handle, struct inode *inode,
- 		return err;
- 
- 	bh = sb_getblk_gfp(inode->i_sb, newblock, __GFP_MOVABLE | GFP_NOFS);
--	if (unlikely(!bh))
--		return -ENOMEM;
-+	if (unlikely(!bh)) {
-+		err = -ENOMEM;
-+		goto out_free;
-+	}
- 	lock_buffer(bh);
- 
- 	err = ext4_journal_get_create_access(handle, inode->i_sb, bh,
- 					     EXT4_JTR_NONE);
- 	if (err) {
- 		unlock_buffer(bh);
--		goto out;
-+		goto out_free;
- 	}
- 
- 	ext_size = sizeof(EXT4_I(inode)->i_data);
-@@ -1366,7 +1368,7 @@ static int ext4_ext_grow_indepth(handle_t *handle, struct inode *inode,
- 
- 	err = ext4_handle_dirty_metadata(handle, inode, bh);
- 	if (err)
--		goto out;
-+		goto out_free;
- 
- 	/* Update top-level index: num,max,pointer */
- 	neh = ext_inode_hdr(inode);
-@@ -1389,6 +1391,12 @@ static int ext4_ext_grow_indepth(handle_t *handle, struct inode *inode,
- 	brelse(bh);
- 
- 	return err;
-+
-+out_free:
-+	/* The new block has not been linked into the extent tree yet. */
-+	ext4_free_blocks(handle, inode, NULL, newblock, 1,
-+			 EXT4_FREE_BLOCKS_METADATA);
-+	goto out;
- }
- 
- /*
+Thank you Alexei, Ihor and Anton for the reviews.
 
-base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
--- 
-2.53.0
+I agree that the loader's efforts to find out ids, sizes and offsets
+for STRUCT_OPS maps and its members is wasteful since it only passes
+those values back to the kernel. I will redo my patch series using
+Alexei's proposed approach and send it out for review as soon as
+possible.
 
+Regards,
+Siddharth
+
+> >
+> > [...]
+> >
