@@ -1,58 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794391112;
-	b=GZTjdHJ1zy9xF8l6+ASxw/PIZjtFNbFggR4VngRn0xGhREZMl384liKUMvecSqpVBsDc
-	 dTd7Fnmr+ul36KM6mXGAZi2H3HcLTjvAWQ3BIfXjh2GFQXfgfhkTbdKXmFr+w/y2DDLI8
-	 AFeSgxGRXZgaUmnb1k0yHioZUwGxOx2KCCQhD8xZH3IeIEudA8ZjIZygsQH2dxMwHxP9D
-	 lUyHOZ4G/FkvmzkdWnRJTuWdNmRYn8Lr4v5WzHfVxUosB0AZxRgarGnmRtLgOSV19ZiJP
-	 1ySxK8mP5rfwr5wD/KQMQDPZoetkMI4sA4q6CBNTXpQkIk4TFDa6RVVQlN6aIBTLO9g==
+	t=1794391173;
+	b=iRM7+y0Yly/koroL8G0yhWrkuLM0K9+UsEOeiyAZ1LPYkCtCnGTPal44ulGMFgf94KpT
+	 0p4ZcY+5BpwZZ02BmHYvFsLJyDgz9z/uVt1nh7YKm63juxOcBL34hzu4jPmGcuiBwT6xc
+	 H6b782QlB4kPNQLKff5zmpEKfUrN3EUw90gWLB2o91IZlNEtaabKA050Vs+jkpUfk+aVk
+	 8JsIh/uOAhIyl/1zztXF2EuTsZlgNka+++iXj7zqOfWVGnDk5fvki3moUsEv64U+q24mg
+	 Go2Xk0vKMR6yUE9m3R5MswMVBjGm+gfRdYouhjVSHH9NfL6fVUnpgP20RIZde7B966g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794391112;
-	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Debian-User;
-	bh=7qBqijEg3j5itL5NDjhxpRdtP7gusIM2gmMrcRmtQxI=;
-	b=20RmIj+RfOT2x2/9YkvkFB/kytHYA8SIlEIjJtgt6KlPiDM3pb1waHF5FqhiUGDfhEKX
-	 dwCUaIZrwOw7JWzS3mYUjfJ+sy6J0ntq1cEQmnxFpp3Pn3tz3V+0GFeIKmXut0O+SezgM
-	 0PBImA93QzJJs4x5JqShkrL90kI6yiGpCeBucN2T0n84dImeb8qGmyuThWJYJCLhRE2BV
-	 /eYCLOUd89r6MDn1Vu5plm5g+XzVxyOVdvHSayhSJVNRi5OSMVuIzez0qbmu0R30ozclx
-	 OH59xP3vWBnjeo66ie2o6v0t4hwMTRb5Hsl88eO9Mjlm/fsj9wPz5lil0ALbHUcmvNA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794391173;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=hp1XgAo2T9VabG3tdMB+IAUfvCTHW0OWXcirmwmfQMA=;
+	b=zs1nMnIKLYglZ7KvykaUjeRHm/ncSy9vFMplB6pt82EDUezNFSx1spaPexhT3M2IWhU3
+	 P6z2Bv23oW893EviEmxWfvuUxy8DRSCPIZWCp0CSGKFnTfaax+V58Fo+A/7RPRoSc/Yjl
+	 /mpj6262bcWmcQdeekjsK8DW+mqL0imH/JTCg+8H90KuE/kchb5D0UAAHsfsqk3wKPIHm
+	 gJH/LmEr3Xz+P+OWqdgvTTRYTkF/s27ZDSaa1Stme7JYaaIiO6loZn75ncEXHvPehMWRi
+	 elBnx2Y3QCBzw3OUvshsCmLdcuvy2vbGDO8h2/pWPIWp/bmUDXgTYg/a1vBHeRXoBtg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=debian.org;
-	spf=pass smtp.mailfrom=debian.org;
-	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=bQf4fdnb;
-	arc=none smtp.remote-ip=82.195.75.108
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IrHCaHoy;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0281A606A331;
-	Wed, 11 Nov 2026 09:58:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0281A606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54674606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 09:59:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=bQf4fdnb
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:In-Reply-To:References:
-	Message-Id:Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:
-	From:Reply-To:Content-ID:Content-Description;
-	bh=7qBqijEg3j5itL5NDjhxpRdtP7gusIM2gmMrcRmtQxI=; b=bQf4fdnbJPHep2hoXXtpkKYvBn
-	bp9mEP/pS2wX7uQUf7HhOzrEdYThhEYvSEX33s7arKtv92v0oyaJtbeaPqTWewacYFq/TjJaUp8ag
-	vMXmjbPSDRVfJs4H8Oh3rtPMUabFiZ9v0v/vC6i7owDjUHP0M44vAxlbNL8RcEasLSSwhWT3WxI0Z
-	ou5N6p5iBdjLOHgTxKgYurJiQ2YAlrAiT9xRhVl+/YNZLmdQJEG/bMOefNhxoBxyrsqiJrMO/+X6W
-	jh1SWy6cbt7RHh8bY7TFuTQ51bHu4J4UM1l8IREe052P1f5sWGsQHfFxGZ/7HkgdgrJ0JJGdtqbdr
-	I6KPnnXA==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1xR566-00D6Av-0Q;
-	Wed, 11 Nov 2026 09:58:30 +0000
-From: Breno Leitao <leitao@debian.org>
-Date: Wed, 11 Nov 2026 01:57:34 -0800
-Subject: [PATCH 2/2] tpm: Disable a TPM whose hwrng reads keep failing
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IrHCaHoy
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4BFD91F00A05;
+	Wed, 11 Nov 2026 09:59:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794391173;
+	bh=hp1XgAo2T9VabG3tdMB+IAUfvCTHW0OWXcirmwmfQMA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=IrHCaHoyiKo1N9O9LLDj5GCu4KUrrqPEaKLWMAkK+SyIMl5UdzU4tHXxqP4lnXxjW
+	 lAp/Do/LY4fQDQNHZNfpvw4XmvWlNKJ4V2yBhH29aFBGG2dLcRtiLzxFxH0RRrnvpb
+	 eGgI0BqI6DFq/mRSJBzmHE9ukbZzfh0KwgyZdiXXvfT4uQgcCOeb7DCRafvOeAj1Qz
+	 Xp0VaQ1rxHobox6bh1DjXubgVwCIwuB+nPSTLdYDu3dabcZDQEER3/e9xijc5w1AAl
+	 OtzMe/rKvQ1oc9OxjcBnUEN9LhISmVYqlvdF9KyN0AMelCsVkLXVrs1YD91ZZjevTf
+	 r42c1BTqKoYaQ==
+Date: Wed, 11 Nov 2026 10:59:29 +0100
+From: Frederic Weisbecker <frederic@kernel.org>
+To: Marco Crivellari <marco.crivellari@suse.com>
+Cc: linux-kernel@vger.kernel.org, "Paul E . McKenney" <paulmck@kernel.org>,
+	Ingo Molnar <mingo@kernel.org>, Michal Hocko <mhocko@suse.com>,
+	Aaron Tomlin <atomlin@atomlin.com>,
+	Anna-Maria Behnsen <anna-maria@linutronix.de>,
+	Thomas Gleixner <tglx@kernel.org>
+Subject: Re: [PATCH 1/3] tick/nohz: Re-evaluate the tick on polling idle and
+ on user entry
+Message-ID: <avQ8gT1D6p1d2MS3@localhost.localdomain>
+References: <20261106160621.347228-1-marco.crivellari@suse.com>
+ <20261106160621.347228-2-marco.crivellari@suse.com>
+ <au5RmN37RlOCp2m9@pavilion.home>
+ <CAAofZF6_JpSDNSKUuePiJx+74tbRH8vJ4spyNGp9KbjFPrbA0w@mail.gmail.com>
+ <avMdOa44c5qvryuH@localhost.localdomain>
+ <CAAofZF7KAnd0xpOcgKDs6yDL9vmbON3xRAK360BBuzEpwJzu9g@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,110 +66,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261111-tpm_unresponsive-v1-2-42ac1b965eb9@debian.org>
-References: <20261111-tpm_unresponsive-v1-0-42ac1b965eb9@debian.org>
-In-Reply-To: <20261111-tpm_unresponsive-v1-0-42ac1b965eb9@debian.org>
-To: Peter Huewe <peterhuewe@gmx.de>, Jarkko Sakkinen <jarkko@kernel.org>, 
- Jason Gunthorpe <jgg@ziepe.ca>
-Cc: linux-integrity@vger.kernel.org, linux-kernel@vger.kernel.org, 
- surenkj@amazon.com, noodles@meta.com, Breno Leitao <leitao@debian.org>, 
- kernel-team@meta.com
-X-Mailer: b4 0.17-dev-ce4c1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2655; i=leitao@debian.org;
- h=from:subject:message-id; bh=smou7fUGe3NRb6a1h+kZU3AB4shLYZ9dPaGLC8pnQzw=;
- b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBq9Dw66TawD4Z/0NUvVIZWwOkxC3+hxyei2R89B
- z8jyvVfQVuJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCavQ8OgAKCRA1o5Of/Hh3
- baJGD/0QH6odvOY+bXjc7t4CSBu7W6JHpamlsiEzqBDKIYc80KA3qFzKd86b4E6pxfiJjcdvcvq
- L4hbrOP7so2K4VWNNy4vlRvML+PcWSUThCwJy16aQRC/fA5kn5axNcj4sH+7Vq+k5jsPJvxz00q
- FkSfLU7b+eV2m5+D0j4YtdNo1mn6jVMCOnANmqFvm0bWBs336krMVaGcQM96MZDllk6OJeKGbzo
- BdEYvyyki0ENYhhiuS5ffIGdSpbKPMoIkHeK3yaMaiccMtLnS8q40bABC1C7BzC4aq6a00xluY8
- pTgjIXspYKuqvaRpJKaqiYuIkOpFUbTcuBXtbHsJlXdk6vnrHzvcvnOTXvZ5/Ima81KiWAunMuf
- ZApnYJX0B1efKi/nAFarpy6BqvdD3RaheRswNYGWjmDu3ZsJ3iwBQUQjrOtUKigNgEotcFDlaq9
- OKycfEoxVDT/gOieWL++iSGj7XyuYjPDrFyR89Vh6GOmQXaX+t0oBV7O7eQfowyvoadBbB7mTRf
- L2Jg3APt+b4AkjdX4o868E5ZXJvE0X8XXL+cvSx2uUayKJ7wCFz+MvgxzQ8SvzhrKs/Pooq02zs
- p0U8RY6CPTK3BKFaiidx40cYYk+HKHW1sJGORNzQjuTsJ2nNasWXX0+ZAFhl7CXxT6IpF3tAMHl
- L9sA0ntl+pKo33A==
-X-Developer-Key: i=leitao@debian.org; a=openpgp;
- fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
-X-Debian-User: leitao
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAAofZF7KAnd0xpOcgKDs6yDL9vmbON3xRAK360BBuzEpwJzu9g@mail.gmail.com>
 
-The hwrng core retries a failed read every 10 seconds, forever. When the
-TPM keeps answering GetRandom with an error, each retry logs a line:
+Le Tue, Nov 10, 2026 at 06:35:49PM +0100, Marco Crivellari a écrit :
+> On Tue, Nov 10, 2026 at 2:33 PM Frederic Weisbecker <frederic@kernel.org> wrote:
+> > [...]
+> > > With the hunk, the stopped tick firing for the first timer sets
+> > > TIF_NEED_RESCHED, the polling loop exits and the tick is reprogrammed
+> > > for the second timer within a few microseconds; the 10 iterations
+> > > captured take 0.92s instead of ~18s. Without that hunk, the CPU stops
+> > > spinning on an unrelated event.
+> > >
+> > > So in my understanding tick_nohz_idle_exit() program the tick only for
+> > > the earliest timer; when it expire, the tick is stopped and not
+> > > rearmed in tick_nohz_handler() (HRTIMER_NORESTART). Without setting
+> > > NEED_RESCHED if another timer has been queued it has to wait for
+> > > another event that set NEED_RESCHED.
+> >
+> > Hehe, you're right :)
+> >
+> > Let's try another strategy then. TS_FLAG_INIDLE is what tells nohz_fool whether
+> > to manage the tick through the idle loop or through the IRQ exit.
+> >
+> > So why not calling tick_nohz_idle_enter() on each idle loop iterations? That is,
+> > from cpuidle_idle_call(). And call tick_nohz_idle_exit() right before
+> > cpu_idle_poll()?
+> 
+> Aha, sounds good! :-) So INIDLE is set only when really "in idle" (eg
+> no polling).
+> 
+> > Then you can remove tick_nohz_idle_restart_tick().
+> 
+> Should we remove only the call or also the function and its declaration?
+> I'm asking because the call we're going to remove is the only one present.
 
-  tpm tpm0: A TPM error (256) occurred attempting get random
-  tpm tpm0: A TPM error (256) occurred attempting get random
-  ...
+You can remove also the function.
 
-Neither clears on its own, and the TPM does answer, so the timeout check
-in tpm_transmit() never fires.
+> 
+> > Just be careful: tick_nohz_idle_enter() and tick_nohz_idle_exit() may now be
+> > unbalanced. If TS_FLAG_INIDLE is already set, tick_nohz_idle_enter() should
+> > return early and tick_nohz_idle_exit() as well if !TS_FLAG_INIDLE.
+> >
+> > Also IRQs may now be disabled while calling tick_nohz_idle_exit(), so it should
+> > use local_irq_save() and not local_irq_disable(). OTOH tick_nohz_idle_enter()
+> > should always expect IRQs disabled.
+> >
+> > So the purpose is to move cpu_idle_poll() outside the dynticks idle logic, then
+> > it's safe against nohz_full timer management, the tick keeps being stopped if
+> > possible and it's only restarted for dynticks idle.
+> 
+> Ok, I think it's clear.
+> 
+> I've already started implementing the changes. I will send v2 with all
+> the changes.
 
-After 60 failed reads in a row, ~ten minutes of retries on my system,
-set TPM_CHIP_FLAG_DISABLE as tpm_transmit() does for a TPM that stopped
-responding. Later reads then fail in tpm_try_get_ops() without sending
-the TPM a command. A successful read resets the count. A handful of
-failures is not enough, since some TPMs stall for half a minute and then
-recover.
+Thanks a lot!
 
-This also takes the TPM away from userspace, which could otherwise
-still send TPM2_Startup or query the failure mode. Rebinding the driver
-brings it back.
-
-Signed-off-by: Breno Leitao <leitao@debian.org>
----
- drivers/char/tpm/tpm-chip.c | 20 +++++++++++++++++++-
- include/linux/tpm.h         |  1 +
- 2 files changed, 20 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/char/tpm/tpm-chip.c b/drivers/char/tpm/tpm-chip.c
-index 0be5dbfaa72ebf..d94ea462a5ef0c 100644
---- a/drivers/char/tpm/tpm-chip.c
-+++ b/drivers/char/tpm/tpm-chip.c
-@@ -466,11 +466,29 @@ static int tpm_add_legacy_sysfs(struct tpm_chip *chip)
- 	return 0;
- }
- 
-+#define TPM_HWRNG_MAX_FAILURES	60	/* ~10 minutes of retries */
-+
- static int tpm_hwrng_read(struct hwrng *rng, void *data, size_t max, bool wait)
- {
- 	struct tpm_chip *chip = container_of(rng, struct tpm_chip, hwrng);
-+	int rc;
-+
-+	rc = tpm_get_random(chip, data, max);
-+	if (rc > 0) {
-+		chip->hwrng_failures = 0;
-+		return rc;
-+	}
-+
-+	if (++chip->hwrng_failures == TPM_HWRNG_MAX_FAILURES &&
-+	    !(chip->flags & TPM_CHIP_FLAG_DISABLE)) {
-+		dev_err(&chip->dev, "hwrng: %u reads failed in a row, disabling the TPM\n",
-+			chip->hwrng_failures);
-+		mutex_lock(&chip->tpm_mutex);
-+		chip->flags |= TPM_CHIP_FLAG_DISABLE;
-+		mutex_unlock(&chip->tpm_mutex);
-+	}
- 
--	return tpm_get_random(chip, data, max);
-+	return rc;
- }
- 
- static bool tpm_is_hwrng_enabled(struct tpm_chip *chip)
-diff --git a/include/linux/tpm.h b/include/linux/tpm.h
-index 4264c87a04d98c..402b5160db962c 100644
---- a/include/linux/tpm.h
-+++ b/include/linux/tpm.h
-@@ -129,6 +129,7 @@ struct tpm_chip {
- 
- 	char hwrng_name[64];
- 	struct hwrng hwrng;
-+	unsigned int hwrng_failures;	/* consecutive failed reads */
- 
- 	struct mutex tpm_mutex;	/* tpm is processing */
- 	unsigned int nr_timeouts;	/* consecutive command timeouts */
+> 
+> Thank you!
+> 
+> -- 
+> 
+> Marco Crivellari
+> 
+> SUSE Labs
 
 -- 
-2.53.0-Meta
-
+Frederic Weisbecker
+SUSE Labs
