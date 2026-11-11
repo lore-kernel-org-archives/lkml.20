@@ -1,56 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.69
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794388694;
-	b=dJm6NFL9QwLHUnlECOdX6PhqwaQYUCKBVDP4BjgwKB2gcM2TUbHjx1vEsxGu1XksN1ah
-	 utwsATogiE42PDEI/aaTESxowGU6dtptTG1HwzHFfxhqIolUnnYddtHu9NsiWqRYgLfh9
-	 n/nkCsUtBicTZNkjWNC68elJXUCXGU7J0rxiO9wHP8hyLhteoRzkMCYrwf+OFw4z63u6r
-	 CSMxKaJKR2g0q/z87lfN48muGgkwAvJeCdsZS+aLV9O3R/pvLiJd0hY0LWZbMIiXAzsEW
-	 MOwVlO4SqAALJKtTqSSdy47rHheEV080WIbMilPnT/Nu8OVNyfCZ9yFwHEbnRbAKbHA==
+	t=1794388735;
+	b=TyJQn3CyV2hZYLhH1+M5WORfP/zl1nUz40Bg/mB751j9QxkHksCFCBSJpkP6SlhKFtZk
+	 Z8+hWhhAKyQxTNTP6yZ8OrTQBRqRgdJbWdR5O04ubOrQoFRUiblG1/vy7bQ6Bqe0Sfecd
+	 X8PTpXPXqJa4sNaEhmLOZJNcwOKdI/FEI+fT2sjFoNmhIBxGAHctOTfaOKAWTjFQJE63z
+	 f16gnxpZ4zvikBhzO4fU4EbyBuO/nZx7aLxyb8zcRMTuGUqFhAYbz0o/SnhCaQiGJD4dR
+	 yClUC50xxatEiaI1Q4jCrHjpPWNt1xqruyX1OcNgIylsEinsUY76fffgnIUnItCGJXA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794388694;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=QWs1gzgqO1A59hoKs3tuMBi4edD/w8k5cYwrGVQ+cB0=;
-	b=a3XtJy5TkRjRZnUh51GyiB5fFImgjG9dxGiS5sF/FN+dUBxlWOOdhftiR4FaqypzbeAv
-	 CvnacdgXBrc61a3p1BF2LuOjXRymNdpVSae0aUJUGmKIvFoc4Bm0Cnw6sIl/ioG6XYttE
-	 S1kSSse1BbswUvRPUT59jF/acYemijI3X1Nz0eW7cu4tt1N8k+TJ61YE3xDBq0Mjroqjc
-	 RFY8lV+NFhTZTwNXRDqfS8MgXXxgPLsIl9rsSkmyZWgsQSVsT8QgmU/u7+b1c+l68+tUy
-	 KoCZXyIlyRmJZh7yFfgXMTVxpecWh1zY/dZFhUo4pKghKQma+6KGcWMIkKerWvOGQtA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794388735;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Received:Date:Mime-Version:X-Developer-Key:
+	 X-Developer-Signature:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type;
+	bh=TT7VtQW9u3ynfbpc9fZSH0gzZlmmELI2VQAwXCCXBdk=;
+	b=FjlcGodcMqTDr1Ms54bZkL7K7AJBnmatgCEHOUW4L5LaebOquz/2w2zIaagCB4TzMVUs
+	 mkE1bztMm9tDCUN0OVEYdtQDc5rXXDOaTakRFH3G/z6lGq16vZU+d6pEJ2T3mMb4nt2Ux
+	 X+TdtXZK8yx1XN1Rio0AYCM6AhXj70Ajh+qdDJJRQU4OWdAviIQEuYoxoIBOd6n5aPaHX
+	 quw/E6hRrQ1Zbq/EJXtZBvi3IkigGEtRbEUA0boefBEgRrhmwj02yDBGKiU9MnV6Rk03i
+	 A63tanpp2bUTgqKRUqE5hMYQPR9Saj7YUGci2zq7m6YYYBNt52Bmt1XnLTfUoSiPVXA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="nPQ/W3tB";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--ardb.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=B8Ty4QMx;
+	arc=none smtp.remote-ip=209.85.128.69
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com [209.85.128.69])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0FDD606A32D
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 09:18:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E2DC606A324
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 09:18:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E2DC606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--ardb.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nPQ/W3tB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7CCA1F00A05;
-	Wed, 11 Nov 2026 09:18:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794388694;
-	bh=QWs1gzgqO1A59hoKs3tuMBi4edD/w8k5cYwrGVQ+cB0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=nPQ/W3tBH7IXMyeKIqwMvWCKjOnatvPKh87fP3UWoe4psnTdQu3w//a4sVvyE5zyz
-	 WF6vpLmRhLQ185mGVjNFBZhQ7xCxtNeg3hFPeJzQXaTIUVMFg/S3s9Qe1Cxt8RCkJF
-	 HhDBZ6WdHgptQZ2NRfBJiRcBr5kB7SouvZozxUO2+UN1neTwxcLQmC61yWu1KPQ6by
-	 gwpvXemy6XTmp/oBzm6UWZvKSQ0ZwHAhr3GU5rLIhfedrpY5pUWiqZLQpnLKj4hkNR
-	 5zs8NjAKyNYimLPdfruEqZ6OUkajo6zoVMkPD0cWEzSrrHnr+VdqzG9d/rcN2NXPxd
-	 95DJQsE3IFJIA==
-Date: Wed, 11 Nov 2026 11:18:08 +0200
-From: Mike Rapoport <rppt@kernel.org>
-To: Chris Down <chris@chrisdown.name>
-Cc: pasha.tatashin@soleen.com, pratyush@kernel.org, graf@amazon.com,
-	kexec@lists.infradead.org, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, kernel-team@meta.com
-Subject: Re: [PATCH] kho: Prevent reuse of preserved pages after a
- reservation failure
-Message-ID: <avQy0MUl6eOplwhh@kernel.org>
-References: <avQUquBK6cO6tUUI@chrisdown.name>
- <avQg0_jFY3get3wG@kernel.org>
- <avQka0wY-EdLkspv@chrisdown.name>
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=B8Ty4QMx
+Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-4b9f7cace4bso27427255e9.3
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 01:18:55 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794388733; x=1794993533; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=TT7VtQW9u3ynfbpc9fZSH0gzZlmmELI2VQAwXCCXBdk=;
+        b=B8Ty4QMxm1vfEdE1VnKY4U6c5t+iG9oumO2n2YkMjk/9hSxY1CjNIxFCaBPVgrhJ27
+         4bvasjZIiY7dWta5ZXt+n/fC6cJ4W7AGMYQ4yRP7uQMLjFHFLYaT5w+VC+WgGqSzAPdt
+         zPj1Nw5q8f5mNR+gYLjm97XKYTTAzewaaeHCGD9hkIYnlpC//AAils9q6rJt9Ndp9ePl
+         /bhDn12fgIVYtcKwC1zelS5Et40vXXxbcHhfCnSxL3FJ2Z6SWwjH6Vtu+XdyNlD8q4Z+
+         9AZa4vF7LCwnxZ4A7AoCdca9e+i2U/IrzGHwJ2vG+Jhlqfcdos5U5dx55ipjvHYo4WoU
+         9bHg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794388733; x=1794993533;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=TT7VtQW9u3ynfbpc9fZSH0gzZlmmELI2VQAwXCCXBdk=;
+        b=LJPY1QGYUGtQ0B/i6YE/7WcV7qVMnhlt98NjF/BRZmoqfkOWpDeHJe3Niwl4egFzkm
+         gvy/WVSEJqQlwhNa8h5yxSxm8RCQaqlzrrOJnSnpkL2WYEu7fT0z6SQ23tOjVx+vuYmr
+         nLIv2W/tMyra/wcLxQsw6mJ3j0zq8wcyUS4mzU90sKva1WUwPayxCrOVH3VpX7jq21hL
+         R5/jZcADrIRfHPiDrzz2hkY7ofNTUoIR5r1xtxChK1z8/SvmzX5ou0WtCk/9Vsvyx9JO
+         OPrLY02WaM67pLrCpK3W0wj9KDpWbN3yFQQKZ+5JB+mRQt3ttFVGayva/Indbq6AaBCa
+         qXYQ==
+X-Gm-Message-State: APuU4Z8SRXYCryjKxl6xzBx8jsZ8pGGcyHQ5Pkz1Hb7wgP6f9irQicoq
+	0UXwWQu3ZIGMdU+h6wewl370uM7Qms07hvjQkjCZlwBYS4H0cuJKZm46EScMoF98dhgi6cnvCw=
+	=
+X-Received: from wmbgx4.prod.google.com ([2002:a05:600c:8584:b0:4a2:966:8982])
+ (user=ardb job=prod-delivery.src-stubby-dispatcher) by 2002:a05:600c:4f84:b0:4a1:e92b:ae4a
+ with SMTP id 5b1f17b1804b1-4ba093b9a3cmr28555185e9.21.1794388733378; Wed, 11
+ Nov 2026 01:18:53 -0800 (PST)
+Date: Wed, 11 Nov 2026 10:18:44 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,66 +75,226 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <avQka0wY-EdLkspv@chrisdown.name>
+Mime-Version: 1.0
+X-Developer-Key: i=ardb@kernel.org; a=openpgp; fpr=F43D03328115A198C90016883D200E9CA6329909
+X-Developer-Signature: v=1; a=openpgp-sha256; l=8041; i=ardb@kernel.org;
+ h=from:subject; bh=N/v1V05jBJ0umOaiddD8bOXjCN0qyvgKpT10lVOTxKM=;
+ b=owGbwMvMwCVmkMcZplerG8N4Wi2JIeuL0Zdvr5RkGir/8LxJfMhtdqK77+SH6i2HBdim7foc9
+ unV1G01HaUsDGJcDLJiiiwCs/++23l6olSt8yxZmDmsTCBDGLg4BWAiX9oYGRpNgi1mlgrs0Jwu
+ PvVhZHvonV+CtwKeLdyQV/9i7basgliGf1YvF9t5G3XsXruF58E3Q+MrcrunXL27qo/ntdvimLr rN9kA
+X-Mailer: git-send-email 2.56.0.611.g1030f0b940-goog
+Message-ID: <20261111091843.3621782-2-ardb+git@google.com>
+Subject: [PATCH] x86: Make the 64-bit bzImage always physically relocatable
+From: Ard Biesheuvel <ardb+git@google.com>
+To: x86@kernel.org
+Cc: linux-kernel@vger.kernel.org, linux-efi@vger.kernel.org, hpa@zytor.com, 
+	Ard Biesheuvel <ardb@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, Nov 11, 2026 at 12:16:43AM -0800, Chris Down wrote:
-> Hi Mike,
-> 
-> Mike Rapoport writes:
-> > On Tue, Nov 10, 2026 at 11:09:30PM -0800, Chris Down wrote:
-> > > kho_preserved_memory_reserve() reserves each range of preserved memory
-> > > in memblock and marks it noinit, but ignores both return values. Either
-> > > can fail when memblock has to grow its reserved array and can't find
-> > > room, which at this point in boot it may only take from KHO bootmem.
-> > 
-> > Is it an LLM analysis or you seen this happen?
-> 
-> Are those the only two options nowadays! :-) In this case it's just eyeballs.
+From: Ard Biesheuvel <ardb@kernel.org>
 
-Didn't think anybody still uses those :)
-Kudos!
+On x86_64, the physical placement of the kernel is independent from its
+mapping in the 'High Kernel Mapping' range. This means that even a
+position dependent kernel built without boot-time relocation support can
+run from any suitably aligned physical address, and there is no need to
+make this behavior dependent on whether or not the kernel is virtually
+relocatable.
+
+On i386, the situation is different, given that the physical and virtual
+load offsets must be equal, and so only a relocatable kernel can be
+loaded at a physical address that deviates from its build-time default.
+
+Clarify this in Kconfig and in the code, and advertise the 64-bit
+bzImage as loadable at any physical offset regardless of whether
+CONFIG_RELOCATABLE is set. In practice, this makes little difference,
+given that it defaults to 'y' and is a prerequisite for EFI_STUB and
+RANDOMIZE_BASE, but it will help with some future refactoring of the
+relocation code.
+
+Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
+---
+ arch/x86/Kconfig                   | 40 ++++++++++++++++++------------
+ arch/x86/boot/compressed/head_64.S |  4 ---
+ arch/x86/boot/compressed/misc.c    |  8 +++---
+ arch/x86/boot/header.S             |  8 ++----
+ 4 files changed, 29 insertions(+), 31 deletions(-)
+
+diff --git a/arch/x86/Kconfig b/arch/x86/Kconfig
+index 58dce0b66179..c7427daa0c3e 100644
+--- a/arch/x86/Kconfig
++++ b/arch/x86/Kconfig
+@@ -1898,7 +1898,7 @@ config EFI
+ config EFI_STUB
+ 	bool "EFI stub support"
+ 	depends on EFI
+-	select RELOCATABLE
++	select RELOCATABLE if X86_32
+ 	help
+ 	  This kernel feature allows a bzImage to be loaded directly
+ 	  by EFI firmware without the use of a bootloader.
+@@ -1995,8 +1995,9 @@ config PHYSICAL_START
+ 	help
+ 	  This gives the physical address where the kernel is loaded.
  
-> I happened to notice this while preparing my KHO/LUO observability patchset
-> and thought it made sense to send as a separate patch, since it doesn't
-> depend on anything there.
-> 
-> It's probably realistically quite unlikely, I would think it would require a
-> lot of fragmentation or a very small kho_bootmem=.
-
-It's unlikely indeed and if that happens we'll panic on memory map
-allocation anyway :)
+-	  If the kernel is not relocatable (CONFIG_RELOCATABLE=n) then bzImage
+-	  will decompress itself to above physical address and run from there.
++	  If the kernel is not relocatable (CONFIG_RELOCATABLE=n) and built for
++	  i386, then the bzImage will decompress itself to the above physical
++	  address and run from there.
+ 	  Otherwise, bzImage will run from the address where it has been loaded
+ 	  by the boot loader. The only exception is if it is loaded below the
+ 	  above physical address, in which case it will relocate itself there.
+@@ -2031,16 +2032,22 @@ config PHYSICAL_START
+ 	  Don't change this unless you know what you are doing.
  
-> > > Dropping the handover at this point isn't safe either. reserve_mem=
-> > > revives its regions from the handover before mm_core_init(), and
-> > > relies on this walk to reserve them.
-> > 
-> > reserve_mem_kho_revive() can memblock_reserve() its memory itself and we
-> > can carry on, can't we?
-> 
-> Thanks, that's better. I had thought carryong on wasn't possible because
-> reserve_mem has already reserved its regions by the time we get to the walk,
-> but actually you're right that there's no reason reserve_mem_kho_revive()
-> can't just do it itself...
-> 
-> Looking at the code one thing we would likely trip over then is that
-> kho_mem_retrieve()'s error path only clears fdt_phys, but not bootmem_phys.
-> kho_init() then thinks that it's a cold boot and runs
-> init_cma_reserved_pageblock() over the inherited bootmem which has already
-> been handed to the buddy allocator, so this would need adjustment first.
-> 
-> So then, let me send v2 with reserve_mem_kho_revive() sorting out its own
-> range, and making kho_init() skip the bootmem setup when the bootmem was
-> inherited, if that sounds good?
-
-Yeah, just keep them as two patches please :)
+ config RELOCATABLE
+-	bool "Build a relocatable kernel"
+-	default y
++	bool "Build a relocatable kernel" if X86_32
++	default X86_32
+ 	help
+-	  This builds a kernel image that retains relocation information
+-	  so it can be loaded someplace besides the default 1MB.
++	  This builds a kernel image that retains relocation information so it
++	  can be placed someplace besides the default PAGE_OFFSET + 1MB. This
++	  is a prerequisite for KASLR.
+ 	  The relocations tend to make the kernel binary about 10% larger,
+ 	  but are discarded at runtime.
  
-> Thanks!
-> 
-> Chris
-
+-	  One use is for the kexec on panic case where the recovery kernel
+-	  must live at a different physical address than the primary
++	  On i386, where the virtual and physical load offset of the kernel
++	  must be equal, this also allows the kernel image to be placed at a
++	  physical load address that differs from the compile time default. On
++	  x86_64, this is always permitted.
++
++	  One use is for the kexec on panic case on i386, where the recovery
++	  kernel must live at a different physical address than the primary
+ 	  kernel.
+ 
+ 	  Note: If CONFIG_RELOCATABLE=y, then the kernel runs from the address
+@@ -2049,7 +2056,7 @@ config RELOCATABLE
+ 
+ config RANDOMIZE_BASE
+ 	bool "Randomize the address of the kernel image (KASLR)"
+-	depends on RELOCATABLE
++	select RELOCATABLE
+ 	default y
+ 	help
+ 	  In support of Kernel Address Space Layout Randomization (KASLR),
+@@ -2085,7 +2092,7 @@ config RANDOMIZE_BASE
+ # Relocation on x86 needs some additional build support
+ config X86_NEED_RELOCS
+ 	def_bool y
+-	depends on RANDOMIZE_BASE || (X86_32 && RELOCATABLE)
++	depends on RELOCATABLE
+ 	select ARCH_VMLINUX_NEEDS_RELOCS
+ 
+ config PHYSICAL_ALIGN
+@@ -2098,12 +2105,13 @@ config PHYSICAL_ALIGN
+ 	  where kernel is loaded and run from. Kernel is compiled for an
+ 	  address which meets above alignment restriction.
+ 
+-	  If bootloader loads the kernel at a non-aligned address and
+-	  CONFIG_RELOCATABLE is set, kernel will move itself to nearest
+-	  address aligned to above value and run from there.
++	  If the bootloader loads the kernel at a non-aligned address and it
++	  is built for x86_64 or CONFIG_RELOCATABLE is set, the kernel will
++	  move itself to the nearest address aligned to above value and run
++	  from there.
+ 
+-	  If bootloader loads the kernel at a non-aligned address and
+-	  CONFIG_RELOCATABLE is not set, kernel will ignore the run time
++	  If the bootloader loads the i386 kernel at a non-aligned address and
++	  CONFIG_RELOCATABLE is not set, the kernel will ignore the run time
+ 	  load address and decompress itself to the address it has been
+ 	  compiled for and run from there. The address for which kernel is
+ 	  compiled already meets above alignment restrictions. Hence the
+diff --git a/arch/x86/boot/compressed/head_64.S b/arch/x86/boot/compressed/head_64.S
+index 1aca51390f73..de1973f032c7 100644
+--- a/arch/x86/boot/compressed/head_64.S
++++ b/arch/x86/boot/compressed/head_64.S
+@@ -143,7 +143,6 @@ SYM_FUNC_START(startup_32)
+  * for safe in-place decompression.
+  */
+ 
+-#ifdef CONFIG_RELOCATABLE
+ 	movl	%ebp, %ebx
+ 	movl	BP_kernel_alignment(%esi), %eax
+ 	decl	%eax
+@@ -152,7 +151,6 @@ SYM_FUNC_START(startup_32)
+ 	andl	%eax, %ebx
+ 	cmpl	$LOAD_PHYSICAL_ADDR, %ebx
+ 	jae	1f
+-#endif
+ 	movl	$LOAD_PHYSICAL_ADDR, %ebx
+ 1:
+ 
+@@ -316,7 +314,6 @@ SYM_CODE_START(startup_64)
+ 	 */
+ 
+ 	/* Start with the delta to where the kernel will run at. */
+-#ifdef CONFIG_RELOCATABLE
+ 	leaq	startup_32(%rip) /* - $startup_32 */, %rbp
+ 	movl	BP_kernel_alignment(%rsi), %eax
+ 	decl	%eax
+@@ -325,7 +322,6 @@ SYM_CODE_START(startup_64)
+ 	andq	%rax, %rbp
+ 	cmpq	$LOAD_PHYSICAL_ADDR, %rbp
+ 	jae	1f
+-#endif
+ 	movq	$LOAD_PHYSICAL_ADDR, %rbp
+ 1:
+ 
+diff --git a/arch/x86/boot/compressed/misc.c b/arch/x86/boot/compressed/misc.c
+index 0f41ca0e52c0..d37569e7ee10 100644
+--- a/arch/x86/boot/compressed/misc.c
++++ b/arch/x86/boot/compressed/misc.c
+@@ -314,12 +314,10 @@ static size_t parse_elf(void *output)
+ 			if ((phdr->p_align % 0x200000) != 0)
+ 				error("Alignment of LOAD segment isn't multiple of 2MB");
+ #endif
+-#ifdef CONFIG_RELOCATABLE
+-			dest = output;
+-			dest += (phdr->p_paddr - LOAD_PHYSICAL_ADDR);
+-#else
+ 			dest = (void *)(phdr->p_paddr);
+-#endif
++			if (IS_ENABLED(CONFIG_X86_64) ||
++			    IS_ENABLED(CONFIG_RELOCATABLE))
++				dest += (unsigned long)output - LOAD_PHYSICAL_ADDR;
+ 			memmove(dest, output + phdr->p_offset, phdr->p_filesz);
+ 			break;
+ 		default: /* Ignore other PT_* */ break;
+diff --git a/arch/x86/boot/header.S b/arch/x86/boot/header.S
+index 9bea5a1e2c52..b72e6055e103 100644
+--- a/arch/x86/boot/header.S
++++ b/arch/x86/boot/header.S
+@@ -332,7 +332,7 @@ initrd_addr_max: .long 0x7fffffff
+ kernel_alignment:  .long CONFIG_PHYSICAL_ALIGN	#physical addr alignment
+ 						#required for protected mode
+ 						#kernel
+-#ifdef CONFIG_RELOCATABLE
++#if defined(CONFIG_RELOCATABLE) || defined(CONFIG_X86_64)
+ relocatable_kernel:    .byte 1
+ #else
+ relocatable_kernel:    .byte 0
+@@ -342,14 +342,10 @@ min_alignment:		.byte MIN_KERNEL_ALIGN_LG2	# minimum alignment
+ xloadflags:
+ #ifdef CONFIG_X86_64
+ # define XLF0 XLF_KERNEL_64			/* 64-bit kernel */
+-#else
+-# define XLF0 0
+-#endif
+-
+-#if defined(CONFIG_RELOCATABLE) && defined(CONFIG_X86_64)
+    /* kernel/boot_param/ramdisk could be loaded above 4g */
+ # define XLF1 XLF_CAN_BE_LOADED_ABOVE_4G
+ #else
++# define XLF0 0
+ # define XLF1 0
+ #endif
+ 
 -- 
-Sincerely yours,
-Mike.
+2.56.0.611.g1030f0b940-goog
+
