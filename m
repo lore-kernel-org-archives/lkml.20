@@ -1,84 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794385844;
-	b=UPewoVcl6vJGP8imAtJxoCXWk4HTFPXJwlhIbQFnUfuKEOxFt5kMwSv3cMIMpd9KN6x7
-	 FE2kl2xGA1b2gtE56YdAJ+OXSP3ThePCwZvjosky8oZDYo3+y39ia7mdjYbpYv6tKR42G
-	 AS5pfo4SauTtxbbvQk2JEk/H5lk7HkuBePT3U78TfE3mZExFlSLBYQz+YY8SmidKyG6gL
-	 FesuGeRM4/y+BfHfr9CADAX2eCta8HqwbUK/J+bCK/SiRXiVkjvIWcADzcPMxpM2kBCTm
-	 trwTxC+yBjWN0e6ihBfPdXw92Sj2ZXX8ZvZxwfoPmQjoZmsrTaFw3Zy2WEMuNIKkzqg==
+	t=1794385852;
+	b=4aSJYYGPkcSucWAM4IdOCZ5IcZ5F23+Jxy46I+apgkMIi1TV+QHSMel1qVcU4zvMELFw
+	 0zG8pyq8zuMIMjIXWIrpAkZUUnCVdCSHjyN909TzXY04BNKQ4vb3VDCbIo9VTYvB+hnLI
+	 LAZkrBv9C4X59rntWlUUD2XaPVGXmV44SVKPRywTVvV/tfGZ1NwurC9A+LexEJgWWJqfr
+	 0MG/FqV7xY89FpIk4lF4UM7Jq1znV1niWMMVKl1NWUsMyrXrtI4rKixXxPOVH5rdX+qTn
+	 d8ouK1EAikgvalYbPo/cjZ08BiWuNw40SDEgRpI7G6LnWg6TMSDyE7gekD+BkRC5f7A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794385844;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=bzVyeI9qrDs9f50HIpMMKW+PxG6EQ/AHtxhq3EOoh7A=;
-	b=2AdcZpkt22X42E+id3Cl+GwhVNiuyfzK0G10s185y90NKV3QvaRVnSEc/4beXnVN1+68
-	 fIEV2Gr0MXgivNJnlm+nbzbvm/3t9vjg255C7ffbWDvG9OZuzpoVbO8XRgKFESbN8/M72
-	 hl1B+Fp1GvCEsMo5NeCZaRDJA2t2E0QjSHqkCPr6Ux9Rj5kjW85Nv7df4Sy0c8jtpe45y
-	 fERtnJ40da+H74F8oYDfPNYBOPOkD0rtPyN03TX+FKqu/k34HoRpxELXQf0DdKiAtzfGo
-	 7s1NmF8NzTMjGsV/RGXG9JUj91M2pNjABTilHsdTIvaNRFt1eaXztXT50HXKhN9oPJQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794385852;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:Cc:
+	 Subject:To:References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=3H9/gKfZON35QpEehuN/02KH/4m7mFFGWW7NINuD4kU=;
+	b=GSSGcfHbnQSq1Unk4Bd9Qnyx+9PeqnEw8/KT3kEm1BD6772g5CF9H1ZCeAduyvWEbL3c
+	 MfYsok3Ru/PP0yOuF8p3GrcCBoY3utSQ/IH/2hHEGLiXXn31iznLX7emE/1T6D8sOET70
+	 R5Wng8PqgLtfdW3fYm/gnjJZdy/wYELY4hgf6EDKQw6++4MgkS3KDfjjqd1SMMUzH8+AP
+	 iCM9ZYQEJagLpm9QN+LlPtjpAFb+8XjLCkzTdFYhHeQCntgMh5dddCFHs4CvQCbisvZ2K
+	 Z4WqHcLzOnxnvQaIUDnBLS/v97ZicSGpr8Eq1YwXj270GuS+30crAyRKha/0OK+H/4w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=YouwjhdU;
-	arc=none smtp.remote-ip=198.175.65.11
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Jd+/4Zzd";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EC05606A32A
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 08:30:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0EC05606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AD80606A32E
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 08:30:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=YouwjhdU
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794385843; x=1825921843;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=H0W8Zz8PVKmFdE5ZMrV+luI9PVA/1Nk64TB2CjqQiwY=;
-  b=YouwjhdUuoiI2fkISg8U9HBQjro5UGXZtQXDxSKGuy5yslxhxGyf1toT
-   iNmV5HMmtcCFVXozud4ghm6+1TWN7grlSTr/YKrKnSw5FY+DGll9iuOwM
-   I0sruQ3yZr7bJ/hCy2dO/03Mc8G2byva+6sIDuNinhI128WSjacjyPYCU
-   kxrKkaklkUnz5DmiYGWClbStFz1rySeIfrNAib8hzKYFZv7tdi/qW9Tru
-   3CwdXLaceO+m2kvkCOFf0i2WJiZrNVEfyBQ2KHNWHQ77vAS9pSpIOR1yu
-   PwkAEDybmzzoWMuD0Uo1Hh8xSVNNalSeTQPln7ncjvdAyJDh9ZkBddc64
-   A==;
-X-CSE-ConnectionGUID: azbNPnxFQpqx7qP8uoWCyg==
-X-CSE-MsgGUID: Di0fjYvSQaKCJPZEY7c63w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11962"; a="3048390"
-X-IronPort-AV: E=Sophos;i="6.27,207,1787036400"; 
-   d="scan'208";a="3048390"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 00:30:42 -0800
-X-CSE-ConnectionGUID: OHTFHgqTQ6e4jUbhOUFXiQ==
-X-CSE-MsgGUID: RyF6L6LNQ7SkOiIf3oliag==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,207,1787036400"; 
-   d="scan'208";a="8441282"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by orviesa001.jf.intel.com with ESMTP; 11 Nov 2026 00:30:39 -0800
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xR3j2-00000000yQt-1Loh;
-	Wed, 11 Nov 2026 08:30:36 +0000
-Date: Wed, 11 Nov 2026 16:30:08 +0800
-From: kernel test robot <lkp@intel.com>
-To: Karunika Choo <karunika.choo@arm.com>, dri-devel@lists.freedesktop.org
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev, nd@arm.com,
-	Boris Brezillon <bbrezillon@kernel.org>,
-	Steven Price <steven.price@arm.com>,
-	Liviu Dudau <liviu.dudau@arm.com>, linux-kernel@vger.kernel.org,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Subject: Re: [PATCH v2 16/28] drm/panthor: Add AM_RESOURCE_GROUP support
-Message-ID: <202611111629.kkrg6syk-lkp@intel.com>
-References: <20261110153907.3241978-17-karunika.choo@arm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jd+/4Zzd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2BB251F00A09;
+	Wed, 11 Nov 2026 08:30:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794385851;
+	bh=3H9/gKfZON35QpEehuN/02KH/4m7mFFGWW7NINuD4kU=;
+	h=Date:Cc:Subject:To:References:From:In-Reply-To;
+	b=Jd+/4Zzd33jg0xiYr4KG6ZMv59DluJdGvQyECHxm3i13QwhLqQWkZwdB5PZ0Voh4G
+	 WVxnnG/fkglmxPtRB+yt7tsBPO7jzV9/W+JAuQAvTHS1o3N2ODBtuuzKDcMZ5HNNED
+	 m1LOSwhLVJ/t+o7H59Jw6s4YCf8074TJpF5QhF4HW2xHInDxyz/tiuwjE+v8iSscvO
+	 A0LmkdBZvfroks7lh5TuLAOkivp/waxGUzTDO6PxRfujIQOrNkrdqpkohwGH2lRCv5
+	 Y34bHBjnU3u9aHiVI6KU+aGbtyeLX7/9hHVlKhk+IPmgVGLpxIhIwQS+jIUjV90Fmd
+	 B/ypaXGto/hYg==
+Message-ID: <acb8e08b-4a9f-4419-8b1b-b1933800311b@kernel.org>
+Date: Wed, 11 Nov 2026 16:30:48 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,131 +51,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261110153907.3241978-17-karunika.choo@arm.com>
+User-Agent: Mozilla Thunderbird
+Cc: chao@kernel.org, linux-f2fs-devel@lists.sourceforge.net,
+ linux-kernel@vger.kernel.org, Guikun Yang <yangguikun19@qq.com>,
+ zhanxusheng@xiaomi.com, stable@kernel.org
+Subject: Re: [PATCH] f2fs: don't BUG_ON a missing orphan inode at mount
+To: Zhan Xusheng <zhanxusheng1024@gmail.com>, Jaegeuk Kim <jaegeuk@kernel.org>
+References: <tencent_B30A444DF94444D1A63A7D6F8E2039F1990A@qq.com>
+ <20261105034419.2701443-1-zhanxusheng1024@gmail.com>
+Content-Language: en-US
+From: Chao Yu <chao@kernel.org>
+In-Reply-To: <20261105034419.2701443-1-zhanxusheng1024@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Karunika,
+On 11/5/26 11:44, Zhan Xusheng wrote:
+> From: Zhan Xusheng <zhanxusheng@xiaomi.com>
+> 
+> recover_orphan_inode() treats -ENOENT from f2fs_iget() as a kernel
+> bug, but the ino comes from the on-disk orphan block. An image whose
+> orphan entry names an inode without a NAT entry hits the BUG_ON at
+> mount with CONFIG_F2FS_CHECK_FS, or a WARN and a failed mount
+> without it.
+> 
+> To reproduce, unlink a file while it is still open, sync, crash,
+> then change ino[0] in the checkpoint's orphan block to an unused
+> nid and mount:
+> 
+>   kernel BUG at fs/f2fs/checkpoint.c:967!
+>   RIP: 0010:f2fs_recover_orphan_inodes+0x6a3/0x9a0
+> 
+> Treat it as corruption, the same way the entry_count check does:
+> fail the mount with -EFSCORRUPTED and record
+> ERROR_INCONSISTENT_ORPHAN for fsck.
+> 
+> Fixes: 8c14bfadeac2 ("f2fs: handle error of f2fs_iget correctly")
+> Reported-by: Guikun Yang <yangguikun19@qq.com>
+> Closes: https://lore.kernel.org/linux-f2fs-devel/tencent_B30A444DF94444D1A63A7D6F8E2039F1990A@qq.com/
+> Cc: stable@kernel.org
+> Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
+Reviewed-by: Chao Yu <chao@kernel.org>
 
-kernel test robot noticed the following build errors:
-
-[auto build test ERROR on drm-misc/drm-misc-next]
-[also build test ERROR on drm/drm-next drm-tip/drm-tip next-20261110]
-[cannot apply to linux-review/Karunika-Choo/drm-panthor-Ignore-EOPNOTSUPP-for-shader-present-nvmem-lookup/20260922-214455 daeinki-drm-exynos/exynos-drm-next drm-i915/for-linux-next drm-i915/for-linux-next-fixes linus/master v7.4-rc2]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Karunika-Choo/drm-panthor-Ignore-EOPNOTSUPP-for-shader-present-nvmem-lookup/20261110-153822
-base:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
-patch link:    https://lore.kernel.org/r/20261110153907.3241978-17-karunika.choo%40arm.com
-patch subject: [PATCH v2 16/28] drm/panthor: Add AM_RESOURCE_GROUP support
-config: s390-allmodconfig (https://download.01.org/0day-ci/archive/20261111/202611111629.kkrg6syk-lkp@intel.com/config)
-compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project e73e336290028f26553b46c9fba844c13da38c9c)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261111/202611111629.kkrg6syk-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611111629.kkrg6syk-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
->> drivers/gpu/drm/panthor/arbitration/panthor_resource_group.c:341:12: error: call to undeclared function 'irq_get_irq_data'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
-     341 |         irqdata = irq_get_irq_data(irq);
-         |                   ^
-   drivers/gpu/drm/panthor/arbitration/panthor_resource_group.c:341:12: note: did you mean 'irq_set_irq_wake'?
-   include/linux/interrupt.h:486:12: note: 'irq_set_irq_wake' declared here
-     486 | extern int irq_set_irq_wake(unsigned int irq, unsigned int on);
-         |            ^
->> drivers/gpu/drm/panthor/arbitration/panthor_resource_group.c:341:10: error: incompatible integer to pointer conversion assigning to 'struct irq_data *' from 'int' [-Wint-conversion]
-     341 |         irqdata = irq_get_irq_data(irq);
-         |                 ^ ~~~~~~~~~~~~~~~~~~~~~
->> drivers/gpu/drm/panthor/arbitration/panthor_resource_group.c:343:15: error: call to undeclared function 'irqd_get_trigger_type'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
-     343 |                 irq_flags = irqd_get_trigger_type(irqdata);
-         |                             ^
-   3 errors generated.
-
-
-vim +/irq_get_irq_data +341 drivers/gpu/drm/panthor/arbitration/panthor_resource_group.c
-
-   284	
-   285	static int resource_group_init(struct panthor_arbitration *adev, int i)
-   286	{
-   287		struct panthor_resource_group *rg;
-   288		struct device *dev = adev->dev;
-   289		struct irq_data *irqdata;
-   290		struct resource *res;
-   291		void __iomem *iomem;
-   292		u32 irq_flags = 0;
-   293		char *name;
-   294		int irq;
-   295		int ret;
-   296	
-   297		if (adev->rg[i])
-   298			return dev_warn_probe(dev, -ENODEV,
-   299					      "resource-group %u already present", i);
-   300	
-   301		rg = devm_kzalloc(dev, sizeof(*rg), GFP_KERNEL);
-   302		if (!rg)
-   303			return -ENOMEM;
-   304	
-   305		name = devm_kasprintf(dev, GFP_KERNEL, "rg%d", i);
-   306		if (!name)
-   307			return -ENOMEM;
-   308	
-   309		res = platform_get_resource_byname(to_platform_device(dev),
-   310						   IORESOURCE_MEM, name);
-   311		if (!res)
-   312			return -ENODEV;
-   313	
-   314		iomem = devm_ioremap_resource(dev, res);
-   315		if (IS_ERR(iomem))
-   316			return dev_err_probe(dev, PTR_ERR(iomem), "%s: Failed to ioremap", name);
-   317	
-   318		rg->name = name;
-   319		rg->dev = dev;
-   320		rg->iomem = iomem;
-   321	
-   322		spin_lock_init(&rg->irq_lock);
-   323		rg->irq_suspended = true;
-   324	
-   325		rg->wq = devm_alloc_ordered_workqueue(dev, "panthor-%s-wq", WQ_FREEZABLE, name);
-   326		if (!rg->wq)
-   327			return -ENOMEM;
-   328	
-   329		INIT_DELAYED_WORK(&rg->msg_retry_work, rg_retry_messages);
-   330	
-   331		for (int i = 0; i < AM_ARB_MAX_AW_COUNT; i++)
-   332			panthor_am_msg_init(&rg->aw_data[i].msg,
-   333					    rg->iomem + AM_RG_AW_MESSAGE(i));
-   334	
-   335		irq = platform_get_irq_byname(to_platform_device(dev), name);
-   336		if (irq < 0)
-   337			return irq;
-   338	
-   339		rg->irq = irq;
-   340	
- > 341		irqdata = irq_get_irq_data(irq);
-   342		if (irqdata)
- > 343			irq_flags = irqd_get_trigger_type(irqdata);
-   344	
-   345		ret = devm_request_irq(
-   346			dev, irq, rg_irq_raw_handler, irq_flags | IRQF_SHARED,
-   347			devm_kasprintf(dev, GFP_KERNEL, "panthor-%s-irq", name), rg);
-   348		if (ret)
-   349			return ret;
-   350	
-   351		adev->rg[i] = rg;
-   352	
-   353		rg_irq_resume(rg);
-   354	
-   355		rg_handshake_init(rg);
-   356	
-   357		return 0;
-   358	}
-   359	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Thanks,
