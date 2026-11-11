@@ -1,122 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=68.232.154.123
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794407471;
-	b=1Dgb6pcLIkS9l6Bg90kx9D63OcLbWVYevgOWalbsOiQ/SW2/y4TL4DQCvBBbq/+/fBfY
-	 FpZm8omxFzq7a7SWf6SmVpYp/URNKnqNB1IFQRyFEIoKTfsAQZb+2vecOR9YV5mj8plAy
-	 dJm3s1D667exAzXJym7bemOE2BKaQ7EN2eiHA2iwxaqk24LW4pWM79X9gX6G0McLp72PH
-	 gW/ftc06RG40+A856MfKUmRm5k+FYJ57LLRDACyuGJ6iCv3C+EGI5C58KSRHVUFU+92jw
-	 Waxhd0e4OQbeRSIbyw1qtCn4lW9Q/N6EmyxgMepxN4FVlFsVwTggcFCIiqaFiyhYAJQ==
+	t=1794407488;
+	b=dLT1n/i36OX/Hvsx+zK7EMzb9MwVDg48exc/SjFoL4fISY28LoY7YvZVWYpOdie0pQDr
+	 FDq0WD6ay+dhlBYF06MOOz8XH0tUuCLbG00fk547kLyW+0XPwSrm/8vIc+jqOcosOJDzO
+	 HCJdGxfd6aejPRjgng0E9av6kUNTjlCCIVVcsB9tvhCN6jqbn+uhOmMvV9VOXV3hTOnne
+	 21/4uCuqP9lMQHFCNvXArDzy7D3KAhuxxD/FzmofnrhyL977NKGwIBNw6/zORliddlnuM
+	 m0xIM+O1FAYGNpn8+4H27m4Aq+Ud1z3YgCZFmf8ke01Vb3SIhsi0zRmMuK0ymM3ipAg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794407471;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Authority-Analysis:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=EN+WAVgkwiDEL7XX6X4DT1VgY5ErtLa0IoCAAHBwQOI=;
-	b=tYB5Br1tutPeGSR0uZPwmxwbgC6YgVmI1LM8mjkMibD4x9RjPzu/FepNlUFhH2Wk3WI3
-	 SoTEqu6AwKaXtjMCMoOtR9J4vLPGg/krT3Nq31/H1ZlyLH3cr519848m0qXaOojhDk3kR
-	 +dDsbQr/9oTvKIxFF5g+WBTLXdpGI9LmnyFYJ0Qkvm332DnzsuwCFiL2usgle9URKrzUS
-	 LvmC6aktWSVx5RhNXa6CZ0I7CJvD/O5Yn0VcVCaM2LnumolxcFsxM4mrDNGXnod8pJG+t
-	 pNEjsU6uMcbR2BzSw8cU6+xF9edGbkfhZCtUTi34l0zGhkIJcO6sbheFlwlyIEgyJvA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794407488;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-Amp-Result:Received:Received:Received:From:Subject:
+	 Date:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-B4-Tracking:X-Change-ID:To:CC:X-Mailer;
+	bh=Ffya1PyP3rVgK3FKUJMeUTOknHVDLAS7rmXQhoJQICA=;
+	b=mM5iWsmBK2DHfe5/0D4dVOf3kivo++3p/CLWJk86uOLIO8I5U1+sDvrqMnFtfYnHGDmw
+	 4W0RScXuO+gRc5h5JDxeD/TnNZ12G24NE48ofZtJEXVoEKDE3lkVd2h5DklTQAPECGN2o
+	 47lwAudBUfpHgbO3HJdGJAqaV4Qc489LzmpbQ8Nli4mYs9b3ZOWxtonkwPauO024VbX0D
+	 lfg8d+jW+++LtfBiPWWy6oug3PbY3td7EfRMadzVrecVRTEQ9qniUI4ONSSkksIvhGUZF
+	 2gI6iCSnvcQAezCKO62IW6asvPzDbjXNlpEKXk/0tdYaCei6jo8fHmAEJM7gWkCAHnQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=MGjO7NAW;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=YM+W7fW7;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dmarc=pass header.from=microchip.com;
+	spf=pass smtp.mailfrom=microchip.com;
+	dkim=pass header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b="CI/3Rm9B";
+	arc=none smtp.remote-ip=68.232.154.123
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C18D606A330
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 14:31:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5C18D606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6821606A321;
+	Wed, 11 Nov 2026 14:31:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C6821606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=MGjO7NAW;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=YM+W7fW7
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ABEJRHq2577867
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 14:31:11 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=EN+WAVgkwiDEL7XX6X4DT1Vg
-	Y5ErtLa0IoCAAHBwQOI=; b=MGjO7NAWXsm5REpaJFCiUmZCvAi9qTiRnAr8Kq86
-	AVPhiEtdmyqSoNbuDeMZlrhyVPlwHdQAdjWSC+w9sxdD7esdjBb8iM1bPgZWC8qZ
-	hyjrDjJVLrnGpupUahioTlrJm9CkKvSwOhRVsDYYk2ecMmZsNbQ3tevH1BOfUKmO
-	IMzeMp1QY8UESmTdYHXn2R7qdjiZjNMrXcPM4Rx6BA+809hJRgU4W7tmp8A4MU9z
-	ayKtNV+SPc6XcLi0Wh0Xs4pfN3bYImTHy/kGNYC/PpcCxmmyeZjZqvuF+dgxIAAA
-	iwKPNE0pNrhqTGseDWxKfD5+B5q7ADtHGjfIcadDTeLbdA==
-Received: from mail-ua1-f70.google.com (mail-ua1-f70.google.com [209.85.222.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvgjdj6ws-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 14:31:10 +0000 (GMT)
-Received: by mail-ua1-f70.google.com with SMTP id a1e0cc1a2514c-990ca9607c3so1783182241.1
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 06:31:10 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794407470; x=1795012270; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=EN+WAVgkwiDEL7XX6X4DT1VgY5ErtLa0IoCAAHBwQOI=;
-        b=YM+W7fW7tnBVR9LtdCWKFpn6gDQO2+xL8F2TrFdx5XaPG50hxIACci24mnkf9Vsiyc
-         o3ZhAMZYQY19xYIdMh52gyVgg/SLxDg/O50Kc1s7h8llUzsg4nxH371JMc4rvbZOb20S
-         oZWgQKCepwXHTPtQ5hwjj1AYlV4z7Rea84rOSMBn0DrkOrOk5iWVwmcNN4amkvrH9DN3
-         NdeR16mzZ654zt2HdXPW+5F+5eIbp/JTN/yMguzk8VyYqCyqyR2pgqM/j3cScFZkE8cB
-         EWcOyrIbRwy3KS+nbp/Je224RQsfQxCzPu3Hv1nMiQkAKjAwqZFkZf+zA7pbXreQQQHs
-         707w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794407470; x=1795012270;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=EN+WAVgkwiDEL7XX6X4DT1VgY5ErtLa0IoCAAHBwQOI=;
-        b=Um6tz8TEYbdadPsTV2f2p4UXf/HR9o/weRI4K58Ywm/w0WMVR/zOZ0JRVvLPX/PPQC
-         24dK7R1l2k+QxUgaGOkMXbzFeA7FnchQKpNYJZ/Yuye5oCSDkk6R7YJJz+gq5efQAPQa
-         F3kvtYoD578HKrmSmIcTSBVbDeOeJJmpraOR7Vskpleiu0zqapKxFuwBTG+tV1b3ynRb
-         tI5QGQlpL88Vfmoi2gy+l3W4xB6YXeqzM60QXSGPf5TNx9hCBBktdB675Mz8rPAbUWVd
-         YtTeiMQL8sCW4zT43Yc0ILSDeMVLi2xlMD/W9B+lE80Xo5OYdNaEWsdkW4KLjuf7iZZ+
-         j+1w==
-X-Forwarded-Encrypted: i=1; AL+hErFER1/ouJO9E5Mo/QZiL5FbKyyVmYOmz6mNAh/APa31469ylRk5HobNK4InTDHgS5YeOZkcpZSUPlbO/FI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/JcFA44szDGyCSHXuSt3ZDbei02MhR+OA4K/b1RFhlw1LUqzpN
-	TKkgWzILzf+EBURyJ+iK5khwaA/PLlMjpVGpkl8hfjZ9brwFgYP5R+O/X1CxtKxiMDKoyjQD9IM
-	api66RB6DWI1RT8+JryF690tZk5kdNWHG7h8AEbUXp9erKqoeHDdxMp0FwuRUSsh031k=
-X-Gm-Gg: AYBFou1j+Cd0F5zWgD9e8qMTtgbfqkFa3zg0bJICL0xxekUqVDT9cEGUdG6TojbuNij
-	UkU4eno6/wMhq9ZrAnXJR3GD6nWXyiAPUdo1ILG6C3NMdjhjwdeAA06YBmmORf6wZ8FLYn2DNsO
-	LW9Xf2GNKtCvJGheCaq/ZzUvVQXDcmW7xKQCXrflrkuUnPpNWorn4IpbRmqhOZVt8OtFnsEyzhm
-	AwHxTOcUb4QRZgkcNfXYu+TDoLj1evFlFnZj23d0qLeoerozWg87rST9dLagjWAW+7xgkiflKjy
-	N4mq5VErVnK4G8ihlzZ/FmwZEwx13NLouXdPQd1XeEUveat+lTvWiWLEEAZuxac8adSK0JJFpDR
-	YxUAgqUUH5Dm+D6e5+w0nepow1XSYTrC5O9i+zkFDXZuV8WKLs4MMFoj6rgexK5hZ
-X-Received: by 2002:a05:6122:512:b0:5ea:e052:2ef0 with SMTP id 71dfb90a1353d-5ee1c3ff521mr824885e0c.9.1794407469357;
-        Wed, 11 Nov 2026 06:31:09 -0800 (PST)
-X-Received: by 2002:a05:6122:512:b0:5ea:e052:2ef0 with SMTP id 71dfb90a1353d-5ee1c3ff521mr824825e0c.9.1794407468682;
-        Wed, 11 Nov 2026 06:31:08 -0800 (PST)
-Received: from oss.qualcomm.com ([188.27.161.77])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba08e57504sm54594105e9.2.2026.11.11.06.31.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 06:31:07 -0800 (PST)
-Date: Wed, 11 Nov 2026 16:31:05 +0200
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: Vladyslav Tymoshchuk <tvlad744@gmail.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
-        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
-        Jerome Brunet <jbrunet+clk@baylibre.com>,
-        Melody Olvera <melody.olvera@oss.qualcomm.com>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Taniya Das <taniya.das@oss.qualcomm.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] clk: qcom: gcc-sm8750: Use retention for USB power
- domains
-Message-ID: <gncowr77bzqv7mnshfpqv5rkvkjeyc5if7zfuf2xtqbxakppi7@xvefvpjdc2et>
-References: <20261110213346.1359-1-tvlad744@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=CI/3Rm9B
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1794407488; x=1825943488;
+  h=from:subject:date:message-id:mime-version:
+   content-transfer-encoding:to:cc;
+  bh=ARf6Qy9+lKPIUIodkBHNGoX/Amz6H0JQ2oSXq5Hzxl8=;
+  b=CI/3Rm9BxO2wWI+lonsgPsKzZzOEC7f+dOCB8auwCbrR8wmTABu5J/1T
+   XezkbDzyl1bNk6WCz/yQ9rZUhuUydgFkln7kmXDI3oNikP0n5aofEb8ET
+   FsFsWWauIcek89lVQSm1AEr8BQJ3mAGoUfeHqq4v36xSzT19nUyboo9FJ
+   e79b9nnQz26B4e8+8INu5Xk0lGtbKUbNe6vdgPqU7ZYXxapQalA/trGgG
+   cB6E9HC/UhD8j7RasGCLY1ezAigx9dsKLV33N8P1+IjCLAwSjTV7foclb
+   5L+0S8n7D3YaobGy+dRHJ4f1XBKLGU/4EYWw2LrWEe94B8pdFzUFjQb24
+   w==;
+X-CSE-ConnectionGUID: xPdy8HDdQ8WgP3ZgxhmbiA==
+X-CSE-MsgGUID: txKp6d8FTIWKTSByyUbJig==
+X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
+   d="scan'208";a="66598085"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa2.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 07:31:27 -0700
+Received: from chn-vm-ex04.mchp-main.com (10.10.87.151) by
+ chn-vm-ex4.mchp-main.com (10.10.87.33) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.56; Wed, 11 Nov 2026 07:31:26 -0700
+Received: from DEN-DL-M70577.microsemi.net (10.10.85.11) by
+ chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server id
+ 15.1.2507.58 via Frontend Transport; Wed, 11 Nov 2026 07:31:23 -0700
+From: Daniel Machon <daniel.machon@microchip.com>
+Subject: [PATCH net-next v2 0/9] net: sparx5/lan969x: add support for
+ changing the MTU
+Date: Wed, 11 Nov 2026 15:31:10 +0100
+Message-ID: <20261111-sparx5-mtu-change-v2-0-59c91357e8f6@microchip.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -126,56 +75,103 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261110213346.1359-1-tvlad744@gmail.com>
-X-Authority-Analysis: v=2.4 cv=E7tYNqdl c=1 sm=1 tr=0 ts=6af47c2e cx=c_pps
- a=R6oCqFB+Yf/t2GF8e0/dFg==:117 a=asF+/XNaGoxFafzDDLC1GQ==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=F04PIRqRD5HbMnb_lPAA:9 a=CjuIK1q_8ugA:10
- a=TD8TdBvy0hsOASGTdmB-:22
-X-Proofpoint-ORIG-GUID: cMQKX_QHd9QhexHzC8TFAg1ixiGt2Bib
-X-Proofpoint-GUID: cMQKX_QHd9QhexHzC8TFAg1ixiGt2Bib
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDA1NiBTYWx0ZWRfX4VfmrC2U6j04
- g2xg4QaGrwogY2s4E8L25coqCZuAy7qzHSBI2xj1SrS2Sf1+Y4Qv3TGf516zx//BiaZmXYxad5E
- WLdwRtyOH2ALJz2q/TCSs5Ik72rLsc6x3LT0mU3UXULBYpJucaI3PCvlHjJUWfFPVOpRowNRtsC
- xSOqXEPuLkkP34pMBYR3pfZBMVUPjkdAvrvyWVAgbZQInjW5fPNZwtClfTc+OPScwMHezmgqn3h
- AXZySZmOusMTaUVPrxk85e+7k62Tpe8U4oypzF5ocNvOZAQybwC9c2TfHj3ONL+hkH2HXy41jY/
- JZBLzzy5HT0TGfnEjGD6NrI5PL/n7Y9TTnuJ1NZmfqfpLFx6gV9ykaRM0KvmT+JmaG6Fg+/dMTD
- NVHvEoP6yiFoL7crbsBnPzi03/2Diu5kxA9VBs4gY2aJ6nBRToNHketkJh8cYtjk8KEKCVlt2lX
- JoOKVTa34sdAkpjnLsg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDA1NiBTYWx0ZWRfX6hDy+7yKVfOR
- jqiRDlZu8R/GatYOWNJdq+ScPRMp82JIH83FIP3y873cCR5JtjOXSQIRoQ2RNzBabWtpZItb1dj
- yFEbF/VAq8X35pounqTwzYhQyXgqYVg=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-11_03,2026-11-11_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 suspectscore=0 priorityscore=1501 impostorscore=0 adultscore=0
- malwarescore=0 clxscore=1015 bulkscore=0 spamscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611110056
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAC589GoC/22NwQ6CMBBEf4Xs2TVtEVBO/ofh0JZF9kBL2kowh
+ H+3Eo8eJ2/mzQaRAlOEttgg0MKRvctBnQqwo3ZPQu5zBiVULW6lwDjrsFY4pRf+Cn1DxkjdDFZ
+ ryLs50MDr4XyAo4SO1gRdJiPH5MP7OFvkwb9eKUX1x7tIFDioxmhTXcWlLu8T2+DtyPPZ+gm6f
+ d8/e3qRBcAAAAA=
+X-Change-ID: 20260930-sparx5-mtu-change-d7ebb1a7fcaa
+To: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+	<davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski
+	<kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Steen Hegelund
+	<Steen.Hegelund@microchip.com>, <UNGLinuxDriver@microchip.com>, "Richard
+ Cochran" <richardcochran@gmail.com>, Russell King <linux@armlinux.org.uk>
+CC: <netdev@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-kernel@vger.kernel.org>, Robert Marko <robert.marko@sartura.hr>,
+	Horatiu Vultur <horatiu.vultur@microchip.com>,
+	=?utf-8?q?Jens_Emil_Schulz_=C3=98stergaard?=
+	<jensemil.schulzostergaard@microchip.com>
+X-Mailer: b4 0.14.3
 
-On 26-11-10 23:33:46, Vladyslav Tymoshchuk wrote:
-> The USB controller does not expect to lose its state in system suspend.
-> The controller node is a wakeup source, so in host mode dwc3 keeps the
-> core initialized across suspend, while genpd still powers the USB GDSCs
-> off. With a USB stick on the port, the xHCI comes back from s2idle with
-> an SMMU fault and is given up:
-> 
->   arm-smmu 15000000.iommu: Unhandled context fault: fsr=0x402, iova=0x669fd3200, fsynr=0x370011, cbfrsynra=0x40, cb=5
->   xhci-hcd xhci-hcd.3.auto: WARNING: Host System Error
->   xhci-hcd xhci-hcd.3.auto: xHCI host not responding to stop endpoint command
->   xhci-hcd xhci-hcd.3.auto: xHCI host controller not responding, assume dead
->   xhci-hcd xhci-hcd.3.auto: HC died; cleaning up
-> 
-> After that the port is dead in device mode as well, until a reboot.
-> 
-> Keep the controller and PHY GDSCs in retention, as SM8650 and X1E80100
-> do.
-> 
-> Fixes: 3267c774f3ff ("clk: qcom: Add support for GCC on SM8750")
-> Signed-off-by: Vladyslav Tymoshchuk <tvlad744@gmail.com>
+This series adds support for changing the MTU on Sparx5 and lan969x.
 
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Currently, there is no ndo_change_mtu callback, and the MAC maximum
+frame length, the FDMA buffers, the queue watermarks and the TAS guard
+band are all fixed for a 1518 byte frame. This series makes them follow
+the MTU, and sets the maximum MTU from the 14000 byte frame limit of the
+MACs. As the FDMA is shared by all ports, new buffers are allocated
+while the FDMA keeps running, and the FDMA is only stopped briefly to
+replace them. Details are in the commits.
+
+Patches 1-2 are fixes: patch 1 makes the FDMA stop sequence actually
+stop the channels, and patch 2 frees the FDMA buffers on init errors
+and deinit. They are routed to net-next rather than net, as they
+fix issues that are not regressions, and the stop sequence is only used
+on deinit until this series uses it to resize the buffers.
+
+Patches 3-4 prepare for the MTU change, by adding a helper for setting
+the MAC maximum frame length, and by making the FDMA init and alloc
+functions operate on the rings passed to them.
+
+Patches 5-6 size the FDMA buffers from the port MTUs, and add support
+for resizing them.
+
+Patches 7-8 scale the queue watermarks and the TAS guard band with the
+MTU.
+
+Patch 9 adds the ndo_change_mtu callback and sets the maximum MTU.
+
+Tested on Sparx5 (PCB135) and lan969x (EV23X71A), by forwarding frames
+up to the MTU and checking that frames one byte over the MTU are
+dropped, by sending jumbo frames to and from the CPU while stepping the
+MTU up and down between 1500 and 9216, and by changing the MTU
+repeatedly while flooding the CPU with frames in both directions.
+
+Signed-off-by: Daniel Machon <daniel.machon@microchip.com>
+---
+Changes in v2:
+- Patch 1: add a Fixes tag.
+- Patch 2: also release the lan969x TX buffers that are still in flight
+  on deinit, store the length of the mapped TX buffers so that two-step
+  PTP skbs are not touched when unmapping, and add Fixes tags.
+- Patch 6: reuse the lan969x TX buffer release from patch 2, and mention
+  in the commit message that frames still in flight are dropped.
+- Rebase on net-next, which now has commit 873363ac591a1 ("net:
+  sparx5/lan969x: release the in-flight slot of a stale TX skb"), so
+  that a two-step PTP frame dropped by a resize no longer leaks its
+  timestamp slot.
+- Link to v1: https://lore.kernel.org/r/20261105-sparx5-mtu-change-v1-0-f27bab580463@microchip.com
+
+---
+Daniel Machon (9):
+      net: sparx5/lan969x: stop the FDMA channels properly
+      net: sparx5/lan969x: free the FDMA buffers on init errors and deinit
+      net: sparx5/lan969x: add a helper for setting the MAC max frame length
+      net: sparx5/lan969x: pass the FDMA rings to the init and alloc functions
+      net: sparx5/lan969x: size the FDMA buffers from the port MTUs
+      net: sparx5/lan969x: add support for resizing the FDMA buffers
+      net: sparx5/lan969x: scale the queue watermarks with the MTU
+      net: sparx5/lan969x: scale the TAS guard band with the MTU
+      net: sparx5/lan969x: add support for changing the MTU
+
+ .../ethernet/microchip/sparx5/lan969x/lan969x.c    |  10 +
+ .../ethernet/microchip/sparx5/lan969x/lan969x.h    |   2 +
+ .../microchip/sparx5/lan969x/lan969x_fdma.c        | 193 +++++++++++--
+ .../net/ethernet/microchip/sparx5/sparx5_fdma.c    | 321 ++++++++++++++++++---
+ .../net/ethernet/microchip/sparx5/sparx5_main.c    |   2 +
+ .../net/ethernet/microchip/sparx5/sparx5_main.h    |  14 +
+ .../ethernet/microchip/sparx5/sparx5_main_regs.h   |  34 +++
+ .../net/ethernet/microchip/sparx5/sparx5_netdev.c  |  48 ++-
+ .../net/ethernet/microchip/sparx5/sparx5_port.c    | 123 +++++---
+ .../net/ethernet/microchip/sparx5/sparx5_port.h    |   5 +
+ drivers/net/ethernet/microchip/sparx5/sparx5_tas.c |  43 ++-
+ 11 files changed, 693 insertions(+), 102 deletions(-)
+---
+base-commit: 368fbf5d82da9ebce309449c74fc0b128f7d0219
+change-id: 20260930-sparx5-mtu-change-d7ebb1a7fcaa
+
+Best regards,
+-- 
+Daniel Machon <daniel.machon@microchip.com>
+
