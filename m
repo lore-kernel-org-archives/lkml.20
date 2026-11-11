@@ -1,79 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794433904;
-	b=Wv5Bno37j9kgx4dF6KfoEOubQJ7gf6i59Lh7UwzNY1+m5ptCdHy1jHikN9vTyxYFoXWM
-	 rhl8o12LYC+u2ssNL+fYml2cmcoVke22x1UxWGpW6ZU4pEbArad8tZtbQwmc1bck1vhcs
-	 q4J+fM7kgVE1iPEOoRIhYQSDzSsVQkhfHhJ5/MYYDbSNCY+P4xu3/1ogt6VXUuWKPXKDd
-	 nZOh5vK0RzUUKjBMTFLXe6hf1WzhmcRtmlkTnVJ9Bqbs4iGqSGGKhTcEHba4ahM+PnYy7
-	 kMfjq8DzKUMrawpnb/qP2yYNsLjoLyIsfTZ9YaH2H/PcQBDNMlrtyNAVVTiGUccIQSg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794433904;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=O81Xzd5PWJmQde17k7H3DWNdQYVpfX8wGonqraBDnO8=;
-	b=sv0zTSpiLWI9dTLQLy+o8u4tI6SKesWB+t2ZsoffbgL75iP08ITfr4ackQ4ZTyoYHXcY
-	 14egN2OkmLV9wR5PJ5kmEiSc4azkAaBNXUgWXKEl1ItDTHr33k577CxpdH2p2k9M/R8xr
-	 6RPjti/FAcFrGucBTLu/hoAK6qeH5xzDBu+sAo2LradVRWC8PsyBDZyU292MueM7SCXHO
-	 cjk/GBi/SdLNRIhy/580PQ2j5u4IfNe2YBwyekwactcKVvYO8dmt1fkBbIMokdc/VQiSo
-	 3lhr42rMTreMsODoLPlELbhA3LA0fVCjyvY5pkRGUT8UiKogppmhwxE1VDOuhrwV3Vg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O4vVOtbH;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CFC6606A326
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 21:51:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O4vVOtbH
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794433904;
-	b=fDvXUtGjI4gO6K6olQmap8XAV3KOKlB1vSSC2PCdcaLl/JaWut7OkUVhKkK9TgcDphK6
-	 5u6LSuPnd/etgChO1DlhnHFzZW/+S8/Y9dDG+aLWrsvshtH6BKiuMAoC3L168PeufP5NA
-	 H6TiZcSP+uegIs0oTjjO7zHyLkJZmYrqqRX2oehLFP58oTnGq7ufYiKBil2IB5xCzgTwT
-	 pl8ga8iRe22BF42Ilf1d8K6RG5Mu+y09Lgy4rihgCeyRb4pU77AbiVZYQN+WNCUDFdIoH
-	 fQqFAyZYo7vYmfT6ds5MGUNE14UhWFvD8snYmxk6jXcA6KbCrNEE7+YzK/lqK39U4Uw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794433904;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=O81Xzd5PWJmQde17k7H3DWNdQYVpfX8wGonqraBDnO8=;
-	b=OXaoIRqv/QeIbTR8YE7o/0+rez1k0rBDsJx1pVuPypxV7Fanao2I5IAOyuRoPwCeqk9G
-	 kaRw7Na1jSd6F5YFMubgsRTX9vXMQGeCNL5teWqHj2yHVUcv6x0/CZ0tlu0WQwOKiPefS
-	 877qMEgN2Rox4uU0R4fezvxcCoKFYwrCJCxipdonoeyhzMLy2rHY+5W8celuG+zxvKLWf
-	 QUMdgWclHoKF17Gg0RQscweHNFfUv4FJv0aytnhgP5fMFZ3pRugzJV57UM6t0Ls8pjSbP
-	 0iNEHQPpSFcBUtNut8ZDVU/biBFG+8uyZLkrf3AQu7+XkUub9A+YfI2vz7/yGIXwBYQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.151
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794433910;
+	b=z17zJeHjidQPRjvpPcAowADXBEE6NFK1EaZjcyl6XUe/9Nog2+3n7QxCQsT80c8FZeoL
+	 myAM5SIkFT89RmiJ16yKt334a4/zSezSM5Kbv8BKkdzbJinW+6Qq18i/k4TqJT+3Byv5w
+	 mzH+Ip+YTrfpoK71acQiotXYTBA/LqwYti+x+seO2gyL7NZ4v6l6OC/nUEvD7gl8FpF9D
+	 ITFil99pzSk9cL+HMnvmhqTOEQEaaETOOVwTBpW9SfE/0/ji3r4WZzofwFUdtsyMbyiWl
+	 0asMPRNmQgQVYPqcpWWgVtChmXPGAPTuOfGal3W1CMY1E8+gECI4Pn8GjB5l+xyGL0w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794433910;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-Rspamd-Queue-Id;
+	bh=bOMs9r9bb2Qs+k0KgYJ5LWcL/rkBzdXpmurPB/Dt3Es=;
+	b=x1W0gxKPtEf/VEeP+KZx4J+V6CbHyuWvSmGVKKhEzJpslLKkT9AuEQ+F0EcURMqmWG2/
+	 oWmKmte2+KneKaBUBDYpD3HJ8nLTyJ2OKcigsldaZD4tlIgpYFjSSadkmxBAioof2BUWS
+	 7oL+ztWpmlBAEUNdbxcG7f28Gu3NvcGER2Bn8QIwhrRMMfCWdXZnQ3w/zZz5F3bjpsK8E
+	 jPx2rvpCGUL+ie50/Ui2eyPdHpSDpF+S+9VKDJrwZgY7Gt+DpECK27fqX+c3uttprtW2a
+	 cQXlsIrJ4+STzVZh2vfWJEhUdcpw8S8vbXpbhxiuYtr9T0/WlJ1/J6h2FARph02v95Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=timsurber.de;
+	spf=pass smtp.mailfrom=timsurber.de;
+	dkim=pass header.d=timsurber.de header.i=@timsurber.de header.a=rsa-sha256 header.s=MBO0001 header.b=Hdw94Y5y;
+	arc=none smtp.remote-ip=80.241.56.151
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id A17111F00A05;
-	Wed, 11 Nov 2026 21:51:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794433904;
-	bh=O81Xzd5PWJmQde17k7H3DWNdQYVpfX8wGonqraBDnO8=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=O4vVOtbHL9RcEif0xC/qkh4WNAdPJqIl+btoLJRmbFrgx6fetfF94FnlgDKMWYdiL
-	 x/9hNeXNELNlT+7D+goxCFsh7Azes0rZIVb43WG8meuA6Y1Ni/fcxAAkN3fAgy2fc+
-	 FLb6XCAu40aSkDmfGmSvSb1i8swHqNizetClYsF4CL05DVXhEasLz9hWwH8DIGqIC2
-	 4qP6qB5ApZxASZJlnsAw8yVJkaGdwONLWyJH5cfXpFtHPKf5vMas8KXZbqEGD3PbzG
-	 cwHuyij2hmA+5xqOwOxiRLIiKdEYvhuWnxoYiYeblonQ3X0pAbflzFekRYAW7lUFt9
-	 2lxambfrAmdZw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id ECCFB49126;
-	Wed, 11 Nov 2026 21:51:42 +0000 (UTC)
-From: Mani Tofigh via B4 Relay <devnull+mt4022.columbia.edu@kernel.org>
-Date: Wed, 11 Nov 2026 16:51:43 -0500
-Subject: [PATCH] f2fs: don't fall back to the older checkpoint on a read
- error
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B29A606A332;
+	Wed, 11 Nov 2026 21:51:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5B29A606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=timsurber.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=timsurber.de
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=timsurber.de header.i=@timsurber.de header.a=rsa-sha256 header.s=MBO0001 header.b=Hdw94Y5y
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4jPy0L0Bj7z8t5W;
+	Wed, 11 Nov 2026 22:51:46 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=timsurber.de;
+	s=MBO0001; t=1794433906;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=bOMs9r9bb2Qs+k0KgYJ5LWcL/rkBzdXpmurPB/Dt3Es=;
+	b=Hdw94Y5yNetO4DQZ/7z4vwENCPk9dMos7MbW48KuekuOSDo0+uV7iCfsv60I8QLPo2oQMh
+	B5+I3sP1w0dIBSR3RfoJibZ/drsw4hIjVNRfs9jdausKyJy+iMTjr2nFyzgm768v/cI5tI
+	sEFs1E+4+WO1MlegszHg40LfPM1WVTH3LEmXAms9NabakUFcTC57VcMvENojtixnFYUbyJ
+	8jetOZl6RFd/xx69lFAzYjftO2/Ui+skOwMv+/z/DPbIYKQDucNR7//hiwwVI0M+lC7xWs
+	sDrJZKunOWrIEqYNMsS8X6AMfZw1Stlg5lMYlsf23bZj+2VuUCrb8g4iqiXNEA==
+Authentication-Results: outgoing_mbo_mout;
+	dkim=none;
+	spf=pass (outgoing_mbo_mout: domain of me@timsurber.de designates 2001:67c:2050:b231:465::1 as permitted sender) smtp.mailfrom=me@timsurber.de
+From: Tim Surber <me@timsurber.de>
+To: Nicolas Frattaroli <frattaroli.nicolas@gmail.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>
+Cc: Tim Surber <me@timsurber.de>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Heiko Stuebner <heiko@sntech.de>,
+	linux-sound@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] ASoC: rockchip: i2s-tdm: Don't reset a pending clear in consumer mode
+Date: Wed, 11 Nov 2026 22:51:20 +0100
+Message-ID: <20261111215125.3560398-1-me@timsurber.de>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,117 +78,146 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261111-f2fs-cp-read-error-v1-1-a30ede66e589@columbia.edu>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMOw6DQAxF0a0g17HETPgo2UqUAowNTgHIJggJs
- fdM4HWneHcHZ1N2eGY7GK/qOo0J4ZYBDc3YM2qXDDGPVUhDieJIMxo3HbLZZCj3R1tToKqQEtJ
- xNhbdzujrfdm/7Ydp+ZfgOH5OPmHEdgAAAA==
-X-Change-ID: 20261111-f2fs-cp-read-error-f39b7c1c64f5
-To: Jaegeuk Kim <jaegeuk@kernel.org>, Chao Yu <chao@kernel.org>
-Cc: linux-f2fs-devel@lists.sourceforge.net, linux-kernel@vger.kernel.org, 
- tz2294@columbia.edu, stable@kernel.org, Mani Tofigh <mt4022@columbia.edu>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794433902; l=3204;
- i=mt4022@columbia.edu; s=20261026; h=from:subject:message-id;
- bh=XjX2qFti2q+oUj8LyAqSc1Ajj/P6RtOkjfwWfSeWPYg=;
- b=uWMZPqjz0pg/OiaLYsHX47sNdInhj4oH1koQiqWYRL6KI2YMQwvz5qlixoz9L39oAbk09Vqv3
- rkZRDjTRdzlCW0fofOTdYcvkxxuU5JPtxryOEPhjR20GrcPBoPF5+dF
-X-Developer-Key: i=mt4022@columbia.edu; a=ed25519;
- pk=gljCMQDuxyKPmd5y37CRpEJGSPXDV1MyAnHBhCgXl0I=
-X-Endpoint-Received: by B4 Relay for mt4022@columbia.edu/20261026 with
- auth_id=1322
-X-Original-From: Mani Tofigh <mt4022@columbia.edu>
-Reply-To: mt4022@columbia.edu
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Queue-Id: 4jPy0L0Bj7z8t5W
 
-From: Mani Tofigh <mt4022@columbia.edu>
+When a stream stops, rockchip_snd_xfer_clear() sets the TXC/RXC bits in
+I2S_CLR and waits for the controller to clear them. The clear only
+completes while the bit clock runs. In consumer mode the provider may
+already have stopped the clock, e.g. the RK3588 HDMI receiver while its
+source sends no audio. The wait then times out, the driver logs "clear
+failed, reset rx" and pulses the M reset of the direction.
 
-One read error on the newest checkpoint pack at mount rolls f2fs back to
-the older checkpoint for good.  Everything synced since then is lost,
-even if the error was transient.
+The M reset does not cancel the clear; I2S_CLR keeps reading 0x2. The
+clear still completes once the provider restarts the clock, but on
+some occasions the reset leaves the controller in a state where it
+never does. Every later stream then reads no data, its own stop fails
+the same way, and only a reboot recovers.
 
-get_checkpoint_version() returns -EIO when a cp block can't be read, and
-validate_checkpoint() treats that like a bad CRC.
-f2fs_get_valid_checkpoint() then mounts the other pack, and the next
-checkpoint overwrites the pack it couldn't read.  E.g., with a dm error
-target over the first block of the newest pack for the mount only:
+Don't reset in consumer mode and leave the clear pending instead, and
+add a prepare callback that waits for a pending clear before the stream
+is started. On the board below the clear completes about 11 ms after
+the HDMI receiver has re-enabled its audio output in its hw_params. If
+the clock does not come back within 100 ms, fail the prepare with
+-ETIMEDOUT rather than start the transfer with the clear pending.
 
-  write OLD; sync; write NEW; sync; <power cut>
-  mount /dev/mapper/err /mnt   # mounts the older checkpoint
-  umount /mnt
-  mount /dev/ram0 /mnt         # NEW is missing
+Provider mode is unchanged: the clock is generated from mclk, so a
+pending clear completes right away.
 
-Return -EIO from validate_checkpoint() and fail the mount instead, as we
-already do when a payload block of the chosen pack can't be read.  We
-can't tell which pack is newer without reading it, so a read error on
-the older pack fails the mount too.  A bad CRC or version mismatch still
-falls back to the other pack.  With the fix, the mount fails and NEW is
-there on the next mount.
+To reproduce, on a FriendlyElec CM3588 NAS (RK3588) with HDMI0 cabled
+into its HDMI receiver and the HDMI sound cards enabled in the device
+tree: capture from the receiver a few times while nothing plays, then
+capture while a tone plays on HDMI0:
 
-This bug was identified and confirmed with the help of a deterministic
-hypervisor currently under development.  The C reproducer below however
-hits it every time.
+  for i in 1 2 3; do
+    arecord -q -D hw:HDMIIN -f S16_LE -r 48000 -c 2 -d 1 /dev/null
+  done
+  speaker-test -D hw:HDMI0 -c 2 -r 48000 -t sine >/dev/null &
+  sleep 1
+  arecord -q -D hw:HDMIIN -f S16_LE -r 48000 -c 2 -d 1 /dev/null
+  echo "rc=$?"; kill $!
 
-Fixes: 7735730d39d7 ("f2fs: fix to propagate error from __get_meta_page()")
-Cc: stable@kernel.org
-Signed-off-by: Mani Tofigh <mt4022@columbia.edu>
+On linux-rockchip for-next the last capture fails:
+
+  arecord: pcm_read:2285: read error: Input/output error
+  rc=1
+  rockchip-i2s-tdm fddf8000.i2s: clear failed, reset rx
+
+Once this has happened a few times, every capture fails until reboot.
+
+The test ran 9 such sequences in a row after a fresh boot: 1, 3, 6
+and 10 captures without source audio at 48 kHz, 3 at 32 and 44.1 kHz,
+and two runs that also stop the source during a capture. Each sequence
+was followed by two captures with source audio, and the runs that stop
+the source by two more after that:
+
+                          captures with source audio that returned
+                          the tone
+  for-next                1 of 22, stuck from the 2nd sequence on
+  for-next + this patch   22 of 22
+
+With this patch, captures without source audio still return no data,
+but they now fail in prepare with -ETIMEDOUT and leave the controller
+usable.
+
+Fixes: 081068fd6414 ("ASoC: rockchip: add support for i2s-tdm controller")
+Signed-off-by: Tim Surber <me@timsurber.de>
 ---
-Reproducer: https://github.com/manitofigh/files/blob/main/linux-repros/f2fscpeio.c
----
- fs/f2fs/checkpoint.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+ sound/soc/rockchip/rockchip_i2s_tdm.c | 47 +++++++++++++++++++++++++++
+ 1 file changed, 47 insertions(+)
 
-diff --git a/fs/f2fs/checkpoint.c b/fs/f2fs/checkpoint.c
-index a9a2b9d93231..cbedd3e1399f 100644
---- a/fs/f2fs/checkpoint.c
-+++ b/fs/f2fs/checkpoint.c
-@@ -1178,6 +1178,8 @@ static struct f2fs_cached_block *validate_checkpoint(struct f2fs_sb_info *sbi,
+diff --git a/sound/soc/rockchip/rockchip_i2s_tdm.c b/sound/soc/rockchip/rockchip_i2s_tdm.c
+index 983319a53..1b893dbb7 100644
+--- a/sound/soc/rockchip/rockchip_i2s_tdm.c
++++ b/sound/soc/rockchip/rockchip_i2s_tdm.c
+@@ -243,6 +243,21 @@ static void rockchip_snd_xfer_clear(struct rk_i2s_tdm_dev *i2s_tdm,
+ 		regmap_read(i2s_tdm->regmap, I2S_CLR, &val);
+ 		retry--;
+ 		if (!retry) {
++			/*
++			 * In consumer mode the clear only completes while the
++			 * provider runs the bit clock, which it may have
++			 * stopped, e.g. an HDMI receiver whose source sends
++			 * no audio. Resetting the controller while the clear
++			 * is pending can leave it unable to transfer data
++			 * until the next reboot, so leave the clear pending.
++			 * rockchip_i2s_tdm_prepare() waits for it to complete
++			 * before the next start.
++			 */
++			if (!i2s_tdm->is_master_mode) {
++				dev_dbg(i2s_tdm->dev,
++					"clear pending, no bit clock\n");
++				break;
++			}
+ 			dev_warn(i2s_tdm->dev, "clear failed, reset %s%s\n",
+ 				 tx ? "tx" : "", rx ? "rx" : "");
+ 			if (rx && tx)
+@@ -781,6 +796,37 @@ static int rockchip_i2s_tdm_trigger(struct snd_pcm_substream *substream,
+ 	return 0;
+ }
  
- 	err = get_checkpoint_version(sbi, cp_addr, &cp_block,
- 					&cp_entry_1, version);
-+	if (err == -EIO)
-+		return ERR_PTR(err);
- 	if (err)
- 		return NULL;
- 
-@@ -1193,6 +1195,10 @@ static struct f2fs_cached_block *validate_checkpoint(struct f2fs_sb_info *sbi,
- 	cp_addr += cp_blocks - 1;
- 	err = get_checkpoint_version(sbi, cp_addr, &cp_block,
- 					&cp_entry_2, version);
-+	if (err == -EIO) {
-+		f2fs_put_cache(cp_entry_1, true);
-+		return ERR_PTR(err);
-+	}
- 	if (err)
- 		goto invalid_cp;
- 	cur_version = *version;
-@@ -1231,11 +1237,19 @@ int f2fs_get_valid_checkpoint(struct f2fs_sb_info *sbi)
- 	 */
- 	cp_start_blk_no = le32_to_cpu(fsb->cp_blkaddr);
- 	cp1 = validate_checkpoint(sbi, cp_start_blk_no, &cp1_version);
-+	if (IS_ERR(cp1)) {
-+		err = PTR_ERR(cp1);
-+		goto free_fail_no_cp;
-+	}
- 
- 	/* The second checkpoint pack should start at the next segment */
- 	cp_start_blk_no += ((unsigned long long)1) <<
- 				le32_to_cpu(fsb->log_blocks_per_seg);
- 	cp2 = validate_checkpoint(sbi, cp_start_blk_no, &cp2_version);
-+	if (IS_ERR(cp2)) {
-+		err = PTR_ERR(cp2);
-+		goto free_fail_no_cp;
-+	}
- 
- 	if (cp1 && cp2) {
- 		if (ver_after(cp2_version, cp1_version))
-
----
-base-commit: 648bdfa9bae3850908df31617e5922e0683d5fff
-change-id: 20261111-f2fs-cp-read-error-f39b7c1c64f5
-
-Best regards,
---  
-Mani Tofigh <mt4022@columbia.edu>
-
++static int rockchip_i2s_tdm_prepare(struct snd_pcm_substream *substream,
++				    struct snd_soc_dai *dai)
++{
++	struct rk_i2s_tdm_dev *i2s_tdm = to_info(dai);
++	unsigned int clr, val;
++	int ret;
++
++	if (i2s_tdm->clk_trcm)
++		clr = I2S_CLR_TXC | I2S_CLR_RXC;
++	else if (substream->stream == SNDRV_PCM_STREAM_CAPTURE)
++		clr = I2S_CLR_RXC;
++	else
++		clr = I2S_CLR_TXC;
++
++	/*
++	 * A clear left pending by rockchip_snd_xfer_clear() completes once
++	 * the provider runs the bit clock again, usually within a few ms
++	 * of its own hw_params. Wait for it rather than starting the
++	 * transfer while it is pending, and fail if the clock does not
++	 * come back.
++	 */
++	ret = regmap_read_poll_timeout(i2s_tdm->regmap, I2S_CLR, val,
++				       !(val & clr), 1000, 100000);
++	if (ret)
++		dev_err_ratelimited(i2s_tdm->dev,
++				    "clear still pending (%#x), no bit clock?\n",
++				    val);
++
++	return ret;
++}
++
+ static int rockchip_i2s_tdm_dai_probe(struct snd_soc_dai *dai)
+ {
+ 	struct rk_i2s_tdm_dev *i2s_tdm = snd_soc_dai_get_drvdata(dai);
+@@ -840,6 +886,7 @@ static const u64 rockchip_dai_selectable_formats =
+ static const struct snd_soc_dai_ops rockchip_i2s_tdm_dai_ops = {
+ 	.probe				= rockchip_i2s_tdm_dai_probe,
+ 	.hw_params			= rockchip_i2s_tdm_hw_params,
++	.prepare			= rockchip_i2s_tdm_prepare,
+ 	.set_bclk_ratio			= rockchip_i2s_tdm_set_bclk_ratio,
+ 	.set_fmt			= rockchip_i2s_tdm_set_fmt,
+ 	.set_sysclk			= rockchip_i2s_tdm_set_sysclk,
+-- 
+2.55.0
 
