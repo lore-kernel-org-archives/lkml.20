@@ -1,65 +1,115 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794402494;
-	b=EDeSOGtF6V1Mmdd8LLwLa+vxGYThtfy40TSD0KBbF9+Efsll/9S3KZYkm6RGBqb9Y8NR
-	 nkyikLRrRbr1YxhNLJLdiF5lrrF1jw7WpAkpQTQNDZvOWu28lkbeYQhWTBxNM2jwc1whH
-	 KxKTvaXWFY4Vw6FbPUflu5e7vHA/DbOulPFImwU0bDL4ghRFTGn21DmXrZenNxAmhVs1Z
-	 A7Yg2u7I8Kan5R/tp6Lw3oQVhQZLMM3CvzuOcCVyOuA3fa47rTtTTQ0UdO3t9SKoXfyeD
-	 /NjwS4FysVoM6kDFrO8rRVhgPtnJYJW5VbtPgH3Dboivke00svpjvVxOLJ/mDU0RJQA==
+	t=1794402518;
+	b=cM/IxWg4/b8QQ3FfglAgd7S+t0ijXVbh0Rl8wOfIeiqt7P2fxWf+ReUcX3UJxg8A5Tqz
+	 U+OOTp0UQNJPRyJaIEcuIdgaRmUoWFG+MqxNyzQTOhS4gBbjqqCVuY3VSeaUp7WUTj5/D
+	 9hZK5UnY+vc0tipW7A9GbOK/jqgDWDI0D9G4In+aO0jIwlRG3j+p9vw1AXeWeas3xw3BN
+	 RWKUmCpmt6UYcplzXY5dVwfbjqaK/MV6Rz0kOMOeKZ80verx/PbgpuIw0y7HB1Brec7dj
+	 /Hlg88IQITAdFKrcGrDmVaD4GlMemwkYHuAtCZA1s8CwWGmc4zGbPz38OQXGJR6NEQw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794402494;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=Wtrfbq/84me6zE0MLJLp9C9DU+2mrh90EBu5d7XMXiE=;
-	b=Cav/WjQBOSUqI1ZfFHxLVnuBWL2JjAlbJbyQPF7pKSH33vMj86jdfRrOskYT7kRiYFIM
-	 DIkiuAlgJUDMK1ILFI0rL7XUDo7EGEtCdR1BLGal7y+eqblHXxeocIpuVy/p0JO5MgeML
-	 XvGpTGKbI1B8+HU4I77DS7wNWMJarD8I9cUDlERw8lRgXpGBXlleBlZbrq0F6H3dd0awI
-	 wwj8topR580wp58WH/y3jA9B/eM8ELQP+sHo4rINn60xeKglXAUP6MzfT8hSnZJ7Wqbah
-	 jQfmnF6J1218yuQmQbp704zhnFWv5GGTrv6PpTKgkhpRmz4JFiELg4DcX5EYJb89V1w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794402518;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To:User-Agent;
+	bh=gSQbVcKPQJwETt5FSUoaPH66H/Mu8r7z5yZRwgw9qTM=;
+	b=PXtVp5kalQDMgxfhyaQyVcnOAAz5AYJsYi9kK92Ge5zxTa8w9XtYtsDCVMvD5luvSbUc
+	 qRu8s4SxDi51ORGAJVKdOE2i+7m9XePHT0IqIzPvyaaIVr9EPzK43YBxLjIkbkARVBdBB
+	 rbVP/4o+gxcUiIlFzw4Kw7fAgKlQkznFmTugVF7h7jhh0WGQMlrN0LjG6ljsArS9tbsOp
+	 NqMvun/q2Y930Z4KhzolYqoAsE9d4vfRmg2lyBMW4bKVN5qMxWv9Z7WhIE0HeQsOnnnEf
+	 1dLee159j7Ioe3XuZ9NAOrj2gFvgNwwj/dfMcN5JDLmBMEP0aWzXAWdLoNOE4cIkKgw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=wyuan.org;
-	spf=pass smtp.mailfrom=wyuan.org;
-	dkim=pass header.d=wyuan.org header.i=@wyuan.org header.a=rsa-sha256 header.s=key1 header.b=bPQjkCfL;
-	arc=none smtp.remote-ip=91.218.175.48
-Received: from mta0.migadu.com (out-48.mta0.migadu.com [91.218.175.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=CyP6U48N;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=dl+iOwHk;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CF65606A324
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:08:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0CF65606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wyuan.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wyuan.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B247606A321
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:08:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B247606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=wyuan.org header.i=@wyuan.org header.a=rsa-sha256 header.s=key1 header.b=bPQjkCfL
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=y+v35VGrajEnkWTTuGT43BHyWx5tYjdNmcmIwZSW2U4=;
- c=simple/simple; d=wyuan.org;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794402490; v=1; x=1795007290;
- b=bPQjkCfL2gaihAApHVLj+D81uJgf9oYkSogxugQQddOmHy73p5EIUYqminHTGE0bBxrrcp3/
- /XZVk6bqYIXkF8OmiKx9KuGrsxRedTgPNeZ7O29JLgs4jYaj+GQ+MbUGDxE29EPAICfS1d2/f4r
- wImA8+ffZHJzXLBMHHgl3mdnVsyP47++MR4+7H0cAeb84S9JeQ1KUJWUrh+VvbIUTXDy6HRnt1r
- 9752pZ+h7Uk3DfZS33bO+NxLcnYt2b+ko7BtBGGxzG1z+YcfmkgPEgx0CswBpsdhgTUqRGdWzx1
- Fim9Pv6gGPd1gfjxdRrJVOM0syhA4mVwKJkSqmK0tKi2Q==
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id f46c230d271e9823;
-	Wed, 11 Nov 2026 13:08:10 +0000
-X-Mizu-Trace-ID: f46c230d271e9823
-X-Migadu-Flow: FLOW_OUT
-Date: Wed, 11 Nov 2026 21:08:06 +0800
-From: Weijie Yuan <wy@wyuan.org>
-To: Chen-Yu Yeh <chenyou910331@gmail.com>
-Cc: Alex Shi <alexs@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
-	Dongliang Mu <dzm91@hust.edu.cn>, Yanteng Si <si.yanteng@linux.dev>,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 01/25] docs/zh_TW: process: sync 1.Intro.rst with the
- English original
-Message-ID: <avRotoTK1Gt9MzAX@wyuan.org>
-References: <20261106113142.706783-1-chenyou910331@gmail.com>
- <20261106113142.706783-2-chenyou910331@gmail.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=CyP6U48N;
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=dl+iOwHk
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1794402516;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=gSQbVcKPQJwETt5FSUoaPH66H/Mu8r7z5yZRwgw9qTM=;
+	b=CyP6U48NEphKdWZGm0NGAYw4ZgL/9yEtOaxLjN2odfWfumXQ4FP9WLV6QTzYUbqIwvpLxq
+	IFADfrcjZCtJTwY5j3w0NXwHC8D015mnBo6uD0pnf1b+BvuDX2DHCZRtDKqRV3l9/qQEw1
+	AFvNtXKvkOk3UuVNcnz5BxivSmqiSEo=
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
+ [209.85.160.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-495-g5cKS1RbOqGo4DaEtVpfCg-1; Wed, 11 Nov 2026 08:08:35 -0500
+X-MC-Unique: g5cKS1RbOqGo4DaEtVpfCg-1
+X-Mimecast-MFC-AGG-ID: g5cKS1RbOqGo4DaEtVpfCg_1794402515
+Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-5358515b4easo56196181cf.0
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 05:08:35 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1794402515; x=1795007315; darn=vger.kernel.org;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=gSQbVcKPQJwETt5FSUoaPH66H/Mu8r7z5yZRwgw9qTM=;
+        b=dl+iOwHkeDxqEWRUx94xdYjyTxeBE3I7du8tCWGfgmbz1p0Kym3NW1urdiiCed8L1M
+         2sNgecxvFfeP4U+AKJ7fCm9/YyBChLDxw0BvvfvhqSRodKyg4uZWth/oFV66j5h6sDbt
+         RShoxxDEyan74c5YocY2EJO44SfUysTqg2y/Ny9J819ItDXzaY17uQrGH/hcLAxyv8Mm
+         eo2BtG/Nj1aORecA4IBgNIlAzzIMEZsslcBUSFVKsGg4R4rElvSAcaXrWg5x/+OeLcHy
+         Z6ystUPxgJULckqABYZNeRkXxOwAdbC65vvixoaLcNlgsFqgQQUi/tKTgbRIqfnbjFYA
+         E9FQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794402515; x=1795007315;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gSQbVcKPQJwETt5FSUoaPH66H/Mu8r7z5yZRwgw9qTM=;
+        b=2joKxE6RK6nhIGFrHYmreHh6kqCylCySr13BrixZmicB2qQ4g9GQ6ByRMYJLQDSZKK
+         JLwzZiHRNS06zc7AhyM9deYQ8X6Aab6MVNqZ8ZVBwkh2tqY+6HTyyRa1DqbhVX6kH1fw
+         e8TlXO8lWe6Kb3xup+h0zaoGbELj5uYu/fcLmQC+2JBX9/8GrZCLtXBFFDxFLg7fDyNK
+         OjZy4Bh8PItBsE+1z128dkz39KRm7uJNAmP5flNsLuCLUMfqQEg4c8Vhk1RegVLctQjZ
+         HlVw7ntXZk2am2hs3a7HVYIz/ZRLtSCVNesoxOaq8eh5Gz85ynuG97RKWqzD0G4kXeFO
+         VIWQ==
+X-Forwarded-Encrypted: i=1; AL+hErFgKsUxAO1wBHRFkCj6wZFkUNeqlJMwXhic0ydNMn5Gt/iQup9yl9BHjo3ZdEGKGatvbc6q3wifQASSzz4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/ID+w6KcFpoCL5YVbtNNtPevjFUUgkdL+4UqSFbWfD3d1ODHAZ
+	2toz3lml8ZBiaizXD536xTGcWNbnLKgSYZuzg+RsJcGFB0AQDM7Ey49PU2J/Kw1Us7hzEwAVZEU
+	D9DaYcFWZFihOKEoCBB9XvAB0YzClRBMzAho5QQFbnWRsE0m6PHmRdb69+Lj/7EfxgA==
+X-Gm-Gg: AYBFou1IdNqZndT/16Z1KSUXdALgnJ7Q7g1pBxBfuPe7u6Y3aT1AhkrxddQbsUW6EbE
+	TGnTIDdZhZhAzwqaVN4I99fInn3yBSTcMaRL/k2HiQzv8Gboj0kM1sXUtPbFgD7eokbs1CS4sL3
+	l3XYwGPTgjX1zyc9Jd99CHen0oVpEkkI6lKa+XgTpWFFW4ZL6+6yDUsszVYQrdJRsFeQj6Gs6BY
+	Tu9cZspx69g/FePJ/V+nlivfV8cL0Mq+n6S5b+Dg4aW6HtqeVQ8UkNyqib7T7y20O59hUh1J6nq
+	oOVaYLDvXh6V6BaShaKNsvWEtdTCGdFAvmFxixxA7MYJ1LBtuL9a/2Is8m+qw+RseogiyW1a2Rx
+	jLvkSB/a/FZu/wsfMrlEIGyCo3tVT+4PTAoeK/qK0QM13LvOsQCYKLb4Vr4MJMBQBdC7bF+i5Je
+	t61f5CZIZVFcc3AuMTDKT4tj2nswyFPK790/krECXf
+X-Received: by 2002:a05:622a:1907:b0:536:2fd8:a4d8 with SMTP id d75a77b69052e-556bf740beamr31921841cf.15.1794402514467;
+        Wed, 11 Nov 2026 05:08:34 -0800 (PST)
+X-Received: by 2002:a05:622a:1907:b0:536:2fd8:a4d8 with SMTP id d75a77b69052e-556bf740beamr31921281cf.15.1794402514008;
+        Wed, 11 Nov 2026 05:08:34 -0800 (PST)
+Received: from redhat.com (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5550af5f09fsm49902031cf.6.2026.11.11.05.08.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 05:08:33 -0800 (PST)
+Date: Wed, 11 Nov 2026 08:08:32 -0500
+From: Brian Masney <bmasney@redhat.com>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Paul Cercueil <paul@crapouillou.net>, Linus Walleij <linusw@kernel.org>,
+	Mika Westerberg <mika.westerberg@linux.intel.com>,
+	Andy Shevchenko <andy@kernel.org>, linux-mips@vger.kernel.org,
+	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] pinctrl: intel: convert to subsys_platform_driver()
+Message-ID: <avRo0ItlTKTKyZ2f@redhat.com>
+References: <20261106-pinctrl-subsys-v1-0-f17582f32aaf@redhat.com>
+ <20261106-pinctrl-subsys-v1-2-f17582f32aaf@redhat.com>
+ <avJKiYtczueslNSQ@ashevche-desk.local>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,101 +119,20 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261106113142.706783-2-chenyou910331@gmail.com>
+In-Reply-To: <avJKiYtczueslNSQ@ashevche-desk.local>
+User-Agent: Mutt/2.4.3 (2026-10-09)
 
-On Fri, Nov 06, 2026 at 07:31:16PM +0800, Chen-Yu Yeh wrote:
-> Re-check the whole translation against the current English text.  The
-> only English change since the last sync,
-> commit 4a0be1a25d98 ("Documentation: process: Capitalize Git, Quilt, and
-> Mercurial consistently"), capitalizes "Git", which the translation
-> already does.
+On Tue, Nov 10, 2026 at 12:34:49AM +0200, Andy Shevchenko wrote:
+> On Fri, Nov 06, 2026 at 07:27:13PM -0500, Brian Masney wrote:
+> > Reduce boilerplate code in these drivers and convert them over to use
+> > the macro subsys_platform_driver().
 > 
-> While at it, fix a few translation errors:
-> 
->  - "language" in "with, optionally, language allowing distribution
->    under later versions of the GPL" means license wording, not a
->    (natural) language; translate it as 條文.
+> Look at 20261104113343.1634218-1-peng.fan@oss.nxp.com.
 
-Good.
+OK thanks for the pointer. There's no need for a follow up from me then
+since the series from Peng already covers everything here.
 
->  - "false economy" was translated literally as 在經濟上是錯誤的;
->    use 因小失大 to convey the idiom.
+Brian
 
-Good.
-
->  - Restructure the broken sentence about code that cannot be
->    contributed.
->  - Add the missing "too" (也) in the embedded systems paragraph.
-> 
-> update to commit 4a0be1a25d98 ("Documentation: process: Capitalize
-> Git, Quilt, and Mercurial consistently")
-> 
-> Signed-off-by: Chen-Yu Yeh <chenyou910331@gmail.com>
-
-Reviewed-by: Weijie Yuan <wy@wyuan.org>
-
-> ---
->  .../translations/zh_TW/process/1.Intro.rst       | 16 ++++++++--------
->  1 file changed, 8 insertions(+), 8 deletions(-)
-> 
-> diff --git a/Documentation/translations/zh_TW/process/1.Intro.rst b/Documentation/translations/zh_TW/process/1.Intro.rst
-> index 65c5ae095504..d246de92bec9 100644
-> --- a/Documentation/translations/zh_TW/process/1.Intro.rst
-> +++ b/Documentation/translations/zh_TW/process/1.Intro.rst
-> @@ -95,8 +95,8 @@ Andrew Morton, Andrew Price, Tsugikazu Shibata 和 Jochen Voß 。
->  有些公司和開發人員偶爾會想，為什麼他們要費心學習如何與核心社群合作，並將程
->  式碼放入主線核心（“主線”是由Linus Torvalds維護的核心，Linux發行商將其用作
->  基礎）。在短期內，貢獻程式碼看起來像是一種可以避免的開銷；維護獨立程式碼並
-> -直接支援使用者似乎更容易。事實上，保持程式碼獨立（“樹外”）是在經濟上是錯誤
-> -的。
-> +直接支援使用者似乎更容易。事實上，保持程式碼獨立（「樹外」）看似省事，其實是
-> +因小失大。
->  
->  為了說明樹外程式碼成本，下面給出核心開發過程的一些相關方面；本文稍後將更詳細地
->  討論其中的大部分內容。請考慮：
-> @@ -161,15 +161,15 @@ Andrew Morton, Andrew Price, Tsugikazu Shibata 和 Jochen Voß 。
->  尤其是嵌入式系統的製造商，可能會傾向於忽視本節中所說的大部分內容；因為他們
->  相信自己正在商用一種使用凍結核心版本的獨立產品，在發布後不需要再進行開發。
->  這個論點忽略了廣泛的程式碼審查的價值以及允許使用者向產品添加功能的價值。但這些
-> -產品的商業壽命有限，之後必須發布新版本的產品。在這一點上，程式碼在主線上並得到
-> -良好維護的供應商將能夠更好地佔位，以使新產品快速上市。
-> +產品的商業壽命也是有限的，之後必須發布新版本的產品。在這一點上，程式碼在主線
-> +上並得到良好維護的供應商將能夠更好地佔位，以使新產品快速上市。
->  
->  許可
->  ----
->  
->  程式碼是根據一些許可證提供給Linux核心的，但是所有程式碼都必須與GNU通用公共許可
->  證（GPLv2）的版本2相容，該版本是覆蓋整個核心分發的許可證。在實踐中，這意味
-> -著所有程式碼貢獻都由GPLv2（可選地，語言允許在更高版本的GPL下分發）或3子句BSD
-> +著所有程式碼貢獻都由GPLv2（可選地附帶允許在更高版本的GPL下分發的條文）或3子句BSD
-
-I'm wondering where the term "三子句 BSD" originated from? Sounds like
-machine-translated to me.
-
-I checked that wikipedia (tw) calls it "三句版 BSD". And wikipedia(cn)
-calls it "三句版 BSD" Or more specific: 三句版 BSD 授權條款 三條款 BSD 授權條款
-
-But whatever, I am not familiar with BSD licenses at all.
-
-Thanks.
-
->  許可（New BSD License，譯者注）覆蓋。任何不包含在相容許可證中的貢獻都不會
->  被接受到核心中。
->  
-> @@ -182,9 +182,9 @@ Andrew Morton, Andrew Price, Tsugikazu Shibata 和 Jochen Voß 。
->  
->  所有貢獻給核心的程式碼都必須是合法的自由軟體。因此，不接受身分不明或匿名的
->  貢獻者的程式碼。所有貢獻者都需要在他們的程式碼上“sign off（簽發）”，聲明程
-> -式碼可以在GPL下與核心一起分發。無法提供未被其所有者許可為自由軟體的程式碼，
-> -或可能為核心造成版權相關問題的程式碼（例如，由缺乏適當保護的反向工程工作派
-> -生的程式碼）不能被接受。
-> +式碼可以在GPL下與核心一起分發。未被其所有者許可為自由軟體的程式碼，或可能
-> +為核心造成版權相關問題的程式碼（例如，由缺乏適當保護的反向工程工作派生的程
-> +式碼）都不能被貢獻。
->  
->  有關版權問題的提問在Linux開發郵件列表中很常見。這樣的問題通常會得到不少答
->  案，但請記住，回答這些問題的人不是律師，不能提供法律諮詢。如果您有關於
