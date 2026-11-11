@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794395931;
-	b=ie1nskRHxsc9OBiNUivYhWnVotcIv0kDSYhSNVZPGcYwRcSbQb8vh78O+ozpPWyF/+7o
-	 0tVTDxSf5tdkSFLw5ohb+Z6jElHa+eQrSb6xJrc20my/pDCLn+DEoCjEI9vMl5uXmfU9G
-	 XwX6lw9lO3HgSBBdHtd2sPYPAE3kz4ab0BPkSqBnbjeYW8tk6V3dGEcFcdEhtbGAVod1I
-	 KtfzXsvzcWpcnWwCMIMXbQL2N2CMrUJ6pc83iCniOkmhm0wZ16uz1T+4UDhx7RwOP9c4n
-	 thI9oXb+j4LVdB/dvKcBlR2/cQIpW3NxLYfwWWxeHkliv8dDCOuuJ6VdJC76kpNUInQ==
+	t=1794395936;
+	b=cTEe85pxqfHBhNWLYelI0Vk+8RGyq64MSVnttsyMAgO7hcAgeS69kUl93Hp5QikFG9Gq
+	 pkFpCh//GIur+UJqw1qAA5sEOQ/RbJfmd6dkrKKpUCm4ijUYmtR6rBB1k/FXsC2vzPcvh
+	 LNsk5HlPAaZgXGaFdX1BCMfj//d/fZvofQFlX2I/CjwBFnegZzwvBRcKe+kvDB7T1cBh+
+	 BegpCRS83rmVFZ6kDMpTXgR5SPOOSiZ8INjv2xgGmXaIgdJoLVvMB66mAN/t8+rUrg3V/
+	 S57gqpcTsOn/57/CRY7n4vztTth+sn2Fyc151lHpD2rgGOQWjpdDuzshWBp+2Yv/HcA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794395931;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794395936;
 	h=Received:DKIM-Signature:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
 	 Date:Message-Id:X-Mailer;
-	bh=PStEUSkX+1yhjx9hF8qKMw4AbqqWqwkP6MwbN4MhM6I=;
-	b=Ejo1s8KSWtM+Yt+gO4WqDLKYEx/oxeN0iCo3F9ROK1wmMfFCDZjgPsvtEFVH2tqlug4V
-	 xN896mZevfMz+LbLXx95i+QUejYwGMz6X/F698vMwCjdjcUYW0GKLjlBS/ENmQqnBBPCq
-	 2v7GVvFnRUs8lteHMotlP//HvMsQzMxSyHcvsriYXPAjGpu4/UWDF8raOZ21BEcR/dYkd
-	 vmi9ksTycbJ0sK67WYUSay6PB7DiUIo58INSNAUnncJ+yRStE5Pr+lJeozADTR7H0H9xd
-	 hRnxZr5Xij/XisLrLhR5eQ9orN7t8reVWbfGPcmbZb9ISKfDsmyaWAd/3jWeWcK86+g==
+	bh=T9XWDjq0ioHgocmsF6DKb1AFT/UmRmoe7A2ABC70YKo=;
+	b=3dzd3LFoXUDdZcOVLfG5AO3ipaSDk4UH5jTQlkCauyQvwQnLUgHZTjGrKxYe+TSBSvaq
+	 ojPQaaj71zcsKzTxT3qgp5FI2Z7F1KrEm2v3RHCHbJ7PZTCQsTKqnnt09iD7ggls4N2Mf
+	 2B3J14CLT48Wr6j2YdpJQb2Xvk20UvS+KeccQHmXpnnBy0Pp/8OZDDbjJet2zgITk86Ia
+	 hP+OMptleV6JpcKtqRux88EheHEtcUfDdiXTkd9tRNha9uOZWqMlgJala8o2y7VueViHl
+	 Cck2QXqW4Hukbz2paatbhMuYQ3waHFuRJxd/bu5eSZkCK/SDqGED4CmxM3OC2zAQm+g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SG9tFMpB;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VRTKSDiY;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D242D606A32A;
-	Wed, 11 Nov 2026 11:18:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECC4D606A33D;
+	Wed, 11 Nov 2026 11:18:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SG9tFMpB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCA7E1F00A06;
-	Wed, 11 Nov 2026 11:18:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VRTKSDiY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01B3F1F00A06;
+	Wed, 11 Nov 2026 11:18:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794395931;
-	bh=PStEUSkX+1yhjx9hF8qKMw4AbqqWqwkP6MwbN4MhM6I=;
+	s=k20260515; t=1794395935;
+	bh=T9XWDjq0ioHgocmsF6DKb1AFT/UmRmoe7A2ABC70YKo=;
 	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=SG9tFMpBduAay2CvpwqJuQOM30xPquK1LEBTAvF8mPFlhiTXLGCFIoXChRYEIhzGW
-	 NMzBLNxWyhwQx2pR/UqQMma8sXH6BYOGfZviMJ+RGFfOUtu/kf8VmCmazOV8TDw5U+
-	 +1evhbDmoNgM3z7JXXESOHo83v78CYCUmqNImYjARvLnLg6tiECf1hfp+DpLkBep/s
-	 YpnrJH07pEyYs67YlYna1NXvWvtrHsRrsnCEPfbx1kTGqbJy1vJfbagC7rECt4g7DW
-	 4Q726YcDvVbMW0WTfecrndaVc28chS5EgXIyeQAbSfqEHFjel2z/gEGzC59zg0vr2J
-	 gY4JKxszzUi4g==
+	b=VRTKSDiYZdByh6uiuUNwozMVTYOxfWNlBzOoBemFkGUBxVZpz45UtO87gSOGn3PGX
+	 ghEmEWSVdkyuR1G/Gt+0EYjnd6HiUfcZjGAj4nKxgoOD5Z1QRH5y1LVXrpAbxi9aRA
+	 NnjsYN4qgZhn0/zCduEaiGp7q3G99X5weN0ql0QsH36+BOyhTzgxpquwaQSaJ8Bj27
+	 KSG03IFuB7Jd73YBLWR+keQoU5SqoIyUCCnWoZln8vehx79T0m5j0hCeKsSS6vRSHq
+	 vTzGfcRM6onZM2U5/p8a82qZsFabQYEaG+llDxAbK0xygrVvePcXoUVEgLQN3nCwL3
+	 yMsFtQ9R7DrZA==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,8 +51,8 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v5 2/6] kho: support incremental entry publication in
- kho_block
+Subject: Re: [PATCH v5 3/6] liveupdate: luo: serialize sessions via
+ per-session publish helper
 From: Mike Rapoport <rppt@kernel.org>
 To: Pasha Tatashin <pasha.tatashin@soleen.com>
 Cc: linux-kselftest@vger.kernel.org, rppt@kernel.org, shuah@kernel.org, 
@@ -60,218 +60,194 @@ Cc: linux-kselftest@vger.kernel.org, rppt@kernel.org, shuah@kernel.org,
  vipinsh@google.com, linux-kernel@vger.kernel.org, corbet@lwn.net, 
  dmatlack@google.com, kexec@lists.infradead.org, pratyush@kernel.org, 
  rdunlap@infradead.org, graf@amazon.com
-In-Reply-To: <20261105050053.3063001-3-pasha.tatashin@soleen.com>
+In-Reply-To: <20261105050053.3063001-4-pasha.tatashin@soleen.com>
 References: <20261105050053.3063001-1-pasha.tatashin@soleen.com>
- <20261105050053.3063001-3-pasha.tatashin@soleen.com>
+ <20261105050053.3063001-4-pasha.tatashin@soleen.com>
 Date: Wed, 11 Nov 2026 13:18:40 +0200
-Message-Id: <179439592040.425130.12391503339294194908.b4-review@b4>
+Message-Id: <179439592040.425130.1571434550510654411.b4-review@b4>
 X-Mailer: b4 0.16.1-dev
 
 Hi,
 
-> To allow LUO sessions to be frozen and committed into the outgoing KHO
-> subtree from userspace ahead of reboot, kho_block needs to support
-> publishing entries one by one into a live serialized block chain while
-> new blocks may still be preallocated or shrunk for uncommitted sessions.
+> With incremental kho_block publication in place, LUO sessions can be
+> published into sh->block_set individually as they are committed, rather
+> than rebuilding the entire session serialization chain during reboot.
 > 
-> Currently, kho_block assumes outgoing block sets are populated in a
-> single batch during reboot() before the chain is exposed: preallocated
-> blocks are linked onto the chain immediately even while empty
-> (ser->count == 0), and reserving a slot increments ser->count before the
-> entry is populated.
+> Currently, luo_session_serialize() resets *sh->sessions_pa and
+> serializes all outgoing sessions from scratch in a single pass at reboot
+> time.
 > 
-> Address this by keeping preallocated outgoing blocks unlinked in
-> kho_block_add(), linking blocks lazily only as entries are written. Add
-> kho_block_set_it_append() to copy each entry into its slot before
-> publishing the updated ser->count and next-block link via
-> smp_store_release(), paired with smp_load_acquire() in
-> kho_block_set_it_read_entry().
+> Introduce luo_session_publish_one() to append a session's
+> luo_session_ser entry via kho_block_set_it_append() and move the session
+> onto sh->published_list. Update luo_session_serialize() to freeze all
+> remaining unpublished sessions first (rolling back via
+> luo_session_unfreeze_one() on failure) and then publish them in a second
+> pass.
 > 
 > Signed-off-by: Pasha Tatashin <pasha.tatashin@soleen.com>
 > ---
->  include/linux/kho_block.h     |  1 +
->  kernel/liveupdate/kho_block.c | 86 +++++++++++++++++++++++++++++++----
->  2 files changed, 77 insertions(+), 10 deletions(-)
+>  kernel/liveupdate/luo_session.c | 92 ++++++++++++++++++++++-----------
+>  1 file changed, 63 insertions(+), 29 deletions(-)
 >
-> diff --git a/include/linux/kho_block.h b/include/linux/kho_block.h
-> index 93a7cc2be5f51..a9e696ef3e08e 100644
-> --- a/include/linux/kho_block.h
-> +++ b/include/linux/kho_block.h
-> @@ -100,6 +100,7 @@ static inline bool kho_block_set_is_empty(struct kho_block_set *bs)
->  
->  void kho_block_set_it_init(struct kho_block_set_it *it, struct kho_block_set *bs);
->  void *kho_block_set_it_reserve_entry(struct kho_block_set_it *it);
-> +void *kho_block_set_it_append(struct kho_block_set_it *it, const void *src);
->  void *kho_block_set_it_read_entry(struct kho_block_set_it *it);
->  void *kho_block_set_it_prev(struct kho_block_set_it *it);
->  
-> diff --git a/kernel/liveupdate/kho_block.c b/kernel/liveupdate/kho_block.c
-> index 0d2a342ef4228..2813c6fd593c4 100644
-> --- a/kernel/liveupdate/kho_block.c
-> +++ b/kernel/liveupdate/kho_block.c
-> @@ -16,6 +16,12 @@
->   * array of serialized entries. Multiple blocks are linked together via a
->   * physical pointer in the header, forming a linked list that can be easily
->   * traversed in both the current and the next kernel.
-> + *
-> + * Outgoing blocks preallocated via kho_block_set_grow() remain unlinked until
-> + * entries are written into them. Callers publishing entries incrementally into
-> + * a live KHO subtree can use kho_block_set_it_append(), which populates each
-> + * entry before exposing the updated block count or next-block link via
-> + * release-store ordering.
-
-
->   */
->  
->  #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
-> @@ -93,9 +99,7 @@ static int kho_block_add(struct kho_block_set *bs,
->  	list_add_tail(&block->list, &bs->blocks);
->  	bs->nblocks++;
->  
-> -	if (last)
-> -		last->ser->next = virt_to_phys(ser);
-> -	else
-> +	if (!last)
->  		bs->head_pa = virt_to_phys(ser);
-
-
->  
->  	return 0;
-> @@ -129,14 +133,15 @@ static void kho_block_set_shrink_one(struct kho_block_set *bs)
->  	last = list_last_entry(&bs->blocks, struct kho_block, list);
->  	list_del(&last->list);
->  	bs->nblocks--;
-> -	kho_block_free_ser(bs, last->ser);
-> -	kfree(last);
->  
->  	new_last = list_last_entry_or_null(&bs->blocks, struct kho_block, list);
->  	if (new_last)
-> -		new_last->ser->next = 0;
-> +		WRITE_ONCE(new_last->ser->next, 0);
-
-Why this is needed? Docs explicitly state that "Synchronization and
-locking are the responsibility of the caller".
-
->  	else
->  		bs->head_pa = 0;
-> +
-> +	kho_block_free_ser(bs, last->ser);
-> +	kfree(last);
-
-This change seems unnecessary.
-
->  }
->  
+> diff --git a/kernel/liveupdate/luo_session.c b/kernel/liveupdate/luo_session.c
+> index 6dea359111818..caf0e85081e87 100644
+> --- a/kernel/liveupdate/luo_session.c
+> +++ b/kernel/liveupdate/luo_session.c
+> @@ -103,20 +103,30 @@
+>  static DECLARE_RWSEM(luo_session_serialize_rwsem);
 >  /**
-> @@ -144,9 +149,9 @@ static void kho_block_set_shrink_one(struct kho_block_set *bs)
->   * @bs:    The block set.
->   * @count: The target number of valid entries to accommodate.
->   *
-> - * Dynamically preallocates and links preserved memory blocks if the target
-> - * entry count exceeds the current total capacity of the set, ensuring they
-> - * are available during serialization/deserialization.
-> + * Dynamically preallocates preserved memory blocks if the target entry count
-> + * exceeds the current total capacity of the set, ensuring they are available
-> + * during serialization/deserialization.
->   *
->   * Context: Caller must hold a lock protecting the block set.
->   * Return: 0 on success, or a negative errno on failure.
-> @@ -318,6 +323,7 @@ void kho_block_set_clear(struct kho_block_set *bs)
->  	struct kho_block *block;
->  
->  	list_for_each_entry(block, &bs->blocks, list) {
-> +		block->ser->next = 0;
->  		block->ser->count = 0;
->  		memset(block->ser + 1, 0, KHO_BLOCK_SIZE - sizeof(*block->ser));
->  	}
-> @@ -348,6 +354,7 @@ void kho_block_set_it_init(struct kho_block_set_it *it, struct kho_block_set *bs
+>   * struct luo_session_header - Header struct for managing LUO sessions.
+> - * @count:       The number of sessions currently tracked in the @list.
+> + * @count:       The number of sessions currently tracked in the header.
+> + * @published_count: The number of outgoing sessions currently published in
+> + *                   @block_set.
+>   * @list:        The head of the linked list of `struct luo_session` instances.
+
+Add "yet unpublished" to the description?
+
+> + * @published_list:  The head of the linked list of published outgoing
+> + *                   sessions, ordered identically to their entries in
+> + *                   @block_set.
+>   * @rwsem:       A read-write semaphore providing synchronized access to the
+>   *               session list and other fields in this structure.
+>   * @block_set:   The set of serialization blocks.
+> + * @it:          Iterator tracking the next slot in @block_set for outgoing
+> + *               session serialization.
+>   * @sessions_pa: Points to the location of sessions_pa within struct luo_ser.
+>   * @active:      Set to true when first initialized. If previous kernel did not
+>   *               send session data, active stays false for incoming.
 >   */
->  void *kho_block_set_it_reserve_entry(struct kho_block_set_it *it)
->  {
-> +	struct kho_block *prev = NULL;
->  	void *entry;
->  
->  	if (!it->block)
-> @@ -356,15 +363,73 @@ void *kho_block_set_it_reserve_entry(struct kho_block_set_it *it)
->  	if (it->i == it->bs->count_per_block) {
->  		if (list_is_last(&it->block->list, &it->bs->blocks))
->  			return NULL;
-> +		prev = it->block;
->  		it->block = list_next_entry(it->block, list);
->  		it->i = 0;
+>  struct luo_session_header {
+>  	long count;
+> +	long published_count;
+>  	struct list_head list;
+> +	struct list_head published_list;
+>  	struct rw_semaphore rwsem;
+>  	struct kho_block_set block_set;
+> +	struct kho_block_set_it it;
+>  	u64 *sessions_pa;
+>  	bool active;
+>  };
+> @@ -134,12 +144,14 @@ struct luo_session_global {
+>  static struct luo_session_global luo_session_global = {
+>  	.incoming = {
+>  		.list = LIST_HEAD_INIT(luo_session_global.incoming.list),
+> +		.published_list = LIST_HEAD_INIT(luo_session_global.incoming.published_list),
+>  		.rwsem = __RWSEM_INITIALIZER(luo_session_global.incoming.rwsem),
+>  		.block_set = KHO_BLOCK_SET_INIT(luo_session_global.incoming.block_set,
+>  						sizeof(struct luo_session_ser)),
+>  	},
+>  	.outgoing = {
+>  		.list = LIST_HEAD_INIT(luo_session_global.outgoing.list),
+> +		.published_list = LIST_HEAD_INIT(luo_session_global.outgoing.published_list),
+>  		.rwsem = __RWSEM_INITIALIZER(luo_session_global.outgoing.rwsem),
+>  		.block_set = KHO_BLOCK_SET_INIT(luo_session_global.outgoing.block_set,
+>  						sizeof(struct luo_session_ser)),
+> @@ -186,6 +198,10 @@ static int luo_session_insert(struct luo_session_header *sh,
+>  		if (!strncmp(it->name, session->name, sizeof(it->name)))
+>  			return -EEXIST;
 >  	}
+> +	list_for_each_entry(it, &sh->published_list, list) {
+> +		if (!strncmp(it->name, session->name, sizeof(it->name)))
+> +			return -EEXIST;
+> +	}
 >  
-> +	if (!it->i)
-> +		it->block->ser->next = 0;
-> +
->  	entry = kho_block_entry(it, it->i++);
->  	it->block->ser->count = it->i;
-> +	if (prev)
-> +		prev->ser->next = virt_to_phys(it->block->ser);
-
-kernel-doc should mention that this function now links blocks.
-
-And I believe there should be a paragraph about the new flow in the DOC:
-section.
-
-> +
->  	return entry;
+>  	/*
+>  	 * For outgoing we should make sure there is room in serialization array
+> @@ -203,6 +219,42 @@ static int luo_session_insert(struct luo_session_header *sh,
+>  	return 0;
 >  }
 >  
-> +/**
-> + * kho_block_set_it_append - Write and publish an entry at the next slot.
-> + * @it:  The block iterator.
-> + * @src: Entry data of size @it->bs->entry_size to copy into the slot.
-> + *
-> + * Copies @src into the next available slot before updating the block's entry
-> + * count or linking a newly occupied block to the previous block, so concurrent
-> + * readers never observe an uninitialized slot or an empty block.
-> + *
-> + * Return: A pointer to the written entry slot, or NULL if the block set's
-> + * capacity is fully exhausted.
-> + */
-> +void *kho_block_set_it_append(struct kho_block_set_it *it, const void *src)
+> +static void luo_session_publish_one(struct luo_session *session)
 > +{
-> +	struct kho_block *prev = NULL;
-> +	void *dst;
+> +	struct luo_session_header *sh = &luo_session_global.outgoing;
+> +	struct luo_session_ser entry = {};
 > +
-> +	if (!it->block)
-> +		return NULL;
+> +	lockdep_assert_held_write(&sh->rwsem);
+> +	lockdep_assert_held(&session->mutex);
 > +
-> +	if (it->i == it->bs->count_per_block) {
-> +		if (list_is_last(&it->block->list, &it->bs->blocks))
-> +			return NULL;
-> +		prev = it->block;
-> +		it->block = list_next_entry(it->block, list);
-> +		it->i = 0;
-> +	}
+> +	if (!sh->active || !sh->sessions_pa)
+> +		return;
 > +
-> +	if (!it->i)
-> +		WRITE_ONCE(it->block->ser->next, 0);
+> +	if (!sh->published_count)
+> +		kho_block_set_it_init(&sh->it, &sh->block_set);
 > +
-> +	dst = kho_block_entry(it, it->i++);
-> +	memcpy(dst, src, it->bs->entry_size);
+> +	strscpy(entry.name, session->name, sizeof(entry.name));
+> +	entry.file_set_ser.count = session->file_set.count;
+> +	entry.file_set_ser.files =
+> +		kho_block_set_head_pa(&session->file_set.block_set);
 > +
-> +	/*
-> +	 * Ensure the serialized entry is visible before exposing the
-> +	 * incremented count to concurrent readers.
-> +	 */
-> +	smp_store_release(&it->block->ser->count, it->i);
-> +	if (prev) {
+> +	/* This should not fail normally as blocks were pre-allocated */
+> +	if (WARN_ON_ONCE(!kho_block_set_it_append(&sh->it, &entry)))
+> +		return;
+> +
+> +	if (!sh->published_count) {
 > +		/*
-> +		 * Ensure the new block's first entry and header are visible
-> +		 * before linking prev->ser->next for concurrent readers.
+> +		 * Ensure the first block header and entry are visible before
+> +		 * publishing sessions_pa to concurrent KHO readers.
 > +		 */
-> +		smp_store_release(&prev->ser->next,
-> +				  virt_to_phys(it->block->ser));
+> +		smp_store_release(sh->sessions_pa,
+> +				  kho_block_set_head_pa(&sh->block_set));
+> +	}
 
-Until now the locking model was "the caller is responsible to hold a
-lock".
 
-Using WRITE_ONCE() and smp_store_release() instead of plain assignments
-implies that it is not anymore, or at least not always.
+> +
+> +	list_move_tail(&session->list, &sh->published_list);
+> +	sh->published_count++;
+> +}
+> +
+>  static void luo_session_remove(struct luo_session_header *sh,
+>  			       struct luo_session *session)
+>  {
+> @@ -636,50 +688,32 @@ int luo_session_deserialize(void)
+>  int luo_session_serialize(void)
+>  {
+>  	struct luo_session_header *sh = &luo_session_global.outgoing;
+> -	struct luo_session *session;
+> -	struct kho_block_set_it it;
+> +	struct luo_session *session, *tmp;
+>  	int err;
+>  
+>  	down_write(&luo_session_serialize_rwsem);
+>  	down_write(&sh->rwsem);
+> -	*sh->sessions_pa = 0;
+> -
+> -	kho_block_set_it_init(&it, &sh->block_set);
+>  
+>  	list_for_each_entry(session, &sh->list, list) {
+> -		struct luo_session_ser *ser = kho_block_set_it_reserve_entry(&it);
+> -
+> -		/* This should not fail normally as blocks were pre-allocated */
+> -		if (WARN_ON_ONCE(!ser)) {
+> -			err = -ENOSPC;
+> -			goto err_undo;
+> -		}
+> -
+>  		err = luo_session_freeze_one(session);
+>  		if (err) {
+> -			kho_block_set_it_prev(&it);
+> -			goto err_undo;
+> +			list_for_each_entry_continue_reverse(session, &sh->list, list)
+> +				luo_session_unfreeze_one(session);
+> +			goto err_unlock;
 
-This should be a well documented separate change.
+Why goto err_ can do this?
+I really prefer to avoid error handling inside if (err) blocks whenever
+possible.
+
+>  		}
+> +	}
+>  
+> -		strscpy(ser->name, session->name, sizeof(ser->name));
+> -		ser->file_set_ser.count = session->file_set.count;
+> -		ser->file_set_ser.files =
+> -			kho_block_set_head_pa(&session->file_set.block_set);
+> +	list_for_each_entry_safe(session, tmp, &sh->list, list) {
+> +		mutex_lock(&session->mutex);
+> +		luo_session_publish_one(session);
+
+And running a loop of _publish() in _serialize() makes my bikeshedding
+argument stronger ;-)
 
 -- 
 Sincerely yours,
