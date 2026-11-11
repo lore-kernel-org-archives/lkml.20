@@ -1,100 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.101.129
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794388930;
-	b=Ok4bNn2FDK/3g2K7Sbqlax2KTbk8ZnhuH9Lb8N1cy91i2yBAXzi7LWDeV4fZOxaYigAo
-	 ZQNef8XYYjwFXs23Cbx04Xp5XT5zOXaTDPKlbIYIfZN8BmgwqVJnulaassXtEXYk8kNnq
-	 1co6alICgNpduwONGyC3W0NPKcdX6BjYIUFYYZWSR+PYyKqsYq+efTPI1CCvERhZ0qqqy
-	 9yT7c7gMkaE1k4OGHxXnTYV5PzCG4KhG84i+YhuHCBjKt5Up+GHzFJEOJxKyrWfjipmUp
-	 2NXFubORPLV1aoodkn2e8jMgby2rl54XR0gPj6r92/fZOOmLqbLIuiCtF5Vv2jyKu+A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794388930;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Cc:Subject:
-	 From:To:X-Mailer:References:In-Reply-To:X-ClientProxiedBy:
-	 MIME-Version:X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=Ib230lTI9VxO8MdyhYYsByHuDhGJMyISQBTXq3MK5y8=;
-	b=QbqicLCkK+b97/vKZDcrRZQkLYSTJEqrwmVe71lydJg1OlsXEIg6aoG59BFe4TiaBdWB
-	 zGtY5RZpHOzZb+woOH30KmgfHY7W68qrdsA4trPANNPH3Njjvh+YRfOc1JA8MHoVlHmxb
-	 tIZ0O569tO2obWyZx8jnyPWyE4ScSCpzwcNzqh02INaqAeOTWoK4ifQHTkz8qdJHvHOff
-	 67hRXmGYCZ1QVf3Y+0VJk9HvFrGX3WUfp4/6Dm5qi2a5Zov6FqoQG9raIonfyjDXST0FR
-	 GrVDwwRU2RbY3ZGINZllfYY9Lo3593GTESBMOh7ciloi8XyPqqO15dx+74SGQ/9Khqg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=garyguo.net;
-	spf=pass smtp.mailfrom=garyguo.net;
-	dkim=pass header.d=garyguo.net header.i=@garyguo.net header.a=rsa-sha256 header.s=selector1 header.b=Gl5zXYFn;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.101.129
-Received: from CWXP265CU010.outbound.protection.outlook.com (mail-ukwestazon11022129.outbound.protection.outlook.com [52.101.101.129])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794388948;
+	b=UdgXzluPrPguxDuvJxE+r1MyTEheUvAFYn1iFTqo548NgR7JCGTVF95Poe3StHxYD5xb
+	 jS0JSXGwSWn8uYTWJ9WOVVJrfNA5cYIh1hUBOP+QeYyIOZK2BTspK6ckWjfsur2I38fZ0
+	 V31WOcE/9Wc6A643MfHrQ6Stf2z9YiRZ+sce25T4dyqNdrDfSn445cWpuiq7Q0WPTfABQ
+	 fXvuXwCgJKO8KRlAnSxm0iF4N5zsGzTgoY5wEaOHAWrlkHsDjlAfk0uPZwN7Hp8tVFXc3
+	 fjqWXX2tWaGQkpPsG2okcFqktTa+cnPQJlTgT7iji/7TIk08G+In7xVfXTS43sxmz3A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794388948;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=Qtfi79sNkt5m/VGYUDKWPyqCBF/QwcBOUK8ADQR5ugg=;
+	b=NLlNSx09psoCU22Lsw98755JVzzmN8MjUEvZPIw5R5qaEbz/5TxdqWqHG2UNCwBaZ7mo
+	 IrqryMwZ5xwWGV9ske4zpQty2NvS3+ykS1kjCWNMzy28POXgjSYkVtoH/yiAiPig1tSJh
+	 IKQCH7bPIjhtlbcEfXUma0qXUWcqpBSpj03H+51byqCayZMaoFOqPLN2mQYh2HY9w7CSe
+	 bI8k/f+cmTlrYtAtYxIKnkryyez6ZCc2Ntrbq+RsQty5kLEt4pDCR5QAD/3C97Vzmoitj
+	 5paoK3qc6MWcq5KyPtcEDC0eRSNnWrlrxv2duUBmNkx6aKOen8a48RcqwFnm4fc7pVg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KWXhrImQ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F212606A332;
-	Wed, 11 Nov 2026 09:22:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F212606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DFE7606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 09:22:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=garyguo.net header.i=@garyguo.net header.a=rsa-sha256 header.s=selector1 header.b=Gl5zXYFn
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Xo2gM8BisZbFhSAaV53WTnjj1DvBHxrdebMKA14ALQ+eWQlW2Tq75SjsFOPHB+pvidergRMro0oxsAmwfzlwzEsOLQ0DHBedRJD/sgJWfv3+rrdG/C1MC9jbx/FBNTj0/12j6965b52xqfuAEr2BotXBn9gIMNBMR3bWP3V/KTTE6e2Qr/qwKxm4vuk/Jnuo3nsV3b103TF+s6aOjqvWFVihH1u2DiN2etXriGMY1mO4FXO3/1OZT406KD8r6yH31NwCm6TXq4VLcSLqMtevyHvrcmqDgg6dut4vmE4FWGGexyDTvJa1QDLPORtvY9/Dm0CCoLAbTfdpIsP5kvk/Fw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Ib230lTI9VxO8MdyhYYsByHuDhGJMyISQBTXq3MK5y8=;
- b=ti91yERdMmaiAPKhj712ttILT1Z6h9N7jowYOlLKe4uzJheUG9B9F6FACOim0Plfg10sRY+QyPOsol91NZw5of9qx6XFi1SN8N8YVDwaxh8A9s2zHkdHkFmLbxri6AOpHfrpZn+8uB78uuHlVntEB/e4qnKqWVGs3d6yMGxzb/QrSOKw8VBsD4HXycNUjqxH73eZ2KvY9wAS7k3rIAfEh+9pIm1962CQuJ6a4MNRX4eSRk8LTx6/y0yXwaEW1KDnq4oVWN3L2ztQmZvNE6k3CigZEs2NshY5VXORP9gULra2tZVa41tf3rO19K/gU7OjcXfzLV0+mRaSa3XpzgXPFg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ib230lTI9VxO8MdyhYYsByHuDhGJMyISQBTXq3MK5y8=;
- b=Gl5zXYFnLnCnwkZ5VoTe9AlZlDFMVkP9bAyAyKdG6PTVtEL5HjNY9rUmWRKkMvdupp7sM4CF1jYs+JdzcLFyf5nxxztlNWC1mB+J+1aJW4ryM45h/FfROdJbTPIXT5yHYK9e/dfuZ7B/n5wiAMuoMOF+rtpW34EqhU94hG2dFOM=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:1cb::9)
- by LO6P265MB6206.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:2b5::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Wed, 11 Nov
- 2026 09:22:08 +0000
-Received: from CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM
- ([fe80::55f6:f98b:7fad:c6e3]) by CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM
- ([fe80::55f6:f98b:7fad:c6e3%2]) with mapi id 15.21.0615.008; Wed, 11 Nov 2026
- 09:22:08 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 11 Nov 2026 09:22:07 +0000
-Message-Id: <DMS9SDC9CTFE.2GECEYQDWRHRK@garyguo.net>
-Cc: <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2 4/7] rust: fs: add iminor() helper
-From: "Gary Guo" <gary@garyguo.net>
-To: "Danilo Krummrich" <dakr@kernel.org>, <aliceryhl@google.com>,
- <acourbot@nvidia.com>, <daniel.almeida@collabora.com>, <ojeda@kernel.org>,
- <boqun@kernel.org>, <gary@garyguo.net>, <bjorn3_gh@protonmail.com>,
- <lossin@kernel.org>, <a.hindborg@kernel.org>, <tmgross@umich.edu>,
- <tamird@kernel.org>, <work@onurozkan.dev>, <brauner@kernel.org>,
- <lyude@redhat.com>, <j@jananu.net>, <alvin.sun@linux.dev>,
- <deborah.brouwer@collabora.com>, <laura.nao@collabora.com>,
- <beata.michalska@arm.com>
-X-Mailer: aerc 0.22.0
-References: <20261107021427.2105374-1-dakr@kernel.org>
- <20261107021427.2105374-5-dakr@kernel.org>
-In-Reply-To: <20261107021427.2105374-5-dakr@kernel.org>
-X-ClientProxiedBy: LO4P265CA0028.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:2ae::20) To CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:400:1cb::9)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KWXhrImQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 944C71F00A0A;
+	Wed, 11 Nov 2026 09:22:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794388948;
+	bh=Qtfi79sNkt5m/VGYUDKWPyqCBF/QwcBOUK8ADQR5ugg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=KWXhrImQFuzpZKw/rzBUBYvNMKl1qxn7VBe2anF24Uyk9RZS1Nbr4w1h/RdmecNPZ
+	 TVcXiospwwgUvYCcCHCO0wY6pjT5qGDBpyEf30oX64aH2zamK+EQTsSgKROGj3VG2j
+	 PImW+0v70imhZhZtFxj7svIiwBrsbzUXtcNjs5slcjX+ovW4Ac6l7CpyvT4LwKb7Pz
+	 MzZANZtbMcc1vsZxVDJNYoNaSqn1cK1eppZhObGqluQeMfIImKrrLvIWpo2MOihMJx
+	 CmAeZOZlWXmsKZ9E3Symko1yg0hxb3Wco/zvnoFmZHkZZ8pmhQr9rsUzwSaLoqVeIO
+	 7RI4baxf/39dg==
+Message-ID: <af8dd40d-1561-4497-989b-abedb9afb248@kernel.org>
+Date: Wed, 11 Nov 2026 10:22:07 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,82 +51,262 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CWLP265MB6051:EE_|LO6P265MB6206:EE_
-X-MS-Office365-Filtering-Correlation-Id: d6eeca21-8a2a-4ba7-d0a1-08df3fd54252
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|7416014|376014|366016|10070799003|1800799024|921020|4143699003|10067099003|56012099006|261021121427099003|261026121527099003|261102123227099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	hOYObkZEd4/X6ZOEIaT4Ntp+xHzF1+xStaMufCKMBWG8OLifhuCJDbfhBoETuhAAsfplap1g9tUZDDgoN6OBNH6T1DG4IzUNDxiuskMiRDyC8MzXr+y0VymSKB2d4p5L9WA2JofAmiLyyMrP0EWjtWRzsZHbMpgb6mrhfm5A8fS+3rjGPyaw6qrCecN9f/M0A7HwhILyQXmtYZtfRxshhdstxbzsya7RVmqS/bWjsgEAJGYGzv0Z+oF5CyAcnGMGLGnE1l0Eo0qurbcBeqEnYwQoOU0VJ19QvIzmHFrgqlCZKscu+bNgrHU7zkJyzQ61QhYO5bkU3H+OEkm/S8LHM5i6INghPOPFnnoZyYomMyRdRKiIxlaBW9qSsOeEYU/va8+HOQJnna/qttzsU6QMS3TSbQlbNSwfqoajuba71rkJawEMt3IPvJEqAiJCYyDiVpb/fno/TH5d6gg/r2p9nnyEEvv4lc+nQXNZnf0zvmAnBiuNqiIGhfCQ4cPnSIJZewisrMYI2m6kvOCKkyUGHg3EydQ3FAaYEZgRxchuwXs/uP56jM23XqmtOesciWQW4UT0TnO0iaGm9tlw4uaffZy1vJC79k8fL/GS1kM6A4GWRaAM8K2vnWgPBI6k1/EmVF4fo9uyFSMajJHdYSKLlfK7wrH1i0tWHEc7RasOtRyqgDDiEVqqg3p5E1tcDM0vaLrrDUEX0IIIeFxb2EwAhQ==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(366016)(10070799003)(1800799024)(921020)(4143699003)(10067099003)(56012099006)(261021121427099003)(261026121527099003)(261102123227099003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?MDhLZS9PbENtYjlpVnAyNzNVMU5QNXEybURSbkY3bllPRTMwNmpTelFnbXk4?=
- =?utf-8?B?YW5sZGJWTjF2VEw1MG5EYnIyUnJUQjJ4c0RFQXpzOXpoMXZTOFArTUswQUVX?=
- =?utf-8?B?WFU0eWwzcWsrcjd4YUdOOHZvZHNVZ2I0dmo3a1AzR2l5cS80TmVpZC8wbmFk?=
- =?utf-8?B?SXVtQkp2MmI0enMvSi9XWWZIekVuVXR3Tm9NS3Vza2RxRzhCNGo5N2hIcW9M?=
- =?utf-8?B?Z0hieXVYVFZVSE81VjlTZFRRZm5DVEphYUhXWitVL0U2cHk0d0ZKWWNYaWpn?=
- =?utf-8?B?cmhtSEx3SnRPVGwzSUF1V3JhSm9jWjIwbGNKMnd6dHFUVUNBOWVhMDN2UVJo?=
- =?utf-8?B?clBZVUlBWGMzd0tUOGFDQktTWko3V2R5RHhDNXVJMjg0a3puOXRPMjBVOTl1?=
- =?utf-8?B?TVQ2dWtHWG40MHNlVXZmUHpPNG9DRjlEdHNVRFYyYU1ranBzRzBGc0U2ckFi?=
- =?utf-8?B?Z2tyQ05RTnlUb05QUisvSWZST09qS25CQVpsQVpQK2VMUDJEcjVVSi9iSk0x?=
- =?utf-8?B?M1hNSVhDaWdtY2p6T0tOalMvYnc2V3RGa1g5Q0E2aFJlTlczRHQ3Sk04U0lx?=
- =?utf-8?B?UnFCb1RBTmRQNDJONlFyRFh4L3diY1plVkdERDJoWFF6S3hNaCsrNDlMbFNz?=
- =?utf-8?B?cFhZa3ZLaVlXenExMVlQeTdGa0t0UmwyZmJ6RUZpcEJsSi91UnE4c3UxRFQw?=
- =?utf-8?B?d2NVVWJ5WUtINWZ1NnA1bGc1QmhMMGJubEhzUnh4V09HU2pmVFB5dURYTHI4?=
- =?utf-8?B?MWtETkhnSFlRY3R2dnl5K1VSSFhYT3ZwdWpxNzAvQ0Q5S3Z6a2Vsb0hrN29V?=
- =?utf-8?B?Q1F4QU9Ud3E2cTUzWmtHcUdFRUFTZDExS0JDaHNJYVEvUTNTQ2hlbXBjY1hY?=
- =?utf-8?B?bHA2cWRGK2N1L1RCZmViTjNWbGcvWWk1RVYrcUVUL0t1aG5FOVB3YUNZU2Zk?=
- =?utf-8?B?L1YvSFkvWTBDQ0dCUUh2YlU0MjJ0WGRrejlMUGxqTUhWUWhwbkpiQ1YyQi8z?=
- =?utf-8?B?Qkg4RkJ1a1JzeUI0WDlpM1VZL3pKZkEzczUvdURWL3JOTGpvSU5sL0dTK3pZ?=
- =?utf-8?B?ZGpteUcvRkRrSDVvNTI2M1RYM25SeU5jQjYzR0NvYkhkbUZDU2Roc3ZuaWFo?=
- =?utf-8?B?anhMWTE2eFhoMVZQcGNtL3lnc0hxTys1V1lXVEZtSTI1eE9uQmFvbU1ZdUds?=
- =?utf-8?B?SXdDRjc4QWprKzBWSGRGQUp3ZVhTYmwxYVYzM0Q3VWdqV0xCRklXVnNkeUZZ?=
- =?utf-8?B?a1B3dXlSS04vRDQwcW1uWWo3L0FldTgvTTZpWEx2MmQ5dXIzUHhlRG5MQTBt?=
- =?utf-8?B?Y1J4SHZ3cFRwRUhOMSt4YXdOTHdOZEdDaVl5Q2c3cUhpbjdMaklnbHJEWjFW?=
- =?utf-8?B?Nm95YmVNYytlTEthTW9XT0lnZ0EzeVNXSGpoTW9uYVR6ejRGSTAwZzJTcWxs?=
- =?utf-8?B?RHBoVXJGQ0RmOW84K05SWUNPYVpIRC9UZmd0ZzlSa3oxcWs4TnI2dTlVeUt3?=
- =?utf-8?B?SkhFbUVDZVVKVFpNNkxuaStIMHVLNzZtbm95VXZSQjVBOTFpelVKRzB5ZTJM?=
- =?utf-8?B?U0pPL0xBWmI1S2hTdnpPMllYWk5OVlpxYnRRcys4QjJIZXVKZ3VzMXNINEIz?=
- =?utf-8?B?Y2dtdkpJOWNkbDZYNnZlSURna0FoUHYweHF5aVd1dHFvb3YyOEcrV2VINzJE?=
- =?utf-8?B?ZVdsVkhyWG9SV3NaZWh1WkpiRWxTL3ErYWtZUmVXUGZ5V0lzS3pXcEVNUnB1?=
- =?utf-8?B?dFJhWTV2WmJnMVRRK05vcFRsRWs5SHlCWHlMZVh2bzROSk43TmF5YlFFZWIx?=
- =?utf-8?B?VUoybFphaTFnZlY2dlN3YlhHYkY5TG5aTURSa29ZTFdkTE84clNQWlJwTGVV?=
- =?utf-8?B?VG15VnpUb2ZtRStYUllpRnM3MVJHcElvZ2UvWUtaalUzWVJtcWVFQ0pyekF3?=
- =?utf-8?B?UFh2blo5NVE0SVp5NnQ0cWx5Ny9rRjN6c2EwSDJVaEZUYWJkdjNDRG80QWRw?=
- =?utf-8?B?OW5XcUlCRE55eFBCQTg1aWhrMWticUZyY0J0aVB6UEoyNFNwSWJGSnZiaUVq?=
- =?utf-8?B?eUhUa0JlbnRTWGIzbUpHUmJJZGNZVDdPalZaTWhqcWZWVDd4RkxkMG8wR1Ev?=
- =?utf-8?B?bW1aVk8ya2NiMklsTHRydi9hb3grNEZzTVk4bTRnenJLNDJwelVuM05wakkr?=
- =?utf-8?B?bHQ1Q01zSFhEbElqa2VaTERCWFM0T25PdWVCMS9VSWttV3BZMGdFQ1I5T3Fo?=
- =?utf-8?B?UHI1bXRCaWpzcGZVdjl3UXNBU2VOc25NWkdmZUM0SU44TmtWc0l3bHlLaHN1?=
- =?utf-8?B?L3ZCeUdYd0xtUFFTUTJVQ0pwYngxN3VpcHIyVVRla3ZvaHdxcWFmdz09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: d6eeca21-8a2a-4ba7-d0a1-08df3fd54252
-X-MS-Exchange-CrossTenant-AuthSource: CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 09:22:08.4319
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: JBjo6lgV+zFL02MytM2gZzKef1vteU/58C56giOkVScLg0hA5J2tEZjetWYp5dXMwcJ8XInYKC5a2gvdtPRcRg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO6P265MB6206
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm: use memory barriers for non PMD-sized folios to sync
+To: Baolin Wang <baolin.wang@linux.alibaba.com>, akpm@linux-foundation.org,
+ ljs@kernel.org
+Cc: riel@surriel.com, liam@infradead.org, vbabka@kernel.org, rppt@kernel.org,
+ surenb@google.com, mhocko@suse.com, harry@kernel.org, jannh@google.com,
+ lance.yang@linux.dev, qi.zheng@linux.dev, pfalcato@suse.de,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org
+References: <09736bc2e01bec0ca7436733078c82c7e0cc6627.1794376686.git.baolin.wang@linux.alibaba.com>
+ <3e5ceb38-d04c-4cd4-a783-5d0edcedf5dd@kernel.org>
+ <59c59696-2112-44e6-818c-50bd10789b70@linux.alibaba.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <59c59696-2112-44e6-818c-50bd10789b70@linux.alibaba.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Sat Nov 7, 2026 at 2:03 AM GMT, Danilo Krummrich wrote:
-> Add a Rust helper for iminor(), which extracts the minor number from a
-> struct inode. This is a static inline function in the C headers, so
-> bindgen does not generate a binding for it.
->=20
-> Reviewed-by: Alice Ryhl <aliceryhl@google.com>
-> Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
-> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+On 11/11/26 09:43, Baolin Wang wrote:
+> 
+> 
+> On 11/11/26 3:48 PM, David Hildenbrand (Arm) wrote:
+>> On 11/11/26 07:06, Baolin Wang wrote:
+>>> Commit 243cf1f67b36 ("mm: memory: fix truncation removing mapped folios")
+>>> uses PMD lock via sync_with_folio_pmd_zap() to synchronize when a cleared
+>>> PMD is found while unmapping a folio.
+>>>
+>>> However, for non PMD-sized folios, the cleared PMD can only come from
+>>> PTE table reclaim, which clears the PMD only after the rmaps for the
+>>> table have been removed. This is plain message passing, and taking
+>>> the PMD lock is more than needed, like I did in the previous patch[1].
+>>>
+>>> Without barriers, the walker can observe the cleared PMD but a stale
+>>> mapcount on weakly ordered architectures:
+>>>
+>>> CPU 0 (unmap folio)                 CPU 1 (MADV_DONTNEED, full PMD)
+>>> ================================    ================================
+>>> folio_lock()
+>>>                                      lock(ptl)
+>>>                                      clear PTEs
+>>>                                      remove rmaps   /* W mapcount */
+>>> [mapcount load satisfied early,
+>>>   folio still mapped]
+>>>                                      pmd_clear()    /* W pmd */
+>>>                                      unlock(ptl)
+>>> pmdp_get_lockless() -> none         /* R pmd */
+>>> skip the PMD
+>>> folio_mapped() -> true              /* R mapcount, stale */
+>>> unmapping assumed to have failed
+>>>
+>>> Pairing an smp_wmb() before the PMD clear with an smp_rmb() after the
+>>> PMD read forbids this outcome:
+>>>
+>>> CPU 0 (unmap folio)                 CPU 1 (MADV_DONTNEED, full PMD)
+>>> ================================    ================================
+>>>                                      remove rmaps   /* W mapcount */
+>>>                                      smp_wmb()
+>>>                                      pmd_clear()    /* W pmd */
+>>> pmdp_get_lockless() -> none         /* R pmd */
+>>> smp_rmb()
+>>> folio_mapped()                      /* R mapcount */
+>>>
+>>> If R pmd observes W pmd, R mapcount must observe W mapcount, so
+>>> folio_mapped() no longer reports the removed mappings.
+>>>
+>>> No changes for PMD-sized folios unmapping.
+>>>
+>>> [1] https://lore.kernel.org/all/542c97482eae84f86704bcee56482633d1b32321.1791616645.git.baolin.wang@linux.alibaba.com/
+>>> Signed-off-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+>>> ---
+>>>   mm/internal.h        | 26 ++++++++++++++++++++++----
+>>>   mm/memory.c          | 12 ++++++++++--
+>>>   mm/page_vma_mapped.c |  2 +-
+>>>   3 files changed, 33 insertions(+), 7 deletions(-)
+>>>
+>>> diff --git a/mm/internal.h b/mm/internal.h
+>>> index cd3675c044e0..a277bf4841f8 100644
+>>> --- a/mm/internal.h
+>>> +++ b/mm/internal.h
+>>> @@ -592,6 +592,7 @@ void pmd_install(struct mm_struct *mm, pmd_t *pmd, pgtable_t *pte);
+>>>    * sync_with_folio_pmd_zap - sync with concurrent zapping of folios
+>>>    * @mm: The mm_struct.
+>>>    * @pmdp: Pointer to the pmd that was found to be pmd_none().
+>>> + * @nr_pages: The number of pages in the folio.
+>>>    *
+>>>    * When we find a pmd_none() while unmapping a folio without holding the PTL,
+>>>    * zap_huge_pmd() may have cleared the PMD but not yet updated the folio
+>>> @@ -600,13 +601,30 @@ void pmd_install(struct mm_struct *mm, pmd_t *pmd, pgtable_t *pte);
+>>>    * against later mapcount reads. Skipping the PMD without synchronization
+>>>    * could make folio unmapping code assume that unmapping failed.
+>>>    *
+>>> - * Wait for concurrent zapping to complete by grabbing the PTL.
+>>> + * Wait for concurrent zapping to complete by grabbing the PTL for PMD-sized
+>>> + * folios, otherwise smp_rmb() is sufficient.
+>>>    */
+>>> -static inline void sync_with_folio_pmd_zap(struct mm_struct *mm, pmd_t *pmdp)
+>>> +static inline void sync_with_folio_pmd_zap(struct mm_struct *mm, pmd_t *pmdp,
+>>> +		unsigned int nr_pages)
+>>>   {
+>>> -	spinlock_t *ptl = pmd_lock(mm, pmdp);
+>>> +	if (nr_pages >= HPAGE_PMD_NR) {
+>>> +		spinlock_t *ptl = pmd_lock(mm, pmdp);
+>>>   
+>>> -	spin_unlock(ptl);
+>>> +		spin_unlock(ptl);
+>>> +		return;
+>>> +	}
+>>> +
+>>> +	/*
+>>> +	 * For non PMD-sized folios zapping, concurrent zap_empty_pte_table()
+>>> +	 * may clear the PMD after the rmaps for the table have been removed,
+>>> +	 * but later mapcount reads could still be observed before the PMD
+>>> +	 * read, making the folio appear to be still mapped after unmapping.
+>>> +	 * Order the PMD read before later mapcount reads, so that observing
+>>> +	 * the cleared PMD implies observing the rmap removals.
+>>> +	 *
+>>> +	 * Pairs with smp_wmb() in zap_pte_range().
+>>> +	 */
+>>> +	smp_rmb();
+>>>   }
+>>>   
+>>>   struct zap_details;
+>>> diff --git a/mm/memory.c b/mm/memory.c
+>>> index fe72e66c9c2e..1ee286cdd3af 100644
+>>> --- a/mm/memory.c
+>>> +++ b/mm/memory.c
+>>> @@ -2054,8 +2054,15 @@ static unsigned long zap_pte_range(struct mmu_gather *tlb,
+>>>   	 * Clear the PMD after the rmaps for the table have been removed, in case
+>>>   	 * an incorrect mapcount is observed after unmapping the folio.
+>>>   	 */
+>>> -	if (can_reclaim_pt && direct_reclaim && addr == end)
+>>> +	if (can_reclaim_pt && direct_reclaim && addr == end) {
+>>> +		/*
+>>> +		 * rmap changes need to be observed before page tables get zapped.
+>>> +		 *
+>>> +		 * Pairs with smp_rmb() in sync_with_folio_pmd_zap().
+>>> +		 */
+>>> +		smp_wmb();
+>>>   		direct_reclaim = zap_empty_pte_table(mm, pmd, ptl, &pmdval);
+>>> +	}
+>>>   	pte_unmap_unlock(start_pte, ptl);
+>>>   
+>>>   	/*
+>>> @@ -2110,7 +2117,8 @@ static inline unsigned long zap_pmd_range(struct mmu_gather *tlb,
+>>>   			/* fall through */
+>>>   		} else if (pmd_none(*pmd)) {
+>>>   			if (details && details->single_folio)
+>>> -				sync_with_folio_pmd_zap(tlb->mm, pmd);
+>>> +				sync_with_folio_pmd_zap(tlb->mm, pmd,
+>>> +						folio_nr_pages(details->single_folio));
+>>>   			addr = next;
+>>>   			continue;
+>>>   		}
+>>> diff --git a/mm/page_vma_mapped.c b/mm/page_vma_mapped.c
+>>> index a931243ca42b..d793ad0c5364 100644
+>>> --- a/mm/page_vma_mapped.c
+>>> +++ b/mm/page_vma_mapped.c
+>>> @@ -295,7 +295,7 @@ bool page_vma_mapped_walk(struct page_vma_mapped_walk *pvmw)
+>>>   			pvmw->ptl = NULL;
+>>>   		} else if (!pmd_present(pmde)) {
+>>>   			if (pvmw->flags & PVMW_SYNC)
+>>> -				sync_with_folio_pmd_zap(mm, pvmw->pmd);
+>>> +				sync_with_folio_pmd_zap(mm, pvmw->pmd, pvmw->nr_pages);
+>>>
+>>
+>> If there is no folio, why do we care about the sync? Should there be a folio
+>> here? Anyhow, I think sync_with_folio_pmd_zap() really should be consuming a folio.
+> 
+> Since there are only two cases without a folio: 
+> mapping_wrprotect_range() and pfn_mkclean_range(), I'm hesitant to 
+> modify all page_vma_mapped_walk() callers to pass in a 'folio' parameter 
+> for these 2 cases.
+> 
+> Or should we add a new flag for the pfn walk?
+> 
+> / Walk a PFN range which need not belong to a folio /
+> #define PVMW_PFN		(1 << 2)
+> 
+> Then the changes would be:
+> } else if (!pmd_present(pmde)) {
+> 	if ((pvmw->flags & (PVMW_SYNC | PVMW_PFN)) == PVMW_SYNC)
+> 		sync_with_folio_pmd_zap(mm, pvmw->pmd,
+>                              pfn_folio(pvmw->pfn));
+If we're working on a folio, we better pass in a folio. That might require some cleanups, yes.
 
-Reviewed-by: Gary Guo <gary@garyguo.net>
+diff --git a/include/linux/rmap.h b/include/linux/rmap.h
+index 52fff8dc74213..80fb7ef9bab92 100644
+--- a/include/linux/rmap.h
++++ b/include/linux/rmap.h
+@@ -884,6 +884,7 @@ struct page *make_device_exclusive(struct mm_struct *mm, unsigned long addr,
+ #define PVMW_PGTABLE_CROSSED   (1 << 16)
 
-> ---
->  rust/helpers/fs.c | 5 +++++
->  1 file changed, 5 insertions(+)
+ struct page_vma_mapped_walk {
++       struct folio *folio;
+        unsigned long pfn;
+        unsigned long nr_pages;
+        pgoff_t pgoff;  /* Only meaningful if nr_pages > 1 and not a KSM walk */
+@@ -898,6 +899,7 @@ struct page_vma_mapped_walk {
 
+ #define DEFINE_FOLIO_VMA_WALK(name, _folio, _vma, _address, _flags)    \
+        struct page_vma_mapped_walk name = {                            \
++               .folio = folio,                                         \
+                .pfn = folio_pfn(_folio),                               \
+                .nr_pages = folio_nr_pages(_folio),                     \
+                .pgoff = folio_pgoff(_folio),                           \
+
+
+The question is really whether pfn_mkclean_range + mapping_wrprotect_range really need that
+sync as well.
+
+(we could identify by seeing !folio I guess)
+
+-- 
+Cheers,
+
+David
