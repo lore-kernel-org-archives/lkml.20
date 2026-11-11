@@ -1,70 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.207
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794385669;
-	b=5mmbys51u+i0hnHYfHVNFBs403ayPTaqY3tyeXgHKNoO11I5EEpaKf1Z2Kl6xsoFlW0p
-	 M/a9LAwIDXzbrNz4KEzZiAp4AzXakXl6gvlalywpgoFQBwkDGYh5FXsoZWVEdpUGo2uN4
-	 Y7lGR4OuUpyPWWGArx4z61zynNZKoMNn1jcPSXMtAlW+ULQp19OMcpR8RLxZzgv8tln5v
-	 NKJTSdSP+eqWIwJCrS2fyoFEHz//R+4F6AOxvOYg4ZJFZFA9RihGBDwTfyhAaLlhGDoas
-	 9jpSgUPe4Do9TAVDc4jFXkMHJ1BeihP7aJQu6v/RXxHo+5/FJIJg+DQe88fqKHzoKYA==
+	t=1794385698;
+	b=eeBeJioddQJ4Rpu3SUbSKNhai8f0to8eXTeTY6k5hzJP4ItxLgRKmEhGAfh93H+73l0C
+	 ooZ3IoRHjsa3N1elkTEQbxRbQDhwpMn7X8Vs1/lkMFpu17kruJ+TinyyKoJ5YfgeTuHw8
+	 gP0FMSzSvew05ES12PF52QGsOx5pzNcCftysGUeBKntBWMN/uszxFa/kz1Z157IGFBS6d
+	 fEqxPI/z5XsO5YS6NPBUOSGEnB+j/308eYp3S6pyUWgDsire1iE/RMLMXCuFd4/FsQzGr
+	 7fF5Rzi4isgPilvsU68s9gn3fklNGIwt53ErLIGa12Cp21HDeozv0QUdMfUjFEW75iw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794385669;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=N91MbDTn6PrZLQH4j0EMDImQVrWd5RIhvpEq9PwZqyU=;
-	b=180W/RKR/cXJCXyohnb2WbAmjx51cF8HfmTZa3XYDd94PiZPDSRc4GMtgkuz/gRiU/bo
-	 X+EIKhcEfhtwJTL3WlnqqPiNRi/UTBCJJ4IBVu/0BEz/jn9xMtEUcZhmrmToIzlIEN/CV
-	 nuHJmI2AsyifIc8wsOEq7xwMNj/0x2EwzNuodiHZQHwGx0l8bGbSwJ4eEbYnDOx7/sviV
-	 ToO+6qmpVN70xVlZw6La6Mm3WvIl7+JjLQoqpkcWMDC3K2AOgAb3ECe0jf+CtadZAeHXU
-	 J7p6rRy2i3+/j1Pta5n/bEDiyempqks3AQ3QINqbzLi8Jia8zAkcIZEMAXcc01oiJeA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794385698;
+	h=Received:DKIM-Signature:Content-Type:MIME-Version:Message-Id:
+	 In-Reply-To:References:Subject:From:To:Cc:Date;
+	bh=piYzj8MDGWtgXv/LodWB1t6aXM+EdwWnp3fWL/kNINY=;
+	b=xNkczwOOxAkEeMO6K7LsEZGap53S2zNPaZ/mKUZdMeIGb0+fwoQ733CyWem/UQzr7q4s
+	 9Wqnqv8MkJlDPokDGhN3rvKWhDfzTBovPNMd0cOQVp/Fbw9bw/IudHzxnFmZ9qFKtbBjh
+	 Lp5NBGspRoA9neHGD2jzATyj1UB3uvlzj2TQro2tOh3/xTS3CAM1Pohz/LPg5b+cQ7HJF
+	 WfgusaaEJ6TZ8+TGmxiTZ3dZUbhNyYL25kZbWXnYMmL9h5qWC/ZmzY9rG+smjDuK0Dujz
+	 X2IfEyEsirmuLemO37X5n9LG7AEX9vtXDIdU+n1zfsKz1s3HrtWt6KW+wTdBU0w5ApQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=fUpnCIrZ;
-	arc=none smtp.remote-ip=95.215.58.207
-Received: from mta1.migadu.com (out-207.mta1.migadu.com [95.215.58.207])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fqbmS2TQ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEC2C60A261F
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 08:27:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DEC2C60A261F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 688A9606A31C;
+	Wed, 11 Nov 2026 08:28:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=fUpnCIrZ
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=o5IReJ970IqTd3Q+Wne7cEMsCpUkcKmOzJbHBxuzgfo=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794385667; v=1; x=1794990467;
- b=fUpnCIrZd23Io7qMIYZ6W9iazjztqKF2N73IFzTIBAt40sA91DmxYkB16ZxQWGDpu0lLYp3f
- EQMemSIcrVbY3zJolfqBxv0N3/Baza7+YU0yucIBL22zL/YU7J1B2KBRnE5LbhNm101vNbi2dzW
- HVT0jXXk/HQ+gMuK6nmYNCSc=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 8550fa73e993f6e8;
-	Wed, 11 Nov 2026 08:27:46 +0000
-X-Mizu-Trace-ID: 8550fa73e993f6e8
-X-Migadu-Flow: FLOW_OUT
-From: Fuad Tabba <fuad.tabba@linux.dev>
-To: Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>
-Cc: kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Vincent Donnefort <vdonnefort@google.com>,
-	Fuad Tabba <tabba@google.com>
-Subject: [PATCH] KVM: arm64: Sync SCTLR_EL1 before a pVM's CPU_ON reads its endianness
-Date: Wed, 11 Nov 2026 08:27:46 +0000
-Message-ID: <20261111082746.1064567-1-fuad.tabba@linux.dev>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fqbmS2TQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8C8D1F00A05;
+	Wed, 11 Nov 2026 08:28:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794385698;
+	bh=piYzj8MDGWtgXv/LodWB1t6aXM+EdwWnp3fWL/kNINY=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=fqbmS2TQ77JBPU/3OMzTiLkfyNKPqLUQKKdt0HdRm21za1iSlZo2xKrWJNS88ER/t
+	 oL2xsF83+PGzjVeuJ+KB2K1/u8jQJew1DPFuHWnjnNLTjYMv8fJjGBmxWsziypA1TR
+	 a6TknP8N+iYTpJ1WSc4lG/ZIeN3Iwi9WpwuRl3ptFoQLe6hwTlEaJVyifhlRVxnKSV
+	 dh5RjQH+DmGX4/q6AOL/cilXnyR2aZU+zRDAHHLEowm7cY08b1t2cXN2gNw2pjHthB
+	 O9qQsxtLN4Iub8+TBKvFcgqefiyeirTb5VXbusT3pOka1xe4Tdn1sjjdcy0Y1L2aGc
+	 I6aQ6ewwAUm4Q==
+Content-Type: multipart/mixed; boundary="===============8794389737657783961=="
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,45 +49,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Message-Id: <6829aa96d3cda5fdc47f3040dfed6fd7c9c9e92d2dbd7a3ec5f138508db987f8@mail.kernel.org>
+In-Reply-To: <9741224b8d2b19760f85c1f854d61f30fa7d9710.1794303670.git.sieberf@amazon.com>
+References: <9741224b8d2b19760f85c1f854d61f30fa7d9710.1794303670.git.sieberf@amazon.com>
+Subject: Re: [PATCH v2 1/4] sched/fair: expose cpu.max.runtime to set bandwidth runtime directly
+From: bot+bpf-ci@kernel.org
+To: sieberf@amazon.com,mingo@redhat.com,peterz@infradead.org,juri.lelli@redhat.com,vincent.guittot@linaro.org,tj@kernel.org
+Cc: bsegall@google.com,dietmar.eggemann@arm.com,rostedt@goodmis.org,mgorman@suse.de,vschneid@redhat.com,kprateek.nayak@amd.com,hannes@cmpxchg.org,mkoutny@suse.com,void@manifault.com,arighi@nvidia.com,changwoo@igalia.com,skhan@linuxfoundation.org,corbet@lwn.net,rdunlap@infradead.org,cgroups@vger.kernel.org,sched-ext@lists.linux.dev,linux-doc@vger.kernel.org,linux-kselftest@vger.kernel.org,bpf@vger.kernel.org,linux-kernel@vger.kernel.org,nh-open-source@amazon.com,hborghor@amazon.de,fmubeen@amazon.de,dwmw@amazon.co.uk,karataev@amazon.com,sieberf@amazon.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Wed, 11 Nov 2026 08:28:16 +0000 (UTC)
 
-pKVM handles a protected guest's PSCI CPU_ON at EL2 before the guest's
-EL1 sysregs are saved, so kvm_vcpu_is_be() reads a stale SCTLR_EL1. A
-guest that changes SCTLR_EL1.EE and calls CPU_ON before its next exit
-to the host starts the target vCPU with the old endianness.
+--===============8794389737657783961==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Sync SCTLR_EL1 before the read, as inject_sync64() does.
+> sched/fair: expose cpu.max.runtime to set bandwidth runtime directly
 
-Fixes: 9d4ec80be2eb4 ("KVM: arm64: Handle PSCI calls for protected VMs at EL2")
-Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+TL;DR: In fair.c, cpu.max.runtime may return stale leftover runtime (e.g.
+50000) after a group is switched to "max" quota, while writes fail; a
+behaviour question about returning 0 or failing the read.
+
+> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+> --- a/kernel/sched/fair.c
+> +++ b/kernel/sched/fair.c
+
+[ ... ]
+
+> +u64 cfs_bandwidth_get_runtime(struct cfs_bandwidth *cfs_b)
+> +{
+> +	u64 runtime;
+> +
+> +	guard(raw_spinlock_irq)(&cfs_b->lock);
+> +
+> +	runtime = cfs_b->runtime;
+> +	if (cfs_b->quota != RUNTIME_INF)
+> +		runtime = min(runtime, cfs_b->quota + cfs_b->burst);
+> +
+> +	return runtime;
+> +}
+
+When the group is switched to "max", does cpu.max.runtime return a stale
+value?
+
+tg_set_cfs_bandwidth() calls __refill_cfs_bandwidth_runtime(), which
+returns early when quota is RUNTIME_INF:
+
+    if (unlikely(cfs_b->quota == RUNTIME_INF))
+            return;
+
+After that nothing updates cfs_b->runtime, so the value left over from
+the last finite quota is returned uncapped here.
+
+For example, write "50000 100000" to cpu.max, leave the group idle, then
+write "max 100000".  cpu.max.runtime keeps reading 50000 for as long as
+the group is unlimited, while a group that never had a quota reads 0.
+
+Writes fail with EINVAL in that state, but the read reports runtime the
+group does not have and that is not being tracked.
+
+Should this return a defined value (for example 0) when quota is
+RUNTIME_INF, or fail the read the way the write fails?
+
+This is documented as "The runtime the cgroup has accumulated and not
+used yet", which has no meaning for an unconstrained group.
+
+
 ---
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
 
-Notes:
-    inject_sync64() is the only other reader on a protected guest's exit
-    path of a guest-writable EL1 sysreg's copy, and it syncs that register
-    first. Saving SCTLR_EL1 before the in-loop exit handlers instead would
-    put the save on every protected exit for two readers. A non-protected
-    guest's CPU_ON is handled by the host, after the sysregs are saved.
-
- arch/arm64/kvm/hyp/nvhe/pkvm.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/arch/arm64/kvm/hyp/nvhe/pkvm.c b/arch/arm64/kvm/hyp/nvhe/pkvm.c
-index fc0475f0877d1..e421f45383e0d 100644
---- a/arch/arm64/kvm/hyp/nvhe/pkvm.c
-+++ b/arch/arm64/kvm/hyp/nvhe/pkvm.c
-@@ -1321,6 +1321,9 @@ static bool pvm_psci_vcpu_on(struct pkvm_hyp_vcpu *hyp_vcpu)
- 		goto error;
- 	}
- 
-+	/* Sync SCTLR_EL1 for kvm_vcpu_is_be(), as HVCs are handled before sysregs are resync'ed. */
-+	__vcpu_assign_sys_reg(&hyp_vcpu->vcpu, SCTLR_EL1, read_sysreg_el1(SYS_SCTLR));
-+
- 	reset_state = &target->vcpu.arch.reset_state;
- 	WRITE_ONCE(reset_state->pc, smccc_get_arg2(&hyp_vcpu->vcpu));
- 	WRITE_ONCE(reset_state->r0, smccc_get_arg3(&hyp_vcpu->vcpu));
-
-base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
--- 
-2.47.3
-
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/42982707042
+--===============8794389737657783961==--
