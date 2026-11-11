@@ -1,69 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.29.241.158
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.3
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794361791;
-	b=bgliCdpOfHhe/VFHZkvkiuTp9V6gEtAMNQsrfqVIIVI6pQ/2F/ERO0PK4nwmf2MWQvYo
-	 IwyWplYmelGERhJl0Q3LhzWurgiVbsKooot04C6ixOXsdF01fD10eaPggvSuEIDLfXLSj
-	 NWYLsff/CkjCSLWFV/zB8ddlj6RdgB3XdAUMyqac5ffd13Ogn3eeRonVKvX5MYxBvFgkN
-	 EfmoCMCF4fz3/EKMgAaUs2ry/LLof1yE8Wl7p/eCOuTbcttY+mJ7eK1PnBRneu2B9tfcw
-	 ss3ST78HZGngssa4HbZ6a9lcQk3CvMk4QfsJZPMxcsI2/1J9kvGjK77CEFNTFRsbr7Q==
+	t=1794361874;
+	b=p6Vru7KTWPcOiHnlrMJqJsV4Fn2B3jUFd4GymLsVyzGiSAz1Y1gev7/v9lvB536ZP93p
+	 B2BCgBnNuO/bUwDVW1ojN3QizXXevi71CiBS5oHUiE+07PpcPSKnzzsZbxJ3sR6JmUu9X
+	 Q34pQLTFipEdpwsYpXg/2gXMA8guDkoHOXjUbHCEeM1WL79s5ODIbSqq9gANw4Gml1d+s
+	 X+Fhl0eZcAoXT42ZpUyvHod4QvhYtg18Ta52+5V+AVLWtFnE/t+YDJ3zWlRmBzPV1glv1
+	 OKPbJbJNZASI3l4/HjKF0Uvo0maXHwnkav+hfL1OcQ8WrZ4aoNFBT2EdIrzgBZbj1Yg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794361791;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version;
-	bh=7Kmq+KrqsJVdamEglD05VlODQnyHuuKHPdii9uryj5M=;
-	b=f7GHLoda/me8JMn7HejgbnXK6mCntjPF/E5oosHAxQj4xNyPkqn4S/VwtxeXejtx6ugO
-	 aMYaDXwSesfoSyqN8nk7E7l1r1cKYJOZVCDwBZrz1B2v4S+e/IfrZnHdxo0ZKRbmoGPBq
-	 ej5kVN59+vW5bBA/TIG3wADShLxPg7XglNPLs6lQ5/Ihr9u3Tepkd5qFLvi/E25xkDHBd
-	 hjlXz/ILAfO6RpUcDv0+ec8wA8HL9+rtF6oT9iy4G9TOzPlHClRcSJ5idlHNXetQxoESx
-	 JP8sSQoVfr83FUriqr7g0kRTgavL/ER+Qa23tPvz+lK4pFysz0/fPUs6CMPuAJ4oCYw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794361874;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=y9Dwl1B/SkeBN/qAYgB/RrFCJLIxenUFUX+kaToQpxY=;
+	b=oxhwdSQFO97xj+8LarLIP1VZQaOii8PvmJHMSj2RiyurzwEY8RLDe3Ja+abU/eBbl39R
+	 V6qwg7nOx3LLqDkE42PpsG0+davmfL9KHkTguLUtDLw1GbWU+3Cacgh7ujjQjP8uKIFbe
+	 k58Wv22ZWEbkxdc445R9fBCNCCosBbT+dP6dtvxcIU8liA0DjJzCyd3CZYh5Y+k/1zFfW
+	 kP+O9u7IqtWqvlTnaHpR3llCZgUImWdbQLkNmDVlTdmXH2SPURPOzoECWSNhphFIrau/6
+	 LwQEkJmTBd7Ft8+yrAWyOSXf/7El159m11ft9CpJ8MwI+giNoQ0RRR3Pk8KEcWGtIsA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=codeconstruct.com.au;
-	spf=pass smtp.mailfrom=codeconstruct.com.au;
-	dkim=pass header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=lJPVZ0ab;
-	arc=none smtp.remote-ip=203.29.241.158
-Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=TjRlamZO;
+	arc=none smtp.remote-ip=117.135.210.3
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B185606A320;
-	Wed, 11 Nov 2026 01:49:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B185606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codeconstruct.com.au
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A0AA606A31C;
+	Wed, 11 Nov 2026 01:51:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2A0AA606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=lJPVZ0ab
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=codeconstruct.com.au; s=2022a; t=1794361788;
-	bh=7Kmq+KrqsJVdamEglD05VlODQnyHuuKHPdii9uryj5M=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=lJPVZ0abKDf0DLzHSxMmK/yrfDVBM1PSNgzEXP3miyBlLjMlmo/se/vVUwfvQwlcL
-	 VITk+MFatj7sSRTvURtTFEk0ASGPf6xwTmXgeOYp7cuInxpixCQwF97hyrmsR3/zHU
-	 /BHk/NCbxj0MX2USlWM0Gwv3YbLAvPYVpZcDD1o1q3jV83Hcl66r4lMadsuTHhvxul
-	 wwpQ1UKXQTrr0znFz/caCwZqbBe196VL/6ak6l2Ob5QjREQC+7Ih4fKKQuG35TWPxZ
-	 4nopr6vQijOiHR2A9zc2pjMyBw5FBobqhn5zZPYe4cCgLRiiDpAFpekFTdjzmqFZfW
-	 leYmOUgTYQH8g==
-Received: from [192.168.68.117] (unknown [180.150.112.139])
-	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id 92D0F64C3C;
-	Wed, 11 Nov 2026 09:49:47 +0800 (AWST)
-Message-ID: <a92395610d27fc0f97af3b27b150de61583c2197.camel@codeconstruct.com.au>
-Subject: Re: [PATCH v5 2/3] ARM: dts: aspeed: Add Intel AVCRP BMC
-From: Andrew Jeffery <andrew@codeconstruct.com.au>
-To: Dawid Glazik <dawid.glazik@linux.intel.com>, Rob Herring
- <robh@kernel.org>,  Krzysztof Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Joel Stanley	 <joel@jms.id.au>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
-	maciej.lawniczak@intel.com, Andrew Lunn <andrew@lunn.ch>
-Date: Wed, 11 Nov 2026 12:19:46 +1030
-In-Reply-To: <599f1b31-f175-47df-b074-1915688eb390@linux.intel.com>
-References: <cover.1794242015.git.dawid.glazik@linux.intel.com>
-	 <ee6958ba4b93cde4719fbac89c4027964c2236bc.1794242015.git.dawid.glazik@linux.intel.com>
-	 <fff90721f7892c0285f4fed7fed460c7c1e183cb.camel@codeconstruct.com.au>
-	 <599f1b31-f175-47df-b074-1915688eb390@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=TjRlamZO
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=y9
+	Dwl1B/SkeBN/qAYgB/RrFCJLIxenUFUX+kaToQpxY=; b=TjRlamZO9AI9+dcsNd
+	K6UMwCWTLBZ0MUQUGC483aMSNlypG17Jwbpq2BfO/9mj5RPhp+AXW03N+p19ECBe
+	SanZ9qm+7lDMcmlg8WpX56DQhhBf2mOsKcCwzR+lGXCCUv4VY7tooHjY+BN6fpBW
+	Jwafk8kfZ9m/ksJpIrkW7z/lM=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wD3Xx_kyfNqrtbZHA--.39564S2;
+	Wed, 11 Nov 2026 09:50:29 +0800 (CST)
+From: "Li Youhong" <dayou5941@163.com>
+To: song@kernel.org,
+	yukuai@fygo.io
+Cc: magiclinan@didiglobal.com,
+	xiao@kernel.org,
+	linux-raid@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Li Youhong <liyouhong@kylinos.cn>,
+	syzbot+a53c2918175b36cfd601@syzkaller.appspotmail.com,
+	stable@vger.kernel.org
+Subject: [PATCH v4] md: fix sync_work vs array teardown races
+Date: Wed, 11 Nov 2026 09:50:27 +0800
+Message-Id: <20261111015027.4029184-1-dayou5941@163.com>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,64 +65,131 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3Xx_kyfNqrtbZHA--.39564S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxZF15AF4xZry3KF47uw4DJwb_yoWrtr1fp3
+	yfJFn8GrW8t3yfZF9rKFyDWayUZw1IqrZrJryxWa4fAw1fAF4xWryY9F10vFWDJas3tay5
+	Za1rJFZxua4v9F7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jjE_NUUUUU=
+X-CM-SenderInfo: 5gd103ivzuiqqrwthudrp/xtbC+QdD8WrzyeeDoAAA3Y
 
-On Tue, 2026-11-10 at 17:42 +0100, Dawid Glazik wrote:
-> On 11/10/2026 6:53 AM, Andrew Jeffery wrote:
-> > On Mon, 2026-11-09 at 18:41 +0100, Dawid Glazik wrote:
-> > > AVCRP is an Intel x86 server platform equipped with an ASPEED
-> > > AST2600 BMC. The BMC is used for out-of-band management, platform
-> > > monitoring, and system control.
-> >=20
-> > It's probably my fault to some degree for not providing a better
-> > explanation of what I was after on v4, and for merging changes from
-> > others in the past that were pretty lax on the description, but what I
-> > was hoping for was something more like e.g:
-> >=20
-> > - f28674fab34f ("ARM: dts: aspeed: Add NVIDIA MSX4 HPM"), or
-> > - bc83b7353d2b ("ARM: dts: aspeed: Add Facebook Anacapa platform")
-> >=20
-> > Are there more details you can provide? If there are, I'm fine if you
-> > reply here with them, and if there are no further concerns I can update
-> > the commit message while applying the patches.
-> >=20
-> > This also applies to the JNCRP patch that follows.
-> >=20
-> > Andrew
->=20
-> Hi Andrew,
->=20
-> Thanks, that helps. I also found one more issue in v5 (uart-routing=20
-> issue), so I'll send a v6 with the fuller descriptions below
-> instead of having you edit them. Please hold off applying v5.
->=20
-> AVCRP is an Intel x86 server platform. The BMC is an ASPEED=20
-> AST2600-based RunBMC module on the platform's DC-SCM. It supports the
-> platform's out-of-band management and exposes board management I/O such=
-=20
-> as the system UARTs, status LEDs and control buttons, while integrating=
-=20
-> with the host's telemetry and management infrastructure.
+From: Li Youhong <liyouhong@kylinos.cn>
 
-Can you talk more about the division of duties around RunBMC vs DC-SCM?
-Can you describe how components of each spec are used in the design?
+dm-raid tears down arrays via md_stop(), which cleared mddev->pers
+without waiting for previously queued sync_work. That work could
+then call remove_spares() with pers == NULL, or keep using mddev
+after raid_dtr() frees it.
 
-What's the motivation for designing this module vs using another? Are
-there any specific target platforms intended for it? If there are, then
-some further details about those would be nice. If not, no problem.
+do_md_stop()/md_stop_writes() already call stop_sync_thread() before
+teardown. Do the same in md_stop().
 
->=20
-> JNCRP is an Intel x86 server platform managed by an ASPEED AST2600 BMC.
-> The BMC is the platform management controller for the host system and
-> supports platform power and reset control, while participating in=20
-> out-of-band monitoring and reporting for host faults during bring-up and=
-=20
-> normal operation.
+Also fix two related holes that made that wait unreliable:
 
-You don't mention RunBMC/DC-SCM here, so I assume the BMC is integrated
-into the platform? Can you describe the purpose of the platform itself
-(beyond the purpose of the BMC, which tends to be the same for most
-platforms)?
+- md_start_sync() may still use mddev after unlocking. Checking
+  work_pending() in stop_sync_thread() is not enough once the work
+  is running, so always flush_work() and wait for it to return
+  before teardown.
 
-Cheers,
+- The read-only path in md_check_recovery() queued sync_work without
+  honouring MD_RECOVERY_FROZEN, unlike the read-write path. Check
+  FROZEN so freeze/stop cannot race with a new queue while
+  stop_sync_thread() drops reconfig_mutex.
 
-Andrew
+Fixes: db5e653d7c9f ("md: delay choosing sync action to md_start_sync()")
+Fixes: 81e2ce1b3d5a ("md: delay remove_and_add_spares() for read only array to md_start_sync()")
+Reported-by: syzbot+a53c2918175b36cfd601@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=a53c2918175b36cfd601
+Cc: stable@vger.kernel.org
+Signed-off-by: Li Youhong <liyouhong@kylinos.cn>
+---
+v4:
+- Always flush_work(&sync_work) in stop_sync_thread(); do not delay
+  clearing MD_RECOVERY_RUNNING (that can drop MD_RECOVERY_NEEDED via
+  md_check_recovery, and does not cover the successful sync_thread
+  registration path).
+- v3: https://lore.kernel.org/linux-raid/20261110063045.912703-1-dayou5941@163.com
+v3:
+- Honour MD_RECOVERY_FROZEN before queueing sync_work on the
+  read-only md_check_recovery() path.
+- (superseded) delayed MD_RECOVERY_RUNNING clear on not_running.
+- v2: https://lore.kernel.org/linux-raid/20261109023055.2164333-1-dayou5941@163.com
+v2:
+- Drop the pers NULL check in md_start_sync().
+- Call stop_sync_thread() from md_stop() before clearing pers,
+  matching do_md_stop()/md_stop_writes().
+- v1: https://lore.kernel.org/linux-raid/20261106083543.249267-1-dayou5941@163.com
+
+ drivers/md/md.c | 38 ++++++++++++++++++++++++--------------
+ 1 file changed, 24 insertions(+), 14 deletions(-)
+
+diff --git a/drivers/md/md.c b/drivers/md/md.c
+index 680b34a63cb3..68a72513e884 100644
+--- a/drivers/md/md.c
++++ b/drivers/md/md.c
+@@ -5184,22 +5184,22 @@ static void stop_sync_thread(struct mddev *mddev, bool locked)
+ {
+ 	int sync_seq = atomic_read(&mddev->sync_seq);
+ 
+-	if (!test_bit(MD_RECOVERY_RUNNING, &mddev->recovery)) {
+-		if (!locked)
+-			mddev_unlock(mddev);
+-		return;
+-	}
+-
+ 	mddev_unlock(mddev);
+ 
+-	set_bit(MD_RECOVERY_INTR, &mddev->recovery);
++	if (test_bit(MD_RECOVERY_RUNNING, &mddev->recovery)) {
++		set_bit(MD_RECOVERY_INTR, &mddev->recovery);
++		/*
++		 * Thread might be blocked waiting for metadata update which
++		 * will now never happen
++		 */
++		md_wakeup_thread_directly(&mddev->sync_thread);
++	}
+ 	/*
+-	 * Thread might be blocked waiting for metadata update which will now
+-	 * never happen
++	 * md_start_sync() may still use mddev after unlocking. Always
++	 * flush so teardown waits for that work to return; checking
++	 * work_pending() is not enough once the work is running.
+ 	 */
+-	md_wakeup_thread_directly(&mddev->sync_thread);
+-	if (work_pending(&mddev->sync_work))
+-		flush_work(&mddev->sync_work);
++	flush_work(&mddev->sync_work);
+ 
+ 	wait_event(resync_wait,
+ 		   !test_bit(MD_RECOVERY_RUNNING, &mddev->recovery) ||
+@@ -7101,6 +7101,14 @@ void md_stop(struct mddev *mddev)
+ {
+ 	lockdep_assert_held(&mddev->reconfig_mutex);
+ 
++	/*
++	 * md_check_recovery() may have queued sync_work; that work accesses
++	 * pers. Wait for it here before __md_stop() clears pers, as
++	 * do_md_stop()/md_stop_writes() do.
++	 */
++	set_bit(MD_RECOVERY_FROZEN, &mddev->recovery);
++	stop_sync_thread(mddev, true);
++
+ 	/* stop the array and free an attached data structures.
+ 	 * This is called from dm-raid
+ 	 */
+@@ -10494,9 +10502,11 @@ void md_check_recovery(struct mddev *mddev)
+ 
+ 			/*
+ 			 * Let md_start_sync() to remove and add rdevs to the
+-			 * array.
++			 * array. Honour MD_RECOVERY_FROZEN like the read-write
++			 * path so freeze/stop does not race with a new queue.
+ 			 */
+-			if (md_spares_need_change(mddev)) {
++			if (md_spares_need_change(mddev) &&
++			    !test_bit(MD_RECOVERY_FROZEN, &mddev->recovery)) {
+ 				set_bit(MD_RECOVERY_RUNNING, &mddev->recovery);
+ 				queue_work(md_misc_wq, &mddev->sync_work);
+ 			}
+-- 
+2.25.1
+
