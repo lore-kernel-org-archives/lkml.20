@@ -1,149 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.196.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794434602;
-	b=o/MBuJtuFbvgkCZ2eHG/zSkAQLORtSuqMoL9bw4UF1utG8kmcCEtK7NwALi0s1hxpJk8
-	 YqZrC3q/BSiXs7dgoUkPY644t3rUHoImdgFSBMxL0kJs7OANeFYv5spr2Q3M90WQSFu7M
-	 8Yk4elPUMLkiZFgoHLpyS7TRUfblcrb6+X2M72S20XJRs4EEQn1MXyKzlw5HOzkziU1Rx
-	 GBnBTD7YUGS1uiG5qA66hVobQMwgsM0rAH+qwwKxQeoW4sm57NKLulWRtHqm2p3V+ljsc
-	 mzVzklnW4rlf3bKx4IaWAJUlO1zz4EtKZWPK+Njis/1Npx32Wptfar64YXcyeYTDTAw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794434602;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
-	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
-	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 msip_labels:x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
-	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
-	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=f82bqmrwKxJTDgsKXkIzFQpRfJMCIEScQPtvg5WZxpg=;
-	b=Z/39ketTc0I0JH5lQwR0YeULzh+3Ky00kerU/u8oMeccftsj+inrcRicK/ur2XrBqNbl
-	 EOdgXijNqa66yWAUgCPYtKJkebATvi0sVx254UKRu93+TStOdq3bFqCJ2SWYlsGma6pI7
-	 XFxgU7gKNO49C/j47oKU76QoKeSbyqc8+MHJCzP9suuf155bhCr1YtrM+1PPghtucJsBp
-	 HFnapEaVURkqsXUIU/CkMPC88EC02G/3P92s6t81wBoBSDn4w4CbllP9CgtsBqa5HZsWN
-	 RcAy7LLVd4ZrXReKkXiiJSM1SzL7+YQVqx+JYO6p0XG3wgGGeabUK2nqOzyC116Hr2g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=iCyQ6SUF;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.196.18
-Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013018.outbound.protection.outlook.com [40.93.196.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.51
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794434611;
+	b=xfVrYkdxmbZbrMmpPu7aYSPlFuCfIJm1Ohl1r8h+QwtLr/z1Gbzqd0AxFqAvHDGzgokd
+	 iSMIW1oC3U7DF6AGojdyYjeP3uZ7tWZpE12xIcz/O8MmLzvXzJVbvtg5rG9ZHqgi+kNEc
+	 kLqIQoJUe8irXn2PW/eFP/JYBkB4rwC/QKVnH8tO3uWEnuMmuozb6gKAjAg3OtwR53B1v
+	 CPiJU29GpE9Kh3Am5feVPWEPDNT4+jj7KbIObJS9BZKSrNZiG6EyVyfQloaM1vyzCdJ4J
+	 /tBQchHEs4yNaOP2WVMUUyv36Bzg8XwZK1xNgm4KNBGk7zaxEZPpj0YTRL25WI2pGhw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794434611;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=sPfQCcrAfCjRkFz6L9qyGHzK9Ch2pW+l+JfxC7qRxyM=;
+	b=CpWdJ8mMmye3LDHqxWS0kPP6839c5dk/fiPHmvS+ekKVLWSheXT9bid0MKxWktWjKO+9
+	 GP7WzKf5dVMsmsh4rlCIEck+eth56C6xJK3v8pAi4COqNTWgqSZ5XMmMvP+3p6zbBJFtl
+	 WIHxdW/ztC8mEnTQendzfngwWMUqNGGplEDyLW/DAIZVOXU7eWW4tZ9PmHRNiaECy4P3f
+	 pOnVz6+m2J7J33bO2x++ZJfvW36iedbxwzaMUa03MGE1PUvCUqLlcVpyybv9jJmB3cKD3
+	 KJxx+YBAF0OBD1pyGBzqzxIqgMtyNj1XfUUshbQSFD2Dd1soyTfPG/Dmlo0GGNtrbLw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LrLxu3Si;
+	arc=none smtp.remote-ip=209.85.210.51
+Received: from mail-ot1-f51.google.com (mail-ot1-f51.google.com [209.85.210.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AC83606A8BF
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 22:03:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6AC83606A8BF
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B4B8606A8BF
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 22:03:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B4B8606A8BF
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=iCyQ6SUF
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HqTSvOSTTtkem9SNsjcXM7We+KAf031Z/dGhFgIwk0nC/T2tbTIFpLspyUe+IdbmIIqsqoTbItjodIgJnaDmsbvbc+adN7d6nmxq7EkcxAPwGt+X3mNWLtMuH8CXfDx9MoyZYgryfGJY/VLhrL3kkCYXhJRyiKjPFvozffhHzyYFsbZTPTRk6CFbzp6Gju7dU0VaSxVLtsXwgV6s5VqXh2f2h0zejpUkVnClbbutBfKNkmXp7ngSplVLlb5XIgZLy6D89cDpwxpIjhgvPPBhyIqMXSnqx0yWUqUoU4HKphqPMyRw8MFHUDif6o9qXLLbGUlsC//E8ZTwaVpWljJVFw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=f82bqmrwKxJTDgsKXkIzFQpRfJMCIEScQPtvg5WZxpg=;
- b=WURsWQ2hTpYZuv3h75cnB3ZqvpWtxm+xrGKqZm12qJXMcCAYCt+cRSSb/jypx8uWqs0W/CfrPBhK6bRA27K757lQDZZ0SkFTN6byYe4vxjaIyTTp4Nu5YKuBvNIOVuACkI4JgOANRjUFG8qriDSnekFdjOlUkLuXjzD3UPjz/MNfrgRYZscDURBLeiTEDhOt4zI65+CBMO0Q2aRkDMlchy8nEG1nCQUaawRmqt0IAczPB3sTagH4OZUbbGVs2k2idseD2+hHyEjv054HtVQ1K9OMu0QrbayvkjXr2Eu+XgvoT1MFku0ijPYHhCcD6XHC/OX5I/4Zt0EXd62cB3BInw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=f82bqmrwKxJTDgsKXkIzFQpRfJMCIEScQPtvg5WZxpg=;
- b=iCyQ6SUFIzfnnHW/WH3R7+bZQyTvxPzSG3k47P2yP0ZP/oRiyJmX6R6fOemwu68cKwvJQBX43hssXyYcV5rGpRb4ohCaRaU96UsGJtupjDQhqbvoZozbw/SHvn+VLwdJJNcA8VqO5v8tEBygFSfU+MwoiHW8tETN8/6bSkq9Cd0=
-Received: from PH7PR12MB6812.namprd12.prod.outlook.com (2603:10b6:510:1b6::15)
- by MN0PR12MB5905.namprd12.prod.outlook.com (2603:10b6:208:379::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Wed, 11 Nov
- 2026 22:03:18 +0000
-Received: from PH7PR12MB6812.namprd12.prod.outlook.com
- ([fe80::a6a8:1bde:c3fb:1069]) by PH7PR12MB6812.namprd12.prod.outlook.com
- ([fe80::a6a8:1bde:c3fb:1069%4]) with mapi id 15.21.0615.008; Wed, 11 Nov 2026
- 22:03:15 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: =?iso-8859-1?Q?Uwe_Kleine-K=F6nig_=28The_Capable_Hub=29?=
-	<u.kleine-koenig@baylibre.com>, "Koenig, Christian"
-	<Christian.Koenig@amd.com>
-CC: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
-	"dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Markus
- Schneider-Pargmann <msp@baylibre.com>
-Subject: RE: [PATCH] drm/radeon: Consistently define pci_device_ids using
- named initializers
-Thread-Topic: [PATCH] drm/radeon: Consistently define pci_device_ids using
- named initializers
-Thread-Index: AQHc2IxWpVxx0R+kRUWqwOTZy2NRjbY4QxQAgPGDNgCAANk2QA==
-Date: Wed, 11 Nov 2026 22:03:15 +0000
-Message-ID:
- <PH7PR12MB6812BDEF5AC6C182D0559C8AF7712@PH7PR12MB6812.namprd12.prod.outlook.com>
-References: <20260430102958.136859-2-u.kleine-koenig@baylibre.com>
- <aimXCmtgcejwInNg@monoceros> <avQvaiaEyWDUQsZz@monoceros>
-In-Reply-To: <avQvaiaEyWDUQsZz@monoceros>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
- MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Enabled=True;MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_SetDate=2026-11-11T22:02:20.0000000Z;MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Name=AMD
- Public
- v26;MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_ContentBits=3;MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Method=Privileged
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH7PR12MB6812:EE_|MN0PR12MB5905:EE_
-x-ms-office365-filtering-correlation-id: 3b2b129a-bd15-40b2-2e31-08df403f963b
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|376014|23010399003|366016|1800799024|10067099003|261028144727099003|261026121527099003|261026140227099003|261021135927099003|261102123227099003|261021121427099003|261022075727099003|261022105027099003|38070700021|260925022911599003|56012099006|4143699003|5023799004|11063799006|260925021311599003|22082099003|260925021911599003|18002099003;
-x-microsoft-antispam-message-info:
- Pi8bfylI+RH5Oxu8sOlZ48kus50OfsTbuWijjkNbfSiQol06KdOaODIIK8ZZ+ATg9SeuyTg7zXCdb84SJ6/1TYD7mPU4lTujDyzYcg3jWe5sYbNPBrpCptEAhbdrJ0YGepUhhgdwQLjuKX31WNZ2LaJ6N9ITqABXW99tuEvRf/4M7uGQ/glXN0ZEwkjmgKSPJeES+73YvMmNsFIjuMaFkSrZo/t/P5iA4iVYHYNVj4/8yt9daPJmCNa8wfm9bU96fcBZtUc301SvU6NNs7+YoItGM41w6KrL4SB8I+76QTaGPp/k1Ole0q9m03+66uJfeHYKMkB6s5j0N51Ag4lOJJl82YFHnva4YtAQkw1vXQqQjBliUMeNSFidfzN9FsVNi2pgVmyhhpcJjbBHcshjSZ5v2dV7iyHliuaCX2q0h1uOLVPEZYFYn3QAVVpNTBkHU2bbMXxtmnUB3dYMEd+zVXt4blV4srd0xYX3/wlG0lNuQ004eqA9sk+R1sfwxiMlgbz4qa0qH3lYuFVhDJtPJlmxMTQGI9PO4qtanTUOReLg452sGKSfki/WpdqvTecAEnGoy1KDG/1wvBEXXYO4kpklOJpkHVrQEj41E58doAFhBYMGVfvG7KAYjCWJwdv5Xm2Egsxk+3wsXwAnCFmgeWf5TOjx/roNSoTwk1nvvTKmyn3YaNabXhbmbC+yatMG
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB6812.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(366016)(1800799024)(10067099003)(261028144727099003)(261026121527099003)(261026140227099003)(261021135927099003)(261102123227099003)(261021121427099003)(261022075727099003)(261022105027099003)(38070700021)(260925022911599003)(56012099006)(4143699003)(5023799004)(11063799006)(260925021311599003)(22082099003)(260925021911599003)(18002099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?Z8Hyr5d3INrf4Ok3vHsDkmlESpGLCSnMy0yV70bJiTHMw6+i7mtEBacH84?=
- =?iso-8859-1?Q?jMv3AqIwrR4N9eWTtmfU8acOvvBLwmNKbzzbmbg1SMrjiESecEFQPs+b+g?=
- =?iso-8859-1?Q?Bc9GuJwAacH/dblm62PpH7xmxlVCbFW+RA4iwSwoZn8hI76sMRybbumJ/e?=
- =?iso-8859-1?Q?v2Cuy0BczPkZx8sMrhCOn3VB7vtW8XzV1VFDN+O1VqJvyKGJbaCJSwoAdx?=
- =?iso-8859-1?Q?dmDLuzWm9CtJ+RDUyugTnjDCd6ZKB/MK7i0hqPk2+nF4kqMGcwCLwCTRrn?=
- =?iso-8859-1?Q?REP7FFLhrQ+Je9yBD7zHVrDnLYzAMUvsrkZWdINOovwc3D92ffUcYJjdTE?=
- =?iso-8859-1?Q?MiaBPnmKbq+yNfTXoFdJRpyEn5UkMcUzsH/hRhVTKomo0NbIKXUne+p5vF?=
- =?iso-8859-1?Q?DilaUvqAYzCqMDPIeqc2u9V1CML8n2S5B5gVnTJ2KUP4n3xgsV8GzrQDvo?=
- =?iso-8859-1?Q?F8TDL410jZ9VZQ/0W7bu9pItX6aRtQjvnrkdDrC/4oGUOz35X0zQNbhsiN?=
- =?iso-8859-1?Q?4MNIMytWvHMDG7HeAB9b4nbK3W/2uI2W2gkoC+4pwkHt3v3O1taZ0s+MPf?=
- =?iso-8859-1?Q?74WGvKVKhU1jDWU0m4xw/zaVRlWxQ+oCCnHSsT65dx7NHTfisqrIl1dH6v?=
- =?iso-8859-1?Q?P5GFAXqguQnwpMFufQ1r3K4vkMnmuRFnfiE1KWw9eGvS78kVDn9U3425Qb?=
- =?iso-8859-1?Q?dnKHb9E8OITzAzpCwv+M+Zn3theOOZlEaoHx1LdDF2nzKbXj2TUf2OhT2R?=
- =?iso-8859-1?Q?kKwDrOke9Mj70un2GParyiruVbaREwn6iyx3tlmaNJmHDjW3s36VFIr17w?=
- =?iso-8859-1?Q?zMTWlIZF2wzmq5blYoq6l+W/nUWGnXPwkh4dIqIOf6Yii+H2dDrbLM1DvE?=
- =?iso-8859-1?Q?X9zEu79aTfpyGyB8M7IYPqD3vIvXsGl3uihWOaZ2x5Qn24wiDuo0N5e0Xr?=
- =?iso-8859-1?Q?UznFcV15qylEi699pjn/vgwbKeAXZ9/TnX/EskhO1BF0+4fXMqFyvvcM2T?=
- =?iso-8859-1?Q?XcCI3NeLLSgGdp7gsaK74+oMBGUkrDTBi7pUygsl03Gup9ylu5F5ZJQm1m?=
- =?iso-8859-1?Q?AHrP9ppZhIjwGSqOuZMOCCut7ZPFpCR9JSBDh+CM1iTN05DnuwxzconfxC?=
- =?iso-8859-1?Q?afsiPLWiFruZGjKAU5usudLFAzL5IXz5ZPXwFkzPJDwy2+o9a2DoqrmFyU?=
- =?iso-8859-1?Q?PjO1lhY7WLO92eqjOAAx03axOrbFm97o1P5UYhrnohSUpJ8TO0TKpUXRc3?=
- =?iso-8859-1?Q?7UPt5GMo3hIH1H/hjNpzdypIq+PMkbczjFkvDz1TEc0bqtXtxEORmWMvJK?=
- =?iso-8859-1?Q?7Obr1G6ZwYG4WGXiwm+mplBs1NNl0cVd1yPTHt66E5kWKkxB56IIajLPE/?=
- =?iso-8859-1?Q?LqUaQssktir3s0h4ZbMWkyaGv+D6Cynd40D/+ojXKurouRoXUkfW87FCbw?=
- =?iso-8859-1?Q?TRm5Xy0TTrIHnSlnsUy1EGo2lTvvQ7M0y7KOx/Sicnq5MHVBDdJG2yOR1h?=
- =?iso-8859-1?Q?I3M6/7n9EHUD3apZQUUPiRs8R5eZr3JPV0cpF6RmBQcMRP1j4Bgmd/KRnz?=
- =?iso-8859-1?Q?xPRVu3PPfelTICB+8lAQ1w3sDk+gk6KM5gPR1P2AQ2A/9x8ZwKTWIDi/wJ?=
- =?iso-8859-1?Q?lR1UbF6irEIu6ELS0DqS6yUvMaJBMuYJQdxQYBP9r69uRqZLzDZkYCNCuw?=
- =?iso-8859-1?Q?ReN8T+BfNN2d2irC6hR+SrDUceJnRLiilAGK5zx7WYp5m71xBl4IK2Z+TN?=
- =?iso-8859-1?Q?aaMP0w7GSwKRM46pzgjqu4SOT+37DN75kqHsDrxgEbTM8N?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LrLxu3Si
+Received: by mail-ot1-f51.google.com with SMTP id 46e09a7af769-843cf077f10so4476964a34.1
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 14:03:31 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794434610; x=1795039410; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=sPfQCcrAfCjRkFz6L9qyGHzK9Ch2pW+l+JfxC7qRxyM=;
+        b=LrLxu3SiPHmBiakkULpg3sF003Trd0QWeo5KmM8nHDe6vsaaNA/VY0lQDUn7y55jj9
+         F3W8q7FUrd4MgKIu+yf6/gvqWpOrZN6NWDbczzgFA5kuxWpMl7dfXogvp6kMWjS/PGbV
+         g7mC0ng8nyF3usqlPhKM01PxDFmIubW+WXtaIKQEd19H3YawmMYX+6N2x0M00z91hdYp
+         cGWk+4Qa1CYW3Ds39iHoIrUO4Zz4H/lbD/yT8MUnDLE9JzZzk2A0yCfWKEs+m+RnDBBT
+         i1QOTdDgQs7g4gFH6k7UInOt1EHUd4awfwtg8vx68eSftwRkyEk78ay5MhjDiKEZmFfb
+         i3ug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794434610; x=1795039410;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=sPfQCcrAfCjRkFz6L9qyGHzK9Ch2pW+l+JfxC7qRxyM=;
+        b=FxUg++t5zoCSRZOgFr8IF4kaJryJD/jg/dYiGXEe5PqLH6wp4L92PsQncNLf+gKfl9
+         1zuUtAXp2atsDPzp9wzpTThk9mI7yRWZ+AmXrkRA1k9FeAtHp02tM6zodRJVMpA6clnG
+         YnGd4s2iQllvz81TNMvUMzxJuudRf4y5GLabLDIEMOTHoz8OX7hfALRbTIR8kO/voDEe
+         z/P+DfnzsKd5bIfTlJXtSlexhg9haTaq3oeBQUI/aGbu3yIjFiVqvAhjdeQlOks/yZRL
+         OO402bb7I5h7ts6uAPzzSrtDLCmSvR4ptYQ7CW5tp+Wn9hK70RwjX9lL9py1g2nDagln
+         H5JA==
+X-Forwarded-Encrypted: i=1; AL+hErF+9rTiOTT+f50KlK9W/lvV39oydJfCIWeVXcQc7WGE5v1OxJCUyqLE4DKognUc0d+TzS47uB7ONh3sPgs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/TeP+9ngMqo5mDlW9hF9ncFyRCfxxbBwm5UuQ0qH+0R8tf5lvN
+	JS27ZlIdl1xn8i8PX+jbFC5HiITybrw2Uit04v3Yleo449M7bbs5ePH9
+X-Gm-Gg: AYBFou27qjWsDMjAhVV63K+QcEF4is8d8oWtAgw6bsNCaUah0cNGP6NHBoIgC+9o2n2
+	Sm/OVOhj2hieMLfMobyZDfeY7S+NF/vnTyqlTCBsQ8pJnEkNTFoYq1LhA+oCl8l7eC8KjQFTBJP
+	gLNrskKIW2BRIZ22F7TLxOug/4UlxhIO3tWHiEAOPXrlQ70NZlCdVRaMJ5aSvS8MXp8AjN47bRg
+	zv0AnfKyyDzVWcX+5F6tZfkiZPIuM0BCqMxeKtpq9raBj5zi2w1xikFNq8PTalI7W9l4qzN51QA
+	7c84LHgjj3+y+ibGNM7BPXtapHJ2Ymu7ktvlavq4+1AzHfOul2dyC6CYxqDb3NxGu8kChZEzElQ
+	Wy7rxTgfnQg9JIoKSF0+wQx/60LkKpWnPyvSVVspRNmL+EOVsPKk71eR+n9u5Y1WSTjfERrQ5t7
+	vEcAQFfzhwHQPqHxFAU5jv6e6BxqKy58HtvKHdxsh+L9JXaF9b4khNOLZCFrnc+qoMxqV5QISK8
+	0BsKy1Ah5JkHvKb+GM50SpPlciSULggl9bDHHPa8AB2TO4pOsBW2tGOckuv1sQuZe67tuY1S081
+	SjDhjrtqBaXxC1d6Khgjhg3GCvuZI3x0bPdBJP6zYGjgGVJ6jq1PLJj5p9sctH2tSUPkcTmHV+2
+	XVSFxYRu5grl13JdCB8aHJOZ56Y6FzaLJUxs6dkUwlGgcF3YHj0rxcG0nqX7+kCs5l8EVwr9uAW
+	LE
+X-Received: by 2002:a05:6830:270b:b0:822:b35a:a2c3 with SMTP id 46e09a7af769-860f25eafa0mr3652101a34.3.1794434605465;
+        Wed, 11 Nov 2026 14:03:25 -0800 (PST)
+Received: from ryzen.lan ([2601:644:8000:37f::e34])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-8615518d641sm236715a34.21.2026.11.11.14.03.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 14:03:24 -0800 (PST)
+From: Rosen Penev <rosenp@gmail.com>
+To: Inki Dae <inki.dae@samsung.com>,
+	Seung-Woo Kim <sw0312.kim@samsung.com>,
+	Kyungmin Park <kyungmin.park@samsung.com>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	Kees Cook <kees@kernel.org>
+Cc: Alim Akhtar <alim.akhtar@samsung.com>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	dri-devel@lists.freedesktop.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-samsung-soc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-hardening@vger.kernel.org
+Subject: [PATCH v2] drm/exynos: gsc: allocate formats as a flexible array member
+Date: Wed, 11 Nov 2026 14:03:08 -0800
+Message-ID: <20261111220308.12684-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.56.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -153,68 +108,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB6812.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3b2b129a-bd15-40b2-2e31-08df403f963b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Nov 2026 22:03:15.7209
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: PWiYN6c7HkAg3Qihd28i5iz3XGZpLK/zDXRqQERUvkQkgAnjVsCDmjs3ahhaLgJqtop46UVXHez2u2ynYbxlgw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5905
+Content-Transfer-Encoding: 8bit
 
-Public
+The formats array is allocated separately with devm_kcalloc() and only
+referenced through the gsc_context. Make it a flexible array member at
+the end of the context and allocate both in one go.
 
-> -----Original Message-----
-> From: Uwe Kleine-K=F6nig (The Capable Hub) <u.kleine-koenig@baylibre.com>
-> Sent: Wednesday, November 11, 2026 4:05 AM
-> To: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian
-> <Christian.Koenig@amd.com>
-> Cc: amd-gfx@lists.freedesktop.org; dri-devel@lists.freedesktop.org; linux=
+Annotate it with __counted_by(num_formats) so the array accesses can be
+bounds checked with FORTIFY_SOURCE and UBSAN_BOUNDS.
+
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ v2: use devm_kzalloc_flex()
+ drivers/gpu/drm/exynos/exynos_drm_gsc.c | 17 ++++++-----------
+ 1 file changed, 6 insertions(+), 11 deletions(-)
+
+diff --git a/drivers/gpu/drm/exynos/exynos_drm_gsc.c b/drivers/gpu/drm/exynos/exynos_drm_gsc.c
+index 4a07deeb382b..303e94df632a 100644
+--- a/drivers/gpu/drm/exynos/exynos_drm_gsc.c
++++ b/drivers/gpu/drm/exynos/exynos_drm_gsc.c
+@@ -99,7 +99,6 @@ struct gsc_context {
+ 	void		*dma_priv;
+ 	struct device	*dev;
+ 	struct exynos_drm_ipp_task	*task;
+-	struct exynos_drm_ipp_formats	*formats;
+ 	unsigned int			num_formats;
+ 
+ 	void __iomem	*regs;
+@@ -110,6 +109,7 @@ struct gsc_context {
+ 	int	id;
+ 	int	irq;
+ 	bool	rotation;
++	struct exynos_drm_ipp_formats	formats[] __counted_by(num_formats);
+ };
+ 
+ /**
+@@ -1222,21 +1222,19 @@ static int gsc_probe(struct platform_device *pdev)
+ 	struct gsc_context *ctx;
+ 	int num_formats, ret, i, j;
+ 
+-	ctx = devm_kzalloc_obj(dev, *ctx);
++	num_formats = ARRAY_SIZE(gsc_formats) + ARRAY_SIZE(gsc_tiled_formats);
++	ctx = devm_kzalloc_flex(dev, *ctx, formats, num_formats);
+ 	if (!ctx)
+ 		return -ENOMEM;
+ 
++	ctx->num_formats = num_formats;
++	formats = ctx->formats;
++
+ 	driver_data = device_get_match_data(dev);
+ 	ctx->dev = dev;
+ 	ctx->num_clocks = driver_data->num_clocks;
+ 	ctx->clk_names = driver_data->clk_names;
+ 
+-	/* construct formats/limits array */
+-	num_formats = ARRAY_SIZE(gsc_formats) + ARRAY_SIZE(gsc_tiled_formats);
+-	formats = devm_kzalloc_objs(dev, *formats, num_formats);
+-	if (!formats)
+-		return -ENOMEM;
 -
-> kernel@vger.kernel.org; Markus Schneider-Pargmann <msp@baylibre.com>
-> Subject: Re: [PATCH] drm/radeon: Consistently define pci_device_ids using
-> named initializers
->
-> On Wed, Jun 10, 2026 at 06:56:35PM +0200, Uwe Kleine-K=F6nig (The Capable
-> Hub) wrote:
-> > Hello,
-> >
-> > On Thu, Apr 30, 2026 at 12:29:57PM +0200, Uwe Kleine-K=F6nig (The Capab=
-le
-> Hub) wrote:
-> > > ... and PCI device helpers.
-> > >
-> > > The struct pci_device_id array of supported device was initialized
-> > > by list expressions. This isn't easily readable if you're not into PC=
-I.
-> > >
-> > > Use PCI_DEVICE* helper macros and named initializers which is more
-> > > explicit and thus easier to parse. Also skip explicit assignments of
-> > > 0 (which the compiler then takes care of).
-> > >
-> > > The secret plan is to make struct pci_device_id::driver_data an
-> > > anonymous union (similar to
-> > > https://lore.kernel.org/all/cover.1776579304.git.u.kleine-koenig@bay
-> > > libre.com/) and that requires named initializers. But it's also a
-> > > nice cleanup on its own.
-> > >
-> > > This change doesn't introduce changes to the compiled pci_device_id
-> > > array. Tested on x86 and arm64.
-> > >
-> > > Signed-off-by: Uwe Kleine-K=F6nig (The Capable Hub)
-> > > <u.kleine-koenig@baylibre.com>
-> >
-> > Similar to the amdgpu driver patch I just pinged, this patch would
-> > also be great if it made it in for 7.2-rc1. Please?
->
-> That didn't work and it failed to go into 7.4-rc1 either :-\ It still app=
-lies to next-
-> 20261110, is it still on your radar?
-
-Can you resend the patches?  They fell off my radar.  Sorry about that.
-
-Alex
+ 	/* linear formats */
+ 	for (i = 0; i < ARRAY_SIZE(gsc_formats); i++) {
+ 		formats[i].fourcc = gsc_formats[i];
+@@ -1256,9 +1254,6 @@ static int gsc_probe(struct platform_device *pdev)
+ 		formats[j].num_limits = driver_data->num_limits;
+ 	}
+ 
+-	ctx->formats = formats;
+-	ctx->num_formats = num_formats;
+-
+ 	/* clock control */
+ 	for (i = 0; i < ctx->num_clocks; i++) {
+ 		ctx->clocks[i] = devm_clk_get(dev, ctx->clk_names[i]);
+-- 
+2.56.1
 
