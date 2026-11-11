@@ -1,47 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794432943;
-	b=ttYs3m+DkcOYNfo9Yl0ul6gFmv3hsBpElSZzMHgT9cjdeelP33/BpC/Qc0NzrU4LwKTf
-	 is32t0Ut63r5oRazzqnfQyJPgXcGN9a6QCvXU8YiymEsjpyYFz3g/Wkbobytg7cJAZfXG
-	 p3PJeXU4kYSK7zKy8qqEilq0s0q+exmWtBVkaIjh9Lz17bFTbFp0SDJ9SEp0ZN5VCCsHg
-	 AphpNW7uPakEJ1WaTrCfuLQvToIMxGkOAfL7hXm8VXdYQPEcrfuPWNpdBUnuq0F14qOJo
-	 1B8fIw5J2VW2VRBQ0IoVjsfHtitnEQqfF1kjr/BBwTqtACvMLLRJ8bM7Ey6N2QhqvNg==
+	t=1794432987;
+	b=qQPT9QMIAuW7c4GhrwGWJBLqI1rzmg5NQDcvtIWlmOi6QYwCWndcsDO+dPCQGGk+uoaJ
+	 WoXf6vm0rHmk8d5uRMLuBmsGUqTAwUB0+lKr8v6X/ym9Ra8Ge7SUkdH7/k5PHyQjNKjSX
+	 WltJ0NV8B8t3aEoeyRBPv2qgubLLQlhY3km4F7e/Hd9DJkn7hznnpfsVWJ8zYJF7V1o/I
+	 +W3p3MasLVK1YQH7n2pR8AdRSTjxBxXuvhQAzVlc8RbFt9z1cW7+c7rzNrU65ZtDLPlcR
+	 X/ZUbOUSI1BVG76dZbXwmZwmLWZE65gUX8hfcEJwC6hUkoo/6PkKZnayBelRqPYmOTg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794432943;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=GiLrJsK0i/ckXgWaDlbef6TGeEOzJ1BPFASM5Mf1Dm0=;
-	b=iBb5WwNwqiJNVwWDQK1FnrCs1o0yfIgCs5rUBXLr4NAPyCsHl1sVgJowbmsqJKhOnHyV
-	 zkc2DfmTDwL6GVkjYje4zmFuQw5ZSU8q9ZoWXMBqp0vwbhDkTuAm5Kz3x0nOWVmzwXfmQ
-	 NwVIjPpKhFiOjpn49xCA4mMv3uztfvqTG0YFbN+nX4ppisHlRjTSVTWJ8Uou31vrk3WgN
-	 PoJxqnAWxwr2Jj8RBX4D44wwg6AX4G+1o7VMCrQUA6wIgyU+/rAiGi0Ki0zlVwElaCXhF
-	 tYKP+VNOY7Mj6XzyJlWEyL7n53KQ3VtdDpGOVOYYOAHzsiQsQblD7kYhQv7sewVRdpQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794432987;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=IpkLNmGIFXERWPmUEoHogDFCZKFpd1SbfnTThFLywHE=;
+	b=OC3Dlo7YShJWE5PB4bsPgZOGQoGnqqNN770WdGQcDRmDd+1eIZEioWVWkG+3tl3DImQq
+	 mwbkdaxlXJoAjeVvPzxicSZsFiWmFPk8fRSzHu0S4qGDgQH/zWYE57+ZdiWrBzNfwZ4X6
+	 xFExmzVjgl6u6h18gFp9pq4PlKVFcc5ab7zJQgZ0Z+YpevwoF/Ntq9l90iIV0HzdLPFMt
+	 gJ7wCUbJpES961NJjtTG/FxDW+dQV3TX0FMV/7jVLKdUkVayqHS8K9h5qdRga8JeyUbV9
+	 5NpmMmlQRTufYT/hLqcaWWsAn6t/9aWkmr4eFn12a+ODs0jbBAZOUhjRgPFZpY3SszA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TQyowssI;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=philpotter.co.uk;
+	spf=pass smtp.mailfrom=philpotter.co.uk;
+	dkim=pass header.d=philpotter-co-uk.20260707.gappssmtp.com header.i=@philpotter-co-uk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=GnBpcmMs;
+	arc=none smtp.remote-ip=209.85.221.52
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3BDF606A321
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 21:35:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88C61606A321
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 21:36:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88C61606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=philpotter.co.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=philpotter.co.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TQyowssI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B5761F00A05;
-	Wed, 11 Nov 2026 21:35:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794432943;
-	bh=GiLrJsK0i/ckXgWaDlbef6TGeEOzJ1BPFASM5Mf1Dm0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=TQyowssIWW+ldhbXHt3ypnihvJY5A2V8A1ANyggKEptG/EKnniGrg0vMcNbDWRxpM
-	 i/K1Jqbjg0PKNkaMzI9cYXiqL60QROS9FkYFDVY/AOGa7uqFqrQi05tzQDAh5By8V1
-	 fvr3qr2TkFfEx6gIKUJbXu7bXksFRI11IHQgncEMfvVgMck+Me5vklonxrkX3WqKDx
-	 IibRBU/J5lj9H63TRIzC/wPCdGWNFLgCEGIjDN6zFndiUvXRA4DltB5+eQ1RfClMiT
-	 45GyZ85VVFDJeQ9h+N02CT2I1yfVLT59Ohc0PNkK/j5NInFd0ple3lV86gx7130wWi
-	 CpzhVNiOBej3A==
-Message-ID: <72f286d5-3f1d-4350-b463-09f7b320cacf@kernel.org>
-Date: Wed, 11 Nov 2026 22:35:34 +0100
+	dkim=pass (2048-bit key) header.d=philpotter-co-uk.20260707.gappssmtp.com header.i=@philpotter-co-uk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=GnBpcmMs
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48e09aa5264so2115126f8f.2
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:36:26 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=philpotter-co-uk.20260707.gappssmtp.com; s=20260707; t=1794432985; x=1795037785; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=IpkLNmGIFXERWPmUEoHogDFCZKFpd1SbfnTThFLywHE=;
+        b=GnBpcmMskGd9l/IxsKoy32ItXSvzyoIpyWiJVmW8inYtHzSYTrGZJmWEoxItUBaa/x
+         /Zd00UAOp4CNtbPaN0hLyvvKyPEWZNHCg8IEGECAHqekCUgoRDCu5HHjgt4lxKECr6py
+         YE6rUj8WQpEE3sRpBqPtNwAQqOORGX/UJPmOYJuJ5NK25RuqZziPGW0EXbRf8KksjW4b
+         ou+aKC+BCUpNxahr8uozmdSGkg8Zz7TYByVphBX3SVN6q0seggrp7NKKQbCqVjOsoV4q
+         mvnuS8ON5BznGdKvdEPfN8TpuwDgtiks6x3btQ2GP2uScDTaUi5Z7l49e15/taJGikul
+         LnmQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794432985; x=1795037785;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=IpkLNmGIFXERWPmUEoHogDFCZKFpd1SbfnTThFLywHE=;
+        b=EHO1K6roFWGVDo6wtCmrwDucDGUn+3zeRifz/RqW1nHCjZhX1JVrtx1xCrJvtMvEPq
+         FWVpQaCJy1QD/e16lQy926YGafuGxuD67wT1wgK8nGyE7/EISzMufV2kytgf87BmSHbd
+         rvjVWkJmpJlTCUwVleNZunQINQAM3cJoQ/hdEsWqfOt8Lg7a48gnPGb4yLMFhEMZ4Sa5
+         Pv7NYB9cGimg47kr8puk4xX9m7JIEDnHjbGLy+j7MJG/enKTHHAU/iGHFUWioaM60IOM
+         mu4YYyN/RkEwPm/ficY9w3rnz5xG95JhbYogLSzKYigVpQ7DlkM4Q3dB4V3JHjEvWquQ
+         c1yw==
+X-Forwarded-Encrypted: i=1; AL+hErFQ6iydAO1qo8mAriot8gm7QeN+cftF6V4Q22LdKTExonn8MV809E6DyT5bvUJmKDebyWReykIQtSLT+Qw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/Ht6wFj0ZX7yPQCeUFlUX5hbb1rD2SWkm4wtEzDnQh0YPVEo8J
+	rdFUyFkqhyMZbdx6zaQhW0pVoh4ZAhSecHf0A/DYRLfWB9jyf35BWlQLcw1oZ2ZPftQ=
+X-Gm-Gg: AYBFou2YG93M9HbrMp95cpVn8pwUrHiHQ9iv3WfkfAtH5zXexn8Svy91/LHegIf+XgQ
+	m6DlPqT/shmhtOYgl2PJGCzCpoAJNNSBQLl/07rf91ffYEPGlJHngS+FDb0Vq9S9y/+1peu7LP7
+	3+7jtbVpMtZCcHiyg2AZp6Eho6MMxFVktfjpiD3zwbNR/ilmbFlCim3qt1bC7XjQXomRxuTRP+d
+	+iNjZkMCapRRB+zOxfsdITbODkDPuiEIm/GVElorLvFdNa9FXA2lm0M4YhLfudXnurhgZExFl0C
+	jAtmMvFBLLjzqSTygRzMevnh3pGe1UFXAieNV8n8J4pu+1yOXctSgmRXCD1FGjDVtIjRSE4tQpi
+	BjpgzMYTjm4BgEnjdi/UwxWU9edO3A3CCwyZ1YKFMtlsjYtc4GLnvJFX6abaRHlRLlxs34V25v0
+	y+qyu1XXZINHsfvAYefhC9nfYI3XJDP/bC1j0dX+V1x/g8rPdcleTTZrApyFZZYPp0niehhaHjI
+	Kmj2Lx9euqkUI4UFMLapgMBZmz782A4MhFye+6pmowaFwLrm00gCVomcCDjm1VIwhpvN1AQKiNA
+	X2N82PjtH5A+MpMZKpZt
+X-Received: by 2002:a5d:588a:0:b0:48d:f7f9:6a29 with SMTP id ffacd0b85a97d-499c75526a8mr6569706f8f.20.1794432984795;
+        Wed, 11 Nov 2026 13:36:24 -0800 (PST)
+Received: from equinox ([2001:8b0:df16::2])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498369a495csm13114191f8f.55.2026.11.11.13.36.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 13:36:24 -0800 (PST)
+Date: Wed, 11 Nov 2026 21:36:22 +0000
+From: Phillip Potter <phil@philpotter.co.uk>
+To: Jay Vadayath <jay@artiphishell.com>
+Cc: phil@philpotter.co.uk, linux-kernel@vger.kernel.org,
+	linux-block@vger.kernel.org
+Subject: Re: [PATCH] cdrom: bound the device-supplied offset in
+ cdrom_mrw_set_lba_space
+Message-ID: <avTf1rFy2Ks8Gm3Z@equinox>
+References: <20261022181955.35758-1-jay@artiphishell.com>
+ <avOQ66kCxOghtFp4@equinox>
+ <CACd3oYMZ+umLbeK3q8oaJUwZHC4zbbFOe1YVEAq3s2v4B+d5Dw@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,112 +99,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [SECURITY] mm: khugepaged collapse_file() drops RWP PTE markers
-To: Linus Torvalds <torvalds@linuxfoundation.org>
-Cc: Kiryl Shutsemau <kas@kernel.org>, Tal Zussman <tz2294@columbia.edu>,
- n3rd <18670333770@163.com>, "linux-mm@kvack.org" <linux-mm@kvack.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "akpm@linux-foundation.org" <akpm@linux-foundation.org>,
- "ljs@kernel.org" <ljs@kernel.org>, "ziy@nvidia.com" <ziy@nvidia.com>,
- Mike Rapoport <rppt@kernel.org>, "peterx@redhat.com" <peterx@redhat.com>,
- "security@kernel.org" <security@kernel.org>,
- "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
-References: <606cae9e.bbec5.1a1c54f4f9f.Coremail.18670333770@163.com>
- <60541e98-b1f0-4f92-a155-8a29c0bb17dc@kernel.org>
- <44abb8ef-7711-4ad0-be9f-ca47206892a3@columbia.edu>
- <856cdf21-7982-475a-b244-a7ceff4eb6aa@kernel.org>
- <avS5QcRj85yAm9ll@thinkstation>
- <71e24630-4c71-4518-a9b7-68cf3597ce80@kernel.org>
- <CAHk-=wh=cVrn+xs3fZiPW=kJbFQLwf_C+c-YBCR2K9s9aNE_1Q@mail.gmail.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <CAHk-=wh=cVrn+xs3fZiPW=kJbFQLwf_C+c-YBCR2K9s9aNE_1Q@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CACd3oYMZ+umLbeK3q8oaJUwZHC4zbbFOe1YVEAq3s2v4B+d5Dw@mail.gmail.com>
 
-On 11/11/26 21:55, Linus Torvalds wrote:
-> On Wed, 11 Nov 2026 at 12:20, David Hildenbrand (Arm) <david@kernel.org> wrote:
->>
->> It would be a lot more consistent if we'd just add marker support. Or is there a
->> good reason why that is explicitly not wanted?
+On Tue, Nov 10, 2026 at 03:08:05PM -0700, Jay Vadayath wrote:
+> Hi Phillip,
 > 
-> Let's not help people do things that won't work on older kernels for
-> no real gain.
-
-Uffd folks usually indicate such things through new uffd features.
-
+> Thank you for your response and for taking a look at this.
+> I am happy to make the changes you requested.
+> However, I wanted to clarify if you would like me to start a new email
+> thread with the updated format ?
 > 
-> Is there an actual real-life user that would care and be enormously
-> helped by such a thing and it would increase performance or something?
-> That sounds very unlikely, since presumably re-faulting never happens
-> in practice, so just tracking it in user space is "free".
+> Or was the idea to just follow up on this thread and repost the same
+> email with the updated format ?
 > 
-> In the absence of some real load with a real argument for it, please
-> let's just document existing behavior to the fact that you need to
-> simply see the re-faulting of these things..
-Just to express why I would even dare proposing to implement something in
-userfaultfd: in Kiryl's series we abstracted the uffd-wp PTE bit to a uffd PTE
-bit, which made things more generic.
+> Please let me know how you would like to proceed.
+> 
+> Thank you.
+> 
+>
 
-Abstracting uffd-wp markers to uffd markers would similarly make things more
-generic.
+Hi Jay,
 
-A quick codex prompt tells me: 90 insertions, 95 deletions.
+So generally, I would submit a new patch, with the subject of:
+[PATCH v2] cdrom: bound the device-supplied offset in cdrom_mrw_set_lba_space
 
-But most changes are documentation either way, so that doesn't reflect reality.
+And in that patch, mention the changes after the ---, i.e.
+Signed-off-by: ...
+---
+Changes since v1: Updated commit message
 
-Now let's ignore what I wrote above, I just polished another uffd fix and most
-fixes I looked at throughout the last days were uffd related, which is starting
-to get annoying.
 
-So yes, no new uffd features.
+Then include the rest of the patch as-is. Please run the completed patch
+through scripts/checkpatch.pl as well, and make sure there are no
+warnings.
 
--- 
-Cheers,
+Few more things:
+- I seem to be getting duplicate e-mails from you, one in plain text and
+  one not. Please send only plain text to the mailing lists.
+- Please put your reply underneath the original e-mail/portion of the
+  e-mail to which you're responding. Makes it easier to follow then and
+  is standard for kernel patch threads/commentaries etc.
 
-David
+I hope that helps.
+
+Regards,
+Phil Potter
