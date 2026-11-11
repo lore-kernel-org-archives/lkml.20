@@ -1,69 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=183.62.165.209
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.7
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794408177;
-	b=n1zBLRvj2bOu1IPJ+ZJkwYXeoaTOD/uNOCNDZVhgVwpaqhZNu5mWbVFqq5b9Q5n0L8XN
-	 xsrROyjfnHndGOjH6Vm1cHVnJDJCJZxtrNZm5weQeVmSzWApOA3AIRxiA1hWNTVsbv17I
-	 NkGxO39+bGeZIsh/4T7zsC+TbEksYf+ltJiPFwcGk8uXPKhHm7CxVJZ4Ls/1ZCd6pjSP8
-	 i+jED46r8+p6iw2vYQrbPNEYHEBTQfmMt0xiBcN+sfcpKMjqbnJmCZrSbUPZCmEbfdtz9
-	 CSqERS2Nn+UwvVWlwD8T3bncE+EV56DPF08D6canvJMfMzZDHIs/cJmP+wFzhgHSZOg==
+	t=1794408234;
+	b=Kr0vG0uSar4Dv+kjl8JYvElYDZtXwx9AHGg/0j3v6VjbcaAdFunAzDsEcUkVXIaDLRxq
+	 /aNEAit3Km00GL+Sj0f6QXO31dFzQRBQy1O4WO5VByVzS5KZ3tSu0d2Q6XHxFhyazPKSZ
+	 Xz0LBeFktvNmcp8OuWjfPDAvVrr4d59Pl4g/g/j9T+Avsviz6asRoaXwwAheuCgJizmNk
+	 13KM5EkU2fekoSTkoCBR4HFduSHrGkAKEgeLxKogzesKE4cuv36bbB+xDah/sADQ8mj6m
+	 K4qyIVnykFH3X/NWTXH2UUWirb/GCYj6/b3rXvtUjTdo1vDdTeJ4fvLxnzS64rEbm0g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794408177;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 X-Zmail-TransId:X-Mailer:Message-ID:In-Reply-To:References:Date:
-	 Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:X-TLS:
-	 X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:X-Fangmail-Anti-Spam-Filtered:
-	 X-Fangmail-MID-QID;
-	bh=eofb4rt//CPwrsXnyaQEibO9rgJnVVcYMlLVW1+iWbw=;
-	b=Bz/puYTtOMAgdX5DN3m+uw+VHLsGw/dtb2eKaO/pI8sZq8cJgDwWIFlZQaHYNJ/qIZZO
-	 S86y7sWNYOqxHKlf5ZPduGiwDkksJK+Ai8kvkXDxf5ODj+LhvWWw8hL2qX36HQYdCdZY2
-	 pPlU44DQBEF6ZOQMMJwZKBsAj7ueQEKc+pjdHe1dPaXU+tpp13vFlCmMaAaSghCCYHkpE
-	 wikIltRxeI7nSNBg09E46L3Q/OGXGuvXBvHV99JEv55l3HZ5VnZy8J3igGbHH5U31ML1Q
-	 JLvTM9Sjnwad9ZEJJCeStLSEuAxIx9syPoPok56mfwq5xulXsiLsOM9kxq3BveQoS6g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794408234;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=VfEZB8j8bkMERApncYu1zQYS7sw7JiyI/872uoUspYk=;
+	b=LikVx8I6rX13oOk8ML7AL2yKJOVwYSZz9hIq1xXVRRhbh7K1UhL8o1kEPdQ0FAkLzCCl
+	 WZBzBHnqj6jmEKEZ4KVeLkyVsMV07LSqfmcpz+BxlfYDafI4x+Wnq1pyDVy8wuwWCF26U
+	 ++DrJPZIhcPZGLJNvOcrOMI5ohaug05Ew32XMwRZ52t9gaBVIVoTibEoya2SFjGxVW7en
+	 cWEYvP142dx3VbqKBjg9A31/lHG4zlZAv9xi/XPL/hjP3jEDLa7ESxEinTZGkUigh/9SE
+	 /Ijg6TTx20jcyo5ojRhzesfye0RDMY9eTHubRVkqvfAlhQThg/4DxPBL1NuCCIhi2Lw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=zte.com.cn;
-	spf=pass smtp.mailfrom=zte.com.cn;
-	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=caLjPQaC;
-	arc=none smtp.remote-ip=183.62.165.209
-Received: from mxct.zte.com.cn (mxct.zte.com.cn [183.62.165.209])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=NCIYHB78;
+	arc=none smtp.remote-ip=192.198.163.7
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60018606A89B;
-	Wed, 11 Nov 2026 14:42:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60018606A89B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8E18606A321;
+	Wed, 11 Nov 2026 14:43:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8E18606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=caLjPQaC
-Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxct.zte.com.cn (FangMail) with ESMTPS id 4jPmTM1l34z4xPSJ;
-	Wed, 11 Nov 2026 22:42:47 +0800 (CST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=zte.com.cn;
-	s=z202610; t=1794408167;
-	bh=TtW33jKya7yf+pIUAp6NxKrTz7rbR+eAywMN6yjOfLc=;
-	h=In-Reply-To:References:Date:From:To:Cc:Subject;
-	b=caLjPQaC9uVHp6phKWlY2a2p2VxatWLEpBOT6ZJrHEKosCsF/OlvgUOOr04hkhEQ4
-	 SHJmQeh7a6zCTOPF2B2+fkFXX0aKrCvweJdRU67X48vykmx7g+bGjEEwrTI8vpOgBh
-	 zc8PUqOg7YUU0frMASA/J8gxjZcYpbShoOeiGGyh9j5qm2WZDkXLZCc3N6HQ+gJR1K
-	 /cybsQxozOi4Uc0FCmkUm32DAqb6CRGJNsGEMsfzEgh9SuqEAeUI3OA4iEAR1dR7jU
-	 06fsHSCtupHO2QL0zfRDtsN6CHKsM2INgmtsXM6l0f+7ppuO+FHzJ3TSTKBUSmKpey
-	 uYifJ6Yg5r1yQ==
-Received: from xaxapp02.zte.com.cn ([10.88.97.241])
-	by mse-fl1.zte.com.cn with SMTP id 6ABEgiEQ094719;
-	Wed, 11 Nov 2026 22:42:44 +0800 (+08)
-	(envelope-from shao.mingyin@zte.com.cn)
-Received: from mapi (xaxapp02[null])
-	by mapi (Zmail) with MAPI id mid32;
-	Wed, 11 Nov 2026 22:42:45 +0800 (CST)
-X-Zmail-TransId: 2afa6af47ee5690-7a562
-X-Mailer: Zmail v1.0
-Message-ID: <20261111224245786kBVGPR0wSFFqHjmtHwtAJ@zte.com.cn>
-In-Reply-To: <20261111224134934XG6vMtntrNJQL1ztj7imr@zte.com.cn>
-References: 20261111224134934XG6vMtntrNJQL1ztj7imr@zte.com.cn
-Date: Wed, 11 Nov 2026 22:42:45 +0800 (CST)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=NCIYHB78
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794408234; x=1825944234;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=akf4/enqiVg4o2y/PAU+5Jukc9jXIoyYlqCERksn+nM=;
+  b=NCIYHB78fHFIcEfJhjbezebvSkVdKpxKQ+ctCFxlufOqqjshOBYON7k3
+   hJmVuK1vQTd9K9Gv4xFSYlklIf3Fa+mYRwMkxaMpxqfQuKLD2FYPYu/fN
+   wQJlhjkphVCCADwsstTZ+ZgKzfH1jvdQnJh7psGywVBCNILiwzuOnXEJY
+   XfCbZ76T3+y+Vi2DeTWtTEE0qljKLcLNh/LUNdIPdwJP+oLk0GNdxdfP3
+   5n8i3vOvd8cbh0MrSDUF/yAQ6KrpGZI/wsk80zwtA8NEU0hxguvpTEQ1x
+   HRKaSGpAySjUKpt8gnNMoS3Ld91EFn2/3xLyNpm8+cSUsooNtLhootwTd
+   g==;
+X-CSE-ConnectionGUID: 0xPKjpoTQC+FA1msM7OHng==
+X-CSE-MsgGUID: o/S/n7VHRQuDSOCEFGyI6w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3051798"
+X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
+   d="scan'208";a="3051798"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 06:43:54 -0800
+X-CSE-ConnectionGUID: j2+1Ks4TRB6dawDUo5AU/g==
+X-CSE-MsgGUID: fIBU1n2UQwGhUQKDG94xnA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
+   d="scan'208";a="8587822"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.142])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 06:43:50 -0800
+Date: Wed, 11 Nov 2026 16:43:49 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Zhu Jun <zhujun2@cmss.chinamobile.com>
+Cc: jic23@kernel.org, dlechner@baylibre.com, nuno.sa@analog.com,
+	crofts@kernel.org, linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] iio: temperature: mcp9600: Bound thresholds before
+ scaling
+Message-ID: <avR_JbeX1UtWpA4Y@ashevche-desk.local>
+References: <20261111034224.12709-1-zhujun2@cmss.chinamobile.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,95 +79,33 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-From: <shao.mingyin@zte.com.cn>
-To: <kbusch@kernel.org>, <axboe@kernel.dk>, <hch@lst.de>, <sagi@grimberg.me>,
-        <linux-nvme@lists.infradead.org>
-Cc: <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-Subject: =?UTF-8?B?W1BBVENIIDEvMl0gbnZtZXQ6IGhhbmRsZSBzaG9ydCByZWFkcyBhbmQgd3JpdGVzIGluIHRoZSBmaWxlIGJhY2tlbmQ=?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-fl1.zte.com.cn 6ABEgiEQ094719
-X-TLS: YES
-X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
-X-SOURCE-IP: 10.5.228.132 unknown Wed, 11 Nov 2026 22:42:47 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AF47EE7.000/4jPmTM1l34z4xPSJ
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261111034224.12709-1-zhujun2@cmss.chinamobile.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-From: Shao Mingyin <shao.mingyin@zte.com.cn>
+On Wed, Nov 11, 2026 at 11:42:24AM +0800, Zhu Jun wrote:
+> mcp9600_write_thresh() multiplies the integer part by 1000000 before
+> clamping to the supported temperature range. The multiplication can
+> overflow int, so a request such as 3000 degrees can select the lower
+> threshold instead of the upper threshold.
+> 
+> Clamp the integer part to the hot-junction range before scaling. Keep
+> the existing final clamp for fractional values and the narrower cold-
+> junction range.
 
-When the file backend falls back to its bvec mempool, large requests
-are submitted in synchronous chunks.  A short completion advances the
-file position by the full chunk length and is eventually overwritten
-with the total request length.  The target reports success for an
-incomplete write or returns unread buffer contents as valid data.
+...
 
-The common completion path has another short-I/O case: a zero-byte
-return, such as a read at EOF after the backing file is truncated, is
-passed to errno_to_nvme_status() and becomes success.
+> +		val = clamp_val(val, MCP9600_MIN_TEMP_HOT_JUNCTION_MICRO / (int)MICRO,
 
-Stop at any incomplete chunk and convert nonnegative short completions
-to -EIO in both paths.  Preserve negative errors and full completions.
+Btw, why do we need to use _val() variant of clamp*()?
 
-Fixes: d5eff33ee6f8 ("nvmet: add simple file backed ns support")
-Fixes: c6aa3542e010 ("nvmet: add error log support for file backend")
-Cc: stable@vger.kernel.org
-Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
----
+> +				MCP9600_MAX_TEMP_HOT_JUNCTION_MICRO / (int)MICRO);
 
-Tested on 7.3.0-next-20261030 (QEMU/TCG) with the loop transport and a
-file-backed namespace on tmpfs (buffered_io=1).
+-- 
+With Best Regards,
+Andy Shevchenko
 
-The chunked path is only taken when the bio_vec allocation falls back
-to the mempool, so failslab was used to fail that allocation, limited to
-nvmet_file_execute_rw() with the stack-trace filter (times=1,
-ignore-gfp-wait=N).  The short completion was made deterministic by
-shrinking the backing file behind nvmet's back (ns->size is only
-revalidated on enable) and by leaving only 4 KiB of space in the tmpfs
-for the last 64 KiB chunk of a 128 KiB write.  The values below are the
-status words returned by NVME_IOCTL_IO_CMD:
 
-                              unpatched    patched
-  read  512 KiB               ret=0        ret=24582 (0x6006)
-  read  256 KiB               ret=0        ret=24582
-  read  128 KiB               ret=0        ret=24582
-  write 128 KiB               ret=0        ret=24582
-
-0x6006 contains NVME_SC_INTERNAL plus the Do Not Retry and More bits;
-the More bit records the associated error-log entry.
-Without the patch the reads report success although the tail of the
-host buffer still holds the 0x5a pattern, and the write reports success
-although only 68 KiB of 128 KiB reached the file.  Controls: without the
-injection the short read already fails with 0x6006 on both kernels
-(non-chunked path), and with the injection but a full-length read both
-return 0.
-  drivers/nvme/target/io-cmd-file.c |    7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/nvme/target/io-cmd-file.c b/drivers/nvme/target/io-cmd-file.c
-index 695963dd932e..e95ab1f08cff 100644
---- a/drivers/nvme/target/io-cmd-file.c
-+++ b/drivers/nvme/target/io-cmd-file.c
-@@ -113,7 +113,7 @@ static void nvmet_file_io_done(struct kiocb *iocb, long ret)
- 	}
- 
- 	if (unlikely(ret != req->transfer_len))
--		status = errno_to_nvme_status(req, ret);
-+		status = errno_to_nvme_status(req, ret < 0 ? ret : -EIO);
- 	nvmet_req_complete(req, status);
- }
- 
-@@ -150,8 +150,11 @@ static bool nvmet_file_execute_io(struct nvmet_req *req, int ki_flags)
- 		if (unlikely(is_sync) &&
- 		    (nr_bvec - 1 == 0 || bv_cnt == NVMET_MAX_MPOOL_BVEC)) {
- 			ret = nvmet_file_submit_bvec(req, pos, bv_cnt, len, 0);
--			if (ret < 0)
-+			if (ret != len) {
-+				if (ret >= 0)
-+					ret = -EIO;
- 				goto complete;
-+			}
- 
- 			pos += len;
- 			bv_cnt = 0;
