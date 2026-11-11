@@ -1,97 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794371948;
-	b=XEQC88kHUIQCYs73N4/MIByM6MCnfwBpdA5UPBlD8eL386oO/ylZMiDN/6ZYMOkYpwCv
-	 rsSLM8EFfgwTzMcMmA4EqAgUmmeF60DtVhNSc6anRwJTyy3qIDC4hokPWWt9ch5XduNzv
-	 Qz2S/T+Y1wW+h5wb2lVjGQ7szKLCkwSXrMg1SBGaO5nOiVXZ4+IbAma1DAM56HzApaiPO
-	 RQV8kFAk8jX8wR472WiYF9HrjEGc3m73CKYkrqoxzpAYjcTVDIvvj38iwp5JnkNyPFsae
-	 CusKCHdZrWLYpLZO7YZrrRbP6YIHsC8oUTWM8AKohPJ7ndmQ1bzkZtAO4gnk+0X339Q==
+	t=1794371945;
+	b=vBelab7YtP1j5bMk0KLDcWiT+3fIfe/GiUFl9KWq/gOy4blS7V8mRsNF15/gYTUAbc7S
+	 wD+QXvSFmHde7q67oEtvYAolvSJVAyeWsWOzqIjGAOoRUxsCVbEzFFDG/0kKQTKEltqfJ
+	 7Hvs4Y/lkZeBjbMBwhB1w9qGapC4ZfhXDA+J31vmOsGikTTlVefStIPqCoBjvfA0+Xboe
+	 jRpnPQbqQAC5IuHbBxStAUfmZYUL8vKBo3jF2Zo8tkUDUyc1Hs+Gh3yzycct9ulJlvr6j
+	 caOuPlwAEMwsKvcvfkOxu90S6ysw+7XKVfjayHZxesVrhshpaQBiRz8IJAg7ntEyqNA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794371948;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:MIME-Version:Content-Type:Content-Disposition:
-	 User-Agent;
-	bh=Lvre1MX6Fv185E+vol1UoVO9hXcj6H5AcuzmOlcLq2I=;
-	b=sEdqIxDfoTLOre5IyqEBrRySAUGbtq6G1YgN8hDbHtRX/ey8AjCb98mBEDmJcdx++ysT
-	 bo2v7V4MmurRrgmDa6T7BOK4yR+ZgmCFnhmpaIV/8az/YzxFixsTEPDSY3YPhn8IZOlVE
-	 Epr6PGyKj6Rly25LI2W0NT59dcbFXuMSQKcicQtiJ99cs927HdtijOXhvOUL5hJfWXuNT
-	 81zbaSY/g9MgpAroieqR90b1edOmYV0rPZVMg+w3XhWHyN1fzcEH9MCAxnyh00AxZlcQu
-	 7p6cxyDjsJoPKK+Rt4ADrH6x2XbUKqStJHQ7ycFLPWGy0Wg5Vh+2rop/a4BAiPoUmrQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794371945;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=siZmirI+f1Pyy8EXeDTuyyN9Ke8UwfOLkM0owVcLHTc=;
+	b=EY2GG1HlylUjcgKtqEi/XbIyeBPZAmxvz1BK4tYUNyzPr6nchaq9FukOn3PRvBgDJUDA
+	 zPjPJujCbuL03Xt6VjYCpABWDHikkTe/L6o+ZkxKYlzkW/YvJuMTrzWXwKeDCKzZaVdql
+	 VYRTER1j8t7MWAb5Vjirxs43U7yeGLjM9smgplYjaBhcLoGsoip8W+h8TuNEljKVYU6zC
+	 LT9lNgXGb3CZJITcPdQPh8kC/dvFxIZWSNg06VKZB/XW/vjoMN1XeWhHLEP3d2yC1LR0Z
+	 AU0UDjo1QMJVAVJX7sujJYlZK7Xc/4/ga6RC3McffVHfG3qU3VqTxSHdHTUykwm4+SQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chrisdown.name;
-	spf=pass smtp.mailfrom=chrisdown.name;
-	dkim=pass header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=eECpWGJ9;
-	arc=none smtp.remote-ip=209.85.128.48
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ihi7Z3mW;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1FF8606A33A
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 04:39:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1FF8606A33A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=chrisdown.name
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chrisdown.name
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBF72606A321;
+	Wed, 11 Nov 2026 04:39:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=eECpWGJ9
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a1fbd52ab6so18569945e9.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 20:39:07 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chrisdown.name; s=google; t=1794371946; x=1794976746; darn=vger.kernel.org;
-        h=user-agent:content-disposition:content-type:mime-version:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Lvre1MX6Fv185E+vol1UoVO9hXcj6H5AcuzmOlcLq2I=;
-        b=eECpWGJ924HObPFFyjouO7gqCet9STG3qFCHDWXwUcCs/NbCDKmZKn2iE68bPTQPwG
-         EI+E49FSi217lovg2wwD62VYHP4xOpgAjg2r0vjQms7NJ4ZUDVj2bKphsGLgDDTZS2wq
-         njTGu6O2pXp67LZK2pydFQzSSgvI2DVsFWILU=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794371946; x=1794976746;
-        h=user-agent:content-disposition:content-type:mime-version:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Lvre1MX6Fv185E+vol1UoVO9hXcj6H5AcuzmOlcLq2I=;
-        b=yayGQ7GL7UIdfIgItm3Kf4nJ6eaYO9gccBBjEd/0EoikbevKBDG31K0jp+vf5ntUtF
-         ZgSixAgsS5h8xkwb3o3adJPC4h/ntqIL0Wgxb2a6lkLo0EwcyDyx6h1syxCWZtQy2+1h
-         IXLlcPMv1YP/Y5CYq4DAtZjwf7npeF8EBSXAqADuCm2apc3kjZPHnhGK9DkuoBmuL23z
-         JNHzzsn8i/eqNDFtaM6V9VDULjSmX01CDwNajmdxew7JJchrtI1rKCAu0TJyczxo//3U
-         /2EUdrcRLl+jY1SqmCafwURAeRFbWAmF/fc6W1zzFwP0ZH0OixUUB5c45A9q6zEJkZCL
-         9BHA==
-X-Gm-Message-State: APuU4Z9bqqGnpLZR0t2MtfHcRuiqNIbxOPEDntJEiBHC56M6F8PGY5H0
-	xzEv40/8xSm9mOb8VCf2DzwOU8upQogadeBhB1mpVdbGqXjsjmonForS8tzy+1PwXV4=
-X-Gm-Gg: AYBFou0csYKrvV+hMN+OJpNjkCB5iWwmh6BsJu8M90BZ+0rsB4k+Dc9l/o9V/ZFzmoY
-	ZkHdW4BTUdSY6EIlArUWKneXStZDKiMGZQpotkOfLkS95U7NPnaBwmv3ySPg0KnyGjcDR0woriG
-	7U9dok5yj+X3Mitl6QI66OswEHAgoy4Y00EbwFnxA8FpvMYL0utCnKUtmPHH6scTGUL+Rrcdnu3
-	mzFKOgCCPyLx0mchRgogMUGsKJii3Oot0YSIcGE8OCt77EXK9gDQ5nO6G+klFjdKKB5Ki3nbK6l
-	6Q+CkEsXaamOVGCYDeHSSmFlSvlEjokSgunbr0z9w8XlO+lctGqLDR8XDpgmvbIGqCG9gIx4nCC
-	1GrIYvrar5k3YEQ1aUk8VO0yOWEWb+PutX+9NWNIMtt3YdKS2AShiq2eaqHgJ38i2vAMGZACHAc
-	rrA8JynVfhnKCs/3HxCf0PZ0aTvHst/H3AQzOx/eADCV7ThS+hmyuEMF0FUoiF/CJL7z5cPtqh9
-	0RU2PDlmPnDFQyfrljor0j7Si5tZsSZOGaXtCBWuZoSxv03AiFO5FOHbdKva0CjZoxX46lgszWx
-	s2K9WLfXpQ9mAcUYuryEP2JlIZpkQOa0R4GEugc0wTZxREppGdeD/sQXIC+4vfZKbq6Q6L97kWu
-	xMuxT1jqc6phnQO8KFGFDzS+b6eoQI/YM9GY7P+fxhlXY7laoPfPARawP0aSjuX3BSBKk38apew
-	WxzDP96+sQil2ZX8kDBydAbBzpwSGG4GyC+8wVTiSGT54DwcEBL5PN
-X-Received: by 2002:a05:600c:4f15:b0:4a2:190f:cf6a with SMTP id 5b1f17b1804b1-4ba093d4aacmr18204945e9.35.1794371945737;
-        Tue, 10 Nov 2026 20:39:05 -0800 (PST)
-Received: from localhost ([199.201.64.8])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba01ff3428sm124440165e9.15.2026.11.10.20.39.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 20:39:05 -0800 (PST)
-Date: Tue, 10 Nov 2026 20:39:02 -0800
-From: Chris Down <chris@chrisdown.name>
-To: Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>
-Cc: linux-kernel@vger.kernel.org, kernel-team@meta.com,
-	Mark Rutland <mark.rutland@arm.com>,
-	Huang Ying <ying.huang@linux.alibaba.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Muchun Song <muchun.song@linux.dev>,
-	Oscar Salvador <osalvador@suse.de>,
-	David Hildenbrand <david@kernel.org>,
-	Mike Kravetz <mike.kravetz@oracle.com>,
-	linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org
-Subject: [PATCH] arm64: hugetlb: Prevent write fault livelocks on stale TLB
- entries
-Message-ID: <avPxZjjdBIlM_8_g@chrisdown.name>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ihi7Z3mW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B0221F0089F;
+	Wed, 11 Nov 2026 04:38:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794371945;
+	bh=siZmirI+f1Pyy8EXeDTuyyN9Ke8UwfOLkM0owVcLHTc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Ihi7Z3mWuOUA+kXYCdelMQfc0wNHEyM63cO8JoyRFYBXxLRj8v9SXEXjRfpt4HZsv
+	 II8l7k07UN+GKvuGkYa8T9S1h38HBW19Rc0o9Hxs5BkXX0G2sL3QNUJqiwVXXT5ZSO
+	 41eAboMlgACcl6rcoxul6g6au1reU9+lgHoppdBVGDiUeRgoQeUpuPIInwj97STiaz
+	 qrj49xx01AHBcnRPjlhs2SzAiXgvOgz7ILb1AnMtBVoA0VaOOFVv0XcS/9vr86vOqh
+	 wVb5zsw2OiBPHuZn/vrAQEVMXB94uXx3SwfFKg4196+omMgSgdfscT1mCVx2pZ0y4o
+	 ip2vQIxoEvWbw==
+Date: Wed, 11 Nov 2026 12:18:36 +0800
+From: Jisheng Zhang <jszhang@kernel.org>
+To: Conor Dooley <conor@kernel.org>
+Cc: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>,
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Will Deacon <will@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Mark Rutland <mark.rutland@arm.com>, Gary Guo <gary@garyguo.net>,
+	Yury Norov <yury.norov@gmail.com>,
+	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+	Chao-ying Fu <chao-ying.fu@globalfoundries.com>,
+	Conor Dooley <conor.dooley@microchip.com>,
+	torvalds@linux-foundation.org, olof@lixom.net,
+	aleksa.paunovic@htecgroup.com, arikalo@gmail.com,
+	Boqun Feng <boqun@kernel.org>, Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	Luke Nelson <luke.r.nels@gmail.com>, Xi Wang <xi.wang@gmail.com>,
+	=?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>,
+	Pu Lehui <pulehui@huawei.com>, Puranjay Mohan <puranjay@kernel.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Oleg Nesterov <oleg@redhat.com>, Miguel Ojeda <ojeda@kernel.org>,
+	=?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
+	bpf@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
+	Charlie Jenkins <thecharlesjenkins@gmail.com>,
+	Nam Cao <namcao@linutronix.de>, rust-for-linux@vger.kernel.org
+Subject: Re: [PATCH v6 2/6] riscv: build kernel atomics from LR/SC when Zaamo
+ is disabled
+Message-ID: <avPsnAlbfEsNa5zq@xhacker>
+References: <20261110-lrsc-only-v6-0-bafc3cc0fcae@mobileye.com>
+ <20261110-lrsc-only-v6-2-bafc3cc0fcae@mobileye.com>
+ <20261110-revivable-saint-9bcfaa2fd0e7@spud>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,95 +100,89 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-User-Agent: Mutt/2.3.3 (9073d26d) (2026-06-12)
+In-Reply-To: <20261110-revivable-saint-9bcfaa2fd0e7@spud>
 
-In Meta production, we have had tasks get stuck in a fault loop while
-using hugetlb on arm64. During my investigations I found that affected
-tasks share a private hugetlb page.
+On Tue, Nov 10, 2026 at 07:02:48PM +0000, Conor Dooley wrote:
+> On Tue, Nov 10, 2026 at 03:20:59PM +0200, Vladimir Kondratiev wrote:
+> > The A extension is Zaamo plus Zalrsc. On some CPUs Zaamo is present
+> > only formally. MIPS P8700 traps every AMO instruction into M-mode and
+> > emulates it there, so the extension is supported but very slow. A
+> > typical uncontended atomic increment costs:
+> > 
+> >   native AMO                                     2..5 cycles
+> >   LR/SC, private L1 reservation monitor         6..12 cycles
+> >   LR/SC, PoC (L2) reservation monitor       about 40 cycles
+> >   AMO emulated by an M-mode trap           about 600 cycles
+> > 
+> > The last two were measured on the eyeq7h hardware. On such a CPU the
+> > kernel must use LR/SC for every atomic.
+> > 
+> > Add RISCV_ISA_ZAAMO, default y. The default keeps "a" in -march and
+> > the generated code unchanged. When it is disabled, -march carries
+> > _zalrsc instead of "a", and atomic_*, bitops, xchg, futex and the
+> > early boot code use LR/SC loops. The sequence is chosen with the
+> > preprocessor, on CONFIG_RISCV_ISA_ZAAMO like the other ISA options in
+> > the headers, because the assembler rejects AMO mnemonics once -march
+> > lacks Zaamo. A kernel built this way runs on any hart that implements
+> > A; it just does not use AMO. It is therefore a plain option, not a
+> > NONPORTABLE one, and the hart keeps advertising "a" to userspace,
+> > which is true.
+> > 
+> > The LR/SC loops follow the ordering convention of the existing ones
+> > in cmpxchg.h, from commit 5ce6c1f3535f ("riscv/atomic: Strengthen
+> > implementations with fences") and commit 1d84afaf0252 ("riscv: Fix
+> > fully ordered LR/SC xchg[8|16]() implementations"): a fully ordered
+> > operation is lr, sc.rl and a trailing fence rw,rw; acquire is lr.aq
+> > with a plain sc; release is a plain lr with sc.rl. The futex loop is
+> > bounded to 128 retries and returns -EAGAIN after that, as arm64 does,
+> > because userspace can keep the word changing from another thread and
+> > futex_wake_op() retries on -EAGAIN anyway.
+> > 
+> > Zabha, Zacas and the ssamoswap instruction of Zicfiss are AMO
+> > instructions, so RISCV_ISA_ZABHA, RISCV_ISA_ZACAS and RISCV_USER_CFI
+> > depend on RISCV_ISA_ZAAMO. The riscv64imac Rust target emits AMO too,
+> > so RUSTC_SUPPORTS_RISCV depends on it as well.
+> > 
+> > The choice is made at compile time rather than with alternatives.
+> > Nearly every CPU has a native A extension, and an alternative would
+> > inflate all those kernels with the nops needed to pad one AMO to the
+> > size of an LR/SC loop, at every atomic site, for the benefit of a few.
+> > 
+> > Turning Zaamo off needs a compiler that accepts _zaamo and _zalrsc in
+> > -march. GCC 15.1 is the first release that does.
+> > TOOLCHAIN_HAS_ZALRSC_ZAAMO checks for it; with an older compiler the
+> > option stays at y.
+> > 
+> > Three sets of extensions provide every atomic Linux needs. "a" is what
+> > the kernel supports today. Zalrsc plus Ziccrse is what this patch adds:
+> > every atomic is a constrained LR/SC loop, and Ziccrse is the
+> > forward-progress guarantee for such loops. Zaamo plus Zacas would do
+> > as well, with CAS loops in place of LR/SC as on x86, and is left for
+> > whoever has such hardware.
+> > 
+> > Suggested-by: Chao-ying Fu <chao-ying.fu@globalfoundries.com>
+> > Nacked-by: Conor Dooley <conor.dooley@microchip.com>
+> > Link: https://lore.kernel.org/linux-riscv/20261106-smock-headband-d6a7d568c228@spud/
+> 
+> I had a quick glance at this revision, and I think you've at least tried
+> to resolve the things I was pointing out. Did I miss something, or why
+> have you kept the NAK after having resolved the things that I was
+> objecting to?
+> 
 
-Looking at the stuck task states, I found the following ordering:
+I searched the maillist for this errata, or workaround or downgrading 'A'
+or anything else it's named, found something interesting:
 
-  CPU0                                 CPU1
-  ----                                 ----
-  read page
-  [read only entry cached in TLB]
-                                       write page
-                                       hugetlb_fault()
-                                         hugetlb_wp()
-                                         [reuse folio]
-                                         set_huge_ptep_maybe_writable()
-                                           set_huge_ptep_writable()
-                                         [flush local TLB only]
+IIUC, Paul has rejected the series, at least call for "hold off on merging them"
+see
+https://lore.kernel.org/linux-riscv/8afa0702-4d30-86e2-5afb-a7c113a92dec@kernel.org/
 
-  write page using stale entry
-  hugetlb_fault()
-    huge_ptep_set_access_flags()
-    [entry already writable, no flush]
-  retry write using stale entry
-  [fault indefinitely. well, that's not ideal!]
+and 
 
-The reason is that when a write fault makes a non-contiguous hugetlb
-entry writable, it only invalidates the local TLB. However, another CPU
-can keep the old read-only entry, so its write will fault even though
-the page table already permits it. hugetlb_fault() then finds nothing to
-change and leaves the stale entry in place, so the same write keeps
-going round in circles.
+https://lore.kernel.org/linux-riscv/6201870b-b50d-f6e2-814b-7a1fdbf064db@kernel.org/
 
-This is particularly bad because, if the kernel is copying to user
-memory, the retry stays inside the kernel and the task can't act on the
-pending signal.
-
-It can even remain unkillable while holding locks across the copy,
-resulting in further failures. For example, a read into a hugetlb
-buffer can hold the pipe mutex and block other users of the pipe until
-the loop ends, causing cascading lockups across the machine.
-
-To fix this, when a write fault finds nothing to change in a
-non-contiguous hugetlb entry, let's invalidate the local entry.
-
-Fixes: cb1fa2e99955 ("arm64, tlbflush: don't TLBI broadcast if page reused in write fault")
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Chris Down <chris@chrisdown.name>
----
- arch/arm64/mm/hugetlbpage.c | 21 ++++++++++++++++++---
- 1 file changed, 18 insertions(+), 3 deletions(-)
-
-diff --git a/arch/arm64/mm/hugetlbpage.c b/arch/arm64/mm/hugetlbpage.c
-index 8e799c1fe0aa..ff1f53e435e1 100644
---- a/arch/arm64/mm/hugetlbpage.c
-+++ b/arch/arm64/mm/hugetlbpage.c
-@@ -429,9 +429,24 @@ int huge_ptep_set_access_flags(struct vm_area_struct *vma,
- 	VM_WARN_ON(!pte_present(pte));
- 	ncontig = num_contig_ptes(huge_page_size(hstate_vma(vma)), &pgsize);
- 
--	if (!pte_cont(pte))
--		return __ptep_set_access_flags_anysz(vma, addr, ptep, pte,
--						     dirty, pgsize);
-+	if (!pte_cont(pte)) {
-+		if (__ptep_set_access_flags_anysz(vma, addr, ptep, pte,
-+						  dirty, pgsize))
-+			return 1;
-+
-+		/*
-+		 * Another CPU may have made the entry writable without
-+		 * invalidating our stale read-only TLB entry. To avoid
-+		 * indefinitely faulting on this entry, flush it.
-+		 */
-+		if (dirty)
-+			__flush_hugetlb_tlb_range(vma, addr, addr + pgsize,
-+						  pgsize,
-+						  TLBF_NOWALKCACHE |
-+						  TLBF_NOBROADCAST |
-+						  TLBF_NONOTIFY);
-+		return 0;
-+	}
- 
- 	if (!__cont_access_flags_changed(ptep, pte, ncontig))
- 		return 0;
-
-base-commit: 067c5c24cef23d913b67eaaf71ae67e7169a6620
--- 
-2.54.0
-
+But I'm not sure why the same series is still continuously sent out but
+in different titles. I think this series can be ignored until riscv
+maintainers agree to downgrade the 'A' to subset of 'A', I.E zalrsc
