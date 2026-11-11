@@ -1,79 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.42.203.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794438108;
-	b=jS/f9EI7b2er5vaEGuZ/HPF44crbPQimEDf7bd7+piWuIM4iwRmqiqTsar5snun/0OtX
-	 itCMDbV49Xg4ndrJYTysKMU7mycs6pwaIxU1zZuT1dG4nerFzbaj8SNd2pxe9UPmQEcEw
-	 rAXBiHI01/+hiIBQxfVMe6dOB3nKR6N1akf2+/md3EKx8wIjMUCfvcSvL4mWrNtGPvkce
-	 HqrCt4DWhbMm9PPy5CfU0K6it4Gv/ZjUcAsso7OSo8HHJxNQHbPpYZk1fSITeuDf4cJmW
-	 hwzmP67hZVEgI/lRHdgYJcte82jzIhUUsyoJwiH/HAFi7kr+bO/UCkCo5a1i64vUC/w==
+	t=1794438128;
+	b=2mLg7Cksl8PhovWfaF3LJtuQpDqmDGcXU/G3iE8zO4mKCH5LwVmdBScuIB0wMUkA0UOg
+	 9SDxhYCSZrUc/gEJdLNDnbDL91/PXW9HQKUdMxHdxSdUpmv21x1/RF4D5ve4v0H5Fg+S1
+	 NF9p24Pdbzc7GdJeJcqd7hlqkXv0z6NoIXxpxSUu8ib6hfUv3I8QQv/CgYCb6GkOR1AEP
+	 2x3/VcFYWCwo/RLcMjJN00EojJHRcpxOF6FWbiDU/iKF+YyZ9SrgYO5j2OIW4+CfwG5C0
+	 nR7r6B9FZuW29TA/g4ScdEDF+nUK84wBxjFr3FSiHLtWflHtnrTZlT1LcJKRLwadxmA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794438108;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Scanned-By;
-	bh=wj6qsWXGoJ393cS9Xlx1U/BYTtbd972bohi7Obe4yhA=;
-	b=aYQbrKhsyoDu56tHOlpjgn27JHFjC0rCsW9xtR3GhTtNbyH9SgCZrBNmpKs41Fvd9+u4
-	 Aqz4kFFR/RZvxSaQmWPAjwtcS1lu+pN+iD+fp+dQB5vvOI5UTfx+zwmoOwCoxA3bvCN6n
-	 W2Kjc1dPe5vvFJa+g4YbMJfJ2jtswPqfE3lsbsAL5i7GI4HxsxzsrUKThnX6alOasyYF2
-	 ga/tziulB4aA6IzCM0ZBZNpCVGXst+fQu15lKqfQcaQ6t1d3ZtTHX6md1zDbb+hnhl7+k
-	 f7ZQIlfx+7B435aBaOEuw9yGmLbCfOMG4zya9GPBd4EvQYFkiOX2nkYsBOJ2N/REP1g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794438128;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
+	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=fxeX7TnOeQeidfd0VzWFsebTuPycm/niS4h2cZ5wwxA=;
+	b=swrLjmEL4gxGUPp80O1BMPAERWIRHzp/w+s8JAsltbg4XCdI8yLtOIEpEK6Xel1WoVnE
+	 8I9qpaPtC6HLjWLkO+aIGkkxg4FW8aLIJkLqmCVHfCWEavc7JcVnCizFNZS3OUvoQjN8L
+	 Y3bao/0GJhAQq0+L55Oslo2JyLRPonsP55zBkK4RllLMBmoM9GnutfybYiQl3pAe4/KTI
+	 F1WqBKj7U5bEo5B7G5lden1cSVEoXY7bUOIN0aCzrnjH2oRlM2qYvyUNu36dRTeJ8zsrg
+	 EDIEZ/lsVf7CJ4xRZOnOuqOCjArfN9AG6UusG008zkxWruXgFSK50XkKH6fD2mQPZlg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=MvhzWRa6;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=amazon.com;
+	spf=pass smtp.mailfrom=amazon.de;
+	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=ImoTMGSH;
+	arc=none smtp.remote-ip=52.42.203.116
+Received: from pdx-out-008.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-008.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.42.203.116])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED9AA60A2615
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 23:01:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED9AA60A2615
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F16FF606A331;
+	Wed, 11 Nov 2026 23:02:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F16FF606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=MvhzWRa6
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794438106;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=wj6qsWXGoJ393cS9Xlx1U/BYTtbd972bohi7Obe4yhA=;
-	b=MvhzWRa6CxIyw8RcXYZWBtWEP8d+FaOLRY7Yj+cGsQUwd9RiIzFQ75zG6FPExdtuv4Z/TN
-	NQQFojrYTOKFc10pKvQ01tAdFxIGFJjIJCuSb0DKJyivf8gWgMFugStr/aUgO7qCfHPUAU
-	Klx4NgvoiPVMYE2qjUX0BHtio+f5Duc=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-20-yazoqcCZMMyfwaVL55ieTA-1; Wed,
- 11 Nov 2026 18:01:42 -0500
-X-MC-Unique: yazoqcCZMMyfwaVL55ieTA-1
-X-Mimecast-MFC-AGG-ID: yazoqcCZMMyfwaVL55ieTA_1794438100
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 229991801313;
-	Wed, 11 Nov 2026 23:01:40 +0000 (UTC)
-Received: from onestero-thinkpadp1gen7.tpbc.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id 01DC41800495;
-	Wed, 11 Nov 2026 23:01:36 +0000 (UTC)
-Received: by onestero-thinkpadp1gen7.tpbc.csb (nbSMTP-1.00) for uid 13628
-	oleg@redhat.com; Thu, 12 Nov 2026 00:01:39 +0100 (CET)
-Date: Thu, 12 Nov 2026 00:01:35 +0100
-From: Oleg Nesterov <oleg@redhat.com>
-To: Mani Tofigh via B4 Relay <devnull+mt4022.columbia.edu@kernel.org>
-Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
-	Christian Brauner <brauner@kernel.org>,
-	Michal Nazarewicz <mina86@mina86.com>,
-	Wen Yang <wen.yang@linux.dev>, linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org, tz2294@columbia.edu,
-	stable@vger.kernel.org, Mani Tofigh <mt4022@columbia.edu>
-Subject: Re: [PATCH] sched/wait: Queue non-exclusive waiters at the head in
- do_wait_intr*()
-Message-ID: <avTzzxZvE3HqH3KS@redhat.com>
-References: <20261111-b4-sched-wait-intr-head-v1-1-17cf2af5b964@columbia.edu>
+	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=ImoTMGSH
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+  t=1794438127; x=1825974127;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=fxeX7TnOeQeidfd0VzWFsebTuPycm/niS4h2cZ5wwxA=;
+  b=ImoTMGSHSjc8OjdJqz1oikKV/m+rXQ7/85cajkFslk5ENHeU3bw2h1V2
+   35y6Tzq5cqEN+/XoqKWWHqPxfxMcb2z42sBnS2tsz4eaTbGi/F5JsrBk9
+   qxyVG20iE/PBBoQC7QMzBOOSIl+Rio9L69PFEpxYPAqkIFiLpPQtk7cYh
+   1s+uCr7LkhXjwfPu8DIMyKJMYVFxyENBaUpQk1W4zhrLKzIVCLGN46vKf
+   5xoSlXsMwV1EI7r0iIimWWlrjhPzX6rRgNfsonyx9UBnxQlpm1BTVJtZu
+   pp2gmCKIGcJL9GhjVBYW4qPabB6TKu9UzKQszvr7pde00Tn6mWg2eH34k
+   w==;
+X-CSE-ConnectionGUID: zbfFMcWfRSuQ2BSmPHMGzw==
+X-CSE-MsgGUID: LlLoQtmVR6aIOnk6axVbmw==
+X-IronPort-AV: E=Sophos;i="6.27,208,1787011200"; 
+   d="scan'208";a="33797024"
+Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
+  by internal-pdx-out-008.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 23:02:05 +0000
+Received: from EX19MTAUWB002.ant.amazon.com [205.251.233.48:27716]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.46.128:2525] with esmtp (Farcaster)
+ id 60a5f721-d9ab-4ef8-8e59-27d90924e641; Wed, 11 Nov 2026 23:02:05 +0000 (UTC)
+X-Farcaster-Flow-ID: 60a5f721-d9ab-4ef8-8e59-27d90924e641
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWB002.ant.amazon.com (10.250.64.231) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
+ Wed, 11 Nov 2026 23:02:04 +0000
+Received: from ip-10-253-83-51.amazon.com (172.19.99.218) by
+ EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
+ Wed, 11 Nov 2026 23:02:02 +0000
+From: Alexander Graf <graf@amazon.com>
+To: <linux-kernel@vger.kernel.org>, Greg Kroah-Hartman
+	<gregkh@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>
+CC: The AWS Nitro Enclaves Team <aws-nitro-enclaves-devel@amazon.com>, "Shuah
+ Khan" <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>,
+	Marek Szyprowski <m.szyprowski@samsung.com>, Robin Murphy
+	<robin.murphy@arm.com>, <linux-doc@vger.kernel.org>, <iommu@lists.linux.dev>,
+	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand
+	<david@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+	<nh-open-source@amazon.com>, <linux-mm@kvack.org>, Jonathan Corbet
+	<corbet@lwn.net>
+Subject: [PATCH 19/40] nitro_enclaves: Add the slot pool growth commands
+Date: Wed, 11 Nov 2026 22:59:23 +0000
+Message-ID: <b16f6669871f64b97cea9ec50baf3462a44054a9.1794393490.git.graf@amazon.com>
+X-Mailer: git-send-email 2.47.1
+In-Reply-To: <cover.1794300002.git.graf@amazon.com>
+References: <cover.1794300002.git.graf@amazon.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,36 +91,123 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261111-b4-sched-wait-intr-head-v1-1-17cf2af5b964@columbia.edu>
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D031UWA004.ant.amazon.com (10.13.139.19) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-On 11/11, Mani Tofigh via B4 Relay wrote:
->
-> --- a/kernel/sched/wait.c
-> +++ b/kernel/sched/wait.c
-> @@ -319,8 +319,12 @@ EXPORT_SYMBOL(prepare_to_wait_event);
->   */
->  int do_wait_intr(wait_queue_head_t *wq, wait_queue_entry_t *wait)
->  {
-> -	if (likely(list_empty(&wait->entry)))
-> -		__add_wait_queue_entry_tail(wq, wait);
-> +	if (likely(list_empty(&wait->entry))) {
-> +		if (wait->flags & WQ_FLAG_EXCLUSIVE)
-> +			__add_wait_queue_entry_tail(wq, wait);
-> +		else
-> +			__add_wait_queue(wq, wait);
+In preparation to grow the slot pool at runtime, add
+SLOT_POOL_MEM_DONATE and SLOT_POOL_GET_LIMITS.
 
-This look right and matches prepare_to_wait_event(). But it seems there is
-another problem if WQ_FLAG_EXCLUSIVE, see the
-"Exclusive waiter must not fail if it was selected by wakeup" comment in
-prepare_to_wait_event().
+The slot pool has two halves: the slot descriptors, which
+SLOT_POOL_DONATE grows, and the memory the device runs slots out of,
+which SLOT_POOL_MEM_DONATE grows. Its reply names the part of the
+offered run that the device took. A slot needs room in both halves.
+SLOT_POOL_GET_LIMITS reports both counts, along with how many slots one
+memory donation adds, so that the parent knows which half to grow next.
+Both replies get an arm of the reply union.
 
-Perhaps it makes more sense to simply kill __wait_event_interruptible_locked()
-and reimplement wait_event_interruptible_locked() on top of
-___wait_event(cmd => do_wait_intr) ? This way do_wait_intr() will only need
-to do unlock + schedule + lock.
+Signed-off-by: Alexander Graf <graf@amazon.com>
+---
+ drivers/virt/nitro_enclaves/ne_pci_dev.h | 50 ++++++++++++++++++++++++
+ 1 file changed, 50 insertions(+)
 
-Oleg.
+diff --git a/drivers/virt/nitro_enclaves/ne_pci_dev.h b/drivers/virt/nitro_enclaves/ne_pci_dev.h
+index 4e991c4b0e70f..3718f893e4f65 100644
+--- a/drivers/virt/nitro_enclaves/ne_pci_dev.h
++++ b/drivers/virt/nitro_enclaves/ne_pci_dev.h
+@@ -164,6 +164,10 @@
+  * @SLOT_POOL_DONATE:		Donate one page of parent memory to the slot
+  *				pool.
+  * @SLOT_POOL_SHUTDOWN:		Give the whole slot pool back.
++ * @SLOT_POOL_MEM_DONATE:	Donate a run of parent memory to the memory the
++ *				device runs a slot out of.
++ * @SLOT_POOL_GET_LIMITS:	Report how many slots each half of the pool has
++ *				room for.
+  * @SLOT_POOL_BASE_DONATE:	Donate the base run of the slot pool.
+  * @MAX_CMD:			A gatekeeper for max possible command type.
+  */
+@@ -185,6 +189,8 @@ enum ne_pci_dev_cmd_type {
+ 	SLOT_POOL_DONATE	= 16,
+ 	SLOT_POOL_SHUTDOWN	= 17,
+ 	SLOT_POOL_BASE_DONATE	= 25,
++	SLOT_POOL_MEM_DONATE	= 26,
++	SLOT_POOL_GET_LIMITS	= 27,
+ 	MAX_CMD,
+ };
+ 
+@@ -344,6 +350,16 @@ struct slot_pool_shutdown_req {
+ 	u8	unused;
+ };
+ 
++/**
++ * struct slot_pool_mem_donate_req - SLOT_POOL_MEM_DONATE request.
++ * @paddr:	Physical address of the donated run of memory.
++ * @size:	Size, in bytes, of the donated run.
++ */
++struct slot_pool_mem_donate_req {
++	u64	paddr;
++	u64	size;
++};
++
+ /**
+  * struct ne_pci_dev_cmd_reply - NE PCI device command reply.
+  *
+@@ -377,6 +393,21 @@ struct slot_pool_shutdown_req {
+  * @info.state:			SLOT_INFO. Slot state.
+  * @info.padding1:		SLOT_INFO. Padding for the overall data
+  *				structure.
++ * @mem_donate:			Fields SLOT_POOL_MEM_DONATE fills.
++ * @mem_donate.consumed_paddr:	SLOT_POOL_MEM_DONATE. Physical address of the
++ *				run the device took out of the donation.
++ * @mem_donate.consumed_size:	SLOT_POOL_MEM_DONATE. Size, in bytes, of the
++ *				run the device took, zero where it took none.
++ * @limits:			Fields SLOT_POOL_GET_LIMITS fills.
++ * @limits.meta_limit:		SLOT_POOL_GET_LIMITS. Slots the descriptors
++ *				donated so far have room for.
++ * @limits.mem_limit:		SLOT_POOL_GET_LIMITS. Slots the memory donated
++ *				so far has room to run.
++ * @limits.slots_per_donation:	SLOT_POOL_GET_LIMITS. Slots one donation of
++ *				memory adds to the memory the device runs a
++ *				slot out of.
++ * @limits.reserved14:		SLOT_POOL_GET_LIMITS. Bytes the device writes as
++ *				zero.
+  */
+ struct ne_pci_dev_cmd_reply {
+ 	s32	rc;
+@@ -402,6 +433,16 @@ struct ne_pci_dev_cmd_reply {
+ 			u16	state;
+ 			u8	padding1[6];
+ 		} info;
++		struct {
++			u64	consumed_paddr;
++			u64	consumed_size;
++		} mem_donate;
++		struct {
++			u16	meta_limit;
++			u16	mem_limit;
++			u16	slots_per_donation;
++			u16	reserved14;
++		} limits;
+ 	};
+ };
+ 
+@@ -417,6 +458,15 @@ static_assert(offsetof(struct ne_pci_dev_cmd_reply, info.mem_size) == 40);
+ static_assert(offsetof(struct ne_pci_dev_cmd_reply, info.nr_vcpus) == 48);
+ static_assert(offsetof(struct ne_pci_dev_cmd_reply, info.flags) == 56);
+ static_assert(offsetof(struct ne_pci_dev_cmd_reply, info.state) == 64);
++static_assert(offsetof(struct ne_pci_dev_cmd_reply,
++		       mem_donate.consumed_paddr) == 8);
++static_assert(offsetof(struct ne_pci_dev_cmd_reply,
++		       mem_donate.consumed_size) == 16);
++static_assert(offsetof(struct ne_pci_dev_cmd_reply, limits.meta_limit) == 8);
++static_assert(offsetof(struct ne_pci_dev_cmd_reply, limits.mem_limit) == 10);
++static_assert(offsetof(struct ne_pci_dev_cmd_reply,
++		       limits.slots_per_donation) == 12);
++static_assert(offsetof(struct ne_pci_dev_cmd_reply, limits.reserved14) == 14);
+ 
+ /**
+  * struct ne_pci_dev - Nitro Enclaves (NE) PCI device.
+-- 
+2.47.1
 
