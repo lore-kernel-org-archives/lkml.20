@@ -1,87 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.34.181.151
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=18.9.28.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794438058;
-	b=cyK03h3CQiRZ62LkqBA9g9n8m5mSDu338nkgh0JP3DYxSchoByuqM2BnCGZddJK1ABCD
-	 WsesANiHRxYCNHiPM1PEWAEFNl/XrGGkCEFfAUTRHAZT/JBPBsbFHmvHww1qdNCGUCK8/
-	 w42xrywoUNv5gxNxRYUm9C1lPpJvGpF6BWxkF5oc9P66ayZPBxlhEXsAEMGTCzyX9l1U8
-	 BGkcYo3cyZKqTIUGj1J4c9savWd3AmUqZ7QBUs2vY3RfYvl3XKmAPkSdZrGqGH9c6h3bw
-	 b2I9wuueEu4hdLjeU4/zFIB4fNWAQ2rh2zWeZmspRaErT/QkebIYBjDJSVHg2CnzKvg==
+	t=1794438062;
+	b=BTdTfcTE9/EC9MCywFUsIyu5U0vylUZqs92WUXxzT29p3FIoAOc5fDCY6HflkiksitfO
+	 MkGhJ08pSzc/JQhykADemCFcnzor/KnaUy4+gW5eqxG2L51K9RNS8SkYRtHxBzSThh0Zq
+	 eFyM5Vvm8VHOFSYAlGrk2DHJA1Nls2gHL/2gQbPYTT7IhmGzdOITcxdpuz9dSRBFBeLLF
+	 Q6fe7IWbLEAJ+DwB3rCPsG43BhZMZBcfINKMN7wnXflIxg4LIjAtCnDWXv8qVQKela+uu
+	 vlenrUGnwNpq+/mlC3lpFv9DV6ZaaFQjsJhIdggEym8vKXokZN4wouIsMxR+VT11E7g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794438058;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=XmuKZ2loZKyTAGGj5N0MglpczGlu5fP4eNsQMpnqo5g=;
-	b=xTq/DgAU+AYgTUz1/WRESmnZG72jLT8TP6DOCbqnMbVkTCWc6Hn+5SMQ1hg84tSTGwAl
-	 Mj5PpCDv+17/4lNLeb+/P4WBD0cKIEvlgzjFC4dWtgzKpQJadJGL4Uub0VkeeyxuRqWjS
-	 um5Vdk85KT+fPT55dZ2V3SSpScRX0dL51XGa0tLj4bdVyZFwV5OzCcbLM5CH9pdpt8UIx
-	 w79fshw/E/MiyDOBGnM+3Ga7g7KMsshHkeFLfkb0OQ+NNkP/b9F8L8oNlDNwxmHUt9EpA
-	 rIIHLh5ZWaVm5lAlHDG/3cwlpUSbXeTaoRP3b2D4hROimEo8e0ixBhDjJolYW2jYpWA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794438062;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=aYvMzR0aN37nQlnLtJnVAyPtC9Oir7A/+6zq96PEhL4=;
+	b=MkQb89ZzhuV+aPht7qb/5QdOGSk9BAbzF2MBqTA03V4WTjY1xoaR9FfEeWJjXP11e2lN
+	 UjtxO62vPd2jrBSY8k54IuVfderyMirQ09NKHD3lKsPJNKv5Cm5yjJX7mLQxZcjbJ6v9V
+	 6qoFuxwX+gVP0bsp6y3W/hfpaBLxpoaH1l0IDa6oJqHjNJvhYRcOc5X3Iz/jUNObsRi1A
+	 +bjxcBj8nC3FbY1mS6khp1VtKpPE0Fs45P4AQ+bNB9h1S6eKaZdidfbbKy+aGjegFM3do
+	 UiHCp51HXnjl+Y6HVq7bMgw711CRFK7j+3jIZ3o2vuxYk2Npru/fBYZxBB2agPa0jJQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amazon.com;
-	spf=pass smtp.mailfrom=amazon.de;
-	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=n0nnbeg1;
-	arc=none smtp.remote-ip=52.34.181.151
-Received: from pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.34.181.151])
+	dmarc=pass header.from=mit.edu;
+	spf=pass smtp.mailfrom=mit.edu;
+	dkim=pass header.d=mit.edu header.i=@mit.edu header.a=rsa-sha256 header.s=outgoing header.b=MVSGtbBY;
+	arc=none smtp.remote-ip=18.9.28.11
+Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81250606A333;
-	Wed, 11 Nov 2026 23:00:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81250606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33E3F606A333
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 23:01:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33E3F606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mit.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=n0nnbeg1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1794438057; x=1825974057;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=XmuKZ2loZKyTAGGj5N0MglpczGlu5fP4eNsQMpnqo5g=;
-  b=n0nnbeg14YedPm7xDPFVOZwGENY1v6DHrCC8XUsZYvmXjLJ3IVkpFiqB
-   QE37eph3xxPGEzZ+6idxwJjIEk1QXAig95zuwqFBwEaRXvQXeMCsHQn31
-   5h1m5e+HKgcC6CWEg40uIZgGWi63Uc1VLsQiWc8ikhxZLxDHbzt8W/eau
-   BgtZi2djoB7sbQFca7F7Hq8Y5sSwa5UqghFP4dgtFOMaWG5mDfrN6K6Rl
-   Z32GOfae/MNLBdMTyA0Lv9jjMmb4RGlYm9CPT/jCNEsMm3jMEC6YHHaHQ
-   m2z1GynJgOt9mNlrbJC4TyBqBrx3JsoQ+nfwxybvJjazrZA0CdbL1LMBQ
-   w==;
-X-CSE-ConnectionGUID: u0wPrw6NQ/K2I7KjcEQL/g==
-X-CSE-MsgGUID: sexqQlZdRrysFYK8rx374w==
-X-IronPort-AV: E=Sophos;i="6.27,208,1787011200"; 
-   d="scan'208";a="33757115"
-Received: from ip-10-5-9-48.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.9.48])
-  by internal-pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 23:00:57 +0000
-Received: from EX19MTAUWB002.ant.amazon.com [205.251.233.48:6966]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.16.231:2525] with esmtp (Farcaster)
- id 4a210c56-7070-43a0-9871-00ea9c7c08f5; Wed, 11 Nov 2026 23:00:56 +0000 (UTC)
-X-Farcaster-Flow-ID: 4a210c56-7070-43a0-9871-00ea9c7c08f5
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWB002.ant.amazon.com (10.250.64.231) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Wed, 11 Nov 2026 23:00:56 +0000
-Received: from ip-10-253-83-51.amazon.com (172.19.99.218) by
- EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Wed, 11 Nov 2026 23:00:54 +0000
-From: Alexander Graf <graf@amazon.com>
-To: <linux-kernel@vger.kernel.org>, Greg Kroah-Hartman
-	<gregkh@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>
-CC: The AWS Nitro Enclaves Team <aws-nitro-enclaves-devel@amazon.com>, "Shuah
- Khan" <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>,
-	Marek Szyprowski <m.szyprowski@samsung.com>, Robin Murphy
-	<robin.murphy@arm.com>, <linux-doc@vger.kernel.org>, <iommu@lists.linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand
-	<david@kernel.org>, Mike Rapoport <rppt@kernel.org>,
-	<nh-open-source@amazon.com>, <linux-mm@kvack.org>, Jonathan Corbet
-	<corbet@lwn.net>
-Subject: [PATCH 17/40] nitro_enclaves: Add the slot pool donation commands
-Date: Wed, 11 Nov 2026 22:59:21 +0000
-Message-ID: <8a4509d7542883afe7337af9c1bf759740572a81.1794393490.git.graf@amazon.com>
-X-Mailer: git-send-email 2.47.1
-In-Reply-To: <cover.1794300002.git.graf@amazon.com>
-References: <cover.1794300002.git.graf@amazon.com>
+	dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.a=rsa-sha256 header.s=outgoing header.b=MVSGtbBY
+Received: from trampoline.thunk.org (pool-173-48-111-191.bstnma.fios.verizon.net [173.48.111.191])
+	(authenticated bits=0)
+        (User authenticated as tytso@ATHENA.MIT.EDU)
+	by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 6ABMxiH7026970
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 11 Nov 2026 17:59:45 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mit.edu; s=outgoing;
+	t=1794437992; bh=aYvMzR0aN37nQlnLtJnVAyPtC9Oir7A/+6zq96PEhL4=;
+	h=From:Subject:Date:Message-ID:MIME-Version;
+	b=MVSGtbBYUVv2VwDjz2PGO7YbpB8cCkHuNr7RZ2tWdjTyWqYA1nlBJx9+sKj8KivyE
+	 DQmOT5ymQFM4l5C0DXZ0XnKhaUFZK3/HEIIim5fJJjJpimTwFVVBsEQd45Yq3vyqLH
+	 NM9U9v8FHIrLykqscl7IvdtN42ZnMXX/zubEuYWWWVsNGmy4HmZMwNaRu8Yq8+qCds
+	 9OZ+1ABybgY3Ur/qgLmCdIVC9jgDdaaKtdr++Z3vAUJtSCgNCVb+h3cPxK0RQuYSpH
+	 DPH1giU2kDO9Ewbl2YsbyuHsdJDbCV1yeGBt6GUdQYhM+aH1/Hy3ViRKKIvhOisLDv
+	 wkO5hyA1Zyrtg==
+Received: by trampoline.thunk.org (Postfix, from userid 15806)
+	id B68392E00BB; Wed, 11 Nov 2026 17:59:44 -0500 (EST)
+From: "Theodore Ts'o" <tytso@mit.edu>
+To: workflows@vger.kernel.org, ksummit@lists.linux.dev
+Cc: "Theodore Ts'o" <tytso@mit.edu>, linux-doc@vger.kernel.org,
+        linux-kernel@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
+        Shuah Khan <skhan@linuxfoundation.org>,
+        Randy Dunlap <rdunlap@infradead.org>, Mark Brown <broonie@kernel.org>,
+        Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Leon Romanovsky <leon@kernel.org>,
+        Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
+        Thorsten Leemhuis <linux@leemhuis.info>,
+        "Michael S. Tsirkin" <mst@redhat.com>, Kees Cook <kees@kernel.org>,
+        Geert Uytterhoeven <geert@linux-m68k.org>,
+        Dan Carpenter <error27@gmail.com>, Miguel Ojeda <ojeda@kernel.org>,
+        Alexei Starovoitov <alexei.starovoitov@gmail.com>,
+        Julia Lawall <julia.lawall@inria.fr>, SJ Park <sj@kernel.org>,
+        Bradley Morgan <brads@mainlining.org>, Sasha Levin <sashal@kernel.org>,
+        stable@vger.kernel.org
+Subject: [PATCH v5 0/6] agents: add skills for Fixes tags, stable tags, similar bugs, and commit messages
+Date: Wed, 11 Nov 2026 17:59:32 -0500
+Message-ID: <20261111225940.1573565-1-tytso@mit.edu>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,115 +80,58 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D031UWA001.ant.amazon.com (10.13.139.88) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-Nitro Sandboxes introduce the concept of memory donations. In order to
-launch more sandboxes, the parent instance needs to donate some of its
-memory. A device that supports Nitro Sandboxes keeps its slot pool in
-that memory: the descriptors of its slots and the memory the slots run
-on. In preparation to donate that memory, add the commands that donate
-memory for the slot descriptors and the registers that say how much of
-it the device wants.
+This is an update of Sasha's v4 patchset with the following changes:
 
-Signed-off-by: Alexander Graf <graf@amazon.com>
----
- drivers/virt/nitro_enclaves/ne_pci_dev.h | 60 ++++++++++++++++++++++++
- 1 file changed, 60 insertions(+)
+   * Rebased to v7.4-rc2
+   * Removed references to Assisted-by: per the discussion at the
+     Maintainers Summit
+   * Addition of a new skill, writing-kunit-tests which I've been
+     using to add full KUnit test coverage for ext4.
 
-diff --git a/drivers/virt/nitro_enclaves/ne_pci_dev.h b/drivers/virt/nitro_enclaves/ne_pci_dev.h
-index 835413fca8040..e651e74ab656e 100644
---- a/drivers/virt/nitro_enclaves/ne_pci_dev.h
-+++ b/drivers/virt/nitro_enclaves/ne_pci_dev.h
-@@ -95,6 +95,42 @@
-  */
- #define NE_RECV_DATA_SIZE	(240)
- 
-+/**
-+ * DOC: Slot pool registers in the NE PCI device MMIO BAR
-+ */
-+
-+/**
-+ * NE_SLOT_POOL_MAX - (2 bytes) Register reporting the highest number of
-+ *		      slots the device lets the pool grow to, or zero on a
-+ *		      device that needs no donation (Read-Only).
-+ */
-+#define NE_SLOT_POOL_MAX	(0x01f2)
-+
-+/**
-+ * NE_SLOT_POOL_LIMIT - (2 bytes) Register reporting how many slots the
-+ *			pool has room for with the pages donated so far
-+ *			(Read-Only).
-+ */
-+#define NE_SLOT_POOL_LIMIT	(0x01f6)
-+
-+/**
-+ * NE_SLOT_POOL_GRAN_SIZE - (4 bytes) Register reporting the size, in bytes,
-+ *			    of one donation to the pool (Read-Only).
-+ */
-+#define NE_SLOT_POOL_GRAN_SIZE	(0x0200)
-+
-+/**
-+ * NE_SLOT_POOL_GRAN_ALIGN - (4 bytes) Register reporting the alignment a
-+ *			     donation to the pool has to meet (Read-Only).
-+ */
-+#define NE_SLOT_POOL_GRAN_ALIGN	(0x0204)
-+
-+/**
-+ * NE_SLOT_POOL_BASE_SIZE - (4 bytes) Register reporting the size, in bytes,
-+ *			    of the base donation (Read-Only).
-+ */
-+#define NE_SLOT_POOL_BASE_SIZE	(0x0208)
-+
- /**
-  * DOC: MSI-X interrupt vectors
-  */
-@@ -125,6 +161,10 @@
-  * @SLOT_ADD_BULK_VCPUS:	Add a number of vCPUs, not providing CPU ids.
-  * @SLOT_ADD_INFO_PAGE:		Give a slot the info page, a memory region the
-  *				device writes.
-+ * @SLOT_POOL_DONATE:		Donate one page of parent memory to the slot
-+ *				pool.
-+ * @SLOT_POOL_SHUTDOWN:		Give the whole slot pool back.
-+ * @SLOT_POOL_BASE_DONATE:	Donate the base run of the slot pool.
-  * @MAX_CMD:			A gatekeeper for max possible command type.
-  */
- enum ne_pci_dev_cmd_type {
-@@ -142,6 +182,9 @@ enum ne_pci_dev_cmd_type {
- 	SLOT_ADD_BULK_VCPUS	= 11,
- 	/* 12 is a command this driver does not implement. */
- 	SLOT_ADD_INFO_PAGE	= 13,
-+	SLOT_POOL_DONATE	= 16,
-+	SLOT_POOL_SHUTDOWN	= 17,
-+	SLOT_POOL_BASE_DONATE	= 25,
- 	MAX_CMD,
- };
- 
-@@ -284,6 +327,23 @@ struct slot_add_info_page_req {
- 	u64	info_size;
- };
- 
-+/**
-+ * struct slot_pool_donate_req - SLOT_POOL_DONATE and SLOT_POOL_BASE_DONATE
-+ *				 request.
-+ * @paddr:	Physical address of the donated run of pages.
-+ */
-+struct slot_pool_donate_req {
-+	u64	paddr;
-+};
-+
-+/**
-+ * struct slot_pool_shutdown_req - SLOT_POOL_SHUTDOWN request.
-+ * @unused:	In order to avoid weird sizeof edge cases.
-+ */
-+struct slot_pool_shutdown_req {
-+	u8	unused;
-+};
-+
- /**
-  * struct ne_pci_dev_cmd_reply - NE PCI device command reply.
-  *
+I've been using the prompt against Gemini Pro; would appreciate
+comments about how well it works (or doesn't) when used with Claude
+Code.
+
+Sasha, could you consider updating your patch series with this set?
+I'll assume that you will send this to Linus, since the bulk of the
+work is yours.  Thanks!!
+
+              	     	      	      - Ted
+
+v4: https://lore.kernel.org/r/20261020161642.3713052-1-sashal@kernel.org
+v3: https://lore.kernel.org/r/20261016152828.3765695-1-sashal@kernel.org
+v2: https://lore.kernel.org/r/20261012213452.1863248-1-sashal@kernel.org
+v1: https://lore.kernel.org/r/cover.1791499378.git.sashal@kernel.org
+
+
+Sasha Levin (5):
+  agents: add infrastructure for agent resources
+  agents: add a skill to determine Fixes tags
+  agents: add a skill to determine stable tags
+  agents: add a skill to find other instances of a fixed bug
+  agents: add a skill to write commit messages
+
+Theodore Ts'o (1):
+  agents: add a skill to write KUnit tests
+
+ Documentation/process/coding-assistants.rst   |  37 +-
+ MAINTAINERS                                   |   6 +
+ agents/skills/commit-message/SKILL.md         |  45 +++
+ agents/skills/find-fixes/SKILL.md             |  39 ++
+ agents/skills/find-siblings/SKILL.md          |  36 ++
+ .../find-siblings/references/coccinelle.md    |  66 ++++
+ agents/skills/stable-tag/SKILL.md             |  72 ++++
+ agents/skills/writing-kunit-tests/SKILL.md    | 344 ++++++++++++++++++
+ 8 files changed, 642 insertions(+), 3 deletions(-)
+ create mode 100644 agents/skills/commit-message/SKILL.md
+ create mode 100644 agents/skills/find-fixes/SKILL.md
+ create mode 100644 agents/skills/find-siblings/SKILL.md
+ create mode 100644 agents/skills/find-siblings/references/coccinelle.md
+ create mode 100644 agents/skills/stable-tag/SKILL.md
+ create mode 100644 agents/skills/writing-kunit-tests/SKILL.md
+
+base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
 -- 
-2.47.1
+2.53.0
 
