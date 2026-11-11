@@ -1,99 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.48
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.26
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794417186;
-	b=R47kIVEOZn14w37VWQFojjS6ley/Tl+JvvRMPkChddAp5sA6pxYDsJaYLgy5ktXnapj2
-	 n807cXwqpHySd8MnDQ7r11vaBHA/xkLijg1SLfNMkl0HRM65NKiLTidJV4irmuxTpq2fD
-	 d/Izzgwqw6yLy6QMICSLja745HOHvAqyUwV0u4xt/0vfT9ICLRE5yDvGPI8LrXzhtWa0u
-	 xC2ChL+pLQ7xUkQQOXrCnhXe4hX4repbEKRCS15Akzg7pYbIGTeRxbfsTyPcZuSEtbuHV
-	 yR08iv6yU0a8OIUSvm/wZLaXGWwuEr3/uVjc533yFpm+/jgbSJgg8xrs5TG7RFOPB/A==
+	t=1794417219;
+	b=tETykBWLqBCtpW+5QuYLxR7hZOqGuDu1WyUNC6L40XLwamVtdpuiqrO5xDHDTR9tf2P9
+	 DcvdC7rjOsETzoI/1FscS69dML84DmfFf2C3rAw7wqvvmnr3s3aDlG+ltNVx1gBVQS5kW
+	 1MFrlZA07qpfjYKfh3Do8hvhMkSeZXjwEaLT+b5qZ+u2dFsVLjY/BwmkT7n9waNTSeDeq
+	 Fjyrj5QM6p+bHYMfLIjVt2bfuJDXliFswBsEZt9K82BKAu+fth08nhlmxt89QOs0nF1dW
+	 rkibMS3ZRAhY9fMLqMOnDe3tgyP8Q3hlRxPkInAArmOQQIpmZS8Na51opOAXha/zFqw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794417186;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=yQBRHBIhMCpK1GaG4ls2kPSsfswknz2sHPrFZyTAPUc=;
-	b=rlNnnLRnpb0YrfUeyaZOKgUVebSMfZWRmkeRjC+3aQbtFFmPcxQGC30WAmansNcMg3zC
-	 aKJinoP7C+axcDSajCHTWKjX3qu0T49veV752Gb2Uifzom3jsHjgAGdcfHR5y6gTwC4jI
-	 AshoO5FooC6ac56M9aQIIzRkwzVbFfGPQWZCywKOx5ODr5g4cRk+MsHfLTag6hCz/4bWG
-	 CK9zl5X50Q4umYc6zvj0uEXcmE5a6rMgV7YL4WvaNJJOZNvuzWGi4oaMzuOx/TtfCgy1W
-	 qendJKRIcwuBYFZBTcSYoyRZ0eAgFf3vPCfisD4vcJaSxrqaIm7Yevyrw9uFNgJIQSg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794417219;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:Content-Transfer-Encoding:Content-Type:
+	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=JG06NaVvVnvwu7OzMEyIC6gEHaXMxVKLUDfPJ3H8sx8=;
+	b=oYk2AosCDQgulymBWYhCRDyBkbLDi2GPq/oPkcAiMb7e5nbMp+kSG4GDbxMXhW34LnbE
+	 94MIeOjcl5NbXQg9vwwZIyuNNchTtsRl++nvRWdBAB3oyZCvKyjjnjo0CbXuA7/4nQ8wY
+	 sw0HJJCc52oq6JiL9rRQkHngz9G28nM6jAgPvGiHKcYcEpv7qoaqIbrLkV47JirNUXz8J
+	 VjizuBkxKEWFEe5UxhrdYmLCS2r3FB+a2jP1fzQqpqjRdh0ULUwvibBLmD1oUuYxr2vpd
+	 QpfSNCOmdd25ovgewxNtbN2pyvbngF2lWHqGrRgJ/vdcQloBUTQvpN6VXwkfEgwMY4Q==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=awi2vbah;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.48
-Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=dvImE6rk;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.26
+Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010026.outbound.protection.outlook.com [52.101.69.26])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA081606A321
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 17:13:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EA081606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73F77606A336;
+	Wed, 11 Nov 2026 17:13:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73F77606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=awi2vbah
-Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-1a8cc11ac42so3367252c88.0
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 09:13:05 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794417185; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Jo5k8iFfT3pLGh1XOn+SMA/YZhxoqpczEf5T3PynPxQt5Xzk7IO+uiXdM4yv9SBcOg
-         MPqc7A9XL9A20SDOtJ/nSNEOEu7k1nDrEj6ToD6lqcdT/zNKvq2N1ScMoqoa+YdgGGSg
-         YeVheYWLHRJB8A0eHBDxHg/rhlnI9f2PgEkhj0AeeDbNm9mbAqm2Bx+msS2sjehIxgdX
-         z+uyDeobvv3vkO4VnN+qjHDmwH6PQkfK/G0VLMG0k2IO2Gk23KA6tRJY+XRTAVwm+lhx
-         36PQJ1UKvVC7Z7G9LwcDzuk5vJIFXtZX9QlrI/PHtj4uLVD9sq/Kjfmj/V37RnT8Z0CQ
-         YUQg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=yQBRHBIhMCpK1GaG4ls2kPSsfswknz2sHPrFZyTAPUc=;
-        fh=0GfbcuVe6E4bbGhL2KClbiI8esnCkGY8su1+mDjWZrE=;
-        b=TcYhHoGdg04TxS4Hzur+EgBgLSFALghJr7khx2DWeaJUTU6AVHE/96s0qRP1QhEKHi
-         f5DEmJF2B9HEi1E+FvuX3d0fUN5mJglVbEvReyFOzBk8QBwKkGW30wFSazEaEwsBZy4I
-         /D6lmaYsE6D2SDNIRLZblg/hfRfCAGS6IW7u5SaMBxpSgIFJjgjb5YG7HMrPHQblwpKZ
-         95WdNXhFmAofiEnTuElRVp1CyVhk7UfgbZ9ivNekd4WY5RQh8aLZC1GKBVC7pNBk04hf
-         goRFbWA3sk7FQlmxvyjOzrb+anfLORHRYioDD28+GRGy58tyMM+ZK3W8j3YxIoddWMhs
-         cfiw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794417185; x=1795021985; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yQBRHBIhMCpK1GaG4ls2kPSsfswknz2sHPrFZyTAPUc=;
-        b=awi2vbah/fEYbEew3ocu4Kr0L919KYfWpbxLouCV/e615bMYCzISXGeOWYz7B6gePb
-         yQrWkaqFkHFbbuHi627ZaEqgYAFDuBHkx6et7OAGvQgJle0ZWS9wBgndAowm1XcpEduh
-         EwfqcAQGmKXb7jGpzl5h4bazn3z5sTLo8xBGct7Q2R0uHNZZgYJ0zJ0EA718ymD6aNpz
-         JqD2cmqADltIvyO1vM76YMDJ+SLDV8clFlKYzWvTfm/QbwHABYl23F5bifqc5Yf3bzdO
-         AYJ6Ykaa7hj3WHDIukHU3xxBiWHtVWOYCk8qzrGt+iLjDVj8wl5+ca6iFdF7jmTkcGUE
-         dC3A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794417185; x=1795021985;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=yQBRHBIhMCpK1GaG4ls2kPSsfswknz2sHPrFZyTAPUc=;
-        b=1hM1q18LgxWKldzGG+zdrlAH9sFMqprvUPb1zskYo5muYQWdxkaFUI8DKdcRc+0AzZ
-         0Xc9wkZRi5At8Q4FiZLniKwEsVO1cYn8rVVu4m2qp4kLl3BpCVSUJfT4l/VCr3iE8IzP
-         RE65eR7UXy8x5P9M/opw9eQHMZCiG6r7O+VQBTd4BZcZPik/qUnJdORTAGJSAS36QvQA
-         Ar1E3WXRQHjlymKkiVcpRGWxPyGfN6hzIzOKC4ZChWTqc0VIrDYM1qq37siwC11Gh71X
-         xhXNgJLCFO84btuGs0IzINgzDi4Fs4B54ANZOm+6HtDj5SQYxiaCdvrKDT927EyVQ30g
-         L/Lg==
-X-Forwarded-Encrypted: i=1; AL+hErEjHW7z8VUx0KmGm4GlW48P1ffLtAsuMDjQyGgpx5zazBbLnm1aC1Irtl1WecJpfwJij0XnVfBgfDSMX20=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/mcB/zlss0YL3yOzwKrA/KWcs92c4p8tYzsuCmwtGvk7M9H5VZ
-	jG8O3UJr535De9mCyjWsOCtTvfNyA8C2sHbhSIPBI5qTxh/S30lQzXtQH3r1Rs89RYc9Nu8x2GE
-	TpHL1g9DiwcBvK+axCNXsmG6mGimpJOI=
-X-Gm-Gg: AYBFou0pbEZlSyATbmU97GiNL32nPSGGZAN6YYOpHzr/jEWrwsQ3QAhwtlSG36pikRA
-	o8cWV4TtgxIEKGXPofje3bojzzds++Ja7L76M/872dTPZajL8UlTWW+s7Oy/P+lbnq+jPIM8fcQ
-	kK6S4F9Z971PxsJeo7ckq30v+o3274SkMQgrRrN3V7fr8wlGZ/0diPm9R/iFJGeD8U4C0BqBT/I
-	VwVO3h/wicq/SjLBTgdX/B+gGyEVJyluWu/RIGej1Hwn9u/QiWfO1zEC+3JMP0yUG2msWXMuPdJ
-	/Qn8c1iKyt9cUV+8q97tL4wTdUmix+5weAxKDANJKTLgqn9qrYM3OeOeWM0DBYw7TSP04RSU2iw
-	PPfSTYRRfLshLiruL2DlFKvb9lFH02ZyirsNM
-X-Received: by 2002:a05:7022:3a86:b0:1b3:a22e:b74d with SMTP id
- a92af1059eb24-1b3c035d23cmr2829705c88.34.1794417184690; Wed, 11 Nov 2026
- 09:13:04 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=dvImE6rk
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=v2n+PfCExXGkXTrQANJXvYA67TZoQb47eLbP+UNDkDWsKrX0L440cxNZaB9tDOAlDkpsl3n1jUI1PKzUNJhlaokIioiaR0Ih2+JMZqZQxik6v8aaqvuligTkGDfQdTDMwIBKxyADCXRaGjM+bQ0rJhDhlssuKJTuIsJPdh3zzqKlXKVsaiTV8+eDx4UzD7rbsqZP5FqlX83MfvBRfgzytFRLsuXjxtgO3R9hke8jPQb0VOb0AZ6h2aO5PFVzXu4xvVz3iXCNddfNG2CptlDbAnpuCk8bcLlmG1HIaWUSYl6htJdRNwiWKpJjTl1UL6w00XX44IFG53jcIpBQm4KO5A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=JG06NaVvVnvwu7OzMEyIC6gEHaXMxVKLUDfPJ3H8sx8=;
+ b=d6hEtWYRdXGOMYWolojLoXSrx9iM8wtxfNh3fveeITy5ywkn89LfvwYyMgxTOUoXBUNw/Och1/Zf3gvqU8z+JC1AFYnQurIjvt/Dl8iYqC69jXBSbBpsi+BHpOmtI8X5GyMYdYR8UfftWMFw/PkcdiPPy942tK2UOakvkmutpElpHKcHMeVW5vF74iSME3+g8p623vrF+54RHqctXfezbqhYGgGLer+h6/yFIlK54PIM34wXUwzXOI4nenTNpM9q4BZYa3UyBk5Ow43hiy0Uwn2ISw48jXOI+gnWME3Kx03YzPGk59VTPWAKuGN07QNWIze92Y59nZNgbH2KriFH4A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=JG06NaVvVnvwu7OzMEyIC6gEHaXMxVKLUDfPJ3H8sx8=;
+ b=dvImE6rktwTDfqnsXliZL5kgoK8ksrntt/TFwXH1Ux4TJKlqTy6fzstt99aYRhrWVvtpRyFZgh0E/Es6NRtenlJoMCdoPey1XJdYLk+IgYvKTqDrS9FrmB5/8uRbUnrJzaPyo30D/fS4Sh7ebg5AcP2X1O42cRvOuv3Tw16JH6s9nerYfWVa5K7DhyeLBOWcG+mwgHOts4Rd90CABsumd1lJUrdmPQbaHO6P8xpjzAEsNI09jZlkMS3XyhH2L+asxsoJD2V0vGFIF0OQ2def00fILwfhIbE2wKbHjJIQbr9qtRTnCKYIcS5U096JXLwT7CAgWDAJV3AMsvqRfExVAg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by VI0PR04MB10298.eurprd04.prod.outlook.com (2603:10a6:800:21b::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Wed, 11 Nov
+ 2026 17:13:34 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0615.007; Wed, 11 Nov 2026
+ 17:13:34 +0000
+From: Frank.Li@oss.nxp.com
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Michal Simek <michal.simek@amd.com>,
+	linux-media@vger.kernel.org (open list:XILINX VIDEO IP CORES),
+	linux-arm-kernel@lists.infradead.org (moderated list:ARM/ZYNQ ARCHITECTURE),
+	linux-kernel@vger.kernel.org (open list)
+Cc: imx@lists.linux.dev,
+	vkoul@kernel.org,
+	Frank Li <Frank.Li@nxp.com>
+Subject: [PATCH 1/1] media: xilinx: Use dmaengine_get_copy_align() accessor
+Date: Wed, 11 Nov 2026 12:13:24 -0500
+Message-ID: <20261111171325.3424645-1-Frank.Li@oss.nxp.com>
+X-Mailer: git-send-email 2.43.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: PH8PR15CA0007.namprd15.prod.outlook.com
+ (2603:10b6:510:2d2::10) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,83 +100,86 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261110-legion-lighting-rfc-v2-0-845726afb71c@gmail.com>
- <20261110-legion-lighting-rfc-v2-2-845726afb71c@gmail.com> <9002537db845b7a0a900612fe3a4a3638f06cd37.camel@rong.moe>
-In-Reply-To: <9002537db845b7a0a900612fe3a4a3638f06cd37.camel@rong.moe>
-From: Ciro Pedrini <ciro.pedrini@gmail.com>
-Date: Wed, 11 Nov 2026 14:12:53 -0300
-X-Gm-Features: AclHuK_9AFdIKIxS-VE0HiqvOtlNnIyPwpjp_Fu-O7VtOD5InbSvkib5r35zrYc
-Message-ID: <CAPKD0HfHuv4vKWeff_uhGxXosuU279qB+kkmXNPXJYL2kxFR2w@mail.gmail.com>
-Subject: Re: [PATCH v2 2/2] HID: lenovo-legion: Add keyboard backlight driver
- for Legion Gen 10
-To: Rong Zhang <i@rong.moe>
-Cc: Mark Pearson <mpearson-lenovo@squebb.ca>, "Derek J. Clark" <derekjohn.clark@gmail.com>, 
-	Ike Panhc <ikepanhc@gmail.com>, Hans de Goede <hansg@kernel.org>, 
-	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
-	Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>, 
-	Werner Sembach <wse@tuxedocomputers.com>, Aaron Erhardt <aer@tuxedocomputers.com>, 
-	platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-input@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|VI0PR04MB10298:EE_
+X-MS-Office365-Filtering-Correlation-Id: 70afd9d3-c8d7-493f-b89a-08df40171e5e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|23010399003|366016|19092799006|261009223027099003|10067099003|261021123027099003|261102123227099003|261021121427099003|56012099006|11063799006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	fQ/tquZcF9hqzB+U4OIrOYI32gmd0wyyvpzxjOAMQKQKN2SZU8Qs1Yx8g1hiRpN5Szt6dwQ8AizsI+Kirp3t9S38WjXrnYrhZd1/Mv+Mq+c0HxrZ+nJMdL5KoNITwNIA39xYTnt7ivnXf3xAgvzufla1vNOTRgVvtNr5kT413VPgCZMYv6XnwCZ84SoGnJE4gVMc+jKjD3QbPwCP8KU0aUtJpvgKuC2erF0kAP1vfjce4se6Ot7jqlWgvw7pdgb1yZgMU97kB+F3mu30VBANVh4+pgF9wiRjfrjJjL0eTbiPzNQFZpH374s8KNKA1XWLky9LaD2Kf2ZTEc9jofOyoSttyrsUSLrIBcSYkPTpvv05IlcGXIQQ6v1YZh9jdO16xqw4zpYkGq/xa1QtpgyiLXC4J5hI5EECqm+vvr9uWFLt2qvcfRt2Wl+xcLxaGMJ1mLhg5XFoM2nUkXgmJy1cDf/nFjxrDxC8QWsV3kUPPZSvWw1xulH2YbDV/H3vqLiWq1rPoG37AteLL14/zaIOMZhW7A8apZ4meFaJgP3L8uiuDInA4ZmpxlPQmPlnQ7AG328yt4A0DF5QlGugT6PH+wPnte/dJRBNLIZBaLRb7INf0NES/E5He/ijPXzo1LOmcxOpoBDe3KZ5vVJ9YPeCUdUz3IYf4ltmSlTeDFwguAQ=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(23010399003)(366016)(19092799006)(261009223027099003)(10067099003)(261021123027099003)(261102123227099003)(261021121427099003)(56012099006)(11063799006)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?l2cylP7gauOmKMV41ObLiYTUZvBwlfnk2+Ex6lWD75Ta6VAL+7IYj5lAQb+/?=
+ =?us-ascii?Q?GNRsC4noVdcF6QjPDW6Ly4L7jO4Y1Xir6WA8fKwicy7BSCXFIi+L7Q+He/F0?=
+ =?us-ascii?Q?SdSaDONFr6RW5GuDuYKAINUV5k5adTZrzHoOykOOqVEyhJw7ZfUbXakj+ROU?=
+ =?us-ascii?Q?R4Vtue/60VUREz6aVRoV38VHQ/j/M9VA0B3jSdGpVTiVZQbGww3ghNGHDyNH?=
+ =?us-ascii?Q?86B38KcMEvIUKSLgFA27gDLeCvaTtiK1NS606I0UPPcsxthjwkIPnd8fpaLz?=
+ =?us-ascii?Q?ypb/efIeFa5ycJfvE697uJyrMgIOen2aSzMr9X5x2wY15cBdepUXLLNsmuX4?=
+ =?us-ascii?Q?gcg7UoV3pluyLKXFAO/sJ5aguoyptSkLH1tw2y98lqDDCxargjGVzv3YNcMl?=
+ =?us-ascii?Q?uswF7r0RNBvTo72kins0gBZg0cqIwHz1XmxEuXnShdRv5vrkkv9+M2a/IeJP?=
+ =?us-ascii?Q?Dy+qXupdQTiwJdw/iRAPV4IgsDb3QHc5lxVjcvomw4goTz2a8oQHayfeDp5a?=
+ =?us-ascii?Q?+UNb5D021MibOXqffVVf56UvtSYoyGvZcuWR+yxc5scstEwsF0VMFfxuIK2k?=
+ =?us-ascii?Q?zNNrMcfqmq+fsQjOnM2uacoUTdouJMbZ94IkuC1BAPrVMHKkzO3H7SzoUrUO?=
+ =?us-ascii?Q?3dCgRvMSrkohQa6rwdBg5/EI+u0aQr3Or43drIwywT239oKM04UtcgrDFgxX?=
+ =?us-ascii?Q?8GF2lypwefWFBIVXI9+mCS5hSnD1pJ1aWBlJVd2jWF+jRb+nQOcJlxXVp8ed?=
+ =?us-ascii?Q?gpzmehweWWGInIicvdw+pLNpaDq3B1/sO6vI1uIwL54ybLu+2MmGsUhiLQu/?=
+ =?us-ascii?Q?Jq5xheiU8rHAw98zVhKk85WqLpJQzcdFvuXPvxlVgOzgjYpwH96BmeSx0Whi?=
+ =?us-ascii?Q?H2HD1ZZ+t7CiNNhmIZD420qCkNruNyIPvh5/2r93hiunTN0UhYrrY4UhRYxt?=
+ =?us-ascii?Q?RoK5CkcxusGhqWPGpwHn/T3e5PWv5FkEDcSSJGXyybrkrXzVsvTw8foGq1HV?=
+ =?us-ascii?Q?eOoQjhYj/bGuLG1MUQJVTwXJEWCKJ/G1divR49VevuRHTZ19tVONHYXiCNqY?=
+ =?us-ascii?Q?ggIkzLuSZP1P79yLGBy60tBV+rQGI4h/j45CFkroA2fXGGzEd8USJYayBeLk?=
+ =?us-ascii?Q?BKs9tfaJq+kul8+nfaVGlgSa93BVDQ8PizeumimaCOH2CiXOPxKYGO335lAZ?=
+ =?us-ascii?Q?4xkKEDA3MQeDIcynp5tHyRf0VmCu5/mN6PLwxXG55g6jTuUB+VsEbbMgnRNs?=
+ =?us-ascii?Q?igVazCxo/MlWWC1S23ph1509UXbQrfOqILUOIHFncpxM+ob5zskJlZuFKMCq?=
+ =?us-ascii?Q?Js/KBSbUjAYakNQdR8eMEswwiNHtBnLFoIU7/zgz9aT37kVmRIhh1l6SBYpH?=
+ =?us-ascii?Q?Fg84yF6RdnpBeksVL5jTyXuJsA1Dn2OH2SQ1ojUkJLmCWYC9snkhVp1ALKNM?=
+ =?us-ascii?Q?MTVqYH+gCMRAeY1X+gN7SJvEPqxmENcWRXiFQKxZvdelLlIQ5TioFpqc6men?=
+ =?us-ascii?Q?OaSPYEsvIZJrgLdAWM9funH5Pr1STmXXHjJ5BlymAqtd7aEeMjQaCGjp6mkC?=
+ =?us-ascii?Q?5cefIOanZ7ev5eKYWXbK0wbieZGmPl0lR5K7+MdXBTjPWiRkogmXg8Xezzmj?=
+ =?us-ascii?Q?cXwsnTj/wa+yaINmEil4BiqisTfXuDLQEX2anorEPN7oKktHBmOBc8kmdcGu?=
+ =?us-ascii?Q?foZTXlNFI10UMJU7CWUQrEzLjrS3yeoMgfrrwBOrH4f+WPRt2Ti40dlPMMgQ?=
+ =?us-ascii?Q?uZcbMHzFk/1iw8w4UlmGcFKYhX+6qGvBwLV7y8ii/brGVAnz2tPA?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 70afd9d3-c8d7-493f-b89a-08df40171e5e
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 17:13:34.8528
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 4LxbEHmOfgvg81mW0u7M3dcOAL/5963ShTkwfp6RnnN43yvzyVnroJPhCwvO+UGRHo9qEWlndb1tuV/jWnjmvHPNlv8UJPDYg8IIKoF6Rmt4YaibjutfMdKicXjrArNs
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR04MB10298
 
-Hi Rong,
+From: Frank Li <Frank.Li@nxp.com>
 
-Thanks for the review. I'll fix the rest in v3, but before I go on with
-it I would like to hear from you on these.
+Replace direct access to dma->dma->device->copy_align with the
+dmaengine_get_copy_align() accessor function.
 
-On Wed, 2026-11-11 at 20:09 +0800, Rong Zhang wrote:
-> On Tue, 2026-11-10 at 20:29 +0000, Ciro Pedrini via B4 Relay wrote:
-> > Its hardware brightness, 0..9, is stored in the controller and applies to
-> > every LED of the machine (keys, front strip, rear vents, lid logo).
->
-> I don't know if it's appropriate to represent so many things with the
-> name "legion::kbd_backlight".
+Prepare move struct dma_device to private.
 
-I gave splitting it some thought, and looked (with the help of an LLM)
-at how other drivers handle this. We could register one LED per zone,
-but that seems to be usually rejected, because they would not be
-independent: the controller has a single brightness for all zones, so
-writing any of them would change all of them.
+Signed-off-by: Frank Li <Frank.Li@nxp.com>
+---
+ drivers/media/platform/xilinx/xilinx-dma.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Per-zone control is only possible through the LampArray (c193). It has
-319 lamps, each with its own colour, and they are grouped by zone (keys,
-front strip, rear vents, lid logo), so a LampArray driver could light
-or dim each zone on its own. That needs c197 to hand the LEDs over
-first, as discussed in the other thread.
+diff --git a/drivers/media/platform/xilinx/xilinx-dma.c b/drivers/media/platform/xilinx/xilinx-dma.c
+index ece2116639fc0..e01bb40bc39c7 100644
+--- a/drivers/media/platform/xilinx/xilinx-dma.c
++++ b/drivers/media/platform/xilinx/xilinx-dma.c
+@@ -710,7 +710,7 @@ int xvip_dma_init(struct xvip_composite_device *xdev, struct xvip_dma *dma,
+ 		goto error;
+ 	}
+ 
+-	dma->align = 1 << dma->dma->device->copy_align;
++	dma->align = 1 << dmaengine_get_copy_align(dma->dma);
+ 
+ 	ret = video_register_device(&dma->video, VFL_TYPE_VIDEO, -1);
+ 	if (ret < 0) {
+-- 
+2.43.0
 
-Also, going with kbd_backlight seems like a good idea so that UPower
-and the desktops pick it up automatically.
-
-Thoughts? I'd like a confirmation from someone who knows how this is
-usually handled in Linux, as I don't have much experience with it.
-
-> Just curious, can the software select which effect to use, or listen to
-> an event when Fn+Space is pressed?
-
-Yes. 0xCA reads the current effect and 0xC8 sets it. On Fn+Space the
-controller sends report 5 as 05 01 P (P = the new effect), then
-05 02 B (B = the brightness).
-
-> I wonder, what if we set the report with a short report size, say,
-> struct_size(msg, params, len)? Could the device handle it properly in
-> this case? If so, there is a chance that we don't need to sleep for 100ms
-> later (I guess the device is processing too much data, causing the
-> massive delay).
-
-You were right. I tried it on the laptop: it takes the short request,
-and it only ever answers 5 bytes anyway, even when asked for 960. The
-answer is there right away, I read it with delays from 100 ms down to 0
-and it was always correct. So a brightness read goes from ~115 ms to
-~2 ms.
-
-Setting the brightness with a short request works too, and reading it
-right after returns the new value.
-
-In v3 I'll send and read short reports and drop the msleep().
-
-> Ditto, what if we get the report with struct_size(msg, params, 1)?
-
-Same, that works.
-
-Thanks,
-Ciro
