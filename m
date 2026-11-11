@@ -1,74 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.27
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.220
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794397267;
-	b=yYbe2cvMpPyhTv4S2JtDROT46p2tNmkeJZfLsWMEMlNfXolH3Ya/DpuIM+rk1FS8Gd5t
-	 xn2Jy9nuMvDJ3W+phAyb4aY63g/7TUoxC+MRNrfETgnTECDzP4P3mgHTd/wex29olTvfc
-	 yx52QmlTxQjZ8KNysde31ma2Lt3jhr/FQMR4/F1YQvWLDdlFIwz3fkB7Usyq0Hmnx/nRF
-	 9BJ/KFdxSamsjTpG0wJXj+D513kP1EvuJNwQw/QyzEkEYMj383enj1g0AAb2OgDw4bTO/
-	 EcjHMi0AAA9Vxbjdc6niik/OzB8sOR771tMjM6uoN8Ilc9KgAS9ApENaGjwqZPLsq6A==
+	t=1794397376;
+	b=040qFS9Rj5aiv3ydDBuZW2fkF6/WWCnpflid6qSkUQ7qQnpGB/WMTnmtSBFgSWjeACIJ
+	 Z2rXz7jt1UEEQrK2uH+8GQYBWfsWdci+bOYuILn5rc6LpvGefuC5/MVmVGA0PHM3MgjJV
+	 cWYJ+7jkNuplxJdVp0v5GWKMUnSknz7m185CiKu0RV1mGtArt+yI89Sieymvkg89LwLSo
+	 IOGIwq4OJTUmwjG+j2RLI3jxEeHTt4W6uoonoq3YbdMihZKZDE58/sPXv9KBGD2/dWX7x
+	 3rulmv3xexENI7cQ567roobHwiLIlRBDsegxJRlvTGHNvdppiVWiWi8Fhcng2piWlJw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794397267;
-	h=DMARC-Filter:DKIM-Signature:Date:Content-Type:Cc:Subject:Message-Id:
-	 Content-Language:X-Original-From:To:From:References:Mime-Version:
-	 User-Agent:In-Reply-To:Received:X-Lms-Return-Path:
-	 Content-Transfer-Encoding;
-	bh=zVvZBV6suQrnzsiHL0fsmvRL+1EnY1VOLR3pQOW7cuk=;
-	b=eCDYs75O795UYLWoNeojBiYirt5D/V4ecUANvyhFuqgjzzbvJasbzcV919QY2OA1TP6a
-	 1opSstfp/q7v1V/nQqPjwIGZ/v79fE2rzPmVJSSO3BvFfpPcBjeBe5ZaUNFP8zfGya6zd
-	 HLKx8rUTBZtA1Uw+wgMxem1PwOvICnhU5+ldHgup877rfZIJLsrANm+L9VWWxoQOA5Hel
-	 SovAQ8qnxyJ3F83+v7ySDlS+F1hk2XtzjOY/d8k1d0fvJ+QGU1N5HaCRGvoJPghHIP8HO
-	 pqprETVVKmqah1Gb3ljiWcu/bP98uur+UNT0G54QJulDcnbqHsxZVBp1xEsQfLwFuZg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794397376;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=Xj8fMjIKXX9i2bKCDMf6EtuAPDwrGhq+CYl2rUVihFw=;
+	b=ojp60CmDC2/YoknYKRhgU3RY3VZ71R/W1sphH8y9NTcL/IeHZuMUEmKpc5jFnbfsAWYF
+	 xebB56kF8xrBin0771SiuFTOmONA0tKHg/QFzW38va2XyvNbC3426I3MvdDgHS0hANEDF
+	 JjvwWlD2w3Hsa6URBPTiqOOzU8JePzXLnawKmuvhUCAfl62h6Xs9WE5PCuwdVRQ7VcZe1
+	 mdM2dIdwwvFG7ju1eMnLIDPFmssjn4S7UtjBMVmnPw8SAE8J76l+BtneY0S1K2BnEgOva
+	 unkDNP/pO/SvzY/UCeGSxv4G0BK6CWJVHFke5AwgP88EP0qgw4N+pkMMTCq8hnJWScA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=picoheart.com;
-	spf=pass smtp.mailfrom=picoheart.com;
-	dkim=pass header.d=picoheart.com header.i=@picoheart.com header.a=rsa-sha256 header.s=feishu2604151535 header.b=QGBSj5SW;
-	arc=none smtp.remote-ip=209.127.231.27
-Received: from va-2-27.ptr.blmpb.com (va-2-27.ptr.blmpb.com [209.127.231.27])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=RQzlaW2h;
+	arc=none smtp.remote-ip=113.46.200.220
+Received: from canpmsgout05.his.huawei.com (canpmsgout05.his.huawei.com [113.46.200.220])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B66B606A324
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 11:41:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B66B606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=picoheart.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=picoheart.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82846606A31C;
+	Wed, 11 Nov 2026 11:42:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 82846606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=picoheart.com header.i=@picoheart.com header.a=rsa-sha256 header.s=feishu2604151535 header.b=QGBSj5SW
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=feishu2604151535; d=picoheart.com; t=1794397260; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=zVvZBV6suQrnzsiHL0fsmvRL+1EnY1VOLR3pQOW7cuk=;
- b=QGBSj5SWW/tNmQGgEVryANpsNR7fxnlSkJ0jMqrnww6f8/65uQub60tFUdOqVqUU7Rx4ai
- 1u59gmjC+EZq7ctngGnHTsST3aCVaEuFhy0jQw+CvoU7MAZSJ+LG7HZ+GjVk+exJhoteaH
- yXnI5MCNR4Yf+w3z3+9I+XQ+VkMu60Wyc2VucAVELwKGCpwRgaoRDxosIksEhGlLbo6Rmm
- k+lcgKQ3vDbWI2i3jD1CtKKEfi62TkZts1a2Wn2j7a+mocWKtGPbCf6Fc8E8vmAbCM23s9
- 34VKoZAsGmzDcb6TPvWeq+5O8D1PX5rYAox/8mObW13TXKlLB0uPXbmxKHYaqA==
-Date: Wed, 11 Nov 2026 19:40:55 +0800
-Content-Type: text/plain; charset=UTF-8
-Cc: <yang.yicong@picoheart.com>, "Palmer Dabbelt" <palmer@dabbelt.com>, 
-	"Paul Walmsley" <paul.walmsley@sifive.com>, 
-	"Alexandre Ghiti" <alex@ghiti.fr>, "Len Brown" <lenb@kernel.org>, 
-	"Atish Patra" <atish.patra@linux.dev>, 
-	"Anup Patel" <anup@brainfault.org>, "Will Deacon" <will@kernel.org>, 
-	"Mark Rutland" <mark.rutland@arm.com>, <linux-acpi@vger.kernel.org>, 
-	<linux-riscv@lists.infradead.org>, <linux-kernel@vger.kernel.org>, 
-	"Anup Patel" <apatel@ventanamicro.com>, 
-	"Sunil V L" <sunilvl@ventanamicro.com>, 
-	"Andrew Jones" <ajones@ventanamicro.com>, 
-	"Atish Patra" <atishp@rivosinc.com>, "Nutty Liu" <nutty.liu@hotmail.com>, 
-	"Yunhui Cui" <cuiyunhui@bytedance.com>, 
-	"Yuanzhu" <yuanzhu@bytedance.com>
-Subject: Re: [PATCH v7 1/1] RISC-V: Add common csr_read_num() and csr_write_num() functions
-Message-Id: <a767f8c1-a568-42bf-8dd2-0b05d32686ec@picoheart.com>
-Content-Language: en-US
-X-Original-From: Yicong Yang <yang.yicong@picoheart.com>
-To: "Zhanpeng Zhang" <zhangzhanpeng.jasper@bytedance.com>, 
-	"Anup Patel" <anup.patel@oss.qualcomm.com>, 
-	"Sunil V L" <sunilvl@oss.qualcomm.com>, 
-	"Rafael J . Wysocki" <rafael@kernel.org>
-From: "Yicong Yang" <yang.yicong@picoheart.com>
-References: <20261104161512.883885-1-anup.patel@oss.qualcomm.com> <20261104161512.883885-2-anup.patel@oss.qualcomm.com> <CACnXVnfFWF8h+o0=nSb9JESOxYsdVMO+BJKMT7t=K=XVgVwx2g@mail.gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=RQzlaW2h
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=Xj8fMjIKXX9i2bKCDMf6EtuAPDwrGhq+CYl2rUVihFw=;
+	b=RQzlaW2hQLtJ2ZaZBg5Y3HVhBFgurlIwjp+UDZjzbeMzvFOk/xoYw/ZrMJ1P3+0Ivgpv4NoIw
+	TfruNSdzB+Zj606wYKpKkwa5xqR8VCxmCxXEHloPXSLhRJSKzJmUp/ebLHdIk/XOxPSXJ1gslxF
+	G5GSkJSALbeg2EPg6Gbdrms=
+Received: from mail.maildlp.com (unknown [172.19.162.140])
+	by canpmsgout05.his.huawei.com (SkyGuard) with ESMTPS id 4jPhTr6NdHz12LFg;
+	Wed, 11 Nov 2026 19:42:56 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id EB6F9202E6;
+	Wed, 11 Nov 2026 19:42:51 +0800 (CST)
+Received: from huawei.com (10.90.53.73) by kwepemk200008.china.huawei.com
+ (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 11 Nov
+ 2026 19:42:51 +0800
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+To: <catalin.marinas@arm.com>, <will@kernel.org>, <mark.rutland@arm.com>,
+	<oleg@redhat.com>, <shuah@kernel.org>, <kees@kernel.org>,
+	<luto@amacapital.net>, <wad@chromium.org>, <peterz@infradead.org>,
+	<ada.coupriediaz@arm.com>, <linusw@kernel.org>, <kevin.brodsky@arm.com>,
+	<anshuman.khandual@arm.com>, <thuth@redhat.com>, <james.morse@arm.com>,
+	<yeoreum.yun@arm.com>, <vladimir.murzin@arm.com>, <broonie@kernel.org>,
+	<ryan.roberts@arm.com>, <liqiang01@kylinos.cn>,
+	<mathieu.desnoyers@efficios.com>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-kernel@vger.kernel.org>, <linux-kselftest@vger.kernel.org>
+CC: <ruanjinjie@huawei.com>
+Subject: [PATCH v21 01/15] arm64: ptrace: Fix spurious pseudo-single-step for PTRACE_SYSEMU_SINGLESTEP
+Date: Wed, 11 Nov 2026 19:42:11 +0800
+Message-ID: <20261111114225.3977243-2-ruanjinjie@huawei.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261111114225.3977243-1-ruanjinjie@huawei.com>
+References: <20261111114225.3977243-1-ruanjinjie@huawei.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,85 +76,94 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-User-Agent: Mozilla Thunderbird
-In-Reply-To: <CACnXVnfFWF8h+o0=nSb9JESOxYsdVMO+BJKMT7t=K=XVgVwx2g@mail.gmail.com>
-Received: from [100.86.214.79] ([58.250.106.117]) by smtp.feishu.cn with ESMTPS; Wed, 11 Nov 2026 19:40:57 +0800
-X-Lms-Return-Path: <lba+26af4544a+338c87+vger.kernel.org+yang.yicong@picoheart.com>
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems500001.china.huawei.com (7.221.188.70) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
-On 11/11/26 5:15 PM, Zhanpeng Zhang wrote:
-> Hi Anup,
-> 
-> On 11/5/26 12:15 AM, Anup Patel wrote:
->> From: Anup Patel <apatel@ventanamicro.com>
->>
->> In RISC-V, there is no CSR read/write instruction which takes CSR
->> number via register so add common csr_read_num() and csr_write_num()
->> functions which allow accessing certain CSRs by passing CSR number
->> as parameter. These common functions will be first used by the
->> ACPI CPPC driver and RISC-V PMU driver.
->>
->> Also, the RISC-V ACPI FFH specification allows arbitrary CSR number
->> as CPPC register and the RISC-V SBI specification allows arbitrary
->> CSR number as PMU hardware counter. This means ACPI CPPC driver and
->> RISC-V PMU driver no longer need to do sanity checks on CSR number
->> which are now done by the common csr_read_num() and csr_write_num()
->> functions.
->>
->> Signed-off-by: Anup Patel <apatel@ventanamicro.com>
->> Reviewed-by: Sunil V L <sunilvl@ventanamicro.com>
->> Reviewed-by: Andrew Jones <ajones@ventanamicro.com>
->> Reviewed-by: Atish Patra <atishp@rivosinc.com>
->> Reviewed-by: Nutty Liu <nutty.liu@hotmail.com>
->> ---
->>   arch/riscv/include/asm/csr.h |   3 +
->>   arch/riscv/kernel/Makefile   |   1 +
->>   arch/riscv/kernel/csr.c      | 165 +++++++++++++++++++++++++++++++++++
->>   drivers/acpi/riscv/cppc.c    |  17 ++--
->>   drivers/perf/riscv_pmu.c     |  54 ++----------
->>   5 files changed, 184 insertions(+), 56 deletions(-)
->>   create mode 100644 arch/riscv/kernel/csr.c
->>
->> diff --git a/arch/riscv/include/asm/csr.h b/arch/riscv/include/asm/csr.h
->> index 621f84d1898f..ebd82043430b 100644
->> --- a/arch/riscv/include/asm/csr.h
->> +++ b/arch/riscv/include/asm/csr.h
->>
->> [...]
->>   /*
->>    * Read the CSR of a corresponding counter.
->>    */
->>   unsigned long riscv_pmu_ctr_read_csr(unsigned long csr)
->>   {
->> -	if (csr < CSR_CYCLE || csr > CSR_HPMCOUNTER31H ||
->> -	   (csr > CSR_HPMCOUNTER31 && csr < CSR_CYCLEH)) {
-> 
-> 
-> Could we keep the existing CSR range check in riscv_pmu_ctr_read_csr()
-> when switching it to csr_read_num()?
-> 
-> The SBI PMU driver still assumes the architectural counter layout. For
-> example, if SBI assigns an event to a custom counter at CSR 0x800,
-> pmu_sbi_csr_index() truncates 0x800 - CSR_CYCLE to zero. The perf mmap
-> page then advertises index 1, so userspace reads cycle while the kernel
-> reads 0x800. The same index is used to set and clear scounteren.
+PTRACE_SYSEMU_SINGLESTEP sets both _TIF_SYSCALL_EMU and _TIF_SINGLESTEP.
+Since commit ac2081cdc4d99 ("arm64: ptrace: Consistently use
+pseudo-singlestep exceptions"), syscall_trace_exit() injects a
+pseudo-single-step SIGTRAP (si_code SI_USER) whenever _TIF_SINGLESTEP is
+set, including for an emulated system call.
 
-I think it's an existing problem that current SBI PMU doesn't support
-custom counters, but only rejects the custom counters in riscv_pmu_ctr_read_csr().
-the index truncation and scounteren issue should still exist even if we
-add back the check in riscv_pmu_ctr_read_csr().
+That pseudo-step was added for PTRACE_SINGLESTEP: the system call runs,
+and the tracer must get a stop at the return address to inspect the
+result. An emulated system call does not run, and its syscall-enter-stop
+already reports the SVC, as the x86 implementation and generic entry
+(report_single_step()) both say. The extra stop is wrong:
 
-but you're right that remove the check here changes the existing
-behaviour and should be retained.
+1) Stepping armed before the SVC (the normal case). The SVC exception
+   leaves the step pending (SPSR_EL1.SS is 0, Arm ARM D2.11.5.1), so the
+   hardware step is taken at the return address anyway, and the tracer
+   now stops there twice without the tracee executing anything:
 
-thanks.
+	syscall-enter-stop  pc=L
+	pseudo-step         pc=L    si_code=SI_USER  <- added by that commit
+	hardware step       pc=L    si_code=TRAP_TRACE
+	hardware step       pc=L+4
 
-> 
-> Non-snapshot overflow handling and RV32 high-half reads also assume the
-> architectural layout. Could we keep the PMU conversion
-> behavior-preserving and handle custom counters separately?
-> 
->> [...]
-> Thanks,
-> Zhanpeng
+2) Stepping armed after the SVC, e.g. a tracer resuming a
+   PTRACE_EVENT_SECCOMP stop with PTRACE_SYSEMU_SINGLESTEP. The first
+   stop is the pseudo-step at L, so the instruction at L is not
+   executed before the step is reported. Before that commit, and on
+   x86, the first stop follows the instruction at L.
+
+Skip the pseudo-step when _TIF_SYSCALL_EMU is set, as generic entry
+does. The behaviour of PTRACE_SYSEMU_SINGLESTEP goes back to what it was
+before that commit. PTRACE_SINGLESTEP is unaffected and still gets the
+pseudo-step, so both problems fixed by that commit stay fixed.
+
+Only tracers using PTRACE_SYSEMU_SINGLESTEP see the difference. Measured
+in QEMU, L is the instruction after the SVC:
+
+  case          before that commit   v7.4-rc1      this patch
+  normal        L, L+4               L, L, L+4     L, L+4
+  after seccomp L+4                  L             L+4
+
+Fixes: ac2081cdc4d99 ("arm64: ptrace: Consistently use pseudo-singlestep exceptions")
+Cc: Mark Rutland <mark.rutland@arm.com>
+Cc: Will Deacon <will@kernel.org>
+Cc: Catalin Marinas <catalin.marinas@arm.com>
+Cc: Oleg Nesterov <oleg@redhat.com>
+Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+---
+ arch/arm64/kernel/ptrace.c | 12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
+
+diff --git a/arch/arm64/kernel/ptrace.c b/arch/arm64/kernel/ptrace.c
+index 7405c76724bf..4baf04f20e67 100644
+--- a/arch/arm64/kernel/ptrace.c
++++ b/arch/arm64/kernel/ptrace.c
+@@ -2482,16 +2482,26 @@ int syscall_trace_enter(struct pt_regs *regs)
+ 	return regs->syscallno;
+ }
+ 
++static inline bool report_single_step(unsigned long flags)
++{
++	if (flags & _TIF_SYSCALL_EMU)
++		return false;
++
++	return flags & _TIF_SINGLESTEP;
++}
++
+ void syscall_trace_exit(struct pt_regs *regs)
+ {
+ 	unsigned long flags = read_thread_flags();
++	bool step;
+ 
+ 	audit_syscall_exit(regs);
+ 
+ 	if (flags & _TIF_SYSCALL_TRACEPOINT)
+ 		trace_sys_exit(regs, syscall_get_return_value(current, regs));
+ 
+-	if (flags & (_TIF_SYSCALL_TRACE | _TIF_SINGLESTEP))
++	step = report_single_step(flags);
++	if (step || flags & _TIF_SYSCALL_TRACE)
+ 		report_syscall_exit(regs);
+ 
+ 	rseq_syscall(regs);
+-- 
+2.34.1
+
