@@ -1,123 +1,123 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794400676;
-	b=Ih3B6ZSikWD4vPRl2ZSC1RG8b6jGK+Vnp+Ry52xGkXivPNpEd7c+SYvA+9uF0PHBX7Oc
-	 JxLDuYmAI/hzDziIOpWnSKvdJeLt5OS6mcURE4JWOSypNqxPxmXyDvvqHvn2eanHuFwT/
-	 h3ILlcgB6wrn8q3S9DQSkive8Wk+I42paIxCyXH+vIlPi/IBL0AL+EGqVZIiqwycLrItb
-	 ym25ri//E3A3x/caPpOtUYxPOWvzxPNqHjU53EYXG9LS4590TSv8otLmL06d/ZM099BLV
-	 6NLp8vTCKQUxaLpupZx4+HIeW5dVgpkCTRhyaEOmF7TjKhjyHlbKKKQysfj/NStjaww==
+	t=1794400683;
+	b=w39D1PKxoCIQDuq64kEgPQ0vzfaGXzyLXForoGIWXFjlLYE12bjoLaI/lAkdzmQmlM9x
+	 ZdZUPUuvIFUG44veUw/XX7HF6dVGbQaeg5WUgicY6xUe9jjAFlTLWUBVPHMtUIXjtfGSW
+	 VBFBU7MhjJ4V47haJeQ14xSMjIKLjElDoxPVSFevx/06fUpyK1Fm+N3nQlI+DrFLDkmYm
+	 gE1IL/HUaafB4mDyRpLQ5rtNW5bjsSMm8cAK2MKOGW2Tpc0RERIH/BhEiSi/wpomdEYSb
+	 jU1mJEqQXLOTSJ6aeRAB0eMuHF1+NZ/mpdcFo+yZIpmQ7jdwK9c0XI/6oEha8TbfrMg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794400676;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794400683;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
 	 References:In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
-	 Cc:Content-Type:Content-Transfer-Encoding:X-Authority-Analysis:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 Cc:Content-Type:Content-Transfer-Encoding:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
 	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=Gul0DZZy2os3Oi+7MpRNBs1ymdpKQ0Ark8+uU45of0k=;
-	b=k/GvbtQxMNotHxKWGW6XQ9EwF2BSgQTghNH28+x5SVt9CP/775O0KbTHjeL7bkNnfgQ5
-	 a9iWDKDXwcEMLuWrbw7CEIUGZmgf5XOkWq/f9q/hL7g/PlTt8m/v8Hk9qTBXIWp4moLpr
-	 1SLPKuO1wzoISyGrZ9vvRuM7sbOBmJcF9xabORZS9JpIo1YBeAnIiORXCT+PAuDmDwdSO
-	 rWQi4WcFLxQWmYzegANw/2pgRtoTg7fi+5aVccvWwg/gf/TVPz6tES5RUMVO6XODEtkLC
-	 KasSR2BgdxLsWqIqDKmFs/QigfiDct92PQ8f9qvHZXdKB/CJ52K43u+O7uOwOFTgDGA==
+	bh=Sl+H6myFzS+PLgrCo6MpKw3V1wNePOGNvCERMaPH0QU=;
+	b=zTgvZuMUcd2ZosTauLNZyKC3aPxbrtaR9QOSxWINMMIOmCYIGlgdoiteqMCEN4usTfeF
+	 PK+4XRq741mgHU4Xd27VT+4BlVroX1QoPtbSe78K6+SJM7CoimsBS0z8sVcgYwOoEGDlW
+	 Wd093YGtYajxSfq/S0DIWBl4bE7bm4r/QVGbE9U/aKMaIVonYJ2wEfprvC6cyo/su666s
+	 ILC8w2tjEo14q+JBk2ZCb3ODggL0Pkg/kUXORgCsWUyLmU4AfQqoktzOpxGFVKLNES0F5
+	 SrqSTrUGBX9cYwNv5gadl18++Zuc75dvj7bNtYV0eMO92udoULYdOG4IYE8PhTzbb8A==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.qualcomm.com;
 	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ObCDNI7m;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=d8SCx8aw;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=D1nAz1PX;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Yjg3vVV4;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84141606A338
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 12:37:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 84141606A338
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BC00606A321
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 12:38:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7BC00606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ObCDNI7m;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=d8SCx8aw
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ABCZ2hc2356773
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 12:37:56 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=D1nAz1PX;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Yjg3vVV4
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ABCYvhl300483
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 12:38:01 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Gul0DZZy2os3Oi+7MpRNBs1ymdpKQ0Ark8+uU45of0k=; b=ObCDNI7mu00vdBlM
-	BdBftEbOXb0MFSAzbf38IabYbXVhCYnZv+YNaCYl7C4Q7AS/dDd5M3CswUF/aHGz
-	OAIQ1Nh/zwCm4VIaM1tK9AidZpylVdpLwsvEkGHcUB6ceKGi/JvBnZ4fqZyQ+Mar
-	iuCNDgxdNDWqL3Fmm3k+67gBLEvrriB5uKBnhPxJ+6rLV1b3mIJxe1Mbf6F5cS0j
-	M424PRdc8UuxPAcrq/2q35bmVPUVqcYr6AlcR7A9kOlxmK+Ip9zCPrJ93BSkSEBp
-	48JKJbHtDL0vSEiX4oRyWJxON+Vu/kFzSqLBAj/dzc5PQhQ5IGHpj7nuEv32lYYH
-	BmRZ0Q==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvgjdhu4m-1
+	Sl+H6myFzS+PLgrCo6MpKw3V1wNePOGNvCERMaPH0QU=; b=D1nAz1PX82hWEvZm
+	zlE+Uj9z6A+GuhkXBfOYZZwvLm0aBrQeeC+jzBAz+QlZPo66nNePlKUNLmPh824J
+	Gg01qV6wbvQ8LNumDuwy324F6mwUu2asPtSYP6uQX9RjFkfEqrP7cFtxFutdrjJ2
+	1nyOayWjur/PdNuJzmDWWo1+SxRm/7hmluxo+KtT0A8VHJOrvL71zz9catuAerBO
+	G8ry64nSjZo7rFNZUe0i43cjOo9aHsS9li7QPPYkkWOY0yBI60Dk0ba2ENK1E2gE
+	kHN+za2+YylpB5Od+ZvfRkSjAMVtnlHtR3dKb47FXoBiA3f2KGDgbUcMzDrZFL/5
+	72NZnQ==
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvpjjrgbp-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 12:37:55 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3b10afdf947so2883794a91.0
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 04:37:55 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794400675; cv=none;
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 12:38:01 +0000 (GMT)
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3ad91787a1aso2379654a91.1
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 04:38:01 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794400680; cv=none;
         d=google.com; s=arc-20260327;
-        b=LEYZw7IadZgnRC9xMd2D6YlLT0EfDsFI1qNL8cSkUEbdipeJgqOAn6dQci0jWfSaJh
-         EkHUxFpc9seoThpBzqtv33aUF+WqQUnd9S6wNAY5AIQpW/O5ILfkmUe9rddOdLDBmysv
-         NGX8OAoioawXKoxSMEmNl7n3xdwoGI1Ozu4rNrKpWZI1gOj1n4SPK8JaJf2P7pNDoHiw
-         5L44IfODA1YEV/jpz0bqPz9Ca5rTIvYnvlsaJu16Toz60gE9cu74tu/tv0ZbHKZDenoh
-         nB8tiI4vxDBBng7k9mOVoOdv8LU7CcTcX6A+sP/Jm1MgGc55qD13AaQuY4TMHnP9Aa5e
-         jMmA==
+        b=PcePFJSNmFPtyWDxQI3gu0dXo09nEhYMLI4LeRsIeW+zH4uJkp67MmBw8jcj41sKzS
+         HTtIUI6FZ2eO/KYdafkWx+aL3S7r/8+pmEcg4pULVsP9CNA4u9gFOHZkyHAOooBAdmfx
+         fntUbsVAePiasqom1wkt6IMl5JCCSgS/bGQzf/OcAdB7DQjThSDFFFCGowWPfEgryoGk
+         SfMqN5EuzsTmg/dCS0IPMuF9uLfcRjj3C5SbMGUqv7IvNGQPdXs5fOMdxPv5rdNNgp2p
+         Ad6X6uUVoJOQBccCZWsJMY6ZuztedeoGSeNrkgirtY0W2WiKTVuKA2gjnk08fvy1H5C7
+         rHVw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=Gul0DZZy2os3Oi+7MpRNBs1ymdpKQ0Ark8+uU45of0k=;
-        fh=t2LORNkX0GnlfoCRFwk3Ox9r2W0nf6Eoign56j7QReE=;
-        b=Z1ISNQVHO9DzH1wPsfx5e5pY+VMcr+zCLvV+xND6uBjEaXqy+OH44hP2OJDWbvPsLY
-         UqPPkrNpe4BblIS6bf9DGOnvZ2DlPiyFO4J/g6ct+IK3bnaL371cIUFnVx1/klhJoiQ6
-         i7CravlQwj1lR8/QHBk/Y3U3rpTG90QkYF+WIQ3MGYlVk2zvhgP3YSfaS2B+Ec/YWyEf
-         mMsMIzCmyGh4kiOnVmEvPSo8IlbW1/ijIr4u2lb+WlvGBiK3kaqzs2zyP5XTOO/rQixu
-         1LOsO5o+ee5+1anNr3vrowRLMdjNo1D5HN/bhAyWgQp07ZRCmFr4gIjJzV70/H+LqmPS
-         YV+g==;
+        bh=Sl+H6myFzS+PLgrCo6MpKw3V1wNePOGNvCERMaPH0QU=;
+        fh=MNLiC9y+ItZleiXXGYcyrQTJ5A0e1Rby/2aN1iD/YrI=;
+        b=gUHDHbFI2tKKVXnoS1rc0UoOt3yXbUmeLb4uDisv2TlqAxiPDm+s7x909AEWq03wx3
+         Q3fjfF3m0Sw3sr+rnbZd8atHdsMtNAFLU/nXkyfPAK0DPGNPlUkRucnRbxJe2IUnx7xc
+         UOVeQLyQRMiFcd8s7wYi1h6OdiA+eC09frIz/IAltET2UlK1zw/yomOLsRf8NPGQMRl9
+         f8koERCQGebsP88hEriiC8WBDofBk5sZEuA6Mv7DXUmbaivS4XHBbLpnHZuSflNSlwX7
+         4V9oeFfWAOXOCBbpL+xuBFOQ7HNHd37oOF+DQcrFBpG8MVOc+vrWYwbp+pGfkJpsxpDt
+         zaWQ==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794400675; x=1795005475; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1794400680; x=1795005480; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=Gul0DZZy2os3Oi+7MpRNBs1ymdpKQ0Ark8+uU45of0k=;
-        b=d8SCx8aweQlwQ2YxeaMGmjD5J7/IfmK8T+IN5kjZRKgZPojzsT6xY1gEDFdpg6m2/K
-         fLAtMG9oG0JnGrsALGFmjRjj2pBCG+CAKTfzb5eT9i4bS8fNo+EnQEo/gpgF8Tte3CAG
-         hPQ9BSWfMu37R+o854ad0wJSj+2os9GQ2OWKL1JpTBHdJUlw6OYyvX/PJZSi5vwsuTd3
-         yxFQ/kx8iHWfeKbqvUK+Pg0eEVRrpGhTXkrUS07U1q9bYfy0BKtdLrthVEr1CUlue8sz
-         l8IHGRQCU+TxAcXGFd7/1GkSH/TFjVciVgmMd5Y1yCy68aHe8BaOlJTigZ+kCmOgORLR
-         d+tg==
+        bh=Sl+H6myFzS+PLgrCo6MpKw3V1wNePOGNvCERMaPH0QU=;
+        b=Yjg3vVV4H/Nhye2JcrzlILXBqRBm7Y1k26HwPRFvWp1RxwbbjNFVANLFPofXbhRi8W
+         DHh1Fv8iNAXHbpWum6TOY72rWAxPUscSkIZpTkFLnZ/4dc0woEk4BwEie+boVpanZGHi
+         xLNJZxa3dxJYag+Y6ibMzzMfgXyaUV7bhXgb9cE4yaUqgBhPnk5nMUwQIkPqo3FI+zg8
+         pEX1+EQewfozgymk9IHb8xFn0m5YTXYcZIWwWi239G+2I6sDSi2YwaFPDkR8u5azTae/
+         KNnjs9g9Mt0jFIIlk6CNM7hTsaZh7fxOor+KNhkzEnQFll+kVcaSGq3PuXvVBEGcEQQt
+         Q2PQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794400675; x=1795005475;
+        d=1e100.net; s=20260707; t=1794400680; x=1795005480;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Gul0DZZy2os3Oi+7MpRNBs1ymdpKQ0Ark8+uU45of0k=;
-        b=qREtphnLYa+o1v++dNC0mJHTkrlJrOF3hVa4A3kd0b6naQbsYvAsHdRYycwjNNG/TQ
-         2IM3tF6iKUGMpcjbPBcgX0QuoRxxRmrnkA+oNimEAQM77RZDVicT+JFS9kSXZJCTWHWy
-         mPl8EQkId0j9gYVisaS2ojJVC1SRSATIgp+BL2cd8kqas8m3wREqxsJUopTM9IjCfREX
-         U7BYbJI0a7UYa1/QYJJhy/AbctFCrHxSPijPtySB5mntuzgjmlhlKSbU4cmrn7XwvzHp
-         d9uWsgBTeWx3m+YhljwoFv1bUVdAMmAt88jj/6O4tYUcvTD1Bph4vYbS/QG++XeJy2Qg
-         mgbQ==
-X-Forwarded-Encrypted: i=1; AL+hErFDtfMeR4PNRsvVGZcDV/Q5XlXbeiLGwaCZpos1DQzoXSi79vM+eJTKfuROBk5trcVRRRhJVEjCYX3v1DQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8tMCAUOrj/A3JAHV5WHHXEwtjAXEnesQVe3p0Y5lKAhd68OYe8
-	DAicgXkeWnp9g8mjTmtbpAqxzWaetQl/0toYcyhXcQkQKcIljtU0MqI3h0Y97IsbUmZ88f5pgr7
-	JridNIZRDYrNLwEWdLmMlFMd2u6h6SUldAqvAzIvtn1Hw3tUJI88AxzSMKC05Nl/9WG7h1J9QcZ
-	9iECp5BlmbCEQUukYJXqLORbLYdhFHS+oqqTObQt9S+A==
-X-Gm-Gg: AYBFou2q9oVDtImdPQsOqMXuzh/5Nb/jVPGtGxk8EH8uuNXXZKqQuNJsVriP80dwUlM
-	XzQtkFfXxxKu6V+JD3seqBLQoIPZdX5aQKrZ82qf2idXFSc66fw066yYSMTf+Ge5elidHmDNZ0s
-	J1T+xPD4g810cr9sW9bI5Uin+oHaIq+Pg+ZoMPnc8U8Mwp9rKoQlfeI+RkYQ==
-X-Received: by 2002:a17:90b:51c3:b0:3ac:9ad9:6afe with SMTP id 98e67ed59e1d1-3b182f9d62dmr1558999a91.39.1794400675197;
-        Wed, 11 Nov 2026 04:37:55 -0800 (PST)
-X-Received: by 2002:a17:90b:51c3:b0:3ac:9ad9:6afe with SMTP id
- 98e67ed59e1d1-3b182f9d62dmr1558976a91.39.1794400674641; Wed, 11 Nov 2026
- 04:37:54 -0800 (PST)
+        bh=Sl+H6myFzS+PLgrCo6MpKw3V1wNePOGNvCERMaPH0QU=;
+        b=cmpVpCcFgg4nKE5U37Q8yRuN4a1ifX4Tw6P8QaGNacCJVdkDi7+nLtJ9h7B9WoMQZ7
+         Pch4YpqfWltmIZgyrV/UQhaJsWyN+GEu+R0Zeyg0u9X13HQXkda4cp9EEz4FhrXbm4ay
+         AReraFSAf1wzOyTMCdxn5ZpWoeesDlrt4wp/jat+taDPOjsK06Pee7OpUQasK/UtlQdd
+         bawCozDTfzyuuyUxgMteMZ/wIAl+0PbwPXoe7N2OKDTLAjNb7ht/33Dl0DyP7hAZhvFW
+         ZvqOtDBpuaBirqEuSqAD0Ru9laGLXW2tk+PhMaJacsIvGYLtCei4z++alNyKwfIWcEpN
+         F6YQ==
+X-Forwarded-Encrypted: i=1; AL+hErEzIEpWcgs0T80r/Qla/QkK6h67M33EWGJLmkamtJJbvNK2iBBa7hsEphNGoxsRxeENHwi9m2Oj7D+zZwk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9pYZdMk/D71g3pt17YrLI4R1VhkSkHOW5vJIYc34i5Eik6j3U5
+	XhUbHdY7kWiMuJt/4iAHuV/kxeVwmFo7eXUF228C05dED37nUbvvkW4ymJSfitrrV/ZqkrT0Phl
+	VekIGxLkTCSqK9JNdkrS3FXff3e4ms6R2MnQoOJbmWFa+J7xZXya6CNr0v9vsf970mjEHtbTpdg
+	QPc8493bGRkNwRlrEScv/3EkNKLLN2eXigre757T9wMQ==
+X-Gm-Gg: AYBFou31aecOWDFxcv6MoP2+TCuJlEjFCJMijwtvhXmitt3NCH8l+Z4Etn5WqEA3vYC
+	ZsVxxYfYWaSD2Q57zaE2w4z8EGommMuc2TqGcfuvHLvQ/JKaEIOx5JMkixjKJOqqllxCtHPYb9l
+	mqWNPLBbhOsJ3TF69953xDoietyaUWId7uRjaqgmeMe3MTf5qI8/qVU2gOmA==
+X-Received: by 2002:a17:90b:3e8e:b0:3ac:a139:1b13 with SMTP id 98e67ed59e1d1-3b182ebd6d8mr2253710a91.29.1794400680071;
+        Wed, 11 Nov 2026 04:38:00 -0800 (PST)
+X-Received: by 2002:a17:90b:3e8e:b0:3ac:a139:1b13 with SMTP id
+ 98e67ed59e1d1-3b182ebd6d8mr2253645a91.29.1794400679508; Wed, 11 Nov 2026
+ 04:37:59 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -127,118 +127,392 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261028-rzg3l_sdhi-v25-0-57f16691c2ed@bp.renesas.com>
-In-Reply-To: <20261028-rzg3l_sdhi-v25-0-57f16691c2ed@bp.renesas.com>
+References: <20261102172126.3890568-1-Frank.Li@oss.nxp.com>
+In-Reply-To: <20261102172126.3890568-1-Frank.Li@oss.nxp.com>
 From: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
-Date: Wed, 11 Nov 2026 13:37:43 +0100
-X-Gm-Features: AclHuK8o0uVdfxHZAmhvgIoBqg4smXNKTRXKoYRu3--Rc_VHFBtg03dl4JTb9lM
-Message-ID: <CAPx+jO-Fv_qnq_ibUP9A4iY7k8d9u4W5D=2PzF+w9oF0NXDDXA@mail.gmail.com>
-Subject: Re: [PATCH v25 00/11] Add Renesas RZ/G3L SD/eMMC support
-To: Biju Das <biju.das.au@gmail.com>
-Cc: Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Geert Uytterhoeven <geert+renesas@glider.be>,
-        Magnus Damm <magnus.damm@gmail.com>,
+Date: Wed, 11 Nov 2026 13:37:47 +0100
+X-Gm-Features: AclHuK-cqjptPhOeAZDAprp1BC5PiabrNZcICPPmo2aCEWkLiSCBH4JZZfu4Ecg
+Message-ID: <CAPx+jO-cq68G+wnqjyaZ00P3d1SVftjycH00jiZ-KGPK-2nCYQ@mail.gmail.com>
+Subject: Re: [PATCH 1/1] mmc: use dmaengine_desc_set_callback()
+To: Frank.Li@oss.nxp.com
+Cc: Aubin Constans <aubin.constans@microchip.com>,
+        Ulf Hansson <ulfh@kernel.org>,
+        Nicolas Ferre <nicolas.ferre@microchip.com>,
+        Alexandre Belloni <alexandre.belloni@bootlin.com>,
+        Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+        Florian Fainelli <florian.fainelli@broadcom.com>,
+        Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
+        Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+        Jaehoon Chung <jh80.chung@samsung.com>,
+        Shawn Lin <shawn.lin@rock-chips.com>, Frank Li <Frank.Li@nxp.com>,
+        Sascha Hauer <s.hauer@pengutronix.de>,
+        Pengutronix Kernel Team <kernel@pengutronix.de>,
+        Fabio Estevam <festevam@gmail.com>,
+        Aaro Koskinen <aaro.koskinen@iki.fi>,
+        =?UTF-8?Q?Andreas_F=C3=A4rber?= <afaerber@suse.de>,
+        Manivannan Sadhasivam <mani@kernel.org>,
         Wolfram Sang <wsa+renesas@sang-engineering.com>,
-        Philipp Zabel <p.zabel@pengutronix.de>, linux-mmc@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-renesas-soc@vger.kernel.org,
-        Biju Das <biju.das.jz@bp.renesas.com>,
-        Conor Dooley <conor.dooley@microchip.com>
+        Adrian Hunter <adrian.hunter@intel.com>,
+        Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
+        Masami Hiramatsu <mhiramat@kernel.org>,
+        Jesper Nilsson <jesper.nilsson@axis.com>,
+        Lars Persson <lars.persson@axis.com>,
+        John Garry <john.garry@linux.dev>,
+        Hemanth Selam <hemanth.selam@gmail.com>,
+        Pengpeng Hou <pengpeng@iscas.ac.cn>, Rosen Penev <rosenp@gmail.com>,
+        Fan Wu <fanwu01@zju.edu.cn>,
+        Marco Crivellari <marco.crivellari@suse.com>,
+        Pan Chuang <panchuang@vivo.com>,
+        Zhan Xusheng <zhanxusheng1024@gmail.com>,
+        Rakuram Eswaran <rakuram.e96@gmail.com>,
+        =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
+        Ethan Nelson-Moore <enelsonmoore@gmail.com>,
+        Bjorn Helgaas <bhelgaas@google.com>,
+        Runyu Xiao <runyu.xiao@seu.edu.cn>,
+        "open list:MULTIMEDIA CARD (MMC), SECURE DIGITAL (SD) AND..." <linux-mmc@vger.kernel.org>,
+        "moderated list:ARM/Microchip (AT91) SoC support" <linux-arm-kernel@lists.infradead.org>,
+        open list <linux-kernel@vger.kernel.org>,
+        "moderated list:BROADCOM BCM2711/BCM2835 ARM ARCHITECTURE" <linux-rpi-kernel@lists.infradead.org>,
+        "open list:ARM/FREESCALE IMX / MXC / LAYERSCAPE ARM ARCHIT..." <imx@lists.linux.dev>,
+        "open list:OMAP MMC SUPPORT" <linux-omap@vger.kernel.org>,
+        "moderated list:ARM/ACTIONS SEMI ARCHITECTURE" <linux-actions@lists.infradead.org>,
+        "open list:TMIO/SDHI MMC DRIVER" <linux-renesas-soc@vger.kernel.org>,
+        "open list:ARM/ARTPEC MACHINE SUPPORT" <linux-arm-kernel@axis.com>,
+        vkoul@kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Authority-Analysis: v=2.4 cv=E7tYNqdl c=1 sm=1 tr=0 ts=6af461a3 cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDA1MCBTYWx0ZWRfXxVUTGlJm6EiR
+ dka9kSepdbzkfnZQFjAPLtFLTYNs5/eV460uD6GtnWDpuu0N6P6RmRf64d1ds+vZZfMz/ONJs4u
+ s51uvySkH8buFOumFvR14/DlHHKfcyYGd+QjXh+PFuDSCFAb3cv6g6zmijOLVl9xY6MYscGMz4W
+ gRGhMGuGTYFBDLtauyk8QEC9uq/SaARoBmoOQ4RaMbw0HwOToZLZlG1qTQFJZTLrpHfZYSPMzwf
+ CbVJ9rHizb/j2LqmRcUQ5P9G+wzylkDJLFXCcFPf8ZfZCDhnAarpfun85iM2mFh61Rx7TtWFFr1
+ j41oOYGmmGWW+VHrzUKmqL5YTpDmOnY173iCzZgrUc8zYT4FyjMhOkzYZ6rctMwb2vRfBdhoO7i
+ t5ZJ6CrEgcHI/TaoCJSJ9e8z3dYjnViFK4Ib4kStFenTH/rNUb4WNSlyycHNfwatf7i6LdQLtJf
+ +iWsa9DjAwMFoAQjvyQ==
+X-Proofpoint-ORIG-GUID: cgODDbT7J_zQ5llyREnzZbpwPPLqvyEj
+X-Authority-Analysis: v=2.4 cv=FeuiV5+6 c=1 sm=1 tr=0 ts=6af461a9 cx=c_pps
+ a=RP+M6JBNLl+fLTcSJhASfg==:117 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
  a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=Um2Pa8k9VHT-vaBCBUpS:22 a=pGLkceISAAAA:8 a=F2NunwkvNQPXbRNSDdIA:9
- a=QEXdDO2ut3YA:10 a=uKXjsCUrEbL0IQVhDsJ9:22
-X-Proofpoint-ORIG-GUID: TDsSFusI0ypGBkJL8XLf3SpmeeqQrfBz
-X-Proofpoint-GUID: TDsSFusI0ypGBkJL8XLf3SpmeeqQrfBz
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDA1MCBTYWx0ZWRfX00OxLXteZtpe
- kRppHzxtBsrrRn/DbQgJj6caNYHNOBwlT7g0+ztiM3uVudFPKNaUMDsBVQQ0z8Bz6bQKAEaH3IU
- Wb1ibQK7THjA90/tAPFKurpeIFum4ei5xOMlA/mtnPrh7MQEB+NEeaJ/nECxs9V6spOoF8n8vyy
- IKTnuEWvFYlJXtf+C/MHkjIOoaxpRotwOv1Eg9TaW+7z80jA+42e5xmzyzVty6x3tQV52NmeTt7
- Tb+PK9jTVPlvOHVj37q1ksS8HLjZKOyWRU6aHjSlNjXNhegcB1ChC5PoaVWWEKTbJnBvMkKdfPd
- qbAeCd8Jv67eUdfQlOT7oncrJ39yNMAwZvfSfr5k7Ya8xBTpvvOWHDWSrBFuHAmelRLcIW/uWeI
- 7eXX/OxVDbsRCmsU5gYxdeOeGHD4oM+vUuuk7Jx/lK0PT3xsRwSSZZ5xKbKCgFANe2kRRhrcIuU
- YhkABIOSHjGtSv8Q1Sg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDA1MCBTYWx0ZWRfX9PFZPUR3eOSq
- WneO65PWX+HN6Ufqnc+mffBMIrn13w+pH+5IomgVrMAv5yeU8voXmozWlhqsnDUk6TLZvOyaXM0
- Euep5htbqWOXag65Co/lY0ypdkWCBP0=
+ a=rJkE3RaqiGZ5pbrm-msn:22 a=8AirrxEcAAAA:8 a=KwruqdAL4-zTymEPFJgA:9
+ a=QEXdDO2ut3YA:10 a=iS9zxrgQBfv6-_F4QbHw:22 a=ST-jHhOKWsTCqRlWije3:22
+X-Proofpoint-GUID: cgODDbT7J_zQ5llyREnzZbpwPPLqvyEj
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDA1MCBTYWx0ZWRfX0dKzOBwjBmpn
+ gzGjYDywD5qBJcklb1z8aVHVTSBSW9/e4qHgJldEpyVyjsUeF4GmZx4a/nweOx4ORtXB2IZfzC8
+ YTb57pnfJpapwoJS8ITsuxtVISQQBM8=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-11_02,2026-11-11_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 suspectscore=0 priorityscore=1501 impostorscore=0 adultscore=0
- malwarescore=0 clxscore=1015 bulkscore=0 spamscore=0 lowpriorityscore=0
+ spamscore=0 phishscore=0 priorityscore=1501 lowpriorityscore=0 adultscore=0
+ clxscore=1015 bulkscore=0 impostorscore=0 malwarescore=0 suspectscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611110050
 
-On Wed, Oct 28, 2026 at 1:51=E2=80=AFPM Biju Das <biju.das.au@gmail.com> wr=
-ote:
+On Mon, Nov 2, 2026 at 6:21=E2=80=AFPM <Frank.Li@oss.nxp.com> wrote:
 >
-> Hi All,
+> From: Frank Li <Frank.Li@nxp.com>
 >
-> The Renesas RZ/G3L SoC has:
+> Replace open-coded assignments to callback and callback_param fields
+> of struct dma_async_tx_descriptor with calls to the
+> dmaengine_desc_set_callback() helper across MMC host drivers.
 >
-> Channel 0 supports SD and eMMC (including HS400/HS400ES).
-> Channel 1 supports SD and eMMC (except for HS400).
-> Channel 2 supports SD.
+> No functional change intended. Prepare make to struct
+> dma_async_tx_descriptor private to the DMA engine.
 >
-> The SoC supports a maximum frequency of 150 MHz. The SD0 interface does
-> not support IOVS and PWEN in the SDHI register (no internal regulator),
-> unlike SD1 and SD2. It has an internal divider for all modes except HS400=
-.
-> It also has a 2048-bit divider compared to 512 on others. Moreover
-> RZ/G3L supports HS400 enhanced strobe mode.
->
-> This patch series support all modes except HS400. HS400 support will be
-> added later.
->
-> This patch series tested on smarc-rz{v2l,g2l,g2lc,g2ul,g3s,g3l,g3e},
-> rz{v2h,t2h}-evk and hihope-rz{g2h,g2m,g2n} boards
->
-> v24->v25:
->  * Added max-frequency is a required property for SoCs with internal
->    divider.
->  * Retained the tags as the change is trivial.
->  * Restored struct of_default_cfg.
->  * Updated commit description for patch#3,#4,#6,#10 and #11
->  * Dropped initializing clk_mask as it uses the default value.
->  * Added suffix ULL to macro SDHI_CLK_MASK_DEFAULT.
->  * Fixed a very low or zero clock rate from the clock provider that cause=
-s
->    an infinite loop in `renesas_sdhi_set_clock` by max operator.
->  * Restored the data type of max_divider from signed int to unsigned int.
->  * Dropped initializing max_divider as it use default value.
->  * Updated mmc->f_min calculation with clk_round_rate().
->  * Updated the comment using "ilog2(max_divider)" instead of "{9,11}".
->  * Dropped initializing clk_div_mask as it use default value.
->  * Updated renesas_sdhi_set_hw_adjustment_delay() with force_clear
->    parameter
->  * Added a comment in renesas_sdhi_execute_tuning() for tuning delay.
->  * In probe, if the SCC registers are not available, it clear the tuning
->    delay flag.
->  * Dropped default masks from struct of_data_rz_g2l.
->  * Dropped renesas_sdhi_is_internal_divider_enabled().
->  * Added a comment about the internal divider in
->    renesas_sdhi_clk_update() and replaced 'clkh_shift =3D 1' with
->    'clkh_shift--'
->  * Moved mmc->f_max to probe() and made it fail if max-frequency is
->    not defined in DT for SoCs with an internal divider.
->  * Updated tmio_mmc_host_probe() to set write32_hook() to NULL if
->    TMIO_MMC_HAS_IDLE_WAIT is not defined.
->  * Added macros RZG3L_SDHI_SCC_HWADJ2_{1_8V,3_3V}
->  * Replaced the quirks sdhi_quirks_rzg3l with sdhi_quirks_fixed_addr.
->  * Added helper renesas_sdhi_sclken() to handle 16-bit and 32-bit access.
->  * Updated renesas_sdhi_set_clock() with max_divider check for
->    TMIO_MMC_INTERNAL_DIVIDER instead of SDHI_MAX_DIVIDER_DEFAULT for
->    consistency with tmio_mmc_reset().
+> Signed-off-by: Frank Li <Frank.Li@nxp.com>
 
-The v25 series applied for next, thanks!
-
-[...]
+Applied for next, thanks!
 
 Kind regards
 Uffe
+
+
+> ---
+>  drivers/mmc/host/atmel-mci.c             | 3 +--
+>  drivers/mmc/host/bcm2835.c               | 3 +--
+>  drivers/mmc/host/dw_mmc.c                | 3 +--
+>  drivers/mmc/host/moxart-mmc.c            | 3 +--
+>  drivers/mmc/host/mxcmmc.c                | 3 +--
+>  drivers/mmc/host/mxs-mmc.c               | 3 +--
+>  drivers/mmc/host/omap.c                  | 3 +--
+>  drivers/mmc/host/omap_hsmmc.c            | 3 +--
+>  drivers/mmc/host/owl-mmc.c               | 3 +--
+>  drivers/mmc/host/pxamci.c                | 3 +--
+>  drivers/mmc/host/renesas_sdhi_sys_dmac.c | 6 ++----
+>  drivers/mmc/host/sdhci.c                 | 3 +--
+>  drivers/mmc/host/sh_mmcif.c              | 6 ++----
+>  drivers/mmc/host/uniphier-sd.c           | 3 +--
+>  drivers/mmc/host/usdhi6rol0.c            | 3 +--
+>  15 files changed, 17 insertions(+), 34 deletions(-)
+>
+> diff --git a/drivers/mmc/host/atmel-mci.c b/drivers/mmc/host/atmel-mci.c
+> index 98933be5f1744..de4ef7a675892 100644
+> --- a/drivers/mmc/host/atmel-mci.c
+> +++ b/drivers/mmc/host/atmel-mci.c
+> @@ -1172,8 +1172,7 @@ atmci_prepare_data_dma(struct atmel_mci *host, stru=
+ct mmc_data *data)
+>                 goto unmap_exit;
+>
+>         host->dma.data_desc =3D desc;
+> -       desc->callback =3D atmci_dma_complete;
+> -       desc->callback_param =3D host;
+> +       dmaengine_desc_set_callback(desc, atmci_dma_complete, NULL, host)=
+;
+>
+>         return iflags;
+>  unmap_exit:
+> diff --git a/drivers/mmc/host/bcm2835.c b/drivers/mmc/host/bcm2835.c
+> index efd1903c3ccd4..9a2c995577d46 100644
+> --- a/drivers/mmc/host/bcm2835.c
+> +++ b/drivers/mmc/host/bcm2835.c
+> @@ -506,8 +506,7 @@ void bcm2835_prepare_dma(struct bcm2835_host *host, s=
+truct mmc_data *data)
+>                 return;
+>         }
+>
+> -       desc->callback =3D bcm2835_dma_complete;
+> -       desc->callback_param =3D host;
+> +       dmaengine_desc_set_callback(desc, bcm2835_dma_complete, NULL, hos=
+t);
+>         host->dma_desc =3D desc;
+>         host->dma_chan =3D dma_chan;
+>         host->dma_dir =3D dir_data;
+> diff --git a/drivers/mmc/host/dw_mmc.c b/drivers/mmc/host/dw_mmc.c
+> index ff0b25d287a94..15c65aeea8030 100644
+> --- a/drivers/mmc/host/dw_mmc.c
+> +++ b/drivers/mmc/host/dw_mmc.c
+> @@ -884,8 +884,7 @@ static int dw_mci_edmac_start_dma(struct dw_mci *host=
+,
+>         }
+>
+>         /* Set dw_mci_dmac_complete_dma as callback */
+> -       desc->callback =3D dw_mci_dmac_complete_dma;
+> -       desc->callback_param =3D (void *)host;
+> +       dmaengine_desc_set_callback(desc, dw_mci_dmac_complete_dma, NULL,=
+ (void *)host);
+>         dmaengine_submit(desc);
+>
+>         /* Flush cache before write */
+> diff --git a/drivers/mmc/host/moxart-mmc.c b/drivers/mmc/host/moxart-mmc.=
+c
+> index 28aed13549a64..15689717c76bf 100644
+> --- a/drivers/mmc/host/moxart-mmc.c
+> +++ b/drivers/mmc/host/moxart-mmc.c
+> @@ -289,8 +289,7 @@ static void moxart_transfer_dma(struct mmc_data *data=
+, struct moxart_host *host)
+>
+>         if (desc) {
+>                 host->tx_desc =3D desc;
+> -               desc->callback =3D moxart_dma_complete;
+> -               desc->callback_param =3D host;
+> +               dmaengine_desc_set_callback(desc, moxart_dma_complete, NU=
+LL, host);
+>                 dmaengine_submit(desc);
+>                 dma_async_issue_pending(dma_chan);
+>         }
+> diff --git a/drivers/mmc/host/mxcmmc.c b/drivers/mmc/host/mxcmmc.c
+> index 097498a3f8ff4..e6271d67b6f6c 100644
+> --- a/drivers/mmc/host/mxcmmc.c
+> +++ b/drivers/mmc/host/mxcmmc.c
+> @@ -394,8 +394,7 @@ static int mxcmci_start_cmd(struct mxcmci_host *host,=
+ struct mmc_command *cmd,
+>
+>         if (mxcmci_use_dma(host)) {
+>                 if (host->dma_dir =3D=3D DMA_FROM_DEVICE) {
+> -                       host->desc->callback =3D mxcmci_dma_callback;
+> -                       host->desc->callback_param =3D host;
+> +                       dmaengine_desc_set_callback(host->desc, mxcmci_dm=
+a_callback, NULL, host);
+>                 } else {
+>                         int_cntr |=3D INT_WRITE_OP_DONE_EN;
+>                 }
+> diff --git a/drivers/mmc/host/mxs-mmc.c b/drivers/mmc/host/mxs-mmc.c
+> index 7c7c52d9e8e72..6a2b3e6d9a207 100644
+> --- a/drivers/mmc/host/mxs-mmc.c
+> +++ b/drivers/mmc/host/mxs-mmc.c
+> @@ -234,8 +234,7 @@ static struct dma_async_tx_descriptor *mxs_mmc_prep_d=
+ma(
+>         desc =3D dmaengine_prep_slave_sg(ssp->dmach,
+>                                 sgl, sg_len, ssp->slave_dirn, flags);
+>         if (desc) {
+> -               desc->callback =3D mxs_mmc_dma_irq_callback;
+> -               desc->callback_param =3D host;
+> +               dmaengine_desc_set_callback(desc, mxs_mmc_dma_irq_callbac=
+k, NULL, host);
+>         } else {
+>                 if (data)
+>                         dma_unmap_sg(mmc_dev(host->mmc), data->sg,
+> diff --git a/drivers/mmc/host/omap.c b/drivers/mmc/host/omap.c
+> index 527b89a5ed707..4e72e57d11971 100644
+> --- a/drivers/mmc/host/omap.c
+> +++ b/drivers/mmc/host/omap.c
+> @@ -1050,8 +1050,7 @@ mmc_omap_prepare_data(struct mmc_omap_host *host, s=
+truct mmc_request *req)
+>
+>                 OMAP_MMC_WRITE(host, BUF, buf);
+>
+> -               tx->callback =3D mmc_omap_dma_callback;
+> -               tx->callback_param =3D host;
+> +               dmaengine_desc_set_callback(tx, mmc_omap_dma_callback, NU=
+LL, host);
+>                 dmaengine_submit(tx);
+>                 host->brs_received =3D 0;
+>                 host->dma_done =3D 0;
+> diff --git a/drivers/mmc/host/omap_hsmmc.c b/drivers/mmc/host/omap_hsmmc.=
+c
+> index de5a3b70107d8..ba60b81560fbd 100644
+> --- a/drivers/mmc/host/omap_hsmmc.c
+> +++ b/drivers/mmc/host/omap_hsmmc.c
+> @@ -1279,8 +1279,7 @@ static int omap_hsmmc_setup_dma_transfer(struct oma=
+p_hsmmc_host *host,
+>                 return -1;
+>         }
+>
+> -       tx->callback =3D omap_hsmmc_dma_callback;
+> -       tx->callback_param =3D host;
+> +       dmaengine_desc_set_callback(tx, omap_hsmmc_dma_callback, NULL, ho=
+st);
+>
+>         /* Does not fail */
+>         dmaengine_submit(tx);
+> diff --git a/drivers/mmc/host/owl-mmc.c b/drivers/mmc/host/owl-mmc.c
+> index d5b8a110267b8..8e0520d338c47 100644
+> --- a/drivers/mmc/host/owl-mmc.c
+> +++ b/drivers/mmc/host/owl-mmc.c
+> @@ -329,8 +329,7 @@ static int owl_mmc_prepare_data(struct owl_mmc_host *=
+owl_host,
+>
+>         owl_host->data =3D data;
+>
+> -       owl_host->desc->callback =3D owl_mmc_dma_complete;
+> -       owl_host->desc->callback_param =3D (void *)owl_host;
+> +       dmaengine_desc_set_callback(owl_host->desc, owl_mmc_dma_complete,=
+ NULL, (void *)owl_host);
+>         data->error =3D 0;
+>
+>         return 0;
+> diff --git a/drivers/mmc/host/pxamci.c b/drivers/mmc/host/pxamci.c
+> index f8427f071c009..06483f7355206 100644
+> --- a/drivers/mmc/host/pxamci.c
+> +++ b/drivers/mmc/host/pxamci.c
+> @@ -212,8 +212,7 @@ static void pxamci_setup_data(struct pxamci_host *hos=
+t, struct mmc_data *data)
+>         }
+>
+>         if (!(data->flags & MMC_DATA_READ)) {
+> -               tx->callback =3D pxamci_dma_irq;
+> -               tx->callback_param =3D host;
+> +               dmaengine_desc_set_callback(tx, pxamci_dma_irq, NULL, hos=
+t);
+>         }
+>
+>         host->dma_cookie =3D dmaengine_submit(tx);
+> diff --git a/drivers/mmc/host/renesas_sdhi_sys_dmac.c b/drivers/mmc/host/=
+renesas_sdhi_sys_dmac.c
+> index 426308b73b490..e5ef3bae88d59 100644
+> --- a/drivers/mmc/host/renesas_sdhi_sys_dmac.c
+> +++ b/drivers/mmc/host/renesas_sdhi_sys_dmac.c
+> @@ -196,8 +196,7 @@ static void renesas_sdhi_sys_dmac_start_dma_rx(struct=
+ tmio_mmc_host *host)
+>
+>         if (desc) {
+>                 reinit_completion(&priv->dma_priv.dma_dataend);
+> -               desc->callback =3D renesas_sdhi_sys_dmac_dma_callback;
+> -               desc->callback_param =3D host;
+> +               dmaengine_desc_set_callback(desc, renesas_sdhi_sys_dmac_d=
+ma_callback, NULL, host);
+>
+>                 cookie =3D dmaengine_submit(desc);
+>                 if (cookie < 0) {
+> @@ -272,8 +271,7 @@ static void renesas_sdhi_sys_dmac_start_dma_tx(struct=
+ tmio_mmc_host *host)
+>
+>         if (desc) {
+>                 reinit_completion(&priv->dma_priv.dma_dataend);
+> -               desc->callback =3D renesas_sdhi_sys_dmac_dma_callback;
+> -               desc->callback_param =3D host;
+> +               dmaengine_desc_set_callback(desc, renesas_sdhi_sys_dmac_d=
+ma_callback, NULL, host);
+>
+>                 cookie =3D dmaengine_submit(desc);
+>                 if (cookie < 0) {
+> diff --git a/drivers/mmc/host/sdhci.c b/drivers/mmc/host/sdhci.c
+> index efb4c7742fe21..18aca84834fb6 100644
+> --- a/drivers/mmc/host/sdhci.c
+> +++ b/drivers/mmc/host/sdhci.c
+> @@ -1298,8 +1298,7 @@ static int sdhci_external_dma_setup(struct sdhci_ho=
+st *host,
+>         if (!desc)
+>                 return -EINVAL;
+>
+> -       desc->callback =3D NULL;
+> -       desc->callback_param =3D NULL;
+> +       dmaengine_desc_set_callback(desc, NULL, NULL, NULL);
+>
+>         cookie =3D dmaengine_submit(desc);
+>         if (dma_submit_error(cookie))
+> diff --git a/drivers/mmc/host/sh_mmcif.c b/drivers/mmc/host/sh_mmcif.c
+> index 8bd9cdedafa4d..9fe49fa8f372f 100644
+> --- a/drivers/mmc/host/sh_mmcif.c
+> +++ b/drivers/mmc/host/sh_mmcif.c
+> @@ -299,8 +299,7 @@ static void sh_mmcif_start_dma_rx(struct sh_mmcif_hos=
+t *host)
+>         }
+>
+>         if (desc) {
+> -               desc->callback =3D sh_mmcif_dma_complete;
+> -               desc->callback_param =3D host;
+> +               dmaengine_desc_set_callback(desc, sh_mmcif_dma_complete, =
+NULL, host);
+>                 cookie =3D dmaengine_submit(desc);
+>                 sh_mmcif_bitset(host, MMCIF_CE_BUF_ACC, BUF_ACC_DMAREN);
+>                 dma_async_issue_pending(chan);
+> @@ -349,8 +348,7 @@ static void sh_mmcif_start_dma_tx(struct sh_mmcif_hos=
+t *host)
+>         }
+>
+>         if (desc) {
+> -               desc->callback =3D sh_mmcif_dma_complete;
+> -               desc->callback_param =3D host;
+> +               dmaengine_desc_set_callback(desc, sh_mmcif_dma_complete, =
+NULL, host);
+>                 cookie =3D dmaengine_submit(desc);
+>                 sh_mmcif_bitset(host, MMCIF_CE_BUF_ACC, BUF_ACC_DMAWEN);
+>                 dma_async_issue_pending(chan);
+> diff --git a/drivers/mmc/host/uniphier-sd.c b/drivers/mmc/host/uniphier-s=
+d.c
+> index 1eae2f4b6c1f9..d75ac6abd853c 100644
+> --- a/drivers/mmc/host/uniphier-sd.c
+> +++ b/drivers/mmc/host/uniphier-sd.c
+> @@ -158,8 +158,7 @@ static void uniphier_sd_external_dma_start(struct tmi=
+o_mmc_host *host,
+>         if (!desc)
+>                 goto unmap_sg;
+>
+> -       desc->callback_result =3D uniphier_sd_external_dma_callback;
+> -       desc->callback_param =3D host;
+> +       dmaengine_desc_set_callback(desc, NULL, uniphier_sd_external_dma_=
+callback, host);
+>
+>         cookie =3D dmaengine_submit(desc);
+>         if (cookie < 0)
+> diff --git a/drivers/mmc/host/usdhi6rol0.c b/drivers/mmc/host/usdhi6rol0.=
+c
+> index 3bccf800339ba..8b2bb44e2f86a 100644
+> --- a/drivers/mmc/host/usdhi6rol0.c
+> +++ b/drivers/mmc/host/usdhi6rol0.c
+> @@ -592,8 +592,7 @@ static int usdhi6_dma_setup(struct usdhi6_host *host,=
+ struct dma_chan *chan,
+>         }
+>
+>         if (desc) {
+> -               desc->callback =3D usdhi6_dma_complete;
+> -               desc->callback_param =3D host;
+> +               dmaengine_desc_set_callback(desc, usdhi6_dma_complete, NU=
+LL, host);
+>                 cookie =3D dmaengine_submit(desc);
+>         }
+>
+> --
+> 2.43.0
+>
