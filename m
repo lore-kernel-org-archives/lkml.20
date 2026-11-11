@@ -1,19 +1,19 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=139.219.17.103
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794391984;
-	b=wdAWBdUDxqdXHBQ9JeZIxTRDUKfGwn7bm+zZ5nmcEnsqhR9lGgwRVTImxWDB+s/t/E0a
-	 XI+NI3zh9PA+17PiaJU85IuR8KJJS7KQ5P00YsmmcUpCNqW7/pM/4n3AtSDD29CgWw/xc
-	 QHDuJY01KVnAMlmRVBxVL2jJ8JguxnAwEUcWEpFYFtUnk2eHAKcdZxXdjkIpmWHNSukZQ
-	 54Pq6JRAzhDJqNpVEM9XtL3wZEoZSQAFmnrHUm91qHJrg8tGDrSwo3TukXZas1AmV34CT
-	 2Iq5ZoWUpDnzufnPWBCZMEKf+clOVuhslh0vrut2+p2cSpcYF2frquYF3GXZOczjPbg==
+	t=1794391985;
+	b=VhAMvyJNh7mc/fhRbPQBoB2WfAcfzp5vqGrvu8xGshLF6CgrRwYygWmriB3xov6kEGxu
+	 6Zn7zYxtqA8wXEFyrVSz7V4BkKEu/AWYexjTnHY7MYXVLkYabtPpElQzVKqCZ8h3B+kzv
+	 rvx0zEKUoQLt77Zc6AbS92pnGaDBTnfXalbnhN5gDJ3IkxYYcNbKdWqzD3BNJvGY/XO9M
+	 qb8Fy3LO5ZtcyzEfViZbLIWdtKKjuZsA+6BAIsbFAGwaJxigMk+k6xax9NnOADlOoTyE8
+	 BqQs20dgG5kV5NmbBKM97pVmHdaXfwSMMhO4EQHOSpojTDhMGUwiodTZq11zScv/33Q==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794391984;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794391985;
 	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-Id:
-	 X-Mailer:Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:
-	 MIME-Version:X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
+	 X-Mailer:In-Reply-To:References:Content-Transfer-Encoding:
+	 Content-Type:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
 	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
 	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
 	 X-MS-Exchange-CrossTenant-Network-Message-Id:
@@ -23,12 +23,12 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
 	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=622Oc0Q13NW4dZ1nbn91Cxs3+lrANNU8+tI7fyppZUQ=;
-	b=mswCv6vepQW1LWVnBD3+vUm6Tk72oi7h8XnMzkvULDXoe44MnvOr6vd0PbyIUic4CgoF
-	 GjUQabbCAsnwwEzoZ3nfrRw8n5RUlSOAgUpRgiyOopXwF+5bgZjxzC6smA722q3G/XQp3
-	 rp8P+THV4oAWgbiceN3zAmcpuFYoxL9mbQcItFuL79JkmyppJnbqP6Hliq/jFAQ5hl6gR
-	 nmKRI50Ca9MF5DNa3ORSR/P7ta24e29/sgf2+NDh2qub5cq+9kNq7GFuhcbg1ixmsRZKI
-	 nhi+PErjBB/8P8H8QOG47wuTvKXEqquJv2b+fOsJ0y0Ko2umjZPvIEdMQjuPop10HfA==
+	bh=lEBpXnR4uRHtfa9gfiu2vrYzB0VxRreWW9aZcrfSUjo=;
+	b=gQOuCXkbv2RWC49P2b94LPNFqG8l/CG6NAkAsvupfRuhqSM/edNQtJ24+bPt7MkefFbo
+	 XAg4pKcUViK82r8ZwXI3yp28bQW+33ewvEESYfQgU62lA3ixRKNPq73xPL4etLiyOMIm/
+	 cxBvcnVCoKHgpF4WebWla6U44Ssm2/bM+kfybcRH1HQIiRzTSuD9MHArWI26wgc5/LJLC
+	 S9CJA1PVu4/qArfbHuYYEhqblIG5ZMOkHHhN7VQ7PLj63iV3ZfB9sMHlD+pF1IgpsHIJ/
+	 +3NdN5D75oAtwbEHWSbY3u1sK3WTaiEhJr3Kmf/nbTefXhMJ7DoWsPOzYhKdbQi7LYg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=starfivetech.com;
 	spf=pass smtp.mailfrom=starfivetech.com;
@@ -36,18 +36,18 @@ ARC-Authentication-Results: i=2; smtp.subspace.kernel.org;
 Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn (mail-bjschn02on2103.outbound.protection.partner.outlook.cn [139.219.17.103])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5FB6606A324
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 10:13:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D5FB6606A324
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 140F7606A33A
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 10:13:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 140F7606A33A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=haCNiydNGADKcsDfdgEbINVzunLpCH0PysR9gYWaR7AYl+lCq5/TX69DMm7oac+lf5n2HAPB/xQQdAsZho66NPzL50siWgXjfjplUH/gWVza4h8qnfGb0rV9SakS5k8Oi1EmvZ8Y0tfKzSxzeKrXsut+aWFxXGUwXhHrxowQ1c9Iqn338/HoMhh60ynLwD377NCUJ6B7RZHZv+M5SVOBqrMm5wkQ/SvjZ2KfDfRMhxfTN/MWRmjX7YXIJGGrNfHVj5z5D15RY56cmcuObRb5S9urlCwLXMFVOnBxv881g2xWTSksFicGiVtKQQoAFpPROifRtuNmShQoYVbvfv6Z3g==
+ b=BVyy+bspQwODIqbdgu2SOEdo3GhUwqHRn2ZtPxebY83GeQflVyN6T3/uOWvifM0Na6YjfSIFlcEX4WGqVXZzvy7IA0OPobXxDZXvaYVtYLmXxvr5QtHYlDISa+pQqhvzQsDUYaiijGvFtyR//MiljEN5kRy6udt9/x4OOm4CH3Zzt0v1+NTY0rsp+1Sg+KZwGXyYDUcZdNOUtRvY9/xglM+gqUEvtXH55ngFd+QlzJ6CqtvhyDkejFD3o7VfLddVSeAVO11PnA6B5zOyEEb7T8NUbK9/c01lDvIdEr953R1PaTrIMoVY979l/rlGak6EdGG0Kc9XuIKDgEfArBp8Mg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=622Oc0Q13NW4dZ1nbn91Cxs3+lrANNU8+tI7fyppZUQ=;
- b=JVI/siw0+ikH2sKEwhCfmqUwnirNjOzOUsIJjv5tcm0l22PM99dNtmPGBh505VXV8cNSbQ59MEnL+8nt6o7Qy4FjzfjBaY5L6pQPc3RJZZKt2vxhVK7D6MgK8Wplzk1ZE4fIwivRa0N9AcPSukdu0uf0Pbinlsm7jZpO1u/XGxXruTEP9x8is8JZx5YIetfGRnntWnVpcndDkJIBbXEySboch6Ig+gA034OLFYWu1n4GBYcQ1tljMs/zGya+5m4kf3Sz3VcKaOLpsoqrawiRVazsvxjFDCYhCiTXIiDIuqQyabgWe4Q/ogylcz2eeyLf31NZwfInavZkgTFoYbu/eg==
+ bh=lEBpXnR4uRHtfa9gfiu2vrYzB0VxRreWW9aZcrfSUjo=;
+ b=NM5qglrAG0uRd45GSa2uJYy42AJK9J4S6wcyUn6WgGZNfnN91Yx/ywAhoTdjFc3UU/Rw4MM/O/zXclefRM34/k2lPWwFfJmK9k2BgJAtnJwqCBaO64rftb9oeHGZ02uzsG1fUFfnZB8UZaZyezZIY7WphmoZagXcVLWa6l55NhCCaqn7Jk845UhvpjfJvtkmt/tRXIyiM736AdI75/cJODt2PcRop50OcWBCJPp8nE24eKIA6tl90IYZNQgg4ERvMuSRQSw2eV87KV50fhkNEVGPvNJjY4Nto47N4SdZKcBMCBsgQ4dHwL1bkdoq5C/JZCwZWtNfuugblmiC85Lvvw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=starfivetech.com; dmarc=pass action=none
  header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
@@ -57,11 +57,11 @@ Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
  (2406:e500:c550:17::6) by ZQ4PR01MB1220.CHNPR01.prod.partner.outlook.cn
  (2406:e500:c550:14::7) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.9; Wed, 11 Nov
- 2026 10:12:52 +0000
+ 2026 10:12:53 +0000
 Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
  ([fe80::e7d4:256c:b066:850d]) by
  ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%4])
- with mapi id 15.21.0615.008; Wed, 11 Nov 2026 10:12:52 +0000
+ with mapi id 15.21.0615.008; Wed, 11 Nov 2026 10:12:53 +0000
 From: Changhuang Liang <changhuang.liang@starfivetech.com>
 To: Pratyush Yadav <pratyush@kernel.org>,
 	Michael Walle <mwalle@kernel.org>,
@@ -72,10 +72,12 @@ To: Pratyush Yadav <pratyush@kernel.org>,
 Cc: linux-kernel@vger.kernel.org,
 	linux-mtd@lists.infradead.org,
 	Changhuang Liang <changhuang.liang@starfivetech.com>
-Subject: [PATCH v1 0/3] Add 1S-xD-xD DTR support for SPI NOR
-Date: Wed, 11 Nov 2026 02:12:37 -0800
-Message-Id: <20261111101240.7378-1-changhuang.liang@starfivetech.com>
+Subject: [PATCH v1 1/3] mtd: spi-nor: Support mixed 1S-xD-xD DTR protocols in spi_nor_spimem_setup_op()
+Date: Wed, 11 Nov 2026 02:12:38 -0800
+Message-Id: <20261111101240.7378-2-changhuang.liang@starfivetech.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20261111101240.7378-1-changhuang.liang@starfivetech.com>
+References: <20261111101240.7378-1-changhuang.liang@starfivetech.com>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-ClientProxiedBy: NT0PR01CA0017.CHNPR01.prod.partner.outlook.cn
@@ -92,87 +94,130 @@ Precedence: list
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1220:EE_
-X-MS-Office365-Filtering-Correlation-Id: 12010aea-5456-4fc9-536e-08df3fdc585c
+X-MS-Office365-Filtering-Correlation-Id: fb512918-47a5-4855-91d3-08df3fdc590e
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|366016|376014|52116014|261028144727099003|261026140227099003|261102123227099003|261021123027099003|261021121427099003|261022105027099003|38350700014|56012099006|10067099003|18002099003|261009223027099003|3023799007;
+	BCL:0;ARA:13230040|23010399003|1800799024|366016|376014|52116014|261026121527099003|261102123227099003|261021123027099003|261021121427099003|261022075727099003|38350700014|56012099006|10067099003|22082099003|18002099003|261009223027099003|3023799007;
 X-Microsoft-Antispam-Message-Info:
-	3BTxPk8c0CSlaiIss7inv/7y+ki9xL5/OEJWjMt8vRzHnxNEVpnyvwYDeDjxFqyToIU3NEwq4LdeNdL467oO+8GWH3Pt7LgOFSnSrXgeGYvrkp3BR1+Fe1SoWYtE1Xx+NGeDOgOTg74oSiQaxA3lQqmHhbft2Ic4clohAsPPh1FaseMZckj1mt91qSVrQLwEeLZ9qN6tjm6S8fL54EPw9OiiB+a4NmBxbFrJEHY4Mh/BfJETFnSStYnN8oUBmrFYomIMoTYXbw1SqChyhorBp2TDBFnCBkpP//4/0zN8gAb9ATLwbSSmHWGru64+KW8EpwVP+MRl7d04wMPl1FL4kl5+SwR5YpTw3Z5XEKWkvpM3yeANvivc60XgRxxo+8aZirrFqh2dtwK74hfaiZN7jGU/vbz9EzE6LGmn71wZa94EOL6C09c/ngP1B3dY5j+Ns69qWf+vTNVEX9/UJxlG35YB7jeApD9DJZjc4Q5awx5gjQ3rQxNGj/kxmZ3JB9dqkHlkGV2DWtkLjLMHcZY5pstgVw/KA9i1BK1p+1LE6HFdvsOQIiyqkpRX2/pkOU5u
+	lE0gLXFxCcScgQEI5x4P5fLIHo42J57DQOHwU9nJwIWzAe083ZzQOIdH4x99qfxNzDiCpsXxYnL+LbyV1TGIPBztStZaWJGToQ2adVNARSn1SL7eud+H4VLhUgsLpKXMIkq24qTr2GB9JbXjsw8V8SWALb2XyVTPu2n7EfsnAq7s7glkWhxiuzPRGmQt3IJlNns9WSP866fl7mbeOe/ZtcQ+YzhnPP5NBGUG5VakvmqcjGiuSNhV1Tnd7PdtqTmUY1oHsVRw+w5bnt7qq3FuAp8zCwIj4DWmx+dlK+7fWqwtia92kce11/vfThrvUxurWpDXoAHPQCOAOw9Hf9u9HmV6JYrEIrArXqYOXN2V31Yot7F6DPa1aqFhyIFAIEXAg9Oj2vlJSFm9771hNBkgjYx+ADar6WxGr/v3VF/sivfNCw+UF30A+trYWXPdPZk/lqPV7vZgyTVKUf4Z6O1ar/rkdvuch+D3zCaMtor5TdoJf/lpLEMdFLx98n43eHhAxZmkPYbcRlna4xcreyhtTdW0I/qBlxNtLghuovsWIRUebyiQ8nN7p0KIaPr5Tya8
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(52116014)(261028144727099003)(261026140227099003)(261102123227099003)(261021123027099003)(261021121427099003)(261022105027099003)(38350700014)(56012099006)(10067099003)(18002099003)(261009223027099003)(3023799007);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(52116014)(261026121527099003)(261102123227099003)(261021123027099003)(261021121427099003)(261022075727099003)(38350700014)(56012099006)(10067099003)(22082099003)(18002099003)(261009223027099003)(3023799007);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?be6610Cxe9rZobAw6vcLBBoktcQnM9fXB4LVYY+AjOr6B35escZoh43YVutP?=
- =?us-ascii?Q?J+4+gqevoxeAMi+1xfqwfT+/gF1+kuqPzN7BtqPsPu2ZEmTaFfk6LJtXk9ST?=
- =?us-ascii?Q?S5En/fImTeiyfmrfKffu1SARorwRnDBqmtnKwH0Y/rHtGeU0Ka0JvdnvXOs8?=
- =?us-ascii?Q?OdtMhcCDTV8wgjSnMP7ZbdQ/Z1fLU2Graqy+nix9qx/qw6q5dNRqf8YxT9oe?=
- =?us-ascii?Q?Kk5IkTzOd+QszGt+4cRwW2O8frImqwfM1aXk2SH3e5fGr4blieW9jdVIUvKp?=
- =?us-ascii?Q?u4DvmZ0aKpCrlJNdekZiIz7aZOIzeazNKwl8l5f67M41BwQSFwKefPZGvd5/?=
- =?us-ascii?Q?bv8F0h6JzWrXnhHgyroGkUlj4Qk9z+34mij4hQErmMHXKXXe0X9XOJqnd13C?=
- =?us-ascii?Q?qdWKFcysx2CGHLm+jIw6ezGMGKJMghImcXgdCKPJjTX9o9ye28+qSJzAc+/1?=
- =?us-ascii?Q?Pp7y4b8oTcFEwhYUN51ylFtTH6XddmVUITIUoEzdYFK0IO6084CA9tA4WOeK?=
- =?us-ascii?Q?aUY2r7Cp+RQA7Va+YWv3/prZ979B7ZfuYesbb5fhdyFieNNu/D5ypC3y+Hro?=
- =?us-ascii?Q?xndrbbx9363a91mQ5S3kmneOodksGIhL92wGPWkI9EGpKxoFpaxFzuiv33Hp?=
- =?us-ascii?Q?04rt+UHuhneS4hW9+g5bu3q5xAuBCV19mdYdxf/PwAnW7euvdfNUNIqtzSe/?=
- =?us-ascii?Q?MR/4HfTRxU82ILDjwnAAml0g8KqopgVCUIasIfWt2CaghcWaDRIDvV71ay1b?=
- =?us-ascii?Q?ggeXbPxKAQfkDC4x8sURpvdDQthpCBNpnzBLvIGaZSitv/6yZkTdgcqgZQTF?=
- =?us-ascii?Q?w9PcUe/3q1Qfp58VjRdv/aCUrnDivUAmFokcOj2+G1z+WV0CSG17ALK0oTY3?=
- =?us-ascii?Q?O3yRwKc00P7Xr8aBfq5y1dnnn5HZv3Cg6wJWglukvKWO0mxL2zjdi8A9LfUL?=
- =?us-ascii?Q?zj7w9IHPTtGt1jwqJcALVxOX7L0SHknRYG4K9q6LHThtAqFWD7yuV71aeLiV?=
- =?us-ascii?Q?hvxR6CXVKVzkVvN7+tyotP4027ZaTGukJwC/u8LBB4HfZC3l7pN4DWmwfNZP?=
- =?us-ascii?Q?W8PLFuhihMhib8vExQhW46dtIdb9pPhSYsb5fmREndnwjAuFLQGHNTfrigyl?=
- =?us-ascii?Q?0DeU5kGytiRwQmAWHViuE0+yKw/UZiZ9Rb8wDJk8scoz/z1ELlxbpiNCwuHh?=
- =?us-ascii?Q?L1T9cvuxZEwyRzajgWoXZae1P/pXVgjL8xia6vxBhRV6g/Z+cGC1akEvVnjC?=
- =?us-ascii?Q?Uh1zfU4X8I1NI8sj2mS+oEbNEiccMQv5VYyX0XyvBHw2ueF0m0+fP4/uFuZr?=
- =?us-ascii?Q?2hw0TTjIREe/PG7OP9HKk7nQUpPMB+C5iPM3s9shTzIqC7CMXacd/jrHvYLw?=
- =?us-ascii?Q?zeq6nDqSJbA7d0jkoTjcxLT8BddrY+dXsr5FzuJuma7iUpkR9bcxvXOADwBM?=
- =?us-ascii?Q?ayaKP2C5EHJZxPrgfKT0FcyC/rWZxT89sKZbwI0B+l0fPTdV3D0esqbqvSU8?=
- =?us-ascii?Q?SFBgUv2ZqSQX1UjFsEUK7EY3yuarQaGTFGLMvn2Vzfq8eSN4Hx793ysXJIqZ?=
- =?us-ascii?Q?HzBIMyBqaVewCqQP8LpkZKzh8ZkQgxRmQGHrrCw5OgVRlHd1f+GZrEI6xbhv?=
- =?us-ascii?Q?dFqShAhQCTMwvPQCzAlcOnqZTIqL0UaXLaytTN2ql1xwm/4jT8bd3y8A3AUV?=
- =?us-ascii?Q?Aa3rQxyXvyJfiiW8ZU0FiD/8leNAaLFD2hAjB+neqFY6Hb47sGODIdslUtg3?=
- =?us-ascii?Q?/1k+18RcsUaiG18T9l1dlvYU5JAdXVjxDapEtryLE9B6NGQ2jJ/s?=
+	=?us-ascii?Q?Miw7Ngnuql1mvs8ECGpozYPPM3VybMV5FePmLKNvxkNDigT1N1+tQO6h7Yta?=
+ =?us-ascii?Q?DKSPs8sz+jXwy5HlUgf10NGBT8a4sioTf9vKvwF5ZKVr6bKqJ/ZRpuCvUPmD?=
+ =?us-ascii?Q?Ovvu3L1No7crHB/h/93vuiBFsxmtNsX0UbjZo9p6sz13cKxQojxE/7fC0/lx?=
+ =?us-ascii?Q?HzRwLpClyI9zsKVcZvertR3O+5EJn6qARqTK9A2DkdXb3DwKjTrepo+GChEv?=
+ =?us-ascii?Q?Q5HW3EnAqrD6vphMUpHSa7s9nXeVNVdPzCDh6hH+CeV902zJOjwVIXMNGRBD?=
+ =?us-ascii?Q?gyU7XSom5rfF7HTaj+pEdvgrWiSTcD6ZqA/nHc5mk/z5VkIPxt3JM4p3YzYz?=
+ =?us-ascii?Q?uCY69Q2qqU7olh1P6XbCaF3/fk0u2GOwiFQN8EQuidbW5cJdJ9egg1b6CF5Z?=
+ =?us-ascii?Q?jUv5TxK/4QCCZVc2VVEwCQqeX//gYQo/o8zr5XDO968Z5ZqDfDtOfnHMdMuD?=
+ =?us-ascii?Q?8evyrKAU4EhVZRWNwQfppD/EYCU36mGLEZpFTedLYi31cPi+F4Zl19P3dyDF?=
+ =?us-ascii?Q?ciw5qFYpum9QYhVC+1W3Wq9CcsJNKCkWk978kOJoKvvKy+g9aXkl6jrHYz3M?=
+ =?us-ascii?Q?cIXCqO9DjcLajrzq+qPQrAIucKqkhHoXxXTIWRssCgZEFivTj/lSCRB9PwDu?=
+ =?us-ascii?Q?8hQLgd56bvRHivtJK2DS5wwowvaqoeMTAE0BrMOH8L3oCJbyA7PdNnCOnxMC?=
+ =?us-ascii?Q?vggMS2KEfcBbF9DJukiDCDDOhqZ7gnqHcdjprmMXanyyXW2TMOlT8T8G0fjF?=
+ =?us-ascii?Q?gjLE0gc2sTY56qBh2Vxen1OK1l7i0XOZl5NUGzzO2nq4HssWTY7lTdnab9GV?=
+ =?us-ascii?Q?qmt25UshGL31YUNyhLa2H7WwcanB0iTpP3s+2WxVw6xpw8uetuGEvwsl1tPV?=
+ =?us-ascii?Q?Wa/j4NwGZQ3YabTX1mLPwdwqVpbCYyOSQzcF6VIZ67tb6X/zXc4YaC7Y0ymC?=
+ =?us-ascii?Q?fZu80CIuPClFx0jGTAUY/IsPzNfU7Ox1jToA2+yxKGGSKQb8VVqJQpyG7NTn?=
+ =?us-ascii?Q?g79BGly1sf3zTvDg1wohW/6vZKvCv6GaR5H+vFirmgVOWh3Qm1XxmXrJtmnR?=
+ =?us-ascii?Q?BM36GoXts0NSzv9U4XYGlFUcVKoDuIu9IUsM5YlcQmCFLX9pj/ZTgv76U+rr?=
+ =?us-ascii?Q?C3L999yqpJPW/K+fQ5CB0tcKA3/YQpgoLAdhsdYOwaFp2ZXNgHSnnTI6mBi9?=
+ =?us-ascii?Q?h+6e0ur/To1TDstSAnW7c3GU2/y/ROtyQ0lSguUZSV33WDocKO7Hb1Q0JZnC?=
+ =?us-ascii?Q?E+zKJjw9XrH1kpfEWdlfYUaJu9m+T8JxXlRQDuTgvrPoNWK9rs6mIsw/V+ai?=
+ =?us-ascii?Q?tdAbL62EWlQfSZTBQaRIYzPZ7ixOaapoTCNoAA01GXVUosyFjZH3uJ1ADyfb?=
+ =?us-ascii?Q?3T9MmFGsPrXuSShuB+Oivsyl2rL5T66CtxDGlR3VuzmAGPH29fW9QbFqkcVv?=
+ =?us-ascii?Q?6XXnysnQcd+STzjc+y+I8eu+ni3wDsLxW9jI4swHBboxnDpfc01TJMLjRYNn?=
+ =?us-ascii?Q?wvTDOkbeMj3CdCDCLvxTD4Jix0sT+aFE/Qj5cSEN1LMX5P7z1mSlqCAP9x2j?=
+ =?us-ascii?Q?g9IUa6hcH+aI8ZvIM62f8D4qxSIz6qionpdmGdcUdU2EQ8iu+JA5zuay+NkQ?=
+ =?us-ascii?Q?kX2+VOO0YmZSkOFRTco3o5EaCrG0U2o3ybbfnChCusn5VRzM3FHLyzwD53MQ?=
+ =?us-ascii?Q?El/xSYbVFaMQ5b4xag5Upb8XSemJoNzBdreb8NKFOIsmLQ+UBPhFyJH1Hv+V?=
+ =?us-ascii?Q?yClYvPLS6XJkqy3ohzq0kTZAOMRAi+JpCgYXxfowhv2Bvtz7MUzI?=
 X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 12010aea-5456-4fc9-536e-08df3fdc585c
+X-MS-Exchange-CrossTenant-Network-Message-Id: fb512918-47a5-4855-91d3-08df3fdc590e
 X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 10:12:51.9278
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 10:12:53.0947
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: zGfCCGJlAi2MJ41qdWU0j3X0e+/TNRr013YER8yGu0kXiOlrQUjGq40Xg+l48Ww9kCc7pAKszSomRm1ZQSatg/bD09XJnedJepSpZdlwlNkvTcEUkENqVDPIxNmE7FOo
+X-MS-Exchange-CrossTenant-UserPrincipalName: 2Lqpeq2Kn9eW/nBWXcEzis6fEY8qnWfVS9ZX38eYYwYAfupZnpPxagoHGy8F4cEyi2ZwcpMBTm7cy346HfDpqFXo6zkouBNq5hf4Ov5jRkJO6f+TRVOMRd+B3b4vbNtQ
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1220
 
-SPI NOR already defines the 1S-xD-xD DTR protocols (1S-1D-1D, 1S-2D-2D,
-1S-4D-4D, 1S-8D-8D), but spi_nor_spimem_setup_op() treats every DTR
-protocol like 8D-8D-8D: it marks the command phase as DTR and turns
-the opcode into a 2-byte opcode + extension. No flash declares these
-protocols today, so the path has never been used.
+Currently spi_nor_spimem_setup_op() sets all four phases (cmd, addr,
+dummy, data) to DTR whenever spi_nor_protocol_is_dtr(proto) is true.
+This is too coarse: the 1S-xD-xD DTR protocols (1_1_1_DTR, 1_2_2_DTR,
+1_4_4_DTR, 1_8_8_DTR) send the command phase in STR on a single line,
+and only the address, dummy and data phases in DTR. SPIMEM supports
+such mixed DTR modes.
 
-This series makes the 1S-xD-xD protocols usable and enables the first
-user(MX66L1G45G).
+Split the handling:
 
-[1]: https://lore.kernel.org/all/20261028121100.79667-1-changhuang.liang@starfivetech.com/
+  - For SNOR_PROTO_8_8_8_DTR, keep the existing behavior: set all
+    phases to DTR and use a 2-byte opcode (opcode + extension).
 
-This is a split version of the previously sent series [1]. The SPI controller
-related patches in the original series were applied, so the remaining
-MTD-related patches were separated out into a new series.
+  - For the other DTR protocols, set the command phase to STR and only
+    the address, dummy and data phases to DTR. Double op->dummy.nbytes
+    since DTR transfers 2 bytes per clock cycle, matching how the dummy
+    cycle count is specified for these protocols.
 
-Changes since previous submission:
-- Move the 1_4_4_DTR read command support into the .post_bfpt hook.
-- Drop the now-unnecessary SPI_NOR_4B_OPCODES fixup flag.
+  - Move the SWAP16 handling into the 8D-8D-8D branch as well, since
+    it only applies there.
 
-Changhuang Liang (3):
-  mtd: spi-nor: Support mixed 1S-xD-xD DTR protocols in
-    spi_nor_spimem_setup_op()
-  mtd: spi-nor: debugfs: Correct DTR protocol names for 1S-xD-xD modes
-  mtd: spi-nor: macronix: Add 1-4-4 DTR read support for MX66L1G45G
+No in-tree flash currently declares SNOR_HWCAPS_READ_1_x_x_DTR, so
+this is not a bug fix but preparation for enabling these protocols.
+A follow-up patch will enable 1S-4D-4D for the MX66L1G45G. The
+8D-8D-8D path is unchanged.
 
- drivers/mtd/spi-nor/core.c     | 23 ++++++++++-------------
- drivers/mtd/spi-nor/debugfs.c  |  8 ++++----
- drivers/mtd/spi-nor/macronix.c | 28 +++++++++++++++++++++++++++-
- 3 files changed, 41 insertions(+), 18 deletions(-)
+Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
+---
+ drivers/mtd/spi-nor/core.c | 23 ++++++++++-------------
+ 1 file changed, 10 insertions(+), 13 deletions(-)
 
---
+diff --git a/drivers/mtd/spi-nor/core.c b/drivers/mtd/spi-nor/core.c
+index a04d22d2e2e1..af55578e5877 100644
+--- a/drivers/mtd/spi-nor/core.c
++++ b/drivers/mtd/spi-nor/core.c
+@@ -98,13 +98,7 @@ void spi_nor_spimem_setup_op(const struct spi_nor *nor,
+ 		op->data.buswidth = spi_nor_get_protocol_data_nbits(proto);
+ 
+ 	if (spi_nor_protocol_is_dtr(proto)) {
+-		/*
+-		 * SPIMEM supports mixed DTR modes, but right now we can only
+-		 * have all phases either DTR or STR. IOW, SPIMEM can have
+-		 * something like 4S-4D-4D, but SPI NOR can't. So, set all 4
+-		 * phases to either DTR or STR.
+-		 */
+-		op->cmd.dtr = true;
++		/* we only support 1S-nD-nD or 8D-8D-8D */
+ 		op->addr.dtr = true;
+ 		op->dummy.dtr = true;
+ 		op->data.dtr = true;
+@@ -112,13 +106,16 @@ void spi_nor_spimem_setup_op(const struct spi_nor *nor,
+ 		/* 2 bytes per clock cycle in DTR mode. */
+ 		op->dummy.nbytes *= 2;
+ 
+-		ext = spi_nor_get_cmd_ext(nor, op);
+-		op->cmd.opcode = (op->cmd.opcode << 8) | ext;
+-		op->cmd.nbytes = 2;
+-	}
++		if (proto == SNOR_PROTO_8_8_8_DTR) {
++			op->cmd.dtr = true;
++			ext = spi_nor_get_cmd_ext(nor, op);
++			op->cmd.opcode = (op->cmd.opcode << 8) | ext;
++			op->cmd.nbytes = 2;
+ 
+-	if (proto == SNOR_PROTO_8_8_8_DTR && params->flags & SNOR_F_SWAP16)
+-		op->data.swap16 = true;
++			if (params->flags & SNOR_F_SWAP16)
++				op->data.swap16 = true;
++		}
++	}
+ }
+ 
+ /**
+-- 
 2.25.1
+
