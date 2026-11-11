@@ -1,85 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794433728;
-	b=3cVSUnGrfPliaPcxk9Zo9jrEGE6OdIcvOOQrgV1NTjFh8kSED73lCcr4GKq6SgObmqFO
-	 cJD7Z9GhlsoMrJwMCJqhhlk9LM3Q9ecWGRaxzprEa2EgIVt0hBvDLaeGEVgRomDhQpV5G
-	 i+vpmgGvZ3CxQNZuFvjv+x4bpPFK9TiwIIq9Un51fpawfjmm7/pcXw8FvZkwoLQVroIU4
-	 ByOQ63X1TG39690XcTHjQu/FZZiEGoOG2AkYoC6IcVU4eIi6mH9TqiIcuW+2dBLb7cynH
-	 ZgpeWJixcKDJeaZuctrWt/XXYlXBlwoK5fMZBP0sKRUM7nM4Y06+B56YWnmsZaY+xkQ==
+	t=1794433730;
+	b=S4xWoshu58Fx1eUtMTvCJZ52fHaOWySEiZx/TuwxfYXveQNcXEZ9qo68sGxTy4LtxUBp
+	 Ddx/MUXUf5qBfe4AnrNwQrTOvBWk9uzq+2zf9Ehbezl83Yx2bDzNRfh9ciWxUHyyRcjcT
+	 XxeYJ+jUhWbn0+MmW+i4qxExfxwt0WlnSdpGGTg/C+yOUP9w8Mx4oN6Kh/HOCtgCx7zG0
+	 bYR9kx4FUPkpVgOtJWyE59xWMb8a2SCcF3g1SAnmJ6B3HldqX44xWlcFfaocG7om2v0l0
+	 VPk1Th1Fk6syf1HjGppzd+9lr1KrhJO9HpqmQ2Vdyi3+D28bAYLaFMyKX05VGHaYyjQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794433728;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794433730;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=w1WQDWdW+OMrA6GWRTziLNz2ylBjmo0GVysq8sWfl/w=;
-	b=WziQzyVw2sVSkoKK6cycpIE9Gr/FLQQMtn/H1rGZqsA5uR2rjjcNOh4Tqi60tdYEgrip
-	 /2LeJHeQem4fseJbSTqnB8KZPlAh03tB16BMvnL5JpBNwSITsCE0OOmOytKYPtp6wdbAE
-	 WFNoUm1cVrAxXcRfkq8vOLXAez9sJQ/BYnsyXkvNUlWzk3MlTW1unwXa489ga+DXekdkn
-	 EoqWnmgDMoFn1DdEtu6t3DOoS2bSCLsMJ6QFWD1wazBjRsouIAx02hh47yMjXy8msI/F2
-	 V8vw3KvyJKvkhXK+DQENdKcMBQ3TILJF447/svgtIRHTLxHt2jZY+9IAJNlGpUTYXEQ==
+	bh=in2H/EiTzu7oKMx0oXEGmqlnXShESJ9rcbe+oDUN+Fs=;
+	b=pL5HKLZGu4FmINlHDOub9rjoov4mYPWT6JgG9jNy7ib5umRviZGa9TE0JHRFLvQ1z1sg
+	 DfdAQieZMoId9Hi/yNRMJYRepthXOe5mOqwhDWfdtKTQET2pCIg5hOZwmg6bdGgLGsKVW
+	 abM/KDqh+SY5qbncroTUnPJ5FTLJk30xqYrUQsKz7RxIwzzl80Nuggg258MUiOaGvpnTE
+	 WiMAOhbLWTCm9BiBC/WhLq294P6wjuxDZDyISPLdAkBnRTqMMViFcK/qvMtFtKuWPjspv
+	 9DwpJtH8hUOlaC0UunKvxwRdSuMDE6/3YjC+CzlmJUaxU6OW3VQYglmX+mFy2g03x3Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YYfr9xBW;
-	arc=none smtp.remote-ip=209.85.210.182
-Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MF0INbu5;
+	arc=none smtp.remote-ip=209.85.216.50
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DD9D606A338
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 21:48:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9DD9D606A338
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6C8E606A888
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 21:48:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D6C8E606A888
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YYfr9xBW
-Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-8b904d10882so1614497b3a.0
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:48:47 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MF0INbu5
+Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-3ad41b47541so2263283a91.1
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:48:49 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794433727; x=1795038527; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794433729; x=1795038529; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=w1WQDWdW+OMrA6GWRTziLNz2ylBjmo0GVysq8sWfl/w=;
-        b=YYfr9xBWJqbeeiCd68v6kLrnESRi2Ut1gEUBiyNHctdVO4kRGi8FupHtUAHPyLuYHV
-         +TMRqqR57A3JoZCXIjsBxMKFS4TOlFdwZKNFuIVj7mpdZ4D2oF7Vl2dS48UgMAppVxTd
-         TyWgdQuJeL3qSrNstuitMK2+xkvBS2kgU6io+ofGSGb/eX7DVH8pq4dj3RgUcLqGfluQ
-         akGNkNrL+EZ0DPM64TrdG2aEULD/EHKqywW4AAm+eDMoThTpl3DUQTZ/JHyvf/GhYKfl
-         1FIQY+lyGOttsxecWPq6wYUHtf88GjAddOR3gRvuhve8cvfEzTD2jQYEziVNmgHm90Mf
-         R0vg==
+        bh=in2H/EiTzu7oKMx0oXEGmqlnXShESJ9rcbe+oDUN+Fs=;
+        b=MF0INbu5MaaNPwlPqfOGFWmfOBBlMsgwfTX9yqoOQukKszhiLhWsvensSmgg5EwMX0
+         6xHhym5nnd39YYfADosiSRok6GnimKHgUbRgwEvwTzSdhR9TwY1aFdZy3PAvbHfDkxf4
+         fwIbFP0hBOGfh5wEfRpIlV6YGjnwXsaDvaK34MsthoCLKaD9NkCqZlwMQdJ+xA8tT0qv
+         l7Jmm2K6lqcavReO4u+S/hvMvGBUxKnCOEBaAmFlifxfixKEhojKyoJmNVskhij0z665
+         iWs560WG4BQFURNTTvXOqXp0L9jbbhNh/EWEizzJs9SE4kU1tr5CPbxOfcCqT+FEy8i5
+         vkIg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794433727; x=1795038527;
+        d=1e100.net; s=20260707; t=1794433729; x=1795038529;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=w1WQDWdW+OMrA6GWRTziLNz2ylBjmo0GVysq8sWfl/w=;
-        b=y4SdqWR7Oyfzeb9NsxN5H3spovsaZo1fblKgS2GFQWH1rEkDe7MF3ivftiaiMUFbUp
-         1fSxGZsKydxrcMuiMjmCE3X9ZRdY6/7xXn62HaatrlU2lI4idbR06/H0C87ropquhgWP
-         C2L/a8Io32E0CXsUX+BuIPcc+rqB+uRtM+mSxWGyty9o7jsWeVFzbimrLa3OjUI0nLL6
-         qv2K7J2EdV8ZRrkPnV6SYnajSmGuVjpz+dJnM/EPofaV/HKGONGOUz/XpqeE9Tr/bxBL
-         Js65A6EJj/XZZQgBAIueKPwrA0t85Tsu4R3/GFl2Vir6dpz4L1edQoVSTpaJYWZrcu5E
-         ftxg==
-X-Forwarded-Encrypted: i=1; AL+hErHI5ot8TuW1+mn9wpD5QLYuuZJ3WW+NQZjbgKtCW1W5oqJj2SisGo6isnjoXnS4/90asZnSteZPBSQMdCc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8+4jzlW8zzcUFfi/TQ2DnVdTI5szPBN0eH5gy4JfXBgcRRbMrT
-	0Wu7I7q7sFB3HTc14ctaKCdnm4u9zAXz8prwC76WsPgj27Hvj4xD00x1
-X-Gm-Gg: AYBFou0kdmB6quVCPySaThhS1RU1vuXUqKoniCoDMPLFQjXfnZYhr22AAKV58gxcx2D
-	GyLnDTZovdnHen/0LnIxQ6ad+X8/q7bNCstAiPPu5PSszFsaMtBsHGJ5JR8Uo8vkRTtpos7eswy
-	WOzuH4mxj4pGkmUBLFNcr4B/+3BNYrfadhbGcawJDdJJai9D+pdqRIaeMb+bUhYlbJiJAVY2R+h
-	oggzpM3ChRjrkHfk5SIV4H//dkqgUIyAKhecaYkNNF5n/gv2V6/CL2XZpDHyXAgcmWAuuG5uy97
-	wylbJ4KluVBIvjzkwME/0M61p2lnmLNRHzIBw/uGIrS31kQNkuTGHWdAxlAwLWRlVrxSl0VFKkc
-	J0RkYFm/sdrZnnSYPUFxzObUAYVeUQE8wM1KHZ04kVQJU1PMlZZ6PKwGEJKJL+h6snJ9ZzreNSE
-	KH/ezOQkEEzwfrVaMCX9DkGHs332bvIbf8S5v6isrRmEFl9IQMbkiYt2FlHuERTtV1XDleXb82f
-	jHTpfB5810BN4k9THHW90Ox1RwAykUu6BulTF2tb2ypZ6bwr3KrtKW6X15UuNIneqAX56jRwm6j
-	g16paAoFdCTZ0A1K8vMHMNa7jHCwxigpyMYfd+laSLocMM9TzUWW7h5bsoOgaE+OUnmBak2rBbi
-	fmad/muAEwQy3+JAuqhIPhscvzBzEEW8qpmyOcRYUbKi04eUspf/CrLllRG4aAHZUkLrshkTXew
-	FbmQ==
-X-Received: by 2002:a17:90b:2252:b0:3ab:9c73:12e with SMTP id 98e67ed59e1d1-3b182e03266mr3695944a91.6.1794433726803;
-        Wed, 11 Nov 2026 13:48:46 -0800 (PST)
+        bh=in2H/EiTzu7oKMx0oXEGmqlnXShESJ9rcbe+oDUN+Fs=;
+        b=FW3pwaf+IkaLlUOyvUHBSomTBJJ+RCTuruWHSPm5OerB9tg/bzZMKflwAaAb9TtJds
+         cA8IXGMVvT15vKi68UdAofNJ341Co0a2jmINBbmRXLgIi3mQ+ya2mjmVtyejL6vFpQsw
+         zaIwkdbLrrFf4nV9RqmNvk4X1oBw6Zycn//SQnG90rPz+wkrWag+t697IJQMK3PAp7xx
+         Qd/5r4Lk39VA/3veNcKNdYvt7zk5BRD8pKQK03Fy8J8Tbgv7nJaUR7GgYteMjNckBHQn
+         VYoy++KLdra+uJ/d8IBq46ikI6TNtO7cjtDkE0pauw49D0YyLDzmuwYo0lrOk1oNwW8P
+         2OLg==
+X-Forwarded-Encrypted: i=1; AL+hErH1Rm3gGQJovIfsXuk5q/DlVhds8LzxKXxh385LDGQf/zO2u3DOdrHhRq+eHdCHY2uv4pAa9D1UoVJ5upY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/fl3GQX/UVaEd27NJMozZJwLtMYRnB8tQiRsR9HHRJI0+NyC/s
+	dhg3zpyTAaEXVQiB0SehPdegNcyU/Upr9OeIhLhOzSF/j8IdXgKytEiO
+X-Gm-Gg: AYBFou3I/PDDOxQtA9ELFQ8s7ExKQkO6yyUPJXj5ExP79ubVm6z7E4cZIPmTuHtPRHS
+	zqgH8kGn8Z0t9byHvq31/Hc1YSywpr1kEvGw5d1bEVJYDI9DyWdxrozEqfwBLuTSmvolaup9obM
+	jwFxu967YpCysYFcABgBOZs9eOiNGCzCgm+U4WyV94jnUaXThWBT1yEBRzLuoRerskNIaaqJWDm
+	DEBQ2/3EY7PzGLcfo5mrQCH1MI9qf80rkhNgYWCxu66dM9B9O/0xAnhJf7bqYd7H06WpU/T9S18
+	Lp3flb35G0JOi5aMZidbV+LBXkCDQTkdkf/mAYobwD7Q5Lqu3ipFxa+Fbyhsp1awgkX/0Wd8nKS
+	whm0J0FTT/HBvHFgZFWbJyofyxxYpDr0PWz1iZuu8ItXXK/8XJk/vaFk9+6HF/9ij9MNFDJNiSc
+	nJSKaRmGRENSjQi4Qx99ZUINdNIWLtoPYEocgEMzp3U9IoPKaHXxXANnAbm1Q0PGyl5LP7wUh6a
+	CGQaOwiOOmk2UvCs9QCNMFLzCjoaGk3HoncmYfJChHqN73Pl8P3Zb+XbkPMaFEw1vQfSDUaNZfv
+	xJfA9plvMmN755R31tRdbHNvqwulYf+d9IpcTPsKJAupXHNzE6hN/ZfJ68UV2T8GqnNc57H2eOd
+	jspbUaw8ZwDRSLcdiK3kSswARn/9L0WZ3wKA/OnALLzU3sXBbUh/GyY2m4aPOTBjinGOrlf0USn
+	uweg==
+X-Received: by 2002:a17:90b:4ad0:b0:3a7:3474:b1ee with SMTP id 98e67ed59e1d1-3b182f1adcdmr3660412a91.60.1794433729109;
+        Wed, 11 Nov 2026 13:48:49 -0800 (PST)
 Received: from ryzen.lan ([2601:644:8000:37f::e34])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b182de1dafsm2754761a91.3.2026.11.11.13.48.45
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b182de1dafsm2754761a91.3.2026.11.11.13.48.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 13:48:46 -0800 (PST)
+        Wed, 11 Nov 2026 13:48:47 -0800 (PST)
 From: Rosen Penev <rosenp@gmail.com>
 To: Jonathan Corbet <corbet@lwn.net>,
 	Hans de Goede <hansg@kernel.org>,
@@ -90,9 +90,9 @@ Cc: Shuah Khan <skhan@linuxfoundation.org>,
 	linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	platform-driver-x86@vger.kernel.org
-Subject: [PATCH 1/2] platform/x86: dell_rbu: Use the firmware upload API
-Date: Wed, 11 Nov 2026 13:48:25 -0800
-Message-ID: <20261111214826.6577-2-rosenp@gmail.com>
+Subject: [PATCH 2/2] platform/x86: dell_rbu: Allocate large monolithic images contiguously
+Date: Wed, 11 Nov 2026 13:48:26 -0800
+Message-ID: <20261111214826.6577-3-rosenp@gmail.com>
 X-Mailer: git-send-email 2.56.1
 In-Reply-To: <20261111214826.6577-1-rosenp@gmail.com>
 References: <20261111214826.6577-1-rosenp@gmail.com>
@@ -107,295 +107,142 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-dell_rbu receives the BIOS image through the legacy firmware sysfs
-fallback: writing "init" to image_type calls request_firmware_nowait()
-with FW_ACTION_NOUEVENT, and userspace feeds the image through
-/sys/class/firmware/dell_rbu/{loading,data}. This is why DELL_RBU
-selects FW_LOADER_USER_HELPER, an option most distributions disable.
-On such kernels the driver cannot be enabled at all.
+Monolithic RBU images must live in a single physically contiguous block
+below 4GB. img_update_realloc() gets that block from __get_free_pages(),
+which cannot return more than MAX_PAGE_ORDER (4MB on x86). Current Dell
+BIOS packages are larger than that: the Precision M4800 A26 image
+(the PFS container extracted from the update executable) is about 16MB,
+and SMBIOS structure 0xDE on that system reports no packet-mode support,
+so the image cannot be loaded at all.
 
-The firmware upload API (FW_UPLOAD) was added for this use case and
-provides the same /sys/class/firmware/<name>/{loading,data} interface
-without the user helper. Register a firmware upload device at module init
-and move the work done in callbackfn_rbu() into the prepare() op,
-which receives the whole image. The BIOS picks the image up from memory
-on the next reboot, so write(), poll_complete() and cancel() have
-nothing to do.
+When the required order exceeds MAX_PAGE_ORDER, fall back to
+alloc_contig_pages() with __GFP_DMA32 so the range is still below 4GB,
+and free it with free_contig_range(). Smaller images keep using the
+buddy allocator as before.
 
-The upload entries now persist for the lifetime of the module, so
-the "init" image_type workaround for recreating them and the
-entry_created tracking are no longer needed. "init" is still accepted
-and frees any downloaded image, as documented. Allocation or
-packetizing failures are now reported via the error attribute instead
-of being silently dropped.
-
-The upload device is registered from module init and unregistered from
-module exit, so pass a NULL module to firmware_upload_register():
-otherwise the reference it takes would pin dell_rbu and make it
-impossible to unload. firmware_upload_unregister() cancels and flushes
-any in-flight upload before returning.
-
-The userspace sequence documented in dell_rbu.rst (echo 1 > loading,
-cp image > data, echo 0 > loading) is unchanged.
+Tested on a Precision M4800 by uploading the 16MB A26 image through
+/sys/class/firmware/dell_rbu and reading it back byte-for-byte from
+/sys/devices/platform/dell_rbu/data; a 300KB image still uses the
+buddy allocator path.
 
 Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
 Signed-off-by: Rosen Penev <rosenp@gmail.com>
 ---
- Documentation/admin-guide/dell_rbu.rst |  25 +++---
- drivers/platform/x86/dell/Kconfig      |   2 +-
- drivers/platform/x86/dell/dell_rbu.c   | 107 ++++++++++++++++---------
- 3 files changed, 81 insertions(+), 53 deletions(-)
+ drivers/platform/x86/dell/dell_rbu.c | 54 +++++++++++++++++++++++++---
+ 1 file changed, 50 insertions(+), 4 deletions(-)
 
-diff --git a/Documentation/admin-guide/dell_rbu.rst b/Documentation/admin-guide/dell_rbu.rst
-index 2196caf1b939..d33927b0d52d 100644
---- a/Documentation/admin-guide/dell_rbu.rst
-+++ b/Documentation/admin-guide/dell_rbu.rst
-@@ -47,6 +47,10 @@ The driver load creates the following directories under the /sys file system::
- 
- 	/sys/class/firmware/dell_rbu/loading
- 	/sys/class/firmware/dell_rbu/data
-+	/sys/class/firmware/dell_rbu/status
-+	/sys/class/firmware/dell_rbu/error
-+	/sys/class/firmware/dell_rbu/remaining_size
-+	/sys/class/firmware/dell_rbu/cancel
- 	/sys/devices/platform/dell_rbu/image_type
- 	/sys/devices/platform/dell_rbu/data
- 	/sys/devices/platform/dell_rbu/packet_size
-@@ -95,26 +99,21 @@ Do the steps below to download the BIOS image.
- 2) cp bios_image.hdr /sys/class/firmware/dell_rbu/data
- 3) echo 0 > /sys/class/firmware/dell_rbu/loading
- 
--The /sys/class/firmware/dell_rbu/ entries will remain till the following is
--done.
--
--::
-+The /sys/class/firmware/dell_rbu/ entries are provided by the firmware upload
-+framework (see Documentation/driver-api/firmware/fw_upload.rst) and remain
-+for as long as the driver is loaded. Once step 3 is done,
-+/sys/class/firmware/dell_rbu/status returns to "idle" and
-+/sys/class/firmware/dell_rbu/error is empty if the image was accepted.
-+A download in progress can be aborted with::
- 
- 	echo -1 > /sys/class/firmware/dell_rbu/loading
- 
--Until this step is completed the driver cannot be unloaded.
--
- Also echoing either mono, packet or init in to image_type will free up the
- memory allocated by the driver.
- 
--If a user by accident executes steps 1 and 3 above without executing step 2;
--it will make the /sys/class/firmware/dell_rbu/ entries disappear.
--
--The entries can be recreated by doing the following::
--
--	echo init > /sys/devices/platform/dell_rbu/image_type
--
- .. note:: echoing init in image_type does not change its original value.
-+   It is kept for compatibility; the /sys/class/firmware/dell_rbu/ entries
-+   no longer need to be recreated.
- 
- Also the driver provides /sys/devices/platform/dell_rbu/data readonly file to
- read back the image downloaded.
-diff --git a/drivers/platform/x86/dell/Kconfig b/drivers/platform/x86/dell/Kconfig
-index f6acf1cc2a2f..1672ed04a36a 100644
---- a/drivers/platform/x86/dell/Kconfig
-+++ b/drivers/platform/x86/dell/Kconfig
-@@ -89,7 +89,7 @@ config DELL_RBU
- 	default m
- 	depends on X86
- 	select FW_LOADER
--	select FW_LOADER_USER_HELPER
-+	select FW_UPLOAD
- 	help
- 	 Say m if you want to have the option of updating the BIOS for your
- 	 DELL system. Note you need a Dell OpenManage or Dell Update package (DUP)
 diff --git a/drivers/platform/x86/dell/dell_rbu.c b/drivers/platform/x86/dell/dell_rbu.c
-index 768b15f406d3..a121f59a215d 100644
+index a121f59a215d..d71fa9584831 100644
 --- a/drivers/platform/x86/dell/dell_rbu.c
 +++ b/drivers/platform/x86/dell/dell_rbu.c
-@@ -60,12 +60,11 @@ static struct _rbu_data {
+@@ -41,6 +41,8 @@
+ #include <linux/moduleparam.h>
+ #include <linux/firmware.h>
+ #include <linux/dma-mapping.h>
++#include <linux/gfp.h>
++#include <linux/mm.h>
+ #include <asm/set_memory.h>
+ 
+ MODULE_AUTHOR("Abhay Salunke <abhay_salunke@dell.com>");
+@@ -55,6 +57,7 @@ static struct _rbu_data {
+ 	unsigned long image_update_buffer_size;
+ 	unsigned long bios_image_size;
+ 	int image_update_ordernum;
++	unsigned long image_update_contig_pages;
+ 	spinlock_t lock;
+ 	unsigned long packet_read_count;
  	unsigned long num_packets;
- 	unsigned long packetsize;
- 	unsigned long imagesize;
--	int entry_created;
- } rbu_data;
- 
- static char image_type[MAX_IMAGE_LENGTH + 1] = "mono";
- module_param_string(image_type, image_type, sizeof (image_type), 0);
--MODULE_PARM_DESC(image_type, "BIOS image type. choose- mono or packet or init");
-+MODULE_PARM_DESC(image_type, "BIOS image type. choose- mono or packet");
- 
- static unsigned long allocation_floor = 0x100000;
- module_param(allocation_floor, ulong, 0644);
-@@ -81,7 +80,7 @@ struct packet_data {
- static struct list_head packet_data_list;
- 
- static struct platform_device *rbu_device;
--static int context;
-+static struct fw_upload *rbu_fw_upload;
- 
- static void init_packet_head(void)
- {
-@@ -497,41 +496,72 @@ static ssize_t data_read(struct file *filp, struct kobject *kobj,
+@@ -335,6 +338,37 @@ static void packet_empty_list(void)
+ 	rbu_data.imagesize = 0;
  }
- static const BIN_ATTR_RO(data, 0);
  
--static void callbackfn_rbu(const struct firmware *fw, void *context)
 +/*
-+ * The whole image is handed to prepare() by the firmware upload core, so
-+ * all of the work happens here. The BIOS consumes the image from memory on
-+ * the next reboot; there is nothing to stream to hardware afterwards.
++ * Monolithic images must sit in one physically contiguous block below 4GB.
++ * Current BIOS images (16MB on some systems) exceed what the buddy allocator
++ * can hand out (MAX_PAGE_ORDER), so fall back to the contiguous range
++ * allocator for those when it is available.
 + */
-+static enum fw_upload_err rbu_fw_prepare(struct fw_upload *fw_upload,
-+					 const u8 *data, u32 size)
- {
--	rbu_data.entry_created = 0;
--
--	if (!fw)
--		return;
--
--	if (!fw->size)
--		goto out;
-+	enum fw_upload_err ret = FW_UPLOAD_ERR_NONE;
++#ifdef CONFIG_CONTIG_ALLOC
++static void *img_alloc_contig(unsigned long nr_pages)
++{
++	struct page *page;
++
++	page = alloc_contig_pages(nr_pages, GFP_KERNEL | __GFP_DMA32 | __GFP_NOWARN,
++				  first_online_node, NULL);
++	return page ? page_address(page) : NULL;
++}
++
++static void img_free_contig(void *buf, unsigned long nr_pages)
++{
++	free_contig_range(PHYS_PFN(virt_to_phys(buf)), nr_pages);
++}
++#else
++static void *img_alloc_contig(unsigned long nr_pages)
++{
++	return NULL;
++}
++
++static void img_free_contig(void *buf, unsigned long nr_pages)
++{
++}
++#endif
++
+ /*
+  * img_update_free: Frees the buffer allocated for storing BIOS image
+  * Always called with lock held and returned with lock held
+@@ -349,13 +383,18 @@ static void img_update_free(void)
+ 	 */
+ 	memset(rbu_data.image_update_buffer, 0,
+ 		rbu_data.image_update_buffer_size);
+-	free_pages((unsigned long) rbu_data.image_update_buffer,
+-		rbu_data.image_update_ordernum);
++	if (rbu_data.image_update_contig_pages)
++		img_free_contig(rbu_data.image_update_buffer,
++				rbu_data.image_update_contig_pages);
++	else
++		free_pages((unsigned long) rbu_data.image_update_buffer,
++			rbu_data.image_update_ordernum);
  
- 	spin_lock(&rbu_data.lock);
- 	if (!strcmp(image_type, "mono")) {
--		if (!img_update_realloc(fw->size))
--			memcpy(rbu_data.image_update_buffer,
--				fw->data, fw->size);
-+		if (img_update_realloc(size))
-+			ret = FW_UPLOAD_ERR_RW_ERROR;
-+		else
-+			memcpy(rbu_data.image_update_buffer, data, size);
- 	} else if (!strcmp(image_type, "packet")) {
- 		/*
- 		 * we need to free previous packets if a
- 		 * new hunk of packets needs to be downloaded
- 		 */
- 		packet_empty_list();
--		if (packetize_data(fw->data, fw->size))
-+		if (packetize_data(data, size)) {
- 			/* Incase something goes wrong when we are
- 			 * in middle of packetizing the data, we
- 			 * need to free up whatever packets might
- 			 * have been created before we quit.
- 			 */
- 			packet_empty_list();
--	} else
-+			ret = FW_UPLOAD_ERR_RW_ERROR;
-+		}
-+	} else {
- 		pr_debug("invalid image type specified\n");
-+		ret = FW_UPLOAD_ERR_FW_INVALID;
-+	}
+ 	/*
+ 	 * Re-initialize the rbu_data variables after a free
+ 	 */
+ 	rbu_data.image_update_ordernum = -1;
++	rbu_data.image_update_contig_pages = 0;
+ 	rbu_data.image_update_buffer = NULL;
+ 	rbu_data.image_update_buffer_size = 0;
+ 	rbu_data.bios_image_size = 0;
+@@ -375,6 +414,7 @@ static int img_update_realloc(unsigned long size)
+ {
+ 	unsigned char *image_update_buffer = NULL;
+ 	unsigned long img_buf_phys_addr;
++	unsigned long contig_pages = 0;
+ 	int ordernum;
+ 
+ 	/*
+@@ -404,8 +444,13 @@ static int img_update_realloc(unsigned long size)
  	spin_unlock(&rbu_data.lock);
-- out:
--	release_firmware(fw);
-+
-+	return ret;
-+}
-+
-+static enum fw_upload_err rbu_fw_write(struct fw_upload *fw_upload,
-+				       const u8 *data, u32 offset,
-+				       u32 size, u32 *written)
-+{
-+	/* Already consumed in rbu_fw_prepare() */
-+	*written = size;
-+	return FW_UPLOAD_ERR_NONE;
-+}
-+
-+static enum fw_upload_err rbu_fw_poll_complete(struct fw_upload *fw_upload)
-+{
-+	return FW_UPLOAD_ERR_NONE;
-+}
-+
-+static void rbu_fw_cancel(struct fw_upload *fw_upload)
-+{
-+	/* Nothing in flight to abort; the image only lives in memory. */
+ 
+ 	ordernum = get_order(size);
+-	image_update_buffer =
+-		(unsigned char *)__get_free_pages(GFP_DMA32, ordernum);
++	if (ordernum <= MAX_PAGE_ORDER) {
++		image_update_buffer =
++			(unsigned char *)__get_free_pages(GFP_DMA32, ordernum);
++	} else {
++		contig_pages = PAGE_ALIGN(size) >> PAGE_SHIFT;
++		image_update_buffer = img_alloc_contig(contig_pages);
++	}
+ 	spin_lock(&rbu_data.lock);
+ 	if (!image_update_buffer) {
+ 		pr_debug("Not enough memory for image update: size = %ld\n", size);
+@@ -420,6 +465,7 @@ static int img_update_realloc(unsigned long size)
+ 	rbu_data.image_update_buffer_size = size;
+ 	rbu_data.bios_image_size = rbu_data.image_update_buffer_size;
+ 	rbu_data.image_update_ordernum = ordernum;
++	rbu_data.image_update_contig_pages = contig_pages;
+ 	return 0;
  }
  
-+static const struct fw_upload_ops rbu_fw_ops = {
-+	.prepare = rbu_fw_prepare,
-+	.write = rbu_fw_write,
-+	.poll_complete = rbu_fw_poll_complete,
-+	.cancel = rbu_fw_cancel,
-+};
-+
- static ssize_t image_type_read(struct file *filp, struct kobject *kobj,
- 			       const struct bin_attribute *bin_attr,
- 			       char *buffer, loff_t pos, size_t count)
-@@ -547,7 +577,6 @@ static ssize_t image_type_write(struct file *filp, struct kobject *kobj,
- 				char *buffer, loff_t pos, size_t count)
- {
- 	int rc = count;
--	int req_firm_rc = 0;
- 	int i;
- 	spin_lock(&rbu_data.lock);
- 	/*
-@@ -567,26 +596,10 @@ static ssize_t image_type_write(struct file *filp, struct kobject *kobj,
- 		strscpy(image_type, "packet");
- 	else if (strstr(buffer, "init")) {
- 		/*
--		 * If due to the user error the driver gets in a bad
--		 * state where even though it is loaded , the
--		 * /sys/class/firmware/dell_rbu entries are missing.
--		 * to cover this situation the user can recreate entries
--		 * by writing init to image_type.
-+		 * Historically this recreated the /sys/class/firmware/dell_rbu
-+		 * entries. They are now persistent, so "init" only frees
-+		 * any previously downloaded image, as before.
- 		 */
--		if (!rbu_data.entry_created) {
--			spin_unlock(&rbu_data.lock);
--			req_firm_rc = request_firmware_nowait(THIS_MODULE,
--				FW_ACTION_NOUEVENT, "dell_rbu",
--				&rbu_device->dev, GFP_KERNEL, &context,
--				callbackfn_rbu);
--			if (req_firm_rc) {
--				pr_err("request_firmware_nowait failed %d\n", rc);
--				rc = -EIO;
--			} else
--				rbu_data.entry_created = 1;
--
--			spin_lock(&rbu_data.lock);
--		}
- 	} else {
- 		pr_warn("image_type is invalid\n");
- 		spin_unlock(&rbu_data.lock);
-@@ -661,9 +674,24 @@ static int __init dcdrbu_init(void)
- 	if (rc)
- 		goto out_devreg;
- 
--	rbu_data.entry_created = 0;
-+	/*
-+	 * Registered from module init and unregistered from module exit, so
-+	 * don't let the upload device pin this module: that would make it
-+	 * impossible to unload. firmware_upload_unregister() cancels and
-+	 * flushes any in-flight upload before returning.
-+	 */
-+	rbu_fw_upload = firmware_upload_register(NULL, &rbu_device->dev,
-+						 "dell_rbu", &rbu_fw_ops, NULL);
-+	if (IS_ERR(rbu_fw_upload)) {
-+		rc = PTR_ERR(rbu_fw_upload);
-+		pr_err("firmware_upload_register failed %d\n", rc);
-+		goto out_group;
-+	}
-+
- 	return 0;
- 
-+out_group:
-+	sysfs_remove_group(&rbu_device->dev.kobj, &rbu_group);
- out_devreg:
- 	platform_device_unregister(rbu_device);
- 	return rc;
-@@ -671,6 +699,7 @@ static int __init dcdrbu_init(void)
- 
- static __exit void dcdrbu_exit(void)
- {
-+	firmware_upload_unregister(rbu_fw_upload);
- 	spin_lock(&rbu_data.lock);
- 	packet_empty_list();
- 	img_update_free();
 -- 
 2.56.1
 
