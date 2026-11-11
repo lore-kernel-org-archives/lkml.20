@@ -1,60 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.10
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794400012;
-	b=xIf4IPvGMtxQygxzsTS1pDFTPM1D3T5NN08Sqz/tX45Zt//mjXh/fKKfEJzG4jIF7gPQ
-	 yQPEodbc/JUj44R/5vbr7oNaBylU+KNeE6HqPYB3tGsbHzAc79fhPnB2jqX6iuxwMYwew
-	 1h07icXHlpBmJFj++K+sh7xErM4Zabjcp7srwCTI1ofLA/ngDBcy3N4s8Y2VsZyfd4/tQ
-	 DRDLyewMo3Hd7UaGn7NYFE1MD6+EikHEinqErFRWOILKcPF/ZcCZ8K2AHKS2RLdhsVZ9I
-	 NtEET8NsWYYCSrBjjS61EO2zqZCozh4+7J0mrFazklElhrlMtdFUzh+dLbC51Td5NHw==
+	t=1794400022;
+	b=R/nZhxR0RLCCsvtAqy8vWvLa6uDGDhzMSHRuOaN18CAFOpkhJMaegZCHzB89JZaBgDk2
+	 9YJlfwJPqOibjipfFfWp02+7WmwYbUZbbYbP5oN1YZ+SloJQjRofLaF/Sa3gg1mQe5mvO
+	 giB1K2LwKZsREa2VrY0D95XKKtCjGYQjR95u4a5+WB5KQAVOTyFYosiCQfA2E538Zk4hl
+	 iGbiDZi89VBvMC43DOuGocNGMYzlFZaAjeg1MQ6STQiS4gfKKqoX+Mn79o5pilthONA1y
+	 qmBFxBBcNWRwWn/nRdPdI8pmw45Iqre9YpEYBwXZnwsyZ+7/eWHljVnSsVaK+kBqvPQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794400012;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:Auto-Submitted:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=80POjU5WP6ctS0DqN7hA/63JAQ8Agh1hTny2C1kJcvk=;
-	b=Vu/3CiqIz2aiQVAqx9WqVY6vbibhNU2qLwAsNQEb6oLrPBxUnPSp8/HNl+0FVEfKAbnd
-	 MnblSR9kOf3BmcsGf5ubxhr0Y56BfOf+X3YUwiKMQH6s6RNHciXYd+U0lpUgRzjGEYs6X
-	 n+iN//UmLT49+esgoYDKTJRIsIxivObUUEBnaCoj4DpbaidyAcThb7misQfjS2k0Gby49
-	 yLbi51wsj7IepH9Mudetl929Tlxf7DjKg4RAyiNb/c3pHd8dw1DZ8+iB/Tr5R5kAJGcdT
-	 3Fiddq76X1ipldUWaG0kuapQXlVwBJ1NpHVpT+8e7a1n6qwb/zhwM3ZQNs/HrpyjTbQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794400022;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:To:cc:
+	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type;
+	bh=ty9rPwMxhpx+zjNI13KdsoMqrXSZhKgLEC01TrXNvMM=;
+	b=iiyiwaWQzLm2GS6+tYG/VNoIOMcZUo41Oq4nR8E3lgnT9yxPn3SKthobwtj8lTME0YkV
+	 x2Bos9h4qXEpEXcWt0kH3bZpJZc+BZkvJDcjyUHyz5t5CTRkpe9zKedhKqQPJ3QGOjSDy
+	 tf6BMy8q05bxvmenwaW1Tsq83NeJIzQWBLY+9g9blmcRmvFApCopUTVJnYeE+wePAV1jb
+	 qC4g7krztpTTTN6Lojaxw23USaeMIM4HI5kG5q/Znane95o++I8FUZYvKSFMDOuvVetYs
+	 De7vQFbXVHvRcj+sueX9+GdWvCHyuozHx8pPaGlTcbWrYqrQ1GbfsodvUzLxlDeCs/g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="osYbtIe/";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=HBusxRWh;
+	arc=none smtp.remote-ip=198.175.65.10
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6439F606A321;
-	Wed, 11 Nov 2026 12:26:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE922606A31C;
+	Wed, 11 Nov 2026 12:26:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE922606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=osYbtIe/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92FE41F00A05;
-	Wed, 11 Nov 2026 12:26:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794400012;
-	bh=80POjU5WP6ctS0DqN7hA/63JAQ8Agh1hTny2C1kJcvk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=osYbtIe//9KH26xdUFuq2fh59vkhY2AyViVGqccxTk4G2uYkQJenl70xl3J5BTXhQ
-	 FupOt7sHtLUsolgnWSBpCC13b+GZQAZNWZIKdCTeMoJyMIag/MQ7i+vyNJfZMzzQYX
-	 aQuEu9kEHHvCWD/ZhuMIcWGw9mjP2A2JVLUPeqKkjuhMdFuRXnfoTR5TxGvg1XUlh2
-	 AMT1CLnslj4gWznuDZBQOY9yHhFJPTVaONALntk6NgRirbBcBiWCbqK5DpAD0V3LBL
-	 7fTtcQBsFhprJVmDkdB1YYztiGbj8CyKBSnluMFNmw1A/cvXpWviBeL/8z8HVfmpBD
-	 I5wRa1euWMwqQ==
-From: netdev-bot+sinfo@kernel.org
-To: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: 
- Re: [PATCH net] net: fealnx: Fix potential use-after-free during removal
-Date: Wed, 11 Nov 2026 12:26:51 +0000
-Message-ID: <179440001109.2168702.9141461927909422219@kernel.org>
-In-Reply-To: <20261111-e5624093d6-net-fealnx@mail.sdu.edu.cn>
-References: <20261111-e5624093d6-net-fealnx@mail.sdu.edu.cn>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=HBusxRWh
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794400017; x=1825936017;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=V2Hyg/sqJQwHx0xYHtk2PzJGLwRpGxF/4d8g72ZeQBA=;
+  b=HBusxRWhQ/natniOESsxtOLIoIp5sSg5C5ABzPCbWFwoH45Xq6diHfFc
+   DgS7tR14k81VQAUiBe8jDgXM3ECk4TAbba5mUQk2KMKhCAxoV9rPcbn2I
+   2N2mS2X57btY878Otz6Pvn1A7hW04BCqnY2VvkOIB5d9yZ/gBrPBkrwM6
+   hA6/Vys+WEj4AyLWBJHl6w6bzMJwAqdoSyWTnYfWWib+/4e1gmcJWJGKj
+   iZDj6BRGyrZe7pM2Ceg9JsYSQKgJeykoVtvmWJ/oycxmayZOP5mE6KaLQ
+   tMHJQLqPBcGe6RW0Kd07Q5daEZkX+CiBSOVRfTGmq7pAGLrDicb0YvPiW
+   Q==;
+X-CSE-ConnectionGUID: sp/5N1nbQlylwGZO1eAthQ==
+X-CSE-MsgGUID: Vk0rZ48XSu2s/MYbUbPFtw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11962"; a="3077431"
+X-IronPort-AV: E=Sophos;i="6.27,207,1787036400"; 
+   d="scan'208";a="3077431"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 04:26:57 -0800
+X-CSE-ConnectionGUID: ymh8QBLDQBSWDEotb9E7Xw==
+X-CSE-MsgGUID: 7EZ0xVbORfS6Q7t5s3Ak8Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,207,1787036400"; 
+   d="scan'208";a="8409195"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.192])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 04:26:55 -0800
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Wed, 11 Nov 2026 14:26:51 +0200 (EET)
+To: Werner Sembach <wse@tuxedocomputers.com>
+cc: Armin Wolf <W_Armin@gmx.de>, Hans de Goede <hansg@kernel.org>, 
+    platform-driver-x86@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] platform/x86: uniwill-laptop: Add TUXEDO Stellaris 16
+ - Gen8 - Intel
+In-Reply-To: <20261111115811.498955-1-wse@tuxedocomputers.com>
+Message-ID: <18e8c77c-f605-8eb6-158c-69f3b49ed458@linux.intel.com>
+References: <20261111115811.498955-1-wse@tuxedocomputers.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,21 +79,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
 
-Hi!
+On Wed, 11 Nov 2026, Werner Sembach wrote:
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+> Same features as the Gen7. Just 2 new entries for the new boardnames.
 
- - What hardware the change was tested on. For driver fixes please
-   mention the device (and if relevant firmware version) used for
-   testing, or say that the change was not tested on real hardware.
+The changelog should be readable as standalone, which this clearly isn't.
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
+> I wrote the ident the same way the system product dmi string is written,
 
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+Don't use personalized terms like "I wrote".
+
+> which itself now follows how the device is listed in your online shop. The
+> only actual change was adding the '-' with spaces around.
+
+What online shop have is irrelevant detail when it comes to kernel changes.
+
+--
+ i.
+
+> Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
+> ---
+> This commit was built on top of Armins latest series:
+> https://lore.kernel.org/all/20261110165318.631010-1-W_Armin@gmx.de/
+> 
+>  drivers/platform/x86/uniwill/uniwill-acpi.c | 16 ++++++++++++++++
+>  1 file changed, 16 insertions(+)
+> 
+> diff --git a/drivers/platform/x86/uniwill/uniwill-acpi.c b/drivers/platform/x86/uniwill/uniwill-acpi.c
+> index dc99bf8a8568c..e2a6a704e942e 100644
+> --- a/drivers/platform/x86/uniwill/uniwill-acpi.c
+> +++ b/drivers/platform/x86/uniwill/uniwill-acpi.c
+> @@ -3629,6 +3629,22 @@ static const struct dmi_system_id uniwill_dmi_table[] __initconst = {
+>  		},
+>  		.driver_data = &gmxixxx_xxxx45xx_xxxx55xx_xxxx57xx_descriptor,
+>  	},
+> +	{
+> +		.ident = "TUXEDO Stellaris 16 - Gen8 - Intel",
+> +		.matches = {
+> +			DMI_MATCH(DMI_SYS_VENDOR, "TUXEDO"),
+> +			DMI_EXACT_MATCH(DMI_BOARD_NAME, "XxAF5xxx"),
+> +		},
+> +		.driver_data = &gmxixxx_xxxx45xx_xxxx55xx_xxxx57xx_descriptor,
+> +	},
+> +	{
+> +		.ident = "TUXEDO Stellaris 16 - Gen8 - Intel",
+> +		.matches = {
+> +			DMI_MATCH(DMI_SYS_VENDOR, "TUXEDO"),
+> +			DMI_EXACT_MATCH(DMI_BOARD_NAME, "XxAF5xxx_mLED"),
+> +		},
+> +		.driver_data = &gmxixxx_xxxx45xx_xxxx55xx_xxxx57xx_descriptor,
+> +	},
+>  	{
+>  		.ident = "TUXEDO Book BA15 Gen10 AMD",
+>  		.matches = {
+> 
+
