@@ -1,56 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794393361;
-	b=vbSopIH9/iTEVCV4nrfMVM+/pqpYceBp5xb5sT7wEeWPk5WUbRv05oKLB7VTzKpzWnhi
-	 7PKlGRxuR4rs65KKxFvILYtE3pIgQceH/RHUf5ZDA0pNt0KTBryX2aMRY6CjkNIahDOCW
-	 8LKfcddxjJILJJRRWX0s9r3f8dpV72ktonNtwmIllEI5hnK3JdxpKVVx/KlEATae7OSSS
-	 rS8Sr0N/ewjYOY3bv5LL2WEGTl1R3Yz95/pRBNKqupW9hjNGODF3VWSyF73UvZcAnJrff
-	 EjtF/o1myonsHavm9JIH9n3pL/LsGfLiyQ/wc1PoRIyzhQXVDSwrEs72p6i8p/HJlOA==
+	t=1794393363;
+	b=dDWLn86TS1S0eC/ZFzZWrQRd0F0wdOWZDQTP6sHsvUkUR9ihxtJYO2/kS2wle2sK4/9e
+	 NlWrtdOzVrgR2lQpiFsSZsEzfF0AjhJfOFWjE0h5kebGtr7jirL9iQAFFofexuwOwhp4F
+	 N9PETDhnWpLKu80S3+5gRpuymmtHkNRY+5ZTHgA83pnBBEEpFmPHpHe3c6w0EdWBdrHyh
+	 C1tSI5WBtrYiFt2QJheLrzfVHEXIS7w2bTAAszk06wfGkRWzNDbb5/GUKbed8oj1ybSQv
+	 hlCfQvWJ6nRFQovxkhVChJuEUIsS0gm83SWC8YDUGxtFg8EkZ93+DyFIhSH1FIRei1g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794393361;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=3/Qm8F9jS9txwPiJ9OMTxV+9BbKodPA2/hA4qfKSOTY=;
-	b=gB+Ns0bIXbkqEISK/ZG8v8pySh52nZUyY+Vs8dslf20FxkjOXT0CY5Qi0jVZAIlISsXU
-	 mIuM1HXf2Kr5pg6R8fktwP0xHbQJ3W5z52WC5wfy1iRqrMRyIIRY2aep1eghekLm5/LvQ
-	 MRUor/vEzTO17dNuI0X1lL7C6+Amuka2a4uV7qsD2ES8ATvOXKxZmMOtF410axbH1xKkQ
-	 P/mJfVEuK/kK0B6LwNh/F7eXEjgHVzbXpnhEgveCKlYJH44CCPjIUF4c3uaSSHM2jk4mB
-	 EjTZXaN8g1Sgmq+P4lXPEp0zIo1yuNIAzXAezDfCLP62RB/IligP+0IuiISMGxB+bAQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794393363;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=l2hpXxfdL/TeBJ0+DqklJDpQyDRLnORte7BddmR/USU=;
+	b=1oJS4LA1ybYJAkuTvoE7wMHLHcf/1WpTIQ8HsHxJ+N2fKiGTNnkph7lL2M5mUOoy3379
+	 VZxw8hkLHI2f4ltGjR1uVkhE4GMkW4zOJ6fRA/uOYT7+CZhuhhZ+6U3BEmNFE6DpXZlAq
+	 0+8rYpFW35JTfogfnYboSixOYVeF8qHQhAqrotcAJPvBNW6eRPQfjmTFiIKpNL8fnnPBe
+	 D0u8AT7Bru7GqLYGzKQSQvME/Mpi8HqpGZN6aOLfXflf0AFKHns8Y8LRoBdX2zZ05KTk0
+	 wBaQyJDLqxkpjiXb0JmJpwXAQvIwryJY2c86Rs4gPH6ECF1omOlP1h95VUoq/smujzA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ekdPx+2L;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=L4M36k8m;
+	arc=none smtp.remote-ip=185.246.85.4
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1345606A339;
-	Wed, 11 Nov 2026 10:36:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B25EC606A33F
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 10:36:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B25EC606A33F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ekdPx+2L
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ACCD91F00A05;
-	Wed, 11 Nov 2026 10:35:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794393360;
-	bh=3/Qm8F9jS9txwPiJ9OMTxV+9BbKodPA2/hA4qfKSOTY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ekdPx+2LWD0BQ/C3SpSBmJYPcQSKYU9rl2B5z5fg8d66hMIDCS9kQgX5wH0OFXyqp
-	 mM1zaLdTlBmHFxU4H70B38f/o+ymU4bEwsQWp6B3nJ7yHGcxIICCNArodCFiFzSQOn
-	 ecov57Sv2N7NEhTF0/mcY/KX0t/jBnjRgDvfgBXYa96MZ42rQhA3DH1Z+ZF6tTXDGN
-	 dW3bO0BTpWrbNgeHp4syQPmrkEcJV2iggtkE62VwsmyepRJZCfX4oBwWiUx0sSjyRD
-	 7ajUeab4QZjU2gcdS2WA7VW5SI4S+93QzS3d76IvyvqqtOQon4YKx9ItGmemNAnKEs
-	 0rK9svrg0GVKQ==
-Date: Wed, 11 Nov 2026 11:35:55 +0100
-From: Alejandro Colomar <alx+linux-hardening@kernel.org>
-To: Mariia Nikitash <nikitash.mariiaw@gmail.com>
-Cc: nicolas.dufresne@collabora.com, benjamin.gaignard@collabora.com, 
-	p.zabel@pengutronix.de, mchehab@kernel.org, hverkuil+cisco@kernel.org, 
-	linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	linux-hardening@vger.kernel.org, kees@kernel.org, justinstitt@google.com, morbo@google.com, 
-	david.laight.linux@gmail.com
-Subject: Re: [PATCH v2] media: verisilicon: Replace strlcat() with scnprintf()
-Message-ID: <avRE7QDuHyK2aFUo@devuan>
-References: <20261105084518.386234-1-nikitash.mariiaw@gmail.com>
- <20261111032446.29803-1-nikitash.mariiaw@gmail.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=L4M36k8m
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 828E24E41574;
+	Wed, 11 Nov 2026 10:36:01 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 594F66017E;
+	Wed, 11 Nov 2026 10:36:01 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 1EA4B11BC10EE;
+	Wed, 11 Nov 2026 11:35:58 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1794393360; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=l2hpXxfdL/TeBJ0+DqklJDpQyDRLnORte7BddmR/USU=;
+	b=L4M36k8m6L4c46bf1U4xJPTefezTrGIY17KqYgyjugcJnHRvVO8WZELE9kaoEkWMc1mSTT
+	VPj+p2GW4OtYnQF68bfmgc3qNIPl82fsTJtPhTAVbAJ+l68FV/iB4DvUxNMlSKc0Mj3CsU
+	ntba4lPKwA/K3G10welYmOsZXzBiiRmXmLD3ZXUAZ72nyHYliUH0YkVFzSqZ1e1lGapr8b
+	p62lZE8yX+dCcRzbOgYd5zXVEdQuvdm9YiUXQ4WRlQsrqsDbXvZecEY3sFdGKYp+5n6xbd
+	ddlXHM9QalYKw7avRbaYw04tXmG6udzZs8XMcQBfiMvlL2k3unFRueo03cm1dg==
+From: Paul Cercueil <paul.cercueil@bootlin.com>
+To: Mark Brown <broonie@kernel.org>
+Cc: linux-spi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	Bharat Bhushan <bbhushan2@marvell.com>,
+	Sunil Kovvuri Goutham <sgoutham@marvell.com>,
+	Tanmay Jagdale <tanmay@marvell.com>,
+	Jisheng Zhang <jszhang@kernel.org>,
+	Paul Cercueil <paul.cercueil@bootlin.com>
+Subject: [PATCH v2 4/6] spi: cadence-xspi: Drop useless cdns_xspi->cur_cs
+Date: Wed, 11 Nov 2026 11:35:39 +0100
+Message-ID: <20261111103541.100848-5-paul.cercueil@bootlin.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261111103541.100848-1-paul.cercueil@bootlin.com>
+References: <20261111103541.100848-1-paul.cercueil@bootlin.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,103 +75,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="beiyeemi46p27lup"
-Content-Disposition: inline
-In-Reply-To: <20261111032446.29803-1-nikitash.mariiaw@gmail.com>
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
+From: Tanmay Jagdale <tanmay@marvell.com>
 
---beiyeemi46p27lup
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx+linux-hardening@kernel.org>
-To: Mariia Nikitash <nikitash.mariiaw@gmail.com>
-Cc: nicolas.dufresne@collabora.com, benjamin.gaignard@collabora.com, 
-	p.zabel@pengutronix.de, mchehab@kernel.org, hverkuil+cisco@kernel.org, 
-	linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	linux-hardening@vger.kernel.org, kees@kernel.org, justinstitt@google.com, morbo@google.com, 
-	david.laight.linux@gmail.com
-Subject: Re: [PATCH v2] media: verisilicon: Replace strlcat() with scnprintf()
-Message-ID: <avRE7QDuHyK2aFUo@devuan>
-References: <20261105084518.386234-1-nikitash.mariiaw@gmail.com>
- <20261111032446.29803-1-nikitash.mariiaw@gmail.com>
-MIME-Version: 1.0
-In-Reply-To: <20261111032446.29803-1-nikitash.mariiaw@gmail.com>
+Make the code simpler by just passing down a 'cs' variable as argument
+to the cdns_xspi_send_stig_command() function.
 
-Hi Mariia,
+Signed-off-by: Tanmay Jagdale <tanmay@marvell.com>
+Co-developed-by: Paul Cercueil <paul.cercueil@bootlin.com>
+Signed-off-by: Paul Cercueil <paul.cercueil@bootlin.com>
 
-> Date: 2026-11-10 19:24:46-0800
-> From: Mariia Nikitash <nikitash.mariiaw@gmail.com>
->
-> In preparation for removing the deprecated strlcat() API [1], replace the
-> strscpy() and strlcat() calls in hantro_add_func() with a single
-> scnprintf() call.
->=20
-> This preserves the resulting string, including NUL termination
-> and truncation behavior.
->=20
-> Link: https://github.com/KSPP/linux/issues/370 [1]
-> Signed-off-by: Mariia Nikitash <nikitash.mariiaw@gmail.com>
+---
 
-Reviewed-by: Alejandro Colomar <alx@kernel.org>
+v2: No change
+---
+ drivers/spi/spi-cadence-xspi.c | 16 +++++-----------
+ 1 file changed, 5 insertions(+), 11 deletions(-)
 
+diff --git a/drivers/spi/spi-cadence-xspi.c b/drivers/spi/spi-cadence-xspi.c
+index 189f87321777..f4ce4820b08f 100644
+--- a/drivers/spi/spi-cadence-xspi.c
++++ b/drivers/spi/spi-cadence-xspi.c
+@@ -331,7 +331,6 @@ struct cdns_xspi_dev {
+ 	void __iomem *xferbase;
+ 
+ 	int irq;
+-	int cur_cs;
+ 	unsigned int sdmasize;
+ 	unsigned int sdma_xfer_len;
+ 
+@@ -543,7 +542,7 @@ static int cdns_xspi_sdma_handle(struct cdns_xspi_dev *cdns_xspi)
+ 
+ static int cdns_xspi_send_stig_command(struct cdns_xspi_dev *cdns_xspi,
+ 				       const struct spi_mem_op *op,
+-				       bool data_phase)
++				       int cs, bool data_phase)
+ {
+ 	u32 cmd_regs[6];
+ 	u32 cmd_status;
+@@ -566,8 +565,7 @@ static int cdns_xspi_send_stig_command(struct cdns_xspi_dev *cdns_xspi,
+ 	} else {
+ 		cmd_regs[3] = CDNS_XSPI_CMD_FLD_P1_INSTR_CMD_3(op, 0);
+ 	}
+-	cmd_regs[4] = CDNS_XSPI_CMD_FLD_P1_INSTR_CMD_4(op,
+-						       cdns_xspi->cur_cs);
++	cmd_regs[4] = CDNS_XSPI_CMD_FLD_P1_INSTR_CMD_4(op, cs);
+ 
+ 	cdns_xspi_trigger_command(cdns_xspi, cmd_regs);
+ 
+@@ -576,8 +574,7 @@ static int cdns_xspi_send_stig_command(struct cdns_xspi_dev *cdns_xspi,
+ 		cmd_regs[1] = CDNS_XSPI_CMD_FLD_DSEQ_CMD_1(op);
+ 		cmd_regs[2] = CDNS_XSPI_CMD_FLD_DSEQ_CMD_2(op);
+ 		cmd_regs[3] = CDNS_XSPI_CMD_FLD_DSEQ_CMD_3(op, dummybytes);
+-		cmd_regs[4] = CDNS_XSPI_CMD_FLD_DSEQ_CMD_4(op,
+-							   cdns_xspi->cur_cs);
++		cmd_regs[4] = CDNS_XSPI_CMD_FLD_DSEQ_CMD_4(op, cs);
+ 
+ 		cdns_xspi->in_buffer = op->data.buf.in;
+ 		cdns_xspi->out_buffer = op->data.buf.out;
+@@ -612,11 +609,9 @@ static int cdns_xspi_mem_op(struct cdns_xspi_dev *cdns_xspi,
+ 			    const struct spi_mem_op *op)
+ {
+ 	enum spi_mem_data_dir dir = op->data.dir;
++	int cs = spi_get_chipselect(mem->spi, 0);
+ 
+-	if (cdns_xspi->cur_cs != spi_get_chipselect(mem->spi, 0))
+-		cdns_xspi->cur_cs = spi_get_chipselect(mem->spi, 0);
+-
+-	return cdns_xspi_send_stig_command(cdns_xspi, op,
++	return cdns_xspi_send_stig_command(cdns_xspi, op, cs,
+ 					   (dir != SPI_MEM_NO_DATA));
+ }
+ 
+@@ -1272,7 +1267,6 @@ static int cdns_xspi_probe(struct platform_device *pdev)
+ 	cdns_xspi->pdev = pdev;
+ 	cdns_xspi->host = host;
+ 	cdns_xspi->dev = &pdev->dev;
+-	cdns_xspi->cur_cs = 0;
+ 
+ 	init_completion(&cdns_xspi->cmd_complete);
+ 	init_completion(&cdns_xspi->auto_cmd_complete);
+-- 
+2.47.3
 
-Have a lovely day!
-Alex
-
-> ---
-> Changes in v2:
-> - Replace seq_buf with a single scnprintf() call, as suggested
->   by Hans Verkuil.
->=20
->  drivers/media/platform/verisilicon/hantro_drv.c | 5 ++---
->  1 file changed, 2 insertions(+), 3 deletions(-)
->=20
-> diff --git a/drivers/media/platform/verisilicon/hantro_drv.c b/drivers/me=
-dia/platform/verisilicon/hantro_drv.c
-> index 26e5d5547466..d8854ceb4fed 100644
-> --- a/drivers/media/platform/verisilicon/hantro_drv.c
-> +++ b/drivers/media/platform/verisilicon/hantro_drv.c
-> @@ -902,9 +902,8 @@ static int hantro_add_func(struct hantro_dev *vpu, un=
-signed int funcid)
->  	vfd->vfl_dir =3D VFL_DIR_M2M;
->  	vfd->device_caps =3D V4L2_CAP_STREAMING | V4L2_CAP_VIDEO_M2M_MPLANE;
->  	vfd->ioctl_ops =3D &hantro_ioctl_ops;
-> -	strscpy(vfd->name, match->compatible, sizeof(vfd->name));
-> -	strlcat(vfd->name, funcid =3D=3D MEDIA_ENT_F_PROC_VIDEO_ENCODER ?
-> -		"-enc" : "-dec", sizeof(vfd->name));
-> +	scnprintf(vfd->name, sizeof(vfd->name), "%s%s", match->compatible,
-> +		  funcid =3D=3D MEDIA_ENT_F_PROC_VIDEO_ENCODER ? "-enc" : "-dec");
-> =20
->  	if (funcid =3D=3D MEDIA_ENT_F_PROC_VIDEO_ENCODER) {
->  		vpu->encoder =3D func;
-> --=20
-> 2.43.0
->=20
->=20
-
---=20
-<https://www.alejandro-colomar.es>
-
---beiyeemi46p27lup
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmr0RQUACgkQ64mZXMKQ
-wqmqRQ//REbcSjHBIDUOxJhm/720bIqOHJt+3DKA+HoHM0PTMB1GcDpZ0Cb1GFDz
-xRHYtg0O9h95qP0G/IoLsrZj3NkMamOmFu/Ofly9gLTOqQL1rz9owJ1CLhvmYd9I
-8cWB/QtXkMiuQXlZJrNXDq2SByNEaJ4bsPjvvE77eID9cbp5ZTSUuz/T4BDE0kGV
-qI4XWwCmA7aKluSWJsM9Imr0WNtNVjxq4TF/HFG9H7XsqZOfX1nQAb9fAZUFFMaB
-3w11l20mRk2vqfAG49JgcN5w+AwJ3Bt/xkBhHkylWG3KPherYIRq1PPXFF6QhxBo
-rw4Ybqo42Vb/EZfR4zVr10O/fFRwYveJTCrkT43f5gAChRNaa6N/WR5neV9/CoJk
-5m4QyRrraxSx+l+loUZSINAa/N0AJemDBsFstXMakaO+/RzNe/QidFSURRxL+e4N
-3mxIPmFGNR0EJcNf5rQscL2BJJI9DJMqfeIOS+M2zS1B4W58VUP4ccOpwg+mSBDJ
-qbQdnjTEWfWc8K0W/WC8OXcIAt53kwI3Vm8b4e3TUSYHoHOpwleImvVH8PDtXy9a
-OBfQO51X4evfcPbAgBSXe4WinWJmALl94hy9R3DhEwaLDP0VgWkb/pSC66goebpb
-Cbpqbegoxy8DO7Off0TR0a5KECKu5jQH6X9CiAFWA3DRXeZN0kw=
-=ogB2
------END PGP SIGNATURE-----
-
---beiyeemi46p27lup--
