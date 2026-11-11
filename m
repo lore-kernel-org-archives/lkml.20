@@ -1,47 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794384212;
-	b=iQ+Xeaym2CGjil+RWMpgUdcnb1ieeI9hJ5pReAW8UU11IO6Aaqc0MA/Gm+6qi4qUsGYx
-	 pJOvR5fYWxgDBsQkgFGCVNjvwwp7xldwbPjYf9xQKnqcnzAYWvMEu+xD2ddKj2yKBwkLT
-	 WSyS7Ify5EzRYEUjgPXZcRPe7BeKb6bDWapOGPqYhqozfumx3lzsEk6PSD+CokysoH5Pe
-	 jHTr8zd2BwDhJWR6HtL3WQ6StDnz604yKaxyV7cWzwLDJHhE6xxtJaPhHRaKVLSe3ei5P
-	 Bxs8iNYIXXPxrlGYhw7dcW9uhqhpqqsQ6tEDTV9srjdxX4AHpHnhzvUfVml1O720ung==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794384212;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=50p9Fd2VLdoOxiYYFgHYWbsAlYcgHwGOvkLzFxjjrhY=;
-	b=Wc4AZiQcW1sWIGdoIhXU3d5AJFhxbeDFrsVkPZxfN0fFnx+bhD9IvO4maigu4UyZu2wY
-	 OmBYmfqk4Qkn0jsPSzSNvSCXAXriuYHKFaFsJpzEGrB4vYTkstQs8Ab6Wo86Qc67qb07q
-	 /7LLx9L0/ln/mKzquz0DKJkk84gzMB7DMc1pkqO68ClGDgwLSywVL4grVuyHLCcO97YDs
-	 QK3gPJ+8NnWEp+u8/0bJr0Z1N3c3onO3vFpiVMJiEQTFWbntLc7T0oV0jvVSsLip4pixK
-	 IqLEx7OV3hOxb/8o3NeS0AmdZ4AMHCTACi+bBVOPkptA/0WqaqHZVlu21hnMkFJxyfQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F2wvcfZx;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.181
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794384251;
+	b=OJyJijVwUSUnJebJwTXWoziWlBODRngunJrOZ9ZMYjR3xYWKXH8Wd8Qa/pn0wnpaA8D5
+	 JTCyukz2wy2iN3sO8RyeHgf+m8tgAXbQxBpaH+4WBORWY6z0KRectaKywt8UIwpr8qlZD
+	 tJnInJH0lWx7GZ93sCVCU6V0eQQgmaShWxj8661ozfTBlMeybC0EJkbPCaQQFBES1GOkA
+	 EZ2b+zziibuE20P33VGfkZ3oilJCJQQEzXA7agQ0UiNq29cPsxS+5UUrBOA8s+oHmgtXb
+	 rquCPWV8OkCJhRermm8wo8WsQZTjj43hP9FgSOpSbO+YjvfZQuVB0+Oog2j4k5a6byw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794384251;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=e02CISDat2rnFU5auy1swbmNQ1NAggjZWxzVKQlZOt0=;
+	b=2SK/G904DXI1RP4U9N0bSwUM4IEtHRt8rhMqtAcvBpjTxWthqpM0R+NysI+4t7ftg/oc
+	 Fjn9OUY14YA8nmrVy8isL6+z4M9gT5OBG/VCg7SWYMrIQnmFrCp7Rd+Pcmle0Sn8RpUnX
+	 IBa+jBNx+o8WkkLC9EuWFaH9RIcgRsCb4YGx1U/H7ppBRQM1nAmj75eq2ItRFRmd4BA5N
+	 0n+6dvbvZI2r7iUTdLKh2QWOi/H74nhFNf+yv1g5Vucweg8fKJgWGlIwYOq5f1QDy3vEd
+	 pH5MD5en+oEvNRjzL24hANa6HtscGLdOLftSXyLyhlLhgoo5c0s+V/myXdI4BK4/WPw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kzpLQfiw;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.181
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85ACE606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 08:03:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5316606A320
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 08:04:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5316606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F2wvcfZx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4B841F00A05;
-	Wed, 11 Nov 2026 08:03:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794384212;
-	bh=50p9Fd2VLdoOxiYYFgHYWbsAlYcgHwGOvkLzFxjjrhY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=F2wvcfZx9phSjzgcW5ozLIDMz6szAIKFGeBT9PoYQRXfgljj9C5clhntjmeaYxhb9
-	 eR5CvFmeTx86XyOvxWMXAtXxtfP3QI1Vme/NbyW1XlMxCzqxMg27TS7myeUIBYctX6
-	 AVPVvOA36Q36FNVGg+peCAIbtOLAap71maY6pKzKSSCXEX+5AywOjERDxJYFolQzMm
-	 tROLfz86/r4xo6nmpCOFj5r58GR3OCX6c4ONJXarotASpPzasJV9vmhRdLjm7kdwo6
-	 uAK3KX3y/MVgf8KCKS+SqVPHg5qbufqo9scCkWW+MV0P8TU+PRKWxAu0mZ7666gXPi
-	 kwFam+6T+UAiA==
-Message-ID: <8d73b05b-c183-4c14-9a28-7328340f9f62@kernel.org>
-Date: Wed, 11 Nov 2026 09:03:23 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kzpLQfiw
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-36f8cdd30beso4921622eec.1
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 00:04:10 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794384250; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ATwA8M7D0ggbUvCAIoGJ8mgdOCuqZ/mEXqGCH90A7LER+Q2QwXjrRLNcQD9FRifSC0
+         9Z1RYrT+UiA/BZcpXTKpc2g5j+60QFEtOrpdJXXCBy8BEm8bVCGa+LT0SN9yIWtv1h4q
+         6RCI1ltRlTQQeAiwO33p+iUP/3m9T+dffcOtwm2YhFE9YnYFBbKuVaW6ZnOtsiPhHuqF
+         RIauiho3+vYHw+qVu506CxCR6Dd1LQPJRpWybY8X8jUl+pQ7ijTCJJJKBN/U3Bou+9Ur
+         iyFsG/dAMNSw3M57nmf+Od+YyjNNeOSRCknnItuz3t+fvk1BGnrSdItk5RIYkCKUkNxp
+         ccBA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=e02CISDat2rnFU5auy1swbmNQ1NAggjZWxzVKQlZOt0=;
+        fh=Mb5cg/4d8SlW5gdS+Y6k9WxtM7CxP2bfdTCUqAhwy7Q=;
+        b=A31aqtvdO6UZxx1wFO0ywWXexns1C+FgW2qQEbpwlxRTcfDNOUYNvorW34779Cb9qi
+         FpmXX5owRFo6RJV5XP68qcLlK+dm5Hsmauf+MVNwC2VR8CkZvt8LEVDD60GZCAzYijWw
+         MAcUw2zc3ABVQhb4LNnVk4vJGxO8U6cN2KrLkeHuppp/TmBGKzoP8jHzBbSnQhr425Vo
+         hKNsfFyCml82CKCm4AGCqUiNOo6M4BZv+4k78Q5iWk5rqmFpiMH9jK24tvdnSJTYflDt
+         PXx8k5P/zx6rAFx3x2mh1X3aSn4jmmfqr5yHArCriWD5k5D2aWdWe8pRFl5bBVMO8/9q
+         3JPw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794384250; x=1794989050; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=e02CISDat2rnFU5auy1swbmNQ1NAggjZWxzVKQlZOt0=;
+        b=kzpLQfiwu0lF3hZg9xt82iPrgOdaOSV+6MVvCpKSxyopwjMFtTqsiojJJNFe72Iu9w
+         S0FlRWDuF4L0+fOBKFDZUYNij3m2zmKyuxxdhi56DKV3i1z9s9+Ff0XcnWuvkiMUOSkp
+         OOEV7WDrtpUE5dhjSELEiWfTns7p9uU+uFD3cndCvIMlMqfl76EhWstj8n/909tB4nPN
+         YBqKSQ72S9FJAjQXpfBZyASR99LDe+xmnBxCHLNVyGoSyu9E/YCw7s0loJKC1Dlkkiut
+         o0OzMR1VNT76qoDQLMkJeXMITaRo0JpCbbmSkR28fFObutvBytpPPfle58m2dri3z9Sk
+         nRlQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794384250; x=1794989050;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=e02CISDat2rnFU5auy1swbmNQ1NAggjZWxzVKQlZOt0=;
+        b=SitputzE08h/+Ggu7XjOgjx+XZYMh4MP3wgu9/VkU8WVH5doch/6dQ6ytk9XExHW78
+         1udQpB8BONEi007rddBn+IlqY2kMWTxdHyuJqRyoYPC5l6g4VXQqdTWJxNJ8zrxmLg2i
+         r9RerX7BjJM0rLhbP7+nCdHAIrhCDLDn3XNwi+VgyCGWZXKg+bAlOGyLrx8kfQlUZshU
+         51Z55ISwqnBdQtLpV32sjkS4I+v1WmsEyxhfK5FCzHzXR/6o4ZqjBKWQrd5OUOPx2etw
+         oY88D+igTzutPjscdWI+j8IJOxp2rfOTJvFOEKEqgxf9Tr6bHgVKn/yJBYkTlMJnsNYA
+         YcFQ==
+X-Forwarded-Encrypted: i=1; AL+hErE12e4jUASNgHrVcxIpClwnNkDukkobJ8fzqNLKroPz7epnu+fI9cUiixVvN3kAtwXPlrcLb3Z4ZUUWcc4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+CBiQWk0h2Xw70FTct2PbJoNagA/VRMiAC9UuGeS+Km+DHVWgI
+	qmsJZ5QmFGX28+IXVxsPi7m+K6MvDoqbnMYJMAYepLGHRSrUb90ovEnbabZgzo7dBHlh6OOxHQS
+	hMnWPfnCogEkqx8V8xtxvv77Rxp8gm2o=
+X-Gm-Gg: AYBFou2Lf8czSuEOjK88DrdmCEyKe5cr8V3UIZ0xsj1ehhQjactjTb+EVuunwoRTBOb
+	agyneavGj/4MJY2dQz+blrEWwpK6YPeFFZXvQVBMCz3ayn/uWZV7l7CZkeHeWmuCkCPyZ3pZFLp
+	FesIvXmus+hUj0x6KkwGKHihtjebtPVMLv6Mks2ysM+AlOCGYOHtGw+U2yiST94BISDTdaIMfUY
+	4t+5K0BbDYJ4Y7hlcosatsvq9EplIM49roP6VcOkwaDE/d6c5qaajoE0JffxBwXlhiKIIJEs0dJ
+	kGFakmaJ4wpUY2hP/G3itx40oUTq4LUtnXc6GD1l1UmZODWWKanvavWuHNcwTYOU+oa5RV55g8Q
+	8bnVLQjn3XaX2ZcLLoJqFXRmvFhMARzb3MJ5Qx1fk3IoBCw6U+vOEKnhs1CmbEsa5jkBOk4odK6
+	b5NNLyAYjgnEatjg0K9qp4UUXx103+Fw==
+X-Received: by 2002:a05:7300:561c:b0:36e:2626:4ace with SMTP id
+ 5a478bee46e88-3768366a866mr2441050eec.5.1794384249564; Wed, 11 Nov 2026
+ 00:04:09 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,110 +105,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] mm/cma: simplify cma_declare_contiguous_multi()
-To: "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>
-Cc: Frank van der Linden <fvdl@google.com>, Ivy Lopez <skunkolee@gmail.com>,
- Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org
-References: <20261111-cma-multi-v2-1-4e2dddb2a2d8@kernel.org>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20261111-cma-multi-v2-1-4e2dddb2a2d8@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20261108151348.204182-1-clamor95@gmail.com> <8f84154c-0296-4c82-a887-de76558df94d@sirena.org.uk>
+In-Reply-To: <8f84154c-0296-4c82-a887-de76558df94d@sirena.org.uk>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Wed, 11 Nov 2026 10:03:57 +0200
+X-Gm-Features: AclHuK8vaEcJ7SqWAmNPakfkNoxiPosAOmNdZbgEthELf7kS-7VilDYNl0DIvFg
+Message-ID: <CAPVz0n1LmYHJts91P4OU3WFiUBwcU6sA7Z9McOdLK6cLu6PzvQ@mail.gmail.com>
+Subject: Re: [PATCH v5 0/3] leds: Add driver for MAX8907 LED cell
+To: Mark Brown <broonie@kernel.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>, 
+	Pavel Machek <pavel@kernel.org>, Griffin Kroah-Hartman <griffin@kroah.com>, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-leds@vger.kernel.org, mfd@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 11/10/26 23:14, Mike Rapoport (Microsoft) wrote:
-> When cma_declare_contiguous_multi() cannot allocate a CMA area as a
-> single range, it falls back to collecting a list of up to CMA_MAX_RANGES
-> largest free ranges above 4G, reserves them in memblock and adds them to
-> cma->ranges.
-> 
-> The list and subsequently cma->ranges are supposed to be sorted in the
-> order of base addresses of the "allocated" ranges.
-> 
-> This implementation has two bugs:
-> 
-> * The allocation may fail even when there is enough free memory because
->   list_insert_sorted() sorts the list in the wrong order.
-> 
->   When the list is full, the largest range is evicted rather than the
->   smallest, the final list is not sorted by address, and the smallest
->   ranges are used first.
-> 
-> * the function may report success while it reserved less memory than
->   requested because sizesum accounts for ranges that were skipped.
-> 
-> And overall it is a lot of list management and open coded range
-> selection for no real gain.
-> 
-> Replace the current code with a loop that finds the largest free range
-> above 4G, reserves as much of it as needed and repeats until the entire
-> area is reserved or CMA_MAX_RANGES ranges are used.
-> 
-> After successful alocation sort the cma->ranges by their base address.
-> 
-> The new code scans free memory once for every range rather than once
-> for all ranges, so it is slightly slower, but it is way simpler and more
-> robust.
-> 
-> Fixes: c009da4258f9 ("mm, cma: support multiple contiguous ranges, if requested")
-> Reported-by: Ivy Lopez <skunkolee@gmail.com>
-> Closes: https://lore.kernel.org/all/cover.1792032699.git.skunkolee@gmail.com
-> Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-> ---
+=D0=B2=D1=82, 10 =D0=BB=D0=B8=D1=81=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 21:0=
+3 Mark Brown <broonie@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> On Sun, Nov 08, 2026 at 05:13:45PM +0200, Svyatoslav Ryhel wrote:
+> > Add a small driver to control the LED cell provided by the MAX8907 PMIC=
+.
+> > The LED does not require any specific configuration and is folded into =
+the
+> > PMIC's node.
+> >
+> > Patch 1 of the series requires this patch:
+> > ("regulator: dt-bindings: maxim,max8907: Convert to DT schema")
+> > https://lore.kernel.org/lkml/20261027114634.79706-2-clamor95@gmail.com/
+>
+> This doesn't apply against current code, please check and resend.
 
-I'm leaving this to others (Andrew?) to pick up :)
-
--- 
-Cheers,
-
-David
+It requires commit converting max8907 schema from text to yaml to be
+applied first. I assume you may just ack schema adjustment and it will
+be picked by Lee, but that is up to you to decide.
