@@ -1,60 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.158
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794428245;
-	b=HDq8sP/Uj/q56Bxvw6LMo7rBi5D0rtZfd0q4EfDJmoseHPOCX/Tcywh8AOMPJstv9ywr
-	 gaVCmSF6sCOMU9vAhZguFCqkJVmw+kyLQTNw7+voozc0f6wv7aNkrLijnUjk9Jv5jd6wH
-	 8xaDESKBKUUicPtoM7cwl0MObAPjZJqNWAxnP9pBdr2futmNLgpt9JqH3UCiHuxX1Qwmh
-	 WX2ZGl3/h6FZMCK/2a200FeShHbMqfEkvLD2wfgm5T5+1j6NTWLPFOf9NjS2cD0IrmcJk
-	 c5UBV1RSeMPMiHApkf6KKivoHJifnddPva6G0Wqfy67aJlifxjtUndNAGz0y9M2GyXQ==
+	t=1794428255;
+	b=E7IIOGvJmufL8uL9DmYZK8HtLmbupvag2cFU+1KQbj2Qu2auTNf0YEsGl4g29YdJ8mFD
+	 3tKXf2tBKgyv4IJlgFbvBmUvuRisfNY9OvmkzqdbXV+zfrBQdipGrWpFKzqb9BFZa0ew7
+	 cK8CJF5gTkXNdZJp6pqeSh6nHpShH2R3I3OswAcCEq5wSPwK6B+/iSwa3+xnw89yRXjWM
+	 QrntfjYFTJdttpI+K1S8teIIA8YLWOmkD/VgRpCODEDgPCb5QxJc5K9pH+6nMzNGejaJR
+	 9fBVRHaBEXIRcFXCr8U28e+f6nuJDFSkyWKVTX9NxhCMIJtBO9xZrHd7U+ixeJ9DYjg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794428245;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:CC:Subject:In-Reply-To:
-	 Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=+EgWxf4gng07oAgG4s4PXbVN2cj6AmfKs5B3QBz4BG4=;
-	b=Q+h1/Ke1x2HQwl13KE1tZ1Nf7pLwn0xigQoNHjrbKeLtspgB6qDSPk3bnpGBJ+aHbRa6
-	 CjA3WlmbH87PTEHYO79ZL1EfzQwnOeXCklk8FDtPh2OPpZz+Uy785dmRl12LT7RschFxE
-	 pKTPy1RymzK3WV20H0m8itrEsgbwWu1vtXfgJS5zRa1l9MoXNRl1PzxKgBZA0aK7ojsJE
-	 f+6cvHVtBuDMS3aaGwGmmUjugJO7XG20i5csr+nrnaxeDLm72eSygoANnvuZU678ky+vM
-	 Dx8C4b5LM3rb8o8sQjAyX663fhJprViYgbNbN7vkR9wO7dRTEXnm6k83V4ifFoPzFVg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794428255;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=PwBL61PJ01ugV2zKaAESuvCkb0ROmr9+qKjPxuNeOAk=;
+	b=BwSyERCPSAftnz1NzUVqWm5UsKAVClp7hcf/F+5vxLYiX58w2nMRPwpvj7bu6gHIHYXq
+	 5tQ1bLTfMwDGInuTeRl1PTx/GpFj8ubsSHyi47QwrFgilIR/DFDy0XF2BjO8pu7buAn3E
+	 htbW35P8DxLp1poeikrZRFW2d6ekOApY4dfKWXmvfndwksV+LEeXNQD27IOegsD0qGxR2
+	 MVSiC3tGSJi0QAPAotFTkCkSX81+NvohnDLQRsd1pdfSSq+pu3vxiLYM+FxUdgjnk6Hax
+	 lh53MvW3CWiUBipsPNAoIfSW6ePVBp55I6A+w/VDy5BfgvqQ5juCjA250qTBnMhxkxQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ZfFBTaph;
-	arc=none smtp.remote-ip=91.218.175.158
-Received: from mta0.migadu.com (out-158.mta0.migadu.com [91.218.175.158])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SWrhXLge;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88349606A326
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 20:17:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88349606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E89FB606A31C;
+	Wed, 11 Nov 2026 20:17:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ZfFBTaph
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=HmCcL0luT9C/UWbqbpiU7NuLTnUt+wuE9oGZIP9tmjQ=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794428240; v=1; x=1795033040;
- b=ZfFBTaphJvhoTeNLboSa1xE0OGRafo3YHwI1ohDQ3COPWUxerMghWYknCMmdjLtMWrL7uFYJ
- jIEMaK2/5cYRRdfTEfk0ZsTeg24QKYM7fxyeycPrKOQPYcoTU72NSluszfeRbH4lNPrp/dznmQp
- RZLIEmSHznjFSp/Iyic29l+A=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id a3dd4c8d84a66b62;
-	Wed, 11 Nov 2026 20:17:20 +0000
-X-Mizu-Trace-ID: a3dd4c8d84a66b62
-X-Migadu-Flow: FLOW_OUT
-Date: Wed, 11 Nov 2026 20:17:20 +0000
-From: Bradley Morgan <bradley.morgan@linux.dev>
-To: lauserve@gmail.com
-CC: akpm@linux-foundation.org, brauner@kernel.org, jannh@google.com,
- laurijssen@protonmail.com, linux-kernel@vger.kernel.org, pjw@kernel.org
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH=5D_add_utsname=5Fset=5Ffield_to_reu?=
- =?US-ASCII?Q?se_code_in_setdomainname_and_sethostname?=
-In-Reply-To: <20261111073317.93929-1-laurijssen@protonmail.com>
-Message-ID: <B9DD7F6A-A760-41D8-8809-D12F3F178326@linux.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SWrhXLge
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3AC8E1F00A05;
+	Wed, 11 Nov 2026 20:17:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794428254;
+	bh=PwBL61PJ01ugV2zKaAESuvCkb0ROmr9+qKjPxuNeOAk=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=SWrhXLgeE+FrYfKyBsU6DYfAGhooVIPFk0Co+iwIkOeGT/88SfGOB02fVpdK9iUjo
+	 tJsV9YYKyzWDY2jK3xyqXS5TB307Y0uInW+s8x7Ioo+wyxMghlRV3zHskqD23gIDZG
+	 kzgP60EQYbLlih0sGhbaz8HtNn/+n+w/WRFdxC9Iyt9f3UIRvKvXPTqa9miFdOv8iu
+	 4CtN8IfNoY3ur55pVxSvWHSUR7cFSa/F12+C82TySfelWjIUPg0PjjH/6VeZsv1BVC
+	 qWwkTshb/bpDj9T8xXAIHZ5rSETLBO9Xp+JjGoDwdqC3VQsKzDvsndGse2T4pVnZRT
+	 VlgpTiyHcZr2w==
+From: Mark Brown <broonie@kernel.org>
+To: David Rhodes <david.rhodes@cirrus.com>, 
+ Richard Fitzgerald <rf@opensource.cirrus.com>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>, 
+ Takashi Iwai <tiwai@suse.com>, 
+ Ricardo Rivera-Matos <rriveram@opensource.cirrus.com>
+Cc: linux-sound@vger.kernel.org, patches@opensource.cirrus.com, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261109-cs35l45-bpe-v1-0-9d7bc95a90a4@opensource.cirrus.com>
+References: <20261109-cs35l45-bpe-v1-0-9d7bc95a90a4@opensource.cirrus.com>
+Subject: Re: [PATCH 0/4] ASoC: cs35l45: Adds support for brownout
+ prevention engines
+Message-Id: <179441367703.393238.15653744808554406033.b4-ty@b4>
+Date: Wed, 11 Nov 2026 16:14:37 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,117 +65,64 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2019; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=drDyoQTvnZT8AmPzGgIiJUyY5+pOkn1FRpCvNmmWt7A=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLK+nI3KfLh39glxx8WzOLiNWU1XxF4L5vhxpNhRRHZH3
+ Z/7/6V1O0pZGMS4GGTFFFnisrhf1pe8XsN3cGEbzBxWJpAhDFycAjCRA7oM/+NMzTXurMkw8ewr
+ y968Qy9tTf5ODSGBChVBz+ePPwhyNDEyXFFoy13Tei3RsZ/bj3H3Qu+LdyJePdr02PD71bDlbtr
+ /eQE=
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On 11 November 2026 07:33:17 GMT, Laurijssen <lauserve@gmail.com> wrote:
->Changes after review, cleanup of duplicated code in sethostname and
->setdomainname.
->
->- add static utsname_set_field sys.c
->- call utsname_set_field from sethostname/setdomainname
->- code compiles now when CONFIG_SYSCTL is not defined
+On Mon, 09 Nov 2026 11:57:02 -0600, Ricardo Rivera-Matos wrote:
+> ASoC: cs35l45: Adds support for brownout prevention engines
+> 
+> The CS35L45 amplifier has two independent brownout prevention engines
+> used to prevent system brownout events induced by transient audio peaks.
+> 
+> The amplifier brownount prevention engine (ABPE) monitors the battery
+> voltage and applies attenuation to audio output in terms of either
+> decibles, voltage, or wattage. The ABPE response is configured across
+> four thresholds with four corresponding attenuation values. The attack,
+> hold, and release parameters of the associated limiter are also
+> configurable.
+> 
+> [...]
 
-This changelog seriously isn't great, like this description is absolutely
-unmergable. Please read docs.
+Applied to
 
-NAK.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.5
 
->
->Signed-off-by: Laurijssen <laurijssen@protonmail.com>
->---
-> kernel/sys.c | 53 ++++++++++++++++++++++++++--------------------------
-> 1 file changed, 27 insertions(+), 26 deletions(-)
->
->diff --git a/kernel/sys.c b/kernel/sys.c
->index 755bfa5ccd92..77fedd127a3f 100644
->--- a/kernel/sys.c
->+++ b/kernel/sys.c
->@@ -1419,7 +1419,7 @@ SYSCALL_DEFINE1(olduname, struct oldold_utsname __user *, name)
-> }
-> #endif
-> 
->-SYSCALL_DEFINE2(sethostname, char __user *, name, int, len)
->+static int utsname_set_field(char __user *name, int len, enum uts_proc proc)
-> {
-> 	int errno;
-> 	char tmp[__NEW_UTS_LEN];
->@@ -1432,19 +1432,41 @@ SYSCALL_DEFINE2(sethostname, char __user *, name, int, len)
-> 	errno = -EFAULT;
-> 	if (!copy_from_user(tmp, name, len)) {
-> 		struct new_utsname *u;
->+		char *field;
-> 
-> 		add_device_randomness(tmp, len);
-> 		down_write(&uts_sem);
->+
-> 		u = utsname();
->-		memcpy(u->nodename, tmp, len);
->-		memset(u->nodename + len, 0, sizeof(u->nodename) - len);
->+
->+		switch (proc) {
->+		case UTS_PROC_HOSTNAME:
->+			field = u->nodename;
->+			break;
->+		case UTS_PROC_DOMAINNAME:
->+			field = u->domainname;
->+			break;
->+		default:
->+			WARN_ON_ONCE(1);
->+			field = u->domainname;
->+			break;
->+		}
->+
->+		memcpy(field, tmp, len);
->+		memset(field + len, 0, sizeof_field(struct new_utsname, nodename) - len);
->+
-> 		errno = 0;
->-		uts_proc_notify(UTS_PROC_HOSTNAME);
->+		uts_proc_notify(proc);
-> 		up_write(&uts_sem);
-> 	}
-> 	return errno;
-> }
-> 
->+SYSCALL_DEFINE2(sethostname, char __user *, name, int, len)
->+{
->+	return utsname_set_field(name, len, UTS_PROC_HOSTNAME);
->+}
->+
-> #ifdef __ARCH_WANT_SYS_GETHOSTNAME
-> 
-> SYSCALL_DEFINE2(gethostname, char __user *, name, int, len)
->@@ -1475,28 +1497,7 @@ SYSCALL_DEFINE2(gethostname, char __user *, name, int, len)
->  */
-> SYSCALL_DEFINE2(setdomainname, char __user *, name, int, len)
-> {
->-	int errno;
->-	char tmp[__NEW_UTS_LEN];
->-
->-	if (!ns_capable(current->nsproxy->uts_ns->user_ns, CAP_SYS_ADMIN))
->-		return -EPERM;
->-	if (len < 0 || len > __NEW_UTS_LEN)
->-		return -EINVAL;
->-
->-	errno = -EFAULT;
->-	if (!copy_from_user(tmp, name, len)) {
->-		struct new_utsname *u;
->-
->-		add_device_randomness(tmp, len);
->-		down_write(&uts_sem);
->-		u = utsname();
->-		memcpy(u->domainname, tmp, len);
->-		memset(u->domainname + len, 0, sizeof(u->domainname) - len);
->-		errno = 0;
->-		uts_proc_notify(UTS_PROC_DOMAINNAME);
->-		up_write(&uts_sem);
->-	}
->-	return errno;
->+	return utsname_set_field(name, len, UTS_PROC_DOMAINNAME);
-> }
-> 
-> /* make sure you are allowed to change @tsk limits before calling this */
->
+Thanks!
 
---- Thanks!
+[1/4] ASoC: dt-bindings: cs35l45: Adds ABPE properties
+      https://git.kernel.org/broonie/sound/c/58439294499f
+[2/4] ASoC: cs35l45: Adds support for ABPE feature
+      https://git.kernel.org/broonie/sound/c/4b261eaa7e58
+[3/4] ASoC: dt-bindings: cs35l45: Adds Boost BPE properties
+      https://git.kernel.org/broonie/sound/c/65aa9fa9afbf
+[4/4] ASoC: cs35l45: Adds Boost BPE configuration
+      https://git.kernel.org/broonie/sound/c/ac474574e54a
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
