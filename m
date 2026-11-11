@@ -1,45 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794384083;
-	b=DgKpSQ1/uN47L0oj1n8g5FvVFo8S14dDv11wEyX184N9McBgapYMeer58rRPs7nSZxtJ
-	 1j347UW3IaS/Q8bhI/1gn9iN8/Thf5CDxWKh0amTb0g+UqFSh0Vkp7o/U1Cc29SNDSgZO
-	 ivlIlDcOT4teDkTAaUre+bt5THig1G6hfnkSfZTYuu3KaR4H6VIFkvsATJClP5ZCzmdl2
-	 qEp7w4KB0TmJWaAgsVAaunMU+r1UZ2CHpCWEJS5KFKSo4KZ4zRCxiey3josEwv/HTRUj2
-	 eIChEogFVKHgllNoA6HR13bDOt+e3AWd+8GRNvtqpcq/rfsbUPIJsq54Pb584vZ2Sbg==
+	t=1794384089;
+	b=E5XW7NDvu6GB1oL46BynuJc6upXaYFXdj/o0sUbO1zqrvBSckY8nUnGdLiTLlLtHFSPg
+	 2tiDxT16JLS61qUY991w8Q0X8Pt64WpCA/0cghPgrfwKLJjJAodBqO3i1aZE7dkrQwimq
+	 JygKuYm1bEM44HQwBYBoi3D1bHP91o+6/rAQsPCWvtGA+lxuwm8lQy7/uHnZ1ENVxV78a
+	 TkJ/DAWZo5zSr85xsyHv2rrkIdiAgIKx6OJP02KjW49xldVAlhB3cTC2GPtDTimURMunX
+	 ow2dzXtO0uiTxqgm16nFC2JEE/s+PxA6ZKrutolKeX3HAJI3+m9zh4PzuJ/xdt16VdQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794384083;
-	h=Received:DKIM-Signature:Content-Type:MIME-Version:Message-Id:
-	 In-Reply-To:References:Subject:From:To:Cc:Date;
-	bh=auUioKB9iDxCNGJRzVwktkzZSlbRGmUGRm1khRaq5NA=;
-	b=RRlEMJfp1+Fuio0z6bzZyceii0hQBl9Ny7gLDAdcrUPoPsdq80EqubnwbnmqRDMVejEz
-	 rjblmdzGXs6JtBdfPFCLSreem0Ty7krAk7HwSgOWDOHW6h/PV6HcOK5QqZRakBMMpj7QP
-	 Jy5w2/xfQIkRJ55J6mKxF0bO0ZlLUGXcdkRauiYiUVcJ+179ygU7usVU2QAavFnZoY7ix
-	 5UIUh2Ya3r5o/i+XEioZE5JIZvhMcKrovM/uNxVHUuBDq2aqiusuwTQNIPHARV1qMQfyJ
-	 nYDwinn8qEw/fFnYK6hzkzGTjMXNcofKQUugegM2iB8yxvsv9ueZzxNjqVVDT6zTHRQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794384089;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=gFD8GxCW8TaX600NUsdqPsT5QbgfQppQ+86XjlXuBB8=;
+	b=3nlAnNTaYjiv9FbDa7Df1WkHB1B0eTi6wx2tb82Jf5s1NUm69EnpnyI3OvCCaaFY45XQ
+	 9FTwcxyXQO98JDKBclXxysd24ik5EN0819HZPEnr5wKY1gU8EjF3nw/Ywu8AmPb2RT5kB
+	 yatW8N5hnxBN1qF42JS/kGesLEKrraBO0pkLTK0T33hhYvkaYkEdiFzCg2PvQ/8U594SU
+	 ifHnBPnnwgHH3hv1Mgb+R8SLHzdTlXgM52lyxiFYAR2tRgXpNsGtnYN/AlKkAEu0j5QZP
+	 2fTh5EnvbXEXKTQUAISa7KBm2bI8laAiSWVn/G0uMGQPe1TtwSox0cFcOwwiiK6quqA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RBJ1GW3Z;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A5sS8+8u;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76575606A31C;
-	Wed, 11 Nov 2026 08:01:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49AAC606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 08:01:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RBJ1GW3Z
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EACD31F00A05;
-	Wed, 11 Nov 2026 08:01:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A5sS8+8u
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A022C1F00A08;
+	Wed, 11 Nov 2026 08:01:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794384083;
-	bh=auUioKB9iDxCNGJRzVwktkzZSlbRGmUGRm1khRaq5NA=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=RBJ1GW3Z0bSR+qUg9Pw4kt8EbNcp81Q+TJuPaB6fro9CJMVs0nEpE2u1FsQ1gsE/9
-	 kEeGyq8zos9VrOUilQHnrRL9J/gbLG7FDdKW7s4fnkTjtv6i/1m/r1FeUdWmMzRYBU
-	 gh12JIJd6s+KKgAGEq9Z5TGjdIxF0qv4EvafFwGJsdeAOYGf+E+lXbLpYe0M3ZLODL
-	 tuvk5Aaj+p6krN9tjFv9hAfaM6Ll5kpLE/1aDHenrMfyF7xeRCNGv4rfg3cLT5BhJ5
-	 iBvDsHdVdvRRlwisdN4HH5RLK1UHN3ZrUwBnKHOkLNoTBoyNVT/XrcBZGKeoJp0K+Y
-	 t3VskGvUeDc1w==
-Content-Type: multipart/mixed; boundary="===============6009813406233217659=="
+	s=k20260515; t=1794384089;
+	bh=gFD8GxCW8TaX600NUsdqPsT5QbgfQppQ+86XjlXuBB8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=A5sS8+8uY+DdCHXQg9bRdOYPz96TIc0INTUnO+kkKrJHaM26c1xrNB1zhn38ZR5XQ
+	 a7PPfIg8HknZg+PMAMVRgWVp6MK3YnB4FQW+7eT4e61afhSVfAcWXe0Jj+tperG+J6
+	 Dba1+3LJCt6ArpYAnkXiJLliqL/5LdetKFFAbKNh32rFyso25fblbBhUjhL8FDI1li
+	 EZAo5C/9n0lU3+Vx9r00gWq5QjPkLLy6n+P9F8Oda8sotn3CotI3ynZdBEcdwNAIS0
+	 L0UuXPmy9Yt9YTLvvnkx9jHVGoKUDxjn9siexv4zzcPe9rKUdzNcSyzFT1PdQDeB9J
+	 k5fMTXuIOAW1Q==
+Date: Wed, 11 Nov 2026 10:01:23 +0200
+From: Mike Rapoport <rppt@kernel.org>
+To: Chris Down <chris@chrisdown.name>
+Cc: pasha.tatashin@soleen.com, pratyush@kernel.org, graf@amazon.com,
+	kexec@lists.infradead.org, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, kernel-team@meta.com
+Subject: Re: [PATCH] kho: Prevent reuse of preserved pages after a
+ reservation failure
+Message-ID: <avQg0_jFY3get3wG@kernel.org>
+References: <avQUquBK6cO6tUUI@chrisdown.name>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -49,84 +58,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-Id: <08e4851ff6c0fec6c90ae269b9edafedafdc5ed0462802fe1c1dae6aef465696@mail.kernel.org>
-In-Reply-To: <20261110164046.454431-2-a.s.protopopov@gmail.com>
-References: <20261110164046.454431-2-a.s.protopopov@gmail.com>
-Subject: Re: [PATCH v3 bpf-next 01/18] bpf: Add BTF ID sets for fmod_ret targets
-From: bot+bpf-ci@kernel.org
-To: a.s.protopopov@gmail.com,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com,almagui@kernel.org,john.fastabend@gmail.com,qmo@kernel.org,brauner@kernel.org,kpsingh@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,ihor.solodrai@linux.dev,sashal@kernel.org,bpf@vger.kernel.org,linux-kernel@vger.kernel.org
-Cc: a.s.protopopov@gmail.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Wed, 11 Nov 2026 08:01:21 +0000 (UTC)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <avQUquBK6cO6tUUI@chrisdown.name>
 
---===============6009813406233217659==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Hi,
 
-> bpf: Add BTF ID sets for fmod_ret targets
+On Tue, Nov 10, 2026 at 11:09:30PM -0800, Chris Down wrote:
+> kho_preserved_memory_reserve() reserves each range of preserved memory
+> in memblock and marks it noinit, but ignores both return values. Either
+> can fail when memblock has to grow its reserved array and can't find
+> room, which at this point in boot it may only take from KHO bootmem.
 
-TL;DR: Comment nit only: the BTF_SET8_FMODRET comment (also in tools/include)
-says the set governs fentry/fexit attachment, but non-sleepable fentry/fexit
-never consult it. It could mislead readers.
+Is it an LLM analysis or you seen this happen?
 
-> diff --git a/include/linux/btf_ids.h b/include/linux/btf_ids.h
-> --- a/include/linux/btf_ids.h
-> +++ b/include/linux/btf_ids.h
+> The boot then goes on as if the range were reserved, and two things
+> can follow:
+ 
+> - If the reservation failed, memblock_free_all() hands the range to the
+>   page allocator with the previous kernel's data still in it, while its
+>   KHO user still expects to restore it. A memfd preserved through LUO
+>   can then get back pages that belong to someone else. Oh dear!
+> - If only the noinit marking failed, the struct pages can be
+>   initialised later, wiping the KHO magic, so restoring the range fails.
+> 
+> Dropping the handover at this point isn't safe either. reserve_mem=
+> revives its regions from the handover before mm_core_init(), and
+> relies on this walk to reserve them.
 
-[ ... ]
-
-> @@ -13,6 +13,12 @@ struct btf_id_set {
->  /* This flag implies BTF_SET8 holds kfunc(s) */
->  #define BTF_SET8_KFUNCS		(1 << 0)
+reserve_mem_kho_revive() can memblock_reserve() its memory itself and we
+can carry on, can't we?
+ 
+> Carrying on could hand out private data, so let's panic if either call
+> fails.
+> 
+> Fixes: fc33e4b44b27 ("kexec: enable KHO support for memory preservation")
+> Signed-off-by: Chris Down <chris@chrisdown.name>
+> ---
+>  kernel/liveupdate/kexec_handover.c | 11 ++++++++---
+>  1 file changed, 8 insertions(+), 3 deletions(-)
+> 
+> diff --git a/kernel/liveupdate/kexec_handover.c b/kernel/liveupdate/kexec_handover.c
+> index eeec298aa9d6..0faa21ebb0cf 100644
+> --- a/kernel/liveupdate/kexec_handover.c
+> +++ b/kernel/liveupdate/kexec_handover.c
+> @@ -629,9 +629,14 @@ static int __init kho_preserved_memory_reserve(unsigned long key, void *data)
+>  	sz = 1UL << (order + PAGE_SHIFT);
+>  	page = kho_get_preserved_page(phys, order);
 >  
-> +/*
-> + * This flag implies BTF_SET8 holds functions which BPF fmod_ret, fentry and
-> + * fexit programs may attach to. Per-function flags: KF_SLEEPABLE only.
-> + */
-> +#define BTF_SET8_FMODRET	(1 << 1)
-> +
+> -	/* Reserve the memory preserved in KHO in memblock */
+> -	memblock_reserve(phys, sz);
+> -	memblock_reserved_mark_noinit(phys, sz);
+> +	/*
+> +	 * Reserve the memory preserved in KHO in memblock. It's too late to
+> +	 * drop the handover if that fails: reserve_mem may already have revived
+> +	 * regions from it.
+> +	 */
+> +	if (memblock_reserve(phys, sz) || memblock_reserved_mark_noinit(phys, sz))
+> +		panic("KHO: failed to reserve preserved memory %pa+%#llx\n",
+> +		      &phys, sz);
+>  	info.magic = KHO_PAGE_MAGIC;
+>  	info.order = order;
+>  	page->private = info.page_private;
+> 
+> base-commit: a0dc8eddbfdb6dd9c5c2b70eb66ab49cb1978425
+> -- 
+> 2.54.0
+> 
 
-This isn't a bug, but does this comment describe the set accurately?  It
-says the set holds functions that fmod_ret, fentry and fexit programs may
-attach to, which reads as if the set controls fentry/fexit attachment.
-
-The set is only read through btf_kfunc_is_modify_return(), which has two
-callers.  bpf_check_attach_target() uses it for non-sleepable
-BPF_MODIFY_RETURN only:
-
-    } else if (prog->expected_attach_type == BPF_MODIFY_RETURN) {
-        ...
-        if (btf_kfunc_is_modify_return(btf, btf_id, prog) ||
-            !check_attach_modify_return(addr, tname))
-            ret = 0;
-
-and btf_id_allow_sleepable() uses it for sleepable programs only, and
-requires KF_SLEEPABLE:
-
-    u32 *flags = btf_kfunc_is_modify_return(btf, btf_id, prog);
-    if (flags && (*flags & KF_SLEEPABLE))
-        return 0;
-
-Non-sleepable fentry and fexit programs never look at the set.  This
-remains true through the end of the series (6dc8474f6891 has the same two
-callers).
-
-The commit message ("the functions BPF fmod_ret programs may attach to ...
-KF_SLEEPABLE marks targets sleepable programs may attach to") and the
-resolve_btfids header comment ("the targets of BPF fmod_ret programs")
-describe it differently.  Someone could read this comment and add a
-function to a BTF_FMODRET set to make fentry/fexit attach work, which would
-also allow fmod_ret programs to override its return value.
-
-Could the wording be along the lines of "the set holds fmod_ret targets,
-and KF_SLEEPABLE additionally lets sleepable fentry, fexit and fmod_ret
-programs attach"?  The identical comment in tools/include/linux/btf_ids.h
-has the same problem.
-
-
----
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
-
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/42981885558
---===============6009813406233217659==--
+-- 
+Sincerely yours,
+Mike.
