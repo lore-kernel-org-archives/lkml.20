@@ -1,47 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794388217;
-	b=BPQ7GCzPkrQAx2mpongMrWbAgzHnOPmbbyH8ou+pkANonwnt4uMFQlLDlLCsI0pihqKp
-	 ZG0HcqK9NT9HSuezM5JjHvbPlDSlZC3Kff4EZ18UTmsZPqtmpR8HONq1e9DtvOU819n3h
-	 SUzdtF4gkFnbmy8dnbRF7GH6NxvoocvzBdfyc99r6P9dwrib7vtEdJ9efsC+jgkX9Gmbm
-	 XuOLp+asXthf4mWzUxljHd8hkhp4fGvR6LmPjaIbgrVtygAvr6UNQ1YKeF1DeNqKYF1pi
-	 4AMk3rCgkHitNdnajXWuaKJ8XVMHcZPOOF3hAycWA7a5EPCkd6CTg3uy93ewe2JRGdQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794388217;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=xH9l3vH/C4QDmuSYkhVbjVTYTvtMqxmFM17WSOqQ34E=;
-	b=fOnxGnNM/luZRSVYtrNP0EG4mB4pYppC9zAT7dMAhySESTA8e29kXjHKJsqRKp3G1Le3
-	 9lMFoqSWh6rPWhNjNbUr/GC4qynt/oCpU2SA8sSb0I5lIvBqHkdi8NLGG7LoIBW/0lgEO
-	 Vcx7S9hwfxhAqSfzj+KIRCKNy3yX2p5k/TWZORpJYmfGahywJIMk8GEHBK3/tKNeustgm
-	 0t0gq9ZSjrrzIO0EAleRqRmthpgLdLSF9M0j9G+x4cYwCVL+z0bfgbvTT1FTaOgpegCqq
-	 tQQzUbsxqPX9682omzPKBG04DtwnplKjBTqbCvzfP8QX5GpqiNzN8KexPBLyyOv1IeA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QQZJDCma;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.66
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794388257;
+	b=kVhSHZcqQh1xnKNluSjuZ2MK9p2vObpYwAzFh309q31/oH/+/fp+GbUCVBjELjnOYFzN
+	 4aPV+vJc2whCL8ig/ruxJQlxHucJOA+/Ktog95diGtuAah10D7ZrTI/GV7buHwDJsPqwI
+	 +CjseZew7WlVHU4YdVluLgrP+aW9MTerZPS5AKMtxUNJmvDrmA4X19gncC/jfm96Ngbzi
+	 Jv1p9lykVsNIlsnhIZ1KrFf1Ht4e5t1iku41OKBQgFDvh45bSA7cIWsSHbpq0T0UjcoBh
+	 6M60oQqmQuwGTOC5iCieq3NKxrr6W9uuCdPrm6ZYzaSOaSATNcxO44Q1tEKAL1psvJw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794388257;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:
+	 CC:References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=yhd6eYuBGdngT0Sz/bLen871df7tG2kviQAmy8fBstc=;
+	b=cwroW5w2jLoAHfU7quTQJYOCyVUGzcDbBVCykjjYqlPHv7AZwylxaqH0FDa662jU98VT
+	 6YDCTlnxFhbjKw+AFfiCY1Y5Eq+p8tAh1LBUWuI02JdxQ8SaU7JGDvYkxtx2SeNNvEaYJ
+	 1I2Mo7yB8kkDoQUP6SFaucFot1TuczII27NH5GAttr2olETPtoBAkdthlFY0oGDHoI2Jv
+	 6EbmnPYt41nTqO0pv4mXkT8Z/jxHYd4nS8IqJ2NtJlnv6iak9XnIyOBvMGEB8ad5dUMg5
+	 pdcb5dM5VOG4bJCbgJ1ROtqGvi5nT/6Un7ZUQ0PiumwuSaRXy1yg17D0sXyddlyo13g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=hlP8DvXh;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.66
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012066.outbound.protection.outlook.com [40.93.195.66])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7C6E606A31C;
-	Wed, 11 Nov 2026 09:10:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C9C2606A321
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 09:10:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2C9C2606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QQZJDCma
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77FE21F00A05;
-	Wed, 11 Nov 2026 09:10:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794388217;
-	bh=xH9l3vH/C4QDmuSYkhVbjVTYTvtMqxmFM17WSOqQ34E=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=QQZJDCmaKacfblRcagLi02rbg4jcCBwjp9GW5ASiJ8taKOiX+os9eVBIIXUG8CZHs
-	 UP9BXvgSxs3gHLnqayo3DnLh2wb3rk/JbGvU6a2Io0b/Qu2Bd3x2ZmAk28LVJCpAk+
-	 ROfQ3iEyQKObZevE0BedWNZrvGK9ayUJyuyshutw3A7iSM3s91J3IqkZRMyQDb6FVn
-	 NlCjXqDr0jV4ZgvARvuY0guxenbSBTpwGYlUJhfJv1baYnkjQO1x0ZAR/uT0QPwIee
-	 ETXVJTcYUe87V8Vk3RT0Nw7bfpV2NeR7mTFNYEW/olNUeI4L4wYcR9EQ718KHiEL0y
-	 hRM9iGghejhlg==
-Message-ID: <d43cf7bd-6a6a-4102-95cc-cb236eb49e0d@kernel.org>
-Date: Wed, 11 Nov 2026 10:10:07 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=hlP8DvXh
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=f58csqHEpT5xGXdMTYhkssJRFxUQ55BxKfM21FYQStTbko3NG8ZcWYTJ3cSENfAgH7LhLeGVTMqkBQlnY95H0+YqUiYjD5K6c2qDjB3MqDnR6FWmuer0TaxTqLG4yU5V113itaEGOlV4DWVCwpdlimQhNikgOxXdVUxVO/y28H1jOE8xoTt2h1g+fRVskJ/VdRiVBq9Wemd/rqy7qdg40JcjYYxjnj9HrLkFwLQAan31LTq+0u+5DiewyRPekndL00zgWT6ECx5DN1K4ypV0Wahnbw8bB/z8mCQ15REW1bmPjc4UcR8UH6cUXA3hHBng5oBzodRv0K5GIUoRtcRcWg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=yhd6eYuBGdngT0Sz/bLen871df7tG2kviQAmy8fBstc=;
+ b=Twfswc0FQ3QU2jIWGJvjTvfw9m2nEEJhHYUo1zyvxWpqW37tIkn6nhs13N3QP/0+6e8j/tvG0oS42FpvtVWI7JwN4Y6X73d1PeKP+mUOXsTgszGr+GKlTWp4kYNqlBqIZnLj7LecEvL68AJo+QkUGtFsjlIfH+ZNTH+epWQFePZ3f7HgPzbtLCKwieItIsHgj7EdQitj5o/zPyOomP/QpqXONZp0fm0TvryP8Qbmqxje2GxMEkaGdlAI88st0V14CW3/+8ZhnPM/+BoiHE032XVUm8dgGhwT7YgaL2N/3vKvEHMFtv5ewwaKf9O8IHZsedEbBmjp6WESIx0nfJGDxw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=yhd6eYuBGdngT0Sz/bLen871df7tG2kviQAmy8fBstc=;
+ b=hlP8DvXhVmj+4d41EpoMiSB3pINsRITBHWepNKtOk5cb7r4S7M5rxiZM6AGKkrUiVwTyQNqmoBQ2WCeiUCabqivYXH9vmJu51P/U0kGum1e3VUMDVEyWTmR0zoZxAdYgIt6FdPa85KnmX2xGDJU4cn4qjmwWLZS/mL40JQICyHg=
+Received: from SJ0PR03CA0184.namprd03.prod.outlook.com (2603:10b6:a03:2ef::9)
+ by SJ2PR12MB8782.namprd12.prod.outlook.com (2603:10b6:a03:4d0::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Wed, 11 Nov
+ 2026 09:10:47 +0000
+Received: from MWH0EPF000DD30F.namprd05.prod.outlook.com
+ (2603:10b6:a03:2ef:cafe::a) by SJ0PR03CA0184.outlook.office365.com
+ (2603:10b6:a03:2ef::9) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.569.12 via Frontend Transport; Wed,
+ 11 Nov 2026 09:10:47 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ MWH0EPF000DD30F.mail.protection.outlook.com (10.167.249.7) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Wed, 11 Nov 2026 09:10:47 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 11 Nov
+ 2026 03:10:47 -0600
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 11 Nov
+ 2026 03:10:46 -0600
+Received: from [10.85.41.63] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
+ Transport; Wed, 11 Nov 2026 03:10:42 -0600
+Message-ID: <b3ded9e9-2b4b-48c4-8e18-5c213601b96e@amd.com>
+Date: Wed, 11 Nov 2026 14:40:36 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,133 +106,264 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/4] ksm: add only_merge_zero_pages to merge only empty
- anonymous pages
-To: "Xu Xin (vivo)" <xu.xin@linux.dev>
-Cc: akpm@linux-foundation.org, chengming.zhou@linux.dev, corbet@lwn.net,
- link@vivo.com, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org, linux-mm@kvack.org, ljs@kernel.org,
- odys.yuan@gmail.com, rppt@kernel.org, surenb@google.com,
- tujinjiang@huawei.com, vbabka@kernel.org, xiao.wang@vivo.com
-References: <20261110074312.219847-1-xu.xin@linux.dev>
- <20261110074451.220524-1-xu.xin@linux.dev>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
+Subject: Re: [PATCH v2 05/12] sched/core: Abstract/fix
+ rq_clock_start_loop_update()
+To: Kayra Cizmeci <kayracizmeci@gmail.com>, Peter Zijlstra
+	<peterz@infradead.org>
+CC: <mingo@kernel.org>, <juri.lelli@redhat.com>, <vincent.guittot@linaro.org>,
+	<dietmar.eggemann@arm.com>, <rostedt@goodmis.org>, <bsegall@google.com>,
+	<mgorman@suse.de>, <vschneid@redhat.com>, <linux-kernel@vger.kernel.org>,
+	<tj@kernel.org>, <ziqianlu@bytedance.com>
+References: <20261107115913.261163891@infradead.org>
+ <20261107120207.242460109@infradead.org>
+ <avBDWS-AY6QQtCuH@scheduler.schedules>
 Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20261110074451.220524-1-xu.xin@linux.dev>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From: K Prateek Nayak <kprateek.nayak@amd.com>
+In-Reply-To: <avBDWS-AY6QQtCuH@scheduler.schedules>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MWH0EPF000DD30F:EE_|SJ2PR12MB8782:EE_
+X-MS-Office365-Filtering-Correlation-Id: fa94b58b-dd47-439a-e887-08df3fd3ac6a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|82310400026|7416014|23010399003|1800799024|36860700016|260925021311599003|260925022911599003|260925021911599003|261028144727099003|11063799006|261022075727099003|56012099006|4143699003|261022113327099003|261022105027099003|261026140227099003|261026121527099003|261009223027099003|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	fQeb0Cg/1byr+aFBYxUfb+nQkDkDsr1zDmM4jEYxWDO+guvrw/HSFrLIYSADeID1K+fuo39B4h7mpGXh9eqZL2Ut0KN03alEPmVZQXJ+eESujgd9e4uVVhvbh2EHTmqQqcn4lsl3ylKGmbd2hAVMgA0DZZRipaTRL0gLd0MV3DE1cvFjPEH5rQRpTfA7Pc2bp4/gbZ0oHU0OJu07YIluR1/PfGIV57R1ItSGpNedtz7mPGyXQzWr8d8lRcRRTE37pMi6wHzBTFA5TSPk6NkNW0EZ7pboaqXUnrzaw/lSed+SN+7DTqiRKZDruH5UZWhHdeNtD9BkGYIAYz3n4YOw4NeYX0QSXORlJ8hr6kYCztUzfo40dgtDjrfq7H1rXFXoxor4LqBXMJQaU8H9rR4WRpVSF7vtdNnSjB1PDN+zIzxCW9QNGz60BaAYciWzWnmmCO8s8Y3Rw8uKWs4bp0l3M536XIF3I2XdZy/BkbahwLLd+FJiSIYNygvPhbhzAu6h3jfR3AM2h7mKIhi49y5TSMDyGISduki6FQxd3cmOIJJp2qJIjeG+xbVVQIaziFXdCBTThp6fFYwry2+KRayPXqXIhrtZMNKbpeaZShLJOvhSGOcKxq66cKtqmEsn+9RNJCbe9XksccRWPzmPG8a2olSBTSKGUzpL89JIZ/4dj/YdXn1XBo4e15DLboGqekAn
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(7416014)(23010399003)(1800799024)(36860700016)(260925021311599003)(260925022911599003)(260925021911599003)(261028144727099003)(11063799006)(261022075727099003)(56012099006)(4143699003)(261022113327099003)(261022105027099003)(261026140227099003)(261026121527099003)(261009223027099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	dep45iT7WvB4/oDnoPegWizy9bOgteh5sWKA8EhLRhA0ZUewJ0y0tCl/cm9Bw5YM/AuZgKMrJVDXsHqlXRfnEszv5lU6Yy+2YY1kWlGF3HYlZ7sCbHCEc079UL9z1BY+XFKTSReh6FVVRWvaEm5r3IM8JyuxpPm1p8/uKyNo/eUykc8ebU0q72cDh7fCu26o84EkCcgKN7dvzyCajxOgwJ7ZmkLRnLeerumEsbaLJNZF5HbXovz63Csb4HgBqNgikXWIkGh5GFnGfsTkhahO6FkNb5EHjQm6oRPdXVlGqYQyvgsPyPypujcDX+99O0HAzKdzpr9azRPxRNnzoJX7A81l9Qk80UQry/tKFSc2tT88nP4xiKR9ha0nzF/ah+Q9KPLlNbFM7ZXx0PXV30ftFTKOua1JdaE7SL5z5NKgg9IOUlBkJqIty+HRvcUViPod
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 09:10:47.2430
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: fa94b58b-dd47-439a-e887-08df3fd3ac6a
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MWH0EPF000DD30F.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8782
 
-On 11/10/26 08:44, Xu Xin (vivo) wrote:
-> Add a new sysfs attribute, /sys/kernel/mm/ksm/only_merge_zero_pages,
-> which, when enabled, makes ksmd merge only empty (zeroed) anonymous
-> pages with the kernel zero page and skip the stable and unstable trees
-> entirely for pages that carry data.
-> 
-> The attribute requires use_zero_pages to be 1, and the two are kept
-> consistent by symmetric constraints: it cannot be enabled while
-> use_zero_pages is 0 (-EINVAL), and use_zero_pages cannot be turned
-> off while it is active (-EBUSY). Both store handlers take
-> ksm_thread_mutex around their check-and-set so that a concurrent write
-> to the two attributes cannot leave use_zero_pages=0 and
-> only_merge_zero_pages=1, a state in which ksmd would scan and checksum
-> pages but never merge any. The new attribute can be changed at any time
-> and is only effective for pages merged after the change.
-> 
-> Benefits in three aspects
-> =========================
-> - Memory saving:
->   On memory-constrained systems such as Android and embedded devices,
->   zero-filled anonymous pages are the largest source of duplicate
->   anonymous memory. They are produced by userspace allocators: the
->   zeroing of freshly allocated Java objects and buffers in the ART heap
->   (new byte[]/int[], Bitmap buffers), calloc/memset in native code, and
->   preallocated media buffers. Merging them with the kernel zero page
->   frees a significant amount of physical memory, which matters as DRAM
->   costs keep rising. With this enabled, we measured 100MB–300MB saving
->   tested with several popular applications on aarch64 (Android).
-> 
-> - CPU overhead reduction:
->   Merging only zero pages also reduces the overhead of ksmd. A page that
->   is not merged with the zero page carries data and can never be merged
->   with the zero page, so there is no point in searching the stable tree
->   or inserting it into the unstable tree for it. Skipping those tree
->   operations for data-bearing pages reduces both the CPU time and the
->   rhashtable memory footprint of ksmd, which makes zero page merging
->   practical on low-resource devices where full KSM scanning would be too
->   expensive.
-> 
-> - Security:
->   Finally, this shrinks the KSM side-channel attack surface: only zero
->   pages are ever merged, so the sharing status of data-bearing pages is
->   no longer observable through KSM timing side channels.
-> 
-> Note
-> =====
-> - Suitable for Android, embedded and low-memory devices, where zero-page
->   deduplication is wanted but full KSM scanning is too costly, and reduced
->   KSM side-channel exposure is desired. Many handset vendors may prefer
->   this knob, which can be used as a default fallback policy.
-> 
-> - Not suitable for server and virtualization workloads containing many
->   non-zero duplicate pages, where vanilla KSM provides better memory
->   savings.
-> 
-> Signed-off-by: Xu Xin (vivo) <xu.xin@linux.dev>
-> Reviewed-by: Huan Yang <link@vivo.com>
-> Cc: Wang Xiao <xiao.wang@vivo.com>
-> ---
+Hello Kayre, Peter,
 
-See my reply to #2. I think the overall feature makes sense, but reusing all of
-KSM infrastructure just to deduplicate zero-filled pages looks suboptimal.
+On 11/9/2026 3:56 AM, Kayra Cizmeci wrote:
+> So to fix both of these I would suggest something like so, not tested:
+> 
+> 
+> diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
+> index 339a77864ec8..a91d12640f37 100644
+> --- a/kernel/sched/sched.h
+> +++ b/kernel/sched/sched.h
+> @@ -1911,7 +1911,7 @@ static inline unsigned int rq_clock_freeze(struct rq *rq)
+>  	return flags;
+>  }
+>  
+> -static inline void rq_clock_thaw(struct rq *rq, bool flags)
+> +static inline void rq_clock_thaw(struct rq *rq, unsigned int flags)
+>  {
+>  	lockdep_assert_rq_held(rq);
+>  	rq->clock_update_flags &= ~RQCF_FREEZE;
+> @@ -3357,8 +3357,8 @@ unsigned long arch_scale_freq_capacity(int cpu)
+>   */
+>  static inline void double_rq_clock_clear_update(struct rq *rq1, struct rq *rq2)
+>  {
+> -	rq1->clock_update_flags &= (RQCF_REQ_SKIP|RQCF_ACT_SKIP);
+> -	rq2->clock_update_flags &= (RQCF_REQ_SKIP|RQCF_ACT_SKIP);
+> +	rq1->clock_update_flags &= ~RQCF_UPDATED;
+> +	rq2->clock_update_flags &= ~RQCF_UPDATED;
+>  }
+>  
+>  #define DEFINE_LOCK_GUARD_2(name, type, _lock, _unlock, ...)				\
 
-Please investigate how we could selectively reuse some pieces to just scan +
-dedulicate zero-filled pages, avoiding the whole rmap item stuff etc.
+So with this, I still get a clock_update_flags warning like:
+
+    ------------[ cut here ]------------
+    !(rq->clock_update_flags & RQCF_UPDATED)
+    WARNING: kernel/sched/sched.h:1862 at set_next_task_idle+0xe1/0x100, CPU#262: sched-messaging/8375
+    Modules linked in: ...
+    CPU: 262 UID: 0 PID: 8375 Comm: sched-messaging Tainted: G        W           7.4.0-rc1-test+ #463 PREEMPT(lazy)
+    Tainted: [W]=WARN
+    Hardware name: AMD Corporation Titanite_4G/Titanite_4G, BIOS RTI100CC 03/28/2024
+    RIP: 0010:set_next_task_idle+0xe1/0x100
+    Code: ...
+    RSP: 0018:ff919f922f4e7c80 EFLAGS: 00010046
+    RAX: 0000000000000000 RBX: ff49b96ece1b33c0 RCX: 0000000000000007
+    RDX: 000000128e40504c RSI: 0000000000000200 RDI: ff49b8b30f2d8000
+    RBP: ff49b8b28ed84280 R08: 0000000000000200 R09: ff49b8b28ed84280
+    R10: 0000000000000008 R11: 0000000000000008 R12: ff49b8b28ed84280
+    R13: ffffffff86a043c0 R14: ff49b8b28dfca700 R15: 0000000000000200
+    FS:  00007fddd81237c0(0000) GS:ff49b96f477af000(0000) knlGS:0000000000000000
+    CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+    CR2: 000055ce59162840 CR3: 00000001a1f11004 CR4: 0000000000f71ef0
+    PKRU: 55555554
+    Call Trace:
+     <TASK>
+     __schedule+0x93b/0x1ca0
+     schedule+0x28/0xa0
+     anon_pipe_read+0x302/0x410
+     ? __pfx_autoremove_wake_function+0x10/0x10
+     vfs_read+0x30b/0x340
+     ksys_read+0xb8/0xe0
+     do_syscall_64+0xce/0x550
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? do_syscall_64+0x35/0x550
+     entry_SYSCALL_64_after_hwframe+0x76/0x7e
+    RIP: 0033:0x7fddd6514932
+    Code: ...
+    RSP: 002b:00007fffd6dcde28 EFLAGS: 00000246 ORIG_RAX: 0000000000000000
+    RAX: ffffffffffffffda RBX: 0000000000000000 RCX: 00007fddd6514932
+    RDX: 0000000000000064 RSI: 00007fffd6dcde40 RDI: 0000000000000007
+    RBP: 00007fffd6dcdee0 R08: 0000000000000000 R09: 00007fddd81237c0
+    R10: 00007fddd84ed0c8 R11: 0000000000000246 R12: 0000000000000064
+    R13: 00007fffd6dcde40 R14: 00000000000001c7 R15: 000055ce88d5e840
+     </TASK>
+    ---[ end trace 0000000000000000 ]---
+
+with:
+
+  coresched new -t pid -- perf bench sched messaging -p -l 100000 -g 8
+
+on queue:sched/hackery.
+
+If I do:
+
+diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
+index 339a77864ec8..fd900d1419c6 100644
+--- a/kernel/sched/sched.h
++++ b/kernel/sched/sched.h
+@@ -3357,8 +3357,8 @@ unsigned long arch_scale_freq_capacity(int cpu)
+  */
+ static inline void double_rq_clock_clear_update(struct rq *rq1, struct rq *rq2)
+ {
+-	rq1->clock_update_flags &= (RQCF_REQ_SKIP|RQCF_ACT_SKIP);
+-	rq2->clock_update_flags &= (RQCF_REQ_SKIP|RQCF_ACT_SKIP);
++	__rq_clock_clear(rq1);
++	__rq_clock_clear(rq2);
+ }
+ 
+ #define DEFINE_LOCK_GUARD_2(name, type, _lock, _unlock, ...)				\
+---
+
+I don't see that warning anymore. Must be the "core_pick_in_flight"
+check keeping everything sane.
+
+> In a case like this:
+> 
+> CPU1 calls rq_drop_lock(), saves FREEZE = 0, and changes FREEZE to 1,
+> and drops the lock.
+> 
+> CPU2 gets the lock, saves FREEZE = 1 and changes FREEZE to 1, and then
+> drops the lock.
+> 
+> In this period CPU1 gets the lock again, makes FREEZE 0.
+> 
+> And later CPU2 comes and makes it FREEZE 1.
+> 
+> 
+> Not sure above could happen tho. Could it happen?
+
+I suppose it is possible.
+
+Generally rq_lock is dropped in middle of __schedule() when NEED_RESCHED is still
+set so ->task_woken() would generally bail out early for dl and rt (ext doesn't
+seem to drop the rq_lock on that path).
+
+That said, a concurrent wakeup can grab the rq_lock when another ->task_woken()
+dropped the rq_lock or a __balance_callbacks() for setprio or sched_move_task()
+can interleave with a ->task_woken() and lead to your scenario.
+
+> I tried to fix this assuming it could happen.
+> 
+> I'm not really happy with below diff, but I couldn't find a better way
+> neither, so please tell me that this case can't happen or there
+> is a better way to fix it :-(. This is on top of the current code BTW.
+> Only compile tested.
+
+[..snip..]
+
+>  bool cfs_task_bw_constrained(struct task_struct *p)
+> diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
+> index 339a77864ec8..d8f1784d0640 100644
+> --- a/kernel/sched/sched.h
+> +++ b/kernel/sched/sched.h
+> @@ -1281,6 +1281,7 @@ struct rq {
+>  	u64			clock;
+>  	unsigned long		lost_idle_time;
+>  	unsigned int		clock_update_flags;
+> +	unsigned int		clock_update_depth;
+
+I think this can stand-in for the freeze flag too if you do
+something like:
+
+diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
+index 339a77864ec8..49c732d3f3bb 100644
+--- a/kernel/sched/sched.h
++++ b/kernel/sched/sched.h
+@@ -1280,7 +1280,18 @@ struct rq {
+ 	u64			clock_pelt;
+ 	u64			clock;
+ 	unsigned long		lost_idle_time;
+-	unsigned int		clock_update_flags;
++	union {
++		struct {
++			s16	clock_update_flags;
++			u16	freeze_depth;
++		};
++		/*
++		 * Inspect both clock_update_flags and
++		 * freeze_depth together in
++		 * __update_rq_clock().
++		 */
++		u32		__clock_update_flags;
++	};
+ 	u64			clock_pelt_idle;
+ 	u64			clock_idle;
+ 
+---
+
+Probably makes it very ugly :-)
+
+>  	u64			clock_pelt_idle;
+>  	u64			clock_idle;
+>  
+> @@ -1902,31 +1903,28 @@ static inline void rq_clock_cancel_skipupdate(struct rq *rq)
+>   * update_rq_clock() for several cfs and rt runqueues (Typically when using
+>   * list_for_each_entry_*)
+>   */
+> -static inline unsigned int rq_clock_freeze(struct rq *rq)
+> +static inline void rq_clock_freeze(struct rq *rq)
+>  {
+> -	unsigned int flags = rq->clock_update_flags;
+>  	lockdep_assert_rq_held(rq);
+>  	assert_clock_updated(rq);
+> +	rq->clock_update_depth++;
+>  	rq->clock_update_flags |= RQCF_FREEZE;
+> -	return flags;
+>  }
+>  
+> -static inline void rq_clock_thaw(struct rq *rq, bool flags)
+> +static inline void rq_clock_thaw(struct rq *rq)
+>  {
+>  	lockdep_assert_rq_held(rq);
+> +	WARN_ON_ONCE(!rq->clock_update_depth);
+> +	rq->clock_update_flags |= RQCF_UPDATED;
+> +	rq->clock_update_depth--;
+> +	if (rq->clock_update_depth)
+> +		return;
+>  	rq->clock_update_flags &= ~RQCF_FREEZE;
+> -	rq->clock_update_flags |= RQCF_UPDATED | (flags & RQCF_FREEZE);
+>  }
+
+This seems like a legit problem one can run into and
+your solutions works well!
 
 -- 
-Cheers,
+Thanks and Regards,
+Prateek
 
-David
