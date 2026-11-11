@@ -1,76 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.31
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794402251;
-	b=Hm6jlH2qVGfvqfRdZKLqlM6PSqawD5NOfTgQ/D0frNj4ig4W+i6EYvTgqyQ6VJU5/vKA
-	 ADzrX4UmsQFgwoh44jfGLP8tR5NHHcFVSBcL2Hx3wu2aoStjj3EAgT7wA004+avgNdVRT
-	 wp8W5j/jZ3W38Pu3I5uBxyeQd7zpwqbbQHYDPhsjPheuwArFOvvfDvFNmAkdn6j7hryG9
-	 eLKMaQ+5SfXU8WnljbTESVdC26u7evmly9mTGcFRrIN9LsC6+j6UhPsjTPLiSrw4IMqrg
-	 WKk9Lx0xi7PuG534D/CU/baiCT8tKliTBt12Z8/HNDaTE84AXXP0QkEbumHgWD5nmxA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794402251;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=+ibl+xs66yD86wh5INakXzfw8v0V7RfphGaR6jB5XrI=;
-	b=kkNE1gjamYcogjW6232Tairc+kiDh5Jsar6j0rKm+PGS8M/CS4WfnNrMpws7wyrJ0WFy
-	 GW88+Ult1ui0KlxQoCPTFd1XZD8dEDbXADfwO7invToIhFkzXWkjZmsfeo0rfJ4nhUIZl
-	 c/eu5XKrynKuV5abHEtnUorVchWLZiOgNAWhZkW7rKTghXmaLZm1sBVnb6f+8/9qZ78h9
-	 5e9vO3nFiTJx17yTi1DHsb4e6giXEENCYR2SZBlGhxp5u/LjJRW2ELJFEfybWL3GahVI4
-	 g5mtGef8MvX9r3WObP1Idbn4Km8wHY71PRVEpoBWHr9LYr5l+3iz49+MLs8C9NlY2Lg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ULpQmAld;
-	arc=none smtp.remote-ip=95.215.58.31
-Received: from mta1.migadu.com (unknown [95.215.58.31])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794402254;
+	b=g1kL2ZFuxYkIoj5+7z9xoeMVhEhPQviL/WHPSRMupYhKSyi7n1FYzsQDfqC61sUObr9U
+	 FQGLdoGWB4rIRVWTLVY6md63iAqI5UmB2Wbhs7HK3EDhYqjsZ9Xr1UAVgB7T8bUwwq45j
+	 MI5HkNacUhHo5BPsLkKHrmN+5FN3xF8fpbtAulML6lHDg+LmYqSIW33cLB9bwUrmJNyyN
+	 MLkXejzzbiAilMLjXGWzFs6GMP6dySIE55C5VkEmMi9Bv9ZCo0vORAS6KmExn7+P1vlng
+	 vEXItdZPvWoSUTnctAbIkG1Z6zUrkpj1GigvRHRhCa0niRY4CNyr10XXRxHDlW2PToQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794402254;
+	h=DMARC-Filter:DKIM-Signature:Received:Content-Type:Mime-Version:
+	 Subject:From:In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:
+	 References:To:X-Mailer:X-ZohoMailClient;
+	bh=YNKbqnPxAy2kyKtQIxYMphXXlBnE1sy3rQHY1OtNP0o=;
+	b=eANHp2VkoHv8R4II/Ugsud1poZ6P0rV3AQ6MZY55cBuV6yIoZPSYq2+J7lZwEMkULMv/
+	 YrU4EVfU+AQQoZlN4BIxv7maXRXcZMlU3jpcD165jVM/LUXhE+Kz+1yD5a/lNf2xXvmFT
+	 TqWn1veJHZpi8ydp0B1bEB7hRrYENNVkySpBlTuuptitGw+iRBaCQZ8w09+a/Biq7TQh3
+	 DSjv9Fm7BXsYRa95ykpdBHbM+JtQsSGEHJLBiy44/zZ74y/qtEloUo8IKcZ0j8qwEkdtS
+	 kJLVm4KZ9yW0rkERtv/v7I9pF6dKM57H1yqHPi8wO6ssAQ2PdKfyde6sxx1roebTanw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=iUCXqri5;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
+Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35F46606A32E
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:04:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 35F46606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9255C606A33D;
+	Wed, 11 Nov 2026 13:04:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9255C606A33D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ULpQmAld
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=PNo9eQqUCQ0H6xEIxoWm0pGinAn55h2xXAqO/yeQE58=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794402248; v=1; x=1795007048;
- b=ULpQmAldDNEGQPEemmARZ/j2g2idpw6brjJcB7CsGqeZtC3PDHwc2vFJXumhZ7p2nwa0S7GY
- 9jE3EdmcW3i/FKCI0CQ8LrPfERXOOUKGEHGFkV7WX7KWZa8bMKswXehGY++PXgCcDuJ9Y5500Pn
- KVnbc+de6aVQIV2EHRA5wXQ4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 42f504bcf6d2e3ca;
-	Wed, 11 Nov 2026 13:04:07 +0000
-X-Mizu-Trace-ID: 42f504bcf6d2e3ca
-X-Migadu-Flow: FLOW_OUT
-From: Usama Arif <usama.arif@linux.dev>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Usama Arif <usama.arif@linux.dev>,
-	david.laight.linux@gmail.com,
-	bp@alien8.de,
-	dave.hansen@linux.intel.com,
-	dsterba@suse.com,
-	hpa@zytor.com,
-	linux-kernel@vger.kernel.org,
-	mingo@redhat.com,
-	terrelln@fb.com,
-	tglx@kernel.org,
-	x86@kernel.org,
-	kas@kernel.org,
-	hannes@cmpxchg.org,
-	riel@surriel.com,
-	shakeel.butt@linux.dev,
-	kernel-team@meta.com
-Subject: Re: [PATCH v2] x86/lib: Use REP MOVSB for large memcpy() on ERMS CPUs without FSRM
-Date: Wed, 11 Nov 2026 05:04:03 -0800
-Message-ID: <20261111130404.2662582-1-usama.arif@linux.dev>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <CAHk-=whPF8CD9zC960jPUi2rMrJ_pq9ytdSYqWoef-R6AHsfXg@mail.gmail.com>
-References: 
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=iUCXqri5
+ARC-Seal: i=1; a=rsa-sha256; t=1794402226; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=Zh2WZxtb83wiwRb55pRxREL5E1WrfyKssqgEz5SCi92CW7JIemCmbhV1yFx0zfNB4HLzo8ucwBbftVkLr8vLtgD56heloJGjJgeTIpoKIPN1wz78hTT3/+TZi/eb1dMj5ClJklA/Z3JK5IrLbAAdGPnlaYaxMvu3CE0W/NlAuPM=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1794402226; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=YNKbqnPxAy2kyKtQIxYMphXXlBnE1sy3rQHY1OtNP0o=; 
+	b=X1e+dM4k5IyuX5JjIXL+KLKDEqYIKs41O9z/fGRRTjynLSKGIxsjl0FssYE1L2yN4mZ6C0KDur/CqyYGa4rAeDAGaEr2b8LIJjlp2ZbsbM2m+8y0EBxqmeyK9HgEK0giPBHk+l4MiP/OJBe/tyuxs1850SNCYWoK9GOqkB97Dcg=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
+	dmarc=pass header.from=<daniel.almeida@collabora.com>
+DKIM-Signature: a=rsa-sha256; b=iUCXqri5yD3OP75C+gC4ZVBcwt7hvAazBVIpSV6pFx/07tOgbLBtVVSxIUNAv/0n4+eU7RBrPLRQWqStItspt3s+uOKz6SL0SV8ozwbF2aTNZSYNI0Y2jfpU6onvXsM1UoXvLro64Lc8Ml6TkQkxTKCa8wdofnk8RVLnsSU5kzQ=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=YNKbqnPxAy2kyKtQIxYMphXXlBnE1sy3rQHY1OtNP0o=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1794402223658550.9611442995573;
+	Wed, 11 Nov 2026 05:03:43 -0800 (PST)
+Content-Type: text/plain;
+	charset=us-ascii
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,25 +57,59 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.200.71.1.16\))
+Subject: Re: [PATCH 0/7] rust: io: add read-only and write-only views and
+ registers
+From: Daniel Almeida <daniel.almeida@collabora.com>
+In-Reply-To: <20261020080147.1743459-1-aliceryhl@google.com>
+Date: Wed, 11 Nov 2026 10:03:25 -0300
+Cc: Danilo Krummrich <dakr@kernel.org>,
+ Abdiel Janulgue <abdiel.janulgue@gmail.com>,
+ Robin Murphy <robin.murphy@arm.com>,
+ Andreas Hindborg <a.hindborg@kernel.org>,
+ Miguel Ojeda <ojeda@kernel.org>,
+ Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>,
+ =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>,
+ Trevor Gross <tmgross@umich.edu>,
+ Tamir Duberstein <tamird@kernel.org>,
+ Alexandre Courbot <acourbot@nvidia.com>,
+ =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ Bjorn Helgaas <bhelgaas@google.com>,
+ =?utf-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ driver-core@lists.linux.dev,
+ rust-for-linux@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ linux-pci@vger.kernel.org,
+ dri-devel@lists.freedesktop.org
+Content-Transfer-Encoding: 7bit
+Message-Id: <D2C021BF-4C1D-46B7-A6CF-9C76C56805B0@collabora.com>
+References: <20261015-io-access-modes-v1-0-93611b84b5e3@collabora.com>
+ <20261020080147.1743459-1-aliceryhl@google.com>
+To: Alice Ryhl <aliceryhl@google.com>
+X-Mailer: Apple Mail (2.3901.200.71.1.16)
+X-ZohoMailClient: External
 
-On Tue, 10 Nov 2026 09:53:07 -0800 Linus Torvalds <torvalds@linux-foundation.org> wrote:
 
-> On Wed, 4 Nov 2026 at 14:28, Usama Arif <usama.arif@linux.dev> wrote:
-> >
-> > +       ALTERNATIVE __stringify(cmpq $0x20, %rcx; jb .Lhandle_tail), \
-> > +                   __stringify(rep movsb; RET), X86_FEATURE_FSRM
+Gary,
+
+> On 20 Oct 2026, at 05:01, Alice Ryhl <aliceryhl@google.com> wrote:
 > 
-> Let's not do that.
+> On Thu, Oct 15, 2026 at 04:19:40PM -0300, Daniel Almeida wrote:
+>> This series adds read-only and write-only I/O views, and the #[ro]
+>> and #[wo] attributes to register!. An access in the wrong direction
+>> then does not compile.
 > 
-> Putting magic things like RET in alternatives is just a bad bad idea.
-
-I will send v3 today with RET in ordinary text.
-
-Thanks!
-Usama
-
+> Reviewed-by: Alice Ryhl <aliceryhl@google.com>
 > 
->                Linus
+> I heard a suggestion that it'd be better to drop the Io from these trait
+> names so they are just Readable and Writable, because not all
+> implementations do IO (i.e. if it's SysMem it's arguably not IO). Not
+> super important to me, though.
 > 
+
+Any further thoughts on this series other than the feedback you have
+already shared?
