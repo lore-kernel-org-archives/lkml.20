@@ -1,110 +1,180 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.175
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794368885;
-	b=ViURqGO1aIDW3iiKS/vTYtxDeYsILnAEdx8xArBWuGPBHwGxx2x/P2X74+pAD4T8iM/x
-	 vtIIyliuXgNt93E80p3cKcAnA6lYYDGNGEjgcI4QcNvARsg8Dp1Vg5V6pJqpKw6W+1X41
-	 rwKAKnfSUb2GKBuDCpIKa07dwVsh7NYeKZGLvArojLOTX1cTdejkH8K49wSmtpXOKwnIn
-	 gDD0jiLXd4VF72MmrOcryZqn08OteKdT/xQ9wocbSKqaZGp/mbZSglhdfV5VIRPJHVvZo
-	 UqlveaLJy6999EaE2O0TATiJ281qZwffLu8lBH7uhufR1a4aNT2ZfHD8FmvqXECsaYA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794368885;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=yP3MUaap2UdxY9ATROO5FfQ5a2wglkeLGxDqt0I3imo=;
-	b=mEHMv8jJJkowlt79a3sZJgx1WdvZKom1i/DTvUg+CuB8ImBMHGfw1B2edp3fYSQ+dOVA
-	 k+r/ZsUwq0iqGCMJJDIyQzY8ANtlsLCDz8Htg7oxK3a5BS/N+ABqUpl9hoVN5OOW0bUA4
-	 ZLKjF0zzOMtUZOqKb8KH0onMt73MQUhFEHoAySKKr8gF72f/Ob+k+u/4ACNufdcybhtfl
-	 qKOXQ9eBqDqpx33Vh0HEh/Xr+hbpoE/2V+/hwkuvH2/Z8PSb8/RaHR5GwOoFwqf2rIr8a
-	 LTkCULGnGvsqR2H74eBjCfmZP/N/OSzXxNNiETZf4fXRFY40pIUiB1rl843eUb9tYWA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rowland.harvard.edu;
-	spf=fail smtp.mailfrom=g.harvard.edu;
-	dkim=pass header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=A+KG9HOP;
-	arc=none smtp.remote-ip=209.85.222.175
-Received: from mail-qk1-f175.google.com (mail-qk1-f175.google.com [209.85.222.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=192.198.163.11
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794368899;
+	b=fDAHVj44PWEjkaZa1UXHJ7FLRZv5O7JVLfAEm/pW7waYAGYJ06cr1VHWgcKx8LNNApeC
+	 /Ay9pTBp+NzcZUAkEem6+88+ifVXsjkSki4ZpA7tr3TqDsoNeSXX1ad1ALvabwJIp6qxK
+	 vDsNdZlN+aaJ7xvkQ6Vt9AnCyZqJl63iQFBnbk2aphlHByA5/BcLf7yfBBm6SDeRcEDF0
+	 IbBhhIRHwsH34IBGgGLDosPACI/uWKBao/r5qekay3FV5XjaRGR3MBKdmNeJF+S+JZwNT
+	 1jjoWvkcK+2wjF562G8r22FS00c7HxkV2X4Jmj+YzicmJhXl2XjeYlkLW8xrjTWa3bA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794368899;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
+	 Received:Received:Received:From:To:CC:Subject:Thread-Topic:
+	 Thread-Index:Date:Message-ID:References:In-Reply-To:Accept-Language:
+	 Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
+	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
+	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
+	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
+	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
+	 x-ms-exchange-antispam-messagedata-chunkcount:
+	 x-ms-exchange-antispam-messagedata-0:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:
+	 X-Exchange-RoutingPolicyChecked:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-originalarrivaltime:
+	 X-MS-Exchange-CrossTenant-fromentityheader:
+	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
+	 X-MS-Exchange-CrossTenant-userprincipalname:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
+	bh=uCevxDM418QrmZYgCQkkzmfw4EsH6dRIdTMwVraAMQs=;
+	b=xSN7/78q4AqeMl14sZFp4dI+/ZZUPMAGp4cLSQOcNby5VSuOIznPXEwLbAvHJqEz2GTF
+	 6IaZIUXur6n0GPEc5weS904TCCgQycC2ENmik0ZZvpIQhdW978z49Qi/nxS+nINhrq/04
+	 41R9SUELdfvQVG/ynEA/ZXJx7aOCL/oIEBh4RFdOoBxB5VSJQruOWv+ux71Z9Ejl/QqcC
+	 CwnkrBWqsgzm/qem3XN3BkdZQkw78/4F4nDqVaBKuSvQuqlpYOVMnma98u3gcQ7qWn+pO
+	 zd35i5dVgB1rqN0kIBd2o/egck+h6xZvvmsNLzFohHQ/PdQzzfbmuGzky49a00HAjIg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cHCdUwTU;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=192.198.163.11
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2EDA606A321
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 03:48:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F2EDA606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 514F5606A31C;
+	Wed, 11 Nov 2026 03:48:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 514F5606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=A+KG9HOP
-Received: by mail-qk1-f175.google.com with SMTP id af79cd13be357-9441591aa5cso310142185a.1
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 19:48:04 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rowland.harvard.edu; s=google; t=1794368884; x=1794973684; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=yP3MUaap2UdxY9ATROO5FfQ5a2wglkeLGxDqt0I3imo=;
-        b=A+KG9HOPsyaN1vGHd8cK1KSCmV7DvTmGOKgFtUX//0kPKXc4AiIXd+gNr1ORrDq/7m
-         NgR3okExOZmsrveK7rl1AxDr3Y0vyk9U8q+Qk3nGrNoIrLobOLj8ynPBybCqOzxp9so7
-         LfqXhh6013kC00eQpBefjbde/5F00bDVxBupiTl49OomTqG4Q53WT2fcUHU5R+zolFPr
-         96+rs611Rlndxz/XLFhnHY5hWZDFpCDc3EvO6VPyjgKycN9zA8JMKxkb7VRgDlxyyK4Z
-         Z/lMgpt2FP2dQnvE4otO6bTcNNKeor7oNZid3Hm5DKD29ERn6wLXmKNr+dtAGvE0ZPAf
-         BX7g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794368884; x=1794973684;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yP3MUaap2UdxY9ATROO5FfQ5a2wglkeLGxDqt0I3imo=;
-        b=Idi8EtNgcSjLAaSLiZuC6e5RRoyrKcY3kz6OOk7bXtGiJyCVuuF0m3uRvSrwrrPhHM
-         VZmEp/FrwpRjwbX1AKDyQj+UbYdN3iCmPoZEPBEXg//jdEUeo7mDlOtfzp4PAIXKeINb
-         EMIImSQR4NZTvbxHgQO1wDd1FlM9RozJ23rJ7dGANyXtb41iC1m+iqf4n9vfvdevo+f6
-         R0z7ToRAu67/AlzUQbws7FraKlxHLdlYnyns/pjgg+hIco9Eins2hw871NBdPq5Yc4Rl
-         Hz6hPQb0QDZqa3RQRvOTIqCZ0p5/ftVKjP4f1lQcq4kHUlyf1CffPuwilbbdYBBCvNvT
-         s4Qw==
-X-Forwarded-Encrypted: i=1; AL+hErErkcEdPPepkuw71XVScsaRrhz6UDBivMoBjuoj2tjlKM9bDoD+1+BQPBYKZBQ2rfkCh0GVMGneZttixHw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8vqxFa3SINydpAwBJ8OQAMe9O2a+QZTp/6NTidmLxFVpDilCx4
-	f3eNbZ5ydmc8fi/5jsAuQ8EWTLAJs0QWv1qDssK6Jjf9bGcz4Ai8ds4+11Kqm9XQEw==
-X-Gm-Gg: AYBFou3NIIcxWmp7F2KlDTX0Ul3raMrwqESdkf74tjq7ZyQyjOx2svnkZQY1NdXhYxx
-	p7jeNrOI3Y/eWwpBeyMENGHUO02tPp87QidzH1mdmMFsIqezXkUwHZdHPciEU2/+xtVdJFDfgk4
-	m89Wha5JLv7cVraIqfoWdzi7jCi7UkA43Qwnwfg2uYBUmzhv6lq8hAdDSoRAEiH75exkocvbMlw
-	0TLx0ZF4JyUCy3mcUbFxpIv9ouzOoDYEOzCanmfUpTVS8JSUi5CQJxFSmYv/rUNbzSdT5an1fdT
-	BrcRl/mls2VPTJiIjYD0J1Ifbqs7eH5iV9jeMPMcRRhZtA0uYVLdkcofiQiDkPOJLdFjCxDw6X2
-	QHOe0JLwmHnGannx81pLquYbRmW01pK8xxvCekxOaxhLM0rruf4RN0dPMi3DFZ7PPdxC7mu49Hi
-	1C4APjI9WY1ZkLZgxjK3kCOtaCGKTs9lyvjaYkmTMEIPGUBfs72dOnp2eER83eNl5ocfV3IHene
-	ZuKbTqZ02uCMNTBNeEZkFcAUz6o35lYjtB+jovOajqnVOIUkEkuqTHDCOnkGSmYHvqLcmRyVKOB
-	pFxCV7rt5InPvzXwN3Lw3o4ETy91RQ==
-X-Received: by 2002:a05:620a:710c:b0:93e:5677:317b with SMTP id af79cd13be357-947ae870df7mr271298485a.25.1794368883684;
-        Tue, 10 Nov 2026 19:48:03 -0800 (PST)
-Received: from rowland.harvard.edu ([2601:19b:d01:d210::d355])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9479e7e9b4bsm385166085a.39.2026.11.10.19.48.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 19:48:03 -0800 (PST)
-Date: Tue, 10 Nov 2026 22:47:59 -0500
-From: Alan Stern <stern@rowland.harvard.edu>
-To: Brian Norris <briannorris@chromium.org>
-Cc: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>,
-	Fabrice Gasnier <fabrice.gasnier@st.com>, linux-pm@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, Ulf Hansson <ulfh@kernel.org>,
-	linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
-	Andy Shevchenko <andy@kernel.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Subject: Re: [PATCH v2 3/5] PM: runtime: Propagate last_busy from dependent
- to dependency
-Message-ID: <2c3bda2b-ccc3-4430-8e09-81b25f6fcda7@rowland.harvard.edu>
-References: <20261103221717.3840215-1-briannorris@chromium.org>
- <20261103141442.v2.3.I40c0bc917fa0b13111251844e9a54feb1d9cd7d2@changeid>
- <CAJZ5v0jWCz0XDgzeETbmMfGOmvh2G9qcx7xLODrpQ9NiwsddKA@mail.gmail.com>
- <auuICAm4BC_8Pzs5@google.com>
- <CAJZ5v0jTX1FgeS9FCV=+V4uacSgLQBVsSPnU27ybgUGg57GUOA@mail.gmail.com>
- <auzlLwlleGLPsLcw@google.com>
- <CAJZ5v0g25xQeRaLJWJyAo2fcJko+gZ7w6JhX7FzMgRx2+uuimw@mail.gmail.com>
- <au0oKFb9CmNzc6Cg@google.com>
- <CAJZ5v0hKpjMsGQm8Cpa89x5wkNxqkggDNbp+eQ0S-E52DETWjQ@mail.gmail.com>
- <avOw_4ZkqtKFHu1B@google.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cHCdUwTU
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794368898; x=1825904898;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=KwC796yR+UNdVPyvhCKYFyFRpV67lDVH6yefLt8KYik=;
+  b=cHCdUwTUoq40lUvsRsj1d7ltLqPi7wisktRd1xSUqgjPqA8QiMIn/HWO
+   oBHwJk9ZGa+0bbCQ1OgvkidSsTMqFbYGdELIU/gUCPK63SM3ERDoPHnAa
+   oo1ZRgBYpmV9iD2b2zwlhPku9a2SN2ANJiRN+lcuNrJaa3mbKV4fY1ZNb
+   lTIgQH1Dx/nAFWJsKAC9rt4ZhVbUQJia4apihuOXdnvB/HurgocizdmCM
+   9yyzt5JsopgK/WQEYaX+maOqlg3407jxFx2wRSbDKhHlWfHrRrbtmSlwk
+   mNLDz3hUdtTU/Y+tm2RDZ7oZAzVSa0izaCZm40h1WrvCllO8gk5FJR24e
+   w==;
+X-CSE-ConnectionGUID: yltj7UP4T5CYTf71dknOvA==
+X-CSE-MsgGUID: jvBOIFEWSGSDoxl6nYOMNg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11962"; a="3053302"
+X-IronPort-AV: E=Sophos;i="6.27,207,1787036400"; 
+   d="scan'208";a="3053302"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 19:48:17 -0800
+X-CSE-ConnectionGUID: 9Ofw9iagQ3aR7PM6nVFfYQ==
+X-CSE-MsgGUID: 5Qr+MjadQtqJ212L08MZZw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,207,1787036400"; 
+   d="scan'208";a="10053023"
+Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
+  by fmviesa012.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 19:48:18 -0800
+Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Tue, 10 Nov 2026 19:48:17 -0800
+Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
+ FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56 via Frontend Transport; Tue, 10 Nov 2026 19:48:17 -0800
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (40.93.194.19)
+ by edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Tue, 10 Nov 2026 19:48:16 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=r97GhFxpawRfCyU9ndttsUWXiRJWvhfTytB1KGowGsjAstP6sRQwJrla9sVWsh3rHMSyt7sYAwyRZJT7RH07JU+wZYO9vVXEyCQ088R/ee2uDDOE8cBA4SYVeuwRCqr5uDhWcEOLxlkftl6Sjd/iEAPtiTUZKMYJ2Epbh26k+Wfw/ZPs41pejGFv5Mf5xL8PvTrd4EV2o6wy8w+8zeffw7qiULRGgLT5h2Oa5biLSlAQYz3CeeiBWnezuaUgbkdaj3jJcyduEKg6YcUt6vrf6scQwoywT4BvsItlXmMi+dzF6sE8j5TIh1OdpPx3a8fYi9dy5FIoLdSc/WzLKEqSJQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=uCevxDM418QrmZYgCQkkzmfw4EsH6dRIdTMwVraAMQs=;
+ b=n6vn+J54TRpHB0kth4aTV3VH43DrIPfN4ZEolTbsyfB/CIwh3iNszUbi8GxrUFQkWQGxKRDfcfNq8JD6LS3A+E2BsSQgEUvo4ov+/m7gaDIX9k8EMOATez+XDgAA1sPKXz9JVIr8LVELUQS5JmZKehGXrDlrp+eKE0RF4hzFuRNZRydgffXgpDXb78HmwvWEJAjb2sZXUjfQRyeCMtpSgZxlEHFiBfGe2iDErnHNzfEeUAkwzarJ0P8fjqHEEkt+InYpVZCGnijMcIKZRRTh28yMhl+tQHX6oiM/Sr+LPhzQZ7lt8+Y7hAgbY8XNLeSs+lmlgiQeX9tWI1G7f5RG4g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from LV2PR11MB6070.namprd11.prod.outlook.com (2603:10b6:408:179::22)
+ by IA1PR11MB8862.namprd11.prod.outlook.com (2603:10b6:208:59b::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Wed, 11 Nov
+ 2026 03:48:08 +0000
+Received: from LV2PR11MB6070.namprd11.prod.outlook.com
+ ([fe80::4c84:af62:dc60:fd9]) by LV2PR11MB6070.namprd11.prod.outlook.com
+ ([fe80::4c84:af62:dc60:fd9%5]) with mapi id 15.21.0615.007; Wed, 11 Nov 2026
+ 03:48:07 +0000
+From: "Popov, Pavel E" <pavel.e.popov@intel.com>
+To: Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>
+CC: Leon Romanovsky <leon@kernel.org>, Lukas Wunner <lukas@wunner.de>, "Jim
+ Chow" <jim.chow@broadcom.com>, Radu Rugina <radu.rugina@broadcom.com>, Alexey
+ Makhalov <alexey.makhalov@broadcom.com>, Wei Liu <wei.liu@kernel.org>,
+	Michael Kelley <mhklinux@outlook.com>, Nathan Ciobanu
+	<nathan.d.ciobanu@linux.intel.com>, "bcm-kernel-feedback-list@broadcom.com"
+	<bcm-kernel-feedback-list@broadcom.com>, "virtualization@lists.linux.dev"
+	<virtualization@lists.linux.dev>, "linux-hyperv@vger.kernel.org"
+	<linux-hyperv@vger.kernel.org>, "linux-pci@vger.kernel.org"
+	<linux-pci@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH v4 0/2] PCI/P2PDMA: Allow P2PDMA on Intel Xeon server CPUs
+Thread-Topic: [PATCH v4 0/2] PCI/P2PDMA: Allow P2PDMA on Intel Xeon server
+ CPUs
+Thread-Index: AQHdYLm3Eu3+F6ITg0+VFiHnE2F7qrcoXBEQ
+Date: Wed, 11 Nov 2026 03:48:07 +0000
+Message-ID: <LV2PR11MB6070064A9E674EBDFB1A3B20B2712@LV2PR11MB6070.namprd11.prod.outlook.com>
+References: <20261020173736.81755-1-pavel.e.popov@intel.com>
+In-Reply-To: <20261020173736.81755-1-pavel.e.popov@intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: LV2PR11MB6070:EE_|IA1PR11MB8862:EE_
+x-ms-office365-filtering-correlation-id: 1db2c0c4-1ec1-4e04-6e2c-08df3fa69943
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|1800799024|366016|7416014|23010399003|376014|6133799003|22082099003|18002099003|38070700021|56012099006|10067099003|11063799006|261102123227099003|261026140227099003|261022075727099003|261028144727099003|261022105027099003|261021123027099003|261021121427099003|261009223027099003;
+x-microsoft-antispam-message-info: 8GP47sxzzj4R9B7WEwrGwnFFyzjGc7fWpqaiIF/rni94fPSlR+9Qitc+Go2YArXl8lENu0/MA2oPDQb8hYdueJVZErCK8415S8poXxAC/G/3M1ORj2OkK0KAi6IbRMbSA6yMjUuvhuts0zfqBU4qqtR/9FZgOSBKMeGIQRx5PreSSuHEEGjVOJ/1bbKDXUH/SJvPP9SXH/GuOlcfcbr+W/w285ZzMyEz4CSpGKyebXI5SO3wOth+SaI7wkos4bE31GTCngbqRYoJfgYo+FMv5YKRZhyqgaqbTmUEvddbWUKHBj35O65mBS8QsjxjoFVXnI114XKPW636SJSAjnVO8K3zEp2c0Rpgx9O4t+r+n0RVFDaif6+0bKX65lxX5In4asY9FLfwr7Tu8bLAeZSJ4BxNAgP6S0/8s+mMpfYQrw3xcaacHJiqiUjnfavGcRnbbV/WMaPpw02bbk3Fft3hNg9v6CPFq5Qimi/0pvvDlIf9tIbUgB0OiM0eSUD2+Fb0Du3RqmdGESLnLtJhfEpr0ZWsiO5VriM1KTEkWBh6nV2QMEmUx5TqHaJznKjnOfZzLCL5/CtzmGAjtjK8oeFDOvcEGaofIc3WeoPrnboizlBOEP/ZVvTWABYY0mVsVFy6RGUNOfi+0LoRxA2hKRUOcSAoBKNjdaIV1hPfd8nas9A=
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV2PR11MB6070.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(7416014)(23010399003)(376014)(6133799003)(22082099003)(18002099003)(38070700021)(56012099006)(10067099003)(11063799006)(261102123227099003)(261026140227099003)(261022075727099003)(261028144727099003)(261022105027099003)(261021123027099003)(261021121427099003)(261009223027099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?OX1GkMZyipFeaxVrloWIxBo/UOpj3BUT/5M3ii2azPrbVGevhPe0J5rMhhUy?=
+ =?us-ascii?Q?WZx3hVvCsRtQOtFwUjLgaP8CRhoAVjX5B2oyGwT9osGIKQ5x6B3LKhEecxqS?=
+ =?us-ascii?Q?CSzu6oUNBefG/QGroy7sSsYrf6TBlyfgZcelLshsdjYTUXBt5/3cWk0uNWW6?=
+ =?us-ascii?Q?Q5FeRo+Y4OP1nBW1dmymZIMNHY6iGqLCEvnuVv5/cpskfxuDt+moBnVM64Mt?=
+ =?us-ascii?Q?rHGYS/vu2wrZWjWTgWuHAlrhrbf2AJVkJGFAPdLYn3vkl8tfam12ctEdC/QM?=
+ =?us-ascii?Q?1H7+hn0tiyE5UffZhd3fUKxvktwyrYsaJBNmaXHZWM4gXWy/eiBzU8Amg+NG?=
+ =?us-ascii?Q?1RH33qSuZPVCxSHLPXyMEcL3KCCO++5e80NW78Ps28aG8AX7Qa1Si6YtMUPG?=
+ =?us-ascii?Q?o7ooDZ6OO2C66gtA6ZEt8MXmyK4UYLCare5awCCsfW82G+WZsJDYY5weL6Pz?=
+ =?us-ascii?Q?4zMJ91LS6b5xMTKBdxYDtXQQHUm2jFfwv6yFzurpjmg3ut/XCTRE2UqTkZN9?=
+ =?us-ascii?Q?qFnLDl6q/4q3KbeCrAAFzWOV5m/m9mC9MqsBrsQHkdlcJHd9AgeWEjaQJtdp?=
+ =?us-ascii?Q?qKa9mz6rmh8LYBDdpAlRwQJmzGox7YIpVak33t9EBVW2Qx+ugtV2zMD6Ot74?=
+ =?us-ascii?Q?jJNJU5EcXhXJtOWQF/vWIwnYvA1HdzqDeK1byVezUWCrv1n41tz5Bfs3l0mo?=
+ =?us-ascii?Q?c+nl+HUve/qhcjRcOKmkES+WE+w0Ab1p9SFkZzTrnNVi+0StddQjToHuDIII?=
+ =?us-ascii?Q?I/0EV8unnMmsxAaQBY7F7YfM+0KdqPsi4ob0toe4L3oZMZnKXhXyG8yxjhLa?=
+ =?us-ascii?Q?ypTmmp5BTwaozVZKEz9yoxcmyyDnexSjy5O+uDjll3jXir4YKLruk0kvSoT7?=
+ =?us-ascii?Q?E2EFfbdgKyg03jVlFGUID7KPQws/LHTJZEprhRnKPgLsM64Av2dI4BznOlI6?=
+ =?us-ascii?Q?BteNERA8jsAHN9o4oWJ7Tj/yeDEWa13lqQ9mma1GKfXdVlkuNREoLODpFGpv?=
+ =?us-ascii?Q?YCamyCG7MhFe5T3/p5fit9YGA3nDc21vkBdjlpl8KW4AgJ1eRY6SUUuCuop+?=
+ =?us-ascii?Q?yQiPUken2tkA0hDkY0E4Ef/103l6NyPEksBaBnLKiAb24IbuBBtPnHpK8W1K?=
+ =?us-ascii?Q?6RdX7oi10x42aoBNlNzSq/WRwvWFkCXgsDvPa9zgwPZPbhLRq2JTNS35Z6AD?=
+ =?us-ascii?Q?RFCkcU97A/FNzCwJoU9p4j73XN4cQmTn6kLMYfw43y4OgAgAh/MquZLU2S2C?=
+ =?us-ascii?Q?Se1PGOcWl6MehXvw3oJrIPf0D00azrNISDJyv+dCkOaDF08gtWx/lmH+aAA+?=
+ =?us-ascii?Q?FweGVaX767Se4aTQs/6aAWq0Ut+BD1xZMbwczwv8HKhF5VFmpsmEEfENHvbZ?=
+ =?us-ascii?Q?7dvhi/JW6UpwEbAhVp0hQ8ggOqJ9DuP09XoEc8ZphsM8eUWevdJDV3elaBY4?=
+ =?us-ascii?Q?pn4I/HkD4TXg8e+CFy4k4QurD1gu9ubkwRw2K0JcIVuRT96weAUwUGFNRYBM?=
+ =?us-ascii?Q?18IlUgRB5q0Hs6Fbn5tdwywK4aoZENVn+vxf/ZHESqBUXmQHGogr7gF355/Y?=
+ =?us-ascii?Q?t/oVa7NVE4bQSwHGamBcCjKRnSqYr1FcmPaiO37dXXPrN4mCM+A0dLWt974h?=
+ =?us-ascii?Q?KoYxfFDmId3qEQhe0TsRk5jGd1yuVIns9QUI+Gap1DQMhnTAXj/DyW+Vq9qL?=
+ =?us-ascii?Q?RfjrSMj/hm/chz8nRvmfpaTM6C73HbTulZkEv349Zb+hLrON9D7nng6z5+yn?=
+ =?us-ascii?Q?IlcdbYdTMg=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,117 +184,98 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <avOw_4ZkqtKFHu1B@google.com>
+X-Exchange-RoutingPolicyChecked: Er0OA4n7vXppj04Cm1SuqldWRbsRePJnfyhSV+8Cbzu7/oGt5poVSd9nWb08ImLeqEsJ8UqcwJHO2uQeM0ny+rmRv1AS/n1aBbckECKsyJqO96ayROaAj3tr7CJDrkHjbbpiNDPH+s5t7AKR/ojRQkYa4xqrU8OOWu/69XGWpHSKb+8TaHvcayzxKoP99kOwS6pxZ/D/gtcF3JE+UDGtrEdzu3ulPsKZEsEt8SYSTKBZJYD9e0iOq0U/51Xs9HGJYrF+rUgZDP+th3J9AqeTUG2S37Pb5vSzvjqphsUm2ieMl1ZnWZGRQGF6B4Z07Gm/kgEv2QtjY5gtxbxCcR97VA==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: LV2PR11MB6070.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1db2c0c4-1ec1-4e04-6e2c-08df3fa69943
+X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Nov 2026 03:48:07.7490
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: mB40tsq84KeQwkzfYFCT71fwOqR0cUrQoslp+rfrOJHKPhkcJq6A570YWqf+PIJk+RBn6nihqvGtasaUrWXVgQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR11MB8862
+X-OriginatorOrg: intel.com
 
-On Tue, Nov 10, 2026 at 04:04:15PM -0800, Brian Norris wrote:
-> (+CC Alan, since he wrote much of the autosuspend stuff, but also
-> because he might(?) have better context for some of the .runtime_idle()
-> + pm_runtime_mark_last_busy() questions)
+Hi Bjorn,
 
-I'm coming into this discussion in the middle, so I probably don't have 
-a good picture of all the issues you've been talking about.  From what I 
-gather, it sounds like this is mostly a question of how long a parent 
-device should delay autosuspending after all its children go into 
-runtime suspend.  Is that right?
+Gentle ping on this series. Is this OK for v7.5?
 
-The idea behind autosuspend was simple enough: Try to optimize energy 
-usage by putting a device into runtime suspend only when it seems likely 
-that the device will remain suspended for more than a brief period of 
-time -- long enough to make the extra work of suspending and resuming 
-worthwhile.  In principle the driver core could collect statistics for 
-each device about how long it remains resumed and suspended, but the 
-benefits of such a detailed analysis didn't seem worth the effort.  And 
-given that drivers know more about how their devices will tend to behave 
-than the core does, it made sense to let drivers determine the best 
-autosuspend delay time for each device individually.
+Thanks,
+Pavel
 
-In theory, a driver or bus type might want to have differing delay 
-values for the time after all children are suspended vs. the time after 
-the device had some other work to do (not related to its children).  How 
-much of an advantage would that yield?  I don't know, but I felt that it 
-wasn't large enough to put support for it into the first implementation 
-of autosuspend.
+> -----Original Message-----
+> From: Popov, Pavel E <pavel.e.popov@intel.com>
+> Sent: Tuesday, October 20, 2026 10:38 AM
+> To: Bjorn Helgaas <bhelgaas@google.com>; Logan Gunthorpe
+> <logang@deltatee.com>
+> Cc: Popov, Pavel E <pavel.e.popov@intel.com>; Leon Romanovsky
+> <leon@kernel.org>; Lukas Wunner <lukas@wunner.de>; Jim Chow
+> <jim.chow@broadcom.com>; Radu Rugina <radu.rugina@broadcom.com>;
+> Alexey Makhalov <alexey.makhalov@broadcom.com>; Wei Liu
+> <wei.liu@kernel.org>; Michael Kelley <mhklinux@outlook.com>; Nathan
+> Ciobanu <nathan.d.ciobanu@linux.intel.com>; bcm-kernel-feedback-
+> list@broadcom.com; virtualization@lists.linux.dev; linux-
+> hyperv@vger.kernel.org; linux-pci@vger.kernel.org; linux-
+> kernel@vger.kernel.org
+> Subject: [PATCH v4 0/2] PCI/P2PDMA: Allow P2PDMA on Intel Xeon server
+> CPUs
+>=20
+> VMware and Hyper-V expose passthrough devices to guest VMs without an
+> explicit host bridge device. Consequently, host_bridge_whitelist() cannot
+> automatically identify the underlying host bridge structure, causing Peer=
+-to-
+> Peer DMA (P2PDMA) requests to be rejected unless the device IDs are
+> explicitly listed in pci_p2pdma_whitelist[]. To enable P2PDMA on Intel ho=
+sts,
+> this series extends cpu_supports_p2pdma(), which so far covers AMD Zen an=
+d
+> newer, with an explicit list of Intel Xeon server generations.
+>=20
+> Patch 1 moves the CONFIG_X86 #ifdef out of cpu_supports_p2pdma().
+> Patch 2 is the v3 patch rebased on it, with Logan's Reviewed-by carried o=
+ver;
+> the Xeon list and the check are unchanged.
+>=20
+> Changes in v4:
+> - Add 1/2, moving the CONFIG_X86 #ifdef out of cpu_supports_p2pdma()
+>   (Logan Gunthorpe, Leon Romanovsky)
+> - Keep the #ifdef around the asm/ includes, as these headers exist
+>   only on x86 (Bjorn Helgaas)
+>=20
+> Changes in v3:
+> - Drop the hypervisor check and move the Xeon list into
+>   cpu_supports_p2pdma(), next to the AMD check, as suggested by Logan
+>   Gunthorpe and Leon Romanovsky [1]
+> - Fold the VMware and Hyper-V patches into one, as the check no longer
+>   depends on the hypervisor
+>=20
+> Changes in v2:
+> - Replace the Skylake-and-newer threshold with an explicit list of Intel
+>   Xeon server generations, from Skylake-SP to Diamond Rapids (Logan
+>   Gunthorpe)
+> - Move the CONFIG_X86 #ifdef out of hypervisor_supports_p2pdma()
+>   (Logan Gunthorpe)
+> - Rebased on current mainline
+>=20
+> [1] https://lore.kernel.org/r/20261016153147.GC219304@unreal
+>=20
+> v3: https://lore.kernel.org/r/20261020151305.65218-1-
+> pavel.e.popov@intel.com
+> v2: https://lore.kernel.org/r/20261016223402.19991-1-
+> pavel.e.popov@intel.com
+> v1: https://lore.kernel.org/r/20261009154034.82321-1-
+> pavel.e.popov@intel.com
+>=20
+> Pavel Popov (2):
+>   PCI/P2PDMA: Move CONFIG_X86 #ifdef out of cpu_supports_p2pdma()
+>   PCI/P2PDMA: Allow P2PDMA on Intel Xeon server CPUs
+>=20
+>  drivers/pci/p2pdma.c | 33 +++++++++++++++++++++++++++++++--
+>  1 file changed, 31 insertions(+), 2 deletions(-)
+>=20
+>=20
+> base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
+> --
+> 2.53.0
 
-So yes, in the current scheme a parent's inactivity period doesn't start 
-until all its children are suspended (unless the ignore_children flag is 
-set, but never mind that now).  The parent's autosuspend delay therefore 
-should take into account the expected time before one of the children 
-may have to be resumed, as well as the expected time before the parent 
-itself may be asked to do something that doesn't involve any children.
-(Note that if a device has more than one child, the expected time before 
-any of its children will be resumed can be different from the expected 
-time before any single particular child will be resumed.)
-
-The simplest way to carry this out is to do pm_runtime_mark_last_busy() 
-whenever a child suspends.  But other approaches to the same goal are 
-conceivable.
-
-Of course it's not possible to determine an "ideal" autosuspend delay 
-time.  In fact, I suspect that in most cases we aren't even close.  But 
-I think doing it this way is still better than anything else that isn't 
-a lot more complex.
-
-> I don't think we should be treating current autosuspend delays for
-> parent devices as meaningful at all, per the above. So I think this is a
-> chance to try to improve the architecture so it makes sense, and then
-> figure out if any existing delays should be tuned/reduced.
-> 
-> Ideally, yes, we can avoid making significant system power changes to
-> the negative, but I don't think that we should prioritize that above all
-> else, as long as it's *possible* to tune the autosuspend delays in a way
-> that makes sense.
-
-Of course it's possible to tune the autosuspend delays.  That's what 
-/sys/.../power/autosuspend_delay_ms is for.  Whether it's possible to do 
-so in a way that makes sense will depend very heavily on the type of 
-device in question and the way the system is used.  One possible 
-approach might be to have a userspace daemon that tracks all runtime PM 
-transitions and tries to do some sort of dynamic tuning.  How well would 
-that work?  I don't know, but it would be a good research project for 
-somebody.
-
-> Side note: I think .runtime_idle() should be removed. As far as I can
-> tell, it's only used for working around architectural problems in
-> runtime PM (like $subject), or for implementing autosuspend without
-> actually using autosuspend (usually because they predated autosuspend).
-
-I have never given much thought to runtime_idle().  When we were doing 
-the initial implementation of runtime PM I didn't see any use for it, 
-but Rafael was quite certain that it had its place and the issue wasn't 
-important enough to argue about.  I wouldn't mind a bit if it were 
-eliminated, but I also don't really mind the extra overhead of the idle 
-callback pointers and support routines.
-
-> At the same time, it makes it harder to reason about the runtime PM API
-> surface -- because currently, .runtime_idle() is a primary reason that
-> pm_runtime_put() and pm_runtime_put_autosuspend() are different.
-
-I wouldn't put it that way.  My feeling is that pm_runtime_put() could 
-be replaced by pm_runtime_put_autosuspend(), since they should behave 
-identically for devices that don't use autosuspend.  (If there are any 
-devices that _do_ use autosuspend and also use pm_runtime_put() -- well, 
-I'd say that sounds like either a design error or a simple oversight.)  
-The reason for having two different routines is mainly historical: 
-pm_runtime_put_autosuspend() was added some time after pm_runtime_put() 
-and we didn't want to mess up the existing callers.  Maybe this 
-judgement was a mistake.
-
-> "Last PM reference" can be a bit subtle; particularly, the child only
-> drops a reference on its parent once it *completes* autosuspend (even if
-> it was last "busy" much earlier). That means autosuspend delays become
-> additive along the hierarchy. Is that desirable?
-
-That's up to the maintainers of the device and its bus subsystem.  They 
-can arrange the default autosuspend delays any way they like, taking the 
-children's autosuspend delays into account if they want -- and the user 
-can always override the defaults.  But one thing that does _not_ make 
-sense would be to have non-additive delays where a parent's delay is 
-shorter than its child's.
-
-Your email was fairly long, and I have touched on only a few of the 
-issues it brought up.  Is there anything significant you still want to 
-discuss?
-
-Alan Stern
