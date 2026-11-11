@@ -1,98 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.42
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794361009;
-	b=3qy1uIm9OFOK6OxmwQ1/gFI1nzelmxqMhrUTnyet6Y3vIo/ju0J+ye2JLpSlZbWKfpPj
-	 3UY6PqCOMQnIyZPK4NlLOEHaqBBduBPT/cvdq+U8pc9uc56N8tnSH/7TtvfcYRfgEqhv2
-	 BvL46DPAYb6y4e2+eJ/5MJiOOYdTqFbzewXDP1a6Ko/KHFiVuGke8LsI+/aJov3JbVTmW
-	 az1ee+AnpQHIdSvKojGjUpp5Gpnhoip0Ov0gVAarDaEaplKYm/bd5UF00+ArXpx35QC3M
-	 PEizYo5E3B1uGofJuvA5ZNd5gyKDbPm2vc54Yh4RevPBLEViQePjor2bxccma21gDrg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794361009;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.231.139
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794361019;
+	b=u2FUV5TWdbeHmYP12gQB/j3qEQWM9AIX37rY6GUZJLv8kXDyAD2zeX2i69QaM987f844
+	 vEmUvJexlB+D0I/ekpjZgt5bfD0c8M2sd0wFjBoc5K/+rhxly2KUKYkVLyNsv1lCz7oj8
+	 WNE4TCfD01FEfKlqx/EWd9GlhxGM5t3ydcZ32wdOLmCw741oJvGijVauLUW/GOM6abplU
+	 +Svj9WYdJ2EkQlJN/JVAeif8g4HAzMnD4aKu/VJttYwhY4pVYHYPbxcHylb3tHusGaClB
+	 FJZmFKHVwpr0yms2qjX/rgEAbGSkMRSNCWjozTFKk6QH6xO3aCo/W+2Az1FXaEIdv5g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794361019;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:MIME-Version:Reply-To:From:Date:
-	 X-Gm-Features:Message-ID:Subject:To:Content-Type;
-	bh=mr5BgwNWNLFbzsRTVc1D1CNOKnrs91A+YQxkYBWc+cs=;
-	b=5OGs82nbEay40nI2nfzK+PHbhd41IWo84FCpUy7nqlGmDnliTNMWtDtzLn7iJ845N8oB
-	 9qDxm1xkmipa6zuNScmQdhCn7ekNdnFk7VKiLNVcT2J0iu4bhGByz6NoFc+sxlgO+T2ST
-	 TGagaVuMF++RF9deWJiIXIl9v3vVDMpBpMoDM5kwQ8s1PT5d69mmGGq9NqFgJQ5fVmolD
-	 euISgVysgab64P18O58Gg/MJboE7R0bs4MyBfUR0CxqcQt6J6BMs84kzvzzU2Nx/IFRk6
-	 0/2EgrcYuZfJ/tCksnZyrDJTG2gVcCxw3j/4qOsAZGcfvNOzVuhqkZM0eJZD6+7foHw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=fmd8pZhTX1jp07WLrA39wwhl3cP5kgTKffdM12tuCUI=;
+	b=cIZ5OC/FDn6uALeOyIqgM3v6wDDdp8nVJeT1Z1GfsI7NHuID8PySQ3oe6dBmMEmMRKxs
+	 JDOWZx2+d75qQAFfJb9whVMNMYT7XwwADjMT3RmszZe2iPE0WbVoJSDmZa8t5xUN2H6PY
+	 pgwrkD+vlUmR2eo6JObm3m0+iqfCowKwb1JLp9xClflW4riOpQUPlGc866410J4mwjjHT
+	 JsEfrgnbQ9iIa82HKKtOSbR0tgpr/KUalEsXSrkWUoUmuuCa2pfC+FI+PTvg4yDUtjLd9
+	 QTyRdg1rfCAfRDNJSdAscetLwqltENzIte9bawNM1XqzLSjWJqdCq07aiDpq6bKqTGQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OP7DSPyY;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.42
-Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hLxMka16;
+	arc=none smtp.remote-ip=74.125.231.139
+Received: from mail-oo2-f11.google.com (mail-oo2-f11.google.com [74.125.231.139])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C98D7606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 01:36:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C98D7606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34E54606A320
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 01:36:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 34E54606A320
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OP7DSPyY
-Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c4d427836e9so350182266b.1
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 17:36:48 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794361007; cv=none;
-        d=google.com; s=arc-20260327;
-        b=arVPbUCGg9S9CQtbHo9ZXYMmURVgntg/v0LcEZMst/ouqKKLYhHUWows4BEKPs4Zck
-         VLATxg2CXSEFSSVCi8WoLMHL5MdK6kCJNqy9h3FLZa8ciu5UPL2z8vPTbXlrKVtmE91l
-         L5khB5icxGIumCf3x/ZHcJtQm+xyMU3hWMNJn/fdlH7Yk8TILcre7Zp4pSEN/u9o4D2a
-         aO/vq9ZPLUJX/U2NHtw4QvcqLYHrdONz+Gr9HWVtzUP7tb5V6FhkSbVPs7zrj/vX+x7O
-         5AiZh9NP3isT4GDNYwYwQAYg5uBX86wNevLLhszhtuOxY854vNw/HE3bTp9EIxTQwNy5
-         B9VQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=to:subject:message-id:date:from:reply-to:mime-version
-         :dkim-signature;
-        bh=mr5BgwNWNLFbzsRTVc1D1CNOKnrs91A+YQxkYBWc+cs=;
-        fh=V9AeBafJgTW96HdC48wsxGAfd7Fe9P2uAL8tLCjpUN4=;
-        b=YGkkDffKEb5KWPMw/z37d1QPBtCq/m4hxq2DczOu24meuQHZyaA50Ek0bMruKov11V
-         xh7S6OtvZZai93+rhX4JbgXxhtpJ1DwXqrz3jLpzcKYnqAKfg1KFAyjOpsGwyt4i6J71
-         zUAJ8SbkP3HLjKOcgl3+Iq+bk/9BVS5tz+SAey2D/nOBBqu0PgN1Oh+EL/BPEwN5eHtz
-         uoJCrBEAKbEXwZoVMgctwrAopvaxO9Uy5cjW8vYJZnKGXhlTac19RKp3+DQgG1bcIH6k
-         2xcT8k4wFyyeQ5tGRLy3hiz6nmtGwdzkxIExF9Kl83GW1wMhf+asSXXK9EFfWykpbVJB
-         1OVA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hLxMka16
+Received: by mail-oo2-f11.google.com with SMTP id 46e09a7af769-828c0b569f6so990371a34.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 17:36:58 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794361007; x=1794965807; darn=vger.kernel.org;
-        h=content-type:to:subject:message-id:date:from:reply-to:mime-version
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mr5BgwNWNLFbzsRTVc1D1CNOKnrs91A+YQxkYBWc+cs=;
-        b=OP7DSPyYFl0TeMey889QUkX4OnbxR5FuqyBOize4m0R4XFEWDF6T3wgYtkCDmFwX1P
-         Ela5RwuXJRtnytdvCbkC0NiCNq1r4ibVP7oOA4gCGL1SJMjFs4/0ZEi7XoZAXHKKdGeG
-         4SYDkaBbanjqzo2uI6E0sf6o/1sjULndo0t5cNSYOIPg8LCfdN7Rvbd7QrvANVciOKhl
-         yFJirakBDzahf9zbRiV6jixkCcYB2xn9PH9s6d1k1slyzdrS8w5YvK7TnvQQ7cnr/LR5
-         +cxHBfiN+mrjjVQ7eLNW+Lhgpi41V5uRX4t6iETAnCj/wwYm9Kl4Je6d+tVGM8erHTDg
-         F4Rw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794361007; x=1794965807;
-        h=content-type:to:subject:message-id:date:from:reply-to:mime-version
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+        d=gmail.com; s=20260707; t=1794361018; x=1794965818; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=mr5BgwNWNLFbzsRTVc1D1CNOKnrs91A+YQxkYBWc+cs=;
-        b=1QYSXsxU3V9RG4F3hdNO/Xz36DAENhaTS6l0RYC8s0pJ7nlxDUO26/UPtrYoaccVcO
-         i13LDf1NPO14jAiWBJ+wH1qNHnv1x7dafVkDZzvJFHlqUVWiFtNHSdrRgt1BnYdfrH89
-         tMfiyte7h2P/uM2lrvaINLZ+nwGGfyUidVKLX/mjCCP7N2gdVTC1AS4NxOqPuAOcKsWP
-         LrvG6A4Lgf4837SlTj8iFleEoFrYLvo3KjtiRCkIAX8OKF0dfbA+O91voN0ixe1h0MHn
-         ntBQrtpMLhiu/BrqS/vLhCjdn2Wa3F7bdwr8NQFWF4Sw3A1lysYqr83jZSzA6vtPyzQr
-         h9uw==
-X-Gm-Message-State: APuU4Z+L4RT1dMUbpzS025PQBjdwqO9NzQBHTw3Y3o3FKVdh5YBQXWgV
-	yVVWKOBKZ1SNxVhjpoxV+e+/+uvgxFSZU0Q9rnwSud01TVZMavFbuG/bDkV0bZZYdlBE5SUHAwN
-	xVepiOJj0Q5MVNVGPLZ6AdaidlgWVkDglsHh4
-X-Gm-Gg: AYBFou0d9Wzjk0+sP3WPKN+xgtNkBG5DxavR+iC/+tGU4yQawFrVRI2bh4jBcoqCQVL
-	RDHNTZAOPSpWh/txhuF8C/X+xsoUeD0n2c6TWcsTrZAprrNkSd9D5jOXjZw+ZMqNYgp515p0VkI
-	akv7kTtsWB0pfzx/ciizCJ4h0XUIXMqIQ/cn4Q68G5xLfez86zgMaXrKJmwGyae5+oQHpjhNAil
-	1DA9fJEp06UJi1WftQexz3YkH33PjIJbWXlbt8GlHOJTA7kv1VQPyls2G+E5k7Zpos4h+j1H+MG
-	9cWq2x5e2Csd0ZPaVmp4NAR8cJ0GhDZ0zd2yFQsmXZpp5kwO55gFDTMdltguygYWeE7rCA52DNj
-	UDApNvCZTUO3q3ORwD1DUjSWUG4nIoD/71fY8QTu5soY+CIEOWsXesV6kcFnXCMv1ghQurKjqlE
-	Mpq8poH+zf4s2gN/nmLz2oCHBmsftiAKscVeIEJADZIjAUHgIVTZmRy2OKr2eZB1ny6/fvFpr5s
-	Um+
-X-Received: by 2002:a17:907:da2:b0:c50:51e1:c141 with SMTP id
- a640c23a62f3a-c506698966fmr52400666b.2.1794361007047; Tue, 10 Nov 2026
- 17:36:47 -0800 (PST)
+        bh=fmd8pZhTX1jp07WLrA39wwhl3cP5kgTKffdM12tuCUI=;
+        b=hLxMka16eVXreCfIEvee7CMN/TrWw4EFupfQ4Z1ifyiofqBJw53rkoHg8s5j28eql4
+         LKifHe3ZAwC1Vv3vCAWjG4uLGzsI05wVv37rHfPCH0bh/VdgfPAoiz2oaQB6d5efd0Ss
+         myI9fSB+g3Q7mezC2Ht2sSS4kCZetMBFd1iKEUYoK1bgkzUZip+rc7C/dNdFNyTvQ3Zl
+         O7zZOdBaaDk+UsDX6Yb4HA4kFC4FE5G2iHPDPo4ETP+X6NVFBiDw1lDiPBdYVPEphZ76
+         q1VpV2jA7wyH1mv0XvRRWf0rohxvuQ5Qt8aGQ0/gUjRK1ESwzOtOaNPGmhYnkaKN3E5h
+         AGDw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794361018; x=1794965818;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=fmd8pZhTX1jp07WLrA39wwhl3cP5kgTKffdM12tuCUI=;
+        b=i0sfK08s4dkZBe5Z+q1S6WXv8cv5euuin3Fy0/8O4cvKjbcEdZCAyQ81kg1lY6F+0V
+         YFcS9vJ/+j9LrLLckJ3eD/y+WoAWi+NDT6w61jSCFeRFi+hue53y/OupIoq8YnVyHr8i
+         mJWgCATy4L/zeGKOTbmhTj6q/kn9pGaQyVaSodoyvI1dRMgUZz9WTBjJAVxvYrrW/CS/
+         Ew6WS2U1DH/1oslYjcrqFLVgl5ClEfu/0EDgqN/gU145/VgZzzFg4SmXQDRuB0jBUh7x
+         uJlURo+Sa7jmisqSnE6BFqSXWu1q4H5GyrdihMB2HDNw+b2yk3Glbr9xvsQYd5SvHOC3
+         BDHw==
+X-Forwarded-Encrypted: i=1; AL+hErGEqvxKKhrj7WDi6JGHQrqmLIbW0mY94J48bCZ7d3VOYd1UuLhIuZf149QURfEsPfH+g/Iy4VIrMXMUHlY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/5af7fwOuHnLVmlm7GQsmMC6F0Qjf8QiLKDNvVBEsdAAtmpYyE
+	XtnlpuBd7Pq7JmlzCNqSA93UCacP29yI3rCQOBIdLyRPDGGYJ222h7yaj1/Fx2R25Hj4bg==
+X-Gm-Gg: AYBFou3PcWdMv50IuCZLp4TZhsCecQLE+rXJRuKz3+9Bhq8xqbvOM9CRLji0FkzlQly
+	OZdaK2HrfOSPDACcrzTBIYY+Y0k2KNn7jMBr4ceEu+jwEgKP9dyMsPZVJMm2cO/ER5uULDUNZ8n
+	iFUnPhHZgu0qY7yfPf6sP2V+Ed0R0/9oiW4DH3+pNo8R+gmroKpGULacg8Fv8ITdSxDup7xDpjE
+	uF9LNIvNBl+Hik09Ljst85YheDXRELZXjwo9kTrzGOeKmw9u+ALn7ZVD7XKgwKDJxOCvnCYsWrQ
+	h4wZewWLxCIPKtVYcktLWmST1eSwGiRzppxW6EOO4WDynKvclMfofVLVNrjcMXXcI9HTsbLGXNg
+	GNqxN3qxhkVbpAY4LDCOIUqyUQ98E05qEhIJF6v/aEQsdLzC7H/GizUcJK3aGFQbxJyB+osDDnu
+	tB0b5THXfY+cL3u6S1oZfCv/iyA1nsJsMVGmsCSzaCwfe7pHjHi5xLdTmdChg7/osxII28OJVoS
+	t9Qx4PjrOehsomWFzRyFVZMKw0VsBPRb2Pv+ylC6z6/DSo58Nr9i+JC1nOi2EBk2+m6sPEMihnQ
+	8NksTqBk86Ba5HRYEM2mzdwc
+X-Received: by 2002:a05:6820:c0d4:20b0:6d7:a325:35f7 with SMTP id 006d021491bc7-71917963ac3mr467673eaf.81.1794361017863;
+        Tue, 10 Nov 2026 17:36:57 -0800 (PST)
+Received: from [192.168.18.164] ([2600:8804:5716:d800::f01a])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4ae22f6a1c7sm2462267fac.6.2026.11.10.17.36.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 17:36:57 -0800 (PST)
+From: Ryan Brue <ryanbrue.dev@gmail.com>
+Date: Tue, 10 Nov 2026 19:36:48 -0600
+Subject: [PATCH] drm/imagination: Wait for the firmware's interrupts before
+ stopping it
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,36 +92,186 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Reply-To: ludloff@gmail.com
-From: Christian Ludloff <ludloff@gmail.com>
-Date: Tue, 10 Nov 2026 17:36:35 -0800
-X-Gm-Features: AclHuK8K8m_2Xlo9Qy_Ngvkv-ioW4MzU3JViz-9ud9W6njeHzxjo-t7URSbEpBE
-Message-ID: <CAKSQd8X1AJ-rjkj82258Ofk_T3NLspyFzDtbyO4T8W80KzS0Bw@mail.gmail.com>
-Subject: x86 VERW clarification required from AMD
-To: linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261110-rbrue-suez-upstreaming-pvr-fw-irq-handshake-v1-1-8872686d14d0@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAA/x3NUQ6CMAwA0Kss/aZJQTSyqxg+NimsMc7ZOjQS7
+ m7iu8DbwFiFDbzbQHkVk0cG79rGwTWFvDDKBN5BR92pJepRo1ZGq/zFWuylHO6SFyyr4vxG0Se
+ mkCdL4cYYzzQcDxwH6iM0DoryLJ//dhn3/QeQ1M4/fQAAAA==
+X-Change-ID: 20261004-rbrue-suez-upstreaming-pvr-fw-irq-handshake-b80953eb904b
+To: Alessio Belle <alessio.belle@imgtec.com>, 
+ Luigi Santivetti <luigi.santivetti@imgtec.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Sarah Walker <sarah.walker@imgtec.com>
+Cc: imagination@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ Ryan Brue <ryanbrue.dev@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794361016; l=6676;
+ i=ryanbrue.dev@gmail.com; s=20260906; h=from:subject:message-id;
+ bh=UU+/DlUPZcdKbo5wZeicD1NjDIpa69zyRxMNYLyF5Rk=;
+ b=iCYmXiI6nZQFvfT/rzhvhgqrx7Fg/JKpqoCaCXsfk5SCXdvphmefsouyNfMit0Ogz6jxhqSHu
+ p2CYksSC3DUA4lVjalQ41zdZMeRelKO55wgvMDWkcmWujrBtnqCk+8T
+X-Developer-Key: i=ryanbrue.dev@gmail.com; a=ed25519;
+ pk=KsUvVaP//v/2q+ZBuacc7cLbsyEYn+AD71Sn28oZWKo=
 
-With AMD SB-7029 refreshed by AMD SB-7073
-and with AMD SB-3055 out as well, the updated
-AMD TSA doc [1] continues to state that...
+Once the firmware has acknowledged the POW_OFF request, a runtime suspend
+disables the IRQ and stops the firmware straight away, even if the
+firmware has raised an interrupt the host has not taken yet. On an
+MT8173 (GX6250, META firmware), the SIDEKICK_IDLE.GARTEN poll at the end
+of pvr_fw_stop() can then time out. The suspend fails with -ETIMEDOUT,
+runtime PM latches the error, and every later pvr_power_get() returns
+-EINVAL. The recovery reset that follows can fail the same way and lose
+the device.
 
-  "Execution of VERW at non-CPL0 will not clear
-  the relevant microarchitectural data structures."
+The firmware counts the interrupts it raises in its OS data. Sample that
+count in the IRQ thread after clearing the interrupt, and before
+disabling the IRQ for a runtime suspend, wait until the host has seen
+every interrupt the firmware counted, as Imagination's DDK does. Clear
+the host's copy when a hard reset clears the firmware's.
 
-Intel doesn't seem to document such a limitation
-for VERW. Can AMD please spell out how CPL3
-code can transition between trusted vs untrusted
-without a roundtrip through the OS or HV?
+Fixes: 727538a4bbff ("drm/imagination: Implement power management")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
+---
+Found on an Amazon Fire HD 10 (2017), an MT8173 tablet that's not upstream
+yet. Its GX6250 (4.40.2.51) is not on the driver's list and runs with
+exp_hw_support. With a compositor running, about one desktop start in five
+hit this before the patch. A debug build that logs timed-out register polls
+named the poll, SIDEKICK_IDLE read 0x7a, GARTEN not idle.
 
-Also, if VERW is CPL-dependent, then so should
-its CPUID flag, ext.21h.EAX[5], be... right?
+Only META firmware on this one GPU was tested. Each failing suspend in the
+instrumented runs was off by exactly one interrupt (for example firmware
+14320, host 14319). Why the META core then can't go idle is inferred from
+the DDK, which waits at this point; a fixed 1s delay in the same place
+also stopped the failures here.
 
-Thanks in advance for the required clarifications!
+The hard-reset part is untested at runtime. A forced hard reset of this GPU
+times out before the firmware objects are cleared, so the stale copy it
+guards against can't arise here.
 
-[1] https://www.amd.com/content/dam/amd/en/documents/resources/bulletin/technical-guidance-for-mitigating-transient-scheduler-attacks.pdf
+It reproduces within a minute with vkcube --present_mode 1 on the
+compositor's display and the GPU's power/autosuspend_delay_ms set to 1.
+---
+This patch was developed with the help of an LLM. I know there's a Mesa
+policy against LLM use for the powervr driver there, so if there's a policy
+for drm/imagination too, let me know.
+---
+With continuous rendering and a 1 ms autosuspend delay, a suspend failed
+this way within 22 seconds in 7 of 7 unpatched runs. Three of them were
+instrumented: between them they made 2711 suspends, and the three that
+failed were the only ones with an interrupt still outstanding after
+disable_irq(). With this patch, 8 of 8 runs lasted 60 seconds without a
+failure, and in a further run the wait was needed in 15 of 6925
+suspends, for at most 6.1 ms.
+---
+ drivers/gpu/drm/imagination/pvr_device.c |  6 ++++++
+ drivers/gpu/drm/imagination/pvr_device.h |  6 ++++++
+ drivers/gpu/drm/imagination/pvr_fw.c     |  3 +++
+ drivers/gpu/drm/imagination/pvr_power.c  | 27 +++++++++++++++++++++++++++
+ 4 files changed, 42 insertions(+)
 
-PS: That doc tries to portray 3055 as theoretical,
-which it is not. Please get patched... asap.
+diff --git a/drivers/gpu/drm/imagination/pvr_device.c b/drivers/gpu/drm/imagination/pvr_device.c
+index 992509d95d28..99a3842c2783 100644
+--- a/drivers/gpu/drm/imagination/pvr_device.c
++++ b/drivers/gpu/drm/imagination/pvr_device.c
+@@ -215,6 +215,12 @@ static irqreturn_t pvr_device_irq_thread_handler(int irq, void *data)
+ 		pvr_fw_irq_clear(pvr_dev);
+ 
+ 		if (READ_ONCE(pvr_dev->fw_dev.initialised)) {
++			struct rogue_fwif_osdata *osdata = pvr_dev->fw_dev.fwif_osdata;
++
++			for (u32 i = 0; i < MAX_THREAD_NUM; i++)
++				WRITE_ONCE(pvr_dev->fw_irq_count[i],
++					   READ_ONCE(osdata->interrupt_count[i]));
++
+ 			pvr_fwccb_process(pvr_dev);
+ 			pvr_kccb_wake_up_waiters(pvr_dev);
+ 			pvr_device_process_active_queues(pvr_dev);
+diff --git a/drivers/gpu/drm/imagination/pvr_device.h b/drivers/gpu/drm/imagination/pvr_device.h
+index c246122b4caf..91cf2bde589f 100644
+--- a/drivers/gpu/drm/imagination/pvr_device.h
++++ b/drivers/gpu/drm/imagination/pvr_device.h
+@@ -176,6 +176,12 @@ struct pvr_device {
+ 	/** @irq: IRQ number. */
+ 	int irq;
+ 
++	/**
++	 * @fw_irq_count: Firmware interrupt counts, as last sampled by the IRQ
++	 *                thread after clearing the interrupt.
++	 */
++	u32 fw_irq_count[MAX_THREAD_NUM];
++
+ 	/** @fwccb: Firmware CCB. */
+ 	struct pvr_ccb fwccb;
+ 
+diff --git a/drivers/gpu/drm/imagination/pvr_fw.c b/drivers/gpu/drm/imagination/pvr_fw.c
+index c7988278df3f..7b42a898aa00 100644
+--- a/drivers/gpu/drm/imagination/pvr_fw.c
++++ b/drivers/gpu/drm/imagination/pvr_fw.c
+@@ -315,6 +315,9 @@ fw_osdata_init(void *cpu_ptr, void *priv)
+ 	struct pvr_fw_mem *fw_mem = &pvr_dev->fw_dev.mem;
+ 
+ 	pvr_fw_object_get_fw_addr(fw_mem->power_sync_obj, &fwif_osdata->power_sync_fw_addr);
++
++	/* The firmware's interrupt counts restart from zero, and so must the host's copy. */
++	memset(pvr_dev->fw_irq_count, 0, sizeof(pvr_dev->fw_irq_count));
+ }
+ 
+ static void
+diff --git a/drivers/gpu/drm/imagination/pvr_power.c b/drivers/gpu/drm/imagination/pvr_power.c
+index eb4b6ecdf4f4..2d0fbcf457f6 100644
+--- a/drivers/gpu/drm/imagination/pvr_power.c
++++ b/drivers/gpu/drm/imagination/pvr_power.c
+@@ -89,6 +89,26 @@ pvr_power_request_pwr_off(struct pvr_device *pvr_dev)
+ 	return pvr_power_send_command(pvr_dev, &pow_cmd);
+ }
+ 
++static bool
++pvr_power_fw_irqs_taken(struct pvr_device *pvr_dev, u32 thread)
++{
++	return READ_ONCE(pvr_dev->fw_dev.fwif_osdata->interrupt_count[thread]) ==
++	       READ_ONCE(pvr_dev->fw_irq_count[thread]);
++}
++
++static void
++pvr_power_wait_for_fw_irqs(struct pvr_device *pvr_dev)
++{
++	bool taken;
++
++	for (u32 i = 0; i < MAX_THREAD_NUM; i++) {
++		if (read_poll_timeout(pvr_power_fw_irqs_taken, taken, taken, 100,
++				      POWER_SYNC_TIMEOUT_US, false, pvr_dev, i))
++			drm_warn(from_pvr_device(pvr_dev),
++				 "FW thread %u has IRQs the host has not taken\n", i);
++	}
++}
++
+ static int
+ pvr_power_fw_disable(struct pvr_device *pvr_dev, bool hard_reset, bool rpm_suspend)
+ {
+@@ -107,6 +127,13 @@ pvr_power_fw_disable(struct pvr_device *pvr_dev, bool hard_reset, bool rpm_suspe
+ 	}
+ 
+ 	if (rpm_suspend) {
++		/*
++		 * Let the IRQ thread take every interrupt the firmware has raised
++		 * before stopping it, as the vendor driver does. Without this, the
++		 * META firmware processor can fail to go idle in pvr_fw_stop().
++		 */
++		pvr_power_wait_for_fw_irqs(pvr_dev);
++
+ 		/* This also waits for late processing of GPU or firmware IRQs in other cores */
+ 		disable_irq(pvr_dev->irq);
+ 	}
 
---
-C.
+---
+base-commit: 476d658928af91f5ccb455957be60763d8b00fd3
+change-id: 20261004-rbrue-suez-upstreaming-pvr-fw-irq-handshake-b80953eb904b
+
+Best regards,
+-- 
+Ryan Brue <ryanbrue.dev@gmail.com>
+
