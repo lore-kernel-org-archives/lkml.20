@@ -1,53 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794359291;
-	b=KRSx6UGYKmMjy4aMifCXIT6qI5Foi4uug5ajXpm5hCkBGNQYNW8JuIBx81+62qOYIoMO
-	 BVIhyeYJrilc5cxBxK1c9gN4y4eExi80FcrRWBaE0ymsdSqnowJOkJGQeWp/Nf80vGan8
-	 sYgAuSx6hJVnyRM4u5niDteMJbY05YOoi3jHqyyVic3g0bR3lAcJ/Y4IAA1XKpSKqSfWy
-	 QI9MAJKudcg4VYf/oB8ct5+7P0tOt8MQxCjB4rj7yeqkVjYJg0nL3L6wLYoM5DLWkC6Zw
-	 aa4pv8Mp3Hxqzbx8dZUy6lieo7VqES8WCl4FReA5ylIvBQS2xzFzEVp73PjcuFQyZ0Q==
+	t=1794359293;
+	b=LJpKlEMrsXlw7Wp6rAaou5TYlX1lVZEaDtAtvSjp4yTyREDX9wlnIBR2M9QbnkasD8UX
+	 eOu3Pzf10TGJD+Kx6ecmaE0O7WzMZKndxmxBzjmTIsjWYt/PCwUMlGH+AfdeLf6AcG3GF
+	 traU6X4X5om4ujgSKP0hGHLvjplZ0pNySk65cKbxKqCCk3TtEt9pw0AAJs8+lsHNoQpVT
+	 MXNvkM0JAs1UBP0RvFU86V7k5rzcMxVlOU+9F9nxxL4DFolnDQJY6Zws0yiKvrLsTkaUj
+	 8xgWeai5E5gMMhTjiaERkidH0PPNuIJR454+afpKCEGCcX6bIxiLFPD7L1bSaSBBGhA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794359291;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794359293;
 	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
 	 MIME-Version:X-Received:Date:In-Reply-To:X-Google-Appengine-App-Id:
 	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
 	 Content-Type;
-	bh=P7+Jwn0kXAbK4FwY4TixqzagtwitouSe99y2iIY1nvc=;
-	b=aGjMzOOdk6FoCCyXfSyUEp5Jrfa67oIdT+2/gAI8JfF3kNwjk1/bidH5+j8BMZ47ZAaQ
-	 rW67NBZXKJhhWUPzJN/IefFdcpmZVWQuASQwLdTFIH8IJrQJT/WVPp1BZE556fyaW7r4z
-	 SDgDO/8tljQuYtrDq36LROsdyR/vN+G2YDh3NJ+VRT3MknqdPQJeln3ahtXxHRKQDRgr/
-	 yvLGGQ5vinML/HrOt36cAn8c1XXcoyEn067PPkyVrz2jUpC8ZGVGLNNS7qWRNr65SoqIS
-	 ypfCUdj5RFcMlUf0mPTvwnGEjZ5r2jX+0rIqt9yrkTB9fawAFwzr/Llqdp17x4onntw==
+	bh=baoxJqr4Z4b4b4fkdVnGmyOQ/QMIzS/F2JcDl0y9qyE=;
+	b=eKiB8kuZzzuQV3kMBnQ+PaEXVG1Ao7k+2xrPhz89tYayBinn/CARW7WPQuUq8vQoDITA
+	 1WLvtmEYJS+oInDtW0IL7u2J051mQ8qDBe13znuZlLgOuscfmPnQaTGTFyLHMoknc+L96
+	 e+MX3od0eAdpplgqeRcHJ5wGEDlTeLibr7td2o9vZHu3V8JO75ET4YNKaHlaHTKCsR9ZL
+	 SnQ2TjZvEKL24a/qCDk0MSBCQH50oYLNk9K7TaPmMILpaFWkAf03sTCfmreJzazZ6ZmjV
+	 3gMCqt8vQQlBktxVbUoU1dzSViKs0nnjszawVQVmv5/LYkXQr4dnSQp3sWXSRjfCQSA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=fail header.from=syzkaller.appspotmail.com;
 	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.199
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+	arc=none smtp.remote-ip=209.85.167.200
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6E21606A334
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 01:08:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D6E21606A334
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0060860A2606
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 01:08:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0060860A2606
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4b37620eb73so3838821b6e.1
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 17:08:10 -0800 (PST)
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4e937c5bd4fso1917692b6e.2
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 17:08:12 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794359289; x=1794964089;
+        d=1e100.net; s=20260707; t=1794359292; x=1794964092;
         h=content-type:to:from:subject:message-id:in-reply-to:date
          :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=P7+Jwn0kXAbK4FwY4TixqzagtwitouSe99y2iIY1nvc=;
-        b=DW5ieIW5c9qc0CPTtrdvoswX6KDdl3WMqQpBe/KP+j2P0zVrnivJdXlCxQhIa69qrn
-         FY5WEUIk+j/yM9f7KN1gKPu+andzSUuOV5J41Grmpxv7On/Qu9zidv7ebZbYtryXH3u1
-         X3buUSsFzPRVE9D//3MWB04Ov3aDQaiGTtlEinqXnzWI71tDZC1A7Fj3NzO2Ige4HLou
-         72JC3oPR32mr6mBXkG9dB8vvxlHr6A0QKswpkXvl1rtmL4IDzf0MC0xqtw5V5DRqGXDr
-         0XPNTgNOlAmFkFdb8VVeBNCZJFYq/oa0IEHtvYCR7+rp5DJ9fyFcQvaB9Dz1ChHjXT6X
-         M3Jw==
-X-Gm-Message-State: APuU4Z/pXKHWel+igR1w67vHNXjiFBH9Xe4JDFyaUJWZKM8WsWE60+Xa
-	S1OluYXrbeIwxJ4fmQLrJKqZmCz392H2FFKtBHY6bfvVw6BKDkMsBsYZjK+6fjuP8QZTPd+NI55
-	9MgWwuPZbtTW7BX12rN0nyn+OixwSeXX+sGKxYA6Ihi1gqLdI3qASGkmsLiY=
+        bh=baoxJqr4Z4b4b4fkdVnGmyOQ/QMIzS/F2JcDl0y9qyE=;
+        b=ypskBGBahLJlFaqqHh+BI/PPERGvlv1a7VPYCQilKPipLJLvfIqiZbogmQ2znp396+
+         N+mTlvwS5X0/eR80VfrMc1ZPODJLWbmYwhMZVugxjscSuOGCOz3kdfqeUBwQPFZzBmDa
+         SK1bjyBnOU5NlMEfd9LRYcF5NUboq8TFqT9S2yuz7wsBTsCvc4ER2mMoujgtxWBHeMWz
+         i7Os6NpeHP7JwE7MUfrfahLsgUQtJcmvTGAjF1bsjpLye82bPGlPmLFkGad7PmHnI3Pz
+         1jBHZsGI8F+vWJvSqchvIH2l47d+lkGORKZY29ceqy4nYfNnL1wPHfygHbbT4WLvaVbf
+         k8Eg==
+X-Gm-Message-State: APuU4Z/PQHiNJWBp0/IrXyC+uSe4FE8QXORYZ6DSaaCcYYLwb4MKqv3k
+	0pkQe9T3rNpltyUDqvN3LnXlk4iEmipcOuZfdGOUCOffsQuWk+LS7pXwtmZhn8pt88lcdQaHKA9
+	YXNJ+cQ8wFasoBtVfhWh/VxcgaUKcB0mQwvWVvaxuGB98sTsIZVJKcdT506s=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,14 +57,14 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:2f0f:b0:4f5:dc0d:e005 with SMTP id
- 5614622812f47-56b96bd10f5mr656899b6e.22.1794359289523; Tue, 10 Nov 2026
- 17:08:09 -0800 (PST)
-Date: Tue, 10 Nov 2026 17:08:09 -0800
+X-Received: by 2002:a05:6808:5087:b0:568:39f2:1254 with SMTP id
+ 5614622812f47-56b977142c5mr744770b6e.47.1794359291985; Tue, 10 Nov 2026
+ 17:08:11 -0800 (PST)
+Date: Tue, 10 Nov 2026 17:08:11 -0800
 In-Reply-To: <6a900c70.50659fcc.60cd.0013.GAE@google.com>
 X-Google-Appengine-App-Id: s~syzkaller
 X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6af3bff9.ebcfa7c9.2cf3f4.008c.GAE@google.com>
+Message-ID: <6af3bffb.ebcfa7c9.2cf3f4.008d.GAE@google.com>
 Subject: Forwarded: Re: [syzbot] [block?] BUG: unable to handle kernel paging
  request in blk_mq_complete_request_remote
 From: syzbot <syzbot+2e3bf0bd49acd9b21d4b@syzkaller.appspotmail.com>
@@ -82,18 +82,54 @@ Author: nenkov2004@gmail.com
 #syz test: https://github.com/torvalds/linux.git
 58c1eb84e97701c583605ba2fd553b69afba2245
 
-diff --git a/drivers/nvme/host/core.c b/drivers/nvme/host/core.c
---- a/drivers/nvme/host/core.c
-+++ b/drivers/nvme/host/core.c
-@@ -538,6 +538,8 @@ bool nvme_cancel_request(struct request *req, void *data)
- 	if (blk_mq_rq_state(req) != MQ_RQ_IN_FLIGHT)
+diff --git a/drivers/nvme/host/pci.c b/drivers/nvme/host/pci.c
+--- a/drivers/nvme/host/pci.c
++++ b/drivers/nvme/host/pci.c
+@@ -3296,14 +3296,19 @@ static void nvme_dev_unmap(struct nvme_dev *dev)
+ 	pci_release_mem_regions(to_pci_dev(dev->dev));
+ }
+
+-static bool nvme_pci_ctrl_is_dead(struct nvme_dev *dev)
++static bool nvme_pci_ctrl_is_accessible(struct nvme_dev *dev)
+ {
+ 	struct pci_dev *pdev = to_pci_dev(dev->dev);
++
++	return pci_is_enabled(pdev) && pci_device_is_present(pdev) &&
++		pdev->error_state == pci_channel_io_normal;
++}
++
++static bool nvme_pci_ctrl_is_dead(struct nvme_dev *dev)
++{
+ 	u32 csts;
+
+-	if (!pci_is_enabled(pdev) || !pci_device_is_present(pdev))
+-		return true;
+-	if (pdev->error_state != pci_channel_io_normal)
++	if (!nvme_pci_ctrl_is_accessible(dev))
  		return true;
 
-+	if (!(nvme_req(req)->ctrl->quirks & NVME_QUIRK_SKIP_CID_GEN))
-+		nvme_req(req)->genctr++;
- 	nvme_req(req)->status = NVME_SC_HOST_ABORTED_CMD;
- 	nvme_req(req)->flags |= NVME_REQ_CANCELLED;
- 	blk_mq_complete_request(req);
+ 	csts = readl(dev->bar + NVME_REG_CSTS);
+@@ -3331,10 +3336,16 @@ static void nvme_dev_disable(struct nvme_dev
+*dev, bool shutdown)
+
+ 	nvme_quiesce_io_queues(&dev->ctrl);
+
+-	if (!dead && dev->ctrl.queue_count > 0) {
++	if (!dead && dev->ctrl.queue_count > 0)
+ 		nvme_delete_io_queues(dev);
+-		nvme_disable_ctrl(&dev->ctrl, shutdown);
+-		nvme_poll_irqdisable(&dev->queues[0]);
++	if (dev->ctrl.queue_count > 0 && nvme_pci_ctrl_is_accessible(dev)) {
++		/*
++		 * Stop an accessible controller even if it reports itself dead.
++		 * Otherwise it may complete requests after they have been cancelled.
++		 */
++		nvme_disable_ctrl(&dev->ctrl, shutdown && !dead);
++		if (!dead)
++			nvme_poll_irqdisable(&dev->queues[0]);
+ 	}
+ 	nvme_suspend_io_queues(dev);
+ 	nvme_suspend_queue(dev, 0);
 
 
 On Tue, 10 Nov 2026 13:49:04 -0800, syzbot
