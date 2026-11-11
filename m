@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=158.69.130.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794429414;
-	b=jSyC4Vm3BgdASA3an8qJ7GBYpGshiS8aRiOX04RHIYd5xuZ2DMav8kpONjyOECnMb4Kv
-	 qy0Jooh+CCteN8MTkJJXlEY6Gfpng0Ju/XPVELNj90XIGOVWG3sHVAJaKKWIheP9VFvcd
-	 +mgN6Zf4ejyz5GnWhbOs6QwtbXc6U2RBRMLnlCHVJxH/7UsYIlz6zwbM66UYjNSgsENx1
-	 gE8UaMniFM8yJJ9KA9knRst0OQoAXtevtlT2JORRmBG+EFgJVEOZNKZp29SqUi4xictA3
-	 YMzoXCZCKL372Kzdc4+Dwhg9SHcy98QZnykC4eAGOhjmxEzEDXHUlh2l2EtjtpcX6Ew==
+	b=aZDy6YVe9iPL60mE0UqipRM4RYjEXSnji2GmsgU/LyG6/sxp94mFIliMKkYEhtHtaMcW
+	 z6Pp6s6XA9/00qTYM+8exUzDegjE+B+jQ1jhiSFXO0FppniECC+Jh0ibJvAIW9GxsVxSa
+	 w1nq0ou4J0Bh2fh3QWUmshrSXqG3eKXXXlwkEoaiEzMGowwiaDZyH9yjH7cAqKGfjmF56
+	 xvy1rBT9RYaOW7rQ8rtAqBeYKmH3K6vwJJ72hSbq9RTi+ZrphJq6i6iM7+Ci//XY42Iz0
+	 IY9CvB8xDp3O8cPdOhzr4vrhWevwarqb2GN7Hq1b10G/kQFWSgPevnSfK2kVa9aYkxQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794429414;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=uMBcwn1n2dpUHT/6uEIYq3oHlPCno4BFZR7u/G8+ALE=;
-	b=ouwlL1yVs37F/ryVlNT+mOaMK/zzrejw+A55PtgX9CtppMzPuH3SL/n2uI4QCaDb0opi
-	 JVEzckWiDQLJ2xJwoJC7UXCPPPsiX2S2xGe9yH7og7IeTv//kHpBz96PLin5P24QVcVn8
-	 a92U7YMAomMyZosqPY5syXqlc60iQwZdmuHSq9JXio2t9JQXm+zW6yrlLjFlEYTL5ReGM
-	 6jtJZTgss/E+ySsPqBvIQX8aNBGKntkI4Sl+YAzP5uL3k2GKtakms6/UzKE9w6Rlan5K6
-	 TdXLn3zfnQBlppsLOMHddj+IBgaqzqx3V5IkEhZ54UoT8dk/2XiMKvTZVBlZezELtsw==
+	bh=mb0qHmH8xZVBF31GoHXvIcJB91cbFnuRAr+MrEKKva0=;
+	b=s2AT7IFXZTpOmK30hAXVy7rmc7gwSyyNqWN4w9hIeIs/DTVWMSAo1JPrDT0WFht/ua+q
+	 rn9ASr5+RTk6DYjwcWaDqW/pmXwUd0mhwAw12PwT+m0NGsbMRMYQSWNMOvsb8oXIwVHx9
+	 +6JLnxJ/HRdz6AXYSNz5taSFhfW69Nm0L0RDMqPt4vzpwa/yNu/zPHIUL0c2USgEqKs45
+	 bCSf7gSuFf+2osaCIqAeoS2F/J++noFUoqjCgUCD7SY5PBmcjy2ApRT+WlKIKjgUC1EIB
+	 nkT3YyCkKZe3gBWthN3r9ksC67KDPVCtYE0iiKj88qx3zjaXS2n8FnQ5Mp7UpD0+k8A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=efficios.com;
 	spf=pass smtp.mailfrom=efficios.com;
-	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=bHBzg8Vx;
+	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b="v7/51tjy";
 	arc=none smtp.remote-ip=158.69.130.18
 Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FABD606A899;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC10460A2600;
 	Wed, 11 Nov 2026 20:36:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4FABD606A899
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC10460A2600
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=bHBzg8Vx
+	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=v7/51tjy
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
 	s=smtpout1; t=1794429406;
-	bh=uMBcwn1n2dpUHT/6uEIYq3oHlPCno4BFZR7u/G8+ALE=;
+	bh=mb0qHmH8xZVBF31GoHXvIcJB91cbFnuRAr+MrEKKva0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=bHBzg8Vxmh50pUZdQN5tXZZosoPErK4Ix+6o15lxqI6zCqT20Hy0ad5QfyjgSqjPV
-	 bNpuQSHkxEQnAIF6EWk6kOirLBYbAinwVW6yWUJ6qNAGsOiEiQqw9pDfT4O1Hwi2cw
-	 5uVyusc5KdTi/fk/81A2Hvk4r0B2ysFbRmFJs0GQvHCYj4GW06zSzorcgjULICkbEq
-	 R6bJXUzGoxahC+ZVYSVFLRtJexHpXRDCIKu5s424ctMUD/elqyb0Y/+S7eJfxYzrir
-	 WHZRIpt/3MRbbuyed6borILZDndv0ii+zYyOsqYYboixVj3RxouIlzRJlecs4qNuEo
-	 8XZvnFRXtXTiQ==
+	b=v7/51tjyseOn9JsJPN+jIenbIG1dOD8e2q6QCg0dN5Gzktl0KLfFmLSjH1edqtfZ1
+	 SPOL84xzvsAW52iECzCZVytxICPx80DNAf0TLJaO2DsosdPkSYprZzGsRpG1JD5LJD
+	 QBEPHfPh3BgAx4aoBQn0dFjLwNEu40xMRcHgY9OHrN3cNlC/vJCfOmmiYIRC0XGe0J
+	 A51eNeNO6cY47fbEyxPLBabTImKhdofhzRKnEPpvridO4taPry4t8OS5rg7UUIEvQ4
+	 jgl/l9Hv10lf/0JsnaalmHXUH/Iz6phsRGK3lxMvloX0tyWQh266vo5VqkRg/5Kk10
+	 3U0z44OV9+H6g==
 Received: from thinkos.internal.efficios.com (mtl.efficios.com [216.120.195.104])
-	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jPwKp2wqvzNh0;
-	Wed, 11 Nov 2026 15:36:46 -0500 (EST)
+	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jPwKn6WhmzNZW;
+	Wed, 11 Nov 2026 15:36:45 -0500 (EST)
 From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 To: David Hildenbrand <david@kernel.org>
 Cc: linux-kernel@vger.kernel.org,
@@ -107,9 +107,9 @@ Cc: linux-kernel@vger.kernel.org,
 	Will Deacon <will@kernel.org>,
 	Boqun Feng <boqun@kernel.org>,
 	Hugh Dickins <hughd@google.com>
-Subject: [RFC PATCH v25 09/14] lib: percpu_counter_tree: test the limit counters
-Date: Wed, 11 Nov 2026 15:36:21 -0500
-Message-Id: <20261111203626.95838-10-mathieu.desnoyers@efficios.com>
+Subject: [RFC PATCH v25 07/14] mm: keep the RSS counters of single-threaded processes exact
+Date: Wed, 11 Nov 2026 15:36:19 -0500
+Message-Id: <20261111203626.95838-8-mathieu.desnoyers@efficios.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20261111203626.95838-1-mathieu.desnoyers@efficios.com>
 References: <20261111203626.95838-1-mathieu.desnoyers@efficios.com>
@@ -124,657 +124,325 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Test the limit counters of the previous patch. These tests cover them:
+Until a second thread shares the mm, initialize the RSS counters lazily,
+without their counter tree: the task owning the mm adds to a plain
+counter, and other tasks, such as reclaim, khugepaged, the OOM reaper or
+remote GUP, add atomically.  The RSS counters of single-threaded
+processes are therefore exact, their precise sums for /proc/PID/status,
+/proc/PID/statm and the OOM killer take O(1), and they use no per-cpu
+memory.  The readers of the approximation, such as /proc/PID/stat, the
+RSS high watermark and the rss_stat tracepoint, get the exact value for
+these processes.
 
-- The userspace harness checks each decision and the bounds of each
-  counter.
-- The harness also stalls an addition right after its carry fills an
-  item, at each level and at the root. Then the other CPUs of that item
-  add near the limit. An item holding such a carry must take no new
-  arrival. Without this rule, they exceed the limit in 105 of the 191
-  configurations.
-- A harness test makes an addition fail because of another one in
-  flight, and checks that it retries and fits. Another one checks that
-  a large amount which cannot fit is not added.
-- The harness runs these tests again with both counters about to wrap,
-  as unsigned and as signed values. It passes as a 32-bit build too.
-- A KUnit test runs workers on all CPUs near the limit. An exact shadow
-  of the successful additions never exceeds it.
+The owner, mm->rss_owner, is the task running on the mm: the child in
+dup_mm(), or the task in exec_mmap(), which also clears it from the mm
+it leaves, as exit_mm() does.  It stays NULL, which matches no task, in
+the mm of exec() until exec_mmap() and in those of the other users of
+mm_alloc(): all their updates are atomic.  It is only compared with
+current, never dereferenced, so a single task writes the plain counter,
+including while a vfork() child shares the mm.  mm->owner (CONFIG_MEMCG)
+is not used, because mm_update_next_owner() hands it over to another
+task while a vfork() child may still update the counters.
 
-For the stall test, the shim gains a stall hook. It runs a function
-right after the next fully ordered or release update of a chosen item.
+copy_mm() activates the counter tree when a thread is created with
+CLONE_VM, except for vfork(), whose parent waits while the child shares
+the mm.  mm->rss_stat_mutex serializes the activations, as
+mm->mm_cid.mutex serializes the mode changes of mm_cid at fork and exit,
+without relying on which tasks can create threads.  Once the tree is
+active, thread creation no longer takes the mutex.  This moves the
+allocation of the per-cpu counters and tree items of the RSS counters
+from fork() to the creation of the second thread of a process, which
+returns -ENOMEM if it fails, as fork() could before.  The tasks the
+kernel creates with CLONE_VM for a process, such as the io_uring workers
+and the vhost tasks, also share its mm: a single-threaded process using
+them gets the counter tree.  The updates made before the activation stay
+in the single counters, which the sums keep reading, so updates racing
+with the activation are not lost.  Once the tree is active,
+__add_mm_counter() no longer reads rss_owner, so the updates of the
+threads of a process do not pull in its cache line, which other
+mm_struct fields share.
+
+The tree stays active when the process returns to a single thread:
+going back to the single counters would need a grace period for the
+remote updaters, and a process alternating between one and two threads
+would pay for each switch.
+
+Before the activation, the updates of tasks other than the owner are
+atomic additions to one word per counter: concurrent remote updates
+of the same single-threaded process from many CPUs, such as direct
+reclaim unmapping its pages, contend on it.
+
+* Testing results:
+
+Test hardware: 2 sockets AMD EPYC 9654 96-Core Processor (384 logical
+CPUs).
+
+With the test program and the instrumentation described in the patch
+switching the RSS counters to hierarchical counters, in a KVM guest with
+384 vCPUs, each pinned to its own CPU of the host, with the NUMA topology
+of the host, the approximation of the RSS counters of the single-threaded
+program is exact, compared to an 841MB delta for the upstream counters.
+With an idle second thread, which activates the counter tree, the
+hierarchical counters reach a 96MB delta, compared to 845MB for the
+upstream counters.
+
+On bare metal, with 1000 to 16000 single-threaded processes alive, a
+read of /proc/PID/statm, which computes 3 precise sums, takes 5.3 to
+6.5us, compared to 16.5 to 19.0us with the upstream counters, and a read
+of /proc/PID/status, which computes 4 precise sums, takes 11.4 to
+13.1us, compared to 26.6 to 28.6us.  A fork + exit of a child touching
+no pages takes 116us, compared to 139us (219us compared to 247us when it
+touches 64 pages): its counters are destroyed without 4 precise sums
+over 384 logical CPUs in check_mm(), and neither per-cpu memory nor tree
+items are allocated or freed.
+
+On bare metal with SMT disabled at runtime, where the upstream batch
+size is 384, will-it-scale page_fault2 with one process is 5.1% faster
+than with the upstream counters, and page_fault3 1.3% faster (one boot
+each, the upstream one on the previous day; the boot-to-boot spread
+reaches 3%, so neither is claimed as a gain).
+
+* Memory Use
+
+Per mm, on a 64-bit arch with 64-byte cache lines, including the
+rss_owner pointer and the 24-byte activation mutex, for a
+single-threaded and a multi-threaded process, compared to the upstream
+percpu counters:
+
+                    Bytes per mm
+  nr_cpus fan-out  1 thread  threads  upstream
+        2 2             192      264       192
+       16 16            192      320       416
+       64 16,4          192      768      1184
+      384 8,8,8         192     6400      6304
+     1024 8,8,16        192    13568     16544
+
+A single-threaded process uses 192 bytes for its RSS counters whatever
+the number of CPUs: the 4 counter structures, rss_owner and the mutex in
+mm_struct, compared to the 4 upstream counter structures (160 bytes) and
+their per-cpu memory.  On x86_64 with 16, 384 and 1024 possible CPUs,
+the mm_struct slab object keeps its upstream size (1752, 1872 and 2112
+bytes in /proc/slabinfo).  A multi-threaded process adds nr_cpus bytes
+of per-cpu memory per counter (1536 per mm at 384 logical CPUs),
+compared to 4 * nr_cpus bytes per counter (6144 per mm) for the upstream
+counters, and the tree items, without the rounding of their slab cache.
+fork() no longer allocates memory for the RSS counters.
 
 Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 ---
- lib/tests/percpu_counter_tree_kunit.c  | 172 +++++++++++++
- tools/testing/hpcc/include/hpcc_shim.h |  42 ++-
- tools/testing/hpcc/main.c              | 342 +++++++++++++++++++++++++
- 3 files changed, 553 insertions(+), 3 deletions(-)
+ .../core-api/percpu-counter-tree.rst          |  7 ++++
+ fs/exec.c                                     |  5 +++
+ include/linux/mm.h                            | 24 +++++++++++--
+ include/linux/mm_types.h                      | 16 +++++++++
+ kernel/exit.c                                 |  3 ++
+ kernel/fork.c                                 | 35 +++++++++++++++++--
+ 6 files changed, 85 insertions(+), 5 deletions(-)
 
-diff --git a/lib/tests/percpu_counter_tree_kunit.c b/lib/tests/percpu_counter_tree_kunit.c
-index 12bd5a4bbb45..bd99ab7ca1c0 100644
---- a/lib/tests/percpu_counter_tree_kunit.c
-+++ b/lib/tests/percpu_counter_tree_kunit.c
-@@ -612,6 +612,177 @@ static void hpcc_test_contended_carries(struct kunit *test)
- 		do_hpcc_test_contended_carries(test, 1UL << batch_size_order);
- }
+diff --git a/Documentation/core-api/percpu-counter-tree.rst b/Documentation/core-api/percpu-counter-tree.rst
+index 138e9b74b0c8..87babe2276c4 100644
+--- a/Documentation/core-api/percpu-counter-tree.rst
++++ b/Documentation/core-api/percpu-counter-tree.rst
+@@ -102,6 +102,13 @@ The activations of the same counters must be serialized by the caller:
+ a concurrent activation would publish a second tree and lose the
+ updates made to the first.
  
-+#define LIMIT_NR_OPS	100000
++The RSS counters of an mm use this: the task owning the mm updates the
++plain counter, and other tasks, such as reclaim, update the atomic
++counter. The tree is activated when a second thread shares the mm,
++under mm->rss_stat_mutex, which serializes the activations.
++A single-threaded process therefore has exact RSS counters, cheap
++precise sums, and neither per-cpu memory nor tree items for them.
 +
-+struct limit_shared {
-+	struct percpu_counter_tree_limit limit;
-+	unsigned long max;
-+	unsigned long target;		/* Amount each worker tries to hold. */
-+	unsigned long batch_size;
-+	atomic_long_t charged;		/* Exact total of the successful additions held. */
-+	atomic_long_t nr_over;		/* Times charged exceeded max. */
-+	atomic_long_t nr_added, nr_failed;
-+	atomic_t nr_ready;
-+	unsigned int nr_workers;
-+	bool started;
-+};
-+
-+struct limit_data {
-+	struct limit_shared *sh;
-+	unsigned long held;
-+	u32 seed;
-+} ____cacheline_aligned_in_smp;
-+
-+static DECLARE_WAIT_QUEUE_HEAD(limit_wq);
-+
-+static u32 limit_rnd(struct limit_data *ld)
-+{
-+	u32 x = ld->seed;
-+
-+	x ^= x << 13;
-+	x ^= x >> 17;
-+	x ^= x << 5;
-+	ld->seed = x;
-+	return x;
-+}
-+
+ Use Cases
+ =========
+ 
+diff --git a/fs/exec.c b/fs/exec.c
+index 8d2b14e1d455..7a6f07a6d482 100644
+--- a/fs/exec.c
++++ b/fs/exec.c
+@@ -875,6 +875,8 @@ static int exec_mmap(struct linux_binprm *bprm)
+ 		}
+ 	}
+ 
++	/* This task owns the RSS counters of the new mm, see __add_mm_counter(). */
++	WRITE_ONCE(mm->rss_owner, tsk);
+ 	task_lock(tsk);
+ 	membarrier_exec_mmap(mm);
+ 
+@@ -903,6 +905,9 @@ static int exec_mmap(struct linux_binprm *bprm)
+ 	if (old_mm) {
+ 		mmap_read_unlock(old_mm);
+ 		BUG_ON(active_mm != old_mm);
++		/* Updates of the old mm by this task are now atomic. */
++		if (READ_ONCE(old_mm->rss_owner) == tsk)
++			WRITE_ONCE(old_mm->rss_owner, NULL);
+ 		/* Defer teardown to setup_new_exec(), outside the exec locks. */
+ 		bprm->old_mm = old_mm;
+ 	} else {
+diff --git a/include/linux/mm.h b/include/linux/mm.h
+index 2b40f382da35..99a21a7c69b8 100644
+--- a/include/linux/mm.h
++++ b/include/linux/mm.h
+@@ -3621,23 +3621,41 @@ static inline unsigned long get_mm_counter_sum(struct mm_struct *mm, int member)
+ 
+ void mm_trace_rss_stat(struct mm_struct *mm, int member);
+ 
 +/*
-+ * Each worker adds to the limit counter until it holds its target. Then
-+ * it frees part of what it holds. Together, the workers hold about 1.5
-+ * times the limit, so additions fail. A successful addition is added to
-+ * charged after it succeeds. A free subtracts from charged before it
-+ * reaches the limit counter. So charged is never above the value of the
-+ * limit counter. Charged above max means the limit was exceeded.
++ * Until a second thread shares the mm, the RSS counters are exact single
++ * counters: the task which owns the mm updates a plain counter, and other
++ * tasks (reclaim, khugepaged, the OOM reaper, remote GUP, ...) an atomic
++ * one. See copy_mm(). Once the tree is active, all updates go to it:
++ * rss_owner is not read, so the updates of the threads of a process do not
++ * touch its cache line.
 + */
-+static int limit_worker_fn(void *data)
++static inline void __add_mm_counter(struct mm_struct *mm, int member, long value)
 +{
-+	struct limit_data *ld = data;
-+	struct limit_shared *sh = ld->sh;
-+	unsigned int i;
++	struct percpu_counter_tree *counter = &mm->rss_stat[member];
 +
-+	/* Pairs with the release of started: max, target and nr_workers are set. */
-+	wait_event(limit_wq, smp_load_acquire(&sh->started));
-+	/* Start together, so that the workers hold their amounts at the same time. */
-+	atomic_inc(&sh->nr_ready);
-+	while (atomic_read(&sh->nr_ready) < sh->nr_workers)
-+		cpu_relax();
-+	for (i = 0; i < LIMIT_NR_OPS; i++) {
-+		u32 x = limit_rnd(ld);
-+		unsigned long amount;
-+
-+		if (ld->held < sh->target) {
-+			/* Mostly small amounts, and one in 16 of a huge page. */
-+			if ((x >> 4) & 15)
-+				amount = 1 + (x >> 8) % (4 * sh->batch_size);
-+			else
-+				amount = 512;
-+			if (percpu_counter_tree_limit_add(&sh->limit, sh->max, amount)) {
-+				unsigned long charged;
-+
-+				charged = atomic_long_add_return(amount, &sh->charged);
-+				if (charged > sh->max)
-+					atomic_long_inc(&sh->nr_over);
-+				ld->held += amount;
-+				atomic_long_inc(&sh->nr_added);
-+			} else {
-+				atomic_long_inc(&sh->nr_failed);
-+			}
-+		} else if (ld->held) {
-+			amount = 1 + (x >> 8) % ld->held;
-+			atomic_long_sub(amount, &sh->charged);
-+			percpu_counter_tree_limit_sub(&sh->limit, amount);
-+			ld->held -= amount;
-+		}
-+		if (!(i & 63))
-+			cond_resched();
-+	}
-+	atomic_long_sub(ld->held, &sh->charged);
-+	percpu_counter_tree_limit_sub(&sh->limit, ld->held);
-+	ld->held = 0;
-+	complete_work();
-+	return 0;
++	if (!percpu_counter_tree_active(counter) && current == READ_ONCE(mm->rss_owner))
++		percpu_counter_tree_add_owner(counter, value);
++	else
++		percpu_counter_tree_add(counter, value);
 +}
 +
-+static void do_hpcc_test_limit(struct kunit *test, unsigned long batch_size)
-+{
-+	struct limit_shared *sh;
-+	struct limit_data *ld;
-+	struct task_struct **task;
-+	const struct cpumask *cpus;
-+	unsigned int nr_workers = 0;
-+	unsigned long accuracy;
-+	int ret, cpu;
-+
-+	sh = kzalloc_obj(*sh);
-+	ld = kvcalloc(nr_cpu_ids, sizeof(*ld), GFP_KERNEL);
-+	task = kvcalloc(nr_cpu_ids, sizeof(*task), GFP_KERNEL);
-+	KUNIT_EXPECT_NOT_NULL(test, sh);
-+	KUNIT_EXPECT_NOT_NULL(test, ld);
-+	KUNIT_EXPECT_NOT_NULL(test, task);
-+	if (!sh || !ld || !task)
-+		goto free;
-+	ret = percpu_counter_tree_limit_init(&sh->limit, batch_size, GFP_KERNEL);
-+	KUNIT_EXPECT_EQ(test, ret, 0);
-+	if (ret)
-+		goto free;
-+	accuracy = percpu_counter_tree_approximate_accuracy(&sh->limit.counters[0]);
-+	/* A limit of twice the accuracy, oversubscribed twice: mostly within its accuracy. */
-+	sh->max = 2 * accuracy + 1;
-+	sh->batch_size = batch_size;
-+	init_kthreads();
-+	cpus_read_lock();
-+	cpus = select_worker_cpus();
-+	sh->target = 2 * sh->max / cpumask_weight(cpus) + 512;
-+	for_each_cpu(cpu, cpus) {
-+		ld[cpu].sh = sh;
-+		ld[cpu].seed = get_random_u32() | 1;
-+		task[cpu] = kthread_create_on_cpu(limit_worker_fn, &ld[cpu], cpu,
-+						  "kunit_hpcc_limit/%u");
-+		KUNIT_EXPECT_FALSE(test, IS_ERR(task[cpu]));
-+		if (IS_ERR(task[cpu]))
-+			break;
-+		atomic_inc(&kernel_threads_to_run);
-+		get_task_struct(task[cpu]);
-+		wake_up_process(task[cpu]);
-+		nr_workers++;
-+	}
-+	sh->nr_workers = nr_workers;
-+	/* Start the workers once their number is known, see limit_worker_fn(). */
-+	smp_store_release(&sh->started, true);
-+	wake_up_all(&limit_wq);
-+	fini_kthreads();
-+	for_each_cpu(cpu, cpus) {
-+		if (!IS_ERR_OR_NULL(task[cpu]))
-+			kthread_stop_put(task[cpu]);
-+	}
-+	cpus_read_unlock();
-+
-+	kunit_info(test, "batch_size=%lu workers=%u max=%lu added=%ld failed=%ld over=%ld\n",
-+		   batch_size, nr_workers, sh->max, atomic_long_read(&sh->nr_added),
-+		   atomic_long_read(&sh->nr_failed), atomic_long_read(&sh->nr_over));
-+	KUNIT_EXPECT_EQ(test, atomic_long_read(&sh->nr_over), 0);
-+	KUNIT_EXPECT_GT(test, atomic_long_read(&sh->nr_failed), 0);
-+	KUNIT_EXPECT_EQ(test, percpu_counter_tree_limit_precise_sum(&sh->limit), 0);
-+	percpu_counter_tree_limit_destroy(&sh->limit);
-+free:
-+	kvfree(task);
-+	kvfree(ld);
-+	kfree(sh);
-+}
-+
-+/*
-+ * Workers on all the worker CPUs add to and subtract from a limit counter
-+ * held near its limit. The limit is never exceeded, and the value is back
-+ * to 0 once all the workers freed what they held.
-+ */
-+static void hpcc_test_limit(struct kunit *test)
-+{
-+	if (num_online_cpus() < 2)
-+		kunit_skip(test, "needs at least 2 online CPUs");
-+	do_hpcc_test_limit(test, 2);
-+	do_hpcc_test_limit(test, 32);
-+}
-+
- static void hpcc_test_init_one(struct kunit *test)
+ static inline void add_mm_counter(struct mm_struct *mm, int member, long value)
  {
- 	struct percpu_counter_tree pct, zeroed = {};
-@@ -1038,6 +1209,7 @@ static struct kunit_case hpcc_test_cases[] = {
- 	KUNIT_CASE(hpcc_test_set),
- 	KUNIT_CASE(hpcc_test_saturated_compare),
- 	KUNIT_CASE(hpcc_test_contended_carries),
-+	KUNIT_CASE_SLOW(hpcc_test_limit),
- 	KUNIT_CASE(hpcc_test_lazy),
- 	KUNIT_CASE(hpcc_test_lazy_activation_race),
- 	{}
-diff --git a/tools/testing/hpcc/include/hpcc_shim.h b/tools/testing/hpcc/include/hpcc_shim.h
-index a455e6432b5c..5d96d68f79bd 100644
---- a/tools/testing/hpcc/include/hpcc_shim.h
-+++ b/tools/testing/hpcc/include/hpcc_shim.h
-@@ -86,9 +86,45 @@ static inline bool atomic_long_try_cmpxchg_relaxed(atomic_long_t *v, long *old,
- 	return false;
+-	percpu_counter_tree_add(&mm->rss_stat[member], value);
++	__add_mm_counter(mm, member, value);
+ 
+ 	mm_trace_rss_stat(mm, member);
  }
  
--#define atomic_long_add_return(i, v)		((v)->counter += (i))
--#define atomic_long_add_return_release(i, v)	((v)->counter += (i))
--#define atomic_long_try_cmpxchg(v, old, new)	atomic_long_try_cmpxchg_relaxed(v, old, new)
-+/*
-+ * Stall hook. hpcc_stall_fn() runs once, right after the next ordered
-+ * update of hpcc_stall_item. An ordered update is fully ordered or a
-+ * release, not relaxed. This simulates an updater interrupted there while
-+ * the other CPUs keep running.
-+ */
-+extern atomic_long_t *hpcc_stall_item;
-+extern void (*hpcc_stall_fn)(void);
-+
-+static inline void hpcc_stall(atomic_long_t *v)
-+{
-+	void (*fn)(void) = hpcc_stall_fn;
-+
-+	if (fn && v == hpcc_stall_item) {
-+		hpcc_stall_fn = NULL;
-+		fn();
-+	}
-+}
-+
-+static inline long atomic_long_add_return(long i, atomic_long_t *v)
-+{
-+	long r = (v->counter += i);
-+
-+	hpcc_stall(v);
-+	return r;
-+}
-+
-+static inline long atomic_long_add_return_release(long i, atomic_long_t *v)
-+{
-+	return atomic_long_add_return(i, v);
-+}
-+
-+static inline bool atomic_long_try_cmpxchg(atomic_long_t *v, long *old, long new)
-+{
-+	if (!atomic_long_try_cmpxchg_relaxed(v, old, new))
-+		return false;
-+	hpcc_stall(v);
-+	return true;
-+}
- 
- /* Simulated topology, and CPU on which the current code runs. */
- extern unsigned int nr_cpu_ids;
-diff --git a/tools/testing/hpcc/main.c b/tools/testing/hpcc/main.c
-index 1b86fea543e5..8046fb3a59eb 100644
---- a/tools/testing/hpcc/main.c
-+++ b/tools/testing/hpcc/main.c
-@@ -23,6 +23,12 @@
-  *   counter, exact before its tree is activated halfway, with the same
-  *   checks after each increment.
-  *
-+ * - Limit counters: random additions and subtractions near the limit,
-+ *   which must fit exactly when the value stays within it. Hooks stall an
-+ *   addition in flight to check the cases where the sums race with it.
-+ *   Each test runs again with both counters about to wrap, as unsigned and
-+ *   as signed values.
-+ *
-  * The test is single-threaded, so it only covers settled counters.
-  */
- 
-@@ -33,6 +39,8 @@ unsigned int nr_cpu_ids;
- unsigned int hpcc_current_cpu;
- unsigned long hpcc_nr_warnings;
- long hpcc_nr_allocs;
-+atomic_long_t *hpcc_stall_item;
-+void (*hpcc_stall_fn)(void);
- 
- #include "../../../lib/percpu_counter_tree.c"
- 
-@@ -389,6 +397,320 @@ static void test_lazy(unsigned long batch_size, unsigned long nr_steps)
- 	CHECK(hpcc_nr_allocs == nr_allocs);
- }
- 
-+/*
-+ * Both counters of a limit counter only grow, so they wrap after enough
-+ * updates. The limit tests start both roots at limit_base, which leaves
-+ * the value at 0. When limit_wrap is set, the base is a random distance
-+ * below the wrap point limit_wrap_at, within the range the tests cover.
-+ * A check which compares the roots without taking their difference then
-+ * fails while one side of the comparison has wrapped and the other has
-+ * not.
-+ */
-+static bool limit_wrap;
-+static unsigned long limit_wrap_at, limit_base;
-+
-+static int limit_init(struct percpu_counter_tree_limit *l, unsigned long batch_size)
-+{
-+	unsigned long accuracy;
-+
-+	if (percpu_counter_tree_limit_init(l, batch_size, GFP_KERNEL))
-+		return -ENOMEM;
-+	limit_base = 0;
-+	if (limit_wrap) {
-+		accuracy = percpu_counter_tree_approximate_accuracy(&l->counters[0]);
-+		limit_base = limit_wrap_at - 1 - rnd() % (8 * accuracy);
-+	}
-+	atomic_long_set(l->counters[0].approx_sum, limit_base);
-+	atomic_long_set(l->counters[1].approx_sum, limit_base);
-+	return 0;
-+}
-+
-+/* Each counter of a limit counter errs in one direction only. */
-+static void check_limit(struct percpu_counter_tree_limit *l, unsigned long add_total,
-+			unsigned long sub_total)
-+{
-+	struct percpu_counter_tree *add = &l->counters[0], *sub = &l->counters[1];
-+	unsigned long accuracy = percpu_counter_tree_approximate_accuracy(add);
-+	unsigned long root_add = atomic_long_read(add->approx_sum);
-+	unsigned long root_sub = atomic_long_read(sub->approx_sum);
-+
-+	CHECK(percpu_counter_tree_precise_sum_upper(add) == add_total);
-+	CHECK((unsigned long)percpu_counter_tree_precise_sum(sub) == sub_total);
-+	/* Modulo the wrap: a root above its total gives a huge difference. */
-+	CHECK(add_total - root_add <= accuracy);
-+	CHECK(sub_total - root_sub <= accuracy);
-+	CHECK(percpu_counter_tree_limit_precise_sum(l) == add_total - sub_total);
-+}
-+
-+/*
-+ * Without concurrency, an addition must fit exactly when the value stays
-+ * within the limit. The limit is a few accuracies wide, so the walk often
-+ * runs within the accuracy of the limit, where the precise sums decide.
-+ */
-+static void test_limit(unsigned long batch_size, unsigned long nr_steps)
-+{
-+	unsigned long value = 0, add_total, sub_total, accuracy, max, step, amount;
-+	struct percpu_counter_tree_limit l;
-+	bool added;
-+
-+	if (limit_init(&l, batch_size)) {
-+		CHECK(0);
-+		return;
-+	}
-+	add_total = limit_base;
-+	sub_total = limit_base;
-+	accuracy = percpu_counter_tree_approximate_accuracy(&l.counters[0]);
-+	max = 3 * accuracy + rnd() % (accuracy + 1) + 1;
-+	for (step = 0; step < nr_steps; step++) {
-+		hpcc_current_cpu = rnd() % nr_cpu_ids;
-+		if (value && !(rnd() % 3)) {
-+			amount = 1 + rnd() % value;
-+			percpu_counter_tree_limit_sub(&l, amount);
-+			value -= amount;
-+			sub_total += amount;
-+		} else {
-+			amount = 1 + rnd() % ((rnd() & 1) ? batch_size : 8 * batch_size);
-+			added = percpu_counter_tree_limit_add(&l, max, amount);
-+			CHECK(added == (value + amount <= max));
-+			if (added) {
-+				value += amount;
-+				add_total += amount;
-+			} else if (amount <= batch_size) {
-+				/* Added, then undone by a subtraction. */
-+				add_total += amount;
-+				sub_total += amount;
-+			}	/* A larger amount which cannot fit is not added. */
-+		}
-+		check_limit(&l, add_total, sub_total);
-+	}
-+	/* Fill up: the value stops exactly at the limit. */
-+	while (value < max) {
-+		hpcc_current_cpu = rnd() % nr_cpu_ids;
-+		amount = (max - value + 1) / 2;
-+		CHECK(percpu_counter_tree_limit_add(&l, max, amount));
-+		value += amount;
-+		add_total += amount;
-+	}
-+	CHECK(!percpu_counter_tree_limit_add(&l, max, 1));
-+	add_total++;
-+	sub_total++;
-+	CHECK(value == max);
-+	check_limit(&l, add_total, sub_total);
-+	percpu_counter_tree_limit_destroy(&l);
-+}
-+
-+/* State of test_limit_stall(), shared with its stall hook. */
-+static struct {
-+	struct percpu_counter_tree_limit l;
-+	unsigned long max, value;
-+	unsigned int stalled_cpu, share_mask;
-+} stall;
-+
-+/*
-+ * While one addition is stalled, the CPUs sharing its stalled item add.
-+ * Their carries meet its pending items, and go straight to the root.
-+ */
-+static void stall_others_add(void)
-+{
-+	struct percpu_counter_tree *add = &stall.l.counters[0];
-+	unsigned long batch_size = percpu_counter_tree_batch_size(add);
-+	unsigned long root = atomic_long_read(add->approx_sum);
-+	unsigned int saved = hpcc_current_cpu, cpu, i;
-+	bool others = false;
-+
-+	for (cpu = 0; cpu < nr_cpu_ids; cpu++) {
-+		if (cpu == stall.stalled_cpu ||
-+		    (cpu & stall.share_mask) != (stall.stalled_cpu & stall.share_mask))
-+			continue;
-+		others = true;
-+		hpcc_current_cpu = cpu;
-+		for (i = 0; i < batch_size; i++) {
-+			if (percpu_counter_tree_limit_add(&stall.l, stall.max, 1))
-+				stall.value++;
-+		}
-+		CHECK(stall.value <= stall.max);
-+		CHECK(percpu_counter_tree_limit_precise_sum(&stall.l) >= stall.value);
-+	}
-+	if (others)
-+		CHECK((long)(atomic_long_read(add->approx_sum) - root) > 0);
-+	hpcc_current_cpu = saved;
-+}
-+
-+/*
-+ * Fill each residual of the additions to its largest value. The value is
-+ * then the accuracy, and the root is 0. The limit is set to the value.
-+ * Then an addition on CPU 0 carries up to the root through all the
-+ * levels. Stall it right after it arrives at its item of @stall_level,
-+ * or at the root when @stall_level is nr_levels. Its items below the
-+ * root then hold their carries on the way up. The CPUs sharing the
-+ * stalled item add while it is stalled, and must fail.
-+ */
-+static void test_limit_stall(unsigned long batch_size, unsigned int stall_level)
-+{
-+	unsigned int nr_levels = tree_topology.config->nr_levels, level, level_items, i, cpu;
-+	unsigned long step, bit_mask;
-+	struct percpu_counter_tree *add;
-+	atomic_long_t *item;
-+
-+	if (limit_init(&stall.l, batch_size)) {
-+		CHECK(0);
-+		return;
-+	}
-+	add = &stall.l.counters[0];
-+	stall.max = percpu_counter_tree_approximate_accuracy(add);
-+	stall.value = 0;
-+	/*
-+	 * An amount of bit_mask - step is a multiple of the batch sizes of the
-+	 * levels below. It goes through them and stays in item i of this
-+	 * level. CPU i updates that item.
-+	 */
-+	level_items = 1U << tree_topology.nr_cpus_order;
-+	bit_mask = batch_size;
-+	item = percpu_counter_tree_items(add);
-+	stall.share_mask = 0;		/* At the root, all CPUs share it. */
-+	for (level = 1; level < nr_levels; level++) {
-+		step = bit_mask;
-+		level_items >>= tree_topology.config->n_arity_order[level - 1];
-+		bit_mask <<= tree_topology.config->n_arity_order[level - 1];
-+		if (level == stall_level) {
-+			hpcc_stall_item = item;		/* CPU 0's item. */
-+			stall.share_mask = level_items - 1;
-+		}
-+		for (i = 0; i < level_items; i++) {
-+			hpcc_current_cpu = i;
-+			CHECK(percpu_counter_tree_limit_add(&stall.l, stall.max, bit_mask - step));
-+			stall.value += bit_mask - step;
-+		}
-+		item += level_items * add->items_stride;
-+	}
-+	if (stall_level >= nr_levels)
-+		hpcc_stall_item = add->approx_sum;
-+	for (cpu = 0; cpu < nr_cpu_ids; cpu++) {
-+		hpcc_current_cpu = cpu;
-+		CHECK(percpu_counter_tree_limit_add(&stall.l, stall.max, batch_size - 1));
-+		stall.value += batch_size - 1;
-+	}
-+	CHECK(stall.value == stall.max);
-+	CHECK((unsigned long)atomic_long_read(add->approx_sum) == limit_base);
-+
-+	stall.stalled_cpu = 0;
-+	hpcc_stall_fn = stall_others_add;
-+	hpcc_current_cpu = stall.stalled_cpu;
-+	if (percpu_counter_tree_limit_add(&stall.l, stall.max, 1))
-+		stall.value++;
-+	CHECK(!hpcc_stall_fn);	/* The stall happened. */
-+	hpcc_stall_fn = NULL;
-+	CHECK(stall.value <= stall.max);
-+	CHECK(percpu_counter_tree_limit_precise_sum(&stall.l) == stall.value);
-+	percpu_counter_tree_limit_destroy(&stall.l);
-+}
-+
-+/* State of test_limit_retry(), shared with its stall hook. */
-+static struct {
-+	struct percpu_counter_tree_limit l;
-+	unsigned long in_flight;
-+	unsigned int in_flight_cpu;
-+} retry;
-+
-+/* The concurrent addition in flight fails, and is undone. */
-+static void retry_undo_in_flight(void)
-+{
-+	unsigned int saved = hpcc_current_cpu;
-+
-+	hpcc_current_cpu = retry.in_flight_cpu;
-+	percpu_counter_tree_limit_sub(&retry.l, retry.in_flight);
-+	hpcc_current_cpu = saved;
-+}
-+
-+/*
-+ * With one unit free, CPU 0 adds 1 while another addition of 1 is in
-+ * flight, about to fail. CPU 0 fails, and that addition is undone while
-+ * CPU 0 undoes its own. CPU 0 must then retry, and fit.
-+ */
-+static void test_limit_retry(unsigned long batch_size)
-+{
-+	struct percpu_counter_tree *add = &retry.l.counters[0], *sub = &retry.l.counters[1];
-+	unsigned long max, value = 0, amount;
-+
-+	if (limit_init(&retry.l, batch_size)) {
-+		CHECK(0);
-+		return;
-+	}
-+	max = 2 * percpu_counter_tree_approximate_accuracy(add) + 1;
-+	hpcc_current_cpu = 1 % nr_cpu_ids;
-+	while (value < max - 1) {
-+		amount = max - 1 - value < batch_size ? max - 1 - value : batch_size;
-+		CHECK(percpu_counter_tree_limit_add(&retry.l, max, amount));
-+		value += amount;
-+	}
-+	/* CPU 0's subtractions at batch_size - 1: its undo carries. */
-+	hpcc_current_cpu = 0;
-+	percpu_counter_tree_limit_sub(&retry.l, batch_size - 1);
-+	hpcc_current_cpu = 1 % nr_cpu_ids;
-+	CHECK(percpu_counter_tree_limit_add(&retry.l, max, batch_size - 1));
-+	/* The addition in flight, from another CPU. */
-+	retry.in_flight = 1;
-+	retry.in_flight_cpu = 2 % nr_cpu_ids;
-+	hpcc_current_cpu = retry.in_flight_cpu;
-+	percpu_counter_tree_add_arrive_first(add, retry.in_flight);
-+	/* CPU 0's undo carries to the first item of the subtractions. */
-+	hpcc_stall_item = tree_topology.config->nr_levels > 1 ?
-+			  percpu_counter_tree_items(sub) : sub->approx_sum;
-+	hpcc_stall_fn = retry_undo_in_flight;
-+	hpcc_current_cpu = 0;
-+	CHECK(percpu_counter_tree_limit_add(&retry.l, max, 1));
-+	CHECK(!hpcc_stall_fn);	/* The other addition was undone during the check. */
-+	hpcc_stall_fn = NULL;
-+	CHECK(percpu_counter_tree_limit_precise_sum(&retry.l) == max);
-+	percpu_counter_tree_limit_destroy(&retry.l);
-+}
-+
-+/*
-+ * An amount larger than the batch size which cannot fit fails before it
-+ * is added. The additions do not change, and a fitting amount still fits.
-+ */
-+static void test_limit_precheck(unsigned long batch_size)
-+{
-+	struct percpu_counter_tree_limit l;
-+	unsigned long max, value = 0, amount, before;
-+
-+	if (limit_init(&l, batch_size)) {
-+		CHECK(0);
-+		return;
-+	}
-+	max = 2 * percpu_counter_tree_approximate_accuracy(&l.counters[0]) + 1;
-+	hpcc_current_cpu = 1 % nr_cpu_ids;
-+	while (value < max - batch_size) {
-+		amount = max - batch_size - value;
-+		if (amount > batch_size)
-+			amount = batch_size;
-+		CHECK(percpu_counter_tree_limit_add(&l, max, amount));
-+		value += amount;
-+	}
-+	before = percpu_counter_tree_precise_sum_upper(&l.counters[0]);
-+	hpcc_current_cpu = 0;
-+	CHECK(!percpu_counter_tree_limit_add(&l, max, 2 * batch_size));
-+	CHECK(percpu_counter_tree_precise_sum_upper(&l.counters[0]) == before);
-+	CHECK(percpu_counter_tree_limit_add(&l, max, batch_size));
-+	CHECK(percpu_counter_tree_limit_precise_sum(&l) == max);
-+	percpu_counter_tree_limit_destroy(&l);
-+}
-+
-+/* The batch size chosen for an accuracy is the largest within it. */
-+static void test_batch_for_accuracy(void)
-+{
-+	unsigned long multiplier = tree_topology.accuracy_multiplier, accuracy, batch_size;
-+
-+	for (accuracy = 1; accuracy < 512 * multiplier; accuracy = accuracy * 3 + 1) {
-+		batch_size = percpu_counter_tree_batch_for_accuracy(accuracy);
-+		CHECK(batch_size >= 2 && batch_size <= PERCPU_COUNTER_TREE_MAX_BATCH);
-+		if (batch_size > 2)
-+			CHECK(batch_size * multiplier - nr_cpu_ids <= accuracy);
-+		if (batch_size < PERCPU_COUNTER_TREE_MAX_BATCH)
-+			CHECK(2 * batch_size * multiplier - nr_cpu_ids > accuracy);
-+	}
-+}
-+
- static const unsigned int test_nr_cpus[] = {
- 	1, 2, 3, 4, 5, 8, 9, 16, 17, 32, 33, 64, 65, 100, 128, 256, 512,
- 	1000, 1024, 2048, 4096, 8192, 16384, 32768, 65536,
-@@ -405,6 +727,12 @@ static int test_num;
- 
- static int run_case(unsigned int nr_cpus, unsigned long batch_size)
+ static inline void inc_mm_counter(struct mm_struct *mm, int member)
  {
-+	/* No wrap, then below the unsigned and the signed wrap points. */
-+	const struct {
-+		bool wrap;
-+		unsigned long at;
-+	} wraps[] = { { false, 0 }, { true, 0 }, { true, 1UL << (BITS_PER_LONG - 1) } };
-+	unsigned int level, i;
- 	/* Each check iterates over all CPUs: bound the random walk cost. */
- 	unsigned long nr_steps = 10000000 / nr_cpus;
+-	percpu_counter_tree_add(&mm->rss_stat[member], 1);
++	__add_mm_counter(mm, member, 1);
  
-@@ -420,6 +748,20 @@ static int run_case(unsigned int nr_cpus, unsigned long batch_size)
- 	test_saturated(batch_size, -1);
- 	test_random_walk(batch_size, nr_steps);
- 	test_lazy(batch_size, nr_steps / 2);
-+	for (i = 0; i < ARRAY_SIZE(wraps); i++) {
-+		limit_wrap = wraps[i].wrap;
-+		limit_wrap_at = wraps[i].at;
-+		test_limit(batch_size, nr_steps / 2);
-+		/* These fill the tree near the limit, where each addition sums all CPUs. */
-+		if (nr_cpus > 4096)
-+			continue;
-+		for (level = 1; level <= tree_topology.config->nr_levels; level++)
-+			test_limit_stall(batch_size, level);
-+		test_limit_retry(batch_size);
-+		test_limit_precheck(batch_size);
-+	}
-+	limit_wrap = false;
-+	test_batch_for_accuracy();
- 	CHECK(!hpcc_nr_warnings);
- 	printf("%sok %d - nr_cpus=%u batch_size=%lu\n", nr_case_failures ? "not " : "",
- 	       ++test_num, nr_cpus, batch_size);
+ 	mm_trace_rss_stat(mm, member);
+ }
+ 
+ static inline void dec_mm_counter(struct mm_struct *mm, int member)
+ {
+-	percpu_counter_tree_add(&mm->rss_stat[member], -1);
++	__add_mm_counter(mm, member, -1);
+ 
+ 	mm_trace_rss_stat(mm, member);
+ }
+diff --git a/include/linux/mm_types.h b/include/linux/mm_types.h
+index 20b4517b7329..f0d315d72adb 100644
+--- a/include/linux/mm_types.h
++++ b/include/linux/mm_types.h
+@@ -1352,6 +1352,22 @@ struct mm_struct {
+ #endif
+ 
+ 		struct percpu_counter_tree rss_stat[NR_MM_COUNTERS];
++		/*
++		 * Task updating rss_stat with percpu_counter_tree_add_owner()
++		 * until the counter tree is activated by a second thread: the
++		 * task running on this mm, set by dup_mm() and exec_mmap(),
++		 * cleared when that task exits or execs, NULL for the other
++		 * users of mm_alloc(). Only compared with current, never
++		 * dereferenced. Not mm->owner, which depends on CONFIG_MEMCG
++		 * and which mm_update_next_owner() hands over to another task
++		 * while a vfork() child may still update the counters.
++		 */
++		struct task_struct *rss_owner;
++		/*
++		 * Serializes the activations of the rss_stat counter tree,
++		 * until the tree is active. See mm_activate_rss_stat().
++		 */
++		struct mutex rss_stat_mutex;
+ 
+ 		struct linux_binfmt *binfmt;
+ 
+diff --git a/kernel/exit.c b/kernel/exit.c
+index d5e7bc2af804..c153cd064987 100644
+--- a/kernel/exit.c
++++ b/kernel/exit.c
+@@ -582,6 +582,9 @@ static void exit_mm(void)
+ 	local_irq_enable();
+ 	task_unlock(current);
+ 	mmap_read_unlock(mm);
++	/* From now on, this task updates the RSS counters of @mm atomically. */
++	if (READ_ONCE(mm->rss_owner) == current)
++		WRITE_ONCE(mm->rss_owner, NULL);
+ 	mm_update_next_owner(mm);
+ 	mmput(mm);
+ 	if (test_thread_flag(TIF_MEMDIE))
+diff --git a/kernel/fork.c b/kernel/fork.c
+index d9bdaf2bd998..dc1db6cb5da0 100644
+--- a/kernel/fork.c
++++ b/kernel/fork.c
+@@ -1108,6 +1108,7 @@ static struct mm_struct *mm_init(struct mm_struct *mm, struct task_struct *p)
+ 	memset(&mm->rss_stat, 0, sizeof(mm->rss_stat));
+ 	spin_lock_init(&mm->page_table_lock);
+ 	spin_lock_init(&mm->arg_lock);
++	mutex_init(&mm->rss_stat_mutex);
+ 	mm_init_cpumask(mm);
+ 	mm_init_aio(mm);
+ 	mm_init_owner(mm, p);
+@@ -1148,8 +1149,7 @@ static struct mm_struct *mm_init(struct mm_struct *mm, struct task_struct *p)
+ 	if (mm_alloc_sched(mm))
+ 		goto fail_sched;
+ 
+-	if (percpu_counter_tree_init_many(mm->rss_stat, NR_MM_COUNTERS, RSS_STAT_BATCH_SIZE,
+-					  GFP_KERNEL_ACCOUNT))
++	if (percpu_counter_tree_init_many_lazy(mm->rss_stat, NR_MM_COUNTERS, RSS_STAT_BATCH_SIZE))
+ 		goto fail_pcpu;
+ 
+ 	lru_gen_init_mm(mm);
+@@ -1550,6 +1550,8 @@ static struct mm_struct *dup_mm(struct task_struct *tsk,
+ 		mmap_write_unlock(oldmm);
+ 		goto fail_uprobe;
+ 	}
++	/* The child owns its RSS counters, see __add_mm_counter(). */
++	mm->rss_owner = tsk;
+ 
+ 	err = dup_mmap(mm, oldmm);
+ 	if (err)
+@@ -1577,6 +1579,23 @@ static struct mm_struct *dup_mm(struct task_struct *tsk,
+ 	return NULL;
+ }
+ 
++/*
++ * Serialize the activations of the RSS counter tree, whichever tasks create
++ * threads. Once the last counter is active, the activation is complete and
++ * thread creation skips the mutex. That check needs no acquire: the updates
++ * and the sums of the counters order their own accesses to the tree. Not
++ * observing the other counters active yet only delays their updates going
++ * to the tree.
++ */
++static int mm_activate_rss_stat(struct mm_struct *mm)
++{
++	if (percpu_counter_tree_active(&mm->rss_stat[NR_MM_COUNTERS - 1]))
++		return 0;
++	guard(mutex)(&mm->rss_stat_mutex);
++	return percpu_counter_tree_activate_many(mm->rss_stat, NR_MM_COUNTERS,
++						 GFP_KERNEL_ACCOUNT);
++}
++
+ static int copy_mm(u64 clone_flags, struct task_struct *tsk)
+ {
+ 	struct mm_struct *mm, *oldmm;
+@@ -1601,6 +1620,18 @@ static int copy_mm(u64 clone_flags, struct task_struct *tsk)
+ 		return 0;
+ 
+ 	if (clone_flags & CLONE_VM) {
++		int err = 0;
++
++		/*
++		 * A second thread shares the mm: activate the RSS counter
++		 * tree. A vfork child shares the mm while the parent waits,
++		 * so the single counters still fit. The tree stays active if
++		 * the clone fails later, which is harmless.
++		 */
++		if (!(clone_flags & CLONE_VFORK))
++			err = mm_activate_rss_stat(oldmm);
++		if (err)
++			return err;
+ 		mmget(oldmm);
+ 		mm = oldmm;
+ 	} else {
 -- 
 2.47.3
 
