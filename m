@@ -1,77 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794416325;
-	b=WUKfJvyBRRS8DNVHZQPhSCUBWfo+/JhlkHeWnX+wkalDNH9nC/U7jHn0aJ99fuimt7wV
-	 q08l7cS2fqUP0J1Nww4HGb+Y985ZyjmwaZUvLnrwzDw91yn6ClbOQBt2UE+uc+7RxKNx6
-	 S6+58NCe00rke88kueYzcp78RRHqATkx/i16rJPzmDRkwbugPHVp6VCjQyS/PccdTTvN+
-	 rQNAEmuAImgxs7OpUVzYzCjSjDDzgItwC//TWLVl83TUQvnPMyZypAnppzzM7gw9WfZg2
-	 WU2SS50Uxesppjh8m1kXdqM9YvVL6DHHYsJgxveKKuwB8BEXrWT4OZdOsYQ3JWFsjvw==
+	t=1794416350;
+	b=quvKrIDq6J/w2tvjCfRbPD/7NRkqG28YEeOC38NuUpiC5ovd8wj13cSCjuR2AVcCIyWU
+	 Ys0eX/6XM0bO0M3hOyLc8B3EbcCIkWNQQ7SzWMtgE0z8oHNSeWQKxehhTO5fmpSv55rwo
+	 2P2IT735lZU/t9lbYAIdOQTvmpdvUPvfleJIlrWxFE1DR7EpdRNXFNmLupsmuBd+6xC2o
+	 y2MM484hrn+b9FTHV+Xp8CrKpfonpeIaRzolTKDbYi3JV9mEiTb/lY3Gzqxzn4y8gywCh
+	 Dl8ybQHSq4E0FZRBUSayM2CKAQF+W0lICbI+EUsN6htW/ppc8l9hw4cGj9mjOtCWSKA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794416325;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
-	bh=6VnbO8pD5BjzBxA7dV8WuTd8b1Dq0H1afFoCmUiOLYg=;
-	b=fx5jZEIqjroKet6HiI//cUbUPbgRvWl7cdVSM4h2jcsHajlHTmoeloxgOO0ITwvVusIj
-	 Rsk+GolPoQTIl22H/WEYJJHTjZwY/czHz+FGKoma7DBVzP47hhVR0H1y4/8a2Vz7Ny2mv
-	 7fSN8WF8Ez/OhLxHcJ7Bfo+OgTAyxewwN043Rmz3a/1h908aLdZswb4s/l0UvIJn2e/C0
-	 LiYMGQOTlehB0uTBzywsHSG3++OgqZ0B9gwobdXY+/ryj13h6quxmSLG1WKEVcqrMLbYQ
-	 dGWj6lcv0/x3XblV7dsUfCK2yAEiZKMEVPslyuRB231fn6mPfmdl0M3uFzZH10EN4VA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794416350;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=VNrKD+T9+ky+u7d//Mvd0gAHxvQshNFDW2BCq1ar0j8=;
+	b=JoVJ9MaX1ji+4ML85yLg248/IUBnYKB2n7oOuoG9WUbMANeg8nP2H9rS+Tbz5d0Ix6n7
+	 McE+9cEXhWInRDCxQRvyIUd1eeJEoH84ygqgNHQIb2KgAIGugdrltwm6KbhiRm9ZX0BIj
+	 eEL9kigKku46Rbb8x24n7POfZdYcOYTdv0cjmc53XooASromou9tU8XftExv36BjdCgwP
+	 Yr7YLC3FX+iI4pea9BfcDyNVFmesWhQaZiLlFENEkUis0y1JsIvdzrSCNaFoEvolxt+HG
+	 sRaLwtvAYX/+wEUQpT/f3oRGt04IFIqupQs12HGydBQtJTHJgjnGssU0QNAap2+5mGA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=N2UxzWrT;
-	arc=none smtp.remote-ip=90.155.92.199
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e1rbtfN4;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F331D606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 16:58:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F331D606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E605606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 16:59:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=N2UxzWrT
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Transfer-Encoding:
-	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:
-	Sender:Reply-To:Content-ID:Content-Description;
-	bh=6VnbO8pD5BjzBxA7dV8WuTd8b1Dq0H1afFoCmUiOLYg=; b=N2UxzWrTOeQhA3tMKxPf3RLxbP
-	aWXG8PZ2cROzotpL5WtXUnSpJqjMsRVYfrveV3Py/un1XZi97d4te28kNC4QeCUSqxAKYB3lMT+SJ
-	BCEM94hhqZ8GDVYyjN2JSHQ9OQWtTsDh2t1KYiYRHpqlUKGaqf1VSgHIiyw5QB7lQ4HBYpTeb2XPE
-	uga5br7N0ca7/BKnM8fWOyLHuA59IwY0VDv6JnMX+0PJNo05oVcoAF8ZUxhhMYETMzgLxMN2wRgGV
-	dVshuS7bVjkKd0dx320sAJTeLVXCJd5Al+2tKhc52cyb5PXEiRgY5xhkm0Sc2bet4fppGiBqqbcQJ
-	Gty3LDDQ==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xRBei-00000009MLP-0TrY;
-	Wed, 11 Nov 2026 16:58:40 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 6B05930031E; Wed, 11 Nov 2026 17:58:38 +0100 (CET)
-Date: Wed, 11 Nov 2026 17:58:38 +0100
-From: Peter Zijlstra <peterz@infradead.org>
-To: Frederic Weisbecker <frederic@kernel.org>
-Cc: Marco Crivellari <marco.crivellari@suse.com>,
-	linux-kernel@vger.kernel.org, Ingo Molnar <mingo@kernel.org>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e1rbtfN4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1ACBE1F00A05;
+	Wed, 11 Nov 2026 16:59:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794416349;
+	bh=VNrKD+T9+ky+u7d//Mvd0gAHxvQshNFDW2BCq1ar0j8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=e1rbtfN49jtYDZizjhDtohHVOEoTLir2VHiprG7Ir8IS5KKuhp6T8uxOKLMP7zbp7
+	 4lSls8jkiRfr8sWjdJUrn5IETeCTjrxCWf4Fhs/mHBXtU1C6vUjHaRDabRKsYimK1D
+	 XdewgfxAaCDe/GxRkVHdhovKa4iOjGTLuLZ6NV8ugUW9CoaDe0LXwzmTy7usutVr+n
+	 jJ00Q7ZB7zMubOgc1ENYLB9NexmDpYSj5lJMZtYlLdqgiNbnPjWGqrrv5RtX1o6RAB
+	 DSttw1U1fBu72S6GvyGbUxnEOPy9/971IFnUNFeg277cOYr5WgULWpl1zXhfpGc1a2
+	 jKUyh/W9jDxkA==
+Date: Wed, 11 Nov 2026 17:59:06 +0100
+From: Frederic Weisbecker <frederic@kernel.org>
+To: Marco Crivellari <marco.crivellari@suse.com>
+Cc: linux-kernel@vger.kernel.org, Ingo Molnar <mingo@kernel.org>,
 	Michal Hocko <mhocko@suse.com>, Aaron Tomlin <atomlin@atomlin.com>,
 	Marcelo Tosatti <mtosatti@redhat.com>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	"Paul E. McKenney" <paulmck@kernel.org>,
 	Anna-Maria Behnsen <anna-maria@linutronix.de>,
 	Thomas Gleixner <tglx@kernel.org>
-Subject: Re: [PATCH v2 2/4] sched/idle: Don't handle polling idle as dynticks
- idle
-Message-ID: <20261111165838.GR1779021@noisy.programming.kicks-ass.net>
+Subject: Re: [PATCH v2 3/4] tick/nohz: Remove tick_nohz_idle_restart_tick()
+Message-ID: <avSe2nCVrOik0iEg@localhost.localdomain>
 References: <20261111114406.346953-1-marco.crivellari@suse.com>
- <20261111114406.346953-3-marco.crivellari@suse.com>
- <avSeXluNMl_XGPEw@localhost.localdomain>
+ <20261111114406.346953-4-marco.crivellari@suse.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,46 +64,20 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <avSeXluNMl_XGPEw@localhost.localdomain>
+In-Reply-To: <20261111114406.346953-4-marco.crivellari@suse.com>
 
-On Wed, Nov 11, 2026 at 05:57:02PM +0100, Frederic Weisbecker wrote:
-> Le Wed, Nov 11, 2026 at 12:43:48PM +0100, Marco Crivellari a écrit :
-> > TS_FLAG_INIDLE tells nohz whether the tick is managed by the idle loop or
-> > on IRQ exit. With idle=poll it is set while polling, but cpu_idle_poll()
-> > doesn't run the idle loop again on interrupts: a nohz_full kick or the
-> > expiry of a stopped tick isn't re-evaluated until something sets
-> > TIF_NEED_RESCHED. The tick is therefore restarted before polling, and on
-> > nohz_full CPUs it then keeps running after the wake-up and interrupts
-> > userspace.
-> > 
-> > Enter dynticks idle only on the cpuidle path, from cpuidle_idle_call(),
-> > and leave it before cpu_idle_poll(). While polling, the tick is then
-> > managed on IRQ exit as for a running task: on nohz_full CPUs it stays
-> > stopped if possible, and nothing is left to do on wake-up, so the task
-> > doesn't pay for a tick stop after waking up. On other CPUs, leaving
-> > dynticks idle restarts the tick as before.
-> > 
-> > tick_nohz_idle_enter() may now be called on each idle loop iteration and
-> > always runs with interrupts disabled; tick_nohz_idle_exit() may be called
-> > outside dynticks idle and with interrupts disabled.
-> > 
-> > Cc: Peter Zijlstra <peterz@infradead.org>
-> > Cc: Juri Lelli <juri.lelli@redhat.com>
-> > Cc: Vincent Guittot <vincent.guittot@linaro.org>
-> > Cc: Dietmar Eggemann <dietmar.eggemann@arm.com>
-> > Cc: Steven Rostedt <rostedt@goodmis.org>
-> > Cc: Ben Segall <bsegall@google.com>
-> > Cc: Mel Gorman <mgorman@suse.de>
-> > Cc: Valentin Schneider <vschneid@redhat.com>
-> > Cc: K Prateek Nayak <kprateek.nayak@amd.com>
-> > Cc: Paul E. McKenney <paulmck@kernel.org>
-> > Cc: Anna-Maria Behnsen <anna-maria@linutronix.de>
-> > Cc: Thomas Gleixner <tglx@kernel.org>
-> > Link: https://lore.kernel.org/all/aQiWfnnSzxsnwa2o@tpad/
-> > Suggested-by: Frederic Weisbecker <frederic@kernel.org>
-> > Signed-off-by: Marco Crivellari <marco.crivellari@suse.com>
+Le Wed, Nov 11, 2026 at 12:43:49PM +0100, Marco Crivellari a écrit :
+> Polling idle now leaves dynticks idle through tick_nohz_idle_exit()
+> before cpu_idle_poll(), which restarts the tick where needed.
+> tick_nohz_idle_restart_tick() has no users left: remove it.
 > 
-> Reviewed-by: Frederic Weisbecker <frederic@kernel.org>
+> Cc: Anna-Maria Behnsen <anna-maria@linutronix.de>
+> Cc: Thomas Gleixner <tglx@kernel.org>
+> Suggested-by: Frederic Weisbecker <frederic@kernel.org>
+> Signed-off-by: Marco Crivellari <marco.crivellari@suse.com>
 
-So because I only receive one out of four patches, I've been ignoring
-this... 
+Reviewed-by: Frederic Weisbecker <frederic@kernel.org>
+
+-- 
+Frederic Weisbecker
+SUSE Labs
