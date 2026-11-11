@@ -1,92 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794435691;
-	b=vGlzz8qYtve5zsRolCPCDgEMOcinNsW4YJRrdFjlbLzpXDSXvmxV2GYSSH35/qXkb208
-	 NIQEDHuHIqKuI78ul0eOAgVXaodUt2gFxBOqb5Q1v4mu0jO0fdQzFH2c+BSfriPYoJE1x
-	 nVxMA29UfGUR1gxOpQys45Y4Tw3GS5hR/YRol4rkO09aSdHkt5s9baZQHqoH2eBtgIxTZ
-	 hIf3WyLEqTP/W5JSvGy7WGW3au9hCyGAMEplIB4zdiCee08as+YPfT7Z2itSWTUXbP7Nt
-	 l703KH1bCgzfM6c4JVRnVLnqM1a5nRHJZaSA0MoI8+OTHaMaVQA7k6IxJzm6GSAHGDQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794435691;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=TmtKdF1AWiRH6We9YcRb8zDEzdlOz4E493C6LB5k0/I=;
-	b=NCTeyE04Dnq4TFrTCBP+AAgf5Efxe3e9c8nUA81MZx3dIlWzv6FPkYKO3DI9pIgHgXUX
-	 UM2TcgjGmGUk3BeQdORDkL1VrnYyyxTq6PPG5eTDKUvQyejHn1l0Xwu8RKg/ix9XVtpEd
-	 elQIYog+HQ0zz6RSagR2xBQkd+CRi31kibgdkQNUhe8T9jUWwAVsPtDhMDkUX7XcctX7x
-	 5MmYl4X4ROZdqGoH3mEIfZN8hUVsk7gTXwICFTGq0lW0lQ/Yo+ghCVo/P3/Kj8Ed4otMO
-	 4Qvoc6+JtRZMswIZc6moOIpaF1WE1bQKTwPBha9JXrtOlhvz/XuPaPa+TBEDHn9fSmA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GAhkWesh;
-	arc=none smtp.remote-ip=209.85.128.46
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.56.87.5
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794435733;
+	b=XfB9P4+0DZMIPFDyP4odmEY1kYq5Vcd4JED+panC7UYGdTiE0dM92tE8ALmrIagi5vV7
+	 XbywWhIc14taBqEM/5FVWXMltk+GsMEvrroUcj2AwbfmVyU1rSMGVG9UWTqpLPoRXfnmZ
+	 3VHc07pHnLqrdyTfof58uWwcxDzCRvT0S5rzB4JdlNhu7DiRVgtJoNu1dMUsruoJfmo3V
+	 GYOFoHodf9cRgNvl/VVJkBB4cPRr1s0YgJOkhSDTq/7HqSIT9B6rkPzbZBQWGPJZLQZDe
+	 gfyqvpIPZVaRBMnOnx0id0uEx07qln5SpizBoiDZTxuR470Eud9UE4NFVY7e7NjyT3g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794435733;
+	h=DMARC-Filter:DKIM-Signature:Received:DKIM-Signature:Received:Date:
+	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-Source:X-Source-Args:X-Source-Dir:
+	 X-SGantispam-id:X-AntiAbuse:AntiSpam-DLS:AntiSpam-DLSP:AntiSpam-DLSRS:
+	 AntiSpam-TS:CFBL-Address:CFBL-Feedback-ID;
+	bh=7cTCcGXBezpytdcayghG2BH5NlVzbXA8KkJRrmoLFxA=;
+	b=EptnLuptREKgenBpTPhvyrykEk0B5/VRfuKz9up27W4ECgc410f4ihOSBwfaWAsv/bxp
+	 4XYQxQlVLXWgJVcsfLSWqgH+R4eQJAumNALguBP4PgLPpjdS3Rva8rPx/tVy0VMIfCfKx
+	 oisaVcBvTky7AD1KKSIHdgI75KQqrct1vbtecXgcHAfH9HknIXhAZDMeRfoROYRIuthgb
+	 A/dn31/xVrgDyIXS1Xp2HPUVdQSOCcfAxay5YtLweOYTuUVnEvxgmcZGn5gz0FhEAojND
+	 1mfGAMJjhhV0Jlx+zIuLYUzEEsK7A2at7xzLHl/tY+yfPAZudZqH80gVdAQIkHbeCmw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=valla.it;
+	spf=pass smtp.mailfrom=valla.it;
+	dkim=pass header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.a=rsa-sha256 header.s=default header.b=GHFZR35R;
+	dkim=pass header.d=valla.it header.i=@valla.it header.a=rsa-sha256 header.s=default header.b=R3S3IJB3;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.56.87.5
+Received: from delivery.antispam.mailspamprotection.com (delivery.antispam.mailspamprotection.com [185.56.87.5])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 855AB606A321
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 22:21:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 855AB606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 661F7606A326;
+	Wed, 11 Nov 2026 22:22:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 661F7606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valla.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valla.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GAhkWesh
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a9a8d6cea8so3422535e9.1
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 14:21:31 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794435690; x=1795040490; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TmtKdF1AWiRH6We9YcRb8zDEzdlOz4E493C6LB5k0/I=;
-        b=GAhkWeshmXeULO0RrMSF/TEbMI1rd1Dbu9ohLHmmwmxzRDiTMT2sMZNOQ0a/2G4tSa
-         H43L05tjDvA1Bxxt1FR0x7e35oZYwRvJ1bPbenazsGlsk6ItPwLVNWaA8oLMlpAkjEMS
-         N1eitSPCAEted5vZEUqrFL1vZplEM9l6Qz1nDytE6InIAI6DDiR7kdkNiqHS3v5905vR
-         Aj2onbDH/JimL5zPsjwpBGJkuAdihvFqTbdkbnw57v9zXPy5MYzjSmc9abLm6CNH+Ri5
-         ol5v1SfAiMPfJRhlzhf4IPiRSgTD4nrdqYu0lLd92MoaB+d6cjc14Q7V5WsmiC9hHrTP
-         qOew==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794435690; x=1795040490;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=TmtKdF1AWiRH6We9YcRb8zDEzdlOz4E493C6LB5k0/I=;
-        b=Wbkh1pODrRmuTDMTNWKbOqzEkg46g4TGI8QYrzxZq3klJFQDajKpfDWsQbrmRsmP+7
-         zxhiSSlWCNd64jaSzXhNAqsr/RZovchACDoU2TH5YzUTdTQP3oE46mpfBt8g3aiccMJl
-         8U25GA/LIFh+daOqgdVMb5OKVsVkE7ucVsCtuUQNHpX3rDyuuiAzao5J/NZ186xZ2KEi
-         fg9TK7NEabmE6BAa56yBVWr0tzjAbJeg1bJBg5teC9KaB9IyAtlRtUallY4n+k34Knpj
-         QKo15NwX9w3sAin8mGoEx4rWzorCk5U6RRap9w1tUjVpPLV8usYAr2V7ch8OaZ7y329+
-         ztcA==
-X-Forwarded-Encrypted: i=1; AL+hErEIt61cO6sDeWOFulEk24LgZtjIHHqkvJX3vCEcit5JH452y31PV5OwoNZqShn69RngOTbRjRyvOrubPWQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/od7HkaRVg577zhHT7cTZFfvtJm4bcsguUF2YhxtDzjPraAQsY
-	vS6GnxsPNVMdaG4KIBDGaLrAHxJ84j//nhh006uIWDyEAn/NBQSxkZkp
-X-Gm-Gg: AYBFou1z66YC3veWk0MgaoJ5cbEMEbVhQSksdX1PbVpE+qRc97e7F5iYhuJfGx6IPPm
-	mDCfYMEuAaU7FjNxerqqyXQxI8YeAV/RTJ2nGwmofc02YH8xUPX5kAPl4T4xXeFh7quvbZbpdVA
-	M+2b3887Xxy8o3Wb1H91BWy/UvNBlgc/FnL5fs8wKrh6ipfTL/tBX1vPfa6D6fdtaGgAEq+pxXN
-	8eJGNdFjndYT5jrS9WjMctRdCzEHTbaoP/k6HQdI53sW2fpfSfNhG2r3qwb1Thtb12qU9SNDE+o
-	dG4e0kwl3biktfu0xdp9qZgE21WFYH1uaGOYhBpHtFIhjDucr0HMSzC1GmSyHyh9tSdvCr4/lFq
-	y5uur7cW1ZF/jUPwhRb1q+FaRBLtQsXtMJGaLCwX+hCqDyVe6mZlTyOqvM8lCyimy0oM0wsSJ47
-	LvhUBk75zTHK1DxlRQ6DQWkkx7tC+AIvLyideFta0KsYYuE+dIHBqj6mq0cXB1BTp7qEi058/Np
-	JBH3P45lChYDWzZYwoNj5sX/dsnS/D1nr+DdLaTLfPIfYAyp2W1Upksh/lmFYrtGFjVLIVAh8nP
-	8mVQKqaE/L1tQqqGqRB/5HIfktM5d5EPwAwWvwe8X/h1xRlw
-X-Received: by 2002:a05:600c:c0cf:b0:4ba:4928:8aec with SMTP id 5b1f17b1804b1-4bb4e283f7dmr11079755e9.9.1794435689714;
-        Wed, 11 Nov 2026 14:21:29 -0800 (PST)
-Received: from localhost ([5.83.201.131])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba08e35e44sm78893405e9.1.2026.11.11.14.21.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 14:21:27 -0800 (PST)
-From: Colin Ian King <colin.i.king@gmail.com>
-To: Sebastian Reichel <sre@kernel.org>,
-	linux-pm@vger.kernel.org
-Cc: kernel-janitors@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH][next] power: supply: Kconfig: Fix two spelling mistakes
-Date: Wed, 11 Nov 2026 22:21:24 +0000
-Message-ID: <20261111222124.1035303-1-colin.i.king@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key, unprotected) header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.a=rsa-sha256 header.s=default header.b=GHFZR35R;
+	dkim=pass (1024-bit key, unprotected) header.d=valla.it header.i=@valla.it header.a=rsa-sha256 header.s=default header.b=R3S3IJB3
+ARC-Seal: i=1; cv=none; a=rsa-sha256; d=outgoing.instance-europe-west4-ssp3.prod.antispam.mailspamprotection.com; s=arckey; t=1794435732;
+	 b=M43IQTNYik6rMgAT/EJDZl5wL/5nR/WJAfvOYLbt5jFhNlwcPk3ksY0VUV6feuSEiwZ2YHku4j
+	  F9X+f5Lx/JaCqQbiJhp+xvEKz/STUQfk+5frZvKCnpcoNXYv5DNrH3v6Q9IbRVIYj9ZCh/lwPv
+	  jiFFlHuXH4rE7+gx+DkmiQ0l6+HRgZEc/Fq6+q0YNlTrMjjBbvJ/nM5r6eIHJ8bClwiqZHhKLv
+	  7K56xghtOE3TL7VWBAxfX/vNy2D2EFyLRptfq5xyv29hyYe9b9dDFaI2mGDfTT7hIw2kZrgBVi
+	  2exX+FHxx99G8bgsCJLsdIueInqrmbwYpC8+iINrsvHXQw==;
+ARC-Authentication-Results: i=1; outgoing.instance-europe-west4-ssp3.prod.antispam.mailspamprotection.com; smtp.remote-ip=35.214.173.214;
+	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
+	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
+	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
+	arc=none
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed; d=outgoing.instance-europe-west4-ssp3.prod.antispam.mailspamprotection.com; s=arckey; t=1794435732;
+	bh=bkn+2okFpyouLkYg2+qrterp2SbLwOmfFBx9UZfdWr4=;
+	h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:
+	  From:Date:DKIM-Signature:DKIM-Signature;
+	b=Ho810c0eUFW/GG1Mtg1lvLNEF1/wy257KRrJcK8iKOg1g3CStIeeyYzpsFRUSFizXnITmWO8GZ
+	  Qv/VawtfeqcHlp/yLNikA8EaOfTfaUKkdfqWK8kT0b7fXS0vhID++rZLtIc5L6DzHg0xZ9HoGd
+	  o4RI7MZ/ZfgKFh+WEB1gi0Fwjau9My0MFOENDpVcqnusDowKAH8J7WJ+58xiQdHJE3uCVQE0yc
+	  y+m2d81hYpp3IXhYZaY74FcUBd1RJ6wv9g0kZdavUBD83SeY3jgzfMX490+P3QSyGOtru2qiUq
+	  gYkV1O+wtEWiRdCYDB+XO9GIsS5HnkM3+ZscfFM8ZpydPw==;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=antispam.mailspamprotection.com; s=default; h=CFBL-Feedback-ID:CFBL-Address
+	:Content-Type:MIME-Version:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+	List-Unsubscribe:Content-Transfer-Encoding;
+	bh=7cTCcGXBezpytdcayghG2BH5NlVzbXA8KkJRrmoLFxA=; b=GHFZR35RnY7rpM5S7MB7Gt8zS8
+	LNKOYuAQQlbLTBggoVxJBpNCf685bXbrqJOrhX7ClAYjnSlLWUYIMVkaod93wKRlHVr2RT+OoXlxe
+	FNy1FN4t4X2d7zKp5Aff0VKqO2cN/1+Ah7e96vPVQ8V1DU0IRc4vYUxPHRtS9DKyPkaA=;
+Received: from 214.173.214.35.bc.googleusercontent.com ([35.214.173.214] helo=esm19.siteground.biz)
+	by instance-europe-west4-ssp3.prod.antispam.mailspamprotection.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <francesco@valla.it>)
+	id 1xRGhg-00000000j0F-1oHa;
+	Wed, 11 Nov 2026 22:22:04 +0000
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=valla.it;
+	s=default; h=Subject:Cc:To:From:Date:list-help:list-unsubscribe:
+	list-subscribe:list-post:list-owner:list-archive;
+	bh=7cTCcGXBezpytdcayghG2BH5NlVzbXA8KkJRrmoLFxA=; b=R3S3IJB3I6btqMRM8mm1EGkQxg
+	N9y5sBN0y4W4MEGboAte5dC8ZYtvj7D/tKe+BMbgfBnVZKAgrDAE1gXYwpkl0F4pps0uf9rfV2q6b
+	0NTo/QLMfx5IJQwEnrcmvyooSOZ/BTke5tEABNJMB5RobHUPBQwNJd2pJIMDxsnxCNv8=;
+Received: from [79.17.15.196] (port=64037 helo=bywater)
+	by esm19.siteground.biz with essmtpa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <francesco@valla.it>)
+	id 1xRGhc-000000009rf-0dJR;
+	Wed, 11 Nov 2026 22:22:00 +0000
+Date: Wed, 11 Nov 2026 23:21:58 +0100
+From: Francesco Valla <francesco@valla.it>
+To: Chrispine Tinega <dev@chrispinetinega.com>
+Cc: andersson@kernel.org, mathieu.poirier@linaro.org, 
+	linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] remoteproc: k3: Report a remote crash to the
+ remoteproc core
+Message-ID: <avTnp6EDSU-0BL_u@bywater>
+References: <20261109054830.42715-1-dev@chrispinetinega.com>
+ <20261109054830.42715-2-dev@chrispinetinega.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,38 +102,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261109054830.42715-2-dev@chrispinetinega.com>
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - esm19.siteground.biz
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - valla.it
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-SGantispam-id: b4ffac9a1755688dd7a5fd2e58e67c94
+X-AntiAbuse: ID - b4ffac9a1755688dd7a5fd2e58e67c94
+AntiSpam-DLS: false
+AntiSpam-DLSP: 
+AntiSpam-DLSRS: 
+AntiSpam-TS: 1.0
+CFBL-Address: feedback@antispam.mailspamprotection.com; report=arf
+CFBL-Feedback-ID: 1xRGhg-00000000j0F-1oHa-feedback@antispam.mailspamprotection.com
+Authentication-Results: outgoing.instance-europe-west4-ssp3.prod.antispam.mailspamprotection.com;
+	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
+	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
+	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
+	arc=none
 
-There are a couple of spelling mistakes in the Kconfig text, fix them.
+On Mon, Nov 09, 2026 at 08:48:29AM +0300, Chrispine Tinega wrote:
+> A K3 remote core that faults can send RP_MBOX_CRASH over the mailbox,
+> but k3_rproc_mbox_callback() only logs it. The remoteproc core never
+> learns of the crash, so its recovery never runs, the crash is not
+> counted, and the core stays halted with every rpmsg channel to it dead.
+> 
+> Call rproc_report_crash(), which may be called from atomic context. The
+> core then moves to RPROC_CRASHED and the crash is counted. Where the
+> driver leaves recovery enabled, recovery stops the core and boots it
+> again. Where recovery is disabled, the core can still be stopped and
+> started again through sysfs.
+> 
+> Signed-off-by: Chrispine Tinega <dev@chrispinetinega.com>
+> ---
+>  drivers/remoteproc/ti_k3_common.c | 5 +----
+>  1 file changed, 1 insertion(+), 4 deletions(-)
+> 
+> diff --git a/drivers/remoteproc/ti_k3_common.c b/drivers/remoteproc/ti_k3_common.c
+> index 4b6da3363..d799f377b 100644
+> --- a/drivers/remoteproc/ti_k3_common.c
+> +++ b/drivers/remoteproc/ti_k3_common.c
+> @@ -60,11 +60,8 @@ void k3_rproc_mbox_callback(struct mbox_client *client, void *data)
+>  
+>  	switch (msg) {
+>  	case RP_MBOX_CRASH:
+> -		/*
+> -		 * remoteproc detected an exception, but error recovery is not
+> -		 * supported. So, just log this for now
+> -		 */
+>  		dev_err(dev, "K3 rproc %s crashed\n", rproc->name);
 
-Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
----
- drivers/power/supply/Kconfig | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Since rproc_report_crash() is already logging the crash detection (also
+printing the name of the rproc), maybe this print can be removed?
+On the AM67A (MCU R5F remoteproc) the following prints appear on crash:
 
-diff --git a/drivers/power/supply/Kconfig b/drivers/power/supply/Kconfig
-index 16d0a38b41b7..1ab617326791 100644
---- a/drivers/power/supply/Kconfig
-+++ b/drivers/power/supply/Kconfig
-@@ -246,7 +246,7 @@ config BATTERY_S2MU005
- 	select REGMAP_I2C
- 	help
- 	  Say Y to enable support for the Samsung S2MU005 PMIC integrated
--	  fuel gauge, which works indepenently of the PMIC battery charger
-+	  fuel gauge, which works independently of the PMIC battery charger
- 	  counterpart, and reports battery metrics.
- 
- 	  This driver, if built as a module, will be called s2mu005-fuel-gauge.
-@@ -463,7 +463,7 @@ config BATTERY_MAX17042
- 	  MAX17042 is fuel-gauge systems for lithium-ion (Li+) batteries
- 	  in handheld and portable equipment. The MAX17042 is configured
- 	  to operate with a single lithium cell. MAX8997 and MAX8966 are
--	  multi-function devices that include fuel gauages that are compatible
-+	  multi-function devices that include fuel gauges that are compatible
- 	  with MAX17042.
- 	  Supported devices: max8966, max8997, max17042, max17047, max17050,
- 	  max17055, max77693, max77849.
--- 
-2.55.0
+  [   29.107991] platform 79000000.r5f: K3 rproc 79000000.r5f crashed
+  [   29.108025] remoteproc remoteproc2: crash detected in 79000000.r5f: type fatal error
+  [   29.108032] remoteproc remoteproc2: handling crash #1 in 79000000.r5f
+
+> +		rproc_report_crash(rproc, RPROC_FATAL_ERROR);
+>  		break;
+>  	case RP_MBOX_ECHO_REPLY:
+>  		dev_info(dev, "received echo reply from %s\n", rproc->name);
+> -- 
+> 2.53.0
+> 
+> 
+
+Regards,
+Francesco
 
