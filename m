@@ -1,94 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.15
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794421494;
-	b=Gu7hITMWT6Hk46/2c3zue3tYtMMZ6sbcVdow3YwLC0I7CfrvAvyUjK/zv1/0Ax7P9DUl
-	 Nl1g1E8MRYlSQqBkvBo9hI6/5SsZerfxgfk4Bj//X7/6LvohKoP4kkewzhmvcdQldeqmZ
-	 d0C+q0UHOGEaET8D2yyUwSN05tpK14mXNGgp1cp7MTLWPpKzditMKXjlU0BQ5dtS7YplC
-	 xyuWz5hyUFzbJUFOJdL6blbjB9SVza1esIwfD9PH3cbkZpJsW9eq4sdn4H9xYa88VV7ig
-	 Bh8MvYv9KBEWdy8J7VCMjb7qERWMxIoqLXmpeT3JW2fi2CGo1CjeHp1YRHsKp0gJOXw==
+	t=1794421509;
+	b=XqF6d2cruPzj4H/CunYJiToGLMEquoIkSk88Zjh+j0je8NZ7IKn2NB0Cam6rTFm1cELL
+	 +awrrGKbH/hQz+QBE1PiuwPWEi4diu5+3EevwRil7JYEne/lbDgIrtwaLA8/gBnBx2X4j
+	 Nq7mGT8nf090GcwlCmi/96pGehp8sragsi2hDrvNAHogecspYroj5IN7YiQAef2ukUIe8
+	 qbZeIIz/JRN4I9Yusmx+74ehE+WyDWbpTY0lrBoFalFtnz0tPFRUbSxRFMtVQoXEGZb+l
+	 U0e9iHgYCF6PVfnvZ2tIkjFvc3cUw+3fqSYaLL4pc7LaFr6f7TF1QtvvOMnYJew2CvQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794421494;
-	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=AH3G4Ld/Cw2YgMeAy/KmwdAu0nKPOp5SWLznGtNiRM8=;
-	b=OQvuyGhOzI4gFxkVVtugL7KKM28EguUc5Z2jyfmmd8zuzYLVEY4TsuFfcjBegrSuRKtT
-	 bQpVwosKQKPEGYjo8yx8QA2zIIB2W3iDm2prx9KWvsihfY1Fk676WJICj7Q21qNeILDlt
-	 5HoJQmY24kFgCr2eZHkztATDKeF7xAJPTIjau1BAyoapL9NQbI7XrXxYcSQmnmnPVu6fV
-	 Qb37bf34FrD7FTALgiH3F0h7J0QrwjCX6H35FAhGdA+9q1hvHYIB4qbJeSzDuat1yTrHY
-	 MefmKTbh8n38HTVv9EKhgzVw3OZcQEITPK6xahcrhGvzjXHc0Ac4eBcbcpscLkB4xog==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794421509;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=7BpI5fW2/hMGe9IG+sEWHrQ7qXPb5Z28TzoqgP3q+X8=;
+	b=YTMuNRrrfuvIxrn1VLrzVGCPqaB6taHsHUQBwUz4CosW83z0bk+DChSFuGua2YuDgOy0
+	 ROIMkUW4fTWReq1seq34bfx61DvpizP3t7/nkLrCKrE6r3JtIRcVshV5hfVg0LhwnQ2QE
+	 SH3QwCzaWOO3mJboG+gne/CVpyhPR5SrWDYnjLSRs9jAgVm6MxQHIYmVA9VI4ksOjpIMj
+	 R8zTnDB+kM1q2ENGOrB6sUHYun2uFcAn6KcL0UUfVn7+bdKO+X0bOSkxezNcY1dvwg1n4
+	 hLJ/9PNRBMb67EuhTKG0100iiYV4XzvK8jIkN+0cslBO2xcr+buFt/GuNqlMa0y6RrQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aBODQap9;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=SQoIYGF3;
+	arc=none smtp.remote-ip=192.198.163.15
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F83B606A324;
-	Wed, 11 Nov 2026 18:24:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75D04606A321;
+	Wed, 11 Nov 2026 18:25:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75D04606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aBODQap9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0986D1F00A07;
-	Wed, 11 Nov 2026 18:24:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794421494;
-	bh=AH3G4Ld/Cw2YgMeAy/KmwdAu0nKPOp5SWLznGtNiRM8=;
-	h=From:To:Cc:Subject:Date;
-	b=aBODQap9Whfj8W2pMoHX8qEUEl0vwV6jfWDgC/N7NLqQkhX99X7SA7VEe8ul6+gkj
-	 jQeRl06i9VN4MxVr0balWW5uM0GfC3fA+y/yzdSRshEGn+ZTlMmagNuC6HdpAy2l8f
-	 7DcAPWCQ5uhrMT/G8lkDIqG3o+0Y4s7GWKNmFXL2O+XA10jWHwbgrlU1tTgkr0QMrg
-	 wCaONfkUrZYOLbsAdn2O2Rco52HJSKozuzlDzutgnWKr1Q26mEfzxSffD3I9fkR3My
-	 oHKWv4RSP2vZZiuPxYoiRgd/POF6+6SVCPwe8t4rV2R9//71T2hxg/8zza8DPp6iBs
-	 6JQ59wW99+HhA==
-Received: from phl-compute-11.internal (phl-compute-11.internal [10.202.2.51])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 2D70B198003A;
-	Wed, 11 Nov 2026 13:24:49 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-11.internal (MEProxy); Wed, 11 Nov 2026 13:24:50 -0500
-X-ME-Sender: <xms:8LL0ahgMC1sdqltW2Qo3f0WrT3MZ--3w2nI1U9MuKGqsoB3f8wN9eQ>
-    <xme:8LL0avYBGHhtPvOReDD3bYzTf5BnOozVpAswS2KAuAPHR69TDO7qfk8iPXKmMPbVq
-    sYPy-woYcNVcnKj4KXbm5aJxZEqXt3AR1PD1iF2ASgBp310lSWnmCjV>
-X-ME-Received: <xmr:8LL0apkXw6bL8ewsmZAqDvkZ5_s2ijQFQkolTjm5HTtDw_5FakQDWxTF46Y>
-X-ME-Proxy-Cause: dmFkZTG2wF4Dcbvhh7gz8ExlXKwNmF/VlJm9jIhvBywTJn4RMzX60KMrFIt260tiGp3huV
-    9loRqotF8zi7MdcgMxVqASC12iSUZLWUGDdCWc9jof5PS1StOs6DX3KySpf23UHeCSfyyG
-    E5DWQfJRHn46Jdw2Th1Vk0cLz0xJsVv7gt9a/Au7ONtW2Yq3ff74pd/XkKxGiJ/ik5TogK
-    UDNtQajjfl+Pp9mSMi05yIt+KwLx/h972BRj/zMDCbhijKgzvjTsL9I0o1vS5bDIPKQLqb
-    r+IuBJHBy4S53FF5o0bRQse+zPwebOp5sbw1Oqv3bRoexrLIuj1sw2XO10iVxqypbt4cDx
-    EWj9i5/lWdJIBZRe7s8Yyz8BykkURsWo471Qx48Bx8wPKiKqjtDqdofxT8Qm0LFgrWbHvB
-    SNMLnQWTltAC6Lzzjw5wuFOsaECoQxtoqdTrWG7mNJAWU9zpscPr4a03UYnigCJHNd5CeG
-    CbIDaERAAbxRYBn9o66xgZ1GoDFNFzGz1QFrs4o/lCA12Ls6E4Nt0vcF66Y/Bob1HwuxC8
-    tI69DRgQAnD/OrkW+/PVE2iaLSYOV8Ms3gTUG8djydzX+puuokedYPb7Hq7Wldzygm1dWQ
-    xAQJvih+ljNWUNAcmgjO1l1jQ8bNfyBEYZuBOqXVQdSlBUf2R5FVbQwUxuEw
-X-ME-Proxy: <xmx:8LL0alwAifPlbgw1trr7V5-hkxLfzXtYFLUvvY6_flQbJg3_cuESpw>
-    <xmx:8LL0av_UJMOuM9gr7u5epFKeLP8ZtjxuXgxpHy8EKThUcK7tYpxb2w>
-    <xmx:8LL0aoCUoVhow7ddQF0-izevA-QRLVwf0C5blCDSMLeQS3vtbEEMHQ>
-    <xmx:8LL0aurcLIg-kluuma3o9aAfH0gugxHXlkXoTb12W0QPlbH7zsXDAg>
-    <xmx:8LL0aokKkSYlX_7tltQzCEV4H5NhoTdRgh_8qWKkpnVARBzW8STPJ7N1>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 11 Nov 2026 13:24:48 -0500 (EST)
-From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Pedro Falcato <pfalcato@suse.de>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>
-Cc: "Kiryl Shutsemau (Meta)" <kas@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Hugh Dickins <hughd@google.com>,
-	Chris Mason <mason@kernel.org>,
-	linux-mm@kvack.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	kernel-team@meta.com
-Subject: [PATCH v3] mm/memory: refuse to map page cache folios that are not uptodate
-Date: Wed, 11 Nov 2026 18:24:43 +0000
-Message-ID: <20261111182445.656620-1-kas@kernel.org>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=SQoIYGF3
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794421508; x=1825957508;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=PW8ygw6U+IfHEqRkrpbYM+fdlLBr9slpDXl0F4qbuvc=;
+  b=SQoIYGF3lV07tqsUr1TOxREClceDkF9NY1Gd1Fr+bcfOVEdQrwAW4t2r
+   fjB7RwxJlYjOGa6f2RTXP9j0bBydicjyOw6jGmxB0qHZ+SD9sAokrBECw
+   a0h8xiAzQ6hnF9vmZ1llz6UWzH7BstTNTLRb35oTZwXRC+WDKBWJU5/I7
+   k3K5e9SkJVqUQzwRWLPoGFmzOBuaCsYu8KpfgITDFDcjEc95f9d8vK1By
+   luK0rA2B/khuN6aVBWyQ5cmTlnD4ichxa8rZaEImvW8bW7zbSJAK4Zi3+
+   VE892OU+zt3z9XxSxYYZvP2Gwk5iNtPl+Qe2mtqxaeEPxFf3jxj8j0bPK
+   Q==;
+X-CSE-ConnectionGUID: 9pkWw4P/TmGVtl/uv7DKTA==
+X-CSE-MsgGUID: iC107OGxR4SXFDMe1a9APg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3206322"
+X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
+   d="scan'208";a="3206322"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 10:25:07 -0800
+X-CSE-ConnectionGUID: A3SvYRl7RiaGRtKUwU4Xxw==
+X-CSE-MsgGUID: Z5Et+HBiSJy3OBOssIcbXg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
+   d="scan'208";a="8917203"
+Received: from yilunxu-optiplex-7050.sh.intel.com (HELO localhost) ([10.239.47.46])
+  by fmviesa007.fm.intel.com with ESMTP; 11 Nov 2026 10:25:03 -0800
+Date: Thu, 12 Nov 2026 02:17:02 +0800
+From: Xu Yilun <yilun.xu@linux.intel.com>
+To: Chao Gao <chao.gao@intel.com>
+Cc: linux-kernel@vger.kernel.org, linux-coco@lists.linux.dev,
+	kvm@vger.kernel.org, yilun.xu@intel.com, arjan.van.de.ven@intel.com,
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>, Kiryl Shutsemau <kas@kernel.org>,
+	Rick Edgecombe <rick.p.edgecombe@intel.com>
+Subject: Re: [RFC PATCH v2 2/2] x86/virt/seamldr: Support multiple sigstruct
+ pages
+Message-ID: <avSxHkwvLYVKrhCv@yilunxu-OptiPlex-7050>
+References: <20261106132159.1551365-1-chao.gao@intel.com>
+ <20261106132159.1551365-3-chao.gao@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,155 +85,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261106132159.1551365-3-chao.gao@intel.com>
 
-A page cache folio that is not uptodate holds data that was never read
-in or cleared. shmem fallocate(2), for one, adds such folios and clears
-them only on first use. Mapping one hands userspace whatever the memory
-held before.
+> Extend 'struct seamldr_params' to match the new ABI. The sigstruct
+> address list is already populated in a loop over all sigstruct pages, so
+> raising SEAMLDR_MAX_NR_SIG_PAGES is enough to fill the new slots
 
-Each path that maps page cache checks for this itself: fault-around in
-next_uptodate_folio(), a fault in filemap_fault() or shmem_get_folio().
-Nothing in the mapping code does, so a caller that misses the check
-leaks stale memory silently. MADV_COLLAPSE did exactly that with
-fallocated shmem THPs until recently.
+As you mentioned [*], could you add a note maybe in populate_pa_list(),
+that chaining is only intended for the module binary, in case anyone
+gets lost when revisiting the sigstruct part.
 
-Warn and refuse the mapping in __do_fault() and do_set_pmd().
+[*] https://lore.kernel.org/kvm/aumh_q8olQPwH0pe@intel.com/
 
-__do_fault() checks the folio ->fault() returned while it is still
-locked. For CoW, that is the page cache folio that do_cow_fault()
-copies from. do_set_pmd() covers MADV_COLLAPSE, which maps without a
-fault.
+> 
+> Set 'version' to 1 only when the sigstruct spans more than one page. Old
+> P-SEAMLDRs reject version 1, so this keeps updates with a single-page
+> sigstruct working on them.
 
-do_shared_fault() then unlocks the folio for ->page_mkwrite(). A
-filesystem that clears PG_uptodate on a folio in the page cache is
-buggy, so that window gets no check of its own.
+[...]
 
-The fault gets SIGBUS, as for a folio that fails to read in.
-MADV_COLLAPSE fails and leaves the range to be faulted in.
+> 
+> Do not query P-SEAMLDR for version 1 support. Userspace selects the
+> update image and is responsible for ensuring the module is compatible
+> with P-SEAMLDR.
+> 
+> AI was used under supervision to review code and workshop logs
+> 
+> Signed-off-by: Chao Gao <chao.gao@intel.com>
+> ---
+> v2:
+>  - drop macros for versions to keep the diff minimal
+>  - explain why the sigstruct filling code needs no change
+> ---
+>  arch/x86/virt/vmx/tdx/seamldr.c | 11 +++++++++--
+>  1 file changed, 9 insertions(+), 2 deletions(-)
+> 
+> diff --git a/arch/x86/virt/vmx/tdx/seamldr.c b/arch/x86/virt/vmx/tdx/seamldr.c
+> index 087bdf10a9a7..9cef6fff2a6c 100644
+> --- a/arch/x86/virt/vmx/tdx/seamldr.c
+> +++ b/arch/x86/virt/vmx/tdx/seamldr.c
+> @@ -36,7 +36,7 @@
+>  #define SEAMLDR_PARAMS_NR_PAGES		16
+>  #define SEAMLDR_NR_MODULE_PA_ENTRIES	(496 + 512 * (SEAMLDR_PARAMS_NR_PAGES - 1))
+>  #define SEAMLDR_MAX_NR_MODULE_PAGES	(SEAMLDR_NR_MODULE_PA_ENTRIES - SEAMLDR_PARAMS_NR_PAGES)
+> -#define SEAMLDR_MAX_NR_SIG_PAGES	1
+> +#define SEAMLDR_MAX_NR_SIG_PAGES	4
+>  
+>  /*
+>   * The seamldr_params "scenario" field specifies the operation mode:
+> @@ -57,7 +57,7 @@ struct seamldr_params {
+>  	u32	version;
+>  	u32	scenario;
+>  	u64	sigstruct_pages_pa_list[SEAMLDR_MAX_NR_SIG_PAGES];
+> -	u8	reserved[104];
+> +	u8	reserved[80];
+>  	u64	module_nr_pages;
+>  	u64	module_pages_pa_list[SEAMLDR_NR_MODULE_PA_ENTRIES];
+>  } __packed;
+> @@ -166,6 +166,13 @@ static void populate_seamldr_params(struct seamldr_params *params,
+>  				    const u8 *mod, u32 mod_nr_pages)
+>  {
+>  	params->version		= 0;
+> +	/*
+> +	 * Use version 1 only for multi-page sigstructs, to stay
+> +	 * compatible with old P-SEAMLDRs that lack version 1 support.
+> +	 */
+> +	if (sig_nr_pages > 1)
+> +		params->version	= 1;
 
-Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
-Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
----
-v3:
- - Drop "mm/memory: recheck PG_uptodate after ->page_mkwrite()": a
-   filesystem that clears PG_uptodate on a cached folio is buggy (Matthew)
- - Move file_folio_not_uptodate() into this patch, assert it never sees
-   an anon folio, reword its comment and drop likely() (Lorenzo)
- - Rebase on mm/core.git for-next, which has the MADV_COLLAPSE fix
+If in future sig grows to more than 4 pages, can we stick to version 1?
+What's the planned boundary for sigstruct_pages_pa_list? I hope we don't
+further bump version on this.
 
-v2: https://lore.kernel.org/all/20261109120403.82361-1-kas@kernel.org/
-v1: https://lore.kernel.org/all/20261106144323.3634477-1-kirill@shutemov.name/
-
- mm/memory.c | 26 ++++++++++++++++++++++++++
- 1 file changed, 26 insertions(+)
-
-diff --git a/mm/memory.c b/mm/memory.c
-index fcc7ea2a00d1..c79c1c6f6141 100644
---- a/mm/memory.c
-+++ b/mm/memory.c
-@@ -5641,6 +5641,22 @@ static vm_fault_t do_anonymous_page(struct vm_fault *vmf)
- 	return VM_FAULT_OOM;
- }
- 
-+/*
-+ * A page cache folio that is not uptodate holds data that was never read in
-+ * or cleared, and mapping it leaks stale memory to userspace.
-+ */
-+static bool file_folio_not_uptodate(struct folio *folio)
-+{
-+	VM_WARN_ON_ONCE_FOLIO(folio_test_anon(folio), folio);
-+	if (folio_test_uptodate(folio))
-+		return false;
-+	/*
-+	 * ->fault() can also return driver memory that is not in the page
-+	 * cache. It never gets PG_uptodate.
-+	 */
-+	return folio->mapping;
-+}
-+
- /*
-  * Either the VMA lock or the mmap_lock must have been held on entry
-  * (see FAULT_FLAG_VMA_LOCK) and may have been released depending on
-@@ -5700,6 +5716,13 @@ static vm_fault_t __do_fault(struct vm_fault *vmf)
- 	else
- 		VM_BUG_ON_PAGE(!folio_test_locked(folio), vmf->page);
- 
-+	if (WARN_ON_ONCE(file_folio_not_uptodate(folio))) {
-+		folio_unlock(folio);
-+		folio_put(folio);
-+		vmf->page = NULL;
-+		return VM_FAULT_SIGBUS;
-+	}
-+
- 	return ret;
- }
- 
-@@ -5745,6 +5768,9 @@ vm_fault_t do_set_pmd(struct vm_fault *vmf, struct folio *folio, struct page *pa
- 		return ret;
- 	page = &folio->page;
- 
-+	if (WARN_ON_ONCE(file_folio_not_uptodate(folio)))
-+		return VM_FAULT_SIGBUS;
-+
- 	/*
- 	 * Just backoff if any subpage of a THP is corrupted otherwise
- 	 * the corrupted page may mapped by PMD silently to escape the
-
-Range-diff against v2:
-1:  632ab50e643d < -:  ------------ mm/memory: recheck PG_uptodate after ->page_mkwrite()
-2:  1e329f330c41 ! 1:  50ea9bc46c05 mm/memory: refuse to map page cache folios that are not uptodate
-    @@ Commit message
-         Warn and refuse the mapping in __do_fault() and do_set_pmd().
-     
-         __do_fault() checks the folio ->fault() returned while it is still
-    -    locked. do_shared_fault() unlocks it for ->page_mkwrite(), and a
-    -    writeback error can clear PG_uptodate after that; that case retries the
-    -    fault instead. For CoW, __do_fault() sees the page cache folio that
-    -    do_cow_fault() copies from. do_set_pmd() covers MADV_COLLAPSE, which
-    -    maps without a fault.
-    +    locked. For CoW, that is the page cache folio that do_cow_fault()
-    +    copies from. do_set_pmd() covers MADV_COLLAPSE, which maps without a
-    +    fault.
-    +
-    +    do_shared_fault() then unlocks the folio for ->page_mkwrite(). A
-    +    filesystem that clears PG_uptodate on a folio in the page cache is
-    +    buggy, so that window gets no check of its own.
-     
-         The fault gets SIGBUS, as for a folio that fails to read in.
-         MADV_COLLAPSE fails and leaves the range to be faulted in.
-    @@ Commit message
-         Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-     
-      ## mm/memory.c ##
-    +@@ mm/memory.c: static vm_fault_t do_anonymous_page(struct vm_fault *vmf)
-    + 	return VM_FAULT_OOM;
-    + }
-    + 
-    ++/*
-    ++ * A page cache folio that is not uptodate holds data that was never read in
-    ++ * or cleared, and mapping it leaks stale memory to userspace.
-    ++ */
-    ++static bool file_folio_not_uptodate(struct folio *folio)
-    ++{
-    ++	VM_WARN_ON_ONCE_FOLIO(folio_test_anon(folio), folio);
-    ++	if (folio_test_uptodate(folio))
-    ++		return false;
-    ++	/*
-    ++	 * ->fault() can also return driver memory that is not in the page
-    ++	 * cache. It never gets PG_uptodate.
-    ++	 */
-    ++	return folio->mapping;
-    ++}
-    ++
-    + /*
-    +  * Either the VMA lock or the mmap_lock must have been held on entry
-    +  * (see FAULT_FLAG_VMA_LOCK) and may have been released depending on
-     @@ mm/memory.c: static vm_fault_t __do_fault(struct vm_fault *vmf)
-      	else
-      		VM_BUG_ON_PAGE(!folio_test_locked(folio), vmf->page);
-
-base-commit: 8d21e3d3faf19f461f6d0380fe8a1f5bdba97f25
--- 
-2.54.0
-
+> +
+>  	params->scenario	= SEAMLDR_SCENARIO_UPDATE;
+>  	params->module_nr_pages	= mod_nr_pages;
+>  
+> -- 
+> 2.52.0
+> 
+> 
