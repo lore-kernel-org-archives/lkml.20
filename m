@@ -1,58 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.193
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.69
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794441243;
-	b=cUvgpBRPdCWxIL7Oc8FaJBBn/0G+WrdHfzM27UVL42v3Zunuvws9yajrLqI5Yopzgk3N
-	 fbG/CC6wfBTaPVY9MAEpe6HRnJ6N+40o58BuZuKHjagxiapb9TqSe+H58+HZwaxmgWov6
-	 Q1zePDsP/fglMypO5PjXOS1+Gg+O5grWmPGVzIyqtJPYL39fIT5PGpIeK6XOXZA0tF5ou
-	 TKlgG6a+UCwdH1haTSoLcf6KpoyzFR3tqqxwbVKZAWPnrYZb5tzbSVbKVv08D7KccRFDK
-	 Qbh53Bz9OX3NC1u4BsZMxDnJF4MeNKJO2aviPzCt7O+uimuJgzHMJ3hcVoLF3cc1kuA==
+	t=1794441263;
+	b=jBC0a0pe7mDZXTzdfj6dKkm/uVGvsQeGU/Tapjp1CTOW9Gf17mkjbHJVZDH2OJao7tiE
+	 8qDmtvHkPin/Kj/OhPQgQ+NgBwtRRiu8eiR9HmqgKwOlWllMpjkEo0gq/uixmSYrwr2GP
+	 twI181ZpKJbo3n1q96nQ9Hzzvq4IeGKGGVw/7vCgViG0qD/fZHdwcmaBHvTpBzZ3bRHrq
+	 qfIOcj0Z+3IvjCHJ6WIq37zsUuWlt6c4yhNRBceB3cLu3fMSXXY5M3AtTG+VOLzc9NLks
+	 3xggNFmkFf0XSdvLkZIHTCv3lhe+1WO1miNvN7I1lyBd48qAXr//KpoAt+PiDqV3PtQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794441243;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=87cjur00E5X3W55oKhkJKGbBj84maKnMOGWtMkcOS4o=;
-	b=Fgpan0xZpglgbtShSyXKBtHJg4OES78a4/uslt19OKsBJJFF1XSL6L3afKmam2LmDIId
-	 xVAlsY6I5p1XupSgePWqqqVdJXB9wB57hsQMb/xK62ieX1j4EWMfLtfhadwYIFs+2g0kL
-	 yGAnJ/qimiKsu1y3IX0h3gsr+DpFhVlctHmuZgpw+o+AhB/aQlKtEw6Dw4utI30CXhT2D
-	 CbhYB85vrKOgD3O2y4H+IZKrl5KKM51FiJJlF1czJbNtwZv+GSdSO1nRUQ40VatYcSZKQ
-	 k5sHj8JYl8yrPNFVQ6QbZSOGZJwZMs8sZE4YSsQF496obR4V63F9k+98mYnAqMsCg5w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794441263;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Cc:Content-Type;
+	bh=6hvRL75Sd0pUBWS6I/jWhKcY4osoWlDblLbNOo9/Pwk=;
+	b=wiGWUxdzZwDykSNyNFt+K6rEQ48R9hSP92KmcgprVBo/j9xA3QP4/UdblWoYNl17KXTL
+	 lap0Zgd4kN/GgKuoYhwC2ySuQ30gYvhkFYcdaAmgaCLywb+JhK4gBuyCaIghhUgJzgMf0
+	 UJ+mtDTjbKN+9tfq+FBVU4HWCNTEHamRruKWAULjmWfrGwmncyI/k6GvGO7OH3Vtyhd2H
+	 D+3FjakCiUFLa+7e2f1KtL2QLZW0BJJNlC+bhI5Ei6GT9VLDTR4FMhwTCtlUlfezdyrdD
+	 qbTMXSf3IycUVxwXQwn9vfS8AWUhozPEF2aevVTdC352UVXZ2vY5/ZsJiIPi89XCxDw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=postmarketos.org;
-	spf=pass smtp.mailfrom=postmarketos.org;
-	dkim=pass header.d=postmarketos.org header.i=@postmarketos.org header.a=rsa-sha256 header.s=key1 header.b=MFIMZRdy;
-	arc=none smtp.remote-ip=91.218.175.193
-Received: from mta0.migadu.com (out-193.mta0.migadu.com [91.218.175.193])
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.160.69
+Received: from mail-oa1-f69.google.com (mail-oa1-f69.google.com [209.85.160.69])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B4F2606A32D
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 23:54:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5B4F2606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=postmarketos.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=postmarketos.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=postmarketos.org header.i=@postmarketos.org header.a=rsa-sha256 header.s=key1 header.b=MFIMZRdy
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=V3cehZEUOP5ybTF1yl7Sucyl3THFXUu4zKLkQP68yVk=;
- c=simple/simple; d=postmarketos.org;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794441239; v=1; x=1795046039;
- b=MFIMZRdywKCI6l0qgNg7CrqHrpd1JO14Odr6OWuKiMpdI11ARFy1q2E0fIDPpmVZd2ovCpAo
- +deM9n4gDfu8wcJ2TDg6Aefp/7x5dg7QS7oXWIgfB9YByn7lAHYnTN3c9R/lZXYgsuEAqpzJSkt
- XOo2G0hrlF+Q99DzRQ3V2BH9SRGJ7L1Hjkjvud+NjKzd/mjTDdf29DYYny0+XcrU2wvMD3urQOR
- CdDhMkgitpYFEZgvSc1bno5fmI8O0caLnl0qQ6/sUkf4qM5ecyqpM/Yp6rkKlpoQc22WjkoYAZI
- uCxIPBg1gxOPShMdkmqtHcnhDsVHPc0bVnTGVLA5fKCPg==
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 309c136bc5822c4b;
-	Wed, 11 Nov 2026 23:53:59 +0000
-X-Mizu-Trace-ID: 309c136bc5822c4b
-X-Migadu-Flow: FLOW_OUT
-From: Paul Sajna <sajattack@postmarketos.org>
-Date: Wed, 11 Nov 2026 16:53:46 -0700
-Subject: [PATCH] arm64: dts: qcom: sdm845-lg-judyln: Drop qcom,te-source
- property
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C76C6606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 23:54:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C76C6606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oa1-f69.google.com with SMTP id 586e51a60fabf-4519ef1babeso2206388fac.2
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 15:54:22 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794441262; x=1795046062;
+        h=content-type:cc:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=6hvRL75Sd0pUBWS6I/jWhKcY4osoWlDblLbNOo9/Pwk=;
+        b=Mx9ogsxMrLaH4NEzs2w+jsU8yXZdjpIG0jeHdelcWOVvKv72Byv74aCLZSYgvJDM+p
+         +pppihHRcW3qBAPbYTNK8NZ9US8yBZPHizZM2ldUy1lb6kz33SFv5Ev4u/VnhDHKiff9
+         tlROqNWfUmCky7uQwlrnCjSD+uDuBDXtHLLneRHTaA4WeR3ti2/MgIlwE1hQoQ8Wl4ES
+         QBCi3TIgChebZQ8DQ4LxR3ojd/no97bXgpS8RXN7ex8bHEdMUq79RxvDyDvD2QC+3y8H
+         G9rJruXUpWQG0Haf9lrudAy27B9QuNx6cYerpER5roSOM05tHiTHgQnnrFSkLARS3RuG
+         0wOQ==
+X-Forwarded-Encrypted: i=1; AL+hErG6SuNBLEU2inq5v6ZTtxRNO6YiA+LdcSUX+jcplVGp0CX7Kd/yEreDqCAj0KUyeyBk+2RJb9VusMqhGPA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8x0C45Lm9of+ScUc4Jgld9LqGZf7CTm2woSuiImZaILboSH5Vz
+	XXUCiYtKyEdJHGCrFmwyl1/U1HPosNftuj5RtXs+z0NamFk3YsgeMklpneQIy3DnHCpMSt2kweh
+	HNUM6f4T5/4bOtWGiMAwFDIvu9gvpUt3ocN+aPli/iV7GNHGFicWjJ7U/YIA=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,61 +58,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261111-judyln-panel-glitch-fix-v1-1-ecee1f0a1b30@postmarketos.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2M0QpAQBBFf0XzbMoQyq/IA7uD0ba0i0j+3eS8n
- VP3PhA5CEdokgcCnxJl9SqUJmDm3k+MYtUhz/KKFFwOezuPW+/Z4eRkNzOOciHVFWUDUUmFAV1
- vgTX/z233vh9L40R8aQAAAA==
-X-Change-ID: 20261111-judyln-panel-glitch-fix-17610b11513c
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Amir Dahan <system64fumo@tuta.io>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- David Heidelberg <david@ixit.cz>
-Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org, 
- ~postmarketos/upstreaming@lists.sr.ht, 
- Paul Sajna <sajattack@postmarketos.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794441235; l=960;
- i=sajattack@postmarketos.org; s=20250422; h=from:subject:message-id;
- bh=V3cehZEUOP5ybTF1yl7Sucyl3THFXUu4zKLkQP68yVk=;
- b=tp2/BeRNN4TEd6J9sKaOCcnJ3bw9h2fG4R7tvxJ5zcB0Hg9+KlfKB89nEHOTab99vZ4dJDSyL
- lmP5FH9qRWxBxWknBvPcxnU53S+jCZqsaNOpOMQq4Pq8o/U8hihjxjx
-X-Developer-Key: i=sajattack@postmarketos.org; a=ed25519;
- pk=TwacvEOiRJ2P2oAdEqIDrtQTL18QS4FfcHfP/zNsxkQ=
+X-Received: by 2002:a05:6808:1382:b0:567:f784:f939 with SMTP id
+ 5614622812f47-56b9791019amr3339444b6e.51.1794441261627; Wed, 11 Nov 2026
+ 15:54:21 -0800 (PST)
+Date: Wed, 11 Nov 2026 15:54:21 -0800
+In-Reply-To: <20261111235403.447-1-hdanton@sina.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6af5002d.4fb38a5b.96541.0001.GAE@google.com>
+Subject: Re: [syzbot] [bluetooth?] WARNING in disable_delayed_work_sync
+From: syzbot <syzbot+b1146b58a9d6d90e0eb4@syzkaller.appspotmail.com>
+To: hdanton@sina.com
+Cc: hdanton@sina.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-It was introduced without proper verification, and causes
-graphical glitches on the display. Discovered by bisecting.
+>> Date: Tue, 10 Nov 2026 00:23:39 -0800	[thread overview]
+>> Hello,
+>> 
+>> syzbot found the following issue on:
+>> 
+>> HEAD commit:    58c1eb84e977 arm64: sdei: Preserve the interrupted context..
+>> git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux.git for-kernelci
+>> console output: https://syzkaller.appspot.com/x/log.txt?x=1070f24e580000
+>> kernel config:  https://syzkaller.appspot.com/x/.config?x=a58b6b4d667e7a61
+>> dashboard link: https://syzkaller.appspot.com/bug?extid=b1146b58a9d6d90e0eb4
+>> compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+>> userspace arch: arm64
+>> syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=12869155580000
+>
+> #syz test: upstream  master
 
-Fixes: c6c66aa3ef33 ("arm64: dts: qcom: sdm845-lg-judyln: Add display panel")
+Patch testing via #syz test is temporarily disabled.
+See https://github.com/google/syzkaller/issues/8122 for details.
 
-Signed-off-by: Paul Sajna <sajattack@postmarketos.org>
----
- arch/arm64/boot/dts/qcom/sdm845-lg-judyln.dts | 1 -
- 1 file changed, 1 deletion(-)
-
-diff --git a/arch/arm64/boot/dts/qcom/sdm845-lg-judyln.dts b/arch/arm64/boot/dts/qcom/sdm845-lg-judyln.dts
-index 349faa123ff1..e54e46a1a6dd 100644
---- a/arch/arm64/boot/dts/qcom/sdm845-lg-judyln.dts
-+++ b/arch/arm64/boot/dts/qcom/sdm845-lg-judyln.dts
-@@ -111,7 +111,6 @@ &mdss_dsi0_phy {
- &mdss_dsi0_out {
- 	data-lanes = <0 1 2 3>;
- 	remote-endpoint = <&panel_in>;
--	qcom,te-source = "mdp_vsync_e";
- };
- 
- &ibb {
-
----
-base-commit: aaa2f954c21b205a0bcd0961e5b2be4e82e58455
-change-id: 20261111-judyln-panel-glitch-fix-17610b11513c
-
-Best regards,
--- 
-Paul Sajna <sajattack@postmarketos.org>
-
+>
+> --- x/net/bluetooth/hci_conn.c
+> +++ y/net/bluetooth/hci_conn.c
+> @@ -1151,6 +1151,7 @@ static struct hci_conn *__hci_conn_add(s
+>  	}
+>  
+>  	hci_conn_init_sysfs(conn);
+> +	hci_conn_get(conn);
+>  	return conn;
+>  }
+>  
+> @@ -1316,6 +1317,7 @@ void hci_conn_del(struct hci_conn *conn)
+>  	 * rest of hci_conn_del.
+>  	 */
+>  	hci_conn_cleanup(conn);
+> +	hci_conn_put(conn);
+>  
+>  	/* Dequeue callbacks using connection pointer as data */
+>  	hci_cmd_sync_dequeue(hdev, NULL, conn, NULL);
+> --
