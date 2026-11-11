@@ -1,61 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794382719;
-	b=D5qV1pSfhUgXB1y+2QsljdREj/jXEQ58m/LhvIBI2ynyh3xv5MaXGvijEfNTaD8S9e+a
-	 uyssRj4XD2cPe60HuHoU/4biHwrW/mhyJvmzfVvx3TJ77jKcV4heIvq6Vex24j3QvOpji
-	 VnYLOOd5aTSG6QONC5ww4qCtW7t+xQBo76zwfuvQGE4y6z4Ws3kLIJEJTRboYVxCcLaAK
-	 hmHUQJ+DCS+e66ObT4nfKHc1DWGSzKYNotS/eGe++VzPA56/AJCoH+zuJzGoGGbgJUZFy
-	 GK8zuUnXNke7FcruegQ4fYLjvfR/2Ixoxd7zyYN60d1U7c9qP2oxcN+jdjIUZ9MI5wA==
+	t=1794382799;
+	b=4UcQ8Hv7jm0s314Y84pxs5l/mcPRmRoZNKb2o8QJ3ryArZL7i/jA/c2mzr4XA1S6CA/K
+	 H3eVWFLGe8DpxwuxM4h8+Y4Sjal9RXITptZpJz2m1kE469IHepoVYnQcXcwhSiKS2t+WP
+	 j8VySIhjuoQpPeRnE7TFQ8gqB1Lpl8MLvNrZUDwzm9mKw+//M4r5uSVUhsgf4+U5AmzfA
+	 72FCAgwn2MEPXjqqsnkVXhpGgbd3u+0qyf+ZsV+PVp20GelrIafXo0252wK4bOAPmXSHJ
+	 AUbVsn3eCSapCIttUBiUPOK3OPBY/4QTTpGWCDcvveUfO0mYimlIE8Fl1A3q5LjyduA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794382719;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer;
-	bh=lhmlExdf0MelZAKOqNzZFBntyVoNsKlbfDLeJzzqUFo=;
-	b=n4f8wDr6KZDIPR2uhqIuG1b3cqA8dzaq29uo4LDXoXgkk7DQ3F3SLsUk6V2ZuurupK8G
-	 70mPprang5fNKcfSlvaigHtC0PKgU0Q5H7QBOpVcmZPq4EGRzxWm4J4V2/eEJy6oxmWNJ
-	 SMW2cnPYFrSKufKy90Jv1r96bvk6UYDeuLB/mboZokA3NKvvi4Xp8ldaqMI1UQuHpKBVP
-	 6WOwDrmvo5yLJvkzG8GMhQW+jf1zFyr7QEwOmezpex7Hwdm+az5egx7OI5aAq+jDh0AoK
-	 n5khE1bxabohO3C0gIk1jX7l3wIXvuR2+9wV2oZmUt2397DattFU6TK/uhJB8i5WhFg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794382799;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
+	 X-Rspamd-Queue-Id:X-Spam-Level:X-Rspamd-Server:X-Rspamd-Action:
+	 X-Spam-Flag:X-Spamd-Result:X-Spam-Score;
+	bh=AeLeivbQ2bUu2ghnoR8yq4oinU8wZkkGhBYK8NGeHVc=;
+	b=bMKat6SjBD/w5Hpf9Sts3P8gS2lwrL1ihG0H/SbyhqfuXQ6DoQQPjkldYIq+d6vdEK93
+	 nJCTAXthQBleM80OP83v9975RHBTyJn+MOiy2RtT/zEwZV5tJJBu1fvhpyUGgNJo+Y1Cf
+	 VOk3nUdgO3n0xNMmV8raPHbWHgX3l2YEuaFoXuFYLztJBYz3DZt4xa61mMgPD2C06L7j5
+	 TOWNSaKTLw3aSP/pHTtHmwBB6G8YEeqn8XOfWMrmr1R8lMQ9vmxXqm5LM6kMLBQbnraeF
+	 haM0cwC1C0xAiZjSCrbu/WEOvQBqSHoDoTEoEQYUX6B2/bsDdS25nDdfQHQlXaeiMbg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PN1E+pwW;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=ssOeQFCd;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=U4FdxvvI;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4E16606A31C;
-	Wed, 11 Nov 2026 07:38:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA591606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 07:39:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EA591606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PN1E+pwW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D89E1F00A05;
-	Wed, 11 Nov 2026 07:38:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794382719;
-	bh=lhmlExdf0MelZAKOqNzZFBntyVoNsKlbfDLeJzzqUFo=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=PN1E+pwWbP1/aBIuYWozEVC6Onp39zGoaiIzH1Lwx4Th1BngqUKaljpCtCCWPVdz1
-	 cCknZguzdtZm2tVsO0wcJGjmSjElVXCIn0OsxW75VTDDpfuZ8y5HhKAZ/FIDOF8fc8
-	 T4CQAbVKBFFNV9/F3wlZsFyvdOFENBqkkyLtvWaUEyUoJ37eGCQg7hU3txaiqEy3hi
-	 MGA3gqq6mEFJJNtKbN7ZCSjpuT+j6Z8IeQcdcT2ZsYF0qoZx2C/yjIGJFyfYXjPvXD
-	 z+vLNhYcUlpJT1KluTAgpiAmK8hA8jL+ZvtT4YfhDopXOZSSnJdURFE8lLe0E7JMt9
-	 AgNqrrnGZvLfA==
-From: David Hildenbrand <david@kernel.org>
-To: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- Yeoreum Yun <yeoreum.yun@arm.com>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>, 
- Peter Xu <peterx@redhat.com>, Lorenzo Stoakes <ljs@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, Rik van Riel <riel@surriel.com>, 
- Yuan-Hao Hsu <aa9736195201@gmail.com>, stable@vger.kernel.org
-In-Reply-To: <20261110-refactor_gup_fast-v4-0-e779a7674274@arm.com>
-References: <20261110-refactor_gup_fast-v4-0-e779a7674274@arm.com>
-Subject: Re: [PATCH v4 0/6] mm: gup: batch PTE-mapped large folios in
- gup_fast_pte_range()
-Message-Id: <179438271528.6307.13271652883437039498.b4-ty@b4>
-Date: Wed, 11 Nov 2026 08:38:35 +0100
+	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=ssOeQFCd;
+	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=U4FdxvvI
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id EF5F821DDF;
+	Wed, 11 Nov 2026 07:39:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1794382797; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=AeLeivbQ2bUu2ghnoR8yq4oinU8wZkkGhBYK8NGeHVc=;
+	b=ssOeQFCd59kwNU2yf0fNjPaAQVI3XlzoRIQ9F7CdfEg+wGaZLbRwru/1dY9K7LN7X0LbIa
+	AZF2xF7tQBTKu52owqUTtkT2KP9hXQKj7UeSpX8XRyF+4kETOIt2ZwdVlSJJAR7fG8/bLq
+	abTEMt1JuRNgxrJsQojCrUcZiG4AvuQ=
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.com header.s=susede1 header.b=U4FdxvvI
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1794382796; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=AeLeivbQ2bUu2ghnoR8yq4oinU8wZkkGhBYK8NGeHVc=;
+	b=U4FdxvvIdLVgmznnuI/dt4+wuYXN8Zg2snG8UUHgMMlj3CVzNNygg1r4tBKdV2dlusweL+
+	ajo9tZ8KI3M73mPPG1j8ay3aL4xOJDuS0yNr1n5y2SD6GRYY0LtQ1kwHR5VICAz0sMMo+C
+	5ADT8kG0lhy+YqYbRDy7Qpz/h8Qe/II=
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 90A5F1339F;
+	Wed, 11 Nov 2026 07:39:56 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id UXeuGcwb9GqwYwAAD6G6ig
+	(envelope-from <jgross@suse.com>); Wed, 11 Nov 2026 07:39:56 +0000
+Message-ID: <54662152-d3f3-45f7-a904-007809efc201@suse.com>
+Date: Wed, 11 Nov 2026 08:39:56 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,57 +82,161 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 7/8] x86/xen/time: Use
+ VCPUOP_register_{runstate,vcpu_time}_phys_area when available
+To: Teddy Astie <teddy.astie@vates.tech>, xen-devel@lists.xenproject.org
+Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ David Woodhouse <dwmw2@infradead.org>, George Dunlap <gwd@xenproject.org>,
+ x86@kernel.org, linux-kernel@vger.kernel.org
+References: <1792170295.8631fc262581453bbf619ec5b2062170.1a145ac82530008425@vates.tech>
+ <20261016170613.173406-2-teddy.astie@vates.tech>
+ <1792170398.8631fc262581453bbf619ec5b2062170.1a145ae12660008425@vates.tech>
+Content-Language: en-US
+From: Juergen Gross <jgross@suse.com>
+Autocrypt: addr=jgross@suse.com; keydata=
+ xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
+ ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
+ dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
+ NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
+ XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
+ AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
+ CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
+ mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
+ G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
+ kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
+ Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
+ RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
+ vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
+ sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
+ aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
+ w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
+ auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
+ 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
+ fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
+ HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
+ QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
+ ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
+In-Reply-To: <1792170398.8631fc262581453bbf619ec5b2062170.1a145ae12660008425@vates.tech>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------pbbN5GU90wfWXN0yUCP1hg8k"
+X-Rspamd-Queue-Id: EF5F821DDF
+X-Spam-Level: 
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-10.21 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	NEURAL_SPAM_LONG(3.29)[0.940];
+	BAYES_HAM(-3.00)[100.00%];
+	SIGNED_PGP(-2.00)[];
+	MIME_BASE64_TEXT_BOGUS(1.00)[];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
+	MIME_GOOD(-0.20)[multipart/signed,multipart/mixed,text/plain];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_BASE64_TEXT(0.10)[];
+	MX_GOOD(-0.01)[];
+	XM_UA_NO_VERSION(0.01)[];
+	FROM_HAS_DN(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	DKIM_SIGNED(0.00)[suse.com:s=susede1];
+	MIME_TRACE(0.00)[0:+,1:+,2:+,3:~];
+	ARC_NA(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	HAS_ATTACHMENT(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[9];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	DKIM_TRACE(0.00)[suse.com:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:email,vates.tech:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -10.21
 
-On Tue, 10 Nov 2026 22:52:50 +0000, Yeoreum Yun wrote:
-> GUP-fast grabs a PTE-mapped large folio one page at a time.  Every PTE
-> costs a try_grab_folio_fast() (a refcount cmpxchg, plus the pincount
-> atomic, a full barrier and a node stat update for FOLL_PIN), a
-> gup_fast_folio_allowed() and a folio_set_referenced(), so a 64 kB mTHP
-> pays sixteen of each and a PTE-mapped 2 MB THP pays 512.
-> 
-> The users are the hot ones: iov_iter_extract_user_pages() pins every
-> O_DIRECT buffer through pin_user_pages_fast(), io_uring registers its
-> buffers through it, and so does RDMA memory registration.
-> With mTHP those buffers are PTE-mapped large folios.
-> 
-> [...]
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------pbbN5GU90wfWXN0yUCP1hg8k
+Content-Type: multipart/mixed; boundary="------------e8F2xk8DQTXX3WHt08Bj4i0D";
+ protected-headers="v1"; hp="clear"
+Message-ID: <54662152-d3f3-45f7-a904-007809efc201@suse.com>
+Date: Wed, 11 Nov 2026 08:39:56 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 7/8] x86/xen/time: Use
+ VCPUOP_register_{runstate,vcpu_time}_phys_area when available
+To: Teddy Astie <teddy.astie@vates.tech>, xen-devel@lists.xenproject.org
+Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ David Woodhouse <dwmw2@infradead.org>, George Dunlap <gwd@xenproject.org>,
+ x86@kernel.org, linux-kernel@vger.kernel.org
+References: <1792170295.8631fc262581453bbf619ec5b2062170.1a145ac82530008425@vates.tech>
+ <20261016170613.173406-2-teddy.astie@vates.tech>
+ <1792170398.8631fc262581453bbf619ec5b2062170.1a145ae12660008425@vates.tech>
+Content-Language: en-US
+From: Juergen Gross <jgross@suse.com>
+Autocrypt: addr=jgross@suse.com; keydata=
+ xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
+ ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
+ dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
+ NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
+ XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
+ AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
+ CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
+ mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
+ G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
+ kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
+ Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
+ RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
+ vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
+ sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
+ aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
+ w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
+ auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
+ 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
+ fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
+ HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
+ QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
+ ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
+In-Reply-To: <1792170398.8631fc262581453bbf619ec5b2062170.1a145ae12660008425@vates.tech>
 
-Applied, thanks!
+--------------e8F2xk8DQTXX3WHt08Bj4i0D
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-tree: mm/core.git
-branch: gup-7.5.ptebatch
+T24gMTYuMTAuMjYgMTk6MDYsIFRlZGR5IEFzdGllIHdyb3RlOg0KPiBVcGRhdGluZyB0aGVz
+ZSBhcmVhIGNhbiBiZSBleHBlbnNpdmUgd2hlbiBkb25lIHRocm91Z2ggdmlydHVhbCBhZGRy
+ZXNzZXMNCj4gKGVzcGVjaWFsbHkgZm9yIHJ1bnN0YXRlIG9uZSksIGluIHBhcnRpY3VsYXIg
+Zm9yIEhWTS9QVkggZ3Vlc3RzLg0KPiBYZW4gNC4xOCBpbnRyb2R1Y2VkIHBoeXNpY2FsIGFk
+ZHJlc3MgYWx0ZXJuYXRpdmVzIHRvIGFkZHJlc3MgdGhvc2UNCj4gc2hvcnQtY29tbWluZ3Ms
+IGJ1dCB0aGV5IGFyZW4ndCB1c2VkIGN1cnJlbnRseS4NCj4gDQo+IEZpeCBpdCBieSB1c2lu
+ZyB0aGVzZSBhbHRlcm5hdGl2ZXMgd2hlbiBhdmFpbGFibGUgKHdoZW4gcmVwb3J0ZWQgaW4N
+Cj4gWEVORkVBVF97cnVuc3RhdGUsdmNwdV90aW1lfV9waHlzX2FyZWEuDQo+IA0KPiBBc3Np
+c3RlZC1ieTogTExNDQo+IFtndWlkYW5jZSBhbmQgdGVzdGluZ10NCj4gU2lnbmVkLW9mZi1i
+eTogVGVkZHkgQXN0aWUgPHRlZGR5LmFzdGllQHZhdGVzLnRlY2g+DQpSZXZpZXdlZC1ieTog
+SnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuY29tPg0KDQoNCkp1ZXJnZW4NCg==
 
-Applied patches will appear soon in mm-next, followed by linux-next.
+--------------e8F2xk8DQTXX3WHt08Bj4i0D--
 
-Please report any outstanding bugs that were missed during review, so we
-can either drop the patch series or decide how to fix it up.
+--------------pbbN5GU90wfWXN0yUCP1hg8k
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
-It is encouraged to provide Acked-bys, Reviewed-bys, and Tested-bys even
-though the patches have already been applied. If possible, patch trailers
-will be updated.
+-----BEGIN PGP SIGNATURE-----
 
-Note that commit hashes shown below are subject to change due to rebase,
-trailer updates or similar. Further, this is not a guarantee that the
-patches will go upstream. If in doubt, please check the listed branch.
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmr0G8wFAwAAAAAACgkQsN6d1ii/Ey/Z
+qgf/fYeA5uR1LdOVYw0M0jlXfPNSAN/5jdKivFjzFGEe/tPYD++pcBHn2RWuzQ5SKzvC6y7rmzJZ
+/QjNyxOeJFFD6u7qqgsc+H9CxGJ0JKCu9Cc3nmfh0RHuwh+Giac0EFCzZuON8oIv/9bn0t4gjzGy
+qc+N/OYSmWm30Q91ZuF0VYBdHrOT7k6kOufCjogYyG75+hKis8LBr/4v+QYyq5iYWuwNkwor77V7
+L1DX+4jlDJfiKz3AG0X1iVORtcH+7IqudQpfR/SRwNV1YmiXLYgKMzEUY35s6i38HHIFQjt/Zxza
++7ds3pyCRPlB57CPdQR88najLO6Psf/RQrYn4dX04Q==
+=VJqv
+-----END PGP SIGNATURE-----
 
-[1/6] mm: khugepaged: ignore MADV_HUGEPAGE for shadow stacks
-      https://git.kernel.org/mm/core/c/0d100a39
-[2/6] mm: gup: clarify a reason to check pte/pmd in gup_fast_pte_range()
-      https://git.kernel.org/mm/core/c/6ae9ffb6
-[3/6] mm: gup: move gup_must_unshare() and INTERNAL_GUP_FLAGS to gup.c
-      https://git.kernel.org/mm/core/c/831549f9
-[4/6] mm: internal: introduce FPB_LOCKLESS for folio_pte_batch_flags()
-      https://git.kernel.org/mm/core/c/300a252f
-[5/6] mm: gup: introduce gup_pages_not_requiring_unshare()
-      https://git.kernel.org/mm/core/c/1b3ad4f2
-[6/6] mm: gup: batch PTE-mapped large folios in gup_fast_pte_range()
-      https://git.kernel.org/mm/core/c/3d738020
-
--- 
-Cheers,
-
-David
-
+--------------pbbN5GU90wfWXN0yUCP1hg8k--
