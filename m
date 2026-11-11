@@ -1,66 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.7
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794407534;
-	b=G7nL7b3zQVf/uui2/OShWiRaMr44KkhlTVx8GTaCehHOAs1mpZzPGPnS7i95MAOcb/hP
-	 gVKt6UtV8olq5z8DRXLWruFYMKFPFtDN/sbTUUUfcfQoEHVLyhqVu6z6+nVF+CDQrJevr
-	 NpqHlyHokpIknDSbmmnfQP0HcFEfimncUUnUQSFav+JQkfaWbgx3fk7cY6XqUXNecE6la
-	 ZnPMa/cI8mYchI2R7YMATHM7T0JYbXf9rDVAf8qCOVnt5Z2thVJPSEEdqyExuo2a6Eiw1
-	 mdlXUpYRv6ZPlGwdcZ9juA30h5SF/q7TVlXZYQvYDf7SjC/QP+lDXB+B3Qp5cRtEKaA==
+	b=gBKBq4BAUZdgxapeeQkcjVS1LbC0z/3/ohMEqXEarasJ/pn6q6CyuVg3gT2y66vcj6OT
+	 8a04kjr2SC1WUqqUnNRbnGKWnmCOuC3vxnqpuoF1wMte3Wzjblv2cERMnTXbTwv/lQuW4
+	 0+fg8QmLMejdJ76Ad+j+ivCKgonc8si2u38JxhK2BFEV3KRYhETfWYkE4UxC7hhR6AWzj
+	 YBPYVarLeFuFYsdCD0E7FMrSEjNGRKkKFrVuoHuO7iHsHWnY6MJ+C3ZA8/2cw4mK7X3fL
+	 uLCmWmipNkGsajo6r6zEhQyg0/h42GdnB+laHehtPAzLAi9Hc4qHd+g6CY7rpmxzAhA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794407534;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=pj2CCbT3jVjwPBOQvghJx+O3/vL8gLAVneV2ZUZ6KeA=;
-	b=PuJ4ZCpuFovZaMbJD6FfG3xWrVD0DUBCAraMpBtIajWSwc22odkpdl+RuHgizD1Ipl/R
-	 xGBVuImlSKBR+b+R75hvj/R6+hPwTvjutNvwHyGdq9rzJEIJgGUldkB6KS/n6xE7bNVAj
-	 /ivjvB47vWAnashKH7dER9YWzVF3mGWIVbz8ZEt0Aaw9yyDYb5c6k5h6rQHIKl+ccv4C4
-	 XNXLFIQPimtTAaQj+7qH6gCIh9C7XbcgAN6ufw2dw6tc1i12Krb877omTX/LnLUirjdMP
-	 fhDB8kdYSaStVMMjRR9pKB8HV50+sTi6mz15l3H6ob+uABako5C8jHqM1nY45DUw0yg==
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=GxiFxtFc5yCbNRZFS/UnbYGoqZahGzZhAZClmh3XRHQ=;
+	b=emRah6OC3xJS8l3qdFa1wswmR7lbEjEx5+dpIn+eC7Xa+XDkxcSGpQdarGdugmAUN5H2
+	 DvSH3PZFLOa/KtDNJUU+bg3waT/6J1dOtaZCTXOt5hZ4RkPp+R2Z1IPotLVBzEplSZZv9
+	 gA7sDUpNOh3wlMpW4shUQv5C2SWcIFDSovSCy11J1Hz5Lgw/jeV8OXCGxsGz1/EpKnZQQ
+	 TBRNANsoqmzpvQQJROTtBNUFtz5cPRHAaUnieknhIKvdAg3h2NGM2X1ip2gDYJp5kCAnY
+	 53VkOAgB4OQjqIlERunqIIRFBOK1VdAoiAjPGPV3VlAY/Fe+y8GXl2fx5N4+g6ormyg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=acm.org;
-	spf=pass smtp.mailfrom=acm.org;
-	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=v6tMadH+;
-	arc=none smtp.remote-ip=199.89.1.16
-Received: from 013.lax.mailroute.net (013.lax.mailroute.net [199.89.1.16])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=FPQEXQ59;
+	arc=none smtp.remote-ip=192.198.163.7
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC76A606A8A8;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82A4A606A33D;
 	Wed, 11 Nov 2026 14:32:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC76A606A8A8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 82A4A606A33D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=v6tMadH+
-Received: from localhost (localhost [127.0.0.1])
-	by 013.lax.mailroute.net (Postfix) with ESMTP id 4jPmF92CY6zllB6W;
-	Wed, 11 Nov 2026 14:32:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
-	content-transfer-encoding:content-type:content-type:in-reply-to
-	:from:from:content-language:references:subject:subject
-	:user-agent:mime-version:date:date:message-id:received:received;
-	 s=mr01; t=1794407531; x=1796999532; bh=pj2CCbT3jVjwPBOQvghJx+O3
-	/vL8gLAVneV2ZUZ6KeA=; b=v6tMadH+UkimGfgL+UqkpR6ZHk3HTaJ4wYBbXGiS
-	QPwe3Sanfr0XaNr9r2s0TFxH9uTvG8WSf4D68XdBW9yb+IGLONghVzHcZ8jRM3nk
-	XB4U3idHE5FqEkDnu0LGidgISKxCfYRvLS74/YdUR/45iBXJfIjIKFSjKtgcbTwQ
-	ID7m5rNrK3aRcBBKRfCtLez8xlj1fKG0EVpFNqU2IluYqJeJt/U9xCsk60kQmIpG
-	3Qe1vORKk2JRhx8E2nD7Yj7qMdkia+4R7HKZbdQGw22M0RJZiLA0twGADu7Znquo
-	SNipts2o5qZro/3itp8ikPFXbdDw3mf3OQtauVgZuK04CQ==
-X-Virus-Scanned: by MailRoute
-Received: from 013.lax.mailroute.net ([127.0.0.1])
- by localhost (013.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
- id BDiUiwxb5Jn1; Wed, 11 Nov 2026 14:32:11 +0000 (UTC)
-Received: from [192.168.51.14] (c-24-6-239-25.hsd1.ca.comcast.net [24.6.239.25])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bvanassche@acm.org)
-	by 013.lax.mailroute.net (Postfix) with ESMTPSA id 4jPmF63gWKzllB7H;
-	Wed, 11 Nov 2026 14:32:10 +0000 (UTC)
-Message-ID: <bb9771c3-2056-4a26-abdc-1ef1306ffeda@acm.org>
-Date: Wed, 11 Nov 2026 06:32:09 -0800
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=FPQEXQ59
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794407534; x=1825943534;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=JtVxkKTVgPD78NXQHLVs9qnh2GaoCFCwwjiS/QMXDQI=;
+  b=FPQEXQ59QZhGVBdoyYew2UDwGMtRx93A+94JTiKrbCvrIRG22nekAsGp
+   ZYdPXrSd8G0U1961spuQGXv65ct7BIgTTe4RCElWNj8wSI46rDgmPq1EE
+   HRPxc5Rz+45MvGzsJY0bnXrwicFU0ko9MAAmlNmBX5Ap3YMpdRdmCNFDk
+   YWFExAFcoHjFe/Msk6yCoKiKMwxoukCzzHXGBAxZOBkspu6jqeS63BNBW
+   6a7baFwoRivTWoSzW9yvRVXTOxg0XtymsHSKpNmjxfx3XudYqVbf7OBZS
+   qEQRcT+R3GyvHBCnWKuE8NFLEGBalRcgYEGVqb3VIkXGpt4kRqhrWn+nk
+   Q==;
+X-CSE-ConnectionGUID: 7A/S24gNR4KlFNsHsD2mvQ==
+X-CSE-MsgGUID: 88dkUJdaQYmmsUKi6GYxwA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3050557"
+X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
+   d="scan'208";a="3050557"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 06:32:13 -0800
+X-CSE-ConnectionGUID: Fj2Ke8c0R4q0DBfS09PbaQ==
+X-CSE-MsgGUID: SgSX0yhSR0GgxlllIKrOOw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
+   d="scan'208";a="8586158"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by fmviesa003.fm.intel.com with ESMTP; 11 Nov 2026 06:32:10 -0800
+Received: by black.igk.intel.com (Postfix, from userid 1008)
+	id 8DBFB99; Wed, 11 Nov 2026 15:32:09 +0100 (CET)
+Date: Wed, 11 Nov 2026 15:32:09 +0100
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: Daniel Baluta <daniel.baluta@nxp.com>
+Cc: badhri@google.com, gregkh@linuxfoundation.org,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stefan.ghetu@nxp.com, imx@lists.linux.dev, Li Jun <jun.li@nxp.com>
+Subject: Re: [PATCH] usb: typec: tcpm: allow external charger detection to
+ set USB_TYPE
+Message-ID: <avR8ad_Uo9hxYyAE@black.igk.intel.com>
+References: <20261106115742.730704-1-daniel.baluta@nxp.com>
+ <avR2GnwIdOKSrTlE@black.igk.intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,31 +83,32 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 1/4] scsi: ufs: core: Clear saved errors in
- ufshcd_link_recovery()
-To: HOYOUNG SEO <hy50.seo@samsung.com>, linux-scsi@vger.kernel.org,
- linux-kernel@vger.kernel.org, mkp@kernel.org, martin.petersen@oracle.com,
- stanleyjhu@google.com, peter.wang@mediatek.com, alim.akhtar@samsung.com,
- kwangwon.min@samsung.com, kwmad.kim@samsung.com, cpgsproxy1@samsung.com,
- h10.kim@samsung.com
-Cc: Bean Huo <beanhuo@micron.com>
-References: <cover.1794384665.git.hy50.seo@samsung.com>
- <CGME20261111082304epcas2p4887d72756d51a72b94729439d25dd3e8@epcas2p4.samsung.com>
- <1384010761.101794387787447.JavaMail.epsvc@epcpadp2new>
-Content-Language: en-US
-From: Bart Van Assche <bvanassche@acm.org>
-In-Reply-To: <1384010761.101794387787447.JavaMail.epsvc@epcpadp2new>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <avR2GnwIdOKSrTlE@black.igk.intel.com>
 
-On 11/11/26 12:18 AM, HOYOUNG SEO wrote:
-> ufshcd_link_recovery() resets both the device and the host and then
-> re-establishes the link. Unlike ufshcd_reset_and_restore(), however, it
-> does not clear hba->saved_err, hba->saved_uic_err and hba->force_reset,
-> so the errors latched before the recovery remain pending after the link
-> has already been recovered.
+On Wed, Nov 11, 2026 at 03:05:14PM +0100, Heikki Krogerus wrote:
+> On Fri, Nov 06, 2026 at 01:57:41PM +0200, Daniel Baluta wrote:
+> > From: Li Jun <jun.li@nxp.com>
+> > 
+> > Teach tcpm_psy_set_prop() to accept writes of
+> > POWER_SUPPLY_PROP_USB_TYPE and store the value in port->usb_type, and
+> > advertise the BC1.2 USB types (SDP/DCP/CDP/ACA) in
+> > psy_desc.usb_types so power_supply_set_property() callers are not
+> > rejected by power_supply_has_property().
+> > 
+> > This is a prerequisite for a follow-up PHY charger-detection driver
+> > that calls power_supply_set_property() on the tcpm-backed power
+> > supply once it determines the attached BC1.2 charger type.
+> > 
+> > Signed-off-by: Li Jun <jun.li@nxp.com>
+> > Signed-off-by: Daniel Baluta <daniel.baluta@nxp.com>
+> 
+> Acked-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
 
-For the series:
+Ah, sorry. Sashiko found some issues with this it seems.
 
-Reviewed-by: Bart Van Assche <bvanassche@acm.org>
+Thanks,
+
+-- 
+heikki
