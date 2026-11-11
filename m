@@ -1,78 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=18.9.28.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794438065;
-	b=dFO5QJ8tkl7RBZNYe1R7m5XOPD9ZuimJ56QNHBArwIiD8k4edsi41OK6IQpjAqCqrRZH
-	 2PWucBhJK7xq0dXVcoICAvfWmUL7CH7cGyDkAUixikPYQ+4+wMgnQK2mzlJao8nD6mcgD
-	 Ji53Pl3R82aCopuQ9Io1tcPZRhrXx4Nj8AP3AK9+ERyWY4i+Ct8MOq4lWHp6PPXc5qgz4
-	 Ea+nSGNZ3ZCKKkM1OUVaQHCHlV9S+n7JstncVIuc3Fi3pjYxdwUOrRqL0cCRrC+QiFssN
-	 cXV199vNdLEk7wGW036qxQx7Kbine7CBJNSTO/M39DmRn1Rgycxh1PYIAQFGp/NVomg==
+	t=1794438082;
+	b=umq7naFnMoy8Tzxl9PXWs/DM1wGP/2G4RHrYyqUABeZZ3rqqByTFQh56fL7eE9Z1SfB5
+	 26IpH1eu26pA5miTNmNQR8T87TlgGb5z8DVrj5U2iEW898RNjjaz7xG5g6N9vuG30oLCx
+	 nblui2HzznPQ4qQczUB1tmU1Ej41QOewoT8a0wEKLOmksVWWMXasdd6As/JlqqPUXAgTs
+	 DEIwT2kyvLIVG+/eaY/3xDiZKZCceSaeggAl+g6g1CheWT6K/iXCH+YIQWhJQnB+cuhwq
+	 9wrmpE8CO4ZulQPMs6fcpHs6RqoLbsJbgES8YYfOjADx31lYRX4+OuA0/j8lPjmrLPw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794438065;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=lV6OqA+4ssaJDj1S+Y5UN2saHZp4EROsxBke/tNAscs=;
-	b=eSB7uXqrsZExCZ/oMhWMYaBEsHrQ/NSIIy5DEncB3S8+bXdJkjw6LWf1EmkZ7t9RSrs5
-	 iR4YDIhAPpkszGsNgwvRfO+ThS/RXHPX7smTql/QLr8kUHJqNw4CaT/JluWtv6+jYIhL2
-	 RBPAS5b+OmjsiA4Lp27/AGWdWB2FDBZr/QyzJh2mP0Ul8IJSXon0YPwPbZ5eQx9Lyog0W
-	 tepCHQUaL9a5pS4t3cIpzTSQLN4EPVPPqyfBFhCg9lXDAicIQlpyefT/zuwksS+2cANTL
-	 BTN52ZwlLMF80qd+L8GUjs37RrkuPGn2lxvAhTx3HdlLDo8rDJfj94Z1r8F1j6uebTQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794438082;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=es2W//wdjmPVYd4m7qpzscuMfFc0jaKJ7FDPSuWbxV4=;
+	b=uwNZwTPBZFiN4kFQj1b1DbJwtNyWiWUjrIhO+2eDCGk1FZj+qyjn9o5JET0GF5GBCWLP
+	 FDxoqJ5Q/dom9bkTOHyH3AVW4ymJoYrZWIq4P6Z96R0VYq/WZkAWdVRipmPYNIUJiU9LT
+	 /Gk7/Ov+k57elvPMGdGAPuRjI3ZtJoNuUA4HBSe1nDD8As0ISpX0WNFRUjL+rlebgD4A9
+	 hEI1xd2iUbWXinACVLCQaS1M6r7rAZ1kN02VfYPQKQhOhQ5sFz+f/Q+ZyaanZYfTZhaf8
+	 Z9hhR8sX7sH7hSjtYHv+sZvIJL2Ep5s92Q3o4IVfVjr9svgyzlbFtZ3LOuSZfmkMlCw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mit.edu;
-	spf=pass smtp.mailfrom=mit.edu;
-	dkim=pass header.d=mit.edu header.i=@mit.edu header.a=rsa-sha256 header.s=outgoing header.b=LYrGQI6K;
-	arc=none smtp.remote-ip=18.9.28.11
-Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NOXMy5DW;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19A6260A261B
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 23:01:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 19A6260A261B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mit.edu
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 043EC606A32A;
+	Wed, 11 Nov 2026 23:01:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.a=rsa-sha256 header.s=outgoing header.b=LYrGQI6K
-Received: from trampoline.thunk.org (pool-173-48-111-191.bstnma.fios.verizon.net [173.48.111.191])
-	(authenticated bits=0)
-        (User authenticated as tytso@ATHENA.MIT.EDU)
-	by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 6ABMxiEx026971
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 11 Nov 2026 17:59:45 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mit.edu; s=outgoing;
-	t=1794437992; bh=lV6OqA+4ssaJDj1S+Y5UN2saHZp4EROsxBke/tNAscs=;
-	h=From:Subject:Date:Message-ID:MIME-Version;
-	b=LYrGQI6KyZ0v7IacPJVabY7VNXZz6g8SsTnLCmtrBPbhtr26mxv9spfoKiPLRqrBm
-	 Xwj3f0rcqeFvO3zKsey8HhQkNp5aDF7lQYPe19ltzz5+SmlQCKbiXBDsk8hGDD46qn
-	 kRl+HQNCqjfTBwv3dL+NiW4oWxoNP5HpyDYikHPkhNVSyDQ71sVDPU5MQVaVossUh9
-	 VUtB+ivZJmh8/1pZdqsM9g062zNEVNTY5f4YOzrCiUBDClWIQ0SxCy/vP6xdqQoBLX
-	 NIdpmZ+He5Y4lTYq3FqydzDSiDNEbNFi2/bOc5VuvTC1gTPqn2HAwVOudpRCRlzwEn
-	 8ZARmrwUR5suQ==
-Received: by trampoline.thunk.org (Postfix, from userid 15806)
-	id BC1812E00BC; Wed, 11 Nov 2026 17:59:44 -0500 (EST)
-From: "Theodore Ts'o" <tytso@mit.edu>
-To: workflows@vger.kernel.org, ksummit@lists.linux.dev
-Cc: Sasha Levin <sashal@kernel.org>, Bradley Morgan <brads@mainlining.org>,
-        "Theodore Ts'o" <tytso@mit.edu>, linux-doc@vger.kernel.org,
-        linux-kernel@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
-        Shuah Khan <skhan@linuxfoundation.org>,
-        Randy Dunlap <rdunlap@infradead.org>, Mark Brown <broonie@kernel.org>,
-        Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Leon Romanovsky <leon@kernel.org>,
-        Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
-        Thorsten Leemhuis <linux@leemhuis.info>,
-        "Michael S. Tsirkin" <mst@redhat.com>, Kees Cook <kees@kernel.org>,
-        Geert Uytterhoeven <geert@linux-m68k.org>,
-        Dan Carpenter <error27@gmail.com>, Miguel Ojeda <ojeda@kernel.org>,
-        Alexei Starovoitov <alexei.starovoitov@gmail.com>,
-        Julia Lawall <julia.lawall@inria.fr>, SJ Park <sj@kernel.org>,
-        stable@vger.kernel.org
-Subject: [PATCH v5 1/6] agents: add infrastructure for agent resources
-Date: Wed, 11 Nov 2026 17:59:33 -0500
-Message-ID: <20261111225940.1573565-2-tytso@mit.edu>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261111225940.1573565-1-tytso@mit.edu>
-References: <20261111225940.1573565-1-tytso@mit.edu>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NOXMy5DW
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 0334E1F00A05;
+	Wed, 11 Nov 2026 23:01:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794438081;
+	bh=es2W//wdjmPVYd4m7qpzscuMfFc0jaKJ7FDPSuWbxV4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=NOXMy5DWybbYd7K3He+h+oTeCws9eV61iNHecz83rKnt9KToNrjjjFbLPZ9DZ44KQ
+	 p1ubAP3PSClYqlnyOsMB4YvkcIzv7dl9dYAEWlVdfDHs9TK/b0DKyu6YCWsj44ZVNW
+	 zk42KWJHCjoTn3G/5sox0aDzbb/ta+ryPeoC1ieUYUtlAe99lzguR0FVLxFBSbhP0n
+	 x4yndzlP650V2LctloZhZ0vOM0skZckhtz8h8j4Ydf46OIlAyVBVKwB2/32yMxINKa
+	 PkOpjZAqKEh81KKcVelwaGsMzBcm/cHpVs416JWbtbsZDve495sKipC3npy16+H3u1
+	 2DRo9xQKe+BbQ==
+Date: Thu, 12 Nov 2026 01:01:17 +0200
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: florian.bauckholt@cispa.de
+Cc: David Howells <dhowells@redhat.com>, Lukas Wunner <lukas@wunner.de>,
+	Ignat Korchagin <ignat@linux.win>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	"David S. Miller" <davem@davemloft.net>,
+	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>, Hui Peng <benquike@gmail.com>,
+	keyrings@vger.kernel.org, linux-crypto@vger.kernel.org,
+	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 2/2] KEYS: asymmetric: Fix PKCS#1 decryption of an empty
+ message
+Message-ID: <avTzvV6hI3HsgiF3@kernel.org>
+References: <20261111-keyctl-pkey-fixes-v1-0-934ebaa267a7@cispa.de>
+ <20261111-keyctl-pkey-fixes-v1-2-934ebaa267a7@cispa.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,66 +65,15 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261111-keyctl-pkey-fixes-v1-2-934ebaa267a7@cispa.de>
 
-From: Sasha Levin <sashal@kernel.org>
-
-Add agents/ as a home for skills and other resources for
-coding assistants. Describe the skill layout in coding-assistants.rst,
-together with the rule that skills only inspect and report, and add a
-MAINTAINERS entry covering the directory.
-
-Signed-off-by: Sasha Levin <sashal@kernel.org>
-Reviewed-by: Bradley Morgan <brads@mainlining.org>
-Link: https://patch.msgid.link/20261020161642.3713052-2-sashal@kernel.org
-Signed-off-by: Theodore Ts'o <tytso@mit.edu>
----
- Documentation/process/coding-assistants.rst | 14 ++++++++++++++
- MAINTAINERS                                 |  6 ++++++
- 2 files changed, 20 insertions(+)
-
-diff --git a/Documentation/process/coding-assistants.rst b/Documentation/process/coding-assistants.rst
-index 509dbf23a099..b8f2c74e46fc 100644
---- a/Documentation/process/coding-assistants.rst
-+++ b/Documentation/process/coding-assistants.rst
-@@ -19,6 +19,20 @@ For guidelines on content generated by AI coding assistants see:
+On Wed, Nov 11, 2026 at 04:56:08PM +0100, Florian Bauckholt via B4 Relay wrote:
+> <SNIP>
  
- * Documentation/process/generated-content.rst
- 
-+Agent resources
-+===============
-+
-+Skills for coding assistants live under ``agents/skills/``, one directory per
-+skill with a ``SKILL.md`` entry point in the `Agent Skills format
-+<https://agentskills.io/specification>`_. Each skill points at the process
-+documents that apply to its task and adds only what assistants tend to get
-+wrong.
-+
-+Skills inspect and report. They do not change files, create commits or tags,
-+or send mail. A skill returns its result with the evidence for it, or says what
-+is missing. Do not fill a missing result with a guess or a placeholder, and do
-+not finalize the work until it is resolved.
-+
- Licensing and Legal Requirements
- ================================
- 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 222b7fc2c3aa..eb348cc9588f 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -734,6 +734,12 @@ F:	Documentation/filesystems/afs.rst
- F:	fs/afs/
- F:	include/trace/events/afs.h
- 
-+AGENT RESOURCES
-+M:	Sasha Levin <sashal@kernel.org>
-+L:	workflows@vger.kernel.org
-+S:	Maintained
-+F:	agents/
-+
- AGPGART DRIVER
- M:	David Airlie <airlied@redhat.com>
- L:	dri-devel@lists.freedesktop.org
--- 
-2.53.0
+Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
 
+That said, I'd by default pick only 1/2 to my tree.
+
+Br, Jarkko
