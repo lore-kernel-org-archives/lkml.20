@@ -1,84 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794398342;
-	b=0tyZQwbuiy42oxCDaVhOZzFjT7aC/WSLR2SlOoaWuvS62YqCniej84tplEepbvPSlRKd
-	 1xsqOjVh/35KuwmC09naKQbkkulbMst9tNuXnSZqlhH8e2ZLjd0FtGfVJBO0VVujzvbYl
-	 x3DQlnuZLnxxehKy9CtxCnyy7vQUPAldID4mJ6meVgsr+rXYxHQC4c66bLZ30JEi01Wbu
-	 5/LlzZn2MF5v2N5KKTkqXAstrlKSeiBeLuWOK03ZdK5c3Z3U1GDW5dy9ijMKXkwUoVG/i
-	 Xfozy+6rWG6NkG5PO2yVwfbP1MDtQ3a9r2WuqMUg15T+DS9Tmmw2FIgDbvKHuQALPmA==
+	t=1794398353;
+	b=oORZfArwNW4V+KKESzUBez1HDrR5P/TGL3KeaRJU6lis90AU423PTIENNsV6ScPHzoCG
+	 SgPpdkNUqJtDFGytqvhVAET3x3rUKIYvEMuwH0mP0LxjkDjyTzvLypJTboWZDYLzn5NNq
+	 y5ymVIrBXuOAA6zqogXy+gZDxOWmJ4vLDVmxbHZq1LFdV2WyLJ4t/z306HM3RVWzCfqgo
+	 3mWsazUfqoqQteEqxzUbmIsS7O/h6r3wObVIPq7q8saag8/Ue90gAyh869UPY4+jMvnNd
+	 2va+3YAIWzl6w49rP5ckEXonYQf5CMRwiiKV7VoA3HxoLiAXWPOH6BQvg90PseSieRA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794398342;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Debian-User;
-	bh=6+DIIko/jddTALojzUdCwqYFD7qAVSieeB13vaTbTZ4=;
-	b=3ZRUCpDbmpEIqJg6asZuWCc8fZxzo6lXaaSCZ0QAxP95vLI7LAQKcX9iohx0TsIgU1va
-	 QTCQH6UO/prTdzSOxtGty+PEHCFS9gxfcgdDwUDTIDO+KF2UrMC+hIfrKbno6sAIIHCHX
-	 Pnt/VW+p7jrXC6xEZ+yX7nTykz7R5OhdVuFCPQBEvrcsnB5UL4etyyEpvKyffZ/B5JHfC
-	 rPeAdPgYjX4Ox0IBDUvQ0dmGh9A/d4tlouZAkjgs3eoZcLbblxEvT4fsiU26tlsbBU3yd
-	 4YMi9mRgAwMd7CawaTdNiNWpC2QZimU59ww6viAdoJL39aN3SflSSlyy2qCaOHa2AcQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794398353;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
+	 Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=tmeH9/HT8/9td4wyNdO7vNMgAiZgqsttgi2BQtjYIuY=;
+	b=ACmc1V+8Po4ACjLsswdgRyjsQx8IakGQtizcaDpQ0joWuji4yVfepTHZJs8VFMMDJ+Rx
+	 cVelEB5sl+N5Gg8UWTrXi5HsE+a9sUKKl85a4I85p+fMeJOS75zeQEUnRE0ZeMMYXaHHj
+	 JqPh4kuKhqO9DIPabY7mowyAq1pFZVB7eU6czjwrxCusdNxXMwrhZjuvsYIuVbhjH+J8N
+	 gLZ9hSSQRWcX85KGdMGnOLGEIABtcLiCdoifIatEFQAYIHEl7Oi7sYb2aXb600M3jpVFP
+	 eVdvytRtHfLm4aN9oiN/VPrbfxZblsGLTMp0ahFhJSsZBmOzTrvVUnYYbiKi1XnUvWQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=debian.org;
-	spf=pass smtp.mailfrom=debian.org;
-	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=R5XxGFbM;
-	arc=none smtp.remote-ip=82.195.75.108
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 579BC606A324;
-	Wed, 11 Nov 2026 11:59:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 579BC606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=EdAWoU5L;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4FD54606A324;
+	Wed, 11 Nov 2026 11:59:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4FD54606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=R5XxGFbM
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=6+DIIko/jddTALojzUdCwqYFD7qAVSieeB13vaTbTZ4=; b=R5XxGFbM6TZRqhT0SXxuzcMt1x
-	LUNRh7V8lAnKwChToktKXZ/BvtFiWDBfAUJ9dLKtb2UHW2064KOlAZ6KUeSJJgWg/hPASfykHm9lb
-	dvvgSD9ejQiiI+LIrAd6gbPGs/9xZWqr0yWBdHoCClUgJD2Bg1YMupaoC/QOZRmfVPSCT6MpDMhbS
-	246KM0GzqcBbc4E2580QxhluNnyoa2vW19Sk2kqFlCkeQ6ViS/yest6rZWy5lPKlR+T/Ay7hDfWGq
-	IJLMSEFD0EmRJ6D4dVOiq+0BkJb7lfNarlib+MyMxjNYvepLWzR3xSOakoCQkMgy3TimUB70/p52t
-	iE2dAMXA==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1xR6yh-00DAF9-2o;
-	Wed, 11 Nov 2026 11:59:00 +0000
-Date: Wed, 11 Nov 2026 03:58:49 -0800
-From: Breno Leitao <leitao@debian.org>
-To: Christian Brauner <brauner@kernel.org>
-Cc: linux-fsdevel@vger.kernel.org, 
-	Linus Torvalds <torvalds@linux-foundation.org>, Jann Horn <jannh@google.com>, Josef Bacik <josef@toxicpanda.com>, 
-	Chris Mason <mason@kernel.org>, Jeff Layton <jlayton@kernel.org>, NeilBrown <neil@brown.name>, 
-	Eric Dumazet <edumazet@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
-	Al Viro <viro@zeniv.linux.org.uk>, Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>, 
-	Greg Kroah-Hartman <gregkh@suse.de>, Joel Granados <joel.granados@kernel.org>, 
-	Kees Cook <kees@kernel.org>, Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>, 
-	linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org, linux-acpi@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, 
-	linux-um@lists.infradead.org, linux-wireless@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
-	netdev@vger.kernel.org, ntfs3@lists.linux.dev, platform-driver-x86@vger.kernel.org, 
-	coreteam@netfilter.org, kexec@lists.infradead.org, linux-pci@vger.kernel.org, 
-	linux-sound@vger.kernel.org, netfilter-devel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	ibm-acpi-devel@lists.sourceforge.net, jfs-discussion@lists.sourceforge.net, 
-	linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-cifs@vger.kernel.org, 
-	linux-fbdev@vger.kernel.org, linux-hwmon@vger.kernel.org, linux-mm@kvack.org, 
-	linux-sh@vger.kernel.org, linux-usb@vger.kernel.org, samba-technical@lists.samba.org, 
-	sparclinux@vger.kernel.org, linux-m68k@lists.linux-m68k.org, linux-doc@vger.kernel.org, 
-	linux-serial@vger.kernel.org, linux-atm-general@lists.sourceforge.net, 
-	Takashi Iwai <tiwai@suse.de>, linux-input@vger.kernel.org, linux-raid@vger.kernel.org, 
-	linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org, linux-debuggers@vger.kernel.org, 
-	Chuck Lever <cel@kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH RESEND v2 39/51] powerpc/crash_dump: recover from a
- machine check in copy_oldmem_page()
-Message-ID: <avRXzzCSzT9Qj2FC@gmail.com>
-References: <20261104-work-procfs-bugfixes-v2-0-021c84d852e0@kernel.org>
- <20261104-work-procfs-bugfixes-v2-39-021c84d852e0@kernel.org>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=EdAWoU5L
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B399F1682;
+	Wed, 11 Nov 2026 03:59:09 -0800 (PST)
+Received: from e127648.cambridge.arm.com (e127648.arm.com [10.0.130.226])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 685483F673;
+	Wed, 11 Nov 2026 03:59:11 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794398352; bh=umuEHFeZKN7voacZsDV+IjuLya9LRnYJIKFPC+8pv74=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=EdAWoU5LtrpH6x5LFfN7IVXg+eIBy6v9vvaeo9vspL6exAAozRbvrTn+v68ITjsF1
+	 FZHnt2zAWEE6fw6G7pNFu5OdXqQVgQf0UnjY+tBZmT8ntocngot68OB4SCjZ2bRbet
+	 xBV4VuzUz0xOjZ5jGQifdgQSvg7oveYEKJD3tczk=
+From: Christian Loehle <christian.loehle@arm.com>
+To: "Rafael J . Wysocki" <rafael@kernel.org>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>
+Cc: linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Christian Loehle <christian.loehle@arm.com>
+Subject: [PATCH v2 1/2] cpuidle: Skip miss accounting for timer broadcast fallbacks
+Date: Wed, 11 Nov 2026 11:59:01 +0000
+Message-Id: <20261111115902.1904523-2-christian.loehle@arm.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261111115902.1904523-1-christian.loehle@arm.com>
+References: <20261111115902.1904523-1-christian.loehle@arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,52 +63,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261104-work-procfs-bugfixes-v2-39-021c84d852e0@kernel.org>
-X-Debian-User: leitao
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 04, 2026 at 08:25:32PM +0100, Christian Brauner wrote:
-> A capture kernel reads the memory of the crashed kernel, and that memory
-> may well have uncorrectable errors. On powerpc a machine check in the
-> kernel is only recovered from if the instruction that took it has an
-> exception table entry (cf. mce_common_process_ue()). copy_oldmem_page()
-> copies with copy_to_iter(). For a read() of /proc/vmcore that is a user
-> copy, all of whose loads have exception table entries, so the machine
-> check turns into a short copy and read_from_oldmem() returns -EFAULT.
-> 
-> But since commit 4a22fd20379c ("vmcore: convert __read_vmcore to use an
-> iov_iter") /proc/vmcore can be spliced too, and splice(), sendfile()
-> and copy_file_range() copy into kernel pages with memcpy(), which has
-> no exception table entries. A machine check there panics the capture
-> kernel. The same goes for the reads of the ELF headers and notes that
-> vmcore does itself, and those have been memcpy() for as long as
-> copy_oldmem_page() has had its kernel buffer branch, since commit
-> 54c32021eb6f ("[PATCH] powerpc: Add arch-dependent copy_oldmem_page").
-> 
-> Copy with _copy_mc_to_iter() instead. PPC64 selects ARCH_HAS_COPY_MC
-> and there it uses copy_mc_generic() for kernel and user destinations
-> alike, which has the exception table entries. Everywhere else it is
-> _copy_to_iter().
-> 
-> Reported-by: Chris Mason <mason@kernel.org>
-> Fixes: 54c32021eb6f ("[PATCH] powerpc: Add arch-dependent copy_oldmem_page")
-> Fixes: 4a22fd20379c ("vmcore: convert __read_vmcore to use an iov_iter")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+A failed tick_broadcast_enter() can force a shallower state than the
+governor selected. Exclude successful broadcast fallbacks from above/below
+miss accounting while retaining their usage, residency and governor
+feedback.
 
-Reviewed-by: Breno Leitao <leitao@debian.org>
+On Orion O6 with menu and TEO under normal workloads, 9,782 of 33,136
+broadcast fallbacks emitted below misses: 90.4% of all below misses and
+13.6% of the 72,059 total misses. Excluding these from the same
+795,370 complete idle episodes reduces the miss ratio from 9.06% to
+7.83%.
 
-The change is the right direction, and x86_64 has the same gap.
+Fixes: 04dab58a39d4 ("cpuidle: Add 'above' and 'below' idle state metrics")
+Signed-off-by: Christian Loehle <christian.loehle@arm.com>
+---
+ drivers/cpuidle/cpuidle.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-arch/x86/kernel/crash_dump_64.c:__copy_oldmem_page() copies with
-copy_to_iter(), the same as the powerpc code this patch changes. x86_64
-selects ARCH_HAS_COPY_MC, and _copy_mc_to_iter() is already available,
-with the _copy_to_iter() fallback in include/linux/uio.h for arches
-without it. The plain and encrypted paths share __copy_oldmem_page(), so
-one conversion there covers both.
+diff --git a/drivers/cpuidle/cpuidle.c b/drivers/cpuidle/cpuidle.c
+index 2d2f40a2cb81..faa29f58738e 100644
+--- a/drivers/cpuidle/cpuidle.c
++++ b/drivers/cpuidle/cpuidle.c
+@@ -222,6 +222,7 @@ noinstr int cpuidle_enter_state(struct cpuidle_device *dev,
+ 
+ 	struct cpuidle_state *target_state = &drv->states[index];
+ 	bool broadcast = !!(target_state->flags & CPUIDLE_FLAG_TIMER_STOP);
++	bool broadcast_failed = false;
+ 	ktime_t time_start, time_end;
+ 
+ 	instrumentation_begin();
+@@ -232,6 +233,7 @@ noinstr int cpuidle_enter_state(struct cpuidle_device *dev,
+ 	 * CPU as a broadcast timer, this call may fail if it is not available.
+ 	 */
+ 	if (broadcast && tick_broadcast_enter()) {
++		broadcast_failed = true;
+ 		index = find_deepest_state(drv, dev, target_state->exit_latency_ns,
+ 					   CPUIDLE_FLAG_TIMER_STOP, false);
+ 
+@@ -306,6 +308,13 @@ noinstr int cpuidle_enter_state(struct cpuidle_device *dev,
+ 		dev->states_usage[entered_state].time_ns += diff;
+ 		dev->states_usage[entered_state].usage++;
+ 
++		/*
++		 * The broadcast constraint forced a shallower state, do not
++		 * account for it as a cpu_idle_miss.
++		 */
++		if (broadcast_failed)
++			goto out;
++
+ 		if (diff < drv->states[entered_state].target_residency_ns) {
+ 			for (i = entered_state - 1; i >= 0; i--) {
+ 				if (dev->states_usage[i].disable)
+@@ -338,6 +347,7 @@ noinstr int cpuidle_enter_state(struct cpuidle_device *dev,
+ 		dev->states_usage[index].rejected++;
+ 	}
+ 
++out:
+ 	instrumentation_end();
+ 
+ 	return entered_state;
+-- 
+2.34.1
 
-PS: I found this because I am looking at x856 production fleet  kdump
-success rate , where first kernel died of an MCE very often produce no
-usable vmcore at all, and makedumpfile never finishes due to this type
-of problem.
