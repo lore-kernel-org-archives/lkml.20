@@ -1,65 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794419190;
-	b=RbK7+sY+3O6ypLtiawjf3C6Xr95aamhKQIhb21MgROt6O3vpKxmPlfp/X2w17B5ZGXFM
-	 yFy0wm0nnX6CjLIrwJH48CZBsvDDvt25rq0cHJinG22xmtCX6KmEX6bs8KRVcWtxL0dp4
-	 ybcb61wjB0dHpyDfW7KWZ8ww5WHedaNRl5LYas6+FK3xxnmCntRUnPNMIrhi4iov4csCU
-	 pYANXJzQLJ7LXbvBHFNraS5wexhOlZw8i8B/ENrQojt+ObNhjT0BVJzlyBgbpZBO90GnA
-	 uUYI/gML+N9QKutMyRH6QCHDEzIY4eyYuVYe2Px9Qq9yi0hu7AUHGX3lrWeKig4vcoQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794419190;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=Wux39rVPBd8xHmRs4BPRMKuHJT2lkiWq+nsT5+59exw=;
-	b=D0ztrLPzjLOSY9LVXvkPCDvtoqd0BB6s9i6L03/mas1M6OtNVju6KSa71HKZieTOyEiU
-	 SfWQ4PCfYwkRdpE3fGSisv0ObxKjJ2et0mdvv0oABnYVZ2RrniVaVPlAxVC0Lc7ZslCko
-	 d3Tba+RUH89zJeWHkV0JKKIuByPiR6ITnZI/XEynLXwIE+ivNYfjK5xAovAbQkPWWf02c
-	 lMh2CcgSp+73VCPCzMMRV/jRP6FQeuK3FRzmHkYmC18qIs97z2K3JDzMhOqSnvtrhLmPW
-	 FwGBIhv1xXcZtmjN2RWrsOh6qex9DyVOlilNUzkzEJB7JezStAqptPVKATsopBpE2TA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=j3zWMcIc;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id BC899606A321
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 17:46:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BC899606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.51
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794419234;
+	b=tmBVeZTzP+k6tG82IVTBcr9cXlfQKc79U0TURUJPspvwx30L4dZ55evTZitvIBOvfXGz
+	 lIbw2QzN4ogzDXR6Sw4qxKTUrK80UFo9UYsnp2U65yZOZnomRjQC0Lw7m3pxUWwWKtWt3
+	 BuENDS833c5TdAYXsqECTihYuvlQ93joaZyLkEkwMQVWFsDb6BCfX38iNJf0hqOr+eNrE
+	 7K39+IXEm40UQ+lGThrDWsPECT3wBHEvTyZKGw3slSS+qKNz1clxYnk3J6OuFOMz+cUOy
+	 sozyozv3nnMdUgS5yopT1w6Vrn10PWYLJ2ugc7eXyUPZJI1aezkSnk5NcOGCpxpQrow==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794419234;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=0MglZ2+4MgA6qoVKrAGxsEiMN/rG/VnPk4yp/O82FwA=;
+	b=mOJkw2629smgYsu5AGHqNm3YGriqw3MyjLW0poNRnQlhwYlA/WSghePDjsbt6SCqlrE3
+	 LtdfOZ3vrXFT0PavbffjQpcSJ3rHuM9qNEB/ZKQCDMmMaT/KrqTbdiulGTV7O5Hv5iock
+	 IELynJ/LjKSC0GzeUmwFgF0paHLdKk2lu6pc7Gg/y6sOAxqfWKsCNx5wRufbKUx9Nh6+e
+	 /TrrPReP7bVg7iAjN1fPqkcQYnl5H+0NnEEPd9gU+BnftdPjvzWg0i23KPu5ycfHlbogu
+	 Q0/KYlh3U8yq4GkYASMEiPuixSG4rWV++m7BKChzpZgzI7TOTd/V3GFJpcQfvIJaUaA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=UJFRxnSa;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.51
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E28F8606A327
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 17:47:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E28F8606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=j3zWMcIc
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 20F0D1576;
-	Wed, 11 Nov 2026 09:46:26 -0800 (PST)
-Received: from localhost (unknown [10.2.196.114])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C4FD43F632;
-	Wed, 11 Nov 2026 09:46:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794419189; bh=XzPMC4L9NkLD1pgowl99MR5uN/bHkG00JpBclqFOIZY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=j3zWMcIcYAlcXFIdvMucwRr83xNG17WlT17F0tDyRYnbeC/ImKWlIUBHMHbc/sW7+
-	 EgEiKp+GoWbXftj6HEJxs/e1Q0J3hHZYt0vwKoKFXlqciWKY8778EhDwERXgzU1Jij
-	 ddOMF9mLBR9KNd31ptwA4Y35+sUO60dR3DCKWrIs=
-Date: Wed, 11 Nov 2026 17:46:26 +0000
-From: Leo Yan <leo.yan@arm.com>
-To: James Clark <james.clark@linaro.org>
-Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	coresight@lists.linaro.org,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Mike Leach <mike.leach@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Anshuman Khandual <anshuman.khandual@arm.com>,
-	Tamas Petz <tamas.petz@arm.com>,
-	Tamas Zsoldos <tamas.zsoldos@arm.com>,
-	Suyash Mahar <smahar@meta.com>, Amir Ayupov <aaupov@fb.com>
-Subject: Re: [PATCH v2 19/23] coresight: trbe: Reload the AUX buffer on
- overflow restart
-Message-ID: <20261111174626.GF9176@e132581.arm.com>
-References: <20261016-trbe_enable_disable_irq_handle_refactor-v2-0-3f57cf3199b1@arm.com>
- <20261016-trbe_enable_disable_irq_handle_refactor-v2-19-3f57cf3199b1@arm.com>
- <d93b9120-197d-4b01-a9ab-8df01657716d@linaro.org>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=UJFRxnSa
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4b6266b5bc4so40725e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 09:47:13 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794419232; cv=none;
+        d=google.com; s=arc-20260327;
+        b=NA2Vw351W7Yzn06V6bZ4KNqAGNAX9EizeaCmHDtoa7xIRwtIp2rEOQGxrVtQpPtkl1
+         hTfejwI/wIHb8jwFcU457OljZFGsGWpAPP8wICP2spPP2nDuM3k7jgCQX7D/427mhBkw
+         fFp+m/0SP3ZhoJFZjRqvzORPRJDRgYTiuFwEDKo4Jy9wpjaNstzAz8LU3kq3sKj9rS0B
+         Z9rOnkByJTZlSP3nSfee4a8SFKnADzU8PJ6pKnWsYS1vA57k5ZaOYuVqNXISjra1/qst
+         TgIc4Ip9HMvwuEOxfDVhvyfqCv7CSKB2yYWk25KfQthNTe8UE0EsFFTekcCaeUAXF3Hl
+         muFQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=0MglZ2+4MgA6qoVKrAGxsEiMN/rG/VnPk4yp/O82FwA=;
+        fh=3HqgXK6FrCRMH42lbSMGjhT2JL8O/yxuXvknPA1GrJk=;
+        b=mt8bGEdIZ/8BVsXHhv7Kq200TIR/PZ7fpqbkPett7mzDXJ8lf1a0MJ/F7vlIe/M25a
+         GJvsrALtHSWXX+HOzPzdc+JrrDe9A/ZAwMi/PazqGZOH46A9sDbLxOwHeTn7g91wo7Zx
+         NCva7UMcLE8zu1zTPFbAX/5nXtoDpHscUccMgza+8O4A7kin4zISodJzAdlyuZalIeyn
+         372c9IZ9oh4tDr62zqlLexWkTdVE0i8jpu6aHd6+jspr84mM7o5iHkvJCt7FPeEEkzix
+         qNsGSnsD7oEdxf58fRju0pwqg/fwTBNlt6VTvWN+DFHV9QLE9tWrGB2v3suv8MPG2mF6
+         qtlg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794419232; x=1795024032; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=0MglZ2+4MgA6qoVKrAGxsEiMN/rG/VnPk4yp/O82FwA=;
+        b=UJFRxnSa+vHghtttTmGavInSSuDTXchxfle8KVvUyb0y5xhCjtB4P92oJw7AlNg5O5
+         fq5P2bEzNKgtlNGM0I7CVCTU7S55r5lpNdVJbqg+uivLNUPpc6CWdbiO6bp1vp6H3UyI
+         LeKO7LuEFDJsYUtlUep53WEZvcdHLhQV66C6H48TgC5xrHuQqTPmvP8Psope4MJfHTEm
+         HGjnCMgyFcwkwfDu3GG9/BXOnCPLqPNaO1Vd43wV21s/5pQuN/J8+nCH7cszfRhChphY
+         MzWz3qw0fWT1Fg7A5Q9c34d8BbB6p4lg9OQ6GjWeLEfWFljvz/eZf9N8Y7uWnjaATn1Q
+         YQfQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794419232; x=1795024032;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0MglZ2+4MgA6qoVKrAGxsEiMN/rG/VnPk4yp/O82FwA=;
+        b=p6arx2zamSLEXSnflrHqYTcwkn/COOY58dYLxYvoiuyaL9UCypI2F0Nchgn9qf3bg5
+         0FWMu39Ve/bCigE/NlFZCg1XFZNrskpnbelbPUq/PVKarI13NLPrEsWmLt2CuB87Qxex
+         0PvEnwEkj0Aa80itYsp+lmDVmZAnX1VuKpL2hNx12Tl2GVFa/uHWvVrFy/GZxLxkvpvg
+         3R7Sl/PpfQDwqFRUMQhdFt1GjzzhFbaEHGztNnLh9IAll6u9FZ0Am0KvYs2JLxZiGLZU
+         MIFpNkW7mZTQh9LuTV/NfZib61mOXw1AopTCCMZjUgZapXZZWlTBlIwImd5BtNmc9/NT
+         HT7g==
+X-Forwarded-Encrypted: i=1; AL+hErE5btkBQK5YX9XyD4wsYRk+Sep+cCcvBTO2YdlvuDFIoM7A8QUzL5efoch+aMCJVXVkMQRmd12d7Ti9BbA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z87AKfQz6hSG/Fy2nyvvSoxYAoYZ6MSq1ikQEJbN4R56OZ/rR2u
+	9RlWXBLVpJk1uLJ0vOU8IkqIoYEeibYN+Iceuvp0QBPwblB/bVUZmzpwZ3VvJ+4i7wWM90egOnG
+	aIaMeLg+Tb60Tz6HSFofgPbs47mQ95Qk8BrF0ecjk
+X-Gm-Gg: AYBFou1mu4X40ZJMDCSMng5H3VqXHND5xjZfhNb2Iht1rpTmfCbeCMv1VL6SWxkm2Zw
+	Ygqhk+mriW+loB6Vn/gYR6sZ7ppwV5oz3iQeD9Gdty2l609061sN8KyRadUQ6fB8KkKWv4JT0zj
+	oSyHOqY1Kl2pfAkmAg+KJhBXaj/7VwK3mSGP/P1jgjVOjNZn+GLiaqbXO/sEo02awspbQvrOPhP
+	NS4D4FK9p26w4iq7geMYEO8upsgapRFIpZ2mZLCBrLJVh+ZCy6T1LleoYU1NvsnAR/vpMos6OZJ
+	mxZgB6HVhaSWxryhZTwCo+DDBhbyLZDO4ye7OhGofdN5BUQRGi8sD7tXHsWXdCfh3Ma/ToJUive
+	IV54a9oC278Zpe4ERUk6XV97RwgYNU4nO2ET2WEGy/QTKsUZGRQVn+oty/gaEw/v1nDw=
+X-Received: by 2002:a05:600c:c086:b0:4a2:1912:6687 with SMTP id
+ 5b1f17b1804b1-4ba09170ee3mr852245e9.2.1794419231803; Wed, 11 Nov 2026
+ 09:47:11 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,105 +104,220 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <d93b9120-197d-4b01-a9ab-8df01657716d@linaro.org>
+References: <20261111093747.50048-1-songmuchun@bytedance.com> <20261111093747.50048-2-songmuchun@bytedance.com>
+In-Reply-To: <20261111093747.50048-2-songmuchun@bytedance.com>
+From: Jiaqi Yan <jiaqiyan@google.com>
+Date: Wed, 11 Nov 2026 09:46:59 -0800
+X-Gm-Features: AclHuK8z5FnzGqe8u0PQ4Ulh8pu20DR0dU1bs3qSGpuaTxaD_TsAlYrPl_76rQ8
+Message-ID: <CACw3F50296rRFQaxopftKTLUr7N2X+v+zN8wX9=su36wQj185Q@mail.gmail.com>
+Subject: Re: [PATCH v2 1/3] mm/hugetlb_vmemmap: fix lost HWPoison state during optimization
+To: Muchun Song <songmuchun@bytedance.com>
+Cc: Oscar Salvador <osalvador@suse.de>, Andrew Morton <akpm@linux-foundation.org>, 
+	Miaohe Lin <linmiaohe@huawei.com>, Muchun Song <muchun.song@linux.dev>, 
+	David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Naoya Horiguchi <nao.horiguchi@gmail.com>, Joao Martins <joao.m.martins@oracle.com>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, Ingo Molnar <mingo@kernel.org>, 
+	Lorenzo Stoakes <ljs@kernel.org>, Sashiko <sashiko-bot@kernel.org>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Nov 10, 2026 at 03:12:06PM +0000, James Clark wrote:
-> 
-> On 16/10/2026 17:55, Leo Yan wrote:
-> > PERF_EVENT_IOC_SET_OUTPUT lets events share another event's mapped output
-> > buffer. For AUX events, this also selects the associated AUX area and
-> > sink configuration. Perf normally establishes this sharing during setup.
-> > 
-> > Consider the following hypothetical live-redirection sequence, permitted
-> > by the inspected perf-core paths. P is a parent event and C is its
-> > inherited event, with C->parent = P. A and B are mapped AUX destination
-> > buffers owned by separate, disabled cs_etm events in different task
-> > contexts. All three are per-task events restricted to the same CPU, with
-> > compatible output settings. P has no mmap of its own, allowing its output
-> > to be redirected while A and B remain mapped through their owner events.
-> > 
-> > 1. P's output is redirected to A. C inherits from P and begins tracing
-> >     on the selected CPU, so its open AUX transaction and TRBE hardware
-> >     both use A. P can be inactive while C is running because their
-> >     events are scheduled with their respective tasks.
-> > 2. A userspace controller calls PERF_EVENT_IOC_SET_OUTPUT on P to select
-> >     B. ring_buffer_attach() calls perf_event_stop(P, 0), which returns for
-> >     inactive P without stopping C. P->rb now selects B, but C's existing
-> >     handle and hardware still use A.
-> > 3. C's next buffer overflow invokes trbe_handle_overflow() from the IRQ
-> >     handler. It saves buf for A, ends that AUX transaction, then calls
-> >     perf_aux_output_begin(handle, C). AUX begin follows C->parent and
-> >     reads P's current rb, rebinding the same handle to B.
-> > 
-> > This is a hypothetical API sequence, not a reproduced TRBE failure or
-> > an observed buffer switch in normal perf record operation.
-> > 
-> > Without reloading buf, __arm_trbe_enable() calculates the next buffer
-> > using B through the handle, but its workaround and hardware setup still
-> > receive A. If B has never been enabled, its missing CPU association can
-> > cause the normal-offset calculation to dereference NULL. With a snapshot
-> > buffer, hardware may instead keep using A while perf accounts output to B.
-> > 
-> > Reload the sink configuration after perf_aux_output_begin() so the buffer
-> > and handle refer to the same AUX transaction. If the buffer is missing or
-> > its CPU association does not match the interrupt's CPU data, truncate the
-> > new transaction and leave TRBE disabled. Truncation requests perf to stop
-> > the event; a subsequent normal restart installs the buffer and its CPU
-> > association through the sink enable path.
-> > 
-> > Stopping inherited writers during output redirection remains a separate
-> > perf-core fix.
-> > 
-> 
-> Shouldn't we do that instead of this? It seems much better to fix this in
-> perf core rather than here which is hard to understand and appears to be a
-> bit hacky, and doesn't apply to all users of aux buffers. I would expect
-> that even when using PERF_EVENT_IOC_SET_OUTPUT, the buffer should be
-> consistent between start and stops from the point of view of individual
-> drivers.
+On Wed, Nov 11, 2026 at 1:38=E2=80=AFAM Muchun Song <songmuchun@bytedance.c=
+om> wrote:
+>
+> HVO copies the vmemmap head page before remapping it to a newly allocated
+> backing page. Memory failure can update the old head page after the copy
+> but before the remap's TLB invalidation completes:
+>
+> CPU 0                            CPU 1
+> init_new_hugetlb_folio()
+> __hugetlb_vmemmap_optimize_folio()
+>   vmemmap_optimize_pte()
+>     copy_page(old_head, new_head)
+>                                  try_memory_failure_hugetlb()
+>                                    get_huge_page_for_hwpoison()
+>                                      hugetlb_update_hwpoison(old_head)
+>   set_pte_at(..., new_head)
+>   flush_tlb_all()
+> free_vmemmap_page_list(old_head)
+>
+> The raw_hwp_page linked to the old head is then leaked and the folio's
+> HWPoison state is lost when the obsolete backing page is freed, allowing
+> the poisoned huge page to be allocated later.
+>
+> Serialize HVO remapping against HWPoison updates. This ensures that an
+> update is either copied to the new vmemmap head page or applied after HVO
+> installs the new mapping and completes the TLB flush.
+>
+> Fixes: 11aad2631bf7 ("mm/hugetlb_vmemmap: remap head page to newly alloca=
+ted page")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Closes: https://sashiko.dev/#/bug/linux-18e93f17-529b-4d84-ba44-a41829f4b=
+e64
+> ---
+>  mm/hugetlb_vmemmap.c | 10 ++++++++++
+>  mm/hugetlb_vmemmap.h | 24 ++++++++++++++++++++++++
+>  mm/memory-failure.c  |  2 ++
+>  3 files changed, 36 insertions(+)
+>
+> diff --git a/mm/hugetlb_vmemmap.c b/mm/hugetlb_vmemmap.c
+> index ba8e11e399b2..79ca68dff635 100644
+> --- a/mm/hugetlb_vmemmap.c
+> +++ b/mm/hugetlb_vmemmap.c
+> @@ -15,6 +15,7 @@
+>  #include <linux/mmdebug.h>
+>  #include <linux/pagewalk.h>
+>  #include <linux/pgalloc.h>
+> +#include <linux/rwsem.h>
+>  #include <linux/vmemmap-optimization.h>
+>
+>  #include <asm/tlbflush.h>
+> @@ -41,6 +42,8 @@ struct vmemmap_remap_walk {
+>         unsigned long           flags;
+>  };
+>
+> +DECLARE_RWSEM(vmemmap_remap_rwsem);
+> +
+>  static int vmemmap_split_pmd(pmd_t *pmd, struct page *head, unsigned lon=
+g start,
+>                              struct vmemmap_remap_walk *walk)
+>  {
+> @@ -333,6 +336,9 @@ static int vmemmap_pteify_folio(const struct folio *f=
+olio, unsigned long flags)
+>   * responsible for freeing the pages left on the @vmemmap_pages list, ev=
+en on
+>   * failure.
+>   *
+> + * Note: The caller must hold vmemmap_remap_rwsem. If TLB flushing is de=
+ferred,
+> + * the lock must remain held until the final TLB flush.
+> + *
+>   * Return: %0 on success, negative error code otherwise.
+>   */
+>  static int vmemmap_optimize_folio(const struct folio *folio,
+> @@ -348,6 +354,8 @@ static int vmemmap_optimize_folio(const struct folio =
+*folio,
+>                 .flags          =3D flags,
+>         };
+>
+> +       rwsem_assert_held(&vmemmap_remap_rwsem);
+> +
+>         VM_WARN_ON_ONCE_FOLIO(folio_ref_count(folio), folio);
+>
+>         if (!vmemmap_optimizable_order(folio_order(folio)))
+> @@ -536,6 +544,7 @@ void hugetlb_vmemmap_optimize_folio(const struct hsta=
+te *h, struct folio *folio)
+>  {
+>         LIST_HEAD(vmemmap_pages);
+>
+> +       guard(rwsem_read)(&vmemmap_remap_rwsem);
+>         __hugetlb_vmemmap_optimize_folio(h, folio, &vmemmap_pages, 0);
+>         free_vmemmap_page_list(&vmemmap_pages);
+>  }
+> @@ -588,6 +597,7 @@ void hugetlb_vmemmap_optimize_folios(struct hstate *h=
+, struct list_head *folio_l
+>
+>         flush_tlb_all();
+>
+> +       guard(rwsem_read)(&vmemmap_remap_rwsem);
+>         list_for_each_entry(folio, folio_list, lru) {
+>                 int ret;
+>
+> diff --git a/mm/hugetlb_vmemmap.h b/mm/hugetlb_vmemmap.h
+> index d057e8b12bf1..8b28063d78cc 100644
+> --- a/mm/hugetlb_vmemmap.h
+> +++ b/mm/hugetlb_vmemmap.h
+> @@ -9,9 +9,12 @@
+>  #ifndef _LINUX_HUGETLB_VMEMMAP_H
+>  #define _LINUX_HUGETLB_VMEMMAP_H
+>  #include <linux/hugetlb.h>
+> +#include <linux/rwsem.h>
+>  #include <linux/vmemmap-optimization.h>
+>
+>  #ifdef CONFIG_HUGETLB_PAGE_OPTIMIZE_VMEMMAP
+> +extern struct rw_semaphore vmemmap_remap_rwsem;
+> +
+>  int hugetlb_vmemmap_restore_folio(const struct hstate *h, struct folio *=
+folio);
+>  long hugetlb_vmemmap_restore_folios(const struct hstate *h,
+>                                         struct list_head *folio_list,
+> @@ -20,6 +23,16 @@ void hugetlb_vmemmap_optimize_folio(const struct hstat=
+e *h, struct folio *folio)
+>  void hugetlb_vmemmap_optimize_folios(struct hstate *h, struct list_head =
+*folio_list);
+>  void hugetlb_vmemmap_optimize_bootmem_page(unsigned long pfn, unsigned i=
+nt order);
+>
+> +static inline void hugetlb_vmemmap_write_lock(void)
+> +{
+> +       down_write(&vmemmap_remap_rwsem);
+> +}
+> +
+> +static inline void hugetlb_vmemmap_write_unlock(void)
+> +{
+> +       up_write(&vmemmap_remap_rwsem);
+> +}
+> +
+>  static inline unsigned int hugetlb_vmemmap_size(const struct hstate *h)
+>  {
+>         return pages_per_huge_page(h) * sizeof(struct page);
+> @@ -59,6 +72,14 @@ static inline void hugetlb_vmemmap_optimize_folios(str=
+uct hstate *h, struct list
+>  {
+>  }
+>
+> +static inline void hugetlb_vmemmap_write_lock(void)
+> +{
+> +}
+> +
+> +static inline void hugetlb_vmemmap_write_unlock(void)
+> +{
+> +}
+> +
+>  static inline unsigned int hugetlb_vmemmap_optimizable_size(const struct=
+ hstate *h)
+>  {
+>         return 0;
+> @@ -69,6 +90,9 @@ static inline void hugetlb_vmemmap_optimize_bootmem_pag=
+e(unsigned long pfn, unsi
+>  }
+>  #endif /* CONFIG_HUGETLB_PAGE_OPTIMIZE_VMEMMAP */
+>
+> +DEFINE_LOCK_GUARD_0(vmemmap_remap,
+> +                   hugetlb_vmemmap_write_lock(), hugetlb_vmemmap_write_u=
+nlock())
+> +
+>  static inline bool hugetlb_vmemmap_optimizable(const struct hstate *h)
+>  {
+>         return hugetlb_vmemmap_optimizable_size(h) !=3D 0;
+> diff --git a/mm/memory-failure.c b/mm/memory-failure.c
+> index 78f0a13349cb..164a02866fd5 100644
+> --- a/mm/memory-failure.c
+> +++ b/mm/memory-failure.c
+> @@ -69,6 +69,7 @@
+>  #include "page_alloc.h"
+>  #include "internal.h"
+>  #include "memory-failure.h"
+> +#include "hugetlb_vmemmap.h"
+>
+>  static int sysctl_memory_failure_early_kill __read_mostly;
+>
+> @@ -2038,6 +2039,7 @@ static int get_huge_page_for_hwpoison(unsigned long=
+ pfn, int flags,
+>         bool count_increased =3D false;
+>         int ret, rc;
+>
+> +       guard(vmemmap_remap)();
+>         spin_lock_irq(&hugetlb_lock);
+>         folio =3D page_folio(page);
+>         if (!folio_test_hugetlb(folio)) {
+> --
+> 2.54.0
+>
+>
 
-This is only a hypothetical scenario. Fixing common issues in perf core
-is right thing to do, but I'd rather not spend time on this until we
-can identify a real-world case.
+LGTM :)
 
-> It makes sense to add a workaround in the driver if we can't
-> control that behavior, but the code is in the same repo. Maybe we could even
-> just leave this patch out and do the core fix later?
-
-Let's see the simplified flow:
-
-  trbe_handle_overflow() {
-
-    buf = etm_perf_sink_config(handle);
-
-    ...
-
-    perf_aux_output_end(handle, size);
-    event_data = perf_aux_output_begin(handle, event);
-
-    buf = etm_perf_sink_config(handle);
-
-    ...
-  }
-
-The overflow handler ends one AUX transaction and starts another.
-Although perf_aux_output_begin() returns updated event_data,
-the buf pointer still refers to the old buffer, potentially causing
-a mismatch in the hypothetical scenario.
-
-In contrast, Intel PT and SPE use the updated buffer pointer returned
-by perf_aux_output_begin() to program the hardware, so they don't
-have the same issue.
-
-> Unrelated to this, the sashiko report that says there is an out of bounds
-> read if the output is switched to an ETF buffer seems to be pre-existing.
-> But it's something worth thinking about.
-
-I roughly remembered the comment mentioned a race condtion due to swap
-TRBE and ETF buffer _within_ the same session. I don't think this will
-happen. (I will double check Sashiko comment).
-
-Thanks,
-Leo
+Reviewed-by: Jiaqi Yan <jiaqiyan@google.com>
