@@ -1,101 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.180
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794357781;
-	b=fH9RpAKwirLzCBnATK/LWuJYAbh/8VVjYT6BEaTrVTjVTFdMnJWR3/+Y+aJ2KTd1gYsX
-	 VUCAXcZ6iKDJsctxkp6BreFOLwtBxDtOv2GjuY4C6hJPuVWfbvPK8ssGKMwQ/RdRHpA/1
-	 FNRrRpc6qas98ITpykJM673lKsqJRtfOQ/Lz2LWSBbuwoya3xelpzu7qw/7/ZTe4qgaCL
-	 8NN4c+ADKiecIyQOYna4+pqmP9hPlEiTzlp285R3OyeQR1ZeTFJ6zzcvvU+N4481iqHIf
-	 8V9znyfWnQ7E0yLST95cnxPVJa6mabFetD7E4xbnY54l9O0Nn7zIQ0SbXS8eCqTEcNQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794357781;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=c3NqXZkZbKGw3JC6mkweYll+c++WAqjqo3wZC+1QKlo=;
-	b=HSs/vAGyMuiblCO7gnb8hKlgSHwECTldjwByTt0SGMnHCwiVkXaAXDoUjIrsictpfMjN
-	 pD/2mg5sCP7CBc+LPbchUwgXw50UFaKX45fgSl3CuLDVgU8hTu/WT786LYggiarNsQrNC
-	 DRyroRdFTQ2/5Ot4x/xql3fMFK+fiBt86vb8OXFQIspthepW3/ssIjlpphvdxrzWUi7P/
-	 t1L9xo8ddx6Rs8P5qsTRrNQCvGehF/ZoCkcWaHkNBFpi2Iz2d5zXN4e+iddd+42hvCFH6
-	 iI4Bv00P1iLDsLvtsKYcj23xevxrPiCPJJyZBi6OMMDXL1bl7ZXDbddNeV/rhQT8JIA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=gavT6zB7;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.180
-Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com [209.85.128.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794357790;
+	b=32ytIXQOuOnMW0H4FBrzpXy7VZIPI0yrGPl8gMmHZPvBGK4o6Sae+Ew96eoA7fBJtPdj
+	 cBteiAVawmfGpEE2mGDFCt06EdMaUR2xjslS1NMVlsT8C7OOhPulMayfOZJxXnZUKlS2j
+	 4zEW0QymMWQTpTlp7UtamTNUFlwYsMSWxNlLD1cfR/OfzJD1O2RVQKwwK2pVkrwAKe5WG
+	 EH04Qddcmnb9TjobbeYF/JfeaX8+R/iY3Huvg4ig3godgB/rlfAYJI/5wB7klsKmIv1D0
+	 h0ncG043t86IAbJE+sb0fv3vgan8yiVp1IJa0u5T3sYKEgM38CMscO86o9Z5L0kmlSA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794357790;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:
+	 Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Details-Enc:
+	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=Tg4X3cdll5T1S7kugUAtHU1yiOSVpqm9E/2y7Atjkho=;
+	b=4xxNHN54FbibeI6pTnTvwQ7jxgOyn63inzFa/8H+ogaXChcptxMP5VLYSMGTSBH6hVG3
+	 y1IQDjJfvOrLGM0D4Yn4mRrYEZuJ65OsNRHW6BKrZpgA/NuFJ9KONtNFaVPVIfgkEFRq0
+	 zApLeeoIrnu10yUac0wKGq+/k5UPa7kc5QhK3OkXHJcPaxEMhcWDingMrsA+3ijctlV9b
+	 nkOzFsKtCvs9SOFSE5o/IcuYW/bHMWcj4beANU6v+bpAWhxnLp9OBOFQvLsaHKBmj8Aaq
+	 TsFwUio30GwtBpm4QQKqF6paT1a2jQM+TpqMcZxGUjtiKiGajIFgzDyh57fuI3CzqbQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=cEsksMOt;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=b0fSPTiC;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D70F6606A320
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 00:43:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D70F6606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91497606A320
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 00:43:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91497606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=gavT6zB7
-Received: by mail-yw1-f180.google.com with SMTP id 00721157ae682-8b360828905so27288567b3.2
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 16:43:00 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794357780; cv=none;
-        d=google.com; s=arc-20260327;
-        b=A9vmqjxfOqilj8PhiDLONEYMFc0Z7z+A6a8zMZ6Xzvh/y6Loj919z71LhdX2jfygfH
-         F7FPT0SLnqCGwsoOSptXEguGrYik1dBOdp7OJT+qQ4g0KfFeS84T0USuwGbuEevFIjR2
-         9+YkK4r7OVZlu5okT/qBuxiLmmQsWyc/GGyCEGzxVHYDSL2UhFfVW3VV9Zvgzms4JuQG
-         biKobGFnRHFp7oipitKnGPSqKzLMdhqwtdIhlwHFk/5gPA9sC3DGH62Zhi7tWxxH1Vlt
-         HHsskLq1ncUnitQ1WdEwDH9XcCyqcqXMfp3kFuQOiT16JnhI2/eJVx0W2YrIIGG8X0Dt
-         /7oQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=c3NqXZkZbKGw3JC6mkweYll+c++WAqjqo3wZC+1QKlo=;
-        fh=b6UK5y1nCOQGqcdBay1Vw89EyRntAujmZ0dtrb22KGE=;
-        b=lPVxEj32PcETDyH/Xn2lls+thnE8HHA/f6KD97cVSBRyVysmlrcKjq/BjWJx9CiIBm
-         BKK+41BGD03royb7ASOL5lKfPO836pCI7bcvEge8ftREQkXz4RwW/NOI8K1npQiTiHNG
-         5aHiUKYTyiSHlBVOZ/krZCMagfBIwXFj+Kvh8EWhgeSxyiELWF3h7Psnrb8xEXLMaGUD
-         wu+ejYg1QnhyFae5MYogLA+NzHL5CgFPe07hl3SMCzHrqxn3SVuFOZgJsXvcXGrdlqke
-         Y/EpSq6G5cbHtAaN4UyHXMccOmsW/S2Bs4yd/2lEjCOHEbKozaTBilOwwKpj9dGXUaxD
-         hG0Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=cEsksMOt;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=b0fSPTiC
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AAMKcc51113743
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 00:43:07 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=Tg4X3cdll5T1S7kugUAtHU
+	1yiOSVpqm9E/2y7Atjkho=; b=cEsksMOttxjAKuSzdboUbArSKwAsz/CF3eqM/9
+	9jFuS7edg3Ynh7bPrA1UE7NFTHKIxC1U9GNFh2o7CGvroD2GJagqeZdKDGxZPrAt
+	4OHM2hI5GSzHrjPmkpAytvP6s25PnL9J+ohO01joGrADV1EoV6GgBgoVMTokgdYi
+	dVOrHPTE8urO75toSDGj0rN37AVEB6N3Hn0XtZPnVB7D1BhafCZOiF0mDByZCEaY
+	AxaY2i+86Ij/YZNaVaRrtIG/jAld4Wbh1eXeyJn+lJ0oj7cN5x0UaaSGjRrXOxFh
+	fGfWArXj3aTVsnqXjF2KdyLuWFML+3Ru+gvg3hx9o1Kbv3Jg==
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hv97c9546-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 00:43:07 +0000 (GMT)
+Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-91ea71789d8so70406216d6.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 16:43:07 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794357780; x=1794962580; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=c3NqXZkZbKGw3JC6mkweYll+c++WAqjqo3wZC+1QKlo=;
-        b=gavT6zB7Ced+m1M9YKMM/kNgjiLYaPq+uP27b5UroESrfV4Xa5ZkNdowfNFEk2ENi1
-         PzceXHOdyNXssAZSSblGmM+NpWL+pg3xAcvmrqVSYLWsR+ikPLvx8zZMZaKJdU4iutoN
-         J3QwfRGBCtkqnfJIw9x2uATO8CXDc2JU0XLtdtYF2vVL0w7aoURQbeuEpixh5khgAt/z
-         5dWtQc/KZTRtRB2hIYV9x0ntylJTqXM/w7CWGXpWN3bVfrp/DbPuOAwiXj5C/ulE37l2
-         b6K9V4Mk5lQLPiBkp6/cU5cf8gAYrcT+FYDkM99pCv30n6WU5/c19JcFr7SmB9ErNX/r
-         99lw==
+        d=oss.qualcomm.com; s=google; t=1794357787; x=1794962587; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Tg4X3cdll5T1S7kugUAtHU1yiOSVpqm9E/2y7Atjkho=;
+        b=b0fSPTiCRSS/nVFgQB0nQ+kibm2Zg4fx+UImsDfpA/h3HBncfFGITNFEqhGPLKS09G
+         h5LLGPgJtqN9txnAMcZNe2f50mfYKVJ9NB3K5nnCc/zOw1mJLT+zIzflGuws6NDdVgRn
+         SzITh33yOBHjdA3iC+0Gk06Q6rJfLGqK0zlstY0zuabFX/OzK2iTO6hTaeW9YV7Ho5Ft
+         orAWoDPyuxYT1b1xphH3jdJRAlCtB2AjSxuFgaQ+E4Q/RsuLw0YSk1pIydVM1NCTiu1P
+         kHLB135lpeQCgir8XePiJbehK9yiBADzUAwYbBpXcXhU5UDYrO6/FCPtDqy+kUEIXDQO
+         aHpw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794357780; x=1794962580;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=c3NqXZkZbKGw3JC6mkweYll+c++WAqjqo3wZC+1QKlo=;
-        b=w+6xed9eQhEZFB2/ZLXcvmd+V3Pobugp+0+YpHKESbQUVlhQ0TMg4kDURxXoKKJcv1
-         zfpqTJjnzh64kIuTiUBbT3Xi6Bl87mf/e39dkWtLUaRsax252QLEFmUg94NKKLyhpXHY
-         5ns4I9bLy2P/nS2rbVZOaHqrZBLrBRTdej64US8H+JDclHqg2VGLtpX3+RYeRWFh8tLN
-         VJHXchoTdbVZAcgEzGoCeCdfFeTVcbVO4fAD3YODFNOOxHIOzZLbCeGCZYRDlaptWtn0
-         8d/5VrV0dsP0d9lgIBilDCop6h2+tpgU94hwhiA44QVGLl7mcsN4dIVjbfR+dsXHPIQ3
-         FfRA==
-X-Forwarded-Encrypted: i=1; AL+hErF74dKb3Y0ET0Pdjos2ar/EtgYuoaGBwPtjB/DKloybrHAiLzYEBEdvUvPqQyLJ2+xCoN02cNTrrH2bR7s=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/OnWF8xkTbgX7zj9P7lm/xcEn59I9xAGDpw9FxRhrcWwlMkQ5h
-	hRG8pQIjLfNq1Tr88gYKPQ6xgil7jNNo+DhZ0ArwpJPddqf09b5V1jRSMVStX1bDz+yQcc/R6mN
-	oOe1PWjIv2i44tCHv6uafazNcXGyp+qAEjWoiK7qA
-X-Gm-Gg: AYBFou18BXMPsRjIZljwBm0WxlpN6ZdEU69i+51JMsn/zfNn+5at+CHzB//aC3e4mKF
-	SGq/ur9v7FJ30yAtLN9KmdKh0TscFbuKY9vkhX0kybj3roVdhBrNosp9etWKTDnlmJogYNyeNoo
-	qwdjf10QkfWPFxxi5o4JMcMwOqcpMQdh53RyzfAMKWG5oyngwWs3GYE2X2CJGgIHM/bXVPasZDa
-	zgCSl0sRFzb+lvgyrtr5UlTRmWPzd/m7fY4AmOsVTMVR4UOxAkKghFZsrs/lIEHNGEJWE4Mweh2
-	1s1xNR2bxxbapK9Ln0o3f/isdjk07c7ovij0NlJbMk1HuSpSE42BRN3snaTRh+GUPXYUJsd0Yrc
-	2JsPCkp1Oi0qIOSwN7TxThwMy7QzXkShgiC2PWCSDLwUHlHmiz6R/jseKTJHRHLn3r/PZ6nVr5k
-	TJk2SbowE4N6lZ
-X-Received: by 2002:a05:690c:3181:b0:8b0:d468:e9ee with SMTP id
- 00721157ae682-8b3a816adf0mr6153587b3.72.1794357779171; Tue, 10 Nov 2026
- 16:42:59 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794357787; x=1794962587;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Tg4X3cdll5T1S7kugUAtHU1yiOSVpqm9E/2y7Atjkho=;
+        b=bmhqnQTyDVLDb+LjijMjXrQVv70Qfp2FDNpMbhgO/WxNVEiDsdNMY7mhouT6nmiAD+
+         gHIaOIKBiXs2583xzBuEcisxOfCcp4U6g+T0XCWL9EGrYcOxaDb1P9+WpFb/BlbH+ScO
+         gnR6CXozC3B+fIIRSf1gpMRW74qtJ3ZLSLC7WhCXOVI1WzscWJzZ28OxynGynkjEvOSA
+         j1wk5auJ91WB47fv6Z9FRL2bmcMJp1IYwaqTZCL0U5KXHN7/hzdEljfxAO9+ZDJ2wR4c
+         8Qd9xdExP1pSt3l0dGxgCOqnwTAbQQ0jK5luaoTVRxUX/j4qeZjLJzTe9rYhTxDMeABY
+         Ummw==
+X-Forwarded-Encrypted: i=1; AL+hErHph/19SL2XcaUnebHaPUDW/+SsdE4BEn1EY+/UZqZ2REDWywbKvNQRW+orezm0qr37x/FayFUGZ5VRyjo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9XjHwYRH96RjEgnhYsDzeCEst7HZwfuON29BKfbncenZO7LQaH
+	24Gzx5zjOc/UYHP7/0+xC5QT5OgRQXw0vlidhn4lVSbIe78ptZF6cM7bJ5NpGWmQh+cvjvuYPiZ
+	eWmQQqGVXAwBfAOCVj60PxqmYSNRDNsqosQyGyy7guUaimIlg3bpxzCyixXJNz+Y8b3s=
+X-Gm-Gg: AYBFou3XEcaI4mNohsBgAqbtruuiL+sKI9MdCfIgvdruVEGviVpFvBmnigvhCOX5JBk
+	lNLl363KYNLE9+gHX3W5YCUr4Zr21sCWC/zGgrNGj69JHZ+BmKcqYD8fZ4Eh79fHqK2zpo8mbyt
+	KqAJfKQDUN7kx3mwuBDMUGZ4N+jeX0xOS2n3PXNARliqn3mLcTOnaBpdoGgdnNUy7QIzXcnmIRz
+	9BHcRchHEG15xKSqd5T85b+iOpouMEjiwOsL6svT+2N9F0jZEf2OcXRnWHhYlTWp8iQ5n5OXyag
+	fkjUhX+qvsHFS3scoWJAxuEkR1F8reu1bxGjQD6nEMFT2QNiqMp3bbOp/T9gUW3ZT8XPJnsD0EP
+	dtMF6HNuuJ2M4XdQ3y4ysH24i6i3hvmbMhO1UaxaDOAgiD9TtKd6E7UqvQhtS6rc6/r9Ctln4Sc
+	eM4S0iBNkJkBojZ5I0zwgcGt30dOvBvMFMbYjnYGVRLcJApkP5G5DRdFl+MaAnJQ==
+X-Received: by 2002:a05:6214:4109:b0:91e:8cb1:b842 with SMTP id 6a1803df08f44-91f0416afc3mr18101346d6.49.1794357786446;
+        Tue, 10 Nov 2026 16:43:06 -0800 (PST)
+X-Received: by 2002:a05:6214:4109:b0:91e:8cb1:b842 with SMTP id 6a1803df08f44-91f0416afc3mr18100956d6.49.1794357785839;
+        Tue, 10 Nov 2026 16:43:05 -0800 (PST)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3ae092896d8sm7499011fa.32.2026.11.10.16.43.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 16:43:04 -0800 (PST)
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Subject: [PATCH v8 00/10] drm: writeback: clean up writeback connector
+ initialization
+Date: Wed, 11 Nov 2026 02:42:29 +0200
+Message-Id: <20261111-wb-drop-encoder-v8-0-62948ed87d13@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,130 +116,211 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261028214534.1919398-1-song@kernel.org>
-In-Reply-To: <20261028214534.1919398-1-song@kernel.org>
-From: Dylan Hatch <dylanbhatch@google.com>
-Date: Tue, 10 Nov 2026 16:42:47 -0800
-X-Gm-Features: AclHuK-0KLQUOFaipVD5nVJPEq1dS14yAA31ZsSQdOg065mPf1YgIqvWrXbDoNo
-Message-ID: <CADBMgpzvSnbu+ZzPYd5_d5Hx+1d1zAyU6sk27EZ0tnH7_JGMdg@mail.gmail.com>
-Subject: Re: [PATCH v2 00/12] klp-build: Fix dependent patches, add selftests
-To: Song Liu <song@kernel.org>
-Cc: live-patching@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	jpoimboe@kernel.org, jikos@kernel.org, mbenes@suse.cz, pmladek@suse.com, 
-	joe.lawrence@redhat.com, shuah@kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAPW582oC/3XS327CIBQG8FcxXA93OOWvV3uPZRdQYCNZW4Xau
+ RjffajRmdTeED7C+ZGQ70hKyCkUslkdSQ5TKmnoa9AvK9J+2f4z0ORrJggoQAOjP476PGxp6Nv
+ Bh0yNstAq4bzwitSpbQ4xHS7i+0fNX6mMQ/69PDCx8+myNTEKVCOXXALHqPzbUMp6t7ff7dB16
+ 7qQMznhA8PknMHKRCOYD8Ajj2aBaR4ZM2eayjiurbRRGWjcAsPvDEPUc4ZXRmiPOkipDbAFRtw
+ YCQLEnBGV4SikcqpVNuICI/8ZyXDOyMqY2FjBo2YNgwVG3RkGz/5GVcZz1NqiDE7wJ8zp2oYcd
+ vtaq/FaCeJsCfR8KY2blc8d7VJpX28b2ofDWEdPf380LrSZAgAA
+X-Change-ID: 20250801-wb-drop-encoder-97a0c75bd5d7
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        John Harrison <John.Harrison@igalia.com>,
+        Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+        Rodrigo Siqueira <siqueira@igalia.com>,
+        Alex Deucher <alexander.deucher@amd.com>,
+        =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+        Liviu Dudau <liviu.dudau@arm.com>,
+        Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+        Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
+        Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+        Geert Uytterhoeven <geert+renesas@glider.be>,
+        Magnus Damm <magnus.damm@gmail.com>,
+        Dave Stevenson <dave.stevenson@raspberrypi.com>,
+        =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
+        Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+        Louis Chauvet <louis.chauvet@bootlin.com>,
+        Mihail Atanassov <mihail.atanassov@arm.com>,
+        Eric Anholt <eric@anholt.net>,
+        Rob Clark <robin.clark@oss.qualcomm.com>,
+        Brian Starkey <brian.starkey@arm.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+        amd-gfx@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
+        Suraj Kandpal <suraj.kandpal@intel.com>,
+        Chaoyi Chen <chaoyi.chen@rock-chips.com>,
+        John Harrison <John.Harrison@Igalia.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6121;
+ i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
+ bh=eaXxqDG4WrpTkfdaiMoy+rNXi5klWk6+CeDvCurUMK0=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBq87n6hOU2QvpLiPujdsHCYHYfu8QrSQipqUVwh
+ rP0H5Xo42CJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCavO5+gAKCRCLPIo+Aiko
+ 1YvTB/0a9YP74Woyq7Tx/JgbG6dxAN/qjgPFsMEZehC+9i3MVe4qiudQeHjHIGfJQvTduTO9Xqk
+ tdFImxF3Hgmud1zSHt2T9loQX8oTx1pNCacq6kCaciiI64Y6SJ+d/N0vUyVVUpH77b0Nqw12ESP
+ kl/TbEJKOBH8xPUzhMrDp8T/Pc7d3r64JpEgNO8lHLEU6Ts1z+j8neRmLLYq5T9Fb9iE0gaW3kI
+ GfP9BXJtkeRj5M23Zcn3EyEa/S3EJqpa0deIEt/yaP+JFeGtn5+NZAwlYlDobyduHTYEIcIoXJ+
+ WhoS8YRnyTSA1orhhwRUBgKDvvyat0rVOikzuzu5bOQkV4Em
+X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
+ fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDAwMSBTYWx0ZWRfX7yzKB4E/IsAc
+ eaST/PvbQVlj/mTmlHTPTIyZxCggMj5vtQCMUAeeFSWO8qiedhYfPh9xPEtIVY9UmraeoTuzWnS
+ mFvRoO0PqwKGPsH2EtWwT8lTzW2z/qpbs/Le2LspFaznA/fZ026OlRRTJC1bkgdHIy2poSMvXd8
+ RAVHY5bqDLo1ug1MAH02bziTN3qOYsAJAg5SPbdTKguRdSSYnAYtsxnoZHdAzDoJWLlhQgHaPJB
+ zDIaFwjZ1xwvXB/WMxG6rBQgmK6KVuGsgyPAHNqlS1oYIu2qsTAp7y1mWZ2AfKYRxuF9G9P6THC
+ Gb4Zt2OaeCgf1e6kmM/+AsAN0uA3/3btMZP5RZBbdrWABKpONwpaHe3klzI3JDafkbxbw8tTWE3
+ B2fuvgBbAFarcz+u5Uc06EKVnwo0eAjtbfRmNlcooxKMjl7tQumKYaOTJyHyT5frDCcVRzWuv90
+ T3AFPSXd39+6Q++BYEg==
+X-Authority-Analysis: v=2.4 cv=cJl1IVeN c=1 sm=1 tr=0 ts=6af3ba1b cx=c_pps
+ a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=bC-a23v3AAAA:8
+ a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=QyXUC8HyAAAA:8 a=pGLkceISAAAA:8
+ a=V2sgnzSHAAAA:8 a=zd2uoN0lAAAA:8 a=7CQSdrXTAAAA:8 a=P1BnusSwAAAA:8
+ a=RF00TdSWAAAA:8 a=P-IC7800AAAA:8 a=-VAfIpHNAAAA:8 a=e5mUnYsNAAAA:8
+ a=wUE-LUHtHEr0u8wc4aUA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=pJ04lnu7RYOZP9TFuWaZ:22 a=FO4_E8m0qiDe52t0p3_H:22 a=Z31ocT7rh6aUJxSkT1EX:22
+ a=a-qgeE7W1pNrGK8U0ZQC:22 a=D0XLA9XvdZm18NrgonBM:22 a=_nx8FpPT0le-2JWwMI5O:22
+ a=d3PnA9EDa4IxuAV0gXij:22 a=srlwD-8ojaedGGhPAyx8:22 a=Vxmtnl_E_bksehYqCbjh:22
+X-Proofpoint-GUID: yNH-Vqw6-Nj8Tr0wdUv6czKspG78W1uW
+X-Proofpoint-ORIG-GUID: yNH-Vqw6-Nj8Tr0wdUv6czKspG78W1uW
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDAwMSBTYWx0ZWRfXw4fOmyw1gwJY
+ 4ZWoqRkllr4Fd8G8VNi6hnVvXetkjeQVlAAZrV0kyr9WPXD+1ReB8mEghBEWwvtUqQJ5Dyos2Ok
+ drJw97BivUboOLwdSEkTT3oEvI+UWkA=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-10_07,2026-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 impostorscore=0 malwarescore=0 phishscore=0 suspectscore=0
+ priorityscore=1501 spamscore=0 clxscore=1015 adultscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611110001
 
-On Wed, Oct 28, 2026 at 2:45=E2=80=AFPM Song Liu <song@kernel.org> wrote:
->
-> klp-build fails when a later patch in the series depends on an earlier
-> one, because it fixes each patch against the original source on its
-> own.  Patch 1 fixes this by combining the patches into a single patch
-> before adding the #line directives.
+Drivers using drm_writeback_connector_init() / _with_encoder() don't
+perform cleanup in a manner similar to drmm_writeback_connector_init()
+(see drm_writeback_connector_cleanup()). Enough of the drivers don't use
+the encoder embedded into the drm_writeback connector.  In preparation
+to further rework of the WB connectors (as planned to enable WB for i915
+/ xe drivers, which would move drm_writeback_connector to be a field
+inside drm_connector instead of subclassing it) remove the drm_encoder
+wrapped in struct drm_writeback_connector. Rename the
+drm_writeback_connector_init_with_encoder() to
+drm_writeback_connector_init()
+and copy drmm_writeback_connector_init() interface. Then, with the
+encoder being gone, handle proper cleanup of writeback data in
+drm_connector_cleanup().
 
-I'm curious, what is the advantage of using separate .patch files?
-Since patches can require changes/conflict resolutions for older
-kernels, we commit all patches into per-target-kernel branches and
-generate the .patch file on the fly at build time.
+---
+Changes in v8:
+- Fix the out-of-bounds access Sashiko reported on v7: track writeback
+  initialization with a new drm_connector::wb_initialized flag and key the
+  cleanup in drm_connector_cleanup() off it rather than the connector type,
+  since a plain drm_connector may use DRM_MODE_CONNECTOR_WRITEBACK.
+- Clean up the writeback jobs outside job_lock so the sleeping teardown no
+  longer runs under the spinlock (new patch).
+- Link to v7: https://patch.msgid.link/20261019-wb-drop-encoder-v7-0-d4288a26eb54@oss.qualcomm.com
 
->
-> Patch 2 does this while validating the patches, before the original
-> kernel build, so problems with the patches show up without waiting for
-> a build.
->
-> Patch 3 moves the patch processing into a new script,
-> klp-prepare-patch, which klp-build runs.  It doesn't need a kernel
-> build, so it can be tested on its own.
->
-> Patches 4-12 add a kselftest target, livepatch/test_klp_build.  Each
-> test builds a small source tree, runs klp-prepare-patch on some
-> patches, and checks the patch it prints.  The tests compile nothing,
-> need no root, and take about a second.  To run them:
->
->   make -C tools/testing/selftests/livepatch/test_klp_build tests
+Changes in v7:
+- Significantly reworked series, no longer insisting on using drmm.
+- Link to v6: https://patch.msgid.link/20260612-wb-drop-encoder-v6-0-9f3a54f81310@oss.qualcomm.com
 
-Ran these tests and they work on my end (applied on v7.4-rc1).
+Changes in v6:
+- Dropped applied patch
+- Implemented suggestion by Alex to use drmm allocation for the
+  writeback connector.
+- Link to v5: https://patch.msgid.link/20260505-wb-drop-encoder-v5-0-42567b7c7af2@oss.qualcomm.com
 
-Tested-by: Dylan Hatch <dylanbhatch@google.com>
+Changes in v5:
+- Rebased on top of drm-misc-next
+- Expanded commit message for msm patch, describing devm vs drmm issues (Laurent)
+- Expanded commit messages, describing why the drivers are converted to
+  drmm_writeback_connector_init() (Laurent)
+- Link to v4: https://lore.kernel.org/r/20251228-wb-drop-encoder-v4-0-58d28e668901@oss.qualcomm.com
 
->
-> Changes in v2:
-> - Patch 1: describe combine_patches() without "refresh", rename
->   fix_patches() to process_patches(), keep the combined patch in
->   $COMBINED_PATCH rather than $PATCHES, change the status message to
->   "Processing patch(es)", fold get_patch_{input,output}_files() into
->   get_patch_files(), and keep tmp.patch in klp-tmp (Josh)
-> - New patch 2: process the patches while validating them, before the
->   original kernel build (Josh)
-> - Replace the --patch-only option with a klp-prepare-patch script,
->   which the selftests run directly (Josh).  The intermediate patch
->   without #line directives now lives in klp-prepare-patch's own
->   temporary directory, which is removed on exit.
-> - Make the dependent patches test a case of test-basic.sh (Sashiko)
-> - Name the selftest helpers and subjects after klp-prepare-patch
->
-> v1: https://lore.kernel.org/all/20261017002441.716615-1-song@kernel.org/
->
-> Song Liu (12):
->   klp-build: Fix dependent patches in a series
->   klp-build: Process the patches before building the original kernel
->   klp-build: Move patch processing to klp-prepare-patch
->   selftests/livepatch: Add tests for klp-prepare-patch
->   selftests/livepatch: Test klp-prepare-patch with dependent patches
->   selftests/livepatch: Test klp-prepare-patch with independent patches
->   selftests/livepatch: Test klp-prepare-patch with patches which cancel
->     out
->   selftests/livepatch: Test klp-prepare-patch with created and deleted
->     files
->   selftests/livepatch: Test where klp-prepare-patch adds #line
->     directives
->   selftests/livepatch: Test klp-prepare-patch with unsupported files
->   selftests/livepatch: Test klp-prepare-patch with patches which don't
->     apply
->   selftests/livepatch: Test klp-prepare-patch with offset and fuzz
->
->  scripts/livepatch/Makefile                    |   3 +-
->  scripts/livepatch/klp-build                   | 137 +--------
->  scripts/livepatch/klp-prepare-patch           | 277 ++++++++++++++++++
->  tools/testing/selftests/Makefile              |   1 +
->  tools/testing/selftests/livepatch/README      |  16 +
->  .../livepatch/test_klp_build/Makefile         |  26 ++
->  .../livepatch/test_klp_build/functions.sh     | 149 ++++++++++
->  .../livepatch/test_klp_build/run-tests.sh     |  68 +++++
->  .../livepatch/test_klp_build/test-basic.sh    |  93 ++++++
->  .../test_klp_build/test-cancelling-patches.sh | 102 +++++++
->  .../test-independent-patches.sh               | 124 ++++++++
->  .../test_klp_build/test-line-directives.sh    | 175 +++++++++++
->  .../test-new-and-deleted-files.sh             |  94 ++++++
->  .../test_klp_build/test-offset-and-fuzz.sh    | 120 ++++++++
->  .../test_klp_build/test-patch-not-applying.sh |  73 +++++
->  .../test_klp_build/test-unsupported-files.sh  |  30 ++
->  16 files changed, 1366 insertions(+), 122 deletions(-)
->  create mode 100755 scripts/livepatch/klp-prepare-patch
->  create mode 100644 tools/testing/selftests/livepatch/test_klp_build/Make=
-file
->  create mode 100644 tools/testing/selftests/livepatch/test_klp_build/func=
-tions.sh
->  create mode 100755 tools/testing/selftests/livepatch/test_klp_build/run-=
-tests.sh
->  create mode 100755 tools/testing/selftests/livepatch/test_klp_build/test=
--basic.sh
->  create mode 100755 tools/testing/selftests/livepatch/test_klp_build/test=
--cancelling-patches.sh
->  create mode 100755 tools/testing/selftests/livepatch/test_klp_build/test=
--independent-patches.sh
->  create mode 100755 tools/testing/selftests/livepatch/test_klp_build/test=
--line-directives.sh
->  create mode 100755 tools/testing/selftests/livepatch/test_klp_build/test=
--new-and-deleted-files.sh
->  create mode 100755 tools/testing/selftests/livepatch/test_klp_build/test=
--offset-and-fuzz.sh
->  create mode 100755 tools/testing/selftests/livepatch/test_klp_build/test=
--patch-not-applying.sh
->  create mode 100755 tools/testing/selftests/livepatch/test_klp_build/test=
--unsupported-files.sh
->
-> --
-> 2.53.0-Meta
->
->
+Changes in v4:
+- Rebase on top of drm-misc-next, dropping applied patch.
+- Added a note regarding memory leak in the AMDGPU driver.
+- Fixed a devm vs drmm issue in the msm/dpu driver.
+- Link to v3: https://lore.kernel.org/r/20250819-wb-drop-encoder-v3-0-b48a6af7903b@oss.qualcomm.com
+
+Changes in v3:
+- Fixed subject prefix for the rcar-du patch (Jessica Zhang)
+- Link to v2: https://lore.kernel.org/r/20250816-wb-drop-encoder-v2-0-f951de04f4f9@oss.qualcomm.com
+
+Changes in v2:
+- Switched to drm_crtc_mask() where applicable (Louis Chauvet)
+- Link to v1: https://lore.kernel.org/r/20250801-wb-drop-encoder-v1-0-824646042f7d@oss.qualcomm.com
+
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: Maxime Ripard <mripard@kernel.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+To: David Airlie <airlied@gmail.com>
+To: Simona Vetter <simona@ffwll.ch>
+To: John Harrison <John.Harrison@igalia.com>
+To: Harry Wentland <harry.wentland@amd.com>
+To: Leo Li <sunpeng.li@amd.com>
+To: Rodrigo Siqueira <siqueira@igalia.com>
+To: Alex Deucher <alexander.deucher@amd.com>
+To: Christian König <christian.koenig@amd.com>
+To: Liviu Dudau <liviu.dudau@arm.com>
+To: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+To: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
+To: Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
+To: Geert Uytterhoeven <geert+renesas@glider.be>
+To: Magnus Damm <magnus.damm@gmail.com>
+To: Dave Stevenson <dave.stevenson@raspberrypi.com>
+To: Maíra Canal <mcanal@igalia.com>
+To: Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
+To: Louis Chauvet <louis.chauvet@bootlin.com>
+To: Mihail Atanassov <mihail.atanassov@arm.com>
+To: Eric Anholt <eric@anholt.net>
+To: Rob Clark <robin.clark@oss.qualcomm.com>
+To: Brian Starkey <brian.starkey@arm.com>
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
+Cc: amd-gfx@lists.freedesktop.org
+Cc: linux-renesas-soc@vger.kernel.org
+
+---
+Dmitry Baryshkov (10):
+      drm/amd/display: embed the writeback encoder in amdgpu_dm_wb_connector
+      drm/komeda: embed the writeback encoder in komeda_wb_connector
+      drm/mali: embed the writeback encoder in malidp_drm
+      drm: renesas: rcar-du: embed the writeback encoder in rcar_du_crtc
+      drm: writeback: drop excess connector initialization functions
+      drm: writeback: rename drm_writeback_connector_init_with_encoder()
+      drm: writeback: don't destroy the shared writeback properties
+      drm: writeback: clean up writeback jobs outside the job_lock
+      drm: writeback: clean up writeback connectors in drm_connector_cleanup()
+      drm: writeback: drop the drmm writeback cleanup action
+
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |   2 +-
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h  |   1 +
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c   |  27 +++-
+ .../amd/display/amdgpu_dm/tests/amdgpu_dm_test.c   |   4 +-
+ .../display/amdgpu_dm/tests/amdgpu_dm_wb_test.c    |   4 +-
+ drivers/gpu/drm/arm/display/komeda/komeda_kms.h    |   3 +
+ .../drm/arm/display/komeda/komeda_wb_connector.c   |  24 +++-
+ drivers/gpu/drm/arm/malidp_drv.h                   |   1 +
+ drivers/gpu/drm/arm/malidp_mw.c                    |  25 +++-
+ drivers/gpu/drm/drm_connector.c                    |   3 +
+ drivers/gpu/drm/drm_crtc_internal.h                |   3 +
+ drivers/gpu/drm/drm_writeback.c                    | 156 ++++++---------------
+ drivers/gpu/drm/renesas/rcar-du/rcar_du_crtc.h     |   2 +
+ .../gpu/drm/renesas/rcar-du/rcar_du_writeback.c    |  29 +++-
+ drivers/gpu/drm/vc4/vc4_txp.c                      |   8 +-
+ include/drm/drm_connector.h                        |  12 ++
+ include/drm/drm_writeback.h                        |  22 +--
+ 17 files changed, 159 insertions(+), 167 deletions(-)
+---
+base-commit: 41b5458595c60143d0ebaa1e032c9cda5d764dff
+change-id: 20250801-wb-drop-encoder-97a0c75bd5d7
+
+Best regards,
+--  
+With best wishes
+Dmitry
+
