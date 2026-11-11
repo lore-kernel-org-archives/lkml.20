@@ -1,102 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.44.133
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.43.39
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794391254;
-	b=Uyis3/zO3MgacjPMFyNha+Xn9Y7qAM4g+tAUTK1BB6+8YAWSCXiZ/buRwahW41XdBqAs
-	 M1w1EqSKKcQNs8Kd1Z06NF+e3RZiJStfIZH/gyVfrY1RB8fh3um3lyC6O/nFPqD+RQaSy
-	 qwfUb6OG2DVa+6KdSGRnZ1CdZFKe7DI5EEWNGHODnWtDB8M45tbiRQ1N8DQMT/YYDE3yz
-	 nSYQMggsbRvjVwclQUgX5eQU7Y8YqwlUEEljc036O5iUUbAxwwPeLDzNvFzyEdv+xs/+r
-	 T7C7fDHAbOhfKX7SqdcUiHUCgtGzjvKgSncGODIUp3tpVvy/AtpK2M/j2XWJyPyk/nQ==
+	t=1794391256;
+	b=IeEl46P4iqwsvtWFJ2GUFSL8cAoiwiIeqU3xAN/4oVt8xWr/3PMLHYFql10NZobdaaR6
+	 LBcd8x/5U0sw+eUSbKrvPqBhT1A64zDjITwpYOCN6X40SEMYGjLGr6Zge4Yb+cESJm/WG
+	 Ds+91SFOVjD2Hh63daQjPaA1Vrqgt9pb1uFRtjOIpjUJh9y0yZw58L3vwtLXsGOwYvMpd
+	 gf8jC7v8Kh+LiMrFTjtj79LK+ENoBdXdIyUoPOclLUkDMTwU23FthOeoopfNbKLz0nd72
+	 bkGVdu4DHVkqCEVlqhunqc8qdFC0hdtrA4j6C4ntX3Vx8oPuRTDJ3PG37YWXDxc7cFg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794391254;
-	h=DMARC-Filter:Received:Received:X-MS-Exchange-Authentication-Results:
-	 Received-SPF:Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 MIME-Version:X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794391256;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-LD-Processed:
 	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
 	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
 	 X-Forefront-Antispam-Report:
 	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
 	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
 	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=XYI6sfHAFTQB+81aBOW/oYbOaXKiK9idXGwkek2Kd9c=;
-	b=scT9xQbVVP/GoBxXVZ/DRY1kKl/9EUSFBDqMmKjuYw5WGkB+lfY9JMxznA/EnarF2UYU
-	 98uI7CdR/a0IqwpMe8s2agKm/CZ3C9/ZPyCo2B2Q2cSCtjukHXCsmTd9XKieeeR/zmf/N
-	 +/kduH6uGn1d1DZTf04gCuY67s190O/BkakoCQImHwuH0Gki7K8ltZr4ErFnhidA7pPdv
-	 8OimJpqAPnWn45iWz6T+zEEAz7lStTWhOOdE8AcRLzW+J3gt5RsbjBPjWSkp7Ymz2oMTC
-	 9N8za1kF4EDkAUwHIIhMakVz70JkmUTgkB7f5LUh+lrIKcJ+NtULBKGUG7v2JIO2GXQ==
+	bh=4AHWSkS2lFACueb9zLscVLtkIk/hPUbbpFvzGBkQPgg=;
+	b=3b3JJaLE4R/bMwy9Spj+WYLUXhIUNS82YIB2Dhi4C6IC4v8KOrUsHb/mI1XrxTZpYj6E
+	 ePmDzPiWSHWJENss2G/Zcui4NxJofdtWDgIDWkeGcsj6WDmRnghaZOU2qOxDhRPyUOZB8
+	 8bJxdL3Vs2Rc3mTgWzzwcgk5LKcVfBVFYJ72xtw7UPWabCpr2EQvbOutKEqxRic7hUgoX
+	 HbsWWvZppu792SCcrrh4kNZlca/JULC8uJBvmEfbCzC01MulC1/LmDn8NKBKi2T8szvTG
+	 bwkYrun+6tm8pyMuZpxdC/oBx5vz1qCTS6nBbjWzL6M+8RZ4JTI7v5N4OJdPwDl13Fg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=cixtech.com;
-	spf=pass smtp.mailfrom=cixtech.com;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.44.133
-Received: from SEYPR02CU001.outbound.protection.outlook.com (mail-koreacentralazon11023133.outbound.protection.outlook.com [40.107.44.133])
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=C6iIPJ+P;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.43.39
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012039.outbound.protection.outlook.com [52.101.43.39])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2420606A336;
-	Wed, 11 Nov 2026 10:00:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E2420606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD57960A260A;
+	Wed, 11 Nov 2026 10:00:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD57960A260A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=C6iIPJ+P
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XI076ZQ0LxdAt9SRFIqYML2JqxbxstWw+6tXcSHKcZPOHM6Ols5K1Qv2Q9QlBPC7jx+6ES6eoQIemK7wK7endyjRfXi1jrNZVI1bXBU2imVNvvTISPM9GEruZYmyqhx0/qajZQQJFHlhwwRbNvcaJBt76lpJ6XGX5vOuWRq5519zvY+7Tx5sQKQonzNJIxPKhZRKkOFnJSNrXNugD45uoXQckv3l/sTHByS2Z5YGQOui+2rsL0FlhPz45tW/VxqHCVsmBf7l/oyNNBDqff8WWeLN4iWfKJNYkYFUTNiGpIi4cA9wnxb/wA4/a+W4Iwmq8TAqQuZJLQXY1JywG40izQ==
+ b=v00eMOjVJNo4XIAkQ2JglFUr21RjOEOgsJmIBYzxGP/lnczVpaCLqFMmbVrIUij9BNUn2q0ROmU61pKgmYeAPGPBXlYD23Yb+ZEyzjAcAe2oBZn4Z609pWD58VbOFwe+Y5X/hukYOCkCx8AQCBeASjPkqcsuwoopLvBy0NcuAlCuObAiPcv75Gf6KrgV34St/yPXEZiYafJU4JzVznVMDqYVh0hpRVKXL1ZRzdEQNZKVIDpzyWhbAY58tZDURp6xsDibk5XG4AhrvZWnFf+CI0El5+C3b2gvx81SOji0v0xUwlZWuQTIaVlMCITc5qYShv9VvY2CMlvPhHpCOlqLug==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XYI6sfHAFTQB+81aBOW/oYbOaXKiK9idXGwkek2Kd9c=;
- b=RctbGz/TXSGTgjrgdJBmei0SkKJA/4ntoXRuA2dKLw7LOlZ7n8Z6cv5iHythBZD58sXXeqgN5kg7dS0X3dvSlNySR1EoPwr+TvO1cBk3oyBSXtmqSkDp53xQj96MQXRsT7WmadSkMMauTEC75SQOlmGcqVjwjqf9lYpehFFBoQf7tqXLU3VdmxuID1LBfC7Z1QGLmj00C/v99axY2jWNTlPguZaPoeQgetaNzNX3hyBwqQXhe144g2Nw0dlpE13nByDpmcuyIaSRwapBeh6gC18+DG10RE8MDHy4ovMRa4oJGdtolLl8QdTE6fxRTl5Iu7pIAWL/w0IX9rOui2Vw4w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 222.71.101.198) smtp.rcpttodomain=cadence.com smtp.mailfrom=cixtech.com;
- dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
- not signed); arc=none (0)
-Received: from SI3PR03CA0006.apcprd03.prod.outlook.com (2603:1096:4:297::8) by
- TY0PR06MB5427.apcprd06.prod.outlook.com (2603:1096:400:218::11) with
+ bh=4AHWSkS2lFACueb9zLscVLtkIk/hPUbbpFvzGBkQPgg=;
+ b=mlEKzLeZbYD6o9XY6ndHB4LN/+TzjK2RPNe4rzfeRSglM5PA5Q56uhBHCfLJAqjDO3VUusViPRAht8QviPwDI6Pu5hAJZcIDyob+1TYHo5rXDqkAObRU1SVkKY5NuClAG4XDgD6b0VXrBNr/ApGR26qCQl1ywCnOhLQKfVc819deJLUPMN9COafiAduPqn0I+9sLx0TgWnz5mfPNlqVOmgO9CONR22aX/IEL2FjGnHOkEespmW3oRwlH2lFdqXhfXFRtyfCjfRMUqalnc3usU8/2dKjteMdRN3LphST4Te9QzeYeWD0v8PUnRPxIOgmgMpS+9sVwgC7rk00skhuNvg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=4AHWSkS2lFACueb9zLscVLtkIk/hPUbbpFvzGBkQPgg=;
+ b=C6iIPJ+PD06z3btHA5soFoajFVmxqYI/aixoTfG6Q+cMiku2xj93EaAuAfXgMWQt9i+v7eJsl9mD8vuKaBnuk49uXuT57WeT/NmlpiA5STyPoVFimjEDzzttpiCbSI3dvL3D4+/dO0i8bKLvyZFBaHbnBYd6Mu/NyQeLpOlgirc=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from SN7PR12MB8147.namprd12.prod.outlook.com (2603:10b6:806:32e::5)
+ by DS7PR12MB6143.namprd12.prod.outlook.com (2603:10b6:8:99::16) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Wed, 11 Nov
- 2026 10:00:42 +0000
-Received: from SG1PEPF000082E6.apcprd02.prod.outlook.com
- (2603:1096:4:297:cafe::13) by SI3PR03CA0006.outlook.office365.com
- (2603:1096:4:297::8) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.9 via Frontend Transport; Wed, 11
- Nov 2026 10:00:41 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 222.71.101.198) smtp.mailfrom=cixtech.com; dkim=none (message not signed)
- header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
-Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
- 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
- client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
-Received: from smtprelay.cixcomputing.com (222.71.101.198) by
- SG1PEPF000082E6.mail.protection.outlook.com (10.167.240.5) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Wed, 11 Nov 2026 10:00:40 +0000
-Received: from [127.0.1.1] (unknown [172.20.64.180])
-	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id BA2EA4102E65;
-	Wed, 11 Nov 2026 18:00:39 +0800 (CST)
-From: Hongliang Yang <hongliang.yang@cixtech.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Peter Chen <peter.chen@kernel.org>, Pawel Laszczak <pawell@cadence.com>,
- Roger Quadros <rogerq@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>, Gary Yang <Gary.Yang@cixtech.com>,
- Fugang Duan <fugang.duan@cixtech.com>, linux-usb@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, cix-kernel-upstream@cixtech.com
-Subject: Re: [PATCH v7 1/2] dt-bindings: usb: Add CIX Sky1 USBSSP controller
-Date: Wed, 11 Nov 2026 18:00:38 +0800
-Message-ID: <1794391238.309976-1-hongliang.yang@cixtech.com>
-In-Reply-To: <20261111-fictional-vigilant-serval-eea5bd@quoll>
-References: <20261106101210.1059256-1-hongliang.yang@cixtech.com>
- <20261106101210.1059256-2-hongliang.yang@cixtech.com>
- <20261111-fictional-vigilant-serval-eea5bd@quoll>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.13; Wed, 11 Nov
+ 2026 10:00:51 +0000
+Received: from SN7PR12MB8147.namprd12.prod.outlook.com
+ ([fe80::3923:c1a4:778b:56f2]) by SN7PR12MB8147.namprd12.prod.outlook.com
+ ([fe80::3923:c1a4:778b:56f2%3]) with mapi id 15.21.0615.008; Wed, 11 Nov 2026
+ 10:00:51 +0000
+Message-ID: <0193d8c8-5902-41fc-8469-1f9617a0098f@amd.com>
+Date: Wed, 11 Nov 2026 15:30:41 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v3 7/8] net: xilinx: tsn: add the endpoint TX
+ data path
+To: netdev-bot+sashiko@kernel.org, srinivas.neeli@amd.com
+Cc: nagadheeraj.rottela@amd.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, richardcochran@gmail.com, michal.simek@amd.com,
+ bigeasy@linutronix.de, clrkwllms@kernel.org, rostedt@goodmis.org,
+ edumazet@kernel.org, netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rt-devel@lists.linux.dev, neelisrinivas18@gmail.com, git@amd.com
+References: <20261016-patches_v2_external-v3-7-e33d3960ca1e@amd.com>
+ <179249750260.3135.7334440284014386144@kernel.org>
+Content-Language: en-US
+From: "Neeli, Srinivas" <srneeli@amd.com>
+In-Reply-To: <179249750260.3135.7334440284014386144@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MA5PR01CA0140.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:1b9::9) To SN7PR12MB8147.namprd12.prod.outlook.com
+ (2603:10b6:806:32e::5)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,82 +104,360 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SG1PEPF000082E6:EE_|TY0PR06MB5427:EE_
-X-MS-Office365-Filtering-Correlation-Id: f89a75b7-0e80-4b0b-9060-08df3fdaa4cb
+X-MS-TrafficTypeDiagnostic: SN7PR12MB8147:EE_|DS7PR12MB6143:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8c44a99e-61e5-4eab-f4ba-08df3fdaaadb
+X-LD-Processed: 3dd8961f-e488-4e60-8e11-a82d994e183d,ExtAddr
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|1800799024|36860700016|23010399003|376014|7416014|22082099003|18002099003|10067099003|56012099006|4143699003|261028144727099003|261021121427099003|261026140227099003|261021123027099003|261022105027099003|261026121527099003|261102123227099003|261009223027099003;
+	BCL:0;ARA:13230040|376014|23010399003|7416014|366016|1800799024|18002099003|22082099003|6133799003|10067099003|5023799004|11063799006|261102123227099003|4143699003|261026121527099003|261021121427099003|261022075727099003|261021123027099003|261022105027099003|261026140227099003|56012099006|261009223027099003|261028144727099003;
 X-Microsoft-Antispam-Message-Info:
-	eKkn0XuRXchmLVnedhSqmaCPmMKqw3j0uM1V/Haw/nfyPVnlZ5qpgcZCZ+xlBiUdv/d9MxQjpQvL1buirCM7T2TyOLFgwC+E9gzbeM6Yrl/k6FGS1fCTuII7OgJ6FRj7k7NfBQtV0tiZszimw5RnlTZD5n+bOc09c+5cNIQdK3/Fv3AV86W7+fkNtJshATBGQJsoFfNl5JhhG/BWKUHHsnqjJmeV+X7JBY6AsWjaa7Wgmkw6AH1YKn6ReCXXiqSh7dISqGN2Ik0OR9PxonnVZUmHkMRJUBw42ftvwSzLfSODV8JFNYEAOZAK/bpNlrI2IaoVsPdoAzwD+QO+D51iGqOnZyTuu6XxBXWNrav/tPEsaO/Wz2GhOO6tKtPJQbLo5YE5p6CqGui1L3uiqa1lQb8rOzOr/gyGDMLOd0fHGcXj1yIRxrSWzNuXZj8makLFWgUPy41SbndIVhzAGRx1ocDFiVi5jLBkCpJIZHIL8gH0kplmOrl78kt7K4BM25DlXbOrXB8KFMe0XN/a5QrTkpXOqMyhTPkmsG+HKqkO757DzuCSIlPPiSNqNxXVOCU9v6qjXSaqgAM3QwZGirRYbQ13XytfdkHToUzOQVdpA97Sy/zb/+n0C3d0MsjONlwlNYN1jxZntJvHGE3AKmYpN076qz0gshnaEcVguFaAm3bu5BDUScNlL+tAxryVK3y6gX1Lz7scF5xsNz2l5US2cg==
+	gTj45a89x1xtJdsmgSjLZZTWB02qzPWVxYiFHVEO07IROX4sgiQ+2U+uczeDLxu4CPe96HJQ0XD4wbDoDoEoR2lWD2Y55W7zXAMDwNDVXrGHaykCGznTVlLuU1Ju7f8Xp+Ohb11vjMjHWdwWxxh+gong9CRLnTO5MQ5kdfEOaIj/d5wgxRFXpxeVns1vgPKOiDAfCQIXYkxlfPR+W5s22/c7BhiAB/06ZzuMr5nynBpUtCzmZcEJYKtHH/WoCMLftY+/bpNghpWLQ8mqW2SEFE/WwrxIugbvMvYOXscMdIZJcHJITeOJGmJpvAYeKCa4ta4grLjHZuTDyNmrCkNI/tyoehWqOaJuekSA+J3wwwhulYx3mJZ58nWSBv1yqBpuITO1yQQgF68GuSpluNHNhsh9b4SiewJ+VZXPxJh8GBXTWZcMV2D17SaQswwkAOSq6SCTOxyzHNbzxh8nTeh1Qt3i0OWanyg53xEol+AESCB1nRwF8PGxflyiEAOtLR3x711Xq2IB4hEyZM/eSClCXJ3mPgFkV2ggPhCdNi2No7e+X03LUeCKdlRwYnRVceOZuq/weqFv0zJyTtF9GX95jwadoqaCYN5WUoUutRZ1On2PXfpOJhf3KBOsCvWzPO9/7sryFT48DpQSWnLB1LnzAFfD9e8zG+o8SQ1Erk1uRUw=
 X-Forefront-Antispam-Report:
-	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(36860700016)(23010399003)(376014)(7416014)(22082099003)(18002099003)(10067099003)(56012099006)(4143699003)(261028144727099003)(261021121427099003)(261026140227099003)(261021123027099003)(261022105027099003)(261026121527099003)(261102123227099003)(261009223027099003);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SN7PR12MB8147.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(7416014)(366016)(1800799024)(18002099003)(22082099003)(6133799003)(10067099003)(5023799004)(11063799006)(261102123227099003)(4143699003)(261026121527099003)(261021121427099003)(261022075727099003)(261021123027099003)(261022105027099003)(261026140227099003)(56012099006)(261009223027099003)(261028144727099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	AljSyohj8aXiqrNuukx47QSMrYRBc1Uc6y23+E6aHxJPkxN92J+8qKSV/VZ0N44VxBSajtAd/YnVMbu4U4XpFFKp72gVlu6jq1F1TUYMZJbvYUFz1RadnCAAAJBLx1JaUZPmYp9Z5VNbjGpAxkS20YNf8F0Kw3KeXNf5gu2Et87azCIntS0ODywT+XUk/xXj3WKrPph64y1BZhkPxLEv/ea/oLtGznS3lG4BzFGk7ZUatwH9JwUAUY2SxJ3Y0aPdCxyZr2zNkcHGXcnIAlSr1CGDTEVR/wpo5UqtBZiK83FOhjZBzsI+gax9hp4iFkstLJfXqyHREJERjs24TWGked+gyjtAIZfOJ2tmHrTr8RUqK3lG7WOrqa11La0Lbt1SauJEPiTZ/sClZITYa68W3xb2aonrj++s+Iry498LL7zqxKlskYpHbBbh8rzuBtnp
-X-OriginatorOrg: cixtech.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 10:00:40.8212
+	=?utf-8?B?K2wxWHlpYVBYVWNXOHpnNlNDd0IwWFVnbGM4b210bHFOTDJVR3ZnN2dMMGJ2?=
+ =?utf-8?B?WjM3VEN2Rm92U3lRZUdoLzBSOEpHaDJ3SGRENllwazMwZ21jTW81Z2s2aTZB?=
+ =?utf-8?B?OERzVS9TT3N1V0p5U2hXOG4rTDFHWllTK1NvaFFaMlFaS2UxeElNRjJPaUF3?=
+ =?utf-8?B?UEJ1TXM4RXdhdHNzSDRVeE5sU09qUkdNM2psQ1puUldPODd4b0V1Y3lnU09C?=
+ =?utf-8?B?UVViNXBPNG5DV1lLTkFkRVFuaWdqeStubDNSZVJBcHBMYkVVME5VbE1HV3Nr?=
+ =?utf-8?B?dk9yUDZLbVFTSWUrYjVyaGJjOXVyTE5LbTc5T05JUU1WNGdrNVY1YUNNLzlm?=
+ =?utf-8?B?VkxtU2w2c1c5cVVSRmo5U0ZrNzNCL0RLZVUvMWRMUlcrMzkxRkxuT0tUa1hR?=
+ =?utf-8?B?Mjk5RU9mT3FxMk9DRU1obHlpVzd1YnpTUFl5S3JoQmNlaU1VQUtjRThpMjln?=
+ =?utf-8?B?M2RsbXRsUXkrcjlxYkJWb1ZyMzBDWE9yUXFydTVsb01TNjBVdi9VL2c0Skg1?=
+ =?utf-8?B?d3lTd0ZraGNuMi9IWEwvMktXT0lPRUUzalhEV0xHSjBCc0tsQjZTditMZDRV?=
+ =?utf-8?B?YXk0TCtiQmhjbmlud3c1WEpqbVFEQlZNVHNScFlKUmdycWlPVStFU3gyVlBm?=
+ =?utf-8?B?SnJpLzBZUmFGTnluQkpEdEVlZU1VbVJNZ1dBLzBDRE1iY2xhMUpVWW42RDJM?=
+ =?utf-8?B?SmsvQzQ1bUJOSmFDMXlZb0xvU1ltUGRHZUpqaGNKMUZoeERHeG9MK0UwTE1u?=
+ =?utf-8?B?dkVKQUVKckw3ZEt2V2V2cy9hTWlVUnZBUTVoZ1VRR2RkblVvaUpEcVU2eXRY?=
+ =?utf-8?B?MjRlbUg5V3o5a1YvVVFjdWhidWgxenZzWXBpdlZVbXpaK1VtZEJBK2JvZWZ1?=
+ =?utf-8?B?N3JoSDIyNUNaQ3d1RWV0cm9WUE11dUhFc2RDU0xmcnp4dDlsOUxkc0VKMGwy?=
+ =?utf-8?B?V0lYNFdaTjErSE92S2hxZ0dsdGxmSTRLZjlRZVN3R2RkVUhmVEF6a0RZR3VH?=
+ =?utf-8?B?QWRtWmRwN25vSzYwSm0rZGZDc3l3NFdHbHlUVWticUZFNlZaUFNpcDVrUXFN?=
+ =?utf-8?B?eVJSbEhFQWcrbnRFRnVNQlE2RHUvenNtYStQSnlwWEFwTEtuUWlONHJkZjVj?=
+ =?utf-8?B?d1BNczNnbWk0dGNhbnJuWnpQZ3FIUVlRZmtBL3VjSFc5NVkvV01PbFR3Rk1Z?=
+ =?utf-8?B?eTlIK2pFcmc0TndSQXFkdG1XYnROVmlnYjA4TElaRUNWME1adXh1c1dPaGpB?=
+ =?utf-8?B?SGUvRGtrK3ZWOG5ZUmFoWHFhTWdTTklVY1JsdHhnTXloUDNEMnhzeHhQOEJB?=
+ =?utf-8?B?Z0p5L1E4elo4VzArWEJpdnpjZGgrdXdMSk53bU1sYnh3d1BOeFNHUjVVdFVP?=
+ =?utf-8?B?TWJ0QTl4Wkw4OE9CVjBmQ2tKNGk1OTRtZ1JoSGNYemRnQzgzQXVDL25uZHhB?=
+ =?utf-8?B?emdIWGk4T1JNb1F5ZTl3WUlweHN3TFZjSnVCbEMvMEY2a3VEUlBWOE1TWHVW?=
+ =?utf-8?B?OFRuNFNJZ2xPbytLaXFoNUhXWWE2OGdLK0l6YlBzam9UUUN3ZGg0WEp0ZVVn?=
+ =?utf-8?B?RFJCV214S29lQXp2cSt0Y1NQMjlDbkVPM2VmQnJhQVBoaWp2VXR3YUtrckk5?=
+ =?utf-8?B?czdBSURUYWlDVS9TWDN5bDRRL2l6bE1JMVVqYWM1MXZoVjFSYmJGM2kxQkZB?=
+ =?utf-8?B?WUtzOXdieCs5Ym5sSlExdlZXajhXK01kdEhTdm5wNWN5UXYwWnBBTmw2U3Jj?=
+ =?utf-8?B?WjYzVytJOFBDbHFhM3p3MS83OHNkK3RjRXpXeWI4TXlua3V1bXQxQUFPV0po?=
+ =?utf-8?B?MEVQL2ZJN3pkU29LdkRYSEFYMkRZMWxrdmRtdHA1MTkxQWpjSVFOaktuNjBD?=
+ =?utf-8?B?bEVFV0R4V3BkalRDU0xKaU1tUGFPTFRNdDlJN2FvdmRvbkRzbTltekVaMVZI?=
+ =?utf-8?B?NEl0MnFPekNzakxhSkdNaXlRcHVuUm9ZeFRORU80ZU5xTTVFbFhRNXhZeC9i?=
+ =?utf-8?B?MTYzUkJxZzU3U2dxNURNK0x1TzNpMUZqTGNRL3JVdjNTU0FveGhSUy9EaDUw?=
+ =?utf-8?B?RHA4c2IyZkhXZEVkWlJyUkg5Q0dhMzBsZXI5dWZqV3hJU0xBd2p5V2JRT1Y0?=
+ =?utf-8?B?NHRFVFF2ZVU3SzN2SHFkb3c1RlZ4QTV0ZUg1blFhalRTS1MxdW9yK2VXR2Na?=
+ =?utf-8?B?VDRhcWppaGRpb3VXSFZXa1pHVC9vdXhNakJuSVVHZEtsVjVxQjBCZVl3M0hX?=
+ =?utf-8?B?bWEyaDVub3gwVlFOemk2MmpYMWprSmQ5REg5Ykx6TXZ3VU5nVjJCQ1dUUE1Q?=
+ =?utf-8?Q?1lU1WizCOZ1mOCFfqe?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8c44a99e-61e5-4eab-f4ba-08df3fdaaadb
+X-MS-Exchange-CrossTenant-AuthSource: SN7PR12MB8147.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 10:00:51.5380
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f89a75b7-0e80-4b0b-9060-08df3fdaa4cb
-X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SG1PEPF000082E6.apcprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY0PR06MB5427
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: EOvcZSjUS8K4UA9558b0YjhpIH+TpoNOXyumLsjADGEvhLru41mHPBrg8ZhPb3Xb
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6143
 
-> Unanswered comments from Sashiko, dropping from DT Patchwork.
+Hi,
 
-They sat for five days, that is on me. I am answering both reviews in
-separate mails; this one is about the binding only.
+On 10/20/2026 5:28 PM, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 5 potential
+> issue(s) to consider.
+>
+> Critical: 1 · High: 1 · Medium: 2 · Low: 1
+>
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwork
+> know by including "pw-bot: cr" as a separate line at the end of your reply
+> (one such reply per series is enough).
+>
+> - [Critical] Use-after-free in ep_start_xmit()
+>    (drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c).
+> - [High] Shutdown race: the closing flag does not stop a TX completion
+>    that is already running from waking a queue after ep_stop() has called…
+> - [Medium] The TX path cannot recover from an MCDMA channel error.
+> - [Medium] TX flow control counts frames, but the DMA engine runs out of
+>    segments.
+> - [Low] The patch now produces software TX timestamps (skb_tx_timestamp()
+>    in ep_start_xmit), but ep_ethtool_ops (line 515) only has .get_drvinfo…
+>
+> --
+>
+> net: xilinx: tsn: add the endpoint TX data path
+>
+> This adds the transmit path to the Xilinx TSN endpoint driver. Each frame
+> is mapped into a scatterlist and submitted to the DMA channel in
+> tx_chans[] for the frame's logical queue. The queue is stopped when the
+> ring fills and woken from the DMA completion callback.
+>
+>> diff --git a/drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c b/drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c
+>> index 0a13e04d40575..bd8cd504cefb4 100644
+>> --- a/drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c
+>> +++ b/drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c
+> [ ... ]
+>
+>> @@ -310,8 +314,150 @@ static void ep_dma_rx_cb(void *data, const struct dmaengine_result *result)
+>>   	ep_rx_refill(xchan, true);
+>>   }
+>>   
+>> +static void ep_dma_tx_cb(void *data, const struct dmaengine_result *result)
+>> +{
+> [ ... ]
+>
+>> +	ndev = skb->dev;
+>> +	txq = netdev_get_tx_queue(ndev, skb_get_queue_mapping(skb));
+>> +	len = skb->len;
+>> +
+>> +	if (unlikely(result->result != DMA_TRANS_NOERROR)) {
+>> +		DEV_STATS_INC(ndev, tx_errors);
+>> +		dev_kfree_skb_any(skb);
+> [Severity: Medium]
+> How does the TX path recover if the MCDMA channel reports an error?
+   I agree with the scenario. The MCDMA provider sets chan->err on an
+   error interrupt but does not report it to the client, and it resets
+   the channel only on a new submission. If the TX queue is stopped when
+   the error arrives, nothing triggers that reset and TX stays stalled.
 
-On the overlapping reg windows: the USB30 Type-A DRD RCSU block at
-0x091c0000 holds the straps of the two controllers and of their PHYs,
-interleaved:
+   As in my reply on patch 6, we will address MCDMA error notification
+   and recovery in a separate MCDMA dmaengine series. Since an MCDMA reset
+   affects the whole core, recovery has to cover both the TX and RX
+   channels, so it is not handled as a TX-only change in this series
 
-  0x300  STRAP_PIN0     stream ID           USB4
-  0x304  STRAP_PIN1     stream ID           USB5
-  0x30c  STRAP_PIN3     clock enables       USB4, USB5
-  0x314  STRAP_PIN5     awcache/arcache     USB4
-  0x324  STRAP_PIN9     awcache/arcache     USB5
-  0x328  STRAP_PIN10    USB2 PLL            USB4
-  0x400  STRAP_STATUS0  AXI clock state     USB4
-  0x410  STRAP_STATUS4  AXI clock state     USB5
+>
+> In drivers/dma/xilinx/xilinx_dma.c, xilinx_mcdma_irq_handler() sets
+> chan->err on an error. After that, xilinx_mcdma_start_transfer() stops
+> handing BDs to the hardware:
+>
+> xilinx_mcdma_start_transfer() {
+>      ...
+> 	if (chan->err)
+> 		return;
+>      ...
+> }
+>
+> The flag is only cleared by xilinx_dma_chan_reset(). That runs from
+> xilinx_dma_tx_submit() on the next submit, or from terminate.
+>
+> Suppose the error arrives while the TX queue is stopped, either by
+> netif_txq_maybe_stop() or by BQL through netdev_tx_sent_queue(). Then
+> ep_start_xmit() is never called again. No reset happens, ring_tail never
+> advances and __netif_txq_completed_wake() never runs. The queue stays
+> stopped until ifdown/ifup.
+>
+> ep_netdev_ops has no .ndo_tx_timeout either. So the watchdog never
+> terminates the channel or resets ring_head/ring_tail and the BQL state.
+>
+> A related point: xilinx_dma_complete_descriptor() checks per-BD
+> completion only for XDMA_TYPE_AXIDMA. Can descriptors abandoned across a
+> submit-triggered reset later complete here as DMA_TRANS_NOERROR and be
+> counted as tx_packets?
+>
+> This looks unchanged at the end of the series.
+>
+>> +	} else {
+>> +		DEV_STATS_INC(ndev, tx_packets);
+>> +		DEV_STATS_ADD(ndev, tx_bytes, len);
+>> +		dev_consume_skb_any(skb);
+>> +	}
+>> +
+>> +	__netif_txq_completed_wake(txq, 1, len,
+>> +				   CIRC_SPACE(READ_ONCE(xchan->ring_head),
+>> +					      READ_ONCE(xchan->ring_tail),
+>> +					      xchan->ring_size), 2,
+>> +				   READ_ONCE(xchan->ep->closing));
+> [Severity: High]
+> Does the closing flag really prevent a wake after ep_stop() has disabled
+> the queues?
+>
+> __netif_txq_completed_wake() checks netif_tx_queue_stopped(txq), then
+> checks !closing, then calls netif_tx_wake_queue(). None of these steps
+> is serialised against ep_stop():
+>
+> CPU A (TX completion)               CPU B (ep_stop)
+> __netif_txq_completed_wake()
+>    queue stopped, closing == false
+>                                      WRITE_ONCE(ep->closing, true);
+>                                      netif_tx_disable(ndev);
+>    netif_tx_wake_queue(txq)
+>                                      ep_exit_dmaengine(ep);
+>                                        frees TX channels
+>                                        ep->tx_chans = NULL
+>
+> netif_tx_disable() takes and drops each txq lock, then returns. It does
+> not wait for a completion that has already passed the closing check.
+>
+> The qdisc path is covered by dev_deactivate_many(). generic_xdp_tx() is
+> not: it only checks netif_xmit_frozen_or_drv_stopped(txq) under
+> HARD_TX_LOCK.
+>
+> It can be reached through xdp_do_generic_redirect(). xdp_ok_fwd_dev()
+> checks only IFF_UP, which is cleared after ndo_stop returns. It can also
+> be reached through generic XDP_TX on this device's own RX, whose
+> channels are freed after the TX channels.
+>
+> Could ep_start_xmit() then dereference a NULL ep->tx_chans or a freed
+> xchan on the re-woken queue?
+>
+> The v3 changelog says the patch will "Skip the queue wake in the
+> completion callback while closing". A lockless flag test doesn't seem
+> to give that guarantee. This also looks unchanged at the end of the
+> series.
+>
+>> +}
+>> +
+>>   static netdev_tx_t ep_start_xmit(struct sk_buff *skb, struct net_device *ndev)
+>>   {
+> [ ... ]
+>
+>> +	nents = dma_map_sg(xchan->dma_dev, skbuf_dma->sgl, sg_len, DMA_TO_DEVICE);
+>> +	if (!nents)
+>> +		goto err_drop_skb;
+>> +
+>> +	dma_tx_desc = dmaengine_prep_slave_sg(xchan->chan, skbuf_dma->sgl,
+>> +					      nents, DMA_MEM_TO_DEV,
+>> +					      DMA_PREP_INTERRUPT);
+>> +	if (!dma_tx_desc)
+>> +		goto err_unmap_sg;
+> [Severity: Medium]
+> Can this path drop frames under load once the DMA segment pool runs out?
+  I agree the TX ring counts frames while the provider's per-channel
+  segment pool (XILINX_DMA_NUM_DESCS, 512) counts scatterlist entries, so
+  in theory the pool can be exhausted first.
 
-USB4 needs 0x314 and 0x400, USB5 needs 0x324 and 0x410, and 0x324 falls
-between 0x314 and 0x400. There is no contiguous window that covers the
-registers of one controller without also covering a register of the
-other, so the overlap is what the hardware looks like, not a shortcut.
-reg describes the window of the block that this instance's glue lives
-in, and the instance only touches two words of it: the AXI cache
-attribute at res->start and the AXI clock status at res->start + 0xec.
+  In practice this needs the up to 62 in-flight frames to average more
+  than 8 scatterlist entries each, while typical frames at the endpoint
+  MTU use one to three. If it does happen, prep fails and the frame is
+  dropped and counted in tx_dropped. The queue does not stall, no buffer
+  is leaked, and transmission continues as completions return segments.
 
-The driver maps that window with devm_ioremap() rather than
-devm_platform_ioremap_resource(), so no memory region is requested and
-the second instance cannot fail with -EBUSY on the first one. That is
-deliberate, and it is why Sashiko's failure mode does not happen here.
+  Since this needs unusually fragmented traffic and the only effect is a
+  counted drop, I would prefer to keep the current behavior for now.
 
-I did look for a shape without the overlap:
+Thanks
+Srinivas Neeli
+> With ndev->features = NETIF_F_SG, one skb can need up to
+> MAX_SKB_FRAGS + 1 scatterlist entries. xilinx_mcdma_prep_slave_sg()
+> takes at least one segment per entry. The segments come from a fixed
+> per-channel pool of XILINX_DMA_NUM_DESCS (512):
+>
+> xilinx_mcdma_prep_slave_sg() {
+>      ...
+> 			segment = xilinx_aximcdma_alloc_tx_segment(chan);
+> 			if (!segment)
+> 				goto error;
+>      ...
+> }
+>
+> The driver ring holds TX_BD_NUM_DEFAULT (64) frames. The stop/wake
+> thresholds of 2 count only frame slots.
+>
+> Suppose in-flight frames average more than 8 segments each, for example
+> MSG_ZEROCOPY with many small frags. The pool then empties while
+> CIRC_SPACE() still reports room. prep returns NULL and the frame is
+> counted as tx_dropped, instead of the queue being stopped.
+>
+> This looks unchanged at the end of the series.
+>
+>> +
+>> +	skbuf_dma->skb = skb;
+>> +	skbuf_dma->sg_len = sg_len;
+>> +	dma_tx_desc->callback_param = xchan;
+>> +	dma_tx_desc->callback_result = ep_dma_tx_cb;
+>> +
+>> +	spin_lock_bh(&xchan->tx_lock);
+>> +	cookie = dmaengine_submit(dma_tx_desc);
+>> +	if (dma_submit_error(cookie)) {
+>> +		spin_unlock_bh(&xchan->tx_lock);
+>> +		skbuf_dma->skb = NULL;
+>> +		goto err_unmap_sg;
+>> +	}
+>> +	WRITE_ONCE(xchan->ring_head, xchan->ring_head + 1);
+>> +	netdev_tx_sent_queue(txq, skb->len);
+>> +	netif_txq_maybe_stop(txq,
+>> +			     CIRC_SPACE(xchan->ring_head,
+>> +					READ_ONCE(xchan->ring_tail),
+>> +					xchan->ring_size),
+>> +			     2, 2);
+>> +	spin_unlock_bh(&xchan->tx_lock);
+>> +
+>> +	skb_tx_timestamp(skb);
+>> +	dma_async_issue_pending(xchan->chan);
+> [Severity: Critical]
+> Can the skb already be freed when skb_tx_timestamp() runs here?
+>
+> Once dmaengine_submit() has returned and tx_lock is dropped,
+> ep_dma_tx_cb() can take skbuf_dma->skb and free it with
+> dev_kfree_skb_any() or dev_consume_skb_any().
+>
+> This ordering seems to assume the transfer can't start before
+> dma_async_issue_pending(). However, the Xilinx MCDMA provider starts
+> pending descriptors from its IRQ handler when an earlier transfer
+> finishes:
+>
+> xilinx_mcdma_irq_handler() {
+>      ...
+> 		if (list_empty(&chan->active_list)) {
+> 			chan->idle = true;
+> 			chan->start_transfer(chan);
+> 		}
+>      ...
+> }
+>
+> xilinx_mcdma_start_transfer() then moves the whole pending list onto the
+> hardware:
+>
+> 	list_splice_tail_init(&chan->pending_list, &chan->active_list);
+>
+> So with an earlier frame in flight on the same channel:
+>
+> CPU A (ep_start_xmit)               CPU B
+> dmaengine_submit(frame B)
+> spin_unlock_bh(&xchan->tx_lock)
+>    <delayed by irq/preemption>
+>                                      IRQ for earlier frame
+>                                        start_transfer() starts frame B
+>                                      frame B completes
+>                                      ep_dma_tx_cb() frees frame B
+> skb_tx_timestamp(frame B)
+>
+> skb_tx_timestamp() reads skb->sk, skb->dev and skb_shinfo()->tx_flags.
+> With SOF_TIMESTAMPING_TX_SOFTWARE or a PHY timestamper, it also clones
+> the skb or queues it to the socket error queue.
+>
+> The skb_tx_timestamp() kernel-doc says it must be called "before TX
+> completion of this packet can trigger. Otherwise the packet could
+> potentially already be freed." The v3 note says the call was placed "at
+> the hardware handoff", but here it runs after the handoff.
+>
+> Would moving skb_tx_timestamp() before dmaengine_submit() avoid this?
+> The later patches in the series don't touch the TX path, so this is
+> still present at the end of the series.
+>
+> [Severity: Low]
+> The driver now generates software TX timestamps. Should ep_ethtool_ops
+> also get a .get_ts_info, such as ethtool_op_get_ts_info()?
+>
+> ep_ethtool_ops only has .get_drvinfo. The default in
+> __ethtool_get_ts_info() reports only SOF_TIMESTAMPING_RX_SOFTWARE |
+> SOF_TIMESTAMPING_SOFTWARE. ethtool_op_get_ts_info() is what adds
+> SOF_TIMESTAMPING_TX_SOFTWARE.
+>
+> As a result, ethtool -T won't list software-transmit for this device.
+> Tools such as linuxptp, which check TSINFO first, will treat it as
+> unsupported.
+>
+> [ ... ]
+>
 
-- syscon for the block: you already rejected that in v4 - "If you have
-  here MMIO for some glue over IP block, then it is unlikely to be a
-  syscon." I agree, this is USB glue, not a miscellaneous register set.
-
-- a container node with the two controllers as children and their index
-  in the block as reg: of_platform_default_populate() only descends into
-  simple-bus, simple-mfd and isa nodes, and a container with no driver
-  would never have its children instantiated.
-
-So v8 keeps the v7 shape. I have it ready and am not posting it before
-you answer this, so that the next version is final on this point. If you
-think the overlap should not be described this way, please tell me which
-shape you want and I will send that instead.
-
-The other Sashiko findings are driver bugs and are fixed in v8; they
-will be answered in the other thread. The PHY series is unchanged.
-
-Best regards,
-Hongliang Yang
