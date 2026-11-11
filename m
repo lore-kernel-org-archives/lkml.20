@@ -1,56 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794384331;
-	b=MCfJWb/t+h1ZlNdb1RRTszl1YKSP67mPNJjl6FT+TsSJNiPj3QL4SmpKxOE1qH2WhoH+
-	 xTZtY77x1FRR2yfXPwju7+Jg0dKyLsWz+wUSjp+8amp7cMCh247NFaQM9UB80TG+NCIma
-	 W6cO2ZIbLYLEi3qUdS8ids6yNSaIaIKRvAP4UChh30Rp6d2pg09plURJMFaMAwP4gska4
-	 L+5iUVs9VES7P2uq91b2WMmCLHYxqli+xftC+xpbRb5uTzh7C7xHNdAC3EoM5KMVNRQhT
-	 MOc1K+sfFjP3xLyzBYKc0rlsiU6tnw2h/uTqJP3HoOL8lBgorYTQjeGSlchFu1ZZekg==
+	b=eMgjqIk0bjqkgQETERlHNPXgxY7ySAeg1dUkWDf5ClXT+ElTMp7CJwGqKG1V3GaohS+6
+	 ARFBHu39B6MOMYLC4fMbOoHbbovpdrDhAuqWixpcfGlbzUEcybd/UFnypyGuj5M90k9/r
+	 H4+KBrBm4cESGQis0j7UPLOdoBsL41z59MQQwsv6fjFySQw/NyFt3/RUWZj8DI1vgMPhQ
+	 kjBrXqrZ0Vo8yM4ipkspZaHDPnjoRaWhU2OA1//nHJrxQX7urgftSslZzmuwxrxfK5t9Q
+	 vOEVNj7ZBaLm8A4OU0PYFHfwwAjDOmmMrnY25SBNXWLjX3WiVOoBCs2ba4PoZqKr/sg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794384331;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=/GSWuUudINQ5InmDwWsy8zWhwr+7Kpnc2mR1mJL4+KA=;
-	b=V1l/WVzS5c5eN+N81RM9L6QVTENRmQfcw7YLLWu5qDqW6+gDH59dY2XVYzOkC6Lqtv3U
-	 iUgkBQPX3gVG9tTei4XmF84xcFAH1aeF1QEVKkI+DdRr0GyGUWFBsx7nrUsOx/HYDDi6w
-	 fveFHLEmlyzUKEpmPhA3HY9i4oYOuzqkpKAGVQQxu6/+dOW9yCAfWYwHVkKdJHxsvJzzQ
-	 RjFkg7LwgAbjD0QLw5bw5u25uSTC5osbMrxBkFRLE1GDGqEvN6oqKGWSnBQ3mn6uwKse6
-	 V3vP6jzFcurHHh9LwQ/Viff8B8lbJ2GbBPwZULVLLPefTkP24VyndZtE8CU0xd6PKXQ==
+	h=Received:DKIM-Signature:Content-Type:MIME-Version:Message-Id:
+	 In-Reply-To:References:Subject:From:To:Cc:Date;
+	bh=dMZUIMOLvYUrODTdzt6SoBp5bxkivOxSH3iVoMyLwAA=;
+	b=P+ikEsV+liZkqNcUhR8Opgl1rNTKeSfrY15B31NQZiCCmPtFwdEp8IW11HLvZsn5iLJM
+	 mboFfphhgiwIuildxU0ll69ccjCLKagICUTrluuOr3rlBFjHp3tE3p5tL6HvoJmWMFcRZ
+	 +Zm0zfpobl5HXFedf9xc/hY7PDj2DZH7W03rv53QF4j1qr/w8/GGjYNfKqBznCSaiWhwE
+	 gKX+S+Velw9rwgbyeaPXGWTONHq+DiGK8CPIWGZgSwEi+GIdfq/YvEBGw+mwOpXdeYbIy
+	 rTJNMuFkeU+XT2kdvBrmviB0MmE9AMIrZgfzQPDrbJ62sbhMvYH+S3d+x89Dwz093Kw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QW7MK1KM;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nxX6BnuP;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C89D1606A32E
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 08:05:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 024F7606A321;
+	Wed, 11 Nov 2026 08:05:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QW7MK1KM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2E491F00A06;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nxX6BnuP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 453FE1F00A05;
 	Wed, 11 Nov 2026 08:05:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794384331;
-	bh=/GSWuUudINQ5InmDwWsy8zWhwr+7Kpnc2mR1mJL4+KA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=QW7MK1KMPShmXAzj2tGBuE1vD3/CnUjJJ6qz1x6814x0dF88RS2ylZ3oJGCJXWldl
-	 oCmk98Qi2QHSbNYVhnD9ZYNfgT3mhaWRKSEXXHWtCRQHb81g1edSgty+bDEAXPjMXb
-	 f2/15FBZNATOuZsxuXJtN7a24+G3vHnH9k0HGG7q62QmKPCjV0zRedYRvAKLUvt1dZ
-	 t1UfZbr1OFwF+Fm7gcNyaT99SpdKSLOcF0K4IOG6BELRlA4/pZWDxY+2G264tU/YWG
-	 UulKdXOxLH0wx8yH08+Ct/GNXMTPS3DgKrcax3Zgz0oChXeTaigr28d1hsFazZJzf2
-	 OT9H6SrQywRUw==
-Date: Wed, 11 Nov 2026 10:05:26 +0200
-From: Mike Rapoport <rppt@kernel.org>
-To: Pratyush Yadav <pratyush@kernel.org>
-Cc: Pasha Tatashin <pasha.tatashin@soleen.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	kexec@lists.infradead.org, linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: Re: [PATCH v2] mm/memfd_luo: don't use memfd_pin_folios()
-Message-ID: <avQhxo-dVGdvcHK6@kernel.org>
-References: <20261103172251.2348370-1-pratyush@kernel.org>
- <179381215936.28814.9050829645096838793.b4-review@b4>
- <2vxzse18h9j5.fsf@kernel.org>
+	s=k20260515; t=1794384330;
+	bh=dMZUIMOLvYUrODTdzt6SoBp5bxkivOxSH3iVoMyLwAA=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=nxX6BnuPV1ze2wMAtUBnKYgZFhVZtOy7yx8hp/H3FXk2GPXh1OyTyfjjiTn1hYpfv
+	 Q11Vw9+cd/L3eD/gpbkDtoOgHM4I7KKEvutAVvO985QFToanpr2/FjZvJkGKkXWWB5
+	 7j2hA0qJWtwSaGwo6d7QNdoXCLR2bC1jQLpbHo/abcDQfbsLnRJ7N0hnJHYh3eWLM3
+	 9VkvBkqVEvXWHErgwpqYGV5FNrcNQzX0vCGvaqGk02PS2FvOpoKMFuBCowm2WedOBQ
+	 XIJb8MQK+przP7V+hH3+nD05xSOoMkoO7NfHXUU25C/LHQMT0wOALn9IJgyvzMfMXQ
+	 Gal2dFG/Tr1AA==
+Content-Type: multipart/mixed; boundary="===============3405028542108698645=="
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,43 +49,129 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2vxzse18h9j5.fsf@kernel.org>
+Message-Id: <d429e252a205d044f8f034ed8341c4cb1e1eeb61711b4dea4d437d40b7cb7223@mail.kernel.org>
+In-Reply-To: <20261109135758.395119-1-radu.m.toader@gmail.com>
+References: <20261109135758.395119-1-radu.m.toader@gmail.com>
+Subject: Re: [PATCH v2] softirq: Treat an interrupted idle task as idle in tick_irq_exit()
+From: bot+bpf-ci@kernel.org
+To: radu.m.toader@gmail.com,peterz@infradead.org,mingo@redhat.com,tj@kernel.org,tglx@kernel.org
+Cc: juri.lelli@redhat.com,vincent.guittot@linaro.org,dietmar.eggemann@arm.com,rostedt@goodmis.org,bsegall@google.com,mgorman@suse.de,vschneid@redhat.com,kprateek.nayak@amd.com,void@manifault.com,arighi@nvidia.com,changwoo@igalia.com,frederic@kernel.org,anna-maria@linutronix.de,bigeasy@linutronix.de,joshdon@google.com,haoluo@google.com,brho@google.com,linux-kernel@vger.kernel.org,sched-ext@lists.linux.dev,bpf@vger.kernel.org,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Wed, 11 Nov 2026 08:05:29 +0000 (UTC)
 
-On Tue, Nov 10, 2026 at 06:38:06PM +0100, Pratyush Yadav wrote:
-> On Wed, Nov 04 2026, Mike Rapoport wrote:
-> 
-> >> +/*
-> >> + * Move a folio out of ZONE_MOVABLE or CMA, so it can be held until the next
-> >
-> > "held until next kernel" - here and below - I feel that something is off
-> > here, but can't pinpoint what exactly.
-> 
-> Hmm, perhaps this:
-> 
->     Preservation holds a longterm reference on the folio. This would
->     block migration in ZONE_MOVABLE or CMA. Move it out.
+--===============3405028542108698645==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+> softirq: Treat an interrupted idle task as idle in tick_irq_exit()
+
+TL;DR: Commit message only, no code issues: the changelog carries posting
+notes (v1 history, dropped reproducer, compile-test matrix) that could move
+below the '---' line.
+
+> softirq: Treat an interrupted idle task as idle in tick_irq_exit()
 >
-> ?
-> 
-> >
-> >> + * kernel. Called with a reference on the unlocked folio, which is always
-> >> + * dropped. The caller must look up the folio again afterwards.
-> >
-> > I'm having hard time parsing "called with a reference" sentence :)
-> 
-> What about this:
-> 
->      Must be called with folio unlocked. Drops the reference to folio.
->      The caller must look it up again.
+> tick_irq_exit() only runs tick_nohz_irq_exit() if sched_core_idle_cpu(),
+> which is idle_cpu() unless core scheduling is built in. idle_cpu() is
+> false when the run queue has tasks while the idle task runs.
+>
+> That is the normal state of a CPU under sched_ext whose BPF scheduler
+> holds back a runnable task of that CPU in one of its queues, e.g. a task
+> of a cgroup at its CPU limit: the task stays queued on the CPU's run
+> queue and counts in rq->nr_running, while the CPU sits in the idle loop.
+>
+> tick_nohz_irq_exit() is what marks an idle CPU as idle again for the
+> scheduler clock after an interrupt in the idle loop
+> (TS_FLAG_IDLE_ACTIVE, sched_clock_idle_sleep_event()). Without it, the
+> next exit from the idle loop doesn't resynchronize the CPU's sched_clock
+> with sched_clock_idle_wakeup_event(). With an unstable sched_clock, e.g.
+> under kvm-clock without a stable TSC, the clock of a CPU in tick-stopped
+> idle is clamped to its last stamp plus a tick, so a task picked after a
+> reschedule IPI (which doesn't go through irq_enter()) starts with a
+> stale exec_start, and the next tick charges the whole idle stretch to
+> it.
+>
+> Measured with one thread spinning 10 ms in every 100 ms in a cgroup,
+> kept off its CPU for a further 7 to 53 ms per period by a sched_ext
+> scheduler: the cgroup's cpu.stat usage_usec over the thread's own
+> CLOCK_MONOTONIC measurement of its busy time reached 2.00, twice the
+> CPU time the thread could possibly have used, and is 0.96 with this
+> patch. The same ratio with no BPF scheduler loaded is 1.005.
+>
+> Commit 548796e2e70b ("sched/core: introduce sched_core_idle_cpu()")
+> fixed this same gate for the other case of "the idle task runs while
+> nr_running > 0", forced idle under core scheduling, where the symptom
+> was too little idle time in /proc/stat. sched_ext made that state
+> reachable without CONFIG_SCHED_CORE, and there the symptom is idle time
+> charged to a task as runtime.
+>
+> Ask whether the idle task is running, which covers both cases. CPUs
+> whose run queue is really empty are unaffected; a CPU interrupted
+> between leaving the idle loop and switching to a task has need_resched()
+> set or has already left the idle accounting, see tick_nohz_irq_exit().
+> sched_core_idle_cpu() has no users left and goes.
+>
+> The two gates test different predicates rather than one containing the
+> other, and the difference is deliberate. idle_cpu() is idle_rq():
+> rq->curr == rq->idle && !rq->nr_running && !rq->ttwu_pending.
+> is_idle_task() tests PF_IDLE on current. Newly covered:
+>
+>  - the two "the idle task runs while nr_running > 0" cases above;
+>
+>  - a CPU idling with a wakeup queued by TTWU_QUEUE whose IPI has not
+>    run yet;
+>
+>  - injected idle. play_idle_precise() sets PF_IDLE on a SCHED_FIFO
+>    kthread which then loops on do_idle(), so rq->curr is not rq->idle
+>    there and the old gate was false off nohz_full CPUs. Interrupts
+>    taken during injected idle now run tick_nohz_irq_exit() with
+>    TS_FLAG_INIDLE set. That CPU is running an idle state and needs the
+>    same latch for the same reason, so this is wanted rather than merely
+>    harmless, but note it reaches the idle injection users in
+>    drivers/powercap/idle_inject.c, intel_powerclamp and
+>    cpuidle_cooling, and is not confined to sched_ext.
+>
+> One state is no longer covered: PF_IDLE is set by cpu_startup_entry()
+> and not by init_idle(), so a CPU on its idle task before that point
+> satisfied idle_cpu() but does not satisfy is_idle_task(current). Nothing
+> is lost, because TS_FLAG_INIDLE is only set inside do_idle(), so
+> tick_nohz_irq_exit() had nothing to do there, and nohz_full CPUs are
+> covered by tick_nohz_full_cpu(cpu) either way.
+>
+> What keeps the new gate from giving a CPU idle accounting it should not
+> have is that tick_nohz_irq_exit() tests TS_FLAG_INIDLE itself and only
+> does the idle bookkeeping inside the idle loop.
+>
+> Compile-tested in four x86_64 defconfig variants - SCHED_CORE=y with
+> NO_HZ_FULL=y, SCHED_CORE=n, NO_HZ_COMMON=n, and SCHED_CLASS_EXT=y with
+> SCHED_CORE=y and NO_HZ_FULL=y - with no new warnings at W=1.
+>
+> The reproducer is a sched_ext scheduler that parks a tagged task on an
+> otherwise idle CPU for a set time. It was patch 1 of v1 and is dropped
+> from this posting at the maintainer's request; it remains in the list
+> archive, see Link.
+>
+> [ ... ]
+>
+> Fixes: f0e1a0643a59 ("sched_ext: Implement BPF extensible scheduler class")
+> Link: https://lore.kernel.org/lkml/20261106094343.174905-2-radu.m.toader@gmail.com/
+> Signed-off-by: Radu Toader <radu.m.toader@gmail.com>
 
-Ack for both :)
- 
-> -- 
-> Regards,
-> Pratyush Yadav
+This isn't a bug, but the changelog carries notes about the posting itself:
 
--- 
-Sincerely yours,
-Mike.
+> The reproducer is a sched_ext scheduler that parks a tagged task on an
+> otherwise idle CPU for a set time. It was patch 1 of v1 and is dropped
+> from this posting at the maintainer's request; it remains in the list
+> archive, see Link.
+
+Could the notes about v1 and this posting (and perhaps the compile-test
+matrix) move below the '---' line, leaving the Link: tag to point at the
+reproducer?
+
+
+---
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/42982351680
+--===============3405028542108698645==--
