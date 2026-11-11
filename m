@@ -1,88 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794390841;
-	b=q3APlLjutkQ/qa9GkEqWQ0qV0v8CX0/rvwDF+qoydB20Kvm29pIEPP+p3B6fyCure3Oc
-	 vlb49Y/Sbw2slezAJAtyFCSHwJCiZ0oSHy0/mI7w9Qcje1ehanCO8JDTp9VqRUczG7MVK
-	 6gnk1ZvtcnuC9ifg5VZSbRkepEiBiMXCl/bCXzhlQrpAXIH9XHDmCO5sD/Wr1Jy+Gwx4H
-	 0oMWtEJNOd4PtyFvZKFAIZHvXXHFntPgdxpdC+dByFiG4v7csE6jKLUhDW6V3jMQuftHL
-	 VgFlYKgJaUzSLReRy0D9AublWYw7DzUY5m7hvsBB/psT+xbhYwqqUaCAaBlNZEZ1XJA==
+	t=1794390938;
+	b=VWoQs6tW2WgkqEQjWXGoy4gMli9kOM4OfxFH7oBq1BIM9RiaQlB/OP1t5sDS6bPWi+Kl
+	 XOQp147luHuIBcvRA3KgavIbwJRwoYGP6TkGZvDuTo6T1s7XQ/V1aB0N/u0/7mNA45/rL
+	 KTdwbYwodiPUGfwmKK5nb7nFMHGvtwcxEjJ9h9QO50AlCVIBhdzQ5mYnDo/hP1i4CkJ8l
+	 ka6gel7+ofEv5yEQOuRlGtZP0KlKAGL7ficQClCthvVbyNwUXHrW2KY6KaQ7ekLl3D09i
+	 as/cQ6pbnR6mVonCXW72dyXGPPZmqd+AAZoEejhUnvEocpEs18M5U/gqeJ9s/RtiDIw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794390841;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794390938;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=iiynlEyig9LsinGQop9Fw8MYPPe7GVoPwBaprgGhDdM=;
-	b=kLH48NN9EEZC5BlW3FrbNY2/o/LYy2/aRuxnxWft9RYba5/1oLGqL8oqVV0lsR/AEQyM
-	 utjmFR8XUyACH8PAidvVKWAFTUcYI+1EUq/AR+TK8VElTwDAlx5MJpnQXeMBv1gBUjRDu
-	 /Pc6jBTaJ5w4Bj+veadp17Rffnc/0KzPAGqYrgS10tni1uhh/hIQwXeOOhkTmjhTaUu6F
-	 cJZXdQuBd8VrleZh8KCBMzzEDNsRB3OTaWho1lS9Fbs9zEKX3h6TFRyUGlBbzS9mI6T7/
-	 CQT0yLpXykDgqPpkEh9fWLXPtNW7mo4fYdYt/iOKcE3hCtOFniOek8dgVhrxfDZFCOQ==
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=1oZ46qbfzK1kC56ugvfDKIKqDBjZaNHDclt7g8ZJTBk=;
+	b=ylkifrgsmFa8AkjXyYrwRNCZV7ZgQq4D/v/VHargeBSGNAQWGPBbQLzaA1ZyYWAwltU4
+	 iVQW43Ne46gwELO2j+McMxu5etUctKnb/NaQHxBo076yIZLHbFunie7elP4ZPLVNA1zPs
+	 ++TVrvz/7azYovK28MLHl0rGupHOJBS9TQfLXfQh6Bo18dcakM1vVE2WMw54IRtYym4DA
+	 TZPdN+QJZCrXAHnjiD4OVgzLatOsvv0mHKCOz0tOaVLELO9NGGn+YNIKFPU2hV1LF/m7p
+	 rwglj1pahdqo8ece1mYTrps7Qv+KqAajzUgE1jXde+JdgKuhsUGBk9PJ2X9Ekwr147g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=KTmdlz2s;
-	arc=none smtp.remote-ip=209.85.128.48
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	dmarc=pass header.from=baylibre.com;
+	spf=pass smtp.mailfrom=baylibre.com;
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=ByvdQeCW;
+	arc=none smtp.remote-ip=209.85.128.53
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CF2F606A324
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 09:54:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8CF2F606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE8F4606A321
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 09:55:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE8F4606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=KTmdlz2s
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4afe2d546f9so37860905e9.3
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 01:54:00 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=ByvdQeCW
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a549cd7fd2so26865625e9.0
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 01:55:37 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1794390839; x=1794995639; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=iiynlEyig9LsinGQop9Fw8MYPPe7GVoPwBaprgGhDdM=;
-        b=KTmdlz2si8eq6rRIBxKwHAL6SXnZylgbStbTdORWZgkdG7iRcET8/w2ikrDMefQPhX
-         5SZDXG/avNQCvCY9x+4qmMNc2Ftjbq1QS9RzMV8DtEPnLwfMdHncnvpuejgQ5KlfMNQP
-         3LZ0xfmy5rVbFt3ug7FXg1bztnDoBZlEEsYI2yj3mwl3R+t6zxzZOzGxGEVbEIz0dzze
-         +VzJ8wwJdQ5KiMxucpR8CUuFnWGjoHFRDFsWoeEw3M1XaNpvyN2mOST/UEGy+QMJcrzN
-         lsKNVjBdSZWKkfMtxgdsLwPiGhdYr0tquEHcFPUfDalBZsLfMSc0Rf9ETvLkoU3Hh12t
-         7/Sw==
+        d=baylibre.com; s=google; t=1794390936; x=1794995736; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=1oZ46qbfzK1kC56ugvfDKIKqDBjZaNHDclt7g8ZJTBk=;
+        b=ByvdQeCW97xpSfcywMgPEu3DP4l6m75jFToER/s6KG1w+8ssAoQnPmSm57oSzHn5tI
+         ELjceSIB+TCPO8pi5TX0CIIVX7c6D8BbZlkwNDnfPDxq3LsBxF9HgJEEjTcFRraPDmV0
+         ZcJmKGSnRSQ+zjBi3rGryGI7LrkHAJq0J4PK/yab6XEqA+GM/LLi6jmIDYQOy+dA8I2g
+         kqzNwqz1o9UScfI18ESZ2XxEsQlZe9eIbXvVQdY5gVIGcyO7DOpa2aRA+tEUyidpzHuD
+         t8yuHY5e6B24caunJCU+D71G6P/moCeidVFRvkBAMGO1V37deG8+6CMKhtMyXsVOSteq
+         b7mg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794390839; x=1794995639;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=iiynlEyig9LsinGQop9Fw8MYPPe7GVoPwBaprgGhDdM=;
-        b=1fpyjVb1ENJq3jV4OH2yMwxlXT9uly71fubAGdT1SR3rEy6IdVMSrNm+iPSLR8j7Ir
-         /ZCo3Uhnj0G9RfJ1nL+SlF0vUaP7aLyR9PJw19rHWtU95nrxI3f/VAHkyQPGDWExHiSs
-         GE12QzHvZ+gUyksPKcFTcAA7xODYrQ0XOaF9zWuyKXJsTfkdKVukkn09dnDb154pFBxb
-         h4oOXK43ZSFWSkKN0h57AeYxJXi9P0NXa8Zq/C5CGdOPCNTuwl8N/vap7MAPChQP3VCP
-         m0Sfe73aNe2ZbDvQCJZWlegxmzL6wlqqijXSFbgAkvZ9OWtfCHVuVqme45V3hp++NiF1
-         /rqA==
-X-Forwarded-Encrypted: i=1; AL+hErGWXiUYXN3+Ikcs0PRWmSiIbRIIQ4yLPrrae3Sk7SonffKnDmOzOwqVQO7i74pKvtlw6J+12BWLmHIPOpw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z94R6ThhYQH0aANjJuhMSBwANnwvyF7XZRThleEwWNNu/vopfmB
-	SOJFgohzzuz5YoiEb2u3nO65Qfs4Ma5LIgZC9I9DDUXfxPi1ivdRxwBa52czzg+at5o=
-X-Gm-Gg: AYBFou1MgFIVLbvI6voonDIUaMtYhELfWtf3nVbBWMY4s5YywUUiZTt8xUh+cullK3k
-	fG+n5SuQ25BeP7VcM6G3qZFxlUlKrpMwMxlcbOKdmw+X6IwmAAd3qRGkwDZ0ciMdSP2lOv8HJro
-	y67d5aEEc8t2j49+ZcZum1xfTIgI/t6s8EDVJDIEuZqBfIa3lh9HPtBZGsrj03WIbOtzZA7LJAo
-	/1eNHJnrUYiEizA2bP6I26IqKg41531+VLCCLJnJygSbSWXBo29q8JWa6G2U254mBQm6ur5H+hA
-	A8RtISya8j34hbTqiP4hrYXOsf2Rb0/6spLow18d1UW3BH15ryudqaSIAejR0+ompEhGYgQtJ/H
-	7vw6ybuZxNC2tS+7pLI6BgvjUGBC5WjWaAmQwJsD9wwrOcyaeCeKxnPSh8Ma+yXlwGzSVUIxzyt
-	xUHobepoHM6LvD4BG8Pi/78gbTv9BZki4SCD+KItcVuhE0pXWQx3EQIhnUofveFAer9W7Mevw3w
-	9HZ6stFcAeKRyuzsIqvtqGDrNd4AwHuVDp80TZ/9ydMQ4Yh5J5EnIcI+O8thIRcmudemNwgmv3I
-	CgAuA3XyD3r9SPK0+t5O7n5267GviPop3g==
-X-Received: by 2002:a05:600c:1549:b0:4a2:cbe:bebc with SMTP id 5b1f17b1804b1-4ba0938ba0amr31926455e9.23.1794390838905;
-        Wed, 11 Nov 2026 01:53:58 -0800 (PST)
-Received: from [192.168.1.3] ([37.18.141.193])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba01fba35csm116824795e9.1.2026.11.11.01.53.58
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 11 Nov 2026 01:53:58 -0800 (PST)
-Message-ID: <7bb2995a-e510-41e3-ac3f-cc4135b3774c@linaro.org>
-Date: Wed, 11 Nov 2026 09:53:57 +0000
+        d=1e100.net; s=20260707; t=1794390936; x=1794995736;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1oZ46qbfzK1kC56ugvfDKIKqDBjZaNHDclt7g8ZJTBk=;
+        b=cboSKUG5eCcw0xtBsBCxWJUn46skn9+w63h0pOenRt7nIUdRCXJYp455gVtBEP4qeW
+         HCsoktb40J1WKN1g+p0T510p4kBysMIkDL7GmLsx4FCPVNovgJsZqoQCzid1j4UK6vNu
+         rxMXYnrsfGsS465c7K9L2QxBESeqrZYZiXdZaIutHsfOBg6z0nzaRn2E2R+PJaUgE5lW
+         dZ7gV7dbpbcrUCobCtuvyaA+ug6xBZo0aoXz+bZob6rD7WfLAIH0gb8Gi81/RCHhFMQw
+         dbes4tOeSUfjznkPk9Zb90naDSo5BaqpNz9cmoBj0wIIlCiAJLGpxjQPvDZ6O77tD/AZ
+         wgkw==
+X-Forwarded-Encrypted: i=1; AL+hErHv7pW3KVe4hMKTwXETJzaCFIVoxXLTqHrm4GzK+NyPE4HlT+d9bsP8LuKTG0NdEwzR/R1vhprVi6czCqA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9GAI1W6oz1PiR+ptS+nwljFzz4iVPB4ftzDnuusI0okoT9dc8g
+	bPkScMA4BoXq1myndL34GE2rJJLZYFPUo5yXnLck5fL8m2VL0BJBzz8caTfEM6YjfiU=
+X-Gm-Gg: AYBFou2p60oe3Da0L0vmWTHZmKkJJ8+jNuBqqF0RduWcTrmuvDaTEsWJ7ZNUGs/utKW
+	1kGO2NjLQ43N0xWwKbTjKqBeyrhvxwoH9OU+wPAQlCarokgMKX8ACZMafGF+Z2SSQNS7JVNmNDh
+	z6ZOKtiZTaywSn9T5gBq+ANUb54WW9Sxse3RHjMftfdCw7ueXQVCph63UCqeHzavzse02aShWMF
+	Sq5SYfk4MxmrkiwMwJxNtxxJi53MvJJ0fbBaoqRrsd6EMw744ai0ksJe3XyMUpl9xhkdWYjfmL9
+	poJp1hGbn3cJblIpu9xRGeyF+jqTg8J18IDTecvmq6tdcqV3ukCnurbIc8HxEUnRX2wv3hA9+lM
+	iVVycGd/EEd1is5QCEQxD6HTebBy5e4aq+km0N6CqGcCcF6FxnL+QW7iyA3e1MpP4rG5vrsPk1n
+	WRI1t9qjSDuBc/XR0VHdg3bxpzrj0SShBNQOeUap4W5iQlYwG6hONJcuXKp8rsjP8gDl2tUPK7w
+	TMAJTq7AsPWCiuJrLFd/xxqTzBSN4F4aWVTeSbJe5i8UU933RAvBj3dtf6k5GPOoScmmLCMT7rC
+	F8GFeFzRklHMWHKFTQzyJUGTIkUokSJXK5Z4ToRJV9LHZxV42Q5JtITDEoB1K9Dt22uCvh9VGkL
+	ZtSW2M6DoNZHIXw==
+X-Received: by 2002:a05:600c:8b83:b0:49e:65f2:db64 with SMTP id 5b1f17b1804b1-4ba0935bde1mr34105275e9.5.1794390936037;
+        Wed, 11 Nov 2026 01:55:36 -0800 (PST)
+Received: from localhost (p200300f65f19a90460510dd506fc51af.dip0.t-ipconnect.de. [2003:f6:5f19:a904:6051:dd5:6fc:51af])
+        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4ba01fea9eesm204694395e9.11.2026.11.11.01.55.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 01:55:35 -0800 (PST)
+Date: Wed, 11 Nov 2026 10:55:34 +0100
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Lee Jones <lee@kernel.org>, David Rhodes <david.rhodes@cirrus.com>, 
+	Richard Fitzgerald <rf@opensource.cirrus.com>, Mika Westerberg <mika.westerberg@linux.intel.com>, 
+	Zha Qipeng <qipeng.zha@intel.com>, Qunqin Zhao <zhaoqunqin@loongson.cn>, 
+	Thomas Richard <thomas.richard@bootlin.com>, linux-sound@vger.kernel.org, patches@opensource.cirrus.com, 
+	mfd@lists.linux.dev, linux-kernel@vger.kernel.org, linux-crypto@vger.kernel.org, 
+	Charles Keepax <ckeepax@opensource.cirrus.com>, Linus Walleij <linusw@kernel.org>, 
+	Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
+Subject: Re: [PATCH v4 10/20] mfd: Use named initializers for acpi_device_id
+ arrays
+Message-ID: <avQ19KBnQ2mnhZa-@monoceros>
+References: <cover.1794347059.git.u.kleine-koenig@baylibre.com>
+ <39fc883cf1c7077bce8f16719cca59060a395b02.1794347059.git.u.kleine-koenig@baylibre.com>
+ <avQrO4etMgpOhvwF@ashevche-desk.local>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,90 +105,83 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] arm64: perf: Drop the example the userspace counter
- section points at
-To: TAKANO Mitsuhiro <takano32@gmail.com>
-Cc: Mark Rutland <mark.rutland@arm.com>, Jonathan Corbet <corbet@lwn.net>,
- Namhyung Kim <namhyung@kernel.org>, linux-doc@vger.kernel.org,
- linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>
-References: <20261111023550.1971639-1-takano32@gmail.com>
- <20261111034432.2020955-1-takano32@gmail.com>
-Content-Language: en-US
-From: James Clark <james.clark@linaro.org>
-In-Reply-To: <20261111034432.2020955-1-takano32@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="h4cbpzud5ptt3x2g"
+Content-Disposition: inline
+In-Reply-To: <avQrO4etMgpOhvwF@ashevche-desk.local>
 
 
+--h4cbpzud5ptt3x2g
+Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v4 10/20] mfd: Use named initializers for acpi_device_id
+ arrays
+MIME-Version: 1.0
 
-On 11/11/2026 03:44, TAKANO Mitsuhiro wrote:
-> Documentation/arch/arm64/perf.rst points at
-> tools/perf/arch/arm64/tests/user-events.c, in the text and in the link
-> target, but that file is not in the tree and no commit in the history
-> leading to this base has added one.
-> 
-> The section already describes how to use the libperf helpers and points at
-> tools/lib/perf/tests/test-evsel.c as the example, so the sentence that
-> sends the reader elsewhere is redundant.  Remove it and the link target
-> rather than pointing at another test, and move the instruction for running
-> the example into the How-to section, next to the reference it belongs to.
-> 
-> Signed-off-by: TAKANO Mitsuhiro <takano32@gmail.com>
-> ---
-> v2: drop the reference instead of pointing it at another file, and move
->      the instruction for running the example into the How-to section.
-> v3: the v1 history moves here, so the commit log is the change alone; the
->      sentence about the missing file is stated once.  Raised by Sashiko.
-> 
->   Documentation/arch/arm64/perf.rst | 17 ++++++-----------
->   1 file changed, 6 insertions(+), 11 deletions(-)
-> 
-> diff --git a/Documentation/arch/arm64/perf.rst b/Documentation/arch/arm64/perf.rst
-> index 997fd716b82f..5b9cc2aeb642 100644
-> --- a/Documentation/arch/arm64/perf.rst
-> +++ b/Documentation/arch/arm64/perf.rst
-> @@ -131,7 +131,12 @@ changed.
->   
->   The userspace access is supported in libperf using the perf_evsel__mmap()
->   and perf_evsel__read() functions. See `tools/lib/perf/tests/test-evsel.c`_ for
-> -an example.
-> +an example, which can be built and run from the source tree:
-> +
-> +.. code-block:: sh
-> +
-> +  make -C tools/lib/perf make-tests
-> +  tools/lib/perf/tests-static
->   
->   About heterogeneous systems
->   ---------------------------
-> @@ -140,14 +145,6 @@ only be enabled when the tasks are pinned to a homogeneous subset of cores and
->   the corresponding PMU instance is opened by specifying the 'type' attribute.
->   The use of generic event types is not supported in this case.
->   
-> -Have a look at `tools/perf/arch/arm64/tests/user-events.c`_ for an example. It
-> -can be run using the perf tool to check that the access to the registers works
-> -correctly from userspace:
-> -
-> -.. code-block:: sh
-> -
-> -  perf test -v user
-> -
->   About chained events and counter sizes
->   --------------------------------------
->   The user can request either a 32-bit (config1:0 == 0) or 64-bit (config1:0 == 1)
-> @@ -160,8 +157,6 @@ userspace must treat the upper 32-bits read from the counter as UNKNOWN. The
->   and should be used to mask the upper bits as needed.
->   
->   .. Links
-> -.. _tools/perf/arch/arm64/tests/user-events.c:
-> -   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/tools/perf/arch/arm64/tests/user-events.c
->   .. _tools/lib/perf/tests/test-evsel.c:
->      https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/tools/lib/perf/tests/test-evsel.c
->   
-> 
-> base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
+[adding Pawel to Cc:]
 
-Reviewed-by: James Clark <james.clark@linaro.org>
+Hello Andy,
 
+On Wed, Nov 11, 2026 at 10:45:47AM +0200, Andy Shevchenko wrote:
+> On Tue, Nov 10, 2026 at 10:54:35PM +0100, Uwe Kleine-K=F6nig (The Capable=
+ Hub) wrote:
+> > While being less compact, using named initializers allows to more easily
+> > see which members of the structs are assigned which value without having
+> > to lookup the declaration of the struct. And it's also more robust
+> > against changes to the struct definition.
+> >=20
+> > The mentioned robustness is relevant for a planned change to struct
+> > acpi_device_id that replaces .driver_data by an anonymous union.
+> >=20
+> > This patch doesn't modify the compiled arrays, only their representation
+> > in source form benefits.
+>=20
+> I don't know who is the first, you, guys, collaborate together and come u=
+p with
+> a solution, but I have reviewed already this
+> https://lore.kernel.org/lkml/20261104-acpi-mfd-v2-0-64b9dee3baaf@thegoodp=
+enguin.co.uk/
+
+Oh, I wasn't aware that Pawel is still on that. Initially we had a list
+where Pawel indeed was assigned for acpi_device_id. Since then I went on
+to do these changes per subsystem for several *_device_id at once
+(instead of per *_device_id and subsystem) and stopped looking after the
+initial list. I might have mentioned that in our internal chat, but I
+take the blame on the lack of coordination.
+
+Looking through the differences I found:
+
+ - different commit log
+ - I have a cleanup to drivers/mfd/kempld-core.c which conflicts with
+   Pawel's series
+
+@Lee: If you take Pawel's series, I can rebase and resend. Most of my
+patches still apply just fine on top of Pawel's series, so you can
+preempt parts of my rebase using
+
+	b4 am -P 1,2,4-6,8,9,11-15,17-20 cover.1794347059.git.u.kleine-koenig@bayl=
+ibre.com
+
+Just give me a poke when you made up your mind how to proceed and sorry
+for missing that conflict.
+
+Best regards
+Uwe
+
+--h4cbpzud5ptt3x2g
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmr0O5MACgkQj4D7WH0S
+/k5a3Af/bShGrqVRN2amCZ3YsA8JwcyDvTbN7ekxEzRPDe3bdsK6O+VNVq3fu6+A
+rXE/yf27jSePTzpLzVN5UjaJUtgdLpi8JIUz8tFpWvLxcQ7XJGC09ZljCzmR9D1+
+wCj7azL1dvdk+jjz7tZ+RnsUPK6bvSWhgvEV2mbVfggFIU/YqhySmIhYBhrc50mN
+1GRlU5cIuEyXVwwmIk9BRNv9drjXrFZfkJTd+H4hbRAFOfVq1QmIjHDUl6qi3Rbz
+ubQBpDM96XgUe5HUTXgG0Ho9KdASNlB+OVv+iwb32nfc2PZjPPmSKFjK7bKTV1Lh
+3u6/0xqIvwenZeWxe7CkONoCcve8kw==
+=t/3h
+-----END PGP SIGNATURE-----
+
+--h4cbpzud5ptt3x2g--
