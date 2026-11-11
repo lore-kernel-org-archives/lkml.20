@@ -1,68 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.225
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794384822;
-	b=KwJapaJB4lnHttMQ9g7RqYPAtiXXS2+KhpDabPUYDoJPi7gYx2nIT4n1XPFA/PfhLi3K
-	 lu+2c5AMtcLPkeAtAbe6663cyqGhnxBcDCTrt3+oDmJkUVWyv4fRZeR5NMxbbgTrzZP8I
-	 LNekjFci6WF6Z+anNTb3JmHgW3fchTXLHz6LLwyGTzXlCH4t3tklqEBGtL60SF65+leuI
-	 +iCAorRhZXLQWb5oHpoTlRM5R5Zv8jK0+Vj6htzjS1FZgl2QP+tjjRYshncb60ptds916
-	 u5hCQ/KtnHCkW6vj2zDwdY5tVFVneCwx4cJqgve74nqUaZ3s4JT29QDEixmP4gIK1sw==
+	t=1794384876;
+	b=4zkFy/hpEjUSm4Q2Gw+KFpMAIb1OMVPKVDF06IWnHM4krgFcIaCceqgcZ7CBiPu56bcY
+	 kvHXUwfjozMDbXHDVop0dNssfjee/UULzbP/6k4DmkJrsmpjV5KTilFq+HGPAe7/BFVR1
+	 DWCOgfTA23zDZW2LSQSlSky59tuxnASN0szLneSfqPg31OiINhbQSSTxmD53ZQ3bmPaAO
+	 Cozrul6511MKPNroup5ww3WJN+B7uNhFwhxELmkEOWqYcdPhzY7RTfxCAhyEu/tSIIKZN
+	 4M1RoZd0+gJ3GqtIBUUUwGfRG3N8hShIixu0YquJ28+I0WZu7/qco+01LEBaK83XwiQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794384822;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=02ZuU5L8LvwtJsfio8qy603fcakQVuFW27ea/trZscI=;
-	b=BZF2K//pDftChLhgr4n8a6QivmSQllAoI1nIoZ9x6RkzZDQoHJOjIBgxhNMLFyFNq1wV
-	 n1a1E6R7nOjTKQ3OfoHEBrNY3r9oYoE0EkF5XDxVmZTQvrKRBXuEg9rRad1GjDnLaXk8C
-	 3APUSCp/I72CPR1c0ZmLc55qUCBVoJD5nRYLluTWY3+6fmzkQg3gWf9cMxA1WSOAbsw9P
-	 Zvpjl9DWNYMKHKypDjqXCrWc2xQJVoeI6+Reezqz92HMtvINyBH0r9quBAUX+sODV0vAU
-	 2qHUgeQnF0PQEugZGtaIMAYjqUUakauypIP/kxGR8++rkx+UpnFw2yrOdk3Nosl4wWw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794384876;
+	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=wmJ1b9tTWjRzHKg6nN8Y+a7QMFiCp98+UkeR3JuH5bc=;
+	b=E+C8d3Do3w1qPf4bAwCdmsKgcCvZnfIixJM7CpZJlBYYGQU63/zbhegGBNWJ+kgEzE0r
+	 yV0Pby/yL6WB/1oMPMq2u14syUmJC91YGagc0JLAuxhPlKfZ9p72lR4mE4pbLGNcBxwT6
+	 CSAPxg2opk5+7AZZa3kBpq6q4daunYbLoWhMRuD6ta/QQzZShOS4mTk2ZcGTGqqSmj9Rj
+	 +0lZcFz/PfRjztZbO+k9EP5e8CG/wQ98IZC1ZCPOq2Q/XKF5jPRUXUneJ45VSqzZYI99N
+	 Q5qVRzR5dHTmj6MhbIf7/P2NddIC2MC3wWFttyE5Wk6vNc8GrAZZnir/kJ7IKDo8gxg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=4VAjRoVv;
-	arc=none smtp.remote-ip=113.46.200.225
-Received: from canpmsgout10.his.huawei.com (canpmsgout10.his.huawei.com [113.46.200.225])
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=ACknxjPd;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b="X4/X251s";
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C175360A6F5E
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 08:13:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C175360A6F5E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 969E9606A908;
+	Wed, 11 Nov 2026 08:14:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 969E9606A908
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=4VAjRoVv
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=02ZuU5L8LvwtJsfio8qy603fcakQVuFW27ea/trZscI=;
-	b=4VAjRoVv8MAIytCy/iLfyFKqwU8j7ZIVCKpUVgPIydLv0mxy/BBTM5s+fUlL6B7oFlWU3VGdM
-	pvxBoRKPxvCAXB8k43XU33vLeVD7QvW/TFGzvELXGe3RVtHNno1dQKJrTdzSQqLfvPe1/Ssjc+7
-	WmcjhIXSh51rOkq/CgyDWIk=
-Received: from mail.maildlp.com (unknown [172.19.163.200])
-	by canpmsgout10.his.huawei.com (SkyGuard) with ESMTPS id 4jPbr15RQFz1K98l;
-	Wed, 11 Nov 2026 16:13:21 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id 0626A4055B;
-	Wed, 11 Nov 2026 16:13:31 +0800 (CST)
-Received: from huawei.com (10.90.53.73) by kwepemk200008.china.huawei.com
- (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 11 Nov
- 2026 16:13:30 +0800
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-To: <james.morse@arm.com>, <ben.horgan@arm.com>, <reinette.chatre@intel.com>,
-	<fenghuay@nvidia.com>, <zengheng4@huawei.com>, <gshan@redhat.com>,
-	<tan.shaopeng@jp.fujitsu.com>, <jic23@kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-CC: <ruanjinjie@huawei.com>
-Subject: [PATCH v4 2/3] arm_mpam: resctrl: Only enable CDP on a resource that supports it
-Date: Wed, 11 Nov 2026 16:13:15 +0800
-Message-ID: <20261111081316.3828283-3-ruanjinjie@huawei.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261111081316.3828283-1-ruanjinjie@huawei.com>
-References: <20261111081316.3828283-1-ruanjinjie@huawei.com>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=ACknxjPd;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=X4/X251s
+Date: Wed, 11 Nov 2026 09:14:32 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1794384873;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=wmJ1b9tTWjRzHKg6nN8Y+a7QMFiCp98+UkeR3JuH5bc=;
+	b=ACknxjPdebw24cai+wRztA8YbfoiKGH3lQps7QtppIkCXFbDZttO0oQ+Fq8N2YUBZqPW9G
+	Y4aubWBAQWvDF1wFF92KqdWYYr/2ApOPKWwgwXV/tODBz6VYc4ttmhXo3aX9gIIZ7lSduP
+	1A9NfjHHwda+nlZFatWBY9BYEOLfaAzUy0Duu8C/AF9MRzfcFDIr2wp1QXwuuRmb89PnN9
+	PR4viPPL+Z2kcAiUW+mEGxbNGjTVSiFV5WYCtlcUBX3y7LolQYNhdgT2KDWUhNq3YJl8JM
+	dxv9A7pLPrSClMBbFHhJRk4NdMODVuLqL6pdVQ3Kzcc3pfgFa3ZAOkqMiOgfgQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1794384873;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=wmJ1b9tTWjRzHKg6nN8Y+a7QMFiCp98+UkeR3JuH5bc=;
+	b=X4/X251s/ZiAX1MjcpLjNyXXGutSoNKv4fi+XLSCARWmJ0XzxrdyH8IPU7sWh1u5YZ4/gN
+	p9DApfiwFN5dagDQ==
+From: Gregor Herburger <gregor.herburger@linutronix.de>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Florian Fainelli <florian.fainelli@broadcom.com>, Ray Jui <rjui@broadcom.com>, 
+	Scott Branden <sbranden@broadcom.com>, 
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Eric Anholt <eric@anholt.net>, Stefan Wahren <wahrenst@gmx.net>, 
+	Srinivas Kandagatla <srini@kernel.org>, Kees Cook <kees@kernel.org>, 
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>, 
+	Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>, Russell King <linux@armlinux.org.uk>, devicetree@vger.kernel.org, 
+	linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, 
+	Conor Dooley <conor.dooley@microchip.com>
+Subject: Re: [PATCH v9 00/12] nvmem: Add Raspberry Pi OTP nvmem driver
+Message-ID: <y2ocj374gtrwf3ozptwgmqhsy5k26y45uwlbgtyvvmlxkftc2k@gjs3jsbxbm4w>
+References: <20261111-rpi-otp-driver-v9-0-0a7292a7a5b4@linutronix.de>
+ <66bf8629-225d-4f65-84dd-67f02aa4cab6@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,54 +83,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
- kwepemk200008.china.huawei.com (7.202.194.74)
+In-Reply-To: <66bf8629-225d-4f65-84dd-67f02aa4cab6@kernel.org>
 
-resctrl_arch_set_cdp_enabled() enables CDP for any cache level that is
-requested, even one that has no MPAM cache controls. Mounting resctrl
-with -o cdpl2 when only L3 can allocate still turns CDP emulation on for
-the whole system, so every CLOSID takes two PARTIDs while resctrl keeps
-its CLOSID count at the number of PARTIDs. Control groups in the upper
-half then map to PARTIDs beyond mpam_partid_max, which index past the
-configuration and monitor arrays and program out of range PARTIDs into
-the MSCs. On QEMU with 5 PARTIDs the first monitor read after creating
-2 control groups raises MSMONCFG_ID_RANGE for PARTID 5, and MPAM is
-disabled.
+On Wed, Nov 11, 2026 at 09:02:19AM +0100, Krzysztof Kozlowski wrote:
+> On 11/11/2026 08:23, Gregor Herburger wrote:
+> > Hi,
+> > 
+> > This series adds support for the Raspberry Pis OTP registers. The
+> > Raspberry Pi has one or more OTP regions. These registers are accessible
+> > through the firmware. Add a driver for it and add updates the devicetree
+> > for the Raspberry Pi 5.
+> > 
+> > ---
+> > Changes in v9:
+> > - Fix sashiko comment and use fwbuf->count instead of bytes in memcpy
+> > - Link to v8: https://patch.msgid.link/20261110-rpi-otp-driver-v8-0-797e0577d414@linutronix.de
+> > 
+> 
+> Big series sent three times within last 24 h. Please slow down and give
+> people chance to review your work.
+I sent v7 with a missing commit and based on an wrong commit so Sashiko could
+not apply the series. Sashiko found an issue in v8 so I tried to fix it in v9.
 
-Do not enable CDP when a resource cannot allocate or is not CDP capable,
-as x86 does, so the mount fails instead. Only the enable path is checked,
-since unmount disables CDP on both cache levels to restore the MBA control.
+I have the impression people are not reviewing stuff as long as sashiko has
+issues. So I wanted to fix those things quick.
 
-A system where only MBA can allocate, or that only has monitors, now
-fails a mount with CDP as well: CDP hides the MBA control because
-mbw_max is a per-PARTID maximum, leaving nothing for CDP to apply to.
+Anyway I will wait a bit with the next revision.
+> 
+> Best regards,
+> Krzysztof
 
-Fixes: 6789fb99282c ("arm_mpam: resctrl: Add CDP emulation")
-Link: https://sashiko.dev/#/bug/linux-05c19551-0bba-4a06-aa2c-3c90fab5853d
-Suggested-by: Ben Horgan <ben.horgan@arm.com>
-Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
-Cc: <stable@vger.kernel.org> # 7.1+
----
- drivers/resctrl/mpam_resctrl.c | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/mpam_resctrl.c
-index 573617ba09df..afa3c084c475 100644
---- a/drivers/resctrl/mpam_resctrl.c
-+++ b/drivers/resctrl/mpam_resctrl.c
-@@ -222,6 +222,10 @@ int resctrl_arch_set_cdp_enabled(enum resctrl_res_level rid, bool enable)
- 	if (enable && mpam_partid_max < 1)
- 		return -EINVAL;
- 
-+	if (enable && (!mpam_resctrl_controls[rid].resctrl_res.alloc_capable ||
-+		       !mpam_resctrl_controls[rid].resctrl_res.cdp_capable))
-+		return -EINVAL;
-+
- 	/*
- 	 * resctrl_arch_set_cdp_enabled() is only called with enable set to
- 	 * false on error and unmount.
 -- 
-2.34.1
+Gregor Herburger
+Linutronix GmbH | Bahnhofstrasse 3 | D-88690 Uhldingen-Mühlhofen
+Phone: +49 7556 25 999 35; Fax.: +49 7556 25 999 99
 
+Hinweise zum Datenschutz finden Sie hier (Informations on data privacy 
+can be found here): https://linutronix.de/legal/data-protection.php
+
+Linutronix GmbH | Firmensitz (Registered Office): Uhldingen-Mühlhofen | 
+Registergericht (Registration Court): Amtsgericht Freiburg i.Br., HRB700 
+806 | Geschäftsführer (Managing Directors): Dr. Wilfried Wessner, 
+Katharina Kopp, Alexander Gieringer
