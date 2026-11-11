@@ -1,103 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.28
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794391951;
-	b=NXMCVzDViWzmjh4c37194BtOuDnGu/r6x35VsUbuqKT8ie0C6An6f81/caI0E6r+K/Yh
-	 mUQylGmza14rqnPJ/7VQ86Z6acafEXWRBoJJ+MJH7HZBxLpFW/yMI0peY1gvEQMAyjLQf
-	 GdhJOz6yhz2/lpqZc+0Kd/Y4PeR7eyFGzJgZR9jidwVARfBIbKlR0ySpzgdFIgcCewsdo
-	 w45oSTMBDf+kjpPL7YHY2bjuS42lkjLYAwRshXGqEIWx2TTwI60Ifb4762l+nco95Cwwz
-	 CddL+NO/JxOghn1W4GRQo3Eo/ZopQ6b7y8hPSld9ySrt5+AUUQ38ToQd51tXoCGXh0g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794391951;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=08z53+8yrbTGjIZvszG1gqicLmRIcvV8HxhxbsaCpO4=;
-	b=FBzGi4WhriOZGYAiWWHmwgjOL/BT2qSDUkqPemNfn7ruzzWredoMtXAu2KVUr/+WmLFI
-	 mNt78VN8njQ6jeKRcRHmPUk072jCcmhBIRwwLozAPSfPWfzrZNI9zZtbtyfl6dMvgWtd6
-	 ojMLIb6CZtdY7SZW3Thm53ZRy1dk+HKzDjPPonEvbKflkNjK+d+TVC1kirdRKgyOY/u39
-	 ZFc3I9NukkxImyzoUuB+2AcQIFomZ215yMELHPCdBeu1TcTPZe6y99MMkXvdQAhvSBMFz
-	 frupTTAf2nEsvZt8WRIHCkMnaY7xvSSSUS3EVXQS+tsCT0oErJZCa/uNvtjd2O/bIpg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=y0QEcFsH;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.28
-Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011028.outbound.protection.outlook.com [52.101.62.28])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794391976;
+	b=4zAkbSgttiorx4x0fGBn0TNJBcmphz5q2apAPIs+aK7JvgnAd1hC2Xji7YyBcYCVTLlG
+	 FyU2ONypMEaXdozC3Ae28kKZUwHapOGHGIZ/dsXxICHT+BA22Rt3cOTpO1249za1L+oko
+	 T4KLKhiGXPErdkOjR3bPrcA+6RiZk8mXllE3jnWAUC3J4VJPfDFzZ8Mi7vLEfuNjQX18z
+	 xe+Z/ilZDTCa5i67gvaTMPDFslt2eeDeznx+mtSZoAFWJbmNanivRvzl+m8PPcNNOJVgt
+	 ctiVaC/sQy4jZFInKcqLEeCdBBcZuKmNoXRNQFgIewVhWd1/ksnhlNijp9QTGY1EEAg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794391976;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=oXvxlksaJblGC0L39L7NSIn5/6y+4uN6j+x6V/9C4m4=;
+	b=xg2tsp00TOqLu25SelMe9NMzIWiDhF7qQ9kRTZvrSRXEL73+ojJcnKY19kMlTzmLb4cA
+	 2BMo552VYcu37GyzJST3oP5yB1/xe2nxPfQnuDJitEM06bYon9o2vCydIQeB70QVjE9RB
+	 AOpjJDTSWcWpjo5nLVKOTA0j5XM9qlB+He4EeZaTZVoHiRRQ8lP7g2D2M03mJhHUNxeU+
+	 nL5o3ZvlWU0pe0l36eoYT2d3gtEtj58MDTGgcdWAZiIw9F/pakyK9/zb8PHfhnz9yI2+x
+	 KcIB50FgajdI6ayOs6Psgz8rlBtoQVOfDGjoObC24l38g5dJNAMsZ4jW3GKr8C58Upg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=baylibre.com;
+	spf=pass smtp.mailfrom=baylibre.com;
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=GjZIysKJ;
+	arc=none smtp.remote-ip=209.85.128.51
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2AA5606A331;
-	Wed, 11 Nov 2026 10:12:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D2AA5606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DC8E606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 10:12:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9DC8E606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=y0QEcFsH
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=uPbFIHRH3lFeMc8AID215+IsSpDmc2OYpu0/rYe9dSM9QX6OWnjGKjQh+zTPZt6Txea1ypba6uloh1qxa1OB7ZCDsykFxD9WSHB2uL0LuV4mGVwZUCPqvmvwKW74kYhq+X7+RCL+6s9nBYIAqizifURNKp3JeDVUtsyXEqcrsLgXWh/O2Amzz7wHQ8uIzuWOhhq2bftCRs7Dgy7shzrVliW+dF+Nl9QOBgk92147dRDscLsqtltxLQOimGuzoOBP14hSGUJGL3HboAEVTVvznqndmGq2ZBVj0BKeD0hXeEgUGydxiFeutQA68uaUJJgRyBuds7YnXST14qa4f65Gpw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=08z53+8yrbTGjIZvszG1gqicLmRIcvV8HxhxbsaCpO4=;
- b=FzdBRtqhYuKmsRBZh1HV4alY9Fv51HJJlD6gwe4KvkBQdJtpJI32IhEmdQPvvU1O8q7rEKr7LjNhoiCDoAdIxN6iNX9oKh6K1uV7kLHDUQovMWf1LMP2DJ9pcd32xfDTuDfgTSUY0jfERtphbN9qvZhS7id+wsCoxoaburDtbnFWGOrQPJUcHy6E/0FEf4HN6lauQ61I6Ht+qEQhpfIiPcDZEnLEFwheiB8p2BQECEzQDWtspBeMJsvXbWdoso+zu59PROQVvVEJESk7NOU05uUQioqlgHacaVA+3OPfAK+LOuf0Dv8oqTRJf4IrVP1HctT2SqGgi6VnxE2bKb4fBw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=08z53+8yrbTGjIZvszG1gqicLmRIcvV8HxhxbsaCpO4=;
- b=y0QEcFsHsQUSx7pIM+k0V12d97+pyVWFJXgoRVs4LYL8MB+yk1nouk7D8zCQd+C4FG4JuXwl1JMYlToROagiGzeysHxL/HfOWUS8Q3MrQQXhHw5pf64/yJnbWyjZulFXRdGx057+xF9G0wuL2UmFqDIG9fYCut0qst4raB605Kc=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB6254.namprd12.prod.outlook.com (2603:10b6:8:a5::17) by
- PH7PR12MB8595.namprd12.prod.outlook.com (2603:10b6:510:1b5::5) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.9; Wed, 11 Nov 2026 10:12:17 +0000
-Received: from DM4PR12MB6254.namprd12.prod.outlook.com
- ([fe80::8211:9b5a:99d2:ffa1]) by DM4PR12MB6254.namprd12.prod.outlook.com
- ([fe80::8211:9b5a:99d2:ffa1%4]) with mapi id 15.21.0615.007; Wed, 11 Nov 2026
- 10:12:16 +0000
-Message-ID: <f5fdc266-aed3-47e6-a10f-e8188b58c93f@amd.com>
-Date: Wed, 11 Nov 2026 10:12:10 +0000
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v17 12/19] PCI/CXL: Add CXL Device Reset sequencing
-To: Srirangan Madhavan <smadhavan@nvidia.com>,
- Alison Schofield <alison.schofield@intel.com>,
- Bjorn Helgaas <bhelgaas@google.com>, Dave Jiang <dave.jiang@intel.com>,
- Davidlohr Bueso <dave@stgolabs.net>, Ira Weiny <iweiny@kernel.org>,
- Jonathan Cameron <jic23@kernel.org>, Vishal Verma
- <vishal.l.verma@intel.com>, linux-cxl@vger.kernel.org,
- linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: Li Ming <ming.li@zohomail.com>, Joshua Machauer <machaujo@amazon.de>,
- Alex Williamson <alex.williamson@redhat.com>, vsethi@nvidia.com,
- alwilliamson@nvidia.com,
- Sai Yashwanth Reddy Kancherla <skancherla@nvidia.com>,
- Vishal Aslot <vaslot@nvidia.com>, Manish Honap <mhonap@nvidia.com>,
- Jiandi An <jan@nvidia.com>, Richard Cheng <icheng@nvidia.com>,
- linux-tegra@vger.kernel.org
-References: <20261105185917.2667656-1-smadhavan@nvidia.com>
- <20261105185917.2667656-13-smadhavan@nvidia.com>
-Content-Language: en-GB
-From: "Lucero Palau, Alejandro" <alejandro.lucero-palau@amd.com>
-In-Reply-To: <20261105185917.2667656-13-smadhavan@nvidia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MR1P264CA0152.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:501:54::14) To DM4PR12MB6254.namprd12.prod.outlook.com
- (2603:10b6:8:a5::17)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=GjZIysKJ
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a35a60499eso23067855e9.0
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 02:12:55 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1794391974; x=1794996774; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=oXvxlksaJblGC0L39L7NSIn5/6y+4uN6j+x6V/9C4m4=;
+        b=GjZIysKJ4Zo2FlOpnPA1lY8VVf9/PtYoWL543A1B/i17u/UzF4HgAOSIkZG3XqiIjV
+         8tpXPUvSD9dVnZ5gwBl5JwVyHqXgT9LBOWEgLnbBwNdhMPPfku1YEA8f9gQI1+5iLKbi
+         2+fTxwx45wGlGBqFmOmBUI3NPzmw0ooFeFIT3RTq/mbdFo/DdRnuzbWBYD7g5R5Xkm+v
+         RHUREHYrHIoQ5Wm/XiymthUrkeEIiCneD61gxkaVPL1tmcPIofT3oVexztatde8HaVcb
+         jpDlFQrShb/Qqf6Uh11pfb8g6Zc9+cdXXn1u3QS9wWGNcQF3paZC5BVrAigg4xoHKpqR
+         Apcg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794391974; x=1794996774;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=oXvxlksaJblGC0L39L7NSIn5/6y+4uN6j+x6V/9C4m4=;
+        b=XOjcK1c+bXFYWT45o4MRnlqMfv8GFnvQlRkVM3ubIU0CCdhZxTQ7RBXgXCnnalZQSR
+         IFHzdsBZwjOpgZdEs7af1gNVewrWz+GEEFVRwHAGoZZOwkApMVm6Dr1YUxAuaUSa/ics
+         2+PB6BDk7B22oWBnwxAUNUO8heqWXcimOqcMkg4aSwP9hZDZbxiQdLGAJ6GGCGpbIfti
+         m2BmmqUjaIXJIn6DwK7opKRi6PUi7rETBN8/uj6PSunbJI620NVCGrz+3bGqLtrLBpQe
+         snuDQTcrKvGDctKVUHPj6Vw6Cmv10xkVh03tcy9h+yYYQAJ1F/Ajr8EZniG70aVV3bTg
+         oyAA==
+X-Forwarded-Encrypted: i=1; AL+hErGS33K4ekKBt+uiPYE7gbza9MZket+gCjEeoFEoZRhvVRT5WrQstl+I1fiPgU7PVKeNxTEpvUj8rgbacZ8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8BGea+pgl/GZ7j4JARoCiuFFWTxnl/H5vbZkJV0Z7uyWUo1OB2
+	lAjpq//G3u1BmkOJV49XxQSyrZRGV+NbtPH3ZDNg4OLmoUaEP788Jqoj241/dIS0R4IckQmafvI
+	skRugSPA=
+X-Gm-Gg: AYBFou05fLqVvNiWIN4LdTQejVNCTRs/1OQZPc4QldjNuImcGwTaMqPVJS8UapvhVKh
+	4yAw/SoRwCTrSzNDRE17MLFUf1lhbWWFcG8moLK2TnOfo/G/vrFL7hnBEiImrD7j21+bkLNMal7
+	75aMU6cEVO8CEXhOBZlASO964OkKjKRIA0Gsua1GIesDum/KDlrGd1O97WXjV+M1Ythiv0Wokfe
+	MY1sV6/WHOs1Uv+5Mw9Fprl3iHaHHEtuGjS+7iJiKsqKrMA/wK0Mp5vE3VLUKdtS3b5Lk7KJo+7
+	6t+Ygk9il0C6W5PTecRLaTCPl65AipjkhNLxa3EpvQjNXMgVIlnQkSvdNe3KDXrK4mPufKt/5sa
+	VvxUW1EuocnNu0J1Mopcs0T9M5KVuaO+e/nvwF14WkgM2aKU6T0aYEIkixciqUdQnb/4gFS3VuM
+	ABhg+Ox+qFmX5+/7UYYaFn4sToNvZZ9A62cFKPqo9xnIA0rdXW8LX7wN1sPIW86966mQlZT9GIR
+	2G53ONFwZNnS3g9b0avR/Nim8DEhlM4Wrhh2V3DXa1IIpJ5miAbpc+CX/3Jv2zj0cbO+qvasNdl
+	Msr0vjooF6H1a/jSKJzAYhnyD00=
+X-Received: by 2002:a05:600d:82e8:b0:4a1:cf60:dcc3 with SMTP id 5b1f17b1804b1-4ba093a902fmr32682805e9.29.1794391973923;
+        Wed, 11 Nov 2026 02:12:53 -0800 (PST)
+Received: from [127.0.1.1] ([151.61.248.197])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba01fea745sm124194375e9.10.2026.11.11.02.12.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 02:12:53 -0800 (PST)
+From: Valerio Setti <vsetti@baylibre.com>
+Subject: [PATCH v2 0/2] ASoC: meson: gx-formatter: change stream lock from
+ mutex to spinlock
+Date: Wed, 11 Nov 2026 11:12:47 +0100
+Message-Id: <20261111-gx-formatter-use-spinlock-v2-0-763241aeca52@baylibre.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,135 +94,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB6254:EE_|PH7PR12MB8595:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4ace5aa4-1611-4092-5ba2-08df3fdc433b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|1800799024|23010399003|366016|921020|10067099003|11063799006|4143699003|56012099006|261022105027099003|261021121427099003|261026121527099003|261026140227099003|261028144727099003|261102123227099003|261009223027099003|18002099003|22082099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	S5IMQ8KA2T47W+snnmc7bkoCIV5xVxXgKqurFgXsbjDsiFKKzpSn1RjBwcriHw6gdYmbW2exF9q86ccw2WeMQtWuF560zO1qVA/640gwiJN4cIFlPxf64oDwpVFcsqHjpeRz6X8WoSKoNQbrEZjuTbMpI4E+cZ87mjqyuagOpfVdsf7AeKSbuIgYVrgd3A3F+BDHExTgqXpSNCaaaMvZboLhmj9bTFNL4DLayTyi6Jw0g0AHFY7Rhek5vPtI9RGb3VcEi54XSsROiVIzgIt+aKhEu1SZ84TnYgfzXmRuHvp6Y4X+J3pfMEcMKsgzgCfSEEM94Ylpjyd9PuvuyFAmI5S1ILNrBtiwpqz0CsNVO0zdDG4VGm/Zz0AzjJBk53tLSkrJ1Mdws4Yin0fUhHH2wGXJmo4EojH6rCx4ePBnJqoqfYl6cIhSZICg1H3T5H1j/j2uL8AmsfyBz3JuukGbn/3HK9/rlYvY5jYjushVpjVJq3aj+hYnqgWTkQwDriwYBl5R7supXofmz67moXNakbWwxRV/bueYS4+1cGr7gYhN+JHEGkZuv573+F8fmxN7vaDbzn5KW02SR1Sq5Eyp0Jta67tjVqEvTGwk8BMvdjI9cp3RLYIbrHaCgxwBldHvMedinX8qE0wGEQEhdP52TW8Hr7y69sRPKbeAwE176X34nCevLuCS77WFos6iNoefBJUyLSJCYtpFOrN+ChB3JA==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB6254.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(23010399003)(366016)(921020)(10067099003)(11063799006)(4143699003)(56012099006)(261022105027099003)(261021121427099003)(261026121527099003)(261026140227099003)(261028144727099003)(261102123227099003)(261009223027099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?cThWNDlETXIxUG5nRGVHemt1U1dPQm50c3BwVGhFTFRuUENHR2hKcjhFYk8z?=
- =?utf-8?B?VkpGV3ZvbDVaRmlZYitlSUlPRXhnb2xRd1ZvZHJvZnpJb0dRdm9ScVB3VDdz?=
- =?utf-8?B?U0tvWllMMXAxaCtKWGg2VzFLMjZrQ0tkdisydFFpY3RXWGtHanNjaDVvOWpn?=
- =?utf-8?B?Z2VSbTNTUjI0YTB3eFJUVVVJSlhUcGlPTExLZnZBT0VveUJMVTFGRTVibmNv?=
- =?utf-8?B?M082NDZYN2txV0V5Z3hONzVpb3BGMUJtOHMvMFBqclRDN20rSlR0SWtSUTdD?=
- =?utf-8?B?bXQ4SVFYeDdlMGFDWVZwMmFSNVBJWTkwLzdjQ20zazJMc2N4QmNwTW5hNkRR?=
- =?utf-8?B?WS9heFRNQkRqUy9jTzJzNFJGYW9PM0ttd1V2aitBcXdzQjRpY0lyUGFhS0Vy?=
- =?utf-8?B?N3RDcExmS1RlQ0xPT3h6TzA4VU9YbzNqS1p3UWs5aTNnLzR0UU1KYnljZkRh?=
- =?utf-8?B?SjdWMG9IOC9nb253TkFOOUZJR2lzZzUrZ0ZNSzRLWUpuTmg0YmNYdFZzdG9P?=
- =?utf-8?B?ZWc2QkoxWHVZV0V1cFBPanVrcU9ncGtRNHdGRDRzZW43QmY5ODlGb3JKbU9X?=
- =?utf-8?B?bTVoek5ib3ZIMzA3a0dydUNxay90SFdSSmZtMzByREtuZUlNVFlaVFJaWVNp?=
- =?utf-8?B?Ri9ySjE0S2VUU2ZIM1RST0E3K0preStsenc3WmVDYXl1ZVh2Y0FrTVRKaFlu?=
- =?utf-8?B?REJXZVhzSm93bHdsMmo3WUF1MkdGWWpoWFNwbkNWSlJFUG1EVVBUY2s3Wmcy?=
- =?utf-8?B?TXFKRGVsWEFCV2hUdEE3dWNxUC9DbkJqZFhjTDA0SU44cGNiNlY4azRCeHpW?=
- =?utf-8?B?RjhuL2FtZXQxUlNuZ3BWWjhPZGhZVTFrQjlpVitQTGxxZ2dsNFN2cHBBa3JP?=
- =?utf-8?B?VUJGOWE2Y0ZKMTRpWXJoVllxcGIwTDNaczFwUjd6d003RlhQU0hvakpjUHdS?=
- =?utf-8?B?NVEwUzUzTDk1U0FBUzRaRTdnQncxZzVYSUNpbjdoR3I3MUlzeUMrU3RuRTVn?=
- =?utf-8?B?Q2tvOEJFZUhNa09TZVhMLzl4dm9URmhKV2lOL201RFZPakRJbHRFYmxWaVha?=
- =?utf-8?B?aWN1bHA2VVg1SEpLbUF2eWFtbGxkc1pIZENIQkRDRTRGZFFlaGFUU2oyL2tQ?=
- =?utf-8?B?bGVLUGZ0ejd3TW95NGdCclNlcEozZUt1aWd0ZWc2RC90VE1xYzViemJ6cWJy?=
- =?utf-8?B?TjRWTmlNUnZvRUZYNnQ1RCt4dGRxUjA3WkZvdUtCNzBLUXh0bUJWNTlIQ2dk?=
- =?utf-8?B?ekhBTTRIRnkwUnN0OVR2RnVRcEhIUHE3NWZtSFNOUzVqSFFqc2FiRjgwU25s?=
- =?utf-8?B?NG9xWWdmeTFDd3RiRVZyTjVlZUpJTytUNHFaNG12K09sb3BKT25qbzhoODhI?=
- =?utf-8?B?SHZ4NnE0R3JIcTNqck1qR08xV3phZ0F3c0dLMjQrSVhvSU53SjAxU0FaZkhE?=
- =?utf-8?B?VGNaenI4WDMvcnZHVUF4TkJFamlIeFB2eG1Ea2lRY3doYU55YXg4YzEzZkx4?=
- =?utf-8?B?MkFNWmNvOXhtV2RRck83cHpGUzJGQ1U4aWcrV0dJYVc4NGlGcXpVckY4dW1N?=
- =?utf-8?B?Tnd1OXJpMVlhR2o4ZW5pWFBkbnNwVzJyNGZvUnpIcks4ZExibG16ZzhJYWZr?=
- =?utf-8?B?TWtidG1PbkxHdG4wR1ZUMDJEb3kyMSsxeEJGcEdTQldHNTc1ckN4SExNb3Qy?=
- =?utf-8?B?TE1paExyYWlNa1htOGYwVlJWWVBZNlh6dkRqZzVNQnE4djhHOWl3bDlDRFpl?=
- =?utf-8?B?SThLNWxmbk0yTjNhNjM2YnViZjB3b0dCTGVMb2JYZElvVmNnT0d6TjdTQ25U?=
- =?utf-8?B?MDFJRTN1MGpjTkcxbGR6dElFOVJKQkplUG9xL0VyamVvRTZuc1lwS0hNS3A2?=
- =?utf-8?B?M1VKYlRMUVpsRExSRUtBS2FtSVh1VjN4RXB0bnZPbzVsMU9BSjd3SEhmZ0dP?=
- =?utf-8?B?YzFSUUh2SU0ycHNVcWxNRjVQaTRaWmRWZFdTSmRRSUxad1lpN0RuYjhERGZr?=
- =?utf-8?B?M0JTb3NlaVhMUjFZVkdwdVlBVHAxUC9leTZBWEdobWtzVU4vVHk0MHozT0FJ?=
- =?utf-8?B?SDhuWXNNUk93MnRTbmVhUkpXUmY3SFBxTnFSbGY4ODFmTUlJdUtpblF6NHhZ?=
- =?utf-8?B?dURET1JkTHBLMTM1SXdQaXYvTHdtQjd0Y294OXpiL2ZpUk8rbjYxYzJGWkhl?=
- =?utf-8?B?aEI4WEZCSjRJL01kM1BIYVZUaG10V1U5d2hxQkMrZWFUQlZldzBlMXV2Sy9R?=
- =?utf-8?B?ZmxmOGhKa1kyU0o1K2tsRDhUcVZicGY5aXhIaUdRbFBmYS9QVUIxelN2V0pj?=
- =?utf-8?Q?MC30GxROBQXDJ5Gzav?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4ace5aa4-1611-4092-5ba2-08df3fdc433b
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6254.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 10:12:16.5360
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: YSgj3F5hocGyy4C0tmQDRITyq6RKN0K9MrtOH4wes/TJQwo++VWRtubzaevTnuHyWeycWO6o8h63ShT+EjoCfA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8595
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAJ8/9GoC/42NQQ6CMBBFr0K6dgwdCIor72FY0DLAKLSkLQRCu
+ LuAF3D5kvffX4Unx+TFI1qFo4k9W7MDXiKh29I0BFztLDDGTMYooZmhtq4vQyAHoyfwA5vO6g/
+ gPVcJIaVZVYt9PziqeT7br+LHflRv0uEIHkbLPli3nOeTPLx/fiYJEm6SlM4RUx0nT1UuHStHV
+ 217UWzb9gWq0QqX1wAAAA==
+X-Change-ID: 20261021-gx-formatter-use-spinlock-289b3e2e46df
+To: Jerome Brunet <jbrunet@baylibre.com>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Kevin Hilman <khilman@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Cc: linux-sound@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Valerio Setti <vsetti@baylibre.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1941; i=vsetti@baylibre.com;
+ h=from:subject:message-id; bh=Bisk8TI8S7BLxKLf6s4XhQgEn2v4oH3ufymXr3gbBhE=;
+ b=owGbwMvMwCV2z3ty7kUrRgbG02pJDFlf7Jfcf+tnuI7rVZ/Sw+13DifL+z5rsbLxPXXKjsN8m
+ 3hF1MPFHaUsDGJcDLJiiiws0+/9LihVe2iccLIAZg4rE8gQBi5OAZjIjOuMDAe2+cgvmDBnRmvT
+ rHvsrx2kbBy+zivWWerNzPPj1DSmZWGMDJear/7xEu2Qf2aa91j7s4Ud6xxpnwshdwsnyyku9ft
+ 9lhEA
+X-Developer-Key: i=vsetti@baylibre.com; a=openpgp;
+ fpr=0497DEFB707526E13360C970DE4B936DD13A0100
 
-On 05/11/2026 18:59, Srirangan Madhavan wrote:
-> Implement CXL Device Reset for eligible Type 2 devices: disable CXL.cache,
-> perform supported writeback, drain transactions, prepare the IOMMU,
-> initiate reset with Memory Clear enabled, and wait for completion.
->
-> Observe the 100 ms post-reset quiet period before polling Status2, and
-> treat an all-ones read as not ready. Wait for the timeout the device
-> advertises, up to 100 seconds, and access only Status2 until reset
-> completion, error or expiry, as CXL 4.0 section 9.7.3 requires. Control2
-> cleanup runs only afterwards. Treat Control2 command bits as
-> transient state, restore cache policy on exit, preserve the primary error,
-> and abort when IOMMU preparation fails.
->
-> Reuse Device DVSEC discovery from cache initialization and keep the
-> reset entry point declaration private to PCI core.
->
-> Signed-off-by: Srirangan Madhavan <smadhavan@nvidia.com>
+Patch 1 fixes a pre-existing bugs, present since v7.3, reported by
+Sashiko [1] while reviewing the series adding I2S input support for
+Amlogic GX SoCs [2].
+[2] depends on patch 1 to address Sashiko's comment.
 
+Patch 2 adds a hardening check suggested by Martin while reviewing v1.
 
-Hi Srirangan,
+[1] https://lore.kernel.org/all/sashiko-outbox-176054@kernel.org/
+[2] https://lore.kernel.org/all/20261018-audin-v5-0-4b8cc13a1b22@baylibre.com/
 
+Signed-off-by: Valerio Setti <vsetti@baylibre.com>
+---
+Changes in v2:
+- Moved 'gx_formatter_disable()' under the spinlock guard in
+  'gx_formatter_detach'. [Martin]
+- Added a new commit to introduce the 'lockdep_assert_held' check before
+  calling formatter's prepare/enable/disable callbacks. [Martin]
+- Link to v1: https://patch.msgid.link/20261021-gx-formatter-use-spinlock-v1-1-71ebc9224c03@baylibre.com
 
-A concern regarding IOMMU handling below. If it turns to be unfounded, 
-you can add my review tag.
+To: Jerome Brunet <jbrunet@baylibre.com>
+To: Liam Girdwood <lgirdwood@gmail.com>
+To: Mark Brown <broonie@kernel.org>
+To: Jaroslav Kysela <perex@perex.cz>
+To: Takashi Iwai <tiwai@suse.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+To: Kevin Hilman <khilman@baylibre.com>
+To: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+To: Valerio Setti <vsetti@baylibre.com>
+Cc: linux-sound@vger.kernel.org
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-amlogic@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
 
+---
+Valerio Setti (2):
+      ASoC: meson: gx-formatter: change stream lock from mutex to spinlock
+      ASoC: meson: gx-formatter: add lockdep_assert_held check
 
-Thank you,
+ sound/soc/meson/gx-formatter.c | 26 +++++++++++++++-----------
+ sound/soc/meson/gx-formatter.h |  4 ++++
+ sound/soc/meson/gx-interface.h |  3 ++-
+ 3 files changed, 21 insertions(+), 12 deletions(-)
+---
+base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
+change-id: 20261021-gx-formatter-use-spinlock-289b3e2e46df
 
-Alejandro
-
-
-<snip>
-
-> +static int __cxl_reset_execute(struct pci_dev *pdev, int dvsec, u16 cap)
-> +{
-> +	int rc, rc2;
-> +
-> +	if (!pci_wait_for_pending_transaction(pdev)) {
-> +		pci_err(pdev, "timed out waiting for pending transactions\n");
-> +		return -ETIMEDOUT;
-> +	}
-> +
-> +	rc = pci_dev_reset_iommu_prepare(pdev);
-
-
-I'm not sure if this is safe enough. I can see a situation where a Type2 
-device could not be using CXL.mem and CXL.cache but CXL.io. This would 
-imply no CXL initialization from the Type2 driver but:
-
-
-     1) Such a driver could be giving functionality without CXL
-
-     2) The device belonging to an IOMMU domain which such functionality 
-is using
-
-     3) The HDM decoder range as a system resource is free.
-
-
-If I am right, a CXL reset could happen, and although it should not be 
-triggered by user space under these circumstances, the door is open ...
-
-
-The solution would be, currently, to check for a  driver not bound to 
-the device in an IOMMU enabled system. I say currently because CXL.cache 
-will need extra work with IOMMU mapping which are not yet there.
-
-
+Best regards,
+--  
+Valerio Setti <vsetti@baylibre.com>
 
