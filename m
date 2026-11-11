@@ -1,96 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794394671;
-	b=K1ZVV8K6nTHOwpRS4Kynofio45wUtQ+DWruLsNx6Oin0BFvf49UZsFrwFjiuKOF9hUZC
-	 RcfzpsImnmKOYBloFI7P9GnYPNhquGQTgpB4VXEoS1ccp49x5iAWq5fkwRr+YeQJqUKEh
-	 g2QsfdxkrDIKknAiLxJdNvTT0KlAP0TX76Zjxdp2FqO1VXu/hIZEzWW/L9EMczD9IYoDj
-	 dDI+6fPYvT3YNnS3cJn/B66jRthIVML7AeYAjQ3H41He7QtzmrHDVOW9vPegpiQdcWHej
-	 xcOFSAktpBE/7xApqT/5DjhKBHoJ+K8pRvKQG0j9sUWiXt5JdJIibO7eSMSXqAWByxQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794394671;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.170
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794394691;
+	b=TUzLge4cdyLvFNheyfwNLObPsPWztXwOF+2behHCoxXTDbr+yRilwSANNnWv4uQxznTw
+	 AFav3zf+nNdlV/Ql9maMJGtioqudcn1mHv21QP+sfZk+Q8u4DD7c6FzUHQTqXW22dRUPN
+	 3IHdvEMMyPV9RGdv8IPGFwvOWp9s1DcG/UL+o/lsGaCufaKWiUQnry3N3x2Kk1cxdw2NC
+	 ajmORjuBzikSMBDaPXb95zJUw4DvVNTBhbN8Qjs5yZnLWfv3eT2d+7fZ6tPo3AxqDaOD6
+	 rmDKQ/TlG1K3uWVlrMFTRtfYCg3LlAQNohqk0Qsindxt5e4te1WUlhQaDj0PuACtpQA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794394691;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=B/JodyxslCE0s5rZbktiNiCgYyceChxk1HoTgFEpDMM=;
-	b=RRXg2u/FPRScJjCRzwyf2irX3kDOPW+OxcUmfzQvEFDDZLQlpHlp5hfDffspYk/XZ0xa
-	 6kJr/O8VEp2rK0U/bbf0P8GBYitVzSEt+qYAgQBzvHsXtximvnAgw1e+5iTJqnU5rxOAQ
-	 xIpVhHST+U1hpDDu/oKZaSV5m7teOoeHgUovfRCBn/mdnE3K/2GtbtuiMzt0nFJm7yiTm
-	 aDbk3Imr/X2FR86uBHB3EPsv6T8247EEn3MwOUAePAqp7CvXnwSagdvwAf8OnWrsVP4Vh
-	 62Ybm2i/6CvFYTd4CXh87UjBH7/StmW/rmMXrQSW3ZBDorffqS+1EKuf1NCAskMEQag==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hVNXTubb;
-	arc=none smtp.remote-ip=209.85.128.52
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=615FE0Yy7cA+8xh/VFmWU1n2MI6ldY7bFg+t+YyDgZw=;
+	b=X0a5f6OkaART0/wWOoaTCClRR5ZdCuQur+5VjR8MR5WZglVpUVnn+9EdsGVC0IMs/c/B
+	 6Q9w4/Grs0zt7WTDTEkbpqvMY7T3FCOwmJ1ibC31kLxqLcd1MFLl57UqzJ0JaA/hjtDwi
+	 XoRfUgyKkFFkgZydBPsX9RAPysl1F/I+x+nYVT+UbMvZ+09zyIV20dCqh/aMJUqrQnqjJ
+	 GxgdbqeszJZMuqbPf6AHlJUGET2VzxJzQNwXug3V2eTX9rtPfQtF57kGiQEv1Dv/DkaQv
+	 8Xya9DtGghl9ZSdK4OXjHcfk7JErrbI1sdkG8gP9ykeAR5fY2HhwkhTZAAg2Rch8LLw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=BEZKTX1I;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.170
+Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A78B606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 10:57:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A78B606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8D9D606A321
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 10:58:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8D9D606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hVNXTubb
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a59100fa83so26515775e9.0
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 02:57:50 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=BEZKTX1I
+Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-37198ed3727so3766208eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 02:58:10 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794394690; cv=none;
+        d=google.com; s=arc-20260327;
+        b=LFPT/c3Jkw2dWHrYxhcnKhDURfPm2nQ6V7s2EpTqY+QsMXXIc1isBrqwW0SlK0YTiI
+         QR9vkHtAtYRCNTDjMLrFEkQ2Iifn+qDCq39TLNFQloxvVftDGGmT/Q3HS+0N8Wv4oCTW
+         V3FHsCrrV2jVhylCCspDTUyRrRLiw9c0vStRiUkaGnaJdv9TBbBTEN/0TajhJNvzxqk9
+         qMap5c38aSigy32HpMUzPLt19xTqASBMUWnqglGhmzNR1jOpQ44NUfhkuQyfoicE8a+t
+         sQZTE0/H3gbE28g6f2Dg60z5kMB0rauRjFn2b7BLyRAc5tRyrTGKzkzvDlvqNtFfqlpu
+         X1og==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=615FE0Yy7cA+8xh/VFmWU1n2MI6ldY7bFg+t+YyDgZw=;
+        fh=NI2Ls7LYAEC9Jzez9S+vQdupaBBoGbWGiW/DLOwsxtw=;
+        b=baM7k4mOzyrEXDB+4Ux55DrvhMGBrdO5+JaLKlCCATOcf1aJFHs9iF7cXLUODEW8sK
+         mpA+Ip4+NKYP6XBFwzfF6IUR+804BNymeAY0xMfBCm9sbioQq5If7k9LklWUeuCm+7rU
+         wMoW+kvWtLj07BYZYh73exH+GNVjFF0Aflw/x1vb2frGcRTSzHaj1hAsPURs8x+CmPU3
+         SR+5SmP3pCVZnj0b9hrasHIVHhGZDvI0G1A5UJXk6dD1BCwhF8kg9d9LaQi8PqBaE5lc
+         P126D+wRCbF01dm+7vW9/cXlh8ttxhwZ2lYoU3TC2tgicq23CjFxVNwKavNlVqQXBrs6
+         jVEQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794394669; x=1794999469; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=B/JodyxslCE0s5rZbktiNiCgYyceChxk1HoTgFEpDMM=;
-        b=hVNXTubbRWSUizyaWoIgKFgbFDKSBccwRfDJSNm8qsUoysuBP8H/F2nkF4RI92wber
-         di7s/6CYiBlwknrPU+mDweQFkjcTxdimhkRIl5uSVBZRuMcVbl4SN8eBhwOReHSES/Pl
-         jiaRAVgF9xk0KP91UmVe68XmNvA4wy6HWzLTDcgNQWaPWDs0s2Lme/uZYy1lkqK5K4Il
-         VxMkub+CfETknI9c/M1xJ99LZOIyCsVQkFIbZnArUEK9cod+T38TwP714EB22efWpFFa
-         GOEY05W1C3Wkzolepw6Lc+hXLBjvJkVDNHdGpXToDmXLaWARYFWhsHYsy6F3xngHfKFQ
-         9kDg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794394669; x=1794999469;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20260707; t=1794394690; x=1794999490; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=B/JodyxslCE0s5rZbktiNiCgYyceChxk1HoTgFEpDMM=;
-        b=z1eKDcSAAsPdO2GeVy3MuMxN/G6zoQxC2VyCD+nssuDbSBUwgaiKjSlVRbluPH9jUg
-         yr+gv4KQPIPuxKy6RIdi02eWc+3Qnve6ulSnAiFebBJZhhX4g6lal6bxMt68whA9baQ8
-         Rggwj5TX/ukJ7Vy/NewhkNhucT/UJWlHp2UZURT+D5af2M5/OGNXvTZxacmcMumxwJTY
-         jHxifCnTzs7UQAWWiFM0xlt3uHB/cUGqtGgyAj0ObeAM64C5KgCJt8L5dnOxk6lvNCLY
-         7Zo7SiaGUBBiP9aG1D1DPfCgMRGvWTMDcOHQeGHr51P8MstHAtyhcGt2S6XTWAfgxUvy
-         koog==
-X-Forwarded-Encrypted: i=1; AL+hErEG5cZ/SxqP8RJVVIhAX2pr9+ufnHuKwjmi4Nuj4cXlqwztmC2XfdmMgjfFdunkOxsntmfMAfiV41XQhfU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9s3qeiGkW5oQJ9Q0zAHUGHx9CJbJCX3x5kck9tLEzbUKbv4L2D
-	kbVao0fGHP/5r+KrHedyRBDDbxkw1+Al4wyov05OZIjGSYrLSqRCmrjTt59Emb48
-X-Gm-Gg: AYBFou0XX2VC2TllXCGcMg0egFijsJXQ8lxHktaD+akN1GrFPG0KX/Pli3pqq9c1itJ
-	kaHBkqQvoa2j3EfEWaUelEs1jJ1BCqon7UDkJvqlEsSCyDKjviV2A0a7Da2maoUDgHwbj9CuM4b
-	1m43vU0f9O9bgz9kcW+Grf72GPGcnrw1OJ085/sI+wmJpR7H2L9tTTdPt2sJEJn1QzVhcS5xfj+
-	5Dt8VIzuAbF1rXS8Su2fans6IGVJn+OKyFh1P7Q3QSpq0l8JlB/byOytsCWCCbDt9gK2L0BHPaZ
-	Rwb9iHdDlblk1aYBocYAQImuqlSb3ToAzCPMPDFIwGa8Jm2G+V7z8J1CCmBcKHpKRizhnPpRCv/
-	iHfTeV0exBsikDkEs4PzvxhBvBu/BC2J/waXD3/BbRZdl7F5zGliLDiciAHrLBIINB+f8195ua5
-	oQw0+QLMfuucEH8fx752MKEXdL/i5EA9iAQVC3WrvLhB8FYmHHTTyYGkp/k+2RBDtUumw7LLFPJ
-	7r4Sojzzv6WSzZn/yJH+weXCdjBW1XZjxNjZ80v+PNTfVOCLAeqWyZdWFjdlFweApGomW+D/eVJ
-	xBOD/N9Om9LT09Sjmap0VpIeihZT8VG2pz480mDucXwghh7Xm5ROPIcU57PtnSZFB+pvlMpV3kV
-	Rz0PHLV0bTXQ=
-X-Received: by 2002:a05:600c:1d28:b0:4a1:e6c8:ff74 with SMTP id 5b1f17b1804b1-4ba0939db75mr37798895e9.29.1794394669238;
-        Wed, 11 Nov 2026 02:57:49 -0800 (PST)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba0950f3casm31107125e9.3.2026.11.11.02.57.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 02:57:46 -0800 (PST)
-Date: Wed, 11 Nov 2026 10:57:45 +0000
-From: David Laight <david.laight.linux@gmail.com>
-To: Zhu Jun <zhujun2@cmss.chinamobile.com>
-Cc: linux@roeck-us.net, linux-hwmon@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] hwmon: (nct6775) Clamp fan control times before
- rounding
-Message-ID: <20261111105745.5b3b6a40@pumpkin>
-In-Reply-To: <20261111033954.12468-1-zhujun2@cmss.chinamobile.com>
-References: <20261111033954.12468-1-zhujun2@cmss.chinamobile.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+        bh=615FE0Yy7cA+8xh/VFmWU1n2MI6ldY7bFg+t+YyDgZw=;
+        b=BEZKTX1IIGOMPjsWHaXoJ3kp/OsyoYBWEjtBi4CHamphNSa+3Yryyi6n98XAWEV/Cg
+         rokF1ZUwWWGXFA9Oy7/UqX1rQqHBv/jiPK/SWHpI+qg0MNUBXeiq2XFznQAexFkIwCay
+         1ZyxA7s6frelLfdun6d+/fK4Mf1RD3UJZnZXCVy7FN+3ZeZFtvAIDqfYG3OwSh8eeHPQ
+         HpxIhO7n7QbAbuz7n/TO16Y+cQU8Lj1GXbE0RF8nPdN9BMgsSA/69cmX393Utex1fEPg
+         z4syHLwpeGJHGJpsp21bZn6aQvVu+SBIxIxg6Mr5CkR9/UUI/qxqSWxA6Fj0A6K5UMZW
+         baAA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794394690; x=1794999490;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=615FE0Yy7cA+8xh/VFmWU1n2MI6ldY7bFg+t+YyDgZw=;
+        b=t6L7+eWXZkWz4U3NvBNrkGLiwzSKBmUECzJGZ3QSBGzpRDALc8nkE0LRYnc46zr88I
+         743va65siRpQrgpIf/I8ntCtZGtmerrgYBlQlr+tWAloAmYP/ebTvJTtz92lISxkV3Yr
+         i/6GI9RPGyRI1+vGt8h6kIgPeMb6vZELR88A4oVdGt3oNo4TgU/2RgYGnLctC8dP8Due
+         wj1eyarPJUx1cAKPv7puAe89lC+uqWjCXXC7u4qF3YXDRaSglvYO/iCWa/RhQb0PgTlI
+         l85AzZcWxOKXpMfm9fPMT7Eh+82ctDhz7n/h7j8jxF4A9nue5H6g6IlLYpdV+4beS3JL
+         15Nw==
+X-Forwarded-Encrypted: i=1; AL+hErF+DIjE6WnoCvBdlAEFGQofVzpCMNJSt24S2F7/aB3wLqiTIO/DBUUrNASD36f6jXYCEJk+ec17C4fmhoQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8dUL6td7gWUWg2TrtxuxSjmj1c8LIw/qM3UXadKVCN+fQlT3jC
+	Idvb1F9ei8z2zFai7F1l4EquWoP/xqHZCcGFtTxwnMLbbEn8tRg+qho3LhJ2d8a7zv2zPuMLBQX
+	mt96YNd1ld0UEdJ8IY5LgslgPPXWW9c0CGWdxB74ZfAC4SCGvsXItoG45/Vo=
+X-Gm-Gg: AYBFou1BwQaCPMVEbcSEpomOM9NroRS13IJWJqDEYStxTbPcs9EB8/Voe3izvGeix2Q
+	+VePiJek3gyWe7P109GRQCbnoBr+2hjJVN0rakD6mYop8AH4icDaPo0Pn/TJE0dqxBWvT221Ibj
+	55IE94ZBDrVEkbdqyZHZvU9md3R5kB6zZjqqFPHrhAOU2mJzk+wOSI7Bka7jtzH/IyBPjkUzz0s
+	RG+TevV15XgpPvENjmQo4EPQB9lSIL37a9zrTWaiBpoDqosOKfG2ZCILqyDsvEyN65addIPRe2S
+	flBAfgDIhUnicqPOOarciJJeF/WdNF7d1/QuKxiPYJl7o9qpzfrlj12zXncz9KvU0kVNvxxGOYl
+	p9GSRZBixYkvL7VhDWcQtJFk4WoJyYxnmLYMnnHZNlx4UO0aZaz7mEIxnZS2ir3CbQ93E
+X-Received: by 2002:a05:7022:f519:b0:185:6c8c:d860 with SMTP id
+ a92af1059eb24-1b3c03387damr1679768c88.5.1794394688877; Wed, 11 Nov 2026
+ 02:58:08 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,48 +103,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+References: <cover.1794250850.git.bvanassche@acm.org> <30ea46a36f2985e32389067317977371e6776e27.1794250850.git.bvanassche@acm.org>
+In-Reply-To: <30ea46a36f2985e32389067317977371e6776e27.1794250850.git.bvanassche@acm.org>
+From: Marco Elver <elver@google.com>
+Date: Wed, 11 Nov 2026 11:57:32 +0100
+X-Gm-Features: AclHuK9bNroTt_qmwi0N0oU48nQI8S96SP606Bmq4NBUs9gdU1xkleGdPkOjq0Q
+Message-ID: <CANpmjNNxNpM0LY6Vo0RqZKKixBuay1YnphR2V4ap_z70iHwu1g@mail.gmail.com>
+Subject: Re: [PATCH v2 03/14] tracing: Disable branch profiling for
+ COMPILE_TEST builds
+To: Bart Van Assche <bvanassche@acm.org>
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+	Will Deacon <will@kernel.org>, Boqun Feng <boqun@kernel.org>, Waiman Long <longman@redhat.com>, 
+	linux-kernel@vger.kernel.org, "Paul E . McKenney" <paulmck@kernel.org>, 
+	Christoph Hellwig <hch@lst.de>, Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
+	Nathan Chancellor <nathan@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, 11 Nov 2026 11:39:54 +0800
-Zhu Jun <zhujun2@cmss.chinamobile.com> wrote:
+On Mon, 9 Nov 2026 at 20:14, Bart Van Assche <bvanassche@acm.org> wrote:
+>
+> WARN_CONTEXT_ANALYSIS depends on !TRACE_BRANCH_PROFILING because branch
+> profiling instruments every if-condition and obscures control flow from
+> Clang's thread-safety analyzer. Make PROFILE_ANNOTATED_BRANCHES and
+> PROFILE_ALL_BRANCHES depend on !COMPILE_TEST so that allmodconfig and
+> allyesconfig builds do not enable TRACE_BRANCH_PROFILING and instead
+> enable WARN_CONTEXT_ANALYSIS_ALL.
 
-> store_fan_time() accepts an unsigned long, but step_time_to_reg()
-> narrows it to unsigned int and adds the rounding adjustment before
-> clamping. For example, 4294967295 ms wraps and selects register 1
-> instead of 255 in either mode.
-> 
-> Preserve the input width and clamp to the maximum duration for the
-> selected mode before rounding.
-> 
-> Fixes: cdcaeceb74ff ("hwmon: (nct6775) Add support for automatic fan control")
-> Signed-off-by: Zhu Jun <zhujun2@cmss.chinamobile.com>
+WARN_CONTEXT_ANALYSIS_ALL depends on !COMPILE_TEST, so allmodconfig
+gets WARN_CONTEXT_ANALYSIS, not _ALL.
+
+> Signed-off-by: Bart Van Assche <bvanassche@acm.org>
 > ---
->  drivers/hwmon/nct6775-core.c | 3 ++-
+>  kernel/trace/Kconfig | 3 ++-
 >  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/hwmon/nct6775-core.c b/drivers/hwmon/nct6775-core.c
-> index 6e97e4f08b90..76b2c9551a1c 100644
-> --- a/drivers/hwmon/nct6775-core.c
-> +++ b/drivers/hwmon/nct6775-core.c
-> @@ -949,8 +949,9 @@ static unsigned int step_time_from_reg(u8 reg, u8 mode)
->  	return mode ? 400 * reg : 100 * reg;
->  }
->  
-> -static u8 step_time_to_reg(unsigned int msec, u8 mode)
-> +static u8 step_time_to_reg(unsigned long msec, u8 mode)
->  {
-> +	msec = min(msec, 255UL * (mode ? 400 : 100));
->  	return clamp_val((mode ? (msec + 200) / 400 :
->  					(msec + 50) / 100), 1, 255);
-
-Just do most of the division before doing the add:
-	return clamp((msec / (mode ? 200 : 50) + 1) / 2, 1, 255);
-
-(It should never have been clamp_val(), the correct change was 1u, 255u.
-Not needed any more.)
-
-David
-
->  }
-
+>
+> diff --git a/kernel/trace/Kconfig b/kernel/trace/Kconfig
+> index 35d043b19332..afbf17099a68 100644
+> --- a/kernel/trace/Kconfig
+> +++ b/kernel/trace/Kconfig
+> @@ -687,6 +687,7 @@ config BRANCH_PROFILE_NONE
+>
+>  config PROFILE_ANNOTATED_BRANCHES
+>         bool "Trace likely/unlikely profiler"
+> +       depends on !COMPILE_TEST
+>         select TRACE_BRANCH_PROFILING
+>         help
+>           This tracer profiles all likely and unlikely macros
+> @@ -698,7 +699,7 @@ config PROFILE_ANNOTATED_BRANCHES
+>           on if you need to profile the system's use of these macros.
+>
+>  config PROFILE_ALL_BRANCHES
+> -       bool "Profile all if conditionals" if !FORTIFY_SOURCE
+> +       bool "Profile all if conditionals" if !FORTIFY_SOURCE && !COMPILE_TEST
+>         select TRACE_BRANCH_PROFILING
+>         help
+>           This tracer profiles all branch conditions. Every if ()
