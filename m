@@ -1,128 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.146
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794413438;
-	b=toJ/sEtJ7ykqy1nby7nlRc6coM1FMrfslBfu9fliwgt2CdrMtrTm2KPPmNk0WeSEkm2E
-	 IZ0o+k37HLkgk5lLWpGScVdMi1gwRgje69cfFAZBn9noHaBRYcYeYXqhXbzrBVIDRuhiV
-	 m/BqQGswbjy0QC0xJbicvmUot+WkdW6lhjt4DuqmxyM8E9Epi/Q9FCyxErz6wxbSvRbVx
-	 /8jzUe8mzE4wmzgjYe7T9fjTtRvT2BM+0eeXRc9CFe8NlXes00U5qrbzxGhrsPJQpL00i
-	 LeKx46m7XX+SKYeS6j7puZkO4m6gUSSecYM7hnJbn60cQD/HQj7CaRLFQOQE/9B5qIQ==
+	t=1794413447;
+	b=CNTZ08cjuwPKXdyfWOhyHT8m98eEaFOuwQRzXA9VNEIs7Muphy0MQxeaFQ9YLZzruenh
+	 Xy1BfeDQ812nb1BUzuNUi7ChcnPfXawv3plqatDZu9CiOXvjyfT0xLTqPyWqrTTzoFTcY
+	 71Fg40Bk3Ex/vT2or8bP1iCmMS6chzHKDEy3RfD3A1zFH+245xN7vaUfq261/9rq2pN4H
+	 9j0PkaKhECWPEHMJIiC7GqTPupXWGap1BV+/4lnPZF/c8eo7msr9XDvKdldxQzCCYxia6
+	 9L1HgWUycoggBzjRuHQ++6ST9KGrYNXSN12fl0Q70xAW3cI9AdSxnis8eXuDDwzkx9g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794413438;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding;
-	bh=Uq7SAWfC40SPdH0tndk0XJhDRBsFA05lXparVsZ7Ty8=;
-	b=LlZUfZ6Mbp7YVo1W2fuPfa+AElxOlgsOSa3DiTea5w5vlQnv1kkG+0vjG5jCx5xiPTSX
-	 NO/YKrGSeiK8IVtOGHsixC7X+OMtudS4TdO7rDT1iVwvvsARHoivim+twgPsgbXVPmOpW
-	 Jn36dbiThhEd5eD31zTNdsAMaJ5RziEk4yr2r0njM9n5JY7baO6nkqqtgWlfksLQy++HG
-	 9fJSdoXl3i59W5UFzvcAHK/Ghs7hlcmicPLFydukgUrB5wZaJ9AZuGV01JNUF+tz77VCV
-	 ubcN1Y81uskK70dYB6krz1DHaq6SsVamtFaKLUL9ixkTvOSugumE0IsLqWoMEFPiuOA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794413447;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=/fQfvN//SsC5kV/BzNX6zgi6Mg1pRUnE62HeFEaVagc=;
+	b=Kk1viws54l+cX3lv5EdCOg5TK2mhwRzAigbS+qmvvGKFM+PszJxMCIk/S3FPxf/w28jZ
+	 21sQXe47SLPDAyeZ/uz+aUeh+L1HVoyrp9fwAx0OxYoWnaRgOGv3fuxav2Lv/am2HY0t1
+	 ThqObtv+C88PeLG5nDFzKGihnAMPYz7n4dQPRn8Kct+wRHDXDkwXQKfAufTvxL1qBgQlW
+	 2Z8qM7AnDkBKIhNbOqIaA+TMsof4U51ujCwyEjTONm1zP0/EoPivvpMvd5BowGQAT2fwr
+	 PquX+zpwOAdbCABve2jlwubiC/peAdSThMdLVEqpFYHqqSg++vqbO5Vp+5Ng7+pccpg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fastmail.org;
-	spf=pass smtp.mailfrom=fastmail.org;
-	dkim=pass header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=LWB9BK1a;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=EkblR73Q;
-	arc=none smtp.remote-ip=103.168.172.146
-Received: from fout-a3-smtp.messagingengine.com (fout-a3-smtp.messagingengine.com [103.168.172.146])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=V9OfH5IJ;
+	arc=none smtp.remote-ip=209.85.216.72
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B3C8606A321
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 16:10:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5B3C8606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68886606A326
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 16:10:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68886606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=LWB9BK1a;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=EkblR73Q
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailfout.phl.internal (Postfix) with ESMTP id 5617DEC067A
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 11:10:37 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-06.internal (MEProxy); Wed, 11 Nov 2026 11:10:37 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.org; h=
-	cc:cc:content-transfer-encoding:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm3; t=1794413436; x=
-	1794499836; bh=Uq7SAWfC40SPdH0tndk0XJhDRBsFA05lXparVsZ7Ty8=; b=L
-	WB9BK1ax4wfjtsvmqbcZKT1CC0g3HvYjfAYPI4k54Cn4t4pYbKXzC6QQe6Zt/9tZ
-	ogVQGE75SesYgwFNVetfhcK020oaN/qE/G34HdbTP7i3HgF/mJX36x88Wp0VINVX
-	7U7BwBgg6+tfJQXaYk5NRzGTgdKFQiLu6/JPPhNGNByHh/idqw9qHEsYW6gzMSRm
-	NBiKPOmsqBJ4mor+vpZfZ3dq4RNbJ/n8+GSOleO8JF7Pb+cOcprIzE6ufNO8N2MH
-	6K7sonqxYn9i0RpGVLI7Og88FeYZ+wiepbF1Q5W460JV0jIxlMIp7elUdxSHyFGu
-	cYqjy88GA0P3hSOjhCPRg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm3; t=1794413436; x=1794499836; bh=U
-	q7SAWfC40SPdH0tndk0XJhDRBsFA05lXparVsZ7Ty8=; b=EkblR73QhVsYDKCaU
-	8GWvHlgtVtJMV3wNQnYQYcrJMMjGbIbS8h+eAyKO2afAsqkycbiYf/PeU56Y1lxG
-	coepsyyKb/rdjWazi4LL+uqfHiHQd/BPq1ESjFCnOIUF3mRg1CEXJvFzOpR/x6Kl
-	fDLkuRde65nDAqg+/xe/ZiFyfilwylmEk1wxcGCH+NtVaDd2wPuHC08cg8i+xhpy
-	6Zmf/+9pShOkstC6wppbOaXq0IzOugQnBt/WSuw/ZLJtu7eXcNTHxmYMXjOXwUTZ
-	T9azUDLB/sWSm7iG4m94WMfGwCZ4aifncDtv9/qh8hW+VnqM0ORUboV8aPoOfYU6
-	QDj7w==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=fastmail.org a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794413436; d=fastmail.org;
-	mf=PGljYkBmYXN0bWFpbC5vcmc+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm3:rsa-sha256:dXK7FJaVBJEDldisoeiRxsZzsdmAlnZIv8vvjkP0bnrelSy
-	fIAos0E0KYrdWIJSf69iUNrVAhQSyNsrnp3360/78qDb5YQhyQxX69ZDipRa7dSw
-	3kbHWsFGSCc5JrQvMIpDhNxcCBUWpl/P3GeILOG/ilFdM7ZJnUDQNmLubCzRrQ97
-	ndchAESFgrt+iRPrag3TsOduLlZZ48Xz9VL7rhvGC4J/BXeYmTR3fB/tN+gcfM4J
-	JnghgtqK9nAywTXs+Ryx0E1r1GVpGJD45qP6dtm7tzdM/opt6o2Vlw7CYVv/O+QR
-	OXvqgxrLX+QZLTYsmlQNBFKzLzZZ4Z7mcIKVcmg==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=11;
-	hn=cc,content-transfer-encoding,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:mJgToMQj3UVdzf4WOyKY91r/yHCkIH8/h+TooU7quKg=:53TFk04Yc9rvZUNv7nt8CxhI7DWNLllMy0Brtg/yPus=;
-X-ME-Sender: <xms:fJP0aiBKHyOpzgiRVGQtZwAFBFPgpLXLBCGgOpEoMqbHWbuN8F9lDg>
-    <xme:fJP0aijHbf-JIlIxtgIkhQaPRDynoEskHlzjXsabpXYFx3GPz3NHcsS8NsD3lVAzK
-    rnUEDu7AfBj64Bn71_iwgMg_HxNu2m69yAoJYDBGUgqImehkmmvsWFylw>
-X-ME-Received: <xmr:fJP0agYlTD-2YyxcYLgknkZffhKTfO723z2gHU7Q9-XFyTQ9O2p-PsA8z0HiTQ0z>
-X-ME-Proxy-Cause: dmFkZTFh6uuZJisOPSkiBRmlP3c7Xf1zTKcKKUCvf24GxmCEwWyBzY/I1K82tFLPeGmxxT
-    xG+pB+I0tJWavgH01uW9qnC/zq6yGMVBAKKqZCFocpPU3BJhRma7ck41UtZp2SpFJnOElW
-    LRH8pqqlF3clj8ccod5i2sl3WTtPamT1wZaY0HKdNoiz2d6x5vfPAIn7P9NtQpsp9n0IgN
-    aJN/Ow99o15SMzPKMjqkIzNyAya+QLRQVAEfXBLM1ij9IohlJMssGjwTDSfK0rVlBEuEfB
-    gL2Hbaen1QpckbBbRByTwoe6S3ut3LNKY8FkEcjABo0YNpA+IK4EaAEWQvScJDe5k1PbIo
-    aI0yZslM5jk4kPxwts6+o8i82eSOjS0No+cR7ufrb+54XLUznb4YCOGCcyne50jkzF6xC7
-    KjfNXrxdYS3McLMAOp0FAPPmirZhhvTjfuuasA2xvtJUauDdiYN0ErhqF77rBOPWEa3g5l
-    jQnBEU8beTHYzhEJDRwjjG+pnDtiGBoY+k98rMUGhlEqR2ki/smKgXDK20RIrZ8D8TSmlk
-    jJ/buQLGnxKAsmsPRzHiGZOZ8orqFPM1baPGnv2+4ReeSt8k3blZCL/4lpLCWJub3pz+Ng
-    3GYx6RRcMHkav1+wXzaEkXso88Hm94UkXb1P6fyrfgy0RsTEZWEDM8SPxgyA
-X-ME-Proxy: <xmx:fJP0ajk4qXT95cwC37FKtTmrKD7fp2Ol6E51x42CGQdTcERGqalJ7A>
-    <xmx:fJP0amjoloCyaISnS3HEEwYVCDTvls8bdJHDXUIVb22hel-MjInZfQ>
-    <xmx:fJP0alTqZidY2oPr-Pm6QITojdNVI_HXH878uJMydZ-1t8vuDlPquA>
-    <xmx:fJP0anaBFxL-QPLWCmf5wV4D7lhlJWkqPP5KFMewfVC2Zhv9TssOLg>
-    <xmx:fJP0agLQMigu_DHqk36D9Nm-FfOItddtAbnUkbQ_mlVT6YnzS6xR_m4o>
-Feedback-ID: ib53e4b78:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 11 Nov 2026 11:10:35 -0500 (EST)
-From: Ian Bridges <icb@fastmail.org>
-To: jan.koester@tuxist.de
-Cc: linkinjeon@kernel.org,
-	senozhatsky@chromium.org,
-	tom@talpey.com,
-	chenxiaosong@chenxiaosong.com,
-	brauner@kernel.org,
-	linux-cifs@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ian Bridges <icb@fastmail.org>
-Subject: Re: [RFC PATCH 5/6] ksmbd: show classic users as S-1-22-1-<uid> on every server
-Date: Wed, 11 Nov 2026 10:10:29 -0600
-Message-ID: <20261111161029.4128473-1-icb@fastmail.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <f30f64394434b17ac1347afb@groupi3>
-References: <f30f64394434b17ac1347afb@groupi3>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=V9OfH5IJ
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3ad30487d55so5489490a91.2
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 08:10:46 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794413446; x=1795018246; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/fQfvN//SsC5kV/BzNX6zgi6Mg1pRUnE62HeFEaVagc=;
+        b=V9OfH5IJti8IaVMsGoGROmRICksQAWzg5oySMiDPT3HFdwJeZaGbgLepEbyWICtY/z
+         ASPtpqwLTqrU36T4NSMfOERJsgOYJFYH98JqtSK1vClQSq4oX1XlXhEq+XCq4cPEMwlI
+         fkyCwFHqvv0gRYfSZFXY9EHnG44ZeTZBKqPPoQDDX99WL+mbTJ16idpMqrxARh8SVzN4
+         IA1aUvA2GcXJKmXeZcUNBrMQSwRPD7h6dgj0fJdX2qV11cp7ZEUYpTUmUmkurs7FH/jP
+         IKlpzd9jBXwPxkum5RtHQuh9di1FuRJ0Tnw4GUxuMVQCMElmKeaSU4n4282VsI9zpCq0
+         vbYQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794413446; x=1795018246;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/fQfvN//SsC5kV/BzNX6zgi6Mg1pRUnE62HeFEaVagc=;
+        b=Nfgd70qxVlLhFWlM1BtrtduQ+CJBkTO8nftl2mfc1R8o6esEdSX0gcideSO7xVUVrw
+         PbS3ygmH9tpLXr+hG2m28i7ZUY1CTfBR9QDAchyB6fEzJV5YOrFi39CyuJvqnuWtg8Ez
+         SaoGEUn+B4G9n9A2K4l7t2vNVAmdf1xJicziZBQ9FX/fCQ4ZtgRD5LJQhw6bS0/cA8jo
+         lrQh9VODfULrMUKXqthFFssXysWA2YCG3ku7rtUn1X3UlQrdO5qg4bC/yW4/xyaY4X25
+         yl/H7xhDTxShz+YT9J5mKYWmKKfO+OdAftAs2ysdJCnSDesi/lZYEXwEsU06k2qWgpK/
+         5nCQ==
+X-Forwarded-Encrypted: i=1; AL+hErEWQwQPF7PyohvZguAAaPb0a4F3Ifom/BedSkrJzJ4oNcQrDN8gLzJdiv2oVH+RcHVJRFutT6BChTa9vg8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8+6xa0qZXhO8cczGNeYd/DcAGZAdD5UpH+sJl5H0AzO3f3CIv7
+	+NVzksSJlAHroQjJIgV4cMPqeayshXcUdN9k8o/FQmyh++DaDVYDrOavqZv3WD8maEWPk/NN7UQ
+	ksf80kA==
+X-Received: from pjbkn15.prod.google.com ([2002:a17:90b:480f:b0:3ae:b67:263])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:2f86:b0:39e:6c68:c77a
+ with SMTP id 98e67ed59e1d1-3b182f2699emr2883420a91.48.1794413445538; Wed, 11
+ Nov 2026 08:10:45 -0800 (PST)
+Date: Wed, 11 Nov 2026 08:10:44 -0800
+In-Reply-To: <833af78b-60b9-4031-88e0-555363f8dd0b@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -131,22 +77,67 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20261105-tdx-selftests-v16-0-2024e8fa517a@google.com>
+ <20261105-tdx-selftests-v16-12-2024e8fa517a@google.com> <833af78b-60b9-4031-88e0-555363f8dd0b@intel.com>
+Message-ID: <avSThO-PZPrIfT5g@seanjc-mac.roam.internal>
+Subject: Re: [PATCH v16 12/20] KVM: selftests: Call KVM_TDX_INIT_VCPU when
+ creating a new TDX vcpu
+From: Sean Christopherson <seanjc@google.com>
+To: Xiaoyao Li <xiaoyao.li@intel.com>
+Cc: Lisa Wang <wyihan@google.com>, Andrew Jones <ajones@ventanamicro.com>, 
+	Ackerley Tng <ackerleytng@google.com>, Binbin Wu <binbin.wu@linux.intel.com>, 
+	Chao Gao <chao.gao@intel.com>, Chenyi Qiang <chenyi.qiang@intel.com>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, Erdem Aktas <erdemaktas@google.com>, 
+	Ira Weiny <iweiny@kernel.org>, Isaku Yamahata <isaku.yamahata@intel.com>, 
+	Kiryl Shutsemau <kas@kernel.org>, linux-kselftest@vger.kernel.org, 
+	Paolo Bonzini <pbonzini@redhat.com>, "Pratik R. Sampat" <pratikrajesh.sampat@amd.com>, 
+	Reinette Chatre <reinette.chatre@intel.com>, Rick Edgecombe <rick.p.edgecombe@intel.com>, 
+	Roger Wang <runanwang@google.com>, Ryan Afranji <afranji@google.com>, 
+	Sagi Shahar <sagis@google.com>, Shuah Khan <shuah@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+	Jeremiah McReynolds <jmcrey@google.com>, kvm@vger.kernel.org, linux-coco@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, x86@kernel.org
+Content-Type: text/plain; charset="us-ascii"
 
-Hi Jan,
+On Wed, Nov 11, 2026, Xiaoyao Li wrote:
+> On 11/6/2026 7:46 AM, Lisa Wang wrote:
+> > diff --git a/tools/testing/selftests/kvm/include/x86/tdx/tdx_util.h b/tools/testing/selftests/kvm/include/x86/tdx/tdx_util.h
+> > index 4330290d29e9..9d951f67b3b5 100644
+> > --- a/tools/testing/selftests/kvm/include/x86/tdx/tdx_util.h
+> > +++ b/tools/testing/selftests/kvm/include/x86/tdx/tdx_util.h
+> > @@ -46,9 +46,31 @@ static inline bool is_tdx_vm(struct kvm_vm *vm)
+> >  		    #cmd, ret, errno, strerror(errno), hw_error);	\
+> >  })
+> >  
+> > +#define __tdx_vcpu_ioctl(vcpu, cmd, _flags, arg)			\
+> > +({									\
+> > +	union {								\
+> > +		struct kvm_tdx_cmd c;					\
+> > +		unsigned long raw;					\
+> > +	} tdx_cmd = { .c = {						\
+> > +		.id = (cmd),						\
+> > +		.flags = (u32)(_flags),					\
+> > +		.data = (u64)(arg),					\
+> > +	} };								\
+> > +									\
+> > +	__vcpu_ioctl(vcpu, KVM_MEMORY_ENCRYPT_OP, &tdx_cmd.raw);	\
+> > +})
+> > +
+> > +#define tdx_vcpu_ioctl(vcpu, cmd, flags, arg)				\
+> > +({									\
+> > +	int ret = __tdx_vcpu_ioctl(vcpu, cmd, flags, arg);		\
+> > +									\
+> > +	TEST_ASSERT(!ret, "%s failed, rc: %i errno: %i (%s)",		\
+> 
+> Nit: tdx_vm_ioctl() uses %d for ret, while it uses %i for ret. It's better to
+> make them consitent.
 
-On Tue, Nov 10, 2026 at 09:02:52AM +0000, Jan Koester wrote:
-> +	else if (uid_is_legacy(uid))
-> +		id_to_sid(from_kuid_munged(&init_user_ns, uid), SIDUNIX_USER, ssid);
+Ugh, KVM is anything but consistent.  I didn't even realize half the macros use
+%i instead of %d.
 
-smb_check_perm_dacl() seems to still build the caller's own SID in the
-old form. For a user other than root, would an ACE that a client writes
-for S-1-22-1-<uid> then match the user only through the token? If
-ksmbd_user_set_token() builds no token, as when its allocation fails in
-4/6, would a deny ACE on the user in the new form stop applying? With a
-deny for S-1-22-1-<uid> followed by an allow for Everyone, the user
-would then get the access the deny should refuse.
+I chose to "fix" tdx_vm_ioctl() purely because it has the completely unnecessary
+PRIx64:
 
-Thanks,
-Ian
+	TEST_ASSERT(!ret,						\
+		    "%s failed, rc: %i errno: %i (%s) hw_error: 0x%lx",	\
+		    #cmd, ret, errno, strerror(errno), hw_error);	\
