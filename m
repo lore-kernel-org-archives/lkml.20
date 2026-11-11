@@ -1,78 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=68.232.154.123
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.221
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794398511;
-	b=ftPDa4w5kJYGobwDHcy65icsTnQ5hHX4sCjrrbanATmbQWxyRXzIzVKEYLdC7SsNdd36
-	 RLxNLzPyvPw0QkLLKnjGpBguIRcyg/0IF29B6QrykO+4jWAXc28nkZ7zoTM0RfSRrHHvM
-	 qcK/mG3oCR3ebAN8SNJzninBY6RswSML9vqt3M5qiYBcJgMCkxmWyDa+ArtEGRE2C4PUC
-	 fHxmK9zY3PxEFLZ8E+92qpF8zotuvuVuEmI4wMi8O8uODSybtu1v9DyBrA9oeZCvtODvd
-	 BVYsF8cm+hWc0cbxB0OKYFAFAr5x3pc2p1l63B+wl6ID7Ta1DvTxzENv7QjsTL6rxww==
+	t=1794398526;
+	b=raAe1XJe95SwlRR2DyC7+y+m1zFdbhWh+mYGQGEcYpH53rD8XsTHJPv+r19ksDjbatva
+	 Xz4LErEgZ9SIsebkxJnqlCKmgQyTkNkEtbeIHdsmcFnYTaCKhJp2hPT95LavqM1FHIr/C
+	 jbf5Z33pfBcQdLcjyt+Rew9f2M1/Ba1sJZ7m2MJJ0Vx8caO9ukHx9Rn+aiAbmW76DwSWD
+	 KsDxvpzS1o2C1eyIhi53a1z8t8f4wnTNSIAJv5zGGXIhR0P2Mx0RjOqeXcpbOJRxyTnqG
+	 zIgwKPdG4t1Pffh5fN+ZYMkq/Vmm6VlBI5eTSN1HwSy8FbjdK+jPr5H8hiK0cb9/6kw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794398511;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-Amp-Result:Received:Received:Received:From:To:CC:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type;
-	bh=6b8J9+lg9Zzp/DTSIoBnJHHLAZUSncPbkHuA06jN30U=;
-	b=B5CHGpexuwL6Sezz5rPyvUreu77l9F+YQUS7jh5a7JyegSqwqJ3Ej6B8HocNH94tAk7l
-	 Z5LJ50KO00cmUfiMlBixqFZcqQxUFDGjkYYB0vtiR2QkW6/8PsVmv7nNpzoT9nh/JILY9
-	 Kn3h2C4KfCpLZkUATIADIXAgJzNiEF6bIwFPUQqqhhUUTwRsJ1E4mR1MR2r3GV26Qf9sG
-	 whoTjF2CCJ3wF5f0anpjHkJaIRAflhBedgTLhlmaAzPdWgwFrTwgte9bnRE7ZsqqDmYpE
-	 VEQquq833VZQQ9E/DIWuIZAAglHNxJFBop04qOFceIP8r1aUnMJz5vazJIUmyo2jINQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794398526;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=hLlB9PIDPa4FwR0ytVgqyr+GYjQb+wnK9lGZmR7GcW4=;
+	b=dxQEylFHBcWeaxOznhR6vRavJXMxG0FpiU4DqKDDwh0HeAuRhkACcHU9usV9g6yxzWHe
+	 csaT5S+DSeEDxWLhP9ZAfWdjlCxXcicWits4XeUp7yaXSwma4NpPbnFqTvnJZL4fLLqtZ
+	 94+/UQ5jnklS4t+ue33zdr2eXRFXDjTLN7EoHDGiNV/NhMLWuHB0x5MIdsIHcB/+Z33GD
+	 J71TtJ1FhCVj55Q2ZEXWiMzXq88lx1JLEK/XUKeKUrIe8RQG4WoZPWRJtxf6yZg8qFLtV
+	 2sb5zKzoYaYG9grTFAyjKtyJswC3EHt7pQ+ksl0q3tagIaA22Z0a0MsNRDZYcYd8Snw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=microchip.com;
-	spf=pass smtp.mailfrom=microchip.com;
-	dkim=pass header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b="zGU/13vq";
-	arc=none smtp.remote-ip=68.232.154.123
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b="A/8QfyjR";
+	arc=none smtp.remote-ip=113.46.200.221
+Received: from canpmsgout06.his.huawei.com (canpmsgout06.his.huawei.com [113.46.200.221])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75AAC606A335
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 12:01:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75AAC606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7FEB606A32E
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 12:02:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E7FEB606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=zGU/13vq
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1794398511; x=1825934511;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=O6Ci8KqCR4/fKEBbb/kiuWd/gp3h3w7zKEf1wHvnL20=;
-  b=zGU/13vqQ5I+/rIC2yoB5H8QiCutVr9pGEOnFtdTOCNWM7OsiOr5jOd9
-   H9HCI5e+QbsBSX/h5m6STca4J/EclwjPhBQZH4yUqac3UY+sdJJ6iKOcq
-   t6PFbKeJ1dNDVVn0VREKAijzm0BnTtF+XPslFiRZxvXzS/MnKBGK2bbH5
-   pQbacee2brink5TTqnr0GsqaHX8vjtIUyHSZ1krCeyMBsb2AXWhviRshB
-   0W+Q/wyNW0fFXyArjpW7k5GQ53sEdsb4nNI6pGYCkiKd7cfIMe0VegQJR
-   Ql7PVyx+hsDH2IjQF36/NBaxVU7Ppg9d3uXB6CL7FhtlNTiet2qRXsmAK
-   Q==;
-X-CSE-ConnectionGUID: GyyFCI85QbmZ8i9JheubPA==
-X-CSE-MsgGUID: U4Q/youGQ8qHnUvIPLJG0g==
-X-IronPort-AV: E=Sophos;i="6.27,207,1787036400"; 
-   d="scan'208";a="66592432"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa2.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 05:01:50 -0700
-Received: from chn-vm-ex03.mchp-main.com (10.10.87.152) by
- chn-vm-ex1.mchp-main.com (10.10.87.30) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.56; Wed, 11 Nov 2026 05:01:49 -0700
-Received: from che-ll-i67131.microchip.com (10.10.85.11) by
- chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server id
- 15.1.2507.58 via Frontend Transport; Wed, 11 Nov 2026 05:01:46 -0700
-From: Manikandan Muralidharan <manikandan.m@microchip.com>
-To: <pratyush@kernel.org>, <mwalle@kernel.org>,
-	<takahiro.kuwano@infineon.com>, <miquel.raynal@bootlin.com>,
-	<richard@nod.at>, <vigneshr@ti.com>, <srini@kernel.org>,
-	<linux-mtd@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-CC: <manikandan.m@microchip.com>
-Subject: [PATCH 2/2] nvmem: core: don't defer for a missing cell once the layout is bound
-Date: Wed, 11 Nov 2026 17:31:32 +0530
-Message-ID: <6b8408e4052882b2d248db3c873242f879e897b0.1794391847.git.manikandan.m@microchip.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1794391847.git.manikandan.m@microchip.com>
-References: <cover.1794391847.git.manikandan.m@microchip.com>
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=A/8QfyjR
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=hLlB9PIDPa4FwR0ytVgqyr+GYjQb+wnK9lGZmR7GcW4=;
+	b=A/8QfyjRiaBChHXgN5XNj/qC6s6VEqJwOoJCEIPPsSdA1xn/u9+4I2BNIdvO6VwakQ1MwuTCd
+	pj5GIPYBFjb6edzmQpShYUk32wfSlLjBaFgXCSpJhe/z8AYNpDzsASB94Ju4K3qlDzqztwlntQB
+	KB4pcepY8BB3ooGO1+Evs6g=
+Received: from mail.maildlp.com (unknown [172.19.162.144])
+	by canpmsgout06.his.huawei.com (SkyGuard) with ESMTPS id 4jPhvg5fcvzRhT3;
+	Wed, 11 Nov 2026 20:01:51 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id 3A53140538;
+	Wed, 11 Nov 2026 20:02:02 +0800 (CST)
+Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
+ (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 11 Nov
+ 2026 20:02:00 +0800
+Message-ID: <d6047caf-4838-4007-8483-8739dd2a429a@huawei.com>
+Date: Wed, 11 Nov 2026 20:01:59 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,70 +62,325 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 12/15] kexec: Add kexec_load_other_segments() helper
+To: Mike Rapoport <rppt@kernel.org>
+CC: <catalin.marinas@arm.com>, <will@kernel.org>, <mark.rutland@arm.com>,
+	<chenhuacai@kernel.org>, <kernel@xen0n.name>, <maddy@linux.ibm.com>,
+	<mpe@ellerman.id.au>, <npiggin@gmail.com>, <chleroy@kernel.org>,
+	<ritesh.list@gmail.com>, <sshegde@linux.ibm.com>, <pjw@kernel.org>,
+	<palmer@dabbelt.com>, <aou@eecs.berkeley.edu>, <alex@ghiti.fr>,
+	<tglx@kernel.org>, <mingo@redhat.com>, <bp@alien8.de>,
+	<dave.hansen@linux.intel.com>, <hpa@zytor.com>, <akpm@linux-foundation.org>,
+	<baoquan.he@linux.dev>, <pasha.tatashin@soleen.com>, <pratyush@kernel.org>,
+	<thuth@redhat.com>, <leitao@debian.org>, <yeoreum.yun@arm.com>,
+	<robh@kernel.org>, <sourabhjain@linux.ibm.com>, <kees@kernel.org>,
+	<coiby.xu@gmail.com>, <Yeking@Red54.com>, <tangyouling@kylinos.cn>,
+	<maqianga@uniontech.com>, <zhangtianyang@loongson.cn>,
+	<guodongtai@kylinos.cn>, <blum@kernel.org>, <adityag@linux.ibm.com>,
+	<hui.wang@canonical.com>, <sohammetha01@gmail.com>, <guoren@kernel.org>,
+	<gaohan@iscas.ac.cn>, <kai.huang@intel.com>, <kas@kernel.org>,
+	<vishal.l.verma@intel.com>, <piliu@redhat.com>, <jbouron@amazon.com>,
+	<mclapinski@google.com>, <me@linux.beauty>, <graf@amazon.com>,
+	<bgwin@google.com>, <x86@kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-kernel@vger.kernel.org>, <loongarch@lists.linux.dev>,
+	<linuxppc-dev@lists.ozlabs.org>, <linux-riscv@lists.infradead.org>,
+	<kexec@lists.infradead.org>
+References: <20261026075201.699550-1-ruanjinjie@huawei.com>
+ <20261026075201.699550-13-ruanjinjie@huawei.com>
+ <179430504583.425130.15302016434972990362.b4-review@b4>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+In-Reply-To: <179430504583.425130.15302016434972990362.b4-review@b4>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
+X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
-of_nvmem_cell_get() returns -EPROBE_DEFER whenever a requested cell is
-not found and the nvmem device has a layout, assuming the layout has not
-added its cells yet. A layout may add none, e.g. when the data the cell
-describes is not programmed on the device. The layout is then bound but
-the cell is never going to show up, and the consumer is deferred forever
-instead of falling back.
 
-Only defer while the layout device is not bound yet, and return -ENOENT
-once it is, so that a consumer such as an Ethernet MAC can fall back to a
-random address.
 
-Signed-off-by: Manikandan Muralidharan <manikandan.m@microchip.com>
----
- drivers/nvmem/core.c | 27 ++++++++++++++++++++++++++-
- 1 file changed, 26 insertions(+), 1 deletion(-)
+在 2026/11/10 18:04, Mike Rapoport 写道:
+> Hi Jinjie,
 
-diff --git a/drivers/nvmem/core.c b/drivers/nvmem/core.c
-index be3a05150085..f34a35a04e55 100644
---- a/drivers/nvmem/core.c
-+++ b/drivers/nvmem/core.c
-@@ -1403,6 +1403,31 @@ static int nvmem_layout_module_get_optional(struct nvmem_device *nvmem)
- 	return 0;
- }
- 
-+/**
-+ * nvmem_layout_pending() - Check whether a layout may still add cells
-+ * @nvmem: nvmem device the layout belongs to
-+ *
-+ * A layout adds its cells from its probe. Once the layout device is bound,
-+ * a cell that is still missing is never going to show up.
-+ *
-+ * Return: true if @nvmem has a layout that is not bound yet, false otherwise.
-+ */
-+static bool nvmem_layout_pending(struct nvmem_device *nvmem)
-+{
-+	struct device *dev;
-+	bool bound;
-+
-+	if (!nvmem->layout)
-+		return false;
-+
-+	dev = &nvmem->layout->dev;
-+	device_lock(dev);
-+	bound = device_is_bound(dev);
-+	device_unlock(dev);
-+
-+	return !bound;
-+}
-+
- /**
-  * of_nvmem_cell_get() - Get a nvmem cell from given device node and cell id
-  *
-@@ -1486,7 +1511,7 @@ struct nvmem_cell *of_nvmem_cell_get(struct device_node *np, const char *id)
- 	of_node_put(cell_np);
- 	if (!cell_entry) {
- 		nvmem_layout_module_put(nvmem);
--		ret = nvmem->layout ? -EPROBE_DEFER : -ENOENT;
-+		ret = nvmem_layout_pending(nvmem) ? -EPROBE_DEFER : -ENOENT;
- 		nvmem_device_put(nvmem);
- 		return ERR_PTR(ret);
- 	}
+Hi Mike,
+
+> 
+>> arm64, LoongArch and RISC-V duplicate the elf core header and initrd
+>> loading.  Move it into a common helper with one arch hook for the boot
+>> parameters; a failure releases everything added for the attempt.
+> 
+> I like the idea of pulling out the common code, but I'm not convinced
+
+Thank you for the review.
+
+> that the split you suggest is right.
+
+Yes, the current solution is straightforward.
+
+> 
+>> Cc: Andrew Morton <akpm@linux-foundation.org>
+>> Cc: Baoquan He <baoquan.he@linux.dev>
+>> Cc: Mike Rapoport <rppt@kernel.org>
+>> Suggested-by: Mike Rapoport <rppt@kernel.org>
+>> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+>> ---
+>>  include/linux/kexec.h | 15 ++++++++
+>>  kernel/kexec_file.c   | 90 +++++++++++++++++++++++++++++++++++++++++++
+>>  2 files changed, 105 insertions(+)
+>>
+>> diff --git a/include/linux/kexec.h b/include/linux/kexec.h
+>> index faba26f871a4a..de1d83ddc38bd 100644
+>> --- a/include/linux/kexec.h
+>> +++ b/include/linux/kexec.h
+>> @@ -259,6 +259,21 @@ int kexec_kernel_verify_pe_sig(const char *kernel, unsigned long kernel_len);
+>>  extern int kexec_add_buffer(struct kexec_buf *kbuf);
+>>  int kexec_locate_mem_hole(struct kexec_buf *kbuf);
+>>  
+>> +struct kexec_load_params {
+>> +	unsigned long kernel_load_addr;
+>> +	unsigned long kernel_size;
+>> +	char *initrd;
+>> +	unsigned long initrd_len;
+>> +	char *cmdline;
+>> +	unsigned long cmdline_len;
+>> +};
+> 
+> initrd and cmdline are already in image->initrd_buf, initrd_buf_len,
+> cmdline_buf and cmdline_buf_len, that's where fops->load() gets them from.
+
+OK, will delete them.
+
+> 
+> And the outputs are scattered: elf_load_addr goes to the image, the initrd
+> address is passed as a separate argument to the hook, and LoongArch infers
+> "there is an initrd" from initrd_load_addr != 0.
+
+These are currently just being shoehorned in.
+
+> 
+> 
+> 
+>> +
+>> +int arch_kexec_setup_other_segments(struct kimage *image,
+>> +				    struct kexec_load_params *params,
+>> +				    unsigned long initrd_load_addr);
+>> +int kexec_load_other_segments(struct kimage *image,
+>> +			      struct kexec_load_params *params, bool top_down);
+>> +
+> 
+> The call chain is now fops->load() in arch -> kexec_load_other_segments()
+> in core -> arch_kexec_setup_other_segments() back in arch. That's a
+> midlayer: the core helper owns the sequence and the arch fills a hole in
+> the middle of it.
+
+The new refactoring will follow this principle to ensure that the
+framework code is in control of the order.
+
+> 
+> The weak default is never used, all three users override it, and x86,
+> powerpc and s390 build a helper and a hook that nothing calls.
+
+Yes, x86 and powerpc has not used it, Some adjustments need for the rework.
+
+> 
+>>  #ifndef arch_kexec_locate_mem_hole
+>>  /**
+>>   * arch_kexec_locate_mem_hole - Find free memory to place the segments.
+>> diff --git a/kernel/kexec_file.c b/kernel/kexec_file.c
+>> index 62d4cba278a57..8b80f1186875b 100644
+>> --- a/kernel/kexec_file.c
+>> +++ b/kernel/kexec_file.c
+>> @@ -1295,3 +1295,93 @@ int kexec_purgatory_get_set_symbol(struct kimage *image, const char *name,
+>>  	return 0;
+>>  }
+>>  #endif /* CONFIG_ARCH_SUPPORTS_KEXEC_PURGATORY */
+>> +
+>> +int __weak arch_kexec_setup_other_segments(struct kimage *image,
+>> +					   struct kexec_load_params *params,
+>> +					   unsigned long initrd_load_addr)
+>> +{
+>> +	return 0;
+>> +}
+>> +
+>> +int kexec_load_other_segments(struct kimage *image,
+>> +			      struct kexec_load_params *params, bool top_down)
+>> +{
+>> +	struct kexec_buf kbuf = {
+>> +		.image = image,
+>> +		/* Do not allocate anything below the kernel */
+>> +		.buf_min = params->kernel_load_addr + params->kernel_size,
+>> +		.buf_max = top_down ? PFN_PHYS(max_low_pfn) : ULONG_MAX,
+>> +	};
+> 
+> top_down does not describe a direction, it selects "RISC-V policy" vs
+> "arm64 policy": the upper limit for all buffers, the initrd direction and
+> the 32G initrd window.
+
+Yes its the topdown of initrd and distinguish between different
+architectures is a bit of a stretch here.
+
+Right! arm64 has its unique boot protocol restrictions. Here, RISC-V has
+a bug fix that requires specifying a memory top limit.
+
+> 
+> These are boot protocol constraints and they belong to the architecture.
+
+Agree
+
+> The 32G window comes from arm64 booting.rst and the SZ_64K alignment below
+> is "largest supported page size" on arm64 and LoongArch. With this patch
+
+Yes.
+
+> they become generic and RISC-V silently switches from
+> ELF_CORE_HEADER_ALIGN to 64K in 15/15.
+
+There are indeed some function changes, which are also mentioned
+in the commit message.
+
+> 
+> 
+>> +
+>> +	unsigned long orig_segments = image->nr_segments;
+>> +	unsigned long initrd_load_addr = 0;
+>> +	int ret = 0;
+>> +
+>> +#ifdef CONFIG_CRASH_DUMP
+>> +	if (image->type == KEXEC_TYPE_CRASH) {
+>> +		ret = crash_prepare_headers(true, &kbuf.buffer, &kbuf.bufsz, NULL);
+>> +		if (ret) {
+>> +			pr_err("Preparing elf core header failed\n");
+>> +			goto out_err;
+>> +		}
+>> +
+>> +		if (unlikely(image->elf_headers))
+>> +			vfree(image->elf_headers);
+> 
+> The headers don't depend on where the kernel is placed, yet they are
+> rebuilt on every iteration of the arm64 and LoongArch retry loops. That's
+> why the vfree() above is needed, and with the out_err path freeing them
+> it's now dead code.
+
+Yes, it need deleted now.
+
+> 
+> Building the headers once and only placing them in the loop removes the
+> leak instead of fixing it.
+
+I agree, I had a similar fix attempt before, where I only allocated once
+to avoid placing it in a loop.
+
+> 
+> 
+>> +
+>> +		image->elf_headers = kbuf.buffer;
+>> +		image->elf_headers_sz = kbuf.bufsz;
+>> +
+>> +		kbuf.mem = KEXEC_BUF_MEM_UNKNOWN;
+>> +		kbuf.memsz = kbuf.bufsz;
+>> +		kbuf.buf_align = SZ_64K; /* largest supported page size */
+>> +		kbuf.top_down = true;
+>> +
+>> +		ret = kexec_add_buffer(&kbuf);
+>> +		if (ret)
+>> +			goto out_err;
+>> +
+>> +		image->elf_load_addr = kbuf.mem;
+>> +
+>> +		kexec_dprintk("Loaded elf core header at 0x%lx bufsz=0x%lx memsz=0x%lx\n",
+>> +			      image->elf_load_addr, kbuf.bufsz, kbuf.memsz);
+>> +	}
+>> +#endif
+>> +
+>> +	if (params->initrd) {
+>> +		kbuf.buffer = params->initrd;
+>> +		kbuf.bufsz = params->initrd_len;
+>> +		kbuf.mem = KEXEC_BUF_MEM_UNKNOWN;
+>> +		kbuf.memsz = params->initrd_len;
+>> +		kbuf.buf_align = 0;
+>> +		/* within 1GB-aligned window of up to 32GB in size */
+>> +		if (!top_down)
+>> +			kbuf.buf_max = round_down(params->kernel_load_addr, SZ_1G) +
+>> +					(unsigned long)SZ_1G * 32;
+>> +		kbuf.top_down = top_down;
+>> +
+>> +		ret = kexec_add_buffer(&kbuf);
+>> +		if (ret)
+>> +			goto out_err;
+>> +		initrd_load_addr = kbuf.mem;
+>> +
+>> +		kexec_dprintk("Loaded initrd at 0x%lx bufsz=0x%lx memsz=0x%lx\n",
+>> +			      initrd_load_addr, kbuf.bufsz, kbuf.memsz);
+>> +	}
+>> +
+>> +	ret = arch_kexec_setup_other_segments(image, params,
+>> +					      initrd_load_addr);
+>> +	if (ret)
+>> +		goto out_err;
+>> +
+>> +	return 0;
+>> +
+>> +out_err:
+>> +	while (image->nr_segments > orig_segments) {
+>> +		kexec_free_segment_cma(image, image->nr_segments - 1);
+>> +		image->nr_segments--;
+>> +	}
+>> +
+>> +	kexec_free_elf_headers(image);
+> 
+> This drops segments added by the arch hook (DTB, RISC-V purgatory, arm64
+> dm-crypt keys) without knowing anything about the state attached to them,
+> like image->dm_crypt_keys_addr or the purgatory info. The hook, in turn,
+> frees its buffers but not its segments.
+
+Yes
+
+> 
+> Nobody owns the unwind, so "a failure releases everything added for the
+> attempt" is not quite what happens.
+> 
+> The conversions also bury ordering changes in "simplify" patches: on arm64
+> dm-crypt keys move after the initrd, and on RISC-V the initrd moves before
+> the purgatory. And dm-crypt keys loading is not an arm64 boot parameter,
+> x86 and powerpc use it as well.
+>
+
+Yes, the segment allocation order is indeed changed.
+
+
+>> +
+>> +	return ret;
+>> +}
+> 
+> 
+> What I had in mind was to make the core provide building blocks and let
+> the architectures compose them, e.g. a common rollback function that
+> frees CMAs and drops segments above nr. The retry loops in arm64 and
+> LoongArch image loaders can use it instead of open coding
+> kexec_free_segment_cma() and nr_segments--. There also could be a helper
+
+I agree.
+
+> for adding FDT for example and maybe some other common parts, like, say,
+> efl headers.
+
+
+I am trying out your refactoring ideas so that x86 and PowerPC can also
+use these newly added small hook functions.
+
+> 
+> Arch's load_other_segments() could use these helpers and still define
+> their own policy for segment placement.
+
+This will eliminate the issue of changes in the above sequence or the
+problem of the startup protocol being modified.
+
+Thank you again for your review and suggestions for refactoring. I will
+thoroughly consider the issues you raised, revise the code, and conduct
+more testing.
+
+> 
+
 -- 
-2.43.0
+Best regards,
+Jinjie
 
