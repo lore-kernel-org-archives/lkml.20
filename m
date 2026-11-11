@@ -1,61 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.13
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794407826;
-	b=on+eHIRIwo89KmiF8dBqklh/wom+2p7VRTeeqJgT9fkWhtMxdmHMVOE0uQ/Lcd2fDSaA
-	 gX7wSmc1oTVrtDSmh1fZ+OEFE06aFCzcS0T4xM9mL+7NeJL1XuAF5Fh2YlKk+jb+TDOMb
-	 vzVjd6xOdLPBwA0ZSSPcIyfwX4zgZ698zHyE3IYFLrFJ4k66wkfg8hxFc4FhVmniuk1Wg
-	 SpCXvl2NZGL13SYV0+DktrbQUSu1rgN8rTKqwOeceZtuzEp7T2xDhlXsCjro2ngURqtCI
-	 J7enxuEDxoWkj5kGWW7Y+vfLWZUppuO4xa5z7/sXDzWkj42R4HsJZ8K8DB/n9LHVcPw==
+	t=1794407869;
+	b=QCcI6SlhDUfyHUKYHfX9IO+vWLordgqNYkE5uK2UIPKhz8nsaqS7Z2ocluIWWx7k5FnT
+	 U3dvmJ4W7rcLhh7JC7dZQDJjsDkm5AEDLChtu/5+LJxQ4h8CVZOyCIpZ4SO5EL45aLWeK
+	 jjpDjOFM3FbvooS4rohSDs5CjWbUWE1VpZfkOjS4g4kHqJpHhKv+x+j5PjRzAWlDWVA5a
+	 HtKM6KPzHjCwQCEviwFxg4+hG3XapDaaL07Ru5rWI8GuEeXDnBHkQxhvrZ+N6rb1Vqr6e
+	 Vy8E/1sIu1lKnr+9Ax6vSKv9ixxJS5nySdr9sKTJCxJbKGbxw2uu/1CBperqeH7Ci7g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794407826;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:Auto-Submitted:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=80POjU5WP6ctS0DqN7hA/63JAQ8Agh1hTny2C1kJcvk=;
-	b=GVoFEioih/SRKBJn1zZABV7EClBp3XO1bGsmqmXGkqRYAEnG91V1EiuTl9zXYK34XVR9
-	 T5R5j/Cx9qfpAB+iCf5R+bFofnHxQanviogwfYap2WTYShINoOsMGhMvp5o/ipzRGLXQ5
-	 5P/G2Hh/V6XR7l1DuEoGRZCiNbEO/Qmw06hW1a0/9xmrjpuFi1MPWGn0kf/Of0LBNx8bj
-	 Bp4a+6NreTarJ6TUd2RLELjSGhmYqDugmOSN/Z2keaHkQmts3kk29vJagaKp7AYj70iCJ
-	 pthnSChDyE/GPzNElkgCqVdg9amyanGd61OUEHBGwAcY3wvI3GnW2YmAb8XBim3E/kA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794407869;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
+	bh=PcFqdyQip3caAxLpihzZdOa7UVDjVA+wDG3Rq8J697E=;
+	b=vu1xpN0Of33LS4ViQGoo42CjZtFITRYTwTKm5Omkx0pmAnnimL2FytjKgrY9IpyiLjrL
+	 cZ+Z0RUHIl9pId5IDzYsY4laP3e4cccECTe2L2mrjYmSOqeLsHl3U107Ky9p9/pQrVic6
+	 z19A8ZmR3brqcS3Hf7CRA0BNi6tnRGqQbLjejxk8dTw+eZPd4Z8yhzTQ2wIIVL6Y3W852
+	 i3zXSfQstRfiPauiAqGAVjOdYuhUUJQLgbQIOFQZdLSBGeMchjZiT77GjXLJgx7iHN9Fr
+	 gO8/QMwvRglkXjKsgQpQMJfemJas1CMaWD1w0fl29oPHpxKdmowhZ3aRWky4vnUYQSw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VuwuVl9I;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PmcY9BEk;
+	arc=none smtp.remote-ip=198.175.65.13
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C4AF606A32A;
-	Wed, 11 Nov 2026 14:37:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82047606A324;
+	Wed, 11 Nov 2026 14:37:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 82047606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VuwuVl9I
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53F411F00A05;
-	Wed, 11 Nov 2026 14:37:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794407826;
-	bh=80POjU5WP6ctS0DqN7hA/63JAQ8Agh1hTny2C1kJcvk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=VuwuVl9Ir+pxEDxIzsWkrE++elA9ahbE9R+qJ75k5x7aiIK0bv1S3pcsBxp5ba0kR
-	 Uq24B0RN7/EyAXa33/t7V+NMnOIEkyIQ3DTWs9xsCZjh3Ch13q4yWDgDgRVPCX4P4k
-	 JaTKxwTNp1Ep1Na8PExWLs4xH3UN5ZHy0udVFHYHwn7ulEGpAlmD7Q1ctYk9Evp+VV
-	 Wp/+7xQoyL1DVoBsP0W4yn0OR4JbjiHkweh8OcUhsIvPxeJ8PXsAY4HFHRYTw0Y1KS
-	 iENVs1/D+oxCw2PjIZcsj75ft1nEQAuK0+Q3/5A3/hbkoyp17/3l0uQeferNXtfucf
-	 csVP7LrRZs9Cw==
-From: netdev-bot+sinfo@kernel.org
-To: Zxyan Zhu <zxyan0222@gmail.com>
-Cc: maxime.chevallier@bootlin.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- netdev@vger.kernel.org, mcoquelin.stm32@gmail.com,
- alexandre.torgue@foss.st.com, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- rmk+kernel@armlinux.org.uk, Jose.Abreu@synopsys.com
-Subject: Re: [PATCH] net: stmmac: program the FSM timeout timer
-Date: Wed, 11 Nov 2026 14:37:04 +0000
-Message-ID: <179440782487.2168702.18094491275794664305@kernel.org>
-In-Reply-To: <20261111143322.2234321-1-zxyan0222@gmail.com>
-References: <20261111143322.2234321-1-zxyan0222@gmail.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PmcY9BEk
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794407870; x=1825943870;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=ndux+QvjLDQ+qAek9BQTLlCJTB2RpYrvjL12zE/2LjI=;
+  b=PmcY9BEkQcTMUmRc41cuXHSFgckTEMRmpJMkToEfepM9XSqLOSIiH+Kf
+   unIyD17zpKkUx5/22fJwwMgx4aWqxb1r9BRCq6eEpElUIMNDPRyopmdNo
+   vpwsI6D6fsT0aVhoLLKfjnRd4rLVllCf9qxKm0wLUwKc5QrpTaR6KUbk/
+   +cswMTS8Q0xQ2IfXXvWlIAqCvMf9TKo8cXD4u0xKLwTxfG3+liLtPotWZ
+   JK8uoJ71gX7NI1XG15VIIypueN+V/Z0WSrh8ukTVep3uEhIrLkNNvwZT9
+   2gswMBMkUI7hNdpg1WvlMnUWi4aavuHkzgWEmofz0n+AzsdUPepr3FO0F
+   A==;
+X-CSE-ConnectionGUID: SRCwTPCSS+ujvBKgay6JEw==
+X-CSE-MsgGUID: MbuRaoYIRMSAFT+9C58tyQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3061239"
+X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
+   d="scan'208";a="3061239"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 06:37:49 -0800
+X-CSE-ConnectionGUID: 4TsPNawXQKmUKvYlK/1SgQ==
+X-CSE-MsgGUID: O8N9s9ITT86ivc0A5ECyhw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
+   d="scan'208";a="8308192"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by orviesa003.jf.intel.com with ESMTP; 11 Nov 2026 06:37:48 -0800
+Received: by black.igk.intel.com (Postfix, from userid 1008)
+	id 9214099; Wed, 11 Nov 2026 15:37:46 +0100 (CET)
+Date: Wed, 11 Nov 2026 15:37:46 +0100
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: Alexey Charkov <alchark@flipper.net>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sebastian Reichel <sebastian.reichel@collabora.com>,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] usb: typec: fusb302: Drop unacknowledged
+ Get_Source_Cap_Extended
+Message-ID: <avR9uoRAYKQQtw4s@black.igk.intel.com>
+References: <20261102-fusb302-getsourcecap-v1-1-26b5bfea4b2b@flipper.net>
+ <au3KYk13lFTjhltb@black.igk.intel.com>
+ <CAKTNdwHpSNhtxp3eaUHt8N5ea6cwXPc6pE_HVVOwtGgk-xWxzA@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,21 +84,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAKTNdwHpSNhtxp3eaUHt8N5ea6cwXPc6pE_HVVOwtGgk-xWxzA@mail.gmail.com>
 
-Hi!
+On Tue, Nov 10, 2026 at 10:48:46AM +0400, Alexey Charkov wrote:
+> On Fri, Nov 6, 2026 at 4:39 PM Heikki Krogerus
+> <heikki.krogerus@linux.intel.com> wrote:
+> >
+> > On Mon, Nov 02, 2026 at 05:09:05PM +0400, Alexey Charkov wrote:
+> > > The chip mistakes Get_Source_Cap_Extended for a GoodCRC, as it apparently
+> > > decodes only the low four bits of the message type. As a result, it sends
+> > > no GoodCRC for it, but still queues it in the RX FIFO. The partner never
+> > > sees the message as delivered due to no GoodCRC, so it retries and then
+> > > sends a Soft_Reset. When FUSB302 receives the Soft_Reset, it finally
+> > > raises its interrupt, at which point TCPM sees Get_Source_Cap_Extended in
+> > > the RX FIFO instead of the Soft_Reset it just received, and answers it
+> > > Not_Supported, which is not a valid reply to Soft_Reset, so the partner
+> > > escalates to a hard reset instead of getting a chance to gracefully handle
+> > > a lost Get_Source_Cap_Extended.
+> > >
+> > > Discard Get_Source_Cap_Extended, which FUSB302 can never properly receive
+> > > due to its inability to automatically GoodCRC it, and answering it from
+> > > the host within the protocol specified 250us window without so much as an
+> > > interrupt cannot be made to work.
+> > >
+> > > This way the TCPM view of the PD exchange at least matches what the
+> > > partner saw on the wire. This lets the TCPM complete a PD negotiation over
+> > > the FUSB302 with e.g. an Apple Studio Display, which otherwise always ends
+> > > in hard resets.
+> > >
+> > > Signed-off-by: Alexey Charkov <alchark@flipper.net>
+> >
+> > Acked-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+> 
+> Thanks for acking it Heikki, but let's please hold off applying this
+> patch. My colleagues have done broader testing with Apple hardware.
+> While this patch prevents hard reset loops and lets TCPM negotiate a
+> PD contract, it can't yet complete Alt Modes negotiation in PD 3.0.
+> 
+> I've done another attempt locally to send GoodCRC from the driver
+> instead of discarding Get_Source_Cap_Extended altogether. It lands
+> wildly out of spec timing wise (close to 2ms vs. the spec-prescribed
+> 250us to start transmitting GoodCRC on the wire). However, it works by
+> sheer luck because the partner waits up to 1ms for a GoodCRC and
+> retries the message with the same ID up to 3 times, so the first
+> GoodCRC lands in the window of the second or third retry and gets
+> accepted. Everyone is happy, and the negotiation completes just fine.
+> 
+> It's a bit more invasive for the driver, though (as can be expected),
+> and relies heavily on the bus speed being at least 400 kHz (FUSB302
+> can do up to 1 MHz) and not a single extra I2C transaction being added
+> in the timing-critical path before the GoodCRC goes out. I'll send it
+> for review separately, and if it proves palatable, it will supersede
+> this patch.
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+Okay, thanks for the explanation.
 
- - What hardware the change was tested on. For driver fixes please
-   mention the device (and if relevant firmware version) used for
-   testing, or say that the change was not tested on real hardware.
-
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
-
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+-- 
+heikki
