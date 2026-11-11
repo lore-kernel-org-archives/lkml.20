@@ -1,84 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794396573;
-	b=TXiHjFJV2bv5FpXp9GEGzGPo+W9bKSM4DPX8LWk7sZPCOaUImoQgrq8Dtexx9Z6pOcWR
-	 wk4HCH6Mq8GPeJMEQPDOTpWMB5CjfBA5qRE8788ErQeA9mVfv7kSmkDeeU/jM3L/8vGE6
-	 cTC/CYGhZgORi2WLx9RXXIMGgEB3EpbM1P9wXN+VTNoP9fqY5I5WakVZUDWjQJTmHbCRw
-	 DDeLfGWfM2fAEiEFBbkTZYW5ZeuUTeQ1WYlAYGDMzDIEumszt8e6CuYrEcS8qYYkzMXYt
-	 eRvIZldbHm+rKAQoEMbAMeF1nejDy4X51QtkroICpVhtffJt3xIfDUnbGoX9Nt4m4pA==
+	t=1794396579;
+	b=o6V+gqKaguoMowPCVtVWUyrJ9qxl2yA1/5Va+FfRNGkX1bY6y3D//vLMU5OVAdZTDV1k
+	 2GSdc4p9tf7lwZt5ezAWBlKpqqj/2MtwfE4aK7TkMQYFByb3bAB0cT6cXF3jQLkzUG3X3
+	 MZtxvj2BfLlXvS/dn9uYrJmNf26AVEgAh/olwdU5JrA47Otm4cgQZo2SBmtnDdSjXEuHl
+	 5KNH3mBD3vh1CXD7PSbuG9f90e70oVmnf75PlBiEQZ+BNtAjoJrb3pltW78bqK3w4dLTH
+	 +J4EHQcNwoY1dmk40ET+AkinjxR+tEw7DwjR2jsvL0o+33g7BucsA1PxA/V3P+XMTQw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794396573;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
-	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
-	bh=Q8gUr6YQpOMRYWSFdHxvUy3rBFE83YPVYbXBV1p9Los=;
-	b=rDHbUiLY/y0xwh+uD0AaeiM0uTTjK0Q2sFchEjitPbTCvAlCCwGRPHEV/UzhCl1gaU2q
-	 Oscp+Mvz7Zvo1foZOqK1olhIWwd7WT0427Olr1/KdRJJCHLCOIFKnl7gz7WYfHEu8ToO9
-	 uj+XIzc4XzXd7xo2/Slgc5Mc/wnWjN1NWMrcnnBWYGOWqSfzIuE90C3Xd7qeXwfdovgej
-	 j13jKph+QzvaKIf/3yuUDerj3G82ZsbEAgg06fZzD8JTpIhj4Py2LOztC82rg3OsGSU1J
-	 6DkC8gRNiNqqehtXgG6pwI5rIoBQxAkkLdqTv1BQA+bwEBc4QZUns6kcRk0MSHBaeOQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794396579;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=nB1flizO6uB7iFQMRV+Ko/XwuLe+88pnNTnOA5soo+4=;
+	b=cAkiMW4cTrchWgHH21D2LiQsibKnj3yS1l50Ejphqb4hJu9NHBjn3hyqzuPTljRs35rf
+	 usF9pSRdfqyt5RqSXh4fpzCiNtTkWMmGGb8K1a0vsHvfZyQM7g41VkQejk/pgrhjXu375
+	 hoCgVtxpjxQoIKOI/G24rbHqbXdHVyGTH7dkw985J/VtlarwD61UVwTU7E4XHFEEaAvIB
+	 m0NMo/BKYl7Xtu3LUtiAmy10arQKRrTMi/OU2eSEG4hJ6jwRW8hA6SzISoyQzIuZWnCQL
+	 ShjO6ZexBdrlRhFAtcIVecgdM8unGPPVna+Q6DsWDYeNmcPNsLV8XcnP6k8PiLf5PMw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dl7utlAL;
-	arc=none smtp.remote-ip=74.125.82.171
-Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zr3nySW5;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 928B8606A33D
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 11:29:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 928B8606A33D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15195606A31C;
+	Wed, 11 Nov 2026 11:29:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dl7utlAL
-Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-33bb5afa736so54811eec.1
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 03:29:32 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794396571; x=1795001371; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Q8gUr6YQpOMRYWSFdHxvUy3rBFE83YPVYbXBV1p9Los=;
-        b=dl7utlALocldmlkR7C5aRRy9z+1xWwUA0DXUtzlofmnoI1Dw0HhFnekB/G9Rl8cdKQ
-         /hY75msaXUKJE2r4mqv2K2HhUmYpZu0lSnJixqqUy8yG/KhzyVmtXJW3f6bUNNVWZTv0
-         wf+3Kmp2jAVC6e6wMgmSSigp381IZhNl/Pv95yyIHHoSuWk9p59YpTBYtjR0uX1JjN85
-         JdcxdxYDHsGtsd0OhyFe5fOzk3ELQ2bvh7MgylK/eM+st9tBEUn1xtqeTFWkvGWErNpI
-         Hn2hlc0rGcgFbLCT+/49J27ozOvUj7P74s9avTF5IHqS2LBtdAfe0SxgRV/Wl3bdLOVc
-         yJiw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794396571; x=1795001371;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Q8gUr6YQpOMRYWSFdHxvUy3rBFE83YPVYbXBV1p9Los=;
-        b=jzZhEkq+aVBgf97ctfdneZIZmw0nGR7eShPoFl16tDQUQrSRQqnhan4ECad3mYvUEC
-         /eqiY/CrjSHEi0cqKBUuzWgNW/meEIa8OtMDsXfXYbD+N6EnOnxMoZwl7BRzttFtG5Gi
-         OB8cazyoueo8wS/KQiNIrI2knzgnhRvb1dj6yjeJdpSeC57kutMmmiO8JygKciRPKSnW
-         HTHjP/XkM8USZVQAxMFgvHrru+W9r4u9J3X9FGJuVFpKMlZhD4UncT1D7G2iSnVubIKP
-         qAnYuXSnfI8eF1BkTJNpLbvbNdkucRpLpSzUkqDTC7H+7/m5Mhw7kJ1ftx34blLhBFaW
-         ttYA==
-X-Forwarded-Encrypted: i=1; AL+hErGAQ2pvFMeZmJ3uoUtzBn5eL1/vxTOuHMPrwYWWnWVp5WjwA4K0HcQfsXYHvwHqD3ePYgCeq7VuyGdgops=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8PoVFpMr857m6ZKo9XXIcSrUDD3gNYcX55FjnbiJecvDuZs5a9
-	PtlE9w1HNzS5TC5W7IkTN8dBnzdqHsYS3qhKV+SQbrCdokNVm1Q9FGIpFhHe0b84J5A=
-X-Gm-Gg: AYBFou2MuAYYquKAb5PStYSjjjYGQgsbdMGuwM1rXArd3elR3p6FCQVflp9nG4hhWvA
-	ZL85kB8eCHPDoWMwMs9YDhvxFJaS9WNf4s4+ZD/qFi63ZSQLiSreDNu5nqxFZqydaA3AZ9J0n4N
-	9VJ+7Ly8ho8kNcxzBvYBT6L6hg5Ihy+Qobz/Jt6RHN9yR/qUnCHFYnD+JsPO7hTXE6OKO2IttJ/
-	XupTYClwCrf3v/rzql/qKOhWYfk8TQl4odKww/aESYh6Mk+UB7LzHtmgIywOdtELiJ/yVF/JTyW
-	IaK1p9Ocy9932PMRI5hS+/JInr0SwIVtOOBq9nM3E5dPnLU1RzSWIAWJCBOhBg2Y5OLN4w99Nb3
-	Gzzwrr0eUbpb6eC7hYwGFx1FMBw5BqBs//o9B6rQitU2c5XcbYvCWSJXgg4mjhIapmXznqSr4HT
-	yGYD+oSceYRC9yHwYwUS+a5vvkDW/JI9OOV5YmAf8AIzk2F2QQ/OCPH6L4ZJz+bNJICVh42UgBH
-	6O1Rlx3XntpVXdN0ozXpHvkOj+yvE6O4pgT+t0fxgfrOZDjF99HIs30VaxMyAS1BiTx4vkOjR0J
-	v4fsiJ7rpZKLzpGgYNPHnsIR/BX+PZOKOYFNjmGe/f8YKAyvumLt9fnaE6k5o/UDKvU=
-X-Received: by 2002:a05:7022:5f1c:b0:165:be2f:c56e with SMTP id a92af1059eb24-1b3c02e9530mr2733676c88.2.1794396571126;
-        Wed, 11 Nov 2026 03:29:31 -0800 (PST)
-Received: from o6.lan ([2602:fce1:44f:115e::])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b11346sm17527411c88.7.2026.11.11.03.29.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 03:29:30 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zr3nySW5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 368781F00A05;
+	Wed, 11 Nov 2026 11:29:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794396578;
+	bh=nB1flizO6uB7iFQMRV+Ko/XwuLe+88pnNTnOA5soo+4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Zr3nySW59a+Dg0cCtBbxm31VtBek5LH8Au8VdWiweBNt9mLGGDAyMwFVhClskAM2s
+	 N8DyNG8L3N944lERbZsuts/GfyxZxjydKVa1O33ORPvSwo2VJiYjKzwbDIq7P/MzXH
+	 4tNvSiQvS+jlXPMt+vepqCAiBt/sz8vZKHDmBFs+KrBGH3lx8o38PbIPYmlaoyuFS/
+	 BwEFPBgGzkvhjoKXG+zI7VpnBGM+8LahX5XbYTf3r2XREjbNYo7fao0igHRR6p87Yg
+	 58buqCkC7qy962NY7yKUT4KpI5U93yWBc1pWvWt6HEa6uAn+WlB3djrKHXN4xTBS+q
+	 oSmryLscNI30g==
+Date: Wed, 11 Nov 2026 12:29:36 +0100
+From: Lorenzo Bianconi <lorenzo@kernel.org>
+To: John Crispin <john@phrozen.org>
+Cc: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Ahmed Naseef <naseefkm@gmail.com>,
+	Benjamin Larsson <benjamin.larsson@genexis.eu>,
+	Christian Marangi <ansuelsmth@gmail.com>,
+	devicetree@vger.kernel.org, lei.dong@airoha.com,
+	Linqi.zhang@airoha.com, linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-mediatek@lists.infradead.org,
+	mfd@lists.linux.dev,
+	Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>,
+	Rajeev.kumar@airoha.com, upstream@airoha.com, Weifeng.xu@airoha.com,
+	zhengping.zhang@airoha.com
+Subject: Re: [PATCH 6/7] pinctrl: airoha: move the GPIO register offsets to
+ the common header
+Message-ID: <avRRoCRYZnhx1dnk@lore-desk>
+References: <20261110173941.301478-1-john@phrozen.org>
+ <20261110173941.301478-7-john@phrozen.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,54 +71,111 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH v2 1/3] mm/zsmalloc: remove CONFIG_ZSMALLOC_STAT
-From: Xueyuan Chen <xueyuan.chen21@gmail.com>
-To: Sergey Senozhatsky <senozhatsky@chromium.org>
-Cc: Nhat Pham <nphamcs@gmail.com>, Xueyuan Chen <xueyuan.chen21@gmail.com>, 
- Minchan Kim <minchan@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
- linux-mm@kvack.org, linux-kernel@vger.kernel.org
-In-Reply-To: <avPwLHMalD_kzD-z@google.com>
-References: <20261109-zsmalloc_stat-v2-0-caee41684aba@gmail.com>
- <20261109-zsmalloc_stat-v2-1-caee41684aba@gmail.com>
- <CAKEwX=M6dJMccGcDqp2S-66cbegdivnB6MqQRj6tQ2u18UH62g@mail.gmail.com>
- <avPwLHMalD_kzD-z@google.com>
-Date: Wed, 11 Nov 2026 19:29:26 +0800
-Message-Id: <179439656670.2142163.17566683934241550445.b4-reply@b4>
-X-Mailer: b4 0.16.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="EoDU/m3tfAAmliEx"
+Content-Disposition: inline
+In-Reply-To: <20261110173941.301478-7-john@phrozen.org>
 
-On 2026-11-11 13:35 +0900, Sergey Senozhatsky wrote:
-> On (26/11/10 08:00), Nhat Pham wrote:
-> > On Mon, Nov 9, 2026 at 5:59 AM Xueyuan Chen <xueyuan.chen21@gmail.com> wrote:
-> > >
-> > > CONFIG_ZSMALLOC_STAT only controls the debugfs interface. The class
-> > > counters are updated regardless of this option.
-> > >
-> > > Remove the CONFIG_ZSMALLOC_STAT guards and rely on the debugfs API
-> > > stubs when CONFIG_DEBUG_FS=n. Skip statistics setup silently when
-> > > debugfs is unavailable.
-> > >
-> > > Suggested-by: Nhat Pham <nphamcs@gmail.com>
-> > > Signed-off-by: Xueyuan Chen <xueyuan.chen21@gmail.com>
-> > > ---
-> > >  mm/zsmalloc.c | 33 ++-------------------------------
-> > >  1 file changed, 2 insertions(+), 31 deletions(-)
-> > 
-> > FWIW, LGTM:
-> > 
-> > Reviewed-by: Nhat Pham <nphamcs@gmail.com>
-> > 
-> > But I come from the perspective of large(r) server machines - I'd wait
-> > for the feedback of embedded folks too :)
-> > 
-> > Sergey, how do you feel about this direction? We've run the stats
-> > collection (even before we select CONFIG_ZSMALLOC_STAT to expose the
-> > stats to userspace) for eons, and it was never a bottleneck AFAICS in
-> > our fleet...  And the stats files seem trivial, relatively speaking?
-> 
-> Yeah I guess I'm fine with this change.
-> I think this can be just one patch.
-> 
-Yeah, Nhat had the same suggestion. I'll squash them into one patch in v3.
+--EoDU/m3tfAAmliEx
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
+> The GPIO register offsets are private to pinctrl-airoha.c, which builds
+> the shared 64 pin register table from them. A SoC with more GPIO banks
+> needs its own table, built from the same offsets and its own for the
+> extra banks.
+>=20
+> Move the offsets to airoha-common.h so the SoC drivers can use them.
+>=20
+> No functional change.
+
+Acked-by: Lorenzo Bianconi <lorenzo@kernel.org>
+
+>=20
+> Signed-off-by: John Crispin <john@phrozen.org>
+> ---
+>  drivers/pinctrl/airoha/airoha-common.h  | 20 ++++++++++++++++++++
+>  drivers/pinctrl/airoha/pinctrl-airoha.c | 20 --------------------
+>  2 files changed, 20 insertions(+), 20 deletions(-)
+>=20
+> diff --git a/drivers/pinctrl/airoha/airoha-common.h b/drivers/pinctrl/air=
+oha/airoha-common.h
+> index adfce89493f0..dc9b897ea77c 100644
+> --- a/drivers/pinctrl/airoha/airoha-common.h
+> +++ b/drivers/pinctrl/airoha/airoha-common.h
+> @@ -34,6 +34,26 @@
+>  #include "../pinconf.h"
+>  #include "../pinmux.h"
+> =20
+> +/* GPIOs */
+> +#define REG_GPIO_CTRL				0x0000
+> +#define REG_GPIO_DATA				0x0004
+> +#define REG_GPIO_INT				0x0008
+> +#define REG_GPIO_INT_EDGE			0x000c
+> +#define REG_GPIO_INT_LEVEL			0x0010
+> +#define REG_GPIO_OE				0x0014
+> +#define REG_GPIO_CTRL1				0x0020
+> +#define REG_GPIO_CTRL2				0x0060
+> +#define REG_GPIO_CTRL3				0x0064
+> +#define REG_GPIO_DATA1				0x0070
+> +#define REG_GPIO_OE1				0x0078
+> +#define REG_GPIO_INT1				0x007c
+> +#define REG_GPIO_INT_EDGE1			0x0080
+> +#define REG_GPIO_INT_EDGE2			0x0084
+> +#define REG_GPIO_INT_EDGE3			0x0088
+> +#define REG_GPIO_INT_LEVEL1			0x008c
+> +#define REG_GPIO_INT_LEVEL2			0x0090
+> +#define REG_GPIO_INT_LEVEL3			0x0094
+> +
+>  #define AIROHA_NUM_PINS				64
+>  #define AIROHA_PIN_BANK_SIZE			(AIROHA_NUM_PINS / 2)
+>  #define AIROHA_REG_GPIOCTRL_NUM_PIN		(AIROHA_NUM_PINS / 4)
+> diff --git a/drivers/pinctrl/airoha/pinctrl-airoha.c b/drivers/pinctrl/ai=
+roha/pinctrl-airoha.c
+> index a805f542bc7b..8f901f251c00 100644
+> --- a/drivers/pinctrl/airoha/pinctrl-airoha.c
+> +++ b/drivers/pinctrl/airoha/pinctrl-airoha.c
+> @@ -7,26 +7,6 @@
+> =20
+>  #include "airoha-common.h"
+> =20
+> -/* GPIOs */
+> -#define REG_GPIO_CTRL				0x0000
+> -#define REG_GPIO_DATA				0x0004
+> -#define REG_GPIO_INT				0x0008
+> -#define REG_GPIO_INT_EDGE			0x000c
+> -#define REG_GPIO_INT_LEVEL			0x0010
+> -#define REG_GPIO_OE				0x0014
+> -#define REG_GPIO_CTRL1				0x0020
+> -#define REG_GPIO_CTRL2				0x0060
+> -#define REG_GPIO_CTRL3				0x0064
+> -#define REG_GPIO_DATA1				0x0070
+> -#define REG_GPIO_OE1				0x0078
+> -#define REG_GPIO_INT1				0x007c
+> -#define REG_GPIO_INT_EDGE1			0x0080
+> -#define REG_GPIO_INT_EDGE2			0x0084
+> -#define REG_GPIO_INT_EDGE3			0x0088
+> -#define REG_GPIO_INT_LEVEL1			0x008c
+> -#define REG_GPIO_INT_LEVEL2			0x0090
+> -#define REG_GPIO_INT_LEVEL3			0x0094
+> -
+>  #define airoha_pinctrl_get_pullup_conf(pinctrl, pin, val)			\
+>  	airoha_pinctrl_get_conf((pinctrl), AIROHA_PINCTRL_CONFS_PULLUP,		\
+>  				(pin), (val))
+> --=20
+> 2.34.1
+>=20
+
+--EoDU/m3tfAAmliEx
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCavRRoAAKCRA6cBh0uS2t
+rNtIAP9YA+4HYdVSVijK5Kt60x1yVJSHf4hv44tps1dOQDZXmwD/eewSFReRqe8v
+dLDBFNkJ2t1DiU6CZEhLsdPNd4eK7w8=
+=gyZ2
+-----END PGP SIGNATURE-----
+
+--EoDU/m3tfAAmliEx--
