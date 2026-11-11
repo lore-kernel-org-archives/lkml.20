@@ -1,83 +1,83 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794396946;
-	b=XeglQP3fekJbqNiq1BZMGnvmTd3CWScmFwsBpT3u98+kSyGmnCgNLFDMsx2tIk5mW0NG
-	 RvHCxaPbhzKaZ2bq6V662RvGXTHZm1ZZb0fUB20wb/JuQnz0eWLSvhDMun5b9mnys2yTW
-	 6X6nRVB8oNbFlZjrLNYzSx0p3DazhpNXJ6RW/2arrKfXD3tn0II3sAmgV5Rbjo1GFhxmw
-	 G79BE4ncRxAyUCxXsTbVvxOGgwN9XEJwCcO3pBgUEg/VgsE7IuXkKB75RCgg7r7oEfryk
-	 77ecBbrexaxwGYbxePEbwe0L3QEkgeIKgkOf/WqEDAYSrORcGxOo9bYdLSCVw9g4wDw==
+	t=1794396950;
+	b=qKqvO+UgRPuz+lX1kK1NhFELjnPZmdITHT1OJZdVaq3uCY3y6G2+sG6aklRRqQRC4X5Z
+	 fYrScnw9G2h0w348G6Mw5U0wCEu0ZF/2jn6+dkDRHQl1J9p0cutw2KdtoSYk2x6PjbbsO
+	 FROIdIrvgwWaKnukVn8ibrRmGuSGAns8ZJa9coI+RtkeR6Hxap1es2zPMJCsp/zFVIrfu
+	 gNRNuWfWRpUozT5QVk1uEQM4JsTKGNe7sROFCAfn9bWTh9bWw/NXwLXOzBcu6gOUtE7A6
+	 WuQxHU7kZIzJuU4z9YJ/Qii5uMVQTlNuw4rTWbU2CLHEXZ8Krqs/9Oc49QxNyNeIXnA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794396946;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794396950;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=Qjgu9e/u2YP2/CdjTUrK3P/cx+QqzByH6M6hocqEYA4=;
-	b=edPsSAfL09KVnJ9AbaOUI/84EsokjscunL9ktK0TMV8Jt3N3ctUHQiHCRxbxTofzLjK6
-	 T2CDHijXOBQLnunkU9G8oV74i3inEqVESpqfQnIgZZmlMXRKp7hoGX+e8IgUX50vXkw5l
-	 nRm94vaUGQDUDgiX8CD+uThWXK5va6LdNyHQc9WEeRLhpCAd/JK8LFa7jLM1istU02NTu
-	 qecP2p/zuTWUxNjIYrAedPzzuEEAf6zGaBmwBfsk4pJdrKUcUNGefDJ8w/Yw5+RaKe96O
-	 2zQFzvEMxCeUSYi+hLvg45KhIjMEzYjDL3lESEnDHxD1/DLLx4+LPp2JygUTj6Bo4mA==
+	bh=giKqYnWzubQikXm12jGK16pXQcb6NbBHXFTnepSWaq8=;
+	b=NCT8TM1aksaVSRbynrSYqP2eAOy5tXplTL37XXpPArplCjjwUKO42Ox+lRjEdkJcBNd7
+	 U4PO3QTzInViMqaQ2VeZM8mEmoCecG5nqgRKgkMp2o7i7ptLXCvu/KmaZ7FZagK0Xl21K
+	 xzLnZxvn4BMKRmL/O/7spaMHORD73udv7llPCKmV3EKB+D8xnfBVO9OhySPthif5MRh2u
+	 96+wJzt/N7i8k7vEldLl7sh4s1rc+N/wwAN6+PAJy35xqg48HDu5Ao8nS2QmbwsT3EWA2
+	 LzOvkb83isRjBHAvmXnKi/k+k1fHM9V28X+c+Wqg5FVl1PLs5rTWAtjjtpRDZx8VYhQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IZz5rahK;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=osdf9x8R;
 	arc=none smtp.remote-ip=209.85.221.46
 Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3A36606A327
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 11:35:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3A36606A327
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7D3D606A321
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 11:35:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7D3D606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IZz5rahK
-Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-498f5fa5103so838623f8f.2
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 03:35:45 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=osdf9x8R
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-48dee593f18so2286340f8f.3
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 03:35:49 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794396944; x=1795001744; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794396948; x=1795001748; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Qjgu9e/u2YP2/CdjTUrK3P/cx+QqzByH6M6hocqEYA4=;
-        b=IZz5rahK3u1xJ6pbbicyNfze4TWK1avlmuwSZLVvGi0GHQcORa0pQ4eHi7fvxXILwC
-         TQMEcv0cvOFsIOkdysLUeqUzPOVBBA3ThZtvOYgBl7unJn3cAdSVV1PIxHpebBKK3OVs
-         oGXVPt0oddx6PuEEWRWDm39r0mxzIeufb50zHf40tj5aoxce/+/sapDrqTwDJDyq7gnb
-         I35+EgZ5qMO3WcArRlmIpJKmrmENlO3dBkK7N5cZvSruTtwUsfpP8WXRp2Awl8hU132B
-         ih8KDRb4q+RMaY3NDmjcp1pUwv6N00pU6MZslaofKGL30YryAsUK9qdsOJzZNohUhcv1
-         1fRg==
+        bh=giKqYnWzubQikXm12jGK16pXQcb6NbBHXFTnepSWaq8=;
+        b=osdf9x8R60DxE2czkCgJF3YXs4wnKSO2Bs/fwLwiqahoAbVYsN6pwzVdp7b5dI8rwA
+         mCW065lLUJK17EzttbDhZKOYOaRgtUdo0NJ3tEiJp72DVLvDnaJekZTFURt8nZwTI4V/
+         q3WAOoRsWQUPI0KeVB3S6RLUcOwHvFwhwe+7XVn8o8nXx/XNQHMPZxY3T4GSU+0fPk1L
+         Ao39jZpax/eZr5qJnD6qNolpBwRG0x+Wg72hvCcdAyzenzb4FTjNtsPb1oWdiIqDvwMb
+         g2kMjMzwTCazqi/3GTtG5CNDu4wWY1MzHxqOlCYNdrkMWbL6d5igb2mWspsebyzb5WkY
+         fXQw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794396944; x=1795001744;
+        d=1e100.net; s=20260707; t=1794396948; x=1795001748;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Qjgu9e/u2YP2/CdjTUrK3P/cx+QqzByH6M6hocqEYA4=;
-        b=Ay881DmPYGaQGBHLDd3qMKjb6a9nm2nTP674erOj92nFekijYoZGAzSurbv3tY5DJa
-         1E/MQMbBeT+xLm4PTvhQTFR5Bn3e7d2YLxrJOTNu9De0GwnlnqL9tfidhfB5z+3NjNES
-         bDJuUFyz/4umG0VTzOtaicFQeOK9oJL8LzAs/gpmZgJNncwMZjSN13M1t/a13WRHfyOW
-         cqYLBeZutUh4FfvVDgBDHU0beDbMvvqjpilus2wtCYP/PYSq/TNKpYmVw/JLRmP85mIe
-         pWPBs3GFNJmxPnUaSDahhRd4AKJjXVQJjRpgIWfA2vi/n3JRx0qINjzVJaAW/cJo/XEq
-         t6PA==
-X-Forwarded-Encrypted: i=1; AL+hErFNSVix0LQ2PgMn4hzzm3uoH0sgiS1k6DhXmitPUf0K6rjPNs8O9hsRrxnV81V5hrmxOeYxs48Nt6Zjh+o=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8rYiujamTRRPyqi3jfZ3qA5FtLalGkyujPgxyImzNLXX9fv+wj
-	cl7s9+HberiFnDRh4vTLZDRKtWK61SpfEx3tl+scsdNmW2Yh9cJSDb/k
-X-Gm-Gg: AYBFou2rKk1cmmevFjEMh3jLaqdiEPQ+EzjoRFrpjgVk/5ArfZ780YJ9ERlsdatK4P9
-	Ch/lk3bI4qnvl7EYN8ZTFClRKBIWBQtfMscHFyHN7ThVv+mAJinsRxBgvDsgMSdoCzxlt0PslSH
-	iDTyzC/7KJo90daIeNCiiP9IObBldX/ysDh0EzjKekwMi87t8KLOiMAbexkTPKqp53yAWHGFxpn
-	2cljqX7CfrYxAl2zw6i5CoJU9cypMzvkMpTrEZK28idXT8fTO6TZ0/qQ9r8JI1WfsiwadvLiW0D
-	GjuXu/44Q5/kmf1JUXHMYtIeRisPUPaJf5NArbrZTXnpqQS2pXndrGvXxLX19dlNWskiWe8xX86
-	/1I0x4LNyCQQ6/g4UI2/ZSDH1xjry90kxEnzymZsOtZT6lgV1BiA8OMj5cqCv0/J+CBW4Vt5i2M
-	DZvl8CW61aY++04/rEWRKBy1wqzJauVM5aPazD94POQ03gJ9AK21vT+U3NN/UDHSz+XhdohVe2S
-	FzjD/dadqcs0yckPJjjaq3rLCsHNyIT+T/aQTQUm/+1BEDpWg8Bd9ZFq1IJQuevcuNjmMUlEMgK
-	rA2SmjNIEJQAbZ8=
-X-Received: by 2002:a05:6000:2512:b0:48e:17d1:16c9 with SMTP id ffacd0b85a97d-499c86a0bcamr3562940f8f.40.1794396943825;
-        Wed, 11 Nov 2026 03:35:43 -0800 (PST)
+        bh=giKqYnWzubQikXm12jGK16pXQcb6NbBHXFTnepSWaq8=;
+        b=kX3037LvuoQ6fzh0IuZ+OUcY7KPWT+0tJ0k7vYDlrw9M612OGj+zp1dwv2gomorhFq
+         nKx5onSc0PlHP7EugNc1pZiyR8Ei2tbaPJh/AgfCbmBO8T4jrTsfIgrx7FDi5o+tj7T3
+         7GK1qjxSUJ8KIerUNYzFQdlN/jqEdprOEG42aYMJugwcjD4vhbolRNRD3qOHky2NAkqJ
+         6rR/z9KJ+ZbPetM/rOuBbfDZCpC11mB7s4CqadUh0PsEz+o5sfEpUAGzBxYRQkP8C98e
+         cM1as9OpdPVnt6nLl1liRFakw5I5fwUO8eEDRAn00fyiyN+vTPO4VxZ8UQM2SlLEYh2J
+         uohA==
+X-Forwarded-Encrypted: i=1; AL+hErHtvxLZAEfGAdyWgmRaUoreUIa+M8x2e4Eb802+WkkgyBtsRUNknkGIZsyqtVh6TK6tp3cz0OK2WUSbXeU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8Xp8+7eiy8SUEoHH0NhOiHcvdaeJmbs2DTEBZZtDutQmj0Gc9p
+	ixeeBgKOoBSK1u67MbzvKwtFnA5nYZXh9WGN/Ww4vIn+xS+UHOb6IQNd
+X-Gm-Gg: AYBFou14N1Fr4lfxlre5HYZ3wmyqDnVooRq7hNQJ2xbrVnSIdWTTlq+CQQsF++LBiJY
+	BSZ+sm4ESub34otp9jYrl6t2ccdjBtOXhQqXqIWMNo7t/cEjgsSXKZGSyJqv5sPmKzSU5BNWjue
+	LvKeZUrXbH0hnh3LwbbPGjEN2Uwg/e6TRLoNjZ+EbYRjLhfPGUmVL2/pGDxu7SVonNBVka1Uz1b
+	vj5cDdHMoXMa1Zb+FzJQj3ehruf1aXBiugFU0SyEayQTyC0bjB/aO9tmMGZdtxbRW3DPZdyHeTy
+	s3cNBmuYr4sv3ypqJIWhESnHMA3+pgnsafdR2ZWt5GwWps4gkV0ABDsy6OcitkMPOISAvsPAtb6
+	sEXFVU44OQS8WVaO2HEV1NBPtdYhwJYwRX785mrywhq+J5cONmlc5RLv0d/Hb66au6eQzKmIypn
+	a7si2xgxi3RnPi7DUFkRWFMaUqguMU3CSeUqrTenj7FHuznsLxyTKvsex/VqDWledv8fgwc9eiB
+	piwhKG4RXA31iaqqHd02uj62Uw6TiQgKOTX/GrBKlrffi5guCD+LRPsWygacvTqEZjgL73UCubs
+	627q+sMkMv805A==
+X-Received: by 2002:a05:6000:98e:b0:48d:f14a:9182 with SMTP id ffacd0b85a97d-499c898262cmr2615193f8f.20.1794396947836;
+        Wed, 11 Nov 2026 03:35:47 -0800 (PST)
 Received: from nobara ([83.231.69.9])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498365cbbe5sm11598683f8f.42.2026.11.11.03.35.42
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498365cbbe5sm11598683f8f.42.2026.11.11.03.35.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 03:35:43 -0800 (PST)
+        Wed, 11 Nov 2026 03:35:47 -0800 (PST)
 From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
 To: David Hildenbrand <david@kernel.org>,
 	Zi Yan <ziy@nvidia.com>,
@@ -100,9 +100,9 @@ Cc: Baolin Wang <baolin.wang@linux.alibaba.com>,
 	linux-kernel@vger.kernel.org,
 	Joanne Koong <joannelkoong@gmail.com>,
 	"Jose A. Perez de Azpillaga" <azpijr@gmail.com>
-Subject: [RFC PATCH 1/2] mm/huge_memory: check split_underused_thp in the caller of deferred_split_folio()
-Date: Wed, 11 Nov 2026 12:31:37 +0100
-Message-ID: <20261111113535.330078-2-azpijr@gmail.com>
+Subject: [RFC PATCH 2/2] mm/huge_memory: detect partially mapped shared folios without per-page mapcounts
+Date: Wed, 11 Nov 2026 12:31:38 +0100
+Message-ID: <20261111113535.330078-3-azpijr@gmail.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261111113535.330078-1-azpijr@gmail.com>
 References: <20261111113535.330078-1-azpijr@gmail.com>
@@ -117,44 +117,226 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-deferred_split_folio() ignores folios that aren't partially mapped when
-shrink_underused is off. map_anon_folio_pmd_nopf() is the only caller
-that always passes false, so move the check there. The next patch queues
-folios without PG_partially_mapped for another reason.
+With CONFIG_NO_PAGE_MAPCOUNT, __folio_remove_rmap() takes an anon folio
+as partially mapped when its mapcount drops below the number of pages
+and no entire mapping is left. With several MMs mapping the folio, the
+mapcount can stay at or above the number of pages while some pages are
+mapped by nobody:
 
-migrate_folio_move() passes false when the source was queued without the
-flag, and now requeues the destination even if shrink_underused was
-turned off in the meantime.
+ - parent and child zap the same half of a THP after fork();
+
+ - two children zapped the same half and the parent removes the last
+   PMD mapping.
+
+The folio is never queued for deferred split, and the unused pages stay
+allocated until every mapper is gone.
+
+Queue the folio without PG_partially_mapped when the mapcount can't
+tell, and have the shrinker walk the rmap of these candidates. If a page
+is mapped by nobody while another one still is, mark the folio partially
+mapped and split it as usual. Otherwise drop it from the queue, unless
+the underused check wants it.
+
+The walk needs one bit per page, which is too much for the stack with
+large base pages, so it uses a static bitmap under a mutex.
+
+Nothing changes with per-page mapcounts.
+
+512 MB of THPs with the same half zapped by every mapper, memory freed
+by the shrinker:
+
+                                before    after
+  2M,  2 processes                0 MB   252 MB
+  2M,  3 processes                0 MB   237 MB
+  2M,  2 children + parent PMD    0 MB   244 MB
+  64K, 2 processes                0 MB   252 MB
+  64K, 3 processes                0 MB   252 MB
+
+The walk takes about 4 us per 64K folio in a TCG guest.
 
 Signed-off-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
 ---
- mm/huge_memory.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+ mm/huge_memory.c | 84 +++++++++++++++++++++++++++++++++++++++++++++---
+ mm/rmap.c        | 21 ++++++++++--
+ 2 files changed, 98 insertions(+), 7 deletions(-)
 
 diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index 0d589be136d2..8c4a69c797ed 100644
+index 8c4a69c797ed..f80fa028dd34 100644
 --- a/mm/huge_memory.c
 +++ b/mm/huge_memory.c
-@@ -1403,7 +1403,8 @@ void map_anon_folio_pmd_nopf(struct folio *folio, pmd_t *pmd,
- 	folio_add_lru_vma(folio, vma);
- 	set_pmd_at(vma->vm_mm, haddr, pmd, entry);
- 	update_mmu_cache_pmd(vma, haddr, pmd);
--	deferred_split_folio(folio, false);
-+	if (split_underused_thp)
-+		deferred_split_folio(folio, false);
- }
- 
- static void map_anon_folio_pmd_pf(struct folio *folio, pmd_t *pmd,
-@@ -4631,9 +4632,6 @@ void deferred_split_folio(struct folio *folio, bool partially_mapped)
+@@ -4632,6 +4632,10 @@ void deferred_split_folio(struct folio *folio, bool partially_mapped)
  	if (folio_order(folio) <= 1)
  		return;
  
--	if (!partially_mapped && !split_underused_thp)
--		return;
--
++	/* Already queued, and there is no flag to set. */
++	if (!partially_mapped && !data_race(list_empty(&folio->_deferred_list)))
++		return;
++
  	/*
  	 * Exclude swapcache: originally to avoid a corrupt deferred split
  	 * queue. Nowadays that is fully prevented by __memcg1_swapout();
+@@ -4655,9 +4659,6 @@ void deferred_split_folio(struct folio *folio, bool partially_mapped)
+ 			count_mthp_stat(folio_order(folio), MTHP_STAT_SPLIT_DEFERRED);
+ 			mod_mthp_stat(folio_order(folio), MTHP_STAT_NR_ANON_PARTIALLY_MAPPED, 1);
+ 		}
+-	} else {
+-		/* partially mapped folios cannot become non-partially mapped */
+-		VM_WARN_ON_FOLIO(folio_test_partially_mapped(folio), folio);
+ 	}
+ 	__list_lru_add(&deferred_split_lru, lru, &folio->_deferred_list, nid, memcg);
+ 	list_lru_unlock_irqrestore(lru, &flags);
+@@ -4700,6 +4701,72 @@ static bool thp_underused(struct folio *folio)
+ 	return false;
+ }
+ 
++/*
++ * One bit per page of the folio being checked. Too big for the stack of a
++ * shrinker with large base pages, so there is a single one.
++ */
++static DEFINE_MUTEX(mapped_pages_lock);
++static DECLARE_BITMAP(mapped_pages, MAX_PTRS_PER_PTE);
++
++static bool folio_mapped_pages_one(struct folio *folio,
++		struct vm_area_struct *vma, unsigned long addr, void *arg)
++{
++	const unsigned long nr_pages = folio_nr_pages(folio);
++	DEFINE_FOLIO_VMA_WALK(pvmw, folio, vma, addr, 0);
++	unsigned long *nr_mapped = arg;
++	pgoff_t idx;
++
++	while (page_vma_mapped_walk(&pvmw)) {
++		if (!pvmw.pte) {
++			*nr_mapped = nr_pages;
++			page_vma_mapped_walk_done(&pvmw);
++			break;
++		}
++		idx = linear_anon_page_index(vma, pvmw.address) -
++		      folio_pgoff(folio);
++		if (idx < nr_pages && !__test_and_set_bit(idx, mapped_pages))
++			(*nr_mapped)++;
++	}
++
++	return *nr_mapped < nr_pages;
++}
++
++/*
++ * Without per-page mapcounts, a partial unmap of a folio that is mapped by
++ * several MMs is only detected at unmap time if the total mapcount drops
++ * below the number of pages. Check the page tables to find out whether a
++ * page is mapped by nobody while another one is still mapped.
++ */
++static bool folio_mapped_shared_partially(struct folio *folio)
++{
++	const unsigned long nr_pages = folio_nr_pages(folio);
++	unsigned long nr_mapped = 0;
++	struct rmap_walk_control rwc = {
++		.rmap_one = folio_mapped_pages_one,
++		.arg = &nr_mapped,
++		.anon_lock = folio_lock_anon_vma_read,
++	};
++
++	VM_WARN_ON_FOLIO(!folio_test_locked(folio), folio);
++
++	if (nr_pages > MAX_PTRS_PER_PTE)
++		return false;
++
++	mutex_lock(&mapped_pages_lock);
++	bitmap_zero(mapped_pages, nr_pages);
++	rmap_walk(folio, &rwc);
++	mutex_unlock(&mapped_pages_lock);
++
++	return nr_mapped && nr_mapped < nr_pages;
++}
++
++static bool folio_needs_mapped_check(struct folio *folio)
++{
++	return IS_ENABLED(CONFIG_NO_PAGE_MAPCOUNT) && folio_test_anon(folio) &&
++	       !folio_test_swapcache(folio) && !folio_entire_mapcount(folio) &&
++	       folio_maybe_mapped_shared(folio);
++}
++
+ static enum lru_status deferred_split_isolate(struct list_head *item,
+ 					      struct list_lru_one *lru,
+ 					      void *cb_arg)
+@@ -4744,6 +4811,15 @@ static unsigned long deferred_split_scan(struct shrinker *shrink,
+ 		list_lru_unlock_irq(lru);
+ 		rcu_read_unlock();
+ 
++		if (!folio_test_partially_mapped(folio) &&
++		    folio_needs_mapped_check(folio)) {
++			if (!folio_trylock(folio))
++				goto requeue;
++			/* Sets PG_partially_mapped and puts it back on the queue. */
++			if (folio_mapped_shared_partially(folio))
++				deferred_split_folio(folio, true);
++			folio_unlock(folio);
++		}
+ 		if (!folio_test_partially_mapped(folio)) {
+ 			/*
+ 			 * See try_to_map_unused_to_zeropage(): we cannot
+@@ -4752,7 +4828,7 @@ static unsigned long deferred_split_scan(struct shrinker *shrink,
+ 			 */
+ 			if (folio_test_mlocked(folio))
+ 				goto next;
+-			underused = thp_underused(folio);
++			underused = split_underused_thp && thp_underused(folio);
+ 			if (!underused)
+ 				goto next;
+ 		}
+diff --git a/mm/rmap.c b/mm/rmap.c
+index 0faef46806e5..95444ed6189a 100644
+--- a/mm/rmap.c
++++ b/mm/rmap.c
+@@ -1803,6 +1803,7 @@ static __always_inline void __folio_remove_rmap(struct folio *folio,
+ 	atomic_t *mapped = &folio->_nr_pages_mapped;
+ 	int last = 0, nr = 0, nr_pmdmapped = 0;
+ 	bool partially_mapped = false;
++	bool maybe_partially_mapped = false;
+ 
+ 	__folio_rmap_sanity_checks(folio, page, nr_pages, level);
+ 
+@@ -1821,6 +1822,16 @@ static __always_inline void __folio_remove_rmap(struct folio *folio,
+ 			} else {
+ 				partially_mapped = nr < folio_large_nr_pages(folio) &&
+ 						   !folio_entire_mapcount(folio);
++				/*
++				 * With other MMs mapping the folio, the total
++				 * mapcount cannot tell whether the pages we
++				 * just unmapped are still mapped by anyone.
++				 * Let the shrinker find out.
++				 */
++				maybe_partially_mapped = !partially_mapped &&
++					nr_pages < folio_large_nr_pages(folio) &&
++					!folio_entire_mapcount(folio) &&
++					folio_maybe_mapped_shared(folio);
+ 				nr = 0;
+ 			}
+ 			break;
+@@ -1850,6 +1861,10 @@ static __always_inline void __folio_remove_rmap(struct folio *folio,
+ 			} else {
+ 				partially_mapped = last &&
+ 						   nr < folio_large_nr_pages(folio);
++				/* Only PTE mappings by several MMs are left. */
++				maybe_partially_mapped = last &&
++					!partially_mapped &&
++					folio_maybe_mapped_shared(folio);
+ 				nr = 0;
+ 			}
+ 			break;
+@@ -1888,10 +1903,10 @@ static __always_inline void __folio_remove_rmap(struct folio *folio,
+ 	 * Device private folios do not support deferred splitting and
+ 	 * shrinker based scanning of the folios to free.
+ 	 */
+-	if (partially_mapped && folio_test_anon(folio) &&
+-	    !folio_test_partially_mapped(folio) &&
++	if ((partially_mapped || maybe_partially_mapped) &&
++	    folio_test_anon(folio) && !folio_test_partially_mapped(folio) &&
+ 	    !folio_is_device_private(folio))
+-		deferred_split_folio(folio, true);
++		deferred_split_folio(folio, partially_mapped);
+ 
+ 	__folio_mod_stat(folio, -nr, -nr_pmdmapped);
+ 
 -- 
 2.56.0
 
