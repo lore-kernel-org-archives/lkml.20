@@ -1,68 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.164
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794357384;
-	b=w2iaJoKnvZ8sDEjwVpFTq94hVnkWxhwaFSdxTUsuzjTsd1+uUwbkgkPf6aw4mJgOWJ0f
-	 mHxOqVe73zonIX+X/ai74RW3DZ92iTqEs2nFM/jGsHxuW/DKJcoDEPfMcqJ4TJJz6LxW0
-	 2bHQAADmB4m6lGJFPK5Pl+3LYt5pGQ2qusID4Yik/JdIH4ukDSEdVlpX7BvSZZv1B0fM1
-	 Yr6xF3aMMDhhSxe4tHI3FCUynz6lN+GgxBTEmTQgUTJ7f4J50Sxd+Xjc95rq56jzTT0Rn
-	 EZOxHvCSYhv5MM8ggb13Jsi5RutDGn9BoanQ7kSY986EhVD2S34QWxfDZ41TVy/Njqw==
+	t=1794357398;
+	b=HYCnfw6iPGSSBpgmdthpRJ61l+tWHvmWM3DwUYm34D+HlHLckaawkFLYLaQPuOp3mFBX
+	 +VsiuvKkTkNIs1rip3CRuyXao1i3Ntr1uXryxiQlU8BzuHEJqFXG1r/pA6wf9pQwER1HP
+	 Lahjygf8mrJzsoI3nqyZ/g6rikKIkFnRkCakGzC28k7Ca9/GTgQxuW0upWEqq5sGLhQ8q
+	 3Td+l5eTFSUR/L0yHXWDqzrRO8030SXiCZTAFLgm8NWNcjGwor6T8bFvS5rO0QLhuUePJ
+	 AhTT9f3s5uMSuT/X4MrPBTnM6N1zNnPxyfUX3XdSbb93C3ZhqeyVqON/aDio5jOjw+w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794357384;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:Auto-Submitted:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=PJRu7W6/Or1we5Gv3BgoLEtby0D0Y0UGgfjBHfRc5+k=;
-	b=0gM0NlP2HWUTUiqNTcf95nrw1Fv6KqCNUkN8itBiM9vcShNNBv4tKVZVuHm2ToSfdZQx
-	 tbsPeJlW4yCnYyt754RydIoSnLiJfAesCOn0smi//QtVmNQ/qMBye2Is915943PpD3wcR
-	 vjqz0tCnWZX0lWRUHECWo8aJVPfPl1+uzySD7i0yghsY3kV6TAUkTPRBhYDKtXYyVchxN
-	 ZM3pVUaWN4d5zq39vw5kWT1ISTDcJQscZ8Hcdofi0JGnsTIrmR/3kJ3RajL0NdjSlp0h/
-	 Lrd25EAD7NGPkQMs3Ef3scsuXO6OkSsxSN5GZ24c8wnwhxiRQuFjhcQtGMamgCiWGDg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794357398;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=5xNBziimzhOKJ75khsdW/qJptdIDAbTywmzzl7xoxlQ=;
+	b=Srz0q9Lgf0NRaFQy+ptP4xIlV3tpOpJZ1hA6eDQOKKted0lOsSKi7SAVAcRvWM5UFBvb
+	 t2GCKl4cG9aBLYdVdUOZybJ/RCF7bngpX8pfLiJYQdC/q3T2ZAgj1nkbS05F4A1IAShHd
+	 72RVpadIJ2k9KQkpMpKanqpCcPIfb3C6BAy9ZrZtv+fdrB41UHY0YfGH7ZvyDuGHiQYBj
+	 mY6Q64Bjniy8oaFur4GunO48RTJxQBcgewE0a65EJ7iFg52CI1dHilIg8anc1Cgu2g3fg
+	 6gq5k8ETiJXZLLM8Dr3JitsRA19Ry56taEQKg10vCEdbW3JPhT13iijU94/xhOwZOrQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UbF4OK5k;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=PuXiNeJH;
+	arc=none smtp.remote-ip=91.218.175.164
+Received: from mta0.migadu.com (out-164.mta0.migadu.com [91.218.175.164])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22A34606A320;
-	Wed, 11 Nov 2026 00:36:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5707A606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 00:36:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5707A606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UbF4OK5k
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 777381F0089F;
-	Wed, 11 Nov 2026 00:36:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794357383;
-	bh=PJRu7W6/Or1we5Gv3BgoLEtby0D0Y0UGgfjBHfRc5+k=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=UbF4OK5kNcGoYNpstlu81e6BgvOXffr820N19Fup9mMrcYIfQgRXPZJPAUzozhSKu
-	 hvD84qbPYxXj4zXHdRUiFkk/rnmxjXuR+ShuEgmYBf8feIeVdZQpbv9U5d0LD6ORrV
-	 qWr7eIXPwqVA6ilU8iia9wFyPSYpAWO1Pz212Ub2UyL0R9Q1JuToZHB/6l8h3CH4ed
-	 oFPItDRhGMPWP0GIkTiHjsX7NFG9ShdLCO4PCvHq4qan6QtXYdMlhWgEWIdFfWNDYF
-	 xEbX3tomUIJmnbDjiK0G27GtLbxE2wIgQHvVf2iNBxMVuR28u/xqL+6LJcuxZri+7C
-	 ua+g7fbqGT1iw==
-From: netdev-bot+sinfo@kernel.org
-To: Todd Freed <toddfreed@meta.com>
-Cc: netfilter-devel@vger.kernel.org, Pablo Neira Ayuso <pablo@netfilter.org>,
- Florian Westphal <fw@strlen.de>, Phil Sutter <phil@nwl.cc>,
- Nikolay Aleksandrov <razor@blackwall.org>, Ido Schimmel <idosch@nvidia.com>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Simon Horman <horms@kernel.org>, Boris Pismenny <borisp@nvidia.com>,
- Sabrina Dubroca <sd@queasysnail.net>,
- John Fastabend <john.fastabend@gmail.com>,
- Daniel Zahka <daniel.zahka@gmail.com>,
- Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
- =?utf-8?q?Bj=C3=B6rn_T=C3=B6pel?= <bjorn@kernel.org>, coreteam@netfilter.org,
- bridge@lists.linux.dev, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: 
- Re: [PATCH nf-next 0/2] netfilter: don't send decrypted skbs in clear text
-Date: Wed, 11 Nov 2026 00:36:21 +0000
-Message-ID: <179435738198.2168702.12439855185550580348@kernel.org>
-In-Reply-To: <20261111003111.3826942-1-toddfreed@meta.com>
-References: <20261111003111.3826942-1-toddfreed@meta.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=PuXiNeJH
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Ryq0meCWDSCEkuV5UPQQfaSOwgmbjAwNt34VPkFyn8w=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794357395; v=1; x=1794962195;
+ b=PuXiNeJHCD7dwJbo62mzWZYiunHoHPFgBLij5Hnqq0AU69D01GnYrYwTSyE6jw/U+H8eVhzK
+ FZwVQ8VsoslvvHUL+5KwBkkbrRr1Fuss58aJ0+AeGjUc3tkWJ7CGNubyhDeDD79vBiAOydkMKCj
+ cCB/BkDp4bcq4COezpmIXv1I=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id 60c021cf43740dcf;
+	Wed, 11 Nov 2026 00:36:35 +0000
+X-Mizu-Trace-ID: 60c021cf43740dcf
+X-Migadu-Flow: FLOW_OUT
+Date: Wed, 11 Nov 2026 08:36:24 +0800
+From: Hangbin Liu <hangbin.liu@linux.dev>
+To: Bjoern Doebel <doebel@amazon.de>
+Cc: Jay Vosburgh <jv@jvosburgh.net>, Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Shuah Khan <shuah@kernel.org>, Hangbin Liu <liuhangbin@gmail.com>,
+	Liang Li <liali@redhat.com>, netdev@vger.kernel.org,
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net] selftests: bonding: feed link monitor to deflake
+ prio_test
+Message-ID: <avO4iNKpHoXMV9gp@fedora>
+References: <auvnnIXQV2zufxtF@fedora>
+ <20261110115354.2250237-1-doebel@amazon.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,21 +70,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261110115354.2250237-1-doebel@amazon.de>
 
-Hi!
+On Tue, Nov 10, 2026 at 11:53:52AM +0000, Bjoern Doebel wrote:
+> Hi Hangbin,
+> 
+> On Thu, Nov 05, 2026 at 10:19:08AM +0800, Hangbin Liu wrote:
+> > If the kill fails for some reason, will we wait here forever and hang the
+> > entire test?
+> 
+> No. bash keeps a terminated child's exit status until it is reaped, so if
+> the ping already exited the kill fails but the wait returns immediately.
+> Only a genuinely unkillable ping would block, independent of kill. The
+> idiomatic form is kill_process() from net/lib.sh, which short-circuits
+> the wait when the kill fails.
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+Yes, that's what I mean. We need to avoid that the kill failed and the
+process still running.
 
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
-
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
-
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+Thanks
+Hangbin
