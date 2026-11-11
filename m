@@ -1,96 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.138
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794402124;
-	b=wi0RekqBaZGdiCq4tozT4D9IkmmjbpBhLoaWI8Dy0qKwL7YxJBVqvrpIrMPGDMZipUcj
-	 SvtcNRu3jM260bd7V+Sbpml/Ue2j2EHahAPUtUTx3rshm0T0JJnqjiYtlVeEGTjGxMCJr
-	 sDXe92+2I5G8IXwO1SDreWfbyby+LcZSQiwDtukFadost+H6I1wC5k4X3c9OE4PWHbfvG
-	 i27hMzl0nRfCEI/taahU2d5vrBIluxAswpt/NEuUXWkq0Z7t/f79O+k0TqF4XJ8JM9tVY
-	 uqO8h1X1J8j2Fxp+E97TT3bi2QGybByr2sgXtI1YBfaAVBsmMsWwcVGRcPFuKpw0YXA==
+	t=1794402128;
+	b=CTrqVP9nNvkgUSGE/XFFq6v/4sFgplB1pbib9fSd2H/vAVwGX8vS2nCCfRloxQ7lLLM3
+	 3x+4CH2wQRfrY7lifQQUDQ0EZ7DeYkWSf5oBrza2hMiZfeE5UmovwjHRqIOQweLdSZ7Lc
+	 4JmD3wBX7yom/+0Gh8oxOECwOvy0Ox+v5LemDk0KvpbaqGnTYeJnWEfIebUpnDMaASuto
+	 4yQ5iLKE1n0FNxtHsrwgFUjLYNtgsqJ+eHqjGnJpdWxBH+OyR7pWfL0nlQzQNc0fSrTgx
+	 L9oXm4U3hKh/4oTb8zdS+MFzXtOBYlku71LTKr3n66Jk6j90ugNNmunjs1NkuoNwq2Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794402124;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794402128;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=w2/+xHZKQ2U7spoWRX9s3/PlBR0bd8B1wNdFaiAbagI=;
-	b=Z/Qy8L/3MoLEyDoe6go1OH6W681WC4TJwEOVnkMgkc1mWlYeE6fRg5Z9sW80JjVh9YNu
-	 sF5+tnaoNzk+p3gRrWaScqj2CIQnOxYULO5NHBrL7MNh2jjqz4U7DfxOXWHYfBqWWLe7f
-	 DfBT/6+GGxKomGzQvrBm9g3bfJDUYlFDxZIhf6QV5HgV71JJ+8wiYsJwDGerh9uE0/r64
-	 Cgi229b/94K+y3pGaFJ982DRjVnCSVk5Bs8yX+L17fAVoMhiXiaixxWj1w03/xyzsnzto
-	 6Ohfm2sHOpAQ3jfobpe+Y0ZrnTCiChK96RkGxctDxYT8g2K81f1YMRRzV55taD9u7tQ==
+	bh=J+mUwMOFoc1rkFDeVVWyJZ6BLcGmfPljJGbacS4Vtxg=;
+	b=sUaGZO9XXgZh2NfO+k/oTqDQL6zGfI0kQ9Jw0ET85k/1kdBgAPwIZb+Arclof36AKVZU
+	 1DRh1LbW7peOwi9gkYbo9wjSBEQ2070RzchXC8yzN5KrVKMylGTqQZy15tXAq42/qCN7l
+	 SygMSmz41q039Cnp8AOcf+n4NZnOvQOiWeUtnw7EDEs21llpUKWfjnsWuxGpzpjisfqyG
+	 fNv1oYEA6mBiTUMTNzcA5H5su4g+bEwQMLLOcgYsx59s5N/0cmK9T0h80M3u1lVUAP896
+	 Zkqo1R+X9oc4jyZvIVfY5lewRifCRsSttfAcaa/OcDekvKsQylLgC59Oli/yLG3fsWg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HvZBZsK7;
-	arc=none smtp.remote-ip=74.125.229.138
-Received: from mail-dl2-f10.google.com (mail-dl2-f10.google.com [74.125.229.138])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=soc3RaSG;
+	arc=none smtp.remote-ip=209.85.128.48
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3659E606A326
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:02:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3659E606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A613606A88C
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:02:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A613606A88C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HvZBZsK7
-Received: by mail-dl2-f10.google.com with SMTP id a92af1059eb24-143601f9f98so806723c88.0
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 05:02:04 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=soc3RaSG
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a2000d5fb1so18363765e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 05:02:07 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794402123; x=1795006923; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794402126; x=1795006926; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=w2/+xHZKQ2U7spoWRX9s3/PlBR0bd8B1wNdFaiAbagI=;
-        b=HvZBZsK7tYvSumdzHkEQb7rSL9q5eY4Hda3xEbtuRJenmpkNB0i+OcZ2Nf8cTbbXKM
-         P+YIMusWBQrxjebN+a+q03WLFO4jkF7MAIlxBBxr62Yth1ABBEZQ+1h6lCWIrKSRAQzw
-         wzsp5iqL/G0DSX5Jtx55GrYYW1RC91+ns/WwXqfwNIz14a/dDqH7YUoSHQW+rf7FmE2C
-         zWiVbdfg9xNAXLgZnMPisZ5hPJj2YPzf897YTf29mJ046Ye8+gYQL9x/xbzjuidhZ4ff
-         n5ufoC0qFsLjkk23MPg2bshtTcHxWcVat8ty+IJLRWA0sQNN0lr4SxanfIpaNODwyppA
-         QCqg==
+        bh=J+mUwMOFoc1rkFDeVVWyJZ6BLcGmfPljJGbacS4Vtxg=;
+        b=soc3RaSGX8AF3Q72bni9MS3wTdxcUkzbRO/rPNEsdwigVvJC7WtvwwdDg6nMGw0tbS
+         68VGKO37moYrSFQBNDsOEngq/8+NI9Nrc2s3Fbbvh3oBeTVrXqZVssiaeDxvGl4cSt96
+         W+Xd8CLOnygSVjmcmAWpro4zFLBHTC5pf28NmUBAOtTdx5jbk2WqFtgxR3IB0E4oxNmm
+         1v4MC75ZoScCY61e0nV/DAXzhjW+a+/En6r4PhRuaKD8MNWkKxuKuoVcgRkOd6ODwwty
+         M9QDLj18MzsT+BJ3LBbGrXMXlsJwHHSkqOwk4+5kVYV2tiMBhuFNjFqTKu3Mrt0/eDNk
+         /lPQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794402123; x=1795006923;
+        d=1e100.net; s=20260707; t=1794402126; x=1795006926;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=w2/+xHZKQ2U7spoWRX9s3/PlBR0bd8B1wNdFaiAbagI=;
-        b=ZE5sLZ0ej3HjDVS2VX5qg6WdguGqdIbHOb4bPrNQFV8B/3l5sEiqxVUUBRWJN45Rjz
-         KHPNh2nIcEF7n9tpL7YwgdjmYZqICCRp5hc4EwyAsURQb4MagBTRu+JxH3Z6+uXF9aQW
-         zP4D0ZMLDcS2XDq5eoocRaLGPP584tfjLggy5sSUESPbFKHcvqPZhwb9QTn0R5Z01F+D
-         I9Hx67M4baDZWV18kqivr+dk1zHAVac5ygh6FTJVjryCGuVglSFKIoX08lns5wk8PSj/
-         zxcunTRj8iMdIAbUaJ7DrH3/x8kSeVSO7HPsKzcnZjDvsM5IyLtvwAMjd40nVdNflfPD
-         Y9vQ==
-X-Forwarded-Encrypted: i=1; AL+hErGxt2yuu+1KbcVzifSaNCith/4pEB6b2nx1bSpIS0I4qjXXW4U1BZ/Y2A/IpJfKJtz4CS8ZzvmmWDUaOFk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8HA5uBC1GK/9D8ZzBKj+aOqA2Q1BOZ81RNTFOkjPRM+daXkVyB
-	umuaYIvjBHo4b5Qan0zY90/7/q51v2MCapRlbJgxobVRDf8pPrwFSHYn
-X-Gm-Gg: AYBFou3ZtsWEy8pJ6A5npGDtG6itani1WQ2EqUyx+0iBLmRRd+Gb895Eyfo7WAseJUs
-	CAtZzHBz5rr7Ftek35EZ0zP1612PeOuBsZISXEgrsRagkX9vW7YDRSpZy2QfZGZVdiHRd0HyBec
-	Fgfgc+LRb5swqVnFDH08qoWb3BT+iag02YOMJjnp4R/1tE4r9JlHq+yTHjviP90c19SRKbFvtAs
-	TiJWgI35C3VhKHuwIK1RORRRr5H5S9TmDyA/wMu1yp26C/tKzc06S0rYU7sjeN7DkjBbT3h0k0L
-	CEnHNPry5KN3A/XEt9wyRm7/mgnVYNAJRhmtP7YWGkIGk97b6hxM6dERMSaSbme4cf47MkX23Ek
-	XnQEOcr0Yy8acXlBhoFKdACCjpR3G87NRcCAqFNqkBnEzetYCm5JiT+4NAyL87TKfuWfN75jIWW
-	RSJDdZ/Eoz6JBcsMZgW3W83LZo0RedSoo+j2htzwO22mlwdBXpEcrAssx9R33OipviGIB5I3tOl
-	a2OuBuS7n1EtAa6L/q14JLGdbKxvwFYAYTpJnpFuHj0rJS1pvNf6dGRbYcnZkhUQ5ws0ud+fuO7
-	/9m5rcSwEMxKxRhEulpazrWjGG2hm1MNc41jBNpJvHPOZzkatCXd7wiFuFeA+KfO+maxja3y+sX
-	waikaF4+dcqUc1f99zxCM3Ws5CjtUKsUg/0lnqw==
-X-Received: by 2002:a05:701b:450b:20b0:1b3:ba92:145a with SMTP id a92af1059eb24-1b3c0303655mr2388509c88.19.1794402122900;
-        Wed, 11 Nov 2026 05:02:02 -0800 (PST)
-Received: from localhost.localdomain ([98.148.34.5])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b11150sm21696634c88.5.2026.11.11.05.02.02
+        bh=J+mUwMOFoc1rkFDeVVWyJZ6BLcGmfPljJGbacS4Vtxg=;
+        b=QTsiQhnxtWJUJyS48m4vFH7T86GJJ7QDEBexHslJPjYJQ4rIbHL7xpZahIt42XwRQn
+         T+ZbcVwe1Jg5LEwIRP18Hbafl76/ZsDdVdTutIE2SqMHeR2CgK5xJmqgg4Cdgd1pbQeY
+         OfR+M2YEErhMaXxEUntT1iy0tU4P+CsF9Vf0QH+k64+qwpyFl6/R25eFV9i5YH+pJQ8P
+         L/byFWZ9JZ2GCiOT9bI97cWUX7nRgJ/IOnG3IDyXeGLACidPSFWZ49UCgPxVvm1MdaUu
+         Gq4B/fY3S8FTUKwAQhVLkijklsqPCPc4Y3DwSHse4c+l/bhGUsiKQoTjgAZUPwOypszv
+         lDiw==
+X-Forwarded-Encrypted: i=1; AL+hErG9kBKj3jxCaGetQWHIGbxCGUIHyTL1FNH2zZeVQZZoc+YL0i9G5pr1RrvQ6XBMgyIfhS9Y3PZU9WoKQWw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/aTvYF5OEvzhPqs7+CgS0bBQsskf34r42+65zQeZjFBdg3DtDg
+	q5eVMS2wOa38u6WQ1HVLnCik/2iEzJ/VpnNes3Op6LgbJXdpdDCBvppi
+X-Gm-Gg: AYBFou3F8ZQOZRU3hM52QQeDZZQCHUPKZyxnZpSPxZ+/7At2w+FQ5zxRduNNMqYAnXp
+	eI6NozVhKwT1w6iQWD3o/w0A21m3je4T2so8QcomsK5Tng9BpzZmy5sfE1svjw62r+zC9eN2sSu
+	m3zrNAbPfA8fDfVbEctyvmzl81Jb2XbH5UZaYWsmRvAv1iAzlSxqRMQu7U7LSnSfwNwnf6ggHSR
+	GzNY2k7mpjaLhJFIYnNFUO5fKnxMr9gOGcolFsZ9y27BJLHG4uFjFWSu4ysaBP7QB7H9Rayzf0W
+	1EB2LXPodfn3IeiNcP1ItdWoslgwmlU2sYpoMkYd+R3JjYhCn0B/Oo5ncSbZQ/sciBaIspwX+bw
+	V1Ei3t4Xq86ZLbMq8lU2HqraRnZ31aPxzGp42hLv8gEtkJrDMMGdMB5zG7a5tYn24L4izV4WBMo
+	zeZuKGfQczOIsEQg4XHnKA//oNdzEGZv5iUsPweHv/bRmaqGAox20TF8OB5V4Hg3m71wSqt9RV6
+	elZVByNXPiyFqPMnttK0mvvgpgjHw0M3n3ruP0j+5nRC/9JeVPN5e4guEnYsZBDErLKtKGZ2t8o
+	4pJqaouRv4p0M6zeTQMHd0qW+c0rRfC7M/w5S25Gvrbp7U0qkR3i9uzgobndboOALw==
+X-Received: by 2002:a05:600c:4f84:b0:4a1:e00b:a0ea with SMTP id 5b1f17b1804b1-4ba0931d910mr40210115e9.1.1794402125721;
+        Wed, 11 Nov 2026 05:02:05 -0800 (PST)
+Received: from localhost.localdomain ([2a06:c701:474b:1700:134:2b8c:c0ae:fe16])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4989a2a505asm9244926f8f.13.2026.11.11.05.02.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 05:02:02 -0800 (PST)
-From: Hungyu Lin <dennylin0707@gmail.com>
-To: muchun.song@linux.dev
-Cc: osalvador@suse.de,
-	david@kernel.org,
-	akpm@linux-foundation.org,
-	linux-mm@kvack.org,
-	linux-fsdevel@vger.kernel.org,
+        Wed, 11 Nov 2026 05:02:05 -0800 (PST)
+From: Avi Weiss <thnkslprpt@gmail.com>
+To: alcioa@amazon.com
+Cc: aws-nitro-enclaves-devel@amazon.com,
 	linux-kernel@vger.kernel.org,
-	jm5905938@gmail.com,
-	dennylin0707@gmail.com
-Subject: [PATCH v2] hugetlbfs: report inode limits without a memory subpool
-Date: Wed, 11 Nov 2026 13:01:45 +0000
-Message-ID: <20261111130145.96534-1-dennylin0707@gmail.com>
+	andraprs@amazon.com
+Subject: [PATCH] samples: nitro_enclaves: reject invalid boot heartbeat
+Date: Wed, 11 Nov 2026 15:02:01 +0200
+Message-ID: <20261111130200.1767978-2-thnkslprpt@gmail.com>
 X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -103,45 +97,39 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A hugetlbfs mount can limit inodes with nr_inodes independently of size
-or min_size. hugetlbfs_statfs() only fills f_files and f_ffree when a
-memory subpool exists, so an inode-only limit is enforced but its inode
-counts are reported as zero.
+ne_start_enclave_check_booted() expects zero on success and a negative
+return value on failure. However, when the received heartbeat is incorrect
+or the connection closes before sending one, it returns the result of
+read() unchanged.
 
-For example, a fresh mount with nr_inodes=4 reports zero total and free
-inodes instead of 4 and 3. This hides the inode limit from tools such
-as df -i, even when creating another file fails with ENOSPC.
+An incorrect heartbeat therefore returns 1, while EOF returns 0. The caller
+treats both nonnegative values as successful enclave boot verification.
 
-Report the inode counters when an inode limit is configured,
-independently of the memory subpool. Preserve the existing zero and -1
-results for unlimited inode counts.
+Return -EINVAL through the existing cleanup path when heartbeat
+validation fails.
 
-Fixes: 74a8a65c5261 ("[PATCH] Fix hugetlbfs_statfs() reporting of block limits")
-Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
-Reviewed-by: Aveline Noir <jm5905938@gmail.com>
-Tested-by: Aveline Noir <jm5905938@gmail.com>
+Although this is sample code, it demonstrates enclave boot verification and
+may be copied or adapted into real enclave-management applications. Better
+to correct the example to avoid propagating this false-success behavior
+into real implementations.
+
+Amazon's standalone Nitro Enclaves kernel driver does not implement
+heartbeat verification. The Nitro Enclaves CLI implements this check
+separately in Rust and there I believe it correctly rejects invalid or
+missing heartbeats.
+
+Fixes: acc4229c39903 ("nitro_enclaves: Add sample for ioctl interface usage")
+Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
 ---
-Changes in v2:
-- Add Aveline Noir's Reviewed-by and Tested-by.
-
-v1: https://lore.kernel.org/r/20261101122653.53982-1-dennylin0707@gmail.com
-
- fs/hugetlbfs/inode.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/fs/hugetlbfs/inode.c b/fs/hugetlbfs/inode.c
-index 01c4d6f44ebe..e94ee8e17004 100644
---- a/fs/hugetlbfs/inode.c
-+++ b/fs/hugetlbfs/inode.c
-@@ -1113,6 +1113,8 @@ static int hugetlbfs_statfs(struct dentry *dentry, struct kstatfs *buf)
- 				- sbinfo->spool->used_hpages;
- 			buf->f_bavail = buf->f_bfree = free_pages;
- 			spin_unlock_irq(&sbinfo->spool->lock);
-+		}
-+		if (sbinfo->spool || sbinfo->max_inodes >= 0) {
- 			buf->f_files = sbinfo->max_inodes;
- 			buf->f_ffree = sbinfo->free_inodes;
- 		}
--- 
-2.43.0
-
+diff --git a/samples/nitro_enclaves/ne_ioctl_sample.c b/samples/nitro_enclaves/ne_ioctl_sample.c
+index 765b131c73190..a620f81581c2b 100644
+--- a/samples/nitro_enclaves/ne_ioctl_sample.c
++++ b/samples/nitro_enclaves/ne_ioctl_sample.c
+@@ -744,6 +744,7 @@ static int ne_start_enclave_check_booted(int enclave_fd)
+ 		printf("Read %d instead of %d\n", recv_buf,
+ 		       NE_IMAGE_LOAD_HEARTBEAT_VALUE);
+ 
++		rc = -EINVAL;
+ 		goto out;
+ 	}
+ 
