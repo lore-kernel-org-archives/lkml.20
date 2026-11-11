@@ -1,59 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794405359;
-	b=So0MX84ckf6qkxmPyImWiRYItMSOLCgzndJ2ey/rCFPYMN5mdPSeVjlKm9pkM2swUJ80
-	 pIoDbXXkCa1wPQkl8UqeXjpPOzSnXP2NVjgT7HsLMHFIjvY+8BgzyEC1z1hwSNnDT1Lr/
-	 pBSI6BDpycIvpR/npRUS0hDx6iRuJABIqpTWdKR2DTCF16WPb9eJl4TL4oc5q5CwiTuRb
-	 WivmbuY5/gpP8Ahjc3bfJWlF6DBOF/xNltfBuFosbgBrOFDzEuOuOGVV32iHGxDvnrkAj
-	 kjR6CcqZDGKKSoxAOenNH54MQT7kxLCA39gb/N7UOsUzYpSAHuraZlJTh/OfzTuwjkQ==
+	t=1794405397;
+	b=ag/ru9Nay7ylt1LKakvbfpdemitqg5sMNqPEquIRJQ86YevSkoymZEpsJ8Tsl0HyoCI3
+	 iYymNirr+JkHLg6aB2HoT1a/zxSaNcjRZ/4ayPUNKCkLgU76gYuLz5uzjUlmflwv4qYCD
+	 I/LzRqw5izOiYCvDEZzLrFy8hLA4VqWW7BzXxODZ72zzZrx+4kurJXOJLtqnMI9hySyBe
+	 vtMPCSxX3SHmUojUF/GgxjbggCTgfMks3CZf6eDU2aMncQSjhPK874ivcoBlzjo46aw2L
+	 DIjqkd2nCZX822CSrxRQQa/CTMLCS+Ymc8DvcMNSKIIIRBLX9rT+5NZc1pJZSsVJmUw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794405359;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Cookie;
-	bh=fAyq4tkzqmxRwZTSgtjt+iN8WPHEULKdWMlOmAY//3w=;
-	b=RJqDNi2PS1p8MT/mMXINLAFC0j4XgoYng3h2CDN+p8NkGRJwNatZEb5ifzGqm/NSRzcm
-	 ye56FaP2okyBL+c6j/N8mDQ9T13OyvfKquFYta2RX0eDgxeD1MlqHyO4TqzZTIozBQXOt
-	 13UpzYAxUCwowDa0wuzqT+UDXeuKF8FE1NiVcAWpNNaunW5IKYn3K30QtbC+nMGS/E6vZ
-	 fP4DddZ3n9LRsHjs5CfdazphxjaMhzaDuz9DNhroK6trKZzkPdV9OxLnmIut6apPnKn/O
-	 ZOnVhP7aR10wpG7QKM0Au9qZ0XJK4Ah+igKcnGsBIMGkGsrQpVJ5jwWp5XdHC/kAi6g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794405397;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=5ZprzqBsLH6ZE5J0bCuqoeiq0FzWeb9tyEOoiXRncj8=;
+	b=mIeqFfWzrfM91thPOxjKpz5iXxjELpAoCG+LgEXKK3rh+qcU3FGfK2+E8Gp3ip6aAz85
+	 Vxn3lOMz095MpijH3c7aENfojFeVsGj05qzNGVFQhsqUsjcvt7PlxIRrbxqQg+4QXhoY5
+	 5GlH8tyjRNDWYrQUdmNm0MQvKCIxjEhfjlY83Y35f+ap5b6LgK0zWyOivNOEtT14OVkkq
+	 cL79wQo0w44gyX/VIgrzENsonOKhNYcg0rUYHBTVgIhl+36i1pDhiIFXlY0j7PO9FgHfw
+	 MWOhZnMVyATpl1wrvrVP3CvMYR5BXLsLMgINeqaXEbdPTQcULNiBLnla+U0L9xWbcEw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oMfSuEKg;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=o8Vd0J1f;
+	arc=none smtp.remote-ip=90.155.50.34
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86C47606A880;
-	Wed, 11 Nov 2026 13:55:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21D45606A321
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:56:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 21D45606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oMfSuEKg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30B831F00A05;
-	Wed, 11 Nov 2026 13:55:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794405359;
-	bh=fAyq4tkzqmxRwZTSgtjt+iN8WPHEULKdWMlOmAY//3w=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=oMfSuEKgxIUPOzfWqeTt/CUx1/tHmQbH8r9r0L1BxtBkFcSIorNgi4CbtCsDr0Vi0
-	 djuAQLqJkuT/l9CZgm9lU8xm3FIG4nTj270/G6C6bytyYc/iZ17bzEj+ASHBon5cjw
-	 tWrKnmn56rT9yyjTtwTm6CBKokvYuhQHshPU3wjbFeE6NuPDOKxjEdxZIahaXtNQ3J
-	 s2woT4Hz3cUokbDkwyV/dVWkiWMiQjYwlbsamLChrsu7/ndrb5dLYfmPOcmaGjppwF
-	 DTZG7kCU+YhmiPEAlgP7AhYg31m/pQjavu+WH8wn2TbVjsgSy9ZuGvaVzQV5WBYP5Y
-	 Csh9HwAq9wfUA==
-Date: Wed, 11 Nov 2026 13:55:54 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Vladimir Murzin <vladimir.murzin@arm.com>
-Cc: Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
-	Anshuman Khandual <anshuman.khandual@arm.com>,
-	Joey Gouly <joey.gouly@arm.com>,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 2/2] arm64: suspend: Save GCS state over suspend
-Message-ID: <82a7e8ad-b238-4842-a2d0-6a070d0b77be@sirena.org.uk>
-References: <20261105-arm64-fix-sysreg-suspend-v1-0-f4d9a99fec46@kernel.org>
- <20261105-arm64-fix-sysreg-suspend-v1-2-f4d9a99fec46@kernel.org>
- <282608f5-a13b-4695-aa17-f834bf5d8272@arm.com>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=o8Vd0J1f
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=5ZprzqBsLH6ZE5J0bCuqoeiq0FzWeb9tyEOoiXRncj8=; b=o8Vd0J1fHNGNtONDwu8XhXGyhW
+	f3oWEFLVw/OX4VYfptAZIMKVenyhGo9cOgQ8eiDB5tcfBJWniGMJh7bOk0C4GzR3kLnqpicte1KJS
+	D96IQLW3iiqRft7QDGkjEdOgVeJVL8tORv+nvr7TqFQowtvE121/oE/pC9aQMbjuZFZ3+4Mm8nNta
+	PI/w8x+DuOK5RZTlbwcpIZM3mEa65hUmXeAVlXsk0ztc6bnj1HFlAECyK0mHNMRYbTJzQKgv8L+hV
+	qi7wFwVoH7Z1vBjb4gUmkttJzM10qu4ByS7gwbNEbMNNXYixUSdwS7VlRyiOlhh+VWczjTQST0P0s
+	354W34XA==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xR8oO-0000000AY7Z-0AOg;
+	Wed, 11 Nov 2026 13:56:28 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id E9A493005AF; Wed, 11 Nov 2026 14:56:26 +0100 (CET)
+Date: Wed, 11 Nov 2026 14:56:26 +0100
+From: Peter Zijlstra <peterz@infradead.org>
+To: Usama Arif <usama.arif@linux.dev>
+Cc: david.laight.linux@gmail.com, bp@alien8.de, dave.hansen@linux.intel.com,
+	dsterba@suse.com, hpa@zytor.com, linux-kernel@vger.kernel.org,
+	mingo@redhat.com, terrelln@fb.com, tglx@kernel.org, x86@kernel.org,
+	torvalds@linux-foundation.org, kas@kernel.org, hannes@cmpxchg.org,
+	riel@surriel.com, shakeel.butt@linux.dev, kernel-team@meta.com
+Subject: Re: [PATCH v3 2/2] x86/lib: Use REP MOVSB for large memcpy() on ERMS
+ CPUs without FSRM
+Message-ID: <20261111135626.GK2668564@noisy.programming.kicks-ass.net>
+References: <20261111132214.2979125-1-usama.arif@linux.dev>
+ <20261111132214.2979125-3-usama.arif@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,47 +71,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="zfD1Qgq8y+MjOF4J"
-Content-Disposition: inline
-In-Reply-To: <282608f5-a13b-4695-aa17-f834bf5d8272@arm.com>
-X-Cookie: Do not pick the flowers.
-
-
---zfD1Qgq8y+MjOF4J
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+In-Reply-To: <20261111132214.2979125-3-usama.arif@linux.dev>
 
-On Wed, Nov 11, 2026 at 01:44:40PM +0000, Vladimir Murzin wrote:
-> On 11/5/26 16:05, Mark Brown wrote:
-> > GCSCRE0_EL1 and GCSPR_EL0 are live registers for EL0 on systems with GCS
-> > but are not saved and restored by cpu_do_suspend()/cpu_do_resume(). This
+On Wed, Nov 11, 2026 at 05:20:53AM -0800, Usama Arif wrote:
+> Since commit 68674f94ffc9 ("x86: don't use REP_GOOD or ERMS for small
+> memory copies"), memcpy() uses REP MOVSB only on FSRM CPUs, so ERMS CPUs
+> without FSRM, such as Skylake and Cooper Lake, copy every size with
+> the scalar loop. Large copies matter there: in Meta's x86 fleet, about a
+> third of the time in memcpy_orig() is btrfs zstd decompression copying
+> pages into and out of zstd's buffers.
+> 
+> Use REP MOVSB from 2048 bytes on ERMS CPUs. On a 1.4 GHz Cooper Lake, an
+> aligned, cache-hot 4 KiB memcpy() then takes 66.8% less time (123.3 ns
+> instead of 371.6 ns). In a single-vCPU guest, reading a synthetic
+> 512 MiB btrfs zstd file takes 14.8% less time (median of five kernel
+> pairs). Smaller copies keep the scalar loop: using REP MOVSB from
+> 32 bytes made 32/64/128/256-byte copies
+> 111.8%/68.0%/63.2%/15.6% slower.
+> 
+> Prepare the return value and RCX count before the FSRM alternative. On
+> FSRM CPUs, REP MOVSB replaces the jump to memcpy_orig(), followed by a
+> RET in ordinary text. ITS then selects return handling using the RET's
+> execution address.
+> 
+> For ERMS CPUs, shift the scratch copy of the length in RDX after the
+> 32-byte check. RCX already holds the count, so large copies need no
+> reload. Copies below 32 bytes skip the check, which is a single NOP
+> without ERMS.
 
-> > +alternative_else_nop_endif
-> > +alternative_if ARM64_HAS_GCS
-> > +	mrs	x2, REG_GCSPR_EL0
-> > +	str	x2, [x0, #128]
-> > +	mrs	x2, REG_GCSCRE0_EL1
-> > +	str	x2, [x0, #136]
+So no real objection to these patches from me.
 
-> Have you considered using stp?
+However, it did remind me of something I have on the TODO list for a
+rainy afternoon, namely merge memcpy and rep_movs_alternative.
 
-It seemed better to keep the code repetitively simliar to the
-surrounding code and also avoid using an additional registers.
-
---zfD1Qgq8y+MjOF4J
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmr0c+kACgkQJNaLcl1U
-h9DPVQf/SYdpkyIvpWSWZ2vESrRwMyl4IrX9Ci8J0n7wAVYb3/YCF5D9VBccNvvz
-wbdopNZDPgMdxN3dLUWgMtMFJGEc4a0iI3VkFP1y++NdTk9B730khzj8WANDmY3G
-oOrrLeRvtiyi+E7OJtFcn1zWmnCGgXDjc5/UPdR/genlHAF5ofCkO2ev1yxQkLAp
-l+ql+eXYI5YplhNRgZdo9wmXYzci/TVvYeBQ0+eiaje0kuvuFbOhpL384rMsEoK/
-MSBFIYQ0buIySdxSUX6YXWgljBSAVAs1Fw1+6q36k9zpMPR9rt2CFH+Z+q5iGWhx
-FhpS3ICdvMMjFJg66QaC+RBAB9FERQ==
-=qKrT
------END PGP SIGNATURE-----
-
---zfD1Qgq8y+MjOF4J--
+It makes very little sense to me that we have two (divergent) copies of
+what is basically the same thing.
