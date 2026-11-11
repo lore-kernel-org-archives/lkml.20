@@ -1,90 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794384029;
-	b=LbJeRwGF4s/rYJ9prpcIpOCPPNHpFmQasIUT+NDXlbrqmB59ctgBS9SzziUShW78GfUZ
-	 /6kncF3N2yrPwmhGPhbTfZX8wNIR5fMOb4i2HZwVtSGJDTCmhI75VQjEgzNewqHSJYuHA
-	 Yb5Nc21pJ1XdsvJ58g5ziClXDRZcVGFbAR0HWUmMx+UZUIYP0ASPnOMfoLvGUL4sVaQXf
-	 CMGEhgeKTvRZhk3zS+R4dRIMtzhzh0ArNl5bd/Fot0ZTbWoUb7SqDlQkSLBiPoMvASUZK
-	 HimYkqujmwfLQuQBzqxV0T7Y4QqdqWdT/jzKy8sPKNLVdgiZ9Yc3Ufcm1BMuzzJUVVQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794384029;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-TM-AS-GCONF:X-Proofpoint-Reinject:
-	 X-Proofpoint-Spam-Info:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=VVgfYhKSlvT/Z9xxYw/ObHRFba264r9sTRwl4Gba0Rc=;
-	b=epY59SS0jqkIabmMp3GdV+2mcARjQkQsKtKNssAtn6Z4Kx5f2hAvmsKwj6yLVEx98fQt
-	 ZB2B4HNtMdwC+in7XHdAwNtoD4Wb0ZdR9bjA9eeQ1amGW4fRHBC/ptRLRm/h3VDGzZB2/
-	 QAmZ97t7e6sLyITPx+6iS6IId+HGlH+q5GGiF7L/nHo0Bvrnx4U08Zn/qjEdOzZW2u+hX
-	 wIYAFamTxHBgJ0jPqPY+sRKGT2h2lcsd29XmJK3eTVAQCFw/et6ULxZFyQbHFNHT7y/n1
-	 nMm5YVD/jfme46DAMcq3dnYDMtplZXnhpX6Q6T9qVqvisYn9I6PLmkXMWowAQUEfD8Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=G9OJUnhh;
-	arc=none smtp.remote-ip=148.163.156.1
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=81.169.146.167
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794384039;
+	b=UViGYuZdq/L0iQZddo6UqKG1J28cu0fgWVtxAxbB5qwJOmorYIQXxocRvOx1Fq+cB7iq
+	 VVHh5R9FImTlqCgpFZpFlJSSxaCZvy5k2afSuVfOmR8I8mgknWEp4itE/BhNssvuaia7/
+	 ajYOMS8b7ewmWoiJ4MEnqFQPzZZUoAqTywuW3eiWFopULO5LQGtVF0M5adRY25Jj9jv6R
+	 TYGiK8qio+20gpUSHYLw8+rT4WBWgzJEmSCFElWh5lCQEDMhl+X2mXcKL8/l0NfRoBfE9
+	 7uVLeWDbB/oXSZxfrqIuUk3hjyOEtbVgJGR6tZAJU06iBKp+N4qA4peqgFvjPbL8sRQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794384039;
+	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=US1vNwatvvTGl0XkV5d0RGyto6gJ9ZnZSDmTA5Xn/wI=;
+	b=y64fhRlE9gLZx8rUF86MZ417nuuswUjtk4sGfIUFbwkSncCOR+aMzSMTQkxyHM0IWMwf
+	 hYL+1Ez34NZWjSM7uVR1FH8Q0MeKHr4QP7cxUWb/SjchsfjhmZvEcFpoGapODscCz7MXT
+	 7xOWr3vS7rZ+KHYhK9F6DHBgSUiagcGj+ZJdqMecKYh3EHUkzz7ygDZ4GzgvbSO126pNp
+	 XJMVXWnAYcXuox6NVyId3OMPuKDZUIMGqji0J/xZHOYPAzDYc5LFXyBQs2Y+hOE/42TfC
+	 F6A0a1HU8Z7l/M0b38AvXdHfKXWVVLUchZg2siy28eZ7neA4JFG4dK3xY57xLvwpoAQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=hartkopp.net;
+	spf=fail smtp.mailfrom=hartkopp.net;
+	dkim=pass header.d=hartkopp.net header.i=@hartkopp.net header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=IhkDacmZ;
+	dkim=pass header.d=hartkopp.net header.i=@hartkopp.net header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=F2qTjP5v;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=81.169.146.167
+Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [81.169.146.167])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEE07606A333;
-	Wed, 11 Nov 2026 08:00:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DEE07606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 868BC606A33A;
+	Wed, 11 Nov 2026 08:00:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 868BC606A33A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hartkopp.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=hartkopp.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=G9OJUnhh
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AB5iC20285234;
-	Wed, 11 Nov 2026 08:00:16 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=VVgfYhKSlvT/Z9xxY
-	w/ObHRFba264r9sTRwl4Gba0Rc=; b=G9OJUnhhabdsOQkA3GmRcP8+W3JiH5Cdi
-	vV2P7e/vzs8THVzp2l8oaCSu/E/bZSaau+akeV0z7pRGL6VnFvYdUIBKQr7xV+0y
-	Gh72xh8QZOEyEtiNWnl8KeuWN0uBTsxeIZlvcRSzX4+oWpHD4UzLnHU1IyxKrAiy
-	C/Z5jDAE2M3diuCANosh5TiB4Ug1QOHg3oMv2w5AseQJuQ00mfhcPXIxIAGUKpOp
-	wYlhFj2LG2UdBa1nD047hkT9P71JfOI184nly5qcQ77hLHgYH0KqplKwcCIlVsim
-	TEk7Oq9rnZ0LIWRx+FpYL/D9Snyp0nd2Apkp9Z5VMC6D9PiWL2Pkw==
-Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hsuq71412-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 11 Nov 2026 08:00:16 +0000 (GMT)
-Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6AB5JvoC2859414;
-	Wed, 11 Nov 2026 08:00:15 GMT
-Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
-	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hv309kkvt-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 11 Nov 2026 08:00:15 +0000 (GMT)
-Received: from smtpav07.fra02v.mail.ibm.com (smtpav07.fra02v.mail.ibm.com [10.20.54.106])
-	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6AB80DxK48890172
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 11 Nov 2026 08:00:13 GMT
-Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 8B13F20040;
-	Wed, 11 Nov 2026 08:00:13 +0000 (GMT)
-Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 0EDC920043;
-	Wed, 11 Nov 2026 08:00:10 +0000 (GMT)
-Received: from li-7bb28a4c-2dab-11b2-a85c-887b5c60d769.ibm.com.com (unknown [9.124.213.92])
-	by smtpav07.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Wed, 11 Nov 2026 08:00:09 +0000 (GMT)
-From: Shrikanth Hegde <sshegde@linux.ibm.com>
-To: linux-kernel@vger.kernel.org, yury.norov@gmail.com,
-        linux-perf-users@vger.kernel.org
-Cc: sshegde@linux.ibm.com, mingo@kernel.org, peterz@infradead.org,
-        juri.lelli@redhat.com, vincent.guittot@linaro.org, tglx@kernel.org,
-        sudeep.holla@kernel.org, linux@rasmusvillemoes.dk
-Subject: [PATCH 5/5] arch_topology: Use cpumask_intersects where applicable
-Date: Wed, 11 Nov 2026 13:29:45 +0530
-Message-ID: <20261111075945.3930230-6-sshegde@linux.ibm.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261111075945.3930230-1-sshegde@linux.ibm.com>
-References: <20261111075945.3930230-1-sshegde@linux.ibm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=hartkopp.net header.i=@hartkopp.net header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=IhkDacmZ;
+	dkim=pass header.d=hartkopp.net header.i=@hartkopp.net header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=F2qTjP5v
+ARC-Seal: i=1; a=rsa-sha256; t=1794384034; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=rwiumLSLfHTPbr09+fcGSWkLXpXHZw68d6XzIv4b/ticykMLDXb8ft7hDdB97ObnAA
+    /1sXJA6oyuU4ArxcQeP5dbxXsDFSrOlBxoSR9YHP8lMqJqV6iwtxXtSbPoWZ1R2+Q+qp
+    JEmy6rwyO5ZQVjZy7zQRsXBiQUtb9+q9L1CkDgbIn52tKdWTeIH5dZ9CWyiqMw05m7IE
+    8t76vKjZA3DNDIm0QhQXtpntDUXn3xwc9X87T+pozYc/mphtlceuC1G5BbFQrC+KJAU4
+    L9MOgqt4hGujjh6vSs/t1xfDgC97yl/Vmh4Ov7PruwSeQhLvh67obi2a5NciSovHD8Nh
+    O4Kg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1794384034;
+    s=strato-dkim-0002; d=strato.com;
+    h=In-Reply-To:From:References:Cc:To:Subject:Date:Message-ID:Cc:Date:
+    From:Subject:Sender;
+    bh=US1vNwatvvTGl0XkV5d0RGyto6gJ9ZnZSDmTA5Xn/wI=;
+    b=XIjZpjA5XAZ/YJu+NI2JIJ3ysoQ0V5VAaV6LH24LN7cQh7++I/uIFGj2hi1x2yNTl6
+    TRnpJc1rFcUmSv14SDWCdFH03tjTi5NQGBNLbLWiagfea6OIGApTncuBU7E6Bigp4jDV
+    JapTVWM//sw93R7lUq1XDwMgs8gBDlqL4DSMpT9noneBzoIoFT/QZD5Ta9k6tY6BQdiK
+    v2YSnRQwqVCq5CjMl8fdIr4LfKYYlgBLgo6CW0eCfuomw3PI5g4vC6W3iHHYCzv4K0eJ
+    Ao2VmJT5J1Z888iJDz69RkyrtTshT65/91bhDIm6sq5Yz4HNdTBABozrXDH6t5sT4IIB
+    k3xA==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo01
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1794384034;
+    s=strato-dkim-0002; d=hartkopp.net;
+    h=In-Reply-To:From:References:Cc:To:Subject:Date:Message-ID:Cc:Date:
+    From:Subject:Sender;
+    bh=US1vNwatvvTGl0XkV5d0RGyto6gJ9ZnZSDmTA5Xn/wI=;
+    b=IhkDacmZv+pkAwHZ9/gE+U0ArayIJQx1Y4IStJ3HiwbUjQw9RpESSeyKspDgpvuz5P
+    WtGdisD2/+nKymLH0PXLQVciAz7gJB29+ljUYUjOMG/xkwtgwAlbCsRBG30Me/TdI+lL
+    9nrv9vgzjDg/HnwrPSKfTeJcxz+Yi/++i/nsyCMy/C6WaoHuusipPeAPquIFaH4MFBOm
+    n6xhMt/wEaylt+Pxu75KjrJ5bOXn3P78BylcNhiu2jLBWFI05g/wSqOvIrh9e7YpqH/0
+    YG9WP9cTZ3Hs61oth+32onHps2WFAP8LhxtXD8jfGGD3djuZZ2q1zPGc2jZNJCXWe91p
+    Wqng==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1794384034;
+    s=strato-dkim-0003; d=hartkopp.net;
+    h=In-Reply-To:From:References:Cc:To:Subject:Date:Message-ID:Cc:Date:
+    From:Subject:Sender;
+    bh=US1vNwatvvTGl0XkV5d0RGyto6gJ9ZnZSDmTA5Xn/wI=;
+    b=F2qTjP5vwjAjvD5wBPxzlPk8XxAB2DUUBC5I4dr6OgsK1IMxTUQY8XOkaTZU07BFgH
+    Rkwvi7hXBTGF0t1TTqBw==
+X-RZG-AUTH: ":P2MHfkW8eP4Mre39l357AZT/I7AY/7nT2yrDxb8mjH4JKvMdQv2tTUsMrZpkO3Mw3lZ/t54cFxeEQ7s8bDup0Q=="
+Received: from [IPV6:2a00:6020:4a38:6810::989]
+    by smtp.strato.de (RZmta 55.6.3 AUTH)
+    with ESMTPSA id Kfdf2a2AB80Y3S6
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+	(Client did not present a certificate);
+    Wed, 11 Nov 2026 09:00:34 +0100 (CET)
+Message-ID: <623c302e-c6e9-478c-941e-a738da6f1ee7@hartkopp.net>
+Date: Wed, 11 Nov 2026 09:00:34 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,67 +95,178 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDAzMCBTYWx0ZWRfXzZmDdS0aT/ed
- CfKpFbXGSm2eJCoyHBYCE4galpN8Ld6k7Ts0ImVHyaHwySu3V2d3MDQmwkExknOEX8ujOFk7l0r
- x6WEfvo9hUMfxmikxnE/iPDw5gQpVzc=
-X-Authority-Analysis: v=2.4 cv=HbCB3SE8 c=1 sm=1 tr=0 ts=6af42090 cx=c_pps
- a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
- a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=U7nrCbtTmkRpXpFmAIza:22 a=VnNF1IyMAAAA:8 a=uJxkfRzq51vS_ux11qQA:9
- a=zgiPjhLxNE0A:10
-X-Proofpoint-ORIG-GUID: 7zP5uU-1Aa0LTOcyOQdoFvxlg2JizBXk
-X-Proofpoint-GUID: B1KQ_xpQKmmMDNf16mZgISFFsqLBMyp0
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDAzMCBTYWx0ZWRfXxGXnak6fxP04
- 5B62j4qfi0+O8+HNequ7Y2KX/W0YSXOmL8qX90tDHVHjp2kWrnChGFAIKN7D/Rg6YZyIU7cOQiS
- AXYOlpS289EBa2PrduiE1xeVdc+7FtRTEjB7zHJA+m3e2ddfTI/UC93naVj1ppV1DFzyKukcafK
- gyO7LTRodAt9FXTAfcXiAmM8VOJzwW91zkOm86+5V711lVji3w0IFsnhpvFi0VoXbA/T+7oPfSb
- 8CJdvCDoJx1o8vpDzPiS256RPyUpXcg7myJC+03GdU79ey65FixWr9r/Mdq9/VABWSEB46uoBqk
- 5UafKu5dTss6wWCMdTJtXfOMi8fNZ4E37rMsfFj54eIu8i8iS3HGGqLbmtCsP1Zw0sUP0hoKilD
- nrmieUih6Kf76lQZVyRG9vRkydIbhXjiiHVi7RtEzRgzCJ9HMILyCPvTKtLO2/ETKd8cdOCVn1e
- gD6BscttuuVr9HUJWXg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-11_02,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 adultscore=0 spamscore=0 bulkscore=0 phishscore=0
- impostorscore=0 priorityscore=1501 clxscore=1015 lowpriorityscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611110030
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] can: gw: avoid losing statistics updates on concurrent
+ receive
+To: Zhu Jun <zhujun2@cmss.chinamobile.com>
+Cc: mkl@pengutronix.de, linux-can@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ syzbot+a6205fafcbfe69a5fd67@syzkaller.appspotmail.com
+References: <20261111062907.16857-1-zhujun2@cmss.chinamobile.com>
+Content-Language: en-US
+From: Oliver Hartkopp <socketcan@hartkopp.net>
+In-Reply-To: <20261111062907.16857-1-zhujun2@cmss.chinamobile.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Looping over one cpumask and checking if any bit is set in another
-cpumask is same as evaluating if two cpumasks intersects or not.
 
-So use cpumask_intersects instead. It is probably faster too.
 
-Signed-off-by: Shrikanth Hegde <sshegde@linux.ibm.com>
----
- drivers/base/arch_topology.c | 9 +--------
- 1 file changed, 1 insertion(+), 8 deletions(-)
+On 11.11.26 07:29, Zhu Jun wrote:
+> can_can_gw_rcv() can run on multiple CPUs for the same gateway job. RCU
+> protects the job's lifetime, but does not serialize its frame counters.
+> Concurrent plain increments can lose updates, and netlink dumps race
+> with the counter updates as well.
+> 
+> Use atomic counters for handled, dropped and deleted frames. Read each
+> counter once into a u32 for the netlink dump, preserving the existing
+> 32-bit attributes and their wraparound behavior.
+> 
+> Fixes: c1aabdf379bc ("can-gw: add netlink based CAN routing")
 
-diff --git a/drivers/base/arch_topology.c b/drivers/base/arch_topology.c
-index 8c5e47c28d9a..aba86e9c2516 100644
---- a/drivers/base/arch_topology.c
-+++ b/drivers/base/arch_topology.c
-@@ -34,14 +34,7 @@ EXPORT_PER_CPU_SYMBOL_GPL(capacity_freq_ref);
- 
- static bool supports_scale_freq_counters(const struct cpumask *cpus)
- {
--	int i;
--
--	for_each_cpu(i, cpus) {
--		if (cpumask_test_cpu(i, &scale_freq_counters_mask))
--			return true;
--	}
--
--	return false;
-+	return cpumask_intersects(cpus, &scale_freq_counters_mask);
- }
- 
- bool topology_scale_freq_invariant(void)
--- 
-2.52.0
+No fixes tag here. This is not critical and not stable-relevant content 
+that can go via can-next.
+
+@Marc: Can you remove the tag while applying the patch or does it need a 
+re-spin?
+
+> Signed-off-by: Zhu Jun <zhujun2@cmss.chinamobile.com>
+
+Reviewed-by: Oliver Hartkopp <socketcan@hartkopp.net>
+Acked-by: Oliver Hartkopp <socketcan@hartkopp.net>
+
+Many thanks,
+Oliver
+
+> ---
+>   net/can/gw.c | 43 ++++++++++++++++++++++++-------------------
+>   1 file changed, 24 insertions(+), 19 deletions(-)
+> 
+> diff --git a/net/can/gw.c b/net/can/gw.c
+> index 8a5327d8a00e..a5233b4606da 100644
+> --- a/net/can/gw.c
+> +++ b/net/can/gw.c
+> @@ -40,6 +40,7 @@
+>    */
+>   
+>   #include <linux/module.h>
+> +#include <linux/atomic.h>
+>   #include <linux/init.h>
+>   #include <linux/types.h>
+>   #include <linux/kernel.h>
+> @@ -129,9 +130,9 @@ struct can_can_gw {
+>   struct cgw_job {
+>   	struct hlist_node list;
+>   	struct rcu_head rcu;
+> -	u32 handled_frames;
+> -	u32 dropped_frames;
+> -	u32 deleted_frames;
+> +	atomic_t handled_frames;
+> +	atomic_t dropped_frames;
+> +	atomic_t deleted_frames;
+>   	struct cf_mod __rcu *cf_mod;
+>   	union {
+>   		/* CAN frame data source */
+> @@ -484,12 +485,12 @@ static void can_can_gw_rcv(struct sk_buff *skb, void *data)
+>   	 */
+>   	if (csx->can_gw_hops >= max_hops) {
+>   		/* indicate deleted frames due to misconfiguration */
+> -		gwj->deleted_frames++;
+> +		atomic_inc(&gwj->deleted_frames);
+>   		return;
+>   	}
+>   
+>   	if (!(gwj->dst.dev->flags & IFF_UP)) {
+> -		gwj->dropped_frames++;
+> +		atomic_inc(&gwj->dropped_frames);
+>   		return;
+>   	}
+>   
+> @@ -510,7 +511,7 @@ static void can_can_gw_rcv(struct sk_buff *skb, void *data)
+>   		nskb = skb_clone(skb, GFP_ATOMIC);
+>   
+>   	if (!nskb) {
+> -		gwj->dropped_frames++;
+> +		atomic_inc(&gwj->dropped_frames);
+>   		return;
+>   	}
+>   
+> @@ -521,7 +522,7 @@ static void can_can_gw_rcv(struct sk_buff *skb, void *data)
+>   	ncsx = skb_ext_add(nskb, SKB_EXT_CAN);
+>   	if (!ncsx) {
+>   		kfree_skb(nskb);
+> -		gwj->dropped_frames++;
+> +		atomic_inc(&gwj->dropped_frames);
+>   		return;
+>   	}
+>   
+> @@ -552,7 +553,7 @@ static void can_can_gw_rcv(struct sk_buff *skb, void *data)
+>   		/* dlc may have changed, make sure it fits to the CAN frame */
+>   		if (cf->len > max_len) {
+>   			/* delete frame due to misconfiguration */
+> -			gwj->deleted_frames++;
+> +			atomic_inc(&gwj->deleted_frames);
+>   			kfree_skb(nskb);
+>   			return;
+>   		}
+> @@ -571,9 +572,9 @@ static void can_can_gw_rcv(struct sk_buff *skb, void *data)
+>   
+>   	/* send to netdevice */
+>   	if (can_send(nskb, gwj->flags & CGW_FLAGS_CAN_ECHO))
+> -		gwj->dropped_frames++;
+> +		atomic_inc(&gwj->dropped_frames);
+>   	else
+> -		gwj->handled_frames++;
+> +		atomic_inc(&gwj->handled_frames);
+>   }
+>   
+>   static inline int cgw_register_filter(struct net *net, struct cgw_job *gwj)
+> @@ -640,6 +641,7 @@ static int cgw_put_job(struct sk_buff *skb, struct cgw_job *gwj, int type,
+>   	struct rtcanmsg *rtcan;
+>   	struct nlmsghdr *nlh;
+>   	struct cf_mod *mod;
+> +	u32 handled, dropped, deleted;
+>   
+>   	nlh = nlmsg_put(skb, pid, seq, type, sizeof(*rtcan), flags);
+>   	if (!nlh)
+> @@ -652,18 +654,21 @@ static int cgw_put_job(struct sk_buff *skb, struct cgw_job *gwj, int type,
+>   
+>   	/* add statistics if available */
+>   
+> -	if (gwj->handled_frames) {
+> -		if (nla_put_u32(skb, CGW_HANDLED, gwj->handled_frames) < 0)
+> +	handled = atomic_read(&gwj->handled_frames);
+> +	if (handled) {
+> +		if (nla_put_u32(skb, CGW_HANDLED, handled) < 0)
+>   			goto cancel;
+>   	}
+>   
+> -	if (gwj->dropped_frames) {
+> -		if (nla_put_u32(skb, CGW_DROPPED, gwj->dropped_frames) < 0)
+> +	dropped = atomic_read(&gwj->dropped_frames);
+> +	if (dropped) {
+> +		if (nla_put_u32(skb, CGW_DROPPED, dropped) < 0)
+>   			goto cancel;
+>   	}
+>   
+> -	if (gwj->deleted_frames) {
+> -		if (nla_put_u32(skb, CGW_DELETED, gwj->deleted_frames) < 0)
+> +	deleted = atomic_read(&gwj->deleted_frames);
+> +	if (deleted) {
+> +		if (nla_put_u32(skb, CGW_DELETED, deleted) < 0)
+>   			goto cancel;
+>   	}
+>   
+> @@ -1146,9 +1151,9 @@ static int cgw_create_job(struct sk_buff *skb,  struct nlmsghdr *nlh,
+>   		goto out_free_cf;
+>   	}
+>   
+> -	gwj->handled_frames = 0;
+> -	gwj->dropped_frames = 0;
+> -	gwj->deleted_frames = 0;
+> +	atomic_set(&gwj->handled_frames, 0);
+> +	atomic_set(&gwj->dropped_frames, 0);
+> +	atomic_set(&gwj->deleted_frames, 0);
+>   	gwj->flags = r->flags;
+>   	gwj->gwtype = r->gwtype;
+>   	gwj->limit_hops = limhops;
 
