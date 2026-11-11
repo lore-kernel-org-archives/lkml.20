@@ -1,94 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.50
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794414429;
-	b=WFaOC8NDEer59NOm/3/br7AT2nUoaj4lVHaHqdsxTUwoGqpOVITFFsUlFSUqCug6kHgP
-	 0Mdc0Ou8UEP9byqaiTZZggqkW/GqHtc7olO3ae0pQAO/F3WQJc1eqQ+5ofYk1lX4Xa197
-	 5RrzFhKo4btZXhs9+OFwU/TMMVv8xue39H4tuzPqTq6yvtY5buOMTQZ6VC8kzLr8bdwck
-	 ZYUh6hgJ1w9DkfvEJuq7WO0bSpnyb88dKJQYd+JWT8ydgw74fR6COeB8qfdoXh8xMNxE1
-	 RpqThJCT/5eL7u0NtVfWxW2fdoJ7N7uZwHZXVDp05GnJT+X++J1V3Cm5aamkQ74Cl4Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794414429;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.170
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794414464;
+	b=R+3F97P0WMLjKzE/Zjr1LKBeIWLm/UmReZqJtzgTbySFSuXshh8aPaUIYRrbvor/QCBL
+	 oVOtcW6Q1dhu2sV2683cPbEcJ2hn6+2tTneO0RAKKWxFJCWCTaYvsNb4HmMLcvTPJGZO6
+	 FQ54DKi/lZ84E7PMo9dYiSciNsXMygHu4BmK2jCZcnR4vPiljr4Nkd/w+PZ6fjp5A435b
+	 uBWWDpV6QxjVghY8RizzaGsu9dDOEKnMSdzXnv7jzPan47Du3cq58D7f8vvZn316ha3yC
+	 hHUmuIaZC/G+2JAF63Ros6r3zU2cfjWvu+gYh0rN+QQpqxbEt/dSTr19taps5TLiVHg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794414464;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=kmVh2q2hoDBqiX4Uz/7oHg+C+WnsN1l5lj+X9HPrX/o=;
-	b=nu3m7UfkNhK2UkKIpA1CjIoxr61bED8aSXPG3Bzp1vESwr3ACZhIPsnVA1kTspecA5rh
-	 OmqBlDvgo85QXDcqUWQG0SdeglBUFHcMVBELYioJhz79LBa+CDYOtuAwxTpRNDYda2kJh
-	 Fwl9ZqVyr5ZJ3cA+2AuVvjhmI1kX8VnAjjvDS5E5rI6pkCRB2Mji70hQal5forENivDzi
-	 AbFBW31ZicQQymT+f1hv5qfdqMLmZfCHWDeT/YukFrZwPdqzFg/abyP33WrgCYd3spXud
-	 g4EanAOi1nVj4rA6+Lenii530e0YWNxrA1ukRJ56wTIdniInWCV0jCqNhBU5LPZtGuA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=4xdk0BSQIUx4RwKz5HGHAlu0ZFnzjgWp1hYTFbEu5CU=;
+	b=JhbN3SjWMYMkMPetetWDql3mIJJWWJ6o0F8HlqHfQYhnjGrHvChaoEwb7/S1wQNAnOz3
+	 yxKlasEbQaw11TOJlspnSvVcyQutI7T5Ag4fow0/ZAk7ricMkIGRXsLjCSAS8RCk7UolF
+	 NTYO7muV6InQJiAM/up59/RyUyHz9hj/K+eEclUTlqbqBu4hS6Fqsr3WSrj/zluouBPew
+	 dFOtjG8RaBuP1aPk49e1aQ817Cx6k65UQT7zoNC34oyCuJn8M21TFyV088bKdKfdEISYq
+	 Zh3KtFWOZSnpaM23BQASJ+8ffFAp83A5SB8kjV6YTrbJ2eBzaua7ue2Dwms18pPW3kQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jTbeqADq;
-	arc=none smtp.remote-ip=209.85.221.50
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LVdq0ZL3;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.170
+Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 414ED606A324
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 16:27:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 414ED606A324
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AB79606A32E
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 16:27:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6AB79606A32E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jTbeqADq
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-490585eddfcso2620552f8f.0
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 08:27:09 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LVdq0ZL3
+Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-370f4e5cfc9so98547eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 08:27:44 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794414463; cv=none;
+        d=google.com; s=arc-20260327;
+        b=dbWjm7qX3cHR5p80kvd7qApyxHXVnTZMWAKUU2skfxoS0kCWVUrIpy84lQWdIkIpF3
+         +E2tPiSVu9Gl28vas92YRmYUGQOoM1CCkg92iajIN8NZuPtyWGXaWqvmtWGXgb1AkXrp
+         krf8rKYXKT1qfUn4kzhWQAiz2EtH5H8Iw30ki5tJD6QY616zj4ccUyMsyrSKYaSOUIGa
+         6oPLIlVlFVOfDkHpsWGOxgj2HflC/02fwiR7a5CzdSZ3wFRnkxo4awKIVGG3RCrIyKtD
+         /B831a1H8oDkPbQx82Ev64PPkrBfK/CzprFInOh4xGtdX52gfvovC2XRb6Jr/vsBhdv/
+         eHDQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=4xdk0BSQIUx4RwKz5HGHAlu0ZFnzjgWp1hYTFbEu5CU=;
+        fh=Bruwc+YMso/MR96lX6QFkracpkhUkpgfIwb7AhRmees=;
+        b=VBvysZ5O1BxAz7Rp7eIkVjMohD0F1AlGt3tzfYFq1kYmHt/sMAdRjT/xd+amJgwVOP
+         gbFA23pT2ZG0zRjQvD9kUwuFWlkomIZ9V3hhGnx/WtmMh36LYu/xYJmp1HdtxhAqCLW0
+         0E8rxK6IYXv347o5J1W3v02xJxOoHigoaRY4igxdUxw8G47RIKPNubFOB73aVGdo4nW1
+         r5TF7+dK8QlZYY7KYReA/k58cKhPbyk9ThK8ltKPkcsdLqnGHKjxdZO+0DdJJUtaOQDl
+         ZEWyIjSdyV+I8u8/bf/jLfwNKnxyTzXbP5OigtZW6MNHbt2N44b1sAybUN+rCHcfn1Uj
+         HSCg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794414428; x=1795019228; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kmVh2q2hoDBqiX4Uz/7oHg+C+WnsN1l5lj+X9HPrX/o=;
-        b=jTbeqADqi91Gqw+fkOctkx3GVd3Jt1bpvIADJ5uCM27fyE7hAUwven/vSt0nYCCdFr
-         IqUZTfWY+l6alw8r50Wl2QRxt3+j4t6J7hita6vQzOedaDuSBbz87axGBYTffrWszbsr
-         2RFzJ39hv0MBxTgas0M1UBUYrArmlJks7ReOFU7XOxMc8fiwUcmu/zfz6HpnwmyrJjg0
-         WbGcZmfuWJV64dqx0oKnCONfPx0SX1CFx3v5XASJoxiT7Oz24f5JLebR7/R6yV6tS7bh
-         lVUKeGMPST2tz8dVrYxq2vd2h4XhH/yEEiQtiKdGqeNAe5BmB3wxFyKSs4ZUjucLPqUp
-         FmSw==
+        d=gmail.com; s=20260707; t=1794414463; x=1795019263; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=4xdk0BSQIUx4RwKz5HGHAlu0ZFnzjgWp1hYTFbEu5CU=;
+        b=LVdq0ZL3sZPzYW1pLPrV0cLEj3jwdj2Zg7RoE2RuOl2Hhv3wgcEiaJO901riGgUhRp
+         IRmN3MLywL9Pn7R2fVW8nhJVR+LInKI2Qr5BxzQDfDshUwk+yGiqksCMb7nETFstAL0t
+         aYyyQGr/YToFkc71VnaALv9merv+obCMqfGTJQeotkpUrl9b0/WwXHs7DrLaktruuqtx
+         rS3+69M9Qm3zNCI6D1TF1zXhsnBD2CbJv+rFim55I9GGur6FBs5ZrHlYQ9NKw6Kh71n3
+         O+4cIuAANTLZPxlzg4y+yM++fGnOwYdoJRQG8fWa3t99az16xcQ60brbYKgNLRNuKF4R
+         momA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794414428; x=1795019228;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kmVh2q2hoDBqiX4Uz/7oHg+C+WnsN1l5lj+X9HPrX/o=;
-        b=yi64ZQzEW1fWFL019vfoQnN9fq+bGhIuvpmLCKPCKCbi4pxYH6Yc7DThkhTJ7z72xi
-         LY/5Enx1P3ZLklvfiZokwf76KHa1Vb6QEqZZaFr3A495oGSJGR6LeE4u9gZHkgtYOWYg
-         0z54Z/EHwJZ28fSoW/YsiCD9bd4dgBsT76WoKzHIbXaJ5AhyzD5UZC9SQPsHlheMU9jF
-         dIUPL8OlKSZaw7bUr6JmF9dGJ0BADYyg2d+um20x94bvn8SAs6X+UV51IQJN0YWTP0Rb
-         D9CmRKoX+Wws5styLbhB72ySUKiajKOFfFVgVX7zyU1zD5Q9HHyHze1ZFV38ysDs9UqK
-         wO9A==
-X-Forwarded-Encrypted: i=1; AL+hErH2D0/6i4uZ59c+YK0ec+blHOCPf4UPZ0QNO2yVQRYSxep/Y27FvX1DGqjda0i5TuNJ2LhQMunIKP0mfg8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9/g7+C8N4k4qeaDwSPzt4u/220qd1l7W1tpkVRn0VQGphn+IWL
-	/But4RQNPIPvl0F9s1Uh7WVP41qcEKekLeIonAm5j+74a9a63UQikBs2
-X-Gm-Gg: AYBFou0ZWXFqZ4Eeb4wzJiO5vNRqX9mMDWtb4cBxlTWyeqCmM7jk2H4S8hmxC1aW5Mc
-	4hTUVEDa8wwRs19TwXPw5m9xz+OI+UXUsh4wPMHaY0Ma3RiGTtEbeGSjJP5JSdj9O04nYrvK13h
-	I9nekUfWC7E5vivKLUVUkVzhiZGADcAB2TZGzNJDU2ls5ayHHpKazgH2Oua0ysJP3FCptZJR2jm
-	iGYJqAkiRZRZhtFml73X6GNGZobvPMfvNMIUVSeGEwMUjXZEGnJciBLmCQNXqTmMNWORNyxTnjk
-	4Q37d8y5mMt0piBc5Igx0vF5hIawXmreCRI+fllCa5catum8iroi8c2lvNOVQ535SZqoc3sfhco
-	xGXw7DSjdKZKceq6Ian1wOpGtk03SrC2Dnx+nKFcJ77tEHM3LZH0x0GmGc992VYEyG17wCM7ytj
-	qZ1jUR1Eo5wtiyHEAS5nfxg/S1eWcQDVrg5nrAORXuX4M47xWlJtC55TNzVPunPjI4rIlnd5e2m
-	QTYMyTyxsMKiDrXYOnAhhbW0Ga0HOOddsu63HQZUPMbWFMML5lI7Y2Nd19rmu+qXVgziVn1kPdp
-	U/20y3I6a74kRJzdsP62iGtCl9N40j354g==
-X-Received: by 2002:a05:6000:220d:b0:48d:db77:d124 with SMTP id ffacd0b85a97d-499c4815411mr5481170f8f.6.1794414427394;
-        Wed, 11 Nov 2026 08:27:07 -0800 (PST)
-Received: from build-server.. ([62.96.37.222])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498366c500asm11472573f8f.48.2026.11.11.08.27.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 08:27:06 -0800 (PST)
-From: Mikhail Malyshev <mike.malyshev@gmail.com>
-To: Jens Axboe <axboe@kernel.dk>,
-	io-uring@vger.kernel.org
-Cc: Pavel Begunkov <asml.silence@gmail.com>,
-	Felix Moessbauer <felix.moessbauer@siemens.com>,
-	Josef Bacik <josef@toxicpanda.com>,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] io_uring/io-wq: apply the current cpuset to new workers
-Date: Wed, 11 Nov 2026 16:27:05 +0000
-Message-ID: <20261111162705.1150983-1-mike.malyshev@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20260707; t=1794414463; x=1795019263;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4xdk0BSQIUx4RwKz5HGHAlu0ZFnzjgWp1hYTFbEu5CU=;
+        b=jnOukk5NrXkPghELDwvretoN2z8pDpPyZC5ELsy4CZlwsmyEqN8WrUOkNDJ2tIPTZ0
+         zHj11bXczI3SKbZzgEmachZMTzDLqvcQgoHYt9cW+agXrVT8CwY3BRHY6ovrF9eTAmQx
+         CbfDlFf/8GDA+5pEOJfqntgLqxzHOCvYfnv11DwQME/qRRW+PrbbzsHZiHeK6RTOZLb2
+         f5oCxulOejYPA8R0f5lQam5vTBqbuELyvYtsomXl7n5SUB9OpaMcMRz9X2QPcd5PALtQ
+         YPyNpTkxnaUrNXDUKyTR/1RBUsC92Kk4YnFl7HLojUGx+Orh9TKgQnDnGBRxFftpl7M2
+         Dbsw==
+X-Forwarded-Encrypted: i=1; AL+hErGejvy3UIA8SSknZGdAXE4dVgkhulK1OSgmTf367gxguvqd035KUTglZVkrwHxLjxqnL9cFC/17x7XUWb0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/NkBJzcDLWfTtUcFJzi90+OxlLLKlq7Qm8tUqaJxV48HLs+QZp
+	HF0CZ+cyTdUIpyyivJR+PF77zqL2xQ8xl8iXJndioo9eAx54a/pOm2BsJojsVAGc869N1i7zqMQ
+	rqVVBFNY+hkYr5HK21vJZ5gk8bWBVdYU=
+X-Gm-Gg: AYBFou2D8CzspqxIhPgtTHQp95feJl14LP9kahILzP33kXZmGhcr0tXBBFhTi/sbPUs
+	HZ/jKj+7qBmfHcUHNqoJ4e8a/bpnMDIqOxi2wUjhnstedYJQJQyGJ19Y1gadXEuirmkNqCrk0+Z
+	Ew7BO0VqvW6Y+BLDIGBK0iFjRdP0gNiPBTPC/6JYJSCJHbw0Gmk0nIwvDnBn9r4foTJyV78E0dr
+	B64c62DkgBKDEaqeUY+jQyLtPtQMcPuhgQxGuerDThFF7Bf4tM5xTQGDFtYxZ7nxvTOGktRwVBc
+	ib5iBczO9DBGCCAkTuEgPVr3HubOZ78sFUW1Z2mLu3szP6mZe+IYHB53LwOAfmqueSukLBAnDY/
+	gesw1EtfYX/aY0amFwqE1Pjz0Yuzbns6hwrkH7TMYXbeqoP2a3MNrR+5Gr8q6eeOw50sgDh7q1M
+	CCunsTzl8TAwGtInbQnpQC2X4pXchohwkQ86MGUUBDIEb4HV/waoFYCiELFY5NpoLQ3VdYGzhsv
+	0dVd3kZiAhE6eepPg27KIRAw8mv1A3hoVA=
+X-Received: by 2002:a05:7300:7aa5:b0:36a:e7a:e89 with SMTP id
+ 5a478bee46e88-37685c76d17mr4975850eec.2.1794414463417; Wed, 11 Nov 2026
+ 08:27:43 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,156 +106,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <avSC7GXOwnbuycR8@sirena.org.uk>
+In-Reply-To: <avSC7GXOwnbuycR8@sirena.org.uk>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Wed, 11 Nov 2026 17:27:28 +0100
+X-Gm-Features: AclHuK8AgFv2RXK-XtwjJ8NP3w2QWHz_WEO_LIt_zbf7rr4iTP2nvLvmm5WOtgA
+Message-ID: <CANiq72nu0CQtZxODepvZOEoD0biE56Jx_2-exBvB8psL_Ynk8g@mail.gmail.com>
+Subject: Re: linux-next: manual merge of the rust-fixes tree with the
+ kbuild-current tree
+To: Mark Brown <broonie@kernel.org>
+Cc: Miguel Ojeda <ojeda@kernel.org>, Douglas Anderson <dianders@chromium.org>, 
+	KBuild Mailing List <linux-kbuild@vger.kernel.org>, 
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
+	Linux Next Mailing List <linux-next@vger.kernel.org>, Nathan Chancellor <nathan@kernel.org>, 
+	Nicolas Schier <nsc@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Since commit 84eacf177faa ("io_uring/io-wq: inherit cpuset of cgroup in
-io worker"), io_wq_create() copies the cpuset of the creating task into
-wq->cpu_mask, and io_init_new_worker() gives each new worker that copy.
-A cpuset change, or a move of the task to another cgroup, updates the
-workers that exist but not the copy, so workers started later run on
-the CPUs the cgroup had when the io-wq was created, which may since
-have been given to other tasks. Workers come and go for the life of the
-io-wq, and a worker that cpuset moved is also retired at its next idle
-timeout and replaced on the old CPUs.
+On Wed, Nov 11, 2026 at 4:00=E2=80=AFPM Mark Brown <broonie@kernel.org> wro=
+te:
+>
+> I fixed it up (see below) and can carry the fix as necessary. This
 
-Keep wq->cpu_mask for the affinity of the io-wq itself, all CPUs or the
-mask set with IORING_REGISTER_IOWQ_AFF, and intersect it with the cpuset
-of the worker when the worker starts, falling back to the cpuset if the
-two do not intersect, as __set_cpus_allowed_ptr() does. Use the same
-mask in the idle exit test, and go back to all CPUs when the registered
-affinity is removed.
+Looks fine of course, thanks!
 
-Fixes: 84eacf177faa ("io_uring/io-wq: inherit cpuset of cgroup in io worker")
-Cc: stable@vger.kernel.org
-Signed-off-by: Mikhail Malyshev <mike.malyshev@gmail.com>
----
-Tested on x86_64 under QEMU/KVM (8 CPUs, cgroup v2, PROVE_LOCKING,
-DEBUG_ATOMIC_SLEEP, CPUMASK_OFFSTACK) on io_uring-7.4 with and without
-this patch. A test program blocks requests in io-wq workers around
-cpuset changes and checks the affinity of every worker:
-
-  case                                          without   with
-  cpuset 2-3 -> 4-5, new workers                FAIL      pass
-  idle worker retired after the change          FAIL      pass
-  cpuset grows 2-3 -> 2-5                       FAIL      pass
-  task moved to a cgroup with 4-5               FAIL      pass
-  IORING_REGISTER_IOWQ_AFF 2-3, cpuset 3-6,     FAIL      pass
-    then 4-5, then unregister
-  CPU offline and online                        pass      pass
-
-No lockdep or sleeping-in-atomic reports. The liburing test suite gives
-the same results with and without the patch (iowait fails in some runs
-on both kernels: 5 and 7 of 20). A liburing test for this,
-test/iowq-cpuset.c, follows separately; it fails without the patch and
-passes with it.
-
-The cost is one cpuset_cpus_allowed() per worker start and per idle
-timeout of a worker, not per request: 0.3-0.4 us against about 60 us
-for create_io_worker(), measured with the function graph tracer.
-
-The patch applies unchanged to for-7.5/io_uring and to 6.18.y, where
-the results are the same. The bug was first seen on real hardware with
-6.18; the fix was tested only under QEMU. Not tested: architectures
-other than x86_64, and cgroup v1 cpusets.
-
-This patch was developed with Claude Code (Anthropic, Claude Opus 5.5).
-The problem came up while I worked with it on CPU isolation for VMs in
-EVE (LF Edge): asked whether QEMU's io-wq workers can appear after a VM
-has started, it found in the code that workers started after a cpuset
-change keep the old CPUs, and reproduced that. It then wrote the fix,
-the changelog, the test program and the QEMU setup, and ran the tests
-above. I have reviewed the patch and the test results.
-
- io_uring/io-wq.c | 44 +++++++++++++++++++++++++++++++++++++++-----
- 1 file changed, 39 insertions(+), 5 deletions(-)
-
-diff --git a/io_uring/io-wq.c b/io_uring/io-wq.c
-index 92df54c6f50ca..f2f3c3aad19b5 100644
---- a/io_uring/io-wq.c
-+++ b/io_uring/io-wq.c
-@@ -741,6 +741,34 @@ static bool io_worker_retire(struct io_wq_acct *acct, struct io_worker *worker)
- 	return false;
- }
- 
-+/*
-+ * The CPUs a worker of @wq runs on: those of the io-wq affinity that the
-+ * worker's cpuset allows, or the cpuset if they have none in common, as the
-+ * scheduler does with a task's requested affinity when its cpuset changes.
-+ * Read the cpuset each time: it can change while the io-wq exists.
-+ */
-+static void io_wq_worker_cpus(struct io_wq *wq, struct task_struct *tsk,
-+			      struct cpumask *cpus)
-+{
-+	cpuset_cpus_allowed(tsk, cpus);
-+	if (cpumask_intersects(cpus, wq->cpu_mask))
-+		cpumask_and(cpus, cpus, wq->cpu_mask);
-+}
-+
-+/* Is the current worker on a CPU that a new worker would not get? */
-+static bool io_wq_worker_off_cpus(struct io_wq *wq)
-+{
-+	cpumask_var_t cpus;
-+	bool off;
-+
-+	if (!alloc_cpumask_var(&cpus, GFP_KERNEL))
-+		return false;
-+	io_wq_worker_cpus(wq, current, cpus);
-+	off = !cpumask_test_cpu(raw_smp_processor_id(), cpus);
-+	free_cpumask_var(cpus);
-+	return off;
-+}
-+
- static int io_wq_worker(void *data)
- {
- 	struct io_worker *worker = data;
-@@ -819,8 +847,7 @@ static int io_wq_worker(void *data)
- 		}
- 		if (!ret) {
- 			last_timeout = true;
--			exit_mask = !cpumask_test_cpu(raw_smp_processor_id(),
--							wq->cpu_mask);
-+			exit_mask = io_wq_worker_off_cpus(wq);
- 		}
- 	}
- 
-@@ -870,9 +897,16 @@ void io_wq_worker_sleeping(struct task_struct *tsk)
- static void io_init_new_worker(struct io_wq *wq, struct io_wq_acct *acct, struct io_worker *worker,
- 			       struct task_struct *tsk)
- {
-+	cpumask_var_t cpus;
-+
- 	tsk->worker_private = worker;
- 	worker->task = tsk;
--	set_cpus_allowed_ptr(tsk, wq->cpu_mask);
-+	/* Without a mask, the worker keeps its creator's CPUs. */
-+	if (alloc_cpumask_var(&cpus, GFP_KERNEL)) {
-+		io_wq_worker_cpus(wq, tsk, cpus);
-+		set_cpus_allowed_ptr(tsk, cpus);
-+		free_cpumask_var(cpus);
-+	}
- 
- 	raw_spin_lock(&acct->workers_lock);
- 	hlist_nulls_add_head_rcu(&worker->nulls_node, &acct->free_list);
-@@ -1369,7 +1403,7 @@ struct io_wq *io_wq_create(unsigned bounded, struct io_wq_data *data)
- 
- 	if (!alloc_cpumask_var(&wq->cpu_mask, GFP_KERNEL))
- 		goto err;
--	cpuset_cpus_allowed(data->task, wq->cpu_mask);
-+	cpumask_copy(wq->cpu_mask, cpu_possible_mask);
- 	wq->acct[IO_WQ_ACCT_BOUND].max_workers = bounded;
- 	wq->acct[IO_WQ_ACCT_UNBOUND].max_workers =
- 				task_rlimit(current, RLIMIT_NPROC);
-@@ -1574,7 +1608,7 @@ int io_wq_cpu_affinity(struct io_uring_task *tctx, cpumask_var_t mask)
- 		else
- 			ret = -EINVAL;
- 	} else {
--		cpumask_copy(tctx->io_wq->cpu_mask, allowed_mask);
-+		cpumask_copy(tctx->io_wq->cpu_mask, cpu_possible_mask);
- 	}
- 	rcu_read_unlock();
- 
-
-base-commit: 39c7210e970200f8b17de3767c73efe64173a95f
--- 
-2.43.0
-
+Cheers,
+Miguel
