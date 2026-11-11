@@ -1,86 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=43.163.128.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794404224;
-	b=J0Ouuvtv54Ay6PSO5ozMjyD0JZCkxUyi2MA0WQj0dLlbR0lvyf5ycK3SzN1gY/wnqKmD
-	 HrsNBIFiFYHDp9QPunZFqyKw8OmmLTmSel18R1Z8YTd/4ArGiwgpY8j/R9RMcWvSrbGb+
-	 fmpB43l6XZ4cmIC3Fg1T+JCgxaqv2VIjVpAAvX4VVlCWxwh+WMWaQoYgqFIn0LYy5defc
-	 20zHEG/EK7+TqaovIvPJ8K3E6lDu//P4P1Ag5W26lDTtF64iiiZMVi/Ye2FF2dDTvg3/7
-	 xXgU69pKJ1T5qh2ychc4GAhi+WQ770/5rhaK0MFpiI6s16mtDTE4FO6J9/i4GbP3Fdw==
+	t=1794404253;
+	b=AIckC/+1tghZYJJzTNtUAnuvSVspi8lovAYamPogwIiu1AIiq81FMHuBH2oqz+u1XYBw
+	 0d5pOPEtToSE4ZTfZ8obomDURCT20uMGUax2ZwgXggn1oueG2LD6F10WwIL7Ed6rCmdj7
+	 j+fP2337k0YJ75Csb3sJV7AHaQtth6ysp2AiZeBvaJdoDc5zp9TPNtZ08ZWebdLA5+t5L
+	 6yZoTlAE9Sfu7mavA3Sy+XF6Zf/Si/PqwOCB4ENxHqDj9lI+e5nBrhJYXaXeZr1pT3Tce
+	 8cxG4cdLFdmyrCkSbSUlPtL44jJ6/W2bpZ4snCMg3iVPHxMJFAjmaWbioAsLpmYbUxg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794404224;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:Content-Type:MIME-Version:Content-Transfer-Encoding;
-	bh=YNMcThRxFtGYoOB1SNTqBnwuJmm8ZLqZ0H+tPlZJ35A=;
-	b=XtsQYUWaDzrSijhdAZxVvE9pHG377iY89cihMUUQnxrY2Bc6qPMpZlq5kkQGAj7OR/jH
-	 jbieZ5X6QyTzqDrA9y7c1tPlXkk5uBJGpwLtpXwwPQQlvKyconOa585GyIzOaJCJQRcYa
-	 uSBfiKr4AQwNXZ5H3CGgysJmRcuDKe8OTKYwzEZR2H1QrqvHAegjGYj1Lkzn0Jbfa+tP0
-	 1GzWD491KwF8WMqU1HrlcYPD338tMle01xo5o22WNqT+0AqLqZlshyIgQTwIOmlYstIuE
-	 d7Km8OysuKbTA2+CLZIg0bBi1qRiWsqnitPuI5xPM4vdSx7jjOt7WqMpeU9V2duoLAg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794404253;
+	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=v/XnkVND7TsTxq/odAIiRN0hPdLg6CJMukesjiTzxG0=;
+	b=oBc43BA8CRvcb+zsP2i6P/jcVXZYgkIvcdUI7x03eqpb31mO0TtcXVV31Jmqs8CWf6x6
+	 zf9clETbnOtXMpdgLTVVIrv96nBUFr/CGZdhCzkK7PihS2YdJId9tAFW3CDOhkMIHCvkk
+	 9ym/FbnYbpkzu8c7jNppggdo71dxuDrTNlCsBf4nsQHFGfi2ni/JQ/H34H1Qt9x2cCYj/
+	 Z7N0sMdL/xJNacY2iZJmQL8Um7KvYBWOCFilsK2IPIXSVQdORBgeGY0qchcUqTzgya6Y/
+	 YNHwAlD0J0bHb1d+V7AvXL/D3rATEJlQ5QDH19lJjR6BdoPJoAhoUiJAl28N3IFs/Eg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=bbH2ZVMZ;
-	arc=none smtp.remote-ip=43.163.128.47
-Received: from xmbghk7.mail.qq.com (xmbghk7.mail.qq.com [43.163.128.47])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=VDRY8Wi5;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=nRWpizR8;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD2D1606A333
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:37:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CD2D1606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A30E4606A324;
+	Wed, 11 Nov 2026 13:37:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A30E4606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=bbH2ZVMZ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1794404214; bh=YNMcThRxFtGYoOB1SNTqBnwuJmm8ZLqZ0H+tPlZJ35A=;
-	h=From:To:Cc:Subject:Date;
-	b=bbH2ZVMZ4rMG3H8Yo8V1P2c+5ELpaq1u9HeMLbIegIwNONPwra3KJXSEW9+NWfYnA
-	 fLxNi1eak2EGqmArrRCAxnHB9CEFt2Vqo3en89/Mqw8XNxHIqlLz/Cgr7JvsLwoiXt
-	 i0LxLObGxWHLDBjhS5SlrQ2KQ2P1H097sSjwCgxI=
-Received: from ubuntu.. ([112.3.92.91])
-	by newxmesmtplogicsvrszb51-1.qq.com (NewEsmtp) with SMTP
-	id 9320F8A0; Wed, 11 Nov 2026 21:36:50 +0800
-X-QQ-mid: xmsmtpt1794404210t734l17yr
-Message-ID: <tencent_AA4F39DA7ADE330C721C03AAA832B92DD608@qq.com>
-X-QQ-XMAILINFO: MB5+LsFw85NopabHnG9nGmy8nTiaVLknyr6iQK7TrHN7teA/C1fjHudoRSXoBW
-	 rYc54eeBNen1X0lJwN2CxR1kzmYhi6aZGz5N4WnH6jtOnjF1TfMVib68fUJ5cZLbVJZFgPeZTrB1
-	 T7kV5lyNKcX3p1X881RjCVLZOJbQHBU7hmzJUwGuUdK27zEAI6KenwZLrQwWbZ8t4KpmG1OHiyYj
-	 FcotxILPRLcdcYQJubmv8M9hzzVOdU0ozYrPqEAioaQfiHDGJ6tfkNaCFynrrFz7iwpNRgJGgy0J
-	 /MQpfEp649S26r8TDkZgbTiUiDna47/vr0WTPqv51DljgsFtt0qtmcixMM+rN5speI3wM1483/rj
-	 KBnxqE1yV1+Ytdg23zs3nHvFU8eaTcQ8du7woXjZ2nTevDYkClN724/DaEbTh3YaDKMo432ppmF0
-	 X4TDAL8xSW/Q7QFVw0B0B2p6PGh9ffv+zeechWzTKS3z+9zL2Q59yflvQ9xKUacieTb49qaoGGCJ
-	 mSmFsxuLnoimU3a3hZS9C5Pxd4aNZ4fT1tEjGd+IeOVcNkA6T8XkybxzxP/Fk/5HnxYKitXQH/2Q
-	 GC/SMTI9vuHoVNAnaP2JdF1UzlJNVWfvm/5UBGw0Zy4XVEsjurPQqVqp+u+FUqUuhmP1vVAcnHMa
-	 R35I8t9aIOiasSz6RdsL8OwnOK2LbMEZZeaTPaF0jGcCS03DPuJj3D4gG5rPzAZeS/B5XqgX8Cr4
-	 hjusz+ryfumzHeflcar957hg8hysHVH6pV4KcgqhHwmUBCtCpj1yK+pFV9nhFUmjayByz/b4oSA3
-	 PawWZvZ6+uwI6Xe4zEgs5J+7H7oqQncM+na2OSvzbYyxDwsH71+EqcLNYTFVkdgWtPR2bexG7xcJ
-	 8g7wCM+c0NyPEdep596EC68Or2vcqSkxCf1julZwilgkSpRa4ISHDlsMf8zRiUeoUagkYgoE03kd
-	 WnEIgRTqyz2XixpU3ruyruPYziUD3kQ0h1cQNqjv33QM+hkMBG5uzbSHQYGBbD0O3PYnAePCbPfO
-	 kPVOiyc1FfEh3kgLkztJOQGUvazESNgJ2hDO5lpy8BO96EEBjTjt/E7DygWlab5KqVFKviIxQHtc
-	 B/yAi9qy6HUyitUC5534EUDs5OnKnLJtJu/EL6FZwWG6vL2Zw=
-X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
-From: Congjie Zhou <zcjie0802@qq.com>
-To: netdev@vger.kernel.org
-Cc: mst@redhat.com,
-	jasowangio@gmail.com,
-	eperezma@redhat.com,
-	xuanzhuo@linux.alibaba.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	virtualization@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	zcjie0802@qq.com
-Subject: [BUG] virtio_net: RX stall caused by masking callbacks after NAPI
- ownership release
-Date: Wed, 11 Nov 2026 21:36:10 +0800
-X-OQ-MSGID: <179432914786.2.117574289414299585.virtio-net-rx-stall@qq.com>
-X-Mailer: git-send-email 2.43.0
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=VDRY8Wi5;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=nRWpizR8
+Date: Wed, 11 Nov 2026 14:37:28 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1794404249;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=v/XnkVND7TsTxq/odAIiRN0hPdLg6CJMukesjiTzxG0=;
+	b=VDRY8Wi5Fq1KdkSK3JL+gYw/U7wHX8s34x4I28496P/84nz5jFPEWovH4HvFRE4K431Yqb
+	WUhJ18r+bUzDm3YgLQCzIqkLflkzv918A7op8hiiE4fJuIW+OcCZP1sEE+bGScVYl9GlIS
+	K8eQoF5O02skIuiGebVG1imDL/awdmxv/Atg/FilfE8Y/63sGQ9MjGrhB2VJHgi3V4n41D
+	D4l/4yLspxcxG6uSA2PT88EOLlCo2HeObO6smMmFzmMgYvr1GNdu2mspt6T3abx8jgszn4
+	WbZUyA9AWCfLlCmTwpsjpS4m/AYArEHVk9Eh5rjmMQxHQcRReoYgVV4jFbRu3Q==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1794404249;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=v/XnkVND7TsTxq/odAIiRN0hPdLg6CJMukesjiTzxG0=;
+	b=nRWpizR8cBGGwsexVShuXZ3RUsYyFkRJXV0Wkw3czjei+tSbqeK4CWUpLZKRgxJfk6c9rk
+	w1G639mgNacYXVDA==
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: Randy Dunlap <rdunlap@infradead.org>
+Cc: linux-kernel@vger.kernel.org, cgroups@vger.kernel.org,
+	rcu@vger.kernel.org, linux-doc@vger.kernel.org,
+	John Ogness <john.ogness@linutronix.de>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	luca abeni <luca.abeni@santannapisa.it>,
+	Yuri Andriaccio <yurand2000@gmail.com>,
+	Yuri Andriaccio <yuri.andriaccio@santannapisa.it>,
+	"Paul E. McKenney" <paulmck@kernel.org>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
+	Joel Fernandes <joelagnelf@nvidia.com>,
+	Josh Triplett <josh@joshtriplett.org>,
+	Boqun Feng <boqun@kernel.org>, Uladzislau Rezki <urezki@gmail.com>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Lai Jiangshan <jiangshanlai@gmail.com>,
+	Zqiang <qiang.zhang@linux.dev>, Davidlohr Bueso <dave@stgolabs.net>,
+	Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
+	Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>,
+	Qais Yousef <qyousef@layalina.io>
+Subject: Re: [PATCH v2 1/7] sched: Mark RT_GROUP_SCHED broken
+Message-ID: <20261111133728.6RfqZWwx@linutronix.de>
+References: <20261110-sched_dl-v2-0-cc9399f7aeb1@linutronix.de>
+ <20261110-sched_dl-v2-1-cc9399f7aeb1@linutronix.de>
+ <1927ace7-86f4-463e-bdda-b3a5bc300eb2@infradead.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,66 +100,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <1927ace7-86f4-463e-bdda-b3a5bc300eb2@infradead.org>
 
-Hello,
+On 2026-11-10 09:42:00 [-0800], Randy Dunlap wrote:
+> > --- a/Documentation/scheduler/sched-rt-group.rst
+> > +++ b/Documentation/scheduler/sched-rt-group.rst
+> > @@ -18,6 +18,11 @@ Real-Time group scheduling
+> >  0. WARNING
+> >  ==========
+> >  
+> > + This document applies to RT group scheduling provided by CONFIG_RT_GROUP_SCHED.
+> > + If you don't use, schedule real-time tasks and experience throttling issues
+> 
+> -ENOPARSE.  Is that:
+>     If you don't use or schedule real-time tasks and experience throttling issues,
+> 
+> 
+> 
+> > + please look into Documentation/scheduler/sched-deadline.rst and there for the
+> 
+>                                                                 for the
+> 
+> > + fair_server.
 
-I observed a persistent virtio-net RX stall on Linux 6.18.58 during a
-multi-threaded TCP receive workload. After the stall, the RX virtqueue
-contained unconsumed used entries, but its NAPI instance had no owner,
-the NAPI timer was inactive and virtqueue notifications were disabled.
-The receiving TCP threads remained blocked waiting for data.
+Thank you. I have now:
 
-Completion sequence
-------------------------
+  If you don't use RT-group scheduling, schedule real-time tasks and experience
+  throttling issues please look into Documentation/scheduler/sched-deadline.rst
+  for the fair_server.
 
-The completion sequence can produce this interleaving:
-
-  old poll                         successor poll
-  enable_cb_prepare()
-  napi_complete_done()
-    clear SCHED
-    arm watchdog; result=false
-                                   acquire NAPI
-                                   poll, enable callbacks, complete
-  return false to driver
-  disable_cb()                     callbacks are now masked again
-
-Root cause
------------
-
-virtqueue_napi_complete() calls virtqueue_enable_cb_prepare() before
-napi_complete_done(), then calls virtqueue_disable_cb() if completion
-returns false.
-
-A false return does not guarantee that the old caller still owns NAPI.
-The hard IRQ deferral path can clear SCHED, arm the watchdog and return
-false. Another CPU can acquire NAPI, poll, rearm callbacks and complete
-before the old caller reaches its final virtqueue_disable_cb(). That
-stale mask overwrites the notification state established by the new
-poll.
-
-The watchdog is one-shot. If it has already run, there need not be any
-remaining owner or timer to recover after the old caller masks the
-queue. This leaves later used entries without a notification-driven
-poll.
-
-Current source inspection and local validation
-----------------------------------------------
-
-We reproduced the notification-loss condition using a deterministic
-KUnit fault-injection test on the latest mainline snapshot fetched on
-November 10, 2026 (7.4-rc2, commit b3dfbde62cf1). The candidate fix
-passes the same test.
-
-Candidate fix
---------------
-
-I have prepared a candidate change that masks notifications on the
-relevant completion paths before NAPI ownership can be handed off,
-rather than masking after a false return. It adds an ordered,
-non-sleeping, idempotent mask callback to a new completion entry point
-and uses it in virtio-net. Existing completion callers retain the old
-API. virtqueue_enable_cb_prepare() remains before ownership release,
-preserving the ordering required by the earlier RX virtqueue race fix.
-
+Sebastian
