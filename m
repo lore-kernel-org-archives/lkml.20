@@ -1,73 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794387737;
-	b=dWACyYMtIvXlQKFHyaS2/8+6SH2Cv7pnphVSj9DA6XFhhmGa+ZNJxf9vZKJ8d/AtN4gW
-	 6l/euMKN1BagYluWJOUad8NIDFE9rR83+16TnbRHR4Xf47brnNtzz9SmARJJRsSeSCFgK
-	 Me5gocqS3lr8wz9JyEx+0WofJ+m0pUiVnhj7fnXxTB+SnPkFYte5XKPDmrm3AspIcNki7
-	 qh3lERzG673bpkd959lYmi4rxifdH1FBiT8bse0F89yjeQ7KHOAGyEfm4iOTnjZRqbdhd
-	 LU9PnyB3HhFXfqmVNJ8dosq9eKgF/mhVmdhFirxZnCDmoMSKbsII9RYFRDri6xNQ5XA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794387737;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=KD+midAiex6FN7cbjzLrt8rXUDeZcRp9uHeF9WBYzgs=;
-	b=hAE30UgYiwRDrfQehjmVIZbD6tNZfw9vsC/4fQp8zx5IqsZmKYvAg69wdXzbINHpw0y0
-	 KjqZFb+riN315L0gghL5gd9eNr7cayoOKbSN/MACaW0RfttzQTj11bTWNO0oclnMYVhsk
-	 kmGL1ueZ9Jr4bxllcWIr6wRavrk29ziyV29GtPNJRrL3ffRvT34Kd7dOh44cFMpeaSglF
-	 4IicIdbvSof4cNuIfR1NkCV1dp1ApScLW8oRD+UJWX2BZRX/5klIhsgQtkcZd6h8JSdLm
-	 r0xGdjm5CFvkjG+jdmP2cajJ8qeU+Tq9ZaH5TRksyBP41ETPivoWGeaTMmpBKpEQoKQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b="c/bGLBC4";
-	arc=none smtp.remote-ip=90.155.50.34
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.160.175
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1794387748;
+	b=InBtbKd3yGTSKIiVsFiuRZqB7wFIXc4BJT8/RHLN4gUsGG8S7lv6mvcvCxTc/S77aFf1
+	 938WtWdvtOPJ6JqH/01DOMwmjiKsKe60UNd0enuOZFlBTgpa15shsqTawMBQgX3ChzuCD
+	 EBsZJBX+yLL9KgjC4SINtNyJRCkCIZ66daW8ca/lYMBxgRG7s7ZnwAhrOeUyC8bJxRZgd
+	 UbsP07nmdmOp4vIOFoN29PF5T7qSrywh5Knna88g6r3ycieyQVFFFoSOyERTbTGDHTLQ8
+	 IipGM55juSy0zEQiFRVAaXL4wnWGQ1Jg9tl2iIJTHZztlhm1GpwsYxoA/ClPFc3WNbw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794387748;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=IjyYgf5Mt5Oaaa+hEYrZohiloVo+c5H01zKLrOs5Ypw=;
+	b=1rLdUUOUI8oCuIj42DdIqXHXCBHvzmHt+HXdKqCq+5GtEvItciZoHRyvS9cXm40BptMP
+	 UUcMpr7jldcAvtKwObd3GnWtbkuJB8dS8e4yuRyT0jB1AOVXWcTwZTlArUJ1HEUEvwuLR
+	 MdTwKVvPbIeheVAkSLxHIgYofoqKgfD6jy0FIiaR1zohEE7Bf6sDC4bOqJh+159kq8CKG
+	 7CC1i1I0EX4vEHz3w/hRs+9xMBnc/TIYuOBZDHAl8LgDZZPtnM5r/mS+MpBIII3CFhvVw
+	 rGrrVfDvWKK77SmiOUgUCu9+gh01lEFd6Inb65bKtXIBnmsyByRwuvrQV/Ely5GgbOw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=szeredi.hu;
+	spf=pass smtp.mailfrom=szeredi.hu;
+	dkim=pass header.d=szeredi.hu header.i=@szeredi.hu header.a=rsa-sha256 header.s=google header.b=ZG1wV17q;
+	arc=fail smtp.remote-ip=209.85.160.175
+Received: from mail-qt1-f175.google.com (mail-qt1-f175.google.com [209.85.160.175])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58BDD606A326;
-	Wed, 11 Nov 2026 09:02:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58BDD606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2250606A326
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 09:02:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2250606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=szeredi.hu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=szeredi.hu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=c/bGLBC4
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=KD+midAiex6FN7cbjzLrt8rXUDeZcRp9uHeF9WBYzgs=; b=c/bGLBC458ggf7hNHqBNDG2RaR
-	f1GL0aZJxkgURl47epFng8HPvxwjO3/EcMyBQCrM0s39eVaSq8WNvma2X3rhU2XkTdazBcsf49JOa
-	+WmunSdDOCoH3cwAZ9CUWTux2O1Nij9KBBbGXB0wlaasv3snZ3v0BRV4qtBiwVSQV/UsvgvZJ05Ax
-	XH8y/d8rURPw0hnZGfjVohhNkdI7rCFtOi1Fs6u+Sto0jvFumT5jXz/KyZdfjoxw6rqRghVWRJ5rE
-	Ps0ie+MplwYHFrwgs27w5dlWYkVtXq0FlzHzh6zSu+6hYVRIj+E+5Txip2oOV2aAusr/ZJwTW5wdT
-	BSnJEEyQ==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xR4DM-000000088k2-1iYn;
-	Wed, 11 Nov 2026 09:01:56 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 19EBA30025D; Wed, 11 Nov 2026 10:01:55 +0100 (CET)
-Date: Wed, 11 Nov 2026 10:01:55 +0100
-From: Peter Zijlstra <peterz@infradead.org>
-To: Vincent Guittot <vincent.guittot@linaro.org>
-Cc: mingo@redhat.com, juri.lelli@redhat.com, dietmar.eggemann@arm.com,
-	rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de,
-	vschneid@redhat.com, kprateek.nayak@amd.com,
-	linux-kernel@vger.kernel.org, lukasz.luba@arm.com,
-	rafael@kernel.org, linux-pm@vger.kernel.org, tj@kernel.org,
-	void@manifault.com, arighi@nvidia.com, changwoo@igalia.com,
-	sched-ext@lists.linux.dev, qyousef@layalina.io,
-	christian.loehle@arm.com, pierre.gondois@arm.com,
-	sshegde@linux.ibm.com, kayracizmeci@gmail.com,
-	tim.c.chen@linux.intel.com
-Subject: Re: [PATCH 08/20 v3] sched/fair: Add push task mechanism for fair
-Message-ID: <20261111090155.GF2668564@noisy.programming.kicks-ass.net>
-References: <20261106151947.3991524-1-vincent.guittot@linaro.org>
- <20261106151947.3991524-9-vincent.guittot@linaro.org>
- <20261109155418.GL1779021@noisy.programming.kicks-ass.net>
- <CAKfTPtA-nrgGQGcBPqNoPk4atOHakyZK9Fk-4AsrHBrnvPXTLQ@mail.gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=szeredi.hu header.i=@szeredi.hu header.a=rsa-sha256 header.s=google header.b=ZG1wV17q
+Received: by mail-qt1-f175.google.com with SMTP id d75a77b69052e-5495d549924so30110701cf.1
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 01:02:27 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794387746; cv=none;
+        d=google.com; s=arc-20260327;
+        b=YgrGbGYYmE8xv508bdyx/CitiV+BT01tUfCra2Jfs7f2g2yE1V33qMKdCfFl2XwSO7
+         pqRKSdjhhRx37VrULwJkgzmPUze/ievBYZPXsuHiUxbGyZdYyVD5os+KmIrZkMTGqRt4
+         kiwMFCJHgbg3btYtc2JM8yyxFOg/MYpbS/CYzUUknU9LOmRLedBxQRnbQi5QzpZm6nc3
+         4OdwcccLJKDkpnJO2AyA2brChWxu2GuKp4wUzVYDlw6kRJPjuAlKtsyfIzM+XnrAWKG5
+         J7n10PbW8ymLN1DqFz9R2NFhbYUgeDdQbPjLQ5NyloJ3LWHTKfqrsyOetFSSqRGgKBFP
+         G8uQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=IjyYgf5Mt5Oaaa+hEYrZohiloVo+c5H01zKLrOs5Ypw=;
+        fh=HoH6uu7UjNyKwHls5b3WIw9omHnNblBsSrOBQqlUsvE=;
+        b=lxU6r0jVyD0TPbGsBGZbu5BHoAFtO6L/zmv71cV4RGMQv05ZjC6HxXc23mB5urAeLH
+         5x7Ld+h7IORK7RI1McVtDyhcZVRUwV2/xkdTgDcrFGTOBI5bC+M2UtFfEXTR5ziw2x1A
+         hmw1Zd79kxxSaVbJFDTqPwf0jrtt9izr+Plpm2fNCs6RfOMPnQqk5YduEodwBJhqgCtx
+         R/MHqaZCglhpXOx7izuaGxH/9JCMc/hejGMrYpiXUPHYafo+vLkiL+d6U6rrhhtbo0Os
+         7pASP+o0vhm80baHjSiTR4X7Z7U3YAvbDnyIpPXQKlPsaI/9/eXhCwvaPZrxiMCunI2z
+         pgnA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=szeredi.hu; s=google; t=1794387746; x=1794992546; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=IjyYgf5Mt5Oaaa+hEYrZohiloVo+c5H01zKLrOs5Ypw=;
+        b=ZG1wV17qi7k3y+OgTB9oJ+Iq3qqKdjhEB6Voe1crPeuwQy0wcDNfv/bdudwdrfdRw3
+         ADLgOcPbh/kgKQc9CUfDrcimVHeDxii9BVyDhy8gtwLRFQrYbBk+hajpv+6KgFLrz+NI
+         al6FswZ2+KsdhNnysas3fU0YuIKpHZj5CWMcc=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794387746; x=1794992546;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=IjyYgf5Mt5Oaaa+hEYrZohiloVo+c5H01zKLrOs5Ypw=;
+        b=YxDJJtnDeg3g2lT/rXZfnsfVxCgFALGXHsp9poj+peargtHqdOLCBMM1IuXiOmDhO/
+         LpvbGtwalpSkSCSwO9uLFdpAMgcsQFY9eRF0yrVyWRVHmmIjVylx34C3mdchEFl4leMQ
+         xD+rQI5N7tzpRPzm8KLAhCuMLgUwEVZxBatmHzNp9hwyX80dr2MqZwR/WjYFU1rBqFja
+         6CXaww8I4eExDUzUFqy0WXRN9rqd9KyFZjNA3gShqzThHEojk3MjSYPIEt2Y+peAkJSa
+         l0SSZcAO/straW7lolkgOzeQPBXygMSZJMOl67Io3aNe+HONFd7lbIFpK5ECZi6tXQWE
+         qwgg==
+X-Forwarded-Encrypted: i=1; AL+hErGre/fy7WuKMoXNJ96Ldn/a6pGVCUWV5e+Vf45VdTJMaQ0HLy6T55+CMxwDEWKwEqU7dW14fNM5fgBwksM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9tokIs20G/ozj4m4SL+oKcKYZykf0tJOM3hyAqSSBhKwy3oYWb
+	iRASVd64NKeYikYCm817JitVVN9e4LC3mMEzas5lyjf+km0tYEFSaM6ScA2tnTa6briJjVcqJWF
+	FI+dI/4SiX/vO/8vtTyuGQa4dGeHAtrQG9s6tZpzlkQ==
+X-Gm-Gg: AYBFou3DVWaJFPH2nNIMSAL/XS+W3RVEOSL5CF3If7oEKyaAOSZHz+C9WImrGaeln1M
+	KVZm+uaD9hUOVvlZOauNXW6qb9WmcIQ+cggSOFn1Dnk/ajMloIlZIxjw3SKVpVFkMT+5ClGkNOP
+	fWmet11x5mY2ALI+o/AzlICcT8/SRWE+wl+GHzKUQh5Eh7GJHtt7XgHbKm+Ni9oyjFzIdX6SePm
+	uCtrczJXqLGVMRXl051Qa4ejMNaQnyUpuMLvgI2v/vUfppNYY5wavPn1Jk8mgeApKLzDohPINXU
+	6WUiEp/X0NSYs43pCZhfQyVmD8FPevtQ+gtdhOGjqgrsOdDrAEhPzpCsGZ7LPf3EE5LIG2yljEe
+	Uk+plKYv4ap9ZZLNkGfzVul6IawM9HNJ7kg6nfElI9C5cOhR/TwSqwu0ZOAXFx1n1hA==
+X-Received: by 2002:a05:622a:34d:b0:536:8f5a:64a with SMTP id
+ d75a77b69052e-556c222b82bmr24946931cf.63.1794387746372; Wed, 11 Nov 2026
+ 01:02:26 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,37 +100,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAKfTPtA-nrgGQGcBPqNoPk4atOHakyZK9Fk-4AsrHBrnvPXTLQ@mail.gmail.com>
+References: <20261110145241.536019-1-kas@kernel.org> <20261110145241.536019-3-kas@kernel.org>
+In-Reply-To: <20261110145241.536019-3-kas@kernel.org>
+From: Miklos Szeredi <miklos@szeredi.hu>
+Date: Wed, 11 Nov 2026 10:02:15 +0100
+X-Gm-Features: AclHuK9XqiIqd0G6zWinytDup_EFg0rRz4_cn9sSXLX9jTiH3KRFdGlFPrXk02Q
+Message-ID: <CAJfpegvEeGN073FbaCRnhMeX8RHrckSxmFjkpdoyea2EuRf+zg@mail.gmail.com>
+Subject: Re: [PATCH 2/4] fuse: don't move pipe buffers into the page cache
+To: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+Cc: Christian Brauner <brauner@kernel.org>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Amit Shah <amit@kernel.org>, Jan Kara <jack@suse.cz>, 
+	Linus Torvalds <torvalds@linux-foundation.org>, 
+	"David Hildenbrand (Arm)" <david@kernel.org>, Matthew Wilcox <willy@infradead.org>, Zi Yan <ziy@nvidia.com>, 
+	Bernd Schubert <bschubert@ddn.com>, Hugh Dickins <hughd@google.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Andrew Morton <akpm@linux-foundation.org>, 
+	Arnd Bergmann <arnd@arndb.de>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	linux-fsdevel@vger.kernel.org, fuse-devel@lists.linux.dev, 
+	virtualization@lists.linux.dev, netdev@vger.kernel.org, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, kernel-team@meta.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon, Nov 09, 2026 at 05:14:39PM +0100, Vincent Guittot wrote:
-> On Mon, 9 Nov 2026 at 16:54, Peter Zijlstra <peterz@infradead.org> wrote:
+On Tue, 10 Nov 2026 at 15:53, Kiryl Shutsemau (Meta) <kas@kernel.org> wrote:
+>
+> A splice() into /dev/fuse with SPLICE_F_MOVE lets the reply to a read
+> request steal full pages from the pipe.  Each stolen page replaces, in
+> the fuse file's page cache, the folio that the request allocated.  The
+> page can be a page cache folio of another file, a page written into the
+> pipe, or a gifted user page.
+>
+> Always copy.  The server sees the same data, and the move was a hint
+> that splice() never promised to honour.
 
-> > Can't we add the 'p->nr_cpus_allowed > 1' condition to rq->cfs_tasks and
-> > use that, rather than adding yet another list? I mean, its used for
-> > migration, so excluding all pinned tasks actually makes sense.
-> 
-> rq->cfs_tasks can be quite large (we even take a breath during LB)
-> whereas this list should be 1 task most of the time (except during
-> wakeup)
+Did some research and looks like this feature is not used by any major project.
 
-Like in the other email; detach_one_task() is also just one task :-)
+Acked-by: Miklos Szeredi <mszeredi@redhat.com>
 
-> > Also, I'm still not sure why we need a plist. The rq->cfs_tasks list is
-> > MRU per set_next_task_fair() moving the current task to the front.
-> 
-> The plist was only to reuse struct plist_node pushable_tasks; in
-> struct task that is already there for RT
-
-So while plist makes sense for RT, it doesn't make sense for fair or DL.
-Notably for DL we keep pushable tasks in a RB tree.
-
-> > So reserve iterating rq->cfs_tasks, skipping blocked and current and
-> > such, should get you much the same over-all.
-> 
-> Yes but I was afraid by the overhead of iterating this list which can
-> be very long; We have already seen email about bug with thousands of
-> tasks queued on the rq
-
-Right, so just take one of the tail and stop there.
+Thanks,
+Miklos
