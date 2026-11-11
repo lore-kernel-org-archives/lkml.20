@@ -1,96 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794383323;
-	b=Y2/y2j/ct5YsF5+H/tnYp+UOPeMD1mbCOPQ5scdKjfPCX0fC+qs2xyrCImGmdZdhfsQ8
-	 yuWFw+85PiXO5L0dZWkcGHelGARPS7Xjabxym+o/q58dc4fHfOPxYEAzVToUjwSCtdNBG
-	 8X+ZE1eJ6KULb49HkHBYBi+oYcw4ysoOTJkjOq4AC/0EsasyPzSghlueuJM96svHc2Kd/
-	 ewch43rtWJapUALXYU62IsK6Pe+rTpXlvpKLoNl+hY+ssv0Fj4+DtrnEB5M6s5zSFKT5U
-	 +N3cc7ZO+4X2OsfiQWMJ7wcxxs68DLSOHpfFV5FSOVOealzaqGO7P4ONywUVMADpwBw==
+	t=1794383334;
+	b=LrFaY3ysOH45OO6WT1ppl0a/fm5pV2p+ryp+VUgOA69cbRPM7Zjmn1PKzmL0R6yNNiEH
+	 XRxg0abLSouqLRSjFAiKcZK1a1lCHIwZQMBEQoLI22wz7dhV6M3EO5tsaW1IaIse2kTD+
+	 hrmqxwnKFVhZFPrgcrkRpBssPC3OqWx3VO6riWD3AXmhfE41kbbA23RS0rH3FCRacvnfg
+	 eVwOpqcy1T+CKitevXcsN++ZMQkLenFohDkOf2+a91zMMONgC2XTRsUe7xDUt9MSZiwgf
+	 jSXqekfRHstTFf+TcRBNfvh+wz0woNSStJRaGzJgSSiGa9yJ6jfyzPKTK3Ar/AFip2Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794383323;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=KmH4ZXitu/F5zLcyKAJJuc2GxRLS44lxp/qvIGKdIQs=;
-	b=YDArbx8lo3wI1vu22rRZriXsTy/nq7Iw3N60jf1gO6ZjbhWSKgwyj7eTwBRatvfS+zQf
-	 oRANs2B+AoChGNtOykT6CPzZ7BQ4Iix+zwXuC17El+70BKXIcAQYsdj7YXNa1EanVBtIu
-	 5HC61gWXOCrrzK/tgz/716o51tarGrYeq1TXah+o/PkVhwMigSFvYQVHcNzBSaGSHSrti
-	 bOz5hsuhAAU5iu2EQhed9e9ZHXhpmFXH5qOn9g+eZHaJuVjW9hLFXcHK4zag8wy6S+x0Q
-	 M9VbtB6JTqdp7UAxmbiCXNwZKuWRbewGHoLTuIYgm88u0Wyy61cUSjNOSkAj7TXR2dw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794383334;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=RYAYBlC4Aq7hCU7wUZTzDQfIXhN+TRHtBXMHO3E6CkQ=;
+	b=UHKGtZoXO1rnskm6/SpCtHWjrtV/nRCPDcLUr/VMJh1glgzlf0ETGnQW4e6obm00ZqSi
+	 iCRZ1YYgLF1C93AFeeGcNfp3v07HOmpC6MfjmCQeXMHyrokV+2ErKD6vWx82yYXTY6uKZ
+	 qx3UwB6WnEzZLEH8ZGRUl5MgtheJRAkObfSr3kKNF1g9clDOIo3MjVMMiEHVsDSW3h9lW
+	 muBUDc10gYGz2PHyz6FSWXo+KVnJvnYzImzYRIJLFJ9a2WhOEa+ibFAoWYZxwPpNdgIvK
+	 gmEgrumtyAp0PIb+amY0isdryV3uFeM5A55PTYSo8ISzYEsTNN7feBTAg1Zf/KfywGw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iLe2eJFf;
-	arc=none smtp.remote-ip=74.125.82.175
-Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XpB76X8F;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BE49606A321
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 07:48:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1BE49606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59788606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 07:48:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iLe2eJFf
-Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-37628596783so1775772eec.1
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 23:48:41 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794383321; x=1794988121; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=KmH4ZXitu/F5zLcyKAJJuc2GxRLS44lxp/qvIGKdIQs=;
-        b=iLe2eJFfKAcFCdWrwD05o+538qgEn4Wi7msKHKTQhjfH+ddAg00tMoDW93HTHjh2EV
-         0Nn8yDtKnO6s8BACiq9sJ5b/O9ET7Axn9Z6mGHrconoSjUS22IZi6jcIQst+dNfr0qcS
-         Z0IWIMZRLd1dqCqNs9cJMwettXn+oqS3bGDTm0uWUVqk2OwjtPnw4qyikZhPF4MgF7FV
-         1Ncz7nbFzs+QmXVkL7EMg/4SoaKqopb9jWZfZ+xy6mPsBfWXYOpKCCYGRlsYaN9KXHoo
-         mkHce4cpfJX+D72MW+9oCpghH38MKL9mOI8QWxp12J5mfY0zkkrI/63gtHyMVwh2G5pX
-         28tg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794383321; x=1794988121;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=KmH4ZXitu/F5zLcyKAJJuc2GxRLS44lxp/qvIGKdIQs=;
-        b=U/Ju8TZf9PgsvR6FR8r5q5dbbMMWJg29263kBT/cSMcv/UIjgpfD6fovXHrviGm8JF
-         oRLDWyr/B7VN+ssarSldLmB7ji5pGvRbS1I3Qq9BW0Wp7V5x6nO+bWQ990eijIaorTZc
-         K9s4uMk01yRs8IBWDYMnfUd4BDwMoZnl1l0OCF6+LfZvlTML61SWCQeRTUfhbaaOobsZ
-         xfM4okqJzLSO47gAiriUo4Fr9pYg9QravS48JtOoVH407iWsSRulorF/kebj8qXTj0QD
-         8eyL0wrknz+XdKklkBxoGymrJq7go15N94nT9uE9kW8eii0a/v2Ta6Xt/TzSMheCDRzh
-         lqYg==
-X-Forwarded-Encrypted: i=1; AL+hErEoOj6Un3uQixSlpzieBlcQ+3yJTiwsgHp59JjYNVwQ/v7HJOuUiASRdZVjLkT6PC3uYv2F6DsFxy9rGRE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/W7GB6Xd5BcnmTWdyiaTDdp0VnTB/+LeodPDW4F1NUnZdEan6d
-	bDmqY/v3Ob+VIwBieVV7a6a+YYB5T7E+VOjwaPH8uZWQiakAJGdj2T04
-X-Gm-Gg: AYBFou1vt8FZ6B0tCX0ksVnGr5HXJO0pAsLMoke8vfvmwU/wNNzB1uwGiLgV+1cJJPP
-	ZhC3YdK0xpMujD3KZDpAN6UGneQL2x/h/iWoRIR57EXZilh5QDBolkG0w+CHzszSAzpg0odm6ba
-	m2OWwmvAYW1qEyaMTZEWUZxl94V+fliO8cGCJ/zLqDr9/xJVnKjF/qRgQWSrpMJJFGA/6VEBOD6
-	ujVIdRhqE7f5At1dvoXZ6JkvxaWqUkfYO8xBsBZaXQdxd5b0PkvrA+DGcmo9FXBlhvBeHi6isDr
-	TQGgehTZPZoG6FbijSwPWd+/judXZMinTjQRHhyovkW+Mz2/PIbawjEQ6VSgSmo6TLmPzAmMyv5
-	9gC5Zj2yM2UrSO+XAcARYDvKOEJaY3L5MyNQj4Gv6liXqXqo2w1t9IDog0+Tp0mFE5titKMBs6C
-	GIRh2T38sLWMSYeogs0dBAM/9dIrG2+DZi3kkheiERbTiesGiedCFxwA5+EFdsOb8NgcFeqClaF
-	kCSmVQJ+UHr8Q3Sr2ZC31rKrCB2Qsu2ejOGcnLa11L5nqAszTuU4XRR8oSm+zxEv6WYMocKe1VQ
-	wiDyep1Q1M1m/1jx8O65qgEA2M+fialo1CjEi2RhnMgIPBQFM7gE7m1tj2rQGQGnb2Y=
-X-Received: by 2002:a05:7300:d18f:b0:366:703c:5ef8 with SMTP id 5a478bee46e88-376850cefb9mr2028290eec.7.1794383321067;
-        Tue, 10 Nov 2026 23:48:41 -0800 (PST)
-Received: from osman.mioffice.cn ([43.224.245.178])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3752060c4b6sm13675956eec.15.2026.11.10.23.48.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 23:48:40 -0800 (PST)
-From: Zhan Xusheng <zhanxusheng1024@gmail.com>
-To: cel@kernel.org,
-	jlayton@kernel.org
-Cc: neil@brown.name,
-	okorniev@redhat.com,
-	Dai.Ngo@oracle.com,
-	tom@talpey.com,
-	linux-nfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	zhanxusheng@xiaomi.com
-Subject: [PATCH v2] nfsd: don't block on a file lease while holding the parent lock
-Date: Wed, 11 Nov 2026 15:48:35 +0800
-Message-ID: <20261111074835.599584-1-zhanxusheng1024@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XpB76X8F
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 676311F00A05;
+	Wed, 11 Nov 2026 07:48:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794383333;
+	bh=RYAYBlC4Aq7hCU7wUZTzDQfIXhN+TRHtBXMHO3E6CkQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=XpB76X8FNZtM3NH0/YB4l8soqMgeYC5BSvJP9fOhtXpXdAsNCyUggfq84YF/fWp37
+	 CvpvWp7blGPMvAEQawhyGihbKkzKBahgYGhk5NGuJJzCSIeQT8bde4UX22Irm1zsMP
+	 IvldPSR71P9ilJYG+dE/G+H+WdXviPa6ylCr+yxuXP48OLnKgdwZ3SdKfnecmIQX32
+	 PnRwSJ+oK2zEAshNLlQwt19Fvj8Dh5oqm30m9mHl3H9tqQNHXs7/nqYKFSqdKvc/2i
+	 17+7LA7xXkotGy5OmHz5qYYmLM/it+3JMETAIt60M+AH4Lch2t8IEFQW2pl3GnAAYQ
+	 14QGytf9zl19A==
+Message-ID: <3e5ceb38-d04c-4cd4-a783-5d0edcedf5dd@kernel.org>
+Date: Wed, 11 Nov 2026 08:48:45 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,167 +51,212 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm: use memory barriers for non PMD-sized folios to sync
+To: Baolin Wang <baolin.wang@linux.alibaba.com>, akpm@linux-foundation.org,
+ ljs@kernel.org
+Cc: riel@surriel.com, liam@infradead.org, vbabka@kernel.org, rppt@kernel.org,
+ surenb@google.com, mhocko@suse.com, harry@kernel.org, jannh@google.com,
+ lance.yang@linux.dev, qi.zheng@linux.dev, pfalcato@suse.de,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org
+References: <09736bc2e01bec0ca7436733078c82c7e0cc6627.1794376686.git.baolin.wang@linux.alibaba.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
+ dBrn+lhhOYjjNefFQou6478faXE6o2AhmebqT4KiQoUQFV4R7y1KMEKoSyy8hQaK1umALTdL
+ QZLQMzNE74ap+GDK0wnacPQFpcG1AE9RMq3aeErY5tujekBS32jfC/7AnH7I0v1v1TbbK3Gp
+ XNeiN4QroO+5qaSr0ID2sz5jtBLRb15RMre27E1ImpaIv2Jw8NJgW0k/D1RyKCwaTsgRdwuK
+ Kx/Y91XuSBdz0uOyU/S8kM1+ag0wvsGlpBVxRR/xw/E8M7TEwuCZQArqqTCmkG6HGcXFT0V9
+ PXFNNgV5jXMQRwU0O/ztJIQqsE5LsUomE//bLwzj9IVsaQpKDqW6TAPjcdBDPLHvriq7kGjt
+ WhVhdl0qEYB8lkBEU7V2Yb+SYhmhpDrti9Fq1EsmhiHSkxJcGREoMK/63r9WLZYI3+4W2rAc
+ UucZa4OT27U5ZISjNg3Ev0rxU5UH2/pT4wJCfxwocmqaRr6UYmrtZmND89X0KigoFD/XSeVv
+ jwBRNjPAubK9/k5NoRrYqztM9W6sJqrH8+UWZ1Idd/DdmogJh0gNC0+N42Za9yBRURfIdKSb
+ B3JfpUqcWwE7vUaYrHG1nw54pLUoPG6sAA7Mehl3nd4pZUALHwARAQABzS5EYXZpZCBIaWxk
+ ZW5icmFuZCAoQ3VycmVudCkgPGRhdmlkQGtlcm5lbC5vcmc+wsGQBBMBCAA6AhsDBQkmWAik
+ AgsJBBUKCQgCFgICHgUCF4AWIQQb2cqtc1xMOkYN/MpN3hD3AP+DWgUCaYJt/AIZAQAKCRBN
+ 3hD3AP+DWriiD/9BLGEKG+N8L2AXhikJg6YmXom9ytRwPqDgpHpVg2xdhopoWdMRXjzOrIKD
+ g4LSnFaKneQD0hZhoArEeamG5tyo32xoRsPwkbpIzL0OKSZ8G6mVbFGpjmyDLQCAxteXCLXz
+ ZI0VbsuJKelYnKcXWOIndOrNRvE5eoOfTt2XfBnAapxMYY2IsV+qaUXlO63GgfIOg8RBaj7x
+ 3NxkI3rV0SHhI4GU9K6jCvGghxeS1QX6L/XI9mfAYaIwGy5B68kF26piAVYv/QZDEVIpo3t7
+ /fjSpxKT8plJH6rhhR0epy8dWRHk3qT5tk2P85twasdloWtkMZ7FsCJRKWscm1BLpsDn6EQ4
+ jeMHECiY9kGKKi8dQpv3FRyo2QApZ49NNDbwcR0ZndK0XFo15iH708H5Qja/8TuXCwnPWAcJ
+ DQoNIDFyaxe26Rx3ZwUkRALa3iPcVjE0//TrQ4KnFf+lMBSrS33xDDBfevW9+Dk6IISmDH1R
+ HFq2jpkN+FX/PE8eVhV68B2DsAPZ5rUwyCKUXPTJ/irrCCmAAb5Jpv11S7hUSpqtM/6oVESC
+ 3z/7CzrVtRODzLtNgV4r5EI+wAv/3PgJLlMwgJM90Fb3CB2IgbxhjvmB1WNdvXACVydx55V7
+ LPPKodSTF29rlnQAf9HLgCphuuSrrPn5VQDaYZl4N/7zc2wcWM7BTQRVy5+RARAA59fefSDR
+ 9nMGCb9LbMX+TFAoIQo/wgP5XPyzLYakO+94GrgfZjfhdaxPXMsl2+o8jhp/hlIzG56taNdt
+ VZtPp3ih1AgbR8rHgXw1xwOpuAd5lE1qNd54ndHuADO9a9A0vPimIes78Hi1/yy+ZEEvRkHk
+ /kDa6F3AtTc1m4rbbOk2fiKzzsE9YXweFjQvl9p+AMw6qd/iC4lUk9g0+FQXNdRs+o4o6Qvy
+ iOQJfGQ4UcBuOy1IrkJrd8qq5jet1fcM2j4QvsW8CLDWZS1L7kZ5gT5EycMKxUWb8LuRjxzZ
+ 3QY1aQH2kkzn6acigU3HLtgFyV1gBNV44ehjgvJpRY2cC8VhanTx0dZ9mj1YKIky5N+C0f21
+ zvntBqcxV0+3p8MrxRRcgEtDZNav+xAoT3G0W4SahAaUTWXpsZoOecwtxi74CyneQNPTDjNg
+ azHmvpdBVEfj7k3p4dmJp5i0U66Onmf6mMFpArvBRSMOKU9DlAzMi4IvhiNWjKVaIE2Se9BY
+ FdKVAJaZq85P2y20ZBd08ILnKcj7XKZkLU5FkoA0udEBvQ0f9QLNyyy3DZMCQWcwRuj1m73D
+ sq8DEFBdZ5eEkj1dCyx+t/ga6x2rHyc8Sl86oK1tvAkwBNsfKou3v+jP/l14a7DGBvrmlYjO
+ 59o3t6inu6H7pt7OL6u6BQj7DoMAEQEAAcLBfAQYAQgAJgIbDBYhBBvZyq1zXEw6Rg38yk3e
+ EPcA/4NaBQJonNqrBQkmWAihAAoJEE3eEPcA/4NaKtMQALAJ8PzprBEXbXcEXwDKQu+P/vts
+ IfUb1UNMfMV76BicGa5NCZnJNQASDP/+bFg6O3gx5NbhHHPeaWz/VxlOmYHokHodOvtL0WCC
+ 8A5PEP8tOk6029Z+J+xUcMrJClNVFpzVvOpb1lCbhjwAV465Hy+NUSbbUiRxdzNQtLtgZzOV
+ Zw7jxUCs4UUZLQTCuBpFgb15bBxYZ/BL9MbzxPxvfUQIPbnzQMcqtpUs21CMK2PdfCh5c4gS
+ sDci6D5/ZIBw94UQWmGpM/O1ilGXde2ZzzGYl64glmccD8e87OnEgKnH3FbnJnT4iJchtSvx
+ yJNi1+t0+qDti4m88+/9IuPqCKb6Stl+s2dnLtJNrjXBGJtsQG/sRpqsJz5x1/2nPJSRMsx9
+ 5YfqbdrJSOFXDzZ8/r82HgQEtUvlSXNaXCa95ez0UkOG7+bDm2b3s0XahBQeLVCH0mw3RAQg
+ r7xDAYKIrAwfHHmMTnBQDPJwVqxJjVNr7yBic4yfzVWGCGNE4DnOW0vcIeoyhy9vnIa3w1uZ
+ 3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
+ CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
+ qIws/H2t
+In-Reply-To: <09736bc2e01bec0ca7436733078c82c7e0cc6627.1794376686.git.baolin.wang@linux.alibaba.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Zhan Xusheng <zhanxusheng@xiaomi.com>
+On 11/11/26 07:06, Baolin Wang wrote:
+> Commit 243cf1f67b36 ("mm: memory: fix truncation removing mapped folios")
+> uses PMD lock via sync_with_folio_pmd_zap() to synchronize when a cleared
+> PMD is found while unmapping a folio.
+> 
+> However, for non PMD-sized folios, the cleared PMD can only come from
+> PTE table reclaim, which clears the PMD only after the rmaps for the
+> table have been removed. This is plain message passing, and taking
+> the PMD lock is more than needed, like I did in the previous patch[1].
+> 
+> Without barriers, the walker can observe the cleared PMD but a stale
+> mapcount on weakly ordered architectures:
+> 
+> CPU 0 (unmap folio)                 CPU 1 (MADV_DONTNEED, full PMD)
+> ================================    ================================
+> folio_lock()
+>                                     lock(ptl)
+>                                     clear PTEs
+>                                     remove rmaps   /* W mapcount */
+> [mapcount load satisfied early,
+>  folio still mapped]
+>                                     pmd_clear()    /* W pmd */
+>                                     unlock(ptl)
+> pmdp_get_lockless() -> none         /* R pmd */
+> skip the PMD
+> folio_mapped() -> true              /* R mapcount, stale */
+> unmapping assumed to have failed
+> 
+> Pairing an smp_wmb() before the PMD clear with an smp_rmb() after the
+> PMD read forbids this outcome:
+> 
+> CPU 0 (unmap folio)                 CPU 1 (MADV_DONTNEED, full PMD)
+> ================================    ================================
+>                                     remove rmaps   /* W mapcount */
+>                                     smp_wmb()
+>                                     pmd_clear()    /* W pmd */
+> pmdp_get_lockless() -> none         /* R pmd */
+> smp_rmb()
+> folio_mapped()                      /* R mapcount */
+> 
+> If R pmd observes W pmd, R mapcount must observe W mapcount, so
+> folio_mapped() no longer reports the removed mappings.
+> 
+> No changes for PMD-sized folios unmapping.
+> 
+> [1] https://lore.kernel.org/all/542c97482eae84f86704bcee56482633d1b32321.1791616645.git.baolin.wang@linux.alibaba.com/
+> Signed-off-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+> ---
+>  mm/internal.h        | 26 ++++++++++++++++++++++----
+>  mm/memory.c          | 12 ++++++++++--
+>  mm/page_vma_mapped.c |  2 +-
+>  3 files changed, 33 insertions(+), 7 deletions(-)
+> 
+> diff --git a/mm/internal.h b/mm/internal.h
+> index cd3675c044e0..a277bf4841f8 100644
+> --- a/mm/internal.h
+> +++ b/mm/internal.h
+> @@ -592,6 +592,7 @@ void pmd_install(struct mm_struct *mm, pmd_t *pmd, pgtable_t *pte);
+>   * sync_with_folio_pmd_zap - sync with concurrent zapping of folios
+>   * @mm: The mm_struct.
+>   * @pmdp: Pointer to the pmd that was found to be pmd_none().
+> + * @nr_pages: The number of pages in the folio.
+>   *
+>   * When we find a pmd_none() while unmapping a folio without holding the PTL,
+>   * zap_huge_pmd() may have cleared the PMD but not yet updated the folio
+> @@ -600,13 +601,30 @@ void pmd_install(struct mm_struct *mm, pmd_t *pmd, pgtable_t *pte);
+>   * against later mapcount reads. Skipping the PMD without synchronization
+>   * could make folio unmapping code assume that unmapping failed.
+>   *
+> - * Wait for concurrent zapping to complete by grabbing the PTL.
+> + * Wait for concurrent zapping to complete by grabbing the PTL for PMD-sized
+> + * folios, otherwise smp_rmb() is sufficient.
+>   */
+> -static inline void sync_with_folio_pmd_zap(struct mm_struct *mm, pmd_t *pmdp)
+> +static inline void sync_with_folio_pmd_zap(struct mm_struct *mm, pmd_t *pmdp,
+> +		unsigned int nr_pages)
+>  {
+> -	spinlock_t *ptl = pmd_lock(mm, pmdp);
+> +	if (nr_pages >= HPAGE_PMD_NR) {
+> +		spinlock_t *ptl = pmd_lock(mm, pmdp);
+>  
+> -	spin_unlock(ptl);
+> +		spin_unlock(ptl);
+> +		return;
+> +	}
+> +
+> +	/*
+> +	 * For non PMD-sized folios zapping, concurrent zap_empty_pte_table()
+> +	 * may clear the PMD after the rmaps for the table have been removed,
+> +	 * but later mapcount reads could still be observed before the PMD
+> +	 * read, making the folio appear to be still mapped after unmapping.
+> +	 * Order the PMD read before later mapcount reads, so that observing
+> +	 * the cleared PMD implies observing the rmap removals.
+> +	 *
+> +	 * Pairs with smp_wmb() in zap_pte_range().
+> +	 */
+> +	smp_rmb();
+>  }
+>  
+>  struct zap_details;
+> diff --git a/mm/memory.c b/mm/memory.c
+> index fe72e66c9c2e..1ee286cdd3af 100644
+> --- a/mm/memory.c
+> +++ b/mm/memory.c
+> @@ -2054,8 +2054,15 @@ static unsigned long zap_pte_range(struct mmu_gather *tlb,
+>  	 * Clear the PMD after the rmaps for the table have been removed, in case
+>  	 * an incorrect mapcount is observed after unmapping the folio.
+>  	 */
+> -	if (can_reclaim_pt && direct_reclaim && addr == end)
+> +	if (can_reclaim_pt && direct_reclaim && addr == end) {
+> +		/*
+> +		 * rmap changes need to be observed before page tables get zapped.
+> +		 *
+> +		 * Pairs with smp_rmb() in sync_with_folio_pmd_zap().
+> +		 */
+> +		smp_wmb();
+>  		direct_reclaim = zap_empty_pte_table(mm, pmd, ptl, &pmdval);
+> +	}
+>  	pte_unmap_unlock(start_pte, ptl);
+>  
+>  	/*
+> @@ -2110,7 +2117,8 @@ static inline unsigned long zap_pmd_range(struct mmu_gather *tlb,
+>  			/* fall through */
+>  		} else if (pmd_none(*pmd)) {
+>  			if (details && details->single_folio)
+> -				sync_with_folio_pmd_zap(tlb->mm, pmd);
+> +				sync_with_folio_pmd_zap(tlb->mm, pmd,
+> +						folio_nr_pages(details->single_folio));
+>  			addr = next;
+>  			continue;
+>  		}
+> diff --git a/mm/page_vma_mapped.c b/mm/page_vma_mapped.c
+> index a931243ca42b..d793ad0c5364 100644
+> --- a/mm/page_vma_mapped.c
+> +++ b/mm/page_vma_mapped.c
+> @@ -295,7 +295,7 @@ bool page_vma_mapped_walk(struct page_vma_mapped_walk *pvmw)
+>  			pvmw->ptl = NULL;
+>  		} else if (!pmd_present(pmde)) {
+>  			if (pvmw->flags & PVMW_SYNC)
+> -				sync_with_folio_pmd_zap(mm, pvmw->pmd);
+> +				sync_with_folio_pmd_zap(mm, pvmw->pmd, pvmw->nr_pages);
+>
 
-Since commit 2a60db3525d4 ("nfsd: (almost) always open file in
-nfsd4_create_file()"), an NFSv4 OPEN with create that finds an
-existing file opens it with dentry_open() while start_creating()
-still holds the parent directory lock. The open flags lack
-O_NONBLOCK, so break_lease() in do_dentry_open() blocks. Before that
-commit the file was opened later by __nfsd_open(), which breaks
-leases with O_NONBLOCK, and the client retried on NFS4ERR_DELAY.
+If there is no folio, why do we care about the sync? Should there be a folio
+here? Anyhow, I think sync_with_folio_pmd_zap() really should be consuming a folio.
 
-A lease on the file now stalls an nfsd thread for up to
-lease-break-time with the directory locked, and other creates,
-unlinks and renames in that directory wait for it.
-
-To reproduce, set fs.lease-break-time=15, take F_SETLEASE F_WRLCK on
-/srv/g from a local process and keep it, and run "echo x >> /mnt/g"
-on an NFSv4.2 mount of /srv from localhost. The nfsd thread blocks
-in break_lease() for 15s, and "touch /srv/other" on the server takes
-13s.
-
-Pass O_NONBLOCK so that break_lease() returns -EWOULDBLOCK and the
-client gets NFS4ERR_DELAY again.
-
-Guarded creates and exclusive creates with a different verifier
-fail with NFS4ERR_EXIST on an existing file and have no use for the
-open. Skip it for them, as nfsd did before that commit, so that they
-don't break the lease and, with O_NONBLOCK, don't return
-NFS4ERR_DELAY instead of NFS4ERR_EXIST.
-
-Fixes: 2a60db3525d4 ("nfsd: (almost) always open file in nfsd4_create_file()")
-Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
----
-v2: also skip the open for guarded and non-matching exclusive
-creates (sashiko, via Jeff). The other part of that report, the open
-running before the permission check, is older than this patch and is
-not changed here.
-
-QEMU guest on b3dfbde62cf1, a local write lease held on f:
-
-                  touch in f's dir while    open(O_CREAT|O_EXCL)
-                  "echo x >> f" waits       of f
-  b3dfbde62cf1    13.0s                     EEXIST after 15.3s
-  + v1            20ms                      EEXIST after 26.5s
-  + v2            10ms                      EEXIST after 2ms
-
-v1: https://lore.kernel.org/all/20261110080038.232210-1-zhanxusheng1024@gmail.com/
-
- fs/nfsd/nfs4proc.c | 43 ++++++++++++++++++++++++++++++-------------
- 1 file changed, 30 insertions(+), 13 deletions(-)
-
-diff --git a/fs/nfsd/nfs4proc.c b/fs/nfsd/nfs4proc.c
-index 3a82af381a8d..f19bd69d66f4 100644
---- a/fs/nfsd/nfs4proc.c
-+++ b/fs/nfsd/nfs4proc.c
-@@ -250,10 +250,21 @@ static inline bool nfsd4_create_is_exclusive(int createmode)
- 		createmode == NFS4_CREATE_EXCLUSIVE4_1;
- }
- 
-+/* Does @child carry the verifier of an earlier exclusive create? */
-+static bool nfsd4_create_verf_matches(struct dentry *child, const u32 *verf)
-+{
-+	struct inode *inode = d_inode(child);
-+
-+	return inode_get_mtime_sec(inode) == verf[0] &&
-+	       inode_get_atime_sec(inode) == verf[1] &&
-+	       inode->i_size == 0;
-+}
-+
- static struct file *do_lookup_open(struct path *parent,
- 				   struct qstr *name,
- 				   unsigned int oflags,
--				   umode_t mode)
-+				   umode_t mode,
-+				   const u32 *verf)
- {
- 	struct file *filp = NULL;
- 	struct path path;
-@@ -277,8 +288,16 @@ static struct file *do_lookup_open(struct path *parent,
- 		 */
- 		int err = nfsd_check_obj_isreg(child);
- 
-+		/*
-+		 * Guarded creates and exclusive creates with another
-+		 * verifier fail with EEXIST. Don't open the file for them,
-+		 * that would only break a lease.
-+		 */
- 		if (err)
- 			filp = ERR_PTR(err);
-+		else if ((oflags & O_EXCL) ||
-+			 (verf && !nfsd4_create_verf_matches(child, verf)))
-+			filp = ERR_PTR(-EEXIST);
- 		else
- 			filp = dentry_open(&path, oflags, current_cred());
- 	} else if (!(oflags & O_CREAT)) {
-@@ -312,13 +331,13 @@ nfsd4_create_file(struct svc_rqst *rqstp, struct svc_fh *fhp,
- 		.na_iattr	= iap,
- 		.na_seclabel	= &open->op_label,
- 	};
--	int oflags = O_CREAT | O_LARGEFILE;
-+	int oflags = O_CREAT | O_LARGEFILE | O_NONBLOCK;
- 	struct dentry *child = ERR_PTR(-EINVAL);
- 	struct path parent = {
- 		.mnt = fhp->fh_export->ex_path.mnt,
- 		.dentry = fhp->fh_dentry,
- 	};
--	__u32 v_mtime, v_atime;
-+	u32 verf[2] = {};
- 	__be32 status, create_status;
- 	int want_write_err;
- 
-@@ -395,8 +414,6 @@ nfsd4_create_file(struct svc_rqst *rqstp, struct svc_fh *fhp,
- 		attrs.na_pacl = posix_acl_dup(open->op_pacl);
- 	}
- 
--	v_mtime = 0;
--	v_atime = 0;
- 	if (nfsd4_create_is_exclusive(open->op_createmode)) {
- 		u32 *verifier = (u32 *)open->op_verf.data;
- 
-@@ -408,13 +425,13 @@ nfsd4_create_file(struct svc_rqst *rqstp, struct svc_fh *fhp,
- 		 * verifier, then do_open_lookup() will also need to be
- 		 * fixed accordingly.
- 		 */
--		v_mtime = verifier[0] & 0x7fffffff;
--		v_atime = verifier[1] & 0x7fffffff;
-+		verf[0] = verifier[0] & 0x7fffffff;
-+		verf[1] = verifier[1] & 0x7fffffff;
- 
- 		iap->ia_valid |= ATTR_MTIME | ATTR_ATIME |
- 				 ATTR_MTIME_SET|ATTR_ATIME_SET;
--		iap->ia_mtime.tv_sec = v_mtime;
--		iap->ia_atime.tv_sec = v_atime;
-+		iap->ia_mtime.tv_sec = verf[0];
-+		iap->ia_atime.tv_sec = verf[1];
- 		iap->ia_mtime.tv_nsec = 0;
- 		iap->ia_atime.tv_nsec = 0;
- 	}
-@@ -428,7 +445,9 @@ nfsd4_create_file(struct svc_rqst *rqstp, struct svc_fh *fhp,
- 				       &QSTR_LEN(open->op_fname,
- 						 open->op_fnamelen),
- 				       oflags,
--				       open->op_iattr.ia_mode);
-+				       open->op_iattr.ia_mode,
-+				       nfsd4_create_is_exclusive(open->op_createmode) ?
-+				       verf : NULL);
- 	if (IS_ERR(open->op_filp)) {
- 		int hosterr = PTR_ERR(open->op_filp);
- 
-@@ -456,9 +475,7 @@ nfsd4_create_file(struct svc_rqst *rqstp, struct svc_fh *fhp,
- 
- 	if (!open->op_created &&
- 	    nfsd4_create_is_exclusive(open->op_createmode) &&
--	    inode_get_mtime_sec(d_inode(child)) == v_mtime &&
--	    inode_get_atime_sec(d_inode(child)) == v_atime &&
--	    d_inode(child)->i_size == 0)
-+	    nfsd4_create_verf_matches(child, verf))
- 		open->op_created = true;
- 
- 	if (!open->op_created) {
 -- 
-2.43.0
+Cheers,
 
+David
