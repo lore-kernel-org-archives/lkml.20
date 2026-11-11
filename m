@@ -1,123 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794415996;
-	b=qJDTmzlCc0qyQuU3JpPUV6bNDxAA9BfuD/3dOyT/kICWVIFqdVS0TqhY6k52aDz3Xjrc
-	 1CSD++DXRgkOjsIE8AcXxQbn2ZPZE6pTTKsxwOQVk2/Tim+EJZnQObJv5LLuV1+qSgCTH
-	 WFw/G8DfbeG24TnpwAqmnwmIx0LBmZ5+6ww+Qhuwo9vo5jFsL08Z4YTLiJ5dMnBB2kAsA
-	 0w5gOzyBuAKzS9q/yaY0knAKr17JYwksWUPY5+5blEjDLzIwuKvw40ShzdD4ReXkM7S0B
-	 hgmVDVzMKFIYU5j1PyGU2ARgVd5ql9NajAigWzvELQRcyotI4voAnuah3xNSVBU57LA==
+	t=1794416020;
+	b=n69/SAOWG0BFi0WiE4S+aL3OvjHg4xOCTQLW+WAC+wBefnHLNUfszfwkXA3O8mEFNUnn
+	 hg1ZbBY/43vOQe+i/nwWu74j9I+gy9Welxf+C4Kq2wh8qnCNB0hzR8WFuNN6J4zXURoXR
+	 NItKvFWeXD2bPG9TdhrGf5tvD3rjQWbo9QBElLAUtWMixkh4OesEdCGLBhZysXlHgZIRj
+	 6B9vLRncLLWH2AzY38TdawVHEdXoLs4OaRZXfwG03oqSQvan5J1SEXSELzy2+p7mWb6JK
+	 O0Pv+H6vhHuqifiml6PpaG/j9SFK4dOVZcen7J1CkAWSGDBLP8410QzmvOPAVuKvuZg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794415996;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=7lWeOV9IjYiGNbkklH7++lsoUrJceNa8llVVsVssTr0=;
-	b=nWrfr0NbwaG5IQLbQ9X/4rt6jonPnjhxQg7zvroNJa6kSFBEFVT0rIWnck8FTU6pnfhL
-	 4tLf26BzdEV0x+yRdplYedhvQTp4Zzr/GL/it/AS10B4dQ4EeVgTCEP55YGuZ1xBOYOAt
-	 fqF3wmIc5BKcCMOdjB7Ez/qeL6zGJPpU0zjMQSlMhVcdT/Ab/xpC+JuZTG+GNDIY7+BMB
-	 Ea+9iSv3aam/4StCbTsjnZoUZy3htgL4B+lKlRp8l7blzoT5RuBiXFzYbY09N6ogddKui
-	 58WQTjnKJo2ETQ/u9cncvlK+bxuGjgnAAErbN56icg9UmLfLa9CHHytqSHya+Jy8Efg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794416020;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=KK7CP1cssIPsIPjkZ7FtMOmBgmEKzrR87aKSkUbCwLw=;
+	b=O0Y8U5rnoetSAbL6IO4N4tNeSL2PckzjUAMyYnSZitE7l9HxObn32u3Nd0Xz2wU31tVt
+	 +5zMzXsH+Y/CqDlZwvFIHhiuYznvIZcNd6DqYa7oGRPMlq9OdvVbtfBzAmdQCabTUQ2KV
+	 Q99SBHM2bMwuOPAAaPNu7SrIbNEGHDToBbXRc23ymYuH3vDdTn+6ZMN3sI/zFqVeOKVPd
+	 eDE1NG16DskD4vcqT7IsdLnGJ2t7dU2O0VqTsz9682SNqTwNp4m49ZP2yxGuc9MTZLoI8
+	 JdBOuTJB/xMLL+AB3NHuOUG+9gKS9chnzhhY9Vpsy51fmDWu0c9Ontp1GZUY+OxtygQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=WJU1cLp+;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=aTCvjUm2;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=GNkp2mge;
+	arc=none smtp.remote-ip=192.198.163.11
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E0E0606A32D
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 16:53:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E0E0606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56F2A606A324;
+	Wed, 11 Nov 2026 16:53:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56F2A606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=WJU1cLp+;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=aTCvjUm2
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ABF0WiA2594095
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 16:53:15 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=7lWeOV9IjYiGNbkklH7++lso
-	UrJceNa8llVVsVssTr0=; b=WJU1cLp+YpPvMnX+2WrEqieAhymCJI3DZsfYb6Ik
-	dIWfqHO4uDNn3KEl69NPcN8Mg2gOOvHcmEx7hmGyjWoz6lLqMNUjmqxomwUwfOk+
-	qNCVtL/ymnON4otGXKP2V3TRL1YAbQ+38Gz2LrkcI5qRZNhMjXInNapxaeOXuinB
-	SO5bggvMNmf80PJaM58kA+atFEU2M/3d17lEYg2USobLR7DT4P7R8FFuT/sQSbm8
-	3ohbrF5bb9HsvZT9WBrnbxLbTDjdM038jfzO2pRAx+q/MTFH/EMnq2epa84xRD3G
-	7ma2abWVuJyoqbDBADjLs/h3Rppl3Es9euHJGGsx5K9/sg==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvksma7d7-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 16:53:15 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93f6f4fe531so613475685a.0
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 08:53:15 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794415994; x=1795020794; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=7lWeOV9IjYiGNbkklH7++lsoUrJceNa8llVVsVssTr0=;
-        b=aTCvjUm2GbXxhJufG95LMv2P6KWW1CUWtdGrFD63b6gkw/u94ag4D+A48Cm5ephM6O
-         AzAV73zGH6vhCYWLXU6zEfkzaYpAqzBOkz0z/tnlI/bidtWuIBvYRnsCFjYo1/+TQHy6
-         UW3hrynqBibAmqq4E7EMIb3QnnD8YWn3QpbPihoMMkm/j6J7AxGlDpaXPMgsR2B5qTPo
-         Z6fpQzNnNW8FcurPt2ruU7sop8MztJyM+hRNu6/raaBiVobMfBb5F+fshyqg6E1qP9bd
-         0XKvzuoK33PT2eRaxwOKi5em1aTfewrzFO7os3hdrRz+7iZugzLWmnhcn/NUNRT7M1al
-         Vkiw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794415994; x=1795020794;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7lWeOV9IjYiGNbkklH7++lsoUrJceNa8llVVsVssTr0=;
-        b=gWVwM8eGmLQM5bjMAIxkWqHKasj9fREjBEStYd8CvwQxxSTguJmdcQiU+znqc8boME
-         R9emObgOQFOily7txcFaOqr+SG5QyrmpdOT+QnP7/l1NdkX5G2yceF/vJNmRmQA0oxrU
-         ZtDOdKMbvQx0cDOlQiYkugPLtsuia1im19Mq9UdafkrjuSfCFRW7RUZz9KEGB4IMBZfF
-         zW1WU0C8PLRvOn45aabTuwwzTEXUxzRn6wcXQhEiSu4flfizl8p/8mplUlOoSg7KVDQd
-         25UwXvGS+Y96CpVOSafcMmKDhb+oGKwARuqPvGqxXfNYgYaBolSjvBxUGATQCLeV/IMx
-         imnw==
-X-Forwarded-Encrypted: i=1; AL+hErFiSL4C9tuKaqaLk7hZbOOCiJJMcCGpm+6a5fgCxhQMfLeAZnMcCxe8HheGsUCaXacFknJskXzJnMam9rg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/WoNGhum4d4Aun1ocpqR1NX7CsiPSQIIRomhPizcNiCXtw6TjT
-	TwzjP6MhTX3xJfGiqD/9UFlV8353JToHjTNuouR1Kvq9myo3onM0AzqcNIz7vOIer+bW3qa6sU2
-	D5KDGccQL0jWs9kNqFtuddiT/T4fA/zuXA68nErUQ6oUm1k4hxOoAQKxIA4GKQiRluNE=
-X-Gm-Gg: AYBFou3J/oIhQ+3tlhDZai81qKKuhCAYoIaIuSf5TJxOulLi0D5OgyilC2S/OIYEftP
-	S9MFOHUzCaDhtbgD5jIP+oSrDxe/tZxX533hkaNmw7wuIZdUW2F10kuc7ZpQvrDnNYl1IHmPoTe
-	gnhrVTb2n75Muhu1uj4z6i4ChGPZEG4GRvLD4EgyW2xawvq8Jn0RC+hmUNncm7wiD1yBhMebipz
-	pEY9z+4QG7DViui3xy+NsXXAtVhsOrjYsxuP/d+UvTEvYmQBJ09XN3B/5anEo7Ms4sVFls06SpT
-	MduNsMjIDxIS5V5vEulOhiK/fR/GRYEnz5GHfh5m0uyDvSQW/vc1GsWHCI55JPvjIiO6X9kXThB
-	TsnlK5Mkqu7+XOGfFZYmbF1nfSePH5w9fE0xTNh64PRU6FkJfScUVLdUeS9FrkQQNXx9BPZKG8p
-	1nj77iW9KguhKCnVNeht8V6yRArumHAldX+a7aspA9GdRx0//Mrt1fjiUwzVEYQg==
-X-Received: by 2002:a05:620a:1a02:b0:947:7691:7316 with SMTP id af79cd13be357-947b00317damr467214585a.81.1794415994367;
-        Wed, 11 Nov 2026 08:53:14 -0800 (PST)
-X-Received: by 2002:a05:620a:1a02:b0:947:7691:7316 with SMTP id af79cd13be357-947b00317damr467207285a.81.1794415993546;
-        Wed, 11 Nov 2026 08:53:13 -0800 (PST)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3ae0922925fsm12779561fa.15.2026.11.11.08.53.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 08:53:12 -0800 (PST)
-Date: Wed, 11 Nov 2026 18:53:10 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Mahadevan P <mahadevan.p@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/4] drm/msm/dpu: add SSPP op to program the source split
- order
-Message-ID: <3b2yzvkwzveujzg6kyedvqlcddiqqmjzrumagiinzovhwqttsi@q53rugd3zkxk>
-References: <20261010-pipe_order-v1-0-9d8bd29fd78a@oss.qualcomm.com>
- <20261010-pipe_order-v1-2-9d8bd29fd78a@oss.qualcomm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=GNkp2mge
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794416019; x=1825952019;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=niu6CJ3gr2cS9LHa6y0q630ntZGL7ALO53ZBcOKidhE=;
+  b=GNkp2mgeL/kDNSHTsTOyg9nRVJ72F2EAoz6TcBqiWtHj2XKZEvqHBe+w
+   bX4Ty1lNo9p3oURw2qvJV/Ck6PipKeDzDsEYUX+cGtjNbuk0zA6GlO2br
+   bOD7Pz7/n0KuBPhbwvebG97EmfHIRsUo45jtyZ0FqGho48rsGzmHVutmE
+   mvOXeDoriwxUD5m7Q0oqdx6qUljp53nq9j5QJoyPt1VGo7/z1kdRViEH2
+   EoBnzaQAQ/CRj9gQ7+8LIXcUi9tcY9gmYECTG+XHFNLeADTNF5QyEr2He
+   ESWHjMxEJ4qKkkn0nt750PaG6VuUPFdkEoL5iY8D7rYA1CYcthkMzS2ZU
+   Q==;
+X-CSE-ConnectionGUID: QEjfcBVeTKSbfjCo90Amtg==
+X-CSE-MsgGUID: bnOpONCyQt+I7ZOGtiK3wQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3112851"
+X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
+   d="scan'208";a="3112851"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 08:53:39 -0800
+X-CSE-ConnectionGUID: lYTv9jfzR966SkDuq0WOww==
+X-CSE-MsgGUID: GgRCx+drQbOIIctdvzyOEg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
+   d="scan'208";a="8378955"
+Received: from unknown (HELO WEBAPTLH032.iind.intel.com) ([10.66.250.231])
+  by orviesa007.jf.intel.com with ESMTP; 11 Nov 2026 08:53:35 -0800
+From: Ajay KV <ajay.k.v@intel.com>
+To: linux-bluetooth@vger.kernel.org
+Cc: chandrashekar.devegowda@intel.com,
+	kiran.k@intel.com,
+	linux-kernel@vger.kernel.org,
+	luiz.dentz@gmail.com,
+	marcel@holtmann.org,
+	stable@vger.kernel.org,
+	chethan.tumkur.narayan@intel.com,
+	lakshmipathi.k@intel.com,
+	Ajaykv <ajay.k.v@intel.com>
+Subject: [PATCH v3 1/3] Bluetooth: btintel_pcie: Add yoyo support for config set TLV
+Date: Wed, 11 Nov 2026 18:53:30 +0200
+Message-ID: <20261111165332.8478-1-ajay.k.v@intel.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -127,122 +84,568 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261010-pipe_order-v1-2-9d8bd29fd78a@oss.qualcomm.com>
-X-Proofpoint-GUID: aqm5oK1TcWZ4AaIDOd7lh2CmZs9p6Sd5
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDA2NyBTYWx0ZWRfX+jW9+NKRvVpq
- jPS/E/1AEm3+oyY5tOvozXR4KefsZbiX4FzhAUzr+RE8zoQfkrPjH0MAye0Ax4K/20swcyvVffg
- PZPWXEOgQHh75pGV5D07V7bVwhZb00WHYWLqMGm1mI0iQHKfkJ77rd6/U8C8Xj5CnElP3OgGPyA
- gpz/eZKPlrf/tlybKAzOmzmAlHcryhwMnAz0yCDdJoGy1E2U2HxDsEDkRSqc5s+06M+y2g2K/Ee
- ARqo1LZjCi4iTeL6Qt9p4hlJEq8mc4G9mfhC0NFN8vLs8ONPCGic6SppvSGGxBmHbgTo/uLK4XL
- O750ttnQ2g+9Y1M9lZvtU7adqe40KP3r35LOW08yB+qRkAk4T1WQEIBPMt/42/occZc8PZVbUom
- u8KJeEtvEMW+0gJhIP9NyNunYEVwGA1hvv2mXTARBMRtYAAnNPZxns9yAgVWNGXjR8sBTfhmew3
- UC+WY4hQIeausO9MJYw==
-X-Proofpoint-ORIG-GUID: aqm5oK1TcWZ4AaIDOd7lh2CmZs9p6Sd5
-X-Authority-Analysis: v=2.4 cv=O9isLx9W c=1 sm=1 tr=0 ts=6af49d7b cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=EUspDBNiAAAA:8
- a=zXlURQC4rpLtYXS3vwUA:9 a=CjuIK1q_8ugA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDA2NyBTYWx0ZWRfX2bQs7Xcd79RA
- r1l0BnfQ9ZQDK/M52jL+XpcJJ2Zwi0UrLVR/OAoCpVLreZwZ71VTdHgJS8tkoEpahjMmbzCKrrm
- WBh5NnLoLp2tku81n3c1esiHB8oKz1U=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-11_04,2026-11-11_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 phishscore=0 clxscore=1015 lowpriorityscore=0 suspectscore=0
- impostorscore=0 adultscore=0 priorityscore=1501 bulkscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611110067
+Content-Transfer-Encoding: 8bit
 
-On Sat, Oct 10, 2026 at 07:08:22PM +0530, Mahadevan P wrote:
-> DPU 5.0 introduced SRC_SPLIT_ORDER in bit 4 of SSPP_SRC_OP_MODE and
-> SSPP_SRC_OP_MODE_REC1. For source-split pairs using legacy CTL routing,
-> this field identifies the left source with 0 and the right source with 1.
-> 
-> Add a setup_src_split_order() operation for the SSPP register layout
-> used on DPU 5.0 through 12.x. Select SSPP_SRC_OP_MODE for SOLO or RECT0
-> and SSPP_SRC_OP_MODE_REC1 for RECT1, and update only the ordering bit.
-> 
-> Assisted-by: LLM
-> Signed-off-by: Mahadevan P <mahadevan.p@oss.qualcomm.com>
-> ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c | 35 +++++++++++++++++++++++++++++
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h | 11 +++++++++
->  2 files changed, 46 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
-> index b5e50fc1916f..f6ec883f9066 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
-> @@ -84,6 +84,7 @@
->  #define MDSS_MDP_OP_IGC_EN                 BIT(16)
->  #define MDSS_MDP_OP_FLIP_UD                BIT(14)
->  #define MDSS_MDP_OP_FLIP_LR                BIT(13)
-> +#define MDSS_MDP_OP_SRC_SPLIT_ORDER        BIT(4)
->  #define MDSS_MDP_OP_BWC_EN                 BIT(0)
->  #define MDSS_MDP_OP_PE_OVERRIDE            BIT(31)
->  #define MDSS_MDP_OP_BWC_LOSSLESS           (0 << 1)
-> @@ -260,6 +261,38 @@ static void dpu_hw_sspp_setup_format(struct dpu_sw_pipe *pipe,
->  				 ubwc_ctrl_off, ubwc_error_off);
->  }
->  
-> +void dpu_hw_setup_src_split_order_impl(struct dpu_hw_sspp *ctx,
-> +				       u32 op_mode_off, bool right)
+From: Ajaykv <ajay.k.v@intel.com>
 
-static
+Add parsing of the YoYo CONFIG_SET TLV so that debug register
+configuration can be supplied through the external TLV file.
+Each CONFIG_SET TLV is validated, and its address/value pairs
+are stored in the config set list of the YoYo context.
 
-> +{
-> +	u32 opmode;
-> +
-> +	opmode = DPU_REG_READ(&ctx->hw, op_mode_off);
-> +	if (right)
-> +		opmode |= MDSS_MDP_OP_SRC_SPLIT_ORDER;
-> +	else
-> +		opmode &= ~MDSS_MDP_OP_SRC_SPLIT_ORDER;
-> +
-> +	DPU_REG_WRITE(&ctx->hw, op_mode_off, opmode);
-> +}
-> +
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h
-> index 69d68cc916b2..9b9ea2e00a00 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h
-> @@ -236,6 +236,14 @@ struct dpu_hw_sspp_ops {
->  
->  	void (*setup_multirect)(struct dpu_sw_pipe *pipe);
->  
-> +	/**
-> +	 * @setup_src_split_order: program the position of the pipe within
-> +	 *                         a source split pair
-> +	 * @pipe: Pointer to pipe context
-> +	 * @right: true if the pipe fetches the right half of the pair
-> +	 */
-> +	void (*setup_src_split_order)(struct dpu_sw_pipe *pipe, bool right);
-> +
->  	/**
->  	 * @setup_sharpening: setup sharpening
->  	 * @ctx: Pointer to pipe context
-> @@ -349,6 +357,9 @@ void dpu_hw_setup_multirect_impl(struct dpu_sw_pipe *pipe,
->  				 struct dpu_hw_sspp *ctx,
->  				 u32 op_mode_off);
->  
-> +void dpu_hw_setup_src_split_order_impl(struct dpu_hw_sspp *ctx,
-> +				       u32 op_mode_off, bool right);
+At the configured timepoint, the stored pairs are written to
+the target memory region, with or without target access
+depending on the region type. Write failures are logged
+and do not stop normal Bluetooth bring-up.
 
-It's not used outside of the original file, drop.
+Peripheral MAC and device memory pairs are written through the
+indirect target access registers: the address is written to
+PRPH_DEV_ADDR_REG (0x440), which is shared by reads and writes,
+and the value to PRPH_DEV_WR_REG (0x454), under MAC access. No
+readback is done, as reading some peripheral registers has side
+effects.
 
-> +
->  void dpu_hw_setup_format_impl(struct dpu_sw_pipe *pipe, const struct msm_format *fmt,
->  			      u32 flags, struct dpu_hw_sspp *ctx,
->  			      u32 op_mode_off, u32 unpack_pat_off, u32 format_off,
-> 
-> -- 
-> 2.34.1
-> 
+btintel_pcie_yoyo_cleanup() now frees the config set list,
+so in btintel_pcie_remove() it is moved after
+btintel_pcie_release_hdev(); the list must stay valid until
+the HCI device is gone. It also clears ctx->hdev, and
+btintel_pcie_yoyo_load_and_parse() now calls it itself when
+parsing fails or a mandatory TLV is missing, so a rejected
+file leaves no partial state.
 
+btintel_pcie_yoyo_load_and_parse() also rejects a NULL
+device, and its parse failures are reported with BT_WARN
+instead of BT_ERR, since YoYo is optional and the driver
+falls back to the legacy DBGC defaults. The existing
+DEBUG_INFO and buffer allocation parser messages are
+reworded, and the PCI BDF is added to the YoYo status
+messages to identify the controller.
+
+The mandatory TLV check for the buffer allocation TLV is moved
+from btintel_pcie_yoyo_parse_tlv_buffer() to
+btintel_pcie_yoyo_load_and_parse(), so that both mandatory TLVs
+are checked in one place.
+
+Existing defines and enum entries in btintel_pcie_debug.h
+are realigned; these are whitespace-only changes.
+
+Signed-off-by: Ajaykv <ajay.k.v@intel.com>
+---
+ drivers/bluetooth/btintel_pcie.c       | 138 ++++++++++++++++++++++++-
+ drivers/bluetooth/btintel_pcie.h       |   1 +
+ drivers/bluetooth/btintel_pcie_debug.c | 117 ++++++++++++++++++---
+ drivers/bluetooth/btintel_pcie_debug.h |  76 +++++++++++++-
+ 4 files changed, 313 insertions(+), 19 deletions(-)
+
+diff --git a/drivers/bluetooth/btintel_pcie.c b/drivers/bluetooth/btintel_pcie.c
+index dadd79e4392f..b1bf3f42ed59 100644
+--- a/drivers/bluetooth/btintel_pcie.c
++++ b/drivers/bluetooth/btintel_pcie.c
+@@ -927,6 +927,133 @@ static void btintel_pcie_release_mac_access(struct btintel_pcie_data *data)
+ 	}
+ }
+ 
++static void
++btintel_pcie_apply_yoyo_config_sets(struct btintel_pcie_data *data,
++				    u32 time_point)
++{
++	struct btintel_pcie_yoyo_config_set *config_set;
++	resource_size_t bar0_len;
++	int ret;
++	u32 i;
++
++	if (!data)
++		return;
++
++	/* Get the length of PCI BAR0 */
++	bar0_len = pci_resource_len(data->pdev, 0);
++
++	if (!data->yoyo.enabled)
++		return;
++
++	list_for_each_entry(config_set, &data->yoyo.config_set_list, list) {
++		u32 pair_addr, addr, value;
++
++		if (config_set->time_point != time_point)
++			continue;
++
++		switch (config_set->config_set_type) {
++		case BTINTEL_PCIE_CFGSET_CSR:
++		case BTINTEL_PCIE_CFGSET_PERIPH_MAC:
++		case BTINTEL_PCIE_CFGSET_DEVICE_MEM:
++			break;
++		default:
++			BT_WARN("YoYo: unknown/unsupported config_set type %u, skipping",
++				config_set->config_set_type);
++			continue;
++		}
++
++		if (config_set->config_set_type == BTINTEL_PCIE_CFGSET_PERIPH_MAC ||
++		    config_set->config_set_type == BTINTEL_PCIE_CFGSET_DEVICE_MEM) {
++			ret = btintel_pcie_get_mac_access(data);
++			if (ret) {
++				BT_WARN("YoYo: MAC access failed for config set (%d), skipping",
++					ret);
++				/* get_mac_access() asserts MAC_ACCESS_REQ before it
++				 * polls, and leaves it set on timeout; drop it so the
++				 * request bit is not leaked.
++				 */
++				btintel_pcie_release_mac_access(data);
++				continue;
++			}
++		}
++
++		for (i = 0; i < config_set->num_pairs; i++) {
++			pair_addr = get_unaligned_le32(&config_set->pairs[i].address);
++
++			/* Calculate the effective address by adding the address offset */
++			if (check_add_overflow(pair_addr, config_set->addr_offset, &addr)) {
++				BT_WARN("YoYo: config set address overflow (0x%08x + 0x%08x)",
++					pair_addr, config_set->addr_offset);
++				continue;
++			}
++
++			value = get_unaligned_le32(&config_set->pairs[i].value);
++
++			switch (config_set->config_set_type) {
++			/* Direct Address Access (CSR) */
++			case BTINTEL_PCIE_CFGSET_CSR:
++				/* Validate the effective address for CSR access (Direct Address)
++				 * addr not aligned to 4 bytes or exceeds the BAR0 length
++				 */
++				if ((addr & (sizeof(u32) - 1)) ||
++				    bar0_len < sizeof(u32) ||
++				    addr > bar0_len - sizeof(u32)) {
++					BT_WARN("YoYo: bad CSR address 0x%08x for BAR0 length %llu",
++						addr, (unsigned long long)bar0_len);
++					continue;
++				}
++
++				BT_DBG("YoYo: CSR write [0x%08x] = 0x%08x", addr, value);
++				btintel_pcie_wr_reg32(data, addr, value);
++				break;
++			/* Indirect Address Access (Peripheral MAC and Device Memory) */
++			case BTINTEL_PCIE_CFGSET_PERIPH_MAC:
++			case BTINTEL_PCIE_CFGSET_DEVICE_MEM:
++				/* The config-set TLV comes from an untrusted external file;
++				 * reject null or unaligned targets.
++				 */
++				if (!addr || (addr & (sizeof(u32) - 1))) {
++					BT_WARN("YoYo: bad indirect address 0x%08x for type %u",
++						addr, config_set->config_set_type);
++					continue;
++				}
++
++				btintel_pcie_wr_reg32(data,
++						      BTINTEL_PCIE_PRPH_DEV_ADDR_REG,
++						      addr);
++				btintel_pcie_wr_reg32(data,
++						      BTINTEL_PCIE_PRPH_DEV_WR_REG,
++						      value);
++				BT_DBG("YoYo: indirect write type %u addr 0x%08x value 0x%08x",
++				       config_set->config_set_type, addr, value);
++				break;
++			default:
++				BT_WARN("YoYo: unknown config_set type %u",
++					config_set->config_set_type);
++				break;
++			}
++		}
++
++		if (config_set->config_set_type == BTINTEL_PCIE_CFGSET_PERIPH_MAC ||
++		    config_set->config_set_type == BTINTEL_PCIE_CFGSET_DEVICE_MEM)
++			btintel_pcie_release_mac_access(data);
++	}
++}
++
++static void btintel_pcie_yoyo_handle_timepoint(struct btintel_pcie_data *data,
++					       enum btintel_pcie_dbg_timepoint tp)
++{
++	if (!data || !data->yoyo.enabled)
++		return;
++
++	if (tp <= BTINTEL_PCIE_TP_INVALID || tp >= BTINTEL_PCIE_TP_MAX_NUM) {
++		BT_WARN("YoYo: invalid timepoint %u", tp);
++		return;
++	}
++
++	btintel_pcie_apply_yoyo_config_sets(data, tp);
++}
++
+ static struct scatterlist *btintel_pcie_alloc_sgtable(ssize_t size)
+ {
+ 	int nents;
+@@ -1617,6 +1744,9 @@ static int btintel_pcie_enable_bt(struct btintel_pcie_data *data)
+ 		BT_INFO("%s: Mac Init: Wait on Alive Interrupt",
+ 			btintel_pcie_dev_name(data));
+ 
++	/* EARLY Timepoint Handler */
++	btintel_pcie_yoyo_handle_timepoint(data, BTINTEL_PCIE_TP_EARLY);
++
+ 	btintel_pcie_set_reg_bits(data, BTINTEL_PCIE_CSR_FUNC_CTRL_REG,
+ 				  BTINTEL_PCIE_CSR_FUNC_CTRL_FUNC_INIT);
+ 
+@@ -4751,7 +4881,8 @@ static int btintel_pcie_probe(struct pci_dev *pdev,
+ 	if (data->enable_ini) {
+ 		err = btintel_pcie_yoyo_load_and_parse(&data->yoyo, &pdev->dev);
+ 		if (err) {
+-			BT_WARN("YoYo is not configured (%d)", err);
++			BT_WARN("YoYo (BDF - %s): yoyo is not configured (%d)",
++				pci_name(pdev), err);
+ 			btintel_pcie_yoyo_cleanup(&data->yoyo);
+ 		}
+ 	}
+@@ -4834,8 +4965,6 @@ static void btintel_pcie_remove(struct pci_dev *pdev)
+ 	btintel_pcie_synchronize_irqs(data);
+ 	disable_delayed_work_sync(&data->hw_rfkill_work);
+ 
+-	btintel_pcie_yoyo_cleanup(&data->yoyo);
+-
+ 	btintel_pcie_disable_interrupts(data);
+ 
+ 	btintel_pcie_synchronize_irqs(data);
+@@ -4854,6 +4983,9 @@ static void btintel_pcie_remove(struct pci_dev *pdev)
+ 
+ 	btintel_pcie_release_hdev(data);
+ 
++	/* Cleanup YoYo debug framework */
++	btintel_pcie_yoyo_cleanup(&data->yoyo);
++
+ 	destroy_workqueue(data->dump_workqueue);
+ 	destroy_workqueue(data->workqueue);
+ 
+diff --git a/drivers/bluetooth/btintel_pcie.h b/drivers/bluetooth/btintel_pcie.h
+index 4125601b78d7..2224785b6e30 100644
+--- a/drivers/bluetooth/btintel_pcie.h
++++ b/drivers/bluetooth/btintel_pcie.h
+@@ -27,6 +27,7 @@
+ #define BTINTEL_PCIE_CSR_MBOX_4_REG		(BTINTEL_PCIE_CSR_BASE + 0x17C)
+ #define BTINTEL_PCIE_CSR_MBOX_STATUS_REG	(BTINTEL_PCIE_CSR_BASE + 0x180)
+ #define BTINTEL_PCIE_PRPH_DEV_ADDR_REG		(BTINTEL_PCIE_CSR_BASE + 0x440)
++#define BTINTEL_PCIE_PRPH_DEV_WR_REG		(BTINTEL_PCIE_CSR_BASE + 0x454)
+ #define BTINTEL_PCIE_PRPH_DEV_RD_REG		(BTINTEL_PCIE_CSR_BASE + 0x458)
+ #define BTINTEL_PCIE_CSR_HBUS_TARG_WRPTR	(BTINTEL_PCIE_CSR_BASE + 0x460)
+ 
+diff --git a/drivers/bluetooth/btintel_pcie_debug.c b/drivers/bluetooth/btintel_pcie_debug.c
+index d675d3ff63dc..f62fc2e1a736 100644
+--- a/drivers/bluetooth/btintel_pcie_debug.c
++++ b/drivers/bluetooth/btintel_pcie_debug.c
+@@ -314,8 +314,10 @@ static int btintel_pcie_yoyo_parse_dbg_info(struct btintel_pcie_yoyo_ctx *ctx,
+ 	const u8 *data = (const u8 *)info;
+ 	u32 domain, image_type, core_type, version;
+ 
+-	if (len != sizeof(*info) - sizeof(struct btintel_pcie_tlv_hdr))
++	if (len != sizeof(*info) - sizeof(struct btintel_pcie_tlv_hdr)) {
++		BT_WARN("YoYo: dbg info tlv is too short or Invalid");
+ 		return -EBADMSG;
++	}
+ 
+ 	image_type = get_unaligned_le32(data +
+ 				       offsetof(struct btintel_pcie_tlv_dbg_info,
+@@ -361,7 +363,7 @@ static int btintel_pcie_yoyo_parse_buf_alloc(struct btintel_pcie_yoyo_ctx *ctx,
+ 	u32 req_buf_size, version;
+ 
+ 	if (len != sizeof(*tlv) - sizeof(struct btintel_pcie_tlv_hdr)) {
+-		BT_WARN("YoYo: unexpected buf alloc TLV length %u", len);
++		BT_WARN("YoYo: buf alloc tlv is too short or Invalid");
+ 		return -EBADMSG;
+ 	}
+ 
+@@ -423,6 +425,85 @@ static int btintel_pcie_yoyo_parse_buf_alloc(struct btintel_pcie_yoyo_ctx *ctx,
+ 	return 0;
+ }
+ 
++static int btintel_pcie_yoyo_parse_config_set(struct btintel_pcie_yoyo_ctx *ctx,
++					      const struct btintel_pcie_tlv_config_set *tlv,
++					      u32 len)
++{
++	struct btintel_pcie_yoyo_config_set *cs;
++	u32 fixed_size = sizeof(*tlv) - sizeof(struct btintel_pcie_tlv_hdr);
++	u32 pairs_bytes, num_pairs, domain, version, time_point, config_set_type;
++
++	if (len < fixed_size) {
++		BT_WARN("YoYo: config set tlv too short or Invalid");
++		return -EBADMSG;
++	}
++
++	domain = get_unaligned_le32(&tlv->dbg_hdr.domain);
++	version = get_unaligned_le32(&tlv->dbg_hdr.tlv_data_version);
++	if (domain != BTINTEL_PCIE_DOMAIN_BT ||
++	    version != BTINTEL_PCIE_CONFIG_SET_TLV_VERSION) {
++		BT_WARN("YoYo: unsupported domain/version (%u/%u)",
++			domain, version);
++		return 0;
++	}
++
++	time_point = get_unaligned_le32(&tlv->time_point);
++	if (time_point != BTINTEL_PCIE_TP_EARLY) {
++		BT_WARN("YoYo: config set unsupported time_point %u, skipping",
++			time_point);
++		return 0;
++	}
++
++	config_set_type = get_unaligned_le32(&tlv->config_set_type);
++	if (config_set_type != BTINTEL_PCIE_CFGSET_CSR &&
++	    config_set_type != BTINTEL_PCIE_CFGSET_PERIPH_MAC &&
++	    config_set_type != BTINTEL_PCIE_CFGSET_DEVICE_MEM) {
++		BT_WARN("YoYo: config set unsupported config_set_type %u, skipping",
++			config_set_type);
++		return 0;
++	}
++
++	/* Malformed pair data: skip this TLV, keep parsing the rest. */
++	pairs_bytes = len - fixed_size;
++	if (pairs_bytes % sizeof(struct btintel_pcie_addr_value)) {
++		BT_WARN("YoYo: config set has an incomplete addr/value pair, skipping");
++		return 0;
++	}
++
++	num_pairs = pairs_bytes / sizeof(struct btintel_pcie_addr_value);
++
++	if (!num_pairs) {
++		BT_WARN("YoYo: config set with no addr/value pairs, skipping");
++		return 0;
++	}
++
++	cs = kzalloc(sizeof(*cs), GFP_KERNEL);
++	if (!cs) {
++		BT_WARN("YoYo: failed to allocate config set entry, disabling YoYo");
++		/* -ENOMEM is fatal: load_and_parse() discards the whole configuration */
++		return -ENOMEM;
++	}
++
++	cs->time_point = time_point;
++	cs->config_set_type = config_set_type;
++	cs->addr_offset = get_unaligned_le32(&tlv->addr_offset);
++	cs->num_pairs = num_pairs;
++
++	cs->pairs = kmemdup(tlv->addr_pair, pairs_bytes, GFP_KERNEL);
++	if (!cs->pairs) {
++		kfree(cs);
++		BT_WARN("YoYo: failed to allocate config set pairs, disabling YoYo");
++		return -ENOMEM;
++	}
++
++	BT_DBG("YoYo: config set tp=%u type=%u pairs=%u offset=0x%x",
++	       cs->time_point, cs->config_set_type,
++	       cs->num_pairs, cs->addr_offset);
++
++	list_add_tail(&cs->list, &ctx->config_set_list);
++	return 0;
++}
++
+ /*
+  * Parse the optional YoYo firmware TLV stream and validate each record.
+  * This is the entry point for the runtime debug configuration payload.
+@@ -463,10 +544,12 @@ static int btintel_pcie_yoyo_parse_tlv_buffer(struct btintel_pcie_yoyo_ctx *ctx,
+ 			ret = btintel_pcie_yoyo_parse_buf_alloc(ctx,
+ 								(const void *)tlv, len);
+ 			break;
++		case BTINTEL_PCIE_TLV_TYPE_DBG_CONFIG_SET:
++			ret = btintel_pcie_yoyo_parse_config_set(ctx, (const void *)tlv, len);
++			break;
+ 		case BTINTEL_PCIE_TLV_TYPE_DBG_REGION:
+ 		case BTINTEL_PCIE_TLV_TYPE_DBG_TRIGGER:
+ 		case BTINTEL_PCIE_TLV_TYPE_DBG_HCMD:
+-		case BTINTEL_PCIE_TLV_TYPE_DBG_CONFIG_SET:
+ 		case BTINTEL_PCIE_TLV_TYPE_DBG_PRESET_OVERRIDE:
+ 			BT_DBG("YoYo: valid tlv type 0x%x len=%u", type, len);
+ 			break;
+@@ -491,10 +574,6 @@ static int btintel_pcie_yoyo_parse_tlv_buffer(struct btintel_pcie_yoyo_ctx *ctx,
+ 		BT_ERR("YoYo: trailing %zu bytes after tlv stream", remaining);
+ 		return -EBADMSG;
+ 	}
+-	if (!ctx->num_buf_allocs) {
+-		BT_ERR("YoYo: mandatory buffer allocation TLV missing");
+-		return -EBADMSG;
+-	}
+ 
+ 	BT_DBG("YoYo: parsed %u tlv's", count);
+ 	return 0;
+@@ -528,6 +607,8 @@ EXPORT_SYMBOL_GPL(btintel_pcie_yoyo_init);
+  */
+ void btintel_pcie_yoyo_cleanup(struct btintel_pcie_yoyo_ctx *ctx)
+ {
++	struct btintel_pcie_yoyo_config_set *config_set, *config_tmp;
++
+ 	if (!ctx)
+ 		return;
+ 
+@@ -535,6 +616,14 @@ void btintel_pcie_yoyo_cleanup(struct btintel_pcie_yoyo_ctx *ctx)
+ 	ctx->dbg_info_present = false;
+ 	ctx->num_buf_allocs = 0;
+ 	memset(ctx->buf_alloc, 0, sizeof(ctx->buf_alloc));
++
++	ctx->hdev = NULL;
++
++	list_for_each_entry_safe(config_set, config_tmp, &ctx->config_set_list, list) {
++		list_del(&config_set->list);
++		kfree(config_set->pairs);
++		kfree(config_set);
++	}
+ }
+ EXPORT_SYMBOL_GPL(btintel_pcie_yoyo_cleanup);
+ 
+@@ -552,7 +641,7 @@ int btintel_pcie_yoyo_load_and_parse(struct btintel_pcie_yoyo_ctx *ctx,
+ 	const struct firmware *fw;
+ 	int ret;
+ 
+-	if (!ctx)
++	if (!ctx || !dev)
+ 		return -EINVAL;
+ 
+ 	ret = request_firmware_direct(&fw, BTINTEL_PCIE_YOYO_FW_NAME, dev);
+@@ -576,17 +665,21 @@ int btintel_pcie_yoyo_load_and_parse(struct btintel_pcie_yoyo_ctx *ctx,
+ 
+ 	/* File Corruption / TLV validation failed */
+ 	if (ret) {
+-		BT_ERR("YoYo: tlv parsing failed (%d)", ret);
++		BT_WARN("YoYo: tlv parsing failed (%d)", ret);
++		btintel_pcie_yoyo_cleanup(ctx);
+ 		return ret;
+ 	}
+-	if (!ctx->dbg_info_present) {
+-		BT_ERR("YoYo: Invalid BT debug Info tlv, using legacy DBGC defaults");
++
++	/* DEBUG_INFO and buffer allocation TLVs are mandatory */
++	if (!ctx->dbg_info_present || !ctx->num_buf_allocs) {
++		BT_WARN("YoYo: mandatory tlv is missing, using legacy DBGC defaults");
++		btintel_pcie_yoyo_cleanup(ctx);
+ 		return -EBADMSG;
+ 	}
+ 
+ 	ctx->enabled = true;
+ 
+-	BT_INFO("YoYo: feature enabled and configured");
++	BT_INFO("YoYo (BDF - %s): feature enabled and configured", dev_name(dev));
+ 	return 0;
+ }
+ EXPORT_SYMBOL_GPL(btintel_pcie_yoyo_load_and_parse);
+diff --git a/drivers/bluetooth/btintel_pcie_debug.h b/drivers/bluetooth/btintel_pcie_debug.h
+index b4d1d329886b..a9ecc7462d4e 100644
+--- a/drivers/bluetooth/btintel_pcie_debug.h
++++ b/drivers/bluetooth/btintel_pcie_debug.h
+@@ -48,9 +48,9 @@ bool btintel_pcie_fatal_err_testmode_active(struct btintel_pcie_data *data);
+ #define BTINTEL_PCIE_YOYO_FW_NAME	"intel/ibt_debug_yoyo.bin"
+ 
+ /* TLV type codes */
+-#define BTINTEL_PCIE_TLV_TYPE_DBG_INFO		0x1000005
++#define BTINTEL_PCIE_TLV_TYPE_DBG_INFO			0x1000005
+ #define BTINTEL_PCIE_TLV_TYPE_DBG_BUF_ALLOC		0x1000006
+-#define BTINTEL_PCIE_TLV_TYPE_DBG_HCMD		0x1000007
++#define BTINTEL_PCIE_TLV_TYPE_DBG_HCMD			0x1000007
+ #define BTINTEL_PCIE_TLV_TYPE_DBG_REGION		0x1000008
+ #define BTINTEL_PCIE_TLV_TYPE_DBG_TRIGGER		0x1000009
+ #define BTINTEL_PCIE_TLV_TYPE_DBG_CONFIG_SET		0x100000A
+@@ -59,6 +59,7 @@ bool btintel_pcie_fatal_err_testmode_active(struct btintel_pcie_data *data);
+ /* Supported TLV type versions */
+ #define BTINTEL_PCIE_DBG_INFO_TLV_VERSION	2
+ #define BTINTEL_PCIE_BUF_ALLOC_TLV_VERSION	1
++#define BTINTEL_PCIE_CONFIG_SET_TLV_VERSION	1
+ /* Debug Info TLV */
+ #define BTINTEL_PCIE_CONFIG_NAME_LEN		64
+ #define BTINTEL_PCIE_DOMAIN_BT			0
+@@ -77,7 +78,7 @@ enum btintel_pcie_image_tlv_type {
+ 
+ /* Allocation IDs */
+ enum btintel_dbg_alloc_id {
+-	BTINTEL_PCIE_ALLOC_ID_INVALID	= 0,
++	BTINTEL_PCIE_ALLOC_ID_INVALID		= 0,
+ 	BTINTEL_PCIE_ALLOC_ID_DBGC1		= 1,
+ 	BTINTEL_PCIE_ALLOC_ID_DBGC2		= 2,
+ 	BTINTEL_PCIE_ALLOC_ID_DBGC3		= 3,
+@@ -93,6 +94,41 @@ enum btintel_dbg_buf_location {
+ 	BTINTEL_PCIE_BUF_LOC_MAX,
+ };
+ 
++/* Config set types */
++enum btintel_pcie_dbg_config_set_type {
++	BTINTEL_PCIE_CFGSET_INVALID		= 0,
++	BTINTEL_PCIE_CFGSET_PERIPH_MAC		= 1,
++	BTINTEL_PCIE_CFGSET_PERIPH_PHY		= 2,
++	BTINTEL_PCIE_CFGSET_PERIPH_AUX		= 3,
++	BTINTEL_PCIE_CFGSET_DEVICE_MEM		= 4,
++	BTINTEL_PCIE_CFGSET_CSR			= 5,
++	BTINTEL_PCIE_CFGSET_DBGC_DRAM_ADDR	= 6,
++	BTINTEL_PCIE_CFGSET_PERIPH_SCRATCH	= 7,
++	BTINTEL_PCIE_CFGSET_MAX,
++};
++
++/* Types of Timepoints */
++enum btintel_pcie_dbg_timepoint {
++	BTINTEL_PCIE_TP_INVALID			= 0,
++	BTINTEL_PCIE_TP_EARLY			= 1,
++	BTINTEL_PCIE_TP_AFTER_ALIVE		= 2,
++	BTINTEL_PCIE_TP_POST_INIT		= 3,
++	BTINTEL_PCIE_TP_FW_ASSERT		= 4,
++	BTINTEL_PCIE_TP_FW_HW_ERROR		= 5,
++	BTINTEL_PCIE_TP_FW_TFD_Q_HANG		= 6,
++	BTINTEL_PCIE_TP_FW_DHC_NOTIF		= 7,
++	BTINTEL_PCIE_TP_FW_RSP_OR_NOTIF		= 8,
++	BTINTEL_PCIE_TP_USER_TRIGGER		= 9,
++	BTINTEL_PCIE_TP_PERIODIC		= 10,
++	BTINTEL_PCIE_TP_RESERVED		= 11,
++	BTINTEL_PCIE_TP_HOST_ASSERT		= 12,
++	BTINTEL_PCIE_TP_HOST_ALIVE_TIMEOUT	= 13,
++	BTINTEL_PCIE_TP_HOST_DEVICE_DISABLE	= 15,
++	BTINTEL_PCIE_TP_HOST_D3_START		= 16,
++	BTINTEL_PCIE_TP_HOST_D3_END		= 17,
++	BTINTEL_PCIE_TP_MAX_NUM,
++};
++
+ /* TLV header */
+ struct btintel_pcie_tlv_hdr {
+ 	__le32 type;
+@@ -152,6 +188,27 @@ struct btintel_pcie_tlv_buf_alloc {
+ 	__le32 min_buf_size;
+ } __packed;
+ 
++/*
++ * struct btintel_pcie_tlv_config_set - YoYo configuration-set TLV
++ * @hdr: Common TLV type and payload length
++ * @dbg_hdr: Debug TLV version and domain
++ * @time_point: Timepoint at which to apply this configuration
++ * @config_set_type: Target register or memory space
++ * @addr_offset: Offset added to each address/value pair address
++ * @addr_pair: Variable-length array of address/value pairs
++ *
++ * Describes configuration values to apply at a specified timepoint. Fields
++ * are stored in little-endian format in the packed firmware TLV.
++ */
++struct btintel_pcie_tlv_config_set {
++	struct btintel_pcie_tlv_hdr hdr;
++	struct btintel_pcie_dbg_hdr dbg_hdr;
++	__le32 time_point;
++	__le32 config_set_type;
++	__le32 addr_offset;
++	struct btintel_pcie_addr_value addr_pair[];
++} __packed;
++
+ /* Parsed buffer allocation entry in the YoYo context */
+ struct btintel_pcie_buf_alloc {
+ 	u32	alloc_id;
+@@ -162,9 +219,20 @@ struct btintel_pcie_buf_alloc {
+ 	bool	present;
+ };
+ 
++/* Parsed config set entry in yoyo ctx */
++struct btintel_pcie_yoyo_config_set {
++	struct list_head		list;
++	u32				time_point;
++	u32				config_set_type;
++	u32				addr_offset;
++	u32				num_pairs;
++	struct btintel_pcie_addr_value	*pairs;
++};
++
+ /*
+- * struct btintel_pcie_yoyo_ctx- Runtime state for YoYo debug configuration
++ * struct btintel_pcie_yoyo_ctx - Runtime state for YoYo debug configuration
+  * @enabled: Whether the loaded YoYo configuration passed validation
++ * @dbg_info_present: Whether the mandatory DEBUG_INFO TLV was validated
+  * @region_list: Parsed debug-region entries
+  * @trigger_list: Parsed debug-trigger entries
+  * @hcmd_list: Parsed HCI command entries
 -- 
-With best wishes
-Dmitry
+2.53.0
+
