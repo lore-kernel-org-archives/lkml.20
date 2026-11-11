@@ -1,66 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794417230;
-	b=SuyvHAXaFttMOXqraLMs6jFxYNa0TWFPaQgPQVB2GK5iKtXLfw28KD3JGN1adlGk1rGu
-	 ewTuZgLNPUqjVFWZkG6j3eHsI47JCXr0+5VFmDW8VBnuXPRoBLTpdpk3H1IKFHyuHoUmc
-	 g6MV/cb/iQhnbfvg2zvVtevQv/Wc8/j7maVV+Va8zH0Kn/cIU4cCGFdWE6xQ4zhxJavO/
-	 JGI2yKOTeAJ/vsscl/RJeJW0mMxmy/keR5O+aplwZv2Nx56s2HfD2HZYxEBBNocYAWGWF
-	 Tsv2i9v4iMHJDFyKLa+neu7+d5oxK/Sunyi7ykB3xTC68bdKifSLp+jYiuPCSKOzoMg==
+	t=1794417262;
+	b=Fbe+Wpc6fRp5uwiLh2gIaAX9Ax++m3KiLVEvZcuuda7G38IKRRha76J66zhCeJKdveOW
+	 MSO+toQvm6nw0WplnaTGoWYTrC1HjDHJKausTG8jCpLxo6YFQQJJaxoH8R5JZD2klAv9V
+	 gs4GLUW2lvZHDrf5R/bEl/NMX2NaKGBEfwZztisN/Y3yIgBkccbSM8XXrZWDCjRobu5em
+	 h+psj+cDQPLjx4FbO/+y2t9mOXT+8W7/iXHuqwGWugzb9fbHSzvMoWrZExAU5YhzrMEIb
+	 zOqBIv6r2YZ5WNV/gC6jXSkjvCHM0K9ZthfNOPiezS7R8vhPw+YtuTlA6BwK3gHIpxA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794417230;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=Pmc0sNWGC7k0bEkstele7ct2HavJeGya5bgJWGmK6yk=;
-	b=OERDZpjuJJJC784dFtChvUFk3yp19ELJaX0SfqFqiD9XJP2uRvxkaEFNHwIIScL4nawT
-	 K338bvcsv4cD4ZMz6B0+HNkcYYePeoOyIkdwNUllXaBN0nlZdHr893tJp+hUEQcywP6aM
-	 rO5ZMhJTiqYk22ViSkB4d4DwhEG1j9Jp5lpwcorloorXB+K3PeWAdTh6ylYs4Qv/2FYz7
-	 j+Rx4vIGwReHrMC4qFZ2T2G1uSypv8xIgm5lMSY3lIC9U+h8yR6KCncFFwzK3rCWjSqJ/
-	 B25e6XSmVsuzPeV52+jLX9pVmZoiZc8CpoXxn0MbdZGeHBPYm3Jek6WBKu+7i7lRyCg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794417262;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=K0OUanBq+hsQdFZ3wody+MoiBGNzg1aTJa0o6x23ajI=;
+	b=aeHAJpaxUfBNdPPN/care1Yh7kekQ4tK3GfJpdznes4XTfi/U+whcSqxIgglNmPtoJtC
+	 ZpOc1ESMuT0OwQL9f0p3OVGLqMgwDf4OlrHVegoKNkPOJjlOy81urxqMHAXxaO2Rfh/vu
+	 jtQm3mTyPe2+hTxBPkvhclQOpV9iapJ31xQJPvxQSucfWQ/SeGtQLsvtOstoxJ/kwpnSJ
+	 iEv7TYTAHrGqOUqchObyHlQzCFZ47ZYK9mSKty++PLUu5o08bEWmS0r6xD/36O6mBx2R8
+	 zV82Dl6bhHU2Brz64a4BLuZfriT5U6T/hwpAB0ju0MVFMEGIrS3RvbrRkGHpPxMaiDA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=acm.org;
-	spf=pass smtp.mailfrom=acm.org;
-	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b="10P/U8sv";
-	arc=none smtp.remote-ip=199.89.1.16
-Received: from 013.lax.mailroute.net (013.lax.mailroute.net [199.89.1.16])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nH1JAGr6;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69C82606A321;
-	Wed, 11 Nov 2026 17:13:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 69C82606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 962D8606A31C;
+	Wed, 11 Nov 2026 17:14:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=10P/U8sv
-Received: from localhost (localhost [127.0.0.1])
-	by 013.lax.mailroute.net (Postfix) with ESMTP id 4jPqqd6hCSzllB7V;
-	Wed, 11 Nov 2026 17:13:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
-	content-transfer-encoding:content-type:content-type:in-reply-to
-	:from:from:content-language:references:subject:subject
-	:user-agent:mime-version:date:date:message-id:received:received;
-	 s=mr01; t=1794417227; x=1797009228; bh=Pmc0sNWGC7k0bEkstele7ct2
-	HavJeGya5bgJWGmK6yk=; b=10P/U8sv49eM/t25mzJ4heBUeXZmxqGV9zp4QtRN
-	kHkTrsGJmLQxvVQNXTSwv72ao5w/5L/P6Y3+eKFEL5WbEoJ/phKKnZrTlC+/pruK
-	xLq/W1HGhDiMUrthb34ENgGivCKWSRHGdv5WBn3GwLtTphnxsuGd2+R7wU9kTyMQ
-	ZZZwvstvfhNeu2Zt/KbIcC0RwsYSSprVP9Ha3VrO73xBXBXxPcbZV4myJDEK/RYq
-	dmZqAUN9qrIJ5CURGLcI0HCBM0G3Kn+soEqvkeQsHAAW5/s89gVpxZp3HSs/OMql
-	uKaypl2HIwMghi6RClOcHq+AJQ6+p3RZgUFZjYoIfjGihA==
-X-Virus-Scanned: by MailRoute
-Received: from 013.lax.mailroute.net ([127.0.0.1])
- by localhost (013.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
- id OhkyM4DcAA0J; Wed, 11 Nov 2026 17:13:47 +0000 (UTC)
-Received: from [100.80.231.125] (unknown [104.135.182.41])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bvanassche@acm.org)
-	by 013.lax.mailroute.net (Postfix) with ESMTPSA id 4jPqqZ4V9Kzlfcln;
-	Wed, 11 Nov 2026 17:13:46 +0000 (UTC)
-Message-ID: <c2f4dbce-f8e0-4f04-8dee-3f8d413f4d0d@acm.org>
-Date: Wed, 11 Nov 2026 09:13:45 -0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nH1JAGr6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D8601F00A06;
+	Wed, 11 Nov 2026 17:14:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794417262;
+	bh=K0OUanBq+hsQdFZ3wody+MoiBGNzg1aTJa0o6x23ajI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=nH1JAGr6uuk6lIu20lPUVYJov5jYScxDWYtnf7zo9eE3S2TnUVpVQc2m7yUa9zfRW
+	 toANGDI6xl6733KtFkVbHEqWbuyJzbY8FVIdr3APnt6AqZcoqumlBXYSbKLkLYsw1P
+	 CcMY1JzUpgP5zijw5iCX/+gsy0GKFE/qnGbbYgQ5iSxmndJ8ps+6ycBHs2TmDMIYv5
+	 gLIYpwVCm6ILFKaWWFIjA6PoPkdaqPQjl2mzofBUh7kJm3VAO0tgR612U8Ay3yVipF
+	 wDdoLOZA7LjMOmLJat3dWTiee8OaQrSsgKNBbHxkDHIO5fEKA9x5Ljbm6SdWSUDJ0f
+	 BA19bUmhcxmmQ==
+Date: Wed, 11 Nov 2026 17:14:18 +0000
+From: Simon Horman <horms@kernel.org>
+To: Yaohan Li <shunsheng1218@gmail.com>
+Cc: netdev@vger.kernel.org, david@ixit.cz, davem@davemloft.net,
+	kuba@kernel.org, edumazet@kernel.org, pabeni@redhat.com,
+	oe-linux-nfc@lists.linux.dev, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH net v2] nfc: rawsock: serialize SEND_SHUTDOWN with the TX
+ work requeue
+Message-ID: <20261111171418.GG18859@horms.kernel.org>
+References: <20261105113812.969651-1-shunsheng1218@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,74 +59,108 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] nbd: fix circular lock dependency
-To: Guilherme Giacomo Simoes <trintaeoitogc@gmail.com>
-Cc: axboe@kernel.dk, josef@toxicpanda.com, linux-block@vger.kernel.org,
- linux-kernel@vger.kernel.org, nbd@other.debian.org,
- syzbot+d7d72f3d467710442af0@syzkaller.appspotmail.com
-References: <20261111101919.215767-1-trintaeoitogc@gmail.com>
- <20261111113814.221685-1-trintaeoitogc@gmail.com>
-Content-Language: en-US
-From: Bart Van Assche <bvanassche@acm.org>
-In-Reply-To: <20261111113814.221685-1-trintaeoitogc@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261105113812.969651-1-shunsheng1218@gmail.com>
 
-On 11/11/26 3:38 AM, Guilherme Giacomo Simoes wrote:
- > After tested, how can I mention this in my patch?
+On Thu, Nov 05, 2026 at 07:38:12PM +0800, Yaohan Li wrote:
+> rawsock_release() sets SEND_SHUTDOWN before cancelling tx_work, but it
+> updated the shutdown flag without the write-queue lock that
+> rawsock_data_exchange_complete() holds while it tests the flag and
+> re-queues tx_work.  A deferred completion could pass that check before
+> the flag was set and still schedule the work after cancel_work_sync()
+> had returned; the worker then ran on a socket that was freed right
+> after release dropped its reference.  KASAN reports the
+> slab-use-after-free in rawsock_tx_work().
+> 
+> Set SEND_SHUTDOWN under the write-queue lock, so the completion either
+> queues the work before the flag becomes visible (and cancel_work_sync()
+> then covers it) or observes the flag and does not queue.  The
+> completion-side check from the previous submission is kept.
+> 
+> The remaining requeue window after the cancel-based teardown was
+> previously raised in review of that change (CVE-2026-23372): an
+> asynchronous NFC completion can queue tx_work after
+> cancel_work_sync() has returned.  This change closes that window and
+> does not claim to be the first report of a rawsock teardown
+> use-after-free.
+> 
+> This issue was found during an AI-assisted source review of the socket
+> release, TX work and deferred data-exchange completion paths.  It was
+> reproduced on a KASAN kernel with a deterministic timing-injection
+> harness for a deferred NFC completion callback: with only the
+> completion-side check, stalling the completion between its shutdown
+> check and schedule_work() while release ran produced seven
+> slab-use-after-free reports in rawsock_tx_work(); with this change the
+> same sequence and the original purge-window injection produce no
+> reports.  The tests run in QEMU with a virtual NFC device; no NFC
+> hardware is involved.
+> 
+> Link: https://lists.openwall.net/netdev/2026/03/24/271
+> Fixes: d793458c45df ("nfc: rawsock: cancel tx_work before socket teardown")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Yaohan Li <shunsheng1218@gmail.com>
+> ---
+> 
+> v2:
+> - Set SEND_SHUTDOWN under the write-queue lock, so a completion that
+>   tested the flag before it was visible can no longer requeue tx_work
+>   after cancel_work_sync() returned (v1 only added the completion-side
+>   check, which left this ordering window open).
+> - Added deterministic A/B testing of that window: stalling the
+>   completion between its shutdown check and schedule_work() while
+>   release runs reproduces the use-after-free on the v1 code and is
+>   clean with this change.
+> - Corrected the Fixes tag to the cancel-based teardown commit and
+>   linked the earlier review thread for the remaining window.
+> 
+> v1: https://lore.kernel.org/r/179378590950.74297.14503648624087894519@gmail.com/
 
-If syzbot confirms the fix, you can either:
-- Add a "Tested-by: syzbot..." tag if syzkaller provides one, or
-- Mention it below the "---" separator in your patch (in the changelog/notes
-   section), e.g.:
-   Tested against syzbot reproducer via #syz test: <link-to-syzbot-result>
+Thanks for the updates.
 
- > What do you think now? We will call nbd_reclassify_socket() inside
- > nbd_get_socket() and call this only one time? Or is a better way call the
- > nbd_reclassify_socket() inside nbd_genl_reconnect_sock_cb() when we 
-have sure
- > that we will use the socket?
+>  net/nfc/rawsock.c | 22 ++++++++++++++++++++--
+>  1 file changed, 20 insertions(+), 2 deletions(-)
+> 
+> diff --git a/net/nfc/rawsock.c b/net/nfc/rawsock.c
+> index f7d7a599fade7..dd8401e3402d3 100644
+> --- a/net/nfc/rawsock.c
+> +++ b/net/nfc/rawsock.c
+> @@ -68,12 +68,23 @@ static int rawsock_release(struct socket *sock)
+>  		nfc_sock_unlink(&raw_sk_list, sk);
+>  
+>  	if (sk->sk_state == TCP_ESTABLISHED) {
+> -		/* Prevent rawsock_tx_work from starting new transmits and
+> +		/*
+> +		 * Prevent rawsock_tx_work from starting new transmits and
 
-Calling nbd_reclassify_socket(sock) directly inside
-nbd_genl_reconnect_sock_cb() (right after nbd_get_socket()) is definitely
-the best approach:
-1. It is a 1-line addition to nbd_genl_reconnect_sock_cb().
-2. It mirrors what nbd_add_socket() already does.
-3. No code needs to be moved around, keeping the git diff minimal and making
-    the fix trivial to review and backport to stable kernels.
+I don't think there is a need to respin just because of it.
+But if there is a v3 for some other reason then I think the change
+above can be dropped. Perhaps tooling flaged the existing style,
+but it is acceptable for Networking code. And, for many years
+it was required.
 
- > What do you think:
- > ```
- > nbd: must reclassify socket when socket is created
- >
- > When we need to connect or reconnect a new socket, we need to call
- > nbd_reclassify_socket() to ensure that a false positive lock_dep
- > circular warning fires. [...]
- > ```
+>  		 * wait for any in-progress work to finish.  This must happen
+>  		 * before the socket is orphaned to avoid a race where
+>  		 * rawsock_tx_work runs after the NCI device has been freed.
+> +		 *
+> +		 * Set SEND_SHUTDOWN under the write-queue lock so it is
+> +		 * ordered against rawsock_data_exchange_complete(), which
+> +		 * tests the flag and re-queues tx_work under the same lock:
+> +		 * either the completion queued the work before we take the
+> +		 * lock (cancel_work_sync() below then covers it), or it
+> +		 * sees SEND_SHUTDOWN and does not queue.
+>  		 */
+> +		spin_lock_bh(&sk->sk_write_queue.lock);
+>  		sk->sk_shutdown |= SEND_SHUTDOWN;
+> +		spin_unlock_bh(&sk->sk_write_queue.lock);
+> +
+>  		cancel_work_sync(&nfc_rawsock(sk)->tx_work);
+>  		rawsock_write_queue_purge(sk);
+>  	}
 
-Please use the imperative mood, e.g. as follows:
+...
 
-nbd: Reclassify sockets in the reconnect path
+Overall this looks good to me.
 
-Commit d532cddb6c60 ("nbd: Reclassify sockets to avoid lockdep circular 
-dependency") introduced nbd_reclassify_socket() to prevent lockdep false 
-positives when NBD sockets are used in memory reclaim paths. While 
-nbd_add_socket() reclassifies newly added sockets, 
-nbd_genl_reconnect_sock_cb() omitted this call when replacing dead 
-sockets during reconnection. Consequently, reconnected sockets retain 
-the generic socket lockdep class and trigger false-positive lockdep reports.
+Reviewed-by: Simon Horman <horms@kernel.org>
 
-Fix this by reclassifying the replacement socket in 
-nbd_genl_reconnect_sock_cb().
-
-Fixes: d532cddb6c60 ("nbd: Reclassify sockets to avoid lockdep circular 
-dependency")
-Reported-by: syzbot+d7d72f3d467710442af0@syzkaller.appspotmail.com 
-Closes: https://syzkaller.appspot.com/bug?extid=d7d72f3d467710442af0
-
-
-
-Thanks,
-
-Bart.
