@@ -1,45 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794384538;
-	b=bWwDOkqCO8yQKauMgbSozJKt5UDYgznrovM2H5Bj8tFg38fNdkVmXOi1uHl9RTGYe7Dd
-	 iCJBKH/3AjVdGrEiBg4K+V0R6MXp807alBciaL0J0CkgpsuxhYjEMaketzcb1R3m7oLlw
-	 NLpyqAkuDCcx1b9Q6qExwgudeF+7O/9yJ+0Io9s2sjW4N2Zi5qHwdemUb0JdFEyvrYpgA
-	 5MfFKJ3fjShyLBA2E+3C0twC+YHkA7P0KkQlvgar1lMKGoMFfiAJDjWc6TNY5MM8CfWnt
-	 s3DIeaj21xMvtpzxo5gnQX2CTCHaDplEQrvMMp+r2kgSVp0IPsDwBHoSYfnNq3cb/cA==
+	t=1794384606;
+	b=bnY1ujqZoYWpD0s2Xfmv9cNRbFC3ip3jfdZn17fwSXtV0M800SuKMuuZGns1Sl5ESlLG
+	 BMgU/JhMDfqIXqxw9+F6Qxvg6UtWVxydoJaNU7PYd2mavm8t72XFmQEgzN56yJ7Wbhsli
+	 4XxozBekvLbQ3pOgfYGa69yI5ASSnI3ywDvPM9DDdygBOQ61YS5Qc3K39j5AFpaoNiWo1
+	 hLKNYhPh0ffw93MIJ5tlutnph0doS8JfpWf1d4vJrczRZUKOSqq3im2kXBufymJk2tFXJ
+	 xhyVOZ8stC+nMEmykQN4t32Bkaw1lT5rWruwPJbMLmakoHL7e9/fWRa7ZEn4K8+KCQw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794384538;
-	h=Received:DKIM-Signature:Content-Type:MIME-Version:Message-Id:
-	 In-Reply-To:References:Subject:From:To:Cc:Date;
-	bh=OMx8DURBi1HKQNsNSde4ObBuj2cCKjyxSIgE906Z6wU=;
-	b=kGoVRNrOz9zjp0XyRR/p8sbFK5B3je+jGAsAO09eJ7qGvr9YD0EaeQx0fBZ+r9urdyxk
-	 OJoZm9/5ZfIF4I623HTxZvhzVlT6UHfpOobrkfIhjiDfGebJ8d6NLTQShhNJoKnf4ROHH
-	 MOX7uGokDETWNgHGrYLATrB7/7WbKhjKOQWBvzLdysD0zz3Zumc+nqXMhPXz9ECkGJtX6
-	 TcYn6MAQURAARJC2E+xuBHix2T9qlT37cfiNaS/ybrfFQtfQ21Q1j+y4Wv7dNYuTkLxRx
-	 nw8OOfxwI83iHryIMDDKj4IORz5D+F0RxKLBvE93+0e0AKRqw3jOUmmeXyt+DUq+SQg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794384606;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=ZJNGibamrz7xlIochfHNAE9z/RlAYopXQdJbYjz5yD0=;
+	b=VYnBtqYLi90q0kkLCjlJK0GR7JtlEA551wWkcwMC1iUr8nY5NR3FJwBCS9qHAMLEkBQ0
+	 paxsIUT01EiTJunoRiaX0Vc65/CayH8lmOzy1Xp7EG1+Xu5cvm2fjzT9AtxOX0ALTUsPk
+	 uNOUIDQYRWojA1vGgJl7tbLwzksPhGiBBkBmMFG6M8uzJURQfOn+AIe5hr5tTbnkH62GB
+	 zr+iu2tjbon0+x/6PHQ+WCMTSu7vV9tAt/91polQVUH0CHlpHiRRJrKt5YDil85/M528a
+	 G1UFK7flXhpI37v5s19nXNyNaQBWpwHkzf9bWgj3xYfpu/o2BVKjH4f0DVKkSOJHSvg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vj5n5e0S;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="K/zsJUU6";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87AE3606A8D3;
-	Wed, 11 Nov 2026 08:08:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D94C0606A31C;
+	Wed, 11 Nov 2026 08:10:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vj5n5e0S
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AAA231F00A05;
-	Wed, 11 Nov 2026 08:08:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K/zsJUU6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A86851F00A05;
+	Wed, 11 Nov 2026 08:10:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794384538;
-	bh=OMx8DURBi1HKQNsNSde4ObBuj2cCKjyxSIgE906Z6wU=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=Vj5n5e0SBFA1j4z0Z15SdCzc4M3OrCLsWJXqhvLQqGwHQKanl350MBfbSz8ARxnFD
-	 jOWJ3MA9OMnNp4iJ2t22+M/1LUETLN++x1e4PQAlu084/gezb1EGPHwXX4AkHLZ9Xe
-	 amH9gwOhhyHIrBsWhaeeuFm8XCfe57IygtxfcZNX6YATAJkMKLeLNvpsUuq2Oa7MeQ
-	 QfAyTDiSl0sVpXOH6ghIFl1wmICmjoaLePNWKQw8Q0Vjkc0RW7jhiS4QEeokPdTnbz
-	 M7Y9tkPjkPDpcplzDhf60pYRsJkFGU8yEqUlPEN3t39trYPzNLA7pz1bc5Spos97Dn
-	 XKUhumL8wOfGA==
-Content-Type: multipart/mixed; boundary="===============5888328363070956270=="
+	s=k20260515; t=1794384606;
+	bh=ZJNGibamrz7xlIochfHNAE9z/RlAYopXQdJbYjz5yD0=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=K/zsJUU6n71lCk4dIKFJW9+uIls3DL68JKJxY9IU8Oke1501DQDJcTgl50KIRbStQ
+	 2Z521i4TtP4Td1uHTNu6ChAI+UX1uEUoD/qJzSpUsyMIvZv8dwSgrIkItC93SCO0tm
+	 kIqyN6nV4c5uVwNHk2TN0UK/vBuzFLTjboqhDankZ1ybJHXnPPdx8RPj4Ulp37R/3C
+	 vvhXpi2mKFZCt0/eQt2DucMXe76V8y642yDvYpL9gfr0a+lk6+4AaETdz6eYYzQKeV
+	 P8eZF3zMeV3q9cnmJl9DhRTYsSIYUY19wXt4sDl3NtAcRffXVv86qXOc/YLjfIy7FZ
+	 UkQYGdb4HPBKw==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 9B17238007E0;
+	Wed, 11 Nov 2026 08:10:06 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -49,95 +53,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-Id: <ab530d93c7383ec9cd5d9fbedc531e933d4b812ddb367bb85c940b870d34c247@mail.kernel.org>
-In-Reply-To: <a07b9717684d5e20d8ff7a778a5f031d1092f18a.1794303670.git.sieberf@amazon.com>
-References: <a07b9717684d5e20d8ff7a778a5f031d1092f18a.1794303670.git.sieberf@amazon.com>
-Subject: Re: [PATCH v2 3/4] sched_ext: add cgroup_set_runtime ops callback
-From: bot+bpf-ci@kernel.org
-To: sieberf@amazon.com,mingo@redhat.com,peterz@infradead.org,juri.lelli@redhat.com,vincent.guittot@linaro.org,tj@kernel.org
-Cc: bsegall@google.com,dietmar.eggemann@arm.com,rostedt@goodmis.org,mgorman@suse.de,vschneid@redhat.com,kprateek.nayak@amd.com,hannes@cmpxchg.org,mkoutny@suse.com,void@manifault.com,arighi@nvidia.com,changwoo@igalia.com,skhan@linuxfoundation.org,corbet@lwn.net,rdunlap@infradead.org,cgroups@vger.kernel.org,sched-ext@lists.linux.dev,linux-doc@vger.kernel.org,linux-kselftest@vger.kernel.org,bpf@vger.kernel.org,linux-kernel@vger.kernel.org,nh-open-source@amazon.com,hborghor@amazon.de,fmubeen@amazon.de,dwmw@amazon.co.uk,karataev@amazon.com,sieberf@amazon.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Wed, 11 Nov 2026 08:08:56 +0000 (UTC)
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net-next] netxen: fix the ring interrupt name buffer
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179438460518.778247.8559006219743310858.git-patchwork-notify@kernel.org>
+Date: Wed, 11 Nov 2026 08:10:05 +0000
+References: <20261106095115.3564392-1-xujiahao@cmss.chinamobile.com>
+In-Reply-To: <20261106095115.3564392-1-xujiahao@cmss.chinamobile.com>
+To: Jiahao Xu <xujiahao@cmss.chinamobile.com>
+Cc: davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
+ pabeni@redhat.com, manishc@marvell.com, rahulv@marvell.com,
+ GR-Linux-NIC-Dev@marvell.com, andrew+netdev@lunn.ch, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
 
---===============5888328363070956270==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Hello:
 
-> sched_ext: add cgroup_set_runtime ops callback
+This patch was applied to netdev/net-next.git (main)
+by Dave Miller <davem@davem-thinkpadp1gen8.ibmlond.csb>:
 
-TL;DR: The documented guarantee that cgroup_set_runtime never exceeds the
-quota the scheduler was last given may not hold for schedulers lacking
-cgroup_init or cgroup_set_bandwidth; comment and commit message may need
-qualifying, or validation tightened.
+On Fri,  6 Nov 2026 17:51:15 +0800 you wrote:
+> The receive ring interrupt names are assembled with sprintf() into
+> IFNAMSIZ + 4 byte buffers as "%s[%d]", with netdev->name (up to
+> IFNAMSIZ - 1 characters) and the ring index.  A 15-character name plus
+> "[" and a full-range %d needs 28 bytes, so gcc reports in a W=1 build:
+> 
+>   drivers/net/ethernet/qlogic/netxen/netxen_nic_main.c:1052:45: warning: '%d' directive writing between 1 and 11 bytes into a region of size between 4 and 19 [-Wformat-overflow=]
+> 
+> [...]
 
-> diff --git a/kernel/sched/ext/internal.h b/kernel/sched/ext/internal.h
-> --- a/kernel/sched/ext/internal.h
-> +++ b/kernel/sched/ext/internal.h
+Here is the summary with links:
+  - [net-next] netxen: fix the ring interrupt name buffer
+    https://git.kernel.org/netdev/net-next/c/c40c6c365183
 
-[ ... ]
-
-> @@ -863,6 +863,26 @@ struct sched_ext_ops {
->  	 */
->  	void (*cgroup_set_idle)(struct cgroup *cgrp, bool idle);
->  
-> +	/**
-> +	 * @cgroup_set_runtime: A cgroup's runtime is being set
-> +	 * @cgrp: cgroup whose runtime is being set
-> +	 * @runtime_us: runtime in microseconds
-
-[ ... ]
-
-> +	 * @cgrp has a quota, and @runtime_us is at most the quota + burst the
-> +	 * scheduler was last given, by @cgroup_init or @cgroup_set_bandwidth:
-> +	 * cpu.max and cpu.max.runtime writes reach the scheduler in the order
-> +	 * the fair class applied them.
-> +	 *
-> +	 * Delivery follows the same rule as cgroup_set_weight().
-> +	 */
-> +	void (*cgroup_set_runtime)(struct cgroup *cgrp, u64 runtime_us);
-
-Does this guarantee hold for a scheduler that implements
-cgroup_set_runtime but not cgroup_init or cgroup_set_bandwidth?  The
-commit message makes the same claim: "The runtime passed is then at most
-the quota + burst the scheduler was last given".
-
-scx_group_set_bandwidth() still updates tg->scx.bw_* when the op is
-missing:
-
-    if (scx_cgroup_enabled && sch && SCX_HAS_OP(sch, cgroup_set_bandwidth) && ...)
-            SCX_CALL_OP(sch, cgroup_set_bandwidth, ...);
-    tg->scx.bw_period_us = period_us;
-    tg->scx.bw_quota_us = quota_us;
-    tg->scx.bw_burst_us = burst_us;
-
-while scx_group_set_runtime() calls the op whenever
-SCX_HAS_OP(sch, cgroup_set_runtime) is true, and the fair class only
-checks the runtime against its own cfs_b->quota + cfs_b->burst in
-cfs_bandwidth_set_runtime().
-
-For example, take a scheduler with cgroup_init and cgroup_set_runtime but
-no cgroup_set_bandwidth.  Cgroup C has cpu.max "10000 100000" at load, so
-ops.cgroup_init() sees bw_quota_us=10000.  Userspace then writes cpu.max
-"50000 100000", which the fair class applies but the scheduler is never
-told about.  A following write of 40000 to cpu.max.runtime passes
-cfs_bandwidth_set_runtime() since 40000 <= 50000, and
-ops.cgroup_set_runtime(C, 40000) runs, four times the quota the scheduler
-was last given.
-
-Similarly, a scheduler without cgroup_init that loads after C's quota was
-set is never given a quota, yet still receives cgroup_set_runtime for that
-cgroup.
-
-Should the comment (and commit message) make the guarantee conditional on
-the scheduler implementing @cgroup_init and @cgroup_set_bandwidth, or
-should validation reject cgroup_set_runtime without cgroup_set_bandwidth?
-The later commit eb360e17b06e ("sched_ext: charge BPF scheduler tasks to
-cpu.max bandwidth") does not change this text.
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
 
----
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
-
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/42982707042
---===============5888328363070956270==--
