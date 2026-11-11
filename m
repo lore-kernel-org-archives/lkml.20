@@ -1,131 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.99
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794376815;
-	b=ircalONlS8tbzeTHdj8aXuwo5MQcP5uWFbB3dSwllwiWpj55B5AnFWg/ifBfKUqrn+WW
-	 v6gbB3hqT3+Gck1zO4QDHvQrs07rSy1MgMEOJMN55/qNcyo7t/P0PowQoIGdGHqhk5uLi
-	 6k/7hcBtEhyLtQMe19ZsDOubwqoaihVf5dA71k9QimOxG6oKq+JNCXLluRBWMXWTnB6Xg
-	 u/5n7zObMyVrTI9tUsTJanvBBtrP7IWVFr28bZHdISlIDYSojBnNyepjRCeymod1aA3KD
-	 3pLzA1JhHaqwwFo9LMfI9c3ivESM7gpHyLTs9xuC/w3cPCDbWH4cnb4dSZh05vvrcLg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794376815;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
-	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Received:X-Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-DetectorID-Processed;
-	bh=7MFXZIdj2HlQkbhckc0+l+zCwbBlVh492hcyewGBnHg=;
-	b=n/l9zUUVIissDuRsWswP1GIuvgWOTpFLhfeRk9ruim3AHelz01zal+CE+XX4NmswoBJM
-	 4srtjkNY2KxhNuFYVRZfXJ2+IylF9u3RuEZKfAdGSNOmwZGOYkxcU+8eF1xm3qdc9ty9u
-	 dT+zLg2O/3HdYJPfeA6aj8DcsGIW6GDUk124A5zHVJLSDhRvHecit45zw5d0oCfiH9OqF
-	 7eBa7Y70u1XCnKrFTu2+05yuC05KREXXy10zO5buSoNpKvqecZywFGAuQfoaKQVY3FBtl
-	 sJQZ69WlShIhopTcDpkugBN1YYFu79/MboEvvI0IqujOQoydEUCdIgjVjLN1U8hp7/Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=broadcom.com;
-	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=B7pcuPJ1;
-	arc=none smtp.remote-ip=209.85.216.99
-Received: from mail-pj1-f99.google.com (mail-pj1-f99.google.com [209.85.216.99])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794376811;
+	b=YW0iXRsjqblsgAXpK/oah64wSzd2ym2Oq4SXS83Cd+9jhcqL3huVuKjr3uhzSwnMCy/6
+	 iCNewt8Gt4TFpEFoIvjq/iumU65Dn3s3XuzFt0IziMgLczfUe4qas1z48ZNXx2jLsGw4G
+	 KJ0ea3D9Fg3ZLzGghDprO9QuuSoj/fM5SYGaWX/Jdz/B3WNYKAM1IIW/1RNtTN2glxUJh
+	 4qNB8ufTHGtWWBziQg8VHAQbzFw55StzCE6yTKPj8CudD/WTTX0jzlkLEADmce2n5Yaid
+	 41epEIY22HW6jX8DZxR6r8H2Ky/ZhdP/xElgC0wNHWgYyUSzH6GTR+9MFFDi2zxIYcg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794376811;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=GJA0oJzXunV8vsMdooEnIiNstpwLJzqlzvQY0n1w7Qs=;
+	b=KPQ4B0RWfJkVV1aR4SMo+gcPf6gucObWpRSoFL2L+UH5+WvlmqPgeq95v8olSpFg5qOj
+	 1uENWSPZ8twHb3WN1ZAhxlcJtxwddvkN7tIkfazFafGzWqmBI8Pzvak/+hDybBdcOMF2a
+	 MuNgCTQPrXr+0ANr1N1yec/Bma1tolb+mUBqKcDkEBIdmuYkWP2VT7Q6LbUhTKYW9OToR
+	 rdH0pmm8UJmoFlkK9fttAgg6oOgKI1ZFunNSISUIvE/aIPCRa1Y7n5gRTQX20Stcv862H
+	 UlbcIrBDznBndUV5W/N1jowR60gzCmKAwdWWdedDMfS1vUZj0ypaenP1s0atOR99iqA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jVdUetIP;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B84960A2620;
+	Wed, 11 Nov 2026 06:00:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jVdUetIP
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794376811;
+	b=JExD8vrHyAeABQvsNNWzApJ0FaqO43y6CFl00nx99KAEuLDLEggSNqS4WVIIIdxxC+fl
+	 M0aZjp7S4luZ9u+BjZZem8pXjYH5lcpEFaWYS2EqaXdyZ4/ck9NDNb75pfQe2qL02p9lX
+	 CkUHZVQ0FRtjKvJIPbBp5EtfMGO04asAERusTFAgkcd8IUyRwchP68Bes2lg+aaWtivXC
+	 ZNgL/5Ua/xe/RpujUX0B9mlSOJsGcgMh01bn9lhYft7epk9gmINH3PvMbGcGgjtl9nHrd
+	 gmiMR2BbQc5efIaUtxH5+qckaLnN8DRqTf5FrEAYdRM9Ss7+DsFr7VCSSS3La/UvBjw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794376811;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=GJA0oJzXunV8vsMdooEnIiNstpwLJzqlzvQY0n1w7Qs=;
+	b=bxObUZjZhH8ALlT2lsBdzDIRE5ohZy6YD1mJpt7FsK31MRT3TmQyqUSqrfrOnoDhBwVa
+	 IyE2ZVsk6IHGOVMxwpfqLivmvZAGlQ+P/OrcAefRP3lXaO5WfdqiKp03zMxstrqX6cpXM
+	 2xOV8lhFLN6Te3ydMlrhom9SUsPBBDLJKFZ7VWFs4ITBUQkzAW21EHKLeVb4MIKmB+Kjf
+	 N0MOCcAagI3cFUTUaAGA2YLvpQZxS7XWZf2SWE3Au9OTP08OSNkfDfQrfMUQauEKM+LIT
+	 pa7F6Zp2xmUGGUJM9JiG446CR5yoEc++Ju2H2bw+DqF+xReqa7u6EjV461NJrJom8jA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFAA360A382D
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 06:00:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DFAA360A382D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=B7pcuPJ1
-Received: by mail-pj1-f99.google.com with SMTP id 98e67ed59e1d1-3ac91ac8924so1670809a91.1
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 22:00:14 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794376814; x=1794981614;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:dkim-signature:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7MFXZIdj2HlQkbhckc0+l+zCwbBlVh492hcyewGBnHg=;
-        b=maz5Fi2qz+bodOKDX69DehJZUR/vRSauLr9MW2LE8TFxylOtCkcEMwcGE4xelTACrp
-         +szY5VkOkO+xP9TsQHoq+qmzSVgC/OYSEU+Ae79NRvD5Z479wYCFz/Y9hSYoJU0GoYR1
-         j9fs+Owhe50ThzgNQw7fCopZMH6kOZj9MTk06okB25YcPR8Rys3sVAS+hDxGW72bKVS0
-         tqMnkX75p7YKEMyK0BrGb1DTe2hcnG/s0a4IdR2TBWEG4oKhKnHyzmifRA0Uv7rmcaMN
-         vxnoRuNdd8MxvFDmfvNml8JKm1GgZjZu3/b8kkXblFWi5FiOPL4BpoIp8Z8oueaCNZER
-         acUw==
-X-Forwarded-Encrypted: i=1; AL+hErHFyn+x8jDPWDUj/fcT6J46KsYgjOBTHI+9yMyO1fPv5qJqq44hcG5Tmssxe4swq3EVpx/Zu0I65PjNJ+U=@vger.kernel.org
-X-Gm-Message-State: APuU4Z84wgXmFrpoeCM9rMRLg+IIKpUzTjc2LVa2aPe2nFZlb2ediKmg
-	Im0G1ccoAMsdXfdAthK0Ir+uZS4+uSlEreUimuco21mI7MfM9PRDqjJBmiRtrIfLOOsucMBq0ji
-	WeyPVbwGpOelakOML3bxqHlvT3zkZJVqldil/2pnMqdQ3YvSjPMLHOXIzYXUdSVYvXYrNeqNofd
-	jabXNDAEvPsHLYXeBj7l/qTe8ddOFk3L+55oP3HGDcFKxzcHzDB1ItvGaCaglApUuna/0wjpv7v
-	vcKyYYJyYQLPIe2
-X-Gm-Gg: AYBFou33KRCLbnz+OhZylrWYL+b/2uWD+wftBeQGvrIFY7SMIP66azhC1Wf7F/r62Mp
-	y3UcF+buaC3HB6pdj0BGzKfoLpdPUYDrMc/wdNls5QkaClJjZBAyM/Muc51Q4/J04oPraACaxyx
-	PeYC7uw0VyHFVw6TB5nGSx14rMh0tSKljn36QToNw+LFOyeDGqqWa4FexlxfuHiMLM4lBbUfTEs
-	EhYryfljotzuPMT7V5J+D3czfzKZo46Oj6OL16kEgpNn9FR2pHOHTbTiuXS8KDCTefg220S4Owc
-	aIHhxWO2QI/PwFxd9RqOubOYwfNYs2DkTe06Wm4riGxq/B8xXTPvjazrrpLks8Z0EK1Izc9eJng
-	G9CWile/lAoxTlIEXllN92Ha48CH5h+EkyYuILp6MquZ4nltLRblt7S+8OgMUW9JXRqCmb/wJ3p
-	WSSaqXz/TQPkUdvNY8L4WmFmZI67REYmcU
-X-Received: by 2002:a17:90b:574c:b0:3ad:93b4:718f with SMTP id 98e67ed59e1d1-3b182fe6fbdmr1454357a91.65.1794376813986;
-        Tue, 10 Nov 2026 22:00:13 -0800 (PST)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-22.dlp.protect.broadcom.com. [144.49.247.22])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b17de30a7csm1360024a91.1.2026.11.10.22.00.13
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 10 Nov 2026 22:00:13 -0800 (PST)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93f13c143c8so529054285a.3
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 22:00:13 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1794376813; x=1794981613; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7MFXZIdj2HlQkbhckc0+l+zCwbBlVh492hcyewGBnHg=;
-        b=B7pcuPJ1efyA1P+iJnKBh8O1jxhnkgCcMcREwSTUwfGHjuPhVBLLiFlcKfgOAcQ7yz
-         6FRSzMJfUCl+GRc3inYvOA6PxXLySDa5B9K9UtvCfmn7S/A+usowmFcGcBCA1xvG1OqA
-         wXMX9H776YjKzm4bSqGi0z7bzo8UPT+5FNrmM=
-X-Forwarded-Encrypted: i=1; AL+hErH0PIjDxLF/qCTR1uKsr6ReZwvMHyEMT07R4aoiU66v3ywPaFT6SW39eDOWr6rSibh0jK/HZ4uesEMCypg=@vger.kernel.org
-X-Received: by 2002:a05:620a:28c8:b0:945:c3b7:e704 with SMTP id af79cd13be357-947aff8dcf0mr206703485a.39.1794376812360;
-        Tue, 10 Nov 2026 22:00:12 -0800 (PST)
-X-Received: by 2002:a05:620a:28c8:b0:945:c3b7:e704 with SMTP id af79cd13be357-947aff8dcf0mr206700585a.39.1794376811878;
-        Tue, 10 Nov 2026 22:00:11 -0800 (PST)
-Received: from vertex.localdomain (pool-173-49-113-140.phlapa.fios.verizon.net. [173.49.113.140])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9479e7e7f3bsm411506885a.37.2026.11.10.22.00.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 22:00:07 -0800 (PST)
-From: Zack Rusin <zack.rusin@broadcom.com>
-To: Sean Christopherson <seanjc@google.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	kvm@vger.kernel.org
-Cc: Doug Covelli <doug.covelli@broadcom.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Shuah Khan <shuah@kernel.org>,
-	Vitaly Kuznetsov <vkuznets@redhat.com>,
-	David Woodhouse <dwmw2@infradead.org>,
-	Paul Durrant <paul@xen.org>,
-	Xin Li <xin@zytor.com>,
-	Francesco Lavra <flavra@baylibre.com>,
-	=?UTF-8?q?Radim=20Kr=C4=8Dm=C3=A1=C5=99?= <rkrcmar@ventanamicro.com>,
-	Liran Alon <liran.alon@oracle.com>,
-	Arbel Moshe <arbel.moshe@oracle.com>,
-	linux-doc@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	bcm-kernel-feedback-list@broadcom.com,
-	linux-kernel@vger.kernel.org,
-	Zack Rusin <zack.rusin@broadcom.com>
-Subject: [PATCH v3 02/12] KVM: x86: Move VMware backdoor support to separate files
-Date: Wed, 11 Nov 2026 00:59:51 -0500
-Message-ID: <07581ff5998d40092c2f171ffe1fb05ac48f9446.1794374897.git.zack.rusin@broadcom.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <cover.1794374897.git.zack.rusin@broadcom.com>
-References: <cover.1794374897.git.zack.rusin@broadcom.com>
+	by smtp.kernel.org (Postfix) with ESMTPS id 4E07B1F00A09;
+	Wed, 11 Nov 2026 06:00:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794376811;
+	bh=GJA0oJzXunV8vsMdooEnIiNstpwLJzqlzvQY0n1w7Qs=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=jVdUetIP/savyPraFV3uYjtXAhj9ATEKgTc3cekFAQOK0RBzMDzRgermNgFYcIxDa
+	 T3qTxgQoNgELJrSNtzvs7IQQj+mlloxmGTyV2RELQMWlX1s76ImgwamBIm4IGdKuiy
+	 bwa859gXF8qtJ1sOrbmXIHpaqdI59Ut4YaskvE/Ss4xizfVmuuN0pgJS7mV7xyDV7n
+	 IBxpeywMw1xEOL9Uugt2RPHS/+WNO7gRQFzpmQ33Nt8e0Zm6Q5yDGKtm2y6WnE+6hY
+	 1Z/Pdq0LF73yVjbZop3ssShC2m3IC4i/bP+uDnwSyxPXCeG+wUDbfxkYtI9ik8MTXI
+	 BlfFbM/LyX1fg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id C845E48DE2;
+	Wed, 11 Nov 2026 06:00:07 +0000 (UTC)
+From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
+Date: Wed, 11 Nov 2026 06:00:09 +0000
+Subject: [PATCH v2 3/8] arm64: dts: allwinner: h616: Add GPU OPP table
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -135,388 +82,122 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261111-h616-zero2-dt-v2-3-88d8030fc975@gmail.com>
+References: <20261111-h616-zero2-dt-v2-0-88d8030fc975@gmail.com>
+In-Reply-To: <20261111-h616-zero2-dt-v2-0-88d8030fc975@gmail.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Samuel Holland <samuel@sholland.org>, Ryan Walklin <ryan@testtoast.com>, 
+ Andre Przywara <andre.przywara@arm.com>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ Arun Iyengar <aiyengar1990@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794376807; l=2569;
+ i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
+ bh=lGUm88hkiiCwsS06lh6tLUaHZIc5LqI3MybFyqamLeE=;
+ b=xEKB4Lxds9YjAC84e9tRqBGpiqU7fynFWhfPxxDTvlTwyA7O7OdVtCL01VJKXissGbeXUJ8Hx
+ WplS3IBcC8oD0wT1neISMHPFnTS+AwDztx0a0fuouYNDKwxfkYqZHPF
+X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
+ pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
+X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
+ auth_id=1480
+X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
+Reply-To: aiyengar1990@gmail.com
+Content-Transfer-Encoding: 7bit
 
-Move the enable_vmware_backdoor module parameter, the VMware backdoor
-port and pseudo-PMC definitions, and the VMware pseudo-PMC and opcode
-helpers out of x86.c, emulate.c and pmu.{c,h} into new vmware.{c,h}
-files, and add a MAINTAINERS entry for the new files.
+From: Arun Iyengar <aiyengar1990@gmail.com>
 
-KVM's VMware emulation is spread across the emulator, the PMU code and
-x86.c, and both vendor modules read the module parameter directly.  The
-following patches make the VMware interfaces a per-VM setting, add a
-userspace exit for VMware hypercalls and allow compiling the emulation
-out.  Collect the code in one place first, as KVM already does for
-Hyper-V and Xen emulation, so that those changes stay local and the
-code movement can be reviewed on its own.
+Add the operating points of the H616/H618 Mali-G31, so that boards can
+enable GPU DVFS through panfrost devfreq: 306 to 600 MHz at 810 to
+950 mV. The table is the one of the vendor images (as recovered from a
+KickPi K2B image, also carried by Armbian). Like the H6 GPU OPP table,
+it uses <target target max> voltage triplets with a common 990 mV
+maximum: a board whose GPU supply cannot reach an OPP's target voltage
+loses that OPP, while a board whose supply minimum is above the target
+of the lower OPPs keeps them, as their [target, max] range still
+overlaps the supply's range.
 
-No functional change intended.
+Like sun50i-h616-cpu-opp.dtsi, the table is in a separate file that
+boards include once their GPU supply is described.
 
-Link: https://lore.kernel.org/r/aIEgVpjXDR0BXgHq@google.com
-Link: https://lore.kernel.org/r/aIEwOToiAkKfQA-4@google.com
-Signed-off-by: Zack Rusin <zack.rusin@broadcom.com>
+Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
- MAINTAINERS            |  9 +++++
- arch/x86/kvm/Makefile  |  3 +-
- arch/x86/kvm/emulate.c |  4 +--
- arch/x86/kvm/pmu.c     | 35 +-----------------
- arch/x86/kvm/pmu.h     |  5 ---
- arch/x86/kvm/svm/svm.c |  1 +
- arch/x86/kvm/vmware.c  | 81 ++++++++++++++++++++++++++++++++++++++++++
- arch/x86/kvm/vmware.h  | 22 ++++++++++++
- arch/x86/kvm/vmx/vmx.c |  1 +
- arch/x86/kvm/x86.c     | 36 +------------------
- arch/x86/kvm/x86.h     |  2 --
- 11 files changed, 119 insertions(+), 80 deletions(-)
- create mode 100644 arch/x86/kvm/vmware.c
- create mode 100644 arch/x86/kvm/vmware.h
+ .../boot/dts/allwinner/sun50i-h616-gpu-opp.dtsi    | 62 ++++++++++++++++++++++
+ 1 file changed, 62 insertions(+)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 222b7fc2c3aa..017053e8f76e 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -15042,6 +15042,15 @@ F:	arch/x86/kvm/svm/hyperv.*
- F:	arch/x86/kvm/svm/svm_onhyperv.*
- F:	arch/x86/kvm/vmx/hyperv.*
- 
-+KVM X86 VMWARE (KVM/VMware)
-+M:	Zack Rusin <zack.rusin@broadcom.com>
-+M:	Doug Covelli <doug.covelli@broadcom.com>
-+L:	kvm@vger.kernel.org
-+S:	Supported
-+T:	git git://git.kernel.org/pub/scm/virt/kvm/kvm.git
-+T:	git https://github.com/kvm-x86/linux.git
-+F:	arch/x86/kvm/vmware.*
-+
- KVM X86 Xen (KVM/Xen)
- M:	David Woodhouse <dwmw2@infradead.org>
- M:	Paul Durrant <paul@xen.org>
-diff --git a/arch/x86/kvm/Makefile b/arch/x86/kvm/Makefile
-index c6bf463f5032..0cb47cfc1162 100644
---- a/arch/x86/kvm/Makefile
-+++ b/arch/x86/kvm/Makefile
-@@ -6,7 +6,8 @@ ccflags-$(CONFIG_KVM_WERROR) += -Werror
- include $(srctree)/virt/kvm/Makefile.kvm
- 
- kvm-y			+= x86.o emulate.o irq.o lapic.o cpuid.o msrs.o pmu.o regs.o \
--			   mtrr.o debugfs.o mmu/mmu.o mmu/page_track.o mmu/spte.o
-+			   mtrr.o debugfs.o mmu/mmu.o mmu/page_track.o mmu/spte.o \
-+			   vmware.o
- 
- kvm-$(CONFIG_X86_64) += mmu/tdp_iter.o mmu/tdp_mmu.o
- kvm-$(CONFIG_KVM_IOAPIC) += i8259.o i8254.o ioapic.o
-diff --git a/arch/x86/kvm/emulate.c b/arch/x86/kvm/emulate.c
-index c1b21282187f..a7bcde6f0359 100644
---- a/arch/x86/kvm/emulate.c
-+++ b/arch/x86/kvm/emulate.c
-@@ -33,6 +33,7 @@
- #include "tss.h"
- #include "mmu.h"
- #include "pmu.h"
-+#include "vmware.h"
- 
- /*
-  * Operand types
-@@ -2523,9 +2524,6 @@ static bool emulator_bad_iopl(struct x86_emulate_ctxt *ctxt)
- 	return ctxt->ops->cpl(ctxt) > iopl;
- }
- 
--#define VMWARE_PORT_VMPORT	(0x5658)
--#define VMWARE_PORT_VMRPC	(0x5659)
--
- static bool emulator_io_port_access_allowed(struct x86_emulate_ctxt *ctxt,
- 					    u16 port, u16 len)
- {
-diff --git a/arch/x86/kvm/pmu.c b/arch/x86/kvm/pmu.c
-index ca6dfb44949f..ae7000c44677 100644
---- a/arch/x86/kvm/pmu.c
-+++ b/arch/x86/kvm/pmu.c
-@@ -23,6 +23,7 @@
- #include "cpuid.h"
- #include "lapic.h"
- #include "pmu.h"
-+#include "vmware.h"
- 
- /* This is enough to filter the vast majority of currently defined events. */
- #define KVM_PMU_EVENT_FILTER_MAX_EVENTS 300
-@@ -716,40 +717,6 @@ int kvm_pmu_check_rdpmc_early(struct kvm_vcpu *vcpu, unsigned int idx)
- 	return kvm_pmu_call(check_rdpmc_early)(vcpu, idx);
- }
- 
--bool is_vmware_backdoor_pmc(u32 pmc_idx)
--{
--	switch (pmc_idx) {
--	case VMWARE_BACKDOOR_PMC_HOST_TSC:
--	case VMWARE_BACKDOOR_PMC_REAL_TIME:
--	case VMWARE_BACKDOOR_PMC_APPARENT_TIME:
--		return true;
--	}
--	return false;
--}
--
--static int kvm_pmu_rdpmc_vmware(struct kvm_vcpu *vcpu, unsigned idx, u64 *data)
--{
--	u64 ctr_val;
--
--	switch (idx) {
--	case VMWARE_BACKDOOR_PMC_HOST_TSC:
--		ctr_val = rdtsc();
--		break;
--	case VMWARE_BACKDOOR_PMC_REAL_TIME:
--		ctr_val = ktime_get_boottime_ns();
--		break;
--	case VMWARE_BACKDOOR_PMC_APPARENT_TIME:
--		ctr_val = ktime_get_boottime_ns() +
--			vcpu->kvm->arch.kvmclock_offset;
--		break;
--	default:
--		return 1;
--	}
--
--	*data = ctr_val;
--	return 0;
--}
--
- int kvm_pmu_rdpmc(struct kvm_vcpu *vcpu, unsigned idx, u64 *data)
- {
- 	struct kvm_pmu *pmu = vcpu_to_pmu(vcpu);
-diff --git a/arch/x86/kvm/pmu.h b/arch/x86/kvm/pmu.h
-index 090c9bbb74f4..3fc2ce713b6f 100644
---- a/arch/x86/kvm/pmu.h
-+++ b/arch/x86/kvm/pmu.h
-@@ -17,10 +17,6 @@
- #define fixed_ctrl_field(ctrl_reg, idx) \
- 	(((ctrl_reg) >> ((idx) * INTEL_FIXED_BITS_STRIDE)) & INTEL_FIXED_BITS_MASK)
- 
--#define VMWARE_BACKDOOR_PMC_HOST_TSC		0x10000
--#define VMWARE_BACKDOOR_PMC_REAL_TIME		0x10001
--#define VMWARE_BACKDOOR_PMC_APPARENT_TIME	0x10002
--
- #define KVM_FIXED_PMC_BASE_IDX INTEL_PMC_IDX_FIXED
- 
- struct kvm_pmu_ops {
-@@ -287,7 +283,6 @@ void kvm_pmu_branch_retired(struct kvm_vcpu *vcpu);
- void kvm_mediated_pmu_load(struct kvm_vcpu *vcpu);
- void kvm_mediated_pmu_put(struct kvm_vcpu *vcpu);
- 
--bool is_vmware_backdoor_pmc(u32 pmc_idx);
- bool kvm_need_perf_global_ctrl_intercept(struct kvm_vcpu *vcpu);
- bool kvm_need_rdpmc_intercept(struct kvm_vcpu *vcpu);
- 
-diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
-index 721dc5e7e13a..980841d153f3 100644
---- a/arch/x86/kvm/svm/svm.c
-+++ b/arch/x86/kvm/svm/svm.c
-@@ -9,6 +9,7 @@
- #include "smm.h"
- #include "cpuid.h"
- #include "pmu.h"
-+#include "vmware.h"
- 
- #include <linux/module.h>
- #include <linux/kernel.h>
-diff --git a/arch/x86/kvm/vmware.c b/arch/x86/kvm/vmware.c
+diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h616-gpu-opp.dtsi b/arch/arm64/boot/dts/allwinner/sun50i-h616-gpu-opp.dtsi
 new file mode 100644
-index 000000000000..772f295f8ff5
+index 000000000000..18989d11c832
 --- /dev/null
-+++ b/arch/x86/kvm/vmware.c
-@@ -0,0 +1,81 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * KVM VMware emulation support
-+ *
-+ * Copyright (C) 2025-2026 Broadcom. All Rights Reserved. The term
-+ * "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
-+ */
++++ b/arch/arm64/boot/dts/allwinner/sun50i-h616-gpu-opp.dtsi
+@@ -0,0 +1,62 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
++// Copyright (C) 2026 Arun Iyengar <aiyengar1990@gmail.com>
 +
-+#include <linux/moduleparam.h>
++/ {
++	gpu_opp_table: opp-table-gpu {
++		compatible = "operating-points-v2";
 +
-+#include "kvm_emulate.h"
-+#include "vmware.h"
++		opp-306000000 {
++			opp-hz = /bits/ 64 <306000000>;
++			opp-microvolt = <810000 810000 990000>;
++		};
 +
-+bool __read_mostly enable_vmware_backdoor;
-+EXPORT_SYMBOL_FOR_KVM_INTERNAL(enable_vmware_backdoor);
-+module_param(enable_vmware_backdoor, bool, 0444);
++		opp-336000000 {
++			opp-hz = /bits/ 64 <336000000>;
++			opp-microvolt = <810000 810000 990000>;
++		};
 +
-+bool is_vmware_backdoor_pmc(u32 pmc_idx)
-+{
-+	switch (pmc_idx) {
-+	case VMWARE_BACKDOOR_PMC_HOST_TSC:
-+	case VMWARE_BACKDOOR_PMC_REAL_TIME:
-+	case VMWARE_BACKDOOR_PMC_APPARENT_TIME:
-+		return true;
-+	}
-+	return false;
-+}
++		opp-360000000 {
++			opp-hz = /bits/ 64 <360000000>;
++			opp-microvolt = <820000 820000 990000>;
++		};
 +
-+int kvm_pmu_rdpmc_vmware(struct kvm_vcpu *vcpu, unsigned int idx, u64 *data)
-+{
-+	u64 ctr_val;
++		opp-384000000 {
++			opp-hz = /bits/ 64 <384000000>;
++			opp-microvolt = <830000 830000 990000>;
++		};
 +
-+	switch (idx) {
-+	case VMWARE_BACKDOOR_PMC_HOST_TSC:
-+		ctr_val = rdtsc();
-+		break;
-+	case VMWARE_BACKDOOR_PMC_REAL_TIME:
-+		ctr_val = ktime_get_boottime_ns();
-+		break;
-+	case VMWARE_BACKDOOR_PMC_APPARENT_TIME:
-+		ctr_val = ktime_get_boottime_ns() +
-+			vcpu->kvm->arch.kvmclock_offset;
-+		break;
-+	default:
-+		return 1;
-+	}
++		opp-420000000 {
++			opp-hz = /bits/ 64 <420000000>;
++			opp-microvolt = <850000 850000 990000>;
++		};
 +
-+	*data = ctr_val;
-+	return 0;
-+}
++		opp-456000000 {
++			opp-hz = /bits/ 64 <456000000>;
++			opp-microvolt = <870000 870000 990000>;
++		};
 +
-+bool is_vmware_backdoor_opcode(struct x86_emulate_ctxt *ctxt)
-+{
-+	switch (ctxt->opcode_len) {
-+	case 1:
-+		switch (ctxt->b) {
-+		case 0xe4:	/* IN */
-+		case 0xe5:
-+		case 0xec:
-+		case 0xed:
-+		case 0xe6:	/* OUT */
-+		case 0xe7:
-+		case 0xee:
-+		case 0xef:
-+		case 0x6c:	/* INS */
-+		case 0x6d:
-+		case 0x6e:	/* OUTS */
-+		case 0x6f:
-+			return true;
-+		}
-+		break;
-+	case 2:
-+		switch (ctxt->b) {
-+		case 0x33:	/* RDPMC */
-+			return true;
-+		}
-+		break;
-+	}
++		opp-504000000 {
++			opp-hz = /bits/ 64 <504000000>;
++			opp-microvolt = <890000 890000 990000>;
++		};
 +
-+	return false;
-+}
-diff --git a/arch/x86/kvm/vmware.h b/arch/x86/kvm/vmware.h
-new file mode 100644
-index 000000000000..debabaff9654
---- /dev/null
-+++ b/arch/x86/kvm/vmware.h
-@@ -0,0 +1,22 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+#ifndef __KVM_X86_VMWARE_H
-+#define __KVM_X86_VMWARE_H
++		opp-540000000 {
++			opp-hz = /bits/ 64 <540000000>;
++			opp-microvolt = <910000 910000 990000>;
++		};
 +
-+#include <linux/kvm_host.h>
++		opp-576000000 {
++			opp-hz = /bits/ 64 <576000000>;
++			opp-microvolt = <930000 930000 990000>;
++		};
 +
-+struct x86_emulate_ctxt;
++		opp-600000000 {
++			opp-hz = /bits/ 64 <600000000>;
++			opp-microvolt = <950000 950000 990000>;
++		};
++	};
++};
 +
-+#define VMWARE_BACKDOOR_PMC_HOST_TSC		0x10000
-+#define VMWARE_BACKDOOR_PMC_REAL_TIME		0x10001
-+#define VMWARE_BACKDOOR_PMC_APPARENT_TIME	0x10002
-+
-+#define VMWARE_PORT_VMPORT	(0x5658)
-+#define VMWARE_PORT_VMRPC	(0x5659)
-+
-+extern bool enable_vmware_backdoor;
-+
-+bool is_vmware_backdoor_pmc(u32 pmc_idx);
-+int kvm_pmu_rdpmc_vmware(struct kvm_vcpu *vcpu, unsigned int idx, u64 *data);
-+bool is_vmware_backdoor_opcode(struct x86_emulate_ctxt *ctxt);
-+
-+#endif /* __KVM_X86_VMWARE_H */
-diff --git a/arch/x86/kvm/vmx/vmx.c b/arch/x86/kvm/vmx/vmx.c
-index 68fa251dda60..d407eecf1034 100644
---- a/arch/x86/kvm/vmx/vmx.c
-+++ b/arch/x86/kvm/vmx/vmx.c
-@@ -68,6 +68,7 @@
- #include "trace.h"
- #include "vmcs.h"
- #include "vmcs12.h"
-+#include "vmware.h"
- #include "vmx.h"
- #include "x86.h"
- #include "x86_ops.h"
-diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
-index 2cd9ee316aad..389ae6213c85 100644
---- a/arch/x86/kvm/x86.c
-+++ b/arch/x86/kvm/x86.c
-@@ -31,6 +31,7 @@
- #include "pmu.h"
- #include "hyperv.h"
- #include "lapic.h"
-+#include "vmware.h"
- #include "xen.h"
- #include "smm.h"
- 
-@@ -191,10 +192,6 @@ module_param(min_timer_period_us, uint, 0644);
- static u32 __read_mostly tsc_tolerance_ppm = 250;
- module_param(tsc_tolerance_ppm, uint, 0644);
- 
--bool __read_mostly enable_vmware_backdoor = false;
--module_param(enable_vmware_backdoor, bool, 0444);
--EXPORT_SYMBOL_FOR_KVM_INTERNAL(enable_vmware_backdoor);
--
- /*
-  * Flags to manipulate forced emulation behavior (any non-zero value will
-  * enable forced emulation).
-@@ -6291,37 +6288,6 @@ static bool kvm_vcpu_check_code_breakpoint(struct kvm_vcpu *vcpu,
- 	return false;
- }
- 
--static bool is_vmware_backdoor_opcode(struct x86_emulate_ctxt *ctxt)
--{
--	switch (ctxt->opcode_len) {
--	case 1:
--		switch (ctxt->b) {
--		case 0xe4:	/* IN */
--		case 0xe5:
--		case 0xec:
--		case 0xed:
--		case 0xe6:	/* OUT */
--		case 0xe7:
--		case 0xee:
--		case 0xef:
--		case 0x6c:	/* INS */
--		case 0x6d:
--		case 0x6e:	/* OUTS */
--		case 0x6f:
--			return true;
--		}
--		break;
--	case 2:
--		switch (ctxt->b) {
--		case 0x33:	/* RDPMC */
--			return true;
--		}
--		break;
--	}
--
--	return false;
--}
--
- static bool is_soft_int_instruction(struct x86_emulate_ctxt *ctxt,
- 				    int emulation_type)
- {
-diff --git a/arch/x86/kvm/x86.h b/arch/x86/kvm/x86.h
-index 43850b524774..4d0a8558d931 100644
---- a/arch/x86/kvm/x86.h
-+++ b/arch/x86/kvm/x86.h
-@@ -718,8 +718,6 @@ static inline bool kvm_mpx_supported(void)
- 
- extern unsigned int min_timer_period_us;
- 
--extern bool enable_vmware_backdoor;
--
- extern int pi_inject_timer;
- 
- static inline u64 nsec_to_cycles(struct kvm_vcpu *vcpu, u64 nsec)
++&gpu {
++	operating-points-v2 = <&gpu_opp_table>;
++};
+
 -- 
-2.53.0
+2.55.0
+
 
