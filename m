@@ -1,86 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=68.232.153.233
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.216
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794398233;
-	b=YE+ezwppHYnfmRbLvUxeQXcjgfQBt4F8vnxC1AKUjU8YiJ0CnQY92YGPBoy+vz5vMhQn
-	 15KsITfsZ6c++RiN6O1JOta7kbm3+hZcKg61gG53OADekgJpkohX61b842KgKwfpfhIk4
-	 NcXZPZtnRcFisXsSw/nqOdk9Co2JONPXxpUbyoAGb5EUUI3kD+5eerPhuON3ccGwxIB2a
-	 RyfuqT5bj0kUdxpopvspgA3TbcFAY9o0Q9a5rzfxS/MQZ1GVxAMevbvORNfajW567V5Ss
-	 ELgNCJZQrVJKV9FW0qhVJKOMKALLVp25QV0034S5oiUN37PKD9feoZjLZrktTA1ehDg==
+	t=1794398260;
+	b=p92rKAq8TucuqOoynvdIZxsC9GWyYuIEaw561MQFlN0IZZawyIrODhArJ0lkO3bijcx2
+	 4yH+c0Ef6WFJlk2tGUxaIsUVZWfJW2deXQmyBrz6aHRRcuDgTWFRhlcMSjIhRWQ2ROkQf
+	 qNfr7n6XZ6Sec2+ROfgCbaK2QVYhz+rNU4l1xhx+wi1WBsA2hGecTY6PowHiIDddZw3KT
+	 ZoZY8sHVA1w9DmwWavR+b5sFFYVROWepBxeZb3hQsMMYPB9IWP6NbxfAC9vVXeGuHnHPD
+	 pOn64s5VUZXSTCKZcsxHKI09IzGL0ZMHYEu+aXp8aWKzwz0Q8z66wesDP4hU9+wDByA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794398233;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-Amp-Result:Received:Received:Received:From:To:CC:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type;
-	bh=LY2SWOxsJqbOxznpwl/qTBJZaImhznfIoKMaO+d3rnA=;
-	b=nxQuWcQZiCR5VO8r5NIARAlhZcgy08HrgJaCsFgjlG1g/TGNShhXiA2JkHAxMIMBcpYZ
-	 ZmClTvgaPGQBwx5rCPTqmZA8Yms80yGiIhaB4qw3dXnzM7unkrwqoqql5A4zo+KGgzhZ0
-	 nwsls/Z/iDQpt7bmHQn+n+PfF9bCgJotnrMqxJGhIFQO6eFhtJ+4PWR+amee4ObNc3s3z
-	 kegYC/bdLqKWaNx7kysSTigwerHxSGJLmgUWURjV6hXwTQIrSZEyPr3S5U43ip2pQIzNa
-	 v2BoepPbZamxmGjLmUlq/WVNJ67+vMy4OFX6E9TwRS41H/gnZVVAcV6V4fXR9Pd2gvw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794398260;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=+ix7ZxXwwyqmcU7u9cOhuAPx4chAnMzU/ydV2LHbUqQ=;
+	b=4UDZFd+cX/mOiPAAhlyFHVlKNZVwt/8CcKSjbwUSRw2JlanQX0eSWs4LucXuWFc7+fo9
+	 UzIUtZJxsm6Go6PWVfY+32XpTn1QGod6qoLOwn7GPJ04rK58J0JuSKmYK3ckztRNoBAzg
+	 siLByaBA0SoDqs0QIJuMZXkmUgzV0HgtuUYqgjUFj5ZAmTVZLMjuz5sgEBsfPPTX6i61U
+	 dG+XlUr4QxUm4LIoRiTPQ9wB6labMm5mLPBrxv+WYEJwGQ5SLs9WqDqNutvbq9VNNGzSC
+	 B8DF67SiwyCk0zkpfkeeNDpWCRkAeeQV3ErTqmoyAzOrHnXERnlwRzKBYt5hQkOlS4A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=microchip.com;
-	spf=pass smtp.mailfrom=microchip.com;
-	dkim=pass header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=YFBik3g8;
-	arc=none smtp.remote-ip=68.232.153.233
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=20zr1sEy;
+	arc=none smtp.remote-ip=113.46.200.216
+Received: from canpmsgout01.his.huawei.com (canpmsgout01.his.huawei.com [113.46.200.216])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE747606A324;
-	Wed, 11 Nov 2026 11:57:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE747606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01F79606A324;
+	Wed, 11 Nov 2026 11:57:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 01F79606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=YFBik3g8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1794398232; x=1825934232;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=AP1aVJcfWeQCRbRFuJA0bQ52dwt1E9dh4XOxNt6hqek=;
-  b=YFBik3g89CAejhGnVeFEpkQIA1p6+HYTmzr9nCzYrQkIpHVD5YZiXqEW
-   VY5UiQRT6pNabYv3MEuqKm5bkl77CXDD/fxQSfNAOyR4t4C2tUt/FNYxy
-   QRxJlPCN1k1YBWcFUqx0tqosdMT5FK2XZcIq4XWt8op7YjpnqtfQ2RvFB
-   pSoL7OEaNRngni3udmsrSCmnbw+4/jbfm3Tpk2Q6K7s2j4GINoAcnKUTG
-   ygb6FiWxArZs7G+m3MWLHcTc5MpgDXOugQDW1TP/Ed8t/bwpvQhuNsX5d
-   6D+vpEhajnHI7bnTHPA/MYJHaPECevEjLOe9phAIoaXgzoJspEwreZ6h9
-   Q==;
-X-CSE-ConnectionGUID: uIdH9OJaSL+y3CqrjVwKMw==
-X-CSE-MsgGUID: IQ4DUsstRnW4Mz9MkZGS4Q==
-X-IronPort-AV: E=Sophos;i="6.27,207,1787036400"; 
-   d="scan'208";a="66350199"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa3.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 11 Nov 2026 04:57:11 -0700
-Received: from chn-vm-ex02.mchp-main.com (10.10.85.144) by
- chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.58; Wed, 11 Nov 2026 04:57:11 -0700
-Received: from che-ll-i67131.microchip.com (10.10.85.11) by
- chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server id
- 15.1.2507.58 via Frontend Transport; Wed, 11 Nov 2026 04:57:01 -0700
-From: Manikandan Muralidharan <manikandan.m@microchip.com>
-To: <pratyush@kernel.org>, <mwalle@kernel.org>,
-	<takahiro.kuwano@infineon.com>, <miquel.raynal@bootlin.com>,
-	<richard@nod.at>, <vigneshr@ti.com>, <robh@kernel.org>, <krzk+dt@kernel.org>,
-	<conor+dt@kernel.org>, <srini@kernel.org>, <nicolas.ferre@microchip.com>,
-	<alexandre.belloni@bootlin.com>, <claudiu.beznea@tuxon.dev>,
-	<linux@armlinux.org.uk>, <richardcochran@gmail.com>, <arnd@arndb.de>,
-	<linusw@kernel.org>, <enelsonmoore@gmail.com>, <aaro.koskinen@iki.fi>,
-	<pengpeng@iscas.ac.cn>, <mathieu.dubois-briand@bootlin.com>,
-	<gregkh@linuxfoundation.org>, <michael@walle.cc>,
-	<linux-mtd@lists.infradead.org>, <devicetree@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<netdev@vger.kernel.org>
-CC: <manikandan.m@microchip.com>
-Subject: [PATCH v10 8/8] ARM: configs: sama5: enable Microchip/SST SFDP EUI NVMEM layout
-Date: Wed, 11 Nov 2026 17:25:40 +0530
-Message-ID: <04714d8fecbed1fbc8401742087d0c7591359d4c.1794391660.git.manikandan.m@microchip.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1794391660.git.manikandan.m@microchip.com>
-References: <cover.1794391660.git.manikandan.m@microchip.com>
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=20zr1sEy
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=+ix7ZxXwwyqmcU7u9cOhuAPx4chAnMzU/ydV2LHbUqQ=;
+	b=20zr1sEyMPdc4qs5Tpvtkv9CImjZ5JfKwuZ8vyIwFbUPMaA0Xi1E4HAahDgw18AVzZ2g4LZIU
+	uZCqNvh8GjttmBzKMJtrkOBJ7Ulq3ymn+EwrD4wgzIhcZcxGXgHgwpbPn0iksXsowYrsjjLyn74
+	6C3Ebpqfmgvoao0Ixv1yyxw=
+Received: from mail.maildlp.com (unknown [172.19.162.197])
+	by canpmsgout01.his.huawei.com (SkyGuard) with ESMTPS id 4jPhp76H2Yz1T4HZ;
+	Wed, 11 Nov 2026 19:57:03 +0800 (CST)
+Received: from whupemo200006.china.huawei.com (unknown [7.152.185.252])
+	by mail.maildlp.com (Postfix) with ESMTPS id B505A40579;
+	Wed, 11 Nov 2026 19:57:33 +0800 (CST)
+Received: from DESKTOP-8RFUVS3.china.huawei.com (10.174.178.219) by
+ whupemo200006.china.huawei.com (7.152.185.252) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Wed, 11 Nov 2026 19:57:32 +0800
+From: Zenghui Yu <yuzenghui@huawei.com>
+To: <linux-acpi@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+CC: <rafael@kernel.org>, <tony.luck@intel.com>, <bp@alien8.de>,
+	<guohanjun@huawei.com>, <mchehab@kernel.org>, <xueshuai@linux.alibaba.com>,
+	<lenb@kernel.org>, <wangzhigang17@huawei.com>, Zenghui Yu
+	<yuzenghui@huawei.com>
+Subject: [PATCH] ACPI: APEI: EINJ: Validate length of the Vendor Error Type Extension structure
+Date: Wed, 11 Nov 2026 19:57:29 +0800
+Message-ID: <20261111115729.253-1-yuzenghui@huawei.com>
+X-Mailer: git-send-email 2.23.0.windows.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,29 +72,50 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
+X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
+ whupemo200006.china.huawei.com (7.152.185.252)
 
-Enable CONFIG_NVMEM_LAYOUT_SST26VF_SFDP_EUI so the factory EUI-48 stored
-in the SST26VF QSPI flash SFDP can be used as a MAC address on boards
-such as the sama5d27_wlsom1.
+Add a sanity check for the length field of the Vendor Error Type Extension
+structure to guard against a buggy BIOS, in the same way einjv2_init()
+checks the EINJv2 Extension length.
 
-Reviewed-by: Linus Walleij <linusw@kernel.org>
-Signed-off-by: Manikandan Muralidharan <manikandan.m@microchip.com>
+The BIOS on my machine provides a zeroed structure, so the length is 0 and
+vendor_size in get_oem_vendor_struct() underflows to a huge value. The
+vendor error data is then exposed to user sapce through the "oem_error"
+debugfs file with that bogus size, and reading it walks out of the mapped
+area and panics the kernel.
+
+Signed-off-by: Zenghui Yu <yuzenghui@huawei.com>
 ---
- arch/arm/configs/sama5_defconfig | 1 +
- 1 file changed, 1 insertion(+)
 
-diff --git a/arch/arm/configs/sama5_defconfig b/arch/arm/configs/sama5_defconfig
-index 6e5f845e95db..4eb3238af5b7 100644
---- a/arch/arm/configs/sama5_defconfig
-+++ b/arch/arm/configs/sama5_defconfig
-@@ -219,6 +219,7 @@ CONFIG_PWM=y
- CONFIG_PWM_ATMEL=y
- CONFIG_PWM_ATMEL_HLCDC_PWM=y
- CONFIG_PWM_ATMEL_TCB=y
-+CONFIG_NVMEM_LAYOUT_SST26VF_SFDP_EUI=y
- CONFIG_EXT4_FS=y
- CONFIG_FANOTIFY=y
- CONFIG_AUTOFS_FS=m
+The BIOS on my machine is obviously buggy (non-zero Vendor Extension offset
+pointing to zeroed memory, and bit 31 is not set in the error type either)
+and needs fixing. I'm not sure if it is necessary to add such a sanity
+check for EINJ at all.
+
+The PAGE_SIZE upper bound is borrowed from the EINJv2 check in
+einjv2_init(). Not sure if it is reasonable here.
+
+ drivers/acpi/apei/einj-core.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/drivers/acpi/apei/einj-core.c b/drivers/acpi/apei/einj-core.c
+index 1f3fa2278584..947f32812cfe 100644
+--- a/drivers/acpi/apei/einj-core.c
++++ b/drivers/acpi/apei/einj-core.c
+@@ -275,6 +275,12 @@ static void check_vendor_extension(u64 paddr,
+ 	if (!p)
+ 		return;
+ 	memcpy_fromio(&v, p, sizeof(v));
++	if (v.length < sizeof(v) || v.length > PAGE_SIZE) {
++		pr_warn(FW_BUG "Invalid vendor error extension length %u\n",
++			v.length);
++		acpi_os_unmap_iomem(p, sizeof(v));
++		return;
++	}
+ 	get_oem_vendor_struct(paddr, offset, &v);
+ 	sbdf = v.pcie_sbdf;
+ 	sprintf(vendor_dev, "%x:%x:%x.%x vendor_id=%x device_id=%x rev_id=%x\n",
 -- 
-2.43.0
+2.33.0
 
