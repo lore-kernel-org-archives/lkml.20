@@ -1,100 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.231.74
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794400175;
-	b=SOAP6WlBTx+BtPUROBP8TB1uiSZxpcrWq9kWzKvKWsYYUqutawtU5CX/Ji3qUYcjwP32
-	 dAxBhJ8OPP8zkfMZwF/fWoLedzsoTfSDGegR+DEyv4cAoSaptWkjF5mrGE3WRzbEuVvoi
-	 zrKtos+3jLSqm/c9mNxj7bYpaqzZ/2TMvmRLIOHefM1v78sAYH/JggwsqMgki57RtI/tj
-	 5luklXbLB4ju9smlDolmhEiXmqJQ4Sn7kCGX9T1JOaSpwv/gE8dep+wi+mugGy7pMdc+U
-	 qbFQFDAJky/45ZhbiKaoGV6SKvliohYjEciJVtY4ByvUgkHtkMHM/SUTbRiiGrs2Gig==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794400175;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=ugQNukoG8zuOSCl9kH/Kdlpjvp5xVSCQl/EVqkaF+xc=;
-	b=Mj6VUotYCCQTSXOui0y0WNHlUbcj4zvqRYXYwf+7dbsCsTXqD8GycL6dU2rvvOczZkDk
-	 641kJDO4FFlgVHK688HuYqmXyqT7n9vyI0lCdBJl38p7Plx7/gmkXQuJpBI6Sa8MPfpDO
-	 KemN2+t2Aunm8zQ9oDeOXLjyWh4joiWQacLaXDUyrjJcx9lOs2awv18xsYQAeCjs2MiNS
-	 V98fCXBbS4ic+rY2dEutmP60r7uXrfvNrANCDfEICMieNc6ktZ43IaZlbW6BhA+Eqr2J2
-	 WSap3MPsUY8zkq+gaioPAq0lm8OrxMtnCuoM8tzylWgv2lvrRvviFWH8e9vIuOzORGw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PYWO8fA5;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.231.74
-Received: from mail-oa2-f10.google.com (mail-oa2-f10.google.com [74.125.231.74])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.34.181.151
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794400203;
+	b=rcxRBe0CeONrrRlJp8CKST1ybn1byG4AJA3rXqjRYyLPH+kDzhB3P+bpci4izToskL/B
+	 7SQg32IxBuznT7CdsPCYYL5fwtwDw9IpUldBStIiN82/l86tIgaBZb1E+GvoMeEYTXccb
+	 4Ad1lLwTyk1HrsVUQZVKfOiWJgMoLCry1GeVAvrbV9nXX/cKpWL5ftWs2O9/adWQF//nW
+	 cnf4WceVvs/WmOmcF/zRFOwUUhmCAzCD6J14YCd+uWUU9wb8CJdNJKhaXK6zNP1uGoBgb
+	 I/FW8WvCowKv/uFBHod6gVlrVptNyeKi1i/8EoHDtdzW0SkSJlaS4TmHljWKFD4ytRg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794400203;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
+	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:X-Originating-IP:X-ClientProxiedBy:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=yKidSItLVp1j8CFzrK2fS2DWMBZXoQ8cqdCTFx+9orQ=;
+	b=RHdEKRje/LTvIAwGmE2bzonz9Kjm3lMWC/Vc9v0fmynW7cvs22jmx9XoD44KdGKREwl7
+	 ccktgjf0he2iLTX8SaXpz9KBbfn78i8iAqiZQRkqnPiPMtFDpn29mQPKhdJAM8Yqccs85
+	 mV/ECyZLPJoeRq2XEJ8uQGkaAUZ46r4AFlsbx2wB85+0eQRRFRi6RzXD43Ap58oWm1boh
+	 FFKVCZNFfbpKCcHsB0qy3asyztM8epExX8fL1QMt35vGcxxdzKz5nqXgL051oKonKALE+
+	 0PsUzMAMLcHQjpqjCbFymL912Id29IC4aihoNZCAudx1oWy5shKUmAYc37Oe0bi8iQA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amazon.com;
+	spf=pass smtp.mailfrom=amazon.com;
+	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=qywRoTfs;
+	arc=none smtp.remote-ip=52.34.181.151
+Received: from pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.34.181.151])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20946606A33C
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 12:29:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 20946606A33C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0C26606A33B;
+	Wed, 11 Nov 2026 12:30:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0C26606A33B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PYWO8fA5
-Received: by mail-oa2-f10.google.com with SMTP id 586e51a60fabf-4ae5a7c2df9so79931fac.1
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 04:29:34 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794400174; cv=none;
-        d=google.com; s=arc-20260327;
-        b=hQ9AFKhmvDhLGh7ue5qMTKSwUfxLdW/NN/To6AhKLn4gaTxPNUd/yC3iql7vs7IOn+
-         iWnJW8x7vK+SdNx1TAd+6lH9j41Om8NsQHwkIS8R6DsTun0urLNgJH3Wm0ojrwrJrz4Y
-         YkvXMP9FLMegmc3SjuJ9rZfOAdtZnojYwHIAaVUF3GJ692t67SJRKgz9lYygMpG06AnO
-         PUYwJgROnU1vGWGE2CWq3ejHV9y+Kx8BsG8kAn+eC8Cd2+DXIpg3jUvYIV4mwkEQ8+xo
-         /1y8kH2WChBuGyfTiOJASfKdu7kbHQbDhhW8E6YEO+4V85N99PonoXXc/PTZJzWc/bN+
-         xrZg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=ugQNukoG8zuOSCl9kH/Kdlpjvp5xVSCQl/EVqkaF+xc=;
-        fh=CxENHCJ6vQaTuoFFfZiZh7LcY6spDeHTmnfu3izTkjg=;
-        b=nbdqicP1puBgs+HJXUj1GobsVrfz6N2Xx02ksCznfICCGMy8HKPryLb4X6lqeSo9D0
-         trocuH59ZxkRO+q3NFRUmm7Up6dpB/9caeNfAP0rSJW7GXFHOCS0KU5sIbgVQJVvfmPT
-         dtZ/5JpE51QS2p1mmOmP2GTnAOv++DCFjVo5z31+/bezQ+8mmETWKeTlwm5PoDexaFHO
-         Ma4ZOx63ZqBD7jn+3P+qXrqhQ6qX2zJi6YPXP7LB76vD7RL7NjatvW7tZah+C8T35rVK
-         GgLx1/5x6xgwM3Kf02QnlPWU7yECQohJPpPINx3r4raDmtloMxzGSNfZsoNBi7Dnz0DD
-         pVWA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=qywRoTfs
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794400174; x=1795004974; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ugQNukoG8zuOSCl9kH/Kdlpjvp5xVSCQl/EVqkaF+xc=;
-        b=PYWO8fA5gRWaYW8Qean7e52jZfOMsPHQuM6ciQ8I2KUqOeKzZ5GvpOXxNAPtY5AhhB
-         Cad6nYp76jWYyg20Wx2CHvHn9HHzxxDLTgndd12baYuY+6C0DGzHUKTim5OkboBpeoId
-         vehG+laM1C+esKuEV/5zMQt153Kiad9BC2j3B1+a1CrK/kqexT//HR+RqgX6LEVIzh6G
-         6CfowtQUsymmzNYPoNwPuVEBXU04FHcImiZvdMF/Eg158rbV/NBP+TjTiJG/F9g2CSS2
-         XcOKlfCa9GpvzMZfuzMW+fnlwfT2t7ncVQfJ47mwGVV2PjW5NvbR/mbXWLsk64EGQxIk
-         wOsQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794400174; x=1795004974;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=ugQNukoG8zuOSCl9kH/Kdlpjvp5xVSCQl/EVqkaF+xc=;
-        b=Y0xrqDZ4JL9U/ysYW+Sym3qSzeTxVrer+MhGfFInLScFypBXg4tKFCXJl9Vz1nuq5Q
-         qFvgdkcSzNOs5qTbF/JejZvfs4QJFw9NMmgS+jvL3PGohS1u2l3eXc9yKZQ+ozF27H9n
-         HshcJeUSWgf9zfQJwSfsDGF5npZmlKp7FNs8NtK4bqTQ3eFZ9zkoK96SLsdV5JzzJyqP
-         98gQqTSFTiYPT4zmlqf3wQDkVRa1v7XwfUx3gkZ3UPYGtXdGsNloqdFPywvlDrkBuBmt
-         XsKKySonYS3tKvX6C0Y7Clct3Zwrbc1vVCKKci7adiVXQBiIIvGHjUYDzWtd3h5SOLR4
-         1+WQ==
-X-Forwarded-Encrypted: i=1; AL+hErEe91Gv8GswkW+1LABUpHLP1CmsAMoe6MkK7n6GmT1f0SpAwRuSW56tnN/sVCiT886UUlJ+OSwhMsASoeM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8G+SjeGsGawrrQkzFiOrWm/z/3qpYhmQQPlLoTv9QDWsxX/s6T
-	ffBJLp9nBPKkDJKZ4A8WQrZVo108XpTYUeGOCL7GY/MpSA28/DYFqkuzEPugL5ZV/RIpfFQKS+s
-	jwnGcGhhTjGJ3sGYqCvKpbgcn8satbro=
-X-Gm-Gg: AYBFou0fJGVjD58Pzv6pWwA+vwzEaCGQGesNn9JXIVt73XjQOg511Gr2Nvr9v+HWElb
-	gJuC6juZlySIC574tfVV3Vjx4dzct9/KpbFJKjZVp4F+yae2P1UtkfGvXNPcabH1O5Hs/6WM8ym
-	qzj2IBx6CyW/DYYaQo6Q8eMPrqAzp2zzIjpHYp/4t6QIYdIi9JVCOLO9S9zBDHjmIw2bnupBQbL
-	kQcfhff4uw73wVYqqNHy2E7RW/htkuh5ugw3qcRykXpikIQWRP24RJd24nXh5+iVzklX2hGWEgG
-	/XGpr69+tIn8nFD7wM9l5LnKgLGHjS28vE6f47TcY479YLMkdQZF7Wk9CJC24SWrsPUIJ2LL80W
-	QKvtjQs31UTaFPIIo1xw+A76BKm8imlkFOGisWWXadYZerfMFRIO9IODz9FORB2lkyWhE4Jc61O
-	vINd8Q3Ma8atqQzA8LNfuXMNFuUwUpyQlckltFST4q7+ASKEOdSBFEdQ==
-X-Received: by 2002:a05:6808:4f13:b0:55c:888:2a15 with SMTP id
- 5614622812f47-56b97d216eamr1759866b6e.53.1794400173914; Wed, 11 Nov 2026
- 04:29:33 -0800 (PST)
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+  t=1794400202; x=1825936202;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=yKidSItLVp1j8CFzrK2fS2DWMBZXoQ8cqdCTFx+9orQ=;
+  b=qywRoTfs8AOHY1RN3tT/sgvR5W5VeokYzcfYUT0HoYB66mbpDOnmhlCJ
+   rCwAjtQaaHLzBvZtfNfgFqPIGK4ZdIHPS+Z9YuN+aThkHeIVrcNd3iL40
+   38ocTAtDufUti00IrtQf+R9vNzGzztIBffcJos7jP31KKAJA5V+VBcnp5
+   MIxBEmH0QphnQ/vIDrsiNqeyiuCUn7/9bOIbMmuHLPlcKPkH5VNuCHCVv
+   KW5+WwCw523KVtruDdZBusei4V5Cz0pjcm3qtBWcGt/nIPHP7iE72MntO
+   T1HTho4eIFuIIvpPZ5QxGmp3kmuoiQeBxv2uHIyjCj49rstDVuyFHPWtu
+   g==;
+X-CSE-ConnectionGUID: 946Dg+BBSOWP+RyxLKx4jQ==
+X-CSE-MsgGUID: /XGFre61RRC8KHN5kOw5hQ==
+X-IronPort-AV: E=Sophos;i="6.27,207,1787011200"; 
+   d="scan'208";a="33707194"
+Received: from ip-10-5-9-48.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.9.48])
+  by internal-pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 12:29:55 +0000
+Received: from EX19MTAUWC002.ant.amazon.com [205.251.233.111:21904]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.50.212:2525] with esmtp (Farcaster)
+ id 4c4c3c39-5ab1-4152-ae8a-baf3204da036; Wed, 11 Nov 2026 12:29:55 +0000 (UTC)
+X-Farcaster-Flow-ID: 4c4c3c39-5ab1-4152-ae8a-baf3204da036
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWC002.ant.amazon.com (10.250.64.143) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
+ Wed, 11 Nov 2026 12:29:55 +0000
+Received: from dev-dsk-sieberf-metal-1a-7543e84d.eu-west-1.amazon.com
+ (172.19.116.227) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56; Wed, 11 Nov 2026
+ 12:29:51 +0000
+From: Fernand Sieber <sieberf@amazon.com>
+To: <mingo@redhat.com>, <peterz@infradead.org>, <juri.lelli@redhat.com>,
+	<vincent.guittot@linaro.org>
+CC: <tj@kernel.org>, <bsegall@google.com>, <dietmar.eggemann@arm.com>,
+	<rostedt@goodmis.org>, <mgorman@suse.de>, <vschneid@redhat.com>,
+	<kprateek.nayak@amd.com>, <hannes@cmpxchg.org>, <mkoutny@suse.com>,
+	<skhan@linuxfoundation.org>, <corbet@lwn.net>, <rdunlap@infradead.org>,
+	<cgroups@vger.kernel.org>, <linux-doc@vger.kernel.org>,
+	<linux-kselftest@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<nh-open-source@amazon.com>, <hborghor@amazon.de>, <fmubeen@amazon.de>,
+	<dwmw@amazon.co.uk>, <sieberf@amazon.com>
+Subject: [PATCH v3 0/2] sched/fair: cpu.max.runtime and idle refill for a burstable budget
+Date: Wed, 11 Nov 2026 14:29:47 +0200
+Message-ID: <cover.1794398404.git.sieberf@amazon.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <cover.1794303670.git.sieberf@amazon.com>
+References: <cover.1794303670.git.sieberf@amazon.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,22 +92,121 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261103185909.71843-1-dennylin0707@gmail.com>
-In-Reply-To: <20261103185909.71843-1-dennylin0707@gmail.com>
-From: Hungyu Lin <dennylin0707@gmail.com>
-Date: Wed, 11 Nov 2026 04:29:23 -0800
-X-Gm-Features: AclHuK_f_I8U-R4ghS55caM--h46bxgyAYf2JvxTYf0GJGfw8SL-RER2v_qKYxk
-Message-ID: <CAGEkeHfW2ADNSV7g5JMss8B80T+x8US17Bo51Ypp+1nnoxSPzA@mail.gmail.com>
-Subject: Re: [PATCH v3] block: fix discard alignment for non-power-of-two granularities
-To: axboe@kernel.dk
-Cc: hch@infradead.org, linux-block@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, dm-devel@lists.linux.dev, mtsai@redhat.com, 
-	sashiko-bot@kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+X-ClientProxiedBy: EX19D031UWA001.ant.amazon.com (10.13.139.88) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-Hi Jens,
+This series makes the CFS bandwidth controller's bucket a burstable CPU
+budget that userspace can save and restore. It lets cpu.max.burst exceed
+the quota, so the bucket can hold more than one quota, and adds
+cpu.max.runtime to read and set what it holds (patch 1). It makes a
+group that is not running keep earning quota up to quota + burst
+(patch 2).
 
-Could you pick up this discard alignment fix? Christoph has reviewed v3.
+v2 had two further patches that passed the level on to a BPF scheduler.
+Tejun asked for the fair side first and on its own, so they are dropped
+here and will be proposed separately if this is accepted.
 
-Thanks,
-Hungyu
+Use case
+========
+
+We run virtual machines whose CPU time is governed by CPU credits, as
+burstable instances are. An instance earns credits while it runs below
+its baseline, spends them above it, and holds at most a capped amount;
+with none left it is held to the baseline. The starting credits, the
+baseline and the cap are part of the instance type's guarantee and must
+hold whatever the host does to the instance.
+
+Each instance's vCPU threads run in their own cgroup, and the controller
+already is that bucket of credits: the quota per period is the rate
+credits are earned at, quota + burst is the cap, and the runtime is the
+level. It does the per-CPU charging and the throttling in the scheduler,
+at a granularity userspace accounting cannot match. What is missing is a
+cap above one quota, a way to read and write the level, and earning
+while idle. An instance that idles for a minute with a 100ms period
+earns one quota instead of up to 600.
+
+The level has to be saved and restored by the host's control software:
+an instance starts with the credits its type grants, not with one quota;
+a host kernel live update (kexec) or a reboot creates the cgroups anew,
+so every level has to be read before and written back after, or every
+instance loses or gains credits; a live migration moves the level with
+the instance; and the control plane raises or lowers it when credits
+move between instances. A container checkpoint and restore has the same
+problem.
+
+Ben pointed out that a cpu.max or cpu.max.burst write already adds a
+quota to the runtime, and that cpuacct gives the usage. That falls
+short. A write can only add, and only one quota, so setting a level
+means writing a temporary quota equal to the difference and then the
+real quota back, and lowering one means shrinking the burst until the
+cap cuts the runtime and widening it again; each leaves the cgroup
+running with the wrong bandwidth in between, and each write visits every
+CPU's cfs_rq. And usage is not the level: deriving it means replaying
+every period's refill in userspace, including the periods the timer
+slept through, which duplicates the controller's accounting.
+
+Patch 2 changes behavior for existing cpu.max.burst users. A group with
+a burst that becomes runnable after idling has up to quota + burst, as
+if it had been running below its quota throughout, instead of the
+runtime it had when the timer stopped. Groups without a burst see no
+change.
+
+Testing
+=======
+
+On tip/sched/core in qemu with lockdep, the cgroup test_cpu selftests
+pass, 18 of 18, including the nine new ones for these two patches, with
+no lockdep report in dmesg. Both patches build with W=1 and no warning
+in kernel/sched, with and without CONFIG_CFS_BANDWIDTH and on 32-bit,
+and kernel-doc reports nothing on the files they touch.
+
+An AI coding assistant (Claude Code) helped write the selftests and
+changelogs and ran the build and test matrix; I reviewed all of it.
+
+Changes in v3
+=============
+
+- Patches 3 and 4, the sched_ext side, dropped (Tejun).
+- Patch 1: cpu.max.runtime reads 0 while cpu.max is "max" instead of a
+  level the group no longer has, and taking a group's quota away drops
+  its runtime instead of keeping it for the next quota (kernel-patches
+  CI); the lockdep_assert_irqs_disabled() in distribute_cfs_runtime()
+  is gone, as both bandwidth timers run with hardirqs enabled on
+  PREEMPT_RT, and a comment states the real precondition; the
+  burst_kept selftest grants the runtime after a period has started,
+  so a hog cannot burn it while the test waits; CONFIG_CFS_BANDWIDTH
+  added to tools/testing/selftests/cgroup/config.
+- Patch 2: a cpu.max write starts the next period from the write, so
+  the first refill under a new period is one new period away and not up
+  to one old period away; selftest for it.
+
+v2: https://lore.kernel.org/all/cover.1794303670.git.sieberf@amazon.com/
+v1: https://lore.kernel.org/all/20260525193622.70282-1-sieberf@amazon.com/
+
+Fernand Sieber (2):
+  sched/fair: expose cpu.max.runtime to set bandwidth runtime directly
+  sched/fair: refill bandwidth for the periods the timer slept through
+
+ Documentation/admin-guide/cgroup-v2.rst   |  24 +-
+ Documentation/scheduler/sched-bwc.rst     |  14 +-
+ kernel/sched/core.c                       |  56 ++-
+ kernel/sched/fair.c                       | 163 +++++-
+ kernel/sched/sched.h                      |   4 +
+ tools/testing/selftests/cgroup/config     |   1 +
+ tools/testing/selftests/cgroup/test_cpu.c | 587 ++++++++++++++++++++++
+ 7 files changed, 839 insertions(+), 10 deletions(-)
+
+
+base-commit: d7e670601af6c564ccf6d3b2ddf70ee4f41a6d1c
+-- 
+2.47.3
+
+
+
+
+Amazon Development Centre (South Africa) (Proprietary) Limited
+29 Gogosoa Street, Observatory, Cape Town, Western Cape, 7925, South Africa
+Registration Number: 2004 / 034463 / 07
+
