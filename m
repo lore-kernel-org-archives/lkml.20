@@ -1,100 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794392190;
-	b=trYVFSTXRavKX0cEVYkxQarKimR66t+OmCP60SzAW+Wk1qOuCSeKvxpdZfk6AFRHOm9y
-	 Rpp2LThb9CGsUiqpcGkhu+VtNSRza73U5flC4rfDqMzsMgm8VU+sMvz1csBxQEjojGNlw
-	 S/Liy4syQR6ofhU4B+GR6qqElF8pn4Sic2bx8Sdd4pMXORWZqtre8c6D1X/J23QO+Pi+8
-	 DXvv2crAZC1yOKkycW/3s9PuGDjPG4KOCtrgzgmsRSWtaJQIT7Qs0EEMfKeGGTSiJhbcS
-	 Urflf2UMhLWi4+fdmxEock6oVnY0zFHNfnzkxKOBoLO5QIVd6I3Equp+10ihxLDwRvA==
+	t=1794392374;
+	b=k8D+2EvOH3qChiaIJQ3WVbDB0Di2CAIc3G33Yh5PtBeAT78Bz67x5Y+ntjvK/BFlbq8m
+	 U5b6yndweJnuc6YsrAlZseSd/n7XmR8eEGHHAlAaHtcqJealatM9anS4vMz1d7zzr/xcW
+	 If6xB3vUrIhQFxTtpTjwl2b3qPVjwvY3B8fsjk3lC+pyFJOxWDJGaSCowWg5He5lpdSK5
+	 1n3FqZskYq8Ugg/DTNb3UaRUm8P9pgamR4JesaNfBFCzYbt7kLU2qPDtVj6o6mOiCQVfD
+	 ZgFD47M0vh53qIGanhYvryDmZCqdkqfUrZAyFA2thSrF/yn9gHMGFgXlJnn+2k8HKVA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794392190;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794392374;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=d/IvGYdSU0x2hRQxBE1JjbZsWM2RLe7/sTpyhUbllAo=;
-	b=FH/crjzshHg0EaFgPyLJ+u0nOgxwEhn+/YoXNxTs/0M29ypU8ZMH7hjyuRz0VyLl/2ZW
-	 WX2nE9UJEDlq8HcBWwvc6dtRnoa+peefEBnki5fFIjMC0DH+gltnDAjNBAjjeSflMsYjE
-	 ITTtCnggm6//kVDs2YaPuzum+gAz29/QKbBA/HwfPrM4K/GHrLZyE6GXKfpGX8i5dMeT7
-	 L6ep3WcH1k3FEANTLU1TXcVbfqYn5CrgtXU53tAD6UpG/whiiKK/pHkj6kEE63ZCIXiSl
-	 0pih2GqsUdrP/gDthsW225eEjuKD1Jlf6cKBljgkg/NMp5yQ7e2NbvPchZS2jZLEm0w==
+	bh=lE9jVEo5zSWyYf/prYRvcvqv6Dmp8UDlLUQhNVSI6yw=;
+	b=CtL3xaoRGWdFrWBLUZyUkS77QFRuj2FwPWy5uRPX+7hnq/Dg80c3xzgvVU4OueSF4nTO
+	 XEUzp8Wafi4idNR9WqD0w+YkYM9w1fO1K+Kzs2lDf7iJFAOINkVvYY2Z0S9FPqRI6uHVq
+	 ONGciSDrA7CCi+tvzbJQkdXSvO0EJop9we3BHckjj+Wp5rsxPDzJs/qSLC/JixhIanAzg
+	 0h1w1gHQNzOMt+61fcCwyEJiBEnl9SFda1wwHtV8++8OgNx8UrzGy0knhBfTNWQKcVElc
+	 QGuYSC7sclLVGW79YZg5mGNlSnUDpgk6mBwKcxL8ynCvCr7yttTAoJ6GV8wyTQGOaJA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zu6x9jvf;
-	arc=none smtp.remote-ip=74.125.82.176
-Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GrqfefHa;
+	arc=none smtp.remote-ip=74.125.224.44
+Received: from mail-yx1-f44.google.com (mail-yx1-f44.google.com [74.125.224.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 351AC606A336
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 10:16:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 351AC606A336
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1CF4606A321
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 10:19:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1CF4606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zu6x9jvf
-Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-3720addb068so5493163eec.1
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 02:16:28 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GrqfefHa
+Received: by mail-yx1-f44.google.com with SMTP id 956f58d0204a3-679a2b5fe87so3610836d50.3
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 02:19:33 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794392188; x=1794996988; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794392373; x=1794997173; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=d/IvGYdSU0x2hRQxBE1JjbZsWM2RLe7/sTpyhUbllAo=;
-        b=zu6x9jvf/Y3EYKErT5IhySBfSvma7bgcPl3N8bj7rO1deIOsdjwDsOzNRTj7JUAVRw
-         n3pJKYeNcD7xkEej0G+uil1L/QZZS7fW/8pCweCtJlfM6AwhR0WGB1GQnlNPrCjhDZG6
-         TopgFcf2SwZyMir0eFewYeUjTgZGxmbxCKnVB4y9/SDyW/KAzC0yiD2fd8CrM1+y6NIt
-         ezQnXbTySqtaWSCtYf8EnHmqNse/A20j3OBaOw6OJ50ayWpw0VpUJMlUdRUFSBEnaasH
-         AHCyiIr+8ZK+vb2xKhs/PUrZXDc1l6FJqIBOg62Qe4QJfX1LVrIHoKFTNiOrahtEaHzx
-         9Hqw==
+        bh=lE9jVEo5zSWyYf/prYRvcvqv6Dmp8UDlLUQhNVSI6yw=;
+        b=GrqfefHazSI+MYO+mhJa7awm3yyprx/VG7buEW6yB4pqzSQOe1nLs0eSINeEYSdgQB
+         ttxUH20yGU1YbASrailabWHcZJr/NvtD4zURo2LCdZ5iTYlEPx1TShKXjrKBgKI72fta
+         UEXoGqResXbt1SNBX9rSoHmgh/9+r3UHck35jJwU05/d87oOHTMGgGXxKtqncs2zCk6v
+         0WMHxfNk5Uj3Zy01s0i+toBWsoqt402ZKy9al4ehcn+li+01xkPrkO6Zz6B+LJrMiX6B
+         tu1zm1oaLXklUDLlCHydtwaxR1UTlokXxgTf/+Lmu/eKijWmbt97dbeuDuTtH09UfR7H
+         s9jA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794392188; x=1794996988;
+        d=1e100.net; s=20260707; t=1794392373; x=1794997173;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=d/IvGYdSU0x2hRQxBE1JjbZsWM2RLe7/sTpyhUbllAo=;
-        b=PGjoyFvngGYgfZfOYFqDAXb6BQmHHvgvPLPemYap2QSguDdRc+P1ShaTv5pVdqem6y
-         HBJSVSK+ajIvF+/QPRRP7g4T2Ymu3b/50X9OszFtMsjEIPC0kPVbkx19TM+WtLHEFfX+
-         uLnJ9GFru3KGuxHlm2tU3X93nz0APVBfowhfqtuF2ClNR0+WCAONFeAm7kCKJio9/G9A
-         bonOW0wASOj/aN+jhdiI01pdjzb5QRq9PZ4qjpOZ8pWS12pFXYev+Yx7hWZEOTyMoHdZ
-         zvGENndI40HNBRg8FOBCHdzARkJGtlfnvY+/vdyf63xHYoR4LRtf/GExORpZybtdw6Sb
-         fLDw==
-X-Forwarded-Encrypted: i=1; AL+hErEhUNpNFSP1LA9oBQGjivJwOzvC+k1VRCA0P3/f4ebG9TUlCATCDjj8qAZXdD7pC/YBXYxHrRo2JJ8zCis=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+kyMW1qM6ZovMOstuQYF7VrlEob9oL3B/1e9mm3j7p3LIEub9b
-	9HOgDnzOdsTziz+P0txdVf1NumS9S+IEdldl31uojpyr1KWH8Hbe57nZF3Z8KBeq
-X-Gm-Gg: AYBFou03R/MYAnY64mZQATs3lA9QLlMf9CWZ3xxYr7RBewZBY+IgNnkx9uWiqkWJXWY
-	2PlUlVE2KqLbpsqv+8ODOcJBGE2dP51nyQuxfYlkuMF/q+qx7T9NtD7w/nVr0Hz0LNLNPvKePrI
-	dcVhNWd3gUZc4Fjt1AmiU/omVCvl/0ANVEO5tP0WDPaZqv8oRXn7jSNqHIf6jiJ0wyIkovXqXCX
-	HyqalOyiWkn7/3WWECFVQG1tPya2nqRyrIG1aoASgAFShz07e7nZgENWf5CIb2ePbcd4lc3Zhom
-	CwGAzh3eEsEoHS0tBcGk7r30QMpfLEn1wCyEFPSPxIZ95uCg0NodyJ3+h+aznH0uokay1OMfDci
-	cn9VF9G9MehB+l2lGGwhYpFJjzivb1W53EIdlDo2ECGScttelcinAQeAU/VV60Ut4TkslgmGhVn
-	4w5F5LJlkwLAzE481ADMaClMNpz6gmPlU+zd6STgHsFLG+kTQUzAtLqrUi5FzeczJde+v0NSwpx
-	gQ8vg9D5uVJC6FPoYSrHlJqaUbKEk9YTemEbswDfpHozu82xZWNVaq7EXJnrWhCSrs4VP0xkrRl
-	Ra3u0N7/zgd00jdLiHqT
-X-Received: by 2002:a05:701b:2219:b0:18d:9eec:e0be with SMTP id a92af1059eb24-1b3c023e33cmr1755383c88.2.1794392188110;
-        Wed, 11 Nov 2026 02:16:28 -0800 (PST)
-Received: from a1-free ([161.33.196.121])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b2fc14sm14134634c88.12.2026.11.11.02.16.26
+        bh=lE9jVEo5zSWyYf/prYRvcvqv6Dmp8UDlLUQhNVSI6yw=;
+        b=h1EGP+mDqH02y5j3fv7yetKiYTsem57dpNrxMgxbnrO4H9TeN+/rJNUbPRz3RcMEtd
+         NtgHOEvejq32rSx4vmkWH+8ag0WpV9NO18+g/76Qfe4oVHnUz1JTQYgCtA2ELcY9xWiV
+         BxKDb3WhJXZZ+sHX17gPxHEL+qar3acxUvW2+l//sp0kt1f7sx0zH7tP8IxY3MLeC2KI
+         Ub4IzPbv3xPxIyKdjJngf4ko0q00ykq1ekWisK+0muh2Z8dLGsU4EpM6cMHLuGkrSEiX
+         /Vn8f7ndjLeC6hdbbikG+e6FX9YoC587rSSbOxMhFLU7wemly7C67RhG55NXGPc0t/IL
+         VB6g==
+X-Forwarded-Encrypted: i=1; AL+hErF5oeaS8Y2noC5AM09PsmfB1cUUruGUpcrvIuZu5QOqxbvIApsar3Oua2o4RqY9CDDwewGkisOh+MH/hpk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9joKQZPKryrlOE29YyxE7BW2ka/5qsYARNvEsycsOcoVeWsFhs
+	jac6MfLkK3NkJ1T6IZemJ+KXs+guj75HRkYcfwcTGn46cai7QxmhEAtaH9THfzGl
+X-Gm-Gg: AYBFou0P5scYE5QblzDKMXsz3aSybvoNH7S39LlKkGP+uMs8yqlobv03sQWN3y/6Yle
+	k4fRPYZ4n5RaFNV3s9PKqFB02FpqcAvh0PB0Ej4K19WlJyMyYNqHxpuatrQdBINL1nO18innhHz
+	3ImFijNF3+egj7LobZBMBenAZdGUKUWGZA13rviQAucqrCQeujtcm6B7KCUkTlp7vw2sfvqAGMK
+	2LqAixMF9IO7lGcambNjhXcHLWvlTuXKWgBukOeISmC8WKfeoPgZl42GdCl3p+qO4wsLQvruxN6
+	klMmNB2cgA1GBiagPmLYNgZinMAuKxZyYN3imQ7Erdhgwd3nJ61RGT5k5QAl/RoakDxM3Kv9Dpt
+	Tpz87PS5dZGW9IdebZ+ppKGj241uufFln4lq/V7fUhQZQqewBhZpLOkGvVpjeFuhu+o5GLmlDzJ
+	ly9V3c4/eB4c3ex+R08MxYRl53SSWLF9H9Cneg4zfrSfXwNJJZ5eTMGuxmX0p0XKh6An7aXKNPr
+	ICj9kCBDPDQmlbqfTe55L8UAJ7A4TEuVjQuAHviZLh10j9LSEPta6Z9IFlrK5F9GFjaFI7JT9m/
+	F6OoyU/GpD0B6bstF/3O//Yn79IyVW6AYsAIXdMAcYWbpxznmkhfFKnRUhNtQN1y6kTCa6VXYaZ
+	4OqktzBGp
+X-Received: by 2002:a05:690e:b8b:b0:679:8f04:229f with SMTP id 956f58d0204a3-67c68051c41mr1267114d50.161.1794392372625;
+        Wed, 11 Nov 2026 02:19:32 -0800 (PST)
+Received: from fedora ([187.120.157.132])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67c58811008sm4122666d50.3.2026.11.11.02.19.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 02:16:27 -0800 (PST)
-From: TAKANO Mitsuhiro <takano32@gmail.com>
-To: linux-perf-users@vger.kernel.org,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>
-Cc: Ian Rogers <irogers@google.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Mark Rutland <mark.rutland@arm.com>,
-	stable@vger.kernel.org,
+        Wed, 11 Nov 2026 02:19:32 -0800 (PST)
+From: Guilherme Giacomo Simoes <trintaeoitogc@gmail.com>
+To: bvanassche@acm.org
+Cc: axboe@kernel.dk,
+	josef@toxicpanda.com,
+	linux-block@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	TAKANO Mitsuhiro <takano32@gmail.com>
-Subject: [PATCH v2] libperf: Handle an evsel without an fd array in enable/disable
-Date: Wed, 11 Nov 2026 10:16:24 +0000
-Message-ID: <20261111101625.2204836-1-takano32@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261023085629.1694941-1-takano32@gmail.com>
-References: <20261023085629.1694941-1-takano32@gmail.com>
+	nbd@other.debian.org,
+	syzbot+d7d72f3d467710442af0@syzkaller.appspotmail.com,
+	trintaeoitogc@gmail.com
+Subject: Re: [PATCH] nbd: fix circular lock dependency
+Date: Wed, 11 Nov 2026 07:19:19 -0300
+Message-ID: <20261111101919.215767-1-trintaeoitogc@gmail.com>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <99cd5aa0-4afe-4796-86c4-926273e72a6e@acm.org>
+References: <99cd5aa0-4afe-4796-86c4-926273e72a6e@acm.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,101 +105,159 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A group led by a tool PMU event is opened with the members' group_fd set
-to the leader's file descriptor.  For a tool event that descriptor comes
-from open("/proc/stat"), not from perf_event_open(), so a member the
-kernel refuses is marked unsupported; perf stat then releases the fd
-array of that member while the evsel stays in the group.
+Bart Van Assche <bvanassche@acm.org> wrote:
+> There is no real circular lock dependency here. This patch addresses a
+> lockdep false positive caused by the missing socket reclassification in
+> the reconnect path. Please change the subject into something like
+> "nbd: Also reclassify sockets in the reconnect path".
+> 
+>  > instead of the NBD-specific class leading to a possible lock dependency.
+> 
+> Please change "possible lock dependency" into "lockdep false positive".
+> 
+>  > Reported-by: syzbot+d7d72f3d467710442af0@syzkaller.appspotmail.com
+>  > Link: https://syzkaller.appspot.com/bug?extid=d7d72f3d467710442af0
+> 
+> Please use Closes: instead of Link: for the syzbot report.
+Ok, I will send a V2
 
-Enabling the group goes through evsel__enable_cpu(), which enables the
-members of a mixed PMU group from userspace because the kernel does not
-do it along with the leader.  The member has no fd array left, so
-perf_evsel__run_ioctl() reads its loop bound through xyarray__max_y()
-and dereferences a NULL pointer:
+> Has this patch been tested against the syzbot reproducer, e.g. with "#syz
+> test"? If so, please mention this.
+No, my bad. I send a email to syzbot now to test this patch.
+After tested, how can I mention this in my patch?
 
-  $ perf stat -a -e '{user_time,cycles}' -- sleep 0.05
-  Segmentation fault
+> Moving nbd_get_socket() makes this patch much larger than necessary,
+> which makes reviewing and backporting it harder. Adding a single
+> nbd_reclassify_socket(sock) call in nbd_genl_reconnect_sock_cb() right
+> after the nbd_get_socket() call is sufficient
+Yes, is sufficient but the if we need reclassify socket all times when I call
+nbd_get_socket(), looks like a uneccessary repetitive code.
+Of course, I don't know if future situations where nbd_get_socket() is called
+will need nbd_reclassify_socket() but *now* is just that happen.
 
-Guard the array in both places: FD() returns NULL when it is absent,
-which perf_evsel__ioctl() and perf_evsel__read() already test for, and
-xyarray__max_x()/max_y() return 0, so the enable and disable paths that
-walk the array become no-ops; perf_evsel__ioctl() returns -1 for such an
-evsel, as it already does for a closed fd.  The FD() guard alone is not
-enough because that loop bound is read first; measured on the same tree,
-rc=139 with the FD() change only and rc=0 with both.
+> If the reclassification should happen in nbd_get_socket(), please move
+> nbd_reclassify_socket() up instead of moving nbd_get_socket() down.
+I was have moved nbd_reclassify_socket up, just like you suggested, but git
+don't understanded this very well. But I will find way to get it
 
-Verified on an arm64 KVM guest (Neoverse-N1) with a perf built from this
-tree.  '{user_time,cycles}' and '{system_time,cycles}' segfault on the
-unpatched tree (rc=139) and exit 0 here, reporting user_time (resp.
-system_time) and a '<not supported> cycles:u' line.  Real-PMU groups
-such as '{cycles,instructions}', 'perf stat' with no event and '-r 2'
-print identical output on both trees, and 'perf test -v 10' passes the
-same 78 subtests.  The libperf tests report the same five test-evlist
-failures on both trees: the events cannot be opened by this user
-(perf_event_paranoid=4), and two cases cannot read the syscall tracepoint
-id because /sys/kernel/debug is mounted root-only.
+> Additionally, reclassifying the socket in nbd_get_socket() happens
+> before it is known whether NBD will use the socket. If
+> nbd_genl_reconnect_sock_cb() does not find a dead connection, or if
+> nbd_add_socket() fails, the socket is returned to user space with the
+> NBD lock class. While this only affects lockdep and while the
+> nbd_add_socket() error paths already behave this way, it is another
+> reason to only reclassify a socket once it is really being used.
+current the nbd_reclassify_socket() is called just below nbd_get_socket() call
+inside nbd_add_socket():
+```
+ 	sock = nbd_get_socket(nbd, arg, &err);
+ 	if (!sock)
+ 		return err;
+	nbd_reclassify_socket(sock);
+```
 
-The events are still not counted: a member the kernel refused stays
-unsupported.  Hang Zhengyang's follow-up opens these members with
-group_fd = -1 so that they are counted.
+what have exactly same effect that call at end of nbd_get_socket(). I guess
+that "reclassify a socket once it is really being used" must be done putting
+nbd_reclassify_socket at end of nbd_add_socket() (before put_socket tag).
+Maybe something like:
+```
+static int nbd_add_socket(struct nbd_device *nbd, unsigned long arg,
+			  bool netlink)
+{
+	struct nbd_config *config = nbd->config;
+	struct socket *sock;
+	struct nbd_sock **socks;
+	struct nbd_sock *nsock;
+	int err;
 
-Written with Hermes Agent, an LLM assistant, which made the change and
-wrote this changelog.  I built perf with it, reproduced the segfault on
-the unpatched tree and confirmed it is gone with the patch, and ran
-'perf test' and the libperf tests on this box.
+	/* Arg will be cast to int, check it to avoid overflow */
+	if (arg > INT_MAX)
+		return -EINVAL;
 
-Fixes: 0b18bced5444 ("perf tool_pmu: Make tool PMU events respect enable/disable")
-Link: https://lore.kernel.org/avQIOtt7Y67oXQem@z2
-Suggested-by: Namhyung Kim <namhyung@kernel.org>
-Cc: stable@vger.kernel.org
-Signed-off-by: TAKANO Mitsuhiro <takano32@gmail.com>
----
-v2: follow Namhyung's suggestion and fix it in libperf instead of
-    skipping the members in tools/perf/util/evsel.c. The FD() guard
-    alone leaves the crash in place, because the loop bound is read
-    from the same NULL array through xyarray__max_y(), so the
-    xyarray accessors get a NULL check as well. Measured on the same
-    box with the FD() guard only: rc=139, with both: rc=0.
+	if (nbd->pid) {
+		dev_err(disk_to_dev(nbd->disk),
+			"Cannot add socket to a running device\n");
+		return -EBUSY;
+	}
 
- tools/lib/perf/evsel.c                    | 3 ++-
- tools/lib/perf/include/internal/xyarray.h | 4 ++--
- 2 files changed, 4 insertions(+), 3 deletions(-)
+	sock = nbd_get_socket(nbd, arg, &err);
+	if (!sock)
+		return err;
 
-diff --git a/tools/lib/perf/evsel.c b/tools/lib/perf/evsel.c
-index f747c0bc692d..e23df3b2c1f1 100644
---- a/tools/lib/perf/evsel.c
-+++ b/tools/lib/perf/evsel.c
-@@ -57,7 +57,8 @@ void perf_evsel__delete(struct perf_evsel *evsel)
- }
- 
- #define FD(_evsel, _cpu_map_idx, _thread)				\
--	((int *)xyarray__entry(_evsel->fd, _cpu_map_idx, _thread))
-+	(_evsel->fd ? (int *)xyarray__entry(_evsel->fd, _cpu_map_idx, _thread) \
-+		     : NULL)
- #define MMAP(_evsel, _cpu_map_idx, _thread)				\
- 	(_evsel->mmap ? ((struct perf_mmap *) xyarray__entry(_evsel->mmap, _cpu_map_idx, _thread)) \
- 		      : NULL)
-diff --git a/tools/lib/perf/include/internal/xyarray.h b/tools/lib/perf/include/internal/xyarray.h
-index f10af3da7b21..8bf76c12984e 100644
---- a/tools/lib/perf/include/internal/xyarray.h
-+++ b/tools/lib/perf/include/internal/xyarray.h
-@@ -32,12 +32,12 @@ static inline void *xyarray__entry(struct xyarray *xy, size_t x, size_t y)
- 
- static inline int xyarray__max_y(struct xyarray *xy)
- {
--	return xy->max_y;
-+	return xy ? xy->max_y : 0;
- }
- 
- static inline int xyarray__max_x(struct xyarray *xy)
- {
--	return xy->max_x;
-+	return xy ? xy->max_x : 0;
- }
- 
- #endif /* __LIBPERF_INTERNAL_XYARRAY_H */
+	if (!netlink && !nbd->task_setup &&
+	    !test_bit(NBD_RT_BOUND, &config->runtime_flags))
+		nbd->task_setup = current;
 
-base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
--- 
-2.53.0
+	if (!netlink &&
+	    (nbd->task_setup != current ||
+	     test_bit(NBD_RT_BOUND, &config->runtime_flags))) {
+		dev_err(disk_to_dev(nbd->disk),
+			"Device being setup by another task");
+		err = -EBUSY;
+		goto put_socket;
+	}
 
+	nsock = kzalloc_obj(*nsock);
+	if (!nsock) {
+		err = -ENOMEM;
+		goto put_socket;
+	}
+
+	socks = krealloc(config->socks, (config->num_connections + 1) *
+			 sizeof(struct nbd_sock *), GFP_KERNEL);
+	if (!socks) {
+		kfree(nsock);
+		err = -ENOMEM;
+		goto put_socket;
+	}
+
++   nbd_reclassify_socket(sock);
+
+	config->socks = socks;
+
+	nsock->fallback_index = -1;
+	nsock->dead = false;
+	mutex_init(&nsock->tx_lock);
+	nsock->sock = sock;
+	nsock->pending = NULL;
+	nsock->sent = 0;
+	nsock->cookie = 0;
+	INIT_WORK(&nsock->work, nbd_pending_cmd_work);
+	socks[config->num_connections++] = nsock;
+	atomic_inc(&config->live_connections);
+
+	return 0;
+
+put_socket:
+	sockfd_put(sock);
+	return err;
+}
+```
+
+I don't know if this is a really good thing once that until this be executed
+the user space can got a generic lock (the same generic lock of sock here)
+before nbd_reclassify_socket() call leading to the same problem.
+Thoughts? 
+
+>  > +	/*
+>  > +	 * NBD sockets are used from block/swap/writeback context, which can
+>  > +	 * already hold locks that fs_reclaim depends on.  Give them their own
+>  > +	 * lockdep class so that a page fault on an unrelated userspace socket
+>  > +	 * (sk_lock -> mmap_lock) is not chained to the NBD socket lock.
+>  > +	 */
+> 
+> The description of commit d532cddb6c60 says that the problem is
+> fs_reclaim being triggered while sk_lock is held, not a page fault
+> (sk_lock -> mmap_lock). Please make this comment match the actual
+> lockdep report or leave it out. The description of commit d532cddb6c60
+> already explains why NBD sockets are reclassified.
+> 
+>  > +	if (sock)
+>  > +		nbd_reclassify_socket(sock);
+> 
+> "sock" can't be NULL here because all code paths where it is NULL have
+> already returned. Please remove the "if (sock)" test.
+Ok, I will fix this two things
+
+Thanks,
+Guilherme
