@@ -1,97 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=96.67.55.147
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.21
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794409425;
-	b=utTIPLehDh5Iy/oTeVIP/sxILjpUL3OQMalBvqol7185llylGtmlPa15Mm3/wkLXw26A
-	 JON9nkEvENOZcnDSYo0LpfXRcuf4d8R3zpHKRUKhUtrs3z0JJh9dFTK17uC/3K31v9HN6
-	 ovA9JKoCTvwpnqcnAnY81uM0CgJJrxQT1xE/r6gLCVlLk1Oy8qD/aIw6UhkW9x5qWpJlT
-	 l2E8aDO5AnStEbLYvjkje58ZhpPce+IioalaIfjV6YS89AO03TxtKzTnGSe2CoTRqyhC9
-	 Isj9seRb8F2eUu5NhY8g3O2t010IgshV5lQD62vLrYqQRaRVJhpXkESBYB4ZBwy4yDw==
+	t=1794409437;
+	b=nppLIi1W3oj2ElK+TfUdx8rdRmFpMA9apwWf0R/HX0TE7D3dC491IxfJAVqXSwtAp0gi
+	 85D0LY47s3UP3Tm0mYeyXo8ppDnKvlE/HK0SmzfxHwEhbrnepcIm4b+I9MKn6Q+vDUYif
+	 OBqLKgIVcgrRKQYK70X6FHjUYBTTeW3pRtcDVBBcf2dm8BU0v6IDMrDQ9+RT7mWcUyud1
+	 27ZxHe7YWfRgNUgm3Bh/zLJgfmZYahj21xAfy7n0aQAG7iS82sKYfmoM2tJbjrAQQZLp+
+	 K07AImIYue6UWaoJHaPgoITyDeu/qT9gqwbaEpgjLlqUYwzLWhi96Uo63cPgpkbCKTg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794409425;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Autocrypt:Content-Type:
-	 Content-Transfer-Encoding:User-Agent:MIME-Version;
-	bh=jQnYAB/C+eI6pAG5l/jjeI/RO+deMqGieJdX8Y7TK6A=;
-	b=R44mtN2BLDnfdVDvJllD67mfrNMI0yLAKQThah0zj722JXw6PQEX0u9X8bQOzsHdlYGu
-	 geiaCM1nI5QCm5zua0GeyvjOjZBZIxvH0xtxDBXf/Rz6DJ4UcV8mjWcyEbnjgH6nb2PcV
-	 TRbbz+bYxBgEt3PXmxSbizmdUlm0fxdE6ZnHuUYSXsaDaAMLq9DQcueEvboCfIUQZ5Y7a
-	 Qad6XDNHOg9QgC8JjZhIm2Hc3BFjHHAIqo/HxiTh6AlJhFQgzmziYO/JgLBrVTbFwcsHh
-	 /J9mhpBZe2jz39MBxn6xusCx9dncjZTX5b2/kvrBfu1Uleq88YRQjNGlCS8oPz6KxZQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794409437;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
+	bh=RQw5QMudu7nxqgW+ejX3A9gWo/spZoR/ZUehK/P/8NA=;
+	b=ZDN09RjvtKRLtlOV69VD+aSU354nv1ZVj3f84HOB/jmjCIaUUKnVt5Zdo2vd+D7mYapQ
+	 MJE+peJ00285FvvgaVxM6KtIZz/ko0tiTR31GMtr7ofuy8peXQNSqVDJoKDTPO0ONh6zU
+	 +7ZnKUZJVnXbouTmg/Eye1OP9KyhN2G/XYgmZnzPm4dDFFckoBx6nHRJIIyUGWSwxjhXU
+	 VrvUqjgRF/j9uefB7etMgPDRthMerMjMUUbSL7AiAFzteid+77BN6gHD4izItQbnVxlSQ
+	 1sAsw7cyZYwNdlSqNbMNSKyjX8TuTde8oxZEspt7FzmI7cBOrdIMFMyXot93PHhYSMw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=surriel.com;
-	spf=pass smtp.mailfrom=surriel.com;
-	dkim=pass header.d=surriel.com header.i=@surriel.com header.a=rsa-sha256 header.s=mail header.b=HgFHX5p1;
-	arc=none smtp.remote-ip=96.67.55.147
-Received: from shelob.surriel.com (shelob.surriel.com [96.67.55.147])
+	dmarc=none header.from=mails.ucas.ac.cn;
+	spf=pass smtp.mailfrom=mails.ucas.ac.cn;
+	arc=none smtp.remote-ip=159.226.251.21
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33C83606A321
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 15:03:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33C83606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=surriel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=surriel.com header.i=@surriel.com header.a=rsa-sha256 header.s=mail header.b=HgFHX5p1
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=surriel.com
-	; s=mail; h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:
-	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID; bh=jQnYAB/C+eI6pAG5l/jjeI/RO+deMqGieJdX8Y7TK6A=; b=HgFHX5
-	p1xD+9V4hYBFwoBJgAOChZw+EZPBAOyznwTsK/glQXufjeIEIGrJxCOwxlfv5dD1o0S8DY0q81upd
-	Q/7sXAKQNY/jL8Amq6tpsw2lCIISxj1908XlikRepR2CBw7dpbinbb2qLvc/E7Q1ZC5fLQzeY89Ys
-	IusdWe8CyD5h0X+V3Z+Pkh5aJ4XhA1BhsxSJATTTQEa9PofXayAB17swIQnTns+YQFatGBJwAD2Td
-	EUdUY0JwQ9/KapZy1611x5prmDlIcQrj3hCiZHjVQLrokKZQbebJY0E5yZOkeg4f1D9aHLCv+aeFy
-	J3u4VccK6HPK98V0RD1xhfO9aMJQ==;
-Received: from [2601:18c:8100:a0e0:5a47:caff:fe78:8708]
-	by shelob.surriel.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.99.5)
-	(envelope-from <riel@surriel.com>)
-	id 1xR9rI-00000003uO1-0I6q;
-	Wed, 11 Nov 2026 15:03:32 +0000
-Message-ID: <9e91f87f0ede919746557da8de0de19a27b410ff.camel@surriel.com>
-Subject: Re: [PATCH v3 5/6] mm: gup: introduce gup_unshared_pages()
-From: Rik van Riel <riel@surriel.com>
-To: "David Hildenbrand (Arm)" <david@kernel.org>, Yeoreum Yun
-	 <yeoreum.yun@arm.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Cc: Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>, 
- Peter Xu <peterx@redhat.com>, Lorenzo Stoakes <ljs@kernel.org>, "Liam R.
- Howlett" <liam@infradead.org>,  Vlastimil Babka <vbabka@kernel.org>, Mike
- Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,  Michal
- Hocko <mhocko@suse.com>, Andrew Morton <akpm@linux-foundation.org>,
- Yuan-Hao Hsu	 <aa9736195201@gmail.com>
-Date: Wed, 11 Nov 2026 10:03:31 -0500
-In-Reply-To: <e66b6c19-95d2-459a-926c-8429df693acb@kernel.org>
-References: <20261109-refactor_gup_fast-v3-0-2aaef02df0e1@arm.com>
-	 <20261109-refactor_gup_fast-v3-5-2aaef02df0e1@arm.com>
-	 <e66b6c19-95d2-459a-926c-8429df693acb@kernel.org>
-Autocrypt: addr=riel@surriel.com; prefer-encrypt=mutual;
- keydata=mQENBFIt3aUBCADCK0LicyCYyMa0E1lodCDUBf6G+6C5UXKG1jEYwQu49cc/gUBTTk33A
- eo2hjn4JinVaPF3zfZprnKMEGGv4dHvEOCPWiNhlz5RtqH3SKJllq2dpeMS9RqbMvDA36rlJIIo47
- Z/nl6IA8MDhSqyqdnTY8z7LnQHqq16jAqwo7Ll9qALXz4yG1ZdSCmo80VPetBZZPw7WMjo+1hByv/
- lvdFnLfiQ52tayuuC1r9x2qZ/SYWd2M4p/f5CLmvG9UcnkbYFsKWz8bwOBWKg1PQcaYHLx06sHGdY
- dIDaeVvkIfMFwAprSo5EFU+aes2VB2ZjugOTbkkW2aPSWTRsBhPHhV6dABEBAAG0HlJpayB2YW4gU
- mllbCA8cmllbEByZWRoYXQuY29tPokBHwQwAQIACQUCW5LcVgIdIAAKCRDOed6ShMTeg05SB/986o
- gEgdq4byrtaBQKFg5LWfd8e+h+QzLOg/T8mSS3dJzFXe5JBOfvYg7Bj47xXi9I5sM+I9Lu9+1XVb/
- r2rGJrU1DwA09TnmyFtK76bgMF0sBEh1ECILYNQTEIemzNFwOWLZZlEhZFRJsZyX+mtEp/WQIygHV
- WjwuP69VJw+fPQvLOGn4j8W9QXuvhha7u1QJ7mYx4dLGHrZlHdwDsqpvWsW+3rsIqs1BBe5/Itz9o
- 6y9gLNtQzwmSDioV8KhF85VmYInslhv5tUtMEppfdTLyX4SUKh8ftNIVmH9mXyRCZclSoa6IMd635
- Jq1Pj2/Lp64tOzSvN5Y9zaiCc5FucXtB9SaWsgdmFuIFJpZWwgPHJpZWxAc3VycmllbC5jb20+iQE
- +BBMBAgAoBQJSLd2lAhsjBQkSzAMABgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRDOed6ShMTe
- g4PpB/0ZivKYFt0LaB22ssWUrBoeNWCP1NY/lkq2QbPhR3agLB7ZXI97PF2z/5QD9Fuy/FD/jddPx
- KRTvFCtHcEzTOcFjBmf52uqgt3U40H9GM++0IM0yHusd9EzlaWsbp09vsAV2DwdqS69x9RPbvE/Ne
- fO5subhocH76okcF/aQiQ+oj2j6LJZGBJBVigOHg+4zyzdDgKM+jp0bvDI51KQ4XfxV593OhvkS3z
- 3FPx0CE7l62WhWrieHyBblqvkTYgJ6dq4bsYpqxxGJOkQ47WpEUx6onH+rImWmPJbSYGhwBzTo0Mm
- G1Nb1qGPG+mTrSmJjDRxrwf1zjmYqQreWVSFEt26tBpSaWsgdmFuIFJpZWwgPHJpZWxAZmIuY29tP
- okBPgQTAQIAKAUCW5LbiAIbIwUJEswDAAYLCQgHAwIGFQgCCQoLBBYCAwECHgECF4AACgkQznneko
- TE3oOUEQgAsrGxjTC1bGtZyuvyQPcXclap11Ogib6rQywGYu6/Mnkbd6hbyY3wpdyQii/cas2S44N
- cQj8HkGv91JLVE24/Wt0gITPCH3rLVJJDGQxprHTVDs1t1RAbsbp0XTksZPCNWDGYIBo2aHDwErhI
- omYQ0Xluo1WBtH/UmHgirHvclsou1Ks9jyTxiPyUKRfae7GNOFiX99+ZlB27P3t8CjtSO831Ij0Ip
- QrfooZ21YVlUKw0Wy6Ll8EyefyrEYSh8KTm8dQj4O7xxvdg865TLeLpho5PwDRF+/mR3qi8CdGbkE
- c4pYZQO8UDXUN4S+pe0aTeTqlYw8rRHWF9TnvtpcNzZw==
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C682606A324
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 15:03:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C682606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mails.ucas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mails.ucas.ac.cn
+Received: from k3-03 (unknown [159.226.43.8])
+	by APP-01 (Coremail) with SMTP id qwCowADn1f+Zg_RqA8XNAA--.3086S2;
+	Wed, 11 Nov 2026 23:03:13 +0800 (CST)
+From: Tan Chi <tanchi25@mails.ucas.ac.cn>
+To: fangyu.yu@linux.alibaba.com
+Cc: tomasz.jeznach@linux.dev,
+	joro@8bytes.org,
+	will@kernel.org,
+	robin.murphy@arm.com,
+	pjw@kernel.org,
+	palmer@dabbelt.com,
+	aou@eecs.berkeley.edu,
+	alex@ghiti.fr,
+	baolu.lu@linux.intel.com,
+	jroedel@suse.de,
+	zong.li@sifive.com,
+	andrew.jones@linux.dev,
+	anup@brainfault.org,
+	jgg@nvidia.com,
+	jgg@ziepe.ca,
+	kevin.tian@intel.com,
+	atish.patra@linux.dev,
+	skhawaja@google.com,
+	vasant.hegde@amd.com,
+	joerg.roedel@amd.com,
+	gong.shuai@sanechips.com.cn,
+	guoren@kernel.org,
+	iommu@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	kvm-riscv@lists.infradead.org
+Subject: Re: [PATCH v7 00/10] iommu/riscv: Add hardware dirty tracking for second-stage domains
+Date: Wed, 11 Nov 2026 23:02:49 +0800
+Message-ID: <20261111150249.13262-1-tanchi25@mails.ucas.ac.cn>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261103120236.53474-1-fangyu.yu@linux.alibaba.com>
+References: <20261103120236.53474-1-fangyu.yu@linux.alibaba.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,24 +76,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qwCowADn1f+Zg_RqA8XNAA--.3086S2
+X-Coremail-Antispam: 1UD129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
+	VFW2AGmfu7bjvjm3AaLaJ3UjIYCTnIWjp_UUUOU7k0a2IF6F4UM7kC6x804xWl14x267AK
+	xVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGw
+	A2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjxv20xvE14v26ryj
+	6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j6F4UM28EF7xvwVC2z280aVAFwI0_Gc
+	CE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s0DM2vYz4IE04k24VAvwVAKI4IrM2AI
+	xVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20x
+	vE14v26r1j6r18McIj6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xv
+	r2IYc2Ij64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc2xSY4AK67AK6ryrMxAIw28Icx
+	kI7VAKI48JMxAqzxv26xkF7I0En4kS14v26r4a6rW5MxC20s026xCaFVCjc4AY6r1j6r4U
+	MI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67
+	AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0
+	cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z2
+	80aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI
+	43ZEXa7IU0zwZ3UUUUU==
+X-CM-SenderInfo: pwdquxrlsvqzpdlo2hpxfd2hldfou0/
 
-On Tue, 2026-11-10 at 14:06 +0100, David Hildenbrand (Arm) wrote:
-> On 11/9/26 13:32, Yeoreum Yun wrote:
-> >=20
-> > -static inline bool gup_must_unshare(struct vm_area_struct *vma,
-> > -				=C2=A0=C2=A0=C2=A0 unsigned int flags, struct
-> > page *page)
-> > +static unsigned long gup_unshared_pages(struct vm_area_struct
-> > *vma,
->=20
-> Besides the function name, LGTM.
->=20
-> gup_pages_requiring_unsharing() ? Don't quite like it, but something
-> along those
-> lines.
+Hi Fangyu,
 
-FWIW, I'd ack the gup_skip_unshare_pages you proposed
-last night ;)
+The following QEMU patch series adds support for automatic PTE A/D updates through AMO_HWAD:
 
---=20
-All Rights Reversed.
+https://lore.kernel.org/qemu-devel/20261108143934.129923-1-tanchi25@mails.ucas.ac.cn/
+
+It may be useful for the end-to-end dirty tracking tests mentioned in your follow-up work,
+particularly for testing G-stage dirty-bit updates triggered by DMA writes.
+
+If you notice any issues with the implementation, feedback would be very welcome.
+
+Thanks,
+Tan Chi
+
