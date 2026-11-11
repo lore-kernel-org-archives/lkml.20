@@ -1,47 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794389834;
-	b=HDdMv/DCHQQ7/Rgsehl9WzaWRbETQ7tavF9qadHtmXNPsd0bVOD+3qWtn8N817P2vbXf
-	 6fS9xxACKB7DZEYkn5paNzTH5A0vkmP2Z5NS4I5qRjP0CQ6LmkPNaLxQYW5IdsEoqJz6o
-	 TMlnFDO42i20jTR+Bfx28tD6/paBM+UuZN2Ltp91pWt328l0UoUUuUxMahApkrrvKfbTG
-	 7lNa2oAU9RUMnY7diDfXkL5V2EDqJncAnlKl+pngZFz5u/5cKXJUhNpZzRf5cGA1GvdXw
-	 bo+fPOxR80Dgcy6bos0IxtIuxuCNI/CVIf4GHh2t9Mqvznf5bnPH0PbQa22iHBlSZrA==
+	t=1794389877;
+	b=Q4Ho6eQwHRdU3a3JfOT780tDHXZjVanOn62hSfO/ns/QEipIanP+NnYk91sLcL8cqvCj
+	 pbBt3rw5cEWmKj4wdhhksh5Dodgbgn26xPJHMEuyWFDIko1vPif0SQQeYni9PNn7sFz5Z
+	 RZMSojvHxyep2Plpds0w8ynuH40tot5JxjR/DTpgbKFTvMnn1uQil/EIsOTO1lHHMXq4A
+	 Gky1ARSk1obr0vQSZ//ahaRs0XWGvyhPKko9WGKSsR2Tr+GpLH0Hvje+vTeqqHKTxAn4N
+	 Z/wkk7QtnTxA2s2Yl5+A34c80E2FkV1f/qordlm9oNFImbyyCpYMmkKeSgqh85+/tbQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794389834;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:From:To:Cc:References:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=d/ibkP7+lTRUcDgJvi0eIEOCUA+mfoFLErH7+1n7auM=;
-	b=3Z5/ru6WLr/UAHePNPmlp7cX4kMPQPIA6eb4OzO/0skRVnUQ7H13JAH1k+qiBJHUqQKy
-	 /hyPmd89c0JNA+deWfKg1W4k31/JDJ7Q7FIOcwuj0KfvaiUs+iUG+bTBb7+GZS9Vho+B2
-	 j0XfQqBgeTE6WCt0n7GyO8uxf+x+8Tmn+dWuWIEH1iRFhcDHBI+A0Td8kxrIQ2e1jmoLK
-	 KTYW7SOwBhx+safSlPZB7sGazRrnxXY4KlJYaRJUPzert1SY2XsXJF3iZC3AMd9zPnt6i
-	 Eb88bEiRmYVI4lGCvAFYT0yVWFTPRzmQm3iHURslPv0XwYQJvWEZyKoh2KkO9O3I6yw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794389877;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=4WFlRFgv8TN9OKHijNxwxQB3kN5BVJ5WPlpTjOw36aM=;
+	b=q5IwViabuks2RvsOv/PVga10oE53SYtKOBfa9QFBtPZIgVLADMtgbP+cLNAGANwUKinW
+	 NOfcAEjJVw1kXeSIZEhq0vm6EtFzFl5c+t6hLtGj2I2uHFymeJgUJOQYMZYGgAK5uKGin
+	 QeuiXPB55EdTxf0WiGdHemEzVgTaSd6VmqTdHJ/2yujgjzGrwu1EVmmKjbtGb6fh1LYjZ
+	 6HYdEJjjvDVgVFG8PrdmCrAfUXRL45BVZ1SB/40kDKvJl+Lh9VarHVPEfDzwSljhnfiEm
+	 WgPRterBNoqlIgzEouQBjY6rrN0i9H0VglCxF2wd8zyKLk7wC+rLNo2DVnvucodVa7g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QrFZ8YXT;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=bytedance.com;
+	spf=pass smtp.mailfrom=bytedance.com;
+	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=YxNIOc6A;
+	arc=none smtp.remote-ip=74.125.82.173
+Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B0B2606A33A;
-	Wed, 11 Nov 2026 09:37:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9E9C606A326
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 09:37:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9E9C606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QrFZ8YXT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6FF61F00A08;
-	Wed, 11 Nov 2026 09:37:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794389833;
-	bh=d/ibkP7+lTRUcDgJvi0eIEOCUA+mfoFLErH7+1n7auM=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To;
-	b=QrFZ8YXTjKJrdUG+P34j0sFZm1UN3grl9CREEdauvFS4drBYUbvVqO8z3F2YdhlC8
-	 taL5QKtQP4X2x4Nqp7mMW5dEmO5yJiqGukfC+UsC/Ic2WaDIp4taNUSNuSutdd30Ek
-	 MgjYOPYKXGsqhFePxBbiVJWMItHBwRV9fjAX4w7AAciJVRqRUE7to9SUlOVnNcekeK
-	 Bhf5tLQ4mNRJgRGnt+66c31SvLheV5ULu6tQMygkG67YVXIVaH6jbyL6MtZsExgGmN
-	 BACwq2K9hyhd9c51K2UN34xiShvCQ2+zJYNoTdUr37lxVgWGjlTuCfmbwZ+UJh0Bwz
-	 nRF128V7MFxgg==
-Message-ID: <bf33966c-f200-47f7-b2ac-09e17b8f2ceb@kernel.org>
-Date: Wed, 11 Nov 2026 10:37:10 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=YxNIOc6A
+Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-3712b6d9843so2863001eec.1
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 01:37:56 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=bytedance.com; s=google; t=1794389876; x=1794994676; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4WFlRFgv8TN9OKHijNxwxQB3kN5BVJ5WPlpTjOw36aM=;
+        b=YxNIOc6AYFlG5HbqZb5/VXI9qxpqBxku3TOMAlfGuAY2n6nQrZAtSE9Z3iHAc7Ri7l
+         N15D50fH/dqYAqReXjT1Ux1WM/4k+UaOCy3nSo6bO1kq8nThfMl/ucW7PBuJOtJckt0b
+         qc/KE/AIDnJ8obmbzzgvP9Xhos/E8fkE5R+yfCLJs/w3w4/IoTcqtwPmBiyv86VXtdSb
+         /VmkXRK1Vj59qgWx90GQ9AbDMae26+MhWrzKvMErHPEABqKynE3sSE63UW+7agide/VD
+         +fMZVZBXLE7fWkUIg0kk/kisw/Q4yWl1lxI+UXCqo9V7TSiFpHAofvW0cFF+Q7LzxIbc
+         6ESA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794389876; x=1794994676;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4WFlRFgv8TN9OKHijNxwxQB3kN5BVJ5WPlpTjOw36aM=;
+        b=vKYU3y8Fc+AFhs/jTrLM8XqVI+pfTYn5WTmLomsegXD16toQhfhdfUkyWHKQKtLqiM
+         RPRWDpat6TOiRRVanVy65kphtWL+BwcejM8TqrBkTbfLDRJWsdtnQvQy/vRN248OwpWt
+         FgU1nDrnG/FsLmVGu3orMkDeEu4RSfM68ERJA72oKN2mYAGggIL/e49XZV59G834EfQf
+         Uy3O5a4DNoIOiJ80wv+SPiwR9kSQgM81YGYSs6iargYnFVB9B+rsHqGIdp76EpkpALb6
+         Gm1bvPG3h0Y8205KRe6lwJBi/arQ7Tez4zrQeQgmdRAbUnxQ4yIs1Anqoud6ykaQPaLK
+         Eftw==
+X-Forwarded-Encrypted: i=1; AL+hErFJHH/glOz1MyGHO1gwwFyVYvkByOXpjqyrEZS8bExuu9Ha66udG0CzaR3ulAosVJuLCa4ZkBDynG/oC7g=@vger.kernel.org
+X-Gm-Message-State: APuU4Z88nZiq/GuvbdXKVmstsfB2YX9RVyA/EVmo6DVqr9aZTiUYPCIe
+	69NjBaeQQiyDCwIfH/zWg8tjH54FN7ARGTRC1aVOgxXzPp1IYZI/pzKnvi5V+AsqskQ=
+X-Gm-Gg: AYBFou2cP9FyMOJaZ8hX8D0BXGGYhsSSkvPyBkhfZZYp4tLzGrt1MMiuQf36tz6ZjZq
+	SDfgScuU2iiz++fEN79AsKDAGdt9jaX7kd7rK9Yq5hcvBWMOzmk7qfnJytY/sfkXNZ1nR4GdTxa
+	fU02ZSLUyLHtx8zHgakB6hzdafuhILCSrjJhUN78mqqKN891K0hRkNAPnQIBS1uXVKM6LW8RqZq
+	O5VDPHLAuMrBNEe6WbV3FYGt8ybxWGWNGaFaxZJR53U1WPqWFB6gRfzcdfg8h7qL6ujgRW2IKtN
+	vW8EHXvukMjPKAajVbwsEzb+rtrZRPSdgZXRJ+BKjJ1CIUDlm/rcRycGk9LvKZgJFw61XsceMYt
+	YxReqNRAzQsquQSqMGufMildPFc/8RRrM1hMz0TvfhEo9NNvRV30YlJKD5Cv4CfeBXK62sYzINY
+	YPpBuYObeMIZGT+Ijjb3zVD0sRRXg6L2YlHkO/QZR+zR1qKVMg9+9sKR9H7cCLH5YJQkVhW8aPN
+	p9nhhgOQMHVm46F1eDSwwtIKpgfShgoWdJbgrs0ptCFQEaP852matdwuujDnAqkgFbagkDDFtGO
+	cgF8hTmXY/NiL2rReu2OeU9EM0kHJ++6GZpBPUgr3mdjaLcarHx48qonQ2qWhQ==
+X-Received: by 2002:a05:7301:795:b0:36e:1fbe:357a with SMTP id 5a478bee46e88-37685a8396amr2265557eec.13.1794389875856;
+        Wed, 11 Nov 2026 01:37:55 -0800 (PST)
+Received: from G6L4RL2QG9.bytedance.net ([61.213.176.10])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-375212e9e03sm29016749eec.23.2026.11.11.01.37.52
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 11 Nov 2026 01:37:55 -0800 (PST)
+From: Muchun Song <songmuchun@bytedance.com>
+To: Oscar Salvador <osalvador@suse.de>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Miaohe Lin <linmiaohe@huawei.com>
+Cc: Muchun Song <muchun.song@linux.dev>,
+	David Hildenbrand <david@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Naoya Horiguchi <nao.horiguchi@gmail.com>,
+	Joao Martins <joao.m.martins@oracle.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	Ingo Molnar <mingo@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Sashiko <sashiko-bot@kernel.org>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Muchun Song <songmuchun@bytedance.com>
+Subject: [PATCH v2 0/3] mm/hugetlb_vmemmap: Fix HVO races and deadlock
+Date: Wed, 11 Nov 2026 17:37:43 +0800
+Message-ID: <20261111093747.50048-1-songmuchun@bytedance.com>
+X-Mailer: git-send-email 2.54.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,110 +106,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] tty: serial: imx: return error when clk_per fails in
- imx_uart_poll_init()
-From: Jiri Slaby <jirislaby@kernel.org>
-To: Gu Bin <gubin@cmss.chinamobile.com>, gregkh@linuxfoundation.org
-Cc: Frank.Li@nxp.com, s.hauer@pengutronix.de, kernel@pengutronix.de,
- festevam@gmail.com, linux-serial@vger.kernel.org,
- linux-kernel@vger.kernel.org, danielt@kernel.org
-References: <20261110105456.1563-1-gubin@cmss.chinamobile.com>
- <1e584df0-c74a-454f-a580-75dc7567abe1@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=jirislaby@kernel.org; keydata=
- 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
-In-Reply-To: <1e584df0-c74a-454f-a580-75dc7567abe1@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-One more try using .mailmap.
+This series fixes three HVO issues reported by Sashiko.
 
-On 11. 11. 26, 10:21, Jiri Slaby wrote:
-> On 10. 11. 26, 11:54, Gu Bin wrote:
->> In imx_uart_poll_init(), when clk_prepare_enable(sport->clk_per) fails
->> the error branch only disables the previously enabled clk_ipg and then
->> falls through: the function keeps programming the UART 
->> (imx_uart_setup_ufcr
->> and the register writes below) with both clocks disabled and eventually
->> returns 0, reporting success for a port that never came up.
->>
->> The sibling imx_uart_startup() handles the same situation by returning
->> the error after the rollback.
->>
->> Return the error after rolling back clk_ipg, matching
->> imx_uart_startup().
->>
->> Fixes: 6b8bdad96164 ("serial: imx: add imx_poll_init()")
->> Signed-off-by: Gu Bin <gubin@cmss.chinamobile.com>
-> 
-> I am not sure this is correct at all.
-> 
-> Ccin the author of the code would've helped. Done now.
-> 
->> ---
->>   drivers/tty/serial/imx.c | 4 +++-
->>   1 file changed, 3 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/tty/serial/imx.c b/drivers/tty/serial/imx.c
->> index 0831bd5ee3dc..2a931361d17c 100644
->> --- a/drivers/tty/serial/imx.c
->> +++ b/drivers/tty/serial/imx.c
->> @@ -1954,8 +1954,10 @@ static int imx_uart_poll_init(struct uart_port 
->> *port)
->>       if (retval)
->>           return retval;
->>       retval = clk_prepare_enable(sport->clk_per);
->> -    if (retval)
->> +    if (retval) {
->>           clk_disable_unprepare(sport->clk_ipg);
->> +        return retval;
->> +    }
->>       imx_uart_setup_ufcr(sport, TXTL_DEFAULT, sport->rxtl);
-> 
-> 
+The first patch serializes HWPoison updates against HVO remapping so
+raw_hwp_page state is not lost while a replacement vmemmap head page is
+being installed.  The second patch uses an HVO-private rwsem to prevent
+deferred PMD splits from racing with PTE remapping before the TLB flush.
+The last patch switches the vmemmap walk to the lockless walker so a PMD
+split allocation cannot recurse into init_mm.mmap_lock through reclaim.
 
+v2:
+- Add the HWPoison serialization fix reported by Sashiko.
+- Use an HVO-private rwsem for deferred PMD split serialization.
+- Add the lockless page-table walk fix for the PMD split deadlock.
+
+v1: https://lore.kernel.org/20261110112456.62827-1-songmuchun@bytedance.com/
+
+Muchun Song (3):
+  mm/hugetlb_vmemmap: fix lost HWPoison state during optimization
+  mm/hugetlb_vmemmap: fix PMD split TLB flush race
+  mm/hugetlb_vmemmap: fix deadlock during PMD split
+
+ mm/hugetlb_vmemmap.c | 28 +++++++++++++++++++++++-----
+ mm/hugetlb_vmemmap.h | 24 ++++++++++++++++++++++++
+ mm/memory-failure.c  |  2 ++
+ 3 files changed, 49 insertions(+), 5 deletions(-)
+
+
+base-commit: 2dc0136b1fdac153434ab02778fcdb32db5d0dae
 -- 
-js
-suse labs
+2.54.0
 
