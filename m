@@ -1,124 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794404985;
-	b=uA7oH9k9v+MBM/2v6/gpMPbBeqU0ErJvR9B8ASU4ZhpUN4X4GtxeiWikb74aLzwC1B6F
-	 qWGFJzvgM+GzXEtCjGd2vHxPsXHaYBdjLpHWFZD6KLv5nEfR8AJ77okqSphLC0EPPxArk
-	 7/NKKoaH+UGnaLyw+6A2wMKAeuazgf9o9M2Ww3A3rpolIwTkmeeYvkKjRQ8uNrTv5LBOj
-	 voLK/YrlKaqPPkEqfRRYmGvGFukQuhcK+UgMC9pdCrzmLScBHPzaTnAOpfq3dTrjjGbtV
-	 pPxIzzXgstTYfdbLQXX4feeUVoxiXEi5NAb6WF6MeciYPD611YSDglxM3IadmmoIlHA==
+	t=1794404986;
+	b=QRzgepWM/JuG3djlxjU8vyRXzE6B08ImC2Q4ljGkpxCdjR1mhl2M07UKDBWoA9+6Ifog
+	 LFF9LTDBkcLfaLvx8fd8MOb941p6MvjPS8beeEDZNfx0uRubZj6+byDUJ4mAYLJhlsZtH
+	 expgN9MqsFQ1U4b6yP1GqeY/cKqZFOBuupZaa0LwnW2ViTtrs8m453/fgWzafSWOH+HYH
+	 vidL0xBxTdfsUUea4ZNbNZjyU/Lxs8HKfdGWieHGQtDGJ3+RTTQ6sMgc2jLIeV5p+lwQr
+	 Jox14aljPmW7eHxvjx9ixSG5l2GkciRsGCaCUcqXhnrDFOVA+DWXzZ7Wdgi9U5Anrxg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794404985;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=QrqbGrUeaMzxTtNKFPqZn9l9SynA7oL6rbPLiV4WlNk=;
-	b=Tbyicwr611SECvzLStguplUuY77k9KX3wYGT9m9PrFWXfvuVoEjT9uEv2fPaG6trYo7Q
-	 ItNtGNgVOcaxZ9KXW4F1gTWJxWNeenek3f9J/CNsxb9YVcx7SvXk+pz3SHT1WFQu2Tg6f
-	 MfIIcUppYI+H+5xJ1faei3tBjf8BXdnODRAk9jvSM4w+p/M+QchxX1vIeLBoRpP99VBWx
-	 30JPtmDqPJNRAM33MD2PitYzkKaQzlSX9YZwthlx+Jtl2Ljv7HJYinIIk7YR0onruuseN
-	 3lso2/z43R7lPNES97xYYj1hlwYY4A5ZGLq5kywnNL2Gs+WH/oYWbM/+ZU7GbgiZdeg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794404986;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=7fnh/1KmjFjEPtr//fod/I5Z9kbTxg0SKyfXY+qNzcY=;
+	b=AjzMZ29MaiwrtgisfgpwtC6q8tn7SwU2pdNtmyqvW6CI/ycILHNeaKkjNpZmuqGXRdUV
+	 0FrLnM5NOoANd+QL8GxrKlmNavdaKR8iyuiFczPogxNBJt55dXYPcVjPJLduTVluWC+h4
+	 Exm7VCi10Lpk6LJyw6T43ejLBoquevpcuoIwY12ZbsteF60N4G178J8iCcHOCHXNCVT51
+	 6BrQW83421Bb7eL1iEBogjV6Ne+Q7t82Qa3I9WAllybA1+5FlWPJmPEeS+MFnMYC1gowJ
+	 /tL7vZh5wF1EjdUrWZrMxFoCpIxZUumYWwNLu8SQf8QXHS7kmCGLDTKA5JjyX/Yanjg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Dxa+lxRe;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=i7GQQlT9;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AMuwALak;
+	arc=none smtp.remote-ip=209.85.128.170
+Received: from mail-yw1-f170.google.com (mail-yw1-f170.google.com [209.85.128.170])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAF8F606A897
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:49:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AAF8F606A897
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D4A9606A335
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:49:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D4A9606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Dxa+lxRe;
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=i7GQQlT9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794404983;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=QrqbGrUeaMzxTtNKFPqZn9l9SynA7oL6rbPLiV4WlNk=;
-	b=Dxa+lxReamTY9bp7EcOWVafTkGHpIkIwVWZ4Wk1F/qz2TmtgCHN4s2aeSMcSQG6qw1Yz0f
-	aZ3DwhFUVXkGGeOV3MxruAq91CHHk/Iraqsz6LWJctd2/VJQRKiWatJXLBKMUCDxRn+O/F
-	vevXgaHOA4MwGrM0tYF81AP8HdhYcDw=
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
- [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-155-yM3PXXHCPO6Mk3X4yFAFTg-1; Wed, 11 Nov 2026 08:49:42 -0500
-X-MC-Unique: yM3PXXHCPO6Mk3X4yFAFTg-1
-X-Mimecast-MFC-AGG-ID: yM3PXXHCPO6Mk3X4yFAFTg_1794404981
-Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-4931c89d228so2172113f8f.2
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 05:49:42 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AMuwALak
+Received: by mail-yw1-f170.google.com with SMTP id 00721157ae682-8b3b57a31f7so2743257b3.1
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 05:49:46 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1794404981; x=1795009781; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=QrqbGrUeaMzxTtNKFPqZn9l9SynA7oL6rbPLiV4WlNk=;
-        b=i7GQQlT95Sb7l8iWRKyldHDMVoU8dEQ8LiXnZ/hsSPVTmpVPPFHPcB6HPY4EJj9pXU
-         Nyw0+YSthtfLeTFqEMaMCW2lXgBUEMBHGxPVxY3RyRUtE2fccvhNeF+yeloPLamC0ct+
-         1tLlBJjv7LjgleRz4OsNRroLTN/NQHrdCy5Vr73XAYrVVO98+580y6l/t5Xx5YglOKkh
-         8UMvx9Zwo+ctLLVC8glyZtIIlsb34h51iIjhpJvjDrF1gzLRU2XUgZ3fVtFU/hfcBgCI
-         YKvSjo6cy2EUeE5zbOmSB9/OfNnw8+mkIQ/C7gLj+OQw8eK/UY6c9DH7M1WLUopEffRe
-         q30Q==
+        d=gmail.com; s=20260707; t=1794404986; x=1795009786; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7fnh/1KmjFjEPtr//fod/I5Z9kbTxg0SKyfXY+qNzcY=;
+        b=AMuwALakgFQr4Bh2iu/sTYk18MVWkV41260B2XT02sGtHnJkMHbu8iQjNUp+r+w3g1
+         CahMg7u0IH6/XboTxVxxjwwamGQNkloTcqX146aUR62tgoFZwLNRgqTb69+RUvgLAL3R
+         gR4qLUVczeMmlMfcdFsysoF3RmiZxJEFATO9MKz6fVC3C7AjoD7DWDfwTc1NLSuweAr8
+         YEFqD2Qi7p0ylecQ94c5Y9PlP4/2lDnWe7e8H/N3yro4X2FGMP+uNHRq4mEUcmRGYFdb
+         s9ukfvZFQOLNgIatCzxOEHzMCUsP5BFVyTD31+I8YW5VsAyNJmJVxAzZQorkc0Gkj+m4
+         Sb7g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794404981; x=1795009781;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=QrqbGrUeaMzxTtNKFPqZn9l9SynA7oL6rbPLiV4WlNk=;
-        b=Vn5P/YAEp3uIi5kczfBlqdzDR6BdsI35MMpdb99H//JX8Qw2sg+R8aXb2Spafql9o8
-         q6HWcpqOLoQR3bdQu3jqrYlXo1+kFCra+MaUudKjmKXXF+ZN/B4udFBde8EQiEydwlPd
-         w8T1WIOc/VnTAt9Q1/CLjEjcAIB534gc2E3Pq0mWehRPUvb9jRsAL7vamTdsTvV/9pVL
-         N4FGXHXHlXtES3Ju+H3kXbTq45vpB6GJs2t7naCnr7I1S3PS3WPxPyHSI7ejtwwYsluG
-         ciac5FsRSeIumF8b42ZO0fp0ZK2xxQcBaH4BfSpphu8goeUkd1JLLzjSKsImNnxpV0gR
-         RMcw==
-X-Forwarded-Encrypted: i=1; AL+hErEOu5gu1rQSqN1g4Y0zdT2ODq+bf5xESfgVqVkcNzh8161pkz1DgDKTX+8J9x1oiS5oZRLfTKQRtFOmVRs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+xJOX3EFN/AAeDDmQtQeom3LFuQqhyMNHnQqKw87TwMSih1Jfa
-	t8nmj8y5XvsoZmEbwTN68q695nRz5RtOTcBxp9235zIZJta2Rco02yVp6mtQKXvtOF5svLQyT5C
-	/RX35jMz2EDLTjBF+PpWt5ugiufxgTvOuVjjL5pnz/CD4lD4o5mbkmnMn0mrXju9s3Q==
-X-Gm-Gg: AYBFou3iNi2B1eIqEjiKGIJFbNNsrE+Rhs7pER+xqPuNa+8vIE9XCf/jrnMWgAOJt+B
-	Hli5itR8lrr1oOaEMZFCAW7WR+DK81qy8L08AZxw5YzAGmXMcOucGdij/XEB3zoGNu4qh3fwwMR
-	ilnheRscs4f9MMtksogF2IzEziGIohymHChNIzxQZcUXbnVSD1f+h7vm7gy6zXDQhzNHu9Z7zNH
-	s7y8Ut4I7EhBVR4NYB0LqSS6lflk5LiPEHBdY4xBjCkLncibM26lAZ1xB24fRF60AG7AiL08yJU
-	K1rcHxaFSeehbc1KE7B8xa8KvaT3GC8cXOzf4BPImgz4DIZjk9H9DiitjgjjIVde5Voozh6Pq8z
-	jllJIWLvruMOHukbexXoKf2BBCqPb7m7nfaUKrL4N+ShW0Bq5KNM/6Kv+rPg2nHAtkoQoTtkCnL
-	oDkt8=
-X-Received: by 2002:a05:600c:6308:b0:4a7:b304:253e with SMTP id 5b1f17b1804b1-4ba09381867mr49914105e9.22.1794404981068;
-        Wed, 11 Nov 2026 05:49:41 -0800 (PST)
-X-Received: by 2002:a05:600c:6308:b0:4a7:b304:253e with SMTP id 5b1f17b1804b1-4ba09381867mr49913635e9.22.1794404980722;
-        Wed, 11 Nov 2026 05:49:40 -0800 (PST)
-Received: from jlelli-thinkpadt14gen4.remote.csb ([151.29.158.90])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba01fe2f09sm159753605e9.4.2026.11.11.05.49.38
+        d=1e100.net; s=20260707; t=1794404986; x=1795009786;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=7fnh/1KmjFjEPtr//fod/I5Z9kbTxg0SKyfXY+qNzcY=;
+        b=gTvzMzL6hgpW2zvdfoyK4TcjI9y4UvFNTfxDsYEj70FB3iuKszJiNn+Ka7/MzsahXG
+         fhGIsCAqVr0jIRg1ngoWkkXrDG6GbcH+1/ruUmITuZJDPSYKlpD3e80lCTGxB0hTgHn1
+         G5BeNbmuRZ4BeKR3ClvDpR7/4yPa2zsue/LkiZvyPbkfjz9dBo8DYcNhlsXZvYu3KPSq
+         AiJpMDSrrKGwUFJRfe2iiS/9iVP+PgOOVMXDBvnuMvPLqJT1JWpgDIEvuhyNELA5vogi
+         R31a3R8769Ye6xa8/gn0misu+BwBpVvN8cI1wUTw5+0pgwmIUTNEjcVIx0eL65q8Y/m2
+         BlJA==
+X-Forwarded-Encrypted: i=1; AL+hErEmFk5lUU86RWH4uJ283CqfcnGWoC7uq9o720YOuNxidet04Ge6Wt4cxt59HIL12w/+0cZFkC6BCAXJWMw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8Cg0SHVNpL6K1s0aMQzdofN5+m4UejwNqF9569jVX9yid/jmvD
+	suuQfm9tHm+bs9D9zlMPGFB75nFMlHnPPlrrYgdxcXj6OqK5STB9Q+o6
+X-Gm-Gg: AYBFou0pPCGtnyP/6UE5Js6f0D7LMGoufHtUV1XugW0uiK4Goy9JuovKGQaZnrl9RwM
+	WfZ8YGOc13wmWgyqQW5899+5u++BhNSGg8EpWVymmPhWleaK41iND/OvRxzceM3EY0mrmXs6rFE
+	838ws44gxhdHbRJ1fhsWcqofEzw5EvycKL+DgIoHFOTCENggBImRkCy5c3XGinEq1xPkAAn7rrS
+	1bxUJIEazcyi0KTc8jsqGKZZ8srsidnrYmNaQqvZPP5If7GyQQkD7tDvl5U1nyZ1ZUH2XsgrIHZ
+	mEo5aVa+/JPsaoxfP84J9BipfgJDP+/G0Sx90GgNv04AxIRacGl1L56oMeV6NtcqGKUFa0lfuUB
+	WguqOOurZUwjEKXQBR3nY6Zl+VToL6PDbOX1U3by3dLQFjz61DuSXasuWBs4PA5thI5NpinOTGs
+	cF/aVmlBVEw2fqGN5WmvyNLzvQR9msTbuIOPBPqJxQCQWLGhPrnfrBaqLPuOZb728wFkGQTLaxt
+	6KaUL96mMtxTESlKxuDbdciCt2jDHIHp3uu3aLctfqiV/xqvuZ573AdMvOyweW7hD8XFDF1LJg4
+	P27sty8yQfT0+jXYKQHPLVFhN9ocHrtZLSRerXqdnCMlHvyWac9vPnEAyC0p6BRS5EmUAqQ3pTF
+	AICSuKnouP+SmOY/CQoFUuEcZX7Ff4pFeww1f+/Pd58MSqkshMxYWOpGRvsbyY16Gy5dnz5glJy
+	A=
+X-Received: by 2002:a05:690c:86:b0:8b3:2445:889b with SMTP id 00721157ae682-8b3a81d8df2mr17180577b3.91.1794404985437;
+        Wed, 11 Nov 2026 05:49:45 -0800 (PST)
+Received: from MaquinaLab.. (189.27.147.77.dynamic.adsl.gvt.net.br. [189.27.147.77])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b393426f13sm44519817b3.34.2026.11.11.05.49.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 05:49:40 -0800 (PST)
-Date: Wed, 11 Nov 2026 14:49:37 +0100
-From: Juri Lelli <juri.lelli@redhat.com>
-To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Cc: peterz@infradead.org, mingo@redhat.com, vincent.guittot@linaro.org,
-	linux-kernel@vger.kernel.org, tglx@kernel.org, will@kernel.org,
-	boqun@kernel.org, dietmar.eggemann@arm.com, rostedt@goodmis.org,
-	bsegall@google.com, mgorman@suse.de, vschneid@redhat.com,
-	kprateek.nayak@amd.com, luca.abeni@santannapisa.it,
-	mathieu.poirier@linaro.org, longman@redhat.com,
-	ridong.chen@linux.dev, tj@kernel.org, hannes@cmpxchg.org,
-	mkoutny@suse.com, shuah@kernel.org, bigeasy@linutronix.de,
-	clrkwllms@kernel.org, parri.andrea@gmail.com,
-	m.szyprowski@samsung.com, kayracizmeci@gmail.com,
-	weihengqiuu@gmail.com, cgroups@vger.kernel.org,
-	linux-kselftest@vger.kernel.org, linux-rt-devel@lists.linux.dev,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v5 14/29] sched/deadline: Fix this_bw when a task is
- changed during a remote wakeup
-Message-ID: <avRycWTxtUr9gug6@jlelli-thinkpadt14gen4.remote.csb>
-References: <20261108185406.1549770-1-mathieu.desnoyers@efficios.com>
- <20261108185406.1549770-15-mathieu.desnoyers@efficios.com>
+        Wed, 11 Nov 2026 05:49:45 -0800 (PST)
+From: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>
+Cc: Andre Przywara <andre.przywara@arm.com>,
+	Enzo Adriano <enzo.adriano.code@gmail.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-sunxi@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 2/3] arm64: dts: allwinner: add Radxa Cubie A7Z board
+Date: Wed, 11 Nov 2026 10:49:16 -0300
+Message-ID: <20261111134919.90264-3-vinicius.eduardo.pedrosa@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261111134919.90264-1-vinicius.eduardo.pedrosa@gmail.com>
+References: <20261111134919.90264-1-vinicius.eduardo.pedrosa@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -128,85 +109,327 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261108185406.1549770-15-mathieu.desnoyers@efficios.com>
+Content-Transfer-Encoding: 8bit
 
-Hello,
+Add the device tree for the Radxa Cubie A7Z. Describe UART0, the AXP318W
+PMIC over R-I2C0, MMC0, RTC and the bank supplies. It is based on the
+Cubie A7S DT.
 
-On 08/11/26 13:53, Mathieu Desnoyers wrote:
-> The this_bw of a runqueue is the bandwidth of the deadline tasks
-> assigned to it, running or not. GRUB uses it to compute the inactive
-> utilization of the runqueue. When a task wakes up on another CPU,
-> migrate_task_rq_dl() takes its bandwidth off the old runqueue. The
-> enqueue adds it to the new one.
-> 
-> Between these two steps, no runqueue counts the bandwidth.
-> try_to_wake_up() can leave the enqueue to the wake list of the new CPU,
-> and return before it runs. task_cpu() already points at the new CPU. A
-> change of the task in that window gets this_bw wrong.
-> 
-> In this example, T is a deadline task that blocks on CPU 0. A timer
-> wakes it up there, and try_to_wake_up() picks CPU 1. S, on CPU 2,
-> changes the bandwidth of T from "old bw" to "new bw":
-> 
->   CPU 0                               CPU 1                       CPU 2
->   T blocks
->   this_bw of CPU 0 counts T
->   <timer> try_to_wake_up(T)
->     set_task_cpu(T, 1)
->       migrate_task_rq_dl()
->         sub_rq_bw(): CPU 0 drops T
->     T on the wake list of CPU 1
->     return
->                                                                   S: sched_setattr(T)
->                                                                     task_rq_lock(T): CPU 1
->                                                                     T is not queued
->                                                                     dl_change_utilization()
->                                                                       this_bw of CPU 1:
->                                                                       - old bw + new bw
->                                       sched_ttwu_pending()
->                                         enqueue_task_dl(T)
->                                           task_contending()
->                                             add_rq_bw():
->                                             this_bw of CPU 1:
->                                             + new bw
-> 
-> CPU 1 then counts the new bandwidth twice, less the old one. Repeated,
-> this makes this_bw drift until it underflows. If T left the class in
-> that window, switched_from_dl() would take its bandwidth off CPU 1 the
-> same way. A task that enters the class in that window would be counted
-> twice, by switched_to_dl() and by the enqueue.
-> 
-> This needs a wakeup that moves the task, so a root domain of more than
-> one CPU, with busy CPUs. CONFIG_SCHED_PROXY_EXEC=y makes such wakeups
-> more common. In testing, a task sleeps and wakes in a busy two-CPU
-> partition root, and another CPU changes its runtime. The kernel warns
-> within a second in each of 8 VMs:
-> 
->   WARNING: kernel/sched/deadline.c:352 at dl_rq_change_utilization+0x71/0x2e0, CPU#0: wake_race/109
->    __sub_rq_bw(): this_bw underflow
->   WARNING: kernel/sched/deadline.c:316 at task_contending+0x244/0x260, CPU#6: swapper/6/0
->    __add_running_bw(): running_bw overflow
-> 
-> Fix this with a new bit, dl_bw_oncpu, that tells whether a runqueue
-> counts the bandwidth of the task. add_rq_bw() adds the bandwidth only if
-> no runqueue counts it. sub_rq_bw() takes it off only if one does.
-> dl_change_utilization() does nothing while no runqueue counts the
-> bandwidth. The enqueue adds the new one.
-> 
-> With this patch, none of the 8 VMs warns. deadline_bw_test, added later
-> in this series, tests this in params_waking and random_mix. The Sashiko
-> AI review of the first posting found the double count, and a bit that
-> the first version of this patch left set.
-> 
-> Fixes: 8fd27231c330 ("sched/deadline: Track the "total rq utilization" too")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-> ---
+Unlike the A7S, this board uses BLDO5 for PG and a SY8089 regulator for
+the PMIC's BLDO and CLDO inputs, and the microSD card-detect line has an
+external pull-up, so no internal pull-down is used. ELDO1 only supplies
+VDD2L for LPDDR5 and this board uses LPDDR4, so it is not described.
+SWOUT1 only feeds ports D and J on the 40-pin header, so it is not kept
+always-on.
 
-Reviewed-by: Juri Lelli <juri.lelli@redhat.com>
+Signed-off-by: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
+---
+ arch/arm64/boot/dts/allwinner/Makefile        |   1 +
+ .../dts/allwinner/sun60i-a733-cubie-a7z.dts   | 286 ++++++++++++++++++
+ 2 files changed, 287 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/allwinner/sun60i-a733-cubie-a7z.dts
 
-Thanks,
-Juri
+diff --git a/arch/arm64/boot/dts/allwinner/Makefile b/arch/arm64/boot/dts/allwinner/Makefile
+index 792152525b43..2eee91dcbd77 100644
+--- a/arch/arm64/boot/dts/allwinner/Makefile
++++ b/arch/arm64/boot/dts/allwinner/Makefile
+@@ -69,3 +69,4 @@ dtb-$(CONFIG_ARCH_SUNXI) += sun55i-h728-x96qpro+.dtb
+ dtb-$(CONFIG_ARCH_SUNXI) += sun55i-t527-avaota-a1.dtb
+ dtb-$(CONFIG_ARCH_SUNXI) += sun55i-t527-orangepi-4a.dtb
+ dtb-$(CONFIG_ARCH_SUNXI) += sun60i-a733-cubie-a7s.dtb
++dtb-$(CONFIG_ARCH_SUNXI) += sun60i-a733-cubie-a7z.dtb
+diff --git a/arch/arm64/boot/dts/allwinner/sun60i-a733-cubie-a7z.dts b/arch/arm64/boot/dts/allwinner/sun60i-a733-cubie-a7z.dts
+new file mode 100644
+index 000000000000..ab3d3d70f9ff
+--- /dev/null
++++ b/arch/arm64/boot/dts/allwinner/sun60i-a733-cubie-a7z.dts
+@@ -0,0 +1,286 @@
++// SPDX-License-Identifier: (GPL-2.0-only OR MIT)
++/dts-v1/;
++
++#include "sun60i-a733.dtsi"
++
++#include <dt-bindings/gpio/gpio.h>
++
++/ {
++	model = "Radxa Cubie A7Z";
++	compatible = "radxa,cubie-a7z", "allwinner,sun60i-a733";
++
++	aliases {
++		mmc0 = &mmc0;
++		serial0 = &uart0;
++	};
++
++	chosen {
++		stdout-path = "serial0:115200n8";
++	};
++
++	reg_ps: regulator-system-power {
++		compatible = "regulator-fixed";
++		regulator-name = "ps";
++		regulator-min-microvolt = <5000000>;
++		regulator-max-microvolt = <5000000>;
++		regulator-always-on;
++	};
++
++	reg_ldo_input: regulator-ldo-input {
++		compatible = "regulator-fixed";
++		regulator-name = "ldo2v5-input";
++		/* SY8089: 0.6 V * (1 + RP11 / RP6), 30k / 10k. */
++		regulator-min-microvolt = <2400000>;
++		regulator-max-microvolt = <2400000>;
++		regulator-always-on;
++		vin-supply = <&reg_ps>;
++	};
++
++	osc32k: osc32k-clk {
++		compatible = "fixed-clock";
++		#clock-cells = <0>;
++		clock-frequency = <32768>;
++	};
++};
++
++&cpu0 {
++	cpu-supply = <&reg_dcdc5>;
++};
++
++&cpu1 {
++	cpu-supply = <&reg_dcdc5>;
++};
++
++&cpu2 {
++	cpu-supply = <&reg_dcdc5>;
++};
++
++&cpu3 {
++	cpu-supply = <&reg_dcdc5>;
++};
++
++&cpu4 {
++	cpu-supply = <&reg_dcdc5>;
++};
++
++&cpu5 {
++	cpu-supply = <&reg_dcdc5>;
++};
++
++&cpu6 {
++	cpu-supply = <&reg_dcdc3>;
++};
++
++&cpu7 {
++	cpu-supply = <&reg_dcdc3>;
++};
++
++&mmc0 {
++	bus-width = <4>;
++	cap-sd-highspeed;
++	/* PF6 has an external 10k pull-up and reads high with a card. */
++	cd-gpios = <&pio 5 6 GPIO_ACTIVE_HIGH>;
++	disable-wp;
++	max-frequency = <50000000>;
++	no-1-8-v;
++	vmmc-supply = <&reg_swout2>;
++	/* The 3.3 V path uses VCC-IO; no Port F voltage switching yet. */
++	vqmmc-supply = <&reg_swout2>;
++	status = "okay";
++};
++
++&osc {
++	clock-frequency = <26000000>;
++};
++
++&pio {
++	vcc-pb-supply = <&reg_swout2>;
++	vcc-pc-supply = <&reg_cldo5>;
++	vcc-pd-supply = <&reg_swout1>;
++	vcc-pe-supply = <&reg_bldo1>;
++	/* CLDO5 feeds VCC18-PF; the 3.3 V path uses VCC-IO. */
++	vcc-pf-supply = <&reg_cldo5>;
++	vcc-pg-supply = <&reg_bldo5>;
++	vcc-ph-supply = <&reg_swout2>;
++	vcc-pj-supply = <&reg_swout1>;
++	vcc-pk-supply = <&reg_bldo1>;
++};
++
++&r_i2c0 {
++	status = "okay";
++	pinctrl-names = "default";
++	pinctrl-0 = <&r_i2c0_pl_pins>;
++
++	axp318w: pmic@36 {
++		compatible = "x-powers,axp318w";
++		reg = <0x36>;
++		interrupt-parent = <&nmi_intc>;
++		interrupts = <0 IRQ_TYPE_LEVEL_LOW>;
++		interrupt-controller;
++		#interrupt-cells = <1>;
++
++		aldo156in-supply = <&reg_ps>;
++		aldo234in-supply = <&reg_aldo1>;
++		bldoin-supply = <&reg_ldo_input>;
++		cldoin-supply = <&reg_ldo_input>;
++		dldoin-supply = <&reg_ps>;
++		eldoin-supply = <&reg_dcdc9>;
++		ips-supply = <&reg_ps>;
++		vin19-supply = <&reg_ps>;
++		vin23-supply = <&reg_ps>;
++		vin45-supply = <&reg_ps>;
++		vin678-supply = <&reg_ps>;
++
++		regulators {
++			reg_dcdc1: dcdc1 {
++				regulator-name = "vcc-3v3";
++				regulator-min-microvolt = <3300000>;
++				regulator-max-microvolt = <3300000>;
++				regulator-always-on;
++			};
++
++			reg_dcdc2: dcdc2 {
++				regulator-name = "vdd-sys";
++				regulator-always-on;
++			};
++
++			reg_dcdc3: dcdc3 {
++				regulator-name = "vdd-cpub";
++				regulator-always-on;
++			};
++
++			reg_dcdc4: dcdc4 {
++				regulator-name = "vdd-gpu";
++				regulator-always-on;
++			};
++
++			reg_dcdc5: dcdc5 {
++				regulator-name = "vdd-cpul";
++				regulator-always-on;
++			};
++
++			reg_dcdc6: dcdc6 {
++				regulator-name = "vcc-draml";
++				regulator-always-on;
++			};
++
++			reg_dcdc7: dcdc7 {
++				regulator-name = "vcc-dram";
++				regulator-always-on;
++			};
++
++			reg_dcdc8: dcdc8 {
++				regulator-name = "vcc-ufs-io";
++				regulator-always-on;
++			};
++
++			reg_dcdc9: dcdc9 {
++				regulator-name = "eldo-input";
++				regulator-always-on;
++			};
++
++			reg_swout1: swout1 {
++				regulator-name = "vcc33-lcd";
++			};
++
++			reg_swout2: swout2 {
++				regulator-name = "vcc-io-card";
++				regulator-always-on;
++			};
++
++			reg_aldo1: aldo1 {
++				regulator-name = "vcc-pl";
++				regulator-min-microvolt = <3300000>;
++				regulator-max-microvolt = <3300000>;
++				regulator-always-on;
++			};
++
++			reg_bldo1: bldo1 {
++				regulator-name = "vcc-pe-pk-mcsi";
++			};
++
++			reg_bldo2: bldo2 {
++				regulator-name = "vcc-lvds0";
++				regulator-always-on;
++			};
++
++			reg_bldo4: bldo4 {
++				regulator-name = "vcc18-codec";
++				regulator-min-microvolt = <1800000>;
++				regulator-max-microvolt = <1800000>;
++			};
++
++			reg_bldo5: bldo5 {
++				regulator-name = "vcc-pg";
++				regulator-min-microvolt = <1800000>;
++				regulator-max-microvolt = <1800000>;
++			};
++
++			reg_cldo1: cldo1 {
++				regulator-name = "vcc33-18-usb";
++				regulator-min-microvolt = <1800000>;
++				regulator-max-microvolt = <1800000>;
++				regulator-always-on;
++			};
++
++			reg_cldo2: cldo2 {
++				regulator-name = "vcc18-hdmi";
++				regulator-min-microvolt = <1800000>;
++				regulator-max-microvolt = <1800000>;
++			};
++
++			reg_cldo3: cldo3 {
++				regulator-name = "vcc-pll-dram";
++				regulator-min-microvolt = <1800000>;
++				regulator-max-microvolt = <1800000>;
++				regulator-always-on;
++			};
++
++			reg_cldo5: cldo5 {
++				regulator-name = "vcc18-pf-pc";
++				regulator-min-microvolt = <1800000>;
++				regulator-max-microvolt = <1800000>;
++				regulator-always-on;
++			};
++
++			reg_dldo1: dldo1 {
++				regulator-name = "vcc-efuse";
++				regulator-always-on;
++			};
++
++			reg_dldo6: dldo6 {
++				regulator-name = "vcc-ufs";
++				regulator-always-on;
++			};
++
++			reg_eldo6: eldo6 {
++				regulator-name = "vdd-cpus";
++				regulator-always-on;
++			};
++
++			reg_rtc_ldo: rtc-ldo {
++				regulator-name = "vcc-rtc";
++				regulator-min-microvolt = <1800000>;
++				regulator-max-microvolt = <1800000>;
++				regulator-always-on;
++			};
++		};
++	};
++};
++
++&r_pio {
++	/* PL powers the PMIC bus itself; firmware must keep ALDO1 enabled. */
++	vcc-pm-supply = <&reg_aldo1>;
++};
++
++&rtc {
++	clocks = <&r_ccu CLK_BUS_R_RTC>, <&osc>, <&r_ccu CLK_R_AHB>,
++		 <&osc32k>;
++	clock-names = "bus", "hosc", "ahb", "ext-osc32k";
++};
++
++&uart0 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&uart0_pb_pins>;
++	status = "okay";
++};
+-- 
+2.43.0
 
