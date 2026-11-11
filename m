@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.238.236.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794395988;
-	b=4XeGfvHcCvvw9oMXiqaGTUMxUW9T11Ah3YTQhYLTfMcxPokZhPLd2ctC42MSRjKBgw0i
-	 iuw/PPlCx/HxqWL+2K4IN0Q3JJbbgMOZcr9mmt0Kf+rFsM2j+Zw3wUQPJetpES0z6NJfT
-	 8jqMARN+BrFsfEZH9fbtvGPjd6AmdKuQMcJRVrCzRqvSifxO9DAfF8ZNi+gNxrZIqTDHV
-	 Cyx3tRabqtiHL4DG264YyT+6hCkF+cKaHG3aUOAYPPUFpUPCLqrtYnnQMrctwLdHiOLNU
-	 Oh+EwRuCFHDTTqEuGKvkikdGckNojNm8KQe6tOTDAkuz1ECa0fSexGb+MpKwI5UKiKw==
+	t=1794396081;
+	b=HTTfebDqTNUr13CwTsGvaNPt9CxeAVuvEnC5PKDbiS4f1zlONf9PEg/EPvL2VwnIIvCm
+	 MLJh+wvAjZE36ijB5n41Ub2bgpXBNvubx9cfm3mFpjoZAQihGHJuiblgtBmPEErCxm56g
+	 aaq0QIPK8i3TF5nsWG7AWzTzb5SxTATLsbM3VopWKpOTlQlaALDJghDkIsQC+kg5lEnu/
+	 N7hxUaZFKSeXYUER9jOuSdqM71H5jHpsvHfPp2O0Hk2G50ydUxmbbkRo0NtYFOWDmQkoT
+	 7B/jYAeVanBgMRZSW6DizdlQ+n+a+U5kEiR6b8mY4RZ+aN8SnC0uF+jZyw+K1FhDUcg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794395988;
-	h=DMARC-Filter:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=UGGOSnoQOa8uQR6vbajtQptujNdknjBUZcDCmSIDNdo=;
-	b=5TL6NjrmVTrzwcA+KCiF7blRqQ+tlV5SKvIPt4ozJvKzos/Bakb2Bt7ywaY6wRwyheXe
-	 bt5qTgd0xCzgsfYsTYLEI5FOvdBZpM42KmJQVq+dwg0uevdyXK9eFDjyZxPg8UWfiWm3T
-	 9Ot5KvFwyysRQHfcWhW/CVtbAIs/fQhNtyiadgel2EqN9bDaD2rwNIM3zqQLifOG5L2JR
-	 eap85DsGPhgwyUamMFkqY9+/ErNeL+20tG3G/rYuqeoQfx6+cYiJkRJNZDUoCFFcE1uDx
-	 kPWRMT9ea9YhzmaveoSK/efsudlu5mnMUKxEe1mOkn/ppaeT2gM7C354ryCnyccsfSA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794396081;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
+	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
+	bh=wr9LUpNEHOOjAzDkbtOdFfPOarAUZcRS58IEDQefKL8=;
+	b=28eFytvG4aQhKGwGz8znxvkc7n9oz+IYgR8ZQsKWfVR9hH5NLJMVpF1itiZus2chz7oK
+	 L9BcdnjifoSXtJyqjY4SUmnAp8hFbOeRmpYnAKuuk/bnMqAQP2xKIcPkxWJxAXuEV7+L/
+	 bIOfienRCAmfX4nMplsu1FSO7LefPZUpGZ2xonEZjRL1Jtqqg7BODbpdv68jlz+mAjVYN
+	 g7fUPuKCjMbPq3y4eQSnqnA023ieP45XG9DFL1+OFd6mG/POd+uUJmkhSYEPbxeQdh2WA
+	 NhpLZKe4UbvGxUlJvstfVAzbQF2KkeMRODyIBryS1QIfXmX1FRAdOCTggQs4KnQsCTA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=kemnade.info;
-	spf=pass smtp.mailfrom=kemnade.info;
-	dkim=pass header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=QBOWFM3N;
-	arc=none smtp.remote-ip=178.238.236.174
-Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="XRsRD/3i";
+	arc=none smtp.remote-ip=74.125.82.175
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32CEF606A321;
-	Wed, 11 Nov 2026 11:19:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 32CEF606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kemnade.info
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6606B606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 11:21:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6606B606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=QBOWFM3N
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=kemnade.info; s=20220719; h=References:In-Reply-To:Subject:Cc:To:From:
-	Reply-To:Content-ID:Content-Description;
-	bh=UGGOSnoQOa8uQR6vbajtQptujNdknjBUZcDCmSIDNdo=; t=1794395987; x=1795605587; 
-	b=QBOWFM3NmCqXcWpeEpiAe1sLa7w9smTt2ygsWJvoDwexClILCEuyimAjy2Dszrb3lsYu4Acc/Uu
-	2c6vYi4oIu+hgg+ymTO9QaAf7UP7ZP3OL3Tax6Zb8rzT9A7pywLwZCQnNXt8ysE66/Br8fzvZ1ZWA
-	EW3f7wb/10m3DojJt++RZ/cJIBx/4TDW8smgJurrgvL3p7fLP1eUX3PrmqPN5sOTKz/YStz3jaL4H
-	20DoIqZoybcHHvr0hpzBJjr71aTMyS5F4hLjaIEd1yoM5CspZlFMsTqAliqzPNQgcdKYx3ff/z2Hp
-	I8VsFee+B2mi0pf6N1osXzG9wsT9UQPsgmjQ==;
-Date: Wed, 11 Nov 2026 12:19:24 +0100
-From: Andreas Kemnade <andreas@kemnade.info>
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>,
- tomi.valkeinen@ideasonboard.com
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>, Neil Armstrong
- <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, Laurent
- Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
- <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Jessica Zhang
- <jesszhan0024@gmail.com>, Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
- Lucas Stach <l.stach@pengutronix.de>, Frank Li <Frank.Li@nxp.com>, Sascha
- Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team
- <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, Paul Cercueil
- <paul@crapouillou.net>, Paul Kocialkowski <paulk@sys-base.io>, Linus
- Walleij <linusw@kernel.org>, Inki Dae <inki.dae@samsung.com>, Jagan Teki
- <jagan@amarulasolutions.com>, Marek Szyprowski <m.szyprowski@samsung.com>,
- Sean Paul <sean@poorly.run>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan
- <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, Albert
- Esteve <aesteve@redhat.com>, Anusha Srivatsa <asrivats@redhat.com>, Dmitry
- Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Hui Pu
- <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>, Thomas
- Petazzoni <thomas.petazzoni@bootlin.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-mips@vger.kernel.org,
- linux-rockchip@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, asahi@lists.linux.dev,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- linux-tegra@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-samsung-soc@vger.kernel.org
-Subject: Re: [PATCH v3 17/19] drm/omap: dss: don't create a panel_bridge
-Message-ID: <20261111121924.0e54e7e8@kemnade.info>
-In-Reply-To: <20260916-drm-bridge-every-panel-v3-17-83afb4f1a707@bootlin.com>
-References: <20260916-drm-bridge-every-panel-v3-0-83afb4f1a707@bootlin.com>
-	<20260916-drm-bridge-every-panel-v3-17-83afb4f1a707@bootlin.com>
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; aarch64-unknown-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XRsRD/3i
+Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-35159e0092aso43141eec.2
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 03:21:21 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794396080; x=1795000880; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=wr9LUpNEHOOjAzDkbtOdFfPOarAUZcRS58IEDQefKL8=;
+        b=XRsRD/3iB7VLko7slMbrsse3CjsFdMqIuAXlCtaKhgMpO1RYJchg0/kiqPBCf4yuuA
+         ZRjdtflHU6dZ9uYUtt+MULpmMLUwWnqGFnNv5QEIxoBBWtOrbJGKq6W1G6l6QbPu03+p
+         sA0eV0oh/40hu0tfJL5De7FUhr9WvMG9zaSO9/fjchyyoeTuKZWjE7PCnhjYLKx7MpRc
+         EH0Qj6IDVShITQH3kn8vlSWrVE+vyIFQmBrjZYTfiZt/VJAT7hs5wziWwxn1xGbSQNJ0
+         H0fzemWoMOR9F9ccNNMsUU4EV62koIvRogWOAYUTbqf1FsEyMZSp9kbxlKQasCuemumF
+         63Xw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794396080; x=1795000880;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=wr9LUpNEHOOjAzDkbtOdFfPOarAUZcRS58IEDQefKL8=;
+        b=TY059QIOeCrwkAsX7Wbcyxe+CvuTvJNlgxKliYK9SibOU5UMHJempK74ziu2Tu2dV8
+         BDR1oSWtZ5pySGcCN2gJuqtUSZ/Tio6GGfCbMc7lPat+kz9Wubh1j8dnsUK2363ZsT2M
+         Tb8ONTdW98+qeso1iWdTSTwmpNE4rcAWguowGbcDH3/peXOIEXTUus2hhcNdY9VpNaMh
+         ahbqylEdSX6qvS0yOsGUJvF92haL77Ee14793J35W7NNf1BUO8FlRxj6ET3hjckWdDIr
+         WIa7C+t/UaxLkFcg3kobKEUVVn22vckUrXqNBskNfXhCbY/69wruWG2fPNp/bNfTCOAz
+         f2gw==
+X-Forwarded-Encrypted: i=1; AL+hErGJgAQqXdhTnGo4UF5SpmHGyiwRvcUOYhAx96qbxQNlWSoum13V5GEHpV8qWrW6tC3SmaVQR3D8DDE2n9w=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9pERgOuf2e3jy1lmpFf4JYGnPx4KXLQdCwC6PZy0kHz+NhKj2A
+	UbcJRTz9tLnfdJB0MPdHUWxLSiSdqPZVGvlGDy3ojpXhR5WI6g9hU1tY
+X-Gm-Gg: AYBFou1Nce48addHnQL70GPL6z4bkXY+5a+iTpNQIcs6Q/KEAeJfeFPqhmdmVSSjpxQ
+	R0RRcXMA430N2qfmtz7/lUdkyNmsyFRPrjy4tAdnT6WB7lAiZtbDAazClwRtBCuQNJxKYLf4KSN
+	1f42anNaq00eXiuN0Cuxp8p70ZNyxa4Piw6RUYQjoBF/l2FYHFrQ+rB5CPYUhbSO0rZkSPSqprb
+	WEv6Gh5OO540xzE8NURX+zcWHSydxYFZuC8mhUNCnOyC1CNeGQDdLC8bb5bfG1pSzPB1g9FOWoT
+	T6LNZC4VrPle04gpZDnRR/KEKvisUGeD74+LKB49JV9ua27dDtwa6upbgXEWZGwBT+DQpLJNNGU
+	eQOuXhKK3INX+cRwirwU5fMwDtkz2mtNWYG0EXOYY0hR+TmxsABW7dm1rYXPMWzrRh8Saavg9Y8
+	Kk9TgUmWwroKcJqcJ8seySe4SnIiEKRw0LDR5Z4Vlk5mFM3VScFR9pr+duKq/K4p3Z+uBiIsQfI
+	Q/M2ZzmlyVcFVL5XFKjDxsnQ4Lz846sWAA0cMs728Z1hTNjoKh8Ou8n/g5kd81f9LrJOPP210re
+	4+Bdz+U4vKWXW1fIQFfkDAO4mHTCNaCUqziddL+6vNQTxHDrF4Kx3a31Plt1PvSBTtE=
+X-Received: by 2002:a05:7300:f547:b0:36a:13fd:b5c with SMTP id 5a478bee46e88-376854b73ddmr4138428eec.2.1794396079980;
+        Wed, 11 Nov 2026 03:21:19 -0800 (PST)
+Received: from o6.lan ([2602:fce1:44f:115e::])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-375212e7d24sm24474631eec.22.2026.11.11.03.21.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 03:21:19 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,132 +88,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH v2 1/3] mm/zsmalloc: remove CONFIG_ZSMALLOC_STAT
+From: Xueyuan Chen <xueyuan.chen21@gmail.com>
+To: Nhat Pham <nphamcs@gmail.com>
+Cc: Xueyuan Chen <xueyuan.chen21@gmail.com>, 
+ Minchan Kim <minchan@kernel.org>, 
+ Sergey Senozhatsky <senozhatsky@chromium.org>, 
+ Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <CAKEwX=M6dJMccGcDqp2S-66cbegdivnB6MqQRj6tQ2u18UH62g@mail.gmail.com>
+References: <20261109-zsmalloc_stat-v2-0-caee41684aba@gmail.com>
+ <20261109-zsmalloc_stat-v2-1-caee41684aba@gmail.com>
+ <CAKEwX=M6dJMccGcDqp2S-66cbegdivnB6MqQRj6tQ2u18UH62g@mail.gmail.com>
+Date: Wed, 11 Nov 2026 19:21:15 +0800
+Message-Id: <179439607522.2142163.11892098572560820648.b4-reply@b4>
+X-Mailer: b4 0.16.0
 
-On Wed, 16 Sep 2026 15:45:41 +0200
-Luca Ceresoli <luca.ceresoli@bootlin.com> wrote:
-
-> Now a panel_bridge is automatically created for every drm_panel and the
-> panel-bridge API is just a deprecated wrapper to access it.
+On 2026-11-10 08:00 -0700, Nhat Pham wrote:
+> On Mon, Nov 9, 2026 at 5:59 AM Xueyuan Chen <xueyuan.chen21@gmail.com> wrote:
+> >
+> > CONFIG_ZSMALLOC_STAT only controls the debugfs interface. The class
+> > counters are updated regardless of this option.
+> >
+> > Remove the CONFIG_ZSMALLOC_STAT guards and rely on the debugfs API
+> > stubs when CONFIG_DEBUG_FS=n. Skip statistics setup silently when
+> > debugfs is unavailable.
+> >
+> > Suggested-by: Nhat Pham <nphamcs@gmail.com>
+> > Signed-off-by: Xueyuan Chen <xueyuan.chen21@gmail.com>
+> > ---
+> >  mm/zsmalloc.c | 33 ++-------------------------------
+> >  1 file changed, 2 insertions(+), 31 deletions(-)
 > 
-> Update and simplify the code by just getting a reference to the
-> already-existing bridge using of_drm_get_bridge_by_endpoint().
+> FWIW, LGTM:
 > 
-> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+> Reviewed-by: Nhat Pham <nphamcs@gmail.com>
 
-This breaks the display on GTA04/OMAPDRM.
+Thanks for the review!
 
-Panel is panel-tpo-td028ttec1 attached via DPI, controlled
-via spi_gpio.
-
-I get
-[   12.050201] omapdrm omapdrm.0: [drm] No compatible format found
-[   12.050231] omapdrm omapdrm.0: [drm] Cannot find any crtc or sizes
-
-Workaround:
-rmmod omapdrm
-modprobe omapdrm
-
-Regards,
-Andreas
-
-> ---
->  drivers/gpu/drm/omapdrm/dss/omapdss.h |  1 -
->  drivers/gpu/drm/omapdrm/dss/output.c  | 42 ++++-------------------------------
->  2 files changed, 4 insertions(+), 39 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/omapdrm/dss/omapdss.h b/drivers/gpu/drm/omapdrm/dss/omapdss.h
-> index 4c22c09c93d5..e3e685c931f1 100644
-> --- a/drivers/gpu/drm/omapdrm/dss/omapdss.h
-> +++ b/drivers/gpu/drm/omapdrm/dss/omapdss.h
-> @@ -204,7 +204,6 @@ struct omap_dss_device {
->  	struct dss_device *dss;
->  	struct drm_bridge *bridge;
->  	struct drm_bridge *next_bridge;
-> -	struct drm_panel *panel;
->  
->  	struct list_head list;
->  
-> diff --git a/drivers/gpu/drm/omapdrm/dss/output.c b/drivers/gpu/drm/omapdrm/dss/output.c
-> index 6e9bc605ee22..36d37deac802 100644
-> --- a/drivers/gpu/drm/omapdrm/dss/output.c
-> +++ b/drivers/gpu/drm/omapdrm/dss/output.c
-> @@ -12,7 +12,6 @@
->  #include <linux/of_graph.h>
->  
->  #include <drm/drm_bridge.h>
-> -#include <drm/drm_panel.h>
->  
->  #include "dss.h"
->  #include "omapdss.h"
-> @@ -20,40 +19,16 @@
->  int omapdss_device_init_output(struct omap_dss_device *out,
->  			       struct drm_bridge *local_bridge)
->  {
-> -	struct device_node *remote_node;
-> +	struct drm_bridge *bridge;
->  	int ret;
->  
-> -	remote_node = of_graph_get_remote_node(out->dev->of_node,
-> -					       out->of_port, 0);
-> -	if (!remote_node) {
-> +	bridge = of_drm_get_bridge_by_endpoint(out->dev->of_node, out->of_port, 0);
-> +	if (IS_ERR(bridge)) {
->  		dev_dbg(out->dev, "failed to find video sink\n");
->  		return 0;
->  	}
->  
-> -	out->panel = of_drm_find_panel(remote_node);
-> -	if (IS_ERR(out->panel))
-> -		out->panel = NULL;
-> -
-> -	if (!out->panel)
-> -		out->bridge = of_drm_find_and_get_bridge(remote_node);
-> -
-> -	of_node_put(remote_node);
-> -
-> -	if (out->panel) {
-> -		struct drm_bridge *bridge;
-> -
-> -		bridge = drm_panel_bridge_add(out->panel);
-> -		drm_panel_put(out->panel);
-> -		if (IS_ERR(bridge)) {
-> -			dev_err(out->dev,
-> -				"unable to create panel bridge (%ld)\n",
-> -				PTR_ERR(bridge));
-> -			ret = PTR_ERR(bridge);
-> -			goto error;
-> -		}
-> -
-> -		out->bridge = drm_bridge_get(bridge);
-> -	}
-> +	out->bridge = bridge;
->  
->  	if (local_bridge) {
->  		if (!out->bridge) {
-> @@ -65,11 +40,6 @@ int omapdss_device_init_output(struct omap_dss_device *out,
->  		out->bridge = drm_bridge_get(local_bridge);
->  	}
->  
-> -	if (!out->bridge) {
-> -		ret = -EPROBE_DEFER;
-> -		goto error;
-> -	}
-> -
->  	return 0;
->  
->  error:
-> @@ -79,10 +49,6 @@ int omapdss_device_init_output(struct omap_dss_device *out,
->  
->  void omapdss_device_cleanup_output(struct omap_dss_device *out)
->  {
-> -	if (out->bridge && out->panel)
-> -		drm_panel_bridge_remove(out->next_bridge ?
-> -					out->next_bridge : out->bridge);
-> -
->  	drm_bridge_put(out->next_bridge);
->  	drm_bridge_put(out->bridge);
->  }
+> But I come from the perspective of large(r) server machines - I'd wait
+> for the feedback of embedded folks too :)
+
+I also tested the memory overhead. For a typical Android setup with
+one zram pool, the additional inode/dentry slab object footprint is about 2.11 KB.
+Even with 32 pools, it's only about 45.7 KB.
+
+I think this overhead is acceptable for embedded devices.
+
+>
+> Sergey, how do you feel about this direction? We've run the stats
+> collection (even before we select CONFIG_ZSMALLOC_STAT to expose the
+> stats to userspace) for eons, and it was never a bottleneck AFAICS in
+> our fleet...  And the stats files seem trivial, relatively speaking?
 > 
+
 
