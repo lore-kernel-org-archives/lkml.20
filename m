@@ -1,120 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794404966;
-	b=btHkIoverU6qTRHNer3hTp5vGz9iyPcAReN5DaXCcxLf/52ATDEFT/tWcbVRUn2I13yf
-	 /epUmK1Pv2A66eQwfrKxcgW3bo7qyTfx48LMyk61+hq9vXXZKLECI4bBd1EQS7s1VKuE2
-	 e+FtxruUzUFVq2YrSzq2fMfThzqYdYO1G1zgllhfCKaJjKuNFvDGQBwyPyOKysQ/8xwpS
-	 OUp0n7UTXDRYMwpGsvxWwXcZE780w7Jg3J1f5l30GGkrbjddo9fYCN3haPP7GUa2DnE90
-	 qJfmyrpAxBdd5KPaOsdWom7rcUi0seJI/LnPr6VE9nzw32XuRZtKPn2O3aPbIPzPS4Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794404966;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:
-	 X-Google-Original-From:Date:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=lSwWMcsTLqANVOz4thWu0HIN2eRkabNLMzH9iPg6N8k=;
-	b=naxGvcP6ILpYxiOg0O51A89MoE3eNfe6I90jjr+OvFegbyI5rpcDIT3aUjfRho+XLVT+
-	 e64+rBJMU0f0CbeW0ckIjR8dtHEinjrcOpTgshdkRqh/yde32vFMRtJbgpELdC6FLTV7d
-	 X6mhR0kUUxDg62IhNC6AtaGgB5kyVv5Coqr7hs6q+tEFRoc55zCDueoVjrP5B/laBQKMc
-	 gPE9Igo2df0IWaKR//a1FeQUJqB37hF8Ea8KW5g/lF4/h9ZaCECOPFNmBm8Q2R2A7A2jk
-	 ysUlLn0nvmhMqgwA8gw9gJmkDijcr9wNrAKdV7nVXsoyYuk61c46gKQTNh2u7MoHcEg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="lB7/Hzob";
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="R/3aetT1";
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794404970;
+	b=wBrjr1/Z2bFy7v2DMPPCn98b0tbWdga44g3+TEQ3ywOEAAQqezge4BjcCR3qpkP1pWrb
+	 e9KgOxfIlzfBchh08bk+hy0kRpj3od5+jWKJquJGds1uxlOGr2RfOd9RLJKupQedbmoPp
+	 62aAkIZXhFPb8XzpJE+4GD1RoUipgO407pvHWBiM9vfdQfNMmNt58XYi6/e0Ro2MZD3ma
+	 I2587pDopLvYhHE2D0DTc4IXA0yxMkcFYa3xjQnc4OSxOK9DjEYiQk5e2K/x0i/Bk15u6
+	 u7f3C3ykt98MUJvDMNVvtJgcul41upi53G+PA1KxHLwDYljAhCcnBljavhS+pbA12fw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794404970;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=Bw9aWihjYWPZ2pc+cK7u1BOm3yUetlpv3HqSoI26ksM=;
+	b=f4U2ONsnhIc1aJbOvbbSv2DjmaTm4irz2SiRtNQUynmEePoQ5OIDXy8MkicgvWH1e9Z7
+	 ZkLb1hXk5lpWmBjQQQbSS7JRdJ7LArbliHSqOGzTcFVInLWbphSitNvw3o6p2R44CW9MQ
+	 Tl84wVz1/Kt0b8Qw5XeioXNxKD1GJsq60WIkyj1QjosaBNZPvJs6VTe5p/jaefZFlSVmr
+	 CeYT53iQu9W4fmuPzJdUgV90bCeOL+2LpavR32B8Xs5sGe4jKs666i9UkFaH8ttxY6Q8B
+	 VlNSyYxA/5U3jG1iRDWYpvZOffBqrZCL/ym58EXzIwSMbEMuozOnXbXs61JlFAIJn5A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LfUljFbI;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F891606A31C;
+	Wed, 11 Nov 2026 13:49:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LfUljFbI
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794404969;
+	b=kpLNfU3tKpDxA2BAtCAUy1cKRkGV0rS5dwR9wTwNn94ty5LVq6uaeWBzfVf7B4SIDDzN
+	 aquRdVdWyLUQKSX3X37osQbyDScGqjAoex92KBXbgaLoh2yax+0Bamem9KNOPg5dYAjWh
+	 KN8kbYMaw+5Tt1utQ08eosU+rlRHXhJFkYH5iKlTTwZSqEFj5DbVXGacz2CBM8+ftJvSd
+	 fm2o2+h5mtEyoTJ2ET7LVdorHH5sotQCksXWXYyq+CHXrJvDh/vPokUjjxzu1bqUuTNOI
+	 jPnTb65y7SoDGbahMH4AG3oPhy2SYkjHM89qk6RBwkq9iiMjLbtgcnb6fqVdPlzXNjA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794404969;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=Bw9aWihjYWPZ2pc+cK7u1BOm3yUetlpv3HqSoI26ksM=;
+	b=qPp0iX4ZmAbA6itnpUTWgnC7azhFI+ZSqxbeDUpjpdbhVYc3GkbxX6XAf7e5OBJueP7L
+	 INvgogA5YQyFcC+xPKujwPJDZ2uO+5k/F5iNi7YxxCD6vWBgkZoLGMmVMyypUidAVKjce
+	 JBzGsPrfuy8eI06FWJMmyKp4dUPwn2k0KVohK4OnVAAVP4SxL3cN3vySAcwl0gP7buFL8
+	 vMANpyplZdiYjam9LMuJPEaXP11uKBBm25LcL/xZ1ePK2AoJUMwuxuiX8YlUtBmmFGvzL
+	 w8p+J93hBhfQspd6afvMyIjvmW22W1Mn+wwSs1RtLoUAohTtqrz9vW8Jt8uiJJz2H6g==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F06DE606A321
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:49:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F06DE606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=lB7/Hzob;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=R/3aetT1
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ABCZ3cv2356788
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:49:24 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=lSwWMcsTLqANVOz4thWu0HIN
-	2eRkabNLMzH9iPg6N8k=; b=lB7/Hzob4wLxXBROFUWrgxOKFTaWUHM4A11zqpLA
-	1/h6bh6ahoqD44zc15wX/MkMcrR0pudtST8tGqcgjdjDcrEokAACwTX3GHBIhKsn
-	jnD5v0lTh0d72AgLahC35H30jQDEFhXYlrGUXfhdx34Uxv01SebyBkEk1XVkx3pH
-	XUHH+B8ubL6ZcXnf61rK1knn6EHmHaavScy95AvIppr8GnnHBMj32yPbVTB+heKh
-	UZdE+QPsYiqw+8RVeHv1jtTLU+1ET/FpTX6uNvxJLNXpD7+w/4TkTzHUsg1kCgCX
-	DD2OVYIfRuSGkMROECj0DPfCt982JiEWdhnbYjzzoXmksQ==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvgjdj2em-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:49:24 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93909014c85so672746085a.0
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 05:49:24 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794404963; x=1795009763; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=lSwWMcsTLqANVOz4thWu0HIN2eRkabNLMzH9iPg6N8k=;
-        b=R/3aetT1YIa+rNP5YYo8s8q2ij+cylbptPJZRokzd4MWOr0Vfv4SA5X+LTvLOI8kI7
-         zjYIcae3O0yLpbL1yMJGoV4AUP7sPlzJaVo8Qj9Su3KiQI+V3dTz6/WsRDzBN2DOywiN
-         RJDxgcKz/e6PajGPDY8+FEbnys2KqEBkkdYEGA0JdhCMJ569Ud5eN34lz2LEUCBTkHvv
-         uRnJhAOcp0qnO/BxYpIIVjQLHYoHR3HcnlUpm5has7xGz9CKv3+qcJp3i70BSYU3DHvB
-         smUDo5OfyGNt1u2sfaM72SFe1rj8G1rH76Qf/B18gm50qtELhqUE4xZraeHvDHUAP9lD
-         tLUQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794404963; x=1795009763;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=lSwWMcsTLqANVOz4thWu0HIN2eRkabNLMzH9iPg6N8k=;
-        b=sDCfA4TTmnO6enUsIoHFaGbmCSZeEok+akpiGkUUyVzy591kKby0aVg8Pyl/LsmMue
-         UEe+hQISsqLxrimQ6bdkCh/eUQfIMBEq3yMVHuyvEwi21WoxswQ73pfaeE+K5hxhV0An
-         EHKARKOXEzYVpx8Bsd/Lf7i/fLv1YOLi0N+oOLDyphhzjpfMhOtnlru4rHabyJ57OhFY
-         KvXM9p/6wJsM89MmRXWUAZ7IWWF0BPr5CW93ojFsr4L1bZIqC9XW5HrJ+aZzjdtVItV9
-         1ODmbhwYR7GxEcyrhqF23akhixvOaIjStTevDHJF+2TexTeT5oels+LF+ABCGCdc+5J7
-         kwpw==
-X-Forwarded-Encrypted: i=1; AL+hErGsTXMDznjgjbg85lmNPseMWeNOVVUnZgN/hJPqLIJQ9/37HR0+1V+floVeWfnN8ABuvQzdvAHu6IklCFI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z++ThspVyW7bSuPGHve6Ein9j+JlQJVaUGhtPWSi+0U047UR10I
-	NVuv88S4F0q4xjlCa9J6vlxIlvxXBTPZCQx+ggGQEI9meLcaM46jNj6wB7cCgUQUUUlnRNq1fG+
-	eBrAePOyb/TPq03fqMGLMcdw8tzksQQZtQ4fCHiIeKC7eJzL6YFv+gvTKBpGbBPGALas=
-X-Gm-Gg: AYBFou3382e52ALGxLUtQ+JjtNTQCmZceC/Qo9Sq25cruTgqpGmLIVolE/r/exKgF1c
-	LUJThFWWiNsUC4BZNWc1j6GbgR5aM2ETbfwjFdwYYxHJnBOfa+qEQpHRfdysZgXi4sRQ8T/wdvb
-	Gwvk7bHZspnjP539ZKW1frZM50oMFggLUxsihlRg2fDDod2b3RMy/JXHEGWFzyL7xAeZdC+Jjf+
-	NoerMnZm5KhaELh+ReL/CF9TcFvEJcAlJlGuIUmHgfr3ifiFr9wyyjise5K8AoO2TnNkrxlOV2F
-	i2j2XxxKHGQQq4XZVqdcf4T7wpmvbTwyfFBZ2uUX49DaGcaTcScJYh00O3oM1UHf4mHNNKPsFqX
-	dd8I9Ov1GmBDK3+4j9tBuR7z4M2FmtjooPMm/uT5IVwyN1dzpJMIOLsdlFGZHhe6oX6ZNgF//D1
-	+nZA==
-X-Received: by 2002:a05:620a:1a03:b0:93e:c12c:f127 with SMTP id af79cd13be357-947b00d6dd4mr341949485a.83.1794404963187;
-        Wed, 11 Nov 2026 05:49:23 -0800 (PST)
-X-Received: by 2002:a05:620a:1a03:b0:93e:c12c:f127 with SMTP id af79cd13be357-947b00d6dd4mr341943885a.83.1794404962512;
-        Wed, 11 Nov 2026 05:49:22 -0800 (PST)
-Received: from trex (50.red-81-37-172.dynamicip.rima-tde.net. [81.37.172.50])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498362eb14asm10330443f8f.34.2026.11.11.05.49.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 05:49:21 -0800 (PST)
-From: Jorge Ramirez <jorge.ramirez@oss.qualcomm.com>
-X-Google-Original-From: Jorge Ramirez <JorgeRamirez-Ortiz>
-Date: Wed, 11 Nov 2026 14:49:20 +0100
-To: Jarkko Sakkinen <jarkko@kernel.org>
-Cc: Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>, peterhuewe@gmx.de,
-        jgg@ziepe.ca, sumit.garg@oss.qualcomm.com,
-        linux-kernel@vger.kernel.org, linux-integrity@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] tpm: add OP-TEE transport core and a discrete TPM
- driver
-Message-ID: <avRyYBpQcYx-xo9o@trex>
-References: <20261110141923.3100770-1-jorge.ramirez@oss.qualcomm.com>
- <20261110141923.3100770-2-jorge.ramirez@oss.qualcomm.com>
- <avM0uIlZxZIga4dY@kernel.org>
+	by smtp.kernel.org (Postfix) with ESMTPS id 523891F00A05;
+	Wed, 11 Nov 2026 13:49:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794404969;
+	bh=Bw9aWihjYWPZ2pc+cK7u1BOm3yUetlpv3HqSoI26ksM=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=LfUljFbIN8QEIUFk4G0Ke44qKTy1st9HOOWB4s9BAZbyU3YL5Glb8hgEZSZLJLg4K
+	 LSfR+XKZKDlJ7wjp+WBmf9GBRf0FNO9qxffDjawjRnGRYQPuQulAilia6GvLXLOeFm
+	 efpk2xL/2rUpHTIWi4JAxREBuOWei93aPk111/gn3+CCYZ22MEgxxHn+okutSvn3yG
+	 IbntZXWhshjoPY3WmADgCN0LuM2cftBB3aVNlSqOgcaZsnJcur0RE4L3iaGwhqT/aF
+	 aHWLZy+YIVxf7fWBDe4aG2ZiSqqdZFkOn/c8Io1Tg6j7GEO9/Lx1uJ0H+4ZziYo4vA
+	 YXp8XIj/Jw2pg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 99E8E48FC1;
+	Wed, 11 Nov 2026 13:49:28 +0000 (UTC)
+From: Marc Herrero via B4 Relay <devnull+marcht.proton.me@kernel.org>
+Date: Wed, 11 Nov 2026 13:49:27 +0000
+Subject: [PATCH] ASoC: qcom: audioreach: apply volume changes to a running
+ graph
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -124,63 +83,95 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <avM0uIlZxZIga4dY@kernel.org>
-X-Authority-Analysis: v=2.4 cv=E7tYNqdl c=1 sm=1 tr=0 ts=6af47264 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=VbO86HPdXvN82gCvB8O6pw==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=c92rfblmAAAA:8 a=EUspDBNiAAAA:8 a=kVfuh0FxlVcxPe7lGXYA:9 a=CjuIK1q_8ugA:10
- a=bTQJ7kPSJx9SKPbeHEYW:22 a=GvGzcOZaWPEFPQC_NcjD:22
-X-Proofpoint-ORIG-GUID: LfWL6NQbxeuoWYIqELNU0qpaVS_We_t4
-X-Proofpoint-GUID: LfWL6NQbxeuoWYIqELNU0qpaVS_We_t4
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDA1NCBTYWx0ZWRfX5XlSZ6wV+iBA
- oJfLNGJDjSm8dfCIW5EExRy+WFA/48MVXSSLZ2dhHgSdOSdy04n6ac/JfrSoa6HVggPAGk4n4FW
- 3ywaoKdx7upjGthGJfbQt5EB19BoLfS2yh43si75d14mg5iH9lWfIf6WzFZBE4x6r10OgxxCZEw
- IcR5XFMuvLBFlRu8hpq55XAVp7WfW9iXmVdkKWnnnsGV+bS3JZzLzNp3fcH2alrrNrdJRsqWBUn
- lRpptxhTgX2zFLb3JlJnuvck0h6GOZUpKffqtSeWvFw1+ZLnZvvemr9AeqOr6AX5QezHgPvCcDC
- znKGHF2/VUJusGnnoyAuIgQxr3xwVXaAqYcuQladK0+c81eKlxdnJ//mXrgfDBd/ISRpj+zPO/3
- gzRrj7frzdX7Hiv96Un+5X7hKWAFnLKa54xSnSGsRTEZzGOZoSbBRDu/fywgrX1PuPNPFeQt/m0
- jNoL8EvXxntF2+9wbUg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDA1NCBTYWx0ZWRfX0i62/T3Ay/zc
- t5U7xnFXqIMsXdEld+UfNANTQCea7jARaXKUvKcY1rMCtJxXf9IIU2t0QOGPKgkciF/L+WVtqhF
- 7fze54+ElUPrgfnTmbBctXn2cUKmYqs=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-11_02,2026-11-11_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 suspectscore=0 priorityscore=1501 impostorscore=0 adultscore=0
- malwarescore=0 clxscore=1015 bulkscore=0 spamscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611110054
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261111-q6apm-vol-live-v1-1-be85eef649c1@proton.me>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2MywqAIBAAfyX23EJ6MOpXooOPrRbMSkEC8d+T5
+ jaHmQKJIlOCuSsQKXPiKzQRfQf20GEnZNcc5CCVaOCj9H1ivjx6zoROGSOcITvaCVp0R9r4/Yf
+ LWusHTawBiGAAAAA=
+X-Change-ID: 20261111-q6apm-vol-live-d6bb1dbec7c9
+To: Srinivas Kandagatla <srini@kernel.org>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
+Cc: linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ Marc Herrero <marcht@proton.me>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794404968; l=2295;
+ i=marcht@proton.me; s=20261111; h=from:subject:message-id;
+ bh=SqVgjL7+4cci4LPqvCK4Yw6wIkE/kOA+SDqD9jR9pW8=;
+ b=FX1Y+Wi7BB5DpHA+0W6yE2XKgDCznVqlJos0UpJ8hstQWnTb3zNutOendQ72+lQoI638F5yi4
+ 7XppBorHE+kCr74otdQVCgfAsNs5c2orZsVM06hNcGbVazYVy6NqYr/
+X-Developer-Key: i=marcht@proton.me; a=ed25519;
+ pk=pIPy6L+INgiuJt7L7umVilPgpzy/Ni3QS77ToLj/H9c=
+X-Endpoint-Received: by B4 Relay for marcht@proton.me/20261111 with
+ auth_id=1490
+X-Original-From: Marc Herrero <marcht@proton.me>
+Reply-To: marcht@proton.me
+Content-Transfer-Encoding: 7bit
 
-On 10/11/26 17:14:00, Jarkko Sakkinen wrote:
-> On Tue, Nov 10, 2026 at 03:19:08PM +0100, Jorge Ramirez-Ortiz wrote:
-> > Some platforms place a real (discrete) TPM on a bus that only the secure
-> > world can drive. OP-TEE owns that bus, so the normal world cannot reach
-> > the chip directly; it instead exposes a mediator trusted application
-> > that relays TPM2 commands. Add a driver that talks to that application
-> > and presents the chip as a standard TPM2 character device, so the
-> > normal-world TPM stack works unchanged.
-> > 
-> > This is a separate driver from the firmware-TPM one rather than a reuse
-> > of it. The TEE transport is the same and is shared through a common
-> > core, but the device identity differs: the firmware TPM uses its own
-> > application and a public-login session, whereas a discrete chip needs
-> > its own application and is restricted to kernel access so that user
-> > space and other applications cannot submit raw commands to it. Folding
-> > both into one driver would also break on a platform that has both.
-> > 
-> > Signed-off-by: Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>
-> 
-> Looks pretty good. Did you check the Sashiko remark?
-> 
-> https://sashiko.dev/#/patchset/20261110141923.3100770-1-jorge.ramirez%40oss.qualcomm.com
-> 
-> Br, Jarkko
+From: Marc Herrero <marcht@proton.me>
 
-um, right, that is a bug correctly addressed by the ftpm implementation
-(the shutdown callback needs to go in the core as well)
+audioreach_put_vol_ctrl_audio_mixer() only stores the new gain in the
+module. The gain reaches the DSP from audioreach_pga_event() on
+SND_SOC_DAPM_POST_PMU, that is when a stream starts, so changing the
+"<stream> Playback Volume" control while playing has no effect until the
+next stream.
 
-will post a v3. thanks!
+On QCS6490 (Radxa Dragon Q6A) shairport-sync uses this control as its
+hardware volume: the volume set when an AirPlay session starts is
+applied, but every later change from the phone is ignored.
+
+Send the gain to the DSP right away when the widget is powered, and
+report no change when the value is the same.
+
+Fixes: 36ad9bf1d93d ("ASoC: qdsp6: audioreach: add topology support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Marc Herrero <marcht@proton.me>
+---
+Found on the Radxa Dragon Q6A together with the two fixes in
+"[PATCH 0/2] ASoC: qcom: audioreach: fix S24_LE playback and route mixer
+disconnects", sent earlier today. This one is independent of them.
+
+Tested on 7.2.9: with the patch, moving the AirPlay volume while
+playing changes the output immediately; without it nothing changes
+until the next stream. Builds on asoc/for-next.
+---
+ sound/soc/qcom/qdsp6/topology.c | 13 ++++++++++++-
+ 1 file changed, 12 insertions(+), 1 deletion(-)
+
+diff --git a/sound/soc/qcom/qdsp6/topology.c b/sound/soc/qcom/qdsp6/topology.c
+index 612d8f03e6e9..5b3378fd29fc 100644
+--- a/sound/soc/qcom/qdsp6/topology.c
++++ b/sound/soc/qcom/qdsp6/topology.c
+@@ -1323,8 +1323,19 @@ static int audioreach_put_vol_ctrl_audio_mixer(struct snd_kcontrol *kcontrol,
+ {
+ 	struct snd_soc_dapm_widget *dw = snd_soc_dapm_kcontrol_to_widget(kcontrol);
+ 	struct audioreach_module *mod = dw->dobj.private;
++	long gain = ucontrol->value.integer.value[0];
+ 
+-	mod->gain = ucontrol->value.integer.value[0];
++	if (mod->gain == gain)
++		return 0;
++
++	mod->gain = gain;
++
++	/* The PGA event only applies the gain when the widget powers up */
++	if (dw->power) {
++		struct snd_soc_component *c = snd_soc_dapm_to_component(dw->dapm);
++
++		audioreach_gain_set_vol_ctrl(dev_get_drvdata(c->dev), mod, gain);
++	}
+ 
+ 	return 1;
+ }
+
+---
+base-commit: cde5523c75f1320a55ac1d55a717ccbb566557f0
+change-id: 20261111-q6apm-vol-live-d6bb1dbec7c9
+
+Best regards,
+-- 
+Marc Herrero <marcht@proton.me>
+
+
