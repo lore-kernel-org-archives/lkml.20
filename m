@@ -1,76 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.12
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794392835;
-	b=JyzHUTXzqO0lVJufEUHlhblAA3YYncTzqdf2Hjh8T0vzyWiQB0Fqizb0ppucEX68ZRmM
-	 0rN1RZKJaboJd4gMfAXo24UNjzmQfr9lzc+WUpy1hJKf1FwXwqsq+qYvRAAbEN7dcRMbu
-	 1vcxfrcCvitQ8oh3pWp5mYuuA08td8iRNedlLwCneSk8RYoDNP9F+DKvC1lq7lMWNNSU8
-	 isOAmPdAKpGXiPS6L/gIlGu4Ne+xTKN9Hbh5YMAw8vukfRSWMB5gBdSt75B/hwlYAnsvN
-	 Ug41yDNclS8w1y7VXJaxY5hZzmR+MJ19DkXf6nmBp0zuFP1bHL7vtDWHOuXb1JPUMOw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794392835;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Organization:Content-Type:
-	 Content-Transfer-Encoding:User-Agent:MIME-Version:X-ZohoMailClient;
-	bh=izBfG5NYxgsrXHkibSx3HWmcn07W3wT6ndQmqom6GNQ=;
-	b=gLwGHUmIdx4rsxdwpWsHCLUOuTPDFbdjVzEQBu/BcKbe8FBsCJZ7MNOgX+BAiJ/3SrEK
-	 eM7g1o+kCYKb/COglKFsxnoYqanOkJfG65IjjpZSXuGa2VhgZFQob5+K+Dems6AbTv50c
-	 8ZZx6E3bTBzfNjHjcO85fw0fhhzL3NIEuU9uK4QpQnqYsHFeXw8rZ61/7l8EFXsiMfd2q
-	 /OiDiAYDFcTf/bc9mrMiYD5bDQa1Fkpf7mVfShqgKyTZmeM1icPsfZklL9c6Hua/tOsbB
-	 cOPtkdrgfrYXON4YuLOgxJe9GS5Z/wERGEs3d7wtX/3gy+06tDY3kZMX+X8Z1CiUYgw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=icenowy.me;
-	spf=pass smtp.mailfrom=icenowy.me;
-	dkim=pass header.d=icenowy.me header.i=@icenowy.me header.a=rsa-sha256 header.s=zmail2 header.b=J9OSvhXi;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.12
-Received: from sender6-op-o12.zoho.com (sender6-op-o12.zoho.com [165.173.180.12])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.114
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794392847;
+	b=v5GP/63jCI7cZLAp5efKY+QhItRoijz55cnlsqY1/xoWOk646r1YOdwrMJ06TJjMHqyo
+	 Lh5jSnRMe9PvrOLIi9iSDw7YdTxX0W5JOoDKM8quU8+cEQIEAmX6P6G/Bkft0sYhbo5uf
+	 FwJN5sALihefKVWTo6aaHfcGcHOtLVLBjuoSYFRaT9up+MndPQ8FAjvOm02oRp4dpH9P3
+	 Ri5QcuPvrUDdcJCTngOQDUCLnreDfcBzq9unpMJ+dnQYTZHuMLDwU2PVKCmf2TyEufvoJ
+	 zNqhF1IFCzriRoiKquatHB4t8+JcM6kdI3MWfhFgJ+45JVceIK0qRCrgUJpUPZn104Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794392847;
+	h=DMARC-Filter:DKIM-Signature:Cc:Mime-Version:
+	 Content-Transfer-Encoding:Content-Type:Date:User-Agent:To:Subject:
+	 Message-Id:In-Reply-To:References:X-Lms-Return-Path:From:
+	 X-Original-From;
+	bh=+cZ0TkhgcyZX2/tGIJYKpizu09u/oOKdVnqqr23AXvE=;
+	b=wdCSilLQBnd0WifFHwthbf9alCQ2Oqam0if/1VVmtIFpLMqdZ2daT9sSaU6icqZuYMji
+	 jATdew4+4C3RLpl8L+cPhgJCrS60PMQ8dVcxqPdsF0wlPiyBvMrXfmWiGYFPqiGs/mqMJ
+	 JJjuceEq27EYYiaND1QGr3sCKYzdJoZp48veoFDmemrVlKAiu6sl46IIT+MfVe/rVxOtw
+	 WmI7kZAshRfjpwdlnBRGe6g0RFvnAkphGcaeeYsr+3BVDhANPGRUQi3Ht2D3KFhUDfz5R
+	 tgN1mVGoJnQI3fOsylvvpDZO6LZfWrbAU6DNLXDyVcGMYC5tlBKVMI9Iv9bPWG6sanQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=bytedance.com;
+	spf=pass smtp.mailfrom=bytedance.com;
+	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=RCLhcXa5;
+	arc=none smtp.remote-ip=209.127.230.114
+Received: from va-1-114.ptr.blmpb.com (va-1-114.ptr.blmpb.com [209.127.230.114])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FC1E606A31C;
-	Wed, 11 Nov 2026 10:27:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7FC1E606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=icenowy.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icenowy.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C28CB606A321
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 10:27:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C28CB606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=icenowy.me header.i=@icenowy.me header.a=rsa-sha256 header.s=zmail2 header.b=J9OSvhXi
-ARC-Seal: i=1; a=rsa-sha256; t=1794392820; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=X/HX67F92GhFRj7qyinZmwx/H96yrqVKh3qzZ20sgUcU7Bq1EzlL4LwKbanj16DaHIeAsfl1B+qcOUKXcizeVDto7mVnyPeb9dgTMese2SySaXW1ka1t9lhlN5Y+3CSRxekdfQgYz+oHyMlLSu0jRqR//hXS8AZbXWHAvWjoI0M=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1794392820; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=izBfG5NYxgsrXHkibSx3HWmcn07W3wT6ndQmqom6GNQ=; 
-	b=fwDqvphywJ3uYhLeRoF5hlcNDhVwtmYKj+nvlJei0yPlkZDg9A4tiAZKXH69aS5hneBpcZfV9cMpkqr9nOp23zSTyrLLRrN8YEby+YjzvNa3APgIz0pqTH/UC1hjuQV87+GimXIrKW594bKrR5Vbi3pkoloHftpi0cIplmKMhfc=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=icenowy.me;
-	spf=pass  smtp.mailfrom=uwu@icenowy.me;
-	dmarc=pass header.from=<uwu@icenowy.me>
-DKIM-Signature: a=rsa-sha256; b=J9OSvhXiOr8lL3EQgkc/e/NNi3TnxQ3XlcIW5iQ8G8O4YIpzmpfsofd64NZF96sK6sewXhziyjoWP4mrKydKsJxgtjUpg2plbX4qatreUxLCiOELTmxBkVvc01H9QyYa6GM54yi/P/dU+zcWbFQIIN633UnCFgJ4GRxBmIgIc3mpxEXXdNxdsf74Nvk+CH7nUy6EL5EwtTsi9ih7WxFgsjBDvLUaN3jnfb+Vxy/NmmLDgKgqeJEk11+N8VYRGRJRlQMUh/809aREBoWNb3QBbvydxClqopz9L0FHDHbTFBwP/IGHUIFYf/LnxVdk2xdAxDAeih67xe8Q+Pa5XczMgw==; c=relaxed/relaxed; s=zmail2; d=icenowy.me; v=1; bh=izBfG5NYxgsrXHkibSx3HWmcn07W3wT6ndQmqom6GNQ=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1794392818762580.4241612026577;
-	Wed, 11 Nov 2026 02:26:58 -0800 (PST)
-Message-ID: <68b5a51d767248a71c050110d5faf6c50c964d50.camel@icenowy.me>
-Subject: Re: [PATCH v2 1/3] dt-bindings: display: panel: ilitek, ili9488:
- make the port optional
-From: Icenowy Zheng <uwu@icenowy.me>
-To: Krzysztof Kozlowski <krzk@kernel.org>, Romain TISSERAND
-	 <romain.tisserand@gmail.com>
-Cc: Igor Reznichenko <igor@reznichenko.net>, Neil Armstrong	
- <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann	 <tzimmermann@suse.de>, David
- Airlie <airlied@gmail.com>, Simona Vetter	 <simona@ffwll.ch>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, 	dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, 	linux-kernel@vger.kernel.org,
- sashiko-reviews@lists.linux.dev
-Date: Wed, 11 Nov 2026 18:26:51 +0800
-In-Reply-To: <20261110-comical-adder-from-saturn-8c8fbb@quoll>
-References: <20261109160706.2272332-1-romain.tisserand@gmail.com>
-	 <20261109160706.2272332-2-romain.tisserand@gmail.com>
-	 <20261110-comical-adder-from-saturn-8c8fbb@quoll>
-Organization: Anthon Open-Source Community
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=RCLhcXa5
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1794392840; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=+cZ0TkhgcyZX2/tGIJYKpizu09u/oOKdVnqqr23AXvE=;
+ b=RCLhcXa5MQfniyrwMiA7R2RvhztQGtFd1uCMdaPJTgKgIpLcp0NMsEGJsqoKZ9tcH11SmL
+ e4/OyjxMvUUa35Mld9yhVK4P42mVZ6n9tGZbXJlgOth/8IaPyQVcBL45uT8j0QMSae0V6q
+ gfRY5RaygQJw4acnLWjuAjQVzU4k2HGrFCYqmCud8PaXu/D3FeMSCqKZKRsdBjxSBsSCig
+ DfFqe6WywIa8T088V3/oREw2YAM/hODO/TzT+ksnyp9iYH4PetyqztJETNdanq0bOF9ncI
+ mRG8CIuo+wtTumnMgS8NbEtUJw2LPwNbRJNQoBjCGZ9tXN9hFWBKkAANnlDJag==
+Cc: <linux-kernel@vger.kernel.org>, <linux-mm@kvack.org>, 
+	<stable@vger.kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,60 +54,204 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-X-ZohoMailClient: External
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 11 Nov 2026 18:26:58 +0800
+User-Agent: Mozilla Thunderbird
+To: "David Hildenbrand (Arm)" <david@kernel.org>, <muchun.song@linux.dev>, 
+	<osalvador@suse.de>, <akpm@linux-foundation.org>, <azpijr@gmail.com>, 
+	<lance.yang@linux.dev>, "Qi Zheng" <qi.zheng@linux.dev>
+Subject: Re: [PATCH v3 2/3] mm: gup: allow long-term pins of CMA-allocated HugeTLB folios
+Message-Id: <5f68ffba-9f56-4e31-9e7c-9d110f552efc@bytedance.com>
+In-Reply-To: <3a1a3bb5-0b01-4f20-aa0e-74a952544b8c@kernel.org>
+References: <cover.1794046188.git.zhengqi.arch@bytedance.com> <586d6c53ab7e4c64d6e89ad3cf0cf7e07dabbfaf.1794046188.git.zhengqi.arch@bytedance.com> <7abb3aa1-385a-422f-86bd-7aac9661c4d8@kernel.org> <423c9b28-ecf2-4fab-817d-2fb326690c73@linux.dev> <3a1a3bb5-0b01-4f20-aa0e-74a952544b8c@kernel.org>
+X-Lms-Return-Path: <lba+26af44306+2836a5+vger.kernel.org+zhengqi.arch@bytedance.com>
+From: "Qi Zheng" <zhengqi.arch@bytedance.com>
+X-Original-From: Qi Zheng <zhengqi.arch@bytedance.com>
 
-=E5=9C=A8 2026-11-10=E4=BA=8C=E7=9A=84 13:00 +0100=EF=BC=8CKrzysztof Kozlow=
-ski=E5=86=99=E9=81=93=EF=BC=9A
-> On Mon, Nov 09, 2026 at 05:07:04PM +0100, Romain TISSERAND wrote:
-> > The panel is a MIPI-DSI peripheral, a child node of its DSI host,
-> > and the
-> > driver does not use a graph port. A port is only needed when the
-> > host
-> > links its panel through the graph; other DSI hosts, such as the
-> > Allwinner
-> > sun6i-a31-mipi-dsi one, link the child node and have no output port
-> > to
-> > point at. The PinePhone panel is described that way on the same
-> > host,
-> > without a port.
-> >=20
-> > Keep the port allowed (panel-common) but no longer required, as for
-> > other
-> > DSI panels such as ilitek,ili9881c.
->=20
-> ilitek,ili7807s and a few others have the same and it is confusing.
-> The
-> port should be required when this is connected over SPI or I2C, but
-> not
-> for MIPI DSI. I think that for MIPI DSI port is meaningless so
-> actually
-> incorrect.
+Hi David,
 
-I found that the dw-mipi-dsi common code (e.g. on Rockchip SoCs with
-dw_mipi_dsi-rockchip) would expect the panel to be connected via a port
-even if it's the child node of the DSI controller.
+On 11/11/26 3:43 PM, David Hildenbrand (Arm) wrote:
+> On 11/9/26 04:10, Qi Zheng wrote:
+>>
+>>
+>> On 11/8/26 1:58 AM, David Hildenbrand (Arm) wrote:
+>>> On 11/7/26 11:30, Qi Zheng wrote:
+>>>> From: Qi Zheng <zhengqi.arch@bytedance.com>
+>>>>
+>>>> Long-term pinning treats explicitly CMA-allocated HugeTLB folios as
+>>>> unpinnable, causing unnecessary migration or pinning failures.
+>>>>
+>>>> These folios already own their CMA bitmap ranges, and memory blocks
+>>>> overlapping CMA areas cannot be offlined. Allow HugeTLB folios with
+>>>> HPG_cma to be pinned directly, including in ZONE_MOVABLE.
+>>>>
+>>>> Fixes: cf11e85fc08c ("mm: hugetlb: optionally allocate gigantic hugepages using cma")
+>>>> Cc: stable@vger.kernel.org
+>>>> Suggested-by: Muchun Song <muchun.song@linux.dev>
+>>>> Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
+>>>> Acked-by: Muchun Song <muchun.song@linux.dev>
+>>>> Reviewed-by: Oscar Salvador <osalvador@suse.de>
+>>>> Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+>>>> ---
+>>>>    include/linux/mm.h | 29 +----------------------------
+>>>>    mm/gup.c           | 31 +++++++++++++++++++++++++++++++
+>>>>    2 files changed, 32 insertions(+), 28 deletions(-)
+>>>>
+>>>> diff --git a/include/linux/mm.h b/include/linux/mm.h
+>>>> index 2d0b8a4c9974f..75dd40265d3f4 100644
+>>>> --- a/include/linux/mm.h
+>>>> +++ b/include/linux/mm.h
+>>>> @@ -2975,35 +2975,8 @@ static inline bool is_zero_folio(const struct folio *folio)
+>>>>    	return is_zero_page(&folio->page);
+>>>>    }
+>>>>    
+>>>> -/* MIGRATE_CMA and ZONE_MOVABLE do not allow pin folios */
+>>>>    #ifdef CONFIG_MIGRATION
+>>>> -static inline bool folio_is_longterm_pinnable(struct folio *folio)
+>>>> -{
+>>>> -#ifdef CONFIG_CMA
+>>>> -	int mt = folio_migratetype(folio);
+>>>> -
+>>>> -	if (mt == MIGRATE_CMA || mt == MIGRATE_ISOLATE)
+>>>> -		return false;
+>>>> -#endif
+>>>> -	/* The zero page can be "pinned" but gets special handling. */
+>>>> -	if (is_zero_folio(folio))
+>>>> -		return true;
+>>>> -
+>>>> -	/* Coherent device memory must always allow eviction. */
+>>>> -	if (folio_is_device_coherent(folio))
+>>>> -		return false;
+>>>> -
+>>>> -	/*
+>>>> -	 * Filesystems can only tolerate transient delays to truncate and
+>>>> -	 * hole-punch operations
+>>>> -	 */
+>>>> -	if (folio_is_fsdax(folio))
+>>>> -		return false;
+>>>> -
+>>>> -	/* Otherwise, non-movable zone folios can be pinned. */
+>>>> -	return !folio_is_zone_movable(folio);
+>>>> -
+>>>> -}
+>>>
+>>> Moving code while adding new stuff to it, please don't.
+>>>
+>>> Move code first, then modify it.
+>>>
+>>> I don't want to play "find the difference between two pictures" on a Saturday
+>>> evening.
+>>
+> 
+> You resent your series way too fast.
 
-Such an example is at arch/arm64/boot/dts/rockchip/rk3399-pinephone-
-pro.dts .
+Got it.
+
+> 
+> Now we have discussions in to threads, congratulations ;)
+> 
+>> ;), got it.
+>>
+>> I moved the code to resolve a build dependency.
+>>
+> 
+> Why can't that be resolved differently? What is the dependency?
+
+The dependency is that the new check wants to use
+`folio_test_hugetlb_cma()`, which is a HugeTLB-specific inline helper
+from `include/linux/hugetlb.h`.
+
+`folio_is_longterm_pinnable()` currently lives in `include/linux/mm.h`,
+while `include/linux/hugetlb.h` already includes `linux/mm.h`. So I
+can't simply use `folio_test_hugetlb_cma()` from `mm.h`
+
+> 
+>>>
+>>>> +bool folio_is_longterm_pinnable(struct folio *folio);
+>>>>    #else
+>>>>    static inline bool folio_is_longterm_pinnable(struct folio *folio)
+>>>>    {
+>>>> diff --git a/mm/gup.c b/mm/gup.c
+>>>> index 2b405cce2ca5c..f41701c603500 100644
+>>>> --- a/mm/gup.c
+>>>> +++ b/mm/gup.c
+>>>> @@ -2216,6 +2216,37 @@ struct page *get_dump_page(unsigned long addr, int *locked)
+>>>>    
+>>>>    #ifdef CONFIG_MIGRATION
+>>>>    
+>>>> +bool folio_is_longterm_pinnable(struct folio *folio)
+>>>> +{
+>>>> +#ifdef CONFIG_CMA
+>>>> +	int mt = folio_migratetype(folio);
+>>>> +
+>>>> +	/* These HugeTLB folios own the CMA memory, so they can be long-term pinned. */
+>>>> +	if (folio_test_hugetlb(folio) && folio_test_hugetlb_cma(folio))
+>>>> +		return true;
+>>> More hugetlb hackery ... don't like that, sorry.
+>>
+>> Agree.
+>>
+>>>
+>>> I think this just goes down to a problem we discussed a while ago that is
+>>> independent of hugetlb: we'd need some way to identify that the the page was
+>>> actually allocated by the CMA owner, and it's not just some other movable
+>>> allcoation that ended up there.
+>>>
+>>> For something generic non-hugetlb thing, can't we call into CMA to ask whether
+>>> the current chunk is marked allocated?
+>>
+>> The existing bitmap is set before allocation completes, so the range
+>> may still contain borrowed movable pages. A set bit alone cannot
+>> establish ownership.
+
+The more accurate code path is as follows.
+
+Assuming the 2M buddy allocation is successful, page P is borrowed from
+the 1G CMA area.
+
+Now, proceed to request a new 1G huge page:
+
+only_alloc_fresh_hugetlb_folio
+--> alloc_gigantic_frozen_folio
+     --> hugetlb_cma_alloc_frozen_folio
+         --> cma_range_alloc
+                 /* set bitmap!! */
+             --> bitmap_set(cmr->bitmap, bitmap_no, bitmap_count);
+
+                 <time A>
+
+                 /* may fail */
+                 alloc_contig_frozen_range
+
+         /* set HPG_cma!! */
+         folio_set_hugetlb_cma(folio);
+
+At time A, for page P, a bitmap was set, but HPG_cma was not set.
+
+If a concurrent FOLL_LONGTERM pin uses the bitmap alone to determine
+ownership, it could incorrectly allow P to remain pinned. If
+alloc_contig_frozen_range() fails, cma_range_alloc() clears the bitmap
+bits, while the long-term pin on P remains.
+
+HPG_cma is set only after explicit CMA allocation succeeds. It records
+the folio's own CMA ownership, whereas a set bitmap bit can represent
+another allocation's in-flight reservation. Therefore, the bitmap
+alone cannot replace HPG_cma in this check.
+
+>>
+>> A generic query may need separate ownership tracking, such as an
+>> owned_bitmap recording successfully allocated pages. Its updates and
+>> lookups would also need to handle concurrency with fast GUP.
+> 
+> Or simply two bitmaps? "trying allocation - allocated"
+
+As a fix, perhaps this is a bit too complex? :(
+
+Alternatively, we could adjust the timing for setting the bitmap, though
+this might introduce new concurrency issues.
 
 Thanks,
-Icenowy
+Qi
 
->=20
-> Why was it added in the first place?
->=20
-> >=20
-> > Reviewed-by: Igor Reznichenko <igor@reznichenko.net>
-> > Signed-off-by: Romain TISSERAND <romain.tisserand@gmail.com>
-> > ---
-> > =C2=A0.../devicetree/bindings/display/panel/ilitek,ili9488.yaml=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |
-> > 1 -
-> > =C2=A01 file changed, 1 deletion(-)
->=20
-> Reviewed-by: Krzysztof Kozlowski
-> <krzysztof.kozlowski@oss.qualcomm.com>
->=20
-> Best regards,
-> Krzysztof
