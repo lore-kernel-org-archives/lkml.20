@@ -1,95 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.41
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794396641;
-	b=ZvdE647fdrXjwLgUiaMiK2YFbeP48eIP6emEdcZ+wfRW/y6eGXccapd/CqEYrLk60cO7
-	 +Sb4WFIG3xyyAsewCKfB5MrgbC81Bw+XoisUtc9qoRwCQBgHgpC4r1qxEySEura359Bj7
-	 +fcdDhPT+tv4B6lXOKr7QKzy0iB2eZHDgvMlf0HTLxIo5idbXcLblydE3txcF04T+J+Rt
-	 uDiw40DXAuhzqaQkIwkgaKp9Lh8mNwUWJmIDkBY6vXjIzcRQuI6N9jnDymVQbKOyHL/mL
-	 8JhkMpvlXaf6FHpao8CQQkFhe3g8Sadx/Ty10vxZut94FtEgVSuNMvu6zX5m6wVtHlw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794396641;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.54
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794396644;
+	b=WJzhLyFilXfQeTBdy3olZ2suDpYxnXSEECGdp84YR4/sJHad+7KMNC22Y04hIwxguGya
+	 74GLyb0iD0Cgxbigac+MnrTqtlWDN/uGHMMUaw/8O19szqZFKxkKeSE3zuD8Ma0tFFh3G
+	 W3dI82g1SZ7FV6mgCFWn2Mk1VrW9XeZvujGk+yKbwzPa20s3dCxNvd5OiZ4bvZskjVK2C
+	 8418qQK6BCmUUfr9HXiyMDYz3PPGOuFUyioJaLFv55czK+NQ7ZkB/b+ro5nmByn/6a4wp
+	 TYwKDIuecWGNyT46nOjqmK/ZRWsCF3lVggTKELB4dRXgUWchnuabjIpCABb6SJVxKHw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794396644;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=BR3C7X5L79A8iSQFZKFRMc0cQ3J+KtB6+sTRGC/NFlE=;
-	b=xodJP93qt1Mb+mBPVaegRwU7TC4ffGk9ZGnnUFA7buO/lG5HFXQYlJwgIEUaDnkn62GP
-	 n4+70AyQ6MswejclES7zwQWb88Xbm/EZoa1urJycsLEPU3i0AonFeu+x4jicgVCsAjxKv
-	 d0CNksMq7Dwhu8QSDSVsexhVkLMmwLXTCHJVfkvS6RWNiQ0hU4IY60HgB5FTeFwzmN1pI
-	 F+mPmGBX7LUtXBd+GbBvS54Ij7/5JodbbWJ/DnLrDhRM81TfDYnas/G8Vw8L2MKO2/1Pr
-	 W2HW1puXDpqQlo1XQiQ+8079rGxqyZSJhKxao9nCa5X07NxccsbRMjbtB//He2Pwysw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ionos.com;
-	spf=pass smtp.mailfrom=ionos.com;
-	dkim=pass header.d=ionos.com header.i=@ionos.com header.a=rsa-sha256 header.s=google header.b=ZkHo62if;
-	arc=none smtp.remote-ip=209.85.221.41
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=UgfkhFQDE5XUrpu/BniOwomSfmu/mN0hFz5scbETrso=;
+	b=UDfQrWuFCaU3IfgTpWmjhTV7EH8uNtGrwjjUN/Tf9o0ofYYpanygM4EblHj7xB7MYGUp
+	 fGGP55LKvXax9wherqpZGCVZlTRDw3Z1Mdfj+p0JEMD6e2UZAgj8VRA/1f4q6luFVX7bz
+	 8xH0MKMspouOH61LJfSkNH8WBzGHR6VpetrADDysv20FreMHkPVNxXTKTUC6JBGBnrRrN
+	 ylLQL9LOopkHR6bhVnsrNHg/+0WRbyhns6kjoYC925C5UuED2Y/CLgFvP0ADLshKmX3ie
+	 AhUa1XBoN9rSyoitlYPeYCyl4tZ6mnOfTZJO6iqgbPS6vxDDQcg9Ywuah3TGS9ReBFA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NS36bZU2;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.54
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD049606A327
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 11:30:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD049606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ionos.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ionos.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E38A6606A887
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 11:30:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E38A6606A887
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ionos.com header.i=@ionos.com header.a=rsa-sha256 header.s=google header.b=ZkHo62if
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-492f563d1c6so1176745f8f.3
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 03:30:40 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NS36bZU2
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-491971ac844so2892635f8f.2
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 03:30:43 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794396642; cv=none;
+        d=google.com; s=arc-20260327;
+        b=DQoYnFDAzvcqE8t3CYt2V9sVvL/Sje2CnyPk4oRlkQ+94nMMTfEMxSi8DAJLDpNX22
+         LZeYwNO4c04htawetJ8K3yj4QNw+Pwjxir2h69sgIvfLrz3ohwlniwzZWDgxkZEC8erP
+         4DOX8J90lKIqiDK57fcSv4D51Oc6lo2oRIfn3DZJHDsS3Rd2XUBZUHfgMZtFSYR+opGK
+         rrcFqAJhrbKCqQeiPH/Av8JVJaSj7CK9C3Ziul0N5FAxUpph0S+UKh/0SzG8DGRNtF3H
+         2FiXzpa0zDDYCUuOJgaEz1g+DEL/5vCAlfn2B7aPSigq4U/7AS4UCBJiM/spbHKii8Dc
+         /f6Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=UgfkhFQDE5XUrpu/BniOwomSfmu/mN0hFz5scbETrso=;
+        fh=je62G1xrNDehta0KAGJcN1uk4E6Gzainrysb9CLI4YI=;
+        b=JzQPoecC7PTcTT5pwbMpkCsrDg5pTi7Bd/6YPp7hy6wHh9bwTPy8s9Chi8xlRt341T
+         +fyTdrTXNWVUZrNdRWQXgOZ6hoMtJcDNDybDe7a12drm1vgx5LGIe8ON5kUWb7+rODXa
+         OreRSUMDQCEmX615nMLmAdpeGTlslxM9Sc26NS86Nc8uP2PXiQQlSiPNyNEHHzvmXaFY
+         bYA1QeZKhN2Yj5DzBAsZa251EnJNeb8Ep0dQGWVuLbEhrbFOJKKm93zNpg8OtkuMIQql
+         /Qaeoh3qKWDsrSgZtxGi1MGzZaIjlB+Rtk/0iTCfLt7McvW+oH2d6joeW+qtLdy27PAQ
+         M5lw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ionos.com; s=google; t=1794396639; x=1795001439; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=BR3C7X5L79A8iSQFZKFRMc0cQ3J+KtB6+sTRGC/NFlE=;
-        b=ZkHo62ifmcuJUtylp4XDkQj48Cq1eIVrNjJUmhzuVRZI4EFKmh6+AdJD4N8fLb4I+q
-         QA3oNat9Tf0IX75M0A2qeE3AR8lDGbA+EQ0RTcnfnSJDIJ70j1nQkn7EDfB9LwG+M7hO
-         vZQKHWCD+phtyXlyEjrxGdJ/SK3TOrBf+WeKNN+3FwqReLFqU9Ge3AIUFS/rc3nUb7gj
-         R0RAwO5jQBasn+CyCpgzeZzF0M5xtUiPtH7QBH+n4qeJhpEkZKtWsEfUPVW5df9JZv13
-         vESRig50GhfUGkjaB4Wqh73fFh9wiMsc6wpBP4P+4lw7FbAKVjOKMKcaJir9KBwh9KtD
-         jjdA==
+        d=gmail.com; s=20260707; t=1794396642; x=1795001442; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=UgfkhFQDE5XUrpu/BniOwomSfmu/mN0hFz5scbETrso=;
+        b=NS36bZU2Lp1nN7SgynVLZLw4RRYvh4TfXs2ptYnXHx49pXVEMx3uN77gfrFOQhYpcB
+         5td1a3OO3EVpbd7NH5diznNdsyfLhj2pKanFjQwiIQn8bkXHD1EeLwpczd5dyqwe6vQr
+         b5dEPkX0QnkeAesn6bi2CyOnDQ/IuCKZ/X1Na59/S+5rLThdGSTshxLXGW4iDIMQbCsU
+         RSfWXBJhHFQtmGK8s6lXVMPhXtLakPBe5Y52OLtdksA8f/hEu/Vik1a8HnfGL7b50vji
+         xzSPZoyGJQaXLaUWK8aIwDVBTvm/L7huiIZ5ayuxrevfLOyzBV/O2jHCTsWh1nzM/9Vh
+         qXvA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794396639; x=1795001439;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=BR3C7X5L79A8iSQFZKFRMc0cQ3J+KtB6+sTRGC/NFlE=;
-        b=HIhhTgwE6buoP+OZiCgrMgEAOSPM3LrgIehqGMqcnKpToeeXi2VeOLeOfbvg4IX8uP
-         9S9zgHygap76yFVPsp/8tEajrEFXa2eB51zxnQVxLYT9DNx8P4rv/zeFPqMh79URS9wZ
-         bEV+43GjN1BIxwOAp87T92ogsQH86uUSc2ERLOqRhV4m6OwakSfLI/+fJ1G2ODoYIGy/
-         ctjTwobYVtZ5wqt8YdlZlzlhjtlIUu+FqUsrgVCsy2KfJMypuNeb/xVsoEaPHaz9GLIB
-         YszY6SaPf7hYgq7903oBaJ3/g1+WbrLxSRqW3vwCL9Pds6D0/HNxujwYccgWZU2KhJMZ
-         Q6YQ==
-X-Forwarded-Encrypted: i=1; AL+hErHw4YO/NJUQt4ot7MuGrPMz+9r5/GSfpfasDk0GHVB6URSULoIrDBxU1bkPb8DGP4p2UelaUNs7RtCoZZs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9In3ssuiChBo5x5mVbXo6pmz54lMtvNT96heQvnlbpG+lOYN2K
-	IDkYupDpRZA5IaCFQBw+nFwUUok27tMJ7ebZdlquKgP6F2SIuI78fUTD8Mt9wizepYo=
-X-Gm-Gg: AYBFou2cjWTLqBIppH7BF2t7NNTf0UwEGwhEWGxFcQ1SBSrhUGohEiEd3tK+IwoD1oi
-	mxOQEL0m6LkGuq7xBWeoPlEulwEYXZXgLmYlX+vpxGuLoVlfrRxLP3nCGyPdjRV5nkvbh/MiW7j
-	8cruCYDeIjaS6WVMcxIycrjn1Br8gtXrVDfgOdcNWVOAO5BEkr1OExAHUHXe8vNJX7q2yRTM+bT
-	ULUIw/TQpMJMFXx9y0zlIXbvONUOqzJHy2tl4fq+uJlRZc1Rnac4QNQJs3aHz2+fowOazj/37/q
-	uG69LLjllsekn86e9pSBVKn0VG7sXOQD8y+kwMfJW8OjiWDi6sE6PBDUxC+hlKcwbPZALcP+oDL
-	m9JQRohkqmImfNamrsosTvno8/xHw8t/tPNtxFihfA3bGtNfoT7rROp3JkDiJf7oEL8G9GDLbBo
-	E4eA+1zZ0Jx3o6w5pDwHgCuTC7rtFSS6QojNeveCTqrVuvn42c6ScRfPxZtoGTZ1VLi++iUX/k/
-	fxiBDHpB7xCaYxWHxQMgOip+NXDRlMRDw7utzkBF8fVCdvXVQP857Bavmw8E5rtTlHomsRjLBq0
-	t62CeyCcer+ebyGtfxcu//18yNwrQNTDcXsALWjhwoRTky/+INWXGNMhf5vhug4quDNJh9GjQba
-	X1e/MfccLm6KJmUbg/kf6AfQnUBMnc/w=
-X-Received: by 2002:a05:6000:4008:b0:48e:fdd:41d9 with SMTP id ffacd0b85a97d-499c6e979camr3766412f8f.31.1794396638819;
-        Wed, 11 Nov 2026 03:30:38 -0800 (PST)
-Received: from raven.intern.cm-ag (p200300dc6f4cbe00023064fffe740809.dip0.t-ipconnect.de. [2003:dc:6f4c:be00:230:64ff:fe74:809])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498357648f0sm10959991f8f.12.2026.11.11.03.30.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 03:30:38 -0800 (PST)
-From: Max Kellermann <max.kellermann@ionos.com>
-To: idryomov@gmail.com,
-	amarkuze@redhat.com,
-	xiubo.li@clyso.com,
-	ceph-devel@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Max Kellermann <max.kellermann@ionos.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] ceph: fix d_lock leak in debugfs mdsc_show()
-Date: Wed, 11 Nov 2026 12:30:29 +0100
-Message-ID: <20261111113029.959595-1-max.kellermann@ionos.com>
-X-Mailer: git-send-email 2.53.0
+        d=1e100.net; s=20260707; t=1794396642; x=1795001442;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=UgfkhFQDE5XUrpu/BniOwomSfmu/mN0hFz5scbETrso=;
+        b=xl35SzrTkuTghtECz1yUf3kRbHgQ4HyZ0Z68GrqYUZaNGx2Dojot43r5DCSjKoQIeP
+         +erVH3SKjrXtBbTxoKgJCPKs0O4OLk/X4tPv3G8CZi6KaoX3evCMt6IWDaJN0lVpjqNp
+         24DKOKUEPx2FZulzB/q+4X4lYMcRKMTt80MSbs7ijc8skU5UgR/q9tPMqLOk2af7NDJp
+         mA8zgEX3gy3Dra9Ux2qvNz5byVNgykQ5qcLZliXzBHG50fnHcFJHLcYStPuO20Lm5U8d
+         vGrAnHV8eAVcyzMu4E/ZK3sRwVkH/ryxfBc/+IpRMxImNFE82iHteD3k4w4P0bzVb9uZ
+         2uTQ==
+X-Forwarded-Encrypted: i=1; AL+hErHXTHbhKFvGf0yW/65eajTB2Zkq/GyFRS9Z6wEkFokFc3vGJWSQkN47BGiJBbb3RNmcq0R3s+4UN5ak9BU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+hfUPi/0Z1RErLMSNHQl81oCGgv64C7qeA07T+rbdzFQt5d5B4
+	mbBUgzi4dNwnbyOI8b62sLt7pgZXDbJl7MWFmc4yFvkQ5YqOzKFoadbNGyyWf7huQ5ib/h8QZi2
+	eC5hxij4CQLErYzVZUXH3z82ROu2TSV/6OYoi
+X-Gm-Gg: AYBFou0XIW+vwLnh17p/uPWI5DGrJJcuo1mlEQdjUWG+lUjBS9NvMdAv0dFByptpmtL
+	qifg6HXzNXqKICEhci5SiLo9UAbVU9UJzm1pC0y8J/8KecTgHerwJtnAWp8KQU82bBu0CUCplwC
+	6s6Z3QbvhxxkAnSs+SBzblZ6XMjLW4DN3qT3IXSAVkDJ6tuw+QcIOOcvAnDaUyixYUCRVyZ5a4Q
+	zfZpewHuCWaiE6OidKa6vN8YPshdZ800+iJgTl1sjSlG0AcRmTObHn/2psfVXHb0PEXS4Ny7qDl
+	OusZ9SffdlyAlqyELkIEYGhQCjXP44h2NgVT9cIBthUNfEseAm57Yj30dA/ALd3hYf15J9uBWsw
+	4JZkgEFX3WlG7wGvcpnzhv23u0P0T2g2f1BE+GAh1yqIEwE5bEAtj8mpYD2Q=
+X-Received: by 2002:a05:6000:4a09:b0:48f:e879:5890 with SMTP id
+ ffacd0b85a97d-499c7368708mr3693601f8f.32.1794396641750; Wed, 11 Nov 2026
+ 03:30:41 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,108 +104,136 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260923060924.45742-1-syedtayyabfarooq08@gmail.com>
+In-Reply-To: <20260923060924.45742-1-syedtayyabfarooq08@gmail.com>
+From: Syed Tayyab Farooq <syedtayyabfarooq08@gmail.com>
+Date: Wed, 11 Nov 2026 16:30:29 +0500
+X-Gm-Features: AclHuK8l6XMFWNrCKlt8GZ3LUscrj4Ss66FjgXR0gQdCuuxpBLlr3WsNlgeFcLo
+Message-ID: <CAKD4hN5rOFCczzdBzgyD15EWvcgK=KRgyXihqfE-hd1XydnLKQ@mail.gmail.com>
+Subject: Re: [PATCH] fbdev: fbcon: Fix KASAN slab-out-of-bounds read in
+ rotated font buffer
+To: Helge Deller <deller@gmx.de>, Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>, 
+	Andrew Morton <akpm@osdl.org>, 
+	"open list:FRAMEBUFFER CONSOLE" <dri-devel@lists.freedesktop.org>, 
+	"open list:FRAMEBUFFER CONSOLE" <linux-fbdev@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>
+Cc: syzbot+bf4020519fbd94b2355d@syzkaller.appspotmail.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-mdsc_show() walks the request tree under `mdsc->mutex` and prints the
-request's dentries like this:
+Hi,
 
-  spin_lock(&req->r_old_dentry->d_lock);
-  seq_printf(...);
-  spin_unlock(&req->r_old_dentry->d_lock);
+I wanted to follow up on this patch, if anyone has had a chance to review i=
+t.
 
-(same for `r_dentry`).  The pointer is loaded again for the
-unlock, but ceph_fill_trace() can change it in the meantime:
-ceph_fill_trace() runs with req->r_fill_mutex held, but not
-mdsc->mutex, and:
+Thanks,
+Tayyab
 
-- after d_move() for a rename, it swaps `r_dentry` and `r_old_dentry`
-- splice_dentry() replaces `r_dentry` with the spliced alias and drops
-  the request's reference to the old dentry
-- a lookup without a locked parent assigns a new `r_dentry`
-
-If an unsafe rename reply is being processed while mdsc_show() is
-between spin_lock() and spin_unlock(), mdsc_show() unlocks the other
-dentry, and the `d_lock` of the one it locked is never released.  The
-next attempt to lock it spins forever.  I have seen this on a
-production server, where our monitoring reads the debugfs "mdsc" file
-periodically:
-
- watchdog: BUG: soft lockup - CPU#67 stuck for 48s! [kworker/67:2:3746175]
- Workqueue: ceph-msgr ceph_con_workfn
- RIP: 0010:queued_spin_lock_slowpath+0x4a/0x240
- Call Trace:
-  <TASK>
-  ceph_fill_trace+0x7a4/0x910
-  mds_dispatch+0x9f4/0x1ac0
-  ceph_con_process_message+0x66/0x80
-  ceph_con_v1_try_read+0x392/0x17e0
-  ceph_con_workfn+0x329/0x590
-  process_one_work+0x146/0x2b0
-  worker_thread+0x182/0x2f0
-  kthread+0xe4/0x1d0
-
- watchdog: BUG: soft lockup - CPU#55 stuck for 49s! [cm4all-kernel-e:16346]
- RIP: 0010:queued_spin_lock_slowpath+0x1a2/0x240
- Call Trace:
-  <TASK>
-  lockref_get+0x47/0x60
-  ceph_mdsc_build_path.part.0+0x85/0x2a0
-  mdsc_show+0x239/0x3e0
-  seq_read_iter+0x11f/0x480
-  seq_read+0xfd/0x130
-  full_proxy_read+0x50/0x80
-  vfs_read+0xa4/0x340
-
-Both CPUs were waiting for the `d_lock` of the same dentry, which
-nobody is locked but nobody will unlock it.  The first CPU was in
-update_dentry_lease(), called after the rename swap.  The second one
-was the next read of the debugfs file.  Since the ceph-msgr worker was
-blocked, all requests to that MDS hung.
-
-Replacing `r_dentry` with a spliced alias also means mdsc_show() can
-call dget() on a dentry whose last reference has just been dropped.
-
-Fix this by holding `r_fill_mutex` while mdsc_show() uses `r_dentry`
-and `r_old_dentry`.  Taking r_fill_mutex with mdsc->mutex held is the
-established lock order; __do_request(), handle_forward(),
-ceph_mdsc_wait_request() and ceph_lock_wait_for_completion() do the
-same.
-
-Fixes: 76aa844d5b2f ("ceph: debugfs")
-Cc: stable@vger.kernel.org
-Signed-off-by: Max Kellermann <max.kellermann@ionos.com>
----
- fs/ceph/debugfs.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
-
-diff --git a/fs/ceph/debugfs.c b/fs/ceph/debugfs.c
-index 6a9a5551d9d7..83506d9207fa 100644
---- a/fs/ceph/debugfs.c
-+++ b/fs/ceph/debugfs.c
-@@ -109,6 +109,14 @@ static int mdsc_show(struct seq_file *s, void *p)
- 		else
- 			seq_puts(s, "\t");
- 
-+		/*
-+		 * ceph_fill_trace() may replace r_dentry (dropping the
-+		 * request's reference to the old one) or swap r_dentry
-+		 * and r_old_dentry; it does so while holding
-+		 * r_fill_mutex, so hold it while using them.
-+		 */
-+		mutex_lock(&req->r_fill_mutex);
-+
- 		if (req->r_inode) {
- 			seq_printf(s, " #%llx", ceph_ino(req->r_inode));
- 		} else if (req->r_dentry) {
-@@ -151,6 +159,8 @@ static int mdsc_show(struct seq_file *s, void *p)
- 				seq_printf(s, " %s", req->r_path2);
- 		}
- 
-+		mutex_unlock(&req->r_fill_mutex);
-+
- 		seq_puts(s, "\n");
- 	}
- 	mutex_unlock(&mdsc->mutex);
--- 
-2.53.0
-
+On Wed, Sep 23, 2026 at 11:10=E2=80=AFAM Syed Tayyab Farooq
+<syedtayyabfarooq08@gmail.com> wrote:
+>
+> The root cause of this KASAN slab-out-of-bounds read is that fbcon fails =
+to
+> reallocate the rotated font buffer (par->rotated.buf) when the font
+> character count changes but the font dimensions (width and height) remain
+> the same.
+>
+> When a user changes the font via ioctl(KDFONTOP), fbcon_do_set_font() is
+> called. If the user first sets a 256-character font, enables rotation, an=
+d
+> then sets a 512-character font with the exact same width and height, resi=
+ze
+> evaluates to false. The function then directly calls update_screen(vc).
+> Notice that fbcon_do_set_font() never calls par->bitops->rotate_font() to
+> update the rotated font buffer for the new font. As a result,
+> par->rotated.buf remains sized for the old 256-character font.
+>
+> When update_screen(vc) is called, it eventually reaches cw_putcs_aligned(=
+),
+> which attempts to read the glyphs from the rotated buffer. Since
+> vc->vc_font.charcount is now 512, vc->vc_hi_font_mask is set, making
+> charmask equal to 0x1ff (511). If the text buffer contains a character wi=
+th
+> an index >=3D 256, src will point out of bounds of the old par->rotated.b=
+uf
+> (which only holds 256 glyphs). The subsequent read in
+> __fb_pad_aligned_buffer() triggers the KASAN slab-out-of-bounds crash.
+>
+> To fix this, fbcon_do_set_font() must call par->bitops->rotate_font() to
+> update the rotated font buffer before calling vc_resize() or
+> update_screen(). If vc_resize() fails and the old font is restored in the
+> error path, rotate_font() must be called again to restore the rotated
+> buffer.
+>
+> This pattern of updating the rotated font buffer was previously establish=
+ed
+> in fbcon_modechanged() by commit ef7656e85f1a ("fbdev: Fix out-of-bounds
+> access when rotating console after font resize"). The fix applies this
+> exact idiom to fbcon_do_set_font(). By placing it before vc_resize() and
+> update_screen(), we ensure the buffer is correctly sized before any
+> rendering occurs. Checking con_is_visible(vc) is also correct here, as
+> hidden consoles will have their rotation state updated later via
+> fbcon_switch() when they become visible.
+>
+> Furthermore, by calling rotate_font() again in the err_out path, we ensur=
+e
+> that if vc_resize() fails, the rotated buffer is restored to match the ol=
+d
+> vc->vc_font. Without this, restoring a 512-character font to a
+> 256-character font on failure would leave the rotated buffer sized for 51=
+2
+> characters, which wastes memory; or worse, restoring a 256-character font
+> to a 512-character font would leave the buffer too small, causing an
+> out-of-bounds read later.
+>
+> Fixes: e4fc27618b75 ("[PATCH] fbcon: Console Rotation - Prepare fbcon for=
+ console rotation")
+> Assisted-by: Gemini:gemini-3.6-flash Gemini:gemini-3.1-pro-preview syzbot
+> Reported-by: syzbot+bf4020519fbd94b2355d@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=3Dbf4020519fbd94b2355d
+> Link: https://syzkaller.appspot.com/ai_job?id=3D59f0d7d9-607c-4497-b2e2-0=
+b16693f9502
+> Signed-off-by: Syed Tayyab Farooq <syedtayyabfarooq08@gmail.com>
+> ---
+>  drivers/video/fbdev/core/fbcon.c | 14 ++++++++++++++
+>  1 file changed, 14 insertions(+)
+>
+> diff --git a/drivers/video/fbdev/core/fbcon.c b/drivers/video/fbdev/core/=
+fbcon.c
+> index 01715873ea49..158b2f91d68e 100644
+> --- a/drivers/video/fbdev/core/fbcon.c
+> +++ b/drivers/video/fbdev/core/fbcon.c
+> @@ -2432,6 +2432,13 @@ static int fbcon_do_set_font(struct vc_data *vc, i=
+nt w, int h, int charcount,
+>         else if (!vc->vc_hi_font_mask && charcount =3D=3D 512)
+>                 set_vc_hi_font(vc, true);
+>
+> +       if (con_is_visible(vc)) {
+> +               if (par->bitops->rotate_font && par->bitops->rotate_font(=
+info, vc)) {
+> +                       par->rotate =3D FB_ROTATE_UR;
+> +                       set_blitting_type(vc, info);
+> +               }
+> +       }
+> +
+>         if (resize) {
+>                 int cols, rows;
+>
+> @@ -2466,6 +2473,13 @@ static int fbcon_do_set_font(struct vc_data *vc, i=
+nt w, int h, int charcount,
+>         else if (!old_hi_font_mask && vc->vc_hi_font_mask)
+>                 set_vc_hi_font(vc, false);
+>
+> +       if (con_is_visible(vc)) {
+> +               if (par->bitops->rotate_font && par->bitops->rotate_font(=
+info, vc)) {
+> +                       par->rotate =3D FB_ROTATE_UR;
+> +                       set_blitting_type(vc, info);
+> +               }
+> +       }
+> +
+>         font_data_put(data);
+>
+>         return ret;
+> --
+> 2.43.0
+>
