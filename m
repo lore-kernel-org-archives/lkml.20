@@ -1,79 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794418884;
-	b=2ptDdvapp+BvaJ8iKPg66ICWDZq8GW8tfJSeslG8XLiQUcg2JLoZrcgedEEYCJb6C/Um
-	 3tHyN+olsFAPXY/AkEttSWULWsfJa8a1P1Y4bvnif4qW3EDvOuu8Ck8mU5mCDcOmZD7bp
-	 cfhoaDhQHK5VhmW0Y4lY4mombqUFlaaLddw4hMtHa/xwXQIfWY/ZwYql6I6fjsWby2Qx7
-	 lt8qIAguEjaPRn6gXnZHXhzbpjELOkLhVwdf9devQPwNEdlJorFJiMZUBOE4tFBa74PiI
-	 afePT6VXTTR9QhGVNC7ruHOXfKFuv0qSdIcIorjAgIKJTzerZlRB7XZ+M4N/VhdECog==
+	t=1794418901;
+	b=vSa6mz9SJau4JDnLfn72GGSLstShnAnZInHcDJyyjNHCd6l8aZfOTRJEXowgVgciZCqz
+	 oE8ve3yQPVyBgHNL0E02Q7CdE8WW0gsGaSHqL+EzE5lDXW5UFcGcRdBA48QT9TtFc0Ejo
+	 3g84z1OIBMrTGGZobplT2H5O4DTDYP9syAGyQjIpZ2TAoBklio0jBqx2L3pQqg5QA4b+c
+	 TMmLOCWmQO9xibnuaBd6rW8t6rvRXK9iopJbFl5Or1+zachMYG8SG0Np4yLCt3iE1eIl8
+	 SHvSoUgZIQowtnrcjjz8Zgic2qWusE1O8C5U3/rOFbGWN9jdU8QqAbWxop62C/2Zs+A==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794418884;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=bifKXcyToU697jZspM58rt6ynJJkPNigj5HdcEsKF9U=;
-	b=45CJD6KhxJWxgGhSYVRBjTf/IvY3xWuub9tk2hbS11EVhS1GoeBfTaZAvLjvGHgm4+eN
-	 Xx5fM0NKVsrkflMES/+kYKR9XIhx9DjRJC1aFdPpoOkBo+9GMfbJkORoZ9IexkeSd9oAS
-	 eHztzqVUVeEyQUJx+mzeusnt4c18+aBYe2ofnL03O/dkaMVBMhia/luSNByvCS/CeHbit
-	 yX6V40nxrKxfSHAwlYontzW8a3fVqkP/bDMpqbUjgo7cY9Am8TgP3hT5ako64o+80ZX/6
-	 tpRFy2sXZzwu2L85DN6WMwcw8qu84Z3xzoFRfuGDesXlobJL8f5ZeM5M6p0X/AU7H0A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794418901;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date:
+	 MIME-Version:User-Agent:X-ZohoMailClient;
+	bh=iqjriVRV+XaVhh5T/bP5TLkCUtH+I0gT57VpXww08Ts=;
+	b=wDE12LD0nibRA2YYtBXeXzHtPqfm8GqNHht8U4s/QzMOhigjkujrQtm07kWc818qjCYF
+	 yuadzEBjuY2H6KKtG2Mzw6cnmFh/xuXeVIwLhn2LNwWTrvxn4rEIDdluLT2HPmmyxpO7e
+	 ZFUlflP3xRvb0ekHBGbe3oyWoIFf3sqmlOb7UDh0c89392/RWCYrFDKoyIiZfGroCGzsS
+	 sTklBlPf+1sNKE2YB1hbUmdAFa5q4hL2ekieKQ9RksqbSrtlIXG9XVcgMHRY4UqC6NYui
+	 /3KoL3dzIwlLQN82lDpPY8D1p0ULRqVI33w41mB4tLYXJu309i6DNXk5l8bMeDjjJeg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gW07Njt9;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B473F606A336;
-	Wed, 11 Nov 2026 17:41:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gW07Njt9
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794418884;
-	b=xhzNzV2UkXnlPGQ4SJ6EdZJ2YPXawxG2gcxhBektv2evUWe153OXNAX98LENKAEHo4P6
-	 gTt884JL1KjfJoi4ejBndRUv0slZ+vTMU/p66nodqhxFe7x/hjb6Pk/xm6eK1MRppmAfC
-	 TNbEOVQdHSOWQ7IVv6UOMfAKg1e1bwBn+sXdGel/VLF1JvGheC/jf2SQFTuLI6CR0upF9
-	 b5WMuZ7kkKj4FXhFeouZ7z91CPwQAtrrZ4wZ4U9qWEKpi5STWT37fVn6s91RZcCmhgjAB
-	 jDsrU8ESHhK6qUBujMtfuQ/wfAQRwL2GrVDM0qTLsNqHucl0XQMoiVDBERQTeOsC4rQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794418884;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=bifKXcyToU697jZspM58rt6ynJJkPNigj5HdcEsKF9U=;
-	b=d9+r8zH28lIT3sBQxbsLAD6QBVRXIo23F+9/NNDH6r1pPxrt+wBG1/GDDcMr6BzesVne
-	 ErCAr6zC8EZnDNODYZMfHBrkv1MT8HyCvrYlgEEN0DPa5dsjWuHKxEYMBXdlFrNhgd/+B
-	 ni5+Z3/UtyboJmjmY0qnmv17/Q3te2kSCY4XRm/lj8+KZHkxBDbBWaIxXPZc0qfKjVojl
-	 pqVvTz4I+kv4f2/AWXpSyIG1qgOO22qLoTSMYWFOO2DV6CFY/gyucit38MTznIzJeFWHb
-	 tPyKXag8vcW6TjbAUt5R+aRRuChm7+7dE5BkP/gRcmsGrrGW9VVI/bEFy1EhyKS8Vvw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	dmarc=pass header.from=rong.moe;
+	spf=pass smtp.mailfrom=rong.moe;
+	dkim=pass header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=GQAG+RSi;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 4CE781F00A09;
-	Wed, 11 Nov 2026 17:41:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794418884;
-	bh=bifKXcyToU697jZspM58rt6ynJJkPNigj5HdcEsKF9U=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=gW07Njt9Fusg8OMyKJedlVxNYQVXX2CQzIaW0jzuxI6A/W06afiILkz5ESyBhUXXa
-	 0DYRW3agPpIIOBFTWUuMR1yiSRNGRSbdTLPK0US10/OjfmSE7vpkW/OCFmoldpTFO/
-	 znraoZKHUcd183u97uZvToBDAkj6Ft0ISONnDyMu3+IY/Ux7MXvCHNBluhx2UseeTp
-	 dEeeHXy6OposlV+9+yshcTqczOoNZ5HYgOoBdRgPRiXTcdGg0JihQq+HgJ0fiEGwwB
-	 1xlkYj3Wel/rcRKt2aY36AyYtTNlUSgck4W+OZ/r3LeUg1yholo/bTBeHKwPmZzMlY
-	 7uLjuUFb1EopQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 9525149061;
-	Wed, 11 Nov 2026 17:41:22 +0000 (UTC)
-From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Subject: [PATCH v7 0/2] Speakers for Pixel 3 / 3 XL
-Date: Wed, 11 Nov 2026 18:41:19 +0100
-Message-Id: <20261111-pixel3-audio-v7-0-ecf28efc5c33@ixit.cz>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C356B606A331;
+	Wed, 11 Nov 2026 17:41:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C356B606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rong.moe
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=GQAG+RSi
+ARC-Seal: i=1; a=rsa-sha256; t=1794418886; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=Wz+9A2bJsK1w1aCWKBDxj/F9POezsA0iczu87wUfwlQ5T94JTw3hZ0Wea0WPz/40Ytgn1AEKgM9rZPz5GbQFxHjD5FWggGJkKz9yfGWiuNHRYmRGbXvPQMoTvJ3G+CxfUKkNl+QX3rAWyeddedtk6cycznag6yoocp59BAVB2KA=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1794418886; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=iqjriVRV+XaVhh5T/bP5TLkCUtH+I0gT57VpXww08Ts=; 
+	b=CZQ9ZwJUcWcDp3sQmd1t0GhN4buM2apamNQwJggpMjYOpKMX6vFZL9GUn1fBzDJJziy7JSsV70bCF1DgpzGGDzRKraQKQuh+dPM0nVFQbaBrv2aYsqG5WqavV/D1TjJd/APlyHIfnf+CAFHV/3wic6z64YubrIaVdv7clNk6o64=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=rong.moe;
+	spf=pass  smtp.mailfrom=i@rong.moe;
+	dmarc=pass header.from=<i@rong.moe>
+DKIM-Signature: a=rsa-sha256; b=GQAG+RSi9TiIBnyVIMRoyJfyca8aX9lHAoLUgQgAFx6j6fEtPuQXaA+7fiNEk3wW0zNF585CbxufYjIr8H7HXNp5eEZ/kQn0i7t4oKg79OxleSqjcDbwBV+pfKD7oZUxLNPwZiecQYx5pJZzegUV4Uhs+n6iEhasqL8CWp4XaqGRO3UMWJ5LWByaQrXKKJ2YERWOxb9BNE2cV2B0zdCb3SU1cRB3YFb8Lj6QEFnZ1VtyBDOvOZHWWo7qHhnXnVYZHflqo8GHej3B5NTCotv14uT4JKkkld7gcFxoXaDz6d7tSvPPUwic8DYQRczI1LQAWDswp2VD/s/NgxzifLhmXw==; c=relaxed/relaxed; s=zmail2048; d=rong.moe; v=1; bh=iqjriVRV+XaVhh5T/bP5TLkCUtH+I0gT57VpXww08Ts=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1794418885665864.7927191318593;
+	Wed, 11 Nov 2026 09:41:25 -0800 (PST)
+Message-ID: <47e0364e0de6b9c22b21019d3d7e506defe58964.camel@rong.moe>
+Subject: Re: [PATCH v2 2/2] HID: lenovo-legion: Add keyboard backlight
+ driver for Legion Gen 10
+From: Rong Zhang <i@rong.moe>
+To: Ciro Pedrini <ciro.pedrini@gmail.com>
+Cc: Mark Pearson <mpearson-lenovo@squebb.ca>, "Derek J. Clark"	
+ <derekjohn.clark@gmail.com>, Ike Panhc <ikepanhc@gmail.com>, Hans de Goede	
+ <hansg@kernel.org>, Ilpo =?ISO-8859-1?Q?J=E4rvinen?=	
+ <ilpo.jarvinen@linux.intel.com>, Jiri Kosina <jikos@kernel.org>, Benjamin
+ Tissoires <bentiss@kernel.org>, Werner Sembach <wse@tuxedocomputers.com>,
+ Aaron Erhardt	 <aer@tuxedocomputers.com>,
+ platform-driver-x86@vger.kernel.org, 	linux-kernel@vger.kernel.org,
+ linux-input@vger.kernel.org
+In-Reply-To: <CAPKD0HfHuv4vKWeff_uhGxXosuU279qB+kkmXNPXJYL2kxFR2w@mail.gmail.com>
+References: <20261110-legion-lighting-rfc-v2-0-845726afb71c@gmail.com>
+	 <20261110-legion-lighting-rfc-v2-2-845726afb71c@gmail.com>
+	 <9002537db845b7a0a900612fe3a4a3638f06cd37.camel@rong.moe>
+	 <CAPKD0HfHuv4vKWeff_uhGxXosuU279qB+kkmXNPXJYL2kxFR2w@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 12 Nov 2026 01:36:18 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,142 +77,94 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33Py27DIBAF0F+JWJcKGMDQVf+j6oLH0CBVcYIdl
- If878WN1NhedHkHnTvDnQxYMg7kbXcnBWsecn9ooXvZkbB3hy+kObZMBBOaaQ70mC/4DdSdY+6
- pjz55adEw6Egjx4Kpvc91H5+PXPB0bq3jc7jPw9iX6+/Kyufpo71jat1eOWUUvNYJwCib+Hu+5
- PE13MhcU8WTWrY5rIpGuyAERsuVsBsKCyrkhkKjKjItNUvBOLum8j8qGzXKq8gBnFO4pmpJt39
- V88EpeRDBGubTmuo/yhnXG6ob5TwYI6Xx4Bdbp2n6AUTZpIbiAQAA
-X-Change-ID: 20260613-pixel3-audio-bdbfb49e8037
-To: Srinivas Kandagatla <srini@kernel.org>, 
- Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>, 
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- David Rhodes <david.rhodes@cirrus.com>, 
- Richard Fitzgerald <rf@opensource.cirrus.com>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- David Rhodes <drhodes@opensource.cirrus.com>, 
- Conor Dooley <conor+dt@kernel.org>, Abel Vesa <abelvesa@kernel.org>
-Cc: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>, 
- linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, patches@opensource.cirrus.com, 
- devicetree@vger.kernel.org, phone-devel@vger.kernel.org, 
- David Heidelberg <david@ixit.cz>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3488; i=david@ixit.cz;
- h=from:subject:message-id;
- bh=reyRd4l1Oh4ajFZmaaOwLVE50anXb8RwYNR93+iRoag=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBq9KjBbezIplsv8LDE+sCR+2qh6J8tl6L5Pzemk
- id3lNTlbBeJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCavSowQAKCRBgAj/E00kg
- cqT/D/wNbkhzbY0XtcRIFnJYf3bSS8AyERfjToVHhnn7bM0DLR3fSo0HrxukEWB+i7clWq8Lb6i
- FgCm+fI1pUMuwe8ZLXjpZNDDgR8CvX3FSnZY2RjUqNoi5CSra5nxIF/LOik7/xWSz5y/NuFlQ0S
- OvHUY6g0PNSdfPt6/VWHjjGlP8QAKK2JEGZ8upRroVmbjHPVZwL19FLU/OdhCrsr2Nf4ocHhX4N
- GFl3c6m1wFR1a6WWzEXhSWC+C+WKHJ0ju48non4hOWluMbQyVJvRO9FyCKWfRQC9bNrIolF3jJU
- sJvS72xe6gM9ELiHRc4/el0aT7O+r1ee5/gevckuvXi/ipGfaD4Dvv/IRuE30sx6WIItAbvlTek
- aW+cuDjrf4k9qvr5bbfDQdLYHg+d32wkS5J/jNEcGvh0MjMmeQoeFVMxF/0ODpZssqFb7+oobzq
- 6gDdGv2cz7VIo8AGJyEl5L97uD+Nn5pxvnQt66TcKY1CMHxMLjVfGCHnUUz+vCoC4VmgxpfOOTE
- 0egNU/piFaNz38LTC0Wl5Bn2tAFGiexmziKTKxTD+WdenQ2eKoeGWXgpse56mbEhH+QRkl93r0E
- F4OsDVrYMEHULmV+wq1gyaKiypr+wPFCrJohqwVVWRGLClI9dzQJr/hgo+CFotmOV/kB+Av0Nbi
- 6L6Bg8eep6sNESg==
-X-Developer-Key: i=david@ixit.cz; a=openpgp;
- fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
-X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
-X-Original-From: David Heidelberg <david@ixit.cz>
-Reply-To: david@ixit.cz
+User-Agent: Evolution 3.62.1-3 
+X-ZohoMailClient: External
 
-This series address:
+Hi Ciro,
 
---- merged
-0. demistify the hex to BIT() macro and add left/right rx spk
-1. most likely wrongly set DSP_B in sdm845.c
-   my guess this is because TDM was never used in the mainline with
-   sdm845
-2. applying correct mask to left/right speaker for the TDM in sdm845.c,
-   so both speakers can work simultaneusly
-3. setting sysclk at startups, which some codecs need (such as cs35l36)
-4. setting proper tdm slot in the cs35l36 driver
---- remains:
-5. device-tree wiring for Pixel 3 / 3 XL speakers
-6. same for microphone.
+On Wed, 2026-11-11 at 14:12 -0300, Ciro Pedrini wrote:
+> Hi Rong,
+>=20
+> Thanks for the review. I'll fix the rest in v3, but before I go on with
+> it I would like to hear from you on these.
+>=20
+> On Wed, 2026-11-11 at 20:09 +0800, Rong Zhang wrote:
+> > On Tue, 2026-11-10 at 20:29 +0000, Ciro Pedrini via B4 Relay wrote:
+> > > Its hardware brightness, 0..9, is stored in the controller and applie=
+s to
+> > > every LED of the machine (keys, front strip, rear vents, lid logo).
+> >=20
+> > I don't know if it's appropriate to represent so many things with the
+> > name "legion::kbd_backlight".
+>=20
+> I gave splitting it some thought, and looked (with the help of an LLM)
+> at how other drivers handle this. We could register one LED per zone,
+> but that seems to be usually rejected, because they would not be
+> independent: the controller has a single brightness for all zones, so
+> writing any of them would change all of them.
 
-As per previous discussion not seding patch removing the "Input Mux"
-which now interferes with TDM callback. If wanted, I can send it as a
-follow-up.
+My opinion is that we'd better figure out another representative name, as
+it actually affects other things...
 
-Signed-off-by: David Heidelberg <david@ixit.cz>
----
-Changes in v7:
-- Edited swm node disable comment.
-- Rebased on top of next-20261110 (small conflict resolved).
-- Link to v6: https://patch.msgid.link/20261016-pixel3-audio-v6-0-11c88448b3be@ixit.cz
+>=20
+> Per-zone control is only possible through the LampArray (c193). It has
+> 319 lamps, each with its own colour, and they are grouped by zone (keys,
+> front strip, rear vents, lid logo), so a LampArray driver could light
+> or dim each zone on its own. That needs c197 to hand the LEDs over
+> first, as discussed in the other thread.
+>=20
+> Also, going with kbd_backlight seems like a good idea so that UPower
+> and the desktops pick it up automatically.
+>=20
+> Thoughts? I'd like a confirmation from someone who knows how this is
+> usually handled in Linux, as I don't have much experience with it.
 
-Changes in v6:
-- Everything expect device-tree changes got merged. Rebased on top of
-  latest next-20261016.
-- Link to v5: https://patch.msgid.link/20260925-pixel3-audio-v5-0-7ffb32c980bf@ixit.cz
+...though I won't insist if you still prefer kbd_backlight, as long as
+others are not opposed to it.
 
-Changes in v5:
-- Dropped
-  `slimbus: qcom-ngd-ctrl: Remove data channels on stream disable`
-  in favor of now merged
-  `slimbus: qcom-ngd-ctrl: Implement disable_stream callback`
-- Applied R-bs.
-- Small clarifications in the commit messages and comments blocks.
-- Link to v4: https://patch.msgid.link/20260924-pixel3-audio-v4-0-85b5d133aa5e@ixit.cz
+>=20
+> > Just curious, can the software select which effect to use, or listen to
+> > an event when Fn+Space is pressed?
+>=20
+> Yes. 0xCA reads the current effect and 0xC8 sets it. On Fn+Space the
+> controller sends report 5 as 05 01 P (P =3D the new effect), then
+> 05 02 B (B =3D the brightness).
 
-Changes in v4:
-- Rebase on top of d4d1619ebd55 ("ASoC: codecs: cs35l*: use .auto_selectable_formats") (Mark)
-- Link to v3: https://patch.msgid.link/20260924-pixel3-audio-v3-0-5d06460fc8a9@ixit.cz
+Got it. We can figure out a way to coordinate LampArray autonomous mode
+with it in the future.
 
-Changes in v3:
-- De-RFC, applied Reviewed-by tag.
-- Link to v2: https://patch.msgid.link/20260903-pixel3-audio-v2-0-7c22ed915291@ixit.cz
+>=20
+> > I wonder, what if we set the report with a short report size, say,
+> > struct_size(msg, params, len)? Could the device handle it properly in
+> > this case? If so, there is a chance that we don't need to sleep for 100=
+ms
+> > later (I guess the device is processing too much data, causing the
+> > massive delay).
+>=20
+> You were right. I tried it on the laptop: it takes the short request,
+> and it only ever answers 5 bytes anyway, even when asked for 960. The
+> answer is there right away, I read it with delays from 100 ms down to 0
+> and it was always correct. So a brightness read goes from ~115 ms to
+> ~2 ms.
+>=20
+> Setting the brightness with a short request works too, and reading it
+> right after returns the new value.
 
-Changes in v2:
-- Device-tree name sorting, with exception keeping mm1-dai-link in it's
-  place. (Konrad)
-- Make set_tdm_slot cleaner and less leveled. (Konrad)
-- Added TDM MIC defines in sdm845.c.
-  Should we in capture use speaker mask?
-- Renamed model from 'Google Pixel 3' to 'blueline', I would love to
-  hear feedback on this one.
-- Link to v1: https://lore.kernel.org/r/20260705-pixel3-audio-v1-0-3b66f33859f1@ixit.cz
+In this case you don't need the pre-allocated buffer, too. Let's allocate
+a tiny buffer on stack.
 
-To: Srinivas Kandagatla <srini@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>
-To: Mark Brown <broonie@kernel.org>
-To: Jaroslav Kysela <perex@perex.cz>
-To: Takashi Iwai <tiwai@suse.com>
-To: David Rhodes <david.rhodes@cirrus.com>
-To: Richard Fitzgerald <rf@opensource.cirrus.com>
-To: Bjorn Andersson <andersson@kernel.org>
-To: Konrad Dybcio <konradybcio@kernel.org>
-To: Abel Vesa <abelvesa@kernel.org>
-To: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-To: Conor Dooley <conor+dt@kernel.org>
-Cc: linux-sound@vger.kernel.org
-Cc: linux-arm-msm@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Cc: patches@opensource.cirrus.com
-Cc: devicetree@vger.kernel.org
+>=20
+> In v3 I'll send and read short reports and drop the msleep().
+>=20
+> > Ditto, what if we get the report with struct_size(msg, params, 1)?
+>=20
+> Same, that works.
 
----
-David Heidelberg (2):
-      arm64: dts: qcom: sdm845-google: Add basic audio support
-      arm64: dts: qcom: sdm845-google: Add WCD9340 codec and microphone capture
+Great :-)
 
- arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi | 188 ++++++++++++++++++++-
- 1 file changed, 186 insertions(+), 2 deletions(-)
----
-base-commit: 793807ca13bf3072fc6d16ce6d90e9ab9beff2a5
-change-id: 20260613-pixel3-audio-bdbfb49e8037
+Thanks,
+Rong
 
-Best regards,
---  
-David Heidelberg <david@ixit.cz>
-
-
+>=20
+> Thanks,
+> Ciro
