@@ -1,77 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=188.121.53.26
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=188.121.53.24
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794440708;
-	b=eawOoFCyTbe0baqT5obfYtOHVawD4Zbuk+mDLY8zFqjpj5AhN8dQp6QkMFqRwRTJY3+R
-	 +5dksHH8A6CwZ+C51YvHr1kzzDhdPZHYcHjXBG6uA/liNuXqNZFSkzrg+7bnciv83krDW
-	 RNAVbvRUCXBMpLmGROonI9Ll9cvfwF4uIxqVy5wcCemsrAm5QoKPvCyD6x9TGUNWiLfZ/
-	 pjXilhHnh7HJHxqgUrWz47hSNlcUoaGBut4ddCIKQHisjOlCTArTFfr93EzicdnPZ7+xh
-	 L3VrZPejb6hIvA8/EOKDS9y4g9DMuLIBOJeJwYdTkQMuW3v19V43l8Zg2q1VucZofNg==
+	t=1794440703;
+	b=uD7ut9w9yFzjRy/7FM2U8u45VyAE2DLfZsrRhuto8m21MRZQgnekjkyyJsUph6tTK/J/
+	 02BHFDS/ynvb5H0jq+W4u/CNJNMyJi9Bdtd5O/0llrDFGhHgZgDKw6fNfU+ICK+244xHx
+	 ogi5uMtGsvwRm2fy+FHFtQa/MbxALR5HugsMxeHeXmEF8F9D5Z+pj8mncTndYWATUc9hf
+	 d2HMvwPG5eZFIvJBIRbSD0u8mv/pirNGC6l5sWoJTE/p53A+yOFLQL65q18NBsOSGOqPY
+	 4Bqzl8QU5T/7rWyW4uxksgHGc44mSNpJRa6NLG11CBTNDnu0pqiLg+QFJ3NFbTZaNhA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794440708;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794440703;
 	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:X-CMAE-Analysis:
 	 Feedback-ID:X-SECURESERVER-ACCT:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-CMAE-Envelope;
-	bh=z9drwXo/uzTm2HmgebtAeKGkgBoc1JWW3NHlDvBVLGY=;
-	b=eRdKe0vvdqOCr41xvej5igZqDEh6h2xnj7B/BOsuZE4rN+RaWnPCgobOF04cQqD0p+pk
-	 lNZQe5CQcZQpP++s3+eTrMqiv8V5Qly0BqP69UpfeZANaYtqFEDpkaelaUuWD0tHEfigW
-	 Qpn84qRr5JPWeVMWIKHsefEgSotn/EJ3dnatqMaP5n1jhiMaSuHyxapdNHYiPZDPPTQBr
-	 ILIIvr+GSk+u2my/d2SCnB35cop1U4hWymR/7bn9fKIIHdPxIEYQQIYQZfGYlDeqC9Pxj
-	 f9tG+LXfEV6tJgT09B+MDPpi2D9lvE/Q8RKv5MqUmhSEibAu2zApnhlDmS2Gbz5VArQ==
+	bh=Mw7DwHZ86PJcb1W/8SP4G8WYJBm9z/JCkSJ5qlf1/HE=;
+	b=tdQQ/vYEdVZLUWv1hYeR4bZt9sbc6Pe/tRr9IKUpuM+IFCTSd1WSkmc54rhEsYw+7iV8
+	 h9jwQOx+ud/gzcmpw1xJZQmG8qJWN6KCi0hWl5PwPxNzCLrauvGYeaXEmen3CQNJgAWb0
+	 aQbWXajREjjUhOPe/3HZCrDvHMGSJoEMSkyvDXQ8bL6H2jmhmkDdEJ8qvj0O3Eq4sType
+	 zthf9hQUjYDCJo365IZBtz//gwp5hKPa9tk5c+3OZCpxgkxvDBrj0DGgMmI1TMGk9S97O
+	 5WoEztzYLTJnOAnMNCyJV3s3+hfBr7dkcH+NKXVg/U8QYr47NhAGaCl8DYC0mdoveYw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=squashfs.org.uk;
 	spf=pass smtp.mailfrom=squashfs.org.uk;
-	dkim=pass header.d=secureserver.net header.i=@secureserver.net header.a=rsa-sha256 header.s=secureserver2 header.b=WT+Kon16;
-	dkim=pass header.d=squashfs.org.uk header.i=@squashfs.org.uk header.a=rsa-sha256 header.s=secureserver1 header.b=nB4g8+4t;
-	arc=none smtp.remote-ip=188.121.53.26
-Received: from sxplsmtpa04-03.prod.sxb1.secureserver.net (sxplsmtpa04-03.prod.sxb1.secureserver.net [188.121.53.26])
+	dkim=pass header.d=secureserver.net header.i=@secureserver.net header.a=rsa-sha256 header.s=secureserver2 header.b=cRjhdz6A;
+	dkim=pass header.d=squashfs.org.uk header.i=@squashfs.org.uk header.a=rsa-sha256 header.s=secureserver1 header.b=YQtwmYyj;
+	arc=none smtp.remote-ip=188.121.53.24
+Received: from sxplsmtpa04-03.prod.sxb1.secureserver.net (sxplsmtpa04-03.prod.sxb1.secureserver.net [188.121.53.24])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7B9D606C0BC
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 23:45:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E7B9D606C0BC
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE8C0606C0B4
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 23:45:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EE8C0606C0B4
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=squashfs.org.uk
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=squashfs.org.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=secureserver.net header.i=@secureserver.net header.a=rsa-sha256 header.s=secureserver2 header.b=WT+Kon16;
-	dkim=pass (2048-bit key, unprotected) header.d=squashfs.org.uk header.i=@squashfs.org.uk header.a=rsa-sha256 header.s=secureserver1 header.b=nB4g8+4t
+	dkim=pass (2048-bit key, unprotected) header.d=secureserver.net header.i=@secureserver.net header.a=rsa-sha256 header.s=secureserver2 header.b=cRjhdz6A;
+	dkim=pass (2048-bit key, unprotected) header.d=squashfs.org.uk header.i=@squashfs.org.uk header.a=rsa-sha256 header.s=secureserver1 header.b=YQtwmYyj
 Received: from avalon.fritz.box ([82.69.79.175])
 	by :SMTPAUTH: with ESMTPA
-	id RHz6xtxIpLwCURHzvxAFZm; Wed, 11 Nov 2026 23:45:00 +0000
+	id RHz6xtxIpLwCURHzqxAFZK; Wed, 11 Nov 2026 23:44:54 +0000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=secureserver.net;
-	s=secureserver2; t=1794440701;
-	bh=z9drwXo/uzTm2HmgebtAeKGkgBoc1JWW3NHlDvBVLGY=;
+	s=secureserver2; t=1794440695;
+	bh=Mw7DwHZ86PJcb1W/8SP4G8WYJBm9z/JCkSJ5qlf1/HE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WT+Kon16BS3vtaGYLyaxK0Ab3G3fKStAq4O3qbwQqvfJrgxs76TYjrG2kvoB/Aq0P
-	 0Rq6O+OIrBFAo7x0hUZviB7O1qxOJHjnr127a+/h4QaIZM552ZpvcPyAHokRT7pZHN
-	 v2oN+TLlMWuhx2/BTUIHFsEGeH9j3ZWNih5jwTYMzYwdvIwIJ2DPr6ZAYDHaJ6KXCH
-	 D9VRRo2JVfJgqWh9R1fxy518d9nJSdyZFJod0DTxVRvR7wwcNyar+xNW75lTUBOdEK
-	 2bgVDJh3x0P+rmkKet2d5lV97b49jA5FchmuGrKRvn3yjrSm/SqrDbXRo+eYPB38G/
-	 Tf4xPevra3bcQ==
+	b=cRjhdz6ASlc163byW4j7Ao+w6Jrq8UQVtQU7b2kYZl9sYIO9FiKnGcJere1wM065V
+	 DqcqWIDHPM/nVtg5Rx7EbGhirD78hzNnJ6dyZPWE1jrmvyBsxDLLkuAU+htnLj66kk
+	 ud8X9w4ibeO3gGOURJvNveqrKPJfE0BiwUMXuokOQSeXaC28rB6jp4kSLtQJE3V3Yb
+	 LbIKrowlFRbzbDm5E03+i3nirk09FBo+Nrx9N4sVjgJ8kBjmN3Vj2/wbQuUvlN5biQ
+	 qMQCPBREksSnh52Oi2oBo+0yjuvnsX/ivv41oVhaZpZqAZYd+5/t17QjGItK3/Ydc4
+	 ADVBhU3sAfFIw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=squashfs.org.uk;
-	s=secureserver1; t=1794440701;
-	bh=z9drwXo/uzTm2HmgebtAeKGkgBoc1JWW3NHlDvBVLGY=;
+	s=secureserver1; t=1794440695;
+	bh=Mw7DwHZ86PJcb1W/8SP4G8WYJBm9z/JCkSJ5qlf1/HE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nB4g8+4tWQ/UCLJxc7vZLNFLHFBqQlZvaSVZKAFw9ygPV96ucfZb7c7Ffd+fh/7TQ
-	 4I9h4JlV5JK74nx48cK1PNglGnxrUk3H79cY1dRMkD1+XfAB2+xpovhK327DIAu8KI
-	 DNrzYwsQkVlD46joYVCipwg+NSupLJQhkGksRGBSnHXBN9r/ZhL56n6fQkeffn1E+2
-	 7Gr1vavkOwl7IpmsBHRupUZo25TgodWQMfXbfJv2lYjAB7/05GDAoxSv1mO9ybJ7oE
-	 CEVfe0ni75xtz2VGLIjiwTepHIuVnWvDZpqwhkGjtjg4fHswAgWtwmEcT55isliIro
-	 CEOeIvakUHdLQ==
-X-CMAE-Analysis: v=2.4 cv=XZYcX455 c=1 sm=1 tr=0 ts=6af4fdfc
+	b=YQtwmYyjVEw4DHRJDg0uVN2nHMlhBIEfSH+Owlfjbe8njDYiNk/eHCsASY47WioJU
+	 wjcJIOTdAZ+gWPwiIETB7+pTT7ggqKm3kAeuopsnMiate5o18WsFFOrmjJX2VjwEqq
+	 GSTLaEuTsz0w/577I7a/SdTb/JJ3IW4d0N3kSw45tUonD7qjfcyX1PsCHZtiYipzWm
+	 XrEs0aKQTv71ESmKXsXatA6eINFCXurTdVcAW0t4+tqsQyfVyb+0qYL5ctxpLOYfkO
+	 nrEQtB+qfOe4kiQB094mF6JEn9jPKWhtqQHlICln58IuUGD8rUrUwPyFXFv9i6bvyh
+	 DLhf1zvf7tdqA==
+X-CMAE-Analysis: v=2.4 cv=XZYcX455 c=1 sm=1 tr=0 ts=6af4fdf7
  a=84ok6UeoqCVsigPHarzEiQ==:117 a=84ok6UeoqCVsigPHarzEiQ==:17 a=FXvPX3liAAAA:8
- a=T2VrowB_akgkcgLsTUAA:9 a=UObqyxdv-6Yh2QiB9mM_:22
-Feedback-ID: 4eae38ca82fd1d3643e0118b9b0b2b6c:squashfs.org.uk:ssnet
+ a=CSAkETy8TeNUzzMbOh8A:9 a=UObqyxdv-6Yh2QiB9mM_:22
+Feedback-ID: 122f59afdc0f0633c33ab761d99d0251:squashfs.org.uk:ssnet
 X-SECURESERVER-ACCT: phillip@squashfs.org.uk
 From: Phillip Lougher <phillip@squashfs.org.uk>
 To: linux-kernel@vger.kernel.org,
 	linux-fsdevel@vger.kernel.org,
 	akpm@linux-foundation.org
 Cc: Phillip Lougher <phillip@squashfs.org.uk>
-Subject: [PATCH v2 20/22] Squashfs: fix variables in directory code and add more sanity checks
-Date: Wed, 11 Nov 2026 23:44:00 +0000
-Message-ID: <20261111234402.252354-21-phillip@squashfs.org.uk>
+Subject: [PATCH v2 17/22] Squashfs: don't store large export table indexes in memory
+Date: Wed, 11 Nov 2026 23:43:57 +0000
+Message-ID: <20261111234402.252354-18-phillip@squashfs.org.uk>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261111234402.252354-1-phillip@squashfs.org.uk>
 References: <20261111234402.252354-1-phillip@squashfs.org.uk>
@@ -85,39 +85,39 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CMAE-Envelope: MS4xfCtMj1/3QvnhOg2l+NHEMD5yV9Qo6wybUhxsy74LBp4oY4iwrz832RqlszB2/86aSwsgSWtnNK4iBIZc8C3wQLfrhFGo6c6G2NgHBjdbp3I6S93AIEk+
- P8RLJT1IArELUjISqEVdKJGTuQ4m3vhpcap5j2RkxNSbbBxwCYXSmqkYxx/OYhMj+/MgDnHdwJ5Gi4CBPupM7ME2joIySqhk70nOWKSsazDrtVtm6w8HzWLw
- ItOp92GzpCfTcbnikti16NhoJ2iT3HrkyiN4L384U7lzH15Q9nrbdtr8Hgvrqz+SMytkgNMXQgYGCvhOdeAh5zcjNUYarxVYnftpMyE2OQc=
+X-CMAE-Envelope: MS4xfHXL2bu5DGY80ShIbexCWpEXpyxz+S9EEfXNumXbEzyCzeaTVSL5Qfhh+Y4FtbhPRLxqkEVFBLIqAZSN1nEpPA9Pj94Z69rcctU8OQ78HFKCgFINseJv
+ 8g5DNlPzQ+WwkqbuWjIU3FDv1bgXu6baB892pbChmoC+FN+DXR5aPVmbVuAeOg/957WuOSOJuqAsX3WAFjfJPyyx1qm6hS7YeuV1lCPJ68T/Tq+JmOhyL6Ma
+ Gwrhu9+CXWOCdjZbw9KD/PFqQ3Z07Qtd6+jVBIKd0GEUGN/B+v5EFtS0QthgpP8JnlKIfOCMP1PkDF+DSlx5Eeojc6cOMRn9z3Z51/YIS5c=
 
-A directory larger than a metadata block (8192 bytes) will have a
-directory index to allow faster reading and lookup of names.  This
-index allows the code to jump to the desired compressed metadata block,
-without requiring the directory to be scanned from the beginning.
+When mounting a Squashfs filesystem, the code reads the entire
+export table indexes into memory.  Their size is determined by the
+number of inodes in the filesystem.  For the maximum inode
+count of 2^32, this will allocate and read 32 MiB.
 
-But the index handling code has a defect in that multiple variables
-including those used to read and track directory indexes from disk are
-signed ints.  This means any index which is 2^31 or larger will be
-treated as a negative value.  The knock on efect of this is that the
-offset into the desired metadata block is incorrectly computed, with the
-result the directory fails to be read, and an I/O error is returned.
+This is an excessive and unnecessary amount of memory because the
+indexes do not need to be read into memory in their entirety.  In
+addition kmalloc() is used to allocate memory, and this can fail when
+large amounts of memory are requested.  Kmalloc() on modern kernels is
+usually limited to 4096 KiB.  If panic-on-warn is set, then failure to
+allocate memory will result in a kernel panic.
 
-This commit corrects the variables (and function return value) to be
-unsigned int, and it also adds more sanity checking of the values read
-off disk (including directory size to avoid underflow in subtraction).
-Now if a directory index is found to be incorrect, the index is
-discarded and the previous index read from disk is used.  This allows
-the directory to be read correctly without throwing an I/O error.
+This commit uses a 4 page cache if the size of the export table indexes
+are 4 pages in size or larger.  A simple and fast lookup array is
+retained where the total index size is less than 4 pages in size, which
+is the vast majority of Squashfs filesystems.
 
 Reproducer
 ==========
 
-The following reproducer creates a Squashfs filesystem with a root
-directory which has a directory index.  The reproducer then corrupts
-root directory index 0 with an index value of -1.  The filesystem is
-then mounted, and stat run on file /mnt/filename-490.
+The following reproducer will create a Squashfs filesystem with
+540,540,568 inodes (540 million files).  This will cause the export
+table indexes to exceed 4096 KiB, and the kmalloc() should fail when the
+filesystem is mounted.  Due to the large amount of inodes the Squashfs
+filesystem reproducer needs to be run on a 64-bit machine with around
+60 GiB of memory (or swap).
 
-If the exploit succeeds stat will report an I/O error and dmesg will
-contain Squashfs error reports.
+The latest development Mksquashfs from the GitHub Squashfs-tools
+repository also needs to be used.
 
 =====================================================================
 #!/bin/bash
@@ -128,457 +128,429 @@ finish() {
 	exit 1
 }
 
+IMG=$PWD/reproducer.sqsh
 DIR=$(mktemp -d)
+
+if [ -e $IMG ]; then
+	rm $IMG
+fi
 
 pushd $DIR 2>&1 > /dev/null
 
-for i in $(seq 1 1000); do
-	echo "filename-$i f 0700 0 0 echo hello" >> pseudo
+# create 20 million pseudo file links to empty file
+touch a
+a=0
+while [ $a -le 19 ]; do
+	b=0
+	while [ $b -le 999 ]; do
+		c=0
+		while [ $c -le 999 ]; do
+			echo "x/$a/$b/$c l a" >> file
+			(( c ++ ))
+		done
+		(( b ++ ))
+	done
+	(( a ++ ))
 done
 
-echo "Create a Squashfs filesystem"
-if ! mksquashfs - img.sqsh -pf pseudo -pd "d 0777 0 0" -noI -no-progress -quiet; then
-	echo Creating the Squashfs filesystem failed
-	finish
-fi
+for i in $(seq 1 27); do
+	sed "s/x/$i/g" file > pseudo
+	echo
+	echo Iteration $i - appending 20 million files to Squashfs filesystem
+	echo
+	if ! mksquashfs - $IMG -pf pseudo -no-hardlinks -pd "d 0777 0 0" -no-recovery -no-progress -comp lz4; then
+		echo Appending to Squashfs filesystem failed
+		finish
+	fi
+done
 
-# Write -1 in little-endian format to file
-/usr/bin/echo -en "\xff\xff\xff\xff" > file
-
-echo "Over-write the root directory index 0, with an index value of -1."
-echo "This because the metadata is uncompressed can be over-written directly,"
-echo "but, normally the metadata will be compressed."
-echo "The location of the 4 byte index is 32150"
-
-dd bs=1 seek=32150 if=file of=img.sqsh count=4 conv=notrunc status=none
-
-echo
-echo "Mount the filesystem on /mnt"
-
-if ! mount -t squashfs img.sqsh /mnt; then
-	echo Mount of Squashfs filesystem failed
-	finish
-fi
-
-echo
-echo "Run stat /mnt/filename-490 on the mounted filesystem"
-echo
-echo "If the exploit works stat will report I/O error, and dmesg will"
-echo "contain Squashfs error reports"
-echo
-
-stat /mnt/filename-490
-umount /mnt
 popd 2>&1 > /dev/null
-
 rm -rf $DIR
-exit 0
+
+echo Generated Squashfs filesystem $IMG
 =====================================================================
 
-Fixes: 07972dde75c32 ("Squashfs: directory readdir operations")
-Fixes: c88da2c979369 ("Squashfs: directory lookup operations")
+Fixes: 122601408d20c ("Squashfs: export operations")
 Signed-off-by: Phillip Lougher <phillip@squashfs.org.uk>
 ---
- fs/squashfs/dir.c              | 73 ++++++++++++++++++++------
- fs/squashfs/inode.c            | 12 ++++-
- fs/squashfs/namei.c            | 95 ++++++++++++++++++++++++++--------
- fs/squashfs/squashfs_helpers.h |  7 +++
- 4 files changed, 147 insertions(+), 40 deletions(-)
+v2:
+  - Widen offset in squashfs_inode_lookup_start() to s32, to prevent
+    overflow when PAGE_SIZE is 64 KiB or larger.
+  - Prevent squashfs_inode_lookup_start() from passing back an erroneous
+    error value by checking lookup_table_start >= next_table in
+    squashfs_read_inode_lookup_table().
+---
+ fs/squashfs/export.c           | 146 +++++++++++++++++++++++----------
+ fs/squashfs/squashfs.h         |   3 +-
+ fs/squashfs/squashfs_fs_sb.h   |   8 +-
+ fs/squashfs/squashfs_helpers.h |  28 ++++++-
+ fs/squashfs/super.c            |  36 +++++---
+ 5 files changed, 160 insertions(+), 60 deletions(-)
 
-diff --git a/fs/squashfs/dir.c b/fs/squashfs/dir.c
-index f6454f0d5b5c..33b8225fcdaa 100644
---- a/fs/squashfs/dir.c
-+++ b/fs/squashfs/dir.c
-@@ -37,17 +37,17 @@ static const unsigned char squashfs_filetype_table[] = {
-  * (if any) we have managed to read - the index isn't essential, just
-  * quicker.
-  */
--static int get_dir_index_using_offset(struct super_block *sb,
-+static unsigned int get_dir_index_using_offset(struct super_block *sb,
- 	u64 *next_block, int *next_offset, u64 index_start, int index_offset,
--	int i_count, u64 f_pos)
-+	unsigned int i_count, loff_t max_index, u64 f_pos)
- {
- 	struct squashfs_sb_info *msblk = sb->s_fs_info;
- 	s64 res;
--	int err, i, index, length = 0;
--	unsigned int size;
+diff --git a/fs/squashfs/export.c b/fs/squashfs/export.c
+index ad7cc882d789..dcf8f2478fcf 100644
+--- a/fs/squashfs/export.c
++++ b/fs/squashfs/export.c
+@@ -34,24 +34,64 @@
+ #include "squashfs_helpers.h"
+ #include "squashfs.h"
+ 
++s64 squashfs_inode_lookup_start(struct super_block *sb, u32 ino_num)
++{
++	struct squashfs_sb_info *msblk = sb->s_fs_info;
++	s64 start;
 +	int err;
-+	unsigned int i, index, length = 0, size, start_block, block;
- 	struct squashfs_dir_index dir_index;
- 
--	TRACE("Entered get_dir_index_using_offset, i_count %d, f_pos %lld\n",
-+	TRACE("Entered get_dir_index_using_offset, i_count %u, f_pos %lld\n",
- 					i_count, f_pos);
- 
- 	/*
-@@ -58,6 +58,18 @@ static int get_dir_index_using_offset(struct super_block *sb,
- 	if (f_pos <= 3)
- 		return f_pos;
- 	f_pos -= 3;
-+	max_index -= 3;
 +
-+	/*
-+	 * A valid index starts at a directory header, and there must be enough
-+	 * room for a directory header and one directory entry.
-+	 */
-+	if (max_index < sizeof(struct squashfs_dir_header) +
-+					sizeof(struct squashfs_dir_entry) + 1)
-+		return 3;
++	if (msblk->lookup_table_is_cache) {
++		s32 length = squashfs_lookup_blocks_bytes(msblk->inodes);
++		s32 base = squashfs_lookup_blocks_base(ino_num - 1);
++		s32 offset = squashfs_lookup_blocks_offset(ino_num - 1);
++		s32 avail = min_t(int, length - base, PAGE_SIZE);
++		struct squashfs_cache_entry *entry;
 +
-+	max_index -= sizeof(struct squashfs_dir_header) +
-+					sizeof(struct squashfs_dir_entry) + 1;
- 
- 	for (i = 0; i < i_count; i++) {
- 		err = squashfs_read_metadata(sb, &dir_index, &index_start,
-@@ -65,33 +77,51 @@ static int get_dir_index_using_offset(struct super_block *sb,
- 		if (err < 0)
- 			break;
- 
-+		/* Sanity check the directory index contents */
++		start = squashfs_lookup_blocks_start(ino_num - 1, msblk);
++		if (start < 0)
++			return start;
 +
-+		/* size should never be larger than SQUASHFS_NAME_LEN */
-+		size = le32_to_cpu(dir_index.size) + 1;
-+		if (size > SQUASHFS_NAME_LEN)
-+			break;
-+
-+		/* The stored index should not be larger than max_index */
- 		index = le32_to_cpu(dir_index.index);
-+		if (index > max_index)
-+			break;
-+
-+		block = le32_to_cpu(dir_index.start_block);
-+
-+		if (i > 0) {
-+			/* The stored index should be larger than the previous index */
-+			if (index <= length)
-+				break;
-+
-+			/* The start_block should not be less than the previous start_block */
-+			if (block < start_block)
-+				break;
++		entry = squashfs_cache_get(sb, msblk->inode_lookup_cache, start,
++					avail | SQUASHFS_COMPRESSED_BIT_BLOCK);
++		if (entry->error < 0) {
++			err = entry->error;
++			squashfs_cache_put(entry);
++			return err;
 +		}
 +
- 		if (index > f_pos)
- 			/*
- 			 * Found the index we're looking for.
- 			 */
- 			break;
- 
--		size = le32_to_cpu(dir_index.size) + 1;
--
--		/* size should never be larger than SQUASHFS_NAME_LEN */
--		if (size > SQUASHFS_NAME_LEN)
--			break;
--
- 		err = squashfs_read_metadata(sb, NULL, &index_start,
- 				&index_offset, size);
- 		if (err < 0)
- 			break;
- 
--		res = squashfs_dir_start(le32_to_cpu(dir_index.start_block), msblk);
-+		res = squashfs_dir_start(block, msblk);
- 		if (res < 0)
- 			break;
- 
-+		start_block = block;
- 		length = index;
- 		*next_block = res;
- 	}
- 
--	*next_offset = (length + *next_offset) % SQUASHFS_METADATA_SIZE;
-+	*next_offset = ((u64)length + *next_offset) % SQUASHFS_METADATA_SIZE;
- 
- 	/*
- 	 * Translate back from internal f_pos to external f_pos.
-@@ -105,7 +135,8 @@ static int squashfs_readdir(struct file *file, struct dir_context *ctx)
- 	struct inode *inode = file_inode(file);
- 	struct squashfs_sb_info *msblk = inode->i_sb->s_fs_info;
- 	s64 block = squashfs_dir_start(squashfs_i(inode)->start, msblk);
--	int offset = squashfs_i(inode)->offset, length, err;
-+	int offset = squashfs_i(inode)->offset, err;
-+	loff_t length;
- 	unsigned int inode_number, dir_count, size, type;
- 	struct squashfs_dir_header dirh;
- 	struct squashfs_dir_entry *dire = NULL;
-@@ -154,12 +185,15 @@ static int squashfs_readdir(struct file *file, struct dir_context *ctx)
- 				squashfs_i(inode)->dir_idx_start,
- 				squashfs_i(inode)->dir_idx_offset,
- 				squashfs_i(inode)->dir_idx_cnt,
--				ctx->pos);
-+				i_size_read(inode), ctx->pos);
- 
- 	while (length < i_size_read(inode)) {
- 		/*
- 		 * Read directory header
- 		 */
-+		if (!squashfs_dir_space(inode, length, sizeof(dirh)))
-+			goto failed_read;
++		start = le64_to_cpu(((__le64 *)entry->data[0])[offset >> 3]);
++		squashfs_cache_put(entry);
++	} else {
++		s32 blk = squashfs_lookup_block(ino_num - 1);
 +
- 		err = squashfs_read_metadata(inode->i_sb, &dirh, &block,
- 					&offset, sizeof(dirh));
- 		if (err < 0)
-@@ -176,23 +210,30 @@ static int squashfs_readdir(struct file *file, struct dir_context *ctx)
- 			/*
- 			 * Read directory entry.
- 			 */
-+			if (!squashfs_dir_space(inode, length, sizeof(*dire)))
-+				goto failed_read;
++		start = le64_to_cpu(msblk->inode_lookup_array[blk]);
++	}
 +
- 			err = squashfs_read_metadata(inode->i_sb, dire, &block,
- 					&offset, sizeof(*dire));
- 			if (err < 0)
- 				goto failed_read;
- 
-+			length += sizeof(*dire);
- 			size = le16_to_cpu(dire->size) + 1;
- 
- 			/* size should never be larger than SQUASHFS_NAME_LEN */
- 			if (size > SQUASHFS_NAME_LEN)
- 				goto failed_read;
- 
-+			if (!squashfs_dir_space(inode, length, size))
-+				goto failed_read;
++	if (start < msblk->lookup_table_start || start >= msblk->lookup_table)
++		return -EIO;
 +
- 			err = squashfs_read_metadata(inode->i_sb, dire->name,
- 					&block, &offset, size);
- 			if (err < 0)
- 				goto failed_read;
- 
--			length += sizeof(*dire) + size;
-+			length += size;
- 
- 			if (ctx->pos >= length)
- 				continue;
-diff --git a/fs/squashfs/inode.c b/fs/squashfs/inode.c
-index a512e8d00c41..5404d7ba6fc0 100644
---- a/fs/squashfs/inode.c
-+++ b/fs/squashfs/inode.c
-@@ -253,8 +253,12 @@ int squashfs_read_inode(struct inode *inode, long long ino)
- 		if (err < 0)
- 			goto failed_read;
- 
--		set_nlink(inode, le32_to_cpu(sqsh_ino->nlink));
-+		/* The directory size must be 3 or larger, as it includes "." and ".." entries */
- 		inode->i_size = le16_to_cpu(sqsh_ino->file_size);
-+		if (inode->i_size < 3)
-+			goto failed_read;
++	return start;
++}
 +
-+		set_nlink(inode, le32_to_cpu(sqsh_ino->nlink));
- 		inode->i_op = &squashfs_dir_inode_ops;
- 		inode->i_fop = &squashfs_dir_ops;
- 		inode->i_mode |= S_IFDIR;
-@@ -278,9 +282,13 @@ int squashfs_read_inode(struct inode *inode, long long ino)
- 		if (err < 0)
- 			goto failed_read;
- 
-+		/* The directory size must be 3 or larger, as it includes "." and ".." entries */
-+		inode->i_size = le32_to_cpu(sqsh_ino->file_size);
-+		if (inode->i_size < 3)
-+			goto failed_read;
-+
- 		xattr_id = le32_to_cpu(sqsh_ino->xattr);
- 		set_nlink(inode, le32_to_cpu(sqsh_ino->nlink));
--		inode->i_size = le32_to_cpu(sqsh_ino->file_size);
- 		inode->i_op = &squashfs_dir_inode_ops;
- 		inode->i_fop = &squashfs_dir_ops;
- 		inode->i_mode |= S_IFDIR;
-diff --git a/fs/squashfs/namei.c b/fs/squashfs/namei.c
-index 9f6f6792b549..89d5a09544dc 100644
---- a/fs/squashfs/namei.c
-+++ b/fs/squashfs/namei.c
-@@ -61,57 +61,96 @@
-  * (if any) we have managed to read - the index isn't essential, just
-  * quicker.
+ /*
+  * Look-up inode number (ino) in table, returning the inode location.
   */
--static int get_dir_index_using_name(struct super_block *sb,
-+static unsigned int get_dir_index_using_name(struct super_block *sb,
- 			u64 *next_block, int *next_offset, u64 index_start,
--			int index_offset, int i_count, const char *name)
-+			int index_offset, unsigned int i_count,
-+			loff_t max_index, const char *name)
+-static long long squashfs_inode_lookup(struct super_block *sb, int ino_num)
++static long long squashfs_inode_lookup(struct super_block *sb, u32 ino_num)
  {
  	struct squashfs_sb_info *msblk = sb->s_fs_info;
- 	s64 res;
--	int i, length = 0, err;
--	unsigned int size;
--	struct squashfs_dir_index *index;
-+	int err;
-+	unsigned int i, index, length = 0, size, start_block, block;
-+	struct squashfs_dir_index *dir_index;
+-	int blk = squashfs_lookup_block(ino_num - 1);
+-	int offset = squashfs_lookup_block_offset(ino_num - 1);
+-	u64 start;
++	s32 offset = squashfs_lookup_block_offset(ino_num - 1);
++	s64 start;
+ 	__le64 ino;
+ 	int err;
  
--	TRACE("Entered get_dir_index_using_name, i_count %d\n", i_count);
-+	TRACE("Entered get_dir_index_using_name, i_count %u\n", i_count);
+-	TRACE("Entered squashfs_inode_lookup, inode_number = %d\n", ino_num);
++	TRACE("Entered squashfs_inode_lookup, inode_number = %u\n", ino_num);
  
--	index = kmalloc(sizeof(*index) + SQUASHFS_NAME_LEN + 1, GFP_KERNEL);
--	if (index == NULL) {
-+	dir_index = kmalloc(sizeof(*dir_index) + SQUASHFS_NAME_LEN + 1, GFP_KERNEL);
-+	if (dir_index == NULL) {
- 		ERROR("Failed to allocate squashfs_dir_index\n");
- 		goto out;
- 	}
+ 	if (ino_num == 0 || (ino_num - 1) >= msblk->inodes)
+ 		return -EINVAL;
  
-+	/*
-+	 * Translate from external index to internal index.  This is offset by
-+	 * 3 because we invent "." and ".." entries.
-+	 */
-+	max_index -= 3;
-+
-+	/*
-+	 * A valid index starts at a directory header, and there must be enough
-+	 * room for a directory header and one directory entry.
-+	 */
-+	if (max_index < sizeof(struct squashfs_dir_header) +
-+				sizeof(struct squashfs_dir_entry) + 1)
-+		goto out;
-+
-+	max_index -= sizeof(struct squashfs_dir_header) +
-+				sizeof(struct squashfs_dir_entry) + 1;
-+
- 	for (i = 0; i < i_count; i++) {
--		err = squashfs_read_metadata(sb, index, &index_start,
--					&index_offset, sizeof(*index));
-+		err = squashfs_read_metadata(sb, dir_index, &index_start,
-+					&index_offset, sizeof(*dir_index));
- 		if (err < 0)
- 			break;
+-	start = le64_to_cpu(msblk->inode_lookup_table[blk]);
++	start = squashfs_inode_lookup_start(sb, ino_num);
++	if (start < 0)
++		return start;
  
-+		/* Sanity check the directory index contents */
+ 	err = squashfs_read_metadata(sb, &ino, &start, &offset, sizeof(ino));
+ 	if (err < 0)
+@@ -113,14 +153,11 @@ static struct dentry *squashfs_get_parent(struct dentry *child)
+ /*
+  * Read uncompressed inode lookup table indexes off disk into memory
+  */
+-__le64 *squashfs_read_inode_lookup_table(struct super_block *sb,
++int squashfs_read_inode_lookup_table(struct super_block *sb,
+ 		u64 lookup_table_start, u64 next_table, unsigned int inodes)
+ {
+-	unsigned int length = squashfs_lookup_block_bytes(inodes);
+-	unsigned int indexes = squashfs_lookup_blocks(inodes);
+-	int n;
+-	__le64 *table;
+-	u64 start, end;
++	struct squashfs_sb_info *msblk = sb->s_fs_info;
++	s32 length = squashfs_lookup_blocks_bytes(inodes);
  
--		size = le32_to_cpu(index->size) + 1;
-+		/* size should never be larger than SQUASHFS_NAME_LEN */
-+		size = le32_to_cpu(dir_index->size) + 1;
- 		if (size > SQUASHFS_NAME_LEN)
- 			break;
+ 	TRACE("In read_inode_lookup_table, length %d\n", length);
  
--		err = squashfs_read_metadata(sb, index->name, &index_start,
-+		/* The stored index should not be larger than max_index */
-+		index = le32_to_cpu(dir_index->index);
-+		if (index > max_index)
-+			break;
-+
-+		block = le32_to_cpu(dir_index->start_block);
-+
-+		if (i > 0) {
-+			/* The stored index should be larger than the previous index */
-+			if (index <= length)
-+				break;
-+
-+			/* The start_block should not be less than the previous start_block */
-+			if (block < start_block)
-+				break;
-+		}
-+
-+		err = squashfs_read_metadata(sb, dir_index->name, &index_start,
- 					&index_offset, size);
- 		if (err < 0)
- 			break;
+@@ -128,51 +165,69 @@ __le64 *squashfs_read_inode_lookup_table(struct super_block *sb,
  
--		index->name[size] = '\0';
-+		dir_index->name[size] = '\0';
+ 	/* there should always be at least one inode */
+ 	if (inodes == 0)
+-		return ERR_PTR(-EINVAL);
++		return -EIO;
  
--		if (strcmp(index->name, name) > 0)
-+		if (strcmp(dir_index->name, name) > 0)
-+			/* Found the index we're looking for. */
- 			break;
- 
--		res = squashfs_dir_start(le32_to_cpu(index->start_block), msblk);
-+		res = squashfs_dir_start(block, msblk);
- 		if (res < 0)
- 			break;
- 
--		length = le32_to_cpu(index->index);
-+		start_block = block;
-+		length = index;
- 		*next_block = res;
- 	}
- 
--	*next_offset = (length + *next_offset) % SQUASHFS_METADATA_SIZE;
--	kfree(index);
--
- out:
-+	*next_offset = ((u64)length + *next_offset) % SQUASHFS_METADATA_SIZE;
-+	kfree(dir_index);
-+
  	/*
- 	 * Return index (f_pos) of the looked up metadata block.  Translate
- 	 * from internal f_pos to external f_pos which is offset by 3 because
-@@ -133,7 +172,8 @@ static struct dentry *squashfs_lookup(struct inode *dir, struct dentry *dentry,
- 	struct squashfs_dir_entry *dire = NULL;
- 	u64 block = squashfs_dir_start(squashfs_i(dir)->start, msblk);
- 	int offset = squashfs_i(dir)->offset;
--	int err, length;
-+	int err;
-+	loff_t length;
- 	unsigned int dir_count, size;
- 
- 	TRACE("Entered squashfs_lookup [%llx:%x]\n", squashfs_i(dir)->start, offset);
-@@ -155,12 +195,16 @@ static struct dentry *squashfs_lookup(struct inode *dir, struct dentry *dentry,
- 	length = get_dir_index_using_name(dir->i_sb, &block, &offset,
- 				squashfs_i(dir)->dir_idx_start,
- 				squashfs_i(dir)->dir_idx_offset,
--				squashfs_i(dir)->dir_idx_cnt, name);
-+				squashfs_i(dir)->dir_idx_cnt,
-+				i_size_read(dir), name);
- 
- 	while (length < i_size_read(dir)) {
- 		/*
- 		 * Read directory header.
- 		 */
-+		if (!squashfs_dir_space(dir, length, sizeof(dirh)))
-+			goto read_failure;
+ 	 * The computed size of the lookup table (length bytes) should exactly
+ 	 * match the table start and end points
+ 	 */
+-	if (length != (next_table - lookup_table_start))
+-		return ERR_PTR(-EINVAL);
+-
+-	table = squashfs_read_table(sb, lookup_table_start, length);
+-	if (IS_ERR(table))
+-		return table;
++	if (lookup_table_start >= next_table ||
++				length != (next_table - lookup_table_start))
++		return -EIO;
 +
- 		err = squashfs_read_metadata(dir->i_sb, &dirh, &block,
- 				&offset, sizeof(dirh));
- 		if (err < 0)
-@@ -177,23 +221,30 @@ static struct dentry *squashfs_lookup(struct inode *dir, struct dentry *dentry,
- 			/*
- 			 * Read directory entry.
- 			 */
-+			if (!squashfs_dir_space(dir, length, sizeof(*dire)))
-+				goto read_failure;
++	if (length <= (PAGE_SIZE * 4)) {
++		/* Read lookup table index into memory */
++		s32 indexes = squashfs_lookup_blocks(inodes);
++		__le64 *array;
++		u64 start, end;
++		int n;
 +
- 			err = squashfs_read_metadata(dir->i_sb, dire, &block,
- 					&offset, sizeof(*dire));
- 			if (err < 0)
- 				goto read_failure;
- 
-+			length += sizeof(*dire);
- 			size = le16_to_cpu(dire->size) + 1;
- 
- 			/* size should never be larger than SQUASHFS_NAME_LEN */
- 			if (size > SQUASHFS_NAME_LEN)
- 				goto data_error;
- 
-+			if (!squashfs_dir_space(dir, length, size))
-+				goto read_failure;
++		array = squashfs_read_table(sb, lookup_table_start, length);
++		if (IS_ERR(array))
++			return PTR_ERR(array);
 +
- 			err = squashfs_read_metadata(dir->i_sb, dire->name,
- 					&block, &offset, size);
- 			if (err < 0)
- 				goto read_failure;
++		/*
++		 * array0], array[1], ... array[indexes - 1] store the locations
++		 * of the compressed inode lookup blocks.  Each entry should be
++		 * less than the next (i.e. array[0] < array[1]), and the difference
++		 * between them should be SQUASHFS_METADATA_SIZE or less.
++		 * array[indexes - 1] should  be less than lookup_array_start, and
++		 * again the difference should be SQUASHFS_METADATA_SIZE or less
++		 */
++		for (n = 0; n < (indexes - 1); n++) {
++			start = le64_to_cpu(array[n]);
++			end = le64_to_cpu(array[n + 1]);
++
++			if (start >= end || (end - start) > (SQUASHFS_METADATA_SIZE
++						+ SQUASHFS_BLOCK_OFFSET)) {
++				kfree(array);
++				return -EIO;
++			}
++		}
  
--			length += sizeof(*dire) + size;
-+			length += size;
+-	/*
+-	 * table0], table[1], ... table[indexes - 1] store the locations
+-	 * of the compressed inode lookup blocks.  Each entry should be
+-	 * less than the next (i.e. table[0] < table[1]), and the difference
+-	 * between them should be SQUASHFS_METADATA_SIZE or less.
+-	 * table[indexes - 1] should  be less than lookup_table_start, and
+-	 * again the difference should be SQUASHFS_METADATA_SIZE or less
+-	 */
+-	for (n = 0; n < (indexes - 1); n++) {
+-		start = le64_to_cpu(table[n]);
+-		end = le64_to_cpu(table[n + 1]);
+-
+-		if (start >= end
+-		    || (end - start) >
+-		    (SQUASHFS_METADATA_SIZE + SQUASHFS_BLOCK_OFFSET)) {
+-			kfree(table);
+-			return ERR_PTR(-EINVAL);
++		start = le64_to_cpu(array[indexes - 1]);
++		if (start >= lookup_table_start || (lookup_table_start - start) >
++			    (SQUASHFS_METADATA_SIZE + SQUASHFS_BLOCK_OFFSET)) {
++			kfree(array);
++			return -EIO;
+ 		}
+-	}
  
- 			if (name[0] < dire->name[0])
- 				goto exit_lookup;
+-	start = le64_to_cpu(table[indexes - 1]);
+-	if (start >= lookup_table_start ||
+-	    (lookup_table_start - start) >
+-	    (SQUASHFS_METADATA_SIZE + SQUASHFS_BLOCK_OFFSET)) {
+-		kfree(table);
+-		return ERR_PTR(-EINVAL);
++		msblk->inode_lookup_array = array;
++		msblk->lookup_table_is_cache = false;
++	} else {
++		/* Use a cache to store the last 4 pages of indexes read */
++		struct squashfs_cache *cache = squashfs_cache_init("inode index", 4, PAGE_SIZE);
++
++		if (IS_ERR(cache))
++			return PTR_ERR(cache);
++
++		msblk->inode_lookup_cache = cache;
++		msblk->lookup_table_is_cache = true;
+ 	}
+ 
+-	return table;
++	return 0;
+ }
+ 
+-
+ const struct export_operations squashfs_export_ops = {
+ 	.encode_fh = generic_encode_ino32_fh,
+ 	.fh_to_dentry = squashfs_fh_to_dentry,
+diff --git a/fs/squashfs/squashfs.h b/fs/squashfs/squashfs.h
+index 1947a469a0b4..14ccc2776b5c 100644
+--- a/fs/squashfs/squashfs.h
++++ b/fs/squashfs/squashfs.h
+@@ -64,8 +64,9 @@ extern const struct squashfs_decompressor_thread_ops squashfs_decompressor_percp
+ #endif
+ 
+ /* export.c */
+-extern __le64 *squashfs_read_inode_lookup_table(struct super_block *, u64, u64,
++extern int squashfs_read_inode_lookup_table(struct super_block *, u64, u64,
+ 				unsigned int);
++extern s64 squashfs_inode_lookup_start(struct super_block *sb, u32 ino_num);
+ 
+ /* fragment.c */
+ extern int squashfs_frag_lookup(struct super_block *sb, unsigned int fragment,
+diff --git a/fs/squashfs/squashfs_fs_sb.h b/fs/squashfs/squashfs_fs_sb.h
+index 949dab87a241..d6b5908fff51 100644
+--- a/fs/squashfs/squashfs_fs_sb.h
++++ b/fs/squashfs/squashfs_fs_sb.h
+@@ -64,11 +64,16 @@ struct squashfs_sb_info {
+ 	struct mutex				meta_index_mutex;
+ 	struct meta_index			*meta_index;
+ 	void					*stream;
+-	__le64					*inode_lookup_table;
++	union {
++		__le64				*inode_lookup_array;
++		struct squashfs_cache		*inode_lookup_cache;
++	};
+ 	u64					inode_table;
+ 	u64					directory_table;
+ 	u64					directory_table_end;
+ 	u64					xattr_table;
++	u64					lookup_table;
++	u64					lookup_table_start;
+ 	unsigned int				block_size;
+ 	unsigned short				block_log;
+ 	long long				bytes_used;
+@@ -79,5 +84,6 @@ struct squashfs_sb_info {
+ 	bool					panic_on_errors;
+ 	const struct squashfs_decompressor_thread_ops *thread_ops;
+ 	int					max_thread_num;
++	bool					lookup_table_is_cache;
+ };
+ #endif
 diff --git a/fs/squashfs/squashfs_helpers.h b/fs/squashfs/squashfs_helpers.h
-index c25f5918b8fa..07a9e1cdd4e4 100644
+index 33e617c62918..3767bd6ebe45 100644
 --- a/fs/squashfs/squashfs_helpers.h
 +++ b/fs/squashfs/squashfs_helpers.h
-@@ -353,4 +353,11 @@ static inline s64 squashfs_add_indexes(u64 block, s64 blks, struct squashfs_sb_i
- 
- 	return block + blks;
+@@ -136,11 +136,37 @@ static inline s32 squashfs_lookup_blocks(u32 inodes)
+ 		SQUASHFS_METADATA_SIZE;
  }
-+
-+static inline bool squashfs_dir_space(struct inode *inode, loff_t length, int size)
+ 
+-static inline s32 squashfs_lookup_block_bytes(u32 inodes)
++static inline s32 squashfs_lookup_blocks_bytes(u32 inodes)
+ {
+ 	return squashfs_lookup_blocks(inodes) * sizeof(long long);
+ }
+ 
++static inline s32 squashfs_lookup_blocks_base(u32 inodes)
 +{
-+	loff_t space = i_size_read(inode) - length;
-+
-+	return space >= size;
++	return (squashfs_lookup_block(inodes) * sizeof(long long)) & ~(PAGE_SIZE - 1);
 +}
- #endif
++
++static inline s64 squashfs_lookup_blocks_start(u32 inodes, struct squashfs_sb_info *msblk)
++{
++	s32 base = squashfs_lookup_blocks_base(inodes);
++	s64 start;
++
++	if (S64_MAX - msblk->lookup_table < base)
++		return -EINVAL;
++
++	start = msblk->lookup_table + base;
++
++	if (start > msblk->bytes_used)
++		return -EINVAL;
++
++	return start;
++}
++
++static inline s16 squashfs_lookup_blocks_offset(u32 inodes)
++{
++	return (squashfs_lookup_block(inodes) * sizeof(long long)) & (PAGE_SIZE - 1);
++}
++
+ /* uid lookup table defines */
+ static inline s32 squashfs_id_bytes(u16 ids)
+ {
+diff --git a/fs/squashfs/super.c b/fs/squashfs/super.c
+index 8c42f1eb375b..8504939f9a8e 100644
+--- a/fs/squashfs/super.c
++++ b/fs/squashfs/super.c
+@@ -177,6 +177,13 @@ static const struct squashfs_decompressor *supported_squashfs_filesystem(
+ 	return decompressor;
+ }
+ 
++static void squashfs_free_inode_table(struct squashfs_sb_info *msblk)
++{
++	if (msblk->lookup_table_is_cache)
++		squashfs_cache_delete(msblk->inode_lookup_cache);
++	else
++		kfree(msblk->inode_lookup_array);
++}
+ 
+ static int squashfs_fill_super(struct super_block *sb, struct fs_context *fc)
+ {
+@@ -187,8 +194,9 @@ static int squashfs_fill_super(struct super_block *sb, struct fs_context *fc)
+ 	long long root_inode;
+ 	unsigned short flags;
+ 	unsigned int fragments;
+-	u64 lookup_table_start, xattr_id_table_start, next_table;
+-	int err, devblksize = sb_min_blocksize(sb, SQUASHFS_DEVBLK_SIZE);
++	u64 xattr_id_table_start, next_table;
++	s64 err;
++	int devblksize = sb_min_blocksize(sb, SQUASHFS_DEVBLK_SIZE);
+ 
+ 	TRACE("Entered squashfs_fill_superblock\n");
+ 
+@@ -391,20 +399,24 @@ static int squashfs_fill_super(struct super_block *sb, struct fs_context *fc)
+ 	next_table = le64_to_cpu(msblk->id_table[0]);
+ 
+ 	/* Handle inode lookup table */
+-	lookup_table_start = le64_to_cpu(sblk->lookup_table_start);
+-	if (lookup_table_start == SQUASHFS_INVALID_BLK)
++	msblk->lookup_table = le64_to_cpu(sblk->lookup_table_start);
++	if (msblk->lookup_table == SQUASHFS_INVALID_BLK)
+ 		goto handle_fragments;
+ 
+ 	/* Allocate and read inode lookup table */
+-	msblk->inode_lookup_table = squashfs_read_inode_lookup_table(sb,
+-		lookup_table_start, next_table, msblk->inodes);
+-	if (IS_ERR(msblk->inode_lookup_table)) {
++	err = squashfs_read_inode_lookup_table(sb, msblk->lookup_table,
++			next_table, msblk->inodes);
++	if (err < 0) {
++		errorf(fc, "unable to read inode lookup table");
++		goto failed_mount;
++	}
++
++	err = squashfs_inode_lookup_start(sb, 1);
++	if (err < 0) {
+ 		errorf(fc, "unable to read inode lookup table");
+-		err = PTR_ERR(msblk->inode_lookup_table);
+-		msblk->inode_lookup_table = NULL;
+ 		goto failed_mount;
+ 	}
+-	next_table = le64_to_cpu(msblk->inode_lookup_table[0]);
++	next_table = msblk->lookup_table_start = err;
+ 
+ 	sb->s_export_op = &squashfs_export_ops;
+ 
+@@ -480,7 +492,7 @@ static int squashfs_fill_super(struct super_block *sb, struct fs_context *fc)
+ 	if (msblk->cache_mapping)
+ 		iput(msblk->cache_mapping->host);
+ 	msblk->thread_ops->destroy(msblk);
+-	kfree(msblk->inode_lookup_table);
++	squashfs_free_inode_table(msblk);
+ 	kfree(msblk->fragment_index);
+ 	kfree(msblk->id_table);
+ 	kfree(msblk->xattr_id_table);
+@@ -603,7 +615,7 @@ static void squashfs_put_super(struct super_block *sb)
+ 		kfree(sbi->id_table);
+ 		kfree(sbi->fragment_index);
+ 		kfree(sbi->meta_index);
+-		kfree(sbi->inode_lookup_table);
++		squashfs_free_inode_table(sbi);
+ 		kfree(sbi->xattr_id_table);
+ 		kfree(sb->s_fs_info);
+ 		sb->s_fs_info = NULL;
 -- 
 2.47.3
 
