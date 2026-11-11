@@ -1,58 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794439151;
-	b=O11v9QLnX3bT5C0L5P4PEUtiklPYAun9kn4AlWU06R88dkXUjUOs95ZcBKZlpBul1vlw
-	 GQYumOAZNZIWYdC/QlGLYPZdv9QkOPWR4yBE/7iw7XHqLqgX6fQGPyz1YSpwSoX3Hwn17
-	 e0Y9gAAkcSsX6GPigPqcinYg595u/S96XMUMud61UxRz1q+MJJLKLm0W04J83TBsZukJW
-	 FuAyNqLI1etBXuZTiAD5cmsdRo33eCES9kS+XaZzA75PYANRznNL6hdNG4vIpGEGRoc2n
-	 BybOMw8g2meHcYfZ3gf7QrdrG4atoQ/kUEjesisHuDsTWnXxtoLtlj61QiiVFjZqTvA==
+	t=1794439206;
+	b=O1b0IAXigjfjCWAWVW37ffYLw4b4ZbA/QObo1lXhAUkPFhMpkiX8U/s3e3ipEIb6S3D9
+	 2sNhjjDGxk0/Rr+zwM7wq1S2Ge02BN1bSKMaAylKH52TTarFkZEe34sw2Eb9sA7vCxPJQ
+	 LFCnanyED3jgPI/nq9OIoxd5DXiBLpw865MqMWcSkHTZzuSXzsWGPCYgmZaln1bhyB96Y
+	 rH2XY/d/0DGAwegmejMe+YtQpKL1G61APlQlkQLESSiViJ0KYAa9wIvNaqLE9NrpFsm3h
+	 A/DFMzlKNwI8xvSyR28oqkHtcgx0MlBNrgKUI1PAEcAyDVJkz6yfjMH5ZYvSKoHPfUg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794439151;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=mRvFwWptZxyVydMUFNMiU3ZLZ+/+jyea3auxUAzVqwU=;
-	b=yUl1wTxAcoCzk31JdUnLZEZ7oKAFtAERWLlLqSEempM4o0xtZLkmX0o7VIJRQJM5NZ+w
-	 cXI5MnaWrQXD65AY9i4dlCwnt3oA8wY0EStV5RmUaSqiS7830NcUatxReoWZxn2Wbvn3r
-	 Vr+eF8VrETv+5qMX0McTln6uSryQd8czUglfYC5al3WjxKlUn+wYPpAAmHnL48YI4U03D
-	 l5250FFQwjnuXTnzSRy6oHUqJGcleM2OvC/mN7cKjWH7pGg2g0TMrzX3bndHPUIKX8bm7
-	 XaNuPeSTp929ZDWncGI6TvTeCbBin7ZY8UBiwaK1Gq87s2bw3o8ED3lO0blZyMDC+Zg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794439206;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=506UW8ffVFFn+fNOAYPgqIsgKBO+hMz+FtRpDH/HaMA=;
+	b=yPzUqIk2zpUUYbrqdFcBvwiVc/7naUlYGcfo6ibGimdpa4KrvABX01BeYUux8GmZ3++0
+	 AurBruHs/OzFouYbkZXLVpqp5IXhRYFurzLAvOArp4aeQRVA1GDbtzB0MJTOMJ5n1p+Eb
+	 KEQEnzGHoUkP/06kA5JvJm9yybkxsN3kmWCiwlirvGiJbBg8R/bu52ly0aadtP1ED7K2u
+	 Mqq61CRYKBsakLURszrUAQzH+h1tVtSzLUvln07hUNfTuCXTbS/hGRmXkA5QeY/Z6pmc1
+	 vywTWBS1UrdGEX5yoQypjm8lOfgSzQjILUNo7pqM/u93WH6sHrf8FMnumMlJlLm6eTQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mBCRjWsv;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Cl84jhJq;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE729606A31C;
-	Wed, 11 Nov 2026 23:19:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1B7F606A31C;
+	Wed, 11 Nov 2026 23:20:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mBCRjWsv
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36DE91F00A05;
-	Wed, 11 Nov 2026 23:19:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Cl84jhJq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 690AC1F00A05;
+	Wed, 11 Nov 2026 23:20:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794439151;
-	bh=mRvFwWptZxyVydMUFNMiU3ZLZ+/+jyea3auxUAzVqwU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=mBCRjWsvwQ5lATAIOcjS0ATQSM0ld1ro9t9JxkoNO4iCsyS2aUmsU1S711MG/LfKS
-	 /WpaX6DPdYWDy/WyED/x7Kh5vl4XgCgJbHzYZhyALzhWi7Bq4cj1bCfY0ILqyGdcRl
-	 spUbw3WbU0kKqGkNSQ8Lsl9UyeoWIPkvE6uRNAdOpjSaQdgAbfig1v/iRydNbSIKmR
-	 CrkRIZ1+3bVgLWRFeEqCoFp7DIqLZ1q5ehfPRsbZRms2mU5P9CkAK7QyzFKuF6ig5P
-	 RAxQQV0w94Hn9ZaWwey/0xBmaeIBAiyCxA6GXsSwH2d/yw1PAxsfsYFZ6r7eMt64ox
-	 CYTjNb1Hq3kug==
-Date: Wed, 11 Nov 2026 15:19:10 -0800
-From: Jakub Kicinski <kuba@kernel.org>
-To: David Yang <mmyangfl@gmail.com>
-Cc: netdev-bot+sashiko@kernel.org, netdev@vger.kernel.org, andrew@lunn.ch,
- olteanv@gmail.com, davem@davemloft.net, edumazet@kernel.org,
- pabeni@redhat.com, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net] net: dsa: motorcomm: Do not inherit ports from
- dynamic FDB entries
-Message-ID: <20261111151910.0979b8cf@kernel.org>
-In-Reply-To: <CAAXyoMP5hQC8Jgg9LgY-X59ftAGThOMXVf3jTCmRzUPjvC+Qrg@mail.gmail.com>
-References: <20261109153407.1761032-1-mmyangfl@gmail.com>
-	<179441151084.2199510.11035302452325241587@kernel.org>
-	<CAAXyoMP5hQC8Jgg9LgY-X59ftAGThOMXVf3jTCmRzUPjvC+Qrg@mail.gmail.com>
+	s=k20260515; t=1794439206;
+	bh=506UW8ffVFFn+fNOAYPgqIsgKBO+hMz+FtRpDH/HaMA=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=Cl84jhJqEpSPimzQ1H9hjU38+wRkEO0gROgHtApqa7f9TNGlue70CV0fMUQErQ3Iq
+	 cs7UMRfR2AGJcYpHMa2Li7Zgr+ZQddjbqCV4UgIDjz+ohovDLD7FRRRzBBg0XfBsJ/
+	 LlOBw1dI+beIRu2ZUHS22sGInHvch7tHPGWD8rnjjQmvR6KgMa7qgmXkyiij6WCFin
+	 i6x5Q4fbkV3dXFbH+79DkNVWIkrO71OX/rbuV6fERds6STITVT/g+9cqc6CwTftvge
+	 4HK9B6BhrZnFtZr4Az9ysDMGnt4y9/lV+M/Q8xPkWrG4Wh73ah0PeGDGYUA7quCjIb
+	 BF5k05wj4e49Q==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 5E0F6391AFC6;
+	Wed, 11 Nov 2026 23:20:06 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,32 +53,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net-next v2] net: dsa: motorcomm: Free the MIB block on
+ port
+ teardown
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179443920518.1699546.17528295651329739725.git-patchwork-notify@kernel.org>
+Date: Wed, 11 Nov 2026 23:20:05 +0000
+References: <20261109144705.1737460-1-mmyangfl@gmail.com>
+In-Reply-To: <20261109144705.1737460-1-mmyangfl@gmail.com>
+To: David Yang <mmyangfl@gmail.com>
+Cc: netdev@vger.kernel.org, andrew@lunn.ch, olteanv@gmail.com,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ linux-kernel@vger.kernel.org
 
-On Thu, 12 Nov 2026 00:44:53 +0800 David Yang wrote:
-> On Wed, Nov 11, 2026 at 11:38=E2=80=AFPM <netdev-bot+sashiko@kernel.org> =
-wrote:
-> >
-> > Thank you for your contribution! Sashiko AI review found 1 potential
-> > issue(s) to consider.
-> >
-> > Critical: 0 =C2=B7 High: 1 =C2=B7 Medium: 0 =C2=B7 Low: 0
-> >
-> > If you believe none of the issues are legitimate, please reply to each
-> > issue of Medium severity or higher and explain why the AI is wrong.
-> > If any of them are legitimate and you plan to respin, please let patchw=
-ork
-> > know by including "pw-bot: cr" as a separate line at the end of your re=
-ply
-> > (one such reply per series is enough).
-> >
-> > - [High] This patch replaces the egress port mask in yt921x_fdb_join()
-> >   (drivers/net/dsa/motorcomm/chip.c) only when the existing hardware=E2=
-=80=A6 =20
->=20
-> Looks like a pre-existing issue.
+Hello:
 
-I think AI is saying that the fix will be in the same place, tho, so we
-may be better off fixing them both in the same series. Please try, if AI
-keeps finding more and more issues we can cut it off, but not at v1.
+This patch was applied to netdev/net-next.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
+
+On Mon,  9 Nov 2026 22:46:50 +0800 you wrote:
+> .setup() can run again within one registration: removing another switch
+> from the tree tears the whole tree down, and re-probing sets every
+> member switch up again.
+> 
+> The hardware reset at the start of .setup() brings the MIB counters back
+> to zero, but a MIB block kept across that cycle still holds the old
+> software buffer, so the next yt921x_mib_read() treats the small value as
+> a 32-bit wrap and adds 2^32 to every counter it extends.
+> 
+> [...]
+
+Here is the summary with links:
+  - [net-next,v2] net: dsa: motorcomm: Free the MIB block on port teardown
+    https://git.kernel.org/netdev/net-next/c/a9a173f81c83
+
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
