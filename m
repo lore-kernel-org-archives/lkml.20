@@ -1,85 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794385733;
-	b=IRIVTI1E34yNYfEMysMEv2e5kungUf8eiEv+0I3jGyweq3rTLFCNpeo/katgbIjAiUO/
-	 6cG6pzQSQo79+NjoVtnvhzLDO2H4MzffZ+Rz87OILQMA9KX77QB2+Etkb3T6Rig05vU3z
-	 mOsi1ZO79V61Jv6/kMvyzvixbqi7stok7n5jrKUl+szp0Aw29J7EubPm6xZvPQ6O2MWji
-	 vzkHvBNjKMVDCaCYE3TCgbIgU5veiPJ/rm+FQU+hopMX2lIpJ33AUVDo6HuKapLmguPKi
-	 jNn6tHJD3AAp6bxLnISaZRErG56krymo4tvuoxdo6emRhahco13i5Z3rYiQpOU/glHQ==
+	t=1794385740;
+	b=gBXNVI80Yh1vdY5UyxXp7UhM9T2jrdCAyWShyJ+1N9rpzZH6Jnrp8Q987D5pi1buQLvn
+	 p7ojjDQGfOWZl5vCQOl6QZItbZ0w8YiLo2VSkfm0pNJDFJ+6t/+eIv2exi10g2CB343wo
+	 Lef/UWaBsp5dDAuDRl1jjjmby558XPesxViqcxbnVgq/h2yBoGquocoYVgc4o1kxVdvR2
+	 f5XcPhLASJFjjUQMQt9BL2LED3XzMRNGuDDPb8ZrOllaySUptjkXAbKeXKomnEajeBQfi
+	 tgrGFLNd5beeoD+xLQZHHyK8lVDSnfFloDztNOKSWdUJ7R5OQtjdLfR+4rnpJWTSxHQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794385733;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794385740;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=xkjrXuB4d4ljrfRsDmNsDtP89r5+rOTxD9wMLbDcgl0=;
-	b=0H2l4OxJWSkhVQkyOaQl+okr+RdrUL3SUd2M5YAIK82zfhwmBrTrHCHkKvWzJxiQDmvf
-	 GWCZn1P0Y+d2LwA7Re6CMiJq6yKYJiDl00iYrKGQKKWxDMEjUKDnlF6P+sAEm2LVmyFrk
-	 GGJJ8rHnG22+0ocpuV1QIZnY+F0OPfnhLLsvxyHqpEGkrmWP72jJ3eb2j0KWPMfplspHp
-	 BIzVL60A0dUXIqP5beayGswGwUvfiL2kZSpIEyvXC8LTJX6Giw3Q/ZwIH4pneRvDEyb9u
-	 /DkEHnJniu8X4UedJvZZ6wHFY1AVyJj/vjs5KRc2b6qLxdmg+BT0LjPcFY98t0uU7hA==
+	bh=oqt6WiGEqMCVRR7QR/nQyneBo34H3pnYJBAqkvsamRY=;
+	b=CpsbcAPpMafEmhPfz0+H8kZY+Ked0s2Nz1HPeyfN3V2RmVDpdKBULN0GprQhMCVrKYsC
+	 U/qJdM1O8mF33ru+18TNQrFk/HH1wXLc/9HrHkEN1/+M/zRGxeTdA3cqDBVNhbJFmvdfF
+	 pe4wjLkMtfqcgFxle4owRUELpX0jNZ2nCVs0wZQevkxJEAF0FjLIvk0SEf+KNs5Q4omfd
+	 jfQ2Tfi9Ealps8AwwxDHJlu7Z9tlKcPegQ6xjda3J0BMZe0krqPER10kWhHvrK2SSiA5A
+	 evO7yqGZoRT1TG4LuSHOVK1YLmhe+gKm43jBggWVFqAEYzt54BWFc4x+EbE1i/+SKmA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DOWAkC6h;
-	arc=none smtp.remote-ip=209.85.218.47
-Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WveNnJAN;
+	arc=none smtp.remote-ip=209.85.218.41
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E9CE60A262D
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 08:28:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E9CE60A262D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 431E9606A324
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 08:28:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 431E9606A324
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DOWAkC6h
-Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c4697404c2bso398160566b.2
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 00:28:53 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WveNnJAN
+Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c4682977f9aso368490166b.1
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 00:28:59 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794385732; x=1794990532; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794385738; x=1794990538; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=xkjrXuB4d4ljrfRsDmNsDtP89r5+rOTxD9wMLbDcgl0=;
-        b=DOWAkC6hgpg1Li2Mi/aQy7d37STcbrFU4fyKJJrm6pxGdhkp2rd2QiWZbIgT1U/KJd
-         41OFuznqeDGdJ87PVMnvqZxo7+Ot/TTT8lK2Fyf+OqOSoVpxHTFbWJd49eGjDRM0E7O2
-         2mJNQgRyQfSb52el1kVNDXM9Qxuputc3B9i0UwaTIBiB+q9Fo4BrNc8CEI/ua0ZbGr9/
-         5BCvvgFdQZlnX9aZ84kYca9P39vjq10Cfi0sfFc2bupRb5zMmidrbL8fkdl5I5BAnqyz
-         gwEye5c8xpc0MYFgLyOX8Fa41NVUrhZmyecp7iVH2rzaHALupoqbDLRAz7JsaHQOQ2/T
-         IQTw==
+        bh=oqt6WiGEqMCVRR7QR/nQyneBo34H3pnYJBAqkvsamRY=;
+        b=WveNnJANYQ5jI5VR1ozDjvLq8bePJgW5TiMOpnWaIp99YEJyKY0uE9TO26oOL5vR5z
+         R6HoB+tiiqkmxlCB3jVOh6JQOg6RvNfgYo1l7oa8tcFkpUICQFXD0ohPqIh+M6mHPk/J
+         hHrUrpf205+PAalTk6qjK3y03rjpLp3pZN1VHlzhzPtvXrTB2u6eP+lXryWXWPX9puxb
+         wcE1Dq+2Ecc41OMUD+5v3JgwdRLETfD8aRctUaQgQGAnNkN48f7QdhV82tPrnNZTDCVa
+         wOOMRtHqEmqBYhzxqdHJyc9OWe4c+HcEfFaeW14R8tRcuInsY7+gL0vEqwaBo2BPDKd9
+         Zhhg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794385732; x=1794990532;
+        d=1e100.net; s=20260707; t=1794385738; x=1794990538;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xkjrXuB4d4ljrfRsDmNsDtP89r5+rOTxD9wMLbDcgl0=;
-        b=aYSj/C/Hx1Y3lw0/9rQLKsOqr2QstkZktXora7AMKybD4rSChT/6XSOgyb1/oI6DpK
-         RyRAehAVZmh6Bwv2qK5oIDw+K+l8kx2tBeAKd2i9MVbAPzG950FZDT+Mgj4tZ48dyZ/P
-         WQQTqmUH3DrOXTOCjtKZXPng9Wf4NXwiT9P2jcfSpbdBzCktg4Xf4cZnxI10laRx4fHG
-         hZ7+/JEhgkcDPdQO2Ay+MrrY9jOHVqsU9PNhTh5oNtcv8Pzb7jCF2zKW5DHHO0iYG07Y
-         nd0c3ENefs7x46osZGbOuAfnHlUn2W45lutzN3u3pDGPWxHb7aEBOdPreDsBfGRCIgK8
-         oOxg==
-X-Forwarded-Encrypted: i=1; AL+hErGrceCtvQ/qwdTt8RMLc7q0ZEsxTmEqq+ouBA4ViTxg1HmXNyLVMfx96xwR5j6jD7x1EyiWyRRn01axRo0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9kMIXt0H81KsSNEAT9hVBVXfpgNewdVcgs3q1GBHWZIxJn3orl
-	HYtTF5GcyWQIUkVskMQd2Qjr4cZ9ZnV7KXEq9ygw0YOjm/9gXbzRDbW5
-X-Gm-Gg: AYBFou34bEgv+sQsaodBcJ0JlbvHa+JNEqBPnhRD6vjgemDJGctMy8Fl/SjCWFKPGZd
-	+omWWqsyy1I3NfatCja0jv9q8VUyFKtx86n5oXR22QOvv+Kuyao4Y/JUK7/HiQnSIjF+2nf8iIr
-	Bdg6UHWeZNF67FA8VnkHgYcbCP1SL31O2Qn3C/MfY8TgSSMTVnERyZjTROmr91ucFORjCFy6K/4
-	A46xOjJuhQupjrLLwIHQlIUxodHMRuGbrI0/NQKQQvxG1Rn0eQpfWIMXVLknyZS7cJkwYiC9eJl
-	4YM8LeyH6RAucyWihygA04VRBpN5u3d/1WUfXX/rzWNS/UVNq1JMsk4RSfM6iJ8AGkLiJDko+Tu
-	gt3p3QxbOEFSc1ho/GAt0AB8JcgQ9qub1h8xDX43Omh0yiFKXy2h5WRbTEhljH6Iih92E2eKZ03
-	eds/vgoJzJfNSU2RBwoticeFs19ZeobsR6FZehOSYWOQ5pNu9K4lQXTPxcCGoDneD1GWLk/OW8V
-	V6TSdXNIjCUpKiGg/6+wKMnjhSwOgP4LG6Ygp8FAQoD1WyQbXkPuJw4jxDuuxXxmeTfJtJV1O5o
-	NiwnU/iIu7AOV9bU8n0FC8qEIP4eVGgPM8Wop4c6xiUo5wma8n85xEYcdSsFuc4Z18fNEZqSjTY
-	zzxxZEIljjqJbbYR+AsoiDaX1b1Lu5sY809fqA4FXxT+gukK1yqeyE4ajesBdx0ANJkjIttvCn/
-	urVqy62rNNuzfrfLN0AwTtcaMH5K50RH367L7tYkIvM+ML
-X-Received: by 2002:a17:906:7955:b0:c41:53a9:c65c with SMTP id a640c23a62f3a-c5066b65a54mr108933766b.34.1794385731913;
-        Wed, 11 Nov 2026 00:28:51 -0800 (PST)
+        bh=oqt6WiGEqMCVRR7QR/nQyneBo34H3pnYJBAqkvsamRY=;
+        b=Yc73neE/ji69doWZicVbILM9Y9C7P/88aV1gEP7l1RmtAEb2Q0AmcC4QDpttkkZhwA
+         tMFoVsxB8bD/nw2fdH7UFbg5YRmYFPloGghBzABRjB0P/kGmGMPJSJBthKaGu6i4KCkB
+         TzO6gmH0AuJCdmxcZZUGPp78Ap+mFViBkQB6z1vZT/M3Hv/gzR6z+GrZ6tDPt/XrpcNL
+         BGyXKe8RWMUhz9wf+2A5c9/V1XY7M1NTChPs812k+yhHe42T3k9Xm/Tr240s3mA480Jz
+         fCcfIXef0DDe/nJBnaZqk2xdGr4D3PXXBU/RW7I6mrUBF/6mwbqgO1aElmUeDgvDeUdw
+         fH+Q==
+X-Forwarded-Encrypted: i=1; AL+hErGkwf0eAjBqHsfV0IL9YiJtmGtkQuFTNB5Uf23DVzn//Ri9RfyYJozqs87eJS2dnFklNZELB06/J7s3YtU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+Ow8BUPaNEpdDlVB3egEUOPNrrw//pAinjgLZLXsgbozjHSrhN
+	8R/Pc7MZhRhiz75Nvnz46jsqv0rEmix48/jUO75aor1hvaztEERou+79
+X-Gm-Gg: AYBFou1hupxwUF2kGizLlny1B9/rP8xx9pZidRtIs+zDlItOuL8cTmRbVFIthhC6ZjL
+	65L6K6Jm+XvevUE6tQwJ4K4e+kDjKIxMPBdvqIXQYM2Q4zFXplEgRFkWsn+jkp0CusB0IemCFMW
+	tJqfdxNptRoqaRGa3WUCCWxSJKbJ4NMz06ZNazFH6nN89EFQR7Wx2ex0PmaZTo11LcRtYlYX/dG
+	rJ03f+drT9NYKBqEO+rS2ODE/m/4OQrBt6iDBrRhvCtlwKbtlJTrU88IUWzg7H3bxMchqBrCaM6
+	/rKsRzIjuUzKW9mpXL6g2e3w18OHzDyAnQyz46pb5sEPWxB+TUtV0SZK/6hWQdOdKNY6O9iNKm9
+	ELO+HGTHo7+iDEyJTXwjtEeSfMuu668noo8gTrvAnl+4H1vOvt0WN+i0eBc06ao3XmLjrPNO731
+	BKTpGzdvjA/fCar6XCJZXrKuYw5xjlLM6FHTujJull+nPT3dVucOPlAhM2ItXNWoRwtcSVAZWnj
+	iPnAXRvsCnTJ6Fg3a9O3+S6+I/THhW0U4mTQEsoWgENThjsiKLxQPiJ3GjEcYaEfHdI1weKAONa
+	qdvudPabWR06M0vne7PlKkDz2wqAitvZ3SY/E/rU559RiMrYtjRY2Ld3KozPdNhJkdkfVPUtUP8
+	aY0Jz1DKRb8utuN6WvlFNUF0WXipE8YtPMr2w3wOdXQBkHrZMMS4s7bSpzlcgoqDjOUufJPZfOA
+	Qr+qOEesFHzvK2+5WKV1uB655YNWdLKRLgN36i6ulpNIqJ
+X-Received: by 2002:a17:907:dab:b0:c46:2a05:b257 with SMTP id a640c23a62f3a-c5066af79eemr119409166b.23.1794385737557;
+        Wed, 11 Nov 2026 00:28:57 -0800 (PST)
 Received: from fractal.tuxedo-gray.ts.net (c-78-82-25-228.bbcust.telenor.se. [78.82.25.228])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c504a56ffc7sm210135866b.17.2026.11.11.00.28.51
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c504a56ffc7sm210135866b.17.2026.11.11.00.28.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 00:28:51 -0800 (PST)
+        Wed, 11 Nov 2026 00:28:56 -0800 (PST)
 From: Johan Dahlin <jdahlin@gmail.com>
 To: Guenter Roeck <linux@roeck-us.net>
 Cc: linux-hwmon@vger.kernel.org,
@@ -88,9 +88,9 @@ Cc: linux-hwmon@vger.kernel.org,
 	Fabio Baltieri <fabio.baltieri@gmail.com>,
 	Hamza Mahfooz <someguy@effective-light.com>,
 	Johan Dahlin <jdahlin@gmail.com>
-Subject: [PATCH v2 4/7] hwmon: (nct6683) Enable fan control on ASRock BC-250
-Date: Wed, 11 Nov 2026 09:28:35 +0100
-Message-ID: <20261111082838.1418051-5-jdahlin@gmail.com>
+Subject: [PATCH v2 7/7] hwmon: (nct6683) Scale the +5V and +12V inputs of the ASRock B850 Steel Legend WiFi
+Date: Wed, 11 Nov 2026 09:28:38 +0100
+Message-ID: <20261111082838.1418051-8-jdahlin@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261111082838.1418051-1-jdahlin@gmail.com>
 References: <20261111082838.1418051-1-jdahlin@gmail.com>
@@ -105,46 +105,88 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The ASRock BC-250 (customer ID 0x162b) has an NCT6686D with the same fan
-control registers as the B850 Steel Legend WiFi, and manual fan control
-was reported to work there.
+The +5V and +12V rails reach the chip through resistor dividers, so they
+read as 1.70 V and 2.03 V while the UEFI setup shows 5.04 V and 12.19 V.
 
-Enable fan control for channels 0 to 7 on this board as well.
+Let the sensor table carry a divider ratio and apply it when reading the
+input, with ratios of 3 and 6 on this board. sysfs-interface.rst asks for
+such conversions in user space because dividers differ between boards.
+Here the board is identified by its customer ID, so the ratios are fixed.
 
-Suggested-by: Fabio Baltieri <fabio.baltieri@gmail.com>
 Signed-off-by: Johan Dahlin <jdahlin@gmail.com>
 ---
- Documentation/hwmon/nct6683.rst | 2 +-
- drivers/hwmon/nct6683.c         | 3 ++-
- 2 files changed, 3 insertions(+), 2 deletions(-)
+ Documentation/hwmon/nct6683.rst |  3 ++-
+ drivers/hwmon/nct6683.c         | 20 +++++++++++++++-----
+ 2 files changed, 17 insertions(+), 6 deletions(-)
 
 diff --git a/Documentation/hwmon/nct6683.rst b/Documentation/hwmon/nct6683.rst
-index 026515c35243..8e5cd1d7dcd2 100644
+index c8b8ade3b95b..17fba35bf9bb 100644
 --- a/Documentation/hwmon/nct6683.rst
 +++ b/Documentation/hwmon/nct6683.rst
-@@ -59,7 +59,7 @@ fan reported by fanN_input.
+@@ -63,7 +63,8 @@ by fan1 to fan6, and on the ASRock BC-250 (NCT6686D, customer ID 0x162b).
  
- It is also supported on the ASRock B850 Steel Legend WiFi (NCT6686D,
- customer ID 0x164a), where pwm1 to pwm6 control the fan headers reported
--by fan1 to fan6.
-+by fan1 to fan6, and on the ASRock BC-250 (NCT6686D, customer ID 0x162b).
+ On the ASRock B850 Steel Legend WiFi the temperature and voltage inputs
+ are named after the H/W Monitor page of the BIOS setup, and fanN_label
+-names the fan header each channel is wired to.
++names the fan header each channel is wired to. The +5V and +12V inputs
++report the rail voltage rather than the divided voltage seen by the chip.
  
  pwmN_enable selects the fan control mode:
  
 diff --git a/drivers/hwmon/nct6683.c b/drivers/hwmon/nct6683.c
-index 29fbf438c04c..f656b84ee8ac 100644
+index dcad72d1ef97..9a306728ee84 100644
 --- a/drivers/hwmon/nct6683.c
 +++ b/drivers/hwmon/nct6683.c
-@@ -1540,7 +1540,8 @@ nct6683_setup_fans(struct nct6683_data *data)
- 		}
- 	}
+@@ -328,10 +328,14 @@ static const char *const nct6683_mon_label[] = {
+ #define NUM_MON_LABELS		ARRAY_SIZE(nct6683_mon_label)
+ #define MON_VOLTAGE_START	0x60
  
--	if (data->customer_id == NCT6683_CUSTOMER_ID_ASROCK8)
-+	if (data->customer_id == NCT6683_CUSTOMER_ID_ASROCK8 ||
-+	    data->customer_id == NCT6683_CUSTOMER_ID_AMD)
- 		data->have_fan_ctrl = data->have_pwm & GENMASK(7, 0);
+-/* Board specific names for the monitoring sources */
++/*
++ * Board specific names for the monitoring sources, and the ratio of the
++ * resistor divider in front of a voltage input.
++ */
+ struct nct6683_mon_desc {
+ 	u8 src;			/* index into nct6683_mon_label */
+ 	const char *label;
++	u8 scale;		/* voltage divider ratio, 0 if none */
+ };
+ 
+ /*
+@@ -346,11 +350,11 @@ static const struct nct6683_mon_desc asrock_b850sl_mon_desc[] = {
+ 	{ 0x46, "CPU" },		/* AMD TSI Addr 98h */
+ 	{ 0x60, "+3.3V" },		/* VCC */
+ 	{ 0x66, "CPU Vcore" },		/* VIN0 */
+-	{ 0x69, "+5V" },		/* VIN3 */
++	{ 0x69, "+5V", 3 },		/* VIN3 */
+ 	{ 0x6b, "VDDCR_SOC" },		/* VIN5 */
+ 	{ 0x6c, "VDD_MISC" },		/* VIN6 */
+ 	{ 0x6d, "DRAM" },		/* VIN7 */
+-	{ 0x76, "+12V" },		/* VIN16 */
++	{ 0x76, "+12V", 6 },		/* VIN16 */
+ 	{ }
+ };
+ 
+@@ -761,11 +765,17 @@ show_in_reg(struct device *dev, struct device_attribute *attr, char *buf)
+ {
+ 	struct sensor_device_attribute_2 *sattr = to_sensor_dev_attr_2(attr);
+ 	struct nct6683_data *data = nct6683_update_device(dev);
++	const struct nct6683_mon_desc *desc;
+ 	int index = sattr->index;
+ 	int nr = sattr->nr;
++	long val = in_from_reg(data->in[index][nr]);
++
++	/* Report the rail voltage for inputs behind a resistor divider */
++	desc = nct6683_find_mon_desc(data, data->in_src[nr]);
++	if (desc && desc->scale)
++		val *= desc->scale;
+ 
+-	return sprintf(buf, "%ld\n",
+-		       in_from_reg(data->in[index][nr]));
++	return sprintf(buf, "%ld\n", val);
  }
  
+ static umode_t nct6683_in_is_visible(struct kobject *kobj,
 -- 
 2.53.0
 
