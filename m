@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794409142;
-	b=BsdRe5Wei/xp45JyHIPzLQDfn/oy4IHf93594K1Lzd9Yvu3Bu/ziPJ4C8Hb8gYuzBBMp
-	 sNiD/GgdjzIAsh5k+zkvWYUAmlq9l1dLAAyXn9KI7e9CO/mzEGPPKLUuVsL076O7dGsUV
-	 sK+oqMaKwA2uiizPWPeYEyyKzlzo399rWIsyXjeACxouprKqWYDdbQ66X1k99qs+BRcLS
-	 9lcvasztQT0b29hWXgTgVv3bw7hhvfXjeMHu9tuZ6h+PYR3ygW5NZmWf0K096gWBf8U4V
-	 qROVNou47wVabPlZWYJTs70itO2dj6VPS2Ck5CYYlIozFPxRrPw+KDJ1MtawrOi4JsQ==
+	t=1794409151;
+	b=O6TF0Wv8zG/zOAz36urxim53wRN+WbOYMPQgHjcv4wrQRGIAAjJgcbLNrjxVpljsWoNo
+	 uN0IqbvQ/R01jCGzOgixGMF7SJjXqdnqA6pbZUl5ep2o5T9gwqOPNzFLAIkLSKDbuPdL/
+	 Ce9T3duJGpvYN36JBT44lMFWngj+KEOjQ6BHgqO1+75GkNdjC7Fmq8DeCldPzpAUSeSZQ
+	 XSAaE9GZSjJJmgQOZlCP3I5xe9xs+xBvLWG+3CwDoOSy4SNwMxuFhwhemfWVxUMliegX8
+	 JEdXcVKOpzwK5jH5zPc3BwpMWbs0VQb/4/B+SAEfZuQgXGbgSlxRJgavV5bY9D81SEA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794409142;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794409151;
 	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=rrNjKzhy2EVfF3Cyo1JsbQOpZSytrdClVTSrpPuu3y8=;
-	b=Lo6sk7RtrXSR2f6YrXKiqcSH59wDOrfC52v3ud2GxL6NUg4IAGVBCSCAqcd/WJclCkvG
-	 jJ6ccHBQ8PwGAvwaZoPuhgy/yL4pAKNnnDQqCH2AVIxGUiGyK4gh7S//0DrdRLHf9BZjg
-	 cRfaC3RxR2RWFqe/xCpi0Q/A4oWOzPrcf5ln5Nw2Kqn7i+tdJMY8RdYMJIrP6N+mQqAdG
-	 ITMVyT62bF6W1IdefAwy3i7q+bRayjwdYrvtZyIcJfzEhW7GOmEahBlmbaPJFYw/Pfwnq
-	 AMuu6bqQOFShON+gfME6KzFWSIos5z0qn3J9QvswSAypsyYFID/GET5UIyx2eP1JHig==
+	bh=h/au/usfZE/TfBBMZivfikC70G+5kRYRhls8qJotySE=;
+	b=Q7lN8ufZ9RBBXE4suMnXhxrgV5QViXOolzi5MN8Xgzz8YLiE9Xo2zhP7pTg8fon1ZOCc
+	 kF7DyM/p8R5nDk7sAsfsI589L2E9hV63bp/axvfvfPvMqZBYELGNT2H82aqpdlmtNWG5t
+	 EQj+2iasabXzTfbZxrQ99/pBW+TEKK7Lg6hiGDqYeyxAQCGRie52sZ3JQNcUJrw+GysPU
+	 TXVRuZIa76ryohk/riLAVWAJd/pgO+IMIVflMv02Lo2LYxnJuRLpUwUSiRL0kjd837qRE
+	 sg8jsvg0HdBM3Hsj1heMKeRlm/RdpxAiLLGvo2ySnGbzIp/9LiZI9OKEAIy8TQeELxQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=arm.com;
 	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b="vb2JgBn/";
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=az1q8nPg;
 	arc=none smtp.remote-ip=217.140.110.172
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D076A60A262C;
-	Wed, 11 Nov 2026 14:59:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D076A60A262C
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 034CD606B6A6;
+	Wed, 11 Nov 2026 14:59:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 034CD606B6A6
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=vb2JgBn/
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=az1q8nPg
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 212021682;
-	Wed, 11 Nov 2026 06:58:58 -0800 (PST)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0DFCB1576;
+	Wed, 11 Nov 2026 06:59:07 -0800 (PST)
 Received: from e122027.arm.com (unknown [10.57.58.72])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 267723F632;
-	Wed, 11 Nov 2026 06:58:55 -0800 (PST)
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E5F2E3F632;
+	Wed, 11 Nov 2026 06:59:05 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794409141; bh=+gQy6nR+I6R0Q9XQy/yu3MadO/aVM6MhKdAGZ+AVYAg=;
+	t=1794409150; bh=DrbIuSnaXWHO+3/nsY1BLqsSk0ZejQGKrsYqRy9iELs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=vb2JgBn/6do7KCYHs8KMSpJ/soKdgrIDe/5QfMOi5mU77Tk+KfFQ3vcoEC+B5RQNM
-	 VGAO1XQazHOObCQ4ENZqvuKJ9ib3dw7V2PF7sMHYRWZ9FmdJF9rgo/fGYIK6wwHmXK
-	 +iNPEP4Vlu8tF0YFqQ2HiN8zAfCtkSr6ChDMwwbo=
+	b=az1q8nPgnHHODRc74qEHNPtIoSNwdKhF1Z16xfod8gPHw7ZIc29fxuDGNYmm68uhD
+	 PGuPpQLJtnuI94KrsCOCVC4UT+HMrs1qhCKUoFYEoLdvyP338dx8beCL4YHkfDvFEF
+	 pmXQ8G0Is2am36g1cLzbnyGpY61g3otIyQMl9PSs=
 From: Steven Price <steven.price@arm.com>
 To: kvm@vger.kernel.org,
 	kvmarm@lists.linux.dev
@@ -70,9 +70,9 @@ Cc: Suzuki K Poulose <suzuki.poulose@arm.com>,
 	Lorenzo Pieralisi <lpieralisi@kernel.org>,
 	Kohei Enju <enju.kohei@fujitsu.com>,
 	Steven Price <steven.price@arm.com>
-Subject: [PATCH v2 10/12] KVM: arm64: CCA: Prevent memslot modifications after Realm creation
-Date: Wed, 11 Nov 2026 14:57:54 +0000
-Message-ID: <20261111145758.217946-11-steven.price@arm.com>
+Subject: [PATCH v2 12/12] KVM: arm64: CCA: Add Realm stage-2 MMU operations
+Date: Wed, 11 Nov 2026 14:57:56 +0000
+Message-ID: <20261111145758.217946-13-steven.price@arm.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261111145758.217946-1-steven.price@arm.com>
 References: <20261111145758.217946-1-steven.price@arm.com>
@@ -89,114 +89,201 @@ Content-Transfer-Encoding: 8bit
 
 From: Suzuki K Poulose <suzuki.poulose@arm.com>
 
-Once the Realm is created, prevent any changes to guest_memfd backed
-memslots, as the private memory is provided by slots backed by gmem.
-This will also be validated when we handle a fault for Realm Stage2 (in
-a later commit).
+Register the Realm stage-2 MMU operations now that the RMM mapping
+and unmapping helpers are available. Route unmapping through the
+RMM, and use the existing fault handler for Realm memory faults.
 
-Require Realm memslots to lie in the lower half of the IPA space, as the
-upper, shared half aliases the lower, protected half.
+The RMM handles TLB invalidation when stage-2 mappings change, so
+the host has no separate TLB flush to perform. Realm stage-2 does
+not support access flags, including for shared IPAs.
 
-A rejected deletion can already have invalidated the memslot before
-the prepare hook rejects it. Keep private mappings intact in this
-case.
-
-Additionally, similar to pKVM, we do not support dirty logging or
-read-only memslots.
+Dispatch stage-2 destruction according to the VM flavor. Realm
+teardown destroys non-root RTTs through RMI, so the host frees
+only the root RTT pages.
 
 Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
 Signed-off-by: Steven Price <steven.price@arm.com>
 
 ---
 Changes since v1:
-- Preserve private mappings if KVM invalidates a Realm guest_memfd
-  slot before the prepare hook rejects its deletion.
+- Dispatch stage-2 destruction by VM flavor. Free only the Realm
+  root RTT pages after RMI teardown while preserving the native
+  and pKVM destruction paths.
 ---
- arch/arm64/include/asm/kvm_host.h |  2 ++
- arch/arm64/kvm/mmu.c              | 37 +++++++++++++++++++++++--------
- 2 files changed, 30 insertions(+), 9 deletions(-)
+ arch/arm64/include/asm/kvm_host.h |  1 +
+ arch/arm64/kvm/mmu.c              | 72 ++++++++++++++++++++++++++-----
+ 2 files changed, 62 insertions(+), 11 deletions(-)
 
 diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
-index d672d87ffe62..a82b18a3e4e5 100644
+index a82b18a3e4e5..33b1bd2740d3 100644
 --- a/arch/arm64/include/asm/kvm_host.h
 +++ b/arch/arm64/include/asm/kvm_host.h
-@@ -1612,6 +1612,8 @@ struct kvm *kvm_arch_alloc_vm(void);
- 
- #define kvm_vm_hyp_is_distrusting(kvm)	((kvm)->arch.vm_flavor >= __VM_DISTRUSTING_HYP)
- 
-+#define kvm_arch_has_private_mem(kvm) kvm_vm_is_realm(kvm)
-+
- #define kvm_has_mte(kvm)					\
- 	(system_supports_mte() &&				\
- 	 test_bit(KVM_ARCH_FLAG_MTE_ENABLED, &(kvm)->arch.flags))
+@@ -243,6 +243,7 @@ struct kvm_vm_s2_ops {
+ 	int (*vm_flush_remote_tlbs)(struct kvm *kvm);
+ 	int (*vm_flush_remote_tlbs_range)(struct kvm *kvm, gfn_t gfn,
+ 					  u64 nr_pages);
++	void (*vm_stage2_destroy)(struct kvm_pgtable *pgt);
+ 	void (*vm_stage2_unmap_range)(struct kvm_s2_mmu *mmu,
+ 				      phys_addr_t start, u64 size,
+ 				      bool may_block,
 diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
-index 8c29ed204d61..e550360fc94d 100644
+index b6c61d7890c8..b416bc2ff69c 100644
 --- a/arch/arm64/kvm/mmu.c
 +++ b/arch/arm64/kvm/mmu.c
-@@ -2858,17 +2858,32 @@ int kvm_arch_validate_memory_region(struct kvm *kvm,
- {
- 	lockdep_assert_held(&kvm->slots_lock);
- 
--	if (kvm_vm_is_protected(kvm)) {
-+	if (kvm_vm_is_protected(kvm) && new &&
-+	    (new->flags & (KVM_MEM_LOG_DIRTY_PAGES | KVM_MEM_READONLY)))
-+		return -EPERM;
-+
-+	switch (kvm->arch.vm_flavor) {
-+	case VM_PROTECTED_PKVM:
- 		/* Cannot modify memslots once a pVM has run. */
- 		if (pkvm_hyp_vm_is_created(kvm) &&
--		    (change == KVM_MR_DELETE || change == KVM_MR_MOVE)) {
-+		    (change == KVM_MR_DELETE || change == KVM_MR_MOVE))
- 			return -EPERM;
--		}
-+		break;
-+	case VM_REALM:
-+		/*
-+		 * Once the Realm is created, we cannot modify any slots that
-+		 * could be providing private memory. i.e., guest_memfd backed
-+		 * slots.
-+		 * TODO: Handle trusted device private memory slots
-+		 */
-+		if (!kvm_realm_is_created(kvm))
-+			break;
- 
--		if (new &&
--		    new->flags & (KVM_MEM_LOG_DIRTY_PAGES | KVM_MEM_READONLY)) {
-+		if (kvm_slot_has_gmem(old) || kvm_slot_has_gmem(new))
- 			return -EPERM;
--		}
-+		break;
-+	default:
-+		break;
- 	}
- 
+@@ -191,6 +191,12 @@ static int kvm_vm_flush_remote_tlbs(struct kvm *kvm)
  	return 0;
-@@ -2880,6 +2895,7 @@ int kvm_arch_prepare_memory_region(struct kvm *kvm,
- 				   enum kvm_mr_change change)
+ }
+ 
++static int realm_flush_remote_tlbs(struct kvm *kvm)
++{
++	/* Nothing to do here, RMM does the job */
++	return 0;
++}
++
+ /**
+  * kvm_arch_flush_remote_tlbs() - flush all VM TLB entries for v7/8
+  * @kvm:	pointer to kvm structure.
+@@ -218,6 +224,13 @@ static int kvm_vm_flush_remote_tlbs_range(struct kvm *kvm,
+ 	return 0;
+ }
+ 
++static int realm_flush_remote_tlbs_range(struct kvm *kvm,
++					 gfn_t gfn, u64 nr_pages)
++{
++	/* Nothing to do here, RMM does the job */
++	return 0;
++}
++
+ int kvm_arch_flush_remote_tlbs_range(struct kvm *kvm,
+ 				     gfn_t gfn, u64 nr_pages)
  {
- 	hva_t hva, reg_end;
-+	gfn_t ipa_limit;
- 	int ret = 0;
+@@ -353,6 +366,15 @@ static void no_stage2_unmap_range(struct kvm_s2_mmu *mmu,
+ {
+ }
  
- 	if (change != KVM_MR_CREATE && change != KVM_MR_MOVE &&
-@@ -2887,10 +2903,13 @@ int kvm_arch_prepare_memory_region(struct kvm *kvm,
- 		return 0;
++static void realm_stage2_unmap_range(struct kvm_s2_mmu *mmu,
++				     phys_addr_t start, u64 size, bool may_block,
++				     enum kvm_gfn_range_filter filter)
++{
++	struct kvm *kvm = kvm_s2_mmu_to_kvm(mmu);
++
++	kvm_realm_unmap_range_filter(kvm, start, size, may_block, filter);
++}
++
+ /*
+  * Unmapping vs dcache management:
+  *
+@@ -1026,35 +1048,50 @@ static int kvm_init_ipa_range(struct kvm_s2_mmu *mmu, unsigned long type)
+  * cond_resched() periodically to prevent hogging the CPU for a long time
+  * and schedule something else, if required.
+  */
+-static void stage2_destroy_range(struct kvm_pgtable *pgt, phys_addr_t addr,
+-				   phys_addr_t end)
++static void stage2_destroy_range(struct kvm_pgtable *pgt,
++				 void (*destroy_range)(struct kvm_pgtable *pgt,
++						       u64 addr, u64 size))
+ {
++	u64 addr = 0;
++	u64 end = BIT(VTCR_EL2_IPA(pgt->mmu->vtcr));
+ 	u64 next;
  
+ 	do {
+ 		next = stage2_range_addr_end(addr, end);
+-		KVM_PGT_FN(kvm_pgtable_stage2_destroy_range)(pgt, addr,
+-							     next - addr);
++		destroy_range(pgt, addr, next - addr);
+ 		if (next != end)
+ 			cond_resched();
+ 	} while (addr = next, addr != end);
+ }
+ 
+-static void kvm_stage2_destroy(struct kvm_pgtable *pgt)
++static void kvm_vm_stage2_destroy(struct kvm_pgtable *pgt)
+ {
+-	struct kvm *kvm = kvm_s2_mmu_to_kvm(pgt->mmu);
+-	unsigned int ia_bits = VTCR_EL2_IPA(pgt->mmu->vtcr);
++	stage2_destroy_range(pgt, kvm_pgtable_stage2_destroy_range);
++	kvm_pgtable_stage2_destroy_pgd(pgt);
++}
++
++static void pkvm_stage2_destroy(struct kvm_pgtable *pgt)
++{
++	stage2_destroy_range(pgt, pkvm_pgtable_stage2_destroy_range);
++	pkvm_pgtable_stage2_destroy_pgd(pgt);
++}
+ 
++static void realm_stage2_destroy(struct kvm_pgtable *pgt)
++{
  	/*
--	 * Prevent userspace from creating a memory region outside of the IPA
--	 * space addressable by the KVM guest IPA space.
-+	 * Realm shared IPAs alias the corresponding private IPAs, so memslots
-+	 * must reside entirely in the canonical lower half of the IPA space.
+ 	 * Realm RTTs are inaccessible to the host and may contain stale data
+ 	 * after the RMM has released them. The non-root RTTs are explicitly
+ 	 * destroyed through RMI before the RD is destroyed; only the root PGD
+ 	 * pages remain to be freed here.
  	 */
--	if ((new->base_gfn + new->npages) > (kvm_phys_size(&kvm->arch.mmu) >> PAGE_SHIFT))
-+	ipa_limit = kvm_phys_size(&kvm->arch.mmu) >> PAGE_SHIFT;
-+	if (kvm_vm_is_realm(kvm))
-+		ipa_limit >>= 1;
-+	if (new->base_gfn + new->npages > ipa_limit)
- 		return -EFAULT;
+-	if (!kvm_vm_is_realm(kvm))
+-		stage2_destroy_range(pgt, 0, BIT(ia_bits));
++	kvm_pgtable_stage2_destroy_pgd(pgt);
++}
  
- 	/*
+-	KVM_PGT_FN(kvm_pgtable_stage2_destroy_pgd)(pgt);
++static void kvm_stage2_destroy(struct kvm_pgtable *pgt)
++{
++	struct kvm *kvm = kvm_s2_mmu_to_kvm(pgt->mmu);
++
++	kvm->arch.vm_s2_ops->vm_stage2_destroy(pgt);
+ }
+ 
+ /**
+@@ -3285,6 +3322,7 @@ long kvm_arch_vcpu_pre_fault_memory(struct kvm_vcpu *vcpu,
+ }
+ 
+ static const struct kvm_vm_s2_ops protected_pkvm_vm_s2_ops = {
++	.vm_stage2_destroy		= pkvm_stage2_destroy,
+ 	.vm_flush_remote_tlbs		= pkvm_flush_remote_tlbs,
+ 	.vm_flush_remote_tlbs_range	= pkvm_flush_remote_tlbs_range,
+ 	.vm_age_gfn			= no_age_gfn,
+@@ -3294,6 +3332,7 @@ static const struct kvm_vm_s2_ops protected_pkvm_vm_s2_ops = {
+ };
+ 
+ static const struct kvm_vm_s2_ops pkvm_vm_s2_ops = {
++	.vm_stage2_destroy		= pkvm_stage2_destroy,
+ 	.vm_flush_remote_tlbs		= pkvm_flush_remote_tlbs,
+ 	.vm_flush_remote_tlbs_range	= pkvm_flush_remote_tlbs_range,
+ 	.vm_age_gfn			= pkvm_age_gfn,
+@@ -3303,6 +3342,7 @@ static const struct kvm_vm_s2_ops pkvm_vm_s2_ops = {
+ };
+ 
+ static const struct kvm_vm_s2_ops kvm_default_vm_s2_ops = {
++	.vm_stage2_destroy		= kvm_vm_stage2_destroy,
+ 	.vm_flush_remote_tlbs		= kvm_vm_flush_remote_tlbs,
+ 	.vm_flush_remote_tlbs_range	= kvm_vm_flush_remote_tlbs_range,
+ 	.vm_age_gfn			= kvm_vm_age_gfn,
+@@ -3311,6 +3351,16 @@ static const struct kvm_vm_s2_ops kvm_default_vm_s2_ops = {
+ 	.vm_mem_abort			= kvm_vm_mem_abort,
+ };
+ 
++static const struct kvm_vm_s2_ops realm_vm_s2_ops = {
++	.vm_stage2_destroy		= realm_stage2_destroy,
++	.vm_flush_remote_tlbs		= realm_flush_remote_tlbs,
++	.vm_flush_remote_tlbs_range	= realm_flush_remote_tlbs_range,
++	.vm_age_gfn			= no_age_gfn,
++	.vm_test_age_gfn		= no_age_gfn,
++	.vm_stage2_unmap_range		= realm_stage2_unmap_range,
++	.vm_mem_abort			= kvm_vm_mem_abort,
++};
++
+ #define KVM_VM_S2_OPS(flavor, ops)		\
+ 		[(flavor)] = &(ops)
+ 
+@@ -3319,7 +3369,7 @@ static const struct kvm_vm_s2_ops *arm64_vm_s2_ops[] = {
+ 	KVM_VM_S2_OPS(VM_NVHE, kvm_default_vm_s2_ops),
+ 	KVM_VM_S2_OPS(VM_PKVM, pkvm_vm_s2_ops),
+ 	KVM_VM_S2_OPS(VM_PROTECTED_PKVM, protected_pkvm_vm_s2_ops),
+-	[VM_REALM] = NULL,
++	KVM_VM_S2_OPS(VM_REALM, realm_vm_s2_ops),
+ };
+ 
+ static int kvm_vm_init_vm_s2_ops(struct kvm *kvm)
 -- 
 2.43.0
 
