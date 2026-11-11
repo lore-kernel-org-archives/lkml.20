@@ -1,64 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.137
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.135
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794368454;
-	b=IJI0Xv4MPgmDnDVFwvfT/J0Fb5AMk7Y5c0TmZX/U948J6wL3Bbr4+cpclAfUIOLvnkge
-	 pWrIRL6fOiWANveyNFvYCW+/cQ5znCnY+xDm5cXXKa1qZAP4Sa/XzdA3jKBxy13nnywTg
-	 qcHaHi0Tl+k7E8zDCR86e2W38tlEl3djjZUy3tVZQw3JlbzOonyuYnfc7WJ4GWlNZJMbI
-	 5PuqhjzpS9rRQDQNFbPi6/IzO0OcvguIIIYbiYAQ9olzbsui0Tnu2xKqOLkeRSYaQ3pve
-	 bBW/Ti5TPpcBHm1YeT2vgoP4zkOBRI+DNKFOrJE8rq6m2OiHJaojDmgbJ+3loy3/jVw==
+	t=1794368502;
+	b=1epBO5OSAxJzzte9bguVCqZLR4xzzAS521oxF81bEw1wdXU56tgqwwDZg278ELqk3fa6
+	 RqMVuyZ4gBx4XVY4IhGRM3fS5Zb4b9+Ot0dLxwAveCEBxQU/wAmYvmz1AgsLB6Nz+QzST
+	 btBf1wU6gIpdnp7mstxOxY+SsT9B/6DCjyjGe1NJwwAZYHbMLON/YuUE39TiHlSLLSd6a
+	 a526VZGFO0HcvmaTL+QvSc4XOw+vGqt3cBsbg5DcNmJPu531umBDfmauoknbC9p+/xfvS
+	 PbyLTB0RdMK3UqhPfuz59/h8sLmZAlatQzjv1HBnosTiCNQCqMmrFBh2xLQsnbI/AKA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794368454;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794368502;
 	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
 	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
 	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=WWwqaILC751VZYlViYX434qN/q4IV1E/53HHI1qnfNQ=;
-	b=qN5JRpXen1kWFdDOr1wgrSa1ChW6rrXsAAvyyrD1t94hjL8GS1IJDZprzf3gsf4PC1LV
-	 mgDmSpJVn1NkM3JQ4u+DYYI+QHwJGSzaPfKabo6wM9JpRwEButrnrv4pHsi18J07SfiPE
-	 8mUWPzM6X9P8XP7tkOnnwlttpUbwDyvkwRLmu3a7QyQxbvLpWof6Cer3WWh13ANRlBNw/
-	 kcZr6tpeXaVaovqtHENlIU6UGlbgBFWnSYAYXe9Cw8fdeVUXSyNrSoCT0rhToBo8qq4X5
-	 bURA6czHAvV8/izeUe3PahveNENUBF34G+havL8UmwfSrdYkX/lI6xTToaEPJwMJDeQ==
+	bh=gulYJEcmm62CVnL85GlztcKbe8sfBORdQLLpw6fCgY0=;
+	b=uBrGEBO8Yz1lYL8a+CmeR8AOOP/T5j1zNgrXHDuzYF++dLW+XpF7+wh78G43DxliMfF8
+	 9DAK0ZpnMBVsJqzvXwfVQqS4q59KdrksyySyYj/TjCtb71NbkiB0+F+toLToQfNG3tBvN
+	 cMsoV9vWymNQGW1flz5Q2bk6/oPKdBxzuaDAifSXVfmqmOE4IKxiLyd2UL8rFJ4uJsy+t
+	 wVnSZrk/1zUaXdiSnt85RRDr/amN2KANroL54c6PevxmozqBVAIboOFxuckXmuMgh7DTr
+	 XjdLEttYcjecwJwW4X0P5SVFQinMNY2zbLP7YQgiyuaHJThde5nBtoRxPtTwb+N3AgA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=cmss.chinamobile.com;
 	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=vW0S6Iyl;
-	arc=none smtp.remote-ip=111.22.67.137
-Received: from cmccmta4.chinamobile.com (cmccmta4.chinamobile.com [111.22.67.137])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 10011606A31C;
-	Wed, 11 Nov 2026 03:40:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 10011606A31C
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=ZTApaINT;
+	arc=none smtp.remote-ip=111.22.67.135
+Received: from cmccmta2.chinamobile.com (cmccmta2.chinamobile.com [111.22.67.135])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id DA9C6606A321;
+	Wed, 11 Nov 2026 03:41:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA9C6606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=vW0S6Iyl
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=ZTApaINT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=cmss.chinamobile.com; s=default; l=0;
 	h=from:subject:message-id:to:cc:mime-version;
 	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=vW0S6Iyl+fLhEuoh5DgEZ/BMZbJRhROmSpzEv0nx3OEt0K0dS2vDtU0ZoQlI602chNnCSpHnBwhxj
-	 hS9ocBOemhdot5qNLGQAPy3nQd4DPB/J0FykeNMyzRmAxPaD+Ui7yHg5aDXuuU7r14j5qMy67hhmaV
-	 E6WiT/V47j27X8so=
+	b=ZTApaINT0BAyVN+atX0/QXbBfTMFm3Sf+kMj06yn0G60eIADgV+UbaLpbC62nvzKRrPiGEpN+6o9B
+	 aM0nhDJyamJp37Eyx+Pkr1fHB/QwXmM/JUJY022oKEtJYDICPAYLFNLFyruSrof9H7RllFZOCZXsXS
+	 DqV7KhYXGGfmQfQQ=
 X-RM-TagInfo: emlType=0                                       
 X-RM-SPAM-FLAG:00000000
 Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app04-12004 (RichMail) with SMTP id 2ee46af3e3c1c64-73ae4;
-	Wed, 11 Nov 2026 11:40:51 +0800 (CST)
-X-RM-TRANSID:2ee46af3e3c1c64-73ae4
+	by rmmx-syy-dmz-app03-12003 (RichMail) with SMTP id 2ee36af3e3f3733-9ff5b;
+	Wed, 11 Nov 2026 11:41:39 +0800 (CST)
+X-RM-TRANSID:2ee36af3e3f3733-9ff5b
 X-RM-TagInfo: emlType=0                                       
 X-RM-SPAM-FLAG:00000000
 Received:from devin-VMware-Virtual-Platform.localdomain (unknown[10.55.1.72])
-	by rmsmtp-syy-appsvr05-12005 (RichMail) with SMTP id 2ee56af3e3c2da9-cd16b;
-	Wed, 11 Nov 2026 11:40:51 +0800 (CST)
-X-RM-TRANSID:2ee56af3e3c2da9-cd16b
+	by rmsmtp-syy-appsvr02-12002 (RichMail) with SMTP id 2ee26af3e3f12b8-cd383;
+	Wed, 11 Nov 2026 11:41:39 +0800 (CST)
+X-RM-TRANSID:2ee26af3e3f12b8-cd383
 From: Zhu Jun <zhujun2@cmss.chinamobile.com>
-To: raven@themaw.net
-Cc: autofs@vger.kernel.org,
+To: gregkh@linuxfoundation.org
+Cc: linux-usb@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	syzbot+c6d286fd51860df64d9a@syzkaller.appspotmail.com,
+	syzbot+07e19b8c2cc07b864477@syzkaller.appspotmail.com,
 	Zhu Jun <zhujun2@cmss.chinamobile.com>
-Subject: [PATCH] autofs: serialize allocation of global wait queue tokens
-Date: Wed, 11 Nov 2026 11:40:50 +0800
-Message-ID: <20261111034050.12573-1-zhujun2@cmss.chinamobile.com>
+Subject: [PATCH] usbmon: mark concurrent accesses to the monitored flag
+Date: Wed, 11 Nov 2026 11:41:38 +0800
+Message-ID: <20261111034138.12642-1-zhujun2@cmss.chinamobile.com>
 X-Mailer: git-send-email 2.51.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -71,52 +71,105 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-autofs_next_wait_queue is shared by all autofs superblocks, while
-sbi->wq_mutex only serializes requests on one superblock. Concurrent
-requests on different mounts can therefore lose updates to the global
-counter. A delayed update can also move it backwards, allowing an
-outstanding token to be reused on a mount.
+USB submission and completion paths read bus->monitored without taking
+mon_lock or the monitor bus lock. Adding and removing readers changes the
+flag under those locks, so the plain accesses race, as reported by KCSAN.
 
-Protect token allocation with a global spinlock. Keep the existing token
-type and the wraparound rule that reserves zero.
+Use READ_ONCE() for the fast-path checks and WRITE_ONCE() for the updates.
+The monitor callbacks still serialize access to their reader lists using
+the existing bus locks.
 
 Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Signed-off-by: Zhu Jun <zhujun2@cmss.chinamobile.com>
 ---
- fs/autofs/waitq.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/usb/mon/mon_main.c | 14 +++++++-------
+ include/linux/usb/hcd.h    |  6 +++---
+ 2 files changed, 10 insertions(+), 10 deletions(-)
 
-diff --git a/fs/autofs/waitq.c b/fs/autofs/waitq.c
-index 92c0bbbf452b..22bc59c2f63e 100644
---- a/fs/autofs/waitq.c
-+++ b/fs/autofs/waitq.c
-@@ -5,12 +5,14 @@
-  */
- 
- #include <linux/sched/signal.h>
-+#include <linux/spinlock.h>
- #include "autofs_i.h"
- 
- /* We make this a static variable rather than a part of the superblock; it
-  * is better if we don't reassign numbers easily even across filesystems
-  */
- static autofs_wqt_t autofs_next_wait_queue = 1;
-+static DEFINE_SPINLOCK(autofs_wait_queue_lock);
- 
- static void autofs_catatonic_mode_locked(struct autofs_sb_info *sbi)
- {
-@@ -396,9 +398,11 @@ int autofs_wait(struct autofs_sb_info *sbi,
- 			return -ENOMEM;
+diff --git a/drivers/usb/mon/mon_main.c b/drivers/usb/mon/mon_main.c
+index 600c9de84c7e..e6fff0396a18 100644
+--- a/drivers/usb/mon/mon_main.c
++++ b/drivers/usb/mon/mon_main.c
+@@ -44,10 +44,10 @@ void mon_reader_add(struct mon_bus *mbus, struct mon_reader *r)
+ 			list_for_each (p, &mon_buses) {
+ 				struct mon_bus *m1;
+ 				m1 = list_entry(p, struct mon_bus, bus_link);
+-				m1->u_bus->monitored = 1;
++				WRITE_ONCE(m1->u_bus->monitored, 1);
+ 			}
+ 		} else {
+-			mbus->u_bus->monitored = 1;
++			WRITE_ONCE(mbus->u_bus->monitored, 1);
  		}
+ 	}
+ 	mbus->nreaders++;
+@@ -163,7 +163,7 @@ static void mon_stop(struct mon_bus *mbus)
+ 			 * We do not change nreaders here, so rely on mon_lock.
+ 			 */
+ 			if (mbus->nreaders == 0 && (ubus = mbus->u_bus) != NULL)
+-				ubus->monitored = 0;
++				WRITE_ONCE(ubus->monitored, 0);
+ 		}
+ 	} else {
+ 		/*
+@@ -171,7 +171,7 @@ static void mon_stop(struct mon_bus *mbus)
+ 		 * a reader staying across an rmmod foo_hcd, so test ->u_bus.
+ 		 */
+ 		if (mon_bus0.nreaders == 0 && (ubus = mbus->u_bus) != NULL) {
+-			ubus->monitored = 0;
++			WRITE_ONCE(ubus->monitored, 0);
+ 			mb();
+ 		}
+ 	}
+@@ -188,7 +188,7 @@ static void mon_bus_add(struct usb_bus *ubus)
+ 	mon_bus_init(ubus);
+ 	mutex_lock(&mon_lock);
+ 	if (mon_bus0.nreaders != 0)
+-		ubus->monitored = 1;
++		WRITE_ONCE(ubus->monitored, 1);
+ 	mutex_unlock(&mon_lock);
+ }
  
-+		spin_lock(&autofs_wait_queue_lock);
- 		wq->wait_queue_token = autofs_next_wait_queue;
- 		if (++autofs_next_wait_queue == 0)
- 			autofs_next_wait_queue = 1;
-+		spin_unlock(&autofs_wait_queue_lock);
- 		wq->next = sbi->queues;
- 		sbi->queues = wq;
- 		init_waitqueue_head(&wq->queue);
+@@ -246,8 +246,8 @@ static const struct usb_mon_operations mon_ops_0 = {
+ static void mon_dissolve(struct mon_bus *mbus, struct usb_bus *ubus)
+ {
+ 
+-	if (ubus->monitored) {
+-		ubus->monitored = 0;
++	if (READ_ONCE(ubus->monitored)) {
++		WRITE_ONCE(ubus->monitored, 0);
+ 		mb();
+ 	}
+ 
+diff --git a/include/linux/usb/hcd.h b/include/linux/usb/hcd.h
+index 181db044c4d2..ce4525e4289b 100644
+--- a/include/linux/usb/hcd.h
++++ b/include/linux/usb/hcd.h
+@@ -720,21 +720,21 @@ extern const struct usb_mon_operations *mon_ops;
+ 
+ static inline void usbmon_urb_submit(struct usb_bus *bus, struct urb *urb)
+ {
+-	if (bus->monitored)
++	if (READ_ONCE(bus->monitored))
+ 		(*mon_ops->urb_submit)(bus, urb);
+ }
+ 
+ static inline void usbmon_urb_submit_error(struct usb_bus *bus, struct urb *urb,
+     int error)
+ {
+-	if (bus->monitored)
++	if (READ_ONCE(bus->monitored))
+ 		(*mon_ops->urb_submit_error)(bus, urb, error);
+ }
+ 
+ static inline void usbmon_urb_complete(struct usb_bus *bus, struct urb *urb,
+ 		int status)
+ {
+-	if (bus->monitored)
++	if (READ_ONCE(bus->monitored))
+ 		(*mon_ops->urb_complete)(bus, urb, status);
+ }
+ 
 -- 
 2.51.0
 
