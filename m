@@ -1,49 +1,44 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.236.53.87
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794389457;
-	b=UWxj0rlbdNVWmFo7CaXLpFf+g6yW2MOSCnESznlKZE4BIL1+4A7YNXbLc8KraUrb+USB
-	 y+uSeBr3zoXc551ZbJtiwisHBbtJY7b/bWrW71W5tCeM6IUQAMcf7eOZn+kPItFuVEqkt
-	 FMbNpj62LMomcOmSzCu48RISAabKfSE6jZ16p5SQKGd/II/veYadJ/G6NwTqwGS4/Yzpp
-	 oswMId0RhK7NL3D3ibqpMPg+A6m57ygyXa64k5Dh1DTSfGS1H1l28K/ESpcZrATvVHmGv
-	 0lZFm6wvVKOtFKadcT8Ma+LfRouW9k7zFlTuEH1bmj9DlNyiXXIsDd5B6iYAW+6Fszg==
+	t=1794389497;
+	b=d0wElQxH97ZwFn6ih9rjnNURopBx5XiqgFL+2sporInTmDalz02qKwLw9ybrvnMzk5Sq
+	 8gRzhU8ttM9DhffLvsfc8eaE+pj6NGt1LAES790EEh0tMsJxYfgNAqZbjDtE8ogG9K9bz
+	 r9UqNIfUOdNvRXQ/ORDPnblHEfGbFtRa99wOKyZQwpoyW2XeKp9wUady0eY4+ID79Tg8t
+	 VXvaM/B/mpNmMpz16JXy1gNaT/DhtGOxqrqEEm8MP+Oksio1+YhB+YBuLcjiUgBK/aUMj
+	 AiPsfhWpz6cc9FWNiwLDzinaiW5aIiBcuGOsr/gRlSDadrKZ8BSEXAZ8Rt28z3c1lZA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794389457;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=rI3fyWPikHC3KnbTk+u+776sCpBpqD6BG00/t5fbWDI=;
-	b=Jwji7JJDcMMHSZL1+hDYfXafpV4HlebVl6oUiES7Nx7GINC/UfNUiQmjuDUnOXmb0UmM
-	 yEt5luxEztMdmAh4Myfy7bXzUgOSMT+xJbh15IJXty/4kTxr2TitSgbr97lSJe0VjXdCp
-	 kY92pLAnzkDFu0EU7RQsbYXeU8Kc/qHNjkNq+eWFW36+ijWY/QjUMBr+9N6MkWRtj2rK8
-	 Xhfaf2TxAwy8CP0nMRLjH+VQ8E5akPiWuSL9fULvkBPCnsfsuL1BVbIvU4vfDOUsYRxWH
-	 CTDBaaAgT4vQtLCJLQxKMdQofvEUgnFxqmN2XsAMoBuIxS7S+wpa5Ul//gEr7Fyii9w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794389497;
+	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:
+	 X-HM-Spam-Status:DKIM-Signature;
+	bh=C2cuMUzfqAtJpLaC4vioo9E+wmpwXHi1Jc/gRzevf2A=;
+	b=U8n0esA7xd3mFeUWwZcMvU6LSSMs2PsNwHkUKjx5E5DnnBBcDayCjEr/SKaQODvtqozR
+	 syMm1lXt/Zl3C2xW9BSWRaLEb9wTZ05DuFynBxXaAmSiZXSIQaJkd7+g+OMWQ01EdxcAM
+	 om5TVXsjIcqVYO58YrNDdk18QfIKdCtpyo4UV863+RPUUz9W0QLu4lk+Lj3ol+5GRJ7Tc
+	 cL1fYZtKduLYcZEqZKcIopMnpWnpemyn9nOYRdSvTqsThA5blG+w7CM9Wpea5EJ4/4aKD
+	 pDVF6mHCqXpDQ9GBwL27LZgGjoT9oOZAjb3coQAUFMlgd5wv8vM/BBbxURqOsLK4oSA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=ki+k69Rv;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 803C360A3809;
-	Wed, 11 Nov 2026 09:30:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 803C360A3809
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=rock-chips.com;
+	spf=pass smtp.mailfrom=rock-chips.com;
+	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=hTwkZitU;
+	arc=none smtp.remote-ip=160.236.53.87
+Received: from mail-m1602365387.xmail.ntesmail.com (mail-m1602365387.xmail.ntesmail.com [160.236.53.87])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52974606A321;
+	Wed, 11 Nov 2026 09:31:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52974606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=ki+k69Rv
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 888971576;
-	Wed, 11 Nov 2026 01:30:52 -0800 (PST)
-Received: from [10.57.14.48] (unknown [10.57.14.48])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 404C93F673;
-	Wed, 11 Nov 2026 01:30:53 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794389455; bh=iQV6cbskz8rW4tIn0+/kGZ2A6niHv3407z7apgiZQPc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=ki+k69Rv2i2f99td1C2vOKbmx0eIsxakkK4RJ9rTu6ArE+ObEarzlhaZiigTLSXWW
-	 WJCLwoPjFWnBeAf7cWMTQ8Tjw8ISg0hd+At2+G46C+msHf1QEykjG3p29Uw8epxIkV
-	 H6LLKNkRrr0brKEIvxtJNKG9JdjtT9we3LUwNM7o=
-Message-ID: <cdfaaf7d-8b7a-46d4-bf40-e0dc5300eb08@arm.com>
-Date: Wed, 11 Nov 2026 09:31:27 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=hTwkZitU
+Received: from [172.16.12.90] (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 544c1233e;
+	Wed, 11 Nov 2026 17:31:21 +0800 (GMT+08:00)
+Message-ID: <dd59d491-82b0-4047-ae98-f8070f6be112@rock-chips.com>
+Date: Wed, 11 Nov 2026 17:31:15 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,266 +49,269 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] PM: EM: Exclude boost frequencies from inefficiency
- ranking
-To: Guo Chen <guo.chen@oss.qualcomm.com>,
- "Rafael J. Wysocki (Intel)" <rafael@kernel.org>,
- Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
-Cc: Viresh Kumar <viresh.kumar@linaro.org>,
- Vincent Donnefort <vincent.donnefort@arm.com>,
- Matthias Kaehlcke <mka@chromium.org>, linux-pm@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- xin.liu@oss.qualcomm.com, aiqun.yu@oss.qualcomm.com,
- tengfei.fan@oss.qualcomm.com, tingwei.zhang@oss.qualcomm.com
-References: <20261103-em-rank-boost-separately-v2-1-5a13d1b38d37@oss.qualcomm.com>
- <CAJZ5v0hy1D7anTe=CXNXZyMNSN_yHh5hOt6B0bEHTEONRJFMhQ@mail.gmail.com>
- <3e7c3a82-6a99-4c2f-9568-2382ea77ba0e@oss.qualcomm.com>
- <1dadcd02-19b0-482b-b16d-293430227c5c@arm.com>
- <901516c9-d1be-4918-840e-e3617f2a1782@oss.qualcomm.com>
- <6b0ee061-38b9-413e-9a83-90446b484859@arm.com>
- <CAJZ5v0i8a98rjFdQ2Jhu_Xk=qCGiNafMfhzNs26cEJNCYB6Xdg@mail.gmail.com>
- <4f0c8581-a8fb-4bc4-82cc-d30f2f56d2ce@arm.com>
- <CAJZ5v0iX8wYDUo9uUjkqkKq1tpLAu7iaZk+iQzWGigNAqfrsNg@mail.gmail.com>
- <bb99aa3f-fd15-4bdd-9319-ccedffc281c8@arm.com>
- <ec04f795-6cc6-444a-bbee-70c7982932e3@oss.qualcomm.com>
- <CAJZ5v0js0pbcKRp-cNVu_aPstT4meF-u_z012Q-AA=pvvOY=qA@mail.gmail.com>
- <58dbf12d-dae7-44c3-b7da-b65a4800c3b0@oss.qualcomm.com>
+Subject: Re: [PATCH] arm64: dts: rockchip: Describe the Type-C port on RK3576
+ EVB1
+To: Alexey Charkov <alchark@flipper.net>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20261106-rk3576-evb1-husb311-v1-1-99c2f57ea2a5@flipper.net>
 Content-Language: en-US
-From: Lukasz Luba <lukasz.luba@arm.com>
-In-Reply-To: <58dbf12d-dae7-44c3-b7da-b65a4800c3b0@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+In-Reply-To: <20261106-rk3576-evb1-husb311-v1-1-99c2f57ea2a5@flipper.net>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-HM-Tid: 0aa1c9f2996d03a7kunm04e86817850c70
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDSEseVk0fGE1PHhlMTEkeT1YVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
+	9PT0hVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=hTwkZitUQQ0AbxuUDmb0AWUloKZZxsb8SuK/b3HEWHcV0LS/5b3NeJOa/zsz0bJvUSFbwvwY59ldiD5vsQ4ibLdox5bJQ/9+xbqdwywCalBxMSl0HS1QyEmzxpzzmygHPTL+fJQTjhuYup8dCYeQnv3QvwF8m+/i4magR2fDWg8=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=C2cuMUzfqAtJpLaC4vioo9E+wmpwXHi1Jc/gRzevf2A=;
+	h=date:mime-version:subject:message-id:from;
 
+Hi Alexey,
 
-
-On 11/11/26 06:57, Guo Chen wrote:
+On 11/7/2026 1:52 AM, Alexey Charkov wrote:
+> RK3576 EVB1 has its USBDP PHY routed to a Type-C port with a HUSB311 CC
+> controller and a fixed-voltage VBUS supply.
 > 
-> On 11/10/2026 10:59 PM, Rafael J. Wysocki (Intel) wrote:
->> On Tue, Nov 10, 2026 at 3:56 PM Zhongqiu Han
->> <zhongqiu.han@oss.qualcomm.com> wrote:
->>> On 11/10/2026 10:05 PM, Lukasz Luba wrote:
->>>>
->>>> On 11/10/26 13:43, Rafael J. Wysocki (Intel) wrote:
->>>>> On Tue, Nov 10, 2026 at 2:11 PM Lukasz Luba <lukasz.luba@arm.com> 
->>>>> wrote:
->>>>>> Hi Rafael,
->>>>>>
->>>>>> On 11/10/26 12:15, Rafael J. Wysocki (Intel) wrote:
->>>>>>> On Tue, Nov 10, 2026 at 10:58 AM Lukasz Luba <lukasz.luba@arm.com>
->>>>>>> wrote:
->>>>>> [snip]
->>>>>>
->>>>>>
->>>>>>>> That's fine, please continue.
->>>>>>> I have a couple of questions though.
->>>>>>>
->>>>>>> First, why is the ondemand governor mentioned in the changelog?  In
->>>>>>> the mainline, the ondemand governor cannot work with EAS, so it
->>>>>>> shouldn't matter for this issue, should it?
->>>>>> The ondemand is affected by the EM setup code and set 'inefficient'
->>>>>> flags for some OPPs. The EM is also present for cooling devices
->>>>>> and can work w/o EAS and schedutil, w/ just ondemand governor.
->>>>>>
->>>>>> Because EM marks the OPPs kind of 'globally' as inefficient, then
->>>>>> they become CPUFREQ_INEFFICIENT_FREQ entries in the CPUfreq fwk.
->>>>>> In the EM code we have:
->>>>>> cpufreq_table_set_inefficient(policy, table[i].frequency);
->>>>> So maybe this is the one that needs to be fixed?  What about simply
->>>>> skipping boost frequencies in it?
->>>>>
->>>>>> Then ondemand check for CPUFREQ_RELATION_HE will skip them and
->>>>>> pass to __cpufreq_driver_target() with that flags as well.
->>>>> Thanks for explaining and all of that needs to be said in the patch
->>>>> changelog.
->>>>>
->>>>>>> Second, why is the issue regarded as a defect in the code and not in
->>>>>>> the energy model?  Arguably, boost frequencies should be more costly
->>>>>>> than the non-boost ones.  At least the idea behind the boost is 
->>>>>>> making
->>>>>>> higher-cost OPPs temporarily available.  If they are sustainable,
->>>>>>> treating them as boost OPPs is rather pointless.
->>>>>> IMHO it was a bug in the commit mentioned in this patch fix tag.
->>>>>> It is affecting more than just EAS or EM, since the EM is working 
->>>>>> with
->>>>>> all generic code and all cpufreq governors.
->>>>> To be precise, the EM initialization may affect cpufreq in general
->>>>> because inefficient frequencies are used for CPU cooling.  Fair
->>>>> enough, but I'm not talking about this.
->>>>>
->>>>> I'm talking about a reason for giving boost frequencies lower or equal
->>>>> cost relative to non-boost frequencies in the energy model because
->>>>> this doesn't make sense to me TBH.
->>>>>
->>>>> And I get that such energy models were there before the commit in
->>>>> question and now they are not working properly, but IMO they are
->>>>> broken, not that commit.
->>>>>
->>>>>>> TBH, I'm too comfortable with looking at cpufreq frequency from 
->>>>>>> within
->>>>>>> the EM code.  If that needs to be done, something is amiss at the
->>>>>>> design level.
->>>>>> I think this edge case is special, as I described above.
->>>>>>
->>>>>> I'm happy to hear your view on this EM influence to some global
->>>>>> setting in cpufreq. Maybe it was too far to establish this
->>>>>> 'inefficiency' flags in there for many usage?
->>>>> There's nothing wrong with using the information from the energy
->>>>> model, when available, to amend cpufreq, but the patch goes the other
->>>>> way around: It tries to amend the energy model with information taken
->>>>> from cpufreq (in order to avoid making mistakes later when amending
->>>>> cpufreq with the energy model information).
->>>>>
->>>>> I think that cpufreq should simply refuse to set
->>>>> CPUFREQ_INEFFICIENT_FREQ for boost frequencies.  Wouldn't that work?
+> Describe it in the device tree, including the wiring for both the USB and
+> the DP side.
 > 
+> This makes the data roles follow the Type-C port's negotiation, so the
+> port stops being host only. It also leaves the VBUS regulator to be
+> managed by TCPM instead of being hardwired via the tangentially related
+> phy-supply on a USB controller. DP lanes are also muxed dynamically by
+> the USBDP PHY based on the Type-C port's negotiation, so the hacky fixed
+> lane muxing also goes away.
+>
+
+Have you tested this? As far as I know, dw-dp driver does not support
+Type-C HPD yet.
+
+> Signed-off-by: Alexey Charkov <alchark@flipper.net>
+> ---
+>  arch/arm64/boot/dts/rockchip/rk3576-evb1-v10.dts | 150 ++++++++++++++++++++++-
+>  1 file changed, 147 insertions(+), 3 deletions(-)
 > 
-> Got your point. Having cpufreq directly refuse to set
-> CPUFREQ_INEFFICIENT_FREQ might be the simplest approach. Let me
-> summarize my understanding. There are two cases where we can
-> simply avoid setting the CPUFREQ_INEFFICIENT_FREQ flag:
-> 1. boost frequencies.
-> 2. the highest non-boost frequency.
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3576-evb1-v10.dts b/arch/arm64/boot/dts/rockchip/rk3576-evb1-v10.dts
+> index f83d129f96f1..a9b27cdb2dfa 100644
+> --- a/arch/arm64/boot/dts/rockchip/rk3576-evb1-v10.dts
+> +++ b/arch/arm64/boot/dts/rockchip/rk3576-evb1-v10.dts
+> @@ -11,6 +11,7 @@
+>  #include <dt-bindings/leds/common.h>
+>  #include <dt-bindings/pinctrl/rockchip.h>
+>  #include <dt-bindings/soc/rockchip,vop2.h>
+> +#include <dt-bindings/usb/pd.h>
+>  #include "rk3576.dtsi"
+>  
+>  / {
+> @@ -334,6 +335,22 @@ &combphy1_psu {
+>  	status = "okay";
+>  };
+>  
+> +&dp {
+> +	status = "okay";
+> +};
+> +
+> +&dp0_in {
+> +	dp0_in_vp1: endpoint {
+> +		remote-endpoint = <&vp1_out_dp>;
+> +	};
+> +};
+> +
+> +&dp0_out {
+> +	dp0_out_con: endpoint {
+> +		remote-endpoint = <&usbdp_phy_dp_in>;
+> +	};
+> +};
+> +
+>  &gmac0 {
+>  	clock_in_out = "output";
+>  	phy-mode = "rgmii-rxid";
+> @@ -772,6 +789,58 @@ regulator-state-mem {
+>  &i2c2 {
+>  	status = "okay";
+>  
+> +	usbc0: typec-portc@4e {
+> +		compatible = "hynetek,husb311", "richtek,rt1711h";
+> +		reg = <0x4e>;
+> +		interrupt-parent = <&gpio0>;
+> +		interrupts = <RK_PA5 IRQ_TYPE_LEVEL_LOW>;
+> +		pinctrl-names = "default";
+> +		pinctrl-0 = <&usbc0_int>;
+> +		vbus-supply = <&vbus5v0_typec>;
+> +
+> +		connector {
+> +			compatible = "usb-c-connector";
+> +			label = "USB-C";
+> +			data-role = "dual";
+> +			power-role = "source";
+> +			source-pdos = <PDO_FIXED(5000, 2000,
+> +						 PDO_FIXED_USB_COMM | PDO_FIXED_DATA_SWAP)>;
+> +
+> +			altmodes {
+> +				displayport {
+> +					svid = /bits/ 16 <0xff01>;
+> +					vdo = <0x00001c46>;
+> +				};
+> +			};
+> +
+> +			ports {
+> +				#address-cells = <1>;
+> +				#size-cells = <0>;
+> +
+> +				port@0 {
+> +					reg = <0>;
+> +					usbc0_hs: endpoint {
+> +						remote-endpoint = <&usb_drd0_hs_ep>;
+> +					};
+> +				};
+> +
+> +				port@1 {
+> +					reg = <1>;
+> +					usbc0_ss: endpoint {
+> +						remote-endpoint = <&usbdp_phy_ss_out>;
+> +					};
+> +				};
+> +
+> +				port@2 {
+> +					reg = <2>;
+> +					usbc0_sbu: endpoint {
+> +						remote-endpoint = <&usbdp_phy_dp_out>;
+> +					};
+> +				};
+> +			};
+> +		};
+> +	};
+> +
+>  	hym8563: rtc@51 {
+>  		compatible = "haoyu,hym8563";
+>  		reg = <0x51>;
+> @@ -944,6 +1013,14 @@ usb_otg0_pwren: usb-otg0-pwren {
+>  		usbc0_int: usbc0-int {
+>  			rockchip,pins = <0 RK_PA5 RK_FUNC_GPIO &pcfg_pull_up>;
+>  		};
+> +
+> +		usbc0_sbu1: usbc0-sbu1 {
+> +			rockchip,pins = <2 RK_PA6 RK_FUNC_GPIO &pcfg_pull_none>;
+> +		};
+> +
+> +		usbc0_sbu2: usbc0-sbu2 {
+> +			rockchip,pins = <2 RK_PA7 RK_FUNC_GPIO &pcfg_pull_none>;
+> +		};
+>  	};
+>  
+>  	wifi {
+> @@ -1008,7 +1085,6 @@ &u2phy0 {
+>  };
+>  
+>  &u2phy0_otg {
+> -	phy-supply = <&vbus5v0_typec>;
+>  	status = "okay";
+>  };
+>  
+> @@ -1051,13 +1127,74 @@ &ufshc {
+>  };
+>  
+>  &usbdp_phy {
+> -	rockchip,dp-lane-mux = <2 3>;
+> +	mode-switch;
+> +	orientation-switch;
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&usbc0_sbu1 &usbc0_sbu2>;
+> +	sbu1-dc-gpios = <&gpio2 RK_PA6 GPIO_ACTIVE_HIGH>;
+> +	sbu2-dc-gpios = <&gpio2 RK_PA7 GPIO_ACTIVE_HIGH>;
+>  	status = "okay";
+> +
+> +	ports {
+> +		#address-cells = <1>;
+> +		#size-cells = <0>;
+> +
+> +		port@0 {
+> +			reg = <0>;
+> +
+> +			usbdp_phy_ss_out: endpoint {
+> +				remote-endpoint = <&usbc0_ss>;
+> +			};
+> +		};
+> +
+> +		port@1 {
+> +			reg = <1>;
+> +
+> +			usbdp_phy_ss_in: endpoint {
+> +				remote-endpoint = <&usb_drd0_ss_ep>;
+> +			};
+> +		};
+> +
+> +		port@2 {
+> +			reg = <2>;
+> +
+> +			usbdp_phy_dp_in: endpoint {
+> +				remote-endpoint = <&dp0_out_con>;
+> +			};
+> +		};
+> +
+> +		port@3 {
+> +			reg = <3>;
+> +
+> +			usbdp_phy_dp_out: endpoint {
+> +				remote-endpoint = <&usbc0_sbu>;
+> +			};
+> +		};
+> +	};
+>  };
+>  
+>  &usb_drd0_dwc3 {
+> -	dr_mode = "host";
+> +	usb-role-switch;
+>  	status = "okay";
+> +
+> +	ports {
+> +		#address-cells = <1>;
+> +		#size-cells = <0>;
+> +
+> +		port@0 {
+> +			reg = <0>;
+> +			usb_drd0_hs_ep: endpoint {
+> +				remote-endpoint = <&usbc0_hs>;
+> +			};
+> +		};
+> +
+> +		port@1 {
+> +			reg = <1>;
+> +			usb_drd0_ss_ep: endpoint {
+> +				remote-endpoint = <&usbdp_phy_ss_in>;
+> +			};
+> +		};
+> +	};
+>  };
+>  
+>  &usb_drd1_dwc3 {
+> @@ -1079,3 +1216,10 @@ vp0_out_hdmi: endpoint@ROCKCHIP_VOP2_EP_HDMI0 {
+>  		remote-endpoint = <&hdmi_in_vp0>;
+>  	};
+>  };
+> +
+> +&vp1 {
+> +	vp1_out_dp: endpoint@a {
+> +		reg = <ROCKCHIP_VOP2_EP_DP0>;
+> +		remote-endpoint = <&dp0_in_vp1>;
+> +	};
+> +};
 > 
-> However, there is another issue. If we refuse to set
-> CPUFREQ_INEFFICIENT_FREQ for certain frequencies, I think the
-> corresponding EM_PERF_STATE_INEFFICIENT flags in the Energy Model
-> also need to be updated. Otherwise, the EM state would be inconsistent
-> with the frequencies used for energy estimation in the EAS path.
+> ---
+> base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
+> change-id: 20261106-rk3576-evb1-husb311-00efcff4a808
 > 
-> I think we also need to update the EM_PERF_STATE_INEFFICIENT flags
-> accordingly, something like the following:
-> 
-> for (i = 0; i < pd->nr_perf_states; i++) {
->      int ret;
-> 
->      if (!(table[i].flags & EM_PERF_STATE_INEFFICIENT))
->          continue;
-> 
->      /*Return -EOPNOTSUPP if the rejection condition is met. */
->      ret = cpufreq_table_set_inefficient(policy, table[i].frequency);
->      if (!ret)
->          found++;
->      else if (ret == -EOPNOTSUPP)
->          table[i].flags &= ~EM_PERF_STATE_INEFFICIENT;
-> }
-> 
->>>> I see your point now, about the direction. Yes, you're right.
->>>>
->>>> Since we are taking the information about 'boost' from the
->>>> cpufreq, then refusing to set OPPs inefficient in the first
->>>> place makes more sense.
->>>>
->>>>
->>> I also agree this should be fixed in cpufreq rather than by feeding
->>> cpufreq information into the EM. However, refusing
->>> CPUFREQ_INEFFICIENT_FREQ for boost frequencies seems not help the
->>> example in the changelog, because the frequency marked as inefficient
->>> there is 4.0 GHz, which is not a boost one. The problem is not specific
->>> to boost either: with 3.9 GHz, 4.0 GHz, 4.1 GHz and a 4.2 GHz boost OPP
->>> at costs C - d, C, C and C + d, 4.0 GHz is rightly inefficient, but if
->>> policy->max is capped at 4.0 GHz by scaling_max_freq, thermal or QoS,
->>> RELATION_HE for 4.0 GHz still resolves to 3.9 GHz. I think the lookup
->>> should not skip an inefficient frequency when the next efficient
->>> frequency above it is beyond the max limit, which can be done in
->>> cpufreq_frequency_table_target() without touching the EM or looking at
->>> boost flags.
-> 
-> 
-> @Zhongqiu: thanks for the example. I think the two cases are different in
-> nature.
-> 
-> In the case of the changelog, the highest non-boost frequency of cluster is
-> marked inefficient because of the boost frequency. A sustainable 
-> frequency is
-> being affected by an unsustainable one, but it is not really inefficient: I
-> don't think these two kinds of frequencies should be compared with each 
-> other
-> in terms of energy. So I think this should be fixed at the source, by not
-> marking such frequencies as inefficient.
-> 
-> The case you describe looks different, as it is dynamic: policy->max is
-> changed at runtime by scaling_max_freq, thermal or QoS, which would mean
-> ignoring the inefficient flag every time policy->max lands on an 
-> inefficient
-> frequency. Whether this is really necessary seems to me to deserve a
-> discussion. Thermal and QoS limits are there to keep the frequency from 
-> going
-> above the cap. In your example (3.9 GHz, 4.0 GHz, 4.1 GHz), if the 
-> frequency is
-> limited to 4.0 GHz at some point and ends up on 3.9 GHz because 4.0 GHz is
-> inefficient, the original purpose of the limit, not going above the cap, is
-> still honoured.
+> Best regards,
+> --  
+> Alexey Charkov <alchark@flipper.net>
 
-There are platforms which have ~20 OPPs and the difference is ~100MHz.
-Those at the top frequency they are inefficient but exist for this
-thermal purpose. The throttled frequency can be more stable and
-predictable in time, thus also capacity delivered to randomly
-scheduled tasks (which might be unfair if the freq gets lower
-by a lot and some latency sensitive task got a spin at the same time).
-Therefore, we do care by making each OPP (at least) available...
-
-> 
-> So I am not sure that handling the dynamic case is needed, and I would 
-> like to
-> hear what you, Rafael and Lukasz think about it.
-> 
-
-This becomes even more convoluted now.
-1. The only call to cpufreq_table_set_inefficient() is in the EM.
-2. EM works with thermal and all governors, not only EAS and schedutil
-3. CPUfreq fwk holds those 'inefficient' flags in generic, global way
-4. Inefficient flags were introduces mainly for EAS, now impacts
-    non-EAS setup (as patch states 4.0GHz is valid but not reachable).
-
-Here is an example from mainline DT platform. The goal was to avoid
-the frequencies which have the same voltage but lower freq, e.g.
-those from 200MHz to 700MHz and pick 800MHz instead.
-Same for 900MHz and 1200MHz.
-That was the main motivation back then and research we've made
-with a few platforms and EAS.
-
-   freq MHz   opp-microvolt
-   2000       <1312500 1312500 1500000>
-   1900       <1262500 1262500 1500000>
-   1800       <1237500 1237500 1500000>
-   1700       <1250000 1250000 1500000>
-   1600       <1250000 1250000 1500000>
-   1500       <1100000 1100000 1500000>
-   1400       <1100000 1100000 1500000>
-   1300       <1100000 1100000 1500000>
-   1200       <1000000 1000000 1500000>
-   1100       <1000000 1000000 1500000>
-   1000       <1000000 1000000 1500000>
-   900        <1000000 1000000 1500000>
-   800        <900000 900000 1500000>
-   700        <900000 900000 1500000>
-   600        <900000 900000 1500000>
-   500        <900000 900000 1500000>
-   400        <900000 900000 1500000>
-   300        <900000 900000 1500000>
-   200        <900000 900000 1500000>
-
-
-
-Therefore, I would suggest to tackle this is steps.
-
-1st, let's go ahead with this fix which is for mainly EM.
-The EM confuses the cpufreq and then the clients like ondemand, IMHO.
-This can go maybe into the stable kernels, since it's small.
-
-2nd, let's think about that 'boost' thing wider. There are
-already investigations how to handle correctly the CPU's capacity
-and to not confuse the task scheduler. This might create
-the right infrastructure.
-
-
-Side note:
-I personally don't like calling some frequencies 'boost', because
-such frequencies were there but not labeled that way and they were
-OK. In this example, 4.0GHz is non-boost freq, but 4.1GHz is 'boost'.
-At the same time 4.0GHz is 'inefficient', which can only happen
-when 4.1GHz has the same voltage. I have seen such platforms ~13years
-ago and the 'boost' flag wasn't needed to handle them properly.
-
-
-
+-- 
+Best, 
+Chaoyi
