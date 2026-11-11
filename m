@@ -1,118 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794412155;
-	b=Z6/l7vkKRF6/24zaiiCZaBQtMMl2dt9/XM7RwLuulpBmma86zw7koc8pTnK9dkJ2ajGP
-	 rxcZQKTRduwWMG8NYNdd94nDULc3eMsjwOMux3EOdwiref27q0ZhTWPPebSTXgVJ4V+BI
-	 zKx32mwMdY9Zm0T5Flmhuz71QJHuHQa6bw2ELrbYGDG6RfbE5IMJtOzFVusvshrrZRfSQ
-	 YwhNkto6QPliOUqBT+LxdRTtLoCIRuqCmdLf+JWdoBSivi8dBb16MW052G7hDggnbE3L0
-	 sjdGMIJ8rCJUdIG6LUUIMkO8pWN0o81Ow6DFPQWRHt1IBOlNKoIyuGYAeOFFsovKTVg==
+	t=1794412157;
+	b=A26zNdM5vWq1EpLLxTAie+3I3Nm8qJ05cFiOYr6VqXakhujancCpUKKOrJlSFq/3AXm3
+	 E3Tzsm4D0ef30C35DS8Y9/631d5UUEO1s0TZWEMJiHzTGrNLnwVLPudEtICOY3CsHQaS4
+	 c4IpJ5NbQgQ3w+kPsz9A7Tm9he8XQoL/k/qEq0oPWXL9f6464GjP+MP+mDuIyOkB8NKO4
+	 jecJJgnKutPLXHnigLWgRQL75vuBagNBcEjm+HPlzgPP38axx5QjCdgDGyevwyi3TVikb
+	 MhQ+AsN23UeQvEurf0IluC0ZPIpgxLUbFBkEV5IvQwJgvPeIYB4x+WQPCOKV+YjH/Cw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794412155;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=MNXNrwuoyZ1DP7EX4o/hQb3f/LJ1H5porXRD6RrT6/I=;
-	b=fBfIHKUSPfNvw7t6DsnhZS2aqzC1T9RXjkWB56b8EoNsIRr4drcnatPt85tejUb77+R+
-	 yUM+8LkpvAq7Btxvy0ZN8upgRfymOFz4EW7LrgNz+H2ur88t/k4XFpwYskfix4XiqJljF
-	 +pZmWNoWgM9McTb43XoVwDjAz6BExCso7SwxD/dzNKhqBaLWg2cfwLPJ54eL2rAzoYOLV
-	 XMEx8jN0UBaTUu8mu34TWKyTenfT40nbsTm7AFfaoRM+DLCBqnbc1IFjtxl3oPzNPRU/5
-	 rE/L7kGW8JFADHWdxWNl2kL5NK++61/rd6hU+sl8HiPnrvGReNJpdwmKVe+p37Tiwaw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794412157;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=Y4S3w90quI9shg+G5r+d7cVg5MriRy6W+RybDeZ+ZJo=;
+	b=0TFgld5e/Y7AM/JkOjDND0Xcl5Gdv1XpzQao1wmX/T83vxhilZFZXwNtP3fHaAU3Gakq
+	 aiMKKfOiDXeODf9lFxMrTghfgE2fPNrGNA/0Ek/J27c4lgiMSNs2y3CUJYpIGDOyxq+xB
+	 /ujBmqlqK4VDGWIeo/FYad4U0pwbJFuymv6ULVQTcSIkgJAzgpVOOVAw6ZSR23WkE2SqU
+	 guWWiv+sBXNiP/CmXqUG4qzFcUXBYQrycuI7XMQnFTWgzsvZBKyGfzMmz6FULxgaACRNK
+	 79T5gIzxJW2dwW3nXNgaHoQ55jUr9ufPNQYIe22vELT9zdcif6ygY5eaSZG6EIPAt6Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=XuyISIbC;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=sWYYTTHF;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=bnmlNngD;
+	arc=none smtp.remote-ip=209.85.221.47
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E63D1606A321
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 15:49:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E63D1606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 373A5606A336
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 15:49:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 373A5606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=XuyISIbC;
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=sWYYTTHF
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794412153;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=MNXNrwuoyZ1DP7EX4o/hQb3f/LJ1H5porXRD6RrT6/I=;
-	b=XuyISIbCrnllSFaW4C0POERFtddlFaQH9dZ2XJkGmx8TCwUBCDQJAFiT89/7boJ14Lu0VR
-	/Qim7B5huAveqIuKjTNy9dUnYLrC0iUqo6MQBOyorPcUvNnB4nnLNUQ1diEKqFtTcoGl/h
-	6QkEDJfhmfX8tiDw+VOsCjUeTO7KVYg=
-Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
- [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-681-0rsCXQhjNEWckjBnu9dZGg-1; Wed, 11 Nov 2026 10:49:11 -0500
-X-MC-Unique: 0rsCXQhjNEWckjBnu9dZGg-1
-X-Mimecast-MFC-AGG-ID: 0rsCXQhjNEWckjBnu9dZGg_1794412150
-Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-49166c8a60dso2401547f8f.0
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 07:49:11 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=bnmlNngD
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-4922523d1afso1988571f8f.0
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 07:49:17 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1794412150; x=1795016950; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=MNXNrwuoyZ1DP7EX4o/hQb3f/LJ1H5porXRD6RrT6/I=;
-        b=sWYYTTHFxFkChOge2dL3RnJ6C9vwyuLF5f8Bgy1itS1v5gW+S3RjMHGUX2cH2b2Xw2
-         wGpixVsvmNgcX+lxNPmD5np+dyycD66cBUlcniLuS7FnVkvVvzXZXLL7Qm6/yrpTxrmL
-         l+j7U1Ns7XWzTczrrMhN/2jTJmmf/ZBmJ/YN6WayiM8IMWwauQxfBIl8i4jm391Qj7I6
-         /jxpFdV5l3JFr1na4oj89wmd0vsJM4CnUtjgnOkAHj/3TMC6/gLqf7upqDvvy/czaqow
-         Ev1h5QgrH/6ci2sIibfyjvvdn0iviWOJFGZzfiS+Ng4Cm4O7EUc5fGuG6ulTYpDr6Wnp
-         y1MQ==
+        d=suse.com; s=google; t=1794412156; x=1795016956; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Y4S3w90quI9shg+G5r+d7cVg5MriRy6W+RybDeZ+ZJo=;
+        b=bnmlNngD9dDpyRlYzwPsid1whf7wP9o4Bcj9yqyHUqOxUAADkFQBquS4nDB+2uqNeu
+         eRbyG63viI3fD5s22MvgEyjiB6yhjROsVx/ORBOmDs2ra2NbCuxdy5/dr9xeFhzHvu3p
+         fDMpGh2Q8raWGYeaIrgqCMx6+ykzXRWIjfcrV6IEEGy1G9tmhVbJ5E5XkgqI7vUviy8i
+         u1Qkur1MU3Wcb/MffRvrWzUx7Gyrhg/eReyIT2VJpVW79PDVcC8Hufqa06TUO+W75lwb
+         Wdu09oZmdzKTTWG7nN7J/W0pwG4gILi7jpElrQMwR/6bdf93WBZ95N+0wNaSp7CXYIl9
+         xicQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794412150; x=1795016950;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MNXNrwuoyZ1DP7EX4o/hQb3f/LJ1H5porXRD6RrT6/I=;
-        b=Mxx0AXRwiF7anItKnYgr4ookzmfdebnW7Z8neMz8IPCRI2Oj4Jxbkul2Jos4EvBr1d
-         1ye555yPo1Ck8ooxZjz6yP5hMjjioasWrTepsixLhkzkSDFH8aeCaTKxShM7LvyhWrzE
-         KomyBOGY+O6L22vmvnC1DBzAD6X/Fs3P4fsotuDDcH/9vBHKVB1ii56F46r0Xqx1Xecr
-         XAWcD+IzyMlTvNfFUaDZdf1qz08B+xANzC6yVkrR4GbRD3p3ioU8k3nBvpDNhFB+I648
-         iSLC2QSg/WAeucezca+GwyoqDZPIB92KyfRN85gF+P/k3Qou9vl5SCH3g1j2ue6A4wi4
-         xdeA==
-X-Forwarded-Encrypted: i=1; AL+hErG/a98+ZUKl1ZzTXMu/sNXmfenP5Lf51KgFgL2EIHyCxB00GZsE0DZsFbsv1JBVeLe+g4tQ39Kw9biD2zI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9O4O9NxBYvsNZEAfAf8352r4l7cx7abnab96LosyarfRxOm5Ji
-	7/+5Yf++Qim0+3rWqT/8N2Em3SDg7g+YUtBVaaCLkLEQXFrUf+sORYPWqLyQM7A8f1JNFjwIRtg
-	iwGkdp8AG8kXfSVETFdoBVDsHrYNjcWVtYJowawsWev/Vfeoei2we88+DaEodqpV99w==
-X-Gm-Gg: AYBFou10NQ9ZOlUW5G5rRbKtWYX6gVKXcsf3PdWFtTxuA58vLRms7mrA3+yFTBPsYfS
-	tNyc7t7J6OAeySv+QRBD9L90/XHmRHYL7zlmGu+XMFNl3/xP35pKNDVxXnxnbQfpXdmNn6QWP21
-	k+LbDoRdGT+t8PvE4+UZkSCdCR3cJORj82/6Bd5OEzNPjtbylXNWxKEUXXdE2GslHeHL6ph3p6O
-	VFuRccvf9R1W/UJXXmtnU2q6e6+g41ZAn1es8buPfen0ks8rZyjQVBcfhWWDA7oiR++gPYfqXPy
-	GQ+R2ryW2ZFdGqDw9249UgCqa7X7WpbgFISAzrPRxBMSVvVdEQRKbvU3408UlnWuP9tgLkw7ftr
-	X2ObgVOFT6++U+yR879g/pYAV258OLYmLCWKk2PnySQ==
-X-Received: by 2002:a05:6000:2612:b0:490:2bd4:5c42 with SMTP id ffacd0b85a97d-499c86a110cmr4320639f8f.44.1794412150109;
-        Wed, 11 Nov 2026 07:49:10 -0800 (PST)
-X-Received: by 2002:a05:6000:2612:b0:490:2bd4:5c42 with SMTP id ffacd0b85a97d-499c86a110cmr4320595f8f.44.1794412149503;
-        Wed, 11 Nov 2026 07:49:09 -0800 (PST)
-Received: from redhat.com ([2a0d:6fc0:1511:2900:ff37:b35c:a97:952d])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498357648f0sm12253487f8f.12.2026.11.11.07.49.07
+        d=1e100.net; s=20260707; t=1794412156; x=1795016956;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Y4S3w90quI9shg+G5r+d7cVg5MriRy6W+RybDeZ+ZJo=;
+        b=y5qWob2X3uV0JM8My1HhzpKXwoH8K8PqBTCuMnvEFa7toIMDulEQ6uXh66euqxm7rD
+         OaWQpRA4MJxdM4O7Qao7IAjWZlE9OW4AbZ1Hh5GVVZH44BWIWvCzcGMUC7nkVBFcn8pK
+         iVMs4pocUxGOMAU51JnIEdw1xGVeOyMFfIRRjzyHs0YpMMx8ybF3MpYb0mO+DD4DmeoZ
+         XfymNtHQk5Q+O2S6k2tT3rgz8KWI4T2ffmmnydPLT7IKQcV0N/i7fWfEtFfrKWBkM6pc
+         0m1tpk3S4QmEIXmzRr2jXlveEN86x/e0hO8DPBLKXcLVW2b4Ol6NcoLSdz1Nj1teSm72
+         5mRQ==
+X-Forwarded-Encrypted: i=1; AL+hErFYMmshJXU4janHgAn3/JOzHGkKZB8lAkWUYUb2lfIoUmjfwUgMuzdZYsP1pRBMKtHQq4Y1TbBS/wxlnVw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+CpJdP0dPgr9ubzK/Fmods+AvvVq+PIB424GkUikXS3bsUxKOI
+	KCfqa6rJcSASOzKPfzkeYCyqDTBQZM1xpnAG2kIBMds9oc6eBz5TIbahoF9Kh0yVs58uFZlMSem
+	FlZYyn/E=
+X-Gm-Gg: AYBFou0+VPsR6Jgg3aM3RFsUa0E0UFNysS9xBoeID0PCoOCN01RPNax8oLZUTJRzQHC
+	zIlRf5D16FUspE6Zg719/rWhJN71li9t2XF93k8MqcHHNTBN52wi9pIt5jE5tcZWLTTv1W8cS38
+	cTYVuW/Ar66zejUvrjz4klWuyqGkqzCMeQAKI5dlbaEXUNscNKqfoPtjLRfeGnOpa8GJN/iimfc
+	UaAK3nZYiEZrrZRg5wXwciF+EkH+ZuhCLrjVkyLRKHZeE91UvlErfZw8+e4HO13Z1RbV1PVvAn5
+	DP+h8iW3uQL68C2SceoLcii1ZQae92H2PeCD9JMIDGtloC5DmpIh8hpI27eyzvlJ5vKTrbQISqW
+	jeiRzFDjdjzQGC6VLPbj+UcFXet5tCFeYolXXP36/uOOYH31L8XzIGXZlo5BhmOSmLfjV81zJ75
+	ySkG094JRK2oc6eqOjXs6AscflJDNYoEoI3343/5S9vIn0L4jLQDrvVNJR4IL2nu6MoGc0rlRrb
+	OqshsXPCddcGnjFol6aFRzjEUjQV4IieQpMaGPls0bFmjB2BlVEOzD2CwYFqcSP86ot1gjI+p/K
+	aRIeZ5EK/KAddAhadfLibgm6njbKhzoSJtJKoImClatuLs9dPu16
+X-Received: by 2002:a5d:64e4:0:b0:491:96fc:9f0 with SMTP id ffacd0b85a97d-499c7552529mr5381970f8f.15.1794412155585;
+        Wed, 11 Nov 2026 07:49:15 -0800 (PST)
+Received: from pathway.suse.cz ([176.114.240.130])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498361f6bacsm11898729f8f.35.2026.11.11.07.49.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 07:49:08 -0800 (PST)
-Date: Wed, 11 Nov 2026 10:49:05 -0500
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Dmitrii Iakunin <zeil@nebius.com>
-Cc: "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	NB-Core Team <NB-CoreTeam@nebius.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Willem de Bruijn <willemb@google.com>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	"stable@vger.kernel.org" <stable@vger.kernel.org>
-Subject: Re: [PATCH net v2] net: validate IPv4 checksum start in
- skb_csum_hwoffload_help()
-Message-ID: <20261111104557-mutt-send-email-mst@kernel.org>
-References: <20261111120448.49979-1-zeil@nebius.com>
+        Wed, 11 Nov 2026 07:49:14 -0800 (PST)
+From: Petr Mladek <pmladek@suse.com>
+To: John Ogness <john.ogness@linutronix.de>
+Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Marcos Paulo de Souza <mpdesouza@suse.com>,
+	Chris Down <chris@chrisdown.name>,
+	Naveen Kumar Chaudhary <naveen.osdev@gmail.com>,
+	printk@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Petr Mladek <pmladek@suse.com>
+Subject: [PATCH v7 04/17] printk: Separate code for adding/updating preferred console metadata
+Date: Wed, 11 Nov 2026 16:48:03 +0100
+Message-ID: <20261111154816.71103-5-pmladek@suse.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261111154816.71103-1-pmladek@suse.com>
+References: <20261111154816.71103-1-pmladek@suse.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -122,128 +104,176 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261111120448.49979-1-zeil@nebius.com>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 11, 2026 at 12:04:52PM +0000, Dmitrii Iakunin wrote:
-> Commit 6785011f8b16 ("ipv4: validate checksum_start before completing
-> checksum") added checks so that malformed CHECKSUM_PARTIAL metadata
-> cannot make software checksum completion write the folded checksum
-> into the IPv4 header.
+The logic for adding or updating a preferred console is currently
+duplicated within __add_preferred_console(), making the code difficult
+to follow and prone to consistency issues.
 
-... after validation but before ip_do_fragment received?
+Split the code for adding or updating entries to avoid code duplication.
+Make it clear what operations are done only for new entries.
 
-> skb_csum_hwoffload_help() completes checksums in software when the
-> device features cannot satisfy the request (e.g. via validate_xmit_skb(),
-> ieee80211_tx_skb_fixup(), openvswitch queue_userspace_packet() or
-> ppp_bridge_xmit()). Packets built by AF_PACKET with PACKET_VNET_HDR or
-> by tap with VIRTIO_NET_HDR_F_NEEDS_CSUM can reach it with a csum_start
-> that points inside the IPv4 header, and this path was not covered by
-> the earlier validation.
+Use this opportunity and replace an int with an unsigned int for
+iterating over the preferred_consoles array.
 
-And so what? it doesn't go to ip_do_fragment. if af_packet
-wants to inject malformed packets, it already can.
+It is a preparation step before adding more consistency checks.
+No intended functional changes.
 
-> 
-> At the sw_checksum label, for IPv4 packets, require the fixed IPv4
-> header to be pullable and reject csum_start values that fall before the
-> end of the IPv4 header. Return -EINVAL so callers drop the packet.
-> 
-> Unlike the sites added by that commit, this path cannot rely on
-> earlier validation, so:
-> 
->  - Locate the IPv4 header at the depth returned by __vlan_get_protocol()
->    rather than at network_header. After skb_vlan_untag() pops only the
->    outer tag of a QinQ frame and the skb is redirected by tc mirred or
->    bpf_redirect, network_header still points at the inner VLAN tag, and
->    ihl would be read from the TCI.
-> 
->  - Reject ihl < 5. ip_rcv_core() has not checked it on these paths, and
->    with a sender-chosen ihl of 0..4 a csum_start inside the fixed 20-byte
->    header would otherwise pass the check.
-> 
->  - Skip the check when the network offset is negative. On the PPP
->    channel-bridge path (L2TP or PPTP), the outer headers have been pulled
->    while network_header and protocol still describe the outer IPv4
->    header. The IPv4 header of the packet being checksummed cannot be
->    located there, and those packets used to be forwarded.
-> 
-> Hardware-offloaded checksums and SCTP CRC handling are unchanged.
-> 
-> This change only covers the software fallback in
-> skb_csum_hwoffload_help(). Other places that call skb_checksum_help()
-> directly are not covered: drivers that fall back to software after the
-> core offered hardware offload (e.g. wireguard, igb, tg3), and core
-> callers such as xsk tx_sw_csum and netem corruption.
+Reviewed-by: John Ogness <john.ogness@linutronix.de>
+Acked-by: Chris Down <chris@chrisdown.name>
+Signed-off-by: Petr Mladek <pmladek@suse.com>
+---
+ kernel/printk/printk.c | 114 ++++++++++++++++++++++++++---------------
+ 1 file changed, 74 insertions(+), 40 deletions(-)
 
-what does this mean?
-
-> As the earlier
-> commit notes, validating the metadata on input remains the complete fix.
-> 
-> Cc: stable@vger.kernel.org
-> Fixes: f43798c27684 ("tun: Allow GSO using virtio_net_hdr")
-> Fixes: bfd5f4a3d605 ("packet: Add GSO/csum offload support.")
-> Assisted-by: claude-opus-5.5
-> Signed-off-by: Dmitrii Iakunin <zeil@nebius.com>
-> 
-> ---
-> v2:
-> - Locate the IPv4 header using the parsed VLAN depth.
-> - Reject IPv4 headers with ihl < 5.
-> - Skip validation when the network offset is negative.
-> - Narrow the subject and document software-fallback paths not covered.
-> - Update the Fixes tags to identify the original introduction points.
-> 
-> v1: https://lore.kernel.org/lkml/20261102140633.42564-1-zeil@nebius.com/
-> 
->  net/core/dev.c | 23 +++++++++++++++++++++++
->  1 file changed, 23 insertions(+)
-> 
-> diff --git a/net/core/dev.c b/net/core/dev.c
-> index df1a840b0334..fafcb8f7ff9b 100644
-> --- a/net/core/dev.c
-> +++ b/net/core/dev.c
-> @@ -4111,6 +4111,9 @@ static struct sk_buff *validate_xmit_vlan(struct sk_buff *skb,
->  int skb_csum_hwoffload_help(struct sk_buff *skb,
->  			    const netdev_features_t features)
->  {
-> +	__be16 protocol;
-> +	int offset;
-> +
->  	if (unlikely(skb_csum_is_sctp(skb)))
->  		return !!(features & NETIF_F_SCTP_CRC) ? 0 :
->  			skb_crc32c_csum_help(skb);
-> @@ -4130,6 +4133,26 @@ int skb_csum_hwoffload_help(struct sk_buff *skb,
->  	}
->  
->  sw_checksum:
-> +	offset = skb_network_offset(skb);
-> +	protocol = skb->protocol;
-> +	if (eth_type_vlan(protocol))
-> +		protocol = __vlan_get_protocol(skb, protocol, &offset);
-> +
-> +	/* Use the parsed VLAN depth: network_header may point at an inner
-> +	 * tag. If the network offset is negative, network_header refers
-> +	 * to bytes preceding the current packet data and cannot be used
-> +	 * to locate the IPv4 header being validated.
-> +	 */
-> +	if (offset >= 0 && protocol == htons(ETH_P_IP)) {
-> +		const struct iphdr *iph;
-> +
-> +		if (!pskb_may_pull(skb, offset + sizeof(*iph)))
-> +			return -EINVAL;
-> +		iph = (const struct iphdr *)(skb->data + offset);
-> +		if (iph->ihl < 5 ||
-> +		    skb_checksum_start_offset(skb) < offset + iph->ihl * 4)
-> +			return -EINVAL;
-> +	}
->  	return skb_checksum_help(skb);
->  }
->  EXPORT_SYMBOL(skb_csum_hwoffload_help);
-> -- 
-> 2.52.0
-> 
-> 
+diff --git a/kernel/printk/printk.c b/kernel/printk/printk.c
+index a46c9bd184de..898e060a26a7 100644
+--- a/kernel/printk/printk.c
++++ b/kernel/printk/printk.c
+@@ -366,6 +366,7 @@ static int console_locked;
+ static struct preferred_console preferred_consoles[MAX_PREFERRED_CONSOLES];
+ 
+ static int preferred_dev_console = -1;
++/* Set when there is at least one console preferred via the command line. */
+ int console_set_on_cmdline;
+ EXPORT_SYMBOL(console_set_on_cmdline);
+ 
+@@ -2543,26 +2544,34 @@ asmlinkage __visible void early_printk(const char *fmt, ...)
+ }
+ #endif
+ 
+-static void set_user_specified(struct preferred_console *pc, bool user_specified)
+-{
+-	if (!user_specified)
+-		return;
+-
+-	/*
+-	 * @pc console was defined by the user on the command line.
+-	 * Do not clear when added twice also by SPCR or the device tree.
+-	 */
+-	pc->user_specified = true;
+-	/* At least one console defined by the user on the command line. */
+-	console_set_on_cmdline = 1;
+-}
+-
+-static int __add_preferred_console(const char *name, const short idx,
+-				   const char *devname, char *options,
+-				   char *brl_options, bool user_specified)
++/**
++ * add_or_update_preferred_console - Add or update a given entry in
++ *	the preferred_consoles[] array.
++ * @i: index of the entry in @preferred_consoles table which should get updated.
++ * @name: The name of the preferred console driver.
++ * @idx: Preferred console index, e.g. port number.
++ * @devname: The name of the preferred physical device.
++ * @options: Options used when setting up the console driver.
++ * @brl_options: Options used when setting up the console driver
++ *	as a braille console.
++ * @user_specified: True if preferred via the kernel command line.
++ *
++ * The function adds or updates an entry in preferred_consoles[] array. Also
++ * it updates some global variables which are used to make the right decisions
++ * in register_console().
++ */
++static int add_or_update_preferred_console(unsigned int i,
++					   const char *name, const short idx,
++					   const char *devname, char *options,
++					   char *brl_options, bool user_specified)
+ {
+ 	struct preferred_console *pc;
+-	int i;
++	bool is_new_entry = false;
++
++	if (i >= MAX_PREFERRED_CONSOLES)
++		return -E2BIG;
++
++	pc = &preferred_consoles[i];
+ 
+ 	if (!name && !devname)
+ 		return -EINVAL;
+@@ -2576,35 +2585,60 @@ static int __add_preferred_console(const char *name, const short idx,
+ 	if (name && idx < 0)
+ 		return -EINVAL;
+ 
++	if (!pc->name[0] && !pc->devname[0])
++		is_new_entry = true;
++
++	if (is_new_entry) {
++		if (name)
++			strscpy(pc->name, name);
++		if (devname)
++			strscpy(pc->devname, devname);
++		pc->index = idx;
++	}
++
+ 	/*
+-	 *	See if this tty is not yet registered, and
+-	 *	if we have a slot free.
++	 * Historically, the preferred options are stored only by the first
++	 * caller who prefers the particular console.
+ 	 */
++	if (is_new_entry) {
++		pc->options = options;
++		braille_set_options(pc, brl_options);
++	}
++
++	if (!brl_options)
++		preferred_dev_console = i;
++
++	if (user_specified) {
++		/*
++		 * @pc console was defined by the user on the command line.
++		 * Do not clear when added twice also by SPCR or DT.
++		 */
++		pc->user_specified = true;
++		console_set_on_cmdline = 1;
++	}
++
++	return 0;
++}
++
++static int __add_preferred_console(const char *name, const short idx,
++				   const char *devname, char *options,
++				   char *brl_options, bool user_specified)
++{
++	struct preferred_console *pc;
++	unsigned int i;
++
++	/* See if this console is already preferred. */
+ 	for (i = 0, pc = preferred_consoles;
+ 	     i < MAX_PREFERRED_CONSOLES && (pc->name[0] || pc->devname[0]);
+ 	     i++, pc++) {
+-		if ((name && strcmp(pc->name, name) == 0 && pc->index == idx) ||
+-		    (devname && strcmp(pc->devname, devname) == 0)) {
+-			if (!brl_options)
+-				preferred_dev_console = i;
+-			set_user_specified(pc, user_specified);
+-			return 0;
+-		}
++		if (name && strcmp(pc->name, name) == 0 && pc->index == idx)
++			break;
++		if (devname && strcmp(pc->devname, devname) == 0)
++			break;
+ 	}
+-	if (i == MAX_PREFERRED_CONSOLES)
+-		return -E2BIG;
+-	if (!brl_options)
+-		preferred_dev_console = i;
+-	if (name)
+-		strscpy(pc->name, name);
+-	if (devname)
+-		strscpy(pc->devname, devname);
+-	pc->options = options;
+-	set_user_specified(pc, user_specified);
+-	braille_set_options(pc, brl_options);
+ 
+-	pc->index = idx;
+-	return 0;
++	return add_or_update_preferred_console(i, name, idx, devname, options,
++					       brl_options, user_specified);
+ }
+ 
+ static int __init console_msg_format_setup(char *str)
+-- 
+2.56.0
 
