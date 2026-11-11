@@ -1,88 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.42.203.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794405792;
-	b=gnFZ5s26FzBDQ/d1BUJf0elzctwqd2Da5EudI0FWFLkDxWcdW2/ngEZNZp8oRUp4dRaL
-	 IMzFz7FHVRDU3LnbbdI1pH9io/MyaQIA2cp1LGscnqtwev2EhK70pPyUYhS0Cnq5L5cxr
-	 d43ZEricuF4l3u/9thwYFs4kwBEBwkpiYrZWVLG2sJsuE2lSLg9Thq7noGq8OnnMgJNt9
-	 r0Hn+wYAGOuLVSet+H9GR+7gR+XR/pvacDDQ4OFRiQRRHxtAFFIg4mHx/neoE3Nsgt50O
-	 IQGdeeRnWT7YMpqlnQHYsj7WdGU1o8e2Ktwttlg0Lq934FHHC7exFK/rGEDceDa9M4Q==
+	t=1794405889;
+	b=5S047bkwc62+THx8hNwZfGESvC5VCZGC/mbodRVmjb1fb+KQe14SaEAlRmmpOSG+/vlp
+	 eINM7HepP/pWybq3L9dk/KXKGRNVy9cozihBHylGOzNpWYc24gParmi8ALyc03j2yWTxl
+	 5aLaz+Nr7AvRHP2IlZIeXV7E1o6NomQLp4Yj8f14qBNN4cRXns5s5FTEre0x3cVq5P+QQ
+	 cEdE2HsVPimU46XtCvykKip3kAA0uwhoe1lyrIlxx4EvbTHDK6sw47LWBNm2Xti7x85fS
+	 29HLEuRHBbD9Y+aLDPEaqz+lbo/7WQj3FhUqt6d+xsKkOPxnHTHe3MK2TEeNFA8C1tg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794405792;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=Ib+B96G7+gmq0/izhy8Z5ZthzY6w8s611Ial48mm0F8=;
-	b=nAj5XWXEFhlkFCQb8Ter5KvM56WqsAwYE+quuxu/qpIFEcm+r99f9UEwJa/QAxlWQj+/
-	 MiP2f/IfHMniUacZsG2XII+eOgxbWX1ze3xZ24Cq9UVwBJB9dg0okx/fu34SzaJuqfVUD
-	 scFp+o4JwYLAGhCVj78SlqMCY3/uk8KP3kpTqwzDE4mOp3ryHbpgLrSEHgIdXfUR9KEhL
-	 Yu8cszEFS2IWXubEOK4N1k3MI2TLvB96FuPTbZJrcs6CsEDouIirrYSgZpNyuiwbKGf7V
-	 povdbuHYgHPma6slOOPTMyWhMFlY0gKn5OSWDF9QfGORJoSaeWjlGIB2JqFCNyQqWxQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794405889;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
+	 From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=ajXEYqjwM+nCEIVJkZ6WILdonbk+OIty74QS6bYQ+DU=;
+	b=ORsVwqKEFMgiSmKpBAuGCd0Y3uzkAgnKif/gvf2Vqv/a8b6DvcHiMF+NX5vABI3ho/TW
+	 2PhoETLT34jSuT4Jvm6mE6edMFFqRAVu+9MDQlG2kJE6/rCW/iZWTFKf5hzqMUVuUM4gs
+	 4SWzrcvttxJYPRfcjTB1DRmJDCqzfstca93hVQt6E4SKNEX9ek7sS/VkCxHZrTJYq2nVI
+	 ZXhuUGgdBHa0uc7qXAIIpdbxP2o1og6wmP+QzlTktIJX/fASTUpkEJHtxwgHOp1kSFhd6
+	 oGxz+sxzazOvEjUE7+Cc9c4jVHqvot760kN193fXRiRnI/GiZK2D5GDLUVkwnPsjg7w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b="x/mTHq+R";
-	arc=none smtp.remote-ip=209.85.128.51
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=amazon.com;
+	spf=pass smtp.mailfrom=amazon.de;
+	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b="X/rDSNse";
+	arc=none smtp.remote-ip=52.42.203.116
+Received: from pdx-out-008.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-008.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.42.203.116])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F778606A324
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 14:03:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7F778606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29C2E606A32E;
+	Wed, 11 Nov 2026 14:04:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29C2E606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=x/mTHq+R
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a60f9474c4so39084915e9.0
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 06:03:12 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=X/rDSNse
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1794405791; x=1795010591; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Ib+B96G7+gmq0/izhy8Z5ZthzY6w8s611Ial48mm0F8=;
-        b=x/mTHq+RkdWSTT01DvKGgaenVoWNtEjmumDLdRb4peR9Lp7Dk9JNnzNDVoiBCITwUp
-         WLNDwuPumOuAwK/Jp3Yhd/ODZh1IVuMLBzEJY300fsygNCaxclDNM91jbeYZH2N+TPXf
-         aMFFjaZwTEPdo17BzcL//lBDMtTzuPr/4Xhghlh6T93L4SLjHKhczpumHuHVh+VdyvPg
-         4/VctMkwL5nKcv6NR/UtueX3iMc7YmWCvSIfyBJEVRSzsBkmp0NKNtUe7DLmNeYXHlT0
-         nJN3LwzwCwecVS462Ph6tuUax9aIEaCpvkyqzTuVsKx66dYyKUoavu/kikooMfQDZJZc
-         9n2w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794405791; x=1795010591;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Ib+B96G7+gmq0/izhy8Z5ZthzY6w8s611Ial48mm0F8=;
-        b=FNGW07ZeUJ1DdUZo8+QpT8vD9yu3OvsCobePjQIsnF50pwOiZEaGURJ3v1VO5jfdVk
-         mIZTDDuWb3uOM8pM0QDLAJsXCqnBX4jpiYq0ubVi3CHOFmOWeQMZCFNFMpLbpSxythPa
-         4lM3JtWmYgLhUx0VnMBVcIUlug4supFnfxttNHmUTX38QpHLx2yGTgvYUemOqfodHVFm
-         e3c1LP1umSvP7iHquqLqxVd+CzdEX0QWRaiAepuP0boDwAxUxBXij8fG2qjVB3ksJjyX
-         4h3PeDqYE+r9iuyVosqY5WfRYIgAKlzEiZ40ZtZFtnTZXgZnsFIaOws1FBnpSO4ouTHD
-         ZNJQ==
-X-Forwarded-Encrypted: i=1; AL+hErFFHrxbvg1LNlfC4pDhLhrkGp0M6N7lhlNXdW31UHDlme1GkksMgggVZvdrVVMYfnsvLaQ34vFlPLD3Ywk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8eo6PB1nwzlL8kCf/QSKqfc0uwA3lVDFsx+PT89GTnE0T3DvLH
-	RXuOvHAZimwXPAUKQU+N9hxJysgkCR2D/sPgq7t2nNnnrTq+mSRBbOODVlEEucxILE4=
-X-Gm-Gg: AYBFou0bwkU/4F+reaiRL+u9MfWOM2ZnTDB/77oADJ8Rjy7vlzM7MaayMJhHGuVh6Pc
-	lW7cPS60gVEHBrV43Lw1HlG3fgMdOJGVL+cLdpvtDuIqaAz6C/xfgFk2GdExU04wDsb1HIzVJW0
-	mYSUg4Jis+A3e+2PHYN497jZSZ+a02NI3OA8sXYfYANRB/70+uIv0GMteeopi/JbaWl6Mw0/a9j
-	WtjyuvkueoLfkNGpEELaLiNf+VwGOKOIlszkrxJHkqSQ/tMpGdKTNBQUneq1C1lj0pPe+T57WN2
-	tgPeupp1V5HXHjq5Ewpy9WVvpvyetlnwR2XxsnAm2uWiXD4JMBtZNBST2xH+U0cFXRggRzN2xXq
-	AHEQSiCyyDudUAOdhdizohU23cTRK/2tF9u7rBiCAWOpKQhfqUDVGiRITicR4U44PACwnTZRS0h
-	0GYoqvRBs01ih+htAuMN/3Q7VFrFZuV2QFGYmIwzcnBqQmgFltKICKwgzKdHWbfgMg0NvATJ/T9
-	CotiywfBUT+mHOiosAwSimR9KBrWPqODQLVEYpZ4iaPWxBCEFKn7AHfvCIaKMeE50kz8kDcsA7z
-	4z8jCiN40p1UjY6KeRLufiIDGQEKOrZ0Uj5cokdw6LIO9lRdDtFUSNw=
-X-Received: by 2002:a05:600c:1549:b0:4a2:cbe:bebc with SMTP id 5b1f17b1804b1-4ba0938ba0amr45260745e9.23.1794405790819;
-        Wed, 11 Nov 2026 06:03:10 -0800 (PST)
-Received: from [192.168.1.3] ([37.18.141.193])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba01fba476sm172702635e9.2.2026.11.11.06.03.09
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 11 Nov 2026 06:03:10 -0800 (PST)
-Message-ID: <1e5907fc-40c6-4025-8d27-a92b3cb2845a@linaro.org>
-Date: Wed, 11 Nov 2026 14:03:09 +0000
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+  t=1794405889; x=1825941889;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=ajXEYqjwM+nCEIVJkZ6WILdonbk+OIty74QS6bYQ+DU=;
+  b=X/rDSNseJUL5D1mDWpguwOaxmfSRzzZk5u1qHIXQ8ci8qitdNyXR3xxs
+   blkKgqRul4vyMVPqeODvgGxiwjlWmM41xFnedjc6LJNXSWy/aaANbrUwX
+   GLIN+rOREBy+usQ6SEsBF7sIihP4nNJghbHL9/npKgHw08VaAhViJSi7b
+   kiNNpeuZCMiSgrbyXYtDIt0dnzolQvjRQv8Uaa1qgveSKbWRP+ELio2dv
+   SuSCxDR7PeSKgmk+D0/Z2W3ruNrSPQU2OYS6WGENinxO3WM43r341R1hu
+   h/CjebbxH5t3ePUuWkwe+mQrkgODC9ODRvje5jOCRGTUhlE99p44iDwCN
+   w==;
+X-CSE-ConnectionGUID: mp+qsCQeQSa3lZBPareIIw==
+X-CSE-MsgGUID: OV2cOm+zQAGswQmM5sZIqw==
+X-IronPort-AV: E=Sophos;i="6.27,207,1787011200"; 
+   d="scan'208";a="33751363"
+Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
+  by internal-pdx-out-008.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 14:04:45 +0000
+Received: from EX19MTAUWB001.ant.amazon.com [205.251.233.104:17225]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.31.142:2525] with esmtp (Farcaster)
+ id 5ffd8552-4597-40d9-9dd4-121f17a20803; Wed, 11 Nov 2026 14:04:45 +0000 (UTC)
+X-Farcaster-Flow-ID: 5ffd8552-4597-40d9-9dd4-121f17a20803
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWB001.ant.amazon.com (10.250.64.248) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
+ Wed, 11 Nov 2026 14:04:44 +0000
+Received: from ip-10-253-83-51.amazon.com (172.19.99.218) by
+ EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
+ Wed, 11 Nov 2026 14:04:42 +0000
+From: Alexander Graf <graf@amazon.com>
+To: <linux-kernel@vger.kernel.org>, Marek Szyprowski
+	<m.szyprowski@samsung.com>
+CC: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>, Robin Murphy <robin.murphy@arm.com>,
+	<linux-doc@vger.kernel.org>, <iommu@lists.linux.dev>, Andrew Morton
+	<akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, "Mike
+ Rapoport" <rppt@kernel.org>, <nh-open-source@amazon.com>,
+	<linux-mm@kvack.org>, The AWS Nitro Enclaves Team
+	<aws-nitro-enclaves-devel@amazon.com>
+Subject: [PATCH] dma-contiguous: support percentage sizes in cma_pernuma= and numa_cma=
+Date: Wed, 11 Nov 2026 14:04:40 +0000
+Message-ID: <20261111140440.43024-1-graf@amazon.com>
+X-Mailer: git-send-email 2.47.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,75 +88,361 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] perf vendor events arm64 AmpereOneX: Fix misspelled
- PublicDescription keys
-To: TAKANO Mitsuhiro <takano32@gmail.com>
-Cc: linux-perf-users@vger.kernel.org,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Ian Rogers <irogers@google.com>,
- John Garry <john.garry@linux.dev>,
- Ilkka Koskinen <ilkka@os.amperecomputing.com>,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20261108183846.3804875-1-takano32@gmail.com>
- <bf6925f6-613f-4e20-8491-2a99183f34fb@linaro.org>
- <39ac224f-2903-496e-9a08-b4c5a33dc87f@linaro.org>
- <179440414898.2353714.11591904089911934138@gmail.com>
-Content-Language: en-US
-From: James Clark <james.clark@linaro.org>
-In-Reply-To: <179440414898.2353714.11591904089911934138@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D031UWC004.ant.amazon.com (10.13.139.246) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
+While CMA_SIZE_PERCENTAGE supports percentages for built-in defaults, the
+CMA allocation kernel parameters currently only take a fixed size argument.
+That makes it difficult to have a single system image that sizes its CMA
+allocation based on the available memory. To use CMA as backing pool for
+large, physically contiguous guest memory, I want to be able to say
+"allocate 90% of system RAM minus 1 GiB for CMA". Per NUMA node.
 
+Extend the CMA parser logic to accept command line options like this:
 
-On 11/11/2026 13:35, TAKANO Mitsuhiro wrote:
-> On 2026-11-11 10:16, James Clark wrote:
-> 
->> IMO I would rather have something that's incredibly strict and simple,
->> or nothing at all. Having to work around edge cases and report near
->> misses doesn't sound great.
-> 
-> Agreed, and the near-miss report is gone.  The series is posted again:
-> 
-> https://lore.kernel.org/linux-perf-users/20261111132622.2349165-1-takano32@gmail.com/
-> 
-> The check is now a fixed list of the 51 keys a json object under arch/ may
-> carry: 47 of them jevents.py reads, one more metric.py reads, and three are
-> read by nothing although the tables hold them (Counter, CountersNumFixed,
-> CountersNumGeneric).  A key outside that list is reported with the object
-> that carries it.  There is no cut-off, no similarity and nothing that
-> depends on what a run of the generator happened to read, so there is no
-> edge case left to work around.
-> 
+  cma_pernuma=80%, numa_cma=0:95%-1G,1:4G
 
-The linked patches seem like a bigger change than what I'd expect. I'm 
-not sure that's necessary for something conceptually as simple as 
-"validate the json files".
+To avoid incomplete allocations on parsing errors, check for them
+before actually allocating.
 
-I'm also a bit lost about the relationship between "[PATCH 0/3] perf 
-jevents: Report the JSON keys that jevents.py never reads" and "[PATCH] 
-perf jevents: Check the JSON keys that jevents.py never reads".
+Signed-off-by: Alexander Graf <graf@amazon.com>
+---
+ .../admin-guide/kernel-parameters.txt         |  64 +++++-
+ kernel/dma/contiguous.c                       | 184 +++++++++++++++---
+ 2 files changed, 217 insertions(+), 31 deletions(-)
 
+diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
+index 0b3c140babd94..1ca82f8c29f97 100644
+--- a/Documentation/admin-guide/kernel-parameters.txt
++++ b/Documentation/admin-guide/kernel-parameters.txt
+@@ -862,10 +862,13 @@ Kernel parameters
+ 			contiguous memory allocations and optionally the
+ 			placement constraint by the physical address range of
+ 			memory allocations. A value of 0 disables CMA
+-			altogether. For more information, see
++			altogether. The size is absolute; the percentage form
++			is accepted by 'cma_pernuma=' and 'numa_cma=' only, and
++			CONFIG_CMA_SIZE_PERCENTAGE sizes this area as a fraction
++			of memory instead. For more information, see
+ 			kernel/dma/contiguous.c
+ 
+-	cma_pernuma=nn[MG]
++	cma_pernuma=nn[MG]|nn%[-nn[MG]]
+ 			[KNL,CMA,EARLY]
+ 			Sets the size of kernel per-numa memory area for
+ 			contiguous memory allocations. A value of 0 disables
+@@ -875,14 +878,61 @@ Kernel parameters
+ 			first try to allocate buffer from the pernuma area
+ 			which is located in node nid, if the allocation fails,
+ 			they will fallback to the global default memory area.
+-
+-	numa_cma=<node>:nn[MG][,<node>:nn[MG]]
++			The size may also be given as a percentage (nn%) of
++			each node's memory present at boot as seen by memblock;
++			hot-added memory is not counted. It is evaluated at
++			reservation time.
++			A percentage of 0 reserves nothing, like an absolute
++			size of 0. A value that does not parse, such as a
++			missing size, text after the value or a percentage
++			above 100, makes the whole parameter invalid: no node
++			takes a size from it, and
++			it does not fall back to mirroring the default area
++			onto every node either. An absolute size takes
++			priority over a percentage whichever order the two
++			were given in. A 'numa_cma=' on the same command line
++			still applies.
++
++			A percentage may be followed by a size to keep back
++			from it, so cma_pernuma=95%-1G reserves 95% of each
++			node less 1G. Keeping back at least as much as the
++			percentage came to reserves nothing on that node, and
++			warns as any other percentage resolving to nothing
++			does. The size kept back belongs to the percentage: a
++			later 'cma_pernuma=' percentage given without one
++			keeps nothing back.
++
++	numa_cma=<node>:nn[MG]|nn%[-nn[MG]][,<node>:nn[MG]|nn%[-nn[MG]]]
+ 			[KNL,CMA,EARLY]
+ 			Sets the size of kernel numa memory area for
+ 			contiguous memory allocations. It will reserve CMA
+-			area for the specified node.
+-
+-			If it is setup together with upper 'cmd_pernuma='
++			area for the specified node. A per-node size may also
++			be given as a percentage (nn%) of that node's memory
++			present at boot as seen by memblock; hot-added memory
++			is not counted. It is evaluated at reservation time.
++			A size of 0, absolute or percentage, is the same as not
++			naming the node at all, so the node falls back to
++			'cma_pernuma=' when that is given. An entry that does
++			not parse, such as a node number of MAX_NUMNODES or
++			more, a missing size, text after a size or a
++			percentage above 100, makes the whole parameter
++			invalid: no node named
++			here gets an area, and there is no fall-back to
++			mirroring the default area onto every node either. A
++			'cma_pernuma=' on the same command line still applies.
++
++			A node may be named more than once. The last value of
++			each form is the one kept, and an absolute size takes
++			priority over a percentage for that node whichever
++			order the two were given in, so numa_cma=0:4G,0:50%
++			reserves 4G on node 0.
++
++			A percentage may be followed by a size to keep back
++			from it, per node, so numa_cma=0:95%-1G reserves 95%
++			of node 0 less 1G; see 'cma_pernuma=' above for what
++			keeping back more than the percentage came to does.
++
++			If it is set up together with upper 'cma_pernuma='
+ 			(unlikely), its size setting takes priority for the
+ 			specified numa nodes.
+ 
+diff --git a/kernel/dma/contiguous.c b/kernel/dma/contiguous.c
+index 90937dc7c627d..c04d50ee0f7c8 100644
+--- a/kernel/dma/contiguous.c
++++ b/kernel/dma/contiguous.c
+@@ -41,6 +41,7 @@
+ 
+ #include <linux/memblock.h>
+ #include <linux/err.h>
++#include <linux/math64.h>
+ #include <linux/sizes.h>
+ #include <linux/dma-map-ops.h>
+ #include <linux/cma.h>
+@@ -135,45 +136,132 @@ EXPORT_SYMBOL_GPL(dev_get_cma_area);
+ static struct cma *dma_contiguous_numa_area[MAX_NUMNODES];
+ static phys_addr_t numa_cma_size[MAX_NUMNODES] __initdata;
+ static phys_addr_t pernuma_size_bytes __initdata;
++static unsigned int numa_cma_pct[MAX_NUMNODES] __initdata;
++static unsigned int pernuma_pct __initdata;
++static phys_addr_t numa_cma_sub[MAX_NUMNODES] __initdata;
++static phys_addr_t pernuma_sub __initdata;
+ static bool numa_cma_configured __initdata;
+ 
+-static int __init early_numa_cma(char *p)
++/*
++ * What numa_cma_parse() does with a string it accepts: NUMA_CMA_CHECK leaves
++ * everything outside the function as it is, so a caller can validate the
++ * whole string before NUMA_CMA_APPLY lets any part of it take effect.
++ */
++enum numa_cma_action {
++	NUMA_CMA_CHECK,
++	NUMA_CMA_APPLY,
++};
++
++/*
++ * Parse one numa_cma= string: a comma separated list of <node>:<size>, where
++ * <size> is a size or <percent>%[-<size>]. Anything else fails the parse.
++ */
++static int __init numa_cma_parse(char *p, enum numa_cma_action action)
+ {
+ 	int nid, count = 0;
+ 	unsigned long node;
+-	phys_addr_t size;
+-	char *s = p;
++	phys_addr_t size, sub;
++	char *s = p, *start;
+ 
+ 	while (*s) {
+-		if (sscanf(s, "%lu%n", &node, &count) != 1)
+-			break;
+-
+-		if (s[count] == ':') {
+-			if (node >= MAX_NUMNODES)
+-				break;
+-			nid = array_index_nospec(node, MAX_NUMNODES);
+-
+-			s += count + 1;
+-			size = memparse(s, &s);
++		if (sscanf(s, "%lu%n", &node, &count) != 1 || s[count] != ':' ||
++		    node >= MAX_NUMNODES)
++			return -EINVAL;
++		nid = array_index_nospec(node, MAX_NUMNODES);
++
++		start = s + count + 1;
++		size = memparse(start, &s);
++		if (s == start)
++			return -EINVAL;
++
++		if (*s == '%') {
++			s++;
++			if (size > 100) {
++				pr_warn("numa_cma: node %d percentage %llu%% > 100\n",
++					nid, (unsigned long long)size);
++				return -EINVAL;
++			}
++			sub = 0;
++			if (*s == '-') {
++				start = ++s;
++				sub = memparse(start, &s);
++				if (s == start)
++					return -EINVAL;
++			}
++			if (action == NUMA_CMA_APPLY) {
++				numa_cma_pct[nid] = size;
++				numa_cma_sub[nid] = sub;
++			}
++		} else if (action == NUMA_CMA_APPLY) {
+ 			numa_cma_size[nid] = size;
++		}
+ 
+-			if (*s == ',')
+-				s++;
+-			else
+-				break;
+-		} else
+-			break;
++		if (*s == ',')
++			s++;
++		else if (*s)
++			return -EINVAL;
+ 	}
+ 
+-	numa_cma_configured = true;
+ 	return 0;
+ }
++
++static int __init early_numa_cma(char *p)
++{
++	int rc;
++
++	/*
++	 * Per-node CMA is configured either way. Leaving the flag clear on a
++	 * string this rejects would tell dma_numa_cma_reserve() that nobody
++	 * asked for per-node areas, and on a CMA_SIZE_PERNUMA kernel it would
++	 * then clone the default area onto every node.
++	 */
++	numa_cma_configured = true;
++
++	rc = numa_cma_parse(p, NUMA_CMA_CHECK);
++	if (rc)
++		return rc;
++
++	return numa_cma_parse(p, NUMA_CMA_APPLY);
++}
+ early_param("numa_cma", early_numa_cma);
+ 
+ static int __init early_cma_pernuma(char *p)
+ {
+-	pernuma_size_bytes = memparse(p, &p);
++	phys_addr_t val, sub;
++	char *start;
++
++	/* See early_numa_cma(): a rejected string still counts as configured. */
+ 	numa_cma_configured = true;
++
++	start = p;
++	val = memparse(start, &p);
++	if (p == start)
++		return -EINVAL;
++
++	if (*p == '%') {
++		p++;
++		if (val > 100) {
++			pr_warn("cma_pernuma: percentage %llu%% > 100\n",
++				(unsigned long long)val);
++			return -EINVAL;
++		}
++		sub = 0;
++		if (*p == '-') {
++			start = ++p;
++			sub = memparse(start, &p);
++			if (p == start)
++				return -EINVAL;
++		}
++		if (*p)
++			return -EINVAL;
++		pernuma_pct = val;
++		pernuma_sub = sub;
++	} else {
++		if (*p)
++			return -EINVAL;
++		pernuma_size_bytes = val;
++	}
++
+ 	return 0;
+ }
+ early_param("cma_pernuma", early_cma_pernuma);
+@@ -198,6 +286,33 @@ static inline __maybe_unused phys_addr_t cma_early_percent_memory(void)
+ #endif
+ 
+ #ifdef CONFIG_DMA_NUMA_CMA
++static phys_addr_t __init numa_cma_node_size(int nid)
++{
++	unsigned long spfn, epfn;
++	phys_addr_t total = 0;
++	int i;
++
++	for_each_mem_pfn_range(i, nid, &spfn, &epfn, NULL)
++		total += (u64)(epfn - spfn) << PAGE_SHIFT;
++
++	return total;
++}
++
++/*
++ * A percentage of the node, less the size the boot line asked to keep back.
++ * Keeping back more than the percentage came to reserves nothing.
++ */
++static phys_addr_t __init numa_cma_pct_size(int nid, unsigned int pct,
++					    phys_addr_t sub)
++{
++	phys_addr_t size = mul_u64_u32_div(numa_cma_node_size(nid), pct, 100);
++
++	if (size <= sub)
++		return 0;
++
++	return size - sub;
++}
++
+ static void __init dma_numa_cma_reserve(void)
+ {
+ 	int nid;
+@@ -214,16 +329,37 @@ static void __init dma_numa_cma_reserve(void)
+ 		int ret;
+ 
+ 		if (!node_online(nid)) {
+-			if (pernuma_size_bytes || numa_cma_size[nid])
++			if (pernuma_size_bytes || pernuma_pct ||
++			    numa_cma_size[nid] || numa_cma_pct[nid])
+ 				pr_warn("invalid node %d specified\n", nid);
+ 			continue;
+ 		}
+ 
+ 		/* per-node numa setting has the priority */
+-		size = numa_cma_size[nid] ?: pernuma_size_bytes;
+-		if (!size)
++		if (numa_cma_size[nid])
++			size = numa_cma_size[nid];
++		else if (numa_cma_pct[nid])
++			size = numa_cma_pct_size(nid, numa_cma_pct[nid],
++						 numa_cma_sub[nid]);
++		else if (pernuma_size_bytes)
++			size = pernuma_size_bytes;
++		else if (pernuma_pct)
++			size = numa_cma_pct_size(nid, pernuma_pct, pernuma_sub);
++		else
+ 			continue;
+ 
++		/*
++		 * A percentage of a memoryless online node, and a percentage
++		 * entirely consumed by the size kept back, resolve to nothing
++		 * to reserve. Say so, since the operator asked for memory.
++		 */
++		if (!size) {
++			if (numa_cma_pct[nid] || pernuma_pct)
++				pr_warn("node %d percentage reserves nothing\n",
++					nid);
++			continue;
++		}
++
+ 		cma = &dma_contiguous_numa_area[nid];
+ 		snprintf(name, sizeof(name), "numa%d", nid);
+ 		ret = cma_declare_contiguous_nid(0, size, 0, 0, 0, false, name, cma, nid);
 
-> It still runs as "make check-jevents" and as a perf test rather than as part
-> of the build, and on the tree today it reports exactly the two misspellings
-> we have, the 16 in this file and 3 in the AMD tables, so it wants those
-> fixes in front of it or together with it.
-> 
-> The one thing I did not do is put the list in a json schema file, because
-> perf's build would then require jsonschema, which it does not use today and
-> which is not in every builder's python.  The list holds the same names that
-
-It could run if it exists and skip if not. Or we could make it a 
-requirement, but that would require some agreement. The docs builder 
-already has a pip requirements.txt file.
-
-Even without jsonschema I can't see why a validator can't be written in 
-less than 10 lines.
-
-> a schema with "additionalProperties": false would say.  If you would rather
-> have the schema file and take the dependency, it is a small change from
-> here.
-> 
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+-- 
+2.47.1
 
