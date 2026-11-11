@@ -1,70 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.7
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794379669;
-	b=XBwqR7hHnGER5HFP4THussR6PU/P2YuHgcz8k/GB975YaO+8jmSwInGT1vYiISLpta6h
-	 rQEgi702XJCCn54JwVn0i8ov+SATEOvHjmxrDZh0sh2soaQZmno1PGv2STJN3KNWen/dI
-	 kLuZclFlbbQ2kh0IJ+2A7H6bd4wGZwKqT1OdQ732wjarUVqKzSSm+dGuXjX3yV1G12qz/
-	 /kydhwMrCSB6q8wy9/QCzARTzkTU9e2U2pyY6kwtQktuXhiHKwzCmfRgUUs5vyCpb/kCm
-	 7A7ShmWOl+4skA9hR/djfW8sNMAURuU9TsSHsCyFyNNSlcjSrJgfzav2WBbUj4jXTCg==
+	t=1794379704;
+	b=C6uFYuMDOckxV+7IpRgWjsf9QXut2ZWvDggQcGXWKKVqg/Kr9FC5rrhRbYcPp+56HGpj
+	 E3k75F7jxpmBXTwYX0z5qaXEcb+i++71pXx2blrKAbx3Kz2ptYX3mPfDkQ5FrZ+Hy5bHK
+	 R16gr73N1IEO4iPWg5RAC+qnTSBVMf2RC4qFEZME5ommWpH+Jh8boHf2zxv87es3plALq
+	 gSfjqSkCPRy3agEA7/zhAXV3L1z3/n7kNbD51OHU+bCEI2Si+kBYtdyaQzXPrZKlztHxy
+	 SGfMZU2zP8wWhX3QJtafKoTkQD0FB/qQnv8hCdM7HZoKQl5Ca5RycHQs6nu9h4Irr0g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794379669;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=F7M/ZhGLoFak/PJL0fDdgMXUJRkp736gJ7FlUGI9L4w=;
-	b=KFjVOMCBB6YzFlGZCAWe4YyE3Tz8Cb2B1StfJtDHBp/aK4iyvaVCAhKjU39ZlJ45/aHG
-	 A75F4F+ylvqLLX7dyhGr1VeF1LnIrLgxchQA/Omt1jV0IE4y8K8tkZsKF296FE7xmRB6J
-	 WfB0uIed86hrGWmFTBAh4Gu0v0y5aL5I8Mc0jr6xVOXr7Bxu4YA+uGhd+BfoR/7/2dqix
-	 ZLXJmYnvalUlj158mJvJ1b1NWspAIYj8e9BsFcPn2sst5CY1oE2w0bk0LHRmqpcRiyR3k
-	 T0UU6T8qzFFw9GPBlLrHn8E8zN55qY0nPmoEaUIYVm4KX8MRwWWvvTfMHhoT9YtPBqA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794379704;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
+	 X-Spamd-Result:X-Rspamd-Server:X-Rspamd-Action:X-Spam-Flag:
+	 X-Spam-Score:X-Spam-Level:X-Rspamd-Queue-Id;
+	bh=1mzkHDiRZ6m4gfdg/54Ac4V1uOP64Vnktdy1a0RgfH0=;
+	b=jTMJZt0+qTQ1vePy9WPIybZzKPDTsmy/s6cNgzEHcqw/QZQYczcjYbCOu30m5NuMt1rX
+	 IO8q/AhATvmNGUY/MBlZtmWEgt4Wx8/H31gGyNZAQHX5o22IM8oofPCRRzNSuTr4E+gVE
+	 JG5FLRRUbzwDCioWzDTxSi86npKgaJIyW2aABd3SFCGM3pHKWNUJ/OWLv1bjvpT6p5Bs4
+	 t1MGu/X8150CI0k1HnJkCDrIH4KPCm2SM0LUTH18S9xeyeGUT+dppFBJ3l6h4sFp8UX6z
+	 UQkkhj7kC4lL/40DeXjtjFYrmVkDjsAjUuGW0jcful532OSPjDNyNIN9iB+scvtN+eg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=cfpLrqmh;
-	arc=none smtp.remote-ip=91.218.175.7
-Received: from mta0.migadu.com (out-7.mta0.migadu.com [91.218.175.7])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=OBtqduht;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=H30q7H+r;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 907BD606C902
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 06:47:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 907BD606C902
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5584606A321
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 06:48:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5584606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=cfpLrqmh
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=CyrF+6zOUIdoWIi0r/h1EvqhIeae82jXO4tYB0TkHx4=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794379666; v=1; x=1794984466;
- b=cfpLrqmhwJJSEliryqhAtj3rr4P6RN4PhBhrTyf8xlUpPxkKHYYlNQ+HBkik6E7bhaS5AXdb
- FW7HPhAkYdrI6Yr6tLbvgh3PBQvAfsesFgU/Nvq7mp5d5BQdhp8rqygAWfgX2ooWHza6GYrO3PH
- E71rVcTI8f+pT8wwZl+6FjzA=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 439764ee18b4fcfd;
-	Wed, 11 Nov 2026 06:47:46 +0000
-X-Mizu-Trace-ID: 439764ee18b4fcfd
-X-Migadu-Flow: FLOW_OUT
-From: Qi Zheng <qi.zheng@linux.dev>
-To: muchun.song@linux.dev,
-	osalvador@suse.de,
-	david@kernel.org,
-	akpm@linux-foundation.org,
-	azpijr@gmail.com,
-	lance.yang@linux.dev
-Cc: linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	Qi Zheng <zhengqi.arch@bytedance.com>,
-	stable@vger.kernel.org,
-	"Oscar Salvador (SUSE)" <osalvador@kernel.org>
-Subject: [PATCH v4 3/3] mm: hugetlb: fix GFP mask propagation to CMA
-Date: Wed, 11 Nov 2026 14:46:52 +0800
-Message-ID: <1c5e8c4ae230dc238a16f2f42d65bffac6244ad3.1794379434.git.zhengqi.arch@bytedance.com>
-X-Mailer: git-send-email 2.48.1
-In-Reply-To: <cover.1794379433.git.zhengqi.arch@bytedance.com>
-References: <cover.1794379433.git.zhengqi.arch@bytedance.com>
+	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=OBtqduht;
+	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=H30q7H+r
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 7201D21E5A;
+	Wed, 11 Nov 2026 06:48:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1794379701; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=1mzkHDiRZ6m4gfdg/54Ac4V1uOP64Vnktdy1a0RgfH0=;
+	b=OBtqduht2nQ0c1pov69X04Nr0Ec0TcqQxaDr50vKukdwsOW/tPpm3oPlrH+ZZ8nDCP8xjR
+	XhQo9SpigiJUCCjfmScdkhyucNzBSsmNZ7cdqPf/wr0+qXmRiSw/yJWDlwvnQAUq1GrML6
+	YnR/G9D0HB8YGsZCXXRNkhaisdFOG7g=
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.com header.s=susede1 header.b=H30q7H+r
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1794379700; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=1mzkHDiRZ6m4gfdg/54Ac4V1uOP64Vnktdy1a0RgfH0=;
+	b=H30q7H+rxU8s/+9Om6rJ0fXy+uFNHEufciYBrsevXkA1/abzzOKK1Y1EaQbgVP+VenAFfB
+	D6EzS4oCt3OesRKqR8ep2owa0DKHVHMLBGUy07B2+icMxIj+4XJNEsGV8Ckg57obJ+vzaH
+	BEg8moPvTgYN3SeE/yHsk0Kca9+Qcp0=
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id EA92F1339F;
+	Wed, 11 Nov 2026 06:48:19 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id hAHtLrMP9GqnLgAAD6G6ig
+	(envelope-from <jgross@suse.com>); Wed, 11 Nov 2026 06:48:19 +0000
+Message-ID: <d74cbff5-ead6-4c26-b300-ffd8c2fbbd4a@suse.com>
+Date: Wed, 11 Nov 2026 07:48:19 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,85 +82,163 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/8] xen: Add gpa conversion helpers
+To: Teddy Astie <teddy.astie@vates.tech>, xen-devel@lists.xenproject.org
+Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, x86@kernel.org,
+ linux-kernel@vger.kernel.org
+References: <1792170295.8631fc262581453bbf619ec5b2062170.1a145ac82530008425@vates.tech>
+ <20261016170613.173406-2-teddy.astie@vates.tech>
+ <1792170395.8631fc262581453bbf619ec5b2062170.1a145ae07870008425@vates.tech>
+Content-Language: en-US
+From: Juergen Gross <jgross@suse.com>
+Autocrypt: addr=jgross@suse.com; keydata=
+ xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
+ ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
+ dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
+ NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
+ XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
+ AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
+ CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
+ mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
+ G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
+ kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
+ Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
+ RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
+ vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
+ sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
+ aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
+ w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
+ auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
+ 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
+ fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
+ HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
+ QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
+ ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
+In-Reply-To: <1792170395.8631fc262581453bbf619ec5b2062170.1a145ae07870008425@vates.tech>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------vD88nahLxSnTqn7YXJtgIGQK"
+X-Spamd-Result: default: False [-10.18 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	NEURAL_SPAM_LONG(3.32)[0.948];
+	BAYES_HAM(-3.00)[100.00%];
+	SIGNED_PGP(-2.00)[];
+	MIME_BASE64_TEXT_BOGUS(1.00)[];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
+	MIME_GOOD(-0.20)[multipart/signed,multipart/mixed,text/plain];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_BASE64_TEXT(0.10)[];
+	MX_GOOD(-0.01)[];
+	XM_UA_NO_VERSION(0.01)[];
+	FROM_HAS_DN(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	DKIM_SIGNED(0.00)[suse.com:s=susede1];
+	MIME_TRACE(0.00)[0:+,1:+,2:+,3:~];
+	ARC_NA(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_TRACE(0.00)[suse.com:+];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	HAS_ATTACHMENT(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.com:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,vates.tech:email]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spam-Score: -10.18
+X-Spam-Level: 
+X-Rspamd-Queue-Id: 7201D21E5A
 
-From: Qi Zheng <zhengqi.arch@bytedance.com>
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------vD88nahLxSnTqn7YXJtgIGQK
+Content-Type: multipart/mixed; boundary="------------ARUP9rYN0AOeR0kb0XQe0cap";
+ protected-headers="v1"; hp="clear"
+Message-ID: <d74cbff5-ead6-4c26-b300-ffd8c2fbbd4a@suse.com>
+Date: Wed, 11 Nov 2026 07:48:19 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/8] xen: Add gpa conversion helpers
+To: Teddy Astie <teddy.astie@vates.tech>, xen-devel@lists.xenproject.org
+Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, x86@kernel.org,
+ linux-kernel@vger.kernel.org
+References: <1792170295.8631fc262581453bbf619ec5b2062170.1a145ac82530008425@vates.tech>
+ <20261016170613.173406-2-teddy.astie@vates.tech>
+ <1792170395.8631fc262581453bbf619ec5b2062170.1a145ae07870008425@vates.tech>
+Content-Language: en-US
+From: Juergen Gross <jgross@suse.com>
+Autocrypt: addr=jgross@suse.com; keydata=
+ xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
+ ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
+ dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
+ NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
+ XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
+ AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
+ CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
+ mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
+ G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
+ kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
+ Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
+ RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
+ vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
+ sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
+ aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
+ w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
+ auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
+ 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
+ fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
+ HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
+ QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
+ ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
+In-Reply-To: <1792170395.8631fc262581453bbf619ec5b2062170.1a145ae07870008425@vates.tech>
 
-cma_alloc_frozen_compound() uses GFP_KERNEL, allowing direct reclaim
-during the first MPOL_PREFERRED_MANY allocation attempt even though
-the caller clears __GFP_DIRECT_RECLAIM.
+--------------ARUP9rYN0AOeR0kb0XQe0cap
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-Pass the caller's GFP mask through the helper so CMA respects its
-reclaim constraints when trying the preferred nodes.
+T24gMTYuMTAuMjYgMTk6MDYsIFRlZGR5IEFzdGllIHdyb3RlOg0KPiBJbnRyb2R1Y2UgdmFy
+aW91cyBoZWxwZXJzIHRvIGNvbnZlcnQgYmV0d2VlbiBHUEEgYW5kIHZpcnQvcGFkZHIuDQo+
+IA0KPiBTaWduZWQtb2ZmLWJ5OiBUZWRkeSBBc3RpZSA8dGVkZHkuYXN0aWVAdmF0ZXMudGVj
+aD4NCg0KUmV2aWV3ZWQtYnk6IEp1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT4NCg0K
+SWYgeW91IGFyZSB1cCB0byBpdCwgdGhlcmUgaXMgc29tZSBwb3RlbnRpYWwgZm9yIGNsZWFu
+aW5nIHVwIHRoZSBYZW4gcmVsYXRlZA0KcGFnZS5oIGluY2x1ZGUgZmlsZXMuDQoNCllvdSBh
+cmUgYWRkaW5nIHRoZSBzYW1lIGRlZmluaXRpb25zIHRvIHRoZSB4ODYgYW5kIGFybSBzcGVj
+aWZpYyBwYWdlLmggZmlsZXMsDQp3aGljaCBhcmUgbG9jYXRlZCBhdCBkaWZmZXJlbnQgcG9z
+aXRpb25zIHJlZ2FyZGluZyB0aGUgYXJjaCB0cmVlcy4NCg0KSSB0aGluayB0aGlzIHNob3Vs
+ZCBiZSBjbGVhbmVkIHVwIGJ5IG1vdmluZyB0aGUgY29tbW9uIHBhcnRzIGludG8NCmluY2x1
+ZGUveGVuL3BhZ2UuaC4gVGhlIGFyY2ggc3BlY2lmaWMgaW5jbHVkZSBmaWxlcyBzaG91bGQg
+Ym90aCBiZSB1bmRlcg0KaW5jbHVkZS94ZW4vPGFyY2g+L3BhZ2UuaCwgSSB0aGluayAodXNp
+bmcgYXJjaC88YXJjaD4vaW5jbHVkZS9hc20veGVuL3BhZ2UuaA0Kd29uJ3Qgd29yaywgYXMg
+dGhlIGFybSBmaWxlIGlzIHVzZWQgYnkgYXJtIGFuZCBhcm02NCkuDQoNCkluIGNhc2UgeW91
+IGRvbid0IHdhbnQgdG8gZG8gdGhhdCwgSSdtIGZpbmUgdG8gZG8gdGhhdCBsYXRlciwgZS5n
+LiB3aGVuIHRoZQ0KcmlzY3YgWGVuIHBvcnQgaXMgYXJyaXZpbmcgaW4gdGhlIGtlcm5lbC4N
+Cg0KDQpKdWVyZ2VuDQo=
 
-Fixes: 9bda131c6093 ("mm: cma: add cma_alloc_frozen{_compound}()")
-Cc: stable@vger.kernel.org
-Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
-Acked-by: Muchun Song <muchun.song@linux.dev>
-Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
-Reviewed-by: Oscar Salvador (SUSE) <osalvador@kernel.org>
----
- include/linux/cma.h |  2 +-
- mm/cma.c            | 10 ++++++++--
- mm/hugetlb_cma.c    |  4 ++--
- 3 files changed, 11 insertions(+), 5 deletions(-)
+--------------ARUP9rYN0AOeR0kb0XQe0cap--
 
-diff --git a/include/linux/cma.h b/include/linux/cma.h
-index 8555d38a97b1a..4539ea5f2c4e8 100644
---- a/include/linux/cma.h
-+++ b/include/linux/cma.h
-@@ -53,7 +53,7 @@ extern bool cma_release(struct cma *cma, const struct page *pages, unsigned long
- 
- struct page *cma_alloc_frozen(struct cma *cma, unsigned long count,
- 		unsigned int align, bool no_warn);
--struct page *cma_alloc_frozen_compound(struct cma *cma, unsigned int order);
-+struct page *cma_alloc_frozen_compound(struct cma *cma, unsigned int order, gfp_t gfp);
- bool cma_release_frozen(struct cma *cma, const struct page *pages,
- 		unsigned long count);
- 
-diff --git a/mm/cma.c b/mm/cma.c
-index 9ec1d1fd5dff5..a7c47c0e7d070 100644
---- a/mm/cma.c
-+++ b/mm/cma.c
-@@ -933,9 +933,15 @@ struct page *cma_alloc_frozen(struct cma *cma, unsigned long count,
- 	return __cma_alloc_frozen(cma, count, align, gfp);
- }
- 
--struct page *cma_alloc_frozen_compound(struct cma *cma, unsigned int order)
-+struct page *cma_alloc_frozen_compound(struct cma *cma, unsigned int order, gfp_t gfp)
- {
--	gfp_t gfp = GFP_KERNEL | __GFP_COMP | __GFP_NOWARN;
-+	/*
-+	 * The only caller of cma_alloc_frozen_compound() is hugetlb, and
-+	 * hugetlb constructs its gfp mask via htlb_alloc_mask(), which already
-+	 * sets __GFP_COMP. Check here for usecases bypassing htlb_alloc_mask().
-+	 */
-+	if (WARN_ON_ONCE(!(gfp & __GFP_COMP)))
-+		return NULL;
- 
- 	return __cma_alloc_frozen(cma, 1 << order, order, gfp);
- }
-diff --git a/mm/hugetlb_cma.c b/mm/hugetlb_cma.c
-index cd6a64986278a..3e5a30571524a 100644
---- a/mm/hugetlb_cma.c
-+++ b/mm/hugetlb_cma.c
-@@ -69,14 +69,14 @@ struct folio *hugetlb_cma_alloc_frozen_folio(int order, gfp_t gfp_mask,
- 	}
- 
- 	if (hugetlb_cma[nid] && node_isset(nid, *nmask))
--		page = cma_alloc_frozen_compound(hugetlb_cma[nid], order);
-+		page = cma_alloc_frozen_compound(hugetlb_cma[nid], order, gfp_mask);
- 
- 	if (!page && !(gfp_mask & __GFP_THISNODE)) {
- 		for_each_node_mask(node, *nmask) {
- 			if (node == nid || !hugetlb_cma[node])
- 				continue;
- 
--			page = cma_alloc_frozen_compound(hugetlb_cma[node], order);
-+			page = cma_alloc_frozen_compound(hugetlb_cma[node], order, gfp_mask);
- 			if (page)
- 				break;
- 		}
--- 
-2.54.0
+--------------vD88nahLxSnTqn7YXJtgIGQK
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmr0D7MFAwAAAAAACgkQsN6d1ii/Ey9T
+Lwf/dfhp5KLDwsmd4dT7ZiDCTzUS6Jd7l67dgXUSiRYlvoKM5VWRYs3Yt6yKXvLoBN9RuC34Muve
+K/IOPYdLGyXDXBCyXluHQmn3gXA1PxKrSn2ahIMhfzl9l7QeFI1eA7pGqyICRldUdGox0/4rhFCC
+XjDrXhX2CDyVKsdVvA2afNvWL0+UBKBEAIJiWDnxkYQXSVJUcJ4arA/Jh1x2Mn14wR7Bcy7v3WRC
+bhhiOlIm4Wc//SbFPNYBKV+BP8548E0IN/k9F4uRWsQhcwB2Ti+eIVdsnQmsDKmm5pihEmFeQzBR
+DlnbPB6UnLBFL0XOmlHa8QwiYUmWmSqLlMuH/Ma2yg==
+=1hGf
+-----END PGP SIGNATURE-----
+
+--------------vD88nahLxSnTqn7YXJtgIGQK--
