@@ -1,85 +1,128 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.159
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794412824;
-	b=ViBgxKsUF0NTLs7AO8gK7oxZ2pLmKZpbdYsD0/uyrVy7Z2BBsS5H54Wsde4mVrDm8Dgr
-	 scnJ/rJSR0Clc1npiTuGqNj1JreaPrMjt5RC8LkO8DDLfHJqXE3PumEST8nWJCphnyjQ/
-	 34TbsObjh6kgqN632XPX0mXNKo02HHprBntRP5AZxI17qE44UCzD94kz5zSayIrknIYuA
-	 QdPWtlzpdmkODzdRCFdP299bw7C0hBrf6XTiLu2Col50+Mvz9vIWTCsaZiEoxwJ3CqVbC
-	 RiFz2IuxXHzx/rqXShVJ4dJhc8XmFs0dEwuLsnbUTSxc90KinqRWcGboePZ1ndmkHrA==
+	t=1794412840;
+	b=u3tQLo6+HN5Xm/a/CotMW/WnHirbwzAWJMlU6HZRV7YjsUdSMcigFQsG6gRJUnvoWNFK
+	 LVmqfy++esRfWUx+OzbkmTjuDHQt764p3WlYJneTrMmEZXuClcJFe9TLCewY8ge3jRn3Q
+	 2EYR0PNbyImRIkf73+aEG67tx6WDI5N7jDrupPmlKj8pNa572MCjVYKw6EgMMdoO3tham
+	 Hvvvl3wJ1HGUfC8e7/ICdQMxXlMOvsEIdtqLqSX8QGArL5gCkLWNxFW+vgTycLO26/q/i
+	 KbsJs9gSwbiBLB+2kfyivBQlbL8SOi+tcbq0eUIKpSThjbr4NIivk/nhWfz/XukF5yw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794412824;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=r3PeQNY0DfEO2GjO5oRC5P+QTt5goOUxQY7pwUgYFM0=;
-	b=GOf7biIz5l2qvUK1ybT8+/wykLflxqpmwNaMRZfPliNTQkvupmi1cqZ4LP5a3a/rmSnt
-	 YnkUBfhrKfUtmaQsz/nQYwyRuXocA8j3STLSheBX3jIuFc1/rgw1vS4OUfdz1AmJEByaI
-	 1CqrweX1XqkFUS7fW8+HLuf8u5hzMmrsTLCHhQdV+WaF68VvE0HBEbi8eGQe8vzhOn4EV
-	 DfCfpDmcxu83wuo0GWCHPFPqIWtJGvCI3d5pxbpj5KPkhYRpto7/VbAAwv5mG2bwror4e
-	 8OiQfI65ddUD+lSkJM20bI/F29GNHXPeoUfNcf1/wBrVQd53aizv0MCay/KYWRZY3EQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794412840;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding;
+	bh=AspvNDGkCkJ3NWLJZ31HBiF8pAd3ckj/t1KcoFiBMNQ=;
+	b=pNStRLtmCT6L7lAyQpP/mESG1eGvXxqlQE2UxeNw1UJWXaqcws26xOE8LaLG0eaNPugl
+	 C1RC4FgdN7x9JUA+CB9w5+eFwpKYLSDlxc4E/MBb5zk2dQnJv8mio+c6jYUoshPvNfXhA
+	 jqKAxrYymOK5uNkQuWIqZGuI9IjIU8Tcl255058dV2hkke09TegHPbwLsPZeqYZ/uNCPr
+	 Q4MEwfGaNzOQ3i0PT+pQC3oVHgOUC6LJRGBMFekg17w3ilrEtv002Y1scvg5PseUYtoNy
+	 LB5fYaBlX1FOTWwjQMC5SXu3Ya/PspmehwZPQZJ5U71wbOGQOGojI6F68zgnMxKS+jQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linuxfoundation.org;
-	spf=pass smtp.mailfrom=linuxfoundation.org;
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=google header.b=KYdQsLwF;
-	arc=none smtp.remote-ip=209.85.161.53
-Received: from mail-oo1-f53.google.com (mail-oo1-f53.google.com [209.85.161.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=fastmail.org;
+	spf=pass smtp.mailfrom=fastmail.org;
+	dkim=pass header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=afkDzEHG;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=q1qL97km;
+	arc=none smtp.remote-ip=103.168.172.159
+Received: from fhigh-a8-smtp.messagingengine.com (fhigh-a8-smtp.messagingengine.com [103.168.172.159])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 879E5606A326
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 16:00:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 879E5606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75F5D606A32A
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 16:00:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75F5D606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=google header.b=KYdQsLwF
-Received: by mail-oo1-f53.google.com with SMTP id 006d021491bc7-702dedeb70dso1763148eaf.1
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 08:00:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google; t=1794412822; x=1795017622; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=r3PeQNY0DfEO2GjO5oRC5P+QTt5goOUxQY7pwUgYFM0=;
-        b=KYdQsLwF3lUuhJ6ty5RYTwjolw/TuaksX9yO0x7jCvIXn8xWUTsdNONDuqveeHYfuc
-         FPaK9IVRnQ0EcLzyY47lDvi5CiOangS0CpbTDsfpbDtMhpNj5U946kcvCUFmept7mVlQ
-         57sw6Awm+OdVYF/sS5tnoRVFLVYbMZMCQgxRQ=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794412822; x=1795017622;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=r3PeQNY0DfEO2GjO5oRC5P+QTt5goOUxQY7pwUgYFM0=;
-        b=FiYK6R/ejy3ak31U1mQotFT7rQh/IdgfS7psXW4YkscCC2Niq45LV65H1vJEAblfK/
-         k11BDZyoNOdgexwF7HijfTRdSfchoi1LOZImX09vZCrQt5BO+d308QLM57uB166HpnZd
-         nx67eOSPDVL/ghPTZaj4hviwwZqBdY/usKMwcabmT0QJymu9miOXcFVeyoe0NErZ9Nea
-         S4dupxIQ3bjzcXcShQl9Eo/hsHvSfcJf4fbQuSZUjSMCnr2D843sNFerx4CAuqLnjPW/
-         xrppu359RAzUjhImG9IFzqKN+ngOE+FY1vDUw9tS6MH2LFjPlp9vtDNcNHrQINapyTtL
-         bftQ==
-X-Forwarded-Encrypted: i=1; AL+hErFq9g+lxzLgoarBcsz9x3BPr3+LE7cT8Wt6Jb3jfOlGyMlxG+tDRgpdb7S7i9vqX4aHW7TfqxHbcw2MK/Y=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9fb7KuvrBWE0Ip2TjBXzc+tvGWQEYWlluOLfeBokWUHJMtu4u2
-	xuGgiR1jza7KPxdH9JPmYRbfED+9my0s6gkJP90yGzOCPAJImpPHyQxERZSlXfTT48k=
-X-Gm-Gg: AYBFou0CschFiGZPFdwo1uKkzt5wB8uWASK2ctRr2eIvo1+7mIaVh3uRuclb/siISt9
-	DqLcgexb+CPD+cFqifDUtXh3gwhRVgrX+bx0Gcnii/jzLONNY+eEtUY8vzLN52bxIsz1xlgvyJs
-	2UgGnHySMGAaftlUTygU5S2T/7v+m5IDwpYMJUWR+pXD1wNYYYs64VCztvweZPC3ByIJoZM84oU
-	cZKf9sBun8YOL3Bp+T+zyRfZwxvp7s7eUA3F5Q9fWByd1bBXU9MiD16H7BA+p6izZPLSn73YSZ5
-	fTFs6PaQ7M1o9RBqaUVCCbwgwx1whkJah+orell5Sppck4m3P7k5D2jqE1QQiVHvZaWW2g1VS8o
-	Fdjs2L/aN43EOdiJ/SXFuYviofT+6eUM9/SsBZIEV4UE1lcCUTxYjb9KpZRSiO/O41uZijsZNaC
-	Vt3BUq9gWGnknlLszvBnfQ270+hNvAWRxyFXNyMpqgCTR1S1tacoqfDtQH5MecUOu8M6m5LFH1R
-	Yb/S9Gpo4hzd7br5nFKiygo5CKLVVdu23yOWj6zHXtaoLrrtSLC/6O1IYIjY3djS3e1xCdtpchi
-	eqT+Y+GVVM3OSxRzp0HrWnNnLqz3i9Tg29nVUGE/Ni/1PEvcIBtFMBE5zYE=
-X-Received: by 2002:a05:6820:82b:b0:717:da:ba22 with SMTP id 006d021491bc7-71925f79c3emr233818eaf.89.1794412821742;
-        Wed, 11 Nov 2026 08:00:21 -0800 (PST)
-Received: from [192.168.1.128] ([38.15.57.99])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4ae2302d8a0sm3334206fac.12.2026.11.11.08.00.20
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 11 Nov 2026 08:00:21 -0800 (PST)
-Message-ID: <89461e8e-68e0-44ad-8e75-57797886198d@linuxfoundation.org>
-Date: Wed, 11 Nov 2026 09:00:19 -0700
+	dkim=pass (2048-bit key, unprotected) header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=afkDzEHG;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=q1qL97km
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 9C7791400183
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 11:00:38 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-01.internal (MEProxy); Wed, 11 Nov 2026 11:00:38 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.org; h=
+	cc:cc:content-transfer-encoding:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm3; t=1794412838; x=
+	1794499238; bh=AspvNDGkCkJ3NWLJZ31HBiF8pAd3ckj/t1KcoFiBMNQ=; b=a
+	fkDzEHGaluomPGZP1G8gj9zjI3T0mdhkQwgzY4cNADJdtL8cSxyWlqkM/yFstZVA
+	/8ZL/NUB9M3nR8i29zoqIs3cH5OT2rhQQFz2o+RsyaWD7ZVXx9CKDvK3MDgTac11
+	dabYVnuBqmUXiCy6aNaLxTF934xPoIsBWzSv/hKu4zAUjw1UOxETjX/T+uUDjOFH
+	hLMgg44nNonKyaEmvTgtQ3vZOGmPeoXvGnLT+FY0PR1nzlubTSVxlu6ft5SANRMu
+	cJctJ0uPFOmauJvBaBlowgk4cC0PlO/UFeda8WuFf2l1G3Dxk1eaCdfh4I3KIodX
+	KJYR4oYynyc+G79grV76w==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
+	:x-me-sender:x-sasl-enc; s=fm3; t=1794412838; x=1794499238; bh=A
+	spvNDGkCkJ3NWLJZ31HBiF8pAd3ckj/t1KcoFiBMNQ=; b=q1qL97kmPYtBYgYYv
+	5gajvuG6QwFLxISundZuWNkT0QVAoN51D79Xvl7QucJlkxuSaDCf2+IXL2JrmUth
+	SuYJ/tUAfJ8cNMVA/w21Xji1JGcwYoUZvqb5bur/QkGwpkzxZ+2xoyF4Fok06SH4
+	w2Q6BZcoIxq52B2zhAO0XTVKzbl8fZkzpXNnAty1rh/PUWWYIu6xedwD2+fzYhWK
+	xXgzp+82qPXFGnxIYcnOFcQ8CrF46QpgREwdZ+8l0b0BJdbRaRy9l4DKfVXYLQER
+	Zbyd7LcZvWxsbk9yv/KXLHrN+Js8By8TWHbevYbtimg5pCFILUtLZKh7sDr3tO2B
+	HAGiQ==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=fastmail.org a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1794412838; d=fastmail.org;
+	mf=PGljYkBmYXN0bWFpbC5vcmc+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm3:rsa-sha256:wXC0wRfOgBHfKDoKuOOemyIA3wyV6beWG7FC0aFB0tF3ElR
+	tTlVvGldtIQY9hCoDH0NTKFqr2e4bQ4kR5K+hnh5AVLFaIZDdFDVmn80qYE+Cqv2
+	403e3G91VhV1xZvYKGP8agvEFSaHDDC3waePX6RdlZR+AAu86E82FkZXditKDj0w
+	L3/LSV7JtHK3kZo15NMkenxmDqYc0KOtPFSBufcnuqMsLGu7HjBpWlPLgUrc9Iev
+	bcb+eX2GiYYKRCTTKGBo64g6/zxCJA9nFLSoDQPrQQg6kUNmhvy4rSKDKcGL4e4+
+	UG4nuNBp4ne79xSa1AtLP66rO5fJyGlQYY2YvLQ==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=11;
+	hn=cc,content-transfer-encoding,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:/kRDEj1VEaC2NJgaYg5eQF710A1Pe0jHgn6B2QjUp8k=:Mdc/pp8kO3nuThRxpmSdvNYO3j128aXlX78VIoghsJQ=;
+X-ME-Sender: <xms:JZH0athSBlCYFQZVmjPMoniji3lHgnS30OYzj9lHoL7X26vrA6LZ0w>
+    <xme:JZH0aoDNQUmjxedoiLrI1bEjl_-LKxXjMyGNoUh14EAbR9otNL_rh6Am07Ptutu54
+    WQQC9RGUpk7DEP6UIHeOPv2iH6Spt3G1g6gJ9_8xeHVIxNMRBNR9fbE>
+X-ME-Received: <xmr:JZH0an7oZVW8vKsVC5vXFq4ZEEHkT3jCFl-QDeWv4MJytBwhoTGd7BPSQF8BAk4J>
+X-ME-Proxy-Cause: dmFkZTGc6X1pUvRe543ASiFLgXt49mcvnM5Cjqw3BsQ6n9gfX39xWALbbqxtaONqPwhpdE
+    VxOOkeWEEmhA8xFSk8iPWJqb0KILOP7BdvtxP9qS4fo1mQud/wWu3W9F5UuvLayBpvlSLy
+    LKQ5l9jQTj0oj1NL5ie+DDajFzlVWkN4mYkWVI5PrbcB1vgg4vZOQOMh9W8ge6jRihj93k
+    vmMSx2xlv17TpB2ZOwKZgxBV2VfbajR01HJj0W4bcNNAxi5iQMNc0G5xHqOutPsyHzZFsM
+    Z0uNKJLwcAQpfQjKrvKiMKXH+HI7FGJBRAWcY1AQBQnVk3bLX/u9Q+X/5uu+SWO8zyQcMi
+    OfIykN2e6s+Old8Ciu9i9dDQw0JkZeid+qrE8IOVA+BQCq579y+MJR+94rbYxuc9qt40zJ
+    Wb6ucDzjlUiy9rIQTUgoOy8s2EMHraM+7RyZx9A0vvUlXzqGu3vmN+Amd05iMrPu7YKyuJ
+    S3tH8ZVnVYVnRdQFoYz51ZDI+cvnExsmw3/WLKcgumT+we64PYydn1lC0GBWuU26BSobfZ
+    jV091zYKOa6YQl6PER923EZIFQs1SLgK3IMbmr/TnhTDlqFqSWTvmho/IjpLkL9ZYalxkz
+    sntT+UdsXaibJ1JrxWNKg+EWwUsJlYcVsTSx/Q6n9iKf4diQqogBDlB+OXjA
+X-ME-Proxy: <xmx:JZH0alFC30XZ2d7GGkxXDD696K-feC66V3fHxeGqwOuH3hAK8e9t5Q>
+    <xmx:JZH0aqDEyj9dK08pPyPrF0Fg5Y6bzDhEi444r_KA9Ae-ucJnjZrj5g>
+    <xmx:JZH0aiz-9btSnleMKHrInDRGcNW84VDPMFzXfnyU4gufVP6GsdEffw>
+    <xmx:JZH0am4E93nV6zap8iDdEm-73F4xAsl6xHjZNTS3no367A06uA_EFw>
+    <xmx:JpH0anr6Us03r1TcNluJxQQr3xFSRE64yTFDYp2UH2i4Ljj6k19GWu7B>
+Feedback-ID: ib53e4b78:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 11 Nov 2026 11:00:36 -0500 (EST)
+From: Ian Bridges <icb@fastmail.org>
+To: jan.koester@tuxist.de
+Cc: linkinjeon@kernel.org,
+	senozhatsky@chromium.org,
+	tom@talpey.com,
+	chenxiaosong@chenxiaosong.com,
+	brauner@kernel.org,
+	linux-cifs@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Ian Bridges <icb@fastmail.org>
+Subject: Re: [RFC PATCH 1/6] ksmbd: don't ignore the owner and group of a descriptor without a DACL
+Date: Wed, 11 Nov 2026 10:00:29 -0600
+Message-ID: <20261111160029.4127378-1-icb@fastmail.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <86878858c5973b660bd04a65@groupi3>
+References: <86878858c5973b660bd04a65@groupi3>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,100 +132,23 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] usbip: vhci: do not give back URBs with an unchecked
- actual_length
-To: Vlatko Kosturjak <kost@linux.hr>,
- Valentina Manea <valentina.manea.m@gmail.com>, Shuah Khan
- <shuah@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Hongren Zheng <i@zenithal.me>, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org, Shuah Khan <skhan@linuxfoundation.org>
-References: <aurLXADfuLjs-dm-@griffin.linux.hr>
-Content-Language: en-US
-From: Shuah Khan <skhan@linuxfoundation.org>
-In-Reply-To: <aurLXADfuLjs-dm-@griffin.linux.hr>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 11/3/26 23:06, Vlatko Kosturjak wrote:
-> vhci_recv_ret_submit() copies actual_length from the RET_SUBMIT header
-> into the URB before usbip_recv_xbuff() checks it. When the server reports
-> more data than the URB's transfer buffer holds, usbip_recv_xbuff() rejects
-> the reply and shuts the connection down, but the URB is still given back
-> with the oversized actual_length (and status -EPROTO).
-> 
-> Completion handlers trust actual_length. usbfs copies that many bytes from
-> the transfer buffer to user space in copy_urb_data_to_user(), whatever the
-> URB status, so the kernel reads past the kmalloc()ed buffer. With
-> CONFIG_HARDENED_USERCOPY this is a BUG in the context of the process
-> reaping the URB:
-> 
->    usb 1-1: recv xbuf, 0
->    usercopy: Kernel memory exposure attempt detected from SLUB object 'kmalloc-rnd-05-16' (offset 0, size 22)!
->    kernel BUG at mm/usercopy.c:102!
->    RIP: 0010:usercopy_abort+0x6c/0x80
->    Call Trace:
->     copy_urb_data_to_user+0x122/0x160
->     processcompl+0xe3/0x160
->     usbdev_do_ioctl+0x14d/0x1900
-> 
-> Without it, the adjacent heap contents are copied to user space.
-> 
-> This was hit with a buggy user-space USB/IP device implementation (it
-> answered an IN URB with more data than requested) while pcscd read from
-> the device; any server, buggy or malicious, can trigger it.
-> 
-> Do not trust actual_length when the transfer buffer could not be
-> received: give the URB back with actual_length 0. A short read leaves the
-> buffer partly unfilled too, so this covers both failure cases.
-> 
-> Fixes: b348d7dddb6c ("USB: usbip: fix potential out-of-bounds write")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Vlatko Kosturjak <kost@linux.hr>
-> ---
-> Tested on host 7.0 (Ubuntu 7.0.0-34-generic) in QEMU with a small reproducer: a
-> user-space program that attaches a fake device to vhci_hcd through a Unix
-> socketpair (no network or usbip tools needed), answers a 16-byte bulk IN
-> URB with actual_length 22, and reaps the URB through usbfs:
-> 
->    unpatched, CONFIG_HARDENED_USERCOPY=y:  the BUG above
->    unpatched, hardened_usercopy=off:       reaped actual_length 22 for a 16-byte
->                                            buffer; with 200 extra bytes, 200 bytes
->                                            of adjacent heap reach user space
->    patched:                                reaped status -EPROTO, actual_length 0
-> 
-> The vhci_rx.c hunk is the same in v7.0 and in mainline. Happy to send the
-> reproducer (about 300 lines of C plus a QEMU script) if useful.
-> 
-> The 2026 hardening of RET_SUBMIT (number_of_packets, iso frame lengths)
-> does not cover this path; it is the non-isochronous actual_length.
-> 
->   drivers/usb/usbip/vhci_rx.c | 8 ++++++++
->   1 file changed, 8 insertions(+)
-> 
-> diff --git a/drivers/usb/usbip/vhci_rx.c b/drivers/usb/usbip/vhci_rx.c
-> index a678e7c89..720dafa72 100644
-> --- a/drivers/usb/usbip/vhci_rx.c
-> +++ b/drivers/usb/usbip/vhci_rx.c
-> @@ -78,6 +78,14 @@ static void vhci_recv_ret_submit(struct vhci_device *vdev,
->   
->   	/* recv transfer buffer */
->   	if (usbip_recv_xbuff(ud, urb) < 0) {
-> +		/*
-> +		 * The transfer buffer was not filled: either a short read or
-> +		 * an actual_length larger than transfer_buffer_length, which
-> +		 * usbip_recv_xbuff() rejects. Do not give the URB back with
-> +		 * that actual_length: completion handlers trust it, e.g.
-> +		 * usbfs copies actual_length bytes out of transfer_buffer.
-> +		 */
-> +		urb->actual_length = 0;
->   		urb->status = -EPROTO;
->   		goto error;
->   	}
+Hi Jan,
 
-Greg, please pick this up.
+On Tue, Nov 10, 2026 at 09:02:27AM +0000, Jan Koester wrote:
+> +	/* parse_sec_desc() rewrites type */
+> +	dacl = le16_to_cpu(pntsd->type) & DACL_PRESENT;
 
-Reviewed-by: Shuah Khan <skhan@linuxfoundation.org>
+Shouldn't the parts to change come from the SecurityInformation of the
+request rather than from DACL_PRESENT? As far as I can see, the Linux
+cifs client's chown can send OWNER_SECURITY_INFORMATION alone with a
+descriptor that still carries the DACL. It does so when no ACE names
+the old owner. Would this patch then parse that DACL again, rebuild the
+POSIX ACL from it and replace the stored descriptor, though the client
+only asked to change the owner? And in the reverse case, would a
+request for the DACL alone still change the owner when the descriptor
+carries one?
 
-thanks,
--- Shuah
+Thanks,
+Ian
