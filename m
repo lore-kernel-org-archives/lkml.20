@@ -1,141 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.201.64
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794369467;
-	b=NNIHtDz5R2nv6n2WVdHb7FXcjVpVUhnasAtgOrQJeqqxR4gJDw2RHjrBRO3dFg8BchH8
-	 1M3HKrnNPj5rHWneCDOP4r8Wi9GOAvM6NwDR2qRlkslDjH5OpFufwB/3Q42R/uRI57ddQ
-	 T/mTdx7Ana3UlzSJRnXrYgTUFhuMyv3dy9dA+yD1xMWfUozTeR670jvr/2xVQAzuPfNN+
-	 TNfsTTQed8pPOhdlguh9UoNc/YT8qouAH/l3JgAB+jZ0LYs0CCPfR2cX/cjcjgBU8fYI6
-	 GKO7VhRIDmRv+sDCdwrmthCD524rVpShubGIy2TQXjovuUqQ1tMVt4+G/v6e5F8LW/Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794369467;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
-	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
-	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
-	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
-	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=yNAM5UZZ/Q1D+JhHKvPO55BJzC4IZQySNXA9plaDP0A=;
-	b=hiU+2SgNcbCqa1xhqiz5vzJfE9kMkb1c//OfMefH1O2di/no/j9cxJVKYYwofsVsPoLK
-	 dml76RYfZkvI8ITvemdSrnW+n38RUyuVFTD7NgWQ+jh3NR7Zq1n94hsMa4Mx2Am/mds4I
-	 8wIEsDaJvDqYiS/lrgLpUtB9QUNtfg+Ac0ktPKRUS7DCKaof3gn6c7JxQEYeGDMGWqrPl
-	 XB4gmguql7M2DTfujEHxIhJqxTWMlLLo0zFfZyejnWzdrl1VoHivZO+FULiWsaCfofVIn
-	 AQEDQAb3WueAym8RjOcR+3xlClaoMdD8/eF/WU3XAumCHr2WNNPhhJp5OpCkhZg9PQA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=KUP9EY1o;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.201.64
-Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013064.outbound.protection.outlook.com [40.93.201.64])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.11
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794369547;
+	b=UaOq4cuCJljS5RSpYty+fStEXmxBq493fvHhff0ca5UQSEUif7Zy3EaRKI77Tw+u9Hv2
+	 D1j2sUl0W5MoZznel8pU/3MIovu1TAvuOQayqbh8nklPJ8MJ5jiapFSCU6OH1vxW1HjXN
+	 ZjU846H1F1A8vlTeL0ALR94enUhFi2G+Pzg6q+pPoqD+e36KYgIiSmnoXqILYdypQ+2nv
+	 MPV3Res7niIq0Tzc4UbrKZ4f1Kdwg6dw/RnIPZUz/KEU8qjoVG8zxyF9xR8fQaWFYeQ5v
+	 SV+28F2Gj6vLxJ3fmE9tTGNVwLnO6qqCXoA/5thWLxcekt3NzHgEqwU904XzX0t0oMQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794369547;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:User-Agent;
+	bh=VJCeOh5b6JgpUubVuQHRCU0HfFrMWXIlXDQA1Oylnd0=;
+	b=4B8xHIPvBPg8MI6mieF74YvQSMRkum8aoztQ2XD5zHl2WZ2z2ivYGpT2tCBy8lxwhCwQ
+	 Pj6hQ5NM/ElBBsTcFLZTNMsROl2n0U7vBIk0KmpYKQbL0EbPG0L3W7eAV6nih0qBVJnj/
+	 88+RrPViYTRrBXAKD4/j88d3iAvQLPGUwVzLlZX1kMz9bOf141UnYYZaBx6srUfvHZgQg
+	 frPt+C6/zILyFI7QGGuYXCYfkfgRMWVzUC3e1V5cbGPJ8eGseyDJkZ/cX5RqTTz4fhBx6
+	 +q/EjeGYVYukyhrOPHA4cPpp1CFPJPqsTCro2eJdLrce1X4xJeX+9/BAm/P4KNXGzsg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=FiKjd7IF;
+	arc=none smtp.remote-ip=192.198.163.11
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D29FC606A31C;
-	Wed, 11 Nov 2026 03:57:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D29FC606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C6BD606A32A
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 03:59:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2C6BD606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=KUP9EY1o
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=CG77/cigi42K6TobMaXtsYhnZwaDl72wl/1k7hK2Fg8DmWNuP9mNUtN1kObrVwvq0QPj1iZamqQB0uBysIN035Trup30/+5+IjQ94eMvqlhhBFFOOPKgMnkK15bTZS+Z0wGLMm8sl8iV3NbVy/X+d0aFG/zyXfKpC/uv5nEHDwj+kTR0b2CCHJHZhxJSuFKt7PoljjakmI2jSxhtUr0dxDLUg/eN9JsMtFNWFOAasSv57a2toDo9Euy1h/i9XEy/UVVEHd78ntKd9S1fFXTvJpT6+IjBnApwJanJMU+IjQeVSsaTl8xODaxDtxZ673K/aUv53Ffip+eczKs5AslC6w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yNAM5UZZ/Q1D+JhHKvPO55BJzC4IZQySNXA9plaDP0A=;
- b=HbCvm8U+5NuB0SvFrunWaXZZnQOSB/Hx1OZMfMmQGPZwxi0SGwWIoWZ5cHHcPeQfKjWK78s1B36TowX1IV3MbhzXbouWa6NR0h0SPlOVJwcEQBf5J+gvPl9y568vErftKLzdUuuSMXAp671OshmMYf0yQj5zJOzYOH1JooT5PAVGegj3ELW91Q/vhD8BXjbRCYxQKfgQNpqu/i0mbm+cZeNY9yPN9e/sDo6Wj8RD+gYdyU7raExjnGEacp0MJOUwX8Fmz5OUGCPjAcQHAqHau6kACGZKH9Cd5NtFdHPhUBVmTNskYuYDrYbRgdMxfciGnp2kApqZlrT8jvkgkgGbRQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yNAM5UZZ/Q1D+JhHKvPO55BJzC4IZQySNXA9plaDP0A=;
- b=KUP9EY1o5NDraUwSt2C0Sc0qsXx0sFRD6O2dAJBH8NAHVVmJWD5QtoZUTbTuXzDdVGPCkjU9pjCCvZLxiR8lpVjB55rmryQJOs/WYIelv41RA2BpRg3PjmtbyomYyrq3A6LB+gUsULiOR++HitbvHVctuI5UtSIZHXwovPKFjHEeOo6A7docaqTwFqq+MoxtkaENd/h5oekVp/vwgzbCQm7lAhAql5h73iuA9dtDua/Nw6kq4tzVG8PFtepcsNmBIOVb/KgKiJyWLNhKozxJqReXHbjTo3rxZJjwIhBZgg4FYHqElg1sDvq5YXFFefRRfwL0CbUT+nWH8pZdbuGM2Q==
-Received: from CY8PR12MB7290.namprd12.prod.outlook.com (2603:10b6:930:55::13)
- by SN7PR12MB7249.namprd12.prod.outlook.com (2603:10b6:806:2a9::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.13; Wed, 11 Nov
- 2026 03:57:43 +0000
-Received: from CY8PR12MB7290.namprd12.prod.outlook.com
- ([fe80::a8ce:7b9b:3e72:d1cc]) by CY8PR12MB7290.namprd12.prod.outlook.com
- ([fe80::a8ce:7b9b:3e72:d1cc%4]) with mapi id 15.21.0615.007; Wed, 11 Nov 2026
- 03:57:42 +0000
-From: "Qiuxu (Leo) Zhuo" <qzhuo@nvidia.com>
-To: Rosen Penev <rosenp@gmail.com>, Borislav Petkov <bp@alien8.de>, Tony Luck
-	<tony.luck@intel.com>, Kees Cook <kees@kernel.org>
-CC: "Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	"linux-edac@vger.kernel.org" <linux-edac@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-hardening@vger.kernel.org" <linux-hardening@vger.kernel.org>
-Subject: RE: [PATCH v2] EDAC/ecs: simplify allocation for context
-Thread-Topic: [PATCH v2] EDAC/ecs: simplify allocation for context
-Thread-Index: AQHdcYMM7BH0NUEFSUiCjlFj1SgoALcoPkPQ
-Date: Wed, 11 Nov 2026 03:57:42 +0000
-Message-ID:
- <CY8PR12MB72909F270DC61ED7848A26EAD1712@CY8PR12MB7290.namprd12.prod.outlook.com>
-References: <20261111021808.60779-1-rosenp@gmail.com>
-In-Reply-To: <20261111021808.60779-1-rosenp@gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CY8PR12MB7290:EE_|SN7PR12MB7249:EE_
-x-ms-office365-filtering-correlation-id: 23c59f02-b211-4586-6a0e-08df3fa7f004
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|376014|1800799024|366016|23010399003|38070700021|11063799006|56012099006|261022105027099003|261026140227099003|261028144727099003|10067099003|18002099003|22082099003;
-x-microsoft-antispam-message-info:
- RXbh9mPnZhY4uXZwY+MkoHIvnnaGqKfNIg2vFXchht5rW7/NP1NNuUEqJYxIbXfu9Oj2XlsyBBjVgLvWSNSVzQNRrHFTsa1/lmFNdSmJWQfeiPa6IjPA/6HPb8ukxuuDTapW8T0nQZYhtP8mBhGMdZxAVB8Ht6kOqrGSknSBHNnthl7d73CFffxW905m6ndx37E5V9y2TD9gsVN5bJ5UmTuCIpl9/dEvokb96Q5UVqIxzSp5mWQXXw97E+H+kfXlSDHYNKM5jtLM93//kPm42PKmoqhIsrAc1a37gZn/rXnkykGOp0DicgaPUGrddSksWpIlQFDQDjy9s+RP98tinC22ItJ/imyvemTUH+72Mn6yCeECXsi/AMrfXH1jPQc9KxWC+bJKYKjUYdc8CwqhmxNEAaNtCYV/FdQ0aKiILXJXz7nahp33AMZomH059+wU4hZCgVv/yGzTtmqqcvYR4jkVpblupr8zTbesk+f7QDHIQObsVX/TXps+TTiq+BPTgQEUN1eH6G1w9BewWL6QTzZnp6cRcQBBLK9YEo5x9asHDUDo7loyrWuKHnaAKS8FzkIJNZolsISdq5pirzafjpvaQLtl2f26Kv/Z/rZrv9PhKr7+fXc+L8m8cEeQ/lfXsP3LPdRaooUJ/+BeVDXlqSxrIC1uIDvHYyLJ643EwcEuudHXMzvyBJ9OSNd/bKXEAtvp+VwXNiaRR0aSD0biSg==
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY8PR12MB7290.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(38070700021)(11063799006)(56012099006)(261022105027099003)(261026140227099003)(261028144727099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?fDwlorKmXg1hL7LtDQiTiFxfLmG0XQ8eK2vTiSp64rXRSWrs8OWQwZiQcWcu?=
- =?us-ascii?Q?JX72HG8eXWHljbGyvo9jRBu08oiiTfljmpz4eAScIxxase16NgENfbrJVudf?=
- =?us-ascii?Q?NqRJlLujmzREy5+x2K1EYAFus81x9NvngpuK3mohNoGK0WVgZs2WRdRehGud?=
- =?us-ascii?Q?J/jVdhrz1IdrXno6v7jHpGfCdpRU59OpO/F/NeCcM5KIrA0jjZEpB8lim6Gz?=
- =?us-ascii?Q?7Hh8pM8XAbN43P/lYnSLakBEUWx3PZopJky85bPJVQySWruc8zkp/kUqffkS?=
- =?us-ascii?Q?K04HPlbaXla3msepVT1VtA7jOuXFGV4yv/967E47xdNXZZVTDAaUgmsqqr50?=
- =?us-ascii?Q?6NlHvHtdXZ+PcxcHc+VcFzpCqOHXmqEI/LN9hlZgYLke26PqphBV2LVC9KIW?=
- =?us-ascii?Q?u0xJrvZiXim+Kzki8t5SrgD4nH7FnXMt47QvCxsX+dBWP5P2szjyvBfJlHNo?=
- =?us-ascii?Q?EX9uRIIj0mZPAJSfc6+Km4zIo5Y0rMiF9IQsdFgZnHTZFCNljqCv1b2883Fl?=
- =?us-ascii?Q?2rS09mfO+CoQ87JgvlCoCN6xLhQGW6S12p4+hg6i/YtjWVVwLIUYilaEpRnV?=
- =?us-ascii?Q?jB+B8oAnahomRVLzC0gkjKd/OC0oq1FwfC8XznuLGST/Rj4d5htsNBvBT97y?=
- =?us-ascii?Q?b5fgwUG+YW1o4veLWg8CZfHKhtMidx9hMzLWp/eTP8G9AMg/TrLnHL/L5m7B?=
- =?us-ascii?Q?Ynu6LGBc+kfDdVx3FOymC5r6P4PiGIoMaIPn8a3u6X+cM0WqbCPupQI3/aAa?=
- =?us-ascii?Q?+/scUv1Pvf1Xd0LZTzc8HRjpiuuUnEh/cRlLVP9P07w9zLa0oMHwJcBxyCMu?=
- =?us-ascii?Q?xzzvkkunE+8PAG5iHjvBET5OVHcq+q9AibxNJGjpj5bbZdWUtAX5i2hPoPe+?=
- =?us-ascii?Q?KLtx5+65ZKvdsGoaGrfYH0CqvTWoJcymaCW/JloP8N/KUb5uG6dMSSr7VeD7?=
- =?us-ascii?Q?jFvs9GxTdjdgRUxeJ5N5ZyxnnsspJt5dfKr2gkYVSWAR4q25xV2BELNGALnj?=
- =?us-ascii?Q?2l1cvXwNofewN90/NEOVpDuyiuB3NqCDS52DZ6FPlK1mRChjt+T++fRChRvK?=
- =?us-ascii?Q?5Lq5qRAmpM5UhQz5S/ZjISs33/K7MCmGhrMYoqA8PZ+tztcIByNm3lqT7shz?=
- =?us-ascii?Q?J3hZAvV2R/8cX66IaKbB5DWxENF6txP18GUvnbnJBbagOFrd/WNt0QNAm/QS?=
- =?us-ascii?Q?wzXQ1p6MJgX0XlmLLak/7JJCSn147eMIWJBxj+kpVR+Ccd3FgPqlP1FUqyLt?=
- =?us-ascii?Q?b5yz/6DSgE6xFqnrXDlm6v/J1RdlHbuCpoZsatQHnhm1LcNRgEgEyV8y4HLH?=
- =?us-ascii?Q?DJnvK7V4RaKqycqSotdxcQVRlRjXT/f0IS12C3s8EFNLgyBycBlT9s1cMhhv?=
- =?us-ascii?Q?KxtnrXBPnDKrGBBUzEa8QMc1XBHaT18GvEHhY233iseWVccy5P8e9kIl3tCC?=
- =?us-ascii?Q?ubYVEOxvlsX+r+k9kIUU+PV8DPR0iG10vPH8yvuCYiCLBg+AJjH9+wwGlHWN?=
- =?us-ascii?Q?T/GSIUh63wvBQ+X7Lbr38HHV6mF7tuTixacFcUXmWzpPSvDRSGeTchzR4z2T?=
- =?us-ascii?Q?TTJ+/pyB2NmjGcREOX61sYlj8NdYsefWMtNPXgTbuXAXjpVKrOeh5RoJnZwV?=
- =?us-ascii?Q?jn0W4wloxvqHP/wiDFFD7DQynSsrajG6JbTYijslWVi03OKUS44EG9SmQOkH?=
- =?us-ascii?Q?xSj61N6fIWwBcK7WzAdTn11q5RNNej+M0nhUTWIJRjI6zPd5?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=FiKjd7IF
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794369547; x=1825905547;
+  h=date:from:to:cc:subject:message-id;
+  bh=xfZBUQRbdG1TTTJ1L2g/3dCQQJSe0Dn6x4S+qTqaloo=;
+  b=FiKjd7IFsVieV0SJvd3g+jpnaYVMZg3q+UTg4hZjQC1R4aB+njy6kN0R
+   2kNpa0YuU+DcbqESYdBI9AeETTPOIChnmhawnMv59EdIGLDrlGt7cU5yP
+   GXzpZPEo0KSWy0R5fyK8mvaDK9CF0B3I1Qt6FOaUlWQnVQ5a02UFlbtYw
+   9QYruktl+41e98TRieApoo5OSaOKp1S1NTjFCq0gi/FTZyNpdU5mJOe7B
+   AN8KIRYM7v3LS6CESFiUQ+N61eHkebDGbMz7aq1bWZAC2Sj67vf/zuY7x
+   XrgwJcgyr/f4O8yE3Usa5DJBTtF5FHgDoFQYPP+DMvMD9p6vNqkBx3am8
+   g==;
+X-CSE-ConnectionGUID: nKo6aAytQjeQ32oDBs44Lw==
+X-CSE-MsgGUID: LehJK2JoQJCc8JbKnEkhgQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11962"; a="3054145"
+X-IronPort-AV: E=Sophos;i="6.27,207,1787036400"; 
+   d="scan'208";a="3054145"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 19:59:06 -0800
+X-CSE-ConnectionGUID: 7e2Pu2rzQAa3MBfkYHYKtA==
+X-CSE-MsgGUID: MXmfCGVaQPywKiBNN58ZyQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,207,1787036400"; 
+   d="scan'208";a="10055360"
+Received: from igk-lkp-server01.igk.intel.com (HELO 1073a420ae3a) ([10.211.93.152])
+  by fmviesa012.fm.intel.com with ESMTP; 10 Nov 2026 19:59:06 -0800
+Received: from kbuild by 1073a420ae3a with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xQzUE-000000000Vj-2nle;
+	Wed, 11 Nov 2026 03:59:02 +0000
+Date: Wed, 11 Nov 2026 04:58:49 +0100
+From: kernel test robot <lkp@intel.com>
+To: Christian Brauner <brauner@kernel.org>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: ERROR: modpost: vmlinux: local symbol 'inc_ucount' was
+ exported
+Message-ID: <202611110401.EVdRdo6b-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -144,38 +79,227 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7290.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 23c59f02-b211-4586-6a0e-08df3fa7f004
-X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Nov 2026 03:57:42.8773
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: UvqR0ScCsxzWc8rfZR4Dnm3SJ+DI0Gk4LMCu26PzqaXKe11C+2DAAdavoPsfcmyDS3EBGO3PXziq5UCmeBEv9Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7249
 
-> From: Rosen Penev <rosenp@gmail.com>
-> Sent: Wednesday, November 11, 2026 10:18 AM
-> To: Borislav Petkov <bp@alien8.de>; Tony Luck <tony.luck@intel.com>; Kees=
- Cook
-> <kees@kernel.org>
-> Cc: Gustavo A. R. Silva <gustavoars@kernel.org>; linux-edac@vger.kernel.o=
-rg; linux-
-> kernel@vger.kernel.org; linux-hardening@vger.kernel.org
-> Subject: [PATCH v2] EDAC/ecs: simplify allocation for context
->=20
-> External email: Use caution opening links or attachments
->=20
->=20
-> Use a flexible array member to combine allocations
->=20
-> Add __counted_by for extra runtime analysis.
->=20
-> Signed-off-by: Rosen Penev <rosenp@gmail.com>
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+head:   067c5c24cef23d913b67eaaf71ae67e7169a6620
+commit: b604897764047229c6a931e1980cac1b2197d9d2 binfmt_misc: correctly account pre-opened interpreters
+date:   3 months ago
+config: loongarch-randconfig-r2301-20261110 (https://download.01.org/0day-ci/archive/20261111/202611110401.EVdRdo6b-lkp@intel.com/config)
+compiler: loongarch64-linux-gcc (GCC) 16.2.0
+sparse: v0.6.5-rc1-21-g84ec0658
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261111/202611110401.EVdRdo6b-lkp@intel.com/reproduce)
 
-LGTM. Thanks.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Fixes: b60489776404 ("binfmt_misc: correctly account pre-opened interpreters")
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611110401.EVdRdo6b-lkp@intel.com/
 
-   Reviewed-by: Qiuxu Zhuo <qzhuo@nvidia.com>
+All errors (new ones prefixed by >>, old ones prefixed by <<):
+
+ERROR: modpost: vmlinux: local symbol 'param_set_bint' was exported
+ERROR: modpost: vmlinux: local symbol 'param_ops_bint' was exported
+ERROR: modpost: vmlinux: local symbol 'param_array_ops' was exported
+ERROR: modpost: vmlinux: local symbol 'param_set_copystring' was exported
+ERROR: modpost: vmlinux: local symbol 'param_get_string' was exported
+ERROR: modpost: vmlinux: local symbol 'param_ops_string' was exported
+ERROR: modpost: vmlinux: local symbol 'kernel_param_lock' was exported
+ERROR: modpost: vmlinux: local symbol 'kernel_param_unlock' was exported
+ERROR: modpost: vmlinux: local symbol 'kthread_should_stop' was exported
+ERROR: modpost: vmlinux: local symbol 'kthread_should_park' was exported
+ERROR: modpost: vmlinux: local symbol 'kthread_freezable_should_stop' was exported
+ERROR: modpost: vmlinux: local symbol 'kthread_func' was exported
+ERROR: modpost: vmlinux: local symbol 'kthread_data' was exported
+ERROR: modpost: vmlinux: local symbol 'kthread_parkme' was exported
+ERROR: modpost: vmlinux: local symbol 'kthread_complete_and_exit' was exported
+ERROR: modpost: vmlinux: local symbol 'kthread_create_on_node' was exported
+ERROR: modpost: vmlinux: local symbol 'kthread_bind' was exported
+ERROR: modpost: vmlinux: local symbol 'kthread_create_on_cpu' was exported
+ERROR: modpost: vmlinux: local symbol 'kthread_unpark' was exported
+ERROR: modpost: vmlinux: local symbol 'kthread_park' was exported
+ERROR: modpost: vmlinux: local symbol 'kthread_stop' was exported
+ERROR: modpost: vmlinux: local symbol 'kthread_stop_put' was exported
+ERROR: modpost: vmlinux: local symbol 'kthread_affine_preferred' was exported
+ERROR: modpost: vmlinux: local symbol '__kthread_init_worker' was exported
+ERROR: modpost: vmlinux: local symbol 'kthread_worker_fn' was exported
+ERROR: modpost: vmlinux: local symbol 'kthread_create_worker_on_node' was exported
+ERROR: modpost: vmlinux: local symbol 'kthread_create_worker_on_cpu' was exported
+ERROR: modpost: vmlinux: local symbol 'kthread_queue_work' was exported
+ERROR: modpost: vmlinux: local symbol 'kthread_delayed_work_timer_fn' was exported
+ERROR: modpost: vmlinux: local symbol 'kthread_queue_delayed_work' was exported
+ERROR: modpost: vmlinux: local symbol 'kthread_flush_work' was exported
+ERROR: modpost: vmlinux: local symbol 'kthread_mod_delayed_work' was exported
+ERROR: modpost: vmlinux: local symbol 'kthread_cancel_work_sync' was exported
+ERROR: modpost: vmlinux: local symbol 'kthread_cancel_delayed_work_sync' was exported
+ERROR: modpost: vmlinux: local symbol 'kthread_flush_worker' was exported
+ERROR: modpost: vmlinux: local symbol 'kthread_destroy_worker' was exported
+ERROR: modpost: vmlinux: local symbol 'kthread_use_mm' was exported
+ERROR: modpost: vmlinux: local symbol 'kthread_unuse_mm' was exported
+ERROR: modpost: vmlinux: local symbol 'net_ns_tree' was exported
+ERROR: modpost: vmlinux: local symbol '__ns_tree_remove' was exported
+ERROR: modpost: vmlinux: local symbol 'atomic_notifier_chain_register' was exported
+ERROR: modpost: vmlinux: local symbol 'atomic_notifier_chain_register_unique_prio' was exported
+ERROR: modpost: vmlinux: local symbol 'atomic_notifier_chain_unregister' was exported
+ERROR: modpost: vmlinux: local symbol 'atomic_notifier_call_chain' was exported
+ERROR: modpost: vmlinux: local symbol 'blocking_notifier_chain_register' was exported
+ERROR: modpost: vmlinux: local symbol 'blocking_notifier_chain_register_unique_prio' was exported
+ERROR: modpost: vmlinux: local symbol 'blocking_notifier_chain_unregister' was exported
+ERROR: modpost: vmlinux: local symbol 'blocking_notifier_call_chain_robust' was exported
+ERROR: modpost: vmlinux: local symbol 'blocking_notifier_call_chain' was exported
+ERROR: modpost: vmlinux: local symbol 'raw_notifier_chain_register' was exported
+ERROR: modpost: vmlinux: local symbol 'raw_notifier_chain_unregister' was exported
+ERROR: modpost: vmlinux: local symbol 'raw_notifier_call_chain_robust' was exported
+ERROR: modpost: vmlinux: local symbol 'raw_notifier_call_chain' was exported
+ERROR: modpost: vmlinux: local symbol 'srcu_notifier_chain_register' was exported
+ERROR: modpost: vmlinux: local symbol 'srcu_notifier_chain_unregister' was exported
+ERROR: modpost: vmlinux: local symbol 'srcu_notifier_call_chain' was exported
+ERROR: modpost: vmlinux: local symbol 'srcu_init_notifier_head' was exported
+ERROR: modpost: vmlinux: local symbol 'register_die_notifier' was exported
+ERROR: modpost: vmlinux: local symbol 'unregister_die_notifier' was exported
+ERROR: modpost: vmlinux: local symbol 'kernel_kobj' was exported
+ERROR: modpost: vmlinux: local symbol '__put_cred' was exported
+ERROR: modpost: vmlinux: local symbol 'get_task_cred' was exported
+ERROR: modpost: vmlinux: local symbol 'prepare_creds' was exported
+ERROR: modpost: vmlinux: local symbol 'commit_creds' was exported
+ERROR: modpost: vmlinux: local symbol 'abort_creds' was exported
+ERROR: modpost: vmlinux: local symbol 'cred_fscmp' was exported
+ERROR: modpost: vmlinux: local symbol 'prepare_kernel_cred' was exported
+ERROR: modpost: vmlinux: local symbol 'set_security_override' was exported
+ERROR: modpost: vmlinux: local symbol 'set_create_files_as' was exported
+ERROR: modpost: vmlinux: local symbol 'cad_pid' was exported
+ERROR: modpost: vmlinux: local symbol 'reboot_mode' was exported
+ERROR: modpost: vmlinux: local symbol 'emergency_restart' was exported
+ERROR: modpost: vmlinux: local symbol 'register_reboot_notifier' was exported
+ERROR: modpost: vmlinux: local symbol 'unregister_reboot_notifier' was exported
+ERROR: modpost: vmlinux: local symbol 'devm_register_reboot_notifier' was exported
+ERROR: modpost: vmlinux: local symbol 'register_restart_handler' was exported
+ERROR: modpost: vmlinux: local symbol 'unregister_restart_handler' was exported
+ERROR: modpost: vmlinux: local symbol 'kernel_restart' was exported
+ERROR: modpost: vmlinux: local symbol 'kernel_halt' was exported
+ERROR: modpost: vmlinux: local symbol 'register_sys_off_handler' was exported
+ERROR: modpost: vmlinux: local symbol 'unregister_sys_off_handler' was exported
+ERROR: modpost: vmlinux: local symbol 'devm_register_sys_off_handler' was exported
+ERROR: modpost: vmlinux: local symbol 'devm_register_power_off_handler' was exported
+ERROR: modpost: vmlinux: local symbol 'devm_register_restart_handler' was exported
+ERROR: modpost: vmlinux: local symbol 'register_platform_power_off' was exported
+ERROR: modpost: vmlinux: local symbol 'unregister_platform_power_off' was exported
+ERROR: modpost: vmlinux: local symbol 'kernel_can_power_off' was exported
+ERROR: modpost: vmlinux: local symbol 'kernel_power_off' was exported
+ERROR: modpost: vmlinux: local symbol 'orderly_poweroff' was exported
+ERROR: modpost: vmlinux: local symbol 'orderly_reboot' was exported
+ERROR: modpost: vmlinux: local symbol '__hw_protection_trigger' was exported
+ERROR: modpost: vmlinux: local symbol 'async_schedule_node_domain' was exported
+ERROR: modpost: vmlinux: local symbol 'async_schedule_node' was exported
+ERROR: modpost: vmlinux: local symbol 'async_synchronize_full' was exported
+ERROR: modpost: vmlinux: local symbol 'async_synchronize_full_domain' was exported
+ERROR: modpost: vmlinux: local symbol 'async_synchronize_cookie_domain' was exported
+ERROR: modpost: vmlinux: local symbol 'async_synchronize_cookie' was exported
+ERROR: modpost: vmlinux: local symbol 'current_is_async' was exported
+ERROR: modpost: vmlinux: local symbol 'smpboot_register_percpu_thread' was exported
+ERROR: modpost: vmlinux: local symbol 'smpboot_unregister_percpu_thread' was exported
+>> ERROR: modpost: vmlinux: local symbol 'inc_ucount' was exported
+>> ERROR: modpost: vmlinux: local symbol 'dec_ucount' was exported
+ERROR: modpost: vmlinux: local symbol 'regset_get' was exported
+ERROR: modpost: vmlinux: local symbol 'regset_get_alloc' was exported
+ERROR: modpost: vmlinux: local symbol 'groups_alloc' was exported
+ERROR: modpost: vmlinux: local symbol 'groups_free' was exported
+ERROR: modpost: vmlinux: local symbol 'groups_sort' was exported
+ERROR: modpost: vmlinux: local symbol 'set_groups' was exported
+ERROR: modpost: vmlinux: local symbol 'set_current_groups' was exported
+ERROR: modpost: vmlinux: local symbol 'in_group_p' was exported
+ERROR: modpost: vmlinux: local symbol 'in_egroup_p' was exported
+ERROR: modpost: vmlinux: local symbol '__trace_set_current_state' was exported
+ERROR: modpost: vmlinux: local symbol '__trace_set_need_resched' was exported
+ERROR: modpost: vmlinux: local symbol '___migrate_enable' was exported
+ERROR: modpost: vmlinux: local symbol 'migrate_disable' was exported
+ERROR: modpost: vmlinux: local symbol 'migrate_enable' was exported
+ERROR: modpost: vmlinux: local symbol 'set_cpus_allowed_ptr' was exported
+ERROR: modpost: vmlinux: local symbol 'kick_process' was exported
+ERROR: modpost: vmlinux: local symbol 'wake_up_process' was exported
+ERROR: modpost: vmlinux: local symbol 'single_task_running' was exported
+ERROR: modpost: vmlinux: local symbol 'kstat' was exported
+ERROR: modpost: vmlinux: local symbol 'kernel_cpustat' was exported
+ERROR: modpost: vmlinux: local symbol 'preempt_count_add' was exported
+ERROR: modpost: vmlinux: local symbol 'preempt_count_sub' was exported
+ERROR: modpost: vmlinux: local symbol 'schedule' was exported
+ERROR: modpost: vmlinux: local symbol 'preempt_schedule' was exported
+ERROR: modpost: vmlinux: local symbol 'preempt_schedule_notrace' was exported
+ERROR: modpost: vmlinux: local symbol 'default_wake_function' was exported
+ERROR: modpost: vmlinux: local symbol '__cond_resched_lock' was exported
+ERROR: modpost: vmlinux: local symbol '__cond_resched_rwlock_read' was exported
+ERROR: modpost: vmlinux: local symbol '__cond_resched_rwlock_write' was exported
+ERROR: modpost: vmlinux: local symbol 'io_schedule_timeout' was exported
+ERROR: modpost: vmlinux: local symbol 'io_schedule' was exported
+ERROR: modpost: vmlinux: local symbol 'sched_show_task' was exported
+ERROR: modpost: vmlinux: local symbol '__might_sleep' was exported
+ERROR: modpost: vmlinux: local symbol '__might_resched' was exported
+ERROR: modpost: vmlinux: local symbol '__cant_sleep' was exported
+ERROR: modpost: vmlinux: local symbol 'sched_smt_present' was exported
+ERROR: modpost: vmlinux: local symbol 'play_idle_precise' was exported
+ERROR: modpost: vmlinux: local symbol 'get_cpu_idle_time_us' was exported
+ERROR: modpost: vmlinux: local symbol 'get_cpu_iowait_time_us' was exported
+ERROR: modpost: vmlinux: local symbol 'task_cputime_adjusted' was exported
+ERROR: modpost: vmlinux: local symbol 'set_user_nice' was exported
+ERROR: modpost: vmlinux: local symbol 'sched_setattr_nocheck' was exported
+ERROR: modpost: vmlinux: local symbol 'sched_set_fifo' was exported
+ERROR: modpost: vmlinux: local symbol 'sched_set_fifo_low' was exported
+ERROR: modpost: vmlinux: local symbol 'sched_set_normal' was exported
+ERROR: modpost: vmlinux: local symbol 'yield' was exported
+ERROR: modpost: vmlinux: local symbol 'yield_to' was exported
+ERROR: modpost: vmlinux: local symbol 'sched_clock' was exported
+ERROR: modpost: vmlinux: local symbol 'cpufreq_add_update_util_hook' was exported
+ERROR: modpost: vmlinux: local symbol 'cpufreq_remove_update_util_hook' was exported
+ERROR: modpost: vmlinux: local symbol 'avenrun' was exported
+ERROR: modpost: vmlinux: local symbol 'complete' was exported
+ERROR: modpost: vmlinux: local symbol 'complete_all' was exported
+ERROR: modpost: vmlinux: local symbol 'wait_for_completion' was exported
+ERROR: modpost: vmlinux: local symbol 'wait_for_completion_timeout' was exported
+ERROR: modpost: vmlinux: local symbol 'wait_for_completion_io' was exported
+ERROR: modpost: vmlinux: local symbol 'wait_for_completion_io_timeout' was exported
+ERROR: modpost: vmlinux: local symbol 'wait_for_completion_interruptible' was exported
+ERROR: modpost: vmlinux: local symbol 'wait_for_completion_interruptible_timeout' was exported
+ERROR: modpost: vmlinux: local symbol 'wait_for_completion_killable' was exported
+ERROR: modpost: vmlinux: local symbol 'wait_for_completion_state' was exported
+ERROR: modpost: vmlinux: local symbol 'wait_for_completion_killable_timeout' was exported
+ERROR: modpost: vmlinux: local symbol 'try_wait_for_completion' was exported
+ERROR: modpost: vmlinux: local symbol 'completion_done' was exported
+ERROR: modpost: vmlinux: local symbol '__init_swait_queue_head' was exported
+ERROR: modpost: vmlinux: local symbol 'swake_up_locked' was exported
+ERROR: modpost: vmlinux: local symbol 'swake_up_one' was exported
+ERROR: modpost: vmlinux: local symbol 'swake_up_all' was exported
+ERROR: modpost: vmlinux: local symbol 'prepare_to_swait_exclusive' was exported
+ERROR: modpost: vmlinux: local symbol 'prepare_to_swait_event' was exported
+ERROR: modpost: vmlinux: local symbol 'finish_swait' was exported
+ERROR: modpost: vmlinux: local symbol 'bit_waitqueue' was exported
+ERROR: modpost: vmlinux: local symbol 'wake_bit_function' was exported
+ERROR: modpost: vmlinux: local symbol '__wait_on_bit' was exported
+ERROR: modpost: vmlinux: local symbol 'out_of_line_wait_on_bit' was exported
+ERROR: modpost: vmlinux: local symbol 'out_of_line_wait_on_bit_timeout' was exported
+ERROR: modpost: vmlinux: local symbol '__wait_on_bit_lock' was exported
+ERROR: modpost: vmlinux: local symbol 'out_of_line_wait_on_bit_lock' was exported
+ERROR: modpost: vmlinux: local symbol '__wake_up_bit' was exported
+ERROR: modpost: vmlinux: local symbol 'wake_up_bit' was exported
+ERROR: modpost: vmlinux: local symbol '__var_waitqueue' was exported
+ERROR: modpost: vmlinux: local symbol 'init_wait_var_entry' was exported
+ERROR: modpost: vmlinux: local symbol 'wake_up_var' was exported
+ERROR: modpost: vmlinux: local symbol 'bit_wait' was exported
+ERROR: modpost: vmlinux: local symbol 'bit_wait_io' was exported
+ERROR: modpost: vmlinux: local symbol 'bit_wait_timeout' was exported
+ERROR: modpost: vmlinux: local symbol '__init_waitqueue_head' was exported
+ERROR: modpost: vmlinux: local symbol 'add_wait_queue' was exported
+ERROR: modpost: vmlinux: local symbol 'add_wait_queue_exclusive' was exported
+ERROR: modpost: vmlinux: local symbol 'add_wait_queue_priority' was exported
+ERROR: modpost: vmlinux: local symbol 'add_wait_queue_priority_exclusive' was exported
+ERROR: modpost: vmlinux: local symbol 'remove_wait_queue' was exported
+ERROR: modpost: vmlinux: local symbol '__wake_up' was exported
+ERROR: modpost: vmlinux: local symbol '__wake_up_locked' was exported
+ERROR: modpost: vmlinux: local symbol '__wake_up_locked_key' was exported
+ERROR: modpost: vmlinux: local symbol '__wake_up_sync_key' was exported
+ERROR: modpost: vmlinux: local symbol '__wake_up_locked_sync_key' was exported
+ERROR: modpost: vmlinux: local symbol '__wake_up_sync' was exported
+ERROR: modpost: vmlinux: local symbol 'prepare_to_wait' was exported
+ERROR: modpost: vmlinux: local symbol 'prepare_to_wait_exclusive' was exported
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
