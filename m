@@ -1,57 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.20
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794403439;
-	b=HJDRgdW48rvWDJ6Yg9RvVz/8/HYRAsc1MIS4kuHyyKjKkQ2tilxm0q98E/aTIVgmloSW
-	 2ALHVQ0h7GV0dEQeWduC04RHu++u/cYEkykRD6aKSLYCHgUbJVtCpq8Um1uqFFK6oL40v
-	 H8NbERCfQ9Iwh+fQWKsswdA2SZt3H9h5RjPLi3PkvfJCvA4NKeeztF2lr8JIS1VpLzWwj
-	 QHljua5oWPXkuRcW+8bwceMAQLBRo3fknZvtB1cQ99Dz4WzH3aX04S/jz4vCUKTrI/f1x
-	 iY1bmde7nnrzgmlFql+XF272vdZFVLhy9z86ByYX9XV8gJM/QrV1df6lnhI7Ml0KbCg==
+	t=1794403450;
+	b=zVFsdjwCKMtxyltE8uVYKUlmx2X0vK/qlRUugV2uEqN11Qh7n38xJM69EsmV6ZMEjW5Q
+	 zEyYmoEf5hy/Biaw67NTNBtcaSWvAO73QhrN6YW6PsZFMzX88P/JnmGEcRt78MXZvpKW5
+	 aBTOJHR0gwGHBvg6MqXBuBmgKZfR80VFmJU6a4pH7xIIs43RuHOImnzcsL7G2pjlpk56g
+	 pZJrHCO9DQ5gyo/MkJogft4G5h0LOyosOevYHJ9xaUYK1pW0qXXSMnUEaW1jBEHZyWaqG
+	 T8qT0G30YEBTYWldpmKQAh2xuNGQ2PS6MS6fEzuDmz7d0thOGdEGoZk1hty5fsemXzw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794403439;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=wOH7GEHHCWlc2iDdlrIzc0F5JDB+bb50L0YggTMp6Dk=;
-	b=JpnZP32Q8bYN5gstsw/v4XmZM9KEgVdFFazubAcIbUwk4RT0w6fjacromRCuEa+rWnOV
-	 2YhHvPy2M83VJUNiURowK1r6Q9dL3Mdohpo33LZgkE+eKH/bBs9B9OwVp3hBeREgOYWRk
-	 IPPDTR+4wpdvugTU6B0SXgsXnq+xJW/U0EyQFJnAACdIbeSTDf3XmTcNSX7xu5L/bqCVM
-	 aXUPbnRm3engS1qPNfqjsaO5PMJm7RhepwGd2YFCj+5Ggk+hG5Ac8YJt/IZPlD4v3M1dn
-	 1h90gThMzRDHkSpcmInYGA3CEAEYFcmEBVvIzo087Qp/Pmcp0q98W7ij3MWpOAUwD3Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794403450;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Cookie;
+	bh=6YxaanTNTzwLHuzSzrwPQaICHvVNb1Tk/t3EtR62+m0=;
+	b=DkWZkaQyLLCqGiD6PXBJb/wJzOzcpgUsS6W1rTJxB/j48Oj91Zd+DzKrOB72v9fkH5MJ
+	 8TN5zHnnTvPX7yGE0bvqHDEZr4Bq3YA8f4hiA4QGWnV7nJ94duoo/WceJaS8ikpS0PYrf
+	 H2dnXHrrbcOPyPkrdSkY63Qk8JojS+YvgnZLXuyiVAtq7SFiE68h7/gbbMrqRFo7/haya
+	 mP6ddfiJ9vhIkFGIZOm82hkw+ldLDj42T9uWtSt3ctyfECXc0r6TXH6nYaI0Uy0/V6XX4
+	 TI0rgc6eiQL0MUj2cDLXf4hs+0hKkoMW7IqrGklN66P7Hyh5BhcZ0gk76F9jP4zji6Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=jaeyeong.cc;
-	spf=pass smtp.mailfrom=jaeyeong.cc;
-	dkim=pass header.d=jaeyeong.cc header.i=@jaeyeong.cc header.a=rsa-sha256 header.s=protonmail2 header.b=Me2bcM9Q;
-	arc=none smtp.remote-ip=109.224.244.20
-Received: from mail-24420.protonmail.ch (mail-24420.protonmail.ch [109.224.244.20])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LtxAK+rz;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A52A606A321
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:23:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A52A606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=jaeyeong.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jaeyeong.cc
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8402F606A321;
+	Wed, 11 Nov 2026 13:24:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=jaeyeong.cc header.i=@jaeyeong.cc header.a=rsa-sha256 header.s=protonmail2 header.b=Me2bcM9Q
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jaeyeong.cc;
-	s=protonmail2; t=1794403436; x=1794662636;
-	bh=wOH7GEHHCWlc2iDdlrIzc0F5JDB+bb50L0YggTMp6Dk=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=Me2bcM9QTh75iCxb1sCyRooLRqDz569gMCXiHGFgwimd02GttIk2PTtoudUx8Il/v
-	 2wMKuY7hKKFiIn+xV0MOhHKvgtcjd6Q8TkIhbKoxSBdnjZWTXpYLc8j3tIu7joEPFG
-	 J1d9fXiRKqxRjBs/4kmVxiYyMsOGVJfHS/JExfEoZU0x4HUVWuCVNqHlDuSxr9AoYQ
-	 IwcE2t3ad9ALUtRT/nGkrRS0J4jxKlEpGmCZiADlzXMP4JcN8lKf0cOhRDEtvhKHnN
-	 LA0gTYYYbVJ83Ubx4rrZR8GI0cnM3du2qVMPGaLnjdici947Xt10u4TLFAGDAnctRR
-	 qJQU7DstkeUJw==
-Date: Wed, 11 Nov 2026 13:23:51 +0000
-To: Peter Chen <peter.chen@kernel.org>, Pawel Laszczak <pawell@cadence.com>, Roger Quadros <rogerq@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-From: Jaeyeong Lee <lee@jaeyeong.cc>
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: [PATCH v1] usb: cdns3: Fix WA2 request UAF on endpoint disable
-Message-ID: <20261111132346.9262-1-lee@jaeyeong.cc>
-Feedback-ID: 177356447:user:proton
-X-Pm-Message-ID: 90d1596bba7175882734bfbd6791536fcea56128
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LtxAK+rz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 976241F00A05;
+	Wed, 11 Nov 2026 13:24:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794403450;
+	bh=6YxaanTNTzwLHuzSzrwPQaICHvVNb1Tk/t3EtR62+m0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=LtxAK+rzIEWeOvMsv0zfu1PlUJDIclNHWFi/MbdnnzJtV11VC5trRRJRU+i4pSJJu
+	 RLAluQ63pcrM+ZR7nPpM2y411QL+jfLYhCX3vD1ugEfG1bWZ81m/O4K6LJ/PeuDh3E
+	 vtRKyhFvenHASn+IthAYfwd19/FS1ARXZEZh9Hvo3KkUeLip9aa+AAqg4l6keGgXye
+	 SghLvOj5Bry1Rn4Ce7GLjaCU4oJBrBQQO5QT8sxfdIiBX0D7cJydwkB0o4aSbR48E1
+	 NYmKRnjO5BdrSFvZGNmJY55Dz7Ll4AgFUEJY6/3s8fsvU0vk/xjYt3crnc5sqlEhRi
+	 FAvUKXgdIIXLg==
+Date: Wed, 11 Nov 2026 13:24:05 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Aniket Limaye <a-limaye@ti.com>, Andi Shyti <andi.shyti@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>, linux-i2c@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	lianfeng.ouyang@starfivetech.com, s-jain1@ti.com,
+	andriy.shevchenko@linux.intel.com
+Subject: Re: [PATCH v5 1/2] dt-bindings: i2c: Add Synopsys DWC_i2c controller
+Message-ID: <34533daa-7eb9-4674-a288-e8d87a8bf29f@sirena.org.uk>
+References: <20261111-tda54-upstream-i2c-v5-0-280a4a779b24@ti.com>
+ <20261111-tda54-upstream-i2c-v5-1-280a4a779b24@ti.com>
+ <fc1fe51e-952c-4c8f-8dc1-fb832b03943b@sirena.org.uk>
+ <20261111-smooth-meerkat-of-judgment-dbe8bc@quoll>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,73 +66,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-
-WA2 internal requests use two independent list nodes. priv_req->list
-links a request into wa2_descmiss_req_list, while request.list links the
-same request into the pending or deferred request list.
-
-If an endpoint is disabled while an internal request is still deferred,
-cdns3_gadget_ep_disable() removes only priv_req->list before freeing the
-request. The following deferred-list cleanup then passes the freed
-request to cdns3_gadget_giveback(), where list_del_init() accesses freed
-memory.
-
-Initialize request.list when adding an internal request to the WA2 list,
-and remove it before freeing the request during endpoint disable. This
-also keeps the cleanup valid when queue setup fails before request.list
-is added to a request queue.
-
-A QEMU KASAN reproducer placed an internal request on both lists and
-invoked cdns3_gadget_ep_disable(). The unpatched kernel reported:
-
-  BUG: KASAN: slab-use-after-free in __list_del_entry_valid_or_report
-  cdns3_gadget_giveback
-  cdns3_gadget_ep_disable
-
-The fixed kernel completed endpoint cleanup without a KASAN or
-DEBUG_LIST report.
-
-The issue was found with a static analysis tool.
-
-Fixes: 6bbf87a131ed ("usb:cdns3 Fix for stuck packets in on-chip OUT buffer=
-.")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jaeyeong Lee <lee@jaeyeong.cc>
----
- drivers/usb/cdns3/cdns3-gadget.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/usb/cdns3/cdns3-gadget.c b/drivers/usb/cdns3/cdns3-gad=
-get.c
-index f4dfd01317083..70968e8f0d2da 100644
---- a/drivers/usb/cdns3/cdns3-gadget.c
-+++ b/drivers/usb/cdns3/cdns3-gadget.c
-@@ -605,9 +605,11 @@ static int cdns3_wa2_gadget_ep_queue(struct cdns3_devi=
-ce *priv_dev,
- =09=09=09deferred =3D 1;
- =09=09}
-=20
--=09=09if (priv_req->flags & REQUEST_INTERNAL)
-+=09=09if (priv_req->flags & REQUEST_INTERNAL) {
-+=09=09=09INIT_LIST_HEAD(&priv_req->request.list);
- =09=09=09list_add_tail(&priv_req->list,
- =09=09=09=09      &priv_ep->wa2_descmiss_req_list);
-+=09=09}
- =09}
-=20
- =09return deferred;
-@@ -2547,6 +2549,7 @@ static int cdns3_gadget_ep_disable(struct usb_ep *ep)
- =09while (!list_empty(&priv_ep->wa2_descmiss_req_list)) {
- =09=09priv_req =3D cdns3_next_priv_request(&priv_ep->wa2_descmiss_req_list=
-);
- =09=09list_del_init(&priv_req->list);
-+=09=09list_del_init(&priv_req->request.list);
-=20
- =09=09kfree(priv_req->request.buf);
- =09=09cdns3_gadget_ep_free_request(&priv_ep->endpoint,
---=20
-2.43.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="K37TUb7QGutsDTkg"
+Content-Disposition: inline
+In-Reply-To: <20261111-smooth-meerkat-of-judgment-dbe8bc@quoll>
+X-Cookie: Do not pick the flowers.
 
 
+--K37TUb7QGutsDTkg
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+On Wed, Nov 11, 2026 at 09:41:40AM +0100, Krzysztof Kozlowski wrote:
+> On Wed, Nov 11, 2026 at 12:05:15AM +0000, Mark Brown wrote:
+
+> > I still think we should have a fallback compatible here, while we can't
+> > discover the FIFO depths all the uses have a programmed trigger and we
+> > know the minimum depth configurable in the IP so we can fall back to
+> > using that.  This would be useful for distro kernels, it's one less
+> > thing that forces using a kernel with specific SoC support.
+
+> If the driver does not match on such generic compatible - and that's my
+> impression from commit msg -  then it is pretty useless.
+
+The driver can match on a generic compatible, it just doesn't right now.
+It's getting the FIFO depth from the compatible but as I observe above
+the minimum FIFO depth is known so we can just use that as the fallback,
+we program the trigger points for the FIFO so it doesn't matter if there
+is more space than we're using.
+
+--K37TUb7QGutsDTkg
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmr0bHQACgkQJNaLcl1U
+h9A5PAf+N6K4NxWy+Ue34Qka49AWLQ5bLO5NML804x0oHrYOCMPmdFfAVPUUShuN
+LBghXbXx+UPiMRVoT2PT64banQyCNOqJHfilN5Fd+OiVrcAM2zYS4CgOBjI3ffVb
+vITwfLF735zhDobFjRKfWn9JdM/X5kqX6m7mW/w+43jWppOZzToTMgy5fJDsZKOB
+YgCNVX74chs2Ilc6g0dU+opXFYVJg8Tf1c7WRj9qRnJakJTx6CdUTnh1b858sYrD
+kcAcPhNHAY5+Zt4ohAkUcWXd9diF+KOcm/GgQBDOynMi4nzSJz6+KkjfasyqbBoO
+5yCB0n9J8B5Z5Ld1+Y+P9GBWMj53hQ==
+=Txwz
+-----END PGP SIGNATURE-----
+
+--K37TUb7QGutsDTkg--
