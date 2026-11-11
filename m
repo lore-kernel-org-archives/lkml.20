@@ -1,85 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=60.244.123.138
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794401446;
-	b=FgQ9jsge8W8RQp0gKIB5t3O9FdiFP1K+INaoUp0+alWR+7poYTg/WBM8nwsLN4ToSRb4
-	 rdjOUsOL1JlOjUZaKEhrStitVoJqQ03Ut6KorW3tvXeaNTtILIXiQ+g/5NIDHocdj3zTR
-	 wVPCuWS2F0FNVFjHI8uP8fUAxaUto5kb/9YpVDm2meaGxoyVM73B9DumjkLxWJxCM+oUc
-	 R3jkRMo1yaAHhSeAjRRIREGNjw4/jcugcY6NIGWljGwdA0TSpWd4UwPRTeq2u0ihGVdej
-	 lhGJ1MwiSpQJtySi1/bmzHNqsX9rn57LTDkMu3UO2s42nSeTUilMeeenzBo/ICqI6oA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794401446;
-	h=DMARC-Filter:X-UUID:DKIM-Signature:X-CID-P-RULE:X-CID-O-INFO:
-	 X-CID-META:X-CID-BVR:X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:Received:
-	 Received:Received:Message-ID:Subject:From:To:Date:In-Reply-To:
-	 References:Content-Type:Content-Transfer-Encoding:User-Agent:
-	 MIME-Version:X-MTK;
-	bh=1d8r9KQbng6ph5F2BsQrdbPHx89gTkMAPbPsgYLnobk=;
-	b=r2K79Rfa6/5G9z19zzdcmV3gnSFuvMKa8VOX4caq3M4QIWxwsc/MlGv/3RtZ6fjCDWk2
-	 FiDutFMnqEiqcOn17IsA3egyfi8EtdjuAiXlhfFo5gdWYptURUew1v463pgsenpOU710F
-	 6IW4VCONZCX8QIZTESYf4BohxIqIKfcN9/m8rO5KyZP+5n0AyM2NBH1JSi0Att21I8DLX
-	 aFQENffPXRvB7cdrbbk7wwU2ORUnncOmVGkJW1MiAvOK/9qnC+V+4c8uU0i9iq4uJ9iVM
-	 3ZCAPZB9qzG0gB+7F0PkJR72lGMd+4zsfeLe0zIMhiVwzwkEbTmiL/o9m08hecVmvQA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mediatek.com;
-	spf=pass smtp.mailfrom=mediatek.com;
-	dkim=pass header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=ZCHkfhK6;
-	arc=none smtp.remote-ip=60.244.123.138
-Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794401516;
+	b=48VUNJQ2J4FTl51KWnoh1cKW92v4XcEiAgnzFNediWf7yiNL0AlHENZ1TUczN1cqfTsU
+	 X46iOsNDmxYv6r5+ojJXoRrnTgbUoS+OG5U1Tx/bw79hWfY8V99SBQPEN1t2g0icRziMd
+	 LbvYsq9+rb/K+kPFKkZq8c6HwhNMc4mGL8KAWSHK5Abn72F/+Q4GzACLPSeYwqjliX3ok
+	 KcH6YbZ5yyuDytSpGS7NGXArCrImLZxDoR5gqfKYLvkeG4DoJAKnw13Dxohwy9flx/jRZ
+	 LGOskyVxxLnGcZPDCd7uLolIR4DDfzhKeQ+uOlsvMX5lyX3yIxzAUrvM6SEY1FQmrmw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794401516;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=GTpqPv7EmkrA2JeQju9TsSg9zyrr7ErJ6T0eRUbdX3g=;
+	b=2Sf55hxXKpkPAagLk5mw4hIPo8DOTAD3kFptA3vdUJp/cHErY8iL4DNPG5NTDMLnI/M9
+	 N25v/2fgnTqqP9uG/To4yO8nTGneYNDeIShhCvqGyF5z6d3lUjU/cn3a7KWklG96bmaN6
+	 PeRaNIk4lXf1SEndRq3LzzRRxMNguL6ao/uSE/HOWuiMUQi05+5iverB3KKHgpH/55D52
+	 esb587hinojTbKjlOe3ZAe/BEK5XjikZ1uE601gg55Thxem0E1Z28MqfwKd2+VqMXszcZ
+	 6XuDYZhnm3Q+paFv1QHnZM9FB7fLX/+dS8kPwLUGJnkiDsuRU9y45C4dBUGmmNMKM2Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l509RJZ9;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6003C606A31C;
-	Wed, 11 Nov 2026 12:50:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6003C606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B3E2606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 12:51:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=ZCHkfhK6
-X-UUID: 7f2a89dcddce11f1b1788b6acf885367-20261111
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:In-Reply-To:Date:To:From:Subject:Message-ID; bh=1d8r9KQbng6ph5F2BsQrdbPHx89gTkMAPbPsgYLnobk=;
-	b=ZCHkfhK6aD4pojJUclrCx4D0wl2I+a0BDWFj6vCiblDUWYlDXJk5N9DVG78srqQSAsNU7IPFyKjZjRyeMM5cW43XutLyr4QVLlBbbTSAjsn0hylC1Ys+8fQSvekpOFYBPOsd40pCG+M7LJA5Q6jG7qGpb5LFjBGFgimUtLQl3xs=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.21,REQID:5fc85684-c72d-4c1a-8f7b-1f9997a1bdd8,IP:0,U
-	RL:0,TC:0,Content:2,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:2
-X-CID-META: VersionHash:b0318ac,CLOUDID:088cb530-f289-4656-bb36-27baf4489f11,B
-	ulkID:nil,BulkQuantity:0,SF:80|81|82|83|102|836|865|888|898,TC:-5,Content:
-	4|15|50|99,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:nil,COL:0
-	,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 7f2a89dcddce11f1b1788b6acf885367-20261111
-Received: from mtkmbs10n1.mediatek.inc [(172.21.101.34)] by mailgw01.mediatek.com
-	(envelope-from <peter.wang@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 1865187912; Wed, 11 Nov 2026 20:50:39 +0800
-Received: from mtkmbs13n2.mediatek.inc (172.21.101.108) by
- MTKMBS14N1.mediatek.inc (172.21.101.75) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Wed, 11 Nov 2026 20:50:37 +0800
-Received: from [10.233.130.16] (10.233.130.16) by mtkmbs13n2.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.2.2562.29 via Frontend
- Transport; Wed, 11 Nov 2026 20:50:37 +0800
-Message-ID: <5e0d0879bb4af87db4a64a2ce6b5740efedefcfa.camel@mediatek.com>
-Subject: Re: [PATCH v10 3/4] scsi: ufs: core: Make ufshcd_wl_poweroff()
- behave like ufshcd_wl_suspend()
-From: Peter Wang <peter.wang@mediatek.com>
-To: HOYOUNG SEO <hy50.seo@samsung.com>, <linux-scsi@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <bvanassche@acm.org>, <mkp@kernel.org>,
-	<martin.petersen@oracle.com>, <stanleyjhu@google.com>,
-	<alim.akhtar@samsung.com>, <kwangwon.min@samsung.com>,
-	<kwmad.kim@samsung.com>, <cpgsproxy1@samsung.com>, <h10.kim@samsung.com>
-Date: Wed, 11 Nov 2026 20:50:37 +0800
-In-Reply-To: <603443293.161794387787869.JavaMail.epsvc@epcpadp2new>
-References: <cover.1794384665.git.hy50.seo@samsung.com>
-	 <CGME20261111082306epcas2p21456a0a7d81ed5328ec01f022b87ee32@epcas2p2.samsung.com>
-	 <603443293.161794387787869.JavaMail.epsvc@epcpadp2new>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3-0ubuntu1.1 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l509RJZ9
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794401515;
+	b=ndcho07SrsqoHxLeTlSKdWt5AScZ1oellvXvcOsedcfsxmUUrBBRVjXZdKfYVm7Um2KE
+	 c+DKXL2k2ureTJ6ghZTTasIcxDDkO3Qw5nS/uyYeiVnYP5VQYF7LP54NJEGqj93tKL57J
+	 521L/58miEnPbhNKctTLwuRRLZUfiCchm8JIcbBASWGLnn3GhMqBA0qrF+9+RscNqaDDA
+	 6/ga0HfARX3nPOlO0HsG0k56Amn4tR7ulbdJUSLgdvU5VZ1Xn6LTnydk9f6navR/RJ+TE
+	 rQiOOzn2WbPKd9Q9WH+CZOaLIAoR3NB0tmsvTx6C9zYMP6z27FGJ94ps68lsujmle/Q==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794401515;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=GTpqPv7EmkrA2JeQju9TsSg9zyrr7ErJ6T0eRUbdX3g=;
+	b=d+vEpRKSrxrh0gTbu023s76eBYftTshWkKmQXdVrQp8gw9m/mAoHCwZIewFiehtBV+ME
+	 TIxge8x/k/DpNYReQFEAifAeVShdNROr7i5Mr8AkHYKkCtYKEWzjJLBFSs7kdn0uDTqK9
+	 vFWUNiwY2xSxFT5MFX8fDKANLGoFAPUPTKfhRYBzGGGoBGrdr/YPHHR3+HqhPNRsm3kMZ
+	 Cbo5cj9A0980xLBkOD0eZcpTmB1pbaah9lOEFR7+vkKSvp0BBETXfUo47/nBLhJ70Z3hZ
+	 1ITweW9NDo//90vkapERLe/SFUI5OtFTRkIfx3aZrkb14o454FwVBKFi2HmgT0gn/kw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 5723E1F00A05;
+	Wed, 11 Nov 2026 12:51:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794401515;
+	bh=GTpqPv7EmkrA2JeQju9TsSg9zyrr7ErJ6T0eRUbdX3g=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=l509RJZ9NXfEqyUNb3gNJAVeWlwnjmF2Tpy0Eeq45rp8iDch2C5KihJOwZAE0atn4
+	 wUR546//vXnn6ONkcQoYyEkn/NZL0omnLP0Rbbmsc1+USx3/jIHtufLWG5W99rzD62
+	 Fecw+molph6EPDiyYtIbZ27EVbBzC5YaYzBfHHZnSxuM5MTqAz+8BxabN9nfj8se3f
+	 M55CxAWD4iAJQAd1SQXQf96ho7+qTWkFpNfOGZ3U9JKRKefzsnDczxhV4rFDc/1aYG
+	 mqXLUS8cJFWPB8kVrpMMIS2aenQ3Cr2nGK/lI18iv9+fVQXtywyZdSLGhpXF+/2zkq
+	 szaFjT9zK/OAw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id A1D1E48FAB;
+	Wed, 11 Nov 2026 12:51:54 +0000 (UTC)
+From: Ben Grisdale via B4 Relay <devnull+bengris32.protonmail.ch@kernel.org>
+Date: Wed, 11 Nov 2026 12:51:54 +0000
+Subject: [PATCH] regulator: tps65132: Fix incorrect bits for VNEG/VPOS
+ discharge
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,64 +83,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MTK: N
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261111-tps65132-discharge-fix-v1-1-c796428a5d43@protonmail.ch>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMwQ5AMBBEf0X2rElbJeFXxAFdrAPSRSSNf7eY2
+ 5u8mQiMgZChSiIEPIlpXQRMmkA/tcuIirwwWG0LI1H7xkVuMqs8sRhBjIEuhZ1HXWpXZs6BjLe
+ AUn/HdfMzH92M/f6+wX0/2TlL1noAAAA=
+X-Change-ID: 20261111-tps65132-discharge-fix-ebde09049344
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Venkat Reddy Talla <vreddytalla@nvidia.com>, 
+ Laxman Dewangan <ldewangan@nvidia.com>
+Cc: linux-kernel@vger.kernel.org, Ben Grisdale <bengris32@protonmail.ch>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794401514; l=1425;
+ i=bengris32@protonmail.ch; s=20261018; h=from:subject:message-id;
+ bh=PnrNFcAZ5ldwdIhMuy2jJuUkQIJHnuZAIh/FbHRKmRo=;
+ b=r7IRW4fYtS8IbbyW3nAx9vl7nERViBONi/sgE13jFnSj/khyFacRQmcxkg/H118+a+3JdteNV
+ /llHze4HQABBXJ9SBQmBKtvLDv7uMTP5QeKvtFxiz21vKy20d3K4l0h
+X-Developer-Key: i=bengris32@protonmail.ch; a=ed25519;
+ pk=4ewFRC2yNph/tXokHVzIDlgOA9Hxecf1AlBuD4eOnaU=
+X-Endpoint-Received: by B4 Relay for bengris32@protonmail.ch/20261018 with
+ auth_id=1233
+X-Original-From: Ben Grisdale <bengris32@protonmail.ch>
+Reply-To: bengris32@protonmail.ch
+Content-Transfer-Encoding: 7bit
 
-On Wed, 2026-11-11 at 17:18 +0900, HOYOUNG SEO wrote:
-> ufshcd_wl_poweroff(), the hibernation poweroff callback, calls
-> __ufshcd_wl_suspend(hba, UFS_SHUTDOWN_PM) directly and ignores the
-> result. Unlike ufshcd_wl_suspend() it:
->=20
-> =C2=A0- does not take hba->host_sem. An error handler that runs in the
-> =C2=A0=C2=A0 meantime can reset the link concurrently with
-> __ufshcd_wl_suspend().
-> =C2=A0=C2=A0 It also leaves host_sem unbalanced: if hibernation is aborte=
-d
-> after
-> =C2=A0=C2=A0 ufshcd_wl_poweroff() has been called, ufshcd_wl_resume() is =
-called
-> as
-> =C2=A0=C2=A0 the .restore callback and releases host_sem, which was not
-> acquired;
-> =C2=A0- does not check pm_runtime_suspended(dev).
-> __ufshcd_suspend_prepare()
-> =C2=A0=C2=A0 leaves the WLUN runtime suspended if ufshcd_rpm_ok_for_spm()=
- is
-> true,
-> =C2=A0=C2=A0 which is the case if rpm_lvl and spm_lvl are equal. Then
-> =C2=A0=C2=A0 __ufshcd_wl_suspend() triggers error recovery and returns -E=
-BUSY;
-> =C2=A0- does not set hba->is_sys_suspended, so
-> ufshcd_err_handling_prepare()
-> =C2=A0=C2=A0 does not restore the clocks and regulators if the .restore
-> callback
-> =C2=A0=C2=A0 fails;
-> =C2=A0- ignores errors.
->=20
-> Call ufshcd_wl_system_suspend() with UFS_SHUTDOWN_PM from
-> ufshcd_wl_poweroff() to fix all of these, as suggested by Bart Van
-> Assche. host_sem is held until ufshcd_wl_resume() releases it if
-> hibernation is aborted, and released if the suspend fails. For
-> UFS_SHUTDOWN_PM, __ufshcd_wl_suspend() does not convert failures into
-> -EBUSY, so a positive SCSI or UIC status can be returned. A
-> dev_pm_ops
-> callback has to return a negative error code, so convert it.
->=20
-> This changes the behavior of ufshcd_wl_poweroff(): an error is now
-> returned from the .poweroff callback, which aborts hibernation,
-> instead
-> of being ignored, and a runtime suspended WLUN is left as it is like
-> in
-> ufshcd_wl_suspend().
->=20
-> Do not use hba->shutting_down to stop the error handler: it makes
-> ufs_mtk_system_suspend(), which is also the .poweroff callback of the
-> MediaTek host controller, fail with -EBUSY, and nothing clears it
-> when
-> hibernation is aborted.
->=20
-> Fixes: b294ff3e3449 ("scsi: ufs: core: Enable power management for
-> wlun")
-> Suggested-by: Bart Van Assche <bvanassche@acm.org>
-> Signed-off-by: HOYOUNG SEO <hy50.seo@samsung.com>
+From: Ben Grisdale <bengris32@protonmail.ch>
 
-Reviewed-by: Peter Wang <peter.wang@mediatek.com>
+According to the TPS65132 datasheet [1], DISN (VNEG active discharge) is
+bit 0 of register 0x03, while DISP (VPOS active discharge) is bit 1, as
+described in Table 6. The driver currently has them swapped around, so
+setting the active discharge of one output changes it on the other.
+
+Swap the bit definitions to be consistent with the datasheet.
+
+Fixes: 77c129bfefc8 ("regulator: tps65132: add regulator driver for TI TPS65132")
+Link: https://www.ti.com/lit/ds/symlink/tps65132.pdf [1]
+Signed-off-by: Ben Grisdale <bengris32@protonmail.ch>
+---
+ drivers/regulator/tps65132-regulator.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/regulator/tps65132-regulator.c b/drivers/regulator/tps65132-regulator.c
+index 912db82ab51d..42388a170116 100644
+--- a/drivers/regulator/tps65132-regulator.c
++++ b/drivers/regulator/tps65132-regulator.c
+@@ -37,8 +37,8 @@
+ #define TPS65132_VOUT_VMAX		6000000
+ #define TPS65132_VOUT_STEP		100000
+ 
+-#define TPS65132_REG_APPS_DIS_VPOS		BIT(0)
+-#define TPS65132_REG_APPS_DIS_VNEG		BIT(1)
++#define TPS65132_REG_APPS_DIS_VNEG		BIT(0)
++#define TPS65132_REG_APPS_DIS_VPOS		BIT(1)
+ 
+ #define TPS65132_REGULATOR_ID_VPOS	0
+ #define TPS65132_REGULATOR_ID_VNEG	1
+
+---
+base-commit: 793807ca13bf3072fc6d16ce6d90e9ab9beff2a5
+change-id: 20261111-tps65132-discharge-fix-ebde09049344
+
+Best regards,
+--  
+Ben Grisdale <bengris32@protonmail.ch>
+
+
