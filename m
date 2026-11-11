@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794415059;
-	b=w1zGjzJSkwgJlBRl0dGSJKsEcGEhE4chp6HIL3vUMp3SzmvuPrMbp0QoWN5Tg43CNbfP
-	 Br0vXzYAtQBse1CPCfsSSY7vDHHaMc/P9SN4OJVE/0ZU7BHWFIY8zS2QCtb+6I3C34PAu
-	 fwFoCKC6SexiyOgTKAO97XgTb73BjU0gahBMLdTQ/hVQAdDhICTgwI9Z7kTvprN7aoJRg
-	 37chlrOCEozLK+H2oDUlvnixqWMyUqQ9oqMKnIO1ZhAevPbT1vkHPzCnUYI9zTfyYw95M
-	 MkWsheuGCI/bZELjuVFv51rHODeWJXLiOGv8ZqPCRtdKUJehPRKTY64JxNX4jEX2cgw==
+	t=1794415061;
+	b=x2FSBCu7Pzq9/jCNtMQliEYB4WmIrMDf/8hVGsCwgJmvo0SziOQfxKZjTkK/GZvLL5CY
+	 4lXWyWTG/MjBC7UGaDMPFbb1KPTPwF26YT4yoYAuIaF9iqq0lBX4bvsVuVYGaABMA2CUI
+	 9bJDsQaplZicD4oWSnh2pnQGKQxH0Qc41cCPpAqH6kklYQ73lVrrShs9mKvkLLPjDHh6T
+	 QqHgwT8x6Se7oHEDWmxz5R6tAXFh2sPEjEEK4P4PqVKdq+yGs2696b5PyfTG+pSrYPcQf
+	 viIG45V5uz44fHLVVsP+9xM365qjgEahWV5QG3nxEpulabQu6dz/FJDZ94/qm8W96dQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794415059;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794415061;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=Wuyvace6ciytd5jUR1xreUhLnUkhsuMz/ZH/NBTGYXo=;
-	b=njk/vApTrim10BSmdK5ebaKocx46AgYpBVmVznDKdvMhqeURfIe/+1VZuzmqWajAxZcc
-	 y5gkUQlM0RbXMUc67qZlTaeGfnzJ33MZsifs0hPiFQ03XL+nQukxE1itRC7dzfp6b3wsg
-	 ZvZx1i8+FrI70XDLjVAcA+YIZv8/vUV0HZYMQeFvKEr1qlUpwenMwjawJ/onPTXZW2kLy
-	 q3Xa59OSl4Hz5+osyBzyJoX6vQdIujn+sSWivNzL37AmieJMPmuNQI5FvkyslOmvDkycQ
-	 rYiqaB/nzoa0gsAW938PWGdlTOFHECpYUlG+XgbuDd8mkBtA05d3QHI+vEGDpyZ67Vg==
+	bh=KXjsm9ORz3HR//q2A0kstQ3Pi4RAW90rgXKjKRzFtHY=;
+	b=zFX+iyNMHPiqA1UbUVkGZJqFM0CGWb0mcAiM5CHRxFq3vvieOro7IG2F6BysGNN08gsz
+	 0mzwUluds9wKgEV3OKEdqSQKmM65QJUOrUUQgIGTIU5TUGPPH5EbOJJkK9cIHo4yKmGsO
+	 S3CaIg6sXURJy43PNLeTdvBIe3QDYnL3jm4xq//FbVSR83NhgPevyS2dV+zIb8AKCdKD/
+	 MBwQSQa4wI9W/DJL+jA7i4V6wosHQ11izaPteQVTPm0yhlI880vePBPmWjIh0wUjw6Ddf
+	 fTxtBEjMaplGGFO5MWW12HV+T86JcXcszGJXYG3QgScmaYYuM1XejJ+y4wOr0cUZXGw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VrylLEmy;
-	arc=none smtp.remote-ip=209.85.128.43
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0X2vnYYI;
+	arc=none smtp.remote-ip=209.85.221.44
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F73E606A334
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 16:37:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2F73E606A334
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DBEE606A333
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 16:37:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2DBEE606A333
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VrylLEmy
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a20bde60a0so34268145e9.3
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 08:37:39 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0X2vnYYI
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48dfc0421d9so2864869f8f.1
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 08:37:40 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794415058; x=1795019858; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794415059; x=1795019859; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Wuyvace6ciytd5jUR1xreUhLnUkhsuMz/ZH/NBTGYXo=;
-        b=VrylLEmytbtCh+/tOwdIO2gs1oXNpb9z6/fnfzmC8zJk0DfDNb9Af1mQYWS30w1sMV
-         xZfmv7FuAS6VhDRxgkP589nn7fK5d0uWFtPgbnHwLNF1l34/v+hw37oADR8l3jp02Emq
-         H9gSQg1w79NHWVvoELrchnCpd0hWRaOlIlP2iv3XOJ+b4H54fQpq3TGRp2c5QvPcMagV
-         odlbf5p1z/YhVsH3TYxtz55jEsB0k+GyEugRh/ZE3VO8BO1R+4tFaVk5Wckpr8uNNb0t
-         KQrIXNyfzFctXiF9V5vesS6hkOGdfuurbdKpk/TD3hxZ+Klocg6sBTP/ewf9oL8fpaGh
-         i5gQ==
+        bh=KXjsm9ORz3HR//q2A0kstQ3Pi4RAW90rgXKjKRzFtHY=;
+        b=0X2vnYYIBgVC9/TjHP1o3AwyHS4/VoUR0IZ8uxXkMGTdMD5WPhv7RegoaIRLZwesQT
+         d1lHJUz83MB1vYnLvNC2UF/1wUBUcH+Iy8eZpqhPuax+caYYUn9JzEKuvdmRPaFBoted
+         vFwMTGV/zZ3adkfAUu32zcKcNPhzb+0duIHyWY3BmU3U5bZZs5uTLPed4TzpZ9WFkuRR
+         RXufv194brSxSALqNE/grKASrOYFCZCfq6K+SwbPLGyoe2SoOpSSU5LADzo1JMWtcKZF
+         J6TLT9NsGmlJUoOU1cYPk8Vo06fOMp9mGpT9pmZDK8/ZWyfqqkm/zc5Ynf6jpj0IWoBW
+         DCBA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794415058; x=1795019858;
+        d=1e100.net; s=20260707; t=1794415059; x=1795019859;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Wuyvace6ciytd5jUR1xreUhLnUkhsuMz/ZH/NBTGYXo=;
-        b=u6w83Hz67o9x+aM3Xk3OVwrssmqFhYq51J2EYGbjIPQg27ODj3OComvSA/MT948iTN
-         U6xarv0bPnBSCbuCcMIFqDMq3m5IJUSnwoqIorhDzsqlNUA9A8eqgfOYZOz2/VjcjiDR
-         IKW1nlQIzkT9JT+pWmNDlmSuH/Eb4L17IZRnxbQ71Bjz1u8XFmE1pYlCcziKvgSUAObO
-         rXFtqfarjZpvMFxNWjeK9aSyJC81IcEXdj3XxDyEeW8IlOe/YhAb4Om/dvh/yggsbsXx
-         a4ZjrJh6HNnA0RJrNvntEvPyUGAfOEcgn72NUop+tZMcJC7wdPNSF8y50sIo7/5nHqwk
-         5SpQ==
-X-Forwarded-Encrypted: i=1; AL+hErHwJZ9TTEPz/c62r/omNYsKHw7Imc3G6Yozk2+f4VRO3Pk8m0uPt7i2EBRaHI2PRBEEGdk5zfufHyUHwcM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9fjdCi7wEhbezPPkXsthPe92TKNYFy/MTtMBBXerTX0CWhayoq
-	h1GPxEJc4fDkEchOHPZkUOTRjXxPl2Xq6oA6f9xVYpTP0zSHCTcxz7gA
-X-Gm-Gg: AYBFou3rDHgj4030+bKyEgFVwvUv6T3jsBUhAQQk73HGl5/hxpzuK2MymOupClbM4OV
-	vz3BlXJ+P5lCxTKQYo/W0oqyNMvjOJSMFss1vuWdrE4BQn+SyUy1EYTSfMZCJwJjxtTGbtt2SLA
-	dBEGkzVMsDKspyfJ+5E84uEbO2zrk7gweFgPrasGjjAVuT+EeqgLN+KAYo0+VAMaxWQ1nxnyRSI
-	NA6hHFVFLj6GgjoEDbI+2ceeGrgF3+z1RNV+imrGKqRIAcb9IMbkq4zyHrAqLW4zCbdFPHr8Tq3
-	N63herWWCEtK8kK1faLiWDih+AbEumnXXHbX6Mzs5EFr4r571iVpKRjLIQ6RYl1MWLxIJPTSwDf
-	eyhPWiPDCq1py7PzFGZxTTFy6iS3nWpm8pO3IjsJVqKkuEE/jUfvv1vqVdeGVg/cf+zR4eae0H1
-	UTMrfIYa+EzsxClxi4F43bKrYJh3nGVlqULLYpLnAh7u3QAHJsMcxUw6BRHqULZosbrX7/RJaXX
-	Rd6i7IFU7CFcV2DA7FUYCZI1PrT+DzsFjEZ6HB2Yaf8WZ7dWwF17UACbML+O0zaDw9lldTbREWu
-	GRIMm/VTDAJfYwuV+zoExfQ7yiCGb3+MA7FzHKQsYYVXLtZXl9xkaV70hhVTqbfxmedG+tLFM02
-	Fr6VNx8MJWtWpBA==
-X-Received: by 2002:a05:600c:310b:b0:4ba:a5:b920 with SMTP id 5b1f17b1804b1-4ba0936d8dcmr54021965e9.16.1794415057486;
-        Wed, 11 Nov 2026 08:37:37 -0800 (PST)
+        bh=KXjsm9ORz3HR//q2A0kstQ3Pi4RAW90rgXKjKRzFtHY=;
+        b=kFJ+xvww8o7LdWfmNRgwdPT7w4kBj9HUCGW1u5vWXUoYyYFEUjh0s5pCBu5iOyMON3
+         BS7I6+YXOxT6hQqdiXmoX0FjoJvs2i/E++L3OaMLEbD+WeB2Vy1rpDPbGcwPwssGNN46
+         Y53dF05JheGW/IV/uKwUiXhNiruO3yjlSWvBqhSmGyMep++MhDRUGfHL8Q1uzicmnm+t
+         q9StHGam3yLXTECa69V2xxNaOKMvG6KpcoRpKwt+8MvwF3nPYnwyCzg/L5cnAyt1R2l1
+         2JUVAmN1Csz5JPGRIg0nU/iOMeYCNQ6eI8vpG4XY/WrpqiQUkmHbvuKgIYiFOq5G/NwA
+         NKxQ==
+X-Forwarded-Encrypted: i=1; AL+hErHSKRTLMfewn876R0pRJ1wFFLacBe/dpPQ7v92zZLlKf/ey0LatUd2C5S2MvLWtLm/b6PEi0GElkAdZgzA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+k27ItEbSDY7wOhue3jgkolJi4Ut367SNqfzFAHo+yZaKPbzQG
+	KA5WN3AbSsqQUzUkOhoF1zdAiIJuPje13j56kede2J3xQIyh1s6BcaV/
+X-Gm-Gg: AYBFou2hJic5YBrYx5KCNNWzy/mXlB9/eo88Vs7W+LUUKSUYoiVPSpBVatdsrxxVT8d
+	6YGYy/G7cGx+C1HFGs9FWPs6XsuXA2IEhMZ7KNX1qt7Q1z7CMRzx7+F9WIDUxY40oXnfc/ctkQy
+	qHxahyGzslXOQSFOBnkKjdXj8lWQmLyvzhLx+31dWx7gw4QyQ5JTjWgLYFD3BzmHHW0Vm5+q6qi
+	lx95xaa9bkbg/jowIkB3INWMhMleW5U+/0Fg2KB71PQvn02XTVKL5BmZoYMedqZWcmSqYqXNA/P
+	xEjpNGh+TLcDcwIS5z8nzY4zrjKazs9f6whLFd2mD8nGtNXQ2AXJNZ/dz7B8s4AE1VVlbuAmHGa
+	fi9e8S60ychECT7OS9/o0OzoYUsUp2sk4eBQQxSVOfDyufn4aGNyC/6B6DHuKkAAOm60myl4DGg
+	Uj/PkZBQ59rVSn/3gi7THhb/FhThlFIaKKIfZhDTlTwCcMP7koAo/+vZhoZH2N188IJrNgVQRdG
+	+Bmgc1C1H6lNJLJ6DH/hFSpdf6rfagTH6gk5/ZAEFVE4RrYzDAYgkLoMDKAO4ECnnEoYBHkcW14
+	vJaiRILIXbGpREcq10i8GSEB0tGfQXYqnAIHry/R4seHmcwjNXUB+3ji0Eu/QTEBpidzFMLVT5m
+	AR/Yg7pIFbOWW
+X-Received: by 2002:a05:6000:18a9:b0:48e:5df9:1ec9 with SMTP id ffacd0b85a97d-499c6f8db6cmr5151187f8f.24.1794415059075;
+        Wed, 11 Nov 2026 08:37:39 -0800 (PST)
 Received: from gmail.com ([2a01:e11:1403:8620:6e81:13fe:ca06:8db8])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb4e258e8dsm825955e9.4.2026.11.11.08.37.36
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49835c37bdfsm11895837f8f.22.2026.11.11.08.37.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 08:37:37 -0800 (PST)
+        Wed, 11 Nov 2026 08:37:38 -0800 (PST)
 From: Paolo Pisati <p.pisati@gmail.com>
 To: Geert Uytterhoeven <geert@linux-m68k.org>,
 	Damien Le Moal <dlemoal@kernel.org>,
@@ -88,9 +88,9 @@ Cc: linux-m68k@lists.linux-m68k.org,
 	linux-kernel@vger.kernel.org,
 	Lee Jones <lee@kernel.org>,
 	mfd@lists.linux.dev
-Subject: [PATCH v1 1/7] zorro: warp mfd: add the CS-Lab Warp multifunction parent
-Date: Wed, 11 Nov 2026 17:37:28 +0100
-Message-ID: <20261111163735.227286-2-p.pisati@gmail.com>
+Subject: [PATCH v1 2/7] ata: pata_cswarp: bind to the Warp mfd cell instead of the Zorro device
+Date: Wed, 11 Nov 2026 17:37:29 +0100
+Message-ID: <20261111163735.227286-3-p.pisati@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261111163735.227286-1-p.pisati@gmail.com>
 References: <20261111163735.227286-1-p.pisati@gmail.com>
@@ -105,220 +105,148 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The Warp 1260 is an A1200 trapdoor accelerator whose single Zorro device
-fronts several functions: an ARM co-processor reached through a
-dual-port RAM window, and an IDE interface and an RTG display controller
-that the 68k drives directly.
-pata_cswarp claims the whole device for the IDE window alone, which
-leaves no way for anything else on the board to get a driver.
+Now that warp-mfd owns the device and hands the window out as the
+"warp-pata" cell, take it from there.
 
-Add a parent that owns the Zorro device and describes the functions as
-mfd cells, starting with the IDE window as a "warp-pata" cell.
-
-Only the window layout is described here; the dual-port RAM protocol
-arrives with its first user.
-pata_cswarp is converted in the next patch.
+PATA_CSWARP depends on WARP_MFD from here on.
 
 Signed-off-by: Paolo Pisati <p.pisati@gmail.com>
 ---
- MAINTAINERS              |  7 ++++
- drivers/zorro/Kconfig    | 30 ++++++++++++++
- drivers/zorro/Makefile   |  2 +
- drivers/zorro/warp-mfd.c | 89 ++++++++++++++++++++++++++++++++++++++++
- drivers/zorro/warp-mfd.h | 19 +++++++++
- 5 files changed, 147 insertions(+)
- create mode 100644 drivers/zorro/warp-mfd.c
- create mode 100644 drivers/zorro/warp-mfd.h
+ drivers/ata/Kconfig       |  2 +-
+ drivers/ata/pata_cswarp.c | 48 ++++++++++++++-------------------------
+ 2 files changed, 18 insertions(+), 32 deletions(-)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 222b7fc2c3aa..cfabc4609c9d 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -7173,6 +7173,13 @@ L:	linux-crypto@vger.kernel.org
- S:	Maintained
- F:	tools/crypto/tcrypt/tcrypt_speed_compare.py
+diff --git a/drivers/ata/Kconfig b/drivers/ata/Kconfig
+index 9704ed688775..407b79bf9405 100644
+--- a/drivers/ata/Kconfig
++++ b/drivers/ata/Kconfig
+@@ -1035,7 +1035,7 @@ config PATA_GAYLE
  
-+CS-LAB WARP MULTIFUNCTION DRIVER
-+M:	Paolo Pisati <p.pisati@gmail.com>
-+L:	linux-m68k@lists.linux-m68k.org
-+S:	Maintained
-+F:	drivers/zorro/warp-mfd.c
-+F:	drivers/zorro/warp-mfd.h
-+
- CS3308 MEDIA DRIVER
- M:	Hans Verkuil <hverkuil@kernel.org>
- L:	linux-media@vger.kernel.org
-diff --git a/drivers/zorro/Kconfig b/drivers/zorro/Kconfig
-index 41475ad46e45..c9ab9fb4b9ee 100644
---- a/drivers/zorro/Kconfig
-+++ b/drivers/zorro/Kconfig
-@@ -17,3 +17,33 @@ config ZORRO_NAMES
+ config PATA_CSWARP
+ 	tristate "Amiga CS Warp PATA support"
+-	depends on M68K && AMIGA && ZORRO
++	depends on WARP_MFD
+ 	help
+ 	  This option enables support for the on-board IDE interface on
+ 	  CS-Lab Warp Expansion Card (NOTE that idemode=native has to be
+diff --git a/drivers/ata/pata_cswarp.c b/drivers/ata/pata_cswarp.c
+index 58fe6d0012dc..41b4c93052cf 100644
+--- a/drivers/ata/pata_cswarp.c
++++ b/drivers/ata/pata_cswarp.c
+@@ -14,14 +14,12 @@
+ #include <linux/ata.h>
+ #include <linux/blkdev.h>
+ #include <linux/delay.h>
+-#include <linux/device-id/zorro.h>
+ #include <linux/interrupt.h>
+ #include <linux/kernel.h>
+ #include <linux/libata.h>
+ #include <linux/mm.h>
+ #include <linux/module.h>
+ #include <linux/platform_device.h>
+-#include <linux/zorro.h>
+ #include <scsi/scsi_cmnd.h>
+ #include <scsi/scsi_host.h>
  
- 	  When in doubt, say Y.
+@@ -32,8 +30,6 @@
  
-+# Zorro multifunction drivers
-+
-+config WARP_MFD
-+	tristate "CS-Lab Warp multifunction driver"
-+	depends on ZORRO
-+	select MFD_CORE
-+	help
-+	  The CS-Lab Warp 1260 is an A1200 trapdoor accelerator. Besides the
-+	  68060 it carries an FPGA and an ARM co-processor; its control
-+	  registers, the dual-port RAM and the IDE interface share one Zorro
-+	  device, which this driver binds to.
-+
-+	  The 68k drives these through the FPGA: the on-board IDE interface and
-+	  an RTG display controller.
-+
-+	  The co-processor owns the rest, reached over the dual-port RAM: two
-+	  USB host ports, an SD card slot, an ESP32 WiFi bridge,
-+	  an audio mixer, the Kickstart slot selection, the CPU clock and turbo
-+	  levels, thermal regulation of the fan, and the board telemetry.
-+
-+	  This driver hands the IDE window to pata_cswarp - which needs
-+	  idemode=native set in Warp Configuration to be of any use - and
-+	  exposes the configuration and telemetry reachable over the dual-port
-+	  RAM in sysfs: voltages, temperatures, fan, firmware version and
-+	  Kickstart slot. Nothing else on the list has a driver yet.
-+
-+	  If you have a CS-Lab Warp 1260 board, say Y. Otherwise, say N.
-+
-+	  To compile this driver as a module, choose M here: the module
-+	  will be called warp-mfd.
-diff --git a/drivers/zorro/Makefile b/drivers/zorro/Makefile
-index 91ba82e633e7..6fe7cc1822dc 100644
---- a/drivers/zorro/Makefile
-+++ b/drivers/zorro/Makefile
-@@ -7,6 +7,8 @@ obj-$(CONFIG_ZORRO)	+= zorro.o zorro-driver.o zorro-sysfs.o
- obj-$(CONFIG_PROC_FS)	+= proc.o
- obj-$(CONFIG_ZORRO_NAMES) +=  names.o
+ #define DRV_NAME "pata_cswarp"
  
-+obj-$(CONFIG_WARP_MFD) += warp-mfd.o
-+
- hostprogs		:= gen-devlist
+-#define WARP_OFFSET_ATA         0x6000
+-
+ static const struct scsi_host_template pata_cswarp_sht = {
+ 	ATA_PIO_SHT(DRV_NAME),
+ };
+@@ -92,33 +88,27 @@ static struct ata_port_operations pata_cswarp_ops = {
+ 	.set_mode	= pata_cswarp_set_mode,
+ };
  
- # Files generated that shall be removed upon make clean
-diff --git a/drivers/zorro/warp-mfd.c b/drivers/zorro/warp-mfd.c
-new file mode 100644
-index 000000000000..94af7c9d0ea5
---- /dev/null
-+++ b/drivers/zorro/warp-mfd.c
-@@ -0,0 +1,89 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * CS-Lab Warp multifunction driver
-+ *
-+ * Copyright 2026 Paolo Pisati <p.pisati@gmail.com>
-+ *
-+ * The Warp 1260 is an A1200 trapdoor accelerator made by CS-Lab. Besides the
-+ * 68060 it carries an ARM co-processor which owns most of the peripherals,
-+ * and the IDE interface and RTG display controller, which the 68k drives
-+ * directly.
-+ *
-+ * This driver claims the Zorro device and hands the IDE window to pata_cswarp
-+ * as an mfd cell.
-+ */
-+
-+#include <linux/array_size.h>
-+#include <linux/device.h>
-+#include <linux/init.h>
-+#include <linux/ioport.h>
-+#include <linux/module.h>
-+
-+#include <linux/zorro.h>
-+
-+#include <linux/mfd/core.h>
-+
-+#include "warp-mfd.h"
-+
-+static const struct mfd_cell warp_mfd_cells[] = {
-+	{
-+		.name		= "warp-pata",
-+		.num_resources  = 1,
-+		.resources	= (const struct resource []) {
-+			DEFINE_RES_MEM_NAMED(WARP_OFFSET_ATA, WARP_ATA_SIZE,
-+					     "pata"),
-+		}
-+	}
-+};
-+
-+static int warp_mfd_probe(struct zorro_dev *z,
-+			  const struct zorro_device_id *ent)
-+{
-+	int error;
-+
-+	dev_info(&z->dev, "Warp at %pR\n", &z->resource);
-+
-+	error = mfd_add_devices(&z->dev, z->dev.id, warp_mfd_cells,
-+				ARRAY_SIZE(warp_mfd_cells), &z->resource,
-+				0, NULL);
-+	if (error) {
-+		dev_err(&z->dev, "mfd_add_devices() failed %d\n", error);
-+		return error;
-+	}
-+	return 0;
-+}
-+
-+static void warp_mfd_remove(struct zorro_dev *z)
-+{
-+	mfd_remove_devices(&z->dev);
-+}
-+
-+static const struct zorro_device_id warp_mfd_ids[] = {
-+	{ .id = ZORRO_PROD_CSLAB_WARP_1260 },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(zorro, warp_mfd_ids);
-+
-+static struct zorro_driver warp_mfd_driver = {
-+	.name		= "warp-mfd",
-+	.id_table	= warp_mfd_ids,
-+	.probe		= warp_mfd_probe,
-+	.remove		= warp_mfd_remove
-+};
-+
-+static int __init warp_mfd_init(void)
-+{
-+	return zorro_register_driver(&warp_mfd_driver);
-+}
-+
-+static void __exit warp_mfd_exit(void)
-+{
-+	zorro_unregister_driver(&warp_mfd_driver);
-+}
-+
-+module_init(warp_mfd_init);
-+module_exit(warp_mfd_exit);
-+
-+MODULE_LICENSE("GPL");
-+MODULE_AUTHOR("Paolo Pisati <p.pisati@gmail.com>");
-+MODULE_DESCRIPTION("CS-Lab Warp multifunction driver");
-diff --git a/drivers/zorro/warp-mfd.h b/drivers/zorro/warp-mfd.h
-new file mode 100644
-index 000000000000..3f44f2b57c76
---- /dev/null
-+++ b/drivers/zorro/warp-mfd.h
-@@ -0,0 +1,19 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+/*
-+ * CS-Lab Warp - board window layout
-+ *
-+ * Copyright 2026 Paolo Pisati <p.pisati@gmail.com>
-+ */
-+
-+#ifndef _WARP_MFD_H
-+#define _WARP_MFD_H
-+
-+/* Offsets from the start of the board's Zorro window. */
-+#define WARP_OFFSET_DPREG_CR	0x1000	/* dual-port interrupt control reg */
-+#define WARP_OFFSET_DPRAM	0x2000	/* dual-port RAM */
-+#define WARP_OFFSET_ATA		0x6000	/* on-board IDE interface */
-+
-+#define WARP_DPRAM_SIZE		0x2000
-+#define WARP_ATA_SIZE		0x1800
-+
-+#endif /* _WARP_MFD_H */
+-static int pata_cswarp_probe(struct zorro_dev *z,
+-			     const struct zorro_device_id *ent)
++static int pata_cswarp_probe(struct platform_device *pdev)
+ {
+ 	static const char board_name[] = "csWarp";
+ 	struct ata_host *host;
+ 	struct ata_port *ap;
+ 	struct resource *res;
+ 	void __iomem *base;
+-	unsigned long board = z->resource.start;
+ 
+-	dev_info(&z->dev, "%s IDE controller (board: 0x%lx)\n", board_name,
+-		 board);
++	res = platform_get_resource_byname(pdev, IORESOURCE_MEM, "pata");
++	base = devm_ioremap_resource(&pdev->dev, res);
++	if (IS_ERR(base))
++		return PTR_ERR(base);
+ 
+-	res = devm_request_mem_region(&z->dev, board + WARP_OFFSET_ATA, 0x1800,
+-				      DRV_NAME);
+-	if (!res)
+-		return -ENXIO;
++	dev_info(&pdev->dev, "%s IDE controller (board: %pR)\n", board_name,
++		 res);
+ 
+-	host = ata_host_alloc(&z->dev, 1);
++	host = ata_host_alloc(&pdev->dev, 1);
+ 	if (!host)
+ 		return -ENXIO;
+ 
+ 	ap = host->ports[0];
+-	base = devm_ioremap(&z->dev, board + WARP_OFFSET_ATA, 0x1800);
+-	if (!base)
+-		return -ENOMEM;
+-
+ 	ap->ops = &pata_cswarp_ops;
+ 
+ 	ap->pio_mask = ATA_PIO4;
+@@ -145,34 +135,29 @@ static int pata_cswarp_probe(struct zorro_dev *z,
+ 			  IRQF_SHARED, &pata_cswarp_sht);
+ }
+ 
+-static void pata_cswarp_remove(struct zorro_dev *z)
++static void pata_cswarp_remove(struct platform_device *pdev)
+ {
+-	struct ata_host *host = dev_get_drvdata(&z->dev);
++	struct ata_host *host = dev_get_drvdata(&pdev->dev);
+ 
+ 	ata_host_detach(host);
+ }
+ 
+-static const struct zorro_device_id pata_cswarp_zorro_tbl[] = {
+-	{ .id = ZORRO_PROD_CSLAB_WARP_1260 },
+-	{ }
+-};
+-MODULE_DEVICE_TABLE(zorro, pata_cswarp_zorro_tbl);
+-
+-static struct zorro_driver pata_cswarp_driver = {
+-	.name           = "pata_cswarp",
+-	.id_table       = pata_cswarp_zorro_tbl,
++static struct platform_driver pata_cswarp_driver = {
++	.driver = {
++		.name	= "warp-pata",
++	},
+ 	.probe          = pata_cswarp_probe,
+ 	.remove         = pata_cswarp_remove,
+ };
+ 
+ static int __init pata_cswarp_init(void)
+ {
+-	return zorro_register_driver(&pata_cswarp_driver);
++	return platform_driver_register(&pata_cswarp_driver);
+ }
+ 
+ static void __exit pata_cswarp_unregister(void)
+ {
+-	zorro_unregister_driver(&pata_cswarp_driver);
++	platform_driver_unregister(&pata_cswarp_driver);
+ }
+ 
+ module_init(pata_cswarp_init);
+@@ -181,3 +166,4 @@ module_exit(pata_cswarp_unregister);
+ MODULE_AUTHOR("Andrzej Rogozynski");
+ MODULE_DESCRIPTION("low-level driver for CSWarp PATA");
+ MODULE_LICENSE("GPL");
++MODULE_ALIAS("platform:warp-pata");
 -- 
 2.43.0
 
