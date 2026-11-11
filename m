@@ -1,77 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=188.121.53.27
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=188.121.53.30
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794440711;
-	b=WlSsOHONqcdM7mpCG4q9/PCNG9e7yT6bczHs9Gx29lnzbxYS4E8paWxCLrWimgoy264c
-	 heL/wTmxL1pHXF1Llfnlfp4G2Sl9AH91LlyZuyYn4F4azoDyMsGWd5UEV5JzGUSA03oww
-	 NIjk9mpaYcDzEg6lGXVsR8H68GcLUuZUn6mxZULpF7OhUdO+nBkPI54d1DKUWfHcMPIhG
-	 wKI56BKAhGZAqXTRctsY/St+eUnj8nCfZuM4L8ryC7d07+iQTA8q7vJwdfeaPZYlKHm7d
-	 GB0hs+Ltj7Klf+c74WGamiOBgvdgbFFtI4e7sV8Yxe8pRawt2tARL4aYzU1xP86V8AQ==
+	b=zuLUvgf1nUiwxZPxXonzhLH7m6UPCoXS1wzfmcize09lZ/vqsBD02Y7ek8BTIBk3rJ63
+	 2XltLnSrB9MnaVvphKm5mr1hXBIFCbdcqUeXcFwPK/WXSHf69NINCyet9E3tXkGTJy24C
+	 HhyrdkGlZ0lGZ7KYEJHR2ZYXpoqUSqY2lcOV96ThgDTwEHkNtHCOu29cTIDhZaPg+Rjk/
+	 bw0ZokQUMGCGwH/VVGOerigtC2gzZuf89ouj3rvEfh5TTelX8itvVR2MDp8UVehlzZUa8
+	 t7U2W8OHBSchQ6T9xrOs+oRQyJLNABO8erVF9VgW0mv20VmGyba6Sr1jtSxH98qpO6g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794440711;
 	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:X-CMAE-Analysis:
 	 Feedback-ID:X-SECURESERVER-ACCT:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-CMAE-Envelope;
-	bh=NouO/FZeoDIdnH7nhMKiD43p006OZz+vFcBeN/P08xc=;
-	b=NrH/ZUi6ISIVxm74PiHwzkiOSKYFWADlga1UJsxEUUONesG1WyYvlgqwg+3piT77GtOG
-	 AXuNOjk41n0F5yA3VEHG0FDj/a/H9KFi+PVW/90f1LRWNuQt6zzp0gRjWlxyWVlGBZHRj
-	 TvSIbxgZKuI4AJAi9eCECm3YvVZlaV81juo2XwKSpmbvNs7UQcDuI9xz95PO+uMpsxQwE
-	 mfzjQThril4+YQwwFkHC1YSe9zskoP9xhyKK/60HIaW6TpLTzbo698Xu/NEx+cM+2BdB3
-	 Cf2TeikJjbBsuP0Of10chir9/yfTU1G/drI3n8PRqn4kWJKS7C0vEUSOYel4nPJJe7g==
+	bh=2LU4gd1QwZ6NBKlWkP/KjhmJHqiN9qYm6aI1qrY30QU=;
+	b=nTxQdHK0s+GWqSNT/kxxIa0TnNSvGz+Doa/APmE86LmqCTYvad5VeMfBM1xXn8YrhFCp
+	 7LR7ZRcM2P06FjsCp1sb9A2tlWUjnBTRH00EQG5NdLRQ3T1OLmNxXtSMKX3rUWJwc3jsA
+	 pXoqDDNOikYa2Jk709We5TLPGkUqcZURQVssRztHopOROv3INAilttEf8gdPzvYWDzGQG
+	 L72W0nhRRj6lB0wEu3vecXXzHDyXQnzsbNllvr/H5ce+eTLB/keuLa4+j2HHJC5cE6MU+
+	 Z/MoNkbDRw9YAeDfQt7NGdgF/ilWcqUJKPIkhjrGeMZtNrct1/JbblmzehHfQ/IJppw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=squashfs.org.uk;
 	spf=pass smtp.mailfrom=squashfs.org.uk;
-	dkim=pass header.d=secureserver.net header.i=@secureserver.net header.a=rsa-sha256 header.s=secureserver2 header.b=tMosWvpv;
-	dkim=pass header.d=squashfs.org.uk header.i=@squashfs.org.uk header.a=rsa-sha256 header.s=secureserver1 header.b=mt6rvJpL;
-	arc=none smtp.remote-ip=188.121.53.27
-Received: from sxplsmtpa04-03.prod.sxb1.secureserver.net (sxplsmtpa04-03.prod.sxb1.secureserver.net [188.121.53.27])
+	dkim=pass header.d=secureserver.net header.i=@secureserver.net header.a=rsa-sha256 header.s=secureserver2 header.b=ifLEu7yG;
+	dkim=pass header.d=squashfs.org.uk header.i=@squashfs.org.uk header.a=rsa-sha256 header.s=secureserver1 header.b=kRKx4Dwh;
+	arc=none smtp.remote-ip=188.121.53.30
+Received: from sxplsmtpa04-03.prod.sxb1.secureserver.net (sxplsmtpa04-03.prod.sxb1.secureserver.net [188.121.53.30])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9A3C606A8BD
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 23:45:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9A3C606A8BD
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBB4A606D91F
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 23:45:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EBB4A606D91F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=squashfs.org.uk
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=squashfs.org.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=secureserver.net header.i=@secureserver.net header.a=rsa-sha256 header.s=secureserver2 header.b=tMosWvpv;
-	dkim=pass (2048-bit key, unprotected) header.d=squashfs.org.uk header.i=@squashfs.org.uk header.a=rsa-sha256 header.s=secureserver1 header.b=mt6rvJpL
+	dkim=pass (2048-bit key, unprotected) header.d=secureserver.net header.i=@secureserver.net header.a=rsa-sha256 header.s=secureserver2 header.b=ifLEu7yG;
+	dkim=pass (2048-bit key, unprotected) header.d=squashfs.org.uk header.i=@squashfs.org.uk header.a=rsa-sha256 header.s=secureserver1 header.b=kRKx4Dwh
 Received: from avalon.fritz.box ([82.69.79.175])
 	by :SMTPAUTH: with ESMTPA
-	id RHz6xtxIpLwCURHzxxAFZs; Wed, 11 Nov 2026 23:45:02 +0000
+	id RHz6xtxIpLwCURHzzxAFa1; Wed, 11 Nov 2026 23:45:03 +0000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=secureserver.net;
-	s=secureserver2; t=1794440703;
-	bh=NouO/FZeoDIdnH7nhMKiD43p006OZz+vFcBeN/P08xc=;
+	s=secureserver2; t=1794440704;
+	bh=2LU4gd1QwZ6NBKlWkP/KjhmJHqiN9qYm6aI1qrY30QU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=tMosWvpvBxN+a8ugF4SkV4OARv6D0Ngg0DsaKXS8k3r3FG6LmVnEDqmNtyUUAJtkF
-	 vrnEhIIFxmnk/3XdaKxxnOKtsaVdyXjCVJLd+sJBIAG4SGr248xOOjDZqIjVGCbfi6
-	 GALMrcis2EugOqBVdJBwjU27pk/EcLH9q+2HStRcetpSa34iF4KqEInXejzY2eNC1L
-	 7uyvrEk+lV7EG9zxoDdgtTWmIbeN30BhDFsERbm7no3LqqnDI9IA+vXiDVnryb5gAy
-	 MRX6EDvYMFYHI4I3CQFTbCpF6WSeiHYNZAAOSdO20izsp4seBBVnw4ax4QDwESN3dD
-	 O4fo68V6ihKPw==
+	b=ifLEu7yGpm/qRU5VjP84NP+B5KmUyIkqR28KENPpMNvkMVnWoOjy+dVnGYVXwkvAd
+	 7MvNNYOaHbD2IHzodx+m2HiA3H2fCit04JaZqFZxncqIubC9/FoFwdzFLnof687UBD
+	 0ZgI3/43dA5LtMCX61iSKVOa6Mp4m6noGm/YbTavqeluZo5/HtEPSL1kfAebrRnbL4
+	 d7nagFDqeQU7OKI2ZDaMSdpp7nM3bhJRp5puWd0Ros/kqlPZWZtCAOo3ajGJT7zU3D
+	 G38S+tQnIvD8l74b2Kv5yQhouYmv2QKq5XyTxW+afn5jvNiWjWv1KuavEJEEr3VwCa
+	 L50UHVXQeGQ2A==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=squashfs.org.uk;
-	s=secureserver1; t=1794440703;
-	bh=NouO/FZeoDIdnH7nhMKiD43p006OZz+vFcBeN/P08xc=;
+	s=secureserver1; t=1794440704;
+	bh=2LU4gd1QwZ6NBKlWkP/KjhmJHqiN9qYm6aI1qrY30QU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mt6rvJpLZ5uF86mgvvYXPGpAx0r77oEOJrCFLstzi+MGmSqKNAlv32kFeBtmp+8j/
-	 xeZ8yFpFtJhmPhW4cr4xrMvhN2BZb3LhDL0/EUwMWKeSW1DU+KhB0b7batMgJyU0hy
-	 hjHjjezKRJFedNfVHqpQX66Fbg2TKckCw7tMJH/9Uc0McRJfI+puc5c0BRJhUDKz3p
-	 uilOswYj5lAKO3A8cz84MZkAj1QsdoE0Qg6FfWgGJOAU6hOLhHSNgcPJSvzhf5tyPW
-	 qT27t5Rv2tAdkFZuY2ssICi3rOufkhr2BXt8KuNSbyVqtcyILDTU+UYetk697ljOFL
-	 2d3eEsp9RE4LQ==
-X-CMAE-Analysis: v=2.4 cv=XZYcX455 c=1 sm=1 tr=0 ts=6af4fdfe
+	b=kRKx4Dwhciuslt1yi+Rx4IthMYAzgmcE0nbd/m0ODl5cs2YNUXAY3KLJ7Ybuz8Mlv
+	 2kFhsnzKXtY0URQxY3ztezY0QP4Cx9eew9zFSbkw0bC0d061U/CftTEb3R8SvLPb3l
+	 fenODCjVOXNJnXFPHKaZpoKeXzFaYaxLaHvfDDkLPhDmR/wWoW0kA+N5fEvToBQDMG
+	 M8LaU2btqprp8PeW2k+yjaRgA+OI2LXdG3nQw4YPn5C4GNM4C9M2JlyPaEXrpl2kxz
+	 la3VKLq0gTcZQSxqhvVQFw9pxuyVHyKueIkMZk2mS8iP1eJIqW2zXMLU2wW1vmFqFn
+	 Pd7h5FOYjKdwA==
+X-CMAE-Analysis: v=2.4 cv=XZYcX455 c=1 sm=1 tr=0 ts=6af4fe00
  a=84ok6UeoqCVsigPHarzEiQ==:117 a=84ok6UeoqCVsigPHarzEiQ==:17 a=FXvPX3liAAAA:8
- a=7Zd2xgau2SnrXiwuqnEA:9 a=UObqyxdv-6Yh2QiB9mM_:22
-Feedback-ID: 686876d990a796b861820fc50ea798bc:squashfs.org.uk:ssnet
+ a=novXQP1oP690d8Wgf2EA:9 a=UObqyxdv-6Yh2QiB9mM_:22
+Feedback-ID: a1509d30a4f02f4f934d5ee235d1e447:squashfs.org.uk:ssnet
 X-SECURESERVER-ACCT: phillip@squashfs.org.uk
 From: Phillip Lougher <phillip@squashfs.org.uk>
 To: linux-kernel@vger.kernel.org,
 	linux-fsdevel@vger.kernel.org,
 	akpm@linux-foundation.org
 Cc: Phillip Lougher <phillip@squashfs.org.uk>
-Subject: [PATCH v2 21/22] Squashfs: fix regression in squashfs_copy_cache()
-Date: Wed, 11 Nov 2026 23:44:01 +0000
-Message-ID: <20261111234402.252354-22-phillip@squashfs.org.uk>
+Subject: [PATCH v2 22/22] Squashfs: check index isn't greater than S64_MAX in squashfs_read_data()
+Date: Wed, 11 Nov 2026 23:44:02 +0000
+Message-ID: <20261111234402.252354-23-phillip@squashfs.org.uk>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261111234402.252354-1-phillip@squashfs.org.uk>
 References: <20261111234402.252354-1-phillip@squashfs.org.uk>
@@ -85,72 +85,41 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CMAE-Envelope: MS4xfFW+ttfmDt7I7hpdnZ5nSzVGBzx7/M1cwguOkFFyFfCiV91ZffBmB02QtLUZoq2bye1rt7xaqliC1GDx3/qq5QKQxydhS+WZywrT639+MCjI+HmW/Pe2
- X7DuZLXNpKixUKlGYFZQovkMoHePN+JntkE3PHTMjD03SO0RC56VRX+gH+/I3QrKwdUbhYExIlbf4Rt3PSDIXtIhnWd+AlN4n4JSU46oxRvS/xJwxvTcy5g3
- UeKw/MNIQeSlr75FCBbitZoOhmcSFv4QjjjHb9i+YmCcqupZkvqMuOm1RYuLKKljtq5rBrtwFm1Uw4kbzyseQ0E5W+0vwSYDp1PvgEzcH90=
+X-CMAE-Envelope: MS4xfBklT8orcEnOAp8x8rFqgVM0zzHBhU51OUKnssEvt7DE84GgDUnkVnmIxUpjY4yyoggc+PqK9SpIdWaS6fRJDasDjLEqtTbETiE+4REMVl6jAVjlWhd/
+ b3x1c1bqVqzjWDE/zART/Mgn2jjjG7ACHdCTr4Y34meCq5t9j7SVUphEJQkNnoXIZ8s3sv/25T++bBltMAyzsfy3XjPQb4f5ksZ7BODZ74IAmRRg7B5kBcH3
+ VzU70WC9dfbY+2/tjmvhTJIUn7DgC6d2LdonFtW6Tg+uRGk3BvwEN0Hufaj8bAA7mK9JHEXhmhcpQqDF9ISdvBBmb1HsS891kKnkaWxR6I0=
 
-In a recent commit updating the code to use folios, the bytes variable
-was changed from signed to unsigned in squashfs_copy_cache().
+The previous commits in this patch-set now sanity check index before
+squashfs_read_data() is called.  However, it is always wise to take
+a belts and braces approach and sanity check at the lowest level to
+trap any values that could slip through.
 
-The bytes variable is used in a loop where PAGE_SIZE bytes are
-subtracted from it each time around the loop, and where the loop
-terminates once bytes is less than or equal to zero.
-
-The effect of the change in signedness is bytes no longer becomes
-negative when it is not a multiple of PAGE_SIZE, and the loop does not
-terminate when it should do, and instead folios are created and filled
-after file EOF.
-
-These beyond EOF folios are not visible to user-space and hence this is
-a silent regression.
-
-This commit fixes the code to only subtract the minimum of bytes or
-PAGE_SIZE, and which ensures the variable does not underflow.
-
-Fixes: 5641371fd0b3 ("squashfs; convert squashfs_copy_cache() to take a folio")
+Fixes: e2780ab159ac6 ("Squashfs: block operations")
 Signed-off-by: Phillip Lougher <phillip@squashfs.org.uk>
 ---
- fs/squashfs/file.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+ fs/squashfs/block.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/fs/squashfs/file.c b/fs/squashfs/file.c
-index 6ad9fa8ac967..f94a51391651 100644
---- a/fs/squashfs/file.c
-+++ b/fs/squashfs/file.c
-@@ -410,6 +410,7 @@ void squashfs_copy_cache(struct folio *folio,
- 	struct squashfs_sb_info *msblk = inode->i_sb->s_fs_info;
- 	s64 i, mask = (1 << (msblk->block_log - PAGE_SHIFT)) - 1;
- 	s64 start_index = folio->index & ~mask, end_index = start_index | mask;
-+	size_t avail;
+diff --git a/fs/squashfs/block.c b/fs/squashfs/block.c
+index 20c3030b4f96..f2f03d815167 100644
+--- a/fs/squashfs/block.c
++++ b/fs/squashfs/block.c
+@@ -297,6 +297,15 @@ int squashfs_read_data(struct super_block *sb, u64 index, int length,
+ 	int res;
+ 	int offset;
  
- 	/*
- 	 * Loop copying datablock into pages.  As the datablock likely covers
-@@ -417,12 +418,13 @@ void squashfs_copy_cache(struct folio *folio,
- 	 * grab the pages from the page cache, except for the page that we've
- 	 * been called to fill.
- 	 */
--	for (i = start_index; i <= end_index && bytes > 0; i++,
--			bytes -= PAGE_SIZE, offset += PAGE_SIZE) {
-+	for (i = start_index; i <= end_index && bytes; i++,
-+			bytes -= avail, offset += avail) {
- 		struct folio *push_folio;
--		size_t avail = buffer ? min(bytes, PAGE_SIZE) : 0;
- 		bool updated = false;
- 
-+		avail = min(bytes, PAGE_SIZE);
++	/*
++	 * Reject index values greater than possible filesystem size (S64_MAX).
++	 * This also ensures the index variable doesn't overflow in the function.
++	 */
++	if (index > S64_MAX) {
++		res = -EIO;
++		goto out;
++	}
 +
- 		TRACE("bytes %zu, i %lld, available_bytes %zu\n", bytes, i, avail);
- 
- 		push_folio = (i == folio->index) ? folio :
-@@ -436,7 +438,7 @@ void squashfs_copy_cache(struct folio *folio,
- 		if (folio_test_uptodate(push_folio))
- 			goto skip_folio;
- 
--		updated = squashfs_fill_page(push_folio, buffer, offset, avail);
-+		updated = squashfs_fill_page(push_folio, buffer, offset, buffer ? avail : 0);
- skip_folio:
- 		folio_end_read(push_folio, updated);
- 		if (i != folio->index)
+ 	if (length) {
+ 		/*
+ 		 * Datablock.
 -- 
 2.47.3
 
