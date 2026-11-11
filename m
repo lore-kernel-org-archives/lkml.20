@@ -1,81 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794430725;
-	b=P+IhqMaeHS1VvWdxcpQtpBj41UK89pffoQWYRb2UhjAfdRIT21ayfOPCLJYRVyS/hUvB
-	 KlMZVscJxswdUxIaqto66KQTSee/QaVimCeZIkGk4EzRpRInqa3CmMxdGb4r6Tkxblf4G
-	 fXeUBVSTj00RfArEq2yBRqeQ1TQRf7oqda7FzZxijOMnfjXjk92ZvlINezY2HtTETcE2A
-	 Qtiv+2EalDwKcuy4AFFRpgIRhow0WHtTqp0maRnHqG+ixPTnaFq/y9CHupBgkZhGQQtbS
-	 Y9bDU2y7THa4FfEo7YFWqm7lMuj219R0xy/5reewsk6rEf4R6oWMTkyz4LnJRz4tXdA==
+	t=1794430777;
+	b=BSVJOcSSkIibHojS0KOvAuQWXyLw6DOo8xtDJi8LAtjzMBTx61MSkNdwJlKyD87zl2iW
+	 TML92//UVsg4PjHiHBQPek9f9N3uWiLjaoknIwvPqZ3W+aDfDxdS5JEadg7GzokKwaWrH
+	 Zsj6FynJj/skTba6+lyqS/OI6ojOuVG+Glo9ourSfEUpMMKE4quc/+Gd2Rw5yLy1cwQUh
+	 ij88eZZn8/m0PftdTPcz0PNC1oP6impz9Q/uPaUuNXk2TmliHEN3FZWWNUAm+8rZh6G2t
+	 0TDW6xJKdkS1MAMDUFi4PT5/fMt8YChZ6jfJTwtW8rpwq7w3ZftoxVtl/yIgqz2i49Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794430725;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:Sender:X-SRS-Rewrite;
-	bh=dome5fqoVGfpsjSJgZWU5i54tZyBrmW6npW+H6ZvLLM=;
-	b=WZ6wzT7MnOqqJAKSlNtfcEUp/HxVJcRYH2uqLhPqWJPXyabj1TDJCRw6PMz8Sf/jvadu
-	 fwM1V4Q2xeqIvU8vjAQPz6/Q3m+2cxFHoE1YzQMuirE/z9JB5OYVY+/QY1/YQ/wHd0VVg
-	 4tb56wsOXeMfSx39hEmlpdHtJzzDG3AGcW/VXUwmmZeevWjl3HRA1EO31afrS5WvnGR1r
-	 4f3X46z3BnTvpnMKVIDpYiyvNtB5nZMzE1oNDV94nTBaU6hgu6nRdoy0y/eSQeNvnsbb9
-	 HG239pKwhZFA4KhACRreq1aK1qG1SapCSeIBbUqy3QXMlT3yjqOnT+j96OyHUnM3dow==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794430777;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=0IXKoQExWRBnxkHWmaBUmuF1Ur0MS6B/Iikgx16XxS4=;
+	b=qjf6TZiW8yyBZPRpmgWDylYsm0n7D0TBP3BVjJKIrYFowC0qNyyYIaAxbWKS4mr2B8Ox
+	 Ihj+ZwyRZ20OVHpQUGCmKMFAt44WOKtjMP41XbM6ZKZApV8kSc6MBI27bSvJ4WAbusAUB
+	 H43hXdjxfYfftEpdPJjtZo672eBpc50fsuSH8o1S7IAD5NE9snkWvbTpUKVnIyVYqpiC+
+	 K0ofiXsgo75HhUuqQfxMIPM0pZ6PFgi48iJpwVs9SphMvto8p2CUEUbkI6Smb/D0NekDO
+	 uH4YKuaFVz+78uBjQNglXyvVcHu7CdOQy3TGzuHbPJ78xVLLR6TltHe9RH83H7YX/8A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=none smtp.mailfrom=desiato.srs.infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=I+k4aFJr;
-	arc=none smtp.remote-ip=90.155.92.199
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="mGWdMTr/";
+	arc=none smtp.remote-ip=209.85.128.180
+Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com [209.85.128.180])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14BBF606A89C;
-	Wed, 11 Nov 2026 20:58:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 14BBF606A89C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=desiato.srs.infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5861A606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 20:59:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5861A606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=I+k4aFJr
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=Sender:Content-Transfer-Encoding:
-	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
-	Reply-To:Content-Type:Content-ID:Content-Description;
-	bh=dome5fqoVGfpsjSJgZWU5i54tZyBrmW6npW+H6ZvLLM=; b=I+k4aFJrAfYpQqzL5iMhIm16Nq
-	3ZBtgaf6TesW8Pp6mraNXlG7dyUNjgHD09SJfZaPSHFEn8JV5zrYJGE7BraAd7Cv1AV+0BWTbJWqb
-	iRevFPcdiKtlBYbnQbHcZXUlNgW9EyL5X2k2BXJCodDY3HzNWMYSZifIhW0at2lKvDmp6WkgQz1S1
-	QZIZttv5J+tRnWQd+rrg0uVVQFLYOz7fcFamiCR0jTIILCCD1r1cGKQ6S8xbRHS4lpClDQrpyKOaE
-	BW5MlUUsCJ+sfyc74PpRTAcmYk7+hqLgixc4xUUsNCNIckOd3y27ik3WzYZgQE5hUBJnqIOqlHqdh
-	c0twW3FA==;
-Received: from [2001:8b0:10b:1::425] (helo=i7.infradead.org)
-	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xRFOx-00000009ZGs-26fG;
-	Wed, 11 Nov 2026 20:58:39 +0000
-Received: from dwoodhou by i7.infradead.org with local (Exim 4.99.5 #2 (Red Hat Linux))
-	id 1xRFOu-0000000HZ7h-2WHE;
-	Wed, 11 Nov 2026 20:58:36 +0000
-From: David Woodhouse <dwmw2@infradead.org>
-To: kvm@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	linux-hyperv@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Sean Christopherson <seanjc@google.com>,
-	Vitaly Kuznetsov <vkuznets@redhat.com>,
-	Marcelo Tosatti <mtosatti@redhat.com>,
-	Joerg Roedel <joro@8bytes.org>,
-	Tom Lendacky <thomas.lendacky@amd.com>,
-	James Bottomley <James.Bottomley@HansenPartnership.com>,
-	Thara Gopinath <tgopinath@linux.microsoft.com>,
-	Wei Liu <wei.liu@kernel.org>,
-	Michael Kelley <mhklinux@outlook.com>,
-	Nicolas Saenz Julienne <nsaenz@amazon.com>,
-	Nikolas Wipper <nik.wipper@gmx.de>,
-	Mushahid Hussain <hmushi@amazon.co.uk>,
-	Sriram Nambakam <snambakam@linux.microsoft.com>,
-	David Woodhouse <dwmw@amazon.co.uk>
-Subject: [PATCH 1/4] KVM: x86: hyper-v: Add KVM_CAP_HYPERV_FORWARD_HCALL
-Date: Wed, 11 Nov 2026 12:58:33 -0800
-Message-ID: <20261111205836.4186584-2-dwmw2@infradead.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261111205836.4186584-1-dwmw2@infradead.org>
-References: <20261111205836.4186584-1-dwmw2@infradead.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mGWdMTr/
+Received: by mail-yw1-f180.google.com with SMTP id 00721157ae682-8b31261e8a9so27801337b3.0
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 12:59:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794430775; x=1795035575; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=0IXKoQExWRBnxkHWmaBUmuF1Ur0MS6B/Iikgx16XxS4=;
+        b=mGWdMTr/KQ7vH/IPoTFIhiysUV823YvNf6fvkFuwKiQ3NxaKg+NM2zNQqD2r0027Nz
+         81VzhVCLmn7sq1o0LSJblLgtWzpsC6JmY3oQcsXmgKcgqGB/UVzvSztfWS8iuVF8BvPP
+         ql70x5/5kJEmEpsDM8k9rbN2s0+nFym3himOcHITtmnRwqdZ5c2AzunDMjhwBA3l32KF
+         QJljzRJGj626wksqBEA38TTKHlCMNW08HYfpuZBIUq6uALPEglhet+vFgJ72LAEglKTi
+         OFtA59qK8o6RukV9A87NYgx9P78wJRq3nPs5VlKvMBnQG74kf2DOKFlY6SRKtJHLFCM1
+         Fvog==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794430775; x=1795035575;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=0IXKoQExWRBnxkHWmaBUmuF1Ur0MS6B/Iikgx16XxS4=;
+        b=Ob/odq65f3t1E2WkZ5gdlj4bNPKWBuE1GnI+VotlkKnclzEAeBHAy/MvFAC2LXxw48
+         /xvD+w0tFnHEcd12Nv43+gOFX0tErHTH+nDPwkwnDN/OlPRSUUEYz7fwu8aKgWUer1Tf
+         lXfR6Y0RxHe7Jcam5S7uGRzew/fBKkUCf8OHpOajjZuq+N1EFxveb+yLdvDcKXFTT+5D
+         IpG49eQ4H3JAJj1Qi4flobIAlJT+RrAcJLl7/LOIj3XWLux6lRIPvLYChAvqlcxjkewk
+         Eoc1lxWOElz98tlmYOHJKMRwFXsfn3Wz+JAQfJVvEnRfMT6jewoFKwN1kSRAgEKj2z12
+         fIJg==
+X-Forwarded-Encrypted: i=1; AL+hErGev1YBr5MZGPN86UJCjpLtW9RV28RBc4dnr2So8MrsQizEHnf5G8zRD4gF3SwnCeNcvx87Nn0JTPPEfB8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/uIYrH5xCsSaxYIbBnKQMIDA0MGxaVatWfiEdQIfNU5KFc5Ipr
+	XwXKrUGi+1gvbQHmXgvoUgNg6BZ+fHho9jn07Bo1fcYhsXXd/I29YFmK
+X-Gm-Gg: AYBFou2rZCnawuVjN9uJcoXU4QHoss7KTZcu8JuvA6o5TW/oMYF3MTD9kD5MY9zeYrn
+	vsQLXCOOT6K2NuFFr9OaB2ftLprNzBhQXlcZI/6EBqLuuUWrh5OJpqG8+9qpvpKyXNXhz7u/Hme
+	DUzK2o/7VIL+s6X+CjWdK83oelii2VveEtLPRGmdukdwc00/8qddbxYtocSUicy6qxQjqBP6p/3
+	tFAUCgtJnalWtVMfPbJklCGfz0SJz2MWUnHNZoy4/1+i2FYfl9ODrC98O2sEqdo+cT9mVFkBgyW
+	V+3pP3zdbJSMxo39JfwBSLm7jxRo8aNlAJJxaNuXmRiBs4PbFIlJtTQ1pgZSEoxCzNgHlZMprqF
+	2/n0Sp+LcqtqIZmOV6K4JeGNKC6LNkbq0EveC/4HTxcQacq5ZYsMQ+/2N/EuIZViOthBJgKxi3W
+	WCV6eeosKj2/M4g3q6cpEqRFbT/hJkgWcEu0iWh6S4Ts4k8pJRW1fdpNhv5gp5TnjVHU61pIPmC
+	w8eGPWgPAW8JO9TQNOajJCOG7AuwxVUZQd1MHU548apu3g3JbnJFRFWj1OQqEpsPnjj8yJQazZ+
+	IniCT9LHYA3cvVKA1WlB0h7UcN7v2UoExyaUb8JxSw==
+X-Received: by 2002:a05:690c:f14:b0:8b0:cee8:53cf with SMTP id 00721157ae682-8b3a7dba91bmr29416207b3.3.1794430775289;
+        Wed, 11 Nov 2026 12:59:35 -0800 (PST)
+Received: from arch.localdomain ([181.80.92.40])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b3934592e9sm52910477b3.40.2026.11.11.12.59.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 12:59:34 -0800 (PST)
+From: Paulneja <paulnejacontacto@gmail.com>
+To: Jeff Chen <jeff.chen_1@nxp.com>,
+	Johannes Berg <johannes@sipsolutions.net>
+Cc: Francesco Dolcini <francesco@dolcini.it>,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH wireless] wifi: nxpwifi: bound the pairwise-cipher OUI walk to the IE length
+Date: Wed, 11 Nov 2026 17:59:17 -0300
+Message-ID: <20261111205917.449230-1-paulnejacontacto@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,216 +98,117 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Sender: David Woodhouse <dwmw2@infradead.org>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by desiato.infradead.org. See http://www.infradead.org/rpr.html
 
-From: David Woodhouse <dwmw@amazon.co.uk>
+nxpwifi_search_oui_in_ie() takes the pairwise cipher suite count from the
+RSN or WPA element of a beacon or probe response and compares that many
+4-byte suite selectors against the wanted one. The count is not checked
+against the length of the element, and the beacon parser records the
+element on its ID alone (the RSN case in nxpwifi_update_bss_desc_with_ie()
+has no length check at all, the WPA one only requires the OUI and type).
 
-A VMM that implements Hyper-V hypercalls KVM does not know about has
-no way to receive them. kvm_hv_hypercall() fails an unknown code with
-HV_STATUS_INVALID_HYPERCALL_CODE, and only a fixed set (the synthetic
-debugger, memory-based extended hypercalls, HvCallPostMessage and the
-HvCallSignalEvent fallback) ever exits to userspace.
+An element which is shorter than its count claims therefore makes the
+walk read up to 255 * 4 bytes past the element. The element lives in the
+buffer nxpwifi_fill_new_bss_desc() kmemdup()s from the cfg80211 BSS
+entry, which is exactly as long as the received elements, so an element
+placed last reads past the end of the allocation. The walk runs from
+nxpwifi_is_network_compatible() when a station with WPA or WPA2 enabled
+connects to an HT-capable BSS, on data that the AP controls.
 
-Add a VM capability whose KVM_CHECK_EXTENSION value is a bitmask of the
-hypercall handling features the kernel implements, as KVM_CAP_XEN_HVM
-and KVM_CAP_EXIT_HYPERCALL do. KVM_ENABLE_CAP takes the subset to
-enable and rejects any bit the kernel does not report, so a VMM can
-probe for exactly the behaviour it relies on.
+mwifiex, which this code was derived from, had the same walk and was
+fixed by commit e667aee1c192 ("wifi: mwifiex: bound the pairwise-cipher
+OUI walk to the IE length"). Do the same here: pass the number of element
+bytes available at the suite list and refuse a count that does not fit.
+The length stays signed so that an element too short to hold even the
+fixed part is rejected rather than wrapped. In nxpwifi the vendor header
+keeps the OUI type in a field of its own, so both are subtracted to get
+the bytes available in the WPA element.
 
-The first feature, KVM_HYPERV_HCALL_FORWARD_UNKNOWN, sends a hypercall
-KVM would have failed as unknown, and an extended hypercall in fast
-form, out through the existing KVM_EXIT_HYPERV_HCALL. That exit already
-carries the control value and both parameter registers, and XMM state
-is reachable through the ordinary vCPU state ioctls, so no new exit
-format is needed.
-
-Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
+Fixes: 73b01e57ed3e ("wifi: nxp: add nxpwifi driver for IW61x")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Paulneja <paulnejacontacto@gmail.com>
 ---
- Documentation/virt/kvm/api.rst  | 49 +++++++++++++++++++++++++++++++++
- arch/x86/include/asm/kvm_host.h |  2 ++
- arch/x86/kvm/hyperv.c           |  7 ++++-
- arch/x86/kvm/hyperv.h           |  8 ++++++
- arch/x86/kvm/x86.c              | 14 ++++++++++
- include/uapi/linux/kvm.h        |  4 +++
- 6 files changed, 83 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/virt/kvm/api.rst b/Documentation/virt/kvm/api.rst
-index e95c9cda085d..092f6f9ad8a0 100644
---- a/Documentation/virt/kvm/api.rst
-+++ b/Documentation/virt/kvm/api.rst
-@@ -7312,6 +7312,17 @@ Hyper-V SynIC state change. Notification is used to remap SynIC
- event/message pages and to enable/disable SynIC messages/events processing
- in userspace.
+Notes:
+    I went through this by hand before sending it: checked the bound against the
+    layout of struct ie_body (the suite list starts 6 bytes in) and of struct
+    ieee80211_vendor_ie (OUI and OUI type are separate fields here, which is the
+    one place this differs from the mwifiex fix), compared it line by line with
+    e667aee1c192, and ran the test below myself.
+    
+    An LLM was used to locate the bug and to draft the patch.
+    
+    Testing: no IW61x hardware here, so this was not run in a kernel. The three
+    functions were copied verbatim into a userspace harness and run under
+    AddressSanitizer with an RSN element of length 8 and a pairwise count of
+    255 placed last in an exact-size buffer: heap-buffer-overflow read before
+    the patch, clean after it, and a well-formed element still matches.
+    scan.o builds without warnings with W=1.
+
+ drivers/net/wireless/nxp/nxpwifi/scan.c | 23 ++++++++++++++++++++---
+ 1 file changed, 20 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/net/wireless/nxp/nxpwifi/scan.c b/drivers/net/wireless/nxp/nxpwifi/scan.c
+index 4eeba6700aa7..33779e21336b 100644
+--- a/drivers/net/wireless/nxp/nxpwifi/scan.c
++++ b/drivers/net/wireless/nxp/nxpwifi/scan.c
+@@ -79,12 +79,20 @@ _dbg_security_flags(int log_level, const char *func, const char *desc,
  
-+	- KVM_EXIT_HYPERV_HCALL -- a hypercall for userspace to handle.
-+
-+'input' holds the hypercall control value and 'params' the two parameter
-+registers.  Userspace sets 'result' to the hypercall result value before
-+resuming the vCPU; KVM then writes it to the guest and advances past the
-+hypercall instruction.  HvCallPostMessage, HvCallSignalEvent for a
-+connection with no registered eventfd, the synthetic debugger hypercalls
-+and memory-based extended hypercalls exit this way;
-+KVM_CAP_HYPERV_FORWARD_HCALL (see section 7.48) adds the hypercalls KVM
-+does not implement.
-+
- 	- KVM_EXIT_HYPERV_SYNDBG -- synchronously notify user-space about
+ /* Parse a WPA/RSN element and check whether its PTK list contains the OUI */
+ static u8
+-nxpwifi_search_oui_in_ie(struct ie_body *iebody, u8 *oui)
++nxpwifi_search_oui_in_ie(struct ie_body *iebody, u8 *oui, int ie_len)
+ {
++	const size_t ptk_body_offset = offsetof(struct ie_body, ptk_body);
+ 	u8 count;
  
- Hyper-V Synthetic debugger state change. Notification is used to either update
-@@ -9181,6 +9192,44 @@ enabled, cmma can't be enabled anymore and pfmfi and the storage key
- interpretation are disabled. If cmma has already been enabled or the
- hpage_2g module parameter is not set to 1, -EINVAL is returned.
++	/* ie_len is the number of element bytes available at iebody */
++	if (ie_len < 0 || (size_t)ie_len < ptk_body_offset)
++		return NXPWIFI_OUI_NOT_PRESENT;
++
+ 	count = iebody->ptk_cnt[0];
  
-+7.48 KVM_CAP_HYPERV_FORWARD_HCALL
-+---------------------------------
++	if (ptk_body_offset + count * sizeof(iebody->ptk_body) > (size_t)ie_len)
++		return NXPWIFI_OUI_NOT_PRESENT;
 +
-+:Architectures: x86
-+:Target: VM
-+:Parameters: args[0] is a bitmask of KVM_HYPERV_HCALL_* features to enable
-+:Returns: 0 on success, -EINVAL if args[0] contains an unsupported bit
-+
-+KVM_CHECK_EXTENSION for this capability returns a bitmask of the Hyper-V
-+hypercall handling features that KVM implements.  KVM_ENABLE_CAP takes
-+the subset that userspace wants active and replaces the previously
-+enabled set; it can be called at any time.  A bit that KVM_CHECK_EXTENSION
-+does not report is rejected with -EINVAL, so a VMM can enable exactly the
-+features it was written for and learn which ones the kernel lacks.
-+
-+The defined bits are::
-+
-+  #define KVM_HYPERV_HCALL_FORWARD_UNKNOWN	(1ULL << 0)
-+
-+KVM_HYPERV_HCALL_FORWARD_UNKNOWN: a hypercall that KVM would otherwise
-+fail with HV_STATUS_INVALID_HYPERCALL_CODE exits to userspace with
-+KVM_EXIT_HYPERV_HCALL instead, and an extended hypercall in fast form
-+exits the same way instead of failing with HV_STATUS_INVALID_PARAMETER.
-+The VMM can then implement hypercalls that KVM does not.  The synthetic
-+debugger hypercalls (HvCallResetDebugSession, HvCallPostDebugData,
-+HvCallRetrieveDebugData) are an exception: while the synthetic debugger
-+is not enabled they still fail in KVM, with HV_STATUS_INVALID_PARAMETER
-+for the fast form of HvCallPostDebugData and HvCallRetrieveDebugData
-+and with HV_STATUS_INVALID_HYPERCALL_CODE otherwise.
-+
-+For a fast hypercall, 'params' carries RDX and R8 from a 64-bit caller,
-+or the EBX:ECX and EDI:ESI pairs from a 32-bit caller.  XMM input and
-+output registers of a fast hypercall are read and written with the
-+ordinary vCPU state ioctls (KVM_GET_XSAVE/KVM_SET_XSAVE or
-+KVM_GET_FPU/KVM_SET_FPU) before the vCPU is resumed.  Hypercalls that
-+KVM implements itself, and the CPUID-enforcement checks KVM applies
-+before dispatching a hypercall, are unaffected.
-+
- 8. Other capabilities.
- ======================
+ 	/*
+ 	 * PTK may contain multiple OUIs; iterate through the list and compare
+ 	 * each one
+@@ -113,10 +121,13 @@ nxpwifi_is_rsn_oui_present(struct nxpwifi_bssdescriptor *bss_desc,
+ 	__be32 oui = cpu_to_be32(cipher);
  
-diff --git a/arch/x86/include/asm/kvm_host.h b/arch/x86/include/asm/kvm_host.h
-index 1ee4b127004d..fce46ae26137 100644
---- a/arch/x86/include/asm/kvm_host.h
-+++ b/arch/x86/include/asm/kvm_host.h
-@@ -1072,6 +1072,8 @@ struct kvm_hv {
- 	struct mutex hv_lock;
- 	u64 hv_guest_os_id;
- 	u64 hv_hypercall;
-+	/* KVM_HYPERV_HCALL_* features enabled by KVM_CAP_HYPERV_FORWARD_HCALL */
-+	u64 hcall_features;
- 	u64 hv_tsc_page;
- 	enum hv_tsc_page_status hv_tsc_page_status;
- 
-diff --git a/arch/x86/kvm/hyperv.c b/arch/x86/kvm/hyperv.c
-index 5d2e3617c952..e72539f9acc9 100644
---- a/arch/x86/kvm/hyperv.c
-+++ b/arch/x86/kvm/hyperv.c
-@@ -2692,12 +2692,17 @@ int kvm_hv_hypercall(struct kvm_vcpu *vcpu)
- 		goto hypercall_userspace_exit;
+ 	if (bss_desc->bcn_rsn_ie) {
++		int ie_len = (int)bss_desc->bcn_rsn_ie->datalen -
++			     RSN_GTK_OUI_OFFSET;
++
+ 		iebody = (struct ie_body *)
+ 			 (((u8 *)bss_desc->bcn_rsn_ie->data) +
+ 			  RSN_GTK_OUI_OFFSET);
+-		ret = nxpwifi_search_oui_in_ie(iebody, (u8 *)&oui);
++		ret = nxpwifi_search_oui_in_ie(iebody, (u8 *)&oui, ie_len);
+ 		if (ret)
+ 			return ret;
  	}
- 	case HV_EXT_CALL_QUERY_CAPABILITIES ... HV_EXT_CALL_MAX:
--		if (unlikely(hc.fast)) {
-+		if (unlikely(hc.fast) &&
-+		    !kvm_hv_hcall_feature(vcpu->kvm,
-+					  KVM_HYPERV_HCALL_FORWARD_UNKNOWN)) {
- 			ret = HV_STATUS_INVALID_PARAMETER;
- 			break;
- 		}
- 		goto hypercall_userspace_exit;
- 	default:
-+		if (kvm_hv_hcall_feature(vcpu->kvm,
-+					 KVM_HYPERV_HCALL_FORWARD_UNKNOWN))
-+			goto hypercall_userspace_exit;
- 		ret = HV_STATUS_INVALID_HYPERCALL_CODE;
- 		break;
+@@ -132,9 +143,15 @@ nxpwifi_is_wpa_oui_present(struct nxpwifi_bssdescriptor *bss_desc, u32 cipher)
+ 	__be32 oui = cpu_to_be32(cipher);
+ 
+ 	if (bss_desc->bcn_wpa_ie) {
++		/* data[] starts after the OUI and OUI type */
++		int ie_len = (int)bss_desc->bcn_wpa_ie->vend_hdr.len -
++			     (int)sizeof(bss_desc->bcn_wpa_ie->vend_hdr.oui) -
++			     (int)sizeof(bss_desc->bcn_wpa_ie->vend_hdr.oui_type) -
++			     WPA_GTK_OUI_OFFSET;
++
+ 		iebody = (struct ie_body *)((u8 *)bss_desc->bcn_wpa_ie->data +
+ 					    WPA_GTK_OUI_OFFSET);
+-		ret = nxpwifi_search_oui_in_ie(iebody, (u8 *)&oui);
++		ret = nxpwifi_search_oui_in_ie(iebody, (u8 *)&oui, ie_len);
+ 		if (ret)
+ 			return ret;
  	}
-diff --git a/arch/x86/kvm/hyperv.h b/arch/x86/kvm/hyperv.h
-index 622a6553e9ac..20d40261c75b 100644
---- a/arch/x86/kvm/hyperv.h
-+++ b/arch/x86/kvm/hyperv.h
-@@ -205,6 +205,14 @@ static inline bool kvm_hv_hypercall_enabled(struct kvm_vcpu *vcpu)
- 	return vcpu->arch.hyperv_enabled && to_kvm_hv(vcpu->kvm)->hv_guest_os_id;
- }
- 
-+/* Features reported and accepted by KVM_CAP_HYPERV_FORWARD_HCALL. */
-+#define KVM_HYPERV_HCALL_SUPPORTED	KVM_HYPERV_HCALL_FORWARD_UNKNOWN
-+
-+static inline bool kvm_hv_hcall_feature(struct kvm *kvm, u64 feature)
-+{
-+	return READ_ONCE(to_kvm_hv(kvm)->hcall_features) & feature;
-+}
-+
- int kvm_hv_hypercall(struct kvm_vcpu *vcpu);
- 
- void kvm_hv_irq_routing_update(struct kvm *kvm);
-diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
-index 26e7beaff8a0..d8de7742a0da 100644
---- a/arch/x86/kvm/x86.c
-+++ b/arch/x86/kvm/x86.c
-@@ -2305,6 +2305,11 @@ int kvm_vm_ioctl_check_extension(struct kvm *kvm, long ext)
- 	case KVM_CAP_EXIT_HYPERCALL:
- 		r = KVM_EXIT_HYPERCALL_VALID_MASK;
- 		break;
-+#ifdef CONFIG_KVM_HYPERV
-+	case KVM_CAP_HYPERV_FORWARD_HCALL:
-+		r = KVM_HYPERV_HCALL_SUPPORTED;
-+		break;
-+#endif
- 	case KVM_CAP_SET_GUEST_DEBUG2:
- 		return KVM_GUESTDBG_VALID_MASK;
- #ifdef CONFIG_KVM_XEN
-@@ -4144,6 +4149,15 @@ int kvm_vm_ioctl_enable_cap(struct kvm *kvm,
- 		kvm->arch.hypercall_exit_enabled = cap->args[0];
- 		r = 0;
- 		break;
-+#ifdef CONFIG_KVM_HYPERV
-+	case KVM_CAP_HYPERV_FORWARD_HCALL:
-+		r = -EINVAL;
-+		if (cap->args[0] & ~KVM_HYPERV_HCALL_SUPPORTED)
-+			break;
-+		WRITE_ONCE(to_kvm_hv(kvm)->hcall_features, cap->args[0]);
-+		r = 0;
-+		break;
-+#endif
- 	case KVM_CAP_EXIT_ON_EMULATION_FAILURE:
- 		r = -EINVAL;
- 		if (cap->args[0] & ~1)
-diff --git a/include/uapi/linux/kvm.h b/include/uapi/linux/kvm.h
-index 8dff2fc1972e..7194c213a742 100644
---- a/include/uapi/linux/kvm.h
-+++ b/include/uapi/linux/kvm.h
-@@ -126,6 +126,9 @@ struct kvm_hyperv_exit {
- 	} u;
- };
- 
-+/* KVM_CAP_HYPERV_FORWARD_HCALL feature bits */
-+#define KVM_HYPERV_HCALL_FORWARD_UNKNOWN	(1ULL << 0)
-+
- struct kvm_xen_exit {
- #define KVM_EXIT_XEN_HCALL          1
- 	__u32 type;
-@@ -1000,6 +1003,7 @@ struct kvm_enable_cap {
- #define KVM_CAP_PPC_COMPAT_CAPS 250
- #define KVM_CAP_ARM_PMU_V3_STRICT 251
- #define KVM_CAP_GUEST_MEMFD_MEMORY_ATTRIBUTES 252
-+#define KVM_CAP_HYPERV_FORWARD_HCALL 253
- 
- struct kvm_irq_routing_irqchip {
- 	__u32 irqchip;
+
+base-commit: cb1edd20907e13b058c0d5bd34c9d51b5bedc879
 -- 
-2.50.1
+2.56.0
+
 
