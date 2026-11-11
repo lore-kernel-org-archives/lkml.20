@@ -1,72 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794386937;
-	b=PXISUttmvuI4/0bmtiL3Lg9IoN/8wEVmPhFmEhARzxLhpJ1fYr+KXHU0ffl7/mMWzxVg
-	 8wMHQLCuKNWEKHQfk6x2dHlesLmo4WCvYzc+vwQj5bSfXIPCBDBrL/NYmYtPG84sNzY0A
-	 ELjB33CXyFxIaPAh9ufXFct2j+QQualq15JZXczGEWtx2JToEjcKmotjVkTEyQu/uopst
-	 54lQOnPpfnbhyynKVCZuOKZKh2PJqtnLnBIdLwhUSSMzFIIx3nZH7SP3cCVsgg+ozmqbN
-	 Oh16LWzbHYtFvWCGOmCh1FC8914rdUqctjHurRgY4y0B63xHeMNpsElT3oYXavafzIw==
+	t=1794386956;
+	b=ioCASx8tKaPPIz343GQKXhNwZa5H8fE/pS83ye+E1DE5eOil4cnJylk/MMSbpeIwlMFf
+	 RQ1PwPFCrQZ+TjXj53voOh9QmUeW/EHgx+M+P2qq6D8ZGBSo7TUO2W6Xf6+T7/PrjIVXt
+	 zPOsXsoh+j50xxymlS226nNfDQ/9zurkOT52i0b5mMeWmuU9qbV+zCHFuRMw0CZ81WQ7P
+	 q1ybnARb117FT6OvOzaJouwsM8aKzZJBj1j0r+rOXkehCVBsheqWC3yxgSWcd1S5Sk+1F
+	 +kUuiyTiFdPLorYgAdvo88sBU7U+5yJze6OSqZ7d/fQ521eYN+7KIQhURMYTJHghj2g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794386937;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=XP4Wu7nT+ir3/JSpOzG3VpzBBZM0vfK9214Nh0VjCjQ=;
-	b=Yy5wkWp7KNMtR5ATBJcRFmR4HTbg6bHtjNd2M0/2/cF42sfqVf1ZHVolPEsQOFlyYm6J
-	 DvKmhPCQO4uzODHMs/ic7eXdY5yBoPIzUSYSbVtwRDebBWk3lVK2j31gy6Lo9o3yCk3Pi
-	 Kgz06LW6MYituC5AvSYhd6vUrBi5gnA4B0lpr8BQcesBQON0y2N8p85FLoEjXLKvXtSnp
-	 w5g1g3qxeuhtpbS1gSN5B2oXiyFylCoP5QP832f/8HdOwhvViGnpah56riS+CzbjT6PED
-	 nmrWSegndzXcPRd56bg/kxv0JsS0kNuw9P88yrvLaJJYnzQppRTtIf6K66GR+i45qVQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794386956;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=CRn3mVE0RkwOGkFOvF+BIusmbUtnKuihvtdJFqK68Sc=;
+	b=5PvcyQgkI/wRatnOsF1iWko5vRgFWMsxjqj1U+gsMPxKHb04tfWcoDKhVL0JJ2jcLpcG
+	 Fsn9RSWh9ExFGHHo4yC2HTokjDBmGqu7WPdXlhr8mXXuBVnCMhfx/tP/NSIXo4xo2fjwk
+	 EbQulgguOIwU1m734VHfWltnkpCVI0epWl2v/JgMVSwU5nly9QGTtd/+v3hd6gqTaUzqZ
+	 D91jnJo0tl8m3JFDu/uHw+XtbzFFIR2nrGgdg4aaZMJIwRLLTQywLS7NuvjSA+b7DSCHA
+	 Dc/Doj/vKaQbc9chH+9wxxxq+cxhNAS+ugZeQ5yA4wRVLPDQvasFYg6PvMq7rvdibow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=lkXxAzOL;
-	arc=none smtp.remote-ip=209.85.210.199
-Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="KY/1D89+";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 838ED606A33D
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 08:48:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 838ED606A33D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 306A0606A321;
+	Wed, 11 Nov 2026 08:49:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=lkXxAzOL
-Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-8a05b68f851so2384314b3a.1
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 00:48:57 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794386937; x=1794991737; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=XP4Wu7nT+ir3/JSpOzG3VpzBBZM0vfK9214Nh0VjCjQ=;
-        b=lkXxAzOLGDcJQOYArOxY0/H4cx1atoR09E0e4P1pDXqIWRlrNlSMsw+R269b2d6aMS
-         16AfD0Bn1upsZYShZ+3FkTBKAWiA69+AA9xs5F9C1PqLoD2LQqHdGvvME3CzgYTAT+9B
-         7U1xyDYpowZAxIVwBftdRX4o58zWVA6CoYMCWF06UEnGY6M/MMqIywSxrbrnTjuk5NEE
-         UDJKImRpLM7WRiuztp7MfK4KRHDxVVyxpttnzQKSS0u9L7kwNwaBrPIoY/YKWw0l1eFM
-         Ie5mMldX3Qi2EBa5qT9FlnSueX0gSxUm+5ZDjyFXTrfhKamMtRXwUgVOhy7S0E7HGTni
-         u4zw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794386937; x=1794991737;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XP4Wu7nT+ir3/JSpOzG3VpzBBZM0vfK9214Nh0VjCjQ=;
-        b=yrUwi5Grre35lyRkjszwxiRLVuB/YJsoTWVybCPBUFhlQL4T+eePtEXONOZlkyRbBf
-         7FrX8p9Rqk1ECAYrf5YSw5r/wt/OQHKhtZFD7oYXVDJOWgRmuZO2kDS0SbtdRLrlgIqE
-         vV+la8ymDeMEyX/i4I28gABMdEn5h+hrNOsioRb7zmt/FonXJG32KagjAqtHuXRpM3x7
-         lhNlio01H6ioEgeUOR70ApHatFp01AAc/hcrugCHzmgYRUa+fPrWTRZm41nLki6A3ug8
-         7GHFlMFVHzAITZIkPzu2CX6ig0fyf8vppEK9ZyBanXeHRC2yvLvPKsfasjnFtqmYpSgN
-         4vWA==
-X-Forwarded-Encrypted: i=1; AL+hErG867Ou/VLzCy3Pvu98EJX1no2Ex7D/jJ1inrGG9D50JR06hWNhiwD/gCEmEZMMlhmCiL5saTW+EsXIb10=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+n9i9mfByXcfWXvbkuc1xaKcxL2CforMuagjxaLbHNtl+QPER8
-	kTCMAeRXJL0cF23M6Lf4bxH4jYKMxMiD4VpCQiWJV4cqIGBr7D0vZEjgvXqykRFSN0eT72LX7Hf
-	hdvU/NvhDzU2AZ8LFYSXPcQ==
-X-Received: from pfn18.prod.google.com ([2002:a05:6a00:a212:b0:89f:afc:76b5])
- (user=stanleyjhu job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6a21:9cc8:b0:3e1:6f0a:cf2f with SMTP id adf61e73a8af0-3f2febde39amr1339727637.28.1794386936537;
- Wed, 11 Nov 2026 00:48:56 -0800 (PST)
-Date: Wed, 11 Nov 2026 16:48:53 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KY/1D89+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF28B1F00A06;
+	Wed, 11 Nov 2026 08:49:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794386955;
+	bh=CRn3mVE0RkwOGkFOvF+BIusmbUtnKuihvtdJFqK68Sc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=KY/1D89+QkqCYw3Yzl+Nh77q+0zMCNzd5WQU8wj0j4yntRlLYsK1A1Z5uiK9il6q0
+	 r4bxjFfBh7pzE9w16ugNPumvEXQOf6y3flgo2i1QVZ5JKc3yhnuW85bC567qiWPcK/
+	 U+4zjMT4iS1N1e0e7QSz6M8mwbH3urnrwe+HlcDZj6lCnHE/AhdIK4A4UgYTob1ueS
+	 84LjyzxBVPN79JLY0tnCxYA1DHfT6Oj2gpaLGwJl/Jvcm0TCi/35PA9G7y1R0q8EW8
+	 MdVS/EKA5GMtQ7esG8l94oNHpEdNlV1sYeb7pArsH3SR/+FRdq33bHhUN9dSriLUh0
+	 /h0OA+tA03HUQ==
+Date: Wed, 11 Nov 2026 09:49:12 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Adam Azuddin <azuddinadam@gmail.com>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	neil.armstrong@linaro.org, maarten.lankhorst@linux.intel.com, mripard@kernel.org, 
+	tzimmermann@suse.de, jesszhan0024@gmail.com, airlied@gmail.com, simona@ffwll.ch, 
+	andersson@kernel.org, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 1/2] dt-bindings: display: panel: Add RAiO RA8875
+ display controller
+Message-ID: <20261111-placid-tall-dingo-a6e31a@quoll>
+References: <20261110130515.45819-1-azuddinadam@gmail.com>
+ <20261110130515.45819-2-azuddinadam@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,66 +60,24 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.542.g3ef89b7020-goog
-Message-ID: <20261111084853.3530107-1-stanleyjhu@google.com>
-Subject: [PATCH] scsi: ufs: ufs-pci: Check hba->vops in system PM callbacks
-From: Stanley Jhu <stanleyjhu@google.com>
-To: "Martin K . Petersen" <mkp@kernel.org>, 
-	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>
-Cc: Adrian Hunter <adrian.hunter@intel.com>, Alim Akhtar <alim.akhtar@samsung.com>, 
-	Bart Van Assche <bvanassche@acm.org>, Bean Huo <beanhuo@micron.com>, 
-	sangram kumar yerra <sangram.k.y@intel.com>, 
-	Rajeshkumar Sambandham <Rajeshkumar.Sambandham@amd.com>, Stanley Jhu <stanleyjhu@google.com>, 
-	linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261110130515.45819-2-azuddinadam@gmail.com>
 
-ufshcd_pci_tbl[] defines the Samsung 0xC00C and AMD 0x1B29 PCI IDs
-with .driver_data set to 0, so ufshcd_pci_probe() leaves hba->vops
-NULL. Both ufshcd_pci_suspend_prepare() and
-ufshcd_pci_resume_complete() dereference hba->vops->name without
-checking hba->vops:
+On Tue, Nov 10, 2026 at 09:05:13PM +0800, Adam Azuddin wrote:
+> The RA8875 is an SPI-connected TFT display controller by RAiO
+> Technology Inc. It supports display resolutions of up to 800x480.
+> 
+> Signed-off-by: Adam Azuddin <azuddinadam@gmail.com>
+> ---
+>  .../bindings/display/panel/raio,ra8875.yaml   | 86 +++++++++++++++++++
+>  .../devicetree/bindings/vendor-prefixes.yaml  |  2 +
+>  2 files changed, 88 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/display/panel/raio,ra8875.yaml
 
-1. System suspend on an AMD 0x1B29 or Samsung 0xC00C host enters the
-   PM prepare phase and calls ufshcd_pci_suspend_prepare().
-2. ufshcd_pci_suspend_prepare() evaluates
-   strcmp(hba->vops->name, "intel-pci"), dereferences NULL, and
-   triggers a kernel oops in the suspending task.
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-Check that hba->vops is non-NULL before reading hba->vops->name in
-both callbacks so hosts without variant operations use the generic
-ufshcd_suspend_prepare() and ufshcd_resume_complete() paths.
-
-Fixes: bb44826c3bdb ("scsi: ufs: ufs-pci: Fix S0ix/S3 for Intel controllers")
-Cc: stable@vger.kernel.org
-Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
----
- drivers/ufs/host/ufshcd-pci.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/ufs/host/ufshcd-pci.c b/drivers/ufs/host/ufshcd-pci.c
-index 668b57403e62..f9abbbc436f4 100644
---- a/drivers/ufs/host/ufshcd-pci.c
-+++ b/drivers/ufs/host/ufshcd-pci.c
-@@ -644,7 +644,7 @@ static int ufshcd_pci_suspend_prepare(struct device *dev)
- {
- 	struct ufs_hba *hba = dev_get_drvdata(dev);
- 
--	if (!strcmp(hba->vops->name, "intel-pci"))
-+	if (hba->vops && !strcmp(hba->vops->name, "intel-pci"))
- 		return ufs_intel_suspend_prepare(dev);
- 
- 	return ufshcd_suspend_prepare(dev);
-@@ -654,7 +654,7 @@ static void ufshcd_pci_resume_complete(struct device *dev)
- {
- 	struct ufs_hba *hba = dev_get_drvdata(dev);
- 
--	if (!strcmp(hba->vops->name, "intel-pci")) {
-+	if (hba->vops && !strcmp(hba->vops->name, "intel-pci")) {
- 		ufs_intel_resume_complete(dev);
- 		return;
- 	}
--- 
-2.56.0.506.g506a7eabc5-goog
+Best regards,
+Krzysztof
 
