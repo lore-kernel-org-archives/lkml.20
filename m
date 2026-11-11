@@ -1,99 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.75.122
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794366511;
-	b=plAcHXyDUUhb3CSKy3wBIkKlibh6N2pS0cA0cjmR70QFlGhg5rCOeuDlIFhwMnTwxJqc
-	 FDT2NnwDrJUIXZhEYnKUV+KVwpsQ0ML/3siKp0Pu6xvMfZGL+FjMcde6k858pXpMH7NdZ
-	 42DxEZNvtzNjzFiETbJgWCo7k2Hhgs/JE+usdC4UZkeJRO3kch7DtJTLGn2YeWz7vYDuH
-	 7/3pqKaIDa3AJMCuawuNhTehE5ABtHWRQNGlnoVrBmUIdp6UbT2MRsA9rt2KRTeH7CHuh
-	 8dESUxysD77jdzb4akzEN458B9dq87q/5PBkb/uEWisqwJCMEKzdAAe0rX9oiH9uZAQ==
+	t=1794366562;
+	b=sNbP7siOhKe2eMhGkTbSuCnLxVxgIrGoE/R1if7PzwHPNOHxkP5gPTmtKH+rjEGQ8t17
+	 lOjUtmT3QH2dIx/SPddoXkCI6WzY493ytxjzOc8N6Na/OSmaK88m+RHohb7fIYE6ZRLa0
+	 z4QqJtetoQkMTS4ROQdOnozW3PFtMZIGjgNK+mJjEPBid+q6UUa6CdzzwYmJ17Qg9maX8
+	 fugbwHzJXgRbzqoKbOxgXsDokr66qoTL53cJ1cQ/PLRhEINxZRMCRLT/SqHo/CxioBa02
+	 9HbBQmiuybQRCn5HooM2iRr0ZlIa0GEE3G1e/oxhhPDSYpacqT2Gr96fNKrUrbrn+wQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794366511;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=UWUQRFbmRLGQnDyBGsNebPidDTP9HqGva0/1QMumkOA=;
-	b=XjN2BCMgNOo/1Ci1dz43DIRDFREj7XI3hbJbbj3II/iBuRwqbdD/OOKVW9RbCHcE9BN6
-	 oYq/V8UrmUO765ATTfr+XKExWBLb/KMwdYsIgFjn4MZFczMZwlskn2y8X0pkZRw5Qj1YO
-	 t9PAT2beevroiuGX4UoRro16a5UKz/vPqPJ8zpiiRX5HINdXWYvaACfb9F0ey7pZWjNr2
-	 3K0YDtPEtwOVfeu2yPGVWq6FJKL6nnlJ2L53m7UK7x389R7/4OYc2PRlqZKQF880aJ4qx
-	 KJLjamVEucDB3LFerQcGNpTwCSihhDDeP8jCXUDiwMW3i6dw7ISl64xXrTRPn7E677w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794366562;
+	h=DMARC-Filter:Received:Received:X-MS-Exchange-Authentication-Results:
+	 Received-SPF:Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=GyCibCE3AGxRDMG6Bz/W/z+0Uxg23s7Lb0U2X1cmJuE=;
+	b=yiu5grGHJFDTvWn+tjHJzA71pSMiQ0HytFCuzIsLEuanAuXpGpWoEivhDsYl32Hzp5hw
+	 nm+gwdbUx2su8Fhd/Bohs/Zx4l6farQ7bTIMies9McHwQJjjKwckCSU0EgqvQY+zCxkQN
+	 tyegW+CzJ1i2bfH8d5WBHlpqQO2Xk565DEqI+N6TIzczLju98bijwea1UuHudOso8uv9x
+	 ehQ3RsQluaEvctJWWXz2DZTVh1lpJDp3zIDnilMygGiy+6GRz1d+5Gm7nwNmRqj3pkePs
+	 wlxIyb9zk/9CgK5aofO2BbUDRR7BPptCCa3FGWxz/xP1Rjf/30k9+xKMZeCee48cNig==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="CAsOp4/1";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.51
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=cixtech.com;
+	spf=pass smtp.mailfrom=cixtech.com;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.75.122
+Received: from OS8PR02CU002.outbound.protection.outlook.com (mail-japanwestazon11022122.outbound.protection.outlook.com [40.107.75.122])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1C26606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 03:08:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1C26606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CAsOp4/1
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a5720b0a57so16235695e9.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 19:08:30 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794366509; cv=none;
-        d=google.com; s=arc-20260327;
-        b=RcA9nE3gdcluh4bdLW/KxNdDWY/ycJ0HTVf67eV1pYGrOs7O0q/O7ENwPvq2/U6E6A
-         J+qXBwHmnJ5kJRK7FmyCaoiOfdmeWgEEKM9ZGHLA23Ex8O1mjKdqodnOpoTp5Oe+De7f
-         ZT3KVn7djm1+lS3QDmcJgwzZyS6z+ZEWlYFgjvS/s17Z9uMqwnU+YnejuE5fszKX44a1
-         iiVgdWUmdjRzaf/bgG/h1dTJOO7VICfCfSllNZUT/eokwTfg/H+DaiSn1/G8e5ogK9Uc
-         vRCfIhuIxkUc9rwW1x6dEpJTX5zF+G20JG7bAtpVcWbju8OiZynWBn8kjWjCZ1+53scD
-         NHfQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=UWUQRFbmRLGQnDyBGsNebPidDTP9HqGva0/1QMumkOA=;
-        fh=jr3wva3NHYVV05pKbO5yj8ICEdadxAdQZ9GyJiU0P/c=;
-        b=JC+jatvIGyL7Nhfgrur6MXIg6IlHMtdc2WZuLsiegRiuH/9t4VHMTXAypJqrZORs+4
-         Bxipd/zkVu8tXGmzZJvuojkUyrtltYxt9f/nSb88BeXPxHml9q+mXZfsdinvwoZ169g1
-         mBSLWGdYCA5eEd+S3G49EFzVA3E9bp5Hp13BOl02UXB0qboWI98blHcPb9/4G5oGPCh4
-         PgxHwZ79I6l5UkcRDDKFtPmCWem+OT6GHUm9mzhTtjCk+Ytb0tLKmRS45e1OG5T5d0aW
-         fzKR4MRWQKzT1XBO0PKv4jtJ7eEa0ImI341Em+6R696TEw+41nS/mxgqlnDlKAXKG7uI
-         e9uw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794366509; x=1794971309; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=UWUQRFbmRLGQnDyBGsNebPidDTP9HqGva0/1QMumkOA=;
-        b=CAsOp4/1HRHqdn+CupXBmBds6mtUnozoeGdbz5q+T9aBC+I/F8WbCHsO7qxTY7vRBq
-         cStPnMdf2E3a5j8x/3D/SFOTMyWoh9OwxOYf2geKDiwiAha07wPGQCL8bEHOm0HbEub/
-         Ct7kyVsWjr1zk2swRNzsI1O/JrlZRE5sDXYF+Km+AlWJ10keZ4mXV1MGMFwNi7W1MsWz
-         NLo6FW47Lvh5dhXBK+PE6heTPl18gS3XtpPp2z8myVVIoh3TQtvYm/gZoMdww9Ytlq3i
-         D5m5CBltUyhqOknLfxKoX+JIfcl8SlXM09WA71m9ITlpVu7MouXGtlRKyt0Jw4AutniB
-         Woww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794366509; x=1794971309;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=UWUQRFbmRLGQnDyBGsNebPidDTP9HqGva0/1QMumkOA=;
-        b=fDbzh9r0zO3T6gv5cYQJYYWsWlthmDLli5imYx/+EcC6A5GksUQC3KHK2y7goI4dwn
-         pfc8R39dozcBkbwOSQ2wBK5f8TY1Si/z85ZO+wqroL8McjPqh/t/9mLJ3cGnyr0V3/+P
-         ToxRSLH4X8WKI0EE9nfh/zfpqZZXRV9uS1ET8u/KgWL9phiox5Wl+fe3+7zKLSs7n7wX
-         60Ui/8N82bLyDxcnmkiNkX/CVzJgn7K++iLERFBGu/a+0bwTEXDRRMfemzpuYQoMH01J
-         NvookayMQBvDOQM/iqg1HeK3FrRwcClJdatEwM58nYDR3MDyrgZ5EaiC1BnOPyHyLOam
-         1rUg==
-X-Forwarded-Encrypted: i=1; AL+hErFiya4YEzHsIUG5qYtSSMArO/Ar+e92g/Prr9qN1HT9XEFuWeOuvFoSXZBolcj7xRIcdND8+YY3HCKkd8Q=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/VKUsDnDTbtx53ZhKPtqXUtj+bF7fgOqaFkrsuOAqc3mWl8Bo8
-	T263tzxj6zxi0rro4YbPPGpyUHEdBQcfJN81cjtCh0qX2ScurmpXkhL5cyD+Mb2s5MeLcMWqE0G
-	+UzsaagBGkT2H63KfBD02PTV/0hHn2/Q=
-X-Gm-Gg: AYBFou3i+PGcVKkOiBHjEGuGW+ZyydQTu6xBNBJiK36qHpGmrOKeMbbT+zRLeOs7JIg
-	1jj3cmN6IG6Vem18Fp4OoQ3XWqBHOWdABqdC/2mVt+H7SvWpDOPySQYatfFCoP7UVMsbgwfXhAZ
-	uONbf6DID675K42BAcUqy+Jf7OaP+F2x0M2LMDk7tlYhzMPmW6JUuU4o0rBuNkAmqagxOG6iIJX
-	4JvEH2lSgE/96Rq3VrNzsEyWgsXgSm0LYw/CHG44R/E4PpqPNhW71yAR3FjzwyxNq2/v8H+1rye
-	FnL7ggf2UL9mc4gOqVRkGPdWFTMur5eb7h6kxcELkT/QFQA2HfHaK7U9ucKpGeYtmw5pPYTaNps
-	5vjWzBQTCu15E2+6l2e5KCE3HfZqIaYlWCCvbPA==
-X-Received: by 2002:a05:600c:3f06:b0:49e:6581:7baf with SMTP id
- 5b1f17b1804b1-4ba0931ef17mr14337115e9.2.1794366508821; Tue, 10 Nov 2026
- 19:08:28 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4988606A31C;
+	Wed, 11 Nov 2026 03:09:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E4988606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=JnvYnQEc/K1yy5jn2kHAU3Wm5BexrPruccSQ1wahbT81V7D7MwH8yaViHJihD2E99PppuIJAidxJM3l4vjHL3+fr5Dy70EKCFOMH/cZuJRJICm+gzvMrFbxsNnLnisnahApkovqgPnCug5pvQ9W3zTzT6DPdwO3Ql3UxJqiIeSK4Xi/pZ8DfH+Qpej5BOxP4sFqhpzItBS8BbDbbGmQWKvkHxQRSde9abrsBm91HDs7s9H9y0Wf9H4zXqqnfgHKMXM09UrIKbsSQx+B6qrNs3ZWnJqde/drx9uTvQa2QnFoAR6JEvJ1qC+Ggf8GA9QRUVvVW7FK/VM2WtjSjj917Sw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=GyCibCE3AGxRDMG6Bz/W/z+0Uxg23s7Lb0U2X1cmJuE=;
+ b=sEDxwoinJOFcEjDVWrg4J7HmSpUgPS9hJuFRkCbnV8zA3EL4t5ejvq59oZV1N1GVozMYXvxpQsm/VGVj4miAZoxOU9TAcYClZxT4kXoxvQhtH85472HxPudE03jFfHqVQrPCk0UFfUec3BHvoLnf2ID/wq+JZNGzoYr0nWkwCDv95bjkiiy8fZqA1g6tuRmcAbVxIPfM7lyX+kjVbvLB5HIRXouklaZtp7oPLhmxxUv83KDkg586ScVbmZMr5ufoIEhShDedmks3K+kIToOYrWedEmnx5tbHIxgfEPWYjPRWnxC6ebGpTmX5PoVdDJhfA+te8+uhodCCYG5njTRYuQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 222.71.101.198) smtp.rcpttodomain=cixtech.com smtp.mailfrom=cixtech.com;
+ dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
+ not signed); arc=none (0)
+Received: from PS2PR02CA0039.apcprd02.prod.outlook.com (2603:1096:300:59::27)
+ by JH0PR06MB6438.apcprd06.prod.outlook.com (2603:1096:990:2c::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.7; Wed, 11 Nov
+ 2026 03:09:17 +0000
+Received: from OSA0EPF000000CA.apcprd02.prod.outlook.com
+ (2603:1096:300:59:cafe::70) by PS2PR02CA0039.outlook.office365.com
+ (2603:1096:300:59::27) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.9 via Frontend Transport; Wed, 11
+ Nov 2026 03:09:16 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 222.71.101.198) smtp.mailfrom=cixtech.com; dkim=none (message not signed)
+ header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
+Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
+ 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
+ client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
+Received: from smtprelay.cixcomputing.com (222.71.101.198) by
+ OSA0EPF000000CA.mail.protection.outlook.com (10.167.240.56) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Wed, 11 Nov 2026 03:09:15 +0000
+Received: from hongliang-System-Product-Name (unknown [172.20.64.180])
+	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id A8FC740920E1;
+	Wed, 11 Nov 2026 11:09:14 +0800 (CST)
+From: Hongliang Yang <hongliang.yang@cixtech.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Hongliang Yang <hongliang.yang@cixtech.com>,
+	Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Gary Yang <Gary.Yang@cixtech.com>,
+	Fugang Duan <fugang.duan@cixtech.com>,
+	linux-phy@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	cix-kernel-upstream <cix-kernel-upstream@cixtech.com>
+Subject: Re: [PATCH v6 0/3] phy: Add CIX Sky1 USB3 PHY support
+Date: Wed, 11 Nov 2026 11:09:14 +0800
+Message-ID: <20261111030914.2954368-1-hongliang.yang@cixtech.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261105-illegal-fervent-swift-3c05c2@quoll>
+References: <20261105011751.4058411-1-hongliang.yang@cixtech.com> <20261105-illegal-fervent-swift-3c05c2@quoll>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,79 +110,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261107134953.748622-1-jiangwenxiaomi@gmail.com>
- <20261108230842.3a77b9fe2d4bfc2a04b355a5@linux-foundation.org>
- <CAHKocdGWE9OVA5pJh33U-FYnNkUqRS0pzFt=rCwXWzY9w-QXyw@mail.gmail.com>
- <20261109140206.GY9176@e132581.arm.com> <20261109092404.5441d8bf9c4494ed008162fa@linux-foundation.org>
-In-Reply-To: <20261109092404.5441d8bf9c4494ed008162fa@linux-foundation.org>
-From: Wen Jiang <jiangwenxiaomi@gmail.com>
-Date: Wed, 11 Nov 2026 11:08:17 +0800
-X-Gm-Features: AclHuK-m1Jv5Lpg8e2HNShd2BigzuuDvNRyTpoQSxJNGTZo8P3hgc34a2sG_LX0
-Message-ID: <CAHKocdG1pvZfo=fxX9OJZxCOnZt6nBYwtRV7rAxPfdukDy6cCw@mail.gmail.com>
-Subject: Re: [PATCH v12 00/10] mm/vmalloc: Speed up ioremap, vmalloc and vmap
- with contiguous memory
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Leo Yan <leo.yan@arm.com>, catalin.marinas@arm.com, will@kernel.org, 
-	urezki@gmail.com, linux-mm@kvack.org, baohua@kernel.org, dev.jain@arm.com, 
-	ryan.roberts@arm.com, anshuman.khandual@arm.com, david@kernel.org, 
-	rppt@kernel.org, xueyuan.chen21@gmail.com, chleroy@kernel.org, 
-	maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com, ajd@linux.ibm.com, 
-	jiangwen6@xiaomi.com, linux-arm-kernel@lists.infradead.org, 
-	linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: OSA0EPF000000CA:EE_|JH0PR06MB6438:EE_
+X-MS-Office365-Filtering-Correlation-Id: d7e4eead-25d2-4de0-5c76-08df3fa12ba0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|36860700016|23010399003|1800799024|82310400026|10067099003|4143699003|261022105027099003|261021121427099003|261026140227099003|261028144727099003|56012099006|261102123227099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	SsIPt8B8K21f40Y8J9oPJmP4mvNpP5GZefo1HRUKbFy+EG4OfnMLZOoXrbAg3EVEy/qsXhhz8kG5nnKukXk8wJo5g4maERArt///Sz3Lkv1KU6nR0iXYNYM/kDvBJ5zOnzl5dfUIZQpD09T7eWc0wgDMKv79WnUqIbhWzGK92nIEPowz22Bejp3tGUUjRosSJ8p3c3bW2gaTzaFSZfIXTIzE5WRBbCgmenNcvc1gWoyhzn7/MRr6JpoCJIUPrfTrm1KSwlQoOQMadointazOLyT+6W7Bx9KvZbc9GC98TypkHCJ27Y9V1Yxe62UoEKn0JdiLVvcHYoVyYtkZShOiaXyy3maSVmrUEU1vZtQ84ZZbUy2x1Wwqk9wHqV05y1zCyV7ZKOgT1edkMWk/XxzIzcyegVwwbDSJLWktFyyfDDSPeYeLWTQuEx+10WSyNQND9E5ZHRP9Fa9UIqY+TFk6VL/vZ08slvk+GxpMm/5pn8h0n87vVRRO/FnEXb+X+y24F3Yxpl8Pl0Sjp7YZSdNUTA6t1P90NeJzoFWsC4xzh6fs/PTnAqpZleQDrP1KRsS9jPx5GlLMYrDzQa8XDZRE8QhwpIuC5vNwRTpn/B3RldelxWf0L0Qgfi0vwBiZve9AebZUIJ1mtKwM38DgAz/fjYIkV17VUADZbhsspC1cHhsK4l0VJsxjsqCdjSD+6I80gq8ovAsPchnCi7OVLfjRPw==
+X-Forefront-Antispam-Report:
+	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(376014)(36860700016)(23010399003)(1800799024)(82310400026)(10067099003)(4143699003)(261022105027099003)(261021121427099003)(261026140227099003)(261028144727099003)(56012099006)(261102123227099003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	GRnKAs6Ww2b1v68P1p1YcH4EQALSeJ3YigdJvlCDIegkJ23nSFLvaSMETclsbdmSx7SjVmI4qfwnuQHNUgUnMQixfO1W9jnD2WzAzP8hps0Sx4bGFs4tY13wDssypDIFD3Kegvjfk3zB7KWquH6ZxsMwt4rhAK/V6W2EZu+ONI2I/Hmf8bVG/3Cge9g1UTuJuFrSq9ICa4zzgcC6BtT12ggj8DTCaUmIIRDxC1Jg3bbtAHzOwZBGB+q68y0aLgQZ6hWXue4g0tpjTAAW25t+RiNZHeIgOXfb63elHYiYJHiiY/71XZHJNPeRQ7gaAaiyuxxI6uDLGbUq0pL4Mc1MH4EvFxh68pIvra/WNAnYEFdLvutyvfVNz5D9hJJqs7PQh51Ce9VFXqp8zfmHH7BvUzCV5w2UF9m/ZupxgjCWQ7q7EXzhJinnxqfaCIKXNLpG
+X-OriginatorOrg: cixtech.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 03:09:15.8758
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d7e4eead-25d2-4de0-5c76-08df3fa12ba0
+X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	OSA0EPF000000CA.apcprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: JH0PR06MB6438
 
-On Tue, 10 Nov 2026 at 01:24, Andrew Morton <akpm@linux-foundation.org> wrote:
+> > Corrected the mail sender name: v5 was sent with a non-ASCII
+> > display name in the From header, v6 uses the plain ASCII name
+> > that matches the Signed-off-by.
 >
-> On Mon, 9 Nov 2026 14:02:06 +0000 Leo Yan <leo.yan@arm.com> wrote:
->
-> > On Mon, Nov 09, 2026 at 07:07:23PM +0800, Wen Jiang wrote:
-> >
-> > [...]
-> >
-> > > > Do we have sufficient ARM review?
-> > > >
-> > >
-> > > Thanks for picking this up.
-> > >
-> > > On ARM review: Dev reviewed the earlier revision in detail and
-> > > his suggestions are folded in. Leo Yan tested the large vmap() path
-> > > on TRBE/SPE. We'd welcome more ARM review from Ryan, Catalin
-> > > and others.
-> >
-> > I confirmed that my Tested-by tag remains valid on the latest version.
-> > The improvement is consistent with L2D TLB refill reduced from
-> > ~16000+ to ~500+ across multiple runs.
->
-> Thanks.  I added your t-b to every patch in the mm.git copy of this
-> series.
->
->
-> AI review found a couple of little things:
->
-> : In [07/10], vmap_pages_range_noflush_walk() uses an int nr
-> : index, now shared by the high-order mapping path. The previous
-> : high-order path used unsigned int i, nr. Beyond INT_MAX base
-> : pages the new index overflows and pages[*nr] can go out of
-> : bounds. On x86-64/4K that means an allocation above 8 TiB,
-> : within the vmalloc VA window but requiring a very large machine.
-> : Please carry unsigned long or size_t through the direct walker.
->
-> The vmap(8TB) limit is already well known, not sure that we plan to do
-> anything about it(?).  But the patchset seems to drop that limit to 4TB
-> for higher-order pages, which can't be a good thing.
->
+> No, you did not.
 
-Right. I've posted a fixup for [07/10] in reply to that patch, switching the
-index to unsigned long.
+You are right, I did not, and the changelog claim was wrong. The From
+of the v6 PHY series still carried the non-ASCII display name:
 
-> : In [09/10], nr_contig < 2 can be dropped: the loop guarantees
-> : at least one page, and vm_shift(..., PAGE_SIZE) returns zero
-> : for a single page. I withdraw my earlier NULL-page objection;
-> : I could not establish a legitimate producer of that input.
->
+	From: Hongliang Yang (杨宏亮) <hongliang.yang@cixtech.com>
 
-The nr_contig < 2 check is redundant, as noted. It's just a cheap
-early exit for the single-page case, so I'd lean towards keeping it,
+The mail system rewrites the display name of outgoing mail from the
+account name, so the change did not survive the trip to the list, and I
+wrote the changelog entry before checking what actually arrived.
 
-Thanks,
-Wen
+It is fixed now. The USBSSP controller v7 series, sent on Nov 6, arrived
+with
+
+	From: Hongliang Yang <hongliang.yang@cixtech.com>
+
+and the PHY v7 series will be sent the same way. I will check the
+archived copy of the outgoing mail before claiming it again.
+
+Best regards,
+Hongliang Yang
