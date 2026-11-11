@@ -1,54 +1,35 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.192
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794417837;
-	b=qSSeC6VUAfq6D6N+W7Ql6HH3b+mN4qzyAlnwYGWqtLIgFchagekilCBpSdo0UQ8yBBbk
-	 Bmgw1NmbaUc9oCbovfgW+4ZopIphlh2JPwQ2MLavgYE9EeU6YqxtrQkeEyNPIuFo+sNdf
-	 4r1DGfccv+LdU6wdNWYp2p7xGpFrlrCkq/CKL5gbmqoY6WW7T/EfgMBSARm65nAXDZW7u
-	 vxeNl1OQuxrAshVAdOVp75FC0wg1qi+nYq/2dE5nYNZoPeiTnZfdRfR4U5nkXBmXX/DDs
-	 jXQxiTKPlqL00CUDxZdsDr07tt6/NujebKoxAKZsTd3dTzOLaNFrhxkQe9/huPMOwgg==
+	t=1794417923;
+	b=opaeFRAcurCuBTwgjKJJxagbr6p4xRsCcIhavtIFXSEYkSoKvaZTZmlD8OO5JBP29kCe
+	 LdWI7s3KEA4xFeFRRwtb9rrEM1EKtzZFWeRv5i6fdy24HdcqZlXrCZ0vYqEsv4E5dK6bj
+	 vDxepGnF8av6lamwLVtvdX5rixfWwhgLnaHyoibAinvcuC/BTo1hsb177SvGacsvJrVIy
+	 rOP8yzphv+f1sxOcxUMUVpB0uPbfO94Mf7oDQ62zEMhQs9cbPx0Do1h341l7fjf/og+Uu
+	 W8X/iEgAO1oW6EV4pjv/N4oAxdD33MwPJOaZ8DP2JNumTU2xBZa6p/ObUyqdHg3ZCpg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794417837;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=/58Jha5NG0Qp32+vp68Fvhj4Kk5ApXpmQQLXlCM5qN0=;
-	b=MZa5PWmsMp2oYOlyRvUm9/owOkcXZ/odgCkc4xgchBT6gOv8/aXciMQRVVeKIjeSWRcG
-	 sk3/J8xd4oKt6oSZaTWSYv2/CHbFpn8t5JGgw/UpQbxF9e9VK9F7RFBr14CaSuKop38Th
-	 37DVkFESn/LChFfpCNMbBHesJ31B7djZw2mAfUYw9mt25krY8KmoYWZdjC5SHvG8WfEYN
-	 pykhixrLxHs4C9uxY6RjfT9+6pYtmPQsmIHbnQX0MnNCPY8UtMV2gIvn5AMpaEJges3Jy
-	 0J692lZtg5UfI/ML958Etq8mhBX/z7zNtmg49Qw0aihFKnwkrUyZVgOYBz2r6ygXl1g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794417923;
+	h=Received:From:Subject:Date:Message-ID:To;
+	bh=tuJ2SjwU07T2fCRIlgfWNCsiBeVOvs8/QSa8o+QJUFg=;
+	b=4qqRQYpPSWkOMe8yTbUJBFCe1yNhXnhQtilp9pOLcl68BT73gO2bMqIAPbma5c4beU2c
+	 A+HgYAf5iJwcTwd2qwSa+yTzYWkPoVQmqwSV9DNggmZzRHxjLSG3yr7wqjd+K47os0c3G
+	 wvwESzp0EX3tkT7lt0HKhduf7p5buSSAJDBYdhopaVBr5yz9NBnNJ49J4oiJw+BfMU3EB
+	 E2uWd23iqOVCdZhjt+SBfLGuep26thE2QeNKR6YR/Yp7R7PpaFO8tBM0mCsjFoHNOt7io
+	 TjJPTO5O/Xur8uamEaYhLhdUReUOCCA+SfFdZZZ7PCPbe1NpmIJNpRN7pqiQbkjfVVw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=LQ2wMiHQ;
-	arc=none smtp.remote-ip=95.215.58.192
-Received: from mta1.migadu.com (out-192.mta1.migadu.com [95.215.58.192])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F607606A89E
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 17:23:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0F607606A89E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=LQ2wMiHQ
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=HH9Yk2PZ9DIY2PN7Fkuz2dJMByRfYwONeINkWkas0DU=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794417834; v=1; x=1795022634;
- b=LQ2wMiHQl1Rot65H8FN0kYmM1Wo3XmdHr+12roVh+wVehzZgVq/8QbyxodjTOIeUFk22WaPx
- DG5JLn1bJwbrDPyH/+8Ij5GbJgV0jA+X0tcghW4uonpWZq4i2HQ/ftfbA+Lus4dYxhaq/Vd1uZS
- cBY5oFQNdoQfZFEv3Qfj8Er4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id e4ea36ede1eb2242;
-	Wed, 11 Nov 2026 17:23:54 +0000
-X-Mizu-Trace-ID: e4ea36ede1eb2242
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <850a06b0-d77b-40a2-acb9-4b3f974aa064@linux.dev>
-Date: Wed, 11 Nov 2026 18:23:48 +0100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FABF606A31C;
+	Wed, 11 Nov 2026 17:25:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EED441F00A05;
+	Wed, 11 Nov 2026 17:25:22 +0000 (UTC)
+From: Clark Williams <williams@redhat.com>
+Subject: [ANNOUNCE] 6.6.161-rt83
+Date: Wed, 11 Nov 2026 17:18:46 -0000
+Message-ID: <179441752601.954647.10853815893189325757@demetrius>
+To: LKML <linux-kernel@vger.kernel.org>,linux-rt-users <linux-rt-users@vger.kernel.org>,Steven Rostedt <rostedt@goodmis.org>,Thomas Gleixner <tglx@linutronix.de>,Carsten Emde <C.Emde@osadl.org>,John Kacur <jkacur@redhat.com>,Sebastian Andrzej Siewior <bigeasy@linutronix.de>,Daniel Wagner <daniel.wagner@suse.com>,Tom Zanussi <tom.zanussi@linux.intel.com>,Clark Williams <williams@redhat.com>,Pavel Machek <pavel@denx.de>,Joseph Salisbury <joseph.salisbury@oracle.com>,Luis Claudio R. Goncalves <lgoncalv@redhat.com>,Stable RT List <stable-rt@vger.kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,263 +38,35 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] RDMA/siw: Fix early peer close handling on listeners
-To: Jaeyeong Lee <lee@jaeyeong.cc>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
- linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261105022253.368316-1-lee@jaeyeong.cc>
-From: Bernard Metzler <bernard.metzler@linux.dev>
-In-Reply-To: <20261105022253.368316-1-lee@jaeyeong.cc>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 05.11.2026 03:22, Jaeyeong Lee wrote:
-> A TCP child socket inherits the listener callbacks and sk_user_data before
-> kernel_accept() associates it with a new connection endpoint. If the peer
-> closes during this window, siw_cm_llp_state_change() queues a PEER_CLOSE
-> work item against the listening endpoint.
-> 
-> The worker releases that endpoint without removing it from the listener
-> list. A later listener teardown then walks the dangling entry, causing a
-> use-after-free in siw_destroy_listen(). KASAN reports:
-> 
->    ==================================================================
->    BUG: KASAN: slab-use-after-free in __list_del_entry_valid_or_report+0x32/0x1a0
->    Read of size 8 at addr ffff888008f502c8 by task rping/59
-> 
->    CPU: 0 UID: 0 PID: 59 Comm: rping Tainted: G    B               7.4.0-rc1-g6628e7d4c6b2 #1 PREEMPT(lazy)
->    Tainted: [B]=BAD_PAGE
->    Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
->    Call Trace:
->     <TASK>
->     dump_stack_lvl+0x54/0x70
->     print_address_description+0x73/0x1f0
->     ? __list_del_entry_valid_or_report+0x32/0x1a0
->     print_report+0x58/0x70
->     kasan_report+0x117/0x150
->     ? add_taint+0x43/0x90
->     ? __list_del_entry_valid_or_report+0x32/0x1a0
->     __list_del_entry_valid_or_report+0x32/0x1a0
->     siw_destroy_listen+0xe1/0x630
->     destroy_cm_id+0x25c/0x480
->     ? srso_return_thunk+0x5/0x5f
->     ? srso_return_thunk+0x5/0x5f
->     ? lock_acquire+0xf7/0x220
->     ? _destroy_id+0x2d1/0xe30
->     iw_destroy_cm_id+0xf/0x80
->     _destroy_id+0x6cc/0xe30
->     _cma_cancel_listens+0x2ee/0x360
->     _destroy_id+0x2ad/0xe30
->     ucma_destroy_private_ctx+0xb7/0x9d0
->     ? srso_return_thunk+0x5/0x5f
->     ? do_raw_spin_unlock+0x4d/0x230
->     ucma_close+0xd5/0x130
->     __fput+0x31a/0x720
->     fput_close_sync+0x91/0x110
->     filp_close_sync+0x18/0x30
->     put_files_struct+0x25a/0x280
->     do_exit+0x70e/0x1d00
->     ? lock_acquire+0xf7/0x220
->     ? get_signal+0x21c/0xf60
->     do_group_exit+0x19e/0x250
->     get_signal+0xf20/0xf60
->     ? futex_wait+0x99/0x230
->     arch_do_signal_or_restart+0x46/0x420
->     exit_to_user_mode_loop+0xbd/0x510
->     do_syscall_64+0x2ed/0x3b0
->     ? entry_SYSCALL_64_after_hwframe+0x76/0x7e
->     ? srso_return_thunk+0x5/0x5f
->     ? trace_hardirqs_off+0x65/0x90
->     entry_SYSCALL_64_after_hwframe+0x76/0x7e
->    RIP: 0033:0x7f92984c6e51
->    Code: Unable to access opcode bytes at 0x7f92984c6e27.
->    RSP: 002b:00007ffeae782d10 EFLAGS: 00000246 ORIG_RAX: 00000000000000ca
->    RAX: fffffffffffffe00 RBX: 000055fb4e9819b8 RCX: 00007f92984c6e51
->    RDX: 0000000000000000 RSI: 0000000000000189 RDI: 000055fb4e9819b8
->    RBP: 00007ffeae782d50 R08: 0000000000000000 R09: 00000000ffffffff
->    R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
->    R13: 0000000000000000 R14: 000055fb4e9819b8 R15: 000055fb4e97da25
->     </TASK>
-> 
->    Allocated by task 59:
->     kasan_save_track+0x3e/0x80
->     __kasan_kmalloc+0x72/0x90
->     __kmalloc_cache_noprof+0x245/0x3c0
->     siw_cep_alloc+0x4f/0x390
->     siw_create_listen+0x39e/0xd60
->     iw_cm_listen+0xfc/0x1d0
->     rdma_listen+0x749/0xa90
->     cma_listen_on_dev+0x404/0x760
->     rdma_listen+0x3dc/0xa90
->     ucma_listen+0xe2/0x180
->     ucma_write+0x1bd/0x1e0
->     vfs_write+0x1a9/0x8e0
->     ksys_write+0xba/0x180
->     do_syscall_64+0xee/0x3b0
->     entry_SYSCALL_64_after_hwframe+0x76/0x7e
-> 
->    Freed by task 30:
->     kasan_save_track+0x3e/0x80
->     kasan_save_free_info+0x40/0x50
->     __kasan_slab_free+0x3a/0x60
->     kfree+0x155/0x470
->     siw_cm_work_handler+0x7af/0x2d40
->     process_scheduled_works+0x970/0x12d0
->     worker_thread+0x894/0xd20
->     kthread+0x2db/0x3b0
->     ret_from_fork+0x266/0x570
->     ret_from_fork_asm+0x1a/0x30
-> 
->    The buggy address belongs to the object at ffff888008f50200
->     which belongs to the cache kmalloc-512 of size 512
->    The buggy address is located 200 bytes inside of
->     freed 512-byte region [ffff888008f50200, ffff888008f50400)
-> 
->    The buggy address belongs to the physical page:
->    page: refcount:0 mapcount:0 mapping:0000000000000000
->    index:0xffff888008f51400 pfn:0x8f50
->    head: order:2 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
->    flags: 0x4000000000000240(workingset|head|zone=1)
->    page_type: f5(slab)
->    raw: 4000000000000240 ffff888005842040 ffff888005840d08 ffff888005840d08
->    raw: ffff888008f51400 00000000000a0003 00000000f5000000 0000000000000000
->    head: 4000000000000240 ffff888005842040 ffff888005840d08 ffff888005840d08
->    head: ffff888008f51400 00000000000a0003 00000000f5000000 0000000000000000
->    head: 4000000000000002 ffffea000023d401 00000000ffffffff 00000000ffffffff
->    head: 0000000000000000 0000000000000000 00000000ffffffff 0000000000000000
->    page dumped because: kasan: bad access detected
-> 
->    Memory state around the buggy address:
->     ffff888008f50180: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
->     ffff888008f50200: fa fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
->    >ffff888008f50280: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
->                                                  ^
->     ffff888008f50300: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
->     ffff888008f50380: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
->    ==================================================================
-> 
-> There is a second race while creating a listener. listen() starts
-> accepting connections before the endpoint is linked to the CM ID and
-> changed from IDLE to LISTENING. ACCEPT work queued in this interval can
-> run immediately, see the IDLE state, and return without accepting the
-> first child.
-> 
-> Keep the listener endpoint in use from allocation until its CM ID, listener
-> list entry, and LISTENING state have all been published. This makes early
-> ACCEPT work wait for listener setup to complete.
-> 
-> During accept, serialize the endpoint handoff with socket state changes and
-> reject a child that has already reached TCP_CLOSE or TCP_CLOSE_WAIT. Ignore
-> close notifications inherited from the listener before that handoff. Live
-> accepted sockets continue through the normal close path.
-> 
-> The issue was found by static analysis.
-> 
-> The unpatched kernel reproduced the KASAN report above in an x86_64 QEMU
-> guest. With a temporary 500 ms delay after listen(), the previous version
-> lost the first child and timed out waiting for an MPA response; this
-> version accepted the same child and returned an MPA response.
-> RST-before-accept and MPA-request-followed-by-FIN tests also completed
-> without KASAN or lockdep reports. The final SIW object was built with
-> LLVM 22.1.8 and W=1.
-> 
-> Fixes: 6c52fdc244b5 ("rdma/siw: connection management")
-> Suggested-by: Stefan Metzmacher <metze@samba.org>
-> Link: https://lore.kernel.org/r/33abff2233b36a51e468d691cb4327d0294d2734.1620343860.git.metze@samba.org
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Jaeyeong Lee <lee@jaeyeong.cc>
-> ---
-> Changes in v3:
-> - Serialize listener setup so early ACCEPT work cannot be consumed in IDLE.
-> - Include the complete KASAN report requested by Leon.
-> 
-> Changes in v2:
-> - Cover the IDLE interval between listen() and the LISTENING transition.
-> - Serialize accepted-socket handoff and reject an already closed child.
-> 
->   drivers/infiniband/sw/siw/siw_cm.c | 23 ++++++++++++++++++++---
->   1 file changed, 20 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/infiniband/sw/siw/siw_cm.c b/drivers/infiniband/sw/siw/siw_cm.c
-> index ed49818793dde..90adb9543d9d0 100644
-> --- a/drivers/infiniband/sw/siw/siw_cm.c
-> +++ b/drivers/infiniband/sw/siw/siw_cm.c
-> @@ -973,6 +973,7 @@ static void siw_accept_newconn(struct siw_cep *cep)
->   	struct socket *s = cep->sock;
->   	struct socket *new_s = NULL;
->   	struct siw_cep *new_cep = NULL;
-> +	bool peer_closed;
->   	int rv = 0; /* debug only. should disappear */
->   
->   	if (cep->state != SIW_EPSTATE_LISTENING)
-> @@ -1009,11 +1010,23 @@ static void siw_accept_newconn(struct siw_cep *cep)
->   	}
->   	new_cep->sock = new_s;
->   	siw_cep_get(new_cep);
-> -	new_s->sk->sk_user_data = new_cep;
->   
->   	if (siw_tcp_nagle == false)
->   		tcp_sock_set_nodelay(new_s->sk);
-> +
+Hello RT-list!
 
-Since new_cep isn't yet visible (until attached to the
-new_s) I suggest moving the two locks after new_cep state
-assignment. We don't have to protect this. Just to keep
-locking time as short as possible.> +	lock_sock(new_s->sk);
-> +	write_lock_bh(&new_s->sk->sk_callback_lock);
->   	new_cep->state = SIW_EPSTATE_AWAIT_MPAREQ;
-> +	new_s->sk->sk_user_data = new_cep;
-> +	peer_closed = new_s->sk->sk_state == TCP_CLOSE ||
-> +		      new_s->sk->sk_state == TCP_CLOSE_WAIT;
-> +	write_unlock_bh(&new_s->sk->sk_callback_lock);
-> +	release_sock(new_s->sk);
-> +
-> +	if (peer_closed) {
-> +		rv = -ECONNRESET;
-> +		goto error;
-> +	}
->   
->   	rv = siw_cm_queue_work(new_cep, SIW_CM_WORK_MPATIMEOUT);
->   	if (rv)
-> @@ -1361,6 +1374,10 @@ static void siw_cm_llp_state_change(struct sock *sk)
->   
->   	case TCP_CLOSE:
->   	case TCP_CLOSE_WAIT:
-> +		if (cep->state == SIW_EPSTATE_LISTENING ||
-> +		    (cep->state == SIW_EPSTATE_IDLE &&
-> +		     !READ_ONCE(sk->sk_socket)))
-> +			break;
->   		if (cep->qp)
->   			cep->qp->tx_ctx.tx_suspend = 1;
->   		siw_cm_queue_work(cep, SIW_CM_WORK_PEER_CLOSE);
-> @@ -1880,6 +1897,7 @@ int siw_create_listen(struct iw_cm_id *id, int backlog)
->   		rv = -ENOMEM;
->   		goto error;
->   	}
-> +	siw_cep_set_inuse(cep);
->   	siw_cep_socket_assoc(cep, s);
->   
->   	rv = siw_cm_alloc_work(cep, backlog);
-> @@ -1932,14 +1950,13 @@ int siw_create_listen(struct iw_cm_id *id, int backlog)
->   
->   	siw_dbg(id->device, "Listen at laddr %pISp\n", &id->local_addr);
->   
-> +	siw_cep_set_free(cep);
->   	return 0;
->   
->   error:
->   	siw_dbg(id->device, "failed: %d\n", rv);
->   
->   	if (cep) {
-> -		siw_cep_set_inuse(cep);
-> -
->   		siw_free_cm_id(cep);
->   		siw_socket_disassoc(s);
->   		cep->state = SIW_EPSTATE_CLOSED;
+I'm pleased to announce the 6.6.161-rt83 stable release.
 
-Otherwise looks good, thank you!
+In addition to pulling in the v6.6.161 stable update this release contains an RT specific
+change to deal with a HyperV problem on boot. This happens when enabling the nbcon logic
+on a HyperV VM in earlyinit; the work around is to defer enabling nbcon to subsys init
+and is the following commit in v6.6-rt:
 
-Acked-by: Bernard Metzler <bernard.metzler@linux.dev>
+5d3b844b381e printk: Postpone kthread startup
 
+Please let me know if there are issues introduced by this commit. 
+
+You can get this release via the git tree at:
+
+  git://git.kernel.org/pub/scm/linux/kernel/git/rt/linux-stable-rt.git
+
+  branch: v6.6-rt
+  Head SHA1: 97c4bdc10a4ddf647a09cfdbcf590dbc77dd25b5
+
+Or to build 6.6.161-rt83 directly, the following patches should be applied:
+
+  https://www.kernel.org/pub/linux/kernel/v6.x/linux-6.6.tar.xz
+
+  https://www.kernel.org/pub/linux/kernel/v6.x/patch-6.6.161.xz
+
+  https://www.kernel.org/pub/linux/kernel/projects/rt/6.6/patch-6.6.161-rt83.patch.xz
+
+
+Enjoy!
+Clark
