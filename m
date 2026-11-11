@@ -1,65 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.96
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794439638;
-	b=F9PssIRduT6o92fptY0RxH+dyXugbso5KtA8NEtLTcE7uMrP7/WOahmv/QghIMCMWri6
-	 CclhxzDIsu4BxlV05ywxTLK8sbZ0GljIYAp2/0Q8KMfIE5+pgc3T+uu8LMgnv/qZM+eNH
-	 12kviySK9KKBdMCKuZIaMKUD9U5ClHRQIEc+OoGI2yI6+mpRRksJ6lCx3mAJLOiDpS+G9
-	 lOrKUFLp5D/P2voJ94IR2BDuZyYFxb77BnYBHiP+h25tSdd4cY/jZK0t+0JfQrJO1lcJR
-	 442rVeAKumBvFcvUg8SHM70UVz7KEt3mn1ZXiecbnEWGEyUt+yHu4NM7e93PXLdrzRw==
+	t=1794439639;
+	b=vAEFFNOf8WolMnZjXm3Zfiv+kfO1pfl01AnFCxASKv/KGmF2mrlvS0IQwra73E65B40R
+	 ExEnf1BKejaFKXbysMSeT6kpkOBKjXvgpXptq1crUThiQFK1HsvhQhJgR7WQxGfNWIUDP
+	 THt/bZRH56pESaJAZNMDzRa1V/yos46tKxeyONNYTMWOBNMZ3VAmb4OYrOdExbmhQLjak
+	 hPdbpC/FXHUJQHOA/yf5n3mHml5qyvbcwswA1aYk7nGzMWrD22wVBgRK52gtfAst4nPet
+	 GUxGePm4vpD8XOXYATUE/RrVMHkPnJWqn+i/YOHmqR+R9At1mJpXOa9Ytx/0YQotApA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794439638;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Subject:X-Change-ID:To:Cc:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Date:Message-Id;
-	bh=ibaTJ8TCP6OWunZ7wZlURPIe35dSzkZ2HZ9fJtO8n3g=;
-	b=drCjAOIJk2Dm9tyNbWUYb4NwDb/Snye0J6XfB9qYugc/MgE7v5TNnSaQBTJzkFt5KpfM
-	 RjZAhPxhRk7k/t5VMilgyHj62eRMm0IeXJ98E43nnmJXBki99L1VE5hFoSKt5Q+iFShYQ
-	 o5ddTw3gpivBn7LQ0/ezOFLnkr4ypGJhb/s27em4VVGCUukiTun72tR2H8W8w7BMrYMER
-	 RVT5YG4NFYYBhcq/+I5AJNgfD8wrMiD/6/ZPDTfdlT/N1w3qCFWa9z7GmpbPbC5qJ+hKo
-	 /LaYWFsKzUUaWCqmrI7bBxacb7rctYjv5iGTCIIz8hgV5hg9ORLYi4I5kVMebkJIE9Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794439639;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=Sz+akw3wpRLgZUlPI2FoNb4TEGhdSTFiLZleLq7ib24=;
+	b=NQUUfQjIJZvMgh8HcXGDT3pCk9ImRtcs2janwOOiKc7xyWy5uku7zzCEvfR/eYqKgHtr
+	 ES/uLWeLd1Gov59rriYdQBg0jhfDTsQZ/SgswMrIfiX3d/IHLS7q2jv9fiwR3YXrgchB4
+	 jimxENKQMNprnehIqSlakjkxZPlV1Xq92viEGuQDP6YQjYIMuoIQMEK5PdvtFwzrDWY2q
+	 5mua25LdIz5BlBeLZlRUOsM6rjJXx3zyAdFzYEtYuw71y3lei0VO/50YUUFgTmRqaxZvc
+	 ++gSkKgvEAYPr4IjE6mymXdqlvTPaiT2qSznfo/RsQHne1UCmf1mv3A1sM3tGBziIOA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cressey.dev;
-	spf=pass smtp.mailfrom=cressey.dev;
-	dkim=pass header.d=cressey.dev header.i=@cressey.dev header.a=rsa-sha256 header.s=key1 header.b=YlEF5l7M;
-	arc=none smtp.remote-ip=95.215.58.96
-Received: from mta1.migadu.com (out-96.mta1.migadu.com [95.215.58.96])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CrJBR+If;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EE14606A330
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 23:27:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6EE14606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cressey.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cressey.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26D3560A2625
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 23:27:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=cressey.dev header.i=@cressey.dev header.a=rsa-sha256 header.s=key1 header.b=YlEF5l7M
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=CWD1v7MEPnp/d6fyb0l0aAU6Shc6s8sYA1kH4JoyyVM=;
- c=simple/simple; d=cressey.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794439635; v=1; x=1795044435;
- b=YlEF5l7MuoJB7IMWXmZD4EcQLWviYVcchvOXjgxzUAR3iBb//dWsEcUaWEjUR5dm+/BzewZg
- UbyYgtdiZ/qi2dswprlmlL+AkTfWdDK2Kd6Ulux/v9/XxK27YeWdOamQWnUAZQ+kBNxIIeOxQcr
- AQnjYZ/ll3KT1/2vp+uIP8DuwQVxcoLgkqp8ppOmYmapwxubCQcTI0Svy/GouWyfLR+/f1STx2t
- WN/DRf7yNqHkWx/9Zira+cjXCUMUiKU36XBXjKaKhzpqEYjqvB+YtKEFbAHlfIAbfeq+mVmhALd
- fFrfFXG3xFX1rFm2t1/6oN9mCC/jF6k7df75uXFa0B6cg==
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id c31d66e627087ea2;
-	Wed, 11 Nov 2026 23:27:15 +0000
-X-Mizu-Trace-ID: c31d66e627087ea2
-X-Migadu-Flow: FLOW_OUT
-From: Ben Cressey <ben@cressey.dev>
-Subject: [PATCH] x86/kexec: Type relocate_kernel() to drop __nocfi
-X-Change-ID: 20261111-x86-kexec-kcfi-5b2b437413d2
-To: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
- "H. Peter Anvin" <hpa@zytor.com>
-Cc: x86@kernel.org, linux-kernel@vger.kernel.org, 
- Sami Tolvanen <samitolvanen@google.com>, Kees Cook <kees@kernel.org>, 
- Nathan Chancellor <nathan@kernel.org>, llvm@lists.linux.dev, 
- Josh Poimboeuf <jpoimboe@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
- kexec@lists.infradead.org, David Woodhouse <dwmw2@infradead.org>
-X-Mailer: b4 0.15.2
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CrJBR+If
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17C6C1F00A09;
+	Wed, 11 Nov 2026 23:27:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794439638;
+	bh=Sz+akw3wpRLgZUlPI2FoNb4TEGhdSTFiLZleLq7ib24=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=CrJBR+IfaqoyJNKdiShU+ukvgr5AzAPtScOFfDV3LMtgKdH/z91frdPGeNlFOl9CU
+	 W1tVXZv9mF8cyKGslV4MuftKxocEVdH6+HpLBhqimecDB5SESeUJ/Eu3FqPYVZlOS/
+	 ubrgq+nH9EtIPP5BDkwMvtwWQk9pq2iukmv5Ndd+x2YddhaIJdqNA06uZvkkJHxqtS
+	 gBYvdO+kFNGBgujvuacy7FIYZyeExvxaRJgMoTVXxlgf66+3IuA7OqgqMwDPmJ8444
+	 fG3xW3uewZ8dBA4IYizJr/3VBTho09J3y24rUh4q+7hG6KlQXI4WfZKNLjWe6ifJRn
+	 4w2Aez6EAP7lQ==
+From: "Barry Song (Xiaomi)" <baohua@kernel.org>
+To: akpm@linux-foundation.org
+Cc: axelrasmussen@google.com,
+	baolin.wang@linux.alibaba.com,
+	baoquan.he@linux.dev,
+	hannes@cmpxchg.org,
+	hui.zhu@linux.dev,
+	kasong@tencent.com,
+	kunwu.chan@gmail.com,
+	liam@infradead.org,
+	lianux.mm@gmail.com,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	liuxiang.277@bytedance.com,
+	lyugaofei@xiaomi.com,
+	mhocko@kernel.org,
+	mhocko@suse.com,
+	qi.zheng@linux.dev,
+	ridong.chen@linux.dev,
+	rppt@kernel.org,
+	ryncsn@gmail.com,
+	shakeel.butt@linux.dev,
+	surenb@google.com,
+	wangzicheng@honor.com,
+	weixugc@google.com,
+	yuanchu@google.com,
+	zhangbo56@xiaomi.com,
+	zhuhui@kylinos.cn,
+	sidchintamaneni@gmail.com,
+	"Barry Song (Xiaomi)" <baohua@kernel.org>
+Subject: [PATCH v7 13/16] mm/mglru: Reduce LRU lock contention by shrinking folio batches in inc_min_seq
+Date: Thu, 12 Nov 2026 07:26:00 +0800
+Message-Id: <20261111232603.9934-14-baohua@kernel.org>
+X-Mailer: git-send-email 2.39.3 (Apple Git-146)
+In-Reply-To: <20261111232603.9934-1-baohua@kernel.org>
+References: <20261111232603.9934-1-baohua@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,139 +84,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Date: Wed, 11 Nov 2026 15:26:59 -0800
-Message-Id: <20261111-x86-kexec-kcfi-v1-1-b4d41ea14deb@cressey.dev>
+Content-Transfer-Encoding: 8bit
 
-machine_kexec() calls the control page's copy of relocate_kernel()
-indirectly. The routine has no kCFI type, so all of machine_kexec() is
-exempt since commit 2114796ca041 ("x86/kexec: Mark machine_kexec() with
-__nocfi"), and ANNOTATE_NOCFI_SYM() silences objtool.
+Reduce the number of folios moved from the oldest generation to the
+second-oldest generation in each batch. This shortens the time the
+lruvec lock is held, allowing concurrent LRU operations to make
+progress and significantly reducing LRU lock contention.
 
-No other call there loses its check today, but one added later would.
-Review of that mark on arm64 preferred a typed entry, and objected to
-covering a whole function, on x86 too [1].
-
-Typing the routine was set aside in 2025 as not worth it [2]: a type
-from the caller cannot catch a prototype that drifts, and
-machine_kexec() seemed unlikely to follow a stray pointer.
-
-Type the routine with SYM_TYPED_START(), emit an ENDBR only under
-CONFIG_FINEIBT, whose boot-time rewrite skips a function without one,
-and drop both exemptions, along with kexec as a valid use in annotate.h.
-
-The check guards only the pointer, and not reliably under plain FineIBT,
-which checks in the callee with IBT off. A failed check panics or hangs
-with no CFI report, since load_segments() has reset GS.
-
-Link: https://lore.kernel.org/202609241804.BB23BF10@keescook # [1]
-Link: https://lore.kernel.org/9c41ab61efc573e3ab5a75b6e4031f81db84a846.camel@infradead.org # [2]
-Signed-off-by: Ben Cressey <ben@cressey.dev>
+Signed-off-by: Barry Song (Xiaomi) <baohua@kernel.org>
 ---
-This follows Kees Cook's review [1] of the arm64 kexec fix, which goes
-separately. It is not a security fix, and nothing faults here today.
-The copy gains a type hash and, with CONFIG_FINEIBT=y, an ENDBR, bare
-under cfi=kcfi or cfi=off. SYM_TYPED_FUNC_START() is not used, since it
-would put an ENDBR in every IBT build. Code built with CONFIG_CFI=n is
-unchanged. A failed check stops crash kexec too.
+ mm/vmscan.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-An LLM wrote the patch and drafted the changelog. Tested on v7.4-rc1,
-defconfig plus CFI, under cfi=off, cfi=kcfi and cfi=fineibt, the last
-with and without paranoid and bhi. kexec_file_load(2), kexec_load(2),
-crash kexec and a preserve-context round trip pass under QEMU TCG, so
-functional only. They also pass in KVM guests on Ice Lake, which has no
-IBT, with small loaders in place of kexec-tools. The KHO selftest
-passes under TCG, not run with bhi. A pointer of another type is
-stopped in all but cfi=off, one to code with no preamble only under
-kcfi and paranoid. objtool is silent with clang, CFI on and off, and
-GCC 13.3. Bare-metal kexec, IBT hardware, GCC's kCFI and LTO are
-untested.
----
- arch/x86/kernel/machine_kexec_64.c   |  6 +-----
- arch/x86/kernel/relocate_kernel_64.S | 17 ++++++++++++++++-
- include/linux/annotate.h             |  5 ++---
- 3 files changed, 19 insertions(+), 9 deletions(-)
-
-diff --git a/arch/x86/kernel/machine_kexec_64.c b/arch/x86/kernel/machine_kexec_64.c
-index c3f4a389992d..c15dfbd574cb 100644
---- a/arch/x86/kernel/machine_kexec_64.c
-+++ b/arch/x86/kernel/machine_kexec_64.c
-@@ -381,7 +381,7 @@ void machine_kexec_cleanup(struct kimage *image)
-  * Do not allocate memory (or fail in any way) in machine_kexec().
-  * We are past the point of no return, committed to rebooting now.
-  */
--void __nocfi machine_kexec(struct kimage *image)
-+void machine_kexec(struct kimage *image)
+diff --git a/mm/vmscan.c b/mm/vmscan.c
+index 7a48b82ea4c1..6315edf50376 100644
+--- a/mm/vmscan.c
++++ b/mm/vmscan.c
+@@ -3911,7 +3911,7 @@ static inline void flush_lru_batch(struct list_head *head, struct list_head **ba
+ static bool inc_min_seq(struct lruvec *lruvec, int type, int swappiness)
  {
- 	unsigned long reloc_start = (unsigned long)__relocate_kernel_start;
- 	relocate_kernel_fn *relocate_kernel_ptr;
-@@ -463,10 +463,6 @@ void __nocfi machine_kexec(struct kimage *image)
- 
- 	__ftrace_enabled_restore(save_ftrace_enabled);
- }
--/*
-- * Handover to the next kernel, no CFI concern.
-- */
--ANNOTATE_NOCFI_SYM(machine_kexec);
- 
- /* arch-dependent functionality related to kexec file-based syscall */
- 
-diff --git a/arch/x86/kernel/relocate_kernel_64.S b/arch/x86/kernel/relocate_kernel_64.S
-index eaeb77464c06..86e1b1c655d1 100644
---- a/arch/x86/kernel/relocate_kernel_64.S
-+++ b/arch/x86/kernel/relocate_kernel_64.S
-@@ -5,6 +5,7 @@
-  */
- 
- #include <linux/linkage.h>
-+#include <linux/cfi_types.h>
- #include <linux/stringify.h>
- #include <asm/alternative.h>
- #include <asm/page_types.h>
-@@ -59,9 +60,23 @@ SYM_DATA_END(kexec_debug_idt)
- 
- 	.section .text..relocate_kernel,"ax";
- 	.code64
--SYM_CODE_START_NOALIGN(relocate_kernel)
-+/*
-+ * The kCFI preamble in front of this entry is copied to the control page
-+ * with the code, in the form boot-time patching left it, so it must stay
-+ * position independent. FineIBT+BHI adds a CALL to a preamble only if it
-+ * records arguments, and __CFI_TYPE() records none whatever the prototype.
-+ */
-+SYM_TYPED_START(relocate_kernel, SYM_L_GLOBAL, SYM_A_NONE)
- 	UNWIND_HINT_END_OF_STACK
-+#ifdef CONFIG_FINEIBT
-+	/*
-+	 * IBT is off by now, see cet_disable(), but FineIBT only rewrites the
-+	 * preamble of a function that starts with ENDBR.
-+	 */
-+	ENDBR
-+#else
- 	ANNOTATE_NOENDBR
-+#endif
- 	/*
- 	 * %rdi indirection_page
- 	 * %rsi pa_control_page
-diff --git a/include/linux/annotate.h b/include/linux/annotate.h
-index 2f1599c9e573..8e9a7e17e64a 100644
---- a/include/linux/annotate.h
-+++ b/include/linux/annotate.h
-@@ -96,9 +96,8 @@
-  */
- #define ANNOTATE_REACHABLE(label)	ASM_ANNOTATE_LABEL(label, ANNOTYPE_REACHABLE)
- /*
-- * This should not be used; it annotates away CFI violations. There are a few
-- * valid use cases like kexec handover to the next kernel image, and there is
-- * no security concern there.
-+ * This should not be used; it annotates away CFI violations. The valid use
-+ * case is a test that violates CFI on purpose, like LKDTM.
-  *
-  * There are also a few real issues annotated away, like EFI because we can't
-  * control the EFI code.
-
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261111-x86-kexec-kcfi-5b2b437413d2
+ 	int zone;
+-	int remaining = MAX_LRU_BATCH;
++	int remaining = MIN_LRU_BATCH;
+ 	struct lru_gen_folio *lrugen = &lruvec->lrugen;
+ 	int hist = lru_hist_from_seq(lrugen->min_seq[type]);
+ 	int new_gen, old_gen = lru_gen_from_seq(lrugen->min_seq[type]);
+-- 
+2.34.1
 
