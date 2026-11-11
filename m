@@ -1,69 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794388035;
-	b=FjBKFe6iA5mhM8IzwMwAtmfdoyFxoEMxBC0rHyl8S4aMVKj++ls7W1Shfs4Yu+VG43W2
-	 +9KAUQbDNBuMv7+09Wlxf3kgSunZ8OFOwXOQ6FATQ0nEBBWMQkZ5Zv1c6akuiwGzJnDAY
-	 r6f3wYWbg9sOhsGHqsxI2TP33RzY/XpCOiiAVUjTDXxDcWIIy0uT6lCDQVEz77XsKjUX0
-	 uEZw8TyWYRK4/1Zx6ZaUVfx261sXSOz/U097/St8GoJfaTNQH3FgpETAepb9WcXNusXEu
-	 3xftwOY04Oks7anlpTwxn5cNagK4/se8LNLIi5hywN/W/klgs2S2nyX1e2MsxlNxX5Q==
+	t=1794388087;
+	b=4qDDJEOHG/khR1GVOBmutI1MgVxtJMR/YYCh5lFoSOr04ubfg5FjIAvP1tYyVrJLSkHW
+	 c5OGn3z3vSluhzHlTUxmdUrGzkSnKnAb6khv+hsE0va+zYLMsk7ZLcHQxMCxiY5bYuneT
+	 TeqI42W6pUlaAXqTLf9woaGgQ9lPVASVXf37igeTcCRaY43RBYRffBMybMoqoYc7hUBTJ
+	 e9sfba23NEK7NnPaCogCL5I0cYNY8LxS2hYBUVj+d59uU6WvU0d9tGB+xFP8KquvUSbii
+	 v0cH+5UCcnv4yooPRmNDnXB/FvUlhMLsAtldlNuJ8sImJi71DAbMbaiSPvqQpHknxnA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794388035;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=7bWqdfYQDOOZNT4u6upFk/9Ul12VxKdb2Ez+LjvVceE=;
-	b=tOGi1PhS2UZOIUt9Ctg8QLr93fwdFiiuf6cwI2DglMa2Xa3dnXTOP28wcKmpXpTKWn0V
-	 q2rWKCcQzUuo2TNp7wIEuuAwmmAn1Nm1EZ1/XNDvUeuVIUHfIXohHy4eBr6oGysk+5YkL
-	 B/Zan1A107noKOTfI7WvkLs9JlHhOpJt+J03XMM8gZyo+0OB5rcf1nTTCAghPCa6MwXcN
-	 +DZg/Jf4+pY7JeRnNPp0SRaHTFV9CmG7/X/lN+s0ra5xyzNORjuysYgRIVvet9GPUoBRA
-	 v29JO/Zbc7jLDtb4DKHurFh9YQ/On21AXALRxmZPPVoYahklCvJYxkX8xN+z4YMH3iA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794388087;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=fQpynz/U/r8Ihf0QA0gj96/iqALNmMISQ/47HnazT0s=;
+	b=49C1rngXhN2d14vWZ1qqGclu2v5GF0hWUONEG+ioa35qLyKEiH6/1P/P2oeDkFnUq34t
+	 sMgEmwT31hzjj1AbX0Dp2SCGcZGMQsZCG3B5Ja2IzGgXQYTt8jXLXRbUSBE409A71ZLB2
+	 ssOQudhXZyKk75BuurUdlPeJCN51+LOpVSR2Sry/lQr5xAwvGPw1PzQUbyDOgbQRHZjdP
+	 YyBKs7iOp3TANn7q2oJ9FSruolMzVC+izd8+k9DkIv1TlzyiekMalzt/VU1GwwEnOGLnu
+	 lgytXiwWAEETvxyoq/uJx43kqSGtkP6gu1bfPUK8mYXAbcWEMLclI8csaxix/Kzh1og==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=bAvFYd75;
-	arc=none smtp.remote-ip=111.22.67.139
-Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 25562606A323;
-	Wed, 11 Nov 2026 09:07:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 25562606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R4Mm4EH5;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E7B5606A321;
+	Wed, 11 Nov 2026 09:08:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=bAvFYd75
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=bAvFYd754U4txyH4Tl7Ug4uuL2zC8imMiyUeAukcKMwtwIPOoTHizs1IN+uSyh1EKTbW/2UXQXmY7
-	 9xMfi3HgTjabL7Z1Iw5sFyikNgWk+kj292R3szKEQXGSQZDNjb41HvhFx3lwUwZjX0PBvEAF3Kt6Ta
-	 QrgiaHM0rcAU/JeU=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app01-12001 (RichMail) with SMTP id 2ee16af43040d39-b320e;
-	Wed, 11 Nov 2026 17:07:13 +0800 (CST)
-X-RM-TRANSID:2ee16af43040d39-b320e
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from FHB-W5100250 (unknown[36.137.216.21])
-	by rmsmtp-syy-appsvr06-12006 (RichMail) with SMTP id 2ee66af4303a7e7-d683f;
-	Wed, 11 Nov 2026 17:07:13 +0800 (CST)
-X-RM-TRANSID:2ee66af4303a7e7-d683f
-From: Gu Bin <gubin@cmss.chinamobile.com>
-To: sean.wang@mediatek.com,
-	olivia@selenic.com,
-	herbert@gondor.apana.org.au
-Cc: matthias.bgg@gmail.com,
-	angelogioacchino.delregno@collabora.com,
-	linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 0/2] hwrng: mtk - runtime PM fixes
-Date: Wed, 11 Nov 2026 17:06:57 +0800
-Message-ID: <20261111090704.1699-1-gubin@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.50.1.windows.1
-In-Reply-To: <20261111073237.1647-1-gubin@cmss.chinamobile.com>
-References: <20261111073237.1647-1-gubin@cmss.chinamobile.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R4Mm4EH5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8B581F00A05;
+	Wed, 11 Nov 2026 09:08:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794388086;
+	bh=fQpynz/U/r8Ihf0QA0gj96/iqALNmMISQ/47HnazT0s=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=R4Mm4EH5tpBex6GKVUdMpA85tYm1jIVj+193GxnPLC540MbymgL/mRceafbmGbGTk
+	 zQo611f6N9cZ19+rcXFgQyOrDTykpDCmMpL7a4oeFj1beqOfmd1vDRZsugnTNntMgU
+	 Qos7Jf9/sw1cCiEhNdJgDnhMeqMkW42ojBaMvnqAgaAdNqsA4zDKg/lMFRQKeSQuaB
+	 ikWFL/jrqPO6uPYcR+UYXYk0RQw8eDKtVE2wr4oqVltF07gQrmq9E91Oykgh99AToW
+	 aGZbbNWVradI7nqyeEZZofi0QOUYHvBUXD9mJc2RpngdFPthyISSaCr6bAePR9kjTk
+	 GisNLwuoAYqxg==
+Date: Wed, 11 Nov 2026 10:08:03 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Jelly Jia <Jelly.Jia@cixtech.com>
+Cc: vkoul@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
+	conor+dt@kernel.org, robin.murphy@arm.com, sboyd@kernel.org, bmasney+clk@redhat.com, 
+	jbrunet+clk@baylibre.com, devicetree@vger.kernel.org, Frank.Li@kernel.org, 
+	cix-kernel-upstream@cixtech.com, dmaengine@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org, joakim.zhang@cixtech.com
+Subject: Re: [PATCH v3 1/5] dt-bindings: soc: cix: Describe the Sky1 AUDSS
+ DMA IRQ controller
+Message-ID: <20261111-victorious-persimmon-chimera-de9e4e@quoll>
+References: <20261106013520.1134450-1-Jelly.Jia@cixtech.com>
+ <20261106013520.1134450-2-Jelly.Jia@cixtech.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,25 +61,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261106013520.1134450-2-Jelly.Jia@cixtech.com>
 
-The sashiko review of v1 pointed out a pre-existing ordering problem:
-mtk_rng_probe() registers the RNG before enabling runtime PM, so
-mtk_rng_read() can run while runtime PM is disabled - both in the
-probe window (hwrng_register() starts the fillfn kthread right away)
-and on unbind (the devres teardown disables runtime PM before the RNG
-is unregistered). Patch 2 moves the drvdata assignment and the
-runtime PM setup above the registration, which closes both windows.
-Patch 1 is unchanged.
+On Fri, Nov 06, 2026 at 09:35:16AM +0800, Jelly Jia wrote:
+> +  interrupts:
+> +    maxItems: 1
+> +    description:
+> +      Combined DMA-350 channel interrupt after the CRU gates.
+> +
+>    clocks:
+>      items:
+>        - description: I2S parent clock for sampling rates multiple of 8kHz.
+> @@ -75,18 +93,33 @@ required:
+>    - power-domains
+>    - resets
+>  
+> +allOf:
+> +  - if:
+> +      required:
+> +        - interrupt-controller
+> +    then:
+> +      required:
+> +        - '#interrupt-cells'
 
-Gu Bin (2):
-  hwrng: mtk - use pm_runtime_resume_and_get() in mtk_rng_read()
-  hwrng: mtk - enable runtime PM before registering the RNG
+This one you can drop
 
- drivers/char/hw_random/mtk-rng.c | 18 ++++++++++--------
- 1 file changed, 10 insertions(+), 8 deletions(-)
+> +        - interrupts
 
--- 
-2.55.0.windows.3
+And everything could be simplified with:
 
+dependentRequired:
+  interrupt-controller: [ interrupts ]
+
+> +
+>  additionalProperties: false
+
+Best regards,
+Krzysztof
 
