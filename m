@@ -1,47 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794385852;
-	b=4aSJYYGPkcSucWAM4IdOCZ5IcZ5F23+Jxy46I+apgkMIi1TV+QHSMel1qVcU4zvMELFw
-	 0zG8pyq8zuMIMjIXWIrpAkZUUnCVdCSHjyN909TzXY04BNKQ4vb3VDCbIo9VTYvB+hnLI
-	 LAZkrBv9C4X59rntWlUUD2XaPVGXmV44SVKPRywTVvV/tfGZ1NwurC9A+LexEJgWWJqfr
-	 0MG/FqV7xY89FpIk4lF4UM7Jq1znV1niWMMVKl1NWUsMyrXrtI4rKixXxPOVH5rdX+qTn
-	 d8ouK1EAikgvalYbPo/cjZ08BiWuNw40SDEgRpI7G6LnWg6TMSDyE7gekD+BkRC5f7A==
+	t=1794385962;
+	b=idpLoroYd9z5NATG3LLTdp9pklzeToFVJ2zQFqSLAA8Ov71fNsBDOjETQnjUY38C5Ywg
+	 mriQxRbd3GabNgw0BumjTNFx3DARGzEPyZ3yYCYp1F1uTeOE0EwQr1MFkK9pD+OrCmOXh
+	 p/Bq0/hdQpExmxkl3d+Pnl6gTeVrTv6GNhkZG7XysQhXUAQ28yfnoYct3/opE0gwp+HeE
+	 GLJniTtsEN2KaFXuDRHzqPjIF0SUalO8I3jU0KsE+QIDYYqSr7SuHz8kY8s2In+v58uSh
+	 Tn5rmGXPUy0/+ElVvKdTlUEbRZb+mr0J5DsFItODOiKUwFlNPcy1okpJ1puFz3UOf5g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794385852;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:Cc:
-	 Subject:To:References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=3H9/gKfZON35QpEehuN/02KH/4m7mFFGWW7NINuD4kU=;
-	b=GSSGcfHbnQSq1Unk4Bd9Qnyx+9PeqnEw8/KT3kEm1BD6772g5CF9H1ZCeAduyvWEbL3c
-	 MfYsok3Ru/PP0yOuF8p3GrcCBoY3utSQ/IH/2hHEGLiXXn31iznLX7emE/1T6D8sOET70
-	 R5Wng8PqgLtfdW3fYm/gnjJZdy/wYELY4hgf6EDKQw6++4MgkS3KDfjjqd1SMMUzH8+AP
-	 iCM9ZYQEJagLpm9QN+LlPtjpAFb+8XjLCkzTdFYhHeQCntgMh5dddCFHs4CvQCbisvZ2K
-	 Z4WqHcLzOnxnvQaIUDnBLS/v97ZicSGpr8Eq1YwXj270GuS+30crAyRKha/0OK+H/4w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794385962;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=IdseeLTQQDTkakepBjNOAJi36H/YdlBN+5sOfWMWeRA=;
+	b=FslPtiBzv61JGM6J33Id76zH7N2m41soiN9zRZYhPtkpHVp6slVvXIbQeK0ByYZvQ9M5
+	 x+ElOTX3i3/n+Q9LCu81TqYEz7oclLNzch4HKjidBanA7854kZLWUjnbm4HLAjhYB8fTr
+	 Bp7iHqu8Ap/jvd+2uX9vYmFHuv78Q9ifSwo2xOughaQ3opSL2YoRDoYzv9w/iCU8mpLEc
+	 i5RNbnrSF5L2O/6gSIl5E7A3umArKkMk6XTRDy+QdroD8cKlZg0WJ1fq1odwvBCowBhxm
+	 b5AalPx3Mw35rasYr+JGwzAbDpKxqlDhTqrmpD7peaH1bkhEdZQHt4VDTXMxDGjLMvg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Jd+/4Zzd";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AD80606A32E
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 08:30:51 +0000 (UTC)
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=fq8WwDdG;
+	arc=none smtp.remote-ip=111.22.67.139
+Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9FB19606A31C;
+	Wed, 11 Nov 2026 08:32:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9FB19606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jd+/4Zzd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2BB251F00A09;
-	Wed, 11 Nov 2026 08:30:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794385851;
-	bh=3H9/gKfZON35QpEehuN/02KH/4m7mFFGWW7NINuD4kU=;
-	h=Date:Cc:Subject:To:References:From:In-Reply-To;
-	b=Jd+/4Zzd33jg0xiYr4KG6ZMv59DluJdGvQyECHxm3i13QwhLqQWkZwdB5PZ0Voh4G
-	 WVxnnG/fkglmxPtRB+yt7tsBPO7jzV9/W+JAuQAvTHS1o3N2ODBtuuzKDcMZ5HNNED
-	 m1LOSwhLVJ/t+o7H59Jw6s4YCf8074TJpF5QhF4HW2xHInDxyz/tiuwjE+v8iSscvO
-	 A0LmkdBZvfroks7lh5TuLAOkivp/waxGUzTDO6PxRfujIQOrNkrdqpkohwGH2lRCv5
-	 Y34bHBjnU3u9aHiVI6KU+aGbtyeLX7/9hHVlKhk+IPmgVGLpxIhIwQS+jIUjV90Fmd
-	 B/ypaXGto/hYg==
-Message-ID: <acb8e08b-4a9f-4419-8b1b-b1933800311b@kernel.org>
-Date: Wed, 11 Nov 2026 16:30:48 +0800
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=fq8WwDdG
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=fq8WwDdGz1U/mNG5i0J205QPQSBj3AV89yVcuQL9Wf6IPZDz9bXKsUc2O9DaRQcamQW3KIjex8mC6
+	 2otI72KUw8vPa5Lljx02l6shK4h5zuDeA58lQ0l4V0AMTJwuXdSG4mZ3U/UBDXPxgy3FgUXpwZtskO
+	 AvKB5S+g3Ud8m3cQ=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app05-12005 (RichMail) with SMTP id 2ee56af42826c7c-d428f;
+	Wed, 11 Nov 2026 16:32:39 +0800 (CST)
+X-RM-TRANSID:2ee56af42826c7c-d428f
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from Z04181456177947 (unknown[10.55.1.71])
+	by rmsmtp-syy-appsvr01-12001 (RichMail) with SMTP id 2ee16af4282460a-d5748;
+	Wed, 11 Nov 2026 16:32:39 +0800 (CST)
+X-RM-TRANSID:2ee16af4282460a-d5748
+From: zhaofeng2@cmss.chinamobile.com
+To: Guenter Roeck <linux@roeck-us.net>,
+	Wim Van Sebroeck <wim@linux-watchdog.org>
+Cc: Zhao Feng <zhaofeng2@cmss.chinamobile.com>,
+	linux-watchdog@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Tomer Maimon <tmaimon77@gmail.com>,
+	Joel Stanley <joel@jms.id.au>,
+	j.neuschaefer@gmx.net,
+	Triet Hoang <triet.hoang.dev@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] watchdog: npcm: fix sleeping clock call in restart handler
+Date: Wed, 11 Nov 2026 16:32:36 +0800
+Message-ID: <20261111083236.248-1-zhaofeng2@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.55.0.windows.5
+In-Reply-To: <20261111064150.260-1-zhaofeng2@cmss.chinamobile.com>
+References: <20261111064150.260-1-zhaofeng2@cmss.chinamobile.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,45 +76,99 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: chao@kernel.org, linux-f2fs-devel@lists.sourceforge.net,
- linux-kernel@vger.kernel.org, Guikun Yang <yangguikun19@qq.com>,
- zhanxusheng@xiaomi.com, stable@kernel.org
-Subject: Re: [PATCH] f2fs: don't BUG_ON a missing orphan inode at mount
-To: Zhan Xusheng <zhanxusheng1024@gmail.com>, Jaegeuk Kim <jaegeuk@kernel.org>
-References: <tencent_B30A444DF94444D1A63A7D6F8E2039F1990A@qq.com>
- <20261105034419.2701443-1-zhanxusheng1024@gmail.com>
-Content-Language: en-US
-From: Chao Yu <chao@kernel.org>
-In-Reply-To: <20261105034419.2701443-1-zhanxusheng1024@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 11/5/26 11:44, Zhan Xusheng wrote:
-> From: Zhan Xusheng <zhanxusheng@xiaomi.com>
-> 
-> recover_orphan_inode() treats -ENOENT from f2fs_iget() as a kernel
-> bug, but the ino comes from the on-disk orphan block. An image whose
-> orphan entry names an inode without a NAT entry hits the BUG_ON at
-> mount with CONFIG_F2FS_CHECK_FS, or a WARN and a failed mount
-> without it.
-> 
-> To reproduce, unlink a file while it is still open, sync, crash,
-> then change ino[0] in the checkpoint's orphan block to an unused
-> nid and mount:
-> 
->   kernel BUG at fs/f2fs/checkpoint.c:967!
->   RIP: 0010:f2fs_recover_orphan_inodes+0x6a3/0x9a0
-> 
-> Treat it as corruption, the same way the entry_count check does:
-> fail the mount with -EFSCORRUPTED and record
-> ERROR_INCONSISTENT_ORPHAN for fsck.
-> 
-> Fixes: 8c14bfadeac2 ("f2fs: handle error of f2fs_iget correctly")
-> Reported-by: Guikun Yang <yangguikun19@qq.com>
-> Closes: https://lore.kernel.org/linux-f2fs-devel/tencent_B30A444DF94444D1A63A7D6F8E2039F1990A@qq.com/
-> Cc: stable@kernel.org
-> Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
-Reviewed-by: Chao Yu <chao@kernel.org>
+From: Zhao Feng <zhaofeng2@cmss.chinamobile.com>
 
-Thanks,
+The watchdog .restart callback runs in atomic context: it is invoked
+from the restart handler chain via atomic_notifier_call_chain(), under
+an RCU read-side critical section, on every reboot or restart.  Since
+commit af084fdccfaf ("watchdog: npcm: Enable clock if provided"),
+npcm_wdt_restart() calls clk_prepare_enable(), and clk_prepare()
+takes a mutex unconditionally, so kernels built with
+CONFIG_DEBUG_ATOMIC_SLEEP=y report
+
+  BUG: sleeping function called from invalid context
+
+on every reboot.  Worse, a panic-time restart can block on
+prepare_lock and never issue the reset at all.
+
+Get the clock with devm_clk_get_optional_prepared() at probe time and
+keep it prepared for the lifetime of the driver, so the restart
+handler only needs clk_enable(), which is safe in atomic context.
+With the clock permanently prepared, npcm_wdt_start() and
+npcm_wdt_stop() are simplified to clk_enable()/clk_disable() as well.
+
+Fixes: af084fdccfaf ("watchdog: npcm: Enable clock if provided")
+Cc: stable@vger.kernel.org
+Signed-off-by: Zhao Feng <zhaofeng2@cmss.chinamobile.com>
+---
+v2: use devm_clk_get_optional_prepared() instead of open-coding
+    clk_prepare() + devm_add_action_or_reset(), and simplify
+    start/stop to clk_enable()/clk_disable(), per Sashiko's review.
+
+Issue reported by Sashiko's review of Triet Hoang's pending
+error-propagation patch; maintainer confirmed the problem in
+https://lore.kernel.org/linux-kernel/19258f94-ec01-48f4-9d04-22e5ecb5cac2@roeck-us.net/
+
+Based on linux-next, which already carries
+"watchdog: npcm: fix clock prepare leak when setting timeout on a
+running watchdog".
+
+Verified against linux-next.  Not runtime-tested (no Nuvoton NPCM
+hardware).
+
+ drivers/watchdog/npcm_wdt.c | 19 ++++++++++++++-----
+ 1 file changed, 14 insertions(+), 5 deletions(-)
+
+--- a/drivers/watchdog/npcm_wdt.c
++++ b/drivers/watchdog/npcm_wdt.c
+@@ -180,7 +180,7 @@
+ {
+ 	struct npcm_wdt *wdt = to_npcm_wdt(wdd);
+ 
+-	clk_prepare_enable(wdt->clk);
++	clk_enable(wdt->clk);
+ 
+ 	__npcm_wdt_start(wdd);
+ 
+@@ -193,7 +193,7 @@
+ 
+ 	writel(0, wdt->reg);
+ 
+-	clk_disable_unprepare(wdt->clk);
++	clk_disable(wdt->clk);
+ 
+ 	return 0;
+ }
+@@ -242,8 +242,12 @@
+ {
+ 	struct npcm_wdt *wdt = to_npcm_wdt(wdd);
+ 
+-	/* For reset, we start the WDT clock and leave it running. */
+-	clk_prepare_enable(wdt->clk);
++	/*
++	 * For reset, we start the WDT clock and leave it running.
++	 * The clock was prepared at probe time; only clk_enable() is
++	 * safe in this atomic (restart notifier) context.
++	 */
++	clk_enable(wdt->clk);
+ 
+ 	writel(NPCM_WTR | NPCM_WTRE | NPCM_WTE, wdt->reg);
+ 	udelay(1000);
+@@ -417,7 +421,12 @@
+ 
+ 	start = res->start;
+ 
+-	wdt->clk = devm_clk_get_optional(&pdev->dev, NULL);
++	/*
++	 * Keep the clock prepared for the lifetime of the driver:
++	 * npcm_wdt_restart() runs in atomic context and may only call
++	 * clk_enable().
++	 */
++	wdt->clk = devm_clk_get_optional_prepared(&pdev->dev, NULL);
+ 	if (IS_ERR(wdt->clk))
+ 		return PTR_ERR(wdt->clk);
+ 
+
+
