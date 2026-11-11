@@ -1,74 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.151
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.81.71.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794396911;
-	b=ReqNFgSiLig37w1QIoETwVetuUmHoWbnOyRTwQ1MiuUPHMdtBRQixwnZSsDDn+U3W0PX
-	 LLGiVGa9n4Jp9NmLl9mBcSnhkP8jno9OhqCZCFDjUxxJOByyIQnx4Vb3OgfkyquXuNdDs
-	 NeaboCPSJEB8DoKnAWcJ/dctw0+uPf137DGjCv9+gJl5OkzaK0NWKZ6SwKV7DNk7G84JI
-	 GHdNV0n2u6Y1BRMJTm3sGZc990bywb4kKUHgw8lnykvzMW3mRyscHhFXFT/ec7WNOLBSi
-	 98zSexjhV48i6ABtQ5qOaAtFlW7GPzflmXZ0q/VNMpwLaHx6pBrcSVYYxh9IPai4vLQ==
+	t=1794396912;
+	b=4nHDqC5W/Z4vuY2u3fo8bUZcuiWHEpsZL0NLx85ub6yLQ2ZeIsP7r+cPysKpe+GhWPlR
+	 W9IxxMuscpl/goTMoJKfyOsVejZBi1yWr/yAQaKQXicw5eLflBQD3P60wRmyQYNfpsiIx
+	 sEYriUklftNVyP9iHyAsE4hj0zIec/NW5l45C87E3/juub6en2GT1ebTsHeNljnqAkj9L
+	 7eWHom+mgQOBdHw/vS4Pn3M9lHOCvvZr6sy5EeImelbvP3BFFx0rsSElrcDbJuHfQRzCL
+	 pvj6VvTIWW7vc1PzFeXC8HW0tlIvDEq0nVnJubQdBWIcgd/KYnvvPcc3BHhFlJzsffg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794396911;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=zn/evyTY2YXOIPUCl2VF89xJV5FEZinteqD1qP6+XjA=;
-	b=Yqo71W9QfrZJgddTdbBqBtPpY+/D8Ko5jxEsSGvQSkeEO+5rANPQweYlyWefz2QnK4TU
-	 0IYAnxNY6248BvNa5npctG8x4qQNGMn/byiof00wTdlNbGwUm2GkHKXnNDznJNYW2dozW
-	 YKuUEq+nsURBXLzu5qVVdOVIH5V8UKHnUoSZgBAffoPbWyHSNwW+hU65zeBdCQa/VbqQI
-	 4qlXddXp/TJAUvmrXFEeJbNihc1aUa4VLCA4zufvXOdoYNpyiF0cBfiOdqc5mqEEgd1Jj
-	 q3i6NpTyTglWeBDiJzXJHgquxkbfMOtJV7P+Mj6DkqMIb6Ppy5w2e9deBKKk2PTsyCA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794396912;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:From:
+	 x-ms-reactions:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=Ckc84EqrblGll4cu0USqWotlw7a7SUG/myl+FdROgzI=;
+	b=37iDkVaffbjwcFDHRp6vaoPO1UzHrvt2t7LSfL4A4VtNUDv0U7q/VZ0ypkhWu6SxYzjp
+	 dQHL0BptyhHpfZluoaaNeJiTBEdQmbH6wAzW+Kqzd0kclrlY0jBWmiGg3if6VtZ8RVFWs
+	 sdk5Z4ijiHvtw8Gt9+n6bMKCRi4UPUsFqbyE9XTAJQ4yI5WPNekfqPkvbbxUlAzFKIVPp
+	 /R2qWEHksuLeHvpfhvLKeY455HIcQKRyM8S5kM4S7jTRYHgdyJJaUA6Pri81V7Hp+sDQT
+	 Lgq1j3ysM8e8DRLVuKm6rhjlBU3pKCDXXW+b1buYRuEHm4a7EZQbFycTVCtl5J7EsOg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=ctmbQthb;
-	arc=none smtp.remote-ip=111.22.67.151
-Received: from cmccmta8.chinamobile.com (cmccmta8.chinamobile.com [111.22.67.151])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 28CB2606A321;
-	Wed, 11 Nov 2026 11:35:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28CB2606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dmarc=pass header.from=puzzle.ch;
+	spf=pass smtp.mailfrom=puzzle.ch;
+	dkim=pass header.d=puzzle.ch header.i=@puzzle.ch header.a=rsa-sha256 header.s=20211230 header.b=VwvyoPDr;
+	dkim=pass header.d=puzzle.ch header.i=@puzzle.ch header.a=rsa-sha256 header.s=20211209 header.b=kKiQ20Z4;
+	arc=none smtp.remote-ip=45.81.71.124
+Received: from mx03.puzzle.ch (mx03.puzzle.ch [45.81.71.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4E6C606A32D;
+	Wed, 11 Nov 2026 11:35:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E4E6C606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=puzzle.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=puzzle.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=ctmbQthb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=ctmbQthbX/z3rmhYp6sHMiRaosFNrjMsuCgbCRRbEJ5FdfQzAz84h4zvsHEJAtrhjtrhDNqusug2G
-	 pLEOZO5UDvuMHViXXUPJJFuUXiWDsx39si7v0AXIOLDPBvx3IcjQQPyxs+WksuNkc+b2eYMF7ABALT
-	 eH5R07ZZsbX3wf+4=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app06-12006 (RichMail) with SMTP id 2ee66af452ec7e9-a5480;
-	Wed, 11 Nov 2026 19:35:08 +0800 (CST)
-X-RM-TRANSID:2ee66af452ec7e9-a5480
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from localhost.localdomain (unknown[223.108.79.101])
-	by rmsmtp-syy-appsvr07-12007 (RichMail) with SMTP id 2ee76af452ea9e0-dabad;
-	Wed, 11 Nov 2026 19:35:08 +0800 (CST)
-X-RM-TRANSID:2ee76af452ea9e0-dabad
-From: Xia Yan <yanxia@cmss.chinamobile.com>
-To: netdev@vger.kernel.org
-Cc: edumazet@kernel.org,
-	ncardwell@google.com,
-	kuniyu@google.com,
-	davem@davemloft.net,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	torvalds@linux-foundation.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	yana06070@163.com,
-	netdev-bot+sashiko@kernel.org,
-	jiayuan.chen@linux.dev
-Subject: [PATCH net v3] tcp: fix device binding after failed IPv6 connect
-Date: Wed, 11 Nov 2026 19:34:55 +0800
-Message-ID: <20261111113455.284747-1-yanxia@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=puzzle.ch header.i=@puzzle.ch header.a=rsa-sha256 header.s=20211230 header.b=VwvyoPDr;
+	dkim=pass (2048-bit key) header.d=puzzle.ch header.i=@puzzle.ch header.a=rsa-sha256 header.s=20211209 header.b=kKiQ20Z4
+Received: from mailstore02.cloud.puzzle.ch (mail.puzzle.ch [IPv6:2a06:c00::5086])
+	by mx03.puzzle.ch (Postfix) with ESMTPS id 5D9E4111;
+	Wed, 11 Nov 2026 12:35:02 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=puzzle.ch; s=20211230;
+	t=1794396902;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Ckc84EqrblGll4cu0USqWotlw7a7SUG/myl+FdROgzI=;
+	b=VwvyoPDr5TjEknwcJPrwgJ6p7E0pguE3yYkfp88Av23E19cYTyGiIjE9asm2eAAMpHpI2z
+	48qIf4+oNR3hOhY3SDx1yZm5ng5VISIFwWkr/3BICvtG1tSUkxhpKAA/HTF9rBs+cN7v+D
+	5lxZjipcZ71+9eU1Tasi1L51Rj6tUDUj29DGLLsz2iyPLc2nw4E61X3FNlfhrm9jLQImpr
+	94D2sI2jH/NjeR5rKFIdqb8fwcduV8OgvulJe3QnnCDvuGk2VOTYA7SwZRkzo394m0d6yK
+	ufLlwlc4LxxC45Sw3VuyUN9bcIOKEFFdjWH/nTXYu1AJjIJ7E1mHxdVnIRrcfQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=puzzle.ch; s=20211209;
+	t=1794396902;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Ckc84EqrblGll4cu0USqWotlw7a7SUG/myl+FdROgzI=;
+	b=kKiQ20Z43b6xewiNc+JpZeIQlS5sywYcSwbq7R1n6bc33BpALXlDvc7u7WKeCfM0HsE6He
+	1iS/E83OIvaSFWxRoeIhjDP37JBSSY8cBZONdoJOS7Mev7W1C8ofeSqkyo21XYvSvoJp5x
+	eqW9XHJEXFNut0+/ZT2dWX9JimKA1iHPkCxojaJ5vb4sxFrxnQ8pDsXGalszb8ANm2cckv
+	V1+ONKP9kuEIWcFNZaOnYjc4OYkrMeOTzXK8QnHVy89KB6OiCFq89VHFCdupIFSizq3VSt
+	hI7cYXx47Fd9M51z5njA2OBdESMkQXAidKGwHKWSZimy3Z93FzWUuoN9j8nwGg==
+From: Michael Grzeschik <grzeschik@puzzle.ch>
+x-ms-reactions: disallow
+Date: Wed, 11 Nov 2026 12:34:53 +0100
+Subject: [PATCH 1/2] usbip: stub: reference count struct stub_device
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,111 +76,325 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261111-usbip-v1-1-da5217ac71d7@puzzle.ch>
+References: <20261111-usbip-v1-0-da5217ac71d7@puzzle.ch>
+In-Reply-To: <20261111-usbip-v1-0-da5217ac71d7@puzzle.ch>
+To: Valentina Manea <valentina.manea.m@gmail.com>, 
+ Shuah Khan <shuah@kernel.org>, Hongren Zheng <i@zenithal.me>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Michael Grzeschik <grzeschik@puzzle.ch>
+X-Developer-Signature: v=1; a=openpgp-sha256; l=9893; i=grzeschik@puzzle.ch;
+ h=from:subject:message-id; bh=Dc0wEdyGlUJ5dKrv+6ujVORpXLfHRVkmjaQ5pdpZuFo=;
+ b=owEBbQKS/ZANAwAKAb9pWET5cfSrAcsmYgBq9FLkBHQsYP5IY7keOVeNKN1am+XUw7iyjvLMn
+ 0REZQwVifyJAjMEAAEKAB0WIQQV2+2Fpbqd6fvv0Gi/aVhE+XH0qwUCavRS5AAKCRC/aVhE+XH0
+ qzS0EADDY+wzpIaruqOqNRhdJU0PmBpCtYm2iFPD2M7vrUl381lw7O6reZs0F3fSaL/VbTZdbKT
+ 75u97GWhSRcH9JOXLgCks2DEYrLOT49tRhx4aCRf1hK//XCnERsWnw7+AwvZvzbRaNgSmagL0n4
+ HFc8yuRSAQbDuR2Vx6j5U8PPoi097dDlzeoBQioZeOGMTsuPI6LSSTP11tdZFIMBV5QExL/Ejfy
+ HyjZYDsG695m/rPnpGOu6nRHh+3LG/e9gMwY+KHODUp7N0rDEVOhEe3XCkQIP93mvnVuXILm2zT
+ yQTd9F9x9IDCEBr/wAV77E9TQ5WTvI4hMnb/7x1yR+R+Q70zJTwq3hD5frjvgW6s1uSQX0F5PKA
+ rDJ6xgt13bOyIspXc5oCucqCq7TunkNkapyxxeRrQBPXYY2SIWG+OwA12PJmt7PlanHDojGIZAb
+ gyyPE0Bd7ENOhbA9coIhQiV+gTXigMuNeY7mnxZoK8ICXgdMlKc0t//kzVp2s8xZMAqQNst3oyK
+ cXRRakPqFJE+EVj+Xz/6tWqMBF5Jn70R3CAwMZ/+6pPvQMAbimjTnb8jyl2dFj/5ABMg9oTmSi7
+ h05juM+oYZoKKF+GnHjI6cp/BrUE6umZhmD4mdexC/kloWuiVHvQwHJo9NU3V+d7UtZPG68Hcsu
+ YRUVYZzjXTTabjw==
+X-Developer-Key: i=grzeschik@puzzle.ch; a=openpgp;
+ fpr=957BC452CE953D7EA60CF4FC0BE9E3157A1E2C64
 
-tcp_v6_connect() sets sk_bound_dev_if from sin6_scope_id when connecting
-to a link-local address. If the route lookup fails, the error path
-leaves that binding in place. Retrying against ::1 on the same socket
-can then fail with ENETUNREACH, although a fresh socket can connect.
+A stub_device is freed by stub_disconnect() right after usbip_stop_eh()
+reported that the event handler is done with it. The rx and tx threads
+and the event handler can still use it at that point:
 
-Save the original binding and restore it unconditionally on native
-IPv6 errors returned by tcp_v6_connect(). Restore it before
-tcp_set_state(TCP_CLOSE) and inet_bhash2_reset_saddr(), which uses the
-binding to select the l3mdev for the bind2 bucket. Do not restore it
-again after the TCP_CLOSE callback. Keep IPv4-mapped errors on their
-existing cleanup path.
+ - The event handler clears an event bit after it ran the handler for
+   it. A SHUTDOWN requested while a previous shutdown is running is lost,
+   so threads started after that shutdown are not stopped before the
+   stub_device is freed.
+ - An event queued for the device while another one is handled leaves an
+   entry in the event list. Once the event bits are clear,
+   usbip_stop_eh() returns, the stub_device is freed, and the handler
+   then locks the sysfs_lock of the freed device.
+ - The stub_device no longer holds a reference to the usb_device, so a
+   thread outliving the disconnect touches a freed usb_device too.
 
-Found during LLM-assisted review of the tcp_v6_connect() error paths.
-Reproduced in UML by connecting to fe80::1 through a down dummy
-interface, then retrying against a listener on ::1 on the same socket.
-With the patch, the retry succeeds. The VRF cleanup tests also pass
-without the inet_csk_get_port() warning seen on the baseline. Tests
-also covered existing bindings and BPF sock_ops callbacks. These are
-custom userspace tests; the networking selftest suite was not run.
+This was seen exporting the serial port of an ST-Link from an
+STM32MP1-DK2 on a Kirkwood (ARMv5) host. After repeated "endpoint 5 is
+stalled" / usb_clear_halt cycles while a client opened and closed the
+port, stub_rx crashed in dev_err() with the device pointer computed from
+a NULL sdev->udev of freed memory:
 
-Deferred Fast Open failures after connect() returns success are
-unchanged.
+  Unable to handle kernel NULL pointer dereference at virtual address 000000b8 when read
+  PC is at dev_driver_string+0x0/0x38
+  LR is at __dev_printk+0x20/0x6c
+  Call trace:
+   dev_driver_string from __dev_printk+0x20/0x6c
+   __dev_printk from _dev_err+0x40/0x74
+   _dev_err from stub_rx_loop+0x5d8/0xd68 [usbip_host]
+   stub_rx_loop [usbip_host] from kthread+0x100/0x120
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Suggested-by: Jiayuan Chen <jiayuan.chen@linux.dev>
-Suggested-by: Jakub Kicinski <kuba@kernel.org>
-Link: https://lore.kernel.org/netdev/062d02ca-e9e1-4f4e-ac57-0de27272a205@linux.dev/
-Link: https://lore.kernel.org/netdev/20261110100224.57cbf548@kernel.org/
-Signed-off-by: Xia Yan <yanxia@cmss.chinamobile.com>
+Reference count the stub_device instead of relying on the event handler
+for its lifetime:
+
+ - the binding (probe until disconnect) holds the initial reference,
+   stub_disconnect() drops it instead of freeing the device
+ - the rx and tx thread hold one each while they run, taken before they
+   are woken and dropped when they end. If kthread_stop() reports that a
+   thread never ran, stub_shutdown_connection() drops it for the thread.
+ - the event handler holds one per queued event until it is completely
+   done with the device, through new optional get/put event handler
+   operations, which vhci and vudc do not set
+ - the stub_device holds a reference to its usb_device again, dropped
+   with the last reference
+
+Threads that miss their shutdown now end when the connection goes away
+instead of using freed memory.
+
+Signed-off-by: Michael Grzeschik <grzeschik@puzzle.ch>
 ---
-Changes in v3:
-- Restore old_bound_dev_if without the scope_id_set and current-value
-  checks, as Jakub requested.
-- Keep the early restore before TCP_CLOSE and bind2 cleanup, and
-  avoid restoring again after the close callback.
-- Leave IPv4-mapped failures on the existing cleanup path.
-- Use WRITE_ONCE() when installing the scope binding.
+ drivers/usb/usbip/stub.h         |  3 ++
+ drivers/usb/usbip/stub_dev.c     | 69 ++++++++++++++++++++++++++++++++--------
+ drivers/usb/usbip/stub_rx.c      |  3 ++
+ drivers/usb/usbip/stub_tx.c      |  3 ++
+ drivers/usb/usbip/usbip_common.h |  6 ++++
+ drivers/usb/usbip/usbip_event.c  |  6 ++++
+ 6 files changed, 77 insertions(+), 13 deletions(-)
 
-v2: https://lore.kernel.org/netdev/20261102143352.135769-1-yanxia@cmss.chinamobile.com/
-v1: https://lore.kernel.org/netdev/20261031074654.73952-1-yanxia@cmss.chinamobile.com/
-
-Testing on net d2809ccf3cfc:
-- UML: reconnect and existing-binding checks, two VRF cleanup cases,
-  and five BPF sock_ops cases. The baseline reproduces the stale
-  binding and VRF warning; v3 completes without kernel warnings.
-  Native CONNECT callback bindings are rolled back on failure;
-  CLOSE callback bindings and IPv4-mapped behavior are preserved.
-- x86_64, GCC 12.3.1, W=1: completed kernel and module builds with
-  configurations derived from allmodconfig and allyesconfig.
-  WERROR, KASAN and KCSAN were disabled; allyes also had
-  KUNIT_ALL_TESTS disabled, with the resulting dependency changes.
-  tcp_ipv6.o compiled without diagnostics in both configurations.
-
- net/ipv6/tcp_ipv6.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
-
-diff --git a/net/ipv6/tcp_ipv6.c b/net/ipv6/tcp_ipv6.c
-index b1dec5d86d633db67a754c70ee1c63290a9acb5a..641b74aaf1963e71bb59e5542899e30e33b82a1e 100644
---- a/net/ipv6/tcp_ipv6.c
-+++ b/net/ipv6/tcp_ipv6.c
-@@ -134,6 +134,7 @@ static int tcp_v6_connect(struct sock *sk, struct sockaddr_unsized *uaddr,
- 			  int addr_len)
- {
- 	struct sockaddr_in6 *usin = (struct sockaddr_in6 *) uaddr;
-+	int old_bound_dev_if = READ_ONCE(sk->sk_bound_dev_if);
- 	struct inet_connection_sock *icsk = inet_csk(sk);
- 	struct inet_timewait_death_row *tcp_death_row;
- 	struct ipv6_pinfo *np = tcp_inet6_sk(sk);
-@@ -197,7 +198,7 @@ static int tcp_v6_connect(struct sock *sk, struct sockaddr_unsized *uaddr,
- 			if (!sk_dev_equal_l3scope(sk, usin->sin6_scope_id))
- 				return -EINVAL;
+diff --git a/drivers/usb/usbip/stub.h b/drivers/usb/usbip/stub.h
+index d11270560c24..fa40f349d640 100644
+--- a/drivers/usb/usbip/stub.h
++++ b/drivers/usb/usbip/stub.h
+@@ -6,6 +6,7 @@
+ #ifndef __USBIP_STUB_H
+ #define __USBIP_STUB_H
  
--			sk->sk_bound_dev_if = usin->sin6_scope_id;
-+			WRITE_ONCE(sk->sk_bound_dev_if, usin->sin6_scope_id);
- 		}
++#include <linux/kref.h>
+ #include <linux/list.h>
+ #include <linux/slab.h>
+ #include <linux/spinlock.h>
+@@ -20,6 +21,7 @@
  
- 		/* Connect to link-local address requires an interface */
-@@ -251,7 +252,7 @@ static int tcp_v6_connect(struct sock *sk, struct sockaddr_unsized *uaddr,
- #if defined(CONFIG_TCP_MD5SIG) || defined(CONFIG_TCP_AO)
- 			tp->af_specific = &tcp_sock_ipv6_specific;
- #endif
--			goto failure;
-+			goto out;
- 		}
- 		np->saddr = sk->sk_v6_rcv_saddr;
+ struct stub_device {
+ 	struct usb_device *udev;
++	struct kref kref;
  
-@@ -353,9 +354,14 @@ static int tcp_v6_connect(struct sock *sk, struct sockaddr_unsized *uaddr,
- 	return 0;
+ 	struct usbip_device ud;
+ 	__u32 devid;
+@@ -85,6 +87,7 @@ extern struct kmem_cache *stub_priv_cache;
  
- late_failure:
-+	WRITE_ONCE(sk->sk_bound_dev_if, old_bound_dev_if);
- 	tcp_set_state(sk, TCP_CLOSE);
- 	inet_bhash2_reset_saddr(sk);
-+	goto out;
+ /* stub_dev.c */
+ extern struct usb_device_driver stub_driver;
++void stub_device_put(struct stub_device *sdev);
+ 
+ /* stub_main.c */
+ struct bus_id_priv *get_busid_priv(const char *busid);
+diff --git a/drivers/usb/usbip/stub_dev.c b/drivers/usb/usbip/stub_dev.c
+index abfa11d6bde7..27d1e9c8db17 100644
+--- a/drivers/usb/usbip/stub_dev.c
++++ b/drivers/usb/usbip/stub_dev.c
+@@ -11,6 +11,42 @@
+ #include "usbip_common.h"
+ #include "stub.h"
+ 
++/*
++ * A stub_device is referenced by its binding to the USB device (from probe
++ * until disconnect), by the rx and tx threads while they run, and by the
++ * event handler while an event for it is queued or being handled. It must
++ * not be freed before all of them are done with it: stopping the threads
++ * relies on the event handler, which can miss a shutdown request or still
++ * have an event queued when disconnect wants to free the device.
++ */
++static void stub_device_release(struct kref *kref)
++{
++	struct stub_device *sdev = container_of(kref, struct stub_device, kref);
 +
- failure:
-+	WRITE_ONCE(sk->sk_bound_dev_if, old_bound_dev_if);
-+out:
- 	inet->inet_dport = 0;
- 	sk->sk_route_caps = 0;
- 	return err;
++	usb_put_dev(sdev->udev);
++	kfree(sdev);
++}
++
++static void stub_device_get(struct stub_device *sdev)
++{
++	kref_get(&sdev->kref);
++}
++
++void stub_device_put(struct stub_device *sdev)
++{
++	kref_put(&sdev->kref, stub_device_release);
++}
++
++static void stub_eh_get(struct usbip_device *ud)
++{
++	stub_device_get(container_of(ud, struct stub_device, ud));
++}
++
++static void stub_eh_put(struct usbip_device *ud)
++{
++	stub_device_put(container_of(ud, struct stub_device, ud));
++}
++
+ /*
+  * usbip_status shows the status of usbip-host as long as this driver is bound
+  * to the target device.
+@@ -101,6 +137,10 @@ static ssize_t usbip_sockfd_store(struct device *dev, struct device_attribute *a
+ 		get_task_struct(tcp_rx);
+ 		get_task_struct(tcp_tx);
+ 
++		/* one reference per thread, dropped when the thread ends */
++		stub_device_get(sdev);
++		stub_device_get(sdev);
++
+ 		/* lock and update sdev->ud state */
+ 		spin_lock_irq(&sdev->ud.lock);
+ 		sdev->ud.tcp_socket = socket;
+@@ -165,13 +205,18 @@ static void stub_shutdown_connection(struct usbip_device *ud)
+ 		kernel_sock_shutdown(ud->tcp_socket, SHUT_RDWR);
+ 	}
+ 
+-	/* 1. stop threads */
++	/*
++	 * 1. stop threads. A thread that was stopped before it ran
++	 * (-EINTR) did not drop its reference itself.
++	 */
+ 	if (ud->tcp_rx) {
+-		kthread_stop_put(ud->tcp_rx);
++		if (kthread_stop_put(ud->tcp_rx) == -EINTR)
++			stub_device_put(sdev);
+ 		ud->tcp_rx = NULL;
+ 	}
+ 	if (ud->tcp_tx) {
+-		kthread_stop_put(ud->tcp_tx);
++		if (kthread_stop_put(ud->tcp_tx) == -EINTR)
++			stub_device_put(sdev);
+ 		ud->tcp_tx = NULL;
+ 	}
+ 
+@@ -267,7 +312,8 @@ static struct stub_device *stub_device_alloc(struct usb_device *udev)
+ 	if (!sdev)
+ 		return NULL;
+ 
+-	sdev->udev = udev;
++	kref_init(&sdev->kref);
++	sdev->udev = usb_get_dev(udev);
+ 
+ 	/*
+ 	 * devid is defined with devnum when this driver is first allocated.
+@@ -294,6 +340,8 @@ static struct stub_device *stub_device_alloc(struct usb_device *udev)
+ 	sdev->ud.eh_ops.shutdown = stub_shutdown_connection;
+ 	sdev->ud.eh_ops.reset    = stub_device_reset;
+ 	sdev->ud.eh_ops.unusable = stub_device_unusable;
++	sdev->ud.eh_ops.get      = stub_eh_get;
++	sdev->ud.eh_ops.put      = stub_eh_put;
+ 
+ 	usbip_start_eh(&sdev->ud);
+ 
+@@ -302,11 +350,6 @@ static struct stub_device *stub_device_alloc(struct usb_device *udev)
+ 	return sdev;
+ }
+ 
+-static void stub_device_free(struct stub_device *sdev)
+-{
+-	kfree(sdev);
+-}
+-
+ static int stub_probe(struct usb_device *udev)
+ {
+ 	struct stub_device *sdev = NULL;
+@@ -409,7 +452,7 @@ static int stub_probe(struct usb_device *udev)
+ 	put_busid_priv(busid_priv);
+ 
+ sdev_free:
+-	stub_device_free(sdev);
++	stub_device_put(sdev);
+ 
+ 	return rc;
+ }
+@@ -489,15 +532,15 @@ static void stub_disconnect(struct usb_device *udev)
+ 
+ 	/* we already have busid_priv, just lock busid_lock */
+ 	spin_lock(&busid_priv->busid_lock);
+-	/* free sdev */
+ 	busid_priv->sdev = NULL;
+-	stub_device_free(sdev);
+ 
+ 	if (busid_priv->status == STUB_BUSID_ALLOC)
+ 		busid_priv->status = STUB_BUSID_ADDED;
+ 	/* release busid_lock */
+ 	spin_unlock(&busid_priv->busid_lock);
+-	return;
++
++	/* drop the reference of the binding, threads may still hold theirs */
++	stub_device_put(sdev);
+ }
+ 
+ #ifdef CONFIG_PM
+diff --git a/drivers/usb/usbip/stub_rx.c b/drivers/usb/usbip/stub_rx.c
+index 1e9ae578810d..63571b690f14 100644
+--- a/drivers/usb/usbip/stub_rx.c
++++ b/drivers/usb/usbip/stub_rx.c
+@@ -707,5 +707,8 @@ int stub_rx_loop(void *data)
+ 		stub_rx_pdu(ud);
+ 	}
+ 
++	/* drop the reference taken in usbip_sockfd_store() */
++	stub_device_put(container_of(ud, struct stub_device, ud));
++
+ 	return 0;
+ }
+diff --git a/drivers/usb/usbip/stub_tx.c b/drivers/usb/usbip/stub_tx.c
+index 4ffd342250b5..44b3e870456c 100644
+--- a/drivers/usb/usbip/stub_tx.c
++++ b/drivers/usb/usbip/stub_tx.c
+@@ -446,5 +446,8 @@ int stub_tx_loop(void *data)
+ 					  kthread_should_stop()));
+ 	}
+ 
++	/* drop the reference taken in usbip_sockfd_store() */
++	stub_device_put(sdev);
++
+ 	return 0;
+ }
+diff --git a/drivers/usb/usbip/usbip_common.h b/drivers/usb/usbip/usbip_common.h
+index be4c5e65a7f8..dfacd8530db8 100644
+--- a/drivers/usb/usbip/usbip_common.h
++++ b/drivers/usb/usbip/usbip_common.h
+@@ -280,6 +280,12 @@ struct usbip_device {
+ 		void (*shutdown)(struct usbip_device *);
+ 		void (*reset)(struct usbip_device *);
+ 		void (*unusable)(struct usbip_device *);
++		/*
++		 * Optional: hold a reference while an event for this device is
++		 * queued for or being handled by the event handler.
++		 */
++		void (*get)(struct usbip_device *ud);
++		void (*put)(struct usbip_device *ud);
+ 	} eh_ops;
+ 
+ 	struct kcov_common_handle_id kcov_handle;
+diff --git a/drivers/usb/usbip/usbip_event.c b/drivers/usb/usbip/usbip_event.c
+index 0e00c2d000f8..eea9a71f0eac 100644
+--- a/drivers/usb/usbip/usbip_event.c
++++ b/drivers/usb/usbip/usbip_event.c
+@@ -94,6 +94,10 @@ static void event_handler(struct work_struct *work)
+ 		mutex_unlock(&ud->sysfs_lock);
+ 
+ 		wake_up(&ud->eh_waitq);
++
++		/* drop the reference taken by usbip_event_add() */
++		if (ud->eh_ops.put)
++			ud->eh_ops.put(ud);
+ 	}
+ }
+ 
+@@ -163,6 +167,8 @@ void usbip_event_add(struct usbip_device *ud, unsigned long event)
+ 		goto out;
+ 
+ 	ue->ud = ud;
++	if (ud->eh_ops.get)
++		ud->eh_ops.get(ud);
+ 
+ 	list_add_tail(&ue->node, &event_list);
+ 	queue_work(usbip_queue, &usbip_work);
 
-base-commit: d2809ccf3cfc3c30581dc64ebec5f49f7ee1e228
-
+-- 
+2.53.0
 
