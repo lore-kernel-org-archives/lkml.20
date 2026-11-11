@@ -1,74 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794356659;
-	b=A6d1QyN2rkNiOFubk3MOJUGHMitjdGQN4Ti0TOKXsxGbWYUR0qKwM7dnP+KxTuZwTdm9
-	 E+fuFA/PAKCCv3zyJNOs70DwKXvwqL0gV2Smr38tdRWXclxhKwLdbX/S01Sb8MU6dMbEz
-	 kRape1l/MM6+mCF0YU97brzRsPrWlkeHb1Ft/e3qh6yTLhtho0Fj97NbteJD02dO2PesY
-	 qEjLxHxDGZURR1iqxvJAsXykJ5GGmwndKDh0eO9n+IEiMkA2np6t3+GRvFGCLfNJPoNys
-	 unYZ1b9Tz2P6lcV2ooBE9B2Ew0fptBCXT5+UMpKTZ6O9+bUWkmh3gQDNTUDUbEjhoiQ==
+	t=1794356660;
+	b=dO6dm9s7qwEX5vyRhiUdDTYgrUi4DMvg3++nXaWONL+Zz26CkpjswdnM5GAxUutM4ZIR
+	 uBwafejESVG5OEuPH73NnOmyqM/m6ypJWB0Qy4jsrtk2QuN2r5qz/MkH9/Ug5t26WzmTj
+	 4sU/G/tYet3Fa4Vcf2unh3zcJnOWd7TKCSZ33pweCHEhPr7vhhTUxRXDch4fBGRQ0DYNa
+	 jRgZEhk2sytJVBKjIPXaao6hOrgwm8//gwJPDX/Tls8XhKdD6siKhW+Kj49MJu2JukiRn
+	 LlNCupNheoDK8hlykaDA9X0clsLlD5K3Xh5CkOokBLEXC9JTBsCIrEN6zHjNAjAmgMg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794356659;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794356660;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type;
-	bh=6Cr74Qub+tM1aXRzOZn7JCSg3Cj9WP9eXIaNfTgWpng=;
-	b=gxq4Px1GP1UDqlBeMUoS0MWDbRO3wcaTESOgAj3V+4TIDf+sVeEC/OHesUfLcCGTpnV/
-	 K0RMFy2WhVBGsx7Dj+BekxQj0L/WsIgeNdFXFsqioI5ccVcRLR4EOsartuKi7dTSphg9e
-	 bO5nwn3Q49TyXABLvWaKnyu3hL0+S52ZBYeiUdTNa9KYKD8ZuuV6Vt2KzUB3xZYycDiGH
-	 ji8SQRxm2MQUp8c1Ie+yXadTaw/Nf3yntd0rl9wzK29k4F/ivOEwOgg9XABFt1eTnyXuD
-	 GnrrzINObs1oMLuJwbJ7kVDJI+4FxVUKNxrwkbJpeheteEAqL6JAn9lZDLY/VVlQIvw==
+	bh=vbpaElakptIh2hFwmXWUs/sq4k+QmnD2y26Qhgoo1AI=;
+	b=N9rXlR/46+FQjS0URwi1WiTtQocFnOX1QFyOdj0M1UTY4VFYSTlX9xc4QnVwHZHVVJ44
+	 2RTo58GW1Yife+Dngl8mGcegxxrW4grBquyyy6d8EvNfH1PohCxrFqi1XB/BkFmsL8xHI
+	 G7Kr6Ise7z6fJJVmh10h3wPbJiuRp9lr4inC+EzFcvl8cc4f0HNdUq7bHpPE88dIDbke0
+	 j9di4YNzu5SmqzyvCCCKiMJHxHZEme9XP+chyElzHM2eo7aGiiELod9TLITOH2Yy/HkzD
+	 4uaTD0tFNKtID2qEVf1FJrWr8AhygYFmLi/m4UFHbNyFFIJvqgGptl7qoe7/ZBdYOIA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--dmatlack.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=fc6AqgPS;
-	arc=none smtp.remote-ip=209.85.167.197
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=LbTkLkT8;
+	arc=none smtp.remote-ip=209.85.210.72
+Received: from mail-ot1-f72.google.com (mail-ot1-f72.google.com [209.85.210.72])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11E3060A383A
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 00:24:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 11E3060A383A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37DE360A260D
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 00:24:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37DE360A260D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--dmatlack.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=fc6AqgPS
-Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4a7de733fa9so3072000b6e.3
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 16:24:18 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=LbTkLkT8
+Received: by mail-ot1-f72.google.com with SMTP id 46e09a7af769-81b20bea169so1811896a34.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 16:24:20 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794356658; x=1794961458; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1794356659; x=1794961459; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=6Cr74Qub+tM1aXRzOZn7JCSg3Cj9WP9eXIaNfTgWpng=;
-        b=fc6AqgPSThXdW2Y1wCSo9b3Zo9rXFMnF5tjap70o2xRZGXSF4Hy7UwGYAufbBuLq0y
-         zeG5vj+rIlg9gSkYT/37+azBV530HrFYqAyU4Fc6l3Vt3M2+v5ZC2iBoviTK6egpaFRu
-         H+jAqTx7mdhr9NkVP0cY9wTZxC3SnC8LhTk8E0lqUhoSH12Og+udZFo9b54VdNLPJ9jv
-         8Lt3XRNsMSp2LrUhXFQ9A1+AFyzY4U4QHbHwzI4CnZlpTv022hOrrHeqkIC1N6Ida2sO
-         bOuWjmQJppR4OXa/cG9G3wPDeCG2ABYczl8cHwvFTLxDAK0D+v9bNRvXHL3KqA+VBoZ4
-         qAKQ==
+        bh=vbpaElakptIh2hFwmXWUs/sq4k+QmnD2y26Qhgoo1AI=;
+        b=LbTkLkT8laBq1avVHHPTq7AeTg1yGlj+jizTp7NlFZ5LoqkpiVNMWLGQBCxr1iC+kb
+         /K8ymlNrIA49xi2lMuATNMAml8PfsVlQM4kS4JZ5tKUH/V0Vske2MuK8bkhbnkb6f/QO
+         nt8Ea0YYLYFKyxBmH/WXOllO8pM0HLZtiyxS/qumFB3vDGZPVlBGqgzZgUazlfV5w7p9
+         QPbxNDdsZL0gAzy2gwzo0ICuKEkg283Qy4+DX0/DdhxIxP4T5B6YWuwoivuByDwXp2+g
+         tLI3lcDP9qOCErxlEvlzxRrgjxhUaVaFbzIN93pEFoK+5apS8gWc4jji431bU+xcLtlJ
+         kkUg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794356658; x=1794961458;
+        d=1e100.net; s=20260707; t=1794356659; x=1794961459;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=6Cr74Qub+tM1aXRzOZn7JCSg3Cj9WP9eXIaNfTgWpng=;
-        b=kzNFZBhKvC94v+PxpCZ42NlEZgzYvQ/OAVMCjDMfHjyGdy69dlD3u0KSvdQ5vUnmhl
-         8j+6iqIq66hCgTv7fSXfFx+a4vyBSIu+wcbDLQ0SwaDytFanue9aRUpR4mKZ8P2qSN7w
-         wNohF03ad+0V1qbo+P0GqdH3yrarPHrXWWO2qtfhGXx9mfJWc0GPYAv+b7s12l8i1wy9
-         2Ck8quiNAaac3ObnFJxeGztQyKn1GNpZrqJvySf7OFlxfXATKwT3lvhHFtKQUIFU0swZ
-         QfRSNfj6C+3zyyybX7IBCxucKdoNEmhoPEahhZ5Jg94S0ei5l40aAbS9ugRTrkLL2j/N
-         W4fA==
-X-Forwarded-Encrypted: i=1; AL+hErFRlet1f8/MQP/x9CQeMb1ahkMd89jOrKX3/2EXQJ/ZxFewwMlwOfVV4U/DGG1EUrssFH+fEYmiUBKa5a4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+BeaPmlzpGDNNfWo1hLNsx3tC7Of7L2Z4lodTVSnwZMjV937um
-	C1CXYW6529y+DuY8C3pbnzPZnjPLw5jH1KykSJjqOI5qSpGdvbpmEEx1/ylJSF2yUaFp5RBE4pY
-	bLHSR20ZRIPNWyw==
-X-Received: from jabll4.prod.google.com ([2002:a05:6638:9804:b0:61f:e4cd:8716])
+        bh=vbpaElakptIh2hFwmXWUs/sq4k+QmnD2y26Qhgoo1AI=;
+        b=vK57upRORrA39blyqQyq+HpYRkpqc/Rk5ZwEMHTBJr7UDsCeqcYJilwcLNqpKII7Da
+         L/e97oDPRjJof3Kron8tIBAJg8lU1M9hWs/RcLO2tXPCy9kR7F1U9kdbL85hLiXu/vhO
+         LclLzJIFebxAGm3HTD9xgw34jgbdqzYWIgEmArfTC+ccZbu6WSa7gg3oJ/lHGH8u+lvo
+         kxS1UNIF5FJBBb6hY6loZUm8FGHiy6xOItCKDXjIzrHLCu5a+Yhd0RRrg+1aPGseC7JY
+         y3eY1PfyBcbrnXT4tbMkhvxNSL7HLsEaTSwv+YZX4G4dcoLiENzlDnNNRvMYH+QFKG80
+         3G6A==
+X-Forwarded-Encrypted: i=1; AL+hErGPsYSBiR/MYGLFQaS2ZymmB78nxkSLGe1/GGNB/I0ZOYWdmhqK+Fj8QLggtuNMhTB8OEaPNWDPnx6lB9o=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+c491LTbof0fCCtZUtzldQpFYithPzykMB15BxRvNA1Ne7U8EJ
+	rJ0KxtD0O9Y7YT5VRG3BOOwUKFwVgz60W1pHug7drMTtkJv558tg9SJHjVKKTtl3G1cD9HhVNB9
+	fRJEKOdupDSmJAg==
+X-Received: from ilben19-n1.prod.google.com ([2002:a05:6e02:5113:10b0:524:c21c:a8de])
  (user=dmatlack job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6808:2507:b0:4f6:6041:f0a2 with SMTP id 5614622812f47-56b96def35emr632822b6e.27.1794356657766;
- Tue, 10 Nov 2026 16:24:17 -0800 (PST)
-Date: Wed, 11 Nov 2026 00:23:46 +0000
+ 2002:a05:6808:19a8:b0:539:596f:6623 with SMTP id 5614622812f47-56b98228b8bmr731061b6e.64.1794356659004;
+ Tue, 10 Nov 2026 16:24:19 -0800 (PST)
+Date: Wed, 11 Nov 2026 00:23:47 +0000
 In-Reply-To: <20261111002358.1842967-1-dmatlack@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,9 +81,8 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261111002358.1842967-1-dmatlack@google.com>
 X-Mailer: git-send-email 2.56.0.542.g3ef89b7020-goog
-Message-ID: <20261111002358.1842967-9-dmatlack@google.com>
-Subject: [PATCH v4 08/19] liveupdate: Let file handlers retrieve into an
- existing file
+Message-ID: <20261111002358.1842967-10-dmatlack@google.com>
+Subject: [PATCH v4 09/19] mm/shmem_luo: Leave freeing the preserved state to finish()
 From: David Matlack <dmatlack@google.com>
 To: kexec@lists.infradead.org, linux-doc@vger.kernel.org, 
 	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
@@ -99,316 +98,140 @@ Cc: Alexander Graf <graf@amazon.com>, Andrew Morton <akpm@linux-foundation.org>,
 	David Matlack <dmatlack@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Add liveupdate_claim_file() and liveupdate_unclaim_file(), which a file
-handler's .retrieve() callback can use to make LUO manage a file before
-restoring the preserved state into it. Also let the callback return the
-file descriptor of that file, so that LIVEUPDATE_SESSION_RETRIEVE_FD
-returns it instead of a new file descriptor.
+Don't free the serialized state in shmem_luo_retrieve(), whether the
+retrieve succeeds or fails, and let finish() free whatever is left of
+the preserved state of every file. Once retrieve() has restored the
+folios, it sets nr_folios in the serialized state to 0, so that
+finish() only frees the rest.
 
-LUO starts managing a retrieved file after .retrieve() returns it, and
-fails the retrieve if it already manages the file. That works for new
-files. The shmem file handler will restore tmpfs files into an existing
-file, though, and such a handler has to know that LUO accepts the file
-before it modifies it, not after the preserved state is consumed.
-Otherwise, it could restore into a file that is preserved in an
-outgoing session, or into a file that was already retrieved. Preserve
-also makes LUO manage the file before the file handler touches it, so
-claiming the file also keeps a preserve from racing with the retrieve.
+This fixes leaking the preserved folios when the retrieve fails before
+it restores them, e.g. because the file has seals that this kernel
+doesn't support, or because memfd_alloc_file() fails. The retrieve freed
+the serialized state but not the folios, and finish() then skipped the
+file because its retrieve had failed, so the folios were never freed.
 
-If .retrieve() claimed the file it returns, LUO doesn't track it again.
-A callback that fails after claiming a file must unclaim it.
+Preserved folios may also be in use until the session is finished, e.g.
+by a device that was preserved with DMA mappings of them, so they must
+not be freed before finish().
 
-A file that is restored into an existing file is already open in the
-caller, so installing a new file descriptor for it would just leave
-userspace with two file descriptors for the same open file. Retrieving
-the token again later still returns a new file descriptor, like for any
-other file that was already retrieved.
-
+Fixes: f85b1c6af5bc ("liveupdate: luo_file: remember retrieve() status")
 Signed-off-by: David Matlack <dmatlack@google.com>
 ---
- include/linux/liveupdate.h       | 26 +++++++++++
- include/uapi/linux/liveupdate.h  |  4 +-
- kernel/liveupdate/luo_file.c     | 80 ++++++++++++++++++++++++++++++--
- kernel/liveupdate/luo_internal.h |  2 +-
- kernel/liveupdate/luo_session.c  | 25 +++++++---
- 5 files changed, 124 insertions(+), 13 deletions(-)
+ mm/shmem_luo.c | 64 +++++++++++++++++++++++++++-----------------------
+ 1 file changed, 35 insertions(+), 29 deletions(-)
 
-diff --git a/include/linux/liveupdate.h b/include/linux/liveupdate.h
-index e4ad0bf78a5c..87a894e269f2 100644
---- a/include/linux/liveupdate.h
-+++ b/include/linux/liveupdate.h
-@@ -79,6 +79,13 @@ struct liveupdate_arg_spec {
-  *                    to the handler's expected argument size with any trailing
-  *                    bytes beyond the user-supplied size zero-filled. Valid
-  *                    only for the duration of the callback.
-+ * @claimed:          For .retrieve(): Set while the callback has claimed a file
-+ *                    with liveupdate_claim_file(). Private to LUO.
-+ * @fd:               For .retrieve(): [OUT] -1, or the file descriptor of
-+ *                    @file in the calling task if the callback restored the
-+ *                    preserved state into a file that is already open there.
-+ *                    LUO then returns that file descriptor to userspace
-+ *                    instead of installing a new one.
-  *
-  * This structure bundles all parameters for the file operation callbacks.
-  * The 'data' and 'file' fields are used for both input and output.
-@@ -92,6 +99,8 @@ struct liveupdate_file_op_args {
- 	u64 serialized_data;
- 	void *private_data;
- 	const void *arg;
-+	bool claimed;
-+	int fd;
- };
+diff --git a/mm/shmem_luo.c b/mm/shmem_luo.c
+index e747a0442295..b48d7f460493 100644
+--- a/mm/shmem_luo.c
++++ b/mm/shmem_luo.c
+@@ -390,13 +390,10 @@ static void shmem_luo_finish(struct liveupdate_file_op_args *args)
+ 	struct shmem_luo_ser *ser;
  
- /**
-@@ -306,6 +315,12 @@ int liveupdate_get_file_incoming(struct liveupdate_session *s, u64 token,
- int liveupdate_get_token_outgoing(struct liveupdate_session *s,
- 				  struct file *file, u64 *tokenp);
- 
-+/* For .retrieve() callbacks that restore into an existing file */
-+int liveupdate_claim_file(struct liveupdate_file_op_args *args,
-+			  struct file *file);
-+void liveupdate_unclaim_file(struct liveupdate_file_op_args *args,
-+			     struct file *file);
-+
- #else /* CONFIG_LIVEUPDATE */
- 
- static inline bool liveupdate_enabled(void)
-@@ -370,5 +385,16 @@ static inline int liveupdate_get_token_outgoing(struct liveupdate_session *s,
- 	return -EOPNOTSUPP;
- }
- 
-+static inline int liveupdate_claim_file(struct liveupdate_file_op_args *args,
-+					struct file *file)
-+{
-+	return -EOPNOTSUPP;
-+}
-+
-+static inline void liveupdate_unclaim_file(struct liveupdate_file_op_args *args,
-+					   struct file *file)
-+{
-+}
-+
- #endif /* CONFIG_LIVEUPDATE */
- #endif /* _LINUX_LIVEUPDATE_H */
-diff --git a/include/uapi/linux/liveupdate.h b/include/uapi/linux/liveupdate.h
-index 7420e2c5434b..4ebbd578d2d5 100644
---- a/include/uapi/linux/liveupdate.h
-+++ b/include/uapi/linux/liveupdate.h
-@@ -161,7 +161,9 @@ struct liveupdate_session_preserve_fd {
-  * struct liveupdate_session_retrieve_fd - ioctl(LIVEUPDATE_SESSION_RETRIEVE_FD)
-  * @size:  Input; sizeof(struct liveupdate_session_retrieve_fd)
-  * @fd:    Output; The new file descriptor representing the fully restored
-- *         kernel resource.
-+ *         kernel resource, or the file descriptor of the file it was restored
-+ *         into, if @arg passed one (see the documentation of the file
-+ *         handler).
-  * @token: Input; An opaque, token that was used to preserve the resource.
-  * @arg:   Input; User-space pointer to a file-handler-specific argument
-  *         structure starting with a 32-bit size field, or 0 if unused.
-diff --git a/kernel/liveupdate/luo_file.c b/kernel/liveupdate/luo_file.c
-index 91a2b74f71cb..95b17c980054 100644
---- a/kernel/liveupdate/luo_file.c
-+++ b/kernel/liveupdate/luo_file.c
-@@ -592,6 +592,10 @@ void luo_file_unfreeze(struct luo_file_set *file_set,
-  * @arg:      User-space pointer to the handler argument structure, or NULL.
-  * @filep:    Output parameter; on success, this is populated with a pointer
-  *            to the newly retrieved 'struct file'.
-+ * @fdp:      Output parameter; on success, this is set to -1, or to the file
-+ *            descriptor of @filep in the calling task if the file handler
-+ *            restored the preserved state into a file that is already open
-+ *            there.
-  *
-  * This function is the primary mechanism for recreating a file in the new
-  * kernel after a live update. It searches the file_set's list of deserialized
-@@ -616,7 +620,7 @@ void luo_file_unfreeze(struct luo_file_set *file_set,
-  *         Any error code returned by the handler's .retrieve() op.
-  */
- int luo_retrieve_file(struct luo_file_set *file_set, u64 token,
--		      const void __user *arg, struct file **filep)
-+		      const void __user *arg, struct file **filep, int *fdp)
- {
- 	struct liveupdate_file_op_args args = {0};
- 	struct luo_file *luo_file;
-@@ -656,6 +660,7 @@ int luo_retrieve_file(struct luo_file_set *file_set, u64 token,
- 		 */
- 		get_file(luo_file->file);
- 		*filep = luo_file->file;
-+		*fdp = -1;
- 		return 0;
- 	}
- 
-@@ -666,9 +671,13 @@ int luo_retrieve_file(struct luo_file_set *file_set, u64 token,
- 	args.handler = luo_file->fh;
- 	args.session = luo_session_from_file_set(file_set);
- 	args.serialized_data = luo_file->serialized_data;
-+	args.fd = -1;
- 	err = luo_file->fh->ops->retrieve(&args);
- 	kfree(args.arg);
- 	if (err) {
-+		/* A handler that fails must unclaim the file it claimed. */
-+		WARN_ON_ONCE(args.claimed);
-+
- 		/*
- 		 * Keep the error code for later use unless the handler marked
- 		 * the failure as retryable (e.g. invalid user argument before
-@@ -679,9 +688,14 @@ int luo_retrieve_file(struct luo_file_set *file_set, u64 token,
- 		return err;
- 	}
- 
--	err = luo_track_file(luo_file->fh, args.file);
-+	/* A file that the handler claimed is already tracked. */
-+	if (!args.claimed)
-+		err = luo_track_file(luo_file->fh, args.file);
- 	if (err) {
--		/* A retrieved file is new, so it can't be tracked already. */
-+		/*
-+		 * A retrieved file that the handler didn't claim is new, so it
-+		 * can't be tracked already.
-+		 */
- 		WARN_ON_ONCE(err == -EBUSY);
- 
- 		/*
-@@ -700,6 +714,7 @@ int luo_retrieve_file(struct luo_file_set *file_set, u64 token,
- 	get_file(luo_file->file);
- 
- 	*filep = luo_file->file;
-+	*fdp = args.fd;
- 	luo_file->retrieve_status = 1;
- 
- 	return 0;
-@@ -1081,7 +1096,64 @@ EXPORT_SYMBOL_GPL(liveupdate_get_token_outgoing);
- int liveupdate_get_file_incoming(struct liveupdate_session *s, u64 token,
- 				 struct file **filep)
- {
-+	int fd;
-+
- 	return luo_retrieve_file(luo_file_set_from_session_locked(s),
--				 token, 0, filep);
-+				 token, 0, filep, &fd);
- }
- EXPORT_SYMBOL_GPL(liveupdate_get_file_incoming);
-+
-+/**
-+ * liveupdate_claim_file - Claim the file that the preserved state is restored
-+ *                         into.
-+ * @args: The arguments of the .retrieve() callback.
-+ * @file: The existing file that the callback restores the preserved state into.
-+ *
-+ * LUO starts managing the file that .retrieve() returns after the callback,
-+ * and a file can only be managed once. A handler that restores the preserved
-+ * state into an existing file, instead of a new one, must call this before
-+ * modifying @file, so that a file that LUO already manages is rejected before
-+ * the preserved state is consumed. For example, @file could be preserved in an
-+ * outgoing session, or be another retrieved file.
-+ *
-+ * After a successful claim, the callback must either return @file in
-+ * @args->file, or call liveupdate_unclaim_file() and fail.
-+ *
-+ * Context: Can only be called from a .retrieve() callback.
-+ * Return: 0 on success, -EBUSY if LUO already manages @file, or another
-+ *         negative errno on failure.
-+ */
-+int liveupdate_claim_file(struct liveupdate_file_op_args *args,
-+			  struct file *file)
-+{
-+	int err;
-+
-+	if (WARN_ON_ONCE(args->claimed))
-+		return -EINVAL;
-+
-+	err = luo_track_file(args->handler, file);
-+	if (err)
-+		return err;
-+
-+	args->claimed = true;
-+	return 0;
-+}
-+EXPORT_SYMBOL_GPL(liveupdate_claim_file);
-+
-+/**
-+ * liveupdate_unclaim_file - Undo liveupdate_claim_file().
-+ * @args: The arguments of the .retrieve() callback.
-+ * @file: The file that was claimed.
-+ *
-+ * Context: Can only be called from a .retrieve() callback.
-+ */
-+void liveupdate_unclaim_file(struct liveupdate_file_op_args *args,
-+			     struct file *file)
-+{
-+	if (WARN_ON_ONCE(!args->claimed))
-+		return;
-+
-+	luo_untrack_file(args->handler, file);
-+	args->claimed = false;
-+}
-+EXPORT_SYMBOL_GPL(liveupdate_unclaim_file);
-diff --git a/kernel/liveupdate/luo_internal.h b/kernel/liveupdate/luo_internal.h
-index e0be84acb33b..5e2f82f5a044 100644
---- a/kernel/liveupdate/luo_internal.h
-+++ b/kernel/liveupdate/luo_internal.h
-@@ -109,7 +109,7 @@ int luo_file_freeze(struct luo_file_set *file_set,
- void luo_file_unfreeze(struct luo_file_set *file_set,
- 		       struct luo_file_set_ser *file_set_ser);
- int luo_retrieve_file(struct luo_file_set *file_set, u64 token,
--		      const void __user *arg, struct file **filep);
-+		      const void __user *arg, struct file **filep, int *fdp);
- int luo_file_finish(struct luo_file_set *file_set);
- int luo_file_deserialize(struct luo_file_set *file_set,
- 			 struct luo_file_set_ser *file_set_ser);
-diff --git a/kernel/liveupdate/luo_session.c b/kernel/liveupdate/luo_session.c
-index 0d7533f0bde6..2f3f0eeedf07 100644
---- a/kernel/liveupdate/luo_session.c
-+++ b/kernel/liveupdate/luo_session.c
-@@ -285,31 +285,42 @@ static int luo_session_retrieve_fd(struct luo_session *session,
- {
- 	struct liveupdate_session_retrieve_fd *argp = ucmd->cmd;
- 	struct file *file;
--	int err;
-+	int fd, err;
- 
--	argp->fd = get_unused_fd_flags(O_CLOEXEC);
--	if (argp->fd < 0)
--		return argp->fd;
-+	fd = get_unused_fd_flags(O_CLOEXEC);
-+	if (fd < 0)
-+		return fd;
- 
- 	mutex_lock(&session->mutex);
- 	err = luo_retrieve_file(&session->file_set, argp->token,
--				u64_to_user_ptr(argp->arg), &file);
-+				u64_to_user_ptr(argp->arg), &file, &argp->fd);
- 	mutex_unlock(&session->mutex);
- 	if (err < 0)
- 		goto err_put_fd;
- 
-+	/*
-+	 * If the file handler restored the preserved state into a file that is
-+	 * already open in this task, return its file descriptor.
-+	 */
-+	if (argp->fd >= 0) {
-+		fput(file);
-+		put_unused_fd(fd);
-+		return luo_ucmd_respond(ucmd, sizeof(*argp));
-+	}
-+
-+	argp->fd = fd;
- 	err = luo_ucmd_respond(ucmd, sizeof(*argp));
- 	if (err)
- 		goto err_put_file;
- 
--	fd_install(argp->fd, file);
-+	fd_install(fd, file);
- 
- 	return 0;
- 
- err_put_file:
- 	fput(file);
- err_put_fd:
--	put_unused_fd(argp->fd);
-+	put_unused_fd(fd);
- 
+ 	/*
+-	 * If retrieve was successful, nothing to do. If it failed, retrieve()
+-	 * already cleaned up everything it could. So nothing to do there
+-	 * either. Only need to clean up when retrieve was not called.
++	 * Preserved folios may be in use until the session is finished, so
++	 * retrieve() leaves freeing the preserved state to finish(), whether it
++	 * succeeds or not.
+ 	 */
+-	if (args->retrieve_status)
+-		return;
+-
+ 	ser = phys_to_virt(args->serialized_data);
+ 	if (!ser)
+ 		return;
+@@ -515,9 +512,34 @@ static int shmem_luo_retrieve_folios(struct file *file,
  	return err;
  }
+ 
+-static int shmem_luo_retrieve(struct liveupdate_file_op_args *args)
++/*
++ * Restore the preserved folios into @file. This consumes them even if it fails,
++ * since they are then either in @file or freed, so make sure finish() doesn't
++ * free them again.
++ */
++static int shmem_luo_restore_folios(struct file *file,
++				    struct shmem_luo_ser *ser)
+ {
+ 	struct shmem_luo_folio_ser *folios_ser;
++	u64 nr_folios = ser->nr_folios;
++	int err;
++
++	if (!nr_folios)
++		return 0;
++
++	ser->nr_folios = 0;
++
++	folios_ser = kho_restore_vmalloc(&ser->folios);
++	if (!folios_ser)
++		return -EINVAL;
++
++	err = shmem_luo_retrieve_folios(file, folios_ser, nr_folios);
++	vfree(folios_ser);
++	return err;
++}
++
++static int shmem_luo_retrieve(struct liveupdate_file_op_args *args)
++{
+ 	struct shmem_luo_ser *ser;
+ 	struct file *file;
+ 	int err;
+@@ -527,10 +549,8 @@ static int shmem_luo_retrieve(struct liveupdate_file_op_args *args)
+ 		return -EINVAL;
+ 
+ 	/* Make sure the file only has seals supported by this version. */
+-	if (ser->seals & ~SHMEM_LUO_ALL_SEALS) {
+-		err = -EOPNOTSUPP;
+-		goto free_ser;
+-	}
++	if (ser->seals & ~SHMEM_LUO_ALL_SEALS)
++		return -EOPNOTSUPP;
+ 
+ 	/*
+ 	 * The seals are preserved. Allow sealing here so they can be added
+@@ -539,8 +559,7 @@ static int shmem_luo_retrieve(struct liveupdate_file_op_args *args)
+ 	file = memfd_alloc_file("", MFD_ALLOW_SEALING);
+ 	if (IS_ERR(file)) {
+ 		pr_err("failed to setup file: %pe\n", file);
+-		err = PTR_ERR(file);
+-		goto free_ser;
++		return PTR_ERR(file);
+ 	}
+ 
+ 	err = memfd_add_seals(file, ser->seals);
+@@ -552,28 +571,15 @@ static int shmem_luo_retrieve(struct liveupdate_file_op_args *args)
+ 	vfs_setpos(file, ser->pos, MAX_LFS_FILESIZE);
+ 	i_size_write(file_inode(file), ser->size);
+ 
+-	if (ser->nr_folios) {
+-		folios_ser = kho_restore_vmalloc(&ser->folios);
+-		if (!folios_ser) {
+-			err = -EINVAL;
+-			goto put_file;
+-		}
+-
+-		err = shmem_luo_retrieve_folios(file, folios_ser, ser->nr_folios);
+-		vfree(folios_ser);
+-		if (err)
+-			goto put_file;
+-	}
++	err = shmem_luo_restore_folios(file, ser);
++	if (err)
++		goto put_file;
+ 
+ 	args->file = file;
+-	kho_restore_free(ser);
+-
+ 	return 0;
+ 
+ put_file:
+ 	fput(file);
+-free_ser:
+-	kho_restore_free(ser);
+ 	return err;
+ }
+ 
 -- 
 2.56.0.542.g3ef89b7020-goog
 
