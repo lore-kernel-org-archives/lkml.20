@@ -1,60 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.17
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.137
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794366342;
-	b=rmj1p33DRUYXUhE0+sOIkrbda1g8VgfsfQCAXd94lwgPlsAgGak4tCnKupasMDcMA1T5
-	 gWO0sRSkhkq4B0fKK3aGQ9F0YYg0KAmHN69GHxWZapEz93SrWtjlWW8Z4iofHzds19L9N
-	 dwDrXyDXLZowdJC+MO9H2gjLzwFMxhvaFFp9tgk5nv9B6JIq0aGmWd5bT444TD/7N4YMR
-	 UxeUYIWy9W1jLO6Gq6XRH+Smf+r4vE2+7ZiYjyltYbvzf922P+qga+8ksZk4mJ3uNxia9
-	 NIZKMAZEsjNlUyA+mvOt/AjbZiIJOrmUuQfQwgnglLqGMt2Fn3SuMY0yA77XdwLJYGQ==
+	b=KIPFl6NZIez5SVjQHBftiHcTOn2i+dH3kO+ZHu0aVCLCQgc8TT9fY+BzfydvoZ9xwbOd
+	 5qA2wM4YgUl3iEqWW4m/M9epngpwrJFG8IFJcJQv9SXiN289QmO9NzC+PH2BzHhmpwLwf
+	 jdujOEPzuXDXtiFctx/PenPpxi0Gp3MCIZ0cQUY2MZyG5DLYhebGpzC6fftBxZ7uqLjzb
+	 Bbu8V5aYp0rh1XPArG4o53rggTS502oO2dkN6uODHl8FQnW8k/InhXCn5j3X49yZGJvhE
+	 d75INlKdOKbhcpo6RIgyVNdzSRia0/M7Bw9yyB8ddsPScmNAM8Hh9V/nJwn7H9equXw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794366342;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=uMTNYUkii6qLQJ9ZEEqnYSkjnjc4c5VnVsIGkdlEd14=;
-	b=4/99ApTqeZKpF7JY4alN1ohXyYk5BvVQniEsMEsUfPOr7Jf5UApYOCUxhELdMuqTgtnv
-	 McDnUj4SFN0XNL5MIcXcUs3H1/hozQHy8GH2OgDAqG23TKh42v5VNtbgvHIK2XjExcltq
-	 t1MdJCSMryQwE6kzQsnBkU4zfg5sGxxaLygGxJ5Si/j6IPbciQf48pSL2CLhbBnUc3fjO
-	 joOcgo3ZaTxeU6V3lG15jdAIj1sOgx+qcvqUBUPngksK1tGZRvHrq2sV6/yzTonNM5f0I
-	 2n2H2OFsYjGOKFWE/pk/u0Z4oVG9evhoyormrjkBZiNpeWPhJGPrEh9SwMKNur7MuZQ==
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=Q9dh0eC9tiG5dtZYvNDq9HKp18r7vEAQYTFnav9a9/s=;
+	b=fJzJd7sOhree7MDhz07OU1DRG49YgwrL3Y3tlG4kx903qFxfC5KVTYrdTe0pbn/LF4eu
+	 l1KPof/bs2JdmtM5t3fUEz7b4/W+cYZobvtdg70Tl4pZg4BbzpVEFuCkQHcdtmAXjKeFA
+	 mY2DwKTFrDaZT4qUoY6r8d/7g4m06XncVG3B88NgFd9mS+FdXQe8FViw/Ck7SCByFKI9q
+	 OXDTk4VsCBgegb6beqt1v00sqvQopJ6WFKYvmZZ0EH4B1zfgbPL9n7AgP6CGT6NPJSJEo
+	 sAbHboph/tN8Djk9iwNcNsQzopLVAyELvuN5oijaTj3obg00na8A49MGS9h0+PYhz4Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pm.me;
-	spf=pass smtp.mailfrom=pm.me;
-	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=mAJk9qXe;
-	arc=none smtp.remote-ip=109.224.244.17
-Received: from mail-24417.protonmail.ch (mail-24417.protonmail.ch [109.224.244.17])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8755E606A32E;
-	Wed, 11 Nov 2026 03:05:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8755E606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=w7eu5sQj;
+	arc=none smtp.remote-ip=111.22.67.137
+Received: from cmccmta4.chinamobile.com (cmccmta4.chinamobile.com [111.22.67.137])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 41AB1606A32A;
+	Wed, 11 Nov 2026 03:05:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 41AB1606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=mAJk9qXe
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1794366339; x=1794625539;
-	bh=uMTNYUkii6qLQJ9ZEEqnYSkjnjc4c5VnVsIGkdlEd14=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=mAJk9qXef5Dg92eNFgL1RRe5OnKLf1i0HsXA+8ARikr6+LWggcz8YnnZ0V5PncB/t
-	 Ojz8P7QUm+rYOjpXVaXOBSXbULCSXHtp8DZFqLMZ/sQenvK1IonhyF3/cUdqIAnvVS
-	 8+O+JPUmuhPnDxxe9oBKZbhEKkEh6+v1bVQ8UHsG6ur5t0UsRPKiTHkYNxRTlBxC/p
-	 TtePKLvBY0Bu+YbefdTscuwyWQmglSmWFHFbiaQUptV8Qn+zHzGG1TqazMQQ5t2wqT
-	 0ZAm0lJWuakoyuB2b8ydv+poW7XTlRIthyO3ZgNh1VVTu78b/8C0BsFhvM/OMGW5Y/
-	 d25vK0KqGLdwA==
-Date: Wed, 11 Nov 2026 03:05:33 +0000
-To: Pragnesh Papaniya <pragnesh.papaniya@oss.qualcomm.com>, Sibi Sankar <sibi.sankar@oss.qualcomm.com>
-From: Birk Skyum <birk.skyum@pm.me>
-Cc: sudeep.holla@kernel.org, cristian.marussi@arm.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, myungjoo.ham@samsung.com, kyungmin.park@samsung.com, cw00.choi@samsung.com, digetx@gmail.com, thierry.reding@kernel.org, jonathanh@nvidia.com, andersson@kernel.org, konradybcio@kernel.org, rajendra.nayak@oss.qualcomm.com, pankaj.patil@oss.qualcomm.com, linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, arm-scmi@vger.kernel.org, linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, linux-pm@vger.kernel.org, linux-tegra@vger.kernel.org
-Subject: Re: [PATCH RFC 09/10] arm64: dts: qcom: hamoa: Enable LLCC/DDR/DDR_QOS DVFS
-Message-ID: <179436632843.48104.13255943696510307622@pm.me>
-In-Reply-To: <20260724-rfc_v8_scmi_memlat-v1-9-cb732bcff1f4@oss.qualcomm.com>
-References: <20260724-rfc_v8_scmi_memlat-v1-0-cb732bcff1f4@oss.qualcomm.com> <20260724-rfc_v8_scmi_memlat-v1-9-cb732bcff1f4@oss.qualcomm.com>
-Feedback-ID: 21326998:user:proton
-X-Pm-Message-ID: 4df2f6e52051d98663eb4d196577dc26e996a70d
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=w7eu5sQj
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=w7eu5sQjk08OyWtgKZ5ccte4ghepokjHnHZL9Tt7z2a31aYVMS5tQxlOgcKY3FRT9OQe+3MXVnkDA
+	 6wC4yvuYjLe5KDSpj54Mw/5zquohayX8eJQvzn45ebU6izuVeOlAdnRurz25BRDxX3itZjx+0l08Rp
+	 HEkOolPVRzgJrTq8=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app08-12008 (RichMail) with SMTP id 2ee86af3db8257e-736d4;
+	Wed, 11 Nov 2026 11:05:39 +0800 (CST)
+X-RM-TRANSID:2ee86af3db8257e-736d4
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from devin-VMware-Virtual-Platform.localdomain (unknown[10.55.1.72])
+	by rmsmtp-syy-appsvr04-12004 (RichMail) with SMTP id 2ee46af3db82eb8-cbef2;
+	Wed, 11 Nov 2026 11:05:39 +0800 (CST)
+X-RM-TRANSID:2ee46af3db82eb8-cbef2
+From: Zhu Jun <zhujun2@cmss.chinamobile.com>
+To: jic23@kernel.org
+Cc: dlechner@baylibre.com,
+	nuno.sa@analog.com,
+	andriy.shevchenko@intel.com,
+	crofts@kernel.org,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Zhu Jun <zhujun2@cmss.chinamobile.com>
+Subject: [PATCH v2] iio: temperature: mcp9600: Bound thresholds before scaling
+Date: Wed, 11 Nov 2026 11:05:38 +0800
+Message-ID: <20261111030538.10565-1-zhujun2@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.51.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,48 +72,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi Pragnesh, Sibi,
+mcp9600_write_thresh() multiplies the integer part by 1000000 before
+clamping to the supported temperature range. The multiplication can
+overflow int, so a request such as 3000 degrees can select the lower
+threshold instead of the upper threshold.
 
-I tried this on a Lenovo Yoga Slim 7x (X1E80100, 83ED, firmware
-NHCN62WW) running 7.3 with patches 1-8 of this series and the
-protocol@80 node from this patch added to the board's DTB.
+Clamp the integer part to the hot-junction range before scaling. Keep
+the existing final clamp for fractional values and the narrower cold-
+junction range.
 
-Memlat probes, and the ddr, llcc and ddr-qos devfreq devices come up
-under the remote governor. CPU read bandwidth goes from about 51 GB/s
-to 117 GB/s with six threads, and suspend and resume work.
+Signed-off-by: Zhu Jun <zhujun2@cmss.chinamobile.com>
+---
+Changes in v2:
+- Use MICRO from <linux/units.h>, cast to int to preserve
+  signed division for the negative temperature limit (Andy Shevchenko).
 
-Under GPU load it isn't stable here, though. I ran Speedometer 3.1 in
-Chrome twice with memlat active:
+ drivers/iio/temperature/mcp9600.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-- The first time the run finished, but after a warm reboot into a
-  kernel whose DTB lacks protocol@80, the GPU never came up:
+diff --git a/drivers/iio/temperature/mcp9600.c b/drivers/iio/temperature/mcp9600.c
+index b0ff0c7b4891..d030f639f500 100644
+--- a/drivers/iio/temperature/mcp9600.c
++++ b/drivers/iio/temperature/mcp9600.c
+@@ -17,6 +17,7 @@
+ #include <linux/math.h>
+ #include <linux/minmax.h>
+ #include <linux/module.h>
++#include <linux/units.h>
+ 
+ #include <linux/iio/events.h>
+ #include <linux/iio/iio.h>
+@@ -326,6 +327,8 @@ static int mcp9600_write_thresh(struct iio_dev *indio_dev,
+ 	i = mcp9600_get_alert_index(chan->channel2, dir);
+ 	switch (info) {
+ 	case IIO_EV_INFO_VALUE:
++		val = clamp_val(val, MCP9600_MIN_TEMP_HOT_JUNCTION_MICRO / (int)MICRO,
++				MCP9600_MAX_TEMP_HOT_JUNCTION_MICRO / (int)MICRO);
+ 		/* Scale value to include decimal part into calculations */
+ 		s_val = (val < 0) ? ((val * 1000000) - val2) :
+ 				    ((val * 1000000) + val2);
+-- 
+2.51.0
 
-  adreno_gmu 3d6a000.gmu: [drm:a6xx_hfi_wait_for_msg_interrupt [msm]] *ERRO=
-R* Message HFI_H2F_MSG_GX_BW_PERF_VOTE id 34 timed out waiting for response
-  adreno_gmu 3d6a000.gmu: [drm:a6xx_gmu_set_oob [msm]] *ERROR* Timeout wait=
-ing for GMU OOB set GPU_SET: 0x4
 
-  A cold boot of the same kernel was fine.
-
-- The second time the machine reset partway through the run, with
-  nothing in pstore.
-
-Four runs without the GPU load (a CPU bandwidth test, with and without
-a suspend), each followed by the same warm reboot, were clean, as were
-about ten boots without memlat.
-
-Separately, the memlat driver sends MEMLAT_STOP_TIMER only from its
-.remove callback, and the SCMI bus has no shutdown hook, so on a
-reboot the monitors keep running on the CPUCP into whatever boots
-next. That would fit the first failure if the GMU's GX bandwidth votes
-and the CPUCP's DDR votes get in each other's way. Would it make sense
-to stop the timers from a reboot notifier as well?
-
-I'm happy to test a follow-up on this machine.
-
-Thanks,
-Birk
 
