@@ -1,101 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.169
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794426345;
-	b=MTAkoJautFRU17CneHFIV12EIkcHzXzwxL3tH0vIQOGogOX3DzgXOnHKd6reP/A77yoQ
-	 PtOORs7aVtiXFVW3jCet0ujAmknhBwtyufnCaWP3rgbji1LLCiCx1c7CC3EdZR5UWJwqQ
-	 afnYIPpGBlq25TFPqTdF/XzYAOE5ojJ+qKGBLNkrXy2KCK6u4VBADBVHmZzn31/na2aGL
-	 r4jCFpABEBrVbcwAl2/64kVvFtceOO5CshcQBSGQ26mG2SNfpGGsEVBXH5L0FfhPIERQw
-	 SnX3jWBKaTfLYSAV9wF1HaXnGfUmK/8Fa+EFsU9y4pdL3ObACyC9nZ5Q0Bf6Xc0DcrA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794426345;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 MIME-Version:From:In-Reply-To:References:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=lILIcv7ALfl3mdwxNQu1XBlIGEZnSF9o3ZCOxCy8fhQ=;
-	b=TOFUg+vV8eTu4sVXaLPzCDxVtN65fHYG/HraHNLQDdBs6NG2xGkMJSA+CyJQzoLgWHKC
-	 8J0iohBf2IuttVdu5WmX0YVm/9C0MuX+7rOdE45TmrRUGJ9kwNRLjjbTrXvMZw5OtqZ/p
-	 0OzyMNZmMtnzv3MzIqc18/cwKY+0bbM4yAAcouZ9WYAqwU1TrBjLb92uBdRiPvZrW25eI
-	 CRPjW9cjB59S1MtMU5P63fGByfi3s+zxBx17Mf/HzjcgTtPK3RrxLqCmQp+scDYHkKTkE
-	 SrUaGrYpsQXzdAX5vbLpn6e7Q0cGKti/OKYTu3RO4LQpyKHZtnERkb1BiiEj2UD1RGQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=s2SQADY4;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.169
-Received: from mail-vk1-f169.google.com (mail-vk1-f169.google.com [209.85.221.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794426416;
+	b=uu+nQDWpR6EWc/eX8D9rPL32Jm/bi4uWCr/KqlIcSbCttLUA3p1dgedayu4Ctr7PZmR4
+	 LMKmV+rh3HXzS7J4iAO84Yt5TI+HCm9yyFltZxqqptYt+oVF3fWNgcw3FTmV+A5bcmp6J
+	 KT0wqe5c+xQX4LMtp3EfXrX05lDwOrd5pvmikOVbjfitLbi56qJh65K+/Q9xMIeEscNFj
+	 DgGjGlxeXWfU6BQGActkKz2hOUe6Sqfqg3fBzug/MZpLI0SJY+Sd+rpu/qZsS2UaXgfXH
+	 V2I3KGjnHzgkNBTEUgSpZauSktaIu8aLPpQ5K0m50JbPn3FpcXmhzIm//2m39yktoiA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794426416;
+	h=Received:DKIM-Signature:Received:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
+	 X-SA-Exim-Connect-IP:X-SA-Exim-Rcpt-To:X-SA-Exim-Mail-From:
+	 X-SA-Exim-Scanned;
+	bh=TEA8Apju+c2xFXRAkFgrvx3sun6rF0Eje/7sHrYH2Vo=;
+	b=k2KAJijxtJ6l0jt/GzwQAwsLy0jMtbs9TvfkuuNzDxvs5utmJf5lA5CtuBXV0IuLEhVt
+	 KcbIPDUeYdfboKC+NyGJXDDZ2/GS8r3XhhMJYgDN4lcuTujRY4eX1FzOBl5jlc9XHM0eI
+	 svDuB/NIWlpEmzBKVJz6VrEXamTsfBsZw2A8K/lSvILbyGduYor9PbKo7PeF04zca2xeK
+	 gqEAdvWVR4Gh8ZC+B6S0HY/W15xYDBfAAAMqY/c5NCD3pE3Ww1uvaV8+QbGT6YvTlIHTW
+	 7hg7SUh5ogwWIiJZA4SekTUfo+RwupqIaIzV7BT76CCmskSs/Xtfl/yVPGLcZO4uoFA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iCHAVtIZ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8DC6606A326
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 19:45:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D8DC6606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83CB1606A321;
+	Wed, 11 Nov 2026 19:46:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=s2SQADY4
-Received: by mail-vk1-f169.google.com with SMTP id 71dfb90a1353d-5eabf243d05so1183102e0c.2
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 11:45:44 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794426344; cv=none;
-        d=google.com; s=arc-20260327;
-        b=NAdYgcnwginq5/NF8tl4duwsgWwDgSnGsNiGwy3bDXuZc5Y1FPC/TxU/kYISUoWfvm
-         utABpkAA4S21TU6n+Mor9ye4CUfXuRZk6rq4pO015jX49iU3/61rKdQQJ97rgZEqb3pG
-         UQBWRgT07GumpSeZuphilmtqogSsDDuYNS44TlBLI/nU0OEC3IysgWRqoFwinrLT1yX2
-         7JggHgeYuI3CE1jSZBrs/J8mP8SS+j7B5fdZMZ4GRssdr6QRfw5Tdr9u/w0hW9pCj8Nk
-         7XBCyH/YQ9NJKwLYs65vSG4uE0k/9dkvGXzjCxSUxLVd3ovjCTifLkwCp/BNx3wXvR28
-         w2CQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:references:in-reply-to:from
-         :mime-version:dkim-signature;
-        bh=lILIcv7ALfl3mdwxNQu1XBlIGEZnSF9o3ZCOxCy8fhQ=;
-        fh=vPrrTMgyERswb3UmsqTD9X6v8TWZwpzcxvdU9eXBNyI=;
-        b=imT6zReiBRWma+CeWXLCtHC82yBIslx0ci13tuL+j1/bitCTMIQFrDoeQbmPiS0Yp5
-         juF0f6Hw3NTGbnT0On7CVqb3t0II9jQma8Bln77zCa9WEkljuE0xCQTgUVi03sAoe99l
-         hb1um2lAvvj1yNBxduzl5IoKNj4GwjhIHTY/uFV8K+vr0uCFgmszw2XEDESiKeEMrE1j
-         r4Wl/Y31trJYRx/kclGUFzMUCiZs4v0F5Aa1X8DAIJSK+ikPYNS+rhKXD4KZFQ6GYZHj
-         guJo2I/wmD+KiIeino8rG2HwROMbHAeMTQy6bmMVxDm3Oqe8lg3plpLhwVMXPsYs9F8b
-         LQkw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794426344; x=1795031144; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:references:in-reply-to
-         :from:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=lILIcv7ALfl3mdwxNQu1XBlIGEZnSF9o3ZCOxCy8fhQ=;
-        b=s2SQADY4LOfmdJHfDSvArtdrTeHBAS6GOBpELjwBCpCNvpH6naC/dcKs4byB7lwQih
-         lqdEQaMgswjGDNm9o7gStKrqov+X6daowptmi4STP/SO6ZLjO2Xwkeyq6XzIt3wpYfb/
-         wX3edTaXNQ9PNhBqJGHuCGjUAV86DVgmu7OZv+X2HmWUAj5RerEMECumzxt+nXodVZLR
-         /R0o8YKbe+ZDRwLG4eyQOFITNBoppYUFD5LTuA1U4+NJAuQ7dvpTp7y1IdVZis1JJNRE
-         ITSHVzog8tbzHuGtrcQeocPXCbHMkj7nsYn2zuTdzWnUwjW5mjrwVHU56tNwiGpy4Qec
-         Hj/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794426344; x=1795031144;
-        h=content-type:cc:to:subject:message-id:date:references:in-reply-to
-         :from:mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=lILIcv7ALfl3mdwxNQu1XBlIGEZnSF9o3ZCOxCy8fhQ=;
-        b=1ldmDyXw65blDMmfkeTnX1EHtO1koXBc71iUq6dqYqylRZl/tX91QrsMaHqGICLco1
-         mDE9ajczMg8U7SrAvj0tPi+mnNdcM3qgYYmXJNGApZL4SHo1N2mNodai5HvPb0fCHjpz
-         EQnnno8+IV1O2CVAb6PlbObbLzXiItfxC0Xulj/wiVBD87gYTSPbkPAzoLj1QE1O/zg4
-         CQPs8lpSa+qB4EK0LvZWagqkXJByPuflow4REjBf0saKIcLTy1aNVMkChNWNcucePRDx
-         5QFOyMmDuwBjwIL8nmH3te5U399zvHZmKPk0Lt9Spn9wm1McGEdkQCMqrLX1h4DDc8r8
-         DU+Q==
-X-Forwarded-Encrypted: i=1; AL+hErGD25TNIMJuiiFDuDTQZKhq1LOi2qdxC8RvXX8i1zjpYpu3qogWqsxL/z+iSEpDCS8YQbSoUKbQsp8vTF4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z93+N3f4ZXHFypfXpZUdB077lbLzzkxhFQCHe1FJBVedIZsajWN
-	/pIRIGzDBXlHRsm/5L7nOaHhadxI3UxUxx/R7pzlS7W9wnSx96WmqbQYSU/wmE4apvu2bNz0ZBK
-	eq1xpdG4y7v5/KU8w6aVCgqqyazHjYHo=
-X-Gm-Gg: AYBFou3I63CpS67b1l87g4WzOshoTt40aC0pwU125s3Uxg+DbNHDLbZg2L3F+Bv8slU
-	X2fgmjNmbkcF+oUipmbbSm+2uMghonO+H28mKMVvmJdfNavla3PGfOgH+k8gHuLiMhgdRe4Dh3A
-	r/bkh0v0sxnrETxRY9H1sIqgS9GiVcTUBD9xBFsc113peNVvcXX+dSdnpwNwrrwp3jHeURGyYEk
-	8hTvjDiV/ufzh8VT58k8wNwOVEOFlwG4c02eX8MsmpzKNvB3GBnLUUes6oNeX3S7DTnCnnklR8e
-	8ScMQSgoGD7kD/fEPslfWGNj9MXQJ1JU7VgRit53d9O0XiNVfz0m/6zl5kQB7LQxP4jvlOyeTXn
-	5x4nVS6h4DbYudOtXVBjo6arsyF+ZnPuhkRDC
-X-Received: by 2002:a05:6102:a4f:b0:7cc:9d82:ae17 with SMTP id
- ada2fe7eead31-7d4fb2d9f20mr1247064137.11.1794426343023; Wed, 11 Nov 2026
- 11:45:43 -0800 (PST)
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Wed, 11 Nov 2026 14:45:42 -0500
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iCHAVtIZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 147C61F00A05;
+	Wed, 11 Nov 2026 19:46:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794426416;
+	bh=TEA8Apju+c2xFXRAkFgrvx3sun6rF0Eje/7sHrYH2Vo=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=iCHAVtIZhmXIEkCi9XEq5ZvLA0vhBX9/VL11RcUGWxznfbZwW6tuCL26tfzeSXJO1
+	 Qf979tWcOSyzU9sMCyiiCrv3tVOLGIzCBslYE92/Oap7tz4772n7PdhXYAlJnFvaGt
+	 7YXMYq3A2oRDAd4ff+HKEBH/4AjfOmrVlLV31UlYRCNQYfQhZZYEXTkeMVstTsOVvR
+	 ZBkxjipDEEpO6IjZk1+AsUXq17W73ZhUfM7RHWH4acrHdJ6oCW1iRoI9jEyPJXoYYe
+	 qRXwIQSeO4fpeD33h/lULr3mUSeF+eB+zPPBQ75SjPVCYz82iIlh5gRkgYOUabLxem
+	 PcaHUhNHFj16g==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1xREHV-0000000ESvo-3uKv;
+	Wed, 11 Nov 2026 19:46:54 +0000
+Date: Wed, 11 Nov 2026 19:46:53 +0000
+Message-ID: <86ld6z1782.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Dan Carpenter <dan@cryspen.com>
+Cc: Oliver Upton <oupton@kernel.org>,	Fuad Tabba <fuad.tabba@linux.dev>,
+	Joey Gouly <joey.gouly@arm.com>,	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,	Zenghui Yu
+ <yuzenghui@huawei.com>,	Catalin Marinas <catalin.marinas@arm.com>,	Will
+ Deacon <will@kernel.org>,	Mark Rutland <mark.rutland@arm.com>,
+	linux-arm-kernel@lists.infradead.org,	kvmarm@lists.linux.dev,
+	linux-kernel@vger.kernel.org,	Karthik Bhargavan <karthik@pereq.eu>,
+	=?UTF-8?B?Q2zDqW1lbnQ=?= Blaudeau <clement@cryspen.com>
+Subject: Re: [PATCH] KVM: arm64: nv: Initialize hw_mmu to NULL for nested vCPUs
+In-Reply-To: <d3571fb535e1832d2a067649f294b83d824d4350.1794395321.git.dan@cryspen.com>
+References: <d3571fb535e1832d2a067649f294b83d824d4350.1794395321.git.dan@cryspen.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,62 +73,89 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-From: enderaoelyther@gmail.com
-In-Reply-To: <76bc126fb977cac0f0a124fc80eae9fdb803264d.camel@sipsolutions.net>
-References: <20261028141751.6728-1-enderaoelyther@gmail.com>
-	 <20261028141751.6728-3-enderaoelyther@gmail.com>	 (sfid-20261028_151822_083722_A5EF7A18)
- <76bc126fb977cac0f0a124fc80eae9fdb803264d.camel@sipsolutions.net>
-Date: Wed, 11 Nov 2026 14:45:42 -0500
-X-Gm-Features: AclHuK_498F9mVKuehZNiursTJcACe2DxghGvso4T8Fz6hgolPYVL93yCmoCmV8
-Message-ID: <CACHPgzw-JeorCAX-b5jjd6d5=L0oYpPdGtstUSaz5sPKZE2HsQ@mail.gmail.com>
-Subject: Re: [PATCH 2/2] wifi: mac80211_hwsim: serialize radio removal with
- frame commands
-To: Johannes Berg <johannes@sipsolutions.net>
-Cc: "John W. Linville" <linville@tuxdriver.com>, Javier Lopez <jlopex@gmail.com>, 
-	Jukka Rissanen <jukka.rissanen@linux.intel.com>, linux-wireless@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: dan@cryspen.com, oupton@kernel.org, fuad.tabba@linux.dev, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, linux-kernel@vger.kernel.org, karthik@pereq.eu, clement@cryspen.com
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-> That, with significant work done under the mutex, seems like too big a
-> hammer, can't it really not be done in any other way?
+Hi Dan,
 
-Yes, you are right. The global mutex is way too broad, and I am dropping
-that approach entirely.
+On Wed, 11 Nov 2026 11:11:19 +0000,
+Dan Carpenter <dan@cryspen.com> wrote:
+> 
+> Before commit 6ded46b5a4fd ("KVM: arm64: nv: Keep reference on stage-2
+> MMU when scheduled out"), kvm_vcpu_load_hw_mmu() would set ->hw_mmu on
+> every load.  Now it only sets it when it is set to NULL.
+> 
+> In kvm_vcpu_init_nested() the vcpu->arch.hw_mmu points to &kvm->arch.mmu
+> from when it was set in kvm_arch_vcpu_create().
+> 
+> Normally what happens next is a two step process.  KVM_ARM_VCPU_INIT
+> calls kvm_reset_vcpu_core() and that sets the vcpu into hyp context
+> (vEL2).  Then KVM_RUN calls kvm_vcpu_load_hw_mmu() which doesn't do
+> anything.  But that is fine because we are in hyp context and the
+> ->hw_mmu already is pointing to the correct place.
+> 
+> However if, for example, we are restoring a vcpu that was saved in L2
+> context, then the VMM uses KVM_SET_ONE_REG to overwrite the vEL2 state
+> that kvm_reset_vcpu_core() set up, and the vCPU is in L2 context when
+> KVM_RUN loads it for the first time.  Ideally, kvm_vcpu_load_hw_mmu()
+> would set the hw_mm to point to L2's page tables but, since is non-NULL,
+> it leaves it as is.  At this point L2 can access L1's memory.
 
-The underlying problem is per-radio object lifetime, not command
-serialization. get_hwsim_data_ref_from_addr() returns a radio pointer
-after rhashtable_lookup_fast() has already ended its RCU read-side
-protection. A concurrent deletion can then unpublish and free that radio
-while a frame, TX-status, or PMSR command is still using the pointer.
+Ah, nice one. You can tell how much testing has gone into
+save/restore...
 
-I reworked the fix around a per-radio reference count. Address lookups
-acquire a reference while holding hwsim_radio_lock, which is already used
-when removing a radio from the hash table. Deletion first unpublishes the
-radio under hwsim_radio_lock, releases that lock, drops the initial
-reference, and waits only for in-flight lookups on that specific radio to
-finish before calling ieee80211_unregister_hw().
+>
+> Fix this bug but setting ->hw_mmu to NULL in kvm_vcpu_init_nested() so
 
-This keeps the expensive ieee80211_unregister_hw() path outside
-hwsim_radio_lock. It introduces no new lock and does not serialize command
-handlers or the teardown of unrelated radios.
+nit: s/but/by/
 
-Since patch 1/2 is already applied, I will send the replacement as a
-standalone v2.
+> that kvm_vcpu_load_hw_mmu() always sets it correctly on the first load.
+> 
+> Fixes: 6ded46b5a4fd ("KVM: arm64: nv: Keep reference on stage-2 MMU when scheduled out")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Dan Carpenter <dan@cryspen.com>
+> ---
+>  arch/arm64/kvm/nested.c | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
+> index 78fa433774c6..60bccb66e52c 100644
+> --- a/arch/arm64/kvm/nested.c
+> +++ b/arch/arm64/kvm/nested.c
+> @@ -140,6 +140,8 @@ int kvm_vcpu_init_nested(struct kvm_vcpu *vcpu)
+>  		kvm->arch.nested_mmus_size += S2_MMU_PER_VCPU;
+>  	}
+>  
+> +	vcpu->arch.hw_mmu = NULL;
+> +
+
+I think this really needs a comment to explain why we repaint hw_mmu
+to NULL, because the next idiot who looks at this (likely me) will
+probably remove this line...
+
+The other thing is that this means that nothing can evaluate
+vcpu->arch.hw_mmu anywhere outside of the loaded path, as it can be
+NULL. I *think* this is OK, but I need to really convince myself...
+
+I'd like to add something like:
+
+	/*
+	 * We can't rely on the S2 MMU being the canonical one,
+	 * as userspace can restore a nested context. Nuke the
+	 * hw_mmu early to ensure that we pick the correct one
+	 * load time. It also means that we can't rely on hw_mmu
+	 * being set to anything useful if the vcpu isn't loaded.
+	 */
+
+If that works for you, I'll squash that in.
 
 Thanks,
-Zhao
 
-On Tue, 10 Nov 2026 11:54:21 +0100, Johannes Berg
-<johannes@sipsolutions.net> wrote:
-> On Wed, 2026-10-28 at 22:17 +0800, Zhao Li wrote:
-> > Destroying a radio while a frame, TX status, or PMSR command is in
-> > progress can make the command access the radio after it has been freed.
-> >
-> >  DEFINE_SPINLOCK(hwsim_radio_lock);
-> > +static DEFINE_MUTEX(hwsim_radio_mutex);
->
-> That, with significant work done under the mutex, seems like too big a
-> hammer, can't it really not be done in any other way?
->
-> johannes
+	M.
+
+-- 
+Without deviation from the norm, progress is not possible.
