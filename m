@@ -1,59 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=121.127.44.66
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794422019;
-	b=mWki7veej89NVvWmkfH8m43r9GiBAwL4H9DdZSv5djPmJpbHZnrhGkhd/5W1X3OM9rtM
-	 UAwqMXX6+Dw1wQJABZ7lWC9nkhvq/JsBlgi6jPlxkU7OKcnRmLgkiPAWvOxLFdbWEx8Fg
-	 hECVvTTcg1uZ3Oao2btDw9lS9lVEprbh5VrdOLuTV21w0IPTY2S01Ljqr4nxSYPG6SEMJ
-	 +jgX5l0CSNny/gLfr8f2FedquRUPtfDaByXl9gNHgy6/kJHUwf2V9l9PdDN6MTS8dhm8a
-	 Fm+icx1bwoNbglF/KnXKZvSToiWDbsQqGtRgiGlwctwpmn4UZdJ3otgYidu+1SRVouQ==
+	t=1794422057;
+	b=o3zTPjq7ZvRaQz1yFDmLZAcpolQuBQDDBglmZvTpYQRz+qgn/1/HqbE+WO6qwWMvbS3x
+	 +vxoG4dTIjbI4mkcdp2DKuMKPJmmRikjZhN4wupOZ1aoo1bCyOpq5jp/ikgWVi0sYy8vR
+	 zEiNtH5ijrQWw2UMT1NZPLeQbWwZSDxcZiPhNuZtIwsfXeqfBuP8i4wb2trUsIyoPE6tz
+	 aKPNcvIanDBV5b24JVP+9PhJfO6fxMOHNLfUMx6aRt26TZoUDe6ZK6bvaq5WOnq5Qwnx/
+	 OCJwRk887Fe6/Oit2Ujwz5XCbkufCF4jnBMw+hvbeRTPZxsY3M5lEZmbSA85ZCDIsGQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794422019;
-	h=DMARC-Filter:DKIM-Signature:X-Forward-Email-ID:
-	 X-Forward-Email-Sender:X-Forward-Email-Version:
-	 X-Forward-Email-Website:X-Complaints-To:X-Report-Abuse:
-	 X-Report-Abuse-To:Message-ID:Date:MIME-Version:User-Agent:Subject:To:
-	 Cc:References:Content-Language:From:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=zGnr7qakqygUVED8TA1cVhOKcrSAOCJQcMqXrkzQb/c=;
-	b=AemIY9ISMAFAmbeAhgxtNXKXSOSilKf+0XwelRqaQEiIeeDjJkdiPUVBB0DYAZ0Q8sq+
-	 bNN9uPTL6qZZ+G6g3v0WeCp8VF/R6w0Y6C3ac41LaRIhfple1E3dftVPWw+LeLQd78qhP
-	 1y6+xoMr/w6KcblyhhBnxx4580SzloFD3eZw5VWNc/SQAbVtmQi89S4UciDEB9duLRC8J
-	 8oEjJg0xA6cHF3UqRbwf0L/dWbh84U8D6sWYZDs6z0TrTgpoCt4ZWC5G4+FizvQPzYxq4
-	 8BVsqurBwt4A1K5BN1KJO/8TWC2OJ5foIuxaB1ig5eluL3J3M0t7jKsqjUjejIgGzlg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794422057;
+	h=Received:DKIM-Signature:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=YMc/YldEbzl8PQxcS39NWhbEp7wlqnxUy5n/VNFbcwc=;
+	b=hpRKbVr8q4VOuyiN7r+w27sRGmP5B1CLxqbMRRYbKGUuN4U6hJ8nFwjIpUR80cvDG3vM
+	 ca/qCCjRSBLOGLz4dwGBTMDELhylNQEMjhvG19gMhfFrF2R+gVNY7T5uoNCM009VVaDAK
+	 WAdEvLiGkH3XpiyxH5RKBxQGt6gfCL6eb72Nng0zcaOoJYA8ShrsjKzg7zAicF6c9PyDL
+	 L+4/oQ26Bz45p/pgBsw+0H3aUm6BDavWLufuVZ2y2BMoPSKEwpeUM4N9Zrfx9VW7XpN+4
+	 hViToqCmlLHhMVLB9ZMpnOA7cnNX2IDWpqwxAUThDPlwqEA3DUDfRehk5oz5Iaw43rg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ovn.org;
-	spf=pass smtp.mailfrom=fe-bounces.ovn.org;
-	dkim=pass header.d=ovn.org header.i=@ovn.org header.a=rsa-sha256 header.s=fe-13eddc7e57 header.b=LMYletMR;
-	arc=none smtp.remote-ip=121.127.44.66
-Received: from smtp.forwardemail.net (smtp.forwardemail.net [121.127.44.66])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eV9Twa93;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 479C2606A321
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 18:33:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 479C2606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ovn.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fe-bounces.ovn.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60F73606A31C;
+	Wed, 11 Nov 2026 18:34:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ovn.org header.i=@ovn.org header.a=rsa-sha256 header.s=fe-13eddc7e57 header.b=LMYletMR
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ovn.org;
- h=Content-Transfer-Encoding: Content-Type: In-Reply-To: Autocrypt: From:
- Content-Language: References: Cc: To: Subject: MIME-Version: Date:
- Message-ID; q=dns/txt; s=fe-13eddc7e57; t=1794422012;
- bh=zGnr7qakqygUVED8TA1cVhOKcrSAOCJQcMqXrkzQb/c=;
- b=LMYletMRKoaHa8HrmmphA6zYW2ZVhYKHdXWG7TkW+EmxFffhdvsJWxJ2L+JldxNM84K33NK1W
- OxLPG5drCs0hkU52ZiSa+GFZRexthA+uTeAebsUThtww54epQP2p30nep7j7a7jdvbZFwYg2aFL
- 4Ee+Y6URfLm537i3EmlR3mQ=
-X-Forward-Email-ID: 6af4b4f706a4c0728fe463b8
-X-Forward-Email-Sender: rfc822; i.maximets@ovn.org, smtp.forwardemail.net,
- 121.127.44.66
-X-Forward-Email-Version: 2.19.18
-X-Forward-Email-Website: https://forwardemail.net
-X-Complaints-To: abuse@forwardemail.net
-X-Report-Abuse: abuse@forwardemail.net
-X-Report-Abuse-To: abuse@forwardemail.net
-Message-ID: <488e10a9-ea28-41cf-9a8a-aa7431f6dd48@ovn.org>
-Date: Wed, 11 Nov 2026 19:33:21 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eV9Twa93
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 091541F00A05;
+	Wed, 11 Nov 2026 18:34:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794422057;
+	bh=YMc/YldEbzl8PQxcS39NWhbEp7wlqnxUy5n/VNFbcwc=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=eV9Twa93jLQr/9/0MI2C860TI2Kqzoo1cD2Oi2LBLlVl357/8yWYAXuRf6qEHvzTM
+	 Syxf9ZFS+/KhtkjlDwhjsZ984SAQOKhtOIKG19a1Edm54X18lxwTIH3tICNj/MiX2D
+	 lBabGOgt/eH8GHHJF07UsUpMqpVk+zVAVYjlRETjscKb/razQO0SsEKcDz3du+aXAU
+	 rQb6qRKQIoVDq0JVR/e9cizVlYM6sUvpW3/7KJC4Qjgw3xp2KYFYZJduOL1lsIIY/Q
+	 TkjWSNwNiUoPH4txvTR5GVJCvCS7Q9ePagG12dlehU390Qe4sqtASA4F4ayW+nId+O
+	 XyP9NTxMHg18g==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,106 +49,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC net 0/3] net: fix stacked VLAN header corruption in TX
- offloads and OVS
-To: Gabriel Goller <g.goller@proxmox.com>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Simon Horman <horms@kernel.org>,
- Boris Sukholitko <boris.sukholitko@broadcom.com>,
- Aaron Conole <aconole@redhat.com>, Eelco Chaudron <echaudro@redhat.com>,
- Shuah Khan <shuah@kernel.org>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- dev@openvswitch.org, linux-kselftest@vger.kernel.org, i.maximets@ovn.org
-References: <20261111-net_restore_the-v1-0-6aaeffa601c9@proxmox.com>
-Content-Language: en-US
-From: Ilya Maximets <i.maximets@ovn.org>
-Autocrypt: addr=i.maximets@ovn.org; keydata=
- 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
-In-Reply-To: <20261111-net_restore_the-v1-0-6aaeffa601c9@proxmox.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v3 3/6] ASoC: soc-acpi: move common function topology
+ helpers
+From: Mark Brown <broonie@kernel.org>
+To: Syed Saba Kareem <syed.sabakareem@amd.com>
+Cc: broonie@kernel.org, Sunil-kumar.Dommati@amd.com, 
+ vijendar.mukunda@amd.com, Mario.Limonciello@amd.com, 
+ venkataprasad.potturu@amd.com, 
+ Siva Subramanian Ravi Saravanan <sravisar@amd.com>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, 
+ Takashi Iwai <tiwai@suse.com>, Cezary Rojewski <cezary.rojewski@intel.com>, 
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, 
+ Bard Liao <yung-chuan.liao@linux.intel.com>, 
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>, 
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>, 
+ "open list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..." <linux-sound@vger.kernel.org>, 
+ open list <linux-kernel@vger.kernel.org>
+In-Reply-To: <20261108193119.2308421-4-syed.sabakareem@amd.com>
+References: <20261108193119.2308421-1-syed.sabakareem@amd.com>
+ <20261108193119.2308421-4-syed.sabakareem@amd.com>
+Date: Wed, 11 Nov 2026 18:34:11 +0000
+Message-Id: <179442205142.484483.13609312009662203150.b4-review@b4>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1344; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=xc2X2TKpMwnE88lVaAv6UGKfYzk19cda0V2IvGrdEpU=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLK+bFV5uulRYpx93nIZpg2qSgb7LA3q446FrJJcHBuqX
+ bRWSyaoo5SFQYyLQVZMkSUui/tlfcnrNXwHF7bBzGFlAhnCwMUpABPZuYuRYRe79eawKUmsft9M
+ 9vk8397EbxCe/jVfZK6tQqJav3b1FYZ/pqsmvBBfxJs7JepOsfGCuapnDbpSqpqP/T2cx/wv/M5
+ JRgA=
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On 11/11/26 6:37 PM, Gabriel Goller wrote:
-> Since commit 938863727076 ("tc: adjust network header after 2nd vlan
-> push"), a second VLAN push leaves network_header pointing to the
-> in-band VLAN header. The igb driver TSO and OVS IP set actions still
-> expect the L3 header, so they write to the VLAN header and corrupt
-> the packet. Patch 1 restores the L3 header in validate_xmit_skb() for
-> CHECKSUM_PARTIAL packets, which covers packets tagged by tc or BPF.
-> Patch 2 restores it in OVS right after the push, before later actions
-> run. Patch 3 adds a KUnit test. tc classification after a push keeps
-> working.
-> 
-> The kernel uses two conventions for skb->network_header when a packet
-> carries an in-band VLAN tag:
-> 
-> * network_header points at the L3 header
-> * network_header points at the in-band VLAN header
-> 
-> Since commit 938863727076 ("tc: adjust network header after 2nd vlan
-> push"), skb_vlan_push() uses the second convention when it pushes a
-> second tag. The flow dissector, and so tc flower, needs that layout to
-> classify the packet after the push. Drivers doing TSO or checksum
-> offload expect the first one. vlan_features_check() clears TSO for
-> multi-tagged packets, so most drivers fall back to software GSO, which
-> finds the L3 header itself. igb keeps TSO for these packets and reads
-> the IP header at skb->network_header, so it builds the TSO context from
-> the VLAN header and corrupts the packet. OVS set actions after a second
-> push write to the wrong header in the same way.
-> 
-> Which convention should a packet with in-band VLAN tags follow? This
-> series keeps the tc layout, converts to L3 in validate_xmit_skb() for
-> CHECKSUM_PARTIAL packets, and restores L3 right after the push in OVS.
-> If L3 should hold everywhere instead, the flow dissector would need to
-> find in-band tags from mac_len, and skb_vlan_push() could go back to
-> its old behavior.
+> Move the Intel function topology helpers and the topology device enum
+> to soc-acpi so that they can be shared with other platforms too. The
+> moved helpers are:
 
-IMO, having 'network_header' pointing to something that is not a network
-layer doesn't make much sense, and having two separate meanings for the
-same field is a recipe for more issues introduced or discovered later.
-Others may, of course, disagree.
+> index 2ee303b791dc..aea47a42f43d 100644
+> --- a/include/sound/soc-acpi.h
+> +++ b/include/sound/soc-acpi.h
+> @@ -257,4 +257,29 @@ bool snd_soc_acpi_sdw_link_slaves_found(struct device *dev,
+>  					const struct snd_soc_acpi_link_adr *link,
+>  					struct sdw_peripherals *peripherals);
+>  
+> +enum tplg_device_id {
+> +	TPLG_DEVICE_SDCA_JACK,
+> +	TPLG_DEVICE_SDCA_AMP,
+> +	TPLG_DEVICE_SDCA_MIC,
+> +	TPLG_DEVICE_INTEL_PCH_DMIC,
+> +	TPLG_DEVICE_HDMI,
+> +	TPLG_DEVICE_SSP_JACK,
+> +	TPLG_DEVICE_SSP_AMP,
+> +	TPLG_DEVICE_SSP_BT,
+> +	TPLG_DEVICE_SSP_HDMI_IN,
+> +	TPLG_DEVICE_LOOPBACK_VIRTUAL,
+> +	TPLG_DEVICE_ACP_SDW_JACK,
+> +	TPLG_DEVICE_ACP_SDW_AMP,
+> +	TPLG_DEVICE_ACP_SDW_MIC,
+> +	TPLG_DEVICE_ACP_DMIC,
+> +	TPLG_DEVICE_MAX
+> +};
 
-Best regards, Ilya Maximets.
+Might be sensible to have some namespacing as part of this move (eg,
+adding an ACPI prefix).
+
+>  config SND_SOC_ACPI_INTEL_MATCH
+>  	tristate
+> -	select SND_SOC_ACPI if ACPI
+> +	select SND_SOC_ACPI
+
+This seems likely to cause issues on systems without ACPI, perhaps this
+should just depend on ACPI?  !ACPI builds are pure coverage testing for
+x86, they're not practical.
+
+-- 
+Mark Brown <broonie@kernel.org>
