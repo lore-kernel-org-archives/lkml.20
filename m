@@ -1,47 +1,43 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=46.4.11.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794393037;
-	b=scu+EIhVWC9Utxn0XSrMeQH/CeTCWPvXPClqWMqPHsWeDCMNR4xFxv5yugPRFCYED6hm
-	 Ffs2j5DXtSt0ODR5uMxIoir6Atfs59cTAovma/upLLN8IJs5HUXy1dQWgvNTtULkTH8kO
-	 cRAh84vUEx9la/cYbPAkAuyzxASCDmajb74Y0g8Oie76+Q48bQOo4sAYoqtWnOhI2dFcB
-	 +OYN2V5wSqm2e1JbHipuM5kVUXHAmfI77GVDVTGXSq1kMaa8tLhH9vgXmqEm/ZbVQ7cBZ
-	 iqtB9y2b/34z6KTT8ZkWHo7SPunFRPOzRHno+5VmqFbKfEcr8TMhc0sh7h7IsgbN/Gg==
+	t=1794393095;
+	b=N8fVdnYh9vDB81dMXsGT0FmZ7pldqavFHDjRSSMcyyVFIKLCBVKUD+eabGv2jWZeLmxK
+	 WowA+GDOz/7bQNMvlphgspr2Ap1GhB2b+w56dL7FqKowrTKvaonTOdAbd7lpNV5oWOqgB
+	 KXC1sTmR14j35oAMqF2VNcLZZx8w/0e2x4a6gPsVa65yrTE3dTq6v4t6Jrvs4/Wq1ZpJg
+	 rmJXR5w5/EfCkDVN5lZVqEFfJZerj6ZJeXo5dBb5XVFXiqxSC/MeuOIYxDNntDtFbBKPn
+	 Drf00lX5ve1AevVlFjJslFBv1spL34Fdgy72aYu9fURhHGYoroh2d1UpNps1/S1U4VA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794393037;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794393095;
+	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=KxrhFMa8/sp9xXjPYISbhRzyRkp2BmT2lD81VC2uH5g=;
-	b=Zs7js/Fm54NGeiX/yV0TzeiAGKCHIifkQCy/vdUAkqUU5T1o4yWegYDVeeJKjdo1QhkR
-	 oXsKvDZluIWVNhXEJEDjlCJOj/vgwxo69dduTiLzd1+RgbGG8/E67gukjz1duKT9wYdlt
-	 DOsfPA/AUk+STXm2bTk5SsYY6/LGSalM0WWXRol8rzeoy9/BIOLemvx2Vm2pDxKvCNHxH
-	 DVyunG9lzbSAwkIcDKNUS+iL/iQzBhDSqy43Abeqy1xQk+audoCyiQwOyROwSSih9A4QO
-	 IeTCepgO3VdIfpPoHvMndhd66uELhjQllHi+k3qh4Yr8JH6FFyZpD7PxYVSFnAdmDKg==
+	bh=J4YiyeMpQnVQKucDulWRDveRXLLKWQOB9HjcaoZQvU8=;
+	b=ypy01U8FLO6A/ziChxmnuRsIcmfa+RQRNrYnjZWYR8Dl+IOXGm+F1kTG9we5C1/npmXG
+	 fIRSvm2fTqgvSnWk9BhsRL7rGTZmVMoz4s47nGqezSxM4MmCbRZNAlXBjX2DeLGRk4Dv1
+	 ALepjWW65KVKTk1c2f83YTpB6qWD3N16pyqkBiRIdrF22Ua1yKQOoB7x+p9+zw1XUUzGz
+	 AVTbBUZabDcyNLEfwHoPkv9WZy1pKttoKsqvZqpuXCfVUTAKJfgLa0Ym/Ujr2+YJ3liPb
+	 yulEUPViaffCajF++lDyFcPh6YxBVw+Jpk0y/fAUGQwS8TcSnQ2peOYIKlWwz+NI1Gg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JrTLwSLE;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=phrozen.org;
+	spf=pass smtp.mailfrom=phrozen.org;
+	arc=none smtp.remote-ip=46.4.11.11
+Received: from nbd.name (nbd.name [46.4.11.11])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2D5E606A330
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 10:30:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JrTLwSLE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB69F1F00A05;
-	Wed, 11 Nov 2026 10:30:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794393037;
-	bh=KxrhFMa8/sp9xXjPYISbhRzyRkp2BmT2lD81VC2uH5g=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=JrTLwSLEd+YvzAemdyR51xbG4OegeC7uVGwCapD1h/0s5JMcEnFwWTDyHw8hxhFYc
-	 Yceo4rD3o841E85q5UtJ63r9LzJ+/IPSvgm54TH6mNqnP/tb0WyhsqEDBspvr1nMgU
-	 Hu4Q34UrszFwNjN+s0A0uWuX0SBJx41Hhlkwlrl2IZ2jWWBFyeM5f6ONI7me+XJd2x
-	 tDLrSIQN0h+XzgIJDmF0lUAShZ6b6bEeZ/g2Px2DPD5n88Mxnvvk5FF5+ArOFgekE3
-	 KuBbgHWL/Op3aP1kzP2GjMevvmUd+kFCCVz2h+/uqELmyOPdyL+R577xO/dD9peHYL
-	 sFm19EJSuqEpQ==
-Message-ID: <e66b6c19-95d2-459a-926c-8429df693acb@kernel.org>
-Date: Tue, 10 Nov 2026 14:06:23 +0100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18E21606A321;
+	Wed, 11 Nov 2026 10:31:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 18E21606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=phrozen.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=phrozen.org
+Received: from [2a04:4540:1401:33fc:f5de:ef9d:4afe:312a]
+	by ds12 with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+	(Exim 4.96)
+	(envelope-from <john@phrozen.org>)
+	id 1xR5bz-001V4j-0N;
+	Wed, 11 Nov 2026 11:31:27 +0100
+Message-ID: <794488a9-ff30-4864-af9e-f265d58e05f0@phrozen.org>
+Date: Wed, 11 Nov 2026 11:31:26 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,121 +48,51 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 5/6] mm: gup: introduce gup_unshared_pages()
-To: Yeoreum Yun <yeoreum.yun@arm.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org
-Cc: Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>,
- Peter Xu <peterx@redhat.com>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Andrew Morton <akpm@linux-foundation.org>,
- Rik van Riel <riel@surriel.com>, Yuan-Hao Hsu <aa9736195201@gmail.com>
-References: <20261109-refactor_gup_fast-v3-0-2aaef02df0e1@arm.com>
- <20261109-refactor_gup_fast-v3-5-2aaef02df0e1@arm.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20261109-refactor_gup_fast-v3-5-2aaef02df0e1@arm.com>
+Subject: Re: [PATCH 2/2] clk: en7523: add a reset operation
+To: Philipp Zabel <p.zabel@pengutronix.de>, Stephen Boyd <sboyd@kernel.org>,
+ Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: Christian Marangi <ansuelsmth@gmail.com>, lei.dong@airoha.com,
+ Linqi.zhang@airoha.com, linux-arm-kernel@lists.infradead.org,
+ linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-mediatek@lists.infradead.org, Lorenzo Bianconi <lorenzo@kernel.org>,
+ Rajeev.kumar@airoha.com, upstream@airoha.com, Weifeng.xu@airoha.com,
+ zhengping.zhang@airoha.com
+References: <20261111085650.632025-1-john@phrozen.org>
+ <20261111085650.632025-3-john@phrozen.org>
+ <0c96f978571c569de6552fc11131e45b55cada1b.camel@pengutronix.de>
+Content-Language: en-GB
+From: John Crispin <john@phrozen.org>
+In-Reply-To: <0c96f978571c569de6552fc11131e45b55cada1b.camel@pengutronix.de>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 11/9/26 13:32, Yeoreum Yun wrote:
-> This is preparatory patch to make gup_fast_pte_range() batchable.
-> 
-> Introduce gup_unshared_pages() to count consecutive pages within a folio
-> that do not require unsharing, and use it to implement gup_must_unshare().
-> 
-> Also add a folio argument to gup_must_unshare() so callers can reuse an
-> existing folio and avoid the compound_head() call implicit in PageAnon().
-> 
-> There is no functional change.
-> 
-> Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
-> ---
->  mm/gup.c | 111 +++++++++++++++++++++++++++++++++++++--------------------------
->  1 file changed, 66 insertions(+), 45 deletions(-)
-> 
-> diff --git a/mm/gup.c b/mm/gup.c
-> index bfe83ce1411d5..c863bae33e2f1 100644
-> --- a/mm/gup.c
-> +++ b/mm/gup.c
-> @@ -633,58 +633,39 @@ static struct page *no_page_table(struct vm_area_struct *vma,
->  	return NULL;
->  }
->  
-> -/*
-> - * Indicates for which pages that are write-protected in the page table,
-> - * whether GUP has to trigger unsharing via FAULT_FLAG_UNSHARE such that the
-> - * GUP pin will remain consistent with the pages mapped into the page tables
-> - * of the MM.
-> - *
-> - * Temporary unmapping of PageAnonExclusive() pages or clearing of
-> - * PageAnonExclusive() has to protect against concurrent GUP:
-> - * * Ordinary GUP: Using the PT lock
-> - * * GUP-fast and fork(): mm->write_protect_seq
-> - * * GUP-fast and KSM or temporary unmapping (swap, migration): see
-> - *    folio_try_share_anon_rmap_*()
-> - *
-> - * Must be called with the (sub)page that's actually referenced via the
-> - * page table entry, which might not necessarily be the head page for a
-> - * PTE-mapped THP.
-> - *
-> - * If the vma is NULL, we're coming from the GUP-fast path and might have
-> - * to fallback to the slow path just to lookup the vma.
-> - */
-> -static inline bool gup_must_unshare(struct vm_area_struct *vma,
-> -				    unsigned int flags, struct page *page)
-> +static unsigned long gup_unshared_pages(struct vm_area_struct *vma,
+Hi Philipp,
 
-Besides the function name, LGTM.
+On Wed, 2026-11-11 at 10:49 +0100, Philipp Zabel wrote:
+> Is the i2c-mt7621 driver actually used with any reset controller that
+> implements .reset but not .assert/.deassert?
 
-gup_pages_requiring_unsharing() ? Don't quite like it, but something along those
-lines.
+No. Its users are MT7621 and MT7628 (clk-mtmips, which implements
+assert, deassert and reset) and EN7581/AN7589 (this driver, assert and
+deassert only).
 
--- 
-Cheers,
+> If not, it would be better to let i2c-mt7621 use
+> reset_control_assert/deassert() instead of adding .reset ops to all
+> reset controller drivers it is used with.
 
-David
+Agreed. I will drop this patch from v2 and change i2c-mt7621 to assert
+and deassert the line instead. That patch goes into v2 of my
+"i2c: mt7621: add Airoha AN7589 support" series.
+
+> Is having no delay here valid for all possible reset consumers or are
+> we implicitly assuming that this will only ever be used for specific
+> i2c resets?
+
+Only for the I2C block, which is a further reason to keep the
+sequence in the I2C driver.
+
+Thanks,
+John
