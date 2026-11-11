@@ -1,53 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794391092;
-	b=TEdo+16xGUHWyHp+nsQ1GWCdz/xpPlixFY3IygPzzwc5PzFNFat5NMzsQzalxnGDt1kN
-	 /Vbss3TuNhgIRmOEnlHMGJxc5PeKP7lku4mALgBoU/Zp+eko1UL2WAmDZ3/prU5KxJMqY
-	 xHw8I4/El9YKRJ2HdqXWtHrnn69/Cnba6pPkplmj7SG5PjghJTRmx55LRR/R+hjVwwKPd
-	 aheJvxoSsjWkfD9BcqsW8Y4zfwK+tqEGe8PtirfCRID2QtbGYNcFnRXWhZbtLqAxQFZI8
-	 k5cLaeb8VmNsk0TTzsBYFiONcpnQEgjyTGwNuhCMTwZlnma87ic4q92gzNNkxdt3Hcw==
+	t=1794391108;
+	b=jdpt9BoaOwha4Znwvvm2Tdz2EMH3Ee3cE4Hs0v4qJjgYhl4QQ0Z8DGsxTTA7p+4aWQKG
+	 fyV3e97nL+oxeK121xu2JtyCAXWoUuZM4tVjdxDj7579kwTwxEyekVO8S15Ge379jnbxn
+	 UXaE724E0wfzrT8wPPkJJReiueQFPjZo6dEUQRVntLqHMKLx1xGCWs0nC+ep13T8ykTvc
+	 9dqHFj/sNDRU2tdP/TfHi9ML7M8QntSqjtpZbx3052YgvcePbIgvGIfB6MMEaT+0eZBm1
+	 kYZJkkGiJfPWi31YyxgLQLkATURtoYNRBfPlwGIA5aO3nWzO5ArKJfci5JpHBiAXqCw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794391092;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=SaBu0BAwfS5+msHmIDRTXeowjSfEr2KtUFF7yfQhBuE=;
-	b=b6Kd5ZnYRexwc7QUnrQ3BqRvuxA8EtG7PVPL+IIN08tnX9Ot9LrnALrkqD4IbRewGGxR
-	 qF2GGLjlbMdMaI7XLYGlmkckp/uoLVCtO61XWGJ+Cgqx33Fex61CY9TnycuZtUaQVkYzr
-	 1hB8OV1PdAT7xV3AFkJx2dNMcrWvBpmpGudpz6FkLxjeFzYOdWmHf/eNjBtm8vBt9fzag
-	 MHhGzIw47z4ejCzYMI63aBURzuD3S87Ur5V2aZb7isY+etq169E6/3P039v6DZWoJcCW3
-	 IK6rDkKQZBRWt1K855svH1jK+EgtXNmWN/FKw1p/nAbB2Eqh+ge/1fLT+dWHCOOhLEA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794391108;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Debian-User;
+	bh=tGushzrFtrW77V7rVvL3s1nIofkTvVLHjtzLyoCHfR0=;
+	b=YB2g0uH3ll+kjj7nxyhzSakRiqrr6p0xi/XEtJ8Xij/Gejt/5/f6fpKXxo1Dm0F61PnF
+	 E31W/NP+ObOazqfxJ4nlxKUP/14Xb5NDtLJA++4aWNtiCm28XF+htG9tUCqiGZujlCXyf
+	 ne0/HxtLZB/qUvksxW8Nlm1NNJrU6u1MYlSOcXk8n/XCM2JYuaEvyJWJ0hgnmbS1Zk1AJ
+	 4ETOw+fW+8pMy8vwGiFI3KqxeatI2B1NG3yHrRiujl/OnybpDWXceObdSSbK9zGlTVcsZ
+	 hUaJvEgQzIgrFySzHmcxL7HnKEsUuBYWmGEGaJpDKwcRZqpwhYotCXWkR7MK0SdUxCQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CkSkL2Ap;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=debian.org;
+	spf=pass smtp.mailfrom=debian.org;
+	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b="dD/jUv4H";
+	arc=none smtp.remote-ip=82.195.75.108
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98F31606A32D;
-	Wed, 11 Nov 2026 09:58:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDDF5606A331;
+	Wed, 11 Nov 2026 09:58:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BDDF5606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CkSkL2Ap
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDE151F00A08;
-	Wed, 11 Nov 2026 09:58:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794391092;
-	bh=SaBu0BAwfS5+msHmIDRTXeowjSfEr2KtUFF7yfQhBuE=;
-	h=From:To:Cc:Subject:Date;
-	b=CkSkL2ApDm/qluab7N66hwT+a0Pti+jgJXy84MIppFok7mwCvwumfdHNr0sbMqaTf
-	 cp+a/N1C6Srk20mwwfT6G0JpHx0Armdi7oFxkzY/HaQeTMfGmlauxR2U1UXnWQMpPL
-	 fnwTHv+iTcuomLbtfza5YryjIIV1B4D0W+sWBlwniJ1nJPJrFRDyH/CmHyfRoTBWJR
-	 sTMNXZVLohA3j/8PqbMWSQ6fdRgv0Prf2WK2Waa1e6XuFyugJwsY8rFdEkCg2On9XY
-	 mzNqgYscp4LPQonapPlZuz8cfjx4R7ZW7oWhgq/mz7J+e5lPD3BBha4DPfP+dXg57L
-	 W4gTwMyurRwaQ==
-From: Imre Kaloz <kaloz@kernel.org>
-To: Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	linux-mips@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	"Maciej W. Rozycki" <macro@orcam.me.uk>
-Subject: [PATCH v3] MIPS: sgi-ip32: Fence PIO reads on CRIME 1.1
-Date: Wed, 11 Nov 2026 10:56:50 +0100
-Message-ID: <20261111095650.14954-1-kaloz@kernel.org>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=dD/jUv4H
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:In-Reply-To:References:
+	Message-Id:Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:
+	From:Reply-To:Content-ID:Content-Description;
+	bh=tGushzrFtrW77V7rVvL3s1nIofkTvVLHjtzLyoCHfR0=; b=dD/jUv4HR7WhMkgCSpIrvyXvMy
+	CdQzp8TivJzNsLmT2f/ww1N1E9Pf9BsaMqseJ7w2EyKldnuJNgpGPnmA3l4G3MgzuMG672gyiHzgi
+	n7DQx8je9z7OMKes3Is0AAN607y35wMnjpnECI1irDFnOZrSAxUZVVjRcp/ll2Hc2ApS/4+kr3Wwf
+	F1F1ShwvoeMBQubmAZrfrIOcTLSrTfeUUtNwc4unBeUWBQLuZzQTKggOkmHDAvoog/sT9npN4unks
+	pBoHrlB3ZY/zL+BCLdMu/W0RWz+dbiTOB++rKkd7Uif7u1Ot5jYi7JDS5AzJrcEY+vx105WDBE/oV
+	QNdV486g==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1xR562-00D6Ag-05;
+	Wed, 11 Nov 2026 09:58:26 +0000
+From: Breno Leitao <leitao@debian.org>
+Date: Wed, 11 Nov 2026 01:57:33 -0800
+Subject: [PATCH 1/2] tpm: Disable a TPM that stops responding
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,195 +62,129 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261111-tpm_unresponsive-v1-1-42ac1b965eb9@debian.org>
+References: <20261111-tpm_unresponsive-v1-0-42ac1b965eb9@debian.org>
+In-Reply-To: <20261111-tpm_unresponsive-v1-0-42ac1b965eb9@debian.org>
+To: Peter Huewe <peterhuewe@gmx.de>, Jarkko Sakkinen <jarkko@kernel.org>, 
+ Jason Gunthorpe <jgg@ziepe.ca>
+Cc: linux-integrity@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ surenkj@amazon.com, noodles@meta.com, Breno Leitao <leitao@debian.org>, 
+ kernel-team@meta.com
+X-Mailer: b4 0.17-dev-ce4c1
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3226; i=leitao@debian.org;
+ h=from:subject:message-id; bh=8Km7/zIGwygrBCifvoU5JjUY37dEAbTHjT/QlxC2Mg0=;
+ b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBq9Dw6mXcwy7JFyMKMD/gGq1CRDCXJOX/lNYyro
+ 2mvMri2EgmJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCavQ8OgAKCRA1o5Of/Hh3
+ bZFrD/98RXf5kHalz/1PQLMnbHU+hEOlg65ukjdVNPFplWDqK5hCTUZfkGdN2aClZQQrPwdbAqI
+ RTWUBcYSmFjI2ejA236zenSJpuqYWTsEV6YyHhjk0uIkbMtAC4XfirgNDx1d07ElKfVuZ0s6WfM
+ P+Zwiwmg0DI/sBdQpQdQPfSxxmji+bHG6qzDwzpu6W++70dq13JPwEjMOt+3Ect6V8BRiOGwtDf
+ RjwK4pGtNzDzv2HBkRs61s7ghHyLUgU5V7E/edjZIDvuuz0917+Ipvw7SylExpJ1b7kKvB1Yzwn
+ KohUgpWKLuUM0Ot8TjlulT4Y3xFgEwocdWXT7REFyec5tyO4v+cMZaT0Rr7axjbxrh2MIOYDs+Q
+ 0uzPGqgNVCob0toxzV+Xo4y0nyYBdTCaPSEBQPsKQx0yZtyZfPYloAkevy4LHyLKC9vaygFB9mP
+ E2tCY3X2mAFkUA1BCwSGhE6GCkcrMYbwWWYNPiN7UvgxkAmi53++1Bvu7ZhQ5O7L4TuXqrjcAYv
+ 4RW32Pu4AtPuJnvg+XneKxGWAxQoyQGtzMHkV1SUtS/+ASW6JabnStg7ngtLSs6RV12xW44rObX
+ XztVNonmw1oyJL9G497wak38ORCJlnXz/07iqiKXZXu5+bK3DeGZ7kTUUHeHxmYaMx34/F2i1TM
+ 0a+N2ssXZLNU+iA==
+X-Developer-Key: i=leitao@debian.org; a=openpgp;
+ fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
+X-Debian-User: leitao
 
-On CRIME 1.1, the next MACE or PCI load after a read of the aic7880
-HCNTRL, INTSTAT or ERROR register can return that register's data
-instead of its own; a gap of about 2us avoids it. Under audio and SCSI
-DMA, repeating aic7xxx's ahc_pause(), register read, ahc_unpause() can
-hang; fenced, it runs clean. The next load can be an interrupt
-handler's, so the fence follows the trigger.
+A TPM that stops responding fails each command only after the transport
+timeout, and its callers keep sending more: the hwrng thread every 10
+seconds forever, and userspace through /dev/tpmrm0. Each attempt holds
+tpm_mutex for the whole timeout and logs an error:
 
-Add a read hook to the MIPS accessors that, on CRIME 1.1, follows each
-MMIO and port read by 5us with interrupts off. Other platforms compile
-it out.
+  tpm tpm0: invalid TPM_STS.x 0xff, dumping stack for forensics
+  tpm tpm0: tpm_try_transmit: send(): error -62
+  tpm tpm0: tpm_try_transmit: send(): error -62
+  ...
 
-Signed-off-by: Imre Kaloz <kaloz@kernel.org>
+The core already stops using a TPM it cannot trust: tpm_try_get_ops()
+fails with -EIO once TPM_CHIP_FLAG_DISABLE is set, which
+tpm2_load_null() does when it cannot restore the null key. Set the same
+flag when commands have kept timing out for ten minutes, with none
+completing in between.
+
+A completed command, whatever its TPM return code, resets the clock. A
+disabled TPM stays disabled until the driver is rebound or the machine
+reboots.
+
+Signed-off-by: Breno Leitao <leitao@debian.org>
 ---
-Changes in v3:
-- Interrupts are restored in read-fence.h next to the save; only the
-  delay is out of line.
+ drivers/char/tpm/tpm-interface.c | 29 +++++++++++++++++++++++++++++
+ include/linux/tpm.h              |  2 ++
+ 2 files changed, 31 insertions(+)
 
-Changes in v2:
-- Reworded the first paragraph of the commit message.
-
-v2: https://lore.kernel.org/r/20261107005245.20299-1-kaloz@kernel.org
-v1: https://lore.kernel.org/r/20261021192418.7246-5-kaloz@kernel.org
-
- arch/mips/include/asm/io.h                    | 11 +++++++
- .../include/asm/mach-generic/read-fence.h     | 20 +++++++++++++
- arch/mips/include/asm/mach-ip32/read-fence.h  | 30 +++++++++++++++++++
- arch/mips/sgi-ip32/crime.c                    | 11 +++++++
- 4 files changed, 72 insertions(+)
- create mode 100644 arch/mips/include/asm/mach-generic/read-fence.h
- create mode 100644 arch/mips/include/asm/mach-ip32/read-fence.h
-
-diff --git a/arch/mips/include/asm/io.h b/arch/mips/include/asm/io.h
-index 980187a83053..a5c49d319546 100644
---- a/arch/mips/include/asm/io.h
-+++ b/arch/mips/include/asm/io.h
-@@ -26,6 +26,7 @@
- #include <asm/pgtable-bits.h>
- #include <asm/string.h>
- #include <mangle-port.h>
-+#include <read-fence.h>
+diff --git a/drivers/char/tpm/tpm-interface.c b/drivers/char/tpm/tpm-interface.c
+index e0385b16616b46..c6278ef8d1095e 100644
+--- a/drivers/char/tpm/tpm-interface.c
++++ b/drivers/char/tpm/tpm-interface.c
+@@ -30,6 +30,8 @@
  
+ #include "tpm.h"
+ 
++#define TPM_UNRESPONSIVE_TIMEOUT	(10 * 60 * HZ)
++
  /*
-  * Raw operations are never swapped in software.  OTOH values that raw
-@@ -222,6 +223,8 @@ static inline void pfx##write##bwlq(type val,				\
- static inline type pfx##read##bwlq(const volatile void __iomem *mem)	\
- {									\
- 	volatile type *__mem;						\
-+	unsigned long __rflags;						\
-+	bool __fence;							\
- 	type __val;							\
- 									\
- 	__mem = (void *)__swizzle_addr_##bwlq((unsigned long)(mem));	\
-@@ -229,6 +232,7 @@ static inline type pfx##read##bwlq(const volatile void __iomem *mem)	\
- 	if (barrier)							\
- 		iobarrier_rw();						\
- 									\
-+	__fence = plat_read_fence_begin(&__rflags);			\
- 	if (sizeof(type) != sizeof(u64) || sizeof(u64) == sizeof(long)) \
- 		__val = *__mem;						\
- 	else if (cpu_has_64bits) {					\
-@@ -251,6 +255,8 @@ static inline type pfx##read##bwlq(const volatile void __iomem *mem)	\
- 		__val = 0;						\
- 		BUG();							\
- 	}								\
-+	if (__fence)							\
-+		plat_read_fence_end(__rflags);				\
- 									\
- 	/* prevent prefetching of coherent DMA data prematurely */	\
- 	if (!relax)							\
-@@ -283,6 +289,8 @@ static inline void pfx##out##bwlq(type val, unsigned long port)		\
- static inline type pfx##in##bwlq(unsigned long port)			\
- {									\
- 	volatile type *__addr;						\
-+	unsigned long __rflags;						\
-+	bool __fence;							\
- 	type __val;							\
- 									\
- 	__addr = (void *)__swizzle_addr_##bwlq(mips_io_port_base + port); \
-@@ -292,7 +300,10 @@ static inline type pfx##in##bwlq(unsigned long port)			\
- 	if (barrier)							\
- 		iobarrier_rw();						\
- 									\
-+	__fence = plat_read_fence_begin(&__rflags);			\
- 	__val = *__addr;						\
-+	if (__fence)							\
-+		plat_read_fence_end(__rflags);				\
- 									\
- 	/* prevent prefetching of coherent DMA data prematurely */	\
- 	if (!relax)							\
-diff --git a/arch/mips/include/asm/mach-generic/read-fence.h b/arch/mips/include/asm/mach-generic/read-fence.h
-new file mode 100644
-index 000000000000..0147ed88bc01
---- /dev/null
-+++ b/arch/mips/include/asm/mach-generic/read-fence.h
-@@ -0,0 +1,20 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+#ifndef __ASM_MACH_GENERIC_READ_FENCE_H
-+#define __ASM_MACH_GENERIC_READ_FENCE_H
-+
-+#include <linux/types.h>
-+
-+/*
-+ * Called around every MMIO and port read; plat_read_fence_end() runs only
-+ * when plat_read_fence_begin() returned true.
-+ */
-+static inline bool plat_read_fence_begin(unsigned long *flags)
-+{
-+	return false;
-+}
-+
-+static inline void plat_read_fence_end(unsigned long flags)
-+{
-+}
-+
-+#endif /* __ASM_MACH_GENERIC_READ_FENCE_H */
-diff --git a/arch/mips/include/asm/mach-ip32/read-fence.h b/arch/mips/include/asm/mach-ip32/read-fence.h
-new file mode 100644
-index 000000000000..4948a2c7cc79
---- /dev/null
-+++ b/arch/mips/include/asm/mach-ip32/read-fence.h
-@@ -0,0 +1,30 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+#ifndef __ASM_MACH_IP32_READ_FENCE_H
-+#define __ASM_MACH_IP32_READ_FENCE_H
-+
-+#include <linux/irqflags.h>
-+#include <linux/types.h>
-+
-+extern bool crime_read_fence;
-+void crime_read_fence_delay(void);
-+
-+/*
-+ * CRIME 1.1 can return a PCI read's data again to the next MACE or PCI
-+ * read issued within about 2us, so each read is followed by 5us with
-+ * interrupts off.
-+ */
-+static inline bool plat_read_fence_begin(unsigned long *flags)
-+{
-+	if (!crime_read_fence)
-+		return false;
-+	local_irq_save(*flags);
-+	return true;
-+}
-+
-+static inline void plat_read_fence_end(unsigned long flags)
-+{
-+	crime_read_fence_delay();
-+	local_irq_restore(flags);
-+}
-+
-+#endif /* __ASM_MACH_IP32_READ_FENCE_H */
-diff --git a/arch/mips/sgi-ip32/crime.c b/arch/mips/sgi-ip32/crime.c
-index a24424437c6b..a8cdc272aa6b 100644
---- a/arch/mips/sgi-ip32/crime.c
-+++ b/arch/mips/sgi-ip32/crime.c
-@@ -7,6 +7,7 @@
-  * Copyright (C) 2005 Ilya A. Volynets <ilya@total-knowledge.com>
-  */
- #include <linux/types.h>
-+#include <linux/delay.h>
- #include <linux/init.h>
- #include <linux/kernel.h>
- #include <linux/interrupt.h>
-@@ -25,6 +26,15 @@ struct sgi_mace __iomem *mace;
+  * Bug workaround - some TPM's don't flush the most
+  * recently changed pcr on suspend, so force the flush
+@@ -206,6 +208,31 @@ static ssize_t tpm_try_transmit(struct tpm_chip *chip, void *buf, size_t bufsiz)
+ 	return rc ? rc : len;
+ }
  
- EXPORT_SYMBOL_GPL(mace);
- 
-+bool crime_read_fence __read_mostly;
-+EXPORT_SYMBOL(crime_read_fence);
-+
-+void crime_read_fence_delay(void)
++/*
++ * Disable the TPM once commands keep timing out for TPM_UNRESPONSIVE_TIMEOUT.
++ * A few timeouts are not enough: some TPMs stall for half a minute and recover.
++ */
++static void tpm_check_unresponsive(struct tpm_chip *chip, ssize_t ret)
 +{
-+	udelay(5);
-+}
-+EXPORT_SYMBOL(crime_read_fence_delay);
++	if (ret >= 0) {
++		chip->nr_timeouts = 0;
++		return;
++	}
++	if (ret != -ETIME || (chip->flags & TPM_CHIP_FLAG_DISABLE))
++		return;
++	if (!chip->nr_timeouts++) {
++		chip->first_timeout = jiffies;
++		return;
++	}
++	if (time_before(jiffies,
++			chip->first_timeout + TPM_UNRESPONSIVE_TIMEOUT))
++		return;
 +
- void __init crime_init(void)
- {
- 	static const char * const revs[] = { "1.1", "1.3", "1.4" };
-@@ -41,6 +51,7 @@ void __init crime_init(void)
- 	switch (id & CRIME_ID_IDBITS) {
- 	case CRIME_ID_IDVALUE:
- 		rev = revs[min_t(u64, id >> 32, ARRAY_SIZE(revs) - 1)];
-+		crime_read_fence = !(id >> 32);
- 		break;
- 	case CRIME_ID_IDVALUE_B:
- 		rev = "1.5";
++	dev_err(&chip->dev, "%u commands timed out in %lu seconds, disabling the TPM\n",
++		chip->nr_timeouts, (jiffies - chip->first_timeout) / HZ);
++	chip->flags |= TPM_CHIP_FLAG_DISABLE;
++}
++
+ /**
+  * tpm_transmit - Internal kernel interface to transmit TPM commands.
+  * @chip:	a TPM chip to use
+@@ -268,6 +295,8 @@ ssize_t tpm_transmit(struct tpm_chip *chip, u8 *buf, size_t bufsiz)
+ 		delay_msec *= 2;
+ 		memcpy(buf, save, save_size);
+ 	}
++
++	tpm_check_unresponsive(chip, ret);
+ 	return ret;
+ }
+ 
+diff --git a/include/linux/tpm.h b/include/linux/tpm.h
+index 0db277af45c393..4264c87a04d98c 100644
+--- a/include/linux/tpm.h
++++ b/include/linux/tpm.h
+@@ -131,6 +131,8 @@ struct tpm_chip {
+ 	struct hwrng hwrng;
+ 
+ 	struct mutex tpm_mutex;	/* tpm is processing */
++	unsigned int nr_timeouts;	/* consecutive command timeouts */
++	unsigned long first_timeout;	/* jiffies */
+ 
+ 	unsigned long timeout_a; /* jiffies */
+ 	unsigned long timeout_b; /* jiffies */
+
 -- 
-2.47.3
+2.53.0-Meta
 
