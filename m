@@ -1,62 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.71
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794421815;
-	b=mXbzPRJOgcEBnQkbWSKYpw6SUTgf4Ym8jw+WCWrE4XxRI92aP+vD5saqOfrembf0szHr
-	 XeRnDIEsB3zzcaYkyWJL4jkpjX+yyV+1YL5VyZUszlXRp4anKe/9wRTSd+CJPuPgrpsfh
-	 w/yMAP/GB18xLYsSmSGHSHgO4mEPzCQYY8JDk4snHObWbXkH2xcjsFeF8p8eeeGhE6An+
-	 wlXqj1I1DomeuiW/dmivVcLt8DfkWm8xT48q8gBxA/I4sW312esBoi+RMsQ4Q7m7DGFgN
-	 P2zj/JPFqTZtdJfsx73vUerce+icN4TVGl7iXjzfvBv6O8fUyMCaexJSkZr+iYx7kxQ==
+	t=1794421935;
+	b=hH0VfsSIOOduny5mfITRCX8MLDmym21lqt7Y9Am967almFgLfKZsT5GpBOOPmDCXODav
+	 NpO6WM+0VkZs7dTy2ABhGA5IWi7fXXcsa3yen97iwUd4Pia3jODEu8+PoH/vJBS2N4tZY
+	 8GuVfTtqCU+0BPUvezovPTBHi/65CXC3v/oqqCzqmZigp06vCj99jgje9Rpfb13jNO1w7
+	 jKI1kKb+Pxc2dMLFT7zeB1reab0KEWh+r75aW5An7H6R96kPIIu6fXx77PHpimftYtLr/
+	 TdssWepEzxvs6DYMELm4h3UlIZwbsVtxpSLAdFEBTTXaC01J6bc4t772288VP3AD7tA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794421815;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=EuOa60Ku4o0cUd0PWdN0468HJGiEY7AKoqQ4rnmYJQ8=;
-	b=ui48spxjTSsZUYSh0od1pab1CS7xQ6+3BLMZ8RrHpJ0G0zSDUA6pIzUiigb+zm1Nbn4H
-	 lASuajUP1S7LFaj+SUGFofBlI02aTWH4XNEINfUklNcDVaYvgrmr4QP2oPTMYXLQMK7/+
-	 qx2jCejOksepdQopQff4tAnwpsE+DoXzHo8PqcNo6XZFy/YLRfnIyum9CKpwFwYFVJxvp
-	 TYWc1lfEtQZULMLknXwlavZxR9OgDEuDu/vQPDNIlyLsFLrnJhAW0SF9QbWKNM9m5Tzlp
-	 V07MBXRvC8+gUEjnzUDOaoJf/T2z9eNKJWCUalz31B1G9PotvXOO9RpwZtBPkYzeeWw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794421935;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=vZmzfUzzweDILEhd2+M+U3xfy6iAuTlSFuI18jyrNso=;
+	b=WKvDSsJdAbgBOykKEDS46DxqsSl/WyJF1wvY49zmw2/c0PKnhNvhBuVI0Iy6XaxIntwW
+	 waZoGJ3HRzMvEgxVNWQO4tWCEgGCspjv1zpHYczp4ZlODFfVSAobJgrcksm/uOXidQrIi
+	 +A1ESNt0XWhVPJdW86Wq8CcrfGdYlGt8BILAL6ySiluUtPCdDH5bOiOla87oQFe+rSkAz
+	 1S0ptIdStt9CkN6BE5HUAkM6xn78O2P3X+rjooBewdvuCMOZTScd7IOcOxiCj6cUeyUCs
+	 eDeOQ6GsZAqRL66UrVuwZEfjyyA1edmmFUFnsNaEA19CLylL2AHFmzNhD+QF6x6IBmA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SPx9s7Ow;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--ctshao.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=dS73KLWm;
+	arc=none smtp.remote-ip=209.85.210.71
+Received: from mail-ot1-f71.google.com (mail-ot1-f71.google.com [209.85.210.71])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0B83606A32D;
-	Wed, 11 Nov 2026 18:30:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6710C606A324
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 18:32:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6710C606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--ctshao.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SPx9s7Ow
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 856D21F00A05;
-	Wed, 11 Nov 2026 18:30:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794421815;
-	bh=EuOa60Ku4o0cUd0PWdN0468HJGiEY7AKoqQ4rnmYJQ8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=SPx9s7OwRiIFM+qJTSyTwrhGtWShlmwnbqfXQGGpqpBUKbUD8Q+wBxTeCw7HTdClO
-	 RqtBDI2kKoIpVd9mRuufBN/Rz3Bt3SBZsUWw/kpXRhvVcwAUvc0AS/Z0sR9rMJi7CC
-	 6ECr5Ib07OcRIY1NIKK1FG+GTAsYyZaiRXA3luJLIYVbJK9pbiSaeuwlEZb3knVyFZ
-	 SqZBA1P4KucdSPTSQimEcOVX/0/UFUraigd6bbdkcetF359pY5E6LRxf/WGEehwENm
-	 rKJ4esyOrV1iFIxvVP1it2MgFUPPnQLSRou3Sy2aOabNUANZTcscl15UZQB49PlQok
-	 vNVFNnxxQ3Y1A==
-Date: Wed, 11 Nov 2026 18:30:10 +0000
-From: Conor Dooley <conor@kernel.org>
-To: joseph@telaak.dev
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Chuanhong Guo <gch981213@gmail.com>, Yao Zi <me@ziyao.cc>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>,
-	linux-mips@vger.kernel.org, linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 3/4] dt-bindings: clock: Add Siflower SF19A2890
- peripheral clock/reset managers
-Message-ID: <20261111-roving-untrimmed-5148dcf08b9d@spud>
-References: <20261111-sf19a2890-sysm-v2-0-d2fcb723e4f1@telaak.dev>
- <20261111-sf19a2890-sysm-v2-3-d2fcb723e4f1@telaak.dev>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=dS73KLWm
+Received: by mail-ot1-f71.google.com with SMTP id 46e09a7af769-85c1135c289so2591595a34.3
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 10:32:14 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794421933; x=1795026733; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:mime-version:date:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=vZmzfUzzweDILEhd2+M+U3xfy6iAuTlSFuI18jyrNso=;
+        b=dS73KLWm8Cj1YP2E11u/jG6biyWe+l4V1QVgIA+7xF2dJbbm+iX38lzP2aqChQCxw2
+         amuaAtY1lQWALElhJyn5xKZfOOy1tWLYPW9jT0jZJNkMysb/vSPTDuQggX7JnHKlKjka
+         JmHIa9ysIusPvvyEPRwB8NUwI0CsXnPb+GWFMxUifkknyloPFsqUNC1JqmoAamo8+Nwb
+         RJAwRDuygNKYAkkRBdaQPlgBmUX6BZrY39oxOPrkJZBabtMJy3adfMlnqJ5Tg2qpZN7F
+         qyQkZJgNclY4ZvKt4eO942ua+E8hhxyvIjiI19IKfyj4S79HtZfmLNc75TCJCseVpKbE
+         lJzg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794421933; x=1795026733;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:mime-version:date:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=vZmzfUzzweDILEhd2+M+U3xfy6iAuTlSFuI18jyrNso=;
+        b=r2UiK0cjinH6NEov7gYfc8p2Ejv3ahFU6AbI03dYc3DH7eFzaFUOy0JTrdmJCLtmKT
+         a3pTt9+QK8im9l4i1EMvtcXaPIErYVd0qcAMt028foFnj0XXBM6VlLsQr1uxdTaC6OaR
+         aZcGeX96H5cx3930mLEjH/fQ3HvYC71rFY6nzSJNdKKWK4CptRSEMvDIvJXE0B7Izp2j
+         gHSNuIYOnCxhPNCYIUVB9C7pUoDJvXbkjxyi7Hm+oHNeGH/k/cb8u3H8CZhVfCAY21TT
+         MIAOA0JaPlexcJPmdIRp51a/zUhOWrlxBBjVrrTf3PacNvxMSBoH42EelA8RNq8fVtNC
+         2RJw==
+X-Forwarded-Encrypted: i=1; AL+hErGKrcIko9vNaY17SX9umsBlZNwVYXRCbnwJw/DSyK2twCquFkdz1UigdJKK5wtnTLzkP6mY24c2LdNgzuI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/WiCpDqE7zoFJ6d02MgSyL8JMUGI+Rc8jvlUjytqwVONUgm96q
+	K2YgJ9ynZzaHlTh/9h04oWSPanYAkLnggnjCZC+bbRp6c0uwE5JWAIWHMx2p24/lY9tbSiBbqJ5
+	FJLWcKw==
+X-Received: from jahi21.prod.google.com ([2002:a05:6638:8b55:b0:615:c1f0:a936])
+ (user=ctshao job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6808:5390:b0:4c3:e93e:e331
+ with SMTP id 5614622812f47-56b967c2a3fmr2150104b6e.30.1794421932812; Wed, 11
+ Nov 2026 10:32:12 -0800 (PST)
+Date: Wed, 11 Nov 2026 10:32:09 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,350 +77,329 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="FWXTyTnJg+Xe1HHP"
-Content-Disposition: inline
-In-Reply-To: <20261111-sf19a2890-sysm-v2-3-d2fcb723e4f1@telaak.dev>
-
---FWXTyTnJg+Xe1HHP
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.567.gdb80ae8cd5-goog
+Message-ID: <20261111183209.1892421-1-ctshao@google.com>
+Subject: [PATCH v8] perf stat: Include PMU name and split uncore events per
+ PMU in metric-only JSON output
+From: Chun-Tse Shao <ctshao@google.com>
+To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>
+Cc: Mark Rutland <mark.rutland@arm.com>, 
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
+	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
+	James Clark <james.clark@linaro.org>, Hang Zhengyang <hang.zhengyang1010@gmail.com>, 
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Chun-Tse Shao <ctshao@google.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Nov 11, 2026 at 03:19:02AM -0500, Joseph Telaak via B4 Relay wrote:
-> From: Joseph Telaak <joseph@telaak.dev>
->=20
-> Each peripheral block of the Siflower SF19A2890 has a clock and reset
-> manager of its own, with a reset register, a clock gate register and a
-> bus output enable. The blocks differ in which gate and reset bits they
-> use, so each has its own compatible, and clock N of a manager is its
-> input clock N, gated. The header names the clocks and resets of each
-> manager, since their meaning depends on the manager.
->=20
-> Based on Chuanhong Guo's binding, which described every block with one
-> compatible and its bit layout in properties.
->=20
-> Signed-off-by: Joseph Telaak <joseph@telaak.dev>
+When running `perf stat` with `-A` (--no-aggr) and `--metric-only` in
+JSON output mode (`-j`), `perf stat` evaluates metric expressions
+across all matching PMUs (including uncore PMUs like `uncore_iio_0`,
+`uncore_iio_1`, etc.).
 
-This looks a bit messy with all the different clocks, but I don't think
-there's any value in breaking it out to 17 individual files nor is there
-anything common really to try to combine conditions etc.
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: not-applicable
+However, `perf stat` previously formatted JSON output by printing only
+"cpu" : "<id>" and grouping all metric values on a single line per CPU
+without identifying which PMU instance evaluated each metric. As a
+result, when an uncore event spans multiple PMU boxes, `perf stat`
+printed repeated, ambiguous metric keys without PMU names.
 
-Cheers,
-Conor.
+Fix this by:
+1. Including "pmu" : "<pmu_name>" in print_aggr_id_json in metric-only
+   AGGR_NONE mode (-A) when evsel->pmu is a non-core hardware or hybrid
+   PMU. Software and tool events don't belong to a hardware PMU instance
+   and so are not labeled.
+2. Starting a new JSON metric line in AGGR_NONE mode (-A) whenever the
+   PMU name changes, so that a line only has metrics from the PMU it is
+   labeled with.
+3. Opening a metric line only for events that have a metric, as other
+   events print nothing in metric-only mode. This avoids spurious lines
+   like {"cpu" : "0", "pmu" : "tool"} for events like user_time, while
+   metrics on tool events, like tma_info_system_time (duration_time),
+   are still printed with the line prefix.
+4. Updating perf_json_output_lint.py to recognize the new "pmu" key in
+   the JSON test suite.
 
-> ---
->  .../clock/siflower,sf19a2890-periph-crm.yaml       | 166 +++++++++++++++=
-++++++
->  MAINTAINERS                                        |   2 +
->  .../clock/siflower,sf19a2890-periph-crm.h          |  87 +++++++++++
->  3 files changed, 255 insertions(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/clock/siflower,sf19a2890-p=
-eriph-crm.yaml b/Documentation/devicetree/bindings/clock/siflower,sf19a2890=
--periph-crm.yaml
-> new file mode 100644
-> index 000000000000..f464cfffb2a2
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/clock/siflower,sf19a2890-periph-c=
-rm.yaml
-> @@ -0,0 +1,166 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/clock/siflower,sf19a2890-periph-crm.y=
-aml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Siflower SF19A2890 peripheral clock and reset manager
-> +
-> +maintainers:
-> +  - Joseph Telaak <joseph@telaak.dev>
-> +
-> +description: |
-> +  Each peripheral, or group of peripherals, of the Siflower SF19A2890 has
-> +  a clock and reset manager of its own: a reset register, a clock gate
-> +  register, and a bus output enable that the peripherals need as well as
-> +  their clocks to answer bus requests.
-> +
-> +  Clock N of the manager is input clock N, gated. The clocks and resets =
-of
-> +  each manager are defined in
-> +  include/dt-bindings/clock/siflower,sf19a2890-periph-crm.h.
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - siflower,sf19a2890-gmac-crm
-> +      - siflower,sf19a2890-gpio-crm
-> +      - siflower,sf19a2890-i2c-crm
-> +      - siflower,sf19a2890-pwm-crm
-> +      - siflower,sf19a2890-rf-crm
-> +      - siflower,sf19a2890-spi-crm
-> +      - siflower,sf19a2890-timer-crm
-> +      - siflower,sf19a2890-uart-crm
-> +      - siflower,sf19a2890-usb-crm
-> +      - siflower,sf19a2890-wdt-crm
-> +      - siflower,sf19a2890-wlan24-crm
-> +      - siflower,sf19a2890-wlan5-crm
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    minItems: 1
-> +    maxItems: 6
-> +
-> +  "#clock-cells":
-> +    const: 1
-> +
-> +  "#reset-cells":
-> +    const: 1
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - clocks
-> +  - "#clock-cells"
-> +  - "#reset-cells"
-> +
-> +allOf:
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: siflower,sf19a2890-gmac-crm
-> +    then:
-> +      properties:
-> +        clocks:
-> +          items:
-> +            - description: GMAC bus clock
-> +            - description: GMAC register clock
-> +            - description: RGMII transmit reference clock
-> +            - description: Timestamp unit clock
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            enum:
-> +              - siflower,sf19a2890-wlan24-crm
-> +              - siflower,sf19a2890-wlan5-crm
-> +    then:
-> +      properties:
-> +        clocks:
-> +          items:
-> +            - description: AXI slave clock
-> +            - description: AXI master clock
-> +            - description: Radio platform clock
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: siflower,sf19a2890-rf-crm
-> +    then:
-> +      properties:
-> +        clocks:
-> +          items:
-> +            - description: Test clock
-> +            - description: AXI slave clock
-> +            - description: Boot clock
-> +            - description: Low-power clock
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: siflower,sf19a2890-usb-crm
-> +    then:
-> +      properties:
-> +        clocks:
-> +          items:
-> +            - description: USB controller clock
-> +            - description: AXI master clock
-> +            - description: USB PHY reference clock
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: siflower,sf19a2890-spi-crm
-> +    then:
-> +      properties:
-> +        clocks:
-> +          items:
-> +            - description: APB clock
-> +            - description: SSP clock
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: siflower,sf19a2890-uart-crm
-> +    then:
-> +      properties:
-> +        clocks:
-> +          items:
-> +            - description: UART0 APB clock
-> +            - description: UART1 APB clock
-> +            - description: UART2 APB clock
-> +            - description: UART0 clock
-> +            - description: UART1 clock
-> +            - description: UART2 clock
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            enum:
-> +              - siflower,sf19a2890-gpio-crm
-> +              - siflower,sf19a2890-i2c-crm
-> +              - siflower,sf19a2890-pwm-crm
-> +              - siflower,sf19a2890-timer-crm
-> +              - siflower,sf19a2890-wdt-crm
-> +    then:
-> +      properties:
-> +        clocks:
-> +          maxItems: 1
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/clock/siflower,sf19a2890-clk.h>
-> +
-> +    clock-controller@19e24c00 {
-> +        compatible =3D "siflower,sf19a2890-uart-crm";
-> +        reg =3D <0x19e24c00 0x10>;
-> +        clocks =3D <&clk CLK_MUXDIV_PBUS>, <&clk CLK_MUXDIV_PBUS>,
-> +                 <&clk CLK_MUXDIV_PBUS>, <&clk CLK_MUXDIV_UART>,
-> +                 <&clk CLK_MUXDIV_UART>, <&clk CLK_MUXDIV_UART>;
-> +        #clock-cells =3D <1>;
-> +        #reset-cells =3D <1>;
-> +    };
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index de087d1c255d..47a3a72a5d08 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -25703,8 +25703,10 @@ M:	Joseph Telaak <joseph@telaak.dev>
->  L:	linux-clk@vger.kernel.org
->  S:	Maintained
->  F:	Documentation/devicetree/bindings/clock/siflower,sf19a2890-clk.yaml
-> +F:	Documentation/devicetree/bindings/clock/siflower,sf19a2890-periph-crm=
-=2Eyaml
->  F:	drivers/clk/siflower/clk-sf19a2890.c
->  F:	include/dt-bindings/clock/siflower,sf19a2890-clk.h
-> +F:	include/dt-bindings/clock/siflower,sf19a2890-periph-crm.h
-> =20
->  SILEAD TOUCHSCREEN DRIVER
->  M:	Hans de Goede <hansg@kernel.org>
-> diff --git a/include/dt-bindings/clock/siflower,sf19a2890-periph-crm.h b/=
-include/dt-bindings/clock/siflower,sf19a2890-periph-crm.h
-> new file mode 100644
-> index 000000000000..1cf54761fe72
-> --- /dev/null
-> +++ b/include/dt-bindings/clock/siflower,sf19a2890-periph-crm.h
-> @@ -0,0 +1,87 @@
-> +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
-> +#ifndef __DT_BINDINGS_CLOCK_SIFLOWER_SF19A2890_PERIPH_CRM_H
-> +#define __DT_BINDINGS_CLOCK_SIFLOWER_SF19A2890_PERIPH_CRM_H
-> +
-> +/* siflower,sf19a2890-gmac-crm */
-> +#define CLK_GMAC_BUS		0
-> +#define CLK_GMAC_REG		1
-> +#define CLK_GMAC_TX_REF		2
-> +#define CLK_GMAC_TSU		3
-> +
-> +#define RST_GMAC		0
-> +
-> +/* siflower,sf19a2890-gpio-crm */
-> +#define CLK_GPIO		0
-> +
-> +#define RST_GPIO		0
-> +
-> +/* siflower,sf19a2890-i2c-crm */
-> +#define CLK_I2C			0
-> +
-> +#define RST_I2C			0
-> +
-> +/* siflower,sf19a2890-pwm-crm */
-> +#define CLK_PWM			0
-> +
-> +#define RST_PWM			0
-> +
-> +/* siflower,sf19a2890-rf-crm */
-> +#define CLK_RF_TEST		0
-> +#define CLK_RF_AXIS		1
-> +#define CLK_RF_BOOT		2
-> +#define CLK_RF_LP		3
-> +
-> +#define RST_RF			0
-> +
-> +/* siflower,sf19a2890-spi-crm */
-> +#define CLK_SPI_APB		0
-> +#define CLK_SPI_SSP		1
-> +
-> +#define RST_SPI			0
-> +
-> +/* siflower,sf19a2890-timer-crm */
-> +#define CLK_TIMER		0
-> +
-> +#define RST_TIMER		0
-> +
-> +/* siflower,sf19a2890-uart-crm */
-> +#define CLK_UART0_APB		0
-> +#define CLK_UART1_APB		1
-> +#define CLK_UART2_APB		2
-> +#define CLK_UART0		3
-> +#define CLK_UART1		4
-> +#define CLK_UART2		5
-> +
-> +#define RST_UART0		0
-> +#define RST_UART1		1
-> +#define RST_UART2		2
-> +
-> +/* siflower,sf19a2890-usb-crm */
-> +#define CLK_USB			0
-> +#define CLK_USB_AXIM		1
-> +#define CLK_USB_PHY_REF		2
-> +
-> +#define RST_USB			0
-> +#define RST_USB_PHY_POR		1
-> +#define RST_USB_PHY		2
-> +
-> +/* siflower,sf19a2890-wdt-crm */
-> +#define CLK_WDT			0
-> +
-> +#define RST_WDT			0
-> +
-> +/* siflower,sf19a2890-wlan24-crm */
-> +#define CLK_WLAN24_AXIS		0
-> +#define CLK_WLAN24_AXIM		1
-> +#define CLK_WLAN24_PLF		2
-> +
-> +#define RST_WLAN24		0
-> +
-> +/* siflower,sf19a2890-wlan5-crm */
-> +#define CLK_WLAN5_AXIS		0
-> +#define CLK_WLAN5_AXIM		1
-> +#define CLK_WLAN5_PLF		2
-> +
-> +#define RST_WLAN5		0
-> +
-> +#endif /* __DT_BINDINGS_CLOCK_SIFLOWER_SF19A2890_PERIPH_CRM_H */
->=20
-> --=20
-> Git-155)
->=20
->=20
+Before the fix:
+  $ perf stat -M iio_bandwidth_read -a -A --metric-only -j -I 1000
+  {"interval" : 1.001017947, "cpu" : "0", "MB/s  iio_bandwidth_read" : "0.0=
+", "MB/s  iio_bandwidth_read" : "0.0", "MB/s  iio_bandwidth_read" : "22.5",=
+ "MB/s  iio_bandwidth_read" : "0.0", "MB/s  iio_bandwidth_read" : "0.2", "M=
+B/s  iio_bandwidth_read" : "0.0", "MB/s  iio_bandwidth_read" : "0.0", "MB/s=
+  iio_bandwidth_read" : "0.0", "MB/s  iio_bandwidth_read" : "0.0", "MB/s  i=
+io_bandwidth_read" : "0.0"}
 
---FWXTyTnJg+Xe1HHP
-Content-Type: application/pgp-signature; name=signature.asc
+There is no way to determine which uncore device generated the metrics.
 
------BEGIN PGP SIGNATURE-----
+After:
+  $ perf stat -M iio_bandwidth_read -a -A --metric-only -j -I 1000
+  {"interval" : 1.000314908, "cpu" : "0", "pmu" : "uncore_iio_0", "MB/s  ii=
+o_bandwidth_read" : "0.0"}
+  {"interval" : 1.000314908, "cpu" : "0", "pmu" : "uncore_iio_1", "MB/s  ii=
+o_bandwidth_read" : "0.1"}
+  {"interval" : 1.000314908, "cpu" : "0", "pmu" : "uncore_iio_11", "MB/s  i=
+io_bandwidth_read" : "0.0"}
+  ...
+  {"interval" : 1.000314908, "cpu" : "56", "pmu" : "uncore_iio_0", "MB/s  i=
+io_bandwidth_read" : "0.0"}
+  {"interval" : 1.000314908, "cpu" : "56", "pmu" : "uncore_iio_1", "MB/s  i=
+io_bandwidth_read" : "0.0"}
+  {"interval" : 1.000314908, "cpu" : "56", "pmu" : "uncore_iio_11", "MB/s  =
+iio_bandwidth_read" : "0.0"}
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCavS0MgAKCRB4tDGHoIJi
-0iMjAQD6GsZJXeGSpIxaL15f7l00mbgyl5Irzb8iW+6YCoPj8QEA/8tUgwNMJoi1
-/rbE+PDjq1qeiHvcr/ibveKYvszCkgU=
-=N8sr
------END PGP SIGNATURE-----
+Assisted-by: Gemini:gemini-3.1-pro-preview
+Signed-off-by: Chun-Tse Shao <ctshao@google.com>
+---
+v8:
+  - Gate "pmu" output in print_aggr_id_json() on metric-only mode and
+    skip software PMUs via perf_pmu__is_software(), keeping plain
+    `perf stat -a -A -j` unchanged and avoiding splitting default
+    metrics onto a separate "software" line. (Hang Zhengyang)
+  - Rebase onto the latest perf-tools-next.
+v7: lore.kernel.org/20261030192537.3079368-1-ctshao@google.com
+  - Pass the evsel to print_metric_begin() explicitly from all callers
+    instead of falling back to evlist__first(). (Ian)
+v6: lore.kernel.org/20261027203115.2647914-1-ctshao@google.com
+  - Open metric lines for events that have a metric instead of skipping
+    tool events, so metrics on tool events (e.g. tma_info_system_time)
+    keep the line prefix and are terminated properly. (Sashiko)
+  - Split JSON lines only when the shown PMU name changes. Tool event
+    metrics are no longer mislabeled with an uncore PMU name, and the
+    STD and CSV output are no longer split.
+  - Rebase onto the latest perf-tools-next.
+v5: lore.kernel.org/20260811230518.3360-2-ctshao@google.com
+  - Fix perf test "perf stat JSON output linter" failure.
+v4: lore.kernel.org/20260804210659.112192-1-ctshao@google.com
+  - Fix the line splitting issue, causing spurious empty {"pmu": "tool"}
+    objects and order-dependent PMU mislabeling.
+v3: lore.kernel.org/20260729170416.41904-1-ctshao@google.com
+  - Add before the fix output.
+v2: lore.kernel.org/20260715203055.2981363-1-ctshao@google.com
+  - Fix print_metric_begin() initialization in print_no_aggr_metric()
+    to ensure tool events always open lines cleanly.
 
---FWXTyTnJg+Xe1HHP--
+ .../tests/shell/lib/perf_json_output_lint.py  |  1 +
+ tools/perf/util/stat-display.c                | 79 ++++++++++++++++---
+ 2 files changed, 68 insertions(+), 12 deletions(-)
+
+diff --git a/tools/perf/tests/shell/lib/perf_json_output_lint.py b/tools/pe=
+rf/tests/shell/lib/perf_json_output_lint.py
+index 8cde22ac9d97..0a16cae92766 100644
+--- a/tools/perf/tests/shell/lib/perf_json_output_lint.py
++++ b/tools/perf/tests/shell/lib/perf_json_output_lint.py
+@@ -65,6 +65,7 @@ def check_json_output(expected_count):
+       'metricgroup': lambda x: True,
+       'node': lambda x: True,
+       'pcnt-running': isfloat,
++      'pmu': lambda x: True,
+       'socket': lambda x: True,
+       'thread': lambda x: True,
+       'unit': lambda x: True,
+diff --git a/tools/perf/util/stat-display.c b/tools/perf/util/stat-display.=
+c
+index b337cc23f413..6c9358b64b38 100644
+--- a/tools/perf/util/stat-display.c
++++ b/tools/perf/util/stat-display.c
+@@ -1,6 +1,7 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ #include <inttypes.h>
++#include <string.h>
+ #include <linux/string.h>
+ #include <linux/time64.h>
+ #include <math.h>
+@@ -23,6 +24,7 @@
+ #include "pmu.h"
+ #include "pmus.h"
+ #include "tool_pmu.h"
++#include "metricgroup.h"
+=20
+ #define CNTR_NOT_SUPPORTED	"<not supported>"
+ #define CNTR_NOT_COUNTED	"<not counted>"
+@@ -361,9 +363,34 @@ static void print_aggr_id_csv(struct perf_stat_config =
+*config,
+ 	}
+ }
+=20
++/*
++ * In no-aggregation metric-only mode, JSON output includes the PMU name o=
+f
++ * non-core hardware and hybrid events so that metrics from different PMU
++ * instances, like uncore_iio_0 and uncore_iio_1, can be told apart. Softw=
+are
++ * and tool events don't belong to a hardware PMU instance and so are not
++ * labeled.
++ */
++static const char *json_pmu_name(const struct evsel *evsel)
++{
++	if (!evsel || !evsel->pmu || perf_pmu__is_software(evsel->pmu))
++		return NULL;
++	if (evsel->pmu->is_core && !evsel__is_hybrid(evsel))
++		return NULL;
++	return evsel->pmu->name;
++}
++
++static bool json_pmu_name_changed(const char *name, const char *prev)
++{
++	if (!name || !prev)
++		return name !=3D prev;
++	return strcmp(name, prev) !=3D 0;
++}
++
+ static void print_aggr_id_json(struct perf_stat_config *config, struct out=
+state *os,
+ 			       struct evsel *evsel, struct aggr_cpu_id id, int aggr_nr)
+ {
++	const char *pmu_name;
++
+ 	switch (config->aggr_mode) {
+ 	case AGGR_CORE:
+ 		json_out(os, "\"core\" : \"S%d-D%d-C%d\", \"counters\" : %d",
+@@ -397,6 +424,11 @@ static void print_aggr_id_json(struct perf_stat_config=
+ *config, struct outstate
+ 			json_out(os, "\"cpu\" : \"%d\"",
+ 				id.cpu.cpu);
+ 		}
++		if (config->metric_only) {
++			pmu_name =3D json_pmu_name(evsel);
++			if (pmu_name)
++				json_out(os, "\"pmu\" : \"%s\"", pmu_name);
++		}
+ 		break;
+ 	case AGGR_THREAD:
+ 		json_out(os, "\"thread\" : \"%s-%d\"",
+@@ -1010,13 +1042,16 @@ static void print_counter_aggrdata(struct perf_stat=
+_config *config,
+ 		fputc('\n', output);
+ }
+=20
++/*
++ * Start a metric-only line. @evsel only provides the line prefix: the
++ * aggregation id, the PMU name in JSON (see json_pmu_name()) and the cgro=
+up.
++ */
+ static void print_metric_begin(struct perf_stat_config *config,
+-			       struct evlist *evlist,
++			       struct evsel *evsel,
+ 			       struct outstate *os, int aggr_idx)
+ {
+ 	struct perf_stat_aggr *aggr;
+ 	struct aggr_cpu_id id;
+-	struct evsel *evsel;
+=20
+ 	os->first =3D true;
+ 	if (!config->metric_only)
+@@ -1031,7 +1066,6 @@ static void print_metric_begin(struct perf_stat_confi=
+g *config,
+ 		else
+ 			fprintf(config->output, "%s", os->timestamp);
+ 	}
+-	evsel =3D evlist__first(evlist);
+ 	id =3D config->aggr_map->map[aggr_idx];
+ 	aggr =3D &evsel->stats->aggr[aggr_idx];
+ 	aggr_printout(config, os, evsel, id, aggr->nr);
+@@ -1069,7 +1103,7 @@ static void print_aggr(struct perf_stat_config *confi=
+g,
+ 	 * Without each counter has its own line.
+ 	 */
+ 	cpu_aggr_map__for_each_idx(aggr_idx, config->aggr_map) {
+-		print_metric_begin(config, evlist, os, aggr_idx);
++		print_metric_begin(config, evlist__first(evlist), os, aggr_idx);
+=20
+ 		evlist__for_each_entry(evlist, counter) {
+ 			print_counter_aggrdata(config, counter, aggr_idx, os);
+@@ -1095,7 +1129,7 @@ static void print_aggr_cgroup(struct perf_stat_config=
+ *config,
+ 		os->cgrp =3D evsel->cgrp;
+=20
+ 		cpu_aggr_map__for_each_idx(aggr_idx, config->aggr_map) {
+-			print_metric_begin(config, evlist, os, aggr_idx);
++			print_metric_begin(config, evsel, os, aggr_idx);
+=20
+ 			evlist__for_each_entry(evlist, counter) {
+ 				if (counter->cgrp !=3D os->cgrp)
+@@ -1131,7 +1165,8 @@ static void print_no_aggr_metric(struct perf_stat_con=
+fig *config,
+=20
+ 	perf_cpu_map__for_each_cpu(cpu, all_idx, evlist__core(evlist)->user_reque=
+sted_cpus) {
+ 		struct evsel *counter;
+-		bool first =3D true;
++		const char *line_pmu =3D NULL;
++		bool line_open =3D false;
+=20
+ 		evlist__for_each_entry(evlist, counter) {
+ 			u64 ena, run, val;
+@@ -1146,12 +1181,32 @@ static void print_no_aggr_metric(struct perf_stat_c=
+onfig *config,
+ 				if (config->aggr_map->map[aggr_idx].cpu.cpu =3D=3D cpu.cpu)
+ 					break;
+ 			}
++			if (aggr_idx >=3D config->aggr_map->nr)
++				continue;
+=20
+ 			os->evsel =3D counter;
+ 			os->id =3D aggr_cpu_id__cpu(cpu, /*data=3D*/NULL);
+-			if (first) {
+-				print_metric_begin(config, evlist, os, aggr_idx);
+-				first =3D false;
++
++			/*
++			 * Only events with a metric print something in metric-only
++			 * mode, so let the first of them open the line. For JSON,
++			 * start a new line when the PMU name changes so that all
++			 * metrics on a line share the same "cpu" and "pmu" prefix.
++			 */
++			if (config->iostat_run ||
++			    metricgroup__lookup(evlist__metric_events(evlist), counter, false))=
+ {
++				const char *pmu_name =3D json_pmu_name(counter);
++
++				if (line_open && config->json_output &&
++				    json_pmu_name_changed(pmu_name, line_pmu)) {
++					print_metric_end(config, os);
++					line_open =3D false;
++				}
++				if (!line_open) {
++					print_metric_begin(config, counter, os, aggr_idx);
++					line_pmu =3D pmu_name;
++					line_open =3D true;
++				}
+ 			}
+ 			val =3D ps->aggr[aggr_idx].counts.val;
+ 			ena =3D ps->aggr[aggr_idx].counts.ena;
+@@ -1160,7 +1215,7 @@ static void print_no_aggr_metric(struct perf_stat_con=
+fig *config,
+ 			uval =3D val * counter->scale;
+ 			printout(config, os, uval, run, ena, 1.0, aggr_idx);
+ 		}
+-		if (!first)
++		if (line_open)
+ 			print_metric_end(config, os);
+ 	}
+ }
+@@ -1523,7 +1578,7 @@ static void print_cgroup_counter(struct perf_stat_con=
+fig *config, struct evlist
+ 				print_metric_end(config, os);
+=20
+ 			os->cgrp =3D counter->cgrp;
+-			print_metric_begin(config, evlist, os, /*aggr_idx=3D*/0);
++			print_metric_begin(config, counter, os, /*aggr_idx=3D*/0);
+ 		}
+=20
+ 		print_counter(config, counter, os);
+@@ -1573,7 +1628,7 @@ void evlist__print_counters(struct evlist *evlist, st=
+ruct perf_stat_config *conf
+ 		} else if (config->cgroup_list) {
+ 			print_cgroup_counter(config, evlist, &os);
+ 		} else {
+-			print_metric_begin(config, evlist, &os, /*aggr_idx=3D*/0);
++			print_metric_begin(config, evlist__first(evlist), &os, /*aggr_idx=3D*/0=
+);
+ 			evlist__for_each_entry(evlist, counter) {
+ 				print_counter(config, counter, &os);
+ 			}
+--=20
+2.56.0.542.g3ef89b7020-goog
+
