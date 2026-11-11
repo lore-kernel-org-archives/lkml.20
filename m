@@ -1,74 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794425066;
-	b=EoU7g4gKN/O/qzH9p/cNSnilX+gw7sVr+k2qGfq19++10JDWCioAKdZT2+Xj/iRZv/cB
-	 wHz1+T+j+JISpS/XW3qLoS9oN/NUIaTKdx/3cdEgruLRQZN00rDruFN5Ynu+yJdiIdMRa
-	 FG0tRJqS3ufn3nfmZCbi3RYlJGVESqyaIyT5ojlootAyTzj6wuQfEB37oh+WqCoiiMXde
-	 crrOPxgzoFCaSg3ip2XcWTXkqKl7aP3a/pQFp2IPPwsI/d0AGhedsPlCxkr0hkLmt1Ahv
-	 OVJOrYFnJ2xAAx8d8iqT+ylP7KpNUv9ZYgnYmG6vkkm/boSzDS0p1Kke8/17jAh9BTQ==
+	t=1794425063;
+	b=RH8SGPHg+pVGrvWvAjlxlNQHPRnxvo4KmkXuZbSiZmBwLs1ckEqVLgCcyk7Xj2JmgJoQ
+	 7OmxNaNA2Vj09fcuMKrvz8QOVVh+ibPkQfPeJSSxklb9kKsRIGdSvVN+2V2Gs1lvlSzoX
+	 O4l6ZR5TkhSPiyRuTRTqp3g+hPOSJ122JlAA1L3jJ3AIubWka0BY9fLAljOw/SEzXwAI0
+	 61XA2lwE8uvebmTyG+ZBOSxHMIv/qrDZLhWl8Kg3lzz7jjiuRSq8HeWH8D8DdNpMnuETF
+	 pgD19r6Tgxu8pqMw4b+3cX97RLuMW+jPhRs1dqQ5De3uGtMtf543n94pdYD2545//mA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794425066;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794425063;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type;
-	bh=UcDBMAi6slSoQ/pWorFzGuzd7dcaQozRmBe5zIl9XlM=;
-	b=PPvvtAdV9ddGLRnnYuNbmejBADubhz6ZCe2oL7KeQpTy3LCL+7QkjTZeBdzCpWYfEjd1
-	 sBEja4G0IyZ0GdW4f//tveh/D1oCYY7BRREZ21ZwxVWGy/UXqieKM23PTYRhbGVJdn43s
-	 QEW7pA4OHBCKlrn3Gn2/K3przRsMhmMbrLTJNMScKgzArsioSAucxDsjnWN8wx5TWw/2U
-	 ccTk9euheaqcqmP9yW8WK8xae1gPQcbMYfEV+Gjhb7Or4WXRziHZrKpzA3+3Zc5lskdyu
-	 3hdZSv1/DYc6Hzsov/BvU/Cwk06IT38mpfRzAVa0vW91aFU+zDVY3VSXVu+/7JPlr1w==
+	bh=GZrkVSPnOLbwhYzrPljddPiSGOm8sAR0nI/sR9X9KfM=;
+	b=hXPUYM6NStmv7OQ1i173ZWj7P9W2O6i+6zv+VechrdeKxJq3L6edg2wEW3fwI6e9gcas
+	 6tiuAHtWfbvUBlzi4v4VTXXjpqPNyIvxtGxIw9+3khWiEuP+Z9CmwYtkiBcq0CFDs4MMd
+	 7yl39bnJIgsHK73uNlH5ADM5MdE5Volcadpcb3eHWpa3JE+X96WK5D+oh8DhDw1qHFO1d
+	 ui12oQrkA9gUfWT93GUbXyzMn+DDtmJh6w/0kJ7O9tAIgnSWm/kIdvWqUD7tg/jJl+ddM
+	 sD82icGcUcKDRmznz7HcygCdyDOQ67rgbvAQT6os8UAcGRo0VxYv/CS6ImiKxhVUwEA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--dmatlack.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=AB70eldk;
-	arc=none smtp.remote-ip=209.85.167.200
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=C8mJidRl;
+	arc=none smtp.remote-ip=209.85.167.199
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4DF0606F3B2
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 19:24:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E4DF0606F3B2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AFF7606B5E6
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 19:24:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6AFF7606B5E6
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--dmatlack.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=AB70eldk
-Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4ab8b4887d4so2486731b6e.1
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 11:24:25 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=C8mJidRl
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-568249fbf5eso4585536b6e.2
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 11:24:23 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794425065; x=1795029865; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1794425062; x=1795029862; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=UcDBMAi6slSoQ/pWorFzGuzd7dcaQozRmBe5zIl9XlM=;
-        b=AB70eldkTj+badbRrum+m8pkoyqB7tI4sagvvOHSsuTkLbgcmqXONZFJQEkpbc/89n
-         tIAh47V1YkKVmaUS1TNdxY+4r5keWWSrL1O03c4+9G/vtYsq8FsuKVvpmjPdUay02GCo
-         NcRs7Kem9/fcbvi4aQ7pleikgSj2KXjvUYJ6R/iqBV/dDcpTxS2YBcKNpPf4+urapaE9
-         Wv4pyx/5xptAoRCWn1Do8JWtxlGAOLPHr1Lw0Vflln5stYI8RhlMb1IXzkc0Yl2QE1ol
-         0Ox+7QMu+FCJ/HKSyFXuza3D5SKdbiBmLdQ/C3gIx8bWQ8Aj9kDmRtkbstAnt6e1Wkvy
-         Xc1Q==
+        bh=GZrkVSPnOLbwhYzrPljddPiSGOm8sAR0nI/sR9X9KfM=;
+        b=C8mJidRloxlSfZbT6vz1c4ZNIn+miuKpjO2mPIxJ1PT/KnTuIZ3U1UGeEJKxQl3bI0
+         EYvIa2/QIpzwaxDrjivW3Y73fFtq6G/Ska0GFJhtdxumBfEPZd3qejbghifrtttYw90x
+         rf47GmsJUp7ipGL8m72MwqJMJpHvg5RRshIDEpbZm6nttL9298GyyRtlK2XUEDzueh6C
+         //8cVyO1I6cqy0k+v2dqglVMOUdferTx8y0HlXQzJfwcs+tf/QI7NpPoeH3Fm63HlHSe
+         lA4lKR+ySUQSFGM15MKxl6yKTjwAk+FRtubeC/4iTVxNKZSGc3H7e9C52oxp102WBmUb
+         PkBQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794425065; x=1795029865;
+        d=1e100.net; s=20260707; t=1794425062; x=1795029862;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=UcDBMAi6slSoQ/pWorFzGuzd7dcaQozRmBe5zIl9XlM=;
-        b=mUU6vbt87zR6RLygPm0pbsRoSE2LxeovVXK4fPb75fa1qBcNdNLibCY+KanwNv82R2
-         yOvwHYyxO/iDQpgQYvKF3dvVgjl31AJ10hpYojR3nXjzsMjcs+pmdmLRjW1jg2b8/XTp
-         vmzjJriHB0Zd/0z2dGym+d8g4ibu+dTWIAmZOqYzV/JhspNdqvm3K349ZAEz4E86PDmO
-         yD40aYvZGYd/FFQQs9OqOA9/Xb2JF3F/UCSztRNW26N6mggHcCxZjiz+tQdYqtNEvC0V
-         BOzpbaq4o4DkqiQlgU8IuT/NyULsY9QpGgcrjQMfF3ahtubRf3Xcf6FiLHWBJw+t4cmQ
-         /xKQ==
-X-Forwarded-Encrypted: i=1; AL+hErE0y0i48TROSSyNh19GIQIgXip6GATgclVoGyWD4z3R8T65G0JdXqTNhd7KJUi2NVJMR0/gkFzxpIlLGhY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8IyxMr6zSUdakJxw2j0YTJTLhBSaVycAAwZUHH2Ox9e5qL9MZR
-	6kyUd26X2BnUh/BzZ4QV+AhFESO+G1gDu5QCdmRtJUCeO0vCcVDlSndC3zAU15lz+ummN8X6JsW
-	8aEO3JnzqUiMVqA==
-X-Received: from iogp17-n1.prod.google.com ([2002:a05:6602:c3d1:10b0:9c7:87c5:7ce1])
+        bh=GZrkVSPnOLbwhYzrPljddPiSGOm8sAR0nI/sR9X9KfM=;
+        b=rZS85ovDXn3/ujg5TfnKi3nAxeSoRptlPgGP3zwxqK5p7LuZzy8pNX1x6OsGEv4Gkd
+         PBvApt7keB3jlIYd74ncG6PsvDUbt+TIUxjmkUY5ATNTimps14owfbSm24aaCno8/9U9
+         wbMliB18Q6wMXiO2iQapTPa383y67igNtXqhsVzej5ribTV/k69FgimZtKOXJ8bRcuvc
+         1EObiHP+9meUPzVf/3lxsihBhzMRgQfjrPzQ48FrvZHfTo+GLgOlV9Or3WfC65QTqxN0
+         DzplKmUyDW6qh4o7VoUrM8wtCKDBLk+5CmYvemA9/B2K/YEeEpYrFfnMqk3IyWWGPPDu
+         WYJQ==
+X-Forwarded-Encrypted: i=1; AL+hErHbeFxmxNSOrag8M/IgPYi4ptP87+BeeHK3DC98LFVV5BETkiLOYxmZY0NzP3F5e9cDx4cLhE994sRVXH8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9ZoHYRbGBm54K+cly1dgFWutDEdXQe0cWw3yBbt77ov56q6/Ok
+	T6eItk6biH+8LE64FSV0nb6Y3jLYKvUfkFcssXPMHO8fAzq0S1iEJ8J5tDiQFuBximjbneBuQda
+	hf8lZQtjXcJOFdg==
+X-Received: from ilbec1.prod.google.com ([2002:a05:6e02:4701:b0:527:120b:a51d])
  (user=dmatlack job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6808:2384:b0:55c:a67:d111 with SMTP id 5614622812f47-56b962938femr2785367b6e.19.1794425064545;
- Wed, 11 Nov 2026 11:24:24 -0800 (PST)
-Date: Wed, 11 Nov 2026 19:24:11 +0000
+ 2002:a05:6808:191f:b0:53f:3c0e:c74b with SMTP id 5614622812f47-56b93447ed4mr3152606b6e.9.1794425061950;
+ Wed, 11 Nov 2026 11:24:21 -0800 (PST)
+Date: Wed, 11 Nov 2026 19:24:09 +0000
 In-Reply-To: <20261111192411.4133780-1-dmatlack@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,8 +81,8 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261111192411.4133780-1-dmatlack@google.com>
 X-Mailer: git-send-email 2.56.0.567.gdb80ae8cd5-goog
-Message-ID: <20261111192411.4133780-8-dmatlack@google.com>
-Subject: [RFC PATCH 7/7] vfio: selftests: Add P2P DMA selftest
+Message-ID: <20261111192411.4133780-6-dmatlack@google.com>
+Subject: [RFC PATCH 5/7] vfio: selftests: Add iommu_map_file() helper
 From: David Matlack <dmatlack@google.com>
 To: dri-devel@lists.freedesktop.org, iommu@lists.linux.dev, 
 	kvm@vger.kernel.org, linaro-mm-sig@lists.linaro.org, 
@@ -98,478 +98,84 @@ Cc: Alex Mastro <amastro@fb.com>, Alex Williamson <alex@shazbot.org>,
 	Sumit Semwal <sumit.semwal@linaro.org>, Vipin Sharma <vipinsh@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Add vfio_pci_p2pdma_test to validate peer-to-peer DMA between an
-initiator device driven by the VFIO selftests driver framework and a
-target device exposing a memory BAR located via
-vfio_pci_find_p2p_pair().
-
-Map the target BAR into the IOMMU across all supported IOMMU modes
-(using VFIO_IOMMU_MAP_DMA on the BAR mmap for type1/type1v2 and
-VFIO_DEVICE_FEATURE_DMA_BUF + IOMMU_IOAS_MAP_FILE for iommufd) and test
-RAM-to-BAR writes, BAR-to-RAM reads, BAR-to-BAR copies, RAM-BAR-RAM
-roundtrips, and iommufd dmabuf revocation when PCI_COMMAND_MEMORY is
-cleared on the target.
+Add iommu_map_file() and __iommu_map_file() to map a file descriptor
+(such as a memfd or VFIO PCI dma-buf) into an iommufd IOAS via
+IOMMU_IOAS_MAP_FILE. Also skip regions without a host virtual address in
+__iommu_hva2iova(), since file-backed DMA mappings do not require one.
 
 Signed-off-by: David Matlack <dmatlack@google.com>
 ---
- tools/testing/selftests/vfio/Makefile         |   1 +
- .../selftests/vfio/vfio_pci_p2pdma_test.c     | 435 ++++++++++++++++++
- 2 files changed, 436 insertions(+)
- create mode 100644 tools/testing/selftests/vfio/vfio_pci_p2pdma_test.c
+ .../vfio/lib/include/libvfio/iommu.h          |  9 ++++++
+ tools/testing/selftests/vfio/lib/iommu.c      | 29 +++++++++++++++++++
+ 2 files changed, 38 insertions(+)
 
-diff --git a/tools/testing/selftests/vfio/Makefile b/tools/testing/selftests/vfio/Makefile
-index 2c32c48db509..b391d22b52ca 100644
---- a/tools/testing/selftests/vfio/Makefile
-+++ b/tools/testing/selftests/vfio/Makefile
-@@ -12,6 +12,7 @@ TEST_GEN_PROGS += vfio_iommufd_setup_test
- TEST_GEN_PROGS += vfio_pci_device_test
- TEST_GEN_PROGS += vfio_pci_device_init_perf_test
- TEST_GEN_PROGS += vfio_pci_driver_test
-+TEST_GEN_PROGS += vfio_pci_p2pdma_test
- TEST_GEN_PROGS += vfio_pci_sriov_uapi_test
+diff --git a/tools/testing/selftests/vfio/lib/include/libvfio/iommu.h b/tools/testing/selftests/vfio/lib/include/libvfio/iommu.h
+index e9a3386a4719..2b39c49e66da 100644
+--- a/tools/testing/selftests/vfio/lib/include/libvfio/iommu.h
++++ b/tools/testing/selftests/vfio/lib/include/libvfio/iommu.h
+@@ -42,6 +42,15 @@ static inline void iommu_map(struct iommu *iommu, struct dma_region *region)
+ 	VFIO_ASSERT_EQ(__iommu_map(iommu, region), 0);
+ }
  
- TEST_FILES += scripts/cleanup.sh
-diff --git a/tools/testing/selftests/vfio/vfio_pci_p2pdma_test.c b/tools/testing/selftests/vfio/vfio_pci_p2pdma_test.c
-new file mode 100644
-index 000000000000..43e1537076ad
---- /dev/null
-+++ b/tools/testing/selftests/vfio/vfio_pci_p2pdma_test.c
-@@ -0,0 +1,435 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+#include <fcntl.h>
-+#include <string.h>
-+#include <unistd.h>
-+#include <sys/mman.h>
++int __iommu_map_file(struct iommu *iommu, int fd, u64 file_offset,
++		     struct dma_region *region);
 +
-+#include <linux/align.h>
-+#include <linux/io.h>
-+#include <linux/kernel.h>
-+#include <linux/sizes.h>
-+#include <linux/vfio.h>
-+
-+#include <libvfio.h>
-+
-+#include "../kselftest_harness.h"
-+
-+static char **device_bdfs;
-+static int nr_bdfs;
-+
-+static void set_msi_nonblock(struct vfio_pci_device *dev)
++static inline void iommu_map_file(struct iommu *iommu, int fd, u64 file_offset,
++				  struct dma_region *region)
 +{
-+	if (dev->driver.ops->send_msi)
-+		fcntl_set_nonblock(dev->msi_eventfds[dev->driver.msi]);
++	VFIO_ASSERT_EQ(__iommu_map_file(iommu, fd, file_offset, region), 0);
 +}
 +
-+static void assert_no_msi(struct vfio_pci_device *dev)
+ int __iommu_unmap(struct iommu *iommu, struct dma_region *region, u64 *unmapped);
+ 
+ static inline void iommu_unmap(struct iommu *iommu, struct dma_region *region)
+diff --git a/tools/testing/selftests/vfio/lib/iommu.c b/tools/testing/selftests/vfio/lib/iommu.c
+index b6f3c5c84e01..ba602685f892 100644
+--- a/tools/testing/selftests/vfio/lib/iommu.c
++++ b/tools/testing/selftests/vfio/lib/iommu.c
+@@ -71,6 +71,9 @@ int __iommu_hva2iova(struct iommu *iommu, void *vaddr, iova_t *iova)
+ 	struct dma_region *region;
+ 
+ 	list_for_each_entry(region, &iommu->dma_regions, link) {
++		if (!region->vaddr)
++			continue;
++
+ 		if (vaddr < region->vaddr)
+ 			continue;
+ 
+@@ -149,6 +152,32 @@ int __iommu_map(struct iommu *iommu, struct dma_region *region)
+ 	return 0;
+ }
+ 
++int __iommu_map_file(struct iommu *iommu, int fd, u64 file_offset,
++		     struct dma_region *region)
 +{
-+	u64 value;
-+	int fd;
++	struct iommu_ioas_map_file args = {
++		.size = sizeof(args),
++		.flags = IOMMU_IOAS_MAP_READABLE |
++			 IOMMU_IOAS_MAP_WRITEABLE |
++			 IOMMU_IOAS_MAP_FIXED_IOVA,
++		.ioas_id = iommu->ioas_id,
++		.fd = fd,
++		.start = file_offset,
++		.length = region->size,
++		.iova = region->iova,
++	};
 +
-+	if (!dev->driver.ops->send_msi)
-+		return;
++	if (!iommu->iommufd)
++		return -EOPNOTSUPP;
 +
-+	fd = dev->msi_eventfds[dev->driver.msi];
-+	VFIO_ASSERT_EQ(read(fd, &value, sizeof(value)), -1);
-+	VFIO_ASSERT_EQ(errno, EAGAIN);
++	if (ioctl(iommu->iommufd, IOMMU_IOAS_MAP_FILE, &args))
++		return -errno;
++
++	list_add(&region->link, &iommu->dma_regions);
++
++	return 0;
 +}
 +
-+static void ram_region_setup(struct iommu *iommu,
-+			     struct iova_allocator *iova_allocator,
-+			     struct dma_region *region, u64 size)
-+{
-+	void *vaddr;
-+
-+	vaddr = mmap(NULL, size, PROT_READ | PROT_WRITE,
-+		     MAP_SHARED | MAP_ANONYMOUS, -1, 0);
-+	VFIO_ASSERT_NE(vaddr, MAP_FAILED);
-+
-+	region->vaddr = vaddr;
-+	region->iova = iova_allocator_alloc(iova_allocator, size);
-+	region->size = size;
-+
-+	iommu_map(iommu, region);
-+}
-+
-+static void ram_region_teardown(struct iommu *iommu, struct dma_region *region)
-+{
-+	if (!region->vaddr)
-+		return;
-+
-+	iommu_unmap(iommu, region);
-+	VFIO_ASSERT_EQ(munmap(region->vaddr, region->size), 0);
-+	region->vaddr = NULL;
-+}
-+
-+static u64 pattern_word(size_t index, u8 seed)
-+{
-+	return (u64)seed * 0x0101010101010101ULL ^
-+	       ((u64)index * 0x9e3779b97f4a7c15ULL);
-+}
-+
-+static void fill_ram(void *buf, size_t size, u8 seed)
-+{
-+	__le64 *p = buf;
-+	size_t i;
-+
-+	VFIO_ASSERT_TRUE(IS_ALIGNED(size, sizeof(u64)));
-+	for (i = 0; i < size / sizeof(u64); i++)
-+		p[i] = cpu_to_le64(pattern_word(i, seed));
-+}
-+
-+static void fill_bar(void *bar, size_t size, u8 seed)
-+{
-+	size_t i;
-+
-+	VFIO_ASSERT_TRUE(IS_ALIGNED(size, sizeof(u64)));
-+	for (i = 0; i < size / sizeof(u64); i++)
-+		writeq(pattern_word(i, seed), bar + i * sizeof(u64));
-+}
-+
-+static void assert_ram_eq_bar(const void *ram, const void *bar, size_t size)
-+{
-+	const __le64 *pr = ram;
-+	size_t i;
-+
-+	VFIO_ASSERT_TRUE(IS_ALIGNED(size, sizeof(u64)));
-+	for (i = 0; i < size / sizeof(u64); i++)
-+		VFIO_ASSERT_EQ(le64_to_cpu(pr[i]),
-+			       readq(bar + i * sizeof(u64)),
-+			       "Mismatch at byte offset %zu\n",
-+			       i * sizeof(u64));
-+}
-+
-+static void assert_bar_eq_bar(const void *bar_a, const void *bar_b,
-+			      size_t size)
-+{
-+	size_t i;
-+
-+	VFIO_ASSERT_TRUE(IS_ALIGNED(size, sizeof(u64)));
-+	for (i = 0; i < size / sizeof(u64); i++)
-+		VFIO_ASSERT_EQ(readq(bar_a + i * sizeof(u64)),
-+			       readq(bar_b + i * sizeof(u64)),
-+			       "Mismatch at byte offset %zu\n",
-+			       i * sizeof(u64));
-+}
-+
-+static void assert_no_pattern_leak(const void *bar_pattern, const void *dst,
-+				   size_t size)
-+{
-+	const u8 *pb = bar_pattern;
-+	const u8 *pd = dst;
-+	size_t offset, chunk;
-+
-+	for (offset = 0; offset < size; offset += chunk) {
-+		chunk = min_t(size_t, 64, size - offset);
-+		VFIO_ASSERT_NE(memcmp(pb + offset, pd + offset, chunk), 0,
-+			       "Leaked BAR data at byte offset %zu\n", offset);
-+	}
-+}
-+
-+FIXTURE(vfio_pci_p2pdma_test) {
-+	struct iommu *iommu;
-+	struct iova_allocator *iova_allocator;
-+	struct vfio_pci_device **devices;
-+	int nr_open;
-+
-+	struct vfio_pci_device *initiator;
-+	struct vfio_pci_device *target;
-+	struct vfio_pci_mem_bar mem_bar;
-+
-+	struct dma_region ram_region;
-+	struct dma_region bar_region;
-+	bool bar_mapped;
-+	int dmabuf_fd;
-+
-+	u64 size;
-+	void *ram_src;
-+	void *ram_dst;
-+	iova_t ram_src_iova;
-+	iova_t ram_dst_iova;
-+	iova_t bar_iova;
-+};
-+
-+FIXTURE_VARIANT(vfio_pci_p2pdma_test) {
-+	const char *iommu_mode;
-+};
-+
-+#define FIXTURE_VARIANT_ADD_IOMMU_MODE(_iommu_mode)		\
-+FIXTURE_VARIANT_ADD(vfio_pci_p2pdma_test, _iommu_mode) {	\
-+	.iommu_mode = #_iommu_mode,				\
-+}
-+
-+FIXTURE_VARIANT_ADD_ALL_IOMMU_MODES();
-+
-+#undef FIXTURE_VARIANT_ADD_IOMMU_MODE
-+
-+FIXTURE_SETUP(vfio_pci_p2pdma_test)
-+{
-+	const u64 page_size = getpagesize();
-+	const u64 min_bar_size = max_t(u64, 2 * page_size, SZ_128K);
-+	struct vfio_pci_p2p_pair pair;
-+	struct vfio_pci_driver *driver;
-+	u64 bar_map_size;
-+	int i, rc;
-+
-+	self->dmabuf_fd = -1;
-+
-+	self->iommu = iommu_init(variant->iommu_mode);
-+	self->devices = calloc_assert(nr_bdfs, sizeof(*self->devices));
-+
-+	for (i = 0; i < nr_bdfs; i++) {
-+		self->devices[i] = vfio_pci_device_init(device_bdfs[i],
-+							self->iommu);
-+		self->nr_open++;
-+	}
-+
-+	if (!vfio_pci_find_p2p_pair(self->devices, self->nr_open, min_bar_size,
-+				    &pair))
-+		SKIP(return,
-+		     "No (initiator with driver, target with >= %lluB memory BAR) pair found",
-+		     (unsigned long long)min_bar_size);
-+
-+	self->initiator = pair.initiator;
-+	self->target = pair.target;
-+	self->mem_bar = pair.mem_bar;
-+
-+	printf("P2P pair: initiator %s (%s) -> target %s BAR%u (size 0x%lx)\n",
-+	       self->initiator->bdf, self->initiator->driver.ops->name,
-+	       self->target->bdf, self->mem_bar.bar->info.index,
-+	       (unsigned long)self->mem_bar.size);
-+
-+	vfio_pci_cmd_set(self->target, PCI_COMMAND_MEMORY);
-+
-+	self->iova_allocator = iova_allocator_init(self->iommu);
-+
-+	driver = &self->initiator->driver;
-+	ram_region_setup(self->iommu, self->iova_allocator, &driver->region,
-+			 driver->region.size);
-+	ram_region_setup(self->iommu, self->iova_allocator, &self->ram_region,
-+			 SZ_16M);
-+
-+	bar_map_size = min_t(u64, round_down(self->mem_bar.size, page_size),
-+			     SZ_16M);
-+	self->bar_region.vaddr = self->mem_bar.vaddr;
-+	self->bar_region.size = bar_map_size;
-+	self->bar_region.iova = iova_allocator_alloc(self->iova_allocator,
-+						     bar_map_size);
-+
-+	if (self->iommu->iommufd) {
-+		u32 bar_idx = self->mem_bar.bar->info.index;
-+
-+		self->dmabuf_fd = __vfio_pci_dmabuf_create(self->target,
-+							   bar_idx,
-+							   self->mem_bar.offset,
-+							   bar_map_size,
-+							   O_RDWR | O_CLOEXEC);
-+		if (self->dmabuf_fd == -EOPNOTSUPP)
-+			SKIP(return, "Kernel does not support VFIO_DEVICE_FEATURE_DMA_BUF");
-+		ASSERT_GE(self->dmabuf_fd, 0);
-+
-+		iommu_map_file(self->iommu, self->dmabuf_fd, 0,
-+			       &self->bar_region);
-+	} else {
-+		rc = __iommu_map(self->iommu, &self->bar_region);
-+		if (rc && !strncmp(variant->iommu_mode, "iommufd_compat_", 15))
-+			SKIP(return,
-+			     "IOMMU mode %s does not support mapping MMIO BARs (rc=%d)",
-+			     variant->iommu_mode, rc);
-+		ASSERT_EQ(0, rc);
-+	}
-+	self->bar_mapped = true;
-+
-+	vfio_pci_driver_init(self->initiator);
-+
-+	self->size = min_t(u64, driver->max_memcpy_size * 4,
-+			   min_t(u64, self->ram_region.size / 2,
-+				 bar_map_size / 2));
-+
-+	self->ram_src = self->ram_region.vaddr;
-+	self->ram_dst = self->ram_src + self->size;
-+
-+	self->ram_src_iova = to_iova(self->initiator, self->ram_src);
-+	self->ram_dst_iova = to_iova(self->initiator, self->ram_dst);
-+	self->bar_iova = to_iova(self->initiator, self->mem_bar.vaddr);
-+}
-+
-+FIXTURE_TEARDOWN(vfio_pci_p2pdma_test)
-+{
-+	int i;
-+
-+	if (self->initiator && self->initiator->driver.initialized)
-+		vfio_pci_driver_remove(self->initiator);
-+
-+	if (self->bar_mapped)
-+		iommu_unmap(self->iommu, &self->bar_region);
-+
-+	if (self->dmabuf_fd >= 0)
-+		VFIO_ASSERT_EQ(close(self->dmabuf_fd), 0);
-+
-+	if (self->initiator)
-+		ram_region_teardown(self->iommu,
-+				    &self->initiator->driver.region);
-+	ram_region_teardown(self->iommu, &self->ram_region);
-+
-+	if (self->iova_allocator)
-+		iova_allocator_cleanup(self->iova_allocator);
-+
-+	for (i = 0; i < self->nr_open; i++)
-+		vfio_pci_device_cleanup(self->devices[i]);
-+	free(self->devices);
-+
-+	iommu_cleanup(self->iommu);
-+}
-+
-+TEST_F(vfio_pci_p2pdma_test, ram_to_bar)
-+{
-+	set_msi_nonblock(self->initiator);
-+
-+	fill_ram(self->ram_src, self->size, 0x11);
-+	fill_bar(self->mem_bar.vaddr, self->size, 0xee);
-+
-+	ASSERT_EQ(0, vfio_pci_driver_memcpy(self->initiator,
-+					    self->ram_src_iova,
-+					    self->bar_iova,
-+					    self->size));
-+
-+	assert_ram_eq_bar(self->ram_src, self->mem_bar.vaddr, self->size);
-+	assert_no_msi(self->initiator);
-+}
-+
-+TEST_F(vfio_pci_p2pdma_test, bar_to_ram)
-+{
-+	set_msi_nonblock(self->initiator);
-+
-+	fill_bar(self->mem_bar.vaddr, self->size, 0x22);
-+	memset(self->ram_dst, 0, self->size);
-+
-+	ASSERT_EQ(0, vfio_pci_driver_memcpy(self->initiator,
-+					    self->bar_iova,
-+					    self->ram_dst_iova,
-+					    self->size));
-+
-+	assert_ram_eq_bar(self->ram_dst, self->mem_bar.vaddr, self->size);
-+	assert_no_msi(self->initiator);
-+}
-+
-+TEST_F(vfio_pci_p2pdma_test, bar_to_bar)
-+{
-+	void *bar_src = self->mem_bar.vaddr;
-+	void *bar_dst = self->mem_bar.vaddr + self->size;
-+
-+	set_msi_nonblock(self->initiator);
-+
-+	fill_bar(bar_src, self->size, 0x33);
-+	fill_bar(bar_dst, self->size, 0xcc);
-+
-+	ASSERT_EQ(0, vfio_pci_driver_memcpy(self->initiator,
-+					    self->bar_iova,
-+					    self->bar_iova + self->size,
-+					    self->size));
-+
-+	assert_bar_eq_bar(bar_src, bar_dst, self->size);
-+	assert_no_msi(self->initiator);
-+}
-+
-+TEST_F(vfio_pci_p2pdma_test, roundtrip)
-+{
-+	set_msi_nonblock(self->initiator);
-+
-+	fill_ram(self->ram_src, self->size, 0x44);
-+	fill_bar(self->mem_bar.vaddr, self->size, 0x00);
-+	memset(self->ram_dst, 0xff, self->size);
-+
-+	ASSERT_EQ(0, vfio_pci_driver_memcpy(self->initiator,
-+					    self->ram_src_iova,
-+					    self->bar_iova,
-+					    self->size));
-+	ASSERT_EQ(0, vfio_pci_driver_memcpy(self->initiator,
-+					    self->bar_iova,
-+					    self->ram_dst_iova,
-+					    self->size));
-+
-+	ASSERT_EQ(0, memcmp(self->ram_src, self->ram_dst, self->size));
-+	assert_no_msi(self->initiator);
-+}
-+
-+TEST_F(vfio_pci_p2pdma_test, dmabuf_revoke)
-+{
-+	if (self->dmabuf_fd < 0)
-+		SKIP(return, "Test requires dmabuf-backed IOMMU mapping");
-+
-+	set_msi_nonblock(self->initiator);
-+
-+	fill_bar(self->mem_bar.vaddr, self->size, 0x55);
-+	fill_ram(self->ram_src, self->size, 0xaa);
-+
-+	/*
-+	 * Clearing PCI_COMMAND_MEMORY on the target revokes the dmabuf and
-+	 * tears down its IOMMU mapping in place. P2P DMA must not reach the
-+	 * BAR, and remapping the revoked dmabuf must fail with -ENODEV until
-+	 * PCI_COMMAND_MEMORY is re-enabled.
-+	 */
-+	vfio_pci_cmd_clear(self->target, PCI_COMMAND_MEMORY);
-+
-+	/*
-+	 * Ignore the return values: DMA writes are posted, and not all
-+	 * devices report accesses to unmapped IOVAs as errors on DMA reads
-+	 * (e.g. QEMU's emulated igb completes reads from unmapped IOVAs with
-+	 * zeros). Verify isolation via the destination buffers instead.
-+	 */
-+	fill_ram(self->ram_dst, self->size, 0x33);
-+	vfio_pci_driver_memcpy(self->initiator, self->ram_src_iova,
-+			       self->bar_iova, self->size);
-+	vfio_pci_driver_memcpy(self->initiator, self->bar_iova,
-+			       self->ram_dst_iova, self->size);
-+	assert_no_msi(self->initiator);
-+
-+	iommu_unmap(self->iommu, &self->bar_region);
-+	self->bar_mapped = false;
-+
-+	ASSERT_EQ(-ENODEV, __iommu_map_file(self->iommu, self->dmabuf_fd, 0,
-+					    &self->bar_region));
-+
-+	vfio_pci_cmd_set(self->target, PCI_COMMAND_MEMORY);
-+
-+	/*
-+	 * Revoked P2P writes must not have modified the BAR, and revoked P2P
-+	 * reads must not have leaked BAR contents into RAM.
-+	 */
-+	fill_ram(self->ram_src, self->size, 0x55);
-+	assert_ram_eq_bar(self->ram_src, self->mem_bar.vaddr, self->size);
-+	assert_no_pattern_leak(self->ram_src, self->ram_dst, self->size);
-+
-+	/* Once memory decode is re-enabled, the dmabuf can be mapped again. */
-+	iommu_map_file(self->iommu, self->dmabuf_fd, 0, &self->bar_region);
-+	self->bar_mapped = true;
-+
-+	memset(self->ram_dst, 0, self->size);
-+	ASSERT_EQ(0, vfio_pci_driver_memcpy(self->initiator,
-+					    self->bar_iova,
-+					    self->ram_dst_iova,
-+					    self->size));
-+	ASSERT_EQ(0, memcmp(self->ram_src, self->ram_dst, self->size));
-+
-+	fill_ram(self->ram_src, self->size, 0x77);
-+	ASSERT_EQ(0, vfio_pci_driver_memcpy(self->initiator,
-+					    self->ram_src_iova,
-+					    self->bar_iova,
-+					    self->size));
-+	assert_ram_eq_bar(self->ram_src, self->mem_bar.vaddr, self->size);
-+	assert_no_msi(self->initiator);
-+}
-+
-+int main(int argc, char *argv[])
-+{
-+	device_bdfs = vfio_selftests_get_bdfs(&argc, argv, &nr_bdfs);
-+	if (nr_bdfs < 2) {
-+		fprintf(stderr,
-+			"P2P DMA test requires at least 2 devices (got %d), skipping.\n",
-+			nr_bdfs);
-+		return KSFT_SKIP;
-+	}
-+
-+	return test_harness_run(argc, argv);
-+}
+ static int __vfio_iommu_unmap(int fd, u64 iova, u64 size, u32 flags, u64 *unmapped)
+ {
+ 	struct vfio_iommu_type1_dma_unmap args = {
 -- 
 2.56.0.567.gdb80ae8cd5-goog
 
