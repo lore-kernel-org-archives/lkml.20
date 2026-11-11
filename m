@@ -1,104 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.97
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.227
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794426283;
-	b=mmf5JYVxUI9pkckhXGm8ccm0js3L/M+Y3/RPGSkYitUzHsI8n8f47KkQVxR224WenfQ/
-	 O/+3T61eTbfdmki7Gc2bZmHSHgS3eut+jLmNCHoUBsGfEmwR3GnLQuFDe1V8Hftsi+Dfw
-	 gW3/vm0wMF9wpnlZb/nSdmjE+AAtPt6Wu7/hpHPyS5LtnAUP3E6jsKgUm5wNtKD1sxAXd
-	 bBGjwuTwz+UYU0FgOOoZge/5dFiw8a3XuzqVtIrSrLsXYXlRJpXmoFbZObRk4Sv8QOTI+
-	 FlEBAuzB3eHdhJx6IRzBf7el8nIFQL2+d7RsXsB4Ym9XCvBNMr0huF/eWB98zBVq0TA==
+	t=1794426285;
+	b=Yo4hDYlShI/kpnXk0YrFGop1AXbCu1vmvH4g/xmAGVGVrr1oGD3pavqnAgzniHGt75xc
+	 bJHvrYSFaQkYsWe/6VwjyHffXRbf6Cri2OD7jiDZr7xFLGPaeag2UZ3hK5udVewfQEgjK
+	 XAp3PRcxPVpElYhzltUBWhCxBpKmLdUROFM44ztsBolcoZieS1iJuXCoTOxT+aPjd0Jqn
+	 xH9xtPf8KsJ4FZ514CvUOLk/qYz6DAV3XNHaRLQk56FtDV0OBmNjSkt6SVaIGqOUc4Jck
+	 ermbibBszsU9qbqCbPL6FrHCEQwpvf3BhKw4uJoAsXBD83+kgbeQFwzsXuBvU2QLXVA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794426283;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794426285;
 	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
 	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Received:X-Received:Received:From:To:Cc:Subject:Date:Message-Id:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-DetectorID-Processed;
-	bh=6b8iqkpAnic8aYFUTWit4E+L+/N2cQqDU3rU0AhCuwM=;
-	b=NByrR8k5ZlbLXpzShIqhZbBUO8jQDcKsbffXg9+kz46rXeEhEq0zNlZ2dTuwYy4KLVx6
-	 3YzlodV4rFxC7CLpcceWUJtEEGNMIFmW4+5h+u1xQrbId1cLTyCF6p+lSDnhKYZq9PBx8
-	 ka8AynJbK5tAVcNH2HMWwtodfFxM7Hdk0XrM+HXqfRaNtohK/0DgqVb7zfYuGBTE1Gv1N
-	 w53zJK2/p0bCdleyXnVJ/XzCEBlnCmyP3laMRm4xLHecgZbxrKtKIN94gB1xuawyghgBh
-	 FHCDI34S/4KRnJ1rZIGvCZBO+ltkr5H4hc049T32qv9lNbclzZ4h2X2QBf3D0CycS3A==
+	bh=nfKZgcPVQuoQTMyJJaxHXbeJusNdz3UeR9BUP/GfHdU=;
+	b=J8uns2GxnFmEtXf2Hru7EiUs6Is8i2FgZLC1O6FIal9RHLGbhs2U949oW6OfB8htTP6r
+	 828QCsGeT6ap4VXLWB3iLYUpaV8LPqKDDbcpGWBuA252Aj43gETKEvLUk4P4rBJzvbc+n
+	 XppV1Wy7uWTpu8RPf1pBq5vCVDZrffNx7xPdQsQccB4Dg0LWH7QTGt6k12BdsyOed0I95
+	 Lgzlwx8toqECAI2xDLuPaEcXO8JQixwRIMBAwpTc5imgZyWRdcgDUHdB0r4YM1T+PoOKW
+	 Y4K23dxJCbxKXGRwtcjnQoagYhPn7w9vV55mpDM9Rjuu1o+gaKK3MWJ/LAWEbo+WKNg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=broadcom.com;
 	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=guxa27zZ;
-	arc=none smtp.remote-ip=209.85.216.97
-Received: from mail-pj1-f97.google.com (mail-pj1-f97.google.com [209.85.216.97])
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=SqWRsp7M;
+	arc=none smtp.remote-ip=209.85.214.227
+Received: from mail-pl1-f227.google.com (mail-pl1-f227.google.com [209.85.214.227])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63E82606A338
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 19:44:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 63E82606A338
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38C0D606A336
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 19:44:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38C0D606A336
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=guxa27zZ
-Received: by mail-pj1-f97.google.com with SMTP id 98e67ed59e1d1-3b09a65c76dso2626163a91.1
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 11:44:42 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=SqWRsp7M
+Received: by mail-pl1-f227.google.com with SMTP id d9443c01a7336-2ed06b725fdso1438115ad.0
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 11:44:45 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794426282; x=1795031082;
+        d=1e100.net; s=20260707; t=1794426284; x=1795031084;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:dkim-signature:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=6b8iqkpAnic8aYFUTWit4E+L+/N2cQqDU3rU0AhCuwM=;
-        b=Pb7VOM3wQWOwmuyfZjT/A3PtPSEY1x53kow3t+F5WHKoj3hcshIbLyvvMvLmin+vTA
-         dZ+F1AqZxP4ynPdF0hhfd4ZHfP6a2qto5d1DPQ3IudBk/ufsfZ6z3//eWpc4y9PqeyJ9
-         w9b7nMYollWq1Xv8vBWkNdweCwFVXVOJt4R5EMMlqU+tcCnbKRbwAs14O0rk0ZSgTCqo
-         Bh8JeajUcUwW9/gp0TTTDv/C+BCWXKZhQKhKGfMeqJK5QIrWKjUl2mMJgau+mtfuaf2+
-         0UGz1HdjIrBYUYavIclX5XqYKfeCoe/mhNlY4SrVS/5T8REtmIG7MqCVNVYN69ZWGFFg
-         RKWQ==
-X-Forwarded-Encrypted: i=1; AL+hErFAsWDeEFG3HWouzt73Fb6fv+Lt1JEhsBJ2HnS51qP5abr2tWwOa6Fqjru83/wmt3kQa/DmSan/JCeIQ/4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/icaYh8yVvFNU4D1G/M01S6cBKsKTziQB8nzE7QlPmXO3Sb6qd
-	UJ71pABBCxvECjo2U29YAISSOx4LjnOIx6SIedd0pi5q9+I33FZT/ApagXs9ykk1VCG2DuBEgQw
-	kIcjowDnF/yUVFNEq/nMOGp/srUtyqe7unzQVarj1iCMKgvPhkoQsT6AVZT+g0NJ9WX3bt5jhK+
-	5oCn/h/tseWhQw+x7axjuVCzBBuxq8akXLGJZm7vC1dl5eUMGo70YfpcYvv1T+IpYxVabNOZg0m
-	1ZxVwmHFJr1Jv9E
-X-Gm-Gg: AYBFou39eNECU3G7Je4gRudKOg5W55HMMaiW20bcBC/AxN9kqk0AP4XH6LVVwaE5i51
-	Md5XEfkF9BBDxuhEtWLCeZMGNet7S3+fGkl3Dwbf4WVrqUbbHig86Xt9sHodaBQ8AP0MlZVjKw0
-	cZUxwcoDB4Xu9sptIxyD40jUo/DjhUgrtMTPwEdj8ay8miDoqG2ck2nF37a2Ut0KTU12cBRBiVy
-	8eO4nrhwsV15ZNK+EtW/PDUyEDCrKYHqUAWLvsbBlccNaRB95BhMsrgTmLDLPlQzekVTihYMSQb
-	8V7JTs5axFbx7WfygcUiKs3z66ggjNJ9vIIKvu7ZAY8Mpop4Mvfe1UJLz3b0ty9YvEeo73Uqtr7
-	r4svnyHj6xegkDi73S8A+aqi3K0qimE0J9r/EKq5tzOVzT2SOVZx5MICWRebvrbMllTGhm/qZCk
-	fznwPIPDHOXElTXOhWiW4E4eMka+O296rz
-X-Received: by 2002:a17:90b:1d09:b0:3ae:533e:7e40 with SMTP id 98e67ed59e1d1-3b182e9429fmr3298275a91.23.1794426281672;
-        Wed, 11 Nov 2026 11:44:41 -0800 (PST)
+        bh=nfKZgcPVQuoQTMyJJaxHXbeJusNdz3UeR9BUP/GfHdU=;
+        b=D+nvEcFmXmQoTuiDeyZlg7a9WW3a9+RscLx8rXdz2RxLrPmGYseijK9QRdwB0onj2i
+         frk6ZwzFk+hPD1U04kicJu5Kq2u3MFHtGzYf9sBOJFZgRKxla+/zwwuAYiMCKzr0bSzh
+         puS5E008QFoQ9MzmOviUe9Szx9fWmYbqqJHmGNfaBARsscrLUoXSnxyUMeuOTvYvmR7e
+         nx3LCNBO7riibLy/sq2P5ZiTxHzlSVuqvB70Z311f5B1U2llxzdXTxjD0xLm00+eW5My
+         KgTeuugUF+1elOTwZDt5nt30FUGecHcz+ScNOFuWL2Bku9yHu1atuOLarJr3Ra6sTXHn
+         qS3Q==
+X-Forwarded-Encrypted: i=1; AL+hErE9aXc+mMVQfMgGnLw/NfNMOXTxMs0x3ZnLtbYSEea5o63ksd0UEH201ioaGBPc8bH9q1KhLQKP+QNVTGI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+DG3j1QfqBBu8+Mlxw6egW5E5KXxwqgxYm8qS0jvfbfl8MFEnQ
+	WlIKafni9/68M3PpFW9mrr3dDv0SgskpyDo8cM45ex71N08IDGj4AbMXmvbXcFzMrFcUKcSFtVA
+	n/GAd8myKvNGlN9M2f3ReJvU4p6XauHUmdyXP9LRlFMcmjY+OyC+Tw6ze2AJvkJDu6r6Yflj7Bs
+	AVqKdB5ubwE244JOi6vT8cG1OlgVmQryM6uxemQilnNaILyeCDQCav0v5Y7sYmKlVVX3usIls8o
+	3wr0yIKVl85OwGO
+X-Gm-Gg: AYBFou3W5E0SpiZoNNFg5Fgc4Jet1KAnEYAq3Vt4Urt1m9yuY4rbf5YyvTECfkwGYki
+	lRgTWc6Ue9+w2ZVh3NQLFSSpDV+dIrbH78pXKStcSXuCtUWcADlhwjxbnnRG/jyX/N+fuGuigoU
+	R/WK4Or2UCjMh7Ih6yYpHgaWm/DVFXaRhd70P6cFmvrVqkve+asxd6R4utwklJsqIamKUTdzVDi
+	iG1mljg8B4uQucvKNhUeppRszfJATraBy69NCJnuWTjV/MqPFaDv7/Rv7R7TGCKu7SS+NPaEWDo
+	tzibFPa6mntvacYOoFcnAkpje6sfIftwKT2AuIX5/fyIg9iSF05UTbHHYZyCd7NQqwDAp/FSZqv
+	Wx+ycZ40L3+8JFMJUOEmiHkw8QOxGsUDSpImRYg4tIyanAmABHgR6HybSr4399RQI27Nb+TJjYt
+	f1nFXwdnCfVsbYH+nDB7FqY5jhHMgjjNkd
+X-Received: by 2002:a17:90b:5785:b0:3a0:d82b:237b with SMTP id 98e67ed59e1d1-3b197caa72dmr269665a91.25.1794426284385;
+        Wed, 11 Nov 2026 11:44:44 -0800 (PST)
 Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-22.dlp.protect.broadcom.com. [144.49.247.22])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b182e191cesm1126505a91.5.2026.11.11.11.44.41
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b197c4ee96sm255461a91.6.2026.11.11.11.44.43
         for <linux-kernel@vger.kernel.org>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Wed, 11 Nov 2026 11:44:41 -0800 (PST)
+        Wed, 11 Nov 2026 11:44:44 -0800 (PST)
 X-Relaying-Domain: broadcom.com
 X-CFilter-Loop: Reflected
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-33c35f5ca6cso6679826eec.1
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 11:44:40 -0800 (PST)
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-3724667bc16so96589eec.1
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 11:44:43 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1794426280; x=1795031080; darn=vger.kernel.org;
+        d=broadcom.com; s=google; t=1794426282; x=1795031082; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=6b8iqkpAnic8aYFUTWit4E+L+/N2cQqDU3rU0AhCuwM=;
-        b=guxa27zZRfTWtWfW1S/JEPoAe7KOwlowtFR/DkAOtesHHpBVawfWXxsq71ZQxihrlK
-         PAoSAOJajUeRNgmwNGBLjmkvzr5WcLLpub1a2o6PE57Rc8gD0iAjILcDcsgje1yNQA7o
-         oNIrKV4AIdOaDFiiHFxF3F+uO6XFQsHVjniL4=
-X-Forwarded-Encrypted: i=1; AL+hErGs+bNhIGiXCf/KWwyYisdo7UNcHDDjCLNVx1yio7D7rSgYHqygBCYQt4gYI9ChVORWGGRwkb4OyatYpk4=@vger.kernel.org
-X-Received: by 2002:a05:7300:5621:b0:36d:7feb:8bd3 with SMTP id 5a478bee46e88-376850d00demr3734268eec.11.1794426279668;
-        Wed, 11 Nov 2026 11:44:39 -0800 (PST)
-X-Received: by 2002:a05:7300:5621:b0:36d:7feb:8bd3 with SMTP id 5a478bee46e88-376850d00demr3734228eec.11.1794426278882;
-        Wed, 11 Nov 2026 11:44:38 -0800 (PST)
+        bh=nfKZgcPVQuoQTMyJJaxHXbeJusNdz3UeR9BUP/GfHdU=;
+        b=SqWRsp7MaMdHWnk7sLziaHk33Lv/GcBK/g7nvA9anoUqe7Bk5umaiY1KiAQjvt8u5E
+         B6GHdrKED7JkWzAbpNKnounKd5PWu7BK8oLinnQv+FOpRckP0ZK9WjeSbJNKP002XmBZ
+         isrZA+sXn6y4qtZjqotQUZ2kide1UuDJ7VyQc=
+X-Forwarded-Encrypted: i=1; AL+hErEyiWLVDtJNuO4dxeeImOZUGgeNTe6ztiO1p4uQyiALx2UB1TsJqwj92DRPdxMmoq5cCIEqw4Blhl/u9x8=@vger.kernel.org
+X-Received: by 2002:a05:7301:d183:b0:371:32df:5ee2 with SMTP id 5a478bee46e88-377e15f0744mr486473eec.16.1794426282162;
+        Wed, 11 Nov 2026 11:44:42 -0800 (PST)
+X-Received: by 2002:a05:7301:d183:b0:371:32df:5ee2 with SMTP id 5a478bee46e88-377e15f0744mr486429eec.16.1794426281449;
+        Wed, 11 Nov 2026 11:44:41 -0800 (PST)
 Received: from mail.broadcom.net ([192.19.144.250])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3752060899asm17948013eec.11.2026.11.11.11.44.36
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3752060899asm17948013eec.11.2026.11.11.11.44.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 11:44:38 -0800 (PST)
+        Wed, 11 Nov 2026 11:44:40 -0800 (PST)
 From: Kamal Dasu <kamal.dasu@broadcom.com>
 To: linux-mmc@vger.kernel.org,
 	Ulf Hansson <ulfh@kernel.org>
-Cc: Kamal Dasu <kamal.dasu@broadcom.com>,
-	Ulf Hansson <ulf.hansson@oss.qualcomm.com>,
+Cc: Ulf Hansson <ulf.hansson@oss.qualcomm.com>,
 	Adrian Hunter <adrian.hunter@intel.com>,
+	Kamal Dasu <kamal.dasu@broadcom.com>,
 	Florian Fainelli <florian.fainelli@broadcom.com>,
 	Wolfram Sang <wsa+renesas@sang-engineering.com>,
 	Oleksij Rempel <o.rempel@pengutronix.de>,
@@ -109,10 +109,11 @@ Cc: Kamal Dasu <kamal.dasu@broadcom.com>,
 	Krzysztof Kozlowski <krzk@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-	Shawn Lin <shawn.lin@linux.dev>
-Subject: [PATCH v12 2/6] dt-bindings: mmc: Add reset-card-at-resume property
-Date: Wed, 11 Nov 2026 14:44:22 -0500
-Message-Id: <20261111194426.1652644-3-kamal.dasu@broadcom.com>
+	Shawn Lin <shawn.lin@linux.dev>,
+	Shawn Lin <shawn.lin@rock-chips.com>
+Subject: [PATCH v12 3/6] mmc: core: Add option to keep an eMMC powered on at system suspend
+Date: Wed, 11 Nov 2026 14:44:23 -0500
+Message-Id: <20261111194426.1652644-4-kamal.dasu@broadcom.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261111194426.1652644-1-kamal.dasu@broadcom.com>
 References: <20261111194426.1652644-1-kamal.dasu@broadcom.com>
@@ -128,45 +129,76 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-On some platforms, firmware or other hardware accesses the card
-during suspend/resume, before the kernel's own resume path has run,
-leaving the card in a state the kernel can no longer assume it knows.
-Add a flag property so such boards can tell the mmc core the card
-needs to be reset before it can be used again.
+From: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
 
-This is expected to be paired with keep-power-in-suspend on boards
-whose firmware needs the card to stay powered and live throughout
-suspend: since the card is never power-cycled, nothing else would
-force it back to a known state on resume.
+The DT property keep-power-in-suspend, allows us to specify whether the
+platform is capable of keeping the power to the card during system suspend.
+Up until now, this has been restricted to be used for SDIO cards only, but
+let's add the initial support to allow this for eMMC too.
 
+Signed-off-by: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
+Reviewed-by: Shawn Lin <shawn.lin@rock-chips.com>
 Signed-off-by: Kamal Dasu <kamal.dasu@broadcom.com>
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 ---
- .../devicetree/bindings/mmc/mmc-controller-common.yaml    | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ drivers/mmc/core/mmc.c | 24 +++++++++++++++++++++++-
+ 1 file changed, 23 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/mmc/mmc-controller-common.yaml b/Documentation/devicetree/bindings/mmc/mmc-controller-common.yaml
-index 2fc8e06d5ec9..c824b95f2ae2 100644
---- a/Documentation/devicetree/bindings/mmc/mmc-controller-common.yaml
-+++ b/Documentation/devicetree/bindings/mmc/mmc-controller-common.yaml
-@@ -303,6 +303,13 @@ properties:
-     description:
-       Preserves card power during a suspend/resume cycle.
+diff --git a/drivers/mmc/core/mmc.c b/drivers/mmc/core/mmc.c
+index a02b04938e1a..c936272bcd81 100644
+--- a/drivers/mmc/core/mmc.c
++++ b/drivers/mmc/core/mmc.c
+@@ -38,6 +38,7 @@ enum mmc_poweroff_type {
+ 	MMC_POWEROFF_SHUTDOWN,
+ 	MMC_POWEROFF_UNDERVOLTAGE,
+ 	MMC_POWEROFF_UNBIND,
++	MMC_NO_POWEROFF_SUSPEND,
+ };
  
-+  reset-card-at-resume:
-+    $ref: /schemas/types.yaml#/definitions/flag
-+    description:
-+      The HW/FW may have accessed the card during suspend/resume,
-+      leaving it in an unknown state. Hence, before the card can be
-+      used, it must be reset.
+ static const unsigned int tran_exp[] = {
+@@ -2157,6 +2158,15 @@ static int _mmc_suspend(struct mmc_host *host, enum mmc_poweroff_type pm_type)
+ 			goto out;
+ 	}
+ 
++	if (pm_type == MMC_NO_POWEROFF_SUSPEND) {
++		if (host->retune_period) {
++			mmc_retune_timer_stop(host);
++			mmc_retune_needed(host);
++		}
++		mmc_card_set_suspended(host->card);
++		goto out;
++	}
 +
-   wakeup-source:
-     $ref: /schemas/types.yaml#/definitions/flag
-     description:
-@@ -371,5 +378,6 @@ patternProperties:
- dependencies:
-   cd-debounce-delay-ms: [ cd-gpios ]
-   fixed-emmc-driver-type: [ non-removable ]
-+  reset-card-at-resume: [ keep-power-in-suspend ]
+ 	if (mmc_card_can_poweroff_notify(host->card) &&
+ 	    mmc_host_can_poweroff_notify(host, pm_type))
+ 		err = mmc_poweroff_notify(host->card, notify_type);
+@@ -2193,9 +2203,15 @@ static void mmc_remove(struct mmc_host *host)
+  */
+ static int mmc_suspend(struct mmc_host *host)
+ {
++	enum mmc_poweroff_type pm_type = MMC_POWEROFF_SUSPEND;
+ 	int err;
  
- additionalProperties: true
+-	err = _mmc_suspend(host, MMC_POWEROFF_SUSPEND);
++	if (mmc_card_keep_power(host)) {
++		pm_runtime_resume(&host->card->dev);
++		pm_type = MMC_NO_POWEROFF_SUSPEND;
++	}
++
++	err = _mmc_suspend(host, pm_type);
+ 	if (!err) {
+ 		pm_runtime_disable(&host->card->dev);
+ 		pm_runtime_set_suspended(&host->card->dev);
+@@ -2260,7 +2276,13 @@ static int mmc_shutdown(struct mmc_host *host)
+  */
+ static int mmc_resume(struct mmc_host *host)
+ {
++	if (mmc_card_keep_power(host)) {
++		pm_runtime_set_active(&host->card->dev);
++		mmc_card_clr_suspended(host->card);
++	}
++
+ 	pm_runtime_enable(&host->card->dev);
++	host->pm_flags &= ~MMC_PM_KEEP_POWER;
+ 	return 0;
+ }
+ 
