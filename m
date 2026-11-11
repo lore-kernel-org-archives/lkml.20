@@ -1,101 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.175
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794435028;
-	b=qOCuN5symZbSbLrQUr7iznLMTtXaWahbBvAxUIi2hNisYBbBssGftRhgUbgeHxSPlh8h
-	 xHja2V3nJRKWwCM+wy/wA2zOQsI70n98s1tobeb0xzN13VSa2vhVVfoNPOyY+OD3Usl2J
-	 2ftuTqOAAeUQyX9vpo2ryKeUQjO/6Txjd4FT3SFdbcr+GqhLdtd/6Ox2V1ieLGHu4rI8D
-	 LQ1M0q0a+5KPAlxbpljss2pqKnPCRvFVaxhZ82r0Aj9qtBB1TR+gStCzcYS9YkcXzZHaO
-	 sKZV/XkV2GkP51YJFRYm8WIu3o+nvUTxtaUh2fiFvznw9rhQZlDJ8kHykP1IneyqTlQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794435028;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=bLKfpDlOWEozQoVsuZM54f6sj9dITZwkN+hPeWugxEc=;
-	b=p+KumCsxqJxvAq++1BuQkRor1shw3xNWk5twpMTvzH2BbDlO3nm/cv7y8ANUYccjIEe9
-	 i0B5wHUNTojP8KEbcj1fZBqKp0k0nZQIqlvIWEXwJMVfO9q7tdf65FR31KQtIt2mQ1mWQ
-	 ip+Gsh4Q4jxcGz2MqufV753LznqtP6ZiQ42N4w34UtyLh93yrWpPYv4a+AxdQETSMYbB2
-	 TcxVEZeTUCx2v+N4ziSr3/KdjvAVQw3pRWplttrQjr4paonNAgWN9drt0nlP6M4yW/SCP
-	 JfQA/DAT9H18RJQHKENu//4Rcn0abQNIq1IfFtu75cf3GMVJ4hNDHqxfG90WF9GObyw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Ejo+EyVM;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.175
-Received: from mail-qt1-f175.google.com (mail-qt1-f175.google.com [209.85.160.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.10
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794435071;
+	b=o6TwBZ9gimrz4LWihiROuxwxQtT4EXseQx+U6SaSvPWpr5EmIQmAB5IwCk7Ca/XmJTdR
+	 q1dn5YyXg2iqwEY5ZwdP7H2nOxpj54rd7ma+irE9ZnFIGoQCbu/DTzipUgXEiYaDuJubD
+	 7awnArCUEW32fGWU8V5w4CxdDb3BDWAl6Iji3ho0spubbE7fAoZ3hJYgfyu6eOjKCZ4gb
+	 uVOhzNjHj3kmGTvds0C3CVlKE1a/sKEJ2wDcUDhAXtsjvg07/Z/5xyzj9byzC+NFkLE+E
+	 5IvHs6GupBDaMSe6h3m9kZMQN3g164duqg4etlUdFt47twNGz9vq1Ry6nnEndz8XFWg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794435071;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=B7bvA7Nju/BDOIqnk/HwpcSYfoLqp80hSTWFZMw6p4A=;
+	b=TZ1HNw3tYrw5DhX2/MuBQpvZiAhdNqsXDFqB3r8CQ4L1SGTOkO3wK8jAPd/vUp6BPl24
+	 66clX+eZ7Mj9uIkUdZSFJugdtcup1fPSi6byJIcF5cdleo3aeEQ1/bB831d1IwhjM2Rod
+	 Z+sMWeBHidzDWXdGs7gyFw9yWEv3UqgxCKMFpopEbS7INonm/3d8hvYNprx/SPaJlR5ZT
+	 EUzrFnxmNOJ9cYEzxgk8NkFGmCgx1hmgL1cBD7+eOa6K/802v35T6VowREziVV61NW3tf
+	 qcAILHC2YDl0E32j6kkol0AkdRx2e4A4FTmkTAjeeNh5sL3YlLbWJqVMPav1xW9zWfA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=a4Mict27;
+	arc=none smtp.remote-ip=192.198.163.10
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 024E5606A326
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 22:10:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 024E5606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F271B606A324;
+	Wed, 11 Nov 2026 22:11:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F271B606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Ejo+EyVM
-Received: by mail-qt1-f175.google.com with SMTP id d75a77b69052e-533202fe429so24701cf.0
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 14:10:27 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794435027; cv=none;
-        d=google.com; s=arc-20260327;
-        b=LeBYs+z2QLxqf2ZFeoEsokIKSO+htMe8UXc+VWYFuFxi1rkKQMGXhrEYf+407M6OEO
-         riJ5/sAVKg1HHkJP6nLjhuETcFg5XxjnKcp49ZzIDu0Jtq+rnzd5lJrsCbRyNtGxwM5o
-         dRBoyzLdeqkhXQscCuR2VN3QmKllIFZiS7ebmISgk2bJ1sDtOcYqa19baAB31Yt9mO3o
-         aO8p6xK6g4ZIt6tOVpu7p00pAmmxDPWS6CT43yIyvJ7QR2J5KzsgG3E22S7DyRVKus6e
-         NahFILNIdOWNzNA8qr9kHJKYSmyuDi+JNNZD2BTzgEt53Cz0vejiB7yLg8YsU+O6FsfN
-         Q/Xw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=bLKfpDlOWEozQoVsuZM54f6sj9dITZwkN+hPeWugxEc=;
-        fh=nInVFMW2vaXHqjawKV/XGEs5sUmZNhCKQhF9REfH9EE=;
-        b=jpI5e7cmqdMAegrH/cNm1h+z0d+xZQwVu06vEnLJGh+BCZdmE+cTdWjfwSF3ALz1TB
-         hDyfYTQyZSeRUeyRY4vWUChlSYAOgpGeGLpCWqWNHjYLikVlRG7MAgVfMI9CBCQwBzJ3
-         +RW2rlO0yNVU0ubSix7If949KXtVQNRQlhsBzbtilnVyA7jyvSiuo4jrC6GNpBM/yc8O
-         RKirGYP6LxJHZVULPzC6p+z5W8MRoScmo1AN3gmir5aWnGFhTDxxvxCRFhWMFwGvyfRM
-         yAHfic7y3IlWypfos6ctuWdamEqCgXt7EsPiLR4xWqVWSN0rnuCtSFSc8KV76m119DjI
-         pmaw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794435027; x=1795039827; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=bLKfpDlOWEozQoVsuZM54f6sj9dITZwkN+hPeWugxEc=;
-        b=Ejo+EyVMvYYuZ1+Bmxe8Zs6evHwJ/iIpdwaJqM1aEPHcIR3OC5hEa/gMS8bcn+EGkv
-         MFVb0RZCGDRPXy1nM+eGHmPH/+H/2N+wdkEoqevDkMVX3u+5097jmT8oToJHqtlxPG8A
-         TwYG1IxeSGLqSkuxt8+yfuZMWTqTt92ZoCMXZi14ccNK8hjbwQSYN4A/YJ6tLFhb426g
-         cNmRjMXpNCjwfo/ydLeUGKaKCywGcieEDbOdNOlhDWjjKjUuSN0w8q1SgdAtNKKt13op
-         GCErcv0o3G9x6CpyMSHqs3GbSBSmRHezLSK0j+xNblsQRRQ5bg19Xa83LL4SYRUM5BgQ
-         DFig==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794435027; x=1795039827;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bLKfpDlOWEozQoVsuZM54f6sj9dITZwkN+hPeWugxEc=;
-        b=Rvr9zP8ytEr2O2oYk70J8rZx/LPWxeAr/xCR9OyTlINbpxmUrC51gYMhe/bIk0AtnX
-         vLZELkxLRw4Um+85qI6faSGJr2VVGrl6I8NZvbJn5xdzrKlc0B/ejoZKdvzJA4/M/ySs
-         rwaVwV2wzUJwvJ9+qWyx3uKoesz/d39EcAzbXCVVQ4diVdeknJGReIqTrmfHCq7G7oLn
-         hQCRo0iHGZW+tYuUI1J0neTpiBwtSMeRsaKpmNEfr38TF7wh3Rwz58NEYm9QFHym5VWa
-         L5BeQWRKbkqqHru25nnl9Pz4Y2dnBrMpTxomUjnP1nctUWFpwRXpIuZ5aC+xNI2UITnx
-         nbmw==
-X-Forwarded-Encrypted: i=1; AL+hErH0aJEdpeYO+oYGUjAGmdZjsk2Dwa55vmhV4a31IPVsD0VqpPXSGkuWNXVOIPy/689smBUt21dDHsYbnEw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9WyfRUbxOGQbrxqFuKthYyvtR7D72DzLHYJ3jfVEl0BCRJmcPZ
-	gzQAjEKzI274RtYfblm95SlD1zFHfPADipVgDZNuS1FkHM92ndGxt2ne6WNsHsV35NKjs90a5o6
-	l8nQstoAGvf/FkDMyEmyZb8cD5VY/kz46n+ztMC7V
-X-Gm-Gg: AYBFou1Fz0v7AjFY3Imc1L+EcYu9B7+QFr/4e4gR6xxucZ+bpzTmeDNe3if41Pv8dMB
-	4/IDuMBFuwij43dKCyMIcp8s9nuvoLm13n75E4Cx5s+qqhcwswjDrL2Fi6P5r5N/yAZuIkGmjBu
-	/zea50mKqTDt/xGnqNj8GT7THK2QhwLjZL27gE77Z8PWZ/p8Il1Fhcq0ctyais4B2CnT6JnvGxv
-	/U9xqZlpfsy6y7Zp2svxjmZGhus6Wd/k/zYzSS8W+ZFTiggBx1pxT5H8eqjTVJWavGoQTt0s86a
-	1w+iOaO6jWFLlLHlxN71bDrUQtcuaBSv7bkB63DmaH7dbt+my/o17UP/UY/HRwrttORYTK8CNa4
-	XtSMAQCGfSCh0/nZVIFzvQHB6f3T4f9PxJygyJNYizMUbl1ir32zJ8rpLJ1XuOiezwkgUpfJs9y
-	VsNAA59qEs9XG0TzgqCPC3LHKFHGItBhShfQAQ0/DRVgaZGA==
-X-Received: by 2002:ac8:5c84:0:b0:534:d386:c3f1 with SMTP id
- d75a77b69052e-5598d505571mr2244351cf.9.1794435026089; Wed, 11 Nov 2026
- 14:10:26 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=a4Mict27
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794435070; x=1825971070;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=eedleuqF5kugMdESWoTLW26GExhkbpI898Czm7AFt8w=;
+  b=a4Mict27tCl20JlFLDUpRoYbG8ktQW62NvXrZq45EYcNWsuH58+nXjNZ
+   I4NbkdIs8Qqor5cjv34syMtYtplILix0GlkzBfiyDJ2x/sj3F/a7P18u7
+   rcyIhmWvG/sI8TIec5d2D2sgJivZvkrE+/Sh0UcVklcZcRJ2spbvjLK5j
+   SzOMpAUJT5IlQYj2iRkORbvCjNxwkYpdaE+G5QY+a0Aa76bWFLjwTHr+U
+   SpIJd2snioj0G1imVlZcFEkv2RzYmBhv3A4er3bI8rO7cotQnX0CxcbZQ
+   3AGlKtePtghP7r9ldAn9tMD0g1SwSqBHXYQQLkzxa7NSuldG5P2pwxGs/
+   w==;
+X-CSE-ConnectionGUID: bjxiJSu4Skig5lbb+INeeg==
+X-CSE-MsgGUID: bVgArFVOQZmVb54xsz2eeQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3112814"
+X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
+   d="scan'208";a="3112814"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 14:11:09 -0800
+X-CSE-ConnectionGUID: FWC1MddSSaaUikIEMciXUw==
+X-CSE-MsgGUID: //nFZiDgQZqlx0MDR+ZoNA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
+   d="scan'208";a="8500724"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by orviesa002.jf.intel.com with ESMTP; 11 Nov 2026 14:11:07 -0800
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xRGX1-00000000ztr-2qYG;
+	Wed, 11 Nov 2026 22:11:03 +0000
+Date: Thu, 12 Nov 2026 06:10:37 +0800
+From: kernel test robot <lkp@intel.com>
+To: Jun Yao <yaojun8558363@gmail.com>, netdev@vger.kernel.org
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	linux-kernel@vger.kernel.org, davem@davemloft.net,
+	edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+	horms@kernel.org, steffen.klassert@secunet.com,
+	herbert@gondor.apana.org.au, dsahern@kernel.org, idosch@nvidia.com,
+	Jun Yao <yaojun8558363@gmail.com>
+Subject: Re: [PATCH] xfrm: avoid stale tunnel pointers in deferred input
+ callbacks
+Message-ID: <202611120624.jcKHEACy-lkp@intel.com>
+References: <20261111094629.230568-1-yaojun8558363@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,65 +87,90 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261110112546.261415-1-hao.ge@linux.dev> <20261110112546.261415-3-hao.ge@linux.dev>
-In-Reply-To: <20261110112546.261415-3-hao.ge@linux.dev>
-From: Suren Baghdasaryan <surenb@google.com>
-Date: Wed, 11 Nov 2026 22:10:14 +0000
-X-Gm-Features: AclHuK_l3jxTpbDz5cj0MqeD6GMw7HTTKbt-o4s7KQ1Qky5aunw_Bq-cT2pqqvA
-Message-ID: <CAJuCfpHneeqRFOXyzCPPPa66xfn7Oa1n5m2N67o_pVwJfNgeXg@mail.gmail.com>
-Subject: Re: [PATCH v4 2/9] mm/kmsan: skip vunmap_range_noflush when KMSAN is disabled
-To: Hao Ge <hao.ge@linux.dev>
-Cc: Uladzislau Rezki <urezki@gmail.com>, Dev Jain <dev.jain@arm.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, Madhavan Srinivasan <maddy@linux.ibm.com>, 
-	Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, 
-	Shrikanth Hegde <sshegde@linux.ibm.com>, Alexander Potapenko <glider@google.com>, 
-	Marco Elver <elver@google.com>, Dmitry Vyukov <dvyukov@google.com>, Dennis Zhou <dennis@kernel.org>, 
-	Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>, linuxppc-dev@lists.ozlabs.org, 
-	linux-kernel@vger.kernel.org, kasan-dev@googlegroups.com, linux-mm@kvack.org, 
-	Sashiko <sashiko-bot@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261111094629.230568-1-yaojun8558363@gmail.com>
 
-On Tue, Nov 10, 2026 at 11:24=E2=80=AFAM Hao Ge <hao.ge@linux.dev> wrote:
->
-> kmsan_vmap_pages_range_noflush() returns 0 when kmsan_enabled is
-> false.  The unmap side does not, so it still walks the shadow and
-> origin page tables even though KMSAN never installed any metadata
-> there.
+Hi Jun,
 
-Note that KMSAN_WARN_ON() can reset kmsan_enabled flag, so the fact
-that it's false does not mean that metadata was never installed. I
-think a proper bailout should depend on CONFIG_KMSAN, not on
-kmsan_enabled.
+kernel test robot noticed the following build errors:
 
->
-> Add the matching early return.
->
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Reviewed-by: Dev Jain <dev.jain@arm.com>
-> Signed-off-by: Hao Ge <hao.ge@linux.dev>
-> ---
->  mm/kmsan/hooks.c | 3 +++
->  1 file changed, 3 insertions(+)
->
-> diff --git a/mm/kmsan/hooks.c b/mm/kmsan/hooks.c
-> index a706666db097..107f66841274 100644
-> --- a/mm/kmsan/hooks.c
-> +++ b/mm/kmsan/hooks.c
-> @@ -138,6 +138,9 @@ static unsigned long vmalloc_origin(unsigned long add=
-r)
->
->  void kmsan_vunmap_range_noflush(unsigned long start, unsigned long end)
->  {
-> +       if (!kmsan_enabled)
-> +               return;
-> +
->         __vunmap_range_noflush(vmalloc_shadow(start), vmalloc_shadow(end)=
-);
->         __vunmap_range_noflush(vmalloc_origin(start), vmalloc_origin(end)=
-);
->         flush_cache_vmap(vmalloc_shadow(start), vmalloc_shadow(end));
-> --
-> 2.25.1
->
+[auto build test ERROR on klassert-ipsec-next/master]
+[also build test ERROR on klassert-ipsec/master net/main net-next/main linus/master v7.4-rc2 next-20261110]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Jun-Yao/xfrm-avoid-stale-tunnel-pointers-in-deferred-input-callbacks/20261111-174629
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/klassert/ipsec-next.git master
+patch link:    https://lore.kernel.org/r/20261111094629.230568-1-yaojun8558363%40gmail.com
+patch subject: [PATCH] xfrm: avoid stale tunnel pointers in deferred input callbacks
+config: mips-xway_defconfig (https://download.01.org/0day-ci/archive/20261112/202611120624.jcKHEACy-lkp@intel.com/config)
+compiler: clang version 19.1.7 (https://github.com/llvm/llvm-project cd708029e0b2869e80abe31ddb175f7c35361f90)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261112/202611120624.jcKHEACy-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611120624.jcKHEACy-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+   In file included from net/core/sock.c:134:
+   include/net/xfrm.h:777:9: error: call to undeclared function 'skb_ext_add'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+     777 |         return skb_ext_add(skb, SKB_EXT_XFRM_TUNNEL);
+         |                ^
+   include/net/xfrm.h:777:26: error: use of undeclared identifier 'SKB_EXT_XFRM_TUNNEL'; did you mean 'SKB_GSO_UDP_TUNNEL'?
+     777 |         return skb_ext_add(skb, SKB_EXT_XFRM_TUNNEL);
+         |                                 ^~~~~~~~~~~~~~~~~~~
+         |                                 SKB_GSO_UDP_TUNNEL
+   include/linux/skbuff.h:697:2: note: 'SKB_GSO_UDP_TUNNEL' declared here
+     697 |         SKB_GSO_UDP_TUNNEL = 1 << 10,
+         |         ^
+   In file included from net/core/sock.c:134:
+>> include/net/xfrm.h:777:9: error: incompatible integer to pointer conversion returning 'int' from a function with result type 'struct xfrm_tunnel_info *' [-Wint-conversion]
+     777 |         return skb_ext_add(skb, SKB_EXT_XFRM_TUNNEL);
+         |                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   include/net/xfrm.h:783:9: error: call to undeclared function 'skb_ext_find'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+     783 |         return skb_ext_find(skb, SKB_EXT_XFRM_TUNNEL);
+         |                ^
+   include/net/xfrm.h:783:27: error: use of undeclared identifier 'SKB_EXT_XFRM_TUNNEL'; did you mean 'SKB_GSO_UDP_TUNNEL'?
+     783 |         return skb_ext_find(skb, SKB_EXT_XFRM_TUNNEL);
+         |                                  ^~~~~~~~~~~~~~~~~~~
+         |                                  SKB_GSO_UDP_TUNNEL
+   include/linux/skbuff.h:697:2: note: 'SKB_GSO_UDP_TUNNEL' declared here
+     697 |         SKB_GSO_UDP_TUNNEL = 1 << 10,
+         |         ^
+   In file included from net/core/sock.c:134:
+>> include/net/xfrm.h:783:9: error: incompatible integer to pointer conversion returning 'int' from a function with result type 'const struct xfrm_tunnel_info *' [-Wint-conversion]
+     783 |         return skb_ext_find(skb, SKB_EXT_XFRM_TUNNEL);
+         |                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   include/net/xfrm.h:788:19: error: use of undeclared identifier 'SKB_EXT_XFRM_TUNNEL'; did you mean 'SKB_GSO_UDP_TUNNEL'?
+     788 |         skb_ext_del(skb, SKB_EXT_XFRM_TUNNEL);
+         |                          ^~~~~~~~~~~~~~~~~~~
+         |                          SKB_GSO_UDP_TUNNEL
+   include/linux/skbuff.h:697:2: note: 'SKB_GSO_UDP_TUNNEL' declared here
+     697 |         SKB_GSO_UDP_TUNNEL = 1 << 10,
+         |         ^
+   7 errors generated.
+
+
+vim +777 include/net/xfrm.h
+
+   773	
+   774	static inline struct xfrm_tunnel_info *
+   775	xfrm_tunnel_info_add(struct sk_buff *skb)
+   776	{
+ > 777		return skb_ext_add(skb, SKB_EXT_XFRM_TUNNEL);
+   778	}
+   779	
+   780	static inline const struct xfrm_tunnel_info *
+   781	xfrm_tunnel_info(const struct sk_buff *skb)
+   782	{
+ > 783		return skb_ext_find(skb, SKB_EXT_XFRM_TUNNEL);
+   784	}
+   785	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
