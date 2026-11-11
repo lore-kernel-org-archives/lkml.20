@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794407685;
-	b=GgBm5SGaoVJxI1RS4o5K5wFvO96L/ZGEl1L3NftZ/KW31inPLfZ4xKcBIfVY9b+iQIzW
-	 vHiG5i91SuMyH7ZOsGBwqBhob9/iVbhbalDywRkyVm6C8k0x5pd36XaPlkcehsdtMWnhE
-	 4wGeZB3k89r7rd9e43iqlwJOkyFft2i9JRNqc2D84HMPREn6TbvGDV1Q0L6eLpYpKC4+M
-	 WeMY6Kxipe1/mT4RSVvJ7X6DQ1XzlslubpW+ghX6E26pBSpF+VStGYbn5UoP6vALZDdTN
-	 V2O9gDtoNwyJyQihEJhG8keZgiqwx5TlnaB6ybGOz7W1N1ppvz6e9rwASuxNEf2gBIA==
+	t=1794407719;
+	b=BQaruubXJW/D0DkfqB3MrqUmljtmB3fVrLHQMNE8Gg+ogBuBbUUNvyfGBFS5FYxawCWi
+	 7AMSj7jiSIB1hZ5djGb/AxoVkDfSxLlWxRlayljRQqvkkfSMaRe2NSC+rUgXYfGls+s7L
+	 pJkSv9wHCW35jKtBv91U0WTDR59J1uk7mcqq9U4dZF8VHv8I6iBMnUVkOkx1606iIe8F8
+	 c0z+UGyDhn42XUBqGAcxogaPYK94Rki2scgF+tMjjsTpOSnNdoRboRX/snUiGoZsHgpcb
+	 KjXOW6gtCAeUx+Ilha8WKt46n5YpB+IpqIibZVasvKJoZ7f4BgCRTBsjbY9L7G2GQ/g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794407685;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 MIME-Version:Content-Type:Content-Disposition;
-	bh=/BYwmTLc268SpihxQ/Qh7SWKMglfN7RDmuZifcHy5Zs=;
-	b=ewdZfs6e665rdPLswW3Iup47iS1M5Tgk6Ph97njCMJBI4hIBgyCJryPnBa5rIHunGz3J
-	 gCakhvQqt5i5hKru0ntjU7h0pyZv+DecASPi3ZXwSv78pj3dc7zPJ+R/AARfg0Ec6CD7g
-	 Bcs3iRnuM/gc56ejHM4S6uzDsqjBMrv3ny8kGnTW3Dd99XcOA7YOV1gRhFGcD6teI5g3s
-	 5UwXLhBG7Bu1K8fHSgoqRoW757afu5sYQniuDHWnxhVX7q6G3MhqT7ERHwazNLhnfnDRf
-	 BHDPW3zSkL5oWst/yz7DtNi8d9ymSz5HM2D/K755+1iVv3MGk6Ngcn2PzZbZjYAOcPg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794407719;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=9Q/hXxN4rvNs3UDQ3MT+UG0UyPwYQt/ekw3a+w3cLnQ=;
+	b=xZRAQX2gNBHMdLqkSbQmXM0l4W9yOyl34TZ18xLshLhf1WLzhI55i0hZFKoG8nOogW2q
+	 waZmbv3ILQnqPFf+vYyqwR5XLroxbHVTrh+xGELODR2q78vBB8V0RhV0ZuYBs6ddU1833
+	 zs8B7beNlRkArjuXrBWel6s25Zr/MUtCg3Bxzb+Iwd42lbSKx18KECPhOCRYDnhbzaSN9
+	 f8Dx0KjvXlR61KU+VIssq5JWItvTrjmwI9j30MEOTrKAqSPQO+9X4J+aG8z86tGmJfxJ/
+	 k1loyfvhxMtc9/zHCq4cfF7uRKTB+H8wtKCMndLEsDp5ceSAAdJMtpq57tteeKTDYHQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DiseoniZ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=COU7FLQv;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3E5A606A32A;
-	Wed, 11 Nov 2026 14:34:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 199D2606A889
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 14:35:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DiseoniZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 351411F00A05;
-	Wed, 11 Nov 2026 14:34:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=COU7FLQv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1BCC1F00A0B
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 14:35:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794407684;
-	bh=/BYwmTLc268SpihxQ/Qh7SWKMglfN7RDmuZifcHy5Zs=;
-	h=Date:From:To:Cc:Subject;
-	b=DiseoniZsx80fPtrAj7S3wCet9rxXCD2+hkv14jx4muWmZg6pkzva/HRgfebj3Owj
-	 efWnt6bKfSREFk3JcmSTfHQ2oIaAmf0eOHfystWI2xNgiR6BUFXx8Lycw4izWk2ofj
-	 NTj3NhAqdWrwsQ8ObaX//qblMIJBVXJYyt1LZI65NuPx5ylUQtSzi71R4iDNXjfX8x
-	 3I6fTVcvoFZlCcDKg111fb0b05ewKqb1MqytT5Q8bpA6Dch73hTTJDeBSzzIp1cqYR
-	 vsPAee8XVaUT02mUyZaOHhkFG8laUwICatcQYphXp5Xu7RjdToxOL2YPc/2eEhvHVT
-	 IyiKGRQ99HjYg==
-Date: Wed, 11 Nov 2026 14:34:40 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Miklos Szeredi <miklos@szeredi.hu>
-Cc: Christian Brauner <brauner@kernel.org>,
-	Kiryl Shutsemau <kas@kernel.org>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linux Next Mailing List <linux-next@vger.kernel.org>,
-	Miklos Szeredi <mszeredi@redhat.com>
-Subject: linux-next: manual merge of the fuse tree with the vfs-brauner-fixes
- tree
-Message-ID: <avR9APrG3b5DUOEs@sirena.org.uk>
+	s=k20260515; t=1794407718;
+	bh=9Q/hXxN4rvNs3UDQ3MT+UG0UyPwYQt/ekw3a+w3cLnQ=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=COU7FLQvxdhk4C8nYc21n25kqj3ApGY8GCwZq6s0xJauuPIzvmEZsSTUNbby9RBjS
+	 737QUOwawy0JypJGpH74Qt3ejgp9WnqFFCwg3JbLZ8R6dEj0z+iu9AqtvONsPWBuQa
+	 t+nxCMaD1bgwJM9ojt9FMcCURu5e5wEAXSlrVNBOCt/2Ilwevm+70BQ3MB25B6p9a2
+	 5G0PpDNjfsT0XXGNnc3A522PGjAAAvb64pVKhImXDLvRMWG9ArFTt9q4HrN6qpGCUl
+	 SohRAco0dyT2TpTdA2qaUTg5qkLs/v+ioCb3elCF5yprZtyYDUwW0y1ekXkEiwSOBf
+	 7+niM+gSCO13w==
+Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-6b757029223so2213107a12.0
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 06:35:18 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErG3AIW4I4Ff9Rjlm5rm1M5eVLSoa7RIKN3v5t9eSkuNRIMLUpwqXQxdhzLH42dBnpF+4NaiIatQ+KoW12s=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/wP2WLUjkADGOB9rE9ScC+xC7WpzHIpUHr3/Z7SoW3vyMDa6Uo
+	CJUQsKZmORpfclec6f1rzavsdrVgsoqAM/AA2NVlcRdSTpzh0wYQrLvjHdSx3V9pDdhux8mmkGs
+	2EQrMBclO5PtUFnkv69HVOdu3ItEWkA==
+X-Received: by 2002:a05:6402:1d4e:b0:6b7:78e5:3fe2 with SMTP id
+ 4fb4d7f45d1cf-6b778e5412fmr1833663a12.8.1794407717277; Wed, 11 Nov 2026
+ 06:35:17 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,263 +59,140 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="5AEo8DJ8wMV8bWwX"
-Content-Disposition: inline
-
-
---5AEo8DJ8wMV8bWwX
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+References: <20261105-gpio-vf610-fixes-v3-0-504e19de5ad5@nxp.com> <20261105-gpio-vf610-fixes-v3-1-504e19de5ad5@nxp.com>
+In-Reply-To: <20261105-gpio-vf610-fixes-v3-1-504e19de5ad5@nxp.com>
+From: Rob Herring <robh@kernel.org>
+Date: Wed, 11 Nov 2026 08:35:04 -0600
+X-Gmail-Original-Message-ID: <CAL_JsqJYx1TJA7aWUi=XR20Bn7ZqFZWG6jVT2b0+ZLe9RWoZMQ@mail.gmail.com>
+X-Gm-Features: AclHuK97dhZ8RDnOSi6eJDa7cXf78Q2-j_uGZ4_1m7mWgziIuwSZeAEy4jr55Z4
+Message-ID: <CAL_JsqJYx1TJA7aWUi=XR20Bn7ZqFZWG6jVT2b0+ZLe9RWoZMQ@mail.gmail.com>
+Subject: Re: [PATCH v3 01/11] dt-bindings: gpio: vf610: fix clock requirements
+ per SoC
+To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Stefan Agner <stefan@agner.ch>, 
+	Dong Aisheng <aisheng.dong@nxp.com>, Jacky Bai <ping.bai@nxp.com>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Fabio Estevam <festevam@gmail.com>, Bartosz Golaszewski <brgl@bgdev.pl>, linux-gpio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, imx@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, Peng Fan <peng.fan@nxp.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi all,
+On Wed, Nov 4, 2026 at 9:56=E2=80=AFPM Peng Fan (OSS) <peng.fan@oss.nxp.com=
+> wrote:
+>
+> From: Peng Fan <peng.fan@nxp.com>
+>
+> The i.MX7ULP GPIO controller needs both the GPIO and PORT clocks,
+> while the i.MX8ULP and its derivatives (i.MX93/94/95/952) only have
+> a single "gpio" clock. The VF610 controller has no gateable clocks,
+> so force clocks and clock-names false.
+>
+> Fixes: c61d8b5791ab ("dt-bindings: gpio: gpio-vf610: Add imx8ulp compatib=
+le string")
+> Signed-off-by: Peng Fan <peng.fan@nxp.com>
+> ---
+>  .../devicetree/bindings/gpio/gpio-vf610.yaml       | 41 ++++++++++++++++=
+++++++
+>  1 file changed, 41 insertions(+)
 
-Today's linux-next merge of the fuse tree got a conflict in:
+Now a bunch of warnings in linux-next. Breaking binding changes like
+this need to be applied with the .dts changes.
 
-  fs/fuse/dev.c
-
-between commit:
-
-  80beb226de50b ("fuse: don't move pipe buffers into the page cache")
-
-=66rom the vfs-brauner-fixes tree and commit:
-
-  9c1fd690cbb1f ("fuse: reject unmovable folios before stealing them")
-
-=66rom the fuse tree.
-
-I fixed it up (see below) and can carry the fix as necessary. This
-is now fixed as far as linux-next is concerned, but any non trivial
-conflicts should be mentioned to your upstream maintainer when your tree
-is submitted for merging.  You may also want to consider cooperating
-with the maintainer of the conflicting tree to minimise any particularly
-complex conflicts.
-
-diff --combined fs/fuse/dev.c
-index a5c08a00cf83b,e7d9c506afaac..0000000000000
---- a/fs/fuse/dev.c
-+++ b/fs/fuse/dev.c
-@@@ -1099,6 -1099,138 +1099,6 @@@ static int fuse_copy_do(struct fuse_cop
-  	return ncpy;
-  }
- =20
- -static int fuse_check_folio(struct folio *folio)
- -{
- -	if (folio_mapped(folio) ||
- -	    folio->mapping !=3D NULL ||
- -	    (folio->flags.f & PAGE_FLAGS_CHECK_AT_PREP &
- -	     ~(1 << PG_locked |
- -	       1 << PG_referenced |
- -	       1 << PG_lru |
- -	       1 << PG_active |
- -	       1 << PG_workingset |
- -	       1 << PG_reclaim |
- -	       1 << PG_waiters |
- -	       LRU_GEN_MASK | LRU_REFS_MASK))) {
- -		dump_page(&folio->page, "fuse: trying to steal weird page");
- -		return 1;
- -	}
- -	return 0;
- -}
- -
- -/*
- - * Attempt to steal a page from the splice() pipe and move it into the
- - * pagecache. If successful, the pointer in @pagep will be updated. The
- - * folio that was originally in @pagep will lose a reference and the new
- - * folio returned in @pagep will carry a reference.
- - */
- -static int fuse_try_move_folio(struct fuse_copy_state *cs, struct folio *=
-*foliop)
- -{
- -	int err;
- -	struct folio *oldfolio =3D *foliop;
- -	struct folio *newfolio;
- -	struct pipe_buffer *buf =3D cs->pipebufs;
- -
- -	folio_get(oldfolio);
- -	err =3D unlock_request(cs->req);
- -	if (err)
- -		goto out_put_old;
- -
- -	fuse_copy_finish(cs);
- -
- -	err =3D pipe_buf_confirm(cs->pipe, buf);
- -	if (err)
- -		goto out_put_old;
- -
- -	BUG_ON(!cs->nr_segs);
- -	cs->currbuf =3D buf;
- -	cs->len =3D buf->len;
- -	cs->pipebufs++;
- -	cs->nr_segs--;
- -
- -	if (cs->len !=3D folio_size(oldfolio))
- -		goto out_fallback;
- -
- -	newfolio =3D page_folio(buf->page);
- -
- -	if (folio_test_large(newfolio))
- -		goto out_fallback;
- -
- -	/*
- -	 * A swap backed, anonymous or mapped folio can never be moved into the
- -	 * page cache.  fuse_check_folio() would catch these below, but only
- -	 * after the steal has already removed the folio from its mapping, so
- -	 * check them here, while the answer is still meaningful.
- -	 */
- -	if (folio_test_swapbacked(newfolio) || folio_test_anon(newfolio) ||
- -	    folio_mapped(newfolio))
- -		goto out_fallback;
- -
- -	/*
- -	 * This is a new and locked page, it shouldn't be mapped or
- -	 * have any special flags on it
- -	 */
- -	if (WARN_ON(folio_mapped(oldfolio)))
- -		goto out_fallback;
- -	if (WARN_ON(folio_has_private(oldfolio)))
- -		goto out_fallback;
- -	if (WARN_ON(folio_test_dirty(oldfolio) ||
- -				folio_test_writeback(oldfolio)))
- -		goto out_fallback;
- -	if (WARN_ON(folio_test_mlocked(oldfolio)))
- -		goto out_fallback;
- -
- -	if (!pipe_buf_try_steal(cs->pipe, buf))
- -		goto out_fallback;
- -
- -	folio_clear_uptodate(newfolio);
- -	folio_clear_mappedtodisk(newfolio);
- -
- -	if (fuse_check_folio(newfolio) !=3D 0)
- -		goto out_fallback_unlock;
- -
- -	err =3D lock_request(cs->req);
- -	if (err)
- -		goto out_fallback_unlock;
- -
- -	replace_page_cache_folio(oldfolio, newfolio);
- -
- -	folio_get(newfolio);
- -
- -	if (!(buf->flags & PIPE_BUF_FLAG_LRU))
- -		folio_add_lru(newfolio);
- -
- -	/*
- -	 * Release while we have extra ref on stolen page.  Otherwise
- -	 * anon_pipe_buf_release() might think the page can be reused.
- -	 */
- -	pipe_buf_release(cs->pipe, buf);
- -
- -	*foliop =3D newfolio;
- -	folio_unlock(oldfolio);
- -	/* Drop ref for ap->pages[] array */
- -	folio_put(oldfolio);
- -	cs->len =3D 0;
- -
- -	err =3D 0;
- -out_put_old:
- -	/* Drop ref obtained in this function */
- -	folio_put(oldfolio);
- -	return err;
- -
- -out_fallback_unlock:
- -	folio_unlock(newfolio);
- -out_fallback:
- -	cs->pg =3D buf->page;
- -	cs->offset =3D buf->offset;
- -
- -	err =3D lock_request(cs->req);
- -	if (!err)
- -		err =3D 1;
- -
- -	goto out_put_old;
- -}
- -
-  static int fuse_ref_folio(struct fuse_copy_state *cs, struct folio *folio,
-  			  unsigned offset, unsigned count)
-  {
-@@@ -1153,9 -1285,16 +1153,9 @@@ int fuse_copy_folio(struct fuse_copy_st
-  				return fuse_ref_folio(cs, folio, offset, count);
-  			}
-  		} else if (!cs->len) {
- -			if (cs->move_folios && folio &&
- -			    offset =3D=3D 0 && count =3D=3D folio_size(folio)) {
- -				err =3D fuse_try_move_folio(cs, foliop);
- -				if (err <=3D 0)
- -					return err;
- -			} else {
- -				err =3D fuse_copy_fill(cs);
- -				if (err)
- -					return err;
- -			}
- +			err =3D fuse_copy_fill(cs);
- +			if (err)
- +				return err;
-  		}
-  		if (folio) {
-  			void *mapaddr =3D kmap_local_folio(folio, offset);
-@@@ -1627,7 -1766,7 +1627,7 @@@ static ssize_t fuse_dev_splice_read(str
-  		 * Need to be careful about this.  Having buf->ops in module
-  		 * code can Oops if the buffer persists after module unload.
-  		 */
- -		bufs[page_nr].ops =3D &nosteal_pipe_buf_ops;
- +		bufs[page_nr].ops =3D &default_pipe_buf_ops;
-  		bufs[page_nr].flags =3D 0;
-  		ret =3D add_to_pipe(pipe, &bufs[page_nr++]);
-  		if (unlikely(ret < 0))
-@@@ -1791,6 -1930,9 +1791,6 @@@ static ssize_t fuse_dev_do_write(struc
-  		if (!smp_load_acquire(&fch->initialized) || !fch->connected)
-  			goto copy_finish;
- =20
- -		/* Don't try to move folios (yet) */
- -		cs->move_folios =3D false;
- -
-  		err =3D fuse_notify(fch->conn, oh.error, nbytes - sizeof(oh), cs);
-  		goto copy_finish;
-  	}
-@@@ -1834,6 -1976,8 +1834,6 @@@
-  	set_bit(FR_LOCKED, &req->flags);
-  	spin_unlock(&fpq->lock);
-  	cs->req =3D req;
- -	if (!req->args->page_replace)
- -		cs->move_folios =3D false;
- =20
-  	if (oh.error)
-  		err =3D nbytes !=3D sizeof(oh) ? -EINVAL : 0;
-@@@ -1934,6 -2078,7 +1934,6 @@@ static ssize_t fuse_dev_splice_write(st
-  				goto out_free;
- =20
-  			*obuf =3D *ibuf;
- -			obuf->flags &=3D ~PIPE_BUF_FLAG_GIFT;
-  			obuf->len =3D rem;
-  			ibuf->offset +=3D obuf->len;
-  			ibuf->len -=3D obuf->len;
-@@@ -1948,6 -2093,9 +1948,6 @@@
-  	cs.nr_segs =3D nbuf;
-  	cs.pipe =3D pipe;
- =20
- -	if (flags & SPLICE_F_MOVE)
- -		cs.move_folios =3D true;
- -
-  	ret =3D fuse_dev_do_write(fud, &cs, len);
- =20
-  	pipe_lock(pipe);
-
---5AEo8DJ8wMV8bWwX
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmr0fP8ACgkQJNaLcl1U
-h9B58gf/a+cW2KVrTPoMwlryNjCwNMsnLGeZSZlGPLaD8bRopA3L8iil5gtV3fvG
-c53BZj9+G2PZzhFxwkb2Rl3ztndtu0UL1UvBv/pGLl7Ax3CH9UIFKDKQL8e76X7i
-xVje8kIZOF4Mk1INf4mWMwW+GaDq7iNUfkzBF/nIfu/+qiSY4BXB7Yxjnz0jhQMO
-YYSY+1igrAe/9TyG/w5gU3noU2PwQgG2oXOSpeKVMl82KxxahyjXhnpbfOw0f6SP
-5N12XPKptmAQF4e1bwgDuDky7ny6s8xvyDW4zdGSGAOcv+oxDdc4N4UrbKf7Nqi2
-qa8S966FSrZaDdRzwRfTmSEUL+rC5g==
-=Uhhy
------END PGP SIGNATURE-----
-
---5AEo8DJ8wMV8bWwX--
+arch/arm64/boot/dts/freescale:952:50
+   Schema warnings:50
+     60 gpio@47400000 (fsl,imx93-gpio): clock-names: ["gpio","port"]
+has more than 1 item
+     60 gpio@43830000 (fsl,imx93-gpio): clock-names: ["gpio","port"]
+has more than 1 item
+     60 gpio@43820000 (fsl,imx93-gpio): clock-names: ["gpio","port"]
+has more than 1 item
+     60 gpio@43810000 (fsl,imx93-gpio): clock-names: ["gpio","port"]
+has more than 1 item
+     41 gpio@47400000 (fsl,imx93-gpio): clocks: [[6,116],[6,116]] has
+more than 1 item
+     41 gpio@43830000 (fsl,imx93-gpio): clocks: [[6,119],[6,119]] has
+more than 1 item
+     41 gpio@43820000 (fsl,imx93-gpio): clocks: [[6,118],[6,118]] has
+more than 1 item
+     41 gpio@43810000 (fsl,imx93-gpio): clocks: [[6,117],[6,117]] has
+more than 1 item
+     40 gpio@47400000 (fsl,imx95-gpio): clock-names: ["gpio","port"]
+has more than 1 item
+     40 gpio@43850000 (fsl,imx95-gpio): clock-names: ["gpio","port"]
+has more than 1 item
+     40 gpio@43840000 (fsl,imx95-gpio): clock-names: ["gpio","port"]
+has more than 1 item
+     40 gpio@43820000 (fsl,imx95-gpio): clock-names: ["gpio","port"]
+has more than 1 item
+     40 gpio@43810000 (fsl,imx95-gpio): clock-names: ["gpio","port"]
+has more than 1 item
+     34 gpio@47400000 (fsl,imx95-gpio): clocks: [[24,54],[24,54]] has
+more than 1 item
+     34 gpio@43850000 (fsl,imx95-gpio): clocks: [[24,119],[24,119]]
+has more than 1 item
+     34 gpio@43840000 (fsl,imx95-gpio): clocks: [[24,119],[24,119]]
+has more than 1 item
+     34 gpio@43820000 (fsl,imx95-gpio): clocks: [[24,119],[24,119]]
+has more than 1 item
+     34 gpio@43810000 (fsl,imx95-gpio): clocks: [[24,119],[24,119]]
+has more than 1 item
+     19 gpio@47400000 (fsl,imx93-gpio): clocks: [[3,116],[3,116]] has
+more than 1 item
+     19 gpio@43830000 (fsl,imx93-gpio): clocks: [[3,119],[3,119]] has
+more than 1 item
+     19 gpio@43820000 (fsl,imx93-gpio): clocks: [[3,118],[3,118]] has
+more than 1 item
+     19 gpio@43810000 (fsl,imx93-gpio): clocks: [[3,117],[3,117]] has
+more than 1 item
+      5 gpio@43870000 (fsl,imx94-gpio): "clocks" is a required property
+      5 gpio@43870000 (fsl,imx94-gpio): "clock-names" is a required propert=
+y
+      5 gpio@43860000 (fsl,imx94-gpio): "clocks" is a required property
+      5 gpio@43860000 (fsl,imx94-gpio): "clock-names" is a required propert=
+y
+      5 gpio@43850000 (fsl,imx94-gpio): "clocks" is a required property
+      5 gpio@43850000 (fsl,imx94-gpio): "clock-names" is a required propert=
+y
+      5 gpio@43840000 (fsl,imx94-gpio): "clocks" is a required property
+      5 gpio@43840000 (fsl,imx94-gpio): "clock-names" is a required propert=
+y
+      5 gpio@43820000 (fsl,imx94-gpio): "clocks" is a required property
+      5 gpio@43820000 (fsl,imx94-gpio): "clock-names" is a required propert=
+y
+      5 gpio@43810000 (fsl,imx94-gpio): "clocks" is a required property
+      5 gpio@43810000 (fsl,imx94-gpio): "clock-names" is a required propert=
+y
+      3 gpio@47400000 (fsl,imx95-gpio): clocks: [[25,54],[25,54]] has
+more than 1 item
+      3 gpio@47400000 (fsl,imx95-gpio): clocks: [[2,54],[2,54]] has
+more than 1 item
+      3 gpio@43850000 (fsl,imx95-gpio): clocks: [[25,119],[25,119]]
+has more than 1 item
+      3 gpio@43850000 (fsl,imx95-gpio): clocks: [[2,119],[2,119]] has
+more than 1 item
+      3 gpio@43840000 (fsl,imx95-gpio): clocks: [[25,119],[25,119]]
+has more than 1 item
+      3 gpio@43840000 (fsl,imx95-gpio): clocks: [[2,119],[2,119]] has
+more than 1 item
+      3 gpio@43820000 (fsl,imx95-gpio): clocks: [[25,119],[25,119]]
+has more than 1 item
+      3 gpio@43820000 (fsl,imx95-gpio): clocks: [[2,119],[2,119]] has
+more than 1 item
+      3 gpio@43810000 (fsl,imx95-gpio): clocks: [[25,119],[25,119]]
+has more than 1 item
+      3 gpio@43810000 (fsl,imx95-gpio): clocks: [[2,119],[2,119]] has
+more than 1 item
+      2 gpio@2e200000 (fsl,imx8ulp-gpio): clocks: [[41,18],[41,18]]
+has more than 1 item
+      2 gpio@2e200000 (fsl,imx8ulp-gpio): clock-names: ["gpio","port"]
+has more than 1 item
+      2 gpio@2d010000 (fsl,imx8ulp-gpio): clocks: [[19,22],[19,10]]
+has more than 1 item
+      2 gpio@2d010000 (fsl,imx8ulp-gpio): clock-names: ["gpio","port"]
+has more than 1 item
+      2 gpio@2d000000 (fsl,imx8ulp-gpio): clocks: [[19,21],[19,9]] has
+more than 1 item
+      2 gpio@2d000000 (fsl,imx8ulp-gpio): clock-names: ["gpio","port"]
+has more than 1 item
