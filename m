@@ -1,105 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794404986;
-	b=QRzgepWM/JuG3djlxjU8vyRXzE6B08ImC2Q4ljGkpxCdjR1mhl2M07UKDBWoA9+6Ifog
-	 LFF9LTDBkcLfaLvx8fd8MOb941p6MvjPS8beeEDZNfx0uRubZj6+byDUJ4mAYLJhlsZtH
-	 expgN9MqsFQ1U4b6yP1GqeY/cKqZFOBuupZaa0LwnW2ViTtrs8m453/fgWzafSWOH+HYH
-	 vidL0xBxTdfsUUea4ZNbNZjyU/Lxs8HKfdGWieHGQtDGJ3+RTTQ6sMgc2jLIeV5p+lwQr
-	 Jox14aljPmW7eHxvjx9ixSG5l2GkciRsGCaCUcqXhnrDFOVA+DWXzZ7Wdgi9U5Anrxg==
+	t=1794404990;
+	b=k/A+L85QUtKplwq28a/mk7M2oiVq+d14KKMF6db/fQohM0uMmeWPFQpudHrHsw/vxxjr
+	 r6Ck74zGwU3BudDuqbuoEtI+RX4Icl7IKt//JXXsodBoPQic12yiTMXVFxkrEBKZp3ij/
+	 ObPFer91itZIj+RaeVq8vbNlpPjNjZFKeTfJ4wOJDwpo1kD1DB3Q/Q3n71PXeQVMWA3aM
+	 VQFwofmz23bf0X2bZTg09YPYQVaYlxzK9p1zhxA699sSPEvQIFeV24OFOJBMRRAeeLqH5
+	 IAC1ijmt1cCwcC7dY9EYQ4y+xq0tQ8di9mtTiMAbBrh5BCJ7X5GGKodzcpEpBeWH3dg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794404986;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794404990;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=7fnh/1KmjFjEPtr//fod/I5Z9kbTxg0SKyfXY+qNzcY=;
-	b=AjzMZ29MaiwrtgisfgpwtC6q8tn7SwU2pdNtmyqvW6CI/ycILHNeaKkjNpZmuqGXRdUV
-	 0FrLnM5NOoANd+QL8GxrKlmNavdaKR8iyuiFczPogxNBJt55dXYPcVjPJLduTVluWC+h4
-	 Exm7VCi10Lpk6LJyw6T43ejLBoquevpcuoIwY12ZbsteF60N4G178J8iCcHOCHXNCVT51
-	 6BrQW83421Bb7eL1iEBogjV6Ne+Q7t82Qa3I9WAllybA1+5FlWPJmPEeS+MFnMYC1gowJ
-	 /tL7vZh5wF1EjdUrWZrMxFoCpIxZUumYWwNLu8SQf8QXHS7kmCGLDTKA5JjyX/Yanjg==
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=qJKHNv+tAuyzyTj7XvGyA33mQB+6F1DGY1SOqmvoOUU=;
+	b=NoAVD8LnaCqEKVTm8iaDSnFPLs064DyVwdFXy9DK9BHKVdFSFe53W2B9vjOvRn34l7qN
+	 TA0RJ1gBZO5aQkL9xLOH6sKFo38rmPdgoMLXzQLz++lgEj81H6JVxPKpw5eaRhRL6ChZU
+	 j7+CDWNH0NY7Cj0JDwXLw6+RueLoNMqJ6Cr9Z5Yxv12TIpZosWj2p6w030dPhWDindLU0
+	 rzRCdLqFOSt6TYQw+ThOGcm9GDoGZbtJAPuxr2y7lf009LnDi7RYz0o+K6DQwjPR3C8FK
+	 RfTT32Uw/cLf1fr+dZhgEreHpl03pNFIu/4FPlrhg3CrLOXXgPgMafac21F49znjf7Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AMuwALak;
-	arc=none smtp.remote-ip=209.85.128.170
-Received: from mail-yw1-f170.google.com (mail-yw1-f170.google.com [209.85.128.170])
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=PjaBupv5;
+	arc=none smtp.remote-ip=209.85.218.50
+Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D4A9606A335
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:49:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D4A9606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90F65606A8B7
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:49:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90F65606A8B7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AMuwALak
-Received: by mail-yw1-f170.google.com with SMTP id 00721157ae682-8b3b57a31f7so2743257b3.1
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 05:49:46 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=PjaBupv5
+Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c4203bbb1e9so477617266b.3
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 05:49:49 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794404986; x=1795009786; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7fnh/1KmjFjEPtr//fod/I5Z9kbTxg0SKyfXY+qNzcY=;
-        b=AMuwALakgFQr4Bh2iu/sTYk18MVWkV41260B2XT02sGtHnJkMHbu8iQjNUp+r+w3g1
-         CahMg7u0IH6/XboTxVxxjwwamGQNkloTcqX146aUR62tgoFZwLNRgqTb69+RUvgLAL3R
-         gR4qLUVczeMmlMfcdFsysoF3RmiZxJEFATO9MKz6fVC3C7AjoD7DWDfwTc1NLSuweAr8
-         YEFqD2Qi7p0ylecQ94c5Y9PlP4/2lDnWe7e8H/N3yro4X2FGMP+uNHRq4mEUcmRGYFdb
-         s9ukfvZFQOLNgIatCzxOEHzMCUsP5BFVyTD31+I8YW5VsAyNJmJVxAzZQorkc0Gkj+m4
-         Sb7g==
+        d=linaro.org; s=google; t=1794404988; x=1795009788; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qJKHNv+tAuyzyTj7XvGyA33mQB+6F1DGY1SOqmvoOUU=;
+        b=PjaBupv597gve+P3p0HKEDwsGo7MTjnabd2s8GwMBu4Q9+LIAbCPisZr8vZph3zmQt
+         onAjKYyZZqqgiN1lax7NSmTc1N4keivcwPylX18hnWSv1ee428rbXL4PVM2qatDgfzLT
+         ffN2UDC8KB7y1JpJ8PrvgS5bqMOx4EyB0tUmbFKrSZMWuB8PDPsNThg7vFlSEza12Agy
+         xWoX9q2MTSZhYv5MYaGqiD+seaybtDaZenDcI3jDFpDSCQc1tbB7yaI2BA9AOSPjPqer
+         +3F6iNpqagkWHBVM8xJm9oE42XWGh58mzwRoC0Cswrr/uHcejGnw5Aziy69/GWosNCQA
+         ewVw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794404986; x=1795009786;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7fnh/1KmjFjEPtr//fod/I5Z9kbTxg0SKyfXY+qNzcY=;
-        b=gTvzMzL6hgpW2zvdfoyK4TcjI9y4UvFNTfxDsYEj70FB3iuKszJiNn+Ka7/MzsahXG
-         fhGIsCAqVr0jIRg1ngoWkkXrDG6GbcH+1/ruUmITuZJDPSYKlpD3e80lCTGxB0hTgHn1
-         G5BeNbmuRZ4BeKR3ClvDpR7/4yPa2zsue/LkiZvyPbkfjz9dBo8DYcNhlsXZvYu3KPSq
-         AiJpMDSrrKGwUFJRfe2iiS/9iVP+PgOOVMXDBvnuMvPLqJT1JWpgDIEvuhyNELA5vogi
-         R31a3R8769Ye6xa8/gn0misu+BwBpVvN8cI1wUTw5+0pgwmIUTNEjcVIx0eL65q8Y/m2
-         BlJA==
-X-Forwarded-Encrypted: i=1; AL+hErEmFk5lUU86RWH4uJ283CqfcnGWoC7uq9o720YOuNxidet04Ge6Wt4cxt59HIL12w/+0cZFkC6BCAXJWMw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8Cg0SHVNpL6K1s0aMQzdofN5+m4UejwNqF9569jVX9yid/jmvD
-	suuQfm9tHm+bs9D9zlMPGFB75nFMlHnPPlrrYgdxcXj6OqK5STB9Q+o6
-X-Gm-Gg: AYBFou0pPCGtnyP/6UE5Js6f0D7LMGoufHtUV1XugW0uiK4Goy9JuovKGQaZnrl9RwM
-	WfZ8YGOc13wmWgyqQW5899+5u++BhNSGg8EpWVymmPhWleaK41iND/OvRxzceM3EY0mrmXs6rFE
-	838ws44gxhdHbRJ1fhsWcqofEzw5EvycKL+DgIoHFOTCENggBImRkCy5c3XGinEq1xPkAAn7rrS
-	1bxUJIEazcyi0KTc8jsqGKZZ8srsidnrYmNaQqvZPP5If7GyQQkD7tDvl5U1nyZ1ZUH2XsgrIHZ
-	mEo5aVa+/JPsaoxfP84J9BipfgJDP+/G0Sx90GgNv04AxIRacGl1L56oMeV6NtcqGKUFa0lfuUB
-	WguqOOurZUwjEKXQBR3nY6Zl+VToL6PDbOX1U3by3dLQFjz61DuSXasuWBs4PA5thI5NpinOTGs
-	cF/aVmlBVEw2fqGN5WmvyNLzvQR9msTbuIOPBPqJxQCQWLGhPrnfrBaqLPuOZb728wFkGQTLaxt
-	6KaUL96mMtxTESlKxuDbdciCt2jDHIHp3uu3aLctfqiV/xqvuZ573AdMvOyweW7hD8XFDF1LJg4
-	P27sty8yQfT0+jXYKQHPLVFhN9ocHrtZLSRerXqdnCMlHvyWac9vPnEAyC0p6BRS5EmUAqQ3pTF
-	AICSuKnouP+SmOY/CQoFUuEcZX7Ff4pFeww1f+/Pd58MSqkshMxYWOpGRvsbyY16Gy5dnz5glJy
-	A=
-X-Received: by 2002:a05:690c:86:b0:8b3:2445:889b with SMTP id 00721157ae682-8b3a81d8df2mr17180577b3.91.1794404985437;
-        Wed, 11 Nov 2026 05:49:45 -0800 (PST)
-Received: from MaquinaLab.. (189.27.147.77.dynamic.adsl.gvt.net.br. [189.27.147.77])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b393426f13sm44519817b3.34.2026.11.11.05.49.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 05:49:45 -0800 (PST)
-From: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>
-Cc: Andre Przywara <andre.przywara@arm.com>,
-	Enzo Adriano <enzo.adriano.code@gmail.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-sunxi@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/3] arm64: dts: allwinner: add Radxa Cubie A7Z board
-Date: Wed, 11 Nov 2026 10:49:16 -0300
-Message-ID: <20261111134919.90264-3-vinicius.eduardo.pedrosa@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261111134919.90264-1-vinicius.eduardo.pedrosa@gmail.com>
-References: <20261111134919.90264-1-vinicius.eduardo.pedrosa@gmail.com>
+        d=1e100.net; s=20260707; t=1794404988; x=1795009788;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qJKHNv+tAuyzyTj7XvGyA33mQB+6F1DGY1SOqmvoOUU=;
+        b=hhyFFnmOAp9nN5mHGdRmo0XyMP+v2+lAtX/dFjTb3o/ZVwDVSmFLa3mmgouWpD7vcA
+         lrZhyGPCp/YRAlOh8sK/IeCg/yJhf80W79DIlWrP3cmmkYnxzNQI4CRJdj4hjl6cNxHr
+         BAkOWNWqjVE+XrG4Whzjrv5CNcQleZYT/w2DkKIfLXIs5UBVLYf/d+mM2gzSX4K8WNSl
+         Kni6p4NdYrmZZGdMRZat8vckpurFybIdpZ+37/wzTL9KeIZmM9VOFm7o6rTKgaR3zbRV
+         NdDvw3cGVzNolkxxCVcaPwGC/dljkd2aFI5S2+Mmp3I+/Iwk/cQNdD2DYP47e6LbsJLW
+         4qUQ==
+X-Forwarded-Encrypted: i=1; AL+hErEiiIINAnKhLEtqXDq24C8oj4Lls4j4fVLBO9MlSSuvmfo09lhnBKlnGeGzqEPCZdDxhdQsi+dFo8q7ejU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z97OhGgf0pmDQ4mpKPwAVLR9tnVv5nYpM2+6T7Wsw3HQA/WMDIY
+	Nx9gqTC9Kj1INsHzwydyQGaRrfKyit72MvXm57CrknpULRkvUx0FgYMRSN6CiXk/fgk=
+X-Gm-Gg: AYBFou1aQqyldlw76KW9QBhPPN60afGe6EEXtplgrTP6P2AlR+Bi1xfKDyyg3KEZAD2
+	CzdL++48Pgo8PXgnypqkMy7xc2+PJffyhNZh5NBFYBNOZXWU1fB1WhwBH8sY+YM0FDAHKmRnGCL
+	obk7h2tnOi3EGc8cWtErPHLRLyUzSl/g6BKyeEnWPfpGEhpku3FWMFXMCsRpRGs61tqm6DscRLI
+	WCRcZf0lxF9095M0CLTfZkz2GD/aK8Q7hniAjoCIUxh7+k9cXU5xetJk4/yt7p53JwMiQMxfnPp
+	DrAcKgLSWlSlxxPlz5sYPdyr6Yuo+aA05iYFKc6ylzhqsl2NSaNzj35B6yiRbsCaihVTLavK8m1
+	fKFayGkYFSTRdE7BopcRjzct3chB1KPwQng7Edhf0cfgxU4otUUU+qc4+5MfqgHB7n+NM/jZ9kW
+	iLdFw73dB0y7lx1U6pYyGS2SOeyzSy1iFkX4t9GLXBjYJViHl9cD3dwuz5jgIOOO/AwTcpug/Au
+	UVggu1wv0oAWnHd2MMQ9pMojTJ/5O576lBtkspX1Y50VIN9ewgqEkCfMJchl1Jgo6f6g/N8It5W
+	BE6whUEOALOYQ8z1b6QcpGbna08kZGmRQj/G8/31NGGM1PwrBAUUNKY=
+X-Received: by 2002:a17:907:c14:b0:c49:b8ec:a9e3 with SMTP id a640c23a62f3a-c5066d9f119mr224374866b.43.1794404987720;
+        Wed, 11 Nov 2026 05:49:47 -0800 (PST)
+Received: from [192.168.1.3] ([37.18.141.193])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c504a655217sm235293166b.67.2026.11.11.05.49.46
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 11 Nov 2026 05:49:47 -0800 (PST)
+Message-ID: <2b69425a-6c5d-4a6c-adc3-6f46999372f4@linaro.org>
+Date: Wed, 11 Nov 2026 13:49:45 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,327 +92,269 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 4/4] perf test: Don't starve per-process tests with
+ system-wide events
+To: Ian Rogers <irogers@google.com>
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Jiri Olsa <jolsa@kernel.org>, Adrian Hunter <adrian.hunter@intel.com>,
+ Jakub Brnak <jbrnak@redhat.com>, Leo Yan <leo.yan@arm.com>,
+ Arnaldo Carvalho de Melo <acme@redhat.com>,
+ linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261109-james-perf-test-fixes-v4-0-355ee6b81917@linaro.org>
+ <20261109-james-perf-test-fixes-v4-4-355ee6b81917@linaro.org>
+ <CAP-5=fX-AuoMOL+yPXw2FsdcC5Xg7qkb-Q038U3BeB+P+Rf_Yg@mail.gmail.com>
+ <2c48c893-9ab5-4883-bafb-a2580b76c4c1@linaro.org>
+ <CAP-5=fUEv49Yymvw+EOwQmmKyOHqSKhRexJG_PC6HRTtgCqR=A@mail.gmail.com>
+Content-Language: en-US
+From: James Clark <james.clark@linaro.org>
+In-Reply-To: <CAP-5=fUEv49Yymvw+EOwQmmKyOHqSKhRexJG_PC6HRTtgCqR=A@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Add the device tree for the Radxa Cubie A7Z. Describe UART0, the AXP318W
-PMIC over R-I2C0, MMC0, RTC and the bank supplies. It is based on the
-Cubie A7S DT.
 
-Unlike the A7S, this board uses BLDO5 for PG and a SY8089 regulator for
-the PMIC's BLDO and CLDO inputs, and the microSD card-detect line has an
-external pull-up, so no internal pull-down is used. ELDO1 only supplies
-VDD2L for LPDDR5 and this board uses LPDDR4, so it is not described.
-SWOUT1 only feeds ports D and J on the 40-pin header, so it is not kept
-always-on.
 
-Signed-off-by: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
----
- arch/arm64/boot/dts/allwinner/Makefile        |   1 +
- .../dts/allwinner/sun60i-a733-cubie-a7z.dts   | 286 ++++++++++++++++++
- 2 files changed, 287 insertions(+)
- create mode 100644 arch/arm64/boot/dts/allwinner/sun60i-a733-cubie-a7z.dts
+On 10/11/2026 16:49, Ian Rogers wrote:
+> On Tue, Nov 10, 2026 at 4:30 AM James Clark <james.clark@linaro.org> wrote:
+>>
+>> On 09/11/2026 17:47, Ian Rogers wrote:
+>>> On Mon, Nov 9, 2026 at 5:48 AM James Clark <james.clark@linaro.org> wrote:
+>>>>
+>>>> Some tests intermittently fail when run in parallel, for example "Check
+>>>> branch stack sampling" fails with no branches recorded at all.
+>>>>
+>>>> The default event is cycles:P which there may only be 1 or 2 HW counters
+>>>> for on Intel because it's precise. System wide or per-core precise
+>>>> events hog the HW counter leaving other per-process tests with no
+>>>> samples. Rather than make all the tests that use default record commands
+>>>> run serially, just make the system wide ones use a software event which
+>>>> has the greatest possible compatibility. They don't need precise
+>>>> sampling or HW counters anyway. The per-process tests can be left alone
+>>>> as their events/processes never run concurrently on any one core.
+>>>>
+>>>> The LBR filter is another resource shared by all events on a CPU, and
+>>>> the system-wide LBR test uses different filters to the per-process
+>>>> branch stack test, so mark the LBR test as exclusive.
+>>>
+>>> Thanks for deflaking the tests! Making the LBR test exclusive is
+>>> pragmatic; however, it also feels like a shame since recording LBR
+>>> data in parallel should be something we expect users to do.
+>>>
+>>> For PMUs that can have a single user we have logic which prints
+>>> conflicting users in dump_perf_event_processes:
+>>> https://web.git.kernel.org/pub/scm/linux/kernel/git/perf/perf-tools-next.git/tree/tools/perf/util/evsel.c?h=perf-tools-next#n4519
+>>>
+>>> I wonder if, when we get zero counts or no samples we could perform a
+>>> similar analysis and report conflicting users—though this would
+>>> inherently be racy. If we had that, maybe we could just repeat the LBR
+>>> tests until there are no conflicting users and not need the exclusive
+>>> tag.
+>>>
+>>
+>> Yeah re-running the test for certain failures would probably work well.
+>> But at the same time if we know certain resources are limited and we're
+>> running per-CPU and per-thread events at the same time in a way that we
+>> know won't multiplex at all, maybe it would be better to re-write the
+>> parallel tests to only use per-thread events.
+>>
+>> Even when multiplexing works there can be issues. For example another
+>> flake I looked at was in the metrics tests. Some of them test that the
+>> ratios don't exceed 100% for example, but multiplexing can break this
+>> assumption if all the counters in the metric are only in a weak group
+>> and they aren't always scheduled at the same time. There was a lot to
+>> unpick in that one so I dropped it. But it's a similar problem.
+> 
+> So because events are grouped, they should be scheduled in and out
+> together. Yes a weak group can be broken, but that shouldn't happen
+> with some caveats:
+> 
+> 1) The NMI watchdog should be gone because the buddy watchdog is good
+> and doesn't take a counter. There's still tech debt because the buddy
+> watchdog calls itself the NMI watchdog in procfs and the perf tool
+> warns accordingly. Hopefully we're defaulting to the buddy watchdog
+> these days. Rather than a boot option I wanted the watchdog to be
+> selectable at runtime: none, buddy or NMI. Again, the hardest problem
+> in CS is naming things and the buddy watchdog people made some now
+> questionable choices.
+> 2) The scaling of events on hybrid/BIG.little systems is broken. I
+> sent out this RFC and should really push on it more:
+> https://lore.kernel.org/lkml/20250716223924.825772-1-irogers@google.com/
+> .
+> 
+> So the value test should never flake, and the fact that it does points
+> to real bugs, both of which are in the kernel.
+> 
 
-diff --git a/arch/arm64/boot/dts/allwinner/Makefile b/arch/arm64/boot/dts/allwinner/Makefile
-index 792152525b43..2eee91dcbd77 100644
---- a/arch/arm64/boot/dts/allwinner/Makefile
-+++ b/arch/arm64/boot/dts/allwinner/Makefile
-@@ -69,3 +69,4 @@ dtb-$(CONFIG_ARCH_SUNXI) += sun55i-h728-x96qpro+.dtb
- dtb-$(CONFIG_ARCH_SUNXI) += sun55i-t527-avaota-a1.dtb
- dtb-$(CONFIG_ARCH_SUNXI) += sun55i-t527-orangepi-4a.dtb
- dtb-$(CONFIG_ARCH_SUNXI) += sun60i-a733-cubie-a7s.dtb
-+dtb-$(CONFIG_ARCH_SUNXI) += sun60i-a733-cubie-a7z.dtb
-diff --git a/arch/arm64/boot/dts/allwinner/sun60i-a733-cubie-a7z.dts b/arch/arm64/boot/dts/allwinner/sun60i-a733-cubie-a7z.dts
-new file mode 100644
-index 000000000000..ab3d3d70f9ff
---- /dev/null
-+++ b/arch/arm64/boot/dts/allwinner/sun60i-a733-cubie-a7z.dts
-@@ -0,0 +1,286 @@
-+// SPDX-License-Identifier: (GPL-2.0-only OR MIT)
-+/dts-v1/;
-+
-+#include "sun60i-a733.dtsi"
-+
-+#include <dt-bindings/gpio/gpio.h>
-+
-+/ {
-+	model = "Radxa Cubie A7Z";
-+	compatible = "radxa,cubie-a7z", "allwinner,sun60i-a733";
-+
-+	aliases {
-+		mmc0 = &mmc0;
-+		serial0 = &uart0;
-+	};
-+
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+	};
-+
-+	reg_ps: regulator-system-power {
-+		compatible = "regulator-fixed";
-+		regulator-name = "ps";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		regulator-always-on;
-+	};
-+
-+	reg_ldo_input: regulator-ldo-input {
-+		compatible = "regulator-fixed";
-+		regulator-name = "ldo2v5-input";
-+		/* SY8089: 0.6 V * (1 + RP11 / RP6), 30k / 10k. */
-+		regulator-min-microvolt = <2400000>;
-+		regulator-max-microvolt = <2400000>;
-+		regulator-always-on;
-+		vin-supply = <&reg_ps>;
-+	};
-+
-+	osc32k: osc32k-clk {
-+		compatible = "fixed-clock";
-+		#clock-cells = <0>;
-+		clock-frequency = <32768>;
-+	};
-+};
-+
-+&cpu0 {
-+	cpu-supply = <&reg_dcdc5>;
-+};
-+
-+&cpu1 {
-+	cpu-supply = <&reg_dcdc5>;
-+};
-+
-+&cpu2 {
-+	cpu-supply = <&reg_dcdc5>;
-+};
-+
-+&cpu3 {
-+	cpu-supply = <&reg_dcdc5>;
-+};
-+
-+&cpu4 {
-+	cpu-supply = <&reg_dcdc5>;
-+};
-+
-+&cpu5 {
-+	cpu-supply = <&reg_dcdc5>;
-+};
-+
-+&cpu6 {
-+	cpu-supply = <&reg_dcdc3>;
-+};
-+
-+&cpu7 {
-+	cpu-supply = <&reg_dcdc3>;
-+};
-+
-+&mmc0 {
-+	bus-width = <4>;
-+	cap-sd-highspeed;
-+	/* PF6 has an external 10k pull-up and reads high with a card. */
-+	cd-gpios = <&pio 5 6 GPIO_ACTIVE_HIGH>;
-+	disable-wp;
-+	max-frequency = <50000000>;
-+	no-1-8-v;
-+	vmmc-supply = <&reg_swout2>;
-+	/* The 3.3 V path uses VCC-IO; no Port F voltage switching yet. */
-+	vqmmc-supply = <&reg_swout2>;
-+	status = "okay";
-+};
-+
-+&osc {
-+	clock-frequency = <26000000>;
-+};
-+
-+&pio {
-+	vcc-pb-supply = <&reg_swout2>;
-+	vcc-pc-supply = <&reg_cldo5>;
-+	vcc-pd-supply = <&reg_swout1>;
-+	vcc-pe-supply = <&reg_bldo1>;
-+	/* CLDO5 feeds VCC18-PF; the 3.3 V path uses VCC-IO. */
-+	vcc-pf-supply = <&reg_cldo5>;
-+	vcc-pg-supply = <&reg_bldo5>;
-+	vcc-ph-supply = <&reg_swout2>;
-+	vcc-pj-supply = <&reg_swout1>;
-+	vcc-pk-supply = <&reg_bldo1>;
-+};
-+
-+&r_i2c0 {
-+	status = "okay";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&r_i2c0_pl_pins>;
-+
-+	axp318w: pmic@36 {
-+		compatible = "x-powers,axp318w";
-+		reg = <0x36>;
-+		interrupt-parent = <&nmi_intc>;
-+		interrupts = <0 IRQ_TYPE_LEVEL_LOW>;
-+		interrupt-controller;
-+		#interrupt-cells = <1>;
-+
-+		aldo156in-supply = <&reg_ps>;
-+		aldo234in-supply = <&reg_aldo1>;
-+		bldoin-supply = <&reg_ldo_input>;
-+		cldoin-supply = <&reg_ldo_input>;
-+		dldoin-supply = <&reg_ps>;
-+		eldoin-supply = <&reg_dcdc9>;
-+		ips-supply = <&reg_ps>;
-+		vin19-supply = <&reg_ps>;
-+		vin23-supply = <&reg_ps>;
-+		vin45-supply = <&reg_ps>;
-+		vin678-supply = <&reg_ps>;
-+
-+		regulators {
-+			reg_dcdc1: dcdc1 {
-+				regulator-name = "vcc-3v3";
-+				regulator-min-microvolt = <3300000>;
-+				regulator-max-microvolt = <3300000>;
-+				regulator-always-on;
-+			};
-+
-+			reg_dcdc2: dcdc2 {
-+				regulator-name = "vdd-sys";
-+				regulator-always-on;
-+			};
-+
-+			reg_dcdc3: dcdc3 {
-+				regulator-name = "vdd-cpub";
-+				regulator-always-on;
-+			};
-+
-+			reg_dcdc4: dcdc4 {
-+				regulator-name = "vdd-gpu";
-+				regulator-always-on;
-+			};
-+
-+			reg_dcdc5: dcdc5 {
-+				regulator-name = "vdd-cpul";
-+				regulator-always-on;
-+			};
-+
-+			reg_dcdc6: dcdc6 {
-+				regulator-name = "vcc-draml";
-+				regulator-always-on;
-+			};
-+
-+			reg_dcdc7: dcdc7 {
-+				regulator-name = "vcc-dram";
-+				regulator-always-on;
-+			};
-+
-+			reg_dcdc8: dcdc8 {
-+				regulator-name = "vcc-ufs-io";
-+				regulator-always-on;
-+			};
-+
-+			reg_dcdc9: dcdc9 {
-+				regulator-name = "eldo-input";
-+				regulator-always-on;
-+			};
-+
-+			reg_swout1: swout1 {
-+				regulator-name = "vcc33-lcd";
-+			};
-+
-+			reg_swout2: swout2 {
-+				regulator-name = "vcc-io-card";
-+				regulator-always-on;
-+			};
-+
-+			reg_aldo1: aldo1 {
-+				regulator-name = "vcc-pl";
-+				regulator-min-microvolt = <3300000>;
-+				regulator-max-microvolt = <3300000>;
-+				regulator-always-on;
-+			};
-+
-+			reg_bldo1: bldo1 {
-+				regulator-name = "vcc-pe-pk-mcsi";
-+			};
-+
-+			reg_bldo2: bldo2 {
-+				regulator-name = "vcc-lvds0";
-+				regulator-always-on;
-+			};
-+
-+			reg_bldo4: bldo4 {
-+				regulator-name = "vcc18-codec";
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <1800000>;
-+			};
-+
-+			reg_bldo5: bldo5 {
-+				regulator-name = "vcc-pg";
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <1800000>;
-+			};
-+
-+			reg_cldo1: cldo1 {
-+				regulator-name = "vcc33-18-usb";
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <1800000>;
-+				regulator-always-on;
-+			};
-+
-+			reg_cldo2: cldo2 {
-+				regulator-name = "vcc18-hdmi";
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <1800000>;
-+			};
-+
-+			reg_cldo3: cldo3 {
-+				regulator-name = "vcc-pll-dram";
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <1800000>;
-+				regulator-always-on;
-+			};
-+
-+			reg_cldo5: cldo5 {
-+				regulator-name = "vcc18-pf-pc";
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <1800000>;
-+				regulator-always-on;
-+			};
-+
-+			reg_dldo1: dldo1 {
-+				regulator-name = "vcc-efuse";
-+				regulator-always-on;
-+			};
-+
-+			reg_dldo6: dldo6 {
-+				regulator-name = "vcc-ufs";
-+				regulator-always-on;
-+			};
-+
-+			reg_eldo6: eldo6 {
-+				regulator-name = "vdd-cpus";
-+				regulator-always-on;
-+			};
-+
-+			reg_rtc_ldo: rtc-ldo {
-+				regulator-name = "vcc-rtc";
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <1800000>;
-+				regulator-always-on;
-+			};
-+		};
-+	};
-+};
-+
-+&r_pio {
-+	/* PL powers the PMIC bus itself; firmware must keep ALDO1 enabled. */
-+	vcc-pm-supply = <&reg_aldo1>;
-+};
-+
-+&rtc {
-+	clocks = <&r_ccu CLK_BUS_R_RTC>, <&osc>, <&r_ccu CLK_R_AHB>,
-+		 <&osc32k>;
-+	clock-names = "bus", "hosc", "ahb", "ext-osc32k";
-+};
-+
-+&uart0 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&uart0_pb_pins>;
-+	status = "okay";
-+};
--- 
-2.43.0
+I looked into the failing test that I saw again, I don't think my one is 
+related to hybrid or multiplexing anymore, so it was probably a bad 
+example. The failure is because the tma_l2_hit_latency metric exceeds 
+100% in the "metric value validation" test. There are two reasons.
+
+First one is maybe a bug, but using '-a' sums one of the terms across 
+all cores which gives huge values:
+
+   $ sudo perf stat --cputype cpu_core -M tma_l2_hit_latency -a -- 
+taskset -c 0 perf bench mem memcpy -s 256KB -l 100000
+
+
+    ... 3410.8 %  tma_l2_hit_latency  ...
+
+The other one is that even on a single core, it counts multiple loads 
+waiting simultaneously, so it can exceed 100%, presumably by design. 
+Maybe it needs to be added to SkipList in perf_metric_validation_rules.json?
+
+   $ sudo perf stat --cputype cpu_core -M tma_l2_hit_latency -C 0 -- 
+taskset -c 0 perf bench mem memcpy -s 256KB -l 100000
+
+   ... 262.7 %  tma_l2_hit_latency  ...
+
+
+>> I think some of the kernel PMU scheduling and sharing decisions expect
+>> that any root user running things per-CPU is "well behaved" or
+>> understands the impact to other users that their events might have. And
+>> we're probably not doing that enough in the tests to honor that.
+> 
+> An area I think we're bad on is BPF perf event filtering. The tracing
+> code has notions of instances, we lack similar concepts for perf
+> events, so one profiler may derail another. I think we can improve
+> multiplexing by taking inspiration from the EEVDF scheduler. Again, I
+> have some plans and paper improvements in this area, but the challenge
+> is getting feedback.
+> 
+>> Another example for this is with Arm BRBE. There are multiple counters
+>> on the PMU, so you can have multiple events, but there's only one BRBE
+>> and one filter, and the branch history is limited. The driver takes the
+>> union of filters for all the PMU events running and then post processes
+>> the branch buffer for each user to not leak anything from the other
+>> event's filter. But imagine that one test gives a certain restricted
+>> filter and expects to completely fill up the branch buffer, and that
+>> exact full buffer is required for the test. When another root event runs
+>> in parallel on the same core, the filter can be widened and the buffer
+>> gets blown up with other branches that weren't interesting to the other
+>> test, and are filtered out by the driver anyway making it fail.
+> 
+> I think we should avoid system wide profiling for the tests, that
+> should mitigate issues like this. We need system-wide profiling for
+> uncore events.
+> 
+
+I suppose if we went and converted them all to per-process some coverage 
+could be lost though. We can probably keep chipping away at the flakes 
+and judge it case by case.
+
+> Thanks,
+> Ian
+> 
+>>> Anyway, doing all of that is a bigger project.
+>>>
+>>
+>> Yep. and maybe something to keep in mind for any new tests or when doing
+>> further flake investigations.
+>>
+>>> Reviewed-by: Ian Rogers <irogers@google.com>
+>>>
+>>
+>> Thanks!
+>>
+>>> Thanks,
+>>> Ian
+>>>
+>>>> This fixes the "Check branch stack sampling" test and other flakes when
+>>>> a system-wide record from another test runs at the same time, for
+>>>> example:
+>>>>
+>>>>     $ sudo perf record -a -o /dev/null -- sleep 30 &
+>>>>     $ sudo perf test -vvv "Check branch stack sampling"
+>>>>     ...
+>>>>     Testing user branch stack sampling
+>>>>     ERROR: Branches missing ^brstack_bench\+[^ ]*/brstack_foo\+[^ ]*/IND_CALL/.*$
+>>>>     ...
+>>>>     Testing user branch stack sampling [Failed]
+>>>>     ...
+>>>>     Testing branch stack filtering permutation (call,CALL|SYSCALL)
+>>>>     Testing branch stack filtering [Failed empty script output]
+>>>>     ...
+>>>>     ---- end(-1) ----
+>>>>     138: Check branch stack sampling : FAILED!
+>>>>
+>>>> Signed-off-by: James Clark <james.clark@linaro.org>
+>>>> ---
+>>>>    tools/perf/tests/shell/record.sh          | 6 +++---
+>>>>    tools/perf/tests/shell/record_lbr.sh      | 2 +-
+>>>>    tools/perf/tests/shell/record_sideband.sh | 4 ++--
+>>>>    3 files changed, 6 insertions(+), 6 deletions(-)
+>>>>
+>>>> diff --git a/tools/perf/tests/shell/record.sh b/tools/perf/tests/shell/record.sh
+>>>> index 01dc3e22fa73..e4789e2bcf43 100755
+>>>> --- a/tools/perf/tests/shell/record.sh
+>>>> +++ b/tools/perf/tests/shell/record.sh
+>>>> @@ -388,7 +388,7 @@ test_system_wide() {
+>>>>      echo "Basic --system-wide mode test"
+>>>>      local ret=0
+>>>>      perf_record_with_retry "${perfdata}" "check_system_wide" "perf test -w thloop" \
+>>>> -    -aB --synth=no || ret=$?
+>>>> +    -aB --synth=no -e cpu-clock || ret=$?
+>>>>      if [ $ret -eq 2 ]; then
+>>>>        echo "System-wide record [Skipped not supported]"
+>>>>        return
+>>>> @@ -471,7 +471,7 @@ test_cgroup() {
+>>>>      echo "Cgroup sampling test"
+>>>>      local ret=0
+>>>>      perf_record_with_retry "${perfdata}" "check_cgroup" "perf test -w thloop" \
+>>>> -    -aB --synth=cgroup --all-cgroups || ret=$?
+>>>> +    -aB --synth=cgroup --all-cgroups -e cpu-clock || ret=$?
+>>>>      if [ $ret -eq 2 ]; then
+>>>>        echo "Cgroup sampling [Skipped not supported]"
+>>>>        return
+>>>> @@ -491,7 +491,7 @@ test_uid() {
+>>>>      echo "Uid sampling test"
+>>>>      local ret=0
+>>>>      perf_record_with_retry "${perfdata}" "check_uid" "perf test -w thloop" \
+>>>> -    -aB --synth=no --uid "$(id -u)" || ret=$?
+>>>> +    -aB --synth=no --uid "$(id -u)" -e cpu-clock || ret=$?
+>>>>      if [ $ret -eq 2 ]; then
+>>>>        local logfile="${PERF_RECORD_LOGS[${#PERF_RECORD_LOGS[@]}-1]}"
+>>>>        if grep -q -E "libbpf.*EPERM|Access to performance monitoring" "$logfile" || \
+>>>> diff --git a/tools/perf/tests/shell/record_lbr.sh b/tools/perf/tests/shell/record_lbr.sh
+>>>> index 8d51afeb437b..6b6af59db871 100755
+>>>> --- a/tools/perf/tests/shell/record_lbr.sh
+>>>> +++ b/tools/perf/tests/shell/record_lbr.sh
+>>>> @@ -1,6 +1,6 @@
+>>>>    #!/bin/bash
+>>>>    # SPDX-License-Identifier: GPL-2.0
+>>>> -# perf record LBR tests
+>>>> +# perf record LBR tests (exclusive)
+>>>>
+>>>>    set -e
+>>>>
+>>>> diff --git a/tools/perf/tests/shell/record_sideband.sh b/tools/perf/tests/shell/record_sideband.sh
+>>>> index 2182551873be..f16889e3fa9a 100755
+>>>> --- a/tools/perf/tests/shell/record_sideband.sh
+>>>> +++ b/tools/perf/tests/shell/record_sideband.sh
+>>>> @@ -22,7 +22,7 @@ trap trap_cleanup EXIT TERM INT
+>>>>
+>>>>    can_cpu_wide()
+>>>>    {
+>>>> -    if ! perf record -o ${perfdata} -BN --no-bpf-event -C $1 true > /dev/null 2>&1
+>>>> +    if ! perf record -o ${perfdata} -BN --no-bpf-event -e cpu-clock -C $1 true > /dev/null 2>&1
+>>>>        then
+>>>>            echo "record sideband test [Skipped cannot record cpu$1]"
+>>>>            err=2
+>>>> @@ -39,7 +39,7 @@ test_system_wide_tracking()
+>>>>        can_cpu_wide 1 || return 0
+>>>>
+>>>>        # Record on CPU 0 a task running on CPU 1
+>>>> -    perf record -BN --no-bpf-event -o ${perfdata} -C 0 -- taskset --cpu-list 1 true
+>>>> +    perf record -BN --no-bpf-event -e cpu-clock -o ${perfdata} -C 0 -- taskset --cpu-list 1 true
+>>>>
+>>>>        # Should get MMAP events from CPU 1
+>>>>        mmap_cnt=`perf script -i ${perfdata} --show-mmap-events -C 1 2>/dev/null | grep MMAP | wc -l`
+>>>>
+>>>> --
+>>>> 2.43.0
+>>>>
+>>
 
