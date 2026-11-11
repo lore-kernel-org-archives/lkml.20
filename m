@@ -1,131 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.97
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794376857;
-	b=DqKyH1AmozUoK2o9MGXiWlrm9aqltVVMaLuuaCbyb2CbstErdMkzWsbIxzpXoM6a0/0X
-	 evIxdbsChv0urkPPchOkAQyyjURiTxc+xek1H003hA0CaWuds8ROTS4bVrkBc2W+wHM0r
-	 +baGV7dTR5qv982L0WT8RdPbGjJ5YAObYcBjcEwxch3QbxtOU+yBmTB+4A7CttivDaTgG
-	 ZhhzYBPHPDtL75Nuw2ck0Cck9CmLIB6hrtimH9YBPKTJdqbVcI8Og5R01PlVbFX70/qAN
-	 R0PNIhsRqlTDK2dt+T8bZhGK8v72+3AUmwqvdFxbHraS41ZIZacUONJtqG+HDWSRXjA==
+	t=1794376893;
+	b=A9GcMI+ylIaR4zYOX/q9Z9xKJF76yna8K6sS8ClMs7hW67maSawZTIED5OyPMvcoIT10
+	 iDhDaa5EAY6vT8LPdU8VxCTvP5Xtyke2H5242GCV7d+kON/IHZiv2mlQoJ7npBeCx+F7Y
+	 0LvhRDzLRSXoOws68nOdT6zEI1e24kuvElIzMKK9AvxmgubZVpxycK2Rkv0j9LSaNvcmI
+	 UNax+eRhPGYnB0lzLYCi4Kp/3gtEzOgGCfLO70ca/0TNxGL7Khjgmqs6ztPx7+Xk4Omcw
+	 JR0jEITIhX1A0QkwNwBsoGrRrW83iwlKEgqSjO2iluLSoZymeiQBTDBt80zGtV2zvHw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794376857;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
-	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Received:X-Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-DetectorID-Processed;
-	bh=fAnMylkcIwCzBcds4wvEKNpzHtQXj/ncrwRzNJMI2gY=;
-	b=rxkazjvmCLC6dZxQA/wit8yvUix3aku3j/M+ozR80h5/8IoOKIJxH0bucbuu+vjl5nUx
-	 IFcCJI+8bicH86tR5bvi5sKmggySFUBC4YCqZVpggST1H3EC0SqxQYL19Qb+GnLZbwwjQ
-	 c6rixjLrsLGWPRq0tMLQk1DOYfBvGhb6yY2TGgRELkQ3NMlCZt1oz/jFV1o6pz5E4K4d5
-	 +AF9ijtjJP8T3CB2qh5nGzzQpBNDUN5oyoLTjg/Cit7Kcgb4AXMpkRFmCojkTtUGLaDbm
-	 cNTTdavASDEHsLNxE8lBg1NpUhRI+ye+wwDxwApHHdH1c8DM//e0udnpThF3zijh41g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794376893;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=dINrgosS+w8IkLAmH96/TOQITM9xe5YuD9KyLFCdOco=;
+	b=sqOkNWyKcAzCgJghZ2xze08DrULPP20J64ZKJEYZ1X3GkR8Bkf59Mj0EoSKqLOyxbIig
+	 wtaUcgXJgIWjBG1+QOUYs7MdIVR3RQNWUtfWABEPFlNrhDC4BMIQTvTFNJqKl5ysDGtOh
+	 qd7lkdivSzjsY+Oj3V8eRwJiOSGQGxHXsfSo3d6SZSNDfiL7vncMGc2ENfTNyw7pFwb7N
+	 RQQXsuhTB+yQ7Vb3Us2GTi3OCfB1+PTMMjYFqvQSpvrAfuhKgnez7kcTAHMtC5Mik5Y/s
+	 ZUqzd3Wd5S5eH2/DlzPxqPtVl+toBMAttl/jJz+4lQwrabfU0G4+TJujRNArzL0B4mQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=broadcom.com;
-	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=GBrzmbvw;
-	arc=none smtp.remote-ip=209.85.216.97
-Received: from mail-pj1-f97.google.com (mail-pj1-f97.google.com [209.85.216.97])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="KwQ/VKxu";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4910C60A6F71
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 06:00:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4910C60A6F71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 600AB606A31C;
+	Wed, 11 Nov 2026 06:01:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=GBrzmbvw
-Received: by mail-pj1-f97.google.com with SMTP id 98e67ed59e1d1-3b0b3438540so1779816a91.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 22:00:57 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794376857; x=1794981657;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:dkim-signature:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fAnMylkcIwCzBcds4wvEKNpzHtQXj/ncrwRzNJMI2gY=;
-        b=to1oWzrUFVzz9MDDWwVTm65G802jFPPIuSHXYK5X/RZnG9OssvPvhn4/7JW+VElrvD
-         BYH2H6nDFBZSftvBll5SvL3xNR+HEuZSeeuAkv942Y7FiiXbOnQY4jiB3a1vcZZQWG/p
-         ujCcWyh5tfIeJxPSt7I9sOcynGckD0ZzuJBjcHyA8Nn7wfoik7NVYZcaMmAwWXSA2XQq
-         5UssZFyOkgMfEKPokvXEBv5iItN3bMzpspOI+YZT/OODpljl5xyYfeMF8L2DdxriEucW
-         kDa6h9lOetEd2cefWY1xGHYxIRWaDuzKPyiOwMcW4KHKRQ67F7OyHa+A22ERmSHxMIfj
-         CImQ==
-X-Forwarded-Encrypted: i=1; AL+hErHH91UHsNH/KPkvp9gWn/M26SfsU8bECIdl6sb+sxA1m1W405SryDdLMpCAwLteVdoPRruZ0J3yl7sXXO8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/mpZDu7HqE+PfisGGYaupMY2gWuvOxqu1aVJQMvboXL9EmaODb
-	YwwslzPcqmItJ/OvmPmOk5GqCX39dKKNfae65IAKKPgAsl37vBCPUtCZHjgPslLNzh2YuztJUi7
-	vgStyYIj3zj5ElL+aIRMmkcoqMMf+GirsP9vJt8Y6AblL8u0kjImV1DJynfC/dfWXkEkQ/jE/Qw
-	jzdjliBYJo8v+7MhY9uZW3CPX4gC4i0Tiw9nXHL90scvvluuUjLDs5uFQLGWk80tBDLu20LKqdk
-	Wr0V5KWsBlIudUw
-X-Gm-Gg: AYBFou13uGXNfPdsIhA3uDeEVVIG5J2FFYkAjGVC7W1gw/GOCtYulq/FL3mRo8/3Q+L
-	T5wUGghh3wkF+QkwUKHvbBORVtCOnKCJzcSBbda/j10ZSd+PelCiddU0179xgQLyL8LNnhyi9FM
-	5Afv1CSIZJrJurySGASTl6M1T+8/dAtsnQct9auRYU5Wvz9SODWN3iPutxdg4a+zA34cVm6TJYH
-	RlVeiZhbllXQ+kA1G+4huVGuSDO2Hn2FNUy09fcXt4imahKiurfi11TYfIDAIQ/9JrnZCNtyn70
-	yzkOB5d462SewqSnYxefyTbwEYX/5IvmwKCNnoBGfgD4+XLfPXa+G0hOL68R4ATuig9zIyPmu6R
-	xIYsOLBHH5xVHC1Aa8ZS5sCuy9Yh2mX20P+qHNwjgd5QW02Z/+H+8scCtQ5XB7B/AP46AOqzFyT
-	w6JpatH6q8XyY7fk4inuu/7YTz+wXNbgGr
-X-Received: by 2002:a17:90b:4a51:b0:3ac:a5ff:2cc3 with SMTP id 98e67ed59e1d1-3b182e13d70mr1574216a91.8.1794376856575;
-        Tue, 10 Nov 2026 22:00:56 -0800 (PST)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-28.dlp.protect.broadcom.com. [144.49.247.28])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b182def9f9sm411586a91.4.2026.11.10.22.00.55
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 10 Nov 2026 22:00:56 -0800 (PST)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-94776ee7bf0so465211985a.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 22:00:55 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1794376855; x=1794981655; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fAnMylkcIwCzBcds4wvEKNpzHtQXj/ncrwRzNJMI2gY=;
-        b=GBrzmbvwTsBvHVFRYx0H7rt4vCfevXhKDJhG0ZpK001RBPbUDtm36EspvX6rTiWgbF
-         BKRXOWzI2hllpigkiwEDAIGxMI5hz4dFri4m7UnZJNhHQp6WkuSKjwcUydD1eqSaRaJq
-         tSqeqmsvxXy/O0oy5t5LsDZU23WuIAkUKoCSo=
-X-Forwarded-Encrypted: i=1; AL+hErHlRXc9/urOH7+0awMXZUgWSSgN6D7nXXN3s7SE3WC9v1k9uW+f1LIW0TIlp4nNh9czoeE2dpjM05sVIgc=@vger.kernel.org
-X-Received: by 2002:a05:620a:4116:b0:93c:a191:88fe with SMTP id af79cd13be357-947afcd01f4mr210491085a.8.1794376854607;
-        Tue, 10 Nov 2026 22:00:54 -0800 (PST)
-X-Received: by 2002:a05:620a:4116:b0:93c:a191:88fe with SMTP id af79cd13be357-947afcd01f4mr210486185a.8.1794376854139;
-        Tue, 10 Nov 2026 22:00:54 -0800 (PST)
-Received: from vertex.localdomain (pool-173-49-113-140.phlapa.fios.verizon.net. [173.49.113.140])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9479e7e7f3bsm411506885a.37.2026.11.10.22.00.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 22:00:52 -0800 (PST)
-From: Zack Rusin <zack.rusin@broadcom.com>
-To: Sean Christopherson <seanjc@google.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	kvm@vger.kernel.org
-Cc: Doug Covelli <doug.covelli@broadcom.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Shuah Khan <shuah@kernel.org>,
-	Vitaly Kuznetsov <vkuznets@redhat.com>,
-	David Woodhouse <dwmw2@infradead.org>,
-	Paul Durrant <paul@xen.org>,
-	Xin Li <xin@zytor.com>,
-	Francesco Lavra <flavra@baylibre.com>,
-	=?UTF-8?q?Radim=20Kr=C4=8Dm=C3=A1=C5=99?= <rkrcmar@ventanamicro.com>,
-	Liran Alon <liran.alon@oracle.com>,
-	Arbel Moshe <arbel.moshe@oracle.com>,
-	linux-doc@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	bcm-kernel-feedback-list@broadcom.com,
-	linux-kernel@vger.kernel.org,
-	Zack Rusin <zack.rusin@broadcom.com>
-Subject: [PATCH v3 12/12] KVM: selftests: Test nested VMware backdoor routing
-Date: Wed, 11 Nov 2026 01:00:01 -0500
-Message-ID: <60dbf049b84e8d48da4b4c6138e759d8e2cfb92b.1794374897.git.zack.rusin@broadcom.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <cover.1794374897.git.zack.rusin@broadcom.com>
-References: <cover.1794374897.git.zack.rusin@broadcom.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KwQ/VKxu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70B171F00A05;
+	Wed, 11 Nov 2026 06:01:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794376892;
+	bh=dINrgosS+w8IkLAmH96/TOQITM9xe5YuD9KyLFCdOco=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=KwQ/VKxucDt0SWejmeNXKDSQf3YC6HUG38pU9ANO+/OdMs8Xh/AWgdOP3fo218H1O
+	 qARaOqrKverYF8BWeBUEaBMp7ZFBC/1YEoBMqel4sWbLzEzZNt4SdNlSDIer2S+TU5
+	 02Xk5jIVOOO4ADOHHCJiga8n1jle8qZp1w5oR+SJU7AxPwm1RZHlHeWTC09BpUWgS7
+	 wpOtiDVPCFrpgxvz5PjyYlsChyEn+dATBVcomUXvjXBy9ZgcEvpurU+7WLh5NaVen4
+	 9VPGCpYDymgC2OkFZuXfRAUdyfg4ZPXBZvpW91lSGVblCYxaYO2LGhrxlqxMpwu3wH
+	 YUcMM2rlkG7yA==
+Date: Tue, 10 Nov 2026 22:01:30 -0800
+From: Namhyung Kim <namhyung@kernel.org>
+To: Ian Rogers <irogers@google.com>
+Cc: acme@kernel.org, cupertino.miranda@oracle.com, jose.marchesi@oracle.com,
+	adrian.hunter@intel.com, andrii@kernel.org, eddyz87@gmail.com,
+	james.clark@linaro.org, jolsa@kernel.org,
+	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
+	mingo@redhat.com, peterz@infradead.org, yonghong.song@linux.dev
+Subject: Re: [PATCH v3 1/2] perf build: Support building BPF skeletons with
+ bpf-gcc
+Message-ID: <avQEup0HxmrqBnr0@z2>
+References: <20261013231430.2163505-1-irogers@google.com>
+ <20261022204627.1813821-1-irogers@google.com>
+ <20261022204627.1813821-2-irogers@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -135,287 +62,274 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261022204627.1813821-2-irogers@google.com>
 
-Add vmware_nested_backdoor_test.  With KVM_VMWARE_ENABLE_BACKDOOR and
-KVM_VMWARE_ENABLE_NESTED_BACKDOOR enabled, run L2 under an L1 that
-intercepts #GP, and verify that a VMware backdoor access from CPL3 in
-L2 is handled by L0 and exits to userspace.  Verify that an access with
-the wrong magic value, one to the first port above the two backdoor
-ports, and one from CPL2 still cause a #GP exit to L1, as does a valid
-access without the nested flag.  With only the nested flag, expect L0
-to handle the access only if enable_vmware_backdoor is set.
+On Thu, Oct 22, 2026 at 01:46:26PM -0700, Ian Rogers wrote:
+> Support building perf BPF skeletons with bpf-gcc (>= 14.0.0) in addition
+> to clang (>= 12.0.1), similar to tools/testing/selftests/bpf/Makefile.
+> 
+> When building perf with GCC (CC_NO_CLANG=1), prefer bpf-gcc and fall
+> back to clang if bpf-gcc is unavailable or too old. When building with
+> Clang/LLVM (CC_NO_CLANG=0), prefer clang and fall back to bpf-gcc.
+> Explicit command-line overrides via BPF_GCC=... or CLANG=... are
+> respected, and setting BPF_GCC= or CLANG= to empty disables that
+> compiler.
+> 
+> In bpf_skel.mak, pass the bpf-gcc flags (-mcpu=v3, -fno-ident,
+> -DBPF_NO_PRESERVE_ACCESS_INDEX, -Wno-attributes,
+> -D__TARGET_ARCH_$(SRCARCH), and target endianness) and query system
+> include paths from $(CC).
+> 
+> Also update version-ge3 and version-lt3 in tools/scripts/utilities.mak
+> to split the two version arguments separately in awk so empty or
+> fewer-than-3-component version strings do not shift fields across
+> arguments.
 
-This is the situation the flag exists for: L1 receives the #GP for the
-backdoor access but can't service it, so only the narrow set of
-backdoor accesses may be taken away from L1.  Exercise VMX and SVM
-separately, because KVM routes nested exceptions to L1 through
-different paths on the two vendors.
+Sorry for the delay.  But can you please split this part from the
+bpf-gcc changes?
 
-Signed-off-by: Zack Rusin <zack.rusin@broadcom.com>
----
- MAINTAINERS                                   |   3 +-
- tools/testing/selftests/kvm/Makefile.kvm      |   1 +
- .../kvm/x86/vmware_nested_backdoor_test.c     | 223 ++++++++++++++++++
- 3 files changed, 225 insertions(+), 2 deletions(-)
- create mode 100644 tools/testing/selftests/kvm/x86/vmware_nested_backdoor_test.c
+Thanks,
+Namhyung
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 38a735c9221e..3118792a22df 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -15050,8 +15050,7 @@ S:	Supported
- T:	git git://git.kernel.org/pub/scm/virt/kvm/kvm.git
- T:	git https://github.com/kvm-x86/linux.git
- F:	arch/x86/kvm/vmware.*
--F:	tools/testing/selftests/kvm/x86/vmware_backdoor_test.c
--F:	tools/testing/selftests/kvm/x86/vmware_hypercall_test.c
-+F:	tools/testing/selftests/kvm/x86/vmware_*.c
- 
- KVM X86 Xen (KVM/Xen)
- M:	David Woodhouse <dwmw2@infradead.org>
-diff --git a/tools/testing/selftests/kvm/Makefile.kvm b/tools/testing/selftests/kvm/Makefile.kvm
-index fe7ba905facd..6dd1f336da99 100644
---- a/tools/testing/selftests/kvm/Makefile.kvm
-+++ b/tools/testing/selftests/kvm/Makefile.kvm
-@@ -142,6 +142,7 @@ TEST_GEN_PROGS_x86 += x86/userspace_io_test
- TEST_GEN_PROGS_x86 += x86/userspace_msr_exit_test
- TEST_GEN_PROGS_x86 += x86/vmware_backdoor_test
- TEST_GEN_PROGS_x86 += x86/vmware_hypercall_test
-+TEST_GEN_PROGS_x86 += x86/vmware_nested_backdoor_test
- TEST_GEN_PROGS_x86 += x86/vmx_apic_access_test
- TEST_GEN_PROGS_x86 += x86/vmx_apicv_updates_test
- TEST_GEN_PROGS_x86 += x86/vmx_exception_with_invalid_guest_state
-diff --git a/tools/testing/selftests/kvm/x86/vmware_nested_backdoor_test.c b/tools/testing/selftests/kvm/x86/vmware_nested_backdoor_test.c
-new file mode 100644
-index 000000000000..3d12be7906e0
---- /dev/null
-+++ b/tools/testing/selftests/kvm/x86/vmware_nested_backdoor_test.c
-@@ -0,0 +1,223 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Copyright (C) 2025-2026 Broadcom. All Rights Reserved. The term
-+ * "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
-+ */
-+
-+#include "kvm_util.h"
-+#include "processor.h"
-+#include "svm_util.h"
-+#include "test_util.h"
-+#include "vmx.h"
-+
-+#define VMWARE_BACKDOOR_PORT	0x5658
-+#define VMWARE_MAGIC		0x564d5868
-+#define VMPORT_CMD_GETVERSION	0x0a
-+
-+#define NESTED_BACKDOOR_FLAGS	(KVM_VMWARE_ENABLE_BACKDOOR | \
-+				 KVM_VMWARE_ENABLE_NESTED_BACKDOOR)
-+
-+struct nested_backdoor_case {
-+	u64 flags;
-+	u64 rax;
-+	u64 rdx;
-+	u32 cpl;
-+	bool expect_l0;
-+};
-+
-+static struct nested_backdoor_case guest_case;
-+
-+static void guest_done_handler(struct ex_regs *regs)
-+{
-+	GUEST_DONE();
-+}
-+
-+static void l2_guest_code(void)
-+{
-+	unsigned long rax = guest_case.rax;
-+	unsigned long rbx = 0;
-+	unsigned long rcx = VMPORT_CMD_GETVERSION;
-+	unsigned long rdx = guest_case.rdx;
-+
-+	asm volatile("inl %%dx, %%eax"
-+		     : "+a"(rax), "+b"(rbx), "+c"(rcx), "+d"(rdx));
-+	GUEST_ASSERT(guest_case.expect_l0);
-+	asm volatile("int3");
-+}
-+
-+static void l1_svm_code(struct svm_test_data *svm)
-+{
-+	struct vmcb *vmcb = svm->vmcb;
-+
-+	generic_svm_setup(svm, l2_guest_code);
-+	vmcb->control.intercept_exceptions |= BIT_ULL(GP_VECTOR);
-+
-+	vmcb->save.cpl = guest_case.cpl;
-+	vmcb->save.cs.selector = USER_CS_SELECTOR | guest_case.cpl;
-+	vmcb->save.cs.attrib &= ~SVM_SELECTOR_DPL_MASK;
-+	vmcb->save.cs.attrib |= guest_case.cpl << SVM_SELECTOR_DPL_SHIFT;
-+	vmcb->save.ss.selector = USER_DS_SELECTOR | guest_case.cpl;
-+	vmcb->save.ss.attrib &= ~SVM_SELECTOR_DPL_MASK;
-+	vmcb->save.ss.attrib |= guest_case.cpl << SVM_SELECTOR_DPL_SHIFT;
-+	vmcb->save.ds.selector = USER_DS_SELECTOR | guest_case.cpl;
-+	vmcb->save.ds.attrib &= ~SVM_SELECTOR_DPL_MASK;
-+	vmcb->save.ds.attrib |= guest_case.cpl << SVM_SELECTOR_DPL_SHIFT;
-+	vmcb->save.es.selector = USER_DS_SELECTOR | guest_case.cpl;
-+	vmcb->save.es.attrib &= ~SVM_SELECTOR_DPL_MASK;
-+	vmcb->save.es.attrib |= guest_case.cpl << SVM_SELECTOR_DPL_SHIFT;
-+
-+	run_guest(vmcb, svm->vmcb_gpa);
-+	if (!guest_case.expect_l0) {
-+		GUEST_ASSERT_EQ(vmcb->control.exit_code,
-+				SVM_EXIT_EXCP_BASE + GP_VECTOR);
-+		GUEST_DONE();
-+	}
-+	GUEST_FAIL("L1 received nested SVM exit 0x%lx",
-+		   vmcb->control.exit_code);
-+}
-+
-+static void l1_vmx_code(struct vmx_pages *vmx)
-+{
-+	prepare_for_vmx_operation(vmx);
-+	load_vmcs(vmx);
-+	prepare_vmcs(vmx, l2_guest_code);
-+
-+	vmwrite(EXCEPTION_BITMAP, BIT_ULL(GP_VECTOR));
-+	vmwrite(GUEST_CS_SELECTOR, USER_CS_SELECTOR | guest_case.cpl);
-+	vmwrite(GUEST_CS_AR_BYTES, 0xa09b | guest_case.cpl << 5);
-+	vmwrite(GUEST_SS_SELECTOR, USER_DS_SELECTOR | guest_case.cpl);
-+	vmwrite(GUEST_SS_AR_BYTES, 0xc093 | guest_case.cpl << 5);
-+	vmwrite(GUEST_DS_SELECTOR, USER_DS_SELECTOR | guest_case.cpl);
-+	vmwrite(GUEST_DS_AR_BYTES, 0xc093 | guest_case.cpl << 5);
-+	vmwrite(GUEST_ES_SELECTOR, USER_DS_SELECTOR | guest_case.cpl);
-+	vmwrite(GUEST_ES_AR_BYTES, 0xc093 | guest_case.cpl << 5);
-+
-+	vmlaunch();
-+	if (!guest_case.expect_l0) {
-+		GUEST_ASSERT_EQ(vmread(VM_EXIT_REASON) & 0xffff,
-+				EXIT_REASON_EXCEPTION_NMI);
-+		GUEST_ASSERT_EQ(vmread(VM_EXIT_INTR_INFO) & 0xff,
-+				GP_VECTOR);
-+		GUEST_DONE();
-+	}
-+	GUEST_FAIL("L1 received nested VMX exit 0x%lx",
-+		   vmread(VM_EXIT_REASON));
-+}
-+
-+static void __attribute__((__flatten__)) l1_guest_code(void *test_data)
-+{
-+	if (this_cpu_has(X86_FEATURE_SVM))
-+		l1_svm_code(test_data);
-+	else
-+		l1_vmx_code(test_data);
-+}
-+
-+static void setup_user_environment(struct kvm_vm *vm)
-+{
-+	struct idt_entry *idt = addr_gva2hva(vm, vm->arch.idt);
-+
-+	idt[BP_VECTOR].dpl = 3;
-+	vm_install_exception_handler(vm, BP_VECTOR, guest_done_handler);
-+	vm_init_user_mode(vm);
-+}
-+
-+static void handle_vmware_port(struct kvm_vcpu *vcpu)
-+{
-+	struct kvm_run *run = vcpu->run;
-+	struct kvm_regs regs;
-+	u32 *data;
-+
-+	TEST_ASSERT_EQ(run->io.direction, KVM_EXIT_IO_IN);
-+	TEST_ASSERT_EQ(run->io.size, 4);
-+	TEST_ASSERT_EQ(run->io.count, 1);
-+	TEST_ASSERT_EQ(run->io.port, VMWARE_BACKDOOR_PORT);
-+
-+	data = (void *)run + run->io.data_offset;
-+	*data = 0;
-+
-+	vcpu_regs_get(vcpu, &regs);
-+	regs.rbx = VMWARE_MAGIC;
-+	vcpu_regs_set(vcpu, &regs);
-+}
-+
-+static void run_test(const struct nested_backdoor_case *test_case)
-+{
-+	gva_t nested_test_data_gva;
-+	struct kvm_vcpu *vcpu;
-+	struct kvm_vm *vm;
-+	int port_exits = 0;
-+
-+	vm = vm_create(1);
-+	guest_case = *test_case;
-+	sync_global_to_guest(vm, guest_case);
-+	vm_enable_cap(vm, KVM_CAP_X86_VMWARE, test_case->flags);
-+	vcpu = vm_vcpu_add(vm, 0, l1_guest_code);
-+
-+	if (kvm_cpu_has(X86_FEATURE_SVM))
-+		vcpu_alloc_svm(vm, &nested_test_data_gva);
-+	else
-+		vcpu_alloc_vmx(vm, &nested_test_data_gva);
-+	vcpu_args_set(vcpu, 1, nested_test_data_gva);
-+	setup_user_environment(vm);
-+
-+	for (;;) {
-+		struct kvm_run *run = vcpu->run;
-+		struct ucall uc;
-+
-+		vcpu_run(vcpu);
-+		TEST_ASSERT_KVM_EXIT_REASON(vcpu, KVM_EXIT_IO);
-+
-+		if (run->io.port == VMWARE_BACKDOOR_PORT) {
-+			handle_vmware_port(vcpu);
-+			port_exits++;
-+			continue;
-+		}
-+
-+		switch (get_ucall(vcpu, &uc)) {
-+		case UCALL_ABORT:
-+			REPORT_GUEST_ASSERT(uc);
-+			break;
-+		case UCALL_DONE:
-+			TEST_ASSERT_EQ(port_exits, test_case->expect_l0);
-+			kvm_vm_free(vm);
-+			return;
-+		default:
-+			TEST_FAIL("Unexpected I/O exit on port 0x%x (ucall 0x%lx)",
-+				  run->io.port, uc.cmd);
-+		}
-+	}
-+}
-+
-+int main(int argc, char *argv[])
-+{
-+	bool module_default = get_kvm_param_bool("enable_vmware_backdoor");
-+	const struct nested_backdoor_case test_cases[] = {
-+		{ NESTED_BACKDOOR_FLAGS,
-+		  VMWARE_MAGIC, VMWARE_BACKDOOR_PORT, 3, true },
-+		{ NESTED_BACKDOOR_FLAGS,
-+		  0, VMWARE_BACKDOOR_PORT, 3, false },
-+		{ NESTED_BACKDOOR_FLAGS,
-+		  VMWARE_MAGIC, VMWARE_BACKDOOR_PORT + 2, 3, false },
-+		{ NESTED_BACKDOOR_FLAGS,
-+		  VMWARE_MAGIC, VMWARE_BACKDOOR_PORT, 2, false },
-+		/* L1 keeps the #GP without the nested flag... */
-+		{ KVM_VMWARE_ENABLE_BACKDOOR,
-+		  VMWARE_MAGIC, VMWARE_BACKDOOR_PORT, 3, false },
-+		/* ...and the nested flag needs the backdoor to be enabled. */
-+		{ KVM_VMWARE_ENABLE_NESTED_BACKDOOR,
-+		  VMWARE_MAGIC, VMWARE_BACKDOOR_PORT, 3, module_default },
-+	};
-+	unsigned int supported;
-+	int i;
-+
-+	supported = kvm_check_cap(KVM_CAP_X86_VMWARE);
-+	TEST_REQUIRE((supported & NESTED_BACKDOOR_FLAGS) ==
-+		     NESTED_BACKDOOR_FLAGS);
-+	TEST_REQUIRE(kvm_cpu_has(X86_FEATURE_SVM) ||
-+		     kvm_cpu_has(X86_FEATURE_VMX));
-+
-+	for (i = 0; i < ARRAY_SIZE(test_cases); i++)
-+		run_test(&test_cases[i]);
-+
-+	return 0;
-+}
--- 
-2.53.0
-
+> 
+> Assisted-by: Antigravity:gemini-3.1-pro
+> Signed-off-by: Ian Rogers <irogers@google.com>
+> ---
+>  tools/perf/Makefile.config     | 83 +++++++++++++++++++++++++++-------
+>  tools/perf/Makefile.perf       |  8 +++-
+>  tools/perf/bpf_skel.mak        | 36 ++++++++++-----
+>  tools/scripts/Makefile.include |  1 +
+>  tools/scripts/utilities.mak    |  4 +-
+>  5 files changed, 101 insertions(+), 31 deletions(-)
+> 
+> diff --git a/tools/perf/Makefile.config b/tools/perf/Makefile.config
+> index cafc7be79643..ca045f7ff01d 100644
+> --- a/tools/perf/Makefile.config
+> +++ b/tools/perf/Makefile.config
+> @@ -662,27 +662,78 @@ ifeq ($(BUILD_BPF_SKEL),1)
+>    else ifeq ($(filter -DHAVE_LIBOPENSSL_SUPPORT, $(CFLAGS)),)
+>      $(warning Warning: Disabled BPF skeletons as libopenssl is required)
+>      BUILD_BPF_SKEL := 0
+> -  else ifeq ($(call get-executable,$(CLANG)),)
+> -    $(warning Warning: Disabled BPF skeletons as clang ($(CLANG)) is missing)
+> -    BUILD_BPF_SKEL := 0
+> -  else
+> -    CLANG_VERSION := $(shell $(CLANG) --version | head -1 | sed 's/.*clang version \([[:digit:]]\+.[[:digit:]]\+.[[:digit:]]\+\).*/\1/g')
+> -    ifeq ($(call version-lt3,$(CLANG_VERSION),12.0.1),1)
+> -      $(warning Warning: Disabled BPF skeletons as reliable BTF generation needs at least $(CLANG) version 12.0.1)
+> -      BUILD_BPF_SKEL := 0
+> -    endif
+>    endif
+>    ifeq ($(BUILD_BPF_SKEL),1)
+> -    $(call feature_check,clang-bpf-co-re)
+> -    ifeq ($(feature-clang-bpf-co-re), 0)
+> -      $(warning Warning: Disabled BPF skeletons as clang is too old)
+> +    # Prefer bpf-gcc when building with gcc (CC_NO_CLANG=1) and clang when
+> +    # building with clang, unless CLANG or BPF_GCC was explicitly specified on
+> +    # the command line. Fall back to whichever compiler is available.
+> +    prefer_bpf_gcc := $(CC_NO_CLANG)
+> +    ifeq ($(origin BPF_GCC),command line)
+> +      ifneq ($(BPF_GCC),)
+> +        prefer_bpf_gcc := 1
+> +      endif
+> +    else ifeq ($(origin CLANG),command line)
+> +      ifneq ($(CLANG),)
+> +        prefer_bpf_gcc := 0
+> +      endif
+> +    endif
+> +
+> +    have_bpf_gcc := 0
+> +    have_clang_bpf := 0
+> +
+> +    define check_bpf_gcc
+> +      ifneq ($$(call get-executable,$$(BPF_GCC)),)
+> +        BPF_GCC_VERSION := $$(shell $$(BPF_GCC) -dumpfullversion 2>/dev/null)
+> +        ifneq ($$(BPF_GCC_VERSION),)
+> +          ifneq ($$(call version-lt3,$$(BPF_GCC_VERSION),14.0.0),1)
+> +            have_bpf_gcc := 1
+> +          endif
+> +        endif
+> +      endif
+> +    endef
+> +
+> +    ifeq ($(prefer_bpf_gcc),1)
+> +      $(eval $(check_bpf_gcc))
+> +    endif
+> +
+> +    ifeq ($(have_bpf_gcc),0)
+> +      ifneq ($(call get-executable,$(CLANG)),)
+> +        CLANG_VERSION := $(shell $(CLANG) --version | head -1 | sed 's/.*clang version \([[:digit:]]\+.[[:digit:]]\+.[[:digit:]]\+\).*/\1/g')
+> +        ifneq ($(call version-lt3,$(CLANG_VERSION),12.0.1),1)
+> +          $(call feature_check,clang-bpf-co-re)
+> +          ifneq ($(feature-clang-bpf-co-re), 0)
+> +            have_clang_bpf := 1
+> +          endif
+> +        endif
+> +      endif
+> +    endif
+> +
+> +    ifeq ($(prefer_bpf_gcc)$(have_clang_bpf),00)
+> +      $(eval $(check_bpf_gcc))
+> +    endif
+> +
+> +    ifeq ($(have_bpf_gcc),1)
+> +      $(call detected,CONFIG_PERF_BPF_SKEL_BPF_GCC)
+> +      $(call detected,CONFIG_PERF_BPF_SKEL)
+> +      CFLAGS += -DHAVE_BPF_SKEL
+> +    else ifeq ($(have_clang_bpf),1)
+> +      $(call detected,CONFIG_PERF_BPF_SKEL)
+> +      CFLAGS += -DHAVE_BPF_SKEL
+> +    else
+> +      ifeq ($(call get-executable,$(CLANG))$(call get-executable,$(BPF_GCC)),)
+> +        $(warning Warning: Disabled BPF skeletons as clang ($(CLANG)) and bpf-gcc ($(BPF_GCC)) are missing)
+> +      else ifneq ($(call get-executable,$(CLANG)),)
+> +        ifeq ($(call version-lt3,$(CLANG_VERSION),12.0.1),1)
+> +          $(warning Warning: Disabled BPF skeletons as reliable BTF generation needs at least $(CLANG) version 12.0.1)
+> +        else
+> +          $(warning Warning: Disabled BPF skeletons as clang is too old)
+> +        endif
+> +      else
+> +        $(warning Warning: Disabled BPF skeletons as bpf-gcc ($(BPF_GCC)) needs at least version 14.0.0)
+> +      endif
+>        BUILD_BPF_SKEL := 0
+>      endif
+>    endif
+> -  ifeq ($(BUILD_BPF_SKEL),1)
+> -    $(call detected,CONFIG_PERF_BPF_SKEL)
+> -    CFLAGS += -DHAVE_BPF_SKEL
+> -  endif
+>  endif
+>  
+>  ifndef GEN_VMLINUX_H
+> diff --git a/tools/perf/Makefile.perf b/tools/perf/Makefile.perf
+> index 2d9379fea267..4061a79cae54 100644
+> --- a/tools/perf/Makefile.perf
+> +++ b/tools/perf/Makefile.perf
+> @@ -37,6 +37,9 @@ include ../scripts/utilities.mak
+>  # Define EXTRA_BPF_FLAGS="--sysroot=<path>" or other custom include paths for
+>  # cross-compiling BPF skeletons
+>  #
+> +# Define BPF_GCC to point to the bpf-gcc binary if the default `bpf-gcc' is not
+> +# correct, or set BPF_GCC= to disable using bpf-gcc for BPF skeletons.
+> +#
+>  # Define EXCLUDE_EXTLIBS=-lmylib to exclude libmylib from the auto-generated
+>  # EXTLIBS.
+>  #
+> @@ -208,6 +211,7 @@ FIND    = find
+>  INSTALL = install
+>  FLEX    ?= flex
+>  BISON   ?= bison
+> +BPF_GCC ?= bpf-gcc
+>  AWK     = awk
+>  
+>  # include Makefile.config by default and rule out
+> @@ -321,8 +325,8 @@ ifneq ($(force_fixdep),1)
+>    endif
+>  endif
+>  
+> -export srctree OUTPUT RM CC CXX RUSTC CLANG LD AR CFLAGS CXXFLAGS RUST_FLAGS V BISON FLEX AWK LIBBPF READELF
+> -export HOSTCC HOSTLD HOSTAR HOSTCFLAGS SHELLCHECK MYPY PYLINT CONFIG_PERF_BPF_SKEL
+> +export srctree OUTPUT RM CC CXX RUSTC CLANG BPF_GCC LD AR CFLAGS CXXFLAGS RUST_FLAGS V BISON FLEX AWK LIBBPF READELF
+> +export HOSTCC HOSTLD HOSTAR HOSTCFLAGS SHELLCHECK MYPY PYLINT CONFIG_PERF_BPF_SKEL CONFIG_PERF_BPF_SKEL_BPF_GCC
+>  
+>  include $(srctree)/tools/build/Makefile.include
+>  
+> diff --git a/tools/perf/bpf_skel.mak b/tools/perf/bpf_skel.mak
+> index f2559de39f96..7b7edf506509 100644
+> --- a/tools/perf/bpf_skel.mak
+> +++ b/tools/perf/bpf_skel.mak
+> @@ -22,21 +22,35 @@ bpf-skel-prepare: $(BPFTOOL) $(VMLINUX_H)
+>  define get_sys_includes
+>  $(shell $(1) $(2) -v -E - </dev/null 2>&1 \
+>         | sed -n '/<...> search starts here:/,/End of search list./{ s| \(/.*\)|-idirafter \1|p }') \
+> -$(shell $(1) $(2) -dM -E - </dev/null | grep '__riscv_xlen ' | awk '{printf("-D__riscv_xlen=%d -D__BITS_PER_LONG=%d", $$3, $$3)}')
+> +$(shell $(1) $(2) -dM -E - </dev/null | grep '__riscv_xlen ' | awk '{printf("-D__riscv_xlen=%d -D__BITS_PER_LONG=%d", $$3, $$3)}') \
+> +$(shell $(1) $(2) -dM -E - </dev/null | grep '__loongarch_grlen ' | awk '{printf("-D__BITS_PER_LONG=%d", $$3)}') \
+> +$(shell $(1) $(2) -dM -E - </dev/null | grep -E 'MIPS(EL|EB)|_MIPS_SZ(PTR|LONG) |_MIPS_SIM |_ABI(O32|N32|64) ' | awk '{printf("-D%s=%s ", $$2, $$3)}')
+>  endef
+>  
+> -ifneq ($(CROSS_COMPILE),)
+> -CLANG_TARGET_ARCH = --target=$(notdir $(CROSS_COMPILE:%-=%))
+> +ifeq ($(CONFIG_PERF_BPF_SKEL_BPF_GCC),y)
+> +  BPF_CC := $(BPF_GCC)
+> +  QUIET_BPF_CC = $(QUIET_BPF_GCC)
+> +  IS_LITTLE_ENDIAN := $(shell $(CC) -dM -E - </dev/null | \
+> +			grep 'define __BYTE_ORDER__ __ORDER_LITTLE_ENDIAN__')
+> +  BPF_OPTIONS = -Wall -mcpu=v3 -fno-ident -DBPF_NO_PRESERVE_ACCESS_INDEX -Wno-attributes \
+> +		-D__TARGET_ARCH_$(SRCARCH) $(if $(IS_LITTLE_ENDIAN),-mlittle-endian,-mbig-endian)
+> +  BPF_SYS_INCLUDES = $(call get_sys_includes,$(CC),)
+> +else
+> +  BPF_CC := $(CLANG)
+> +  QUIET_BPF_CC = $(QUIET_CLANG)
+> +  ifneq ($(CROSS_COMPILE),)
+> +    CLANG_TARGET_ARCH = --target=$(notdir $(CROSS_COMPILE:%-=%))
+> +  endif
+> +  BPF_OPTIONS = -Wall -mcpu=v3 -fno-stack-protector --target=bpf -Wno-microsoft-anon-tag
+> +  BPF_SYS_INCLUDES = $(call get_sys_includes,$(CLANG),$(CLANG_TARGET_ARCH))
+>  endif
+>  
+> -CLANG_OPTIONS = -Wall -mcpu=v3
+> -CLANG_SYS_INCLUDES = $(call get_sys_includes,$(CLANG),$(CLANG_TARGET_ARCH))
+>  LIBBPF_INCLUDE := $(abspath $(or $(OUTPUT),.))/libbpf/include
+> -BPF_INCLUDE := -I$(SKEL_TMP_OUT)/.. -I$(SKEL_TOOL_OUT) -I$(LIBBPF_INCLUDE) $(CLANG_SYS_INCLUDES)
+> +BPF_INCLUDE := -I$(SKEL_TMP_OUT)/.. -I$(SKEL_TOOL_OUT) -I$(LIBBPF_INCLUDE) $(BPF_SYS_INCLUDES)
+>  TOOLS_UAPI_INCLUDE := -I$(srctree)/tools/include/uapi
+>  
+>  ifneq ($(WERROR),0)
+> -  CLANG_OPTIONS += -Werror
+> +  BPF_OPTIONS += -Werror
+>  endif
+>  
+>  $(BPFTOOL):
+> @@ -83,11 +97,11 @@ endif
+>  # Consolidated Pattern rule for $(dir)/bpf_skel/
+>  $(SKEL_TMP_OUT)/%.bpf.o: $(srctree)/tools/perf/$(dir)/bpf_skel/%.bpf.c $(LIBBPF) $(VMLINUX_H) $(OUTPUT)PERF-VERSION-FILE util/bpf_skel/perf_version.h
+>  	$(call rule_mkdir)
+> -	$(QUIET_CLANG)
+> -	$(Q)$(CLANG) -g -O2 -fno-stack-protector --target=bpf \
+> -	  $(CLANG_OPTIONS) $(EXTRA_BPF_FLAGS) $(BPF_INCLUDE) $(TOOLS_UAPI_INCLUDE) \
+> +	$(QUIET_BPF_CC)
+> +	$(Q)$(BPF_CC) -g -O2 \
+> +	  $(BPF_OPTIONS) $(EXTRA_BPF_FLAGS) $(BPF_INCLUDE) $(TOOLS_UAPI_INCLUDE) \
+>  	  -include $(OUTPUT)PERF-VERSION-FILE -include util/bpf_skel/perf_version.h \
+> -	  -fms-extensions -Wno-microsoft-anon-tag \
+> +	  -fms-extensions \
+>  	  -c $< -o $@
+>  
+>  $(SKEL_OUT)/%.skel.h: $(SKEL_TMP_OUT)/%.bpf.o $(BPFTOOL)
+> diff --git a/tools/scripts/Makefile.include b/tools/scripts/Makefile.include
+> index 378387f62960..9967210b2928 100644
+> --- a/tools/scripts/Makefile.include
+> +++ b/tools/scripts/Makefile.include
+> @@ -217,6 +217,7 @@ ifneq ($(silent),1)
+>  	QUIET_CC       = @echo '  CC      '$@;
+>  	QUIET_CC_FPIC  = @echo '  CC FPIC '$@;
+>  	QUIET_CLANG    = @echo '  CLANG   '$@;
+> +	QUIET_BPF_GCC  = @echo '  BPF_GCC '$@;
+>  	QUIET_AR       = @echo '  AR      '$@;
+>  	QUIET_LINK     = @echo '  LINK    '$@;
+>  	QUIET_MKDIR    = @echo '  MKDIR   '$@;
+> diff --git a/tools/scripts/utilities.mak b/tools/scripts/utilities.mak
+> index d69d0345cc23..746aaf6e5145 100644
+> --- a/tools/scripts/utilities.mak
+> +++ b/tools/scripts/utilities.mak
+> @@ -186,7 +186,7 @@ _gea_err  = $(if $(1),$(error Please set '$(1)' appropriately))
+>  # was to check the flex version to see if we can use compiler warnings as
+>  # errors for one of the cases flex generates code C compilers complains about.
+>  
+> -version-ge3 = $(shell echo "$(1).$(2)" | awk -F'.' '{ printf("%d\n", (10000000 * $$1 + 10000 * $$2 + $$3) >= (10000000 * $$4 + 10000 * $$5 + $$6)) }')
+> +version-ge3 = $(shell awk -v v1="$(1)" -v v2="$(2)" 'BEGIN { split(v1, a, "."); split(v2, b, "."); printf("%d\n", (10000000 * a[1] + 10000 * a[2] + a[3]) >= (10000000 * b[1] + 10000 * b[2] + b[3])) }')
+>  
+>  # version-lt3
+>  #
+> @@ -196,4 +196,4 @@ version-ge3 = $(shell echo "$(1).$(2)" | awk -F'.' '{ printf("%d\n", (10000000 *
+>  # check the flex version to see if we can use compiler warnings as errors for
+>  # one of the cases flex generates code C compilers complains about.
+>  
+> -version-lt3 = $(shell echo "$(1).$(2)" | awk -F'.' '{ printf("%d\n", (10000000 * $$1 + 10000 * $$2 + $$3) < (10000000 * $$4 + 10000 * $$5 + $$6)) }')
+> +version-lt3 = $(shell awk -v v1="$(1)" -v v2="$(2)" 'BEGIN { split(v1, a, "."); split(v2, b, "."); printf("%d\n", (10000000 * a[1] + 10000 * a[2] + a[3]) < (10000000 * b[1] + 10000 * b[2] + b[3])) }')
+> -- 
+> 2.56.0.307.g5fe7bd680c-goog
+> 
