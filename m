@@ -1,78 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.21
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.242.206.163
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794405920;
-	b=Pu8+bOTTpwpp658JwHPmP4M2TEEo4JNwYX0oNIlTKnMFLfiKx3yHIMmhbXxtp1K5Dbjp
-	 WlUAr9OAdqEa9dLJWm0eRv777PyqJzm5DiYZ47iNvLMjFg434U8U+pYwMfl3ykv3vJhHK
-	 QYo/YGxQeBs3uUuraMF4MWsPK+VHGfcrijkCmmBEEgOM5EoIrGCGwbZI+XFSy/GL1lu3P
-	 L671rdpnkApvyrzhYJFMPruPl31Nd4JcXJkBfIbzvAqr8JntHS0OKy279QT3Yryzg/anL
-	 1OGivdCPMH5jalB2f/NRlskBMjN2Shwgiley17FuOlOnPVaAGxp7iYbz7G02yqEASUQ==
+	t=1794405953;
+	b=eOeZ06pxGL1rIgvEnDVhNPFAHwspHNdmAXk81DFXqrPjDsSPlVHhyELoFYsek+Ph7JGQ
+	 83o2nllpeqNlkKrDrqejSERApuILbB4i9akUTm0hdqm4zVbfRq+mGeU5m97jAu+DsWbJh
+	 fzECcyBImAdQOS7x5UsY4rO1PZwUHAFw3FnhDKyN2msj9HpLWV4zzJew18TauesAbmni9
+	 rUo2fvjn5Uc4mEthqMmWiVFTOLO34mybUWo2lj8LgwOGIzVQaetqIXWFKF3CbtCP4Mf+J
+	 hGUq/8mNSAP2158Y3YpHtggLlx3goO4A3L4p/PHlzw4Eri/uig8QVg/vsNGfzNrB1iw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794405920;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=kO0azMBxoXq9M5QT/qyEj+5H+3IMTlm3RJDmjb9koLA=;
-	b=TpPKb6uEoOVMlirKMMiFsK2Z/aXh30L0EM04Ca9WoKDiJv3jtRBGaAflh8BG6BN7WCkv
-	 oelmdzoBu9OoqvpcJS/7q8OSUL2Nb2haYGdwUf1Utqgrhn9rP8BDJvrCn4AsFLNlnvPEx
-	 jOk11iXtAAS4La7ouWsoUWSCaVqKlHVX7yrixdXb5FmEhnhe8f8som12QNw4n183K4TE5
-	 u5EXUWWzQKFDKSt5ONThZV5a1VVPMjOFVneFZrVZZff/a1ABnsHeH6P1xGTNgp7t4lQMa
-	 QTbM9JfC/ubRQuK2Pd77QjrIzRvuiVQN01O+Q7KXJ1ncp91Lt1nao9zB6JgqWJKyACA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794405953;
+	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
+	 X-CM-SenderInfo:X-Coremail-Antispam;
+	bh=YmrcfgcwkxKNZg0iNiiDr2NYN6573L8YQrdPEwtnUro=;
+	b=nA+EL88taFz2t/iE42l4W0m/2ENfjgG7t4nqDoSO3f0SUALDgkrsnD8xFGu7D+Gjf5ec
+	 3rDK0QSKdp4plIAaAvMBPQOBf4j/uZBMW7lEYmkQqMZWMEV1dl5xTvpDd5Q9teeaDjQEZ
+	 b2XPYIOfbTgnzUH+PoOwuULcPLuWquE4/hhO6LLitF4m8phAmJIL1UG+dHiX3X/iwn2n0
+	 0wawQw5JaxMRjzhxgm3mi3DT3IsYmb2TGti6oi7P/VBUjB/qFZdltE+wSbaOEX2KCxdjY
+	 qYJjPLA7Mu/72+FaeWjsrsSQBuf1jZs4iOApNKX+71maXHj8BFGl4kLdGYIJt3smS7Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=AHn03s9l;
-	arc=none smtp.remote-ip=198.175.65.21
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E37B606A336;
-	Wed, 11 Nov 2026 14:05:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7E37B606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=AHn03s9l
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794405921; x=1825941921;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=sNjZft24xr7laXif2MdlCiMuF0+/w6pJG+fNtzq7h+c=;
-  b=AHn03s9lY7UDrNQq6IpuNnojyvUVzqcP8R3+nb+STTtPbcOyjGyS6nbm
-   RHrarDoyHdSNG93xthXRUCBj/gBISNhYyIeaeIa2WJ2z+KFOvf8r8Xuka
-   XHZnWa1Tav9yBq1tXdOKKMCz62j6i8NRdmt4OIboK0p9gPDpepV21XVNg
-   16w9BAgkDFa4tQzaXxKZWkZB6jFFR8UOLxkLMUAQd/rrQOvmpt/SQDuyn
-   dRuyoSgUKJbm/tUMI001fcNLneWj0I6SNzI4Vmp8hhfQBHhjOSYACeROf
-   gVVw6ViNE8+QI/HMwHOmgtSjSUL9fLMw+I9lMqrSTUrMteexSUedknifV
-   A==;
-X-CSE-ConnectionGUID: rEB7VqG/RUaFc56cV1GxKw==
-X-CSE-MsgGUID: ImyaIjEtRs28lV1QxTpsQg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3261549"
-X-IronPort-AV: E=Sophos;i="6.27,207,1787036400"; 
-   d="scan'208";a="3261549"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 06:05:17 -0800
-X-CSE-ConnectionGUID: oT9Cbor5Qni6BQCUdyKTLg==
-X-CSE-MsgGUID: 0F6K0J6gQBqAceNzhSvsFg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,207,1787036400"; 
-   d="scan'208";a="8999654"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by fmviesa010.fm.intel.com with ESMTP; 11 Nov 2026 06:05:16 -0800
-Received: by black.igk.intel.com (Postfix, from userid 1008)
-	id 25CCF99; Wed, 11 Nov 2026 15:05:14 +0100 (CET)
-Date: Wed, 11 Nov 2026 15:05:14 +0100
-From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-To: Daniel Baluta <daniel.baluta@nxp.com>
-Cc: badhri@google.com, gregkh@linuxfoundation.org,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stefan.ghetu@nxp.com, imx@lists.linux.dev, Li Jun <jun.li@nxp.com>
-Subject: Re: [PATCH] usb: typec: tcpm: allow external charger detection to
- set USB_TYPE
-Message-ID: <avR2GnwIdOKSrTlE@black.igk.intel.com>
-References: <20261106115742.730704-1-daniel.baluta@nxp.com>
+	dmarc=none header.from=loongson.cn;
+	spf=pass smtp.mailfrom=loongson.cn;
+	arc=none smtp.remote-ip=114.242.206.163
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 252A4606A32A
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 14:05:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 252A4606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [223.64.69.17])
+	by gateway (Coremail) with SMTP id _____8BxLNI8dvRq2o8eAA--.22595S3;
+	Wed, 11 Nov 2026 22:05:48 +0800 (CST)
+Received: from kernelserver (unknown [223.64.69.17])
+	by front1 (Coremail) with SMTP id qMiowJCxtMw3dvRqALwzAA--.13124S2;
+	Wed, 11 Nov 2026 22:05:47 +0800 (CST)
+From: Huacai Chen <chenhuacai@loongson.cn>
+To: Linus Torvalds <torvalds@linux-foundation.org>,
+	Huacai Chen <chenhuacai@kernel.org>
+Cc: loongarch@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Guo Ren <guoren@kernel.org>,
+	Xuerui Wang <kernel@xen0n.name>,
+	Jiaxun Yang <jiaxun.yang@flygoat.com>,
+	Huacai Chen <chenhuacai@loongson.cn>
+Subject: [GIT PULL] LoongArch fixes for v7.4-rc3
+Date: Wed, 11 Nov 2026 22:05:34 +0800
+Message-ID: <20261111140535.3899978-1-chenhuacai@loongson.cn>
+X-Mailer: git-send-email 2.52.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,62 +55,77 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261106115742.730704-1-daniel.baluta@nxp.com>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qMiowJCxtMw3dvRqALwzAA--.13124S2
+X-CM-SenderInfo: hfkh0x5xdftxo6or00hjvr0hdfq/
+X-Coremail-Antispam: 1Uk129KBj93XoW7tw1DWr1ftrW3Cr1xXr4fJFc_yoW8uF4Upr
+	y3uFnxGF4DGry3JrnIk34Uur15Jr1xG34fXF47Cry8CF15Ar1UJry7XrykXa4UA3yrJry0
+	qF1rG3WYgF1UJagCm3ZEXasCq-sJn29KB7ZKAUJUUUUr529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUU9Fb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AK
+	xVW8Jr0_Cr1UM2kKe7AKxVWUXVWUAwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07
+	AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWU
+	XVWUAwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7V
+	AKI48JMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMxCIbckI1I0E14v2
+	6r1Y6r17MI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17
+	CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF
+	0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIx
+	AIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2
+	KfnxnUUI43ZEXa7IU8CksDUUUUU==
 
-On Fri, Nov 06, 2026 at 01:57:41PM +0200, Daniel Baluta wrote:
-> From: Li Jun <jun.li@nxp.com>
-> 
-> Teach tcpm_psy_set_prop() to accept writes of
-> POWER_SUPPLY_PROP_USB_TYPE and store the value in port->usb_type, and
-> advertise the BC1.2 USB types (SDP/DCP/CDP/ACA) in
-> psy_desc.usb_types so power_supply_set_property() callers are not
-> rejected by power_supply_has_property().
-> 
-> This is a prerequisite for a follow-up PHY charger-detection driver
-> that calls power_supply_set_property() on the tcpm-backed power
-> supply once it determines the attached BC1.2 charger type.
-> 
-> Signed-off-by: Li Jun <jun.li@nxp.com>
-> Signed-off-by: Daniel Baluta <daniel.baluta@nxp.com>
+The following changes since commit 7475ea8b58616b33c04afb976cf0fbaad9dd63fb:
 
-Acked-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+  Linux 7.4-rc2 (2026-11-08 16:22:20 -0800)
 
-> ---
->  drivers/usb/typec/tcpm/tcpm.c | 10 +++++++++-
->  1 file changed, 9 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/usb/typec/tcpm/tcpm.c b/drivers/usb/typec/tcpm/tcpm.c
-> index d721baef52104..24f4e8854f37f 100644
-> --- a/drivers/usb/typec/tcpm/tcpm.c
-> +++ b/drivers/usb/typec/tcpm/tcpm.c
-> @@ -8766,6 +8766,10 @@ static int tcpm_psy_set_prop(struct power_supply *psy,
->  	case POWER_SUPPLY_PROP_CURRENT_NOW:
->  		ret = tcpm_aug_set_op_curr(port, val->intval / 1000);
->  		break;
-> +	case POWER_SUPPLY_PROP_USB_TYPE:
-> +		port->usb_type = val->intval;
-> +		ret = 0;
-> +		break;
->  	default:
->  		ret = -EINVAL;
->  		break;
-> @@ -8807,7 +8811,11 @@ static int devm_tcpm_psy_register(struct tcpm_port *port)
->  		 port_dev_name);
->  	port->psy_desc.name = psy_name;
->  	port->psy_desc.type = POWER_SUPPLY_TYPE_USB;
-> -	port->psy_desc.usb_types = BIT(POWER_SUPPLY_USB_TYPE_C)  |
-> +	port->psy_desc.usb_types = BIT(POWER_SUPPLY_USB_TYPE_SDP) |
-> +				   BIT(POWER_SUPPLY_USB_TYPE_DCP) |
-> +				   BIT(POWER_SUPPLY_USB_TYPE_CDP) |
-> +				   BIT(POWER_SUPPLY_USB_TYPE_ACA) |
-> +				   BIT(POWER_SUPPLY_USB_TYPE_C)  |
->  				   BIT(POWER_SUPPLY_USB_TYPE_PD) |
->  				   BIT(POWER_SUPPLY_USB_TYPE_PD_PPS) |
->  				   BIT(POWER_SUPPLY_USB_TYPE_PD_PPS_SPR_AVS) |
-> -- 
-> 2.45.2
+are available in the Git repository at:
 
--- 
-heikki
+  git://git.kernel.org/pub/scm/linux/kernel/git/chenhuacai/linux-loongson.git tags/loongarch-fixes-7.4-1
+
+for you to fetch changes up to 422e532809572ba1043192bf6a0c653bc68b3140:
+
+  LoongArch: KVM: Reject repeated PCH-PIC CTRL_INIT (2026-11-10 17:20:42 +0800)
+
+----------------------------------------------------------------
+LoongArch fixes for v7.4-rc3
+
+Fix several bugs about ACPI IOVT, KEXEC, Hibernation, BPF JIT and KVM.
+----------------------------------------------------------------
+Bibo Mao (2):
+      ACPI: LoongArch: Fix incorrect pointer in acpi_iovt_init()
+      ACPI: LoongArch: Add checksum validation for ACPI IOVT table
+
+Huacai Chen (1):
+      ACPI: LoongArch: Validate ACPI IOVT device entries
+
+Jinjie Ruan (2):
+      LoongArch: kexec_file: Fix a modified cmdline leak
+      LoongArch: kexec_file: Fix elf_headers memory leak in retry loop
+
+Mike Rapoport (Microsoft) (1):
+      LoongArch: Restore KFENCE pages through DMW on resume
+
+Tao Cui (3):
+      LoongArch: KVM: Clear device pointer in irqchip destroy callbacks
+      LoongArch: KVM: Propagate real error code in kvm_pch_pic_create()
+      LoongArch: KVM: Reject repeated PCH-PIC CTRL_INIT
+
+Tiezhu Yang (2):
+      LoongArch: BPF: Make arena support depend on 128-bit cmpxchg
+      LoongArch: BPF: Make use of beqz and bnez for trampoline branches
+
+ arch/loongarch/include/asm/inst.h          | 21 +++++++++
+ arch/loongarch/kernel/inst.c               | 28 +++++++++++
+ arch/loongarch/kernel/machine_kexec.c      |  2 +
+ arch/loongarch/kernel/machine_kexec_file.c |  4 ++
+ arch/loongarch/kvm/intc/dmsintc.c          |  1 +
+ arch/loongarch/kvm/intc/eiointc.c          |  1 +
+ arch/loongarch/kvm/intc/ipi.c              |  1 +
+ arch/loongarch/kvm/intc/pch_pic.c          | 18 +++++--
+ arch/loongarch/net/bpf_jit.c               | 16 +++++--
+ arch/loongarch/power/hibernate.c           |  6 +++
+ drivers/acpi/loongarch/iovt.c              | 76 +++++++++++++++++++++++++-----
+ 11 files changed, 156 insertions(+), 18 deletions(-)
+
