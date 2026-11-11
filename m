@@ -1,95 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794415249;
-	b=aE94bA60LZSYtuJaBAihLrA9g2H4gxGQnpmiBB46Xrk4fcACODHECxM7dngnmSNwjqeT
-	 7v9rsiRy8lpa/MpQEoM1VpdkQGP+JeNwtfJ08/7HhjgF7bPRhZqNuurdG//Pyn9qTcOzp
-	 Z/hrafpX4OYiGHE6Ixsh1CkPvByrXMZfi7s+Q5Vg03Dv+ReLtJtkfJoMkqDC88NL11jQm
-	 5nLe8u6DcfzwM4ZVHr2C9AYUj7B6IpTDKo9QoiTER++7SKak2+4wmzeJqcBm0ZjgifO9S
-	 7PTWpHuW+qnc3YIJ+CAe8dUCdnNNj+MFW00af/Y/oSGTIvrc+3lBukga9KI9kdBwj2A==
+	t=1794415252;
+	b=kWpZULLuGEK42xmhGHRryEtQEnvpGfo2eTRTL1O24Pq/CsNiZ8hmQD8sAUptg7cg4c1J
+	 RgjQwJHJ+fmxAb0UZOFPuF80zUK3zmRzdSZIre6/OhbJP7ZPnAPBmehS/z/hpnx8Qo2wK
+	 1HKfTtLe4mSfR7xKbzHCXByZBM20h7/IrvQt/x5XTEzPCFjrdg6sV47bY12D0jKDVitHk
+	 nkmRSAv5b/7TsDMS9YLX2TS16Kk2F40u0mQ6b/y33WxRqBJhRAd2YzNOfuwYgJ4s2FyZG
+	 BFOZd4ijKib9EzNR442LsgP3pj0pmZmiscqk2qN0TSRgHvnuBJydHM1S6psY/k6YnoQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794415249;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Scanned-By;
-	bh=GVpqEQdeZ6Xl2N3ggskm2E4WT2d/uk/VeOOShN/bjqU=;
-	b=JGFNZ5K1UKUoCgotnxX0iGkF50d/XHmyUngv9JvxbrHmcWgfBsdKpO2+jmWKlhHXWEHu
-	 Ds2/a0Otoe9ApV4+RhMmfbQjJQW5WbRFs4Md1afMWLnoo+O0yrpPIE5OLVC7s0TTFtdGV
-	 4zENwWDGhxTxL40+XkXpgJ2gK7P0z6cvPVju1aI96gVgTXg6dmG5lhGivhkJacJnsfurx
-	 BKdP7TAxQkUdohPhQ5JcJZt8K3b6YB2NLytnb5Z5je+/XCSYfvUxs3uRZu3mtJ0X0hxVw
-	 LqlfbwD8ZyXv4Wr6OIvCIEtcW8shmd2CpDcaph982w8dHzw0YZXw05Mv5rCQ7G7osgA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794415252;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=ru6Wop6zD4SlcoFBcvjI3pjN1oteV3A3iUcGiS7Riek=;
+	b=LZc1UAXPrB56F5r/ZNAqNour4dS1FNEpQkGW60a0mBfxDgu4C6/sNxH6VouuwlLnrwcE
+	 ws9ZWfmLb7kNZNYHuibhWGBptjBjuywaaLkbE7kfaCu5dMzkP2sLC5DUeszF+7s958JWI
+	 JT56dn9vvXYsgEUKp0XkgLjfdF6tA702GE1OFSsFaNfMhoQue9lTvcifKvxiXKPj/ikXq
+	 jqSXXUjreQzumlmfeeLf3eXbWSk5kKLIatgef+9C1jpTQ5bTJeMV6CRmFw4RGQOWGSnjE
+	 1GJRnXD4DzHb4P5RM2to34lk9plr3YVqDkgukO01BWD9QK4WQ8EQj/+wrNt9tqEbPyw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=gq2lLa7d;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Vh6+wCs4;
+	arc=none smtp.remote-ip=74.125.82.178
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 204C2606A88D
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 16:40:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 204C2606A88D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12C67606A897
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 16:40:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12C67606A897
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=gq2lLa7d
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794415248;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=GVpqEQdeZ6Xl2N3ggskm2E4WT2d/uk/VeOOShN/bjqU=;
-	b=gq2lLa7dH2QHSvyzW3DhkAd3gijo0XncG0xLePfclmT8zqPNvZ21JGtxvA8qwjInHkCOxK
-	X63aAruqYAzabGlzRhRSiA+joNuWTIY1OOwGkEh691pQo87mbjuLs/sxlI81NQAgVUHQeX
-	VHhM+6cfMn0HO4iJOZFkdqnfceG7mEU=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-262-DB1KiW41P76NTV8Fl0A1NA-1; Wed,
- 11 Nov 2026 11:40:44 -0500
-X-MC-Unique: DB1KiW41P76NTV8Fl0A1NA-1
-X-Mimecast-MFC-AGG-ID: DB1KiW41P76NTV8Fl0A1NA_1794415242
-Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 9EDF0180054D;
-	Wed, 11 Nov 2026 16:40:41 +0000 (UTC)
-Received: from ivecera-thinkpadp16vgen1.tpbc.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 6E68B428;
-	Wed, 11 Nov 2026 16:40:35 +0000 (UTC)
-From: Ivan Vecera <ivecera@redhat.com>
-To: netdev@vger.kernel.org
-Cc: Vadim Fedorenko <vadim.fedorenko@linux.dev>,
-	Arkadiusz Kubalewski <arkadiusz.kubalewski@intel.com>,
-	Jiri Pirko <jiri@resnulli.us>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Min Li <min.li@microchip.com>,
-	Tony Nguyen <anthony.l.nguyen@intel.com>,
-	Przemek Kitszel <przemyslaw.kitszel@intel.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Richard Cochran <richardcochran@gmail.com>,
-	linux-doc@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Vh6+wCs4
+Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-33fb4680717so3639193eec.1
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 08:40:51 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794415251; x=1795020051; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ru6Wop6zD4SlcoFBcvjI3pjN1oteV3A3iUcGiS7Riek=;
+        b=Vh6+wCs4y17+XhlOELZAK9/7BUqo9m9pKcWAWOT2fd48lOkHy4u9qQFmjzT72OTCfL
+         SA4642JaeLj05/jZr8BDvmZI35qddEw100h/rplpj1r9m9Lf460vqL4e1HyJn8E1yx+1
+         I1KMJlVDC0Ci6oHbWKU5ajfWPAUjAuaWp1m9Fv9AVzszXLolfYJPK+ECxRqbyprieR8c
+         vpEav7vKmSWWIMYA1S1jHLyda22Pezqhiennthcpw0B6ywEcO+UjzqSnAqesbxUgAzdz
+         7k02c2pfBwMK4YY/iWg2fDoyBcKAWcGuvi/dHerg0V7/5QDXYQLL3j7MREuU3WA4tVAo
+         vrjQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794415251; x=1795020051;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ru6Wop6zD4SlcoFBcvjI3pjN1oteV3A3iUcGiS7Riek=;
+        b=WBYDh+2ob1ZLEqEY4XggKgAkPGaTv7Z+UZtzgEQXTKuDafo7TS7EeG//IIGoSvOw2M
+         zGEUt+FbJjYS75yN3fWgaUORwTz8UQctP8LUlnHTuzLxHpEgkga4qKZ8a3WRlMB4+BzT
+         jNgmU50zHfQR81PW6Dvg1JeHVxRk8G4LVvFpudnOaxnRGRHTiuAMVnPrUMtkaMgYPYVH
+         qZzJYK6LD8fL4B4S1/cM+/F3bA/e5uTlu1naMKtjv/BD/oyxGMHtRvK4IuwrjsylmhwX
+         ni0zf/gJLAAWLrhOw0CW+kNWr6FQuMtc7yTBBzHgYoeAikvyBlQZybxLwZ9N+ptNrb2e
+         lc5Q==
+X-Forwarded-Encrypted: i=1; AL+hErGQuzp9ZOGne7yl/ZXLp6aPkhPa/vlJyFyGMWpQmnvW7kgg7E56d1clrd4lns/goRaFOShnmwelGSv8Ols=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+FWkzu72jz44MsecC/OuCTybSd/5bsaS94NzZwhXo8TEW3Romj
+	Qd5QViJkpEsSGh8c9v3+2F6mR9KSWWyhdRAkms0N648nsOuqiu7J0u5G
+X-Gm-Gg: AYBFou28mXc7D1Etx6tEWmN+4U+L3UJCKG/xdg0T62tsdPj4l6eQiheWj/0Kq99SdEP
+	RARQbxce5LptTbkpLEK+N2DXmdOl/WLviOqEjs8utJn95+8t3GV5rYVbXWLzAVa6+tzp0muV2SS
+	qWByXEAD3wft4SJLxUiyRzfOAFxfa6wUYnSeHbcCFbs+igbawQhCMgD6Kb+1Ebk3hCCSh1/1Q/v
+	dVEB2MQ1kmMQqNaIfiimQGhanATMxulKQ1wg8CmVoixF2AAmUSrtEGGVxDxhX8y4cUA5V7zAjTS
+	5XTY+SqYO1W3GatAnYf7V/X6fKmkEAik1PhYFDatfL0cPjoP7HJj5xrmNbfyarEmj/c1jweQVXt
+	T+LJl4wFJIPrRSzMeplTOG0pFjUS0ujPLpcxtEwfG8Uv+YeadSiUpwNDMVm4Whw6+9TUMx9ve8j
+	n+miKheFy+b0A0YEFL0iy2s5uSk5ma9pYhjuM3q875UjGjy/yUoeNB/+m0btUbckIGyLO0+vp8V
+	Ji4b7Wy8Z2595GLTuuJMlD0apKi0R0WOZNfO7UpbfV+LR6UoQw0niv4SKLzLcKGK3FZxzD25Z55
+	8TWPF+yU62MPmZPej7pqLWy423u87shDJTgbbKEIVeWci1Wag9D0w7Imz2MaEvxYM0jG4naM11+
+	mqT395ZFXkpwpFt3Vayk8I3gjCXOk+sl2OsC2Q3R/FrxeJ6Cbd6HD2SSxTW2G1XVnYDtiCEbb+T
+	peZlko6P0LYwiILxSX3c1dc6LUmMmikAQaXfzensfwDA==
+X-Received: by 2002:a05:7301:5f87:b0:377:678:2309 with SMTP id 5a478bee46e88-37706782738mr1963858eec.15.1794415251216;
+        Wed, 11 Nov 2026 08:40:51 -0800 (PST)
+Received: from kapoor.iiserb.ac.in ([203.18.51.239])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-375212e76e2sm19158013eec.24.2026.11.11.08.40.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 08:40:50 -0800 (PST)
+From: Arnav Kapoor <kapoorarnav43@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Andy Shevchenko <andriy.shevchenko@intel.com>,
+	Gwendal Grignou <gwendal@chromium.org>,
+	Stephen Boyd <swboyd@chromium.org>,
+	linux-iio@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	intel-wired-lan@lists.osuosl.org,
-	Grzegorz Nitka <grzegorz.nitka@intel.com>,
-	Karol Kolacinski <karol.kolacinski@intel.com>,
-	Saeed Mahameed <saeedm@nvidia.com>,
-	Tariq Toukan <tariqt@nvidia.com>,
-	Petr Oros <poros@redhat.com>
-Subject: [PATCH net-next v2 2/9] dpll: add domain object
-Date: Wed, 11 Nov 2026 17:40:13 +0100
-Message-ID: <20261111164021.273409-3-ivecera@redhat.com>
-In-Reply-To: <20261111164021.273409-1-ivecera@redhat.com>
-References: <20261111164021.273409-1-ivecera@redhat.com>
+	Arnav Kapoor <kapoorarnav43@gmail.com>
+Subject: [PATCH v3 0/2] iio: proximity: sx9310/sx9360: reject out-of-range hardware gain values
+Date: Wed, 11 Nov 2026 22:10:35 +0530
+Message-ID: <20261111164041.341776-1-kapoorarnav43@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,237 +104,38 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
-All dpll device and pin callbacks are serialized by the global dpll_lock,
-so a slow device stalls all others, whichever driver they belong to.
+sx9310_write_gain() and sx9360_write_gain() squeeze ilog2() of any
+integer into the register field. Values that don't fit wrap around,
+and 0 and negative values turn into the maximum code, while the write
+reports success. Reject those. One patch per driver, as the Fixes tags
+differ.
 
-Add struct dpll_domain as a preparation for serializing callbacks per
-driver instance. A domain groups all devices and pins created with the
-same (module, clock_id) pair, which is in practice one chip or card. The
-same pair already identifies the owner of a pin in
-dpll_pin_own_dpll_ref_first(), which now compares the domains instead.
+Changes in v3:
+- Return -ERANGE instead of -EINVAL (Andy)
 
-Domains are kept in an xarray, like devices and pins, and they live only as
-long as their objects.
-
-No functional change.
-
-Reviewed-by: Petr Oros <poros@redhat.com>
-Signed-off-by: Ivan Vecera <ivecera@redhat.com>
----
 Changes in v2:
-- Moved the mutex to the next patch, which first takes it (Sashiko)
-- dpll_pin_own_dpll_ref_first() compares the domains
----
- drivers/dpll/dpll_core.c | 71 ++++++++++++++++++++++++++++++++++++----
- drivers/dpll/dpll_core.h | 21 ++++++++++++
- 2 files changed, 85 insertions(+), 7 deletions(-)
+- Keep rounding values between the supported gains down, instead of
+  rejecting them, so the ABI doesn't change (Jonathan)
+- Only reject values <= 0 and values that don't fit: FIELD_FIT() for
+  sx9310 (Jonathan); sx9360 checks against the gain of 8 code, as its
+  3-bit field also holds codes 4 to 7, which the driver doesn't support
 
-diff --git a/drivers/dpll/dpll_core.c b/drivers/dpll/dpll_core.c
-index 8389983f425695..c1b54e6ba430bf 100644
---- a/drivers/dpll/dpll_core.c
-+++ b/drivers/dpll/dpll_core.c
-@@ -24,6 +24,7 @@ DEFINE_MUTEX(dpll_lock);
- 
- DEFINE_XARRAY_FLAGS(dpll_device_xa, XA_FLAGS_ALLOC);
- DEFINE_XARRAY_FLAGS(dpll_pin_xa, XA_FLAGS_ALLOC);
-+static DEFINE_XARRAY_FLAGS(dpll_domain_xa, XA_FLAGS_ALLOC);
- 
- static RAW_NOTIFIER_HEAD(dpll_notifier_chain);
- static DEFINE_IDA(dpll_pin_idx_ida);
-@@ -88,6 +89,47 @@ void dpll_pin_notify(struct dpll_pin *pin, u64 src_clock_id,
- 	call_dpll_notifiers(action, &info);
- }
- 
-+static struct dpll_domain *dpll_domain_get(u64 clock_id, struct module *module)
-+{
-+	struct dpll_domain *domain;
-+	unsigned long i;
-+	int ret;
-+
-+	lockdep_assert_held(&dpll_lock);
-+
-+	xa_for_each(&dpll_domain_xa, i, domain) {
-+		if (domain->clock_id == clock_id && domain->module == module) {
-+			refcount_inc(&domain->refcount);
-+			return domain;
-+		}
-+	}
-+
-+	domain = kzalloc_obj(*domain);
-+	if (!domain)
-+		return ERR_PTR(-ENOMEM);
-+	domain->clock_id = clock_id;
-+	domain->module = module;
-+	refcount_set(&domain->refcount, 1);
-+	ret = xa_alloc(&dpll_domain_xa, &domain->id, domain, xa_limit_32b,
-+		       GFP_KERNEL);
-+	if (ret) {
-+		kfree(domain);
-+		return ERR_PTR(ret);
-+	}
-+
-+	return domain;
-+}
-+
-+static void dpll_domain_put(struct dpll_domain *domain)
-+{
-+	lockdep_assert_held(&dpll_lock);
-+
-+	if (refcount_dec_and_test(&domain->refcount)) {
-+		xa_erase(&dpll_domain_xa, domain->id);
-+		kfree(domain);
-+	}
-+}
-+
- static void dpll_device_tracker_alloc(struct dpll_device *dpll,
- 				      dpll_tracker *tracker)
- {
-@@ -120,6 +162,7 @@ static void __dpll_device_put(struct dpll_device *dpll, dpll_tracker *tracker)
- 		xa_erase(&dpll_device_xa, dpll->id);
- 		WARN_ON(!list_empty(&dpll->registration_list));
- 		ref_tracker_dir_exit(&dpll->refcnt_tracker);
-+		dpll_domain_put(dpll->domain);
- 		kfree(dpll);
- 	}
- }
-@@ -159,6 +202,7 @@ static void __dpll_pin_put(struct dpll_pin *pin, dpll_tracker *tracker)
- 		fwnode_handle_put(pin->fwnode);
- 		dpll_pin_idx_free(pin->pin_idx);
- 		ref_tracker_dir_exit(&pin->refcnt_tracker);
-+		dpll_domain_put(pin->domain);
- 		kfree_rcu(pin, rcu);
- 	}
- }
-@@ -366,6 +410,12 @@ dpll_device_alloc(const u64 clock_id, u32 device_idx, struct module *module)
- 	dpll = kzalloc_obj(*dpll);
- 	if (!dpll)
- 		return ERR_PTR(-ENOMEM);
-+	dpll->domain = dpll_domain_get(clock_id, module);
-+	if (IS_ERR(dpll->domain)) {
-+		ret = PTR_ERR(dpll->domain);
-+		kfree(dpll);
-+		return ERR_PTR(ret);
-+	}
- 	refcount_set(&dpll->refcount, 1);
- 	INIT_LIST_HEAD(&dpll->registration_list);
- 	dpll->device_idx = device_idx;
-@@ -374,6 +424,7 @@ dpll_device_alloc(const u64 clock_id, u32 device_idx, struct module *module)
- 	ret = xa_alloc_cyclic(&dpll_device_xa, &dpll->id, dpll, xa_limit_32b,
- 			      &dpll_device_xa_id, GFP_KERNEL);
- 	if (ret < 0) {
-+		dpll_domain_put(dpll->domain);
- 		kfree(dpll);
- 		return ERR_PTR(ret);
- 	}
-@@ -664,6 +715,11 @@ dpll_pin_alloc(u64 clock_id, u32 pin_idx, struct module *module,
- 	ret = dpll_pin_prop_dup(prop, &pin->prop);
- 	if (ret)
- 		goto err_pin_prop;
-+	pin->domain = dpll_domain_get(clock_id, module);
-+	if (IS_ERR(pin->domain)) {
-+		ret = PTR_ERR(pin->domain);
-+		goto err_domain;
-+	}
- 	refcount_set(&pin->refcount, 1);
- 	xa_init_flags(&pin->dpll_refs, XA_FLAGS_ALLOC);
- 	xa_init_flags(&pin->parent_refs, XA_FLAGS_ALLOC);
-@@ -678,6 +734,8 @@ dpll_pin_alloc(u64 clock_id, u32 pin_idx, struct module *module,
- 	xa_destroy(&pin->dpll_refs);
- 	xa_destroy(&pin->parent_refs);
- 	xa_destroy(&pin->ref_sync_pins);
-+	dpll_domain_put(pin->domain);
-+err_domain:
- 	dpll_pin_prop_free(&pin->prop);
- err_pin_prop:
- 	kfree(pin);
-@@ -1156,11 +1214,11 @@ void *dpll_pin_on_pin_priv(struct dpll_pin *parent,
-  * dpll_pin_own_dpll_ref_first - find the first owner dpll ref of a pin
-  * @pin: pointer to a dpll pin
-  *
-- * Search pin's dpll_refs for a ref whose dpll matches the pin's
-- * (module, clock_id) tuple, i.e. the dpll registered by the driver
-- * that created the pin. This ensures pin-level attributes are
-- * reported and modified using the owner's ops even when the pin is
-- * also registered with dplls from other drivers.
-+ * Search pin's dpll_refs for a ref whose dpll belongs to the domain of
-+ * the pin, i.e. the dpll registered by the driver that created the pin.
-+ * This ensures pin-level attributes are reported and modified using the
-+ * owner's ops even when the pin is also registered with dplls from other
-+ * drivers.
-  *
-  * Return: pointer to the owner's dpll_pin_ref, or NULL if no
-  * owner ref is found.
-@@ -1171,8 +1229,7 @@ struct dpll_pin_ref *dpll_pin_own_dpll_ref_first(struct dpll_pin *pin)
- 	unsigned long i;
- 
- 	xa_for_each(&pin->dpll_refs, i, ref) {
--		if (ref->dpll->module == pin->module &&
--		    ref->dpll->clock_id == pin->clock_id)
-+		if (ref->dpll->domain == pin->domain)
- 			return ref;
- 	}
- 
-diff --git a/drivers/dpll/dpll_core.h b/drivers/dpll/dpll_core.h
-index da8a369556ed11..6edf7edf7a9539 100644
---- a/drivers/dpll/dpll_core.h
-+++ b/drivers/dpll/dpll_core.h
-@@ -15,12 +15,30 @@
- 
- #define DPLL_REGISTERED		XA_MARK_1
- 
-+/**
-+ * struct dpll_domain - group of dpll objects
-+ * @id:			index of the domain in dpll_domain_xa
-+ * @clock_id:		clock_id of the objects in the domain
-+ * @module:		module of the objects in the domain
-+ * @refcount:		number of dpll devices and pins in the domain
-+ *
-+ * All dpll devices and pins created with the same (module, clock_id) pair
-+ * belong to one domain, in practice to one chip or card.
-+ **/
-+struct dpll_domain {
-+	u32 id;
-+	u64 clock_id;
-+	struct module *module;
-+	refcount_t refcount;
-+};
-+
- /**
-  * struct dpll_device - stores DPLL device internal data
-  * @id:			unique id number for device given by dpll subsystem
-  * @device_idx:		id given by dev driver
-  * @clock_id:		unique identifier (clock_id) of a dpll
-  * @module:		module of creator
-+ * @domain:		domain the device belongs to
-  * @type:		type of a dpll
-  * @pin_refs:		stores pins registered within a dpll
-  * @refcount:		refcount
-@@ -32,6 +50,7 @@ struct dpll_device {
- 	u32 device_idx;
- 	u64 clock_id;
- 	struct module *module;
-+	struct dpll_domain *domain;
- 	enum dpll_type type;
- 	struct xarray pin_refs;
- 	refcount_t refcount;
-@@ -46,6 +65,7 @@ struct dpll_device {
-  * @clock_id:		clock_id of creator
-  * @module:		module of creator
-  * @module_name:	module name of creator
-+ * @domain:		domain the pin belongs to
-  * @fwnode:		optional reference to firmware node
-  * @dpll_refs:		hold referencees to dplls pin was registered with
-  * @parent_refs:	hold references to parent pins pin was registered with
-@@ -61,6 +81,7 @@ struct dpll_pin {
- 	u64 clock_id;
- 	struct module *module;
- 	char module_name[MODULE_NAME_LEN];
-+	struct dpll_domain *domain;
- 	struct fwnode_handle *fwnode;
- 	struct xarray dpll_refs;
- 	struct xarray parent_refs;
+v2: https://lore.kernel.org/all/20261109165200.305266-1-kapoorarnav43@gmail.com/
+v1: https://lore.kernel.org/all/20261107111710.442318-1-kapoorarnav43@gmail.com/
+
+Compile-tested only (W=1); I don't have SX9310 or SX9360 hardware.
+
+Arnav Kapoor (2):
+  iio: proximity: sx9310: reject out-of-range hardware gain values
+  iio: proximity: sx9360: reject out-of-range hardware gain values
+
+ drivers/iio/proximity/sx9310.c | 7 +++++++
+ drivers/iio/proximity/sx9360.c | 7 +++++++
+ 2 files changed, 14 insertions(+)
+
+
+base-commit: 340d44bdf9db0f095f99845b5ad8628781d79b6f
 -- 
-2.56.0
+2.53.0
 
