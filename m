@@ -1,129 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794403122;
-	b=EGCiD6GLIhIW+CzvszIX2acEFeUznz21+SZSmC2jfEdkJzs4qSueht+cz/uM8WOmMq0V
-	 KEoFooAT2V1MPuLOhgZTTur8XS0+8iRQr/h1Qax5mhDdoIZWANnojPivIp9KnjL8QQVHn
-	 UXl3dlbORdt/rgbgv1NhPhrl2dAV884pIuUU58AivpTCdXwxIi2ZUeZM0IaELpHKNOh7I
-	 v0pebmbpJPRk0QqVSGZhpveBVV+wz6+bRu+a4AFQYpiTX8TtaCYPKhfGxSYU7do0eV+Vt
-	 BsE4yfnx3o917lUMEILaaEYAJhJf1rrjfGweRDe2EQiN2btGRjKnK2S/a95sp6cxUyQ==
+	t=1794403127;
+	b=OJ+Te90/bCfHP7Sj4S/rZBfei0QFWixblWFo4tFH9Dsx1wNtI/wbYJSXJ/hw8aDGPLtP
+	 9eGmn7k2NNKZlwPo5C0kGQWRAFFBoX4fzup8/gbOBAIetnTJPgD7wUIH6JO4QPcsMJQFq
+	 1rj5F26AZ7rf+HCDd2TYAtRbscnPomwOqXyQGw5WulzTF//Dj+LFdfziySmkIyjk39RC0
+	 UD05Mpc9sqXy0VlWzz9OEkwBPYLJpxVd5iEW3lV8fY4XgN63C9u8LjDQn0xvfO5F4c0p9
+	 HjuwvGMoVzMVwtS5YE+1dlDwXkUm9Ucd/xp8QtQ0jufBZ0EXlS8dgIHyDnszkXSnrIw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794403122;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:From:To:Cc:Subject:In-Reply-To:References:Date:
-	 Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=esQaj4i0rxBBJRvkYI6ptnCogyr3YrhY79nTBzkIGog=;
-	b=w8Gwf1a3dYuSnpMyoydLHZv/ew4khUyyqPLmytDXdR32YUsbZ5IYZoQir/gG041f+UrX
-	 7WuKWnyifvY9qk5oOFDUQ7aENPHvAFTnegEU4l0Be409rpv8JD8PI270S6fhqPgHbZK9t
-	 s/LVTM+1YMemKQYy38zep5CeidmACkxiTx5Qsfp2kY9ERPHCgj5kP+OF8xq1j1QklYZKu
-	 nwMrDwmpyOvPgquz1v9OkQCG60/tWD6MlO9cn15ZrgbJ+9JowfltruHSnJxgziqZU8yRj
-	 d3bKJkM0JDIa6VYAvblRFkHaI0yzWE946Egzu6fNhb9iuySfzkoQtdJZXBmrCoIb1Nw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794403127;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=SJdMLqafvm+KLuD5FOpLe+66ffjiV7oq+8GZl6H/BF4=;
+	b=s1NjqQ6xng+ulqOnKawidh3wvPS7zFpxlPqjvvZRleiutRIQRQP1I4QQLf5Cj1EFbuGf
+	 BFxEK53lERFYbQonHhHt4JhLE6njaOxWcITz0iwTEgYl3uxNhEWCBdH1FOIDS72aTRLbo
+	 P1cx9kCp5LnvkGNCGFuMZG9gONl2R1or5V2Sdaa4XWE/OAuC3xVFoqmTdPQBiUG99xWA9
+	 VCXEpeFZNN3yp231wnPELuUEkVHKiNExD0YIBZ76ZHJRlfPNtosEly1kx0Pzl1kkP57U5
+	 pw7tE6Gpaaqx+e19/nGKEcbRUEXnFmjzRSPSGK5elZaajjjTYaUXHxtj4mx4ulgF6hA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=iQq7dU9q;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=KPpmyYJd;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BYjIgXqm;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44E8F606A32A
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:18:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 44E8F606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7040606A32A;
+	Wed, 11 Nov 2026 13:18:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=iQq7dU9q;
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=KPpmyYJd
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794403121;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=esQaj4i0rxBBJRvkYI6ptnCogyr3YrhY79nTBzkIGog=;
-	b=iQq7dU9qLnoGNYDWDjGkq2hu0UGzL8U0mU2PJsT4ClAuEQwYNhuhD6lbU/L5j70yCdSj3/
-	/GrODQvBHppOxWr5r6zzBgSrz38hu3YXFAWjAaXPwSspLjuvjMHkYMML/7f3qhxJCiKfAN
-	dqxY4Cs0j+KVTOfLKNu99AiyUax7GtA=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-477-FBCiSeJ2NZWOs_cALtxmVg-1; Wed, 11 Nov 2026 08:18:38 -0500
-X-MC-Unique: FBCiSeJ2NZWOs_cALtxmVg-1
-X-Mimecast-MFC-AGG-ID: FBCiSeJ2NZWOs_cALtxmVg_1794403118
-Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-4a359c7f47bso27309635e9.2
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 05:18:38 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1794403117; x=1795007917; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=esQaj4i0rxBBJRvkYI6ptnCogyr3YrhY79nTBzkIGog=;
-        b=KPpmyYJduZaiiwokElgOJ61Jst5LxaVO5sdXmou+J2DQqBhaAS3B7G4pDz1AjrsSdf
-         D78RcrlQns1x7CRbZCHjCezzV+D+Dm7kQly+SDhXI7IONrrGYviXknBtmCwCcxI78aWp
-         q+ihuIaEultkJyzhPC9Sh2f9Mov2BVY+9PBt/fC3AyTT5TGmeuMaqeS2bTVjMFxiAbdo
-         bsbtyzhFw56sFvHV9glARx1r+kigTs7LDxvzlH42Lyf+m/0H2s/szT4tlI3hwbLMGQGq
-         Yn/5NmhfAv63xzSfUNdP+P3dB9vVTLGvHtFhCshtMx/bSryncdoQtx8JIxCk2qK47lMN
-         Jvxw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794403117; x=1795007917;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :references:in-reply-to:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=esQaj4i0rxBBJRvkYI6ptnCogyr3YrhY79nTBzkIGog=;
-        b=OsfqjFO3J1WpJZ6FL1WDGqomToCFoh5l15EjTsJPIYC9obhH/rph68M3qGhWeCAuwd
-         oY5eRuv3kzXNT6+OBqVmCERTXDoq70Jx5tt+Vllj0Z+fndzeUONcb/DzUN8Hp1V9Cu/z
-         g5QYRVxeBTK7WhnyuqkvsPq13ZDEhwPTp9MvNJFZxLFBflN2KyUOwlqV1OM1IglIeOrm
-         fB7iZWMSTZbmjDtxO1aDvimJfn9k5sDWyTfNzQk8YIzFz/VkoMKcL3Zp41o1pa06SgMp
-         7RQ3WurBEI5vlShKZ9NdnfcxQGkNj3XLBqmCN5SejebqhzRvDyXebKd72rHzN4gIR7ed
-         wxhw==
-X-Forwarded-Encrypted: i=1; AL+hErEIl4nY5vpbobJFaBqwosIMYOgGe1p3Ocv7BigVO3lOiY0Nmfbs78gvauH385WKsVgzNQWT8HgtfqRwLiI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9wGRvB8Y68XUdeKZ9mWcLK7u+KaE35CKNkFzvJPO5dfSMU+36a
-	OsTYmrLHudP6b63u9cgwc3jtXskCyYiBo3BlwBYcNQkoelYVF9pKAK5SbDhVUPSySfdyOjZ5PCX
-	HXNiPTFLphmDyNznPUe+I8vLIkvXKKebHk4ve+isCKVzlNNEcsxVhPvM0SP+LkWD27w==
-X-Gm-Gg: AYBFou2gIwyevZy0eM6ssckAL8kkjxy8ys4saBEvuofIe9qEL1G/UNgVw3bAvCS+e7y
-	Xh/sXzW9w9StZSWO1RaesCSHN41sOopclz5B56xiLloRqxzGRukvCHLJY7Lz5FWp9nQJCI1I3Qs
-	AFZ9go6o+9tesrvWHYnIpUGSvovIRPmULVzDDaJ7DmR34Do4s+pCHm2h6onGF2/I55ePdzrdtVp
-	u2RNhQzIarn8nGnqxFG1h1KF7cuW8AE2uxT/TqZlBzER5/Ezy7nsWccr6Xa7a20/MlsHy/pRIsx
-	JSUSyvgW3f5NuX+NmLopUNFnq9CcRbvy3/bQgkCsA4UJbvVrHP3D3OLtWpkM8WKlo+8qzbpH+L8
-	/MnUzqcg4jvaaQKlSt4K/HFBw4610KupnOD8pFjvujJZY9dbPaJ/8GS5hHIlXj4IMQc1EM6Viho
-	s+z1duOwl2CGaaNPaFNvPOYfyoL/+Gu666mr3VO+A=
-X-Received: by 2002:a05:600c:870f:b0:4a1:7c56:d4e2 with SMTP id 5b1f17b1804b1-4ba093817d0mr40825615e9.16.1794403117590;
-        Wed, 11 Nov 2026 05:18:37 -0800 (PST)
-X-Received: by 2002:a05:600c:870f:b0:4a1:7c56:d4e2 with SMTP id 5b1f17b1804b1-4ba093817d0mr40824875e9.16.1794403117057;
-        Wed, 11 Nov 2026 05:18:37 -0800 (PST)
-Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498811fa70esm9733692f8f.19.2026.11.11.05.18.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 05:18:36 -0800 (PST)
-From: Javier Martinez Canillas <javierm@redhat.com>
-To: =?utf-8?Q?M=C3=A0xim?= Pedraza Padilla <maximpedraza@gmail.com>, Maarten
- Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Ard
- Biesheuvel <ardb@kernel.org>, Jonathan Corbet <corbet@lwn.net>, Helge
- Deller <deller@gmx.de>, Peter Jones <pjones@redhat.com>
-Cc: Francesco Valla <francesco@valla.it>, Jani Nikula
- <jani.nikula@linux.intel.com>, Mario Limonciello
- <mario.limonciello@amd.com>, Jocelyn Falempe <jfalempe@redhat.com>, Sam
- Ravnborg <sam@ravnborg.org>, Ilias Apalodimas
- <ilias.apalodimas@linaro.org>, Shuah Khan <skhan@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-efi@vger.kernel.org,
- linux-fbdev@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-embedded@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 03/15] fbdev: efifb: move the BMP headers to
- <video/bmp.h>
-In-Reply-To: <20261027135342.2003632-4-maximpedraza@gmail.com>
-References: <20261027135342.2003632-1-maximpedraza@gmail.com>
- <20261027135342.2003632-4-maximpedraza@gmail.com>
-Date: Wed, 11 Nov 2026 14:18:35 +0100
-Message-ID: <xlv1cxsba4lw.fsf@fmartine-thinkpadx1carbongen12.rmtes.csb>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BYjIgXqm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 399BB1F00A05;
+	Wed, 11 Nov 2026 13:18:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794403127;
+	bh=SJdMLqafvm+KLuD5FOpLe+66ffjiV7oq+8GZl6H/BF4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=BYjIgXqmUTZ8jphCM7ZVSg+9kJZ/A8NSQH6cCyu49g0npTqO7d4B5pWdaUVgpEEt1
+	 1zlNN6EeZRYIOInLKPYt8bUYiVmaTmKtUmmXia3UcHEgOHbH/CnSAC44P2m+4bxmBs
+	 Bl1HJww6+ivIptjbxmlzj7+47WQ2Tl6AZBBqIOwZz0UAjhq/RvajrtQpmF7hpODpVb
+	 JF45vFpiVWpbFS5KuCh2QwhKiuINj25lZMSBRX1dtRiv2iAXTnjF0teipAPZbMK/sf
+	 2cgoZibsgq28uhG0B8ykmcMCsRg1LYMn8wYfE141pQ8u0ic2ny50cb+at0i6Ce2fqJ
+	 DIckyzgJQ4OlQ==
+Date: Wed, 11 Nov 2026 13:18:36 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Usama Arif <usama.arif@linux.dev>
+Cc: Andrew Morton <akpm@linux-foundation.org>, apopple@nvidia.com, 
+	byungchul@sk.com, david@kernel.org, gourry@gourry.net, jannh@google.com, 
+	joshua.hahnjy@gmail.com, liam@infradead.org, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org, matthew.brost@intel.com, mhocko@suse.com, 
+	pfalcato@suse.de, rppt@kernel.org, surenb@google.com, vbabka@kernel.org, 
+	ying.huang@linux.alibaba.com, ziy@nvidia.com, kas@kernel.org, hannes@cmpxchg.org, 
+	riel@surriel.com, shakeel.butt@linux.dev, kernel-team@meta.com, 
+	baolin.wang@linux.alibaba.com, Nico Pache <nico.pache@linux.dev>, ryan.roberts@arm.com, 
+	dev.jain@arm.com, baohua@kernel.org, lance.yang@linux.dev, stable@vger.kernel.org
+Subject: Re: [PATCH 1/3] mm: don't PTE-batch a swap-in over a
+ hardware-poisoned subpage
+Message-ID: <avRqaatdOUunxrcZ@gremlin>
+References: <20261111113904.650722-1-usama.arif@linux.dev>
+ <20261111113904.650722-2-usama.arif@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -133,39 +65,90 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261111113904.650722-2-usama.arif@linux.dev>
 
-M=C3=A0xim Pedraza Padilla <maximpedraza@gmail.com> writes:
-
-Hello M=C3=A0xim,
-
-> The DRM splash client parses the same BMP headers as efifb. Rather than
-> keep a second copy of the structures, move them to include/video/bmp.h
-> with the magic number.
+On Wed, Nov 11, 2026 at 03:38:29AM -0800, Usama Arif wrote:
+> do_swap_page() checks PageHWPoison() on the faulting page, but the
+> large-folio batching path then maps the rest of the folio without looking
+> at the other subpages. A poisoned subpage that is not the one being
+> faulted gets mapped anyway, and the fault that would have reported it
+> never happens.
 >
-> BMP is little endian whatever the CPU, so the header gives the fields
-> as __le16 and __le32, and efifb now reads them with
-> get_unaligned_le16() and get_unaligned_le32(). Width and height are
-> read signed, as the format has them. No change on the little endian
-> systems EFI runs on.
+> Skip batching for such a folio and let each page take its own fault,
+> where the existing check catches it.
 >
-> Suggested-by: Thomas Zimmermann <tzimmermann@suse.de>
-> Assisted-by: Claude:claude-opus-5-5
-
-Please drop this tag. Has been obsoleted by commit 1e035297ffda ("docs:
-remove Assisted-by references").
-
-> Signed-off-by: M=C3=A0xim Pedraza Padilla <maximpedraza@gmail.com>
+> Scan the subpages rather than testing the folio-level PG_has_hwpoisoned:
+> memory_failure() sets PageHWPoison() on the subpage first and only sets
+> the folio flag much later, and the bail-outs in between - for example
+> get_hwpoison_page() losing a page lifecycle race - return with the
+> subpage marked and the folio flag never set.
+>
+> Fixes: 508758960b8d ("mm: swap: entirely map large folios found in swapcache")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Usama Arif <usama.arif@linux.dev>
 > ---
+>  mm/internal.h | 15 +++++++++++++++
+>  mm/memory.c   |  4 ++++
+>  2 files changed, 19 insertions(+)
+>
+> diff --git a/mm/internal.h b/mm/internal.h
+> index cd3675c044e0a..e61c02f4019b0 100644
+> --- a/mm/internal.h
+> +++ b/mm/internal.h
+> @@ -28,6 +28,21 @@ struct folio_batch;
+>  int __copy_remote_mm_str(struct mm_struct *mm, unsigned long addr,
+>  		void *buf, int len, unsigned int gup_flags);
+>
+> +/*
+> + * Check every page of the folio for HWPoison, rather than relying on the
+> + * folio-level PG_has_hwpoisoned, which memory_failure() can leave clear.
+> + */
+> +static inline bool folio_has_any_hwpoisoned_page(const struct folio *folio)
+> +{
+> +	long nr = folio_nr_pages(folio);
+> +	long i;
+> +
+> +	for (i = 0; i < nr; i++)
+> +		if (PageHWPoison(folio_page(folio, i)))
+> +			return true;
+> +	return false;
+> +}
+> +
+>  /* mm/workingset.c */
+>  bool workingset_test_recent(void *shadow, bool file, bool *workingset,
+>  			    bool flush);
+> diff --git a/mm/memory.c b/mm/memory.c
+> index d477a4f986bc8..4b7d456332200 100644
+> --- a/mm/memory.c
+> +++ b/mm/memory.c
+> @@ -5158,6 +5158,10 @@ vm_fault_t do_swap_page(struct vm_fault *vmf)
+>  		    swap_pte_batch(folio_ptep, nr, folio_pte) != nr)
+>  			goto check_folio;
+>
+> +		/* Let a poisoned subpage take its own fault. */
+> +		if (folio_has_any_hwpoisoned_page(folio))
+> +			goto check_folio;
+> +
+
+Hm, isn't scanning every single page in the folio potentially quite costly
+here?  I thought the point of batching was to improve performance overall?
+
+It seems broken to have stuff potentially interact with hwpoison but then
+to only set the folio-level flag much later?
+
+Also why are we swapping out folios containing hwpoison pages? Shouldn't we
+migrate away from the hwpoison? :) (I'm not really familiar with the hw
+poison stuff)
+
+
+>  		page_idx = idx;
+>  		address = folio_start;
+>  		ptep = folio_ptep;
+> --
+> 2.53.0-Meta
 >
 
-Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
-
---=20
-Best regards,
-
-Javier Martinez Canillas
-Core Platforms
-Red Hat
-
+--
+Cheers, Lorenzo
