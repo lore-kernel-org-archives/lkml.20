@@ -1,67 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.159.188.251
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794437006;
-	b=ViVZuagAaaCisuaiIE1niCybSFCy0TPOx5ytzIFvZO61/YoyKjDqUoN8ukxCV33Rb6OU
-	 cl8PnZthHwm51c/Zi6P7wtxatbCLJBwgGCw6UmcJLV1NYBBFI+XYsBreCa9Z1VcwUsXCy
-	 ZGaekAGhWjzX3+ZbQ91P8C1JGXjTkRFJIiuUlzarjTyUlBdbR947uYZ7xETV9/ToxJeQW
-	 nfei0hrjmX7DAD8UB21rmpVdZyB1htuTyhqeBHWEPPezjC4N+9KmZ1eH9MUVmU3JVadLi
-	 7/B84qTdoXVS5ftvxHFF/N+Y4u1X2oQdGlaSVRuo2GQDMTFN1Sm5AMc/KLsepzAjJBw==
+	b=yNxgyCeYvTE5H6jMRa24LXMtPHWkyCylyIO5lBLdqXxAGQ8e/5gUvks4UYSkolJMa3ld
+	 /p1RCOIC7vPN04ftiGgg/4f563SxdTqc6bjdV+GRiTd0oiBfYGuU62VAOcAiDSCvGoyE3
+	 diBVYDLb/73SeOOZaufH4RX1FWbHlyMaxbYTHr8Pa3WO0hoOKiOGAqKwR82xLKZMZiaWb
+	 GU314NXeGExx1lECyqkg7+PC79BwB3EuNmycJUPbM0M+h/sY+9BsjlPUCSeOSCqrAOhT+
+	 icTVK2cFiiisECw4yvythOD8Om0e0zOkAUFMT2Kdqc66lzKhPqjOerpzGZLlDTni04g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794437006;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-Get-Message-Sender-Via:
-	 X-Authenticated-Sender:X-Source:X-Source-Args:X-Source-Dir;
-	bh=KSlkRHCvVN87gHfPBsPdwNuXt7XhE32A2hZbO5QdPtQ=;
-	b=0/URuMC4pX9TuiM1QxvtKI4PNjAwMx4wXKAIBiMs9bOqO77CZpJY4aWW8iiFNp2NXPrN
-	 axoJZJJbvPF2Xf9cvHYIWLScTZmBLgGhuNKDiGPkDW6lgXd38t19AtkjWn/aHC9TUmDpP
-	 Av1MLJFc4coaccMw+6vm3V2c1+cfMxLHydpkBmft/EpNiAQUVNfRzPYd4v4bYc8lYrDNE
-	 xvtialc5MGCRhcFwYVZTEbvx/vOxuGkgOak0L66L9fgnR32aF9e+PIu7A5XpbUpyzdl3v
-	 XM0CWr0Nim9fJOKZMU66R1lEdiFfp8Cj7B19YbEDkBvtAREmKgHvW9Nh2L4bsLBMO0w==
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer;
+	bh=Mvm2B4aA/p4I2wK+YBoHM5JvjypAI+iz8BH1ZFQP+gk=;
+	b=uPT+BovL9XFGYukaTPCKYKcHrpVRS9JlVqDSb57btqBfMYkeUpELRV0MUdIvYyrfxxSY
+	 qNbY+q5ERIADJkD97hhT00CqvLT6ZzlYSKHGv45XhtCvvMD/uHyQMLLa5f6xIkgC8DVnF
+	 W+1DCKqiKpB2rMBjTlNPtZUlEctdiXSomJvICy8YMIYzywzukS1GLQHRzSjht9Kga/T3x
+	 WyE87RJIVlsqSmkse2Ypv8maFs9AYgHmrRzvhExxycQLWBjfOmnZGRcXreT9nsJh8iMrL
+	 8lxZDXbfJXIyj15Zdw/Liex2GxVMAZOw76+SEVRrKnWhghosxkPLfk005StXfO0LbcQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.cyber.gouv.fr;
-	spf=pass smtp.mailfrom=oss.cyber.gouv.fr;
-	dkim=pass header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=pdUwxfmm;
-	arc=none smtp.remote-ip=51.159.188.251
-Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QxbFGovA;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB50360A6F70;
-	Wed, 11 Nov 2026 22:43:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB50360A6F70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5125606AED2;
+	Wed, 11 Nov 2026 22:43:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=pdUwxfmm
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
-	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Reply-To:Sender:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:In-Reply-To:References;
-	bh=KSlkRHCvVN87gHfPBsPdwNuXt7XhE32A2hZbO5QdPtQ=; b=pdUwxfmmoHuTw/duCN+n5zT5E7
-	fSIUfPsmh5g7TlZV3+11krvHsGCl/Qx9iLEjtGRocERGp2OgTUSpfn8Kh0rU+OBZwlBCY7n1NSqfV
-	bc+fLP5h9xWbT6eGhNSndt+/VaealT+chIWRQv7Ggi2oIUfBhaLLUucpnhKFljBdrqVXRj2EYv2zD
-	o0zxEXHv/XzNjK2fDRcnhr4M0r2hghl5j7BSVsT0vC+hat2+u5Knn/HdEqTjYoS6GWGgvFOngiu3n
-	dC6sqK5fLVMvh5Zdcz+qy3xNDjfUcBN7CnlkAubiq3s03QnDrQqiFH3unrdVy/KhGIqN89dqMYeUO
-	Oy7N/kuQ==;
-Received: from [151.115.150.205] (port=36454 helo=gepetto..)
-	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
-	id 1xRH2F-0000000DOpX-06ZU;
-	Wed, 11 Nov 2026 23:43:18 +0100
-From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
-To: Miklos Szeredi <miklos@szeredi.hu>,
-	Amir Goldstein <amir73il@gmail.com>
-Cc: linux-unionfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
-Subject: [PATCH v3 0/2] ovl: reject different lower idmaps on same fs
-Date: Wed, 11 Nov 2026 22:42:25 +0000
-Message-ID: <20261111224227.2496049-2-Jeremy.Jean@oss.cyber.gouv.fr>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QxbFGovA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 805641F00A07;
+	Wed, 11 Nov 2026 22:43:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794437006;
+	bh=Mvm2B4aA/p4I2wK+YBoHM5JvjypAI+iz8BH1ZFQP+gk=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=QxbFGovAddVgfQIBYt3i06TYTqIA+xDMdvDo8WJTWnPzCj1V4h+CSL0XpUJgV/eWr
+	 GfkNoQ1VjRK3K1z08+/VGIADIV995Dot4RllhCoST85lE3ybquJnyXzhN7ij7Kd3OR
+	 uQPtuUVs29t3UvaGQTXRr09PTbQv3dD0v8ftRYKVEsYw7c1329rjSjIqcneF50ujj6
+	 aqOWBfZPdR0hPbbidIWsV3/H8lYGESybD1PYDa7owc+vk5nyF7eH76z4gUhC/3+riD
+	 V6jBpwKYA9i3pzdB8uoAU4XK5dI/9vehG16fFIgKo1qSp/GChpSRvWsD2cybIUMTxN
+	 BfzOpUXnW55mA==
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Date: Wed, 11 Nov 2026 16:43:06 -0600
+Subject: [PATCH 9/9] arm64: dts: marvell: armada-3720-gl-mv1000: Add switch
+ fixed-link
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,37 +53,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
-X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
-X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261111-dtbs-marvell-v1-9-938788aff3ae@kernel.org>
+References: <20261111-dtbs-marvell-v1-0-938788aff3ae@kernel.org>
+In-Reply-To: <20261111-dtbs-marvell-v1-0-938788aff3ae@kernel.org>
+To: Lee Jones <lee@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Andrew Lunn <andrew@lunn.ch>, 
+ Gregory Clement <gregory.clement@bootlin.com>, 
+ Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>
+Cc: mfd@lists.linux.dev, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+X-Mailer: b4 0.16-dev
 
-Lower file handles identify a lower fs, but not the mount whose idmap
-was used to decode them. Remember the first lower idmap seen for each
-fs and fail the mount if another one appears.
+As the switch port 0 has an 'ethernet' phandle, 'phy-mode' and one of
+'fixed-link', 'phy-handle' or 'managed' are required by the DSA schema.
+The expressobin has appears to have a similar configuration, so copy it
+and use 'fixed-link'.
 
-Changes since v2:
-- On a request by Christian Brauner, fail the mount instead of
-  disabling lower file handle decoding.
-- Check the idmap on the private lower clone.
-- Replace the old regression tests with one mount setup test.
+Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+---
+ arch/arm64/boot/dts/marvell/armada-3720-gl-mv1000.dts | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-Jérémy Jean (2):
-  ovl: reject different lower idmaps on the same fs
-  selftests: overlayfs: reject different lower idmaps on same fs
+diff --git a/arch/arm64/boot/dts/marvell/armada-3720-gl-mv1000.dts b/arch/arm64/boot/dts/marvell/armada-3720-gl-mv1000.dts
+index a881a3326dba..93af902f4f6f 100644
+--- a/arch/arm64/boot/dts/marvell/armada-3720-gl-mv1000.dts
++++ b/arch/arm64/boot/dts/marvell/armada-3720-gl-mv1000.dts
+@@ -161,6 +161,12 @@ ethernet-port@0 {
+ 				reg = <0>;
+ 				label = "cpu";
+ 				ethernet = <&eth0>;
++				phy-mode = "rgmii-id";
++
++				fixed-link {
++					speed = <1000>;
++					full-duplex;
++				};
+ 			};
+ 
+ 			ethernet-port@1 {
 
- fs/overlayfs/ovl_entry.h                      |  2 +
- fs/overlayfs/super.c                          | 15 +++++++
- .../filesystems/overlayfs/idmapped_mounts.c   | 43 +++++++++++++++++++
- 3 files changed, 60 insertions(+)
 -- 
-2.47.3
+2.53.0
 
