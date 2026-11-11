@@ -1,62 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.8
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794391173;
-	b=iRM7+y0Yly/koroL8G0yhWrkuLM0K9+UsEOeiyAZ1LPYkCtCnGTPal44ulGMFgf94KpT
-	 0p4ZcY+5BpwZZ02BmHYvFsLJyDgz9z/uVt1nh7YKm63juxOcBL34hzu4jPmGcuiBwT6xc
-	 H6b782QlB4kPNQLKff5zmpEKfUrN3EUw90gWLB2o91IZlNEtaabKA050Vs+jkpUfk+aVk
-	 8JsIh/uOAhIyl/1zztXF2EuTsZlgNka+++iXj7zqOfWVGnDk5fvki3moUsEv64U+q24mg
-	 Go2Xk0vKMR6yUE9m3R5MswMVBjGm+gfRdYouhjVSHH9NfL6fVUnpgP20RIZde7B966g==
+	t=1794391205;
+	b=xpLfJvk7qz1Ng96nrUklGhls/9clAQrveDme2OKp06d+18T+v+o08zhtsHCT4dnbcuny
+	 VEkb3oJ3wDowGv/WXTkVjKZtk0HikArph90U+02ETDtON/PcbrRwyVLoNCAIiabi3/H1n
+	 iONVoVEHMjETBA3sQA4WXTZZYyJf+J31+1tpzX+FkDmyY6+XM/U3RbQYbwo4ahQZe4I5E
+	 VMtq5JCOt87ka8PjNftauFzu4fhTPFWomz8lr43MIPnGPL5du3yLcSU4TEAhPKBwfbKGb
+	 PmDLbX9bTwEDSVsKEkM/SMXufJa/fbX29knBN8Sp+h+rpdLFajQERlFIYqRHHM4uxvg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794391173;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=hp1XgAo2T9VabG3tdMB+IAUfvCTHW0OWXcirmwmfQMA=;
-	b=zs1nMnIKLYglZ7KvykaUjeRHm/ncSy9vFMplB6pt82EDUezNFSx1spaPexhT3M2IWhU3
-	 P6z2Bv23oW893EviEmxWfvuUxy8DRSCPIZWCp0CSGKFnTfaax+V58Fo+A/7RPRoSc/Yjl
-	 /mpj6262bcWmcQdeekjsK8DW+mqL0imH/JTCg+8H90KuE/kchb5D0UAAHsfsqk3wKPIHm
-	 gJH/LmEr3Xz+P+OWqdgvTTRYTkF/s27ZDSaa1Stme7JYaaIiO6loZn75ncEXHvPehMWRi
-	 elBnx2Y3QCBzw3OUvshsCmLdcuvy2vbGDO8h2/pWPIWp/bmUDXgTYg/a1vBHeRXoBtg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794391205;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=59wVNw1zJzlvwp3L7uQ2Ik+N71jZ01U5OCjzBS7fR5E=;
+	b=w7uZJJCVY36pg7nasd8BnKMdTogEccEF2a818MCmNjVKJ5vmI3KPSCc1M2m1wjeRV7iw
+	 SgiVgkgTEf/99kIyjhTS6jyAPcT7QKi/waAM1b/RFW8Y6X8RaRBKg7w+kKJOXtyFXGp2Q
+	 l81WHHb7qEMSQpszowdTXEAoFwVeOo55lvDF45uK0PufbLyXmlHQhOKaEeQuTOrK+EFv1
+	 bgUxxrDx72ThjWGwQNSAmPL5wwCRzZ+gLPigHOIgnnX8UxyNydXDRsj717PasUNt3uh30
+	 juCmNFTb/eyuUFAqZW0RboE0BXEW7Q7Dp6S6V9nTKxFoUg/juLNaitKJFE/jauDA1Bw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IrHCaHoy;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=126.com;
+	spf=pass smtp.mailfrom=126.com;
+	dkim=pass header.d=126.com header.i=@126.com header.a=rsa-sha256 header.s=s110527 header.b="bkn/ZI3d";
+	arc=none smtp.remote-ip=220.197.31.8
+Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.8])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54674606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 09:59:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00255606A321;
+	Wed, 11 Nov 2026 10:00:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00255606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IrHCaHoy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4BFD91F00A05;
-	Wed, 11 Nov 2026 09:59:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794391173;
-	bh=hp1XgAo2T9VabG3tdMB+IAUfvCTHW0OWXcirmwmfQMA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=IrHCaHoyiKo1N9O9LLDj5GCu4KUrrqPEaKLWMAkK+SyIMl5UdzU4tHXxqP4lnXxjW
-	 lAp/Do/LY4fQDQNHZNfpvw4XmvWlNKJ4V2yBhH29aFBGG2dLcRtiLzxFxH0RRrnvpb
-	 eGgI0BqI6DFq/mRSJBzmHE9ukbZzfh0KwgyZdiXXvfT4uQgcCOeb7DCRafvOeAj1Qz
-	 Xp0VaQ1rxHobox6bh1DjXubgVwCIwuB+nPSTLdYDu3dabcZDQEER3/e9xijc5w1AAl
-	 OtzMe/rKvQ1oc9OxjcBnUEN9LhISmVYqlvdF9KyN0AMelCsVkLXVrs1YD91ZZjevTf
-	 r42c1BTqKoYaQ==
-Date: Wed, 11 Nov 2026 10:59:29 +0100
-From: Frederic Weisbecker <frederic@kernel.org>
-To: Marco Crivellari <marco.crivellari@suse.com>
-Cc: linux-kernel@vger.kernel.org, "Paul E . McKenney" <paulmck@kernel.org>,
-	Ingo Molnar <mingo@kernel.org>, Michal Hocko <mhocko@suse.com>,
-	Aaron Tomlin <atomlin@atomlin.com>,
-	Anna-Maria Behnsen <anna-maria@linutronix.de>,
-	Thomas Gleixner <tglx@kernel.org>
-Subject: Re: [PATCH 1/3] tick/nohz: Re-evaluate the tick on polling idle and
- on user entry
-Message-ID: <avQ8gT1D6p1d2MS3@localhost.localdomain>
-References: <20261106160621.347228-1-marco.crivellari@suse.com>
- <20261106160621.347228-2-marco.crivellari@suse.com>
- <au5RmN37RlOCp2m9@pavilion.home>
- <CAAofZF6_JpSDNSKUuePiJx+74tbRH8vJ4spyNGp9KbjFPrbA0w@mail.gmail.com>
- <avMdOa44c5qvryuH@localhost.localdomain>
- <CAAofZF7KAnd0xpOcgKDs6yDL9vmbON3xRAK360BBuzEpwJzu9g@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.a=rsa-sha256 header.s=s110527 header.b=bkn/ZI3d
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=59
+	wVNw1zJzlvwp3L7uQ2Ik+N71jZ01U5OCjzBS7fR5E=; b=bkn/ZI3dblTpkgy3P6
+	9jS9l/FQc4vU68kcVkgnZpqa2Q/qqz+dibQhfSO9ayedxmn0CRoJUyDH7kgIqnQE
+	V3gYK0yuXubWgi4ipyTnrNva1pvd6IKsZ+febHUhUKdQTahgxapKlG+WOJbXr1+0
+	m/XXxk59zVxCwUffDcyumicW0=
+Received: from localhost.localdomain (unknown [])
+	by gzsmtp3 (Coremail) with SMTP id PikvCgDH9+1sPPRq4RJQDQ--.51384S2;
+	Wed, 11 Nov 2026 17:59:09 +0800 (CST)
+From: Linkui Xiao <xiaolinkui@126.com>
+To: david@ixit.cz,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org
+Cc: oe-linux-nfc@lists.linux.dev,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Linkui Xiao <xiaolinkui@kylinos.cn>,
+	Guikun Yang <yangguikun19@qq.com>,
+	stable@vger.kernel.org
+Subject: [PATCH net] nfc: llcp: fix SNL PDU size truncation in nfc_llcp_allocate_snl()
+Date: Wed, 11 Nov 2026 17:59:07 +0800
+Message-Id: <20261111095907.3366028-1-xiaolinkui@126.com>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,74 +68,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAAofZF7KAnd0xpOcgKDs6yDL9vmbON3xRAK360BBuzEpwJzu9g@mail.gmail.com>
+X-CM-TRANSID:PikvCgDH9+1sPPRq4RJQDQ--.51384S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7uFyfCr43Xw1UKF18AF1UJrb_yoW8Zr1rpF
+	W7K34Dtr90qF18Crn2krW0va4Yk39rAFWakF1jyFy2yF98X3Z7WFW09rWF934qvr4kJF1a
+	yF9avw1UCw1UZ3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UlhFsUUUUU=
+X-CM-SenderInfo: p0ld0z5lqn3xa6rslhhfrp/xtbBqQ0C2Gr0PG0aRAAA3v
 
-Le Tue, Nov 10, 2026 at 06:35:49PM +0100, Marco Crivellari a écrit :
-> On Tue, Nov 10, 2026 at 2:33 PM Frederic Weisbecker <frederic@kernel.org> wrote:
-> > [...]
-> > > With the hunk, the stopped tick firing for the first timer sets
-> > > TIF_NEED_RESCHED, the polling loop exits and the tick is reprogrammed
-> > > for the second timer within a few microseconds; the 10 iterations
-> > > captured take 0.92s instead of ~18s. Without that hunk, the CPU stops
-> > > spinning on an unrelated event.
-> > >
-> > > So in my understanding tick_nohz_idle_exit() program the tick only for
-> > > the earliest timer; when it expire, the tick is stopped and not
-> > > rearmed in tick_nohz_handler() (HRTIMER_NORESTART). Without setting
-> > > NEED_RESCHED if another timer has been queued it has to wait for
-> > > another event that set NEED_RESCHED.
-> >
-> > Hehe, you're right :)
-> >
-> > Let's try another strategy then. TS_FLAG_INIDLE is what tells nohz_fool whether
-> > to manage the tick through the idle loop or through the IRQ exit.
-> >
-> > So why not calling tick_nohz_idle_enter() on each idle loop iterations? That is,
-> > from cpuidle_idle_call(). And call tick_nohz_idle_exit() right before
-> > cpu_idle_poll()?
-> 
-> Aha, sounds good! :-) So INIDLE is set only when really "in idle" (eg
-> no polling).
-> 
-> > Then you can remove tick_nohz_idle_restart_tick().
-> 
-> Should we remove only the call or also the function and its declaration?
-> I'm asking because the call we're going to remove is the only one present.
+From: Linkui Xiao <xiaolinkui@kylinos.cn>
 
-You can remove also the function.
+nfc_llcp_allocate_snl() sums the requested TLV payload length into a u16
+variable before passing it to alloc_skb(), but its tlv_length argument
+is a size_t and callers pass a length bounded only by the size of the
+netlink message that produced it.
 
-> 
-> > Just be careful: tick_nohz_idle_enter() and tick_nohz_idle_exit() may now be
-> > unbalanced. If TS_FLAG_INIDLE is already set, tick_nohz_idle_enter() should
-> > return early and tick_nohz_idle_exit() as well if !TS_FLAG_INIDLE.
-> >
-> > Also IRQs may now be disabled while calling tick_nohz_idle_exit(), so it should
-> > use local_irq_save() and not local_irq_disable(). OTOH tick_nohz_idle_enter()
-> > should always expect IRQs disabled.
-> >
-> > So the purpose is to move cpu_idle_poll() outside the dynticks idle logic, then
-> > it's safe against nohz_full timer management, the tick keeps being stopped if
-> > possible and it's only restarted for dynticks idle.
-> 
-> Ok, I think it's clear.
-> 
-> I've already started implementing the changes. I will send v2 with all
-> the changes.
+nfc_genl_llc_sdreq() walks the nested NFC_ATTR_LLC_SDP attributes of a
+GENL_ADMIN_PERM request, builds one SDREQ TLV per attribute and sums
+their lengths into the size_t tlvs_len. Each URI is capped at
+U8_MAX - 4 bytes by nfc_sdp_genl_policy, so every TLV fits in its u8
+tlv_len, but nothing caps the number of attributes, so tlvs_len can
+exceed U16_MAX.
 
-Thanks a lot!
+When it does, the u16 accumulator wraps and alloc_skb() returns a
+buffer that is far too small. nfc_llcp_send_snl_sdreq() then calls
+skb_put_data() once per TLV and writes all tlvs_len bytes into it,
+which trips skb_over_panic() and panics the machine.
 
-> 
-> Thank you!
-> 
-> -- 
-> 
-> Marco Crivellari
-> 
-> SUSE Labs
+Use size_t for the accumulated size so that it can no longer wrap
+before the allocation. alloc_skb() takes an unsigned int, which is
+still wide enough for any length a netlink message can carry.
 
+Fixes: e0ae7bac06cc ("NFC: llcp: Service Name Lookup SDRES aggregation")
+Reported-by: Guikun Yang <yangguikun19@qq.com>
+Link: https://lore.kernel.org/netdev/tencent_634C55A23C7CCCA3985283BFED46A69C9E09@qq.com/
+Cc: stable@vger.kernel.org
+Signed-off-by: Linkui Xiao <xiaolinkui@kylinos.cn>
+---
+ net/nfc/llcp_commands.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/net/nfc/llcp_commands.c b/net/nfc/llcp_commands.c
+index 80a00938c869..0a3d66e6cd59 100644
+--- a/net/nfc/llcp_commands.c
++++ b/net/nfc/llcp_commands.c
+@@ -542,7 +542,7 @@ static struct sk_buff *nfc_llcp_allocate_snl(struct nfc_llcp_local *local,
+ {
+ 	struct sk_buff *skb;
+ 	struct nfc_dev *dev;
+-	u16 size = 0;
++	size_t size = 0;
+ 
+ 	if (local == NULL)
+ 		return ERR_PTR(-ENODEV);
 -- 
-Frederic Weisbecker
-SUSE Labs
+2.25.1
+
