@@ -1,67 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.66
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794439594;
-	b=KTlvUxBq6Dv1kRsbXtfPSsHhj1ijG8Y2dHAuztdOjyDDioE87uFNess957n7MSTdwc/c
-	 B8gztIo9uiCdJ9tgWQT+Wf0v2oqVb9qYuDYOL7ma0mjqaWSTDrBuNtewP/NGV1KJ0tBZe
-	 /18I+aixJ8PVP5nsuwM7t6xZTy5FN8m6h0Kao1OxPah4xGYyPIW7wxKgEkn1t6kHNOtMA
-	 ELb/wUnAgBUcn6dhEp119otzdxppeKxmfRkftBG7Zbn2r/ZV8tZ9+s1JgvA8n8FAHpNlY
-	 X/cCRjLJUQvf+oJ8ThKwrk5vGUrsh3DHCt5ZoMLek6Xf4NJ0Ln1Ea3sGiFPUa63VIIQ==
+	t=1794439598;
+	b=q3HhHcw9LTsDplkkKzQYgz6ICaNm9ju8s/QlaGhkCr43fDrNVFTaTU3wWYGZnoEdu9Jt
+	 f+IzhnLyvx3An9vZhrq107BkPbDSe2ESVnY4cimqo5jHeOXpbSrpxkpws7E/c3u1TQ1bP
+	 +04oBYmw4vrUYR2EwbFw09CK2/zFzVHB7zFR6sAgqgIfvYB9pC9o9tMW6FTVe3/1/QKMs
+	 FyQlrrjXgkn5m8oUiFGyJ+ijSdswq1eY7V80f1QiD7xQ1GtfekIyip0Xc4sLrgC8Ggxq+
+	 FAHDny9fSOPlo9o82FFcgMG+nVvKIw4r/GB0qpwMZGxb8UiUgC2BVoAyhVgW+XiqArA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794439594;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Subject:To:Cc:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Date:Message-Id:
-	 In-Reply-To:References;
-	bh=RyEZLtXdOEy6YUs0iF5WO14oNHotCxIJ28slgWaTiiU=;
-	b=FgVW8BKEor6vOSpPrJuiTXyQPVHvLwx6OgEPIa6GZEa5AnDuNMJy/1TCWlS8zCsGHz+J
-	 A1Pfs5Pn+YmHaIAtpruWgQh800LrL6W4pG8K8n+gX7injcQcgJhPDu+tUtkTBgfqFKHq1
-	 0ChYl+OieqjDwEDyZMIvuiwY+ZTmVTaOSeoMDF0YiBqNVuIOEzR8DjAPOIoJQ8IdDM05Z
-	 FuE1Lp1LxXKAcUjMvKUY5z/TF1382w+a+jRPkg6RpQEqtR/OWNUJMMhLKlj/nEqTNJ8VV
-	 bXimp8WBMlD41QzQ7QzPL12QSRHAl2kOKe5kQvLD+jBThKDu5aDW+mqvrUxaFqsdsZg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794439598;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=s7XUwUomnVCDK9aa962ZIpgMQ6QHHvHVmOdhzPQ+ujw=;
+	b=voMfcpizF12DZTXRc7pjQ7cN0iH5k78W/KXhnnhKt/8tZl+S0IpZWruZ8BQzgA7wTUMV
+	 rs0R6f//6eLM0YLkpALZr8QedpWLUbGYq4vuq2iI8ICpYAqEzo7M/QjoRurVW0Ve/YRTc
+	 UQ/NcmmiwgC66uh9LDs8B08R2c1Z+x854acyt8HshKepxTNmrr9A8vJ84jk1SaZe7CuY4
+	 OVlgw+9i88eidDac14O1MeUvHRAy7ejjLjvSs6xO7R0D5fUzmAwxmupuZKyDQZ6OA1W/z
+	 0hQLxuPWSUUZ2ZVdv18OJmrKjB/V3A6BQcObbCbUkzxnIvInI1vgMbMhAbMD7e+uGpA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cressey.dev;
-	spf=pass smtp.mailfrom=cressey.dev;
-	dkim=pass header.d=cressey.dev header.i=@cressey.dev header.a=rsa-sha256 header.s=key1 header.b=Sn33619E;
-	arc=none smtp.remote-ip=95.215.58.66
-Received: from mta1.migadu.com (out-66.mta1.migadu.com [95.215.58.66])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WsllZv5n;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A1C6606A886
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 23:26:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A1C6606A886
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cressey.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cressey.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19254606A33D
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 23:26:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=cressey.dev header.i=@cressey.dev header.a=rsa-sha256 header.s=key1 header.b=Sn33619E
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Z+IeZxbPjIvbK3g0gOTsghY/BOFs/EzEtXZfgL4WUf8=;
- c=simple/simple; d=cressey.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794439591; v=1; x=1795044391;
- b=Sn33619EXcFGXCJK9LnzuueZXjZ9jbMi1mpw0G48KB9e2lRh9CHxJZP3OSp9X01dciXn80UK
- 5zueYCDAo+Ky4oeq3N4IEd0zCdxK1lxYosEKo+Z88gl3driG7qIQ+LKae/JZscfJkOBk/juiZxq
- lV31+W1vYpD0MaXXOTDxOTCaCd7gTuvBNFkw/yMzStUtiTi/5bc6FfTZZ9NSx9Km10umlvGpl+O
- mC+u3ZH+MxOMreOEpahEhK+tf7aMp3y6P3n1kec9Oj8myFa7NHQbEznXAEgQBw7FTAV8k6W+JV5
- Ya+Oly/3jwGB/x1HysV0wgEMLlRF6egx5bUKSYXUJfARw==
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id fa50d89f0875e7b8;
-	Wed, 11 Nov 2026 23:26:31 +0000
-X-Mizu-Trace-ID: fa50d89f0875e7b8
-X-Migadu-Flow: FLOW_OUT
-From: Ben Cressey <ben@cressey.dev>
-Subject: [PATCH v2 1/2] arm64: kexec: use a typed entry to fix kCFI oops
-To: Catalin Marinas <catalin.marinas@arm.com>, 
- Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Pasha Tatashin <pasha.tatashin@soleen.com>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, Pavel Machek <pavel@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- linux-pm@vger.kernel.org, Kees Cook <kees@kernel.org>, 
- Sami Tolvanen <samitolvanen@google.com>, kexec@lists.infradead.org, 
- llvm@lists.linux.dev, Nathan Chancellor <nathan@kernel.org>, 
- Zhaoyang Huang <zhaoyang.huang@unisoc.com>, 
- Jeson Gao <jeson.gao@unisoc.com>, stable@vger.kernel.org
-X-Mailer: b4 0.15.2
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WsllZv5n
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F0651F00A08;
+	Wed, 11 Nov 2026 23:26:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794439597;
+	bh=s7XUwUomnVCDK9aa962ZIpgMQ6QHHvHVmOdhzPQ+ujw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=WsllZv5njedZwKJ59odVutAPlnA2JBfk1ja8Af6vB6OmwMExoSVmyla8TZHyRWMVb
+	 RfRogZSnw2H4NEJOp1jN5OYqtVaCD3P0MRdJ79rCIhhxwATWYZHMy8648AWiLKunre
+	 tRsuWlFSYNQYsRjxryXSsLGv5/aqho8DULqMpxk3P3SxWMZ3P//ZyoPSpXVIlObg8W
+	 BDdVW1/7XEYDyIDv76XwWUj6bVOOQpHVgujK30c1KSCf5TovDzGAprba1bihMRBzeV
+	 EdijAys2qvKgqImPwGAIAkFYZRSQ2eFQmIB/ORSGpv5a+TjYVapE6PweP7qqno3zi8
+	 YSiyeV7CiOVqg==
+From: "Barry Song (Xiaomi)" <baohua@kernel.org>
+To: akpm@linux-foundation.org
+Cc: axelrasmussen@google.com,
+	baolin.wang@linux.alibaba.com,
+	baoquan.he@linux.dev,
+	hannes@cmpxchg.org,
+	hui.zhu@linux.dev,
+	kasong@tencent.com,
+	kunwu.chan@gmail.com,
+	liam@infradead.org,
+	lianux.mm@gmail.com,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	liuxiang.277@bytedance.com,
+	lyugaofei@xiaomi.com,
+	mhocko@kernel.org,
+	mhocko@suse.com,
+	qi.zheng@linux.dev,
+	ridong.chen@linux.dev,
+	rppt@kernel.org,
+	ryncsn@gmail.com,
+	shakeel.butt@linux.dev,
+	surenb@google.com,
+	wangzicheng@honor.com,
+	weixugc@google.com,
+	yuanchu@google.com,
+	zhangbo56@xiaomi.com,
+	zhuhui@kylinos.cn,
+	sidchintamaneni@gmail.com,
+	Barry Song <baohua@kernel.org>
+Subject: [PATCH v7 05/16] mm/mglru: skip zones above reclaim_idx instead of rotating them
+Date: Thu, 12 Nov 2026 07:25:52 +0800
+Message-Id: <20261111232603.9934-6-baohua@kernel.org>
+X-Mailer: git-send-email 2.39.3 (Apple Git-146)
+In-Reply-To: <20261111232603.9934-1-baohua@kernel.org>
+References: <20261111232603.9934-1-baohua@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,148 +84,178 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Date: Wed, 11 Nov 2026 15:26:04 -0800
-Message-Id: <20261111-arm64-kexec-nocfi-v2-1-ddf0c4aa326f@cressey.dev>
-In-Reply-To: <20261111-arm64-kexec-nocfi-v2-0-ddf0c4aa326f@cressey.dev>
-References: <20261111-arm64-kexec-nocfi-v2-0-ddf0c4aa326f@cressey.dev>
+Content-Transfer-Encoding: 8bit
 
-An arm64 Linux kernel built with CONFIG_CFI=y oopses after "Bye!" on
-every kexec that relocates the image. Crash images load in place and are
-not affected. The oops reproduces under QEMU:
+From: Kairui Song <kasong@tencent.com>
 
- Unable to handle kernel paging request at virtual address 00000000544bfffc
- pc : machine_kexec+0x104/0x274
- Code: d5182008 d5033fdf aa1303e0 f9418a68 (b85fc110)
+scan_folios() used to visit every zone. Folios in zones above
+sc->reclaim_idx can never be isolated, so sort_folio() rotated them to
+a younger generation, the "ineligible" branch, or, when only one gen
+was left, skipped them. This wasted scan work on every pass, and the
+rotation kept the protected folios from aging.
 
-b85fc110 is "ldur w16, [x8, #-4]", the kCFI check's load of the type
-hash in front of the callee. Commit efc2d0f20a9d ("arm64: kexec: keep
-MMU enabled during kexec relocation") made machine_kexec() call the
-control page's copy of arm64_relocate_new_kernel() indirectly, while
-TTBR0 maps only that page. The copy starts at the page's first byte, so
-the load faults. SYM_CODE_START() also gives the routine no hash.
+Restrict both the scan and the gen selection to the eligible zones,
+like the legacy LRU, which only isolates folios in zones up to
+reclaim_idx:
 
-SYM_TYPED_FUNC_START() emits the hash inside .kexec_relocate.text, and
-machine_kexec_post_load() already copies that whole section, at most
-4 KiB, to the page's start, so the mapped page holds both hash and
-entry.
+- lruvec_populated_min_seq() takes a zone_limit, so the oldest
+  populated gen is searched only among the zones the scan can
+  reclaim from. A gen populated only in protected zones no longer
+  stalls the scan.
+- scan_folios() iterates the eligible zones in the descending order
+  of the legacy zonelist walk, draining the zone at reclaim_idx
+  first.
+- The ineligible branch of sort_folio() is now dead and removed,
+  with a VM_WARN_ON_ONCE_FOLIO() guarding the new invariant.
 
-The ASSERT from commit dc4824faa265 ("arm64: avoid executing padding
-bytes during kexec / hibernation") kept the entry first, since C
-branched to the page's start. Relax it, so the entry need only be in the
-section.
+try_to_inc_min_seq() still considers all zones, so min_seq[type] is
+only bumped once the oldest gen is empty everywhere. At DEF_PRIORITY
+the search bound stays min_seq[type], so the scan still starts from
+the oldest gen regardless of whether it is populated.
 
-Fix by typing the routine with SYM_TYPED_FUNC_START() and a C prototype,
-and entering the copy at the symbol's offset in the section.
-
-The code is Kees Cook's, as posted in review, with two comments and the
-ASSERT message reworded.
-
-An LLM diagnosed the oops.
-
-Fixes: efc2d0f20a9d ("arm64: kexec: keep MMU enabled during kexec relocation")
-Cc: stable@vger.kernel.org
-Suggested-by: Kees Cook <kees@kernel.org>
-Link: https://lore.kernel.org/linux-arm-kernel/202609241804.BB23BF10@keescook/
-Signed-off-by: Ben Cressey <ben@cressey.dev>
+Signed-off-by: Kairui Song <kasong@tencent.com>
+Signed-off-by: Barry Song (Xiaomi) <baohua@kernel.org>
 ---
- arch/arm64/include/asm/kexec.h      |  2 ++
- arch/arm64/kernel/machine_kexec.c   |  7 +++++--
- arch/arm64/kernel/relocate_kernel.S | 11 +++++++----
- arch/arm64/kernel/vmlinux.lds.S     |  5 +++--
- 4 files changed, 17 insertions(+), 8 deletions(-)
+ mm/vmscan.c | 47 +++++++++++++++++++----------------------------
+ 1 file changed, 19 insertions(+), 28 deletions(-)
 
-diff --git a/arch/arm64/include/asm/kexec.h b/arch/arm64/include/asm/kexec.h
-index 892e5bebda95..0be042ec22c1 100644
---- a/arch/arm64/include/asm/kexec.h
-+++ b/arch/arm64/include/asm/kexec.h
-@@ -100,6 +100,8 @@ void cpu_soft_restart(unsigned long el2_switch, unsigned long entry,
- 		      unsigned long arg0, unsigned long arg1,
- 		      unsigned long arg2);
+diff --git a/mm/vmscan.c b/mm/vmscan.c
+index db0a8a3e8887..6b1670677974 100644
+--- a/mm/vmscan.c
++++ b/mm/vmscan.c
+@@ -3991,7 +3991,7 @@ static bool inc_min_seq(struct lruvec *lruvec, int type, int swappiness)
  
-+void arm64_relocate_new_kernel(struct kimage *kimage);
-+
- int machine_kexec_post_load(struct kimage *image);
- #define machine_kexec_post_load machine_kexec_post_load
- #endif
-diff --git a/arch/arm64/kernel/machine_kexec.c b/arch/arm64/kernel/machine_kexec.c
-index 48f343704cb5..24366b5b3259 100644
---- a/arch/arm64/kernel/machine_kexec.c
-+++ b/arch/arm64/kernel/machine_kexec.c
-@@ -147,9 +147,12 @@ int machine_kexec_post_load(struct kimage *kimage)
- 	kimage->arch.ttbr1 = __pa(trans_pgd);
- 	kimage->arch.zero_page = __pa_symbol(empty_zero_page);
+ /* Similar to lruvec_evictable_size, return the oldest populated seq of the type */
+ static unsigned long lruvec_populated_min_seq(struct lruvec *lruvec, int type,
+-					      unsigned long max_seq)
++					      int zone_limit, unsigned long max_seq)
+ {
+ 	int gen, zone;
+ 	unsigned long min_seq;
+@@ -4002,7 +4002,7 @@ static unsigned long lruvec_populated_min_seq(struct lruvec *lruvec, int type,
+ 	min_seq = READ_ONCE(lrugen->min_seq[type]);
+ 	while (min_seq <= max_seq) {
+ 		gen = lru_gen_from_seq(min_seq);
+-		for (zone = 0; zone < MAX_NR_ZONES; zone++) {
++		for (zone = 0; zone < zone_limit; zone++) {
+ 			if (!list_empty(&lrugen->folios[gen][type][zone]))
+ 				return min_seq;
+ 		}
+@@ -4025,7 +4025,7 @@ static void try_to_inc_min_seq(struct lruvec *lruvec, int swappiness)
+ 	/* Requires at least MIN_NR_GENS gens for basic functionality */
+ 	seq = lrugen->max_seq - MIN_NR_GENS;
+ 	for_each_evictable_type(type, swappiness) {
+-		min_seq[type] = lruvec_populated_min_seq(lruvec, type, seq + 1);
++		min_seq[type] = lruvec_populated_min_seq(lruvec, type, MAX_NR_ZONES, seq + 1);
+ 		if (min_seq[type] > lrugen->min_seq[type])
+ 			seq_inc_flag = true;
+ 	}
+@@ -4684,6 +4684,7 @@ static bool sort_folio(struct lruvec *lruvec, struct folio *folio, struct scan_c
+ 	struct lru_gen_folio *lrugen = &lruvec->lrugen;
  
-+	/* Copy the whole section: a kCFI hash may precede the entry point */
- 	reloc_size = __relocate_new_kernel_end - __relocate_new_kernel_start;
- 	memcpy(reloc_code, __relocate_new_kernel_start, reloc_size);
--	kimage->arch.kern_reloc = __pa(reloc_code);
-+	kimage->arch.kern_reloc = __pa(reloc_code) +
-+		((unsigned long)arm64_relocate_new_kernel -
-+		 (unsigned long)__relocate_new_kernel_start);
- 	rc = trans_pgd_idmap_page(&info, &kimage->arch.ttbr0,
- 				  &kimage->arch.t0sz, reloc_code);
- 	if (rc)
-@@ -204,7 +207,7 @@ void machine_kexec(struct kimage *kimage)
- 		restart(is_hyp_nvhe(), kimage->start, kimage->arch.dtb_mem,
- 			0, 0);
- 	} else {
--		void (*kernel_reloc)(struct kimage *kimage);
-+		typeof(arm64_relocate_new_kernel) *kernel_reloc;
+ 	VM_WARN_ON_ONCE_FOLIO(gen >= MAX_NR_GENS, folio);
++	VM_WARN_ON_ONCE_FOLIO(zone > sc->reclaim_idx, folio);
  
- 		if (is_hyp_nvhe())
- 			__hyp_set_vectors(kimage->arch.el2_vectors);
-diff --git a/arch/arm64/kernel/relocate_kernel.S b/arch/arm64/kernel/relocate_kernel.S
-index 6cb4209f5dab..064db5856bba 100644
---- a/arch/arm64/kernel/relocate_kernel.S
-+++ b/arch/arm64/kernel/relocate_kernel.S
-@@ -8,6 +8,7 @@
-  * Pasha Tatashin <pasha.tatashin@soleen.com>
-  */
+ 	/* unevictable: let it through and the generic path will cull it */
+ 	if (!folio_evictable(folio))
+@@ -4700,10 +4701,8 @@ static bool sort_folio(struct lruvec *lruvec, struct folio *folio, struct scan_c
+ 	 * longer be promoted or protected, so just isolate them. The one
+ 	 * exception is lru_gen_reparent_memcg(), which is handled above.
+ 	 */
+-	if (min_gen == max_gen) {
+-		VM_WARN_ON_ONCE(zone > sc->reclaim_idx);
++	if (min_gen == max_gen)
+ 		return false;
+-	}
  
-+#include <linux/cfi_types.h>
- #include <linux/kexec.h>
- #include <linux/linkage.h>
+ 	/* protected */
+ 	if (tier > tier_idx || refs + workingset == BIT(LRU_REFS_WIDTH) + 1) {
+@@ -4720,13 +4719,6 @@ static bool sort_folio(struct lruvec *lruvec, struct folio *folio, struct scan_c
+ 		return true;
+ 	}
  
-@@ -32,11 +33,13 @@
-  * new image to its final location.  To assure that the
-  * arm64_relocate_new_kernel routine which does that copy is not overwritten,
-  * all code and data needed by arm64_relocate_new_kernel must be between the
-- * symbols arm64_relocate_new_kernel and arm64_relocate_new_kernel_end.  The
-- * machine_kexec() routine will copy arm64_relocate_new_kernel to the kexec
-+ * symbols __relocate_new_kernel_start and __relocate_new_kernel_end.  The
-+ * machine_kexec_post_load() routine will copy that whole region to the kexec
-  * safe memory that has been set up to be preserved during the copy operation.
-+ *
-+ * Called indirectly by machine_kexec(), this routine needs a kCFI type hash.
-  */
--SYM_CODE_START(arm64_relocate_new_kernel)
-+SYM_TYPED_FUNC_START(arm64_relocate_new_kernel)
- 	/*
- 	 * The kimage structure isn't allocated specially and may be clobbered
- 	 * during relocation. We must load any values we need from it prior to
-@@ -98,4 +101,4 @@ SYM_CODE_START(arm64_relocate_new_kernel)
- 	mov	x2, xzr
- 	mov	x3, xzr
- 	br	x28				/* Jumps from el1 */
--SYM_CODE_END(arm64_relocate_new_kernel)
-+SYM_FUNC_END(arm64_relocate_new_kernel)
-diff --git a/arch/arm64/kernel/vmlinux.lds.S b/arch/arm64/kernel/vmlinux.lds.S
-index 1869b44ae190..c95243a8b24e 100644
---- a/arch/arm64/kernel/vmlinux.lds.S
-+++ b/arch/arm64/kernel/vmlinux.lds.S
-@@ -440,6 +440,7 @@ ASSERT(swapper_pg_dir - tramp_pg_dir == TRAMP_SWAPPER_OFFSET,
- ASSERT(__relocate_new_kernel_end - __relocate_new_kernel_start <= SZ_4K,
-        "kexec relocation code is bigger than 4 KiB")
- ASSERT(KEXEC_CONTROL_PAGE_SIZE >= SZ_4K, "KEXEC_CONTROL_PAGE_SIZE is broken")
--ASSERT(__relocate_new_kernel_start == arm64_relocate_new_kernel,
--       "kexec control page does not start with arm64_relocate_new_kernel")
-+ASSERT(arm64_relocate_new_kernel >= __relocate_new_kernel_start &&
-+       arm64_relocate_new_kernel < __relocate_new_kernel_end,
-+       "kexec relocation code does not contain arm64_relocate_new_kernel")
- #endif
-
+-	/* ineligible */
+-	if (zone > sc->reclaim_idx) {
+-		gen = folio_inc_gen(lruvec, folio, min_gen);
+-		list_move_tail(&folio->lru, &lrugen->folios[gen][type][zone]);
+-		return true;
+-	}
+-
+ 	return false;
+ }
+ 
+@@ -4758,16 +4750,17 @@ static int scan_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
+ 		       struct scan_control *sc, int type, int tier,
+ 		       struct list_head *list, int *isolatedp)
+ {
+-	int i;
+ 	enum node_stat_item item;
++	int zone_idx;
+ 	int sorted = 0;
+ 	int scanned = 0;
+ 	int isolated = 0;
+ 	int skipped = 0;
+ 	int gen, max_gen;
+-	unsigned long min_seq;
++	unsigned long seq;
+ 	unsigned long remaining = nr_to_scan;
+ 	struct lru_gen_folio *lrugen = &lruvec->lrugen;
++	struct pglist_data *pgdat = lruvec_pgdat(lruvec);
+ 	DEFINE_MAX_SEQ(lruvec);
+ 
+ 	VM_WARN_ON_ONCE(nr_to_scan > MAX_LRU_BATCH);
+@@ -4779,24 +4772,22 @@ static int scan_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
+ 	 * when under pressure to respect swappiness more and reduce IO cost.
+ 	 */
+ 	if (sc->priority == DEF_PRIORITY)
+-		min_seq = lrugen->min_seq[type];
++		seq = lrugen->min_seq[type];
+ 	else
+-		min_seq = lruvec_populated_min_seq(lruvec, type, lrugen->max_seq);
++		seq = lrugen->max_seq;
+ 
+-	gen = lru_gen_from_seq(min_seq);
++	seq = lruvec_populated_min_seq(lruvec, type, sc->reclaim_idx + 1, seq);
++	gen = lru_gen_from_seq(seq);
+ 	max_gen = lru_gen_from_seq(max_seq);
+ 
+-	for (i = MAX_NR_ZONES; i > 0; i--) {
++	/* Scan eligible zones in descending order. */
++	for (zone_idx = sc->reclaim_idx; zone_idx >= 0; zone_idx--) {
+ 		LIST_HEAD(moved);
+ 		int skipped_zone = 0;
+-		int zone = (sc->reclaim_idx + i) % MAX_NR_ZONES;
+-		struct list_head *head = &lrugen->folios[gen][type][zone];
++		struct zone *zone = &pgdat->node_zones[zone_idx];
++		struct list_head *head = &lrugen->folios[gen][type][zone_idx];
+ 
+-		/*
+-		 * If there is only one gen left, rotating the unreclaimable
+-		 * zone become meaningless, just skip them.
+-		 */
+-		if (gen == max_gen && zone > sc->reclaim_idx)
++		if (!managed_zone(zone))
+ 			continue;
+ 
+ 		while (!list_empty(head)) {
+@@ -4806,7 +4797,7 @@ static int scan_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
+ 			VM_WARN_ON_ONCE_FOLIO(folio_test_unevictable(folio), folio);
+ 			VM_WARN_ON_ONCE_FOLIO(folio_test_active(folio), folio);
+ 			VM_WARN_ON_ONCE_FOLIO(folio_is_file_lru(folio) != type, folio);
+-			VM_WARN_ON_ONCE_FOLIO(folio_zonenum(folio) != zone, folio);
++			VM_WARN_ON_ONCE_FOLIO(folio_zonenum(folio) != zone_idx, folio);
+ 
+ 			scanned += delta;
+ 			if (sort_folio(lruvec, folio, sc, gen, max_gen, tier))
+@@ -4825,7 +4816,7 @@ static int scan_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
+ 
+ 		if (skipped_zone) {
+ 			list_splice(&moved, head);
+-			__count_zid_vm_events(PGSCAN_SKIP, zone, skipped_zone);
++			__count_zid_vm_events(PGSCAN_SKIP, zone_idx, skipped_zone);
+ 			skipped += skipped_zone;
+ 		}
+ 
 -- 
-2.56.0
+2.34.1
 
