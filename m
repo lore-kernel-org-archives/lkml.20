@@ -1,67 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.224
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794384814;
-	b=YFxX3AalLyyNbm+BVHj9XNaLOl/Rq9W70Sc+zzeUPQDgmPljULNv3ri2fjHyB9r0IOAA
-	 0zg9le/DoYdVRjmwzK7taSl4bO9UTTxMd5bA2CL9ApxzLC2k1IikwOf4AVn1y2n9yykS+
-	 R9xpY/ZrYt3INcbHT8G32eSNigQPjODd7cCRVcFA2VTRtMubE8hLge4iF/TIXSAAZmyud
-	 UOCVSpeyNQnLelDzOUzI+jkyWmJAWjOYq1ZPjbn1KZoqA9s8lQIz98hrXrdGIdfCbF9lG
-	 RpTY0R3uRBL8pD+QVyFgncCBfH5Not+MP5GsDbO1l3KfoMPyDNp0eAG+QUj66+ngMoQ==
+	t=1794384820;
+	b=bGbEkIEi+7kkxHWNS1K/uo6+zLEtYILl9WjtKoj2U9AThDCzxfK0kgwIlnvy7gcgRBOx
+	 au5EgAGwxkZPI2+gv3jM83Y9aT9YcZibR6c5CkuWJ/b3ho7S6omtOf/41hcHOhYarMEzI
+	 TOhWhiqlXwswsvD82FbhJh6aOhKumNSyVCUq56b9Sa8qcvwrFXtMmuCh9k+xhn4XQ+JYg
+	 KvutcRn7xFNmRmr4MQEnKNFPWgIRt4OS5GCjX+7VF4QNWDkNCpkac8KdGJ36e2n68wBoq
+	 e1eYfvDLrfDZnYuRU0O9R7EqCfyJIDTyrrKoRmj3bVXiOINnDeviifP9FXLy1QhML5Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794384814;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=/0qm+V/JbsUcSgexXUje3bg5BmK9mEGU66q9WKEV+pk=;
-	b=HJ6C/hC+QVRJbU4VTkiNc6LwQvtm06p44I883o6f6pat1qPLvUL51E+m7KHdd4CzXW2U
-	 AiNSV/M8yf3H1+tYmeQXwrv/KrrEampRb4eJzMz5sBvvL00SdF2V2LySA6Yckh5WqZDJJ
-	 FE5FPK+zNApOwqGtMhYnM7x5WBeU8vLYyeWPytAnGKZDi1VASAsJ7qREgYERigJMOHV6l
-	 22QFiRxTID3m3Adb2FTlB6rPfz/KiOUTGGyJpkbfEnRmFtV59qByARIonOqg/wIyMkAWv
-	 epYJnEu01ZzJiOjVqUYUA1HLpSwiSyTvWXgk8piDpgZvQt5mMWOIA+R86W5ZAJDXUKw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794384820;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=ZUfWaV/zQvNeuCJEfS/peQTeOVn6kkR76BCqbGN3A+U=;
+	b=EEuWSzHEteE3UZAq5pMMVtltV8VchSAj4SCPwb7FUqFt2zvgOt4+7Mpj0dnXsSoZGAJD
+	 V4xPpsfCfWb9A3TiMNwHR6C3L5xen4m/PNpjQkfSUPfSwk8y7vqMlWBGHnMYnwY36Sz71
+	 1YgR44SbuhHfBGelonv9yiHpiESbuvb7uo35BhTAUS+H6m3IBcWQsNIwoGx5WhZs91X44
+	 pK/CC1iureQbUNPyN5qhZHetq2XURyKaBHN8xWpVSXDsCs08DvgudHha0pVTLAyB1q/tm
+	 2eu4vAwS7YCd5IHU/zL0k3OIPWycn7ZB9OqjJ3Do/LEf0s9FA5mlb6ZIIWC1Jty49+A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=FOvQJwOk;
-	arc=none smtp.remote-ip=111.22.67.139
-Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 47F2F60A263C;
-	Wed, 11 Nov 2026 08:13:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 47F2F60A263C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=PhlVHTqB;
+	arc=none smtp.remote-ip=113.46.200.224
+Received: from canpmsgout09.his.huawei.com (canpmsgout09.his.huawei.com [113.46.200.224])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B88B60A5BE5
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 08:13:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B88B60A5BE5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=FOvQJwOk
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=FOvQJwOkIyeEwSb4UhtPT2pLALffanzjL1RJb/G2oWEu0LQUC0psTl4k0+dqg2iXoodVo+Qa1BgXm
-	 wUmEleTufWo7I51Gm1WbqcYPP7y7QniWuKS/BHjxeV9DEPSaL4W1VkDu1sEqw8Tj1XFLgf7olXmlpe
-	 3Fg6K1cUBtckmP/U=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app09-12009 (RichMail) with SMTP id 2ee96af4239d7ed-dbb62;
-	Wed, 11 Nov 2026 16:13:17 +0800 (CST)
-X-RM-TRANSID:2ee96af4239d7ed-dbb62
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from  (unknown[223.108.79.97])
-	by rmsmtp-syy-appsvr04-12004 (RichMail) with SMTP id 2ee46af42399a3d-d4b47;
-	Wed, 11 Nov 2026 16:13:17 +0800 (CST)
-X-RM-TRANSID:2ee46af42399a3d-d4b47
-From: Shunbo Shi <shishunbo@cmss.chinamobile.com>
-To: nkapron@google.com,
-	gregkh@linuxfoundation.org
-Cc: linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 1/4] usb: gadget: f_hid: fix sleep-in-atomic-context in f_hidg_get_report()
-Date: Wed, 11 Nov 2026 08:13:10 +0000
-Message-ID: <20261111081313.16626-2-shishunbo@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261111081313.16626-1-shishunbo@cmss.chinamobile.com>
-References: <20261111021655.37851-1-shishunbo@cmss.chinamobile.com>
- <20261111081313.16626-1-shishunbo@cmss.chinamobile.com>
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=PhlVHTqB
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=ZUfWaV/zQvNeuCJEfS/peQTeOVn6kkR76BCqbGN3A+U=;
+	b=PhlVHTqBBDSeuCTP75pcpnLHPfLV+6BssxOaH+8RxFKXOuNxqC0dPQ4vueL/tFwFCU3A4hzC4
+	ktdbjdk78nnZzngP7bdbKU2tKo6A22bbDiMp3S2BC/NSK+PNPxPiigAfudHnHGIJG8Tn/mb35ym
+	9F4KLG47Hd90QJqTgAcPOb8=
+Received: from mail.maildlp.com (unknown [172.19.163.163])
+	by canpmsgout09.his.huawei.com (SkyGuard) with ESMTPS id 4jPbqv0MFLz1cyTf;
+	Wed, 11 Nov 2026 16:13:15 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id 810874057A;
+	Wed, 11 Nov 2026 16:13:30 +0800 (CST)
+Received: from huawei.com (10.90.53.73) by kwepemk200008.china.huawei.com
+ (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 11 Nov
+ 2026 16:13:29 +0800
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+To: <james.morse@arm.com>, <ben.horgan@arm.com>, <reinette.chatre@intel.com>,
+	<fenghuay@nvidia.com>, <zengheng4@huawei.com>, <gshan@redhat.com>,
+	<tan.shaopeng@jp.fujitsu.com>, <jic23@kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+CC: <ruanjinjie@huawei.com>
+Subject: [PATCH v4 1/3] arm_mpam: resctrl: Leave CDP off when there are too few PARTIDs
+Date: Wed, 11 Nov 2026 16:13:14 +0800
+Message-ID: <20261111081316.3828283-2-ruanjinjie@huawei.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261111081316.3828283-1-ruanjinjie@huawei.com>
+References: <20261111081316.3828283-1-ruanjinjie@huawei.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,63 +73,51 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
-The second copy_from_user() in f_hidg_get_report() is called while
-holding hidg->get_report_spinlock with interrupts disabled.  If the
-user page backing the ioctl buffer is not resident, copy_from_user()
-takes a page fault and sleeps, which is not allowed with a spinlock
-held: it triggers might_sleep() warnings with
-CONFIG_DEBUG_ATOMIC_SLEEP and can deadlock the scheduler on other
-CPUs spinning on the lock.
+Enabling CDP requires at least 2 PARTIDs. If there are too few PARTIDs,
+resctrl_arch_set_cdp_enabled() returns -EINVAL, but only after it has
+recorded CDP as enabled, halved the monitor count and turned off the
+mbw_max MBA control. resctrl then believes CDP is off, which leaves the
+two sides out of step and the halved monitor count and the missing MBA
+control are not undone.
 
-The first copy_from_user() into the freshly allocated entry is
-already done before the spinlock is taken; only the "report already
-exists, update it" branch still copies inside the critical section.
+Check the PARTID limit before anything is changed so a failed enable has
+no effect.
 
-Since the data has already been fully copied into entry->report_data
-before taking the lock, updating an existing report only needs a
-plain assignment between two kernel-memory objects, which is safe
-inside the spinlock.
-
-Fixes: a139c98f760e ("USB: gadget: f_hid: Add GET_REPORT via userspace IOCTL")
-Signed-off-by: Shunbo Shi <shishunbo@cmss.chinamobile.com>
+Fixes: 6789fb99282c ("arm_mpam: resctrl: Add CDP emulation")
+Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+Cc: <stable@vger.kernel.org> # 7.1+
 ---
- drivers/usb/gadget/function/f_hid.c | 13 ++++++-------
- 1 file changed, 6 insertions(+), 7 deletions(-)
+ drivers/resctrl/mpam_resctrl.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/usb/gadget/function/f_hid.c b/drivers/usb/gadget/function/f_hid.c
-index 3c6b43d06a6d..b778eb633b79 100644
---- a/drivers/usb/gadget/function/f_hid.c
-+++ b/drivers/usb/gadget/function/f_hid.c
-@@ -654,6 +654,11 @@ static int f_hidg_get_report(struct file *file, struct usb_hidg_report __user *b
- 	if (!entry)
- 		return -ENOMEM;
+diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/mpam_resctrl.c
+index 563ca99a581d..573617ba09df 100644
+--- a/drivers/resctrl/mpam_resctrl.c
++++ b/drivers/resctrl/mpam_resctrl.c
+@@ -219,6 +219,9 @@ int resctrl_arch_set_cdp_enabled(enum resctrl_res_level rid, bool enable)
+ 	if (enable)
+ 		pr_warn("CDP is an expert feature and may cause MPAM to malfunction.\n");
  
-+	/*
-+	 * Copy the report from userspace into the entry before taking the
-+	 * spinlock: copy_from_user() may sleep, so it must not be called
-+	 * with the spinlock held (and interrupts disabled).
-+	 */
- 	if (copy_from_user(&entry->report_data, buffer,
- 				sizeof(struct usb_hidg_report))) {
- 		ERROR(cdev, "copy_from_user error\n");
-@@ -668,13 +673,7 @@ static int f_hidg_get_report(struct file *file, struct usb_hidg_report __user *b
++	if (enable && mpam_partid_max < 1)
++		return -EINVAL;
++
+ 	/*
+ 	 * resctrl_arch_set_cdp_enabled() is only called with enable set to
+ 	 * false on error and unmount.
+@@ -248,9 +251,6 @@ int resctrl_arch_set_cdp_enabled(enum resctrl_res_level rid, bool enable)
+ 		mpam_resctrl_controls[RDT_RESOURCE_MBA].resctrl_res.alloc_capable = true;
  
- 	if (ptr) {
- 		/* Report already exists in list - update it */
--		if (copy_from_user(&ptr->report_data, buffer,
--				sizeof(struct usb_hidg_report))) {
--			spin_unlock_irqrestore(&hidg->get_report_spinlock, flags);
--			ERROR(cdev, "copy_from_user error\n");
--			kfree(entry);
+ 	if (enable) {
+-		if (mpam_partid_max < 1)
 -			return -EINVAL;
--		}
-+		ptr->report_data = entry->report_data;
- 		kfree(entry);
- 	} else {
- 		/* Report does not exist in list - add it */
+-
+ 		partid_d = resctrl_get_config_index(RESCTRL_RESERVED_CLOSID, CDP_DATA);
+ 		partid_i = resctrl_get_config_index(RESCTRL_RESERVED_CLOSID, CDP_CODE);
+ 	}
 -- 
-2.53.0
-
-
+2.34.1
 
