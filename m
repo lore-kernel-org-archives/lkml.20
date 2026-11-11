@@ -1,106 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.61.82.184
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794388495;
-	b=mO6IIBtWMtTCuVIowgRp3BDFnj+h1Qj9ZX04JpJHtEmEJsaOTbDChFde30PF1y7iQWCk
-	 XWkktuEoD5ewJX2mtDkgZ4oxLcxxX5w3lqHDjKXwlvPnEKDCJV0F3vlhkS+NnusQdtTkO
-	 EOKXT+QcrnH6kAIg4zJ1CQ07mF7R/lgXXCeSjRzvKfHxEJ91jxkZyayrcTUipRuE/1TYa
-	 E0Vhn5JXacd5azGuH1AkizPcj+FqkUjxs2OObYTIyqqV268f3l0dNVpyTxvUVKZDtGKXO
-	 bSM04zbF+yoKyLKlZ7NMvFwMZoqHE4JcGB9d+1LenY2mdR1cbae0Jwk16In/KVWiA3A==
+	t=1794388497;
+	b=upgK+IsFSkETXuhoVWqrK7UCXg+1sYFp51pPjFGTJ6xBIt5owv/B60aES4AaMAnHm5OY
+	 J5gLcYVs5PikJQqFTgLnlyo/ZA2udsWw8pHcoX4vviksmbNkyPU/Duyu/vqCxLe70uZPt
+	 M48zs9LVDAz4dAIU9BD8Bs8uViCwPzm25NyuRColxc0i14l9Z4o9GhFZ2q40EhhHDv9If
+	 6VEjMqz4rOzBj+XXpoNd291ZSGlK1XtnTSXRLIQVKkUsCslLo2tmVtAm44X/0+5Sqxl+o
+	 9GL2vDhfOt0T21NLtbn22u2chnaSGFA/om1BvBjc239je6g7tEdLRvqusVmvnYnftfQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794388495;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=kxkRXuYhMPK0C30vvCMKN0f/tz8st3ZMYqyTNqjHyuc=;
-	b=3Eaca2IGT5WKF04WNQFCD4Xqw10/CzC81xIU14vHfrp74JY8gjZL8z4kF0wNSRz8/yAn
-	 dlBNJgbrQfsUX1M9kAFswb+vO8nAr94nzJ4T/6GW9zIoT7R9YDemjebDcwbAv0r3wVNR2
-	 I1602STA7yWXDxDDCvdCHsRxrfr+VgTqfv/3JNzD2tlbIMyesSR9/SXev7u2l8qBI+13w
-	 KiK1MGqZYo+U+zAONVPehTXWxS82zl9W6immsL+Yc2QOou0bdpvAB3erAOAqbFz5nECfC
-	 dNhAglqRhW0cA2GLSdiI5/s0v2E2+OOjovJeEPHdfeITXs8Oo3EL5FCOItqtM4mrwhA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794388497;
+	h=DMARC-Filter:X-UUID:DKIM-Signature:X-CID-P-RULE:X-CID-O-INFO:
+	 X-CID-META:X-CID-BVR:X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:Received:
+	 Received:Received:Message-ID:Subject:From:To:CC:Date:In-Reply-To:
+	 References:Content-Type:Content-Transfer-Encoding:User-Agent:
+	 MIME-Version:X-MTK;
+	bh=zvaUldV391V5uNeMjr+9WAAbMevw73xdsml0k5INe88=;
+	b=tn7sG6MVGdnIXeVTXUbMg712+P4cTkOXKgQDtElLYF/8dx1AECNATI6Y7oQPg7+TZ5JN
+	 guM/7JcLAYGQrA+0dSj13+j0cxIlwPOlP9t2KK0yydMq/ZiLNgo5r50eBMQudLZCbvnBa
+	 VQVSX3ra//a3p6FeoUwrtsNAe1piezhXjiRI7GOHjtTN4sU2/nRfKxgvzTIYJV2VT1wvh
+	 uZAjQzULeWX8bTkkhtTO6tMXr8uchcCK2JGIyGrtErxlM9kJdTvrKc7Ig0E9GEFrfJQcV
+	 MTvems+e3D1JmrntRXCN5nAtCRQ1vbvcRV2BMKGqaZXJkuMD2Abf8mbWa0aBtqXty/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="Mo3o/ejO";
-	arc=none smtp.remote-ip=209.85.128.52
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=mediatek.com;
+	spf=pass smtp.mailfrom=mediatek.com;
+	dkim=pass header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=Iu1mFkUN;
+	arc=none smtp.remote-ip=210.61.82.184
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1F43606A327
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 09:14:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1F43606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69D37606A331;
+	Wed, 11 Nov 2026 09:14:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 69D37606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Mo3o/ejO
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a549cd7fd2so26557335e9.0
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 01:14:54 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794388493; x=1794993293; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=kxkRXuYhMPK0C30vvCMKN0f/tz8st3ZMYqyTNqjHyuc=;
-        b=Mo3o/ejO5eEm/4lsClFXD97OGtT2rZOLvBTBTgG1NveGUf2IHBjdEX2ZBRkaCeSkAN
-         0+B15HUnQdIeOEuw1osEeAv8iy8zw09HeRfarjQ4Ou1p8eQF/JgrdyyRH4Akkovy82PA
-         gFGholXanrrhUyhHmi8WxQJy5CQ039dFebXE15W89v9z2UFB8YJBgXX1KmQUC4U8Rd2S
-         /dHTh4gHXH8KKaKb6onZbYvygCi+/+Gf2S0rb+Tm8KtNxDVjkKYo4goh3h1rxRh6l3sV
-         s2T7URet6HooCiQOE1OtLDSK/rLoB2/oDPc51diEwiNpFJ0TwW+YTrFVg3rgZ3I5y37q
-         sLtg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794388493; x=1794993293;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kxkRXuYhMPK0C30vvCMKN0f/tz8st3ZMYqyTNqjHyuc=;
-        b=oWIdstX/Yw1SLhZRnQaC0MkFTYaMs8ur9UgFcr4MUUOnMExO4Ke6mpSXDPTHip6bAe
-         gCtO46hGtJLYAssvwyZVItDQPG11pm25J5vRp4+ixJFHPeMYEe3Ss37GeXTS8TYuL7ae
-         gK/3MGIsx/SHf4bETu0r/asMjXe8LMzvYLx/trkgwaKxUaoqfU8wfp0MhNpyausf57gy
-         r/DqvN8StymgYU69FOlU00E5NvOMB/Hm2Ld+KemHKLbyLmD+IXBs+JksI1zDMGOq5L2G
-         yZsaxVuT4y3GhomTyo0HGSxkIOIvRoV/DCyBX9eUBk8kj+ngJgRz+4cDzqydDFEm1+ja
-         0obg==
-X-Forwarded-Encrypted: i=1; AL+hErFJVMc/63U1zWXac+gJxoTihP2c7E0o7OID3GhfnDRzZPUEYlHG0Q+TT4XaMT94pwaXtXQHjwIDhJ7rycE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/6CmrjrWNWJnggTAc2PSPKSC66LZweW1uFCkJdPeRTArhtjeX6
-	31pdPhus2z0d/CfBD1l0lJmdPqjZ9EjjhsTOk1HQpBq92mXvCRyOIS4N
-X-Gm-Gg: AYBFou04FfQ6BL7+qi24WmxHuODttam0H1mFgr8MtKFdKSD7jSg64ZtokJi0ctBwQ/1
-	EKAXDdVT1ijUxmQojsqMJw6gxQCpQq3CPUfA5INIsyp/njrPgtmkyPqTUI2Gc/Lz7m9idnWr/58
-	dlFw0h/Al3vc9meZk0H/Dpr2g6JrGgVEMvAfW0Rd02c1scF+Cl2g26vHQgZzd4MehP7nY1bU1Yt
-	NQCERvSDPF2p98/Jy0mtNJYKvAQr0WP7E9LioLp2nzxXuY+fPoSUpqiGJmEVaffrAg33J10lUL1
-	A+QnRbmvPzAwAZwU11BS/VE+Gq575wZszKEhHXWGuUsHa4PVx2lpCBLM6ZTxeiRCEtTFNnSw36u
-	cD1CxAoaSaOjZ1NlL4hOF4hm1VS6tnWmblI+7PKrcdHQHWXgxJagcvLSImwrTO6hv/E8HylIcfY
-	Zs45OHR0Ii/iPYmZLMQ68+aFFPqPcGZ4p9tW7qHARlwJCPDdkldGuRosWuN1frEbDvlVi3uics/
-	6P34idb3L48bicDOKwnYMLxIpyWFf58qq+WzaiiN6Q8GJ/zwdsyH3bjbM5zFcn4AX7njL6uQo2s
-	yyItTisPJZiU5eGPv+skH/b2z1ERFxFXUgWOABM6clXhjAS8alrsIx9vcKqGIA2eVkye5s09Ar3
-	zOXntke/oVtGh1l2kwnWRc/ceptOyE0pplsqBq5izjFPC42DSYOqjysArzAg5ow==
-X-Received: by 2002:a05:600c:6994:b0:4a2:1960:6fa with SMTP id 5b1f17b1804b1-4ba0935bd68mr32873845e9.4.1794388492912;
-        Wed, 11 Nov 2026 01:14:52 -0800 (PST)
-Received: from Lord-Beerus.station ([93.146.104.162])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba02005946sm145501635e9.1.2026.11.11.01.14.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 01:14:52 -0800 (PST)
-Date: Wed, 11 Nov 2026 10:14:50 +0100
-From: Stefano Radaelli <stefano.radaelli21@gmail.com>
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: Frank Li <Frank.li@oss.nxp.com>, Frank Li <Frank.Li@nxp.com>,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	pierluigi.p@variscite.com, Nate.D@variscite.com,
-	Stefano Radaelli <stefano.r@variscite.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Shawn Guo <shawnguo@kernel.org>
-Subject: Re: [PATCH v1 1/1] arm64: dts: freescale: Move Variscite Ethernet
- LEDs to carrier boards
-Message-ID: <avQyCgitN-stXoS7@Lord-Beerus.station>
-References: <20261105101739.10614-1-stefano.r@variscite.com>
- <auy-OW_td7N8oHK_@SMW015318>
- <auzAh7404GAsY-U0@Lord-Beerus.station>
- <9c416362-4e28-4327-b8c3-bd789d2922f0@lunn.ch>
+	dkim=pass (1024-bit key, unprotected) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=Iu1mFkUN
+X-UUID: 58f00800ddb011f18dc8c9802ae25ab1-20261111
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
+	h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:In-Reply-To:Date:CC:To:From:Subject:Message-ID; bh=zvaUldV391V5uNeMjr+9WAAbMevw73xdsml0k5INe88=;
+	b=Iu1mFkUN1qfFbTxDATBi4zHufWjXAqMgTLKFyL/eIu5Ooy+mGSzChu1cz08wsGC3n5Vj+Y9lJTWrIwEakw6H61+59TRNgyQvhQFK+5i3iJ2t1ajo2MeZS5EFJJFsMc6CM3iCTXt2oss1FgFuUiKXu7r9JK6IkM8yAaOx9Wo3Vkg=;
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.21,REQID:38b42ae4-17b2-4cf1-9617-9a7929c9fad8,IP:0,U
+	RL:0,TC:0,Content:0,EDM:-25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+	N:release,TS:-25
+X-CID-META: VersionHash:b0318ac,CLOUDID:22c8bdd2-e65c-440c-82e1-af2977a3d424,B
+	ulkID:nil,BulkQuantity:0,SF:81|82|83|102|836|865|888|898,TC:-5,Content:0|1
+	5|50|99,EDM:2,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI
+	:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 58f00800ddb011f18dc8c9802ae25ab1-20261111
+Received: from mtkmbs10n1.mediatek.inc [(172.21.101.34)] by mailgw02.mediatek.com
+	(envelope-from <allen.ye@mediatek.com>)
+	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+	with ESMTP id 2135581844; Wed, 11 Nov 2026 17:14:50 +0800
+Received: from mtkmbs13n2.mediatek.inc (172.21.101.108) by
+ MTKMBS14N2.mediatek.inc (172.21.101.76) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.29; Wed, 11 Nov 2026 17:14:48 +0800
+Received: from [10.233.130.16] (10.233.130.16) by mtkmbs13n2.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.2.2562.29 via Frontend
+ Transport; Wed, 11 Nov 2026 17:14:48 +0800
+Message-ID: <ea313f0127e2cfa72a3572f1893e59c6e2c22cd1.camel@mediatek.com>
+Subject: Re: [PATCH wireless-next v4 08/21] wifi: nl80211/cfg80211: pack SMD
+ dynamic context along with frame
+From: Allen Ye <Allen.Ye@mediatek.com>
+To: Pooventhiran G <pooventhiran.g@oss.qualcomm.com>
+CC: Johannes Berg <johannes@sipsolutions.net>,
+	"linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Jouni
+ Malinen" <jouni.malinen@oss.qualcomm.com>, Aditya Sathish
+	<asathish@qti.qualcomm.com>
+Date: Wed, 11 Nov 2026 17:14:48 +0800
+In-Reply-To: <20261106-smd-v4-8-62e39487f51a@oss.qualcomm.com>
+References: <20261106-smd-v4-0-62e39487f51a@oss.qualcomm.com>
+	 <20261106-smd-v4-8-62e39487f51a@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.52.3-0ubuntu1.1 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,27 +89,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <9c416362-4e28-4327-b8c3-bd789d2922f0@lunn.ch>
+X-MTK: N
 
-On Wed, Nov 11, 2026 at 03:03:12AM +0100, Andrew Lunn wrote:
-> > 2. The Ethernet connectors, LEDs and their wiring are on the carrier.
-> 
-> The PHY itself is on the Module?
-> 
->     Andrew
+On Fri, 2026-11-06 at 13:28 +0530, Pooventhiran G wrote:
 
-Hi Andrew,
+Hi Pooventhiran,
 
-Yes, the PHYs whose LED configurations I'm moving are physically
-located on the SOM.
+A question on how the context is collected here.
 
-I'm moving them following the approach we previously discussed here:
+> While packing the received management frame in nl80211_send_mgmt() to
+> send to userspace, nest the SMD dynamic context along with the frame
+> message.
 
-https://lore.kernel.org/all/31f30651-7c99-42cb-9e27-e4806529d137@lunn.ch/
+On MediaTek chipsets (mt76), the dynamic context is kept in FW/HW, so
+the driver has to fetch it from the firmware with an MCU command. This
+means the driver has to hold the ST request frame until the firmware
+replies with an event, and only then pass the frame up. Holding RX
+frames in the driver is the problematic part: the frame has to be kept
+outside the normal RX path, kept in order with the frames that follow
+it, and handled if the firmware reply is delayed or never arrives.
 
-https://lore.kernel.org/all/fac81a12-92c9-4e29-96ca-473c18fca675@lunn.ch/
+1. With the context attached to the frame, how it gets collected
+depends on each vendor driver's own implementation (on mt76, this may
+mean holding the frame in the driver as described above). If userspace
+instead queried it via GET_SMD_CTX / SMD_CTX_EVENT for ST preparation
+and ST execution via the current AP MLD, as it already does for ST
+execution via the target AP MLD, the flow would be the same for every
+driver, regardless of where the context is kept. Would that be
+acceptable?
 
-Best Regards,
-Stefano
+2. If not, could the frame-attached context be optional (e.g. behind a
+capability flag), with userspace falling back to GET_SMD_CTX?
+
+Thanks,
+Allen
