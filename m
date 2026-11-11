@@ -1,66 +1,66 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794426947;
-	b=0H9Ve8OTzz06ro/r2bjZI2Th9PfQ2gQBBu5+nW4NMvuX7p1lQJKhKi6HdUZJ5MlbBfdQ
-	 ocVSkt0mrzMAcnwbG0xCYcv1E3u9PGLCqpF9C/wQpo970rN3b/OfVbrsbKQeKUqFzIydf
-	 Sm4y1dL822WEaQ0xqKMsnThqIjVMCggHQtPtZhUeMUtQEaAVhpMWho6lEBz4scZJwvjWP
-	 yA+wD8fnUZqgxo72JZC2XJ1b9G8x8sxX5XV/8UFQAYPxysKIfaO/ocAMTR4BH0BM7aYuy
-	 npzz4mrXOGUN69kx+jimOL/2rw9h/0VLGbCzB9ZQOBA5VpIs75cpRHhGjHDnPHKT4EQ==
+	b=WvhfTFNUqW52qgERszvgZkbVhaKXnFy9clT5G/prumWHxQe/rORcIfatjrrcp0WHIy8O
+	 Z2B2Vk8w/09PJ1Wpcp6ECiEondwg4ezUzm9lH5CA5mUKmp/8b/ii4Pj0R3Kt2pz3uSR8l
+	 lIwy99LULqTeEMWEHzOv7I/pifYvCPIDaBGaiNgQ/onARGAJY3cFKzvFSES7RMWrwHdf+
+	 0OKim2ShQd4tPq1nCHa+ZT5rwpWs+tqCllul1qyTpjqDWCyWXRl1OXFW85BVgxvk+hFvr
+	 LyntRY+NZxrQ1Hv5ogS23bhpOnUQMkRV0NuVLg0utstgMzC75NDS+IJXSWH2qUctyTA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794426947;
-	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
-	 Reply-To:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=6bNA0Ukkyhny+gh/+wuX405ug+L/ynF/BbCiaYwvDfA=;
-	b=oBTIA7q/Ib7jFawSYAc9uqGE3QZv8sFYoXmxbZnSALQ3ftqCHQ1x+tRg7iG78jd12o7A
-	 HsgS8E+s9v8TNEq1ak4EqK4PPvEVITf88zpaXIOxVMIKDS3Zb/Z4F3kGz8jNRPnFCYkqg
-	 95w/rt/43HBFr0+tbpzkLakC//Z3ZXCzJB8CcnFLUsaaREMFl0XL2zOzGKNvnVaad9Ozk
-	 0vpHRiJNDwxK8E16YvAtXsMmdzdTbuxB4/eDXu+J8WxFIoNYtZqTABv6q2IwBnfQe7ohe
-	 wa8envT4K/ljBQelIcShYsxzU8scGCdpAozhv2eTebqtdgrw9PQX02h59vgc6RBkoXQ==
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:X-Mailer:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=XaidZb7Mf5qo1jkgN91YolFfOYB9ahZXYFii9xkxxaw=;
+	b=DmfEG5D1aKTjMjFwz6ShX9oQZPsNJUb0MD7/BEDdKFDKg9s1lWioLJ5FFBbuggt+HJLn
+	 wcp+O4YcnZw4YOds/F5bSM1sAChqcOAJkBH7Z5cjZVlBMnuCfB1WKp5mP+3H3iN1o9ate
+	 mnpW+PpSKJ5ASHJ97CEfr5JNggmhwoGLpthJmMIf1JZNhUk0a1F4FHUhhdMCn9uMYEgAS
+	 YZFFKJPZ3XyqAeLbXIE28IVKmLcCyC47o26Wi3W1gbbeyFEqu0tHS8wb/z1b9Fgauiusu
+	 NPb1ZICZPQ/OT8KK6X7712Tp4keD7r45aUHkB9byH2mc+flCuFdwIW5O02t3YbHGDyA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Y73Tp/YG";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="H/Z5i63G";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5ED0A606A896;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BAD5606A330;
 	Wed, 11 Nov 2026 19:55:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y73Tp/YG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F248E1F00A0F;
-	Wed, 11 Nov 2026 19:55:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H/Z5i63G
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 803DD1F00A05;
+	Wed, 11 Nov 2026 19:55:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1794426947;
-	bh=6bNA0Ukkyhny+gh/+wuX405ug+L/ynF/BbCiaYwvDfA=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=Y73Tp/YGXVsxKQeevziCAcCtO+w1VUwIAd/ibVxGoCbwS664AciSkWl0CV2ZYse1t
-	 tbmeHdpUxD6AaRoKfIqpcQuIikQELdmTD5sGVJhIEi3+tGyhr/c9MCd5/K6aYz0mJH
-	 7tfx8KmIRNEynz4VH38ldMVxWT4pxGYAKJQix8gxNoZHCBv49Pp5JgqlxtJ4a5oIQk
-	 4md+u9jWPmh2PYYxoxLdFAIFXgQoB+zqlbDWbZ4HR0zJnAqeoewhrI8fd+NrEbqe8P
-	 OwQv0lXcPVoLtX4/IcBQ6FXO49+iToAzMgnet0SudONA+lZ+fjQZFjR1gYLo2ggg9+
-	 r54tTnPsKfLUw==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id B8A9ECE08D1; Wed, 11 Nov 2026 11:55:46 -0800 (PST)
-Date: Wed, 11 Nov 2026 11:55:46 -0800
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Cc: linux-kernel@vger.kernel.org, David Woodhouse <dwmw2@infradead.org>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
-	Joel Fernandes <joelagnelf@nvidia.com>,
-	Josh Triplett <josh@joshtriplett.org>,
-	Boqun Feng <boqun@kernel.org>, Uladzislau Rezki <urezki@gmail.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Lai Jiangshan <jiangshanlai@gmail.com>,
-	Zqiang <qiang.zhang@linux.dev>, Davidlohr Bueso <dave@stgolabs.net>,
-	Kunwu Chan <kunwu.chan@gmail.com>,
-	Puranjay Mohan <puranjay@kernel.org>, rcu@vger.kernel.org
-Subject: Re: [PATCH v2 3/7] srcu: Make atomic SRCU readers NMI-safe
-Message-ID: <39f69863-032d-41b8-8d64-22eed2b62223@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <20261111145949.70845-1-mathieu.desnoyers@efficios.com>
- <20261111145949.70845-4-mathieu.desnoyers@efficios.com>
+	bh=XaidZb7Mf5qo1jkgN91YolFfOYB9ahZXYFii9xkxxaw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=H/Z5i63G1xGrEJlESYjYLRS1Qj8faDuBLJI042qdq+qegwFhByFa7d2OLLyYwEkLl
+	 8t1q5fy/b6OMKRzS8z3P26AOBK8TdGAFW2l4stsr7DluBmc3LVObRteJH/LjCd526e
+	 XoTMqPA5ovvUwfwgke9dqX6Qu6B27o9iRiUGLSbvHs+d31Rqdxm+HTe8KIKz8qR/qs
+	 Ueg9syb1sSMjNj9IvZ3v2at7s7YAAmrrC+CJF8m7PSxgMSXccmhHXBMWTwwqq+STlY
+	 31+EzyHBqgsExVWiHm8Dvoi0l0GxPDJUieuQicRB/MqQcbYaSxKUNZYXuYLu1afNFH
+	 qlmGSlIrqH96A==
+Date: Wed, 11 Nov 2026 20:55:39 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: linux-hardening@vger.kernel.org
+Cc: Alejandro Colomar <alx@kernel.org>, 
+	Krzysztof Kozlowski <krzk@kernel.org>, "Maciej W. Rozycki" <macro@orcam.me.uk>, 
+	Geert Uytterhoeven <geert@linux-m68k.org>, Andreas Schwab <schwab@linux-m68k.org>, 
+	Andy Shevchenko <andy@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Daniel Scally <djrscally@gmail.com>, Danilo Krummrich <dakr@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Hans Verkuil <hverkuil-cisco@xs4all.nl>, 
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>, 
+	Kees Cook <kees@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Len Brown <lenb@kernel.org>, Linus Torvalds <torvalds@linux-foundation.org>, 
+	Linus Walleij <linusw@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
+	"Rafael J. Wysocki" <rafael@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, Saravana Kannan <saravanak@kernel.org>, 
+	Steven Rostedt <rostedt@goodmis.org>, Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, 
+	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-gpio@vger.kernel.org, David Laight <david.laight.linux@gmail.com>
+Subject: [PATCH v4 4/6] stddef: Add const_cast()
+Message-ID: <ce623fe0432ba7fe74e12171e52d2dd1f1ad2c39.1794425425.git.alx@kernel.org>
+X-Mailer: git-send-email 2.55.0
+References: <cover.1794425425.git.alx@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,109 +70,99 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="kmdxffwpz52mdgze"
 Content-Disposition: inline
-In-Reply-To: <20261111145949.70845-4-mathieu.desnoyers@efficios.com>
+In-Reply-To: <cover.1794425425.git.alx@kernel.org>
 
-On Wed, Nov 11, 2026 at 09:59:45AM -0500, Mathieu Desnoyers wrote:
-> Atomic SRCU readers count themselves with __srcu_read_lock(), whose
-> this_cpu_inc() is not NMI-safe on every architecture. With
-> CONFIG_PROVE_RCU, which lockdep enables, __srcu_check_read_flavor() also
-> warns when an atomic reader runs in NMI. So an NMI handler cannot use
-> atomic SRCU, while a tracer or a BPF program may need to read a
-> structure that atomic SRCU protects.
-> 
-> Count atomic readers with __srcu_read_lock_nmisafe() and
-> __srcu_read_unlock_nmisafe() instead. They use NMI-safe increments on
-> the architectures that need them, and keep the full barriers that
-> synchronize_srcu_atomic() pairs with. The __srcu_read_lock_fast()
-> helpers have no such barriers: they rely on a grace period that calls
-> synchronize_rcu(), which synchronize_srcu_atomic() cannot do while it
-> spins.
-> 
-> Also accept the atomic flavor in NMI in __srcu_check_read_flavor().
-> Annotate an atomic reader in NMI as a trylock for lockdep, as
-> srcu_read_lock_nmisafe() does. An NMI can interrupt lockdep itself, and
-> lockdep then reports any other acquisition of a lock that a grace
-> period has used.
-> 
-> On the architectures that need NMI-safe counters, every atomic reader
-> now pays an atomic increment at lock and at unlock.
-> 
-> Suggested-by: Paul E. McKenney <paulmck@kernel.org>
-> Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 
-Reviewed-by: Paul E. McKenney <paulmck@kernel.org>
+--kmdxffwpz52mdgze
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: linux-hardening@vger.kernel.org
+Cc: Alejandro Colomar <alx@kernel.org>, 
+	Krzysztof Kozlowski <krzk@kernel.org>, "Maciej W. Rozycki" <macro@orcam.me.uk>, 
+	Geert Uytterhoeven <geert@linux-m68k.org>, Andreas Schwab <schwab@linux-m68k.org>, 
+	Andy Shevchenko <andy@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Daniel Scally <djrscally@gmail.com>, Danilo Krummrich <dakr@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Hans Verkuil <hverkuil-cisco@xs4all.nl>, 
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>, 
+	Kees Cook <kees@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Len Brown <lenb@kernel.org>, Linus Torvalds <torvalds@linux-foundation.org>, 
+	Linus Walleij <linusw@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
+	"Rafael J. Wysocki" <rafael@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, Saravana Kannan <saravanak@kernel.org>, 
+	Steven Rostedt <rostedt@goodmis.org>, Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, 
+	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-gpio@vger.kernel.org, David Laight <david.laight.linux@gmail.com>
+Subject: [PATCH v4 4/6] stddef: Add const_cast()
+Message-ID: <ce623fe0432ba7fe74e12171e52d2dd1f1ad2c39.1794425425.git.alx@kernel.org>
+References: <cover.1794425425.git.alx@kernel.org>
+MIME-Version: 1.0
+In-Reply-To: <cover.1794425425.git.alx@kernel.org>
 
-> ---
->  include/linux/srcu.h  | 18 ++++++++++++++----
->  kernel/rcu/srcutree.c |  3 ++-
->  2 files changed, 16 insertions(+), 5 deletions(-)
-> 
-> diff --git a/include/linux/srcu.h b/include/linux/srcu.h
-> index d4dcaeb83e2b..e3b541ceb8dd 100644
-> --- a/include/linux/srcu.h
-> +++ b/include/linux/srcu.h
-> @@ -93,7 +93,7 @@ int init_srcu_struct_atomic(struct srcu_struct *ssp);
->  //					0x04		// SRCU-lite is no longer with us.
->  #define SRCU_READ_FLAVOR_FAST		0x04		// srcu_read_lock_fast(), also NMI-safe.
->  #define SRCU_READ_FLAVOR_FAST_UPDOWN	0x08		// srcu_read_lock_fast_updown().
-> -#define SRCU_READ_FLAVOR_ATOMIC		0x10		// srcu_read_lock_atomic().
-> +#define SRCU_READ_FLAVOR_ATOMIC		0x10		// srcu_read_lock_atomic(), also NMI-safe.
->  #define SRCU_READ_FLAVOR_ALL		(SRCU_READ_FLAVOR_NORMAL | SRCU_READ_FLAVOR_NMI | \
->  					 SRCU_READ_FLAVOR_FAST | SRCU_READ_FLAVOR_FAST_UPDOWN | \
->  					 SRCU_READ_FLAVOR_ATOMIC)
-> @@ -372,6 +372,9 @@ static inline int srcu_read_lock(struct srcu_struct *ssp)
->   * The lock and matching srcu_read_unlock_atomic() must be invoked on
->   * the same CPU, from the same context; passing the return value to
->   * another task is not permitted for this flavor.
-> + *
-> + * This function is NMI-safe, in a manner similar to
-> + * srcu_read_lock_nmisafe().
->   */
->  static inline int srcu_read_lock_atomic(struct srcu_struct *ssp)
->  	__acquires_shared(ssp)
-> @@ -391,8 +394,15 @@ static inline int srcu_read_lock_atomic(struct srcu_struct *ssp)
->  	if (in_task())
->  		non_block_start();
->  	srcu_check_read_flavor(ssp, SRCU_READ_FLAVOR_ATOMIC);
-> -	retval = __srcu_read_lock(ssp);
-> -	srcu_lock_acquire(&ssp->dep_map);
-> +	retval = __srcu_read_lock_nmisafe(ssp);
-> +	/*
-> +	 * An NMI may interrupt lockdep itself.  Annotate it as a trylock
-> +	 * there, as srcu_read_lock_nmisafe() does.
-> +	 */
-> +	if (in_nmi())
-> +		rcu_try_lock_acquire(&ssp->dep_map);
-> +	else
-> +		srcu_lock_acquire(&ssp->dep_map);
->  	return retval;
->  }
->  
-> @@ -599,7 +609,7 @@ static inline void srcu_read_unlock_atomic(struct srcu_struct *ssp, int idx)
->  	WARN_ON_ONCE(idx & ~0x1);
->  	srcu_check_read_flavor(ssp, SRCU_READ_FLAVOR_ATOMIC);
->  	srcu_lock_release(&ssp->dep_map);
-> -	__srcu_read_unlock(ssp, idx);
-> +	__srcu_read_unlock_nmisafe(ssp, idx);
->  	if (in_task())
->  		non_block_end();
->  	preempt_enable();
-> diff --git a/kernel/rcu/srcutree.c b/kernel/rcu/srcutree.c
-> index 8075da4b1bb5..8fa366861dcc 100644
-> --- a/kernel/rcu/srcutree.c
-> +++ b/kernel/rcu/srcutree.c
-> @@ -828,7 +828,8 @@ void __srcu_check_read_flavor(struct srcu_struct *ssp, int read_flavor)
->  
->  	/* NMI-unsafe use in NMI is a bad sign, as is multi-bit read_flavor values. */
->  	WARN_ON_ONCE(read_flavor != SRCU_READ_FLAVOR_NMI &&
-> -		     read_flavor != SRCU_READ_FLAVOR_FAST && in_nmi());
-> +		     read_flavor != SRCU_READ_FLAVOR_FAST &&
-> +		     read_flavor != SRCU_READ_FLAVOR_ATOMIC && in_nmi());
->  	WARN_ON_ONCE(read_flavor & (read_flavor - 1));
->  
->  	sdp = raw_cpu_ptr(ssp->sda);
-> -- 
-> 2.47.3
-> 
+This macro serves to cast const away without risking unwanted
+conversions due to mistakes in the cast.
+
+It's similar to C++'s const_cast(), but it is more restrictive: it can
+only cast away 'const', and not arbitrary qualifiers.
+
+David made it a bit more robust.
+
+Link: https://lore.kernel.org/linux-hardening/20261111102535.434c2eee@pumpk=
+in/
+Co-developed-by: David Laight <david.laight.linux@gmail.com>
+Signed-off-by: Alejandro Colomar <alx@kernel.org>
+---
+ include/linux/stddef.h | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
+
+diff --git a/include/linux/stddef.h b/include/linux/stddef.h
+index e1851c50c89b..5201d71db387 100644
+--- a/include/linux/stddef.h
++++ b/include/linux/stddef.h
+@@ -194,4 +194,16 @@ enum {
+ #define TRAILING_OVERLAP(TYPE, NAME, FAM, MEMBERS)				\
+ 	__TRAILING_OVERLAP(TYPE, NAME, FAM, /* no attrs */, MEMBERS)
+=20
++/**
++ * const_cast() - At most, drop const in the left-most derivation of a poi=
+nter
++ *
++ * @T: Type for the cast.
++ * @p: Pointer to be casted.
++ *
++ * If @p is of type const @T, then it is casted to @T.
++ * If @p is of type @T, then it is returned without any casts.
++ * This avoids mistakes that change anything other than 'const' in a cast.
++ */
++#define const_cast(T, p)  _Generic(p, const T: (T) (p), T: (p))
++
+ #endif
+--=20
+2.55.0
+
+
+--kmdxffwpz52mdgze
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmr0yDsACgkQ64mZXMKQ
+wqlEwg//VIov7tiH7p3A2S7JmvuibW4T6idCVgzoJL8GVYnqx1+g8kJwnQveQDnT
+ENb/GlAC1Q5Sv5zZ1ZityU3PaUcL+oYunwqy/1aNguj7yYByksf3svmAADJhhFPV
+EKuYRWxcqt/u/AMD5Iw8Eb6TWfU5hW1bx+QgEVlH6iizXR4x8OGEWPrMg3QE7b57
+2GoOfg+hzP5hyw39NrDOnqVCoZghZdgIhrf2o1JEP3T/++s7NA6SamxMAv/FE81J
+Ybc24VH6Z0mp8eyxxQ48fLtrmGv4fTEu68A6h/ey1/ES95lxiV0xAba+HdOy6nnl
+2UrpKRrhhCXGBksvGMbCD4ol41JI5M6bhtVeMRZljq/D+tvHCqheBoxPk7hHiS+M
+ob3iuA1hLJ3hGjbeN53c2Ku58AWLNrlgqBjw5ty7ev/+T6IPIp6SM+8B7V3l35nE
+jzdJT5O2za2IsS67/DPeLjidt7vDTrhdS6RMaqZXD9zCbuuIlVE6q0uK+aLZ6JyI
+hbKb+ODJxTEP+1pewHA8sfJ2lFPF7c+AcniV/R+AhYazvEEC+ETh9IIoeKBfjppC
++O+twuYjWpgKLvJsQnKivrrhxrX+rpXAkIf1ypx1DWzJGeWTfj0xJpKuM6xJJyhc
+hnvphdgdBx/LLL9DRgVd7WRG/YXwrkiYE9n4hYBHOv6q8EdfbWU=
+=+vuY
+-----END PGP SIGNATURE-----
+
+--kmdxffwpz52mdgze--
