@@ -1,104 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794387003;
-	b=ljzzAbHfwEtYs2Kf0dIY3IrBHqH/0nlalxB2540EqkP+iLMFu/E6RCkwd5B8gRLKm2j8
-	 GpgL9++ixEaOvjXnuSAidtuRyNbn94TDhk1oTRG0n1MyEjarXQ8JLVCwnVTfhbdOHXWgH
-	 fwrOwaOVk9F9gzmTXAHMF5xjeudw+TMg0oi2pVRKy5ntzkgkoWzY3ocFSNlPKP5hCxaQ8
-	 VHVqWCwv+c6ivnFEXCyaLMFhsyTht7807124urc+MyLTcq5hJNqUPDt7ASj0/TwLNrZre
-	 PDCi3St239T6zhClnul4NS0oBu5T4tXJs8EvI5rqSkWFY0KtgSci74fs4WCbUZmKYLQ==
+	t=1794387005;
+	b=0x1CfUHxrIHbQIKlYDgob48Y2tveucZy9pTuv4Smth33oSbOzh9kDwpNu4t/+4u9JmM0
+	 IvwuIvzCDcpZG9xVZkqvcDOfnZW/v0tRI+oE9MZDL/y8jhqGJJdQUbC0DWn/xkWK4ZFkO
+	 RgzkXyNV7hF5E4Ibn89fAMDjiwHNzYSvyjvP5TqUSNcmSGavphcv0Cb3oNtS7bTeAFQ/Z
+	 ifsYlqPr6usQV53CKIjO8CZixK5zxiclb1tqX7qFeRffHOp9slPtBPL0GIC7NxBVJaT74
+	 UinJ6KtkFwhDW2sr0ttdJUMaNViBqlmy17n5ZGOOl1IAY/LL8M01yBnTdqy3Gn+Q5+A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794387003;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:X-Developer-Signature:X-Developer-Key:
-	 Content-Transfer-Encoding;
-	bh=Mcw8tiKH/WX7VEn2tZaWKJlFFwouAMdTGd/w0+U3Fi0=;
-	b=Ri3uTkX533QkcYyViiRFVjcJbeNWnSYcc0m6gJI1VKjfsHCzs/0i+51vGY45IcigOPrP
-	 Bl9w+IrPua8AW1d68A6RMBbYcn5soGsNOJ5vd5K+zDPGG2xZxBXOgD0f2SSicY/jCUQ0D
-	 WCtz9nQpHo0Pu5xFPw+vQsPueGdRGqz5cfYOlelrZ6tKqI1KtXpmpC+n1/0IaeYrKX5RX
-	 Md0BcXBZhzsGtndlN2N03Y+VdWiitoMOGOMt2cOTYgGn5eJuVK7+EiakH5K/DwdHMJhUU
-	 /uh0oXA2nozzrk0a6r+Fjs2C1wumHvw2rtAq2Vqxj09Gxo/aI6oQ7uNtrNuIr3nQXcw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794387005;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=WqJxo8Of1F9UuOZMBd2PbZ8yNbZD6Kq3D32TSR8Sblw=;
+	b=2lfJU8rcH8VhF58FU9EYW1E2gvXSRb6uzHqnt5q2G9p0THa+9di8vx5Ev0Ber3qZM0ot
+	 pqBBmGHEz3O+5KTnkGM5RiZPYdCoTReDqAwprql8IOaGb4g4AS92Bh7/OVk1Qm4wRlyFh
+	 zgF6WSWV+4e+83n3kXzMrYTxRo8THnWpboNLhgov9uHG1u1VMCnqJ3AWGHTVDEC0LjUxD
+	 xr9bcKcGPpIv8SRwVF5z6MyAffqvqqTs6GjL3xieG8nNE/eA5vMWyXpLkjT/FzcDoF5S/
+	 G2qT0u6nzOnGr0RwnUupw2Wgy3WuwWOR3DavZFICVNyx1/XaJw1FtTmZr6aRRxWEnrQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=gf8nWC3q;
-	arc=none smtp.remote-ip=209.85.128.45
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=JFu2eQqh;
+	arc=none smtp.remote-ip=192.198.163.14
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98E6560A2605
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 08:50:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98E6560A2605
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B019160A2618;
+	Wed, 11 Nov 2026 08:50:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B019160A2618
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=gf8nWC3q
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a59100fa83so25451525e9.0
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 00:50:02 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1794387001; x=1794991801; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Mcw8tiKH/WX7VEn2tZaWKJlFFwouAMdTGd/w0+U3Fi0=;
-        b=gf8nWC3qrBissTaP6xZ0VLzOaIClm/jbI1xkcTvZaqZpawM+w33S/Jc7EA0EUDXwkO
-         o1Zl30LQpHv0bBPMPh3JeZgllZT002/ks0v1ggwjyJ8yuaQPXI/GvuhZJXA70J+Js5AN
-         UNXEUZak44qbSnejm8n0yLjp3827ttzJPiP8E8TwTvV2JVVRRJ0P2rfLYkDxMJdYrtyO
-         UXKG0s4kcWcozk2qsl/oIMbts9vRWnpbvistdxhEOBIoKfu1uWKpteotQxwEtLJ0SwIb
-         6ekIbjuUxSozrU0tAVePC9ztzewOqlueB8IYp0y9T5Uhqi9VGJfCu5K/AyQ/9mWMmzon
-         tgHA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794387001; x=1794991801;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Mcw8tiKH/WX7VEn2tZaWKJlFFwouAMdTGd/w0+U3Fi0=;
-        b=SA09c4RdMQazgmNvvpKAjNsijjN1ogfNTXUrTpol4xWDCGqyO2t75yrUrELUwDu912
-         Lgo2WQtfBQmqX8LqXXyfzim2CNwyJTUn8Ed8DeBT+ZdPyrPVcpHyArTDqcAc3KrA9Rd6
-         8pxpAC3t9Ny3Icqc0cw6poy83AAjXJLpGw507xG+UCuCgv9TbZ5o2u3jaDH7CpkHQKF8
-         vnQikk6WyaLA+c5m3oN0yyLZXKKVTWPFl4XRbzlngr23d4Gt56BiwtJFyQol+VyReiRA
-         7P7+Mer7Rmx79ER80YCHho8mQevwieeNENqyWH1xvgHZK3088ke7FGNb21OKMYl2vp7o
-         7JsQ==
-X-Forwarded-Encrypted: i=1; AL+hErGLKRwd3Pg0V6GhXpMbgPM78G1AaXcFaWOFT5XUhdrBJ3wfIGC3sX57XaqIJEzKT6OHtagWB1mAbzQIjko=@vger.kernel.org
-X-Gm-Message-State: APuU4Z956eOgVjXFR029DO6kvbv0iHWb+6iFtOQM6yIsWTRdGwQW6eBB
-	nSusmh9UnaCxOkBs6mCd7NRzcvxhVGQegTcQUFlsIMUVjzH+GQkXr9NkHhEXzGkG9mA=
-X-Gm-Gg: AYBFou2QGKy+4hMn3ereYrK9p4SllM87LoawTBuOQv895F447DdvezUozIclkZi8+r9
-	qd7jG5tgW6l98gQ2Gt6uhaWKxeVS2zyEDLqXTD9GvllBcWHSzQmF/1CTEvlYItvEgR9aEW4PCw8
-	mHAkImbPQ6+Bap1jEqeJMysfD/+JHuWfH9asuPFPt/NRUBOMLxWIoma0u8m+bzoUWi5jTD+7hcC
-	u6CAzw2I+k3SDtoEb17NDg292tsQuQzZkB73YLS42sZppWjhmV9lQmjkGUKzjK6jqBJxm8Bg/58
-	i2XKbwOkByhLKS4Ej6tWvW8crotiKt6lqURECcKgvxZHvOVdWIguU5uq452bnpRwCvVCKEHr+z/
-	GQW5ZL/mLccPyvOiNbGcBJYeLfo3mmLuAW5Yi84YVAsNV/1atYK3TjON0o96sLjyT3UKO9AjVjI
-	Wy4rM3ELix3RGJM7Jl8Ss5GpvIEJ8zZLfBDod4WhTVOpyFXOJ9x2JcUSWhLh2/HX/CR0LVAPJu1
-	3QJiPP1JPs+x+cXpgteBWHXpeUZ3a1yrefrAzUyAYes/koadpipuyB5whXKD8ySOAG6ZaeJAS9P
-	6wUX67aDYfV2e4azufzWtFviUn+EbS0gIVpuvzne7VFofISyFFYzPjUmg+gNMqrTYa7D7dmhc6u
-	tv+5PxMCSspLvig==
-X-Received: by 2002:a05:600c:1d28:b0:4a1:e6c8:ff74 with SMTP id 5b1f17b1804b1-4ba0939db75mr30427005e9.29.1794387001054;
-        Wed, 11 Nov 2026 00:50:01 -0800 (PST)
-Received: from localhost (p200300f65f19a90460510dd506fc51af.dip0.t-ipconnect.de. [2003:f6:5f19:a904:6051:dd5:6fc:51af])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4ba01ff3428sm142236795e9.15.2026.11.11.00.49.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 00:50:00 -0800 (PST)
-From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?= <u.kleine-koenig@baylibre.com>
-To: Lyude Paul <lyude@redhat.com>,
-	Danilo Krummrich <dakr@kernel.org>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	dri-devel@lists.freedesktop.org,
-	nouveau@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 2/2] drm/nouveau: Use named initializers for i2c_device_id arrays
-Date: Wed, 11 Nov 2026 09:49:45 +0100
-Message-ID:  <3dd75434da3c0e4b5ade3b802b4ab00a404e8bba.1794386771.git.u.kleine-koenig@baylibre.com>
-X-Mailer: git-send-email 2.56.0.rc1
-In-Reply-To: <cover.1794386771.git.u.kleine-koenig@baylibre.com>
-References: <cover.1794386771.git.u.kleine-koenig@baylibre.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=JFu2eQqh
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794387005; x=1825923005;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=LLfxza/Dng6DDXARwFRmFBWhM1Z+hUK6stlckfjyXOs=;
+  b=JFu2eQqh4if7d8HqJtAS93G/7Xi2k7IQcpwKNKEWrx9aKy6ao14BNYCq
+   ax3aA1yD47t3BgZbGRz0sLURRgO/0S7MPNp+PxqPbOKbtqiDVQnw3CzMo
+   UJwTgJZQRYgvL6k9IqivHWfFReDiPROcfVSZqnRfAzVykjRVn+Yfgrjeh
+   277xksOEfZQpPpgg6Ih+zX0UyxOKFUq8p63nqPxZ+RxPoqCTiBs4IxxLl
+   +KwFEkI04FlpF3nMdrfhRQi5e3Oq7ZwUim1vkftuUsA4c0qc4rwv6ct9+
+   jxCXcWKPNpcxxLMcHL75j6T2cMHBmSl491isUuIWhx/U+bh2BcAV0bHUW
+   A==;
+X-CSE-ConnectionGUID: Vt6ylQbZRWa4Rg4Gmohw7Q==
+X-CSE-MsgGUID: AjEGYMF4S/aFAxEbnCsO2g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11962"; a="3188000"
+X-IronPort-AV: E=Sophos;i="6.27,207,1787036400"; 
+   d="scan'208";a="3188000"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 00:50:04 -0800
+X-CSE-ConnectionGUID: OwfYI8opTMaZYOQYd8do8Q==
+X-CSE-MsgGUID: S4tx2lNDQb2VjurEJ5POpQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,207,1787036400"; 
+   d="scan'208";a="8294973"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.142])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 00:50:01 -0800
+Date: Wed, 11 Nov 2026 10:49:59 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Alejandro Colomar <alx+linux-hardening@kernel.org>
+Cc: Kees Cook <kees@kernel.org>, Alejandro Colomar <alx@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Bill Wendling <morbo@google.com>, Petr Mladek <pmladek@suse.com>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Shuvam Pandey <shuvampandey1@gmail.com>,
+	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
+Subject: Re: [PATCH v3] seq_buf: Mark a seq_buf overflowed when terminating
+ it loses a byte
+Message-ID: <avQsNwYvySgLM8A-@ashevche-desk.local>
+References: <20261104033110.out.418-kees@kernel.org>
+ <ausWlN1oWc0Utnxb@devuan>
+ <20261110220716.37bfac-kees@kernel.org>
+ <avOp9udFzahnsmN_@devuan>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,51 +86,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1714; i=u.kleine-koenig@baylibre.com; h=from:subject:message-id; bh=L8VndumebZ2MRoqro0RnaUijRD3vijSdtnwN+w0pZyc=; b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBq9Cwv5LPQnzIxzz7hUpMPuIVPQccUHI3t5AUhf LUDPxo2ybGJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCavQsLwAKCRCPgPtYfRL+ Tkl9B/4tAll/ivGhonm0x9hqXABDz27C1LzXwKQ99PbJYQrZBYY+O5PpHY1m1fFVrWzFGedo6Yk vDO7Up0laCDvG4i2E38rwthFyFcoYsodI0MyYiHrxekWaiOO3klqdFkhUdwZq5f2MDuibrXoIf8 AeP0wNKhbojgXXe3ZP9MB6HugJr+1doDFSrs1wRPHewnh6pZoyww2mhXKwWyTXgv43vvRj8rEHz cWyarlxT7ZQT8MaLjkYzS/F68BnIcYoUaKiTJazI1g6s4G3su8PDhFAP5h4tndnxvLJ/OjOmYhZ kH+cA4S+D7FFwqJTuWKVmNQChQwkbcuI86iBs5x5T8BIyn2Z
-X-Developer-Key: i=u.kleine-koenig@baylibre.com; a=openpgp; fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <avOp9udFzahnsmN_@devuan>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Named initializers are better readable and more robust to changes of the
-struct definition. This robustness is relevant for a planned change to
-struct platform_device_id replacing .driver_data by an anonymous union.
-(Though these drivers don't use .driver_data, so this patch isn't
-strictly needed, but still good for consistency.)
+On Wed, Nov 11, 2026 at 12:35:30AM +0100, Alejandro Colomar wrote:
+> Hi Kees,
+> 
+> > Date: 2026-11-10 14:07:24-0800
+> > From: Kees Cook <kees@kernel.org>
+> >
+> > On Wed, Nov 04, 2026 at 12:28:27PM +0100, Alejandro Colomar wrote:
+> > > Please include:
+> > >
+> > > Cc: Alejandro Colomar <alx@kernel.org>
+> > > (or perhaps a second Reported-by.)
+> > 
+> > You were Cc'd. :)
+> 
+> Yup; what I meant is please store my name in the patch body, since
+> I want to be CCd if anyone looks at this patch in the future.  :)
 
-Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Acked-by: Danilo Krummrich <dakr@kernel.org>
-Signed-off-by: Uwe Kleine-König (The Capable Hub) <u.kleine-koenig@baylibre.com>
----
- drivers/gpu/drm/nouveau/dispnv04/i2c/ch7006_drv.c | 2 +-
- drivers/gpu/drm/nouveau/dispnv04/i2c/sil164_drv.c | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+This can be done via `b4 trailers`. What is important in that case is to have
+a Link tag.
 
-diff --git a/drivers/gpu/drm/nouveau/dispnv04/i2c/ch7006_drv.c b/drivers/gpu/drm/nouveau/dispnv04/i2c/ch7006_drv.c
-index 976ed59a86e4..96dabdb38c4b 100644
---- a/drivers/gpu/drm/nouveau/dispnv04/i2c/ch7006_drv.c
-+++ b/drivers/gpu/drm/nouveau/dispnv04/i2c/ch7006_drv.c
-@@ -486,7 +486,7 @@ static int ch7006_encoder_init(struct i2c_client *client,
- }
- 
- static const struct i2c_device_id ch7006_ids[] = {
--	{ "ch7006" },
-+	{ .name = "ch7006" },
- 	{ }
- };
- MODULE_DEVICE_TABLE(i2c, ch7006_ids);
-diff --git a/drivers/gpu/drm/nouveau/dispnv04/i2c/sil164_drv.c b/drivers/gpu/drm/nouveau/dispnv04/i2c/sil164_drv.c
-index 7f402b901977..2324507eb5f3 100644
---- a/drivers/gpu/drm/nouveau/dispnv04/i2c/sil164_drv.c
-+++ b/drivers/gpu/drm/nouveau/dispnv04/i2c/sil164_drv.c
-@@ -414,7 +414,7 @@ sil164_encoder_init(struct i2c_client *client,
- }
- 
- static const struct i2c_device_id sil164_ids[] = {
--	{ "sil164" },
-+	{ .name = "sil164" },
- 	{ }
- };
- MODULE_DEVICE_TABLE(i2c, sil164_ids);
+Again, we have new tools, it will be nice to embrace them.
+
+> > I try to avoid explicitly listing CCs in patch bodies,
+> > though I don't always manage to wrangle "git send-email" correctly.
+> 
+> Then a second Reported-by might be better there.
+
+This will work.
+
 -- 
-2.56.0.rc1
+With Best Regards,
+Andy Shevchenko
+
 
