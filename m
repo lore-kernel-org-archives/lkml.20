@@ -1,98 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.66
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794408605;
-	b=ClOe9sEQhZY/AfdHjTZ+HpB4sGSIujnmd9thT2e2JJtk8+RntdZ5XX6EeL/lxV1K+V1k
-	 //1gtIPElE1noscTEYOD5+pC9Gt7UGRrzQtnmvJEUdTu9cW0xboVc+LmWo3a4yMCnUnpD
-	 q12el4KU4dzn/Rdjq5ZKnnIBcTl9NpeHhoEGbeuV6CYwW1TU2zhYn5yvpZR5tpcs6xh7P
-	 Nb/xvY3Wkp8DF3seCM9yKmnQaA9esJ9d4EJSYF6B9LG7eeMMGkBriB5tSPspy8C+B70CO
-	 /qXKiZn5Xx2QK4dl0frGX+JvQk0XqflFP3kux3jOZ2RjufRnr1l5ANX+7Y9JEc2o9JQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794408605;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Cc:Subject:
-	 From:To:References:In-Reply-To:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:
-	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=EJNr2BGCPaFdH4NhXK9UHFWh2mv3xZdspGbt7V6zYks=;
-	b=mUUduQWHwWJ5MN1Il5At3+fXpdVSA33jO7LCTa7BgGK0xCxTGntiozuJ6B8+h6fn4CpH
-	 ZY6n7qhlZj41tWUBXOYsZbwuXh3Bbc1xwyyNjBW+yYnclAYEPPjyUS5FfmW5HGzsoebxF
-	 IjU0QafTnos+XS2I+G8mZBvTVUT3F/r9nw9KuA4cuBYWhjJ4LKEPJ7TR5zxCY+gFAgSjB
-	 WdaeOSN93LPOOKeOCDlOZrZ0M7fx57/ihxYbgynltKo3I6kuXhrbs0fBZhwy9+ec70Y56
-	 8BgP79ApMSnpSpgzPj2JZZmBp3TNT87edcWLZp3CqGvZuvBt66G7AdlrctZU0y3qdAA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=RZP2xNmH;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.66
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010066.outbound.protection.outlook.com [52.101.193.66])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.10
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794408645;
+	b=rvozevHpBjY+2i75a1PjFTxw3yPizYrYykePBFhwVApB4+EXJafNth5yUX4VmM1b+Xfz
+	 T0l1UoApIWmLiVTXt48I2ahul8yRehJWg/XGkMzqLDDpTOM/kS3llpuKVnw0ND5Ti7doE
+	 JzSUtEOAf/NMQyOSbzjs1bGcuINKfHR2QnBrfm+ArBz/V+I387itvjvwDiDhPwFfAzlGU
+	 QabEVLRuZQdF9yXn9fX7gfIKj7/u9JvNTY67qtSLudv6axSaMsELAl3CN7cXgZYWhDp/N
+	 0gY7ftqGQx0Cv2K+W++xV47O9YkLK9GvpP0QCt76U4EgFieW2RSBTODNJMz4hvSBRNQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794408645;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=4FWWb4o5SchgDHm5mqCIIXOnj7Mqgj8LASpYet+2SAo=;
+	b=wumTJnf8VG5I4YTWRVodtpLmj7fXLyCtJsReRT8R7+ggPdF2oFbjJPePa/dtzrO23kSq
+	 xc15vsp2rhrLeTv9fWlj0ftq0d5Duen0nLkyUvosyNsuJH0eKr2W1e92Ou3xXKbKCnc+N
+	 w7ojOinFY45Stulu05TNWsRzmI/iYscoUas0H5mFSzDujnH+KUEqj1+gWCtI/48TfLP4E
+	 mTMn9ngFq+X8L7+gYYpDIcPVsGjHvmCi44/hp9PxPFY3H7VoCq+go+0tjxFrrZF61F/JY
+	 klSMWTRnaNn7KCo+cYcbmIziYXewBgAUpsmlWF9bVv9h7K8qtF7UVLRgPxoxz0EtZ2Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=eAMtBMf1;
+	arc=none smtp.remote-ip=192.198.163.10
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3922A606A324
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 14:50:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3922A606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FC1B606A327;
+	Wed, 11 Nov 2026 14:50:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4FC1B606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=RZP2xNmH
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=X/7VmqytUrar+xuZlqXhGhqS/3rEZOab9SknXVF/pLQHCKVRDmyiAjnBvRskG1y/jPtebF9/mWhUGjGhZMIoamACC0RZx/pUTFRaJ3tZrlFqDqshWqltEliKPxW9OKQMQCl2f6zpvNCeLFk7VX9edIuNal48ozt4DVN8DfxW8iEgUVr7zfLPU0aBx3n8gidIFLcftac2is3ICpE+Dqlr3vzZVr1a3WH6vYXZ38jv1UvfDKxpU/aDHIZzRaNkclptMpXIstZioZI1nD2aanALNRhplBYtId9pnUMPpVgEtTIC/O7xLN5GLwy0u2VBhjUOiawOdDzOZzv9YhSvPyHXtg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EJNr2BGCPaFdH4NhXK9UHFWh2mv3xZdspGbt7V6zYks=;
- b=mud9h02ZXthAM0PQdndEiTXxUEIDaV1Ud/DDEk83d79BUZAm3PXO6ufZuhqSvjpjx0uJ1FPpJAJcISe2cpdUEzCtIYzCK0smq+OtXNSTbbSBukRlvaE6p772ycGHRcofC090FmWPsomuJGyoap4SAOqwJyA73e39ZBvoWKP9uAPEckpPniKzdUMICkwL7aIRdioN2LvmQg7wNHNasITq5kVMHOE7JzOf8yx7hoawxNkbiN2T+sQ3vQdGeWnaakDloqyH1e3fO8o8kbiuzValplYaPLSudk/YDfGQSBIV9RcgLB6hb4mxpG7Ms9SYMdFFP0c5yZ26Sdm53Y/nJ3gsjQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EJNr2BGCPaFdH4NhXK9UHFWh2mv3xZdspGbt7V6zYks=;
- b=RZP2xNmHMbp1E//TPKhZidI+/dBkXD9NFci4PlvgZJWUmloT5ebRbM3mmGWpnU4sHO6oU2q5oIbKhMY+GmxoanKHYLW3YEW+fNnd/YQouhG4tl0VCIKAq/DmYch3MJmo0PnfelzX/NK19PEmldsCQyZRnZL6UzC7/uO2e0xtmZQYvc1GlOk28Zwz2z+QQCpm2/4vXPsyklZvcXBRczNp6dGP6yJzdCQvGMUZ+TIAXfBTtdbIbWZDFHadVl4AkRGVC6feuc4ZUHlirAEAz57f4yX/jidQSIIaxFJiZ14Qcqr3p5FoVZHAdDsGKO0WeDkZ44dU/PZ/MQIqGYNoe/W9JQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
- by IA6PR12MB765073.namprd12.prod.outlook.com (2603:10b6:208:5fc::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.9; Wed, 11 Nov
- 2026 14:50:00 +0000
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0592.010; Wed, 11 Nov 2026
- 14:50:00 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 11 Nov 2026 23:49:57 +0900
-Message-Id: <DMSGRDMGTD4J.30PUSSFQMZ4YO@nvidia.com>
-Cc: "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
- <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
- <simona@ffwll.ch>, "John Hubbard" <jhubbard@nvidia.com>, "Alistair Popple"
- <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 2/2] gpu: nova-core: gsp: cmdq: increase MSGQ_NUM_PAGES
- to 64
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Eliot Courtney" <ecourtney@nvidia.com>
-References: <20261111-msgq-64-pages-v1-0-d8c56b6fdd6c@nvidia.com>
- <20261111-msgq-64-pages-v1-2-d8c56b6fdd6c@nvidia.com>
-In-Reply-To: <20261111-msgq-64-pages-v1-2-d8c56b6fdd6c@nvidia.com>
-X-ClientProxiedBy: TYCP286CA0317.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:3b7::7) To MW4PR12MB6873.namprd12.prod.outlook.com
- (2603:10b6:303:20c::17)
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=eAMtBMf1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794408646; x=1825944646;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=u+reCr2n3ZGSYWGD5zRemuSnY2HUeSRA/CkUL28YHd4=;
+  b=eAMtBMf1VnhSvIXIPBVEupXOLbZoE1sJxQg5pidk4FHtrIIJRQDcTCuv
+   sJjWx3rUGSx7n/Ju8MdbQhj2icW9s6+xdEKdRP2jdV8yrFxmLBFvAWK+w
+   JPOJWGjq8oTpkL4VYvLbel6caGaLHeG+bTpgFXn3XXCBSTS5NZ3Tx+245
+   hxwXPleZx0dmHi4l0ULYDG1EU2ccKClvy8tr076qAE5v/VAfkPItGTHCJ
+   QUJvTbeYsBAEVv9MTwPkcCcIv/5nBzzXAunwt/hJSdj9bynQmvf5RXatP
+   Cj4IVDGuf1pplmX2/i1zMb9u2wSZ37xxXeWO/iacx4kViP1O1KMLM4XnG
+   Q==;
+X-CSE-ConnectionGUID: ndK0hZFvRsaWT87WXfyH8g==
+X-CSE-MsgGUID: a56FBBcAT6S9FPvEqOPNCA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3080810"
+X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
+   d="scan'208";a="3080810"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 06:50:45 -0800
+X-CSE-ConnectionGUID: VNRC6fx4SG6YIVdW7gHtsg==
+X-CSE-MsgGUID: PbFGHHi1SzmOU69wxacT6A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
+   d="scan'208";a="8249878"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.142])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 06:50:42 -0800
+Date: Wed, 11 Nov 2026 16:50:40 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Victor Chernyakin <chernyakin.victor.j@outlook.com>
+Cc: andy@kernel.org, dlechner@baylibre.com, jic23@kernel.org,
+	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+	nuno.sa@analog.com
+Subject: Re: [PATCH v8 4/4] iio: cdc: add Texas Instruments FDC1004 driver
+Message-ID: <avSAwLDgDAOM-9Gu@ashevche-desk.local>
+References: <avQqQ8s3-fkvIiGX@ashevche-desk.local>
+ <MW2PR12MB2523036E2E017B5952015D9AA5712@MW2PR12MB2523.namprd12.prod.outlook.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,123 +80,90 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|IA6PR12MB765073:EE_
-X-MS-Office365-Filtering-Correlation-Id: 50a71177-f918-4be1-4e91-08df40030fe3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|10070799003|1800799024|366016|376014|261028144727099003|261026140227099003|261026121527099003|261102123227099003|261021121427099003|261022105027099003|261021135927099003|261021123027099003|11063799006|4143699003|56012099006|10067099003|22082099003|18002099003|261009223027099003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	CAYsL4wGOV/MpG6XDjLgmIGX/5wtLFVYwx98fYO2e++MJJQjluXl+vRL8XKsknZoH0wDdvjS7jdktp27Uxx+BnnkNeeThmDvmgztiH57arjGPpQs30kgfhm45xVmwFBZtQt68D7xY00aXgWKUuOtSpSUy4GBXHJvd+4Ly6ZUDegnh6Dnut0Z0xuT2TJm8AXT0C/r6LRbRs8qUoTRMxZdNmjuv9nEIBH9dbecT5JTlCyAcLVAe+9SISGKaENgX8qtT0/r0WOFHoYw29tfSpY+knX8lXLfUpQQI2xt64Wqzv6nl0+6SmHUyEABhKovQPWvjboWfhZGF7qCBl6QxsOXfQg/AZ20Ku2j23hsvIa0Y0YXC1pX0IDElE8KuTPUufrCtne2At9VA9o8sOzFWAgVROikkF6ROsDmSbLJbM/uXr+iESKoo03P9kuThkSxnBl3RmByQIZ5zphhUKJHmPadkLr2gWaR5+vCsudDBHRxMB8Zx3W0of1SQNqBFF+yYPmaTpqxH0uoIJKkkykMr4BZ7jpjdLou8+hFy5z5C4xA+4/OeGInKIS6ngyaeuCwA2tveRadQF+DX8JKogAoEbm8WtoFwzYs29hza0thRK8GBdpQ4d8YrnNTSH4keCC/mEpPKjUZSv/PvNrG2EF/g7eF+1CplRY5HnCudjiFnMVpF/w=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(10070799003)(1800799024)(366016)(376014)(261028144727099003)(261026140227099003)(261026121527099003)(261102123227099003)(261021121427099003)(261022105027099003)(261021135927099003)(261021123027099003)(11063799006)(4143699003)(56012099006)(10067099003)(22082099003)(18002099003)(261009223027099003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Y1k4Ti9BVTJqSm1RVTU0bURZU0Q2eXdnRkVxc1NDbG9aR2R1K1hVNDJvcXVV?=
- =?utf-8?B?VW1iSDlTOTEzM3RyVWdzUFo5NFhZMnRoZnExTGRpWjZxN0xiVkNRQWlwRlVr?=
- =?utf-8?B?bDMrWWF1emhYanRTUlN2cmMvcjlvcDliVDkyTklEeWdrNFBpUi9xaG9GRDJs?=
- =?utf-8?B?NDBibGtYVGhxVGJ5S3BlSjFHcy9sN3dGQ1dtbHZrdVVYVkg1ZElER0tFOFda?=
- =?utf-8?B?YkdPNGVEVGg5UTB2NkVPaFQyUVNMWG1rZ2Q5Q3RyY0FwMENCbXprQmxVV2I4?=
- =?utf-8?B?aDA3ZjNab01tWDRINGhZdjBFTXB1NGdoMDNDck40NFZMT2FuWDI1QWMzS0pR?=
- =?utf-8?B?ZFpZY0NkUlNQRjJCL2gxMVcrOGFEamRzTjI4VXVwc3ZYVmZ6OWVBdEdRZU5i?=
- =?utf-8?B?TEh0c1YrNXJRMjJ4Y1RKVjdrTkd3UVhJa3NIaWhsVnFmM3c5aFJ4dktOQU8r?=
- =?utf-8?B?cXlOQVY3b0hSRFI3OWU5cTNjb2FyUVZqNmt1Wnd3ZENaRkxXb1NqOHhFRDlq?=
- =?utf-8?B?cnExVDFZUElmK0c2blZwRVBQa3hONStkaVFLYjNyNm5CRExsbit6NzhqOUt1?=
- =?utf-8?B?K2FjWEt2V1JpNVVvcXdvSDliTFZHWEVoZmliblJTaWRtakVWRDJUNGZCRjBN?=
- =?utf-8?B?WFJnMG1tRjNodHdDSUU0dFpJS25YUkNWRHlKaCtjTVEzdmdPbkpTdnkrUHFk?=
- =?utf-8?B?K2lna0taZ3ZPL3lDd2NXOGVmS0kyMGhtWWNHckI2N3ZIN21ub1lscW54b3VL?=
- =?utf-8?B?OWhiS1Y0OFIxSExJUVZYZFlOU2gzSUl3ZllJZEhYZXFZYytpUHJ0T29CK0pK?=
- =?utf-8?B?eWp5VmlubmUvUWhraUN4NWNpTHUvdWJQdjZKbStZcG1WRVBwYXBBNUxGSVd1?=
- =?utf-8?B?dHVWN1hzQ3ZiTzlvc2s2eVkvRG4wc2p1UWhiNzNxZWdzdHNSYW9kV0wxdUht?=
- =?utf-8?B?ajBXV0JOSm5pN2tPenVhZUI3bkY1RmZNWmdNSWNzTXcrTHN5WlRSem54WVUv?=
- =?utf-8?B?QWd3dlpLN3haMUF0TGQ5a05KOFM2K0xKWWcvQjZMZmp1UTMrYzZRYnpWZU1S?=
- =?utf-8?B?dUxxWWtNd2l0N3RvNHUxUCtpb05SckRJY0d2a0toSmhYVHE5M2hsaHk2R0lT?=
- =?utf-8?B?WDRxNXlYMURoMjl3ZTU1Wm9zNmp5REQzWHlnYU90aWhlZXErS3VYVitEekpV?=
- =?utf-8?B?WnVQRlZNbVhQS08vcWtGR09Ja1Y3RnF6RHcxTUQyZTIrcnBxWm15aWI5azNw?=
- =?utf-8?B?aUZ6RDViMWtHTU1USVpBSmpiU3NtZ1ViN0hNWTJFWWhEOFRLb1NEREZHY3Y5?=
- =?utf-8?B?bDVXWEozR0o0NWZNWStTWDhpaEdRWVR0ZWtBQjRJa05OcUhxa2tIVkdQSTBE?=
- =?utf-8?B?TVN5V2t5S2pRTU5tZEt5d1F3T280VHVQemZOdU9PanBKei83Tm5NZDNPSGFx?=
- =?utf-8?B?L3BxakpPVWRodS9DaTI5TUxaa2lrTkVNR0gwYTVQRmJRUmpGbEFjQjhZTExp?=
- =?utf-8?B?M1oxU1JaR2dXMU1yeFY2OVRQOEY1VDhmc0NyK1NTV2UzUHIyN2NkY3FuNHk2?=
- =?utf-8?B?bDA5QllEeWFhRFpselM2NWRORTFMUEUvQUFXeFFnaWcxVmNJZEdBbGVmdTNY?=
- =?utf-8?B?Z3lGcGdwWlc1d21JWFhCMHQ0aWlYMVcyV3pnRi8wWkRuY095bTE1QlpEWU5i?=
- =?utf-8?B?VjE0bzlwSVUrVEZoZlhlVEJvQjlob0FKZ2tIaHNyM2g4eXpHWkQyQ0Z6MXB6?=
- =?utf-8?B?NDRGN3NmYlJCNHdId2NnVVdJeHV0ZEhoTko4Q3BCMC8rRFZmUDlPQkRJRG5t?=
- =?utf-8?B?ZnNwU1ludStuU2ZNaVRSM0o2VmhINGlrdnRnTFd2bDNxWmJzOEtrREVzYmRa?=
- =?utf-8?B?ZTdkTU1IdGREMU1XWWlkeExZR1VXcDBKZmJQc1hjMkErK3dHNmxZK2ozN3pR?=
- =?utf-8?B?eXJFRTc4QWVYV0tMMDdWNENKOXlwNWFNMCtxS0pab2FCZ01ncHRCVmJHSGxw?=
- =?utf-8?B?b091WXgvUGs1ZHFRQkNpaUhUT1NFQ2JLdVl2OXFLREdoQXkwbmRaWWduYzJ1?=
- =?utf-8?B?K0lpWXM1elpvMkxtMTZMWXYwblJlN29rR0NsZGRkS2dtSWNSdTRSZmNTMGlI?=
- =?utf-8?B?OUxPK25jcXVpdEw3Q2JLVGVzYVdYYTVDUm1EcVdCUEZFb2xiTXpaa1VTQi90?=
- =?utf-8?B?bUJ3ZkFRVnovaFBpaEpZTktTaVFLeFlzNFprejVtL0tUTUNYZDRFdytsUnFp?=
- =?utf-8?B?bjAzVk1SUlNaK3l4ZURsREFPS1V3eGkvYmJ6Q3d4cmtZaEhiZHdmdkxkcU5Q?=
- =?utf-8?B?b0dCdkh3alRRTUxpTjJNYjFtT3R3TE1aRXhvTEFsZjNZZG9haC9UbUUwc1dE?=
- =?utf-8?Q?GtDWoyDpnho+GPlwf0CSAcnLOCHwGOFPCpYP6e0W/AN+2?=
-X-MS-Exchange-AntiSpam-MessageData-1: 5py74qPWhvMajA==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 50a71177-f918-4be1-4e91-08df40030fe3
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 14:50:00.6656
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ZKsG8i1wWlpZfO+N3YKErhLgptPNUE8Wbud0KxCFmfFF9q8lSDwJ0jtwaTdgLtEpD85ykngmmrhLvXW/JNEBTA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA6PR12MB765073
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <MW2PR12MB2523036E2E017B5952015D9AA5712@MW2PR12MB2523.namprd12.prod.outlook.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Wed Nov 11, 2026 at 10:37 AM JST, Eliot Courtney wrote:
-> In the msgq v2 protocol, which the r000 firmware uses, the queue
-> pointers are kept in u32 registers and increase monotonically until they
-> wrap at 2^32.
->
-> `MSGQ_NUM_PAGES` is currently 63 and does not divide 2^32. This means
-> that on msgq v2, the slot can jump backwards when the counters wrap.
-> For example:
->
->     (2^32 - 2) % 63 =3D=3D 2
->     (2^32 - 1) % 63 =3D=3D 3
->              0 % 63 =3D=3D 0    (slot 0 instead of slot 4)
->
-> The writer can then overwrite slots before the reader has read them.
->
-> Increase `MSGQ_NUM_PAGES` to 64 and check at compile time that
-> `MSGQ_NUM_PAGES` divides 2^32.
+On Wed, Nov 11, 2026 at 08:10:49AM -0600, Victor Chernyakin wrote:
 
-Have we tested that this was also working on msgq v0?
+...
 
->
-> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
-> ---
->  drivers/gpu/nova-core/gsp/cmdq.rs | 10 +++++++++-
->  1 file changed, 9 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/gs=
-p/cmdq.rs
-> index 33074bb53e8c..240ab42db557 100644
-> --- a/drivers/gpu/nova-core/gsp/cmdq.rs
-> +++ b/drivers/gpu/nova-core/gsp/cmdq.rs
-> @@ -84,7 +84,15 @@ trait CommandElement {
->  }
-> =20
->  /// Number of GSP pages making the [`Msgq`].
-> -pub(crate) const MSGQ_NUM_PAGES: u32 =3D 0x3f;
-> +pub(crate) const MSGQ_NUM_PAGES: u32 =3D 64;
-> +
-> +// From version 2 of the msgq protocol, the queue pointers increase
-> +// monotonically in `u32` counters until they wrap. If `MSGQ_NUM_PAGES` =
-does not
-> +// divide `1 << 32`, then the slot, `counter % MSGQ_NUM_PAGES`, can jump
-> +// backwards when wrapping, which could overwrite slots that still need =
-to be
-> +// read. So, require that the last counter value, `u32::MAX`, maps to th=
-e last
-> +// slot.
+> > > > > +static const int fdc1004_calibbias_decomposed[] = {
+> > > > > +	lower_32_bits(fdc1004_calibbias[0]), upper_32_bits(fdc1004_calibbias[0]),
+> > > > > +	lower_32_bits(fdc1004_calibbias[1]), upper_32_bits(fdc1004_calibbias[1]),
+> > > > > +	lower_32_bits(fdc1004_calibbias[2]), upper_32_bits(fdc1004_calibbias[2]),
+> > > > > +};
+> > > > > +
+> > > > > +static const int fdc1004_calibscale_decomposed[] = {
+> > > > > +	lower_32_bits(fdc1004_calibscale[0]), upper_32_bits(fdc1004_calibscale[0]),
+> > > > > +	lower_32_bits(fdc1004_calibscale[1]), upper_32_bits(fdc1004_calibscale[1]),
+> > > > > +	lower_32_bits(fdc1004_calibscale[2]), upper_32_bits(fdc1004_calibscale[2]),
+> > > > > +};
 
-That's a pretty convoluted way to say the number of slots must be a
-power of 2 representable as a u32. :)
+> > > > Can we prepare them dynamically at runtime? Use global variables and a macro
+> > > > from once.h to make the populate function a singleton, so we don't have as many
+> > > > copies as devices on the system that are driven by this code. We can probably
+> > > > do this later, though.
+> > > 
+> > > Are you sure there's a separate copy for each device? In my understanding,
+> > > these static variables are loaded along with the module, and the module
+> > > is loaded only once and shared between all devices.
+> > 
+> > I started my paragraph with "Can we prepare them dynamically at runtime?"
+> > which assumes that the rest of the paragraph is elaborating that idea.
+> 
+> Oh, I see how I misread that, sorry.
+> 
+> Here's the implementation I tried:
+> 
+> static int fdc1004_calibbias_decomposed[6];
+> static int fdc1004_calibscale_decomposed[6];
+> 
+> static void fdc1004_init_decomposed_arrays(void)
+> {
+> 	for (int i = 0; i < ARRAY_SIZE(fdc1004_calibbias); i++) {
 
-> +static_assert!(u32::MAX % MSGQ_NUM_PAGES =3D=3D MSGQ_NUM_PAGES - 1);
+This is not fully correct.
 
-Same here, can't we use `MSGQ_NUM_PAGES.is_power_of_two()`?
+> 		iio_val_s64_decompose(fdc1004_calibbias[i], &fdc1004_calibbias_decomposed[2 * i],
+> 							    &fdc1004_calibbias_decomposed[2 * i + 1]);
+> 		iio_val_s64_decompose(fdc1004_calibscale[i], &fdc1004_calibscale_decomposed[2 * i],
+> 							     &fdc1004_calibscale_decomposed[2 * i + 1]);
+> 	}
+> }
+
+This can be reduced to supply the pointers to the arrays along with the size
+to some helper and call it twice (three functions), but that might be not
+better either by size.
+
+> static int fdc1004_read_avail(...)
+> {
+> 	DO_ONCE(fdc1004_init_decomposed_arrays);
+> 	....
+> }
+> 
+> Running bloat-o-meter, the code got quite a bit bigger unfortunately:
+> 
+> Function                                     old     new   delta
+> fdc1004_read_avail                           141     369    +228
+> ____versions                                1408    1536    +128
+> ____version_ext_names                        406     437     +31
+> ___once_key                                    -      16     +16
+> ____version_ext_crcs                          88      96      +8
+> ___done                                        -       1      +1
+> Total: Before=8750, After=9162, chg +4.71%
+> 
+> (This was compiling with KCFLAGS="-Os". I also tried KCFLAGS="-O2" and
+> the result is very similar)
+
+However, this is not about the size of the binary, it's about robustness of
+the code and having one point of data. As I already mentioned, this is just
+an idea how to solve it, maybe Jonathan and others have a better one...
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
