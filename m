@@ -1,94 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.225.73
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794438103;
-	b=WLJVTdt/sZ4Lfgx7eecb+VVu+ayLyxMDK/OkuGy+rCmuU8pC0rc3xThhSkeU3CCNtGtW
-	 5GObU7+bCXk+0ib1O7pU6EY4PwhBMcLIJw7dXeCzJvlPpUKhTXZ197aZ6wxTstgQmrNjv
-	 0ATBBtv2/0MmiUjHtcWoAquv/5S59yWZ+4Nj9hqHB+ZOpy4YryknFSifXZG1TQOPw681+
-	 XUPuUVBzCBeeS6Nld99opNYryytDtsGhKECidINt7oRqu5CNeGZDVxQNlkLiGg09jFnYo
-	 38lIrhEXIfSqH51NPS6vxXOLLmZOJJ/chXu6xZNamTyf3fW1mI7ZyCdQNWmtaMh0Keg==
+	t=1794438108;
+	b=jS/f9EI7b2er5vaEGuZ/HPF44crbPQimEDf7bd7+piWuIM4iwRmqiqTsar5snun/0OtX
+	 itCMDbV49Xg4ndrJYTysKMU7mycs6pwaIxU1zZuT1dG4nerFzbaj8SNd2pxe9UPmQEcEw
+	 rAXBiHI01/+hiIBQxfVMe6dOB3nKR6N1akf2+/md3EKx8wIjMUCfvcSvL4mWrNtGPvkce
+	 HqrCt4DWhbMm9PPy5CfU0K6it4Gv/ZjUcAsso7OSo8HHJxNQHbPpYZk1fSITeuDf4cJmW
+	 hwzmP67hZVEgI/lRHdgYJcte82jzIhUUsyoJwiH/HAFi7kr+bO/UCkCo5a1i64vUC/w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794438103;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=L/DNryozJcI+bS61jpTo9uGJwCePakmBfNnW7ssrmHM=;
-	b=gKJq2l0mMyIXkXqvumdmj2MvOkMcj6RMEWm5xr3/ZWFVziPjtk/9OTkn0O9tHKAvklEf
-	 wgrSvd2zUP7hUI+ZIiBTd2aPhMQJw+K9/TNUBeyB3cY6jfNGNpOOWCeOnHUYwpELzuWt1
-	 QPWPYsYCSr9P9BxHaqQ8WAa2SYpyr/s9BwsRMxRvwim6BaMR9uxT03pII6bdhvVszYYEn
-	 zAWBz7Ha1nc5emwbLGGQZA54lmuwKdjhCwhCJRYJ1xBylmMWqE3DaU3mkgIjyI8LnwA3E
-	 ZBA6JMnPRASx3RkWdRozekIf6DAcp/FJJoEKcF8lwZ0OHKDVPKpZvU/u2cqjGq2drvQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794438108;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Scanned-By;
+	bh=wj6qsWXGoJ393cS9Xlx1U/BYTtbd972bohi7Obe4yhA=;
+	b=aYQbrKhsyoDu56tHOlpjgn27JHFjC0rCsW9xtR3GhTtNbyH9SgCZrBNmpKs41Fvd9+u4
+	 Aqz4kFFR/RZvxSaQmWPAjwtcS1lu+pN+iD+fp+dQB5vvOI5UTfx+zwmoOwCoxA3bvCN6n
+	 W2Kjc1dPe5vvFJa+g4YbMJfJ2jtswPqfE3lsbsAL5i7GI4HxsxzsrUKThnX6alOasyYF2
+	 ga/tziulB4aA6IzCM0ZBZNpCVGXst+fQu15lKqfQcaQ6t1d3ZtTHX6md1zDbb+hnhl7+k
+	 f7ZQIlfx+7B435aBaOEuw9yGmLbCfOMG4zya9GPBd4EvQYFkiOX2nkYsBOJ2N/REP1g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HQMN+EXc;
-	arc=none smtp.remote-ip=74.125.225.73
-Received: from mail-wr2-f9.google.com (mail-wr2-f9.google.com [74.125.225.73])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=MvhzWRa6;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30829606A33C
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 23:01:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 30829606A33C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED9AA60A2615
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 23:01:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED9AA60A2615
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HQMN+EXc
-Received: by mail-wr2-f9.google.com with SMTP id ffacd0b85a97d-490ca655ba2so1676539f8f.1
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 15:01:42 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794438101; x=1795042901; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=L/DNryozJcI+bS61jpTo9uGJwCePakmBfNnW7ssrmHM=;
-        b=HQMN+EXchlp4xbB8rF7Pnhq5g3JiXeEDSFSEP0fBPwP0YzTauuIlfszcErHxeIsqW3
-         MuKG422qmxlKr/spOL6wWrxqiB2S3Waay/nHqfQSCfYpQAF9JTo2IoJk+IfN6aGgFdLp
-         ql/vlnC1a69YhJWurBaDDynrC3hNOtdQ1yZrGpzI0/Lah3dINozucyAOMb0JkX6AOS1L
-         C0aU5/rl8dSG6oDzwjUNLuPBM8Oec2bA/GyksTjki9+nQXx0THaY351VKHkFz+kXbme2
-         Jadh3OnGIokbBQoMOm4vVgSC3aNuQj46gfUgIMBu7/8Mvk/BZ4ScOv09WVofy+Ci0eua
-         rtGg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794438101; x=1795042901;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=L/DNryozJcI+bS61jpTo9uGJwCePakmBfNnW7ssrmHM=;
-        b=rCapb+b/JDsC7TtriqZA5D3ndoFierjshoK9w6T7BeplWBWO0Bz5Mexj6DwuNLUFV+
-         o7hS5uP/CYi9TLMabgg/8UVNYl5eKnvWvK1KkOPyVpp/E0CdYPAy1VRLRrhBwk4bm8HM
-         MZppnltl4yHMZTf+1pdkLwFrG+CWG+OSESmJqwMmGZTODSQRJT5QpEYNaI/yNWpTfb3/
-         V2TVr+edswEAFulIwJFct/oJglnn2BNlpCjqXmarAzAOcQRAxggtuUTaEbT/MhENqGc/
-         2PP8phptT3qbxXBayq8vfyiYw5gMqTn1BghSQI9elEAbAOZbukJd6rOKz6tUzY6pRQpK
-         fJ9g==
-X-Forwarded-Encrypted: i=1; AL+hErGgYSUN2Ms5EJ1jRDTYL/3cs7RWM6ds3403vSSsGaoGIDmpJlE4WNo37101/f5SfYJ8FDxgLZ0V6nhKu18=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9f/tlUIrK/Y++OUCIwv29jW+xbeoFNdM/ztgYbn1cYQv0YS26I
-	KJH4KohcPsBBpEaxX1ZvYNz/1vEvBzMTd1vrBFsqUzAEvylIdD6hEECr
-X-Gm-Gg: AYBFou1F+cTOh47+kjU2oes1GyvbMyNvmTPG6+c+w8w0sfEngqmpeRl9MZ4Dtz0TI8T
-	iYp5RK8WWPO+FNfUDkOFKgel59GeRCDK8MQOCk9vUurrlwW5RvH968UUFEUNcq2TZyPvXLFKGB0
-	33Olc9S6pwF7MG7C6r2oejyvJqIbi7IDvs879il8e8tnVHGk2guiYoQM8tr8qFxAuWLL5WP1YoQ
-	HKx+Obr5TtVDLdiq4f3pRxBLbRmi1C//6C73YepcVyFWOOJyLjqjhfTdm/t/MlRyJatQt3DH77P
-	wFjvumkYaPs02Zktl98aFmynHlGPbYANS3NKiAvZuJjRJMxSUirkp9u3y2xF9G3PzDqyd3cjgop
-	ruMQgKei61LY1wqvNkUO2hX3d1Xlkkw8MB7w8eYpy06WMNMh28shwsBIMtifxDBjkC2rk5NcChC
-	hsQc9DOpa6ASuMpFtYK9DpZQmvrOZA5deDKP7yEqFG6o/TsKRnkBIbN/jB4PVBedCvj8hv3WTVO
-	ySah2WZjs/m58tazAnzqRT0ivfSWXiQch+htjlMaj9cH5ROSpauW0uS8rnSxCjTsUhT03c7+s5L
-	D+gF7Mpdsb1kulpQ7eQ8M9Kplhk6N3hdR4kp
-X-Received: by 2002:a05:600c:64c6:b0:4a1:e69d:90e8 with SMTP id 5b1f17b1804b1-4ba0937fedcmr69091665e9.22.1794438101294;
-        Wed, 11 Nov 2026 15:01:41 -0800 (PST)
-Received: from cachyos-x8664 ([105.98.136.70])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb4e265a0csm22047415e9.9.2026.11.11.15.01.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 15:01:40 -0800 (PST)
-From: Mohamed Anis Ben Azza <benazzaanis783@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Marc Dietrich <marvin24@gmx.de>
-Cc: linux-staging@lists.linux.dev,
-	linux-tegra@vger.kernel.org,
-	ac100@lists.launchpad.net,
-	linux-kernel@vger.kernel.org,
-	Mohamed Anis Ben Azza <benazzaanis783@gmail.com>
-Subject: [PATCH] staging: nvec: kbd: bound keycode table lookups
-Date: Thu, 12 Nov 2026 01:01:34 +0200
-Message-ID: <20261111230134.200561-1-benazzaanis783@gmail.com>
-X-Mailer: git-send-email 2.56.1
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=MvhzWRa6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1794438106;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=wj6qsWXGoJ393cS9Xlx1U/BYTtbd972bohi7Obe4yhA=;
+	b=MvhzWRa6CxIyw8RcXYZWBtWEP8d+FaOLRY7Yj+cGsQUwd9RiIzFQ75zG6FPExdtuv4Z/TN
+	NQQFojrYTOKFc10pKvQ01tAdFxIGFJjIJCuSb0DKJyivf8gWgMFugStr/aUgO7qCfHPUAU
+	Klx4NgvoiPVMYE2qjUX0BHtio+f5Duc=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-20-yazoqcCZMMyfwaVL55ieTA-1; Wed,
+ 11 Nov 2026 18:01:42 -0500
+X-MC-Unique: yazoqcCZMMyfwaVL55ieTA-1
+X-Mimecast-MFC-AGG-ID: yazoqcCZMMyfwaVL55ieTA_1794438100
+Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 229991801313;
+	Wed, 11 Nov 2026 23:01:40 +0000 (UTC)
+Received: from onestero-thinkpadp1gen7.tpbc.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id 01DC41800495;
+	Wed, 11 Nov 2026 23:01:36 +0000 (UTC)
+Received: by onestero-thinkpadp1gen7.tpbc.csb (nbSMTP-1.00) for uid 13628
+	oleg@redhat.com; Thu, 12 Nov 2026 00:01:39 +0100 (CET)
+Date: Thu, 12 Nov 2026 00:01:35 +0100
+From: Oleg Nesterov <oleg@redhat.com>
+To: Mani Tofigh via B4 Relay <devnull+mt4022.columbia.edu@kernel.org>
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+	Christian Brauner <brauner@kernel.org>,
+	Michal Nazarewicz <mina86@mina86.com>,
+	Wen Yang <wen.yang@linux.dev>, linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org, tz2294@columbia.edu,
+	stable@vger.kernel.org, Mani Tofigh <mt4022@columbia.edu>
+Subject: Re: [PATCH] sched/wait: Queue non-exclusive waiters at the head in
+ do_wait_intr*()
+Message-ID: <avTzzxZvE3HqH3KS@redhat.com>
+References: <20261111-b4-sched-wait-intr-head-v1-1-17cf2af5b964@columbia.edu>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,82 +83,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261111-b4-sched-wait-intr-head-v1-1-17cf2af5b964@columbia.edu>
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
 
-nvec_keys_notifier() indexes code_tabs[_size][code] using values taken
-directly from the embedded controller's event message without checking
-them against the tables:
+On 11/11, Mani Tofigh via B4 Relay wrote:
+>
+> --- a/kernel/sched/wait.c
+> +++ b/kernel/sched/wait.c
+> @@ -319,8 +319,12 @@ EXPORT_SYMBOL(prepare_to_wait_event);
+>   */
+>  int do_wait_intr(wait_queue_head_t *wq, wait_queue_entry_t *wait)
+>  {
+> -	if (likely(list_empty(&wait->entry)))
+> -		__add_wait_queue_entry_tail(wq, wait);
+> +	if (likely(list_empty(&wait->entry))) {
+> +		if (wait->flags & WQ_FLAG_EXCLUSIVE)
+> +			__add_wait_queue_entry_tail(wq, wait);
+> +		else
+> +			__add_wait_queue(wq, wait);
 
- - _size is a 2-bit field (0..3) from the message header, but code_tabs[]
-   only has entries for NVEC_2BYTES and NVEC_3BYTES. NVEC_VAR_SIZE is
-   rejected, but the reserved encoding 3 is not, so code_tabs[3] reads a
-   pointer past the end of the array and then dereferences it.
+This look right and matches prepare_to_wait_event(). But it seems there is
+another problem if WQ_FLAG_EXCLUSIVE, see the
+"Exclusive waiter must not fail if it was selected by wakeup" comment in
+prepare_to_wait_event().
 
- - code is msg[1] & 0x7f (0..127), but code_tab_102us[] has only 126
-   entries and extcode_tab_us102[] only 110, so scancodes at or above
-   those sizes read past the end of the tables.
+Perhaps it makes more sense to simply kill __wait_event_interruptible_locked()
+and reimplement wait_event_interruptible_locked() on top of
+___wait_event(cmd => do_wait_intr) ? This way do_wait_intr() will only need
+to do unlock + schedule + lock.
 
-Reject any size encoding without a table and any scancode beyond the
-end of the selected table, dropping the event as is already done for
-the power button.
-
-This only matters for an EC that sends malformed or out-of-spec
-events, so it is a robustness fix rather than a security issue.
-
-The issue was found and the fix drafted with the help of an AI coding
-assistant (Claude). It was compile-tested with
-ARCH=arm LLVM=1 tegra_defconfig + MFD_NVEC/KEYBOARD_NVEC at W=1 with no
-new warnings, and the lookup logic was exercised in a userspace harness
-under AddressSanitizer for all 4 size encodings x 256 scancodes: the old
-code reports a global-buffer-overflow, the new code none. It has not
-been tested on real Tegra/AC100 hardware.
-
-Fixes: 32890b983086 ("Staging: initial version of the nvec driver")
-Signed-off-by: Mohamed Anis Ben Azza <benazzaanis783@gmail.com>
----
- drivers/staging/nvec/nvec_kbd.c | 15 +++++++++++++--
- 1 file changed, 13 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/staging/nvec/nvec_kbd.c b/drivers/staging/nvec/nvec_kbd.c
-index d2b91318f..9b976f0f5 100644
---- a/drivers/staging/nvec/nvec_kbd.c
-+++ b/drivers/staging/nvec/nvec_kbd.c
-@@ -28,6 +28,11 @@ enum kbd_subcmds {
- static unsigned char keycodes[ARRAY_SIZE(code_tab_102us)
- 			      + ARRAY_SIZE(extcode_tab_us102)];
- 
-+static const unsigned int code_tab_sizes[] = {
-+	ARRAY_SIZE(code_tab_102us),
-+	ARRAY_SIZE(extcode_tab_us102),
-+};
-+
- struct nvec_keys {
- 	struct input_dev *input;
- 	struct notifier_block notifier;
-@@ -59,8 +64,11 @@ static int nvec_keys_notifier(struct notifier_block *nb,
- 	if (event_type == NVEC_KB_EVT) {
- 		int _size = (msg[0] & (3 << 5)) >> 5;
- 
--/* power on/off button */
--		if (_size == NVEC_VAR_SIZE)
-+		/*
-+		 * NVEC_VAR_SIZE is the power on/off button; the fourth
-+		 * encoding is reserved. Neither has a keycode table.
-+		 */
-+		if (_size >= ARRAY_SIZE(code_tabs))
- 			return NOTIFY_STOP;
- 
- 		if (_size == NVEC_3BYTES)
-@@ -69,6 +77,9 @@ static int nvec_keys_notifier(struct notifier_block *nb,
- 		code = msg[1] & 0x7f;
- 		state = msg[1] & 0x80;
- 
-+		if (code >= code_tab_sizes[_size])
-+			return NOTIFY_STOP;
-+
- 		if (code_tabs[_size][code] == KEY_CAPSLOCK && state)
- 			nvec_kbd_toggle_led();
- 
--- 
-2.56.0
+Oleg.
 
