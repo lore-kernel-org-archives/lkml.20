@@ -1,102 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.75.74
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794377053;
-	b=Q6uIMUn52d090YxOr/7Kz8Qlar2ryrr3rvbsqJ4JjlgbAmCI6eIadun3miT1uNulSjvw
-	 6ih18UR/43Tb6sAeS18Ru7mKIxkZJlIBtHdycjdjj2usYkRgfkp1v28Smtw9dZ9yxjvS3
-	 3RsLY+xABL37SS8xoo9u1D9JTMxvGpzaoyI165rSEXwJW5WWSiR+joxp/XU98LL4MalWR
-	 sF9gfJ0T6dg54PYn9E0VWaQB/iH5JfwIrsmfumNe9K2y8hv09nbirUy5uOvC54QtEf1n0
-	 bRzrKTVFBIT/RKmt4zqCLeIFjjeJlHUz9wWuJVGoidWMEhzGhAWch5XJKwvseoIq+ww==
+	t=1794377085;
+	b=3v30w22vCvQfFz0FLZAWmri31AuRFieLKMtIIw+ammYhMi1023l49aEwPiG9HX4aTrnI
+	 M4tr5fJuMeW9rQMehbbLFPGe1K2W9mzipIZ/T1EebR7YIErAECUgKRp7R41Q7BWtX+Cqj
+	 +I2QsdtlI4OQBPr/QWWlw8Jlm9SSeYd1h8/zuk4n6xYlp/Cf5G0S/s5eDVTY/y7k/46xm
+	 vnOQ2m5UQFs1O2QMXQGRrMucVYAp7DiqJqN5OCgC8+pvsb1q1okwycj5oKr0IahrEm+7T
+	 hqTtsSqkcTroSq2SStkigSFL2U6pNMifA24wrnWQnn+0TSz62rjzDku7jl4ELFWQ6PA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794377053;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:Content-Language:To:Cc:References:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=GfxPGAV3vAK9GHPr8FAumGT8crwX8V9VIz/rlqREHYI=;
-	b=EcAMsydCuTUZVVwcqu8I+grqhttk3X8qPq7fSHbTPb7vTNWEs3pLGsNIhsbTQLE4c2n3
-	 4km5dmlrCDTYtmb91m+ASq+xpecsRYk+G28mTx6XrLmgDiWETdU6EvhJg+5NGfJYZkJ7J
-	 A4qkSC+aWhQ4axB+BGPWzNqmPhAyNX1wv418ggV2kzxIXhvD9Sr0Js8URTm3CzCkUIbbO
-	 0FHG3cb2cqG+g/rODQpSRqBOrMhFxUxmfJ3WTi0IdpuX6Zge63663F4khAnJZpuoR/YZV
-	 wBQV/WjsqDxpKOzVEG7RdRDwS+CbiQWEunaUldwaZunscLV/EzArk6Vkm7uXu/IRv/A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794377085;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=/tRUYN2i/+hTnIgV7K4+afN0OwNPqEU1lHoM8NyxiRY=;
+	b=XUXMg90rk23QUBaFCcoPKo3x+nqOVEvSBNBr2U9qMBybrV83cqyRPuGEp7KGZb4Ljpht
+	 uooxIW8fJYYXOwCAzATJmoji2j4bxP07x+jXj6w6heu3nI81vimdtmZZ0TRRxR7ie65TG
+	 qDJJ+atM0blCjX6IFitaUlBorD0V4qvTOJUU6E97ySTdCKC3PdmpA6gFmvAg/ZiBW0K9j
+	 E/MJUSKNPlTuF4A8x0rBbtqVFCOeqLWQOpCy4cE84rWO9lK/kjdmfCer6v4xlpE0zL0hV
+	 omNF5VOR1/PE8JGIBLoKBSOYGTc31CNHme4FEpyCZykGsTPAUdLNi35KamwjrtmqJYg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amlogic.com;
-	spf=pass smtp.mailfrom=amlogic.com;
-	dkim=pass header.d=amlogic.com header.i=@amlogic.com header.a=rsa-sha256 header.s=selector1 header.b=cU0PSkVp;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.75.74
-Received: from OS8PR02CU002.outbound.protection.outlook.com (mail-japanwestazon11022074.outbound.protection.outlook.com [40.107.75.74])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R0aOzIQw;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 607B7606A33A;
-	Wed, 11 Nov 2026 06:04:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 607B7606A33A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE4A2606A31C;
+	Wed, 11 Nov 2026 06:04:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=amlogic.com header.i=@amlogic.com header.a=rsa-sha256 header.s=selector1 header.b=cU0PSkVp
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PFh64LTOcwIOy4NU6AKkbscKqpfPZDHvU95OM2VmGiyRf5nzeKLaF7jrgQv0bBlA6UlhIhwriDxxa8GCs66JSKzFZ2TNqFTyF119/rRpJSemOgWXO2RTg6PA7yp54kZ8XJzy0PBEY2VOT2JZC9D/GP33TuzoFaHXTgzme8q1wBy904mZBEiin3e1qcrWSsodhBXTTRxhUIfGaqxEjxrIqqoY0xBq5x4y9FQe8rm0IhZXoyoSxgCRBY3O95KzsvL02AEc95gkw9sqeQTO/yy6gOPrPGhdejpY7WtA1Hr+S4ScKFO/kK9TrVQnsvd0b21XF2ydRroDd2mbh11TmnekSg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GfxPGAV3vAK9GHPr8FAumGT8crwX8V9VIz/rlqREHYI=;
- b=IxAe9j4BB9Ip1ODWMv4IYl25SWJnhimrRb5MWrC3Tae+dyzh1LsqmVjgfgoQTUzImdK54pViyoidRkFexhAK7ZXpXrXe+u6vnFKYrDw01OYVo9ENuApslCHVKPvJ3O5cpQTY3XnCqC0fIqnSrx1suhDaAB5Hlbuk8mR481yYWNz8W6c0NeGH4Z9nF7ci6EbOhGNRK83LSU8eT70ONswEiPuZ8J/r0OcSKLYUmWr0dGb4t6dv436RLwhBBRv8kr63ZfgDyhfKw0K19161Oj8bEy5WGdrl/1CKgrzxxdIMfgLix9VOUzKAvJ92mbdOBhC7+Yw8KEyyQp14z7YpboNwFQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amlogic.com; dmarc=pass action=none header.from=amlogic.com;
- dkim=pass header.d=amlogic.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amlogic.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GfxPGAV3vAK9GHPr8FAumGT8crwX8V9VIz/rlqREHYI=;
- b=cU0PSkVpxepf/MaM+dT1oKLhcTYEAKthTNxqRx+9UPPJ6Es57PgfYr9sr8Mduf8fB/qUHE99UHtUj08mIXsApychHC6l+Ye4QTtSeud9nH/e/EGZA5Z+5TpipsGybvhkEcev7p2Z599lz328m/0nJoiVjkvROgVMSIhR1/cR7/7gFTJUF2XSjnetk8wjH4HGeURUh4MlPpxyw70eNY7OlpEY6Czr927HlIVea7IMek14PO4LOwlIou403G2QK01CW4G9Z+5QNo77+da+6uuJqGhjS71mP9cArbi16De/pl5Z+4ZIF0wIpY2qgxR/saskTR1PF/HZSpNe4vpsWAdIjg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amlogic.com;
-Received: from TYZPR03MB6896.apcprd03.prod.outlook.com (2603:1096:400:289::14)
- by KL1PR03MB8305.apcprd03.prod.outlook.com (2603:1096:820:115::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Wed, 11 Nov
- 2026 06:04:07 +0000
-Received: from TYZPR03MB6896.apcprd03.prod.outlook.com
- ([fe80::78d4:9dee:2e32:d1e4]) by TYZPR03MB6896.apcprd03.prod.outlook.com
- ([fe80::78d4:9dee:2e32:d1e4%7]) with mapi id 15.21.0615.007; Wed, 11 Nov 2026
- 06:04:07 +0000
-Message-ID: <0b49c0b3-1089-47a6-8020-8aa0fab0cf30@amlogic.com>
-Date: Wed, 11 Nov 2026 14:04:01 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] arm64: dts: amlogic: a9: Add power domain controller
- node
-Content-Language: en-US
-To: Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Kevin Hilman <khilman@baylibre.com>,
- Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Jianxin Pan <jianxin.pan@amlogic.com>, Ulf Hansson <ulfh@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-pm@vger.kernel.org
-References: <20260722-a9-pm-v1-0-1fe20a44bf2d@amlogic.com>
- <20260722-a9-pm-v1-3-1fe20a44bf2d@amlogic.com>
- <9dffc605-2ab6-42b4-a7f9-565bc16d8c07@linaro.org>
-From: Xianwei Zhao <xianwei.zhao@amlogic.com>
-In-Reply-To: <9dffc605-2ab6-42b4-a7f9-565bc16d8c07@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SI2P153CA0012.APCP153.PROD.OUTLOOK.COM
- (2603:1096:4:140::15) To TYZPR03MB6896.apcprd03.prod.outlook.com
- (2603:1096:400:289::14)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R0aOzIQw
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794377085;
+	b=KBcT8jGIYYuSzq9GWUj947iXk46AcankyaOEsVuIIyW3aXD4WEFJeGQ9mxrawnn3cYDh
+	 85R3jqgkxXn7fxT+2p/kaPJRj0dk5/5uHs1wXLrWuQeraqG/zAW+X0CUFTJqKJc+koT04
+	 t1laZyT6G6UJZacyhUrbcZsGCznSpnDwvINdrDx7wkTsJLl6XWSfp+wSkDEU4ChWAn0jl
+	 jwEHR3Mf60BSNbUA9oe8WVyD/YEKY5kCUNwqitlVVtm+W2n968j4emrNzEs0T8rf27Nl+
+	 dUIbn7uUHj533wK5MQjesS8u6iluGmzxFb6l8r4gjlYUZvUnRPgpJiPxHnokcytz7CA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794377085;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=/tRUYN2i/+hTnIgV7K4+afN0OwNPqEU1lHoM8NyxiRY=;
+	b=lo34T8cgk3c0gLAO1SyUEA+D+ButaRxQAjFfnieYnk5JchOVu8xPtk2zz4ptZPrnekKm
+	 0wWvMnSt3K8sl5p9Jy+l+8l8oBLrD53YQ5+eiHWFlpOvej2U+SVY6ER2AqR5lK6zCk4Ow
+	 r4SHFG/mMrM5BJQccsTLcvK8rwlNZeqYnGOa6aU242TBAgdb9GX4INE6KF/aZpEvXa9Z7
+	 /2lFCuy5x7XuYitDycmldao7/hDLUscOJHXoW1mU3PJepQk0rG1Obq4ZRdaN90+N5qjol
+	 g0lbKyefuHd5nd+22S561J/9KzG3FPZz/SE2txzlPD4qe2icAR15uGSm8GU31/IL3fw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id C7E601F00A05;
+	Wed, 11 Nov 2026 06:04:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794377085;
+	bh=/tRUYN2i/+hTnIgV7K4+afN0OwNPqEU1lHoM8NyxiRY=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=R0aOzIQwRzeRrxtXOMHzDH+Z6lDGqSa+hBtO3C5LsnqxiF8/YTHWIyF6yExNE+yZh
+	 CYOBpP+1sakoQ+Yzp6uhSzQ3/LevBvRK34lNwRpUPf5dmiNFxJDcwiKFKw9MVvbs6K
+	 r7SpQLGMlyG0+e7M7OE1muzhKJfTkbipNs2uTDGmElDgyuY8kWUCqF01abjnad/if1
+	 5FUTADwoCECsMllULd0zW3an+3dNl3G5aUKFyFwiTXvntyusJBnx99pjsbvP4GChkB
+	 +OQE1D4mqmo4ItGzs/JKVmaReQ7/m8oB4r3Oxdf0iuhhB6/zItptu7MeUT7UPQtsE8
+	 kELTOwnVn+eRQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 2786F48DD4;
+	Wed, 11 Nov 2026 06:04:44 +0000 (UTC)
+From: Hang Zhengyang via B4 Relay <devnull+hang.zhengyang1010.gmail.com@kernel.org>
+Date: Wed, 11 Nov 2026 14:04:41 +0800
+Subject: [PATCH v2] perf stat: Count kernel events in a group led by a tool
+ event
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,122 +83,146 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYZPR03MB6896:EE_|KL1PR03MB8305:EE_
-X-MS-Office365-Filtering-Correlation-Id: ff0caab8-4fec-4b7f-1886-08df3fb998b2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|23010399003|1800799024|366016|10067099003|11063799006|4143699003|261026121527099003|261026140227099003|261022105027099003|261021121427099003|56012099006|261028144727099003|261102123227099003|261009223027099003|22082099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	T6Rcc8/kr9J9ovd5b0vqY1p3WFoCcwt2rc0Hv7kzr3JNGSKN4+IeGZnfAO+KTzwEXhC2FhAl7zjpPi1nWB2+hMGhFSuassJ5DU/GlMxs9oRE4r7FrxkDW+KmuP+jdDskLElpC/zodChd6VpDyYMAf0sBXR9V7Vf1KVnLzkqRRNdDmHHQrcLd8kgHjGgFQCYf0iat4VnrB4Jq3kWqkaXJsS8FwouFjqI8GgO/JeteWYpegmjXld4aARmKJEdprnpB9IdkCdSy8Ihn4OElyQ/r9V+6V7zwgZ0jFJjMaDtxQ35AA9PF0iORBYjFeTYP6uXIi44Wum1ebbNfxdHVBrJs/GgB2sXK9I3sMu9aO8mGzPA/fLN4iDMWMGehXYLaNoTdbdEh2ueDeP2Mo2q3dI4STD5jorFM1efXB8Gok+9BdWI6zXL5VhlFZoXff263x1SLyyQ0IQjf9PEVXoGTVNig0PLlZylBmK3CJ4yDfU0IvPjWUCkr0FkByy7z02PDE3Nvtftht8de6535E6JP1wjNHPpHa9iK+gwLFKjgl4T209/Z9qZM3fYdwBC8feOW+CiQroBvXwRA1a3cMRbGsTzTvbZoNVxxItN+VsFTZJ+QiqCLNbpkCNNtZIuYCYoJtCzjPFOqKuwlABjAd0OA9tN0/A==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYZPR03MB6896.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(1800799024)(366016)(10067099003)(11063799006)(4143699003)(261026121527099003)(261026140227099003)(261022105027099003)(261021121427099003)(56012099006)(261028144727099003)(261102123227099003)(261009223027099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?WjNCa0JlNmxVOGdnNFRuT0oycVFHcW5KUWc2ZEJ4ZTgzaXp4NEEvNndpVDdO?=
- =?utf-8?B?K0tFZXhESWJpaXpBMjlKYlFZSzl0bHhkakJ6dlJ6ODdCdTJvTjFDNmlYakdz?=
- =?utf-8?B?aU1GS1QwVnBKU1AxSStvR0gvZTB4aGh3U2I4NXhCdWF5bzE2WjltWTkzc2V3?=
- =?utf-8?B?YVdORXV1L2F4dnRnNld0R1d2VGpwcFU1ZXVQTEt4SHlIdnlya25EczhSaG1W?=
- =?utf-8?B?Q1NCMjVSZ2NBdWF1UFZyWlc2RlNGNVlkK0RGNVkvY3hsRWU2NFpud2hqRk9i?=
- =?utf-8?B?M1A1M0JiU0F5MjF6OHkvTnYxSTE3MHRuaUU0SjNTbFNXT0dqbEFoUnpXOHRt?=
- =?utf-8?B?VjBSdktYMnpOcTZuVzNQQ0plVXE2N1ZPK3czbGVleTRRdnhXWnRGdC9ZMzl6?=
- =?utf-8?B?WWdvOW5aclFmTEk5Nk1lVmxuUkpPdmdFOVRDamp3dmlIRnJUQjZ1dTV2cngy?=
- =?utf-8?B?NS9ELzNSVGNuOTBBcTRtN0lweVFaeWNOT0RMK3N0SFBTNmhEWTcraTU4UW1x?=
- =?utf-8?B?Y3dGeDhVQTJseGQ4QXEwWkQ0NWs0SlpSUXZkY0daY1pOSjNYcmRmd2xrbmRx?=
- =?utf-8?B?VEVQTTQyTlFnMjRQd29GWmdlVzJIUTFvNlc0a1FQcS9rWFFBNTFPSnpLYWNr?=
- =?utf-8?B?YVorQ2dGZ0QycTUxdmpiVHM3TkR2Q1hXdnF3a2Qwb1UvZ2FhQ0RScVFrRnZq?=
- =?utf-8?B?M2VrSk4xTnR3Q2JIZHc5VXhrQytsQ1kvSkNCVWhEbTNtRXFQQnVFcFY5bTIx?=
- =?utf-8?B?aHIwVTBBR1VmS0pGa0h6TmNSaG56TGpGSXkrQ3Q5bHpUSDVQRXJZMzl3N2g4?=
- =?utf-8?B?eHluNFh3cjYyc2ptSW1wQ29TQ0tXZ0theU01VUJLam9uaFNMdjFBWDd2SmtE?=
- =?utf-8?B?WkJ4cGEzU2hwb1M1VWJ1bU4yVDUybmxhWWFoTnRRODBhNEFvV2lkRHdWQTd1?=
- =?utf-8?B?angwZkl1eHJ1WjZ0ZkFIMlc5VVlNUWE4SFlZS2F5Vkc2VXhVc0hWYmVrczJx?=
- =?utf-8?B?VjZXbkdDWG95T2VnRzBaSU9zRU01M0YwMEtpaW0zNmxHZkJwb2QzcG5NamdK?=
- =?utf-8?B?aWx1ejRKdE4xTGh6YTZaZHU1MXd0S2kzYzdWNVJsSTZvUldBTjdJRTV2N08z?=
- =?utf-8?B?RUs2SGlpbDUzTytmN0hmQy9XblZzdmhBeFRPUEEyMVBDdCtvd3FSVFk5amVR?=
- =?utf-8?B?MFp4ckdhbjBGRFhxUkFWZ1dJbXcwZ3FteklaeXBxZ3lCRHlFekhvNEZLYlFS?=
- =?utf-8?B?TzlKZjJCdUhIZTdLM1JwMWhDMU9FK1FJRGVCSXVsNTczeXFqbkhWMWttU0lr?=
- =?utf-8?B?NjQrZDloeHNyU2pQRm0vNHpHU2psMFlBTktzZ3FMN3RXaUZ6T3RxMElPMkRF?=
- =?utf-8?B?SStJWkI1YmZBUmw4UVlKODQ0azIwQ0tJZk9vRzhsSm1zMG5OQmsyQ2gwc1Vh?=
- =?utf-8?B?Q1hnOTEyOW00eTFjTVJnL0p1MGE2MDZseklTZlFKKy9IZWxqMG5ibnJDblU0?=
- =?utf-8?B?SkJ6S0YydFNlNk5NZWhjWDRIVWMvSzNYd2xKSkxySlhpU3JLRzB1cHFMSlhX?=
- =?utf-8?B?QWRMV042RWZvVHJLRk9zSWNhb1VLakttcjhjUjJMeFRZRTh5djBIRWZPUkp6?=
- =?utf-8?B?RENMcW5GRnc4VXZiSThIbHllTXRCNiszV2w1TUpQcWk1WHQxdHFMZ0VmcnJk?=
- =?utf-8?B?Qlo1VjVBV3BIcTdoOE95d2RNU2lxZXJBV0FqZ1plSG8rZU0rUHhxdE16QWd4?=
- =?utf-8?B?RkVxZ1cvTFIvVzhHVTlaS3ZuNmlpNFEySHZhL1hzcExlTFJSM25FMmhwU080?=
- =?utf-8?B?cG1xN3hvdXQ1THk4SDNRMDhLT1owR2xzNlFQRUtNbHFuekg1UlU1TzVidHlk?=
- =?utf-8?B?VFJnaHhXaVFCSGpsZmlSMzBIZmJQbTg1SmQ5dFMreDZFWnFWMjFvOWhkRTM2?=
- =?utf-8?B?VDFNMk96Qit1QWJCZkxrS2tDWGVKWjhhQU1jQW4zOXVCV3FXMVBtN2E1My82?=
- =?utf-8?B?azZFUmVNYndUNDl3NGV5WVpCbmUwNEdhdm9OcTlhejRRUWlxYWo3RlkrckE0?=
- =?utf-8?B?SEhGWU9acUFaRndFV25FL3lObmkvVkZsY0tVK2ltSnUzL0ZtcFZNSFZlOVg0?=
- =?utf-8?B?OVd1TGZ4QlM4RGh4UW5hdjFWZ1NzM0U5TUdrR3h3cWxVQ1pTWElNR3UrdlJz?=
- =?utf-8?B?N3ZxZGZ6UE44WWJtN1htL1kyZExkb2gvRWRnSlBQbHAxeFZUeWFSWmErdVhC?=
- =?utf-8?B?dTVKdEdjTHZudVU4aWlKak9pNU5ScnA3cEZwa214NHBCcXNEd3cxY25tU2pI?=
- =?utf-8?B?OE9PcVR4OEdEZGkvRnJsa3g1T0RpOVVwcXBna2VZREh3VmlrbjRjdz09?=
-X-OriginatorOrg: amlogic.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ff0caab8-4fec-4b7f-1886-08df3fb998b2
-X-MS-Exchange-CrossTenant-AuthSource: TYZPR03MB6896.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 06:04:07.4582
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 0df2add9-25ca-4b3a-acb4-c99ddf0b1114
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: oxcHcjNqoWQGZU5cMlxIzQ3AT5UMAzZ480EfczdDE13y4jqsWNCbuMPClw3samwt8rDcKtOz4T/rEDrpkX1spWeySDN5TK3lJG+9TiwoeFk=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: KL1PR03MB8305
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261111-tool-pmu-leader-v2-1-3faa0fb98c51@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WPy27DIBBFf8ViXSIehhirqvofURYDHieoxqTgW
+ Kki/3sxWXTV2d2R5sy5T5Ixecykb54k4eqzj3MJ4q0h7grzBakfSiaCCc3L0CXGid7CnU4IAyY
+ 6CDVix5VUxpBydUs4+kclns6vnPD7XsDLa0kC5gwV3DfvlcuEZJ3Swhy4Nq1pOS1/4AvmKMXnJ
+ YCfDi6Gjx1vISMtIfilb5wzTAHvQLdH6FDC0Ao3cGW0BWDIutGC0GjJLnL1eYnppzZdeTX5t9S
+ 6G2h+lFYpbUZl/izIedu2X9zanL83AQAA
+X-Change-ID: 20261111-tool-pmu-leader-d25fe8153599
+To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
+ Adrian Hunter <adrian.hunter@intel.com>, 
+ James Clark <james.clark@linaro.org>
+Cc: linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ TAKANO Mitsuhiro <takano32@gmail.com>, 
+ Hang Zhengyang <hang.zhengyang1010@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794377083; l=4370;
+ i=hang.zhengyang1010@gmail.com; s=20261008; h=from:subject:message-id;
+ bh=M1/caRbl8ok29UtGPD8dLXYXGCUc8+9tdV+yKMNQmW4=;
+ b=9CUe61prZppY25kmgHtgvIcuxAisnPFupsBvenXEB6mnjX7FEqiKvPiY/zzfMuho0cI/SWkcQ
+ 6eiEGejZMAFApW8oBY1KR20V5bHxrNJnXcMhpAl2gxSOl62eMPhz7DG
+X-Developer-Key: i=hang.zhengyang1010@gmail.com; a=ed25519;
+ pk=5drRny3PqRPLhKVB0YIQXN5YyD8miKCpXWhnEPvafAI=
+X-Endpoint-Received: by B4 Relay for hang.zhengyang1010@gmail.com/20261008
+ with auth_id=1133
+X-Original-From: Hang Zhengyang <hang.zhengyang1010@gmail.com>
+Reply-To: hang.zhengyang1010@gmail.com
+Content-Transfer-Encoding: 7bit
 
-Hi Neil,
+From: Hang Zhengyang <hang.zhengyang1010@gmail.com>
 
-On 2026/7/28 16:34, Neil Armstrong wrote:
-> On 7/22/26 10:39, Xianwei Zhao via B4 Relay wrote:
->> From: Xianwei Zhao <xianwei.zhao@amlogic.com>
->>
->> Add power domain controller node for Amlogic A9 SoC.
->>
->> Signed-off-by: Xianwei Zhao <xianwei.zhao@amlogic.com>
->> ---
->>   arch/arm64/boot/dts/amlogic/amlogic-a9.dtsi | 10 ++++++++++
->>   1 file changed, 10 insertions(+)
->>
->> diff --git a/arch/arm64/boot/dts/amlogic/amlogic-a9.dtsi 
->> b/arch/arm64/boot/dts/amlogic/amlogic-a9.dtsi
->> index b0e0fadeed82..3652b2034c96 100644
->> --- a/arch/arm64/boot/dts/amlogic/amlogic-a9.dtsi
->> +++ b/arch/arm64/boot/dts/amlogic/amlogic-a9.dtsi
->> @@ -7,6 +7,7 @@
->>   #include <dt-bindings/interrupt-controller/arm-gic.h>
->>   #include <dt-bindings/gpio/gpio.h>
->>   #include <dt-bindings/pinctrl/amlogic,pinctrl.h>
->> +#include <dt-bindings/power/amlogic,a9-pwrc.h>
->>
->>   / {
->>       interrupt-parent = <&gic>;
->> @@ -72,6 +73,15 @@ cpu7: cpu@700 {
->>               };
->>       };
->>
->> +     sm: secure-monitor {
->> +             compatible = "amlogic,meson-gxbb-sm";
->> +
->> +             pwrc: power-controller {
->> +                     compatible = "amlogic,a9-pwrc";
->> +                     #power-domain-cells = <1>;
->> +             };
->> +     };
->> +
->>       timer {
->>               compatible = "arm,armv8-timer";
->>               interrupts = <GIC_PPI 13 IRQ_TYPE_LEVEL_LOW>,
->>
-> 
-> Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
-> 
+A tool event like user_time has no perf event in the kernel, but
+get_group_fd() still passes its fd, the /proc/stat fd, as the group_fd
+of the members.  The kernel rejects each member with EBADF and nothing
+is counted:
 
-The DT binding and driver patches have already been merged.
-Just wondering if there is anything else needed for the DTS patch to be 
-merged.
+  $ perf stat -a -e '{user_time,cycles,instructions}' -- sleep 0.05
+                   0      user_time
+     <not supported>      cycles
+     <not supported>      instructions
 
-Thanks!
+Open the members with group_fd = -1, as the enable/disable code already
+assumes.  They are then on their own, so read them without
+PERF_FORMAT_GROUP and open them disabled like a leader, so that -D,
+--control and enable_on_exec still apply.  Keep reporting a broken
+group when the leader failed to open.
 
-> Thanks,
-> Neil
+  $ perf stat -a -e '{user_time,cycles,instructions}' -- sleep 0.05
+                   0      user_time
+            38257394      cycles
+            21228043      instructions
+
+The kernel events in such a group are no longer scheduled together.
+
+Fixes: 6828d6929b76 ("perf evsel: Refactor tool events")
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Hang Zhengyang <hang.zhengyang1010@gmail.com>
+---
+This goes on top of TAKANO's segfault fix, as asked in that thread.
+A tool event as a member, as in '{cycles,user_time}', is still not
+counted; I'll send that separately.
+
+Ian, the other way is to take tool events out of such groups in perf
+stat with a warning, the way mismatched cpus are handled, which also
+covers the member case.  I went with the group_fd = -1 that
+0b18bced5444 describes; happy to switch if you'd rather split them.
+---
+Changes in v2:
+- Open the members disabled like a leader, so -D, --control and
+  enable_on_exec apply to them (sashiko)
+- Report a broken group when the leader failed to open, as before, so
+  perf record is unchanged (sashiko)
+- Limit to tool event leaders: a hwmon leader can't enable its members
+- Link to v1: https://lore.kernel.org/r/20261111-tool-pmu-leader-v1-1-6173b5569f59@gmail.com
+---
+ tools/perf/builtin-stat.c | 10 ++++++----
+ tools/perf/util/evsel.c   |  8 ++++++++
+ 2 files changed, 14 insertions(+), 4 deletions(-)
+
+diff --git a/tools/perf/builtin-stat.c b/tools/perf/builtin-stat.c
+index 37752d6bfef4..07d01028bdea 100644
+--- a/tools/perf/builtin-stat.c
++++ b/tools/perf/builtin-stat.c
+@@ -719,9 +719,10 @@ static int create_perf_stat_counter(struct evsel *evsel,
+ 	/*
+ 	 * The event is part of non trivial group, let's enable
+ 	 * the group read (for leader) and ID retrieval for all
+-	 * members.
++	 * members.  Members of a tool event leader are opened and
++	 * read on their own.
+ 	 */
+-	if (leader->core.nr_members > 1)
++	if (leader->core.nr_members > 1 && !evsel__is_tool(leader))
+ 		attr->read_format |= PERF_FORMAT_ID|PERF_FORMAT_GROUP;
+ 
+ 	attr->inherit = !config->no_inherit && list_empty(&evsel->bpf_counter_list);
+@@ -748,9 +749,10 @@ static int create_perf_stat_counter(struct evsel *evsel,
+ 	/*
+ 	 * Disabling all counters initially, they will be enabled
+ 	 * either manually by us or by kernel via enable_on_exec
+-	 * set later.
++	 * set later.  Members of a tool event leader are opened on
++	 * their own and enabled with it, so they need it too.
+ 	 */
+-	if (evsel__is_group_leader(evsel)) {
++	if (evsel__is_group_leader(evsel) || evsel__is_tool(leader)) {
+ 		attr->disabled = 1;
+ 
+ 		if (target__enable_on_exec(&target))
+diff --git a/tools/perf/util/evsel.c b/tools/perf/util/evsel.c
+index 560741d9599d..e3ed645cc289 100644
+--- a/tools/perf/util/evsel.c
++++ b/tools/perf/util/evsel.c
+@@ -2378,6 +2378,14 @@ static int get_group_fd(struct evsel *evsel, int cpu_map_idx, int thread)
+ 	if (!evsel->supported || evsel__is_group_leader(evsel))
+ 		return -1;
+ 
++	/*
++	 * A tool event leader has no perf event to group with, so open
++	 * the member on its own, or report the group as broken (-2) if
++	 * the leader failed to open.
++	 */
++	if (evsel__is_tool(leader))
++		return leader->supported ? -1 : -2;
++
+ 	/*
+ 	 * Leader must be already processed/open,
+ 	 * if not it's a bug.
+
+---
+base-commit: cc905a18a647a8e3ad42cd1596baa0e08fba26eb
+change-id: 20261111-tool-pmu-leader-d25fe8153599
+prerequisite-message-id: <20261023085629.1694941-1-takano32@gmail.com>
+prerequisite-patch-id: b92ce8b0c6248a4af182670458912b760b98a410
+
+Best regards,
+-- 
+Hang Zhengyang <hang.zhengyang1010@gmail.com>
+
+
