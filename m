@@ -1,99 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.51
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794399881;
-	b=PYczMgjKxvMDHV/5Q+PxnIeLnY2J3v21pCfhEro6PCjOVo6REGcknoniG8GGYW8wuiN/
-	 ATP0CbUL1hnEMFLI47+CL+ArNw5RnSm7abGLJdGiL6Xx7XWcojkzZPtkdswhO/5mdqPhk
-	 ZWTMcrgVm4oc/gDbUEPdOD8VdldKN/E+arXb7tJi2dRZ4+UKXkXkkBs+LudI3Ar1p117p
-	 MxQWirrlnwRGey99M8vugUhimIhvzw9DCQaFs9lRzGz6VrnQbuUu+DnJ16iWtqmhoJPbF
-	 WCXXswMyvwUcS9Q7gOfh4D8rhUE4qhisxumk5NRmrsUayvXg7KBU3a8pn/drc8YbLew==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794399881;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=DdzABbJ3RgjxW/78ek3zCU0rPzdDrV/VzN4+B24AkVE=;
-	b=oH51CCHRvBc/hHjAFXvds3uwKP8o5IIQYKHYQ2XYiDL5xCFVZT/0DzNoaYY3Fj5fWSre
-	 85nBXVrKvxBhDXGK+bZ9yaLTAdYzmqARPAOJ9hfU6PelLbwXd0vQrhezVpvQ7qIDRNdtd
-	 /4mHb3K9WAxIBmYYbPJbq6kxOKoYsZoir9z0F9kJtMN4a896eDwSKdk/GRRPqOqMooh5b
-	 tXqnjKzRq+qFfoMr/YyWwYMSOr8vwe5W5DmXg7VLjQsR5VAw3FCn3jSYgE0X6mLhA62/X
-	 KezTSaFXf8puioDjwIXrTVBsCliFhUNcTkvd+I4M53iJO9vhcfWP4IgtqEDId7TI+BQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=alVT57eR;
-	arc=none smtp.remote-ip=74.125.224.51
-Received: from mail-yx1-f51.google.com (mail-yx1-f51.google.com [74.125.224.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794399894;
+	b=DVUj7NMJYfYMhREIM/5sQRsDLCyNAe6akPYXgX1bsx5UdetTxj9lpU0+xVP8iTeca8X+
+	 kYZ7o9Hi+Ac/uqrh/XtpxzM/BqbvQHtnX2XIlw5UDCBiBRUgnGl2s3jmtV/R1zDwh/f81
+	 311zPbsQhqOKR01oH7h4YM0WdASrkuur+wRIcs588/UMV/RPfyFFDAl6XMCnb7jDo4zOd
+	 Xlxlsbk/PjDD3VxJ8zIm7Iazd1tA7mhCbxsd8NSq/9An2H515Hi+WRdDx0C4oyYEVZ5u9
+	 eszX0snQjrh8Y5g8ClSs8FNZEWafKWqDj5vJq6CHe098e6FUiV/6kLSeu/Z4LGjdigQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794399894;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=ICXP/cmqLovC4R2HCOjMC4Wp+1KJ1RE5SJlC2SoQU1g=;
+	b=BXsozOJiSGoOxVaABlsF0Y12zrJI3SyGJ3sbIDJJS2l9RW2avTT/8Py1IkIG78msPJpy
+	 2n5zuS8G4w2T8VXc/pDg3BB/rtjOlccIaN3HJ51hzw6z7vpHeT7bYnCekCHbmJXN9MXbt
+	 F1Wi0rBDxVYQQvsXoZHlSA1A8HsM96IpDQz9f0/S7h0wem8F63kdCzMiNSFXpE3HPGImD
+	 TzmUJyfXK2QQwIo4KALQlrBfB/OfYnbRDMpYaSIY/jrWuJ3vdolHEW2Aaev2z3WiurWL2
+	 r+jUAYtzGzlg2aDoH9wAKVFlY2nlAd83E8yx8K92rfHnXCEStxWDCsmI8li9H3giFAQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ncwQcdGw;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63378606A321;
+	Wed, 11 Nov 2026 12:24:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ncwQcdGw
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794399894;
+	b=qpq4D7Slk1QnZpTkQILk1aBaPxgYwHsstaeRRPAMTzCPAFv0vdUutw6d7xmgnwKRpTz1
+	 K8ry0Cij68ZJ/IVtGqRRRYDIE80f86v2OxVBijlGh0O7Fg4AdYEne8L0HYUqaNhdiVp92
+	 NusRF933Q6XUpxfH7PfwGYJY9RdMVLeMkid/ARetjBQ7apzodEzWc/evRKMBxPsWjlQXl
+	 zBsyLfLaaFSwUYoxDt3JY5zofb4mej0Tt6Y9YDG11fk4MfV4+EFx71p8+TSMo8+OxIRXC
+	 iXOPyLi1DDfPK0ADMjoKbHGOk5kzqv9r1HwF6FuP0tMglD7wJkV2PeYrtrM2FZsse+A==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794399894;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=ICXP/cmqLovC4R2HCOjMC4Wp+1KJ1RE5SJlC2SoQU1g=;
+	b=s+uwz2ySeTyM7ujO3L7/1xGWqgV3TRKba+6I+j+S1IwmwrmWU7/3znzzvTgbcfiLHEpG
+	 +DCHoB6kmp0vSQU8Qf3YKWYpeqX3i/ICVkgDUECznCADsqCk0FrhgDan+ESlvvdCq4Isq
+	 I7yWOh4aiG0qYXAjvN17PVZAmBdCU9oKqA0dyVedY5/wJaa/5vSinOFvEeetPigxYdgRc
+	 ldhnQw1SYViKPTgHQOmtqQimsm784HqtamMNI6ANfhumeQ4SJUbhqLqvbcXQ85pQd33lH
+	 XTU5FJp/wPjbuiqJUQUcUG8ZBnkCnkINUm/WnzHO83hEyBfAWfu9yut89k7aKPfJkaQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53CCC606A326
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 12:24:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53CCC606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=alVT57eR
-Received: by mail-yx1-f51.google.com with SMTP id 956f58d0204a3-67c08c7adadso2587150d50.0
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 04:24:41 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794399880; x=1795004680; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=DdzABbJ3RgjxW/78ek3zCU0rPzdDrV/VzN4+B24AkVE=;
-        b=alVT57eRRL6E2px45UvVQ5T5CIGC/a21x4+yb+XK4/5un2R19jNsbDZsIdfIdW+pUc
-         Qarbx5jjwe9uCps/Te/UGrxdMvSk/8ow4Fm54lcIsPZ5Y34AtasIahOUWMhu6EjOIuvE
-         szZAVW00vQHGK78ASKqr2f1JGFzJJ3M1rlVZa3GxF83wFgULdyHiXRVKC7wn8ZZonzrp
-         5FitUDVZfrMpPfTy1bl0xUPfhD43uk++AQWFpPjkDA4MSOc658NqCu2nBmWo78SK1MsD
-         yhHJipZtzOWkxa09CVCsZmKjGImKWf6Fd+WfJAuUKRj/5Eua4uaWM4eSf4BN0YC60NC+
-         SQbg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794399880; x=1795004680;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DdzABbJ3RgjxW/78ek3zCU0rPzdDrV/VzN4+B24AkVE=;
-        b=xZgpR0TvA8diFjelfYqWrPhVMgSB0ps0zjilWuanYkUB4ySvqsIhFwBv+C2RmQKfKj
-         cMFbYsWCOmniyXIYsxasB4IIegw6/Q6Moe3gU2+6kd6zAstCQjMDzjkvpNn8/BfP0Wlz
-         UwJ80z6jJCTnFyy07PEuC/tQWzRvJBwaYqlyfc5GmmqRdiUa0GMBtV2N0N+SInPSbmrH
-         /hxopYmrzAjDA7fGP1eByfY8S/oxx5IOBOKsa16FGj/47YZJdzYfFWO8xiwGasgMz9k3
-         q72zRKdwTFRinFbwn9D+EyPskBugWkdSdQFSFnTNljUwk1ffXdqHPOBXW5rBl11RK3ZT
-         rc/w==
-X-Forwarded-Encrypted: i=1; AL+hErEI+ioWbwfvHu9FC0YgTlHDs4XCxKKLkjkUGGhuf0nOQejTH01da9HKsGl0rvgyKBsAhfgrnktpXUv5jik=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/q5bzpgtLdgAeHNNfmD+0vd3OrBxc5Qk1le/j05rYlRrH4KwFP
-	gXn2ouVuMras/QSZni06DS3Ic8w//0XT+nCGnFI+LvQs2AOVIfOKtiq/
-X-Gm-Gg: AYBFou3Iva2+xlLB0Hyj52pfdpiKhCxoZV2ongjzpZT059MM17lLcpGpDX0+yYs/DLe
-	EXZ2XLtIFnCu+1iPBHemzX7b3JaQITdTTeFS7tZVMJkg2aEL/89CPSRcsIcD6QC+wBWa3Nky5er
-	Z+eqHKEnf81ReMLQscZMK3NxG6CWBkO6OYk768Np3kRESH3mxvRhuadSB4rLbn7PBJhEkdrDrM4
-	BrS1C2dwIIdbBqwsHHKw/P2OVm8jvDwWl0Y9zUEIkpkzLEH+MlZgmboHohM7GGjlM2cjXAqT0nG
-	wTUJcAKD2ZFEWaYu9QJvDhykQSj33jdxkAVBeqBpVDw/Juv5MU+Mq5NUzQSBRpdHBJA4aocS7GO
-	4LeOH4JaTxfE4lMr2qEfw+n6sHr2dcIQ7mqoa38qeEcr2miakRX2lvZZXjytR+VX2U5UacagQZN
-	p0mNGld7YEjV7iEGE9djoc+nuxEp1mUh8ulz3RFot/MGf5MkpAaPxUKe+j0Z+1evtNZaN0dvUNK
-	wd36TcLfwak7nYjJX7Xy5tdowvhPbUAG8zvTW3zV+udnUyzYFqkapGLnB5zrpYEGS5kVaD7JpNR
-	zGgI6k0LYgWbO39uc5OgNe9q+Wad/7RmYj/JbZ8ZTMekEHTu1X0oF2ysI4n0Bcj+bdGLKLZIVn9
-	WLjMAEuh0
-X-Received: by 2002:a53:d7d2:0:b0:67c:11e0:565e with SMTP id 956f58d0204a3-67c67fe2c73mr940727d50.31.1794399880211;
-        Wed, 11 Nov 2026 04:24:40 -0800 (PST)
-Received: from fedora ([187.120.157.132])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67c589c2ef4sm4379780d50.9.2026.11.11.04.24.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 04:24:39 -0800 (PST)
-From: Guilherme Giacomo Simoes <trintaeoitogc@gmail.com>
-To: trintaeoitogc@gmail.com
-Cc: axboe@kernel.dk,
-	bvanassche@acm.org,
-	josef@toxicpanda.com,
-	linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	nbd@other.debian.org,
-	syzbot+d7d72f3d467710442af0@syzkaller.appspotmail.com
-Subject: Re: [PATCH] nbd: fix circular lock dependency
-Date: Wed, 11 Nov 2026 09:24:26 -0300
-Message-ID: <20261111122426.225742-1-trintaeoitogc@gmail.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20261111101919.215767-1-trintaeoitogc@gmail.com>
-References: <20261111101919.215767-1-trintaeoitogc@gmail.com>
+	by smtp.kernel.org (Postfix) with ESMTPS id AFA911F00A06;
+	Wed, 11 Nov 2026 12:24:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794399894;
+	bh=ICXP/cmqLovC4R2HCOjMC4Wp+1KJ1RE5SJlC2SoQU1g=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=ncwQcdGw3kKUwBkYrbeQXyk5ewkbwzIDBxTq8sFL6E1l4X27uSoXzUgfq0eTdDDtO
+	 Vr7JVntDV3bTHZ6ov0d4DJCM7Ia4MtIp0J9x2YnmDDK3c9rhlJp20qOaAzCjm+yIQQ
+	 +Xz3bSahmbtynVS6B9ALlum2IPX+xCzHDlwOye/64v98SGjq8aVKx/+0vUz0P8BfoS
+	 EbstbhXdkADTPwrND3nIDVq4/ib2YspR33tC3xaDg+MjjDybRARHNZZjr6sovDGLOh
+	 BAWemmcOGKCP+bvdJh2Lcpgph/lkyXmfMqza+nmtTfRYFffShJJjcv8lWgDOABLqsN
+	 DAcqHRqOVH3YQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 40ED548F9A;
+	Wed, 11 Nov 2026 12:24:53 +0000 (UTC)
+From: Vishal Balasubramanian via B4 Relay <devnull+vishal.bala.nps.gmail.com@kernel.org>
+Date: Wed, 11 Nov 2026 17:54:50 +0530
+Subject: [PATCH v2 1/2] dt-bindings: arm: qcom: Add Samsung Galaxy Tab S7
+ FE LTE
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,124 +83,58 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261111-master-v2-1-5eb864e9f38d@gmail.com>
+References: <20261111-master-v2-0-5eb864e9f38d@gmail.com>
+In-Reply-To: <20261111-master-v2-0-5eb864e9f38d@gmail.com>
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Kees Cook <kees@kernel.org>, 
+ Tony Luck <tony.luck@intel.com>, 
+ "Guilherme G. Piccoli" <gpiccoli@igalia.com>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Vishal Balasubramanian <vishal.bala.nps@gmail.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794399891; l=832;
+ i=vishal.bala.nps@gmail.com; s=20261111; h=from:subject:message-id;
+ bh=9F7my3xYNlAFa6L6qVff7o9I+F4ahR3qE81wL7FFgR8=;
+ b=bf0c/fFNhMuA4w66sumeLgVl+d84Sycm7uiyCIuiYCFIvBuiPHwb70Ih0ZVrBglGljP42TgY+
+ 8pJGRVGkvRQBf/9Plwc2dQTNhFcuggJk3nuCkGdzlLgP2eO18sWkW40
+X-Developer-Key: i=vishal.bala.nps@gmail.com; a=ed25519;
+ pk=GDcoc+SAK+BHD1Eq17X/BJa9U2HZkBW+dmxS8s1xMAY=
+X-Endpoint-Received: by B4 Relay for vishal.bala.nps@gmail.com/20261111
+ with auth_id=1486
+X-Original-From: Vishal Balasubramanian <vishal.bala.nps@gmail.com>
+Reply-To: vishal.bala.nps@gmail.com
+Content-Transfer-Encoding: 7bit
 
-Guilherme Giacomo Simoes <trintaeoitogc@gmail.com> wrote:
-> > Additionally, reclassifying the socket in nbd_get_socket() happens
-> > before it is known whether NBD will use the socket. If
-> > nbd_genl_reconnect_sock_cb() does not find a dead connection, or if
-> > nbd_add_socket() fails, the socket is returned to user space with the
-> > NBD lock class. While this only affects lockdep and while the
-> > nbd_add_socket() error paths already behave this way, it is another
-> > reason to only reclassify a socket once it is really being used.
-> current the nbd_reclassify_socket() is called just below nbd_get_socket() call
-> inside nbd_add_socket():
-> ```
->  	sock = nbd_get_socket(nbd, arg, &err);
->  	if (!sock)
->  		return err;
-> 	nbd_reclassify_socket(sock);
-> ```
-> 
-> what have exactly same effect that call at end of nbd_get_socket(). I guess
-> that "reclassify a socket once it is really being used" must be done putting
-> nbd_reclassify_socket at end of nbd_add_socket() (before put_socket tag).
-> Maybe something like:
-> ```
-> static int nbd_add_socket(struct nbd_device *nbd, unsigned long arg,
-> 			  bool netlink)
-> {
-> 	struct nbd_config *config = nbd->config;
-> 	struct socket *sock;
-> 	struct nbd_sock **socks;
-> 	struct nbd_sock *nsock;
-> 	int err;
-> 
-> 	/* Arg will be cast to int, check it to avoid overflow */
-> 	if (arg > INT_MAX)
-> 		return -EINVAL;
-> 
-> 	if (nbd->pid) {
-> 		dev_err(disk_to_dev(nbd->disk),
-> 			"Cannot add socket to a running device\n");
-> 		return -EBUSY;
-> 	}
-> 
-> 	sock = nbd_get_socket(nbd, arg, &err);
-> 	if (!sock)
-> 		return err;
-> 
-> 	if (!netlink && !nbd->task_setup &&
-> 	    !test_bit(NBD_RT_BOUND, &config->runtime_flags))
-> 		nbd->task_setup = current;
-> 
-> 	if (!netlink &&
-> 	    (nbd->task_setup != current ||
-> 	     test_bit(NBD_RT_BOUND, &config->runtime_flags))) {
-> 		dev_err(disk_to_dev(nbd->disk),
-> 			"Device being setup by another task");
-> 		err = -EBUSY;
-> 		goto put_socket;
-> 	}
-> 
-> 	nsock = kzalloc_obj(*nsock);
-> 	if (!nsock) {
-> 		err = -ENOMEM;
-> 		goto put_socket;
-> 	}
-> 
-> 	socks = krealloc(config->socks, (config->num_connections + 1) *
-> 			 sizeof(struct nbd_sock *), GFP_KERNEL);
-> 	if (!socks) {
-> 		kfree(nsock);
-> 		err = -ENOMEM;
-> 		goto put_socket;
-> 	}
-> 
-> +   nbd_reclassify_socket(sock);
-> 
-> 	config->socks = socks;
-> 
-> 	nsock->fallback_index = -1;
-> 	nsock->dead = false;
-> 	mutex_init(&nsock->tx_lock);
-> 	nsock->sock = sock;
-> 	nsock->pending = NULL;
-> 	nsock->sent = 0;
-> 	nsock->cookie = 0;
-> 	INIT_WORK(&nsock->work, nbd_pending_cmd_work);
-> 	socks[config->num_connections++] = nsock;
-> 	atomic_inc(&config->live_connections);
-> 
-> 	return 0;
-> 
-> put_socket:
-> 	sockfd_put(sock);
-> 	return err;
-> }
-> ```
-> 
-> I don't know if this is a really good thing once that until this be executed
-> the user space can got a generic lock (the same generic lock of sock here)
-> before nbd_reclassify_socket() call leading to the same problem.
-> Thoughts? 
-> 
-I back to read the nbd_genl_reconnect_sock_cb(), and now I understand what you say.
-YES, nbd_get_socket() also runs for sockets that are never installed.  When
-nbd_genl_reconnect_sock_cb() finds no dead connection it does:
-```
-	sockfd_put(sock);
-	kfree(args);
-	return 1; 
-```
+From: Vishal Balasubramanian <vishal.bala.nps@gmail.com>
 
-So the add line inside nbd_add_socket() that I sended previous don't make
-sense.
+Document the compatible for the Samsung Galaxy Tab S7 FE LTE
+(SM-T735, codename gts7xllite), a tablet based on the Qualcomm
+SM7225 SoC.
 
-What do you think now? We will call nbd_reclassify_socket() inside
-nbd_get_socket() and call this only one time? Or is a better way call the
-nbd_reclassify_socket() inside nbd_genl_reconnect_sock_cb() when we have sure
-that we will use the socket?
+Signed-off-by: Vishal Balasubramanian <vishal.bala.nps@gmail.com>
+---
+ Documentation/devicetree/bindings/arm/qcom.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-thanks,
-guilherme
+diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
+index 121ca557ce1effdc95e9e97210bd9a63673f8ba4..abc3c0f53cc14b02d06b68aba3bfd8425ea4fb07 100644
+--- a/Documentation/devicetree/bindings/arm/qcom.yaml
++++ b/Documentation/devicetree/bindings/arm/qcom.yaml
+@@ -1118,6 +1118,7 @@ properties:
+       - items:
+           - enum:
+               - fairphone,fp4
++              - samsung,gts7xllite
+           - const: qcom,sm7225
+ 
+       - items:
+
+-- 
+2.47.3
+
+
