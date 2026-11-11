@@ -1,108 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.48
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794433134;
-	b=FKqQwqa6XicmE906oQs1GHdoa68CsfCbnejlAYij6npXvVPKCT1AXF3y8ERuMYMqPHma
-	 FqEGjSafRIMAipmYuSAEwXtU0BxS9oHF+raV5wJODI+CeUo21Xms1mk7xCCAYZJrK3gqd
-	 5EgBwrhdlKIzgXyTooDooGbiYv9R/eatXs6jSkoJYx78p3szf9hOniE4XvBU90Q943d9j
-	 sL6VPGFg6JBpNAi2//QhXhAM59RuDmgzY54bk1uNCDjnu43Pyhv7s3quXIcwBaucnZxdf
-	 fd4ryepMz4PoNh3SjmN1E4UJu9BHp4P2S9aYQJZxLHktixGOcoo8TBG8Rzk4jTvEGqA==
+	t=1794433274;
+	b=xQ+87pqk/n+nApQe+UqTRXyL06aNz0NPskByCbcD6aaI0YD1CZy1CJPmAz4q5XJ6Kf/E
+	 3Io0C7i67ldRw406luyv6C6oQjZ6y80x3TtBVJaVy1jwllQcBiOTQSG3hyAw1iNW91ONI
+	 wBAsC+kKwcEePHIt4ehSfzGkP2DbDk/k3QzHxK7wB2pM9ePo/UdPxLFvZz4y5dbNIlwVe
+	 Yzd8f5nMYPaDHl7NXCPIz87TLKzmxC2LtZWYognIrpucT7QBCEGNZeDZ/dig3vsbzpnlJ
+	 xm6jfTRebxgMRedsft8NxHD+g2KFxNaMixwL8FIUeKVFmmhhCxgA/quupTHlX4pfzpg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794433134;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=yf4B6jMVXFLuSvIHVQEvWz/xzCKQiqUkgtG5RTiGWgQ=;
-	b=ebJxdS6I6FLwwvu6I2hL7RrdH1YUTBH59th5j/I9Vy6i52Q57EgHUbAh6DC4ePpAKafE
-	 6fKW7Z95t1cVcO06jss6O/0MumpJYaIVQOggmxYkN1v+H005eNxtfnGAsGC4/Vcm+CCrA
-	 ixJuoFa6g13r9YdiFvL/lLQos9xFt7299DXSjk98S7d2CaKMiQ/yUPG2PO3gjXHropAtj
-	 qlvG6rUt2zT2oqJSUB0vHFWm84h95LLeTefYBxLATmhfcr+7191f+SnJVMvVyn7VD85dj
-	 8DOj3vsPx33A0Ly0ZvbmDIzYYCT3edtySR05Z1EcvG+pqdn7k8Tpty/AK1JboUi9KAQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794433274;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=1kEvh0l2Lq9vO+Sx97tlKmLk6qXU8j2YZAXmCALXyGw=;
+	b=cTLMl+j/dwWqO2h4zaB0Go0bvxSNyZeQq+5FfUVe2LaRWZApGbMtPsvrbduli2KRbeUO
+	 jyJYhvzqhKzxPj/VXP2o0hqq9zcduZB+We0cCpJxGYNP+DVSqOLd3OtbnKzYr/79zDYbn
+	 CqN90NPNA3bqmkJojgVSafgVtzst3uogTCAdz/NVMw1ZxRoEezh7lNWX8aDmo2yi/4sLD
+	 e2xMcwiR4TA5V6epz+MrtyainJLKRJeHzigDsKRGNEcX8oLBVvQrOGbiQlTrNuZrp5+lc
+	 daorD7TIpBa5C93NIFXUX7qbliTb3FD+cGZcCB1E50pdhzgKtuP/IkuUf6EoV9Bi4cw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b="mBc/VgGN";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.48
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011048.outbound.protection.outlook.com [40.93.194.48])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M5zF4jw0;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD86D60A2605;
-	Wed, 11 Nov 2026 21:38:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD86D60A2605
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0134F606A338;
+	Wed, 11 Nov 2026 21:41:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=mBc/VgGN
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Gk0UWgJZbNdb8iiq7svP+5SqlefkQpJS19ePkJLQrV/FOegAOkiGIlh6bz1TcFHYW4s8KB/8WNhwQjgkJ8+y/ptnLXpp9+oQJoklOvjM4roP/5dfvJICSwcDJf9LktQbjzR4iQztVWWZPqIXJAy0pwal+qz2U4aPaJbHtQJmt0dZccob5ysNiH88RXEBBo14ErtH1VVXBlYd6uqerzh8QRQ+kRrIJa7IENn9ALMU15T1XNTncj8uZapiMOHPdsVGYjqMCu2PonyKhnd4vInJx72RIy9BA7s5U6IwfCH0jJzsFKAy7bOIcY914sP7G2BPPMGC/ta00OUHfBpnL07UCw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yf4B6jMVXFLuSvIHVQEvWz/xzCKQiqUkgtG5RTiGWgQ=;
- b=hZcTgdTMgWE4F6NoSGjCdtM0J7YIaNodcT8y0/BueALYI2OjyDOnLoBOtwlturmmr77I3ASas1uzriwceskJh+cLoeOFsN3LTpmWD5FzxNbaR487utkWMZxrrlqOIydWDwrN5/cdxEydZsGLm8vl6Cs2xthH3kruc7bIXg2TkZMmt056EAWBgBHE+60lmG6XskMwcFkN75p5fqK3sDs6Kj4jiPvyNor9SG0Xo5b5j6UyvyefRr9IgB0sTLP0HtANyGLIASSl9K0VhAqHTYpIxdBrgw9M+QLckqVQ4iTOQerCK8E2N9RPKNCPmyrpd5z06RHds/GthI+aTx2zLwQi8Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yf4B6jMVXFLuSvIHVQEvWz/xzCKQiqUkgtG5RTiGWgQ=;
- b=mBc/VgGNwJ3Icy8N4wgxzg3EF0o9SGnvjL3dyH7TVdU8BwnSLRf2JgjcLOktpnNooZUnoQbPFf+MEPK4TLjQc3chvOVAI7Otp9jcQSJtfrHi97oLmpfcRlkfOW1H5Ssdt/Q+iJUXP6i11tLFedFnS+hy2yhVvLS72Sw2eJVsshXLqyCbHOC3ITbEsWhpcVGhJ2hJkG3epkSVZGkB5GlLG+tbhBZnZgeKsnu4ldZBuR9OJHJGtW8gfLp1i1H2gqH1Y84Ae0FWBqRveQeregcQP8EBopgBnreXPMeNJ0aJnVhRuHNlldvkmFiLE+lEz+b+GLX43zoqmSdgqsOaSTIN/g==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DM4PR12MB7742.namprd12.prod.outlook.com (2603:10b6:8:102::18)
- by CH2PR12MB9493.namprd12.prod.outlook.com (2603:10b6:610:27c::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.12; Wed, 11 Nov
- 2026 21:38:48 +0000
-Received: from DM4PR12MB7742.namprd12.prod.outlook.com
- ([fe80::8df:c519:298a:94f6]) by DM4PR12MB7742.namprd12.prod.outlook.com
- ([fe80::8df:c519:298a:94f6%6]) with mapi id 15.21.0615.007; Wed, 11 Nov 2026
- 21:38:47 +0000
-From: Joel Fernandes <joelagnelf@nvidia.com>
-To: paulmck@kernel.org,
-	rcu@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
-	Boqun Feng <boqun@kernel.org>,
-	Joel Fernandes <joelagnelf@nvidia.com>,
-	Josh Triplett <josh@joshtriplett.org>,
-	Uladzislau Rezki <urezki@gmail.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Lai Jiangshan <jiangshanlai@gmail.com>,
-	Zqiang <qiang.zhang@linux.dev>,
-	Davidlohr Bueso <dave@stgolabs.net>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	linux-doc@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: [PATCH RFC 7/7] rcutorture: Make BUSTED-BOOST disable RCU priority boosting
-Date: Wed, 11 Nov 2026 16:38:25 -0500
-Message-ID: <20261111213826.2035045-8-joelagnelf@nvidia.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261111213826.2035045-1-joelagnelf@nvidia.com>
-References: <20261111213826.2035045-1-joelagnelf@nvidia.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: BN0PR03CA0013.namprd03.prod.outlook.com
- (2603:10b6:408:e6::18) To DM4PR12MB7742.namprd12.prod.outlook.com
- (2603:10b6:8:102::18)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M5zF4jw0
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794433273;
+	b=n+OfJLYD4o4eNtRdfZMU/sgkHXuCcXQd79hvB1L4glEpV8FZLb4cYhhlK05yD2zeUHpm
+	 a3b14WW/v9sxjV2+Z8h8GHBs4GRA46M3ggfDtNnIf6cphPRc5goLqEtvPQyKuQrZDVA9h
+	 x9iemoUndhmfXVTt1Ou95nOr09fACPrZJi2J916nnNe2jyqO38Vs2wcObQuIDCHjvlah0
+	 2r5DCNikyii/Ptibs5UIXBRPNCdq3+gLbO5qWIOhehTVUASla2w7b4lozV/WtJSu7XNoB
+	 54M+BKAekBgfxqPZ9eY7l8ZqWQ/syxGY6ZrjWNaL7tjFjOhtrpjhxvxwK5w0W6/XHGA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794433273;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=1kEvh0l2Lq9vO+Sx97tlKmLk6qXU8j2YZAXmCALXyGw=;
+	b=vtH6SitOqX/ITiibbgGgdDQfGLG6Yihf79ipk0ySVpV9YcL7z0qy4p6vsu3zEfbP0cEd
+	 0We06qB48vlC1XnISDwEK7RC4142mU5K+HzuasCUCJDHvvHDHWVt7Gwcjhx8CyLSxtTs1
+	 9R2Ar0EDywCe/gvfKTHdpqg1T0Xc5k1C8nDnG1AkQhUTnkexkMVvkfIYV9Jr5p3b+vJ+2
+	 LhZwksV8NzszJ+x1zYFOyF7AdGtDyNT2saGMZ8MNkudTlG6KOcEAv32owgJp/o1KRBq9M
+	 u0wX2lCQMewxNXV6jNfitYXzivMScU/+skwRBG97tcfz4UuCCWAknF++OyfEtUuliPg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 17AD91F00A05;
+	Wed, 11 Nov 2026 21:41:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794433273;
+	bh=1kEvh0l2Lq9vO+Sx97tlKmLk6qXU8j2YZAXmCALXyGw=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=M5zF4jw0yN1CegGa/x7DxxSEi6GOsBDkXqrIyyxZpAxHBN3b8oUXpCH13B0x6hkHf
+	 113kfq3BazZ31bmifr2qKbObhZZvRjLvMHj9BErgDNkRUwAViWXYNZ6/zEIEKfAfE9
+	 BmZirdntyqhs7NTBDSAdLdrhBB9dOYa12qRiwJZr2dgHOYNGcwtcrypMk1g5z/JrG+
+	 czdKqg6KPlhlIrHJWwb/b32zIIIyGo2HcKPqQnMFapfpntqnCWyVz73r9JvOuENLw4
+	 jRFyTxU87hky14H7OLnKGhKwgP1su/WQgL+yaZcM3fdibwOOwc6OIyvMJhVlzSzFMv
+	 LKK2IG5jGjxlg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 6298D49128;
+	Wed, 11 Nov 2026 21:41:12 +0000 (UTC)
+From: Mani Tofigh via B4 Relay <devnull+mt4022.columbia.edu@kernel.org>
+Date: Wed, 11 Nov 2026 16:41:12 -0500
+Subject: [PATCH] btrfs: fix loss of fsynced file after link into new dir
+ and unlink
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,88 +83,110 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB7742:EE_|CH2PR12MB9493:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1243c8c8-e65e-4ee8-986b-08df403c2b0f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|23010399003|7416014|376014|18002099003|22082099003|6133799003|10067099003|11063799006|261021123027099003|56012099006|261022105027099003|261021121427099003|261022075727099003|261028144727099003|261026140227099003|261102123227099003|261009223027099003;
-X-Microsoft-Antispam-Message-Info:
-	Yb0IN1kpnJzZqgWfxKQcFMI5Mys7tWOSa02XUrSeAn/WR3xwr7RHZy8nENa4CGx0qCMpZfZFF5S+5sddPR3lXoUkmsI14gzxx9GEr3giETueokmtjwbAbwQVhosjQ7OYutouKdjQC9erJRI6Vtakxmd8kCEqrCEhzLArsg/oc76wvhlkV9mDjF4+sY6PhlzmqCUvsAqYaEX1rMN4tD5wpi82mZJPxl1wjgLuOHcNZWa0epx+8aTiQxWGHfIcqVzvm/9fzgNEjzttXf9vFnlF58INo8uh/PR2RFUUhHu91XVvJVsyOF0N+BHCAt9zxM5Sprhb6HLyDzGhcJL+qaWRMRj5Ki34EI2UcLqtnVJivA8NSaVT5RNVmzGHLOyREHBLV43QHr/KRvDwawaUpDe0yz9YBnpMMFKPOxHFCO08YTOpharhbSz/xweuaL07TZxKxnMmefbvV/meIAH/9mjzXK3DNJaUctukqsdCbaWP4qFJVsXoyOikN6SCqj4H1hRiZWWRbJYnduzom7oZgRwvv3+1OzSHjQak/eoe+GycPUNBb/pz1p9JtJEq6iBINfkQ7I3BUI18T2DiTYtjnnv7TGfNNS2nefKW9LV0RdG1us6kHj07hmQh0mwyR7O+3fuhtR3nk9dqRTWwz8DpFI65Xz5r1AgBhtgcVEd1D/bkmp8=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB7742.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(7416014)(376014)(18002099003)(22082099003)(6133799003)(10067099003)(11063799006)(261021123027099003)(56012099006)(261022105027099003)(261021121427099003)(261022075727099003)(261028144727099003)(261026140227099003)(261102123227099003)(261009223027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?4NLf/ByhYluMlgRj8ur8FjscNjkxemAC6coEeDvLfAiRglzZrZ42CxLjFBtd?=
- =?us-ascii?Q?6yTT/psXcCTh5ajAyQbg8l1Sv29kffer4IKrRrxev+H64IJVY3xKvO4z1Zpl?=
- =?us-ascii?Q?YG9gKjXAn5XaV2SqtVPQ7IwaXq9MehWj+cDh+q7pIQW4RvhUjBoAzxSTzniA?=
- =?us-ascii?Q?0FFHKbCRlfxZR2s8YUch+DxwPwteKtd2ezv6ftUJhD0s6OYuYYPJ0OJZc/Lo?=
- =?us-ascii?Q?Yvz2PwRoccNEjfI5j5tlkuuDQi36J6b/hAQqh0lHTl5xf3wFto0q0Y6fGIty?=
- =?us-ascii?Q?ooEA0wpDMAL7e0mdxZHH9GNyQ/4zq4r1zROiTJMXkFZeSNyVl5twXBx5pu4I?=
- =?us-ascii?Q?zNK3IrZ7vE+Y4I6L0fE3qWrwt4bf+74YWEVdMRFjlD03MvD1OkpBSyYVc2C4?=
- =?us-ascii?Q?+7GU1eJybHjbj1Qnjg4o8ZrnfllXhvj8/2kgcSoOcCxG//LAbjmqEFbXgDAS?=
- =?us-ascii?Q?AI8mB+j5mCfIeeRA7kDvK2Wz78DW6lOR/2H8UXwpuaeMC7VaTs4COuNjCiFT?=
- =?us-ascii?Q?sc9awggo2Mus/+3KCt/aUSHDwYJrwyxPLGmV1Anzt/OvYA3bM45eXgwkqEWI?=
- =?us-ascii?Q?iqyu144CwNwIe23RQdu2epStcb+TWW1PCSddh8wJgKRiYg5VFbIN5F/Iqo7Q?=
- =?us-ascii?Q?ZUaDbOC48nfVZpQn4Np93Z6msSqPHFHprSwcHUnB33zBhexFHZFQJu1xDo3Q?=
- =?us-ascii?Q?mtvkL370ev0OhgKHoywf4AGo5hJ8iurLCBt3S6HrIukeUD4ts9SV9h04JRc1?=
- =?us-ascii?Q?Fo6Zo/xC+Kiun+Bo1yXILgm18s37LQ9oGBTrHE4CyTBPDCsBDodw2SvM7qXV?=
- =?us-ascii?Q?nTUSjoaFhMWgRmvJk0ZglReTBlnobXTrjHtFO9qqo1ejp3E0V9uYHetzpJ3a?=
- =?us-ascii?Q?Om2Op62JcjcUiF6fjSl3N1Q7WZfd1zQjhqUEhf0EITpS6IqY9cwZL/Lh1d/G?=
- =?us-ascii?Q?+3psYyXu6E5fcs6Sjojyx7WZop7A8gn4HvBM24uNLsyGdmtq68Smke2xuH4V?=
- =?us-ascii?Q?St+9snnZpRy3ulr/EzH1KbWXtmfZfc1GGeLdLNld0rz2EY245XY+QEwxm6fV?=
- =?us-ascii?Q?abc4YNgGAbS1HDJ7+3keDjrRmgzS4cBwzxwzzf7AROxKtr6Uh86X5aUZNlkK?=
- =?us-ascii?Q?+j9ry0C9UB/v7d4POdTKfcM6/4upbhtOhLsFOHnQ+SIE1u2l9BAsDRpRyJ5T?=
- =?us-ascii?Q?Jtq3uj9wxlz28MkjqtDHwRlzah3EQ9lYD4YMs9nhZsKKkWl2qRlY1JslMmkV?=
- =?us-ascii?Q?wRN0mkedFCjFGF2OKxsrmLCBuzHisIxCVUm9vChHNXEkLkX3jh6sdcHQvRIg?=
- =?us-ascii?Q?57k3VdAuUbj1MMVIjHGED9Lmu+8a4xr3GHVImuVsBWo82CzfNB1oLkumYn7D?=
- =?us-ascii?Q?yC7XzRYyxQkUtUZVSakVfN1HLFBPEzmtmHcC+RpXltUUVpVOr6Q4pQuMP6Q6?=
- =?us-ascii?Q?AW8FSN2kqQGZUWvchI/+E5vjOJ1UoARj7k5y/Cco0+eW+jLgruQHJlQ4PCRh?=
- =?us-ascii?Q?rHCGduz3hDunIoAiyiVB5pNcAE7k3SYqYFxXLDkeOB3aIjKzTVc+Moax/TVN?=
- =?us-ascii?Q?QLsd7ugA8pJb5Im+FyIBMVW8j3LFz0la8fFRZ/mV5enBBxaSBwvHBIEQ+GAY?=
- =?us-ascii?Q?qt8alrxXviHH2jmH5JdiNu96rU9ZadmZqBoYr53b/jAlojZ6Z9Z7ZU9qqHVI?=
- =?us-ascii?Q?P+HBsbAuXl01zLRXv1LQn2eRMDafoY7+EvWo0m8pqwuwQEFFr8vRAUaJRl7U?=
- =?us-ascii?Q?E+bNG/1tgA=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1243c8c8-e65e-4ee8-986b-08df403c2b0f
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB7742.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 21:38:47.5839
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Glryblxac9Hef59TBl7HjzN0E1ljW9CQ3A2LL6xPiO6j540ikoDVKJXfKXqq2Ka5tAkzAfR0MGGIcEhoKGplIQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB9493
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261111-btrfs-link-unlink-fsync-v1-1-a817d4a890af@columbia.edu>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMQQqDMBBFryKz7oAGDOJVpAsTJ3baMi0ZFUW8u
+ zH+zect3ttBKTIptMUOkRZW/kmC6lGAf/UyEvKQGExpbJWGbopB8cvywVnyBd3Eo2mobwzVvrY
+ Okv2PFHjN5e55s87uTX66cnAcJ0LpL317AAAA
+X-Change-ID: 20261111-btrfs-link-unlink-fsync-28ea82e5c56b
+To: David Sterba <dsterba@suse.com>
+Cc: Chris Mason <mason@kernel.org>, Filipe Manana <fdmanana@suse.com>, 
+ linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ tz2294@columbia.edu, stable@vger.kernel.org, 
+ Mani Tofigh <mt4022@columbia.edu>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794433272; l=3107;
+ i=mt4022@columbia.edu; s=20261026; h=from:subject:message-id;
+ bh=JJHTvU9AbtLdmkks3pC7kN08S+SdKLTMH7tvu3/atzo=;
+ b=bVSKpsrlub2NsW242Dk1cjS+F/kB9pGV3rKL6fP/Jr72Ud+/xnaTg2lBFDFY8BOTMnk1QQRr+
+ /mm/LylOVivAvTfGxPAEx5+vQZFHW16vBMJjewAFTkfzys/Sh6L63aX
+X-Developer-Key: i=mt4022@columbia.edu; a=ed25519;
+ pk=gljCMQDuxyKPmd5y37CRpEJGSPXDV1MyAnHBhCgXl0I=
+X-Endpoint-Received: by B4 Relay for mt4022@columbia.edu/20261026 with
+ auth_id=1322
+X-Original-From: Mani Tofigh <mt4022@columbia.edu>
+Reply-To: mt4022@columbia.edu
+Content-Transfer-Encoding: 7bit
 
-BUSTED-BOOST is supposed to fail because priority boosting is broken,
-but boosting is now always built in for preemptible RCU, so the
-scenario passed.  Boot it with rcutree.boost_disable=1 so that it again
-exercises rcutorture's ability to detect missing priority boosting.
+From: Mani Tofigh <mt4022@columbia.edu>
 
-Testing: kvm.sh --configs BUSTED-BOOST --duration 10 now ends FAILURE,
-with 81 of 84 boost intervals reporting:
+If we create a file, add a hard link to it in a new directory, remove
+its old name and then fsync the file through a file descriptor opened
+before the unlink, the file is gone after a power failure.  Example:
 
-	rcu_torture_boost boosting failed
-	Boost inversion: reader got only 203 of 2000 ms CPU in 4003 jiffies
+  mkdir /mnt/A
+  fd = open("/mnt/A/foo", O_CREAT | O_WRONLY)
+  mkdir /mnt/A/B
+  ln /mnt/A/foo /mnt/A/B/bar
+  unlink /mnt/A/foo
+  fsync(fd)                     /* or fdatasync(fd) */
+  <power fail>
 
-Without the parameter the same scenario passed with no boost failures.
+After log replay, B and B/bar don't exist and the file is gone.
 
-Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
+The fsync uses the file's dentry, which is still the unlinked A/foo.
+The inode is new, so btrfs_log_all_parents() finds no parent in the
+commit root, and log_all_new_ancestors() then takes the fast path for a
+single link.  That path walks up from the dentry's parent A and never
+logs B.  On log replay the inode ref for B/bar is skipped because B
+doesn't exist, and the inode ends up with no links.
+
+Fix this by not taking the fast path when the inode had a link, unlink
+or rename in the current transaction.  The slow path finds the parents
+from the inode refs in the subvolume tree and logs B and A.  That only
+adds a search of the subvolume tree.
+
+The problem is old, e.g., v7.1 loses the file as well.  It was only
+hidden, by a fallback to a transaction commit, between
+commit 0f24ea456ae1 ("btrfs: tracepoints: add trace event for
+btrfs_log_all_parents()") and commit 36f9aafa46f5 ("btrfs: fix
+unnecessary transaction commit fallback from btrfs_log_all_parents()").
+
+With the fix, the file and its data survive.
+
+This bug was identified and confirmed with the help of a deterministic
+hypervisor currently under development.  The C reproducer below however
+hits it every time.
+
+CC: stable@vger.kernel.org
+Signed-off-by: Mani Tofigh <mt4022@columbia.edu>
 ---
- tools/testing/selftests/rcutorture/configs/rcu/BUSTED-BOOST.boot | 1 +
- 1 file changed, 1 insertion(+)
+Reproducer: https://github.com/manitofigh/files/blob/main/linux-repros/btrfslink.c
 
-diff --git a/tools/testing/selftests/rcutorture/configs/rcu/BUSTED-BOOST.boot b/tools/testing/selftests/rcutorture/configs/rcu/BUSTED-BOOST.boot
-index 84f6bb98ce99..5aa92357958a 100644
---- a/tools/testing/selftests/rcutorture/configs/rcu/BUSTED-BOOST.boot
-+++ b/tools/testing/selftests/rcutorture/configs/rcu/BUSTED-BOOST.boot
-@@ -6,3 +6,4 @@ rcutree.gp_cleanup_delay=3
- rcutree.kthread_prio=2
- threadirqs
- rcutree.use_softirq=0
-+rcutree.boost_disable=1
--- 
-2.54.0
+It uses dm-flakey to drop all writes once fsync returns.
+
+No Fixes: tag since this looks older than the single link fast path.
+---
+ fs/btrfs/tree-log.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
+
+diff --git a/fs/btrfs/tree-log.c b/fs/btrfs/tree-log.c
+index 85ef3c26e0e4..4f24b277f1b7 100644
+--- a/fs/btrfs/tree-log.c
++++ b/fs/btrfs/tree-log.c
+@@ -7543,9 +7543,13 @@ static int log_all_new_ancestors(struct btrfs_trans_handle *trans,
+ 
+ 	/*
+ 	 * For a single hard link case, go through a fast path that does not
+-	 * need to iterate the fs/subvolume tree.
++	 * need to iterate the fs/subvolume tree. But not if the inode had a
++	 * link, unlink or rename in the current transaction, since then the
++	 * dentry used for the fsync may be an unlinked one, whose parent is
++	 * not the parent of the remaining link.
+ 	 */
+-	if (inode->vfs_inode.i_nlink < 2) {
++	if (inode->vfs_inode.i_nlink < 2 &&
++	    inode->last_unlink_trans < trans->transid) {
+ 		ret = log_new_ancestors_fast(trans, inode, parent, ctx);
+ 		goto out;
+ 	}
+
+---
+base-commit: 4c34f0909344e48d917afac0eeffb6e1c2681524
+change-id: 20261111-btrfs-link-unlink-fsync-28ea82e5c56b
+
+Best regards,
+--  
+Mani Tofigh <mt4022@columbia.edu>
+
 
