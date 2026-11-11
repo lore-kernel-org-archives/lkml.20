@@ -1,103 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794404496;
-	b=zzIApKSwZ9XjCBFZ1phf6kQibwHbe1moBrkTLTATk18ZjEWNlCKSvMNaeTGimDW400Ny
-	 WsmXYK608aqMBLWpJOXHAowFFixFjQpAEvfX87HMIdybreHLDqTC4yLr2QEj8KZ7lxQ50
-	 K0Kl+bMJjqdjRFvnWkP+s1fy/lLUIapyvC6zAIpkdsnqyKf/jCYEu5lSpJz24O8rpyUn9
-	 oZf+ZaYr7929rUnZhDesEVIFoB7chNV4u4JFfuJX7/atT+Tu+vW/ETiEVR/Y3GogMtm5b
-	 YR8L7A+L6ct9b2PPEn2SMCRXSqt5tPW/5QLL4OgJQB5RjM5xPy1pPrtEpsyQmdCo9WA==
+	t=1794404498;
+	b=RhLFyoYHTPqEQu1t98HGjH18+qO1Ih6HKET22gcugNtYxuK/evomDcAkTgg8zoAGy/0P
+	 TjvWpiVqWGutCuI71DxoZIukoDk0n7HSCG7Mv9kfI0ax4oGFGEZOFZV57m90oO9qFy1tf
+	 c8PwalagcE5rDf9PE3rpXLhZZTxg3KuGzdJPcyS6C3Keak8pW3HzetxBeshqaPrvgQpn2
+	 e5W4+TuEXYh/69tWI9JZ9hjaARKNzSl0dEex2NzaRTPtbxqXhC3h3VGo77GrlQVZxB3sf
+	 tLZX/fzn2ykIlw7mhw5XqJTZEm1W5ba+1dO0KjON6SmaDEYJBS49+th6a86ZJWjqp4A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794404496;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=tgcyXRom+DYUOBHj/B31scavrv/8OCK7JtPppDaBX+M=;
-	b=5U0pWRrwTz9YJh+UzSWZ76RShPOICssq61Xh24uPn6ixnShQwkUBtrS3BeWOh2eiFJmS
-	 YdLAvYgu0TIZhhH9sxaj8PtMPke8wURQsD7x8Xksbod+EZ7pcFc6FqDgppmasNKnrKKyk
-	 ergj3LR6W2RmrFeN983NoHIEAmebhO3pTKMzoH8aG0CUTgq8BKEbShqctc6S76nI+0Bcf
-	 d+kSqGwAebnnm7S2KOzwzz1WNINxV7wdqoyD4mbbRGVyx37nfvoBQWTQWryg66d1uv1R/
-	 WEsLcM4K9I6y75OiWNYQVBFbyXyS2JqwRYkWpxkr3E4vGndKs2rt64gKxDANQi8sBkw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794404498;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=lBNxRck0sagxRQGTzKp7MHUYtsYXNZUwRLR8qck3nLM=;
+	b=uQyPI2fjFll3DKpdAM5+Ju9MAtxLky/Mof/nRmsT72iidLAIbDzDYJFRxHzc0rIldqBp
+	 tiHZay7m/Kh9uYLkkhH5wqpqG6+2sAXkjiCxMC2eP8r99BxiLRIm23PNhx0cc6FMJnUcZ
+	 8OlVsbRl2HyEDP4M0OpyO//V+cHt41NxqQEUHWu0njx2W6XAuQJlDzRXCIkD2/s9gVth8
+	 HoIYI/7Avbz34BcMqqE7MCGsWsx43WdoKgjWkHe4RLsOPmIQbBwIfCcHSxoKVFW0b6Dv4
+	 v5Lu7t+YeuUPBZp96tsLV9bVj8fyPn6BSA8tZ96mEA5XvrbUYxfTTWRHeRIvzqxhn+A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=F2M43Q5h;
-	arc=none smtp.remote-ip=209.85.160.49
-Received: from mail-oa1-f49.google.com (mail-oa1-f49.google.com [209.85.160.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=akQ8hHrG;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9852606A32E
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:41:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9852606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48C9D606A324;
+	Wed, 11 Nov 2026 13:41:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=F2M43Q5h
-Received: by mail-oa1-f49.google.com with SMTP id 586e51a60fabf-4adea5b7a2fso1411235fac.2
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 05:41:35 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794404495; x=1795009295; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=tgcyXRom+DYUOBHj/B31scavrv/8OCK7JtPppDaBX+M=;
-        b=F2M43Q5hBJqtm2Z8XTdPEPr3gXFWQKX57WO91E8JYaXNf8lFx6xv482WviotB9saBF
-         Fk+pOxkRYsN41HIKHasxbMsR7hGp9UKInskQMg3dj/B5EReUx5meqbv8GAPATba1xkzj
-         U2usazsmFAsfu4tkfuq5XgEqVgxmLq0/7SYCvDclv2kJg6nO/F/eAa3nLqJ1z0utVWPR
-         vqYVl5i9ccwHZ6kQoiqvCqzLlaywgPJkcKZmF+yudB5MxXUZ0KhcDomdVJJEXcBN1Bri
-         LtbtJ1+br4+ExfFu/N41ytzS/8Afdlw5bpVE/1d0zOK1m0wDf6cmPF3mOMF0s/E05sVj
-         46/g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794404495; x=1795009295;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=tgcyXRom+DYUOBHj/B31scavrv/8OCK7JtPppDaBX+M=;
-        b=vXgYlXlZZbbwljLSroOh2+MO31J7+2lUNeWJoQk2DDdbxqiZWF0BVceDnIggO3WRud
-         SfO/tsvOG8s3gy+sB3vFMCdFQMzZrPDIJf4dOywZthH7PWpyBlwQTffoZHCoaDMNsq9g
-         lB2IeAsCunWxA1LxJsiWXxIO7odoWQgslahQ0Z0qWBR3ETpr3sYhj/5HYfnpCsOfRfPk
-         rD0/uJ2JdLqGgpxBpLVHaI/+V3+ceB58qXYGQ1fJXQC9FnHjmvkp9CaJtj3imNlovh1P
-         ZZqH2Mi0G14EWMEoPpQ8tbJ4bGxa2P/F+you/I74lrifnsKpaexJ4vHiJXdR/QP13lzl
-         lmdg==
-X-Forwarded-Encrypted: i=1; AL+hErG+p+KKnB/vRXo8fM84Kk24LpXaL3ZMJeg8oXM3zSSz0x+Kcl5ZJ/CymCLbuY72NNsCaS+8aOJ0oIyADCI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9sEd8rSMWIIzXwTNJor/1YcUzRUtxrOe3VACXPT8IKoZjfiMLY
-	p8WFNeyLXWhpMSUF4UeNSBZinRyNokaHvpymGNmtwMlqT174c5uY8iBOkYrzOEIK
-X-Gm-Gg: AYBFou097r87OsBY6W4qHAnGvbHUhHBZ7+/lt8Bpw0ZmSNFf4xk615oKB7ySfLXe+a+
-	uMp9d7815gNAXMS1EDIt45Shijka4hTNs2WgcTxYy9ejEYqzWkY1LnGNoQBaCKoePfRMw5K6AoD
-	ClXYceXsTlfmI4wCOdDVGtxr6WAhY6mIAog7/2tj47D+vOfT7VggtvvTxnm/Qmlrpg3c1/ra6gY
-	F5Xd6AfpW5LxmmXukLpaVlWnFs0TLEARuc6AAY7qmr10GCCYXvUjrrnf9tVRpscFjN1QB+iLXLh
-	pxyDpULNotRajymOsktA5Fa0NMTcp8Pb3MvqfbpgJAvbCix5C90vSMWg8dk1sIyoXGTiqYM5p+u
-	5EXsCJJ3rBkF5hFq+MVd9HZTjMJO9kyDmRDv5dEyIaVVxuyeZSDx+3hPTFiN3KZK7vy6T3FBNl2
-	DPKAIsTzQQq1TCjBMZ2ZL7f95g+nDj9alNPB3RR5mcOXzsPD+Y1bgIZRn9qbZVS+xeiRQfWS3YM
-	ne1FmwjQdYqjnbtCCXuLwoWZxy2X/QdPRkL4c3kEwJhMxtTk1NkQXKIsdUtVfBQI9NZkFQtyP6h
-	1AN0rKTHIr7fyzzhhENAxpt0OCbW+U3OO9q8TzPyJRcifjIcDWieDeCVBhsvKc+9mNIlXFv1Y4w
-	=
-X-Received: by 2002:a05:6870:ab8f:b0:494:7af4:954a with SMTP id 586e51a60fabf-4ae46848ac6mr2154035fac.8.1794404494609;
-        Wed, 11 Nov 2026 05:41:34 -0800 (PST)
-Received: from jeffmr (63-152-14-173.cdrr.qwest.net. [63.152.14.173])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4ae22fc1041sm3410611fac.7.2026.11.11.05.41.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 05:41:34 -0800 (PST)
-From: Jeff Roach <jeff.roach0@gmail.com>
-To: Fenglin Wu <fenglin.wu@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	David Collins <david.collins@oss.qualcomm.com>,
-	Subbaraman Narayanamurthy <subbaraman.narayanamurthy@oss.qualcomm.com>,
-	Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>,
-	Tingguo Cheng <tingguo.cheng@oss.qualcomm.com>,
-	linux-arm-msm@vger.kernel.org,
-	linux-rtc@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=akQ8hHrG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88C9A1F00A05;
+	Wed, 11 Nov 2026 13:41:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1794404497;
+	bh=lBNxRck0sagxRQGTzKp7MHUYtsYXNZUwRLR8qck3nLM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=akQ8hHrGyNORMns1NGnZMMNc0fe+TW7gcZPw+smeNHyiaTqCVe8aB6W73Wt5Y+Qyv
+	 1kGNUjadyfGW2JMhNQtCNSm69ER7COh66Vtk47SxML9d9+ReSWCHpfP2kHbzp5maYM
+	 W2ZZTcrDKV0acgaFD+GpaBWpLePH+YGiDMJGRKXA=
+Date: Wed, 11 Nov 2026 08:41:36 -0500
+From: Greg KH <gregkh@linuxfoundation.org>
+To: =?utf-8?B?5b6Q5pmX57+U?= <xuhx@hust.edu.cn>
+Cc: tj@kernel.org, driver-core@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/3] soc: qcom: pmic_glink: Add GIO pmic_glink instance
-Date: Wed, 11 Nov 2026 07:41:01 -0600
-Message-ID: <20261111134101.15019-1-jeff.roach0@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261111131424.51869-1-jeff.roach0@gmail.com>
-References: <20261111131424.51869-1-jeff.roach0@gmail.com>
+Subject: Re: kernfs: kernfs_drain()'s fast-path decision reads the active
+ count without acquire ordering -- on weakly-ordered architectures the forced
+ ->release()/unmap can be skipped
+Message-ID: <2026111106-blurb-mantra-4b92@gregkh>
+References: <4c7f9772.192e1.1a17d5c2ed5.Coremail.xuhx@hust.edu.cn>
+ <2026102727-data-sequel-ce41@gregkh>
+ <61919bed.2429b.1a1c983aa11.Coremail.xuhx@hust.edu.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,13 +58,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <61919bed.2429b.1a1c983aa11.Coremail.xuhx@hust.edu.cn>
 
-One more thing I noticed: after the GIO test, qcom-battmgr-usb stopped
-getting uevents on charger plug/unplug (sysfs "online" still changed,
-but no USB property notification seemed to arrive), so the desktop
-plug/unplug sound was gone. It stayed broken after unloading the GIO
-modules and a warm reboot into the stock pmic_glink. A full power-off
-fixed it.
+On Wed, Nov 11, 2026 at 03:30:11PM +0800, 徐晗翔 wrote:
+> kernfs_drain() (fs/kernfs/dir.c:508-551) decides whether it must
+> drain open files with the fast-path test "atomic_read(&kn->active)
+> == KN_DEACTIVATED_BIAS && !kernfs_should_drain_open_files(kn)" --
+> both a plain atomic_read (relaxed) and an unlocked read of
+> kn->attr.open / on->nr_mmapped / on->nr_to_release.  The writer side
+> (the last active holder) releases correctly -- its writes to
+> attr.open/counter happen under the hash lock, followed by the fully
+> ordered atomic_dec_return() that wakes the drain waiter
+> (dir.c:491-495) -- but on the READER side there is no acquire edge
+> on any fast path: the early-return branch (:522-524), the
+> wait_event's non-sleeping first check (:537-538), and the slow-loop
+> checks where the waker has not yet touched the queue lock.  The
+> phase-1 BIAS add is itself a relaxed atomic_add (:1563), and the
+> kernfs_rwsem write lock the remover holds has no intersection with
+> the putter.  On a weakly-ordered architecture (arm64, powerpc,
+> riscv; x86-TSO is immune because plain load-load does not reorder),
+> the remover can therefore observe "active drained" WITHOUT observing
+> the racing opener's attr.open/nr_to_release/nr_mmapped updates, skip
+> kernfs_drain_open_files() entirely, and leave the mandatory
+> ->release() and unmap_mapping_range() to be deferred to the last fd
+> close.  Consequences under current semantics: no memory corruption
+> (of->kn/inode stay pinned through the dentry chain; the close path
+> performs the release and decrements then, and the accounting WARN
+> never fires) -- the observable effects are a delayed
+> cgroup_file_release()/put_cgroup_ns() (a cgroup-namespace reference
+> pinned for the lifetime of a leaked-open fd) and a skipped
+> unmap_mapping_range() (mmap'ed vmas survive until their next fault
+> takes the kernfs fault path and SIGBUSes, safely).  I verified the
+> RACE itself dynamically on a stock Linux 7.3 KCSAN kernel: a
+> cgroup2-slot hammer (attached) produced 17 captures of exactly the
+> target race pair -- kernfs_fop_release (the nr_to_release--
+> writer, inlined in the close path) vs kernfs_should_drain_open_files
+> (read), with the reader stack at kernfs_drain+0xba, which I mapped
+> back to dir.c:522-524 (the early-return decision) via objdump (the
+> cmp $0x80000001 / KN_DEACTIVATED_BIAS immediate).  The consequence
+> itself needs a weakly-ordered machine plus a microsecond window, so
+> I did not and could not trigger it on x86 -- the report is therefore
+> a memory-ordering fix with (a) the race pair proven to occur as a
+> matter of course on x86, (b) an LKMM litmus showing the outcome is
+> Allowed on linux-kernel.cat and Never on x86-TSO (available; please
+> run it), and (c) a one-line fix that closes all three fast paths.
 
-Jeff
+<snip>
+
+This is a wall of LLM text that isn't useful to anyone, sorry.
+
+Please just submit normal patches, as our documentation asks for.
+
+thanks,
+
+greg k-h
