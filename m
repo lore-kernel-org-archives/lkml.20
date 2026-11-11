@@ -1,78 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794384537;
-	b=aIe8VJhgz0y6eKTvS91/HZdDkl9yg8o2V2F/ga47Knxoni9+STRjYi3jhubSN2QEb0oQ
-	 EsGZ6vKvK2eHmEMRoIEgskfoJp9xMJ/oszFjknKPmEmKb2eJcDpI3/8OrUafnD3HK4Ahf
-	 y4fAOfQy3Ehy2QYCjsGVu5pFrSO3GIfKWktVBdN6gQUtcxUusAKjEZ2YG4Fdwc8eWPnJ0
-	 kPaaK2dfjyo2O6vpgRGwFjQnP9Fex2aiH+4Z1zTcIO4poS8DQ4uwoiuPZXOLd61g3HduF
-	 2HUZADBxIQdlT1vrSYXkEnktsXK5lJ+5mfUeEOLNzWOhZzLY+kUqUJm8m/16UiuM6lA==
+	t=1794384538;
+	b=bWwDOkqCO8yQKauMgbSozJKt5UDYgznrovM2H5Bj8tFg38fNdkVmXOi1uHl9RTGYe7Dd
+	 iCJBKH/3AjVdGrEiBg4K+V0R6MXp807alBciaL0J0CkgpsuxhYjEMaketzcb1R3m7oLlw
+	 NLpyqAkuDCcx1b9Q6qExwgudeF+7O/9yJ+0Io9s2sjW4N2Zi5qHwdemUb0JdFEyvrYpgA
+	 5MfFKJ3fjShyLBA2E+3C0twC+YHkA7P0KkQlvgar1lMKGoMFfiAJDjWc6TNY5MM8CfWnt
+	 s3DIeaj21xMvtpzxo5gnQX2CTCHaDplEQrvMMp+r2kgSVp0IPsDwBHoSYfnNq3cb/cA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794384537;
-	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
-	 Received:Date:From:To:CC:Subject:User-Agent:In-Reply-To:References:
-	 Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=wpZdVY25wsrCZApW0yf6gO7yY7xmXeCz6y7CmXn12PQ=;
-	b=qaLEhXpu+ax6VokAB36dEcIdmLsnWOuaXfMwk7vWdLU5gx+f0/Z3HVK50pqUX8v9T4Xn
-	 8yX/H0vAbJU7x3i/qNq7uZ69aKSKtaMX50MWOatU7rvKwBNuGUP2nyiYKxXefhHMgEDB2
-	 l4TmCEBpZj39AV0mXxIXZutJ/+j3OAK6WYHcu5zTnPG483/GNSJexEmllf0ycvyGs6PMg
-	 GYxppJO7GmSzo0OrGHVIKaVvZVvVGqFFEcMdVpK/pIP0N3M4597Q0ycUpihCEXyu42cA6
-	 eBz0Sl79RPWWcZ3vC93wFqujBU5UNZlNLJSzy+0L8xj74+Mo2GSwy+PNqOuWUAAMyXw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794384538;
+	h=Received:DKIM-Signature:Content-Type:MIME-Version:Message-Id:
+	 In-Reply-To:References:Subject:From:To:Cc:Date;
+	bh=OMx8DURBi1HKQNsNSde4ObBuj2cCKjyxSIgE906Z6wU=;
+	b=kGoVRNrOz9zjp0XyRR/p8sbFK5B3je+jGAsAO09eJ7qGvr9YD0EaeQx0fBZ+r9urdyxk
+	 OJoZm9/5ZfIF4I623HTxZvhzVlT6UHfpOobrkfIhjiDfGebJ8d6NLTQShhNJoKnf4ROHH
+	 MOX7uGokDETWNgHGrYLATrB7/7WbKhjKOQWBvzLdysD0zz3Zumc+nqXMhPXz9ECkGJtX6
+	 TcYn6MAQURAARJC2E+xuBHix2T9qlT37cfiNaS/ybrfFQtfQ21Q1j+y4Wv7dNYuTkLxRx
+	 nw8OOfxwI83iHryIMDDKj4IORz5D+F0RxKLBvE93+0e0AKRqw3jOUmmeXyt+DUq+SQg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=alien8.de;
-	spf=pass smtp.mailfrom=alien8.de;
-	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=Do5x542I;
-	arc=none smtp.remote-ip=65.109.113.108
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vj5n5e0S;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 522ED606A31C;
-	Wed, 11 Nov 2026 08:08:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 522ED606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87AE3606A8D3;
+	Wed, 11 Nov 2026 08:08:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=Do5x542I
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id AB9AF40E0222;
-	Wed, 11 Nov 2026 08:08:47 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id 8RP1td2kJ9xt; Wed, 11 Nov 2026 08:08:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1794384524; bh=wpZdVY25wsrCZApW0yf6gO7yY7xmXeCz6y7CmXn12PQ=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:From;
-	b=Do5x542IDH/ocjyv0KOMrkXRIc03t7HeHaE/462hqK6dLj2rRT29Wydkx2cFyV+96
-	 NZnEDO+Fh8TBp8jZ5mLX/yScZycqLlsTfhPcJddbP6Xmxir/KgE9Mkrvp0fPdTEE6n
-	 4y+3RskristbQuf3/ejXvvITMIJ9q9UfNIWJkOFzEg95ZcQWYYmSsW4JzlbBSuSDHu
-	 noitXRpx9zPdK8eQb1gnv06HU9+s8iSOh6+KNWb4hyX2wJ0QW6F7IYPmhaVTSB01JW
-	 LqBkoHNlM2Byt/lYt39IEnRZSFcaoGySFRGDhn1tyTxmtEYHfsMU3p1dRIBxBCT+KN
-	 fu36pI/lRf0KoDqnIf2uAtVvdgA5Dv1zHgDne1NysxgW9EdyWaFRaVQ4NdLO7ctR/H
-	 WnvHDooYWVtGwNR9srRr9B0ehHXggeAbFrmFbG1ugN/a9/zPHyxsaoU225i/OsNJIR
-	 xM35D8ORus4gMu8MlfdaCO6PCHenQeJlyIoDFZ59vY9us3vpba+hd4gIZ+weYO2tEE
-	 uLhPZf0GABmVzg+agKxhS3rQUYeOG3NrRR1O4IcI9qmCGD6RBTsBHz5BY2SlIJBGWL
-	 wtBZVbsED54Q4ezfjowiP8/Ba6A2wvJIg9m5gkBNEzdHlS7RMYkBvZTPxFBcfJKHLd
-	 UooVArDcSIU8zhFmTkwlHrC0=
-Received: from ehlo.thunderbird.net (unknown [209.52.143.85])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 09E4D40E019C;
-	Wed, 11 Nov 2026 08:08:32 +0000 (UTC)
-Date: Wed, 11 Nov 2026 08:08:26 +0000
-From: Borislav Petkov <bp@alien8.de>
-To: Qunqin Zhao <zhaoqunqin@loongson.cn>
-CC: Qunqin Zhao <zhaoqunqin@163.com>, tony.luck@intel.com,
- linux-edac@vger.kernel.org, chenhuacai@kernel.org,
- linux-kernel@vger.kernel.org, Wang Jinwei <wangjinwei@loongson.cn>,
- Yulong Wang <wangyulong@loongson.cn>, Dongyan Qian <qiandongyan@loongson.cn>,
- Chao Li <lichao@loongson.cn>, Huacai Chen <chenhuacai@loongson.cn>
-Subject: Re: [PATCH v6 2/4] EDAC/loongson: Encode node and MC info into mc_idx
-User-Agent: K-9 Mail for Android
-In-Reply-To: <f34b681b-1499-43c8-b8a7-1437409bd709@loongson.cn>
-References: <20261105025532.2055-1-zhaoqunqin@163.com> <20261105025532.2055-3-zhaoqunqin@163.com> <20261110064106.GAavK8ghva7DgZ35DK@fat_crate.local> <809041a2-ebdd-409d-a1f4-3ac7884513d2@loongson.cn> <20261110080338.GJavLP2h448voZSQRE@fat_crate.local> <61dc34e7-e872-42cb-a0b1-be100a78053a@loongson.cn> <20261110183101.GEavNi5Qrv3eLe80VL@fat_crate.local> <f34b681b-1499-43c8-b8a7-1437409bd709@loongson.cn>
-Message-ID: <88040256-91E2-4EAD-9571-4B460E69A93F@alien8.de>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vj5n5e0S
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AAA231F00A05;
+	Wed, 11 Nov 2026 08:08:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794384538;
+	bh=OMx8DURBi1HKQNsNSde4ObBuj2cCKjyxSIgE906Z6wU=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=Vj5n5e0SBFA1j4z0Z15SdCzc4M3OrCLsWJXqhvLQqGwHQKanl350MBfbSz8ARxnFD
+	 jOWJ3MA9OMnNp4iJ2t22+M/1LUETLN++x1e4PQAlu084/gezb1EGPHwXX4AkHLZ9Xe
+	 amH9gwOhhyHIrBsWhaeeuFm8XCfe57IygtxfcZNX6YATAJkMKLeLNvpsUuq2Oa7MeQ
+	 QfAyTDiSl0sVpXOH6ghIFl1wmICmjoaLePNWKQw8Q0Vjkc0RW7jhiS4QEeokPdTnbz
+	 M7Y9tkPjkPDpcplzDhf60pYRsJkFGU8yEqUlPEN3t39trYPzNLA7pz1bc5Spos97Dn
+	 XKUhumL8wOfGA==
+Content-Type: multipart/mixed; boundary="===============5888328363070956270=="
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,22 +49,95 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Message-Id: <ab530d93c7383ec9cd5d9fbedc531e933d4b812ddb367bb85c940b870d34c247@mail.kernel.org>
+In-Reply-To: <a07b9717684d5e20d8ff7a778a5f031d1092f18a.1794303670.git.sieberf@amazon.com>
+References: <a07b9717684d5e20d8ff7a778a5f031d1092f18a.1794303670.git.sieberf@amazon.com>
+Subject: Re: [PATCH v2 3/4] sched_ext: add cgroup_set_runtime ops callback
+From: bot+bpf-ci@kernel.org
+To: sieberf@amazon.com,mingo@redhat.com,peterz@infradead.org,juri.lelli@redhat.com,vincent.guittot@linaro.org,tj@kernel.org
+Cc: bsegall@google.com,dietmar.eggemann@arm.com,rostedt@goodmis.org,mgorman@suse.de,vschneid@redhat.com,kprateek.nayak@amd.com,hannes@cmpxchg.org,mkoutny@suse.com,void@manifault.com,arighi@nvidia.com,changwoo@igalia.com,skhan@linuxfoundation.org,corbet@lwn.net,rdunlap@infradead.org,cgroups@vger.kernel.org,sched-ext@lists.linux.dev,linux-doc@vger.kernel.org,linux-kselftest@vger.kernel.org,bpf@vger.kernel.org,linux-kernel@vger.kernel.org,nh-open-source@amazon.com,hborghor@amazon.de,fmubeen@amazon.de,dwmw@amazon.co.uk,karataev@amazon.com,sieberf@amazon.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Wed, 11 Nov 2026 08:08:56 +0000 (UTC)
 
-On November 11, 2026 6:37:39 AM UTC, Qunqin Zhao <zhaoqunqin@loongson=2Ecn>=
- wrote:
->If we encode the presence of the _DSD property into mc_idx,=C2=A0
->
->the sysfs representation will become confusing=2E For example:
->
->loongson@loongson:~$ ls /sys/devices/system/edac/mc/
->mc65536=C2=A0 power=C2=A0 subsystem=C2=A0 uevent
->^^^^^^
+--===============5888328363070956270==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Does it really matter which wrong numbers you have there? They are wrong n=
-o matter which ones you choose=2E=20
+> sched_ext: add cgroup_set_runtime ops callback
 
---=20
-Small device=2E Typos and formatting crap
+TL;DR: The documented guarantee that cgroup_set_runtime never exceeds the
+quota the scheduler was last given may not hold for schedulers lacking
+cgroup_init or cgroup_set_bandwidth; comment and commit message may need
+qualifying, or validation tightened.
+
+> diff --git a/kernel/sched/ext/internal.h b/kernel/sched/ext/internal.h
+> --- a/kernel/sched/ext/internal.h
+> +++ b/kernel/sched/ext/internal.h
+
+[ ... ]
+
+> @@ -863,6 +863,26 @@ struct sched_ext_ops {
+>  	 */
+>  	void (*cgroup_set_idle)(struct cgroup *cgrp, bool idle);
+>  
+> +	/**
+> +	 * @cgroup_set_runtime: A cgroup's runtime is being set
+> +	 * @cgrp: cgroup whose runtime is being set
+> +	 * @runtime_us: runtime in microseconds
+
+[ ... ]
+
+> +	 * @cgrp has a quota, and @runtime_us is at most the quota + burst the
+> +	 * scheduler was last given, by @cgroup_init or @cgroup_set_bandwidth:
+> +	 * cpu.max and cpu.max.runtime writes reach the scheduler in the order
+> +	 * the fair class applied them.
+> +	 *
+> +	 * Delivery follows the same rule as cgroup_set_weight().
+> +	 */
+> +	void (*cgroup_set_runtime)(struct cgroup *cgrp, u64 runtime_us);
+
+Does this guarantee hold for a scheduler that implements
+cgroup_set_runtime but not cgroup_init or cgroup_set_bandwidth?  The
+commit message makes the same claim: "The runtime passed is then at most
+the quota + burst the scheduler was last given".
+
+scx_group_set_bandwidth() still updates tg->scx.bw_* when the op is
+missing:
+
+    if (scx_cgroup_enabled && sch && SCX_HAS_OP(sch, cgroup_set_bandwidth) && ...)
+            SCX_CALL_OP(sch, cgroup_set_bandwidth, ...);
+    tg->scx.bw_period_us = period_us;
+    tg->scx.bw_quota_us = quota_us;
+    tg->scx.bw_burst_us = burst_us;
+
+while scx_group_set_runtime() calls the op whenever
+SCX_HAS_OP(sch, cgroup_set_runtime) is true, and the fair class only
+checks the runtime against its own cfs_b->quota + cfs_b->burst in
+cfs_bandwidth_set_runtime().
+
+For example, take a scheduler with cgroup_init and cgroup_set_runtime but
+no cgroup_set_bandwidth.  Cgroup C has cpu.max "10000 100000" at load, so
+ops.cgroup_init() sees bw_quota_us=10000.  Userspace then writes cpu.max
+"50000 100000", which the fair class applies but the scheduler is never
+told about.  A following write of 40000 to cpu.max.runtime passes
+cfs_bandwidth_set_runtime() since 40000 <= 50000, and
+ops.cgroup_set_runtime(C, 40000) runs, four times the quota the scheduler
+was last given.
+
+Similarly, a scheduler without cgroup_init that loads after C's quota was
+set is never given a quota, yet still receives cgroup_set_runtime for that
+cgroup.
+
+Should the comment (and commit message) make the guarantee conditional on
+the scheduler implementing @cgroup_init and @cgroup_set_bandwidth, or
+should validation reject cgroup_set_runtime without cgroup_set_bandwidth?
+The later commit eb360e17b06e ("sched_ext: charge BPF scheduler tasks to
+cpu.max bandwidth") does not change this text.
+
+
+---
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/42982707042
+--===============5888328363070956270==--
