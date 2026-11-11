@@ -1,66 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.137
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.7
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794379667;
-	b=wuShvfxU+wVerPAAmKDfRxaXKSyvpNTSc/FWUaqm/2jArLp7lr35wtsYOdkBgrttkfWc
-	 KncSalyUNQpJZVw+AHvnSMg2lrldToEReCLWVKkpaPNmVteFgWjaEQrpr5KZ9AI2qyx5e
-	 L3eDRluVY1T0K9Kae4G6+CLZclts5YUUTsxHPGQK1zYIzT73+8ndWYIyYAaHwpRqQFRsS
-	 /3gm+J+LS1KlSNpyuzGaI8wtCyIZ2uAS11dEr5rcqbzkvuvVJVdZbfwuE6LhQ6gBc1oL9
-	 V+Rnde/wodZUTztUK3BzuTPJAs1IK2b68qGI0ekSPfaQLzeX8aUzc1u9O3mQd4ggpPA==
+	t=1794379669;
+	b=XBwqR7hHnGER5HFP4THussR6PU/P2YuHgcz8k/GB975YaO+8jmSwInGT1vYiISLpta6h
+	 rQEgi702XJCCn54JwVn0i8ov+SATEOvHjmxrDZh0sh2soaQZmno1PGv2STJN3KNWen/dI
+	 kLuZclFlbbQ2kh0IJ+2A7H6bd4wGZwKqT1OdQ732wjarUVqKzSSm+dGuXjX3yV1G12qz/
+	 /kydhwMrCSB6q8wy9/QCzARTzkTU9e2U2pyY6kwtQktuXhiHKwzCmfRgUUs5vyCpb/kCm
+	 7A7ShmWOl+4skA9hR/djfW8sNMAURuU9TsSHsCyFyNNSlcjSrJgfzav2WBbUj4jXTCg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794379667;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794379669;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=XucTGbVjZgxDO8F+HvPdU57TgwxnzHAOkD33WW5Xf3g=;
-	b=Xk48pgWcj2eKx64FuYPKej32OHCKnw+Lv1jNbupXx23+1t1Ycg8P6mI5NF+PJCd5LOsk
-	 yL83d+uDZArYRKzzTWSQjdgCJNm58ACZhSMwyfSGueAkVM4+OHgRUHY+ZHpdTlXVHG/fl
-	 /sIXCGhrvMXFrKw1Cv1ntMuwvzQH8mRJiK6n7lNToa9B22/DSm+J455xFua6dsIonVPst
-	 hqlk1uSIppxI0Hon8E7zY0YCW0Tss2G1A+H/nH2svZWMEMSFVBnQ9YmMFDkHqdl7Wvoj3
-	 71z06R6t7A/txRdmuNsgjOqAWr6u8t/8GCKnwgNrLnNsLgdAmC+fbVoilKohvua3nhw==
+	bh=F7M/ZhGLoFak/PJL0fDdgMXUJRkp736gJ7FlUGI9L4w=;
+	b=KFjVOMCBB6YzFlGZCAWe4YyE3Tz8Cb2B1StfJtDHBp/aK4iyvaVCAhKjU39ZlJ45/aHG
+	 A75F4F+ylvqLLX7dyhGr1VeF1LnIrLgxchQA/Omt1jV0IE4y8K8tkZsKF296FE7xmRB6J
+	 WfB0uIed86hrGWmFTBAh4Gu0v0y5aL5I8Mc0jr6xVOXr7Bxu4YA+uGhd+BfoR/7/2dqix
+	 ZLXJmYnvalUlj158mJvJ1b1NWspAIYj8e9BsFcPn2sst5CY1oE2w0bk0LHRmqpcRiyR3k
+	 T0UU6T8qzFFw9GPBlLrHn8E8zN55qY0nPmoEaUIYVm4KX8MRwWWvvTfMHhoT9YtPBqA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=cbDP4ZTi;
-	arc=none smtp.remote-ip=111.22.67.137
-Received: from cmccmta4.chinamobile.com (cmccmta4.chinamobile.com [111.22.67.137])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id AC511606B47A;
-	Wed, 11 Nov 2026 06:47:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC511606B47A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=cfpLrqmh;
+	arc=none smtp.remote-ip=91.218.175.7
+Received: from mta0.migadu.com (out-7.mta0.migadu.com [91.218.175.7])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 907BD606C902
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 06:47:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 907BD606C902
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=cbDP4ZTi
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=cbDP4ZTi76vF0MYTreN48Dyg66gRpwm6JrT68O636XjTkkC7/hd00SDIkE/YWTq+p7Nu8zKslH/Y0
-	 +AT2Z2Og/O8MZa3XoO6Sgg+wmgH7NcAD+YzVD0n2VZiPr9klMp3tQRjaAf4C9VpeMEnCOeTgIM7lE3
-	 4RnT+6UPe8lWq+IE=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app08-12008 (RichMail) with SMTP id 2ee86af40f900a5-75218;
-	Wed, 11 Nov 2026 14:47:45 +0800 (CST)
-X-RM-TRANSID:2ee86af40f900a5-75218
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from devin-VMware-Virtual-Platform.localdomain (unknown[10.55.1.72])
-	by rmsmtp-syy-appsvr04-12004 (RichMail) with SMTP id 2ee46af40f90dd3-d1ea3;
-	Wed, 11 Nov 2026 14:47:45 +0800 (CST)
-X-RM-TRANSID:2ee46af40f90dd3-d1ea3
-From: Zhu Jun <zhujun2@cmss.chinamobile.com>
-To: gregkh@linuxfoundation.org
-Cc: jirislaby@kernel.org,
-	linux-serial@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	syzbot+b80089f747a307017a6c@syzkaller.appspotmail.com,
-	Zhu Jun <zhujun2@cmss.chinamobile.com>
-Subject: [PATCH] tty: pty: mark lockless flow control snapshots
-Date: Wed, 11 Nov 2026 14:47:44 +0800
-Message-ID: <20261111064744.17235-1-zhujun2@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.51.0
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=cfpLrqmh
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=CyrF+6zOUIdoWIi0r/h1EvqhIeae82jXO4tYB0TkHx4=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794379666; v=1; x=1794984466;
+ b=cfpLrqmhwJJSEliryqhAtj3rr4P6RN4PhBhrTyf8xlUpPxkKHYYlNQ+HBkik6E7bhaS5AXdb
+ FW7HPhAkYdrI6Yr6tLbvgh3PBQvAfsesFgU/Nvq7mp5d5BQdhp8rqygAWfgX2ooWHza6GYrO3PH
+ E71rVcTI8f+pT8wwZl+6FjzA=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 439764ee18b4fcfd;
+	Wed, 11 Nov 2026 06:47:46 +0000
+X-Mizu-Trace-ID: 439764ee18b4fcfd
+X-Migadu-Flow: FLOW_OUT
+From: Qi Zheng <qi.zheng@linux.dev>
+To: muchun.song@linux.dev,
+	osalvador@suse.de,
+	david@kernel.org,
+	akpm@linux-foundation.org,
+	azpijr@gmail.com,
+	lance.yang@linux.dev
+Cc: linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	Qi Zheng <zhengqi.arch@bytedance.com>,
+	stable@vger.kernel.org,
+	"Oscar Salvador (SUSE)" <osalvador@kernel.org>
+Subject: [PATCH v4 3/3] mm: hugetlb: fix GFP mask propagation to CMA
+Date: Wed, 11 Nov 2026 14:46:52 +0800
+Message-ID: <1c5e8c4ae230dc238a16f2f42d65bffac6244ad3.1794379434.git.zhengqi.arch@bytedance.com>
+X-Mailer: git-send-email 2.48.1
+In-Reply-To: <cover.1794379433.git.zhengqi.arch@bytedance.com>
+References: <cover.1794379433.git.zhengqi.arch@bytedance.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,46 +76,83 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The PTY write and write-room callbacks inspect flow.stopped without
-flow.lock, while TCXONC updates it under that lock. KCSAN reports the
-write-room check racing with __stop_tty().
+From: Qi Zheng <zhengqi.arch@bytedance.com>
 
-These callbacks take a snapshot of flow control: the state can change
-again before a write, and the flip-buffer operations provide their own
-serialization. Use data_race(READ_ONCE()) for both checks to document the
-intentional race and ensure each check uses a single load.
+cma_alloc_frozen_compound() uses GFP_KERNEL, allowing direct reclaim
+during the first MPOL_PREFERRED_MANY allocation attempt even though
+the caller clears __GFP_DIRECT_RECLAIM.
 
-Fixes: 1da177e4c3f41 ("Linux-2.6.12-rc2")
-Signed-off-by: Zhu Jun <zhujun2@cmss.chinamobile.com>
+Pass the caller's GFP mask through the helper so CMA respects its
+reclaim constraints when trying the preferred nodes.
+
+Fixes: 9bda131c6093 ("mm: cma: add cma_alloc_frozen{_compound}()")
+Cc: stable@vger.kernel.org
+Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
+Acked-by: Muchun Song <muchun.song@linux.dev>
+Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+Reviewed-by: Oscar Salvador (SUSE) <osalvador@kernel.org>
 ---
- drivers/tty/pty.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ include/linux/cma.h |  2 +-
+ mm/cma.c            | 10 ++++++++--
+ mm/hugetlb_cma.c    |  4 ++--
+ 3 files changed, 11 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/tty/pty.c b/drivers/tty/pty.c
-index 9a37008c4e91..5c605edb79a0 100644
---- a/drivers/tty/pty.c
-+++ b/drivers/tty/pty.c
-@@ -110,7 +110,8 @@ static ssize_t pty_write(struct tty_struct *tty, const u8 *buf, size_t c)
- {
- 	struct tty_struct *to = tty->link;
+diff --git a/include/linux/cma.h b/include/linux/cma.h
+index 8555d38a97b1a..4539ea5f2c4e8 100644
+--- a/include/linux/cma.h
++++ b/include/linux/cma.h
+@@ -53,7 +53,7 @@ extern bool cma_release(struct cma *cma, const struct page *pages, unsigned long
  
--	if (tty->flow.stopped || !c)
-+	/* Flow control may change concurrently under tty->flow.lock. */
-+	if (data_race(READ_ONCE(tty->flow.stopped)) || !c)
- 		return 0;
+ struct page *cma_alloc_frozen(struct cma *cma, unsigned long count,
+ 		unsigned int align, bool no_warn);
+-struct page *cma_alloc_frozen_compound(struct cma *cma, unsigned int order);
++struct page *cma_alloc_frozen_compound(struct cma *cma, unsigned int order, gfp_t gfp);
+ bool cma_release_frozen(struct cma *cma, const struct page *pages,
+ 		unsigned long count);
  
- 	return tty_insert_flip_string_and_push_buffer(to->port, buf, c);
-@@ -126,7 +127,8 @@ static ssize_t pty_write(struct tty_struct *tty, const u8 *buf, size_t c)
- 
- static unsigned int pty_write_room(struct tty_struct *tty)
- {
--	if (tty->flow.stopped)
-+	/* This is only a snapshot; flow control may change before a write. */
-+	if (data_race(READ_ONCE(tty->flow.stopped)))
- 		return 0;
- 	return tty_buffer_space_avail(tty->link->port);
+diff --git a/mm/cma.c b/mm/cma.c
+index 9ec1d1fd5dff5..a7c47c0e7d070 100644
+--- a/mm/cma.c
++++ b/mm/cma.c
+@@ -933,9 +933,15 @@ struct page *cma_alloc_frozen(struct cma *cma, unsigned long count,
+ 	return __cma_alloc_frozen(cma, count, align, gfp);
  }
+ 
+-struct page *cma_alloc_frozen_compound(struct cma *cma, unsigned int order)
++struct page *cma_alloc_frozen_compound(struct cma *cma, unsigned int order, gfp_t gfp)
+ {
+-	gfp_t gfp = GFP_KERNEL | __GFP_COMP | __GFP_NOWARN;
++	/*
++	 * The only caller of cma_alloc_frozen_compound() is hugetlb, and
++	 * hugetlb constructs its gfp mask via htlb_alloc_mask(), which already
++	 * sets __GFP_COMP. Check here for usecases bypassing htlb_alloc_mask().
++	 */
++	if (WARN_ON_ONCE(!(gfp & __GFP_COMP)))
++		return NULL;
+ 
+ 	return __cma_alloc_frozen(cma, 1 << order, order, gfp);
+ }
+diff --git a/mm/hugetlb_cma.c b/mm/hugetlb_cma.c
+index cd6a64986278a..3e5a30571524a 100644
+--- a/mm/hugetlb_cma.c
++++ b/mm/hugetlb_cma.c
+@@ -69,14 +69,14 @@ struct folio *hugetlb_cma_alloc_frozen_folio(int order, gfp_t gfp_mask,
+ 	}
+ 
+ 	if (hugetlb_cma[nid] && node_isset(nid, *nmask))
+-		page = cma_alloc_frozen_compound(hugetlb_cma[nid], order);
++		page = cma_alloc_frozen_compound(hugetlb_cma[nid], order, gfp_mask);
+ 
+ 	if (!page && !(gfp_mask & __GFP_THISNODE)) {
+ 		for_each_node_mask(node, *nmask) {
+ 			if (node == nid || !hugetlb_cma[node])
+ 				continue;
+ 
+-			page = cma_alloc_frozen_compound(hugetlb_cma[node], order);
++			page = cma_alloc_frozen_compound(hugetlb_cma[node], order, gfp_mask);
+ 			if (page)
+ 				break;
+ 		}
 -- 
-2.51.0
-
+2.54.0
 
