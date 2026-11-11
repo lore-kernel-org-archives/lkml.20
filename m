@@ -1,104 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.249
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794397005;
-	b=47+iCM73KyC2t0ln/cJLe4YClDl9Xgv3B7bhcCsEqmd+QJ4O6sP29Nbcfog/sxgHQF27
-	 Go4Fc/cDkQzNFxt2cjk7maVjF5zUTRJ4zfacOLCsKyIjK+sgevyLew54GcsiGshgXUCJe
-	 aF2LZ71OA6ViX6WJx9gQqWPaQ6QHYonmRLFsZy0TAFIzd9e99Veew4axb6f4U3IJ7eedi
-	 zcK9Go6vMbA/ern2Wq0C6L78WnAgicRd4DEuIHMdmfns+XzZr87UdGA6gzSGCt4URMbl0
-	 neXa4bwZy3zBlO+SVeKCMKtj4JANLohHAiQOIrZMrFPvCvFbZFXu0lqV1H24NNZElYQ==
+	t=1794397016;
+	b=273ejq3l3+TGhi4UiR33+aruVuNuhedQ46Iq+xBXjiDXgrlGtDbM7MjzKTkIlrJSwTAV
+	 dnbEcb59FrRiEaHZ7Cm98ylDA1m864yhkm2sz87mFDFIGr9w32WHIukJMbNcXAqmzB7YK
+	 YZztsm1DhYIUhXMkz1UfsPVdQYhnOBaFgLxoJnrI9Iws84UU2WXliGZKJIqVq2F3f2C/3
+	 TA0vAr4wXNywuAcw3uMT/ypkOTsD0/2IpIPw4NjhySXYyLB1cqSnBKYMXhqW1u7dMvA3j
+	 3qMJlFzlymhWeeUfxUxdZ0ge9hAfKzmWPe5wdkdvnCoRDqDz/sqK2tPuRtFy0mHvlGA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794397005;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Rspamd-Queue-Id:
-	 X-Spam-Level:X-Rspamd-Server:X-Rspamd-Action:X-Spam-Flag:
-	 X-Spamd-Result:X-Spam-Score;
-	bh=mGfXAhsIkfsmQ61oEXFkoeqvWAbeNybqBLE5t2HP4g0=;
-	b=CrZThZqtjfRVn4+TlB6fnyaNkwZ1E/W9y9L2i+6hoVgxjuRsF7G6UX6gjjX85L/NDNtJ
-	 OF6X6tBjYm4SD8sUt51XtvJ2+QSU8bMhLODsn7y3DuMoVlyf5Phnc0WJsGWMmhFE2Nqdf
-	 Lp2eS7C0gLAyUOYiHo02zp2q1mghMtXqm4eHLPoCLAvnHgASjHsc7Ojm/HdaKajM9oboY
-	 Vvs9RDniz6xXE67wN1uWLZ4didpMr+95qYhlCBNNIxcjv+b4kebHuWS3GTkKxO9hm5xaG
-	 +axZDqtggjsSvnExWebMiWkkzE8LvwUPloTpfvoqeGvIar0iJDG7kokbi4dFHPK2rCg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794397016;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=swMse98eNqiMJcwGyFipJhNVyCCyR23IATBp3xslRm8=;
+	b=y7jUOEyq5sxncqYVt5tdhLLdRvIfp+sm5lOe4JCAJFsgRHL6n0nDpggR25l47qbJEl2/
+	 jsN+V2HarIc+/B9k5jNwDLNqweeNBhId3Ed7ZZCSVb8l1zmJ/qgATXKkaDsnxlLd6EolE
+	 8aRdsfgLz5103RQkflyiHyGft6BvHAPLUijBub7rwGaohM4bUEY6wieU9+Ouz6zCD6YCJ
+	 Qj58cSHeiMLmIJqe2pi2HqEcVD1/qm+amV2mmPJG2FJdYkFCotK49LR2bjxhdA9gUkFi6
+	 rLXmJ2yAA1RHJXW+l2SUIifRRGgYmqNwF9oZAPpozF1KCPSRs0rZPCkVYcxJmna9Imw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=WST5EO3G;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=cUa96bAg;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=w9EvtxVz;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=EhssSEpv;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=GMnpEq10;
+	arc=none smtp.remote-ip=95.215.58.249
+Received: from mta1.migadu.com (out-249.mta1.migadu.com [95.215.58.249])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ADC4606A321
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 11:36:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2ADC4606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D34D606A324
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 11:36:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D34D606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=WST5EO3G;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=cUa96bAg;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=w9EvtxVz;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=EhssSEpv
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 03D8B1F458;
-	Wed, 11 Nov 2026 11:36:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794397002; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=mGfXAhsIkfsmQ61oEXFkoeqvWAbeNybqBLE5t2HP4g0=;
-	b=WST5EO3GF7s1RbHj9+0H0BxrjbqxvsonqE3XiPeE1+oec7I4LQKMoT8zrX5BSExMVCNlf5
-	EbuMDxPSJXNCWlVHeyJI/CuaxtOWmmt0mrXDQ1ucG+hcYJDPYiuS8EMyhb7eoRtLeZuxxG
-	wcT9LYk605EGr3MZKc/2RCCxcvMo88I=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794397002;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=mGfXAhsIkfsmQ61oEXFkoeqvWAbeNybqBLE5t2HP4g0=;
-	b=cUa96bAgU2cVZ6EN3Vq3TVbrTjZmsAytTsXvj4pUqxys0z5gTYx/+8toByzfWz7WSIdmL+
-	nwAZeiT6TQ+cA3DA==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=w9EvtxVz;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=EhssSEpv
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794397001; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=mGfXAhsIkfsmQ61oEXFkoeqvWAbeNybqBLE5t2HP4g0=;
-	b=w9EvtxVzxGSJK1v+A/4s/adhtTH9ytMqoaYYXuws07BT2eBZUfv4I56tCnvbL38Sue/78x
-	C1t6Khxk86zfp8evLfJ+lRoDMyr/At678BDCFNFmqoSazibHLPZHMgDWeYOk5vFkoR+MeE
-	EBK319i+3nQVnElAEDhNezU+BeQ2uCI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794397001;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=mGfXAhsIkfsmQ61oEXFkoeqvWAbeNybqBLE5t2HP4g0=;
-	b=EhssSEpvZt2pVttFQzBkDd9m+xUejj3E/2EzBqKfa1kS7bwaw9t8nPnAlcaihWmmbG8uVE
-	ISNb3Y+Q8G91/kBg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A87841339F;
-	Wed, 11 Nov 2026 11:36:40 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 6oreF0hT9GrTWgAAD6G6ig
-	(envelope-from <tzimmermann@suse.de>); Wed, 11 Nov 2026 11:36:40 +0000
-Message-ID: <e16d5fb8-58bb-48dd-8f98-6777bd2fd2e3@suse.de>
-Date: Wed, 11 Nov 2026 12:36:39 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=GMnpEq10
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=fEJSAiQwyRf0hWMsSCb3epTBXmZZN1Qcr2L+tTJSz64=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794397013; v=1; x=1795001813;
+ b=GMnpEq10QGcPBXEM93OAvnbAIy5beCVgnowsVFE3VCN8fUNaBrroVVqsTzaubVcYfZHgMHS0
+ szCx3+jKO2dtZbDN02RyACXrWNdFaSfU5gCkTaf5b8g2+LqmmCNJrwQheGYJ/xKTM3XW8yNRanG
+ dPa/eqHnk+5F/nub+0WQoWWM=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 9124456fdb93fcce;
+	Wed, 11 Nov 2026 11:36:53 +0000
+X-Mizu-Trace-ID: 9124456fdb93fcce
+X-Migadu-Flow: FLOW_OUT
+Date: Wed, 11 Nov 2026 19:36:47 +0800
+From: Hao Li <hao.li@linux.dev>
+To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Cc: Harry Yoo <harry@kernel.org>, Christoph Lameter <cl@gentwo.org>, 
+	David Rientjes <rientjes@google.com>, Roman Gushchin <roman.gushchin@linux.dev>, 
+	Geert Uytterhoeven <geert@linux-m68k.org>, Conor Dooley <conor@kernel.org>, 
+	Damien Le Moal <dlemoal@kernel.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RFC v2 3/8] mm, slab: rework KMALLOC_RECLAIM handling of
+ SLUB_TINY
+Message-ID: <avRSHkq_jcNuDg1r@fedora>
+References: <20261024-slub_tiny_rework-v2-0-bf1419ab5ffd@kernel.org>
+ <20261024-slub_tiny_rework-v2-3-bf1419ab5ffd@kernel.org>
+ <auHcj2G78VkXy-Vz@fedora>
+ <auycUvCC2mL_EQ1r@thinkstation>
+ <avE01iTQccxQnhl6@fedora>
+ <ec39ce6d-e604-48ab-9582-04ff73d13c16@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,138 +71,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/fbdev-shmem: don't warn on a transient dirty
- callback failure
-To: Jiahao Xu <xujiahao@cmss.chinamobile.com>, dri-devel@lists.freedesktop.org
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org,
- syzbot+369ee6a6e9d0bbf14b37@syzkaller.appspotmail.com
-References: <20261111124156.317053-1-xujiahao@cmss.chinamobile.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20261111124156.317053-1-xujiahao@cmss.chinamobile.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 03D8B1F458
-X-Spam-Level: 
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-12.00 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	XM_UA_NO_VERSION(0.01)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	FREEMAIL_CC(0.00)[linux.intel.com,kernel.org,gmail.com,ffwll.ch,vger.kernel.org,syzkaller.appspotmail.com];
-	DKIM_TRACE(0.00)[suse.de:+];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[369ee6a6e9d0bbf14b37];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim,appspotmail.com:email,chinamobile.com:email,syzkaller.appspot.com:url,suse.com:url]
-X-Spam-Score: -12.00
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ec39ce6d-e604-48ab-9582-04ff73d13c16@kernel.org>
 
+On Wed, Nov 11, 2026 at 11:30:09AM +0100, Vlastimil Babka (SUSE) wrote:
+> On 11/9/26 04:01, Hao Li wrote:
+> > On Thu, Nov 05, 2026 at 03:19:01PM +0000, Harry Yoo wrote:
+> >> 
+> >> > Given that, would it make sense to
+> >> > change this line to something like:
+> >> > 
+> >> > if (type >= KMALLOC_PARTITION_START && type <= KMALLOC_PARTITION_END &&
+> >> > 	!slab_tiny_enabled)
+> >> 
+> >> Maybe you could send a patch as it's a separate issue from the patchset?
+> > 
+> > Sure thing! I'll post it once vbabka's slab_tiny series lands.
+> 
+> It would be better if the fix preceded the series actually.
 
-
-Am 11.11.26 um 05:41 schrieb Jiahao Xu:
-> The fbdev dirty callback (drm_atomic_helper_dirtyfb()) can fail with
-> -ENOMEM when the atomic commit allocation fails under memory pressure.
-> That is a transient runtime condition, not a driver bug: the damage is
-> only cosmetic and the frame is redrawn on the next flush.
-
-Cosmetic? Failing to allocate memory seems like a significant problem to me.
-
->
-> drm_WARN_ONCE() turns this recoverable failure into a WARN splat (and a
-> panic with panic_on_warn), which syzbot keeps reporting:
->
->    virtio-pci 0000:00:01.0: [drm] Dirty helper failed: ret=-12
->    WARNING: drivers/gpu/drm/drm_fbdev_shmem.c:118 at ...
->
-> Keep the warning for other failures, but do not warn about -ENOMEM.  The
-> error is still propagated to the caller.
->
-> Fixes: 150f431a0831 ("drm/fbdev: Add fbdev-shmem")
-> Reported-by: syzbot+369ee6a6e9d0bbf14b37@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=369ee6a6e9d0bbf14b37
-> Signed-off-by: Jiahao Xu <xujiahao@cmss.chinamobile.com>
-> ---
-> v2:
->   - Add the Fixes: tag reported by sashiko-bot.  No code change.
-> ---
->   drivers/gpu/drm/drm_fbdev_shmem.c | 9 ++++++++-
->   1 file changed, 8 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/drm_fbdev_shmem.c b/drivers/gpu/drm/drm_fbdev_shmem.c
-> index 8eb05fe9b..c3fa5a663 100644
-> --- a/drivers/gpu/drm/drm_fbdev_shmem.c
-> +++ b/drivers/gpu/drm/drm_fbdev_shmem.c
-> @@ -115,7 +115,14 @@ static int drm_fbdev_shmem_helper_fb_dirty(struct drm_fb_helper *helper,
->   
->   	if (helper->fb->funcs->dirty) {
->   		ret = helper->fb->funcs->dirty(helper->fb, NULL, 0, 0, clip, 1);
-> -		if (drm_WARN_ONCE(dev, ret, "Dirty helper failed: ret=%d\n", ret))
-> +		/*
-> +		 * An allocation failure is a transient condition under memory
-> +		 * pressure, not a driver bug, so don't warn about it.  The
-> +		 * error itself is still propagated to the caller.
-> +		 */
-> +		drm_WARN_ONCE(dev, ret && ret != -ENOMEM,
-> +			      "Dirty helper failed: ret=%d\n", ret);
-> +		if (ret)
->   			return ret;
->   	}
->   
+Makes sense. I'll send it out shortly.
 
 -- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
-
-
+Thanks,
+Hao
