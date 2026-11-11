@@ -1,63 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=43.163.128.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794404223;
-	b=XCIumGlhLpqD3E+IkHlFs3P1Q547unD55gMsRR1Oz72Epy5XEuoMLmJaSznxgew6rxVw
-	 Dd59ifHfKNwAVs3TMj99hv238nasq+tepBowP8PlUvdA2VmJkzNY7xKOfvEvq+MiRakkn
-	 6t7vVLLjMhncxpwBzhh83fBqYi1xWtRHdIkAM9oVxeVdBXd5siSoEtxZl41WPB8vpRx0q
-	 noyIlb6US/ntbiG9+K/1Tn+iimDLWgujF5YARTw6xiWorDEaeJXO+OigRyPmsTC01Oy/O
-	 Y2BXTGd0Yd55iRjstObY9DUBRAtKePKuuaVLmMR1LHyjTpr8LKmY4R6At7InAVIxUXA==
+	t=1794404224;
+	b=J0Ouuvtv54Ay6PSO5ozMjyD0JZCkxUyi2MA0WQj0dLlbR0lvyf5ycK3SzN1gY/wnqKmD
+	 HrsNBIFiFYHDp9QPunZFqyKw8OmmLTmSel18R1Z8YTd/4ArGiwgpY8j/R9RMcWvSrbGb+
+	 fmpB43l6XZ4cmIC3Fg1T+JCgxaqv2VIjVpAAvX4VVlCWxwh+WMWaQoYgqFIn0LYy5defc
+	 20zHEG/EK7+TqaovIvPJ8K3E6lDu//P4P1Ag5W26lDTtF64iiiZMVi/Ye2FF2dDTvg3/7
+	 xXgU69pKJ1T5qh2ychc4GAhi+WQ770/5rhaK0MFpiI6s16mtDTE4FO6J9/i4GbP3Fdw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794404223;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:X-Developer-Signature:
-	 X-Developer-Key:Content-Transfer-Encoding;
-	bh=wfWLdiHNFBQdWNacF/GCPagly5pHlhMKOHF4T+ktheY=;
-	b=TLPneuI+lzmOxveunwIEJyH0K2V3G8LIgDt0PIjX/fjKyBhBzSFTFLNVw4ZkS3YpekJp
-	 HlI3QlTuMdq2RdYRohX65f4oCkP6n1ehBhf6gQwac/uyiJ8SZ1qh3CUh4gxmihg/H/tBA
-	 P+SNnQeEq+TEgZj+CkzPQ4kShbZ4rrNLGp/zLaxnlqKvKK3eXPd9iHHxE4tfP3BS2JT/o
-	 HCrIPpD5lMZdRH2EVoDLa4EBU6jta0tUbrqQ3+1QxZgZeSZP4X+1egpk/bltl5DUN6GVz
-	 Rz5l5rcM9KTlWzjtXHcLtq9vbnHjARj3ivOcB1Qu/U18CSX4hdxtMx3GfGBVGnWUT8g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794404224;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 X-Mailer:Content-Type:MIME-Version:Content-Transfer-Encoding;
+	bh=YNMcThRxFtGYoOB1SNTqBnwuJmm8ZLqZ0H+tPlZJ35A=;
+	b=XtsQYUWaDzrSijhdAZxVvE9pHG377iY89cihMUUQnxrY2Bc6qPMpZlq5kkQGAj7OR/jH
+	 jbieZ5X6QyTzqDrA9y7c1tPlXkk5uBJGpwLtpXwwPQQlvKyconOa585GyIzOaJCJQRcYa
+	 uSBfiKr4AQwNXZ5H3CGgysJmRcuDKe8OTKYwzEZR2H1QrqvHAegjGYj1Lkzn0Jbfa+tP0
+	 1GzWD491KwF8WMqU1HrlcYPD338tMle01xo5o22WNqT+0AqLqZlshyIgQTwIOmlYstIuE
+	 d7Km8OysuKbTA2+CLZIg0bBi1qRiWsqnitPuI5xPM4vdSx7jjOt7WqMpeU9V2duoLAg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h5R6pmsp;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=bbH2ZVMZ;
+	arc=none smtp.remote-ip=43.163.128.47
+Received: from xmbghk7.mail.qq.com (xmbghk7.mail.qq.com [43.163.128.47])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52A9C606A33E
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:37:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD2D1606A333
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:37:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CD2D1606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h5R6pmsp
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A86CC1F00A05;
-	Wed, 11 Nov 2026 13:37:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794404223;
-	bh=wfWLdiHNFBQdWNacF/GCPagly5pHlhMKOHF4T+ktheY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=h5R6pmspt2PC3yM0LxVgrf0VkpV42K2HhwlvbJ66y47F3WXycOS47E55VN1tjoVKe
-	 rcpVnQlipmxjr7cM7Spd7HGpOM1Jtg8kfk/Dn12uuVFo8SCnlOyaGmopcv/MKaSnPD
-	 ND5eShIOGxbQ9vWg1VRxHKXFH+zVAgM2v/wAn/SThnKqc2SfAplA73fnky9mSxfkVx
-	 6nH9NjfbMhttA3l0xMFpfvHqMtYp5o7SKtfLH1IphOjrdRskeQpKCMZ2G0i64lCTXn
-	 y1+PgNW9bmW8Y3LzilF5wPc1oUjeP4wYTHLVI3bBhK0kQ+xO4a5NSKLfQ5jlA+rHHD
-	 6rd0YGAqY2BIA==
-From: Thorsten Blum <blum@kernel.org>
-To: "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	Andy Lutomirski <luto@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>
-Cc: Thorsten Blum <blum@kernel.org>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/2] x86/mm: Convert printk(KERN_*) to pr_*() in initmem_init()
-Date: Wed, 11 Nov 2026 14:36:35 +0100
-Message-ID: <20261111133635.75044-4-blum@kernel.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261111133635.75044-3-blum@kernel.org>
-References: <20261111133635.75044-3-blum@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=bbH2ZVMZ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1794404214; bh=YNMcThRxFtGYoOB1SNTqBnwuJmm8ZLqZ0H+tPlZJ35A=;
+	h=From:To:Cc:Subject:Date;
+	b=bbH2ZVMZ4rMG3H8Yo8V1P2c+5ELpaq1u9HeMLbIegIwNONPwra3KJXSEW9+NWfYnA
+	 fLxNi1eak2EGqmArrRCAxnHB9CEFt2Vqo3en89/Mqw8XNxHIqlLz/Cgr7JvsLwoiXt
+	 i0LxLObGxWHLDBjhS5SlrQ2KQ2P1H097sSjwCgxI=
+Received: from ubuntu.. ([112.3.92.91])
+	by newxmesmtplogicsvrszb51-1.qq.com (NewEsmtp) with SMTP
+	id 9320F8A0; Wed, 11 Nov 2026 21:36:50 +0800
+X-QQ-mid: xmsmtpt1794404210t734l17yr
+Message-ID: <tencent_AA4F39DA7ADE330C721C03AAA832B92DD608@qq.com>
+X-QQ-XMAILINFO: MB5+LsFw85NopabHnG9nGmy8nTiaVLknyr6iQK7TrHN7teA/C1fjHudoRSXoBW
+	 rYc54eeBNen1X0lJwN2CxR1kzmYhi6aZGz5N4WnH6jtOnjF1TfMVib68fUJ5cZLbVJZFgPeZTrB1
+	 T7kV5lyNKcX3p1X881RjCVLZOJbQHBU7hmzJUwGuUdK27zEAI6KenwZLrQwWbZ8t4KpmG1OHiyYj
+	 FcotxILPRLcdcYQJubmv8M9hzzVOdU0ozYrPqEAioaQfiHDGJ6tfkNaCFynrrFz7iwpNRgJGgy0J
+	 /MQpfEp649S26r8TDkZgbTiUiDna47/vr0WTPqv51DljgsFtt0qtmcixMM+rN5speI3wM1483/rj
+	 KBnxqE1yV1+Ytdg23zs3nHvFU8eaTcQ8du7woXjZ2nTevDYkClN724/DaEbTh3YaDKMo432ppmF0
+	 X4TDAL8xSW/Q7QFVw0B0B2p6PGh9ffv+zeechWzTKS3z+9zL2Q59yflvQ9xKUacieTb49qaoGGCJ
+	 mSmFsxuLnoimU3a3hZS9C5Pxd4aNZ4fT1tEjGd+IeOVcNkA6T8XkybxzxP/Fk/5HnxYKitXQH/2Q
+	 GC/SMTI9vuHoVNAnaP2JdF1UzlJNVWfvm/5UBGw0Zy4XVEsjurPQqVqp+u+FUqUuhmP1vVAcnHMa
+	 R35I8t9aIOiasSz6RdsL8OwnOK2LbMEZZeaTPaF0jGcCS03DPuJj3D4gG5rPzAZeS/B5XqgX8Cr4
+	 hjusz+ryfumzHeflcar957hg8hysHVH6pV4KcgqhHwmUBCtCpj1yK+pFV9nhFUmjayByz/b4oSA3
+	 PawWZvZ6+uwI6Xe4zEgs5J+7H7oqQncM+na2OSvzbYyxDwsH71+EqcLNYTFVkdgWtPR2bexG7xcJ
+	 8g7wCM+c0NyPEdep596EC68Or2vcqSkxCf1julZwilgkSpRa4ISHDlsMf8zRiUeoUagkYgoE03kd
+	 WnEIgRTqyz2XixpU3ruyruPYziUD3kQ0h1cQNqjv33QM+hkMBG5uzbSHQYGBbD0O3PYnAePCbPfO
+	 kPVOiyc1FfEh3kgLkztJOQGUvazESNgJ2hDO5lpy8BO96EEBjTjt/E7DygWlab5KqVFKviIxQHtc
+	 B/yAi9qy6HUyitUC5534EUDs5OnKnLJtJu/EL6FZwWG6vL2Zw=
+X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
+From: Congjie Zhou <zcjie0802@qq.com>
+To: netdev@vger.kernel.org
+Cc: mst@redhat.com,
+	jasowangio@gmail.com,
+	eperezma@redhat.com,
+	xuanzhuo@linux.alibaba.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	virtualization@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	zcjie0802@qq.com
+Subject: [BUG] virtio_net: RX stall caused by masking callbacks after NAPI
+ ownership release
+Date: Wed, 11 Nov 2026 21:36:10 +0800
+X-OQ-MSGID: <179432914786.2.117574289414299585.virtio-net-rx-stall@qq.com>
+X-Mailer: git-send-email 2.43.0
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,47 +90,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1508; i=blum@kernel.org; h=from:subject; bh=t/825LBm9ZGT/1Vvy5eL6aAEkruXSI7f9R2b0Df9Dh8=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFlf8nMUzl5uTmU/psDwOZcj4lD51ef+asf1dHJfKN5Ys nXFh2lfO0pZGMS4GGTFFFkezPoxw7e0pnKTScROmDmsTCBDGLg4BWAi5i6MDAf9vlwOSHYsmrd7 t/v0BS0cR5J/HIx/Xffm7RlV9em7bDcyMnzYeqXLKv0Kw8N1K7yXsh5UC5biPfEkM8ZOeaJkSdz 5axwA
-X-Developer-Key: i=blum@kernel.org; a=openpgp; fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
 Content-Transfer-Encoding: 8bit
 
-Convert printk(KERN_*) to pr_notice() and pr_info(), use %lu for the
-unsigned long arguments, and add spaces around the shift operators.
+Hello,
 
-No functional change.
+I observed a persistent virtio-net RX stall on Linux 6.18.58 during a
+multi-threaded TCP receive workload. After the stall, the RX virtqueue
+contained unconsumed used entries, but its NAPI instance had no owner,
+the NAPI timer was inactive and virtqueue notifications were disabled.
+The receiving TCP threads remained blocked waiting for data.
 
-Signed-off-by: Thorsten Blum <blum@kernel.org>
----
- arch/x86/mm/init_32.c | 11 ++++-------
- 1 file changed, 4 insertions(+), 7 deletions(-)
+Completion sequence
+------------------------
 
-diff --git a/arch/x86/mm/init_32.c b/arch/x86/mm/init_32.c
-index 9b0a3dd02da0..a799f4cff63f 100644
---- a/arch/x86/mm/init_32.c
-+++ b/arch/x86/mm/init_32.c
-@@ -616,8 +616,7 @@ void __init initmem_init(void)
- 	unsigned long highstart_pfn = min(max_pfn, max_low_pfn);
- 	unsigned long highend_pfn = max_pfn;
- 
--	printk(KERN_NOTICE "%ldMB HIGHMEM available.\n",
--		pages_to_mb(highend_pfn - highstart_pfn));
-+	pr_notice("%luMB HIGHMEM available.\n", pages_to_mb(highend_pfn - highstart_pfn));
- 	high_memory = (void *) __va(highstart_pfn * PAGE_SIZE - 1) + 1;
- #else
- 	high_memory = (void *) __va(max_low_pfn * PAGE_SIZE - 1) + 1;
-@@ -627,12 +626,10 @@ void __init initmem_init(void)
- 
- 	__vmalloc_start_set = true;
- 
--	printk(KERN_NOTICE "%ldMB LOWMEM available.\n",
--			pages_to_mb(max_low_pfn));
-+	pr_notice("%luMB LOWMEM available.\n", pages_to_mb(max_low_pfn));
- 
--	printk(KERN_INFO "  mapped low ram: 0 - %08lx\n",
--		 max_pfn_mapped<<PAGE_SHIFT);
--	printk(KERN_INFO "  low ram: 0 - %08lx\n", max_low_pfn<<PAGE_SHIFT);
-+	pr_info("  mapped low ram: 0 - %08lx\n", max_pfn_mapped << PAGE_SHIFT);
-+	pr_info("  low ram: 0 - %08lx\n", max_low_pfn << PAGE_SHIFT);
- }
- 
- /*
+The completion sequence can produce this interleaving:
+
+  old poll                         successor poll
+  enable_cb_prepare()
+  napi_complete_done()
+    clear SCHED
+    arm watchdog; result=false
+                                   acquire NAPI
+                                   poll, enable callbacks, complete
+  return false to driver
+  disable_cb()                     callbacks are now masked again
+
+Root cause
+-----------
+
+virtqueue_napi_complete() calls virtqueue_enable_cb_prepare() before
+napi_complete_done(), then calls virtqueue_disable_cb() if completion
+returns false.
+
+A false return does not guarantee that the old caller still owns NAPI.
+The hard IRQ deferral path can clear SCHED, arm the watchdog and return
+false. Another CPU can acquire NAPI, poll, rearm callbacks and complete
+before the old caller reaches its final virtqueue_disable_cb(). That
+stale mask overwrites the notification state established by the new
+poll.
+
+The watchdog is one-shot. If it has already run, there need not be any
+remaining owner or timer to recover after the old caller masks the
+queue. This leaves later used entries without a notification-driven
+poll.
+
+Current source inspection and local validation
+----------------------------------------------
+
+We reproduced the notification-loss condition using a deterministic
+KUnit fault-injection test on the latest mainline snapshot fetched on
+November 10, 2026 (7.4-rc2, commit b3dfbde62cf1). The candidate fix
+passes the same test.
+
+Candidate fix
+--------------
+
+I have prepared a candidate change that masks notifications on the
+relevant completion paths before NAPI ownership can be handed off,
+rather than masking after a false return. It adds an ordered,
+non-sleeping, idempotent mask callback to a new completion entry point
+and uses it in virtio-net. Existing completion callers retain the old
+API. virtqueue_enable_cb_prepare() remains before ownership release,
+preserving the ordering required by the earlier RX virtqueue race fix.
+
