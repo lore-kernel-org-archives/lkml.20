@@ -1,121 +1,129 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=67.231.152.168
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1794417232;
-	b=p4o/J99jhXZJs9+XOlupQCFhHl1LXdBBQEJrRq5MbCohoEhTxhtIqPpszxGbP6Zh5AOD
-	 KuJnPfWhDXtaXYhVIBahHyVh9wCtvNHJU3bi2UWRFOijgO3s8G3enIxS9VgBDWSoNFD+a
-	 o611KgKyPf6P0Uibr/vGCw4AEi7MBi6zRsbaAIBa5fR7tp+gtbGVjeE9m7nZWCg2it/k2
-	 xJs1VlbIF6QKFC/51H3buaJrGadh28EJe0A92g51cIJSCALP8/ki896KR7YeT+v39qsle
-	 bP8v9lOPPpCx11Dg83g+5JsIG63zigakdgMbBenYj8I2QfNz34IDcp0V2vvsAkd9KkA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	b=yJxZXmq27lPBw4p4mE15XpVO4wgTIV5Ss8BYoTjpYLstEykBOh42HLh4kV8ifMwpmqfD
+	 B+T0AN+J2y/V0lLNOCEogOj+OZAxY/2V52XiwJ9KxU9gjCeqHPZVS6fsHafD4YHrP+qds
+	 Vs4flaaGAaoioLRLZhhG6sA7dvQHA93SzyZCn31iz5is8hfwUHPuOsz+0UDyWOytLra1A
+	 qcA5O4ScxD7nPX4zVQXEJOgTKp9d51WAUdH1dKm4kfLkPcpZ6Z6BAOV4SRzZDn3X42taM
+	 9wfPDFR6gUiLtEe+eR4oT/WuMM+7gzHP2zfNfRqCJbCQ9SVqNQj3CDk9bd1y+4+wEig==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794417232;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Proofpoint-ORIG-GUID:
-	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=EAm+hwV1E45v1JKyU4NifbxqjehcDV1sr0hUES+EoSE=;
-	b=ciqAX4NZk51F+BbQiFehhnQPyvw9D1MLVKHfhB+9ssagjk8R8lkZgDbf+XlrQRkX7bEo
-	 DN7+FIf8ruPNmkgfyMNhXBw6muo3zfAFOIptPHWFmao9kpIAOXTqw9l7ldwlw5PG0Jgvy
-	 HlnFpgkv+A7cz+PCqqLqGEYyyQ5dhHZb15dQnXfr8caVghReVBN3m9ncc2b0T2ko+mPFd
-	 zW0WePoh2bzZsz3SsVX5lrpd6RZeU0RumTvZjQT+mDdyFtqU1aeIeqTEImuLr/6RZl+1P
-	 Em1R33KpuX9iYfPdBylyDivlBwtxwBUUG7XP1/sb32ZWpuvpukcEqoESLA3Q/B+zk6w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=YEhTcyIX;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=i2zaOGn9;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	h=DMARC-Filter:Received:DKIM-Signature:Received:DKIM-Signature:
+	 Received:Received:X-MS-Exchange-Authentication-Results:Received-SPF:
+	 Received:Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:Content-Type:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
+	 X-OriginatorOrg:X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Reason;
+	bh=H8/lrIsnUSnsyfpvh3aJqt503G/HX57iau2y+kmIORA=;
+	b=hnzMO0q8B5Dc5OWT+ubc6fwtDZK1E104PvADyMVe3221aFYTSTzEcPsIplgk0rKKu16J
+	 XdYuxG7rgTdSGt3tSxae/oGWwRqJZzhxwIwkBPsU7+8T9g05F3dwnXvqARtH3pf25vlZd
+	 U9JsLrew5EARccQCzz5dd/lbT/VHMvq5fzv/smgR7kwUvknRAn+U6kwAtj1AX7oDq2vUO
+	 hB9C4KVgzcbNeCrjrOEnCLQ8CuEfESJV68VD+nMIhTeXDJOuV/YpKA1p39iIga1YlSXTU
+	 W2Z6/s76H3dsX0ZItzbNcp9pqTTnx+TMbTAczNljkTyOBXy1TAgh0OBgofsJDaz1iWQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=opensource.cirrus.com;
+	spf=pass smtp.mailfrom=opensource.cirrus.com;
+	dkim=pass header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256 header.s=PODMain02222019 header.b=HWPTEXxN;
+	dkim=pass header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-cirrus4-onmicrosoft-com header.b=VxvRNEPa;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=67.231.152.168
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com [67.231.152.168])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8821A606A332
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 17:13:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8821A606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4A29606A333;
+	Wed, 11 Nov 2026 17:13:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B4A29606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=opensource.cirrus.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=YEhTcyIX;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=i2zaOGn9
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ABF0Pa71565813
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 17:13:50 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=EAm+hwV1E45v1JKyU4Nifbxq
-	jehcDV1sr0hUES+EoSE=; b=YEhTcyIXlx4E9RnEGwSCphsW0AKO38AGEF9jtVSG
-	EgZUQ3d+YwvmqxK4JPxFIS94kg9o+KoSw719CoL8BKNYCWJnB2+DXXrhSVTlrdyY
-	tUY30HpNfcFYP/e3SZj4BgtK+lJSIDV+NvppIaNGzlbDoOqCMFlcZ1sMUo9RGbTM
-	+SjUlvoxFQmSwP0e/qUUKdbt2bFMtq+c0VSEhsdnBayDbDj2dzQAVU+Z0ltTgphu
-	UC1z9mumF88MQriAoJjxgnJXxQrhjVdG9YcQfIr9AZXl/55NqOeXwfg7wd57T0uU
-	V/310XioTUchrP4rjokX8gtKq4P3g0zu/bm4gSRUhNnh4Q==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvs4m13du-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 17:13:50 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93f3969a2a7so557193685a.2
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 09:13:50 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256 header.s=PODMain02222019 header.b=HWPTEXxN;
+	dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-cirrus4-onmicrosoft-com header.b=VxvRNEPa
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+	by mx0b-001ae601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ABGxw1O4184227;
+	Wed, 11 Nov 2026 11:13:48 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	PODMain02222019; bh=H8/lrIsnUSnsyfpvh3aJqt503G/HX57iau2y+kmIORA=; b=
+	HWPTEXxNGd/CRmteQbra8UwFqNouSsNcCCzolV6vSViZnJYWVS+O6sVlVoGaXaMc
+	2HplShyI8/2Z65ipMD4B/f6sRwQnvM3hhZsCgKf/kbV3CDKPV5KrLN1TF1pbidV7
+	hkBuSfNQtkU7B3fbRZQPYDIrKm3W5NgnpWx6aMbDd/QX0kkyW0e64/jWzP5/ekpR
+	O36c9IctYoOdKRFwP9gA7cpJ5ve8Se3Riqrj/y8KGglZFXrFFaAh/Cnd2/bGIaAE
+	YbPzR3ShFJZoCKn0hF7MG9VA3dSpavgHDiXCiSH3c8KrWYxGx/TLUhbv5uVZpUdr
+	Ds2/ggbXnPk15KyH/DiQfw==
+Received: from bl0pr03cu003.outbound.protection.outlook.com (mail-eastusazon11022131.outbound.protection.outlook.com [52.101.53.131])
+	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 4hv7urswn6-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 11 Nov 2026 11:13:48 -0600 (CST)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=BHS9T2BilVcZZuFrBBSgZCIDL6621t0pmdL6pJMOYx9HeuSI/2jZo72SPobFnJwf6lLQYsGADZnddwzXHnB4tnJzm3Ljrn88oEhtbwVC45aTBaLt5OqaKy0mRwhkrf1So2EBEBVZypyJq7lDJIZU1GKYdvhZfNU/YvuX0TO93oriUoDDaNH0El1J34TXcSqZwXTO2ZRQAaRiGKHXsheZECTdNVFW1Q30Qev+s0ciVVQydJ8xhOnQZC344Mj4eLYdil+YJhzP1YBXKTqWDQNsFS8DQBz2djVDZdY2wY1+ULV9nufMLBjNuwydt4f7L9Iv8tWdpPFu5PAOmK3rckXBcA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=H8/lrIsnUSnsyfpvh3aJqt503G/HX57iau2y+kmIORA=;
+ b=dt+RRIq3SmMDKzzDiSS0qI7I7cX3FDJuX/cHuW9j8PfiRG20ktfMR0Vvh0gAIjdtjgvZtP2vVazHBdCwQra2PGzNMlQ681fpnhPTT9OhQlQGsoEbBWEWecYCbhLcV5MzcuTvsDh+dHtqsjCULUfJpGN09X4RpViYgGGqCI8vBjzrXdcgfpKtvLkcl/TtvTGZfg4EMmjS9HZuB3GQtr1TqNjQuTEMtXhd9Itrqu+O32gykVDG+UtQwVq2rUReagUXgC4Yy90xwNGJWixMqMaPK9fIQK2w9JZ4cmuEAwuJ/7C9kSUeZ8RmAvXgDD2gQGMoWX1R6S2BtXdihH7IiGxfYQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
+ is 84.19.233.75) smtp.rcpttodomain=cirrus.com
+ smtp.mailfrom=opensource.cirrus.com; dmarc=fail (p=reject sp=reject pct=100)
+ action=oreject header.from=opensource.cirrus.com; dkim=none (message not
+ signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794417230; x=1795022030; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=EAm+hwV1E45v1JKyU4NifbxqjehcDV1sr0hUES+EoSE=;
-        b=i2zaOGn9PP7/CNFvp6LWAHKuKwLUbkg6/imulI9r+e0KmOqnH6rbJ990NbYvYhDlLy
-         80zkw2kID8i6DiCumKZwok5sOa/GFvxQIL5cVGHigh0F98CFQq1EdpOdNSGcS47b9dhR
-         tIlYnTSLBrtrPfCS6X01QUuGR8++GpVpikTD9V/n02cfm2w9nohvnUC02kpxteTIcmsQ
-         jadLZOmtdqC73SfkWrdDMLF2ujBc8TEYHdB9l3lJp2CwQZuTCXGurFFYF7Vi/yFz2RdI
-         31HXCAtFy8L9a+jLzQ+OOmXHFPFbD+jxvWbKBvyAu69q2VkLID1bpK3BNvfSAOFjWKMj
-         CCyw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794417230; x=1795022030;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=EAm+hwV1E45v1JKyU4NifbxqjehcDV1sr0hUES+EoSE=;
-        b=m4YGVFk0MHHQdPIprvjF8Qqw+HgWvAaFq7O5zvMZ+FVXdMs3hwa0YZUPA8Jw8uzgX5
-         sb0UUq9IkYGTFKA2+0b+USduqmGucPcqlRYctvSYd1qj/6XiCh5a4OlQMbTW1QJgO5vH
-         ai3e6OeWqSVtFBdLF1HkzIl7QCBB2WZGHVROfLgIjT1SlbmXXa8JtazebSdbvTH9OGJn
-         vV0FD9tf1B3hypfhE6WoL9QYAqXZs5o3+F/6kBi46rQsJduCdoG9IwKYI8hdRjPW6jYy
-         kbEnTCUqMqRAI29RJBIvJRmgOUDcfiJ2ydXxlQVnnO8IXYcLIO6/B0Z35N1/ooUfP3ok
-         JROg==
-X-Forwarded-Encrypted: i=1; AL+hErExsLLFqzDyT2t5d+WA6sm0/XkyXe5J4cii0fDtd4jfFKdjwPDGrHvsSwTKolCV7jCYRGYzAGgqfWAa0i4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9CgoG7KHkwXD+e/ryfIYNNR+wNcSDaj/S/sVkpzeSVerwDpr4w
-	wS9ak0kxRL86iJCmDvCBSZiXr3fJiL7mLBr1rFT3aD07t0d43t5HMlF0hMLnnG4RKNZgZE8j59j
-	gXndPuAVnxW/mOvzXRwcqWCe1dcZ6lIL9EwCvR56A3sr5aCrj3l3KVBInSXRqDaXBoFg=
-X-Gm-Gg: AYBFou1nMCgPv655zb3AaO3Vno8p9X3Z0yCTmsTD4mtSXOJEMkgftSJYGVKR5EU5ezd
-	TB4fhbDcZTNdasHWuCYI4G40XjF8Ea0ZYJKJuqHsn0XOpp42NGrNqowfdJw19TY/SEQTQOiHTdH
-	a7c+heZU16vX801ojhpdp5g6kbl9z26LWqnac6i0gEseNzwq+rXKjea0mKAO/XAl5JF9dA8V7GL
-	/9OcgmT7eCGfIZHcAnRlXlyb6U1OCVG71Yc3yCfA1Pxzwp0W5GTAObB7llRuX0meZhKZjpYdKvU
-	NY8pO2ovU7G2p0dDDv64S2YJmn5I9QU6sa3KO2AM8+CLw8YLps8kHT9a0GjCg0hzXNTKn/MMnDB
-	27CRNuoiecfBfuF/oxUJ2xfKMr57S3Y9vCcZkEaODBOKQDzp6rfjYdW0Q5TRCnQ9T7TywLwW0Vg
-	vmpoLxmlQ0/DIAhMMho/95tNnOncq7dbE/wPHHdu+Sko2SLZqk6B6SKO7LMoV8HQ==
-X-Received: by 2002:a05:620a:2725:b0:940:7e5c:7424 with SMTP id af79cd13be357-947b008a44cmr488325885a.66.1794417229480;
-        Wed, 11 Nov 2026 09:13:49 -0800 (PST)
-X-Received: by 2002:a05:620a:2725:b0:940:7e5c:7424 with SMTP id af79cd13be357-947b008a44cmr488319585a.66.1794417228930;
-        Wed, 11 Nov 2026 09:13:48 -0800 (PST)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3ae09173b53sm11554591fa.3.2026.11.11.09.13.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 09:13:46 -0800 (PST)
-Date: Wed, 11 Nov 2026 19:13:45 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Val Packett <val@packett.cool>
-Cc: Joonhoe Kim <26rote@gmail.com>, robin.clark@oss.qualcomm.com,
-        lumag@kernel.org, abhinav.kumar@linux.dev, jesszhan0024@gmail.com,
-        sean@poorly.run, marijn.suijten@somainline.org, airlied@gmail.com,
-        simona@ffwll.ch, linux-arm-msm@vger.kernel.org,
-        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
-        linux-kernel@vger.kernel.org, yongxing.mou@oss.qualcomm.com,
-        Xilin Wu <sophon@radxa.com>
-Subject: Re: drm/msm/dp: hold one runtime PM reference per plugged state
-Message-ID: <2ndbj5fk7tnmexirfulh25kwx6pjzsmp7vjczbhqdxxuw3fm5u@qx5qumdw6ng3>
-References: <20260929130627.959-1-26rote@gmail.com>
- <018c6fae-49d3-4f89-8212-8c6b64a2829c@packett.cool>
+ d=cirrus4.onmicrosoft.com; s=selector2-cirrus4-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=H8/lrIsnUSnsyfpvh3aJqt503G/HX57iau2y+kmIORA=;
+ b=VxvRNEPapXan0ZVS/mqrlHuViWKjOH+cE9gsqGkuIr9fSq3BAGEyOlyRrlFLULAth8RVubcxc2lOQGLg9L6aIASyHq8lcprKhTDi/SRVNnP48PyE3prtrefkYTqOgwThtzHOXpU65NH+iB4QkzQDOBDZjJc/cjpjurSQf+uYLIw=
+Received: from CY8P220CA0035.NAMP220.PROD.OUTLOOK.COM (2603:10b6:930:47::19)
+ by LV0PR19MB9360.namprd19.prod.outlook.com (2603:10b6:408:328::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Wed, 11 Nov
+ 2026 17:10:38 +0000
+Received: from PH2PEPF00048917.namprd05.prod.outlook.com
+ (2603:10b6:930:47:cafe::7b) by CY8P220CA0035.outlook.office365.com
+ (2603:10b6:930:47::19) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.9 via Frontend Transport; Wed, 11
+ Nov 2026 17:10:38 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=softfail (sender
+ IP is 84.19.233.75) smtp.mailfrom=opensource.cirrus.com; dkim=none (message
+ not signed) header.d=none;dmarc=fail action=oreject
+ header.from=opensource.cirrus.com;
+Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
+ opensource.cirrus.com discourages use of 84.19.233.75 as permitted sender)
+Received: from edirelay1.ad.cirrus.com (84.19.233.75) by
+ PH2PEPF00048917.mail.protection.outlook.com (10.167.243.73) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.4
+ via Frontend Transport; Wed, 11 Nov 2026 17:10:37 +0000
+Received: from ediswmail9.ad.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
+	by edirelay1.ad.cirrus.com (Postfix) with ESMTPS id 3ED04406566;
+	Wed, 11 Nov 2026 17:10:36 +0000 (UTC)
+Received: from ediswws07.ad.cirrus.com (ediswws07.ad.cirrus.com [198.90.208.12])
+	by ediswmail9.ad.cirrus.com (Postfix) with ESMTPSA id 1B938822561;
+	Wed, 11 Nov 2026 17:10:36 +0000 (UTC)
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: broonie@kernel.org, lee@kernel.org
+Cc: lgirdwood@gmail.com, linux-sound@vger.kernel.org,
+        linux-kernel@vger.kernel.org, mfd@lists.linux.dev,
+        patches@opensource.cirrus.com
+Subject: [PATCH 2/2] ASoC: cs42l43: Update load detect procedure for cs42l43b
+Date: Wed, 11 Nov 2026 17:10:32 +0000
+Message-ID: <20261111171032.1491717-3-ckeepax@opensource.cirrus.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261111171032.1491717-1-ckeepax@opensource.cirrus.com>
+References: <20261111171032.1491717-1-ckeepax@opensource.cirrus.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -125,149 +133,236 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <018c6fae-49d3-4f89-8212-8c6b64a2829c@packett.cool>
-X-Proofpoint-ORIG-GUID: ydu270V-c2PeF44FcFfAnJc8z0gH5R8R
-X-Authority-Analysis: v=2.4 cv=OYANnRTY c=1 sm=1 tr=0 ts=6af4a24e cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=NEAV23lmAAAA:8 a=pGLkceISAAAA:8 a=P0_V0cqhvWXbucGuATgA:9
- a=CjuIK1q_8ugA:10 a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-GUID: ydu270V-c2PeF44FcFfAnJc8z0gH5R8R
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDA2OCBTYWx0ZWRfXxoRtpc8gMITG
- 6Om8wJYYe22qn2evKmqWoy1rDPEcQCrStYSZpA5QMizWLIgJulQYiK7WC2yiike1nj9TKR8ffv9
- ReC6zKGR+U6oo8vEKQ//ZXk074U1swRqziTqmd37CYK4HYqznuEeBfA8vt78cdCl2Lju6Hx7b2e
- YNtXwM4vFJB++nsxQnxpl9uQF795FxQ1+YeCQRKzC0P3y7W0Uisbrq/OTVKN+2JiddB4Mqldmt+
- uB1aJrJUP/BXlkTEHu8q6alVEfHMYeujsucxG+U80RE7gxaBbS40pumdyo49lORJAF3WmhZyxMR
- 27OXu51/afgXyPqbhHf3m/kDj7Dnh6wvEkYfWJNmhFpGF8RTIYWArx2iNxjlOdkw2kK9Nf7jA5n
- OYLlIgnRakx+Mcd67xjIXR/0k2qz9YjKDLjyewaO2xbS/rA54jcQ11wLtGQednWWJV3hded4jUI
- KggaQn5iQQfUrxuL41Q==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDA2OCBTYWx0ZWRfX70KwmMAPzFZV
- ct7QGjUd7O7JsfOseklke1iCoGOVJuRUp+nEHsgAyK0OOesQ4Q5MC6G8dN65moWQl5ZOAvn9Iv4
- Pyhrl2Kbvkm396XRKgzzv42pAbfOPuk=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-11_04,2026-11-11_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 impostorscore=0 adultscore=0 clxscore=1015 lowpriorityscore=0
- phishscore=0 priorityscore=1501 suspectscore=0 bulkscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611110068
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH2PEPF00048917:EE_|LV0PR19MB9360:EE_
+Content-Type: text/plain
+X-MS-Office365-Filtering-Correlation-Id: cebd6768-1f95-4a9f-1499-08df4016b4db
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|23010399003|376014|61400799027|82310400026|10067099003|11063799006|56012099006|261021123027099003|261021121427099003|261022105027099003|261009223027099003|261102123227099003|261026121527099003|261026140227099003|261022113327099003|261022075727099003|261028144727099003|16102099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	sJXX3qEHCVRSvpJGAE3NKoCiSevvW9tZlD5GO78dHzShagHk3wEghA4JaDLsiIJK8+B7k/YZIC5MYpGuKT9GjyJ45pOPnhqzLNUxy5baHMr4jyXCwIgnHzbd9oRd/G4PrEuTuyJlkJ2Oy5gEYb0I/+LD3YsfvtEKPkqzCXeCzSr9iz5xzCaooIRuKC1turQS7ziMkZ4PRBCKCmiiHS2M2hXE32PPNObwn1IUrN478+ilUAdpPGpQZFRT+r0BhO9OUhjnGozb+btbUyAUeggTtQZ8yD+x8HMQ1sPKPCS/XWjLg5ZzSfrBocG+mCl9yKBgp41tphmrfXqdtFYY3MdxkfZ0YelFV1OlN1XdIPJf9Y9oweFMX6EdiYpmJehIPXOPOGc5qwYJHYySiR33v0D+5lCTDsyxgjiLRhioZK6DwTmzlB8UDl+BGSj29E+4o6dOYk7wOiI55tL/j1eaVEzm2hEZzoQ1uZKvAMFKLqm9xej0++Gn06Rdv2+aq/Xf9YlQhn1MyRk7nq3GeSPaI8gHhSENiiPtTnVgfkKNPyhMe9Y4Xv0OTCXmfINNy2WB1g3ewjrVIlyPG7McL5QEgLHoAGvsDcfp1ZkDHwUnk2okJQVEMDIwBG0UUN9OvajeyeVYLicWKE8Q71Aj4SoA1/z/1SMfBhskSYALnbaVRgscCsUtkNBCjJOfIlrcttv/9tHNhkHVMYA/G4hw2wJ63JfNKg==
+X-Forefront-Antispam-Report:
+	CIP:84.19.233.75;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:edirelay1.ad.cirrus.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(376014)(61400799027)(82310400026)(10067099003)(11063799006)(56012099006)(261021123027099003)(261021121427099003)(261022105027099003)(261009223027099003)(261102123227099003)(261026121527099003)(261026140227099003)(261022113327099003)(261022075727099003)(261028144727099003)(16102099003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	ck1faaCScFjmapDHoWA13Dv1pTklXIC97cCXOEw8c9MczT6iGAh9glRz+sqJhD2KRp1z6MO0R1lxFnu04d/VcFvMLQ5hMx5oglx8n5b1eB2XPZj6d0sbOt3aBnDz7w2l51KnnIhN8w5UmHhKkYh7HQXRssaz09kzJdh/nXqr1BROUoWPpMR5KI++dHsOpopePT8ORBPxx4DJjL+2J/VVhvHdEbI5yaY7Xy5G7DLmnG7N6K5LI/uluUYV8JZppQGzmYsLmKCegWkRQR7XCvsyXKYTGQVmuhmeZaydDcyOIuWeGOZ3uapEdRxpZDPyM+CRVLlaH2+eAM5mqFHk7YJHHE8ik6RjA9c+hgebPMuve2FSrGXoPeJBPMuR9ZS8vRibhMbFtrTAVc04ziaOTwWrwjriqtfM1RVW+cnZS7nBD2udfeYtGb57RDb263JcXrje
+X-Exchange-RoutingPolicyChecked:
+	G2l0Qdjt+yRqgO8OKwnPfTo/FUvvYVafFsKGYNiojrvhmYmCHvMHzcmTOqCbY1Q2zZMGiFQwpWaY0b5gzSxddZ2QVsAzlNcB1qpZfQ42hj20jQTYhNQ/+bQkPE+lYSCqLJzWtc66X0IAjQClMTzFtY9+2Y7OhU4uJENhxFfSea7ghqCWSUNT9FQVtBavBLwtchfpqYdFsjoT158HodoVM+sDeyYTZ+MJqWEZ1KJXRwRsr6km4L1urwxTRRo5so6ZoMXJz6tZxZ0UYgWe2JS74nqp8aBJ8CX25sVt+NFqfJCumRK3rEYh1N3YCv7sJO6+/r4+1kyuy8N4+bhHgy135Q==
+X-OriginatorOrg: opensource.cirrus.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 17:10:37.4577
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: cebd6768-1f95-4a9f-1499-08df4016b4db
+X-MS-Exchange-CrossTenant-Id: bec09025-e5bc-40d1-a355-8e955c307de8
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=bec09025-e5bc-40d1-a355-8e955c307de8;Ip=[84.19.233.75];Helo=[edirelay1.ad.cirrus.com]
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TreatMessagesAsInternal-PH2PEPF00048917.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV0PR19MB9360
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDA2OCBTYWx0ZWRfX6t3CN0iaME32
+ N7FXo9QzqMMbyLFjb+l3v6NY62yjmqWlxMDI8sg1MKX1gqAdOwzgmxajJCZF1mTNMiB66AGMn0a
+ rMz+3gRk9b/Nw9MH/vrIo5SyM11fg67b6ZrCIKdU0SmV7f5E5f2lrPcgtFZY0yfypK6VFk9k8fG
+ gc90lzTcO8Ea95ZOSz5Ce5q0KYbsg6WNNPDRDnQrLdXyRFWYUlh/g+A3ZGWAW+J14+6Nb5nuuN6
+ zO2fJ5B0GncH9TtmwETADCr02iVjJmi2LKwTGH4djq1GmAO/oFZproivEl1woL4jomfDGv9W9DF
+ 7jNBtpibOtmNJRJYxm/TTF+oYeKx5l/UKvxKsN5bK6O0Li/qnG3E8vC6ZTwtT4pny2maVxExA+s
+ mrmXqRlfc//szh/L/frpyr9q7EUKUCAyQzfKcR0grLWZT5/XUI3Q27DaD8663VYJahydjcuXc8n
+ 3xXPKQ0/SjtNCh/mLcQ==
+X-Proofpoint-ORIG-GUID: MchcK5vnh0U6HlWd-okEB4eaiozXiHxR
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDA2OCBTYWx0ZWRfX55R3btliYHre
+ GUjVvj63C22+Wy8d0ynDJO1qw0qaTNGQJWbb8KQ4wRDw+8VBl/1kCLlZAEhtUSviVFPXi/UZQf/
+ D2d+YwKsAJk9UxOdIPOWBGcUMc6Fl7Y=
+X-Proofpoint-GUID: MchcK5vnh0U6HlWd-okEB4eaiozXiHxR
+X-Authority-Analysis: v=2.4 cv=JagpPkKV c=1 sm=1 tr=0 ts=6af4a24c cx=c_pps
+ a=6tOaaN1fXmJE/LdyR88bKQ==:117 a=h1hSm8JtM9GN1ddwPAif2w==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
+ a=zJRp6_cAMcgA:10 a=s63m1ICgrNkA:10 a=RWc_ulEos4gA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=iX4cTi3TZMoOKdANLEfx:22 a=KfkQE9S9VqCBgivYGm0O:22
+ a=w1d2syhTAAAA:8 a=t_SYNOdkF1KoeevYuH8A:9
+X-Proofpoint-Spam-Reason: safe
 
-On Wed, Oct 07, 2026 at 01:39:00AM -0300, Val Packett wrote:
-> 
-> On 9/29/26 10:06 AM, Joonhoe Kim wrote:
-> > The plug handler takes a runtime PM reference every time it runs and
-> > sets dp->plugged; the unplug handler drops a single reference when
-> > dp->plugged is set. msm_dp_bridge_detect() also takes a reference and
-> > marks the sink plugged, and keeps that reference as well -- on every
-> > detect while the sink stays connected. On top of that, in the current
-> > tree the plug handler runs more than once per plug:
-> > drm_bridge_connector_detect() calls .detect() and then .hpd_notify(),
-> > and pmic_glink altmode reports an IRQ_HPD as "connected" too. Every
-> > extra reference is leaked on unplug.
-> > 
-> > On a Lenovo TB323FU (SM8850, DP over the USB-C port via pmic_glink
-> > altmode) the DP controller's usage count reached 28-34 after a few
-> > plugs (rpm_usage tracepoint), so the controller never runtime-suspended
-> > after the display was unplugged. It in turn kept the MDSS core GDSC on
-> > while all displays were off.
-> > 
-> > Make the plugged state own exactly one reference: the plug handler
-> > only takes it when the sink was not plugged yet, and detect() returns
-> > its own reference when the plugged state already holds one, or drops
-> > both when it finds the sink gone.
-> > 
-> > With this the count stays at 1-3 while a display is connected, the
-> > controller suspends 3-4 s after unplug, MDSS suspends and its GDSC
-> > powers off on DPMS off, and replugging (quickly or after 20 s) still
-> > brings the picture back. Only tested on this device.
-> > 
-> > Fixes: 3ea2d1c3d154 ("drm/msm/dp: turn link_ready into plugged")
-> > Assisted-by: LLM
-> > Signed-off-by: Joonhoe Kim <26rote@gmail.com>
-> > ---
-> > Related pending work: "drm: handle IRQ_HPD events correctly" v5
-> > (https://lore.kernel.org/all/20260920-hpd-irq-events-v5-0-ff1de0090c72@oss.qualcomm.com/)
-> > removes the IRQ_HPD-as-plug path, and MST v7 26/35
-> > (https://lore.kernel.org/all/20260929-msm-dp-mst-v7-26-4b81473185e7@oss.qualcomm.com/)
-> > the detect-based hpd_notify for DP; the reference that
-> > msm_dp_bridge_detect() keeps is leaked either way. MST v7 27/35 touches
-> > the same lines as the first hunk; happy to rebase on top of it.
-> 
-> Also kinda related / touching the same places, tho not yet sent to the lists
-> AFAIK:
-> 
-> "drm/msm/dp: Mark the link bad when an active sink is replugged"
-> https://github.com/radxa/kernel/commit/eb3247f6f9a39dcb15cf4b1df6d4732b1489b410
-> 
-> >   drivers/gpu/drm/msm/dp/dp_display.c | 23 +++++++++++++++++++----
-> >   1 file changed, 19 insertions(+), 4 deletions(-)
-> > 
-> > 
-> > base-commit: 6375e61c01e93e35ee7acd336a689ac1fae4b509
-> > 
-> > diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-> > index 6abe30bdff12..4e47b659c71d 100644
-> > --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> > +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> > @@ -412,10 +412,17 @@ static int msm_dp_hpd_plug_handle(struct msm_dp_display_private *dp)
-> >   	guard(mutex)(&dp->plugged_lock);
-> > -	ret = pm_runtime_resume_and_get(&pdev->dev);
-> > -	if (ret) {
-> > -		DRM_ERROR("failed to pm_runtime_resume\n");
-> > -		return ret;
-> > +	/*
-> > +	 * The plugged state holds one runtime PM reference, dropped by the
-> > +	 * unplug handler. The Type-C side repeats "connected" notifications,
-> > +	 * and detect() may have seen the sink first: take it only once.
-> > +	 */
-> > +	if (!dp->plugged) {
-> > +		ret = pm_runtime_resume_and_get(&pdev->dev);
-> > +		if (ret) {
-> > +			DRM_ERROR("failed to pm_runtime_resume\n");
-> > +			return ret;
-> > +		}
-> >   	}
-> >   	msm_dp_aux_enable_xfers(dp->aux, true);
-> > @@ -897,6 +904,7 @@ enum drm_connector_status msm_dp_bridge_detect(struct drm_bridge *bridge,
-> >   	u8 dpcd[DP_RECEIVER_CAP_SIZE];
-> >   	struct drm_dp_desc desc;
-> >   	bool phy_deinit;
-> > +	bool was_plugged;
-> >   	int ret;
-> >   	dp = to_dp_bridge(bridge)->msm_dp_display;
-> > @@ -910,6 +918,7 @@ enum drm_connector_status msm_dp_bridge_detect(struct drm_bridge *bridge,
-> >   		return status;
-> >   	}
-> > +	was_plugged = priv->plugged;
-> >   	phy_deinit = msm_dp_display_host_phy_init(priv);
-> >   	msm_dp_aux_enable_xfers(priv->aux, true);
-> > @@ -960,6 +969,12 @@ enum drm_connector_status msm_dp_bridge_detect(struct drm_bridge *bridge,
-> >   		}
-> >   		pm_runtime_put_sync(&dp->pdev->dev);
-> > +		/* the sink is gone: drop the plugged state's reference too */
-> > +		if (was_plugged)
-> > +			pm_runtime_put_sync(&dp->pdev->dev);
-> > +	} else if (was_plugged) {
-> > +		/* the plugged state already holds its reference */
-> > +		pm_runtime_put_sync(&dp->pdev->dev);
-> >   	}
-> >   	return status;
-> This last chunk looks odd, is that not equivalent to just doing
-> 
-> if (was_plugged) pm_runtime_put_sync(&dp->pdev->dev);
-> 
-> on the outer level, outside of the outer if/else?
+The newer variants requires a slightly different process for the load
+detection. It is no longer necessary to apply different tuning for 3 vs
+4-pole headsets, but a new field does require updated for CTIA vs OMTP
+headsets. Update the driver to follow the correct process for this
+new version of the chip.
 
-I'll fix that while applying.
+Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+---
+ sound/soc/codecs/cs42l43-jack.c | 101 +++++++++++++++++++++-----------
+ 1 file changed, 67 insertions(+), 34 deletions(-)
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-
-
-
+diff --git a/sound/soc/codecs/cs42l43-jack.c b/sound/soc/codecs/cs42l43-jack.c
+index a2555dd9229e3..b3f89c712ed93 100644
+--- a/sound/soc/codecs/cs42l43-jack.c
++++ b/sound/soc/codecs/cs42l43-jack.c
+@@ -324,6 +324,11 @@ irqreturn_t cs42l43_bias_detect_clamp(int irq, void *data)
+ #define CS42L43_JACK_BUTTONS (SND_JACK_BTN_0 | SND_JACK_BTN_1 | SND_JACK_BTN_2 | \
+ 			      SND_JACK_BTN_3 | SND_JACK_BTN_4 | SND_JACK_BTN_5)
+ 
++#define CS42L43_TYPE_CTIA 0x0
++#define CS42L43_TYPE_OMTP 0x1
++#define CS42L43_TYPE_3POLE 0x2
++#define CS42L43_TYPE_OPEN 0x3
++
+ static inline bool cs42l43_jack_present(struct cs42l43_codec *priv)
+ {
+ 	struct cs42l43 *cs42l43 = priv->core;
+@@ -502,9 +507,11 @@ static const struct reg_sequence cs42l43_4pole_patch[] = {
+ 	{ 0x4000,	0x00000000 },
+ };
+ 
+-static void cs42l43_start_load_detect(struct cs42l43_codec *priv, bool mic)
++static void cs42l43_start_load_detect(struct cs42l43_codec *priv, int type)
+ {
+ 	struct cs42l43 *cs42l43 = priv->core;
++	const struct reg_sequence *patch;
++	int size;
+ 
+ 	dev_dbg(priv->dev, "Start load detect\n");
+ 
+@@ -526,14 +533,36 @@ static void cs42l43_start_load_detect(struct cs42l43_codec *priv, bool mic)
+ 			dev_err(priv->dev, "Load detect HP power down timed out\n");
+ 	}
+ 
+-	if (mic)
+-		regmap_multi_reg_write_bypassed(cs42l43->regmap,
+-						cs42l43_4pole_patch,
+-						ARRAY_SIZE(cs42l43_4pole_patch));
+-	else
+-		regmap_multi_reg_write_bypassed(cs42l43->regmap,
+-						cs42l43_3pole_patch,
+-						ARRAY_SIZE(cs42l43_3pole_patch));
++	switch (cs42l43->variant_id) {
++	case CS42L43_DEVID_VAL:
++		switch (type) {
++		case CS42L43_TYPE_3POLE:
++		case CS42L43_TYPE_OPEN:
++			patch = cs42l43_3pole_patch;
++			size = ARRAY_SIZE(cs42l43_3pole_patch);
++			break;
++		default:
++			patch = cs42l43_4pole_patch;
++			size = ARRAY_SIZE(cs42l43_4pole_patch);
++			break;
++		}
++		break;
++	default:
++		patch = cs42l43_4pole_patch;
++		size = ARRAY_SIZE(cs42l43_4pole_patch);
++
++		switch (type) {
++		case CS42L43_TYPE_OMTP:
++			regmap_write(cs42l43->regmap, CS42L43B_LOAD_DET_SEL, 0x89);
++			break;
++		default:
++			regmap_write(cs42l43->regmap, CS42L43B_LOAD_DET_SEL, 0x98);
++			break;
++		}
++		break;
++	}
++
++	regmap_multi_reg_write_bypassed(cs42l43->regmap, patch, size);
+ 
+ 	regmap_update_bits(cs42l43->regmap, CS42L43_BLOCK_EN3,
+ 			   CS42L43_ADC1_EN_MASK | CS42L43_ADC2_EN_MASK, 0);
+@@ -586,6 +615,14 @@ static void cs42l43_stop_load_detect(struct cs42l43_codec *priv)
+ 			   CS42L43_ADC1_EN_MASK | CS42L43_ADC2_EN_MASK,
+ 			   priv->adc_ena);
+ 
++	switch (cs42l43->variant_id) {
++	case CS42L43_DEVID_VAL:
++		break;
++	default:
++		regmap_write(cs42l43->regmap, CS42L43B_LOAD_DET_SEL, 0x0);
++		break;
++	}
++
+ 	if (priv->hp_ena && !priv->hp_ilimited) {
+ 		unsigned long time_left;
+ 
+@@ -605,7 +642,7 @@ static void cs42l43_stop_load_detect(struct cs42l43_codec *priv)
+ 	snd_soc_dapm_mutex_unlock(snd_soc_component_to_dapm(priv->component));
+ }
+ 
+-static int cs42l43_run_load_detect(struct cs42l43_codec *priv, bool mic)
++static int cs42l43_run_load_detect(struct cs42l43_codec *priv, int type)
+ {
+ 	struct cs42l43 *cs42l43 = priv->core;
+ 	unsigned int val = 0;
+@@ -613,7 +650,7 @@ static int cs42l43_run_load_detect(struct cs42l43_codec *priv, bool mic)
+ 
+ 	reinit_completion(&priv->load_detect);
+ 
+-	cs42l43_start_load_detect(priv, mic);
++	cs42l43_start_load_detect(priv, type);
+ 	time_left = wait_for_completion_timeout(&priv->load_detect,
+ 						msecs_to_jiffies(CS42L43_LOAD_TIMEOUT_MS));
+ 	cs42l43_stop_load_detect(priv);
+@@ -629,23 +666,25 @@ static int cs42l43_run_load_detect(struct cs42l43_codec *priv, bool mic)
+ 	if (!cs42l43_jack_present(priv))
+ 		return -ENODEV;
+ 
+-	if (mic) {
++	switch (type) {
++	case CS42L43_TYPE_3POLE:
++	case CS42L43_TYPE_OPEN:
++		switch (val & CS42L43_AMP3_RES_DET_MASK) {
++		case 0x0: // < 22 Ohm impedance
++		case 0x1: // < 150 Ohm impedance
++		case 0x2: // < 1000 Ohm impedance
++			return CS42L43_JACK_HEADPHONE;
++		case 0x3: // > 1000 Ohm impedance
++			return CS42L43_JACK_LINEOUT;
++		default:
++			return -EINVAL;
++		}
++	default:
+ 		cs42l43_start_hs_bias(priv, false);
+ 		cs42l43_start_button_detect(priv);
+ 
+ 		return CS42L43_JACK_HEADSET;
+ 	}
+-
+-	switch (val & CS42L43_AMP3_RES_DET_MASK) {
+-	case 0x0: // < 22 Ohm impedance
+-	case 0x1: // < 150 Ohm impedance
+-	case 0x2: // < 1000 Ohm impedance
+-		return CS42L43_JACK_HEADPHONE;
+-	case 0x3: // > 1000 Ohm impedance
+-		return CS42L43_JACK_LINEOUT;
+-	default:
+-		return -EINVAL;
+-	}
+ }
+ 
+ static int cs42l43_run_type_detect(struct cs42l43_codec *priv)
+@@ -686,18 +725,12 @@ static int cs42l43_run_type_detect(struct cs42l43_codec *priv)
+ 	if (!cs42l43_jack_present(priv))
+ 		return -ENODEV;
+ 
+-	switch (type & CS42L43_HSDET_TYPE_STS_MASK) {
+-	case 0x0: // CTIA
+-	case 0x1: // OMTP
+-	case 0x4:
+-		return cs42l43_run_load_detect(priv, true);
+-	case 0x2: // 3-pole
+-		return cs42l43_run_load_detect(priv, false);
+-	case 0x3: // Open-circuit
++	type &= CS42L43_HSDET_TYPE_STS_MASK;
++
++	if (type == CS42L43_TYPE_OPEN)
+ 		return CS42L43_JACK_EXTENSION;
+-	default:
+-		return -EINVAL;
+-	}
++	else
++		return cs42l43_run_load_detect(priv, type);
+ }
+ 
+ void cs42l43_clear_jack(struct cs42l43_codec *priv)
 -- 
-With best wishes
-Dmitry
+2.47.3
+
