@@ -1,101 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.53
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794414125;
-	b=zEUSjUyHhSddnRsG1MFjJGgfxX0KtLcor1a6ku5Whftj8kQF9nnqCneMwIc/bWk636rb
-	 TsbSEGgv8bLQLHCzpfT/moQ2jDPByvg3/uwLEIPCm02oNKLRW+FPnvM8Sn21IWvE7bz4p
-	 6wxcxEecXwK7ulmeOgOl0f35+CkUGeNSFl82yb2bvLBMPQgwO3yD2prwlDbQVBE8KOn3v
-	 A1sYhvZAK8QzLt4egVvF2NtcCwZyHlusGum0ZYTfvEBnHWP6wMNvW25expnKqtoNzWA36
-	 +NaPi+WqN18SLFs2CkGGKadDegeXR1Old0VDuNZgfZ//ipMkfuoikzvHl6ziTsmQ3dw==
+	t=1794414147;
+	b=HrUqHqK3BN8Dxq+CjO/X8ps1tl3SFYA//qRBBg6L9bHQJDsawYR3hmkjKHVCoH4DfI3I
+	 MqUhYCAWNL7X/JIksabnucJi80sFCB3YAcGn1qm29+ryStuqKbmBaCY7etc09zgegrmg/
+	 nZ82sAgeJ9yvi+4cZ0tslihFLSSdGKZ6JNGCktsYfBY+HBXbZh000Yxuhj3z/Up754J2u
+	 nMV8HXGX0dbOIu94M26CD7nfsc1GGPGOVIzu7Qu/WYQnSfA0zIkBNayWh2n1qJfZb2+fj
+	 ocRY0aSCAx4HGRILJ5sYJCLKtZuTqZXFRvsdb2YB8tC25pyv1Vrc3Yu+BZLN9i9rhWA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794414125;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=VEmKr9XjWd6SJafMK/s6uXcGULEcqUlVNrdZViHwMeQ=;
-	b=jfKK1IYZ1mIRcebbuw3XBzvBnPVWZ3Ui48MB/lNTmEvwHX+pbWK1GQkk5CB8SFemBEco
-	 1hIYQjbBSsg2OAWTUn276MNqqx5a3qtIdN6zaUBCz49GF/HWW97wvLBaY4iSLV7sX9fMv
-	 aUU/hrbSR89rDfXhEuXXPhpT/uIhFxomGT5+ZKfeQXy+QrRyXh5n1nAzA4OmLr15KA3UL
-	 TuU9YK6EybQ0NDnzO4hOip3hu9A3sRSK5mNZ1tbLUppVHiNF2Q3coODuxed5w23esHsEK
-	 ++bAT7l5fNHdXb0AYffbmPMu0IJt/QB9SasG/e3GDGhjqpIBVv2+o1yVGBfYKXlAVVg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794414147;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=q8mOpRnf+Di73N3yU2eDEU0GPveFfttiuju/Wh/wS8w=;
+	b=pqI7wPpVJxSsaru6iQzV3+EXLTqw5a+wN4De7yH7Zr8yEtxgp+/Z9Av6mt8m93eu4Gi7
+	 Zh5LlN59c3/eWU0F1pi3Ywwa+NXyHZqn6jXADUC+pvO26G4KD15l1VB44MZ5HVwAWWdUX
+	 imgjZqgUpamT2g20aa57Rd6xHZjfFYtglL51CqlAmR+jQBNZV7VCHsyBdfBsLMiT1pgyK
+	 OfFnxr2GRNOt4RJX+crIq+LM9f0TV5gKuDChjhpEdlsfyRmp6+/OQN35LTcONvO8oZfyI
+	 eaAon/WUGsWRvHnHBQCsZUnk7R0vNIHAIC0rRP1JNSSEEaEpTvNqRW6QkpEcIyjjdbw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SkyBy+vG;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.53
-Received: from mail-ua1-f53.google.com (mail-ua1-f53.google.com [209.85.222.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HukQX5kZ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A31E606A32A;
+	Wed, 11 Nov 2026 16:22:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HukQX5kZ
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794414147;
+	b=wYwlAyyARqfvEsVdiqYU2G+yd4Ntvwv/6F9gGI/la3liVvhwTEf3GveWBOJVvNn46x7g
+	 g544yRo1rkI4KKclBkvSRWzL8DQer8rKo7KIPgr4Ojpf3gS04OtiTfQwNp1a/+XR//6r1
+	 g+DhJ+5BXuxdhLQiASekkq3B6OFtv3orwvvbo3Oz4kK1EXDOLJE3S/xB3gDfuSfNh1GgX
+	 05m3Z5s0LLn+oS8kfyJ9a0PVgNeWAh2cV1CL5LEyDOGsgPik/+mBnwv4wD32e513JVM7K
+	 DbLQ2WtBf6ntR5cJqFSsLxZkaqA3J2tl8xa9e9TeGfAknjSy4i/RSWurCT8Gn5tTAWg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794414147;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
+	 Content-Transfer-Encoding;
+	bh=q8mOpRnf+Di73N3yU2eDEU0GPveFfttiuju/Wh/wS8w=;
+	b=wO5LFu6haaOahJAHlJAHjn1vQSKYcXNOTySl4kemQaLFzt4KV0Jr/p4u6qIvN3oixRll
+	 3EK0vkO+X2RVvprvsPUZi+SlnPSxr3nvM+z85BZfN4TnvwOhaNs1raybY5gYkp5dN6z75
+	 Jkez4A8uHZIkIfi8EFl9H5xWTg/ptmfPJMGlNTqiC7/QIQBbVATJ7w843bkZ9DDdNgfVT
+	 Uvyf+C353qjt4RAYlWqkIdyaj8XQSsjE1oVrWLLc3YOS0kpy2K/x6CWF+vJA9PvarbdVD
+	 NypQnptO0hpOEExRRwGT9dzSoTYlEgbrdAedNj5+5F1Mcz/86l+zOaDfoDYv5BZkxkQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AD72606A321
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 16:22:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7AD72606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SkyBy+vG
-Received: by mail-ua1-f53.google.com with SMTP id a1e0cc1a2514c-99c36873ceaso28160241.3
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 08:22:05 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794414124; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Rzbin9RNKkjtH28Rcdikwc1r633VVX/yvTSSvnRR5XFlPby4BxrstBzaNl8Pi1Kd/J
-         jnZQP+/r+nYsiO8CHkGW3W6H2ldaoAmy41SB+pvYgFVo0tCjspZf/dAa+8fQVBv1nltD
-         9Y3B6/u2Sdl1bP+TJt4ARlpDz1DTyIsxS/VrgKL/FVGtS7GF241oCNfppSUvHB2aEKnS
-         dw4TQ03HT/f92/Ho78HjliFGm+uasfdXJnqe7ta4n2Lc24OQiqaHyJU+eU9rJF3xjk2X
-         fz5K2vVagkD1aV6YmrC7evmPskF8i5AwiLfyu3USDRVAbQ+GIY5fTPXYLNTRm1+bD/GC
-         x4Fg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=VEmKr9XjWd6SJafMK/s6uXcGULEcqUlVNrdZViHwMeQ=;
-        fh=QyulsSO2r8mwstscFwZViq71SfPZTSgG7yLc54iQgug=;
-        b=fFrlvzy/iVscxPirQXar35tc6FkCEJkrinCsoEfEIqODDeRC9U/qXO3CZT7XinZFbO
-         VvW/M+IQ0d/3aYL6eagXVBTQMxVeMnUxdnVg3hyohXPyGaNBNRpbUTbQZW6OT9BAU9RL
-         Ciq0P0ANSkHm7830WPcej7JDnzi8gsQ+gdvBRiiW8iobPPuEsmHDI4Mdh0G8elQScL0J
-         dGm8fB8Mll4P9uvCRX90spppR7HETgKu23ET9rHk9iNxwDcILn+R/IDUgKEjJFYQs/iJ
-         zvvIqT/EtWi7Ge8A0kNJSGjl0QvZu3fSVz1A/TVXN5z0bxhVfY3tmG1HiVT2A9ab7ixh
-         ZTxQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794414124; x=1795018924; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=VEmKr9XjWd6SJafMK/s6uXcGULEcqUlVNrdZViHwMeQ=;
-        b=SkyBy+vGX5o4amffhTUlYC4HGxUYNCdvfyUkC7/EDO0Uw65Q456ZgdaMQIe2lJywdR
-         slecT6gBsRmq0irkzCUGyrgtoYEcjz7KuHVI5Yti3ZtYh32XFlFjAUfb+0C4LWkdXJBR
-         HzihJb64+gqpBbPL9wY5PsnTMVAfplgGVBED1nWTnokV4xvipf83X8Ln6jwfx2bAVAk0
-         HJmHU5XHb/VWR5bK/7OssviLzDVCH2WbySxzo8Erg1tn++ZRQKQLqYffgLpPqvVOHscL
-         pbckFD4GvJtG67Wgzl1L2A/+ZAsdMXE1n2HcRVRuEfH1qz6Y44fZsLhDCZoehL3jYwMF
-         EQAA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794414124; x=1795018924;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VEmKr9XjWd6SJafMK/s6uXcGULEcqUlVNrdZViHwMeQ=;
-        b=Q9Mnlq6wNryCBRJF6+tgd/a3XdWNlP0zxdYI0F+8j4oraaVwcK4JPzTnzIRPdzAGQ6
-         8JP4+PRVn4gATH2tDOpWmnlaws0HIUQtHN3CdDUv/hx6CTu2nFQUDy+Wjgqn8SQXRjnQ
-         MiBJO491uWP5hczps/+pY8dbAE3NGLTukt2bMUnzUW763r7Xvzc6oMvYnZd+Ezg5Y2AK
-         IHQ7cCEP2mTxloApL5C04yDdpvN9yQ7RhAtz9VzKMd2mZ9AIC2mK8PRmafOv7T6DjpWs
-         3hSd9NNk8188+MQzwsJRV9apAEm71vhVeNWlLw0mE1CdL/N58lb3TAKeb++4Emn9T+qQ
-         vJBw==
-X-Forwarded-Encrypted: i=1; AL+hErH5RD/A7ZPFTK+lbxUNjnGNAeGdIRMVrMr7Uw4lzIpuHAvGCg13MmMAYAUkhZ77VXNmWyE7KkU2DY/GIpc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/3LQZXvO/bllSHeLAJ8amTTvyk3uhHWdUgtT/jv5toNgtCSLhs
-	tAmc429POdPA9DYg0CQAycnyo7Aqqx/+e4Pir5wXtnj557/gFc/KFKsV7NTTqno8mW/M6K0UGkh
-	pWvO91UJkXt5tKbVTmRyCWGY5WWBMGBU=
-X-Gm-Gg: AYBFou2o8U/nrYTdyvBlrtfKFSE0dPO+lkSvsYfrHjfUfjWI7oE5Pyph10DqPwHUuYf
-	Spt00SrxLAqtv1PcbryCOS4U+fXT43YLgTDwFJKGhsTHA+U3tB91PNJ30rvkYTgdt+J9takV2KN
-	WoomSD+aAEvUL2LMhtnW/QNi/a9SH/lhFnjJb7DnAip6BoDBwv0RkW+MzcI75bbttExRYFkY0Ep
-	JFhU3SmmgNIBMWcsTQMWOPKIjxjYHU91mnntuB7fJtbF9e6LaDi3a2z8YVfIynDShYBfWOyLck8
-	nB++D56rZFJbz2Fb1+5hXtQt9FelkRFCzG8OSJ7cwIsIDaPiMEKXlqUUnhqkg4UDe8th0yku4Dr
-	qcgsflzHZGXN/2qrOosO4ixQhZ2BSvI9PyYn7L/gRRenS1luVxvbMr9+mT329mtA16AbbQc1w0H
-	RncHYHeDuRON66auNVAIc76MlGMjdy8WVIXc78tyT8XqWE34vTsw1BYDAHWtM=
-X-Received: by 2002:a05:6122:870d:b0:5ec:b681:f4ca with SMTP id
- 71dfb90a1353d-5ee1c433357mr1222074e0c.4.1794414124275; Wed, 11 Nov 2026
- 08:22:04 -0800 (PST)
+	by smtp.kernel.org (Postfix) with ESMTPS id 9E1411F00A05;
+	Wed, 11 Nov 2026 16:22:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794414147;
+	bh=q8mOpRnf+Di73N3yU2eDEU0GPveFfttiuju/Wh/wS8w=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=HukQX5kZVzKv62Uw4vbqoKlv+mT0ZtoCTZW8Mrn9LU+fuONL2rgbvXY+KS8Fjp672
+	 hpvtNVPyAEc5XeMiGtHdM4O9pWk/e2mm/Uf4vUJNum0/Qiav8YOJ8vQZ+ze3ln1gO/
+	 YrrdnzvAkj+61G1WDjk/w02FLqq4MpcMV9ddecgJ7/E4JraZPC16t6X8ySszwjG5MD
+	 Z2BgOYi+uKohTM79INMyYGTwnkjBndmqujq8PdWIfRtJEHomb8wcKg+dlfwge+wc59
+	 xLsEYrT0ZRT0jreXOcucvqbXgAQtmfKwJLtYe3fYopliWXFWn/lSfA8REYNVVZr+Ut
+	 bq74+OqcPdPhA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id F269749025;
+	Wed, 11 Nov 2026 16:22:25 +0000 (UTC)
+From: Joas Antonio dos Santos via B4 Relay <devnull+joasantonio108.gmail.com@kernel.org>
+Date: Wed, 11 Nov 2026 16:22:26 +0000
+Subject: [PATCH net v2] net: usb: smsc75xx: reject frames without a full
+ header and FCS
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,107 +83,106 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261104150632.33843-1-sinha.aryan03@gmail.com>
-In-Reply-To: <20261104150632.33843-1-sinha.aryan03@gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 11 Nov 2026 11:21:51 -0500
-X-Gm-Features: AclHuK_SVfsU1onLelID_Qe8h47UVP46ohV1eNk_tzZkaP2m6CnheQmaf2PAlsY
-Message-ID: <CADnq5_N7zDDuE-S6Jyg7q706H3SW6WuM4eOTBcEU90boYJG=PA@mail.gmail.com>
-Subject: Re: [PATCH 1/2] drm/amdgpu: fix kernel-doc in amdgpu_ualink.c
-To: Aryan Sinha <sinha.aryan03@gmail.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, 
-	=?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, amd-gfx@lists.freedesktop.org, 
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
-	kernel test robot <lkp@intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261111-smsc75xx-rx-fcs-v2-1-216a5f26842a@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAEGW9GoC/3WNvQ7CMBCDX6W6maBeKCUw8R6oQ0ku7Un0R7kqC
+ qr67kTZGTx8tmzvIBSYBB7VDoEiCy9zBn2qwI79PJBilxl0rVtErJVMYm/XlFRIylvJ6u+tcR6
+ dJcitNZDnVBZfMNMGXTZHlm0J3/ISsUR/ByMqVA3VjXl7q42/PIep58/ZLhN0x3H8AOCp+x+zA
+ AAA
+To: steve.glendinning@shawell.net, andrew+netdev@lunn.ch, 
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, 
+ pabeni@redhat.com, joasantonio108@gmail.com
+Cc: netdev@vger.kernel.org, linux-usb@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794414145; l=3049;
+ i=joasantonio108@gmail.com; s=20261031; h=from:subject:message-id;
+ bh=UakfyXge5Z7dCorT5L2tCidbQJeCZJFs6IXcWJSAcH0=;
+ b=X3LdGQ0gmxyYqtbCxoFYV/DavCK6B5PoaonNbH+/qj6xL6UcK7taMtAk6ZVCvgO6LnrJkQk1K
+ DShzMr0btrABu3f+q47WR8v7Vh5Qo+iUn+I5TZWfi4bCr6YBhITayeo
+X-Developer-Key: i=joasantonio108@gmail.com; a=ed25519;
+ pk=ZxAznJT/FcPPdzLrDDFJQm4LLjjHVGBBqDSG3TXS23w=
+X-Endpoint-Received: by B4 Relay for joasantonio108@gmail.com/20261031 with
+ auth_id=1371
+X-Original-From: Joas Antonio dos Santos <joasantonio108@gmail.com>
+Reply-To: joasantonio108@gmail.com
+Content-Transfer-Encoding: 7bit
 
-On Thu, Nov 5, 2026 at 9:11=E2=80=AFAM Aryan Sinha <sinha.aryan03@gmail.com=
-> wrote:
->
-> The two comments do not describe what follows them. The one above
-> amdgpu_ualink_npa_vm_unmap_range() is missing the ualink prefix, and the =
-other one for amdgpu_ualink_gart_npa_addr() sits above two defines instead =
-of the function, so kernel-doc attaches it to the first defined one.
->
-> hence, Move the defines up and fix the name.
-> The description also had a stray blank line splitting it in two and said =
-dst_accid_id where it meant dst_accel_id, so join & fix it back up.
->
-> Reported-by: kernel test robot <lkp@intel.com>
-> Closes: https://lore.kernel.org/r/202609241952.zFr1FYRB-lkp@intel.com/
-> Signed-off-by: Aryan Sinha <sinha.aryan03@gmail.com>
+From: Joas Antonio dos Santos <joasantonio108@gmail.com>
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-for patch 1.  I'm skipping patch 2 because I find str_enable_disable()
-harder to understand and just as long to write as the current code.
+smsc75xx_rx_fixup() takes the frame length from the RX command word
+supplied by the device and strips the FCS by using "size - 4" for the
+allocation, skb_put() and memcpy() of each frame that is not the last
+one in the URB.  The length is only checked against an upper bound and
+against skb->len, so a device can report a length field of 2..5, which
+gives a size of 0..3 after RXW_PADDING is subtracted.
 
-Thanks!
+size is a u32, so "size - 4" then wraps to 0xfffffffc..0xffffffff.
+__netdev_alloc_skb() adds NET_SKB_PAD to the unsigned length, which
+wraps back to a small value and the allocation succeeds.  skb_put()
+adds the length to the 32-bit skb->tail and skb->len, which also wrap,
+so the skb_over_panic() check does not fire.  The following memcpy()
+then tries to copy almost 4 GiB from the URB buffer into that small
+allocation and writes far beyond it.
 
-Alex
+A malicious or malfunctioning USB device can use this to corrupt
+kernel memory or crash the machine.
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c | 17 +++++++----------
->  1 file changed, 7 insertions(+), 10 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_ualink.c
-> index 6cd3927a7..f875209e5 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-> @@ -4631,7 +4631,7 @@ static int amdgpu_ualink_npa_vm_map_range(struct am=
-dgpu_device *adev, struct amd
->  }
->
->  /**
-> - * amdgpu_npa_vm_unmap_range - Unmap a range from the NPA VM
-> + * amdgpu_ualink_npa_vm_unmap_range - Unmap a range from the NPA VM
->   * @adev: amdgpu device pointer
->   * @bo: buffer object backing the mapping
->   * @pte_flags: page table entry flags
-> @@ -4727,6 +4727,9 @@ static u64 amdgpu_ualink_npa_addr(struct amdgpu_dev=
-ice *adev, u32 type,
->         return npa;
->  }
->
-> +#define AMDGPU_UALINK_GART_NPA_ADDR_GPUID_SHIFT                41
-> +#define AMDGPU_UALINK_GART_NPA_ADDR_GPUID_MASK         GENMASK_ULL(50, 4=
-1)
-> +
->  /**
->   * amdgpu_ualink_gart_npa_addr - Get GART-mapped NPA address for ring bu=
-ffer
->   * @adev: amdgpu device pointer
-> @@ -4734,18 +4737,12 @@ static u64 amdgpu_ualink_npa_addr(struct amdgpu_d=
-evice *adev, u32 type,
->   * @src_accel_id: Source accelerator ID
->   * @dst_accel_id: Destination accelerator ID
->   *
-> - * Computes the NPA address suitable for GART mapping by adding dst_acci=
-d_id to
-> - * NPA address to access remote by SDMA.
-> -
-> - * clears the source GPU ID bits from the NPA address which is set for
-> - * address-identification mode.
-> + * Computes the NPA address suitable for GART mapping by adding dst_acce=
-l_id to
-> + * NPA address to access remote by SDMA. It also clears the source GPU I=
-D bits
-> + * from the NPA address which is set for address-identification mode.
->   *
->   * Return: NPA address adjusted for GART mapping
->   */
-> -
-> -#define AMDGPU_UALINK_GART_NPA_ADDR_GPUID_SHIFT                41
-> -#define AMDGPU_UALINK_GART_NPA_ADDR_GPUID_MASK         GENMASK_ULL(50, 4=
-1)
-> -
->  static u64 amdgpu_ualink_gart_npa_addr(struct amdgpu_device *adev, u32 t=
-ype,
->                                         u32 src_accel_id, u32 dst_accel_i=
-d)
->  {
-> --
-> 2.46.0
->
+A frame that holds an FCS but less than an Ethernet header is not
+valid either.  usbnet drops it when it is the last frame in the URB,
+but the other frames go straight to usbnet_skb_return(), where
+eth_type_trans() reads an Ethernet header that was never copied into
+the new skb.
+
+Reject frames that are too short to hold an Ethernet header and an
+FCS, which covers both cases with one check.
+
+Found by LLM-assisted source review.
+
+Fixes: 1b3b2d9e772b ("net: usb: smsc75xx: stop lying about skb->truesize")
+Cc: stable@vger.kernel.org
+Signed-off-by: Joas Antonio dos Santos <joasantonio108@gmail.com>
+---
+This issue was found with the help of an LLM-based code review tool
+(Claude).  I checked the code paths by hand against v7.4-rc3 and
+reviewed the fix myself.  It is build-tested only (W=1, arm64); I do
+not have the hardware to test it at runtime.
+---
+Changes in v2:
+- Also reject frames too short for an Ethernet header, combined with
+  the FCS check into a single test (review feedback on v1).
+- Subject changed accordingly; it was "net: usb: smsc75xx: reject
+  frames shorter than the FCS".
+- Link to v1: https://lore.kernel.org/r/20261110-smsc75xx-rx-fcs-v1-1-4e048bfc28f3@gmail.com
+---
+ drivers/net/usb/smsc75xx.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/drivers/net/usb/smsc75xx.c b/drivers/net/usb/smsc75xx.c
+index 6f72a3f15907..893de273adef 100644
+--- a/drivers/net/usb/smsc75xx.c
++++ b/drivers/net/usb/smsc75xx.c
+@@ -2217,6 +2217,13 @@ static int smsc75xx_rx_fixup(struct usbnet *dev, struct sk_buff *skb)
+ 				return 0;
+ 			}
+ 
++			if (unlikely(size < ETH_HLEN + ETH_FCS_LEN)) {
++				netif_dbg(dev, rx_err, dev->net,
++					  "size err rx_cmd_a=0x%08x\n",
++					  rx_cmd_a);
++				return 0;
++			}
++
+ 			/* last frame in this batch */
+ 			if (skb->len == size) {
+ 				smsc75xx_rx_csum_offload(dev, skb, rx_cmd_a,
+
+---
+base-commit: b3dfbde62cf1981c4638939c159dfd087b7a72e9
+change-id: 20261110-smsc75xx-rx-fcs-fca968df1dce
+
+Best regards,
+-- 
+Joas Antonio dos Santos <joasantonio108@gmail.com>
+
+
