@@ -1,55 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.254.49.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.113
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794379824;
-	b=zWwVfo4Rli9i+h9BnYnK3MhW7b3bBFV5wkvS0Eq2TbGJrFir94B/h4Bf0esWI1Mrh663
-	 Ej4fAeoHxzFH+fTyg1Em9DyvejpCddLFxWAeToWLJOH2sUsKsT24IQr0Il67w+rIEIVOD
-	 V6yakzHVesLB7X9nJnWbs7T/qPXfv6xavz5jHAhHeGcGG2eBymZhsGdzNNEeK3BaAM505
-	 bFx1QfUVSJy8jr4uY7BHOGB6vwQUuKaqo+mVjhFVTK1swkkV760eYVofYQmvIz/lQ3mz8
-	 qeg8epZe30lyAuUYmWodsWgP98cRnj0dyvDWZxUJOZ438bNv3LheW8payflXR4dDkzQ==
+	t=1794379833;
+	b=jrsEv5lwot8X4YUumM5OiPl+QlwybpTJs+7ArP0OrvhSK5GZXke8/IM3KpSNuL8ffffZ
+	 xT6z0A8YG5UAv0UbmbOu5kKqzKb2SSVSLWXM7m01koVKtWEpNgV/6Wj+q3rbmoVbUUtPM
+	 U8TshpWsE+Br3pWsLc1ny531KN5Qdp8CVJLI9i2uw3sZJLEXYZnYjpR2L5jLrtu/LEJ4e
+	 oraRDLDtzuyEGJBA3xcmhyMLpJT4y6ODavyY7LIwzaZ0+DThsybl4YDa+POTpuCUr1ak1
+	 aPQh6yXZnGf4JhZidJsMvn8jkV4U1JPjVmQwcFIB4MOKqCT9oSBp/PTwleILw5ymZfQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794379824;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 X-HM-Tid:X-HM-MType:X-HM-Spam-Status;
-	bh=IE/0/wHsXzW+zXG7ICg4OVEoH7lwX4Q6eNKHPFTJTL4=;
-	b=eIktcgkjj8A4R3BBnjoh0/VEQsU24/vZqOpGsLLocPZza8vHq1/K0Ld7Q3SNx1NnJFoD
-	 PWAsXShi5UI+ptS+/nRnVU4zJG/X947cv4yWzIhgIzZPNM55pLCNrn6LJMVFxboEj/Ae+
-	 WUmE0Kzwojl9PW6YqCgVDDzeVAf1+b1km5ZoE6YaZ7nnXk01wTO3TDaNUYwzCRMqxO0Ge
-	 R6W0po8OFiMBW7yqg3OIX5FQwaV08imRLC9GJr7E2ybwYgS3pXQLGg0XyMEZmpBwNtXjl
-	 zONIkGXY7olg+dFv78z43vFaKUOHKAbPi/lAJVsehEPil3SwWpdaIcCOkKiIaZ9Vthw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794379833;
+	h=DMARC-Filter:DKIM-Signature:Content-Transfer-Encoding:Content-Type:
+	 X-Lms-Return-Path:To:From:Subject:Date:X-Original-From:User-Agent:
+	 In-Reply-To:Cc:Message-Id:Mime-Version:References;
+	bh=Kj1qT7xH8KbzLy1DvoEj1CIR3+rqk8hL80hQOakjzyQ=;
+	b=e/4aYTO66+TPkVXnwnOzQQUfsH2VQ4//9gbYLOWmiWiON09q0sExFFM8mgeAcFNYYMs7
+	 xFBCJIXR+CRsCZfUxO+Mg24fOREE6jd7zY8J1+wqKqG2VnCGx4bFbdDLST8mXfa3YNhGO
+	 AwbaJOcG0HbakjjAyqqaCghNp6KftcR1KzAIoWryxu4XftRuPYrm8AhKdTk/SxK4br7cd
+	 DrtHTNMkSQe18i6ec5tM5qO8eosgRMtQGQG+KYRqm14SAkWHxXlgk67eSIz7uV0l/1dQb
+	 pig8G+3FK6uc9mE8M/YXFj8R4fdJ7afg6/ZD48kgbQwGHszFY3uOQ3OpxK0u8kcnKVg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=jmu.edu.cn;
-	spf=pass smtp.mailfrom=jmu.edu.cn;
-	arc=none smtp.remote-ip=45.254.49.197
-Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=bytedance.com;
+	spf=pass smtp.mailfrom=bytedance.com;
+	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=lVgzjNlx;
+	arc=none smtp.remote-ip=209.127.230.113
+Received: from va-1-113.ptr.blmpb.com (va-1-113.ptr.blmpb.com [209.127.230.113])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A581606A321;
-	Wed, 11 Nov 2026 06:50:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A581606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jmu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jmu.edu.cn
-Received: from Vostro-3710.. (unknown [14.220.232.40])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 54450fead;
-	Wed, 11 Nov 2026 14:50:16 +0800 (GMT+08:00)
-From: Chukun Pan <amadeus@jmu.edu.cn>
-To: andrew@lunn.ch
-Cc: Frank.Sae@motor-comm.com,
-	amadeus@jmu.edu.cn,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	hkallweit1@gmail.com,
-	kuba@kernel.org,
-	linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org,
-	pabeni@redhat.com
-Subject: Re: [PATCH 1/2] net: phy: motorcomm: add led_brightness_set for YT8521
-Date: Wed, 11 Nov 2026 14:50:10 +0800
-Message-Id: <20261111065010.2040437-1-amadeus@jmu.edu.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <598009be-95f3-4091-b3bc-98815c65216e@lunn.ch>
-References: <598009be-95f3-4091-b3bc-98815c65216e@lunn.ch>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 985E6606A32E
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 06:50:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 985E6606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=lVgzjNlx
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1794379823; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=Kj1qT7xH8KbzLy1DvoEj1CIR3+rqk8hL80hQOakjzyQ=;
+ b=lVgzjNlxC0tldr/JJeoiDkcEdSM7j8o/kzT08ZaQaxf2ITVnQqFJPBMrY+A9JVC65x4FTm
+ e3d2ctbXKPjwv+pf0YVgtmOmJXR3gzQBKtBTnLeZHf47UeiNR2s8ZFjWaO8o48jTohxV9M
+ 36F+9Lryoq+GrfR+ZYvKz6CddNzh9nKUrojdUJMAg/p6hePxL6R2SwANeJ9Qf2WqcUZ0ck
+ c2im54Pkj0kEhQ3DM01/3R8I1AbSsDPGYwnxP7vK+Kn9DnfgIDlLG3OcEAZhlfLdacTU+k
+ TptAhgVAkcn/BpGO6/1ESxOaWf7BXokH0yyiMb/R7IoWzNYA1c1CWl3U+3tn4w==
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+X-Lms-Return-Path: <lba+26af4102d+3975ae+vger.kernel.org+qirui.001@bytedance.com>
+To: "Catalin Marinas" <catalin.marinas@arm.com>
+From: "Rui Qi" <qirui.001@bytedance.com>
+Subject: Re: [PATCH 3/3] arm64: module: Use text-poke for late PLT/veneer emission
+Date: Wed, 11 Nov 2026 14:50:05 +0800
+X-Original-From: Rui Qi <qirui.001@bytedance.com>
+User-Agent: Mozilla Thunderbird
+In-Reply-To: <auoXmvKObg3IWWTD@arm.com>
+Cc: <will@kernel.org>, <mark.rutland@arm.com>, <ardb@kernel.org>, 
+	<song@kernel.org>, <dylanbhatch@google.com>, 
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>, 
+	<stable@vger.kernel.org>
+Message-Id: <f1f27a57-70e8-452a-9528-0af9b4247514@bytedance.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,34 +66,63 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa1c95f1ebf03a2kunm23cf89e217c0bb
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDSkNOVkIaTUMYT0JMHxhNTlYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKT1VJSUtVSUhJVU9LWVdZFhoPEhUdFFlBWU9LSFVCQklOS1
-	VKS0tVSkJLQlkG
+Mime-Version: 1.0
+References: <20261010084721.2197683-1-qirui.001@bytedance.com> <20261010085055.2200241-1-qirui.001@bytedance.com> <20261010085055.2200241-2-qirui.001@bytedance.com> <auoXmvKObg3IWWTD@arm.com>
 
-Hi,
+On 11/4/26 1:19 AM, Catalin Marinas wrote:
+> On Sat, Oct 10, 2026 at 04:50:55PM +0800, Rui Qi wrote:
+>> diff --git a/arch/arm64/kernel/module-plts.c b/arch/arm64/kernel/module-plts.c
+>> index 7afd370da9f4..fa89ed014bd1 100644
+>> --- a/arch/arm64/kernel/module-plts.c
+>> +++ b/arch/arm64/kernel/module-plts.c
+>> @@ -9,6 +9,29 @@
+>>  #include <linux/module.h>
+>>  #include <linux/moduleloader.h>
+>>  #include <linux/sort.h>
+>> +#include <linux/text-patching.h>
+>> +
+>> +/*
+>> + * The .plt section is marked ROX once the module is fully formed, so
+>> + * late (livepatch) relocations that emit PLT entries cannot use direct
+>> + * assignment.  Mirror WRITE_PLACE() and route the write through the
+>> + * text-poke API when the module is already loaded.
+>> + *
+>> + * Return: 0 on success, -EINVAL if the text-poke write failed.
+>> + */
+>> +static int plt_entry_write(struct plt_entry *plt,
+>> +			   struct plt_entry *entry, struct module *mod)
+>> +{
+>> +	if (mod->state == MODULE_STATE_UNFORMED) {
+>> +		*plt = *entry;
+>> +		return 0;
+>> +	}
+>> +
+>> +	if (!aarch64_insn_copy(plt, entry, sizeof(*plt)))
+>> +		return -EINVAL;
+>> +
+>> +	return 0;
+>> +}
+> 
+> As your comment says, this is fairly similar to WRITE_PLACE(). Can we
+> have a single macro that's used in both places (and maybe give it an
+> arm64 specific name if it ends up in a header)?
+> 
+> Also do we need the !NULL check? plt and entry should be 4-byte aligned
+> already, so it's an unnecessary check. WRITE_PLACE() doesn't do this
+> either.
+> 
 
-> Has this been tested on real hardware?
-
-I tested yt8531 on some SBCs and will add this to the commit message.
-
-> Have you had it blinking the heartbeat? Shift-lock etc.
-
-Only supports forced LED on/off. Forced blink is disabled by default.
-Do I need to implement heartbeat?
-
-> I _think_ this is the wrong place to insert these.
->
-> The sorting of registers is a bit messed up in this driver, but i
-> think you need to insert before:
->
-> #define YTPHY_PAD_DRIVE_STRENGTH_REG		0xA010
-
-Indeed, I will correct this.
-
-Thanks,
-Chukun
+Hi Catalin,
+Agreed on both points, and they interact nicely -- unifying the two
+removes the redundant NULL check as a side effect.
+On the NULL check: aarch64_insn_copy() returns NULL only when its dst
+is not 4-byte aligned -- that alignment check is the sole failure path,
+since __text_poke() always returns addr. &plt[i] is a struct plt_entry
+made of __le32 fields in the .plt array, so it is always 4-byte aligned
+and the check guards a condition that cannot occur. WRITE_PLACE() omits
+the check for the same reason.
+On unification: I moved WRITE_PLACE() into a shared header (asm/module.h,
+where struct plt_entry already lives), gave it a module_-prefixed name,
+and have module-plts.c use it directly. That drops the plt_entry_write()
+helper and its error-return path entirely.
+Addressed in v2.
