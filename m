@@ -1,111 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=180.181.231.80
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794395527;
-	b=4imVjJk7BJwUe0xI2+ylw3KkG3/Y27yUMNWpZ88OhwEigo5VzbbOZU9gGIbqE8B6N1sN
-	 Jbb/LBvAw34vaMc6RGEe4HHHybq7oD2LNG36cJbCvoEZxAwcns1Su85gEI8CBKOodK1f2
-	 OMkIetD/tCvmtq+wtEKg99Pt3MBMj1zPDxCmCKtvjodhpj+gnbGKLKDBU+117hr6n0bTg
-	 JsRNZpd7W+KQ6flUDrFBqTEVqMaJhPPk5R8s0Rqvq2fr+u7hzcSA/SC8r0YrynTRHKT/p
-	 x9LKcZbuDnCutHSvjo6AZqXljQ2RKbZAO/dolrqEUvlgLybIrv9dDx3Yy2QijEQ4FZw==
+	t=1794395554;
+	b=tJZHM4TcL5MDTHOW8lG6Sx+EWkjEbMYiolzVgtGfCwGDK1BOKgaLR9kYAcyuq7Gl9EZb
+	 kzl9zV7UK0gGEIa2x+ICxmVO2IJ1DrQMOpCPdsSlwjuYEGwX3kNfIuS+/GipG/AToqm4y
+	 JnkWrMxDf7zLKdOO6ibt3t4pzLbnMXILxfWTnhYUT/6/v6xzCPMXL851rTiCHkU8RyBpa
+	 dZfceVtAceEyZ4bpQPcT1GCQ0i/Y3QwnVodK9XNhlNFBHsWz+gFeRLNr9S4cwxzXMD0e7
+	 i6DZC9l/AR6jisYDww0M6jJEe8EKBWFKoAInD+lkLtg8J/iwXX2F2T6NhX12QgJbAzA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794395527;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Spamd-Result:X-Rspamd-Server:X-Rspamd-Action:
-	 X-Spam-Flag:X-Spam-Score:X-Spam-Level:X-Rspamd-Queue-Id;
-	bh=EplsJOyJhXMqWC0WpcKkXMdEbiZRLy8DUQfPYhX4OPk=;
-	b=UBcjpryutcDQXiA1AGUlRWmvp1H9JLoj+IVeRpTG1W4izvHuTReQEYe6lib0ENOaelUE
-	 DVVPfReEFNE8prlQKloi0tzMJ4zFfrinz3EVPJd/y8zD7J1txngd7Ginc7pLSgUcsMcUc
-	 IxYSkXY5lHiDdgY2cXg2LDkby6DhCz6SSe6ITKrvOlV+3IRI6xkYAMXV/uda3FZxesV06
-	 Lu/7xeayJ2exhPRSHinn5LiMKi6tWwXhEL3PMDaPAu/prXfiWmCPMnxuLXEao9nl8FUZS
-	 sGuap3krLV0LEFfUkpZbRuK3GRKaG+x9BMEiGawTcHtFPJDXRID4vii4d5QDCwD8MSw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794395554;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=M7i7qeV9UiDvx6/zhRopZZexL1OUHkXEsmKT4YMKLAA=;
+	b=TWoP7QH7wAa4fbgCxQkQ4TDFkJN5KgYEYPcidM43+93YLvc+XFoPFlQ4gPa5wn34d7Vc
+	 mvZyRKGGyiV+R9q104Cl4g2huNbT2pE5ggqA1PSCtv47/rUxun/MJW0j4rgrAIrvIo1Nm
+	 DYnNgbpr4HjvoH7EilpsuBUR0zqCITepc5GpkQagJQZFgE1/LJrq33Qz0zIB1uGpqI0NX
+	 juVJAL+KlFyH6lHXJWhRZGaq5GKXWJ7Y0AdMT6XPeGrlyp/sM7OirLIoabCs7HD+0Sw5l
+	 2mlrIZE39RwQZpc0BsOb6sjliubBK5ejO6b7dWbu4ou8ePvN/udpAANkSkqn/duBhfQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=suse.cz;
-	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=t0YCTbF1;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=y7ILrEzc;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=t0YCTbF1;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=y7ILrEzc;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	dmarc=pass header.from=gondor.apana.org.au;
+	spf=pass smtp.mailfrom=gondor.apana.org.au;
+	dkim=pass header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=bgQrcmHp;
+	arc=none smtp.remote-ip=180.181.231.80
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84B57606A31C;
-	Wed, 11 Nov 2026 11:12:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 84B57606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3F63606A31C;
+	Wed, 11 Nov 2026 11:12:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3F63606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=t0YCTbF1;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=y7ILrEzc;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=t0YCTbF1;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=y7ILrEzc
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 0202721D9E;
-	Wed, 11 Nov 2026 11:11:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1794395519; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=EplsJOyJhXMqWC0WpcKkXMdEbiZRLy8DUQfPYhX4OPk=;
-	b=t0YCTbF1QZkTm57HjdhB17aPv6TIvKeN09DLy7LgujUYV7XraTykJar6M07G8Wy8d9D9nw
-	Rm2C2Sno2i+BJb2z7EosxjIqITn0YIU5mdJbhRodEKUf4Eg93Rsz4Hu5kzbYZ0HHIQQnpr
-	LzrMuN4Z0tuyQtsr6PMvmmgP8eXs6cY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1794395519;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=EplsJOyJhXMqWC0WpcKkXMdEbiZRLy8DUQfPYhX4OPk=;
-	b=y7ILrEzcOm3veR2gKCT284Ir/AZE+rD7bU1D40UTzUXXcc9Iuxjm8HqzSZh/NT3C0PanGe
-	JQ9/tqtZo4EmXdCg==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=t0YCTbF1;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=y7ILrEzc
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1794395519; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=EplsJOyJhXMqWC0WpcKkXMdEbiZRLy8DUQfPYhX4OPk=;
-	b=t0YCTbF1QZkTm57HjdhB17aPv6TIvKeN09DLy7LgujUYV7XraTykJar6M07G8Wy8d9D9nw
-	Rm2C2Sno2i+BJb2z7EosxjIqITn0YIU5mdJbhRodEKUf4Eg93Rsz4Hu5kzbYZ0HHIQQnpr
-	LzrMuN4Z0tuyQtsr6PMvmmgP8eXs6cY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1794395519;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=EplsJOyJhXMqWC0WpcKkXMdEbiZRLy8DUQfPYhX4OPk=;
-	b=y7ILrEzcOm3veR2gKCT284Ir/AZE+rD7bU1D40UTzUXXcc9Iuxjm8HqzSZh/NT3C0PanGe
-	JQ9/tqtZo4EmXdCg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id CDB181339F;
-	Wed, 11 Nov 2026 11:11:58 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id CBMOKn5N9GrHQQAAD6G6ig
-	(envelope-from <jack@suse.cz>); Wed, 11 Nov 2026 11:11:58 +0000
-Received: by quack.suse.cz (Postfix, from userid 1000)
-	id 5DB77225DB; Wed, 11 Nov 2026 12:11:58 +0100 (CET)
-Date: Wed, 11 Nov 2026 12:11:58 +0100
-From: Jan Kara <jack@suse.cz>
-To: Alan <3164729207@qq.com>
-Cc: tytso@mit.edu, Andreas Dilger <adilger.kernel@dilger.ca>, 
-	Baokun Li <libaokun@linux.alibaba.com>, Jan Kara <jack@suse.cz>, Ojaswin Mujoo <ojaswin@linux.ibm.com>, 
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, Zhang Yi <yi.zhang@huawei.com>, linux-ext4@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2] ext4: free the new extent block on failure to grow
- the tree
-Message-ID: <ssjxx24dqhcimjd6w7xu4xgkmayzz3zygm3we324uxlxyaouhg@47xvodoxxlhl>
-References: <tencent_9EB8EBE910378E46C80E006C6A7DA918BA08@qq.com>
- <tencent_DF25FDEF46DA68C4E18D6DB40F08E30BB705@qq.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=bgQrcmHp
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
+	from:content-type:reply-to; bh=M7i7qeV9UiDvx6/zhRopZZexL1OUHkXEsmKT4YMKLAA=; 
+	b=bgQrcmHpxO0L6OeF4AkdJV1Lhdt6AsVN5XB3qO6PdaBYwdVOmz0i+Y/O4iob7RQhObqkGWLZRWx
+	onBORGIkeUIa6vOLisJB2mkIIKvnF7L9MnNhdH8QWdnCGNKs/kfuFo/AcOivPvFQN97+LLmN/Inaj
+	2NUmQmJJu9biCkO+XFcLU+Htxx1NbLsV+BQf5Ck1M+Zs7bjgl7hbn8o0zWxYq7Dxp5NFHkvprZJ/v
+	QdlKH3Fgaegfi34AGMnpZn8zUQtj0t0qb1VU8wGi02neLY5gOwVssPp4VPh8yKMALujvlVqv9lash
+	1R3XQIyl9Notz83Vw1599nUlmBbJHuidfNVw==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
+	id 1xR6Fb-0000000DmSI-1cF5;
+	Wed, 11 Nov 2026 19:12:24 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Wed, 11 Nov 2026 19:12:23 +0800
+Date: Wed, 11 Nov 2026 19:12:23 +0800
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: Thorsten Blum <blum@kernel.org>
+Cc: Laurent Vivier <lvivier@redhat.com>,
+	Olivia Mackall <olivia@selenic.com>,
+	Rusty Russell <rusty@rustcorp.com.au>, Amos Kong <akong@redhat.com>,
+	virtualization@lists.linux.dev, linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] hwrng: virtio - prevent use-after-free after a failed
+ restore
+Message-ID: <avRNl36r1eiO7Ofu@gondor.apana.org.au>
+References: <20261016103640.4989-2-blum@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,137 +70,28 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <tencent_DF25FDEF46DA68C4E18D6DB40F08E30BB705@qq.com>
-X-Spamd-Result: default: False [-11.51 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_COUNT_THREE(0.00)[3];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	FREEMAIL_TO(0.00)[qq.com];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com,qq.com];
-	FREEMAIL_CC(0.00)[mit.edu,dilger.ca,linux.alibaba.com,suse.cz,linux.ibm.com,gmail.com,huawei.com,vger.kernel.org];
-	RCPT_COUNT_SEVEN(0.00)[11];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	DKIM_TRACE(0.00)[suse.cz:+];
-	MISSING_XM_UA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.cz:email,suse.cz:dkim]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spam-Score: -11.51
-X-Spam-Level: 
-X-Rspamd-Queue-Id: 0202721D9E
+In-Reply-To: <20261016103640.4989-2-blum@kernel.org>
 
-On Wed 11-11-26 15:34:44, Alan wrote:
-> ext4_ext_grow_indepth() allocates and accounts a metadata block before
-> getting its buffer, obtaining journal create access and dirtying the
-> new extent block. If any of these operations fails, the new block has
-> not been linked into the extent tree. However, the error paths return
-> without freeing it, leaking the block and leaving i_blocks larger
-> than the number of blocks reachable from the inode.
+On Fri, Oct 16, 2026 at 12:36:40PM +0200, Thorsten Blum wrote:
+> remove_common() frees the driver data during freeze, but does not clear
+> vdev->priv, which points to freed memory. If probe_common() then fails
+> during restore, a later remove or freeze can dereference the dangling
+> pointer.
 > 
-> Commit 8a83ac54940d ("ext4: call bdev_getblk() from sb_getblk_gfp()")
-> removed the implicit __GFP_NOFAIL from the buffer allocation, making
-> the allocation failure path reachable. The two journal error paths
-> already lacked cleanup before that commit and are fixed here as well.
+> Clear vdev->priv on the probe_common() error cleanup path and before
+> freeing the driver data in remove_common(). Also reset the device and
+> return early from remove_common() if vdev->priv is already NULL for a
+> safe teardown after a failed restore.
 > 
-> Route all three failures through a common cleanup label to free the
-> unpublished metadata block and undo its inode accounting. Keep the
-> existing buffer unlock and release handling. Once the new block has
-> been linked by ext4_idx_store_pblock(), an ext4_mark_inode_dirty()
-> failure must not free it because the extent tree already references it.
-> 
-> Tested on Linux 6.12.1 by injecting NULL for buffer acquisition and
-> -EIO for each of the two metadata helper calls at their caller
-> boundaries. Each unfixed case leaves seven unreachable blocks and
-> i_blocks of 40 instead of 32 on a filesystem with 4 KiB blocks. With
-> the fix, all three cases retain i_blocks of 32, preserve the original
-> data and pass e2fsck -fn after a normal unmount. Retry, truncate and
-> uninjected growth also pass for each case.
-> 
-> Fixes: 8a83ac54940d ("ext4: call bdev_getblk() from sb_getblk_gfp()")
+> Fixes: 08e53fbdb85c ("virtio-rng: support multiple virtio-rng devices")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Alan <3164729207@qq.com>
-
-Looks good. Feel free to add:
-
-Reviewed-by: Jan Kara <jack@suse.cz>
-
-								Honza
-
+> Signed-off-by: Thorsten Blum <blum@kernel.org>
 > ---
->  fs/ext4/extents.c | 16 ++++++++++++----
->  1 file changed, 12 insertions(+), 4 deletions(-)
-> 
-> diff --git a/fs/ext4/extents.c b/fs/ext4/extents.c
-> index ad0d80e33f6090..f0b2852f8a9342 100644
-> --- a/fs/ext4/extents.c
-> +++ b/fs/ext4/extents.c
-> @@ -1333,15 +1333,17 @@ static int ext4_ext_grow_indepth(handle_t *handle, struct inode *inode,
->  		return err;
->  
->  	bh = sb_getblk_gfp(inode->i_sb, newblock, __GFP_MOVABLE | GFP_NOFS);
-> -	if (unlikely(!bh))
-> -		return -ENOMEM;
-> +	if (unlikely(!bh)) {
-> +		err = -ENOMEM;
-> +		goto out_free;
-> +	}
->  	lock_buffer(bh);
->  
->  	err = ext4_journal_get_create_access(handle, inode->i_sb, bh,
->  					     EXT4_JTR_NONE);
->  	if (err) {
->  		unlock_buffer(bh);
-> -		goto out;
-> +		goto out_free;
->  	}
->  
->  	ext_size = sizeof(EXT4_I(inode)->i_data);
-> @@ -1366,7 +1368,7 @@ static int ext4_ext_grow_indepth(handle_t *handle, struct inode *inode,
->  
->  	err = ext4_handle_dirty_metadata(handle, inode, bh);
->  	if (err)
-> -		goto out;
-> +		goto out_free;
->  
->  	/* Update top-level index: num,max,pointer */
->  	neh = ext_inode_hdr(inode);
-> @@ -1389,6 +1391,12 @@ static int ext4_ext_grow_indepth(handle_t *handle, struct inode *inode,
->  	brelse(bh);
->  
->  	return err;
-> +
-> +out_free:
-> +	/* The new block has not been linked into the extent tree yet. */
-> +	ext4_free_blocks(handle, inode, NULL, newblock, 1,
-> +			 EXT4_FREE_BLOCKS_METADATA);
-> +	goto out;
->  }
->  
->  /*
-> 
-> base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
-> -- 
-> 2.53.0
-> 
+>  drivers/char/hw_random/virtio-rng.c | 7 +++++++
+>  1 file changed, 7 insertions(+)
+
+Patch applied.  Thanks.
 -- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
