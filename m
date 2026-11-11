@@ -1,91 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794417691;
-	b=olXkmBGB59H5AKCBsgCWWfZjsX4aCgcVTSClU0THTzI8STEBjD96XyXjo4+/WZtMXJLh
-	 7uGZjzfgUWt5OsX5WsCnB+h22yTOM5I+RFBkE9XEiKvN9LTCAg2hMYSnFRQl3FzAO6zdr
-	 rAritzxWkkE02camVFU1z58EFK+gakbmT+x6+yMB2Hw7omUB1bKN8gNuS/9zUEW8AgnSS
-	 w1TIT5Xczzs6vQKxoWz9k0Yi8hzIz1eLRnGHY2+dht47czcTC2/TZ3S1YqjQ4n9nRiEFi
-	 7tA6GDlJSV5oDQfH36wyo8rigjoeByUTzvS2hIYJhHdRQUyLqv27gIiW6SDvPWvaTHw==
+	t=1794417696;
+	b=gqDi4AW0Kn+B2Nb+o3YIm8eMiWeWdLKY7Cv0M5P/Rida9cEzi5FEGACDVbJBsnzWBHU1
+	 OWXhEEi2C6h2jydQ/UNSLZ8Sm5KOLLGrq48U+YOuJcru7XVUuirjZYw1bkc2dtjLIj0oV
+	 uMRz98WzPqpKtsrpMKKthl8E37KhnZpbMMmRjFf6K9oJ7vHVaboJkbfQznhRGM9en69PZ
+	 AOOgaXRaBZQViBXmPfWMIgPtGHPhR7LAze/5sNdaj2nmaPTX10JW3TvPj+DcixEHyM1lm
+	 xsO8Ip/eYkbOuG9sEx1rw7OOUDQzZKh1M3j+0VCRKhIfQA8350fADiA+sFR0kKG3pRQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794417691;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=a5gtMk1BaBbimjjhRzyGg/s0fNmYE7XAFuUTiS1DWag=;
-	b=iW8lJqyx84qBiR8XTv4+PP07vgoqV0DF0sh/Vrc/kHUzQGcTMRbVksl4j3Pgkz84KkUR
-	 85gIfoB+A8hQeRGITxldCNmVLUkmeM0RMq0S8o77ciEOiK3TQbXwAAfLcOKO7uxhZSE7C
-	 Whw9W0s4neYfj45li3p4sYtvdCiNp6drdziWYWXyu2KZrtR2TFH5+iftmi5OFIJpvRFji
-	 pwsHSv5zkHBj203kXZ6EpYK08HT3CTv9bvUkmdB8tmOqUZMVDoSBIim6VZSAnseX0DtG8
-	 aV7nLaXLUKyOxDSnpJy0xR7bOqKfpeHvMpEd//rL81+br7Kb5ryLylaNyI+t5XTkTbw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794417696;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=mgdmcspbD1Yyk+0ecRe5xCyE0njK/qpMy7OsZTOU9pA=;
+	b=FiMhDqjg9BY8s50dkHDsX+Cq/d6/ahbBd/SKxztuxi646OFpzO+O3XOsytQdOc+5PXYX
+	 P7sLYDzu6LBvWC9wthSePQ9s5uVzUZFiRnqRJo306UvU1axal22ugKKWUczFDrOlketaN
+	 mLqLK55S8D0NL5R13QTO5gDXfD3QrV7vArPpuUCzwrK8VkneSmMYG5mT3vAmixtvjuiOB
+	 VMrNWVScOx/7WROmo9n7YVtYBUeLDtIDxKKWcFTgk1HDKsU+vctbaPyb6MzbVLJbwVt95
+	 sfYB2EjhicFqd3wJ/Fq7HwVmlhqczDKc24xOgJ2ddoDgbWtUWNuqdT920i0DE/Btdhw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DJUXtfic;
-	arc=none smtp.remote-ip=209.85.128.179
-Received: from mail-yw1-f179.google.com (mail-yw1-f179.google.com [209.85.128.179])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=qLwB8YuY;
+	arc=none smtp.remote-ip=198.137.202.133
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7AF3606A333
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 17:21:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E7AF3606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C415606A32A;
+	Wed, 11 Nov 2026 17:21:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C415606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DJUXtfic
-Received: by mail-yw1-f179.google.com with SMTP id 00721157ae682-8b0d126f631so35689937b3.2
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 09:21:30 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794417690; x=1795022490; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=a5gtMk1BaBbimjjhRzyGg/s0fNmYE7XAFuUTiS1DWag=;
-        b=DJUXtficeow3diFxT5wC3H0TK/XkcHWMt+5Je/TXWFWlsF9nScWyaeyJ27kg0OmaYz
-         8e7+3oJ4HxReQNuowYXJQhFrTSR0+B6nT8AuJ5sXdtT3SdY77OQc/LwTrkPzzdZEQrtI
-         yiPSc++MmEZJKKEUWHrvq7/X4tuA8ncU/ENBhSopGv0lQ+Hjzdu+vONojk3sojAmHnw4
-         ovVaD3zOJWRGVW8u+OKPxiwrB2hZp4TThYuPjt/aVQfwuPFcoSexLtQV6Mj0AIpY4RAu
-         6ljSVu+6MqqbsRcD67/u0V4V8XqZalbfyZ/ENmwL5JF0z7jeEwI7KNjbQa5eyq7vfQ1N
-         SmDg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794417690; x=1795022490;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=a5gtMk1BaBbimjjhRzyGg/s0fNmYE7XAFuUTiS1DWag=;
-        b=Hle3k6vKzNMCFslp3nCA9/Cwju4Kud7hvOKxfMDzBegh8jHzqu5pb+IWWaX3yVUyQC
-         XtGQVStrxxTQHEYP7A5wfL04ajDQsYM31qx50y0JavrtiPReSSQpqVUn0Xeal/7sV58B
-         zRtuXaPZ7wJclbQRpvXJHvetpECUd0cqpgwRnEpRp+2K7bkNlMipG7mZYacbZfJLLFo6
-         7SqoRMYN6Z04eNgFaC2IhR9wPK1Rn0LnDCPHOoG7WMIDZ5x6FSiSbTMvkZ9SSW7hY+Xw
-         1atXAL4wwtYYIcLRp2dYu+UPj/9K+YkVdPj87dfzCyTx5dmzRTCDzgVANB0xIws7QZIE
-         H1AA==
-X-Forwarded-Encrypted: i=1; AL+hErEjYWEJAsdHM/owiw5R5whztd9Labth/I+XeELHz7KHzQmss66R/5+elX24Wibce0DB+b0NC3He4Rpki7g=@vger.kernel.org
-X-Gm-Message-State: APuU4Z82bk7v2yy7r3EUstdHQKaVkWPR3LtqcypUEKqP3oCgKD5G8lur
-	HmlhVRD2cXQgkIDyeKitIrQ0nELLAGwyajXdh4Wi5yISCKWFi+2C2egs
-X-Gm-Gg: AYBFou3JJF5LV02yMOR6nWhCZzijDN5orcD3lAo3JkHaSK2vUCAZcQBZ60HmqSTupUF
-	ddOC6EUZw1jApILHC95olEZZutFq7ucjINBpKwldpP5/131KaOj6Yd/lsF8rFiaqLjQrzKKSVm+
-	ifzHeOdREvAS/HdtJasJ77Wq9QQsjhRmqBOS2yXefaBeEPj3FVAzsXgAifKTBBdeW+k7QjgApYA
-	E9Qy7w6iSW2SJizzV1iqXfV2f82Hyb/YKnwRyrNbxf/65cx/IiI8Szi2TrvlzOaEFR7KoLdS+u0
-	2lKh19BFl6knyv2dJRzept+dW3NfN3rhoegGcNIoHVY3nrVvZHqab/59FHQIRjodntnIpd7TPwv
-	NoxW0YM31x/EqQJxvMHARWKJt0ivx2daNvQVdkP0wjeVHZ2/S1nBqHw9hCfICATs5L6CZwHa4EJ
-	thqfcBvbPZat7Z+Jyg6ZfI/WJWSkhhBfqejjai5cx8ZJy/W9nQux4lpPdwe94g/xal8cErhv6E7
-	4QtVdQIt1oJkUt0ykk4WMpP5A65FfXDICcba4kZmykuyOvYYTwg31AzP4CXCgcFmPoPaVX6jgML
-	JcjycdDQTbVZ+MyiIzwXVOOnHtmlUi6KSA==
-X-Received: by 2002:a05:690c:f04:b0:8b3:5b24:f575 with SMTP id 00721157ae682-8b3a81171famr23018927b3.51.1794417689523;
-        Wed, 11 Nov 2026 09:21:29 -0800 (PST)
-Received: from cacher.lan ([111.94.230.110])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b3933c5a00sm49532107b3.16.2026.11.11.09.21.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 09:21:29 -0800 (PST)
-From: Fa-Iz Faadhillah Ibrahim <faiz.faadhillah@gmail.com>
-To: tiwai@suse.com
-Cc: linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Fa-Iz Faadhillah Ibrahim <faiz.faadhillah@gmail.com>
-Subject: [PATCH v2] ALSA: hda/realtek: Update quirk for Acer Predator PHN16-72
-Date: Thu, 12 Nov 2026 00:21:08 +0700
-Message-ID: <20261111172108.30011-1-faiz.faadhillah@gmail.com>
-X-Mailer: git-send-email 2.56.1
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=qLwB8YuY
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
+	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=mgdmcspbD1Yyk+0ecRe5xCyE0njK/qpMy7OsZTOU9pA=; b=qLwB8YuYISU6n72YmjlDMvwfBh
+	h/z/COi0TrAJz8Ram/slbP3UEwSHIcCZ8uXK1SR1hXnlQ6x5A9eyX2KBtH4XdJRJCVzXnuicCaDZT
+	Lbwrc8CCcJNtU1OKoNR9KjLyvMrOWIoEguIcmwkA/kztGB+02Go8rO/5RypB0KH35550pYv9h+AOc
+	HO5KaRA758zKA+w3CEWhLZSfxsIVzv9MMRumia6IGlyfFIwlEoxP7rKaMZmDozt5oBFV00MwjGR99
+	txipC4M+XXzb5LfgID9YmDCPxfCRN8jMpXhNMdQqMJhvYa59+HJJqFSZPnGM7C9jVB2lIYSSynqx1
+	pfpIyoig==;
+Received: from [38.23.173.23] (helo=localhost)
+	by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xRC0p-00000007IAb-2pCY;
+	Wed, 11 Nov 2026 17:21:31 +0000
+Date: Wed, 11 Nov 2026 12:21:28 -0500
+From: "Liam R. Howlett" <liam@infradead.org>
+To: Hui Zhu <hui.zhu@linux.dev>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Yu Zhao <yuzhao@google.com>, 
+	Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, Hui Zhu <zhuhui@kylinos.cn>, stable@vger.kernel.org
+Subject: Re: [PATCH v3] mm/mglru: fix a no-op lru_gen_clear_refs() call in
+ lru_lazyfree()
+Message-ID: <4xqyzrl4lbxwbky22lc5k5mcvusudg75z6hspjokfoghp3dny3@rjuukqzxiuyv>
+References: <20261109021611.22247-1-hui.zhu@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,39 +69,86 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261109021611.22247-1-hui.zhu@linux.dev>
 
-The Acer Predator PHN16-72 (1025:1731) uses the ALC245 codec, but its
-mic-mute LED is not enabled by default. Replace the existing quirk with
-ALC245_FIXUP_ACER_MICMUTE_LED quirk to enable the mic-mute LED chain the
-existing ALC2XX_FIXUP_HEADSET_MIC quirk.
+On 26/11/09 10:16AM, Hui Zhu wrote:
+> From: Hui Zhu <zhuhui@kylinos.cn>
+> 
+> lru_lazyfree() calls lru_gen_clear_refs() after lruvec_del_folio(), but
+> lru_gen_del_folio() has already cleared LRU_GEN_MASK, so folio_lru_gen()
+> returns -1 and lru_gen_clear_refs() exits at its "gen < 0" check without
+> clearing the refs or PG_workingset.
+> 
+> A MADV_FREE folio therefore keeps the state it had before madvise(2),
+> even though madvise_free_pte_range() has already cleared the accessed and
+> dirty bits of its PTEs.  lru_gen_folio_seq() places it one generation
+> younger, and PG_workingset puts it in the last tier, so sort_folio()
+> promotes and protects it instead of evicting it and charges it to
+> lrugen->protected[], which read_ctrl_pos() uses to balance anon against
+> file reclaim.  __folio_inc_gen() clears the refs but not PG_workingset,
+> so this repeats every time the folio reaches the oldest generation.  If
+> the folio is redirtied first, ttu_anon_lazyfree_folio() keeps it and
+> lru_gen_eviction() packs the stale state into the shadow entry, so a
+> later refault is promoted to the youngest generation.
+> 
+> Call lru_gen_clear_refs() while the folio is still on the generation
+> list, as deactivate_file_folio() and folio_deactivate() already do.  Its
+> return value only says whether the folio is in the oldest generation,
+> which lru_lazyfree() does not need because it re-adds the folio below.
+> Keep folio_clear_referenced() unconditional: the classic LRU needs it,
+> and it also covers the folios that lru_gen_clear_refs() skips.
+> 
+> Fixes: cc8ec7be78ff ("mm/mglru: optimize deactivation")
+> Cc: stable@vger.kernel.org
+> Suggested-by: Barry Song <baohua@kernel.org>
+> Signed-off-by: Hui Zhu <zhuhui@kylinos.cn>
+> Reviewed-by: Barry Song <baohua@kernel.org>
 
-Fixes: 34e08ad3a8da ("ALSA: hda/realtek: Add quirk for Acer Predator PHN16-72")
-Signed-off-by: Fa-Iz Faadhillah Ibrahim <faiz.faadhillah@gmail.com>
----
-v2:
-  - Replace the existing quirk instead of adding a new one
-  - Update commit message
+One nit..
 
-Tested on my own device; Headset mic still works and mic-mute led now
-works fine.
+Reviewed-by: Liam R. Howlett (Google) <liam@infradead.org>
 
- sound/hda/codecs/realtek/alc269.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> ---
+> Changelog:
+> v3:
+> Add Cc: stable@vger.kernel.org and pick up Barry's Reviewed-by.
+> No code change compared to v2.
+> Per the thread discussion, the __lru_gen_clear_refs() refactor will be
+> sent as a separate cleanup after this fix lands.
+> v2:
+> Call lru_gen_clear_refs() before lruvec_del_folio() instead of
+> open-coding the flag clears; drop the lru_gen_enabled() branch and
+> the comment (Barry Song).
+> 
+>  mm/folio.c | 6 ++----
+>  1 file changed, 2 insertions(+), 4 deletions(-)
+> 
+> diff --git a/mm/folio.c b/mm/folio.c
+> index 35e242b48870b..ea3adb6a89d75 100644
+> --- a/mm/folio.c
+> +++ b/mm/folio.c
+> @@ -597,12 +597,10 @@ static void lru_lazyfree(struct lruvec *lruvec, struct folio *folio)
+>  	    folio_test_swapcache(folio) || folio_test_unevictable(folio))
+>  		return;
+>  
+> +	lru_gen_clear_refs(folio);
 
-diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
-index a756e0076021..92c158e9d91d 100644
---- a/sound/hda/codecs/realtek/alc269.c
-+++ b/sound/hda/codecs/realtek/alc269.c
-@@ -7553,7 +7553,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x1025, 0x170f, "Acer Predator PHN16-71", ALC2XX_FIXUP_HEADSET_MIC),
- 	SND_PCI_QUIRK(0x1025, 0x171e, "Acer Nitro ANV15-51", ALC245_FIXUP_ACER_MICMUTE_LED),
- 	SND_PCI_QUIRK(0x1025, 0x172c, "Acer Nitro ANV16-41", ALC2XX_FIXUP_HEADSET_MIC),
--	SND_PCI_QUIRK(0x1025, 0x1731, "Acer Predator PHN16-72", ALC2XX_FIXUP_HEADSET_MIC),
-+	SND_PCI_QUIRK(0x1025, 0x1731, "Acer Predator PHN16-72", ALC245_FIXUP_ACER_MICMUTE_LED),
- 	SND_PCI_QUIRK(0x1025, 0x173a, "Acer Swift SFG14-73", ALC245_FIXUP_ACER_MICMUTE_LED),
- 	SND_PCI_QUIRK(0x1025, 0x173b, "Acer Swift SFG16-72", ALC245_FIXUP_ACER_MICMUTE_LED),
- 	SND_PCI_QUIRK(0x1025, 0x1758, "Acer Nitro ANV15-41", ALC245_FIXUP_ACER_MICMUTE_LED),
--- 
-2.56.1
+Since you're not checking the return here, you could use
+folio_set_lru_refs(folio, 0);
+folio_clear_workingset(folio);
 
+>  	lruvec_del_folio(lruvec, folio);
+>  	folio_clear_active(folio);
+> -	if (lru_gen_enabled())
+> -		lru_gen_clear_refs(folio);
+> -	else
+> -		folio_clear_referenced(folio);
+> +	folio_clear_referenced(folio);
+>  	/*
+>  	 * Lazyfree folios are clean anonymous folios.  They have
+>  	 * the swapbacked flag cleared, to distinguish them from normal
+> -- 
+> 2.43.0
+> 
