@@ -1,50 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.238.236.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.254.49.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794399749;
-	b=SGA++aRpHvjASMwEToaSjM1ujuA0r2oPWD7aFvdXrbArRcP95cYfIVA5sLe+qRX31jrN
-	 NGTENNygltPxVCimvtbH3YEdKCSJn+SCi5cYqU2FDIJOFDnt+dETDy7qVPMWlMMqIhJP8
-	 yfWTRJnl07HE8jlh8UEnZ+bLqLcRb/dG8ESKkHyU4m4PKMJZ7HO2pTMHlsX1lBvVGHR5p
-	 Wh3fIaqvAVkg+7n5xamWb9S6egoNh7neq6JInkbUwgzJQqh00P7Gtdy//+N8Wl3W05oC+
-	 t5IXno1AxXz0KeMeG0+9cP1oga+lVypncBwcvhtTs/PE5cSX4iTkiDQ+lsVuRh33+ZQ==
+	t=1794399793;
+	b=ibc8ekmsctqEJA3DpuLb4KWJpvG4LpkW2qKRgZkgH11MkEFvnxQZvXe+nQwo/hKJc71U
+	 KjcRXNhIZPL98Yr77SZg1qek7GWzRyCUJrZhzJZGHPbgovltE9v+sSFpdc9eoRcK5SOHs
+	 iap8XdjVOTfy6RAxTlL3u6gDyBN+ilAGOQKlXjWplFz3DtYRB2uGE5RSIwTawuFh629y9
+	 W3ZG49WNU6P+OZCX8wF1UeeFUeEkPZN9bqMnEPGjMRaExF9QeWEz8TqkGUegBCWki8/pc
+	 VNAKRxFKprpgy2+Z2xF/xrVzeVzQyJRKE0IUiPVk3zpa6dYkAuOE1y+N86LgVokCw8w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794399749;
-	h=DMARC-Filter:DKIM-Signature:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=mZ+YfTL18HsVdL8YZNUUTUPVwVk+UCUNOsnK/2xOcPE=;
-	b=tK+4VOXIH+mpbM0MqZgG0dmwJouzVsS4gN/Qn3ZhA2/HGoCnkBvTN7cQsBTxznLJameS
-	 e9fzdz+0hkOQfwuGGuAUFT1lId58rlVY5y8EEEOIpzdN48KUZsnJO7JIlzLmU3vCxZ4iI
-	 F4l3ultOgqa52qfOAV8VmEGgUUO0J4YvFWqx2ybXQwu+QVXtoe5tGej0R9TjpDaRhcFtC
-	 GFJEx/s4ga2dNwDHT67naPGXL52H4tw5d3X59YFaNYF0sVSSF2lQT7Fji6PZgzXw7V+mQ
-	 2STUOA7g50LOnsmZxAAP9/f4mcPCW4pePaUJnvfdH5OrRRmarFDrAukXJiQ/xjgce5g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794399793;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-HM-Tid:
+	 X-HM-MType:X-HM-Spam-Status:DKIM-Signature;
+	bh=5BFnT/zEs2nZDDXgK2IhiC+IEo1XOeLD90u3XzoM3dE=;
+	b=elQ0iUkfZhmsNa3I0sjX1QQjUh10MrlEVasM6V8pP3HavWbvAVaL3rwkvWuN+2W5m+Wc
+	 2jF4xc6JvdRSuoo3il7XOg0Eczuw/hiaKC3gYg0m9xAxEAxTP2ZOUr9DYogfdE7u899uB
+	 11563uUyEVIWIqzSS0aGiI3YkNzIndn0kdIudhmCFOr3CJjIka5Oy8u+zyVdL3TQp7ncu
+	 cITfZHPcNxYQfUQr5RthRFqDZ6k+W3RNQ/CQhszLm/8eu/o33VjoheMhB7sPhb6frZadS
+	 FG8XGV2o09xBhZZTCnxle55yUmMkjJcm0GNPMSJ+4zLGUORS8DJLF3tJSlLj9uDpUZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=kemnade.info;
-	spf=pass smtp.mailfrom=kemnade.info;
-	dkim=pass header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b="98yA7/rY";
-	arc=none smtp.remote-ip=178.238.236.174
-Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
+	dmarc=pass header.from=mail.sdu.edu.cn;
+	spf=pass smtp.mailfrom=mail.sdu.edu.cn;
+	dkim=pass header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=TflCKuwV;
+	arc=none smtp.remote-ip=45.254.49.198
+Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08E66606A31C;
-	Wed, 11 Nov 2026 12:22:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 08E66606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kemnade.info
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 457F7606A31C;
+	Wed, 11 Nov 2026 12:23:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 457F7606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.sdu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.sdu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=98yA7/rY
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=kemnade.info; s=20220719; h=Cc:To:Subject:From:Reply-To:Content-ID:
-	Content-Description:In-Reply-To:References;
-	bh=mZ+YfTL18HsVdL8YZNUUTUPVwVk+UCUNOsnK/2xOcPE=; t=1794399748; x=1795609348; 
-	b=98yA7/rY5tVXkL/dXyV/8rM0XOg+E+BkAypKgfd2Y2VnA6JJNMhArVshgkZaYQr5bri1WzPeoWN
-	75IhOEFVG2BYxViR5eAYxZPu6pPIgHv2u2D/emGoqL8gJT+Fu9oX7gCcb5K7pqcky4XsiyJ1B9WB5
-	nJv0Psws/eO2viTnfyvTXn1QjKb+Iv7naVwfoUFnRAHw/lxxjIzlAPhkKQyv3KZr8GtUtPuJcNGIh
-	LNQevjzDl/asn3t4YXoq4HoYmAr0dm+Fv0vk6DpmSwQ8s9RTnu0fFFSe1tFF7bDpT8Y8pKc7XHmVT
-	XQJm3JwXFnX/DTLittiHawMk6Xl6Zo78EmUg==;
-From: Andreas Kemnade <andreas@kemnade.info>
-Date: Wed, 11 Nov 2026 13:22:11 +0100
-Subject: [PATCH] drm/omap: dss: fix handling deferrals
+	dkim=pass (1024-bit key) header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=TflCKuwV
+Received: from lgs.. (unknown [101.76.249.61])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 54502a16d;
+	Wed, 11 Nov 2026 20:23:06 +0800 (GMT+08:00)
+From: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
+To: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net] net: fealnx: Fix potential use-after-free during removal
+Date: Wed, 11 Nov 2026 20:23:05 +0800
+Message-ID: <20261111-e5624093d6-net-fealnx@mail.sdu.edu.cn>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,73 +57,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261111-gta04-drm-regression-fix-v1-1-1de27d5ba46a@kemnade.info>
-X-B4-Tracking: v=1; b=H4sIAPJd9GoC/yWMQQrCQBAEvxLm7EA2mhX8iniIu73rCEaZiSKE/
- N2J6Vs1VM1kUIHRqZlJ8RGT5+gQdg2l2zBWsGRn6touBh/XaWgPnPXBiqqwVeAiXy5HlD6kGJH
- 35PpL4fc/fb5sbO/rHWlae7QsPw+508t8AAAA
-X-Change-ID: 20261111-gta04-drm-regression-fix-f7ef51c66ed3
-To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>
-Cc: dri-devel@lists.freedesktop.org, linux-omap@vger.kernel.org, 
- hns@goldelico.com, linux-kernel@vger.kernel.org, 
- Andreas Kemnade <andreas@kemnade.info>
-X-Mailer: b4 0.17-dev-e5168
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1220; i=andreas@kemnade.info;
- h=from:subject:message-id; bh=31k+GywuKgPH1aDOshD9a7rFWejPIZkjp23zr87NNVg=;
- b=owEBbQKS/ZANAwAKAYRhRfpAKNzxAcsmYgBq9F30t+ptQJ6jh9qwz4SprN0rYuR4nyZ+wkvG9
- gr8MkjFxXOJAjMEAAEKAB0WIQTY6xCZL0TEE1XHfFiEYUX6QCjc8QUCavRd9AAKCRCEYUX6QCjc
- 8QnKD/9RKTKkv0Rq2ZMvV5gBRp96kAyV2MVJVCMndbsN887x6didR2tVVzbsNalj5tO9+76jqcb
- IiXMci1nh/1kiW4brbIEigNLHEMgOOrvdL9yPyS+HuFhxpniZF/0bMJZqv0q0MBDh4GEiBfwwVc
- pBCygKmQQQ0X1d8LApBx202hdIRIHayWgHeJF8eLWcJxSLTj6mVknGZueT/0tcGMiNG5+YCEDy8
- VuQWHDE8uTIcbOFTy1vwRsVQitlG3OB5oEQHSZ5MsGl/qgVrbjTwuivic4QAUIYIoe3snm45ANf
- 8fNJkzlCYKe03SQyTsfQDq3xwoouVIaVvUZXtQ8x24QqFBBbW/ZOCaahnP2FriVFLvRdIKC122Q
- HAz/wRlDeduGOskFJ30Aiu9xs9KZRcmUXHiAjs9E8XZHbEYYAhfYQjvBkSZhrqPOltcz7wfjD6K
- QmM9+qC/+tB/Ep0ErbIHAZ+VIfrST7Bx6Wxnq4go+lXus3ssqNl06p9bSnYES3j1ulkr1q1/Q0i
- qD1ojcR7q88zQQK0raxZF3wZWuwhVpok9fJ2644hpOOj7k4LLZKqOl2tkemx0f0QFhG0hLoUKo/
- hnRRekIFO7GgZXkSQHFy07kGovv/JUeLRRvvsIteMzZxzkOSaW5naA9jC5ZwfAGR25Fr70QrGN6
- YkKMbmZd3FqAJsA==
-X-Developer-Key: i=andreas@kemnade.info; a=openpgp;
- fpr=EEC0DB858E66C0DA70620AC07DBD6AC74DE29324
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa1ca8fd77003a1kunm7b1594631b3658
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaSR1NVkhMHxhISUsdGElIH1YeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKS0pVTE1VSU9CVU1KWVdZFhoPEhUdFFlBWU9LSFVKS0lCQ0
+	NMVUpLS1VLWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=TflCKuwVIS2kFsyGCA+i3h4c4K+e90idRd0T8bW5cWxQE8eWJPX4NPeNZ0AgVIbhOyhIaoGtT7mzfhjbxhj3yE/w+rLE5iqo3P4YXybYjxMjpLE3YSkUZESaextcABFOJHD1JLAQu0sTX/zq8yAMi54UqBGVqkUiSyOgUBzkjkY=; s=default; c=relaxed/relaxed; d=mail.sdu.edu.cn; v=1;
+	bh=5BFnT/zEs2nZDDXgK2IhiC+IEo1XOeLD90u3XzoM3dE=;
+	h=date:mime-version:subject:message-id:from;
 
-Forward the error given by of_drm_get_bridge_by_endpoint() if it is
-EPROBE_DEFER to ensure output gets initialized later when available.
+Removing an active device frees its descriptor rings before
+unregister_netdev() calls ndo_stop. The stop callback then reads the
+freed rings to unmap and release their skbs.
 
-On GTA04/OMAP3 no display was found, but it appeared after doing
-rmmod omapdrm ; modprobe omapdrm
+Unregister the netdev while the rings and registers are still available.
 
-Fixes: b7e9b93fc8ecf ("drm/omap: dss: don't create a panel_bridge")
-Signed-off-by: Andreas Kemnade <andreas@kemnade.info>
+This issue was found by our static analysis tool under development.
+
+Fixes: 8f1482080104 ("eth: fealnx: bring back this old driver")
+Signed-off-by: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
 ---
- drivers/gpu/drm/omapdrm/dss/output.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ drivers/net/ethernet/fealnx.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/omapdrm/dss/output.c b/drivers/gpu/drm/omapdrm/dss/output.c
-index 36d37deac8026..220ed7e003080 100644
---- a/drivers/gpu/drm/omapdrm/dss/output.c
-+++ b/drivers/gpu/drm/omapdrm/dss/output.c
-@@ -24,6 +24,11 @@ int omapdss_device_init_output(struct omap_dss_device *out,
+diff --git a/drivers/net/ethernet/fealnx.c b/drivers/net/ethernet/fealnx.c
+index bdc38aac5850..68194c9ef332 100644
+--- a/drivers/net/ethernet/fealnx.c
++++ b/drivers/net/ethernet/fealnx.c
+@@ -682,11 +682,11 @@ static void fealnx_remove_one(struct pci_dev *pdev)
+ 	if (dev) {
+ 		struct netdev_private *np = netdev_priv(dev);
  
- 	bridge = of_drm_get_bridge_by_endpoint(out->dev->of_node, out->of_port, 0);
- 	if (IS_ERR(bridge)) {
-+		if (PTR_ERR(bridge) == -EPROBE_DEFER) {
-+			ret = PTR_ERR(bridge);
-+			goto error;
-+		}
-+
- 		dev_dbg(out->dev, "failed to find video sink\n");
- 		return 0;
- 	}
++		unregister_netdev(dev);
+ 		dma_free_coherent(&pdev->dev, TX_TOTAL_SIZE, np->tx_ring,
+ 				  np->tx_ring_dma);
+ 		dma_free_coherent(&pdev->dev, RX_TOTAL_SIZE, np->rx_ring,
+ 				  np->rx_ring_dma);
+-		unregister_netdev(dev);
+ 		pci_iounmap(pdev, np->mem);
+ 		free_netdev(dev);
+ 		pci_release_regions(pdev);
 
----
-base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
-change-id: 20261111-gta04-drm-regression-fix-f7ef51c66ed3
-
-Best regards,
---  
-Andreas Kemnade <andreas@kemnade.info>
-
+base-commit: 2e54b3e187300893688c2c7517894f5d96732e05
