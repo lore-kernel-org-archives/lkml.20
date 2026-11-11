@@ -1,47 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.29.241.158
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794439807;
-	b=wxxpD3CabMDvjyZk95bfZemczxM2hzC//1FOsXlT/JgRq0J7titzUmdR3TrQ6QGsWruS
-	 zBbn0RsyBljLMgvzbeFjzcfQigEhZdmQdGOydsdtQCBrXormy5ZjKbDUUgwmg9Tq8vHGI
-	 GbztgcR/aVvL9rN+zQ7p8QmsvdZs5kXMv0BniEmckuz03yFXujZLaJ1iEIWuwmCHWUr8G
-	 tzwu+yvsFXYA5R8dlcdvACOAHXCLbYMwTjcEiSGDCETj9W+GRCvQy6kKFBZP4rZq3uBQA
-	 GCN2uVmmMfFQe6x/F5aBH4FKcpPfjBW5vwiS+VWTJY2ZhdoPq0S+OZTem8LUYBJVgiA==
+	b=bDTvXOX9ZELrSCwRw5gRUoXv9F03c9oTrmu1OxnGq4olMlYuPChn1hQd7VS2aT6Yf2Wy
+	 y6X+nUOcFS47SvZFFzLjKt1+At2uPanEKNr5Bon6i2IdAwwQlNJhBaECEFEykEHRSLNbR
+	 SUyQM6jvQXqJ/LPnXTdz7RUHn/MH3hB+kvlobdOcRow2xj9PXVSnnbXA9y0/0oRVx3+IN
+	 BAe9GM61u+MUnI/9diqlGOU2hMwCAo9O8B01m8JIXwltjIZyzolq4Q6h+iKC5WELPHdfC
+	 gXUwmino7hdf2e2FeD+8b2pQvzGV1E7Nq/rHj9njkPv3laU4Ge7dxE1+9QkFqE6JVOg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794439807;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:Organization:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=d8gt4vss1VJAghWGOTbd3Q31kkkyerJCYC99PqwnhfY=;
-	b=B7G1Mjbh+5DeKpMhK3a7QqFrkKwb8A7iy4l7kn0mfFzSfXybpcDuWDsfo71rSq4AEio+
-	 Uk/Jr3BQTf8v4T90FEfIVzk/IdccQyP4m0tvW/oYt8R2v0FGYh9o+6+55K2mBIXVSF14v
-	 klemGDXNuzHYKbxsBPmrtIAyplS9XJBHdt1K5HEStT2NUpg+CkC+R+U5aQsBqCLTBJxzN
-	 ZK8XswfnMix/FB7RKtJZwYwjiB8DGgmb95rMLP8e4ziHYp8iACw4SNFIidkgxYKc9wNEB
-	 XSZAWh1BJ0KarrmmXRpYWr6ZZLnFUZxfuHvOycRofrdaTrceHMb0WsnKWekUkovL0Ng==
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version;
+	bh=4jTQv18d6f1WQDZPy8KbBDvAw2VyV9v3NRrsYhICvJ8=;
+	b=xhMwnuTGkA/U36qzqZP/H/7GNgXO7DZ7furDs7MYSdz/SndaQn/hcXZGy4DfrXt2+eoo
+	 6qqyLDV5BCi5DRfY246k8H6Tt6Sz/o6XnVWIy4W0ZLAeS7rY/dfSRcfsc1u39wfWp0YTt
+	 6C9PxVI36N7k+oxRnPgMqa4f3GBOzGsrJdXgnk9l1ApaCgFaVeLllzJquoqotXQEXZ5xl
+	 jgUTJCN2yLifCLxE96FsPPD7iWgn5UOQEW/X6mZYNpB+jOfaA4PrrBY/q572aLYFXpWy2
+	 Zix4B8/7LsouCN+m5qjnEcPsKIqzNoGMKeBJN2Ds46feLic0TfnW2uFG+Xg9dyd4XiA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K3Xf7DTY;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=codeconstruct.com.au;
+	spf=pass smtp.mailfrom=codeconstruct.com.au;
+	dkim=pass header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=KD+N4m3F;
+	arc=none smtp.remote-ip=203.29.241.158
+Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E642F606A324;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5797606A326;
 	Wed, 11 Nov 2026 23:30:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5797606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codeconstruct.com.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K3Xf7DTY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC4801F00A05;
-	Wed, 11 Nov 2026 23:30:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794439806;
-	bh=d8gt4vss1VJAghWGOTbd3Q31kkkyerJCYC99PqwnhfY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=K3Xf7DTYCLVLHaDe5VUyzIV0hhxz+D6otyW3n0nrvVQC0ygVy51dTyM4hsYFvKW/5
-	 nHzv/BKfJVt3ZyTys+k8pnIl8EyT11iw6w4+6yaWV5koB/3H8y8ODNJfH+hS5Sp6MN
-	 LdppUoDvydcDLHnPTK28ApfILrpUoljS8WpLR4SqNKEfUylT2r3pTFcrKfgKz2cJmP
-	 CT6wjcGyFFydV+hGyKoffrBgR/+j3c1w0yT1eaSZpJP3uWmDKBq+aHk6cEfrLkzRxR
-	 1Oa/d3Dx0iGAkf+dKp/KovjcLuqS9TpizdbZvugffVq0yklvtk4dMvQmRg8nFsx8tj
-	 6ULpunjvDTcdw==
-Message-ID: <2ac04d8a-5557-4c2f-b009-c0b02773b480@kernel.org>
-Date: Thu, 12 Nov 2026 08:30:03 +0900
+	dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=KD+N4m3F
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=codeconstruct.com.au; s=2022a; t=1794439799;
+	bh=4jTQv18d6f1WQDZPy8KbBDvAw2VyV9v3NRrsYhICvJ8=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=KD+N4m3FafpulELFLuXVw9qA2sr62kqjZns89QS9ygPOv1uZ3Vt23iID59FR9yobW
+	 mXLcnCqeJXqjnuwkx3u5k5yfMVCSahFMzu7cjYe1WBBMdryWAlcIhe6EmViHIozTov
+	 jFZ1X7gUWke2ocIFRWQtMBBZChLgvJhg8cqNOLz26uy3ticSXZk2LNWiyavGR2YNg0
+	 jXKd4bklxKqKdmWlik5SxLDO5xidJ4pupeTmBrqs+fKBCJkPAo5Kjzb0XNbmkHKr6k
+	 Vdb476ZIPgAULgRS/7Jwt1Bzj/sTUfZc3fJUV+LeO2fTr06UqmsMUh1FKQ8nS899if
+	 H5eUI0c0Xz1jA==
+Received: from [192.168.68.117] (unknown [180.150.112.139])
+	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id 9EE65704C1;
+	Thu, 12 Nov 2026 07:29:57 +0800 (AWST)
+Message-ID: <42bb0b817905637239c16b94a562254cd0e6a644.camel@codeconstruct.com.au>
+Subject: Re: [PATCH v2 2/2] ARM: dts: aspeed: Add NVIDIA MGX Vera C2 BMC
+From: Andrew Jeffery <andrew@codeconstruct.com.au>
+To: Jacky Huang <jackyhuang@nvidia.com>
+Cc: joel@jms.id.au, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, 	ryan_chen@aspeedtech.com, billy_tsai@aspeedtech.com,
+ devicetree@vger.kernel.org, 	linux-aspeed@lists.ozlabs.org,
+ linux-arm-kernel@lists.infradead.org, 	linux-kernel@vger.kernel.org,
+ openbmc@lists.ozlabs.org
+Date: Thu, 12 Nov 2026 09:59:56 +1030
+In-Reply-To: <179438627442.2016371.12057101111349178921@nvidia.com>
+References: 
+	<91edc3ed1d65a6765530895c6574714bfd76b8d0.camel@codeconstruct.com.au>
+	 <179438627442.2016371.12057101111349178921@nvidia.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,39 +72,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/4] ata: libata-scsi: fix remaining passthru field
- pointers
-To: shao.mingyin@zte.com.cn, cassel@kernel.org, linux-ide@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261111223133188VjHq0FbmnzuEZWakS-EYD@zte.com.cn>
-Content-Language: en-US
-From: Damien Le Moal <dlemoal@kernel.org>
-Organization: Western Digital Research
-In-Reply-To: <20261111223133188VjHq0FbmnzuEZWakS-EYD@zte.com.cn>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 11/11/26 23:31, shao.mingyin@zte.com.cn wrote:
-> From: Shao Mingyin <shao.mingyin@zte.com.cn>
-> 
-> Several error paths in ata_scsi_pass_thru() report field pointers for
-> the 12- or 16-byte CDB when rejecting a 32-byte CDB. Initiators then
-> receive INVALID FIELD IN CDB sense data pointing at an unrelated byte.
-> READ/WRITE LONG also reports PROTOCOL when its sector count is invalid.
-> 
-> Use the PROTOCOL offset and record the FEATURES, SECTOR COUNT and
-> COMMAND offsets for each CDB format. Report SECTOR COUNT separately
-> from PROTOCOL when validating READ/WRITE LONG.
-> 
-> Fixes: b1ffbf854e08 ("libata: Support for an ATA PASS-THROUGH(32) command.")
-> Suggested-by: Niklas Cassel <cassel@kernel.org>
-> Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
+On Wed, 2026-11-11 at 17:32 +0800, Jacky Huang wrote:
+> Hi Andrew,
+>=20
+> Thanks for taking the time to review this.
+>=20
+> > Can you please expand the description of the platform? Why was it
+> > designed and built? What's its purpose?
+>=20
+> The NVIDIA MGX Vera C2 is a Vera CPU-based server platform. I will
+> expand the description in v3 to clarify its purpose.
 
-Looks good.
+Thanks. Just to make sure we're on the same page, I feel stating that
+'NVIDIA MGX Vera C2' is 'Vera-based' doesn't add any new information as
+it's already in the name. Describing the purpose would give better
+insight.
 
-Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
+I'm after a helpful description in the commit message for the purpose
+of summarising the content of the branch when I do a pull-request. 'Add
+support for more platforms' doesn't really cut it there.
 
--- 
-Damien Le Moal
-Western Digital Research
+If the platform is described on the web by e.g. marketing material,
+please include the link.
+
+
+Andrew
