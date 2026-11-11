@@ -1,47 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794430725;
-	b=gLKVsS4aznAQ7dvAtDyrw9MLZrV6TG+qnAy6gn5rZmA+quUtfqYYDXVJn+wSx283tDbM
-	 aHAkiit8iGgqw+GylXeeR/CjcPPnESdmJ8wkHMkKKtgSthi+8oB+yhmDviOTPuVCiz7de
-	 3ItlKlQRYHXA5G6SxSbJcyoa34sloqVI/UPshyKrberbHOl7Z0kymRU4mgYkOUawof4cn
-	 j+Zwua36BSCOoYpV8Fx0YqDI+UllOq3M5IF67tsAdNBuswElq9J+HWxFWLKGsXD3+s4Y1
-	 WOc/X9/bc6WzdRVcNYzIaFFvJLEVf7WjQIstigHjpvXXOxVWPTc//fe0Y5Q+c8wxpUw==
+	b=n9xMbQJElU7aAIqQ8mj3EsPj0lDVHcS5mu7jVf11dgzx48s/cJ7jhHNZ645PaE2aP6GW
+	 6jp+2lTxvG7dEzGmWL1stPtz/63B6b4mCD1YaOnitS/LfnLbRQZbf6UY0H6hZMKexPTyj
+	 vzsjVY/jD/Ypk+UjBZrjL0ipdxvj3qGZ7VWZUSthrXINfiagD/WLGhdBnNW3jMF1C0Cdw
+	 oJYS4WXj7E4giedZKavzQ0mOYmyXokhN1xKOadypv0iSnzmxlm1NHyHRwxr+VbmVn0cYL
+	 TSrzBNk1SGRM73CHu15gIZanHc09kwsmRouQffYk2pfX59zcToDgAw258EUYAfzydPw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794430725;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=Ds6gjgiS3vY0BGdY0DRhZwlXVM0IcXWHW91s2wNzqW8=;
-	b=AVdtNZzZZ+KO9vxPNaWkxPAodTSm2MaLO5h3s5vKU4hMz1JfmfnupMSCmmO8cD8EBiCS
-	 A8DgS5wT1y80wvqoxyC8Lcm/CcAjCCwB0t7OIG4Klq99IEeIZfryvYnFSbKUD03vuwMiv
-	 J9APui7+BsaqAVwJINOzW052rCHTalodX+nul3PgpKWbww837ZnTEdZud+fI1/j4OYgE1
-	 V6E3LUyQGlltXEsYQFWqogiKaBvctlUQkGYUt6TP6FYJjWCNcSvO8Fz+s7vq1fZl2N70v
-	 +mrT7fN/IgunPaPN1M19U2gG9dV3zSeG2uLkEH+GE4GIKxc0MGAhfkbYTPX2yllGByQ==
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:Sender:X-SRS-Rewrite;
+	bh=6K0JX6VQO+jmFT3oox7919dmm7iUkG/qSpaX7PM7Owg=;
+	b=dcqCj0x6IIAX5o7/xrWq8EZt/gPMENIdiChahXkf0AFXBGnJCAt+/6Mn4ZoXRKxmWRAi
+	 2M1M2Z1AwAPUEDgQ5qDL08gdg7WjQhX8MGVL4sArEDnqldQpy9X2Cw2EiT2Gbh+L10hTa
+	 VLiOgMGc5ih9ZrnjZi3cAWH0pvfEBbJLYRJtYpXvlKQ2sABN7rK5LwtoSxIowsiHFiCYp
+	 xH3L9zclqwcoq264rZjfVjFt6MxlTwqYt/aLzVMSV+QlV0BR0QorWdRF25ywZiQWu8u4G
+	 aaOE0TR4Y3ejOagYNQ3Z8Oae9jX1bn4Jg9OkEouOktn6WTZrCE2RUAbWha4NhDp5qig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E9fGcD86;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=infradead.org;
+	spf=none smtp.mailfrom=desiato.srs.infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=iEGUQjfu;
+	arc=none smtp.remote-ip=90.155.92.199
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D221606A8AF
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 20:58:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14C54606A89D;
+	Wed, 11 Nov 2026 20:58:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 14C54606A89D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=desiato.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E9fGcD86
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9797E1F00A05;
-	Wed, 11 Nov 2026 20:58:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794430724;
-	bh=Ds6gjgiS3vY0BGdY0DRhZwlXVM0IcXWHW91s2wNzqW8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=E9fGcD86Lx9XaWIpof0R7WUxZBmGxJ67mAfGNyxR1VMoMYLYRYiqCdyL00LjShnRG
-	 70cfe5mHbIJaOOM9q5iRijQ8mzdENzfPv3fQ3OVRiqnKTb/JdmquA+tEVlZk/9AJCr
-	 VC27Rtvis8BoRNO634nMCsXM+sZ6+dg5WRXuYrO4dv66qPbaAFDSjHP+Ot9FMMXqYL
-	 zMsn5dgo/uBFv1zS4YgMVA7Xe94gz/jZS4h6/GH1cdyfNi3dPNvOB79WAqdOeamWSy
-	 BorNP6QWpar3MvsLNku0jhe8L7Cm/mwBlttLWHXD0svE7jyliIAmGRDt6G/Tc6/kWh
-	 cAV5vKYxwjCsw==
-Message-ID: <4df90a0f-0bba-4899-9232-e3e968b55138@kernel.org>
-Date: Wed, 11 Nov 2026 21:58:33 +0100
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=iEGUQjfu
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=desiato.20200630; h=Sender:Content-Transfer-Encoding:
+	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
+	Reply-To:Content-Type:Content-ID:Content-Description;
+	bh=6K0JX6VQO+jmFT3oox7919dmm7iUkG/qSpaX7PM7Owg=; b=iEGUQjfuJGLM9x8YFhki7GVZ73
+	A24YB2Dc7L7qvRdL7KLN97zCDL6KN0mbTEQ/CKvfCMxJDi7VCyl4gPNFnRd4LAlftkbeSn9BMpYWL
+	nHXSs+tgagLrApQRx+B4E0VXxJwjEm5IPGIWJEd5N31X61gos9+kgmZUxOsV9O9DTFcZTV8Fz3/uY
+	z0+8hRlZrXl2fdCcnuSMedJzbB16ouxcON2/K8x1OoOYrSZbxkBsQndmqTeTUROm3L1jrhqa1eugW
+	sZZ6BkX3gvolCyQd9b7QgNLf+oTIjR3Rl4uLDleULJ+GWNAqgGyX3CqaMn7PEnSqCJpPKs0YB7CZq
+	3rx99pRg==;
+Received: from [2001:8b0:10b:1::425] (helo=i7.infradead.org)
+	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xRFOx-00000009ZGu-26oS;
+	Wed, 11 Nov 2026 20:58:39 +0000
+Received: from dwoodhou by i7.infradead.org with local (Exim 4.99.5 #2 (Red Hat Linux))
+	id 1xRFOu-0000000HZ7t-35A7;
+	Wed, 11 Nov 2026 20:58:36 +0000
+From: David Woodhouse <dwmw2@infradead.org>
+To: kvm@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	linux-hyperv@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Sean Christopherson <seanjc@google.com>,
+	Vitaly Kuznetsov <vkuznets@redhat.com>,
+	Marcelo Tosatti <mtosatti@redhat.com>,
+	Joerg Roedel <joro@8bytes.org>,
+	Tom Lendacky <thomas.lendacky@amd.com>,
+	James Bottomley <James.Bottomley@HansenPartnership.com>,
+	Thara Gopinath <tgopinath@linux.microsoft.com>,
+	Wei Liu <wei.liu@kernel.org>,
+	Michael Kelley <mhklinux@outlook.com>,
+	Nicolas Saenz Julienne <nsaenz@amazon.com>,
+	Nikolas Wipper <nik.wipper@gmx.de>,
+	Mushahid Hussain <hmushi@amazon.co.uk>,
+	Sriram Nambakam <snambakam@linux.microsoft.com>,
+	David Woodhouse <dwmw@amazon.co.uk>
+Subject: [PATCH 4/4] KVM: selftests: Add Hyper-V hypercall forwarding test
+Date: Wed, 11 Nov 2026 12:58:36 -0800
+Message-ID: <20261111205836.4186584-5-dwmw2@infradead.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261111205836.4186584-1-dwmw2@infradead.org>
+References: <20261111205836.4186584-1-dwmw2@infradead.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,100 +85,322 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] mm/memory: drop PROCESS_PAGES_NON_PREEMPT_BATCH
-To: "Garg, Shivank" <shivankg@amd.com>,
- "peterz@infradead.org" <peterz@infradead.org>,
- "ljs@kernel.org" <ljs@kernel.org>
-Cc: "Rao, Bharata Bhasker" <bharata@amd.com>,
- "rppt@kernel.org" <rppt@kernel.org>,
- "ankur.a.arora@oracle.com" <ankur.a.arora@oracle.com>,
- "vbabka@kernel.org" <vbabka@kernel.org>,
- "akpm@linux-foundation.org" <akpm@linux-foundation.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "surenb@google.com" <surenb@google.com>,
- "linux-mm@kvack.org" <linux-mm@kvack.org>,
- "Salunke, Hrushikesh" <Hrushikesh.Salunke@amd.com>,
- "liam@infradead.org" <liam@infradead.org>, "mhocko@suse.com"
- <mhocko@suse.com>, "bp@alien8.de" <bp@alien8.de>,
- "Nayak, K Prateek" <KPrateek.Nayak@amd.com>,
- "pfalcato@suse.de" <pfalcato@suse.de>, "x86@kernel.org" <x86@kernel.org>
-References: <20261109-clear-pages-batch-v3-1-6693efe18dff@amd.com>
- <20261111124006.GI2668564@noisy.programming.kicks-ass.net>
- <avRnJiDLdGcbSW5d@gremlin>
- <20261111132105.GJ2668564@noisy.programming.kicks-ass.net>
- <261ef956af0843f414b4def58b13dae003c933ac.camel@amd.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <261ef956af0843f414b4def58b13dae003c933ac.camel@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Sender: David Woodhouse <dwmw2@infradead.org>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by desiato.infradead.org. See http://www.infradead.org/rpr.html
 
-On 11/11/26 20:07, Garg, Shivank wrote:
-> On Wed, 2026-11-11 at 14:21 +0100, Peter Zijlstra wrote:
->> On Wed, Nov 11, 2026 at 01:12:06PM +0000, Lorenzo Stoakes (ARM) wrote:
->>>
->>> I guess we all got used to the existing patterns and I for one only
->>> recently found out (doh) that this was legal in kernel style (because I saw
->>> it used in KVM)...
->>
->> Right; which is why I keep reminding people this is now 'legal' :-)
-> 
-> 
-> Thank you, Peter.
-> Good to know this and I'll keep in mind for next time.
-> 
-> btw the patch is already in mm/core.git. I don't have a strong
-> opinion on this, but I'm happy to send a V4 if you'd prefer.
+From: David Woodhouse <dwmw@amazon.co.uk>
 
-I can fix it up, but we can also just leave it like that. (I tend to prefer the
-old way of doing it, but in the end I don't care :) )
+Cover KVM_CAP_HYPERV_FORWARD_HCALL:
 
+ - the feature mask reports forwarding and RAISE_UD, and rejects bits
+   it does not report;
+ - with nothing enabled, an unknown hypercall fails in KVM;
+ - with forwarding enabled, it exits to userspace in memory-based and
+   fast form with the control value and parameters, and the guest
+   sees the status userspace supplies (and, for the fast form, the XMM
+   output userspace writes through KVM_SET_FPU);
+ - the result reaches the guest as the full 64-bit value userspace
+   wrote, bit 63 included;
+ - KVM_HYPERV_HCALL_UD in 'flags' fails KVM_RUN with EINVAL until
+   RAISE_UD is enabled, and then raises #UD at the hypercall;
+ - KVM reports every exit with 'flags' cleared, even after a completion
+   that set them;
+ - disabling everything restores the in-kernel failure.
+
+Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
+---
+ tools/testing/selftests/kvm/Makefile.kvm      |   1 +
+ .../selftests/kvm/x86/hyperv_forward_hcall.c  | 268 ++++++++++++++++++
+ 2 files changed, 269 insertions(+)
+ create mode 100644 tools/testing/selftests/kvm/x86/hyperv_forward_hcall.c
+
+diff --git a/tools/testing/selftests/kvm/Makefile.kvm b/tools/testing/selftests/kvm/Makefile.kvm
+index 17a4256e9081..cc01edd07064 100644
+--- a/tools/testing/selftests/kvm/Makefile.kvm
++++ b/tools/testing/selftests/kvm/Makefile.kvm
+@@ -89,6 +89,7 @@ TEST_GEN_PROGS_x86 += x86/hyperv_cpuid
+ TEST_GEN_PROGS_x86 += x86/hyperv_evmcs
+ TEST_GEN_PROGS_x86 += x86/hyperv_extended_hypercalls
+ TEST_GEN_PROGS_x86 += x86/hyperv_features
++TEST_GEN_PROGS_x86 += x86/hyperv_forward_hcall
+ TEST_GEN_PROGS_x86 += x86/hyperv_ipi
+ TEST_GEN_PROGS_x86 += x86/hyperv_svm_test
+ TEST_GEN_PROGS_x86 += x86/hyperv_tlb_flush
+diff --git a/tools/testing/selftests/kvm/x86/hyperv_forward_hcall.c b/tools/testing/selftests/kvm/x86/hyperv_forward_hcall.c
+new file mode 100644
+index 000000000000..5afc99ed533c
+--- /dev/null
++++ b/tools/testing/selftests/kvm/x86/hyperv_forward_hcall.c
+@@ -0,0 +1,268 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Test KVM_CAP_HYPERV_FORWARD_HCALL: the feature mask KVM reports and
++ * accepts, Hyper-V hypercalls that KVM does not implement exiting to
++ * userspace in memory-based and fast form, with userspace supplying the
++ * result and the XMM output, and a userspace completion raising #UD
++ * through the exit's flags.
++ */
++#include "test_util.h"
++#include "kvm_util.h"
++#include "processor.h"
++#include "hyperv.h"
++
++/* A hypercall code KVM does not implement (HvCallGetVpRegisters). */
++#define HVCALL_TEST_CODE	0x50
++
++#define FAST_PARAM0		0x1122334455667788ULL
++#define FAST_PARAM1		0x99aabbccddeeff00ULL
++#define XMM_IN_MARKER		0x5157ca11c0ffee00ULL
++#define XMM_OUT_MARKER		0x0de1ba5eba5eba11ULL
++#define USERSPACE_STATUS	0x55AA
++#define FULL_RESULT		(BIT_ULL(63) | USERSPACE_STATUS)
++
++enum {
++	STAGE_DISABLED = 1,
++	STAGE_MEMORY,
++	STAGE_FAST,
++	STAGE_RESULT_FULL,
++	STAGE_RAISE_UD,
++	STAGE_FLAGS_CLEARED,
++	STAGE_REDISABLED,
++};
++
++static void guest_code(gpa_t pgs_gpa)
++{
++	__sse128_u in, out;
++	u64 status;
++	u8 vector;
++
++	wrmsr(HV_X64_MSR_GUEST_OS_ID, HYPERV_LINUX_OS_ID);
++	wrmsr(HV_X64_MSR_HYPERCALL, pgs_gpa);
++
++	/* Nothing enabled: KVM fails the call itself. */
++	vector = __hyperv_hypercall(HVCALL_TEST_CODE, pgs_gpa + PAGE_SIZE,
++				    pgs_gpa + 2 * PAGE_SIZE, &status);
++	GUEST_ASSERT(!vector);
++	GUEST_ASSERT_EQ(status & 0xffff, HV_STATUS_INVALID_HYPERCALL_CODE);
++	GUEST_SYNC(STAGE_DISABLED);
++
++	/* Forwarding enabled: userspace supplies the status. */
++	vector = __hyperv_hypercall(HVCALL_TEST_CODE, pgs_gpa + PAGE_SIZE,
++				    pgs_gpa + 2 * PAGE_SIZE, &status);
++	GUEST_ASSERT(!vector);
++	GUEST_ASSERT_EQ(status, USERSPACE_STATUS);
++	GUEST_SYNC(STAGE_MEMORY);
++
++	/*
++	 * Fast form: the register parameters and XMM0 reach userspace, and
++	 * the XMM1 value userspace writes reaches the guest.
++	 */
++	in.as_u64[0] = XMM_IN_MARKER;
++	in.as_u64[1] = XMM_IN_MARKER + 1;
++	out.as_u64[0] = 0;
++	out.as_u64[1] = 0;
++	write_sse_reg(0, &in.vec);
++	write_sse_reg(1, &out.vec);
++	vector = __hyperv_hypercall(HVCALL_TEST_CODE | HV_HYPERCALL_FAST_BIT,
++				    FAST_PARAM0, FAST_PARAM1, &status);
++	read_sse_reg(1, &out.vec);
++	GUEST_ASSERT(!vector);
++	GUEST_ASSERT_EQ(status, USERSPACE_STATUS);
++	GUEST_ASSERT_EQ(out.as_u64[0], XMM_OUT_MARKER);
++	GUEST_ASSERT_EQ(out.as_u64[1], XMM_OUT_MARKER + 1);
++	GUEST_SYNC(STAGE_FAST);
++
++	/* The result reaches the guest as all 64 bits userspace wrote. */
++	vector = __hyperv_hypercall(HVCALL_TEST_CODE, pgs_gpa + PAGE_SIZE,
++				    pgs_gpa + 2 * PAGE_SIZE, &status);
++	GUEST_ASSERT(!vector);
++	GUEST_ASSERT_EQ(status, FULL_RESULT);
++	GUEST_SYNC(STAGE_RESULT_FULL);
++
++	/* With KVM_HYPERV_HCALL_RAISE_UD, the UD flag faults the call. */
++	vector = __hyperv_hypercall(HVCALL_TEST_CODE, pgs_gpa + PAGE_SIZE,
++				    pgs_gpa + 2 * PAGE_SIZE, &status);
++	GUEST_ASSERT_EQ(vector, UD_VECTOR);
++	GUEST_SYNC(STAGE_RAISE_UD);
++
++	/* The next exit starts with the flags cleared again. */
++	vector = __hyperv_hypercall(HVCALL_TEST_CODE, pgs_gpa + PAGE_SIZE,
++				    pgs_gpa + 2 * PAGE_SIZE, &status);
++	GUEST_ASSERT(!vector);
++	GUEST_ASSERT_EQ(status, USERSPACE_STATUS);
++	GUEST_SYNC(STAGE_FLAGS_CLEARED);
++
++	/* Everything disabled again. */
++	vector = __hyperv_hypercall(HVCALL_TEST_CODE, pgs_gpa + PAGE_SIZE,
++				    pgs_gpa + 2 * PAGE_SIZE, &status);
++	GUEST_ASSERT(!vector);
++	GUEST_ASSERT_EQ(status & 0xffff, HV_STATUS_INVALID_HYPERCALL_CODE);
++	GUEST_SYNC(STAGE_REDISABLED);
++
++	GUEST_DONE();
++}
++
++static void check_hcall_exit(struct kvm_vcpu *vcpu, u64 expect_control,
++			     u64 expect_in, u64 expect_out)
++{
++	struct kvm_run *run = vcpu->run;
++
++	TEST_ASSERT_EQ(run->exit_reason, KVM_EXIT_HYPERV);
++	TEST_ASSERT_EQ(run->hyperv.type, KVM_EXIT_HYPERV_HCALL);
++	TEST_ASSERT_EQ(run->hyperv.u.hcall.input, expect_control);
++	TEST_ASSERT_EQ(run->hyperv.u.hcall.params[0], expect_in);
++	TEST_ASSERT_EQ(run->hyperv.u.hcall.params[1], expect_out);
++	TEST_ASSERT_EQ(run->hyperv.u.hcall.flags, 0);
++}
++
++/*
++ * Without KVM_HYPERV_HCALL_RAISE_UD, KVM_HYPERV_HCALL_UD is an unknown
++ * flag: KVM_RUN must fail with EINVAL and leave the exit pending.
++ */
++static void check_flags_refused(struct kvm_vcpu *vcpu)
++{
++	int r;
++
++	vcpu->run->hyperv.u.hcall.flags = KVM_HYPERV_HCALL_UD;
++	r = __vcpu_run(vcpu);
++	TEST_ASSERT(r == -1 && errno == EINVAL,
++		    "KVM_RUN with an unenabled hcall flag: r = %d, errno = %d",
++		    r, errno);
++	vcpu->run->hyperv.u.hcall.flags = 0;
++}
++
++static void handle_fast_hcall(struct kvm_vcpu *vcpu)
++{
++	struct kvm_fpu fpu;
++
++	check_hcall_exit(vcpu, HVCALL_TEST_CODE | HV_HYPERCALL_FAST_BIT,
++			 FAST_PARAM0, FAST_PARAM1);
++
++	vcpu_fpu_get(vcpu, &fpu);
++	TEST_ASSERT_EQ(*(u64 *)&fpu.xmm[0][0], XMM_IN_MARKER);
++	TEST_ASSERT_EQ(*(u64 *)&fpu.xmm[0][8], XMM_IN_MARKER + 1);
++	*(u64 *)&fpu.xmm[1][0] = XMM_OUT_MARKER;
++	*(u64 *)&fpu.xmm[1][8] = XMM_OUT_MARKER + 1;
++	vcpu_fpu_set(vcpu, &fpu);
++
++	vcpu->run->hyperv.u.hcall.result = USERSPACE_STATUS;
++}
++
++static void test_feature_mask(struct kvm_vm *vm)
++{
++	u64 supported = kvm_check_cap(KVM_CAP_HYPERV_FORWARD_HCALL);
++	int r;
++
++	TEST_ASSERT(supported & KVM_HYPERV_HCALL_FORWARD_UNKNOWN,
++		    "KVM_HYPERV_HCALL_FORWARD_UNKNOWN not reported");
++	TEST_ASSERT(supported & KVM_HYPERV_HCALL_RAISE_UD,
++		    "KVM_HYPERV_HCALL_RAISE_UD not reported");
++
++	r = __vm_enable_cap(vm, KVM_CAP_HYPERV_FORWARD_HCALL, BIT_ULL(63));
++	TEST_ASSERT(r && errno == EINVAL,
++		    "Enabling an undefined feature should fail with EINVAL");
++
++	/* Enabling nothing is allowed. */
++	vm_enable_cap(vm, KVM_CAP_HYPERV_FORWARD_HCALL, 0);
++}
++
++int main(int argc, char *argv[])
++{
++	struct kvm_vcpu *vcpu;
++	struct kvm_vm *vm;
++	gva_t hcall_page;
++	gpa_t hcall_gpa;
++	struct ucall uc;
++	int stage = STAGE_DISABLED;
++
++	TEST_REQUIRE(kvm_has_cap(KVM_CAP_HYPERV_FORWARD_HCALL));
++
++	vm = vm_create_with_one_vcpu(&vcpu, guest_code);
++	vcpu_set_hv_cpuid(vcpu);
++
++	test_feature_mask(vm);
++
++	/* Hypercall page plus an input and an output page. */
++	hcall_page = vm_alloc_pages(vm, 3);
++	memset(addr_gva2hva(vm, hcall_page), 0x0, 3 * getpagesize());
++	hcall_gpa = addr_gva2gpa(vm, hcall_page);
++
++	vcpu_args_set(vcpu, 1, hcall_gpa);
++
++	for (;;) {
++		vcpu_run(vcpu);
++
++		if (vcpu->run->exit_reason == KVM_EXIT_HYPERV) {
++			switch (stage) {
++			case STAGE_MEMORY:
++				check_hcall_exit(vcpu, HVCALL_TEST_CODE,
++						 hcall_gpa + getpagesize(),
++						 hcall_gpa + 2 * getpagesize());
++				vcpu->run->hyperv.u.hcall.result = USERSPACE_STATUS;
++				break;
++			case STAGE_FAST:
++				handle_fast_hcall(vcpu);
++				break;
++			case STAGE_RESULT_FULL:
++				check_hcall_exit(vcpu, HVCALL_TEST_CODE,
++						 hcall_gpa + getpagesize(),
++						 hcall_gpa + 2 * getpagesize());
++				check_flags_refused(vcpu);
++				vcpu->run->hyperv.u.hcall.result = FULL_RESULT;
++				break;
++			case STAGE_RAISE_UD:
++				check_hcall_exit(vcpu, HVCALL_TEST_CODE,
++						 hcall_gpa + getpagesize(),
++						 hcall_gpa + 2 * getpagesize());
++				vcpu->run->hyperv.u.hcall.result = USERSPACE_STATUS;
++				vcpu->run->hyperv.u.hcall.flags = KVM_HYPERV_HCALL_UD;
++				break;
++			case STAGE_FLAGS_CLEARED:
++				/* check_hcall_exit() asserts the stale UD is gone. */
++				check_hcall_exit(vcpu, HVCALL_TEST_CODE,
++						 hcall_gpa + getpagesize(),
++						 hcall_gpa + 2 * getpagesize());
++				vcpu->run->hyperv.u.hcall.result = USERSPACE_STATUS;
++				break;
++			default:
++				TEST_FAIL("Unexpected hypercall exit in stage %d", stage);
++			}
++			continue;
++		}
++
++		TEST_ASSERT_KVM_EXIT_REASON(vcpu, KVM_EXIT_IO);
++
++		switch (get_ucall(vcpu, &uc)) {
++		case UCALL_SYNC:
++			TEST_ASSERT_EQ(uc.args[1], stage);
++			switch (stage) {
++			case STAGE_DISABLED:
++				vm_enable_cap(vm, KVM_CAP_HYPERV_FORWARD_HCALL,
++					      KVM_HYPERV_HCALL_FORWARD_UNKNOWN);
++				break;
++			case STAGE_RESULT_FULL:
++				vm_enable_cap(vm, KVM_CAP_HYPERV_FORWARD_HCALL,
++					      KVM_HYPERV_HCALL_FORWARD_UNKNOWN |
++					      KVM_HYPERV_HCALL_RAISE_UD);
++				break;
++			case STAGE_FLAGS_CLEARED:
++				vm_enable_cap(vm, KVM_CAP_HYPERV_FORWARD_HCALL, 0);
++				break;
++			}
++			stage++;
++			break;
++		case UCALL_ABORT:
++			REPORT_GUEST_ASSERT(uc);
++		case UCALL_DONE:
++			goto done;
++		default:
++			TEST_FAIL("Unhandled ucall: %ld", uc.cmd);
++		}
++	}
++
++done:
++	TEST_ASSERT_EQ(stage, STAGE_REDISABLED + 1);
++	kvm_vm_free(vm);
++	return 0;
++}
 -- 
-Cheers,
+2.50.1
 
-David
