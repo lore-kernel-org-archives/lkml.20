@@ -1,75 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794395702;
-	b=RfxctJPM34IbXntpUjyMKqHjukao1fdiWeA2BDowLO64m+vnr/O+0k5JAktKV9LLbC2i
-	 lAIgEs3U2gvLAcQ9+7tTwOKnAc80tZEdQ7LPsiE4pHapKXDNsc18iJU2Zh6UsnkeMy4m3
-	 OxQErm2maDVwfv56yzXyrOVqSEHgVEU41UxXP3RvhuxFfPi6p5rDE8YlEZmywYqh09Mm+
-	 gP9j8kuzRLw7Vs1qg7FtglGH+C9E77xJuROky1f2FCxybrx7nSSocF/RAWnTtgn76Rvkx
-	 r4nSu7Qz03uvqKD4RemBt1HaGYuIwjpeZBKqC6nhG1W4k1aGpAi7P622yk8eKCVPKaw==
+	t=1794395703;
+	b=5VO3ORJ/r62lZ0Kr/kykQnpM4ZZFK7v/ofQmBiQjRcep/0+kf2vaPVn9NNgVXgiLKZJK
+	 hVu4dovbFesORAB1Z9m3xZgP7j8KDLz2A48LwbsjxzBzbj1MVYeCD3NPBaRcx3A5xItBU
+	 sKA/zbo6qkbRxSEqSNXL83eFjBJpmuNj9hAvvG4BNC7S1UBpAv8gQksez1HPWTmKFy/cP
+	 w3+WJaWh5WrKnEMaV6S0VCFtFkTkItGxjgdiy0bQgxiQXGneKvc1A2WbNT540SJYtcTIX
+	 roudfn+Qi9mymkjSyFD7Uz2FuXd1xiQqpSVbvv9tjmGX7WK9I1kvnd/GwX/arkkPKhw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794395702;
-	h=Received:DKIM-Signature:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-SA-Exim-Connect-IP:X-SA-Exim-Rcpt-To:X-SA-Exim-Mail-From:
-	 X-SA-Exim-Scanned;
-	bh=Ee5/U40Wmc87ctgtQ5qWbKs42KkK5ylSG9FBEDvI45s=;
-	b=ssvyHUkqrxEtZfIFu4ZZXHo1mpd5IxxN3kErNKA4AimxVbH+tm74/zP5tHOHcWQ/F8Zk
-	 NWhQ2MHaNd3L7W6oPeR2yFmZmnxyzZ6GCmtfrJh8lnWdUwlVKpaCF7pFQdNv30iZQWts2
-	 keQRVZcWovBjphPs9lkiThidcSlnOBQ2gmwTQFUzR0HQYx6eZ/PdcwDUh5BR8YW1viMDd
-	 oSztFD7V7SRk9WbWDldIhhKG6Yw5DxMZEZNM3idKyIYtqeoeS9V5Srsp4hS9DmhFNairj
-	 I4x42ramcR+ee/h5yKyuPlnMIBxF9+XcGKmCFjxt4aIjVRt1dXE/x7/l9bOwWmnEy8g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794395703;
+	h=Received:DKIM-Signature:Mime-Version:Content-Transfer-Encoding:
+	 Content-Type:Date:Message-Id:From:Subject:Cc:To:References:
+	 In-Reply-To;
+	bh=tAx/ZFlsqXKWFenehZ/MbbfKdZYuT66fnAo6orVBCkk=;
+	b=ADxgLU5EZz3HNGhErDS2Bemis1ad9mxLsWKkBzMDFrlmnxp92cuQ7OBJZQ4YzAND6X1M
+	 D49Aoe6DR8wOXb6lu/jVs0XYzdR5iXQfD3he4IxmgYA9MW3EWBjmRPv3pKHWlLio4fnat
+	 jyyd7T4RmGK931xOv76+ZUl9oMREOasoEhcv5l942rl5B6mVFN7N44I/sykoZEbYuNXJg
+	 DdrxwNirW8FbMjTT8COoB8mHEwJRjF4Xm/4V75kQANBb5FicfVHUBnnobpjC3LiW47XlM
+	 Qz2pPJVekzdbi0NHAS9dEJuw04g2m0Wh56j40Iwxf7FrPJxWikZlpGi+WQ3ZJ0SADPg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J4crJRAW;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XBN881Uo;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D113606A32A;
-	Wed, 11 Nov 2026 11:15:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E44D6606A330;
+	Wed, 11 Nov 2026 11:15:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J4crJRAW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8F401F00A07;
-	Wed, 11 Nov 2026 11:15:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XBN881Uo
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D23161F00A05;
+	Wed, 11 Nov 2026 11:15:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794395701;
-	bh=Ee5/U40Wmc87ctgtQ5qWbKs42KkK5ylSG9FBEDvI45s=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=J4crJRAWVbfvpdEzzoxakFYHfrQBJgWnHpCMW2Kdomb2jIV3qrQHMed342gp/F/mX
-	 kMsU/wWTaTrJ6WuKKxWc5SdZXQBP1m5RyX4tD33uZ65HkxsaWzycCvcbLQYmpXkOhi
-	 hXqFRlwDzuPTHJ069Evgl8jbqESxbodTIp/51sSn/Y1uZu/uvez/sFJdZwFPdCDmoh
-	 wHteVqLRMxG6LUS46ETgj+PtY6wmrNjznaLBqL2TM3eaYo8LvgYwN5L/iKG/iEJTwg
-	 xNzZJneP4bM3aQChDRAUYW4FwKsSNLpLi4lX/HSQCyigtaju02uLntFoesibkJok8c
-	 GHw24TtYWW67Q==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1xR6I7-0000000EG77-2con;
-	Wed, 11 Nov 2026 11:14:59 +0000
-Date: Wed, 11 Nov 2026 11:14:59 +0000
-Message-ID: <86mrrf1ux8.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Fuad Tabba <fuad.tabba@linux.dev>
-Cc: Oliver Upton <oupton@kernel.org>,
-	kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Vincent Donnefort <vdonnefort@google.com>,
-	Fuad Tabba <tabba@google.com>
-Subject: Re: [PATCH] KVM: arm64: Sync SCTLR_EL1 before a pVM's CPU_ON reads its endianness
-In-Reply-To: <20261111082746.1064567-1-fuad.tabba@linux.dev>
-References: <20261111082746.1064567-1-fuad.tabba@linux.dev>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	s=k20260515; t=1794395702;
+	bh=tAx/ZFlsqXKWFenehZ/MbbfKdZYuT66fnAo6orVBCkk=;
+	h=Date:From:Subject:Cc:To:References:In-Reply-To;
+	b=XBN881UoloAl+qdmKmPVrH4Sn4mrZ+nDx2hDHv8pvgq3leTwmjlP2OasxRSnWu6j3
+	 uHEogUzELOrIsIZghOIZKs4GSyulW+2Vib3GHirLE8fCWtj758itIRfrnuLNvnyoLs
+	 nq5Bf3G4qrFaKndvZZVT+FHiYQ/FVdQyfCWhnYeCImhzuagHE6tnxBPQxfV/Zc1gfu
+	 qF4dSMTJrPHA/KKdiAyL9eDe/xhrDf/4/eH09PJ7xsaZvvTUFTwSzo5K6/GhrtmZ4e
+	 KUXb/5YEClBabd5qR9xw31E3v/SiKbKwxaPazwx4mFeOSPFjrF6hgosYbJYCJjNUbp
+	 Qw/BuuECr9HXQ==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,113 +48,45 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: fuad.tabba@linux.dev, oupton@kernel.org, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, vdonnefort@google.com, tabba@google.com
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 11 Nov 2026 12:14:59 +0100
+Message-Id: <DMSC6S86RQ85.36H8JJYBI79L4@kernel.org>
+From: "Danilo Krummrich" <dakr@kernel.org>
+Subject: Re: [PATCH] gpu: nova-core: use pin-init self-referential support
+Cc: <acourbot@nvidia.com>, <aliceryhl@google.com>, <airlied@gmail.com>,
+ <simona@ffwll.ch>, <lossin@kernel.org>, <nova-gpu@lists.linux.dev>,
+ <dri-devel@lists.freedesktop.org>, <rust-for-linux@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+To: "Gary Guo" <gary@garyguo.net>
+References: <20261110152746.140351-1-dakr@kernel.org>
+ <DMS93G8MYB71.3HF96QRH1AUN@garyguo.net>
+In-Reply-To: <DMS93G8MYB71.3HF96QRH1AUN@garyguo.net>
 
-On Wed, 11 Nov 2026 08:27:46 +0000,
-Fuad Tabba <fuad.tabba@linux.dev> wrote:
-> 
-> pKVM handles a protected guest's PSCI CPU_ON at EL2 before the guest's
-> EL1 sysregs are saved, so kvm_vcpu_is_be() reads a stale SCTLR_EL1. A
-> guest that changes SCTLR_EL1.EE and calls CPU_ON before its next exit
-> to the host starts the target vCPU with the old endianness.
-> 
-> Sync SCTLR_EL1 before the read, as inject_sync64() does.
-> 
-> Fixes: 9d4ec80be2eb4 ("KVM: arm64: Handle PSCI calls for protected VMs at EL2")
-> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
-> ---
-> 
-> Notes:
->     inject_sync64() is the only other reader on a protected guest's exit
->     path of a guest-writable EL1 sysreg's copy, and it syncs that register
->     first. Saving SCTLR_EL1 before the in-loop exit handlers instead would
->     put the save on every protected exit for two readers. A non-protected
->     guest's CPU_ON is handled by the host, after the sysregs are saved.
-> 
->  arch/arm64/kvm/hyp/nvhe/pkvm.c | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/arch/arm64/kvm/hyp/nvhe/pkvm.c b/arch/arm64/kvm/hyp/nvhe/pkvm.c
-> index fc0475f0877d1..e421f45383e0d 100644
-> --- a/arch/arm64/kvm/hyp/nvhe/pkvm.c
-> +++ b/arch/arm64/kvm/hyp/nvhe/pkvm.c
-> @@ -1321,6 +1321,9 @@ static bool pvm_psci_vcpu_on(struct pkvm_hyp_vcpu *hyp_vcpu)
->  		goto error;
->  	}
->  
-> +	/* Sync SCTLR_EL1 for kvm_vcpu_is_be(), as HVCs are handled before sysregs are resync'ed. */
-> +	__vcpu_assign_sys_reg(&hyp_vcpu->vcpu, SCTLR_EL1, read_sysreg_el1(SYS_SCTLR));
-> +
->  	reset_state = &target->vcpu.arch.reset_state;
->  	WRITE_ONCE(reset_state->pc, smccc_get_arg2(&hyp_vcpu->vcpu));
->  	WRITE_ONCE(reset_state->r0, smccc_get_arg3(&hyp_vcpu->vcpu));
-> 
+On Wed Nov 11, 2026 at 9:49 AM CET, Gary Guo wrote:
+> On Tue Nov 10, 2026 at 3:27 PM GMT, Danilo Krummrich wrote:
+>> Express all self-referential borrows through pin-init's self-referential
+>> support [1], replacing unsafely derived references.
+>>
+>> Cc: Gary Guo <gary@garyguo.net>
+>> Link: https://lore.kernel.org/all/20261008-dev-selfref-v2-0-e280b3c8fba5=
+@garyguo.net/ [1]
+>> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+>
+> There is already
+> https://lore.kernel.org/nova-gpu/20261019133647.1279779-1-gary@kernel.org=
+/
 
-I think it'd make more sense to have a global primitive that pKVM
-calls to synchronise whatever affects the control flow of a vcpu (yes,
-control flow for PSCI_ON is a bit abusive, but hey...). It's a bit
-more invasive, but at least we have a single spot to deal with this
-stuff, and it doesn't affect the hot path.
+Ah, apparently this one has fallen through the cracks on my end, sorry.
 
-Something like the hack below.
+> It doesn't include GspSubtree though, I suppose that is relatively new?
 
-	M.
+Yes, it is.
 
-diff --git a/arch/arm64/kvm/hyp/include/nvhe/pkvm.h b/arch/arm64/kvm/hyp/include/nvhe/pkvm.h
-index 0261b2bc681f7..ef05265626b7c 100644
---- a/arch/arm64/kvm/hyp/include/nvhe/pkvm.h
-+++ b/arch/arm64/kvm/hyp/include/nvhe/pkvm.h
-@@ -134,6 +134,7 @@ void kvm_init_pvm_id_regs(struct kvm_vcpu *vcpu);
- void kvm_reset_pvm_sys_regs(struct kvm_vcpu *vcpu);
- int kvm_check_pvm_sysreg_table(void);
- 
-+void pkvm_sync_before_exception(struct kvm_vcpu *vcpu);
- int pkvm_reset_vcpu(struct pkvm_hyp_vcpu *hyp_vcpu);
- struct pkvm_hyp_vcpu *pkvm_mpidr_to_hyp_vcpu(struct pkvm_hyp_vm *vm, unsigned long mpidr);
- #endif /* __ARM64_KVM_NVHE_PKVM_H__ */
-diff --git a/arch/arm64/kvm/hyp/nvhe/pkvm.c b/arch/arm64/kvm/hyp/nvhe/pkvm.c
-index fc0475f0877d1..85da570ae1032 100644
---- a/arch/arm64/kvm/hyp/nvhe/pkvm.c
-+++ b/arch/arm64/kvm/hyp/nvhe/pkvm.c
-@@ -1321,6 +1321,8 @@ static bool pvm_psci_vcpu_on(struct pkvm_hyp_vcpu *hyp_vcpu)
- 		goto error;
- 	}
- 
-+	pkvm_sync_before_exception(&hyp_vcpu->vcpu);
-+
- 	reset_state = &target->vcpu.arch.reset_state;
- 	WRITE_ONCE(reset_state->pc, smccc_get_arg2(&hyp_vcpu->vcpu));
- 	WRITE_ONCE(reset_state->r0, smccc_get_arg3(&hyp_vcpu->vcpu));
-diff --git a/arch/arm64/kvm/hyp/nvhe/sys_regs.c b/arch/arm64/kvm/hyp/nvhe/sys_regs.c
-index 32e82653ebf7e..f28a96d0e50de 100644
---- a/arch/arm64/kvm/hyp/nvhe/sys_regs.c
-+++ b/arch/arm64/kvm/hyp/nvhe/sys_regs.c
-@@ -254,7 +254,7 @@ static u64 pvm_calc_id_reg(const struct kvm_vcpu *vcpu, u32 id)
- 	}
- }
- 
--static void inject_sync64(struct kvm_vcpu *vcpu, u64 esr)
-+void pkvm_sync_before_exception(struct kvm_vcpu *vcpu)
- {
- 	*vcpu_pc(vcpu) = read_sysreg_el2(SYS_ELR);
- 	*vcpu_cpsr(vcpu) = read_sysreg_el2(SYS_SPSR);
-@@ -265,6 +265,11 @@ static void inject_sync64(struct kvm_vcpu *vcpu, u64 esr)
- 	 */
- 	__vcpu_assign_sys_reg(vcpu, VBAR_EL1, read_sysreg_el1(SYS_VBAR));
- 	__vcpu_assign_sys_reg(vcpu, SCTLR_EL1, read_sysreg_el1(SYS_SCTLR));
-+}
-+
-+static void inject_sync64(struct kvm_vcpu *vcpu, u64 esr)
-+{
-+	pkvm_sync_before_exception(vcpu);
- 
- 	kvm_pend_exception(vcpu, EXCEPT_AA64_EL1_SYNC);
- 
+Given that this patch already covers it, mind if we just keep going with th=
+is
+one?
 
--- 
-Without deviation from the norm, progress is not possible.
+Thanks,
+Danilo
