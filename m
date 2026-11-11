@@ -1,84 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794393910;
-	b=kYO07gEkLYW6om+T+ng4VkgGpQdw4wehTglq7Q6gQXb5IA6+LgqJm85E3WaAXqh8Wl6v
-	 +4/gk842lVoBw2T8w009/+Z0iR7merHCGwuFwH2AX3vE3W37WdqWNUUtVTyNMZIVfJvok
-	 2W3T+L0WgivIaL6Dd0nlpFWu+SxG1FeK3urP7YBc/J8wKadeIJKhUzRXINpTebSbkkkRj
-	 E4keI7kxvNb7aljwnl/K+geMPG0zOAmjaV1KnQ4POqsemFwxHRhiPlo606A9XJN4Sm0XO
-	 b4hs8fiKU4n0ShoZOsUaEZdIsDDkK0jD1bex+q5M/RBhgwa7lDYhM9k6Hit25eXMu3A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794393910;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding:
-	 X-Proofpoint-Reinject:X-QCInternal:X-QCInternal:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=K9t1L0eEjksdBZsZhvcTxG05ewTRA22gsv1oXPfTU4g=;
-	b=QPtXnVGygg/N+P2bssQNmEb73oetHZeWKEXfh8Cs0r6PYqoycaa9/I41/AnL5vY1VAer
-	 Tx3mAClYmb3osoh9Uzju9LioFuVkVSSqUtpGu+9/MvJIgVoGfLDycdW9pAXHHqzaOY5st
-	 oyGF1zAN+D5oW/S03CuGKhcdKWh21RLvpm5CEIHjyrKhCYyAzl9ubuvJkkvKA1nBm8M3d
-	 S+moZ1T5Y6Kt9zn8zO6DFbg/BC3AU6PphmiAM0PkwmO+Bbvf5QG/VztGWQQKHaW6QnVa/
-	 Y+c+MBztIgFfk7B2ABi7IEQkKl1TMTEvZ2tgP1E1d6kQWjzHC0vf9EFmApyJDW/WlNg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=grMd1WKl;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.43
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794393922;
+	b=30JLqzTJDrGbPc4HJAm/jrsi++p1N1E4pRvMnVV4jajwLBZBNXEcp3s78cEiIQtVMJAQ
+	 Nf1lTFqwRMpQvcRyImIVDNXrsx4wurHQLMiiQK497owzq5211o00n2UID2RiHMQG//1k/
+	 khnYIzGPoHhYXsFU9TObOv5+TwT41lh1k6DcH3/VUM/T6TAkXDPprhB9R37e8StQ+RsHZ
+	 XkGdgCb/557Ku2mxpnfsMta2aXuyPBb5BDrzb/Vf+s8+0nUSkTp7fC6fExGQRGf/DDGm4
+	 dfXqcpImlmj70SaBGCQlMSkB6TGjCULgmQ7oI7iYyapCJJhC2cGNzPN7kYIoynQePpw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794393922;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=VcKJabFzTVbjKEa9TZqeK9yN9ffYcu/rnFFvEOpyqps=;
+	b=zTuw2izHyLrp43GpUaYVrk5lShT5GI8OoFSULm5yuvFceVkG+KD7Aqf10TRwyX2fwJog
+	 BztUA8bDZXm5rMbQ5bUBJa1XS/zMQMOq2EIHAVFvxfMRqctIViSqXYAraZmw+qBZy6JxP
+	 8K+6x4PYxSEDLWmM8t8qO5c209mbmgNBjzUoI3zRbhIxzg1Ygrzj1jPS4Bni31Exp4Mqr
+	 Q9Nqig5GPbzKEjKn1t8axxIMCcPpeSTDlisAXos00hMn589b1/NajntZlYp7YhYFHnP+U
+	 E0vZOH8/s7wLg5DPIB99oY9njik3j6R1uTKvMQFEuErG0ZgrMzYvPIsqq6St1Dm7NIA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=flipper.net;
+	spf=pass smtp.mailfrom=flipper.net;
+	dkim=pass header.d=flipper.net header.i=@flipper.net header.a=rsa-sha256 header.s=google header.b=VlvEedBE;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.43
+Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42710606A33E;
-	Wed, 11 Nov 2026 10:45:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 42710606A33E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAFC7606A88F
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 10:45:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DAFC7606A88F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=grMd1WKl
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AB6Z9u7581030;
-	Wed, 11 Nov 2026 10:44:51 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=K9t1L0eEjks
-	dBZsZhvcTxG05ewTRA22gsv1oXPfTU4g=; b=grMd1WKlL1DyGPVb9q44nNb1sfd
-	oUTscEx+8Y7owYw2ELEwl2OjrswimDxjfVZAfDJkhF4lS51aCOeLEZANdw4SMGwr
-	Clbi7KKPamyLGK8wq661/a5gMaos91TMvPB6CpRK0u/P8uCW9p8pN3q6Zt24BreO
-	UfRPC09D4JjQVmJruw6ZO0sQvUywRqszyLr+yl/xJoDJeOX2v+ZCZVYg9z6M81ON
-	uGhipL8V4Xa6jNWlyQp0jKuwLzF3V0zwA1iiuH5oqXT7B2SmAcIbXxEn4IUcWm57
-	IYhOjD4ILG6DFGr7rmqvJWVl5RFvfgEfDGICYfAs6ZV1OKLqhh2RvDyAf4g==
-Received: from apblrppmta01.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvk7prwan-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 11 Nov 2026 10:44:51 +0000 (GMT)
-Received: from pps.filterd (apblrppmta01.qualcomm.com [127.0.0.1])
-	by APBLRPPMTA01.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 6ABAilHn010141;
-	Wed, 11 Nov 2026 10:44:47 GMT
-Received: from hu-devc-hyd-u24-a.qualcomm.com (hu-vnama-hyd.qualcomm.com [10.147.248.182])
-	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 6ABAil10010120
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 11 Nov 2026 10:44:47 +0000 (GMT)
-Received: by hu-devc-hyd-u24-a.qualcomm.com (Postfix, from userid 4857718)
-	id 4E77E21C49; Wed, 11 Nov 2026 16:14:46 +0530 (+0530)
-From: naidu nama <naidu.nama@oss.qualcomm.com>
-To: vkoul@kernel.org, neil.armstrong@linaro.org, mani@kernel.org,
-        robin.clark@oss.qualcomm.com, lumag@kernel.org,
-        abhinav.kumar@linux.dev, jesszhan0024@gmail.com, sean@poorly.run,
-        marijn.suijten@somainline.org, irlied@gmail.com, simona@ffwll.ch
-Cc: Saurabh Anand <saurabh.anand@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
-        linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        quic_riteshk@quicinc.com, quic_vproddut@quicinc.com,
-        quic_mkuntuma@quicinc.com, mahadevan.p@oss.qualcomm.com,
-        naidu.nama@oss.qualcomm.com
-Subject: [PATCH v2 2/3] drm/msm/dp: Remove redundant force_link_train flag
-Date: Wed, 11 Nov 2026 16:13:54 +0530
-Message-ID: <20261111104434.2222182-3-naidu.nama@oss.qualcomm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261111104434.2222182-1-naidu.nama@oss.qualcomm.com>
-References: <20261111104434.2222182-1-naidu.nama@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.a=rsa-sha256 header.s=google header.b=VlvEedBE
+Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c4c9abc1824so427028866b.1
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 02:45:21 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794393920; cv=none;
+        d=google.com; s=arc-20260327;
+        b=IOQtzCndhdogrdlWmsN+KQAhtKk3G7QT4zTfwLP8WQFqq9CjSU5A6lRg2Ea8rIQ02g
+         5SYI33UBBPPqQOxnUYLxuIXwT1bFiMaDyAITgZO5LV0xO3fXtP6KjTeI5AgRuKbiqDFf
+         M0k7+XFlmXEac2HdPc8juEI5rDlaO5QA2OCR6QAAtzcB7/nLR4Y0Afynoxs9vlGEwNQY
+         v3DpXm9HbvyhPTqVOzlpXES9CDBu97gi/N8KITG4DdFsa0FEf6IMHj7auzPJ80jh9M8e
+         dq19rMQqFezSL6UNH7qyjRUm8W4AYvj4je7JrGh8H/p5zE/pmOinyHbuAJPagKcBvmmC
+         FCzw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=VcKJabFzTVbjKEa9TZqeK9yN9ffYcu/rnFFvEOpyqps=;
+        fh=rRILeIWkCYNg6dd4RorYRC+eGO/kcwi8z/xjblzmWeo=;
+        b=C1dv7NT7AAXjE1o8gdA+2YaC3UgLt4xclQ4BsxWjOcvMQIVTtBoxaYujnR8yI1rLHa
+         iPURoaRwk1wfa0HygZ+4aINKLhBE5K3Tkx/c7LjMxk1ede+Ve5YMvVB9SJpAmj+5mkoE
+         HQqzpNa82F+HSVQdcUGMML8VXXYdVkYyfrILgUTb4yPGR4pSwHlKnLknLB3z3cTgCFQD
+         RhvwV9Cz5U1ISPS2kvDJDUHPKrb7I6wRq5w6DlqKrxEebHgtrZlhvj7stZw49tqSji0o
+         83Mxz5OMy4BiCRFklNkkjgL/Jupeh13G8qOTqTjXn9lZtjHaOKDq6AWJPPpEa8/vyFCD
+         Bcwg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=flipper.net; s=google; t=1794393920; x=1794998720; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=VcKJabFzTVbjKEa9TZqeK9yN9ffYcu/rnFFvEOpyqps=;
+        b=VlvEedBEndSP0TfzLQwadr9DYG4XV2qpa1/adLm5CgAQfpPpS1gWKgZg4ciQBhusPi
+         Y4lETkhrOsqZOnRxRCyugHaATdsjUGIusqJXuMvJGIBe8CvWzfxPPRbsMnDjqGWCt2hX
+         CCesXOaVjudJ8ToiFFNhbueCH1F1JS2R5RbQaxoNorpy5L8xmcp+dCuy1e3XNIeE/YJ0
+         4e9CqD6yK5EFBjbSc8N5VpMD++naFoVFSuGDz8Yw1p3w0aDVEhepNyMC37nR4RiYBN+o
+         bZhYsMQCab8Z6x/05PMnQLXRthWIee4kLWUv+9vVtMscGpweM4Vwj3O+8IVn/pd0zoWB
+         vVLQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794393920; x=1794998720;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=VcKJabFzTVbjKEa9TZqeK9yN9ffYcu/rnFFvEOpyqps=;
+        b=RH9XWlJGNfHGnHCt+FvteqBV0m7W5EdT7h84tDf9gAlJP+s+4lqpR2Qi7E2OEqo02a
+         3i0UUSzA34iO8nv17Jf4FuhrwUMoynucTn/A+86DpMpSuuTCkEBZxgFHrwyp5TEADqoA
+         MiYBfb8oo0JUswkuwRjrYDOQfhomPZeQuSZ0Dcqiyh4sYHgh9hXEjRBIBAuRw0DZ2YAJ
+         8l9LygtCSAtN534jvHANER7vCFPawEOPJPwgtvSFUzDhyftfwlB+lpNLO5sG1FuwiIUM
+         ZzcRC3fA1glLH5JCZ6GmG5qN0Yz5gjKesprW0ar7owIQEP46gSLIU3usucrWhsEVTDey
+         Zl7g==
+X-Forwarded-Encrypted: i=1; AL+hErHPc80wAb4s+5ANRp+tmXcY/PGxF8ArHs/JJnOJ1zlwIMVJd6ryLQ66EEwTVUQHNBlR9QrUUB41TOfSsyE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+H53t1vX05R6TSW+S7hF94HtLFTbfWcK/HCYa9xYw4COxKOo2F
+	s0d1ql1EWbWR/cvTfKF+6zQUuaRmTEoTebbelB1sj+lpYz5Lom/OIJA3ML0wYN+fgFw0LuDvQ7M
+	761rgheAa3f+i8X7cUPbMkFOw2Ye4TF0B1cISFi0eDQ==
+X-Gm-Gg: AYBFou0rKLqCQ+D4YXPOgXNj6nWzcomto5eRX5dPkIhfdld/uyNhsQ1cc7iXC7Fz07q
+	Y4A+97gvLDTHA45DF4+7pWFRFWakgdihBCeGsBob7CXs+dkyqbAq9K0R6LmY9m6v0myI6yXxoVp
+	rbaHBM/hY9gwUZs5iowqJGhrNeVSvJnjKrzslYGSfv3iuUzppnGRtSiDZN+rXxwjfhernOAmt+Z
+	wUNXdAkDhua2zp7Avca2zOuQTcRBB8K1c7csokYyeDEu4HiANJr6LkqGZgAoQWPvt5ys6RiJKF5
+	QEFQlXtTK91Wo1QC/U3R3lQ6wTD6LoSQclHA1bugr8YnOvvk6dRgyJKcTXsAk0PlD+Ark9RAIU8
+	8HAPAFdvOC9EgkrivFRYKItrTVKtpEKNe3qnVhQ6GwYXLqOpfEMXRQfbOcRU+36sZO7BBpQ==
+X-Received: by 2002:a17:907:7292:b0:c2e:2252:6ddb with SMTP id
+ a640c23a62f3a-c5066a84511mr152183666b.10.1794393919375; Wed, 11 Nov 2026
+ 02:45:19 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,119 +104,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDA0MiBTYWx0ZWRfX2hrk5IH3mI7I
- bf0Wzwh/4/1sDR56flrvroBPvsBI/3IBpmUzw45b5mVzTPt78bccEr5Hyucani+JoLAAb10fuez
- Q+GPlCMWCsjo6htYzlaZkn7NKYahz6g=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDA0MiBTYWx0ZWRfXyhG18CF5/7Zp
- ZkO297PzgcU3+H+KPd/SKZA7v+C/bXkAwQ3DKjRlzP96WMzurrPZcE/PP13oJ+Urys7Ux9E4Rut
- PSHHOZbfjfs+ubWaLc64lP9Z6i+VxonFQCDJP1KBknZIjYP4OjYUu2jRbn5S7HNQ8nad5rI6pPb
- Vgrm4ClAK2YN5VCb1kJqlcVni8EbWQABNC3+LKa4X/JxlTiTkj1sqnvJqRw+mvuSpzcxk1ZpJBU
- +VvkKDBGEaoVik6/NoFh3yCEBf42M31LYj5RbFuGB2MscKiQJ6xxAJqMD5pQH0xOcScExliIlky
- /kCQg5XdDyDdqaF9CMIch9lwEJUM/l4YpnAlkCQud7MtijIl19LCg99eBBE0jQcZwQp3KkkI/eg
- Oy4InE8vQ6q/kHibW/JZEONKHIhtcUepC0HnVmO8dMMfru9AZZXV53ia2MqbHV4bpJ95ZCt0Idx
- 5InMn9TY8Thf44N4NAg==
-X-Proofpoint-GUID: rmLKI8a9wYoDEF5nY46EoqBOuXcGY8me
-X-Proofpoint-ORIG-GUID: rmLKI8a9wYoDEF5nY46EoqBOuXcGY8me
-X-Authority-Analysis: v=2.4 cv=BpcIUoX5 c=1 sm=1 tr=0 ts=6af44723 cx=c_pps
- a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8 a=09fYX2rt6u7AJZvDyXUA:9
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-11_02,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 clxscore=1015 spamscore=0 lowpriorityscore=0 adultscore=0
- priorityscore=1501 phishscore=0 malwarescore=0 suspectscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611110042
+References: <20261106-rk3576-evb1-husb311-v1-1-99c2f57ea2a5@flipper.net> <dd59d491-82b0-4047-ae98-f8070f6be112@rock-chips.com>
+In-Reply-To: <dd59d491-82b0-4047-ae98-f8070f6be112@rock-chips.com>
+From: Alexey Charkov <alchark@flipper.net>
+Date: Wed, 11 Nov 2026 14:45:08 +0400
+X-Gm-Features: AclHuK-JFFUWS_xdTW0P5OLa1DScA4kfALrbjXlHmDv-4WjET9Tuop7_ZcygSgc
+Message-ID: <CAKTNdwHbxnknob9NdjqWUcGU2fURO5B7V4kTTK+fvEYjNDOLCA@mail.gmail.com>
+Subject: Re: [PATCH] arm64: dts: rockchip: Describe the Type-C port on RK3576 EVB1
+To: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Saurabh Anand <saurabh.anand@oss.qualcomm.com>
+Hi Chaoyi,
 
-force_link_train is always false when passed to
-msm_dp_ctrl_prepare_stream_on(): the initial link is trained by
-msm_dp_ctrl_on_link(), and the flag is cleared before stream preparation.
-For active streams, it is never set.
+On Wed, Nov 11, 2026 at 1:31=E2=80=AFPM Chaoyi Chen <chaoyi.chen@rock-chips=
+.com> wrote:
+>
+> Hi Alexey,
+>
+> On 11/7/2026 1:52 AM, Alexey Charkov wrote:
+> > RK3576 EVB1 has its USBDP PHY routed to a Type-C port with a HUSB311 CC
+> > controller and a fixed-voltage VBUS supply.
+> >
+> > Describe it in the device tree, including the wiring for both the USB a=
+nd
+> > the DP side.
+> >
+> > This makes the data roles follow the Type-C port's negotiation, so the
+> > port stops being host only. It also leaves the VBUS regulator to be
+> > managed by TCPM instead of being hardwired via the tangentially related
+> > phy-supply on a USB controller. DP lanes are also muxed dynamically by
+> > the USBDP PHY based on the Type-C port's negotiation, so the hacky fixe=
+d
+> > lane muxing also goes away.
+> >
+>
+> Have you tested this? As far as I know, dw-dp driver does not support
+> Type-C HPD yet.
 
-Remove the dead flag and parameter. Stream preparation still retrains
-when channel equalization is incomplete.
+I did - it works fine for me under Linux with Sebastian's patches. My
+primary motivation, however, was U-Boot, where the current phy-supply
+hack breaks USB data role switching, due to VBUS being forced
+always-on. With this patch it works, and now the DT actually describes
+the hardware, as it is supposed to.
 
-Signed-off-by: Saurabh Anand <saurabh.anand@oss.qualcomm.com>
----
- drivers/gpu/drm/msm/dp/dp_ctrl.c    | 5 ++---
- drivers/gpu/drm/msm/dp/dp_ctrl.h    | 3 +--
- drivers/gpu/drm/msm/dp/dp_display.c | 4 +---
- 3 files changed, 4 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-index 47647fdec9de..6b9d9a76ba05 100644
---- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
-+++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-@@ -2582,8 +2582,7 @@ static void msm_dp_ctrl_config_msa(struct msm_dp_ctrl_private *ctrl,
- }
- 
- int msm_dp_ctrl_prepare_stream_on(struct msm_dp_ctrl *msm_dp_ctrl,
--				  struct msm_dp_panel *panel,
--				  bool force_link_train)
-+				  struct msm_dp_panel *panel)
- {
- 	int ret = 0;
- 	struct msm_dp_ctrl_private *ctrl;
-@@ -2608,7 +2607,7 @@ int msm_dp_ctrl_prepare_stream_on(struct msm_dp_ctrl *msm_dp_ctrl,
- 		}
- 	}
- 
--	if (force_link_train || !msm_dp_ctrl_channel_eq_ok(ctrl))
-+	if (!msm_dp_ctrl_channel_eq_ok(ctrl))
- 		msm_dp_ctrl_link_retrain(ctrl, panel);
- 
- 	/* stop txing train pattern to end link training */
-diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.h b/drivers/gpu/drm/msm/dp/dp_ctrl.h
-index 80d9258501b4..fc884038182f 100644
---- a/drivers/gpu/drm/msm/dp/dp_ctrl.h
-+++ b/drivers/gpu/drm/msm/dp/dp_ctrl.h
-@@ -20,8 +20,7 @@ int msm_dp_ctrl_on_link(struct msm_dp_ctrl *msm_dp_ctrl,
- 			struct msm_dp_panel *panel);
- int msm_dp_ctrl_on_stream(struct msm_dp_ctrl *msm_dp_ctrl, struct msm_dp_panel *panel);
- int msm_dp_ctrl_prepare_stream_on(struct msm_dp_ctrl *msm_dp_ctrl,
--				  struct msm_dp_panel *panel,
--				  bool force_link_train);
-+				  struct msm_dp_panel *panel);
- void msm_dp_ctrl_off_link(struct msm_dp_ctrl *msm_dp_ctrl,
- 			  struct msm_dp_panel *panel);
- void msm_dp_ctrl_off_pixel_clk(struct msm_dp_ctrl *msm_dp_ctrl, enum msm_dp_stream_id stream_id);
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index c0c150e2c575..169938ba515e 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.c
-+++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -633,7 +633,6 @@ static int msm_dp_display_prepare_link(struct msm_dp_display_private *dp)
- {
- 	struct msm_dp *msm_dp_display = &dp->msm_dp_display;
- 	int rc = 0;
--	bool force_link_train = false;
- 
- 	drm_dbg_dp(dp->drm_dev, "sink_count=%d\n", dp->link->sink_count);
- 
-@@ -651,7 +650,6 @@ static int msm_dp_display_prepare_link(struct msm_dp_display_private *dp)
- 
- 	if (!msm_dp_display->power_on) {
- 		msm_dp_display_host_phy_init(dp);
--		force_link_train = true;
- 	}
- 
- 	rc = msm_dp_ctrl_on_link(dp->ctrl, dp->panel);
-@@ -661,7 +659,7 @@ static int msm_dp_display_prepare_link(struct msm_dp_display_private *dp)
- 		return rc;
- 	}
- 
--	return msm_dp_ctrl_prepare_stream_on(dp->ctrl, dp->panel, force_link_train);
-+	return msm_dp_ctrl_prepare_stream_on(dp->ctrl, dp->panel);
- }
- 
- static int msm_dp_display_enable(struct msm_dp_display_private *dp,
--- 
-2.43.0
-
+Best regards,
+Alexey
