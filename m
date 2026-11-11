@@ -1,112 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794404831;
-	b=FNjWL3ppysCxBX1bUW5jcXZW9yVkKDdAnMZes4w8tCdWD0BqrsxKAQEIPnysqAvZd07q
-	 XxmygPrErPMn0FJrbaqYsR0ENB7Pnd9Hiao0ffgmHowa1w8OJz0ejprqmKmX/GJ+SUyKW
-	 hE2JgleTUipOlL1h/x6gURmwkkkq1yS8+I9T7xNxlwhK9OBl+40OmdOLWfQDsHkAPFpdL
-	 F4kwB12BBPw1NdqDUODn5an187UHsjFEbNwoQmkf5AxayAZt4y29I0XuzVDSk6cgAW6D4
-	 WTAjql8DS6+fgf2SG1Pp8UA7wokko7OW3RKnKLAkJyz1AseivUaU3EmmYHJbirayi3Q==
+	t=1794404832;
+	b=E1qUZqJ/ZtDtRl7zm48bxytJVQsxy9iKZEa5Nbryh915+107xYyfMEtKSuK0xlpxlOp0
+	 HGeKZnnTrkpGkdgCeBiSO00aa2tUXt/WFtGToQ514TbklIKHInNHB+XPWrwcMhurPphpS
+	 6GZRTJkIUOcjuEc3F0WGCQ4rurMGGIl/fPx1HzHclZoEtIFvJGyXSH0z6P+e2LxXmONW1
+	 Kk+3RhmsjPtQt4t4W0k7nDL262ezgHckGsogcZ2VVJ+By3wxz4+b3+UJLbmXL3Y8VlgHi
+	 FvvVMDLnHbaq3s/W/D/eZG1KeFjya3t6/wP4UYsR4GE1D9KwkZ87FrHRIB15ApaotUg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794404831;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=B0t7gR4bEucbc8jZShMdnCoiT4kfG+r/AXQtiP9TGNo=;
-	b=hokWlBr091hSw/QpmW17im+3r4VYZbH/onPZ/wiAgGp0+CuhlvgPf4GEOclhS+b4sdbS
-	 7hfwKnt4mhARplZOPqPyOxi3cCdw+cxblaNXC+nNdCNMM8hh7y9gIFNFIruOg29E2UZvP
-	 pwprCqd2QKbxUJ1oHyObAl/eEQPMB5nWhIhmSFmGeVKoro+rrd+vQs1zVMM5EP5rAcnf8
-	 ioJwu1xl1+R/AajzvndYLmpgxykZrOvWWzSduOl9IuPOYaEoJW1IIzVN19kLBvAyWX/qa
-	 O3PK6L/g9uSho3zMOY7WUlBbv/sTaMrVJLqE0il1GevHWfeIjqr78+foOLguNZxllvg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794404832;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=5vF0BMk1tRSpraGRppdwIm7WTor6EeJ5JJdKAum4QCw=;
+	b=FH1J3J7bc2KCkfugQsJ+LrMcDxec7b3Veqd7IXKm7ViWM0BA6Jpv5FH+SmmvXdNLT4RQ
+	 h23nEqUSSg7a3kzFAX1Ik4HqFiRVbLcrErpEmkMc+Yd0Kvqjd3fsW55YAlEQJoHOVxfX1
+	 usTook9JLVxMcSO/hoPTT2UZepnRwCJTwkrq12tJ4wTtTcLTU4D9f/7uiQQMmpWvguKyS
+	 T0n3xj9Y+9DFhBmAYUcPEEgrmZBze/lL4foM7Yq7d9K7Q2D+on8m9ZFYIL7lIGs0rM90w
+	 +gk8O+q6OPuFx7bORhLwDa5OG5IzyHik15Y0s/JVBve+PobsKPLxiELyEr/CiwM01Qw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=P1NI9ZXK;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=gmvtSrqX;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="gBk3A/QP";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A090606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:47:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A090606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7165606A335;
+	Wed, 11 Nov 2026 13:47:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=P1NI9ZXK;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=gmvtSrqX
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ABCYuNC1806580
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:47:09 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	B0t7gR4bEucbc8jZShMdnCoiT4kfG+r/AXQtiP9TGNo=; b=P1NI9ZXKpPpLefpB
-	T3jRSQKTdCHlEJxCBLZcI8vT3iWGPPydxpLKXAaJhtexVFFrEoWcIMwtEIjJFan3
-	FngfDNeafJTexxx7+8fS+CyhF+fidjkTM04SWz9+37XWiMHELmIS0dNjyy3RMv1f
-	fyJKo7B2LRVEAcTfr4EwnLyb/0Dglh2Octj0XY6HB1zpipBui9yPL+jYU2paRntD
-	gSiwZFC37NRpTAHhcaIB0Rtt/s0zrYvd7FfmVd05fxrOZxAZjSwCmxzxnNzzrVej
-	BpHRpbhJPqBQ6cnWyfdaMqrrGKjyIUOSIg+tysqWd0H8NUaG0nTJgbWLoeXmz/Y9
-	CdGaXQ==
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvfawjc1c-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:47:09 +0000 (GMT)
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2ea446ea8c9so22442335ad.0
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 05:47:09 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794404829; x=1795009629; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=B0t7gR4bEucbc8jZShMdnCoiT4kfG+r/AXQtiP9TGNo=;
-        b=gmvtSrqX4mRvMroqfG5OzQo75GbOUuARbiiGbCbb9X+JRuXVxg4ebyHJ/2W/qb7c1w
-         EQrH7Th+pidgu0q0fC8o6rWQRUsNlc83sTMngHXKkk9SPj0fNRFOOCoUlThuDvdI5OXI
-         Z5n+dTEgIHQ2kX/DbyxulVU63GpCL/EBocjJPFF0Ya9IhBfaWBUZrogan9fX+YgES1BK
-         80nwjCI045HAgiB5yRsTT7NEfsAftkqBv4m8YlUaM/r0vO6is3MpS7UvxWI3KxFSVnE0
-         yXrX4qRQmCOUQQI0IKI6gZmOsdRdCiqvyEVQ+RWj5kjQBQs9N4qfveigreqvmBvhr4CZ
-         sqxA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794404829; x=1795009629;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=B0t7gR4bEucbc8jZShMdnCoiT4kfG+r/AXQtiP9TGNo=;
-        b=Jxh8NaitVhC9pVJ2bAdJWBIl6ohj+TwTjA0VbKWfeiwzJFmvDdwcuMw3RSxaIT9ONI
-         b300q8U5irvipQXq8wWqdrr+bxfRRGl5dsiKObZdSVTpeNJL9kgBDvYeQwrQF106fd5Z
-         HixWUZKQFr3aegfXEHbu/2wfRKFv5B3bBjr6FUNT/a1XXimltjlOPrEhp02pIvBxhV5Y
-         VcBQevKzZYFx0cinWZVehI7QBcrMxegTZJgTbbeLF1ecvmpNM6nYOacWUup6ds5tfVUX
-         NrPj/VBh9fI23tlsDD1UHp44y/d124zWVPTX1mQX/HJB209dm3iOiwyHEJhvUpkGuH3Q
-         KEFw==
-X-Forwarded-Encrypted: i=1; AL+hErFVMLJq8kr2MhOvpNmfdODNujZSE083ewK7qy4+w/5yDrN14Kqz3Awyeyso5C0iXu0Q292wNwoSujw465E=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/s4O3s4VcL6Ti8IgWbpcBl/X5J59re2RzNpduHRch4dQwR8sHP
-	ULVARh+cH6MHBOCEj0ZBzOnJ+klHL6wnCmfjy+pov/KVuY+bn2IVmFwciyIasWvvTU9FFctaCvM
-	MvXZ3E64q/jPjL1uJfPoyDEi6a5mX957ckcefu8KwoRxjuVoIMV+KraDraqdHLUyvYlU=
-X-Gm-Gg: AYBFou0LMTCR/6nTCF+L7a15CqeESnXOhzDBnuEHJrSy+YDi+lyLG4UjtkIR6vFj4bP
-	43uKxxNjhVGtBQvZrauz5DlEbsw4zKQ4yk6394m1nzOdtendMcKnJ8L0wXikRXNdnBFd81Eu5ND
-	/e0ksN7t9O9tBEX2Eoc/u/kjAdRi+4/80kVxlBZWjO9noflpVfg8Ca5DbqO9CeH118KRlhnvbVd
-	D0TcsKI2a3cURqmgsG550cF93oD+V9X9Y1vWeepZjedKygKfDaycswwfs+b2Noyjc94JE66rUt+
-	LMEU6BMQbQwpTozRIK/w5o0cheKrog9JyQEiLTwjWBB4QbDqROU0rrYv+ZwkEWNSWvLVfVV5TBT
-	4Vv8VhBXw+77Zj9l38WK4rH19PMqWjJhYIPQOYFcWlsvklHa/qHuayPLw13RVptoX/4I2OKpXsY
-	icDS5Tg1KL+nClbnBuiz6PC/S7msTZX2al
-X-Received: by 2002:a17:90b:3886:b0:3a6:d850:bf16 with SMTP id 98e67ed59e1d1-3b182f2570fmr1699713a91.23.1794404828651;
-        Wed, 11 Nov 2026 05:47:08 -0800 (PST)
-X-Received: by 2002:a17:90b:3886:b0:3a6:d850:bf16 with SMTP id 98e67ed59e1d1-3b182f2570fmr1699688a91.23.1794404828126;
-        Wed, 11 Nov 2026 05:47:08 -0800 (PST)
-Received: from [10.133.33.220] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b17dfb9827sm4890431a91.1.2026.11.11.05.47.03
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 11 Nov 2026 05:47:07 -0800 (PST)
-Message-ID: <18db783d-afef-4cd7-8192-00f1970da7ae@oss.qualcomm.com>
-Date: Wed, 11 Nov 2026 21:47:01 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gBk3A/QP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 729EA1F00A09;
+	Wed, 11 Nov 2026 13:47:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794404832;
+	bh=5vF0BMk1tRSpraGRppdwIm7WTor6EeJ5JJdKAum4QCw=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=gBk3A/QPPASNlPvNbOfe7sfwuSbn9+HPxXociOsLJxxSc8AEpOUs0Xir/12lQYyQK
+	 Gs1rhE+F3OleSOkEzG1MBnwMpJagdGZMHhiA9QSjpjDy6983LuqlTkF/lPXi4kQUJv
+	 7mP5Zrk21y86f8g6Lfst6ETM3r6a1kM4ECnNEiItUJnMT6RXyVuPW8RI7WzL/GttW4
+	 cxWtlXlaiFlwaia1LfG5JUEMmoVE27w8SkPwszDNYTWopZLAFp3k9xbTSkdNx0bMoD
+	 kl4BA9Xfzgn3/L/m6znKoKTR7N+FhgNYA0H3PgrEaIh6w+s2VY/r35PD3rCtjuf2R+
+	 jJrYCN5axv4AQ==
+Subject: Re: [PATCH net-next v10 3/3] net: stmmac: dwxgmac2: add XGMAC
+ timestamp interrupt support
+From: netdev-bot+sashiko@kernel.org
+To: zxyan0222@gmail.com
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, maxime.chevallier@bootlin.com,
+ mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
+ richardcochran@gmail.com, muhammad.nazim.amirul.nazle.asmade@altera.com,
+ rohan.g.thomas@altera.com, rmk+kernel@armlinux.org.uk,
+ o.rempel@pengutronix.de, wojciech.drewek@intel.com, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Wed, 11 Nov 2026 13:47:10 +0000
+Message-ID: <179440483097.2199510.11602578563811617638@kernel.org>
+In-Reply-To: <20261109134506.2794160-4-zxyan0222@gmail.com>
+References: <20261109134506.2794160-4-zxyan0222@gmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,168 +68,602 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/2] cpufreq: fix policy max not returning to non-boost
- freq on boost disable
-To: Ananthu C V <ananthu.cv@oss.qualcomm.com>
-Cc: Vincent Guittot <vincent.guittot@linaro.org>,
-        Sudeep Holla <sudeep.holla@kernel.org>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        "Rafael J. Wysocki" <rafael@kernel.org>,
-        Danilo Krummrich <dakr@kernel.org>,
-        Viresh Kumar <viresh.kumar@linaro.org>,
-        Jie Zhan <zhanjie9@hisilicon.com>,
-        Pierre Gondois <pierre.gondois@arm.com>, linux-kernel@vger.kernel.org,
-        driver-core@lists.linux.dev, linux-pm@vger.kernel.org,
-        "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
-        Oleg Keri <okerixx@gmail.com>,
-        Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
-References: <20260929-schedutil-boost-frequency-handling-v3-0-68de169498c7@oss.qualcomm.com>
- <20260929-schedutil-boost-frequency-handling-v3-2-68de169498c7@oss.qualcomm.com>
- <41f328b2-0825-4023-b86c-48136ba6ecd2@oss.qualcomm.com>
- <avRd3YVDXs26hrow@hu-anancv-blr.qualcomm.com>
-Content-Language: en-US
-From: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
-In-Reply-To: <avRd3YVDXs26hrow@hu-anancv-blr.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDA1NCBTYWx0ZWRfX186+Gtzb58XC
- p3v1sNiGiuEWFnCndZxdUE/p+CjDz4y1rsCijuhjicYI26kHCzS4+Dct8py/YrGmLIiXeP3HjXv
- DaqnjrBXraTBuHv5KNQxpNW/1hanppo=
-X-Proofpoint-ORIG-GUID: DTAlw3pqzV0cGQaW7ukeXazdinZ8IjHN
-X-Proofpoint-GUID: DTAlw3pqzV0cGQaW7ukeXazdinZ8IjHN
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDA1NCBTYWx0ZWRfXybuHcK2+7CCN
- gZf3967JQRP03yVvm7qLDDU+4Xs71XMMy83d00G8S8+QRvIBAfm5uCAl+/xRWkUxWtGnR6huRi1
- jDYoYzoZSvaL6NliuLsNYGuIO8WUJutkqYs7JJpE+jGp0cjNU/KTB163hYsllHzHx0q5TenNqns
- ZMutLz6Pfl8FANiKTp7dEwAzky0/6M+faSzSEn6LqMY6Gndv1Caskc1A1X6wxa8Gtx960XWaKBs
- F/9xwhPddqMQoG4AazlUiE/S6djBvEC+6zgZ4CwfHtjRumDfxhdnLaDr1cJGHrTXzFj3N609NjW
- hYzEdzdlpuxBc0FBFQXdA6YShjQpnwPS7geMo6XVDJhr9wIUGG/1ewbvPqio1gSFdZ/F4kMHUj9
- qQofvXXf9/rBHDRx5c3hbvL4weOTjt1dpW9XF2zRHLfpsheW4FXRlFMmbKrP6QHRHz9C7Pm+UCr
- 6EbK+ztYSHMRr6NONXQ==
-X-Authority-Analysis: v=2.4 cv=CZadd7rl c=1 sm=1 tr=0 ts=6af471dd cx=c_pps
- a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=qZlHrcwyowrLkl4W26AA:9 a=QEXdDO2ut3YA:10 a=GvdueXVYPmCkWapjIL-Q:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-11_02,2026-11-11_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 impostorscore=0 suspectscore=0 bulkscore=0 lowpriorityscore=0
- phishscore=0 adultscore=0 priorityscore=1501 malwarescore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611110054
 
-On 11/11/2026 8:21 PM, Ananthu C V wrote:
-> Hi Zhongqiu,
-> 
-> On Sun, Oct 11, 2026 at 10:17:14PM +0800, Zhongqiu Han wrote:
->> Patch 2/2 currently depends on a helper introduced by patch 1/2, which
->> prevents it from being backported independently. Since 2/2 is an
->> independent fix that should be backported to stable on its own, I think
->> it should be placed before patch 1/2 in the series and kept self
->> contained.
-> 
-> The idea was that currently patch 2/2 would serve no actual value without the
-> fix in patch 1/2, and that is why it was the second one. But yes, we cannot
-> fix 1/2 and leave 2/2 as is, which would turn the current benign issue to an
-> actual problem, so the order should be probably reversed. I'll work on that.
-> 
+Thank you for your contribution! Sashiko AI review found 10 potential
+issue(s) to consider.
 
-As I mentioned before, patch 2/2 addresses a separate issue that should
-be fixed in its own right and backported to stable kernels, because with
-policy->max stuck at the boost ceiling, scaling_max_freq keeps reporting
-the boost frequency after boost is disabled (as shown in the cover
-letter), and governors such as performance can still select boost
-frequencies. Anyway, please go ahead.
+Critical: 0 · High: 0 · Medium: 7 · Low: 3
 
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
->> To avoid introducing a new member that is only used by frequency-table
->> drivers, please consider the following implementation instead:
->>
->> If there are boost entries in the frequency table, the table is the only
->> source of cpuinfo.max_freq, so let cpufreq_frequency_table_cpuinfo() set
->> it unconditionally in that case.
->>
->>
->> diff --git a/drivers/cpufreq/freq_table.c b/drivers/cpufreq/freq_table.c
->> index ea99464..8c8bad2 100644
->> --- a/drivers/cpufreq/freq_table.c
->> +++ b/drivers/cpufreq/freq_table.c
->> @@ -33,14 +33,17 @@ int cpufreq_frequency_table_cpuinfo(struct
->> cpufreq_policy *policy)
->>   	struct cpufreq_frequency_table *pos, *table = policy->freq_table;
->>   	unsigned int min_freq = ~0;
->>   	unsigned int max_freq = 0;
->> +	bool has_boost = false;
->>   	unsigned int freq, i;
->>
->>   	cpufreq_for_each_valid_entry_idx(pos, table, i) {
->>   		freq = pos->frequency;
->>
->> -		if ((!cpufreq_boost_enabled() || !policy->boost_enabled)
->> -		    && (pos->flags & CPUFREQ_BOOST_FREQ))
->> -			continue;
->> +		if (pos->flags & CPUFREQ_BOOST_FREQ) {
->> +			has_boost = true;
->> +			if (!cpufreq_boost_enabled() || !policy->boost_enabled)
->> +				continue;
->> +		}
->>
->>   		pr_debug("table entry %u: %u kHz\n", i, freq);
->>   		if (freq < min_freq)
->> @@ -50,17 +53,20 @@ int cpufreq_frequency_table_cpuinfo(struct
->> cpufreq_policy *policy)
->>   	}
->>
->>   	policy->cpuinfo.min_freq = min_freq;
->> +
->> +	if (min_freq == ~0)
->> +		return -EINVAL;
->> +
->>   	/*
->>   	 * If the driver has set its own cpuinfo.max_freq above max_freq, leave
->> -	 * it as is.
->> +	 * it as is.  This does not apply to tables with boost entries, because
->> +	 * the table is the only source of cpuinfo.max_freq then and it needs
->> +	 * to go down again when boost is disabled.
->>   	 */
->> -	if (policy->cpuinfo.max_freq < max_freq)
->> +	if (has_boost || policy->cpuinfo.max_freq < max_freq)
->>   		policy->cpuinfo.max_freq = max_freq;
->>
->> -	if (min_freq == ~0)
->> -		return -EINVAL;
->> -	else
->> -		return 0;
->> +	return 0;
->>   }
->>
->>   int cpufreq_frequency_table_verify(struct cpufreq_policy_data *policy)
->>
->>
->>>    	/* in 10^(-9) s = nanoseconds */
->>>    	unsigned int		transition_latency;
->>> @@ -791,6 +792,8 @@ struct cpufreq_frequency_table {
->>>    int cpufreq_frequency_table_cpuinfo(struct cpufreq_policy *policy);
->>> +bool policy_has_boost_freq(struct cpufreq_policy *policy);
->>> +
->>>    int cpufreq_frequency_table_verify(struct cpufreq_policy_data *policy);
->>>    int cpufreq_generic_frequency_table_verify(struct cpufreq_policy_data *policy);
-> 
-> I wanted more discussion on this part regarding finer implementation details
-> and hence went with a working version, and I think I asked in the last revision
-> thread regarding what are people's thoughts on this added field. I am also not
-> keen on adding more fields, so this is useful suggestion. If we are to continue
-> this implementation route, I'll keep this in mind, thanks.
-> 
->> Thx and BRs,
->> Zhongqiu Han
-> 
-> Best,
-> Ananthu
+- [Medium] The subject says "net: stmmac: dwxgmac2: add XGMAC timestamp
+  interrupt support", but the patch also changes EXTTS and cross-…
+- [Medium] The recorded EXTTS state (STMMAC_FLAG_EXT_SNAPSHOT_EN and
+  plat->ext_snapshot_num) can survive resume after the hardware trigger…
+- [Medium] stmmac_ptp_unregister() sets priv->ptp_clock to NULL and
+  disarms the trigger under aux_ts_lock, "so a concurrent request cannot…
+- [Medium] The patch adds a generic optional hook,
+  stmmac_ops->timestamp_interrupt_cfg ("Arm or disarm the timestamp…
+- [Medium] Who owns the auxiliary snapshot FIFO, the process-context
+  cross-timestamp code (smtg_crosststamp, intel_crosststamp) or the…
+- [Medium] net: stmmac: unlocked ptp_clock access in
+  stmmac_ptp_register()
+- [Medium] net: stmmac: dwxgmac2: concurrent FIFO pop in
+  dwxgmac2_timestamp_interrupt()
+- [Low] The commit message describes a user-visible bug.
+- [Low] intel_crosststamp() takes aux_ts_lock at entry, returns -ENODEV
+  if priv->ptp_clock is NULL, and holds the lock until it exits.
+- [Low] stmmac_drop_extts_state() always clears the PTP_ACR/PTP_TCR
+  trigger bits and logs netdev_err("Dropped the enabled auxiliary…
 
+--
+
+net: stmmac: dwxgmac2: add XGMAC timestamp interrupt support
+
+This patch adds a DWXGMAC2 timestamp interrupt handler. The handler
+reports auxiliary snapshots as PTP_CLOCK_EXTTS events. XGMAC_TSIE is armed
+on demand through a new stmmac_ops->timestamp_interrupt_cfg() callback.
+
+The patch also reworks EXTTS channel bookkeeping and the use of aux_ts_lock
+in the Intel and socfpga cross-timestamp paths. It also changes how
+suspend, resume and unregister handle the auxiliary snapshot trigger.
+
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
+> index 4308dccbf2570..3f0889c30a70c 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
+
+[ ... ]
+
+> @@ -424,11 +426,22 @@ static int intel_crosststamp(ktime_t *device,
+>  	writel(gpio_value, ioaddr + GMAC_GPIO_STATUS);
+>  
+>  	/* Time sync done Indication - Interrupt method */
+> -	if (!wait_event_interruptible_timeout(priv->tstamp_busy_wait,
+> -					      stmmac_cross_ts_isr(priv),
+> -					      HZ / 100)) {
+> +	ret = wait_event_interruptible_timeout(priv->tstamp_busy_wait,
+> +					       stmmac_cross_ts_isr(priv),
+> +					       HZ / 100);
+> +	if (ret <= 0) {
+> +		/* Disarm the trigger on a timeout or an interrupted
+> +		 * wait, but do not touch the hardware once the clock has
+> +		 * been invalidated by an interface teardown.
+> +		 */
+> +		if (priv->ptp_clock) {
+
+[Severity: Low]
+Can priv->ptp_clock actually be NULL here? intel_crosststamp() now takes
+aux_ts_lock on entry, returns -ENODEV if priv->ptp_clock is NULL, and holds
+the lock until it returns.
+
+The only runtime path that clears the pointer is stmmac_ptp_unregister(),
+and it does that under the same lock:
+
+	mutex_lock(&priv->aux_ts_lock);
+	clock = priv->ptp_clock;
+	priv->ptp_clock = NULL;
+
+That means this check, and the one before the final PTP_ACR disarm, are
+always true. Could these checks be dropped, along with the comment and the
+"skips the disarm write afterwards" wording in the commit message?
+
+> +			acr_value = readl(ptpaddr + PTP_ACR);
+> +			acr_value &= ~PTP_ACR_MASK;
+> +			writel(acr_value, ptpaddr + PTP_ACR);
+> +		}
+
+[ ... ]
+
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
+> index 1a88cbaed70ca..ff2956bb89e62 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
+
+[ ... ]
+
+> @@ -1154,6 +1160,60 @@ static int dwxgmac2_get_mac_tx_timestamp(struct mac_device_info *hw, u64 *ts)
+>  	return 0;
+>  }
+>  
+> +void dwxgmac2_timestamp_interrupt(struct stmmac_priv *priv)
+> +{
+
+[ ... ]
+
+> +	/* Runs on every MAC interrupt: only touch the FIFO when the
+> +	 * timestamp interrupt was armed, and leave it to the
+> +	 * cross-timestamp path while that owns it.
+> +	 */
+> +	if (priv->plat->flags & STMMAC_FLAG_INT_SNAPSHOT_EN) {
+> +		readl(priv->ioaddr + XGMAC_TIMESTAMP_STATUS);
+> +		return;
+> +	}
+> +
+> +	if (!(readl(priv->ioaddr + XGMAC_INT_EN) & XGMAC_TSIE))
+> +		return;
+
+[Severity: Medium]
+Can two instances of this handler drain the FIFO at the same time?
+When priv->wol_irq is a separate line, stmmac_request_irq_single() and
+stmmac_request_irq_multi_msi() install stmmac_interrupt() or
+stmmac_mac_interrupt() on both dev->irq and wol_irq, and both end up
+in stmmac_common_interrupt() and so in this function. That is why
+stmmac_sync_timestamp_irq() has to sync both lines.
+
+The handler deliberately doesn't gate on the read-to-clear TSIS bit,
+and reading XGMAC_TIMESTAMP_STATUS doesn't change ATSNS. If the
+timestamp interrupt on dev->irq and a PMT event on wol_irq are
+handled on two CPUs at once, both see XGMAC_TSIE armed and read the
+same non-zero pending_snapshots.
+
+The drain loop only takes ptp_lock for reading, which doesn't exclude
+another reader. get_ptptime() reads PTP_ATNR and then PTP_ATSR, and
+the PTP_ATSR read pops the FIFO head. With two CPUs in the loop the
+reads interleave across entries, so an event can pair the nanoseconds
+of one snapshot with the seconds of another. The FIFO is also popped
+2 * pending_snapshots times, and the extra pops read whatever an
+empty FIFO returns, which is still reported to userspace as a
+PTP_CLOCK_EXTTS event.
+
+Should the count read and the pops be serialised with a spinlock, for
+example a dedicated one or ptp_lock taken for writing? Re-reading
+ATSNS before each pop would stop the loop at an empty FIFO, but it
+wouldn't fix the torn ATNR/ATSR pairs on its own.
+
+[Severity: Medium]
+Is STMMAC_FLAG_INT_SNAPSHOT_EN being used as a lock here rather than as
+state? smtg_crosststamp() now sets it on entry and clears it on every exit,
+only to keep this hardirq handler away from the snapshot FIFO:
+
+	priv->plat->flags |= STMMAC_FLAG_INT_SNAPSHOT_EN;
+	/* Wait for a handler that is already past the flag check before
+	 * taking over the snapshot FIFO.
+	 */
+	stmmac_sync_timestamp_irq(priv);
+	...
+	priv->plat->flags &= ~STMMAC_FLAG_INT_SNAPSHOT_EN;
+
+The handler reads plat->flags with plain loads, while process context does
+non-atomic |= and &= on the same word. The handler also uses the XGMAC_TSIE
+bit in XGMAC_INT_EN as a second gate.
+
+Correctness then depends on ordering spread across stmmac_enable(),
+stmmac_rearm_timestamp_irq(), stmmac_suspend(), stmmac_ptp_unregister()
+and core_init. Lockdep can't check any of that.
+
+intel_crosststamp() also sets the same flag but skips the
+stmmac_sync_timestamp_irq() drain. So the scheme isn't applied the same way
+in both cross-timestamp paths.
+
+Would an IRQ-safe spinlock work better? It would cover the FIFO pop here
+and the ATSFC/ATSEN programming in the process-context paths.
+
+> +
+> +	/* Reading XGMAC_TIMESTAMP_STATUS clears TSIS, so use the ATSNS
+> +	 * count to see the pending snapshots.
+> +	 */
+
+[ ... ]
+
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/hwif.c b/drivers/net/ethernet/stmicro/stmmac/hwif.c
+> index 265671170bf6e..eba87410f985a 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/hwif.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/hwif.c
+> @@ -258,7 +258,7 @@ static const struct stmmac_hwif_entry {
+>  		.dma = &dwxgmac210_dma_ops,
+>  		.mac = &dwxgmac210_ops,
+>  		.vlan = &dwxgmac210_vlan_ops,
+> -		.hwtimestamp = &stmmac_ptp,
+> +		.hwtimestamp = &dwxgmac2_ptp,
+
+[Severity: Low]
+The commit message describes a bug that users can see. With .hwtimestamp =
+&stmmac_ptp on DWXGMAC2/DWXLGMAC2, PTP_EXTTS_REQUEST succeeds but no
+PTP_CLOCK_EXTTS event is ever delivered. Should this have a Fixes: tag?
+
+The same question applies to the other fixes folded in here. One is the
+channel exclusivity check in stmmac_enable(), which could never fire. The
+other is the interrupted wait in intel_crosststamp(), which returned a
+bogus cross-timestamp. Without Fixes: tags, stable backporters can't find
+these fixes or tell how far back they apply.
+
+[ ... ]
+
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/hwif.h b/drivers/net/ethernet/stmicro/stmmac/hwif.h
+> index 8ae95e91a36ab..f077c1465a0c2 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/hwif.h
+> +++ b/drivers/net/ethernet/stmicro/stmmac/hwif.h
+> @@ -317,6 +317,8 @@ struct stmmac_ops {
+>  	void (*update_caps)(struct stmmac_priv *priv);
+>  	/* Change the interrupt enable setting. Enable takes precedence. */
+>  	void (*irq_modify)(struct mac_device_info *hw, u32 disable, u32 enable);
+> +	/* Arm or disarm the timestamp interrupt on demand (optional) */
+> +	void (*timestamp_interrupt_cfg)(struct stmmac_priv *priv, bool en);
+
+[Severity: Medium]
+Only dwxgmac210_ops and dwxlgmac2_ops implement this hook. MAC100/GMAC
+already arm the timestamp interrupt on demand, through a static helper in
+dwmac1000_core.c with the same signature:
+
+static void dwmac1000_timestamp_interrupt_cfg(struct stmmac_priv *priv, bool en)
+{
+	...
+	u32 intr_mask = readl(ioaddr + GMAC_INT_MASK);
+	...
+	writel(intr_mask, ioaddr + GMAC_INT_MASK);
+}
+
+That helper isn't wired into dwmac1000_ops, though. Doesn't that make the
+new generic disarm calls no-ops on MAC100/GMAC?
+
+In stmmac_ptp_unregister(), stmmac_mac_timestamp_interrupt_cfg(priv,
+false) does nothing on those cores. Yet the stmmac_drop_hw_extts() call
+right after it has a special case for them. ATSEN0 and the flag get
+cleared, but GMAC_INT_DISABLE_TIMESTAMP stays cleared, so the interrupt
+stays unmasked.
+
+dwmac1000_ptp_enable() also sets STMMAC_FLAG_EXT_SNAPSHOT_EN, so the new
+block in stmmac_suspend() runs on GMAC. But nothing actually gets disarmed
+there before the clocks are gated.
+
+The locking also differs. The XGMAC hook goes through irq_modify under
+hw->irq_ctrl_lock. dwmac1000_timestamp_interrupt_cfg() does an unlocked
+read-modify-write of GMAC_INT_MASK, a register that dwmac1000_irq_modify()
+updates under that lock.
+
+[ ... ]
+
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> index a2177777727ef..1abc7c696cf7e 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+
+[ ... ]
+
+> +static void stmmac_drop_extts_state(struct stmmac_priv *priv)
+> +{
+> +	mutex_lock(&priv->aux_ts_lock);
+> +	stmmac_drop_hw_extts(priv);
+> +	priv->plat->flags &= ~STMMAC_FLAG_EXT_SNAPSHOT_EN;
+> +	priv->plat->ext_snapshot_num = -1;
+> +	mutex_unlock(&priv->aux_ts_lock);
+> +	netdev_err(priv->dev,
+> +		   "Dropped the enabled auxiliary snapshot channel\n");
+> +}
+
+[Severity: Low]
+Should this check STMMAC_FLAG_EXT_SNAPSHOT_EN or ext_snapshot_num first?
+stmmac_resume() calls it whenever stmmac_init_ptp_clk_freq() or
+stmmac_init_timestamping() fails. So the register write runs, and
+netdev_err() says a channel was dropped, even when no EXTTS channel was
+ever enabled.
+
+stmmac_rearm_timestamp_irq() and stmmac_suspend() both check the flag
+before doing anything.
+
+> +
+> +/**
+> + * stmmac_rearm_timestamp_irq - re-arm the timestamp interrupt
+
+[ ... ]
+
+> +	/* Flush the FIFO, re-program the enabled auxiliary snapshot
+> +	 * trigger and re-arm the interrupt only if the flush completed.
+> +	 */
+> +	if (priv->plat->core_type != DWMAC_CORE_XGMAC)
+> +		return;
+
+[Severity: Medium]
+Can the recorded EXTTS state survive resume after the hardware trigger is
+gone? The commit message says "so no stale channel survives". There seem
+to be a few paths where it does.
+
+On resume, stmmac_hw_setup()->stmmac_init_dma_engine()->stmmac_reset()
+resets the core, and stmmac_init_timestamping() never restores PTP_ACR. On
+GMAC, dwmac1000_core_init() also masks the timestamp interrupt again.
+
+This early return affects GMAC4/dwmac5 (including Intel mGBE) and
+MAC100/GMAC cores. On those cores the channel is neither restored nor
+dropped. STMMAC_FLAG_EXT_SNAPSHOT_EN and ext_snapshot_num stay set, but
+nothing is armed in hardware.
+
+In stmmac_resume(), the stmmac_setup_est() failure branch skips both the
+rearm and the drop:
+
+		ret = stmmac_setup_est(priv);
+		if (ret)
+			goto error_stop_dma;
+
+The two PTP failure branches just before it do call
+stmmac_drop_extts_state(). The stmmac_hw_setup() failure path (goto
+error_unlock) also leaves the state in place. On XGMAC, that leaves the
+flag set while TSIE stays disarmed from stmmac_suspend().
+
+The visible effects would be:
+
+- The stmmac_ptp timestamp_interrupt() handler reads a zero channel from
+  PTP_ACR and returns. The channel userspace thinks is enabled never
+  delivers events.
+- intel_crosststamp() and smtg_crosststamp() keep returning -EBUSY
+  because of the stale flag.
+- An enable for a different channel is accepted, because the PTP_ACR mask
+  is empty. It then silently overwrites ext_snapshot_num.
+
+Separately, dwmac1000_ptp_enable() sets and clears the flag but never
+updates ext_snapshot_num.
+
+[ ... ]
+
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c
+> index a37405534bebf..4486c800fa71d 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c
+> @@ -201,35 +201,98 @@ static int stmmac_enable(struct ptp_clock_info *ptp,
+
+[ ... ]
+
+>  		acr_value = readl(ptpaddr + PTP_ACR);
+> -		channel = ilog2(FIELD_GET(PTP_ACR_MASK, acr_value));
+> -		acr_value &= ~PTP_ACR_MASK;
+> +		channel = FIELD_GET(PTP_ACR_MASK, acr_value);
+>  
+>  		if (on) {
+> -			if (FIELD_GET(PTP_ACR_MASK, acr_value)) {
+> +			if (channel && rq->extts.index != ilog2(channel)) {
+>  				netdev_err(priv->dev,
+>  					   "Cannot enable auxiliary snapshot %d as auxiliary snapshot %d is already enabled",
+> -					rq->extts.index, channel);
+> +					rq->extts.index, ilog2(channel));
+>  				mutex_unlock(&priv->aux_ts_lock);
+>  				return -EBUSY;
+>  			}
+>  
+> +			if (rq->extts.index >= PTP_ACR_ATSEN_NUM) {
+> +				mutex_unlock(&priv->aux_ts_lock);
+> +				return -EINVAL;
+> +			}
+
+[Severity: Medium]
+The subject says "dwxgmac2: add XGMAC timestamp interrupt support". But
+this hunk changes EXTTS behaviour that userspace can see on every core
+using stmmac_ptp_clock_ops. Should the commit message call these changes
+out, or should they go in separate fixes?
+
+The old code cleared the mask before testing it, so this -EBUSY check
+could never fire. A second enable silently replaced the first channel.
+After this patch, dwmac4/dwmac5 users start getting -EBUSY.
+
+Other behaviour changes folded in:
+
+- Disabling a channel that isn't the armed one is now a silent no-op.
+  Before, any disable cleared the whole ATSEN mask.
+- extts.index >= 4 is rejected with -EINVAL. stmmac_ptp_register() also
+  clamps n_ext_ts to 4 on every core, including MAC100/GMAC. Userspace
+  sees this through PTP_CLOCK_GETCAPS.
+- intel_crosststamp() used to check only for a zero return from
+  wait_event_interruptible_timeout(). An interrupted wait fell through
+  with -ERESTARTSYS, read the FIFO, and returned 0 with a bogus device/ART
+  pair to PTP_SYS_OFFSET_PRECISE callers. It now returns an error.
+- intel_crosststamp() no longer leaves its internal trigger armed in
+  PTP_ACR.
+- aux_ts_lock init/destroy moves from PTP register/unregister to
+  probe/remove.
+- stmmac_ptp_unregister() now writes PTP_ACR on every core, or PTP_TCR on
+  MAC100/GMAC.
+
+The commit message presents these as design choices for the XGMAC handler.
+It doesn't describe them as fixes, or as behaviour changes on dwmac4/5,
+Intel mGBE, socfpga and MAC100/GMAC.
+
+[ ... ]
+
+> @@ -363,12 +422,24 @@ void stmmac_ptp_register(struct stmmac_priv *priv)
+>   */
+>  void stmmac_ptp_unregister(struct stmmac_priv *priv)
+>  {
+
+[ ... ]
+
+> +	/* Tear the hardware state down and invalidate the clock before
+> +	 * releasing the lock, so a concurrent request cannot re-arm a
+> +	 * clock that is going away.
+> +	 */
+> +	mutex_lock(&priv->aux_ts_lock);
+> +	clock = priv->ptp_clock;
+> +	priv->ptp_clock = NULL;
+> +	stmmac_mac_timestamp_interrupt_cfg(priv, false);
+> +	stmmac_drop_hw_extts(priv);
+> +	priv->plat->flags &= ~STMMAC_FLAG_EXT_SNAPSHOT_EN;
+> +	priv->plat->ext_snapshot_num = -1;
+> +	mutex_unlock(&priv->aux_ts_lock);
+> +
+> +	ptp_clock_unregister(clock);
+
+[Severity: Medium]
+Does this guarantee hold on MAC100/GMAC? EXTTS requests on those cores go
+through dwmac1000_ptp_enable(). That function takes aux_ts_lock but never
+checks priv->ptp_clock:
+
+	case PTP_CLK_REQ_EXTTS:
+		mutex_lock(&priv->aux_ts_lock);
+		tcr_val = readl(ptpaddr + PTP_TCR);
+
+		if (on) {
+			tcr_val |= GMAC_PTP_TCR_ATSEN0;
+			tcr_val |= GMAC_PTP_TCR_ATSFC;
+			priv->plat->flags |= STMMAC_FLAG_EXT_SNAPSHOT_EN;
+		...
+		mutex_unlock(&priv->aux_ts_lock);
+
+		dwmac1000_timestamp_interrupt_cfg(priv, on);
+
+Suppose a PTP_EXTTS_REQUEST ioctl is already waiting on aux_ts_lock:
+
+ioctl                               stmmac_ptp_unregister()
+dwmac1000_ptp_enable()
+  mutex_lock() blocks
+                                    mutex_lock()
+                                    priv->ptp_clock = NULL
+                                    clear ATSEN0 and flag
+                                    mutex_unlock()
+  set ATSEN0|ATSFC and flag
+  writel(PTP_TCR)
+  mutex_unlock()
+  dwmac1000_timestamp_interrupt_cfg(priv, 1)
+                                    ptp_clock_unregister()
+                                      waits for the ioctl here
+
+ptp_clock_unregister() only waits for in-flight ioctls after aux_ts_lock
+has been dropped. ptp_disable_all_events() doesn't undo this either.
+
+Wouldn't that leave ATSEN0 re-armed, the GMAC timestamp interrupt unmasked
+and STMMAC_FLAG_EXT_SNAPSHOT_EN set after the clock is gone? Should
+dwmac1000_ptp_enable() get the same !priv->ptp_clock check that
+stmmac_enable() now has?
+
+> +	pr_debug("Removed PTP HW clock successfully on %s\n", priv->dev->name);
+>  }
+
+[ ... ]
+
+> @@ -201,35 +201,98 @@ static int stmmac_enable(struct ptp_clock_info *ptp,
+>  		u8 channel;
+>  
+>  		mutex_lock(&priv->aux_ts_lock);
+> +		/* Refuse to arm once the clock has been invalidated by
+> +		 * unregister, or while an internal cross-timestamp owns the
+> +		 * FIFO: the PTP_ACR programming below would disarm its
+> +		 * trigger.
+> +		 */
+> +		if (!priv->ptp_clock) {
+> +			mutex_unlock(&priv->aux_ts_lock);
+> +			return -ENODEV;
+> +		}
+> +		if (priv->plat->flags & STMMAC_FLAG_INT_SNAPSHOT_EN) {
+> +			mutex_unlock(&priv->aux_ts_lock);
+> +			return -EBUSY;
+> +		}
+>  		acr_value = readl(ptpaddr + PTP_ACR);
+> -		channel = ilog2(FIELD_GET(PTP_ACR_MASK, acr_value));
+> -		acr_value &= ~PTP_ACR_MASK;
+> +		channel = FIELD_GET(PTP_ACR_MASK, acr_value);
+>  
+>  		if (on) {
+> -			if (FIELD_GET(PTP_ACR_MASK, acr_value)) {
+> +			if (channel && rq->extts.index != ilog2(channel)) {
+>  				netdev_err(priv->dev,
+>  					   "Cannot enable auxiliary snapshot %d as auxiliary snapshot %d is already enabled",
+> -					rq->extts.index, channel);
+> +					rq->extts.index, ilog2(channel));
+>  				mutex_unlock(&priv->aux_ts_lock);
+>  				return -EBUSY;
+>  			}
+>  
+> +			if (rq->extts.index >= PTP_ACR_ATSEN_NUM) {
+> +				mutex_unlock(&priv->aux_ts_lock);
+> +				return -EINVAL;
+> +			}
+> +
+> +			/* A re-enable of the armed channel re-arms the
+> +			 * interrupt as well; disarm it across the FIFO
+> +			 * clear below and drain the handler that is
+> +			 * already past its checks, so no one touches the
+> +			 * FIFO while it is flushed.
+> +			 */
+> +			if (channel) {
+> +				stmmac_mac_timestamp_interrupt_cfg(priv, false);
+> +				stmmac_sync_timestamp_irq(priv);
+> +			}
+> +
+>  			priv->plat->flags |= STMMAC_FLAG_EXT_SNAPSHOT_EN;
+> +			priv->plat->ext_snapshot_num = rq->extts.index;
+>  
+>  			/* Enable External snapshot trigger */
+>  			acr_value |= PTP_ACR_ATSEN(rq->extts.index);
+>  			acr_value |= PTP_ACR_ATSFC;
+> +		} else if (channel) {
+> +			/* A disable request for a channel that is not the
+> +			 * armed one is a no-op: the requested channel is
+> +			 * not armed.
+> +			 */
+> +			if (rq->extts.index != ilog2(channel)) {
+> +				mutex_unlock(&priv->aux_ts_lock);
+> +				return 0;
+> +			}
+> +
+> +			acr_value &= ~PTP_ACR_MASK;
+> +			priv->plat->flags &= ~STMMAC_FLAG_EXT_SNAPSHOT_EN;
+> +			priv->plat->ext_snapshot_num = -1;
+>  		} else {
+>  			priv->plat->flags &= ~STMMAC_FLAG_EXT_SNAPSHOT_EN;
+> +			priv->plat->ext_snapshot_num = -1;
+>  		}
+>  		netdev_dbg(priv->dev, "Auxiliary Snapshot %d %s.\n",
+>  			   rq->extts.index, on ? "enabled" : "disabled");
+>  		writel(acr_value, ptpaddr + PTP_ACR);
+> -		mutex_unlock(&priv->aux_ts_lock);
+> -		/* wait for auxts fifo clear to finish */
+> +		/* Keep the lock across the FIFO clear so the arm below
+> +		 * cannot interleave with a suspend.
+> +		 */
+>  		ret = readl_poll_timeout(ptpaddr + PTP_ACR, acr_value,
+>  					 !(acr_value & PTP_ACR_ATSFC),
+>  					 10, 10000);
+> +		if (ret && on) {
+> +			/* Roll the failed enable back so no half-enabled
+> +			 * channel is left.
+> +			 */
+> +			acr_value = readl(ptpaddr + PTP_ACR);
+> +			acr_value &= ~PTP_ACR_ATSEN(rq->extts.index);
+> +			writel(acr_value, ptpaddr + PTP_ACR);
+> +			priv->plat->flags &= ~STMMAC_FLAG_EXT_SNAPSHOT_EN;
+> +			priv->plat->ext_snapshot_num = -1;
+> +		}
+> +		/* Arm the timestamp interrupt only after the FIFO clear,
+> +		 * so the handler cannot see a snapshot that is about to be
+> +		 * discarded.
+> +		 */
+> +		stmmac_mac_timestamp_interrupt_cfg(priv, on && !ret);
+> +		/* Drain an in-flight handler before the channel is freed. */
+> +		if (!on)
+> +			stmmac_sync_timestamp_irq(priv);
+> +		mutex_unlock(&priv->aux_ts_lock);
+>  		break;
+>  	}
+>  
+
+[Severity: Medium]
+Can these checks race with stmmac_ptp_register()? ptp_clock_register()
+publishes /dev/ptpN through posix_clock_register() and
+cdev_device_add() before it returns. stmmac_ptp_register() only stores
+the result in priv->ptp_clock afterwards, and not under aux_ts_lock.
+
+A consumer that opens the clock as soon as it appears, such as ptp4l
+or ts2phc started from a udev rule, can issue PTP_EXTTS_REQUEST or
+PTP_SYS_OFFSET_PRECISE inside that window. stmmac_enable(),
+intel_crosststamp() and smtg_crosststamp() then see a NULL
+priv->ptp_clock and fail with -ENODEV, even though the clock is being
+registered rather than torn down. Before this patch those requests
+worked in that window.
+
+This is hit on every interface open, since stmmac_setup_ptp()
+registers the clock again each time the interface comes up.
+
+Would holding aux_ts_lock across ptp_clock_register() and assigning
+priv->ptp_clock from a local variable before dropping it close this?
+
+Separately, intel_crosststamp() and smtg_crosststamp() choose the
+errno by reading priv->ptp_clock again after mutex_unlock(). A
+concurrent stmmac_ptp_unregister() or stmmac_ptp_register() can change
+it in between, so the errno need not match what was seen under the
+lock, and the read itself is a data race. Could the errno be picked
+before the lock is dropped, or the two checks split the way
+stmmac_enable() does them?
 
 -- 
-Thx and BRs,
-Zhongqiu Han
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261109134506.2794160-1-zxyan0222%40gmail.com
