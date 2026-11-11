@@ -1,108 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.61.19
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794371301;
-	b=4iVhwwSqKy362ejWIw6ZExdHqkUq2GnOZSTZyvS/ZOW3x3qMbc5F7N1uNbd0Wdr6kQym
-	 vy3/psp1vjSUHuL8vA6qoPxiaxIs/fXe2504ZjLPr8DjznoYCyZgQepw8df+PDc6W2OB2
-	 YzV1tIC38SWJjdmX71nEpj26v23BQqGew7aayzFLo9VihQDurl5owKlMq3ubvl3CwDW46
-	 jyellStFK6dLV5jmVRtuB8yAzHtz31vCPxDG5J94ssVp0pS7YUu+d0h1aQndRnZTXnUJH
-	 LbifT7YDkrZtkSvXfBlMul5hh8QSz6VpEnE1SW/U1m8AKnleF0PgYAOCmU2vleKIOqQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794371301;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Content-Type:Date:
-	 Message-Id:Cc:Subject:From:To:Content-Transfer-Encoding:References:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=35Degn5zt/JvR3C+BCJBZuEB/iHP5SNZh9EITfG2lqM=;
-	b=MVc+ZkMhjkF8VK6tcJXxHCSKxoykIVEGS7Ynz1kk0wi39/JoIJtDsb+yKpMwx2KOxwI0
-	 KYY/7RP8uske7bJdNqXTeSP3tg87Sul9SUDOUL6nZgjrz/hLcXr6JchZ5rcxChc3vEwCf
-	 AqKGczN4VfAXP8VS3bVuhVF71QlGK7B08yGYc3YBgUe6JpB2SJ30OruABUx6nORqQqYav
-	 s1oT3RIECjZwSYKQ0FRDF4XzVf5+t/aPv17bixJIj34jwnFgVoNu7TYtXo4YjorcwjGow
-	 p9ZgC2hmJRUHRzsnp3v4zg1dO9KNRlxXQjkgl23llNkj60EMRz++3uECbssEQeRxSag==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=Zf8t1MC1;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.61.19
-Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010019.outbound.protection.outlook.com [52.101.61.19])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.15
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794371507;
+	b=gVHjkCzcX8JcUC1A0pFxuRhVjUDzpwLWa0UANDqAfzrkF0DE6Ulaivs5RAp2HaMwNdYw
+	 G0GapqSrLWtys1SYxFPOYCU3uK8vP1Q/Lf5pCkeDi0HAJcTrF4dqzbHihuoNt6pW54jtO
+	 g/YWIJVLXKVqkaMFOED7fcRcs64wdnmoUv3i+Mgf4w5D4+8gS2rrnlNVW91NyaLhzePMg
+	 DhMHDuzupyZK+nEBVOpUEryboPAjhqGY0WFNjoBc79MnqPuq0X6DIuwI8Dqtw0UUTNgry
+	 gAtbMKog5bZZVBaHXMnsJIyVrfRp9v4fQbfgFo8I+KhND38ktVlV32o3UemW/Tg4UTw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794371507;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=Y+iIg1pXUD42WQF9JALOzbFDdcxViOQceIlrVTJLhKY=;
+	b=Vlj/QpIPgVAQnfIK0QTSlhWaHQeG9VDUicwyn0ZOfYEtoSHZnFcrBWOMIT0Tv1xe/Sme
+	 A9ETMHAv4yyqs5EzKR5Cl/eDvLWvgWBFcovsgOWInYQxKSk38N8CeT6UBCMMWF+/djco/
+	 auDFLsv4WfcstCLXBfW92wNFKRU9DigVZygMgq/JzomR3qnpTCmc0Uq/kfTPgsh2dcX6l
+	 TSxpmAsbDKjuioK9KQT6o6EY5xpI4nEiLVINlQzN8gQvCZjdtihbfN3RU1FG0F3xkbv4/
+	 F/qA31PvaaDtdVztXTjcV/pTo9XQTJH+J/JWcsPRdw1Ca5kib+0b7RYROY01GFFaS2w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mkuNCwr3;
+	arc=none smtp.remote-ip=192.198.163.15
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1532E606A31C;
-	Wed, 11 Nov 2026 04:28:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1532E606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B15BF606A321
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 04:31:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B15BF606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=Zf8t1MC1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=MZmbS36SHDu+4778+TH4otd7TWptukjSSlU5j0YQbDdloyqG/N9+tXE05iwtSOXkSH4ZRVkHsGrDqDV9WoqWB5lMgkevh+OJWBtfHXTtV+ctNnyXL2WuT3rQW/vrJBhnUWgwT2wuxhwvzvt1rywAxU2faYLBkxzf7iiuOWfUTb1NVoI9B57uRU8zPKvGIBmIq4WT9FeuCnu2tPqFaDmcBnXbHhOODGcmlVHY9bmDCv0V0Y6a1fm4E3Q0xHLg6tnkY+roM86Dz5HUCRlFL3UQpZLJREGPT05XG7yzghGTHneWQYKzp1v4m22zLr6btFTAjepV+Ox3BK1oP8uXBgd7Wg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=35Degn5zt/JvR3C+BCJBZuEB/iHP5SNZh9EITfG2lqM=;
- b=ep5s1tdVfaJnwjKc/GHCtIPzKS8oCRdaXbx3QhNLlpqXTrgiS0i0qbkFOSRBLuCYyo4/bND+ldpTG5UtAZyofXuOYoL6wgYPakhj0NmjjQOQ7ohwtTql2VECbGnzLNdcR26bjMYyLWpje5QeBob1UkRjxA93XbUOARbl5lSIVUME87gnlT84F5CYaBjFPtUxzIy9JD+tA/35nfl0LT9iT6IFbwQKowqHN6LvDfk6hK1KptZBq80zokeISJTT1sjgREkH0FuDUmj7dK86uuPXnt3ehUQvrN91Q/l9sqRnM0z3zfl16WJsAbpUml7aTcnAR5IZtn8kGZXz8AA8INPoiw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=35Degn5zt/JvR3C+BCJBZuEB/iHP5SNZh9EITfG2lqM=;
- b=Zf8t1MC1FyjHj+srOlDzrUH66UKXKVKszposQ744cAqvql4pUKYvqKAVeVrsFb/gxV3RENllgVUGhiZ2J9Ll/W+3SiarJ80Dr5QVepOHbUv0kxfarzHETKhNOqNyStpnysAOQH5LqiX+dKMTE1nIRY+ld6EvdgpqDM6xP2FOpsxeJpE00Qo7C4u9l+MGtTQYDnfBV/WBB+XJwd1NfSdcoKMq+Cb3KvK2Mk0mYLjoCBrS1PqQuvkyN5cCtMURs7ER0Lwz6uQEv+4GdYHSQaNAMntXexcHVCxiHmqWC6ERW3E06iCx3iu3FttPFNYEJNvsswh06ScFkyJGg1P4z1pFDg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
- by EAYPR12MB999131.namprd12.prod.outlook.com (2603:10b6:303:2be::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Wed, 11 Nov
- 2026 04:28:11 +0000
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0592.010; Wed, 11 Nov 2026
- 04:28:11 +0000
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 11 Nov 2026 13:28:07 +0900
-Message-Id: <DMS3J9S13ESW.17NXIIGFG34MT@nvidia.com>
-Cc: <dakr@kernel.org>, <kvm@vger.kernel.org>,
- <rust-for-linux@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
- <linux-pci@vger.kernel.org>, <alex@shazbot.org>, <jgg@nvidia.com>,
- <yishaih@nvidia.com>, <skolothumtho@nvidia.com>, <kevin.tian@intel.com>,
- <airlied@gmail.com>, <simona@ffwll.ch>, <ojeda@kernel.org>,
- <alex.gaynor@gmail.com>, <boqun.feng@gmail.com>, <gary@garyguo.net>,
- <bjorn3_gh@protonmail.com>, <lossin@kernel.org>, <a.hindborg@kernel.org>,
- <aliceryhl@google.com>, <tmgross@umich.edu>, <markus.probst@posteo.de>,
- <jhubbard@nvidia.com>, <apopple@nvidia.com>, <joelagnelf@nvidia.com>,
- <ecourtney@nvidia.com>, <cjia@nvidia.com>, <smitra@nvidia.com>,
- <kjaju@nvidia.com>, <ankita@nvidia.com>, <aniketa@nvidia.com>,
- <kwankhede@nvidia.com>, <targupta@nvidia.com>,
- <linux-kernel@vger.kernel.org>, <zhiwang@kernel.org>, <zhiw@nvidia.com>,
- <boqun@kernel.org>, <daniel.almeida@collabora.com>, <tamird@kernel.org>,
- <work@onurozkan.dev>, <jgg@ziepe.ca>, <bhelgaas@google.com>,
- <kwilczynski@kernel.org>, <dri-devel@lists.freedesktop.org>,
- <peter@colberg.org>, <xinmengs@nvidia.com>
-Subject: Re: [PATCH v4 04/32] gpu: nova-core: vgpu: detect boot state
- independently
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Alok Kumar" <alkumar@nvidia.com>
-Content-Transfer-Encoding: quoted-printable
-References: <cover.1793906667.git.alkumar@nvidia.com>
- <ec70c38e3160a75ec2727a2261b4a1d21de33c4d.1793906667.git.alkumar@nvidia.com>
-In-Reply-To: <ec70c38e3160a75ec2727a2261b4a1d21de33c4d.1793906667.git.alkumar@nvidia.com>
-X-ClientProxiedBy: TY4P286CA0021.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:405:2b0::6) To MW4PR12MB6873.namprd12.prod.outlook.com
- (2603:10b6:303:20c::17)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mkuNCwr3
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794371506; x=1825907506;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=5/MyIjpzQZ0pBKb/iFF80cArFt9LPEZbOSC7vbHdfBI=;
+  b=mkuNCwr3oPr9qDPo6vtArw427j2tA7/s3955cC9ouMcX32cUmqh5KzHO
+   SMqWzy2lx6TeMdgSz24zqHhlfwI242ws8QwAfJ5V3nL5oEJpqX4A++jTM
+   S2Lmjepj/xmQQ+IcP4Np9qUohK5Vj5ZpaVzFrUZa8zrGk5aN2k/RrCoVi
+   epctUWsmsSXY44VMByqYRu7kFqeddFyOSPpxA24ShIpAjE9ejrFMHM1vB
+   NlQdwdBCcsLfw5GR1F+eRxjkr+O7+8ktLkMi8Mb/ARIn6bVTleIpEmy7c
+   b3JB6eQHt5IGNKYgGRbcMSq2pk9fAxIQRkpBC7szyt4m3O8EM1JlGfrtJ
+   w==;
+X-CSE-ConnectionGUID: UDujcoeCQb6hlHKu+gM7IQ==
+X-CSE-MsgGUID: t5V5kGjyTE+NsVoewZf4YA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11962"; a="3141366"
+X-IronPort-AV: E=Sophos;i="6.27,207,1787036400"; 
+   d="scan'208";a="3141366"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 20:31:45 -0800
+X-CSE-ConnectionGUID: R5NBuziaSrqXHmQE8TkCQw==
+X-CSE-MsgGUID: +ih3ISCdR+C9uOiKErMugQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,207,1787036400"; 
+   d="scan'208";a="8418569"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa005.fm.intel.com with ESMTP; 10 Nov 2026 20:31:43 -0800
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xQzzo-00000000y55-09L7;
+	Wed, 11 Nov 2026 04:31:40 +0000
+Date: Wed, 11 Nov 2026 12:30:56 +0800
+From: kernel test robot <lkp@intel.com>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	linux-kernel@vger.kernel.org
+Cc: oe-kbuild-all@lists.linux.dev, Kees Cook <kees@kernel.org>,
+	Tony Luck <tony.luck@intel.com>,
+	"Guilherme G. Piccoli" <gpiccoli@igalia.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Subject: Re: [PATCH v1 1/1] pstore: Use match_string() helper to simplify the
+ code
+Message-ID: <202611111158.Qtw7vGo7-lkp@intel.com>
+References: <20261110151844.661926-1-andriy.shevchenko@linux.intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,123 +86,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|EAYPR12MB999131:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4fa1ffbb-f297-42e5-e42e-08df3fac3183
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|23010399003|1800799024|366016|261009223027099003|10067099003|261028144727099003|261102123227099003|261026140227099003|261026121527099003|261021121427099003|261022105027099003|56012099006|4143699003|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	4QBBELDdwSf7+tZKp7tJL1t4a/eymbd8nbKAJ+Do0LyfQeSyIC5slaJS43fBr0sc1UnS25pF+bvTd9bIl2cqJc2RySuSEpTPEt41AXy3qXr0FJHh+ltBgG8ItzCpDB2/sQZwdBzrHus2f6KArDEuGGVLtcqdLXH+cL5+L+OMxAKJrk8U+C3B8zgu72fWh0nki4+2JRAnyzpVTMBnWS4VuVgZIGatRfUiZh9FOvVuYx8tsSblQucgAytSMVqSXVFtMbuJ9/s3Si7f5vJyfB+aPy5Bj/A7miDiOCx6eUZQ01poIhrYdrlMEvbi1ym/ymg9kg8sbH2TbFoTvhElbqUDu8M4JEx1pBpcJLBmVmslfAnkxTyL6ecnbZEMGNQxkiMtrO5iO1NvmnZFonNYCEjJL3DP2W8fwynZY1lskT7IESYjTRcT9/TqxhmJIIyPQPuPNb1RRmmdX2WjTCrvthgGX2IEnrRIo7n341PtmwNQm558uy1yeaW7HnpO0i7WsCpx0b3+PCFsNh/gFhlAiEPONRvHl+RcpvvzzCgrmbQwP1w3SUzmNjmYr4K4dJb4eaqwkp5n0UAIp4LRkvaOMrxWWXQP7Yn1bn6RBwHTKE1rpCggC781r4L+lsjhC7GEW3JDMJ88M8NeZhvgLci3e62iQ1TVGd6Pywfr2YHERKu6IQk=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(1800799024)(366016)(261009223027099003)(10067099003)(261028144727099003)(261102123227099003)(261026140227099003)(261026121527099003)(261021121427099003)(261022105027099003)(56012099006)(4143699003)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?LzVLQm1vRXdnNFFDaHBRK2xubVN3T3NyUE1rdmVjVldPbGt2VVJSeGhjb3do?=
- =?utf-8?B?QjFOL3BJZXZNcllvYzRWZm0ybjlmZmJVaVFVK1RBcjlENEUzV09ubThTV1Fp?=
- =?utf-8?B?Vis1SkdPZHRpelNnOXoxYkZuOGZHYzVTM01rSDU3NVJQak5md3dWQ0JYV0t3?=
- =?utf-8?B?bTZ3UnVhYytuZ0RSYW9iVS90aDRXRXM3aS9oR1lPT3pIeU13WGRXdVoxNy9m?=
- =?utf-8?B?cHovV0dIR1E3eUphKzVmNTUwMzNqR0tOcThuZGFUZ0trWHByU1FaWE5mekd3?=
- =?utf-8?B?azlyTU1xeUJMODFSUDJIcWY4VEFHeVVNVExIdmNQOUtQNytJeDNxOTB0WmQv?=
- =?utf-8?B?YmoyRDhtQ29FcjJoUW1MeEhUZi82VHhydVFsUFVWbDBGNXlwaURydUhKSDRZ?=
- =?utf-8?B?RkFrN1N2TzM3OUI4TFRKTlE2K0JKSEVyaDRPWHQ5YXJZc1hWMVpLaUprTSt2?=
- =?utf-8?B?OVp1eC9xUzd2VSsrNW5aOU9CU0IyTE1sd0xkZFRlTTRpamU3a1BTNFp1RG1k?=
- =?utf-8?B?aUVCMlRyM3lFUzFxRDhnOFZINTZZL01WM0syVHVFQzRZVlB5cWNaYTZTWXJB?=
- =?utf-8?B?TmdBcUZnN3I1THVmR1hWeDU5UU5BTTZOM0M0Q2o1bVFXNitwREp0bUMySngy?=
- =?utf-8?B?ajVZck80ektSdGluOHlhWllUQXJSYThGdS9zQ0VvNFF1VkJpNDd2K0dlVERV?=
- =?utf-8?B?VDljQ0NzbTZUVFAvTUhLQ3VhM1BQbDRyWTAyTEVwZXhsZGhhemFzVnhhMFh4?=
- =?utf-8?B?eC9Jd2hCSi9iSFp2VDJLNmcveHM0U1M2bU41Q2dKK2lzaFR1SVUvakwreHlC?=
- =?utf-8?B?by9nVFVmMW0zb0R1SUdlR3dGTm5CMTlxUHZDT0lDTDNmdzl5dFlaQ3dJWkg1?=
- =?utf-8?B?SlRRL0laRkozb0pEblRpcjZkdTRkLzZsQUIrQmV1Z1N0RElkV3hTVEVOQXVB?=
- =?utf-8?B?ZzZmM09vaGlGTFhLZGVycHFSaTBML1BZM0pka0hoM0x4d1Y1Rkk3azhkTjIz?=
- =?utf-8?B?bllCd0tXOXNKN2E3QnRoTU01ekpieWFaa2x6OFlpeHM5Yk5YbU4vNlNhUzRV?=
- =?utf-8?B?TXRSZ205bjg5RHhFVWdvL1JFVmFoSnd4Q1loalFuRVZ4elcwOVZQS1NQTy9r?=
- =?utf-8?B?dHVUSGRLM1FNNEdES3RhTnNaK2wyZEN6Y05JaWZOTmZ2NFlVNnBIYU50T04r?=
- =?utf-8?B?b2UwVVc4QlB0eStpd2VzSFh0MW9aN245Z3F1N01aQVJyeFdxR0RqNWNOdVVs?=
- =?utf-8?B?QUtONmo1VUszanVFeXVMM1p3VTNGRi8xZkdPOVEzRHQ1NlVvZU03RFVCYjgz?=
- =?utf-8?B?d2ZFRGJVT1JBSENYZWlpS0VlNnN0dWZVTGpPcXVLbkk3U0w0UEhBQWNMeWhH?=
- =?utf-8?B?dGY2Zk1KNEQ1VzQ4QTJxNVFkK3JsOXdKVVRYR2s3cGIzZnB5WlNhbVRTVkE3?=
- =?utf-8?B?UGduSFdlQTVla0gzUU4rbmNRLzhFNDYzdFRmU05ncXZoUG9McnNDUGtyclZz?=
- =?utf-8?B?Z2hsb2kzbmNITHJyWTFHMXpsSWpGODBnaExMQnp3Rm5MZjd6NGFkc1lEeWUv?=
- =?utf-8?B?QUxLU3JGai9TcHcvckUydm9TZHhIQmNlK05GRnZxL1loVHVQbmhpRUMrMTRS?=
- =?utf-8?B?NWRNTDJxd1NzMjE5a0gvTlU5YkpHTXQwL29Vai83Y0RSVnBzaFNkL2tNVmdv?=
- =?utf-8?B?bmZhTm5SNVlGd1ptSXhpb1ZEL0NTMUQyQ29GN210c0xNVXBlVGxrWXdQa0ho?=
- =?utf-8?B?dlZRK0pPUzNwcFM1VC9XS2FKY3Q3WU5OUzBNY2FtZTZjeTM3YmhEUU9kLy96?=
- =?utf-8?B?M3BYTjFORWFRaGpnR2dsWTlmVUhHSS9LSGd2bTA1cnlpb25QU3JNRmlQSnhQ?=
- =?utf-8?B?T2JHZ2Z0S3NCTGRJVFp6SVE5ZVJpTVRBQzd6ZlYxSmp3RzQ1MHhIZCszQWpK?=
- =?utf-8?B?dFdrcjNhRzVSdVBLMmZ0WE10ZWFPWG1HMTliVGk5dmM5ODd3RDFvVU5kb0Fj?=
- =?utf-8?B?ZmVuS3BKdytLcUpwcCtrSGZFNTFJd2FHL2xmc3I2UDA2Si9RUitQLzRPM2Ex?=
- =?utf-8?B?MDlzU0xwd1NxR2RKR1pFNVpydVFTSkYwSzdKQVo4aFp3WW9VZ1NVUmh5ZWFJ?=
- =?utf-8?B?ZlBCd0lvckRJMUI3ajh1emlqL3VoUGJXZ1JPNktKWC83ZzNERFk1SHNjMFFR?=
- =?utf-8?B?TnlhQS8wRVVVWHhPc21PdXBnTmFad1h2c1RjYnJsNmM2MFlLNFA4TUExdndq?=
- =?utf-8?B?UlZWYkNhejNPWnlOVFUzTy9SY285UktwVStib0tWNkhEamtibmt1K1U3SUM2?=
- =?utf-8?B?aE1YMXY5VzV6cGNJSllMNkNKK1ZhVW9OUGRLdzhkSmhPYnQ1Qlo1Zz09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4fa1ffbb-f297-42e5-e42e-08df3fac3183
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 04:28:11.0748
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Qwmevf0wqGWIeisz/YPhrlLHizBKnfRHqPHeokMOhq6YfYfAWkR3Xe6mWSEXc5AEW9EGq0EYH52oPEQPAPJgWQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: EAYPR12MB999131
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261110151844.661926-1-andriy.shevchenko@linux.intel.com>
 
-On Fri Nov 6, 2026 at 2:39 PM JST, Alok Kumar wrote:
-<...>
-> diff --git a/drivers/gpu/nova-core/vgpu.rs b/drivers/gpu/nova-core/vgpu.r=
-s
-> index 905b3a7331fd..b405ba49c490 100644
-> --- a/drivers/gpu/nova-core/vgpu.rs
-> +++ b/drivers/gpu/nova-core/vgpu.rs
-> @@ -30,19 +30,16 @@ pub(crate) enum VgpuState {
->      },
->  }
-> =20
-> -/// vGPU state manager.
-> -pub(crate) struct VgpuManager {
-> -    state: VgpuState,
-> -}
-> -
-> -impl VgpuManager {
-> -    /// Creates a vGPU manager by querying SR-IOV and the FSP PRC vGPU k=
-nob.
-> -    pub(crate) fn new(
-> +impl VgpuState {
-> +    /// Detects the boot mode, falling back to disabled if querying the =
-device fails.
-> +    ///
-> +    /// Call after creating the FSP and before allocating GSP firmware r=
-esources.
-> +    pub(crate) fn detect(
+Hi Andy,
 
-I think `new` was a fine method name here as it is a constructor...
+kernel test robot noticed the following build warnings:
 
->          pdev: &pci::Device<device::Core<'_>>,
->          chipset: Chipset,
->          fsp: Option<&mut Fsp<'_>>,
->      ) -> Self {
-> -        let state =3D Self::detect_state(pdev, chipset, fsp).unwrap_or_e=
-lse(|e| {
-> +        let state =3D Self::query_state(pdev, chipset, fsp).unwrap_or_el=
-se(|e| {
->              dev_warn!(
->                  pdev,
->                  "vGPU state detection failed: {:?}; disabling vGPU\n",
-> @@ -51,12 +48,11 @@ pub(crate) fn new(
->              VgpuState::Disabled
->          });
->          dev_dbg!(pdev, "vGPU state: {:?}\n", state);
-> -
-> -        Self { state }
-> +        state
->      }
-> =20
->      /// Detects the vGPU state from the chipset, SR-IOV capability and F=
-SP PRC knob.
-> -    fn detect_state(
-> +    fn query_state(
+[auto build test WARNING on kees/for-next/pstore]
+[also build test WARNING on kees/for-next/kspp aegl/next linus/master v7.4-rc2 next-20261110]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-Here as well, I don't see a benefit in renaming this method.
+url:    https://github.com/intel-lab-lkp/linux/commits/Andy-Shevchenko/pstore-Use-match_string-helper-to-simplify-the-code/20261110-161844
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/kees/linux.git for-next/pstore
+patch link:    https://lore.kernel.org/r/20261110151844.661926-1-andriy.shevchenko%40linux.intel.com
+patch subject: [PATCH v1 1/1] pstore: Use match_string() helper to simplify the code
+config: arm-randconfig-1002-20261111 (https://download.01.org/0day-ci/archive/20261111/202611111158.Qtw7vGo7-lkp@intel.com/config)
+compiler: arm-linux-gnueabi-gcc (GCC) 15.3.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261111/202611111158.Qtw7vGo7-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611111158.Qtw7vGo7-lkp@intel.com/
+
+All warnings (new ones prefixed by >>):
+
+   fs/pstore/platform.c: In function 'pstore_name_to_type':
+>> fs/pstore/platform.c:134:20: warning: suggest braces around empty body in an 'if' statement [-Wempty-body]
+     134 |         if (i >= 0);
+         |                    ^
+>> fs/pstore/platform.c:134:9: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+     134 |         if (i >= 0);
+         |         ^~
+   fs/pstore/platform.c:135:17: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+     135 |                 return i;
+         |                 ^~~~~~
+
+
+vim +/if +134 fs/pstore/platform.c
+
+   128	
+   129	enum pstore_type_id pstore_name_to_type(const char *name)
+   130	{
+   131		int i;
+   132	
+   133		i = match_string(pstore_type_names, PSTORE_TYPE_MAX, name);
+ > 134		if (i >= 0);
+   135			return i;
+   136	
+   137		return PSTORE_TYPE_MAX;
+   138	}
+   139	EXPORT_SYMBOL_GPL(pstore_name_to_type);
+   140	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
