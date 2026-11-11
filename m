@@ -1,67 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794423274;
-	b=DrFa/veV332uDilcYZDT3xKZeXTuL6Z3O7BI3eFZsyRuMU7jgY4BB3rG281hpmqLFegl
-	 jbWYcuXSsMB7VAhxycys6h4FBZnqOkSRwK1jPGmJCEC4C1Rzq7CdkBlCG0FXedOpJ8iN5
-	 3Wm40KTiAbVhZ1zCr2+3Zb4C/BD0EgvDfpzuPcOufEwF046vK0Zg25yIUS5R/slvdElGL
-	 MrnlBGP6mtK2t2R35Hz+xPZ+Q0hAj9dHkNMshe+b3oJH9NQ+5oX4whil/MNkQXd3LyUny
-	 iE/OtNO9buU+7+rEpv3Rb/2vrjdsXB7t8FdyaC8w3nSWhScvU3ycJN2MJxX/kpexUZQ==
+	t=1794423574;
+	b=rWHGxACJsD6BLWlMeTaYXX5oKuYd6vJUPWSCeadcVtvClcw+N5kzEP3Et4BtajqXDff2
+	 uS937lXHeHbzYOgGJDg/fwMYPnFKIR2mcVNkUeaVDi0l51sD2d5WSyiLY956f+qA8LIra
+	 HuOnpXztwgdMMcOT1yeCO7oKhgIJEiJ51RXaymlaT4X/hQ0Plmai4NDAKy7HN9YXUOJR4
+	 lpHFQE3VVX7JJJ2ki6kL1h3lUu63OeCxnSdMN+ZRLSagZJlfaL/UNPN2tdZdY5BhbaFD8
+	 lkXNiGO/B1dLi6o447hhx2N5ZjL/l5424ECeYem4xgagy5XROPAxAO4RD0kPHD6Na1w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794423274;
-	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
-	 Reply-To:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=FVxFGqq89xMyF/vdamPirocFodVGnPMoC6/DXGJ4Mag=;
-	b=KDMswic5AKNiEliHaW6oDkZvKzc62kocCXtXjS+/eK/viChru/SXoUwSlvyLIqTS6vP8
-	 jjk7Vg6qW1f/NenauCeS8EaUZtR84SfKbwgiz2RX78SzUesO1tq4Uvig5CtIlIeFEo2+Y
-	 DQIl2CF7KG7DzoHfUfv68QyZfECnqIPsiJ+9hnW0BZdLqa7SUIIqfIz43ke1TTsHzHNJb
-	 ffUIn+egEkdN2u+Tctd/1ihvUgsZIfSMFoPasj5r9lM+rXtf/nKiefZIVDvTxVCWH0B3E
-	 b389z5aUJl4ZBmr87+gi7JP+xKXXtZhRVMVmjttqyQRUJyJl+Zv2WO08YFTdra7mxhA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794423574;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=vmcUu24AcgALNJbfUMDmq5oQkKkP7zlxfkHJgkON/XE=;
+	b=rQ6JV03+zcv3F2PCVvjOksTQTbQAvrJczlTmg9HBTCteP0pa8RUGvl4n/SDLW5UbBV3K
+	 QRGFZlHokS+iskPEmroCpcGYRnNq2XVnP24i12KPToqvGJ73aKiZPJDwO3gkcjRwOLUk0
+	 8DsDf+Qd0Jkp665DOe8yBRcWxuimhjyvfvQID9lmAkHhsVutjcTCDlo7k4zKDzjNxXHO0
+	 X9D9ZU78zoB1sUuXgAfWsJ0be69F9qR3VFNoaKw4JRuq4hIzNtHfJDi6tIgOCTqOyijnn
+	 fBOEi7xHNPQ+JG5LpL5wQ9JfUPa+YhwXBqprTAxrC71UrwQMF2ombwJXcpwA+8mXJhQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P6HwPNGH;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ktuBQ7QU;
+	arc=none smtp.remote-ip=209.85.128.48
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DE02606A324;
-	Wed, 11 Nov 2026 18:54:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F11C9606A321
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 18:59:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F11C9606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P6HwPNGH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66CF21F00A05;
-	Wed, 11 Nov 2026 18:54:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794423274;
-	bh=FVxFGqq89xMyF/vdamPirocFodVGnPMoC6/DXGJ4Mag=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=P6HwPNGHPKQk0TtZzrv2StI85lnycBf5LdceDAtSorXc0mmq4d+8csHVd843866nL
-	 MOBbHQ0Ug/PjRdNH2bnXvKRVVNHFYUF/IoGfch7RyV16XyRoW0Nco6pn5Kp64RVdJB
-	 GRaj7MgH/33MG+SpHDX7Maw9LgqN2i9uIZms1ZzUvvsN1PsskoO8h5S+bkLH0aFeVo
-	 EZz9OeOcy1CzAVEjGCEVRkm9okEeQpywBtXPB8UVPyu5vADISVOhcPOOTcpdiXQLey
-	 dVV82/P5Wgyk/9jr3W2tDTUmOEeAhj5Au85Zf+BPQqvTwizfbugE/XcuTI9F6Kuf2r
-	 pJNaf18qVJ9gA==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id 38A80CE08D1; Wed, 11 Nov 2026 10:54:34 -0800 (PST)
-Date: Wed, 11 Nov 2026 10:54:34 -0800
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Cc: linux-kernel@vger.kernel.org, David Woodhouse <dwmw2@infradead.org>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
-	Joel Fernandes <joelagnelf@nvidia.com>,
-	Josh Triplett <josh@joshtriplett.org>,
-	Boqun Feng <boqun@kernel.org>, Uladzislau Rezki <urezki@gmail.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Lai Jiangshan <jiangshanlai@gmail.com>,
-	Zqiang <qiang.zhang@linux.dev>, Davidlohr Bueso <dave@stgolabs.net>,
-	Kunwu Chan <kunwu.chan@gmail.com>,
-	Puranjay Mohan <puranjay@kernel.org>, rcu@vger.kernel.org
-Subject: Re: [PATCH v2 2/7] srcu: Rule for using synchronize_srcu_atomic()
- from interrupt handlers
-Message-ID: <19e47958-99a2-4ec7-8a6d-b23b63c78eb8@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <20261111145949.70845-1-mathieu.desnoyers@efficios.com>
- <20261111145949.70845-3-mathieu.desnoyers@efficios.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ktuBQ7QU
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a4d7ae1ae9so32503765e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 10:59:33 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794423572; x=1795028372; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=vmcUu24AcgALNJbfUMDmq5oQkKkP7zlxfkHJgkON/XE=;
+        b=ktuBQ7QUWWahbDoFw7NOsY+5l4vBsnIvY5MwLmAcD2bGMzNwBzVEuFo11DL8T3nZXb
+         Ae55H6AWLTlJdMUel0Xn0arfVmgrJ9UiWSwu51e0xm087vH7Y0oDmr03V1Kj+veKrmY6
+         KEd8izWR80hPubWkTzL0/7XaJjcI55CORSpShBrixiX4OHgyd0LsUMT1uDJceIh63aZ5
+         TRs2CfAtc6iGu7RZCx978vwPGLcxgVDUl049sNNR7rAy4K0hde8yrIQB7ts9FJFJ+USf
+         XESk7LpJs/FwauPcUOYDMF2C20HXitFNZkIE/fFVPGyfWsVNIrfgYWkewZpClKnxh5Wi
+         N0PQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794423572; x=1795028372;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vmcUu24AcgALNJbfUMDmq5oQkKkP7zlxfkHJgkON/XE=;
+        b=DiDqmCqZY4aL1qbdb3gLPWZPXSz4Er3mm4bX+HAzc6U8J3NgdJcE7ShKOdnDSlatTw
+         9CukylRbPxwiMnID80DelcqzDKIAu2L2WgztpVNF4ZtrHXygUt2agyp5mm84ipnyGMZd
+         KWq7E0Isr38+O4BEMd5WV6SnznJ7iQ4pax9SDb10wlKvZ/LbGGbJ6ujlo3bCNKcb6+gJ
+         MSLHbPsPpyFwcoIJYSiRM+SXYVwaZFNI5kKmzf9Ut3wZ0+Vr2Qw/XiOuPlRqole577lp
+         R+MNZK1UNWRGsmKWw+3pFv8Gj1cckx3CKW91gH6IZylYJtibRZwZDX9Q6dhmd70jQ/Jh
+         V0sQ==
+X-Forwarded-Encrypted: i=1; AL+hErG4B6WzBOegVMHbn2PkaJ9N0DQWS1E101Upt4SAbfFQImq950pGU97gikqZtIyViwXTSbflKZN3abwanMY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+aFhy08gAxzlT4rjZbaX/hYDvBlErCuEe1YT4+FOUNYhvrgYZF
+	M3XluAtIPBECydMivGyGX3fT3kf1+ttV4GNWEjEPcZuDU7QZmgQbOKtU
+X-Gm-Gg: AYBFou2JSol9j5S8u7podnbLv2cQZDVC0My7oXckhvKXigms9w18WOr9rnKJrWd+D7y
+	ePomWQBdyBbqMMsNEPlrHJTx7LLKXyo55SyUv00/ZIexI4W0sifemIHUfZbIb+d45aW1qEVpjE+
+	j+uB4hD/X5ygWD0KNeGDbODhcI+jQfW74vvg/3q9kgroJ88Vslu9zxfBKn4JHAFlDvi0lesOMVP
+	hp7p3Gujx4b1YDS/BCxqCd2Q/mAuYfbu+6CcPR3KGvzZoZYtaNXPPN9HMqa+VW208u221+OqWph
+	swhuwDnh/UecdHq/Sd7k+OFOsrGi9R+izTvEbABbXob9l362MDX0F94j2MtrZRafp8hpkx/zYO2
+	ZNnHLLzsd8ty5zWwfr2cJ2DXl57n4b+ifyQ3UH8mLokA+UIESEargTt51T6Anla82Ou3ENXKGuq
+	1C34QP/dCzhMT2TwwbpYahpJO8dIM5RJm1tQ6mvKpYVaZSu/VyCnAjOXRO+POG8BwXLzr19mPBy
+	FXlNTtbgU7GFIxec74bzsjo2HO+k8ZVKJ3FuBNHDq7AZvyQ8quJsLSg48lVd5qHGT69P3jBYYso
+	hsem069khQ2oskcQ/Ex/fQRxVZOPXLZ5B3I2hJQkagkSBq96P3ponhppDEqqemzGMc6zTmWMLzf
+	vTUOvsoivOYP+CuC4I8/6jHq/G9YmVaKNZfMbPjiLWy54hFZOJ3phvKqCb3egMVfIDA==
+X-Received: by 2002:a05:600c:c83:b0:4a2:150f:1605 with SMTP id 5b1f17b1804b1-4ba0936f386mr62798215e9.24.1794423572202;
+        Wed, 11 Nov 2026 10:59:32 -0800 (PST)
+Received: from dev-dsk-fgriffo-1c-93421965.eu-west-1.amazon.com (54-240-197-234.amazon.com. [54.240.197.234])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb4e265a0csm9161435e9.9.2026.11.11.10.59.31
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Wed, 11 Nov 2026 10:59:31 -0800 (PST)
+From: Fred Griffoul <griffoul@gmail.com>
+To: Joerg Roedel <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Kevin Tian <kevin.tian@intel.com>
+Cc: Robin Murphy <robin.murphy@arm.com>,
+	Shuah Khan <shuah@kernel.org>,
+	Mostafa Saleh <smostafa@google.com>,
+	Guanghui Feng <guanghuifeng@linux.alibaba.com>,
+	iommu@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	nh-open-source@amazon.com
+Subject: [PATCH 0/3] iommupt: Unmap and return the PFNs in one walk
+Date: Wed, 11 Nov 2026 18:59:28 +0000
+Message-ID: <20261111185931.94882-1-griffoul@gmail.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,93 +104,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261111145949.70845-3-mathieu.desnoyers@efficios.com>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 11, 2026 at 09:59:44AM -0500, Mathieu Desnoyers wrote:
-> This is about the update side.  A user that calls
-> synchronize_srcu_atomic() from an interrupt handler must disable
-> interrupts around all its calls on that srcu_struct, task context
-> included.  Document this rule, and warn when it is broken.  The rules
-> for readers are unchanged.
-> 
-> synchronize_srcu_atomic() spins rather than sleeps, so it may be called
-> from atomic context, interrupt handlers included.  Its callers on one
-> srcu_struct exclude each other with ->srcu_atomic_gp_flag.  One of them
-> drives the grace period.  The others spin until a grace period ends.
-> 
-> The flag owner disables only preemption.  So an interrupt can arrive on
-> its CPU while it holds the flag.  If that interrupt handler calls
-> synchronize_srcu_atomic() on the same srcu_struct, it spins forever:
-> 
->   CPU 0, task                        CPU 0, hardirq
->   synchronize_srcu_atomic()
->     takes ->srcu_atomic_gp_flag
->                                      synchronize_srcu_atomic()
->                                        spins until a grace period ends
->                                        it never ends: its driver is the
->                                        task this interrupt interrupted
-> 
-> Nothing reports it.  lockdep cannot, because lock_sync() records no
-> interrupt state.
-> 
-> synchronize_srcu_atomic() cannot disable interrupts itself.  A reader
-> that disables only preemption may wait for an IPI to the waiter's CPU.
-> That IPI never runs while the waiter spins with interrupts disabled.
-> The kernel-doc already lets the caller choose the waiter's context.
-> It then asks the readers to run in that context, or a stricter one.
-> 
-> So the caller disables interrupts.  The existing reader rule then
-> requires the readers of that srcu_struct to disable interrupts too.
-> 
-> Also store the owner's CPU number plus one in the flag, instead of 1.
-> A waiter that finds its own CPU as the owner warns once, rather than
-> hanging silently.
-> 
-> Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+From: Fred Griffoul <fgriffo@amazon.co.uk>
 
-Nice!!!
+When iommufd unmaps an area, it must unpin the user pages, but it keeps
+no list of their PFNs. It reads each one back from the IOMMU domain
+with iommu_iova_to_phys(), one CPU page at a time, then walks the page
+table again in iommu_unmap(). With 4 KiB pages, a 1 GiB IOPTE costs
+262144 lookups before the unmap starts.
 
-Reviewed-by: Paul E. McKenney <paulmck@kernel.org>
+This series lets the iommupt unmap walk report the physical range of
+each IOPTE as it removes it, so iommufd unmaps and collects the PFNs
+in one walk. The walk also steps over holes, where iommu_unmap() stops
+at the first one.
 
-> ---
->  kernel/rcu/srcutree.c | 15 ++++++++++++++-
->  1 file changed, 14 insertions(+), 1 deletion(-)
-> 
-> diff --git a/kernel/rcu/srcutree.c b/kernel/rcu/srcutree.c
-> index 2b0e2b2d2c18..8075da4b1bb5 100644
-> --- a/kernel/rcu/srcutree.c
-> +++ b/kernel/rcu/srcutree.c
-> @@ -2108,6 +2108,13 @@ static void srcu_advance_state(struct srcu_struct *ssp, bool is_atomic)
->   * and srcu_read_unlock_atomic() must be invoked from that same context,
->   * or one that is even more strict.
->   *
-> + * If synchronize_srcu_atomic() is invoked from an interrupt handler for
-> + * a given srcu_struct structure, then for that structure, all calls to
-> + * synchronize_srcu_atomic() must be invoked with interrupts disabled,
-> + * including those from task context.  Its callers take turns to drive a
-> + * grace period, and the others spin until it ends.  An interrupt handler
-> + * that calls it on the CPU of an interrupted caller would spin forever.
-> + *
->   * If synchronize_srcu_atomic() is invoked on a given srcu_struct
->   * structure, then none of call_srcu(), synchronize_srcu(),
->   * synchronize_srcu_expedited(), start_poll_synchronize_srcu(),
-> @@ -2144,7 +2151,13 @@ void synchronize_srcu_atomic(struct srcu_struct *ssp)
->  	srcu_state = get_state_synchronize_srcu(ssp);
->  	preempt_disable();
->  	while (atomic_read(&sup->srcu_atomic_gp_flag) ||
-> -	       atomic_xchg(&sup->srcu_atomic_gp_flag, 1)) {
-> +	       atomic_cmpxchg(&sup->srcu_atomic_gp_flag, 0,
-> +			      smp_processor_id() + 1)) {
-> +		// The flag holds its owner's CPU number plus one.  An owner on
-> +		// this CPU is a caller that this one interrupted.  It cannot
-> +		// release the flag, so this caller would spin forever.
-> +		WARN_ON_ONCE(atomic_read(&sup->srcu_atomic_gp_flag) ==
-> +			     smp_processor_id() + 1);
->  		preempt_enable();
->  		if (poll_state_synchronize_srcu(ssp, srcu_state))
->  			return;
-> -- 
-> 2.47.3
-> 
+Patch 1 adds iommu_unmap_sparse(), patch 2 uses it in
+iopt_area_unpin_domain(), and patch 3 adds a selftest for the areas
+that keep the per-page read-back.
+
+An earlier series [1] proposed iova_to_phys_length() so that iommufd
+can read the PFNs back one IOPTE at a time instead of one page at a
+time. The unmap is still a second walk there. This series collects
+the PFNs in the unmap walk itself.
+
+The series applies to iommu/next. I wrote parts of the code and the
+changelogs with Kiro, an AI coding assistant using Claude models, and
+used it to run the tests. I reviewed and tested all of it.
+
+[1] https://lore.kernel.org/linux-iommu/20260603151804.1963871-1-guanghuifeng@linux.alibaba.com/
+
+Suggested-by: Jason Gunthorpe <jgg@ziepe.ca>
+
+Fred Griffoul (3):
+  iommupt: Add iommu_unmap_sparse()
+  iommufd: Use iommu_unmap_sparse() to unpin domain pages
+  iommufd/selftest: Unmap areas that start inside a CPU page
+
+ drivers/iommu/generic_pt/iommu_pt.h       |  61 ++++++++-
+ drivers/iommu/generic_pt/kunit_iommu_pt.h | 144 ++++++++++++++++++++++
+ drivers/iommu/iommu-debug-pagealloc.c     |  13 ++
+ drivers/iommu/iommu-priv.h                |  24 ++++
+ drivers/iommu/iommu.c                     |  76 ++++++++++++
+ drivers/iommu/iommufd/pages.c             |  98 ++++++++++++++-
+ include/linux/generic_pt/iommu.h          |  24 ++++
+ include/linux/iommu.h                     |  22 ++++
+ tools/testing/selftests/iommu/iommufd.c   |  30 +++++
+ 9 files changed, 486 insertions(+), 6 deletions(-)
+
+
+base-commit: 2cf4be57b301ed2d7af82e70cff5dfd96894d8de
+-- 
+2.47.3
+
