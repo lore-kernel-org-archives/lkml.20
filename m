@@ -1,58 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794418466;
-	b=XOsIk3PWyHzpB4DfIL9+95EwC411YqE1Y24und4ySCfk3IKvAROMnIPnEXfCOfnKuNRY
-	 GTxoRJakvVODIGQhQzgRKU3Bz5pXyQ+DRZVkdJp4G4rpsT4zshvTLpASUOHxBUdSBrLVD
-	 YoRD9Bqz0jFqU1uRJxtj/Z7j1PD7EtlQswqihtz5behY9fFeNbeM1Yi1wBxWtCAzMZYHk
-	 Lmjm3eEH9CsEOR90wrFlfTd46FIcWPg7nNIw6C7Q+vu0f+sX3CeJjBsnd8WA8Mp2eUjjt
-	 Mujjb+gUXDocjyMDz9LfArdRGNMOfRrq4D/3QVuJ0Tbd4HLqnmH+V84LYFwCQv9k86Q==
+	t=1794418513;
+	b=yehAAriCPUL0yhfNAJtfvw9UqfoHEvGi1uJPBWaP8aHynO+F2yoi93rb+ycV2Gm2Us8N
+	 49gy4fC7x/xa7Ffgp3OKTLYiJCIcC8Ye4yTDftxPwif/rHloJVq+PjT6hU4IpxvSSNYVY
+	 OqaeflB/aV7yW+BWdQyt61eYn1yBHdqRgMWkDiLj/CEkC/u6tNCX7BLW0ZVckYzX0FcTo
+	 NH7ZH0bBQe/rGtzm/pcFrZ/NL26ikOCe5RQ6144Sp1h9UUJO0hcBrr1i8BeZKH/0EzNUc
+	 zUBRZfZ0J38srZP9XqAqIer/tJN1+dRYMW6VCkg2n6rryVhHDuQaPygbvC4TmLR+SqQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794418466;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794418513;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=+JExMpkIghyJdkvx3jA5EHdqZ15V1KhbmwxXrb+zoAY=;
-	b=Dmvr8+UVSZoKQgfu7tUs+9yhVMujKw2yPekjHIlKigXBDWTiRXzWvkNuRdRys503sUQW
-	 jq4lWrd0LHv1bMaJxqaeNyZ6zK7XfyMxQrWp9cg9xRktxYoseDKLLYpcaOPKwVTBrm5pN
-	 I/1Xu0h/vt1kGIvCGLhQhcGlfh+EVaxz5Vzm6nkhTAObzRsFU4X4qz49PB/SRcYeamUz5
-	 auD30768jMIcTXnJHgOXUbCabgQYemh4X/hiErS5wHSvohgZH5/1h7QS04vVhQAUAegRk
-	 A4gjwKKfl0f5XGUJHwut0jU/YLAuq7L3hUOz1CppZdgc9q0Dcx33kBFgrXAMVEGsDOw==
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=t2tMbMlMUgA0x3ONKcoOJiyALI2CAjBxMqrWxQvzdZw=;
+	b=GtXOrlB3NQfLBMgPBCGx0G/yJOspfJwPFkRFQ39lREAshNLATTW9SsxvsD6hyEwLRN5T
+	 OgB1ajRSltRprN5QOF6jyrziXMuqHyreqGv/CCq+EIbtnPdOO0Xp+SshtAXFa+VErpSKA
+	 i1b5xor0s+lchnOIsdVP5sC7SDTvXvDCHF4H8EUHwbgwwrMdn1lH91wtm/2FHCIPgJMS3
+	 Q793q56RXl0D59PaEldWGIjDBgzFJVoSorb24Bc4REWcbNTKdIOU0dFn0DTZyG3MKwT6L
+	 UJjgxrbb5PlPfMrkDbGkMWA5bSBTy5ts8YF8xyP0sunnpJOOG8jwMd+PWPIbhLlzang==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XbxorCOd;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Lcpl0JmN;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89A78606A324
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 17:34:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9A15606A321
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 17:35:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XbxorCOd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7580E1F00A05;
-	Wed, 11 Nov 2026 17:34:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Lcpl0JmN
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 056771F00A09;
+	Wed, 11 Nov 2026 17:35:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794418466;
-	bh=+JExMpkIghyJdkvx3jA5EHdqZ15V1KhbmwxXrb+zoAY=;
+	s=k20260515; t=1794418512;
+	bh=t2tMbMlMUgA0x3ONKcoOJiyALI2CAjBxMqrWxQvzdZw=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=XbxorCOdp5Fzs+qsjf4cdqT8tVln/LvFUqnRQ/rR/nMRSMA0wXTJcXs8hWDOGP7wX
-	 v7eEbTkgLCAVMKTTwieMyUdNV2SOmvgRYDI7rNQnJDOwTEJR7yp/JrrQ+M55TzI4hC
-	 Xfr3F/z2tr7HZZBI5XOBSRMs27oURPlsKVR8PpvyaJijihReH5b1pQCwxkbHnHqIqm
-	 6ftNsLqVBnUmBUMpTgsiEJ3FVNikvrN4tYApYUNfIJvxY4HMRimjzgvunnhGxpTU4F
-	 zzJWt/y0uU/ewp4WXL+v+Y2dqW3b9jcsVbhrC+1xeB1NYTL31q7xCYRwfAnVTMklvD
-	 M+5sPsw33oVOw==
-Date: Wed, 11 Nov 2026 19:34:19 +0200
-From: Mike Rapoport <rppt@kernel.org>
-To: Thorsten Blum <blum@kernel.org>
-Cc: Dave Hansen <dave.hansen@linux.intel.com>,
-	Andy Lutomirski <luto@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] x86/mm: Convert printk(KERN_*) to pr_*() in
- initmem_init()
-Message-ID: <avSnG2SVpeyKDAXt@kernel.org>
-References: <20261111133635.75044-3-blum@kernel.org>
- <20261111133635.75044-4-blum@kernel.org>
+	b=Lcpl0JmNfi0hGiZdgHhI35YjoBPYwQfagsfOk06DSWRnOS6tAZ29Dekzd6uOu/fGA
+	 7x55jW/tGA9b3NDlb7uX52rBf9t5Kb8Bjd3grfD09Tp5l5aIGRcSMRl3tpH1iRrlCZ
+	 p+EB1cv+fNBUPGf0VNQxfPTsLsB/8N5dWDk+zeRcnzywiXAgLxo+4kI4s8XSN6bTW2
+	 VqbMaWv8frsAxHReEMxc+OLUK/vKwOwcNC7ElT+4TWOiwP6PZM7I//1QjiIezVjnva
+	 DRo6TwdDx/8jk/YZPiN1f8eZB5KJ8u0+fpVzNY6w2QQdF4m5DCNHuzNBJvSBrd1ZUr
+	 BxMcstaEjcWeg==
+Date: Wed, 11 Nov 2026 18:35:06 +0100
+From: Thorsten Blum <blum@kernel.org>
+To: Paul Walmsley <pjw@kernel.org>
+Cc: Geert Uytterhoeven <geert@linux-m68k.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Deepak Gupta <debug@rivosinc.com>, Zong Li <zong.li@sifive.com>,
+	Samuel Holland <samuel.holland@sifive.com>,
+	Zishun Yi <vulab@iscas.ac.cn>, linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] riscv: process: Use str_supported_unsupported() in
+ compat_mode_detect()
+Message-ID: <avSnSvPLqdkGWWYF@kernel.org>
+References: <20260924213256.122530-2-blum@kernel.org>
+ <15d659fe-c9cb-fa65-5dd6-7182fb152317@kernel.org>
+ <CAMuHMdVK-MzcnNgobviFf8rxkko_sBT43+gZdEG45fN+vyo1xA@mail.gmail.com>
+ <aruH26spDeM8O9dh@kernel.org>
+ <7d4e8a05-4e4e-55be-2a9d-715c65787c38@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,57 +67,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261111133635.75044-4-blum@kernel.org>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <7d4e8a05-4e4e-55be-2a9d-715c65787c38@kernel.org>
 
-On Wed, Nov 11, 2026 at 02:36:35PM +0100, Thorsten Blum wrote:
-> Convert printk(KERN_*) to pr_notice() and pr_info(), use %lu for the
-> unsigned long arguments, and add spaces around the shift operators.
+Hi Paul,
 
-Heh, there are about 90 printk(KERN_*) in arch/x86/mm and way more in
-arch/x86. 
-
-Maybe change them in a scripted sweep?
- 
-> No functional change.
+On Thu, Oct 01, 2026 at 10:45:11AM -0600, Paul Walmsley wrote:
+> On Tue, 29 Sep 2026, Thorsten Blum wrote:
 > 
-> Signed-off-by: Thorsten Blum <blum@kernel.org>
-> ---
->  arch/x86/mm/init_32.c | 11 ++++-------
->  1 file changed, 4 insertions(+), 7 deletions(-)
+> > On Tue, Sep 29, 2026 at 11:11:55AM +0200, Geert Uytterhoeven wrote:
+> > > Hi Paul, Thorsten,
+> > > 
+> > > On Sat, 26 Sept 2026 at 01:48, Paul Walmsley <pjw@kernel.org> wrote:
+> > > > On Thu, 24 Sep 2026, Thorsten Blum wrote:
+> > > > > Replace hard-coded strings with the str_supported_unsupported() helper.
+> > > > > This unifies the output and helps the linker with deduplication, which
+> > > > > can result in a smaller binary.
+> > > > >
+> > > > > Signed-off-by: Thorsten Blum <blum@kernel.org>
+> > > >
+> > > > Thanks, queued for v7.4.
+> > > 
+> > > Thanks for your patch, which is now commit a06776565b9e7351 ("riscv:
+> > > process: Use str_supported_unsupported() in compat_mode_detect()")
+> > > in riscv/for-next.
+> > > 
+> > > This fails to build:
+> > > 
+> > >     arch/riscv/kernel/process.c: In function ‘compat_mode_detect’:
+> > >     arch/riscv/kernel/process.c:138:17: error: implicit declaration of
+> > > function ‘str_supported_unsupported’
+> > > [-Werror=implicit-function-declaration]
+> > >       138 |                 str_supported_unsupported(compat_mode_supported));
+> > >           |                 ^~~~~~~~~~~~~~~~~~~~~~~~~
+> > > 
+> > > as it has a hard dependency on commit 5383cf280ef4f00b
+> > > ("lib/string_choices: Add str_supported_unsupported()
+> > > helper"), which is only present in the for-next branch of
+> > > https://git.kernel.org/pub/scm/linux/kernel/git/pdx86/platform-drivers-x86.git.
+> > 
+> > Hi Geert,
+> > 
+> > It's also in linux-next:
+> > 
+> > https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commit/?id=5383cf280ef4f00b15f1d9e2a2886d0d02c0118b
 > 
-> diff --git a/arch/x86/mm/init_32.c b/arch/x86/mm/init_32.c
-> index 9b0a3dd02da0..a799f4cff63f 100644
-> --- a/arch/x86/mm/init_32.c
-> +++ b/arch/x86/mm/init_32.c
-> @@ -616,8 +616,7 @@ void __init initmem_init(void)
->  	unsigned long highstart_pfn = min(max_pfn, max_low_pfn);
->  	unsigned long highend_pfn = max_pfn;
->  
-> -	printk(KERN_NOTICE "%ldMB HIGHMEM available.\n",
-> -		pages_to_mb(highend_pfn - highstart_pfn));
-> +	pr_notice("%luMB HIGHMEM available.\n", pages_to_mb(highend_pfn - highstart_pfn));
->  	high_memory = (void *) __va(highstart_pfn * PAGE_SIZE - 1) + 1;
->  #else
->  	high_memory = (void *) __va(max_low_pfn * PAGE_SIZE - 1) + 1;
-> @@ -627,12 +626,10 @@ void __init initmem_init(void)
->  
->  	__vmalloc_start_set = true;
->  
-> -	printk(KERN_NOTICE "%ldMB LOWMEM available.\n",
-> -			pages_to_mb(max_low_pfn));
-> +	pr_notice("%luMB LOWMEM available.\n", pages_to_mb(max_low_pfn));
->  
-> -	printk(KERN_INFO "  mapped low ram: 0 - %08lx\n",
-> -		 max_pfn_mapped<<PAGE_SHIFT);
-> -	printk(KERN_INFO "  low ram: 0 - %08lx\n", max_low_pfn<<PAGE_SHIFT);
-> +	pr_info("  mapped low ram: 0 - %08lx\n", max_pfn_mapped << PAGE_SHIFT);
-> +	pr_info("  low ram: 0 - %08lx\n", max_low_pfn << PAGE_SHIFT);
->  }
->  
->  /*
+> I'm dropping this one until the dependency lands in mainline.  
 
--- 
-Sincerely yours,
-Mike.
+Do you want me to resend this patch now that the dependency [1] is in
+mainline, or can you re-apply this one?
+
+Thanks,
+Thorsten
+
+[1] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=ccd5ff410feb2adcf3840d071cf796cc5c549520
