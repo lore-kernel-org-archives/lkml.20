@@ -1,68 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794393418;
-	b=cxZKQlQg4MmyrysJ6ULHkDMQhQ2HBWlwI70W1MluEQJ4igjQPBJn7krZkeP4nCIK4YZe
-	 lNU13fepeNh8lcJJgxPa1k8ZJNnBlh4ctkuVeFHyal54oDL1TJyENMh0xDhUbMZ3rQpvL
-	 WAu/RuSHp+D2R31XsyZogAis2BEvnOpfIxGfS+lUSxhxsalfj4vgipA7j0p2Q1fMjw33d
-	 0+UFPweetKQc8pNjTGTA+e28QxtjKOkLCzLmQmbTj0lHTaBWU66gwqeQu5SV+pb4VMkx0
-	 RXp3nFKAf9wK0yiG7gRFqh4buPiXn6yZRcA9tJqsGY+bBHAH17tpym7cQ+ixk8+nGLw==
+	t=1794393446;
+	b=vJFvlRb7NDCbNa5xM14yg9b3TCOcbm+bIV9V5P713Kwg9WdIDyxCGddnyJZJuBHzh4ou
+	 UMb0q81JeoLO5UaLH4yxTj+Gpqk852sE0MJ2fK5ydEV5CKU3hQiwOxEPiMPqy0QG64WsC
+	 0Wv50Ouz+MI+ZlNpB0p9D/mid2swiEs1dU/uMPEukPNb0FXBRxGqCYx1DRGGzaF9s7B1N
+	 2vWT1YRiB/OchwtCzor7x128J1GA1TUEZVzgqD+FZVuwh15l9Rnxoq9gsgrYXeDzy0J88
+	 SY59LWkpKmIBZAUClJyGBFmfPJ66m1QI2fGriaXu1wvrPW99VAOp4kSt6IzZE0apl3A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794393418;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:Date:
-	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=0Cl5WoUjcRrzelzVze5Dmtzimjol4ZnmowLigCEsvEs=;
-	b=0HnQpl9iRLcXQK28h0ZO66YzPb5GPIzejj1impMklVHkT1nO/vS6i+UZW/doeGgk8fqt
-	 EjEtaES8euD/63xF1BLq63QlLCtKwPxDq4qLe0XzEnGaqnvJvQcbphzwWNwSgB5MozrhL
-	 mL9XVAJh0AblGU3HOx96/S4k1e0aIGthDfrwM0MtklXuLQAqKDPHbvtJ5e4h6jlfJh9C5
-	 SDMdXvPqCJEThZ8ysC+WdVGJh0dVS1HBP8SBMm5WY1ANNvSusK2hZVkZpXUaQrR0jftob
-	 e2pp97ECkK0DT2bSaqrNCKBzp4+59Y2q+lVoJ/yaC8AWDP9qo6I22bc8GS5md0Ttk2A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794393446;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
+	 In-Reply-To:References:Subject:Message-Id:Date:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-Mailer:
+	 X-Last-TLS-Session-Version;
+	bh=qbvOK4wGLvq6MAbrIiYOQK6EHUzZB6RXJUnU4xqfb1Y=;
+	b=mWJGy70x2/Oqew4JO+0DhFxlROfmXhr4DdGYFAphmQfaHvtCB6EtTqvhaPl4sa1Ck++K
+	 UV6+cKHcfiztcmWd6PCQcMmOo6NQLE/8akexF2AOgQnGram8KRmiYX2Ct5iP36rsbRoa9
+	 zIZBTYWMOlVpWQ6+VHddegxhUsufmeXD3/TdcWUTAYEWidBVh9iL0i/86Jz86w7Pe2TsC
+	 465tplI/AaaABlPVyQJWDFF8ZEbAkntFpb+Ce/VsLSAPlIZuAfp0hlIGczG/dPMNhca0I
+	 i0vO4dEUyTWA7c04DPoQUAjV3GOVqt0a59sajwAQlO0PXy0mj/5uPkpFEb0s7yxU3hQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=sang-engineering.com;
-	spf=pass smtp.mailfrom=sang-engineering.com;
-	dkim=pass header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=W4MamTg8;
-	arc=none smtp.remote-ip=194.117.254.33
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=kLItfe7U;
+	arc=none smtp.remote-ip=185.246.84.56
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90FBF606A330
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 10:36:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90FBF606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44E75606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 10:37:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 44E75606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=W4MamTg8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=0Cl5
-	WoUjcRrzelzVze5Dmtzimjol4ZnmowLigCEsvEs=; b=W4MamTg88wwwFHzwHHb+
-	+DmTh7MNDSJfzuplnnj6Ed4S8X7AEb0yQiBiE5DpbeUx/xv0HEg5AF4O2mZwZ2s3
-	QPStZCkwPYKbRvEZfAJh+fQdd7FgeTz+vA9PJaqO+tIBZeAQZnmvBUA/hKtiBsKo
-	3JnnudqELSIul6qzmncnuB2TbCbH7uQIhf+jLpBkYmpxIb+B2TgZIYfx3oCjWCc0
-	L/s7Fky3Qt3tgpfmgZStcj5v7n+Lh1tEGZwhAoSC9JfGJfr1JXAWiz1OnNeAEwfu
-	4cr9uCHc5UbAzhu2m+Lq522UgOrKSH0z3Lb1U/7JgFEYJisJQQxBtOWA+fBQcko6
-	UQ==
-Received: (qmail 573149 invoked from network); 11 Nov 2026 11:36:55 +0100
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 11 Nov 2026 11:36:55 +0100
-X-UD-Smtp-Session: l3s3148p1@kHEZxv1f/sIujnun
-Date: Wed, 11 Nov 2026 11:36:55 +0100
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: Biju Das <biju.das.au@gmail.com>
-Cc: Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>, linux-mmc@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org,
-	Biju Das <biju.das.jz@bp.renesas.com>
-Subject: Re: [PATCH v25 10/11] mmc: renesas_sdhi: Add write32_hook for
- CTL_SD_CARD_CLK_CTL register writes
-Message-ID: <avRFRvJw5hyRjzlD@shikoro>
-References: <20261028-rzg3l_sdhi-v25-0-57f16691c2ed@bp.renesas.com>
- <20261028-rzg3l_sdhi-v25-10-57f16691c2ed@bp.renesas.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=kLItfe7U
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id E07991A1609;
+	Wed, 11 Nov 2026 10:37:24 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id B57326017E;
+	Wed, 11 Nov 2026 10:37:24 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 10B5B11BC10EE;
+	Wed, 11 Nov 2026 11:37:18 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1794393443; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=qbvOK4wGLvq6MAbrIiYOQK6EHUzZB6RXJUnU4xqfb1Y=;
+	b=kLItfe7U0H3r8+ahfhHE4RMyE3GB7QPGfo6TZx+IIVB7GZFu1bRFe3rNsFikTdIy7nJeNa
+	YPw3AEFP+F6Vm2D+qpNW6w3kAtGy8DhbWjxIkZPiAP1LLBEKS9VrZoEvRScs88Izbp3aQq
+	bufiNV94Acg/GWCNvat5cd/kr9DevU//zDgD8i3fl3WcRNvW0u0QHVjJiGqf2BC1qUoeyk
+	mZiQHpj6p4eeb00GF2xPkjNugVHy7W2smZ09X7YrSGUGpK0lia10BZroiYrjwAJi+crgdo
+	Eqn7im90zdBW7ABoCpkotJDIgnEi+b0cbq/ILLMFTbhT7vdRMbFRWLOxQ9ZHHQ==
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+To: Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Alexander Stein <alexander.stein@ew.tq-group.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20260929130701.1029644-1-alexander.stein@ew.tq-group.com>
+References: <20260929130701.1029644-1-alexander.stein@ew.tq-group.com>
+Subject: Re: [PATCH v2 1/1] drm/bridge: tc358767: register DP aux bus even
+ in DRM_BRIDGE_ATTACH_NO_CONNECTOR case
+Message-Id: <179439343868.1617651.10273802266437546850.b4-ty@b4>
+Date: Wed, 11 Nov 2026 11:37:18 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,52 +76,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ZNml3XNZlLs9ZYLW"
-Content-Disposition: inline
-In-Reply-To: <20261028-rzg3l_sdhi-v25-10-57f16691c2ed@bp.renesas.com>
-
---ZNml3XNZlLs9ZYLW
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Wed, Oct 28, 2026 at 12:51:27PM +0000, Biju Das wrote:
-> From: Biju Das <biju.das.jz@bp.renesas.com>
->=20
-> Add a write32_hook, analogous to the existing write16_hook, so that
-> sd_ctrl_write32() can wait for the SD bus to become idle before
-> certain 32-bit register writes.
->=20
-> renesas_sdhi_write32_hook() checks whether the target register is
-> CTL_SD_CARD_CLK_CTL and, if so, waits for TMIO_STAT_SCLKDIVEN via
-> renesas_sdhi_wait_idle() before the write proceeds. Other registers
-> are unaffected. As with write16_hook, the write is skipped if the
-> hook returns a non-zero error.
->=20
-> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
-
-Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 
 
---ZNml3XNZlLs9ZYLW
-Content-Type: application/pgp-signature; name=signature.asc
+On Tue, 29 Sep 2026 15:07:00 +0200, Alexander Stein wrote:
+> Even if DRM_BRIDGE_ATTACH_NO_CONNECTOR is set the DP aux bus has to be
+> registered. Move the flags check after registration.
 
------BEGIN PGP SIGNATURE-----
+Applied, thanks!
 
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmr0RUcACgkQFA3kzBSg
-KbbN2A//WkY5t2HRcq2QZ7p/L6Sd3nCAgzYQwxeHtm8IMY0v/uVWXwQoip+/x9Zv
-Oe209Higw98oz5uF1u+yBQBl9dkTrEk8WGM2Dy35WnYxjPjyTkKhC/6rpxywIJZq
-S95nT0Mu9XQt0GBdQkVeDDc44WJhYkrKs/JEhhVtwB0j7k/YjbfPu8NQM5alSsTt
-QOvTHrgBwfijE6JkU8JJubnJ1abqlLFZXWlsoXSbK9jxLqjmVk69fSjVgTwAfY1z
-43vZQcz+4erOb3ZpnbLRvjVW25EQ/40sxxsRLzx9346s5GfYevxTv4g9+SVkcdRT
-jqZXoccKvk4pkGA4ZtCKfpjFKubL82kUDHO5qDLsXeSOdH5T6K7AhbdsMC8Z5tPW
-/BSpA9zk1+rQ0bj/ZR/CvId8YAQbhu+UUeqGS4WO5nuHij4VqvTAh5kKjIsIfO1H
-k1fnyxUbStNUDJqOq5zMrKK6isgahpBqHXUC2OEi7raJW68P8xmzKBX1NntfccPw
-ug1jAVNb2Ii3KuwDLezQta9BLJmMpjMUxA43i3FcZtB9UIzNkUZpfWA/pjBEPzV6
-ucYYG+4gEoY+vUQGhtvwtpDtZd/QgG57ifbkzbKBKW636z8zn4d4PEaJaMbt4L8r
-weJOLyPY36bc/Et4/ee2ChSFU/8OeE3wmP6q6kkjX6IrNM8Byoo=
-=diMD
------END PGP SIGNATURE-----
+[1/1] drm/bridge: tc358767: register DP aux bus even in DRM_BRIDGE_ATTACH_NO_CONNECTOR case
+      commit: d360c8eba0f174ae81d2a1343a7371bd7514429d
 
---ZNml3XNZlLs9ZYLW--
+Best regards,
+-- 
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
+
+
