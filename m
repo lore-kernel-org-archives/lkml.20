@@ -1,99 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794368664;
-	b=cHUacG0FHzJGjnw0cdM38XqkmP1FNHKr8WGOCHKcjAAqJRgOpuEPDGR4DBv62sATQzEY
-	 LaDbSysjzxq/riaVbaMl7IqRVKRHZ2eQo/Dj68Y3O/6PS0hKceGXSbAH7aEHNYGq4bqoP
-	 5UEcD6P4AaXDJTA4HyPRrn6NYOBc2HOz1A9AC/xWS1WePJI0G/5GdpKeOdFGw7162zCaz
-	 jVBbcAbg6mzOYptJlXgLsx3ZSo6mhPCsnYHO5gL2wXGNEVwYGhuWpKko0B+sH0ZKyfSQc
-	 cmQ3q8Coa62viGnt5FyV7S9q8MCwyfFeoeQ8L7OYZ3h0LvsK6bTVd1Q/IxHaSoxvoLw==
+	t=1794368677;
+	b=JiujqPlDD6SF6BY734/l+vdTkRJa1s5nLiMVMXLUGrZEKNX53Rp5VdFReoIjSR2qt1pN
+	 jPT0kRtVHQO+b9V9IvA1LaZ+UUJVaO5x7DS+4C9dF6PMdixLtwV3jV1kjs/D4SSdIZugV
+	 gBPDRU0klRtsGw2/riRWJAqU7AnTVcAJp/2cEOPet+MVQMe2z6eYAEO2OeAexN1P1GcuE
+	 QG/1e28w0gVaQ9O268AUmXvGdBKMFWWIZme+MiPAz1PPEODQqlGLNfhEIK9YocVtLnjxn
+	 pAEOm8DCssPx2mkMkOPmJv37ZE6osk+Ka/y+g2jR7RncvVNg+0SxjMAYbyvFJ5f1Seg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794368664;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794368677;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=rc+P9eOpmSqibWOjblOYo4mq9VjvGRRzJUsMEztZL+k=;
-	b=tqrsOl+IuTwbC1bmmj4JnL1IJuTblJfzOu9iNYc7+/SM1a8Ek06rxU8lMo2+K1XVZDab
-	 UlbSVToNMZCerwvePkB1YGyuNZMcu/DyaQRbx8jMenKbQoM1tXagOu40UYgTC1JRk8ioh
-	 ggoRCK3jD5Z4BhipaT6vd0dluOJ1WhGpp9MIkvWaWsZNOotSXp17qJHQy3QxVAs7wRcjQ
-	 CR9rWJyfnT6VBEBSK0qcip+y6oEByN5tec+zt+Hek31Mcx0tOTbreOf91nvmX3+DaZ1u6
-	 zxffdsyeFfgM6M4xZ9YMm7ztQNnc/83Djc7QyYtJTJKU787uhjjfdGQr5g0E/Nf2k5Q==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=7Rx2xMMXNqFSdZ4hSTTgyPdyZObPE5Ic1lNABuktusY=;
+	b=TH6ruLhHLn8Ghalp4Y80pwz4JJ3Wv8t2tybdVMYxKYv9yxxqa4da9w4bURYiI1lf/S2O
+	 j6bYlNimmnE8glMuWM6xHTdByBVktyVKB1BtS/hZwzHQU4+jOAXe8VndjaVTTW5AjvjjE
+	 2jQjtEEA5nX3ah/+Fbd7JAPtcRX/J4RQ9Ir1WaKpdjipsrIim3Jl2pwG5ZK+UQ8+F3zYy
+	 nviHhwnbitae1Tjep0zr4ojvVZOAHvx49a4pkf5fJxtngl1sQxy1s2DT2A5ir6DZvtDHg
+	 nYUc6F6rzkhLSNAkPhRDeFLi5w9E3nD6Hw5qfyRs9JtuyAU0QOmUoddtLTu/3AjWPXg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lcjSgRpm;
-	arc=none smtp.remote-ip=209.85.161.41
-Received: from mail-oo1-f41.google.com (mail-oo1-f41.google.com [209.85.161.41])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lIyqBdXK;
+	arc=none smtp.remote-ip=74.125.82.53
+Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55442606A321
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 03:44:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55442606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EC41606A321
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 03:44:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7EC41606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lcjSgRpm
-Received: by mail-oo1-f41.google.com with SMTP id 006d021491bc7-6deb848ddd7so1685100eaf.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 19:44:24 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lIyqBdXK
+Received: by mail-dl1-f53.google.com with SMTP id a92af1059eb24-1a3c08d6928so4725659c88.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 19:44:36 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794368663; x=1794973463; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rc+P9eOpmSqibWOjblOYo4mq9VjvGRRzJUsMEztZL+k=;
-        b=lcjSgRpmHuggSjhLdMHCnVvH/bPQWR68Mb5S3pirIshxAAOFAwuzdPIoiY5Q2wL+Vw
-         Yhug/XMF8ZDHULfO0FYBg/LLd9IWrLa6mRdEdGUkB/SFbtHo4kvjkBzjgrByaod8g8tk
-         Dx5FsYsmhLSdCykojfTNjD2NEFALj2A4moqJFlH9hwJ/6WFbv9VFd0TOO9MT8p57cfzE
-         O5Ndz5TSFcodXjsbtvIKSfi2Hh6Ss6+zpqwtcXuEdbtuO2XK8iYaNGq4xMUPXnFZbJPG
-         MdqRETmoGSnW2R+vTmyW44vjbrCQOyxFD31eS7RDt3UB4iy71huiaM4AlzOcZ/3kRJj2
-         2Niw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794368663; x=1794973463;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1794368676; x=1794973476; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=rc+P9eOpmSqibWOjblOYo4mq9VjvGRRzJUsMEztZL+k=;
-        b=GtynivEMhD66/DcwTHA71xM4xw2TEenlXueDehN8D3WtMtksPdc5y5SExp8cua3xTo
-         1o1V4KBMK9JoXc/0dCochW/ey0hLX17Lpf+d7/fvuxSZl8g72IpiuvIK2HCxdoFuDFJn
-         dQaY4YNv7GV2LkAI6d5jnv2vHcYm+IwSYP8QTc+sHElEWyP87Iep51bC+jUlxe6813hi
-         Kjwab+H93vB3Tgw44K/ToKOXjnT0itAs/PJDjNZ/QXy6lH+pd7yMk+IJfOvjY3kxHz3D
-         2fEIDsAUpDhGqyhzDQTXTkXAofa15XSQ8pS4sOFCrsXMVL/GBwg0dWHSASmZnlKTmDmI
-         N2SA==
-X-Forwarded-Encrypted: i=1; AL+hErGASOJkxefmk0HrfQHFVZ5Hfn1aDG/d5/svGjlCDaUxvD2jNnaE02pDGQqbN4q1SJS/KGYXVjV2k1lWv8A=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+CW+JgXoVbZROc0XUlyMiw8MX54DJnaKAQEdgniB5AMQ00AUnL
-	iyJx84H23zn4Ac9be5NMID1Da1Ygup8d+DT1k7wjn/TmqLyNtfvBqmr93KwSqUag
-X-Gm-Gg: AYBFou1x0RO1/n/DcoSWagzIw9Xe9KAe4FKJRLX6u9yJw/yLX+flzwmQIHQEx4FH3qc
-	/i6l8z8QODRi0Hp6dl+WfwQYlQpltvJ+xjarvsazl3oWxh4CFl9yboO6kuINUxtYv7E9iDPKv8n
-	bxI2lGWq9KvRJTeNrJU2zwyL3e8Ld59X3+zsx6ZG+dStWsOroxrKbUE/gz0fLkOcLc8ryLQARZi
-	zGtePowyK5mxY39TLAdNbNpHGJfcJkJdDN36GMkIPv4tXqDfZeNJbV+lYpc07yyVsc1J9BgENb5
-	fm4sc6LF0yYA7D6FQxvijk2obWwqUdaHjBTyAfIStbIgACxVDVOKTkmJKjnoT7ZaW6egeRphnn2
-	bOnBc7QXEM36tTxbEFi6i4rSwV6Wv+75JJpvY1nCWRNNs8JEVKrEfETT74VJVoAD2XcZvuzs+Vv
-	rgKSGnMwsUeqD7VVyEFDyGcoLxIVKRuuMNfb9eaGYcD5o1yZhpI8rcEDta+NV7GJqVuNaA+TAjp
-	+gXmBnqi8mGC78dX8Vb4Er00K8yrBUIch25cgRQHd6s6Awgds0mg53TVOF8tFQRQFuWarbQk0sH
-	1p+/YAdwPwp2oSio/K5iWl8c2RwqGSRr46mHYXxccHFBmRy5yt/fbiXR+Z9QWXbp6XJz4kDm7et
-	4Z+3t2LLvgxOivPtftFbZGK4Qe+cIplNG5o4E0oAJWAMtak57Y4axXr45aL7ibjn4+FiHPS7N3p
-	qgtQ==
-X-Received: by 2002:a05:6820:1ca4:b0:6f6:1e3a:6fc with SMTP id 006d021491bc7-7191795fda6mr882755eaf.79.1794368663202;
-        Tue, 10 Nov 2026 19:44:23 -0800 (PST)
-Received: from ryzen.lan ([2601:644:8000:37f::e34])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4ae23031a4dsm2487525fac.14.2026.11.10.19.44.20
+        bh=7Rx2xMMXNqFSdZ4hSTTgyPdyZObPE5Ic1lNABuktusY=;
+        b=lIyqBdXKGql3khtJNo74Hqj4TjQMXuuoxuhrMpLFYWjnDtGb8b4AaaXgnFjsD32cUO
+         dnt4b1XGFfw/q3SPZhnl4Myui4WbMv+Es2IswVTKSPfbg6jqmWQm/BqmjX4SB8p6CEI0
+         Ogmg8yyzC/AlWcVbL0ML32c5HjiPzvp0vyVxrck36MfwfBxcc1xryewy0JbNVuNGYb2q
+         CsU3rvFG4zL7scIGYU2C3N+svp9U8d33bp7zvZreYcS2EKZ+WZ2bL3WF617d+kb4xNcW
+         H1VGxMeQfLJ+EtYXHiRa9ANbQB/ikMZG9+/1FXsIWt2LYqjcZoJ8pp/TiegEfcsyA6oI
+         IOyg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794368676; x=1794973476;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=7Rx2xMMXNqFSdZ4hSTTgyPdyZObPE5Ic1lNABuktusY=;
+        b=TBgc6Wy88lJxw4xKdARjpgLa47sU9zx3LSRhbfZtYBLlj1rt5/xExneeT2zE80PU7O
+         qJtXp8hV+caHtDlI6jWM6deVh59DqC/z5xXrzGGtr1IW/J71Q5NYztUMbed8qzsO6AQ1
+         G/KsBRnO40nalmedyDukooxKWNfF7X/i+OKlXfdvx1ImZm5vRdzzTRdGj/rOGP2gJFZA
+         BA1VwJ0sagT3LLJ/ihgcnyU++cRnwCvjheSsGnoFNZ7K9meW0l4P5qOU/39d3CiR17Kp
+         /oAKPS85NZsY8t2fgqcPo6GKIjDQuiMcvLLM16VADLnKw35IBxx3zUrqGvS7dVmIpATY
+         t/wQ==
+X-Forwarded-Encrypted: i=1; AL+hErFsTQQ+2M1fL78kGefnJGMEeZwMVlsYAf9lJmejgPoSFS32A28RgNFwBqMtkXwUNByZ51EHYgfLmvA/IKs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+MGVqq1hRGNDBKh3yPA+ekqb93cy5/a1B3o21y4hc9HcOVOt5f
+	XZkxxyXQrnCjq5uyxHPh2r0qdNb62eeQu1A12iKhz/yS3YVXVl+y5qljArNH5gSg
+X-Gm-Gg: AYBFou2o78ujGfnP18Rex2RaoDKxocUltXut1Oh67YxmFuN4ns2oeMGHSzIi3eCf6Iw
+	Je+IauZhvi8+zqmvvHme2Au71sdbGR4r09gRYLN/JWU5pHbDSZlJH7cjrUaHUTBElHgtA2jsvxl
+	oxYuovOyAKXi5gO+XSRAiFvNpF9hKP4gi6UL5J/RnXy12BGwrYI9mEW/MabroMHijo6UjpNZDdA
+	9NiOVZXJoQRHxrkJvrX2FPF55j1CDTkWInqRf6hQzlnwKf0aX5hozTMWynQBTK8W1gL/+bVYH7O
+	y3nMdnJaRTfwKXWPBTC1lSms7Lcgw/d5d9ZTkcrebBs/zUndeW3S0rkJ6wlyZp625tsKFwKwnfJ
+	lpDvcxnn6YCnWi/YaGKpKDJteXlhNpV6dj43B0uLHvanmrKvkucxQ2AfPJlx2lPN5lgW8cdTV57
+	KcvSd4IWsKCDRcaaHb1iW4pvM9Kl/GiDuZ+/A+tS0+WWNsEzK7muV+nonN015yz561hZL1eBflg
+	YCp9m1FtZH/6qnI6uElRMB0G8col4hJzUcKZ7PBG4dfBdQEwrMVApVGHLmNBaXFgMe+AGRKieje
+	mzg5zjHdAZ3uE/LcPBQu
+X-Received: by 2002:a05:701b:261c:b0:1b2:46ca:242e with SMTP id a92af1059eb24-1b3c02f34camr1200137c88.14.1794368675565;
+        Tue, 10 Nov 2026 19:44:35 -0800 (PST)
+Received: from a1-free ([161.33.196.121])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b2fc09sm23664862c88.10.2026.11.10.19.44.33
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 19:44:22 -0800 (PST)
-From: Rosen Penev <rosenp@gmail.com>
-To: Johannes Berg <johannes@sipsolutions.net>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jeff Johnson <jjohnson@kernel.org>,
-	Loic Poulain <loic.poulain@oss.qualcomm.com>
-Cc: linux-wireless@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	ath10k@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] dt-bindings: net: wireless: qcom,ath10k: add PCI devices
-Date: Tue, 10 Nov 2026 19:44:18 -0800
-Message-ID: <20261111034418.194610-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.56.0
+        Tue, 10 Nov 2026 19:44:35 -0800 (PST)
+From: TAKANO Mitsuhiro <takano32@gmail.com>
+To: Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>
+Cc: Mark Rutland <mark.rutland@arm.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Namhyung Kim <namhyung@kernel.org>,
+	James Clark <james.clark@linaro.org>,
+	linux-doc@vger.kernel.org,
+	linux-perf-users@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	TAKANO Mitsuhiro <takano32@gmail.com>
+Subject: [PATCH v3] arm64: perf: Drop the example the userspace counter section points at
+Date: Wed, 11 Nov 2026 03:44:32 +0000
+Message-ID: <20261111034432.2020955-1-takano32@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261111023550.1971639-1-takano32@gmail.com>
+References: <20261111023550.1971639-1-takano32@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,41 +106,71 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ath10k PCI devices can be described as children of their PCI host
-bridge, for example to supply the MAC address and calibration data
-through nvmem cells. The only compatible for that was "qcom,ath10k",
-but the generic PCI device schema requires a node under a PCI bus to
-carry a "pciVVVV,DDDD" or "pciclass,..." compatible, so such nodes fail
-validation.
+Documentation/arch/arm64/perf.rst points at
+tools/perf/arch/arm64/tests/user-events.c, in the text and in the link
+target, but that file is not in the tree and no commit in the history
+leading to this base has added one.
 
-Add the PCI vendor/device IDs handled by the ath10k PCI driver, as the
-ath9k and ath11k PCI bindings already do.
+The section already describes how to use the libperf helpers and points at
+tools/lib/perf/tests/test-evsel.c as the example, so the sentence that
+sends the reader elsewhere is redundant.  Remove it and the link target
+rather than pointing at another test, and move the instruction for running
+the example into the How-to section, next to the reference it belongs to.
 
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
+Signed-off-by: TAKANO Mitsuhiro <takano32@gmail.com>
 ---
- .../devicetree/bindings/net/wireless/qcom,ath10k.yaml    | 9 +++++++++
- 1 file changed, 9 insertions(+)
+v2: drop the reference instead of pointing it at another file, and move
+    the instruction for running the example into the How-to section.
+v3: the v1 history moves here, so the commit log is the change alone; the
+    sentence about the missing file is stated once.  Raised by Sashiko.
 
-diff --git a/Documentation/devicetree/bindings/net/wireless/qcom,ath10k.yaml b/Documentation/devicetree/bindings/net/wireless/qcom,ath10k.yaml
-index 0cb065265df4..992926ce5c5e 100644
---- a/Documentation/devicetree/bindings/net/wireless/qcom,ath10k.yaml
-+++ b/Documentation/devicetree/bindings/net/wireless/qcom,ath10k.yaml
-@@ -15,6 +15,15 @@ description:
- properties:
-   compatible:
-     enum:
-+      - pci0777,11ac  # QCA988X (Ubiquiti branded)
-+      - pci168c,003c  # QCA988X
-+      - pci168c,003e  # QCA6174
-+      - pci168c,0040  # QCA99X0
-+      - pci168c,0041  # QCA6164
-+      - pci168c,0042  # QCA9377
-+      - pci168c,0046  # QCA9984
-+      - pci168c,0050  # QCA9887
-+      - pci168c,0056  # QCA9888
-       - qcom,ath10k # SDIO-based devices
-       - qcom,ipq4019-wifi
-       - qcom,wcn3990-wifi # SNoC-based devices
+ Documentation/arch/arm64/perf.rst | 17 ++++++-----------
+ 1 file changed, 6 insertions(+), 11 deletions(-)
+
+diff --git a/Documentation/arch/arm64/perf.rst b/Documentation/arch/arm64/perf.rst
+index 997fd716b82f..5b9cc2aeb642 100644
+--- a/Documentation/arch/arm64/perf.rst
++++ b/Documentation/arch/arm64/perf.rst
+@@ -131,7 +131,12 @@ changed.
+ 
+ The userspace access is supported in libperf using the perf_evsel__mmap()
+ and perf_evsel__read() functions. See `tools/lib/perf/tests/test-evsel.c`_ for
+-an example.
++an example, which can be built and run from the source tree:
++
++.. code-block:: sh
++
++  make -C tools/lib/perf make-tests
++  tools/lib/perf/tests-static
+ 
+ About heterogeneous systems
+ ---------------------------
+@@ -140,14 +145,6 @@ only be enabled when the tasks are pinned to a homogeneous subset of cores and
+ the corresponding PMU instance is opened by specifying the 'type' attribute.
+ The use of generic event types is not supported in this case.
+ 
+-Have a look at `tools/perf/arch/arm64/tests/user-events.c`_ for an example. It
+-can be run using the perf tool to check that the access to the registers works
+-correctly from userspace:
+-
+-.. code-block:: sh
+-
+-  perf test -v user
+-
+ About chained events and counter sizes
+ --------------------------------------
+ The user can request either a 32-bit (config1:0 == 0) or 64-bit (config1:0 == 1)
+@@ -160,8 +157,6 @@ userspace must treat the upper 32-bits read from the counter as UNKNOWN. The
+ and should be used to mask the upper bits as needed.
+ 
+ .. Links
+-.. _tools/perf/arch/arm64/tests/user-events.c:
+-   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/tools/perf/arch/arm64/tests/user-events.c
+ .. _tools/lib/perf/tests/test-evsel.c:
+    https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/tools/lib/perf/tests/test-evsel.c
+ 
+
+base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
 -- 
-2.56.0
+2.53.0
 
