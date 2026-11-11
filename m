@@ -1,107 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.55
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794386376;
-	b=qTyZW9y964HPMZ8WtBNwV25r/H+wUmlwkskNY75W3ZkTFNKvjKiWeMc/LoWAOxFHW7B3
-	 Kbw7M280jmAaHoAteYRNOs8q5aWNZT52Sd71ZZhmQyuQWiUlqZuW8/mtUnzUOYgQm4HrD
-	 OZRfGPotkprGAPTJjrNJnhyZqA+hSKByPhao67Prf+Zfa1/X9NplDklrcHTwjWqsdI6xQ
-	 /Czl7+xz8aWTBE/sfRC6/haRxZXiICPxSjR9Sk8Lwn5lxGt7cd/xCUI3usrftCMA9EH3v
-	 8YG+e81vIZJRlTnbCi244VzAmv+cT6tbCjnz3PZ0aFze9STQTPY3qX04iWIWh0T1pUQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794386376;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-Exchange-MessageSentRepresentingType:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SharedMailbox-RoutingAgent-Processed:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=a8PvAXFzpnCwhvRkssOOTGa5wN4Gxao/7OPpSVNZcWY=;
-	b=r3lC1O5EMRggZ0rlWcqOYOPlkGsXH2T8BeV7XObiHhM4tcZlo5itgDj44CZQepDS4w1n
-	 DgcrcdxR3OpTTn88/X5KS2glM5emZKmzH/XE++FVp2p77RhXRoBomldmchzgyx7W8OkH7
-	 fBQ06zwT7c3Fx4wxPTEyt2xW570bDru7IcqvuAyu4YcdPwpdjIwvucP42roU4dE5zFcvV
-	 zlSp+0UvuEJEN/pzeaieoLnc1bRa5bVSk5NzK8v94OxAMo9n3nYBy7YM1pCnIl0KT6cmL
-	 UOxET1uHQRO4UkxdhlkJ8+Ggm54xuiUHZgBxuBJhH/rFsLR1pNMwNP3EFG0qM04Cyxw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b="JIm/4mWM";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.55
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011055.outbound.protection.outlook.com [40.107.130.55])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.75.126.72
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794386393;
+	b=fJVNMnBZm8J/zR4IhYLOvJFVH+HE36EzlVNzC6ixzIl3LWRxKsHkkDBjd6Kt63UnWaum
+	 5UQQgTabVGVlqS0GqZKi+L9JifHvR1lVULoDhCvPnCkZfP5AZpLXbQELUGsVSHUN5my7I
+	 o9QXHxs7XRDxtQlxIHjFKnE2nF26DCKTy+H4Odzjathalw+Nr5V+inEffo3o33kS7zG3K
+	 8Z248YbLh5aybubeXrJpbDl58gMI4Wb1zx+sdhiPYdPjuXrU4ZZGRDp9DhmdVR697Y1Vd
+	 TgmvgnZHauTB2jV71Qcy8G/Zll8zmWSrlssfFVBAjvKcd1+As5FwuqrTuK757afKQGA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794386393;
+	h=DMARC-Filter:X-SpamFilter-By:DKIM-Signature:Received:Received:
+	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding:Content-Type;
+	bh=cIWctii9OquFRjtSUQKj/a1c04ON7jBZsXm16+9OsdI=;
+	b=sO3zNoty1uithVsZO9YirqUtsApYg6Le5nuzhzU3g6JAxDDRCvZIdANfwuns9yb/n1m9
+	 w6EU7lPhdLjHBjj3VOtRglomHnswcld8ROXmNuiru20Hi+iKNXa+kWN7JbMn6K68f+kYZ
+	 +qdY1yikcCEm3217gIqZQc+ti7Eta8LCzT2yev5f9tWsR9JwWh81le371H8x6SeaTU79J
+	 yz/rQO+M3jEScB+M3EbiLabaKNbfGVs43WRp73bobilcaGikWght1RqzV7X4AYdYs4dUi
+	 EJEE5bjorau0iFYa1SPdaZ/XMntcsQXkSAyX4iyJnaDMz9DTolcoNzg0+YPy5ghTftw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=realsil.com.cn;
+	spf=pass smtp.mailfrom=realsil.com.cn;
+	dkim=pass header.d=realsil.com.cn header.i=@realsil.com.cn header.a=rsa-sha256 header.s=dkim header.b="ddvFkfe/";
+	arc=none smtp.remote-ip=211.75.126.72
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A776606A31C;
-	Wed, 11 Nov 2026 08:39:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A776606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C27D6606A320;
+	Wed, 11 Nov 2026 08:39:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C27D6606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realsil.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realsil.com.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=JIm/4mWM
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vAIn3+r26rQtran6RhqWW7NAQJ8nQEI6oHJzljlk5szs4dBpAHAYmDB0wYcWLxDE10qTpN5Q/y048Uu9InKZPvWF4isG5BdXs+3ygzFC3hMiwES7roNGIbhw62cFWCXXpXcEdqHYEbxBh+r9thFnjF3uEtRSX+WMaAOa/7odoWUqmK4S6HRtDW0Y5iaZwxWbfXhXKmv6akpI63Zx/ma6aMJPDbxXlEoQo/m5VB5lMXsGJmBnkKz/yV9KzyaHaym0WSNRbuMgXeaP2D2vtZdkSb9SfY7xes8pQW5LynSICBaIgvVijnVaIm1F7gp3phTCCJhlwTd0iicQ1Xtin3QBLQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=a8PvAXFzpnCwhvRkssOOTGa5wN4Gxao/7OPpSVNZcWY=;
- b=xZLMXiHqfjzY1DXPusWFG1SmaPpxMKGxfhgrE27oHjX88wjyDvXbZpcWQ+MVQ69aIUZt2nfbi3XveqGohXdDoWNeJV4xGWaRjOsaxWiWnF7Jzs3C+Em+QNZyA+eabUiiZW/G+mlPS93k8atKkB+2JCWpb4d3fTz08YXDgV6ykFuO0KxUYCwaYhLGdjOaW2qg3eAzFk+SjxdUXmQUs+SpdSW1bhnXKCIUTu4v9NnbRfDiVou3JjT8rMomeExm4R9SfHZexXNaN/Gvvl6LxQwrl2xrKqPMeUidl3s6xZjuFJ+x3X/QCbUt+rtD6Wsbi3eWA/MVOklspWc+s1LCRVBrVQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=a8PvAXFzpnCwhvRkssOOTGa5wN4Gxao/7OPpSVNZcWY=;
- b=JIm/4mWMZ1Ati5z4i2NgEIuSZbdkSqY+UX0X/WxkquAEAKlQucNnQe/gLNGv37bQCBBjnesnQRsKGyqEvQR8C5FR9+UG3uS3qYMLxksDtrBgqiO2BfUhE80n4p2Qaq1S9ub98zZMhKeyKsxqzJ3/0zY/Rj+rBe3hhe641RH7fMP4qZnTgKljIgOYplQJkEwrxV0gMqCT1mvLMbeJIvRnOzsQWYxgiYzXVGhIbpiBCZ0xmuAk70xKIxrMxRDHtmC91Dz6wva49JnrM3xIyHl0SGt+0UB5C/W0RtwVxGo+i1s53kXoMXPoV8Bn4tCB6kZbPRiJZg58JfMMFVUKo+FdtQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GVXPR04MB12316.eurprd04.prod.outlook.com (2603:10a6:150:2c6::8)
- by DUZPR04MB10040.eurprd04.prod.outlook.com (2603:10a6:10:4dd::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.9; Wed, 11 Nov
- 2026 08:39:32 +0000
-Received: from GVXPR04MB12316.eurprd04.prod.outlook.com
- ([fe80::fc6e:ca22:f065:def4]) by GVXPR04MB12316.eurprd04.prod.outlook.com
- ([fe80::fc6e:ca22:f065:def4%5]) with mapi id 15.21.0592.012; Wed, 11 Nov 2026
- 08:39:31 +0000
-Message-ID: <23bdf173-93ba-428d-8415-107f64e163ba@oss.nxp.com>
-Date: Wed, 11 Nov 2026 10:43:15 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 5/5] arm64: dts: freescale: Add support for bytesatwork
- i.MX93
-To: Frank Obergfell <frank.obergfell@bytesatwork.ch>,
- Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
- Frank Li <Frank.Li@nxp.com>, Neil Armstrong <neil.armstrong@linaro.org>,
- Michael Walle <mwalle@kernel.org>,
- Dario Binacchi <dario.binacchi@amarulasolutions.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: Jessica Zhang <jesszhan0024@gmail.com>, Fabio Estevam
- <festevam@gmail.com>, Pengutronix Kernel Team <kernel@pengutronix.de>,
- Alexander Forsch <alexander.forsch@bytesatwork.ch>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20261111081150.950272-1-frank.obergfell@bytesatwork.ch>
- <20261111081150.950272-6-frank.obergfell@bytesatwork.ch>
-Content-Language: en-US
-From: Daniel Baluta <daniel.baluta@oss.nxp.com>
-In-Reply-To: <20261111081150.950272-6-frank.obergfell@bytesatwork.ch>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0378.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:f7::16) To GVXPR04MB12316.eurprd04.prod.outlook.com
- (2603:10a6:150:2c6::8)
+	dkim=pass (2048-bit key) header.d=realsil.com.cn header.i=@realsil.com.cn header.a=rsa-sha256 header.s=dkim header.b=ddvFkfe/
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6AB8cGn752277996, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realsil.com.cn;
+	s=dkim; t=1794386297;
+	bh=cIWctii9OquFRjtSUQKj/a1c04ON7jBZsXm16+9OsdI=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding:Content-Type;
+	b=ddvFkfe/6psDkSVVbSkHbjdL/b7CAI10HF8fm65/lbD5XibEeF2Q4yX/66wyw4RH1
+	 1hj0u5QIG4+17tD6jD86T4ta5GJf2WumTyqePQZ4FxdIlhqan/8qSTg+DLhqWtQRgE
+	 YRjHROmNNeSC9SLvKfXBnwt+he+P/9ccONW5tZl+rnWtxyyPiTXxzelZPP+EyrvctI
+	 X3ufzCadfqhxQSRshPxWsGr2q4ECQbqeKJC6ELiuP+xB4j4SxOPYPKgeeSg3P7KLcP
+	 lR7D/CxOhUP1GfW+MR0MlFSFaAy9EtzDXpjGd2aDmLBru7CBKmX04IlKrcvREFGtRM
+	 UZX2io/0jXRug==
+Received: from RS-EX-MBS2.realsil.com.cn ([172.29.17.102])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6AB8cGn752277996
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Wed, 11 Nov 2026 16:38:17 +0800
+Received: from RS-EX-MBS2.realsil.com.cn (172.29.17.102) by
+ RS-EX-MBS2.realsil.com.cn (172.29.17.102) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Wed, 11 Nov 2026 16:38:16 +0800
+Received: from 172.29.37.154 (172.29.37.152) by RS-EX-MBS2.realsil.com.cn
+ (172.29.17.102) with Microsoft SMTP Server id 15.2.2562.56 via Frontend
+ Transport; Wed, 11 Nov 2026 16:38:16 +0800
+From: javen <javen_xu@realsil.com.cn>
+To: <andrew@lunn.ch>, <hkallweit1@gmail.com>, <linux@armlinux.org.uk>,
+	<davem@davemloft.net>, <edumazet@google.com>, <kuba@kernel.org>,
+	<pabeni@redhat.com>, <freddy_gu@realsil.com.cn>, <nb@tipi-net.de>,
+	<maxime.chevallier@bootlin.com>
+CC: <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<daniel@makrotopia.org>, <vladimir.oltean@nxp.com>, Javen Xu
+	<javen_xu@realsil.com.cn>
+Subject: [PATCH net-next v2 1/2] net: phy: realtek: add PTP clock for RTL8127a
+Date: Wed, 11 Nov 2026 16:38:06 +0800
+Message-ID: <20261111083807.1529-2-javen_xu@realsil.com.cn>
+X-Mailer: git-send-email 2.50.1.windows.1
+In-Reply-To: <20261111083807.1529-1-javen_xu@realsil.com.cn>
+References: <20261111083807.1529-1-javen_xu@realsil.com.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,107 +79,506 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GVXPR04MB12316:EE_|DUZPR04MB10040:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9e58607f-3820-4bdc-9f01-08df3fcf4e02
-X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|7416014|366016|1800799024|19092799006|921020|10067099003|4143699003|11063799006|56012099006|261022105027099003|261022075727099003|261026140227099003|261028144727099003|261009223027099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	vEHU4sSmQRxQvkTHFtOVOqfe3LL8OjOYv/D9Z+rsOFfMh/5PPrM46s4DDPG1LrYFGCTMMmXBQiRa2jvIJb/iqA1QeM2UbHIA/xo5DAP9A91zzXYG+68U8cAjZwRz0zBEqlCdX1Rz7XapRQSsQephsZZNLK686vbuvANnD9X/gHMlQ7NSnUdrwInbULkyBP6YWt2ah2Cm2Oy3RwskmKQ15knR6dq/2yFP9v7TTXdkzV3yZ5Yj4YPz4vwjaa946ETPqbfVYxCWiPOZAagscjDmh3hKgrOm69JRYc56j4xio9ncs/1uwd9QL/Z1kqDNFBzzEH/UqmHlNV8gGYv7BQLFK5GfFJoRA+qTbAfdaaLWXEnJIi3tXi601w3AIfcYYvAHMLL0nnXtUb8y3LJ8IdA1zABXUjAx03Uja8RRoWW8ekeJ9ZSkfP1mAwOetb8TPwiVATdiERPZMxjka1uRO3yyogaCKD/X/U97fkHlAMg8+b9r3G2Yl55UmiryGuxdW2IxPsIPIR99nhvefsDVreWU5jNQr4oVyQWw1dktVDjU7DsY3Kf7OmybG6f0/JZUkUPHzLWPubcHLzP5DAO3obnkHfBKmfeKv6MefxBMhOam0PcjIM/lqvFfaJIKArXi5vMg+xMAxVWyHwyoFRRyL4vs/mst0oMEj18udcRWekzjHKjwayy7cG2rejfJriuP/u/bHlXtuv+984/jJyhzfI8SyA==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GVXPR04MB12316.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(366016)(1800799024)(19092799006)(921020)(10067099003)(4143699003)(11063799006)(56012099006)(261022105027099003)(261022075727099003)(261026140227099003)(261028144727099003)(261009223027099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?V0dFRzRrSEtrVW41VGRTVm9hVHMwWWc4ZzhpSE5KZVJIV3BlNjNOWHpkMHVU?=
- =?utf-8?B?aE1tMG1rcUhPbkxMY3paQ2FQdTlFakp4a3lHYWZYVkdoMnJkV0l4aE5ZYXVj?=
- =?utf-8?B?UkdONWM5a2tENWtKQ2hna0Vqdk4vc3UvTFdwZyt4eER5dXU4eXBaVjkyeXZZ?=
- =?utf-8?B?bkhrb3dUZmk3ZjJqV2VhT29BVSszYTRmTHJUeU54dXp6TGVTakVoVHpMMmx1?=
- =?utf-8?B?MVJ0TkZEUE9HaGtCUEx6bVdhTlhNZjVBMmIwekk0QXQ5Wm9SVUYxNEZYUGZH?=
- =?utf-8?B?ME1Cakp2bm0zdExOVERuekNuWGoxbmp0RnNhMjYra3kzRW43T0IzTWRsUWJL?=
- =?utf-8?B?Y3lNVzdMVzFrelFVTkxxc0NKSENVc0lCdXh3QzM0MFV6eEJra1FTam52b2pP?=
- =?utf-8?B?eWt6U0hSeGt0WVBXeHR4UGxwNnRhNnJ5TjduVFpOa25DUHZ3bTJFRkJya2VN?=
- =?utf-8?B?ODhPRzdtQ2huMmc4ODJzblNmdE1WK0R4VTQ4c3l1WkdYeXZKMWxyaWczZUc4?=
- =?utf-8?B?M21aRGsva3ptSllnUkVTNFRPMGtQZVdlTFM4YjdFLzBTR0FPaTREMnJVMlBI?=
- =?utf-8?B?dFdjNmhaa3Z3bmtnT1ZmcDcrWm96V1o0emNBd28xNDlibXlKMUdac05SSEFk?=
- =?utf-8?B?NSsvaHNWcVR4RFB3Mk43MFRKOXpkSVdzak5BZmdlMzNxdGVsUFFsUnlnR05X?=
- =?utf-8?B?bGtxOWpGZWtSZUZNTU9VR3NyT2hMS0dhRzIxcjlxUm0rV1ZYVkszbUhEbkFo?=
- =?utf-8?B?TEsyTzhFTVJDa2kvdVkyMGlralhmWnhtQUFyQkhHRlBCQml1eUFlbmQ0NmMv?=
- =?utf-8?B?L3lxMUJjeVNtdElOQWJLRUNHWkpuZ05TemsrMVdaNVNLd2tWZVVoVE8wZHBE?=
- =?utf-8?B?U0ZJUUVKYWNKNGZEamtnOXJqVDZtb3dpc2JWOU9kbkJpNkg1MVNOR1RIb21R?=
- =?utf-8?B?N2FYYytDVHE2c2ZHdWo0eFl1RE5pcy9UTEVMVkxsV1lXa1QxdGRYdTRKYkRU?=
- =?utf-8?B?Y0gzcDFpelU2QzNMTHBDT053WC9xengvK2JVeFlXcUtrdnRBbEU4Tm1JWTFX?=
- =?utf-8?B?UDlTbC94SENDZGlFTWFWYS9jQWpveiszQ05jODlyRkVOc3llN0Z2NS9jY24y?=
- =?utf-8?B?TytlMDBqb0hOUUp2N2pERVc5WUZxVStuSkw0OXVaTDhKSlgwVysrUzdVTHVY?=
- =?utf-8?B?NU1RbUw3RHM5dE9RVzNJM3lQbE1rb3FobHBNYXRKWGJYZVQ1ZmJTUlN1aS9Q?=
- =?utf-8?B?NFFEMmd0Y3Q4ck9KM2JKTFQwTWZPbkJjS21pQmh2UGJsNXZsdGNydFgxSnB4?=
- =?utf-8?B?MVZtc2Y1OUZHTXRTbVR3RTdwbmI4dTgyR0c5Z3l4d1QxMHpBaG93eEJETWFW?=
- =?utf-8?B?V3NsSWNaSTBPT2NEMkFFdkV4WXRNY0JUbW5aUTg2ZngyS0UwSDNzOWZBWFVF?=
- =?utf-8?B?UU5jYy91OHRKQmNWZkdQRlp6bysxSlhUSWxYcWtTVmNTamNqMnZveUZVVDNO?=
- =?utf-8?B?cHlkNUhRalBVWjQwNnZKWWFhWGdQYldYeHFPMTBqc1YyMkRjVWF0d3k1ejYx?=
- =?utf-8?B?M09mUjJ0clFSWmZDQWJGdzkxUExaVjhGWHV1Mml0NmJIZ1pLSjMzaitseW9B?=
- =?utf-8?B?N2FvQno4dndIK2dKdFU5Y1FTOVBBMDd4UkhEb3pCTExlNURPOWR6dURjZyt1?=
- =?utf-8?B?OE5HR2UyeWNLWmd0SGdZM3pjTU5UakFCN0NYdVQ1SEVWZzh6dnQ1VlA4cFNn?=
- =?utf-8?B?SXQzK0pzczN3YVgzYTBvUVYwd05pZW9UUFFVeExSQlFYRSs2SFN5ciszU3R6?=
- =?utf-8?B?QndSM2p0d3RsYmxOSHpLZUhSMitkZ2RJMlVPRHZ2bzBOZDNRZFF4ckVSMUFm?=
- =?utf-8?B?NFk4OFZFRGU3RHk0dlBGcVBsRkxJbUdaaTcxcGxYQ3NZZWNaZTFMSEY0M2l4?=
- =?utf-8?B?Z1BtVDhyTFBNTTJ4ai91TlpYaHc1bXVoWWFHSWtaZjF1NDNLTmFuQ0cySVlY?=
- =?utf-8?B?Q3BaR0JYK29scHQ1ZVYyK2c2b0xNUHd5MDd3RjZQcXBMZmpvc0FuSkkxTFdC?=
- =?utf-8?B?c0sxa2UyejhNdHZORVBiN2E4Nm9JUlBVZHZVRHBWVWcyTzF0N0dWMzhIVVFW?=
- =?utf-8?B?UkJ2SFc2RXBYVDhnWFdXdGJtdGNIMUVsOFRKTGFGdEZDRDQrTTE3R25IU1pl?=
- =?utf-8?B?QTJybys3YWgvT2toVDVJKzhJeWZlWW5tYXIyQ0p6Q2E2MGhFYjA0dUkxMmgv?=
- =?utf-8?B?R3lDUjZWYWFFbDNOQjFCQzNMdTNvcUVIV1hwRmRFUnM3WEQvcVVscFViY0Rn?=
- =?utf-8?B?T3p1WFpwbWx1d2w2dFdHSldjV2RJREZ1ZHAvWVFwbXM4TTNpVXBudz09?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9e58607f-3820-4bdc-9f01-08df3fcf4e02
-X-MS-Exchange-CrossTenant-AuthSource: GVXPR04MB12316.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 08:39:31.1682
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: sNdVmiTrqfmHSWodoQ1KfwhGjKD7fXQqCrHr7PUCpSjUd9J7tTUoTGip+gPr87dyNh1tjsSjfeZhz/1xRy3lxQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DUZPR04MB10040
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-Hi Frank,
+From: Javen Xu <javen_xu@realsil.com.cn>
 
-Some comments inline.
+The internal PHY of RTL8127a (RTL8261C, PHY ID 0x001cc890) contains a
+PTP block with a free running clock that can be read, set, stepped and
+frequency adjusted through vendor MMD registers.
 
+Register a PTP hardware clock for it. All register accesses go through
+the normal blocking MDIO path, multi register sequences are serialized
+by a driver mutex. The clock is started from the system time each time
+the PHY is initialized.
 
-On 11/11/26 10:11, Frank Obergfell wrote:
-> Add support for the bytesatwork i.MX93 byteENGINE OSM module
-> placed on the byteDEVKIT.
-> 
+Signed-off-by: Javen Xu <javen_xu@realsil.com.cn>
+---
+ drivers/net/phy/realtek/Kconfig        |  11 +
+ drivers/net/phy/realtek/Makefile       |   1 +
+ drivers/net/phy/realtek/realtek.h      |  20 ++
+ drivers/net/phy/realtek/realtek_main.c |  19 +-
+ drivers/net/phy/realtek/realtek_ptp.c  | 374 +++++++++++++++++++++++++
+ 5 files changed, 424 insertions(+), 1 deletion(-)
+ create mode 100644 drivers/net/phy/realtek/realtek_ptp.c
 
-[...]
+diff --git a/drivers/net/phy/realtek/Kconfig b/drivers/net/phy/realtek/Kconfig
+index a741b34d193e..93a8fb552834 100644
+--- a/drivers/net/phy/realtek/Kconfig
++++ b/drivers/net/phy/realtek/Kconfig
+@@ -13,4 +13,15 @@ config REALTEK_PHY_HWMON
+ 	help
+ 	  Optional hwmon support for the temperature sensor
+ 
++config REALTEK_PHY_PTP
++	bool "PTP support for Realtek PHYs"
++	default y
++	depends on PTP_1588_CLOCK
++	depends on !(REALTEK_PHY=y && PTP_1588_CLOCK=m)
++	help
++	  Optional PTP hardware clock support for the internal PHY of
++	  RTL8127A. The clock is provided by the PHY itself and can be
++	  read and adjusted through the PTP clock device, no support from
++	  the MAC driver is needed.
++
+ endif # REALTEK_PHY
+diff --git a/drivers/net/phy/realtek/Makefile b/drivers/net/phy/realtek/Makefile
+index dd21cf87f2f1..450bd05b7ef9 100644
+--- a/drivers/net/phy/realtek/Makefile
++++ b/drivers/net/phy/realtek/Makefile
+@@ -1,4 +1,5 @@
+ # SPDX-License-Identifier: GPL-2.0
+ realtek-y			+= realtek_main.o
+ realtek-$(CONFIG_REALTEK_PHY_HWMON) += realtek_hwmon.o
++realtek-$(CONFIG_REALTEK_PHY_PTP) += realtek_ptp.o
+ obj-$(CONFIG_REALTEK_PHY)	+= realtek.o
+diff --git a/drivers/net/phy/realtek/realtek.h b/drivers/net/phy/realtek/realtek.h
+index a39b44fa18a0..384bde5fff3b 100644
+--- a/drivers/net/phy/realtek/realtek.h
++++ b/drivers/net/phy/realtek/realtek.h
+@@ -7,4 +7,24 @@
+ 
+ int rtl822x_hwmon_init(struct phy_device *phydev);
+ 
++#if IS_ENABLED(CONFIG_REALTEK_PHY_PTP)
++int rtl8127a_ptp_probe(struct phy_device *phydev);
++void rtl8127a_ptp_remove(struct phy_device *phydev);
++int rtl8127a_ptp_config_init(struct phy_device *phydev);
++#else
++static inline int rtl8127a_ptp_probe(struct phy_device *phydev)
++{
++	return 0;
++}
++
++static inline void rtl8127a_ptp_remove(struct phy_device *phydev)
++{
++}
++
++static inline int rtl8127a_ptp_config_init(struct phy_device *phydev)
++{
++	return 0;
++}
++#endif
++
+ #endif /* REALTEK_H */
+diff --git a/drivers/net/phy/realtek/realtek_main.c b/drivers/net/phy/realtek/realtek_main.c
+index 4927ee838de2..433fcce8615b 100644
+--- a/drivers/net/phy/realtek/realtek_main.c
++++ b/drivers/net/phy/realtek/realtek_main.c
+@@ -1839,6 +1839,21 @@ static int rtl822x_probe(struct phy_device *phydev)
+ 	return 0;
+ }
+ 
++static int rtl_internal_nbaset_probe(struct phy_device *phydev)
++{
++	int ret;
++
++	ret = rtl822x_probe(phydev);
++	if (ret)
++		return ret;
++
++	/* Only the internal PHY of RTL8127A has a PTP block */
++	if (phydev->phy_id == RTL_8261C)
++		return rtl8127a_ptp_probe(phydev);
++
++	return 0;
++}
++
+ /* RTL822x cannot access MDIO_MMD_VEND2 via MII_MMD_CTRL/MII_MMD_DATA.
+  * A mapping to use paged access needs to be used instead.
+  * All other MMD devices can be accessed as usual.
+@@ -3413,7 +3428,9 @@ static struct phy_driver realtek_drvs[] = {
+ 		.match_phy_device = rtl_internal_nbaset_match_phy_device,
+ 		.name		= "Realtek Internal NBASE-T PHY",
+ 		.flags		= PHY_IS_INTERNAL,
+-		.probe		= rtl822x_probe,
++		.probe		= rtl_internal_nbaset_probe,
++		.remove		= rtl8127a_ptp_remove,
++		.config_init	= rtl8127a_ptp_config_init,
+ 		.get_features	= rtl822x_get_features,
+ 		.config_aneg	= rtl822x_config_aneg,
+ 		.read_status	= rtl822x_read_status,
+diff --git a/drivers/net/phy/realtek/realtek_ptp.c b/drivers/net/phy/realtek/realtek_ptp.c
+new file mode 100644
+index 000000000000..bd5c0d6988da
+--- /dev/null
++++ b/drivers/net/phy/realtek/realtek_ptp.c
+@@ -0,0 +1,374 @@
++// SPDX-License-Identifier: GPL-2.0+
++/*
++ * PTP hardware clock support for the internal PHY of RTL8127A
++ */
++
++#include <linux/bitfield.h>
++#include <linux/bits.h>
++#include <linux/iopoll.h>
++#include <linux/math64.h>
++#include <linux/netdevice.h>
++#include <linux/phy.h>
++#include <linux/ptp_clock_kernel.h>
++#include <linux/timekeeping.h>
++
++#include "realtek.h"
++
++#define RTL8127A_PTP_CTL		0xe400
++#define  RTL8127A_PTP_CTL_EN		BIT(0)
++#define  RTL8127A_PTP_CTL_TYPE_3	0x003f
++#define RTL8127A_PTP_INER		0xe402
++#define RTL8127A_PTP_INSR		0xe404
++#define  RTL8127A_PTP_INT_RX_TS		BIT(2)
++#define  RTL8127A_PTP_INT_TX_TS		BIT(3)
++#define RTL8127A_PTP_SYNCE_CTL		0xe406
++#define  RTL8127A_PTP_SYNCE_EN		BIT(0)
++#define RTL8127A_PTP_GEN_CFG		0xe408
++#define  RTL8127A_PTP_INT_CLR_MODE	BIT(0)
++#define RTL8127A_PTP_CLK_CFG		0xe410
++#define  RTL8127A_PTP_CLK_CFG_EXEC	BIT(0)
++#define  RTL8127A_PTP_CLK_CFG_MODE	GENMASK(3, 1)
++/* Time registers */
++#define RTL8127A_PTP_CFG_TIME		0xe412
++#define  RTL8127A_PTP_NS_LO		0x0
++#define  RTL8127A_PTP_NS_HI		0x2
++#define  RTL8127A_PTP_S_LO		0x4
++#define  RTL8127A_PTP_S_MI		0x6
++#define  RTL8127A_PTP_S_HI		0x8
++#define  RTL8127A_PTP_NS_HI_MASK	GENMASK(13, 0)
++#define  RTL8127A_PTP_NSEC_MASK		GENMASK(29, 0)
++#define  RTL8127A_PTP_SEC_MASK		GENMASK_ULL(47, 0)
++#define  RTL8127A_PTP_RATE_HI_MASK	GENMASK(21, 16)
++
++#define RTL8127A_PTP_MAX_ADJ		488281
++
++/* RTL8127A_PTP_CLK_CFG clock adjust modes */
++enum rtl8127a_ptp_clkadj_mode {
++	RTL8127A_PTP_DIRECT_READ	= 4,
++	RTL8127A_PTP_DIRECT_WRITE	= 6,
++	RTL8127A_PTP_INC_STEP		= 8,
++	RTL8127A_PTP_DEC_STEP		= 10,
++	RTL8127A_PTP_RATE_WRITE		= 14,
++};
++
++struct rtl8127a_ptp {
++	struct phy_device *phydev;
++	struct ptp_clock_info info;
++	struct ptp_clock *clock;
++	struct mutex lock;	/* serializes PTP register access sequences */
++};
++
++static int rtl8127a_ptp_read(struct rtl8127a_ptp *ptp, u16 reg)
++{
++	return phy_read_mmd(ptp->phydev, MDIO_MMD_VEND2, reg);
++}
++
++static int rtl8127a_ptp_write(struct rtl8127a_ptp *ptp, u16 reg, u16 val)
++{
++	return phy_write_mmd(ptp->phydev, MDIO_MMD_VEND2, reg, val);
++}
++
++/* Unlike phy_modify_mmd() always write the register back, some of the
++ * bits are commands to the PTP block.
++ */
++static int rtl8127a_ptp_modify(struct rtl8127a_ptp *ptp, u16 reg, u16 mask,
++			       u16 set)
++{
++	int val = rtl8127a_ptp_read(ptp, reg);
++
++	if (val < 0)
++		return val;
++
++	return rtl8127a_ptp_write(ptp, reg, (val & ~mask) | set);
++}
++
++/* Poll until (reg & mask) is non-zero (set == true) or zero (set == false).
++ * Returns the last register value read, or a negative error code.
++ */
++static int rtl8127a_ptp_poll(struct rtl8127a_ptp *ptp, u16 reg, u16 mask,
++			     bool set)
++{
++	int ret, val;
++
++	ret = read_poll_timeout(rtl8127a_ptp_read, val,
++				val < 0 || !!(val & mask) == set, 1, 1000,
++				false, ptp, reg);
++	if (val < 0)
++		ret = val;
++	if (ret) {
++		if (net_ratelimit())
++			phydev_err(ptp->phydev,
++				   "PTP reg 0x%04x poll failed: %d\n", reg, ret);
++		return ret;
++	}
++
++	return val;
++}
++
++static int rtl8127a_ptp_clkadj(struct rtl8127a_ptp *ptp,
++			       enum rtl8127a_ptp_clkadj_mode mode)
++{
++	int ret;
++
++	ret = rtl8127a_ptp_modify(ptp, RTL8127A_PTP_CLK_CFG,
++				  RTL8127A_PTP_CLK_CFG_MODE,
++				  RTL8127A_PTP_CLK_CFG_EXEC | mode);
++	if (ret)
++		return ret;
++
++	ret = rtl8127a_ptp_poll(ptp, RTL8127A_PTP_CLK_CFG,
++				RTL8127A_PTP_CLK_CFG_EXEC, false);
++
++	return ret < 0 ? ret : 0;
++}
++
++static int rtl8127a_ptp_read_time(struct rtl8127a_ptp *ptp, u16 base,
++				  struct timespec64 *ts)
++{
++	static const u16 regs[] = {
++		RTL8127A_PTP_NS_HI, RTL8127A_PTP_NS_LO,
++		RTL8127A_PTP_S_HI, RTL8127A_PTP_S_MI, RTL8127A_PTP_S_LO,
++	};
++	int val[ARRAY_SIZE(regs)];
++	int i;
++
++	for (i = 0; i < ARRAY_SIZE(regs); i++) {
++		val[i] = rtl8127a_ptp_read(ptp, base + regs[i]);
++		if (val[i] < 0)
++			return val[i];
++	}
++
++	ts->tv_nsec = (val[0] & RTL8127A_PTP_NS_HI_MASK) << 16 | val[1];
++	ts->tv_sec = (u64)val[2] << 32 | (u64)val[3] << 16 | val[4];
++
++	return 0;
++}
++
++static int rtl8127a_ptp_write_time(struct rtl8127a_ptp *ptp,
++				   const struct timespec64 *ts)
++{
++	u64 sec = ts->tv_sec & RTL8127A_PTP_SEC_MASK;
++	u32 nsec = ts->tv_nsec & RTL8127A_PTP_NSEC_MASK;
++	const struct {
++		u16 reg;
++		u16 val;
++	} regs[] = {
++		{ RTL8127A_PTP_NS_LO, nsec },
++		{ RTL8127A_PTP_NS_HI, nsec >> 16 },
++		{ RTL8127A_PTP_S_LO, sec },
++		{ RTL8127A_PTP_S_MI, sec >> 16 },
++		{ RTL8127A_PTP_S_HI, sec >> 32 },
++	};
++	int i, ret;
++
++	for (i = 0; i < ARRAY_SIZE(regs); i++) {
++		ret = rtl8127a_ptp_write(ptp, RTL8127A_PTP_CFG_TIME + regs[i].reg,
++					 regs[i].val);
++		if (ret)
++			return ret;
++	}
++
++	return 0;
++}
++
++static int rtl8127a_ptp_hwtstamp_enable(struct rtl8127a_ptp *ptp, bool enable)
++{
++	int ret;
++
++	mutex_lock(&ptp->lock);
++
++	ret = rtl8127a_ptp_modify(ptp, RTL8127A_PTP_SYNCE_CTL,
++				  RTL8127A_PTP_SYNCE_EN, 0);
++	if (ret)
++		goto out;
++
++	if (enable) {
++		ret = rtl8127a_ptp_modify(ptp, RTL8127A_PTP_INER, 0,
++					  RTL8127A_PTP_INT_RX_TS |
++					  RTL8127A_PTP_INT_TX_TS);
++		if (ret)
++			goto out;
++
++		ret = rtl8127a_ptp_modify(ptp, RTL8127A_PTP_GEN_CFG, 0,
++					  RTL8127A_PTP_INT_CLR_MODE);
++		if (ret)
++			goto out;
++
++		ret = rtl8127a_ptp_write(ptp, RTL8127A_PTP_INSR, 0xffff);
++		if (ret)
++			goto out;
++
++		ret = rtl8127a_ptp_write(ptp, RTL8127A_PTP_CTL,
++					 RTL8127A_PTP_CTL_TYPE_3 | BIT(12));
++	} else {
++		ret = rtl8127a_ptp_modify(ptp, RTL8127A_PTP_INER,
++					  RTL8127A_PTP_INT_RX_TS |
++					  RTL8127A_PTP_INT_TX_TS, 0);
++		if (ret)
++			goto out;
++
++		ret = rtl8127a_ptp_modify(ptp, RTL8127A_PTP_CTL,
++					  RTL8127A_PTP_CTL_EN, 0);
++	}
++	if (ret)
++		goto out;
++
++	ret = rtl8127a_ptp_modify(ptp, 0xa640, 0, BIT(15));
++out:
++	mutex_unlock(&ptp->lock);
++
++	return ret;
++}
++
++static int rtl8127a_ptp_settime(struct rtl8127a_ptp *ptp,
++				const struct timespec64 *ts)
++{
++	int ret;
++
++	mutex_lock(&ptp->lock);
++	ret = rtl8127a_ptp_write_time(ptp, ts);
++	if (!ret)
++		ret = rtl8127a_ptp_clkadj(ptp, RTL8127A_PTP_DIRECT_WRITE);
++	mutex_unlock(&ptp->lock);
++
++	return ret;
++}
++
++static int rtl8127a_ptp_adjfine(struct ptp_clock_info *info, long scaled_ppm)
++{
++	struct rtl8127a_ptp *ptp = container_of(info, struct rtl8127a_ptp, info);
++	s32 ppb = scaled_ppm_to_ppb(scaled_ppm);
++	u32 rate;
++	int ret;
++
++	rate = div_u64((u64)abs(ppb) << 32, NSEC_PER_SEC);
++	if (ppb < 0)
++		rate = -rate;
++
++	mutex_lock(&ptp->lock);
++	ret = rtl8127a_ptp_write(ptp, RTL8127A_PTP_CFG_TIME + RTL8127A_PTP_NS_LO,
++				 rate);
++	if (ret)
++		goto out;
++
++	ret = rtl8127a_ptp_write(ptp, RTL8127A_PTP_CFG_TIME + RTL8127A_PTP_NS_HI,
++				 FIELD_GET(RTL8127A_PTP_RATE_HI_MASK, rate));
++	if (ret)
++		goto out;
++
++	ret = rtl8127a_ptp_clkadj(ptp, RTL8127A_PTP_RATE_WRITE);
++out:
++	mutex_unlock(&ptp->lock);
++
++	return ret;
++}
++
++static int rtl8127a_ptp_adjtime(struct ptp_clock_info *info, s64 delta)
++{
++	struct rtl8127a_ptp *ptp = container_of(info, struct rtl8127a_ptp, info);
++	struct timespec64 d = ns_to_timespec64(abs(delta));
++	int ret;
++
++	mutex_lock(&ptp->lock);
++	ret = rtl8127a_ptp_write_time(ptp, &d);
++	if (!ret)
++		ret = rtl8127a_ptp_clkadj(ptp, delta < 0 ?
++						RTL8127A_PTP_DEC_STEP :
++						RTL8127A_PTP_INC_STEP);
++	mutex_unlock(&ptp->lock);
++
++	return ret;
++}
++
++static int rtl8127a_ptp_gettimex64(struct ptp_clock_info *info,
++				   struct timespec64 *ts,
++				   struct ptp_system_timestamp *sts)
++{
++	struct rtl8127a_ptp *ptp = container_of(info, struct rtl8127a_ptp, info);
++	int ret;
++
++	mutex_lock(&ptp->lock);
++	ptp_read_system_prets(sts);
++	ret = rtl8127a_ptp_clkadj(ptp, RTL8127A_PTP_DIRECT_READ);
++	ptp_read_system_postts(sts);
++	if (!ret)
++		ret = rtl8127a_ptp_read_time(ptp, RTL8127A_PTP_CFG_TIME, ts);
++	mutex_unlock(&ptp->lock);
++
++	return ret;
++}
++
++static int rtl8127a_ptp_settime64(struct ptp_clock_info *info,
++				  const struct timespec64 *ts)
++{
++	struct rtl8127a_ptp *ptp = container_of(info, struct rtl8127a_ptp, info);
++
++	return rtl8127a_ptp_settime(ptp, ts);
++}
++
++static const struct ptp_clock_info rtl8127a_ptp_info = {
++	.owner		= THIS_MODULE,
++	.name		= "RTL8127A PHC",
++	.max_adj	= RTL8127A_PTP_MAX_ADJ,
++	.adjfine	= rtl8127a_ptp_adjfine,
++	.adjtime	= rtl8127a_ptp_adjtime,
++	.gettimex64	= rtl8127a_ptp_gettimex64,
++	.settime64	= rtl8127a_ptp_settime64,
++};
++
++int rtl8127a_ptp_config_init(struct phy_device *phydev)
++{
++	struct rtl8127a_ptp *ptp = phydev->priv;
++	struct timespec64 ts;
++
++	if (!ptp)
++		return 0;
++
++	/* (Re)start the clock from the system time whenever the PHY is
++	 * (re)initialized, e.g. each time the MAC driver brings it up.
++	 */
++	ktime_get_real_ts64(&ts);
++
++	return rtl8127a_ptp_settime(ptp, &ts);
++}
++
++int rtl8127a_ptp_probe(struct phy_device *phydev)
++{
++	struct device *dev = &phydev->mdio.dev;
++	struct rtl8127a_ptp *ptp;
++	int ret;
++
++	ptp = devm_kzalloc(dev, sizeof(*ptp), GFP_KERNEL);
++	if (!ptp)
++		return -ENOMEM;
++
++	ret = devm_mutex_init(dev, &ptp->lock);
++	if (ret)
++		return ret;
++
++	ptp->phydev = phydev;
++	ptp->info = rtl8127a_ptp_info;
++
++	ret = rtl8127a_ptp_hwtstamp_enable(ptp, false);
++	if (ret)
++		return ret;
++
++	ptp->clock = ptp_clock_register(&ptp->info, dev);
++	if (IS_ERR(ptp->clock))
++		return PTR_ERR(ptp->clock);
++
++	phydev->priv = ptp;
++
++	return 0;
++}
++
++void rtl8127a_ptp_remove(struct phy_device *phydev)
++{
++	struct rtl8127a_ptp *ptp = phydev->priv;
++
++	if (!ptp)
++		return;
++
++	rtl8127a_ptp_hwtstamp_enable(ptp, false);
++	ptp_clock_unregister(ptp->clock);
++}
+-- 
+2.43.0
 
-  
-> +BYTESATWORK MODULES AND BOARDS
-> +M:	Alexander Forsch <alexander.forsch@bytesatwork.ch>
-> +M:	Frank Obergfell <frank.obergfell@bytesatwork.ch>
-> +S:	Maintained
-> +F:	arch/arm64/boot/dts/freescale/imx93-bytedevkit.dts
-> +F:	arch/arm64/boot/dts/freescale/imx93-byteengine.dtsi
-
-Care to add imx list here?
-
-L:»     imx@lists.linux.dev 
-
-[..]
-> +
-> +&mu1 {
-> +	status = "okay";
-> +};
-> +
-
-Should we enable the nodes in imx93-bytedevkit.dts ? Nodes
-are rarely enabled in dtsi files. 
-
-Think if you add another revision of the board with just one MU unit.
-
-Another idea would be to completely remove imx93-bytedevkit.dtsi and directly
-include imx93.dtsi in imx93-bytedevkit.dts
