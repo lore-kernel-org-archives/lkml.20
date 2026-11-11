@@ -1,75 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794414155;
-	b=vEKji/6NI/UknE5ehcWIGPeobxeA0kioGQvqvphIq/scOwGU7e7j6rrZau9iuOIkv9da
-	 lQ7idiYpwcfYGFf6sAGLVvY/SA2znO4nWkAjirT6YqXw3/geZA+ToZOW09q3qLWpqLSze
-	 uJ4dov9CQqRM+62M1emX4bnRkJBwapYiJpeoJ/jy4fdLRXjXyfK9dCIs/G84FUdhegoeg
-	 WU55B9n1kcCrS84qrJQaoJrtuUw5yR4QcuQhjUZtuG97ScCCsQIZyShENbmVhB9CANW8r
-	 Y1Qg2uAhL0BpojFFkIHBlpDWhtYgfk8t+bzPBDfAgx/clG666lvS0qF0Vib41yq/NRQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794414155;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Scanned-By;
-	bh=nv6HzmQJ6ffBOeBC0ENaz/z3V2SP4tEu9Ud+hByKmro=;
-	b=IVtgtVse+dgfBgUhY/9DVpUEf0OlwNI9cED3vNigiHWhcoc8B18lyE0qE6A3E6xi4huw
-	 Id+hg8yk6trCeDh9Ml3OkdeHqUPiSYlHNjdhCdNcO2FkhGP8LG2QsslpvZPA3Cauc4RPG
-	 SqE3DhR/ExlPZ1i3nDvvuZjiycSGIYJki8rEx+WpUNXyagfcpfOYzTIGdqcXrWOeBfIfP
-	 IpI7M5SshdYg190cZV+kRG/q21S2V6XRwNvyb7rwR/p1AcFJ8pf6+ZqKqQs1EQpVBcVxd
-	 y+G7CxfN9WkYtztQZlAv4Kn12dKtB85xQOhyR3eU1J/rej/vGsBMfO7wsFdO+CUPOFA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=ik2DNhn4;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794414161;
+	b=4gDL884THnqskFodOgUR1JUvgrDKP0iT5/XeZbagj72aLMc/MVV0PlBb9Vg7SZmGSB/w
+	 8YX7Y0nxT2qZyHEjS/Rbx1+BkTgNBWC5ujVsAXCGALcM3Gc5AT0wv/CSlJbCurZiFDJ0N
+	 JafK2qmCm6cryXav6VUNVupZ0x4aqTwR0B3Pk4dA8sZoUcb2Ao/GYKtXo4WBnoxcWUEXK
+	 grP8CPL62LSG/uzKMmHyRsqQ3cN1EGTZ0xkbIYjDbsyPCekeYTBdzj1F9k1/6q6hSIWZI
+	 a+RP7G8369HBeMLJXh0H/j/itTrRhuTbfgRdDk9kzBMwakmZBBn9qT2UQ0YRvEaMxAw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794414161;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=Or8nTk9ZVbnrA4q914nXGUz7qMvSQv0pWk+CqcMXwjs=;
+	b=nZsR4w8hGaXY3Xi1Xg+KERIQOP/sUBW2HDdu/wfmBtuZPXS7dhwYERckCJ+ZTUY0I0YD
+	 KsdsPdzomZ+jeen7e6Qsm9Ur5E28jfvA7M2PclCvLaLo/AgH2Hue5IvYPweYtZbQevJg2
+	 d2U6YmqQ40f6m2Y8teHcpgx9WTnNBo3+Loms11kb408EahI0fKV4u5fX6SrSfcHYo0BU2
+	 1qtxu0lY1BNt+4OnoL1udJ4YyjmWxq9vnOqqUUyoqOsKap6IJRvvzm+tVyFD22skj210g
+	 KI317YC/giw3K79aoA5BsXz/jvhDJMBQEpi3MyfqBT8qpVjb8XI4ZtnViSBZ+ONepwA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q08v406y;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9C2D606A326;
+	Wed, 11 Nov 2026 16:22:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q08v406y
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794414161;
+	b=ByNQdC/EqbSzhaAJ38QhFeeBItwVbLOXQjUw1E1+pTB4ENy98bTQWcOsIvkf2hYFlYs8
+	 MmNVZ/FC3pxM9/5rQ6E60wxX5xMslItKnotEjoOy75pOQtGWL/uFb/TfH7kvRs+bJBT0h
+	 F4twscc1P1+dfdQTJoOpHMpf76227nR3gW1fI0bJGVKnVFk9oAVhl71vMGez5odIbX8lL
+	 E7R2/ZlATqfYp8G32bJJkR+GZZNULNLasBYz1NBIbw2XBOmes0OR5XYzyXK5+ZRaXcVo9
+	 9YF0ibT87/n+RiEtkwWnqGVT4/JYGrbhfW9En7jEwgFoBkr6plG53qpypTCaewSA8Qw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794414161;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=Or8nTk9ZVbnrA4q914nXGUz7qMvSQv0pWk+CqcMXwjs=;
+	b=MuldGOrQa4m3dio/LCKKeOpODtAcAM00vJVO3kwx/BdkW1wVvX0inkPMqZ5tgBVY3+KK
+	 KK3CILlwC8PPhMhSTdwlsJrvXg5OQU5N34miu9dkIwGTQHKbn7m6hBmN8Vs91M2K+euWl
+	 MPvr0iJ0yGS7UXLqSXfbBX8xLr6Ap96ab+BCHr3O5D2rBaojLHQ8/tvJI3hzZBQP31QKN
+	 kKaZT7INP2mrEciqalLOtQSFQ8LOnuadWF2PRTySJfennQK7M7dYIhk3SbmECHSY7PbHm
+	 /dDaF6Fzl9kWo/DW5oFGZ5GNmdwOTMwKvhC8A/y9S7oABcj35iKN0kVAkCdXnZtU25A==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19BB6606A88A
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 16:22:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 19BB6606A88A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=ik2DNhn4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794414154;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=nv6HzmQJ6ffBOeBC0ENaz/z3V2SP4tEu9Ud+hByKmro=;
-	b=ik2DNhn4jAaRKyyB0KtdXyCqryirSD6ROlfZIodv9+MVapkKcoHP4HWKbOIbdY70l3+RZl
-	YyHC9dsVyHlDjjlV2jUZprrev67xQ7+U+moe/5hiE/7bKCflV/byeY+9IgN/C0WlCuOkU5
-	jntzjEuowiLGzmHURqwYXcvzhh+Q5fU=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-82-tlKkUhGdN9SfGZz4Z9S6Qw-1; Wed,
- 11 Nov 2026 11:22:31 -0500
-X-MC-Unique: tlKkUhGdN9SfGZz4Z9S6Qw-1
-X-Mimecast-MFC-AGG-ID: tlKkUhGdN9SfGZz4Z9S6Qw_1794414150
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id D5BBF1977699;
-	Wed, 11 Nov 2026 16:22:29 +0000 (UTC)
-Received: from onestero-thinkpadp1gen7.tpbc.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id 73D161800546;
-	Wed, 11 Nov 2026 16:22:27 +0000 (UTC)
-Received: by onestero-thinkpadp1gen7.tpbc.csb (nbSMTP-1.00) for uid 13628
-	oleg@redhat.com; Wed, 11 Nov 2026 17:22:29 +0100 (CET)
-Date: Wed, 11 Nov 2026 17:22:26 +0100
-From: Oleg Nesterov <oleg@redhat.com>
-To: Zhu Jun <zhujun2@cmss.chinamobile.com>
-Cc: brauner@kernel.org, linux-kernel@vger.kernel.org,
-	syzbot+0f4d5234b6cb5e479e5d@syzkaller.appspotmail.com
-Subject: Re: [PATCH] signal: Preserve the ptrace stop code for SIGCHLD
- notification
-Message-ID: <avSWQsTI1KZaHFIr@redhat.com>
-References: <20261111084310.81013-1-zhujun2@cmss.chinamobile.com>
+	by smtp.kernel.org (Postfix) with ESMTPS id 3C6011F00A07;
+	Wed, 11 Nov 2026 16:22:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794414161;
+	bh=Or8nTk9ZVbnrA4q914nXGUz7qMvSQv0pWk+CqcMXwjs=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=Q08v406ybvKmpgk6WUkix9yHXCBI7SXdsFN8x8vFEuT/7r7MqXnISqLOZahZWdpLR
+	 k/JLyctbWHsjRESICChCnBg2FGBKpnZw2uXWD1jYdPI0dMThCAni36/CipzBBjqtNy
+	 bHS81FUSnkyqyjKZBP1t5jbsOdsfoqmiOJX9lJUE4/cnLMZ1TC5+HG7SUoUGHerIcx
+	 TB/ribWc7yV8LqlJTaz6gfSzm6GmGMOrx9zbOCJ4frsSU4vocdOp3KbvDRdDaTYcsE
+	 IewA5TOz2FTyeoXLcsNLK4YDSP7UpfobKsWBadibAHKys+0xhxzKi7nm/S3MgW7aq3
+	 jmMVeLww4UgyQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id BC15749033;
+	Wed, 11 Nov 2026 16:22:40 +0000 (UTC)
+From: Michiel van Beers via B4 Relay <devnull+michielvanbeers.gmail.com@kernel.org>
+Date: Wed, 11 Nov 2026 17:21:41 +0100
+Subject: [PATCH v2 1/2] dt-bindings: backlight: lm3630a: Add
+ led-max-microamp
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,52 +83,86 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261111084310.81013-1-zhujun2@cmss.chinamobile.com>
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261111-lm3630a-led-max-microamp-v2-1-aff11756e7be@gmail.com>
+References: <20261111-lm3630a-led-max-microamp-v2-0-aff11756e7be@gmail.com>
+In-Reply-To: <20261111-lm3630a-led-max-microamp-v2-0-aff11756e7be@gmail.com>
+To: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
+ Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>, 
+ Griffin Kroah-Hartman <griffin@kroah.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Helge Deller <deller@gmx.de>
+Cc: dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-fbdev@vger.kernel.org, Michiel van Beers <michielvanbeers@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794414160; l=1951;
+ i=michielvanbeers@gmail.com; s=20261107; h=from:subject:message-id;
+ bh=cVMp5TfdJqEv4/BLWzYSV7umn1bMpBqTXaN1LwgWfA0=;
+ b=sKRGK7iQM4/JTa7sbXtUPCIl83y0BsZndAyrc2ZqLpu30HlBCBHiNfTmmr5Ca16CUyCW4pKJC
+ 4mZbHc/UG1lCDNOsiZWu8H137CPjB7L/RUE5JJ6KxfoXzMkQS5NB4+h
+X-Developer-Key: i=michielvanbeers@gmail.com; a=ed25519;
+ pk=C+lOje7u3+2x3o2NLMXrwz2veP2++eXfIi9MtYsUo4k=
+X-Endpoint-Received: by B4 Relay for michielvanbeers@gmail.com/20261107
+ with auth_id=1444
+X-Original-From: Michiel van Beers <michielvanbeers@gmail.com>
+Reply-To: michielvanbeers@gmail.com
+Content-Transfer-Encoding: 7bit
 
-On 11/11, Zhu Jun wrote:
->
-> After ptrace_stop() drops siglock, the tracer can consume the stop with
-> waitpid() and clear the tracee's exit_code. do_notify_parent_cldstop()
-> then rereads that field without siglock and can report CLD_TRAPPED with
-> a zero si_status instead of the stop signal.
->
-> Pass the stop code saved in ptrace_stop() to the notification helper.
-> The other notification reasons continue to obtain their status from
-> the existing group-stop and continuation state.
+From: Michiel van Beers <michielvanbeers@gmail.com>
 
-But how the "correct" .si_status can actually help debugger if it has
-already consumed tsk->exit_code? Why do we want this change?
+The LM3630A has a full-scale current setting per control bank, from
+5 mA to 28.25 mA in steps of 750 uA. Boards whose LED strings are rated
+for less than the chip default of 28.25 mA have no way to describe that
+limit.
 
-> Fixes: 1da177e4c3f41 ("Linux-2.6.12-rc2")
+Add the common led-max-microamp property to the led@0 and led@1 nodes,
+and reference leds/common.yaml from them, where that property is
+defined. The property is optional, so existing devicetrees remain
+valid.
 
-Yes, this logic is very old. And unlikely useful.
+Signed-off-by: Michiel van Beers <michielvanbeers@gmail.com>
+---
+ .../devicetree/bindings/leds/backlight/lm3630a-backlight.yaml  | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-I don't think userspace actually uses the siginfo which comes with SIGCHLD.
-If nothing else, SIGCHLD doesn't queue, so si_code/si_status is not necessary
-uptodate even if parent/debugger has a single child/tracee.
+diff --git a/Documentation/devicetree/bindings/leds/backlight/lm3630a-backlight.yaml b/Documentation/devicetree/bindings/leds/backlight/lm3630a-backlight.yaml
+index 6393cbf3afdf..92a7236eae1b 100644
+--- a/Documentation/devicetree/bindings/leds/backlight/lm3630a-backlight.yaml
++++ b/Documentation/devicetree/bindings/leds/backlight/lm3630a-backlight.yaml
+@@ -42,6 +42,7 @@ required:
+ patternProperties:
+   "^led@[01]$":
+     type: object
++    $ref: /schemas/leds/common.yaml#
+     description: |
+       Properties for a string of connected LEDs.
+ 
+@@ -77,6 +78,14 @@ patternProperties:
+         minimum: 0
+         maximum: 255
+ 
++      led-max-microamp:
++        description:
++          Full-scale current of the LED strings driven by this control bank.
++          The LM3630A sets it from 5 mA to 28.25 mA in steps of 750 uA.
++        minimum: 5000
++        maximum: 28250
++        default: 28250
++
+       ti,linear-mapping-mode:
+         description: |
+           Enable linear mapping mode. If disabled, then it will use exponential
+@@ -112,6 +121,7 @@ examples:
+                 label = "lcd-backlight";
+                 default-brightness = <200>;
+                 max-brightness = <255>;
++                led-max-microamp = <20000>;
+             };
+         };
+     };
 
->  static void do_notify_parent_cldstop(struct task_struct *tsk,
-> -				     bool for_ptracer, int why)
-> +				     bool for_ptracer, int why, int exit_code)
->  {
->  	struct kernel_siginfo info;
->  	unsigned long flags;
-> @@ -2394,7 +2395,7 @@ static void do_notify_parent_cldstop(struct task_struct *tsk,
->   		info.si_status = tsk->signal->group_exit_code & 0x7f;
->   		break;
->   	case CLD_TRAPPED:
-> - 		info.si_status = tsk->exit_code & 0x7f;
-> +		info.si_status = exit_code & 0x7f;
+-- 
+2.43.0
 
-Note that tsk->signal->group_exit_code can be cleared by waitpid() the same way,
-even if tsk is not traced, so this change is incomplete.
-
-Again, I personally think we don't care.. Perhaps something like this patch makes
-sense just to make this code look more correct, but then please consider the
-CLD_STOPPED case as well.
-
-Oleg.
 
