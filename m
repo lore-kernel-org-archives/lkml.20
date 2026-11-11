@@ -1,48 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.159.188.251
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794437004;
-	b=Y/P4JSz3T12DzfRFgcap0nlUjD/nA75zIwowb6QJDnnD3wL72Akf9XWahcJzGrESbLr1
-	 81xRxFPOelC9IDj0LQrNOW/aM/TVVUQL6pN0sDyZbISmVM8vTIPnODHY7eEOAA8mkzDVq
-	 fWjvuB1CHo9GjuLnCEgaI3ez3dKm7XzYzKe0j4gQi0vZEXYmO50TL0pRnOIzeA6SN+esf
-	 xW4zBcjlkPyMtV2DILORVgnp77N7e613fZ2MLL8T03KhHCHswIpsKwduVgBDCqule5/Wn
-	 2nZ3SYII/IJkHd8YbaSq0Ma/0s4LIPL8MsG9hzHkXctFypLT5/jFNM1R3wCIaHh3RnA==
+	t=1794437006;
+	b=ViVZuagAaaCisuaiIE1niCybSFCy0TPOx5ytzIFvZO61/YoyKjDqUoN8ukxCV33Rb6OU
+	 cl8PnZthHwm51c/Zi6P7wtxatbCLJBwgGCw6UmcJLV1NYBBFI+XYsBreCa9Z1VcwUsXCy
+	 ZGaekAGhWjzX3+ZbQ91P8C1JGXjTkRFJIiuUlzarjTyUlBdbR947uYZ7xETV9/ToxJeQW
+	 nfei0hrjmX7DAD8UB21rmpVdZyB1htuTyhqeBHWEPPezjC4N+9KmZ1eH9MUVmU3JVadLi
+	 7/B84qTdoXVS5ftvxHFF/N+Y4u1X2oQdGlaSVRuo2GQDMTFN1Sm5AMc/KLsepzAjJBw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794437004;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer;
-	bh=UeJIGxY5ErXXyutQODurGJuOPaEIwFDPftosdrDquo4=;
-	b=Acnv+pIRy4y7QovSwmCjV/p2xQsN22nRk/wbWS0IbFA9QZWrVg9vLBLLyRolENfsrGvX
-	 DyNM9GF1B13KjttmAeWHxbHTvf7J5OsO6GOPnUdEK9NicEhknzOvSihN8FfBTf7IAeuZp
-	 wGZSaMefDoHzhIgFor0DgWpf0Pj8ZURMvN/6lrxw/fvNQkggDi+37SKZdQUsvz+ZrdlX7
-	 bgB7OVTqikVd69Jy/ZNOLS+uNeJK8S0hzCpHlYowNLu0nx0em5vKkLBg1iJs6UstMkg8Q
-	 3l7yHRhFmfN0DrcdAkXkJ7GT2cy1q5iS7NAN7qr5kEuzkm+POTdGyP0S1hGeea0U4lA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794437006;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-Get-Message-Sender-Via:
+	 X-Authenticated-Sender:X-Source:X-Source-Args:X-Source-Dir;
+	bh=KSlkRHCvVN87gHfPBsPdwNuXt7XhE32A2hZbO5QdPtQ=;
+	b=0/URuMC4pX9TuiM1QxvtKI4PNjAwMx4wXKAIBiMs9bOqO77CZpJY4aWW8iiFNp2NXPrN
+	 axoJZJJbvPF2Xf9cvHYIWLScTZmBLgGhuNKDiGPkDW6lgXd38t19AtkjWn/aHC9TUmDpP
+	 Av1MLJFc4coaccMw+6vm3V2c1+cfMxLHydpkBmft/EpNiAQUVNfRzPYd4v4bYc8lYrDNE
+	 xvtialc5MGCRhcFwYVZTEbvx/vOxuGkgOak0L66L9fgnR32aF9e+PIu7A5XpbUpyzdl3v
+	 XM0CWr0Nim9fJOKZMU66R1lEdiFfp8Cj7B19YbEDkBvtAREmKgHvW9Nh2L4bsLBMO0w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UFJg7ifo;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.cyber.gouv.fr;
+	spf=pass smtp.mailfrom=oss.cyber.gouv.fr;
+	dkim=pass header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=pdUwxfmm;
+	arc=none smtp.remote-ip=51.159.188.251
+Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6764A606A8B0;
-	Wed, 11 Nov 2026 22:43:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB50360A6F70;
+	Wed, 11 Nov 2026 22:43:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB50360A6F70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UFJg7ifo
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C6F21F00A06;
-	Wed, 11 Nov 2026 22:43:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794437004;
-	bh=UeJIGxY5ErXXyutQODurGJuOPaEIwFDPftosdrDquo4=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=UFJg7ifoWir3FpRhZXf10gK6sJsDWAE5nZot4uimGei2FVwGbQi09RGw73Va4/wCy
-	 76nLG8BPhPOXoMU7zmhaHOUQazwjcZVOU5QoonImdFlRDiLwxFx/Ih7akKV/yk90Oo
-	 q3wE/bPd/7UyGjGI/wWgQVOhQYncjO9kbsr57XEJ3BWbbVa+0rSrlsqpC7RxMh6XCy
-	 3Np5yTsPSd6D2cnFlwGMrui98dLeTo3QhZTbh9ALkBBptdn0OIdagl65R10xWXrr2o
-	 K4bOjoYrXRd9j9/lRn2ISKR2BOGK/ldbg2RuHCUndP9CdDu+lODBrzhbpYLBxJI1yd
-	 voJgfnzH4qCHg==
-From: "Rob Herring (Arm)" <robh@kernel.org>
-Date: Wed, 11 Nov 2026 16:43:04 -0600
-Subject: [PATCH 7/9] arm64: dts: marvell: Drop unused USB 'phy-names'
+	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=pdUwxfmm
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
+	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Reply-To:Sender:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:In-Reply-To:References;
+	bh=KSlkRHCvVN87gHfPBsPdwNuXt7XhE32A2hZbO5QdPtQ=; b=pdUwxfmmoHuTw/duCN+n5zT5E7
+	fSIUfPsmh5g7TlZV3+11krvHsGCl/Qx9iLEjtGRocERGp2OgTUSpfn8Kh0rU+OBZwlBCY7n1NSqfV
+	bc+fLP5h9xWbT6eGhNSndt+/VaealT+chIWRQv7Ggi2oIUfBhaLLUucpnhKFljBdrqVXRj2EYv2zD
+	o0zxEXHv/XzNjK2fDRcnhr4M0r2hghl5j7BSVsT0vC+hat2+u5Knn/HdEqTjYoS6GWGgvFOngiu3n
+	dC6sqK5fLVMvh5Zdcz+qy3xNDjfUcBN7CnlkAubiq3s03QnDrQqiFH3unrdVy/KhGIqN89dqMYeUO
+	Oy7N/kuQ==;
+Received: from [151.115.150.205] (port=36454 helo=gepetto..)
+	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
+	id 1xRH2F-0000000DOpX-06ZU;
+	Wed, 11 Nov 2026 23:43:18 +0100
+From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
+To: Miklos Szeredi <miklos@szeredi.hu>,
+	Amir Goldstein <amir73il@gmail.com>
+Cc: linux-unionfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
+Subject: [PATCH v3 0/2] ovl: reject different lower idmaps on same fs
+Date: Wed, 11 Nov 2026 22:42:25 +0000
+Message-ID: <20261111224227.2496049-2-Jeremy.Jean@oss.cyber.gouv.fr>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,67 +71,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261111-dtbs-marvell-v1-7-938788aff3ae@kernel.org>
-References: <20261111-dtbs-marvell-v1-0-938788aff3ae@kernel.org>
-In-Reply-To: <20261111-dtbs-marvell-v1-0-938788aff3ae@kernel.org>
-To: Lee Jones <lee@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Andrew Lunn <andrew@lunn.ch>, 
- Gregory Clement <gregory.clement@bootlin.com>, 
- Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>
-Cc: mfd@lists.linux.dev, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-X-Mailer: b4 0.16-dev
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
+X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
+X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-'phy-names' is not valid without a corresponding 'phys' property, so
-drop them when 'phys' is not present.
+Lower file handles identify a lower fs, but not the mount whose idmap
+was used to decode them. Remember the first lower idmap seen for each
+fs and fail the mount if another one appears.
 
-Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
----
- arch/arm64/boot/dts/marvell/cn9130-crb-A.dts          | 2 --
- arch/arm64/boot/dts/marvell/cn9131-db-comexpress.dtsi | 4 ++--
- 2 files changed, 2 insertions(+), 4 deletions(-)
+Changes since v2:
+- On a request by Christian Brauner, fail the mount instead of
+  disabling lower file handle decoding.
+- Check the idmap on the private lower clone.
+- Replace the old regression tests with one mount setup test.
 
-diff --git a/arch/arm64/boot/dts/marvell/cn9130-crb-A.dts b/arch/arm64/boot/dts/marvell/cn9130-crb-A.dts
-index a7b6dfba8af5..5823b25e5faf 100644
---- a/arch/arm64/boot/dts/marvell/cn9130-crb-A.dts
-+++ b/arch/arm64/boot/dts/marvell/cn9130-crb-A.dts
-@@ -28,11 +28,9 @@ &cp0_comphy2 0
- &cp0_usb3_0 {
- 	status = "okay";
- 	usb-phy = <&cp0_usb3_0_phy0>;
--	phy-names = "usb";
- };
- 
- &cp0_usb3_1 {
- 	status = "okay";
- 	usb-phy = <&cp0_usb3_0_phy1>;
--	phy-names = "usb";
- };
-diff --git a/arch/arm64/boot/dts/marvell/cn9131-db-comexpress.dtsi b/arch/arm64/boot/dts/marvell/cn9131-db-comexpress.dtsi
-index 71c225221617..a68c958fbb30 100644
---- a/arch/arm64/boot/dts/marvell/cn9131-db-comexpress.dtsi
-+++ b/arch/arm64/boot/dts/marvell/cn9131-db-comexpress.dtsi
-@@ -89,15 +89,15 @@ &cp0_spi1 {
- &cp0_usb3_0 {
- 	status = "okay";
- 	usb-phy = <&cp0_usb3_0_phy0>;
--	phy-names = "usb";
- 	/delete-property/ phys;
-+	/delete-property/ phy-names;
- };
- 
- &cp0_usb3_1 {
- 	status = "okay";
- 	usb-phy = <&cp0_usb3_0_phy1>;
--	phy-names = "usb";
- 	/delete-property/ phys;
-+	/delete-property/ phy-names;
- };
- 
- &cp1_usb3_1 {
+Jérémy Jean (2):
+  ovl: reject different lower idmaps on the same fs
+  selftests: overlayfs: reject different lower idmaps on same fs
 
+ fs/overlayfs/ovl_entry.h                      |  2 +
+ fs/overlayfs/super.c                          | 15 +++++++
+ .../filesystems/overlayfs/idmapped_mounts.c   | 43 +++++++++++++++++++
+ 3 files changed, 60 insertions(+)
 -- 
-2.53.0
+2.47.3
 
