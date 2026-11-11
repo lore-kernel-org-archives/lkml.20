@@ -1,100 +1,119 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.45
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794434598;
-	b=b/qiQ6rDjOm8DN3JkAWAO9+yOzds5QbkksClbTwxcoRAcyeXxwx/pRYfo2BUuDjrW13H
-	 rvy3/ytBsAVImk/aZJCxoKv1qIJldkfE9EGdZuQnPd8JpaBYdUAK314trdaAgpNZfsrPw
-	 OTrPjslwyYDK1rubCYcqapFfzaRgZgH8KgHC34V8xM7BCcAZGBiHS2a40Rpfzns6cVzPS
-	 3xip8Hfq4BVVJs4Ia4j++X+FkSfXK6Qtwa4oqTE1BfkEJE3vHnTVrH24AH+wkJHPJXZrX
-	 fbyN/uiqVDRmd8nyk4ll9pqwOgp1/NVy4hW5UHniGSMf4DCwynzjyrPrY8JX38Q92yA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794434598;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=Mul4fa6Ln0hB4RFr7GPev/ectXNF1bK3kmmDXWQ6hQs=;
-	b=0H9LRGBL3/Q4k6XVSjN1lPbiGgrm3c5nXarsUV9BcXxpkagpKTl6DY0gW4LJSdkIiueJ
-	 zsdjvJlH1MpxBaW6gMPVeOpMNYTVKRceT/mPm3+fJqbrD0vHOIPB+C/xtyaOwtN4VMTvF
-	 /GWTzgJkQ7hZlHeVTZVQ3wIg9l7mJewYr3UJFc3S4/esPBqztzvDBTL4wyfcBsMQV8Eew
-	 odVLWGhpAPvMCqMe2dybqcozDtwxaTM3KVNIsWq0yrLzyGEzkHQElqJjFVl/Hy6Vsecsg
-	 c3QUPcPq+3Dh/CuDqWWA60M81XY9HJquNmD80Bhjhodhip7+xgpzjgshgiUMPxYMf5g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="f/VzwH8r";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.45
-Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com [209.85.208.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794434600;
+	b=z+H0ZMVSbJuoOFfT7g5g1ir+POU587IZ5KnmSaz982S1OChsEoP8mitcmapKVP2rzVQq
+	 mV8UWr83Iv7wiwQSqDBQvOr2Dt8q1QqesgWtH6e3PPEZayMCpt7l8ZohaSsm5uC/QJWY+
+	 PvAPbdHWEyAv+g4XZ8Q0zYHZ5ZWBALuQonzP7NHxDBT9ZSJ6TNdPKHB4r0gbfJGqh+59Y
+	 udLVMBu1NiPq86dGYivLIpFxu26FJODbPL4FYwZe5OBedk5ORnyUaewDRKGtni9kB3aT8
+	 tvzEmy3XuPsTGIigbxcp6wEz5TT4qFC/7dFuKtaTrVl5EoJxYYgCZWKfhTk15Ndts1A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794434600;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:
+	 X-Google-Original-From:Date:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=L3r2W9ol8URSEQDtiQtI0G55c0BKwpTOQuX97PiChOI=;
+	b=xDigC27ZIWq9eGaNR7vtZcFwrUzME37uBYNaQ7PhxCHUbrHUssYuYqrmUH7xnzG9Qi8x
+	 5lgFnarDv8p9LbOxtgq9NjSerZY8Nr4ZQG5R7NtB0sxKrMIoCz0JTvJNw/mkXRxOvnRzL
+	 OFifOzjaECd7FCdBD/BEAKhhxAK7NUGBfIr8UFgH6tbD+TAvYC28jhO+ilNHhwvYhyfhA
+	 32zFsMdLcTWJK1cGQvymWwfcVlooOPoexXruHO7olzd3Khp42KF2FkIDb/JxMGpI/+7Yk
+	 i8u+O4ewY6+rCS1aIjVaRY+wiCwJhMgPTWcWa9LALlMpdFGTu0pXf+C4LUyb/9p5Xzg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=JZHSRO8l;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="J/UfeGem";
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9BD7606A898
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 22:03:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9BD7606A898
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A6DB606A8AD
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 22:03:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0A6DB606A8AD
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=f/VzwH8r
-Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-6b791a4b732so655a12.1
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 14:03:17 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794434596; cv=none;
-        d=google.com; s=arc-20260327;
-        b=FrS1NXMLlKtb5KDRvqXACooNyyFbLWM5zJd75uI4YR/4DjQXPp02a0iuy5Bor1Pxj0
-         h3RLxTPAMTAgst3fy9C5hhRnOjCZda5sRwK60/bpNceblFnKGluWVv1nq9QLYgCRakDd
-         nlAzsoiqRDEkqesvmAWuoyTpe8BI8skD05f8iGviUQ6QUewQgmSXGcn0Gi8dXMdn5yDc
-         uj6chkvzZUoVwJfP8NyGlco14AmMvthfKCeyoo7nkp3//cQjnHp7X/ZalkkU9JdPwXW3
-         x13M+B7IHLOkDe3kDuImBmuWg1L+MmLXHNYjfJShmoCM6krOnOdI1ASN0Yq9v+fz7cTN
-         Ze4g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Mul4fa6Ln0hB4RFr7GPev/ectXNF1bK3kmmDXWQ6hQs=;
-        fh=ZWs+V5sVpNxbP/2IL/yK2i4UqyzV7nLiXJ0eGb6dbyc=;
-        b=FukR8c4Ixme8ZrxOjR17HJWEundJkqXlOHSN3B8zWuBCBLcSBazEiV217cgKWsiWhz
-         nbrvZFmoXq7TGC5AxCjTIGgUZ5yrQbzv9svVaQ37q6x5/plKDCAmEUblUELPvJWILfeW
-         /MadJo/fxRFBKQd0AYsyAKEzocMDffx5nuB0kX25J00hVIdr+oV8lDQQTuPMBfeq+e7f
-         ASI58c08NymkzhDxJtPYFmt9HeXZYw2k82t14d6PV9edpC4p5ZJCZY2dDpt59xGKncFg
-         141oK5HezT2QtuRDIr+sPLucuKUva4bhO5W8SnZmM+MsqbO/g4K5NRLVTw+iZVd/qA0e
-         LTPw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=JZHSRO8l;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=J/UfeGem
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ABJRbsk3186556
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 22:03:19 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=L3r2W9ol8URSEQDtiQtI0G55
+	c0BKwpTOQuX97PiChOI=; b=JZHSRO8lood3/frxYRFv+2ipixVEHfYXHDZlqN77
+	SftBHMMbnD+kBRA0b0FI4gz6ehiEGeW4fVhyU9AEYL9HTSXcIGcRPUBoNUftikDk
+	zPUFV/72xgACcCstgDkhYV86qWJy9I6Xszi/Huw1UB/gzIimXvcbYPTYdDZu4E9M
+	7ckPgBFQjQbApmzCQWKkngEMn7Qso/yJV4yX3w1WqaA5lRSNjtMHxEn0VjMYXtCc
+	I2BVe5B40wumO4KEQ67OwXBxVwy1EBsyLTwhUlR7U55aijctin69wQa7voRhDtj0
+	a4zjahDGTgx7j/YLODyXJQjG/xa8QEz8OmJQki4U3z10/w==
+Received: from mail-oa1-f69.google.com (mail-oa1-f69.google.com [209.85.160.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvgjdm47a-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 22:03:19 +0000 (GMT)
+Received: by mail-oa1-f69.google.com with SMTP id 586e51a60fabf-4a68926c8c4so3546978fac.0
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 14:03:19 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794434596; x=1795039396; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=oss.qualcomm.com; s=google; t=1794434598; x=1795039398; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=Mul4fa6Ln0hB4RFr7GPev/ectXNF1bK3kmmDXWQ6hQs=;
-        b=f/VzwH8r+rOT4OVHePl1yP77vum2XzLCVem9F6zhtDKY95k2C+p84Y/B9cBUwfJo0H
-         DX1bpY9AdLJUx4p5B2SYKJchkD7WduR6DHVLk8BLeHG4rHn9JWrBtbvYtENmXMFVXu2p
-         oQ3V3g5w19Ypc+hv3ttO4Kqo0lKBqNnSC4nIZy59ZpLWLmEoxf+IwVm7HP8/hcaBoFU3
-         GTaT3MW2J+DTcaXOv8YlOCQ29lIHkwn8rQ9xTzs5AZ0l4eFCxSYtb1dXeMHp2l77B4lZ
-         AjEiCru+VIsq8nAT3AxhvhIfHnMWdwavvxva6foOrwOSl5DQzxzTx9o24tPUPL5h1RdU
-         uBBA==
+        bh=L3r2W9ol8URSEQDtiQtI0G55c0BKwpTOQuX97PiChOI=;
+        b=J/UfeGeme7+DBqOkRpD7KH7tSsInT6tmihDZ/DT0dww89cr40KzHp4aRIg24QbkIPB
+         HmY/58uGr4N18rjXnOG6PyfxXSoIxarseT1fG3bJBWEwWsK8v089W12M7c868GrhfXov
+         skQenjkiaa+sEzXJIUz/at0cQFiLmUhQMzs9/B5OyhKVW2fv4fieYzIJIMiiKkhB5lSo
+         DyBngd0mhGg4ThD+kEurhGBN/5ocYBdZDCyTEw5nhi+LzHUv+MwU6WeXj99alxMSzISD
+         EacABfh3fFZ/Wj80Q/lGWZQw83InlCb/IIucEilSupe9PRaiS1InJ8XiFwt2cszrfwDY
+         kSYw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794434596; x=1795039396;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1794434598; x=1795039398;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Mul4fa6Ln0hB4RFr7GPev/ectXNF1bK3kmmDXWQ6hQs=;
-        b=zCdSqQEFiF6tdNlf9BrvfJNQoHyndgzdEyLevB0eQB6CYgq7AqN9pULehh7RO5I7re
-         j2XMbcUkcF0mMJ8ku21s2RtTsh0AohTwuKWiTYgUd8gb0qtuYkSMrPTK6j9+KpSGD2C0
-         IXVu53/N0+CIEX7J0HdGY+tyvIpQaXXxLen7fdcA9hIz1qAuTmZqYhPhPQpuIOFXwzow
-         4mAcpsfMQD9HhuaS+SjX8oWUXIxCYmbBTKfNbrmH1bCKKAMQ119LVlIuBWGJGMesIekW
-         lg3tq41FudZVFpmQvfty6/SFcAjuQ96nmQ47F18go4i/eghI7t8ctiXh//6WiVOHF4jb
-         Iw6g==
-X-Forwarded-Encrypted: i=1; AL+hErGiWXJcuyRpr8n7+jmZ4g3y1wGzNAcIYc6CQnEum2xNlCuwUjpeBswy9LVqNEoy9hIqqLn7pz9DSl5EE/4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/kArOPtE+LHlUyhANA/Cq8E61g1HZS73XHFJxealkOMUdsQpTN
-	So7XUN73ZXLR9pcZoJe2eA+2mQ8VK3cSK+eQQLitdxVhM8oHP5vnGpc5+pXQ6lU3cySTWqOQ28q
-	zpEb4n4l6buGuWZCP6le3PrnfokoZJZwElgleMO4L
-X-Gm-Gg: AYBFou00n9vS1pV+G5RkXJgMkoNTq9Zb6qgNGSwZjp7uiROjpmbSflrd5OdvG7XdNN3
-	suI+o8Og0RV164v6+VAXlhPBL5hofiNtannwoz8q+fIpQXQYvR5ouKY0ZDUUslCOgqj52FCTvPa
-	tDgdPO28Zd9FBn+BhU6Y7YRvYvLhrEWI/mhLPug+nWYC4zy6+OIq5S1KXxq7mIZnAvqR+bFFZbd
-	WXgkNjRpc+HH8aLG8VZPoL/aQWe2KHwxO5m1VbtKRIXgLz6Mst8RQUUlAAxN1BTHq4F6AgGlrHI
-	nyr2eDVF/wk9GEflgmGiRNSGCEnqB2zkNlgORjyCd7AQATNxvXKZ1p1MAmgQb2kjr0BpFIgA18A
-	G+lsecI4KwXnHQyLjXCPrBRmwdH5rjVAJ33drZnWl1FreN8zKcMux5kuXjzzVUND5Rck=
-X-Received: by 2002:a05:6402:c520:10b0:6b7:91d9:b087 with SMTP id
- 4fb4d7f45d1cf-6b7a2a88237mr5290a12.15.1794434595704; Wed, 11 Nov 2026
- 14:03:15 -0800 (PST)
+        bh=L3r2W9ol8URSEQDtiQtI0G55c0BKwpTOQuX97PiChOI=;
+        b=OuAKPaqjpz20WvR0m+Dba0fK3bzMylpW9BloArtfY1DLmcU8qFndVAH9a13J7rvgpx
+         xnaGtOiQPz4HhfzOARJV/jY9GQqpO2L8NZgNflYVXVgUgBMIOOdeNX0KH0jbhFxGLV66
+         fr2TJ1WhQ4Rgk4JMbcB8WL4yrqNSsmYda+yRQ9js+TmeBBmXgFCDN7m+apSNU81jT93G
+         SnAU8yjqt8bBEpzqg/nvPq7PJlhu0RKdzCR6saLMiIh6dlJUtm6ubZdV580G6nn/zKLj
+         fnq0r0VS/fZO8++q9sjBi3Vb8deyykSJYiuZ1IkAlGocAMfTzyT893pHibrr9vnwlY5C
+         Eb8g==
+X-Forwarded-Encrypted: i=1; AL+hErH0wKT10lIJWWIJwPn7c/pzZZWnWPUVKzpT0dFF4i4BBBIyQRs65KL44OYYCPTr8l6hr/nF+x9BQHLA4Mc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8gjOKDLzD8kgPQ0p8CqcNln4cWe5PRf4p7U5jio8u1uN6bkX8Q
+	u9VPxlC9p5xUgMg4dNLAugUIbiLFTsY0Cy4RN6/Jr2+pfbwSgfCln/yIsiVeix38B3ZtlGwR1me
+	YJ9NifNT7Iv1aHsksg6gPdg0TsXmWDBBlwM4VinrZafAF3Y65ywaWTS4u9NvxLB7EybO98cZoDw
+	g=
+X-Gm-Gg: AYBFou2eSG5paqvCjR8bR0/spIYd5cO1hxl3g7y7yVN0nLZa04POBu7xka4IXPt8WXA
+	ZjaqRvnJBC/Ct4fZEy43X/al+CmtrvFxHM7attpEATlz43RVQlUK3KbQdZ7fEiPw5Ht1qO0X0Jd
+	kU1i4MBq9iaooku5SKz/qBJAXwcmXSMCAbJbZe2KHAMLBq2aSbNIrRUifez2qsozMU4Lrk5cg3C
+	TFUIkXghvXhZRlcYPz7rNMF/gRayIrZYDlqIeGuYkOglleM8I2OCOG2whrNebZimdDreGozNJqs
+	7NJAsOOl5P9PUUSJZpY9BTb7urVX5iAB574luv6FVXcfUGQVPfxAf5/EMQ34dQgS0h9CEWAlvms
+	Qn6OuAG6qVWlB1akm7VehkOr0kpUPJ4O7Sz7oO0RSWBi/CiBaEcsy8ARmwr/0cyyNjatDLginxQ
+	n59A==
+X-Received: by 2002:a05:6808:1819:b0:564:3bc3:4605 with SMTP id 5614622812f47-56b9770f2cfmr3106743b6e.40.1794434598205;
+        Wed, 11 Nov 2026 14:03:18 -0800 (PST)
+X-Received: by 2002:a05:6122:1b09:b0:5ea:94cd:c5d7 with SMTP id 71dfb90a1353d-5ee1c462ffdmr1573952e0c.16.1794434579670;
+        Wed, 11 Nov 2026 14:02:59 -0800 (PST)
+Received: from trex (50.red-81-37-172.dynamicip.rima-tde.net. [81.37.172.50])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49836b8eb11sm14103545f8f.57.2026.11.11.14.02.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 14:02:58 -0800 (PST)
+From: Jorge Ramirez <jorge.ramirez@oss.qualcomm.com>
+X-Google-Original-From: Jorge Ramirez <JorgeRamirez-Ortiz>
+Date: Wed, 11 Nov 2026 23:02:57 +0100
+To: Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>
+Cc: peterhuewe@gmx.de, jarkko@kernel.org, jgg@ziepe.ca,
+        sumit.garg@oss.qualcomm.com, linux-kernel@vger.kernel.org,
+        linux-integrity@vger.kernel.org
+Subject: Re: [PATCH v3 0/2] tpm: OP-TEE transport core for discrete and
+ firmware TPMs
+Message-ID: <avTmEXZzyyjxA2dy@trex>
+References: <20261111215940.3503287-1-jorge.ramirez@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,104 +123,69 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261108013838.1454450-1-almasrymina@google.com>
- <20261108013838.1454450-3-almasrymina@google.com> <avIRJ3vdIj6Jr9zJ@devvm16445.scu0.facebook.com>
- <CAHS8izOxvUxCND3R18_HfZhB=2RS4_RNfAmx7S=Ex6b5z_CQuA@mail.gmail.com>
- <CAHS8izNodRM1Bx+FT7okpdeDfCeyJVP5QoyxhSMJWXpGuwyL4A@mail.gmail.com> <avTkuRVZcOuYlu9T@devvm16445.scu0.facebook.com>
-In-Reply-To: <avTkuRVZcOuYlu9T@devvm16445.scu0.facebook.com>
-From: Mina Almasry <almasrymina@google.com>
-Date: Wed, 11 Nov 2026 14:03:04 -0800
-X-Gm-Features: AclHuK8z31nDU3h0IDvtHI4N0WvsgMD2xFT1mD0hWH2bfCjrrHB2M3Hvc2x4WQk
-Message-ID: <CAHS8izO+yUW47rhCnaKfMS1iLHEpx44_NkB_uUoMDms0ZmJMGw@mail.gmail.com>
-Subject: Re: [PATCH net-next v4 2/2] net: prevent mixing frags from different
- memory providers or bindings
-To: Stanislav Fomichev <sdf.kernel@gmail.com>
-Cc: netdev@vger.kernel.org, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Simon Horman <horms@kernel.org>, Willem de Bruijn <willemb@google.com>, 
-	Kaiyuan Zhang <kaiyuanz@google.com>, linux-kernel@vger.kernel.org, 
-	Neal Cardwell <ncardwell@google.com>, Kuniyuki Iwashima <kuniyu@google.com>, 
-	Bobby Eshleman <bobbyeshleman@meta.com>, Pavel Begunkov <asml.silence@gmail.com>, 
-	Stanislav Fomichev <sdf@fomichev.me>, Daniel Borkmann <daniel@iogearbox.net>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261111215940.3503287-1-jorge.ramirez@oss.qualcomm.com>
+X-Authority-Analysis: v=2.4 cv=E7tYNqdl c=1 sm=1 tr=0 ts=6af4e627 cx=c_pps
+ a=zPxD6eHSjdtQ/OcAcrOFGw==:117 a=VbO86HPdXvN82gCvB8O6pw==:17
+ a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=NEAV23lmAAAA:8 a=McN5tr3TAAAA:8 a=3qyK1sCLMOwx5v9cIf4A:9
+ a=qcg49hLlgF0N60+LroqrWnV/Vu4=:19 a=CjuIK1q_8ugA:10 a=y8BKWJGFn5sdPF1Y92-H:22
+ a=OiMWn5MEmObRqTLTTlUg:22
+X-Proofpoint-ORIG-GUID: e10vRFpcDrEcI092SFpjEWITzyKqzV8S
+X-Proofpoint-GUID: e10vRFpcDrEcI092SFpjEWITzyKqzV8S
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDA4NyBTYWx0ZWRfXyj7EHii8fOei
+ K85rY5QqusVxVP7PWj2xS/F2ISIO03hbFjV73ns7yWzzpQKFrW0AkUDjAis2o9qdDmDjeIYn+79
+ Cv3MWArogWDOa1JXiDYZhffl+ZG82nq1ZtS/fh0EvrlsZyaJCuAi23/BtJ/+wXmzU4upAsHntHu
+ V0k85l95DL3a9m3TOLSv05PYjECRGODHO6n+ORT66GRXfo/ldNldYQFVrdy3MHhiloSG7CF73ch
+ 4t60XIA+KP5/cs+3FmFczWqzAxZIkrBZ1g7DcWR/WHETatPs1c3YcLHspceuQgkE/TvA3Frux7L
+ AzuSj8evnyqyKDKnmKDyAMr0ykGOog5bHkB54mVyoIkK33R3D4HV+jt7UshdW2oIB1p9amg1Loy
+ F2CVIut9ZkDdlJmt7RD71c2P27FbOWhRHe4vDdcxaTOvQO1N2aSx0QLGAFK1TLXuXsxmakyrrDO
+ z6BNTgNyiDODhfxgQxQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDA4NyBTYWx0ZWRfX5vySnLujg5IP
+ gyFOMHyhtzigGOcY4+xxQa8/BwQOiOx8LhxGugpf+jH0nOiZUf7S7Jz38S8ZRTsMqRVijfmmyaf
+ Cac/W/jxev7EMmP3+HSbJpoT5eAbDFw=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-11_05,2026-11-11_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 suspectscore=0 priorityscore=1501 impostorscore=0 adultscore=0
+ malwarescore=0 clxscore=1015 bulkscore=0 spamscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611110087
 
-On Wed, Nov 11, 2026 at 2:01=E2=80=AFPM Stanislav Fomichev <sdf.kernel@gmai=
-l.com> wrote:
->
-> On 11/11, Mina Almasry wrote:
-> > On Tue, Nov 10, 2026 at 7:54=E2=80=AFPM Mina Almasry <almasrymina@googl=
-e.com> wrote:
-> > >
-> > > On Mon, Nov 9, 2026 at 10:33=E2=80=AFAM Stanislav Fomichev <sdf.kerne=
-l@gmail.com> wrote:
-> > > > > --- a/net/ipv4/tcp_output.c
-> > > > > +++ b/net/ipv4/tcp_output.c
-> > > > > @@ -2692,8 +2692,9 @@ static int tcp_clone_payload(struct sock *s=
-k, struct sk_buff *to,
-> > > > >                                    probe_size - len);
-> > > > >                       len +=3D todo;
-> > > > >                       skb_shinfo(to)->flags |=3D skb_shinfo(skb)-=
->flags & SKBFL_SHARED_FRAG;
-> > > > > +                     to->unreadable |=3D skb->unreadable;
-> > > > >                       if (lastfrag &&
-> > > > > -                         skb_frag_page(fragfrom) =3D=3D skb_frag=
-_page(lastfrag) &&
-> > > > > +                         skb_frag_netmem(fragfrom) =3D=3D skb_fr=
-ag_netmem(lastfrag) &&
-> > > > >                           skb_frag_off(fragfrom) =3D=3D skb_frag_=
-off(lastfrag) +
-> > > > >                                                     skb_frag_size=
-(lastfrag)) {
-> > > > >                               skb_frag_size_add(lastfrag, todo);
-> > > >
-> > > > From [0]:
-> > > >
-> > > > Maybe easier to not merge niovs here? Add '&& !skb_frag_is_net_iov'=
- to
-> > > > that 'if (lastfrag' check? (or your new skb_has_net_iovs)
-> > > >
-> > > > Looks like it is tcp_mtu_probe path, not sure we care about merging=
- there?
-> > >
-> > > I'm guessing this is not an issue with pages because they're
-> > > PAGE_SIZE? But, seems maybe a bit lazy to just hammer all possible
-> > > net-iov coalescing? Is there a slightly cleaner and more generic chec=
-k
-> > > ( && skb_frag_size < PAGE_SIZE or something) so that we don't add
-> > > net-iov tech debt? Technically this will be an issue for hugepages in
-> > > the tx path or large folios or something.
-> > >
-> > > Also I think it belongs in your patch series maybe. That's the one
-> > > adding the large niovs :P
-> > >
-> >
-> > Actually, this comment made me realize: is the optimization that you
-> > did with net-iovs here (that's showing so much better cpu) also
-> > already implemented for pages? If not, is it possible? I don't see in
-> > theory why the userpsace can't pass in a contingious 2MB page to
-> > sendmsg() and the stack could keep it intact in 1 frag up to what the
-> > driver tx supports, no? Is it worth it making your feature generic and
-> > apply to pages too?
->
-> Based on [0] I'm thinking that I'll drop all per-frag enforcement
-> and will not add any special handing to tcp_mtu_probes. Looks like
-> the drivers are expected to handle large frags (if they advertise
-> large tso) or have a [1]-like segmentation fallback signal to the stack..
->
-> And yes, regular msg_zerocopy path already merges pages so this is
-> not niov specific.
->
-> 0: https://lore.kernel.org/netdev/20261105222058.944293-1-sdf@fomichev.me=
-/T/#m169832053b43604b0c5df7f7b1d04e9d4f390cbc
-> 1: https://lore.kernel.org/netdev/20261105222058.944293-1-sdf@fomichev.me=
-/T/#mb6e882ab1aecd6c15552773653301cc235b987d8
+On 11/11/26 22:59:33, Jorge Ramirez-Ortiz wrote:
+> This adds a driver for a discrete TPM that OP-TEE owns and the normal
+> world cannot reach directly, and factors the shared OP-TEE TEE transport
+> into a small core so the existing fTPM driver uses it too:
+> 
+>   - a transport core shared by the OP-TEE TPM front-ends;
+>   - a new discrete TPM front-end;
+>   - the fTPM driver converted onto the core, keeping its name, its
+>     platform/OF binding and its shutdown path.
+> 
+> Patch 1 is the feature; patch 2 is the fTPM conversion that justifies the
+> core. Both front-ends were exercised on the Qualcomm Lemans EVK over the
+> shared core: the discrete ST33 TPM (patch 1) and the MS-TPM-20 firmware
+> TPM TA (patch 2), each presenting a working /dev/tpm0 (tpm2_getrandom,
+> PCR read). The fTPM TA is the same MS-TPM-20 reference the existing
+> tpm_ftpm_tee platforms use.
+> 
+> This is the normal-world half. The secure-world OP-TEE support it binds
+> to -- the in-core TPM2 SPI (TIS) driver and the mediator pseudo TA that
+> relays commands to it -- is under review separately:
+> 
+>   OP-TEE support: https://github.com/OP-TEE/optee_os/pull/8155
+>   locality 4:     https://github.com/OP-TEE/optee_os/issues/8160
+>                   (design follow-up: the secure world policing
+>                   normal-world locality access to the shared chip)
+> 
+> Build and test it on the Qualcomm Lemans EVK (a discrete ST33 TPM on
+> SPI, owned by OP-TEE):
+> 
+>   https://qualcomm-linux.github.io/qcom-buildroot/lemans/quick-start.html
 
-Thank you sir, I think I'll carry out another iteration with the other
-comments addressed. Thank you for the review! Lets try to avoid these
-net-iov checks when it's not something actually net-iov specific like
-a kmap or something.
+The above was the wrong link, please use this one:
 
---=20
-Thanks,
-Mina
+https://qualcomm-linux.github.io/qcom-buildroot/lemans/devel_lemans_security_dtpm.html
