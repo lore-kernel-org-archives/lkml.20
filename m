@@ -1,63 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.211
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794360229;
-	b=Txdvs8lMDEIbByCRFKE4nUz8ALPvjsJEjjglY+VYHaN4EDm65dJT+Xgp5X6RkijGn0JC
-	 P7fXw6iXWqVn4UmD0ZhDlE0l7T30Hp4g7f8aboIRMYBnb/TPFGv/8iON90g/tqz3JIFv+
-	 KWmq7fl9RtZZM++Nwm/beeo73QfMlaodxogIIhq/W0BC9MJE+u1idRRzdwck8J6VCtscI
-	 sZDmQZUXBKiNdhEy688Wi9xwiwQjo5sZceUAfFdcKRXUQTJavfqOSREY0jaMSv/mTR0nF
-	 rH9l4YGmu0LhTlg428XbOyg5yAYAEIiRzQG+MFMIK3nFndnuuF7hy/H8gcFkSkJP2LQ==
+	t=1794360301;
+	b=jnbvwq79rKuJMM79UHRD1QUaPqfd02CZj+OTLnuskAOPzpV35AKw+gMvjxDHTQIBZaVG
+	 9pHPs/KmVY0FpF5qwz4elO9vMAmPpRCDuYVNKxm7HUSMisu7EIl4P4QxECz8YK7gOnVox
+	 p6iigtA5srKL5XbWsLp1bWwKf1gRTrTOY3GgbndEokpjo3USw+wZcvxoEkJeCrIzVKL/K
+	 AmvfhX/ykkgm15L1/63TnE1slY1xqFk4RtrVlqywe5DudFr7dLHwlBOJ+1a1EzSu1iYPS
+	 6snW7C0b7Sd88h/+Q79s/paVLxSMJpTEFVEkZ8VyfVlezPlwUO07LD5BcnVKRSnV1Sw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794360229;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=B1lig7Anod9lgx4qxcaJK02qF6KZYVAP1p0ZWZvSXvA=;
-	b=eINVryU5RxINcT3QbJGzrnswI1NxkYfelObAC9LQ1k87hPwmjzbPCkL0ljogTD0CE0jn
-	 eBdU7vIX5T38nxii8YmgwUax96j+csCxyw3oAP91PpXprHyiaznxVf575mCZm9FjWeQwt
-	 EfCR3x7mWX7WHzZie366e68eXSxKhxWPIZuDWB3MsX4jNNPHbZogVI5mDda3o7K1TzWi2
-	 e2PaBCCPf71CTFIh79QlkDa74Wu7767F2ZFTCtz6F9mugtSx87CQxpNENvdfYINNk7MTU
-	 SoWY9ofUKnRJt/0/fp4oo9gBZ5yG1Ho/HEnQGlzykmct8ovA3+p43BQ1vmzb0ytQslg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794360301;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer;
+	bh=pqnqpJZbk9LN/YC96sA7caCJbjXRdT7qliZnOhWckU8=;
+	b=4sC3EI8xnzqhw6TfFtaRIVZpWmS/pplvEoXqEbmHkYW3IgBmW6I2nOTMH9teZCGKXsjz
+	 dymW7RnYhoOnH6Ok6MeaHAK+UpaGxA62r/Nd1xCb3xFZVZeGSErumnj36KLOLgfIUj9kk
+	 l4XbTFn/Vc2HJmOct/xCxoEHKiCDXGV+IobpWVR9OyJ1TTQ+PjD4jpPL3ctph8pcni3Sw
+	 TYakKMJnTdvrpLm0COEMcBlGgI96phjbrqPrY345v+tImMB9qFFcibOYuZDRbvxohnTCb
+	 4BwFN5behlBcovWtsqFdvVxZopdA30ymFroCtgDGsPgAI76j9eAhi1EzQyCr29df/zw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=rMW2z906;
-	arc=none smtp.remote-ip=198.137.202.133
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=wHFtXET+;
+	arc=none smtp.remote-ip=95.215.58.211
+Received: from mta1.migadu.com (out-211.mta1.migadu.com [95.215.58.211])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B53FF606A324
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 01:23:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B53FF606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABA87606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 01:25:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ABA87606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=rMW2z906
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
-	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=B1lig7Anod9lgx4qxcaJK02qF6KZYVAP1p0ZWZvSXvA=; b=rMW2z906/5ueth+PvqcM41FDxI
-	rcVYiCU+KRHZllIijHjk+mirLP+V7kTCFKS/FUah33Uc/R6PNXhuYIvw5XkV0DpC6PcNVZR2CAWrU
-	vqoBPa+61LPRg9bFMccEXxSWzVN0pagYSkEuRjHlFYQqy8g3exYlA6nsJDBG/MgAAjPobRgbg0doz
-	zIPn1i9rYpn3eB77VgeMnxa14jiW2cAHPE02E61UfhYl1EZQ09pYKyqdzTAcSyiEy9KMAiSxgwLbF
-	b26h0A9nCFL/j5Q9ubC/XyHiUe6KSCjxFl5CABbKmR0V+TtUsuI+iI9to8roP0+7SKJ7c5BWfsxPQ
-	08siLNqg==;
-Received: from [38.23.173.23] (helo=localhost)
-	by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xQx3z-00000005N3K-2qQI;
-	Wed, 11 Nov 2026 01:23:47 +0000
-Date: Tue, 10 Nov 2026 20:23:45 -0500
-From: "Liam R. Howlett" <liam@infradead.org>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Vlastimil Babka <vbabka@kernel.org>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/3] mm: only assert mmap locks if CONFIG_DEBUG_VM or
- lockdep is set
-Message-ID: <g2qikknwv37iierelgrbodhvvchef3z6nunhcti4dqvxwbob7y@easqjwlcj2ly>
-References: <20261110-tame-vma-asserts-v1-0-be293ff499a7@kernel.org>
- <20261110-tame-vma-asserts-v1-1-be293ff499a7@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=wHFtXET+
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=ZzFsRZmu1OqL1asuBuzXiHjTs/WFmdh+Zt0FEVTsUQc=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794360298; v=1; x=1794965098;
+ b=wHFtXET+IkOPnXtyBPeACbETwBuroKemIlx023Z+5u0V7ZfGfc4HYAS8Ki7gfNitD3kX1Rxv
+ Ib3FRcdZkv+Abjn2DPPtNA/fiwsMSnd/8AxHAPlK7+lnPCDbHht1rvyiahYuB5QU/0YcA9eoTMJ
+ gIPj12rItzJq/4Q005y2aLX4=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id 2d459beb49c23567;
+	Wed, 11 Nov 2026 01:24:58 +0000
+X-Mizu-Trace-ID: 2d459beb49c23567
+X-Migadu-Flow: FLOW_OUT
+From: Hangbin Liu <hangbin.liu@linux.dev>
+Date: Wed, 11 Nov 2026 09:24:38 +0800
+Subject: [PATCH net-next] mailmap: add entries for Hangbin Liu
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,59 +59,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261110-tame-vma-asserts-v1-1-be293ff499a7@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261111-mailmap-v1-1-8ab349555808@kylinos.cn>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/z2NQQqDMBBFryKzbkomYrBd9R7FRZqMdahGSUQUy
+ d2bZtHl433ePyFSYIpwr04ItHHk2WfASwV2MP5Ngl1mUFJpeaulmAyPk1lE27SWdNtYQwh5vQT
+ qeS+lJ3hahad9hS6bgeM6h6NcbFj8r4Yo639tQ4FCv3oljXbO1fLxOUb2c7xaD11K6Qv4cOHcq
+ QAAAA==
+X-Change-ID: 20260930-mailmap-858ce685cae1
+To: Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Hangbin Liu <hangbin.liu@linux.dev>, Hangbin Liu <hangbin.liu@linux.dev>
+X-Mailer: b4 0.16.0
 
-On 26/11/10 04:57PM, Lorenzo Stoakes (ARM) wrote:
-> For a long while we have asserted the mmap lock being held regardless of
-> whether or not the kernel is a debug build or not.
-> 
-> In general, given that these have been added as programmatic asserts that
-> nobody did something stupid, production kernels are simply wasting their
-> time checking for this.
-> 
-> It also means there is a two tier system - where some programmatic
-> asserts (e.g. VM_WARN_ON_ONCE()-checked conditions) are only checked for if
-> CONFIG_DEBUG_VM is enabled, whereas others are checked unconditionally.
-> 
-> If we genuinely want to unconditionally check for the mmap lock being held
-> at runtime, then that should be made clear in the code doing it.
-> 
-> Regardless, if CONFIG_LOCKDEP is enabled, ensure that the lockdep
-> assertions are performed.
-> 
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+From: Hangbin Liu <liuhangbin@kylinos.cn>
 
-Reviewed-by: Liam R. Howlett (Google) <liam@infradead.org>
+Add the active email address for Hangbin Liu and map the old or rarely-used
+addresses to it. This prevents get_maintainer.pl from listing not actively
+used addresses as patch recipients.
 
-> ---
->  include/linux/mmap_lock.h | 6 ++++--
->  1 file changed, 4 insertions(+), 2 deletions(-)
-> 
-> diff --git a/include/linux/mmap_lock.h b/include/linux/mmap_lock.h
-> index 9c3a9c6525c1..9367430ee53c 100644
-> --- a/include/linux/mmap_lock.h
-> +++ b/include/linux/mmap_lock.h
-> @@ -75,12 +75,14 @@ static inline void __mmap_lock_trace_released(struct mm_struct *mm, bool write)
->  
->  static inline void mmap_assert_locked(const struct mm_struct *mm)
->  {
-> -	rwsem_assert_held(&mm->mmap_lock);
-> +	if (IS_ENABLED(CONFIG_DEBUG_VM) || IS_ENABLED(CONFIG_LOCKDEP))
-> +		rwsem_assert_held(&mm->mmap_lock);
->  }
->  
->  static inline void mmap_assert_write_locked(const struct mm_struct *mm)
->  {
-> -	rwsem_assert_held_write(&mm->mmap_lock);
-> +	if (IS_ENABLED(CONFIG_DEBUG_VM) || IS_ENABLED(CONFIG_LOCKDEP))
-> +		rwsem_assert_held_write(&mm->mmap_lock);
->  }
->  
->  #ifdef CONFIG_LOCKDEP
-> 
-> -- 
-> 2.56.0
-> 
+Signed-off-by: Hangbin Liu <liuhangbin@kylinos.cn>
+---
+ .mailmap | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/.mailmap b/.mailmap
+index 5ab2cf568d3d..e43b884e4738 100644
+--- a/.mailmap
++++ b/.mailmap
+@@ -365,6 +365,9 @@ Guru Das Srinagesh <linux@gurudas.dev> <gurooodas@gmail.com>
+ Gustavo Padovan <gustavo@las.ic.unicamp.br>
+ Gustavo Padovan <padovan@profusion.mobi>
+ Hamza Mahfooz <hamzamahfooz@linux.microsoft.com> <hamza.mahfooz@amd.com>
++Hangbin Liu <hangbin.liu@linux.dev> <liuhangbin@gmail.com>
++Hangbin Liu <hangbin.liu@linux.dev> <haliu@redhat.com>
++Hangbin Liu <hangbin.liu@linux.dev> <liuhangbin@kylinos.cn>
+ Hanjun Guo <guohanjun@huawei.com> <hanjun.guo@linaro.org>
+ Hans de Goede <hansg@kernel.org> <hdegoede@redhat.com>
+ Hans Verkuil <hverkuil@kernel.org> <hverkuil@xs4all.nl>
+
+---
+base-commit: ed04b202027249e2769420893220f54a56e0c59a
+change-id: 20260930-mailmap-858ce685cae1
+
+Best regards,
+--  
+Hangbin Liu <liuhangbin@kylinos.cn>
 
