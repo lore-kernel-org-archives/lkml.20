@@ -1,67 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.225.75
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794396503;
-	b=ZTelH6QMWJWytzNQqavo+vYAHFDY9ymH19tcOmUfLiiIoLC4SNP4TjkSm7HO+rkoehVc
-	 FhPU07JTRaUydHfiqad0GfydXZIJ2bwEXpbTBQ7CdnMpFtDcSCERypYqVxGH7//AJOZBn
-	 J9kJHVfkxVCw+Zvg5Kt3OeS1xVwUwIBc7JRX0Lo3jlUiVN4kVBo8SSG7beKKD236ugBzi
-	 KM+niKBetmt+QSGClsK95Oj0Yw/Zwe01RNoGUbd+Zg085Pz5Tz+Zhnvu3+fanNjHrVprd
-	 kBSx1NCwMKAViBb9ypC35hGZOph3DxTq9YKjJ/QNusKBrWm/W16Da4NDtjcbslmHCBQ==
+	t=1794396569;
+	b=Mlc56Y0ISmIpSngDmO6As4yfwBCGw7Izck/Ljmn+9MU/CQlBjrLIGgvDSjG4D9OKpyW2
+	 zdt8dzypaZRQoBU6ELNRjI3zxrsE3AEPycsY3mFDHfoiZzrSDEaJCkYsC0A2exyqX3Iam
+	 sVZKn5aEqyGL2cwRozoLQuaYIugc6RlnGEjnSpkVlu6QgblxgXXAq6JHcM2ubFV9SE3JL
+	 YKQ0xsTBXRRj+PplQRt22ZOt7wT4jcFizAiAM7UqLAOBA3agQWTdFcnZMjuoq7Ti2utV+
+	 wjaB/ZF6te+XomwZ+NHX93HMGZNsPkY2qxI23+mSyPc/0hetvnfi2gsLktgohU7PEEQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794396503;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=clef96KdjZtZB+RQYxzzZuV2jPu47KF1xnUT/nBcCUg=;
-	b=BfxgPTyOD9pbPaNOEKjseD2ifDodqPwJjfQQuyMoEDPbE7Pq5+fe/ADXrVySDS0+qt4W
-	 HmYeW1+LTHBqRxDIiHAwrtm0CNT6n5m/951YuQc1KbDWNljdEjEgd1dAKTN2kSCxH/pxr
-	 Kdbx9lrKcERkURS0u5BU6hltj3lmTPkZhJEk8+VKnJnYA/5axBaEUbUv6wn+qBLulqOPr
-	 1twVYk6OuMh70sDYjE8RzVUqSzZBEJTw3mvi9APNaMdEImRLjJKmE0qf470NLSvXSYR3/
-	 G7FU5pEpNXdKFqitCKHJ3UUWbaf2DSqxR48cHTgRsHG+ppfdUBDFQcIb81zU0X45bBA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794396569;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=zTtDGLue5JqVxGOZgA8LDHzbFgoJeRKQNOdcqpXnAX4=;
+	b=Qt8amy1oa9lX1IUyNKQaD1ad1kqcubStobfpYZ79QozaYZyhWEktPrs2Ocongw+Fx1ZL
+	 5JsBlAR9mmbTu4XhKoQzMtkSK/3OAXfDP4kHDYyBhaWM9oejmLzyxpJpnnPo5wQcGNQt8
+	 PBFVrdv0O7OItGLqRrkjO9RoV+wWP7yuTi6ia0zDyGaQmGmXih1Zq53lBhqHsZ5RJsseE
+	 5W1HckvhZmg+KACJt5D+424yby+ZVvkVkn2UigcR91KYzChiA1EIKWmR4zqk4v0MwvMGv
+	 DzkrRVjGJL94wO1iIVKyKQoRweeBAaqLS6N/Ypvhw7B5+3KNeVMeGrqbrBEu+mkB0pg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ayqxgo59;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AUDKoIpN;
+	arc=none smtp.remote-ip=74.125.225.75
+Received: from mail-wr2-f11.google.com (mail-wr2-f11.google.com [74.125.225.75])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6369606A321;
-	Wed, 11 Nov 2026 11:28:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 612C7606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 11:29:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 612C7606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ayqxgo59
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 393661F00A05;
-	Wed, 11 Nov 2026 11:28:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794396503;
-	bh=clef96KdjZtZB+RQYxzzZuV2jPu47KF1xnUT/nBcCUg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Ayqxgo59eQ+nGKS/KTdfCsu+dMa/H8G1aehKwxPZyzLU7hiJqpdhteuph0QlvGVar
-	 KThM/cQMx+yC/8FhudvKzGGSjuTORv/dw/KZrSfd1QdzN/JBaF3dBnBgxRmnuFdfqp
-	 n1FPOZ16vGTb4zwDZbm/h/rSsit0DXrRQqbnVHsyyFQx7Yrics0Ki0FMLRhV9cgXbB
-	 2eQKV8/9MmvQdJDho+7xXgjGczcNXaE8iKOxuwg807er8Hc9a7Vi0PoB0KkbwZlRWj
-	 L+OoRFmxDM5wjOCx6lk/7VkLFZPB7zXnl35kahUakxg14Wwuf7k0YSYXTI45UoQIPQ
-	 6wRvbic8PMXAA==
-Date: Wed, 11 Nov 2026 12:28:15 +0100
-From: Alejandro Colomar <alx+linux-hardening@kernel.org>
-To: David Laight <david.laight.linux@gmail.com>
-Cc: Alejandro Colomar <alx@kernel.org>, linux-hardening@vger.kernel.org, 
-	Krzysztof Kozlowski <krzk@kernel.org>, "Maciej W. Rozycki" <macro@orcam.me.uk>, 
-	Geert Uytterhoeven <geert@linux-m68k.org>, Andreas Schwab <schwab@linux-m68k.org>, 
-	Andy Shevchenko <andy@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Daniel Scally <djrscally@gmail.com>, Danilo Krummrich <dakr@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Hans Verkuil <hverkuil-cisco@xs4all.nl>, 
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>, 
-	Kees Cook <kees@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Len Brown <lenb@kernel.org>, Linus Torvalds <torvalds@linux-foundation.org>, 
-	Linus Walleij <linusw@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, Saravana Kannan <saravanak@kernel.org>, 
-	Steven Rostedt <rostedt@goodmis.org>, Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, 
-	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-gpio@vger.kernel.org
-Subject: Re: [PATCH v3 5/5] string: Make strprefix() const-qualifier-generic
-Message-ID: <avRQgOTnRtfec9fQ@devuan>
-References: <cover.1794323750.git.alx@kernel.org>
- <35bf6672f84f07de3f40e8db9e7fcfd643894fec.1794323750.git.alx@kernel.org>
- <20261111103438.2f822202@pumpkin>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AUDKoIpN
+Received: by mail-wr2-f11.google.com with SMTP id ffacd0b85a97d-48fdea35dafso1163639f8f.0
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 03:29:29 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794396568; x=1795001368; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zTtDGLue5JqVxGOZgA8LDHzbFgoJeRKQNOdcqpXnAX4=;
+        b=AUDKoIpNLkyrldLXbo1ZDQ1otgEI/vNPvbgblUzXsd6GUuG+ssKADFJTm4mlhZLfJB
+         e0CNjY4GgiUGS5jDBQyVQSHuSoQ2xik0QvLToaSnKfCajJXiXpAFTASAyXzWqqXoyUZV
+         nWRI+54naZVSG88MTcp5WqQYt6GrzkXg5B8mXAgMl00pNfuU6ik7YvPsb7PQQAyRXXyH
+         6gwhKSE2aZ4d54dBSrJ8JCAAZiEpQ/Y540Y6Z5QXH01WZj9+RblibfioYVpVKsUriOGn
+         NQDqfm1zpSO1wMEvcDmpupAWl9kaPtrtMZP73bdn6nJIzzPWEbtwFbB8pS6Ln9PgbGXE
+         /How==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794396568; x=1795001368;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zTtDGLue5JqVxGOZgA8LDHzbFgoJeRKQNOdcqpXnAX4=;
+        b=ciJ1yuEBe2zjaaRCF8wTAKK03sp1fVluufyEXvP3OiCwYcJhiHo0GimxLfJI81okeA
+         nbNmqoqQo1fv30fMYBcz2IFSfFKueDCP4cjOfm2ZRid42RJ+L6ArGMe1Gk3ivKMcJ0fK
+         HMb3Jdm1UlV962yy7LjIiRWrG1arPHEXRIVBAx+d7ezq2L1FRO3EubId2lT/TmfvySc3
+         DpoZGZANf8jgV/QUP8KqnxR3oxh+r++6ZuQ2qd8j8V1N2zwuIJ6qQ5TXHjJgr6F5pbXB
+         2CND3TQnO1+ZvhM/i2ikJzXtpYniaz+KQWVT4ch/JL8wMlTrM9QPgXv5o55YzlQtFta8
+         CxXQ==
+X-Forwarded-Encrypted: i=1; AL+hErFmZQ6+x8MAHAqP3pzGlsZzE8BjaA/aZQTeh+pXkSp/cpdxC9sVDp20xt2nXIx3irn5KQHM7Txk/Trvq7k=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9y204G3OXWjUbOE5g3+D/r1rJolbHSSNn3FBUcSiUQSK7GX3SH
+	4sRs2d3/NfT8Lc5PjxAY2gyLqTpd1sTKJu06aoPYJ+Qw41F4sb43yi8f
+X-Gm-Gg: AYBFou2QMyt+5OdRQBBh0t9yQSEgHCJCxmdHBXSd4OB3VFgJnK+7o1JMT99ZmA90Izg
+	IG8Vhw0A0T5m0G2ke468dxOnpcZurpGDxPxIBTu0XIpVIVCBGLkUwKuk41yLhc6zt4rJwrLfzqn
+	bmeROfk/7w+ZiSuQlXplQm+GxBt1jEP7EPxp497fFq3s3nFEHtB7wVQvTE55FZreqXABE1F2Q5/
+	cTMI9pBr60LYJo/0l1XcAtfRZFXaEqPciKxk0CC0fjqo500ZIS68yCo58XWJ4iWdgMZNmPHKln7
+	WVPuUaDfRK2bxJYHyuG3JXaWgcxm3TPzzoafuyKrcAYuCaY+/KsHuxldP41N7S6P84tTjY0DWOW
+	pHHmG6veqYU+twe8w6J6ZUhzjOL1pPB+OAEKFQ1n/ZImmNPtz083fdTQ+XNvAR9VUbiGXu2X34s
+	QgY1Ja+aBO/Fxv0+3JzBEp2WjsFnxGAnPFBkcpQ55biFR74EdktJd5A9OMknWXIHjsQYAdDAl58
+	l7PVU6hP4qFvHc9tBAlKajUWK5obXE5Aoc99QqyUKN6i2QcGdLls3+gKlzEdHsJwbcyIQGMcHet
+	g6DtHurFcIqD7X5uFTn0i2kgQfHqnnM=
+X-Received: by 2002:a05:6000:250e:b0:48e:75f:477d with SMTP id ffacd0b85a97d-499c4814a86mr3885367f8f.7.1794396567358;
+        Wed, 11 Nov 2026 03:29:27 -0800 (PST)
+Received: from fedora41 ([2a01:e0a:1058:7c30:e315:b955:cb8b:b86b])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49835c37bdfsm10536016f8f.22.2026.11.11.03.29.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 03:29:27 -0800 (PST)
+From: Timo Joannin <timo.joannin@gmail.com>
+To: trintaeoitogc@gmail.com
+Cc: axboe@kernel.dk,
+	bvanassche@acm.org,
+	josef@toxicpanda.com,
+	linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	nbd@other.debian.org,
+	syzbot+d7d72f3d467710442af0@syzkaller.appspotmail.com
+Subject: Re: [PATCH] nbd: fix circular lock dependency
+Date: Wed, 11 Nov 2026 12:29:21 +0100
+Message-ID: <20261111112921.306969-1-timo.joannin@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261111101919.215767-1-trintaeoitogc@gmail.com>
+References: <20261111101919.215767-1-trintaeoitogc@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,88 +102,26 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="emb45eljbrwlkh5i"
-Content-Disposition: inline
-In-Reply-To: <20261111103438.2f822202@pumpkin>
+Content-Transfer-Encoding: 8bit
 
+On Wed, Nov 11, 2026 at 0:40 AM, Bart Van Assche <bvanassche@acm.org> wrote:
+> Moving nbd_get_socket() makes this patch much larger than necessary,
+> which makes reviewing and backporting it harder. Adding a single
+> nbd_reclassify_socket(sock) call in nbd_genl_reconnect_sock_cb() right
+> after the nbd_get_socket() call is sufficient. 
 
---emb45eljbrwlkh5i
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx+linux-hardening@kernel.org>
-To: David Laight <david.laight.linux@gmail.com>
-Cc: Alejandro Colomar <alx@kernel.org>, linux-hardening@vger.kernel.org, 
-	Krzysztof Kozlowski <krzk@kernel.org>, "Maciej W. Rozycki" <macro@orcam.me.uk>, 
-	Geert Uytterhoeven <geert@linux-m68k.org>, Andreas Schwab <schwab@linux-m68k.org>, 
-	Andy Shevchenko <andy@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Daniel Scally <djrscally@gmail.com>, Danilo Krummrich <dakr@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Hans Verkuil <hverkuil-cisco@xs4all.nl>, 
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>, 
-	Kees Cook <kees@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Len Brown <lenb@kernel.org>, Linus Torvalds <torvalds@linux-foundation.org>, 
-	Linus Walleij <linusw@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, Saravana Kannan <saravanak@kernel.org>, 
-	Steven Rostedt <rostedt@goodmis.org>, Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, 
-	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-gpio@vger.kernel.org
-Subject: Re: [PATCH v3 5/5] string: Make strprefix() const-qualifier-generic
-Message-ID: <avRQgOTnRtfec9fQ@devuan>
-References: <cover.1794323750.git.alx@kernel.org>
- <35bf6672f84f07de3f40e8db9e7fcfd643894fec.1794323750.git.alx@kernel.org>
- <20261111103438.2f822202@pumpkin>
-MIME-Version: 1.0
-In-Reply-To: <20261111103438.2f822202@pumpkin>
+Hi Guilherme and Bart,
 
-Hi David,
+Thanks for working on this! I'm currently fixing a possible deadlock
+in wg_ratelimiter_uninit 
+(Reported-by: syzbot+72fceb8393e04ce876d9@syzkaller.appspotmail.com)
+involving cpu_hotplug_lock and slab_mutex.
 
-> Date: 2026-11-11 10:34:38+0000
-> From: David Laight <david.laight.linux@gmail.com>
->
-[...]
-> > -static inline char *strprefix(const char *s, const char *prefix)
-> > +#define strprefix(s, pfx)  const_cast(CQChar_of(s) *, strprefix(s, pfx=
-))
->=20
-> Isn't in enough to do:
-> #define strprefix(s, pfx) ((typeof(s))strprefix(s, pfx))
->=20
-> which correctly preserves all qualifiers.
+My one syzbot test failed because of this lockdep
+false positive that this patch addresses. I applied Bart's suggested 1-line
+fix locally, and will see if it resolves the false positive.
+I will be submitting my cpu_hotplug_lock fix separately.
+I am looking forward to see your v2!
 
-This would return a const void* if you pass a const void*.  In general,
-we shouldn't be passing a void* to a string function, but C allows this.
-With CQChar_of(), you coerce a 'const void *' into a 'const char *'.
-
-See also: <https://www.open-std.org/jtc1/sc22/wg14/www/docs/n3998.pdf#subse=
-ction.0.7.28.5>
-
-
-Cheers,
-Alex
-
---=20
-<https://www.alejandro-colomar.es>
-
---emb45eljbrwlkh5i
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmr0UU4ACgkQ64mZXMKQ
-wqntIA/8CnvRBh0GWiV0pEkB8CsI4Ei5vpzo05YozhZPx/C1LqQ1TJF36UF6GtZ1
-+MjZVOShNf6prPOICad/7qSz/Uay+Q/H14G5O4ErzKZbKCyqC4osWoLsTIeskIFO
-ptOZSr/EQF3GM+fKSrowiVbw+FkPOT6CetmSbrvUNOhXo0Sd62SOyM3QorRW/QfA
-EbInkrMvvBUiivyqITSgmCFAKynJvncUQeoobTjAnxe14KnWKwXAYMiES5UEnxlt
-egShlBDaCgDbKYgtawdjj5iMZM25YQuYHFzj9N163MJwZSusKK81kzBHxkpdtIHj
-TZq0SKiUUar7nC2hI3YQNIT6yVMhNdnvCE4dkfgDuNqDaPuq2geHWuNNLd4LGFh6
-u4g10Ncbqm9g1xdyESjXUYLuBfebPrHsQ4F6T3cx09GE+6GzxGET3466rQs0qTlA
-Hm26LNi/ZT8Y4Up/V8EWgWweE0yji+i1Kcm8Z3y1U6KfYFIsnT5lms9lLz6h04IQ
-cf5UH3vSVZgzbvZg2IcAwevjodfrdHDMFUYLO0Gz572B2ztMTpC1MJW6QiXogLbz
-JIc8+VKrfb4HxP3Gt00HTz85/Ug502kAFe3NmpW62Uxsn6bmQi/up6X2IjgoIWOQ
-kbhH92N6QFMGkKgBS+LhFS7TXmhDzDNVh5yJbbCb3yL8Dg1VpMA=
-=TVMp
------END PGP SIGNATURE-----
-
---emb45eljbrwlkh5i--
+Thanks,
+Timo Joannin
