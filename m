@@ -1,99 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794412275;
-	b=KiMlU2Lf3Feup2/pr5KfI0O7jsD7BvmJikZn6Sr/dwErqQuZB+LuBNqiE/QbvsAcs/3Z
-	 CNl8k/jmEoqJhEoYOZpoHPXn+a1w+DFa91m0snyCNnWzDwH9NdQS2ZA13iY0CT9sgYzgO
-	 2mGoingKy8u+HEusNw1goRA2kr5O+Prewj/FyaabaXFk2cPI6FqakmZSfmLfOlCgn0iWk
-	 t1wKQU2sncvJ9zTNOmt1BuCmhEAv8YaArhp61AO03ocLmwZAATn81xezcCecrz70E4AeG
-	 MbT3UiUo/6RgpymHI3mPrFVWZnBhT3tzzfQ+B+1yM38WB3V/tnJNpWxqis57QwKs8fw==
+	t=1794412284;
+	b=YNso8q8vsBJVCrAlqty9MaeHzxnTQFTBe/FmvcxgnLIQuokmZhHu7+fLQtv73WXrRO6t
+	 VSPnq6p4YFvdVULuFexg5+DYYNojOWi9OTclpasTJnNqe9YH4vMu2eSC5O7saDzEutB3L
+	 tllGX/eKlaoOGljbCItL116xqyLXXVF6j+zlxA1a0HVGt/hT0lSUHUceQuZJUWYOJjJvI
+	 Yi6/fo4xfHHO98twCngJHRQ1uuyy0dzhKg87m/rVqiaO9J0JB5C1Sumha7arKTLKV6emo
+	 /IKlYbmxVSHIOmE7PDN7y2MWTiq2XwinY2f8ci0zf/e2qyTy/w/hTBPCPyUZwqyhS2g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794412275;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=DRqXfmPntNeFV+vfVsKHl6lm7LjVxrhMPi2D6aVtzSE=;
-	b=lqN75/dd6jKB0M13zgbXJZ0tPb7CQG9uVspuReqWRJEWvukABlJf/eXIBrZitSSbdi4z
-	 9rvuBK3qwHhFdBh0dTaUTOobSO+c5djY8O+g5RJQRPQGiq07cRKwnvqFtpFBNXH5L/b5X
-	 4lOAfvpgObqIFm9ni3Gj6KSS+GLrXudzautrS7qRJQtbMDW6HtSQrA+PjsJGJbiNO7zwR
-	 dq8rlNP8mptrNAx91AslKa6QjoYQehU5xVjoinEjU8caTrd2trnp+dVXP09VwPb3ODoio
-	 EiBSA96IoBuKhUIKQb8+sRgM27DpDNxkbLZz61CWsM/HAZ/GHyNO/kP/c4QvbpLmZgA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794412284;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-Id:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=lQUW5snm4BubDrPXwBB6vcUDU9jpmRBo2GS+Q9VFm1c=;
+	b=NyeYAl4Ke9GsmGnBnlTVR1FYiQSi9RwTKFyhMryEFrTaZOkJLmT5OeJjgZOBaPTsoNXQ
+	 8l6goWakzOKZe22LCwyDuRxmRDYxk5KbY5C3Fda4rE2L6uMVMG2SVYQqvN27P/oYSK6aU
+	 tbCsyaZsu4tRHfvqveCDzimQ3DW+azQQryqOz4v7KNShE67x/QF1hVDoE9qp9p0qRi1jy
+	 3w9mpTN3xPl2ub5P3z/4gV9HuzDvkYhWNfKj5FboYSLfsJUGkXVOYj7P5Po+c75pc414J
+	 zVC4s8ccSkVbOo3TyWLfUrf1IyzuIhuoLIl7xihWexPPSz23mNNkkg/I0IzZi4ed68A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=d8RcQxor;
-	arc=none smtp.remote-ip=209.85.128.48
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=XdnNg4Xv;
+	arc=none smtp.remote-ip=95.215.58.116
+Received: from mta1.migadu.com (out-116.mta1.migadu.com [95.215.58.116])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E77B606A337
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 15:51:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5E77B606A337
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C0EF606A883
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 15:51:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C0EF606A883
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=d8RcQxor
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a35a60499eso25670605e9.0
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 07:51:15 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1794412274; x=1795017074; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=DRqXfmPntNeFV+vfVsKHl6lm7LjVxrhMPi2D6aVtzSE=;
-        b=d8RcQxor2jLn40ZO/Q34pvfHe39AT+dDt6syvn2A9RW3mFOo8SfPfWsM0H9Wxm6LG7
-         wVpnlqTPquLfIQxUrA4FYMr/3cM8Y5P1Rwqlw6AhQYwvj2sip4F1WffTb2MA6DNJofzf
-         fFsPP8qIBwgRDxbKwUVd50DERi2i/+wkmL5uiaVzohWM+VWPyPKMyU2lUqJSV/pZUnvW
-         5T2HbHGBbcO9OV4y4lVc08uno6vFaPuaFWQTazlp63Wb2vOWYid0MwBnLpWWXoSbg9zH
-         oBJuHRmkTIAcHv0aqHnYtWn/5E0C+9sMlubPy24LSHpqAxcZ26Y9YKVNm8vfy2wqqtaj
-         wltg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794412274; x=1795017074;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DRqXfmPntNeFV+vfVsKHl6lm7LjVxrhMPi2D6aVtzSE=;
-        b=Ke0LvEsQ7AE4JA8lCv826HHeT8Ogm0cEjn7WBTlG/ja+V+3wG2maMAhIDW/lI+0EXv
-         EaKCgPPi7l0YTWEeOrXFqgZXsAQBFOI52V4RY3lMmUtT7Gka27FqqoP2D6B+t3vQkf6B
-         YfClm32llgrA/CK8d6YynLf99f+z3qT9nYMsRngdcCTkwbQSt9zEw39M0Tc2w8A5kxOB
-         9/ahndxksK4b2PFvLxnEwhwgZb0cPss3MFnB+5fCpDYDMdo6EJ47J3Pk6HYqNfrTkGXv
-         mT5LplwBby5blgH8yNEmTfH66AExjIgovtcjTZtqhcNdbA0/QtlWWheLhyeZNU+Qeap9
-         H1zg==
-X-Forwarded-Encrypted: i=1; AL+hErHYdiCF4DpC9Eyq8lPb0slvQgsednf5qTjOdPVjC20EuTv2otGSWBBlRCuzGplplHB0pjaFc33OauS6Hj0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+jPeZAxvque37phuXqedDuVTSnPCBj0nzVP6hn1b2OANYOQ6QO
-	0YRe1CKdAhvYLjsMwaDP8ECmVtrj0t4MVHQco351gFlVtbbigWYo949apd9ZGBS9m0Q=
-X-Gm-Gg: AYBFou29N8lr47xmsTpLG62FVlvRY08ETmCGsl3TGSpTZ+I6j2dWfaFy+mXGIdonX/V
-	BqVsIHnipYzhpzjEatNxUX8sor3tSthVUJWRna23SY7DKmxkhlc3wkYmWfo++N+QefY4E+2fF40
-	X1SeEOIMUra+Xvn4cnfie63lRliNe33p422WCwnkyNz1OYsGbpH5xG6Fs097ac+GOAHJUbouRU3
-	UPuJaZXbEDP2IKUuK/wavfT/h34kF15BHA6S9Sn7uYxtEJn33UuAYzCj2Ceu6dHgVFdAsm4DhKx
-	1p2+Qy3okd40j+S+H9bPSRk+rBB3PaghFGGVFVymkmYQBIQZHud63l8Rca5imu3gkC9dLzgZdHP
-	Xvw0BAIt1aH37hpUsDmN6iuKJ+Ung/wlBv5wskgTaLZYDCkqjBM9xRskWhMdnDCGloXJ1E1gt1O
-	TD17n4+ZXOtkCWxRoRZEeRZTPPYxliXvH7QcOicgko1biTU3W7JhE7ov4lb94gCdNo0GHjqfXxJ
-	MH2NMYoPm1hRP+ZjqDleWgHqG++CLi3E0+DG+17uAHmwEF3GPhaSX+moFcFTKuHFpheYplhAboJ
-	Mb0bcxGBAhKm8hUzp+CIZoJJiax0LEk=
-X-Received: by 2002:a05:600c:190a:b0:4a7:d9b1:b684 with SMTP id 5b1f17b1804b1-4ba0931ed17mr51546915e9.2.1794412273819;
-        Wed, 11 Nov 2026 07:51:13 -0800 (PST)
-Received: from pathway.suse.cz ([176.114.240.130])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb4c5f54basm4010705e9.14.2026.11.11.07.51.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 07:51:13 -0800 (PST)
-From: Petr Mladek <pmladek@suse.com>
-To: John Ogness <john.ogness@linutronix.de>
-Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Marcos Paulo de Souza <mpdesouza@suse.com>,
-	Chris Down <chris@chrisdown.name>,
-	Naveen Kumar Chaudhary <naveen.osdev@gmail.com>,
-	printk@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Petr Mladek <pmladek@suse.com>
-Subject: [PATCH v7 14/17] printk: Update Braille options when preferred more times
-Date: Wed, 11 Nov 2026 16:48:13 +0100
-Message-ID: <20261111154816.71103-15-pmladek@suse.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261111154816.71103-1-pmladek@suse.com>
-References: <20261111154816.71103-1-pmladek@suse.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=XdnNg4Xv
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=s1VwpcP/dz4nq03uPjecpk7ZarelKymnfAfgC0pwpXE=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794412281; v=1; x=1795017081;
+ b=XdnNg4XvczP+MUYL6fBRk/qG+WJcMe8D2B1rWZvl8ZeHST00FcC4MH/pboCrGW4Fkbz/BMOm
+ IIFLXw+m7jYP6T5N0iVuLiu63BxUeYoMnMh231nH9LDfUP9YLA5Dnf748fb3B7fmBQ+2eYUyvyN
+ 2mjvYTrHaNGjo1b3PNR0YhSA=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 4c398bc68f558887;
+	Wed, 11 Nov 2026 15:51:21 +0000
+X-Mizu-Trace-ID: 4c398bc68f558887
+X-Migadu-Flow: FLOW_OUT
+From: Qingfang Deng <qingfang.deng@linux.dev>
+To: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Breno Leitao <leitao@debian.org>,
+	Tristan Madani <tristan@talencesecurity.com>,
+	Taegu Ha <hataegu0826@gmail.com>,
+	Norbert Szetei <norbert@doyensec.com>,
+	Brice Goglin <Brice.Goglin@ens-lyon.org>,
+	Andrew Morton <akpm@osdl.org>,
+	Matt Domsch <Matt_Domsch@dell.com>,
+	Paul Mackerras <paulus@ozlabs.org>,
+	linux-ppp@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Sashiko <netdev-bot+sashiko@kernel.org>
+Subject: [PATCH net] ppp: restore uncompressed fallback during CCP negotiation
+Date: Wed, 11 Nov 2026 23:51:11 +0800
+Message-Id: <20261111155112.149204-1-qingfang.deng@linux.dev>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,75 +79,67 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The current behavior is not consistent when the same console driver
-is preferred several times as Braille or non-Braille console.
+ppp_ccp_peek() enables SC_COMP_RUN when sending a CCP Configure-Ack,
+before userspace sets SC_CCP_UP. Data traffic during this window can
+reach pad_compress_skb() while CCP is still negotiating. If compression
+succeeds, len is positive, but the SC_CCP_UP check fails and the packet
+falls through to the error path instead of being sent uncompressed.
 
-In particular, preferred_dev_console is not updated when @brl_options
-are passed. But @brl_options are stored only it is a new entry in
-preferred_consoles[].
+Deflate and BSD-Compress have already advanced their compression state
+by then. Dropping the packet can desynchronize with the peer's state,
+causing decompression errors.
 
-It is even more hairy because preferred_console[] entry is considered
-a Braille entry only when .brl->options are defined.
+Restore the uncompressed fallback for non-MPPE compressors when len is
+positive but CCP is not up. Sending the original packet lets the peer
+update its decompression state. Continue to drop packets on negative
+compressor returns, and preserve the existing behavior for CI_MPPE so
+that encrypted data cannot fall back to plaintext during negotiation.
 
-Make the behavior consistent and always update pc->brl_options when
-@brl_options are passed and they were not defined yet.
-
-Signed-off-by: Petr Mladek <pmladek@suse.com>
+Fixes: b3f9b92a6ec1 ("[PPP]: add PPP MPPE encryption module")
+Reported-by: Sashiko <netdev-bot+sashiko@kernel.org>
+Closes: https://lore.kernel.org/netdev/179339596607.3131.10030375792154782283@kernel.org/
+Signed-off-by: Qingfang Deng <qingfang.deng@linux.dev>
 ---
- kernel/printk/braille.h |  7 ++++---
- kernel/printk/printk.c  | 12 +++++++++---
- 2 files changed, 13 insertions(+), 6 deletions(-)
+Reproduced on a WSL2 host running 6.18.58 with an async channel and
+Deflate configured: the frame sent in the negotiation window was dropped
+(tx_errors went from 0 to 1), and with this applied it leaves as an
+uncompressed PPP_IP frame and tx_errors stays unchanged. The frame sent
+after SC_CCP_UP is set is compressed with sequence number 1, which is
+what a peer that fed the uncompressed frame to incomp() expects.
 
-diff --git a/kernel/printk/braille.h b/kernel/printk/braille.h
-index e9790c28027d..7a845caf4082 100644
---- a/kernel/printk/braille.h
-+++ b/kernel/printk/braille.h
-@@ -5,9 +5,10 @@
- #ifdef CONFIG_A11Y_BRAILLE_CONSOLE
- 
- static inline void
--braille_set_options(struct preferred_console *pc, char *brl_options)
-+braille_update_options(struct preferred_console *pc, char *brl_options)
- {
--	pc->brl_options = brl_options;
-+	if (!pc->brl_options || !pc->brl_options[0])
-+		pc->brl_options = brl_options;
- }
- 
- static inline bool
-@@ -35,7 +36,7 @@ _braille_unregister_console(struct console *console);
- #else
- 
- static inline void
--braille_set_options(struct preferred_console *pc, char *brl_options)
-+braille_update_options(struct preferred_console *pc, char *brl_options)
- {
- }
- 
-diff --git a/kernel/printk/printk.c b/kernel/printk/printk.c
-index 617414d419b1..d1481ae6c729 100644
---- a/kernel/printk/printk.c
-+++ b/kernel/printk/printk.c
-@@ -2647,10 +2647,16 @@ static int add_or_update_preferred_console(unsigned int i,
- 	 * Historically, the preferred options are stored only by the first
- 	 * caller who prefers the particular console.
- 	 */
--	if (is_new_entry) {
-+	if (is_new_entry)
- 		pc->options = options;
--		braille_set_options(pc, brl_options);
--	}
-+
-+	/*
-+	 * Allow to override normal console with the Braille variant,
-+	 * for example when ttyS0 is preferred via SPCR brl,ttyS0
-+	 * via the command line.
-+	 */
-+	if (brl_options)
-+		braille_update_options(pc, brl_options);
- 
- 	if (brl_options)
- 		want_braille_console = true;
+Diagnosis, implementation and local reproduction are assisted by Codex.
+---
+ drivers/net/ppp/ppp_generic.c | 13 +++++--------
+ 1 file changed, 5 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/net/ppp/ppp_generic.c b/drivers/net/ppp/ppp_generic.c
+index 29847dc4bb45..d3e551a3c80b 100644
+--- a/drivers/net/ppp/ppp_generic.c
++++ b/drivers/net/ppp/ppp_generic.c
+@@ -1747,18 +1747,15 @@ pad_compress_skb(struct ppp *ppp, struct sk_buff *skb)
+ 		skb = new_skb;
+ 		skb_put(skb, len);
+ 		skb_pull(skb, 2);	/* pull off A/C bytes */
+-	} else if (len == 0) {
++	} else if (len == 0 ||
++		   (len > 0 && ppp->xcomp->compress_proto != CI_MPPE)) {
+ 		/* didn't compress, or CCP not up yet */
+ 		consume_skb(new_skb);
+ 		new_skb = skb;
+ 	} else {
+-		/*
+-		 * (len < 0)
+-		 * MPPE requires that we do not send unencrypted
+-		 * frames.  The compressor will return -1 if we
+-		 * should drop the frame.  We cannot simply test
+-		 * the compress_proto because MPPE and MPPC share
+-		 * the same number.
++		/* A negative return means the original packet must not be sent.
++		 * Also prevent MPPE/MPPC from falling back to plaintext while
++		 * CCP is not up.
+ 		 */
+ 		if (net_ratelimit())
+ 			netdev_err(dev, "ppp: compressor dropped pkt\n");
 -- 
-2.56.0
+2.34.1
 
