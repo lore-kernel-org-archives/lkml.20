@@ -1,99 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794403593;
-	b=o3nkQVwtAdHR6DSucIDsnZAkP5nAGWaqNuqP6bEZ9fHtsFrx/CWZBQnIU0zJyT++zo12
-	 g41LahUt6kvh/D4OZ+PLE9k/3BcoSaLbwhFzDP+/eaSL1+ClRVjpXSrzrGja5vC4P3pkH
-	 diUqvBeHGSIf59UrNTKLGCk/EeZFQX9dWug3QALhT8sJGKEJCok9l8nEb0Pa8ObZKeZ9w
-	 U/x9nyH7vyL5Wka6NA+kefTJzO8r+sq5Rh8FOzhGMhgCxggqI9j+j742zxueMVByIcvI5
-	 tmieHV87PS9EH1HpqWHl3vhqAN2rzn9uuOR+0CnhdHNO0syesn2A2ay9//XuUhbpQeA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794403593;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.47
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794403594;
+	b=0HgAgvmWH5fVpRcxzgud3/I04bvIsf17RTJqEjRciPwzLElg5NSmu3wHEqnwYwwwPjra
+	 JLq+Ccd+TgXlJXbtDvA3opw1SsVQipOMlpObcRdiSmMXuPX1iM8krwSI501rBexfF9Vnh
+	 hw6qRIrTmy057HVFwUBmUwRRN68GgIjPKic0jqwyx8P5h1zTxrne2X9iB785EaJOu0tLm
+	 +H/2J/9uTgqRqqPH4RMjl/HNi11RnEMou967/kY+Dp8x27uQj0ZceZNFcyhDifWXEpPc1
+	 9WA6OloOmispog9uJ3tS4tXhPuVOSxv08m+Jk+tYRc1d9LLdYnjGr1W3RbuS7bCDpPg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794403594;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=Qlh/NbB/SLsweGl68rOzqRC0K8ERB7oVP/kP9StNUEc=;
-	b=TcmY1V9HTUULEk26jzIYj+9mjiofE+8nylIAiqtXSOXLoiyy/qMZpZge7Pv6h6tzzrCx
-	 FV9jk0LHFCy+JZRkRod1cKG04KZ/yVf2XjHsIoAVejt4xvv6ibd1WlUM28wLjVesnxWHp
-	 pVSpzIyIyrR7qVCF053k36N9XmPJC4aF4WFToPMv4Z3jc6nv6boz8n/X9T+zwEpYKobsv
-	 y8JgXSyDR9RhMKYlkL+iFMNEabDFFkym8u2KpZ3RSWhonJ3Az09lk327SzGc+PagjyAdA
-	 q3aJNWFgTcOZMtuO844AeTBsa/aJ/ShCv8fy6hh4tC0E3tqR1/a7SNGzt7oSfxdnEsA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=7t36e6QBLwY9yhsOj7Wj1izTOO4kbfw46M5uSBDE9Cw=;
+	b=48fRlEsQ9qn+lkWdH/Jes5sX6cTYH2hfjyh/CAYHUWsBUwxJNheNz/3064U+TEpa5kPN
+	 pKywm06Ucs/pLlNbIJg9e9OwIVoDjuvZG0ijcujBHFQreiSHxGc/uZyOkFkgmTg52+vLw
+	 BePX+MU2yMVqOgGEFvj57vqlErAqtJRZ055H7Dbi+Q+GGJ9o4/A7/HOa5blhScx7FCBOG
+	 mM/EPaDk3t/lCDBRJHgLBPFQcIXirRhun8p1aRTTI/D191zzz68Fm1h2pNAu8YZX52IWm
+	 m4K0xTkLBTWuXPcNYhu0qQqWdtimibVO3YT0A1br006+lPYcAE/56LGuIBhTB4ZgsfA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kKDlNKpE;
-	arc=none smtp.remote-ip=74.125.82.174
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Su5Y+wzd;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.47
+Received: from mail-oo1-f47.google.com (mail-oo1-f47.google.com [209.85.161.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE5C1606A338
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:26:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CE5C1606A338
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1830F606A886
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:26:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1830F606A886
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kKDlNKpE
-Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-3720addb068so5737192eec.1
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 05:26:32 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Su5Y+wzd
+Received: by mail-oo1-f47.google.com with SMTP id 006d021491bc7-6dd7070699eso2041278eaf.3
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 05:26:33 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794403593; cv=none;
+        d=google.com; s=arc-20260327;
+        b=oeh97ayfrMSdJkoxamx2ZDThuJJALdTxiewdXYWa88bzuMFZFUZVGC4XmY3JwgPR8S
+         syLgxGbIGtMfc+VZaUfznPuPZbgWZkb4WWCZyDuHLTnxIzNOQWqDtcgnUEOfgDc0zdFT
+         8I2InsvuDndmOz6rnzgaKNlTPt0PEIRDKCv7ktnlEH43opv5iIkOYDtBlXVK+zhkp6Wk
+         feYMhjhPwqAGGusHrf+A0kl3cTRjF0i4p27IRuw1xQ6DLxpRVS9nY5Rd05b20o7t7Ssm
+         et5/luf1WgpST2HDtSVDLAUEBWNMXnc7GXl+TzsMedt4MA1X8qjXzJa1+TX85V/NrLkm
+         zUsw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=7t36e6QBLwY9yhsOj7Wj1izTOO4kbfw46M5uSBDE9Cw=;
+        fh=U3XQRqMFUyQRig+Q6YZ+x7ISXD1edx2lm6o7bHIta10=;
+        b=rQJ0npf62TRimvNWbKrFMvjzHOcOQUTVhKszTjld8WrWG9mrWaKTi102KU0CrFmsas
+         UXHP4dka1LLOEg0GUcd7MtFpMkPnDkdMbcodTrP+mdD+bKb+wbuLcAHqdhE3iFRGJL87
+         oHrYmHzqe96+c9E6mktwbpFSO7CUFOEv8aLggU3gQewV7RrqXWHMR/u7m7pKbVLL575L
+         42esNjCACz+0iBIRrOlR87ks6xzOdQY2wfMvumQ2rlrFtUcJXTdfO7n98MrPcfUz3ROf
+         Wmv+qz9yU9gKKjydEje/HfqL8wnu+mEflojpfmWb8f5eRUcHKk+xesqDgz7afU9Z59WY
+         6VAw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794403592; x=1795008392; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Qlh/NbB/SLsweGl68rOzqRC0K8ERB7oVP/kP9StNUEc=;
-        b=kKDlNKpEk5hepD4/OoeWFvCrgRH/Eehfz1ynsUJTGkuVEDk6eoApXsu61ALcO7HEFV
-         F/52KGyH6teDW+H0+4u0WW093UgQcPK37VmkbIZuHsai1fF/rR9w7J6dsZ8n77YbYz9K
-         r4k5SpvWqWB3LaSMQpJ7P1eCKk1uXRk4GSnLIVjFdCALISDEDxM80U2/K+zCwUDkW1ff
-         q4nhU8mVa7h47H3OV2V+qjhhpnikYSb9VqyQ20SwKGMdGZKPjihmivehCpBol075HlZt
-         L/Z23olm7Jw9nmUZBfEea5CJ9Gk+4hCw/jCEVyrh5S4J2gDK0hOIYcw4EDNBNyKuEZ5y
-         sdLg==
+        d=gmail.com; s=20260707; t=1794403593; x=1795008393; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=7t36e6QBLwY9yhsOj7Wj1izTOO4kbfw46M5uSBDE9Cw=;
+        b=Su5Y+wzdrajhWHpsp8lsLS6kgIP9jb6d4JEsolWbZEfXXXDJDonn9FQhQvSteuOTd3
+         emd6FBt7OxbKfHbhGOeiBAF1Q4qdj18i4cYytXy7xZyXXr5uIpMz38lVlQYlT01xbM1Z
+         kt1ziXRe4sg4H8l+vJYjTyM6BVb6D+kN8J1cg5ArZS6ZdHejBK2Ziq1pmT5dCgrTSa4a
+         t1wsGTDmcAy5+IamctHLmWYy+pxY3JF06MztC4gvSCvwZbZVFhoKonKdmnWXY9jlphzB
+         aiZkWrnPwD+YjwYZttZrdoCV0lsi/w91+sTvZHsxhcwJCQtYQ2G84Ggp/ZhHG4eVRHGm
+         ZqXw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794403592; x=1795008392;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Qlh/NbB/SLsweGl68rOzqRC0K8ERB7oVP/kP9StNUEc=;
-        b=MwctlvD6kvMjSIBy6JfeDcavFHa/GpeJuzLmWqjs1owt+Kv8eCoYV88CK3ZOKECaLY
-         kQ0eeWQqLygWqnh+jqlsMUX+CYOmyZLJsBksLueXrakyT09zh8Y8K1qMF3jl3kFTkcau
-         4Nu/yXkbzuPs9L1ylF5ASwxaEtYi6jsp4oDOOG7YZx/7Us9DhT4uxLKXpuxxM+DaiXiT
-         t2v39L3CpgHLPcGo0M1fTBxHqK1u+GvKmvFkLYY7n53TWjOS6AApxNomiRb+s57Hfldj
-         fiKwK0t4+F/0Bj3WLAI79toK2dut//G/7iu6PkfsBc8uA2eX50T7JT1EmHHnhhLMurbJ
-         weYA==
-X-Forwarded-Encrypted: i=1; AL+hErFNbQbqraU9T+YGP4lxcZrFPEtSIePLYZFlrhw9O7sSfHGweOjIm787DCbiLaC51u6m8u43CYiLiC29u28=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/lqPa4H74Adva+2bpa1KFLg/KwHWM1ztWi51FHe3GOc3IXc4kk
-	dkN6FC8ndj+KpnYRzn0xN2RZnNbT7NkmDxSlGr7SHyxPtEsYzRtm5K7V
-X-Gm-Gg: AYBFou0piIzDe0w7ueCiDv3cS8XlQKz/6iJGhth/ih1go03dNAn1vL+wQUZVLh5Shkd
-	3yJQi8JWCYblWHKv+dzzKbI+vmhqLqYfhbGD/307EU9H4UJe0qbo6KgWEx/p3qiHm8s1TblcSVU
-	5taOmH2Z/NNZUvcYf3G6fhqSReHDk75Xdwbx/EisRxfaFRgt0SQSIJnKcWwOtsg4D2nnxNqSp2Z
-	vpxa5dUbqh/gjYzxiiH3a4FIfNw2dEdI+KbNIqFmrUavECrP83PmpkninYTXp142eTVCdCVdtYe
-	ojwqIM1PZm6fKJgoyaKoXRnejPvyDeNCGOgY5mie5JPOxbL+fKKNsBmM9cIhqHSlg7+zP0wBCki
-	souf+GHI3gxKPfXvNco4sAFUPD7Fd52QOJshssl7QHYsGGvNRAvsYTOpeZEvumEWasZf3W4GoeV
-	urlBB+rFOlWjNoOpHZSOOINKsl5bmEJ6oiwpoCUnHxiIjAPaeuPsX/76HJwmfuolgXsj6IHyxCK
-	PtDq49Atqf7k1QeCfbu0Y9u2EKLA/VPZADArHDWR5OzwZfP3dzzqbz1TS/MMQe9TmpuJ13woL9Z
-	1PGBX3cGbG24okfjPmtd
-X-Received: by 2002:a05:7022:f10a:b0:166:f097:6f12 with SMTP id a92af1059eb24-1b3c0337115mr1787921c88.15.1794403591550;
-        Wed, 11 Nov 2026 05:26:31 -0800 (PST)
-Received: from a1-free ([161.33.196.121])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b2fc09sm33053502c88.10.2026.11.11.05.26.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 05:26:30 -0800 (PST)
-From: TAKANO Mitsuhiro <takano32@gmail.com>
-To: linux-perf-users@vger.kernel.org,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>
-Cc: Ian Rogers <irogers@google.com>,
-	James Clark <james.clark@linaro.org>,
-	John Garry <john.garry@linux.dev>,
-	linux-kernel@vger.kernel.org,
-	TAKANO Mitsuhiro <takano32@gmail.com>
-Subject: [PATCH v5 1/3] perf jevents: Name the metric when a MetricExpr is missing
-Date: Wed, 11 Nov 2026 13:26:20 +0000
-Message-ID: <20261111132622.2349165-2-takano32@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261111132622.2349165-1-takano32@gmail.com>
-References: <20261111041045.2031464-1-takano32@gmail.com>
- <20261111132622.2349165-1-takano32@gmail.com>
+        d=1e100.net; s=20260707; t=1794403593; x=1795008393;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7t36e6QBLwY9yhsOj7Wj1izTOO4kbfw46M5uSBDE9Cw=;
+        b=1e4pF7YAqzzlqs8VlhvxHYcU9p/BCzJYER76+hDQKBuFYldeOXtb+WdKl02A5JDT65
+         u5nB/oqI5rSKKeFHSDaANXDP/TL/wDWX8267wHSF5SW68q4h/ePezTKtLAAPFRraQIVp
+         sOi9lqi3/JtLaWzMGvwVb424kgVOqCuXuai4yDmp1jwpZpFyxmWthy6LtPRxTMuAtEzR
+         HLFZ6DIzDbq8R4zdFx8vtK1tcgetOlA9O9uSu6xponczfsF0Fu+WsoUh3ldA8NJcGmjw
+         RZYg2OR9jKNRPtJVHvQ0IzAE7GeOjbnQObG7jGz0J3dXH0ObJ8KmH5I8wAb+iMnpZeEC
+         xNXA==
+X-Forwarded-Encrypted: i=1; AL+hErFRDk45WlQU9WvcBdGv3+0yx9lh/BtZ0H1u0c13C+phnovFLICoknm3FtKDhAWLrE2nhYmfghMduoeaaoU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9+LFZzOEJrkhtIE3iadP9m8b20qv5UwmPJBdfdy012rtuWbwRY
+	QHCDoA0UfT0NmPqlX5VXG/c8UEqlqerzp+fjWwjrUTAWQqtuNTMwdOOM79gt8HE6PMK4m6VViZR
+	aIFao0WCWJ4n0T4NlJtS1w5YtQNeqUYM=
+X-Gm-Gg: AYBFou2JXyenDgH4lCR+hZoBiLoVr46L5KeqJgnqpWrh4Hv+Cdwlzvp+UGAPhnT4iP8
+	xjCQFF1u8momImNNwrU/jmPo0qezzYIuyqHD36NzPQl7kjbAHxKbGnC5Jg7g3cZNsVo8icvJb3J
+	y6Sa4QqHCW7zFGQl+/ItfTBF06sUMBbUz+lvSC6NwacTsQvi++7EkTWvAuUTYBHG0aLCvtO9s2m
+	wF6VnZ/cUqUlrW2ULOZWxuRM4i8MG45X4Dt8JBKvVe6y4BdS4AS3kcCGnCOMiHiTV82bhM639TJ
+	Iy55JbLY0wsIITnVyWmsA3jELux9PAVoV0HiqmJ+GWUb07rUisu4GGL7jDrDpv3lKDUP28YcCY7
+	aRtqrSUx9ASfy8cXwjzt4HvbIfMocoib4vbzp6J2GiFFBO1wuALU0CWqcL2clAJzvyqJ+uQxwhc
+	HOcLGlElOrH3rhqbGciVOjQrKg5Eotk6bsqCZYjFaUEBaANoD+67CRoIbS
+X-Received: by 2002:a05:6820:4281:b0:6d8:462d:2756 with SMTP id
+ 006d021491bc7-71917839b13mr1289008eaf.43.1794403592871; Wed, 11 Nov 2026
+ 05:26:32 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,171 +105,234 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261110-exp-phy-rs-maybelocked-v1-0-3023cc9055e9@gmail.com> <20261110-exp-phy-rs-maybelocked-v1-2-3023cc9055e9@gmail.com>
+In-Reply-To: <20261110-exp-phy-rs-maybelocked-v1-2-3023cc9055e9@gmail.com>
+From: =?UTF-8?B?7ZWY7Iq57KKF?= <engineer.jjhama@gmail.com>
+Date: Wed, 11 Nov 2026 22:26:21 +0900
+X-Gm-Features: AclHuK_MX_7J4oHyB1e41Soi9c57YJbU8UeuGhhMvYz7AfKvCMuNHXwvqXPBaQA
+Message-ID: <CAGAB665uVX9fMtMB47=OQFG76Af=H1tHiRA=m2Db8xpPBqyXVw@mail.gmail.com>
+Subject: Re: [PATCH net-next 2/2] rust: net: phy: pass a MaybeLocked device to
+ soft_reset and match_phy_device
+To: FUJITA Tomonori <fujita.tomonori@gmail.com>, Trevor Gross <tmgross@umich.edu>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Danilo Krummrich <dakr@kernel.org>, 
+	Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
+	Alexandre Courbot <acourbot@nvidia.com>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+	Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>, 
+	Russell King <linux@armlinux.org.uk>
+Cc: netdev@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-jevents.py reads each field it wants out of a JSON object by name, so a
-MetricExpr key that is missing or spelled another way leaves the object
-with a MetricName and no expression. Two different failures followed,
-neither of which named the metric: the rewrite in _read_json_events_impl()
-raised AttributeError on the None, and a metric that got that far reached
-print_pending_metrics(), whose assert fired on it.
+Sashiko's review of this patch was also sent off-list [1].
 
-Raise in the reader instead, naming the metric, before either of them can
-happen. The check is not inside the '-' test that decides whether a metric
-takes part in the rewrite: a name with a dash in it can lose its
-expression the same way.
+> Can Adapter::read_mmd_callback() and Adapter::write_mmd_callback() also b=
+e
+> entered without phy_device->lock held, while still constructing a &mut
+> Device<Locked> via Device::from_raw()?
 
-Two smaller changes on the same path:
+Yes, and that predates this series. read_mmd and write_mmd run under the
+MDIO bus lock rather than phydev->lock, e.g. rtl822x_hwmon_read() ->
+phy_read_mmd().
 
-- An architecture standard table that does not parse now carries the
-   reason in its message ("Failure processing '<file>' in '<dir>':
-   <cause>").  The traceback used to end with the file name alone, and
-   only the chained exception said why.
+They need their own context for the MDIO bus lock. This series only
+separates callbacks by `phydev->lock` and no in-tree Rust driver implements
+`read_mmd` or `write_mmd`, so I will handle them in a follow-up.
 
-- A table that does not parse is reported on stderr with a "jevents:
-   error:" prefix instead of on stdout, where it was mixed with the
-   generated output.
+[1] https://sashiko.dev/#/patchset/20261110-exp-phy-rs-maybelocked-v1-0-302=
+3cc9055e9@gmail.com?part=3D2
 
-And the output files are opened after every table has been read, and not
-by argparse, so a build that fails while reading leaves a file the caller
-named as it was instead of truncating it to the header.  "Every table"
-includes metricgroups.json, whose first pass runs before this point, and
-the string table built from all of them: nothing that parses a file runs
-after the output is opened.
-
-Signed-off-by: TAKANO Mitsuhiro <takano32@gmail.com>
----
-v5: patch 3 says which keys a table may carry and checks the tree
-    against that list, replacing the near-miss report that v4 had.
-    The list is 51 names, 47 of which jevents.py reads; an architecture
-    that is not there or is named as a path is an error (status 2)
-    instead of a silent pass, and an object written without the list
-    brackets is reported.  The name of a metricgroup is not treated as
-    a key.  jsonschema is not used because perf's build would then
-    require it, and the list holds the same names a schema would.
-    The target is check-jevents, next to check-headers, and takes
-    JEVENTS_CHECK_ARCH; a shell test covers a reported key, a clean
-    tree and a missing architecture.
-
- tools/perf/pmu-events/jevents.py | 78 +++++++++++++++++++++-----------
- 1 file changed, 51 insertions(+), 27 deletions(-)
-
-diff --git a/tools/perf/pmu-events/jevents.py b/tools/perf/pmu-events/jevents.py
-index 080e04b51b8c..61f778dcc1e5 100755
---- a/tools/perf/pmu-events/jevents.py
-+++ b/tools/perf/pmu-events/jevents.py
-@@ -460,11 +460,17 @@ def _read_json_events_impl(path: str, topic: str) -> Sequence[JsonEvent]:
-     with open(path, encoding='utf-8') as f:
-       events = json.load(f, object_hook=JsonEvent)
-   except BaseException:
--    print(f"Exception processing {path}")
-+    print(f'jevents: error: Exception processing {path}', file=sys.stderr)
-     raise
-   metrics: list[Tuple[str, str, metric.Expression]] = []
-   for event in events:
-     event.topic = topic
-+    if event.metric_name and event.metric_expr is None:
-+      # A MetricName without a MetricExpr leaves nothing to put in the
-+      # generated tables, whether or not the name has a dash, so the build
-+      # must not go on.  Name the metric instead of letting the table printer
-+      # assert on the None.
-+      raise RuntimeError(f'Metric {event.metric_name!r} has no MetricExpr')
-     if event.metric_name and '-' not in event.metric_name:
-       metrics.append((event.pmu, event.metric_name, event.metric_expr))
-   updates = metric.RewriteMetricsInTermsOfOthers(metrics)
-@@ -493,7 +499,7 @@ def preprocess_arch_std_files(archpath: str) -> None:
-         if event.metric_name:
-           _arch_std_events[event.metric_name.lower()] = event
-     except Exception as e:
--        raise RuntimeError(f'Failure processing \'{item.name}\' in \'{archpath}\'') from e
-+      raise RuntimeError(f'Failure processing \'{item.name}\' in \'{archpath}\': {e}') from e
- 
- 
- def add_events_table_entries(item: os.DirEntry, topic: str) -> None:
-@@ -1490,33 +1496,13 @@ such as "arm/cortex-a34".''',
-       type=dir_path,
-       help='Root of tree containing architecture directories containing json files'
-   )
--  ap.add_argument(
--      'output_file', type=argparse.FileType('w', encoding='utf-8'), nargs='?', default=sys.stdout)
--  ap.add_argument(
--      'output_string_file', type=argparse.FileType('w', encoding='utf-8'), nargs='?', default=None)
-+  ap.add_argument('output_file', nargs='?', default=None,
-+                  help='file to write the tables to, default standard output')
-+  ap.add_argument('output_string_file', nargs='?', default=None,
-+                  help='file to write big_c_string to when it is to be kept '
-+                       'apart from the tables')
-   _args = ap.parse_args()
- 
--  _args.output_file.write(f"""/* SPDX-License-Identifier: GPL-2.0 */
--/* THIS FILE WAS AUTOGENERATED BY `jevents.py arch={_args.arch} model={_args.model}` ! */
--""")
--  _args.output_file.write("""
--#include <pmu-events/pmu-events.h>
--#include "util/header.h"
--#include "util/pmu.h"
--#include <string.h>
--#include <stddef.h>
--
--struct compact_pmu_event {
--\tint offset;
--};
--
--struct pmu_table_entry {
--\tconst struct compact_pmu_event *entries;
--\tuint32_t num_entries;
--\tstruct compact_pmu_event pmu_name;
--};
--
--""")
-   archs = []
-   for item in os.scandir(_args.starting_dir):
-     if not item.is_dir():
-@@ -1553,6 +1539,44 @@ struct pmu_table_entry {
- 
-   assert _bcs is not None
-   _bcs.compute()
-+
-+  # Every table has been read by now, so opening the output here cannot truncate
-+  # a file the caller named when a table turns out not to parse.
-+  if _args.output_file in (None, '-'):
-+    _args.output_file = sys.stdout
-+  else:
-+    try:
-+      _args.output_file = open(_args.output_file, 'w', encoding='utf-8')
-+    except OSError as e:
-+      ap.error(f'argument output_file: {e}')
-+  if _args.output_string_file == '-':
-+    _args.output_string_file = sys.stdout
-+  elif _args.output_string_file is not None:
-+    try:
-+      _args.output_string_file = open(_args.output_string_file, 'w', encoding='utf-8')
-+    except OSError as e:
-+      ap.error(f'argument output_string_file: {e}')
-+  _args.output_file.write(f"""/* SPDX-License-Identifier: GPL-2.0 */
-+/* THIS FILE WAS AUTOGENERATED BY `jevents.py arch={_args.arch} model={_args.model}` ! */
-+""")
-+  _args.output_file.write("""
-+#include <pmu-events/pmu-events.h>
-+#include "util/header.h"
-+#include "util/pmu.h"
-+#include <string.h>
-+#include <stddef.h>
-+
-+struct compact_pmu_event {
-+\tint offset;
-+};
-+
-+struct pmu_table_entry {
-+\tconst struct compact_pmu_event *entries;
-+\tuint32_t num_entries;
-+\tstruct compact_pmu_event pmu_name;
-+};
-+
-+""")
-   _args.output_file.write('/* clang-format off */\n')
-   if not _args.output_string_file:
-     _args.output_file.write('static const char *const big_c_string =\n')
--- 
-2.53.0
-
+2026=EB=85=84 11=EC=9B=94 10=EC=9D=BC (=ED=99=94) =EC=98=A4=ED=9B=84 8:00, =
+SeungJong Ha <engineer.jjhama@gmail.com>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=
+=B1:
+>
+> The SAFETY comments of `soft_reset_callback` and
+> `match_phy_device_callback` state that PHYLIB holds `phy_device->lock`
+> when it calls them. It does on some paths but not on others:
+> phy_init_hw() calls `soft_reset` both with and without the lock (e.g.
+> from phy_attach_direct() and phy_mii_ioctl()), and phy_bus_match() calls
+> `match_phy_device` without it.
+>
+> Hand both callbacks a `&Device<MaybeLocked>` so that the type matches
+> what PHYLIB provides, and correct the SAFETY comments. Update
+> ax88796b_rust, the only Rust implementation, to the new signature; it
+> only does register writes and genphy_soft_reset(), so its behaviour does
+> not change.
+>
+> This was found while auditing SAFETY comments of Rust abstractions
+> against their C callers, and confirmed with Clang's context analysis:
+> annotating the two `phy_driver` slots with `__must_hold(&phydev->lock)`
+> flags exactly the lock-less paths above. It was not triggered at runtime.
+>
+> Built with AX88796B_RUST_PHY=3Dy and CLIPPY=3D1; a `soft_reset` that call=
+s
+> `start_aneg()` or `set_speed()` no longer compiles. Not tested on
+> hardware.
+>
+> Signed-off-by: SeungJong Ha <engineer.jjhama@gmail.com>
+> ---
+>  drivers/net/phy/ax88796b_rust.rs |  8 ++++----
+>  rust/kernel/net/phy.rs           | 44 ++++++++++++++++++++++++++++------=
+------
+>  2 files changed, 35 insertions(+), 17 deletions(-)
+>
+> diff --git a/drivers/net/phy/ax88796b_rust.rs b/drivers/net/phy/ax88796b_=
+rust.rs
+> index 2d24628a4e58..bde801df305c 100644
+> --- a/drivers/net/phy/ax88796b_rust.rs
+> +++ b/drivers/net/phy/ax88796b_rust.rs
+> @@ -30,7 +30,7 @@
+>  // BMCR_RESET bit and poll for the reset bit to be cleared.
+>  // Toggle BMCR_RESET bit off to accommodate broken AX8796B PHY implement=
+ation
+>  // such as used on the Individual Computers' X-Surf 100 Zorro card.
+> -fn asix_soft_reset(dev: &mut phy::Device) -> Result {
+> +fn asix_soft_reset(dev: &phy::Device<phy::MaybeLocked>) -> Result {
+>      dev.write(C22::BMCR, 0)?;
+>      dev.genphy_soft_reset()
+>  }
+> @@ -85,7 +85,7 @@ fn resume(dev: &mut phy::Device) -> Result {
+>          dev.genphy_resume()
+>      }
+>
+> -    fn soft_reset(dev: &mut phy::Device) -> Result {
+> +    fn soft_reset(dev: &phy::Device<phy::MaybeLocked>) -> Result {
+>          asix_soft_reset(dev)
+>      }
+>
+> @@ -115,7 +115,7 @@ fn resume(dev: &mut phy::Device) -> Result {
+>          dev.genphy_resume()
+>      }
+>
+> -    fn soft_reset(dev: &mut phy::Device) -> Result {
+> +    fn soft_reset(dev: &phy::Device<phy::MaybeLocked>) -> Result {
+>          asix_soft_reset(dev)
+>      }
+>  }
+> @@ -127,7 +127,7 @@ impl Driver for PhyAX88796B {
+>      const NAME: &'static CStr =3D c"Asix Electronics AX88796B";
+>      const PHY_DEVICE_ID: DeviceId =3D DeviceId::new_with_model_mask(0x00=
+3b1841);
+>
+> -    fn soft_reset(dev: &mut phy::Device) -> Result {
+> +    fn soft_reset(dev: &phy::Device<phy::MaybeLocked>) -> Result {
+>          asix_soft_reset(dev)
+>      }
+>  }
+> diff --git a/rust/kernel/net/phy.rs b/rust/kernel/net/phy.rs
+> index 60c58bbc12d6..c2dfc58dbe55 100644
+> --- a/rust/kernel/net/phy.rs
+> +++ b/rust/kernel/net/phy.rs
+> @@ -72,10 +72,10 @@ pub trait PhyContext: private::Sealed {}
+>  /// other access to the `phy_device` made under `phy_device->lock`.
+>  pub struct Locked;
+>
+> -/// The [`Device`] context of callbacks that PHYLIB calls both with and =
+without
+> -/// `phy_device->lock` held.
+> +/// The [`Device`] context of [`Driver::soft_reset`] and [`Driver::match=
+_phy_device`].
+>  ///
+> -/// A callback in this context must not take `phy_device->lock`.
+> +/// PHYLIB calls these callbacks both with and without `phy_device->lock=
+` held. A callback in this
+> +/// context must not take `phy_device->lock`.
+>  ///
+>  /// # Invariants
+>  ///
+> @@ -322,6 +322,22 @@ pub fn genphy_soft_reset(&self) -> Result {
+>      }
+>  }
+>
+> +impl Device<MaybeLocked> {
+> +    /// Creates a new [`Device`] reference in the [`MaybeLocked`] contex=
+t from a raw pointer.
+> +    ///
+> +    /// # Safety
+> +    ///
+> +    /// For the duration of `'a`, the pointer must point at a valid `phy=
+_device` whose
+> +    /// `mdio.dev` is valid.
+> +    unsafe fn from_raw_maybe_locked<'a>(ptr: *mut bindings::phy_device) =
+-> &'a Self {
+> +        // CAST: `Self` is a `repr(transparent)` wrapper around `binding=
+s::phy_device`.
+> +        let ptr =3D ptr.cast::<Self>();
+> +        // SAFETY: The pointer is valid for `'a`. A shared reference doe=
+s not assert exclusive
+> +        // access, and `Opaque` permits concurrent mutation by the C sid=
+e.
+> +        unsafe { &*ptr }
+> +    }
+> +}
+> +
+>  impl core::ops::Deref for Device<Locked> {
+>      type Target =3D Device<MaybeLocked>;
+>
+> @@ -370,10 +386,9 @@ impl<T: Driver> Adapter<T> {
+>      /// `phydev` must be passed by the corresponding callback in `phy_dr=
+iver`.
+>      unsafe extern "C" fn soft_reset_callback(phydev: *mut bindings::phy_=
+device) -> c_int {
+>          from_result(|| {
+> -            // SAFETY: This callback is called only in contexts
+> -            // where we hold `phy_device->lock`, so the accessors on
+> -            // `Device` are okay to call.
+> -            let dev =3D unsafe { Device::from_raw(phydev) };
+> +            // SAFETY: `phydev` is valid for the callback. `phy_init_hw(=
+)` calls `soft_reset` both
+> +            // with and without `phy_device->lock`, which is the `MaybeL=
+ocked` context.
+> +            let dev =3D unsafe { Device::from_raw_maybe_locked(phydev) }=
+;
+>              T::soft_reset(dev)?;
+>              Ok(0)
+>          })
+> @@ -471,10 +486,9 @@ impl<T: Driver> Adapter<T> {
+>          phydev: *mut bindings::phy_device,
+>          _phydrv: *const bindings::phy_driver,
+>      ) -> c_int {
+> -        // SAFETY: This callback is called only in contexts
+> -        // where we hold `phy_device->lock`, so the accessors on
+> -        // `Device` are okay to call.
+> -        let dev =3D unsafe { Device::from_raw(phydev) };
+> +        // SAFETY: `phydev` is valid for the callback. `phy_bus_match()`=
+ holds no PHY lock, which
+> +        // is the `MaybeLocked` context.
+> +        let dev =3D unsafe { Device::from_raw_maybe_locked(phydev) };
+>          T::match_phy_device(dev).into()
+>      }
+>
+> @@ -635,7 +649,9 @@ pub trait Driver {
+>      const PHY_DEVICE_ID: DeviceId =3D DeviceId::new_with_custom_mask(0, =
+0);
+>
+>      /// Issues a PHY software reset.
+> -    fn soft_reset(_dev: &mut Device) -> Result {
+> +    ///
+> +    /// Called in the [`MaybeLocked`] context.
+> +    fn soft_reset(_dev: &Device<MaybeLocked>) -> Result {
+>          build_error!(VTABLE_DEFAULT_ERROR)
+>      }
+>
+> @@ -651,7 +667,9 @@ fn get_features(_dev: &mut Device) -> Result {
+>
+>      /// Returns true if this is a suitable driver for the given phydev.
+>      /// If not implemented, matching is based on [`Driver::PHY_DEVICE_ID=
+`].
+> -    fn match_phy_device(_dev: &Device) -> bool {
+> +    ///
+> +    /// Called in the [`MaybeLocked`] context.
+> +    fn match_phy_device(_dev: &Device<MaybeLocked>) -> bool {
+>          false
+>      }
+>
+>
+> --
+> 2.54.0
+>
