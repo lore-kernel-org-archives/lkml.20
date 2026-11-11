@@ -1,72 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794381973;
-	b=LLc5ySm9PkZkC5QbmUeUX83Fs8O6AaPuZhRx9pGdOu3Ivyfoypfy8uG84TN/K3Fi3Jhn
-	 5awENmAw4VAU1XlLn4rOGTXDtDHDZ8bdnZMCvGhO7boopRcH9M5mdG+WkFhNijVMsvQ8+
-	 K2pSYA2odzNJV2CaMMa3e5ek/CpAcKJFfwS6fEJPZhwBCh+RrlXajx4KlIrf3u4YM8j75
-	 gOreGzqQPWbNSPUJ4ZvO5DRh22sjVtasRgtbQhvsVAOLD+ykSmI9amBeSdiATGMlAU0SD
-	 PzJGRB37Y1weVsZBiRSMVrlmzWwkkuUnr0Rza/GhJ7KSyV2UyGKLhknuVvGH6tllkQg==
+	t=1794382114;
+	b=iZZOqgTBLsxd8wylnqxcd5zUl5c+EBFHRMNwv+dkfNW/6lpu3z23DsOgi/z+TXtP6x4a
+	 DD/lX3/yAp50cwWIkuScPpVod/1DdOGcgHhAO0EWaBWcCkvqXu7LSwIMzMl1EtPICTG5Y
+	 Syn3pvJO2XF6OPnHiyzdxo4nwSX4bTPja0G1DKKvolBMCi00lGsHQKL6ErK7nT7K1BzdP
+	 +lQxy1j+bl0qnj5aye6z9rGDbjCARmdQmbUtjMqaj+/8ha8HrSyDt6gNcCPpQruNjNKJ0
+	 N1m+Z/+rtZdHRhb+g/7aawvBcIwSQGYkQyeSQrWz71ONUpGgqc9YH58qS9mAI5/vlCQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794381973;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=qyaSt7rfLd9UWAEQmgIczF6QNCmMTt6/VnKgUqvfogg=;
-	b=ziAKXS1Z1Q/zlZzDWiheUR099Yn0G05Orr36i3mTqlIN8XAJIPWASyToHCdn7yOVncsb
-	 YxzqY25aBFdcdoLzzOA0yLWNxA7Q23dSSZBrt50V38bGnh79gp7JsAVGcf3JUYFc9rm8S
-	 KzYgpSJxSweu1GQHYc6LIeNlTbwlQN3vogmPd/3Z1nSetkZypqfj/7YvSzwugUeIXcKQ/
-	 kTcOId3j7GXvY0HWUf9BoJAqTqLzGJBYyG1+Bcp/bGZtEq78KbZ7bWDMFtnePjTxJD4jW
-	 fVlJ3o8JsDqSNVMOvBtvMDP9e4hM4W4mkDa2kYt+skZaz2XL4XAmxveFINrkSX3MELg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794382114;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:CC:Subject:In-Reply-To:
+	 Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=wM6zMeAKLdvhkIpwxgAO3T4mTUK9pSOuQdsjhKR++rY=;
+	b=AEYK6FOEAqFtwjMHIn8GzO4uM9Q9g7kgJGkIjS1lyhaYPJ5zpKaHiD+y96eBqi+7Ay7Z
+	 9TMt99c16L9//0iUxUHy0AgDqch/OiOj53dQ8YnmDgQKpL5Zxmy27j4ChtstbN1rDd4j2
+	 EcJVbUiMs8tMF4ylzphrkERnzgtUgY7D4AdOJjivGxOV1M6r5ZAVTWNrjFk+a2fNDIY2D
+	 q1gXI1gsF9KgFSCk90fmrVNNtiPRiqhfH/vozWs00mvYNoG0DME0oxzsU05WuBAcsPztj
+	 nyhSAAgsm24fb1uUWhUhUyYTCovoRK3ZeutPQe1SvBaDlejVoC7S954TKeYINggK3gg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--diwux.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=g3eQ1Cny;
-	arc=none smtp.remote-ip=209.85.214.199
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=c+CWU2LL;
+	arc=none smtp.remote-ip=91.218.175.51
+Received: from mta0.migadu.com (out-51.mta0.migadu.com [91.218.175.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B88E0606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 07:26:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B88E0606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--diwux.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51C1D606A320
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 07:28:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 51C1D606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=g3eQ1Cny
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2eb2437d752so43889405ad.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 23:26:12 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794381972; x=1794986772; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qyaSt7rfLd9UWAEQmgIczF6QNCmMTt6/VnKgUqvfogg=;
-        b=g3eQ1CnyLlQsKsZymv0bDk8q4DGsjqeZHEjvGdX2RYTSTmPWoN3RdVQSpAGFn4vzaT
-         s3459hiWtWC1j0N023EK/eF0deSwiC6J4u/PXy4O+GfR/qWDZm2P/rVX3M9SBKppwa6C
-         1iEvj2jToxB7qnjgM4YDhzfMkdkeluH+c9yiBopin6UJI18uS41SUk86ZbeiHxNFd/Qw
-         3gXmM98VhAGNxd1g8Pqk152u9XVt1PUmOqB3Yiq7jBk5GBhecn8WsBw/Hpp0E/6McOtX
-         Wmz9lDJwuMxDlJjYAKAZuAeo+JCqrsCIIr9hHutG5DCQLfI9AufRKar284FAJPh2Md44
-         RreA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794381972; x=1794986772;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qyaSt7rfLd9UWAEQmgIczF6QNCmMTt6/VnKgUqvfogg=;
-        b=MobPBz6sOoeE9+1VaFBnvmugw0HTcq31sEV+qilS2vort9JbsGIo7abLsSazxeGrsZ
-         V4Z5YDJs1ZvUWxOQLqjaMHbRds1Huet3URckuMCyd6MILUB3BtOvPw6x8EsXXR9oYBbR
-         dZDoJrnGi6pEQLaOR/rF7DxJ28lZrK3NxazsPN3PBa4txKY2cLTmEh3U0CKscJWvJfws
-         1JunK3S3DUNMuhv98cQprtuMlasShCBI0lXabHTyeLadYAKrf2HUx34YfYUhTJ5RFLDb
-         jIWPNsV83+omV4RerttA0EjfqbFV+qQJOmlEw9Fewa5B3nagQgNqI25YE/7doURjewLd
-         CZgg==
-X-Forwarded-Encrypted: i=1; AL+hErEhW7RxoA3xTY7SzHK9MBetpo9Ntv4GFguhOq2qhdRkIz3+yIt81F2G6fahwOrkJxUNPjEjhfPJY7ELC+4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z91f9ZMAj5wU/N2oqJHWQMYciH7a3A4ByHx1ZET2AKzVQU7DYcq
-	clBAykoELOCIsVZsHUpC8IThqm7ywJh0U3GyQklo8bCmEYnSUrJ0hIcFSlX3pJvu5pA8U7KAtwt
-	2Pg==
-X-Received: from pla14.prod.google.com ([2002:a17:902:ffce:b0:2ea:7f9c:2ce])
- (user=diwux job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:f78d:b0:2ed:e22b:779f
- with SMTP id d9443c01a7336-2ede22b8363mr6850925ad.58.1794381971881; Tue, 10
- Nov 2026 23:26:11 -0800 (PST)
-Date: Wed, 11 Nov 2026 07:26:08 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=c+CWU2LL
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=4r9aoLuyZuGjtmYUR9y2nIUFNZJAGpilVsCFbC4LjQk=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794382109; v=1; x=1794986909;
+ b=c+CWU2LLpeRf0/eaTmILa8H6V07zgC+rB7oJ85isthyud5xYC2xXpjyKcOSYxY7j6nvpLx9j
+ 4TDiZCIAUZ33OC0OIRCnwf3l7vrgUN0vfdEH4vktRWWegpfLpP05CHeQ4xr1+1pZl5M1P1vp4Ee
+ gxvjqts5giRWzLo4QV29OUh0=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 8cfec852c9357b27;
+	Wed, 11 Nov 2026 07:28:29 +0000
+X-Mizu-Trace-ID: 8cfec852c9357b27
+X-Migadu-Flow: FLOW_OUT
+Date: Wed, 11 Nov 2026 07:28:26 +0000
+From: Bradley Morgan <bradley.morgan@linux.dev>
+To: ritesh.list@gmail.com
+CC: brads@mainlining.org, chleroy@kernel.org, linux-kernel@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, maddy@linux.ibm.com, mpe@ellerman.id.au,
+ npiggin@gmail.com, sshegde@linux.ibm.com
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH=5D_powerpc32/modules=3A_Reser?=
+ =?US-ASCII?Q?ve_a_PLT_entry_for_ftrace=5Fregs=5Fcaller?=
+In-Reply-To: <jymk81uu.ritesh.list@gmail.com>
+Message-ID: <80D9FEB3-9FB3-4878-BC66-74C13761CC9A@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,64 +64,49 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.542.g3ef89b7020-goog
-Message-ID: <20261111072608.3490763-1-diwux@google.com>
-Subject: [PATCH] iio: cros_ec: use sysfs_emit() in show callbacks
-From: Di Wu <diwux@google.com>
-To: jic23@kernel.org
-Cc: dlechner@baylibre.com, nuno.sa@analog.com, andy@kernel.org, 
-	bleung@chromium.org, groeck@chromium.org, tzungbi@kernel.org, 
-	linux-iio@vger.kernel.org, chrome-platform@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, Di Wu <diwux@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-Replace sprintf() and snprintf() with sysfs_emit() in the sysfs show
-and ext_info read callbacks. sysfs_emit() is aware of the sysfs buffer
-PAGE_SIZE limit and is the preferred helper for show callbacks.
+On 11 November 2026 03:48:41 GMT, Ritesh Harjani <ritesh.list@gmail.com>
+wrote:
+>Bradley Morgan <brads@mainlining.org> writes:
+>
+>> Commit 7dfbfb87c243 ("powerpc/ftrace: Activate
+>> HAVE_DYNAMIC_FTRACE_WITH_REGS on PPC32") made count_relocs()
+>> undercount the PLT entries the loader
+>> consumes: module_finalize_ftrace() now creates two trampolines
+>> (mod->arch.tramp for ftrace_caller() and mod->arch.tramp_regs for
+>> ftrace_regs_caller()), while count_relocs() reserves only one entry
+>> for ftrace.
+>>
+>> So the core .plt ends up one ppc_plt_entry (16 bytes) short. The
+>> walk in do_plt_call() scans for a free slot with
+>> "while (entry->jump[0])" and has no bound check, so once the last
+>> reserved slot is used up, the walk steps past the end of the section
+>> and patch_instruction() writes the 4-instruction trampoline into
+>> whatever module memory follows the .plt.
+>>
+>> Count the second entry, mirroring what module_64.c does for the same
+>> pair of stubs.
+>>
+>> Signed-off-by: Bradley Morgan <brads@mainlining.org>
+>> ---
+>>  arch/powerpc/kernel/module_32.c | 3 +++
+>>  1 file changed, 3 insertions(+)
+>>
+>
+>Do we also need fixes and stable tag here?
+>
+>Fixes: 7dfbfb87c243 ("powerpc/ftrace: Activate HAVE_DYNAMIC_FTRACE_WITH_REGS on PPC32")
+>Cc: stable@vger.kernel.org
 
-Signed-off-by: Di Wu <diwux@google.com>
----
- .../iio/common/cros_ec_sensors/cros_ec_sensors_core.c  | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+Hmm.. could the merger add that? If anyone merges.. :(
 
-diff --git a/drivers/iio/common/cros_ec_sensors/cros_ec_sensors_core.c b/drivers/iio/common/cros_ec_sensors/cros_ec_sensors_core.c
-index d03e40c91582..624d4b32b034 100644
---- a/drivers/iio/common/cros_ec_sensors/cros_ec_sensors_core.c
-+++ b/drivers/iio/common/cros_ec_sensors/cros_ec_sensors_core.c
-@@ -149,9 +149,9 @@ static ssize_t cros_ec_sensor_get_report_latency(struct device *dev,
- 	if (ret < 0)
- 		return ret;
- 
--	return sprintf(buf, "%d.%06u\n",
--		       latency / 1000,
--		       (latency % 1000) * 1000);
-+	return sysfs_emit(buf, "%d.%06u\n",
-+			  latency / 1000,
-+			  (latency % 1000) * 1000);
- }
- 
- static IIO_DEVICE_ATTR(hwfifo_timeout, 0644,
-@@ -165,7 +165,7 @@ static ssize_t hwfifo_watermark_max_show(struct device *dev,
- 	struct iio_dev *indio_dev = dev_to_iio_dev(dev);
- 	struct cros_ec_sensors_core_state *st = iio_priv(indio_dev);
- 
--	return sprintf(buf, "%d\n", st->fifo_max_event_count);
-+	return sysfs_emit(buf, "%d\n", st->fifo_max_event_count);
- }
- 
- static IIO_DEVICE_ATTR_RO(hwfifo_watermark_max, 0);
-@@ -465,7 +465,7 @@ static ssize_t cros_ec_sensors_id(struct iio_dev *indio_dev,
- {
- 	struct cros_ec_sensors_core_state *st = iio_priv(indio_dev);
- 
--	return snprintf(buf, PAGE_SIZE, "%d\n", st->param.info.sensor_num);
-+	return sysfs_emit(buf, "%d\n", st->param.info.sensor_num);
- }
- 
- const struct iio_chan_spec_ext_info cros_ec_sensors_ext_info[] = {
+>
+>
+>-ritesh
+>
 
-base-commit: b70566610b48ba49dec636019da4d696db64b085
--- 
-2.56.0.455.g6c5a503b38-goog
-
+--- Thanks!
