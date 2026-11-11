@@ -1,137 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794395112;
-	b=UM1xnOwqd/1Fk6rszDb1ey1+lCjxESM7d8U6bhREQbnjWZam/z0JtFeRD5PvManccxoy
-	 RizPjX5pjfKWMVGo4+NKY8P2iJ5/+RwdDWg1V0BNBuTiWm+tmWO7Okq3w4yySbV7Or61t
-	 gvc0mo9uFGOqkipKDm9RC/fe3zqmbnzRXgpZv24+fqpKUNrfVHeuOrzAcKaFHgO7YsXGN
-	 YGh6Dyk+cLyWllhxDRLE7jgOAIom9nR3nUn4NPwlpl9+rNehodH3bFaQIAAhmptwjkY9K
-	 OW07j7sFUw0XM6x6z7hEcNni4OIrUKKh5mcuy2V/6toiL1oCCrJymM4YLL24QHFhu+w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794395112;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=aWDnnNx26bu9eNBEE5EhcsojfHfv5oN9+T/oze9PJL4=;
-	b=tJ8LLZfPe1oJzs/RB0D6zY3gBW7niD9stGKfy/2rnYUNXoBQIM1VABrsANktHIF8lMzM
-	 zNREimMZELMMt8JTSLpVVld1sYTUzVu9v8tsvnq4DiyiekNs6WlumYR3evwYzsemJq4Oc
-	 NJgIcaY5GNB9WrIIAodBGC3bj0KT3TReiPrMJ3dCrnIlZkTXxmHCSBheWHQ4UF2ZbcjUr
-	 UQva6bzA7LJ5ImQWh8rS4dQRsNf+19iJ5lTYJK1xeYPAm5jjNcXhAdzRAYW5ZxU9Qgn/7
-	 tv2uOdI3dlzHzkCJrSXqlYEDkL/GmKwXVa+RzwzloUyG+t2waTE96GJPcWJaffH3/AQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=mz7BvnsU;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="EzLuUJ//";
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.41
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794395152;
+	b=m544eZCR/mOmtzp5d855I650tDjo1+91f7v3wZiWl+EWz0TOs22oCQe+DPFaZvfpJgsW
+	 QbBYE4/cd0J4E9a6zM7Sn7rvHPeKpO3y55sfY2WH6A/EL+v/1uwxcN+zx8QT0iFDA3B10
+	 WRKf8GT9KXf+EIkz/a08D/deVRtTp0EkFcgRD/AQ+fweai2oI/67jROvBMAU3oTS5MDHx
+	 VaJkAFEPrK17bqd2/ZcYj2RGtXaOtExl6SV6xCIf6auhaJBbHWADpQWGijdexIe67tCrF
+	 eAE2VOgr+YSSZexGbcRjA0UA1PoSdkOactWckzByGA+JGc35GpQU9YQ9McLR9ptR3Kw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794395152;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Content-Type;
+	bh=1din0TNnBV2KJ8sSuRJVbvK1d3dMFjZgO4N2assoioU=;
+	b=iAIXaQmYKuHakCaCiOVMgTp6XkJee8TsXHsNd02qIg7CGbPex/onP15W8H6lPswlvE5/
+	 LQxv2QuA5SRrCG0HDV9JUwUK1ZuToiYpMDpTKCtSC+lynbcbfxFHk81ENP93qpwduLqp3
+	 vAnle3Q8thhu0hSqK8J2zq60cSFINrWq7bxxgNgDvIOE/CHKYEeNd2LKnK3g4Y3OKe6/0
+	 82sd+HHIwyDTMAPorFt0VwMWqFfL4m30bF6L13pP7p2vQuRI58aIhAlQKoN4Fxk0HGDmM
+	 cSv/x+w6fjWzTTXpTuYAeH3VSyiiC3ptf8os26Tp97DdbF+pOlrjsiREN1/cPWyfdtQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=S9Oe343o;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.41
+Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E37A606A324
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 11:05:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7E37A606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0CD8606A326
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 11:05:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D0CD8606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=mz7BvnsU;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=EzLuUJ//
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AB6ZDN4581304
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 11:05:10 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=aWDnnNx26bu9eNBEE5Ehcsoj
-	fHfv5oN9+T/oze9PJL4=; b=mz7BvnsUk9uvZQBPrlrCP0FY0EpKMK8Fnk/BJHJZ
-	eIoz6x8b3e5HhK20kdOqW2ekkFFf4tIzIIQd5SEedf5uMjSOn1lfN3HMweVk6lH5
-	ntz+LJKj1xA3zC1lWMiPjWdkI7P4ItEVdW191lQ5ipmefuyWEOahTrGjWcSdxLuU
-	6o+wZx4H6jlX5sycKyAHYbwEDsNvpGFbhB0YgljGlpALYPGUt4AeZiDZLjWRE7EO
-	9Vv4M/xETI0XHrHJGE+QWvWV4JiSzyR+bb63NyL/COQ00bTFpK9FUgmvXY0PAZvi
-	blXIaVCaAkAuxykk5ieBxYSJL7zNSqx6hLI4vaa2D1tpzA==
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvk7pryjq-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 11:05:10 +0000 (GMT)
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-3425098ae4bso616412eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 03:05:10 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=S9Oe343o
+Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6b71b012e3cso1857003a12.1
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 03:05:51 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794395150; cv=none;
+        d=google.com; s=arc-20260327;
+        b=QcazxlAOAIUXBHJEZUrCCHxlMHJ+Iie6xP6UKje5IyP6jXlAhqdJKgKX1PrSH6LY8C
+         hMSWpChextzioo1nbwuiuIjLqXvFosSAffraBQLbLB0w0VvAJYiSgI0JiSO6p7YlBU/X
+         6QaGnh5jPVaZNrbftYDN6MJeIIJweE9bXTMqYo7rF7MtgKU9qPE7MMWmJ69kDDRouoGJ
+         ImnAmg2dZSIobFPgGpmGSS3SsxSx4cz2C8h4KHyELI0cnYSS/DJ6ocBpx1pJ5LG4TtPj
+         moTIIoSAj4A1lc/E1CpBcC4V0xIJFA1WltvmULpshKuWXjcXjw1MKjRZb/vFC7o2GoLJ
+         qaHw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=to:subject:message-id:date:from:in-reply-to:references:mime-version
+         :dkim-signature;
+        bh=1din0TNnBV2KJ8sSuRJVbvK1d3dMFjZgO4N2assoioU=;
+        fh=GnQvctoWwtOAmYLmLo9gVhJR63b1qdpAOmvbeNNS1+4=;
+        b=HcOlQT9NsARJsjQkwpsGtGSPU94XiV7EF5jMQOeXHLJ3/iTNpcblE33bLyo0jsOlqI
+         Kjip628A4+tjp4K2yFLG/v190oS/HfJP0wNWwi/oY0zO5WNS4xe2nDiuIFvM3xfmqMoo
+         0DUISBDK4RmXTFi4e4R1rHMYudZfWq/a2r6iRG2Y5tkb/O+8dVRlA3TgY/VuegwLvce7
+         rYlFD0/YQg0Lln21+xsRHfjwp/RKcQqkoQCHzzWBx22QoDsqhqff0+UkLbIlrefq/N0h
+         HT6echvjEnXs7TrtwPT+eCkPXHAx/dzh7jP+SWk3GcRxJhdgalXtfK4o4BCeqFvayzm2
+         Weaw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794395110; x=1794999910; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=aWDnnNx26bu9eNBEE5EhcsojfHfv5oN9+T/oze9PJL4=;
-        b=EzLuUJ//xrWGfwX+3r8k/nxd7OXTopxuBG/mXXyND/7E3CnLEwXXVJ0042K6vTwmiA
-         cZAi8Y6U7C5eTDfduKkzZaA+IemJrrv58lK9Mh3xtpf1bxYsRJc6gU9EnT/WwjPJn0Wt
-         0pkCX30kVPDexZb1VCpIznA5suqMd6AL9A26ECMm85jHamay/XsOVGDjad3c+F/U0F2l
-         9zm/LWmn1cMEybuA6JWpRP+7oiVlTJbHuAIIn660mkyWMAY4HIJHe9eyh+8ztKDNG+le
-         JYbMnYoGMwuolq75QXCU111y3/yR2b3AmDeyuW5HKEDgI2IwVSWYT9AkL1H4R+KF40AS
-         BZbQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794395110; x=1794999910;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20260707; t=1794395150; x=1794999950; darn=vger.kernel.org;
+        h=content-type:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=aWDnnNx26bu9eNBEE5EhcsojfHfv5oN9+T/oze9PJL4=;
-        b=tAWaURx08D7DuuDjiDCx2KMjJyK76AK3kf06GtA7Wl4F2ENi9RkIFH/h8aAjuBXwW7
-         XYSUBD2k4RCb1YMmPNKpvanao712ZESSVNyqR4pkV7UuiFK4YeeCBBKRROFcpCc7mYQF
-         QYoOIitc56fpgHZiIz0QUZzbOs2brsAVmuC5i9YdUuHRtLBXleVlXG9AtuPvyrlGxkvs
-         KHPmSFA7koHAmjo8CnCVmJeHfrfrlVBbASAXiUfyMjVW6PFPyQgP+k2YYB3ul7Bi5tRL
-         e91nEq6zaQUvUrnNyFQan1c1s49zFbpqM6f3+xPpPOJDLOLWU4ulkhfyTWAgRwp+t9xx
-         Ii9g==
-X-Forwarded-Encrypted: i=1; AL+hErHTdtFsqqFEQSyr6/AYzaTzJGvUCfRHCsJ/Y/SdjAeDduPyCV//Xy8mI0I8Qd7DVTEaiYCYHfKW9Hq1x1s=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/Ik89vZQmDLVhMtt8jNY/+69Vy4ay0sSl5oAzBN1MSa3SXl1XW
-	dwzvDA2kScuBD152k64ok9xWAJJ4AzsT9bGj0wMkVysW1w9AT/LcDLI7QcBTajv/EmEVOcWu3h8
-	ndz9jVVpWSo+cKrLRPgBkJwQKG4sLdezkm958e5SmTp7sQiEUuCjVIRnAGIehSAyBS3w=
-X-Gm-Gg: AYBFou1Gy71xjeWZTnBhdGVQVvRhCLnTOhfJBa2IVl2Lcc0278cSgztyLj/0ayRLtEx
-	4hzrFM26xN1ULgtACR1ljoK/dtABOBJrDgHaZ9eNlrcQmpBxcq+yU9pS/l8PiwizLo0eitKqJLI
-	hsm/7CF3n+DteaRIX0ACbUTit+czopevyqOJYWiyrZcqp0H+HUQoLuk1UvGA2JkIIMaeD+U7naN
-	eZ/6EGDPCZtYmJLim526jGKSEjFX8Ueo5LKrG3vYbnnpOdqxKNLLj3OEAzAZAksf1hHRCfzmn/2
-	r8OT5G44oGXO9EONzgCn90UEKaKA6YfTWVJjHDCunT/Ya3lR0cg4uyYUIolfu9/YH+WAxmqKTGa
-	+zGalK1vmbZIIUqFZ6izBy6AfzovYTnnfSqzxMuIs39Z684okQewsMHbNEoG8ZVWAknWmfYnPL+
-	KaM0BikTI=
-X-Received: by 2002:a05:693c:6391:10b0:376:c208:ed7a with SMTP id 5a478bee46e88-376c208ef25mr1678153eec.8.1794395109744;
-        Wed, 11 Nov 2026 03:05:09 -0800 (PST)
-X-Received: by 2002:a05:693c:6391:10b0:376:c208:ed7a with SMTP id 5a478bee46e88-376c208ef25mr1678128eec.8.1794395109019;
-        Wed, 11 Nov 2026 03:05:09 -0800 (PST)
-Received: from hu-vkatoch-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37520608b52sm13502136eec.13.2026.11.11.03.05.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 03:05:08 -0800 (PST)
-Date: Wed, 11 Nov 2026 16:34:56 +0530
-From: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-Cc: "Joerg Roedel (AMD)" <joro@8bytes.org>,
-        Vasant Hegde <vasant.hegde@amd.com>,
-        Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
-        Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-        David Woodhouse <dwmw2@infradead.org>,
-        Lu Baolu <baolu.lu@linux.intel.com>,
-        Jean-Philippe Brucker <jpb@kernel.org>, Rob Herring <robh@kernel.org>,
-        Saravana Kannan <saravanak@kernel.org>,
-        Tomasz Nowicki <tomasz.nowicki@caviumnetworks.com>,
-        Eric Auger <eric.auger@redhat.com>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Joerg Roedel <jroedel@suse.de>,
-        Srinath Mannam <srinath.mannam@broadcom.com>,
-        Oza Pawandeep <quic_poza@quicinc.com>,
-        Lorenzo Pieralisi <lpieralisi@kernel.org>,
-        Bjorn Helgaas <bhelgaas@google.com>,
-        Alex Williamson <alex@shazbot.org>, iommu@lists.linux.dev,
-        linux-kernel@vger.kernel.org, virtualization@lists.linux.dev,
-        devicetree@vger.kernel.org, kvm@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
-        Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org,
-        Vishnu Reddy <busanna.reddy@oss.qualcomm.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-Subject: Re: [PATCH v7 0/5] of_iommu: add support for "iommu-ranges"
-Message-ID: <avRL2AeIXEpA8SE/@hu-vkatoch-hyd.qualcomm.com>
-References: <20261106-add_iommu_ranges-v7-0-5c0f72083e52@oss.qualcomm.com>
+        bh=1din0TNnBV2KJ8sSuRJVbvK1d3dMFjZgO4N2assoioU=;
+        b=S9Oe343oExiTS2KfqhZKo8v9uzSzroybxuYjiW8R/Epw+w2UBG78inWqMxbr9l/twP
+         IDfc5RiZTs0v3oNc30kUYhmeFjo6joVPSdzWo9eDD2E56eKpbXMMggSFIt4pw/Xsh7Mp
+         jg0IQcZK/HSW3c4+/RwSwMF5/WeoGpyQ711u4rm/d46EmrPOT3AVokqdONUfWCXM7cW1
+         q+rx2pezIcC36mdu99xLYU03oreM5hPxRRJ/YkBoL8BKnLgshzid8AdfzXlBPvQ3sQVj
+         k0oTp68pmXdeJAwHt69hJ7KCvAKvvDtOy7E5283OJ7zKW4mHzxvEmTgAq4sQOs1gi8jI
+         HkVA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794395150; x=1794999950;
+        h=content-type:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1din0TNnBV2KJ8sSuRJVbvK1d3dMFjZgO4N2assoioU=;
+        b=rbnh34rApQWwt8zFTOheBl+d6sovVf+A018iOKMn0/IQwz94pN5QPdG+RUBQonVIWw
+         zoXCF+og45Gahxe8lfqsAy5Wj8w9mwtBTrZYQ0pWxP6Pf66Cc70bsVnJ4D4qZsaZYEqK
+         jMuZqiF4ksbyQqooNg7ghlzebvHHS9CRiVyN8FQS0XcmObBwEK0FA0vLyBiX1+mZDt3d
+         JN0nXZVvL1julKoiKAY7X2F3eFGu6+Kl8dkH7yPLWSTWXwMMJCoJmni3GPOScUoSskPe
+         MH3CQ+T3D8SUC7OW8rr+jDuOEeSf7dqdPELzw9y5OQkTErppYK7sy9YDO6iAhUhugQJV
+         rMsQ==
+X-Forwarded-Encrypted: i=1; AL+hErEi41mkCmQ1AHaI+tvRTwAP+Yz94EJ5IColjD2zK0AWLhXgOp8iUGp0ua4mrdlzhq+8hFyEXg9uphnWizE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9sCVKiYFpexsGUwS8I2UCkFvcjmzgGRCJL19xtRZr6hUO9PSdd
+	7jpbuYvnj/zAQOCFanScgyxnQq/Y9aO3kd5FxjnTMbY66JxzZaUFqvoAz/hccAJBQkLw63RD6tF
+	ghwer9PU7Gj8HJmoiFfckm0wkUPMBAKQ=
+X-Gm-Gg: AYBFou3651+zhW8PZzsNXPk5D/BC4oRFl/jKxAYiauy+kkeCdR0qdpXWi1W/0Ar4hNr
+	bQefVL2eB0ts0Z0mYBiGTRpWIwFBpFsrl+SLWn5OG5UIvANTuyzIT4UA038nDHJxYiG1QuQflq6
+	50c0tugHDWsOIVkRJXbgkOzp3jH/hRoMOFFf4WTsZW8guzI/Vf6K9PVAvNmYfpcSdpvz8rYmXOH
+	pVKPDCxfWRmz0yi4t9ZiSXMQ9C+bzoChKRFk8p24Ab7L4uwn/yU7JA6pfaqU1a4+1hWO4smtzws
+	2lrn9owiSpFy6tvZlAOqGVbUjfbnNKVhFHzAYFUwkovfxU9Yvei9gIMmqH6a6OFzmWDg8FHwXoJ
+	CJsedEwSkrM6jtVS9GKTAOD+OguKgxasBwTo=
+X-Received: by 2002:aa7:cd5b:0:b0:6b4:87b8:1348 with SMTP id
+ 4fb4d7f45d1cf-6b77780f23fmr1150131a12.27.1794395149944; Wed, 11 Nov 2026
+ 03:05:49 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -141,100 +103,193 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261106-add_iommu_ranges-v7-0-5c0f72083e52@oss.qualcomm.com>
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDA0NCBTYWx0ZWRfX0Ok6GCn8m/lO
- VEw1MaSW/QqDOZRGOieVTfoblF1D49tTi4V6o10ttUcuH+q954hBSRrSVSLkrfxqSul9+oM+BM4
- qitPGtZpkKLvzHlIQmN5JLCW5W81tRk=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDA0NCBTYWx0ZWRfX01yvJjAwJxQ0
- HzHQ/0o4ahpDN1/DX8APxM83jOJxfHRJcXYS4gCYKA+9oRxo5X6DTSAEBN2Yt6ZMTshOgFaiZXL
- rCVinSDAFVH+xwmQsRcYl+YUymVh36QVlfR0L5jXGgez8UmKlL+XD0k2bFe+ljwRhNE10sJxQa/
- 3YiWcwZBqbCpZOFahl08kOoLm3dXv6oJv3MHmKrfpYzU8ba8WiBuPCn9VxXmvjl64oa7+uHZ+Wi
- IkS2l8nBkPB6RkA16/YHZgXfepzI+dygZy16T1m2USZTpbxBA4yhQqm8Uc3LSd9tCcaTCbeVAZh
- 6GVsTfzt/pAihmZKeEPSuJX03+xGywxmQQla12gqmBiX1HIRXjr36AWs7I4duoq1W6FFpawKvuv
- 6EMPKbq3BSjuAlw9WzkhQjX+K+9YIs42T7akxsPu0f3bagIsjmsP1aj2Uf3Sfn+DjGYKh0oI16U
- An3Lg/ooTp/NoFI58WQ==
-X-Proofpoint-GUID: Uhslubs40G5JTJpkeVx5EnYExanvFGno
-X-Proofpoint-ORIG-GUID: Uhslubs40G5JTJpkeVx5EnYExanvFGno
-X-Authority-Analysis: v=2.4 cv=BpcIUoX5 c=1 sm=1 tr=0 ts=6af44be6 cx=c_pps
- a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=NEAV23lmAAAA:8 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=DzlgiSjgYWYhIfnXaHkA:9
- a=CjuIK1q_8ugA:10 a=6Ab_bkdmUrQuMsNx7PHu:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-11_02,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 clxscore=1015 spamscore=0 lowpriorityscore=0 adultscore=0
- priorityscore=1501 phishscore=0 malwarescore=0 suspectscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611110044
+References: <20261110061429.2036-1-linux.amoon@gmail.com> <20261110061429.2036-2-linux.amoon@gmail.com>
+ <avOL1mCkI4YSaDeO@aurel32.net> <DMRZGMGRLD4S.KT6VEU28902E@linux.spacemit.com> <avQ1kVTvdCmS1MxN@aurel32.net>
+In-Reply-To: <avQ1kVTvdCmS1MxN@aurel32.net>
+From: Anand Moon <linux.amoon@gmail.com>
+Date: Wed, 11 Nov 2026 16:35:27 +0530
+X-Gm-Features: AclHuK9H8LcNFBf6OiW50_NDYDV5SRfOSw_9EFpDafFKu57Cw77PmBIsH4iiL2Y
+Message-ID: <CANAwSgQgtEvgEfkBMC6meDzT4O28oEX-R16STeiUnP77UOQe_Q@mail.gmail.com>
+Subject: Re: [PATCH v1 2/2] power: reset: spacemit-p1: Use atomic I2C
+ transfers for power-off and restart
+To: Troy Mitchell <troy.mitchell@linux.spacemit.com>, Anand Moon <linux.amoon@gmail.com>, 
+	Andi Shyti <andi.shyti@kernel.org>, Sebastian Reichel <sre@kernel.org>, Yixun Lan <dlan@kernel.org>, 
+	"open list:I2C SUBSYSTEM HOST DRIVERS" <linux-i2c@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>, 
+	"open list:SYSTEM RESET/SHUTDOWN DRIVERS" <linux-pm@vger.kernel.org>, 
+	"open list:RISC-V SPACEMIT SoC Support" <linux-riscv@lists.infradead.org>, 
+	"open list:RISC-V SPACEMIT SoC Support" <spacemit@lists.linux.dev>
+Content-Type: text/plain; charset="UTF-8"
 
-On Fri, Nov 06, 2026 at 10:44:23PM +0530, Vikash Garodia wrote:
-> The series adds support for recently introduced property 
-> "iommu-ranges". It adds the required checks to error out for cases 
-> which are not following the schema definition.
-> 
-> Iommu-ranges was defined in schema with this PR
-> https://github.com/devicetree-org/dt-schema/pull/207
-> 
-> The patch series is being posted as revision v6, since the patches 
-> were initially part of the media series [1]. The patches are moved out 
-> to get review comments from iommu reviewers, which was otherwise looking 
-> as a media series. Happy to move this back to media series if anyone have 
-> any concerns. 
-> [1] 
-> https://lore.kernel.org/linux-media/20260926-vpu_iommu_iova_handling-v5-0-0322ca5dc10c@oss.qualcomm.com/
-> 
-> Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-> ---
-> Changes in v7:
-> - Move the "iommu-addresses" behaviour change ("reg" required, non-direct
->   mappings rejected) into its own patch before the iommu-ranges patch (Bryan)
-> - Make OF_IOMMU depend on OF_ADDRESS and drop the #if guards (Rob)
-> - Use resource_size_t for the size in vfio_find_dma() (Sashiko)
-> - End the derived trailing reserved region at PHYS_ADDR_MAX - 1 to avoid
->   overflow (Sashiko)
-> - Add a dma-iommu fix to protect the IOVA rbtree anchor on 32-bit with
->   64-bit dma_addr_t (Sashiko)
-> - Use the "iommu/of:" prefix and fix the subject case
-> - Link to v6: https://lore.kernel.org/r/20261103-add_iommu_ranges-v6-0-361f3921a133@oss.qualcomm.com
-> 
-> Changes in v6:
-> - Addressed sashiko comments.
-> - Addressed comment from Bryan.
-> - Link to v5: https://lore.kernel.org/all/20260926-vpu_iommu_iova_handling-v5-4-0322ca5dc10c@oss.qualcomm.com/
-> 
-> ---
-> Vikash Garodia (5):
->       iommu/dma: Keep reserved regions below the IOVA rbtree anchor
->       iommu: Use resource_size_t for reserved region length
->       iommu/of: Make OF_IOMMU depend on OF_ADDRESS
->       iommu/of: Require reg for iommu-addresses
->       iommu/of: Add support for "iommu-ranges" on a device node
-> 
->  drivers/iommu/Kconfig           |   2 +-
->  drivers/iommu/amd/iommu.c       |   2 +-
->  drivers/iommu/dma-iommu.c       |  32 +++++----
->  drivers/iommu/intel/iommu.c     |   2 +-
->  drivers/iommu/iommu.c           |   2 +-
->  drivers/iommu/of_iommu.c        | 147 ++++++++++++++++++++++++++++++++++------
->  drivers/iommu/virtio-iommu.c    |   2 +-
->  drivers/of/address.c            |   2 +-
->  drivers/vfio/vfio_iommu_type1.c |   2 +-
->  include/linux/iommu.h           |   4 +-
->  include/linux/of_address.h      |   2 +-
->  11 files changed, 155 insertions(+), 44 deletions(-)
-> ---
-> base-commit: 2637bdec0535a2044cd830eba9a79363651d9043
-> change-id: 20261103-add_iommu_ranges-549cf3fb0867
-> 
-> Best regards,
-> -- 
-> Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-> 
-FYI, we need this series too, for the extended mapping support [1] in
-the fastrpc driver. I'll be posting a new version of that series soon.
-[1] https://lore.kernel.org/all/20261007-extended-mapping-v2-0-5dca3aa2c2d3@oss.qualcomm.com/
+Hi Troy. Aurelien,
+
+Thanks for your review comments.
+
+On Wed, 11 Nov 2026 at 14:59, Aurelien Jarno <aurelien@aurel32.net> wrote:
+>
+> Hi Troy,
+>
+> On 2026-11-11 01:16, Troy Mitchell wrote:
+> > Hi Aurelien,
+> >
+> > On Tue Nov 10, 2026 at 9:25 PM GMT, Aurelien Jarno wrote:
+> > > Hi Anand,
+> > >
+> > > On 2026-11-10 11:44, Anand Moon wrote:
+> > >> The SpacemiT P1 power-off and restart handlers use regmap_set_bits()
+> > >> to access the PMIC. However, these handlers run in an atomic notifier
+> > >> context (specifically within an rcu_read_lock() critical section), while
+> > >> the I2C-backed regmap uses a sleepable mutex.
+> > >>
+> > >> This triggers a "WARNING: suspicious RCU usage" warning due to an illegal
+> > >> context switch in the RCU read-side critical section during shutdown on the
+> > >> Banana Pi BPI-F3:
+> > >>
+> > >> [  563.803475] WARNING: suspicious RCU usage
+> > >> [  563.807813] 7.3.1-ARCH-RISC-V #1 Not tainted
+> > >> [  563.816614] ./include/linux/rcupdate.h:387 Illegal context switch in RCU read-side critical section!
+> > >> ...
+> > >> [  563.841445] locks held by shutdown/1: 2, last CPU#0:
+> > >> [  563.846694]  #0: ffffffff8404fb20 (system_transition_mutex){+.+.}-{4:4}, at: __do_sys_reboot+0x230/0x29e
+> > >> [  563.856806]  #1: ffffffff84167860 (rcu_read_lock){....}-{1:3}, at: atomic_notifier_call_chain+0x4a/0x1c2
+> > >>
+> > >> Replace the regmap operations with atomic I2C transfers to avoid sleeping
+> > >> in an atomic context. Preserve unrelated register bits through
+> > >> read-modify-write operations and check for atomic I2C support before
+> > >> registering the handlers.
+> > >>
+> > >> Obtain the I2C client from the parent device and verify that the adapter
+> > >> supports atomic transfers before registering the handlers.
+> > >>
+> > >> Tested on the Banana Pi BPI-F3 (SpacemiT K1).
+> > >
+> > > While the patch looks correct, I am not sure this is the correct
+> > > approach, as opposed to the one proposed by Troy [1].
+> > >
+> > > Indeed bypassing regmap and using i2c atomic transfers needs to be done
+> > > by all affected drivers. For instance the VisionFive 2 board, which use
+> > > an axp15060 PMIC is also affected by this issue. And the corresponding
+> > > driver is shared between architectures, which make this kind of change
+> > > more difficult.
+> > >
+> > > For the BPI-F3, note that with OpenSBI 1.9, the reboot is handled
+> > > through the SBI SRST extension, preventing this issue to happen. On the
+> > > long term, I am not sure we should keep this driver.
+> > >
+> > That only covers restart. The SBI restart handler is registered at
+> > priority 192 and runs before the P1 one at SYS_OFF_PRIO_DEFAULT. Power
+> > off is the other way around: sbi_srst_power_off() goes through
+> > register_platform_power_off(), i.e. SYS_OFF_PRIO_PLATFORM, so the P1
+> > power-off handler still runs first and still hits this on shutdown,
+> > even with OpenSBI 1.9.
+> >
+
+I had previously tested the OpenSBI P1 PMIC driver in a Yocto-based environment:
+
+[1] https://lore.kernel.org/all/20260419150857.2705843-3-aurelien@aurel32.net/
+
+With this driver registered in OpenSBI, Linux can delegate reboot and power-off
+operations to firmware through the SBI SRST extension.
+
+The power-off sequence is:
+    Linux kernel_power_off()
+      -> RISC-V machine power-off
+      -> SBI SRST shutdown
+      -> OpenSBI system_reset()
+      -> SpacemiT P1 PMIC
+      -> Power off
+
+I have now rebuilt the Linux kernel with:
+
+ # CONFIG_POWER_RESET_SPACEMIT_P1 is not set
+
+Both reboot and power-off work correctly on the Banana Pi BPI-F3,
+and I have not observed any issues.
+
+alarm@k1:~$ sudo poweroff
+
+Broadcast message from root@k1 on pts/1 (Wed 2026-11-11 10:34:03 UTC):
+
+The system will power off now!
+
+[ 1744.735287] systemd-shutdown[1]: Sending SIGTERM to remaining processes...
+[ 1745.071304] systemd-journald[245]: Received SIGTERM from PID 1
+(systemd-shutdow).
+[ 1745.504595] systemd-shutdown[1]: Sending SIGKILL to remaining processes...
+[ 1745.790159] systemd-shutdown[1]: Unmounting file systems.
+[ 1745.822902] (sd-umount)[658]: Unmounting
+'/run/credentials/systemd-journald.service'.
+[ 1745.861214] (sd-remount)[659]: Remounting '/' read-only with options ''.
+[ 1746.079291] EXT4-fs (mmcblk1p7): re-mounted
+ccb95ca0-2804-4ade-938f-23116f90c193 ro.
+[ 1746.272104] systemd-shutdown[1]: All filesystems unmounted.
+[ 1746.272471] systemd-shutdown[1]: Deactivating swaps.
+[ 1746.273712] systemd-shutdown[1]: All swaps deactivated.
+[ 1746.273956] systemd-shutdown[1]: Detaching loop devices.
+[ 1746.464867] systemd-shutdown[1]: All loop devices detached.
+[ 1746.465346] systemd-shutdown[1]: Stopping MD devices.
+[ 1746.471149] systemd-shutdown[1]: All MD devices stopped.
+[ 1746.471417] systemd-shutdown[1]: Detaching DM devices.
+[ 1746.476047] systemd-shutdown[1]: All DM devices detached.
+[ 1746.476377] systemd-shutdown[1]: All filesystems, swaps, loop
+devices, MD devices and DM devices detached.
+[ 1746.533569] systemd-shutdown[1]: Successfully changed into root pivot.
+[ 1746.533862] systemd-shutdown[1]: Entering exitrd...
+[ 1746.686127] shutdown[1]: Syncing filesystems and block devices.
+[ 1746.701832] shutdown[1]: Sending SIGTERM to remaining processes...
+[ 1746.934370] shutdown[1]: Sending SIGKILL to remaining processes...
+[ 1747.164219] shutdown[1]: Unmounting file systems.
+[ 1747.203935] (sd-umoun[662]: Unmounting '/run/credentials'.
+[ 1747.232643] (sd-umoun[663]: Unmounting '/oldroot/sys/kernel/config'.
+[ 1747.269882] (sd-umoun[664]: Unmounting '/oldroot/sys/kernel/tracing'.
+[ 1747.298218] (sd-umoun[665]: Unmounting '/oldroot/sys/kernel/debug'.
+[ 1747.327488] (sd-umoun[666]: Unmounting '/oldroot/dev/hugepages'.
+[ 1747.359053] (sd-umoun[667]: Unmounting '/oldroot/dev/mqueue'.
+[ 1747.387798] (sd-umoun[668]: Unmounting '/oldroot/run'.
+[ 1747.425939] (sd-umoun[669]: Unmounting '/oldroot/proc'.
+[ 1747.473927] (sd-umoun[670]: Unmounting '/oldroot/sys/fs/bpf'.
+[ 1747.527910] (sd-umoun[671]: Unmounting '/oldroot/sys/fs/pstore'.
+[ 1747.588367] (sd-umoun[672]: Unmounting '/oldroot/sys/fs/cgroup'.
+[ 1747.630489] (sd-umoun[673]: Unmounting '/oldroot/sys/kernel/security'.
+[ 1747.664244] (sd-umoun[674]: Unmounting '/oldroot/sys'.
+[ 1747.704716] (sd-umoun[675]: Unmounting '/oldroot/dev/pts'.
+[ 1747.755218] (sd-umoun[676]: Unmounting '/oldroot/dev/shm'.
+[ 1747.791652] (sd-umoun[677]: Unmounting '/oldroot/dev'.
+[ 1747.826501] (sd-umoun[678]: Unmounting '/oldroot'.
+[ 1748.451336] EXT4-fs (mmcblk1p7): unmounting filesystem
+ccb95ca0-2804-4ade-938f-23116f90c193.
+[ 1748.643359] shutdown[1]: All filesystems unmounted.
+[ 1748.643640] shutdown[1]: Deactivating swaps.
+[ 1748.644512] shutdown[1]: All swaps deactivated.
+[ 1748.644722] shutdown[1]: Detaching loop devices.
+[ 1748.732490] shutdown[1]: All loop devices detached.
+[ 1748.732764] shutdown[1]: Stopping MD devices.
+[ 1748.754002] shutdown[1]: All MD devices stopped.
+[ 1748.754286] shutdown[1]: Detaching DM devices.
+[ 1748.759617] shutdown[1]: All DM devices detached.
+[ 1748.759885] shutdown[1]: All filesystems, swaps, loop devices, MD
+devices and DM devices detached.
+[ 1748.770510] shutdown[1]: Syncing filesystems and block devices.
+[ 1748.791699] shutdown[1]: Powering off.
+[ 1749.009246] reboot: Power down
+
+Given that OpenSBI already handles both operations,
+I agree that the Linux P1 power-off and reset driver may no longer be necessary,
+at least on systems using firmware with the appropriate SBI SRST support.
+
+> > So until this driver goes away, BPI-F3 still needs the arch fix [1]
+> > for power-off.
+> >
+> > Link: https://lore.kernel.org/linux-riscv/20261104-v7-0-rc1-rv-dis-int-before-restart-v5-1-956ec09c900d@linux.dev/ [1]
+>
+> We also need a more global fix for the other boards like the VisionFive
+> 2, so definitely we need the above fix instead of patching the drivers.
+>
+Maybe we need an opensbi driver for VisionFive 2 dev boards; any thoughts
+> Aurelien
+>
+> --
+> Aurelien Jarno                          GPG: 4096R/1DDD8C9B
+> aurelien@aurel32.net                     http://aurel32.net
+
+Thanks
+-Anand
