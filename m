@@ -1,67 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794402719;
-	b=KUSTEjiv+dO7zNTknCfkFw+a65Mbn040TsqnjaANhVYP8KB/HurLS525J4YBljDS4RjF
-	 MWvSrLAH9nTaelymTsaET4MLb7HIbJlUJB3K/pJ/4XIkec7c50u7aihf5yETdMTEjEg9H
-	 5w8T7BxAH1rUrn1d8SH4JvRluOwZLK3kmtGFK+nmmVy1YOLx24LBs4XV9ET0lPl3dcrRi
-	 Q1hHt2m+CXF773Zfh47mPb0Lx13b7Y8Dt7kCvusXhCOfnJPcXQ3bLNQePtaozwDT9WG4Q
-	 Iw4t9xKkaK/DX4zQERwE2NjKSN4yh3U0gC/F05RTNfYG86Db/7MoNqcZFz6vjBmpM6Q==
+	t=1794402735;
+	b=sntoKECroh/Z0cgbXGhob33uCkkXuBPXHljJW6qZzO+UScxaT1UHEfLmuT4hpCIKM8vg
+	 wVs0UFYH5NhDekXVmN3jvypgefj86u0jkR8fG+fB8tJNRH+yKUljWhcXpVOmCkTiplGhC
+	 PFHnDMe5n8CweUUFZ0VgHWuSMbpNmhl4HlRgqMt+NPt0K9q+XUgK2c08mnQhz0xfUheRz
+	 /WTndGMKPF5JSqnqqGrjD5NDn0z0ThxLBmixEuAqc8t4JhyDekngwFjPibDkSf4duQYlJ
+	 QTeDgWIziPdYDYQ47iHNTxaRFJsN6AT6xt4WfeeDuikXg26LfAigcB2oVOO5sj2eUTQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794402719;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=OvNwj1NR6c0Jt8mRPTGwZj5b5ZhFzIrphoc1MFIW61E=;
-	b=4fhIgi0z+nCCPrElkXCBUoHa6T9WNdRYIg6X50g5xsqvlY4jtLjazXPDflK5kgX8OO07
-	 L762CQWBCIjVHgfW/DY/+cY+8pxPWUqrY1222/mKUhQV6CcyJdwJBmssOe+RozVVntOqz
-	 qzzOpJTXFdrpx4c/f/XEBVocFqasUnKf3z7wr8Y8NIC4pvi8fENp1YJvCgxr1HHiFRwY5
-	 jd8uoQMZmYd97FhTnN8RldpnEqwOCCuc+Wdge8v3aLF8uPW8+baHAZMST6hSbqHAMCvQd
-	 X+yPvn9br8Hwmp57l0m+TtYglh/48jJ8oTWmdLxWwd4o9iGdvMpYG+N4E5nTmoiT0cQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794402735;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=Xirn7Dc5oy647ZCJttt6/JzcrWgzS0z+CjkgHSeTgmY=;
+	b=mniWmYpV1iRBMXyGveSaYLv9/SYylJcYZ4aTr2fnJMrjDF+MXQmPeIV8e9FxJ/k9+mex
+	 ehKHQWX2+CiOKrR9CGX3D/iwQkhkBiLWYkTGkK1+gEceMoEduH5/HIFtwJXrPhM44jbCV
+	 4/rSGkf8pLtQgfzKy+tBfy4+wLi9CLozQFN8OYlgGmCkl7QNaeDhjMZVpv5MKY5VQgGlY
+	 m1rpwuvqTUUEexRMMEQU1az+HjcT8d8E9SlDxt36thJT368cyUeOa0+N6HfwbSrs4sQrV
+	 29JrswZdvjGwvlCER4ihsZJLWku85ge0w5kzdlnI2oan/4cry6K2f+Z3qLcvzui0O1A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=KhvsWjcM;
-	arc=none smtp.remote-ip=90.155.50.34
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QPgnEKcE;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F40B4606A33C
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:11:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F40B4606A33C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4508606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:12:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=KhvsWjcM
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=OvNwj1NR6c0Jt8mRPTGwZj5b5ZhFzIrphoc1MFIW61E=; b=KhvsWjcMK6m5OKYhzuvW5VxmJ8
-	JC7TRKDeLBxXGRt0RcwxPoqHkG/bp42TO75GuIJhrFK4PP9JRiygdiAXQtWHsE5ZoD0h2ifJ23sij
-	DIXqA90BoZHK8OsBQlymSNP6Oj5FFrUsXrfAUXqvslB0kXhSexvELM7SuwSwFMFqWjFoDS6AFCXg4
-	Dpisu8GLuP+kn25tGCFdWz4xsG/IeU4qmO/rsc7it2V2J7iG4XOWh1+Hx+5YEpm5DETALkRevJIfD
-	4O8/kZvQxnG55YdEbIH62y1uLEnQZrDA3tOFdFLkgZk7J9rgEWCA4J2B2wsVK/ElyWk0oS3x/Y3oj
-	mwtOSCBA==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xR87F-0000000A7cb-17QU;
-	Wed, 11 Nov 2026 13:11:53 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id C4EBF300969; Wed, 11 Nov 2026 14:11:52 +0100 (CET)
-Date: Wed, 11 Nov 2026 14:11:52 +0100
-From: Peter Zijlstra <peterz@infradead.org>
-To: Tejun Heo <tj@kernel.org>
-Cc: mingo@kernel.org, juri.lelli@redhat.com, vincent.guittot@linaro.org,
-	dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com,
-	mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com,
-	linux-kernel@vger.kernel.org, ziqianlu@bytedance.com
-Subject: Re: [PATCH v2 12/12] sched: Remove sched_class::balance()
-Message-ID: <20261111131152.GD2669272@noisy.programming.kicks-ass.net>
-References: <20261107115913.261163891@infradead.org>
- <20261107120208.153536827@infradead.org>
- <a98c40701cc874318e7fe475d90795c6@kernel.org>
- <20261111130512.GO2668200@noisy.programming.kicks-ass.net>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QPgnEKcE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4BC91F00A05;
+	Wed, 11 Nov 2026 13:12:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794402734;
+	bh=Xirn7Dc5oy647ZCJttt6/JzcrWgzS0z+CjkgHSeTgmY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=QPgnEKcEXcLAKi338Wys6RJD3/FYKNJ5CVrsbIAIhTXiYT33NsN2ikRZnDIQQ4svP
+	 l6Y4jnx2K+CzoYu1sSMeRd61PP0Si4EjMneociGmxStIgRH5G3FAZSZkSqT+KMgdYO
+	 yonn5y+0Bb34WiujcwmlpVszPm/t0E5s9d1B6erVXKjNVQZRIz78pAyI/ZguiFBSxv
+	 uEQVBZ6NTQRvAijUBWfST3on2FhgEDUQL8Lj1rwUMrxwRQsNFlPC8XweeVrklaVBhe
+	 HtDqEmKG2Nxi/LtZr/zzr0Tds5KMqAjl+y45p5rs2r9bausaqoTS+APpOEXacPgXhN
+	 l8YP5Le1qx/Kg==
+Date: Wed, 11 Nov 2026 13:12:06 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: Shivank Garg <shivankg@amd.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Ankur Arora <ankur.a.arora@oracle.com>, 
+	Pedro Falcato <pfalcato@suse.de>, Borislav Petkov <bp@alien8.de>, Bharata B Rao <bharata@amd.com>, 
+	Hrushikesh Salunke <hsalunke@amd.com>, K Prateek Nayak <kprateek.nayak@amd.com>, x86@kernel.org, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] mm/memory: drop PROCESS_PAGES_NON_PREEMPT_BATCH
+Message-ID: <avRnJiDLdGcbSW5d@gremlin>
+References: <20261109-clear-pages-batch-v3-1-6693efe18dff@amd.com>
+ <20261111124006.GI2668564@noisy.programming.kicks-ass.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,145 +65,18 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261111130512.GO2668200@noisy.programming.kicks-ass.net>
+In-Reply-To: <20261111124006.GI2668564@noisy.programming.kicks-ass.net>
 
-On Wed, Nov 11, 2026 at 02:05:12PM +0100, Peter Zijlstra wrote:
-> On Wed, Nov 11, 2026 at 01:18:42AM -1000, Tejun Heo wrote:
-> > Hello,
-> > 
-> > On Sat, Nov 07, 2026 at 12:59:25PM +0100, Peter Zijlstra wrote:
-> > >  static struct task_struct *pick_task_rt(struct rq *rq, struct rq_flags *rf)
-> > >  {
-> > > -	struct task_struct *p;
-> > > +	rq_modified_begin(rq, &rt_sched_class);
-> > > +	balance_rt(rq, rf);
-> > > +	if (rq_modified_above(rq, &rt_sched_class))
-> > > +		return RETRY_TASK;
-> > 
-> > This exposes an underlying problem on the DL side. rq->next_class is
-> > raised only by wakeup_preempt(), but dl_server_start(), dl_task_timer()
-> > and dl_server_timer() enqueue a DL entity and open-code resched_curr()
-> > without going through it. prev_balance() ran before any class was
-> > picked, so it didn't matter. Now, pick_task_dl() has already returned
-> > NULL when balance_rt() drops the lock, and rq_modified_above() is the
-> > only thing which can notice a DL entity queued in the meantime:
-> > 
-> >   CPU0 RT task blocks, pick_task_dl() returns NULL
-> >        pick_task_rt(), balance_rt() drops the rq lock
-> >   CPU1 wakes a fair task onto CPU0, dl_server_start()
-> >   CPU0 relocks, rq_modified_above() is false
-> >        picks an RT task with the fair server queued
-> 
-> A very nice catch, but I'm not entirely convinced it wasn't a problem
-> before.
-> 
-> Similar argument could be made for FAIR vs EXT, and picking a FAIR task
-> while an EXT server is pickable.
-> 
-> > resched_curr() doesn't help as __schedule() clears it on prev after the
-> > pick. I can trigger this with NO_RT_PUSH_IPI and a delay added in the
-> > lock drop. With RT_PUSH_IPI, pull_rt_task() doesn't drop the lock.
-> > 
-> > Maybe the DL sites should raise rq->next_class where they enqueue and
-> > resched, so that they behave the same as regular wakeups?
-> 
-> Yes, something like that. I think the below captures all enqueues,
-> irrespective of rescheds. I'll add it as fix at the start of the series.
-> 
-> (although maybe I'll massage this a little more and create a helper,
-> doing the same thing over and over like this is daft)
-> 
-> Thanks!
+On Wed, Nov 11, 2026 at 01:40:06PM +0100, Peter Zijlstra wrote:
+> FWIW one could do:
+>
+> 	for (int i = 0; i < nr_pages; i++) {
+>
+> and forgo the earlier variable declaration.
 
----
---- a/kernel/sched/deadline.c
-+++ b/kernel/sched/deadline.c
-@@ -715,8 +715,7 @@ static struct rq *dl_task_offline_migrat
- 	return later_rq;
- }
- 
--static void
--enqueue_dl_entity(struct sched_dl_entity *dl_se, int flags);
-+static void enqueue_dl_entity(struct rq *rq, struct sched_dl_entity *dl_se, int flags);
- static void enqueue_task_dl(struct rq *rq, struct task_struct *p, int flags);
- static void dequeue_dl_entity(struct sched_dl_entity *dl_se, int flags);
- static void wakeup_preempt_dl(struct rq *rq, struct task_struct *p, int flags);
-@@ -1184,7 +1183,7 @@ static enum hrtimer_restart dl_server_ti
- 			dl_se->dl_defer_running = 1;
- 		}
- 
--		enqueue_dl_entity(dl_se, ENQUEUE_REPLENISH);
-+		enqueue_dl_entity(rq, dl_se, ENQUEUE_REPLENISH);
- 
- 		if (!dl_task(dl_se->rq->curr) || dl_entity_preempt(dl_se, &dl_se->rq->curr->dl))
- 			resched_curr(rq);
-@@ -1520,7 +1519,7 @@ static void update_curr_dl_se(struct rq
- 					replenish_dl_new_period(dl_se, rq);
- 					start_dl_timer(dl_se);
- 				} else {
--					enqueue_dl_entity(dl_se, ENQUEUE_REPLENISH);
-+					enqueue_dl_entity(rq, dl_se, ENQUEUE_REPLENISH);
- 				}
- 			} else {
- 				enqueue_task_dl(rq, dl_task_of(dl_se), ENQUEUE_REPLENISH);
-@@ -1812,7 +1811,7 @@ void dl_server_start(struct sched_dl_ent
- 
- 	trace_sched_dl_server_start_tp(dl_se, cpu_of(rq), dl_get_type(dl_se, rq));
- 	dl_se->dl_server_active = 1;
--	enqueue_dl_entity(dl_se, ENQUEUE_WAKEUP);
-+	enqueue_dl_entity(rq, dl_se, ENQUEUE_WAKEUP);
- 	if (!dl_task(dl_se->rq->curr) || dl_entity_preempt(dl_se, &rq->curr->dl))
- 		resched_curr(dl_se->rq);
- }
-@@ -2379,8 +2378,8 @@ static void __dequeue_dl_entity(struct s
- 	dec_dl_tasks(dl_se, dl_rq);
- }
- 
--static void
--enqueue_dl_entity(struct sched_dl_entity *dl_se, int flags)
-+static bool
-+_enqueue_dl_entity(struct sched_dl_entity *dl_se, int flags)
- {
- 	WARN_ON_ONCE(on_dl_rq(dl_se));
- 
-@@ -2418,7 +2417,7 @@ enqueue_dl_entity(struct sched_dl_entity
- 		if (flags & ENQUEUE_WAKEUP)
- 			task_contending(dl_se, flags);
- 
--		return;
-+		return false;
- 	}
- 
- 	/*
-@@ -2442,7 +2441,7 @@ enqueue_dl_entity(struct sched_dl_entity
- 	 * deferred task and still got to wait, don't enqueue.
- 	 */
- 	if (dl_se->dl_throttled && start_dl_timer(dl_se))
--		return;
-+		return false;
- 
- 	/*
- 	 * We're about to enqueue, make sure we're not ->dl_throttled!
-@@ -2457,6 +2456,13 @@ enqueue_dl_entity(struct sched_dl_entity
- 	}
- 
- 	__enqueue_dl_entity(dl_se);
-+	return true;
-+}
-+
-+static void enqueue_dl_entity(struct rq *rq, struct sched_dl_entity *dl_se, int flags)
-+{
-+	if (_enqueue_dl_entity(dl_se, flags))
-+		rq->next_class = &dl_sched_class;
- }
- 
- static void dequeue_dl_entity(struct sched_dl_entity *dl_se, int flags)
-@@ -2534,7 +2540,7 @@ static void enqueue_task_dl(struct rq *r
- 	if (task_on_rq_migrating(p))
- 		flags |= ENQUEUE_MIGRATING;
- 
--	enqueue_dl_entity(dl_se, flags);
-+	enqueue_dl_entity(rq, dl_se, flags);
- 
- 	if (dl_server(dl_se))
- 		return;
+I guess we all got used to the existing patterns and I for one only
+recently found out (doh) that this was legal in kernel style (because I saw
+it used in KVM)...
+
+--
+Cheers, Lorenzo
