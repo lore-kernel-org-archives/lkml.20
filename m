@@ -1,68 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794399936;
-	b=RA1W6iY37SuJvFOaqqBXWRWmRADlO7tIGM5KmCKvrrgy6BeF5gTJA4dcKzbm0iZMSqIH
-	 Gq7oFXj0Vzo64xw92Gpq3F7tZ4Bjyn6CNb3utN6ld4fYY/MOCoXPO1f2b2fK9+FPYhs1U
-	 ShE72UgblJEpV5J6xoykAHJKZRceG8n07kr4RNjKbxm95QMNdtoH1A9G5UjDeUK9w9rXX
-	 Z47sAUAomtokcsu8nn64377DU3fw87Af0JfM4hxqf7HVavqyOdXnY3MtDsWpXCLmT1mor
-	 pzMb/lZu+g8+itC1gAGpUw3+c01zahhXwASEby+jgZGWO6ulNYOUALcgM1uIVY1Kd4Q==
+	t=1794399959;
+	b=vvSx0DRmR+n9C9mI9uCl/ow+hmOh+lCV/gonAvKw2L+8E/XCMqu3LavQl7GyiXK0YRhV
+	 IJXJ4iaqqYtTTjA2+UXXl56y+l5gA14/e95dA7aUId8eTjGOuzkqDzV4oVt2Exm6kw93l
+	 01Oasi//Ah+5McB57W8MTLSvJWoVfSg/u/xKXMNTfGSVx+21FP5P6ijl6nM193CeuRaxr
+	 JImdUSHsKVXaahEnEhi8YTZfqWv2qb2Hzk3AWyD2sZT+UA+8qjuhkivwVvAIJIJUr1Ml2
+	 Zi8jhM3+lNOJmvPfySLrNkPNfuDMGR7lF7GsLdoj4J5NwpxZCnpsAU1woVgaARlSosA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794399936;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=p79kXd0X+zHSh937Czz/lUXTjQQnAOAOUb3K0wIS5yo=;
-	b=du6v+CqCyZ/ERlBspYBAeTQT2iCS3YCXiOGhkLl6GF+QBbq2ntpN2yVwRgOeY/9Z0RXC
-	 8s1/kNHKtlm4KDT/3iZulvdFpqN+HiPRnbUGcfc78kqTxycwP58NKiukNDAioxq5Kl1NY
-	 2D8spHMFUtjgJmnU6YH1nwfJXkRm2P+KuILl9ja+76V6MUQWHkM5muZDwDFhNVgb4yZCS
-	 WhhaqoI1MjfG8JSzsudEHqnrPaV8+tEFHmAMNhnh8JqdSR07nSi8ZaQ6SACkZZ6bpuX6m
-	 ylRdoKl/rcb1XKbHGl78QME3AA1pmN5sgytPVRbm3d5ArvylR8pFu7Fv11P+AM4I9Sg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794399959;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=v6qCUK/k525EVdn9LPhwOUX31G8ImRO+TNKVLJQDtUk=;
+	b=1/K/mwebgJVkB1QEB/nap6X6HKg9sMGLG34S7ueJvLaqylx1snRrv3AdBsOTOABCLWpR
+	 0bcEhLalm4Oxj1bByqycqN/GQmsoEhr/v49z/TAm5suUkc3Y1gnQVc7ugbsINdon6ZJo6
+	 F6niO+JYrGU8LB8jclixtazrIj9RI+svkexLbaMdgoPJmLakhcuApB0fbKmMg9DPwOAyy
+	 SWGIjsq8SnfeblZ7l6YcQoSMp4NPK5MRZSX3W3AGZoMsFTmSKRKOHYNJIlNiaLfia13aI
+	 v6ZnQFQrLmkb+MkI/nJlAFFGGw7tl6uOimGiyyiDFYLoqMNiZo9HIugB4IJdC0luywQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=WW9Lc5OC;
-	arc=none smtp.remote-ip=90.155.50.34
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=D6tEMsDu;
+	arc=none smtp.remote-ip=209.85.128.174
+Received: from mail-yw1-f174.google.com (mail-yw1-f174.google.com [209.85.128.174])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0330606A321
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 12:25:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0330606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83E5E606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 12:25:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83E5E606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=WW9Lc5OC
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=p79kXd0X+zHSh937Czz/lUXTjQQnAOAOUb3K0wIS5yo=; b=WW9Lc5OCkxPZccFCDA31tt29gp
-	SpRZdKoBmkpX/rGtcTiBDEKdIYxus8zYX/Ed52V6l1EVHiFOu6o3EM8XsRCBBy75a86PXnIyAnaob
-	7ABodDj/uRQtrJrBiRUBFfwbnS+yjH3PcadzjswmgGmfX274/UQ2OXu2RUL3D6f+e2KUART0zVNDA
-	Z/ouTRolX+qel75JjAbNdZr1MKpw3ilYWERVq8GNYSAH0NT8xhB+AK7bqxr+WuADFA9wrZB9K3EZp
-	mbsfLIyhAV5H5lItwDJp6DffDzC6pdr95OiKFyxJ8KbcCzbHfxHL9C76yCiz7rsH/hGyeNwRx9iO1
-	2SrOBMjA==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xR7OH-00000009eyG-1Nmd;
-	Wed, 11 Nov 2026 12:25:26 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 43636300969; Wed, 11 Nov 2026 13:25:24 +0100 (CET)
-Date: Wed, 11 Nov 2026 13:25:24 +0100
-From: Peter Zijlstra <peterz@infradead.org>
-To: Tejun Heo <tj@kernel.org>
-Cc: mingo@kernel.org, juri.lelli@redhat.com, vincent.guittot@linaro.org,
-	dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com,
-	mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com,
-	linux-kernel@vger.kernel.org, ziqianlu@bytedance.com
-Subject: Re: [PATCH v2 04/12] sched/core: Make __update_rq_clock() skip
- updates on UPDATED
-Message-ID: <20261111122524.GC2669272@noisy.programming.kicks-ass.net>
-References: <20261107115913.261163891@infradead.org>
- <20261107120207.126979364@infradead.org>
- <3ac37e055b66a46f72edd235f1e93f5f@kernel.org>
- <20261111102817.GN1779021@noisy.programming.kicks-ass.net>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=D6tEMsDu
+Received: by mail-yw1-f174.google.com with SMTP id 00721157ae682-8b3a332105bso13777187b3.1
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 04:25:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794399958; x=1795004758; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=v6qCUK/k525EVdn9LPhwOUX31G8ImRO+TNKVLJQDtUk=;
+        b=D6tEMsDuL9H5dXd+RgjPO6GsrzA3eIu2X2p/sFcDTjAt0vwEKSYO6ZpmKbp7v3oTiL
+         vrCjDO9NP21mOoDBXj4o0n3fzntBGY4iM48Qq9hO79swc3d/HE/wBDvM0wJRvtnxHasp
+         VVLLLa1oB3sgUi8YQMrqYMmcB4/1KOcJqWURMp8fZQn/dmQ+5beJeAfi87sS5gsFeHXN
+         Rg7gbKjhdZsi0gmOE5RYFRCLhGgeV+HHzvPI8tZJuQJaXs6KxViFfINLHkL0FFjNOJ6o
+         hKsrm7fdyZhYlwM00c+53fVDA90P+Eg2ZwJWa2UfqCZU1WYA3P9CEptoe33rC/sIxf63
+         Cx5Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794399958; x=1795004758;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=v6qCUK/k525EVdn9LPhwOUX31G8ImRO+TNKVLJQDtUk=;
+        b=qXL85jXVMmDpk0hCs6JSgLWo1AphEDMs6OOraavyWlOZfpB0mqeMIUQHNFXxKHQIjt
+         5UcKURtHNvjA/GmaTW20dI58tTIPgknpqL8tmI1huDej0/G3bpOwBfUrOvt7lGmHDnHs
+         MZ3/fGs+NSPcfkOb1qHnnRs8Sc0z0vUg7vM7JHkABXImUO7klM/NcOUAk6CTAxzT8r3i
+         uogxDBG9+z2W/HNsbZuagUx4MTuRDlVe1844x9/hf9iy8LiMZbyEbCBp/xCcr58jec8c
+         Xwu7XNEGkO2MaYf79BIn3ZgcH+eiacKBsRbbkiIg9yfW4dGWx2N5N41hjRHvkd5xElK6
+         a6mA==
+X-Forwarded-Encrypted: i=1; AL+hErH0XigHK1tQorMqQwcI8iMesSGalrlU3YNJIlm1H8Ng/zdm9B9NPw1GIGvYGA1n1FDONbQFNTjF1NC3uSM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+n3E16dHrRC0SWa0Ae8z2jmKVCpwwad0VCgHsLzwJriNHmzpIb
+	ooPNsrxUTuVMUE9wK9qlI6/ulj408VbdLCprKRTAEA0NlC4htCeQTqaa
+X-Gm-Gg: AYBFou3PlRN9JgD2oFcxpH/XoxksU1Jxz5NVdVzbRb2DsEB2fSxXZ7VgojbRow98OP+
+	Yu8H8c3BTzTDjGVsJ+QCfKHAXObTBQnWB8SG7JG8stISuXv2yVMj4XrthMwly7mo7lZp2at4PaY
+	Ku/hEEcENiJyk5iBKY/SSLl/Fs6jEdhFqXKQ/Uo33JzJnY0x/nmH1+Iq3XpUGnfYx57r+616eP7
+	rTQ2+tgZ1XQ5Ti49y4zSy5b7DEowZbaJMvdtiML+0DhRn2hBIh3+mk/wXl2J9wUYyzB3il779vW
+	/kE2f89EIJ47RTUPTmX+XQIQ2xMb2YWxmjoWQt6WyYXbqU7RCREsJChDuduuH68bxwJHvnhtgsE
+	pi4x7fPIUqrjx+N3s/eWi9iCvW5Y+jVkJyU4BT1gdhz/tcs+asavhlebYGAx7VKEn2uaNsohdKd
+	q+ynGt9SciSKrykLQQ6baHE7TA9/ebPHfQCu7cHlCte2YJ6T1XYC+bBh0Pgczb1VoX049k/r+xf
+	0VJK539Q1CtD/c8kOIAcSxiBcW7CN8Dh+X71Wkj5yeOk7BrQXNEtMKwYZeEP22ekBcuj3/Pejdx
+	ijo41JNzikQl8jbNlQwRyHXY+siDaO7NhDoeQ9GSy3yPZJYSVj5EJHxIfl0C4KU+zmiAhUOeyCd
+	JQ+X8n1O0
+X-Received: by 2002:a05:690c:ec3:b0:88b:6ad8:48cc with SMTP id 00721157ae682-8b3a757869bmr21103107b3.16.1794399958528;
+        Wed, 11 Nov 2026 04:25:58 -0800 (PST)
+Received: from fedora ([187.120.157.132])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b39340e374sm42996037b3.28.2026.11.11.04.25.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 04:25:58 -0800 (PST)
+From: Guilherme Giacomo Simoes <trintaeoitogc@gmail.com>
+To: timo.joannin@gmail.com
+Cc: axboe@kernel.dk,
+	bvanassche@acm.org,
+	josef@toxicpanda.com,
+	linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	nbd@other.debian.org,
+	syzbot+d7d72f3d467710442af0@syzkaller.appspotmail.com,
+	trintaeoitogc@gmail.com
+Subject: Re: [PATCH] nbd: fix circular lock dependency
+Date: Wed, 11 Nov 2026 09:25:45 -0300
+Message-ID: <20261111122545.225934-1-trintaeoitogc@gmail.com>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20261111112921.306969-1-timo.joannin@gmail.com>
+References: <20261111112921.306969-1-timo.joannin@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,60 +104,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261111102817.GN1779021@noisy.programming.kicks-ass.net>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 11, 2026 at 11:28:17AM +0100, Peter Zijlstra wrote:
-> On Tue, Nov 10, 2026 at 03:11:28PM -1000, Tejun Heo wrote:
-> > Hello, Peter.
-> > 
-> > On Sat, Nov 07, 2026 at 12:59:17PM +0100, Peter Zijlstra wrote:
-> > >  static void __update_rq_clock(struct rq *rq)
-> > >  {
-> > > +	bool update;
-> > > +
-> > >  	lockdep_assert_rq_held(rq);
-> > >  
-> > > +	update = !(rq->clock_update_flags & RQCF_NOP_MASK);
-> > >  	rq->clock_update_flags |= RQCF_UPDATED;
-> > >  
-> > > -	if (!(rq->clock_update_flags & RQCF_ACT_SKIP)) {
-> > > +	if (update) {
-> > 
-> > RQCF_UPDATED is cleared only by rq_pin_lock() and
-> > double_rq_clock_clear_update(), so a path which takes the rq lock with
-> > raw_spin_rq_lock() inherits it from the previous holder and its
-> > update_rq_clock() is now silently skipped.
+Timo Joannin <timo.joannin@gmail.com> wrote:
+> > Moving nbd_get_socket() makes this patch much larger than necessary,
+> > which makes reviewing and backporting it harder. Adding a single
+> > nbd_reclassify_socket(sock) call in nbd_genl_reconnect_sock_cb() right
+> > after the nbd_get_socket() call is sufficient. 
 > 
-> Let me look at that specific case.
+> Hi Guilherme and Bart,
 > 
-> > Previously, you said to clear on unlock. Why not do that? That'd be less
-> > confusing overall.
+> Thanks for working on this! I'm currently fixing a possible deadlock
+> in wg_ratelimiter_uninit 
+> (Reported-by: syzbot+72fceb8393e04ce876d9@syzkaller.appspotmail.com)
+> involving cpu_hotplug_lock and slab_mutex.
 > 
-> Yes, that's what I tried, but it doesn't work for core-sched. What
-> happens is that SMT0 and SMT1 interleave and things go to hell, patch 6
-> has that picture.
+> My one syzbot test failed because of this lockdep
+> false positive that this patch addresses. I applied Bart's suggested 1-line
+> fix locally, and will see if it resolves the false positive.
+> I will be submitting my cpu_hotplug_lock fix separately.
+> I am looking forward to see your v2!
 > 
-> That is, we can still clear on unlock too, but clear on unlock alone
-> isn't sufficient :/
-> 
-> Patch 6 even has the clear on unlock, but commented out.
-
-Right, so the complication is that for core I want the rq-clock to be
-'frozen' over the rq-lock drop.
-
-Notably, I want dequeue and pick / set-next to have the same timestamp
-such that the whole of schedule appears to happen at one instant in
-time.
-
-For ext you've explicitly chosen to not do so, per the placement of
-scx_rq_clock_invalidate().
-
-The consequence is that the raw_spin_rq_lock() functions must remain
-independent of rq_clock management; otherwise we cannot drop rq-lock
-while keeping time frozen.
-
-This means the rq-clock management must live in {pin,drop,repin,unpin};
-and at that point, I didn't really see an advantage in doing it at
-unpin.
+Cool, thanks
