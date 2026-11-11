@@ -1,49 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794410545;
-	b=y2GAD1CWaxW3P2iJmcrfR3ElWeeql7wwFWkzIL+9x9tZfDVTusZLbHGuZsPLaHK4fTJF
-	 FsWtZ4+HzWynrRQzpGVjvc4SyWexIgMDsdfcVYfKU49MxcVDuLV7wf45/GSkZ4tu0qAeU
-	 zhaN2KxmeMq2qs+CH7S3bZdOtKxfibDDoBrEVcp2yJOX3kreA8FA6pOs2+mFGua+UiNHH
-	 SVOI9XvnoC/33vnh7V0+yoOnzGzokJxwN4hdsaKoPgma51Qz15Nd1JRH6oDCRzsHMID73
-	 WTifrM80fUolylcAFpRuCKo7GgmU2xDHm2jnaFm0L62Uphp6iite+RMUKMEau280DPA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794410545;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=mBSo8+i91CrACZrxGkLXrZpH+5L8K8Z5H9NJzXzfrR4=;
-	b=UbygsxD900NBtYx1yXo3SLqXvQe3Y4DxvIPjDJM1ejaPELYKvFexlBll7ua/sqTkGMlu
-	 kD9C36FhrUuRYR9K5OU4Oi6CYIzSkq7QJ1eF/QrjzYYvIjE2/XVsL5HP3CVGpf46kflmD
-	 OCoMPLask0NzITOOp07vpg9eFyksIBJdx8t4q3N3A0oKVjGQzwTG4/en4GSrWmVb3e0wo
-	 O18t1GIsiA/fHy62h9KYjleiMXtXTVPHsGe+b6D6LdNghlOZs+2qSdF7vjmBG3JoTKb8b
-	 Hl6YoPmEMG5eiyGFLqFfRiiS5JTtsZsdTFkWDjNmQZteEn8ShIHbDb6ozcLKxclWYmg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=CPe6sEoD;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7378A606A32D;
-	Wed, 11 Nov 2026 15:22:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7378A606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794410590;
+	b=KK0M/mnj8x7ZcdUGNgj7Sr0cbRlGlr2kJ1jWimjPvr7yREgnTW4Ntm8Cbo5YDdWSxfzX
+	 P0xpHzokWi3g1SZGBaKR+Te9KiH5AwVYN6CIp6oY/laXdlFejZvYQY+mfy67oj52GZ3dQ
+	 yEOhWoPZEVNU9ytQzCrS2xINPfRvFKrtDPGDZvA6SKyW/iXqRFza2sDCqVXv1JhQXuGf1
+	 MltP+ZC6tRg13pMeG/07Ct9UdQgz9MsIRMOa1z1kw4WkK6THSO5SC/f2mDF771ElAd8Mk
+	 R3HBfCYFhs6N79TImaLhkHZaXk9jACn/k/a4btpjwp8gO+W7FkZfRIEBpD8wfngOQHw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794410590;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ZohoMailClient;
+	bh=Y/MlMaKErObWTkJAP1O/f3fHFrVRzBGbOZAvu7H6yRc=;
+	b=CYwgKNTz2vD6POJ0dZFDCG20a2EkjgXAzQHjpc4ac0rskVzjTyaEruMvZeTwNlrW4vDR
+	 Af2VpfAHl+jRuBMqQd/PBx2RvPTLUX3kiRSGeSPf7FOqXxd0ZJMgjC6+mZLzUMCWHBEdu
+	 EyPahaJO6vMh8WF44EE6gs+IQRIRykXiHKlbfsvzbMdu3aAyeyXBp55Bf9SWR5Xh1bvo2
+	 MDgnEohU1X0KrXvMLzKcCXRlQlCMcjl079GCA4nK+ITCy1H0N5wtu6sZyfDJ9el0XWM6C
+	 mj1FEr5vCrEk+U5UQChtCisAIPOCyYSbO/q4DWiWUbp20UxFzgAOVi+fc7ZF+uVA3WA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=UrZMGIBQ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43B79606A324;
+	Wed, 11 Nov 2026 15:23:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 43B79606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=CPe6sEoD
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C1AC61576;
-	Wed, 11 Nov 2026 07:22:21 -0800 (PST)
-Received: from [10.43.20.72] (e126510-lin.lund.arm.com [10.43.20.72])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D2A903F632;
-	Wed, 11 Nov 2026 07:22:16 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794410544; bh=mBSo8+i91CrACZrxGkLXrZpH+5L8K8Z5H9NJzXzfrR4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=CPe6sEoDXEq0CUSjZ6jny/Hfzg7F0nl2TvWdHaTVM/Z8om2nXFrbUEHiNinOsLi3G
-	 b+zM4dJw+QxdRaUrtNxakmzC6AiBkhYtoNt/T+Y94M/CGZNoMTkg+so51tIkMogts4
-	 Zp7PhvG4gHcOkBuMpB9jhCJKm3Tc9Y9pOp0sQA68=
-Message-ID: <0a48af69-d0a9-410e-9d10-389eed0827c9@arm.com>
-Date: Wed, 11 Nov 2026 16:22:13 +0100
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=UrZMGIBQ
+ARC-Seal: i=1; a=rsa-sha256; t=1794410565; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=gBXb74t8VyXcyhF2U34LZjd/IUJj3d2VeYmcQwcVmhDgqYdt0aA7l4BF2EycZCovx+aXjoATAiB02Y/M51ryalVmhjkrhC4vlttiGVF6uMyV5tqaNzNd0tQYBIbnVGCct+sk5t0+BYv4Wnj3bz9feMny92y9aE9Cjs8Trt1RtI0=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1794410565; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=Y/MlMaKErObWTkJAP1O/f3fHFrVRzBGbOZAvu7H6yRc=; 
+	b=IPm3G8lZ0a0lC8SsV24HWlwwDfBP6W4rz4bY9DdjLaVpvnm8m/7sexyzQTTeVTLl3dqrCafCGvkxYiXnpi/i+XLIupHGqmIkzXY233oo6gQ5qkLZcbriw9xmfTnppHHlPHGaBhr3GyL+7fnAzYhhoAjhAb5ejKFlfWyg2GiFdp0=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=michael.riesch@collabora.com;
+	dmarc=pass header.from=<michael.riesch@collabora.com>
+DKIM-Signature: a=rsa-sha256; b=UrZMGIBQEwNvdRSMeyfv8q9k6o61Ee2F1LiS1C2mRPoIalF2xvjnL21zkDzXGaEOv/z9paE0HJsU5voIWxvZllirKR4WSYdPG7hxv0PyK2iAhqxeg0897VsJnDLW6rSGNsEMQulXjuEamsOW+NPiqeARAiAy0qaYuXAKO14jK4U=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=Y/MlMaKErObWTkJAP1O/f3fHFrVRzBGbOZAvu7H6yRc=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1794410563762127.88540542025612;
+	Wed, 11 Nov 2026 07:22:43 -0800 (PST)
+Message-ID: <fd9615e5-bc5a-4ce0-a43b-081f3e9c14c2@collabora.com>
+Date: Wed, 11 Nov 2026 16:22:38 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,48 +59,87 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC v10 06/22] arm64: Disable EL2 trapping of POR_EL1
-To: Mark Brown <broonie@kernel.org>
-Cc: linux-hardening@vger.kernel.org, Andrew Morton
- <akpm@linux-foundation.org>, Ard Biesheuvel <ardb+git@google.com>,
- Andy Lutomirski <luto@kernel.org>, Catalin Marinas
- <catalin.marinas@arm.com>, Dave Hansen <dave.hansen@linux.intel.com>,
- "David Hildenbrand (Arm)" <david@kernel.org>, Jann Horn <jannh@google.com>,
- Jeff Xu <jeffxu@chromium.org>, Joey Gouly <joey.gouly@arm.com>,
- Kees Cook <kees@kernel.org>, Linu Cherian <linu.cherian@arm.com>,
- Linus Walleij <linusw@kernel.org>, Marc Zyngier <maz@kernel.org>,
- Matthew Wilcox <willy@infradead.org>, Maxwell Bland <mbland@motorola.com>,
- "Mike Rapoport (IBM)" <rppt@kernel.org>,
- Peter Zijlstra <peterz@infradead.org>,
- Pierre Langlois <pierre.langlois@arm.com>,
- =?UTF-8?Q?Pierre-Cl=C3=A9ment_Tosi?= <ptosi@google.com>,
- Quentin Perret <qperret@google.com>,
- Rick Edgecombe <rick.p.edgecombe@intel.com>,
- Ryan Roberts <ryan.roberts@arm.com>, Vlastimil Babka <vbabka@kernel.org>,
- Will Deacon <will@kernel.org>, Yang Shi <yang@os.amperecomputing.com>,
- Yeoreum Yun <yeoreum.yun@arm.com>, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org, x86@kernel.org,
- Ira Weiny <iweiny@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Thomas Gleixner <tglx@kernel.org>
-References: <20261109-kpkeys-v10-0-aa6c4d9603bc@arm.com>
- <20261109-kpkeys-v10-6-aa6c4d9603bc@arm.com>
- <3500936b-4177-4ba0-a9df-7eb9d9d75b0a@sirena.org.uk>
-From: Kevin Brodsky <kevin.brodsky@arm.com>
-Content-Language: en-GB
-In-Reply-To: <3500936b-4177-4ba0-a9df-7eb9d9d75b0a@sirena.org.uk>
+Subject: Re: [PATCH v6 8/9] phy: rockchip-samsung-dcphy: Add MIPI D-PHY
+ receiver support
+To: Jason Yang <jason98166@gmail.com>, Vinod Koul <vkoul@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
+ Guochun Huang <hero.huang@rock-chips.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>
+Cc: Sebastian Reichel <sebastian.reichel@collabora.com>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20261110-dcphy-rx-v1-v6-0-d681ba20b36a@gmail.com>
+ <20261110-dcphy-rx-v1-v6-8-d681ba20b36a@gmail.com>
+Content-Language: en-US
+From: Michael Riesch <michael.riesch@collabora.com>
+In-Reply-To: <20261110-dcphy-rx-v1-v6-8-d681ba20b36a@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 
-On 10/11/2026 16:29, Mark Brown wrote:
-> On Mon, Nov 09, 2026 at 03:58:31PM +0000, Kevin Brodsky wrote:
->
->> Make sure EL2 doesn't trap kernel accesses to POR_EL1 by setting the
->> nPOR_EL1 bit in HFGRT{R,W}_EL2.
-> This wants a matching update in booting.rst as well for when the kernel
-> is booted at EL1.
+Hi Jason,
 
-Good catch, in fact POE requirements are completely missing from
-booting.rst. Will post a separate patch for what we already need
-upstream (i.e. POE at EL0), and then expand the section in this patch.
+Thanks for the patch!
 
-- Kevin
+On 11/10/26 09:18, Jason Yang wrote:
+> [...]
+> +static int samsung_mipi_dphy_rx_power_on(struct samsung_mipi_dcphy *samsung)
+> +{
+> +	struct samsung_mipi_phy *rx = &samsung->rx;
+> +	int ret;
+> +
+> +	if (!rx->hs_clk_rate || !rx->lanes)
+> +		return -EINVAL;
+> +
+> +	reset_control_assert(samsung->s_phy_rst);
+> +
+> +	samsung_mipi_dphy_rx_config_common(samsung);
+> +	samsung_mipi_dphy_rx_config_settle(samsung);
+> +
+> +	ret = samsung_mipi_dphy_rx_lane_enable(samsung);
+> +
+> +	reset_control_deassert(samsung->s_phy_rst);
+> +
+> +	return ret;
+> +}
+> +
+> +static int samsung_mipi_dphy_rx_power_off(struct samsung_mipi_dcphy *samsung)
+> +{
+> +	reset_control_assert(samsung->s_phy_rst);
+
+I wonder whether this is really a D-PHY specific thing. You can keep it
+as is for now, I'll try to bring up the C-PHY part on top of your
+series, and then we'll see.
+
+> [...]
+>  static const struct phy_ops samsung_mipi_dcphy_tx_ops = {
+>  	.configure = samsung_mipi_dcphy_tx_configure,
+>  	.power_on  = samsung_mipi_dcphy_tx_power_on,
+> @@ -1535,6 +1905,15 @@ static const struct phy_ops samsung_mipi_dcphy_tx_ops = {
+>  	.owner	   = THIS_MODULE,
+>  };
+>  
+> +static const struct phy_ops samsung_mipi_dcphy_rx_ops = {
+> +	.configure = samsung_mipi_dcphy_rx_configure,
+> +	.power_on  = samsung_mipi_dcphy_rx_power_on,
+> +	.power_off = samsung_mipi_dcphy_rx_power_off,
+> +	.init = samsung_mipi_dcphy_init,
+> +	.exit = samsung_mipi_dcphy_exit,
+> +	.owner	   = THIS_MODULE,
+
+Nit: either align all = or just use a single space (personally I would
+prefer the latter).
+
+> [...]
+Looks all good to me!
+
+Reviewed-by: Michael Riesch <michael.riesch@collabora.com>
+
+Best regards,
+Michael
+
