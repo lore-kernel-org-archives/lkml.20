@@ -1,48 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794434420;
-	b=nK+tousIVKymXuaGT+hGMBjMpCti4trJjLb69hxiBzdftiOzOkasg7vYgFJZKDlyrIlh
-	 Or2bEUJ72gHdyO7UFHq3wrWNYFmYCVFXeIuNl5ZdmrYyG1XnrjlxdoIYQ+453GHdsg4vH
-	 2evtacmDKUE+yLPAK9ZovUZTvQcD2DmEOIayD8wWkg6HJJnqtZTmAL9k0E0r3kS76siJa
-	 U1MJ4BVsxRWD0nYzVg6DEHf8LG02Dd3EH+LHr7AnlVbaZr73yORDjUGODRGtch0nyt6pD
-	 WMgSCUetAJRLnst1D4ZmdjtFWTYyo9c+HMCDK/dlYpR8UZEIoyPrBOuNZYCltOs4aoQ==
+	t=1794434418;
+	b=JiOhcIhm/38g3XhLfL1GjP9/2IVm2hRHUTgt+pC1ATUQ2Z+TutI+koXjOmTaw7hxOj8E
+	 mV0+0xG8+7iaOf96xeAURnAZmRx+1TO4Q2pP+CRo85T3kswPZsr/OJHyDBuBVLxxTGs9R
+	 oFuRegegqugwG7fvRuRnLoGWrirFzr95v3uwCR1ECarcrmTOZa+gV5RrzWyayndDK9Sd2
+	 X3duIbsGm2ksXyPjYHVfK3dfnItAbdSI/yW6nxKsEdJ21b9WpY3rji36asiPfZI5DOEZw
+	 TknYFx0R8TsS/s/C7yL+m3yMEnH8j40mmAkI6Uba0eMEgaKWj752uQ5CquE7kayZnCQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794434420;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=dsExlSronX8FZ2ybTbfKUty77l62irOlolHhcJPSkxw=;
-	b=vNXh4W27aQ6tQNzww0aEPMix+KRcBV7IeQfT19ItgeZfUgaek64n/ucun+1de6ghbvnh
-	 TR96rOvXXl1sSQkZ3P+oP8YyNx0NAMegoQv7rto2AcVQ8w6fd3OadHxsidKOLlL/PkQY7
-	 Ow+1Y/nOY27pAbx8GMfTaTv+GWPdXyr0Zx5jVWa77Vt4lEktED30jQAoTEjhy/o+fokr7
-	 hLvvq6Wd7dc7znPJsC520pXl+qIeqW+m/IUFqqAMOlRjq5tbmMnhfOkJYFGaKn5zGUMF2
-	 N5yPI3hAWb+63+H6DFmYiCAZTZKqpEi9SC//jlk6+YQOcKGtBIy+kES0Pj0/JCSgPVg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794434418;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=ZD+L7G0dU9ZfLr8VDs3t/alXkxiNHldnHOnuvBLTnb0=;
+	b=hixWUg02MTZzUw76zrcjLOAxRzoRN6HLAoaBFvfVdcw/iys/tyTlmYSN/lFlXwvEpGzE
+	 g5K5CTI7u7Ybcu6qN7H6pOdayzaszzZa0UQBBDpW3j6PNeRBaZnn54B925apovD7qH+QC
+	 umbm0chs4lpjZaFeZ3HTQytYA4YVm7zgn3oF6xyvRMKwgslrdElvVRpiZMJwQhkC1tFr9
+	 MHymddaGaIs6r0tw1rzFKqCDpyukTofz6puljU7J4B5oga0lEKSee2AwFtG5M6hLzQ6YG
+	 3Q1TgCrqN4dFLJY7QnXlqpoLJS0WR8yswfL23Xj/KCgu5eFfqBYOCXij37zc/f6pZMw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YDIVWdWa;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SZC0fHC2;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC5E960A382A;
-	Wed, 11 Nov 2026 22:00:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D0B060A380B;
+	Wed, 11 Nov 2026 22:00:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YDIVWdWa
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6884E1F00A07;
-	Wed, 11 Nov 2026 22:00:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SZC0fHC2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C0021F00A05;
+	Wed, 11 Nov 2026 22:00:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794434419;
-	bh=dsExlSronX8FZ2ybTbfKUty77l62irOlolHhcJPSkxw=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=YDIVWdWavpLnnBM/PFAhd6PZr/mwm7ExUTFbVqWP5Ajf+PUDNv3s2IdtQhOTxpBe8
-	 aPFJA4v1lMdr6S/XNQiknu+li2y8nXgZvpzj+1kpwTZT5bnGRJnymA60DoVgQZu7kv
-	 inKony10gi/xVZAHVoAacAuibhztE/uJzhPWaaGIYI6FLeyzVFRsI4LUzuj2V+EsMp
-	 SNVRhLKFkwWclKwXMBM48JiYIZPCKpwxIQw5mpS+nkvsA/TGR9IizyqbWdbs6Mea5q
-	 rVyKST/Axw6CqnU68kKHo5LfMht1VWevDU6mmcq/f0yf+kc7dAvMtBE1ctSAYTWVzz
-	 LT29YrgRgxWYQ==
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Wed, 11 Nov 2026 23:00:00 +0100
-Subject: [PATCH 2/3] mm/rmap: fix PTE table overruns during batched unmap
+	s=k20260515; t=1794434418;
+	bh=ZD+L7G0dU9ZfLr8VDs3t/alXkxiNHldnHOnuvBLTnb0=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=SZC0fHC2sEzh1SgQc4GqLtV3ex+qumWHXq3nWuHaynPOccBRpiyVoKKPF2VTapw7B
+	 neFFHFP8p89wehMMrCBJXLkR/Sozm9PwrtgRkC57bKWV2jmODqXcWtvgmQsSQasrXO
+	 ujGp+Kwo0VH8uSGrwMtJ2NLgxqbxhXw0jn41bYWF9C2GD/KOy1VkjFDOBndsbrhTZD
+	 voplX13Yi6IKiLZgUTx3trsGz6n8GQcHil4VqgX0lHam4ZsEInLEyaFj6Aeh3E26fT
+	 PJVLu/xKJQGwrAjMwseoHVPwqb/qcG+9cQ9erpVbSVHoOOohNAea7TZFASJKFKV3kO
+	 /jg6H9Bitx1hA==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 21229391AFAA;
+	Wed, 11 Nov 2026 22:00:18 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,66 +53,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261111-pte_table_clamped_end-v1-2-2dbe339c487a@kernel.org>
-References: <20261111-pte_table_clamped_end-v1-0-2dbe339c487a@kernel.org>
-In-Reply-To: <20261111-pte_table_clamped_end-v1-0-2dbe339c487a@kernel.org>
-To: Lorenzo Stoakes <ljs@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Andrew Morton <akpm@linux-foundation.org>, 
- Peter Xu <peterx@redhat.com>, Lokesh Gidra <lokeshgidra@google.com>, 
- Barry Song <baohua@kernel.org>, Rik van Riel <riel@surriel.com>, 
- Harry Yoo <harry@kernel.org>, Jann Horn <jannh@google.com>, 
- Lance Yang <lance.yang@linux.dev>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Ryan Roberts <ryan.roberts@arm.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- "David Hildenbrand (Arm)" <david@kernel.org>, stable@vger.kernel.org, 
- Chris Mason <mason@kernel.org>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1207; i=david@kernel.org;
- h=from:subject:message-id; bh=NCRqXSs2UWcZHc60tsEtuDGoKWTuIDJIrKjK6A4XeBY=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLK+PE2deoJdQX9NVHVyydSpX9bPvrvqK1Pl5/I3s9mNg
- vdt9DI41FHKwiDGwSArpsgSFHzf4OXLdbXVbnzMMHNYmUCGMHBxCsBEFrAwMvxln3TllKr3j0OT
- vWbI6X3n6Djgs7tRwsI/8b2hRt7E9fMY/me2SHBI+D210wyfE8j8y0L28wwHTbVZa+7wuuxlDjd
- R4wYA
-X-Developer-Key: i=david@kernel.org; a=openpgp;
- fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
+Content-Transfer-Encoding: 8bit
+Subject: Re: [net-next v3 0/3] bnge changes for RoCE driver
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179443441673.1663612.10927494746616901156.git-patchwork-notify@kernel.org>
+Date: Wed, 11 Nov 2026 22:00:16 +0000
+References: <20261105090154.1293846-1-siva.kallam@broadcom.com>
+In-Reply-To: <20261105090154.1293846-1-siva.kallam@broadcom.com>
+To: Siva Reddy Kallam <siva.kallam@broadcom.com>
+Cc: leonro@nvidia.com, jgg@nvidia.com, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ andrew+netdev@lunn.ch, horms@kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-rdma@vger.kernel.org,
+ vikas.gupta@broadcom.com, ajit.khaparde@broadcom.com,
+ dharmender.garg@broadcom.com, sachin.holla@broadcom.com
 
-With a folded PMD, pmd_addr_end() simply returns the supplied end.
-folio_unmap_pte_batch() can therefore walk past the PTE table when
-unmapping a large folio.
+Hello:
 
-Folded PMDs are uncommon, but can occur even on arm64, for example
-with 64K pages and a 42-bit virtual address space.
+This series was applied to netdev/net-next.git (main)
+by Siva Reddy Kallam <siva.kallam@broadcom.com>:
 
-Use pte_table_clamped_end() to clamp the range to the PTE table and
-VMA boundaries.
+On Thu,  5 Nov 2026 01:01:51 -0800 you wrote:
+> Add bnge specific changes needed for RoCE MPC channel
+> support.
+> 
+> v2->v3:
+> - Addressed Shasiko review comments
+> 
+> v1->v2:
+> - Created pull request for RoCE MPC channel changes
+>   of bnge driver
+> - Addressed Shasiko review comments
+> 
+> [...]
 
-Fixes: 354dffd29575 ("mm: support batched unmap for lazyfree large folios during reclamation")
-Cc: stable@vger.kernel.org
-Reported-by: Chris Mason <mason@kernel.org>
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
----
- mm/rmap.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Here is the summary with links:
+  - [net-next,v3,1/3] bnge: Pass BAR1 doorbell mapping to RoCE auxiliary device
+    https://git.kernel.org/netdev/net-next/c/db8054497971
+  - [net-next,v3,2/3] bnge: Update HSI
+    https://git.kernel.org/netdev/net-next/c/ac1ae795c555
+  - [net-next,v3,3/3] bnge: Reserve ring resources for upcoming RoCE MPC support
+    https://git.kernel.org/netdev/net-next/c/d60317882851
 
-diff --git a/mm/rmap.c b/mm/rmap.c
-index 0faef46806e5c..491a954b7fa44 100644
---- a/mm/rmap.c
-+++ b/mm/rmap.c
-@@ -1978,7 +1978,7 @@ static inline unsigned int folio_unmap_pte_batch(struct folio *folio,
- 		return 1;
- 
- 	/* We may only batch within a single VMA and a single page table. */
--	end_addr = pmd_addr_end(addr, vma->vm_end);
-+	end_addr = pte_table_clamped_end(addr, vma->vm_end);
- 	max_nr = (end_addr - addr) >> PAGE_SHIFT;
- 
- 	/* We only support lazyfree or file folios batching for now ... */
-
+You are awesome, thank you!
 -- 
-2.43.0
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
 
