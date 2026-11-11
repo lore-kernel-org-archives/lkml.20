@@ -1,55 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794391086;
-	b=Lg5ob4VH7dmdQSuw8OUWKCdLpSW9JpYHmyuG4zgcDxtrdK4bzZR1JJ1noUgY/iTf5GnX
-	 oRNYKil+qycXzEoFV12ak9TxQoeQj6whlsj4EG5S2JGYz3+qu47Y8uQdIch/pMR/HTsmD
-	 NJrw4p/S/Y3WaMOxfH55yV83TjAb6P2YfuLyaS81Hliu8L8H0/wPAcQc/y7TsTPcLVTYc
-	 9w4xM+7aUYAGcjxfbPTTCXYK4uO0bk9DaF34BUDQlPOo5axWKjlRU0YKG7b7bRTNU131v
-	 BaJEj+If9pkXDYo31W6DSw7ceWRa/gG7pq7W0JooGD9cLt/G8ywGu/+MD2pPv6CvQOA==
+	t=1794391092;
+	b=TEdo+16xGUHWyHp+nsQ1GWCdz/xpPlixFY3IygPzzwc5PzFNFat5NMzsQzalxnGDt1kN
+	 /Vbss3TuNhgIRmOEnlHMGJxc5PeKP7lku4mALgBoU/Zp+eko1UL2WAmDZ3/prU5KxJMqY
+	 xHw8I4/El9YKRJ2HdqXWtHrnn69/Cnba6pPkplmj7SG5PjghJTRmx55LRR/R+hjVwwKPd
+	 aheJvxoSsjWkfD9BcqsW8Y4zfwK+tqEGe8PtirfCRID2QtbGYNcFnRXWhZbtLqAxQFZI8
+	 k5cLaeb8VmNsk0TTzsBYFiONcpnQEgjyTGwNuhCMTwZlnma87ic4q92gzNNkxdt3Hcw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794391086;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=x8WYaUyHEV3s5p2jssXz770F7CHpaoglZMsT5OswgdQ=;
-	b=Vm+hkkY+2vrXSYBPgOvBDsBydKSvkrmNLzfaWRtO7R9XJDqIvDSgnvYzrJ4kNR3tWBAA
-	 55pS20ME7gagsZ2GHhnjw+bZSyyMa5L6kEjXYO95IPMBiy6eMe30XsZqv399zNxA16as5
-	 ABVFzaCFIajvqm8493z8xX+cI+2BEwAH61WikJvo3KTBt7oq3+NjgsDNMqHGkBJBisTlv
-	 kMAA+RFS07nwfigSyb/d6OaXvUOMpIKTQTlBG0ok3MeuDuUS5VekxNKQ8qCE+ipuHzadX
-	 /nuTU57d1u3qSC3tA/rsy8GtEYFiG3J+mJjUO3ollo/5wygEvCW+fU/6tztOFs3VLbA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794391092;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=SaBu0BAwfS5+msHmIDRTXeowjSfEr2KtUFF7yfQhBuE=;
+	b=b6Kd5ZnYRexwc7QUnrQ3BqRvuxA8EtG7PVPL+IIN08tnX9Ot9LrnALrkqD4IbRewGGxR
+	 qF2GGLjlbMdMaI7XLYGlmkckp/uoLVCtO61XWGJ+Cgqx33Fex61CY9TnycuZtUaQVkYzr
+	 1hB8OV1PdAT7xV3AFkJx2dNMcrWvBpmpGudpz6FkLxjeFzYOdWmHf/eNjBtm8vBt9fzag
+	 MHhGzIw47z4ejCzYMI63aBURzuD3S87Ur5V2aZb7isY+etq169E6/3P039v6DZWoJcCW3
+	 IK6rDkKQZBRWt1K855svH1jK+EgtXNmWN/FKw1p/nAbB2Eqh+ge/1fLT+dWHCOOhLEA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N857zjfe;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CkSkL2Ap;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31B33606A327
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 09:58:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98F31606A32D;
+	Wed, 11 Nov 2026 09:58:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N857zjfe
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB66C1F00A0A
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 09:58:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CkSkL2Ap
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDE151F00A08;
+	Wed, 11 Nov 2026 09:58:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794391085;
-	bh=x8WYaUyHEV3s5p2jssXz770F7CHpaoglZMsT5OswgdQ=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=N857zjfelwJgxMwZgeMvdviy4yb25FhIkfYq9xYiegrSWPbwNMp0kTtnImQAwnhLx
-	 QKigHsKalH2vjAw/nxrSgVxbl8NitojaovS5jx9jR2An9toiCSIXjvbUVXXGo3LXRH
-	 x/2WHbp9K0hGTSnSvseQzBQIbwRiZLInhUZS7zbONYGXfBZwBJ6Bm/KzauvYrSPjT2
-	 GsA1dHR5bUM8ZsGunn5xNirPgvnmG9DBk1CS3Jq2WZrbl7pSA9AiQRRABBZXxIR24x
-	 xg9CYEYdZRbnT4xig27wGxrETP3lprjb5D18kPE1VNECuj/mqmgcVUI1gnkIM3/l8v
-	 qNv2GaBfHwwRg==
-Received: by mail-qk1-f180.google.com with SMTP id af79cd13be357-93e63ee7b4cso269965785a.2
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 01:58:05 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErEQLwWvu8pXHZc0JVXpQbck/K/D+P7VCd+80bJxFPULi4hHo2P4N/c5DcQ0HaZW0BXQWACwzp1E0mlVUZc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+Yfi8jXg8RgoYasFcPqWF7JxZ8k1txR2k40Sp4OGGiC7sXchki
-	t1Hq7gqwOGZ3zKtWWKUIh8xX9ZFO1+lfHIvHFHQQ8/ZDSRm0lsfS1dTkBeZBvXqVu0kssF1CxJh
-	GdCtrMmIk4voveIww4gWJp/c/EATKLQE=
-X-Received: by 2002:a05:620a:2805:b0:93e:e425:229f with SMTP id
- af79cd13be357-947b00ea38amr289814885a.77.1794391085076; Wed, 11 Nov 2026
- 01:58:05 -0800 (PST)
+	s=k20260515; t=1794391092;
+	bh=SaBu0BAwfS5+msHmIDRTXeowjSfEr2KtUFF7yfQhBuE=;
+	h=From:To:Cc:Subject:Date;
+	b=CkSkL2ApDm/qluab7N66hwT+a0Pti+jgJXy84MIppFok7mwCvwumfdHNr0sbMqaTf
+	 cp+a/N1C6Srk20mwwfT6G0JpHx0Armdi7oFxkzY/HaQeTMfGmlauxR2U1UXnWQMpPL
+	 fnwTHv+iTcuomLbtfza5YryjIIV1B4D0W+sWBlwniJ1nJPJrFRDyH/CmHyfRoTBWJR
+	 sTMNXZVLohA3j/8PqbMWSQ6fdRgv0Prf2WK2Waa1e6XuFyugJwsY8rFdEkCg2On9XY
+	 mzNqgYscp4LPQonapPlZuz8cfjx4R7ZW7oWhgq/mz7J+e5lPD3BBha4DPfP+dXg57L
+	 W4gTwMyurRwaQ==
+From: Imre Kaloz <kaloz@kernel.org>
+To: Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	linux-mips@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	"Maciej W. Rozycki" <macro@orcam.me.uk>
+Subject: [PATCH v3] MIPS: sgi-ip32: Fence PIO reads on CRIME 1.1
+Date: Wed, 11 Nov 2026 10:56:50 +0100
+Message-ID: <20261111095650.14954-1-kaloz@kernel.org>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,99 +57,195 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261109-maintainers_mglru-v1-0-c25e6de60bcc@kernel.org>
- <20261109-maintainers_mglru-v1-1-c25e6de60bcc@kernel.org> <20261109104142.c4e01c2e29ee9ead4056f354@linux-foundation.org>
- <CAMgjq7Dd6UQWfBwex4vTLdxAhHKMfpmgTG9DB3MG+4+qig0Eig@mail.gmail.com>
-In-Reply-To: <CAMgjq7Dd6UQWfBwex4vTLdxAhHKMfpmgTG9DB3MG+4+qig0Eig@mail.gmail.com>
-From: Barry Song <baohua@kernel.org>
-Date: Wed, 11 Nov 2026 17:57:53 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4zrBB80iR+R0oi7BaLGNcw0sk_KNEFYns5G1WEsMXCQ2Q@mail.gmail.com>
-X-Gm-Features: AclHuK-Ghv2CWsuvoFAiqxBS_I6Udh_YXnqVh2xFzO-4R4-Vf_0ARb-xDyX3CmE
-Message-ID: <CAGsJ_4zrBB80iR+R0oi7BaLGNcw0sk_KNEFYns5G1WEsMXCQ2Q@mail.gmail.com>
-Subject: Re: [PATCH 1/2] MAINTAINERS: MEMORY MANAGEMENT - MGLRU (MULTI-GEN
- LRU) update
-To: Kairui Song <ryncsn@gmail.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, "David Hildenbrand (Arm)" <david@kernel.org>, 
-	Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
-	Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Johannes Weiner <hannes@cmpxchg.org>, 
-	Michal Hocko <mhocko@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
-	Lance Yang <lance.yang@linux.dev>, Ridong Chen <ridong.chen@linux.dev>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 11, 2026 at 2:16=E2=80=AFPM Kairui Song <ryncsn@gmail.com> wrot=
-e:
->
-> On Tue, Nov 10, 2026 at 2:55=E2=80=AFAM Andrew Morton <akpm@linux-foundat=
-ion.org> wrote:
-> >
-> > On Mon, 09 Nov 2026 19:31:53 +0100 "David Hildenbrand (Arm)" <david@ker=
-nel.org> wrote:
-> >
-> > > MGLRU is currently the only MM component without a dedicated componen=
-t
-> > > maintainer. Fortunately, Kairui and Barry have been actively
-> > > contributing to MGLRU and have volunteered to take on more responsibi=
-lity
-> > > by officially taking care of it.
-> > >
-> > > Given that Kairui is already an established MM component maintainer i=
-n
-> > > a related MM component (SWAP), add him as an MGLRU maintainer right a=
-way.
-> > >
-> > > For Barry, the idea is to transition him towards a component maintain=
-er
-> > > role over the coming months, starting by moving him to the top of the
-> > > reviewer list.
-> > >
-> >
-> > Yay, thanks guys.  It's been wonderful to see the rebirth of MGLRU over
-> > the past ~year.
-> >
-> > When do we get to remove the legacy LRU???
->
-> That's on my radar :), though it will take some time and it's always
-> hard to give an exact timeline...
->
-> Items I'm aware of to sort out besides the FG series, maybe we can try
-> to make MGLRU the default at some point during this process:
-> - Refault distance, otherwise we still have a major regression in
-> heavily overcommitted cases, also protects cross-memcg workingset
-> thrashing. I also have an idea to remove memcg id and node id field
-> from the shadow so it will have enough space to hold both the gen
-> number and distance, will post that in a few weeks hopefully.
-> - Memcg LRU vs. iterator (Ridong once tried to unify that, and it's
-> good to see there have been optimizations for memcg LRU itself
-> recently from Max).
->   I also noticed recently that the Memcg's LRU reclaim balance is
-> somehow a bit broken, I'm not exactly sure why, nor a very major
-> problem, I will look into it later.
-> - Isolation protection (from Hui, not a very high priority, but still
-> on the list, we don't want premature OOM).
-> - IO cost & swappiness (Barry and I are still looking into this, with
-> an series posted).
-> - Page flags usage issue (FG cuts it down by 1, though it's still tight).
->
-> We also have aging optimizations and async aging planned. I'm not sure
-> if we are missing anything else, but we are getting close and with a
-> sane todo list.
+On CRIME 1.1, the next MACE or PCI load after a read of the aic7880
+HCNTRL, INTSTAT or ERROR register can return that register's data
+instead of its own; a gap of about 2us avoids it. Under audio and SCSI
+DMA, repeating aic7xxx's ahc_pause(), register read, ahc_unpause() can
+hang; fenced, it runs clean. The next load can be an interrupt
+handler's, so the fence follows the trigger.
 
-Thanks very much, Kairui. Besides the items above, I am also
-thinking about a few more:
+Add a read hook to the MIPS accessors that, on CRIME 1.1, follows each
+MMIO and port read by 5us with interrupts off. Other platforms compile
+it out.
 
-- Cross-memcg aging / look-around folio promotion (folios with
-large mapcounts across multiple memcgs still easily fall back to
-rmap walks today)
-- mmap_lock contention during aging (perhaps switching to VMA
-locks, as mmap_lock contention can cause jank in Android
-foreground UI)
-- Baoquan's PUD filter
-- Making MGLRU more friendly to Android foreground/background
-workloads
+Signed-off-by: Imre Kaloz <kaloz@kernel.org>
+---
+Changes in v3:
+- Interrupts are restored in read-fence.h next to the save; only the
+  delay is out of line.
 
-Thanks,
-Barry
+Changes in v2:
+- Reworded the first paragraph of the commit message.
+
+v2: https://lore.kernel.org/r/20261107005245.20299-1-kaloz@kernel.org
+v1: https://lore.kernel.org/r/20261021192418.7246-5-kaloz@kernel.org
+
+ arch/mips/include/asm/io.h                    | 11 +++++++
+ .../include/asm/mach-generic/read-fence.h     | 20 +++++++++++++
+ arch/mips/include/asm/mach-ip32/read-fence.h  | 30 +++++++++++++++++++
+ arch/mips/sgi-ip32/crime.c                    | 11 +++++++
+ 4 files changed, 72 insertions(+)
+ create mode 100644 arch/mips/include/asm/mach-generic/read-fence.h
+ create mode 100644 arch/mips/include/asm/mach-ip32/read-fence.h
+
+diff --git a/arch/mips/include/asm/io.h b/arch/mips/include/asm/io.h
+index 980187a83053..a5c49d319546 100644
+--- a/arch/mips/include/asm/io.h
++++ b/arch/mips/include/asm/io.h
+@@ -26,6 +26,7 @@
+ #include <asm/pgtable-bits.h>
+ #include <asm/string.h>
+ #include <mangle-port.h>
++#include <read-fence.h>
+ 
+ /*
+  * Raw operations are never swapped in software.  OTOH values that raw
+@@ -222,6 +223,8 @@ static inline void pfx##write##bwlq(type val,				\
+ static inline type pfx##read##bwlq(const volatile void __iomem *mem)	\
+ {									\
+ 	volatile type *__mem;						\
++	unsigned long __rflags;						\
++	bool __fence;							\
+ 	type __val;							\
+ 									\
+ 	__mem = (void *)__swizzle_addr_##bwlq((unsigned long)(mem));	\
+@@ -229,6 +232,7 @@ static inline type pfx##read##bwlq(const volatile void __iomem *mem)	\
+ 	if (barrier)							\
+ 		iobarrier_rw();						\
+ 									\
++	__fence = plat_read_fence_begin(&__rflags);			\
+ 	if (sizeof(type) != sizeof(u64) || sizeof(u64) == sizeof(long)) \
+ 		__val = *__mem;						\
+ 	else if (cpu_has_64bits) {					\
+@@ -251,6 +255,8 @@ static inline type pfx##read##bwlq(const volatile void __iomem *mem)	\
+ 		__val = 0;						\
+ 		BUG();							\
+ 	}								\
++	if (__fence)							\
++		plat_read_fence_end(__rflags);				\
+ 									\
+ 	/* prevent prefetching of coherent DMA data prematurely */	\
+ 	if (!relax)							\
+@@ -283,6 +289,8 @@ static inline void pfx##out##bwlq(type val, unsigned long port)		\
+ static inline type pfx##in##bwlq(unsigned long port)			\
+ {									\
+ 	volatile type *__addr;						\
++	unsigned long __rflags;						\
++	bool __fence;							\
+ 	type __val;							\
+ 									\
+ 	__addr = (void *)__swizzle_addr_##bwlq(mips_io_port_base + port); \
+@@ -292,7 +300,10 @@ static inline type pfx##in##bwlq(unsigned long port)			\
+ 	if (barrier)							\
+ 		iobarrier_rw();						\
+ 									\
++	__fence = plat_read_fence_begin(&__rflags);			\
+ 	__val = *__addr;						\
++	if (__fence)							\
++		plat_read_fence_end(__rflags);				\
+ 									\
+ 	/* prevent prefetching of coherent DMA data prematurely */	\
+ 	if (!relax)							\
+diff --git a/arch/mips/include/asm/mach-generic/read-fence.h b/arch/mips/include/asm/mach-generic/read-fence.h
+new file mode 100644
+index 000000000000..0147ed88bc01
+--- /dev/null
++++ b/arch/mips/include/asm/mach-generic/read-fence.h
+@@ -0,0 +1,20 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++#ifndef __ASM_MACH_GENERIC_READ_FENCE_H
++#define __ASM_MACH_GENERIC_READ_FENCE_H
++
++#include <linux/types.h>
++
++/*
++ * Called around every MMIO and port read; plat_read_fence_end() runs only
++ * when plat_read_fence_begin() returned true.
++ */
++static inline bool plat_read_fence_begin(unsigned long *flags)
++{
++	return false;
++}
++
++static inline void plat_read_fence_end(unsigned long flags)
++{
++}
++
++#endif /* __ASM_MACH_GENERIC_READ_FENCE_H */
+diff --git a/arch/mips/include/asm/mach-ip32/read-fence.h b/arch/mips/include/asm/mach-ip32/read-fence.h
+new file mode 100644
+index 000000000000..4948a2c7cc79
+--- /dev/null
++++ b/arch/mips/include/asm/mach-ip32/read-fence.h
+@@ -0,0 +1,30 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++#ifndef __ASM_MACH_IP32_READ_FENCE_H
++#define __ASM_MACH_IP32_READ_FENCE_H
++
++#include <linux/irqflags.h>
++#include <linux/types.h>
++
++extern bool crime_read_fence;
++void crime_read_fence_delay(void);
++
++/*
++ * CRIME 1.1 can return a PCI read's data again to the next MACE or PCI
++ * read issued within about 2us, so each read is followed by 5us with
++ * interrupts off.
++ */
++static inline bool plat_read_fence_begin(unsigned long *flags)
++{
++	if (!crime_read_fence)
++		return false;
++	local_irq_save(*flags);
++	return true;
++}
++
++static inline void plat_read_fence_end(unsigned long flags)
++{
++	crime_read_fence_delay();
++	local_irq_restore(flags);
++}
++
++#endif /* __ASM_MACH_IP32_READ_FENCE_H */
+diff --git a/arch/mips/sgi-ip32/crime.c b/arch/mips/sgi-ip32/crime.c
+index a24424437c6b..a8cdc272aa6b 100644
+--- a/arch/mips/sgi-ip32/crime.c
++++ b/arch/mips/sgi-ip32/crime.c
+@@ -7,6 +7,7 @@
+  * Copyright (C) 2005 Ilya A. Volynets <ilya@total-knowledge.com>
+  */
+ #include <linux/types.h>
++#include <linux/delay.h>
+ #include <linux/init.h>
+ #include <linux/kernel.h>
+ #include <linux/interrupt.h>
+@@ -25,6 +26,15 @@ struct sgi_mace __iomem *mace;
+ 
+ EXPORT_SYMBOL_GPL(mace);
+ 
++bool crime_read_fence __read_mostly;
++EXPORT_SYMBOL(crime_read_fence);
++
++void crime_read_fence_delay(void)
++{
++	udelay(5);
++}
++EXPORT_SYMBOL(crime_read_fence_delay);
++
+ void __init crime_init(void)
+ {
+ 	static const char * const revs[] = { "1.1", "1.3", "1.4" };
+@@ -41,6 +51,7 @@ void __init crime_init(void)
+ 	switch (id & CRIME_ID_IDBITS) {
+ 	case CRIME_ID_IDVALUE:
+ 		rev = revs[min_t(u64, id >> 32, ARRAY_SIZE(revs) - 1)];
++		crime_read_fence = !(id >> 32);
+ 		break;
+ 	case CRIME_ID_IDVALUE_B:
+ 		rev = "1.5";
+-- 
+2.47.3
+
