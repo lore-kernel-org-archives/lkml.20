@@ -1,79 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794440906;
-	b=0fzTY+aFpOLkI1z+ZU9mz6Wxus/wDpi05S5V/Mqns3l3qZlP0oU7FF1GD7OsvKm21gOY
-	 1rKm/dD4P+1M2VSRdZUt77W/d7egyo3UjX/SYKG1x/oo+l4pBzrqaAzuQOT+FFnGHHcZ7
-	 J8eaUzc0BJ8ny10U53hItK1kFZ67U73Bd9Y4DDk96CN+0dbbnayt0M3tkhEfg0zzkuXba
-	 gSNCfVGhOLB7YjbswiMnxFVa5+hYv1iDUkGH3lGyDij5oH5eRLDeZ2NXRqtoWDrRuNfwc
-	 2Y2mvWgQPMr8NvkkYULWZfzzQFkWcc1kFhXg0QsO0albzKe2DVehKo12MzDbdsmJBqg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794440906;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=402Fe33BaMpiMZSsnw6PGeMiVFZ9HuQ2pUw9tJPCwAU=;
-	b=TxA6eklKBA4xiMRhK8E6++K/a9sIxuNqD+R+AwXT2g1OiR0k4I2/wSP5eylZU0m6+eC4
-	 2ZnC4PZDlwya4eEG/wa8BfqV6fES25iOuQcLxr7vs46DKs0rF30NYVwVXj6yKiRjZJTQL
-	 n1SqQBCFh+iuXJ99iBxm42TIPMmz6ozUHr009Iimn1v+G575wkZMf2Xpi5WDiZ7xutGMM
-	 MXeRaPloeTevy1naJC3W7fCP05loCgMtfghvFs4HOLkoTE9NKfJKG4e9Tq658RczCd9/l
-	 LUG6NN85WZHred1dZ7G+dP34/3oDg95b271F06P7VQ4fFQnhRf+Y+IKHKv5m2o/muJA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RAcv7B+C;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.15
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794440912;
+	b=wb8i3bxdvDD7usw7eSOZ+bvf+F24V8j1hOUkyi5zr+S14S25QoDIyvO9kaU8dVzBziEL
+	 M9qRx3WCNyvivtpxG8+TJvzKmOhetRxXBpCVA1m2zJeLGkJjun+WHmg7ZSP40pfu5rncr
+	 9KBBqBUOiojxUEpm2hl15E3kn2opiXFC4jhP6P9xXjyWrCK9b5fUWuSopVVHy9BPl50BV
+	 t0tpqqlTrw7DZwIQYnmiUDD9Wta796fwg865RngR3X3UpLMtfkGtWrNwUknDfLZQKJe4G
+	 1GgoTcbrq3xihL4aYoyGb9NB0DOGiY37iMC/YOL2dCdDuSbpqHg8yToxsBNRwSTZsjw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794440912;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=Iaxxel5eQmGQTudIuvxMVFkeCpIWN6hgvbXS3j/ddMY=;
+	b=qQsUdcJylFZ3kB+y4wOnQLS2UApIfE1v1tRGUNt+WPz0HFNZlVpS8/PCy1kfj6XvSnVg
+	 P3pumpYxWXNKmQQ8K4AEk7OJ+AXOYwOeoyMK7vW+hT7ZG8yCD/3U0/ARaGosKJBkF8ksT
+	 oxnenOjdAIedL2gYNv+/9qh4vRB/Dk3T/k7GwbqhDRe+lF+BuKqREu/1Lw6s6ldhof0uN
+	 WewBccnG7njDQmUqlSqODm//EKYAi6ico+2Vz0twM5UefoSBBSsvD1QDnANoBfykGj8AO
+	 FSiELaerkFCu8II6MoRm7fs0QhfBhTBb1I3YxQQ3msuf8exU5OqAWKvq3/K4A5zRcFQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="YK/w9e5I";
+	arc=none smtp.remote-ip=192.198.163.15
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1DAB606A8B3;
-	Wed, 11 Nov 2026 23:48:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73EC7606C0B0;
+	Wed, 11 Nov 2026 23:48:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73EC7606C0B0
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RAcv7B+C
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794440905;
-	b=ZCMcoPSTHSdyNkeXjslCNVsclsnsJn5uIsoKIRHQrT/8AfqYr2WDXPUgKLtNnNxVpu7w
-	 mGlNULidRAsT5cXeMx6dNjbYIzYjf6TiruxWFO8Owhh/3MJKX7dVDHszI7y7UOR6pv6nP
-	 jYRMJIAUUAkKiuN+2Ng8zLnQ7F2NaOmiciwG9bZUk+kKSvPs5XQMcjD0QmtFB5zNW9ef4
-	 zsvWsWbQTVWh1VSz7vjfDB727ODCIzl+j/Z/klp4ft7JApBEzpKZ4BIKYA9e8NxnQw0Ar
-	 p9LNzBnTcLjsIFZK0Sqti/BEH6ly2BgO2lBEKyD7N44QGrgF0DMnWDFV6tb3zF56FAA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794440905;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=402Fe33BaMpiMZSsnw6PGeMiVFZ9HuQ2pUw9tJPCwAU=;
-	b=k6s+5PrL0BXJSl2bH9ZeTjfk3i84hSTHCBHCZOvdV4JFBNvqdl1M9yS4/LWvWiJggLo+
-	 71OKJCOQxWX9beNLgJrTIfUyFfEYFFcQaeX6KmroCkteDSoJXg+wSKsfUl90DAsxAgzgH
-	 ytrTwjkopaNKYdvlOPKpow9jRdtN73+WsHk4pGA+wAZQ4628Gz4imKH3r/qGtnqmAGn4O
-	 zrJiyYwKHAWD/c5dy30RG/dbnpGruslWTIhXUcR7EsPRomCJPK0c09Jm5Fr0tW/59AOxF
-	 /k4djStgXC25NU5OK2sQ6l0SWzzqA3eC1c/qLmq2MCBqTxFSNHUdWbheh/Ri7m0Uj+g==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id C5C291F00A08;
-	Wed, 11 Nov 2026 23:48:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794440905;
-	bh=402Fe33BaMpiMZSsnw6PGeMiVFZ9HuQ2pUw9tJPCwAU=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=RAcv7B+CCmm4Of2EitJjZfoZ0vcP5W3NvYn+bxa+/k8K0hN0US8HobRpTc9sq6o5V
-	 V2ssyRMFSvUvB7fpQJycwKbXRmK+Wa3pZwU/sA9NQ/vpaxA63tfsENypVV3FLbQqoN
-	 ikQlaW5Gt/bJkPd+omj3O4xhZ7/FtVVGhe/ZJvHXy+4hnRQXeFDUIth8+yWegoqoKt
-	 y7YxtCoMp6hQZmdLTFDtXe547qaIWyWlFQGmVVliSokgBr4MzqQwEgIok6+GGJkEVW
-	 Oc8On45CIlvdZTCqapI0U6IvhKbRwTPrTtTTAdBUes5aITRI5JZWnR9DZHWpwvKT7G
-	 am2PL72gsn22A==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 4F47B49189;
-	Wed, 11 Nov 2026 23:48:24 +0000 (UTC)
-From: Igor Velkov via B4 Relay <devnull+iav.iav.lv@kernel.org>
-Date: Wed, 11 Nov 2026 23:48:21 +0000
-Subject: [PATCH net v5 3/4] net: phy: stop postponing PHY interrupts when a
- PHY PM callback fails
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=YK/w9e5I
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794440911; x=1825976911;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=F2WuUYmuXTPXL+P5748IfGeMmC4KPLynQ6+J0uAEp+0=;
+  b=YK/w9e5IWHuHOGZCpyrIiUoz0lAFiaLXtm0kYASpfId+l4gbZDextDvN
+   4jK8UuJ65ggGldkyBBHxkLRGMlRrq4ODK1fOGT3l2iRR3J6EnsWkzwudK
+   EYDcUK3z776OVqqQJJ4WtFsw6F1Xa6i/dty4AZe96fBTgnFGqf4N3qOC8
+   g9GvxlO2jcQ4WVnettuz8ZQpFxqacfcTe7taY/3kKa5Os0nK+Ys/+19xg
+   Dw/hrAD4lfLx/wTqSf4yAE+GKBsAIb+3Kfl9Wigd6bkQ88Tv766WgkPLQ
+   x+zgM+4xl0n6DvoRWaeNDX2ORGtb62M81rhn4Zm83Y5vl5PfMpPRAJc6R
+   A==;
+X-CSE-ConnectionGUID: AFHQjuDlTiq5kbiHN6Yy+Q==
+X-CSE-MsgGUID: 72OqXOYOQyCXo7ACfUMtdA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3226584"
+X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
+   d="scan'208";a="3226584"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 15:48:31 -0800
+X-CSE-ConnectionGUID: L4ZeofTETcawVOXtCfTrDg==
+X-CSE-MsgGUID: WFO6/awMR/Gk2uILNvf7Cg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
+   d="scan'208";a="8512363"
+Received: from pavel-dev.sc.intel.com (HELO pepopov-mobl2.intel.com) ([10.3.206.11])
+  by orviesa002.jf.intel.com with ESMTP; 11 Nov 2026 15:48:28 -0800
+From: Pavel Popov <pavel.e.popov@intel.com>
+To: "Rafael J. Wysocki" <rafael@kernel.org>,
+	Viresh Kumar <viresh.kumar@linaro.org>,
+	Jani Nikula <jani.nikula@linux.intel.com>,
+	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	Tvrtko Ursulin <tursulin@ursulin.net>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Peter Huewe <peterhuewe@gmx.de>,
+	Jarkko Sakkinen <jarkko@kernel.org>,
+	Tom Lendacky <thomas.lendacky@amd.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>
+Cc: Pavel Popov <pavel.e.popov@intel.com>,
+	Leon Romanovsky <leon@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Logan Gunthorpe <logang@deltatee.com>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Len Brown <lenb@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	x86@kernel.org,
+	linux-acpi@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	intel-gfx@lists.freedesktop.org,
+	amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
+	platform-driver-x86@vger.kernel.org,
+	linux-integrity@vger.kernel.org,
+	linux-crypto@vger.kernel.org,
+	linux-arch@vger.kernel.org,
+	linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 2/7] drm/i915: Include <asm/cpu_device_id.h> unconditionally
+Date: Wed, 11 Nov 2026 16:48:15 -0700
+Message-ID: <20261111234821.4814-3-pavel.e.popov@intel.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261111234821.4814-1-pavel.e.popov@intel.com>
+References: <20261111234821.4814-1-pavel.e.popov@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,157 +114,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261111-b4-phylib-mac-pm-irq-v3-v5-3-bbfdb5afb7d3@iav.lv>
-References: <20261111-b4-phylib-mac-pm-irq-v3-v5-0-bbfdb5afb7d3@iav.lv>
-In-Reply-To: <20261111-b4-phylib-mac-pm-irq-v3-v5-0-bbfdb5afb7d3@iav.lv>
-To: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>, 
- Russell King <linux@armlinux.org.uk>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
-Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>, 
- Lukas Wunner <lukas@wunner.de>, 
- "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>, 
- Wei Fang <wei.fang@nxp.com>, 
- =?utf-8?q?Niklas_S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>, 
- Paul Barker <paul@pbarker.dev>, 
- Florian Fainelli <florian.fainelli@broadcom.com>, 
- Doug Berger <opendmb@gmail.com>, 
- Thangaraj Samynathan <Thangaraj.S@microchip.com>, 
- Shenwei Wang <shenwei.wang@nxp.com>, 
- Haoning Cheng <Haoning.CHENG@cn.bosch.com>, netdev@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Igor Velkov <iav@iav.lv>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4173; i=iav@iav.lv;
- h=from:subject:message-id;
- bh=ufSlJR1JUWh6LMI/LBIHvZWnCZGjjT9SaXzc2rd3OA0=;
- b=owGbwMvMwCVmNH1q96v4SmbG02pJDFlf/h2b/CJEz0j6Q4P2rmuzmK46PuP0Lr745mKsyDfut
- L1u9WxxHaUsDGJcDLJiiiwTDmncylhy9a+/h/kDmDmsTCBDGLg4BWAiz6cx/K/Tb02WEuhxvTVj
- zQ+mM+XxVTJCS9nNupRV+7gTBSIa8hgZnn0S5JT5NeeXn+i2bSY/rHKDAxw/S0j9LIrYwB5byHq
- NEwA=
-X-Developer-Key: i=iav@iav.lv; a=openpgp;
- fpr=90C228DA68A4D5FD4F4837E03297958BEA5F7903
-X-Endpoint-Received: by B4 Relay for iav@iav.lv/default with auth_id=1060
-X-Original-From: Igor Velkov <iav@iav.lv>
-Reply-To: iav@iav.lv
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-From: Igor Velkov <iav@iav.lv>
+<asm/cpu_device_id.h> now has a generic version, so the #ifdef
+CONFIG_X86 around the include is no longer needed.
 
-When phy_suspend() fails in mdio_bus_phy_suspend(), irq_suspended
-stays set and the state machine stays stopped: the PM core does not
-resume a device whose suspend callback failed, and the next PHY
-interrupt disables the line until the next resume. When phy_init_hw()
-or phy_resume() fail, mdio_bus_phy_resume() returns before the rerun,
-with irq_suspended set and a postponed interrupt left disabled.
+<asm/intel-family.h> is included by <asm/cpu_device_id.h>. The CPU
+match table still needs CONFIG_X86 for the INTEL_* model defines.
 
-Undo the postponing and restart the state machine when phy_suspend()
-fails. When phy_init_hw() or phy_resume() fail, stop postponing too, but
-leave a line that a postponed interrupt disabled off, as before this
-patch: the PHY may be out of reach, and its handler could not quiet a
-level-triggered source. The line comes back on the next successful
-resume; phy_free_interrupt() gives it back to the other users of a
-shared line, and a new request restarts it.
-
-Fixes: 1758bde2e4aa ("net: phy: Don't trigger state machine while in suspend")
-Signed-off-by: Igor Velkov <iav@iav.lv>
+Signed-off-by: Pavel Popov <pavel.e.popov@intel.com>
 ---
-Haoning Cheng's Tested-by on v4 is not carried: a failed resume now
-leaves the line disabled.
----
- drivers/net/phy/phy.c        |  2 +-
- drivers/net/phy/phy_device.c | 29 ++++++++++++++++++++++++-----
- 2 files changed, 25 insertions(+), 6 deletions(-)
+Depends on <asm-generic/cpu_device_id.h> from [1]; please apply after
+it is in mainline.
 
-diff --git a/drivers/net/phy/phy.c b/drivers/net/phy/phy.c
-index ea22ebb14a83..62b7f428f9da 100644
---- a/drivers/net/phy/phy.c
-+++ b/drivers/net/phy/phy.c
-@@ -1414,7 +1414,7 @@ static irqreturn_t phy_interrupt(int irq, void *phy_dat)
- 	irqreturn_t ret;
- 
- 	/* Wakeup interrupts may occur during a system sleep transition.
--	 * Postpone handling until the PHY has resumed.
-+	 * Postpone handling until the transition ends.
- 	 */
- 	if (IS_ENABLED(CONFIG_PM_SLEEP) && READ_ONCE(phydev->irq_suspended)) {
- 		struct net_device *netdev = phydev->attached_dev;
-diff --git a/drivers/net/phy/phy_device.c b/drivers/net/phy/phy_device.c
-index d3815ee21541..110c9dfcbd91 100644
---- a/drivers/net/phy/phy_device.c
-+++ b/drivers/net/phy/phy_device.c
-@@ -333,8 +333,8 @@ static bool mdio_bus_phy_may_suspend(struct phy_device *phydev)
- }
- 
- /* Wakeup interrupts may occur during the system sleep transition when
-- * the PHY is inaccessible. Set flag to postpone handling until the PHY
-- * has resumed. Wait for concurrent interrupt handler to complete.
-+ * the PHY is inaccessible. Set flag to postpone handling until the
-+ * transition ends. Wait for concurrent interrupt handler to complete.
+[1] https://lore.kernel.org/r/20261111234439.4098-1-pavel.e.popov@intel.com
+
+ drivers/gpu/drm/i915/intel_cpu_info.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/intel_cpu_info.c b/drivers/gpu/drm/i915/intel_cpu_info.c
+index e52d0ac713a..a6b46cc841a 100644
+--- a/drivers/gpu/drm/i915/intel_cpu_info.c
++++ b/drivers/gpu/drm/i915/intel_cpu_info.c
+@@ -6,12 +6,11 @@
+  * intel_device_info.h by having a separate file.
   */
- static __maybe_unused void mdio_bus_phy_suspend_irq(struct phy_device *phydev)
- {
-@@ -367,6 +367,7 @@ static __maybe_unused void mdio_bus_phy_resume_irq(struct phy_device *phydev)
- static __maybe_unused int mdio_bus_phy_suspend(struct device *dev)
- {
- 	struct phy_device *phydev = to_phy_device(dev);
-+	int ret;
  
- 	if (phydev->mac_managed_pm)
- 		return 0;
-@@ -384,9 +385,20 @@ static __maybe_unused int mdio_bus_phy_suspend(struct device *dev)
- 	if (!mdio_bus_phy_may_suspend(phydev))
- 		return 0;
- 
-+	ret = phy_suspend(phydev);
-+	if (ret) {
-+		/* The PM core skips the resume callback of a device whose
-+		 * suspend callback failed.
-+		 */
-+		mdio_bus_phy_resume_irq(phydev);
-+		if (phy_uses_state_machine(phydev))
-+			phy_start_machine(phydev);
-+		return ret;
-+	}
++#include <asm/cpu_device_id.h>
 +
- 	phydev->suspended_by_mdio_bus = 1;
+ #include "intel_cpu_info.h"
  
--	return phy_suspend(phydev);
-+	return 0;
- }
- 
- static __maybe_unused int mdio_bus_phy_resume(struct device *dev)
-@@ -412,11 +424,11 @@ static __maybe_unused int mdio_bus_phy_resume(struct device *dev)
- 
- 	ret = phy_init_hw(phydev);
- 	if (ret < 0)
--		return ret;
-+		goto err;
- 
- 	ret = phy_resume(phydev);
- 	if (ret < 0)
--		return ret;
-+		goto err;
- no_resume:
- 	mdio_bus_phy_resume_irq(phydev);
- 
-@@ -424,6 +436,13 @@ static __maybe_unused int mdio_bus_phy_resume(struct device *dev)
- 		phy_start_machine(phydev);
- 
- 	return 0;
-+
-+err:
-+	/* Stop postponing, but leave a line that a postponed interrupt
-+	 * disabled off: its handler may not reach a PHY that did not resume.
-+	 */
-+	WRITE_ONCE(phydev->irq_suspended, false);
-+	return ret;
- }
- 
- static SIMPLE_DEV_PM_OPS(mdio_bus_phy_pm_ops, mdio_bus_phy_suspend,
-
+ #ifdef CONFIG_X86
+-#include <asm/cpu_device_id.h>
+-#include <asm/intel-family.h>
+-
+ static const struct x86_cpu_id g8_cpu_ids[] = {
+ 	X86_MATCH_VFM(INTEL_ALDERLAKE,		NULL),
+ 	X86_MATCH_VFM(INTEL_ALDERLAKE_L,	NULL),
 -- 
-2.43.0
-
+2.54.0
 
