@@ -1,75 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=158.69.130.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794409200;
-	b=0z61KxCnKo+0BLctFO+cMk0a19XSvgwvQVrDoAQsBT9HznmfsqDbTwYC/wBhq/uL3w+U
-	 VW02fHTxwfL06r3v/66Ouw1FkRlm9aJqKM7UZQxSklLOJqLdDirVhcs6YXeCJ6J4PU4e3
-	 9tXTVjO7qVAnUH7MupaVFS2KgZCtPgGKeQZMLXKWSDOFy2FXljq9oan+mUBYDlmtDxLxc
-	 eCAUqPyT4RKuX+TfaL56t2dsZSlKlcBQBkZ0J4m2KCkFc2ocgUYrKGe5LKR6kLeyfQnsG
-	 78L43McKFrci9/xBppBEVF3g52dhrBhonGihKNI5wzmHYRbkyxwa64GZX2UTI1ZRZJQ==
+	t=1794409201;
+	b=y9s0TokXQ7VwV9pAUwCL+TxplONGgYK7s8myR76ijGxJyoVJnx3OkN/l2oZFMMFCVFBT
+	 iobEkCVoEStgAinKtBZPyZt8IGCgMpD2dxvh+VSULiIfbSPMqVq8pu6ACQJNDIINlS7bV
+	 NUReTtiALcG/enlHO9js1e2Xz2Hw/A3w19I8+VHNzlvx2P3a2PqQ5L8/vuTvoFISiPx5c
+	 tm7WiFTnhxEyVoIXG7D5dDq0asjcmRzCHZ6VRMTjD8cRJces4GKCc721IwKa9I2PDI9Vo
+	 1VwoBF2j16428toVeFLjN5ahE8yJzovhtqmz40+ArjsZdU0Gm1LemRbE+a2gtSjOqpw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794409200;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=5VQFlTUii6Skd60qq7D0gNjbqRatGHOp3KXSUWCWCp8=;
-	b=BSyrIn0k/UxYgb94aryMFtNlCQz5k/Mtxyb0SsgHnRZF649DlOatgxn6DV2lhCTWpvOw
-	 a5vLxbFp6ATLw60BYsNMepIs1gCoNfUnEasv3tFxCfpHjHAOEelr4VcYYW4ckCRuwNpri
-	 rMShd04s15qS2v5QryKXB2GvRetq5uAjwtMq0eVIzvqKWvLrQE+0Vu0eR9T6AVH7Lx3tp
-	 Z8lPBfrrUuyTDRoVCfpGgWvYggQYu6t7iRGS2/8dSydJutiKV67r4t8sqNZIEBe93DSMc
-	 KQgZpPEzAmlLQ2wvOZaO8u/fStW6bybPhwMeWEpLxDA4eP8XAaavdnXejMXlb2wzeoQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794409201;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 MIME-Version:Content-Type:Content-Disposition;
+	bh=ypiC4uNdfcoGbAoTjz+aGTLh9KVOkc1XPsD+CPrl5Aw=;
+	b=Eq4Svbmnhc9B50ESkFQ9AEUITuAitkTFpp6hYNzTfmkxUSzDZ3LqVsZXudQk08bP19ZA
+	 CBVa1Ohqb4B9MXolqp8y7UU0tDEZ4+uNYXyfb+VAAp0BUPW4sauC3nk75fuZQFaU83Qd+
+	 +wYyXYUMlIF2KLy3PoheIpRXyZlwN68eSN3QJg2VtMhLA+nYl6Qh9hKOwBNwZnn30iPZN
+	 hF1nwVSPwcQJZGfnBszShiyL3csGeQbw1TWDsQO0mEvLvat49FFlgvKK+oW/HdBD139Wh
+	 W9uhKwAmtbA0DqbWBa/apq3RBk8ShIR+L9AxAOl0L/9wv79KqVwlBIIiksN8IJVeCOQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=efficios.com;
-	spf=pass smtp.mailfrom=efficios.com;
-	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=VMIPUhBp;
-	arc=none smtp.remote-ip=158.69.130.18
-Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GarvISh1;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C12B606A8B4;
-	Wed, 11 Nov 2026 14:59:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C12B606A8B4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68B1F60A5BFE;
+	Wed, 11 Nov 2026 15:00:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=VMIPUhBp
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
-	s=smtpout1; t=1794409198;
-	bh=5VQFlTUii6Skd60qq7D0gNjbqRatGHOp3KXSUWCWCp8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=VMIPUhBpOlIWSyts/vgcaQL+/uijD00KM+T/G4FA1Hcbzp4Kv+Xqwq5+DFlmJWw6f
-	 4tTXu+tgxYwlgRJNzC4e9l9kFySsnskRzLvgLqL3yKGrGNqzwIFzX4DC2waxxvbhPc
-	 yHwQnriY6ArruTqoKRkn1r9IryORX3/4Rot8kPmKup98Zxqf56XtNxhcfI1NC3lpus
-	 M/vGl8TcMxasKMg1Hrjhx9EIyQ7IMFrS8L6anluX/ac7lSfu22vKLdEdId2YXG1euS
-	 X6NB3IIWzBYDCgyC25gXlIOWi/QjreeY1PDPwNKaLwH+W4u5ItZqXLV7kg58S2CM9/
-	 K/HRam8jRQ85A==
-Received: from thinkos.internal.efficios.com (mtl.efficios.com [216.120.195.104])
-	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jPmsB22xFzNZJ;
-	Wed, 11 Nov 2026 09:59:58 -0500 (EST)
-From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-To: "Paul E . McKenney" <paulmck@kernel.org>
-Cc: linux-kernel@vger.kernel.org,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	David Woodhouse <dwmw2@infradead.org>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
-	Joel Fernandes <joelagnelf@nvidia.com>,
-	Josh Triplett <josh@joshtriplett.org>,
-	Boqun Feng <boqun@kernel.org>,
-	Uladzislau Rezki <urezki@gmail.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Lai Jiangshan <jiangshanlai@gmail.com>,
-	Zqiang <qiang.zhang@linux.dev>,
-	Davidlohr Bueso <dave@stgolabs.net>,
-	Kunwu Chan <kunwu.chan@gmail.com>,
-	Puranjay Mohan <puranjay@kernel.org>,
-	rcu@vger.kernel.org
-Subject: [PATCH v2 7/7] rcutorture: Check an atomic SRCU wait within an RCU reader
-Date: Wed, 11 Nov 2026 09:59:49 -0500
-Message-Id: <20261111145949.70845-8-mathieu.desnoyers@efficios.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20261111145949.70845-1-mathieu.desnoyers@efficios.com>
-References: <20261111145949.70845-1-mathieu.desnoyers@efficios.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GarvISh1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E96D1F00A0A;
+	Wed, 11 Nov 2026 14:59:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794409201;
+	bh=ypiC4uNdfcoGbAoTjz+aGTLh9KVOkc1XPsD+CPrl5Aw=;
+	h=Date:From:To:Cc:Subject;
+	b=GarvISh1kpXSifRwdSycH+m4H/8UuNppcE2/JM3eQF8f2KvVd8KuXYbH09zVO+hiC
+	 qmK/12oxLtHpjm6YnqhgOmc6hIk7kYKR2tswf2t2XOgdVWv/aM1FuTkMAMP+dtIblZ
+	 6rYIw11Gtd+8Xq2YCjMK692kLwnu3l5BAjkuaqPRPS2v+1kxRyRxcev3m0YdSygM41
+	 czV2qc6IxkG4RdTd+Fg/qftiEWleyuvlzMkB4bTmznT019SXsZraZTV6o5I1b63Rw5
+	 o7G5ihlXnaPPEC5OsAajaJIj1oTe1rw+Uogqussaz3QUaUVuvgQig0RsYegeuzqhCL
+	 qx+0Y9LZs5ufg==
+Date: Wed, 11 Nov 2026 14:59:56 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Miguel Ojeda <ojeda@kernel.org>
+Cc: Douglas Anderson <dianders@chromium.org>,
+	KBuild Mailing List <linux-kbuild@vger.kernel.org>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Linux Next Mailing List <linux-next@vger.kernel.org>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nicolas Schier <nsc@kernel.org>
+Subject: linux-next: manual merge of the rust-fixes tree with the
+ kbuild-current tree
+Message-ID: <avSC7GXOwnbuycR8@sirena.org.uk>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,70 +60,77 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="OYsxV2iGVwCNs3L0"
+Content-Disposition: inline
 
-synchronize_srcu_atomic() may be called within rcu_read_lock().  It must
-then not end an RCU grace period, because its caller still holds it up.
-Tiny SRCU did end one, by calling synchronize_rcu().
 
-Check this once, when a torture type starts with atomic SRCU readers.
-Take a cookie from get_state_synchronize_rcu() within rcu_read_lock(),
-call synchronize_srcu_atomic(), and warn if
-poll_state_synchronize_rcu() then reports the cookie as completed.  The
-cookie is taken within the reader, so no RCU grace period can complete
-it before rcu_read_unlock().
+--OYsxV2iGVwCNs3L0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
----
- kernel/rcu/rcutorture.c | 21 +++++++++++++++++++++
- 1 file changed, 21 insertions(+)
+Hi all,
 
-diff --git a/kernel/rcu/rcutorture.c b/kernel/rcu/rcutorture.c
-index 2ec461414263..d9c9ff653cb6 100644
---- a/kernel/rcu/rcutorture.c
-+++ b/kernel/rcu/rcutorture.c
-@@ -799,6 +799,24 @@ static void srcu_torture_read_unlock_atomic(int idx)
- 	srcu_read_unlock_atomic_irqrestore(srcu_ctlp, idx, flags);
- }
- 
-+/*
-+ * Wait for an atomic SRCU grace period within an RCU reader.  The wait must
-+ * not end an RCU grace period: this reader still holds it up.  The cookie is
-+ * taken within the reader, so no RCU grace period can complete it there.
-+ */
-+static void srcu_torture_check_atomic_in_rcu_reader(void)
-+{
-+	unsigned long cookie;
-+
-+	rcu_read_lock();
-+	cookie = get_state_synchronize_rcu();
-+	synchronize_srcu_atomic(srcu_ctlp);
-+	WARN_ONCE(poll_state_synchronize_rcu(cookie),
-+		  "%s: synchronize_srcu_atomic() ended an RCU grace period within an RCU reader\n",
-+		  __func__);
-+	rcu_read_unlock();
-+}
-+
- static void srcu_torture_init(void)
- {
- 	rcu_sync_torture_init();
-@@ -819,6 +837,7 @@ static void srcu_torture_init(void)
- 		VERBOSE_TOROUT_STRING("srcu_torture_init atomic SRCU");
- 		srcu_torture_init_forbidden_apis();
- 		srcu_torture_init_irqsave();
-+		srcu_torture_check_atomic_in_rcu_reader();
- 	}
- }
- 
-@@ -1093,6 +1112,8 @@ static void srcud_torture_init(void)
- 		WARN_ON(init_srcu_struct(&srcu_ctld));
- 	}
- 	srcu_ctlp = &srcu_ctld;
-+	if (reader_flavor & SRCU_READ_FLAVOR_ATOMIC)
-+		srcu_torture_check_atomic_in_rcu_reader();
- }
- 
- static void srcu_torture_cleanup(void)
--- 
-2.47.3
+Today's linux-next merge of the rust-fixes tree got a conflict in:
 
+  scripts/Makefile.autofdo
+
+between commit:
+
+  3df238d7a9f5a ("kbuild: AutoFDO: Disable Profi (-fno-sample-profile-use-p=
+rofi)")
+
+=66rom the kbuild-current tree and commit:
+
+  1178120c3bed1 ("kbuild: rust: support stabilized flag `-Cprofile-sample-u=
+se` for Rust >=3D 1.100")
+
+=66rom the rust-fixes tree.
+
+I fixed it up (see below) and can carry the fix as necessary. This
+is now fixed as far as linux-next is concerned, but any non trivial
+conflicts should be mentioned to your upstream maintainer when your tree
+is submitted for merging.  You may also want to consider cooperating
+with the maintainer of the conflicting tree to minimise any particularly
+complex conflicts.
+
+diff --cc scripts/Makefile.autofdo
+index 55fda66ad960c,32c18df237f1b..0000000000000
+--- a/scripts/Makefile.autofdo
++++ b/scripts/Makefile.autofdo
+@@@ -13,10 -13,8 +13,10 @@@ endi
+  ifdef CLANG_AUTOFDO_PROFILE
+    CFLAGS_AUTOFDO_CLANG +=3D -fprofile-sample-use=3D$(CLANG_AUTOFDO_PROFIL=
+E) -ffunction-sections
+    CFLAGS_AUTOFDO_CLANG +=3D -fsplit-machine-functions
+ +  CFLAGS_AUTOFDO_CLANG +=3D $(if $(call clang-min-version,210000),-fno-sa=
+mple-profile-use-profi)
+-   RUSTFLAGS_AUTOFDO_CLANG +=3D -Zprofile-sample-use=3D$(CLANG_AUTOFDO_PRO=
+FILE) -Zfunction-sections=3Dy
++   RUSTFLAGS_AUTOFDO_CLANG +=3D $(if $(call rustc-min-version,110000),-Cpr=
+ofile-sample-use,-Zprofile-sample-use)=3D$(CLANG_AUTOFDO_PROFILE) -Zfunctio=
+n-sections=3Dy
+    RUSTFLAGS_AUTOFDO_CLANG +=3D -Cllvm-args=3D-split-machine-functions
+ +  RUSTFLAGS_AUTOFDO_CLANG +=3D -Cllvm-args=3D-sample-profile-use-profi=3D=
+false
+  endif
+ =20
+  ifdef CONFIG_LTO_CLANG_THIN
+
+--OYsxV2iGVwCNs3L0
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmr0gusACgkQJNaLcl1U
+h9DH5Qf+J72YfvUWtVgi4IA0eW3JrXE6n5BBML8P3P2IhD8dm5ldpr1wLEBrwuq6
+sYg+kfO/8rllR0CPAncnktNJWzgW764lqSgZczl8xTLrHOnO8edW7aRBcm/Pb480
+FP5S4Iud0s0ueHhwwu8F1w2Nwjvr4PIlkGb19pi59+SZAGzAiCkaYK2pa0x+N7Mn
+KXyk3S9qf8JlLmtwzZLWgksJb0Cdz/DwhOBMJoqgvhM6t022mGUkePgMGyv23Ato
+io+aub9uLk7nyiMoo8DLtC5mne9S7oU7jS/j0LCJdyJIJNO/vIsa18JYEPy6CxqR
+z2auSoa0BXh9s5O3BDCumqZ5LW/OcA==
+=Hv0S
+-----END PGP SIGNATURE-----
+
+--OYsxV2iGVwCNs3L0--
