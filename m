@@ -1,82 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794376610;
-	b=l869XwMlmchaYzy7cCgh84gBxTBLHxUKHvAxd2LxJbYlfJdVq5z3x8pT4BrrOQNOTtxa
-	 iDfH7efllZbhBKGtthDPboB7lgqmXu8mW3KGqLwghc2pwp28g/F6sT+UW4qTBv9Ga0YfA
-	 RTvrKxzRSA+3E/PphdzEE2HEDoEmQ9xBqgx9s8YZ5zc++2CCbe27QRU5HW/tf2LaEiDiJ
-	 e+YS+CqHHEyvXZe47S8jYfP4yUsiZskjrTnkWXR/jB5r6ARVd08/5fMZs1YYOHIjQhDww
-	 hKG/FTWRd6Ov3dzTM6boIn4F27KFaZJ7Obwx74sjkgXyup0smmP6nQ/B5liPYYpfuCQ==
+	t=1794376614;
+	b=FyJEY/rTit94pXovtIGxjD/kp5AnGYWnwHweBn7oRkBzO5SUpmYlapmp3e+2i8gBtJMb
+	 mP4CBp7MVFddMUImsDRb3JrzSRMZTkecwtJE0kKQEbZKHYzjCSsxEmwUIlf7VpS+pxuS+
+	 dhah7/SNPrRN7Z6V56y5smv0U2fs1YJykbzodvAxg74/Y7njiyYuinxRy7X8pdD73IZUN
+	 qOdPgTasARCyqOmFVy7piR8CWUDz2s9meQPzMiSc8uVTFWzq7fEWI95FA7QBAAw8DTo23
+	 vaxTGDDvXQXPMKSH6vB0oomGVdUAWnorOysM5PJsXn3L707y9N7kwOGGs+lKkNxN0UA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794376610;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794376614;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=VMys8McNjnWrl5YPrlDdndx3edldCiGJ31ibT5uzN+8=;
-	b=vurOB9iEdIZv0a7AWzepb94cQp3GO4P4Pm+zdM6AdQLszODGGtjLqfTQYL0NEAKd1nxh
-	 xGZvg7DVVEc1RE3me1mUVV3nwmfYanGHiT+Nw2UeZnYkSvCaTm0vcZYejo4Dt0TdQsI6f
-	 6peKO/aTPsIXRIFzIn/PuMODrzgDDrhld/vxMOtKC5N6sVS3y7EiZqPAUBmAYG9g5YO/P
-	 OaAgLXdavQFS/49+CfWInhHoxrHxK2K/vU/DflqGQpsFFYVp/L51MkFHwbNnlYaabBrK0
-	 iG5nGL95tJ3LDX2qiHBsYdBjVoJLfkX6vWss3UlT3aZOh7onC9LrxUoSRgMngaHZohQ==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=unKmJDdAUE6W9/H4slkPzsgdbPWz7GOGEzJyQiys7w0=;
+	b=nAfcgH48MoUtq3zbZ2q64ueaxnskEpgEXHM1NhWLq4C21xU0oG/rdx78LtbcxUgenFkT
+	 TkUk3lDzNxq5Ulb3QjXjR6eid0Zc+VYU2J5s530fvXXbrloANy0MgY7WQE2zUZ2yAbqRS
+	 GouUaMjdMMFAz9Pn0PrFUZS9z/oDbKg4nQLYK8NV8xNKyYPo6VgpwluK2c8+a9dyyUSBq
+	 ihthDnPG9TEp1BoecuhaVuFGqpNN45FLLhceTNvM5jYRBWHlQRFdZW6MBmcJ/pZ55cr4L
+	 YdSbrN/mGgOsZN1aeIAZnoVJQOGsArMVFCKPlR5wewl0KXMu+Rlkk18KMgR1FUfk/lw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EBOXRgdj;
-	arc=none smtp.remote-ip=209.85.216.44
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="vRjqI5/h";
+	arc=none smtp.remote-ip=209.85.210.174
+Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DE28606A321
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 05:56:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0DE28606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 558E7606A333
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 05:56:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 558E7606A333
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EBOXRgdj
-Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-3b09a65c76dso2131719a91.1
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 21:56:49 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vRjqI5/h
+Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-8a070755c8cso1423226b3a.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 21:56:53 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794376609; x=1794981409; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=VMys8McNjnWrl5YPrlDdndx3edldCiGJ31ibT5uzN+8=;
-        b=EBOXRgdj64jVioki41kXMa8iPyDDnNbvmbuRYDycw2WGk0xUwNCa99nZe40gqj22bP
-         9zmCauJUUmVprBFZHWKJJ2dCZKZ9afrDkqRgUoODnpJG9+IDJ3ookVxLo6T6rvhN3F9L
-         eJmAnYb8acScgTZur6wL2dfjEAD6ifDirP3gfZ4idc+S1XONmo4hkXB4w6a8cKvrHd3k
-         kbPuSjDunLDLpnCTF08Eab9TKKO/6OehHyWyZIhks8fp2Nrkd4+MK8llEHqd1sXOrk9L
-         mdZ6Tw+IGZVHDbjUiUGtvg6ZsbJIp39gvoYS8z58Xqa+jzppIvGgsoYxNzrYCgDIgHmb
-         pfiw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794376609; x=1794981409;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1794376613; x=1794981413; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=VMys8McNjnWrl5YPrlDdndx3edldCiGJ31ibT5uzN+8=;
-        b=01VMlD5UKjDcA3YQSufNoRwMUYtlmTlmWKTfrszQG3lik5M263TiiBXcD3n2ZWYjTt
-         bMqIOd1D0/+iZoProPj5+A2UCN6U3j7i3Mjz5DhTxbGMIsQ4Xmfj9tpMRBmumFAcWldK
-         ZC7grnH/LxnhQ8APjiMQN/lQ48S/Cb2d3yTLH6Janx9LXkFzDvZzOvvV5Rr1kiSMF8ey
-         PXbvcqoRqI4G3DjB2mHJdrbDovQNiQwXyi3DmiAnxqn+fakS9dgM/L7W/fgRq/5B4dai
-         RF3GRAnAE1gfaLjp/irdsUabGfrFW7y1x8Ew7O62UlRX7QimV4qYipN5/wofq6NWkDSC
-         o89A==
-X-Forwarded-Encrypted: i=1; AL+hErE6UzfLMBjJQsPBmFRlrHsBTnaOqaHCVmdSFzh5fJgtf8MxYtG61/cDccCekZ0bg++YYeKjf0ByJ2aDlIU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9yo/seCex7x8loGK/3ndE8f9Pqqg5fMjimujN7wrgnpq/2t95p
-	tlWpY1gd7Ycj0iNb8QslysADFEGauiYJfkIh7B2diZLNNUoTvAAbNsko
-X-Gm-Gg: AYBFou0qKgCOrHSROQ/9WQ3zWqg+qN2/uFwwxivx5E8Ng0Q03v9oNId+im3ZfFQi2lk
-	M7TC+2I8HTGeIKoT0mDHCJenxqXbydxGHjhA9hw/ZsgXPQRMojxQBvlElq3aizVQ+6n1W38Z/Ud
-	10Tyt6CoEq/J2kH0zTOkeWucBck9w+Jj3LBiCy/zFKH4RUe0Hct1u+lR8glQd5vjXwKropuJYmK
-	AVxkH6pJfehzih5NY2/2s1dZIYlVF2AdL+bcN6wFRtPkxCOGIF9hjjbkhAhTM1v2l82hbeYDn2f
-	KI9ZS+GYdKaTDiiDd9foL/8CuG9sa2omVYowm0cWQxd7gDyfsuqn+28jUUVnEdrO5KJPilGIhNg
-	hGvCn6KDcWYcg7H1fLEcux4iTFgM2rxcP9063uhGmyg3bFPZCnXOFwAyXkIiD1EJFfDHiD85dp1
-	bnnllq5e1JEschBOU2JhC6DUahkBZtX8oURFxaELFZm53Tu5EC+PzXWKVzLIZMqahNJdRCODqMc
-	Lbe/fMZuuAeFheph5v9UHe+Jztz2OvVhTbGPPwm2q5AdZH8NnVj9MGnt5t99LTrrpLzUXbnO8Wc
-	p1ImKlFsoOxzQ+HI2PqYyXQrKoY=
-X-Received: by 2002:a17:90b:17c8:b0:3ac:3e42:60a2 with SMTP id 98e67ed59e1d1-3b182edc9d1mr1477647a91.33.1794376609372;
-        Tue, 10 Nov 2026 21:56:49 -0800 (PST)
+        bh=unKmJDdAUE6W9/H4slkPzsgdbPWz7GOGEzJyQiys7w0=;
+        b=vRjqI5/hclABu2QBc8ugqYu29kWFKF471I54hASrrOmzpvUosM6GGhNNOXKwSf2Rny
+         otPaF1vhAv9F+Gqd4sQ7S89YwToXCBeTAZMyk7BQmytpZTRmeOSWnbcbzrwG8URDFd9V
+         i0UrPQfxnDQkd0p+x8T2aUS2qMrN/StcvQbd/J3u86cftty1Zi0lSXlqD3cwdjt0bUgu
+         KTuprj0iNZlK1UDK153M2wgq55pqMLP7n7agORZIDonftNX3d6AXXOVeudTlwtgAYMLU
+         +lOuSsxD8CX/bLnhQAM5vrxT26CX5AGUUaO9sVdE1OxuTIXqEVYqS7C0u1VXNoSMm750
+         2pbg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794376613; x=1794981413;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=unKmJDdAUE6W9/H4slkPzsgdbPWz7GOGEzJyQiys7w0=;
+        b=fOTepaoZyutgUYHLVMPqMcG/W4BTyY939a3Mxwk95v1e78XXEl5o0lX0Sq54BfsfuS
+         CxAdaUr/snUbYm16FCjLDmiQQmo/I1qEb+yb+Zud2kzi7LTQYqv9bs00T6BuQTzi0ZBK
+         gt9DWAJPfdDhiXJ8E63ppT05aDojZMZM0NMGfmyExYdUoGDJRPjumqE016i3/N650F35
+         P1rRo6cxnIG6C+DEz+0wnmukdacGexspV2Iig1dqBTmzjqoxoouyQElSjQPO9fczXVNa
+         ib8aggMtY1zuKQhySS9G2fBjaiQEKyWzZTrJKZWv+LFYkSFvjhZjl8Oq+vECjt5KI0QV
+         sbRg==
+X-Forwarded-Encrypted: i=1; AL+hErEwMpmqKlq/InFlvdsbCn55/z/tElI4uCPdQVvHWQAPbEMedgx3ylvGpQYJ55T9sQSUfe9Jz9py7vHsc0g=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8Dl6Wn71htwgSpdp6iMvfvpu2WRhBdpDLBBDoEqC0Br+DzMnzh
+	T6aeL/m37YyROQvqKm2kBujrWdpTmcjdfX7TfV8U0eXPFqTxu3jtzGGI
+X-Gm-Gg: AYBFou0JJhsV3GrqtwQdC5KF4Fi7J5DXv4bYZkzJIaPrgsnqwd0X+m5XQNV+mX2OBjI
+	/Z+pu7fVxxamxmcE4B+mtFKVIG2UjHAWzrw+Lk0zbDIWvMOJ3yXyXYYvEYjKBW4smfUCF+wEwbX
+	x7pYbEh+aGJpeeS2OH1cNZki82HGXlb6vCYZPlq4S4eiwBqHgBuaTGCZtt9InpAh7+uiEnCc0xQ
+	jb1O89HL/Q0IPWlX/p14MSzMaii0a/PGMvfOgRF18QkoqOLhlCjXLZOsHggBb+Uy2NaVaiyyUL0
+	O152mRPZvHjxFaVSnhjmGKRct7IJ43A3NgspRMUOa1Qigdm5AWE4uSOKIfGPKBisM7KUR+GvkJ2
+	45RtnBv7KCkDbsrRo0HJ8y2Fn+C9ZxyXZGE5WJeboE988Dq2otoIKNZNo0/q8T1w0/ho/gTBDTA
+	zc3SAkCaDIzKPCuMsmisGprq9vmWfjF7fL07dY0Ar0IyblepDLGJWLnBADON0khezR+YORjzEhp
+	zIEPGkSD1YiNSOIdVkAmdru37M3hKyJnTrWkkKxQgUfHki9bgHNiu4JO68tdXlnxzi4mueSQuCy
+	R3s2ERRQEGEDkh5++fFyHhqGvLw=
+X-Received: by 2002:a05:6a21:648a:b0:3e2:1656:b7c7 with SMTP id adf61e73a8af0-3f2fe3d46dbmr1571001637.58.1794376612581;
+        Tue, 10 Nov 2026 21:56:52 -0800 (PST)
 Received: from localhost ([2001:19f0:8000:3bef:5400:6ff:fef9:667])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b18142fa70sm2449126a91.16.2026.11.10.21.56.48
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cdd8d695905sm1393894a12.11.2026.11.10.21.56.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 21:56:48 -0800 (PST)
+        Tue, 10 Nov 2026 21:56:51 -0800 (PST)
 From: Inochi Amaoto <inochiama@gmail.com>
 To: Minas Harutyunyan <hminas@synopsys.com>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
@@ -88,10 +89,12 @@ Cc: Inochi Amaoto <inochiama@gmail.com>,
 	linux-kernel@vger.kernel.org,
 	Yixun Lan <dlan@gentoo.org>,
 	Longbin Li <looong.bin@gmail.com>
-Subject: [PATCH v2 0/3] usb: dwc2: Add USB DRD support on CV1800 Series SoC
-Date: Wed, 11 Nov 2026 13:56:15 +0800
-Message-ID: <20261111055628.183891-1-inochiama@gmail.com>
+Subject: [PATCH v2 1/3] usb: dwc2: gadget: honor pullup requests in core_connect
+Date: Wed, 11 Nov 2026 13:56:16 +0800
+Message-ID: <20261111055628.183891-2-inochiama@gmail.com>
 X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261111055628.183891-1-inochiama@gmail.com>
+References: <20261111055628.183891-1-inochiama@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,45 +106,34 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The current DRD implementation of DRD will cause a interrupt flow on
-CV1800 Series SoC. It has two reasons:
-1. The DRD does not sync the phy mode when change the controller mode,
-   it is a violation of the DRD as it does not rely on a OTG phy.
-2. The CV1800 is entered with a Session End Detected interrupt, but the
-   DRD code has no change on it, so the controller will enter the
-   interrupt storm.
+The connector ID work initializes the peripheral controller and calls
+dwc2_hsotg_core_connect() even when no gadget driver has requested a
+connection. After a host-to-device role change, this clears SFTDISCON
+and lets the host enumerate an unconfigured gadget.
 
-This patch add fixes for these two problem, and I have tested this on
-a Huashan PI board (it has a CV1812H SoC).
+Check enabled in the connection helper. So the device will keep
+disconnect until the controller is ready
 
-Note: This patches set does not resolve all the problems, as
-      usb_add_hcd() will override the role set by dwc2, but I am not
-      sure whether it should change skip_phy_initialization of hcd.
-      So I kept it as it is and users still needs to set the role
-      in the userspace as "role-switch-default-mode" in devicetree
-      takes no effect.
+Fixes: 510ffaa48eac ("usb: dwc2: Initialize the USB core for peripheral mode")
+Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
+---
+ drivers/usb/dwc2/gadget.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-Changed from v1:
-- https://lore.kernel.org/linux-usb/20261110070627.217946-1-inochiama@gmail.com
-1. the DTS patch is dropped and will be sent separately.
-patch 2:
-1. fix wrong is_host check in dwc2_drd_init()
-2. remove unnecessary role check before setting phy mode in
-   dwc2_drd_role_sw_set()
-
-
-Inochi Amaoto (3):
-  usb: dwc2: gadget: honor pullup requests in core_connect
-  usb: dwc2: drd: Sync the generic PHY mode with role requests
-  usb: dwc2: Add USB DRD support on CV1800 series SoC
-
- drivers/usb/dwc2/core.h     |  5 ++-
- drivers/usb/dwc2/drd.c      | 75 ++++++++++++++++++++++++++++---------
- drivers/usb/dwc2/gadget.c   |  3 +-
- drivers/usb/dwc2/params.c   |  1 +
- drivers/usb/dwc2/platform.c |  4 +-
- 5 files changed, 68 insertions(+), 20 deletions(-)
-
---
+diff --git a/drivers/usb/dwc2/gadget.c b/drivers/usb/dwc2/gadget.c
+index 6c8a9f05fff0..5c8e85493289 100644
+--- a/drivers/usb/dwc2/gadget.c
++++ b/drivers/usb/dwc2/gadget.c
+@@ -3664,7 +3664,8 @@ void dwc2_hsotg_core_disconnect(struct dwc2_hsotg *hsotg)
+ void dwc2_hsotg_core_connect(struct dwc2_hsotg *hsotg)
+ {
+ 	/* remove the soft-disconnect and let's go */
+-	if (!hsotg->role_sw || (dwc2_readl(hsotg, GOTGCTL) & GOTGCTL_BSESVLD))
++	if (hsotg->enabled &&
++	    (!hsotg->role_sw || (dwc2_readl(hsotg, GOTGCTL) & GOTGCTL_BSESVLD)))
+ 		dwc2_clear_bit(hsotg, DCTL, DCTL_SFTDISCON);
+ }
+ 
+-- 
 2.56.0
 
