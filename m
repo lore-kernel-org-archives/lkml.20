@@ -1,61 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.137
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794378354;
-	b=B66bCWFOvzATsscu1JeG6xLQKfDdwZc1fvOvAAiLUgIaQgyUFJdLABmSjEJrNATjyWnP
-	 IuDWxBaHtoy4DPH7jddUOt7qNcq1L/IM6votWujtzOnRUB7QTc1OpZXTfAvk0Dng82vAk
-	 PL8wCFIM00YHlyvB5k8L4iSfK30yIsCr0n9UyapGaYQnOevpDM0mn4o/x3fNDYI7QhrNG
-	 rftgmWCJV1qVSOyY1n9S95wP7VKcP1ZYvTuO+xeCsBoAVk+4SUylLhGLNFWgBa2JkHGWc
-	 mzs801wwGFibqi78QwxY0Ns116M8kCUUaTixl6VgyNQ8RXQ+6+ce2wvgJ1o7bNRPMMg==
+	t=1794378505;
+	b=wKzeBPHwVPUcXOPV4aecypL+MHLiTWN63A89QWaQQr/CQ987VnRN3LlcjltgrnzpaFcj
+	 /4LWQlA9IYIa1RyZ96sHMl6T3mgfgAPu2b5qD6Qdd3jyQtC9H+7YA2StVs8bPeSA4g0Mz
+	 jTN8/kFMnwA0LC3N5pFCd+Gli1qc9wQYwzes4HY3I6V8r7flOjf0eHLbGfhR5L8sTUHRE
+	 gFuun+S3eGsHPBikrBM7zpQVGnImF73rCBKQFHIbKx/eYxIoa5bFlBgfCMvkkc71joK61
+	 M5NBfLeM6dOIFOx37S+qg+0Ib/A2PYeA768VPCwgKBLn7Cg0Pfg03ertQ+Lii/ylYmg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794378354;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=cZQmf3rKYa62Ru0ytEh6HRhQWVPRFmnqQycLLmAQQW0=;
-	b=w+AZLpvQR9lFvv9AqAVGiDXlhFUo07buDhOysoh0ZzDVgFszaAiTRKsBFxOivyiX8N6N
-	 txxdXFb+FfAYfJT63zt8bx2u9D8B2tAdssfDGFHl/vZ7Yuce/jO4+SyP1j9g81W50EWqE
-	 G//ar89cPr0ke2bCA0zLfhatmVDOWTL5iBl6eFxO6FtDHCnM5UVfkY8SYpk/QUr4wB6eg
-	 FBiTefaqVbxv+H0OyRWOFUiSgdv4QEUpb+yDDAmYZMGkezzmmqWH/8TlPTVJv7bmedFFs
-	 JfE0UbQJ5ta2rQptt42nEV8dK6RznPmpjAG086IRG58dVO9uH2wCzK908KwseO5Wbxw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794378505;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=cU/O2FFxpaXw44sYdV0PRaEcPgZHOtMFMkcpzuRa/Gc=;
+	b=2vxpy0XeTc3YIoVgX3Qvd5LxVXejVeEfaLu4d+DKBw7IMCVHSFakdnzKUaaFnQPkEQnA
+	 HYMY8/6PV0B3W3Afb/ce13m2B2uHsdaRV/KZIdGCCx2mkOoiHxi/mi5OVb8f9coWVa23n
+	 zLIUFmRGqJFzSVIwrVRMjgL5iTUU9YCN8po0J/Y884G5I+IYj0fq7NAu0ka6YT6ZWPphe
+	 AOhH85gIDmmvp5fLZyWkv20hrDngzggac4Mp2WosGDXJE2ytUS/OKdnxLzFMhck1fj49V
+	 PWHpH8ik2OO5+PPPxTfJt19LFjmWmi75GCa1j6QNiIztk3wbUU8EY6OhtSTRYwJ6RjA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dTSkVDt2;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF1BC606A31C;
-	Wed, 11 Nov 2026 06:25:53 +0000 (UTC)
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=vgokg4Fe;
+	arc=none smtp.remote-ip=111.22.67.137
+Received: from cmccmta4.chinamobile.com (cmccmta4.chinamobile.com [111.22.67.137])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id EC324606A31C;
+	Wed, 11 Nov 2026 06:28:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC324606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dTSkVDt2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 133071F00A05;
-	Wed, 11 Nov 2026 06:25:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794378353;
-	bh=cZQmf3rKYa62Ru0ytEh6HRhQWVPRFmnqQycLLmAQQW0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=dTSkVDt2MZgKxE5gNAHSsZYqTggsReO4ZtPqt4qVNEl62VwzSW9akXRGFYoLBIedn
-	 P69/MlL1Muc1EUXsVRho86vy/qTb7WrButfiFzlEvm7LyhT6oeX0Kv9imRHp2qxzhB
-	 rx921EHIKeJ1T4TDF88DoOz/UcCEzpstO+NT4wY5Occqm3qm0eomBk/mAjOZay8r6a
-	 bqqlXMYwnWpOQOiLzz2KiVvV2RsMpYA4G/oXv3c47kDm7DTDm9C3OFYEvTfNmFsVf9
-	 zOWu2U8tOff90jrjNXLx2/kog4PCwurFUOAiHXxddjlQABZa1HaGsi47eI8+4rFbN/
-	 +O4uv2B63dg3A==
-Date: Tue, 10 Nov 2026 22:25:51 -0800
-From: Namhyung Kim <namhyung@kernel.org>
-To: Magnus Lindholm <linmag7@gmail.com>, Ian Rogers <irogers@google.com>
-Cc: Matt Turner <mattst88@gmail.com>, Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>, linux-alpha@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org
-Subject: Re: [PATCH v4 0/3] perf alpha: Decode ProfileMe samples
-Message-ID: <avQKb-vBxTvMn1yF@z2>
-References: <20261104-perf-alpha-profileme-v4-0-1771ea02950e@gmail.com>
- <CA+=Fv5RBKVAdGgq=BGPmLXpczcB3qvQcSw8aat7nB2ePXcG4yg@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=vgokg4Fe
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=vgokg4Fe9AcwcbMm2vKQBwOKt4OpNzV6g5G2Mqb3Z6Oj73B0CZTBlOAbVgeXGL229BSuNUND0ZJX5
+	 p1McNGjT2+toQCq0q8eXqdtjDdKav+VwDmHEoEFt8M28Fi60j4rH/AuuQ6wlj/t5U1tu7zBJfCD9hO
+	 gPoGoAR706Gw79jc=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app04-12004 (RichMail) with SMTP id 2ee46af40aeae5b-74cf6;
+	Wed, 11 Nov 2026 14:27:54 +0800 (CST)
+X-RM-TRANSID:2ee46af40aeae5b-74cf6
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from devin-VMware-Virtual-Platform.localdomain (unknown[10.55.1.72])
+	by rmsmtp-syy-appsvr06-12006 (RichMail) with SMTP id 2ee66af40ae84a1-d1470;
+	Wed, 11 Nov 2026 14:27:54 +0800 (CST)
+X-RM-TRANSID:2ee66af40ae84a1-d1470
+From: Zhu Jun <zhujun2@cmss.chinamobile.com>
+To: gregkh@linuxfoundation.org
+Cc: linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	syzbot+07e19b8c2cc07b864477@syzkaller.appspotmail.com,
+	Zhu Jun <zhujun2@cmss.chinamobile.com>
+Subject: [PATCH v2] usbmon: mark concurrent accesses to the monitored flag
+Date: Wed, 11 Nov 2026 14:27:52 +0800
+Message-ID: <20261111062752.16802-1-zhujun2@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.51.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,116 +69,111 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CA+=Fv5RBKVAdGgq=BGPmLXpczcB3qvQcSw8aat7nB2ePXcG4yg@mail.gmail.com>
 
-Hello,
+USB submission and completion paths read bus->monitored without taking
+mon_lock or the monitor bus lock. Adding and removing readers changes the
+flag under those locks, so the plain accesses race, as reported by KCSAN.
 
-On Tue, Nov 10, 2026 at 08:31:02PM +0100, Magnus Lindholm wrote:
-> Hi all,
-> 
-> On Wed, Nov 4, 2026 at 7:53 PM Matt Turner <mattst88@gmail.com> wrote:
-> >
-> > The Alpha kernel series "alpha/perf: add ProfileMe sampling" adds
-> > ProfileMe sampling to the Alpha cpu PMU. Each ProfileMe sample carries
-> > the profiled instruction's PMPC and its I_STAT and PCTR_CTL status as
-> > PERF_SAMPLE_RAW data, which says whether the instruction retired,
-> > whether it trapped and why, whether it was a mispredicted branch,
-> > stalled before map, or was killed on a wrong path, and what PCTR1
-> > counted while it was in flight:
-> >
-> >   https://lore.kernel.org/r/20261104-alpha-profileme-v6-0-63362e9290a3@gmail.com
-> >
-> > This series is the perf tool side. Patch 1 decodes the raw data in perf
-> > report -D and perf script -D, as is done for AMD IBS. It copies the new
-> > uapi header from the kernel series into tools/arch, so it should wait
-> > until that header is merged. Patch 2 adds a script that sums the status
-> > by symbol or by instruction, in the style of DCPI. Patch 3 gives perf
-> > mem a ProfileMe event, as the kernel series reports the DTB hits and
-> > misses of loads and stores in the data source.
-> >
-> > To try it, with the kernel series applied:
-> >
-> >   perf record -R -e cpu/instructions,profileme/ -- ./workload
-> >   tools/perf/python/alpha-profileme.py --pc
-> >
-> > I tested this on an AlphaServer ES47 (EV7). Sampling a loop whose
-> > branch tests random data reports that branch mispredicted in 21% of its
-> > samples, and 0% with sorted data. As a normal user, perf mem record on
-> > a loop that loads one word from each page reports the load's DTB hits
-> > and misses.
-> >
-> > Signed-off-by: Matt Turner <mattst88@gmail.com>
-> > ---
-> > Changes in v4:
-> > - Patches 1 and 2: ignore TRP, and MIS and the trap type with it, for
-> >   an instruction killed before it was mapped, as the kernel series
-> >   does. Thanks to Ian Rogers.
-> > - Patch 2: record cpu/instructions,profileme/ in the example, as a
-> >   precise event now samples only retired instructions, which leaves
-> >   the killed% and invalid% columns at 0. Thanks to Ian Rogers.
-> > - New patch 3: add a perf mem event for Alpha, cpu/cycles,profileme/.
-> >   Suggested by Ian Rogers.
-> > - Link to v3: https://patch.msgid.link/20261102-perf-alpha-profileme-v3-0-4bf6e1dda733@gmail.com
-> >
-> > Changes in v3:
-> > - Patch 1: silence -Wpacked around the uapi header, which breaks the
-> >   build where __u64 is 4-byte aligned, such as sh4.
-> > - Patch 2: only read raw data from cpu PMU events, as a tracepoint's
-> >   payload can pass for ProfileMe status. Thanks to Magnus Lindholm.
-> > - Patch 2: print a table for each thing PCTR1 can count, so that mixing
-> >   events no longer averages unrelated values. Thanks to Magnus Lindholm.
-> > - Link to v2: https://patch.msgid.link/20261030-perf-alpha-profileme-v2-0-9ce2f0b0e622@gmail.com
-> >
-> > Changes in v2:
-> > - Patch 1: copy the raw data out of the sample and convert it from
-> >   little endian, so that it decodes on strict-alignment and big-endian
-> >   hosts.
-> > - Patches 1 and 2: follow the new 28-byte struct alpha_profileme_sample
-> >   from kernel v2.
-> > - Link to v1: https://patch.msgid.link/20261028-perf-alpha-profileme-v1-0-f46c1938d001@gmail.com
-> >
-> > ---
-> > Matt Turner (3):
-> >       perf alpha: Decode ProfileMe raw samples
-> >       perf python: Add alpha-profileme.py
-> >       perf alpha: Add perf mem support
-> >
-> >  tools/arch/alpha/include/uapi/asm/perf_event.h |  31 +++++
-> >  tools/perf/Documentation/perf-mem.txt          |   3 +
-> >  tools/perf/arch/alpha/Build                    |   2 +-
-> >  tools/perf/arch/alpha/util/Build               |   2 +
-> >  tools/perf/arch/alpha/util/mem-events.c        |  17 +++
-> >  tools/perf/arch/alpha/util/mem-events.h        |   7 +
-> >  tools/perf/arch/alpha/util/pmu.c               |  11 ++
-> >  tools/perf/check-headers.sh                    |   1 +
-> >  tools/perf/python/alpha-profileme.py           | 178 +++++++++++++++++++++++++
-> >  tools/perf/util/Build                          |   1 +
-> >  tools/perf/util/alpha-sample-raw.c             | 156 ++++++++++++++++++++++
-> >  tools/perf/util/sample-raw.c                   |   2 +
-> >  tools/perf/util/sample-raw.h                   |   2 +
-> >  13 files changed, 412 insertions(+), 1 deletion(-)
-> > ---
-> > base-commit: 4626d370ae89b8af4d46a45372b269f926ec662d
-> > change-id: 20261028-perf-alpha-profileme-8010299be323
-> >
-> > Best regards,
-> > --
-> > Matt Turner <mattst88@gmail.com>
-> >
-> 
-> My plan is to take this series through the Alpha tree alongside the
-> kernel ProfileMe support. Does that work for the perf maintainers?
-> An Acked-by would be appreciated.
+Use READ_ONCE() for the fast-path checks and WRITE_ONCE() for the updates.
+The monitor callbacks still serialize access to their reader lists using
+the existing bus locks.
 
-Should be ok as it hardly touches the common code.
+Fixes: 1da177e4c3f41 ("Linux-2.6.12-rc2")
+Signed-off-by: Zhu Jun <zhujun2@cmss.chinamobile.com>
+---
+Changes in v2:
+- Extend the Fixes commit ID to 13 characters to avoid ambiguity.
 
-Acked-by: Namhyung Kim <namhyung@kernel.org>
+ drivers/usb/mon/mon_main.c | 14 +++++++-------
+ include/linux/usb/hcd.h    |  6 +++---
+ 2 files changed, 10 insertions(+), 10 deletions(-)
 
-Ian, does it look ok to you?
+diff --git a/drivers/usb/mon/mon_main.c b/drivers/usb/mon/mon_main.c
+index 600c9de84c7e..e6fff0396a18 100644
+--- a/drivers/usb/mon/mon_main.c
++++ b/drivers/usb/mon/mon_main.c
+@@ -44,10 +44,10 @@ void mon_reader_add(struct mon_bus *mbus, struct mon_reader *r)
+ 			list_for_each (p, &mon_buses) {
+ 				struct mon_bus *m1;
+ 				m1 = list_entry(p, struct mon_bus, bus_link);
+-				m1->u_bus->monitored = 1;
++				WRITE_ONCE(m1->u_bus->monitored, 1);
+ 			}
+ 		} else {
+-			mbus->u_bus->monitored = 1;
++			WRITE_ONCE(mbus->u_bus->monitored, 1);
+ 		}
+ 	}
+ 	mbus->nreaders++;
+@@ -163,7 +163,7 @@ static void mon_stop(struct mon_bus *mbus)
+ 			 * We do not change nreaders here, so rely on mon_lock.
+ 			 */
+ 			if (mbus->nreaders == 0 && (ubus = mbus->u_bus) != NULL)
+-				ubus->monitored = 0;
++				WRITE_ONCE(ubus->monitored, 0);
+ 		}
+ 	} else {
+ 		/*
+@@ -171,7 +171,7 @@ static void mon_stop(struct mon_bus *mbus)
+ 		 * a reader staying across an rmmod foo_hcd, so test ->u_bus.
+ 		 */
+ 		if (mon_bus0.nreaders == 0 && (ubus = mbus->u_bus) != NULL) {
+-			ubus->monitored = 0;
++			WRITE_ONCE(ubus->monitored, 0);
+ 			mb();
+ 		}
+ 	}
+@@ -188,7 +188,7 @@ static void mon_bus_add(struct usb_bus *ubus)
+ 	mon_bus_init(ubus);
+ 	mutex_lock(&mon_lock);
+ 	if (mon_bus0.nreaders != 0)
+-		ubus->monitored = 1;
++		WRITE_ONCE(ubus->monitored, 1);
+ 	mutex_unlock(&mon_lock);
+ }
+ 
+@@ -246,8 +246,8 @@ static const struct usb_mon_operations mon_ops_0 = {
+ static void mon_dissolve(struct mon_bus *mbus, struct usb_bus *ubus)
+ {
+ 
+-	if (ubus->monitored) {
+-		ubus->monitored = 0;
++	if (READ_ONCE(ubus->monitored)) {
++		WRITE_ONCE(ubus->monitored, 0);
+ 		mb();
+ 	}
+ 
+diff --git a/include/linux/usb/hcd.h b/include/linux/usb/hcd.h
+index 181db044c4d2..ce4525e4289b 100644
+--- a/include/linux/usb/hcd.h
++++ b/include/linux/usb/hcd.h
+@@ -720,21 +720,21 @@ extern const struct usb_mon_operations *mon_ops;
+ 
+ static inline void usbmon_urb_submit(struct usb_bus *bus, struct urb *urb)
+ {
+-	if (bus->monitored)
++	if (READ_ONCE(bus->monitored))
+ 		(*mon_ops->urb_submit)(bus, urb);
+ }
+ 
+ static inline void usbmon_urb_submit_error(struct usb_bus *bus, struct urb *urb,
+     int error)
+ {
+-	if (bus->monitored)
++	if (READ_ONCE(bus->monitored))
+ 		(*mon_ops->urb_submit_error)(bus, urb, error);
+ }
+ 
+ static inline void usbmon_urb_complete(struct usb_bus *bus, struct urb *urb,
+ 		int status)
+ {
+-	if (bus->monitored)
++	if (READ_ONCE(bus->monitored))
+ 		(*mon_ops->urb_complete)(bus, urb, status);
+ }
+ 
+-- 
+2.51.0
 
-Thanks,
-Namhyung
 
