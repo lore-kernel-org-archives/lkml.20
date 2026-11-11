@@ -1,22 +1,22 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=94.136.29.106
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794418729;
-	b=VnDqDeh7Cqs2P/OSwSOiOkSWGalZhShJM8iSJ1cRbbmZtodYeH9snV+Y6YnGyH5bvZJ6
-	 JFvbL2jjd0ExcQVzWxGhz7LbBTSOUkBCKJ9W/efwCGaQN8iY2drMoYTJeKaNg7LXlsKRh
-	 58ddTid8HoyPlow09jp13HDRydrIyMf5rJ3G098cfcuj1PqarwsBexvUJZB1Zfl7VsPgm
-	 V+I6uqNFOBbZgW3kt+Luw4DhGalc/R2dhkiv0WG03piaGhvZ84alghOwX7OEopqw+y/wP
-	 SJvsDguPc6iECCea3iyvtGy+u/yf3jhNJKRmKL1dxGt3z8cnkGFQuhmvspvY6d0dXpw==
+	t=1794418728;
+	b=4oLyHeNl2GSXKcBkQRkGO3Zn+t0gXU4B9H1tM9U1poCvhwy2s+1TWTLgoZqmdDqJ4xB1
+	 xX4Fk3g2D+tgi/Iz8cwdpBa0XwzfIsDWiu4CQNmNnvCILdR96boQdv8CGrTUASasYldeN
+	 TxzGg3N4xVF4OXl7Uky6wPoNcjSjNv9gyuqJlnjQYHhE3sUtIHPtWwD263wBgNoYEBOoL
+	 moS/aMHDJ6B+y8SS2Qe1pNqfeE5U+a0CDMOGzn/LgPZ1+C/9zxNYcPg2lF+LCKjqyaRyJ
+	 Tae42EyA81P+iY4TNgxmtTF2P/IoX1XHe3FJls4z4Qa0S6pLg3931BMs5lMVSZchyKQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794418729;
-	h=DMARC-Filter:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Bm-Milter-Handled:X-Bm-Transport-Timestamp;
-	bh=E7m3c8vNY4e9niQFNFPSTIwQ27u9U/34uB1xD6ktbVE=;
-	b=XuoLHEYLxbRXFvNwmCXmMTQYgjDfY8Bm/hSlVOSh9Q+V21t4m6ogJgpDrX5vgZeZDq9Q
-	 Rof1Q4Kjt6+wB9r1f+uIp/xGE1ePJor7pjgfuKPkyZjc0M9Tsqjxofd4TpuqS2FR8ZV4j
-	 h5fsCJagU1ue39g5SIBzrpKvAZB9udYPZF1G+tD+3IC0vRPoxz7x4TpRL8s2aMpS1kyea
-	 pSk+VdE/oYZzvMN0x4YjR7V1TpAANnKJii4LcdGBdGnhgpbt3TbZ9xSGFH9MEYvzSQx6k
-	 UYa8y/Uy0hYzPUnrVQdEHk2Zh1wgnVhnmJ3vTetOiIsvdebZml1QIwTEUF2cOmWPC9w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794418728;
+	h=DMARC-Filter:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Bm-Milter-Handled:X-Bm-Transport-Timestamp;
+	bh=9LbU2z/Q2aDfTMYbDYnnnTcQA7i/a4L3tX6h70C2NXg=;
+	b=OozyvpOeC9KBhiJwqL9g3pzn+6rJJZx3hbBWTG3KwSgnzBKQE5IGVD5fqFp7CTq8XhPs
+	 pMyAVGde8ykpdTeF+H0HYoeVE9va6st8M7emly1gVA6ZhzKzSSn2mBffrQRUYEKo+j9vI
+	 lfIJlCBJP8Mp5JW31iusYN39sZaoftzjYN3vgfqKmwASE9NTDHyH9eCp2DCl7pql7+cnA
+	 eEubJtWZgJnD0RPkx2kni2w85Cmik3wocafHAZHmduIvu+rb8l/5wx9uupzfQ3upTpWob
+	 gvwFc3mpkQzGmPwNkPrbB2ZtSL7twgvoAFi/LvLPZpqbIkX+xuFJYB8zn4U7+ebYyfg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=proxmox.com;
 	spf=pass smtp.mailfrom=proxmox.com;
@@ -25,18 +25,19 @@ Received: from proxmox-new.maurer-it.com (proxmox-new.maurer-it.com [94.136.29.1
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B3CE606A324;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B335606A321;
 	Wed, 11 Nov 2026 17:38:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B3CE606A324
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B335606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=proxmox.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proxmox.com
 Received: from proxmox-new.maurer-it.com (localhost.localdomain [127.0.0.1])
-	by proxmox-new.maurer-it.com (Proxmox) with ESMTP id D0B18482CE;
+	by proxmox-new.maurer-it.com (Proxmox) with ESMTP id C381D482C6;
 	Wed, 11 Nov 2026 18:38:44 +0100 (CET)
 From: Gabriel Goller <g.goller@proxmox.com>
-Date: Wed, 11 Nov 2026 18:37:49 +0100
-Subject: [PATCH RFC net 1/3] net: restore the L3 header before VLAN TX
- offload checks
+Subject: [PATCH RFC net 0/3] net: fix stacked VLAN header corruption in TX
+ offloads and OVS
+Date: Wed, 11 Nov 2026 18:37:48 +0100
+Message-Id: <20261111-net_restore_the-v1-0-6aaeffa601c9@proxmox.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -48,9 +49,10 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261111-net_restore_the-v1-1-6aaeffa601c9@proxmox.com>
-References: <20261111-net_restore_the-v1-0-6aaeffa601c9@proxmox.com>
-In-Reply-To: <20261111-net_restore_the-v1-0-6aaeffa601c9@proxmox.com>
+X-B4-Tracking: v=1; b=H4sIAPin9GoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDINDNSy2JL0otLskvSo0vyUjVNbVMMk1LMjY2TUs1VgLqKihKTcusAJs
+ YrRTk5gwSA+pRioXIFZcmZaUml4CMVKqtBQA8bTzGfwAAAA==
+X-Change-ID: 20261111-net_restore_the-59b5fb335fe3
 To: "David S. Miller" <davem@davemloft.net>, 
  Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
  Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
@@ -62,78 +64,67 @@ Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
  Gabriel Goller <g.goller@proxmox.com>
 X-Mailer: b4 0.17-dev
 X-Bm-Milter-Handled: 55990f41-d878-4baa-be0a-ee34c49e34d2
-X-Bm-Transport-Timestamp: 1794418723547
+X-Bm-Transport-Timestamp: 1794418723479
 
-A second VLAN push leaves network_header pointing at an in-band VLAN
-header. Drivers such as igb can interpret those bytes as an IP header
-when preparing TSO and corrupt the packet.
+Since commit 938863727076 ("tc: adjust network header after 2nd vlan
+push"), a second VLAN push leaves network_header pointing to the
+in-band VLAN header. The igb driver TSO and OVS IP set actions still
+expect the L3 header, so they write to the VLAN header and corrupt
+the packet. Patch 1 restores the L3 header in validate_xmit_skb() for
+CHECKSUM_PARTIAL packets, which covers packets tagged by tc or BPF.
+Patch 2 restores it in OVS right after the push, before later actions
+run. Patch 3 adds a KUnit test. tc classification after a push keeps
+working.
 
-Restore the L3 header before offload feature checks for VLAN-tagged
-CHECKSUM_PARTIAL packets. Keep the generic skb_vlan_push() layout intact
-because tc classification after a push depends on it.
+The kernel uses two conventions for skb->network_header when a packet
+carries an in-band VLAN tag:
 
-This fix belongs in the common TX path because packets tagged by tc or
-BPF do not pass through OVS actions. Keep it separate from the OVS fix:
-OVS must preserve L3 before executing subsequent actions, including on
-packets without checksum offload. TX validation cannot repair corruption
-that has already occurred in an action, whether in OVS or tc.
+* network_header points at the L3 header
+* network_header points at the in-band VLAN header
 
-validate_xmit_skb() also runs on noqueue upper devices such as bond,
-team or macvlan. For CHECKSUM_PARTIAL packets tagged above such a
-device, network_header then sits at L3 while skb->protocol is still a
-VLAN type. The flow dissector parses the IP header as a VLAN header in
-that state, which affects bond layer3+4 hashing and tc flower on the
-lower device's egress. Bridged packets already get the same conversion
-in br_dev_queue_push_xmit() since commit df356d5e81b0 ("bridge: Fix
-network header pointer for vlan tagged packets").
+Since commit 938863727076 ("tc: adjust network header after 2nd vlan
+push"), skb_vlan_push() uses the second convention when it pushes a
+second tag. The flow dissector, and so tc flower, needs that layout to
+classify the packet after the push. Drivers doing TSO or checksum
+offload expect the first one. vlan_features_check() clears TSO for
+multi-tagged packets, so most drivers fall back to software GSO, which
+finds the L3 header itself. igb keeps TSO for these packets and reads
+the IP header at skb->network_header, so it builds the TSO context from
+the VLAN header and corrupts the packet. OVS set actions after a second
+push write to the wrong header in the same way.
 
-The IPv4/IPv6 KUnit reproducer fails without this fix and passes with it.
-All 22 enabled net_core KUnit cases and software tc_actions and tc_flower
-tests pass in QEMU. Actual igb hardware TSO has not been tested.
+Which convention should a packet with in-band VLAN tags follow? This
+series keeps the tc layout, converts to L3 in validate_xmit_skb() for
+CHECKSUM_PARTIAL packets, and restores L3 right after the push in OVS.
+If L3 should hold everywhere instead, the flow dissector would need to
+find in-band tags from mac_len, and skb_vlan_push() could go back to
+its old behavior.
 
-Fixes: 938863727076 ("tc: adjust network header after 2nd vlan push")
+We hit this in production with VLAN-tagged traffic forwarded by OVS out
+of an igb NIC. The bug was actually triggered, not just found by
+code inspection.
+
+Link: https://bugzilla.proxmox.com/show_bug.cgi?id=8318
+
 Signed-off-by: Gabriel Goller <g.goller@proxmox.com>
 ---
- net/core/dev.c | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
+Gabriel Goller (3):
+      net: restore the L3 header before VLAN TX offload checks
+      openvswitch: preserve the L3 header after stacked VLAN pushes
+      net: test stacked VLAN headers before TX offloads
 
-diff --git a/net/core/dev.c b/net/core/dev.c
-index 3c58db732761..fa47fe60b444 100644
---- a/net/core/dev.c
-+++ b/net/core/dev.c
-@@ -4219,6 +4219,20 @@ static struct sk_buff *validate_xmit_skb(struct sk_buff *skb, struct net_device
- 		     !(skb_shinfo(skb)->gso_type & SKB_GSO_FRAGLIST)))
- 		skb->ip_summed = CHECKSUM_NONE;
- 
-+	/* VLAN actions may leave network_header at an in-band VLAN header.
-+	 * Hardware checksum and segmentation offloads need the L3 header.
-+	 */
-+	if (skb->ip_summed == CHECKSUM_PARTIAL &&
-+	    eth_type_vlan(skb->protocol)) {
-+		int depth;
-+
-+		if (!vlan_get_protocol_and_depth(skb, skb->protocol, &depth))
-+			goto out_unhandled_proto;
-+
-+		skb_set_network_header(skb, depth);
-+		skb_reset_mac_len(skb);
-+	}
-+
- 	features = netif_skb_features(skb);
- 	skb = validate_xmit_vlan(skb, features);
- 	if (unlikely(!skb))
-@@ -4267,6 +4281,9 @@ static struct sk_buff *validate_xmit_skb(struct sk_buff *skb, struct net_device
- 
- 	return skb;
- 
-+out_unhandled_proto:
-+	kfree_skb_reason(skb, SKB_DROP_REASON_UNHANDLED_PROTO);
-+	goto out_null;
- out_kfree_skb:
- 	kfree_skb(skb);
- out_null:
+ net/core/dev.c                                     |  17 +++
+ net/core/net_test.c                                | 145 +++++++++++++++++++++
+ net/openvswitch/actions.c                          |   6 +-
+ .../selftests/net/openvswitch/openvswitch.sh       |  34 +++++
+ 4 files changed, 201 insertions(+), 1 deletion(-)
+---
+base-commit: 8d5ce4751fad9499ea408163af7f410f18a85782
+base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/netdev/net.git main
+change-id: 20261111-net_restore_the-59b5fb335fe3
 
--- 
-2.47.3
+Best regards,
+--  
+Gabriel Goller <g.goller@proxmox.com>
 
 
