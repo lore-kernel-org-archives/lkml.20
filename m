@@ -1,95 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=180.181.231.80
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794394767;
-	b=yODs7IUxy3Kpd9Ca+0A0uFZKRMU1awoF9+UVzm3UzrOVLUHE6z/IDTkLs8cvwzTEv0Tt
-	 jg6JZKRsNo7YdWceP1lOhN1CIJmmXQ6lEcTNj6EOQw2Q32WCSBD04z6KbhC8Cpsg6bKac
-	 O5nPIruVYh0Csyq3EuJzNXtE3P5Ekf8rzgxTjSU7vm2XzKBrFONE62IpKHwF5DdYBiSqs
-	 JfZEYCAwfhTfaBlxr+eCbaIRY/7ZfHNylQuerGj+Us/So5/3vD67Cwh5JwQAFb0jlVz8w
-	 g+DSLdd3mYupbAIuCPXj4VtR6+jzLiSO7zn+80leZuHNFK/agwOXlZ3TOZDMXw1ohyw==
+	t=1794394823;
+	b=XccbVtp6xJzJodmR6N/pYFYD08qbhYTA7X9t5Os0cGIM1Iaa+/3noVxqqQYxb+/h58+k
+	 geZ3wGUtAiIvkp1eZEgXOE/VrH0mypYUycrXxJsCTJVJGgs2D1WRoc5tzUYe94wsMz3mR
+	 xHwsZJ2Ax5AgJWio2+/radDmU5PPDDUyreT2CyFS+m9cntAvgiW0Hs7Iay01Fxvg4945t
+	 T1MPIoZF49rnA9D9dF4eH9xtaQKD0/PPi0AcqvBfVuZ/x21XhYPUG3pXdSLDO2hKvS/ui
+	 u37cPBQfugZHQ0q5qXhyyybW0W087leZqOW8p8dhWBI0I7Yp7J1zdSZKqJx8u8kEpRg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794394767;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=yKYud9p8+aP8cT7V12zkUbmCop1ErkdHEczU+hWaU/k=;
-	b=t53J8btXQ2meN9xlgmaKrTYV0JXO/Ke4lyxNxioXToauiJ0WMiPaEiLeiw1pvhSmlKbb
-	 Mtmb9irBMd3zULeDpyqZpGI2ipX+nWVyt+UGyaD7XoiYjI3cQwjcYUbtdbPQ6tqYsWIBY
-	 6v6v/164/W0Q+8IXhoFHimWz9nTwNL6o/s3QuhmU4enr4658OJ3QmOz9elPl1F644KkJ3
-	 NQaCauzwDnlT12KqXB4VKd1KHMMvgyS7hgsdqds44DrcwxUnBnIUdRTt5ENie3q8CUbnX
-	 /WV+CS0f2ABB8nZud7mUu5kbHJW7QgAj9+EUA4yyZM6DBl49q/BkV2Xxi+Jdv+S571A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794394823;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=OYfWv7t3fNfV5mHgH3rQFUU5ZnGse0SEirQFnt+sNZA=;
+	b=qZR0YCXEB88CLQI15H3l4ChQB8FMZOeWSJsRCDJgXFimek8v0pYtr4OeZeugfBoPDbwU
+	 +isXL4J1vzbo3eD1rT2wJATjcW7w0MKPNrILr4fuug3XDJFrtAGjit2mxa2s/0TFaLHaM
+	 ic0qgjkYPGn7DoQWriCQssGJcVeytZ635yeIGuD4ueb/22Dm4TibyVw1PmF4BXOmxf/bX
+	 Z9jWBKD0KtDr3xXagGelAYVRuQZusxGbTyZhu4d/Z/VNf0SksLGhJIdLd2T4KJYW2XR/r
+	 lYDML4lYF/6Mm/y96vW8MdwnesESJ+rWTySKx61dihggZhAP0X1TdTcARYjaDaKXI5Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jzgJ50o2;
-	arc=none smtp.remote-ip=74.125.82.174
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=gondor.apana.org.au;
+	spf=pass smtp.mailfrom=gondor.apana.org.au;
+	dkim=pass header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=cO9XoWLf;
+	arc=none smtp.remote-ip=180.181.231.80
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D95B606A321
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 10:59:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D95B606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7F58606A31C;
+	Wed, 11 Nov 2026 11:00:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D7F58606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jzgJ50o2
-Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-36fc0a3fe93so5963899eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 02:59:27 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794394766; x=1794999566; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=yKYud9p8+aP8cT7V12zkUbmCop1ErkdHEczU+hWaU/k=;
-        b=jzgJ50o2ITwSxxgDaLwhe9bWux9JjZB0ky0fdJgTV8MPlZSI6BvT8RWM/D5Y2Cvrjw
-         zTUcVE0qM8i6YiJ407eD9cbPC2rOAVeUgk2AwaMHcCSRh/Bi2twfEaG21xlovSMrSHmR
-         BeqjPW3UYLWv0lWappN+SgtRs/yznVjY3y1Tbf1FF+360BGSoD+Jf8dVTKb9IuH16jeb
-         srXj6/681BBaHaTA7jYQHg7SgwJYl7IqdcBWrGFq6FeSQKJqDcE0zbuS/C+DKYUw/2Kt
-         ixZCSYxcTvMNrwlTeHU/OsLRoQ38o8EHJyiVhkDz3YNLgjV6ZLAursqaffEvur8+rI6n
-         zLyw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794394766; x=1794999566;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yKYud9p8+aP8cT7V12zkUbmCop1ErkdHEczU+hWaU/k=;
-        b=Sslx2qG9MV+YeuUs+lreUkrYb1r1M6Jkqwr92dflJDQ65CFH9vz5bXc4z0FFU0WCo8
-         F80XeaUhbxwVr2TsLElDVZzApjyin/IV2i0sv3WrrKkVMeJTlDN0AXaAUlV81OXK+mNO
-         L7+ziPfcb2RrLvKX1LkpGqoz3aaXFZ/A0YtCn2IVbTyKjr6zeOFyozpYwIUkvoUWtHfa
-         aSU6GQHh4PhX7yCfZKDWEMOJYeQ9et0XuYHvB/g6SSursuNPBqNMlphEQS2Xecuni+pR
-         oezO940Oy7DA32/vFMFEoatN5btVsGuEBL+p95p3TBu+54jTqOYmfUG9ihBDOmRy7VSr
-         dJ7w==
-X-Gm-Message-State: APuU4Z/F5mXmvBGWSQAAAp4t0yzgPfI7/+/xYx0qwkot+r4P9PKcfafz
-	PEkJpyKayklzgvqZY2pam43r1bdNrKTK9W0GHKo9FiCaZSpNZCb4w18m
-X-Gm-Gg: AYBFou30pSU3/8jBcb/z6S9+/0dmgI4nMlzwprA+4g66cySfZpbAA+CHhFv52mm4OX1
-	4zYYsMd0PszfwlyziNLi13UP/kjzzhyf1cyfUc05DwRPBcQoWda3JnVD96UxMqJnYfgQfenPkKK
-	7mI89wa5G8iL+bp5HZkKEj967bS5Tu9rKyLZR8T/tnUs7kBvbRhpNWDgOYBEjVhS7nQfM8/J5lf
-	lJ8N5NdC8qz/7b1xAhvnc+C1mnrwNNvJtBFwqEjyurJEXhKQShMAj0C/gfDCo/YH1jM+67bEv6E
-	9He4IO4AfjimMTTvwLp6EZd45vfYZGwZ+0m47jSpFVykFaxZpdvUW43FCOkxp8ZYZ/n5NQ8hbXQ
-	eucx62UToZZHjgBB7smasFSmQzEngNMgFff7oLYi6EAf951KyzLvBdD/zRA/8hk/bfIPt42Cgti
-	58XzFuzzvVJEvv39z2nCuTBrxw8Z+cvkzk1Ce44nCk4GXDUTc43VM9y1pdN9aDXpVJTKuuWfd8t
-	eiBujFiXcLGPzorm5TaGk3IO4kOyd0mbviD/jWS+2Tzy9sEROeYLZhtmaS7ylzRfWV50oGQ1ZOy
-	gChlWhV/qSEIgV/Q2YhLaVms0LvePATyG2xBS8ptaauptHQSOx0=
-X-Received: by 2002:a05:693c:69d5:b0:36c:d1fe:84ce with SMTP id 5a478bee46e88-37686d34204mr3123191eec.33.1794394766119;
-        Wed, 11 Nov 2026 02:59:26 -0800 (PST)
-Received: from localhost.localdomain ([103.178.205.70])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3751fe306e3sm15880508eec.7.2026.11.11.02.59.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 02:59:25 -0800 (PST)
-From: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
-To: tiwai@suse.de
-Cc: linux-kernel@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	perex@perex.cz,
-	sreekuttan2156239@gmail.com,
-	tiwai@suse.com
-Subject: Re: [PATCH v3] ALSA: control: Validate element info in compat ioctl
-Date: Wed, 11 Nov 2026 10:58:58 +0000
-Message-ID: <20261111105858.2619-1-sreekuttan2156239@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <87ld6zu4oa.wl-tiwai@suse.de>
-References: <87ld6zu4oa.wl-tiwai@suse.de>
+	dkim=pass (2048-bit key, unprotected) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=cO9XoWLf
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
+	from:content-type:reply-to; bh=OYfWv7t3fNfV5mHgH3rQFUU5ZnGse0SEirQFnt+sNZA=; 
+	b=cO9XoWLfjDEAo8WYLWNOoEiRtgAE4GB5whJjASVlg2jl9XmeIcKVqZ99wCK8SeuajrdKFGY4a7J
+	l83YVFNtjopeZ2QhhCElQjui5HmK7/eCClUGF1gPmKhJKIJC1X1bAZVfcThNl6pKzSZkQukc1EV9o
+	8WghVTs7Cz0q6uDE8dH4X8nowKLY/jGAa/79QC9okwhA3v2LoLY3OoCd1yO5wFPukyTfmBXifjFQ0
+	y98Qrpd6yL2V7nAwtyOOaGtrXWX864+psHHS+KEFHDw+b3pJOAv183r+H151YNRbiE/jjviiT9yHh
+	+KlpasAfqR++rkd81godh9nh0zIBozgEs/iw==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
+	id 1xR63k-0000000DmCq-0pos;
+	Wed, 11 Nov 2026 19:00:09 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Wed, 11 Nov 2026 19:00:08 +0800
+Date: Wed, 11 Nov 2026 19:00:08 +0800
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: Bartosz Golaszewski <brgl@kernel.org>
+Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Russell King <linux@armlinux.org.uk>,
+	Eric Biggers <ebiggers@kernel.org>,
+	Demi Marie Obenour <demiobenour@gmail.com>,
+	Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
+	Pankaj Patil <pankaj.patil@oss.qualcomm.com>,
+	Birk Skyum <birk.skyum@pm.me>, linux-crypto@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, stable@vger.kernel.org
+Subject: Re: [PATCH v11 0/2] crypto - qce: make algos optional and remove the
+ BROKEN label
+Message-ID: <avRKuPGD6QdRXrat@gondor.apana.org.au>
+References: <20261022-qce-fixes-broken-label-v11-0-0d33c34fd0c3@oss.qualcomm.com>
+ <kh74or65txfcprntqqljabnszooj5ppuwizj35flv2r245zbvo@nfue4wdblicr>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,11 +74,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <kh74or65txfcprntqqljabnszooj5ppuwizj35flv2r245zbvo@nfue4wdblicr>
 
-Hi,
+On Mon, Nov 02, 2026 at 10:58:12AM +0100, Bartosz Golaszewski wrote:
+> On Thu, Oct 22, 2026 at 10:57:58AM +0200, Bartosz Golaszewski wrote:
+> > This is the follow-up to the three smaller series fixing crypto
+> > self-tests in the QCE driver. It makes the crypto algorithms opt-in via
+> > a module parameter and removes the BROKEN label so that the driver is
+> > built by default.
+> > 
+> > The dependencies are:
+> > - https://lore.kernel.org/all/20261016-qce-fixes-sha-v1-1-3ee5a30d84f3@oss.qualcomm.com/
+> > - https://lore.kernel.org/all/20261019-qce-fixes-skcipher-v12-0-046e6be9bd83@oss.qualcomm.com/
+> > - https://lore.kernel.org/all/20261020-qce-fixes-aead-v12-0-77a2e09abd0c@oss.qualcomm.com/
+> > 
+> > Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> > ---
+> 
+> Hi Herbert!
+> 
+> Gentle ping, can these three series + this one now get queued for v7.4?
+> The three dependencies have no more sashiko comments. The ones for this
+> one are minor about missing module params docs so can probably be
+> ignored or I can send a follow up.
 
-Thanks for applying the patch!
+Did you miss the Sashiko comments about missing documentation?
+Please address them first.
 
-Best regards,
-Sreeraj
+Thanks,
+-- 
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
