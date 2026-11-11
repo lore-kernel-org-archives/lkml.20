@@ -1,59 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794409804;
-	b=uascjlMt8V86zCBg57lWFb9Cjokj5N4QiH9NPd0Avn99meTRhrtng0Z7Jk+UtTyD9Ino
-	 DHsQQ6Mtbdj2ETuZ7Dw0j0D0tzGDAODE2rVGUHHS6suZSisM0l90dEROS6ShjWmmxmYFO
-	 9csxIMZL1Ry8VtsRMpo/t+oFVb38VDDXZfymw5vg6ZdFzdbdYFgNYVm3rn8wgWociHvLK
-	 pJ0WQFRTcsCKrWSsACCN1UJOG2kuWwxHD95l7KpAL9Xe+bgx8QWXtmnZuhY8//XWg/+Em
-	 +66npmWfZ+Zh7y5bEmooOFuqIjobHXLju+zqCrIwxGZmdXt1XmrAK7oNnxff2aLza6w==
+	t=1794409806;
+	b=v1uSS/K8H6lO62FrnIPsShXaWHS6JO9DPWjRUyfRV3VK51kUEt9QZ+B5tr3CBxOdiauK
+	 CjOEBKEH33AqZ9Yq2w2/ctuuAhnGJgLVr+g8qEserQEEaBe4E9dxjO4WTozhpops0H5iu
+	 hJoNp+X+4zHWjxGIyiWma0tKI2YlcrE4B06cIiW1xRAVlEQrPEpyu54CtfIWCdw6gb4w7
+	 Xw16/tuXip+L4D/HXq45JLvOI6orUPKXlDP1BinR0YQh1yXTTWCUc75aXzLXmOi/zwbMz
+	 2Qdevz/7oS0/XkbaRwF140r6Iy8iUZTeUhUfgELqh6y1q4MdM09hIe5wKmJpdDdPFmg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794409804;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=5qxglGCjp1QH5HRooJITH6mG2Vd0Jy5UN2wcEepzIME=;
-	b=OCMdWnXCS05Xu3TGDoGCYUkiuja2T6/ZswxbnIIwiwVJXy9LfTsxdzKxwoGrHjwLTiCv
-	 KWkyAHhUq2HLLfsELJbH6vqbWwxrxLOp5USo8axGLDon7Y8LpCPL+XEl2dz7RMaXrDUG+
-	 IHI8hTi+/KGbTZF1Ix2rkKpBUI3a8/J1D4Hx1BdEE2DJaJmwun8AIIVvk0AZuzOpZrqhW
-	 waYeo/2CNSjtJhNkWNMShRssstcyvwOi49Qx1fZoOfpdaF4x55PxI+igAwwUnmDLzoQgf
-	 ADCqSc2jOKRAc/Q72vEIh2VyCfOJZl7a8dbkemv4mZyoFBlStS0fJbmoQ4dB+O4IG+g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794409806;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-SRS-Rewrite;
+	bh=M7NmYC/Iylm9myghHwqILim55SAUt9QrM+UZYk0eJlw=;
+	b=4K2zefmMeabEZ/NslnSSpZAVl2LKQTM3FNNlgIfHieVx0dLBjiv+lOLCczUA93GcOBa1
+	 /53v+j4PIAKZYZlB2vbz70fcorawG4KsUqFz1qBBu652nmo3uaU3xYaEDEWxkdj2voENJ
+	 BJaGUhKDPUO4v+dZqY/ZQiGL0bACJe3heRiavzwKkxUBINvoIOB4gPfi6lV6L1cdKFg9o
+	 o0wdFDqy/4vkIFZQ71aN3sNCWEhDMouC9eXDWA0F9hMC4mBinKRsXf2NJ1k50w90jnDwt
+	 eWG3a80XSOkPnDss/Eu0ep2MdzbJf+eqIRVIjE5A7BNmeirF7lmtyHYINrU4FIouxNg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T7heAWDG;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=infradead.org;
+	spf=none smtp.mailfrom=bombadil.srs.infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=p1kD+MaY;
+	arc=none smtp.remote-ip=198.137.202.133
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4382606A339;
-	Wed, 11 Nov 2026 15:10:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 157F8606A8A9;
+	Wed, 11 Nov 2026 15:10:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 157F8606A8A9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T7heAWDG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7FDB11F00A05;
-	Wed, 11 Nov 2026 15:10:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794409803;
-	bh=5qxglGCjp1QH5HRooJITH6mG2Vd0Jy5UN2wcEepzIME=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=T7heAWDGjDrI7H2EZZXFGq2rVqyS3t5PzWQ7UdXMPpzNoaxQtLYc4WVvChiSHimOM
-	 sOyAymonf2JpyKK55zF4TY94AKwhwey7TGqjcZIdyqtIWTvwRt6H0GTO1CL2dbAQ5N
-	 8YWeYN0S6o9IBmHMUoKyHiL+tD3meBwImb14vpTBXFma/0BJ6AuvvUuS29fzXoDSQN
-	 b6+aUmbQjAzaSZdtoUCLk4aT8wMlxGox1p2JOGbiuFphqsW/yDJGkJdC5xF5rDCA8N
-	 W5dg8hRV3BH/ZII2Z+U+SpNpcvgt5yL0x0m7HfTwr2txm6jwPNdLYf5MNUGD3G3yk0
-	 oCBYOH0FO1WNw==
-From: Brian Masney <masneyb@kernel.org>
-To: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Wei Xu <xuwei5@hisilicon.com>, 
- "Rob Herring (Arm)" <robh@kernel.org>
-Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Brian Masney <masneyb@kernel.org>
-In-Reply-To: <20261110193229.1531663-1-robh@kernel.org>
-References: <20261110193229.1531663-1-robh@kernel.org>
-Subject: Re: [PATCH v2] dt-bindings: clock: Convert hisilicon,hi3519-crg to
- DT schema
-Message-Id: <179440979539.1131744.14999278314208374772.b4-ty@b4>
-Date: Wed, 11 Nov 2026 10:09:55 -0500
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=p1kD+MaY
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
+	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=M7NmYC/Iylm9myghHwqILim55SAUt9QrM+UZYk0eJlw=; b=p1kD+MaYK4Tqn+qQHjFcE5Gcfi
+	aLx+Y7OWSq7o4nQG6zHxvdAtqB7sD34A7+mcelUQg4S9+g4DOxyjxhON4uGY8ygR+HyohIiHxA8nF
+	gitD8TSuxCjJqZ3wR8THDOZULgrl4OnMsE9IQn5hXOegg226vfq+0keL/Jcn4lyfByaaz4Wl2f7X5
+	YRC9MtsMCYqmDNH0RwAAEB707gVWuMvqYiROQuBhKtsv45E/j+w2TduR3kJ+l0ykvky61d8giycRq
+	K6PBaEjmHpKobrk8fOW1mr77FdRubyhI+PvX0n51VWThPEbv6GS+SpXa1COoN2rDJDVdN81uvSsj0
+	zgag++Xw==;
+Received: from hch by bombadil.infradead.org with local (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xR9xd-000000073cl-0ScY;
+	Wed, 11 Nov 2026 15:10:05 +0000
+Date: Wed, 11 Nov 2026 07:10:05 -0800
+From: Christoph Hellwig <hch@infradead.org>
+To: daejun7.park@samsung.com
+Cc: Carlos Maiolino <cem@kernel.org>, linux-xfs@vger.kernel.org,
+	Dave Chinner <david@fromorbit.com>,
+	"Darrick J. Wong" <djwong@kernel.org>, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] xfs: break layouts before swapping extents
+Message-ID: <avSFTRlX7T5gJwP2@infradead.org>
+References: <20261109-xfs-swapext-break-layout-v1-1-7f6f137d18bb@samsung.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,29 +65,12 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev-7ca47
-X-Developer-Signature: v=1; a=openpgp-sha256; l=330; i=masneyb@kernel.org;
- s=20250903; h=from:subject:message-id;
- bh=oham01HuQH0Falz9DHU9o2hRSZw48+az2O+RElFwX2s=;
- b=owGbwMvMwCW2/dJd9di6A+2Mp9WSGLK+tLpKMOzY1ZnU0KoyUXDzDIWTlzkXZDC6Mr6OYWrq/
- mZhqrO3o5SFQYyLQVZMkWVJrlFBROoq23t3NFlg5rAygQxh4OIUgIn4uzMybDB6WucgoWi4r0G3
- WS63SUXi2qPZnRU2xmXvjkiJzZb+zMjwV4OledOEtKqnDc/Yu6S773Z8mFS8+1QFd5LC9em5izh
- YAQ==
-X-Developer-Key: i=masneyb@kernel.org; a=openpgp;
- fpr=A46D32705865AA3DDEDC2904B7D2DD275D7EC087
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261109-xfs-swapext-break-layout-v1-1-7f6f137d18bb@samsung.com>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
 
+Looks good:
 
-On Tue, 10 Nov 2026 13:32:28 -0600, Rob Herring (Arm) wrote:
-> dt-bindings: clock: Convert hisilicon,hi3519-crg to DT schema
-
-Applied, thanks!
-
-[1/1] dt-bindings: clock: Convert hisilicon,hi3519-crg to DT schema
-      https://git.kernel.org/clk/linux/c/d17bd579ae1c
-
-Best regards,
--- 
-Brian Masney <masneyb@kernel.org>
+Reviewed-by: Christoph Hellwig <hch@lst.de>
 
