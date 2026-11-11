@@ -1,88 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.242
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.12.53.23
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794405037;
-	b=xb+M0yQuEl+DL1lZ7ng7n4FBndgoASC5I26mT8rF0/+B5MtYEXvh2/Hg6uM7sSqwaZmk
-	 qPpMoGOpxqDZ4Za/0bsjl19ey2N0SVOdy2c8JfgpvHdjxUfs+/s2r0XStavV70uCpjpx+
-	 vJnrfGfsnuX+m2Q0FHmf66pmjdiF5westElgeex72y6HpLouKSESu2eBcgZ8Y2wOq0QjW
-	 53BOuz1CfguShuhWLbGnxm9dvx729LWka2HWUuE4ebCJ9YHGGQa4lgA+cMNmSjrySmmWW
-	 8oU9GCLjkCoxQrYMY6koca78uiGyWA3Mpb/vRp6fjEMYOuMeRNn9J3JcW4hQLqprHww==
+	t=1794405039;
+	b=zresYHb7mcANBONPn7SDMhvdwcKSBp1Rl78q3pg3441Y3OvJf7B+NlUVNHoaFtTSJs6o
+	 umpdyN2n8SSHJocf9/fNLxJmMCnkC9SUa5tvXZpHdQjVw/2j+gXzGuCul/kk/+Uctji7E
+	 CAmDg0yPqGOhgD2GU2DeUwerhtmaR5yeg9Mxb/MVrS5X3wFir7ngVH0pIZe0ZaxUmEtyY
+	 lHxS3bNSDPAUytDRebpi85rih6a8YjZwPfBRmzu17LiLaCcp4Fp7zEIjY9kptu4K960q6
+	 F8eEgwWTV8Tg1KByQqxrkNeV4leFjsLrRBWsddR/os5oaX8UeaoYO2rZ4U69pgfAUpQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794405037;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=lrCLdu1Uj8IpYGbohx64Dr8YzwhjD4Aogvb43lGJo8Q=;
-	b=ar+F7+q1eht8H46c/l97munXN5E46EOXlLHfgdGUUUvoHMFUYIPiWtFNKJn3vaMDX0Js
-	 bDvdtVsJuYW2psFHxPwQfQdygR0GFVDmUJTB2rZYb9QxuSDWsUF+ueNGEbjhRJducmfeO
-	 YIw/skZg3x9YB6cAuPnAe8SflXdc9MMCcNca0xjUlM7g+gJDYUO07skOSpmIxhtaMLKe5
-	 cp1AgA8z/RFg2+UHotyAnRe7X2uy6iZ1RaWAXelNVNKrp+VxHbR/K1HLxRK15LIM6tqFA
-	 K16SQ984qi6vkd+BSAd9IajLFc5MqN6sMD2x3Y8bb1WC21a7DnQKIuTZrxAMAuy6FQA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794405039;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
+	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=HjIx34s/1l6Bawf4jJWnXsLjZAGbPI2kYNq9L4BPx5w=;
+	b=wSpZn4yGEW7luJuVfsDHduey4LfX8JFSi4eHbk2OUCpBTa+1/jXSQ8a8ks3/+hgkJ7z0
+	 RrHOLdpKNeD4MO7Vc/hDyHu3I7xyhEk2jvQuRb4vvHbKrZhiQ6+itWyhNOjisagt1TJMu
+	 PMNOgzblCS+l++xol86vHtJ0ZAO4dFb7KIfq3T5Z6NPwmjDlpa+SeK+AtxdPpzgux6bhV
+	 i/PJETQbTeFWJ4EM4FKNEW6RpdiPAWrDxSXO7GfMmGrUAmlQd3BnIcj/1KVaqAgbwrYK4
+	 LYsNiUrCdB9NNW9iiXKDa7y9RzpwqJinEuo6Lxd5qga3Ugixa6O3vlNcgquT9TtaX0w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=kqNcUF9L;
-	arc=none smtp.remote-ip=203.205.221.242
-Received: from out203-205-221-242.mail.qq.com (out203-205-221-242.mail.qq.com [203.205.221.242])
+	dmarc=pass header.from=amazon.com;
+	spf=pass smtp.mailfrom=amazon.de;
+	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=mcOwns7t;
+	arc=none smtp.remote-ip=52.12.53.23
+Received: from pdx-out-010.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-010.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.12.53.23])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 461D3606A330
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:50:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 461D3606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 701C560A263C
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:50:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 701C560A263C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=kqNcUF9L
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1794405028; bh=lrCLdu1Uj8IpYGbohx64Dr8YzwhjD4Aogvb43lGJo8Q=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kqNcUF9LH3c2FJM961kN0RmwZ/A17xC4TR3aZ0ekkWginNPBYVEW9qBGaJZsmDuEL
-	 LDtQwPWy4uaT9yBL+ve1hW/Puq6Xo6cF7Ds/hsHaRRazD4fNYp9rN0AZ7VteQ4aq3R
-	 BnwkXsANz9WdQh5fbFStROqSnH9+lOchM5/Pzs+I=
-Received: from ubuntu.. ([112.3.92.91])
-	by newxmesmtplogicsvrszc43-0.qq.com (NewEsmtp) with SMTP
-	id C92862E4; Wed, 11 Nov 2026 21:50:18 +0800
-X-QQ-mid: xmsmtpt1794405020thbzufhkb
-Message-ID: <tencent_3206E4502773D7AC6F720CF4046674E5A809@qq.com>
-X-QQ-XMAILINFO: N6IfSeM/PG+ti4tgBMk5WwFsx315YDPXfk8C9KO/PPtAfGLRF7pWeLMVjvUxKi
-	 Jf3o7ksWWEiWBGFB6YfYnXu110+HwBMgktUgSDooryMeuyuu5DpYXrtaPgY+CrFwG+bR+O0wFl2d
-	 SlEsLFxPf3EmS94KxvjqbrTqo0X/gs1hlxEGqI0n1YrA2xPXvUw6n910U2us043Lb8mRKHixQqos
-	 pL6ItedeLzruUFLwWkaTcIwVA+hObGwveTJh60KYC/c9DSQZBz9OM05Q9lFbL8+24+ouiNEMlig/
-	 qUyLe3KjB01hp8KsgfIRN/3jbzgy81LUhKrELNviHnPOzbkIY9p7FQdLwYfcrlMLI82zB4F1Fw1p
-	 v3a1/UYliyq8x/FUnTPnxa1MJP56GKfr/ecB5IyUtqP//KreIH7H5Fb/oCBD22NcBeCugxOAXMNz
-	 c+wFBXqJiwTHCjKqLuoNUEj+y1jP3dRiAdlAUIhwch9fbP+a7Vxn55LMCORDgK7mM0JVwP6xmYXR
-	 Z4G5vdLOmX5TYjZj2ZN9w8yKJ5SGYeFziN/Nbqn00rvASrt2YhBqm1KcLJuG8ZHtbDANt5H4KS2I
-	 JwYTa8OL8KdRe/Nb0zJVi2dJ3pWT5/YV4sFVzoIKlOElvCT6yvK85f2BwspmnxUgXUKgPH+hkUfh
-	 UoiMd4bSOSvMkfb40b6cXmWefrJ1ix3juvOMWgFpEhDkVEFf+0nMc+xKXi7TMdRCpqLSdIGpr58b
-	 KyrrC4Xk0WslsjiPqwHNIt//74n/cB1Hq9G5ZSv4saETqqDwu25cB1xAqDx6aEACZIARPSal60ho
-	 wqHnEezjfd1l7KGnn+DGNfLCepAp8Zo+KjG2BxRmye1dfG/wuOl/hTeO82N7ZE+yfu71cBgvBSA/
-	 4rIvNDPRXHrjuYTqgUCi8+/mkd7GE5CvBc00n54iO3DxMgvTS3n1RNw2Tl5UCOrFPf08uVm/27Wu
-	 tNm+FVWV/A7TtddDoWSwIYtoP9owmJxJAgYh8w97udoVAZB1e+lCnKusoc1ZuRtIo+YF07TWFJHL
-	 D9JI6xY5/rDfN69qWmAqMp/X1I/GGShA+NCcl5H9WY3u0j6U1gd7aNbVHECi9dKNoPZJ1PlmRt7u
-	 uo3lFgV5ray71CHtyOTMfO6cTc1FAvX1909LNl7zGmgpMR0z360aaQ1Z6lvS3RfYRrc8IamPZjmi
-	 sgNLQ=
-X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
-From: Congjie Zhou <zcjie0802@qq.com>
-To: netdev@vger.kernel.org
-Cc: mst@redhat.com,
-	jasowangio@gmail.com,
-	eperezma@redhat.com,
-	xuanzhuo@linux.alibaba.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	virtualization@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	zcjie0802@qq.com
-Subject: [PATCH net 2/2] virtio_net: mask callbacks before releasing NAPI ownership
-Date: Wed, 11 Nov 2026 21:50:08 +0800
-X-OQ-MSGID: <20261111135008.1048054-2-zcjie0802@qq.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <tencent_AA4F39DA7ADE330C721C03AAA832B92DD608@qq.com>
-References: <tencent_AA4F39DA7ADE330C721C03AAA832B92DD608@qq.com>
+	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=mcOwns7t
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+  t=1794405039; x=1825941039;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=HjIx34s/1l6Bawf4jJWnXsLjZAGbPI2kYNq9L4BPx5w=;
+  b=mcOwns7tK9vPvhlrhcQv0nXNWf5RSGRSrSdX24Uy8Q0rhTYdX3xWgDHp
+   7KRVRMWvsDc0EVnyvz+wO/KSJyKqv1HzL23pI1DN98a5axsT6C2nseO9T
+   YDC8cLBhDL6k3Zy6Yz/NHRboV7S34+uDnDRXL5PMkfmBNlM9ytj6BntlE
+   DnY75o+rtqKALMUgquCtcVRzLPAONouDsvbSsaXcyGqjAfk7sD/ekDDTq
+   nka0ZOVc8DJCe8VQRFmy24gHjiHUiFUw7u/y3bJtflDD3rYRen8XRGVLd
+   ufRusjNNKN2uG447aU/aNwhoO91lKmc5+vTyYX8hn4PA2cb4HcdJCKDBv
+   Q==;
+X-CSE-ConnectionGUID: i8hD2gBHSteVe11dD/lsbQ==
+X-CSE-MsgGUID: Kkaji6OJQQCrbc9OYC1jWg==
+X-IronPort-AV: E=Sophos;i="6.27,207,1787011200"; 
+   d="scan'208";a="33584285"
+Received: from ip-10-5-9-48.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.9.48])
+  by internal-pdx-out-010.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 13:50:37 +0000
+Received: from EX19MTAUWB001.ant.amazon.com [205.251.233.104:3390]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.50.212:2525] with esmtp (Farcaster)
+ id 52a0164a-7ce2-49ae-85b4-ebe8e6cd3e62; Wed, 11 Nov 2026 13:50:36 +0000 (UTC)
+X-Farcaster-Flow-ID: 52a0164a-7ce2-49ae-85b4-ebe8e6cd3e62
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWB001.ant.amazon.com (10.250.64.248) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
+ Wed, 11 Nov 2026 13:50:36 +0000
+Received: from ip-10-253-83-51.amazon.com (172.19.99.218) by
+ EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
+ Wed, 11 Nov 2026 13:50:35 +0000
+From: Alexander Graf <graf@amazon.com>
+To: <linux-kernel@vger.kernel.org>, Greg Kroah-Hartman
+	<gregkh@linuxfoundation.org>
+CC: Arnd Bergmann <arnd@arndb.de>, <nh-open-source@amazon.com>, "The AWS Nitro
+ Enclaves Team" <aws-nitro-enclaves-devel@amazon.com>
+Subject: [PATCH 03/19] nitro_enclaves: Ignore the reply of a failed slot info command
+Date: Wed, 11 Nov 2026 13:49:52 +0000
+Message-ID: <35ba82f73e2f89340db12cab8f7245b83d42b6ee.1794393486.git.graf@amazon.com>
+X-Mailer: git-send-email 2.47.1
+In-Reply-To: <cover.1794300000.git.graf@amazon.com>
+References: <cover.1794300000.git.graf@amazon.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,61 +86,46 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D031UWC004.ant.amazon.com (10.13.139.246) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-virtqueue_napi_complete() prepares callbacks before calling
-napi_complete_done(), then disables them if completion returns false.
-On the hard IRQ deferral path, completion can release NAPI ownership
-and arm the watchdog before returning false.
+When the nitro_enclaves device fails a SLOT_INFO command,
+ne_event_work_handler() logs the failure and still compares the
+enclave's state against the reply, which then holds zero or the reply
+for the previous enclave. Zero is NE_STATE_INIT, so a running enclave is
+recorded as not started: its owner is woken for a state change that did
+not happen, and NE_ADD_VCPU, NE_SET_USER_MEMORY_REGION and
+NE_START_ENCLAVE become callable on it again.
 
-A successor poll can rearm callbacks and complete before the old caller
-executes virtqueue_disable_cb(). The stale mask then disables
-notifications again. If the one-shot watchdog has already run, no NAPI
-owner or timer remains to consume later used entries, causing a
-persistent RX stall.
+Skip the enclave when SLOT_INFO fails, so that it stays in
+NE_STATE_RUNNING and a later event can examine it.
 
-Use napi_complete_done_with_irq_mask() to disable callbacks before
-completion can hand NAPI to a successor, and remove the stale mask after
-a false return. Keep virtqueue_enable_cb_prepare() before completion:
-moving it after ownership release would reintroduce the RX virtqueue
-race fixed by commit cbdadbbf0c79 ("virtio_net: fix race in RX VQ
-processing").
-
-Signed-off-by: Congjie Zhou <zcjie0802@qq.com>
+Fixes: e5d616d8bb50 ("nitro_enclaves: Handle out-of-band PCI device events")
+Cc: stable@vger.kernel.org
+Signed-off-by: Alexander Graf <graf@amazon.com>
 ---
- drivers/net/virtio_net.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+ drivers/virt/nitro_enclaves/ne_pci_dev.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/net/virtio_net.c b/drivers/net/virtio_net.c
-index dd2c41ef6..0de6bd95a 100644
---- a/drivers/net/virtio_net.c
-+++ b/drivers/net/virtio_net.c
-@@ -727,19 +727,23 @@ static void virtqueue_napi_schedule(struct napi_struct *napi,
- 	}
- }
+diff --git a/drivers/virt/nitro_enclaves/ne_pci_dev.c b/drivers/virt/nitro_enclaves/ne_pci_dev.c
+index 3e1455d505269..c37777bb95b49 100644
+--- a/drivers/virt/nitro_enclaves/ne_pci_dev.c
++++ b/drivers/virt/nitro_enclaves/ne_pci_dev.c
+@@ -243,9 +243,12 @@ static void ne_event_work_handler(struct work_struct *work)
+ 		rc = ne_do_request(pdev, SLOT_INFO,
+ 				   &slot_info_req, sizeof(slot_info_req),
+ 				   &cmd_reply, sizeof(cmd_reply));
+-		if (rc < 0)
++		if (rc < 0) {
+ 			dev_err(&pdev->dev, "Error in slot info [rc=%d]\n", rc);
  
-+static void virtqueue_napi_mask(void *data)
-+{
-+	virtqueue_disable_cb(data);
-+}
++			goto unlock;
++		}
 +
- static bool virtqueue_napi_complete(struct napi_struct *napi,
- 				    struct virtqueue *vq, int processed)
- {
- 	int opaque;
- 
- 	opaque = virtqueue_enable_cb_prepare(vq);
--	if (napi_complete_done(napi, processed)) {
-+	if (napi_complete_done_with_irq_mask(napi, processed,
-+					     virtqueue_napi_mask, vq)) {
- 		if (unlikely(virtqueue_poll(vq, opaque)))
- 			virtqueue_napi_schedule(napi, vq);
- 		else
- 			return true;
--	} else {
--		virtqueue_disable_cb(vq);
- 	}
- 
- 	return false;
+ 		/* Notify enclave process that the enclave state changed. */
+ 		if (ne_enclave->state != cmd_reply.state) {
+ 			ne_enclave->state = cmd_reply.state;
 -- 
-2.43.0
+2.47.1
 
