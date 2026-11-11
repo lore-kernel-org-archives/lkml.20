@@ -1,57 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.15.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794416934;
-	b=p6JSrwRg3orEdpWqGTDw0EnbJolZnd1ht6y+gIXx1giGqTqLDcT9PkMKd93rUKbWGGOR
-	 /bOKsaA/1ZzlxSFUNqWMftihjjxnruwcxDk5v8eKWDUAqjQFtf3KjbUAN2H2XsQTa2lp7
-	 4qbWaECDh9FaNuc4zgaUFnGH+hWcDqyMac+Ley8aP6+dML6dB455M9hiv3NQrdLgltiQP
-	 jkj4RJPX1SyqU558tvh2Fk2wNglt2fRuWkzFiG2pc2ZN5DqZgmp1Y4AnVue2HaMXzV6j9
-	 pj22DJc0y/J1XEnHFYJ8tYTxJZ16R2ksr7baGL3dgheVEsT6/znZg5MCg8cdtQgnYbA==
+	t=1794416941;
+	b=JGDNXz7I4TTaNEJoi0VhuvwEw+/Kb0Ck/oj7CTx1p9xWnUeSAOvd+v1o3whjMQ2abg33
+	 l0Y+tKahkZEjXoi2EAIhSlFCktvdzYFDTLauq7usK62ZyxDCrIlHaU1tAjdudRLvL6VXR
+	 Vh9LeB62LpK5hQJRWn0MVIbbdisNtBm2dCDPtT0qtHVDLonmEpewi5VqrhqPDiHmmMmZ6
+	 8Xjc6JUBPBPPHU4AzB4vDy6aUevKL9cwbPV8d77O3mBv5HUGo/PIiB7dbcmOtCsjlvrln
+	 vUVGpWTwxZV3yEJR5jRaeK002L06D/FEE+3AofxYZOLev3UChari10d8lI82pdXaFcg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794416934;
-	h=Received:DKIM-Signature:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=2xL4JtPCxQMrloSFtgUXRRA0C1tin+Ad/A0jd9/bkYM=;
-	b=fnBO1YVOyvSDpUWiSfgva6OxjJB/w9i6cg0kC52aOtHiBJELyYy0XIIPUgzL7Fi2Q/7S
-	 2b5kslxqeMlfWMvGPZxa9RiKqQaOgFrueA5tfoAQSoA32Wf91tJ2BsmTpgxjk7bjzd/R5
-	 j1C48lf2+eANGojOUtFucxIOKz9D4K+7SOmaD3kJ7/H8yGW4ELtSy8kRzQ64/0B73tsV0
-	 qbyq9VUp4PScUuD+SeTLeV+PcOfoxkzfuW6dszLRJKaX8NM0PWukT/OfWeiR2TH1owdQZ
-	 1PfVbHqYzLrKnkpj58l31i4SfnkAsK1ibhYgdfKoH4oL+0JtkfCZiacUOvm+3+8N4OQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794416941;
+	h=DMARC-Filter:DKIM2-Signature:Message-Instance:DKIM-Signature:
+	 X-UI-Sender-Class:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding:X-Provags-ID:
+	 X-Spam-Flag:UI-OutboundReport;
+	bh=CArIVjyNi1DdLLI1Xo+6NV2Inj4tLWeam02ZRhLj0sU=;
+	b=p4JvPZg30DGNKzHC+dLY/YaU9A/Nz3ibH7YFxZCWJTs8/TuDFiDMXv0ii4v6vA6828ns
+	 whvneQ0pHgE0qK9EAQMpOxaNZjU58StuPorRvu2U+rjQ5ULYCcviDLj50I3sdjk8j0bUJ
+	 9EWtAcp6AGpUjYlKC0k9SJK+sPXVphDidimKHLgyhHGyQqVVlv/82U2GI7cKcSacZwfcS
+	 gqguqBU3Sfm3sNXFaMILQ+DbOH/VkxjR6AGh0vtiTZaN2esYLQBvvxpnVIL0GQyioo4m6
+	 2/PaezDGVaHfnEgxeb2ruy5ZNY+bBEXNsZ6dMtUqzv7nnJnz+R0uXBxUeSxO5CNkzsw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wj1eHP9U;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=gmx.net;
+	spf=pass smtp.mailfrom=gmx.net;
+	dkim=pass header.d=gmx.net header.i=henri.ommer@gmx.net header.a=rsa-sha256 header.s=s31663417 header.b=bE8bEooa;
+	arc=none smtp.remote-ip=212.227.15.18
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FD6E606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 17:08:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43DD1606A321
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 17:08:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 43DD1606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wj1eHP9U
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 041BE1F00A05;
-	Wed, 11 Nov 2026 17:08:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794416934;
-	bh=2xL4JtPCxQMrloSFtgUXRRA0C1tin+Ad/A0jd9/bkYM=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=Wj1eHP9UoXTLuWIm/oSXJhzBG5YDS3gxfc3S5BvwnqcFW3Bv0gagP0+Q5Y2ieQC7k
-	 YU/YrHYvys9H+WIrCyXb6F9hDKNxLiyqwu9vj6AIGJlwq/6dUzI3xtiy2NI/TqMO14
-	 gOy3CJHX9PKKpuXYQtNDHTFXuXKEHtuDm/35phJ2ofAiDYZDUB7hiF/eh6BsdHEjfv
-	 773IvUYk41TaVhTNtz3l7judE27cBIq5SA9DOUEm7Ypr8xgwatZCms8f5bayXpc4vz
-	 HG+b2YApGmlmVY4ByHRBagKVSa2aUZH3gFrze/jzdtZ3Lz6S1bCX0fsVUMGTTyYW1Z
-	 6HhopJcAiIMoA==
-Date: Wed, 11 Nov 2026 07:08:53 -1000
-Message-ID: <0129fb236b7c82b5a5200f476455a46b@kernel.org>
-From: Tejun Heo <tj@kernel.org>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: mingo@kernel.org, juri.lelli@redhat.com, vincent.guittot@linaro.org,
- dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com,
- mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com,
- linux-kernel@vger.kernel.org, ziqianlu@bytedance.com,
- Changwoo Min <changwoo@igalia.com>
-Subject: Re: [PATCH v2 04/12] sched/core: Make __update_rq_clock() skip updates on UPDATED
-In-Reply-To: <20261111122524.GC2669272@noisy.programming.kicks-ass.net>
-References: <20261107115913.261163891@infradead.org> <20261107120207.126979364@infradead.org> <3ac37e055b66a46f72edd235f1e93f5f@kernel.org> <20261111102817.GN1779021@noisy.programming.kicks-ass.net> <20261111122524.GC2669272@noisy.programming.kicks-ass.net>
+	dkim=pass (2048-bit key) header.d=gmx.net header.i=henri.ommer@gmx.net header.a=rsa-sha256 header.s=s31663417 header.b=bE8bEooa
+DKIM2-Signature:  i=1; m=1; t=1794416938;
+ mf=PGhlbnJpLm9tbWVyQGdteC5uZXQ+;
+ rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+ d=gmx.net;
+ s=s31663417:rsa-sha256:g89iK43LGpv37FRhzSYjhna6jCqX
+   yxdbAxbbex6rUH2KFDrBeGIG4qmyhvlrmrR8fGtoUfL5xDEKoCMlSI1rf2deRlX+r2WqyvNhuHV
+   DhbFIx9W+hq3iYpBf/LkuKBVPVOx+GA2L3SWLFU342HGt1gZYM8KuL8uBZZ3FRG40s+el2hd0N9
+   Q2u2S23yC4fYvw2EQoLcQNC7ktpF/D19NhQqB3jgQhEonwy6YtvgbvP9EHCJWuJvQde6odXspE3
+   yzH/nxpbzx1vO8jpU5bEG+/NJAHGLWgEWzfKxOtBFFfvyi5R8Y7C7J9uoj7J/mFIxsNdlQO1O5R
+   D2BBj7/yE15NBA==;
+Message-Instance:  m=1;
+ h=sha256:
+   cyABrvZ6nXAvy7YdNlx1rdjnKmfbIKzv/4kOS5ERsz4=:
+   R/D/xO9eKJZycpfyOOBKs/eVBuKuBDisXjAwbfIQ6ZU=,
+  sha512:
+   jzZJFyFZg/WxnqyaDwZUBuOYf1uVLZ4SL0ckevyOS6piGENlbmzEz18ILKmjB61cYHNpYSvwQNLTOJPpibaykw==:
+   SR12AkSEPosM+u4tDqubMUuIQ2BIfx5+O+NQ2iU+lxRyB0R6Zf4WB0FQQAsUnl2FBnKXI4BuKROY2Ft7NgxqhA==;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.net;
+	s=s31663417; t=1794416934; x=1795021734; i=henri.ommer@gmx.net;
+	bh=CArIVjyNi1DdLLI1Xo+6NV2Inj4tLWeam02ZRhLj0sU=;
+	h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:
+	 MIME-Version:Content-Transfer-Encoding:cc:
+	 content-transfer-encoding:content-type:date:from:message-id:
+	 mime-version:reply-to:subject:to;
+	b=bE8bEooaFj0lu4WuKIvhOAGo1sGoF7SA0HZe0iA3Y79DygJu2KtvcTkqipYmR0xN
+	 MHJQ2KHHBi0qWZVBFNlfEv/cPH4z9YgXxj5CSvTwb78ACg7NoSbRcmmIfLvJ6szhv
+	 9QXwjgDgNzT8C/mpQt8YI+dhpj3yGcomnrLEdBJAnrQ5MML7ZnCQFQ4Tm2m4ngnHE
+	 9pEorVGc9SiwIkJnQl+odKl/HRhN61ExMhBHfi0724O1UPFg53wk2jBUiCXsRj9Zd
+	 yylSiXEE10+brAK6M5TV+P/AJd5tgd8kslCBaVRdSv9+T0G7Dj1yx6YyCiMv7xkik
+	 duZs6dL6UWtwIN8ixQ==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx004
+ [212.227.17.190]) with ESMTPSA (Nemesis) id 1MKbgE-1xAlxZ3iJQ-00Nx7E; Wed, 11
+ Nov 2026 18:08:53 +0100
+From: Henri Ommer <henri.ommer@gmx.net>
+To: job@noorman.info,
+	dmitry.torokhov@gmail.com
+Cc: phone-devel@vger.kernel.org,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Henri Ommer <henri.ommer@gmx.net>
+Subject: [PATCH 2/2] dt-bindings: touchscreen: trivial-touch: Add hx83102d
+Date: Wed, 11 Nov 2026 18:08:51 +0100
+Message-ID: <20261111170851.2334-1-henri.ommer@gmx.net>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,40 +88,139 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:PXW+kykLxlcqwnTeQZnYRQRQvhvLAHHF/uB+ddpUEabMg021n8D
+ UjYYGcSL3VXYDCkvCCQKclIFm+/9nHmbQY17iZ3+fApHHL6fgbBdvi3pRqLczDmVeMcFW5I
+ BqmoZqTbvnfL0QF5GCFcTgbxJ0i33lAV19leVwS3GP1c96jbzTNuJvKjfnjeAE4A/k1zDcm
+ Tjnity/jpL3zZZmCyX5tw==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:a6LFJEvVa7I=;RtDzadSFECiBy+4BFzEII2soQeR
+ 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
 
-Hello, Peter.
+Adds the Himax hx83102d touchscreen controller compatible string.
+The hx83102d is software-compatible with the hx83112b (except for the mode=
+l number).
 
-(cc'ing Changwoo)
+Signed-off-by: Henri Ommer <henri.ommer@gmx.net>
+=2D--
+ .../devicetree/bindings/input/touchscreen/trivial-touch.yaml  | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-On Wed, Nov 11, 2026 at 01:25:24PM +0100, Peter Zijlstra wrote:
-> Notably, I want dequeue and pick / set-next to have the same timestamp
-> such that the whole of schedule appears to happen at one instant in
-> time.
-> 
-> For ext you've explicitly chosen to not do so, per the placement of
-> scx_rq_clock_invalidate().
+diff --git a/Documentation/devicetree/bindings/input/touchscreen/trivial-t=
+ouch.yaml b/Documentation/devicetree/bindings/input/touchscreen/trivial-to=
+uch.yaml
+index 6316a8d32f39..d0ee79ba096d 100644
+=2D-- a/Documentation/devicetree/bindings/input/touchscreen/trivial-touch.=
+yaml
++++ b/Documentation/devicetree/bindings/input/touchscreen/trivial-touch.ya=
+ml
+@@ -16,9 +16,9 @@ properties:
+       - azoteq,iqs550
+       - azoteq,iqs572
+       - azoteq,iqs525
+-      # Himax hx83100a touchscreen controller
++      # The Himax hx83100a, hx83102d and hx83112b touchscreen controllers
+       - himax,hx83100a
+-      # Himax hx83112b touchscreen controller
++      - himax,hx83102d
+       - himax,hx83112b
+       # Hynitron cstxxx series touchscreen controller
+       - hynitron,cst340
+=2D-=20
+2.56.0
 
-IIRC, that wasn't to get a fresh clock after each lock drop. The goals
-were:
-
-1. Use the cached rq clock to avoid reading the hardware clock in most
-   cases.
-
-2. Avoid reading a really stale clock after the scheduling session is
-   long over.
-
-The invalidation is there for the second. With the existing code, the
-cached clock can stay around long after the session is finished.
-
-If the core tracks the session and whether the clock is up to date as
-suggested in the reply to the cover letter, scx doesn't need its own
-valid flag and can do what the other users do. With the rq locked and
-pinned, update the clock if needed and use it. Without the lock, use it
-if in session and up to date. Otherwise, read the hardware clock.
-
-Thanks.
-
---
-tejun
