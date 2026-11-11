@@ -1,62 +1,100 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794424312;
-	b=bRC6jl0fUk04Pki1+gr3fbE9uvWoYIdN3AAAYxmfWPUQdcG3vEOnsED8MweX/cjToWz8
-	 9B5xXZ1qaHbVvxClcs3Jod5KDpuJGCxvZUcKYk2xGdbi2g6tDDIiKG0k9oxg0MdtYJb5Z
-	 MdsbiyFsSl/5fnFBKwF5GvLFWMmhuxxsncC1rB27h6zrrBEn0lWezya433Z+RmV6sVSDQ
-	 LF6U/U9XZ7pjE6XJX0KBfzO+kF/bqUOiI5PIGiaUeuujDBX/LdmemhlpR/xg31JssC4xD
-	 uEiJem3Royd5XikXVZ3Bj+BDUGn3tUq9uTMEAh8270QQjR7Z7/ku1PJS4h1xnbK4f4Q==
+	t=1794424358;
+	b=o567/TMLzwKkVcOUjJgSemeBqEDHthTxa+8LnnWsLfBpS2qj3USGrX3Rv4W98zqtn97m
+	 SzSVtK4yCuKDOctTxrQbPKzJhy972Rk1np5yB8HRtQHhchmoPAiwBF4hkB/CX08m3gXrM
+	 FJ/9MYxjpK7rfcDYP7bBJWqIHD2CwHHdV5yV/PiCHOsZPuWNsve2lKlKTZqng2jGS1Eah
+	 SK/5nEInCdC8VtSU0mgDKAi2FOtTLoQcQxMUgD3HHUgW1Cs/nXPq3VZrol20MmUa4Rx2C
+	 +VGOwNZ/Y202fdUKAkef5sSeYXbkX0mxELLVFT+IwVhVH2Y13WM/iYGHglj6ZaoDyTw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794424312;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=z3Tad0xYElBxCFHtO8obKkkc8QipjCycJHubLpMEJ2A=;
-	b=3T+mo0zQ9ynaCaOMesC/ZKEbBrL51SAmhMfzyP5iTg80WopeVva4YNYPfozo/HcY642c
-	 ZKR2+lBOH0GU/WJp0QPu0rGRZBjZy5W+AU6mybhbeH898lk9XawegSolJEYh8vaK2Y7d2
-	 704zPjxwvqPhtcrQw1PWxoO6s5LYhIQ1saJB7sHQLnc0/ddxyVjErchkupkmKT9KApkVG
-	 uq/hLLGFCTzOEEcQkNXNGrLU2l6hdMkf3CoIl/Gn80RvJXtAoISDSkIb7KLPc9h6/7g1T
-	 Pcn/NJsoh9lALoHc9NbbdW4RwLNhX6eZMTeFg1Lso1YkFPpD8pyhy4i8h4GqGJM3dvQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794424358;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=9rzvnRWJjWzbxf1CdqOdngD5YMGoOzjDwN76qmbiuFc=;
+	b=SIXPD0SUaYhh1EftDdSidPLxyRTXXqltIKkK+6iFOh9FVU57fzwrvOKo5xiUYMYgPTfP
+	 qzdUCt+VquuFNwSzza3xntNclP1fC8my9T6JMGXYCw1hT3AfYBZIOUtlPIlTgAUa/KgCw
+	 YZhs5ctWWgQbAdTPT/cAweYOO60nXq4w/Qt11ivDtH/vQ8oMYONzE77NxhcahM1X9apuD
+	 QCEwucUBZHrHOsS4qOYK3C8AgxRvAxoxxoioybiaBJ4A3tZ+6sjXOi/9F4qcWEDzvKMoA
+	 eJZvh66nIKMDNdZjBjixoFDOcN6XTsYrRDiqaDYZtzQ1u4jgVM+VIQHCnRMnfLjC16w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P1CiJu6h;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jzfu4WAA;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 076FC606A321;
-	Wed, 11 Nov 2026 19:11:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE39B60A2602
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 19:12:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P1CiJu6h
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CEEE91F00A05;
-	Wed, 11 Nov 2026 19:11:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jzfu4WAA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3216D1F00A05;
+	Wed, 11 Nov 2026 19:12:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794424311;
-	bh=z3Tad0xYElBxCFHtO8obKkkc8QipjCycJHubLpMEJ2A=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=P1CiJu6h1s62LGw6hg5Yv9yLh5D4UieRJsXKdbezMTc+lduNEycJ+v1uNyfkoNiz0
-	 IgUyH7fFIdzsb11/OFSev/p95jegPyg4PuidJZa+SwzOgOIcyarYKas9zqwdYVBc/K
-	 ccjAX5UUFN6YuLOxZXTo5nEvfJwAw7UEOWV1EURXHrJXMY0zW32IwmAF91mIkSUn4l
-	 RUP9vmBDcafBwZzNNp+4bLlOjK8g3GEfk4rIhfxhV9odjFLTT5sh+zV3PhHQGqt7fA
-	 3nCyMVGMYfBsIswbE/oDXo00OYOyTiJh9V3U/brUwnRyguaehbp4+1G9fXfrCpVefE
-	 29TRWDPOb1H6Q==
-Subject: Re: [PATCH net-next v10 1/4] net/sched: sch_fq_pie: add per-flow
- statistics via class ops
-From: netdev-bot+sashiko@kernel.org
-To: hemendranaik@gmail.com
-Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, jiri@resnulli.us,
- jhs@mojatatu.com, shuah@kernel.org, donald.hunter@gmail.com, ast@fiberby.net,
- toke@redhat.com, liuhangbin@kylinos.cn, j.koeppeler@tu-berlin.de,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
- vishy0777@gmail.com, tahiliani@nitk.edu.in
-Date: Wed, 11 Nov 2026 19:11:50 +0000
-Message-ID: <179442431035.2199510.1711014291081822930@kernel.org>
-In-Reply-To: <20261109071017.438478-2-hemendranaik@gmail.com>
-References: <20261109071017.438478-2-hemendranaik@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1794424358;
+	bh=9rzvnRWJjWzbxf1CdqOdngD5YMGoOzjDwN76qmbiuFc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=jzfu4WAA6ElJ02kn/Kow/ZSu0s0IB0QJ2OsvUpsYACJnXnbWmm539erPelJDDOfOe
+	 aw6+cCZQJJqvUwITWwqeUpUsZd/9qAmO8xWtxYPAh4ibTOCRkVHUc4/WC0mLkcI2zy
+	 XDdtfmZEI/5RrpshDsKQsdXJ4xKRLav0prmxY1A0DU+X7K4hgSXVGXvSLisdoU20yu
+	 kUvz9iHFP9GrF6KjqI16Hy8aT0y9fkL179uWyhqMnF/PP4hiKaoaqPM8NAE8Py/aP1
+	 To5D9e2/M2EdcYoM0Gq597Ns7nEpZq8VXxsmHf8cebTfYQJEJrkSVRGXReYwJulZ4Y
+	 62sajGVCqmEUg==
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 287B8198004A;
+	Wed, 11 Nov 2026 14:12:28 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-03.internal (MEProxy); Wed, 11 Nov 2026 14:12:34 -0500
+X-ME-Sender: <xms:G770amrD8gScgbw-DSZ-GwPtQMbuwsm61xQ8YBBu2eoq0KGiheKFRw>
+    <xme:G770ao09YRvTBtfn3GfjXfli5cV6QN9WCTmWj2TH4EcetMGd2iwrSYv49iuOxdHzR
+    8YyB6uIfvK-gwomx5LpDQ3Dxkyp6FZbmjxG6Lht-0xHe6bUhBLoDBI>
+X-ME-Received: <xmr:G770av1ZHzAJZuikg6gcG-sMShynkY8UC2ojXveCFDNWNZFpMlp6oSoC-8I>
+X-ME-Proxy-Cause: dmFkZTES/6cX0KaFoJYJ4MHvoyZOb6MXDU0/tO2FG3RhJxxbVEfD8pjHEIxsQzk0Al2yPN
+    SEhfIex5SKtz3lQPun/UByqNcs/KxTT5GXvxxYylZ4FlJU2QVRNetXmrPMM9RL9Vt+vqmI
+    GbyZH9mdeKdScR+BW8cX/HcTaYp4E9mis5e5ATXCP8qD2KZAL6IPA3zSlQRZ2QhQQpw7o1
+    2U27Sm7SGvcB8wymQGlny6KDRlL+gv07ozEKC+ckkFNc2fIPs5sPEN/TFM8t+MtO0rkq+H
+    8pt3TP4ChsV/1DQckczcrs8gXCDvRLQDfJzvJxquUNHH9cvUj99Q01NMCnsHpJGK1Le+kZ
+    4+pDo4bpQyKl62ZpWv7iXTTVuBsu5f+usqWAKQ3eRZbhK9VQt0rRvbUqMjcLfCd6iWOi67
+    TZx6wJtmbqeDb5YKJQTg8mVMsB2ssGUxwc0+DrORZGZtNURNi5f84iuKnV5uP1YDAZd3V+
+    /EL10zfWdPyT3ztdXn6fHlQ/cOeHFz3MuPej6yOli5FkSC6OHMJJsyQady8n+FGpjxh4tH
+    BJZKq251ZhN9/vc588/+ysP2jaAh1lsok4VTfRVbn8wSDQoKxSs6p9H3m+/8e05fRJTfYx
+    pcw0WN8tvBrhB49hWK5zJ5q2V3eDoF79C3BirccEq4Qbj72ChN/eTWjQZqrg
+X-ME-Proxy: <xmx:G770asc5h1oAcOmCwwQDl1xkUUD7GcZFf0F8wGqNjgRK2NQTMbHu7A>
+    <xmx:G770an9vADJNurzo60r-_MXTBWMPFVVEFoEyR-hHdg0kZoOPyWhgmA>
+    <xmx:G770aqATUZEpHnmjI6bkXjYRWSkbJ1ffzCUVHhxT5oQ88s_huNJ6dw>
+    <xmx:G770alwwSaqIvQ91pyca7EXxdzjnEq1Kz4NZNEpM_httAxmVu2BOpQ>
+    <xmx:G770asRAUD0hqvGvbgHVi5Vi85oSX1cF5ovSk-myQbewSgmSaVjrKVd_>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 11 Nov 2026 14:12:26 -0500 (EST)
+Date: Wed, 11 Nov 2026 19:12:25 +0000
+From: Kiryl Shutsemau <kas@kernel.org>
+To: Tal Zussman <tz2294@columbia.edu>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Mike Rapoport <rppt@kernel.org>, Peter Xu <peterx@redhat.com>, 
+	James Houghton <jthoughton@google.com>, Andrea Arcangeli <aarcange@redhat.com>, 
+	Suren Baghdasaryan <surenb@google.com>, Balbir Singh <balbirs@nvidia.com>, 
+	"Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+	=?utf-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>, Andrei Vagin <avagin@gmail.com>, 
+	Stephen Rothwell <sfr@canb.auug.org.au>, Arnd Bergmann <arnd@arndb.de>, 
+	Muhammad Usama Anjum <usama.anjum@arm.com>, David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+	Matthew Brost <matthew.brost@intel.com>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
+	Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
+	Ying Huang <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+	Chris Down <chris@chrisdown.name>, Muchun Song <muchun.song@linux.dev>, 
+	Oscar Salvador <osalvador@suse.de>, =?utf-8?Q?Miko=C5=82aj?= Lenczewski <miko.lenczewski@arm.com>, 
+	Michal Hocko <mhocko@suse.com>, Mike Kravetz <mike.kravetz@oracle.com>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org
+Subject: Re: [PATCH 06/12] mm/huge_memory: build the moved huge zero PMD from
+ the destination VMA
+Message-ID: <avS-BWznThxIQ1H0@thinkstation>
+References: <20261111-uffd-state-fixes-v1-0-00713d368976@columbia.edu>
+ <20261111-uffd-state-fixes-v1-6-00713d368976@columbia.edu>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,260 +104,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261111-uffd-state-fixes-v1-6-00713d368976@columbia.edu>
 
-Thank you for your contribution! Sashiko AI review found 5 potential
-issue(s) to consider.
+On Wed, Nov 11, 2026 at 12:55:14PM -0500, Tal Zussman wrote:
+> move_pages_huge_pmd() builds the destination PMD for the huge zero page
+> by copying the source PMD and clearing its uffd bit, so the destination
+> keeps the protection of the source.
+> 
+> A source VMA registered for RWP can map the huge zero page with a
+> PAGE_NONE PMD, and UFFDIO_MOVE does not check how the source is
+> registered. The destination then gets a PAGE_NONE PMD without the uffd
+> bit, although nothing asked for that in the destination VMA.
+> 
+> The next access fixes it up through the NUMA hinting fault path. Until
+> then, the first access to the destination takes a spurious fault and GUP
+> has to take the fault path. The impact on userspace is small.
+> 
+> The moved entry must have the protection of the destination VMA. To fix
+> it, build the entry from the vm_page_prot of the destination VMA, as
+> move_zeropage_pte() does for the small zero page, and keep marking it
+> soft-dirty. A destination VMA registered for RWP still gets its PMD
+> re-armed afterwards.
+> 
+> Fixes: 763f43865fc4 ("mm: preserve RWP marker across PTE rewrites")
+> Signed-off-by: Tal Zussman <tz2294@columbia.edu>
 
-Critical: 0 · High: 0 · Medium: 2 · Low: 3
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Medium] The new uAPI field `tc_fq_pie_cl_stats.avg_dq_rate` is
-  declared `__u32` and documented as "current average dq_rate in…
-- [Medium] fq_pie_dump_class_stats() reads flow->deficit, flow->qlen and
-  flow->backlog with READ_ONCE() and no qdisc lock: tc_fill_tclass()…
-- [Low] The commit message says the patch makes 'tc -s class show' report
-  per-flow prob, delay, deficit, avg_dq_rate and dq_rate_estimating.
-- [Low] fq_pie_change() accepts flows_cnt values from 1 to 65536.
-- [Low] Setting `.cl_ops` makes the tc core treat fq_pie as classful,
-  which changes user-visible behaviour that the commit message does not…
-
---
-
-net/sched: sch_fq_pie: add per-flow statistics via class ops
-
-This patch adds a type discriminator and a tc_fq_pie_cl_stats member to
-tc_fq_pie_xstats, which grows the struct from 36 to 64 bytes. It also wires
-up fq_pie_class_ops so that each active flow is dumped as a class with its
-PIE state.
-
-> diff --git a/include/uapi/linux/pkt_sched.h b/include/uapi/linux/pkt_sched.h
-> index 490efd2885267..fef848eaaab23 100644
-> --- a/include/uapi/linux/pkt_sched.h
-> +++ b/include/uapi/linux/pkt_sched.h
-> @@ -953,6 +953,21 @@ enum {
->  };
->  #define TCA_FQ_PIE_MAX   (__TCA_FQ_PIE_MAX - 1)
->  
-> +enum {
-> +	TCA_FQ_PIE_XSTATS_QDISC,
-> +	TCA_FQ_PIE_XSTATS_CLASS,
-> +};
-> +
-> +struct tc_fq_pie_cl_stats {
-> +	__u64 prob;			/* current probability */
-> +	__u32 delay;			/* current delay in microseconds */
-> +	__s32 deficit;			/* number of remaining byte credits */
-> +	__u32 avg_dq_rate;		/* current average dq_rate in
-> +					 * bytes/second
-> +					 */
-
-[Severity: Medium]
-Can avg_dq_rate overflow? It is a __u32 documented in bytes/second, but
-fq_pie_dump_class_stats() computes it as a u64:
-
-    xstats.class_stats.avg_dq_rate =
-        ((u64)READ_ONCE(flow->vars.avg_dq_rate)
-        * PSCHED_TICKS_PER_SEC) >> PIE_SCALE;
-
-The result is stored without saturation.
-
-pie_process_dequeue() sets vars.avg_dq_rate to
-(dq_count << PIE_SCALE) / dtime. That can represent rates above 2^32
-bytes/s (about 4.29 GB/s, or roughly 34 Gbit/s). If dq_rate_estimator is
-enabled and one flow drains faster than that, the reported value would
-wrap.
-
-This is a new uAPI field and can't be widened later. Would __u64 be a better
-fit? tc_pie_xstats uses the same width, but the netlink guidelines prefer
-wider types for new values.
-
-> +	__u32 dq_rate_estimating;	/* is avg_dq_rate being calculated? */
-> +};
-> +
->  struct tc_fq_pie_xstats {
->  	__u32 packets_in;	/* total number of packets enqueued */
->  	__u32 dropped;		/* packets dropped due to fq_pie_action */
-> @@ -963,6 +978,8 @@ struct tc_fq_pie_xstats {
->  	__u32 new_flows_len;	/* count of flows in new list */
->  	__u32 old_flows_len;	/* count of flows in old list */
->  	__u32 memory_usage;	/* total memory across all queues */
-> +	__u32 type;
-> +	struct tc_fq_pie_cl_stats class_stats;
->  };
-
-[Severity: Low]
-The commit message says:
-
-  Wire up fq_pie_class_ops with walk, dump, and dump_stats only so that
-  'tc -s class show' reports per-flow state (prob, delay, deficit,
-  avg_dq_rate, dq_rate_estimating).
-
-Since type is appended at offset 36, the first 36 bytes of a class record
-look exactly like a qdisc record. fq_pie_dump_class_stats() zeroes the whole
-struct and fills only type and class_stats. It then sends the result as
-TCA_STATS_APP.
-
-The current tc fq_pie xstats printer handles both qdisc and class dumps, and
-it only knows the 36-byte layout. With an unmodified tc, would every
-per-flow class line print "pkts_in 0 overlimit 0 ... memory_used 0" and
-none of the per-flow values?
-
-The iproute2 dependency is only mentioned in the later commit "selftests:
-tc-testing: add fq_pie per-flow class stats test". Could this commit message
-say that a companion iproute2 change is needed? It could also note that
-older tools can't tell class records from qdisc records.
-
-> diff --git a/net/sched/sch_fq_pie.c b/net/sched/sch_fq_pie.c
-> index 5982847df8f85..c834c8f45898b 100644
-> --- a/net/sched/sch_fq_pie.c
-> +++ b/net/sched/sch_fq_pie.c
-
-[ ... ]
-
-> @@ -563,7 +567,89 @@ static void fq_pie_destroy(struct Qdisc *sch)
->  	kvfree(q->flows);
->  }
->  
-
-[ ... ]
-
-> +static int fq_pie_dump_class(struct Qdisc *sch, unsigned long cl,
-> +			     struct sk_buff *skb, struct tcmsg *tcm)
-> +{
-> +	tcm->tcm_handle |= TC_H_MIN(cl);
-> +	return 0;
-> +}
-
-[Severity: Low]
-What happens to the handle when flows_cnt is 65536? fq_pie_change()
-accepts that value:
-
-    if (!q->flows_cnt || q->flows_cnt > 65536) {
-
-fq_pie_walk() calls tc_qdisc_stats_dump(sch, i + 1, arg), so cl can reach
-65536. TC_H_MIN(65536) is 0, and tc_fill_tclass() has already set
-tcm->tcm_handle = q->handle, whose minor is 0.
-
-Wouldn't the class for flow index 65535 then be reported as maj:0, the same
-handle as the qdisc itself?
-
-fq_codel has the same pattern, but this patch brings it to fq_pie.
-
-> +
-> +static int fq_pie_dump_class_stats(struct Qdisc *sch, unsigned long cl,
-> +				   struct gnet_dump *d)
-> +{
-> +	struct fq_pie_sched_data *q = qdisc_priv(sch);
-> +	struct gnet_stats_queue qs = { 0 };
-> +	struct tc_fq_pie_xstats xstats;
-> +	u32 idx = cl - 1;
-> +
-> +	if (idx < q->flows_cnt) {
-> +		const struct fq_pie_flow *flow = &q->flows[idx];
-> +
-> +		memset(&xstats, 0, sizeof(xstats));
-> +		xstats.type = TCA_FQ_PIE_XSTATS_CLASS;
-> +		xstats.class_stats.prob =
-> +			READ_ONCE(flow->vars.prob) << BITS_PER_BYTE;
-> +		xstats.class_stats.delay =
-> +			div_u64(PSCHED_TICKS2NS(READ_ONCE(flow->vars.qdelay)),
-> +				NSEC_PER_USEC);
-> +		xstats.class_stats.deficit = READ_ONCE(flow->deficit);
-> +		xstats.class_stats.dq_rate_estimating =
-> +			READ_ONCE(q->p_params.dq_rate_estimator);
-> +
-> +		if (xstats.class_stats.dq_rate_estimating) {
-> +			xstats.class_stats.avg_dq_rate =
-> +				((u64)READ_ONCE(flow->vars.avg_dq_rate)
-> +				* PSCHED_TICKS_PER_SEC) >> PIE_SCALE;
-> +		}
-> +
-> +		qs.qlen    = READ_ONCE(flow->qlen);
-> +		qs.backlog = READ_ONCE(flow->backlog);
-
-[Severity: Medium]
-Are the writers of deficit, qlen and backlog annotated to match these reads?
-tc_fill_tclass() calls gnet_stats_start_copy_compat() with a NULL lock. That
-means this function runs under RTNL only, without the qdisc lock.
-
-The fast path still uses plain stores under the qdisc root lock. In
-fq_pie_qdisc_enqueue():
-
-    sel_flow->deficit = q->quantum;
-    sel_flow->qlen = 0;
-    sel_flow->backlog = 0;
-    ...
-    sel_flow->qlen++;
-    sel_flow->backlog += pkt_len;
-
-In fq_pie_qdisc_dequeue():
-
-    flow->deficit += q->quantum;
-    ...
-    flow->qlen--;
-    flow->deficit -= pkt_len;
-    flow->backlog -= pkt_len;
-
-With READ_ONCE() on the reader side only, won't KCSAN report these as data
-races? qlen and backlog are also read as two separate lockless loads, so the
-two values might not match each other.
-
-The PIE vars fields read here (prob, qdelay, avg_dq_rate) do use
-WRITE_ONCE() in sch_pie.c. fq_codel uses WRITE_ONCE() for flow->deficit and
-q->backlogs[], and it takes sch_tree_lock() for its qlen snapshot. Should
-fq_pie do the same?
-
-> +	}
-
-[ ... ]
-
-> +static const struct Qdisc_class_ops fq_pie_class_ops = {
-> +	.leaf		=	fq_pie_leaf,
-> +	.find		=	fq_pie_find,
-> +	.dump		=	fq_pie_dump_class,
-> +	.dump_stats	=	fq_pie_dump_class_stats,
-> +	.walk		=	fq_pie_walk,
-> +};
-> +
->  static struct Qdisc_ops fq_pie_qdisc_ops __read_mostly = {
-> +	.cl_ops		= &fq_pie_class_ops,
-
-[Severity: Low]
-Setting .cl_ops makes the tc core treat fq_pie as classful. That changes
-some user-visible behaviour the commit message doesn't mention. The message
-also says only walk, dump and dump_stats are wired up, but the patch adds
-.leaf and .find stubs as well.
-
-Before this patch, adding a filter with an fq_pie parent failed in
-__tcf_qdisc_find() with -EINVAL and "Qdisc not classful". Now it reaches:
-
-    if (!cops->tcf_block) {
-        NL_SET_ERR_MSG(extack, "Class doesn't support blocks");
-        err = -EOPNOTSUPP;
-
-Grafting a child qdisc under an fq_pie class used to fail in qdisc_leaf()
-with -EOPNOTSUPP and "Parent qdisc is not classful". Now fq_pie_find()
-returns 0, so it fails with -ENOENT and "Specified class not found".
-
-Because fq_pie_find() always returns 0, a classid listed by 'tc class show'
-also can't be fetched with RTM_GETTCLASS.
-
-fq_codel uses the same pattern. Is this change in errno and extack intended,
-and could the commit message mention it?
-
-The commit message also describes dq_rate_estimating as per-flow state.
-However, fq_pie_dump_class_stats() copies the qdisc-wide
-q->p_params.dq_rate_estimator into every class record. Could that wording be
-adjusted?
-
->  	.id		= "fq_pie",
->  	.priv_size	= sizeof(struct fq_pie_sched_data),
->  	.enqueue	= fq_pie_qdisc_enqueue,
+Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261109071017.438478-1-hemendranaik%40gmail.com
+  Kiryl Shutsemau / Kirill A. Shutemov
