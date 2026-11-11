@@ -1,77 +1,123 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794403675;
-	b=MHUpu2dPnJTpe3pFhfaexDAF/xZgpBk77PH1fNmIepvvkKYhYk4W1dAjDY/mbZly5ov1
-	 TsTtDOfgDvMFQSxjM6+oRQtAlG3o7OVQ/pcCYiISoQK+mfQ1JvpUVCb3ooeyPriqbbE9q
-	 iTrcpHEiAv7c6LGKkrOTzqbwTzxWCBoxSExVV8S8gRggA7KaTLjR1CwhNFNG+cJ5FUyyP
-	 L0FHsF6s6AnhZWRxC7s3e3sIVuGGX7eL44QU91WHQGos/zhPBA3IDmAevoSGf6X0ORuQZ
-	 mPIhjyiEJ45fvzn8TrFX03Bwj557y02FnSZe/eLtN2zfjKci+zaarGqMzhZDr4D7/CA==
+	t=1794403696;
+	b=EDTMm4JuZUuBnlsP1CeEOkT6GliIF8VmeyNSIxqDzcWWglNOTUIJiFWqmFTJGT/c4QHD
+	 6d8VxtIBGGpqjThrAd12jUvaGGr5hBA2+6U2cMGZRj7qBnNERzBh5U76HD7AaK24AyRVI
+	 JKJg2o8eJEPxgeFEHyRRvnE9Q2LTyRi0UMcIzQy0gjffj627N11s74MuSu9XhQ1sLXlEj
+	 ZotJc2lJ3jstYexixK4wpxT+DjMxCctRhboYV8bdZNbZAtAyo4PdOtCB6tKDbeMuoQ9fw
+	 6JqI7zg/J5yZfLZVP7bJocSnI9OCuH+PcGH1sZl/g2QZtw6aYu6KXtJv7UEihot3jdw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794403675;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
-	 Date:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=5TobANsfNbQPE7bHGqRUO1+IBRipYYGScGTtUnijg5Y=;
-	b=t1rdQ2P5X5f+rf1hlU4xu+mWkN4QUQXQH8jftQrpkzpgyLyEZC9BF34PuAyjyRGViA2s
-	 OFqhcO+IZ/NjKq0LuUpC57dwyGoaFwMXceSp0dTxJ4tpuajomjvac12mpUHD0wrmeTM4b
-	 7HI2cPPPpxsVYBoEB55+rbl/rV1YFCPVf0N0PVpM50wORljxhEJ48DYg50ttdURIXKhyD
-	 WSkjWrQgDnis2nnFRR8oNt0prqdS0iTAHzP3K6gOie1wt4njZ+m+wJPzm3JXD4WQaa9ee
-	 wEo5Zu6VLwVPBaB3IprQDS4mBHx+w8lv9y6ePFcw0/qVFWacT/LzJcbt2EE6Z7PxuBQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794403696;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=D8tiVvDZECe3f0eKJKeC5Qfbzxcy8k/h5VkY0prNfso=;
+	b=CQAnFxQV6fFK0OJhkSEwoWQ07R9KTGYq7juccZzCu9JyyQZfy2qCllZ7Vf+W7uhDmS45
+	 L9FaLjPcTcKzMMhwtscVIlCVslEBxMV9d9wIO4iSaJZC3w1+bbKl9Gp9PpFmZfsjnGqNF
+	 aL5yWWI0ouCLT9VSACFPBXkIC6pSvzI9BnIrOaqM6qn36WIUHdSZClnGO4ciify6m1VUB
+	 lRNBE1H/ne/BC/3Jf96zrjv2sBQW3wTrw0KkzvaQCr1nVy1P+iNFwH/u/iLK4uFHQintD
+	 u5pNe4YmeqdtRqCwu8+c2YiSsKjZKWcPQd+zPDCWqcKY/ozLV23ioozUxe3Chr/U+0w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NEdkPhkE;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=cA1nNL6B;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="AReZ/EYK";
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D8E2606A31C;
-	Wed, 11 Nov 2026 13:27:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1598606A32D
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:28:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1598606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NEdkPhkE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6368F1F00A05;
-	Wed, 11 Nov 2026 13:27:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794403675;
-	bh=5TobANsfNbQPE7bHGqRUO1+IBRipYYGScGTtUnijg5Y=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=NEdkPhkEYUeNthxyHswKlC+LjnE3+C8o+r69jP/kWWwPJmNjwUjX+n+MMVxp86fU3
-	 nRjyHg29mW4zKgB9zMfQeSzMvvHdf2fKf94JxaWhgLL2UNMd7ycqXvlqYBgcx4uhXr
-	 YNd/LCvK63k37DwGXK6b0TQDBrIGUpyAfYnNWJlIJlGu+t2gyajY4rYAs18sR8WJ/x
-	 nMUEA4I988zdXET2E/tBIaZpQ2YcNX39oUAB+DEYSftb5YPfi2iJpdFO8M5uQWpbyh
-	 GauZxaMl/9tkIxRUqgCf6TE/U4Jrnhpnix3hcgOcAIFMfnQHTfRsfI3a89cyrPU9+6
-	 LZg4ZR/DaB6zA==
-From: =?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>
-To: Stanislav Fomichev <sdf.kernel@gmail.com>
-Cc: Magnus Karlsson <magnus.karlsson@intel.com>, Maciej Fijalkowski
- <maciej.fijalkowski@intel.com>, Stanislav Fomichev <sdf@fomichev.me>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Jonathan Corbet
- <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
- <rdunlap@infradead.org>, Alexander Duyck <alexanderduyck@fb.com>,
- kernel-team@meta.com, Andrew Lunn <andrew+netdev@lunn.ch>, Jesper Dangaard
- Brouer <hawk@kernel.org>, Ilias Apalodimas <ilias.apalodimas@linaro.org>,
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann
- <daniel@iogearbox.net>, John Fastabend <john.fastabend@gmail.com>, Pavel
- Begunkov <asml.silence@gmail.com>, Jens Axboe <axboe@kernel.dk>, Andrii
- Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, Kumar
- Kartikeya Dwivedi <memxor@gmail.com>, Martin KaFai Lau
- <martin.lau@linux.dev>, Song Liu <song@kernel.org>, Yonghong Song
- <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, Emil Tsalapatis
- <emil@etsalapatis.com>, Ihor Solodrai <ihor.solodrai@linux.dev>,
- netdev@vger.kernel.org, bpf@vger.kernel.org, io-uring@vger.kernel.org,
- Mina Almasry <almasrymina@google.com>, "Mike Marciniszyn (Meta)"
- <mike.marciniszyn@gmail.com>, Weiming Shi <bestswngs@gmail.com>, Nikolay
- Aleksandrov <razor@blackwall.org>, David Wei <dw@davidwei.uk>, Alexander
- Lobakin <aleksander.lobakin@intel.com>, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, Stuart Clark <stuclar@meta.com>
-Subject: Re: [PATCH net-next v1 03/11] xdp: Copy buffers with restricted
- lifetime
-In-Reply-To: <avOZa6jLnmvYkk2H@devvm16445.scu0.facebook.com>
-References: <20261110102039.1002605-1-bjorn@kernel.org>
- <20261110102039.1002605-4-bjorn@kernel.org>
- <avOZa6jLnmvYkk2H@devvm16445.scu0.facebook.com>
-Date: Wed, 11 Nov 2026 05:27:51 -0800
-Message-ID: <87eccra46g.fsf@all.your.base.are.belong.to.us>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=cA1nNL6B;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=AReZ/EYK
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ABCZNBZ3292404
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:28:15 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=D8tiVvDZECe3f0eKJKeC5Qfb
+	zxcy8k/h5VkY0prNfso=; b=cA1nNL6BQlNjeEQ+n8jZZ5Gc/RZbeheDna8SfpuD
+	2Q/U0dVRQ5f8ipS0A6O7B1e4vXrO5gXRimO/BHETxq5TXkB6Y2LyJchGOcQcRg4/
+	8/1s7TEA3R12HQ83LshibgQHYs0BTyi1oWKgYgvSi8vUuF+T3A2R+GDwt4Fc7eGq
+	YNxhAvRKSzsZKuhzsd040ReluQ+jSjsnwc1SN+4q0CqeorpNIr0MBT0wmyCRzHE3
+	HNYvqzfb1GaXpeBuo8Mrme1XWbCwZK4/sRYtf+8/II2UDEekd78zmPaEAFOuAv7e
+	xalaa+VE2aPalUnORiTbC1rjFfDBJ0esXnn/b14+SZTx7Q==
+Received: from mail-dl1-f71.google.com (mail-dl1-f71.google.com [74.125.82.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvdnp2nn1-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:28:15 +0000 (GMT)
+Received: by mail-dl1-f71.google.com with SMTP id a92af1059eb24-1b3b5b49cabso2854103c88.0
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 05:28:14 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1794403694; x=1795008494; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=D8tiVvDZECe3f0eKJKeC5Qfbzxcy8k/h5VkY0prNfso=;
+        b=AReZ/EYKRJ49uZ3iSJImf63HRUs/AnlYniXLTTWBe/c2Kq51F+cZ3LXdQ/XmrmZnu/
+         cAe2E0J++IlHs/xwSeGu4+sRmGE60/LwLUL+l/x9H9GgeF4YHbN44oocMnBCi4xu6DGd
+         vbS2sPvj+3uFUQFSSf8+yShwiUnsDl1mnBmkfOn61aarxemgsgYGQJXYYg0VTrfH98eY
+         xRol9kkzLtSdYMxKcVsqusK/kkHAZCUtDynCJuRQzdi+/+9u1F468KLs6BgCWG1mzR4A
+         nIetysNqvlZTrv/hmqpiiWr8rR6G6bTs3rxQik5JrnmDmyAUhtplHgS+axbr1sGiSnRv
+         HyJg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794403694; x=1795008494;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=D8tiVvDZECe3f0eKJKeC5Qfbzxcy8k/h5VkY0prNfso=;
+        b=kcEnZnrxCEjC94qqItN+EXGmPZkJ/LW5s28xb6MMw9zlxchUczfqX/ubJiObK9QhVU
+         VPI+waRKVcBWXQLyktV/qwiVG+AVhkFkpWf79AYPzaybIdQaZV+o57AKMR8zGihWO/j6
+         kRvez9+Yf2K9mJ+EfAAWA7zq/DdJ3h/hhdrRy8bBFf7fxu4qAb+3+0EWwJ1iFsqCN7wa
+         mODIERdguCGXMfrtL7yTFzDriomRu/+wAt8BvN4YdXcYoQD9UthWgJ+Lps5Dv+yiybUP
+         XSvRxddbXjFM9GL9MjO8WE3Y5d1hfqVFf5WkmlXceOFihFW/JOL4533CRNaPYwR0fdz2
+         ntQg==
+X-Forwarded-Encrypted: i=1; AL+hErHSm6zC5xghVjfsUWlclPQYZRr/YhuJ8sZwo8wi85PXcxdVefrPN3zTcPmqVJu3GEyMm8YrtEhudj/0Q7E=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/J7sl2nSF7VXM7tsg3PZ5XHeWqjiOUiT1AlyZ3K2UfXtfMTJQz
+	q+Gsrv4LUL2dUocFcHGc2Wdnu4GsnmDWZUzZkA1/f3aAbk4mBgAIDXdAC49rBR8dHB53Gym8vj1
+	KQUm6q3T+bFLm6a2OtBKA85l1OaaoArnKH7tR8MpWATT24nXYMkFdOxgOvWVSWUjQRGs=
+X-Gm-Gg: AYBFou0XftOj+TKgBdfPloyJTiXp+tQYtWKnA6jumhYyOx1SuU/n8dvUWg3mrTJH/0K
+	uO6Pz81Y9h94kA/hVcW4YFkoaI2CnaNmIdStDv1N8VLUwvWTpyg7SoW763XOg5gTVSbGvJqmxeX
+	3mL6/w+jduCYQACEJMDxkaV40fjmf7caSavWBajlGGQB2hv5JMDCReO6J90lVjH/j97kHl5u4uw
+	N+smu0Dx+Nwp6vionqoREBQSj94TZyVbaPoJzOcuMQZgy8dD8pPjJEgmJzSfqmXgBkFkRaU1KdV
+	LQEFlFkNnJ/mWwA2HZuSIXm2thpYLx6oBlNYPSjBoyahV1+XOqVI+LSrvaATp+i2MhiYq29/Zad
+	+2SonVN3mBrhoIZ8DjyChiPOnDpECu6/edG5kZ5Q8hqDMrXi93PIKihB9V2OyxMj4L19GcpM2PA
+	yfQMEOq0aAx8kN2SQ=
+X-Received: by 2002:a05:7023:a47:10b0:1b3:b67e:9fcf with SMTP id a92af1059eb24-1b3c03108bcmr2262523c88.17.1794403694228;
+        Wed, 11 Nov 2026 05:28:14 -0800 (PST)
+X-Received: by 2002:a05:7023:a47:10b0:1b3:b67e:9fcf with SMTP id a92af1059eb24-1b3c03108bcmr2262488c88.17.1794403693529;
+        Wed, 11 Nov 2026 05:28:13 -0800 (PST)
+Received: from QCOM-aGQu4IUr3Y (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b2fc09sm33075620c88.10.2026.11.11.05.28.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 05:28:13 -0800 (PST)
+Date: Wed, 11 Nov 2026 21:28:06 +0800
+From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+To: Mark Brown <broonie@kernel.org>, Srinivas Kandagatla <srini@kernel.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Shenghao Ding <shenghao-ding@ti.com>,
+        Kevin Lu <kevin-lu@ti.com>, Baojun Xu <baojun.xu@ti.com>,
+        Sen Wang <sen@ti.com>, Jaroslav Kysela <perex@perex.cz>,
+        Takashi Iwai <tiwai@suse.com>,
+        Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>,
+        Zhangfei Gao <zhangfei.gao@oss.qualcomm.com>,
+        Bartosz Golaszewski <brgl@kernel.org>, linux-sound@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ASoC: codec: pcm1681: Acquire sck when bound to a card
+Message-ID: <avRtZrCCdc12QBb_@QCOM-aGQu4IUr3Y>
+References: <20261021031228.2074402-1-shengchao.guo@oss.qualcomm.com>
+ <179390052368.3073895.16132231139898724200.b4-review@b4>
+ <avGDRUwyEBk2qQaM@QCOM-aGQu4IUr3Y>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,122 +127,91 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <avGDRUwyEBk2qQaM@QCOM-aGQu4IUr3Y>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDA1MyBTYWx0ZWRfXyP2eJkC3AAz0
+ j0NMvwKfr2LMUod91rytZO2kY7ywKdOIH3ozek4MTS0cwZUcTpL0vJtgtFGSItYHJzmZKxYip6n
+ wPfhIgEPYX8GrW94b32Jk3fetiDavnzU6CJWx0h3nOQgWoUCrxm/3NQzpWgEXwxSVNPZ3pZFxcC
+ Ra9SthCmGU0XfoVQ4ESLjzDyefePXdpo/nGr3ySvZRAf1OyKMJLGZ8AJt6CxFFh9D874eJ/bFpl
+ VX1PVP+80HsFxe5m/OOHA72sl7BDnPbuPRjs9g85aBymYmvgHKrumPt0L0mGQmosMM9sVqd1rT1
+ 5I/VYUHwm2U1u6RbB9uQ030lyImaBDDTfQJN/9S3eGog3USGOZXDlJENQH5Y8CG1HWY/L5DvxVg
+ AFqiqi0x8EvAwynyao5E63ctKQyD0zTqyyh8s/xXheTH0nvuh7mFmOQcE58Vt6I5QhjaeF2oTbH
+ tuuqEgGp08x2i5VcMyw==
+X-Proofpoint-GUID: OZlLEyJgnUlNExA1nRJQq0mLveMzjGYa
+X-Proofpoint-ORIG-GUID: OZlLEyJgnUlNExA1nRJQq0mLveMzjGYa
+X-Authority-Analysis: v=2.4 cv=NK1AaE6g c=1 sm=1 tr=0 ts=6af46d6f cx=c_pps
+ a=JYo30EpNSr/tUYqK9jHPoA==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=mtvGxJwcMCaXl6bCzmMA:9 a=CjuIK1q_8ugA:10 a=Fk4IpSoW4aLDllm1B1p-:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDA1MyBTYWx0ZWRfX9XjJhH8LMUoH
+ IN4oFSH5tncE3j08BIsj6seHRnz2RZlZLaxa6SGFwsuS3X4+v31kPRSQsG1WV+33db1v5wErJWa
+ O5l0LG1cVYTjl3PerRsLvxi3UslAlXI=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-11_02,2026-11-11_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 spamscore=0 clxscore=1015 suspectscore=0 lowpriorityscore=0
+ adultscore=0 malwarescore=0 priorityscore=1501 impostorscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611110053
 
-Stanislav Fomichev <sdf.kernel@gmail.com> writes:
+On Mon, Nov 09, 2026 at 04:24:37PM +0800, Shawn Guo wrote:
+> + Srini
+> 
+> On Thu, Nov 05, 2026 at 05:42:03PM +0000, Mark Brown wrote:
+> > > The sck clock is taken once at i2c probe and held for the lifetime of
+> > > the device. On Qualcomm boards it is an LPASS clock exported by the
+> > > q6prm clock controller, which lives on the DSP and is unregistered and
+> > > registered anew whenever the ADSP is stopped and restarted. fw_devlink
+> > > cannot tie pcm1681 to that provider, since the provider node only gets
+> > > a device once the DSP is up, so it falls back to the remoteproc device,
+> > > which stays bound across a DSP restart. pcm1681 is therefore never
+> > > unbound and keeps a clk handle to the dead provider.
+> > 
+> > This seems like something that ought to be dealt with on the Qualcomm
+> > or fw_devlink side TBH, registering the clocks and returning -EBUSY on
+> > attempts to use them would be less disruptive to other components in the
+> > system.  I don't understand what fw_devlink would be doing with
+> > reparenting clocks...
+> 
+> Thanks for the review, Mark! I agree this belongs in the Qualcomm clock
+> provider, not in pcm1681, so I'll drop this patch.
+> 
+> Sorry, my wording about fw_devlink was misleading. No clock gets
+> reparented. My point was only that pcm1681 is never unbound when the DSP
+> restarts. The q6prm clock-controller device only exists while the DSP is
+> up. So fw_devlink links pcm1681 to the remoteproc device instead, which
+> stays bound across the restart.
+> 
+> Today the clocks can't stay registered across a DSP restart. When the DSP
+> stops, the GPR bus unregisters the q6prm device and its clock-controller
+> child, and that unregisters the clocks. The clk core then switches them
+> to clk_nodrv_ops, which return -ENXIO. That's where the "Failed to enable
+> sck: -6" in my report comes from. The consumer's struct clk handle can't
+> be reconnected after that.
+> 
+> So I'd like to change q6prm along the lines you suggested:
+> 
+> - Keep the clocks registered, on a device that is not removed when
+>   the DSP stops.
+> - While the DSP is down, make prepare/enable return -EBUSY.
+> - When the DSP comes back, re-send the requests for clocks that are still
+>   enabled, at their last set rate. This also fixes the rate being reset
+>   to the 19.2 MHz default.
+> 
+> The part I'm unsure about is which device should own the clocks:
+> 
+> a) A platform device that q6prm creates on its first probe and keeps
+>    until the module is unloaded. This needs no DT change.
+> 
+> b) The ADSP remoteproc device, which already survives restarts.
+>    It's cleaner, but probably needs a binding change, since the clock
+>    controller node is a child of qcom,q6prm today.
+> 
+> Srini, Mark, do you prefer a), b), or something else?
 
-> On 11/10, Bj=C3=B6rn T=C3=B6pel wrote:
+I'm happy to report that we can go for b) without DT binding changes.
 
->> diff --git a/include/net/xdp.h b/include/net/xdp.h
->> index 07231adfb5f8..1105bb9e3292 100644
->> --- a/include/net/xdp.h
->> +++ b/include/net/xdp.h
->> @@ -81,6 +81,16 @@ enum xdp_buff_flags {
->>  	 * XDP program is not attached.
->>  	 */
->>  	XDP_FLAGS_FRAGS_UNREADABLE	=3D BIT(2),
->> +	/* Internal: the head netmem and the shared info are in &xdp_buff.ext.
->> +	 * Not copied to xdp_frames or skbs.
->> +	 */
->> +	XDP_FLAGS_EXT			=3D BIT(3),
->> +};
->> +
->> +/* For a head buffer that cannot hold kernel data, see xdp_init_buff_ne=
-tmem() */
->> +struct xdp_buff_ext {
->> +	netmem_ref netmem;
->
-> nit: netmem -> head ? and the same for xdp_init_buff_netmem netmem arg?
-
-Yup, will fix.
-
->> @@ -138,7 +153,7 @@ static __always_inline void xdp_buff_set_frag_unread=
-able(struct xdp_buff *xdp)
->>=20=20
->>  static __always_inline u32 xdp_buff_get_skb_flags(const struct xdp_buff=
- *xdp)
->>  {
->> -	return xdp->flags;
->> +	return xdp->flags & ~XDP_FLAGS_EXT;
->
-> The only consumer is xdp_update_skb_frags_info, so probably not worth
-> filtering out XDP_FLAGS_EXT here? Or is it for
-> xdp_update_frame_from_buff? Can we explicitly clear it at the caller?=20
-
-It was for xdp_update_frame_from_buff(), but looking closer EXT never
-gets there...
-
-I'll drop the mask. Thanks!
-
->> diff --git a/net/core/devmem.c b/net/core/devmem.c
->> index 8f190b574beb..dea4a4a17e86 100644
->> --- a/net/core/devmem.c
->> +++ b/net/core/devmem.c
->> @@ -698,5 +698,5 @@ static const struct memory_provider_ops dmabuf_devme=
-m_ops =3D {
->>  	.release_netmem		=3D mp_dmabuf_devmem_release_page,
->>  	.nl_fill		=3D mp_dmabuf_devmem_nl_fill,
->>  	.uninstall		=3D mp_dmabuf_devmem_uninstall,
->> -	.caps			=3D MP_CAP_FRAG,
->> +	.caps			=3D MP_CAP_FRAG | MP_CAP_RETAIN,
->
-> Not sure I understand this part, can you explain?
-> These are MP_CAP_RETAIN because they are unreadable?
-
-No, RETAIN is about lifetime: the stack may hold page pool references
-after the RX poll, e.g. skbs on a TCP receive queue. That's how devmem
-and zcrx work; without it the stack would try to copy them, and they'd
-trip the DEBUG_NET check in skb_add_rx_frag_netmem().
-
-A provider without RETAIN gets copied, so it must be readable. I'll try
-to make that more clear in the kdoc, and probably refuse a provider that
-is neither.
-
->> diff --git a/net/core/xdp.c b/net/core/xdp.c
->> index 1d679e8fd649..0cf46d492d91 100644
->> --- a/net/core/xdp.c
->> +++ b/net/core/xdp.c
->> @@ -23,6 +23,8 @@
->>  #include <trace/events/xdp.h>
->>  #include <net/xdp_sock_drv.h>
->>=20=20
->> +#include "dev.h"
->> +
->>  #define REG_STATE_NEW		0x0
->>  #define REG_STATE_REGISTERED	0x1
->>  #define REG_STATE_UNREGISTERED	0x2
->> @@ -559,10 +561,41 @@ void xdp_return_buff(struct xdp_buff *xdp)
->>  			     xdp->rxq->mem.type, true, xdp);
->>=20=20
->>  out:
->> -	__xdp_return(virt_to_netmem(xdp->data), xdp->rxq->mem.type, true, xdp);
->> +	__xdp_return(xdp_buff_head_netmem(xdp), xdp->rxq->mem.type, true, xdp);
->>  }
->>  EXPORT_SYMBOL_GPL(xdp_return_buff);
->>=20=20
->> +bool __xdp_buff_needs_copy(const struct xdp_buff *xdp)
->> +{
->> +	const struct skb_shared_info *sinfo;
->> +	u32 i;
->> +
->> +	/* Provider buffers come only from page pool queues */
->> +	if (xdp->rxq->mem.type !=3D MEM_TYPE_PAGE_POOL)
->> +		return false;
->> +	if (!netmem_can_retain(xdp_buff_head_netmem(xdp)))
->> +		return true;
->> +	if (likely(!xdp_buff_has_frags(xdp)))
->> +		return false;
->> +
->> +	sinfo =3D xdp_get_shared_info_from_buff(xdp);
->> +	for (i =3D 0; i < sinfo->nr_frags; i++) {
->> +		if (!netmem_can_retain(skb_frag_netmem(&sinfo->frags[i])))
->> +			return true;
->
-> Do we want/need to go that deep? Can we have a skb-like assumptions that
-> mixing retain and non-retain in the same shinfo is not allowed?
-
-Yep, let's make that the rule. I'll remove the deep checks.
-
-
-Bj=C3=B6rn
+Shawn
