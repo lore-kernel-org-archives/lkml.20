@@ -1,75 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.71
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794425064;
-	b=ZEqjiUq53L67Yx7VXtR0mTckYgZLvu2XxitEEePLNhsOuqHht9+u7URx8zSn+mjLMppO
-	 FmkZaA0ykebSHM8yifzq6Ckd3B9i3C4WmqlRaTdpfpSDpeEqs0BXI0si1DbLh9COQhzCY
-	 srkZ3v5jbyNhaiTYM03O1BFeQVqaVcY47KsLPrLqDWBCfocHC4hhQUf7kUiH3q2fQyyvr
-	 A+BgreOiX+pJOmKvTy0nVFSqKQ7Y1D+VaUDTU4IVvQhONN0aDXGmnByo9oWd/AzhOqaKK
-	 aXbDXTLVIe4npkJ5MdSIVfn1OpEp2UCLmfbT8MXZf+HroQdCujfK6rGAvFlB87QeOPQ==
+	t=1794425141;
+	b=30bkAXvzd/+nhsRDiciyeuxCO9bJxCrtMjcMNdz4snbRjf6cIYrz0wKo6O/0pelXbvxR
+	 yRGQLqNGXFwgulhGXcYa4NgJEDoE6xxjevtB8H0PtmyQmK1G111rweRPYwMJ6cQBjYHoX
+	 IBqPutEHVQ8x9mi2Vwbt8GQQr2eWm4UDhUn2YroCZkExoSrvbx/ldzDnQnkU7PMwjUpiC
+	 G+6gnXCKgg5TMOn4TbAAWtj6DKFz4CJqkDxQJhlqnMomjaIU6BJ8aJZ6MvwPQQ3u4AisU
+	 v3j9jVox5emrEyxPC7IUnlDJNgZIYoUMt8ORwcFRiaX4Ne97bfLBzqjLeDBw1HuLokw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794425064;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=S4+DQ/5hS2/5UfXO0mi1ZgFeMRsr05x8y1FYZlBsi/k=;
-	b=f4hi2uD6iT9Coeh9sgL2+LOuSBcvzRznA2EwQc/s8ctS7PZfiDefPXkJYTwtHVSY/2N4
-	 ryt0PVGBAzbbDRxzki56IW2jixwz/we/uruywAR9VFX7sgrvunJpMBEvERkTUhNMifFeM
-	 Ks/MLZN1LsOq8BQr8XmGR10E3wbK2aEXwRlz38c+glGjw2ISrBuQiia6p88KxKgkAX0+p
-	 HRbEJGviIy3fU0z+LquRh3W/GpArvK0yRttsDUjnzwS363Nj3m3gdyprVvuWvGcR9LfN6
-	 GwgOBENBY62KnTJv41r2lNAFliKeajsg7ucItMnB7ZkFTsINbUfukFbQH7phuQjrc2A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794425141;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=nLrVl/k3KgLHzXmtBoOIZdPXNZn+ttWx65joOkMlZPo=;
+	b=fltTcomAvoLLenjxafiOr4jPwW4mZP99g5KZ3KYXhavJSDHeXywA0TMLVh/w8z7MldH+
+	 zPoQmHwV+5QcYbyt6qrSPOEr7lgH26qU75cknxkPtjFf1vduEmfqYTWHdtD2eFK50fN7N
+	 A/TYgoqu+R/Wv8tbVwJcssBrzZ1PMf4++kXMGGJT3SSl0ZfjDcXpK0TbPLQD2SGAXdUQg
+	 wjzc5RovoKSicMr4wJlOub3g1KtRie8olPyem2t9oG5Mrkg0zh8TK7+XC143VlAnjYtjI
+	 nI8ALSlGDhLdZ3+y+ZletGn2SW5W/Mn+RPr+zdf0oBT7K8crkvajXENmHzzAMiKKweA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--dmatlack.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="lM/CPmgi";
-	arc=none smtp.remote-ip=209.85.210.71
-Received: from mail-ot1-f71.google.com (mail-ot1-f71.google.com [209.85.210.71])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gadnwvYG;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9086D606F382
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 19:24:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9086D606F382
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--dmatlack.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1090606A321;
+	Wed, 11 Nov 2026 19:25:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=lM/CPmgi
-Received: by mail-ot1-f71.google.com with SMTP id 46e09a7af769-8520e83f715so3842600a34.2
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 11:24:24 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794425063; x=1795029863; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=S4+DQ/5hS2/5UfXO0mi1ZgFeMRsr05x8y1FYZlBsi/k=;
-        b=lM/CPmgi2MxnhCIljbY1J6j5HJCMMekv0//LIx4rqPP+rmTASzEwn/BZTlI+Fvfwof
-         f5lzQB0rVXFPhPx5zlOmCXnEZsPPgqwyajdOHm2HucaXGcohS4WqmpNnnr0r28fxAkpE
-         lg/UcKD+gr2bXmw6OtsYfNTumii+2oGuZptwjhXEy2C8uOHAWNG0YYDFtvZLbBscAarT
-         KRjZxsb4x9C8/ukL2U6mxnyYxFXQQR0ZKVLlW4ebshXJs56UjXEXgV5bCqzi520CgmbZ
-         ytScVeEa8/BkQ5DOx6FUZPGNcU6+g53Tsl0ljpXVfOyoViGc3s7rFDA5dCAACnp88HpA
-         e5IA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794425063; x=1795029863;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=S4+DQ/5hS2/5UfXO0mi1ZgFeMRsr05x8y1FYZlBsi/k=;
-        b=no41cKdLb4KBQMeBWCTmqHCh6r6ZjISSjGAeP1FGvIiQJVZgcA56w7ujJzCIzYFZnL
-         Y+Kipnr4s1/eeQDHwUt2TcJGPsayt3554asgRon6aQ30UADMRgIWzYYQXYlqJAs88d/T
-         fJrTqLn1+7vUPHPA6Wqb2+tIcWgZY7silGU2U1SCg3ZdI04cOW60Q5MkgHAJeO6deWj/
-         PD4RftwIHGW3mz/yEQAGQyMV3JFqen/nnQyaYsnkYHNw6+VSO9eGJzsHf6cyVKDj0iw9
-         YhDWa6CEahlrpUfgmBj1kp4Q+NgsOfl/8MH70BYoUBgGb/D479eJmmj4EtEICmaSsrbC
-         P6/w==
-X-Forwarded-Encrypted: i=1; AL+hErEOWPpdddBAcs8LWV8bJ5stKvQ2UtSzi962TuFhYoOTy7wiHmAJHM8rFLFsgKu6Vo011KNUBp3CIRPjiyA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9Qx9GG9VnAUGwR1xJYAeV089kzgGrDDpfh6EXMg3mbnTYsG8sa
-	bQYzheayM3/O79OsJxBhnBB8Lw+8Qt3JVrZV0GB7pi1zcyuPSzjS3rKKYfwuNut3BKzOV3pHmkq
-	G9YlgIu0FGQ8W0g==
-X-Received: from jabll4.prod.google.com ([2002:a05:6638:9804:b0:61f:e4cd:8716])
- (user=dmatlack job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6808:318a:b0:4af:5d69:1cb4 with SMTP id 5614622812f47-56b96ad0615mr3028788b6e.15.1794425063307;
- Wed, 11 Nov 2026 11:24:23 -0800 (PST)
-Date: Wed, 11 Nov 2026 19:24:10 +0000
-In-Reply-To: <20261111192411.4133780-1-dmatlack@google.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gadnwvYG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F79C1F00A07;
+	Wed, 11 Nov 2026 19:25:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794425140;
+	bh=nLrVl/k3KgLHzXmtBoOIZdPXNZn+ttWx65joOkMlZPo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=gadnwvYGYHAXYYVGk1JbKh/JDgeU8CHZAAEHkxHMQYEAdjkvpD8GlA+iOgSQ1gHaL
+	 2WzgFZY6dMZD32ET9fMNrWhfaCiiC4Y34HIpRimS6mMDQa+GnhVjYmWL0criR6mOtK
+	 zgJJQ9YNM5t4J8cc/PQdZCvMpwY+05M13mf7H+QBNj6lYRfha3d3soNYgfiFNOolqF
+	 VYJoG90Garjxk7cNd08Ew9nNK6lpJvaAyiecaPHkl2rgqsykZnNfbzF/DGjbGZM8m+
+	 5qPOW61uhkaFVNmP1xkqi8Y9uKTeB9BtnxR6ewQC9bAdsv6tH3LqBSnOTHgYav5hxB
+	 IehLsKRBtSjyQ==
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 28E98198003A;
+	Wed, 11 Nov 2026 14:25:30 -0500 (EST)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-02.internal (MEProxy); Wed, 11 Nov 2026 14:25:36 -0500
+X-ME-Sender: <xms:KcH0akBuLsxUavrAsIs6NxQG55-wDLmQDqxgoT0hHBepF8UnAiZSeQ>
+    <xme:KcH0aqs-jZwa7Qx5qtAF6J6d_EYjkpJrHlD-J6XSJ9ah6Bhk6l9Opreu5nh6zox7g
+    05Qbwf7W_s8mcVxEo1MvTLOUWeb__Z-Ky_kPZ_YkdZoO9UbwBrjVlIv>
+X-ME-Received: <xmr:KcH0asPHhMRC6GJyUYQaU_FufK1SRqQnikEBJtKQgnI7YZ3L_HNdvZ6EYe0>
+X-ME-Proxy-Cause: dmFkZTGVCwJi64G/NFk0BwzEnaSuCMVZAMzOi2v2VfdLLUWVfoxG0mAp0ULnNCJcShF2US
+    zpqvkUUooMNrb9VT5bI+vNxuhwJuht9BnZuyP6D7bvZpoK8a5uikkJGwYKWB4heRQ9E8Qp
+    8sFCVqzwGTCEaJn44LCyasSmVXfeqafjx/O0DiPO5mcDIuboMSbr92WRN5tGZf5rQpFY31
+    06/Afv0VFlX+JK/uyhMP0CiVCN8q3iMXiYF4dq1x7GZLlVF4MqhHo0IfHCmyrD1YpPu8fo
+    03njvV/FKfclnNsctu4TRqpZ7QfV9E18C6DC5sQImJkZh9i7ypzb+El+NDySjRQo2OVLmI
+    GM/Jd7JhmF5Y9hVDkKokHMQIA4bJVVX0aPReG+1uGfuFZd8dJ5WNxaQuO1dD5m/6En8RPK
+    fUMhgFo2c7IxI+em9h58OsEervXa2F08mHxIEqGlCjYMUwpIC7K970CUfnPFsukHH/piiy
+    lCPIsBlh5O0aJWIWnYjPobC+oObXpKCZLinZ+jw1aWP1N+wt7+9ur7cXHwegSBM2LUJ8s1
+    yyfVCMVinA/PEJWsRAk+M0qK5itVdjSu/G85tdlBzL/yO3fxabKkS3ayTaNJDQ1MoTPQGb
+    OuCHDUZmlNpKRYpF7Unv6Ca2ihvDHAJ43ZIC3u5t/aMPRgDoWkE6i8PBRRXA
+X-ME-Proxy: <xmx:KcH0ahXb3pDaG-egTgcyFVKal5e5UJWmwA1XCxDAJeDBi3hTpotZwQ>
+    <xmx:KcH0arUxJGgpq3-DqS4au7fqAE9HdioSg8Jej7YolRZKJZHet3H6tQ>
+    <xmx:KcH0ap5Iz5xKUdVTI4f5hOAPXNy9NechvYgzaz-UPcVSLyQ1L5azBA>
+    <xmx:KcH0aoL0yRAdUIWxNF1_p7NySAlNl5Swaox8JtCcvlugxxWdBLVD7A>
+    <xmx:KcH0avLoZVlC1P_az5xw1K8JfENI-Sr8XNvn7CujOffJIHpVDW_DeoTl>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 11 Nov 2026 14:25:28 -0500 (EST)
+Date: Wed, 11 Nov 2026 19:25:27 +0000
+From: Kiryl Shutsemau <kas@kernel.org>
+To: Tal Zussman <tz2294@columbia.edu>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Mike Rapoport <rppt@kernel.org>, Peter Xu <peterx@redhat.com>, 
+	James Houghton <jthoughton@google.com>, Andrea Arcangeli <aarcange@redhat.com>, 
+	Suren Baghdasaryan <surenb@google.com>, Balbir Singh <balbirs@nvidia.com>, 
+	"Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+	=?utf-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>, Andrei Vagin <avagin@gmail.com>, 
+	Stephen Rothwell <sfr@canb.auug.org.au>, Arnd Bergmann <arnd@arndb.de>, 
+	Muhammad Usama Anjum <usama.anjum@arm.com>, David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+	Matthew Brost <matthew.brost@intel.com>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
+	Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
+	Ying Huang <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+	Chris Down <chris@chrisdown.name>, Muchun Song <muchun.song@linux.dev>, 
+	Oscar Salvador <osalvador@suse.de>, =?utf-8?Q?Miko=C5=82aj?= Lenczewski <miko.lenczewski@arm.com>, 
+	Michal Hocko <mhocko@suse.com>, Mike Kravetz <mike.kravetz@oracle.com>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org
+Subject: Re: [PATCH 11/12] mm/madvise: send UFFD_EVENT_REMOVE when installing
+ guard regions
+Message-ID: <avTA58zlxJZ69TB8@thinkstation>
+References: <20261111-uffd-state-fixes-v1-0-00713d368976@columbia.edu>
+ <20261111-uffd-state-fixes-v1-11-00713d368976@columbia.edu>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,124 +103,23 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261111192411.4133780-1-dmatlack@google.com>
-X-Mailer: git-send-email 2.56.0.567.gdb80ae8cd5-goog
-Message-ID: <20261111192411.4133780-7-dmatlack@google.com>
-Subject: [RFC PATCH 6/7] vfio: selftests: Add vfio_pci_find_p2p_pair() helper
-From: David Matlack <dmatlack@google.com>
-To: dri-devel@lists.freedesktop.org, iommu@lists.linux.dev, 
-	kvm@vger.kernel.org, linaro-mm-sig@lists.linaro.org, 
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	linux-media@vger.kernel.org, linux-pci@vger.kernel.org
-Cc: Alex Mastro <amastro@fb.com>, Alex Williamson <alex@shazbot.org>, 
-	Bjorn Helgaas <bhelgaas@google.com>, 
-	"=?UTF-8?q?Christian=20K=C3=B6nig?=" <christian.koenig@amd.com>, David Matlack <dmatlack@google.com>, 
-	Jason Gunthorpe <jgg@nvidia.com>, Josh Hilke <jrhilke@google.com>, Kevin Tian <kevin.tian@intel.com>, 
-	Leon Romanovsky <leon@kernel.org>, Logan Gunthorpe <logang@deltatee.com>, Matt Evans <mattev@meta.com>, 
-	Matt Evans <matt@ozlabs.org>, Mina Almasry <almasrymina@google.com>, 
-	Samiullah Khawaja <skhawaja@google.com>, Shuah Khan <shuah@kernel.org>, 
-	Sumit Semwal <sumit.semwal@linaro.org>, Vipin Sharma <vipinsh@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261111-uffd-state-fixes-v1-11-00713d368976@columbia.edu>
 
-Add vfio_pci_find_p2p_pair() to locate an initiator device with memcpy
-driver support and a distinct target device with a memory BAR of at
-least min_bar_size bytes from an array of VFIO PCI devices.
+On Wed, Nov 11, 2026 at 12:55:19PM -0500, Tal Zussman wrote:
+> On an anonymous VMA, the zap drops uffd-wp and RWP protection along with
+> the pages. Writes and accesses to the range after the guard is removed
+> are then not reported, and the manager cannot know that it has to
+> protect the range again.
 
-Factor out vfio_pci_has_p2p_path() as the central place to validate PCI
-topology and P2P DMA reachability between the two devices in the future.
+For RWP this only holds if the range is registered without MISSING.
 
-Signed-off-by: David Matlack <dmatlack@google.com>
----
- .../lib/include/libvfio/vfio_pci_device.h     |  8 ++++
- .../selftests/vfio/lib/vfio_pci_device.c      | 48 +++++++++++++++++++
- 2 files changed, 56 insertions(+)
+The zap frees the pages, so with MISSING the first access after the
+guard is removed is reported as a missing fault. And there is nothing to
+protect again: RWP only covers present PTEs, and a page faulted back in
+shows up as accessed in PAGEMAP_SCAN.
 
-diff --git a/tools/testing/selftests/vfio/lib/include/libvfio/vfio_pci_device.h b/tools/testing/selftests/vfio/lib/include/libvfio/vfio_pci_device.h
-index fd130f680a2d..9bda93712859 100644
---- a/tools/testing/selftests/vfio/lib/include/libvfio/vfio_pci_device.h
-+++ b/tools/testing/selftests/vfio/lib/include/libvfio/vfio_pci_device.h
-@@ -42,6 +42,12 @@ struct vfio_pci_device {
- 	struct vfio_pci_driver driver;
- };
- 
-+struct vfio_pci_p2p_pair {
-+	struct vfio_pci_device *initiator;
-+	struct vfio_pci_device *target;
-+	struct vfio_pci_mem_bar mem_bar;
-+};
-+
- #define dev_info(_dev, _fmt, ...) printf("%s: " _fmt, (_dev)->bdf, ##__VA_ARGS__)
- #define dev_err(_dev, _fmt, ...) fprintf(stderr, "%s: " _fmt, (_dev)->bdf, ##__VA_ARGS__)
- 
-@@ -171,6 +177,8 @@ static inline bool vfio_pci_device_match(struct vfio_pci_device *device,
- 
- bool vfio_pci_find_mem_bar(struct vfio_pci_device *device, u64 min_size,
- 			   struct vfio_pci_mem_bar *mem_bar);
-+bool vfio_pci_find_p2p_pair(struct vfio_pci_device **devices, int nr_devices,
-+			    u64 min_bar_size, struct vfio_pci_p2p_pair *pair);
- 
- int __vfio_pci_dmabuf_create(struct vfio_pci_device *device, u32 region_index,
- 			     u64 offset, u64 length, u32 open_flags);
-diff --git a/tools/testing/selftests/vfio/lib/vfio_pci_device.c b/tools/testing/selftests/vfio/lib/vfio_pci_device.c
-index eca6eb13d7f0..16fc98ed170b 100644
---- a/tools/testing/selftests/vfio/lib/vfio_pci_device.c
-+++ b/tools/testing/selftests/vfio/lib/vfio_pci_device.c
-@@ -378,6 +378,54 @@ bool vfio_pci_find_mem_bar(struct vfio_pci_device *device, u64 min_size,
- 	return false;
- }
- 
-+static bool vfio_pci_has_p2p_path(struct vfio_pci_device *initiator,
-+				  struct vfio_pci_device *target)
-+{
-+	/*
-+	 * TODO: Check PCI topology / ACS / host bridge support to verify that
-+	 * P2P DMA transactions from @initiator can reach @target.
-+	 */
-+	return initiator != target;
-+}
-+
-+bool vfio_pci_find_p2p_pair(struct vfio_pci_device **devices, int nr_devices,
-+			    u64 min_bar_size, struct vfio_pci_p2p_pair *pair)
-+{
-+	struct vfio_pci_mem_bar mem_bar;
-+	int i, j;
-+
-+	for (i = 0; i < nr_devices; i++) {
-+		struct vfio_pci_device *initiator = devices[i];
-+		const struct vfio_pci_driver_ops *ops = initiator->driver.ops;
-+
-+		if (!ops || !ops->memcpy_start || !ops->memcpy_wait)
-+			continue;
-+
-+		for (j = 0; j < nr_devices; j++) {
-+			struct vfio_pci_device *target = devices[j];
-+
-+			if (i == j)
-+				continue;
-+
-+			if (!vfio_pci_has_p2p_path(initiator, target))
-+				continue;
-+
-+			if (!vfio_pci_find_mem_bar(target, min_bar_size,
-+						   &mem_bar))
-+				continue;
-+
-+			*pair = (struct vfio_pci_p2p_pair){
-+				.initiator = initiator,
-+				.target = target,
-+				.mem_bar = mem_bar,
-+			};
-+			return true;
-+		}
-+	}
-+
-+	return false;
-+}
-+
- void vfio_pci_config_access(struct vfio_pci_device *device, bool write,
- 			    size_t config, size_t size, void *data)
- {
 -- 
-2.56.0.567.gdb80ae8cd5-goog
-
+  Kiryl Shutsemau / Kirill A. Shutemov
