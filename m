@@ -1,65 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794391674;
-	b=X2oU9VAMQTdrKTGEMmzoY5wmWUYsLCql2PyIpxfxZY59s1wwfX+a0tcBRvI2pmJCKM5N
-	 /iGXCuEFYp8ZwXuICHhkfqc0Wg5miTpRIhQVgu4CsoR5GgXCWL6/97wBhflnETnuqnQJG
-	 enhNqS+Y93f2Z/lCmpYJ2t6S45NwXpkZ9JQMPdDA9SYXBWhS4z3/3q8KS9guW/e2KFQa1
-	 e4DhH+RNfJ8p2VY4+Yd291081W9BNOOnN134hFR1Um/x8DSQZPNtHCDG5pzeoR/KZJsCO
-	 NqSIIxp7Br6QeGv7Y0YZDXZKk/fZ4fk157ej3kiwg/DxygvGGIcnitrqJz5TSLrERXQ==
+	t=1794391675;
+	b=H55t447ZjGaAM7y1llzkQ51Hwpu79PRkzbgtAEb9/glh9Piku9/lPP+RtqN2Gwzk7fqc
+	 ZtVtMGMKi7UvszB6qRZKPaakf5Px1Iv8XoV+rmQV822dxdBMfZFsc+4BnlF1E/pwk08Gy
+	 /1y+9iSmQm9Cdb1jzvhbFhO7l3b7GKT0RFFifnGpEPWSU1+fFZYLf3X5zB2xEoyJFtpBT
+	 XhbJqf5BIMyQ9Skmnsd+cf47mSP6RW1cwIjls8/ajKnBdQ5x7I638KVcCoivUgFf+RbEN
+	 qGRU9d5jqxj+pVyz/F4bmtjyZpY9nvGfFqs+NdlmJa2HGpg5ZAt0tE8TX8LKA4SAhyQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794391674;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=zFxZ30Yd6+cASw+ho8AgTjmy6X4iO+1Xfo3Xj4WmfaA=;
-	b=nAErsdFIrZe/XZJs2qAsI0BRMpGfUPK/wT5XYQFxrROxVe7cCnGEjV+nxJBgAzCabyec
-	 8Nz68EyU1TzmM09WNyj7Tg5e0iZXTbVR+nwztBrQQkaGcKEm2i7pzSKziYbDZDDiqseAF
-	 YA7h87V4Iujh5Ou3w26vhgQ2gZt9WKDu19wQeUs/JBtr47IsbcTLv5aeribI8ALpNDBxJ
-	 11v3DasfvcdmD9HqjwjAakAV19Y+xVMlObzgDE4vtnWjnEK+aV3sozqMzxJYW6Oo3tc4L
-	 Ap3jAyaJDS3M8MqUlDuUHA3bFweTRrB+n5r7Ffo3sAfHKjxDSND9Y1QO8qO04bXe5/Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794391675;
+	h=DMARC-Filter:DKIM-Signature:X-Pm-Submission-Id:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=YeX7nxnzoiug76CLEvqV8toUAsSHur5IcXgBBibQZw0=;
+	b=P5h2VFyEvWSux+ad645Ui9Bn5k1KptR5H2MkoFn6hfMmpwEq+WF2Y4ZEw4FDAO/9dck5
+	 gUSVAhxbDdT4ItVA1JAzu5k0F4/91NIc3SUKVIMtNp4r5X/3FS/B929ixCiFVlNKlbOp7
+	 mRppdPVRrhBjw9S3ZbfJrKdZd8Bn8D9l7yLR8jF4gONN69ekXi0McdC9M4Q5xN3Jo3FQY
+	 75ONQiucJqxAfmi9aGWfJIV8OgFwOJZypL+svb1MzoZPfzLkVugHj92a3fALm5xisRa5J
+	 V00ufvDkXM7ixjwJASmPGTDeQ+L2Cf8aa5DmO73bVvpdxwZFpf5yHW6t5IjOo9jmAQQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=iVe5YcxN;
-	arc=none smtp.remote-ip=185.246.84.56
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	dmarc=pass header.from=onurozkan.dev;
+	spf=pass smtp.mailfrom=onurozkan.dev;
+	dkim=pass header.d=onurozkan.dev header.i=@onurozkan.dev header.a=rsa-sha256 header.s=protonmail2 header.b=WYrx19jn;
+	arc=none smtp.remote-ip=109.224.244.108
+Received: from mail-244108.protonmail.ch (mail-244108.protonmail.ch [109.224.244.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D9FD606A321;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 131EC606A324;
 	Wed, 11 Nov 2026 10:07:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0D9FD606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 131EC606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=onurozkan.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=onurozkan.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=iVe5YcxN
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 78FB21A1609;
-	Wed, 11 Nov 2026 10:07:52 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 3F61B6017E;
-	Wed, 11 Nov 2026 10:07:52 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 6D00711BC126B;
-	Wed, 11 Nov 2026 11:07:50 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1794391671; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding; bh=zFxZ30Yd6+cASw+ho8AgTjmy6X4iO+1Xfo3Xj4WmfaA=;
-	b=iVe5YcxN6iMcNdy7ct5ge10LPW/BDSJLHEzidAyzNx+mVg4ZP0bpAGhYu/2b1yDeGePLHd
-	skMnkdvrs8K3lWj+U8df0uJQqbyX/5QxVohWtK/sCCy+5NzpC1Lf21gG7DaePyODqnHLig
-	fkVO86dEsndYrFRHVO3hCsIdgI/lDt9b4qzhbs7lBPEAokzzFFSR7SGTKIMKHV6SNINgnN
-	5nNcjabsKk1bxgtDZy5f5UNrJps/WmnE+bx5Ykk4Yl3LPEM14fhQDsB7drmHuSH/FIVAUa
-	rgqnrYXNvc4GBEMJVNzQm74AoCOBZwHzHx6Q5+yBOEWai/HUW3MyavZDQBrKgA==
-From: Paul Cercueil <paul.cercueil@bootlin.com>
-To: "Rafael J . Wysocki" <rafael@kernel.org>,
-	Len Brown <lenb@kernel.org>
-Cc: linux-acpi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	Paul Cercueil <paul.cercueil@bootlin.com>
-Subject: [PATCH v2] ACPI: platform: Add basic support for ACPI 6.5 fixed clock resources
-Date: Wed, 11 Nov 2026 11:07:36 +0100
-Message-ID: <20261111100736.98364-1-paul.cercueil@bootlin.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key, unprotected) header.d=onurozkan.dev header.i=@onurozkan.dev header.a=rsa-sha256 header.s=protonmail2 header.b=WYrx19jn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=onurozkan.dev;
+	s=protonmail2; t=1794391671; x=1794650871;
+	bh=YeX7nxnzoiug76CLEvqV8toUAsSHur5IcXgBBibQZw0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:From:To:
+	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=WYrx19jnMFiZZEJXDTwIdZY68t/mki1lmlJXKtLV7uFjodBwxl7MqOf9xDtGsV/no
+	 DH7KiCD8CM5Hw+5XqiB4I3m1fzX3nXV3IL5j9nZrmbVCl5w3D3BcGUWcUFEEB8AMrB
+	 P7vyIz4tYEKWLW7Cw1SMWxwW1r1PRP3cZJrJswBmBnmOBEHmX5GZh6ijbDMXSqc4lw
+	 zU9ygDJcwxzYWP2ZlmCg/a0/0SjTXL8ZZurckHd3mMQN/g0vUnerInHCjJmGPhZte7
+	 tdj3znZz6lMO7Ueo7EVjF8PMfZcZC9P6jfFlZXZbFij9qL7y3HPfviPX9c+ID2Cv62
+	 euImfCqWdIiFA==
+X-Pm-Submission-Id: 4jPfN422zNz1DDrn
+From: =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
+To: Daniel Almeida <daniel.almeida@collabora.com>
+Cc: linux-kernel@vger.kernel.org,
+	rust-for-linux@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	dakr@kernel.org,
+	aliceryhl@google.com,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	ojeda@kernel.org,
+	boqun@kernel.org,
+	gary@garyguo.net,
+	bjorn3_gh@protonmail.com,
+	lossin@kernel.org,
+	a.hindborg@kernel.org,
+	tmgross@umich.edu
+Subject: Re: [PATCH v7 0/3] drm/tyr: GPU reset infrastructure
+Date: Wed, 11 Nov 2026 13:07:41 +0300
+Message-ID: <20261111100745.3929894-1-work@onurozkan.dev>
+X-Mailer: git-send-email 2.51.2
+In-Reply-To: <70AFEE33-C637-4D49-88F1-9DF3A9BBF097@collabora.com>
+References: <20260912-tyr-reset-impl-v7-0-077ce72084eb@onurozkan.dev> <70AFEE33-C637-4D49-88F1-9DF3A9BBF097@collabora.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,140 +76,115 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-ACPI 6.5 introduced a clock input resource descriptor, which allows to
-specify in the ACPI tables what clocks are connected to a given device.
-
-This patch adds support for the most basic clock resource, which is the
-one that represents a fixed clock. The new code will then create a
-clk_hw for each fixed clock resource, which is then made available to
-the device drivers, that can obtain it through a regular call to
-clk_get(NULL).
-
-Signed-off-by: Paul Cercueil <paul.cercueil@bootlin.com>
-
----
-
-Related:
-https://lore.kernel.org/linux-arm-kernel/20261103084915.8405-1-paul.cercueil@bootlin.com/T/
-
-v2:
-- Use the calculated clock name in devm_clk_hw_register_fixed_rate()
-  instead of the device name
-- Make sure clkres->scale is <= 2. The field is 2 bits but the value
-  clkres->scale == 3 is not defined in the spec.
-- Compute the fraction numerator using 64-bit math, to make sure it
-  won't overflow on 32-bit systems.
-- Initialize clocks only when the device_type matches
-  ACPI_BUS_TYPE_DEVICE.
-- Use a shorter name for clocks as the hard limit is 16 characters
-  including the terminator.
----
- drivers/acpi/acpi_platform.c | 64 ++++++++++++++++++++++++++++++++++++
- 1 file changed, 64 insertions(+)
-
-diff --git a/drivers/acpi/acpi_platform.c b/drivers/acpi/acpi_platform.c
-index 80ea7121744d..71322cdcf0dd 100644
---- a/drivers/acpi/acpi_platform.c
-+++ b/drivers/acpi/acpi_platform.c
-@@ -10,17 +10,27 @@
- 
- #include <linux/acpi.h>
- #include <linux/bits.h>
-+#include <linux/clk-provider.h>
-+#include <linux/clkdev.h>
- #include <linux/device.h>
- #include <linux/err.h>
- #include <linux/ioport.h>
-+#include <linux/kconfig.h>
- #include <linux/kernel.h>
-+#include <linux/list.h>
- #include <linux/module.h>
- #include <linux/dma-mapping.h>
- #include <linux/pci.h>
- #include <linux/platform_device.h>
-+#include <linux/units.h>
- 
- #include "internal.h"
- 
-+struct acpi_clk_data {
-+	struct device *dev;
-+	unsigned int idx;
-+};
-+
- /* Exclude devices that have no _CRS resources provided */
- #define ACPI_ALLOW_WO_RESOURCES		BIT(0)
- 
-@@ -130,6 +140,57 @@ static unsigned int acpi_platform_resource_count(struct acpi_resource *ares, voi
- 	return AE_CTRL_TERMINATE;
- }
- 
-+static int acpi_add_fixed_clock(struct acpi_resource *res, void *d)
-+{
-+	static const unsigned long clk_scale[] = { 1, HZ_PER_KHZ, HZ_PER_MHZ };
-+	struct acpi_resource_clock_input *clkres;
-+	struct acpi_clk_data *data = d;
-+	struct device *dev = data->dev;
-+	struct clk_hw *clk;
-+	unsigned long rate;
-+	char name[64];
-+	int err;
-+
-+	if (res->type == ACPI_RESOURCE_TYPE_CLOCK_INPUT) {
-+		clkres = &res->data.clock_input;
-+
-+		if (clkres->mode) {
-+			dev_warn(dev, "Only fixed rate clocks supported for now.\n");
-+			return 1; /* keep going */
-+		}
-+
-+		if (clkres->frequency_divisor == 0 || clkres->scale > 2)
-+			return -EINVAL;
-+
-+		rate = DIV_ROUND_UP_ULL((u64)clkres->frequency_numerator * clk_scale[clkres->scale],
-+					clkres->frequency_divisor);
-+
-+		snprintf(name, sizeof(name), "%s-%u", dev_name(dev), data->idx++);
-+
-+		clk = devm_clk_hw_register_fixed_rate(dev, name, NULL, 0, rate);
-+		if (IS_ERR(clk))
-+			return PTR_ERR(clk);
-+
-+		err = devm_clk_hw_register_clkdev(dev, clk, name, dev_name(dev));
-+		if (err)
-+			return err;
-+	}
-+
-+	return 1;
-+}
-+
-+static void acpi_platform_init_clocks(struct acpi_device *adev)
-+{
-+	struct device *dev = &adev->dev;
-+	struct acpi_clk_data data = { .dev = dev };
-+	LIST_HEAD(list);
-+	int ret;
-+
-+	ret = acpi_dev_get_resources(adev, &list, acpi_add_fixed_clock, &data);
-+	if (ret < 0)
-+		dev_err(dev, "Failed to add clock resources: %d\n", ret);
-+}
-+
- /**
-  * acpi_create_platform_device - Create platform device for ACPI device node
-  * @adev: ACPI device node to create a platform device for.
-@@ -196,6 +257,9 @@ struct platform_device *acpi_create_platform_device(struct acpi_device *adev,
- 			}
- 			acpi_dev_free_resource_list(&resource_list);
- 		}
-+
-+		if (IS_ENABLED(CONFIG_COMMON_CLK))
-+			acpi_platform_init_clocks(adev);
- 	}
- 
- 	memset(&pdevinfo, 0, sizeof(pdevinfo));
--- 
-2.47.3
-
+On Wed, 23 Sep 2026 10:56:48 -0300=0D
+Daniel Almeida <daniel.almeida@collabora.com> wrote:=0D
+=0D
+> =0D
+> =0D
+> > On 12 Sep 2026, at 07:39, Onur =C3=96zkan <work@onurozkan.dev> wrote:=0D
+> > =0D
+> > Add support for scheduling GPU resets on a dedicated workqueue. Track=0D
+> > the reset state to avoid queueing another reset while one is already=0D
+> > pending or in progress.=0D
+> > =0D
+> > Use an SRCU based gate with mutex-protected reader admission to block=0D
+> > hardware accesses while reset work runs and wait for current users=0D
+> > before resetting.=0D
+> > =0D
+> > Stop new reset requests during teardown and drain any queued or running=
+=0D
+> > reset work before releasing the device resources.=0D
+> > =0D
+> > This is the initial reset infrastructure only. It is not wired to a res=
+et=0D
+> > source yet as those will follow in separate work.=0D
+> > =0D
+> > Based on 'commit 53441a9cae3c ("drm/tyr: program CSF global interface")=
+'=0D
+> > from tyr-for-upstream with the following patch series on the ML:=0D
+> >  - rust: add SRCU abstraction [1]=0D
+> >  - rust: workqueue: add cancel_sync support [2]=0D
+> > =0D
+> > TODOs:=0D
+> >  - On reset failure, we don't do anything for now. We should unplug=0D
+> >    the GPU.=0D
+> >  - In schedule(), similar to panthor_device_schedule_reset(), we should=
+=0D
+> >    have a PM check but similar to the note above, we don't have the=0D
+> >    infrastructure for that yet.=0D
+> > =0D
+> > Changes since v6:=0D
+> >  - Acquire the hardware gate once per address-space operation and pass=
+=0D
+> >    the guarded iomem reference to helpers to avoid deadlocks.=0D
+> >  - Clone the gate Arc before acquiring a guard so mutating address-spac=
+e=0D
+> >    helpers can retain their &mut self receivers as suggested by Daniel.=
+=0D
+> > =0D
+> > Link: https://lore.kernel.org/all/20260613065348.96750-1-work@onurozkan=
+.dev [1]=0D
+> > Link: https://lore.kernel.org/all/20260807165252.3849875-1-dakr@kernel.=
+org [2]=0D
+> > Link: https://lore.kernel.org/all/20260708114358.957305-1-work@onurozka=
+n.dev=0D
+> > Link: https://gitlab.freedesktop.org/panfrost/linux/-/issues/28=0D
+> > Signed-off-by: Onur =C3=96zkan <work@onurozkan.dev>=0D
+> > ---=0D
+> > Onur =C3=96zkan (3):=0D
+> >      drm/tyr: clear stale IRQ state before soft reset=0D
+> >      drm/tyr: add GPU reset infrastructure=0D
+> >      drm/tyr: put iomem behind the hardware gate=0D
+> > =0D
+> > drivers/gpu/drm/tyr/driver.rs            |  65 ++++-----=0D
+> > drivers/gpu/drm/tyr/fw.rs                |  16 +-=0D
+> > drivers/gpu/drm/tyr/mmu.rs               |   9 +-=0D
+> > drivers/gpu/drm/tyr/mmu/address_space.rs |  90 +++++++-----=0D
+> > drivers/gpu/drm/tyr/reset.rs             | 242 ++++++++++++++++++++++++=
++++++++=0D
+> > drivers/gpu/drm/tyr/reset/hw_gate.rs     | 106 ++++++++++++++=0D
+> > drivers/gpu/drm/tyr/tyr.rs               |   1 +=0D
+> > 7 files changed, 436 insertions(+), 93 deletions(-)=0D
+> > ---=0D
+> > base-commit: 53441a9cae3c4be552fa8aefa6e61b0f1bceb8a5=0D
+> > change-id: 20260813-tyr-reset-impl-93e951f996b4=0D
+> > prerequisite-message-id: <20260807165252.3849875-1-dakr@kernel.org>=0D
+> > prerequisite-patch-id: 4275f7d6e3cf96d61221d47f2398ebfb896db0c7=0D
+> > prerequisite-patch-id: f5e24f7b3717f2ab0445b5395c7f12b554861d78=0D
+> > prerequisite-patch-id: 0bf6ae4abcef7090d0e48921d6ec627a59dc6a7a=0D
+> > prerequisite-patch-id: 8dc24064e858240a6bb5411a261a987a7eae3fad=0D
+> > prerequisite-patch-id: eefbd4a72ed6da0083e20811882738cc3b05604f=0D
+> > prerequisite-patch-id: 7502236d334b13c547a8b47f0be9bf7171b5ca6b=0D
+> > prerequisite-message-id: <20260613065348.96750-1-work@onurozkan.dev>=0D
+> > prerequisite-patch-id: 9e1efee190d212ba1b01cd0acb5a4357e0b4da42=0D
+> > prerequisite-patch-id: 26aba035f4d1e212fa6ea7078095febefff5c5ba=0D
+> > prerequisite-patch-id: ffa25d5aadec4c04589af2bdd59a9c022f0fc9b0=0D
+> > prerequisite-patch-id: c2e05a4ac9d665d331952b291a622df6be673e41=0D
+> > prerequisite-patch-id: c14a4bd8a68b045356d61f7fa94690bd037ad08b=0D
+> > =0D
+> > --  =0D
+> > =0D
+> =0D
+> =0D
+> Alice, if you are ok with this series, feel free to merge. At least from =
+my side it looks ok.=0D
+> =0D
+> =E2=80=94 Daniel=0D
+> =0D
+=0D
+Any updates on this? I am preparing v2 of the GPU unplug series [1] which=0D
+depends on this series. The reset patches need rebasing against current=0D
+drm-rust-next.=0D
+=0D
+Would you prefer me to send a rebased v8 and base unplug v2 on it or are=0D
+you planning to pick up v7 and handle the rebase?=0D
+=0D
+Thanks,=0D
+Onur=0D
+=0D
+[1]: https://lore.kernel.org/all/20260823-tyr-gpu-unplug-b4-v1-0-e99c07d4c7=
+85@onurozkan.dev=0D
+=0D
