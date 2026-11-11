@@ -1,107 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794361721;
-	b=zn39t23iz4xINhy+7boeM0cLU8g22ZiRVdc9GHrA0R3KbTh6DLausYuHLMnqWW9UGzem
-	 ZzRpRgdlcXEJBKjA3mRxoNAgA8UfCvFWtJRB6no/sUBiHWPOGbNPSvpnWuPQM88wYfpw+
-	 QAPtjMuiAAPqYgcHDQ9mVmBYt1CwC4EdczIWLfT2Vt22cMhkTnzbK6E3+myX2cKlRTKGT
-	 o341Ht5EdolZ1qdJd9WG7cLt8X2iQKKpggZi9dK02xLik3UzRBHJM5yqLgGl9CQ7KqQcL
-	 Bk60iV8v41rHovrHV8khLFcoBRLdzFCA/Itvbs557TtsIjjeziD1q5H+SZohd5HJ9Fg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794361721;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=f2RcHe64LeB/gnyTEhJrBfe4ypF50Xcw5AhrrNUhpVI=;
-	b=LeKI/BNEZ4xvzFOM3sNV0zXqIfO0OaROSznGvxtKnRFqgL2OuLGxoymHtOEiiBJQ2ymY
-	 tFCcI5lebP3jdv46ghkLLsViVU6b4nCTm/zJu1iJwRqqQtyhlVZa+0CJv9K/TC1xN8lzU
-	 FYkHDK8rZZ28rfD/g+IkUBBr6d28clSWs3+EloLr7ZXPsJ0tlKwxn6hUgidw8mESMJ4cT
-	 eM5WIVHH4vUTFFHgwr1tgOWbyGN3GBqDWmRttJv+BYHCus7AvmnwzF4ZEHvsGgf+NkwDN
-	 wTfc6TLdK87FM1jzhkWXjmQeyzyotBGnxmghz8ukyc9pVNQ9t7+/TxIiQpfN6GO3Keg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QpvXFC4q;
-	arc=none smtp.remote-ip=74.125.82.175
-Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1794361737;
+	b=l+U4teiqH1ICh74kO7n+TWlOsg4fk/yavYONJCwVa5ox9NlLj6pX7zyiXEs0qjyeMS+o
+	 f7uNUpFs9THeiqioHvkVjTKINYv55Z30XTp/GIaqM81xiRbPF2slPKSv3+CdPi0PIHn/W
+	 0R9yNMVQb6KgSe4YCpXW2Cussznti+s5ww0whg/6dtpBHE/47Zu5x1ZR5HjSCJC1i9/T/
+	 RaoAlsLGT5b1MF6WhT6ZP8y8+xVVZC++aALX6TLlcBIxD8k1ZMBUsNNHTLQNickYYjdDQ
+	 ZD0V5nh8oRBQXQej1M/+ozcdrMM0qXaNe1zHWJmdnl1n1QsNFqJz9Q7Y4nI+yLx4CMQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794361737;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=rdK8pogkcDADwcKV/q341boHK0olYf2gsa/z6bYGdYk=;
+	b=ABQVBxCG9YcM5DTAkCDudH4uOoSzWcCMj/kcybUX5S+LN26uV3txlFH6vk+LJocJKQZ1
+	 EcYiGvh659ehtBdUPJfpUGvuzQ/DdL0uee0q4bg0u1NbYqe2Y7BH/JftISboqFn7gLh82
+	 qkZvRqxqJWsqTQxl93978yVYlnVLUh1xnW3WMP9mLm7uYPPU5sCHN8Gxy3BMI7xtfhH/F
+	 CFCbdGQ5bsg0/4vbJOJCmf0FOuz+bQwNQ6vy/BkFIjVKjjsN/guc1gbiW/e8xPX9k4W9w
+	 t4b2Mrnlr0sq7hS6XOqi748fdUMsGWp2HU+DH72K0MIi8lDmqZ6Hm8xOM9tcf9Uh04Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="F45mwB/D";
+	arc=fail smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82C4D606A321;
+	Wed, 11 Nov 2026 01:48:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F45mwB/D
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794361737;
+	b=iOKdR+OhPf1pfp3H4q5LEu//QU4Exzgai0C2fltBhtaXZ6016savzqIALCS5SsXj2+GF
+	 Z1Ir429myTbfOcdVMO5z5WLvRb7KBAaPeBlsewjYEZjg8DjVVEwztTYe41Jen+txfxoVy
+	 0Woyq6eqL7vUV9lLfRzJw3BYfKCK8EBYelPl8KAu0vJd0hCKFRmaopitOACzzlgy4mSz6
+	 JVUZOy4ny+3ny7uocT/RuGG/ih5hlPXQR+aH7yGtyV+BoizNfmLBD5IpVD+fQ/6ieRBQV
+	 B8dzf6GPAek4weJsCtnQ1rjSq2A4QJaHKOBTY2Ox/Cw6jpn595pla1WLlzmaVsifUww==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794361737;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=rdK8pogkcDADwcKV/q341boHK0olYf2gsa/z6bYGdYk=;
+	b=HlBW+fCSkaKz0YunfIweDVDQw7CBpW7HIHJV+qiTAx7ChLAEe6+ZrvUoeHqC7gkUeTzm
+	 b6nhP1pgtBKOrWjrhXW7cwWlYRhWCHsDI0ECIsBYd8/mxhG3ZpqHZgpwMjymL0NQwUA/7
+	 Kt6qgYct841NFsq6ufddOF05Iko4SM5J7gPQTZSqxUujcfrlmG0+t7FfNlOS1+iC1fCbV
+	 IN5Ixc03OECo7UmUjGnyxmUA4gTXQ7CIiNsZzokLQDYKif5fzqaOj7FdMunP8230tsLx5
+	 a4S/x/8z8ON9g6Oxe/OoOS6pfwSaAkhRKrlUn1J0MHOcn4DmHsHyrIGWX8Shnjnd6Eg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEDD3606A320
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 01:48:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CEDD3606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QpvXFC4q
-Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-36a315ed211so3008434eec.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 17:48:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794361720; x=1794966520; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=f2RcHe64LeB/gnyTEhJrBfe4ypF50Xcw5AhrrNUhpVI=;
-        b=QpvXFC4qN5QJ0p8bI9c4XT2xJMP9QqQnJRrb0+E/4FPOEtQGqIfdwyAgZzZxp3+Qd2
-         FMYtqpTjXuJAv7hM5VrDk0oByO4JH83W4qEkAk4lhzJr0y/qFfPhb8DorPMstZwwLw9E
-         w61I9WaiAaxGBAokVOV8TmRg8wzzQuekBMpLbmACyn/bbxt5pfN9e5sEkS4drpyAjcvx
-         wm5BNfYHeyHleflpj16Tw0cgsr+1RQOPs7sfyUkPesdAftEpm1lDeuaoFEgsSad9LGVG
-         y1JzZTlGKsz58h/un9DcNxBRjfB4or4dJpX4dvd9qoI320is2XHFOJ40+/hfk3QDcelm
-         MxZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794361720; x=1794966520;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=f2RcHe64LeB/gnyTEhJrBfe4ypF50Xcw5AhrrNUhpVI=;
-        b=QTZTcg88WVj5EXBEhRzsmIsSMxXJLy3uN+dDFl8TQ5K1lzHKZIpTJSAwx+Bf6TDKmW
-         nGTvYJ5bq/nsOzUA4POlaN/dc8x1MUmf7ZLjfbqdidCXhKmU2iaSiKP57j6BAQXjK5jI
-         LyzKSgkmv9rjUp31iLpLSPx270Kx8yiCt6uArwpbmrhTG53GK1AbRPsHzPENB0vhu5wv
-         tcv8uDHI6Zk1mB4Mfu15t2PAyZkrY14cjYBuNCxklfN3uFzziIp0tIg07OvaBERHxqb7
-         U+uzMTuRRbUMXs5G91xCWGbQ+tbIYBgEf5rKTTQdHidZSuChe3BIGur/pyFipDmNuWz2
-         fhOg==
-X-Forwarded-Encrypted: i=1; AL+hErEKbNzsAq0yJ5UfScpG5Ol3Hc4+IYnqjvrA9Uc9utAyjgEljwDVL6D3+zpIGGwv7+T6hokKvna8/eCSL3Q=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/k9LG0JGPkLcyv3QYnc5SPQhLShupycie6KJ1x55im0db05LYd
-	kA2fddvUTQc7EjcZ059BW+4HZEkMrpqzbKTkRioSFW4K3h6Q8tRPLk+z
-X-Gm-Gg: AYBFou1aIQ421wCbIoN8CSetxSFtrv2NUs8bT5CvDV0l8bIcRtTqExkmEagS/tGdULk
-	E6GCwzbvwfhYhOfqGik/82m4KFaR1lUx1A4ntTrMOGSLHm2ih8XEAPxkcRAtfq+4bfVSXwYTlzM
-	3D6hLDu+iyViyJj4D0dx8SQpVi/uND7Cq/fq5msXeiYqlWRRtOLRv187+4LIbBseGTSs/NC4kAS
-	eoyPqHY8epo3QgTKIGlb3R2A6HHfhonECL8TiiHhOXMmypqboivTfqfRI9xIChhuejfJz7gkh4a
-	mMG1M9e2x6k8PIYbK0yXFpzJ1hlO5IbM9wMi9j4BkJt2PuH49AQHgIFUTBWzpeZaIRNd6OEi7Ta
-	B8UGq5Y45Kw+4qvbx4co/+VNA3XG4xbPHG90Pt66CkPalx+UwHZuFg3oKXc7MYv39YOdLwYi6Qe
-	uBGtz11tP2y4Oq3VF25uHAKccrDKZqIebC0u40jwMrDYrFDOakztIrmBa+VZnlGVX0igiPgwyjw
-	1cxjbYtJLvaGgSX2eGiIQSr+CK8fj8yxDzHwhqal9lsqkegc2ZLc6gIg1GT2VwcgjIwDKR8pl3B
-	sI1qfcBbkK477FARe6773XoanrIQuFlWi6s5GQBz7ABukEQ=
-X-Received: by 2002:a05:7301:e22:b0:36a:37:1404 with SMTP id 5a478bee46e88-37686d2fcd4mr1959136eec.13.1794361719645;
-        Tue, 10 Nov 2026 17:48:39 -0800 (PST)
-Received: from zhangbo56-PC.mioffice.cn ([43.224.245.235])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-375212e76e2sm11902533eec.24.2026.11.10.17.48.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 17:48:39 -0800 (PST)
-From: Bo Zhang <zhangbo0325@gmail.com>
-X-Google-Original-From: Bo Zhang <zhangbo56@xiaomi.com>
-To: Barry Song <baohua@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Hui Zhu <hui.zhu@linux.dev>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Yu Zhao <yuzhao@google.com>,
-	Kairui Song <kasong@tencent.com>,
-	Hui Zhu <zhuhui@kylinos.cn>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v3] mm/mglru: fix a no-op lru_gen_clear_refs() call in lru_lazyfree()
-Date: Wed, 11 Nov 2026 09:48:33 +0800
-Message-Id: <20261111014833.2661236-1-zhangbo56@xiaomi.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <CAGsJ_4ybXskWKDLHkeeuVGirGaaZ8TdPEDX+xQXZcYmPMSjS=A@mail.gmail.com>
-References: <CAGsJ_4ybXskWKDLHkeeuVGirGaaZ8TdPEDX+xQXZcYmPMSjS=A@mail.gmail.com>
+	by smtp.kernel.org (Postfix) with ESMTPS id 897D31F0093C;
+	Wed, 11 Nov 2026 01:48:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794361737;
+	bh=rdK8pogkcDADwcKV/q341boHK0olYf2gsa/z6bYGdYk=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=F45mwB/D6222erR43dR/hvQO7xVgLtA4JEP+uZ90jNrUntDIpPXbgc+/Zvp6ourWT
+	 brlzmyPgTEx9V6Rg3ONPl2YvPYJH4Wez9RNkpmOmrQSus+R50vqha5s/QAD0WOs15N
+	 4kYU7lUZahLXEgVO15cFZcq4iM4bLm+EoZECLf1VChr04LaEtfG3j6z/e9Ik+UOJSn
+	 R/tocHENAmLmotosNLFiGdTbKVKDQAX/TQjb3N3nHEF5NxKF3e4ZY7KNlOQrPI+pXD
+	 MkKMP6knBdeZl3qqC2VPuaUoMzcN0nopA27taZE7dTbSjRvrgi4ODH03PDGHjqkNYT
+	 LxptwQ1pFZmVg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 1439648D0F;
+	Wed, 11 Nov 2026 01:48:56 +0000 (UTC)
+From: Hang Zhengyang via B4 Relay <devnull+hang.zhengyang1010.gmail.com@kernel.org>
+Date: Wed, 11 Nov 2026 09:48:50 +0800
+Subject: [PATCH v2] perf parse-events: Don't report unreadable tracepoint
+ globs as unknown
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,34 +83,94 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261111-tp-glob-errno-v2-1-ca45efb07d31@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3XMQQrCMBCF4auUWTuSCZhaV95Dumji2A60SUlKU
+ Erubuze5f/gfTskjsIJbs0OkbMkCb6GPjXgpsGPjPKsDVppQ0QKtxXHOVjkGH1A02oeiG17NRb
+ qZ438kvfhPfrak6QtxM/BZ/qt/6RMSGicdtaozl06dR+XQeazCwv0pZQvcthdzqoAAAA=
+X-Change-ID: 20261110-tp-glob-errno-672ea1eb786b
+To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
+ Adrian Hunter <adrian.hunter@intel.com>, 
+ James Clark <james.clark@linaro.org>
+Cc: linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Hang Zhengyang <hang.zhengyang1010@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794361735; l=2091;
+ i=hang.zhengyang1010@gmail.com; s=20261008; h=from:subject:message-id;
+ bh=oKOhzpzzihzjzROHP90IK3skpmdwiZ3od9qtUe5u8x0=;
+ b=X16E1srTe/q4EZ1klblgXdNEd7t6M0s9GxwKTspiFMc3meJyyDw7zwYCiW72kql09RdtaBgze
+ FAH1G29AinGAnydJqtp1/bdG2+cEBUnrugBG89z7HnMtlYT7dfFzdwa
+X-Developer-Key: i=hang.zhengyang1010@gmail.com; a=ed25519;
+ pk=5drRny3PqRPLhKVB0YIQXN5YyD8miKCpXWhnEPvafAI=
+X-Endpoint-Received: by B4 Relay for hang.zhengyang1010@gmail.com/20261008
+ with auth_id=1133
+X-Original-From: Hang Zhengyang <hang.zhengyang1010@gmail.com>
+Reply-To: hang.zhengyang1010@gmail.com
+Content-Transfer-Encoding: 7bit
 
-On Mon, Nov 9, 2026 at 1:08 PM Barry Song <baohua@kernel.org> wrote:
-> However, real-world workload data would be helpful
-> to demonstrate the actual performance impact and make
-> the case more convincing.
->
-> The patch itself makes a lot of sense in theory, though.
->
-> I'll arrange some tests with Android workloads and report
-> back once the data is available. If Hui already has some
-> data, it would be great if he could share it as well.
+From: Hang Zhengyang <hang.zhengyang1010@gmail.com>
 
-Tested on a Xiaomi phone (android16-6.12 GKI with this fix backported,
-MGLRU enabled). The workload launches and scrolls 26 common apps for
-5 rounds; each run produces ~7-9M MADV_FREE pages. 3 runs per kernel,
-same system image, same sequence (fresh boot, then back-to-back), only
-the kernel differs:
+As a normal user, a tracepoint glob gets the wrong error:
 
-                            without fix   with fix
-  workingset_refault_file      44.7M        29.0M   (-35%)
-  pgmajfault                   13.9M         9.0M   (-35%)
-  pgsteal (kswapd+direct)     100.9M        75.6M   (-25%)
-  cold launch (avg)           2436ms       2034ms   (-17%)
+  $ perf stat -e 'syscalls:*' true
+  event syntax error: 'syscalls:*'
+                       \___ unknown tracepoint
 
-Without the fix, lazyfree folios keep their stale refs/PG_workingset
-and get protected instead of evicted. Since they sit on the file LRU,
-page cache is reclaimed in their place, which shows up as more file
-refaults and major faults.
+  Error:  File /sys/kernel/tracing//events/syscalls/* not found.
+  Hint:   Perhaps this kernel misses some CONFIG_ setting to enable this feature?.
 
-Tested-by: Bo Zhang <zhangbo56@xiaomi.com>
+add_tracepoint_multi_sys() returns ENOENT when nothing matched and
+drops the error from reading the directories.  Return that error
+instead, so the glob reports what a plain tracepoint name does:
+
+  $ perf stat -e 'syscalls:*' true
+  event syntax error: 'syscalls:*'
+                       \___ can't access trace events
+
+  Error:  No permissions to read /sys/kernel/tracing//events/syscalls/*
+  Hint:   Try 'sudo mount -o remount,mode=755 /sys/kernel/tracing/'
+
+Fixes: d002aab87de8 ("perf tp_pmu: Factor existing tracepoint logic to new file")
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Hang Zhengyang <hang.zhengyang1010@gmail.com>
+---
+Thanks for the review, Ian.
+---
+Changes in v2:
+- Show the output after the fix (Ian)
+- Link to v1: https://lore.kernel.org/r/20261110-tp-glob-errno-v1-1-6c2cb609c590@gmail.com
+---
+ tools/perf/util/parse-events.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/tools/perf/util/parse-events.c b/tools/perf/util/parse-events.c
+index f3ba70d4f76b..8a6d5a13863d 100644
+--- a/tools/perf/util/parse-events.c
++++ b/tools/perf/util/parse-events.c
+@@ -572,8 +572,10 @@ static int add_tracepoint_multi_sys(struct parse_events_state *parse_state,
+ 		ret = tp_pmu__for_each_tp_sys(&args, add_tracepoint_multi_sys_cb);
+ 	}
+ 	if (args.found == 0) {
+-		tracepoint_error(err, ENOENT, sys_glob, evt_glob, loc->first_column);
+-		return -ENOENT;
++		if (!ret)
++			ret = -ENOENT;
++		tracepoint_error(err, ret, sys_glob, evt_glob, loc->first_column);
++		return ret;
+ 	}
+ 	return ret;
+ }
+
+---
+base-commit: 13a8d580433a3b72b10be34f0e26787fe5659d3c
+change-id: 20261110-tp-glob-errno-672ea1eb786b
+
+Best regards,
+-- 
+Hang Zhengyang <hang.zhengyang1010@gmail.com>
+
+
