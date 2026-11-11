@@ -1,79 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794401516;
-	b=48VUNJQ2J4FTl51KWnoh1cKW92v4XcEiAgnzFNediWf7yiNL0AlHENZ1TUczN1cqfTsU
-	 X46iOsNDmxYv6r5+ojJXoRrnTgbUoS+OG5U1Tx/bw79hWfY8V99SBQPEN1t2g0icRziMd
-	 LbvYsq9+rb/K+kPFKkZq8c6HwhNMc4mGL8KAWSHK5Abn72F/+Q4GzACLPSeYwqjliX3ok
-	 KcH6YbZ5yyuDytSpGS7NGXArCrImLZxDoR5gqfKYLvkeG4DoJAKnw13Dxohwy9flx/jRZ
-	 LGOskyVxxLnGcZPDCd7uLolIR4DDfzhKeQ+uOlsvMX5lyX3yIxzAUrvM6SEY1FQmrmw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794401516;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=GTpqPv7EmkrA2JeQju9TsSg9zyrr7ErJ6T0eRUbdX3g=;
-	b=2Sf55hxXKpkPAagLk5mw4hIPo8DOTAD3kFptA3vdUJp/cHErY8iL4DNPG5NTDMLnI/M9
-	 N25v/2fgnTqqP9uG/To4yO8nTGneYNDeIShhCvqGyF5z6d3lUjU/cn3a7KWklG96bmaN6
-	 PeRaNIk4lXf1SEndRq3LzzRRxMNguL6ao/uSE/HOWuiMUQi05+5iverB3KKHgpH/55D52
-	 esb587hinojTbKjlOe3ZAe/BEK5XjikZ1uE601gg55Thxem0E1Z28MqfwKd2+VqMXszcZ
-	 6XuDYZhnm3Q+paFv1QHnZM9FB7fLX/+dS8kPwLUGJnkiDsuRU9y45C4dBUGmmNMKM2Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l509RJZ9;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794401523;
+	b=qVQwSsH5yw99fDVKGbhlTYyyUI+7U7QupTmXXKtVwvRRvuXk2VcuyPbUNgdRAyPuhQ/P
+	 u48nKCmTi89mRe6eXbSQGwP3jObv7/vh+Q4Z2Uq1XKecBAANrMvIHKmRZuoKGwwrAjEwO
+	 rbDuhzZw5QQAtNKuFWxD1fYjlY/jZ0LdoKKaF9xI7Wp9AKKlKmmuzl4l84fv7N+d1X7FO
+	 WnmIUHuOYPEAyUVrAciGrEm3JvCS4leXjUsmpANYiCNQ1qmi81ulRzgVTj9tjZQD9A7+2
+	 He9EfYVOVcbkhbfhPoDeH+j7PEp9vzudhIgKr9Vhp95E5TVKS6ddjw3hwK8O4gljibg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794401523;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:From:To:Cc:References:Content-Language:Autocrypt:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Spam-Flag:
+	 X-Spam-Level:X-Spamd-Result:X-Spam-Score;
+	bh=nfxHDzbzqAoL0hqPmgTOInr9iTiyWj+kQ+NlGLNlPTQ=;
+	b=O7d6OpoFBw1R+Zr5zTnR9MCDmh1SwZnmDRI7VFIJm52NJaOdMdYsVhH6P40z2ceEOCsV
+	 M78k6illyhHJcjPVGynyLL/qTAwPW4XNomoGa7mKLLbY5a3S0SnPX3zE5uTzCmAxNSaex
+	 LHu4u9EXoBo7WD0OO6mK3EdE9pMLqy8dgek52dymy+i/A04ajyfp0y3Z/6dazbwZMQ/jq
+	 RdR1IDNlhTU0/easWx9zfIFcYFXJg23nNPcXRmr8wOSpQ0+v2n2tSq+DhtM0dTYE8tUID
+	 OXDBOV1mqEgwVX0RH4EwW/afuf3C2Dau8DLkYb0+4FysFc/vIJBVP/7j7xb/TXqAI7g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=FdInWYv0;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=VrqsXOaL;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=FdInWYv0;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=VrqsXOaL;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B3E2606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 12:51:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93F89606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 12:52:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 93F89606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l509RJZ9
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794401515;
-	b=ndcho07SrsqoHxLeTlSKdWt5AScZ1oellvXvcOsedcfsxmUUrBBRVjXZdKfYVm7Um2KE
-	 c+DKXL2k2ureTJ6ghZTTasIcxDDkO3Qw5nS/uyYeiVnYP5VQYF7LP54NJEGqj93tKL57J
-	 521L/58miEnPbhNKctTLwuRRLZUfiCchm8JIcbBASWGLnn3GhMqBA0qrF+9+RscNqaDDA
-	 6/ga0HfARX3nPOlO0HsG0k56Amn4tR7ulbdJUSLgdvU5VZ1Xn6LTnydk9f6navR/RJ+TE
-	 rQiOOzn2WbPKd9Q9WH+CZOaLIAoR3NB0tmsvTx6C9zYMP6z27FGJ94ps68lsujmle/Q==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794401515;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=GTpqPv7EmkrA2JeQju9TsSg9zyrr7ErJ6T0eRUbdX3g=;
-	b=d+vEpRKSrxrh0gTbu023s76eBYftTshWkKmQXdVrQp8gw9m/mAoHCwZIewFiehtBV+ME
-	 TIxge8x/k/DpNYReQFEAifAeVShdNROr7i5Mr8AkHYKkCtYKEWzjJLBFSs7kdn0uDTqK9
-	 vFWUNiwY2xSxFT5MFX8fDKANLGoFAPUPTKfhRYBzGGGoBGrdr/YPHHR3+HqhPNRsm3kMZ
-	 Cbo5cj9A0980xLBkOD0eZcpTmB1pbaah9lOEFR7+vkKSvp0BBETXfUo47/nBLhJ70Z3hZ
-	 1ITweW9NDo//90vkapERLe/SFUI5OtFTRkIfx3aZrkb14o454FwVBKFi2HmgT0gn/kw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=FdInWYv0;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=VrqsXOaL;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=FdInWYv0;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=VrqsXOaL
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 5723E1F00A05;
-	Wed, 11 Nov 2026 12:51:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794401515;
-	bh=GTpqPv7EmkrA2JeQju9TsSg9zyrr7ErJ6T0eRUbdX3g=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=l509RJZ9NXfEqyUNb3gNJAVeWlwnjmF2Tpy0Eeq45rp8iDch2C5KihJOwZAE0atn4
-	 wUR546//vXnn6ONkcQoYyEkn/NZL0omnLP0Rbbmsc1+USx3/jIHtufLWG5W99rzD62
-	 Fecw+molph6EPDiyYtIbZ27EVbBzC5YaYzBfHHZnSxuM5MTqAz+8BxabN9nfj8se3f
-	 M55CxAWD4iAJQAd1SQXQf96ho7+qTWkFpNfOGZ3U9JKRKefzsnDczxhV4rFDc/1aYG
-	 mqXLUS8cJFWPB8kVrpMMIS2aenQ3Cr2nGK/lI18iv9+fVQXtywyZdSLGhpXF+/2zkq
-	 szaFjT9zK/OAw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id A1D1E48FAB;
-	Wed, 11 Nov 2026 12:51:54 +0000 (UTC)
-From: Ben Grisdale via B4 Relay <devnull+bengris32.protonmail.ch@kernel.org>
-Date: Wed, 11 Nov 2026 12:51:54 +0000
-Subject: [PATCH] regulator: tps65132: Fix incorrect bits for VNEG/VPOS
- discharge
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 5D01222225;
+	Wed, 11 Nov 2026 12:52:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794401520; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=nfxHDzbzqAoL0hqPmgTOInr9iTiyWj+kQ+NlGLNlPTQ=;
+	b=FdInWYv0CVHeteLWwxFzTVNvkdwQ01EWtAwQDOZb7kJtUSil6DX++fHTgPg94opugz6ZQo
+	m68Zevo0LAxx5yW/PIKKn6hVDe4eral2vFbkHPfRtY3hCEqZ1aR7PcqqIt9mIGilOqk7j4
+	3oBHuJVjF6lGGIlTCGuNpKm3zv8015A=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794401520;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=nfxHDzbzqAoL0hqPmgTOInr9iTiyWj+kQ+NlGLNlPTQ=;
+	b=VrqsXOaLB3yk0Jf4HnO98nuVwBoZOnYPSv2LNc5G8UXYocN9sKbF/DDpq3amKHc93/FhPN
+	oK9K9HL8YmZEvQAA==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794401520; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=nfxHDzbzqAoL0hqPmgTOInr9iTiyWj+kQ+NlGLNlPTQ=;
+	b=FdInWYv0CVHeteLWwxFzTVNvkdwQ01EWtAwQDOZb7kJtUSil6DX++fHTgPg94opugz6ZQo
+	m68Zevo0LAxx5yW/PIKKn6hVDe4eral2vFbkHPfRtY3hCEqZ1aR7PcqqIt9mIGilOqk7j4
+	3oBHuJVjF6lGGIlTCGuNpKm3zv8015A=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794401520;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=nfxHDzbzqAoL0hqPmgTOInr9iTiyWj+kQ+NlGLNlPTQ=;
+	b=VrqsXOaLB3yk0Jf4HnO98nuVwBoZOnYPSv2LNc5G8UXYocN9sKbF/DDpq3amKHc93/FhPN
+	oK9K9HL8YmZEvQAA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 096A9134E5;
+	Wed, 11 Nov 2026 12:51:59 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id qP/CKO9k9GriKwAAD6G6ig
+	(envelope-from <tzimmermann@suse.de>); Wed, 11 Nov 2026 12:51:59 +0000
+Message-ID: <441404fa-5287-4748-b53d-51d1bf02ba73@suse.de>
+Date: Wed, 11 Nov 2026 13:51:59 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,68 +106,162 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261111-tps65132-discharge-fix-v1-1-c796428a5d43@protonmail.ch>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMwQ5AMBBEf0X2rElbJeFXxAFdrAPSRSSNf7eY2
- 5u8mQiMgZChSiIEPIlpXQRMmkA/tcuIirwwWG0LI1H7xkVuMqs8sRhBjIEuhZ1HXWpXZs6BjLe
- AUn/HdfMzH92M/f6+wX0/2TlL1noAAAA=
-X-Change-ID: 20261111-tps65132-discharge-fix-ebde09049344
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Venkat Reddy Talla <vreddytalla@nvidia.com>, 
- Laxman Dewangan <ldewangan@nvidia.com>
-Cc: linux-kernel@vger.kernel.org, Ben Grisdale <bengris32@protonmail.ch>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794401514; l=1425;
- i=bengris32@protonmail.ch; s=20261018; h=from:subject:message-id;
- bh=PnrNFcAZ5ldwdIhMuy2jJuUkQIJHnuZAIh/FbHRKmRo=;
- b=r7IRW4fYtS8IbbyW3nAx9vl7nERViBONi/sgE13jFnSj/khyFacRQmcxkg/H118+a+3JdteNV
- /llHze4HQABBXJ9SBQmBKtvLDv7uMTP5QeKvtFxiz21vKy20d3K4l0h
-X-Developer-Key: i=bengris32@protonmail.ch; a=ed25519;
- pk=4ewFRC2yNph/tXokHVzIDlgOA9Hxecf1AlBuD4eOnaU=
-X-Endpoint-Received: by B4 Relay for bengris32@protonmail.ch/20261018 with
- auth_id=1233
-X-Original-From: Ben Grisdale <bengris32@protonmail.ch>
-Reply-To: bengris32@protonmail.ch
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1] drm: Drop #include <linux/mod_devicetable.h> from
+ <drm/display/drm_dp_aux_bus.h>
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig_=28The_Capable_Hub=29?=
+ <u.kleine-koenig@baylibre.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <21c9390024479ec625ca7a2e7a5b959f04d85878.1786032838.git.u.kleine-koenig@baylibre.com>
+ <avQk9v83d-jEGTiX@monoceros> <3d67a8ac-58b4-41c3-8359-06ff0a4e2b08@suse.de>
+Content-Language: en-US
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <3d67a8ac-58b4-41c3-8359-06ff0a4e2b08@suse.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spam-Flag: NO
+X-Spam-Level: 
+X-Spamd-Result: default: False [-13.29 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	XM_UA_NO_VERSION(0.01)[];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	RCVD_TLS_ALL(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[gmail.com,ffwll.ch,lists.freedesktop.org,vger.kernel.org];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:email,baylibre.com:email,suse.com:url]
+X-Spam-Score: -13.29
 
-From: Ben Grisdale <bengris32@protonmail.ch>
 
-According to the TPS65132 datasheet [1], DISN (VNEG active discharge) is
-bit 0 of register 0x03, while DISP (VPOS active discharge) is bit 1, as
-described in Table 6. The driver currently has them swapped around, so
-setting the active discharge of one output changes it on the other.
 
-Swap the bit definitions to be consistent with the datasheet.
+Am 11.11.26 um 09:40 schrieb Thomas Zimmermann:
+> Hi
+>
+> Am 11.11.26 um 09:21 schrieb Uwe Kleine-König (The Capable Hub):
+>> Hello,
+>>
+>> On Thu, Aug 06, 2026 at 06:16:06PM +0200, Uwe Kleine-König (The 
+>> Capable Hub) wrote:
+>>> Only .c files include <drm/display/drm_dp_aux_bus.h> (see
+>>>
+>>>     git grep -l drm_dp_aux_bus\\.h
+>>>
+>>> ). From the device-id structures that <linux/mod_devicetable.h> 
+>>> provides
+>>> there are:
+>>>
+>>>   - 8 files using struct auxiliary_device_id;
+>>>   - 2 files using struct i2c_device_id; and
+>>>   - 10 files using struct of_device_id
+>>>
+>>> (and no other usages; see
+>>>
+>>>     git grep -l drm_dp_aux_bus\\.h | xargs grep -oh -E 
+>>> "\<(acpi_device_id|amba_id|ap_device_id|apr_device_id|auxiliary_device_id|bcma_device_id|ccw_device_id|cdx_device_id|coreboot_device_id|css_device_id|dfl_device_id|dmi_(device|system)_id|eisa_device_id|fsl_mc_device_id|hda_device_id|hid_device_id|hv_vmbus_device_id|i2c_device_id|i3c_device_id|ieee1394_device_id|input_device_id|ipack_device_id|isapnp_device_id|ishtp_device_id|mcb_device_id|mdio_device_id|mei_cl_device_id|mhi_device_id|mips_cdmm_device_id|of_device_id|parisc_device_id|pci_device_id|pci_epf_device_id|pcmcia_device_id|platform_device_id|pnp_(card_)?device_id|rio_device_id|rpmsg_device_id|sdio_device_id|sdw_device_id|serio_device_id|slim_device_id|spi_device_id|spmi_device_id|ssam_device_id|ssb_device_id|tb_service_id|tee_client_device_id|typec_device_id|ulpi_device_id|usb_device_id|vchiq_device_id|vio_device_id|virtio_device_id|wmi_device_id|x86_(cpu|device)_id|zorro_device_id|cpu_feature)\>" 
+>>> | sort | uniq -c
+>>>
+>>> ).
+>>>
+>>> The 8 files using struct auxiliary_device_id already include
+>>> <linux/auxiliary_bus.h>, the 2 files using struct i2c_device_id include
+>>> <linux/i2c.h> and drm_dp_aux_bus.h itself includes <linux/device.h>
+>>> which provide struct auxiliary_device_id, struct i2c_device_id and
+>>> struct of_device_id respectively.
+>>>
+>>> So the include of <linux/mod_devicetable.h> can just be dropped. This
+>>> gets one step closer to being able to remove that header.
+>>>
+>>> Signed-off-by: Uwe Kleine-König (The Capable Hub) 
+>>> <u.kleine-koenig@baylibre.com>
+>
+> Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
+>
+>> This is still all true, including the statistics (as of next-20261110)
+>> and the patch still applies fine.
+>>
+>> Can someone get convinced to apply it?
+>
+> Of course, will be merged soon.
 
-Fixes: 77c129bfefc8 ("regulator: tps65132: add regulator driver for TI TPS65132")
-Link: https://www.ti.com/lit/ds/symlink/tps65132.pdf [1]
-Signed-off-by: Ben Grisdale <bengris32@protonmail.ch>
----
- drivers/regulator/tps65132-regulator.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Merged now into drm-misc-next
 
-diff --git a/drivers/regulator/tps65132-regulator.c b/drivers/regulator/tps65132-regulator.c
-index 912db82ab51d..42388a170116 100644
---- a/drivers/regulator/tps65132-regulator.c
-+++ b/drivers/regulator/tps65132-regulator.c
-@@ -37,8 +37,8 @@
- #define TPS65132_VOUT_VMAX		6000000
- #define TPS65132_VOUT_STEP		100000
- 
--#define TPS65132_REG_APPS_DIS_VPOS		BIT(0)
--#define TPS65132_REG_APPS_DIS_VNEG		BIT(1)
-+#define TPS65132_REG_APPS_DIS_VNEG		BIT(0)
-+#define TPS65132_REG_APPS_DIS_VPOS		BIT(1)
- 
- #define TPS65132_REGULATOR_ID_VPOS	0
- #define TPS65132_REGULATOR_ID_VNEG	1
+>
+> Best regards
+> Thomas
+>
+>
+>>
+>> Thanks
+>> Uwe Kleine-König
+>>
+>>> ---
+>>>   include/drm/display/drm_dp_aux_bus.h | 1 -
+>>>   1 file changed, 1 deletion(-)
+>>>
+>>> diff --git a/include/drm/display/drm_dp_aux_bus.h 
+>>> b/include/drm/display/drm_dp_aux_bus.h
+>>> index 8a0a486383c5..ca8db8ccc1f9 100644
+>>> --- a/include/drm/display/drm_dp_aux_bus.h
+>>> +++ b/include/drm/display/drm_dp_aux_bus.h
+>>> @@ -11,7 +11,6 @@
+>>>   #define _DP_AUX_BUS_H_
+>>>     #include <linux/device.h>
+>>> -#include <linux/mod_devicetable.h>
+>>>     /**
+>>>    * struct dp_aux_ep_device - Main dev structure for DP AUX endpoints
+>>>
+>>> base-commit: 1701fda2f58e345c050f4309971bdc07cd6146ba
+>>> -- 
+>>> 2.55.0.11.g153666a7d9bb
+>>>
+>
 
----
-base-commit: 793807ca13bf3072fc6d16ce6d90e9ab9beff2a5
-change-id: 20261111-tps65132-discharge-fix-ebde09049344
-
-Best regards,
---  
-Ben Grisdale <bengris32@protonmail.ch>
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
 
 
