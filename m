@@ -1,79 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.155.198.111
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.34.181.151
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794405017;
-	b=b0QKX+dawihjOXx2gWYEsP73wPFuEpErZLtS/a06hEGNNfEiNQALsgf/QO8TdBqY6UXq
-	 0wO7CNV7PMaP/A3nqy0zNNIJEEqXmMHdScNILxhTmTPB8e1dkJvIoRQmTvj70mRhVTLxm
-	 cp+aERJa3L2tNYM7xgzRtZbad5+QnO5DQcOw5/oh+zOVRu67oJfdwfMtVv8Rxff2zfmo4
-	 4SCnlyMDbTCslP1k86vw2zvD2iRWg4mvVGkYT/fKAGeBA4nWAUYt7RbR1eeFTYOfp0cmc
-	 2CqZWzA8d6vgATRzmHJti4fvp68rUlomdRfcTm0w8CkCqsrjRKHB4jOwVbf7BAT84SA==
+	t=1794405018;
+	b=Kh1u2IQI+iOf166s9ZKjblHsm0nnOpVHiV0yWmYtzUosUcssDSiD1sB3YjX9WbCD2tib
+	 P7k7Ox7krs3sWsjTmUqTTOFfqsfjkkqYdL+HsDog6xj7rFtaPmCxEEgQ/jjMvRnG9bqVH
+	 WcO2YI+zK1yMt2TgdFCaPw+GfFN1I/mYNopFGXsld16dQm5RKy2MKiZos9UobHIONPGdp
+	 gEbXCQxOhUaji1elfBdl+7cyHMgb8icRK/8otjPIgAmMwHesUHgiLST/BNi4H/08tO7pc
+	 gWaTkOcaleaw+G9ekNh5iaHQaXcEGlbByLJLjB2yTSsi8+lhCWZZpyUIgLAt1H903zg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794405017;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794405018;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
 	 X-ClientProxiedBy;
-	bh=0dEIvMR9ye3DZwuK4JLPyFACNz54dPiV0jqTMeLE/iA=;
-	b=RzwsYW454NiH+QYk8nQcSRyvgZr2nSs/QFMZGnK2rPGEgGZihWqgIG4kHkbYC62YzbIl
-	 KfHXPfxY1QZqqu7G/YPNQYB7efz2E+8aR6LqtK3a3w8OcSZTps1lgY+7DgLfzrkwCAkgu
-	 Rpo/dNLYdFkNOgOdE1PKk2O/+Z0Jtmcoe0ZGo3NK1IbSRCkfMlmJEUDOI6D9u3TZaCxn9
-	 hwpTaNYcMWRL0egixkmY9R5ZsLwirx2mmBucE/bFKs4bS2u6Bkz8tI1AwGLoNAeSoLaS3
-	 ucan44ggHDvVUdVxiL8rSSEOWfdiT6p/Q2WibTRQfVO6vme8SfxyEi6dvKe67rTCAzg==
+	bh=zrHTcQlV4AyVqIqroeNGeen426XVcR1UEvzisJZZJLE=;
+	b=sR0rHUoluXhPqtlb+3ezj+p5eB8xWYr4+F+jND5rCJWHrQQv1RdqmX6d1KybOwJesXE4
+	 DPD8+fvcQfeSzBnKO6Kv+2xw7pnbVOG8MTO4QcqTo24gOqMpIxvUR6cJfJuuLy2oU34ij
+	 wU50EWYtq4NKtnW6e4PVgwbVbDEt6H0DX3MBmji5/hWLnRllZddhqyumWqPkzhgw6E8XM
+	 Y4IkmDGRtEMXizWsAczivD7KvUghi8XmAM1ABdUQ4vHtuhHaXYfZCwJCAhRh5HzA6higV
+	 QWBHThQ4IpqqiH5ri/vpI3fDbNvnE8xEIxNgsTLETPfN48znSHP8fx1B+FtsBS/5gNg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=amazon.com;
 	spf=pass smtp.mailfrom=amazon.de;
-	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=sPK5W8n5;
-	arc=none smtp.remote-ip=35.155.198.111
-Received: from pdx-out-009.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-009.esa.us-west-2.outbound.mail-perimeter.amazon.com [35.155.198.111])
+	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=jlXIe5XT;
+	arc=none smtp.remote-ip=52.34.181.151
+Received: from pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.34.181.151])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 233A2606A331
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:50:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 233A2606A331
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8819D606A88B
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:50:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8819D606A88B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=sPK5W8n5
+	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=jlXIe5XT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
   d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1794405014; x=1825941014;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=0dEIvMR9ye3DZwuK4JLPyFACNz54dPiV0jqTMeLE/iA=;
-  b=sPK5W8n5uq/u2jX+2Jl2G1/J0B4+3vJcWKJi+7hvU7gC1dkuJFj5XSOZ
-   mX+3+QJcJBxtEeAW65IhdCdMinmohE6VosRs7CUFAF7rGyUNpQEwEx2BV
-   Czmp0aW9Os7raQzf1yEVa8byKhFo2vGVWUGGJV0SisfO/YBux33ufPl+b
-   sC/ZNlC2DdeBrGnLwlX4BYv1kqRm5foV7Rvkz8brdV4yp5ewrT46T6zIG
-   vyf+UkqQqBTxB2A9GTLHRosO+04SKOUL3fdiSdQFHLU09QnWIwfbTg7Dl
-   Ru8K7vBrHnjDnIvvzOF2vPVvsez7oIk5CiL2dTpvBb/MVTqOTfV//8YgP
-   w==;
-X-CSE-ConnectionGUID: Yhqu4oqhTJyJ26ooffOQnQ==
-X-CSE-MsgGUID: VXnerylDQnO1ryu6nSbCXw==
+  t=1794405015; x=1825941015;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=zrHTcQlV4AyVqIqroeNGeen426XVcR1UEvzisJZZJLE=;
+  b=jlXIe5XTfQ1xhsZCPWkQNyOmSIgQAM2BmBW+nilQqj/SOiTBhPs5x4Xe
+   IxGHgCNs/JpHXmm+4CDHkLUhn7grtW96+26YpLUjcpe4z0rLOyYO7BsM6
+   eNji05eiXDwc62bqRHe5zk4XAFknrc7xS+sB7hUFukPaKRd3AAnIkHwea
+   XzISmF3Cw8v8+m/RShp1eX8qGmCZEwI57yLhBaE3wNtDMepSwqX1es09S
+   xxW8tm+QJHzWTD4FNrASpyKyLaq5rgr6SH8NaB11LTIGBSPJDiYjcrvmK
+   p/mqXKqVo/S/UNzMpnBNlciJmiQSVEXNFI6qBacVyfduVnZ4eD/LcETnj
+   A==;
+X-CSE-ConnectionGUID: OIlRcdDTQ4eQZdM7DLeP+A==
+X-CSE-MsgGUID: p74bnluZTvWBmDYGYUqTzg==
 X-IronPort-AV: E=Sophos;i="6.27,207,1787011200"; 
-   d="scan'208";a="33618577"
-Received: from ip-10-5-12-219.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.12.219])
-  by internal-pdx-out-009.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 13:50:11 +0000
-Received: from EX19MTAUWC001.ant.amazon.com [205.251.233.53:10684]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.24.250:2525] with esmtp (Farcaster)
- id e8d17eab-4e86-47cf-9e09-1019bd84813e; Wed, 11 Nov 2026 13:50:11 +0000 (UTC)
-X-Farcaster-Flow-ID: e8d17eab-4e86-47cf-9e09-1019bd84813e
+   d="scan'208";a="33712275"
+Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
+  by internal-pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 13:50:13 +0000
+Received: from EX19MTAUWB002.ant.amazon.com [205.251.233.111:5637]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.46.128:2525] with esmtp (Farcaster)
+ id 770cc0a4-3f67-45fe-aca6-1faaa9514f91; Wed, 11 Nov 2026 13:50:12 +0000 (UTC)
+X-Farcaster-Flow-ID: 770cc0a4-3f67-45fe-aca6-1faaa9514f91
 Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWC001.ant.amazon.com (10.250.64.174) with Microsoft SMTP Server
+ EX19MTAUWB002.ant.amazon.com (10.250.64.231) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Wed, 11 Nov 2026 13:50:11 +0000
+ Wed, 11 Nov 2026 13:50:12 +0000
 Received: from ip-10-253-83-51.amazon.com (172.19.99.218) by
  EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Wed, 11 Nov 2026 13:50:10 +0000
+ Wed, 11 Nov 2026 13:50:11 +0000
 From: Alexander Graf <graf@amazon.com>
 To: <linux-kernel@vger.kernel.org>, Greg Kroah-Hartman
 	<gregkh@linuxfoundation.org>
 CC: Arnd Bergmann <arnd@arndb.de>, <nh-open-source@amazon.com>, "The AWS Nitro
  Enclaves Team" <aws-nitro-enclaves-devel@amazon.com>
-Subject: [PATCH 00/19] nitro_enclaves: Fix enclave release, command retries and the CPU pool
-Date: Wed, 11 Nov 2026 13:49:49 +0000
-Message-ID: <cover.1794300000.git.graf@amazon.com>
+Subject: [PATCH 01/19] nitro_enclaves: Release the reference on a rejected region page
+Date: Wed, 11 Nov 2026 13:49:50 +0000
+Message-ID: <caf1c1fc8d69035017f23b97ea6d87f4592b77be.1794393486.git.graf@amazon.com>
 X-Mailer: git-send-email 2.47.1
+In-Reply-To: <cover.1794300000.git.graf@amazon.com>
+References: <cover.1794300000.git.graf@amazon.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,48 +90,65 @@ Content-Type: text/plain
 X-ClientProxiedBy: EX19D031UWA004.ant.amazon.com (10.13.139.19) To
  EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-While working with AI on the nitro_enclaves driver, it stumbled over a few
-issues in the code. None of them are out of the ordinary, but they all fix
-legit corner cases that are better to have fixed upstream.
+A process that passes ordinary anonymous memory to
+NE_SET_USER_MEMORY_REGION can leak one page reference each time the driver
+rejects it with NE_ERR_MEM_NOT_HUGE_PAGE. Any process with permission to open
+/dev/nitro_enclaves and create an enclave can repeat that, which may lead
+to situations where the system runs out of memory.
 
-While at it, I also realized that the MAINTAINERS file is outdated.
-Alexandru Ciobotaru no longer works on Nitro Enclaves. I'm taking over
-the maintainer role instead.
+The ioctl takes a reference on one page at a time and only counts it in
+ne_mem_region->nr_pages once that page has passed both of the checks
+that follow, ne_sanity_check_user_mem_region_page() and
+ne_merge_phys_contig_memory_regions(). The put_pages unwind walks
+[0, nr_pages), so it misses the page whose check just failed.
 
-Alex
+Count the reference as soon as get_user_pages_unlocked() reports it, so
+that the unwind covers it.
 
-Alexander Graf (19):
-  nitro_enclaves: Release the reference on a rejected region page
-  nitro_enclaves: Split freeing the slot from freeing the enclave
-  nitro_enclaves: Ignore the reply of a failed slot info command
-  nitro_enclaves: Retry a command the device asks us to retry
-  nitro_enclaves: Stop sending commands to a broken device
-  nitro_enclaves: Set up the device state before requesting its
-    interrupts
-  nitro_enclaves: Wait for file operations before unbinding the PCI
-    device
-  nitro_enclaves: Let the region tracking arrays fall back to vmalloc
-  nitro_enclaves: Do not return enclave threads to a replaced CPU pool
-  nitro_enclaves: Do not report a torn down CPU pool as set
-  nitro_enclaves: Keep the CPU pool when the new CPU list does not parse
-  nitro_enclaves: Put the CPU pool back when the new CPU list is refused
-  nitro_enclaves: Initialise the CPU pool mutex statically
-  nitro_enclaves: Build the boot-time CPU pool once the CPUs are online
-  nitro_enclaves: Set up the CPU pool under the CPU hotplug read lock
-  nitro_enclaves: Let 32-bit processes use the ioctl interface
-  nitro_enclaves: Index CPU pool cores by sibling mask
-  nitro_enclaves: Time the wait for the device to turn off by the clock
-  MAINTAINERS: Take over the Nitro Enclaves driver
+Fixes: 7dc9d4309fdb ("nitro_enclaves: Add logic for setting an enclave memory region")
+Cc: stable@vger.kernel.org
+Signed-off-by: Alexander Graf <graf@amazon.com>
+---
+ drivers/virt/nitro_enclaves/ne_misc_dev.c | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
 
- MAINTAINERS                               |   2 +-
- drivers/virt/nitro_enclaves/ne_misc_dev.c | 658 +++++++++++++++-------
- drivers/virt/nitro_enclaves/ne_misc_dev.h |  24 +-
- drivers/virt/nitro_enclaves/ne_pci_dev.c  | 236 +++++++-
- drivers/virt/nitro_enclaves/ne_pci_dev.h  |   4 +
- 5 files changed, 688 insertions(+), 236 deletions(-)
-
-
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+diff --git a/drivers/virt/nitro_enclaves/ne_misc_dev.c b/drivers/virt/nitro_enclaves/ne_misc_dev.c
+index 0d7bdad924b73..a50dc4f737b55 100644
+--- a/drivers/virt/nitro_enclaves/ne_misc_dev.c
++++ b/drivers/virt/nitro_enclaves/ne_misc_dev.c
+@@ -963,8 +963,8 @@ static int ne_set_user_memory_region_ioctl(struct ne_enclave *ne_enclave,
+ 		gup_rc = get_user_pages_unlocked(mem_region.userspace_addr + memory_size, 1,
+ 						 ne_mem_region->pages + i, FOLL_GET);
+ 
+-		if (gup_rc < 0) {
+-			rc = gup_rc;
++		if (gup_rc != 1) {
++			rc = gup_rc < 0 ? gup_rc : -EFAULT;
+ 
+ 			dev_err_ratelimited(ne_misc_dev.this_device,
+ 					    "Error in get user pages [rc=%d]\n", rc);
+@@ -972,6 +972,12 @@ static int ne_set_user_memory_region_ioctl(struct ne_enclave *ne_enclave,
+ 			goto put_pages;
+ 		}
+ 
++		/*
++		 * Count the reference before the checks below, so that the
++		 * put_pages unwind releases this page as well.
++		 */
++		ne_mem_region->nr_pages++;
++
+ 		rc = ne_sanity_check_user_mem_region_page(ne_enclave, ne_mem_region->pages[i]);
+ 		if (rc < 0)
+ 			goto put_pages;
+@@ -983,8 +989,6 @@ static int ne_set_user_memory_region_ioctl(struct ne_enclave *ne_enclave,
+ 			goto put_pages;
+ 
+ 		memory_size += page_size(ne_mem_region->pages[i]);
+-
+-		ne_mem_region->nr_pages++;
+ 	} while (memory_size < mem_region.memory_size);
+ 
+ 	if ((ne_enclave->nr_mem_regions + phys_contig_mem_regions.num) >
 -- 
 2.47.1
 
