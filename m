@@ -1,79 +1,78 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794409668;
-	b=ra6hqelMDYeJkpFpJnRidOZv+YXchP1IUDkM1455JE6HEtkoK5MwYzRRuJ5aoNLB2kJT
-	 mv186ReePxPyaIlRw4iOll/tjda65FqDzPBvjgkx9hCuT+yCcDDpRUK5G3ACmVS4GA6P4
-	 iFxbiM/eJgVKn8p6xK2k/ik9m+JNEbxFx+zpU7XHdN74XYw4ScCD43NFtVS++aZFBKY4x
-	 DVEROwFmfYe+O/aVvu04kC5comYcjXCVTYAqt5VxNunQTSaERpGIx+3cSCP9PwoE+BVqL
-	 fte3E6yq9jKcZZd/oTd/sCEitCzrS/W/4hb3fBdxuVzeTUyySmpUjb3+TadO4L07cQA==
+	t=1794409669;
+	b=w9IzQ5v1KPpAg1JQygNvjR7YUZjClreqy5R/9DiUZgAElHK+RoOq0k+TTANKt05tZ3PW
+	 8w8NRkzPzPon5QAqka/3UyuglLO9W5xTD2NpbvdAVeQw4MCMfL46HebrSBo4rRGU/21vg
+	 c+wFM4p/NdlUFzrVodC/0+6qUtwAxYN5FFfYGIHedQlwHwaVxjWxfI4ahogw0d4AjhUxC
+	 U8uJPgELjKEGi4m2e6CXHhKqFWYYLnNupIOw8IAcsj4vYYwV/vuKwezb+M4+aLiaX609f
+	 cp0nEVGx3FCxk4lYM/iifa6qSoMFET8YVM0Iy6zqplN3tKKRCYrZmcO9bw6GunuUBGw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794409668;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=gHnVCEKxdsmaK16E0lZXeSP6WMsz+23TB2UbsGIuRSc=;
-	b=dNlw1/yTF/sNcWPVEW+/TDBT43qea5YCZv6oPOn144mXYWt1DhYIMzMyo/61NoBgNBQE
-	 QZxYdcvTjWB34zHwgnJgGoH1EtZTqOmQPrQEzg1gK+Sxg1mFxW5RI6TiPLy4wVqaod8d5
-	 PHS5x1b0iYVgOT5qsTqsir2icG/FnKzdoiEmTdqU6n7hV8GX4nVMO6nrwl7iVVHJTqsg3
-	 obBNWc6EYN8MWH1unHfEGUKMPiSgDnQalWFoq23ouqUsBCKGUXi5KumpHBFf8f9gW5HTC
-	 gCOOz4gAbM6KIJCmTfdTbScHXh0EDB7jdSYe6FJSNw0a/oCThUsg9y+WjPWrfVfKDOQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794409669;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=V5dkWnZ6OPg7h816OKB2FNUn385i/2AP4xWWSltjHUM=;
+	b=wflsyVLA9xKHB7z2ixjGe7p2HobWZ0+7zTVFm/CuCkHAYpiN0XNts7prxkjD6KcLhZ/p
+	 JzLAFvWK8Em+GGm1mGboUoy2NfMoBe99aocmoTc7ZenEMHoUi5HERNjWpk5mTMHn0F7l/
+	 Pg+PDf45c5V9GQ4qumFAtPemN7M9Tft3Dl3DqD3czVbz0rIuMrtDg3N9t0/UVYfUFhR3a
+	 gPMF0sEmOgUYc+Cyv4tj+NDAkkUI4G+fhSfb7HuyWPPElwjokqAxh4U6GjCz+wUbLen88
+	 OPU/thZEo8UfxzLKSQoJiCXLzI8PHWVh0IjYGL6HzI7zNxN26nruVe2MTmQC/rvzvFw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="iLq3+/1p";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TtbXsHEf;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2780606A8A5;
-	Wed, 11 Nov 2026 15:07:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B475E60A261A;
+	Wed, 11 Nov 2026 15:07:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iLq3+/1p
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TtbXsHEf
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794409668;
-	b=woXEiSSDEiAntI8hPpRkaw/TE1r+CrBcvGyv60PiMHaUKDgE5sIXleDHIDFxn1xfjZDa
-	 EXhZ27OpCxR6Q3QqB7kxnuffTxN865B1A7cDLFYYHxi3YWZwaUrX2jh1puMFfcUfxqi/p
-	 oa9e2+8O271Mc+GeGLjB9FtG0T0zDbQiUZjw+bYir1Fyv2pg+4V25EwuJyMiQByxcIMSc
-	 vpo0k7Z3g0+2T07bN3zWwutZN6iVnl+OuBAxoZu4LA+CaimEaDgixf+9OB5G8sEUi+9xC
-	 ldoRp+SZzfwyM8zdoqkoumljS7q75yp76sIi7MWAioD5pmikzOeUXu+hGBPkR/tCiLA==
+	t=1794409669;
+	b=usRprD11TabdGvL59RdLj07ZoPDLt09/DXjxhyW/Ov5yGvNqlosy4tzuay5LBlBpS9fK
+	 g9iCn9u3hT1AaiNK6FVO9bsHWwgHBxTGVLJa8xiXNEZlnC+inHA4sx3CUD3BqRigkddj0
+	 UzprMBef9ZUtsRuhfG9/gSxMCnCopK4RWd1T4SZKQPcUuGj0ZQo93tgsWxcRnziNFd56W
+	 gzah3r/0hp9BFldP2FXmlOlx3t7xyzvRYzZSgsU49a9lNwGtfoC3sihiiao86XqagXUc3
+	 52R4zxNm/g0v9+A9IETDBL2NGso7B6zmvS0gexd/E75d8PuhCNyI0El0L01OBqLAiYQ==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794409668;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=gHnVCEKxdsmaK16E0lZXeSP6WMsz+23TB2UbsGIuRSc=;
-	b=QUEkZSw08KU1ch+/+l0YFhMds0XG2CUgSv1AEjmSCSEbtYTEnk2WZh4K7pEJZtNe6FqQ
-	 qXhsOFvrgHVIDzbRnMb7WhyjyY2CeVy7ON7OtKnS7nBV0E3pbAdwXPbcr1Qz4qU+7jJQq
-	 lLB2W6rXJ5OB0Wncn6wVVq2AJ8zqrsqUamurCNlUVvJ1yG/imGFL9GxWU3GAQD8C0cq2u
-	 uVYzbcQHWt8+Ip2Ktm5ocCk2JWdMs6YC02ZVYX6Rb9n/75m6M+0MZc65SE2QlnrHnD6Jf
-	 lyAjvo6ZN6ASAEWpp/adxPgAVMyUhG9GPHwHBZkI9LZa78OH7gmol0zIzaIoVp3zUNQ==
+	c=relaxed/relaxed; t=1794409669;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=V5dkWnZ6OPg7h816OKB2FNUn385i/2AP4xWWSltjHUM=;
+	b=FVAirqURi6hWsJUjnRLBeGowxW8FI5gVfifIsq0qqptLizq8Mv6slxO+4UNEuQCD9989
+	 pbKQdo5IS3mNmwOwtPY5mkoh1qGxJnY5iuWEwIHXlTwuqKB5iB3TCkDItWeBoOCfJAt8W
+	 MqXCOon/y/1QDnDq0AMdmXCFQy5C0+Z9RctIF7fHIFmeco5qjbi57RpuTk/yVD492J0bL
+	 4KRQE9oTo7o8lmw1zltu81/QrudFx//EbpUMrkttrfj6KaUnfdWtZqy3n/EGOoR6VOsOg
+	 KcxuUIFpFC9eOeJgkJ+a9j4fZRBovrBi84Yv0amjAWNGN1NALhUdCERMqfbWGbBnLsw==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 8B7171F00A05;
+	by smtp.kernel.org (Postfix) with ESMTPS id E3B711F00A08;
 	Wed, 11 Nov 2026 15:07:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794409668;
-	bh=gHnVCEKxdsmaK16E0lZXeSP6WMsz+23TB2UbsGIuRSc=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=iLq3+/1pV3CNPflvY83XGiRAub/ih19w+fmO+Yf0xUd0Cy3mzD2+RQ9Gr0qnO2x26
-	 DAKR3zzYblFoG9gMdBfP6Er3VAbPPhXOyk5HabWyKYaFLyiysOfPOjCU3fckPta7w3
-	 CiI5Dt/1A49QYHeueYNY8OrrcVjP5w/BtPl0CUN2VhP3V86LoLnvwWgZlMh+fDDMK6
-	 gIeT0jNdvhGa4KnrGZPPtuoULSo6TKDXHjQUqLoGrPhwnpOcqZ5tYij9K+hIzY2wAW
-	 cAPOalDQkREuZyaHAktY8y6U0uKrQ82Au+0RUc7Y4e6zIxwV7fRcfMlZLL+Fij2R5e
-	 cPhmoT6KqR7jQ==
+	s=k20260515; t=1794409669;
+	bh=V5dkWnZ6OPg7h816OKB2FNUn385i/2AP4xWWSltjHUM=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=TtbXsHEf9V3QTOxrihLbV+PCyj4/jkNYnBKWF7yKCI8n9L+wJO9VbPr9BlldsZcwZ
+	 RA/JP6ICN3Hq0edRFudjSOGcOCkGHxzVC6fJALoPdTjQ/Ifu6feklI/jmie4+HUYmq
+	 EA9e0HCAplY/8ZK/ypT65BkoLgKLzzKiP2BImYY4rqR20MmAZI0p9kgtm6aiR3d6hY
+	 E9q3QDvrglEejxRMXCJHaOhp2moolqGaNl1WaTd1znSgNo7qcADe1yBEsnlNppyki9
+	 g7OaBTOOsWh2lb8Fz/qLVP/D8IDngUUV+781ZNuCduyGeVWMzhcSjPN8906Qrc7N65
+	 +WZCTiRsmdA0g==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id D190648FE7;
-	Wed, 11 Nov 2026 15:07:46 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id 6573B48FEF;
+	Wed, 11 Nov 2026 15:07:47 +0000 (UTC)
 From: Asdlerto Korry via B4 Relay <devnull+korryasdlerto.gmail.com@kernel.org>
-Subject: [PATCH v2 0/4] arm64: dts: qcom: Add Samsung Galaxy M52 5G
-Date: Wed, 11 Nov 2026 17:07:44 +0200
-Message-Id: <20261111-m52xq-dts-v2-0-063289405882@gmail.com>
+Date: Wed, 11 Nov 2026 17:07:47 +0200
+Subject: [PATCH v2 3/4] nfc: s3fwrn5: i2c: Enable the pvdd supply
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,11 +83,9 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAMGE9GoC/23MQQ6CMBCF4auQWVvTGdFQV97DsIDSwiSWYksaD
- Ondraxd/i8v3w7RBDYR7tUOwSSO7OcSdKpAT908GsFDaSBJN0RZC3el7S2GNQpqLtpIq3tdKyj
- /JRjL22E929ITx9WHz0En/K3/lIRCih5VYyUpJGsfo+v4ddbeQZtz/gKBjxXKogAAAA==
-X-Change-ID: 20261104-m52xq-dts-283ce0fcbc49
+Message-Id: <20261111-m52xq-dts-v2-3-063289405882@gmail.com>
+References: <20261111-m52xq-dts-v2-0-063289405882@gmail.com>
+In-Reply-To: <20261111-m52xq-dts-v2-0-063289405882@gmail.com>
 To: Bjorn Andersson <andersson@kernel.org>, 
  Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -103,81 +100,57 @@ Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, oe-linux-nfc@lists.linux.dev, 
  netdev@vger.kernel.org, Asdlerto Korry <korryasdlerto@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794409665; l=3039;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794409665; l=1224;
  i=korryasdlerto@gmail.com; s=20261104; h=from:subject:message-id;
- bh=XfNua7PAV4kckWXtmCx56IqauZbV+Xj3aih6wYA69X0=;
- b=hlEHBlU91uiogwNELsRP1uTsAlQH/qJAfSeJKUVyPS7aTgJKc/kwJW15queGzapffIldwXd1C
- qNHldpxRX87Cd05qWSEa7vqMolfGCelWeAQ+1HzFvdauVKW6LhZ2Fry
+ bh=rV79nydgybBLFbM4Kvj9gL9d07PN0WdedvOZm2JSmiw=;
+ b=BtLsRrLyFOgwC/N79sWeh9BuLkBoz+XPUKrY/A84mTRALJNVKCA1k+Y808SvBBHt5J9eoROa3
+ hOUcCvsw2EmCuGZIVJ+rHgKm4rXq6qO5Q5LKH4Qf18OwXWd0IzXhPNl
 X-Developer-Key: i=korryasdlerto@gmail.com; a=ed25519;
  pk=RqttIGkm2XZ8NhLQBzPgpXXawOdVa1uODGsk+sagbxs=
 X-Endpoint-Received: by B4 Relay for korryasdlerto@gmail.com/20261104 with
  auth_id=1411
 X-Original-From: Asdlerto Korry <korryasdlerto@gmail.com>
 Reply-To: korryasdlerto@gmail.com
+Content-Transfer-Encoding: 7bit
 
-This series adds initial support for the Samsung Galaxy M52 5G
-(SM-M526B, codename m52xq), a smartphone based on the Qualcomm SM7325
-SoC.
+From: Asdlerto Korry <korryasdlerto@gmail.com>
 
-Tested on next-20261030 with only this series applied: the device boots
-to a postmarketOS userspace from UFS. ADSP, MPSS and WPSS come up, WiFi
-connects, Venus probes, the microSD card is detected and readable, and
-USB peripheral mode works in both plug orientations. The kernel log
-shows no errors from the nodes described here. Bluetooth, NFC, IPA
-mobile data and the GPU were tested with the same nodes on a 7.1
-kernel.
-
-Not included yet: the display panel, touchscreen, cameras, audio, the
-fuel gauge/charger and the USB Type-C controller (SM5714). They need
-drivers that are not upstream yet. The display works through
-simple-framebuffer for now.
-
-Notes:
-* The stock ABL picks the DTB by qcom,msm-id/qcom,board-id. These
-  properties are left out as required for new SM7325 boards, so users
-  add them when packaging the boot image.
-* The reserved memory map follows the stock device tree. The removed
-  region is larger than on other SM7325 devices (0x5f00000). With the
-  common size, the kernel livelocks when it touches the memory the
-  hypervisor keeps.
-* Several regulators need a fixed voltage or must stay always-on (UFS
-  VCC on L7b, the ADSP-managed sensors on L12c). With the stock ranges
-  Linux sets the minimum and UFS or the ADSP fail.
+Get and enable the optional PVDD supply before the enable GPIO is
+driven. Boards that switch this supply from the SoC no longer have to
+mark the regulator always-on.
 
 Signed-off-by: Asdlerto Korry <korryasdlerto@gmail.com>
 ---
-Changes in v2:
-- framebuffer: drop reg and unit address, memory-region is enough (Konrad)
-- dt-bindings: nfc: samsung,s3fwrn5: add pvdd-supply; the s3fwrn5 driver
-  enables it, so the NFC regulator is no longer always-on (Konrad)
-- enable qupv3_id_0, it holds uart7 for Bluetooth (Sashiko)
-- reserved memory: drop cdsp_mem/remoteproc_cdsp, the ADSP region covers
-  them; replace the overlapping video region with camera_mem (Sashiko)
-- Bluetooth: fix the vddrfa1p2/vddrfa2p2 supplies (Sashiko)
-- NFC: edge-triggered interrupt (Sashiko)
-- raise the minimum voltage of S1b/S7b/S8b to the stock levels, lower
-  values starve the LDOs and the touchscreen loses touches
-- Link to v1: https://lore.kernel.org/r/20261104-m52xq-dts-v1-0-b198f02912ff@gmail.com
+ drivers/nfc/s3fwrn5/i2c.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
----
-Asdlerto Korry (4):
-      dt-bindings: arm: qcom: Add Samsung Galaxy M52 5G
-      dt-bindings: net: nfc: samsung,s3fwrn5: Add pvdd-supply
-      nfc: s3fwrn5: i2c: Enable the pvdd supply
-      arm64: dts: qcom: sm7325: Add Samsung Galaxy M52 5G
+diff --git a/drivers/nfc/s3fwrn5/i2c.c b/drivers/nfc/s3fwrn5/i2c.c
+index 4ba762611711..eaa9a1f75533 100644
+--- a/drivers/nfc/s3fwrn5/i2c.c
++++ b/drivers/nfc/s3fwrn5/i2c.c
+@@ -11,6 +11,7 @@
+ #include <linux/gpio/consumer.h>
+ #include <linux/delay.h>
+ #include <linux/module.h>
++#include <linux/regulator/consumer.h>
+ 
+ #include <net/nfc/nfc.h>
+ 
+@@ -160,6 +161,12 @@ static int s3fwrn5_i2c_probe(struct i2c_client *client)
+ 	phy->i2c_dev = client;
+ 	i2c_set_clientdata(client, phy);
+ 
++	/* The chip has to be powered before EN is driven */
++	ret = devm_regulator_get_enable_optional(&client->dev, "pvdd");
++	if (ret && ret != -ENODEV)
++		return dev_err_probe(&client->dev, ret,
++				     "failed to enable pvdd supply\n");
++
+ 	phy->common.gpio_en = devm_gpiod_get(&client->dev, "en", GPIOD_OUT_HIGH);
+ 	if (IS_ERR(phy->common.gpio_en))
+ 		return PTR_ERR(phy->common.gpio_en);
 
- Documentation/devicetree/bindings/arm/qcom.yaml    |   1 +
- .../bindings/net/nfc/samsung,s3fwrn5.yaml          |   5 +
- arch/arm64/boot/dts/qcom/Makefile                  |   1 +
- arch/arm64/boot/dts/qcom/sm7325-samsung-m52xq.dts  | 839 +++++++++++++++++++++
- drivers/nfc/s3fwrn5/i2c.c                          |   7 +
- 5 files changed, 853 insertions(+)
----
-base-commit: 7649ba73f9e7e1e04d0b46213e39c79ae09dd55c
-change-id: 20261104-m52xq-dts-283ce0fcbc49
-
-Best regards,
 -- 
-Asdlerto Korry <korryasdlerto@gmail.com>
+2.25.1
 
 
