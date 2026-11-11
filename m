@@ -1,86 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794395725;
-	b=COIKc6kRu+vlRGS/Qg5svlGzBRYmhq5Xukk0S/hE01RhnitNL5FMBjxDcSXnGWdnnlji
-	 m/WBD4pYWrzJiDD/hRapwdBg9LOP5RlctO52hbN633vQ/LtIxPu2eipHIkBN7FKyw/kSO
-	 tWfoUAUlbOpXuEfIuJ98vn3QKbrEM4nbsK8wCOeFjHQ9cCGrrVWDQNcwHE7bNozWwxxIC
-	 VNB2r587bwaOt89AsVx1tf7Mv14yOMi+qy4GDZwCVvoJfFvxAnqDsetlmFYhEybdP1TzM
-	 mYAV744j0x5CCoAnbCMfNwh/MnXfDmmpnufyCbmeHThIWdxu0zHgBFbQbHP6WCGLGow==
+	t=1794395730;
+	b=AL8y7ehvDdevFXRzmBZ9rksZl3IxlRK3sBqipXF6mj2974WCNVjRt7JMLEAc8W3CQKc4
+	 WOy8nI34rH8A3B5VURAkYtQYKIhtOUvh3NDCHdw4VI8z/hyPMzzSGbgiIWQr2drts0xPP
+	 nbnm8knpwgZ5zP0+XEi7g9XrWjNBJX2bVq73uMWP7LBSgkF1Z9YgKY1/7SfmpDxlQGwd9
+	 ghn/eOvxw28ixjlQmVJr5QBoZAG4gD5DbK2cNstt1iLUaqxojxv1hDdWWj5yoJEHexRvI
+	 rsnIC/qfMDOLZ+jywPzxNBTci816ENXMDZhit7w4fwO8FPQfliTmNtYh6+TgyjWHttw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794395725;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794395730;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:X-Mailer:MIME-Version:From:To:Cc:Date:Subject:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=lbUKZdEyRLlv3O/aIgaEEkBaoJXsJfgjB065TzawuKc=;
-	b=ogZgnHJ+cBLDL+fbT5ddmPgFtcdTuaJoi/gypcju9YIuVVs2ojy1oq4jslCDqu9bFs0R
-	 YuhEg5RbmnBxLIEJ9zZGycSMLBL61czTlVNmON5RQ0/3OSzG2n4cq/AU+QzghctFbtYbq
-	 +5N5aB7ayw60bVutap3OfUiNY2loSTNp67QLjwgucLZt1BKQOvqaOTkThQ+DmbQwj23WL
-	 Tg826fZ+wlzTVIzfoEoa7RFaYXu2GiObNei5sYDVJvRjd3/tMlB4aX1o5YThBmvQ6cQT6
-	 vhf09UIXi1joKNRlfL/ncMhHbAVkzZXIcGVGoyzMeS6dM9DWFGvZMzdD1qRNhtOjsHQ==
+	 Date:From:To:Subject:User-Agent:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=Rk/Or+A2hVLusxWCw3wVAt7Tsp4Mo0Wjedz84BpaMmY=;
+	b=tAfo5lAGnM81GHsNG06PDWrrgE653ApRkSHqbwLjedh8LQCs3BNJ9quhgdUbxriBr6xZ
+	 QRKxWvngcQ8Zb+1/TfRA+oM7ZeL9eLZutEp7AK1xtAWtac2FPVAnrBok5dMPGI3QL2NIg
+	 E094mwA8T3J0F9feB3m/NbKDLV7NIdisTbnbmI8kvWWKVWnct3Yf0Yt++AA7lNniM5AJd
+	 0iCRcQIPVwvYvdf/qlxYHmbyvPWVi2JvIPelZQ59Odq4SBAuk80owo9ha1ZnDsz8whd9X
+	 RC7XMH8iQJi73Ass6lp7UfMy2QFDAZHIVs57blYq6hJ6ribjH22kRT5zHmm1/rYBHSQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bE85bbU6;
-	arc=none smtp.remote-ip=74.125.82.179
-Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Qsx7KpX8;
+	arc=none smtp.remote-ip=74.125.82.181
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF132606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 11:15:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF132606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90982606A330
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 11:15:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90982606A330
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bE85bbU6
-Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-37628596783so2080215eec.1
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 03:15:24 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Qsx7KpX8
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-37628596783so2080339eec.1
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 03:15:30 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794395724; x=1795000524; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:subject:date:cc:to:from
-         :mime-version:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=lbUKZdEyRLlv3O/aIgaEEkBaoJXsJfgjB065TzawuKc=;
-        b=bE85bbU68xj/3eAUAW6ouagIHBXVoLbzfpQHIsteqgWl/ShOQJ73xaJE4beefIH/SB
-         uqvgEORq9sFGFcMS6ndj8mC2gvSJZSDwEbkR5BrAvcMGU6H6zIHxXRZ8yzCOSl80tkjh
-         krUOU8xkPtckSmqsg+8lGb5XeBS9c8fCxFwpLEFq2q21vWbKCNqJlYdHE3+tBzpIYEWj
-         qZQCflxwALCqVqMRYZ+xgEI5g86/L/YP6Z4JJdFl5jbUtGMsM8RLbYpQHUPPwEsK1lqm
-         RvAo5MRvQSvK/Y/CZIhkddSzmRYFShm/KObvzO4LeTwV8Ag4oyntxOa0ZPscuK443T9A
-         ZTOA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794395724; x=1795000524;
-        h=content-transfer-encoding:content-type:subject:date:cc:to:from
-         :mime-version:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+        d=gmail.com; s=20260707; t=1794395730; x=1795000530; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id
+         :references:in-reply-to:user-agent:subject:to:from:date:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=lbUKZdEyRLlv3O/aIgaEEkBaoJXsJfgjB065TzawuKc=;
-        b=ZsbQHHSClPp04GueUzxY+AVYwT22enpsZoD4peEMlQbS+zbzDKVXPztCnN6aYLJOAH
-         ynDCCS8axdv9oWEOeTSXRMTQj24FoMU/FR+3lUJq5WM+StL8zAN5TteNvLtULRjMenY5
-         DcOdQlWYmifha3/hfh23SNw8DxO3tXX964wSikiRm2XXOeq+AX+B4+aQ0nQgiJk3FPd3
-         QV13pa9Lg0s3vudpI2/ZEN+I/eQlXH8cxRoaqUT0+/UErMMvQkf6wORM95nCkL/56xHO
-         4fjJ1R2GdZVlKj48eHW8l7PygsgTXLVe0QGkWjZdzX2obpL28hpYaPBC9x3ufX6NbSHy
-         QhCQ==
-X-Forwarded-Encrypted: i=1; AL+hErHueYlPSoOBIjyphpBCJ79y7ncYa9X4Mx07AN6FT05YAKtCyrfqxMYwKiP57BzqflRY4kSbw3PDPCAbx6A=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9/GBPNTK4QDrdNVqXH+Zs2ZuviDTEPhcR1K5TqioZhB6NvFQhh
-	66iIGP3aV0lRmTRXOGqRLoBmAr75OM/mZk87HqMQSgdf9EeCFRBaF0q2
-X-Gm-Gg: AYBFou0kSbL2QUeozYIUB4UQCCPhPZDLRsJepTzwwrEuYYQYTgC8HfIra9D7Clr3Fck
-	y8j/QuH9nae85uGWkP5sg2rZPhXI+QAdbxQCuv4FnlXB1sjAAJ0FFQMZ53fVBmkiaj2ZGbxyWbT
-	I2n7fK0iOf/kl+PuvjglBX1/TKlB8o5Y8thgoFKJnTAsUS3zb2POgLsi2zvg1193O7c/URd81i3
-	RItXe8KTDx1jcG4sA3XzTDjcKUa6khah5bZCGPw7V4KuDo71EuIzCLRD/kFQpnQcoo6c9lmkgb6
-	QTOehHJ3pS9sgkV0Faivih60k3zlVPCw6E37n4pLSgYkwJovPPQo96c/YRSPZRqNyfNPduYjVYo
-	XpLw2SIdu8d8t6JkVU3iOZKUVLyAb2jtMMWWDqw0iKYqrdnW9TotAiwd13/xm/gfAQ+7XHI1Jm5
-	EF9p6yk3n6PIxqsj0aPM9dX/Tl5ZnjKvQgilI6l6juuXkSOtshCMSid39rJnUN6FK2YkDVWPIaE
-	AnRTrPndV4LOWhZnCUWrqPbc/g4ionpsRbKHg1M71l57mUdunt09849K/AUmcO4KARCwO3BH/SU
-	h9qQx1OCb47jZFe9kItjVzPKi+dXaW2IRI2cheTDazG7JjCZJfkx8TtBReX5GZsoOxZ3Ek0ohz6
-	nDXvc12wuimhwnvc=
-X-Received: by 2002:a05:7300:2324:b0:36f:350b:3838 with SMTP id 5a478bee46e88-37686278c55mr3634182eec.31.1794395723659;
-        Wed, 11 Nov 2026 03:15:23 -0800 (PST)
-Received: from manush ([2406:7400:94:5368:19d0:c01f:d33b:214b])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-375212e9d78sm16577508eec.25.2026.11.11.03.15.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 03:15:23 -0800 (PST)
-Message-ID: <6af44e4b.4b6e150d.9a2df.361b@mx.google.com>
-X-Mailer: git-send-email 2.46.2.windows.1
+        bh=Rk/Or+A2hVLusxWCw3wVAt7Tsp4Mo0Wjedz84BpaMmY=;
+        b=Qsx7KpX8tzcudncfssN3QfFwpo9MZ+ZW6qbAPgbzTgsnRKSj2cD0eFizh+I0ZEhGKi
+         yqUqf69OMGRpxbUjCbA1ayMB8SC/U1SqZWId2fbCngjzj3oFe+QpDBfyXQXRaome2k1V
+         b5AtX5tqiqzYSDYrvFdoKd4wM7YVYW4979hjMqYvP9ZjqLNtGsJuSP4aygk3cSvUkbbx
+         7QKZYm2NmAhVkNzFudlx8XxYqDYZfs/9EM5c1rMCx7h4f+Zn22yw9qEd1drXMmih86Zw
+         iyxwC5pcA2MpiJ5Q330BMW2OZZQvsnT2v/Nj4zK0UlsO9hY1pyIwTyZNTi7732wreux3
+         KIaQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794395730; x=1795000530;
+        h=content-transfer-encoding:content-type:mime-version:message-id
+         :references:in-reply-to:user-agent:subject:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Rk/Or+A2hVLusxWCw3wVAt7Tsp4Mo0Wjedz84BpaMmY=;
+        b=eIoyPVmn1uAhTR1QOVYK+GyYeMTndogfDxf47pvkKkLpOr/+7q0KDijIsWPErWsOhM
+         9gRKX7j0FeQPODrWBWrUwiXHVWceryIMFKi/uIsuDsWtMsfSkUox6u9bVcieiyJ3BYv1
+         U0ckb9IOP+aPx8Y5K7kZRMR2kAjfHq5n8Zz6ggBCCmA2C8IuHIrC+gVfyjK/fYTPqHzv
+         +U8aWE2DbkQunBgYuRdS6HB7q0m2bahkYipd0nyZOb3Sx0wbAPIWYHL6RZIp6Leajhyl
+         x2Yo1oLnJYRDP7b5/oXLGc1hgvWa7A8rzrOY8tDkWo5R84Zmwb0z/ShOJEcBcSlTTLoK
+         zWvw==
+X-Forwarded-Encrypted: i=1; AL+hErEtU/idd1V5/rX82o9go4mPWfKlDhk/UA/poaX0KA8vu8mE834pwf4cQ2Qbx4UQnd8HW1TXXwOJKZPU7MQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/ANTL+L6LTzKMp4VLl73U7VT/3OIx1osPieuI97fkoJXqmnk8E
+	Ix1bSf5HJDBUE8uMegxfN1ZiSNWPth5K0OKbefn92WWz8DqHfkx0cKdy
+X-Gm-Gg: AYBFou3ucgbFfCbTI7S+j6pCzlTImHWa+jdtRUHpTGBnGdfIdWV7pyNYkhXCeQPzDOn
+	8KP4FLFgzfCm3AS1kk5CukZttSQb5fJPKYea4dkVErfLCPjgYfTWCrnjh2zSU4qZlBAmSkPTn0/
+	Vm3ua644xZJwvuHBrm8ptt2tqVLo39eIlI8fZaZR7boczLN9kBBnG5PAK4MDyMbHEThSC/hXnAV
+	JC9TN0R46D4zLiEyrBs/RzRBth6C/pvzj8Hbhkp6+dFt0yl8g02xTFoVpipXje9NOtzbYeZ1iam
+	wtMh6t0ExHAJpIY0Rpg8XKlJGaAXaEj8PwfRuU58xtmrRYqnE2JRFEhrBVhtPAG8GTltfywIkRD
+	iIHDRuAyN7NL1jtiegOEMf30vlUrBm4u1cifuJoO4FakOBZN0x5wc6wPhc2FZeDAQUi/lecE0Ir
+	LRUbq8ROOldt6t5DkHMU/BjVOxyLlg1EzfTXuOlqOhlhMfVtdKY37G9F08Xr6AhDdKyyM2ke+kf
+	1PwbwBMqaBgafAOMM6kuUaaC1NyxBTPOGCRug9uyVHecrhk381m+c7WmIBw90Bytssfzmr16Rq+
+	KvpoTE1JEECv8+bgWXokqZfhTo8G10i5K53xfC4z54aDKi7AlKRau62vd9QStslqRJHxaBra2tu
+	TjR7dj+WnFJK+MCWZeOgne3M=
+X-Received: by 2002:a05:7301:2907:b0:369:fdae:c9fd with SMTP id 5a478bee46e88-376850ce224mr3701102eec.13.1794395729453;
+        Wed, 11 Nov 2026 03:15:29 -0800 (PST)
+Received: from ehlo.thunderbird.net (108-228-232-20.lightspeed.sndgca.sbcglobal.net. [108.228.232.20])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3752060dc0csm17598082eec.14.2026.11.11.03.15.28
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 11 Nov 2026 03:15:28 -0800 (PST)
+Date: Wed, 11 Nov 2026 03:15:30 -0800
+From: "Derek J. Clark" <derekjohn.clark@gmail.com>
+To: Aaron Ma <aaron.ma@canonical.com>, Mark Pearson <mpearson-lenovo@squebb.ca>,
+ Rong Zhang <i@rong.moe>, Hans de Goede <hansg@kernel.org>,
+ =?ISO-8859-1?Q?Ilpo_J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH=5D_platform/x86=3A_lenovo-wmi-oth?=
+ =?US-ASCII?Q?er=3A_Deconflict_battery_with_thinkpad=5Facpi?=
+User-Agent: Thunderbird for Android
+In-Reply-To: <20261111083529.727285-1-aaron.ma@canonical.com>
+References: <20261111083529.727285-1-aaron.ma@canonical.com>
+Message-ID: <36F5DA90-A839-4EC7-B916-517EBA565C1C@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,73 +101,109 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-From: "Manush Prajwal" <manushprajwal555@gmail.com>
-To: sre@kernel.org, jay-hx@posteo.net
-Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: 11 Nov 2026 16:45:21 +0530
-Subject: [PATCH] power: supply: rt5033_charger: fix extcon DT parsing and
- deferral handling
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain;
+ charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-In rt5033_charger_probe(), the driver attempts to parse the optio=
-nal=0D=0A"richtek,usb-connector" phandle:=0D=0A=0D=0A1. When "ric=
-htek,usb-connector" is absent from DT, of_parse_phandle()=0D=0A  =
- returns NULL. Currently, the driver unconditionally passes np_co=
-nn=0D=0A   to of_get_parent(NULL), which returns NULL, and then c=
-alls=0D=0A   extcon_find_edev_by_node(NULL). In extcon_find_edev_=
-by_node(), passing=0D=0A   a NULL node can erroneously match any =
-extcon device without a DT node=0D=0A   or return -EPROBE_DEFER, =
-which is then masked as a DT warning while=0D=0A   leaving probe =
-to succeed with an invalid/unintended configuration.=0D=0A2. If "=
-richtek,usb-connector" is present in DT but the extcon provider=0D=0A=
-   has not probed yet, extcon_find_edev_by_node() returns -EPROBE=
-_DEFER.=0D=0A   The driver treats all errors identically with dev=
-_warn() and returns 0,=0D=0A   silently abandoning extcon initial=
-ization instead of deferring probe.=0D=0A   Consequently, cable d=
-etection and OTG supply functionality remain=0D=0A   permanently =
-disabled.=0D=0A=0D=0AFix this by:=0D=0A- Checking if np_conn is N=
-ULL and skipping extcon setup cleanly if the=0D=0A  property is o=
-mitted from DT.=0D=0A- Checking that np_edev is valid before call=
-ing extcon_find_edev_by_node().=0D=0A- Propagating -EPROBE_DEFER =
-via dev_err_probe() when the extcon device=0D=0A  is deferred.=0D=0A=
-- Using dev_err_probe() for work and notifier registration failur=
-es.=0D=0A=0D=0AFixes: 8242336dc8a8 ("power: supply: rt5033_charge=
-r: Add cable detection and USB OTG supply")=0D=0ASigned-off-by: M=
-anush Prajwal <manushprajwal555@gmail.com>=0D=0A---=0D=0A drivers=
-/power/supply/rt5033_charger.c | 30 +++++++++++++++++++++------=0D=0A=
- 1 file changed, 24 insertions(+), 6 deletions(-)=0D=0A=0D=0Adiff=
- --git a/drivers/power/supply/rt5033_charger.c b/drivers/power/su=
-pply/rt5033_charger.c=0D=0Aindex e545a6e7f..5a149640a 100644=0D=0A=
---- a/drivers/power/supply/rt5033_charger.c=0D=0A+++ b/drivers/po=
-wer/supply/rt5033_charger.c=0D=0A@@ -698,29 +698,41 @@ static int=
- rt5033_charger_probe(struct platform_device *pdev)=0D=0A 	 * is =
-available, just emit a warning and leave the probe function.=0D=0A=
- 	 */=0D=0A 	np_conn =3D of_parse_phandle(pdev->dev.of_node, "ric=
-htek,usb-connector", 0);=0D=0A+	if (!np_conn) {=0D=0A+		dev_warn(=
-charger->dev, "no extcon device found in device-tree\n");=0D=0A+	=
-	goto out;=0D=0A+	}=0D=0A+=0D=0A 	np_edev =3D of_get_parent(np_co=
-nn);=0D=0A+	of_node_put(np_conn);=0D=0A+	if (!np_edev) {=0D=0A+		=
-dev_warn(charger->dev, "no extcon parent found in device-tree\n")=
-;=0D=0A+		goto out;=0D=0A+	}=0D=0A+=0D=0A 	charger->edev =3D extc=
-on_find_edev_by_node(np_edev);=0D=0A 	of_node_put(np_edev);=0D=0A=
--	of_node_put(np_conn);=0D=0A 	if (IS_ERR(charger->edev)) {=0D=0A=
-+		ret =3D PTR_ERR(charger->edev);=0D=0A+		if (ret =3D=3D -EPROBE=
-_DEFER)=0D=0A+			return dev_err_probe(charger->dev, ret,=0D=0A+		=
-			     "failed to find extcon device\n");=0D=0A 		dev_warn(charg=
-er->dev, "no extcon device found in device-tree\n");=0D=0A 		goto=
- out;=0D=0A 	}=0D=0A=0D=0A 	ret =3D devm_work_autocancel(charger-=
->dev, &charger->extcon_work,=0D=0A 				   rt5033_charger_extcon_w=
-ork);=0D=0A-	if (ret) {=0D=0A-		dev_err(charger->dev, "failed to =
-initialize extcon work\n");=0D=0A-		return ret;=0D=0A-	}=0D=0A+	i=
-f (ret)=0D=0A+		return dev_err_probe(charger->dev, ret,=0D=0A+			=
-	     "failed to initialize extcon work\n");=0D=0A=0D=0A 	charger=
-->extcon_nb.notifier_call =3D rt5033_charger_extcon_notifier;=0D=0A=
- 	ret =3D devm_extcon_register_notifier_all(charger->dev, charger=
-->edev,=0D=0A 						&charger->extcon_nb);=0D=0A-	if (ret) {=0D=0A=
--		dev_err(charger->dev, "failed to register extcon notifier\n");=
-=0D=0A-		return ret;=0D=0A-	}=0D=0A+	if (ret)=0D=0A+		return dev_=
-err_probe(charger->dev, ret,=0D=0A+				     "failed to register e=
-xtcon notifier\n");=0D=0A out:=0D=0A 	return 0;=0D=0A }=0D=0A-- =0D=0A=
-2.46.2.windows.1
+On November 11, 2026 12:35:29 AM PST, Aaron Ma <aaron=2Ema@canonical=2Ecom>=
+ wrote:
+>ThinkPads expose battery charge thresholds and charge_behaviour through
+>thinkpad_acpi's ACPI battery hook using raw sysfs attribute groups=2E The
+>Lenovo WMI "Other Mode" driver also registers a power_supply_ext for
+>charge_behaviour and charge_types on systems advertising those WMI
+>capabilities=2E
+>
+>When lenovo-wmi-other registers first, thinkpad_acpi fails to create a
+>duplicate charge_behaviour sysfs attribute and unregisters its battery
+>extension=2E Conversely, registering or updating any power_supply_ext on
+>the same battery runs sysfs_update_groups(), which removes standard
+>power-supply attributes not owned by power_supply_core and wipes out
+>thinkpad_acpi's charge_control_start_threshold,
+>charge_control_end_threshold, and charge_behaviour files=2E
+>
+>Match the existing ideapad_laptop deconfliction and skip registering
+>the WMI battery extension when CONFIG_THINKPAD_ACPI is enabled and a
+>ThinkPad ACPI hotkey device (LEN0268, LEN0068, or IBM0068) is present,
+>unless overridden by force_load_psy_ext=2E
+>
+>Fixes: 9ca8fc065b88b ("platform/x86: lenovo-wmi-other: Add WMI battery ch=
+arge limiting")
+>Signed-off-by: Aaron Ma <aaron=2Ema@canonical=2Ecom>
+>---
+> drivers/platform/x86/lenovo/wmi-other=2Ec | 14 ++++++++++++--
+> 1 file changed, 12 insertions(+), 2 deletions(-)
+>
+>diff --git a/drivers/platform/x86/lenovo/wmi-other=2Ec b/drivers/platform=
+/x86/lenovo/wmi-other=2Ec
+>index bd64e7b44669d=2E=2E6175f1e6c51a7 100644
+>--- a/drivers/platform/x86/lenovo/wmi-other=2Ec
+>+++ b/drivers/platform/x86/lenovo/wmi-other=2Ec
+>@@ -909,8 +909,9 @@ static acpi_status lwmi_acpi_match(acpi_handle handle=
+, u32 lvl,
+>  * lwmi_om_psy_ext_init() - Hooks power supply extension to device batte=
+ry
+>  * @priv: Pointer to the lwmi_om_priv drvdata=2E
+>  *
+>- * Checks if the ideapad_laptop driver is going to manage charge attribu=
+tes first,
+>- * then if not, hooks the battery to our WMI methods if they are support=
+ed=2E
+>+ * Checks if the thinkpad_acpi or ideapad_laptop driver is going to mana=
+ge
+>+ * charge attributes first, then if not, hooks the battery to our WMI me=
+thods
+>+ * if they are supported=2E
+>  */
+> static void lwmi_om_psy_ext_init(struct lwmi_om_priv *priv)
+> {
+>@@ -928,6 +929,15 @@ static void lwmi_om_psy_ext_init(struct lwmi_om_priv=
+ *priv)
+> 	if (force_load_psy_ext)
+> 		goto load_psy_ext;
+>=20
+>+	/* Deconflict thinkpad_acpi driver */
+>+	if (IS_ENABLED(CONFIG_THINKPAD_ACPI) &&
+>+	    (acpi_dev_present("LEN0268", NULL, -1) ||
+>+	     acpi_dev_present("LEN0068", NULL, -1) ||
+>+	     acpi_dev_present("IBM0068", NULL, -1))) {
+>+		dev_dbg(&priv->wdev->dev, "thinkpad_acpi driver manages battery for de=
+vice\n");
+>+		return;
+>+	}
+>+
+
+Hi Aaron,
+
+This doesn't validate that the methods exist on the Thinkpad device=2E Tha=
+t could have us deferring to a driver that doesn't fully expose the battery=
+ on some devices=2E After looking at tpacpi_battery_probe(), I think we can=
+ rewrite this function to validate both the ideapad and thinkpad dicovery=
+=2E
+
+- Add a for loop to find a matching handle, include the existing ideapad h=
+andle and the 3 thinkpad handles=2E
+- Use acpi_has_method() to find if the feature is supported=2E If it's an =
+ideapad handle, check for "GBMD" and "SBMC"=2E If it is a thinkpad handle, =
+check for "GET_DISHCHARGE" and "GET_INHIBIT"=2E
+
+For this I think we can make two const, over for each method pair, then ma=
+ke a const struct list of method pairs and handles=2E That will allow you t=
+o loop over the list to quickly find a matching handle, then use that index=
+ to access the method names without looping a second time=2E The struct dec=
+laration for this would keep it tidy and expandable=2E
+
+Additionally, the comment & description for force_load_psy_ext needs to be=
+ updated to include the thinkpad case with this change=2E
+
+I do like the fact that you check for the config to be set first=2E That i=
+s something the current implementation lacks=2E Perhaps a driver_config fie=
+ld on the same struct could hold that data=2E Then each check becomes: do y=
+ou have the handle -> do you have its methods -> is it configured=2E
+
+Thanks,
+- Derek
+
+> 	/* Deconflict ideapad_laptop driver */
+> 	ret =3D acpi_get_devices(ideapad_hid, lwmi_acpi_match, &handle, NULL);
+> 	if (ret)
 
