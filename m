@@ -1,52 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=157.90.84.7
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794402827;
-	b=K6Maaj83sddSBtbgckHQA3l09nyEcLMpLXesgS1sAwCTZRkBwrWApQr4Ca2ChGEZo/+t
-	 9+wVU5xgE9p9iGDVtTSoL0lFHnVP9D+yRtE9RbeQaD4dpZSlnA/VceMGCvFVxEsB6JHxu
-	 K3bFRaUnS22b/FQhpkf0cDi1N1BZ03/qu8hmeIsM1r9LPMBNmuxXgEDvLtTwTfT9dtFqh
-	 HzBxtWC/zEg7X7X8Qm7LdbabG6/RwdzVhfJPrPJtoP/Blqp93yua2g8YhXHUum4Ortnfm
-	 0ltQqXyplgfnzBq+SSZVJacSuMtNaolokck3VjBmghrQhSngN65Nt5zHjG5NeC6eb3w==
+	t=1794402832;
+	b=o4Tpwxr6p2F+Z59sN/2CAEQe9aTqLIR39MTytzv6zkJjeXIqB3mcfFDgyd6iTaULv/kJ
+	 IelHZAeD5kIrQv1WKzgtduEwoRLtJj3e9pBQiPcvBgaEetreJIM0GPPBC46ZquXWFhH6P
+	 EXULZgBoafcO48JdmolkFa8qNyaIbU+Ob8TqfwOn8vxANofPM7pFNa9av8SEj/p1GmS/n
+	 w4eCUzClebkLz3HfI+NsGbCnDbMQBHPlj5QzYEXccmFTo506iaaNE9Vg/D7RlLeocywji
+	 kB+NfXicneI9TYxDDJhLIM7tk4kp0p6PomeSl2N6FbeGU9XjUp4YlnxWkThpELVpjJw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794402827;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=6oQ25g7DZlaYzOZ2mtVDteOj26BCmtpM4iTBR2PfzRo=;
-	b=fbMEDdHeC9K+OYlDQw26fcuNr4sYyI7AxjEqL5JIl3oZNWtNz3IfKHmGtDzYiXaUO/cQ
-	 5OkiW4qcqqHNBsgfYkxOFNaZ75IDHXTRbhJYohh4EU9XHDdc2fcqqJFREIer7T7YnISu/
-	 xo7jfKhAsI6wYF0HW1PEHcYC2OelpJXci6iwmWuPU5Jdl5Zn89mG323GRvtNlo6Zv+z01
-	 9vnokLFpSdF1FeOHZQJ0NrbRMgZc9Brpbc3lfY/TjU4Twt0Vb2Fuij3bRdWZAH4mMkJOP
-	 ao8QIy63lKKhnu+K6ZbFzlCN05bJ2MJNbTAVRrd37q3abc2rExIbD92+fQ+doo3976A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794402832;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=b0MCM1jOborKxkBd6m6q6bEfoCklGwk0MGB2Cn5N0mA=;
+	b=FD9j3Gf2NAf/mC7AciX8oo9lGE+YX6wRltL37vrqOh1eLgEMAR8dkZ/MCRCMZlaa60tB
+	 sTNDCG98SKQyA+N6IC8khljW48Ng9FrODyjWkHjRBv8ea5Qtz4uIWgJZ3mXUmQ2479D3j
+	 enVCBjRYo/UdWa/lfA8QQXNdDQcHmQEDQfXuv+He60EFsEniavMIQiBbnxKF8jwdYbLH6
+	 gTjHCM9zbQTI/cet1piFLx0XyH9TsCLHSs+WIgdfHQu4/99dwplv3OcaZlX94jd8IsMuP
+	 uJDRIaHc9wbXNyNnJHIkKZmO/sh9UEqV7liJDUtwo/WM1en8kjJY3R7wmpUK1eAcdQQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=rMdpf9Nl;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=tuxedocomputers.com;
+	spf=pass smtp.mailfrom=tuxedocomputers.com;
+	dkim=pass header.d=tuxedocomputers.com header.i=@tuxedocomputers.com header.a=rsa-sha256 header.s=default header.b=UoIG9QWP;
+	arc=none smtp.remote-ip=157.90.84.7
+Received: from mail.tuxedocomputers.com (mail.tuxedocomputers.com [157.90.84.7])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47947606A321;
-	Wed, 11 Nov 2026 13:13:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DA7D606A327;
+	Wed, 11 Nov 2026 13:13:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0DA7D606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tuxedocomputers.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tuxedocomputers.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=rMdpf9Nl
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCB531F00A05;
-	Wed, 11 Nov 2026 13:13:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1794402827;
-	bh=6oQ25g7DZlaYzOZ2mtVDteOj26BCmtpM4iTBR2PfzRo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=rMdpf9NldED0r0lKT5V+ShIqsoviiyM0DyIVc+jUbHKMrnG1UV3VTNAYvEVBjFWvy
-	 9RgV0klvMx9G/5q3uBp919PBmGjaocEWV1/SB9DflFef8zz5sftiLvnH/gHe3Vf/7r
-	 nnqKyJhR3652zqtMYNoxRacvrraH8TACn4oY1hlg=
-Date: Wed, 11 Nov 2026 08:13:45 -0500
-From: Greg KH <gregkh@linuxfoundation.org>
-To: mdshahid03@gmail.com
-Cc: starblue@users.sourceforge.net, legousb-devel@lists.sourceforge.net,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] USB: legousbtower: use stream_open for stream semantics
-Message-ID: <2026111121-manhunt-answering-e622@gregkh>
-References: <20261028182802.25212-1-mdshahid03@gmail.com>
- <179433189678.152716.11457478975708955224.b4-reply@b4>
- <2026111054-reversing-gurgling-94fd@gregkh>
- <179440202172.231301.13877269286726215478.b4-reply@b4>
+	dkim=pass (1024-bit key) header.d=tuxedocomputers.com header.i=@tuxedocomputers.com header.a=rsa-sha256 header.s=default header.b=UoIG9QWP
+Received: from [10.10.12.8] (business-024-134-105-141.24.134.pools.vodafone-ip.de [24.134.105.141])
+	(Authenticated sender: wse@tuxedocomputers.com)
+	by mail.tuxedocomputers.com (Postfix) with ESMTPSA id 584C22FC0080;
+	Wed, 11 Nov 2026 14:13:50 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tuxedocomputers.com;
+	s=default; t=1794402830;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=b0MCM1jOborKxkBd6m6q6bEfoCklGwk0MGB2Cn5N0mA=;
+	b=UoIG9QWPZ1fvdeRknQVgCzAb/EFhXMs13lzK9Pd31OMf0pLA1s9MRKP2NzuvEb8JtuSZ1j
+	be04ilmPvoI3+AGCUmTN0oz2gJFqN6HteyVUImhssG3/m/+JZt+zEwsRpMTrwZKq/84yGq
+	/WyTgTUPz2sHIwLKRScr2JBUYp1OOwg=
+Authentication-Results: mail.tuxedocomputers.com;
+	auth=pass smtp.auth=wse@tuxedocomputers.com smtp.mailfrom=wse@tuxedocomputers.com
+Message-ID: <fe88757e-bbdd-4b53-a432-998905139735@tuxedocomputers.com>
+Date: Wed, 11 Nov 2026 14:13:49 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,27 +60,71 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <179440202172.231301.13877269286726215478.b4-reply@b4>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] platform/x86: uniwill-laptop: Add TUXEDO Stellaris 16 -
+ Gen8 - Intel
+To: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: Armin Wolf <W_Armin@gmx.de>, Hans de Goede <hansg@kernel.org>,
+ platform-driver-x86@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>
+References: <20261111115811.498955-1-wse@tuxedocomputers.com>
+ <18e8c77c-f605-8eb6-158c-69f3b49ed458@linux.intel.com>
+Content-Language: en-US
+From: Werner Sembach <wse@tuxedocomputers.com>
+In-Reply-To: <18e8c77c-f605-8eb6-158c-69f3b49ed458@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 11, 2026 at 06:30:21PM +0530, mdshahid03@gmail.com wrote:
-> Hi Greg,
-> 
-> I did basic sanity ,I build driver and ran smatch after changes.
 
-So, no testing :)
-
-> I don't have Lego USB HW to test it ,but there is similar changes
-> in Xyllibus ,that was sent by me and Eli(maintainer)has tested in HW.
-> According to Eli ,There is no regressions with stream_open().
-> 
-> Here is discussion:
-> https://lore.kernel.org/all/24af6daf-dbf3-5c47-beb7-077c4473ea7e@outbound.gmail.com/
-
-If you don't have this hardware, then there's no rush on this potential
-change.
-
-thanks,
-
-greg k-h
+Am 11.11.26 um 13:26 schrieb Ilpo Järvinen:
+> On Wed, 11 Nov 2026, Werner Sembach wrote:
+>
+>> Same features as the Gen7. Just 2 new entries for the new boardnames.
+> The changelog should be readable as standalone, which this clearly isn't.
+>
+>> I wrote the ident the same way the system product dmi string is written,
+> Don't use personalized terms like "I wrote".
+>
+>> which itself now follows how the device is listed in your online shop. The
+>> only actual change was adding the '-' with spaces around.
+> What online shop have is irrelevant detail when it comes to kernel changes.
+ok, sent a v2 with a hopefully better commit message
+>
+> --
+>   i.
+>
+>> Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
+>> ---
+>> This commit was built on top of Armins latest series:
+>> https://lore.kernel.org/all/20261110165318.631010-1-W_Armin@gmx.de/
+>>
+>>   drivers/platform/x86/uniwill/uniwill-acpi.c | 16 ++++++++++++++++
+>>   1 file changed, 16 insertions(+)
+>>
+>> diff --git a/drivers/platform/x86/uniwill/uniwill-acpi.c b/drivers/platform/x86/uniwill/uniwill-acpi.c
+>> index dc99bf8a8568c..e2a6a704e942e 100644
+>> --- a/drivers/platform/x86/uniwill/uniwill-acpi.c
+>> +++ b/drivers/platform/x86/uniwill/uniwill-acpi.c
+>> @@ -3629,6 +3629,22 @@ static const struct dmi_system_id uniwill_dmi_table[] __initconst = {
+>>   		},
+>>   		.driver_data = &gmxixxx_xxxx45xx_xxxx55xx_xxxx57xx_descriptor,
+>>   	},
+>> +	{
+>> +		.ident = "TUXEDO Stellaris 16 - Gen8 - Intel",
+>> +		.matches = {
+>> +			DMI_MATCH(DMI_SYS_VENDOR, "TUXEDO"),
+>> +			DMI_EXACT_MATCH(DMI_BOARD_NAME, "XxAF5xxx"),
+>> +		},
+>> +		.driver_data = &gmxixxx_xxxx45xx_xxxx55xx_xxxx57xx_descriptor,
+>> +	},
+>> +	{
+>> +		.ident = "TUXEDO Stellaris 16 - Gen8 - Intel",
+>> +		.matches = {
+>> +			DMI_MATCH(DMI_SYS_VENDOR, "TUXEDO"),
+>> +			DMI_EXACT_MATCH(DMI_BOARD_NAME, "XxAF5xxx_mLED"),
+>> +		},
+>> +		.driver_data = &gmxixxx_xxxx45xx_xxxx55xx_xxxx57xx_descriptor,
+>> +	},
+>>   	{
+>>   		.ident = "TUXEDO Book BA15 Gen10 AMD",
+>>   		.matches = {
+>>
