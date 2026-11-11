@@ -1,84 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.43
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794416487;
-	b=j4e5xfcBHZ3mG2DzCLI84V9MAK8y0jiOyGsfMNiEHKtBWZu4z2+gSgEfmgre0dabVyv2
-	 YEsrfEMpAZa6305pt9yvB14n4e4WSpePg2lmL4JWmrWRZnF8jdpz2I/w+M/iKg0gGydZH
-	 PCk92YZrePSwIcpS9kxKXdoC8eobmHgB6uxt6TO9CzCvtHIDE4WbmgZX6zbJ78cj6MATK
-	 flwzNu3RpgQDOwT8EwN7QISxgLC6vMuubxjIw8LOWHNluC8PLsc0NzjfQMNj5wNbIozpQ
-	 W2zgZ0ZLAguoKdCy/Drt/wwL1KVU2AuhmFdVVSwI30wTj7QJuK6yTqVk+8Q62+rM/Bg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794416487;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Message-Id:
-	 Cc:Subject:From:To:X-Mailer:References:In-Reply-To;
-	bh=cNJr3c3uqZZVhSfWEr07FcVM+B83XjBK0ipGpurD8/w=;
-	b=NnPXEp5kyP5C/7db/Nihi5WAy3frrI7RYnu48cZMD5Tio6cCg19FiUwWowc8aXuPGBVI
-	 aCI2oowtNWWOS4Qi5/MhxLJkx0oLimYc0CQFvUa2G+D944bxVm+vBC2YEvVnhNChRRFDu
-	 WJGGhOQfh61t6WuQUQwvA+9aOi6VfQWpd2PZ8Cru4cbNwZqXF5/U2h+QdDmn500kRZ++v
-	 clTQOvpPXJq3TR+ZqLTcesePtT4GYfOQCvpaCD0LKzCmgDCOEiNoj0KZof5GUWdwZ25dl
-	 L5L5WSIxLVVXcbFIrSPvBlZ4bHrHPCUuVrBdMZ8KMyF8+F7q6fLiBCTnSuSDQPLiwYA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pQJDeAYu;
-	arc=none smtp.remote-ip=209.85.217.43
-Received: from mail-vs1-f43.google.com (mail-vs1-f43.google.com [209.85.217.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=81.169.146.165
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794416510;
+	b=MZZAqrNtk5M70AHExaoEJyIidqnjm4PCijQGrBRWzR4vZO8na3raCRMfXDbBY9E8SnGC
+	 k8+kXh7hBRtUAMIQwkS2LrANMpwr7OQIEUvG5qjBBGCfdnj47y+TK9NwkTDeYfQSziyHs
+	 RRag2VzhgvPLs9SDwWXYXOU1/nCF1/APWLgp/963CYdJEoFZZNwtiFFWLV4mrd2/EGQqy
+	 dAdk+N055sfGjWleJF0017p29oOxAl0h1n9uZU+oVm9HZJYDOTSfNr/FoK+3pIRVZMCad
+	 QISFwxrqSr02dcusdFmJe5SnOVmlOQ/8hpTSt7M98nlRqBCHivb3cws2D4dTdVfr+hA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794416510;
+	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
+	 Received:Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Content-Transfer-Encoding:Message-Id:References:To:X-Mailer;
+	bh=Xu2IziJbxEx8FYDyoQyVNAj5hzygFsW53R6oVXAp9jI=;
+	b=DaFm+Cx7UgZmoCq8DocscuCodHq9izU/MMmpWm4Pd6V/KrtmnVtn7QPuH6t6DwulVJvZ
+	 Qu2RLO99cP+zS3nDgFmloIguQLmXIwCSzGbha/Zu0gPDEN6pbkgd7n7PI1A7yWASaqHyZ
+	 zVwD+0Q5ZnBr0VpKdfPIPCuoolZghgGtMLV1jhUIwLTPP4jLM0uKp42gPDCNwkzjH2XjD
+	 fbIvI9j1iq6AiO/pL39er88oYClBpVvAi7sx/b/HWftda7j38o/rUtoYvbQVmb6N5Q6S2
+	 eirxs5Hfnz8zxnsyRq6oU9U/Le94tblciBYXV7IELKjANeE6RdWouR/Mlq9G4P9+Qew==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=goldelico.com;
+	spf=pass smtp.mailfrom=goldelico.com;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=gd5DE5+6;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=uqCplBgc;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=81.169.146.165
+Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [81.169.146.165])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02415606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 17:01:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 02415606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 190EB606A31C;
+	Wed, 11 Nov 2026 17:01:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 190EB606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pQJDeAYu
-Received: by mail-vs1-f43.google.com with SMTP id ada2fe7eead31-7d2e43ff4b4so33106137.0
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 09:01:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794416486; x=1795021286; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=cNJr3c3uqZZVhSfWEr07FcVM+B83XjBK0ipGpurD8/w=;
-        b=pQJDeAYuDCYutcyC96lWW5Ebd5D6k1X3/jkh9x6fq6+I2yCOEQB0eVeg93CCZcRTaU
-         7k/lVCI5I3KGU6H5v5aK65eZY/kQP326a9uksZ2Dmp+okaU1YzCd+dM2h/OvBSg6fSqO
-         lK2AFBVKhthjv4wYNGffdzihGWIMIMzBrP/b9E1tDFitOM2QBhRs2h0e/UZlKUxXsuI7
-         jExk8TvQ+IwzwQ6nsOCXN1GvxQk1Oqge1Rd57mNN4QGecPQmKRRgG5z9dt+22ypZvE3O
-         TOsk5XyaF+hKInLLuYiTJVsX6pSMTH6rtA5bgSnjt6id8ohMl6gQps2ZFZ2GhkZQ4ShC
-         7pvQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794416486; x=1795021286;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=cNJr3c3uqZZVhSfWEr07FcVM+B83XjBK0ipGpurD8/w=;
-        b=IsRq7e5X7toFXXCXW5thrSsLSFVFDBBJgegLNnrksWlu/WldA6fghw0nB4Zdj97tfD
-         45g7geOD2fQcy87L2N+S34oSH3MYxt0Ba//cyD3OchtEg7UK5M0/Qa3iNuHvAy4e6QKc
-         xERfh4XSRFpECv+uRCdq3wm2ONl+KnckKQQLZ3QTol5KOUeJyuTd3mJOcN2vBHULLq5q
-         ONgt8rhmquX0+QbCA3MJtG0aFjl1THQM8dVPymP0Jil3tjAa9v/GVXTqNJfuM6HsvUDL
-         2t9Ole6iHCy06gwekB5F84gd2zIBIkRiVlSl2YEKuWqyvXMYFTBmyDwjx/bI76HPkOkc
-         P5ww==
-X-Forwarded-Encrypted: i=1; AL+hErFpTbnnQWhdk7thoBmfDqPUDmnW3fc1XyCp3SA7th50drIY94tn5Q6J2eYf86DCll4n9HQZt1Fb5iZ5arM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z80gPenAf78xwiOXAROvoIhp17EL8JJ1zm1c+WQy+cs3XnbezSI
-	0yOSdXbyknMLDyKfNtK1n1e/g3+d8owIJQfddrIZy4/p9R6IaaoedYb2
-X-Gm-Gg: AYBFou2FzMvz0f81GG+eG3YaiPZavHF1ln97wcElcIiXSqCntcoJzOgtYDVm3NS7HRw
-	jXZ/bISzunxnmukv0+JrCCruPQGhatkcl1a1pYrwJw2+0APD0R5qeUUbYMZTUsEWklacTEIWs25
-	ig2gSVQV12/xtdJ5J1xDLdwl2LVO9BlzNEFIlTD1uwDSv9wI28KHF4IaNJkLNFf4jsbnmmEOmo3
-	42JQIfvMZ1eciLlcmINSKJJdxms5gVCnJWWpJZCKjLYd4FFHBX5J1EGmqxOiBdsqgnhWg3QdPJ4
-	wsDeYOaiMiIBFu4plW1JJkLPQPxvcVWTawyiW6r7TiwT/oPk2vIshYji/tra7lwKG9QCYfcv4rU
-	5fZ2WuQO2PC9NHHQ8skTCHmbpnJd/puCgytKhEJ8QteDUukENcIIBadhqtVyx5dhdlsCI8CqI+d
-	moxtS53YatBuBdGMp1ZTkg9zXaH8ORWQuGgJNo4GpWOm5yotDGeW7Hsu7/C6kzs9lEnP+yI68bT
-	yw7hm56lgcWecu7bg0GKWm3Hf2RPUhjDB++aehr8P5cIuqEPRFtTzSSb4Rxo/IK1Mmv0x3psceB
-	QiWbNZ4GI5EJ6Kre
-X-Received: by 2002:a05:6102:a4d:b0:7cc:905a:331a with SMTP id ada2fe7eead31-7d6316c856dmr19138137.14.1794416481052;
-        Wed, 11 Nov 2026 09:01:21 -0800 (PST)
-Received: from localhost ([2620:10d:c091:500::6:868a])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7d302239188sm4078178137.2.2026.11.11.09.01.19
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 11 Nov 2026 09:01:20 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=gd5DE5+6;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=uqCplBgc
+ARC-Seal: i=1; a=rsa-sha256; t=1794416478; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=mak7jq2/8Rsk23FLQfCe+Mu8DsN61rdmuyTzA9vEnSCfwHrvaM0Gjw89r49TUn4wGZ
+    PJ3T6dz37B9i0DdLoZS6KF/3hndQDCW+KcpIFr2cU2vvgHQA/j+yc3vnas4LMEXhxYL0
+    5MtTSNZA6Aj8R3WnqlAcHD6hs1eDsc2FMwbT9bR1n2MK1R6oXRzFGSDJ7jtjM2F2GKoE
+    K2VuAOSkLRRwFrjJ056659w7DunD9uYNT5jevrF/MGbo5BgEG3Y8BeCpMKlMGCKId7zt
+    D77PQKb64Ahkm4SWlyyqAYMXuDMtnSYaGNgxZgRtxGx+qFHjaGSJ6Q1d6+1vkMaQk3mQ
+    MbLw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1794416478;
+    s=strato-dkim-0002; d=strato.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=Xu2IziJbxEx8FYDyoQyVNAj5hzygFsW53R6oVXAp9jI=;
+    b=de1VA6D9e+unLdPAyyTZqjwWUaltKanjD3fxrCkj7dupHUQUq9BST5izO3AJhtAqNV
+    zZ4Xjbt+/g7mU9R3jAPzN5+6pYAtc6RTQkVqC3TQkhrahdQdGL8I3bWYyIS+iUG9yo/u
+    etXIv90aS7cjaa6qTapoddj3Q065sgwgDCkB1YwkYSBanbBfWCunCya4CK4Nx5fboeqh
+    BH3zU/rFs1RJkNc8cvbLLIfLGAhjU/nS5ZR5B4QlklmP/vjEVnmVBPrrakvyc8Oh3kRj
+    VKwcEqykJI8qaiI6NlENZg/Q1eV0pdufDZft0mBPxijAJaE1NycTJ4tv1ZL7c94JHC2i
+    W4eQ==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo01
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1794416478;
+    s=strato-dkim-0002; d=goldelico.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=Xu2IziJbxEx8FYDyoQyVNAj5hzygFsW53R6oVXAp9jI=;
+    b=gd5DE5+66cCU5sdq3AMPaG0puSvSmGp3jHB2nfQDPJIWtHwr3kNa1Y9Qh7VWJLnkzz
+    qulNJprf4gsTHgIBtczakuRFXDujIl/g8dM0nat7NqvdrnbzmK05Ycr3XFw5pDBvP02o
+    YVfb8AD5XM6s2sWOVYprw+iwr81NFYWjvtlg1O6GO7zuoW3jLLLn8++l1vdjoBWCT1r7
+    rPC87cvJYA6h5jWI1coKZOIrW1aFN/qX9WQmea9wsUsqYD9oa3bY8Bh1nA9K7fYSj9gy
+    pm3m9JqWwcxAaeGTxE9cfpifOF5e0pLj4lwyc+iSE4R+ZAP4IjtCDLuSkqJXdNsQ6Wtt
+    FiOw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1794416478;
+    s=strato-dkim-0003; d=goldelico.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=Xu2IziJbxEx8FYDyoQyVNAj5hzygFsW53R6oVXAp9jI=;
+    b=uqCplBgck3bT9FDPK9KopUAKaZTBMoPP9mAeRUmMnIxElv8/y97z6KnlwnD14b7v3c
+    Qj0g83EcZmqoGLV3jjAw==
+X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrQjZoLz8iN2kucGv2N8YJDPry98OL4EAMbtbpe"
+Received: from smtpclient.apple
+    by smtp.strato.de (RZmta 55.6.3 AUTH)
+    with ESMTPSA id Qb56a22ABH1I8hR
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve X9_62_prime256v1 with 256 ECDH bits, eq. 3072 bits RSA))
+	(Client did not present a certificate);
+    Wed, 11 Nov 2026 18:01:18 +0100 (CET)
+Content-Type: text/plain;
+	charset=utf-8
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,90 +93,172 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.10\))
+Subject: Re: [PATCH] MIPS: ingenic: Let Config.VI tell whether the icache is
+ virtual
+From: "H. Nikolaus Schaller" <hns@goldelico.com>
+In-Reply-To: <20261110-mips-xburst-icache-vi-v1-1-efba689606dd@gmail.com>
+Date: Wed, 11 Nov 2026 18:00:47 +0100
+Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+ linux-mips@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ Lars-Peter Clausen <lars@metafoo.de>,
+ Paul Boddie <paul@boddie.org.uk>,
+ Discussions about the Letux Kernel <letux-kernel@openphoenux.org>
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 11 Nov 2026 12:01:19 -0500
-Message-Id: <DMSJJY9PLHSR.39PSNUXEC82J4@gmail.com>
-Cc: "David S. Miller" <davem@davemloft.net>, "Andrew Lunn"
- <andrew+netdev@lunn.ch>, =?utf-8?q?Bj=C3=B6rn_T=C3=B6pel?=
- <bjorn@kernel.org>, <bpf@vger.kernel.org>, "Daniel Borkmann"
- <daniel@iogearbox.net>, "Daniel Zahka" <daniel.zahka@gmail.com>, "Donald
- Hunter" <donald.hunter@gmail.com>, "Eric Dumazet" <edumazet@kernel.org>,
- "Jakub Kicinski" <kuba@kernel.org>, "Jamal Hadi Salim" <jhs@mojatatu.com>,
- "Jiri Pirko" <jiri@resnulli.us>, "John Fastabend"
- <john.fastabend@gmail.com>, <linux-doc@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-kselftest@vger.kernel.org>,
- <linux-rdma@vger.kernel.org>, "Martin KaFai Lau" <martin.lau@linux.dev>,
- "Paolo Abeni" <pabeni@redhat.com>, "Saeed Mahameed" <saeedm@nvidia.com>,
- "Simon Horman" <horms@kernel.org>, "Tariq Toukan" <tariqt@nvidia.com>, "Wei
- Wang" <weiwan@google.com>, "Willem de Bruijn"
- <willemdebruijn.kernel@gmail.com>
-Subject: Re: [PATCH net-next v1 00/15] psp: introduce socket-less
- associations
-From: "Daniel Zahka" <daniel.zahka@gmail.com>
-To: "Todd Freed" <toddfreed@meta.com>, <netdev@vger.kernel.org>
-X-Mailer: aerc 0.21.0-threadmapfix
-References: <20261111005533.6436-1-toddfreed@meta.com>
-In-Reply-To: <20261111005533.6436-1-toddfreed@meta.com>
+Message-Id: <BA039439-3960-4865-B6D4-17B845BD77DB@goldelico.com>
+References: <20261110-mips-xburst-icache-vi-v1-1-efba689606dd@gmail.com>
+To: hunterlaux@gmail.com,
+ Paul Cercueil <paul@crapouillou.net>
+X-Mailer: Apple Mail (2.3826.700.81.1.10)
 
-On Tue Nov 10, 2026 at 7:55 PM EST, Todd Freed wrote:
-> psp associations today are bound to a tcp socket when created. traffic
-> on that socket is encapsulated in transport-mode psp, and encrypted.
->
+Hi,
 
-You can start sentences with capital letters in cover letters and commit
-messages.
+> Am 11.11.2026 um 05:09 schrieb Hunter Laux via B4 Relay =
+<devnull+hunterlaux.gmail.com@kernel.org>:
+>=20
+> From: Hunter Laux <hunterlaux@gmail.com>
+>=20
+> The Ingenic CPU support treats every XBurst instruction cache as
+> virtually tagged: the feature overrides fix cpu_has_vtag_icache to 1,
+> and the probe sets MIPS_CACHE_VTAG. The setting came in with the =
+JZ4740
+> feature overrides in commit 83ccf69d8f11 ("MIPS: JZ4740: Add base
+> support for Ingenic JZ4740 System-on-a-Chip") without a stated reason,
+> and Ingenic's own kernels treat the icache as physically tagged.
+>=20
+> Neither XBurst1 nor XBurst II has a virtually tagged icache. Both
+> programming manuals describe a physically tagged one and hardwire
+> Config.VI to 0, which the cache probe already reads. On the X2600, =
+code
+> at a virtual address remapped to another page through the TLB alone
+> runs the new page, while the old line is still in the icache. XBurst1
+> has not been tested. Treating the icache as virtually tagged is
+> incorrect and costs needless icache flushes.
+>=20
+> Drop both and leave it to Config.VI.
+>=20
+> Cc: Lars-Peter Clausen <lars@metafoo.de>
+> Assisted-by: Claude:claude-opus-5-5
+> Signed-off-by: Hunter Laux <hunterlaux@gmail.com>
+> ---
+> Lars, the override came with your JZ4740 support in 2010. On the off
+> chance you remember a reason for setting cpu_has_vtag_icache to 1,
+> I'd like to hear it.
+> ---
+> arch/mips/include/asm/mach-ingenic/cpu-feature-overrides.h | 1 -
+> arch/mips/kernel/cpu-probe.c                               | 3 ---
+> 2 files changed, 4 deletions(-)
+>=20
+> diff --git =
+a/arch/mips/include/asm/mach-ingenic/cpu-feature-overrides.h =
+b/arch/mips/include/asm/mach-ingenic/cpu-feature-overrides.h
+> index 7ace50127f..71c03f1dd4 100644
+> --- a/arch/mips/include/asm/mach-ingenic/cpu-feature-overrides.h
+> +++ b/arch/mips/include/asm/mach-ingenic/cpu-feature-overrides.h
+> @@ -27,7 +27,6 @@
+> #define cpu_has_mips3d 0
+> #define cpu_has_smartmips 0
+> #define kernel_uses_llsc 1
+> -#define cpu_has_vtag_icache 1
+> #define cpu_has_dc_aliases 0
+> #define cpu_has_ic_fills_f_dc 0
+> #define cpu_has_pindexed_dcache 0
+> diff --git a/arch/mips/kernel/cpu-probe.c =
+b/arch/mips/kernel/cpu-probe.c
+> index 489612ed9d..bef92e6cd6 100644
+> --- a/arch/mips/kernel/cpu-probe.c
+> +++ b/arch/mips/kernel/cpu-probe.c
+> @@ -1763,9 +1763,6 @@ static inline void cpu_probe_ingenic(struct =
+cpuinfo_mips *c, unsigned int cpu)
+> c->options &=3D ~MIPS_CPU_COUNTER;
+> BUG_ON(__builtin_constant_p(cpu_has_counter) && cpu_has_counter);
+>=20
+> - /* XBurst has virtually tagged icache */
+> - c->icache.flags |=3D MIPS_CACHE_VTAG;
+> -
+> switch (c->processor_id & PRID_IMP_MASK) {
+>=20
+> /* XBurst=C2=AE1 with MXU1.0/MXU1.1 SIMD ISA */
+>=20
+> ---
+> base-commit: b3dfbde62cf1981c4638939c159dfd087b7a72e9
+> change-id: 20261110-mips-xburst-icache-vi-db10a8d03dd6
+>=20
+> Best regards,
+> --=20
+> Hunter Laux <hunterlaux@gmail.com>
 
-> this series adds associations which aren't bound to a socket, which
-> allows psp encapsulation and encryption to be applied to forwarded
-> traffic. you can use this to transparently apply psp tunnels to flows,
-> with help from userspace to manage the tc rules and orchestrate key
-> exchange.
->
-> the lifecycle of socket-less associations is managed over the psp
-> netlink family. socket-less associations are stored in a small registry,
-> and are addressable by id. the registry does not contain socket
-> associations.
->
-> socket-less associations are on the device's association lists, like
-> socket associations. rx ones are therefore marked stale by key rotation
-> in the same way. in this series, nothing acts on socket-less rx
-> associations on key rotation. instead, userspace should replace decap
-> rules for a SPI before its device key has been rotated twice. a
-> follow-up will bring enforcement.
->
-> series structure,
->
-> 1, 2/ prepares psp to work with non-tcp packets
->
-> 3, 4/ adds the netlink commands for managing socket-less associations
->
-> 5/ adds a METADATA_PSP dst which carries the socket-less psp association
-> on an skb for tx, and the transmit checks for it
->
-> 6, 7/ keep mirred and bpf from sending decrypted skbs from egress to
-> ingress, since skb->decrypted depends on direction
->
-> 8/ limit time-wait psp socket validator to sockets actually in
-> time-wait. the new psp actions check for presence of the validator
->
-> 9/ adds the act_psp tc actions, psp encap and psp decap. in software,
-> encap is egress only.=20
->
-> 10/ adds flower matches on psp header fields, for rx matching
->
-> 11, 12/ add drv-net tests (netdevsim and hardware)
->
-> 13/ makes tc-testing run dependsOn probes outside the test namespace,
-> where they currently always fail
->
-> 14/ adds tc-testing tests
->
-> 15/ Documentation for socket-less psp associations
->
+it appears that this looks quite similar to what had been sent to us by =
+=E5=91=A8=E7=90=B0=E6=9D=B0 (Zhou Yanjie)
+5 years ago for testing and we integrated it into our out-of-tree kernel =
+but it never
+arrived upstream (attached as plain text just for review).
 
-Some of these can probably stand alone like the bpf decrypted, psp encap
-helper, and timewait validation, and be submitted first to shorten the
-series. That's just a suggestion though. If there are dependencies on
-the main series you can ignore.
+So it is likely the right way to go to solve such an old bug if =
+independently suggested
+and did work for us for such a long time...
+
+Please compare and verify, as I am not an expert for MIPS cache.
+
+BR and thanks,
+Nikolaus
+
+
+See also: https://github.com/goldelico/letux-kernel/commit/ff0761012124d
+
+commit ff0761012124d0d06a9fc01c644c52399b7dc1f4
+Author: =E5=91=A8=E7=90=B0=E6=9D=B0 (Zhou Yanjie) =
+<zhouyanjie@wanyeetech.com>
+Date:   Tue Jun 22 23:20:22 2021 +0800
+
+   MIPS: Ingenic: Fix the wrong cpu features.
+        1.Ingenic SoCs have never had a instruction cache with virtual =
+tag,
+     so the "cpu_has_vtag_icache" in cpu-feature-overrides.h should be
+     0, and the flag in cpu-probe.c should also be removed.
+   2.Ingenic XBurst=C2=AE1 CPU does not implement the UserLocal register =
+but
+     XBurst=C2=AE2 CPU does, so remove the "#define cpu_has_userlocal 0" =
+and
+     detect whether the processor supports UserLocal register through
+     "cpu_probe_ingenic()".
+        Signed-off-by: =E5=91=A8=E7=90=B0=E6=9D=B0 (Zhou Yanjie) =
+<zhouyanjie@wanyeetech.com>
+
+diff --git a/arch/mips/include/asm/mach-ingenic/cpu-feature-overrides.h =
+b/arch/mips/include/asm/mach-ingenic/cpu-feature-overrides.h
+index 7ace50127f5aa..24d6157ed6da6 100644
+--- a/arch/mips/include/asm/mach-ingenic/cpu-feature-overrides.h
++++ b/arch/mips/include/asm/mach-ingenic/cpu-feature-overrides.h
+@@ -27,7 +27,7 @@
+#define cpu_has_mips3d 0
+#define cpu_has_smartmips 0
+#define kernel_uses_llsc       1
+-#define cpu_has_vtag_icache    1
++#define cpu_has_vtag_icache    0
+#define cpu_has_dc_aliases     0
+#define cpu_has_ic_fills_f_dc  0
+#define cpu_has_pindexed_dcache 0
+@@ -37,7 +37,6 @@
+#define cpu_has_dsp            0
+#define cpu_has_dsp2           0
+#define cpu_has_mipsmt         0
+-#define cpu_has_userlocal      0
+#define cpu_has_nofpuex 0
+#define cpu_has_64bits         0
+#define cpu_has_64bit_zero_reg 0
+diff --git a/arch/mips/kernel/cpu-probe.c b/arch/mips/kernel/cpu-probe.c
+index 489612ed9d498..bef92e6cd6950 100644
+--- a/arch/mips/kernel/cpu-probe.c
++++ b/arch/mips/kernel/cpu-probe.c
+@@ -1763,9 +1763,6 @@ static inline void cpu_probe_ingenic(struct =
+cpuinfo_mips *c, unsigned int cpu)
+       c->options &=3D ~MIPS_CPU_COUNTER;
+       BUG_ON(__builtin_constant_p(cpu_has_counter) && cpu_has_counter);
+-       /* XBurst has virtually tagged icache */
+-       c->icache.flags |=3D MIPS_CACHE_VTAG;
+-
+       switch (c->processor_id & PRID_IMP_MASK) {
+         /* XBurst=C2=AE1 with MXU1.0/MXU1.1 SIMD ISA */
+
