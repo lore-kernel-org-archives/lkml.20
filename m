@@ -1,78 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794404716;
-	b=GN2/sEqm6Sj9Hn8TXT3+ztqSbBlf5Lh5TIuSbm3BeVIIjw23zVNDGP8Nv2OExS/wHRZZ
-	 ZKVIS+xbqDguT+EV/kfEIux90YLZ7RkqE25NlhU5FH2GEHO4O3QJy7HuUY61wUB2xlez6
-	 8SBGWQHvimEY+WTulWbjRhztHNAqroEOXsUuK+RIA5dh5d2NEjP/CjFZyxIRIXXy86Tr1
-	 iYXVEZdap9/wK6fSfxXbsi/GNl8dcb5K6dq6YIz1wMr4JP8XHtxRtbC/jlyEDhHPMOLJY
-	 KCfjzladocR29hG7+npARLVDcZw0tSvcxnfV7BxwEfSRAsJXlUdVx2e+IyujO2CwZmQ==
+	t=1794404768;
+	b=znqNanC+whVIuZLcWYr4SMRmr4uwK/1Vtw/AGQGDrbAshCY6X+aofImpVYsrapgkiIYx
+	 rs70PDmk/E9Q1LWAG0dWl2qWNxLXZGaBVVag054vYHkywSV0O88Cx5NFhUTKgUPfuQhty
+	 cfbRe/9h/F+RYOSVtwjvd9RiG6C0RejG37Ea1KzQ5cHj+46sM49GJvpuQSDZpZczfc34w
+	 +71X3z8x6Y3xjuuCEkMBkksAou47la3lC9FCzp8zNlbMUPmyrfnv6zweDA07UIYsF6rEA
+	 Msfd9dkjwpDGVOhWLGPEfFgwFqk/PzJlYrnXKDmcCQj9QXc5aZBTNDFouH5yB8NB62Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794404716;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=JqaDTrKtx8/Db8fINpAFpkl/BzAhzi7fu660X6wjeKA=;
-	b=jWIT+oUJsXSRPac9HZd5kDS0WVLmHQbU9gFAkheqc3OpuBxuHlQcoD9qoAZ8Gq7X0A8X
-	 ycPis3DViUNcQ2xKAgI1XiM99GdR+VjIiLoeW2j6+61kpjuptv1XBJQW8uuNmzI3II0HP
-	 FqO7bGTO9KaGpQV1d+8Dh+0nbCaCEoRgyKl9b7mzkcrAoQY/ZbeWXeSRIRHuDUmWwEOsk
-	 WXXyktzM3Ir/HIvGhzEcBGC+9flw/ENr5zotMNACwnwWTql+N5KMc16Wnrfy/H5EYrhfA
-	 GxOd5jiBNIHeO2d9qWFWjPS/JPzWBROi62QBLMjHAJofPxnmGR84+7GzEz/oT1SK1kA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794404768;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=gU5SfropLbeuhhZVQHKyKXg+TDGqXO/o10GMjJa5hHQ=;
+	b=3qH3DeiCZjLjdpbD/gDazWGDdlZNFqneuVKOYLmlM/awmjUC6KV2rfVXbO7S/VDHyHF5
+	 q99Vb7IVOyVruthTiKXfHjNxRuxCSLMaJXFuOHZYV7MhiZds9kph81BzZ93OLLmmB1OkV
+	 hgVzoTJLQ18DpbcH3JFrb8+PIxECOnP/44c/0Kf1JoKzkTOsL++li/wBN2eumOWzwIaNV
+	 4H7HVStMWMy3aVUKGI6kQOgzqbSMjrBI7pkYzCX0UAmBkHd0f1aIGczMx4sxvlb8lvPRp
+	 rtJRlOTZzlVfXSZ8m1x8cwJpKnGIXcRl6Ta+tJ28Y1hYwHGwVZVvgvyY7Fcr0bqeN/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lunn.ch;
-	spf=pass smtp.mailfrom=lunn.ch;
-	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=wcsaHS3m;
-	arc=none smtp.remote-ip=156.67.10.101
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=fail header.from=pereq.eu;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.221.46
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30830606A326;
-	Wed, 11 Nov 2026 13:45:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 30830606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=wcsaHS3m
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Transfer-Encoding:Content-Disposition:
-	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:From:
-	Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
-	Content-Transfer-Encoding:Content-ID:Content-Description:Content-Disposition:
-	In-Reply-To:References; bh=JqaDTrKtx8/Db8fINpAFpkl/BzAhzi7fu660X6wjeKA=; b=wc
-	saHS3mPAyJ9prqPvG1zaxtBdalEDupa+F24FGd3PfOZr7LpjXXKBwuvaEEtoKYJNIFj+0A0cwIU3I
-	KptTPPpfjAJ4A/D9W+EH9hTfCXNGuxK3z4DPJQCl3HoAAToN54r+nRjAfYTysBfKZobOsV1TPPqpR
-	d4MFNBEflhuwYyM=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xR8dC-00Fl3m-2D; Wed, 11 Nov 2026 14:44:54 +0100
-Date: Wed, 11 Nov 2026 14:44:54 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: =?utf-8?B?7ZWY7Iq57KKF?= <engineer.jjhama@gmail.com>
-Cc: FUJITA Tomonori <fujita.tomonori@gmail.com>,
-	Trevor Gross <tmgross@umich.edu>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
-	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
-	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>, netdev@vger.kernel.org,
-	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next 1/2] rust: net: phy: make Device generic over a
- lock context
-Message-ID: <6cec94de-b65a-443b-88ba-97a6489664e9@lunn.ch>
-References: <20261110-exp-phy-rs-maybelocked-v1-0-3023cc9055e9@gmail.com>
- <20261110-exp-phy-rs-maybelocked-v1-1-3023cc9055e9@gmail.com>
- <CAGAB664Z1avii3rw6pSu4wT9eCmwYJ4R08ix2Z_YNm9KeEs-EQ@mail.gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5CBF606A324
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:46:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5CBF606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=pereq.eu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-48dee593f18so2409875f8f.3
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 05:46:07 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794404766; x=1795009566;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gU5SfropLbeuhhZVQHKyKXg+TDGqXO/o10GMjJa5hHQ=;
+        b=ei/pXM8sFbeJVaMaDQVSgCI9jjVpq/H6A71z0u2oNietVVQGwiJrrtPhkfnEg/nXHC
+         bc1RmPdj67aqim+JvDRbcYGWoMmipWfm2hvcfd896d5u8IRf4ER2py6q2fxyOP/Sk3zh
+         fcpcfqjl4fpnM6jI/WmR3ejmtCjtMhf2564nHnoAfdhnHBlYAEXtJOkVejRrrzWU6CUM
+         eG/ExK6PbuaOOb59GSm8gXsPIVOWTRGpK1F3hqmctwi8TdH9ewl6r2trYhp3S4wMyIoT
+         REuYV678RMz1uLvVxdWqwmaptULglLVzAhjsbksNktcirriRhav/18U1mKxYuTLapevX
+         p/iA==
+X-Forwarded-Encrypted: i=1; AL+hErEvj4Yx+FrKEp/JAALUB06sGkEv9F4ymSJb0HceM5mLuOAzKZnqC7U3+HTgaXXqtEm+jRyI5gpMlt0URiY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9DhqzzR5RJ7FFSu65BDgPOjatf4V9WzbzudhOM2iXENHfaVxzf
+	zXCtyKGyp9lQPTRhfD5DGNi6pP6VpgYXC+sPJuf5AaKvrnPb904SRfBk
+X-Gm-Gg: AYBFou08ZaF7bhSYhsfybiaAXnzZYWnipY5JiYPhGeV47YWCOC9uPhfaSjv8bCYinE3
+	2Zi9ZrzK/tB+MpGwa0z1N5QUHacAP1nITHfq0NGdgR8qu6MFwVXX6gSDvLpIT5sgzhm5vVHeARo
+	Zl5Skc+1Br6x6LUtCVpqp6aqYPI/Ct02HFAEZJ7g3N3o5aJgLDzGSpQeZHgqBUqb/TJL3Pa5hKw
+	qCQADhdYp7zXpCeHm7Cg8LS12/LWgFgprGei65fk8IgXmIwZc52S3paQLyI5dfROCm8ChdB6BJS
+	aqNoDn1F+VMNbnOP5S6qist1c55V7FjWKyM6MZAkIzQoCqQkK/3D/v4CdyKx+h8llwNBoeiTom5
+	iFtn5LNBPuJYF5UaKFcM2dWl1NYNqCD+CJmXj7mVMkb8af/hz3F93Q1r1r5pGcOY9zjUrCP731P
+	JgmdGbN0+V0Yytg+CSaSsB1edqzkWFlAR+oN0ymRFKqzPlMW4ZHKKWdTm7q7ACcj8ax58bwgJm8
+	5Wcf1BJMkUO/Wp85cWb9SJTuk5NySdSfEHZ5FHjUG+ExiU8upUBeXKRlJdUYgvK/SzVvsoNcfmi
+	1t/rdz0F8BSIztC8jvwsWJZuRzmnh+exRK/SgIamnEIvnXxI+UHlFgvyJ+rKNBP9dh/ow1QCWss
+	o+BkYk8gP/DZbH4mye33WYLrsVLRhZNX9TLVhhYwFTyeRhLGvCxQhUyuMstE/
+X-Received: by 2002:a05:6000:3107:b0:48d:f3f8:f910 with SMTP id ffacd0b85a97d-499c96002fcmr5471214f8f.34.1794404765741;
+        Wed, 11 Nov 2026 05:46:05 -0800 (PST)
+Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498366c30b1sm11189059f8f.46.2026.11.11.05.46.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 05:46:05 -0800 (PST)
+Date: Wed, 11 Nov 2026 16:45:57 +0300
+From: Dan Carpenter <dan@pereq.eu>
+To: Tomasz Unger <tomasz.unger@yahoo.pl>
+Cc: Dan Carpenter <dan.carpenter@linaro.org>,
+	Maxime Ripard <mripard@kernel.org>,
+	Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	=?iso-8859-1?Q?Ma=EDra?= Canal <mcanal@igalia.com>,
+	Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+	kernel-janitors@vger.kernel.org
+Subject: Re: [PATCH v2] drm/vc4: release firmware on error paths in
+ vc4_hvs_bind()
+Message-ID: <avRxlbgy9mtT1rR6@stanley.mountain>
+References: <ee4989e2-f55e-4d09-8a0d-306b78b9c9d0@stanley.mountain>
+ <20261111131528.316472-1-tomasz.unger@yahoo.pl>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,26 +92,24 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAGAB664Z1avii3rw6pSu4wT9eCmwYJ4R08ix2Z_YNm9KeEs-EQ@mail.gmail.com>
+In-Reply-To: <20261111131528.316472-1-tomasz.unger@yahoo.pl>
 
-On Wed, Nov 11, 2026 at 10:02:04PM +0900, 하승종 wrote:
-> Sashiko's review of this patch was sent off-list [1], so I am replying
-> here.
-
-The netdev's own LLM reviews are better than Sashiko, so we tend to
-ignore Sashiko. The netdev one also does Cc: netdev.
-
+On Wed, Nov 11, 2026 at 02:15:28PM +0100, Tomasz Unger wrote:
+> So without the patch every failed bind leaks one reference, and with the
+> patch the reference is dropped.
 > 
-> > Can calling genphy_soft_reset() on a Device<MaybeLocked> cause a data race
-> > on struct phy_device fields and bitfields when a Device<Locked> callback
-> > runs concurrently?
+> Tested-by: Tomasz Unger <tomasz.unger@yahoo.pl>
 > 
-> The race comes from the caller, not from this series.
+> One note about the Fixes tag: 2fa4ef5fb943 only moved this code around.
+> As far as I can tell, the rpi_firmware_get() before devm_clk_get()
+> without a put on the error path was introduced by commit 2a001ca00ad5
+> ("drm/vc4: hdmi: Rework hdmi_enable_4kp60 detection code"), which went
+> into v6.2.
 
-You might find the netdev LLM reports this as an existing issue. Lets
-wait and see.
+Huh.  Wow.  Thanks.  I'll resend the patch with the correct Fixes tag.
 
-     Andrew
+regards,
+dan carpenter
+
