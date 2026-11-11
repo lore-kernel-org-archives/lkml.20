@@ -1,54 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.250
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794411110;
-	b=Z0tsBUt6LA6Ieu3wglzfkvQOKN6nD8OSa+mVDECKW0rh2anwf4FH3vOdfvWJtEkLakzo
-	 xIWWcayDpYK/HLc4HBhXOo7DmSxPE8gzD2EDZPROqDlqPQh7V5gEzMbVFkZ9cSNlFvYhF
-	 9bTaTgzUiuC9J+x4UDYPMunA2kxjKScMYsC6owyJr8mfi2bDegiD7HqKh1UnNjwM0oASt
-	 v1ORvJX1a0Hx30lQy8Rj6epQLKHzhtExm8Dmd5uBVQizIa15J2L0oj5nE9fjW+J7pkrzX
-	 Xmb5GaIZ4YXkdaFOvHrwK7rtjucstl5k5dAaKBz3ZtbMMPx1GLphyO8QbndcFZ4g6tA==
+	t=1794411167;
+	b=OKjP9N8kJ/3ZRzia+h9SYUt4OcEqjJz8dFE//0tcChPdDWCiRKo+MfN5AMUTJBT3VI2G
+	 rpR/58skJ32hr10t+2bItB6ob7Bhe98mSAglaVNpVVpBoAPF79odqG15Y1C8FgkrOpuTe
+	 IQhrZxB8aCXBoTkwGjWc3JbCICpY/kX8mIPfmwvqZZGSP5TodNcihGLaZ+xtrb7986Spd
+	 8OVKhnkvoOq1SLhuZCIiBwbVEHMY/ujc3Ls2bH+hTpbtj1EKIOjucG3nBAH8UqqsvfbRs
+	 fk/QVeONgV46smq445f+nTc25XPKE0r0lk16eJsX5UavrcgHE/fDUSUGNI5pRrliIAg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794411110;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=yEIA6Zmz02BTCzQZDjg7NRu0QFN0RHxgpEwj9oihF+4=;
-	b=UgSNDx7CZtWxJh6G8/NfsIh2FCgegFjcwkngBTMSJXOIIDRACaAa1UD72jATWIGiaD45
-	 Ry4Jw76HOAf4aLM6QtLoOpxljLlVsGSt8GurAJf5OBsd9s5po7x6Hk3ETMpUOi0BtfXAD
-	 5SDKxMovidYij7HCyJGjF05MeCDn/48MhpaWIJ9bhpV6Zf9QuUP0sLLFAyanfrS/FcHlg
-	 OnH+c400E1A0oJ/iYd6bEpsSTU1TJKbfoEfq7n9TMRxSON5SV3V4RxxqXXoen0GJ01CB3
-	 ZJKhhb5ZBH+GFwrD9tGbhc4fYY9SKECGDhJGm9+i6fFqUXhj6MExKLLp7GAKGCMJETQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794411167;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Spam-Flag:
+	 X-Spam-Level:X-Spamd-Result:X-Spam-Score;
+	bh=0QX7Nn84u4s0DnwYMDSu32uRZsi//MdgfufFu6UTqA0=;
+	b=oW2oePIVMpvmgLR7kolZOXxODPLhfbq5G4G/DPiGFWt/uh3OYfazvpwyaJ/Mp4RTv5qY
+	 unxnetygms9an71WqqmGWChUQ0cU4xyqV4Ep2BrFCyeM2qYwAREVeK9Q4Y6/tgdQbbLq7
+	 r3nJx2AQYXWgDThmFlvyTvvVHr2Xu/WM4o3w6VKscwQ0lHUXzQ5iARcZJQez50WTa8J1D
+	 gNEMrHVsaKb2WP8C/z6ATIhSPVSG9DX4+a3hvTq/a5+FVwU0ocvL5NlRXtmzi/uynaUVf
+	 4sJrCWavy0b20OSEj81Rb9J6jddkeCM0tXKOVHtBCDRu8WwhEa6CKSCgCHJu9shE2pg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=dBZM5A4l;
-	arc=none smtp.remote-ip=91.218.175.250
-Received: from mta0.migadu.com (out-250.mta0.migadu.com [91.218.175.250])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=S987N5Xs;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=s9WDYQY+;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=S987N5Xs;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=s9WDYQY+;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9103606A321
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 15:31:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A9103606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84A5E606A324;
+	Wed, 11 Nov 2026 15:32:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 84A5E606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=dBZM5A4l
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=NjcZ2vs086wrkeO3l/vjfd5QbHjdbw8ASBFYAH9BBjE=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794411107; v=1; x=1795015907;
- b=dBZM5A4lIIKKb7ticjEP2eL/HioI0Hp1LgmI4yAus5DfyRQ2BAewrMRWVlfwISZ0fmb5ZrnN
- vMNRzU8i3WB6GJV3ama9V+u83WeUZTapB9u0P6+zbS9LqJHyYmZlmd2Sk9adM6zZuot1RHI561Y
- H4C/KL00Vc2UzkOB9/croRyg=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 59aee4a50207fa8f;
-	Wed, 11 Nov 2026 15:31:47 +0000
-X-Mizu-Trace-ID: 59aee4a50207fa8f
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <28d1e284-501f-47f8-b155-bbc2255f7a06@linux.dev>
-Date: Wed, 11 Nov 2026 23:31:35 +0800
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=S987N5Xs;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=s9WDYQY+;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=S987N5Xs;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=s9WDYQY+
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id AA9C721EA8;
+	Wed, 11 Nov 2026 15:32:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794411164; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=0QX7Nn84u4s0DnwYMDSu32uRZsi//MdgfufFu6UTqA0=;
+	b=S987N5XsWK2X6//jsNSWKUmEbdvyx7490xFLwWQtcW3BW+Y7DPovDD/aQPd2UlwA0v0Zpp
+	dPXDEcLZwe1tvxT/ww+fxNHPZW0u/hP2oP96sa7JuyFwKzwG+hxELdmEQTUjc86l0Y94/U
+	ChPYzDQf3qhaJalWmHPnRyuLEfcGcEc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794411164;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=0QX7Nn84u4s0DnwYMDSu32uRZsi//MdgfufFu6UTqA0=;
+	b=s9WDYQY+f+6araYdRSy/SwbNb8i3TlWvODYlvROUxJVBE3C84zDV+wERB7nD66LozH0tOd
+	2y6hNGeoeptzqlBA==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794411164; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=0QX7Nn84u4s0DnwYMDSu32uRZsi//MdgfufFu6UTqA0=;
+	b=S987N5XsWK2X6//jsNSWKUmEbdvyx7490xFLwWQtcW3BW+Y7DPovDD/aQPd2UlwA0v0Zpp
+	dPXDEcLZwe1tvxT/ww+fxNHPZW0u/hP2oP96sa7JuyFwKzwG+hxELdmEQTUjc86l0Y94/U
+	ChPYzDQf3qhaJalWmHPnRyuLEfcGcEc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794411164;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=0QX7Nn84u4s0DnwYMDSu32uRZsi//MdgfufFu6UTqA0=;
+	b=s9WDYQY+f+6araYdRSy/SwbNb8i3TlWvODYlvROUxJVBE3C84zDV+wERB7nD66LozH0tOd
+	2y6hNGeoeptzqlBA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2DB441339F;
+	Wed, 11 Nov 2026 15:32:43 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id oBajMZuK9Go7UQAAD6G6ig
+	(envelope-from <tzimmermann@suse.de>); Wed, 11 Nov 2026 15:32:43 +0000
+Message-ID: <57163572-846b-476d-9a90-f28d82598eec@suse.de>
+Date: Wed, 11 Nov 2026 16:32:43 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,81 +107,123 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH bpf-next 1/9] bpf: Add log support for tracing link_create
-To: bot+bpf-ci@kernel.org, bpf@vger.kernel.org
-Cc: ast@kernel.org, daniel@iogearbox.net, john.fastabend@gmail.com,
- andrii@kernel.org, eddyz87@gmail.com, memxor@gmail.com,
- martin.lau@linux.dev, song@kernel.org, yonghong.song@linux.dev,
- jolsa@kernel.org, emil@etsalapatis.com, ihor.solodrai@linux.dev,
- rostedt@goodmis.org, mhiramat@kernel.org, mathieu.desnoyers@efficios.com,
- kpsingh@kernel.org, matt@bobrowski.net, shuah@kernel.org,
- linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org, netdev@vger.kernel.org,
- martin.lau@kernel.org, mason@kernel.org
-References: <20261109140816.5196-2-leon.hwang@linux.dev>
- <5ed2ec09ce8a3ce5477a658b68c6315499ef67793014be27de18ee57ec968e12@mail.kernel.org>
+Subject: Re: [PATCH 0/2] Add monochrome framebuffer support to
+ simple-framebuffer
+To: Hans de Goede <hansg@kernel.org>, Sebastian Raase <linux@sraa.de>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, linux-fbdev@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Helge Deller <deller@gmx.de>
+References: <cover.1793758480.git.linux@sraa.de>
+ <ae6f7b88-ea9a-49f7-a3ad-ba90185528c2@kernel.org>
 Content-Language: en-US
-From: Leon Hwang <leon.hwang@linux.dev>
-In-Reply-To: <5ed2ec09ce8a3ce5477a658b68c6315499ef67793014be27de18ee57ec968e12@mail.kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <ae6f7b88-ea9a-49f7-a3ad-ba90185528c2@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spam-Flag: NO
+X-Spam-Level: 
+X-Spamd-Result: default: False [-11.79 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	XM_UA_NO_VERSION(0.01)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	TAGGED_RCPT(0.00)[dt];
+	RCPT_COUNT_TWELVE(0.00)[14];
+	RCVD_TLS_ALL(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com,gmx.de];
+	TO_DN_SOME(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[linux.intel.com,kernel.org,gmail.com,ffwll.ch,vger.kernel.org,lists.freedesktop.org,gmx.de];
+	MID_RHS_MATCH_FROM(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:url]
+X-Spam-Score: -11.79
 
-On 2026/11/9 22:47, bot+bpf-ci@kernel.org wrote:
->> bpf: Add log support for tracing link_create
-> 
-> TL;DR: Logging is incomplete: the freplace max_ctx_offset check in
-> bpf_tracing_prog_attach() still returns -EINVAL with an empty log, and the
-> saved_dst type mismatch may too. No functional regression.
-> 
->> diff --git a/kernel/bpf/syscall.c b/kernel/bpf/syscall.c
->> --- a/kernel/bpf/syscall.c
->> +++ b/kernel/bpf/syscall.c
-> 
-> [ ... ]
-> 
->> @@ -3843,6 +3849,7 @@ static int bpf_tracing_prog_attach(struct bpf_prog *prog,
->>  	 */
->>  	if (prog->type == BPF_PROG_TYPE_EXT &&
->>  	    prog->aux->kprobe_write_ctx != tgt_prog->aux->kprobe_write_ctx) {
->> +		bpf_log(log, "Invalid kprobe_write_ctx.\n");
->>  		err = -EINVAL;
->>  		goto out_unlock;
->>  	}
-> 
-> The check right after this one still returns -EINVAL without writing
-> anything to the log:
-> 
-> 	if (prog->type == BPF_PROG_TYPE_EXT &&
-> 	    (tgt_prog->type == BPF_PROG_TYPE_RAW_TRACEPOINT ||
-> 	     tgt_prog->type == BPF_PROG_TYPE_TRACEPOINT ||
-> 	     tgt_prog->type == BPF_PROG_TYPE_SYSCALL) &&
-> 	    prog->aux->max_ctx_offset > tgt_prog->aux->max_ctx_offset) {
-> 		err = -EINVAL;
-> 		goto out_unlock;
-> 	}
-> 
-> An freplace program whose max_ctx_offset is larger than that of a
-> RAW_TRACEPOINT, TRACEPOINT or SYSCALL target will get -EINVAL from
-> link_create with an empty log and log_true_size of 0.  That is the same
-> kind of invalid freplace target as the kprobe_write_ctx mismatch above,
-> which now logs.  This isn't a functional regression, but was this check
-> missed?
-> 
-> Would something like this cover it?
-> 
-> 	bpf_log(log, "Extension accesses more ctx than its target.\n");
+Hi
 
-Will add such log in the next revision.
+Am 11.11.26 um 12:15 schrieb Hans de Goede:
+> Hi Sebastian,
+>
+> On 4-Nov-26 03:34, Sebastian Raase wrote:
+>> This patch series adds support for monochrome framebuffers (1 bpp, packed-pixel)
+>> to simple-framebuffer.
+>>
+>> Monochrome framebuffers require far less video memory and bandwidth than
+>> 16bpp or 32bpp framebuffers, making them useful for small devices or FPGA
+>> implementations.
+> Thank you for your patch-series and I see that Helge has just
+> applied this to the fbdev tree.
+>
+> Have you considered also extending the simpledrm driver to also
+> support these monochrome formats there ?
+>
+> Most Linux distributions now a days have switched from using simplefb
+> to using simpledrm.
+>
+> But I must admit I've no idea how well the drm subsys / kernel-mode-
+> setting API handles monochrome formats.
 
-> 
-> Also, bpf_check_attach_target() still returns a bare -EINVAL for the
-> saved_dst_prog_type / saved_dst_attach_type mismatch, which is the
-> "freplace attachment to a new target" case the commit message mentions.
-> That code is in verifier.c, so it is outside this patch, but is it intended
-> to be left without a message?
+Only kind of. We either support it natively if the compositor can handle 
+it, or we convert from XRGB8888 to the internal pixel format. But our 
+helpers for converting pixel formats expect 8-bit per pixel at a 
+minimum. All the drivers with lower pixel size do some kind of 
+workaround. I'd love to see better support, but had no time to work on it.
 
-It was intentional to avoid touching bpf_check_attach_target() code.
+Best regards
+Thomas
 
-Thanks,
-Leon
+
+>
+> Regards,
+>
+> Hans
+>
+>
+>
+
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
+
 
