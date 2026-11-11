@@ -1,89 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794380193;
-	b=cb9o1gQGQGobEluDMXaQwVxBAAE/oFFdfZPQsXGwdG+4fvIEDB6exhiUS046TnmTScKW
-	 Yn/s0aq+MSO5niRSPHSWCE9EfGf2cGvLdDs5YyRxGAQLwXB8h1TK7QSrdUcoV5bTB4bBw
-	 WKcOE1bEclui5Jdg6wQxv7qVsFLwvpTuvGo0LGWue/6eMLeQ9l+qVH4rvxuCeKCmMiqT4
-	 lmVmYo0bFIzWY3+PCeU5IRV2lllmEUxOvjgRQdmBr3mBLUB+rL/4LeJDyPLW3+yw+MI5Y
-	 1BdHUNNtgtIfWMljRCRQ4JE/MTJQXpekVkvmTgPi/AjvtDMOZaa53H/zWnzmV+Ddpxg==
+	t=1794380198;
+	b=H5twrCeBADEgfaas52i3tDbTbdOCWmF4YFoICaK4FfkIUoClZZNJGPXjVNGn9t/pPeaf
+	 re+jdQrNCREyY4he8Y8//Q8+UW2JbkVIquclcfaTxgOO5N8fq6WpQbHU/aCkwseo/XA4A
+	 /uKjdkfW9DR92kQcHdcURkUpIgQ8NeHKhRb3DFLb9KR5RV3Is6mIy+55R1TA+89O5fdlt
+	 mscL0i+ti7sv/LiK7a+MOYHQqSbRFITXBCuzNy3P21CvEdw2TPWdtW7YDyeR2NnFBdbff
+	 eEhobIAuGpr7IMs0yFhy80MJGabuWHk0L6LDJMLImkV1KV0tZtAoErpktsL6shDsGHw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794380193;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794380198;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=9jhOOC622dmlAeDDXE08OsOwQ9rbd0t9D1tGFsBggw0=;
-	b=or5VITX94rwmk8X2iQGwRQG9365JYk3+s4P+D4Z6ZoTBC3aHP3UUdJHC3/hGI9UQtOm0
-	 Da6eZFMpufSB39wA5FVx/EeVwe9tglW2IcZx5Qhf812qwdEV6WboorwHh1ayxUXB+ZVjD
-	 yt+WGBL28O9ABnIEODsIhs41AM4v2l0OLPtHf2+qnOIkbgJxZDVQaRU+XZu8PczzFmg9m
-	 g8BlSIeZW/Hv8OBGfPqXAYH149v7CcIaXCFjtty9BY3ObX23edC9G0RLYjfzB/Yn3bEZJ
-	 wfGRhhPxUqYCoY6DnuVeT86qAOF7u1cCvWJwGT1jD8jAL1FOS+2+PkJTjisZRA5uWoQ==
+	bh=4PtICXQgYMF5gi3lR+RueE2sIoPdSSjd+glcQFFLPog=;
+	b=zkIClNepkwBMR9jJw42wMRMpePGW1+MhV2BBruPiIy4ul6b1ZKwuc2AV2CVj8LGQ68cP
+	 8cnr54DvV5ZwmFhp55/UAq9ApHD7cJXnJyRDyev7yh/QoNs9oouhq0NZTJkkJpVpHfaoG
+	 V6kmDwTaTfeOcYMOmbRE/HloPIR6ln3InS7P/DnORFO+KEMIGb5lMCAub+935Jbqv0G6B
+	 44Ujp9lhkvkhe2BO4vpv/02GxZ5AbrNOixwb1O52FRXaAHPzQGD0VMx7CUmkfJ7tp4zLi
+	 vvg3bKUA8OCs/qXztre8SDcs5CqpgEe7W/FWIXAQ3GyVzFB6ifvcbJ3p5vU7MDExF2w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SsBkwh+R;
-	arc=none smtp.remote-ip=74.125.82.44
-Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KQA9R7gP;
+	arc=none smtp.remote-ip=74.125.82.41
+Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A16260A2608
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 06:56:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2A16260A2608
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49EBF60A2617
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 06:56:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 49EBF60A2617
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SsBkwh+R
-Received: by mail-dl1-f44.google.com with SMTP id a92af1059eb24-14394530ec6so3679341c88.1
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 22:56:33 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KQA9R7gP
+Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-1a2af4c8d00so2219030c88.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 22:56:38 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794380192; x=1794984992; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794380197; x=1794984997; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=9jhOOC622dmlAeDDXE08OsOwQ9rbd0t9D1tGFsBggw0=;
-        b=SsBkwh+RkvYyTpBTtc/4YgnN7aLAWLHZYO7IaApfZg/2+mTAURxhK77U4LOuamHTSu
-         jkFkqCfyuaMmtT0wzFNdgVG7m+iuWt4idS3/lGzNjhfCRRgDTLRyBOJas3oH3WKoL2uP
-         zkj3mIEaV/jebvGfL4BvKZ6nIZUfw8qc7jNHIvr5JGMHJYYdhVTgtVfmD9Za1zaIM6Rp
-         DDI3WFIcsBe3/fSsOo/440Mz6TSKbTXDzC5bE+50fn/VvNa8V+vb/LCtusu8KTWhFqzQ
-         tkG1oSN8dvPWpgWUA/UITBPpy5UJK4X0H83gp3Yter7D72wb1o9nAIdY7J6eQVz5NOE0
-         3eXQ==
+        bh=4PtICXQgYMF5gi3lR+RueE2sIoPdSSjd+glcQFFLPog=;
+        b=KQA9R7gPgWoq5fnFAXy74KLk14GsFWmhDVpN4+RCIoo6MItoK+p9j7PCe7iJ+pBFwl
+         WzvErcP3LauXWLrFZJ5g/VE8O6cMvPEpiJ86rjL4zC+3lKybDwvGA35mJZeoU20Kt1vE
+         qoQ1s8Wxlbdl8eYhrkz4gcmNsFD2lTS7eU7P75tVaK6DdDIwdWG3tXF5lu8F2iWC5o6T
+         ikhlrbsLvqSD0R4J9HWOoY+kxpZRQxi/wHozKMN7zwAjxYzEW5bvslhtU53sn8/HlPEb
+         ieyWfkFjaBbFcA0eM/ZbZ9cHJde2X7yoY3vySesKMe+nfhKt7uEquVCNvO0B3MFmrWsk
+         hmXw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794380192; x=1794984992;
+        d=1e100.net; s=20260707; t=1794380197; x=1794984997;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=9jhOOC622dmlAeDDXE08OsOwQ9rbd0t9D1tGFsBggw0=;
-        b=IcEu1lFeesk5qP7UxR64yMOJRUG9lz6BkZpWr2TCCJaG1j12bCPgoVSFKam1oD7QTI
-         MN9+8UVD3OVvQmBhzrczuYcymF8vP/OsIurMnaHRBfX4T2tHX8BUBGIVc27Qg60xpD3K
-         wu8pA+OR9diPF+2sxrF4leDM0VEzs0yRvWyUzbo27GcsRvkL6VVhgdYEXjIrINo6AJcS
-         IdCc3Cp9EJReDm+WDHGHPp+RyQka8bKvA4oaY+U7p31VtqxrIrI81hYUNK04lumcG5ZV
-         vryueHraNl+R4ZPdVCab3Ck6mzNR0G9QiKCJDJfPBn/CAM2/KLnBBuHzW+tF8OOj7/et
-         ZuYg==
-X-Forwarded-Encrypted: i=1; AL+hErHPmRIA3GJJN/opzmadQ/cILcfnCBvq2bOAdU4rboj6SUejyxom3otDLXZ06iUOYOvho3fmqTGx4gPvJ6E=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+mNAocEj1RMwzUqRUYKS6nz9XoxQTIZOaVruLZWy4oG6Mq74fX
-	hsfX+CCDmNoYOnK4S6EwInS97sOb4VVwGxkXSb7ww9/0KfNAXWxAgliR
-X-Gm-Gg: AYBFou0EpKexsNaIflB0HaAUnyCSNdMotrCH8B3CYkMJWXKzi1uWzhdrgfBSbDYhGXS
-	8F4Ae2EQ7N99cV/sApQ3VXGgFV7GxDu43rUZUXBHfGSLWkyQ6lnG+a+dov9jAw4YihNXaxQX+DV
-	4wolQgSVL1VrP59vOeXOuzb/sfn1KA7sVQLm1xEV9T0s4anZQ4atWQ3XFxEGYmrZoQqwi9yruhh
-	mxXXIgmwxpngOyRskr+i52f3I0YNx6GzY1sOHh/BNsWBvAQ7XEQ74nCO/yC3skRZqwg0Dg0rI+0
-	CRHKlIk/3JomX83sJn3c/zeE4q4+iIYxdlvTZDCKKtBlMllzznXcELQmGZHq5GuKPA8i6dUjk6X
-	8TsuGybTzoRDHjwY7oWOxcTAv40Y9+HINGOXBWlWQplGLwQNh5GOh7Ar8k3/o1hosAId8uPwmzI
-	3Oy8vWD4DZfKXClN1ryyu7FuKw9Lj9nup7gSLb/NqlPiiK51eQ4VHmuuQFn54yjdha8zDGBbk1a
-	JshvmiIR1g92Ft43SPJ5eHSXiRBhD7FXyNSeProUvgovgc0BjraM2IPYm+w9lG+VYokXeTS9DxJ
-	gkLIVeSMVtUTiSAk4gbhLW+/aBgSPylOJ6yJp+dbvTNVqL2PzfwIh5SANjP8PyuSWpcg4mlIJuP
-	aIk1aGHF44By/ljppvA==
-X-Received: by 2002:a05:701b:4513:20b0:143:3c9f:10a6 with SMTP id a92af1059eb24-1b3c023deaemr1635953c88.4.1794380190728;
-        Tue, 10 Nov 2026 22:56:30 -0800 (PST)
+        bh=4PtICXQgYMF5gi3lR+RueE2sIoPdSSjd+glcQFFLPog=;
+        b=zIzTzQ/SFT/ufG7tshdEngHxnZqDwSJWdaRIg0AlxbOrCG9LdBPJwQmjWuLYi45ILm
+         72bJ8SVXvkYmn4rleMjRN+NfRCXOwe5ls+g6qnalaD+mIUuZDEg32Gers8qSuCcW7R8Z
+         oCYXik6rWdDpfoe/264xT2Qvdf3kUVxlRwebEap0vQ2Vh3kdwGvJcrieVAXCZOyiVml3
+         M7BW/XSYUsEpIXVKB3+mC8nZcTa/qnuXj/NJl0PPPPi4timypehUbCPDY1Kj9WjfGKn8
+         YodSiDFBFFEybUyH3L+NyIlKoq56GxRPZ3ZgPbZ92/BG8375QdYc9VvbM8ZVkGYPN1If
+         eIpw==
+X-Forwarded-Encrypted: i=1; AL+hErFzDfu50q/d/IIc/Vs/uXrP+4X8AAN7zHTB9S16QrZsvy1wICXKVBJ+W06vrdBXKEqJv0a5LBUuptsLyp0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9ZTBrFoOqSpOChRoRnYauJ30mYzdYNqjqTB2VbqGrz9GM9o7RM
+	X1P219s7HuaDiHz7gyd3/sd41vjL/XzCi/6eZnzhby3JBwTD7NkLW9dM
+X-Gm-Gg: AYBFou2mg0cAzXFYK0DQsoHTaqIo8F6+ivSWw3vYL//fomRmOWxnS7uUp0NvF4RyL2L
+	r10kjoMaWcx7uOOFrP6AXOvSRPWb8sZijUgpCG8SMjVo1DXmcmVNUlkyUHbLTPvh6comaBoOJRy
+	MY06caMBsewBAvscRsExa9gK7BfZrR3tw5/LFGoEfRCdmTS1XxgRswJ4CJY5vhGarmDTp2/lrbo
+	uGFJZsokhaFAVJUy2Y2myVvX7BYghH+FuTIdgJtq9b75uhHJwG27TuRl1sn3tyCFen0cU1MHO0c
+	edt9JT8QhMVTNN/Oql+fVjkg4bOXdBZD2A85xV4THlKR4cabXxs+Ve52XYU3aB9joyfO2dnB/3D
+	98ypNd0QmG/f4zFa164nxPNkCcoWze3/0xWnS8TzhYXKY4SjGPZoN8bSCIRFD2df8NmiqZFAZaK
+	0rKz8HyCdQxeCp5rstT+VkWgba1TUfOt0ISzCWBP8MPrAILgCuERqcquAxYSo0yCDfoaDtmZ54c
+	J2CI4uUh/UKn+3fZ4bWijfk5MktfEnDBk/NP1hCLZeHGCTvllHyJwo3M9JLvCeme763VHBCV+fp
+	teEQgaTp/Q66qrJKXVAJPERSfohl/n+gFjIKMdT4pX4lS18lGbp7u3q0VTuENG+Dmrc/pDsGxb4
+	1mc34iyivvdBnv7jm0Q==
+X-Received: by 2002:a05:7022:5f05:b0:1b3:aee5:20c5 with SMTP id a92af1059eb24-1b3c0318483mr1532305c88.22.1794380197358;
+        Tue, 10 Nov 2026 22:56:37 -0800 (PST)
 Received: from dtor-ws.sjc.corp.google.com ([2a00:79e0:2ebe:8:311a:ad7a:93f8:96c8])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b11435sm13858121c88.4.2026.11.10.22.56.29
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b11435sm13858121c88.4.2026.11.10.22.56.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 22:56:30 -0800 (PST)
+        Tue, 10 Nov 2026 22:56:36 -0800 (PST)
 From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Date: Tue, 10 Nov 2026 22:48:04 -0800
-Subject: [PATCH v2 06/33] HID: logitech-hidpp: avoid NULL subtraction in
- consumer key report fixup
+Date: Tue, 10 Nov 2026 22:48:08 -0800
+Subject: [PATCH v2 10/33] HID: logitech-hidpp: fix HID++ 1.0 battery
+ mileage event parsing
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,7 +95,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261110-hid-logitech-hidpp-v2-6-30743e91d83b@gmail.com>
+Message-Id: <20261110-hid-logitech-hidpp-v2-10-30743e91d83b@gmail.com>
 References: <20261110-hid-logitech-hidpp-v2-0-30743e91d83b@gmail.com>
 In-Reply-To: <20261110-hid-logitech-hidpp-v2-0-30743e91d83b@gmail.com>
 To: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>, 
@@ -108,41 +108,47 @@ Cc: =?utf-8?q?Filipe_La=C3=ADns?= <lains@riseup.net>,
  linux-kernel@vger.kernel.org, stable@vger.kernel.org
 X-Mailer: b4 0.17-dev-e56a4
 
-Report fixup runs for all 27 MHz devices because the keyboard quirk
-is only determined later after parsing the report descriptor. For mice
-and other devices without the consumer collection, searching for the
-descriptor fragment returns NULL, yet the remaining length calculation
-subtracts the base descriptor pointer from NULL before checking the
-search result, triggering pointer-subtraction undefined behavior.
+In HID++ 1.0 battery mileage event notifications (register 0x0d), the
+register address occupies the sub_id field rather than reg_address, so
+the payload bytes start at rawbytes[1] (parameter p0). The driver
+previously read capacity from report->rap.params[0] (rawbytes[2]),
+extracting parameter p1 instead of the battery mileage percentage.
+Additionally, when a change was detected, hidpp10_battery_event()
+updated level and status but neglected to update battery.capacity,
+leaving capacity frozen and triggering spurious power supply updates on
+every subsequent event.
 
-Ensure the search result is non-NULL before computing the remaining
-descriptor length.
+Read capacity from report->rawbytes[1] and store the updated capacity in
+hidpp->battery.capacity when changed.
 
-Fixes: 42bc4f3129e6 ("HID: logitech-hidpp: add support for HID++ 1.0 consumer keys reports")
-Tested-by: Gideon Heinz <gideonheinz02@gmail.com>
+Fixes: 7f7ce2a258b4 ("HID: logitech-hidpp: enable HID++ 1.0 battery reporting")
 Cc: stable@vger.kernel.org
 Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 ---
- drivers/hid/hid-logitech-hidpp.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+ drivers/hid/hid-logitech-hidpp.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/hid/hid-logitech-hidpp.c b/drivers/hid/hid-logitech-hidpp.c
-index 6ac41b7d76ee..53c171dfcf96 100644
+index 16dcd79059d5..0ec2f2fd6dec 100644
 --- a/drivers/hid/hid-logitech-hidpp.c
 +++ b/drivers/hid/hid-logitech-hidpp.c
-@@ -3872,11 +3872,9 @@ static u8 *hidpp10_consumer_keys_report_fixup(struct hidpp_device *hidpp,
- 		0x26, 0x00	/* LOGICAL_MAX (...                    */
- 	};
- 	char *consumer_rdesc, *rdesc = (char *)_rdesc;
--	unsigned int size;
+@@ -829,7 +829,7 @@ static int hidpp10_battery_event(struct hidpp_device *hidpp, u8 *data, int size)
+ 		status = hidpp10_battery_status_map_status(report->rawbytes[2]);
+ 		break;
+ 	case HIDPP_REG_BATTERY_MILEAGE:
+-		capacity = report->rap.params[0];
++		capacity = report->rawbytes[1];
+ 		level = hidpp->battery.level;
+ 		status = hidpp10_battery_mileage_map_status(report->rawbytes[3]);
+ 		break;
+@@ -846,6 +846,7 @@ static int hidpp10_battery_event(struct hidpp_device *hidpp, u8 *data, int size)
+ 				status == POWER_SUPPLY_STATUS_FULL;
  
- 	consumer_rdesc = strnstr(rdesc, consumer_rdesc_start, *rsize);
--	size = *rsize - (consumer_rdesc - rdesc);
--	if (consumer_rdesc && size >= 25) {
-+	if (consumer_rdesc && *rsize - (consumer_rdesc - rdesc) >= 25) {
- 		consumer_rdesc[15] = 0x7f;
- 		consumer_rdesc[16] = 0x10;
- 		consumer_rdesc[20] = 0x7f;
+ 	if (changed) {
++		hidpp->battery.capacity = capacity;
+ 		hidpp->battery.level = level;
+ 		hidpp->battery.status = status;
+ 		if (hidpp->battery.ps)
 
 -- 
 2.56.0.542.g3ef89b7020-goog
