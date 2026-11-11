@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794416196;
-	b=BCUZYWtAyrXrl0MAF0OLGSpX0RW2POxJa+9H5VNsK8Ph+n1uZ+On4s9FqFyi82eNmGqJ
-	 +MjbiVb66+BjzYSX+UXqC5mcEBlT51T89k8Ljuzj7/kNu+0qnmwSgFYa8SK/huFVe5HR4
-	 jrWoVyuwOkRsVeRMlePKEhM4gee8suqx8IzqSiy6/N4+rO8ZPSh6NgzIvA6IK+F3TNWhd
-	 PiJX4YQRUkpFiWa8f+G3vM2LU8Vyc7Izw0YqrXW7iZ0om7cNlo+QoH1LZDOmoY8jbF0ag
-	 zP+6UkVJHrj0B2rBvAFhzcQB/GTMFizu8IAPH4ZGua08Fhuoi7i6grwU8Y3g/RRvUSw==
+	t=1794416202;
+	b=Kzob/6YEBb5eYQRozu2bNTshor+fnWKHZlMxzhosAIyoZ0WoaQJJ5rugK2znyQrQzo9P
+	 e5CNhoURWINmYQbKn2oqxBUCgwGIMNSf7IHwdyhea1vXfHQ1oYIsBFnkCoH+raHUmscdt
+	 EeSJvhrZfv6M67ruv0bh60J83Ub5JOAHoqbhaaQ6yo0zRcYCYrIIKCXbtrsR58LUyKVa3
+	 ddfkq2v9xOTlF2VrSAk74RqHcHANI4UU6GYhXk6z+vUvcCLiqYORoZzQFa4H4Fhsn2GQb
+	 WchXaoITcVpMOikNygcPSqj2/Z5LfxEpD3Ub8p0WZCJJ9QoyRVcg8Qy71DHasOAGkUw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794416196;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794416202;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:X-Developer-Signature:
 	 X-Developer-Key:Content-Transfer-Encoding;
-	bh=CnTzvu8AcUJ2DYdwVX9DYr3Lazzwiub/CKb4VxPf5lQ=;
-	b=l/JfQB/X+/yIa7jBzCXh0XFLLYSXyGHmY9r3NyG6IgVY4dTZquI+BZ01mjW6NhCUc1oG
-	 ONc3lzu+myniVHmWPAR+W3ogQDqBQRG++95CJT2VqOdMVWEEos4CLC8uBZXBARL6Kzqoc
-	 QBo7U+72FIEwuA/1TqAGcmFhai9ad8ZWZHwhSfz2Hn1hxPHr/yv5FmsdjK+2tVMfCaJsl
-	 Hvrjs5LDNx4qS4rW8gPwOW+IVkvGbeVUXapR9aQjb5yDiE9SrAM39BKai5suc6kQX/eht
-	 MG1HoV2IMxXdc5SM4z1gGJaU+jT5YQmHAzfMB0c4Ol++0zV5EuQ3aCaZZDCL5dxBe5Q==
+	bh=XcUgMCK/dKDdxJd/k/XmNcnLORu1ikaNoqprmvqOtRI=;
+	b=kTwPT9cjHmPQij6zlADVAXt6HWD7GM3H21PWRmKvVf9r6raCSSgLSjcblNA/SRFY8R7+
+	 TZKRqtBaiJdW51EuqgpCPv7d8cVWaSm8A+Swjfoy2bHCen4xvx1d++oMS4lhKzDh3U55H
+	 bwQDEyCbG2ju8G5k829SvEsmAdjZIe5qNVrFLWhvNWHJBlkvudbUqKmvUm0sNIj/9l+Sh
+	 F5TDmmE2AgrX3efoQK0U1vJPmsDkXgNBolmzY5QZhCg4jGRuPNtt2lqCY0XSBwvEnWW8e
+	 4jaIoMUBQzte0YVeauECLcNwHqnfYJezH8RtC7rS8vJhwKklBlmxgwIj9lXyJWiIiOw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UKa6D1eJ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TUfzJWZH;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB037606A333
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 16:56:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 533D2606A332
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 16:56:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UKa6D1eJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18EF41F00A05;
-	Wed, 11 Nov 2026 16:56:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TUfzJWZH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84EAA1F00A07;
+	Wed, 11 Nov 2026 16:56:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794416196;
-	bh=CnTzvu8AcUJ2DYdwVX9DYr3Lazzwiub/CKb4VxPf5lQ=;
+	s=k20260515; t=1794416202;
+	bh=XcUgMCK/dKDdxJd/k/XmNcnLORu1ikaNoqprmvqOtRI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=UKa6D1eJxW0vw72G7pS2O82p+qcL6rqph2S54acoM23nNhzGBAVDiDeFDD6z5UP3f
-	 45en2w0e1nwRU55TLlJlXw42WRjgWaDZKVEXU+S0ZflvcLRrJxzZ6krJ6axXYXdDhI
-	 VXxtIJTic88bnX4T7ZGpaTyn6EfusScxB7R22m49608M0h0+JsXbkkvcadg/WrTtgm
-	 BSjL+4CvKW+pHMbWIj7ZEPEKLj9Ik4+qTi+qA5qajIF5tEcg+bTkW8OEBYdUaz34Mn
-	 u1SXnnqHOXZ1bFkrtO3Qs+C6NzHL3FoWDZj1E9v8pudFnF7COTnpZm6a/R7SL5vure
-	 d7Yw8iAssOgrA==
+	b=TUfzJWZH0lKrZnywYbd+q/4D/+ZPI7IsenzHCs616oHGw4hejvyy/vg85QON+Nl6v
+	 3dhrSSEM8uGrUAPMKFDytI4pMSAaSwR8ttqkGyRlYQXWVPnIO/wbT1ONBzw4ZSyejk
+	 uI5a5T9Lx/YyvdAvwOvLi13/rHjFlF8tf+Zsaqwa+epsDu2flWpM4m2ZChgDo3nDH9
+	 pfnqMUi7uVtuufUrkkVPKypsnmaK7ed63aCJwgDkR7DCOycCSbT0jMMHkhZ4aNMkcd
+	 9S4UA4jbnLgRbnGaGbT2fJPv2114CGfZRqpgK+MNBNhnie/XavLEq7C1gTeU9duDyR
+	 tnzYa3NGHAZZA==
 From: Thorsten Blum <blum@kernel.org>
 To: Thomas Gleixner <tglx@kernel.org>,
 	Ingo Molnar <mingo@redhat.com>,
@@ -49,17 +49,18 @@ To: Thomas Gleixner <tglx@kernel.org>,
 	"H. Peter Anvin" <hpa@zytor.com>,
 	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
 	Ard Biesheuvel <ardb@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
+	Andrew Morton <akpm@linux-foundation.org>,
 	Grzegorz Jaszczyk <jaszczyk@chromium.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
 	"Pratyush Yadav (Google)" <pratyush@kernel.org>,
 	Breno Leitao <leitao@debian.org>,
 	Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>,
 	Thorsten Blum <blum@kernel.org>
 Cc: Ingo Molnar <mingo@kernel.org>,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH RESEND 2/3] x86/setup: Simplify copy error handling in relocate_initrd()
-Date: Wed, 11 Nov 2026 17:56:09 +0100
-Message-ID: <20261111165608.78688-5-blum@kernel.org>
+Subject: [PATCH RESEND 3/3] x86/setup: Use pr_info() in relocate_initrd()
+Date: Wed, 11 Nov 2026 17:56:10 +0100
+Message-ID: <20261111165608.78688-6-blum@kernel.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261111165608.78688-4-blum@kernel.org>
 References: <20261111165608.78688-4-blum@kernel.org>
@@ -72,39 +73,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1273; i=blum@kernel.org; h=from:subject; bh=IhOpYPqD6P+okvuJ4c+5xvi+hxtopDXHBMTEDcfomtM=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFlf5mn943vw/sOjy5+OnFe+lDF77kMOzwjB88fvdt3dd VQzqjviQ0cpC4MYF4OsmCLLg1k/ZviW1lRuMonYCTOHlQlkCAMXpwBMpOwbI8OEE+x8vyW+Pp2y OSRKdNHan8ZTlnWwFrZaJHH+FXZdn9fD8FcqZqaOoWhpv5BnYvj2Tc9SZv+eYnZissSGqTtnlPw 518cOAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1308; i=blum@kernel.org; h=from:subject; bh=gM9lxZ8NDrqab/gTNey6A3nG/HuhDw2zkZa/daSwNAE=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFlf5umwWNyetNi56ZVAwbkLEnkv5xoIvWtje1UkvdjzT +Ripv3VHaUsDGJcDLJiiiwPZv2Y4VtaU7nJJGInzBxWJpAhDFycAjCRqjJGhqmrD7a/jy//4Rm/ s0FyWeuvOyI83n4RPxLcb8xbGc/Gr8XIsCnpRUacYz+38nwRObuYr/2p+VFOZ8Qv3BP8sEvjmuQ GfgA=
 X-Developer-Key: i=blum@kernel.org; a=openpgp; fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
 Content-Transfer-Encoding: 8bit
 
-Check the result of copy_from_early_mem() directly and drop the
-now-obsolete local ret variable.
+Use pr_info() instead of printk(KERN_INFO) as suggested by checkpatch.
 
-No functional change.
+Also change "Move" to "Moved" to match the past tense of "Allocated".
 
 Signed-off-by: Thorsten Blum <blum@kernel.org>
 ---
- arch/x86/kernel/setup.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+ arch/x86/kernel/setup.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
 diff --git a/arch/x86/kernel/setup.c b/arch/x86/kernel/setup.c
-index 4a6c54110e75..8f34bd61512e 100644
+index 8f34bd61512e..91acec0ff252 100644
 --- a/arch/x86/kernel/setup.c
 +++ b/arch/x86/kernel/setup.c
-@@ -322,7 +322,6 @@ static void __init relocate_initrd(void)
- 	u64 ramdisk_image = get_ramdisk_image();
- 	u64 ramdisk_size  = get_ramdisk_size();
- 	u64 area_size     = PAGE_ALIGN(ramdisk_size);
--	int ret = 0;
+@@ -332,14 +332,13 @@ static void __init relocate_initrd(void)
  
- 	/* We need to move the initrd down into directly mapped mem */
- 	u64 relocated_ramdisk = memblock_phys_alloc_range(area_size, PAGE_SIZE, 0,
-@@ -336,8 +335,7 @@ static void __init relocate_initrd(void)
- 	printk(KERN_INFO "Allocated new RAMDISK: [mem %#010llx-%#010llx]\n",
- 	       relocated_ramdisk, relocated_ramdisk + area_size - 1);
+ 	initrd_start = relocated_ramdisk + PAGE_OFFSET;
+ 	initrd_end   = initrd_start + ramdisk_size;
+-	printk(KERN_INFO "Allocated new RAMDISK: [mem %#010llx-%#010llx]\n",
+-	       relocated_ramdisk, relocated_ramdisk + area_size - 1);
++	pr_info("Allocated new RAMDISK: [mem %#010llx-%#010llx]\n",
++		relocated_ramdisk, relocated_ramdisk + area_size - 1);
  
--	ret = copy_from_early_mem((void *)initrd_start, ramdisk_image, ramdisk_size);
--	if (ret)
-+	if (copy_from_early_mem((void *)initrd_start, ramdisk_image, ramdisk_size))
+ 	if (copy_from_early_mem((void *)initrd_start, ramdisk_image, ramdisk_size))
  		panic("Copy RAMDISK failed\n");
  
- 	printk(KERN_INFO "Move RAMDISK from [mem %#010llx-%#010llx] to"
+-	printk(KERN_INFO "Move RAMDISK from [mem %#010llx-%#010llx] to"
+-		" [mem %#010llx-%#010llx]\n",
++	pr_info("Moved RAMDISK from [mem %#010llx-%#010llx] to [mem %#010llx-%#010llx]\n",
+ 		ramdisk_image, ramdisk_image + ramdisk_size - 1,
+ 		relocated_ramdisk, relocated_ramdisk + ramdisk_size - 1);
+ }
