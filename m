@@ -1,49 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.161
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794470484;
-	b=iloWgcQ4XWcI/0ofaKgjDy1PMWA63w3WX9Qrg9o00YCskkTePN1JYu7NkVCRO69BXPpz
-	 s4nSNZMZ2ksaQIZnCY3ZsTRyUgYvhJ39r9H48tMm54Sun5xd+Gl8ShwuhR4GVo/+WcON0
-	 Q7ncHrANExVayAGj4VCuKu5HxGGFTIB+soIDWpzfJW+CWOgcL9JZqwEmJOOO0OnKXtgZT
-	 mltNWDzedEr8FB0NZBjDiwPbGCv3Jcktf4jR/Acm1Y3EZnY3v+orW/OEb1hNXSUST2dea
-	 nUUCmCum+iWpW1fzLi9AY4P2ZRhaw22680zFdr1XdCD5GTfJRp/QGBBOmMX0LTlyDNw==
+	t=1794470506;
+	b=QvGKXpiKEE8UG7/zq4Casn9tgu2MS5+guV8VO2E4KR4QBQJjGask9kYJ+seHHule6l3O
+	 qVEKpDxnzI200pb5F2uaT/hbMMKNoZS5nkcyW+XKhTTAaOtZiyGLWHJjkRMcScqiQuMoS
+	 wBOmPng9rn5ghXLCREQ3drxveDHRRgJUMkqRSkegfAvVpIS7tKkJFYiK6qALodVq/hlFi
+	 U2S+pQroRtIdp4o8LZzlNgjHoyLWvOt5qpRVbr9b5F0SvtuJv/IArGnarK9AJRrGGrdvp
+	 C1uskFgQhLZdLqk2gMP7ZnARlRDu53WnBxXVvg7O/7Mu/yVpvkbIBb+Z2j6x39IClKA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794470484;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=Ho/SJRRXKfR8E8InR6yIipzjTEX73uVp+KDQpwqfDkg=;
-	b=cF/6R2HPS21zQJc7Q1iWcL1VzS/p3bAHn+U5vORb/5yrEutYsIcM5qfBCrhC+IsQhJCr
-	 HBaxSSpU7XPZkcafj7FHey7jBofU3GXz2lDENKucQ1yd4KyL01EHME7mjy46mrnsUbVVw
-	 02bvodrs+zHLLOS0zGeGzTBJQSsZhOsyqrxeeahxY7Mlsb4G0I2ngbMXe7n5p7WIIog5x
-	 hQ/gEEtzLxKaC8eaqqEJByKiFf6In3/pUiZMAPpnbRxc+Cp3vk+mNMEDT3MRBESkLVmXJ
-	 zvpYzgI+iHR/31LBPadLD6dsTy/Rg9iyuHblp/+Rjm58nyGPNPMfTQTB2UbznSuKu7Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794470506;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-MBO-RS-META:X-MBO-RS-ID;
+	bh=WjKO0NSg8lPOk5mK3slLkPv+yGSOHVDOie0hk9bAwXk=;
+	b=lcooybLSRW/PYY3AwjR75G/Qz8uo905jFd8CgUuAAUq18C0h4RqKUl5PBQ9qANUFBRm1
+	 iW2QfUulNj4cMo1EniN5AvmAJPJ8+apltH9VZk6P0hrDb7EPHeHNCB4PtPW/JAGMaF8OH
+	 8rY5gRuHlimxG1PU9aXIC2biyxFaNd816bIdNG4Qh0r0iLr2lwowu5AlEQGOM1nvnOPW5
+	 xU393oFcEJw8sgJUoSelieH5CJJB5CEsfU5/ezUYZ56Wmav3EsQr62d/BTLCTfxsgUuJh
+	 RC9AhcGGctt1z+zVQ0zSJICJBcMLuaIiLP7AqwiFqJu6Wt8rtugACL/NqDdZ4aIRn1g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IX86yE0i;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=mailbox.org;
+	spf=pass smtp.mailfrom=mailbox.org;
+	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=MlW8fBiq;
+	arc=none smtp.remote-ip=80.241.56.161
+Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7482606A327;
-	Thu, 12 Nov 2026 08:01:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF775606A323;
+	Thu, 12 Nov 2026 08:01:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF775606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IX86yE0i
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 233F11F00A06;
-	Thu, 12 Nov 2026 08:01:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794470484;
-	bh=Ho/SJRRXKfR8E8InR6yIipzjTEX73uVp+KDQpwqfDkg=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=IX86yE0iZxcEtAHfeuJL5JpOZ67UmXFn4xmBbABbBa0UsO+e4sJcaDr9iM2WfqGHN
-	 o288DfoA0kbfws9DDfgZkNQOVndsS2O40l0a1HdoXRAgwyb67U/6q6nOxVRXh9GI/p
-	 0GR9BPeQZ9WCriYLfb7f7Jd644e+U6WvkZjHxk75KuwE/eOawKSvRQIL8Z+qrTPuOD
-	 nEhm7jVmQ/hMokN+4rI9924j55yBPxw3sf+LgcaDaYVhFN/hWGOuw0hjEaHKnYHU1Y
-	 1EByIWY9rj5y5xt1xKalYhi+KdNX90cjFcHLaV1JuHX7inDwhkBbynOlwxkfgSkE4L
-	 U7uXoaJpMPX2Q==
-From: Yixun Lan <dlan@kernel.org>
-Date: Thu, 12 Nov 2026 08:00:56 +0000
-Subject: [PATCH v4 1/2] dt-bindings: power: spacemit: Add power domain
- controller IDs
+	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=MlW8fBiq
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4jQCX35103zKnm3;
+	Thu, 12 Nov 2026 09:01:39 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1794470499;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=WjKO0NSg8lPOk5mK3slLkPv+yGSOHVDOie0hk9bAwXk=;
+	b=MlW8fBiq3WE3Ghcf5Br1fxuxBbOzaTSe7hAgdjhKDsPaMMsg/8Cc7dtxsHGhncE/woOMIa
+	6xe+ZY0J9egGhM70fhIF31eIfrz+cJfa8MPdn7ghKyR2Mt4Hc1NQkkE0JndUMsv+AekhWy
+	srUPYZ6itRYyTrrz3Is7i1Dz3zkFGqcx55DysLVyaPr29NdUUIGakcmqgp05DIjl//qZuH
+	UvBhW9QBZG3tzjnZkr/DehKmRhfNmvbLU3m9G02Pzxx5fdjZgjKMzv6wONgSFVl5HL9tMp
+	ixn79j3qNRyWBozdBY5gKbyUivyx+cGXEcqRVOH+oaCdFZdTZgRUKII4MSv3Jw==
+From: Manuel Ebner <manuelebnerli@mailbox.org>
+To: Kiryl Shutsemau <kas@kernel.org>,
+	Rick Edgecombe <rick.p.edgecombe@intel.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>
+Cc: Manuel Ebner <manuelebnerli@mailbox.org>,
+	linux-coco@lists.linux.dev,
+	kvm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] x86/virt/tdx: remove kernel-doc syntax from comment
+Date: Wed, 11 Nov 2026 22:45:40 +0100
+Message-ID: <20261111214540.681690-2-manuelebnerli@mailbox.org>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,96 +76,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261112-04-k3-pm-support-v4-1-de3931aa5153@kernel.org>
-References: <20261112-04-k3-pm-support-v4-0-de3931aa5153@kernel.org>
-In-Reply-To: <20261112-04-k3-pm-support-v4-0-de3931aa5153@kernel.org>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>
-Cc: Icenowy Zheng <uwu@icenowy.me>, Iker Pedrosa <ikerpedrosam@gmail.com>, 
- devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
- spacemit@lists.linux.dev, linux-pm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Yixun Lan <dlan@kernel.org>, 
- Conor Dooley <conor.dooley@microchip.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1980; i=dlan@kernel.org;
- h=from:subject:message-id; bh=ZGjBATuMj77MYSRucrBFIOVycrvyLdzdato4w2GM7iQ=;
- b=owEB6QIW/ZANAwAKATGq6kdZTbvtAcsmYgBq9XJFJRHeM+96J1XxoxUDOhiZQ7PxNdW2PQ0Sn
- IJLqlh44QSJAq8EAAEKAJkWIQS1urjJwxtxFWcCI9wxqupHWU277QUCavVyRRsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMiwyLDJfFIAAAAAALgAoaXNzdWVyLWZwckBub3RhdGlvbnMub3BlbnBncC5
- maWZ0aGhvcnNlbWFuLm5ldEI1QkFCOEM5QzMxQjcxMTU2NzAyMjNEQzMxQUFFQTQ3NTk0REJCRU
- QACgkQMarqR1lNu+1DuxAAhE9s65q1bXYp1hReThKLBqb8GyA6p3Y7+JDedJPLBUFOdOzfc6ugT
- h2Mylgd3QbT3c3oO4D2rQhfNuVJ2fXyTfHmtug08hhGrt0L9cQjA0399GU2DbOUBKKbLoNw3vaY
- WyxAuVWVILwsARTWT+uXm/kRnNtyVZAPqcEBXjk5lznKtuPlrLX15/mnxwIIb5+WISuEY6in04b
- pQFRfUNcl7mH4F06NpAQ96Z3IzoyaK+JRDVPvyEKzqG390giTDO3KDaH8rkTInT2+DpX4oRsqiW
- W8VRFbgRIK3NvVRIphReMKdJJYopq/vIw4etLrFYek8xMzA/tDaqUl/78AjL360/HPShcll+//F
- u52/F7UL9NV07kMc30ESQ8lbI/jKUy2mK0xSEZJSRunf6CnxkGpQzY9ftmfZYJFRxlcK4OgYoxS
- WOFkfvX4p7xGjLJn/hENvzqFgPA8PNu/BiFO/HRvQGHjCh/n7Ha4erRnCq09INyEt9VBbWqzc3r
- ghBqbSYd6f9frZZUEUb4AIf/NBOBSWzFC4nOTKbAUdGzvs82kmRBwKqYb+cW2+znMFzab2Mwxn1
- Yb1ny/FBX4DhSLCAqL1Z/KMjgxVRdcN3/U3kfUlDXbURuAhv1TNitOW5TpViUtklJjMA64u0b1R
- rhm9+gWVKzgGFmOjpof0ocGEPNhaEI=
-X-Developer-Key: i=dlan@kernel.org; a=openpgp;
- fpr=50B03A1A5CBCD33576EF8CD7920C0DBCAABEFD55
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-META: js4ooj96n6zf4zrf87697jkz5j5f76n4
+X-MBO-RS-ID: 03bd02e19382c9c5b13
 
-Add initial power domain driver support for SpacemiT K1/K3 SoC, The Power
-Domain Controller is SoC internal module which is part of APMU (Advanced
-Power Management Unit), it is responsible for managing power across multi
-power domains, which includes power on/off, isolation, power-on sequence.
+Remove kernel-doc syntax form multiline comment, fixing:
+  $ ./scripts/kernel-doc --none arch/x86/virt/vmx/tdx/tdx.c
+  Warning: arch/x86/virt/vmx/tdx/tdx.c:123 This comment starts with '/**', but isn't a kernel-doc comment. Refer to Documentation/doc-guide/kernel-doc.rst
+   * Enable VMXON and then do one-time TDX module per-cpu initialization SEAMCALL
 
-The DT documentation for the power domains already exists in file of
-spacemit,k1-syscon.yaml.
-
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-Tested-by: Iker Pedrosa <ikerpedrosam@gmail.com>
-Reviewed-by: Iker Pedrosa <ikerpedrosam@gmail.com>
-Signed-off-by: Yixun Lan <dlan@kernel.org>
+Fixes: 165e77353831 ("KVM: x86/tdx: Do VMXON and TDX-Module initialization during subsys init")
+Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
 ---
- include/dt-bindings/power/spacemit,k1-power.h | 14 ++++++++++++++
- include/dt-bindings/power/spacemit,k3-power.h | 12 ++++++++++++
- 2 files changed, 26 insertions(+)
+ arch/x86/virt/vmx/tdx/tdx.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/include/dt-bindings/power/spacemit,k1-power.h b/include/dt-bindings/power/spacemit,k1-power.h
-new file mode 100644
-index 000000000000..41ef540b5c44
---- /dev/null
-+++ b/include/dt-bindings/power/spacemit,k1-power.h
-@@ -0,0 +1,14 @@
-+/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
-+
-+#ifndef _DT_BINDINGS_SPACEMIT_K1_POWER_H_
-+#define _DT_BINDINGS_SPACEMIT_K1_POWER_H_
-+
-+#define K1_PMDOMAIN_VPU		0
-+#define K1_PMDOMAIN_GPU		1
-+#define K1_PMDOMAIN_LCD		2
-+#define K1_PMDOMAIN_ISP		3
-+#define K1_PMDOMAIN_AUDIO	4
-+#define K1_PMDOMAIN_GNSS	5
-+#define K1_PMDOMAIN_HDMI	6
-+
-+#endif
-diff --git a/include/dt-bindings/power/spacemit,k3-power.h b/include/dt-bindings/power/spacemit,k3-power.h
-new file mode 100644
-index 000000000000..519fbf946312
---- /dev/null
-+++ b/include/dt-bindings/power/spacemit,k3-power.h
-@@ -0,0 +1,12 @@
-+/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
-+
-+#ifndef _DT_BINDINGS_SPACEMIT_K3_POWER_H_
-+#define _DT_BINDINGS_SPACEMIT_K3_POWER_H_
-+
-+#define K3_PMDOMAIN_VPU		0
-+#define K3_PMDOMAIN_GPU		1
-+#define K3_PMDOMAIN_AUDIO	2
-+#define K3_PMDOMAIN_LCD0	3
-+#define K3_PMDOMAIN_LCD1	4
-+
-+#endif
-
+diff --git a/arch/x86/virt/vmx/tdx/tdx.c b/arch/x86/virt/vmx/tdx/tdx.c
+index 680e5178a8..4ebbd7d059 100644
+--- a/arch/x86/virt/vmx/tdx/tdx.c
++++ b/arch/x86/virt/vmx/tdx/tdx.c
+@@ -120,7 +120,7 @@ static int try_init_module_global(void)
+ 	return ret;
+ }
+ 
+-/**
++/*
+  * Enable VMXON and then do one-time TDX module per-cpu initialization SEAMCALL
+  * (and TDX module global initialization SEAMCALL if not done) on local cpu to
+  * make this cpu be ready to run any other SEAMCALLs.
 -- 
 2.56.0
 
