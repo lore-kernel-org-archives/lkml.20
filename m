@@ -1,121 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794422337;
-	b=oexkceQqgq5k70jY5cmGbZP/+4MQXXvnFczAtoJcFwgXNnFRFu4UdkYyn2GcjcnFTBzU
-	 y5JuXo/AOeRT6mg2AxEA81nHQ9F5ushMnkzjDKFdM7kRHRrCgE+Y6/9wn0NdiZK48ns31
-	 X31xRbDhBX8ds8undiX+UXuGELWyx+GfzAtg1gTjoPGktOSBzir9agIf/CIlpykipDXIu
-	 njG/3o+tku8Ceqg4cF7NFPfFB6CHTuigZ+oU0+lq4PWZjHAcz6FgYATX2yYUDv/oxPDxD
-	 PuHtvL7ZI5LHI0kPIRHsRRQIH6YqMdWJdyrNgficC5wUixtf/+QJo2xfEv5ywuRlROQ==
+	t=1794422353;
+	b=LtiWXAbvPS5qFprX/upsdWtjrADVT8Tki0k6/SXW3XmX4ySuUEkiaCsfNDOYekS4FW5q
+	 K9UVIbuyaoyBIbVH5/AdhnKPh9WCjv0rUPAHBSNWWxWh/Zzi83IH3f96ZMzL8bMkzadTm
+	 Z+r4NPmVjlVQjhuIuPDYThHE+QX+t1/WggIlD3q9aqJX3TP0n+CmaCmzS4bWtr73BdwQw
+	 qGIHxGEm3v7eUFHQ7kMFdA4zjG/rxoFfJEUw235OqVI1PMnkXTYK5rCy4Y6fG6fwe7AcQ
+	 SPZWU/QIvyppAlSxVFtGnt4GSL3RWToAiqPrHpEDm1cm0GHSNWd6+yoZkBTTAqHxseA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794422337;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding;
-	bh=F7ALA26NgTOpZK5QKHI9q8CAj4FJwa+1TITgbPyYNaE=;
-	b=5PuFXqPdKWMoV7OTBPjJtRlNFm0hpwkvDd8X+dvQcZz9C+tyVIIwW+FYfJx0gqYD+nA/
-	 X00RkiAVtpM19gFM746NMF0h9B8HWkBJAqPTq/sze8nxxMCYk0P5qolX80aC2Z/fL+nzY
-	 xs6XTweJdtszI2Oqs7j35n1tazt7MZ+lG5/qwtaunXykcK0FORxnwMnC9EDazmcZN22Ot
-	 ORsvO9+9SZdaOiZd8b72LGR6jzlNCltUbpEhs3uEFR0x9IeRHe7AnvJXhkzIekMY7rLv6
-	 m+g2kEO5Nfbj9o/WKmTZfWaZQwmaJ19Y5PwnJTgnocdeFisPfm9tDGSE5LLaElkvgxw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794422353;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Content-Type:User-Agent:MIME-Version:
+	 X-SRS-Rewrite;
+	bh=XdhkBvS5zmHB65fsM5ZMcRexeBc9oDJYjv/DtwuPZYU=;
+	b=eGo9PL7xnVmp/8mhu89LqFF1fIvBuKR33NNXjqBgh+txBvBV71oKcEZftv02Ql10NNZJ
+	 lJtYURQ/ih5jrikhXnnkp5SMridEuHhBlOTCTFpJAQDUG42uVi1RTmsIszEIVy/5NMkxw
+	 PJcrfFXP9/Tmco0DFIecI36X9mB6WeQvr/Ia+azUzRorpNNNImLoKJvZ97YsSIoVsAExp
+	 slcgl5pCLyfiMIDgJUq6tjQ6573KUnfCIpLFdn2uU4SskryBCS/GNZbggtXxXkMt5yo1m
+	 tzv3qu/nhKmwmYgkTfP2fZSg7LV4MVRH0fXL2FCmDoQmVpG+rheeF+vMSQ/U/Bp0GsQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b="TRCW6s/m";
-	arc=none smtp.remote-ip=209.85.128.51
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=infradead.org;
+	spf=none smtp.mailfrom=casper.srs.infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=FX7AWonH;
+	arc=none smtp.remote-ip=90.155.50.34
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CA57606A337
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 18:38:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4CA57606A337
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE2A2606A31C;
+	Wed, 11 Nov 2026 18:39:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CE2A2606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=casper.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=TRCW6s/m
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4b467581b98so32103825e9.0
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 10:38:55 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1794422334; x=1795027134; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=F7ALA26NgTOpZK5QKHI9q8CAj4FJwa+1TITgbPyYNaE=;
-        b=TRCW6s/mlpBOrMd0eliUrR6FcgmJDpiXNmIRe5YEmWTLt7XqwhI3Wef0YrU0ahuJQr
-         nmZr5gnQgkDIqGYmlkO7S5qYgd1E1HI00OxBz1shZntbQD0p0NqEFuWwmVFnmTeNBmu1
-         JTYEfaZQ2Z6y9ma06v0fztmFn77VUWklTM4zNsNNZF/5f8+hNeD7IPn1aEgSoO5WlKqD
-         Pgn+W+NrsDpNIMgu6vgzDzmEZKYNGZCIfNse4VqQZderEADWWMQZKvTGVRINspfHRiQS
-         fUipPM7Fvr2mlOD96eT+tJirHT+VZ+7Oo4IoClmoDH74agoSI1Cm2F1u6tMzc2Y03g6g
-         4xmQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794422334; x=1795027134;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=F7ALA26NgTOpZK5QKHI9q8CAj4FJwa+1TITgbPyYNaE=;
-        b=fD2pPtvMFXjFSE+6taKYwGWpILuwuc9lKu9G3JU/+1eb8pN1gDGxTn9w1aXYZTZ32j
-         u2Jtu9ZzuounhIKgAM8Hft9CK25/TstY7WpMjDSW7JmwerWPuiiCk6FcbyAiK+aE3jaT
-         nv+IZ2Ibi1+hUMRGRwvEpaecBH5GWZuUgaxkBJptBUvqm/YxzDz2NJhaSEzcQyxSeQvH
-         UfALLq1l3rEik/XZ52Xtwvk/cXNLDs4pvPM6CRUAdcczjY/WDfaBR8fpWeDU6XYBnrfw
-         ZoTXaYLMOiBm4G0MXv15uBiOId6eYS/dYdtim1YOZPjTlF86OP9w0FFYf6cMUYlAAaaF
-         qUlw==
-X-Forwarded-Encrypted: i=1; AL+hErH41ChvlK9tjgMkNOHfAcxDi8AyYIyL48yQYQx/NVvmX8s4/n7FfNSZmGtIPWQEaKi5ma53CFyoIZ3zTzM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9W4L3RLqYbpH0NlUU9QuPJAcKbokKGf3uOtjZANIAu3zMMFzW1
-	EAXDTDvGp+AnWMLHFwv7Nh7mJDI0rhwzJtcI/UQM3dDmmHMiFeio7cR+M1TafmNIbJw=
-X-Gm-Gg: AYBFou0PknDVR1y9j2Wn+Hm+TgisZx6Bv/okpj3CZjIBrhuIvkOBrtmKVhydE+Zt8ub
-	ItWuqnb0Xu7Sx7X13ackWY/eK1FEKmbyKe0x/d90pmjS/Y3UVg4A3ya4JiFKA3ggVktahFQ4MKU
-	ZkrRgJldbwLmovpF+RM9ZpYDdHsCFJ1rotgShDq0Fl/t7jYD+1kQmOnr1crnjWidm4hplXYTm/5
-	KgEZFcX4avtmzauk9xrKBVZmtZM9XXJ+XMX/TGFwuciRAtVgy9UVk2CgXAKoVexzxMhmj4IEypy
-	gQ640ds3miEcwItc/Lh9PR4iH0h5YG8zueq060X8n7ima6s7eja/vZqnPkgQmrfkgemoA/30Ftj
-	ImBL0guVCNTVIxgbs7dzy638Rg2YW9SD0mGhjGnrkqFLDVtsLi1JgMFp42pI8XKIAPsorPedp4H
-	xh1L/UbLQI2Q7W3KLvQieObsz6iQ4QAR0lnIqdpo7qPYFppFceHjJLvY4ucFcNa/j3teJpVqm8o
-	TED87u3ON52JDL+nk8yC8T1oBxtkn+FI2tJdkdUU+khKKWcxNv/z9TVLgwXSvBwzokjXSszY1E/
-	tiTFE/H+7Ks1NWdpZhDBocKcFjSPiw8QxhIIasurdUBcBvCG8hqmg+qKduhUKRbkfEq5Z7eOpyI
-	Q876OWJYc3Zm5TbSm
-X-Received: by 2002:a05:600c:4e0e:b0:4a8:b8b4:6226 with SMTP id 5b1f17b1804b1-4ba093ae6f2mr57568095e9.28.1794422333335;
-        Wed, 11 Nov 2026 10:38:53 -0800 (PST)
-Received: from localhost (p200300f65f19a9045674a4e2f3db58c3.dip0.t-ipconnect.de. [2003:f6:5f19:a904:5674:a4e2:f3db:58c3])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4bb4e26700fsm7495835e9.10.2026.11.11.10.38.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 10:38:52 -0800 (PST)
-From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?= <u.kleine-koenig@baylibre.com>
-To: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
-	"Martin K. Petersen" <martin.petersen@oracle.com>
-Cc: Adam Radford <aradford@gmail.com>,
-	Adaptec OEM Raid Solutions <aacraid@microsemi.com>,
-	Matthew Wilcox <willy@infradead.org>,
-	Hannes Reinecke <hare@suse.com>,
-	Finn Thain <fthain@linux-m68k.org>,
-	Michael Schmitz <schmitzmic@gmail.com>,
-	Ram Vegesna <ram.vegesna@broadcom.com>,
-	Don Brace <don.brace@microchip.com>,
-	HighPoint Linux Team <linux@highpoint-tech.com>,
-	Brian King <brking@us.ibm.com>,
-	Kashyap Desai <kashyap.desai@broadcom.com>,
-	Sumit Saxena <sumit.saxena@broadcom.com>,
-	Shivasharan S <shivasharan.srikanteshwara@broadcom.com>,
-	Chandrakanth patil <chandrakanth.patil@broadcom.com>,
-	Jack Wang <jinpu.wang@cloud.ionos.com>,
-	Junrui Luo <moonafterrain@outlook.com>,
-	Kees Cook <kees@kernel.org>,
-	Dave Jiang <dave.jiang@intel.com>,
-	Giovanni Cabiddu <giovanni.cabiddu@intel.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Lukas Wunner <lukas@wunner.de>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Duoming Zhou <duoming@zju.edu.cn>,
-	linux-scsi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	target-devel@vger.kernel.org,
-	storagedev@microchip.com,
-	megaraidlinux.pdl@broadcom.com,
-	Markus Schneider-Pargmann <msp@baylibre.com>
-Subject: [PATCH RESEND] scsi: Consistently define pci_device_ids using named initializers
-Date: Wed, 11 Nov 2026 19:38:43 +0100
-Message-ID: <20261111183844.1906794-2-u.kleine-koenig@baylibre.com>
-X-Mailer: git-send-email 2.56.0.rc1
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=FX7AWonH
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
+	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=XdhkBvS5zmHB65fsM5ZMcRexeBc9oDJYjv/DtwuPZYU=; b=FX7AWonHO7YcWRtOb7F0n2tmFT
+	Dhe1nUL/vYiD7acJnaD0uFpngwc9sKXRyWquN8CEqwAaL5tkq0NiDlvbKIGA7Whc52gKaeIzQFUNC
+	JMgOn+a/+HBfYF198YbgepRe45vVfyNm0ZDv9Q/k9nZ3ahOeQiU/jsFDFD2PFqUEVrV8i/uo+ZvzO
+	mFifZ5/IVZV+yEuQvH8AERJnebX94Gn0jmFm6PROV4VfkmMhc3iziAFGxOHTLiyULA0jwl66QPLNx
+	g94ioE5mrpYA7CSlSoMsDbcwV6PGh5U+2Zsl4Falm7OxcPOhFhddDwYrECij0MEmqV9pHl+1hJv1W
+	43/bxeRg==;
+Received: from [205.251.233.51] (helo=edge-lb-102.e-maa3.amazon.com)
+	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xRDDx-0000000CjUc-1Zkg;
+	Wed, 11 Nov 2026 18:39:09 +0000
+Message-ID: <07358e4fcd606c8dece26dff21443bd61087f0c9.camel@infradead.org>
+Subject: Re: [PATCH v2 00/20] KVM: Use atomic SRCU for gfn-to-pfn cache,
+ reinstate guest mode for x86 nesting
+From: David Woodhouse <dwmw2@infradead.org>
+To: Sean Christopherson <seanjc@google.com>
+Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, rcu@vger.kernel.org, 
+	linux-rt-devel@lists.linux.dev, Paolo Bonzini <pbonzini@redhat.com>, Paul
+ Durrant <paul@xen.org>, Vitaly Kuznetsov <vkuznets@redhat.com>, Fred
+ Griffoul <fgriffo@amazon.co.uk>,  "Paul E . McKenney"	
+ <paulmck@kernel.org>, Kunwu Chan <kunwu.chan@linux.dev>, Kunwu Chan	
+ <kunwu.chan@gmail.com>,
+ syzbot+208f7f3e5f59c11aeb90@syzkaller.appspotmail.com
+Date: Wed, 11 Nov 2026 10:38:58 -0800
+In-Reply-To: <avN7PfMdfZcYl7Gt@seanjc-mac.roam.internal>
+References: <20261105020104.2507083-1-dwmw2@infradead.org>
+	 <cd458ee9a0c2405349cd2aaecb180f0b2e757aa3.camel@infradead.org>
+	 <avN7PfMdfZcYl7Gt@seanjc-mac.roam.internal>
+Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
+	boundary="=-JaKGOdCQjdQsbp5BR5F7"
+User-Agent: Evolution 3.62.0-0ubuntu1~ppa1~24.04 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -125,1647 +77,223 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=75887; i=u.kleine-koenig@baylibre.com; h=from:subject; bh=i+8hcZ7wr6neLqeciPzwQddgzrJKEKeNBFV+3gwMIg4=; b=owGbwMvMwMXY3/A7olbonx/jabUkhqwv20yCuCwcQq0mLLhut6p8r6eJoYs/l1pudH2L2Cvth 4n2SmGdjMYsDIxcDLJiiiz2jWsyrarkIjvX/rsMM4iVCWQKAxenAEwk9Df7/6yElLqCO5qzXgU5 aNiJ32OTCGC80dnLrFv2aHHtopOdhhMyn5b9VpXW2B/nPn/Zd++fLDndu0wqb92OjrpzKuIOE5d iq8CGVL/9qUd3dbNVMjCfiv96xcrhXO3WgroLes09FXf139kmpIVv5CqNTjx37uuHjIY5oud2sy 4qLjrk/mCp5AOTeI2Mv46nxZ55zm20vVPSGOpUel3t45zsUyfPz/t9P/finYu2i/YU5G9z7LvDu /htYPWVjcf4s1htcnZN+1scxbj6ADtbSP/PnRN0S+YsNwv04w/L7HjV+c3v1pm9ZxmmdDu8a5zb Gp0vX/9YLmFHujVLxc7FPp0C7Zs1GuK9Z5Z6NB1ekOYPAA==
-X-Developer-Key: i=u.kleine-koenig@baylibre.com; a=openpgp; fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
-Content-Transfer-Encoding: 8bit
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
-... and PCI device helpers.
 
-The various struct pci_device_id arrays were initialized mostly by one
-of the PCI_DEVICE macros and then list expressions. The latter isn't
-easily readable if you're not into PCI. Using named initializers is more
-explicit and thus easier to parse.
+--=-JaKGOdCQjdQsbp5BR5F7
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Also use PCI_DEVICE* helper macros to assign .vendor, .device,
-.subvendor and .subdevice where appropriate and skip explicit
-assignments of 0 (which the compiler takes care of).
+On Tue, 2026-11-10 at 12:14 -0800, Sean Christopherson wrote:
+> On Tue, Nov 10, 2026, David Woodhouse wrote:
+> > On Thu, 2026-11-05 at 02:00 +0000, David Woodhouse wrote:
+> > > From: David Woodhouse <dwmw@amazon.co.uk>
+> > >=20
+> > > Based on v7.4-rc1 (kvm/next doesn't have the atomic SRCU flavour yet)=
+,
+> > > this series:
+> > >=20
+> > > =C2=A0=E2=80=A2 Converts the GPC to use atomic SRCU, ditching the rwl=
+ock which was a
+> > > =C2=A0=C2=A0 scaling and latency problem, and which PREEMPT_RT hated =
+because it
+> > > =C2=A0=C2=A0 turned the rwlock into a sleeping lock=C2=B9.
+> > >=20
+> > > =C2=A0=E2=80=A2 Fixes the pre-existing bugs which torture-testing tha=
+t conversion
+> > > =C2=A0=C2=A0 shook out: a guest-reachable dirty ring overflow from th=
+e hypercall
+> > > =C2=A0=C2=A0 page write (128 pushes of the same gfn against 64 reserv=
+ed entries,
+> > > =C2=A0=C2=A0 without PML), and a lost TLB flush request in record_ste=
+al_time().
+> > >=20
+> > > =C2=A0=E2=80=A2 Adds KVM_XEN_VCPU_ATTR_TYPE_WRITE_HYPERCALL_PAGE, for=
+ VMMs which
+> > > =C2=A0=C2=A0 intercept the guest's MSR write and need to replay it fr=
+om host
+> > > =C2=A0=C2=A0 context=C2=B2.
+> > >=20
+> > > =C2=A0=E2=80=A2 Cleans up the intentional lack of dirty-tracking of X=
+en shinfo and
+> > > =C2=A0=C2=A0 vcpu_info pages (Sean).
+> > >=20
+> > > =C2=A0=E2=80=A2 Converts steal-time / preempted status to use gfn_to_=
+pfn_cache.
+> > > =C2=A0=C2=A0 (Carsten)
+> > >=20
+> >=20
+> > I love it when sashiko-bot finds things which my own local runs don't.
+> > I'm still iterating on the latter part of the series; I think it
+> > probably makes sense to merge the first half (patches 1-9 above), and
+> > the nested parts (below) can come later.
+> >=20
+> > Sean, what do you think?
+>=20
+> Ya, I'm definitely in favor of that.=C2=A0 Even if Sashiko didn't find an=
+ything, I
+> think I'd want to grab the GUEST_USES_PFN stuff separately.
 
-The secret plan is to make struct pci_device_id::driver_data an
-anonymous union (similar to
-https://lore.kernel.org/all/cover.1776579304.git.u.kleine-koenig@baylibre.com/)
-and that requires named initializers. But it's also a nice cleanup on
-its own.
+Cool. Then I'll focus on kvmclock and VSM stuff for now, and come back
+to the GPC-nesting fun later. The basic GPC SRCU patches 1-9 in my tree
+are still identical to what was posted in this thread, and what I've
+been torture-testing all along:
 
-This change doesn't introduce changes to the compiled pci_device_id
-arrays. Tested on x86 and arm64.
+https://git.infradead.org/users/dwmw2/linux.git/shortlog/refs/heads/gpc-src=
+u-v2-part1
 
-Signed-off-by: Uwe Kleine-König (The Capable Hub) <u.kleine-koenig@baylibre.com>
----
-Hello,
+Carsten Stollmaier (1):
+      KVM: x86: Use gfn_to_pfn_cache for steal time / preempted status
 
-this patch was sent initially back in April with not maintainer feedback
-despite several pings. So I'm trying with a resend now.
+David Woodhouse (5):
+      KVM: x86/xen: Fill the hypercall page with a single guest write
+      KVM: x86/xen: Add KVM_XEN_VCPU_ATTR_TYPE_WRITE_HYPERCALL_PAGE
+      KVM: x86: Request the guest TLB flush from record_steal_time()
+      KVM: selftests: Actually deactivate the HVA-based shared_info cache i=
+n xen_shinfo_test
+      KVM: pfncache: Use atomic SRCU for readers instead of a rwlock
 
-Best regards
-Uwe
+Sean Christopherson (3):
+      KVM: x86/xen: Extract delivery of event to vCPU into a separate helpe=
+r
+      KVM: x86/xen: Explicitly tag "shared info" page as never being dirty =
+tracked
+      KVM: x86/xen: Don't dirty track "vCPU info" page
 
- drivers/scsi/3w-9xxx.c                 |  12 +-
- drivers/scsi/3w-xxxx.c                 |   6 +-
- drivers/scsi/a100u2w.c                 |   6 +-
- drivers/scsi/aacraid/linit.c           | 138 +++++------
- drivers/scsi/advansys.c                |  20 +-
- drivers/scsi/aic7xxx/aiclib.h          |   8 +-
- drivers/scsi/aic94xx/aic94xx_init.c    |  20 +-
- drivers/scsi/am53c974.c                |   3 +-
- drivers/scsi/csiostor/csio_init.c      |   4 +-
- drivers/scsi/dmx3191d.c                |   6 +-
- drivers/scsi/elx/efct/efct_driver.c    |   6 +-
- drivers/scsi/esas2r/esas2r_main.c      |  31 +--
- drivers/scsi/hisi_sas/hisi_sas_v3_hw.c |   4 +-
- drivers/scsi/hpsa.c                    | 118 +++++-----
- drivers/scsi/hptiop.c                  |  66 +++---
- drivers/scsi/initio.c                  |  12 +-
- drivers/scsi/ipr.c                     | 310 ++++++++++++++++---------
- drivers/scsi/megaraid.c                |  11 +-
- drivers/scsi/mvsas/mv_init.c           |  86 +++----
- drivers/scsi/pm8001/pm8001_init.c      | 243 +++++++++++++------
- drivers/scsi/pmcraid.c                 |   7 +-
- drivers/scsi/qla1280.c                 |  22 +-
- drivers/scsi/stex.c                    |  91 +++++---
- drivers/scsi/sym53c8xx_2/sym_glue.c    |  62 +++--
- 24 files changed, 725 insertions(+), 567 deletions(-)
 
-diff --git a/drivers/scsi/3w-9xxx.c b/drivers/scsi/3w-9xxx.c
-index e6694f242ebe..a89869c57da7 100644
---- a/drivers/scsi/3w-9xxx.c
-+++ b/drivers/scsi/3w-9xxx.c
-@@ -2262,14 +2262,10 @@ static int __maybe_unused twa_resume(struct device *dev)
- 
- /* PCI Devices supported by this driver */
- static const struct pci_device_id twa_pci_tbl[] = {
--	{ PCI_VENDOR_ID_3WARE, PCI_DEVICE_ID_3WARE_9000,
--	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0},
--	{ PCI_VENDOR_ID_3WARE, PCI_DEVICE_ID_3WARE_9550SX,
--	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0},
--	{ PCI_VENDOR_ID_3WARE, PCI_DEVICE_ID_3WARE_9650SE,
--	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0},
--	{ PCI_VENDOR_ID_3WARE, PCI_DEVICE_ID_3WARE_9690SA,
--	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0},
-+	{ PCI_VDEVICE(3WARE, PCI_DEVICE_ID_3WARE_9000) },
-+	{ PCI_VDEVICE(3WARE, PCI_DEVICE_ID_3WARE_9550SX) },
-+	{ PCI_VDEVICE(3WARE, PCI_DEVICE_ID_3WARE_9650SE) },
-+	{ PCI_VDEVICE(3WARE, PCI_DEVICE_ID_3WARE_9690SA) },
- 	{ }
- };
- MODULE_DEVICE_TABLE(pci, twa_pci_tbl);
-diff --git a/drivers/scsi/3w-xxxx.c b/drivers/scsi/3w-xxxx.c
-index 11326465abb6..0b6335a373c4 100644
---- a/drivers/scsi/3w-xxxx.c
-+++ b/drivers/scsi/3w-xxxx.c
-@@ -2395,10 +2395,8 @@ static void tw_remove(struct pci_dev *pdev)
- 
- /* PCI Devices supported by this driver */
- static const struct pci_device_id tw_pci_tbl[] = {
--	{ PCI_VENDOR_ID_3WARE, PCI_DEVICE_ID_3WARE_1000,
--	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0},
--	{ PCI_VENDOR_ID_3WARE, PCI_DEVICE_ID_3WARE_7000,
--	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0},
-+	{ PCI_VDEVICE(3WARE, PCI_DEVICE_ID_3WARE_1000) },
-+	{ PCI_VDEVICE(3WARE, PCI_DEVICE_ID_3WARE_7000) },
- 	{ }
- };
- MODULE_DEVICE_TABLE(pci, tw_pci_tbl);
-diff --git a/drivers/scsi/a100u2w.c b/drivers/scsi/a100u2w.c
-index 7e6776325d9b..3c8a8100741d 100644
---- a/drivers/scsi/a100u2w.c
-+++ b/drivers/scsi/a100u2w.c
-@@ -1204,11 +1204,11 @@ static void inia100_remove_one(struct pci_dev *pdev)
-         release_region(shost->io_port, 256);
- 
- 	scsi_host_put(shost);
--} 
-+}
- 
- static const struct pci_device_id inia100_pci_tbl[] = {
--	{PCI_VENDOR_ID_INIT, 0x1060, PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0},
--	{0,}
-+	{ PCI_VDEVICE(INIT, 0x1060) },
-+	{ }
- };
- MODULE_DEVICE_TABLE(pci, inia100_pci_tbl);
- 
-diff --git a/drivers/scsi/aacraid/linit.c b/drivers/scsi/aacraid/linit.c
-index 2fa8f7ddb703..30d614cfcd22 100644
---- a/drivers/scsi/aacraid/linit.c
-+++ b/drivers/scsi/aacraid/linit.c
-@@ -74,80 +74,80 @@ char aac_driver_version[] = AAC_DRIVER_FULL_VERSION;
-  * Because of the way Linux names scsi devices, the order in this table has
-  * become important.  Check for on-board Raid first, add-in cards second.
-  *
-- * Note: The last field is used to index into aac_drivers below.
-+ * Note: .driver_data is used to index into aac_drivers below.
-  */
- static const struct pci_device_id aac_pci_tbl[] = {
--	{ 0x1028, 0x0001, 0x1028, 0x0001, 0, 0, 0 }, /* PERC 2/Si (Iguana/PERC2Si) */
--	{ 0x1028, 0x0002, 0x1028, 0x0002, 0, 0, 1 }, /* PERC 3/Di (Opal/PERC3Di) */
--	{ 0x1028, 0x0003, 0x1028, 0x0003, 0, 0, 2 }, /* PERC 3/Si (SlimFast/PERC3Si */
--	{ 0x1028, 0x0004, 0x1028, 0x00d0, 0, 0, 3 }, /* PERC 3/Di (Iguana FlipChip/PERC3DiF */
--	{ 0x1028, 0x0002, 0x1028, 0x00d1, 0, 0, 4 }, /* PERC 3/Di (Viper/PERC3DiV) */
--	{ 0x1028, 0x0002, 0x1028, 0x00d9, 0, 0, 5 }, /* PERC 3/Di (Lexus/PERC3DiL) */
--	{ 0x1028, 0x000a, 0x1028, 0x0106, 0, 0, 6 }, /* PERC 3/Di (Jaguar/PERC3DiJ) */
--	{ 0x1028, 0x000a, 0x1028, 0x011b, 0, 0, 7 }, /* PERC 3/Di (Dagger/PERC3DiD) */
--	{ 0x1028, 0x000a, 0x1028, 0x0121, 0, 0, 8 }, /* PERC 3/Di (Boxster/PERC3DiB) */
--	{ 0x9005, 0x0283, 0x9005, 0x0283, 0, 0, 9 }, /* catapult */
--	{ 0x9005, 0x0284, 0x9005, 0x0284, 0, 0, 10 }, /* tomcat */
--	{ 0x9005, 0x0285, 0x9005, 0x0286, 0, 0, 11 }, /* Adaptec 2120S (Crusader) */
--	{ 0x9005, 0x0285, 0x9005, 0x0285, 0, 0, 12 }, /* Adaptec 2200S (Vulcan) */
--	{ 0x9005, 0x0285, 0x9005, 0x0287, 0, 0, 13 }, /* Adaptec 2200S (Vulcan-2m) */
--	{ 0x9005, 0x0285, 0x17aa, 0x0286, 0, 0, 14 }, /* Legend S220 (Legend Crusader) */
--	{ 0x9005, 0x0285, 0x17aa, 0x0287, 0, 0, 15 }, /* Legend S230 (Legend Vulcan) */
-+	{ PCI_DEVICE_SUB(0x1028, 0x0001, 0x1028, 0x0001), .driver_data = 0 }, /* PERC 2/Si (Iguana/PERC2Si) */
-+	{ PCI_DEVICE_SUB(0x1028, 0x0002, 0x1028, 0x0002), .driver_data = 1 }, /* PERC 3/Di (Opal/PERC3Di) */
-+	{ PCI_DEVICE_SUB(0x1028, 0x0003, 0x1028, 0x0003), .driver_data = 2 }, /* PERC 3/Si (SlimFast/PERC3Si */
-+	{ PCI_DEVICE_SUB(0x1028, 0x0004, 0x1028, 0x00d0), .driver_data = 3 }, /* PERC 3/Di (Iguana FlipChip/PERC3DiF) */
-+	{ PCI_DEVICE_SUB(0x1028, 0x0002, 0x1028, 0x00d1), .driver_data = 4 }, /* PERC 3/Di (Viper/PERC3DiV) */
-+	{ PCI_DEVICE_SUB(0x1028, 0x0002, 0x1028, 0x00d9), .driver_data = 5 }, /* PERC 3/Di (Lexus/PERC3DiL) */
-+	{ PCI_DEVICE_SUB(0x1028, 0x000a, 0x1028, 0x0106), .driver_data = 6 }, /* PERC 3/Di (Jaguar/PERC3DiJ) */
-+	{ PCI_DEVICE_SUB(0x1028, 0x000a, 0x1028, 0x011b), .driver_data = 7 }, /* PERC 3/Di (Dagger/PERC3DiD) */
-+	{ PCI_DEVICE_SUB(0x1028, 0x000a, 0x1028, 0x0121), .driver_data = 8 }, /* PERC 3/Di (Boxster/PERC3DiB) */
-+	{ PCI_DEVICE_SUB(0x9005, 0x0283, 0x9005, 0x0283), .driver_data = 9 }, /* catapult */
-+	{ PCI_DEVICE_SUB(0x9005, 0x0284, 0x9005, 0x0284), .driver_data = 10 }, /* tomcat */
-+	{ PCI_DEVICE_SUB(0x9005, 0x0285, 0x9005, 0x0286), .driver_data = 11 }, /* Adaptec 2120S (Crusader) */
-+	{ PCI_DEVICE_SUB(0x9005, 0x0285, 0x9005, 0x0285), .driver_data = 12 }, /* Adaptec 2200S (Vulcan) */
-+	{ PCI_DEVICE_SUB(0x9005, 0x0285, 0x9005, 0x0287), .driver_data = 13 }, /* Adaptec 2200S (Vulcan-2m) */
-+	{ PCI_DEVICE_SUB(0x9005, 0x0285, 0x17aa, 0x0286), .driver_data = 14 }, /* Legend S220 (Legend Crusader) */
-+	{ PCI_DEVICE_SUB(0x9005, 0x0285, 0x17aa, 0x0287), .driver_data = 15 }, /* Legend S230 (Legend Vulcan) */
- 
--	{ 0x9005, 0x0285, 0x9005, 0x0288, 0, 0, 16 }, /* Adaptec 3230S (Harrier) */
--	{ 0x9005, 0x0285, 0x9005, 0x0289, 0, 0, 17 }, /* Adaptec 3240S (Tornado) */
--	{ 0x9005, 0x0285, 0x9005, 0x028a, 0, 0, 18 }, /* ASR-2020ZCR SCSI PCI-X ZCR (Skyhawk) */
--	{ 0x9005, 0x0285, 0x9005, 0x028b, 0, 0, 19 }, /* ASR-2025ZCR SCSI SO-DIMM PCI-X ZCR (Terminator) */
--	{ 0x9005, 0x0286, 0x9005, 0x028c, 0, 0, 20 }, /* ASR-2230S + ASR-2230SLP PCI-X (Lancer) */
--	{ 0x9005, 0x0286, 0x9005, 0x028d, 0, 0, 21 }, /* ASR-2130S (Lancer) */
--	{ 0x9005, 0x0286, 0x9005, 0x029b, 0, 0, 22 }, /* AAR-2820SA (Intruder) */
--	{ 0x9005, 0x0286, 0x9005, 0x029c, 0, 0, 23 }, /* AAR-2620SA (Intruder) */
--	{ 0x9005, 0x0286, 0x9005, 0x029d, 0, 0, 24 }, /* AAR-2420SA (Intruder) */
--	{ 0x9005, 0x0286, 0x9005, 0x029e, 0, 0, 25 }, /* ICP9024RO (Lancer) */
--	{ 0x9005, 0x0286, 0x9005, 0x029f, 0, 0, 26 }, /* ICP9014RO (Lancer) */
--	{ 0x9005, 0x0286, 0x9005, 0x02a0, 0, 0, 27 }, /* ICP9047MA (Lancer) */
--	{ 0x9005, 0x0286, 0x9005, 0x02a1, 0, 0, 28 }, /* ICP9087MA (Lancer) */
--	{ 0x9005, 0x0286, 0x9005, 0x02a3, 0, 0, 29 }, /* ICP5445AU (Hurricane44) */
--	{ 0x9005, 0x0285, 0x9005, 0x02a4, 0, 0, 30 }, /* ICP9085LI (Marauder-X) */
--	{ 0x9005, 0x0285, 0x9005, 0x02a5, 0, 0, 31 }, /* ICP5085BR (Marauder-E) */
--	{ 0x9005, 0x0286, 0x9005, 0x02a6, 0, 0, 32 }, /* ICP9067MA (Intruder-6) */
--	{ 0x9005, 0x0287, 0x9005, 0x0800, 0, 0, 33 }, /* Themisto Jupiter Platform */
--	{ 0x9005, 0x0200, 0x9005, 0x0200, 0, 0, 33 }, /* Themisto Jupiter Platform */
--	{ 0x9005, 0x0286, 0x9005, 0x0800, 0, 0, 34 }, /* Callisto Jupiter Platform */
--	{ 0x9005, 0x0285, 0x9005, 0x028e, 0, 0, 35 }, /* ASR-2020SA SATA PCI-X ZCR (Skyhawk) */
--	{ 0x9005, 0x0285, 0x9005, 0x028f, 0, 0, 36 }, /* ASR-2025SA SATA SO-DIMM PCI-X ZCR (Terminator) */
--	{ 0x9005, 0x0285, 0x9005, 0x0290, 0, 0, 37 }, /* AAR-2410SA PCI SATA 4ch (Jaguar II) */
--	{ 0x9005, 0x0285, 0x1028, 0x0291, 0, 0, 38 }, /* CERC SATA RAID 2 PCI SATA 6ch (DellCorsair) */
--	{ 0x9005, 0x0285, 0x9005, 0x0292, 0, 0, 39 }, /* AAR-2810SA PCI SATA 8ch (Corsair-8) */
--	{ 0x9005, 0x0285, 0x9005, 0x0293, 0, 0, 40 }, /* AAR-21610SA PCI SATA 16ch (Corsair-16) */
--	{ 0x9005, 0x0285, 0x9005, 0x0294, 0, 0, 41 }, /* ESD SO-DIMM PCI-X SATA ZCR (Prowler) */
--	{ 0x9005, 0x0285, 0x103C, 0x3227, 0, 0, 42 }, /* AAR-2610SA PCI SATA 6ch */
--	{ 0x9005, 0x0285, 0x9005, 0x0296, 0, 0, 43 }, /* ASR-2240S (SabreExpress) */
--	{ 0x9005, 0x0285, 0x9005, 0x0297, 0, 0, 44 }, /* ASR-4005 */
--	{ 0x9005, 0x0285, 0x1014, 0x02F2, 0, 0, 45 }, /* IBM 8i (AvonPark) */
--	{ 0x9005, 0x0285, 0x1014, 0x0312, 0, 0, 45 }, /* IBM 8i (AvonPark Lite) */
--	{ 0x9005, 0x0286, 0x1014, 0x9580, 0, 0, 46 }, /* IBM 8k/8k-l8 (Aurora) */
--	{ 0x9005, 0x0286, 0x1014, 0x9540, 0, 0, 47 }, /* IBM 8k/8k-l4 (Aurora Lite) */
--	{ 0x9005, 0x0285, 0x9005, 0x0298, 0, 0, 48 }, /* ASR-4000 (BlackBird) */
--	{ 0x9005, 0x0285, 0x9005, 0x0299, 0, 0, 49 }, /* ASR-4800SAS (Marauder-X) */
--	{ 0x9005, 0x0285, 0x9005, 0x029a, 0, 0, 50 }, /* ASR-4805SAS (Marauder-E) */
--	{ 0x9005, 0x0286, 0x9005, 0x02a2, 0, 0, 51 }, /* ASR-3800 (Hurricane44) */
-+	{ PCI_DEVICE_SUB(0x9005, 0x0285, 0x9005, 0x0288), .driver_data = 16 }, /* Adaptec 3230S (Harrier) */
-+	{ PCI_DEVICE_SUB(0x9005, 0x0285, 0x9005, 0x0289), .driver_data = 17 }, /* Adaptec 3240S (Tornado) */
-+	{ PCI_DEVICE_SUB(0x9005, 0x0285, 0x9005, 0x028a), .driver_data = 18 }, /* ASR-2020ZCR SCSI PCI-X ZCR (Skyhawk) */
-+	{ PCI_DEVICE_SUB(0x9005, 0x0285, 0x9005, 0x028b), .driver_data = 19 }, /* ASR-2025ZCR SCSI SO-DIMM PCI-X ZCR (Terminator) */
-+	{ PCI_DEVICE_SUB(0x9005, 0x0286, 0x9005, 0x028c), .driver_data = 20 }, /* ASR-2230S + ASR-2230SLP PCI-X (Lancer) */
-+	{ PCI_DEVICE_SUB(0x9005, 0x0286, 0x9005, 0x028d), .driver_data = 21 }, /* ASR-2130S (Lancer) */
-+	{ PCI_DEVICE_SUB(0x9005, 0x0286, 0x9005, 0x029b), .driver_data = 22 }, /* AAR-2820SA (Intruder) */
-+	{ PCI_DEVICE_SUB(0x9005, 0x0286, 0x9005, 0x029c), .driver_data = 23 }, /* AAR-2620SA (Intruder) */
-+	{ PCI_DEVICE_SUB(0x9005, 0x0286, 0x9005, 0x029d), .driver_data = 24 }, /* AAR-2420SA (Intruder) */
-+	{ PCI_DEVICE_SUB(0x9005, 0x0286, 0x9005, 0x029e), .driver_data = 25 }, /* ICP9024RO (Lancer) */
-+	{ PCI_DEVICE_SUB(0x9005, 0x0286, 0x9005, 0x029f), .driver_data = 26 }, /* ICP9014RO (Lancer) */
-+	{ PCI_DEVICE_SUB(0x9005, 0x0286, 0x9005, 0x02a0), .driver_data = 27 }, /* ICP9047MA (Lancer) */
-+	{ PCI_DEVICE_SUB(0x9005, 0x0286, 0x9005, 0x02a1), .driver_data = 28 }, /* ICP9087MA (Lancer) */
-+	{ PCI_DEVICE_SUB(0x9005, 0x0286, 0x9005, 0x02a3), .driver_data = 29 }, /* ICP5445AU (Hurricane44) */
-+	{ PCI_DEVICE_SUB(0x9005, 0x0285, 0x9005, 0x02a4), .driver_data = 30 }, /* ICP9085LI (Marauder-X) */
-+	{ PCI_DEVICE_SUB(0x9005, 0x0285, 0x9005, 0x02a5), .driver_data = 31 }, /* ICP5085BR (Marauder-E) */
-+	{ PCI_DEVICE_SUB(0x9005, 0x0286, 0x9005, 0x02a6), .driver_data = 32 }, /* ICP9067MA (Intruder-6) */
-+	{ PCI_DEVICE_SUB(0x9005, 0x0287, 0x9005, 0x0800), .driver_data = 33 }, /* Themisto Jupiter Platform */
-+	{ PCI_DEVICE_SUB(0x9005, 0x0200, 0x9005, 0x0200), .driver_data = 33 }, /* Themisto Jupiter Platform */
-+	{ PCI_DEVICE_SUB(0x9005, 0x0286, 0x9005, 0x0800), .driver_data = 34 }, /* Callisto Jupiter Platform */
-+	{ PCI_DEVICE_SUB(0x9005, 0x0285, 0x9005, 0x028e), .driver_data = 35 }, /* ASR-2020SA SATA PCI-X ZCR (Skyhawk) */
-+	{ PCI_DEVICE_SUB(0x9005, 0x0285, 0x9005, 0x028f), .driver_data = 36 }, /* ASR-2025SA SATA SO-DIMM PCI-X ZCR (Terminator) */
-+	{ PCI_DEVICE_SUB(0x9005, 0x0285, 0x9005, 0x0290), .driver_data = 37 }, /* AAR-2410SA PCI SATA 4ch (Jaguar II) */
-+	{ PCI_DEVICE_SUB(0x9005, 0x0285, 0x1028, 0x0291), .driver_data = 38 }, /* CERC SATA RAID 2 PCI SATA 6ch (DellCorsair) */
-+	{ PCI_DEVICE_SUB(0x9005, 0x0285, 0x9005, 0x0292), .driver_data = 39 }, /* AAR-2810SA PCI SATA 8ch (Corsair-8) */
-+	{ PCI_DEVICE_SUB(0x9005, 0x0285, 0x9005, 0x0293), .driver_data = 40 }, /* AAR-21610SA PCI SATA 16ch (Corsair-16) */
-+	{ PCI_DEVICE_SUB(0x9005, 0x0285, 0x9005, 0x0294), .driver_data = 41 }, /* ESD SO-DIMM PCI-X SATA ZCR (Prowler) */
-+	{ PCI_DEVICE_SUB(0x9005, 0x0285, 0x103C, 0x3227), .driver_data = 42 }, /* AAR-2610SA PCI SATA 6ch */
-+	{ PCI_DEVICE_SUB(0x9005, 0x0285, 0x9005, 0x0296), .driver_data = 43 }, /* ASR-2240S (SabreExpress) */
-+	{ PCI_DEVICE_SUB(0x9005, 0x0285, 0x9005, 0x0297), .driver_data = 44 }, /* ASR-4005 */
-+	{ PCI_DEVICE_SUB(0x9005, 0x0285, 0x1014, 0x02F2), .driver_data = 45 }, /* IBM 8i (AvonPark) */
-+	{ PCI_DEVICE_SUB(0x9005, 0x0285, 0x1014, 0x0312), .driver_data = 45 }, /* IBM 8i (AvonPark Lite) */
-+	{ PCI_DEVICE_SUB(0x9005, 0x0286, 0x1014, 0x9580), .driver_data = 46 }, /* IBM 8k/8k-l8 (Aurora) */
-+	{ PCI_DEVICE_SUB(0x9005, 0x0286, 0x1014, 0x9540), .driver_data = 47 }, /* IBM 8k/8k-l4 (Aurora Lite) */
-+	{ PCI_DEVICE_SUB(0x9005, 0x0285, 0x9005, 0x0298), .driver_data = 48 }, /* ASR-4000 (BlackBird) */
-+	{ PCI_DEVICE_SUB(0x9005, 0x0285, 0x9005, 0x0299), .driver_data = 49 }, /* ASR-4800SAS (Marauder-X) */
-+	{ PCI_DEVICE_SUB(0x9005, 0x0285, 0x9005, 0x029a), .driver_data = 50 }, /* ASR-4805SAS (Marauder-E) */
-+	{ PCI_DEVICE_SUB(0x9005, 0x0286, 0x9005, 0x02a2), .driver_data = 51 }, /* ASR-3800 (Hurricane44) */
- 
--	{ 0x9005, 0x0285, 0x1028, 0x0287, 0, 0, 52 }, /* Perc 320/DC*/
--	{ 0x1011, 0x0046, 0x9005, 0x0365, 0, 0, 53 }, /* Adaptec 5400S (Mustang)*/
--	{ 0x1011, 0x0046, 0x9005, 0x0364, 0, 0, 54 }, /* Adaptec 5400S (Mustang)*/
--	{ 0x1011, 0x0046, 0x9005, 0x1364, 0, 0, 55 }, /* Dell PERC2/QC */
--	{ 0x1011, 0x0046, 0x103c, 0x10c2, 0, 0, 56 }, /* HP NetRAID-4M */
-+	{ PCI_DEVICE_SUB(0x9005, 0x0285, 0x1028, 0x0287), .driver_data = 52 }, /* Perc 320/DC*/
-+	{ PCI_DEVICE_SUB(0x1011, 0x0046, 0x9005, 0x0365), .driver_data = 53 }, /* Adaptec 5400S (Mustang)*/
-+	{ PCI_DEVICE_SUB(0x1011, 0x0046, 0x9005, 0x0364), .driver_data = 54 }, /* Adaptec 5400S (Mustang)*/
-+	{ PCI_DEVICE_SUB(0x1011, 0x0046, 0x9005, 0x1364), .driver_data = 55 }, /* Dell PERC2/QC */
-+	{ PCI_DEVICE_SUB(0x1011, 0x0046, 0x103c, 0x10c2), .driver_data = 56 }, /* HP NetRAID-4M */
- 
--	{ 0x9005, 0x0285, 0x1028, PCI_ANY_ID, 0, 0, 57 }, /* Dell Catchall */
--	{ 0x9005, 0x0285, 0x17aa, PCI_ANY_ID, 0, 0, 58 }, /* Legend Catchall */
--	{ 0x9005, 0x0285, PCI_ANY_ID, PCI_ANY_ID, 0, 0, 59 }, /* Adaptec Catch All */
--	{ 0x9005, 0x0286, PCI_ANY_ID, PCI_ANY_ID, 0, 0, 60 }, /* Adaptec Rocket Catch All */
--	{ 0x9005, 0x0288, PCI_ANY_ID, PCI_ANY_ID, 0, 0, 61 }, /* Adaptec NEMER/ARK Catch All */
--	{ 0x9005, 0x028b, PCI_ANY_ID, PCI_ANY_ID, 0, 0, 62 }, /* Adaptec PMC Series 6 (Tupelo) */
--	{ 0x9005, 0x028c, PCI_ANY_ID, PCI_ANY_ID, 0, 0, 63 }, /* Adaptec PMC Series 7 (Denali) */
--	{ 0x9005, 0x028d, PCI_ANY_ID, PCI_ANY_ID, 0, 0, 64 }, /* Adaptec PMC Series 8 */
--	{ 0,}
-+	{ PCI_DEVICE_SUB(0x9005, 0x0285, 0x1028, PCI_ANY_ID), .driver_data = 57 }, /* Dell Catchall */
-+	{ PCI_DEVICE_SUB(0x9005, 0x0285, 0x17aa, PCI_ANY_ID), .driver_data = 58 }, /* Legend Catchall */
-+	{ PCI_DEVICE(0x9005, 0x0285), .driver_data = 59 }, /* Adaptec Catch All */
-+	{ PCI_DEVICE(0x9005, 0x0286), .driver_data = 60 }, /* Adaptec Rocket Catch All */
-+	{ PCI_DEVICE(0x9005, 0x0288), .driver_data = 61 }, /* Adaptec NEMER/ARK Catch All */
-+	{ PCI_DEVICE(0x9005, 0x028b), .driver_data = 62 }, /* Adaptec PMC Series 6 (Tupelo) */
-+	{ PCI_DEVICE(0x9005, 0x028c), .driver_data = 63 }, /* Adaptec PMC Series 7 (Denali) */
-+	{ PCI_DEVICE(0x9005, 0x028d), .driver_data = 64 }, /* Adaptec PMC Series 8 */
-+	{ }
- };
- MODULE_DEVICE_TABLE(pci, aac_pci_tbl);
- 
-diff --git a/drivers/scsi/advansys.c b/drivers/scsi/advansys.c
-index e6fa05ffc024..4e5c7a6d9ce3 100644
---- a/drivers/scsi/advansys.c
-+++ b/drivers/scsi/advansys.c
-@@ -11409,19 +11409,13 @@ static struct eisa_driver advansys_eisa_driver = {
- 
- /* PCI Devices supported by this driver */
- static const struct pci_device_id advansys_pci_tbl[] = {
--	{PCI_VENDOR_ID_ASP, PCI_DEVICE_ID_ASP_1200A,
--	 PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0},
--	{PCI_VENDOR_ID_ASP, PCI_DEVICE_ID_ASP_ABP940,
--	 PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0},
--	{PCI_VENDOR_ID_ASP, PCI_DEVICE_ID_ASP_ABP940U,
--	 PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0},
--	{PCI_VENDOR_ID_ASP, PCI_DEVICE_ID_ASP_ABP940UW,
--	 PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0},
--	{PCI_VENDOR_ID_ASP, PCI_DEVICE_ID_38C0800_REV1,
--	 PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0},
--	{PCI_VENDOR_ID_ASP, PCI_DEVICE_ID_38C1600_REV1,
--	 PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0},
--	{}
-+	{ PCI_VDEVICE(ASP, PCI_DEVICE_ID_ASP_1200A) },
-+	{ PCI_VDEVICE(ASP, PCI_DEVICE_ID_ASP_ABP940) },
-+	{ PCI_VDEVICE(ASP, PCI_DEVICE_ID_ASP_ABP940U) },
-+	{ PCI_VDEVICE(ASP, PCI_DEVICE_ID_ASP_ABP940UW) },
-+	{ PCI_VDEVICE(ASP, PCI_DEVICE_ID_38C0800_REV1) },
-+	{ PCI_VDEVICE(ASP, PCI_DEVICE_ID_38C1600_REV1) },
-+	{ }
- };
- 
- MODULE_DEVICE_TABLE(pci, advansys_pci_tbl);
-diff --git a/drivers/scsi/aic7xxx/aiclib.h b/drivers/scsi/aic7xxx/aiclib.h
-index ba08eb3c4e3b..0ffc59b93036 100644
---- a/drivers/scsi/aic7xxx/aiclib.h
-+++ b/drivers/scsi/aic7xxx/aiclib.h
-@@ -142,10 +142,10 @@ scsi_4btoul(uint8_t *bytes)
- 
- #define GETID(v, s) (unsigned)(((v) >> (s)) & 0xFFFF ?: PCI_ANY_ID)
- 
--#define ID_C(x, c)						\
--{								\
--	GETID(x,32), GETID(x,48), GETID(x,0), GETID(x,16),	\
--	(c) << 8, 0xFFFF00, 0					\
-+#define ID_C(x, c)								\
-+{										\
-+	PCI_DEVICE_SUB(GETID(x, 32), GETID(x, 48), GETID(x, 0), GETID(x, 16)),	\
-+	.class = (c) << 8, .class_mask = 0xFFFF00,				\
- }
- 
- #define ID2C(x)                          \
-diff --git a/drivers/scsi/aic94xx/aic94xx_init.c b/drivers/scsi/aic94xx/aic94xx_init.c
-index 4400a3661d90..73f9432598c1 100644
---- a/drivers/scsi/aic94xx/aic94xx_init.c
-+++ b/drivers/scsi/aic94xx/aic94xx_init.c
-@@ -967,16 +967,16 @@ static struct sas_domain_function_template aic94xx_transport_functions = {
- };
- 
- static const struct pci_device_id aic94xx_pci_table[] = {
--	{PCI_DEVICE(PCI_VENDOR_ID_ADAPTEC2, 0x410),0, 0, 1},
--	{PCI_DEVICE(PCI_VENDOR_ID_ADAPTEC2, 0x412),0, 0, 1},
--	{PCI_DEVICE(PCI_VENDOR_ID_ADAPTEC2, 0x416),0, 0, 1},
--	{PCI_DEVICE(PCI_VENDOR_ID_ADAPTEC2, 0x41E),0, 0, 1},
--	{PCI_DEVICE(PCI_VENDOR_ID_ADAPTEC2, 0x41F),0, 0, 1},
--	{PCI_DEVICE(PCI_VENDOR_ID_ADAPTEC2, 0x430),0, 0, 2},
--	{PCI_DEVICE(PCI_VENDOR_ID_ADAPTEC2, 0x432),0, 0, 2},
--	{PCI_DEVICE(PCI_VENDOR_ID_ADAPTEC2, 0x43E),0, 0, 2},
--	{PCI_DEVICE(PCI_VENDOR_ID_ADAPTEC2, 0x43F),0, 0, 2},
--	{}
-+	{ PCI_VDEVICE(ADAPTEC2, 0x0410), .driver_data = 1 },
-+	{ PCI_VDEVICE(ADAPTEC2, 0x0412), .driver_data = 1 },
-+	{ PCI_VDEVICE(ADAPTEC2, 0x0416), .driver_data = 1 },
-+	{ PCI_VDEVICE(ADAPTEC2, 0x041E), .driver_data = 1 },
-+	{ PCI_VDEVICE(ADAPTEC2, 0x041F), .driver_data = 1 },
-+	{ PCI_VDEVICE(ADAPTEC2, 0x0430), .driver_data = 2 },
-+	{ PCI_VDEVICE(ADAPTEC2, 0x0432), .driver_data = 2 },
-+	{ PCI_VDEVICE(ADAPTEC2, 0x043E), .driver_data = 2 },
-+	{ PCI_VDEVICE(ADAPTEC2, 0x043F), .driver_data = 2 },
-+	{ }
- };
- 
- MODULE_DEVICE_TABLE(pci, aic94xx_pci_table);
-diff --git a/drivers/scsi/am53c974.c b/drivers/scsi/am53c974.c
-index f972a3c90a2f..ea49379ca9cb 100644
---- a/drivers/scsi/am53c974.c
-+++ b/drivers/scsi/am53c974.c
-@@ -514,8 +514,7 @@ static void pci_esp_remove_one(struct pci_dev *pdev)
- }
- 
- static const struct pci_device_id am53c974_pci_tbl[] = {
--	{ PCI_VENDOR_ID_AMD, PCI_DEVICE_ID_AMD_SCSI,
--		PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0 },
-+	{ PCI_VDEVICE(AMD, PCI_DEVICE_ID_AMD_SCSI) },
- 	{ }
- };
- MODULE_DEVICE_TABLE(pci, am53c974_pci_tbl);
-diff --git a/drivers/scsi/csiostor/csio_init.c b/drivers/scsi/csiostor/csio_init.c
-index 238431524801..2df8848ae723 100644
---- a/drivers/scsi/csiostor/csio_init.c
-+++ b/drivers/scsi/csiostor/csio_init.c
-@@ -1176,9 +1176,9 @@ static const struct pci_error_handlers csio_err_handler = {
- #define CH_PCI_DEVICE_ID_FUNCTION	0x6
- 
- #define CH_PCI_ID_TABLE_ENTRY(devid) \
--		{ PCI_VDEVICE(CHELSIO, (devid)), 0 }
-+		{ PCI_VDEVICE(CHELSIO, (devid)) }
- 
--#define CH_PCI_DEVICE_ID_TABLE_DEFINE_END { 0, } }
-+#define CH_PCI_DEVICE_ID_TABLE_DEFINE_END { } }
- 
- #include "t4_pci_id_tbl.h"
- 
-diff --git a/drivers/scsi/dmx3191d.c b/drivers/scsi/dmx3191d.c
-index d6d091b2f3c7..3676400f992a 100644
---- a/drivers/scsi/dmx3191d.c
-+++ b/drivers/scsi/dmx3191d.c
-@@ -128,8 +128,10 @@ static void dmx3191d_remove_one(struct pci_dev *pdev)
- }
- 
- static const struct pci_device_id dmx3191d_pci_tbl[] = {
--	{PCI_VENDOR_ID_DOMEX, PCI_DEVICE_ID_DOMEX_DMX3191D,
--		PCI_ANY_ID, PCI_ANY_ID, 0, 0, 4},
-+	{
-+		PCI_VDEVICE(DOMEX, PCI_DEVICE_ID_DOMEX_DMX3191D),
-+		.driver_data = 4,
-+	},
- 	{ }
- };
- MODULE_DEVICE_TABLE(pci, dmx3191d_pci_tbl);
-diff --git a/drivers/scsi/elx/efct/efct_driver.c b/drivers/scsi/elx/efct/efct_driver.c
-index 07c2f453459e..35b6dead3736 100644
---- a/drivers/scsi/elx/efct/efct_driver.c
-+++ b/drivers/scsi/elx/efct/efct_driver.c
-@@ -465,9 +465,9 @@ efct_setup_msix(struct efct *efct, u32 num_intrs)
- }
- 
- static const struct pci_device_id efct_pci_table[] = {
--	{PCI_DEVICE(EFCT_VENDOR_ID, EFCT_DEVICE_LANCER_G6), 0},
--	{PCI_DEVICE(EFCT_VENDOR_ID, EFCT_DEVICE_LANCER_G7), 0},
--	{}	/* terminate list */
-+	{ PCI_DEVICE(EFCT_VENDOR_ID, EFCT_DEVICE_LANCER_G6) },
-+	{ PCI_DEVICE(EFCT_VENDOR_ID, EFCT_DEVICE_LANCER_G7) },
-+	{ }	/* terminate list */
- };
- 
- static int
-diff --git a/drivers/scsi/esas2r/esas2r_main.c b/drivers/scsi/esas2r/esas2r_main.c
-index ada278c24c51..d59b066e9b25 100644
---- a/drivers/scsi/esas2r/esas2r_main.c
-+++ b/drivers/scsi/esas2r/esas2r_main.c
-@@ -303,29 +303,14 @@ MODULE_PARM_DESC(interrupt_mode,
- 		 "Defines the interrupt mode to use.  0 for legacy"
- 		 ", 1 for MSI.  Default is MSI (1).");
- 
--static const struct pci_device_id
--	esas2r_pci_table[] = {
--	{ ATTO_VENDOR_ID, 0x0049,	  ATTO_VENDOR_ID, 0x0049,
--	  0,
--	  0, 0 },
--	{ ATTO_VENDOR_ID, 0x0049,	  ATTO_VENDOR_ID, 0x004A,
--	  0,
--	  0, 0 },
--	{ ATTO_VENDOR_ID, 0x0049,	  ATTO_VENDOR_ID, 0x004B,
--	  0,
--	  0, 0 },
--	{ ATTO_VENDOR_ID, 0x0049,	  ATTO_VENDOR_ID, 0x004C,
--	  0,
--	  0, 0 },
--	{ ATTO_VENDOR_ID, 0x0049,	  ATTO_VENDOR_ID, 0x004D,
--	  0,
--	  0, 0 },
--	{ ATTO_VENDOR_ID, 0x0049,	  ATTO_VENDOR_ID, 0x004E,
--	  0,
--	  0, 0 },
--	{ 0,		  0,		  0,		  0,
--	  0,
--	  0, 0 }
-+static const struct pci_device_id esas2r_pci_table[] = {
-+	{ PCI_DEVICE_SUB(ATTO_VENDOR_ID, 0x0049, ATTO_VENDOR_ID, 0x0049) },
-+	{ PCI_DEVICE_SUB(ATTO_VENDOR_ID, 0x0049, ATTO_VENDOR_ID, 0x004A) },
-+	{ PCI_DEVICE_SUB(ATTO_VENDOR_ID, 0x0049, ATTO_VENDOR_ID, 0x004B) },
-+	{ PCI_DEVICE_SUB(ATTO_VENDOR_ID, 0x0049, ATTO_VENDOR_ID, 0x004C) },
-+	{ PCI_DEVICE_SUB(ATTO_VENDOR_ID, 0x0049, ATTO_VENDOR_ID, 0x004D) },
-+	{ PCI_DEVICE_SUB(ATTO_VENDOR_ID, 0x0049, ATTO_VENDOR_ID, 0x004E) },
-+	{ }
- };
- 
- MODULE_DEVICE_TABLE(pci, esas2r_pci_table);
-diff --git a/drivers/scsi/hisi_sas/hisi_sas_v3_hw.c b/drivers/scsi/hisi_sas/hisi_sas_v3_hw.c
-index 9391d031f5df..bb6a4e33e9b6 100644
---- a/drivers/scsi/hisi_sas/hisi_sas_v3_hw.c
-+++ b/drivers/scsi/hisi_sas/hisi_sas_v3_hw.c
-@@ -5317,8 +5317,8 @@ static int __maybe_unused resume_v3_hw(struct device *device)
- }
- 
- static const struct pci_device_id sas_v3_pci_table[] = {
--	{ PCI_VDEVICE(HUAWEI, 0xa230), hip08 },
--	{}
-+	{ PCI_VDEVICE(HUAWEI, 0xa230), .driver_data = hip08 },
-+	{ }
- };
- MODULE_DEVICE_TABLE(pci, sas_v3_pci_table);
- 
-diff --git a/drivers/scsi/hpsa.c b/drivers/scsi/hpsa.c
-index 14e9ba693169..851f01363916 100644
---- a/drivers/scsi/hpsa.c
-+++ b/drivers/scsi/hpsa.c
-@@ -91,64 +91,66 @@ MODULE_PARM_DESC(hpsa_simple_mode,
- 
- /* define the PCI info for the cards we can control */
- static const struct pci_device_id hpsa_pci_device_id[] = {
--	{PCI_VENDOR_ID_HP,     PCI_DEVICE_ID_HP_CISSE,     0x103C, 0x3241},
--	{PCI_VENDOR_ID_HP,     PCI_DEVICE_ID_HP_CISSE,     0x103C, 0x3243},
--	{PCI_VENDOR_ID_HP,     PCI_DEVICE_ID_HP_CISSE,     0x103C, 0x3245},
--	{PCI_VENDOR_ID_HP,     PCI_DEVICE_ID_HP_CISSE,     0x103C, 0x3247},
--	{PCI_VENDOR_ID_HP,     PCI_DEVICE_ID_HP_CISSE,     0x103C, 0x3249},
--	{PCI_VENDOR_ID_HP,     PCI_DEVICE_ID_HP_CISSE,     0x103C, 0x324A},
--	{PCI_VENDOR_ID_HP,     PCI_DEVICE_ID_HP_CISSE,     0x103C, 0x324B},
--	{PCI_VENDOR_ID_HP,     PCI_DEVICE_ID_HP_CISSE,     0x103C, 0x3233},
--	{PCI_VENDOR_ID_HP,     PCI_DEVICE_ID_HP_CISSF,     0x103C, 0x3350},
--	{PCI_VENDOR_ID_HP,     PCI_DEVICE_ID_HP_CISSF,     0x103C, 0x3351},
--	{PCI_VENDOR_ID_HP,     PCI_DEVICE_ID_HP_CISSF,     0x103C, 0x3352},
--	{PCI_VENDOR_ID_HP,     PCI_DEVICE_ID_HP_CISSF,     0x103C, 0x3353},
--	{PCI_VENDOR_ID_HP,     PCI_DEVICE_ID_HP_CISSF,     0x103C, 0x3354},
--	{PCI_VENDOR_ID_HP,     PCI_DEVICE_ID_HP_CISSF,     0x103C, 0x3355},
--	{PCI_VENDOR_ID_HP,     PCI_DEVICE_ID_HP_CISSF,     0x103C, 0x3356},
--	{PCI_VENDOR_ID_HP,     PCI_DEVICE_ID_HP_CISSH,     0x103c, 0x1920},
--	{PCI_VENDOR_ID_HP,     PCI_DEVICE_ID_HP_CISSH,     0x103C, 0x1921},
--	{PCI_VENDOR_ID_HP,     PCI_DEVICE_ID_HP_CISSH,     0x103C, 0x1922},
--	{PCI_VENDOR_ID_HP,     PCI_DEVICE_ID_HP_CISSH,     0x103C, 0x1923},
--	{PCI_VENDOR_ID_HP,     PCI_DEVICE_ID_HP_CISSH,     0x103C, 0x1924},
--	{PCI_VENDOR_ID_HP,     PCI_DEVICE_ID_HP_CISSH,     0x103c, 0x1925},
--	{PCI_VENDOR_ID_HP,     PCI_DEVICE_ID_HP_CISSH,     0x103C, 0x1926},
--	{PCI_VENDOR_ID_HP,     PCI_DEVICE_ID_HP_CISSH,     0x103C, 0x1928},
--	{PCI_VENDOR_ID_HP,     PCI_DEVICE_ID_HP_CISSH,     0x103C, 0x1929},
--	{PCI_VENDOR_ID_HP,     PCI_DEVICE_ID_HP_CISSI,     0x103C, 0x21BD},
--	{PCI_VENDOR_ID_HP,     PCI_DEVICE_ID_HP_CISSI,     0x103C, 0x21BE},
--	{PCI_VENDOR_ID_HP,     PCI_DEVICE_ID_HP_CISSI,     0x103C, 0x21BF},
--	{PCI_VENDOR_ID_HP,     PCI_DEVICE_ID_HP_CISSI,     0x103C, 0x21C0},
--	{PCI_VENDOR_ID_HP,     PCI_DEVICE_ID_HP_CISSI,     0x103C, 0x21C1},
--	{PCI_VENDOR_ID_HP,     PCI_DEVICE_ID_HP_CISSI,     0x103C, 0x21C2},
--	{PCI_VENDOR_ID_HP,     PCI_DEVICE_ID_HP_CISSI,     0x103C, 0x21C3},
--	{PCI_VENDOR_ID_HP,     PCI_DEVICE_ID_HP_CISSI,     0x103C, 0x21C4},
--	{PCI_VENDOR_ID_HP,     PCI_DEVICE_ID_HP_CISSI,     0x103C, 0x21C5},
--	{PCI_VENDOR_ID_HP,     PCI_DEVICE_ID_HP_CISSI,     0x103C, 0x21C6},
--	{PCI_VENDOR_ID_HP,     PCI_DEVICE_ID_HP_CISSI,     0x103C, 0x21C7},
--	{PCI_VENDOR_ID_HP,     PCI_DEVICE_ID_HP_CISSI,     0x103C, 0x21C8},
--	{PCI_VENDOR_ID_HP,     PCI_DEVICE_ID_HP_CISSI,     0x103C, 0x21C9},
--	{PCI_VENDOR_ID_HP,     PCI_DEVICE_ID_HP_CISSI,     0x103C, 0x21CA},
--	{PCI_VENDOR_ID_HP,     PCI_DEVICE_ID_HP_CISSI,     0x103C, 0x21CB},
--	{PCI_VENDOR_ID_HP,     PCI_DEVICE_ID_HP_CISSI,     0x103C, 0x21CC},
--	{PCI_VENDOR_ID_HP,     PCI_DEVICE_ID_HP_CISSI,     0x103C, 0x21CD},
--	{PCI_VENDOR_ID_HP,     PCI_DEVICE_ID_HP_CISSI,     0x103C, 0x21CE},
--	{PCI_VENDOR_ID_ADAPTEC2, 0x0290, 0x9005, 0x0580},
--	{PCI_VENDOR_ID_ADAPTEC2, 0x0290, 0x9005, 0x0581},
--	{PCI_VENDOR_ID_ADAPTEC2, 0x0290, 0x9005, 0x0582},
--	{PCI_VENDOR_ID_ADAPTEC2, 0x0290, 0x9005, 0x0583},
--	{PCI_VENDOR_ID_ADAPTEC2, 0x0290, 0x9005, 0x0584},
--	{PCI_VENDOR_ID_ADAPTEC2, 0x0290, 0x9005, 0x0585},
--	{PCI_VENDOR_ID_HP_3PAR, 0x0075, 0x1590, 0x0076},
--	{PCI_VENDOR_ID_HP_3PAR, 0x0075, 0x1590, 0x0087},
--	{PCI_VENDOR_ID_HP_3PAR, 0x0075, 0x1590, 0x007D},
--	{PCI_VENDOR_ID_HP_3PAR, 0x0075, 0x1590, 0x0088},
--	{PCI_VENDOR_ID_HP, 0x333f, 0x103c, 0x333f},
--	{PCI_VENDOR_ID_HP,     PCI_ANY_ID,	PCI_ANY_ID, PCI_ANY_ID,
--		PCI_CLASS_STORAGE_RAID << 8, 0xffff << 8, 0},
--	{PCI_VENDOR_ID_COMPAQ,     PCI_ANY_ID,	PCI_ANY_ID, PCI_ANY_ID,
--		PCI_CLASS_STORAGE_RAID << 8, 0xffff << 8, 0},
--	{0,}
-+	{ PCI_VDEVICE_SUB(HP, PCI_DEVICE_ID_HP_CISSE, 0x103C, 0x3241) },
-+	{ PCI_VDEVICE_SUB(HP, PCI_DEVICE_ID_HP_CISSE, 0x103C, 0x3243) },
-+	{ PCI_VDEVICE_SUB(HP, PCI_DEVICE_ID_HP_CISSE, 0x103C, 0x3245) },
-+	{ PCI_VDEVICE_SUB(HP, PCI_DEVICE_ID_HP_CISSE, 0x103C, 0x3247) },
-+	{ PCI_VDEVICE_SUB(HP, PCI_DEVICE_ID_HP_CISSE, 0x103C, 0x3249) },
-+	{ PCI_VDEVICE_SUB(HP, PCI_DEVICE_ID_HP_CISSE, 0x103C, 0x324A) },
-+	{ PCI_VDEVICE_SUB(HP, PCI_DEVICE_ID_HP_CISSE, 0x103C, 0x324B) },
-+	{ PCI_VDEVICE_SUB(HP, PCI_DEVICE_ID_HP_CISSE, 0x103C, 0x3233) },
-+	{ PCI_VDEVICE_SUB(HP, PCI_DEVICE_ID_HP_CISSF, 0x103C, 0x3350) },
-+	{ PCI_VDEVICE_SUB(HP, PCI_DEVICE_ID_HP_CISSF, 0x103C, 0x3351) },
-+	{ PCI_VDEVICE_SUB(HP, PCI_DEVICE_ID_HP_CISSF, 0x103C, 0x3352) },
-+	{ PCI_VDEVICE_SUB(HP, PCI_DEVICE_ID_HP_CISSF, 0x103C, 0x3353) },
-+	{ PCI_VDEVICE_SUB(HP, PCI_DEVICE_ID_HP_CISSF, 0x103C, 0x3354) },
-+	{ PCI_VDEVICE_SUB(HP, PCI_DEVICE_ID_HP_CISSF, 0x103C, 0x3355) },
-+	{ PCI_VDEVICE_SUB(HP, PCI_DEVICE_ID_HP_CISSF, 0x103C, 0x3356) },
-+	{ PCI_VDEVICE_SUB(HP, PCI_DEVICE_ID_HP_CISSH, 0x103c, 0x1920) },
-+	{ PCI_VDEVICE_SUB(HP, PCI_DEVICE_ID_HP_CISSH, 0x103C, 0x1921) },
-+	{ PCI_VDEVICE_SUB(HP, PCI_DEVICE_ID_HP_CISSH, 0x103C, 0x1922) },
-+	{ PCI_VDEVICE_SUB(HP, PCI_DEVICE_ID_HP_CISSH, 0x103C, 0x1923) },
-+	{ PCI_VDEVICE_SUB(HP, PCI_DEVICE_ID_HP_CISSH, 0x103C, 0x1924) },
-+	{ PCI_VDEVICE_SUB(HP, PCI_DEVICE_ID_HP_CISSH, 0x103c, 0x1925) },
-+	{ PCI_VDEVICE_SUB(HP, PCI_DEVICE_ID_HP_CISSH, 0x103C, 0x1926) },
-+	{ PCI_VDEVICE_SUB(HP, PCI_DEVICE_ID_HP_CISSH, 0x103C, 0x1928) },
-+	{ PCI_VDEVICE_SUB(HP, PCI_DEVICE_ID_HP_CISSH, 0x103C, 0x1929) },
-+	{ PCI_VDEVICE_SUB(HP, PCI_DEVICE_ID_HP_CISSI, 0x103C, 0x21BD) },
-+	{ PCI_VDEVICE_SUB(HP, PCI_DEVICE_ID_HP_CISSI, 0x103C, 0x21BE) },
-+	{ PCI_VDEVICE_SUB(HP, PCI_DEVICE_ID_HP_CISSI, 0x103C, 0x21BF) },
-+	{ PCI_VDEVICE_SUB(HP, PCI_DEVICE_ID_HP_CISSI, 0x103C, 0x21C0) },
-+	{ PCI_VDEVICE_SUB(HP, PCI_DEVICE_ID_HP_CISSI, 0x103C, 0x21C1) },
-+	{ PCI_VDEVICE_SUB(HP, PCI_DEVICE_ID_HP_CISSI, 0x103C, 0x21C2) },
-+	{ PCI_VDEVICE_SUB(HP, PCI_DEVICE_ID_HP_CISSI, 0x103C, 0x21C3) },
-+	{ PCI_VDEVICE_SUB(HP, PCI_DEVICE_ID_HP_CISSI, 0x103C, 0x21C4) },
-+	{ PCI_VDEVICE_SUB(HP, PCI_DEVICE_ID_HP_CISSI, 0x103C, 0x21C5) },
-+	{ PCI_VDEVICE_SUB(HP, PCI_DEVICE_ID_HP_CISSI, 0x103C, 0x21C6) },
-+	{ PCI_VDEVICE_SUB(HP, PCI_DEVICE_ID_HP_CISSI, 0x103C, 0x21C7) },
-+	{ PCI_VDEVICE_SUB(HP, PCI_DEVICE_ID_HP_CISSI, 0x103C, 0x21C8) },
-+	{ PCI_VDEVICE_SUB(HP, PCI_DEVICE_ID_HP_CISSI, 0x103C, 0x21C9) },
-+	{ PCI_VDEVICE_SUB(HP, PCI_DEVICE_ID_HP_CISSI, 0x103C, 0x21CA) },
-+	{ PCI_VDEVICE_SUB(HP, PCI_DEVICE_ID_HP_CISSI, 0x103C, 0x21CB) },
-+	{ PCI_VDEVICE_SUB(HP, PCI_DEVICE_ID_HP_CISSI, 0x103C, 0x21CC) },
-+	{ PCI_VDEVICE_SUB(HP, PCI_DEVICE_ID_HP_CISSI, 0x103C, 0x21CD) },
-+	{ PCI_VDEVICE_SUB(HP, PCI_DEVICE_ID_HP_CISSI, 0x103C, 0x21CE) },
-+	{ PCI_VDEVICE_SUB(ADAPTEC2, 0x0290, 0x9005, 0x0580) },
-+	{ PCI_VDEVICE_SUB(ADAPTEC2, 0x0290, 0x9005, 0x0581) },
-+	{ PCI_VDEVICE_SUB(ADAPTEC2, 0x0290, 0x9005, 0x0582) },
-+	{ PCI_VDEVICE_SUB(ADAPTEC2, 0x0290, 0x9005, 0x0583) },
-+	{ PCI_VDEVICE_SUB(ADAPTEC2, 0x0290, 0x9005, 0x0584) },
-+	{ PCI_VDEVICE_SUB(ADAPTEC2, 0x0290, 0x9005, 0x0585) },
-+	{ PCI_VDEVICE_SUB(HP_3PAR, 0x0075, 0x1590, 0x0076) },
-+	{ PCI_VDEVICE_SUB(HP_3PAR, 0x0075, 0x1590, 0x0087) },
-+	{ PCI_VDEVICE_SUB(HP_3PAR, 0x0075, 0x1590, 0x007D) },
-+	{ PCI_VDEVICE_SUB(HP_3PAR, 0x0075, 0x1590, 0x0088) },
-+	{ PCI_VDEVICE_SUB(HP, 0x333f, 0x103c, 0x333f) },
-+	{ PCI_DEVICE(PCI_VENDOR_ID_HP, PCI_ANY_ID),
-+	  .class = PCI_CLASS_STORAGE_RAID << 8,
-+	  .class_mask = 0xffff << 8 },
-+	{ PCI_DEVICE(PCI_VENDOR_ID_COMPAQ, PCI_ANY_ID),
-+	  .class = PCI_CLASS_STORAGE_RAID << 8,
-+	  .class_mask = 0xffff << 8 },
-+	{ }
- };
- 
- MODULE_DEVICE_TABLE(pci, hpsa_pci_device_id);
-diff --git a/drivers/scsi/hptiop.c b/drivers/scsi/hptiop.c
-index a3afb3446bbb..bacc4a76326b 100644
---- a/drivers/scsi/hptiop.c
-+++ b/drivers/scsi/hptiop.c
-@@ -1635,39 +1635,39 @@ static struct hptiop_adapter_ops hptiop_mvfrey_ops = {
- };
- 
- static const struct pci_device_id hptiop_id_table[] = {
--	{ PCI_VDEVICE(TTI, 0x3220), (kernel_ulong_t)&hptiop_itl_ops },
--	{ PCI_VDEVICE(TTI, 0x3320), (kernel_ulong_t)&hptiop_itl_ops },
--	{ PCI_VDEVICE(TTI, 0x3410), (kernel_ulong_t)&hptiop_itl_ops },
--	{ PCI_VDEVICE(TTI, 0x3510), (kernel_ulong_t)&hptiop_itl_ops },
--	{ PCI_VDEVICE(TTI, 0x3511), (kernel_ulong_t)&hptiop_itl_ops },
--	{ PCI_VDEVICE(TTI, 0x3520), (kernel_ulong_t)&hptiop_itl_ops },
--	{ PCI_VDEVICE(TTI, 0x3521), (kernel_ulong_t)&hptiop_itl_ops },
--	{ PCI_VDEVICE(TTI, 0x3522), (kernel_ulong_t)&hptiop_itl_ops },
--	{ PCI_VDEVICE(TTI, 0x3530), (kernel_ulong_t)&hptiop_itl_ops },
--	{ PCI_VDEVICE(TTI, 0x3540), (kernel_ulong_t)&hptiop_itl_ops },
--	{ PCI_VDEVICE(TTI, 0x3560), (kernel_ulong_t)&hptiop_itl_ops },
--	{ PCI_VDEVICE(TTI, 0x4210), (kernel_ulong_t)&hptiop_itl_ops },
--	{ PCI_VDEVICE(TTI, 0x4211), (kernel_ulong_t)&hptiop_itl_ops },
--	{ PCI_VDEVICE(TTI, 0x4310), (kernel_ulong_t)&hptiop_itl_ops },
--	{ PCI_VDEVICE(TTI, 0x4311), (kernel_ulong_t)&hptiop_itl_ops },
--	{ PCI_VDEVICE(TTI, 0x4320), (kernel_ulong_t)&hptiop_itl_ops },
--	{ PCI_VDEVICE(TTI, 0x4321), (kernel_ulong_t)&hptiop_itl_ops },
--	{ PCI_VDEVICE(TTI, 0x4322), (kernel_ulong_t)&hptiop_itl_ops },
--	{ PCI_VDEVICE(TTI, 0x4400), (kernel_ulong_t)&hptiop_itl_ops },
--	{ PCI_VDEVICE(TTI, 0x3120), (kernel_ulong_t)&hptiop_mv_ops },
--	{ PCI_VDEVICE(TTI, 0x3122), (kernel_ulong_t)&hptiop_mv_ops },
--	{ PCI_VDEVICE(TTI, 0x3020), (kernel_ulong_t)&hptiop_mv_ops },
--	{ PCI_VDEVICE(TTI, 0x4520), (kernel_ulong_t)&hptiop_mvfrey_ops },
--	{ PCI_VDEVICE(TTI, 0x4522), (kernel_ulong_t)&hptiop_mvfrey_ops },
--	{ PCI_VDEVICE(TTI, 0x3610), (kernel_ulong_t)&hptiop_mvfrey_ops },
--	{ PCI_VDEVICE(TTI, 0x3611), (kernel_ulong_t)&hptiop_mvfrey_ops },
--	{ PCI_VDEVICE(TTI, 0x3620), (kernel_ulong_t)&hptiop_mvfrey_ops },
--	{ PCI_VDEVICE(TTI, 0x3622), (kernel_ulong_t)&hptiop_mvfrey_ops },
--	{ PCI_VDEVICE(TTI, 0x3640), (kernel_ulong_t)&hptiop_mvfrey_ops },
--	{ PCI_VDEVICE(TTI, 0x3660), (kernel_ulong_t)&hptiop_mvfrey_ops },
--	{ PCI_VDEVICE(TTI, 0x3680), (kernel_ulong_t)&hptiop_mvfrey_ops },
--	{ PCI_VDEVICE(TTI, 0x3690), (kernel_ulong_t)&hptiop_mvfrey_ops },
--	{},
-+	{ PCI_VDEVICE(TTI, 0x3220), .driver_data = (kernel_ulong_t)&hptiop_itl_ops },
-+	{ PCI_VDEVICE(TTI, 0x3320), .driver_data = (kernel_ulong_t)&hptiop_itl_ops },
-+	{ PCI_VDEVICE(TTI, 0x3410), .driver_data = (kernel_ulong_t)&hptiop_itl_ops },
-+	{ PCI_VDEVICE(TTI, 0x3510), .driver_data = (kernel_ulong_t)&hptiop_itl_ops },
-+	{ PCI_VDEVICE(TTI, 0x3511), .driver_data = (kernel_ulong_t)&hptiop_itl_ops },
-+	{ PCI_VDEVICE(TTI, 0x3520), .driver_data = (kernel_ulong_t)&hptiop_itl_ops },
-+	{ PCI_VDEVICE(TTI, 0x3521), .driver_data = (kernel_ulong_t)&hptiop_itl_ops },
-+	{ PCI_VDEVICE(TTI, 0x3522), .driver_data = (kernel_ulong_t)&hptiop_itl_ops },
-+	{ PCI_VDEVICE(TTI, 0x3530), .driver_data = (kernel_ulong_t)&hptiop_itl_ops },
-+	{ PCI_VDEVICE(TTI, 0x3540), .driver_data = (kernel_ulong_t)&hptiop_itl_ops },
-+	{ PCI_VDEVICE(TTI, 0x3560), .driver_data = (kernel_ulong_t)&hptiop_itl_ops },
-+	{ PCI_VDEVICE(TTI, 0x4210), .driver_data = (kernel_ulong_t)&hptiop_itl_ops },
-+	{ PCI_VDEVICE(TTI, 0x4211), .driver_data = (kernel_ulong_t)&hptiop_itl_ops },
-+	{ PCI_VDEVICE(TTI, 0x4310), .driver_data = (kernel_ulong_t)&hptiop_itl_ops },
-+	{ PCI_VDEVICE(TTI, 0x4311), .driver_data = (kernel_ulong_t)&hptiop_itl_ops },
-+	{ PCI_VDEVICE(TTI, 0x4320), .driver_data = (kernel_ulong_t)&hptiop_itl_ops },
-+	{ PCI_VDEVICE(TTI, 0x4321), .driver_data = (kernel_ulong_t)&hptiop_itl_ops },
-+	{ PCI_VDEVICE(TTI, 0x4322), .driver_data = (kernel_ulong_t)&hptiop_itl_ops },
-+	{ PCI_VDEVICE(TTI, 0x4400), .driver_data = (kernel_ulong_t)&hptiop_itl_ops },
-+	{ PCI_VDEVICE(TTI, 0x3120), .driver_data = (kernel_ulong_t)&hptiop_mv_ops },
-+	{ PCI_VDEVICE(TTI, 0x3122), .driver_data = (kernel_ulong_t)&hptiop_mv_ops },
-+	{ PCI_VDEVICE(TTI, 0x3020), .driver_data = (kernel_ulong_t)&hptiop_mv_ops },
-+	{ PCI_VDEVICE(TTI, 0x4520), .driver_data = (kernel_ulong_t)&hptiop_mvfrey_ops },
-+	{ PCI_VDEVICE(TTI, 0x4522), .driver_data = (kernel_ulong_t)&hptiop_mvfrey_ops },
-+	{ PCI_VDEVICE(TTI, 0x3610), .driver_data = (kernel_ulong_t)&hptiop_mvfrey_ops },
-+	{ PCI_VDEVICE(TTI, 0x3611), .driver_data = (kernel_ulong_t)&hptiop_mvfrey_ops },
-+	{ PCI_VDEVICE(TTI, 0x3620), .driver_data = (kernel_ulong_t)&hptiop_mvfrey_ops },
-+	{ PCI_VDEVICE(TTI, 0x3622), .driver_data = (kernel_ulong_t)&hptiop_mvfrey_ops },
-+	{ PCI_VDEVICE(TTI, 0x3640), .driver_data = (kernel_ulong_t)&hptiop_mvfrey_ops },
-+	{ PCI_VDEVICE(TTI, 0x3660), .driver_data = (kernel_ulong_t)&hptiop_mvfrey_ops },
-+	{ PCI_VDEVICE(TTI, 0x3680), .driver_data = (kernel_ulong_t)&hptiop_mvfrey_ops },
-+	{ PCI_VDEVICE(TTI, 0x3690), .driver_data = (kernel_ulong_t)&hptiop_mvfrey_ops },
-+	{ },
- };
- 
- MODULE_DEVICE_TABLE(pci, hptiop_id_table);
-diff --git a/drivers/scsi/initio.c b/drivers/scsi/initio.c
-index da2670cd7edf..34facaa6d70d 100644
---- a/drivers/scsi/initio.c
-+++ b/drivers/scsi/initio.c
-@@ -2942,12 +2942,12 @@ static void initio_remove_one(struct pci_dev *pdev)
- MODULE_LICENSE("GPL");
- 
- static const struct pci_device_id initio_pci_tbl[] = {
--	{PCI_VENDOR_ID_INIT, 0x9500, PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0},
--	{PCI_VENDOR_ID_INIT, 0x9400, PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0},
--	{PCI_VENDOR_ID_INIT, 0x9401, PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0},
--	{PCI_VENDOR_ID_INIT, 0x0002, PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0},
--	{PCI_VENDOR_ID_DOMEX, 0x0002, PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0},
--	{0,}
-+	{ PCI_VDEVICE(INIT, 0x9500) },
-+	{ PCI_VDEVICE(INIT, 0x9400) },
-+	{ PCI_VDEVICE(INIT, 0x9401) },
-+	{ PCI_VDEVICE(INIT, 0x0002) },
-+	{ PCI_VDEVICE(DOMEX, 0x0002) },
-+	{ }
- };
- MODULE_DEVICE_TABLE(pci, initio_pci_tbl);
- 
-diff --git a/drivers/scsi/ipr.c b/drivers/scsi/ipr.c
-index a68ec85a7780..1a5e362cccbd 100644
---- a/drivers/scsi/ipr.c
-+++ b/drivers/scsi/ipr.c
-@@ -9879,115 +9879,207 @@ static void ipr_shutdown(struct pci_dev *pdev)
- }
- 
- static const struct pci_device_id ipr_pci_table[] = {
--	{ PCI_VENDOR_ID_MYLEX, PCI_DEVICE_ID_IBM_GEMSTONE,
--		PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_5702, 0, 0, 0 },
--	{ PCI_VENDOR_ID_MYLEX, PCI_DEVICE_ID_IBM_GEMSTONE,
--		PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_5703, 0, 0, 0 },
--	{ PCI_VENDOR_ID_MYLEX, PCI_DEVICE_ID_IBM_GEMSTONE,
--		PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_573D, 0, 0, 0 },
--	{ PCI_VENDOR_ID_MYLEX, PCI_DEVICE_ID_IBM_GEMSTONE,
--		PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_573E, 0, 0, 0 },
--	{ PCI_VENDOR_ID_IBM, PCI_DEVICE_ID_IBM_CITRINE,
--		PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_571B, 0, 0, 0 },
--	{ PCI_VENDOR_ID_IBM, PCI_DEVICE_ID_IBM_CITRINE,
--		PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_572E, 0, 0, 0 },
--	{ PCI_VENDOR_ID_IBM, PCI_DEVICE_ID_IBM_CITRINE,
--		PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_571A, 0, 0, 0 },
--	{ PCI_VENDOR_ID_IBM, PCI_DEVICE_ID_IBM_CITRINE,
--		PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_575B, 0, 0,
--		IPR_USE_LONG_TRANSOP_TIMEOUT },
--	{ PCI_VENDOR_ID_ADAPTEC2, PCI_DEVICE_ID_ADAPTEC2_OBSIDIAN,
--	      PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_572A, 0, 0, 0 },
--	{ PCI_VENDOR_ID_ADAPTEC2, PCI_DEVICE_ID_ADAPTEC2_OBSIDIAN,
--	      PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_572B, 0, 0,
--	      IPR_USE_LONG_TRANSOP_TIMEOUT },
--	{ PCI_VENDOR_ID_ADAPTEC2, PCI_DEVICE_ID_ADAPTEC2_OBSIDIAN,
--	      PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_575C, 0, 0,
--	      IPR_USE_LONG_TRANSOP_TIMEOUT },
--	{ PCI_VENDOR_ID_IBM, PCI_DEVICE_ID_IBM_OBSIDIAN,
--	      PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_572A, 0, 0, 0 },
--	{ PCI_VENDOR_ID_IBM, PCI_DEVICE_ID_IBM_OBSIDIAN,
--	      PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_572B, 0, 0,
--	      IPR_USE_LONG_TRANSOP_TIMEOUT},
--	{ PCI_VENDOR_ID_IBM, PCI_DEVICE_ID_IBM_OBSIDIAN,
--	      PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_575C, 0, 0,
--	      IPR_USE_LONG_TRANSOP_TIMEOUT },
--	{ PCI_VENDOR_ID_IBM, PCI_DEVICE_ID_IBM_OBSIDIAN_E,
--	      PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_574E, 0, 0,
--	      IPR_USE_LONG_TRANSOP_TIMEOUT },
--	{ PCI_VENDOR_ID_IBM, PCI_DEVICE_ID_IBM_OBSIDIAN_E,
--	      PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_57B3, 0, 0, 0 },
--	{ PCI_VENDOR_ID_IBM, PCI_DEVICE_ID_IBM_OBSIDIAN_E,
--	      PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_57CC, 0, 0, 0 },
--	{ PCI_VENDOR_ID_IBM, PCI_DEVICE_ID_IBM_OBSIDIAN_E,
--	      PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_57B7, 0, 0,
--	      IPR_USE_LONG_TRANSOP_TIMEOUT | IPR_USE_PCI_WARM_RESET },
--	{ PCI_VENDOR_ID_IBM, PCI_DEVICE_ID_IBM_SNIPE,
--		PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_2780, 0, 0, 0 },
--	{ PCI_VENDOR_ID_ADAPTEC2, PCI_DEVICE_ID_ADAPTEC2_SCAMP,
--		PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_571E, 0, 0, 0 },
--	{ PCI_VENDOR_ID_ADAPTEC2, PCI_DEVICE_ID_ADAPTEC2_SCAMP,
--		PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_571F, 0, 0,
--		IPR_USE_LONG_TRANSOP_TIMEOUT },
--	{ PCI_VENDOR_ID_ADAPTEC2, PCI_DEVICE_ID_ADAPTEC2_SCAMP,
--		PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_572F, 0, 0,
--		IPR_USE_LONG_TRANSOP_TIMEOUT },
--	{ PCI_VENDOR_ID_IBM, PCI_DEVICE_ID_IBM_CROC_FPGA_E2,
--		PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_57B5, 0, 0, 0 },
--	{ PCI_VENDOR_ID_IBM, PCI_DEVICE_ID_IBM_CROC_FPGA_E2,
--		PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_574D, 0, 0, 0 },
--	{ PCI_VENDOR_ID_IBM, PCI_DEVICE_ID_IBM_CROC_FPGA_E2,
--		PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_57B2, 0, 0, 0 },
--	{ PCI_VENDOR_ID_IBM, PCI_DEVICE_ID_IBM_CROC_FPGA_E2,
--		PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_57C0, 0, 0, 0 },
--	{ PCI_VENDOR_ID_IBM, PCI_DEVICE_ID_IBM_CROC_FPGA_E2,
--		PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_57C3, 0, 0, 0 },
--	{ PCI_VENDOR_ID_IBM, PCI_DEVICE_ID_IBM_CROC_FPGA_E2,
--		PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_57C4, 0, 0, 0 },
--	{ PCI_VENDOR_ID_IBM, PCI_DEVICE_ID_IBM_CROCODILE,
--		PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_57B4, 0, 0, 0 },
--	{ PCI_VENDOR_ID_IBM, PCI_DEVICE_ID_IBM_CROCODILE,
--		PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_57B1, 0, 0, 0 },
--	{ PCI_VENDOR_ID_IBM, PCI_DEVICE_ID_IBM_CROCODILE,
--		PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_57C6, 0, 0, 0 },
--	{ PCI_VENDOR_ID_IBM, PCI_DEVICE_ID_IBM_CROCODILE,
--		PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_57C8, 0, 0, 0 },
--	{ PCI_VENDOR_ID_IBM, PCI_DEVICE_ID_IBM_CROCODILE,
--		PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_57CE, 0, 0, 0 },
--	{ PCI_VENDOR_ID_IBM, PCI_DEVICE_ID_IBM_CROCODILE,
--		PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_57D5, 0, 0, 0 },
--	{ PCI_VENDOR_ID_IBM, PCI_DEVICE_ID_IBM_CROCODILE,
--		PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_57D6, 0, 0, 0 },
--	{ PCI_VENDOR_ID_IBM, PCI_DEVICE_ID_IBM_CROCODILE,
--		PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_57D7, 0, 0, 0 },
--	{ PCI_VENDOR_ID_IBM, PCI_DEVICE_ID_IBM_CROCODILE,
--		PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_57D8, 0, 0, 0 },
--	{ PCI_VENDOR_ID_IBM, PCI_DEVICE_ID_IBM_CROCODILE,
--		PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_57D9, 0, 0, 0 },
--	{ PCI_VENDOR_ID_IBM, PCI_DEVICE_ID_IBM_CROCODILE,
--		PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_57DA, 0, 0, 0 },
--	{ PCI_VENDOR_ID_IBM, PCI_DEVICE_ID_IBM_CROCODILE,
--		PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_57EB, 0, 0, 0 },
--	{ PCI_VENDOR_ID_IBM, PCI_DEVICE_ID_IBM_CROCODILE,
--		PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_57EC, 0, 0, 0 },
--	{ PCI_VENDOR_ID_IBM, PCI_DEVICE_ID_IBM_CROCODILE,
--		PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_57ED, 0, 0, 0 },
--	{ PCI_VENDOR_ID_IBM, PCI_DEVICE_ID_IBM_CROCODILE,
--		PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_57EE, 0, 0, 0 },
--	{ PCI_VENDOR_ID_IBM, PCI_DEVICE_ID_IBM_CROCODILE,
--		PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_57EF, 0, 0, 0 },
--	{ PCI_VENDOR_ID_IBM, PCI_DEVICE_ID_IBM_CROCODILE,
--		PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_57F0, 0, 0, 0 },
--	{ PCI_VENDOR_ID_IBM, PCI_DEVICE_ID_IBM_CROCODILE,
--		PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_2CCA, 0, 0, 0 },
--	{ PCI_VENDOR_ID_IBM, PCI_DEVICE_ID_IBM_CROCODILE,
--		PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_2CD2, 0, 0, 0 },
--	{ PCI_VENDOR_ID_IBM, PCI_DEVICE_ID_IBM_CROCODILE,
--		PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_2CCD, 0, 0, 0 },
--	{ PCI_VENDOR_ID_IBM, PCI_DEVICE_ID_IBM_RATTLESNAKE,
--		PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_580A, 0, 0, 0 },
--	{ PCI_VENDOR_ID_IBM, PCI_DEVICE_ID_IBM_RATTLESNAKE,
--		PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_580B, 0, 0, 0 },
-+	{
-+		PCI_VDEVICE_SUB(MYLEX, PCI_DEVICE_ID_IBM_GEMSTONE,
-+				PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_5702),
-+		.driver_data = 0,
-+	}, {
-+		PCI_VDEVICE_SUB(MYLEX, PCI_DEVICE_ID_IBM_GEMSTONE,
-+				PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_5703),
-+		.driver_data = 0,
-+	}, {
-+		PCI_VDEVICE_SUB(MYLEX, PCI_DEVICE_ID_IBM_GEMSTONE,
-+				PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_573D),
-+		.driver_data = 0,
-+	}, {
-+		PCI_VDEVICE_SUB(MYLEX, PCI_DEVICE_ID_IBM_GEMSTONE,
-+				PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_573E),
-+		.driver_data = 0,
-+	}, {
-+		PCI_VDEVICE_SUB(IBM, PCI_DEVICE_ID_IBM_CITRINE,
-+				PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_571B),
-+		.driver_data = 0,
-+	}, {
-+		PCI_VDEVICE_SUB(IBM, PCI_DEVICE_ID_IBM_CITRINE,
-+				PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_572E),
-+		.driver_data = 0,
-+	}, {
-+		PCI_VDEVICE_SUB(IBM, PCI_DEVICE_ID_IBM_CITRINE,
-+				PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_571A),
-+		.driver_data = 0,
-+	}, {
-+		PCI_VDEVICE_SUB(IBM, PCI_DEVICE_ID_IBM_CITRINE,
-+				PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_575B),
-+		.driver_data = IPR_USE_LONG_TRANSOP_TIMEOUT,
-+	}, {
-+		PCI_VDEVICE_SUB(ADAPTEC2, PCI_DEVICE_ID_ADAPTEC2_OBSIDIAN,
-+				PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_572A),
-+		.driver_data = 0,
-+	}, {
-+		PCI_VDEVICE_SUB(ADAPTEC2, PCI_DEVICE_ID_ADAPTEC2_OBSIDIAN,
-+				PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_572B),
-+		.driver_data = IPR_USE_LONG_TRANSOP_TIMEOUT,
-+	}, {
-+		PCI_VDEVICE_SUB(ADAPTEC2, PCI_DEVICE_ID_ADAPTEC2_OBSIDIAN,
-+				PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_575C),
-+		.driver_data = IPR_USE_LONG_TRANSOP_TIMEOUT,
-+	}, {
-+		PCI_VDEVICE_SUB(IBM, PCI_DEVICE_ID_IBM_OBSIDIAN,
-+				PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_572A),
-+		.driver_data = 0,
-+	}, {
-+		PCI_VDEVICE_SUB(IBM, PCI_DEVICE_ID_IBM_OBSIDIAN,
-+				PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_572B),
-+		.driver_data = IPR_USE_LONG_TRANSOP_TIMEOUT,
-+	}, {
-+		PCI_VDEVICE_SUB(IBM, PCI_DEVICE_ID_IBM_OBSIDIAN,
-+				PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_575C),
-+		.driver_data = IPR_USE_LONG_TRANSOP_TIMEOUT,
-+	}, {
-+		PCI_VDEVICE_SUB(IBM, PCI_DEVICE_ID_IBM_OBSIDIAN_E,
-+				PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_574E),
-+		.driver_data = IPR_USE_LONG_TRANSOP_TIMEOUT,
-+	}, {
-+		PCI_VDEVICE_SUB(IBM, PCI_DEVICE_ID_IBM_OBSIDIAN_E,
-+				PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_57B3),
-+		.driver_data = 0,
-+	}, {
-+		PCI_VDEVICE_SUB(IBM, PCI_DEVICE_ID_IBM_OBSIDIAN_E,
-+				PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_57CC),
-+		.driver_data = 0,
-+	}, {
-+		PCI_VDEVICE_SUB(IBM, PCI_DEVICE_ID_IBM_OBSIDIAN_E,
-+				PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_57B7),
-+		.driver_data = IPR_USE_LONG_TRANSOP_TIMEOUT | IPR_USE_PCI_WARM_RESET,
-+	}, {
-+		PCI_VDEVICE_SUB(IBM, PCI_DEVICE_ID_IBM_SNIPE,
-+				PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_2780),
-+		.driver_data = 0,
-+	}, {
-+		PCI_VDEVICE_SUB(ADAPTEC2, PCI_DEVICE_ID_ADAPTEC2_SCAMP,
-+				PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_571E),
-+		.driver_data = 0,
-+	}, {
-+		PCI_VDEVICE_SUB(ADAPTEC2, PCI_DEVICE_ID_ADAPTEC2_SCAMP,
-+				PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_571F),
-+		.driver_data = IPR_USE_LONG_TRANSOP_TIMEOUT,
-+	}, {
-+		PCI_VDEVICE_SUB(ADAPTEC2, PCI_DEVICE_ID_ADAPTEC2_SCAMP,
-+				PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_572F),
-+		.driver_data = IPR_USE_LONG_TRANSOP_TIMEOUT,
-+	}, {
-+		PCI_VDEVICE_SUB(IBM, PCI_DEVICE_ID_IBM_CROC_FPGA_E2,
-+				PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_57B5),
-+		.driver_data = 0,
-+	}, {
-+		PCI_VDEVICE_SUB(IBM, PCI_DEVICE_ID_IBM_CROC_FPGA_E2,
-+				PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_574D),
-+		.driver_data = 0,
-+	}, {
-+		PCI_VDEVICE_SUB(IBM, PCI_DEVICE_ID_IBM_CROC_FPGA_E2,
-+				PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_57B2),
-+		.driver_data = 0,
-+	}, {
-+		PCI_VDEVICE_SUB(IBM, PCI_DEVICE_ID_IBM_CROC_FPGA_E2,
-+				PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_57C0),
-+		.driver_data = 0,
-+	}, {
-+		PCI_VDEVICE_SUB(IBM, PCI_DEVICE_ID_IBM_CROC_FPGA_E2,
-+				PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_57C3),
-+		.driver_data = 0,
-+	}, {
-+		PCI_VDEVICE_SUB(IBM, PCI_DEVICE_ID_IBM_CROC_FPGA_E2,
-+				PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_57C4),
-+		.driver_data = 0,
-+	}, {
-+		PCI_VDEVICE_SUB(IBM, PCI_DEVICE_ID_IBM_CROCODILE,
-+				PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_57B4),
-+		.driver_data = 0,
-+	}, {
-+		PCI_VDEVICE_SUB(IBM, PCI_DEVICE_ID_IBM_CROCODILE,
-+				PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_57B1),
-+		.driver_data = 0,
-+	}, {
-+		PCI_VDEVICE_SUB(IBM, PCI_DEVICE_ID_IBM_CROCODILE,
-+				PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_57C6),
-+		.driver_data = 0,
-+	}, {
-+		PCI_VDEVICE_SUB(IBM, PCI_DEVICE_ID_IBM_CROCODILE,
-+				PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_57C8),
-+		.driver_data = 0,
-+	}, {
-+		PCI_VDEVICE_SUB(IBM, PCI_DEVICE_ID_IBM_CROCODILE,
-+				PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_57CE),
-+		.driver_data = 0,
-+	}, {
-+		PCI_VDEVICE_SUB(IBM, PCI_DEVICE_ID_IBM_CROCODILE,
-+				PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_57D5),
-+		.driver_data = 0,
-+	}, {
-+		PCI_VDEVICE_SUB(IBM, PCI_DEVICE_ID_IBM_CROCODILE,
-+				PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_57D6),
-+		.driver_data = 0,
-+	}, {
-+		PCI_VDEVICE_SUB(IBM, PCI_DEVICE_ID_IBM_CROCODILE,
-+				PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_57D7),
-+		.driver_data = 0,
-+	}, {
-+		PCI_VDEVICE_SUB(IBM, PCI_DEVICE_ID_IBM_CROCODILE,
-+				PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_57D8),
-+		.driver_data = 0,
-+	}, {
-+		PCI_VDEVICE_SUB(IBM, PCI_DEVICE_ID_IBM_CROCODILE,
-+				PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_57D9),
-+		.driver_data = 0,
-+	}, {
-+		PCI_VDEVICE_SUB(IBM, PCI_DEVICE_ID_IBM_CROCODILE,
-+				PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_57DA),
-+		.driver_data = 0,
-+	}, {
-+		PCI_VDEVICE_SUB(IBM, PCI_DEVICE_ID_IBM_CROCODILE,
-+				PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_57EB),
-+		.driver_data = 0,
-+	}, {
-+		PCI_VDEVICE_SUB(IBM, PCI_DEVICE_ID_IBM_CROCODILE,
-+				PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_57EC),
-+		.driver_data = 0,
-+	}, {
-+		PCI_VDEVICE_SUB(IBM, PCI_DEVICE_ID_IBM_CROCODILE,
-+				PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_57ED),
-+		.driver_data = 0,
-+	}, {
-+		PCI_VDEVICE_SUB(IBM, PCI_DEVICE_ID_IBM_CROCODILE,
-+				PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_57EE),
-+		.driver_data = 0,
-+	}, {
-+		PCI_VDEVICE_SUB(IBM, PCI_DEVICE_ID_IBM_CROCODILE,
-+				PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_57EF),
-+		.driver_data = 0,
-+	}, {
-+		PCI_VDEVICE_SUB(IBM, PCI_DEVICE_ID_IBM_CROCODILE,
-+				PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_57F0),
-+		.driver_data = 0,
-+	}, {
-+		PCI_VDEVICE_SUB(IBM, PCI_DEVICE_ID_IBM_CROCODILE,
-+				PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_2CCA),
-+		.driver_data = 0,
-+	}, {
-+		PCI_VDEVICE_SUB(IBM, PCI_DEVICE_ID_IBM_CROCODILE,
-+				PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_2CD2),
-+		.driver_data = 0,
-+	}, {
-+		PCI_VDEVICE_SUB(IBM, PCI_DEVICE_ID_IBM_CROCODILE,
-+				PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_2CCD),
-+		.driver_data = 0,
-+	}, {
-+		PCI_VDEVICE_SUB(IBM, PCI_DEVICE_ID_IBM_RATTLESNAKE,
-+				PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_580A),
-+		.driver_data = 0,
-+	}, {
-+		PCI_VDEVICE_SUB(IBM, PCI_DEVICE_ID_IBM_RATTLESNAKE,
-+				PCI_VENDOR_ID_IBM, IPR_SUBS_DEV_ID_580B),
-+		.driver_data = 0
-+	},
- 	{ }
- };
- MODULE_DEVICE_TABLE(pci, ipr_pci_table);
-diff --git a/drivers/scsi/megaraid.c b/drivers/scsi/megaraid.c
-index a4079866f747..22e030001ba8 100644
---- a/drivers/scsi/megaraid.c
-+++ b/drivers/scsi/megaraid.c
-@@ -4554,13 +4554,10 @@ megaraid_shutdown(struct pci_dev *pdev)
- }
- 
- static const struct pci_device_id megaraid_pci_tbl[] = {
--	{PCI_VENDOR_ID_AMI, PCI_DEVICE_ID_AMI_MEGARAID,
--		PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0},
--	{PCI_VENDOR_ID_AMI, PCI_DEVICE_ID_AMI_MEGARAID2,
--		PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0},
--	{PCI_VENDOR_ID_INTEL, PCI_DEVICE_ID_AMI_MEGARAID3,
--		PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0},
--	{0,}
-+	{ PCI_VDEVICE(AMI, PCI_DEVICE_ID_AMI_MEGARAID) },
-+	{ PCI_VDEVICE(AMI, PCI_DEVICE_ID_AMI_MEGARAID2) },
-+	{ PCI_VDEVICE(INTEL, PCI_DEVICE_ID_AMI_MEGARAID3) },
-+	{ }
- };
- MODULE_DEVICE_TABLE(pci, megaraid_pci_tbl);
- 
-diff --git a/drivers/scsi/mvsas/mv_init.c b/drivers/scsi/mvsas/mv_init.c
-index 5abc17a2e261..72bc6e5d4504 100644
---- a/drivers/scsi/mvsas/mv_init.c
-+++ b/drivers/scsi/mvsas/mv_init.c
-@@ -610,61 +610,37 @@ static void mvs_pci_remove(struct pci_dev *pdev)
- }
- 
- static const struct pci_device_id mvs_pci_table[] = {
--	{ PCI_VDEVICE(MARVELL, 0x6320), chip_6320 },
--	{ PCI_VDEVICE(MARVELL, 0x6340), chip_6440 },
--	{
--		.vendor 	= PCI_VENDOR_ID_MARVELL,
--		.device 	= 0x6440,
--		.subvendor	= PCI_ANY_ID,
--		.subdevice	= 0x6480,
--		.class		= 0,
--		.class_mask	= 0,
--		.driver_data	= chip_6485,
--	},
--	{ PCI_VDEVICE(MARVELL, 0x6440), chip_6440 },
--	{ PCI_VDEVICE(MARVELL, 0x6485), chip_6485 },
--	{ PCI_VDEVICE(MARVELL, 0x9480), chip_9480 },
--	{ PCI_VDEVICE(MARVELL, 0x9180), chip_9180 },
--	{ PCI_VDEVICE(ARECA, PCI_DEVICE_ID_ARECA_1300), chip_1300 },
--	{ PCI_VDEVICE(ARECA, PCI_DEVICE_ID_ARECA_1320), chip_1320 },
--	{ PCI_VDEVICE(ADAPTEC2, 0x0450), chip_6440 },
--	{ PCI_VDEVICE(TTI, 0x2640), chip_6440 },
--	{ PCI_VDEVICE(TTI, 0x2710), chip_9480 },
--	{ PCI_VDEVICE(TTI, 0x2720), chip_9480 },
--	{ PCI_VDEVICE(TTI, 0x2721), chip_9480 },
--	{ PCI_VDEVICE(TTI, 0x2722), chip_9480 },
--	{ PCI_VDEVICE(TTI, 0x2740), chip_9480 },
--	{ PCI_VDEVICE(TTI, 0x2744), chip_9480 },
--	{ PCI_VDEVICE(TTI, 0x2760), chip_9480 },
--	{
--		.vendor		= PCI_VENDOR_ID_MARVELL_EXT,
--		.device		= 0x9480,
--		.subvendor	= PCI_ANY_ID,
--		.subdevice	= 0x9480,
--		.class		= 0,
--		.class_mask	= 0,
--		.driver_data	= chip_9480,
--	},
--	{
--		.vendor		= PCI_VENDOR_ID_MARVELL_EXT,
--		.device		= 0x9445,
--		.subvendor	= PCI_ANY_ID,
--		.subdevice	= 0x9480,
--		.class		= 0,
--		.class_mask	= 0,
--		.driver_data	= chip_9445,
--	},
--	{ PCI_VDEVICE(MARVELL_EXT, 0x9485), chip_9485 }, /* Marvell 9480/9485 (any vendor/model) */
--	{ PCI_VDEVICE(OCZ, 0x1021), chip_9485}, /* OCZ RevoDrive3 */
--	{ PCI_VDEVICE(OCZ, 0x1022), chip_9485}, /* OCZ RevoDrive3/zDriveR4 (exact model unknown) */
--	{ PCI_VDEVICE(OCZ, 0x1040), chip_9485}, /* OCZ RevoDrive3/zDriveR4 (exact model unknown) */
--	{ PCI_VDEVICE(OCZ, 0x1041), chip_9485}, /* OCZ RevoDrive3/zDriveR4 (exact model unknown) */
--	{ PCI_VDEVICE(OCZ, 0x1042), chip_9485}, /* OCZ RevoDrive3/zDriveR4 (exact model unknown) */
--	{ PCI_VDEVICE(OCZ, 0x1043), chip_9485}, /* OCZ RevoDrive3/zDriveR4 (exact model unknown) */
--	{ PCI_VDEVICE(OCZ, 0x1044), chip_9485}, /* OCZ RevoDrive3/zDriveR4 (exact model unknown) */
--	{ PCI_VDEVICE(OCZ, 0x1080), chip_9485}, /* OCZ RevoDrive3/zDriveR4 (exact model unknown) */
--	{ PCI_VDEVICE(OCZ, 0x1083), chip_9485}, /* OCZ RevoDrive3/zDriveR4 (exact model unknown) */
--	{ PCI_VDEVICE(OCZ, 0x1084), chip_9485}, /* OCZ RevoDrive3/zDriveR4 (exact model unknown) */
-+	{ PCI_VDEVICE(MARVELL, 0x6320), .driver_data = chip_6320 },
-+	{ PCI_VDEVICE(MARVELL, 0x6340), .driver_data = chip_6440 },
-+	{ PCI_VDEVICE_SUB(MARVELL, 0x6440, PCI_ANY_ID, 0x6480), .driver_data = chip_6485 },
-+	{ PCI_VDEVICE(MARVELL, 0x6440), .driver_data = chip_6440 },
-+	{ PCI_VDEVICE(MARVELL, 0x6485), .driver_data = chip_6485 },
-+	{ PCI_VDEVICE(MARVELL, 0x9480), .driver_data = chip_9480 },
-+	{ PCI_VDEVICE(MARVELL, 0x9180), .driver_data = chip_9180 },
-+	{ PCI_VDEVICE(ARECA, PCI_DEVICE_ID_ARECA_1300), .driver_data = chip_1300 },
-+	{ PCI_VDEVICE(ARECA, PCI_DEVICE_ID_ARECA_1320), .driver_data = chip_1320 },
-+	{ PCI_VDEVICE(ADAPTEC2, 0x0450), .driver_data = chip_6440 },
-+	{ PCI_VDEVICE(TTI, 0x2640), .driver_data = chip_6440 },
-+	{ PCI_VDEVICE(TTI, 0x2710), .driver_data = chip_9480 },
-+	{ PCI_VDEVICE(TTI, 0x2720), .driver_data = chip_9480 },
-+	{ PCI_VDEVICE(TTI, 0x2721), .driver_data = chip_9480 },
-+	{ PCI_VDEVICE(TTI, 0x2722), .driver_data = chip_9480 },
-+	{ PCI_VDEVICE(TTI, 0x2740), .driver_data = chip_9480 },
-+	{ PCI_VDEVICE(TTI, 0x2744), .driver_data = chip_9480 },
-+	{ PCI_VDEVICE(TTI, 0x2760), .driver_data = chip_9480 },
-+	{ PCI_VDEVICE_SUB(MARVELL_EXT, 0x9480, PCI_ANY_ID, 0x9480), .driver_data = chip_9480 },
-+	{ PCI_VDEVICE_SUB(MARVELL_EXT, 0x9445, PCI_ANY_ID, 0x9480), .driver_data = chip_9445 },
-+	{ PCI_VDEVICE(MARVELL_EXT, 0x9485), .driver_data = chip_9485 }, /* Marvell 9480/9485 (any vendor/model) */
-+	{ PCI_VDEVICE(OCZ, 0x1021), .driver_data = chip_9485 }, /* OCZ RevoDrive3 */
-+	{ PCI_VDEVICE(OCZ, 0x1022), .driver_data = chip_9485 }, /* OCZ RevoDrive3/zDriveR4 (exact model unknown) */
-+	{ PCI_VDEVICE(OCZ, 0x1040), .driver_data = chip_9485 }, /* OCZ RevoDrive3/zDriveR4 (exact model unknown) */
-+	{ PCI_VDEVICE(OCZ, 0x1041), .driver_data = chip_9485 }, /* OCZ RevoDrive3/zDriveR4 (exact model unknown) */
-+	{ PCI_VDEVICE(OCZ, 0x1042), .driver_data = chip_9485 }, /* OCZ RevoDrive3/zDriveR4 (exact model unknown) */
-+	{ PCI_VDEVICE(OCZ, 0x1043), .driver_data = chip_9485 }, /* OCZ RevoDrive3/zDriveR4 (exact model unknown) */
-+	{ PCI_VDEVICE(OCZ, 0x1044), .driver_data = chip_9485 }, /* OCZ RevoDrive3/zDriveR4 (exact model unknown) */
-+	{ PCI_VDEVICE(OCZ, 0x1080), .driver_data = chip_9485 }, /* OCZ RevoDrive3/zDriveR4 (exact model unknown) */
-+	{ PCI_VDEVICE(OCZ, 0x1083), .driver_data = chip_9485 }, /* OCZ RevoDrive3/zDriveR4 (exact model unknown) */
-+	{ PCI_VDEVICE(OCZ, 0x1084), .driver_data = chip_9485 }, /* OCZ RevoDrive3/zDriveR4 (exact model unknown) */
- 
- 	{ }	/* terminate list */
- };
-diff --git a/drivers/scsi/pm8001/pm8001_init.c b/drivers/scsi/pm8001/pm8001_init.c
-index 5af81c73a8f8..427a02b916bd 100644
---- a/drivers/scsi/pm8001/pm8001_init.c
-+++ b/drivers/scsi/pm8001/pm8001_init.c
-@@ -1437,79 +1437,176 @@ static int __maybe_unused pm8001_pci_resume(struct device *dev)
-  * unique value for each of the controller
-  */
- static const struct pci_device_id pm8001_pci_table[] = {
--	{ PCI_VDEVICE(PMC_Sierra, 0x8001), chip_8001 },
--	{ PCI_VDEVICE(PMC_Sierra, 0x8006), chip_8006 },
--	{ PCI_VDEVICE(ADAPTEC2, 0x8006), chip_8006 },
--	{ PCI_VDEVICE(ATTO, 0x0042), chip_8001 },
--	/* Support for SPC/SPCv/SPCve controllers */
--	{ PCI_VDEVICE(ADAPTEC2, 0x8001), chip_8001 },
--	{ PCI_VDEVICE(PMC_Sierra, 0x8008), chip_8008 },
--	{ PCI_VDEVICE(ADAPTEC2, 0x8008), chip_8008 },
--	{ PCI_VDEVICE(PMC_Sierra, 0x8018), chip_8018 },
--	{ PCI_VDEVICE(ADAPTEC2, 0x8018), chip_8018 },
--	{ PCI_VDEVICE(PMC_Sierra, 0x8009), chip_8009 },
--	{ PCI_VDEVICE(ADAPTEC2, 0x8009), chip_8009 },
--	{ PCI_VDEVICE(PMC_Sierra, 0x8019), chip_8019 },
--	{ PCI_VDEVICE(ADAPTEC2, 0x8019), chip_8019 },
--	{ PCI_VDEVICE(PMC_Sierra, 0x8074), chip_8074 },
--	{ PCI_VDEVICE(ADAPTEC2, 0x8074), chip_8074 },
--	{ PCI_VDEVICE(PMC_Sierra, 0x8076), chip_8076 },
--	{ PCI_VDEVICE(ADAPTEC2, 0x8076), chip_8076 },
--	{ PCI_VDEVICE(PMC_Sierra, 0x8077), chip_8077 },
--	{ PCI_VDEVICE(ADAPTEC2, 0x8077), chip_8077 },
--	{ PCI_VENDOR_ID_ADAPTEC2, 0x8081,
--		PCI_VENDOR_ID_ADAPTEC2, 0x0400, 0, 0, chip_8001 },
--	{ PCI_VENDOR_ID_ADAPTEC2, 0x8081,
--		PCI_VENDOR_ID_ADAPTEC2, 0x0800, 0, 0, chip_8001 },
--	{ PCI_VENDOR_ID_ADAPTEC2, 0x8088,
--		PCI_VENDOR_ID_ADAPTEC2, 0x0008, 0, 0, chip_8008 },
--	{ PCI_VENDOR_ID_ADAPTEC2, 0x8088,
--		PCI_VENDOR_ID_ADAPTEC2, 0x0800, 0, 0, chip_8008 },
--	{ PCI_VENDOR_ID_ADAPTEC2, 0x8089,
--		PCI_VENDOR_ID_ADAPTEC2, 0x0008, 0, 0, chip_8009 },
--	{ PCI_VENDOR_ID_ADAPTEC2, 0x8089,
--		PCI_VENDOR_ID_ADAPTEC2, 0x0800, 0, 0, chip_8009 },
--	{ PCI_VENDOR_ID_ADAPTEC2, 0x8088,
--		PCI_VENDOR_ID_ADAPTEC2, 0x0016, 0, 0, chip_8018 },
--	{ PCI_VENDOR_ID_ADAPTEC2, 0x8088,
--		PCI_VENDOR_ID_ADAPTEC2, 0x1600, 0, 0, chip_8018 },
--	{ PCI_VENDOR_ID_ADAPTEC2, 0x8089,
--		PCI_VENDOR_ID_ADAPTEC2, 0x0016, 0, 0, chip_8019 },
--	{ PCI_VENDOR_ID_ADAPTEC2, 0x8089,
--		PCI_VENDOR_ID_ADAPTEC2, 0x1600, 0, 0, chip_8019 },
--	{ PCI_VENDOR_ID_ADAPTEC2, 0x8074,
--		PCI_VENDOR_ID_ADAPTEC2, 0x0800, 0, 0, chip_8074 },
--	{ PCI_VENDOR_ID_ADAPTEC2, 0x8076,
--		PCI_VENDOR_ID_ADAPTEC2, 0x1600, 0, 0, chip_8076 },
--	{ PCI_VENDOR_ID_ADAPTEC2, 0x8077,
--		PCI_VENDOR_ID_ADAPTEC2, 0x1600, 0, 0, chip_8077 },
--	{ PCI_VENDOR_ID_ADAPTEC2, 0x8074,
--		PCI_VENDOR_ID_ADAPTEC2, 0x0008, 0, 0, chip_8074 },
--	{ PCI_VENDOR_ID_ADAPTEC2, 0x8076,
--		PCI_VENDOR_ID_ADAPTEC2, 0x0016, 0, 0, chip_8076 },
--	{ PCI_VENDOR_ID_ADAPTEC2, 0x8077,
--		PCI_VENDOR_ID_ADAPTEC2, 0x0016, 0, 0, chip_8077 },
--	{ PCI_VENDOR_ID_ADAPTEC2, 0x8076,
--		PCI_VENDOR_ID_ADAPTEC2, 0x0808, 0, 0, chip_8076 },
--	{ PCI_VENDOR_ID_ADAPTEC2, 0x8077,
--		PCI_VENDOR_ID_ADAPTEC2, 0x0808, 0, 0, chip_8077 },
--	{ PCI_VENDOR_ID_ADAPTEC2, 0x8074,
--		PCI_VENDOR_ID_ADAPTEC2, 0x0404, 0, 0, chip_8074 },
--	{ PCI_VENDOR_ID_ATTO, 0x8070,
--		PCI_VENDOR_ID_ATTO, 0x0070, 0, 0, chip_8070 },
--	{ PCI_VENDOR_ID_ATTO, 0x8070,
--		PCI_VENDOR_ID_ATTO, 0x0071, 0, 0, chip_8070 },
--	{ PCI_VENDOR_ID_ATTO, 0x8072,
--		PCI_VENDOR_ID_ATTO, 0x0072, 0, 0, chip_8072 },
--	{ PCI_VENDOR_ID_ATTO, 0x8072,
--		PCI_VENDOR_ID_ATTO, 0x0073, 0, 0, chip_8072 },
--	{ PCI_VENDOR_ID_ATTO, 0x8070,
--		PCI_VENDOR_ID_ATTO, 0x0080, 0, 0, chip_8070 },
--	{ PCI_VENDOR_ID_ATTO, 0x8072,
--		PCI_VENDOR_ID_ATTO, 0x0081, 0, 0, chip_8072 },
--	{ PCI_VENDOR_ID_ATTO, 0x8072,
--		PCI_VENDOR_ID_ATTO, 0x0082, 0, 0, chip_8072 },
--	{} /* terminate list */
-+	{
-+		PCI_VDEVICE(PMC_Sierra, 0x8001),
-+		.driver_data = chip_8001,
-+	}, {
-+		PCI_VDEVICE(PMC_Sierra, 0x8006),
-+		.driver_data = chip_8006,
-+	}, {
-+		PCI_VDEVICE(ADAPTEC2, 0x8006),
-+		.driver_data = chip_8006,
-+	}, {
-+		PCI_VDEVICE(ATTO, 0x0042),
-+		.driver_data = chip_8001
-+	}, {
-+		/* Support for SPC/SPCv/SPCve controllers */
-+		PCI_VDEVICE(ADAPTEC2, 0x8001),
-+		.driver_data = chip_8001,
-+	}, {
-+		PCI_VDEVICE(PMC_Sierra, 0x8008),
-+		.driver_data = chip_8008,
-+	}, {
-+		PCI_VDEVICE(ADAPTEC2, 0x8008),
-+		.driver_data = chip_8008,
-+	}, {
-+		PCI_VDEVICE(PMC_Sierra, 0x8018),
-+		.driver_data = chip_8018,
-+	}, {
-+		PCI_VDEVICE(ADAPTEC2, 0x8018),
-+		.driver_data = chip_8018,
-+	}, {
-+		PCI_VDEVICE(PMC_Sierra, 0x8009),
-+		.driver_data = chip_8009,
-+	}, {
-+		PCI_VDEVICE(ADAPTEC2, 0x8009),
-+		.driver_data = chip_8009,
-+	}, {
-+		PCI_VDEVICE(PMC_Sierra, 0x8019),
-+		.driver_data = chip_8019,
-+	}, {
-+		PCI_VDEVICE(ADAPTEC2, 0x8019),
-+		.driver_data = chip_8019,
-+	}, {
-+		PCI_VDEVICE(PMC_Sierra, 0x8074),
-+		.driver_data = chip_8074,
-+	}, {
-+		PCI_VDEVICE(ADAPTEC2, 0x8074),
-+		.driver_data = chip_8074,
-+	}, {
-+		PCI_VDEVICE(PMC_Sierra, 0x8076),
-+		.driver_data = chip_8076,
-+	}, {
-+		PCI_VDEVICE(ADAPTEC2, 0x8076),
-+		.driver_data = chip_8076,
-+	}, {
-+		PCI_VDEVICE(PMC_Sierra, 0x8077),
-+		.driver_data = chip_8077,
-+	}, {
-+		PCI_VDEVICE(ADAPTEC2, 0x8077),
-+		.driver_data = chip_8077,
-+	}, {
-+		PCI_VDEVICE_SUB(ADAPTEC2, 0x8081,
-+				PCI_VENDOR_ID_ADAPTEC2, 0x0400),
-+		.driver_data = chip_8001,
-+	}, {
-+		PCI_VDEVICE_SUB(ADAPTEC2, 0x8081,
-+				PCI_VENDOR_ID_ADAPTEC2, 0x0800),
-+		.driver_data = chip_8001,
-+	}, {
-+		PCI_VDEVICE_SUB(ADAPTEC2, 0x8088,
-+				PCI_VENDOR_ID_ADAPTEC2, 0x0008),
-+		.driver_data = chip_8008,
-+	}, {
-+		PCI_VDEVICE_SUB(ADAPTEC2, 0x8088,
-+				PCI_VENDOR_ID_ADAPTEC2, 0x0800),
-+		.driver_data = chip_8008,
-+	}, {
-+		PCI_VDEVICE_SUB(ADAPTEC2, 0x8089,
-+				PCI_VENDOR_ID_ADAPTEC2, 0x0008),
-+		.driver_data = chip_8009,
-+	}, {
-+		PCI_VDEVICE_SUB(ADAPTEC2, 0x8089,
-+				PCI_VENDOR_ID_ADAPTEC2, 0x0800),
-+		.driver_data = chip_8009,
-+	}, {
-+		PCI_VDEVICE_SUB(ADAPTEC2, 0x8088,
-+				PCI_VENDOR_ID_ADAPTEC2, 0x0016),
-+		.driver_data = chip_8018,
-+	}, {
-+		PCI_VDEVICE_SUB(ADAPTEC2, 0x8088,
-+				PCI_VENDOR_ID_ADAPTEC2, 0x1600),
-+		.driver_data = chip_8018,
-+	}, {
-+		PCI_VDEVICE_SUB(ADAPTEC2, 0x8089,
-+				PCI_VENDOR_ID_ADAPTEC2, 0x0016),
-+		.driver_data = chip_8019,
-+	}, {
-+		PCI_VDEVICE_SUB(ADAPTEC2, 0x8089,
-+				PCI_VENDOR_ID_ADAPTEC2, 0x1600),
-+		.driver_data = chip_8019,
-+	}, {
-+		PCI_VDEVICE_SUB(ADAPTEC2, 0x8074,
-+				PCI_VENDOR_ID_ADAPTEC2, 0x0800),
-+		.driver_data = chip_8074,
-+	}, {
-+		PCI_VDEVICE_SUB(ADAPTEC2, 0x8076,
-+				PCI_VENDOR_ID_ADAPTEC2, 0x1600),
-+		.driver_data = chip_8076,
-+	}, {
-+		PCI_VDEVICE_SUB(ADAPTEC2, 0x8077,
-+				PCI_VENDOR_ID_ADAPTEC2, 0x1600),
-+		.driver_data = chip_8077,
-+	}, {
-+		PCI_VDEVICE_SUB(ADAPTEC2, 0x8074,
-+				PCI_VENDOR_ID_ADAPTEC2, 0x0008),
-+		.driver_data = chip_8074,
-+	}, {
-+		PCI_VDEVICE_SUB(ADAPTEC2, 0x8076,
-+				PCI_VENDOR_ID_ADAPTEC2, 0x0016),
-+		.driver_data = chip_8076,
-+	}, {
-+		PCI_VDEVICE_SUB(ADAPTEC2, 0x8077,
-+				PCI_VENDOR_ID_ADAPTEC2, 0x0016),
-+		.driver_data = chip_8077,
-+	}, {
-+		PCI_VDEVICE_SUB(ADAPTEC2, 0x8076,
-+				PCI_VENDOR_ID_ADAPTEC2, 0x0808),
-+		.driver_data = chip_8076,
-+	}, {
-+		PCI_VDEVICE_SUB(ADAPTEC2, 0x8077,
-+				PCI_VENDOR_ID_ADAPTEC2, 0x0808),
-+		.driver_data = chip_8077,
-+	}, {
-+		PCI_VDEVICE_SUB(ADAPTEC2, 0x8074,
-+				PCI_VENDOR_ID_ADAPTEC2, 0x0404),
-+		.driver_data = chip_8074,
-+	}, {
-+		PCI_VDEVICE_SUB(ATTO, 0x8070,
-+				PCI_VENDOR_ID_ATTO, 0x0070),
-+		.driver_data = chip_8070,
-+	}, {
-+
-+		PCI_VDEVICE_SUB(ATTO, 0x8070,
-+				PCI_VENDOR_ID_ATTO, 0x0071),
-+		.driver_data = chip_8070,
-+	}, {
-+
-+		PCI_VDEVICE_SUB(ATTO, 0x8072,
-+				PCI_VENDOR_ID_ATTO, 0x0072),
-+		.driver_data = chip_8072,
-+	}, {
-+
-+		PCI_VDEVICE_SUB(ATTO, 0x8072,
-+				PCI_VENDOR_ID_ATTO, 0x0073),
-+		.driver_data = chip_8072,
-+	}, {
-+
-+		PCI_VDEVICE_SUB(ATTO, 0x8070,
-+				PCI_VENDOR_ID_ATTO, 0x0080),
-+		.driver_data = chip_8070,
-+	}, {
-+
-+		PCI_VDEVICE_SUB(ATTO, 0x8072,
-+				PCI_VENDOR_ID_ATTO, 0x0081),
-+		.driver_data = chip_8072,
-+	}, {
-+
-+		PCI_VDEVICE_SUB(ATTO, 0x8072,
-+				PCI_VENDOR_ID_ATTO, 0x0082),
-+		.driver_data = chip_8072,
-+	},
-+	{ } /* terminate list */
- };
- 
- static SIMPLE_DEV_PM_OPS(pm8001_pci_pm_ops,
-diff --git a/drivers/scsi/pmcraid.c b/drivers/scsi/pmcraid.c
-index b68f6460207c..34f10dfc2bd0 100644
---- a/drivers/scsi/pmcraid.c
-+++ b/drivers/scsi/pmcraid.c
-@@ -114,10 +114,11 @@ static struct pmcraid_chip_details pmcraid_chip_cfg[] = {
-  * PCI device ids supported by pmcraid driver
-  */
- static const struct pci_device_id pmcraid_pci_table[] = {
--	{ PCI_DEVICE(PCI_VENDOR_ID_PMC, PCI_DEVICE_ID_PMC_MAXRAID),
--	  0, 0, (kernel_ulong_t)&pmcraid_chip_cfg[0]
-+	{
-+		PCI_VDEVICE(PMC, PCI_DEVICE_ID_PMC_MAXRAID),
-+		.driver_data = (kernel_ulong_t)&pmcraid_chip_cfg[0],
- 	},
--	{}
-+	{ }
- };
- 
- MODULE_DEVICE_TABLE(pci, pmcraid_pci_table);
-diff --git a/drivers/scsi/qla1280.c b/drivers/scsi/qla1280.c
-index f71e668d011c..12e298ed0f05 100644
---- a/drivers/scsi/qla1280.c
-+++ b/drivers/scsi/qla1280.c
-@@ -502,21 +502,15 @@ struct qla_boards {
- 	int fw_index;		/* index into qla1280_fw_tbl for firmware */
- };
- 
--/* NOTE: the last argument in each entry is used to index ql1280_board_tbl */
-+/* NOTE: the driver_data argument in each entry is used to index ql1280_board_tbl */
- static const struct pci_device_id qla1280_pci_tbl[] = {
--	{PCI_VENDOR_ID_QLOGIC, PCI_DEVICE_ID_QLOGIC_ISP12160,
--		PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0},
--	{PCI_VENDOR_ID_QLOGIC, PCI_DEVICE_ID_QLOGIC_ISP1020,
--		PCI_ANY_ID, PCI_ANY_ID, 0, 0, 1},
--	{PCI_VENDOR_ID_QLOGIC, PCI_DEVICE_ID_QLOGIC_ISP1080,
--		PCI_ANY_ID, PCI_ANY_ID, 0, 0, 2},
--	{PCI_VENDOR_ID_QLOGIC, PCI_DEVICE_ID_QLOGIC_ISP1240,
--		PCI_ANY_ID, PCI_ANY_ID, 0, 0, 3},
--	{PCI_VENDOR_ID_QLOGIC, PCI_DEVICE_ID_QLOGIC_ISP1280,
--		PCI_ANY_ID, PCI_ANY_ID, 0, 0, 4},
--	{PCI_VENDOR_ID_QLOGIC, PCI_DEVICE_ID_QLOGIC_ISP10160,
--		PCI_ANY_ID, PCI_ANY_ID, 0, 0, 5},
--	{0,}
-+	{ PCI_VDEVICE(QLOGIC, PCI_DEVICE_ID_QLOGIC_ISP12160), .driver_data = 0 },
-+	{ PCI_VDEVICE(QLOGIC, PCI_DEVICE_ID_QLOGIC_ISP1020), .driver_data = 1 },
-+	{ PCI_VDEVICE(QLOGIC, PCI_DEVICE_ID_QLOGIC_ISP1080), .driver_data = 2 },
-+	{ PCI_VDEVICE(QLOGIC, PCI_DEVICE_ID_QLOGIC_ISP1240), .driver_data = 3 },
-+	{ PCI_VDEVICE(QLOGIC, PCI_DEVICE_ID_QLOGIC_ISP1280), .driver_data = 4 },
-+	{ PCI_VDEVICE(QLOGIC, PCI_DEVICE_ID_QLOGIC_ISP10160), .driver_data = 5 },
-+	{ }
- };
- MODULE_DEVICE_TABLE(pci, qla1280_pci_tbl);
- 
-diff --git a/drivers/scsi/stex.c b/drivers/scsi/stex.c
-index d4899816f7dc..057aa4b02674 100644
---- a/drivers/scsi/stex.c
-+++ b/drivers/scsi/stex.c
-@@ -1489,47 +1489,80 @@ static const struct scsi_host_template driver_template = {
- 
- static const struct pci_device_id stex_pci_tbl[] = {
- 	/* st_shasta */
--	{ 0x105a, 0x8350, PCI_ANY_ID, PCI_ANY_ID, 0, 0,
--		st_shasta }, /* SuperTrak EX8350/8300/16350/16300 */
--	{ 0x105a, 0xc350, PCI_ANY_ID, PCI_ANY_ID, 0, 0,
--		st_shasta }, /* SuperTrak EX12350 */
--	{ 0x105a, 0x4302, PCI_ANY_ID, PCI_ANY_ID, 0, 0,
--		st_shasta }, /* SuperTrak EX4350 */
--	{ 0x105a, 0xe350, PCI_ANY_ID, PCI_ANY_ID, 0, 0,
--		st_shasta }, /* SuperTrak EX24350 */
--
-+	{
-+		/* SuperTrak EX8350/8300/16350/16300 */
-+		PCI_DEVICE(0x105a, 0x8350),
-+		.driver_data = st_shasta,
-+	}, {
-+		/* SuperTrak EX12350 */
-+		PCI_DEVICE(0x105a, 0xc350),
-+		.driver_data = st_shasta,
-+	}, {
-+		/* SuperTrak EX4350 */
-+		PCI_DEVICE(0x105a, 0x4302),
-+		.driver_data = st_shasta,
-+	}, {
-+		/* SuperTrak EX24350 */
-+		PCI_DEVICE(0x105a, 0xe350),
-+		.driver_data = st_shasta,
-+	},
- 	/* st_vsc */
--	{ 0x105a, 0x7250, PCI_ANY_ID, PCI_ANY_ID, 0, 0, st_vsc },
-+	{
-+		PCI_DEVICE(0x105a, 0x7250),
-+		.driver_data = st_vsc,
-+	},
- 
- 	/* st_yosemite */
--	{ 0x105a, 0x8650, 0x105a, PCI_ANY_ID, 0, 0, st_yosemite },
-+	{
-+		PCI_DEVICE_SUB(0x105a, 0x8650, 0x105a, PCI_ANY_ID),
-+		.driver_data = st_yosemite,
-+	},
- 
- 	/* st_seq */
--	{ 0x105a, 0x3360, PCI_ANY_ID, PCI_ANY_ID, 0, 0, st_seq },
-+	{
-+		PCI_DEVICE(0x105a, 0x3360),
-+		.driver_data = st_seq,
-+	},
- 
- 	/* st_yel */
--	{ 0x105a, 0x8650, 0x1033, PCI_ANY_ID, 0, 0, st_yel },
--	{ 0x105a, 0x8760, PCI_ANY_ID, PCI_ANY_ID, 0, 0, st_yel },
-+	{
-+		PCI_DEVICE_SUB(0x105a, 0x8650, 0x1033, PCI_ANY_ID),
-+		.driver_data = st_yel,
-+	}, {
-+		PCI_DEVICE(0x105a, 0x8760),
-+		.driver_data = st_yel,
-+	},
- 
- 	/* st_P3, pluto */
--	{ PCI_VENDOR_ID_PROMISE, 0x8870, PCI_VENDOR_ID_PROMISE,
--		0x8870, 0, 0, st_P3 },
--	/* st_P3, p3 */
--	{ PCI_VENDOR_ID_PROMISE, 0x8870, PCI_VENDOR_ID_PROMISE,
--		0x4300, 0, 0, st_P3 },
-+	{
-+		/* st_P3, p3 */
-+		PCI_VDEVICE_SUB(PROMISE, 0x8870, PCI_VENDOR_ID_PROMISE, 0x8870),
-+		.driver_data = st_P3,
-+	}, {
-+		/* st_P3, SymplyStor4E */
-+		PCI_VDEVICE_SUB(PROMISE, 0x8870, PCI_VENDOR_ID_PROMISE, 0x4300),
-+		.driver_data = st_P3,
-+	}, {
-+		/* st_P3, SymplyStor8E */
-+		PCI_VDEVICE_SUB(PROMISE, 0x8871, PCI_VENDOR_ID_PROMISE, 0x4311),
-+		.driver_data = st_P3,
-+	}, {
-+		PCI_VDEVICE_SUB(PROMISE, 0x8871, PCI_VENDOR_ID_PROMISE, 0x4312),
-+		.driver_data = st_P3,
-+	},
- 
--	/* st_P3, SymplyStor4E */
--	{ PCI_VENDOR_ID_PROMISE, 0x8871, PCI_VENDOR_ID_PROMISE,
--		0x4311, 0, 0, st_P3 },
--	/* st_P3, SymplyStor8E */
--	{ PCI_VENDOR_ID_PROMISE, 0x8871, PCI_VENDOR_ID_PROMISE,
--		0x4312, 0, 0, st_P3 },
- 	/* st_P3, SymplyStor4 */
--	{ PCI_VENDOR_ID_PROMISE, 0x8871, PCI_VENDOR_ID_PROMISE,
--		0x4321, 0, 0, st_P3 },
-+	{
-+		PCI_VDEVICE_SUB(PROMISE, 0x8871, PCI_VENDOR_ID_PROMISE, 0x4321),
-+		.driver_data = st_P3,
-+	},
-+
- 	/* st_P3, SymplyStor8 */
--	{ PCI_VENDOR_ID_PROMISE, 0x8871, PCI_VENDOR_ID_PROMISE,
--		0x4322, 0, 0, st_P3 },
-+	{
-+		PCI_VDEVICE_SUB(PROMISE, 0x8871, PCI_VENDOR_ID_PROMISE, 0x4322),
-+		.driver_data = st_P3,
-+	},
-+
- 	{ }	/* terminate list */
- };
- 
-diff --git a/drivers/scsi/sym53c8xx_2/sym_glue.c b/drivers/scsi/sym53c8xx_2/sym_glue.c
-index e3783c015b02..3714a4139e7c 100644
---- a/drivers/scsi/sym53c8xx_2/sym_glue.c
-+++ b/drivers/scsi/sym53c8xx_2/sym_glue.c
-@@ -2032,41 +2032,33 @@ static struct spi_function_template sym2_transport_functions = {
- };
- 
- static const struct pci_device_id sym2_id_table[] = {
--	{ PCI_VENDOR_ID_LSI_LOGIC, PCI_DEVICE_ID_NCR_53C810,
--	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0UL },
--	{ PCI_VENDOR_ID_LSI_LOGIC, PCI_DEVICE_ID_NCR_53C820,
--	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0UL }, /* new */
--	{ PCI_VENDOR_ID_LSI_LOGIC, PCI_DEVICE_ID_NCR_53C825,
--	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0UL },
--	{ PCI_VENDOR_ID_LSI_LOGIC, PCI_DEVICE_ID_NCR_53C815,
--	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0UL },
--	{ PCI_VENDOR_ID_LSI_LOGIC, PCI_DEVICE_ID_LSI_53C810AP,
--	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0UL }, /* new */
--	{ PCI_VENDOR_ID_LSI_LOGIC, PCI_DEVICE_ID_NCR_53C860,
--	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0UL },
--	{ PCI_VENDOR_ID_LSI_LOGIC, PCI_DEVICE_ID_LSI_53C1510,
--	  PCI_ANY_ID, PCI_ANY_ID, PCI_CLASS_STORAGE_SCSI<<8,  0xffff00, 0UL },
--	{ PCI_VENDOR_ID_LSI_LOGIC, PCI_DEVICE_ID_NCR_53C896,
--	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0UL },
--	{ PCI_VENDOR_ID_LSI_LOGIC, PCI_DEVICE_ID_NCR_53C895,
--	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0UL },
--	{ PCI_VENDOR_ID_LSI_LOGIC, PCI_DEVICE_ID_NCR_53C885,
--	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0UL },
--	{ PCI_VENDOR_ID_LSI_LOGIC, PCI_DEVICE_ID_NCR_53C875,
--	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0UL },
--	{ PCI_VENDOR_ID_LSI_LOGIC, PCI_DEVICE_ID_NCR_53C1510,
--	  PCI_ANY_ID, PCI_ANY_ID,  PCI_CLASS_STORAGE_SCSI<<8,  0xffff00, 0UL }, /* new */
--	{ PCI_VENDOR_ID_LSI_LOGIC, PCI_DEVICE_ID_LSI_53C895A,
--	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0UL },
--	{ PCI_VENDOR_ID_LSI_LOGIC, PCI_DEVICE_ID_LSI_53C875A,
--	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0UL },
--	{ PCI_VENDOR_ID_LSI_LOGIC, PCI_DEVICE_ID_LSI_53C1010_33,
--	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0UL },
--	{ PCI_VENDOR_ID_LSI_LOGIC, PCI_DEVICE_ID_LSI_53C1010_66,
--	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0UL },
--	{ PCI_VENDOR_ID_LSI_LOGIC, PCI_DEVICE_ID_NCR_53C875J,
--	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0UL },
--	{ 0, }
-+	{ PCI_VDEVICE(LSI_LOGIC, PCI_DEVICE_ID_NCR_53C810) },
-+	{ PCI_VDEVICE(LSI_LOGIC, PCI_DEVICE_ID_NCR_53C820) }, /* new */
-+	{ PCI_VDEVICE(LSI_LOGIC, PCI_DEVICE_ID_NCR_53C825) },
-+	{ PCI_VDEVICE(LSI_LOGIC, PCI_DEVICE_ID_NCR_53C815) },
-+	{ PCI_VDEVICE(LSI_LOGIC, PCI_DEVICE_ID_LSI_53C810AP) }, /* new */
-+	{ PCI_VDEVICE(LSI_LOGIC, PCI_DEVICE_ID_NCR_53C860) },
-+	{
-+		PCI_DEVICE(PCI_VENDOR_ID_LSI_LOGIC, PCI_DEVICE_ID_LSI_53C1510),
-+		.class = PCI_CLASS_STORAGE_SCSI << 8,
-+		.class_mask = 0xffff00,
-+	},
-+	{ PCI_VDEVICE(LSI_LOGIC, PCI_DEVICE_ID_NCR_53C896) },
-+	{ PCI_VDEVICE(LSI_LOGIC, PCI_DEVICE_ID_NCR_53C895) },
-+	{ PCI_VDEVICE(LSI_LOGIC, PCI_DEVICE_ID_NCR_53C885) },
-+	{ PCI_VDEVICE(LSI_LOGIC, PCI_DEVICE_ID_NCR_53C875) },
-+	{
-+		/* new */
-+		PCI_DEVICE(PCI_VENDOR_ID_LSI_LOGIC, PCI_DEVICE_ID_NCR_53C1510),
-+		.class = PCI_CLASS_STORAGE_SCSI << 8,
-+		.class_mask = 0xffff00,
-+	},
-+	{ PCI_VDEVICE(LSI_LOGIC, PCI_DEVICE_ID_LSI_53C895A) },
-+	{ PCI_VDEVICE(LSI_LOGIC, PCI_DEVICE_ID_LSI_53C875A) },
-+	{ PCI_VDEVICE(LSI_LOGIC, PCI_DEVICE_ID_LSI_53C1010_33) },
-+	{ PCI_VDEVICE(LSI_LOGIC, PCI_DEVICE_ID_LSI_53C1010_66) },
-+	{ PCI_VDEVICE(LSI_LOGIC, PCI_DEVICE_ID_NCR_53C875J) },
-+	{ }
- };
- 
- MODULE_DEVICE_TABLE(pci, sym2_id_table);
+ Documentation/virt/kvm/api.rst                    |  27 +-
+ arch/x86/include/asm/kvm_host.h                   |   2 +-
+ arch/x86/include/uapi/asm/kvm.h                   |   3 +
+ arch/x86/kvm/msrs.c                               |   7 +-
+ arch/x86/kvm/x86.c                                | 165 ++++----
+ arch/x86/kvm/xen.c                                | 380 ++++++++++-------
+ include/linux/kvm_host.h                          |  41 +-
+ include/linux/kvm_types.h                         |  38 +-
+ include/linux/srcu.h                              |   7 +
+ tools/testing/selftests/kvm/x86/xen_shinfo_test.c |   2 +-
+ tools/testing/selftests/kvm/x86/xen_vmcall_test.c | 118 ++++++
+ virt/kvm/kvm_main.c                               |   9 +
+ virt/kvm/pfncache.c                               | 485 +++++++++++++++++-=
+----
+ 13 files changed, 944 insertions(+), 340 deletions(-)
 
-base-commit: 793807ca13bf3072fc6d16ce6d90e9ab9beff2a5
--- 
-2.56.0.rc1
 
+
+
+--=-JaKGOdCQjdQsbp5BR5F7
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Transfer-Encoding: base64
+
+MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCE8Ew
+ggWvMIIEl6ADAgECAhANkOKMSmGXhF5eMl0rsRhvMA0GCSqGSIb3DQEBDAUAMGUxCzAJBgNVBAYT
+AlVTMRUwEwYDVQQKEwxEaWdpQ2VydCBJbmMxGTAXBgNVBAsTEHd3dy5kaWdpY2VydC5jb20xJDAi
+BgNVBAMTG0RpZ2lDZXJ0IEFzc3VyZWQgSUQgUm9vdCBHMjAeFw0yNDAzMTMwMDAwMDBaFw0zNDAz
+MTIyMzU5NTlaMGIxCzAJBgNVBAYTAlVTMRcwFQYDVQQKEw5EaWdpQ2VydCwgSW5jLjE6MDgGA1UE
+AxMxRGlnaUNlcnQgQXNzdXJlZCBHMiBTTUlNRSBSU0E0MDk2IFNIQTM4NCAyMDI0IENBMTCCAiIw
+DQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBAOfSIeC0vv1xPQ+dgSxbIIrkaru6skAWJYaGFzmv
+q4Kq+2wU2jxhcWlJg/JeP5jEkq/LM3pn5aaLao79j+XRmS7J1ZpJKUODJVoM4s9MQJhTMvo4qS5Z
+S64g6QR7Obkz3I1Lr3aWeSBmDDEyzue+NKtuWZ1Cxy3RdXo/w5HgRc3l2AercOM3Gt1XonTzEtTb
+Z/Hwc0Sn9Gz8RmGRK6Ka4hVDl8q/2l110KaV233Kh5etP0csXS8MIMdVRfRu3sc5hp13DG7lCKzK
+72a2GEpI8Wpl26G6I1/LMzz/98T+FqjTqxsdquk7Cj7m2vKGLW1BorpQH7WFGPdJQXJe1hfbfiZA
+CcVdCtl4nAacFacmsiArZBfX7AQGL7isvHUwwYFEtcApyGW4p2Lt+t8nvU0CANA6BHOpOz1xOP8W
+mAESbUriIjyuTUf3fJ9oDNCurVqhASMJCDaWI3lYX/QAoiAzt6akqbbZxo2ujW7mGGqc0KxqE2cs
+h2T79v7pC8aUtHBfwNrTR19GnZVxE0eQ7ViIQhR6mpSaUQFA9sG+cmD2G8TnCgYsLa0q8De6F61a
+CBevQGHNzrbZ3JAMneveYg/Jy1XxQHDRcvrMfWKe0jjcWbdKYlaGVPm5V1ILwYz7Yv5ewo3NUrxI
+GJiywe9qPhuJSDZs7VehTuI0FxGIsgKzVjgbAgMBAAGjggFcMIIBWDASBgNVHRMBAf8ECDAGAQH/
+AgEAMB0GA1UdDgQWBBT3m6JO05fF9DQPQw6Bhc6RkzKv+TAfBgNVHSMEGDAWgBTOw0q5mVXyuNtg
+v6l+vVa1lzan1jAOBgNVHQ8BAf8EBAMCAYYwHQYDVR0lBBYwFAYIKwYBBQUHAwQGCCsGAQUFBwMC
+MHkGCCsGAQUFBwEBBG0wazAkBggrBgEFBQcwAYYYaHR0cDovL29jc3AuZGlnaWNlcnQuY29tMEMG
+CCsGAQUFBzAChjdodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20vRGlnaUNlcnRBc3N1cmVkSURS
+b290RzIuY3J0MEUGA1UdHwQ+MDwwOqA4oDaGNGh0dHA6Ly9jcmwzLmRpZ2ljZXJ0LmNvbS9EaWdp
+Q2VydEFzc3VyZWRJRFJvb3RHMi5jcmwwEQYDVR0gBAowCDAGBgRVHSAAMA0GCSqGSIb3DQEBDAUA
+A4IBAQA+b8Uw53sDspdZgukU+qzLyyHkcjlxGGhHlP+zrmDLKm1wEFvCRS2pili3Hy67i8N4N5NU
+vw5Rg6kv3lxb9S9Rktxk43k+tvm68pl7OxQE55ZjVY87P0lUPGwEqOOwLLyH02ZQcsfq5p5LrOH9
+0JvmvZ1yy73HS+VpDAqOlytE0NSvTIRqFFkKQGQwfjvtql9YflujuNNvJztjBaHKYZsnNSg+J38o
+jYq4TP3pSg3UdVH0PncVjPQyqxC9xef5Xae92Kbkzol3x7Nel3A1bwAkalrDMspvTHvey6LfiBks
+FIqviTnoy7fgjaRAJgHS+RXx/cmuRd3rUAclSVVrYu8RMIIHAzCCBOugAwIBAgIQAzUotrsybJHx
+HTjKOIVdIDANBgkqhkiG9w0BAQsFADBiMQswCQYDVQQGEwJVUzEXMBUGA1UEChMORGlnaUNlcnQs
+IEluYy4xOjA4BgNVBAMTMURpZ2lDZXJ0IEFzc3VyZWQgRzIgU01JTUUgUlNBNDA5NiBTSEEzODQg
+MjAyNCBDQTEwHhcNMjYwNzE4MDAwMDAwWhcNMjgwMTA0MjM1OTU5WjAeMRwwGgYDVQQDDBNkd213
+MkBpbmZyYWRlYWQub3JnMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEA2pYux73kdbYX
+sWF8f1u6DJP91qcqaZetsyfPkZk0B+MmXmAEv0kVes5n15V2mbDThOnpoPFly0UugQO9JYqLfrtD
+tKD5yL58fgrDB9Dw+LQikgrHafl6YSCds5AvUu/8hw2J6noKrcOLJpKlKn9Fl/4IB9Q3JIdLx5aa
+EtTqMalIPqHFOlgrJ7s+aua8xbB8YQ9ahqYBXWRJNv3P/2b1DYtdrz1oqZPE3CcB8Pc6Gf2a1Tcm
+6TAgtEx7Cf1BFcrsrMz7TWHmGQITieNb2r9UYWSc2Gp+GtYFNJCgT0JJXKUBIauPMKBLteYrL8Fo
+ff/uY44dC/mDWjdCP/5x0qelPQjlBvWdHL5zvBTOj06rJ0m3HNI/hnIcDh0Qu2j9reb9rLVcdym6
+bWmBM4uDEB8Zv9Ph0KTBFSy1IosyakuD1j1Os30EzjGfbi0EUXIvnOcYbTBAbM5UAzrxEHMhBvoX
+Pvnx+OyvjJmc9tWxTX6AcSz+m40esbT17URBeZS18afgieiikm5TynlUYP1LciR3hSgGVzvGXnKO
+02VDFR5itGWdRKZ2W5wIShNfWfhSa0D0K5UdIDt5Qc7sjzwK1Yb1sY5Tu0uA5mhIS82q1ov83uxB
+sFkriNnhGv/M1NCDVLBiOMsHu73qUM+yKmgKLwF9Hfn9WI25glbAMI4S5r3hYzcCAwEAAaOCAfcw
+ggHzMB8GA1UdIwQYMBaAFPebok7Tl8X0NA9DDoGFzpGTMq/5MB0GA1UdDgQWBBRcYhqbcGzn1jrT
+JOZaB8O7qllDpzAwBgNVHREEKTAngRNkd213MkBpbmZyYWRlYWQub3JngRBkYXZpZEB3b29kaG91
+LnNlMBQGA1UdIAQNMAswCQYHZ4EMAQUBAjAOBgNVHQ8BAf8EBAMCBeAwHQYDVR0lBBYwFAYIKwYB
+BQUHAwIGCCsGAQUFBwMEMIGpBgNVHR8EgaEwgZ4wTaBLoEmGR2h0dHA6Ly9jcmwzLmRpZ2ljZXJ0
+LmNvbS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNBNDA5NlNIQTM4NDIwMjRDQTEuY3JsME2gS6BJ
+hkdodHRwOi8vY3JsNC5kaWdpY2VydC5jb20vRGlnaUNlcnRBc3N1cmVkRzJTTUlNRVJTQTQwOTZT
+SEEzODQyMDI0Q0ExLmNybDCBjQYIKwYBBQUHAQEEgYAwfjAkBggrBgEFBQcwAYYYaHR0cDovL29j
+c3AuZGlnaWNlcnQuY29tMFYGCCsGAQUFBzAChkpodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20v
+RGlnaUNlcnRBc3N1cmVkRzJTTUlNRVJTQTQwOTZTSEEzODQyMDI0Q0ExLmNydDANBgkqhkiG9w0B
+AQsFAAOCAgEAocabrh1cPd5s3vY5rnlBVQSTc7zs2ZWs67dAIltR+05WELrYClVzzUhMs/LOJPlr
+EUo45UDDomXq38DxFepaPd9+iNLjXfn33EX/IG44j04lU/oF/Rg9VeQILkYLbCZ/x9wOjNHZc4SN
+ydY7Dhvf/sT5aBz88u7D5+azZJ7Qf1U57wYseCH1Mt0nDrtr5y19IJ8D9xJJ33RFL6vfpHZBBAQ8
++3RqkKNxLoV2aFvQhxdhjNLDqTv3LjUIdicwPraN7JkxEu7CV2Lka7eRqJgkWL7SK0YmBjGpRafs
++icP/ON5RCCKTTb6VlX8eTG2sJJfsFhvJNCCt6xexbWzWtIrfP7NvPBvwBB737AyEGBZkS5aNizT
+McURJGTv9UKvBh1LF/+tNhYtLvPCN7oecGzhCHht9jcwSkygTo3Y6YlK3QgOu+ncmiBbfeuwlLZ1
+LxbYvG6hgNqXv7u6YyADbYajAQJXJ2OQen39pm3Q/AQSyLYG+B8lDglWsM8tYXPlEdrYJcksGK6F
+nqIX6Bumn43rBooLJdiZp4WmfWdL2pxe+LxRDjprmqu1WprixDxULSTOKJZoqTlugs6y3Bc+if+s
+gHnBBtz9WQ6MtPHkh7zONDAFIKcBmv8OqPQCx0F3Wv3OEybwMpXx0OsKgK8wLldaX1pXcMuyDgTL
+Sqs0AV0OHUgwggcDMIIE66ADAgECAhADNSi2uzJskfEdOMo4hV0gMA0GCSqGSIb3DQEBCwUAMGIx
+CzAJBgNVBAYTAlVTMRcwFQYDVQQKEw5EaWdpQ2VydCwgSW5jLjE6MDgGA1UEAxMxRGlnaUNlcnQg
+QXNzdXJlZCBHMiBTTUlNRSBSU0E0MDk2IFNIQTM4NCAyMDI0IENBMTAeFw0yNjA3MTgwMDAwMDBa
+Fw0yODAxMDQyMzU5NTlaMB4xHDAaBgNVBAMME2R3bXcyQGluZnJhZGVhZC5vcmcwggIiMA0GCSqG
+SIb3DQEBAQUAA4ICDwAwggIKAoICAQDali7HveR1thexYXx/W7oMk/3Wpyppl62zJ8+RmTQH4yZe
+YAS/SRV6zmfXlXaZsNOE6emg8WXLRS6BA70liot+u0O0oPnIvnx+CsMH0PD4tCKSCsdp+XphIJ2z
+kC9S7/yHDYnqegqtw4smkqUqf0WX/ggH1Dckh0vHlpoS1OoxqUg+ocU6WCsnuz5q5rzFsHxhD1qG
+pgFdZEk2/c//ZvUNi12vPWipk8TcJwHw9zoZ/ZrVNybpMCC0THsJ/UEVyuyszPtNYeYZAhOJ41va
+v1RhZJzYan4a1gU0kKBPQklcpQEhq48woEu15isvwWh9/+5jjh0L+YNaN0I//nHSp6U9COUG9Z0c
+vnO8FM6PTqsnSbcc0j+GchwOHRC7aP2t5v2stVx3KbptaYEzi4MQHxm/0+HQpMEVLLUiizJqS4PW
+PU6zfQTOMZ9uLQRRci+c5xhtMEBszlQDOvEQcyEG+hc++fH47K+MmZz21bFNfoBxLP6bjR6xtPXt
+REF5lLXxp+CJ6KKSblPKeVRg/UtyJHeFKAZXO8Zeco7TZUMVHmK0ZZ1EpnZbnAhKE19Z+FJrQPQr
+lR0gO3lBzuyPPArVhvWxjlO7S4DmaEhLzarWi/ze7EGwWSuI2eEa/8zU0INUsGI4ywe7vepQz7Iq
+aAovAX0d+f1YjbmCVsAwjhLmveFjNwIDAQABo4IB9zCCAfMwHwYDVR0jBBgwFoAU95uiTtOXxfQ0
+D0MOgYXOkZMyr/kwHQYDVR0OBBYEFFxiGptwbOfWOtMk5loHw7uqWUOnMDAGA1UdEQQpMCeBE2R3
+bXcyQGluZnJhZGVhZC5vcmeBEGRhdmlkQHdvb2Rob3Uuc2UwFAYDVR0gBA0wCzAJBgdngQwBBQEC
+MA4GA1UdDwEB/wQEAwIF4DAdBgNVHSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwgakGA1UdHwSB
+oTCBnjBNoEugSYZHaHR0cDovL2NybDMuZGlnaWNlcnQuY29tL0RpZ2lDZXJ0QXNzdXJlZEcyU01J
+TUVSU0E0MDk2U0hBMzg0MjAyNENBMS5jcmwwTaBLoEmGR2h0dHA6Ly9jcmw0LmRpZ2ljZXJ0LmNv
+bS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNBNDA5NlNIQTM4NDIwMjRDQTEuY3JsMIGNBggrBgEF
+BQcBAQSBgDB+MCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC5kaWdpY2VydC5jb20wVgYIKwYBBQUH
+MAKGSmh0dHA6Ly9jYWNlcnRzLmRpZ2ljZXJ0LmNvbS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNB
+NDA5NlNIQTM4NDIwMjRDQTEuY3J0MA0GCSqGSIb3DQEBCwUAA4ICAQChxpuuHVw93mze9jmueUFV
+BJNzvOzZlazrt0AiW1H7TlYQutgKVXPNSEyz8s4k+WsRSjjlQMOiZerfwPEV6lo9336I0uNd+ffc
+Rf8gbjiPTiVT+gX9GD1V5AguRgtsJn/H3A6M0dlzhI3J1jsOG9/+xPloHPzy7sPn5rNkntB/VTnv
+Bix4IfUy3ScOu2vnLX0gnwP3EknfdEUvq9+kdkEEBDz7dGqQo3EuhXZoW9CHF2GM0sOpO/cuNQh2
+JzA+to3smTES7sJXYuRrt5GomCRYvtIrRiYGMalFp+z6Jw/843lEIIpNNvpWVfx5Mbawkl+wWG8k
+0IK3rF7FtbNa0it8/s288G/AEHvfsDIQYFmRLlo2LNMxxREkZO/1Qq8GHUsX/602Fi0u88I3uh5w
+bOEIeG32NzBKTKBOjdjpiUrdCA676dyaIFt967CUtnUvFti8bqGA2pe/u7pjIANthqMBAlcnY5B6
+ff2mbdD8BBLItgb4HyUOCVawzy1hc+UR2tglySwYroWeohfoG6afjesGigsl2JmnhaZ9Z0vanF74
+vFEOOmuaq7VamuLEPFQtJM4olmipOW6CzrLcFz6J/6yAecEG3P1ZDoy08eSHvM40MAUgpwGa/w6o
+9ALHQXda/c4TJvAylfHQ6wqArzAuV1pfWldwy7IOBMtKqzQBXQ4dSDGCBCAwggQcAgEBMHYwYjEL
+MAkGA1UEBhMCVVMxFzAVBgNVBAoTDkRpZ2lDZXJ0LCBJbmMuMTowOAYDVQQDEzFEaWdpQ2VydCBB
+c3N1cmVkIEcyIFNNSU1FIFJTQTQwOTYgU0hBMzg0IDIwMjQgQ0ExAhADNSi2uzJskfEdOMo4hV0g
+MA0GCWCGSAFlAwQCAQUAoIIBezAYBgkqhkiG9w0BCQMxCwYJKoZIhvcNAQcBMBwGCSqGSIb3DQEJ
+BTEPFw0yNjExMTExODM4NThaMC8GCSqGSIb3DQEJBDEiBCCDNbgN9mLBoF2fuehsdR4h62oXEDYZ
+yfLRpX2jafYTgjCBhQYJKwYBBAGCNxAEMXgwdjBiMQswCQYDVQQGEwJVUzEXMBUGA1UEChMORGln
+aUNlcnQsIEluYy4xOjA4BgNVBAMTMURpZ2lDZXJ0IEFzc3VyZWQgRzIgU01JTUUgUlNBNDA5NiBT
+SEEzODQgMjAyNCBDQTECEAM1KLa7MmyR8R04yjiFXSAwgYcGCyqGSIb3DQEJEAILMXigdjBiMQsw
+CQYDVQQGEwJVUzEXMBUGA1UEChMORGlnaUNlcnQsIEluYy4xOjA4BgNVBAMTMURpZ2lDZXJ0IEFz
+c3VyZWQgRzIgU01JTUUgUlNBNDA5NiBTSEEzODQgMjAyNCBDQTECEAM1KLa7MmyR8R04yjiFXSAw
+DQYJKoZIhvcNAQEBBQAEggIAzFpW+Mv1IoRrKm5wpN9SdaxwoRhdBn0EZMifXqXiJF32NJz9969e
+WLGQfw8bEEzXfwO/IHgPoXzFpcclM28vMPjvEyracEriR2RpYm1iSALj0l9+bDvUjVHFoF0ca8uZ
+VA48vX1AQ64IXsyNeFNMfiWVgUbwLPc3QAG8127a8b6NNbpANMFVppvDsJQ2JGHQSCbVqdYGdhw0
+OScA3+Ex/KQ0475gFxZSrNvemZIFz7e36yQyofyqBRtLlCiKsGlEuWu8FocLzsOVl9Ou3THqqmZQ
+rmAevgRXIbF/Ua+8OWXBAghjSbMqgQaBgRGyzanRSQgQSPeo9AhEJOYg1vc4rnssfOoEYt3dXaoL
+TVnoRxTjl8cUhX1Q/pGhzWElvdx+7Sel2VmLPdRQsUp13RRDFOSVCSzIjhq6iq6XwnKGNmQcoaIW
+6dfts4hbhqtG4YhXKbTMkRLbouOUfwMb8p9ZwIoTiLiy//xCN1jc/Wi5vz2hOQCn3whKzHGZlunM
+iuo/ZrSZzow7DBidGX5hYhrT7QmSTQXf3EUjoWED2Tkyuc6wrOMYc70fnkH2CuMzEv+iMvRY0szE
+qbeUo6MzY1P5lN4qJ6MoTi3zKTyfgOT9tnF2h/o+zkVT3vISYueCAuyhm8LaW56hEHHmuFAf7BIo
+XeBbjVN3VsXFDE1IHk2eVX0AAAAAAAA=
+
+
+--=-JaKGOdCQjdQsbp5BR5F7--
