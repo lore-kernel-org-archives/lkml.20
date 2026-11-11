@@ -1,80 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1794381591;
-	b=T18h2kAlmKSvm6Bsq2hx0hs887rvT0JuD4iTDlXjErZUD1gaDPg4r3JdUbqIQrQlURuU
-	 xhJzcVxjmj45VJUq6jGPtlD61CLqQGAglybVkC8jGXbDFjKSqBgQ/3wkbGKNTpHD1kZpg
-	 9v5u6tdVKGVEWePvjSbyG/3AKHemNIPqoFOBcqjMY85vaEs0ZjRyQkOR8qhcBwqOGuBmt
-	 fj+GzBbeRYhlmTMDfrNugdQK8pGPlJQYIvdLWrg6RFvPzwPFzixgpI5yV+FfV6ttiN/av
-	 5DqjFVP9pr7euB4J7dSRTJe/HHbml/rcdyo2FKq/2Hu0hEx/GHs7FWkZSefD3r5FnGQ==
+	b=uTPZ/SA1keyBT8YE0kcpnm0X8UiJgVMtOM1Dp3t+tyNg6vEdBF7kJns68ybz5H4knh+X
+	 TcnRCzFKjLZqKMn+KsFtLz/D2H1LFybv2MWX+8yWmSAwdnT/a8oOaMOTuFX9qMm4J9X0J
+	 4e7pss/+4cDiSYDaSyUNcsu6GTEJmy2rC2JV5pShSZdzQ1oPISrAMxwL7NmBuBE1N4ik5
+	 R1i0j8tXPJ5W3MJ83BWxt2RZ+ETcXE7frDj4pqQ8zQX0ZqQrtWxuulxqx2879iq4oqL6u
+	 EaAZ1+jN5qA70LZzmyL7dDk5cwz8vAmfXp5jl5aX5y47stf/V2wbFG1qjxSLivvM+MQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794381591;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=ovE7yiffLIIhAIa4LY1tvnEiiCJ92mbc38eNtWd4DjM=;
-	b=EQhNAfDsPfW0w5aN+Hvp5fMuf5si6+vmzNkaS2s+KzO74CDKw5VghgeKWc+FvQUSiQiE
-	 ufELG+PS8UJ9yIqeUcK9lDGwaGz4C7ts7VMF8q/e3+wIPj+DOChZP4Ay3Tkud5tajAQIz
-	 HJj59bC5VaOwkN6gOBvTMmzj1mAktPySEGuYqUZyejw0xHzohHBvMe5k+Y8EKCkjN3KFY
-	 C0KbnFgJsijVc+eooj1PEBCBFl0TZly3As1iZkdmQZFsRiYArnKpeIWLJzIuzd9R4yiO/
-	 8K2IAy0J6HAfLLYuDLw3eEYtDmHL/0DYPqo6ME3ZLBvlFcqXjcZ4JvoiBibTk9oQKfg==
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=YwK7+1UqWk4ojkj/WS9d6dJgOXvbwrx78qaJQutBsIc=;
+	b=fa+dPwIkKNPFv0z58Z2L09j9cJPgAzQ92UwixE1/U3ayzRSFfHroTtG+cU6tB8mYpXhH
+	 6UEunnJRqiwifx+XqygsY5R8XrMVpc0WrQ1xsH4aXu3EjMFTgCZSn8OEmwTmsNGN7Uy1j
+	 R4PS4kP6l9cuZRS686NQB76CQLWYK4mB1vF/n97x0NY02sicozJC0/Yt2iD5UJ0sI6duY
+	 9HE9frF056oY1Gov28BNH2YPVHBlw7sLoRk686mI1bdGEgmckQXdSrBuBrJfbf7wWv9oK
+	 /pjfCq9e+A3+YPsX7+OWNbyDihcpCKYpTJMh9W4QlJvsp7CsOXO8qElnGYC4AZz2GEg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="jkz/8PfU";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k5aj7FjN;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F24E8606A320;
-	Wed, 11 Nov 2026 07:19:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BB07606A334;
+	Wed, 11 Nov 2026 07:19:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jkz/8PfU
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k5aj7FjN
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794381590;
-	b=MskO5wm2d+unnpuCo1t2NtJ3i6dnhp7qyrrX0pvTy/9H4EBJRbWPsqPAYaVCAkJxwks2
-	 VlUtiBJla+T8TZsRtb+fqB/5yrFyb2Beps9sWr642L4WIwg4bAgHnG7sikkv73ZebkKvU
-	 tiWa/HiuqQ5I6CkdTvOftgOs/VmAEn5yUKronmOLPAwmQ5pTbYeI7OO99LyySHqquRGRN
-	 3z4KfiXDEZodGxspTzY07YQBRN6bE2c/cQOCaZHPVyZOOiikbWWHGuB607Vb3mqfOjMs3
-	 r2qXtSQgClr/Yg0dED0S8oI1VM/uS6WT3Z6z4uxknO7Nm9UP8Yx+hXyUNPJlvxr/Bkw==
+	t=1794381591;
+	b=mZ6MrDTWd337PwTpxS10xVkVMMr2ivFdcbpnZCka9T1ROpFelngCsvmdMgZHgX2DSzPG
+	 wW6wOvt/W66a27NudQTmLlBgHBpJF77ES9WSSYy69gA7CmQaWc6dF1VQpXNeRG8qkWXf3
+	 n9SKsAhQzU0IExZIebAMdhHVSEYEpWOGnA6kkk0jqTmm5JeUT+A6OkOwfuaU9Wcf6z9sb
+	 ZWPNRO/iFbF9tMOsQvWtQVc5j0NUNSi5P+jf7ElUIMMZ7n+d/E64is2E4GH/X8WnokAJu
+	 Ir2n0lISTnYTIIVTXBTmDSnKtjg6flH/6vmC80guuTao0vpfvlHJ3XDdlVO5lvL20lg==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794381590;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=ovE7yiffLIIhAIa4LY1tvnEiiCJ92mbc38eNtWd4DjM=;
-	b=RsTc1DDPF84lFFC9hTnTllPdJPUhnryAXeh95QpvgKX5uyj4LuaXehRY/rnS0266kfJe
-	 APAQ9XfRv4PIOqifAycdJSd3ZGugPIMZOBkXNiUMbvbQ5I134zBpqw1bwdyCDk1LAm25U
-	 SesSi2jx21WX/xgaGX/IJxhxDktu8VgQ7L9uChsJQf1xSdrl2CGmnmWJO5vkv0xB6PDNZ
-	 jKHiwCeuqffPSYFz7gDUEjP3AY5X/x7hFRVHfk2HQdmN8FfuvuT2GCs17D9Z5P1/56Gc+
-	 GWObiUauevUxiRBh5UWeMpVOIbDA8tG28r0nHG2WpyC+BwhAEDQripG0S+dXMW0oaqw==
+	c=relaxed/relaxed; t=1794381591;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=YwK7+1UqWk4ojkj/WS9d6dJgOXvbwrx78qaJQutBsIc=;
+	b=sI7mvGG7dAsLZn9nvRwGYbjfBYDvvxxHUxNiFIew9vA1qVGXfaZN9CPGzMBug0YGB9/l
+	 LaGc9dYV3yji0glU6QXtwkQrAEQ4IxoD7ICRHSczxcQXOaMkYqZqTPM9p99Xljrzsg/ZI
+	 5H+AN+/qWlKv8VBFMqhqp+7TLwVj64pGt+YeZf4ZDQD9edWTusOMTBbcm+f3hXFBTt95i
+	 2Vw86i6qZmJzvt7dSFId0XPkXh5JSNg8X/R7Pu2jtdBERDuO3ras/U5sEFOjkfTk+UhoV
+	 PBvM8FiAMiyYXb4CDEZGsECPxLeC8IRjQ8zFVOuj0p/ROSpZDlP4z2+ouusweZ/FhDg==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 1A3B11F00A09;
+	by smtp.kernel.org (Postfix) with ESMTPS id 57E781F00A0C;
 	Wed, 11 Nov 2026 07:19:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794381590;
-	bh=ovE7yiffLIIhAIa4LY1tvnEiiCJ92mbc38eNtWd4DjM=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=jkz/8PfUgw1Xc8bVk8d26XbU64nM3X8cBelmRJC3sS23kr2ngurKcrMao+tjSDgGb
-	 Ertv7NKLdKy9B3Ss3AoIdaYburJt72f6f9yW1do1O8ctfOo+ngmOXfKfvCmDYksx9C
-	 RZZoAK1WsZoBHsxsQ+JDAvF6u41DUPxxgmauMQDhPiO5Ua0IM5tVzMqhHorWLHK7cK
-	 zNXcsj5XjaSuLao1dat5PNvAZ/+Hr40kHXCdlrLc7K9u2/zT2iL6cZHY2zVcCbySrQ
-	 y1jcHz0opTOVYncIxu/jGrGj6+bcvO1QnkUQ5pKFWMx3YLMVIFCj9Z992P2Kb89Ucy
-	 k8NRhelU5fbgA==
+	s=k20260515; t=1794381591;
+	bh=YwK7+1UqWk4ojkj/WS9d6dJgOXvbwrx78qaJQutBsIc=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=k5aj7FjNHeJ4SA7Jiew/Ew2ULqBEIdOuc2rZOahGSqFAQhlXDOXB1n7DSS7fn3ttL
+	 ZJGPx+fYF/s05itnKv8AeVjfBMcpsTtqbKWafiMR2UW0AwipBe+6ac/p/RJqW4ASSv
+	 PFFjY4B0FGXIe9Vlva6Y7UZzOiXqGvWmzAdSKzEaY+fW8nyS/OCc0C58qwdBYy8UlP
+	 XzexNTAPgxrV2pP5t39Aah6RVRBTxbGISEAPUr0LkeC4Wn0pCN5gxbtFFv+3NjoJ79
+	 7E/m0vq6xXsV44fDqVjkXMo5+50nvKPusAfRgUEnTdneIax4mVzT2F6wtQZr1QCKLZ
+	 ahhPiByOf6PTQ==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id A0B6F48E45;
+	by lkml.kernel.org (Postfix) with ESMTP id D7F8D48E53;
 	Wed, 11 Nov 2026 07:19:49 +0000 (UTC)
 From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Subject: [PATCH v2 0/3] arm64: dts: rockchip: Orange Pi 5/5B ethernet, SPI
- NOR supply and USB-C DP
-Date: Wed, 11 Nov 2026 07:19:48 +0000
-Message-Id: <20261111-opi5-dts-v2-0-821f666418a6@gmail.com>
+Date: Wed, 11 Nov 2026 07:19:51 +0000
+Subject: [PATCH v2 3/3] arm64: dts: rockchip: Add USB-C DP AltMode for
+ Orange Pi 5/5B
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,88 +84,208 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22NwQ6CMBAFf4Xs2Zq2lIKc/A/DgZYV1gglbSUaw
- r9L8epxknnzVgjoCQPU2QoeFwrkph3kKQM7tFOPjLqdQXKphRCcuZkK1sXAlKlydRFWl1zDrs8
- e7/Q+Urfmx+FlHmhj2idjoBCd/xxfi0jen+wiGGdFJY3OO14qg9d+bOl5tm6EZtu2L2ThTmOyA
- AAA
-X-Change-ID: 20261110-opi5-dts-4b83491c6706
+Message-Id: <20261111-opi5-dts-v2-3-821f666418a6@gmail.com>
+References: <20261111-opi5-dts-v2-0-821f666418a6@gmail.com>
+In-Reply-To: <20261111-opi5-dts-v2-0-821f666418a6@gmail.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
 Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
  linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
  Arun Iyengar <aiyengar1990@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794381589; l=2877;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794381589; l=4241;
  i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=415eeljqGNLq4ZK/3uBjgk+J8UfR3jvxbnBfmkS6B8c=;
- b=X9l+smzA8X4BIIIaehsCojbXz6seaLG1tWy8KFhT27mk89+u17gqsRsneWwk08F7iAOv0OXJA
- xSXciD+gSVCCB+X5NTwnXJ8RyC41Cla3+TmrNOqHj7orVD3Y/0Z5+yF
+ bh=+xmGbI4GlMgBmPGKtTKnBGXbYPlqe8bWAMPWV4cMo58=;
+ b=pJSxnqXPHWE/DGEVq8RVNNqkQWtiza4re7OlmVFh8PI+rUYmBpLFpcD89rKOTN+cg37d8xfY8
+ SbWHpGcldphCkjzI44nn39WNTgdmCP8F8ghkKREnWXLAnG6S3bso41W
 X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
  pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
 X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
  auth_id=1480
 X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
 Reply-To: aiyengar1990@gmail.com
+Content-Transfer-Encoding: 7bit
 
-Three device tree changes for the Orange Pi 5 and 5B:
+From: Arun Iyengar <aiyengar1990@gmail.com>
 
-1. The YT8531C PHY on gmac1 is described as "rgmii-rxid" with a MAC TX
-   delay copied from the vendor kernel; the PCB adds no delay, so the
-   correct description is "rgmii-id" (as the Orange Pi CM5 already
-   uses), with both delays in the PHY.
-2. The SPI NOR flash gets its real 1.8 V supply instead of a dummy
-   regulator.
-3. The USB-C port gets DP Alt Mode: the FUSB302 connector advertises
-   the DisplayPort alternate mode and the graph links the connector,
-   the USBDP PHY and the DP0 controller. It uses only bindings already
-   in mainline.
+The USB-C port of the Orange Pi 5 and 5B is connected to the RK3588S
+USBDP PHY0, which can mux two (pin assignment D) or all four (pin
+assignment C/E) of its SuperSpeed lanes to the DisplayPort controller
+DP0. The SBU lines are wired to the PHY's DP AUX channel through the
+sbu1/sbu2 DC control GPIOs that are already described.
 
-Tested on an Orange Pi 5 (RK3588S, PCB v1.2): with "rgmii-id" the link
-comes up at 1000/Full and receives at 940 Mbit/s with no errors (with
-"net: stmmac: dwmac-rk: only read the delays the MAC applies", sent
-separately, the "Can not read property" warnings are gone too); the
-regulator summary lists the flash supply under vcc_1v8_s3 and the dummy
-regulator message is gone. With patch 3, a USB-C dock (DP-to-HDMI
-converter, USB3 hub) enters DP Alt Mode in pin assignment D (2 lanes
-HBR2) and its monitor runs at 3840x2160@30 next to HDMI at 4K60, pin
-assignment D -> C -> D switches work, 100 of 100 attach cycles
-configured DP Alt Mode, and the dock's USB3 devices keep working. The
-driver stack used for that test carried the pending "USBDP PHY cleanup
-part 3" and dw-dp HPD/Alt Mode patches; the description itself does
-not depend on them. CHECK_DTBS is clean for both boards. The Orange
-Pi 5B was not tested (no board at hand); it shares the changed .dtsi.
+Enable DP0, route it from VOP2 video port 2 and describe the full
+USB-C graph using the USBDP PHY ports scheme:
 
-This series was developed with Claude (Anthropic) as a coding assistant:
-it wrote the code and the commit messages, and I reviewed and tested
-every change as described above.
+  port@0: SuperSpeed lanes to the USB-C connector
+  port@1: from the DWC3 controller (SuperSpeed)
+  port@2: from the DP controller
+  port@3: DP AUX to the connector's SBU port
+
+and advertise DisplayPort AltMode (DFP_D, HBR3, receptacle, pin
+assignments C/D/E) on the connector, so TCPM enters DP AltMode with
+DP capable sinks/adapters.
+
+VP2 is used as on the ROCK 5B family, leaving VP0 for HDMI0 and VP1
+free.
+
+Modelled on Sebastian Reichel's ROCK 5B family DP Alt Mode support in
+the Collabora rockchip-3588 tree.
 
 Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
-Changes in v2:
-- Patch 2: put vcc-supply on the existing flash@0 node in
-  rk3588s-orangepi-5.dtsi instead of splitting the node across the .dtsi
-  and the Orange Pi 5 .dts (found by the Sashiko AI review). The Orange
-  Pi 5 DTB is unchanged from v1; on the 5B and 5 Pro the controller stays
-  disabled.
-- Patches 1 and 3 are unchanged.
-- Link to v1: https://patch.msgid.link/20261110-opi5-dts-v1-0-582b63d074be@gmail.com
+ .../boot/dts/rockchip/rk3588s-orangepi-5-5b.dtsi   | 89 +++++++++++++++++++---
+ 1 file changed, 78 insertions(+), 11 deletions(-)
 
----
-Arun Iyengar (3):
-      arm64: dts: rockchip: use rgmii-id for the Orange Pi 5/5B ethernet PHY
-      arm64: dts: rockchip: add the SPI NOR flash supply on Orange Pi 5
-      arm64: dts: rockchip: Add USB-C DP AltMode for Orange Pi 5/5B
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5-5b.dtsi b/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5-5b.dtsi
+index 7c1fd5905553..52f5005c738d 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5-5b.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5-5b.dtsi
+@@ -94,6 +94,22 @@ vcc_3v3_sd_s0: regulator-vcc-3v3-sd-s0 {
+ 	};
+ };
+ 
++&dp0 {
++	status = "okay";
++};
++
++&dp0_in {
++	dp0_in_vp2: endpoint {
++		remote-endpoint = <&vp2_out_dp0>;
++	};
++};
++
++&dp0_out {
++	dp0_out_con: endpoint {
++		remote-endpoint = <&usbdp_phy0_dp_in>;
++	};
++};
++
+ &gmac1 {
+ 	clock_in_out = "output";
+ 	phy-handle = <&rgmii_phy1>;
+@@ -143,6 +159,13 @@ usb_con: connector {
+ 				<PDO_FIXED(5000, 3000, PDO_FIXED_USB_COMM)>;
+ 			try-power-role = "source";
+ 
++			altmodes {
++				displayport {
++					svid = /bits/ 16 <0xff01>;
++					vdo = <0x00001c46>;
++				};
++			};
++
+ 			ports {
+ 				#address-cells = <1>;
+ 				#size-cells = <0>;
+@@ -150,21 +173,21 @@ ports {
+ 				port@0 {
+ 					reg = <0>;
+ 					usbc0_hs: endpoint {
+-						remote-endpoint = <&usb_host0_xhci_drd_sw>;
++						remote-endpoint = <&usb_host0_xhci_hs>;
+ 					};
+ 				};
+ 
+ 				port@1 {
+ 					reg = <1>;
+ 					usbc0_ss: endpoint {
+-						remote-endpoint = <&usbdp_phy0_typec_ss>;
++						remote-endpoint = <&usbdp_phy0_ss_out>;
+ 					};
+ 				};
+ 
+ 				port@2 {
+ 					reg = <2>;
+ 					usbc0_sbu: endpoint {
+-						remote-endpoint = <&usbdp_phy0_typec_sbu>;
++						remote-endpoint = <&usbdp_phy0_dp_out>;
+ 					};
+ 				};
+ 			};
+@@ -250,9 +273,24 @@ &usb_host0_xhci {
+ 	dr_mode = "otg";
+ 	usb-role-switch;
+ 
+-	port {
+-		usb_host0_xhci_drd_sw: endpoint {
+-			remote-endpoint = <&usbc0_hs>;
++	ports {
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		port@0 {
++			reg = <0>;
++
++			usb_host0_xhci_hs: endpoint {
++				remote-endpoint = <&usbc0_hs>;
++			};
++		};
++
++		port@1 {
++			reg = <1>;
++
++			usb_host0_xhci_ss: endpoint {
++				remote-endpoint = <&usbdp_phy0_ss_in>;
++			};
+ 		};
+ 	};
+ };
+@@ -267,18 +305,47 @@ &usbdp_phy0 {
+ 	sbu1-dc-gpios = <&gpio4 RK_PA5 GPIO_ACTIVE_HIGH>;
+ 	sbu2-dc-gpios = <&gpio4 RK_PA7 GPIO_ACTIVE_HIGH>;
+ 
+-	port {
++	ports {
+ 		#address-cells = <1>;
+ 		#size-cells = <0>;
+ 
+-		usbdp_phy0_typec_ss: endpoint@0 {
++		port@0 {
+ 			reg = <0>;
+-			remote-endpoint = <&usbc0_ss>;
++
++			usbdp_phy0_ss_out: endpoint {
++				remote-endpoint = <&usbc0_ss>;
++			};
+ 		};
+ 
+-		usbdp_phy0_typec_sbu: endpoint@1 {
++		port@1 {
+ 			reg = <1>;
+-			remote-endpoint = <&usbc0_sbu>;
++
++			usbdp_phy0_ss_in: endpoint {
++				remote-endpoint = <&usb_host0_xhci_ss>;
++			};
+ 		};
++
++		port@2 {
++			reg = <2>;
++
++			usbdp_phy0_dp_in: endpoint {
++				remote-endpoint = <&dp0_out_con>;
++			};
++		};
++
++		port@3 {
++			reg = <3>;
++
++			usbdp_phy0_dp_out: endpoint {
++				remote-endpoint = <&usbc0_sbu>;
++			};
++		};
++	};
++};
++
++&vp2 {
++	vp2_out_dp0: endpoint@a {
++		reg = <ROCKCHIP_VOP2_EP_DP0>;
++		remote-endpoint = <&dp0_in_vp2>;
+ 	};
+ };
 
- .../boot/dts/rockchip/rk3588s-orangepi-5-5b.dtsi   | 92 +++++++++++++++++++---
- .../boot/dts/rockchip/rk3588s-orangepi-5.dtsi      |  1 +
- 2 files changed, 80 insertions(+), 13 deletions(-)
----
-base-commit: c3baae5f1a15645cddadcb2b9abddef5df291f59
-change-id: 20261110-opi5-dts-4b83491c6706
-
-Best regards,
---  
-Arun Iyengar <aiyengar1990@gmail.com>
+-- 
+2.55.0
 
 
