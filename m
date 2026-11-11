@@ -1,87 +1,113 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.42.203.116
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.125.188.122
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794438128;
-	b=2mLg7Cksl8PhovWfaF3LJtuQpDqmDGcXU/G3iE8zO4mKCH5LwVmdBScuIB0wMUkA0UOg
-	 9SDxhYCSZrUc/gEJdLNDnbDL91/PXW9HQKUdMxHdxSdUpmv21x1/RF4D5ve4v0H5Fg+S1
-	 NF9p24Pdbzc7GdJeJcqd7hlqkXv0z6NoIXxpxSUu8ib6hfUv3I8QQv/CgYCb6GkOR1AEP
-	 2x3/VcFYWCwo/RLcMjJN00EojJHRcpxOF6FWbiDU/iKF+YyZ9SrgYO5j2OIW4+CfwG5C0
-	 nR7r6B9FZuW29TA/g4ScdEDF+nUK84wBxjFr3FSiHLtWflHtnrTZlT1LcJKRLwadxmA==
+	t=1794438156;
+	b=3nHlBN15N9ZP19bhOP78fyBfaJKqHajkFsQO+NP2XU5e17c2PMbiTM5/zpMdU9wrf2Ro
+	 FNsDdE7juY6z4oUBTgAxinG3zXAggGrPlsLFH8ylfYChKpKGM42Fdr9WJkH+EpZ1NqGKd
+	 eOpBvEvH3j5m+e+VgvgyWFdHt5iFy0iuy69gJ/WfFxcs14XZ8zwGEFT0uRL4fo0egPhHd
+	 4iyuMPrnTQ8A3UtsWeGy6GCw+hsW+l3jUz9Zk0mkWtNOKnGvZ6zea4pQZS9YytoHv31de
+	 tU7nPVmAf9CMw878UR4NOoJrFLTJD7SOmVj6QPLPi2DArDPhoctoR2XPlT+MpPO9RYA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794438128;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=fxeX7TnOeQeidfd0VzWFsebTuPycm/niS4h2cZ5wwxA=;
-	b=swrLjmEL4gxGUPp80O1BMPAERWIRHzp/w+s8JAsltbg4XCdI8yLtOIEpEK6Xel1WoVnE
-	 8I9qpaPtC6HLjWLkO+aIGkkxg4FW8aLIJkLqmCVHfCWEavc7JcVnCizFNZS3OUvoQjN8L
-	 Y3bao/0GJhAQq0+L55Oslo2JyLRPonsP55zBkK4RllLMBmoM9GnutfybYiQl3pAe4/KTI
-	 F1WqBKj7U5bEo5B7G5lden1cSVEoXY7bUOIN0aCzrnjH2oRlM2qYvyUNu36dRTeJ8zsrg
-	 EDIEZ/lsVf7CJ4xRZOnOuqOCjArfN9AG6UusG008zkxWruXgFSK50XkKH6fD2mQPZlg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794438156;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:
+	 X-Google-DKIM-Signature:X-Forwarded-Encrypted:X-Gm-Message-State:
+	 X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=ztbvpldWNAclg2Azry4ypJeBe0ZERrAJ27Pdrbt2f64=;
+	b=5PVf77lNo1XEg17w+UBMtX50PJ/dVSOuFSIcwpJ+czp+Wz7+O8+5uvKVuH2SSxTFV36p
+	 9rcP2TuVtOC2eyQREunrdFxo/VPdA0lZ9j0FOZ3YsAosLRHlNnGbXYsu9pzeT7aVfQGur
+	 +NUMFDf94fXJo836XpKebM+XJKKSNImEqcQV2XhBhY/+A8WrFslKkPA28AvLDCCMMFETq
+	 f+8hZy6AssUaXz54iEBN7EW3NYyWuZozS0Xxqt9+JExaUsgctzzUgvSxwEsQUce88p8OA
+	 4e2ugV8Lo9Lld/qABEJq3HpO5xXWbOqFB59zUYcBFkYmWSN6aJi3roccH9WIps/Mn+A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amazon.com;
-	spf=pass smtp.mailfrom=amazon.de;
-	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=ImoTMGSH;
-	arc=none smtp.remote-ip=52.42.203.116
-Received: from pdx-out-008.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-008.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.42.203.116])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=canonical.com;
+	spf=pass smtp.mailfrom=canonical.com;
+	dkim=pass header.d=canonical.com header.i=@canonical.com header.a=rsa-sha256 header.s=20251003 header.b=ZlDhI0LQ;
+	arc=none smtp.remote-ip=185.125.188.122
+Received: from smtp-relay-internal-0.canonical.com (smtp-relay-internal-0.canonical.com [185.125.188.122])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F16FF606A331;
-	Wed, 11 Nov 2026 23:02:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F16FF606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67689606A327
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 23:02:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67689606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=ImoTMGSH
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1794438127; x=1825974127;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=fxeX7TnOeQeidfd0VzWFsebTuPycm/niS4h2cZ5wwxA=;
-  b=ImoTMGSHSjc8OjdJqz1oikKV/m+rXQ7/85cajkFslk5ENHeU3bw2h1V2
-   35y6Tzq5cqEN+/XoqKWWHqPxfxMcb2z42sBnS2tsz4eaTbGi/F5JsrBk9
-   qxyVG20iE/PBBoQC7QMzBOOSIl+Rio9L69PFEpxYPAqkIFiLpPQtk7cYh
-   1s+uCr7LkhXjwfPu8DIMyKJMYVFxyENBaUpQk1W4zhrLKzIVCLGN46vKf
-   5xoSlXsMwV1EI7r0iIimWWlrjhPzX6rRgNfsonyx9UBnxQlpm1BTVJtZu
-   pp2gmCKIGcJL9GhjVBYW4qPabB6TKu9UzKQszvr7pde00Tn6mWg2eH34k
-   w==;
-X-CSE-ConnectionGUID: zbfFMcWfRSuQ2BSmPHMGzw==
-X-CSE-MsgGUID: LlLoQtmVR6aIOnk6axVbmw==
-X-IronPort-AV: E=Sophos;i="6.27,208,1787011200"; 
-   d="scan'208";a="33797024"
-Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
-  by internal-pdx-out-008.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 23:02:05 +0000
-Received: from EX19MTAUWB002.ant.amazon.com [205.251.233.48:27716]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.46.128:2525] with esmtp (Farcaster)
- id 60a5f721-d9ab-4ef8-8e59-27d90924e641; Wed, 11 Nov 2026 23:02:05 +0000 (UTC)
-X-Farcaster-Flow-ID: 60a5f721-d9ab-4ef8-8e59-27d90924e641
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWB002.ant.amazon.com (10.250.64.231) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Wed, 11 Nov 2026 23:02:04 +0000
-Received: from ip-10-253-83-51.amazon.com (172.19.99.218) by
- EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Wed, 11 Nov 2026 23:02:02 +0000
-From: Alexander Graf <graf@amazon.com>
-To: <linux-kernel@vger.kernel.org>, Greg Kroah-Hartman
-	<gregkh@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>
-CC: The AWS Nitro Enclaves Team <aws-nitro-enclaves-devel@amazon.com>, "Shuah
- Khan" <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>,
-	Marek Szyprowski <m.szyprowski@samsung.com>, Robin Murphy
-	<robin.murphy@arm.com>, <linux-doc@vger.kernel.org>, <iommu@lists.linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand
-	<david@kernel.org>, Mike Rapoport <rppt@kernel.org>,
-	<nh-open-source@amazon.com>, <linux-mm@kvack.org>, Jonathan Corbet
-	<corbet@lwn.net>
-Subject: [PATCH 19/40] nitro_enclaves: Add the slot pool growth commands
-Date: Wed, 11 Nov 2026 22:59:23 +0000
-Message-ID: <b16f6669871f64b97cea9ec50baf3462a44054a9.1794393490.git.graf@amazon.com>
-X-Mailer: git-send-email 2.47.1
-In-Reply-To: <cover.1794300002.git.graf@amazon.com>
-References: <cover.1794300002.git.graf@amazon.com>
+	dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.a=rsa-sha256 header.s=20251003 header.b=ZlDhI0LQ
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 8371740290
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 23:02:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+	s=20251003; t=1794438152;
+	bh=ztbvpldWNAclg2Azry4ypJeBe0ZERrAJ27Pdrbt2f64=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version;
+	b=ZlDhI0LQkVO5l8r+qUCwUa3E+IdnHOot/rbj/CdgOGazSD2jPhXD22LG8Xp0KBDY+
+	 2EBXja2FUdAWTzAfRxMOasaIzgdzHoareW1Nea2V7yIb5SZM8Q3qckQnNju+VS0oSK
+	 IYj6jEGeFhGNldYePKQl0L+nPDX7JMz7TyBpkLcj17uEbbVJFgzSb8TJtJsnqiVGxV
+	 IuY61qZ6R9gAAg/EOopRIZ8nzCn7N+gME4LnT3Fs7Tv1eysOx4PvBa2E/aSfePVC3/
+	 KCPK9DJnip3t3IZdvLVYVyPhkuVXrdar3V1oahIpRP8ctX4ZtcrmTKz7vJLgGiCrnc
+	 m10oFjXmBTt7ReW4hDDeEYiKaIMYcghx5dNg0CtcRDVJs9C0nwokH19phmio3QNK6G
+	 Rqg/9qAfGq6979dwgkH1gtrB2Vaojj85t90dw9s4jcJ9qbWCewo38cI/7OqUaastlO
+	 Sk+/wguFToNsR/V3kU3Y0vYQ0h1YVW81GhCiPpGxp/GdxO4ahO+jpq5IYOM0dsh4Kh
+	 pQcIilslx5ew+JUCmccFFk54x2VnErUeYL8z1QC98T2em1Uqo4MB5qecHrIUWjwPj+
+	 3DIbgggBBgWgOVruSpx3CDoIh9VtrSuV8xGZx2FwwbsOWQLtW3C+Q5TprjtG3Nj2L5
+	 iBayUAN835b8FJ1Lu79f+ZYw=
+Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-8b69b8c6dd5so4619895b3a.3
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 15:02:32 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794438150; x=1795042950;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ztbvpldWNAclg2Azry4ypJeBe0ZERrAJ27Pdrbt2f64=;
+        b=sEsLsjpHj8ERVqeZZZ3Gjh/65SOD9pr7agrU6Irs3yoavkY9nIkRPQ4AaL1xHB4v8q
+         PkJv6RSqVeL6E2K/QqEMBKle65m4jGAyjAHaXUPBEPEYk1/gNowzbVrzgNxKnTbpNQ1O
+         vQf2UT5oEHGOPmkLvC/ZwBqRG31pVTwb5dv7KjxzrGPjUIkazblmhENNxorQi6X18MRj
+         4Q8XfzVFy9LhQGbuJHXEPn+zCdNNO1XGCunZDWWzaAKNJQj3X1j0fYzfjnrgfwt63CGA
+         lJq+OxBEO9CN28j3yYQjj5sKkDHoG9XOuEkSaPdkB0RcZ20rqlPY3npA5WlvIe0NmiyH
+         QL+g==
+X-Forwarded-Encrypted: i=1; AL+hErG7DVqZ9hXjT9aZ3uiuuYQAuu+V3DjRA0GICP9VZZjZLd3FfGuyxII5EhEQspCFoWy51M3Qt6m9W/I4G5M=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+NwmYG/pf1Wi/+qtQaysZ7HRUR1cI5wFeqHn+cGwN8/P5M7V+W
+	cssCCzCqTQQmYEtV+b1MucrgTFuZppsAmVQzoINGPYDtS4vSupQnlOz1R3OcUgIBh/IMkMzO4nu
+	RMvuFwPsGSbYP9uuzebZyQTL53RLghVJFEjWSzA0JqE4eVwBrfmwoNqe9B8bFeTxPEfG6Z92Zqe
+	vu7TkC2g==
+X-Gm-Gg: AYBFou2F9xy4LFfbANnUorM4L381szmYnAG/PMWqqK+pnc0/O5MrlUDJV2+W3uLw1LT
+	Sb2YbULA24FpdGgyCma06S++l04wVcNsLUufI5NMq9D+yBXKvVNuRHsfpM0SZaILnD5Wycmn3QB
+	/T7YuZrjUlN5b4LiiLVHJX9NQGamI1/7K0A8EXrTHO3WGBY+rbn0JE3iWxg44PhO0N7/HALhzBB
+	WQkA5Xc4dzuF+Q+ISOAeyfblv+r/SEfQ+xXtQtvUpEI6kLOQNPAVKk+7eWmRVaQgC3yS4AyE+Vx
+	fW3xU8ZJlc9LvIEdpNCHxYN4V0trS222o+90SeeZS0sVls0LR//ZqYMTLG8dJNUFDXEhTAPVgBS
+	n8pYvoGKx7Va/YXGzQ6goovEk0ieFHenSp0zpbXQJAxX3ZnEyqvIqHN7pJ/k=
+X-Received: by 2002:a05:6a00:3385:b0:8a0:3072:ee9 with SMTP id d2e1a72fcca58-8bc1b8f8e9fmr4260513b3a.13.1794438150594;
+        Wed, 11 Nov 2026 15:02:30 -0800 (PST)
+X-Received: by 2002:a05:6a00:3385:b0:8a0:3072:ee9 with SMTP id d2e1a72fcca58-8bc1b8f8e9fmr4260480b3a.13.1794438150134;
+        Wed, 11 Nov 2026 15:02:30 -0800 (PST)
+Received: from ZBook.gateway ([123.208.39.53])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8baab4fd5c6sm2531211b3a.46.2026.11.11.15.02.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 15:02:29 -0800 (PST)
+From: Changwei Zou <changwei.zou@canonical.com>
+To: herbert@gondor.apana.org.au,
+	sahil.malhotra@nxp.com
+Cc: davem@davemloft.net,
+	horia.geanta@nxp.com,
+	pankaj.gupta@nxp.com,
+	gaurav.jain@nxp.com,
+	jeffbarnes@linux.microsoft.com,
+	stephane.debusne@cynove.com,
+	iuliana.prodan@nxp.com,
+	martin.kepplinger-novakovic@ginzinger.com,
+	lukas@wunner.de,
+	sahil.malhotra@oss.nxp.com,
+	changwei.zou@canonical.com,
+	linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v4 0/2] crypto: caam - Fix RSA error-path unmap and unaligned dst buffers
+Date: Thu, 12 Nov 2026 10:02:19 +1100
+Message-ID: <20261111230221.40297-1-changwei.zou@canonical.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,122 +118,57 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D031UWA004.ant.amazon.com (10.13.139.19) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-In preparation to grow the slot pool at runtime, add
-SLOT_POOL_MEM_DONATE and SLOT_POOL_GET_LIMITS.
+This series fixes two issues in the rsa-caam driver.
 
-The slot pool has two halves: the slot descriptors, which
-SLOT_POOL_DONATE grows, and the memory the device runs slots out of,
-which SLOT_POOL_MEM_DONATE grows. Its reply names the part of the
-offered run that the device took. A slot needs room in both halves.
-SLOT_POOL_GET_LIMITS reports both counts, along with how many slots one
-memory donation adds, so that the parent knows which half to grow next.
-Both replies get an arm of the reply union.
+Patch 1 fixes wrong unmap operations where rsa_pub_unmap() was called
+regardless of the key type.
 
-Signed-off-by: Alexander Graf <graf@amazon.com>
----
- drivers/virt/nitro_enclaves/ne_pci_dev.h | 50 ++++++++++++++++++++++++
- 1 file changed, 50 insertions(+)
+Patch 2 adds a bounce buffer to handle unaligned RSA destination
+buffers on DMA-incoherent hardware such as i.MX8, fixing intermittent
+-EKEYREJECTED errors when loading signed kernel modules.
 
-diff --git a/drivers/virt/nitro_enclaves/ne_pci_dev.h b/drivers/virt/nitro_enclaves/ne_pci_dev.h
-index 4e991c4b0e70f..3718f893e4f65 100644
---- a/drivers/virt/nitro_enclaves/ne_pci_dev.h
-+++ b/drivers/virt/nitro_enclaves/ne_pci_dev.h
-@@ -164,6 +164,10 @@
-  * @SLOT_POOL_DONATE:		Donate one page of parent memory to the slot
-  *				pool.
-  * @SLOT_POOL_SHUTDOWN:		Give the whole slot pool back.
-+ * @SLOT_POOL_MEM_DONATE:	Donate a run of parent memory to the memory the
-+ *				device runs a slot out of.
-+ * @SLOT_POOL_GET_LIMITS:	Report how many slots each half of the pool has
-+ *				room for.
-  * @SLOT_POOL_BASE_DONATE:	Donate the base run of the slot pool.
-  * @MAX_CMD:			A gatekeeper for max possible command type.
-  */
-@@ -185,6 +189,8 @@ enum ne_pci_dev_cmd_type {
- 	SLOT_POOL_DONATE	= 16,
- 	SLOT_POOL_SHUTDOWN	= 17,
- 	SLOT_POOL_BASE_DONATE	= 25,
-+	SLOT_POOL_MEM_DONATE	= 26,
-+	SLOT_POOL_GET_LIMITS	= 27,
- 	MAX_CMD,
- };
- 
-@@ -344,6 +350,16 @@ struct slot_pool_shutdown_req {
- 	u8	unused;
- };
- 
-+/**
-+ * struct slot_pool_mem_donate_req - SLOT_POOL_MEM_DONATE request.
-+ * @paddr:	Physical address of the donated run of memory.
-+ * @size:	Size, in bytes, of the donated run.
-+ */
-+struct slot_pool_mem_donate_req {
-+	u64	paddr;
-+	u64	size;
-+};
-+
- /**
-  * struct ne_pci_dev_cmd_reply - NE PCI device command reply.
-  *
-@@ -377,6 +393,21 @@ struct slot_pool_shutdown_req {
-  * @info.state:			SLOT_INFO. Slot state.
-  * @info.padding1:		SLOT_INFO. Padding for the overall data
-  *				structure.
-+ * @mem_donate:			Fields SLOT_POOL_MEM_DONATE fills.
-+ * @mem_donate.consumed_paddr:	SLOT_POOL_MEM_DONATE. Physical address of the
-+ *				run the device took out of the donation.
-+ * @mem_donate.consumed_size:	SLOT_POOL_MEM_DONATE. Size, in bytes, of the
-+ *				run the device took, zero where it took none.
-+ * @limits:			Fields SLOT_POOL_GET_LIMITS fills.
-+ * @limits.meta_limit:		SLOT_POOL_GET_LIMITS. Slots the descriptors
-+ *				donated so far have room for.
-+ * @limits.mem_limit:		SLOT_POOL_GET_LIMITS. Slots the memory donated
-+ *				so far has room to run.
-+ * @limits.slots_per_donation:	SLOT_POOL_GET_LIMITS. Slots one donation of
-+ *				memory adds to the memory the device runs a
-+ *				slot out of.
-+ * @limits.reserved14:		SLOT_POOL_GET_LIMITS. Bytes the device writes as
-+ *				zero.
-  */
- struct ne_pci_dev_cmd_reply {
- 	s32	rc;
-@@ -402,6 +433,16 @@ struct ne_pci_dev_cmd_reply {
- 			u16	state;
- 			u8	padding1[6];
- 		} info;
-+		struct {
-+			u64	consumed_paddr;
-+			u64	consumed_size;
-+		} mem_donate;
-+		struct {
-+			u16	meta_limit;
-+			u16	mem_limit;
-+			u16	slots_per_donation;
-+			u16	reserved14;
-+		} limits;
- 	};
- };
- 
-@@ -417,6 +458,15 @@ static_assert(offsetof(struct ne_pci_dev_cmd_reply, info.mem_size) == 40);
- static_assert(offsetof(struct ne_pci_dev_cmd_reply, info.nr_vcpus) == 48);
- static_assert(offsetof(struct ne_pci_dev_cmd_reply, info.flags) == 56);
- static_assert(offsetof(struct ne_pci_dev_cmd_reply, info.state) == 64);
-+static_assert(offsetof(struct ne_pci_dev_cmd_reply,
-+		       mem_donate.consumed_paddr) == 8);
-+static_assert(offsetof(struct ne_pci_dev_cmd_reply,
-+		       mem_donate.consumed_size) == 16);
-+static_assert(offsetof(struct ne_pci_dev_cmd_reply, limits.meta_limit) == 8);
-+static_assert(offsetof(struct ne_pci_dev_cmd_reply, limits.mem_limit) == 10);
-+static_assert(offsetof(struct ne_pci_dev_cmd_reply,
-+		       limits.slots_per_donation) == 12);
-+static_assert(offsetof(struct ne_pci_dev_cmd_reply, limits.reserved14) == 14);
- 
- /**
-  * struct ne_pci_dev - Nitro Enclaves (NE) PCI device.
+Changes in v4:
+- Patch 2: Describe the bounce scatterlist with the aligned allocation
+  size (ALIGN(dst_len, dma_get_cache_alignment())) instead of the
+  possibly-unaligned dst_len. Otherwise, on
+  CONFIG_DMA_BOUNCE_UNALIGNED_KMALLOC systems, dma_map_sg() evaluates
+  sg->length and can treat the already aligned bounce buffer as
+  unaligned, bouncing it again via swiotlb or failing with -ENOMEM.
+
+Changes in v3:
+- Patch 1: Dispatch the error-path unmap on the operation (the completion
+  callback rsa_pub_done vs rsa_priv_f_done) instead of key->d, so the
+  unmap always matches the map.
+- Patch 2: Bound the bounce-buffer copy-back to the RSA output size
+  (key->n_sz) instead of the full dst_len, so the trailing capacity of
+  the caller's destination buffer is left untouched; add Tested-by from
+  Stephane Debusne.
+
+Changes in v2:
+- Patch 1: Add Fixes: tag; pick up Reviewed-by from Sahil Malhotra.
+- Patch 2: Move the !bounce_buf check out of do_rsa_bounce_buf() into
+  the caller rsa_bounce_buf_done() so the helper is only entered when a
+  bounce buffer actually exists; add Reported-by/Closes and Tested-by
+  from Martin Kepplinger-Novakovic.
+
+Link to v3:
+https://lore.kernel.org/linux-crypto/20261020025426.955531-1-changwei.zou@canonical.com/
+
+Link to v2:
+https://lore.kernel.org/linux-crypto/20261004210200.290119-1-changwei.zou@canonical.com/
+
+Link to v1:
+https://lore.kernel.org/linux-crypto/20260821045555.806471-1-changwei.zou@canonical.com/
+
+Changwei Zou (2):
+  crypto: caam - Fix wrong unmap operations
+  crypto: caam - Use bounce buffer for unaligned RSA destination buffers
+
+ drivers/crypto/caam/caampkc.c | 131 ++++++++++++++++++++++++++++++----
+ drivers/crypto/caam/caampkc.h |   6 ++
+ 2 files changed, 124 insertions(+), 13 deletions(-)
+
 -- 
-2.47.1
+2.43.0
 
