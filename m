@@ -1,101 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.169
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794431048;
-	b=h0mhwBp1eLld2QcoL0dp7GRKbFnl+a2mtNkXNOAGaj8X4MDGMRfVSAMWoHknggi2aYvy
-	 B3IPcCvxhqxfTQIWhAne5+X1s9rkGvxFyq0YEZbg1BSgVKCAo6Rg6QuWgVtVPI4z7G2+9
-	 QFDrh+Ns6xB65SykU0En+6sP8a06M0ytexNRiqJK6VCAIgSRz6ywy0PXmaW+WQmHLNgT/
-	 2CkDZGlGUlkuqJFbzZytM8zTnubRCgt11DNQ9Uv8ZngPMuPJszL8HOFmCCT1I3q6nqvJA
-	 4usaK9mmSacDVi9IFolpdyhfnLbdzjL+bwjUclAy5fIXcIf2UoNMyz659tKm+4NpiGw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794431048;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=7jfAi01Q4CRlBo14NA8JUFvh8yBOtjDMjluJPzC/jYk=;
-	b=OHzjfCP+1grjzllZrKROqtD/9WwfRaJvU1toQcYqW/gSzPGgfyC4ppFC3Wc87pVJpLA+
-	 6zvOs6X9YKB+NmQZl2+TbqlGFNaid7lkz6d5oL7/mj6vyJBTEueL3zWo+O6NTTOy/kTSr
-	 OKIoFmWUAWWMrd647twKPCyTDw94bLmF3n2dN1elbvtBWXth/lXgcNXmje8JgtgciXDQ+
-	 vsErljLKMg9trarcgkUbzh22c1tjvZF/Mii0o8q4hzeKRJxZg9AhH3DJxsiIZy9LPVxTi
-	 2JSqqPwebzJNTOmRiv5czaSvosu5fstwsI16ASewzsCCyiSYLHausx83txkxxnaGNwQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=QQPKIa3p;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.169
-Received: from mail-qt1-f169.google.com (mail-qt1-f169.google.com [209.85.160.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794431121;
+	b=HGTgD980q9pURAuxCSvs2lSsv75qbSWQNwyU0CmgZsjZkydQWg0UE774Rw7yt7R6HpFU
+	 F5sOj0VlPwpWcw+QkNcMNdPEIGs1iogcvcyvdqh2E0lOzxMLdwKfPUlO1PMfH7IwaIDW6
+	 YPfzhyS6cX1i2E6FLYzWfoHYVdqDyOfQjxdSptxOUn30MvS95WA6DM7cvFb6O0ljVA0FF
+	 weVadRNzPM3IX9r1456nY58bAyp8rBCAqWXV2R58TIVHY5J4ttCEPLTWCOyasEMXMKnbz
+	 P6kZTdjMACistztl44soY98pbWDYv5goa0VbPnkW21QrZOM+2Qp2yXIoboMEeKY8L2w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794431121;
+	h=Received:DKIM-Signature:Content-Type:MIME-Version:Message-Id:
+	 In-Reply-To:References:Subject:From:To:Cc:Date;
+	bh=tNQqBz5+70EcbhvGfYXqJhYoHMclm4qNDJckCYhqgXk=;
+	b=4+59Fhe9at/SIjQEifKDE3v2v/GqCoBe9Iqz6MBPNt4Sh1U91gFuTceRTtIARLLFBcUt
+	 ekBSL+nFgJbQ055VuCe0T7WmS5whPxHQG8xFmMk7sQUAcdx5tefoBjuQlQbhO+NOp8lCc
+	 WEa4JDRMRqg451eRGnAiJxRKramh0DdXVVY9GoPHPQ4ecccS/S6nJwl++j4kzeQJ0TJek
+	 ar7uxsic9Vmi8tvP/vH4l46980aFtVBWqRYviJNELEOCv3gcy88NE1KyxvWdeEAn6ver7
+	 0kZKeoVvK1Eg9Ix+iQyYp7Rzs1rgra6R4L/0pmfem0b0cWc5IZ7u/K0ngRz+bCUeDFg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="c2XAXk1/";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC489606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 21:04:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BC489606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4E47606A321;
+	Wed, 11 Nov 2026 21:05:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=QQPKIa3p
-Received: by mail-qt1-f169.google.com with SMTP id d75a77b69052e-535f598d126so2301cf.1
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:04:07 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794431046; cv=none;
-        d=google.com; s=arc-20260327;
-        b=YE486jw+wX1ODBsDPaNNyYE3Bxl5pmg8ag57JXXekxkSahM7Xo+mk9iFc2KoHSWo1m
-         gzbYkQUi2GWJXa1dNoO6c813ak+cE2FVIZUSqCVWcTEH9dAKkB25uS0vV6xJUWyFcOKh
-         0kEoN8VtyBCq/2Sw87LlPBH9OlRRqyJ2I2+mtprzJbQXtJI61k25cRvsCTlo4AYu4vfA
-         6YF3obleWpqLnDjksBnDn3xtQ4PL4fhlmz9L4xna4MohzgDHmRTu5i+5vGx6xH7kTvBd
-         8EXjw9VwtaawlD/DoH5IST/457sahNz3YxLNBi3zzNP2O02wGePTecECVXZi3S5RHZ6u
-         Z4aw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=7jfAi01Q4CRlBo14NA8JUFvh8yBOtjDMjluJPzC/jYk=;
-        fh=Rmcbw+/+4mOQjVpDm9Ezk1nWgZknTTpYW12UqI4cx6s=;
-        b=Zbc94QOyVOFrtuiYkvoEbRB0hQJiQnsX0NSiB/StV1Hq8p9d+ne/nAS6IvDUbbKOpN
-         lN4m+/q3a13zTQkPLgVxQVqWuzg1VadPNbYItBK6445S3d4005jxbcVvvn7T5Cbmf7VA
-         dWQkngWMh+22Uk2NWSucBHCAfAY8WjCKtSu0+/2BfpuOOc4In/mm4hKjO0QhJflv4v2E
-         mc2vLOW/zzHn2YhqiG5OCCO6y4/469PYyUQ+FVwJxY/xQ18nQpxKXOOClvoJATPclfev
-         2riEbwtU6qMQvml+F+Q3GevpRjaJUU3kiPGnF72/DzdYQ9Mfyo0R4IXiLdkKvxiRXEmM
-         jl0Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794431046; x=1795035846; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=7jfAi01Q4CRlBo14NA8JUFvh8yBOtjDMjluJPzC/jYk=;
-        b=QQPKIa3pMiQ6gC27nC3FSlX5R2pev//WZ6UGmWl8qqZMcL0sBaf079IKG1g+TlEb1k
-         X4/4pERBeBvtqPQYSpialoTR+GnOUfDSlu+NAUw36Fu9d0PerVjKccJPlk/LvA6Uys4Q
-         ENAlLjjuj5a5g+wjm7JFjbDU9ZKciHd7jGutPSC9mktg8LbQrznLktrjeDOa35D/5VzB
-         tADYcDGQu3FGo0ML7uuQtKlA7S2Iha9ePa+w4xJhEk04zI26zCkn141gBqPWcjHae2+d
-         9jxqixGhApVvZAyzvAZaTmOZXu8qpgxFUtjONQ3QHGoT7BGJw/vk8el2sTHv2IecAtb8
-         U8eQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794431046; x=1795035846;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7jfAi01Q4CRlBo14NA8JUFvh8yBOtjDMjluJPzC/jYk=;
-        b=aYzr478f2sROm88GMHuXrRhu42KrUxMf9wykAfyrioKEugkRmwqHz5TYreNF7d5JDt
-         3PoG61nWit2s38sRoIOWMwySCPVbOZtamauCrcRHQ2yV/J34h81l0lACj3lHrZWQrof/
-         enFOdzVbnobJeBsrIb0HtjQmUBjqCgA+BKMHu1cI0xW3rm3DMLY2N27bKqUmUqeXTxem
-         SdBfiOFTCjst+JnJE/g/xLTOLPN5Gr+J+djuoi3BNBNKrTnz3My/WgvrAU5UCnmP/teJ
-         bTmUKJTUlgjJBrC1yPwmGip5r6Trk/7UY9MU+A2Orrdn3HhZ89wgdITwKPUGxG2dgHVE
-         xIXg==
-X-Forwarded-Encrypted: i=1; AL+hErHVBFRyuXqE6NkazdgY0Yf0iCUnD4/QJF7mWe70D9UHCBMMOOZ7rpaoWJhLq7JA4pL+iKuZ/g31cGvrNEA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+8oJHns1g1cdzF5VLY6ocQrzd92/A1RDcgPbH6+guwwtmqqUj5
-	ACoaoJ0A7/BgV3l+2rD9RZrbLIweSn90tNfUCS9HvulD87aW39CPnBbZC2Br75zHsHgfeEuVIfP
-	wGBsKLtETr4Hf08lPjlJS1utuiNfb62Ruct1TDCV3dWaeNWyK+yUt9/Y/jR4=
-X-Gm-Gg: AYBFou0GSpJYPyLFHKiFh9IZCtmZ7lgFH967aW2goT+4SqrWusUtbh2aM8XSUTE4oCa
-	vxNDxj81JF+lsFAdz5MANF7iORds5/nRvjsJboi/UfEHUzOFuc5kjUIKywOcXEa4gljr4J8agA7
-	1esXWJykN5VVYdfUKBtoEKueyx3TzaxxrAG0lK7RVkcJK8ZydjH8CcAQ8G3meBD9d+9BTJQaqUW
-	E9KpQ9/BPmOYXpuyITzACw3oHkAhwLOU4yROJap8eskUNPhTVtGVsI4M7FvcWkgYHcMFsq3SWPN
-	rVB431/CA4Sv8o+rxx5lc4Dmri7qJp9OiLZc8PKtXyrw36dbDk+Zrdf8soqRHPmweAMGhfawU1O
-	zdqeM4Er4Ol8T6eR9beVN+gefVaWinUmr5Yorwx+UH7A2ZqYiqtIaN4V6HjZqZ2aAj0EmFTZgnc
-	J0ECpC84nke2uLzjyic3AT+PgS
-X-Received: by 2002:a05:622a:2612:b0:530:e00f:7768 with SMTP id
- d75a77b69052e-559670434c8mr4152141cf.0.1794431045881; Wed, 11 Nov 2026
- 13:04:05 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c2XAXk1/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5DD6E1F00A05;
+	Wed, 11 Nov 2026 21:05:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794431121;
+	bh=tNQqBz5+70EcbhvGfYXqJhYoHMclm4qNDJckCYhqgXk=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=c2XAXk1/1FlgcmzpXfA2mwLgpAVBySudM21S5Eky4Xj28kPHbLydAHh32loGW2D8a
+	 AiNWmQBSKEuI8d679u+FUaCA1M+Age94YqR3IK0TU1eOn1czVjbuc0pnSwvhFWbdjW
+	 DN5wjSdCyZx795hFTyZMx92BP8bR1SvYzbNpbAbd1GtNRW0dpeGA60O+c4f7JS7tkk
+	 KAhQZAt7Tf6saoTzFtACDSCw09t1F3Gs7meWuz4VzMYTYdU+ctzuAzZxLL44JU6cGK
+	 Bx5/LiEIijFTXKsvej4SY5GVJuEChrIY8DWX7ROFO4w3aiMI/8IIYVImtSQbcWtyHz
+	 6kq/eRUmej2Cw==
+Content-Type: multipart/mixed; boundary="===============2866188785818237921=="
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,75 +49,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261110112546.261415-1-hao.ge@linux.dev> <20261110112546.261415-2-hao.ge@linux.dev>
-In-Reply-To: <20261110112546.261415-2-hao.ge@linux.dev>
-From: Suren Baghdasaryan <surenb@google.com>
-Date: Wed, 11 Nov 2026 21:03:53 +0000
-X-Gm-Features: AclHuK9dy2sCAhDvi6AKjzXMWgnJES78GwGzZ1LsZZk9UkuHFg5q24wLvar7eig
-Message-ID: <CAJuCfpHjSZhPPpRudAdrDPzz8dGK=Mx62CYCNoO4MC9OhnGd=A@mail.gmail.com>
-Subject: Re: [PATCH v4 1/9] mm/kmsan: undo the shadow mapping when the origin
- mapping fails
-To: Hao Ge <hao.ge@linux.dev>
-Cc: Uladzislau Rezki <urezki@gmail.com>, Dev Jain <dev.jain@arm.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, Madhavan Srinivasan <maddy@linux.ibm.com>, 
-	Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, 
-	Shrikanth Hegde <sshegde@linux.ibm.com>, Alexander Potapenko <glider@google.com>, 
-	Marco Elver <elver@google.com>, Dmitry Vyukov <dvyukov@google.com>, Dennis Zhou <dennis@kernel.org>, 
-	Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>, linuxppc-dev@lists.ozlabs.org, 
-	linux-kernel@vger.kernel.org, kasan-dev@googlegroups.com, linux-mm@kvack.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Message-Id: <8be73886579dc58a6363e72f540c0f28a12e0fe089ebde311b28919a47714ef7@mail.kernel.org>
+In-Reply-To: <20261110125001.4167503-9-cui.tao@linux.dev>
+References: <20261110125001.4167503-9-cui.tao@linux.dev>
+Subject: Re: [PATCH 8/9] tools/sched_ext: scx_userland: Check dispatch buffer slots before inserting
+From: bot+bpf-ci@kernel.org
+To: cui.tao@linux.dev,tj@kernel.org
+Cc: void@manifault.com,arighi@nvidia.com,changwoo@igalia.com,liwanwu@kylinos.cn,devnexen@gmail.com,zhaomengmeng@kylinos.cn,emil@etsalapatis.com,yphbchou0911@gmail.com,mingo@redhat.com,sched-ext@lists.linux.dev,linux-kernel@vger.kernel.org,bpf@vger.kernel.org,cui.tao@linux.dev,cuitao@kylinos.cn,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Wed, 11 Nov 2026 21:05:20 +0000 (UTC)
 
-On Tue, Nov 10, 2026 at 11:24=E2=80=AFAM Hao Ge <hao.ge@linux.dev> wrote:
->
-> kmsan_vmap_pages_range_noflush() first maps the shadow pages and then
-> the origin pages. If the second mapping fails, the first one is left
-> mapped, and the callers do not roll it back. The next vmap of the
-> same metadata range hits the stale PTEs again and fails with a
-> WARN_ON() and -EBUSY in vmap_pages_pte_range().
->
-> Undo the shadow mapping on that error path, the same way
-> kmsan_ioremap_page_range() cleans up after a partial failure.
-> __vunmap_range_noflush() only clears the PTEs; nothing has touched
-> the shadow mapping, so no TLB flush is needed.
->
-> Fixes: 47ebd0310e89 ("mm: kmsan: handle alloc failures in kmsan_vmap_page=
-s_range_noflush()")
-> Cc: stable@vger.kernel.org
-> Reviewed-by: Suren Baghdasaryan <surenb@google.com>
-> Reviewed-by: Dev Jain <dev.jain@arm.com>
-> Signed-off-by: Hao Ge <hao.ge@linux.dev>
-> ---
->  mm/kmsan/shadow.c | 4 ++++
->  1 file changed, 4 insertions(+)
->
-> diff --git a/mm/kmsan/shadow.c b/mm/kmsan/shadow.c
-> index 0c88d89bf0d6..2166086d3dc3 100644
-> --- a/mm/kmsan/shadow.c
-> +++ b/mm/kmsan/shadow.c
-> @@ -258,6 +258,10 @@ int kmsan_vmap_pages_range_noflush(unsigned long sta=
-rt, unsigned long end,
->                                             o_pages, page_shift);
->         kmsan_leave_runtime();
->         if (mapped) {
-> +               /* Undo the shadow mapping set up above. */
-> +               kmsan_enter_runtime();
-> +               __vunmap_range_noflush(shadow_start, shadow_end);
+--===============2866188785818237921==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Sorry, there is a problem here. You introduce "can_resched" check to
-avoid calling cond_resched() later in the series (in patch #7), but at
-this point __vunmap_range_noflush() can be called with GFP flags which
-do not allow blocking. Before recent Ulad's change called "kmsan:
-remove hard-coded GFP_KERNEL flags" this function was called only with
-GPF_KERNEL but now that's not the case. I think you can move
-introduction of can_resched flag into this patch.
+> tools/sched_ext: scx_userland: Check dispatch buffer slots before inserting
 
-> +               kmsan_leave_runtime();
->                 err =3D mapped;
->                 goto ret;
->         }
-> --
-> 2.25.1
+TL;DR: Commit message only: the sentence explaining when the dispatch buffer
+overflows is garbled (two sentences run together, stray indent); the review
+asks for a rewrite. No code issues raised.
+
+> tools/sched_ext: scx_userland: Check dispatch buffer slots before inserting
 >
+> userland_dispatch() pops up to MAX_ENQUEUED_TASKS pids from the
+> dispatched map and inserts each task into the global DSQ without
+> consulting scx_bpf_dispatch_nr_slots(). The kernel's dispatch buffer
+> holds 32 slots against MAX_ENQUEUED_TASKS (4096), so a single
+>    full dispatch round overflows it long before that many tasks
+> pile up between dispatch rounds the insert past the buffer limit aborts
+> the whole scheduler. Every other tools scheduler that loops on
+> scx_bpf_dsq_insert() (scx_central, scx_qmap) checks the remaining slot
+> count; scx_userland is the odd one out.
+>
+> Break out when the buffer is exhausted and leave the remaining tasks
+> queued for the next dispatch round.
+>
+> Fixes: cc4448d0856d ("tools/sched_ext: add scx_userland scheduler")
+> Signed-off-by: Tao Cui <cuitao@kylinos.cn>
+
+This isn't a bug, but the sentence explaining when the overflow happens
+looks garbled.  It reads as two sentences run together:
+
+  "so a single
+     full dispatch round overflows it long before that many tasks
+  pile up between dispatch rounds the insert past the buffer limit aborts
+  the whole scheduler."
+
+The second line also has a stray three-space indent.
+
+From the code, userland_dispatch() pops pids from the dispatched queue and
+calls scx_bpf_dsq_insert() for each one.  Each insert from ops.dispatch()
+goes through scx_dsq_insert_commit(), which calls
+scx_error(sch, "dispatch buffer overflow") once
+dspc->cursor >= sch->dsp_max_batch.  Since scx_userland does not set
+ops.dispatch_max_batch, dsp_max_batch is SCX_DSP_DFL_MAX_BATCH (32).
+
+So the scheduler aborts once more than 32 pids (31 if
+dispatch_user_scheduler() also inserted the usersched task in the same
+call) have built up in the dispatched queue between two ops.dispatch()
+calls.
+
+Could the sentence be rewritten to say that directly?
+
+
+---
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/43092548483
+--===============2866188785818237921==--
