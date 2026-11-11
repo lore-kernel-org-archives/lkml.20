@@ -1,62 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.136
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.113
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794396268;
-	b=LAnTKgYbUhC2B7qnV1WmAUCalmVdqaLyOThwmIKq+otKkVca8XIYUV0uWCKEkDKz/+rR
-	 nY4Olqd5bwBgUTzbq77oMbd867F+1JRvFd9y7QW0hSvxXQDG3FDopUCXG0nBcHUzx3ZeO
-	 xooFppfuOMSptjZcqBVvdEdy9xqq7XVhPmfbJI3UYYzATxXH7m+UlLVJXJCD1VqhNXJ3G
-	 TTw5RQiV9lvLTQQ0ybLOBo1BizNAV0GglYRjPICYMhTK3VyIArf3rQOi51fh7Ij9Vq06r
-	 IwcZkBoUTshXjsnhOM6bEfu62JZ40T+iPxK8tvXz3rNGo+vl7enycAU6toqMFnQXH3A==
+	t=1794396298;
+	b=Dfx/mjMXIdl8wZ93DP8c0EXdK1qg/HiirozMt4U6igrC2PoZJ3NT28u96khM3XPpkCxt
+	 k6tJDITnHr7plFTGNF6ZSo/pdbQvNxXCZgzOcb6y07/2uQMB3izUQihbLyNLWn4TCvLXN
+	 EXO160VUUZ7rfd1Zwr1ouPQwkw06jGsuvzofTYclRUdjfTePhHm98qPMaUqdmLkM0kIV0
+	 BWHmyYRjGOAXeo3qoM269gLetWehbeFgWX2bs3Z2K1kLwuF12+dehtp/4MqllT0UHvZ15
+	 ZFTbewcxZzE2INk+pANc2oCpnIt9GCobk4MHXdRkOP5Eo1kfjxLThHVJ8BISfFbUotg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794396268;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=lLJ+RytG/Z6fAA7i4XLswM02XTXV1PXuYSsk4iRByVs=;
-	b=0JUpKzcC9+8PyWkD08OQD8SXEx4x4hRichv3dqRjak21Xrn3a5RFVEhIm6//D7yYmiK7
-	 x1lS4XTL2ufmBEwjCt66jzqWTdVeLXhWl2Mg2TgEiQbguO5mMy7t7+r45HDkKCAb7Mu1v
-	 FtR8vcIEGZ07aB+9a9z/R6JuzRxDF2jAN78rr7HgpRgbQYY9Lzpk8wcLPzt4wjFvGivGq
-	 xczZPxzybHfWdo23K+NuPcwztebNwcR/5qI3UybnhsE1/X/j65Q/4DBFwneM74aq6U5zr
-	 Axo+1lnwB5u2c+EAZmLZ1H0j2aCaJX+xD2hnE0Gl7iV30j3sQ0dFDXiyro78QKhqxYA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794396298;
+	h=DMARC-Filter:DKIM-Signature:Content-Type:References:Date:Message-Id:
+	 Mime-Version:Content-Transfer-Encoding:In-Reply-To:User-Agent:From:
+	 X-Lms-Return-Path:X-Original-From:To:Subject:Cc;
+	bh=NVdfdUf+zfYeCBjYOT/U/HtbAWZ/RAxAIgf7+f5fEIo=;
+	b=r5mOlZpsHWwWOG4Ew2g+TDnCQiffe6gui+WhbrZqvp3b/CeUEFMI34Oz/xkL6lztdVZ/
+	 lgfkLvoY+62/VrpEEUigtsJAlw1fA528HbiwO3Xi/nooxy+p7kWJfnjowYHEQUSX7oV1U
+	 H+a9pk/4nTjyQx7eAnRoZGcsp8KlZ5wd2V0N7eVr85/I20PQYSW4bwrBAvj2O7LEF6Y7j
+	 v2jLQK4hO4sBq19mA+YR43MwvQoYjXPwT3GNkAP7EvAS2xjEpxp/aQa1wCWctHYo3/FGt
+	 ggRWg7oywoGdlVKhRft5UigLkHtESEMBeb7p/vjVgOpH/RpbO6jebaNmZIcrMJbj0SA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=jNtiwYWs;
-	arc=none smtp.remote-ip=91.218.175.136
-Received: from mta0.migadu.com (out-136.mta0.migadu.com [91.218.175.136])
+	dmarc=pass header.from=bytedance.com;
+	spf=pass smtp.mailfrom=bytedance.com;
+	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=bl5uhVOo;
+	arc=none smtp.remote-ip=209.127.230.113
+Received: from va-1-113.ptr.blmpb.com (va-1-113.ptr.blmpb.com [209.127.230.113])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9056B606A32D
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 11:24:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9056B606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E67F606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 11:24:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2E67F606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=jNtiwYWs
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=LTkmc0WCsHinhYMS/2OI3bvHrpQrAYvGB39j0bNDVNM=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794396265; v=1; x=1795001065;
- b=jNtiwYWs/MIF5oqXRx4jGHNDHZKSqgrggph60M5Z2dZo3PhWleE0Hx+f0Qcm55PU4A7jRTE9
- br0dVCw0Lt2oEST3xaIzrCcpX4lSjYvk01LBt/AFrs3PiUm+q+lamF7YFGgxjoKiGC1bSNAyFC0
- lZ0JVP54XSig5Cdgd1fl2w2U=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 3b3de8bac2ce609d;
-	Wed, 11 Nov 2026 11:24:25 +0000
-X-Mizu-Trace-ID: 3b3de8bac2ce609d
-X-Migadu-Flow: FLOW_OUT
-Received: by mail-lf1-f49.google.com with SMTP id 2adb3069b0e04-5c14bc5a743so4215e87.0
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 03:24:21 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErFcSv2MQVmbwb691UzZ7HNMpdXurP2zN8wn2WlQnk8Qg5uTdGNsuXYzF0EKaiNCc7LUrCIdi5k/o2d66bY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8KPwZIQ7i/DmbdqtKPTPuRdCzlKjJypA/KmI97zNdz5amiC/VR
-	dPNTH8EjgitGsy4hURKVpiE+lu72xsO1kDU2Mikyz1NDQ8M5mxon83qssFFx1nuSWlaV9svEtHm
-	6JH1xveRFysbpK1ZPtUcj9NePs5lDrZ/Vr7Nphpgl
-X-Received: by 2002:a05:6512:3e0d:b0:5bf:d226:862e with SMTP id
- 2adb3069b0e04-5c15d37f11cmr144047e87.2.1794396260539; Wed, 11 Nov 2026
- 03:24:20 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=bl5uhVOo
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1794396292; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=NVdfdUf+zfYeCBjYOT/U/HtbAWZ/RAxAIgf7+f5fEIo=;
+ b=bl5uhVOoos64AzgvqPNRcE9nkGzyKPkB4Nw1A4ZqYOZqn51XaCTYG7WTe5kLq7AjiwwF92
+ 5dVkUuNX3xkPeox4hUzpdLhtLW3up+r7Vd9FaVCz6ilmVPWbxOTkInR3PCdjlz61qYYXeK
+ 4e3kHtL96iL2vxTaOpLuTAKJp7PQI+r8MUvB3gZk3zXlYXdIJ58Jdszahxk9FSPnhqISml
+ /5powAz86rxub69+6Pp0zDZ/8dP6EdMp0/5EBLV0EopxUMrEqr0b1I3eyZWNnRYK/IpMLR
+ mYed++T0ymgb94exuxERGkCWt09kODXsn7a0IvPizy+Bk3TsOBAaic7gqqY3ow==
+Content-Type: text/plain; charset=UTF-8
+References: <20261110114859.76343-1-lizhe.67@bytedance.com> <avQjbt-QUp-W3_9v@kernel.org>
+Date: Wed, 11 Nov 2026 19:24:33 +0800
+Message-Id: <016ed325-2b5c-4170-b545-47b766d7f8e8@bytedance.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,76 +55,97 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <20261111082746.1064567-1-fuad.tabba@linux.dev> <86mrrf1ux8.wl-maz@kernel.org>
-In-Reply-To: <86mrrf1ux8.wl-maz@kernel.org>
-From: Fuad Tabba <fuad.tabba@linux.dev>
-Date: Wed, 11 Nov 2026 11:23:44 +0000
-X-Gmail-Original-Message-ID: <CA+EHjTxXf+os+68gTeHb9H0UaCT994+w6aCrnUXaFYkm0Eo3Cw@mail.gmail.com>
-X-Gm-Features: AclHuK_tB5ygP1htfYcTK39qsoECE8_zGN_xazx4QuE8eQkwLTDZ6N_3PXY9CxQ
-Message-ID: <CA+EHjTxXf+os+68gTeHb9H0UaCT994+w6aCrnUXaFYkm0Eo3Cw@mail.gmail.com>
-Subject: Re: [PATCH] KVM: arm64: Sync SCTLR_EL1 before a pVM's CPU_ON reads
- its endianness
-To: Marc Zyngier <maz@kernel.org>
-Cc: Oliver Upton <oupton@kernel.org>, kvmarm@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	Joey Gouly <joey.gouly@arm.com>, Steffen Eiden <seiden@linux.ibm.com>, 
-	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, Vincent Donnefort <vdonnefort@google.com>
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
+In-Reply-To: <avQjbt-QUp-W3_9v@kernel.org>
+User-Agent: Mozilla Thunderbird
+From: "Li Zhe" <lizhe.67@bytedance.com>
+X-Lms-Return-Path: <lba+26af45082+77afdc+vger.kernel.org+lizhe.67@bytedance.com>
+X-Original-From: Li Zhe <lizhe.67@bytedance.com>
+To: "Mike Rapoport" <rppt@kernel.org>, "Muchun Song" <muchun.song@linux.dev>
+Subject: Re: [PATCH v2 0/2] mm: optimize HugeTLB bootmem hugepage init
+Cc: <akpm@linux-foundation.org>, <apopple@nvidia.com>, <balbirs@nvidia.com>, 
+	<david@kernel.org>, <osalvador@suse.de>, <linux-kernel@vger.kernel.org>, 
+	<linux-mm@kvack.org>
 
-On Wed, 11 Nov 2026 at 11:15, Marc Zyngier <maz@kernel.org> wrote:
+On 11/11/26 4:12 PM, Mike Rapoport wrote:
+> Hi,
 >
-> On Wed, 11 Nov 2026 08:27:46 +0000,
-> Fuad Tabba <fuad.tabba@linux.dev> wrote:
-> >
-> > pKVM handles a protected guest's PSCI CPU_ON at EL2 before the guest's
-> > EL1 sysregs are saved, so kvm_vcpu_is_be() reads a stale SCTLR_EL1. A
-> > guest that changes SCTLR_EL1.EE and calls CPU_ON before its next exit
-> > to the host starts the target vCPU with the old endianness.
-> >
-> > Sync SCTLR_EL1 before the read, as inject_sync64() does.
-> >
-> > Fixes: 9d4ec80be2eb4 ("KVM: arm64: Handle PSCI calls for protected VMs at EL2")
-> > Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
-> > ---
-> >
-> > Notes:
-> >     inject_sync64() is the only other reader on a protected guest's exit
-> >     path of a guest-writable EL1 sysreg's copy, and it syncs that register
-> >     first. Saving SCTLR_EL1 before the in-loop exit handlers instead would
-> >     put the save on every protected exit for two readers. A non-protected
-> >     guest's CPU_ON is handled by the host, after the sysregs are saved.
-> >
-> >  arch/arm64/kvm/hyp/nvhe/pkvm.c | 3 +++
-> >  1 file changed, 3 insertions(+)
-> >
-> > diff --git a/arch/arm64/kvm/hyp/nvhe/pkvm.c b/arch/arm64/kvm/hyp/nvhe/pkvm.c
-> > index fc0475f0877d1..e421f45383e0d 100644
-> > --- a/arch/arm64/kvm/hyp/nvhe/pkvm.c
-> > +++ b/arch/arm64/kvm/hyp/nvhe/pkvm.c
-> > @@ -1321,6 +1321,9 @@ static bool pvm_psci_vcpu_on(struct pkvm_hyp_vcpu *hyp_vcpu)
-> >               goto error;
-> >       }
-> >
-> > +     /* Sync SCTLR_EL1 for kvm_vcpu_is_be(), as HVCs are handled before sysregs are resync'ed. */
-> > +     __vcpu_assign_sys_reg(&hyp_vcpu->vcpu, SCTLR_EL1, read_sysreg_el1(SYS_SCTLR));
-> > +
-> >       reset_state = &target->vcpu.arch.reset_state;
-> >       WRITE_ONCE(reset_state->pc, smccc_get_arg2(&hyp_vcpu->vcpu));
-> >       WRITE_ONCE(reset_state->r0, smccc_get_arg3(&hyp_vcpu->vcpu));
-> >
->
-> I think it'd make more sense to have a global primitive that pKVM
-> calls to synchronise whatever affects the control flow of a vcpu (yes,
-> control flow for PSCI_ON is a bit abusive, but hey...). It's a bit
-> more invasive, but at least we have a single spot to deal with this
-> stuff, and it doesn't affect the hot path.
->
-> Something like the hack below.
+> On Tue, Nov 10, 2026 at 07:48:57PM +0800, Li Zhe wrote:
+>> This series speeds up the fallback initialization path for HugeTLB tail
+>> struct pages during boot-time hugepage allocation, when HugeTLB vmemmap
+>> optimization (HVO) is unavailable or fails.
+>>
+>> Patch 1 factors the existing ZONE_DEVICE template-copy operation into
+>> memmap_init_page_from_template().
+>>
+>> Patch 2 reuses that helper in hugetlb_folio_init_tail_vmemmap():
+>> initialize the first tail page normally, copy it into a local template,
+>> then initialize the remaining tail pages by refreshing only PFN-dependent
+>> fields before copying the template.
+>>
+>> In the earlier discussion, Mike asked whether the same kind of
+>> template-based initialization also helps the ordinary struct page
+>> initialization path:
+>>
+>> https://lore.kernel.org/all/akfB6Qe-jKDEMUxz@kernel.org/
+>>
+>> I tested that direction as well, but did not see a measurable benefit
+>> for ordinary struct page initialization. The measurable improvement I
+>> could find is in the HugeTLB bootmem hugepage tail path, where gigantic
+>> pages can require initializing a large number of tail struct pages when
+>> HVO does not cover the allocation.
+>>
+>> Tested on an arm64 QEMU/KVM guest with 4K base pages and 64 boot-time 1G
+>> hugepages. HVO is unavailable on arm64 in v7.4-rc1, so the fallback tail
+>> initialization path is exercised.
+>>
+>> Results averaged over five boots, measured with a temporary
+>> jiffies-based printk:
+>>
+>>    base (v7.4-rc1):  318.4 ms
+>>    with this patch:  202.4 ms
+> Are there numbers for x86 without HVO as well?
+> We need to be sure this does not regress that use case.
 
-Yes, better to have it in a single spot. Will respin with that.
 
-Cheers,
-/fuad
+Thanks for the feedback.
+
+I did some additional x86 testing today, but the result was different
+from the similar x86 test I did earlier on linux-7.2-rc1. After
+replacing memcpy_nontemporal() with regular memcpy(), the result looked
+better. I need to re-check the old test code, since I may have mixed up
+which copy primitive was used there.
+
+Muchun, could you please hold off folding this series into your patchset
+until I send v3?
+
+Thanks,
+Zhe
+
+>   
+>> This is a 36.43% reduction in the measured fallback tail initialization
+>> time. The temporary measurement instrumentation is not part of this
+>> series.
+>>
+>> Li Zhe (2):
+>>    mm/mm_init: factor out memmap_init_page_from_template()
+>>    mm/hugetlb: optimize bootmem hugepage tail vmemmap init
+>>
+>>   mm/hugetlb.c | 20 +++++++++++++++-----
+>>   mm/mm_init.c | 34 ++++++++++++++++++++--------------
+>>   mm/mm_init.h |  2 ++
+>>   3 files changed, 37 insertions(+), 19 deletions(-)
+>>
+>> ---
+>> v1: https://lore.kernel.org/all/20261105120615.16817-1-lizhe.67@bytedance.com/#t
+>>
+>> Changes in v2:
+>> - Add a comment for the template-before-copy ordering, as suggested by
+>>    Muchun Song.
+>> - Drop the empty-range guard in hugetlb_folio_init_tail_vmemmap()
+>>    as suggested by Balbir Singh and Mike Rapoport; current callers are
+>>    expected to pass a non-empty range.
+>>
+>> -- 
+>> 2.20.1
