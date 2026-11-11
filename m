@@ -1,61 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.6
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794382114;
-	b=iZZOqgTBLsxd8wylnqxcd5zUl5c+EBFHRMNwv+dkfNW/6lpu3z23DsOgi/z+TXtP6x4a
-	 DD/lX3/yAp50cwWIkuScPpVod/1DdOGcgHhAO0EWaBWcCkvqXu7LSwIMzMl1EtPICTG5Y
-	 Syn3pvJO2XF6OPnHiyzdxo4nwSX4bTPja0G1DKKvolBMCi00lGsHQKL6ErK7nT7K1BzdP
-	 +lQxy1j+bl0qnj5aye6z9rGDbjCARmdQmbUtjMqaj+/8ha8HrSyDt6gNcCPpQruNjNKJ0
-	 N1m+Z/+rtZdHRhb+g/7aawvBcIwSQGYkQyeSQrWz71ONUpGgqc9YH58qS9mAI5/vlCQ==
+	t=1794382116;
+	b=Hf4x3h3BEJvHAJ3xbKi1WBFw/r4c9qZH0+bfqaiLDvYrlZEYSmrLDZ69KHuAo55uY087
+	 elz0//PunLcstJFiDIK2Td+SujcwghMrY6h2PLA5qHIajGMdBxXswJcSMkJvSYvF1nzyR
+	 iuuri7rfXWd3wvJJ/a0cZqqRQMRXwbSy/05j9jBU+ksd4VfgHq5ExOvkDnb2f/ruQ34w0
+	 mPYBScww2L+6M4L1UffCBa6Rj1nHh+2mrx4HkQXBruXA3e4VN514mU8EbbgafJ5XYHeAT
+	 KKP5UpiCwZ5xJrxGc8XYcbUSWi6OXFbWgE+ejpX2H7RZqvFajfcjUc0ctsyZ1f4TdaA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794382114;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:CC:Subject:In-Reply-To:
-	 Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=wM6zMeAKLdvhkIpwxgAO3T4mTUK9pSOuQdsjhKR++rY=;
-	b=AEYK6FOEAqFtwjMHIn8GzO4uM9Q9g7kgJGkIjS1lyhaYPJ5zpKaHiD+y96eBqi+7Ay7Z
-	 9TMt99c16L9//0iUxUHy0AgDqch/OiOj53dQ8YnmDgQKpL5Zxmy27j4ChtstbN1rDd4j2
-	 EcJVbUiMs8tMF4ylzphrkERnzgtUgY7D4AdOJjivGxOV1M6r5ZAVTWNrjFk+a2fNDIY2D
-	 q1gXI1gsF9KgFSCk90fmrVNNtiPRiqhfH/vozWs00mvYNoG0DME0oxzsU05WuBAcsPztj
-	 nyhSAAgsm24fb1uUWhUhUyYTCovoRK3ZeutPQe1SvBaDlejVoC7S954TKeYINggK3gg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794382116;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=fvA4caXYy5BSpxvCaqEJeTCv8onAojVykrQnaCc9pCY=;
+	b=BlZABpF2XLMw62460CSGKcuDWiBAOyv3mot4fInmoBeKTVHf4kb8H1ysuB/OAF3YY+Pz
+	 5D6xe/yC1AOzUdcLHidXmu8vi8IXkyOEcO+TJE8xMJj3hnvqwOUbyxS6mmqZKDF7TBP3x
+	 RUmEa99tjiPhp9uqroQrLekB7j0VojksEHgpebH+ZByBHVfsQ6t4T59kd/ybLnnoyuRY7
+	 VAcAeb10QO8la2ufRl/oic+P8a3W/IFeNR18UoiSlTYhjgsC/qa8VahY8anqV3GwXTyuP
+	 4D2guKM2EgXeNN0RKlZ49dYiI5Gc3vueqeOxDqHwjcXzyYR34wAGamRXxwiVNv30/Og==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=c+CWU2LL;
-	arc=none smtp.remote-ip=91.218.175.51
-Received: from mta0.migadu.com (out-51.mta0.migadu.com [91.218.175.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=126.com;
+	spf=pass smtp.mailfrom=126.com;
+	dkim=pass header.d=126.com header.i=@126.com header.a=rsa-sha256 header.s=s110527 header.b=eRjJGj5E;
+	arc=none smtp.remote-ip=117.135.210.6
+Received: from m16.mail.126.com (m16.mail.126.com [117.135.210.6])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51C1D606A320
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 07:28:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 51C1D606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BC32606A321;
+	Wed, 11 Nov 2026 07:28:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1BC32606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=c+CWU2LL
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=4r9aoLuyZuGjtmYUR9y2nIUFNZJAGpilVsCFbC4LjQk=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794382109; v=1; x=1794986909;
- b=c+CWU2LLpeRf0/eaTmILa8H6V07zgC+rB7oJ85isthyud5xYC2xXpjyKcOSYxY7j6nvpLx9j
- 4TDiZCIAUZ33OC0OIRCnwf3l7vrgUN0vfdEH4vktRWWegpfLpP05CHeQ4xr1+1pZl5M1P1vp4Ee
- gxvjqts5giRWzLo4QV29OUh0=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 8cfec852c9357b27;
-	Wed, 11 Nov 2026 07:28:29 +0000
-X-Mizu-Trace-ID: 8cfec852c9357b27
-X-Migadu-Flow: FLOW_OUT
-Date: Wed, 11 Nov 2026 07:28:26 +0000
-From: Bradley Morgan <bradley.morgan@linux.dev>
-To: ritesh.list@gmail.com
-CC: brads@mainlining.org, chleroy@kernel.org, linux-kernel@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, maddy@linux.ibm.com, mpe@ellerman.id.au,
- npiggin@gmail.com, sshegde@linux.ibm.com
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH=5D_powerpc32/modules=3A_Reser?=
- =?US-ASCII?Q?ve_a_PLT_entry_for_ftrace=5Fregs=5Fcaller?=
-In-Reply-To: <jymk81uu.ritesh.list@gmail.com>
-Message-ID: <80D9FEB3-9FB3-4878-BC66-74C13761CC9A@linux.dev>
+	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.a=rsa-sha256 header.s=s110527 header.b=eRjJGj5E
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=fv
+	A4caXYy5BSpxvCaqEJeTCv8onAojVykrQnaCc9pCY=; b=eRjJGj5EJf9WJSHZLI
+	TMy626n8dvUKL9EFq/cet51zQnlQNo9AogKL0aHCFaTff39jrcwfgmR7bBt6Q0dn
+	J9L9CZHx2/tCLk6FaK67rnWrEZbb4jodk6Qpp//H2wUnhiYdKQLOFt35Xrka3fvm
+	/0sn40CE5nY/UbEp6ErOasGlA=
+Received: from localhost.localdomain (unknown [])
+	by gzsmtp5 (Coremail) with SMTP id QCkvCgD3f__eGPRqKBYdDQ--.2187S2;
+	Wed, 11 Nov 2026 15:27:26 +0800 (CST)
+From: Linkui Xiao <xiaolinkui@126.com>
+To: andrew@lunn.ch,
+	kuba@kernel.org,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	sdf@fomichev.me,
+	jacob.e.keller@intel.com,
+	bjorn@kernel.org,
+	alexanderduyck@fb.com
+Cc: netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Linkui Xiao <xiaolinkui@kylinos.cn>
+Subject: [PATCH net-next] net: ethtool: request rtnl_lock for ETHTOOL_MSG_PORT_GET
+Date: Wed, 11 Nov 2026 15:27:24 +0800
+Message-Id: <20261111072724.3295527-1-xiaolinkui@126.com>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,48 +69,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:QCkvCgD3f__eGPRqKBYdDQ--.2187S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxZr1rKF4fGF4rGFy7tFykGrg_yoW5GF18p3
+	srAFyUCrWUuwn2qFnrXa1rWFyrAanxWw15Ar18tFy3Wr15Xr4xAFW7K3y3W3W5ZrsaqF95
+	ArZ8XrZ5uanFyaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UYiiDUUUUU=
+X-CM-SenderInfo: p0ld0z5lqn3xa6rslhhfrp/xtbBlB4V62r0GN7g3gAA3S
 
-On 11 November 2026 03:48:41 GMT, Ritesh Harjani <ritesh.list@gmail.com>
-wrote:
->Bradley Morgan <brads@mainlining.org> writes:
->
->> Commit 7dfbfb87c243 ("powerpc/ftrace: Activate
->> HAVE_DYNAMIC_FTRACE_WITH_REGS on PPC32") made count_relocs()
->> undercount the PLT entries the loader
->> consumes: module_finalize_ftrace() now creates two trampolines
->> (mod->arch.tramp for ftrace_caller() and mod->arch.tramp_regs for
->> ftrace_regs_caller()), while count_relocs() reserves only one entry
->> for ftrace.
->>
->> So the core .plt ends up one ppc_plt_entry (16 bytes) short. The
->> walk in do_plt_call() scans for a free slot with
->> "while (entry->jump[0])" and has no bound check, so once the last
->> reserved slot is used up, the walk steps past the end of the section
->> and patch_instruction() writes the 4-instruction trampoline into
->> whatever module memory follows the .plt.
->>
->> Count the second entry, mirroring what module_64.c does for the same
->> pair of stubs.
->>
->> Signed-off-by: Bradley Morgan <brads@mainlining.org>
->> ---
->>  arch/powerpc/kernel/module_32.c | 3 +++
->>  1 file changed, 3 insertions(+)
->>
->
->Do we also need fixes and stable tag here?
->
->Fixes: 7dfbfb87c243 ("powerpc/ftrace: Activate HAVE_DYNAMIC_FTRACE_WITH_REGS on PPC32")
->Cc: stable@vger.kernel.org
+From: Linkui Xiao <xiaolinkui@kylinos.cn>
 
-Hmm.. could the merger add that? If anyone merges.. :(
+port_prepare_data() resolves the requested port through
+phy_link_topo_get_port(), which requires rtnl_lock to be held before it
+reads topo->ports:
 
->
->
->-ritesh
->
+	/* ports in the topo are RTNL protected, but may be accessed under
+	 * netdev_lock for ops-locked devices. For now keep them under rtnl
+	 * protection, as no ops-locked devices have phy_port capabilities
+	 * yet.
+	 */
+	ASSERT_RTNL();
 
---- Thanks!
+The dump side honours this, port_dump_one_dev() takes rtnl_lock()
+itself. The doit side does not. ETHTOOL_MSG_PORT_GET is served by
+ethnl_default_doit(), which keeps rtnl_lock only when the device is not
+ops-locked, or when ethtool_nl_msg_needs_rtnl() asks for it:
+
+	need_rtnl = !netdev_need_ops_lock(req_info->dev) ||
+		    ethtool_nl_msg_needs_rtnl(req_info->dev, cmd);
+
+ethtool_nl_msg_needs_rtnl() has no case for ETHTOOL_MSG_PORT_GET and
+falls through to "return false", so on a device that opts into the
+instance lock (request_ops_lock, queue_mgmt_ops or net_shaper_ops)
+PORT_GET runs with netdev_lock only. Such a device that does have a
+link topology trips the ASSERT_RTNL() warning and reads topo->ports
+without the protection the xarray is documented to need.
+
+Add the missing case. Like TSCONFIG_GET/SET, PORT_GET has no
+corresponding ethtool ioctl, so it is Netlink-only and always needs
+rtnl_lock.
+
+The bug is latent as no device opts into the instance lock while also
+carrying a link topology, so it cannot be observed yet and the change is
+compile-tested only.
+
+This was found during an audit of net/ethtool/ performed with the help
+of an AI coding assistant (Codex), which also proposed the analysis and
+the fix. I verified the Fixes commit and the callers of
+ethtool_nl_msg_needs_rtnl().
+
+Fixes: 27859d18bf41 ("net: ethtool: Introduce ethtool command to list ports")
+Signed-off-by: Linkui Xiao <xiaolinkui@kylinos.cn>
+---
+ net/ethtool/common.h | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/net/ethtool/common.h b/net/ethtool/common.h
+index b062e99e89db..372304722ecc 100644
+--- a/net/ethtool/common.h
++++ b/net/ethtool/common.h
+@@ -124,6 +124,14 @@ ethtool_nl_msg_needs_rtnl(const struct net_device *dev, u8 cmd)
+ 		 * these cases are Netlink-only.
+ 		 */
+ 		return true;
++	case ETHTOOL_MSG_PORT_GET:
++		/*
++		 * port_prepare_data() resolves the port through
++		 * phy_link_topo_get_port(), which asserts rtnl_lock before
++		 * reading topo->ports. There is no corresponding ethtool
++		 * ioctl, so this case is Netlink-only.
++		 */
++		return true;
+ 	}
+ 	return false;
+ }
+-- 
+2.25.1
+
