@@ -1,103 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.13.214.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794399633;
-	b=Gpc9wNb5WXm3RDM0ek3omuKItGll4zqzoT2cJysgZdGU77XbFUX0V0+Nh0wEYKsJyAMW
-	 R/KgAPU9danivlXREMa3AQvbz+hAPBMvPBHCYFjgbwLI9kTEzY1C7aPZTy2YuF4qw/4Gg
-	 iGAzxEmJyrPoWUKIYEyTe7C5f60rgLdKSUzEF1fXuBog480gk6iRRqSM0sfB3THy3wUyH
-	 WcZhZn4QjpN+x9y7i5Ul8M6myayA0yMOBFDR/66/SkXFCwkEiJeCOVRe6AbGAx2tVre4W
-	 iyK9nSOoPKZskPBX3rHU3Ha/x+8o5uFmXD37u2smZGyvEJ+tndPkZnKnx38Dt+Q2V7w==
+	t=1794399652;
+	b=Tbv1K9q8umfq/pDKCpQ+ZOD0X9Qzx2SmRUcCJd/Ng3bncOq3/y/gSav7eOXsRLvCr6dO
+	 TivOWsTyB/vTUn1FCSMXjYYIqvicD9ybqBic6DbJECjs59wyKL5/87LfDhJflDdFFiQBq
+	 38Pfqoab7xPXw2A8YxNQcCCYLHnrCyk53jCT99HRrUPkvBM8EA1RXZ785gEnr0lDBMT5S
+	 vFDVJZzSO1P8Z8RS1x/djrcIg4fMFol5lIYgKCmzQO0SbSxTiojLbRvStEXsYPbCKVgDN
+	 SBL3QZxnJyesFCeJSxDkD/EHdcaR94NVpujiU8Ss1QhzBkY6YTTNBx9afTNI8vA4qtg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794399633;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=cBBBVEGbUigmAVKraBU8HoXde7I7HCP/fQU5YOmGir8=;
-	b=RJ/s3ZKUTVKAq1SFTRyzzVgxk06Z7TFTaCcNb7j4VLGyzA6C7CMiSlCiVirAGAOlSvBa
-	 QyxFRhdMBBj5jlKRqTKc4v8gN0wr641WLjiQnQydz1K6ZtsZ1yTQaIdFvqcE3IzkiN14y
-	 2cRlDUuOWnmDSwLbvHEIrDeOF0N8v0WEe6iE0mcN9AK5VNFsoyGOXGPxTZMk/Hlu00m4J
-	 WdU9Rs1xuinSjZxOFfd0rr0JvVJHWJV+u3gWhRyZhZvVL6rECmp8CsDJh67QeJmhQadrP
-	 mZ0Wa6dGllOwRQGWmUE1hTP1R/rFeEYjnvyw4AvoznqwkERselkdD/NwkDCHYdU4SFA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794399652;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
+	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:X-Originating-IP:X-ClientProxiedBy:
+	 Content-Transfer-Encoding;
+	bh=4R7AlVu0KKxyJKqIxy2nyuf2wvMo6Z36suAc2KUbM/g=;
+	b=q3Inuntwt7k7Z4dGH2TfaeqC9kc/emPA84t7QsjzIQBqWwp+tAyyPEUwjaYO+2abgShY
+	 onVWqfGHlxcM6ydwbcEtJhPNzuTt3iCtpfIqodQsAq6q+53AP8t70iBWGAItYeNfD3dfz
+	 fU0sFs7tpr72HemwjHCiu+GoQyB8ArvBZ5+MGKwSgu89oJWY1w62yGKD4wPYvPCPlOFdP
+	 vYS/0poBkkcubU4qEJKCPAecHZ7D8Utt5Yr4MrIy9fRkvxGyIajYC4yD5Dd/fHTlbLat9
+	 H2yaOCwE6SrGuyeqx7Y/nrIRUauqY+eMl++pnyAOQX3nEC2WMvPixaLSJ6vqMOBnFYw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bBnKSdIe;
-	arc=none smtp.remote-ip=209.85.128.180
-Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com [209.85.128.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=amazon.com;
+	spf=pass smtp.mailfrom=amazon.com;
+	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=r5IsAGa+;
+	arc=none smtp.remote-ip=52.13.214.179
+Received: from pdx-out-005.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-005.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.13.214.179])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E3E8606A336
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 12:20:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9E3E8606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8494606A326;
+	Wed, 11 Nov 2026 12:20:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8494606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bBnKSdIe
-Received: by mail-yw1-f180.google.com with SMTP id 00721157ae682-8b3b31a6290so1943187b3.2
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 04:20:28 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=r5IsAGa+
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794399627; x=1795004427; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=cBBBVEGbUigmAVKraBU8HoXde7I7HCP/fQU5YOmGir8=;
-        b=bBnKSdIenrrIOZGpvznYF3HyWtY3D/ihG7DGFbh49iO3oUIOt6jhmKq0EgxOksIrF3
-         fzNHrVKt9VZXZf4f6qlEtiCyWhmMdNdNrG0388SeHDBIpe9MlwucfPziPB05eZVz09xs
-         HmDUnxL9TDO2Fu0KkUjNek+ahuwF+owaTGjJGqXScglXkW9LZLei28vXLg53QAwq6SaJ
-         bD0HXIYVfh2+jDCSkzqm5Hz5sDy1hffDDFGhPe7lu1SYj9O+ZsLOj41CRYzEYQvgC2Lm
-         hutjfQOYOies+duvioCraOK37KQel6g1rXUtff2z8Wc9I9qbmGhmwEHW18ww8EI1WpqP
-         Aomw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794399627; x=1795004427;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=cBBBVEGbUigmAVKraBU8HoXde7I7HCP/fQU5YOmGir8=;
-        b=nQkeK8AVAncYHj8Iu80qoxulZBKVS+t45hMIjERPX4nm2fYXh4krOihgiGVtBhf5EQ
-         piR3CkX98aBIvh7L4/JJ7nOVCiYzvV0qYZKX8RJNR4kpN6YNAN47KzpJNpcAjxYvFMW8
-         ZmaPfy+1lJMm9U2HcpwaHlKxbtJ1yp0SisILISwX/onymfNJJsMIHZXDdBb7NYmvg1yN
-         OgccD9Yyyi4qykN7tX3MM9Ppc6m8lOojP/lxfr06jfJlgri5ENRjZ2b/0CY0SxyP7CRY
-         UhNOCsPPMAPzfE9qdaSbPi5kLm2DF1VrM7MB92suzcDl/L+VI/tMMH6vvU6NK01zz1Qh
-         I6Rg==
-X-Forwarded-Encrypted: i=1; AL+hErEGdCoJ4erhOgDnIUBfvOQEhjJn50czNWKKz6ayWvUBa1NfCpWZwse3kw1z4VtJ6DLw3OLODkzUGzM0WbY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/Acd6Mh7f3uV84AFLs8XoQGqxUhJKgzeH2Vstagjf2kRkgDr1i
-	X6JZOT6SnMoVo62ahhHMoyzUS72EFyk28TBxLdsQh9IGsrePQGzp7oeL
-X-Gm-Gg: AYBFou3Wd076K+IaE5QjCitIL/7vScICJlGv0wUGPTvgWwkop7wXlpldsYN+pHGVnLv
-	eBC0II3O/YMVLv7BNMjBMqke1jBzNgAWRnZnWp2HR+2vvVW8n2h/cfGDZ+Hj6fA/wXelmckwqft
-	czj2Q9eL0ILNL/2gQd9nhLwedhXI3tOdxJQdkRlYImUzv5skGNgAxRSaf1jJPFPonnSCtNahZ4I
-	CaW+1VTTjjzYFv1OhNnXw/cXLVP5oEKB08DL8Tj43TxEAVCh9eEXQQKRC0Wkp8WYu4oVOzOkgYT
-	/1+zg/LFdB3e00TAeA4XL/1uo5wjIVidcDH7Lhg7C+/3aZdX0CfsGLgVquCgI+zzMcZzJL7Zq84
-	VGXWie7ICtJHArv16w1A5T01y5n8DDS5Yw2lOvzJMb13n6PbMF9v5CfGbApyy4Nvkavw793Zdnr
-	Jy7tebS6uXqyG+gUwTxXc7ry47WJHl4aOBdbyga1oPkkoP5YbsXJHWgUFPKHs1hgiFR608ZeMGt
-	3ngaY/alS5+4J11n+mXenM8QVRJlLydFRHSqMALNEUMhd9NnFUkS4xgHYqe1nMsSvi1lktf0eks
-	ZRsk1T5/CPgPrM03+AvEKpfzRubsi8yI89//QztjvjJxMC6o/UlS2Kn8E2PFDK0Sqijn/zrLKIt
-	iwCyLbq0VsIR2kaZhyBmsf6au6Zqt1YWUhKJUWDX+QsKNVFSzE0uNYE6npfxSJmN/pr88YBj4wX
-	03CLs1D/qXd2j/el/2xrfU
-X-Received: by 2002:a05:690c:a849:20b0:8b3:344a:4f44 with SMTP id 00721157ae682-8b3a817a55cmr9874957b3.62.1794399627423;
-        Wed, 11 Nov 2026 04:20:27 -0800 (PST)
-Received: from MaquinaLab.. (189.27.147.77.dynamic.adsl.gvt.net.br. [189.27.147.77])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b3933a165csm42716417b3.14.2026.11.11.04.20.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 04:20:26 -0800 (PST)
-From: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
-To: Enzo Adriano <enzo.adriano.code@gmail.com>
-Cc: linusw@kernel.org,
-	wens@kernel.org,
-	jernej.skrabec@gmail.com,
-	samuel@sholland.org,
-	Andre Przywara <andre.przywara@arm.com>,
-	linux-gpio@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-sunxi@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] pinctrl: sunxi: use automatic voltage detection on A733
-Date: Wed, 11 Nov 2026 09:20:12 -0300
-Message-ID: <20261111122013.35133-1-vinicius.eduardo.pedrosa@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261109-a733-pinctrl-v3@gmail.com>
-References: <20261109-a733-pinctrl-v3@gmail.com>
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+  t=1794399651; x=1825935651;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=4R7AlVu0KKxyJKqIxy2nyuf2wvMo6Z36suAc2KUbM/g=;
+  b=r5IsAGa+AGEj//078IM2laq01cLcB/G7fvGe7S1X3hDe8/lP/IsuZsj6
+   b+885D4XZEJ84m2ETjvZsW5ApxqLnPi4DHGdZFenfPQV581sJKx4QgXxg
+   k0YKt7qfEqqnljNdAVFlQMCXg7FE5didyiWsGPOiiEAJ6QWhKwgCZpn5T
+   GafPiJN6nj+81qrraLsj3KaGATZnI57WCCd+EBUUyuufgG042c0vyjGJh
+   m8RCwSBelzQ/vO/UE/SuWRZAKA+Kw26xug13KjhGe+As5h185k2yA5Cdp
+   Zdiknm4LzAVpSCsTLQanjvfwXNtsZI3NcYB419qdT+wd34lpNgUm0AVlO
+   A==;
+X-CSE-ConnectionGUID: vOcIWaQ9TryzBkvjITWbGQ==
+X-CSE-MsgGUID: CEa1KDJARp6SlAGeMjns2g==
+X-IronPort-AV: E=Sophos;i="6.27,207,1787011200"; 
+   d="scan'208";a="33687110"
+Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
+  by internal-pdx-out-005.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 12:20:49 +0000
+Received: from EX19MTAUWA001.ant.amazon.com [205.251.233.236:2064]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.50.212:2525] with esmtp (Farcaster)
+ id 2b19eaad-eae1-4b65-b738-4396258f975f; Wed, 11 Nov 2026 12:20:49 +0000 (UTC)
+X-Farcaster-Flow-ID: 2b19eaad-eae1-4b65-b738-4396258f975f
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWA001.ant.amazon.com (10.250.64.204) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
+ Wed, 11 Nov 2026 12:20:48 +0000
+Received: from dev-dsk-sieberf-metal-1a-7543e84d.eu-west-1.amazon.com
+ (172.19.116.227) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56; Wed, 11 Nov 2026
+ 12:20:44 +0000
+From: Fernand Sieber <sieberf@amazon.com>
+To: <tj@kernel.org>
+CC: <mingo@redhat.com>, <peterz@infradead.org>, <juri.lelli@redhat.com>,
+	<vincent.guittot@linaro.org>, <bsegall@google.com>,
+	<dietmar.eggemann@arm.com>, <rostedt@goodmis.org>, <mgorman@suse.de>,
+	<vschneid@redhat.com>, <kprateek.nayak@amd.com>, <hannes@cmpxchg.org>,
+	<mkoutny@suse.com>, <void@manifault.com>, <arighi@nvidia.com>,
+	<changwoo@igalia.com>, <skhan@linuxfoundation.org>, <corbet@lwn.net>,
+	<rdunlap@infradead.org>, <cgroups@vger.kernel.org>,
+	<sched-ext@lists.linux.dev>, <linux-doc@vger.kernel.org>,
+	<linux-kselftest@vger.kernel.org>, <bpf@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <nh-open-source@amazon.com>,
+	<hborghor@amazon.de>, <fmubeen@amazon.de>, <dwmw@amazon.co.uk>,
+	<karataev@amazon.com>, <sieberf@amazon.com>
+Subject: Re: [PATCH v2 0/4] sched/fair: cpu.max.runtime and idle refill for CPU credits
+Date: Wed, 11 Nov 2026 14:20:39 +0200
+Message-ID: <20261111122039.47687-1-sieberf@amazon.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <3bdd435fd868ed7ca7ea9061e5966b7b@kernel.org>
+References: <3bdd435fd868ed7ca7ea9061e5966b7b@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,16 +95,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
+X-ClientProxiedBy: EX19D031UWA001.ant.amazon.com (10.13.139.88) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
+Content-Transfer-Encoding: 7bit
 
-On 11/9/26 21:11, Enzo Adriano wrote:
-> Add BIAS_VOLTAGE_PIO_POW_AUTO to select auto (01) in every field of
-> POW_MOD_SEL at controller init and skip per-pin voltage setup.
+Hi Tejun,
 
-Tested-by: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com> # Radxa Cubie A7Z
+Thank you for your prompt feedback.
 
-Tested with the posted prerequisites and my local board DT. POW_MOD_SEL
-reads back 0x05555555 on the main PIO and 0x00055555 on R-PIO, and
-UART0, MMC0 at 3.3 V, R-I2C0/PMIC and GPIO interrupts on eight main PIO
-banks worked.
+On Tue, 10 Nov 2026 10:10:41 -1000, Tejun Heo wrote:
+> If a burstable budget is something useful to add to fair, can you do
+> that first and separately? It should be able to stand on its own.
+
+That works for me as a starting point. I will resend just patches 1
+and 2 as v3.
+
+> Seamlessly switching tasks between the classes in partial mode has a lot
+> of other integration problems beyond this one
+> [...]
+> The sched_ext part can just be a feature of your own BPF scheduler,
+> which you seem to be using already. There, the credit level is just
+> state in your BPF maps which your userspace can read and set, so the
+> maximalist version can wait until the need is proven. If you want a
+> handover between your scheduler and fair, that can be done from
+> userspace.
+
+The minimal viable bar for us is to never lose track of CPU credits.
+With patches 1 and 2, the userspace handover you suggest covers the
+planned transitions: on roll out and roll back, userspace reads
+cpu.max.runtime before the switch and writes it back after. The one
+case it cannot cover is an unplanned exit, a BPF scheduler erroring out
+or killed by the watchdog and falling back to fair, where there is no
+window for userspace to hand the level back.
+
+Thanks,
+Fernand
+
+
+
+Amazon Development Centre (South Africa) (Proprietary) Limited
+29 Gogosoa Street, Observatory, Cape Town, Western Cape, 7925, South Africa
+Registration Number: 2004 / 034463 / 07
+
