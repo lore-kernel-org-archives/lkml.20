@@ -1,94 +1,187 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.226
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794374474;
-	b=edUzCstQRmzQHlcXHzuiD6K6wv3Li/40uanDxvjKp5QP29lvm/ksL8rTiuDsMmpZDWw4
-	 jxB9bPAxuril9W/At0wbEJlTZOflPdT/kV4HVCtUvUUq6XT6NVLxVN2jTyHpZhTeQzQ6C
-	 2/GOF4GoqiFxeOQ1qVYcI7KDvrl+BgaNsUzh2IMrCg+kqhTfWv8S/8yU6kUoHtD5B4sp5
-	 mV9MkibEX+cXmV9hnkTar1f0S6CojYik6AS0oC89XNfqPgk2BXUFOrxZ/0uSFOyNEk5wC
-	 tYFK2A9fj5woeSZfa3pXqZP/oTtuYlegJu/3ZESI9MhOvsY5AADNV55biP6qj7wGPvw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794374474;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
-	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Received:X-Received:MIME-Version:References:In-Reply-To:From:Date:
-	 X-Gm-Features:Message-ID:Subject:To:Cc:X-DetectorID-Processed:
-	 Content-Type;
-	bh=MTBtxrM7n4p3Ub82CkQlRDSMG5+E5wJ0wH/ucqq5mAg=;
-	b=K7nCJXU87gKuZX7YWocjgZ5E3gDqDOTFOSRrvfyZAvPYxlrRrV4sNWLZQR3slHBgJFBY
-	 H/4rLJ4GEl9WlwfroGELJ7EbuoJWkZqc/F6txIxDu8bcsL6lLAv2XE6eKLQiZyj2IUP5T
-	 FXBi0fXfw01aP0rsno1o9ypIDgxqXC1Zoyq05fbCelD+DajJ3AOtFFAzQFURf/93R85bW
-	 q5PT8Pqyf6pDEfnqjxnUcRCH5a//ul4gFFzMPTdxGQbTTQ7lZk7KkO9Nch1+24uTKxkPs
-	 Wtb91MGsZ2SBQvrw0N/TDqmjWzzMBFsUsUpI/VULOgOoctY42oKqcRxitc2dylNap7Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=broadcom.com;
-	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b="XFQ6/mGJ";
-	arc=none smtp.remote-ip=209.85.215.226
-Received: from mail-pg1-f226.google.com (mail-pg1-f226.google.com [209.85.215.226])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=192.72.220.5
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794374810;
+	b=yeBkd68Fq6R6f+9UkgQEJhrFzaulk1PHVkqA5USaLbJPJird+NGqT5JZnv+FR6M2+3ck
+	 UNI2mgZyTDrRcLEaIIQPxIBoh/fhA7SJii5NYcJhla8rHdcfsk3Apir7mgyNgxYKos4/a
+	 vpJZ5pc5+JZURTL/NsgDAUhN6dh5Rf2s8Jo+wTaLByHfIK52mhJvlw1Jg54fxZRxeoPoU
+	 vwo/vrNEylBHEfZF2B6QsoY3uxhdhoglQkWI1COngxDAhMG1SfcnvO82BDqBz9GQVvPN4
+	 qvIwQHRdATwSQkTdP0XlyPOyn5qSRlEpkC7SKZtzTqHM4w1uCDwUBZaERsQ2oefZMNg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794374810;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:Received:Received:Received:DKIM-Signature:Received:
+	 Received:From:To:CC:Subject:Thread-Topic:Thread-Index:Date:Message-ID:
+	 References:In-Reply-To:Accept-Language:Content-Language:
+	 X-MS-Has-Attach:X-MS-TNEF-Correlator:x-dg-rorf:x-ms-publictraffictype:
+	 x-ms-traffictypediagnostic:x-ms-office365-filtering-correlation-id:
+	 x-ld-processed:x-ms-exchange-senderadcheck:
+	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
+	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
+	 x-ms-exchange-antispam-messagedata-chunkcount:
+	 x-ms-exchange-antispam-messagedata-0:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:
+	 X-Exchange-RoutingPolicyChecked:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-originalarrivaltime:
+	 X-MS-Exchange-CrossTenant-fromentityheader:
+	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
+	 X-MS-Exchange-CrossTenant-userprincipalname:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
+	bh=NtqTjW08yOLcInLPVki49Dn37kM1KUOIPmP81ZBmiGA=;
+	b=hY5URPtXFZYvXk0p1WqPoo3n0n0muQZmr1SBm/8DHWZV6rcxwjAm0Ml5HIO08ZIuM03B
+	 eODYPJ77BcdKDkOSm6/T/sK/+Q6RV7gicbuonbHTMj/aL1GWJvlQYzkuUeFS/AhnX9Mps
+	 FXX7mDCSJpF8wqku27H0QzBghPNiPauVXZ9WteV4nVnymRBuquJ5jPFq7qY2CguEa6GOa
+	 bElocAkR+n3QTGwG0pTxNxqk/sbkUr3Ccp+M0ZAt9QOmmIq5WaThJsBjjnaMdmmvpJn6x
+	 WB3f6122kdPva/le/1MwvLr1VtEFEkz1GxmI4we9kdShdqL5BW817Ou81+Emp8aOPjw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=emc.com.tw;
+	spf=pass smtp.mailfrom=emc.com.tw;
+	dkim=pass header.d=emc.com.tw header.i=@emc.com.tw header.a=rsa-sha256 header.s=emcselector header.b="h/UEAqsP";
+	dkim=pass header.d=emccomtw.onmicrosoft.com header.i=@emccomtw.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-emccomtw-onmicrosoft-com header.b=MuO0vT3z;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=192.72.220.5
+Received: from emcscan.emc.com.tw (emcscan.emc.com.tw [192.72.220.5])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 430E6606A32E
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 05:21:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 430E6606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8021B606A320;
+	Wed, 11 Nov 2026 05:26:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8021B606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=emc.com.tw
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=emc.com.tw
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=XFQ6/mGJ
-Received: by mail-pg1-f226.google.com with SMTP id 41be03b00d2f7-cc4aa18f9afso1171118a12.3
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 21:21:14 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794374473; x=1794979273;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:dkim-signature:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=MTBtxrM7n4p3Ub82CkQlRDSMG5+E5wJ0wH/ucqq5mAg=;
-        b=aoEbEPVjXotRhO9b2hXJ1cbgrmRx4DZgRYAOlqIYT6bxYE6sDnGr62EnZIFoHeIEj9
-         yhQzDQe5jXPz+Cbph+bnWcmWQ4wCKiOcZfZ3UkpeNiugIoNF5A6YUVSqo26Gt/8uvYZ/
-         QQkZm55oM/VddEmcZ7wN0sjdPG3jmsX5vqbYQOH2VPVklwulSp2YzFZaYYQNFlRk8D7c
-         5TU8j1l4xMwkrplHRg+PVCAn1vuK2+ab6Wj8OSDKa5lURgEBs2BsE1uHxMsnLeqqlkk/
-         RDVuupPZ2lTsLyBHdA0qs8fLbPK8S6Kt70O/ZzccMTfKoCl/w1923IZuZyUkl+FfZZ5Y
-         lNhg==
-X-Forwarded-Encrypted: i=1; AL+hErE5+b+AzdVuXm0eVG0I/eOujPZKlMiB3ZWoU9XdkrJj6i+LLXu9a7TnMvzHCA1oacYHUPGAfm3iz6Xdl10=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9YeLZ4uhYfci5p5Y5Ickio6NhRlhj2GFTY5YHmgHnsP2hy+nyD
-	17S+ZUNsMzyNUIny+D7w/3AqvGIvQ8QRsMPFU023nmu+PxECpH8lUNFK7K8Rs5g10zcc8EnsoJy
-	tDeDVSCtDU3Gnclx/WQEDOpXmeWSOGuKIirsACA4ojr+rMjYagskzRDpjOkqpDbPgYuxdZLCQbv
-	LILq3PXMmZZ2A3Re8DrIahLsloBTmTxRMg0BlT9bh9wHwXFD7DyrPZ3MRGFCjTjxaGU8ooHLw1+
-	hb0PFbGNg5Vci2cug==
-X-Gm-Gg: AYBFou1LgFumoHK7E9YVBj2qwFefeh39ulVN0d8AF/YndHuSAUFKDwbCLPpboFdCMFm
-	9g0scxSceAyigaphGFKA2b+HQN5Ezt8HLOcD8HTV3QS6YqXNrlfAkhBjzpiALSK2sgTe59TS8Lr
-	MnZjp6rsb1PvpxDrn+vlv8EsUp6Lh9aHvERaCRHDe0bFb2VUJOLxGI1UO4PbGE4HP4oa/f5LNmS
-	mg6TimTaQxUlWN7xA0Yq+c+CztgwSMjy0vdGFaE0OABzFI1OyPbRHDpQZeFhr5Z0NjPSHdEQydj
-	MLOklskwCkVHTi8aAeokUcQrmXf+skO/uWujlbcVvquLUPjIiVLfUfo9OA6ribAB8q6fXCZt5E2
-	ArqCO91KrPCI0mSmySw9nQIYapNSp2eP+cY8iiHvCVLnB+p/Atuhcmlyn73efCfJ850q5NF7Mp1
-	ln9HQ4ln9U22SpwVLt58EHhZ2SBfCICWfK2w==
-X-Received: by 2002:a17:90b:4ac2:b0:3ab:b39f:41c8 with SMTP id 98e67ed59e1d1-3b182f23803mr1446917a91.46.1794374473252;
-        Tue, 10 Nov 2026 21:21:13 -0800 (PST)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-28.dlp.protect.broadcom.com. [144.49.247.28])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b17db7fc21sm1253142a91.7.2026.11.10.21.21.11
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 10 Nov 2026 21:21:13 -0800 (PST)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-ua1-f70.google.com with SMTP id a1e0cc1a2514c-9806e283b0eso2053942241.3
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 21:21:10 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=emc.com.tw header.i=@emc.com.tw header.a=rsa-sha256 header.s=emcselector header.b=h/UEAqsP;
+	dkim=pass (1024-bit key, unprotected) header.d=emccomtw.onmicrosoft.com header.i=@emccomtw.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-emccomtw-onmicrosoft-com header.b=MuO0vT3z
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=emc.com.tw; i=@emc.com.tw; q=dns/txt; s=emcselector;
+  t=1794374815; x=1825910815;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=NtqTjW08yOLcInLPVki49Dn37kM1KUOIPmP81ZBmiGA=;
+  b=h/UEAqsP1DEfqe8mldwHfAU9SWLq4Am6xtyADX6naiF3EhdLsQ3Kqy8O
+   khRBpIn+mAjyA5F0u8BH4ACGzLvQbtH+MKjBlsFLm90Xbi+TUwkJw0+EF
+   qnpb64VzdnVcRrN7gtj6FSL6ZN1ip1H0SgrMD1iWZlK9XgmRO+y5UvtPX
+   SuftHMFfEErQxRPBZyGtripmXgBD7wKMeqVW59dipv6scK47ywDsLDd/w
+   EqXZr4mUrGyCVprSxAaycwRhUvp02uP0ZBIKVowzBXKnD6fI81A/gge9c
+   QXfVn5Jw7JcJHEcsQkwOl8ooRLZZGTZ/Eybdu27+OZk2U2HgDrr4FK48O
+   A==;
+X-CSE-ConnectionGUID: +Eti575bQbOBOpYfEDtusg==
+X-CSE-MsgGUID: 0uolAK++TaGhwwag9rXlrA==
+X-IronPort-AV: E=Sophos;i="6.27,207,1786982400"; 
+   d="scan'208";a="14844188"
+Received: from unknown (HELO ELAN-EX01.elan.corp) ([192.168.10.67])
+  by emcscan.emc.com.tw with ESMTP; 11 Nov 2026 13:26:46 +0800
+Received: from ELAN-EX02.elan.corp (192.168.10.68) by ELAN-EX01.elan.corp
+ (192.168.10.67) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 11 Nov
+ 2026 13:26:39 +0800
+Received: from SI4PR04CU002.outbound.protection.outlook.com (40.93.129.123) by
+ ELAN-EX02.elan.corp (192.168.10.68) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.53 via Frontend Transport; Wed, 11 Nov 2026 13:26:39 +0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=q6xfxcKecJLLcDOqt+xrde88V2RCngEeX+alBpWfnCxl9dK94+so/w91PIwkuNqgD2LI1yF5lPir7Fufqvatz58NKRdXsFFI7UJhOIHyWM4V3EtuHzb9J7iRwtHTQRyApG8TfbnYGjVZDqEBqhfX2NLinxf5fd50g8UYiR1B+icmZ4pkVVq7cJlGtlaUYlMD6jX1Ec63sO6hfa/M1opVXzMvkazyeuJ6e0NyKqxfwbS/AYBC8Ow9dMKWP55QnyRWouqymkLR/NNICPeHveeXiKf0FGIpVWhsK9xhEXtAqg0Mk/WSVkGOd7ECXTRvUldkvQTgj0xz7dOFlpJPJQtkrQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=NtqTjW08yOLcInLPVki49Dn37kM1KUOIPmP81ZBmiGA=;
+ b=LmqHNnS/RRU84YUN0paxQ6aLK9/oKLAU0D/dKe2l67qc2iSeP/Ei1xZVP8+z5j58MneObXCWf0anuCpYBtrqVCXoEcLkUPl0SWCWTiZL39LpYSDnlPwnkcZ1u+UpDuyoyWDlQYxvveKm0jkevITxc2WFlYYyQWkiWwLxfnEL5rNQdm9uEezLq4JGm930Lb1albuQZknvP+lniKFCR3LR8bUEujbduSVskrkFn5E3E9Mlk32j63s6Pz141z7SjPY0hdI5FsW9z5SW4xEPrf+7qVY67Tya63BUJXRussJmxZTRbidsjooqKlkHbZuJLkzmN+YUr0owZ20EIDSKbsYvQA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=emc.com.tw; dmarc=pass action=none header.from=emc.com.tw;
+ dkim=pass header.d=emc.com.tw; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1794374470; x=1794979270; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MTBtxrM7n4p3Ub82CkQlRDSMG5+E5wJ0wH/ucqq5mAg=;
-        b=XFQ6/mGJZPkpcLzMUrd69mmx5ksVtTTDwzaZjDZv4TDntWXLLUYp4ngGfjqd1afcVL
-         v0QfTLfjrtB/T58n3j1hqEkgifS6Kv96m8qOJHsp2Z58hWbwjeYOMSklvUAt4sEpSLr/
-         u2llkPZo5ABJ7U/6wQG1es/j6iGMp5VD6zVBg=
-X-Forwarded-Encrypted: i=1; AL+hErGrx5+CcWbk4PDsEOPP6fGZ0DjMsG6v5cowkxHwXfdMIzImhpcocx5ItJqmj8vRkZ4AQNkZfpVEB2sViKM=@vger.kernel.org
-X-Received: by 2002:a05:6102:419f:b0:7cc:2712:caf2 with SMTP id ada2fe7eead31-7d506111110mr389902137.23.1794374470449;
-        Tue, 10 Nov 2026 21:21:10 -0800 (PST)
-X-Received: by 2002:a05:6102:419f:b0:7cc:2712:caf2 with SMTP id
- ada2fe7eead31-7d506111110mr389895137.23.1794374469840; Tue, 10 Nov 2026
- 21:21:09 -0800 (PST)
+ d=emccomtw.onmicrosoft.com; s=selector1-emccomtw-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=NtqTjW08yOLcInLPVki49Dn37kM1KUOIPmP81ZBmiGA=;
+ b=MuO0vT3zlms2I5oPqtyN05rMG28UNr4FuTDmh3FolW5P5UCF6FNhzuayiTUCcMfMJkF8RAaWm3lRA9jvcF42dM7JH9irD4w29LZUs3OZhLlZHCSjNjv4mFa3EijpjUdRno5p2tr6R87Oz5SH+5YRxE/U5Zp0Q7Bi8r0PRzNCDcY=
+Received: from PUZPR01MB4774.apcprd01.prod.exchangelabs.com
+ (2603:1096:301:fe::7) by SI2PR01MB4203.apcprd01.prod.exchangelabs.com
+ (2603:1096:4:1aa::14) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.9; Wed, 11 Nov
+ 2026 05:26:36 +0000
+Received: from PUZPR01MB4774.apcprd01.prod.exchangelabs.com
+ ([fe80::80c:cfd7:534c:1ca9]) by PUZPR01MB4774.apcprd01.prod.exchangelabs.com
+ ([fe80::80c:cfd7:534c:1ca9%6]) with mapi id 15.21.0615.007; Wed, 11 Nov 2026
+ 05:26:36 +0000
+From: =?utf-8?B?SmluZ2xlIFd1IOWQs+mHkeWciw==?= <jingle.wu@emc.com.tw>
+To: Yao Yuan <yaoyuan0329os@gmail.com>
+CC: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	=?utf-8?B?SWxwbyBKw6RydmluZW4=?= <ilpo.jarvinen@linux.intel.com>, "Vishnu
+ Sankar" <vishnuocv@gmail.com>, "linux-input@vger.kernel.org"
+	<linux-input@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, =?utf-8?B?UGhvZW5peCBIdWFuZyDpu4PkuJbptaw=?=
+	<phoenix@emc.com.tw>, =?utf-8?B?U3RhbmxleSBDaGVuIOmZs+W7uue2rQ==?=
+	<stanley.chen@emc.com.tw>
+Subject: RE: [PATCH 1/1] Input: trackpoint - Add new ELAN trackpoint device
+ variant id 7
+Thread-Topic: [PATCH 1/1] Input: trackpoint - Add new ELAN trackpoint device
+ variant id 7
+Thread-Index: AQHdcLxNHDP5k3yfMUe0H4sA60xFjrcmxlaggACMhQCAAOLloA==
+Date: Wed, 11 Nov 2026 05:26:36 +0000
+Message-ID: <PUZPR01MB477458CD012208A31DE60068DC712@PUZPR01MB4774.apcprd01.prod.exchangelabs.com>
+References: <20261102130836.11863-1-yaoyuan0329os@gmail.com>
+ <20261102130836.11863-2-yaoyuan0329os@gmail.com>
+ <avKBsi-E7IeUgsSY@google.com>
+ <TY0PR0101MB4786C8CF42ED66617BD9DA1EDC722@TY0PR0101MB4786.apcprd01.prod.exchangelabs.com>
+ <avMcB0q7wF9oP5X8@sapienza>
+In-Reply-To: <avMcB0q7wF9oP5X8@sapienza>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-dg-rorf: true
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=emc.com.tw;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PUZPR01MB4774:EE_|SI2PR01MB4203:EE_
+x-ms-office365-filtering-correlation-id: f81a323f-5ed1-4501-0f38-08df3fb45af1
+x-ld-processed: 665042ad-2a24-4d2d-b35e-cb1d8bcb0cd1,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|376014|19092799006|366016|1800799024|23010399003|18002099003|22082099003|3023799007|10067099003|38070700021|261028144727099003|261009223027099003|56012099006|261022105027099003|261102123227099003|4143699003|261021121427099003|261026140227099003|261026121527099003|261022075727099003|261021135927099003;
+x-microsoft-antispam-message-info: E/V9bzSDtNgnvl780tp2XXntHYQB+yqpyn3D0XVN3ULHgGCSa3Ig0g83GlJSN/tYlJwJrKvtGzhQMnd0ZT8KpNSJ4T5b5E9mNkkPfZXqltDaVq9K65skQeElh3X8/L3kRftdIkN4OvU+1he597V5WCoCoec2FgpkiI1WaS+yHmwxX3xqwQdRzmIKVMSdssCo5LODW7qOPOssnAlFuYc4DS6r/j6qemOBd9/3ZQzy6CxrnxEPXo/Sbj6YSgGkppPjJnNpPUs9xETeluLOe9c6W8rxzi5d7+3o9ApIQ3CUg7TvSxS68s4QzCoVerSxvyH+CkWfmED7jSzVTc0ET0dHllgHkno2uffiB3YKkGBAPmhL7Tlh7M6hI2k21RSafuNXcGSkoa9LTWcDWScPRE+tfpyzE55Lw7BqDX0htQQUPkb0iShwOq9VIZv2Vlt6mRN8eWf4HOL0/6MRU59uDe8SuDjCTaftiRdVNwa6I0DJ/YYVU3lc8qNxmiAuPlXtAYveVUKHh5Ra8fCwqgl/D++jH2BnxsYvqi5DOqkMoc6AGt3xoy/OWH2xYC2jGz6nquqMtZ6T/6aJCMft4ZF87tLjoDFIHkRU6jw9uqdBmn3jJKTZfBxhTqTXXVElhavFgAnjTPh8LWakuszZaWqC8pWYKFeKbTPpQD8IIPkCEhMUepcG08LYrkOyIHKMLq8FaMXPN4cEAPjgRK4bytnjeFXlkmNtAhm8PBPsiR+T99uWtes=
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:zh-tw;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PUZPR01MB4774.apcprd01.prod.exchangelabs.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(19092799006)(366016)(1800799024)(23010399003)(18002099003)(22082099003)(3023799007)(10067099003)(38070700021)(261028144727099003)(261009223027099003)(56012099006)(261022105027099003)(261102123227099003)(4143699003)(261021121427099003)(261026140227099003)(261026121527099003)(261022075727099003)(261021135927099003);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?Y3hBdVBxMFYvOVd4dCs2N3hIbEpKT0RpSDlMTWx1VTMwTURHUHdjRXBSNTdl?=
+ =?utf-8?B?UVowU2FTU2tZb1FrQUhJaU0rTnhNS0xCeFdKZGhHRXdGYU5pRG5nZzVxU2E0?=
+ =?utf-8?B?NndsMk9EUlJuNzhISnpDVHlQTVRNTnlkQ2NYYlJxeTd6Z3N5Zi9LUmJzRUVi?=
+ =?utf-8?B?d0xqSDdFN2NQaml6aTJrYnhjUGt3bFdiUUNwWnh0eEFaWXNucnZqNkFmMHIv?=
+ =?utf-8?B?QjdiTVIxRkdGNkFiNEVFT2FuYklteFYrc3IrenlnTG1pNkFGUGxNcVJDNUs2?=
+ =?utf-8?B?NDRmYTFUcjJEaElYZ2hJMTNObjJDbnZwaWsrSFdYK2dRWkEwVVdyTlNBaFpH?=
+ =?utf-8?B?MmNDS2E2NGpjeEpYNGxaN3paZW1BOXVENnlONUIvL0Qrb1M2K214MHU0dEY3?=
+ =?utf-8?B?cWI0UUt0Z2IyME9vSjdRTG5WSTBhbUlDZ0JSZnVkSzU3aFNrRWUzVHFJNUZx?=
+ =?utf-8?B?N04rVkJnK0JuVzNtWTNRdi9rZndkb3pmSWZnVlE5aXNOczQ1ejdUVmlhNjRp?=
+ =?utf-8?B?ZjJ1VEdGK2o5TVE4WEtESDgrWS9YcHpZNEZCOGRJRStTbTI1Um1LdkJiN052?=
+ =?utf-8?B?TGJUREd3Ri9pNmY0Z25rTzNuWkVQSndBcWZkaXlsTmorVjFPMVRsQlJLbExU?=
+ =?utf-8?B?aFNvVEl3dktyc1ZsdzRxczNybkIwYk9nc3dXV1BYN01pNjJVTW5RYmJxWmNt?=
+ =?utf-8?B?a1MzdFUvYWp4bEZaUWs5U0FpZ1EvaXNHK1MvbmpYeTNoOG1NRjBld1VDUUM1?=
+ =?utf-8?B?QUhyeHc2ZVl3SkJmWkF0Z3RUVG93Nnk3UE8rVVVRc2JKVnVSMlUyQk01T3Zs?=
+ =?utf-8?B?YTdNdjFQczRNZGl0bVZ1M25JcU96M2JrY211SHhyYWg0L3dacXVuVTJzZVNk?=
+ =?utf-8?B?K2NJRGJBSkZYVHRxaHBOV1JRUzZiY3R5REFheWVMZk53c3Awdks1OVViQytB?=
+ =?utf-8?B?RXMzK0lQOWdrakkxVHg2WXZLckFlRG5FUmdoU0lIOTVsVXM2YVFZVDl2S1lB?=
+ =?utf-8?B?dlBESm1OZEJCSmk4bzl6b2RtVDF4QXpLRm1lOXVCYm1sSWxxZ2pUbXNtbytp?=
+ =?utf-8?B?aXhaZnpXKzlxU1BZMlpUemE3OWdoTHpRdlAxSUVBUDk4dVJnbFlXUmZTTzlE?=
+ =?utf-8?B?dUtTL3Nib3JoUG9JRjMrem4xb1pkUXduZis0anRCUDFueW9PRXFTQ3FiUWRV?=
+ =?utf-8?B?Ynp3R0xDK0NqUnFjdmtHeXo4N2tGR3kxeFBkVmR5L1JQTW1LcEVqMEt2TUd0?=
+ =?utf-8?B?V1l2cktKN1NXZ3pLMStGRU96NEtHZno0S3Qzak9qOG9NdFp6Wjdwbnk2eVZh?=
+ =?utf-8?B?N0xyWDVlSDNRd1F3cnJzZGtuZUFRTUcycWNQRmk4aUlrU2MxRVRRS0kwdXcx?=
+ =?utf-8?B?Zy9tYjdBLzVmeXViTnJ5RDd3eTlDUDROTWhsNkFIc1p2VWdQSEh1eWdGeTB3?=
+ =?utf-8?B?MmhxTEg4a21ONWhVSVVlYnVZY3dOa09IMDIwN2dIMjJIY0hRelAwVnN6T3pu?=
+ =?utf-8?B?UHVlTVFrREJDSlh1aFpScTNYbmZWbXpTUUhTT2tCMlUreVp2TGZaWDNMcyth?=
+ =?utf-8?B?T21rR3FLYWdBNjBYQlVGZVFyN0x3am4yajRIM1N1NjAvdjgvcDYycUdTdlkv?=
+ =?utf-8?B?UkYrbmpoQ3phclRIYTh4Y0VRcWcwSmpRc283K1pUdlk0UWVUc3JYOGpkbE5V?=
+ =?utf-8?B?L01QcFNXcHg3anAvZkxRWkxFa2JDL1QxMThqY1BRZkFXem9yZlplSktQRkJM?=
+ =?utf-8?B?MnJPRE1EcTN2RjhKNWdiTS9xWUFVWW1GdVA4WUMvVWZBUjBOeE1sOXg5VnVD?=
+ =?utf-8?B?VmtNd3h2YUU4eVlBTGZmdU1YQzMrbitvSEJGL0cyNDJPTTNCUHE2NUlBQnRq?=
+ =?utf-8?B?WURUcmlGTXJDeUVJVzJlVGdiTkdHNk4zRjEwMHdUN2VORHVIditmbmRMYmZk?=
+ =?utf-8?B?aEwreHdia2lSYWtpWE5Lc2sraUtzWjNDNW1wNmsrWHpWanc3WERrNGdPejlS?=
+ =?utf-8?B?Tmk2clNJNGc3eWU4eEgvN3hnTjU3R3hGdG5MSjUzZkUvTE5ST3FZWE02eWcx?=
+ =?utf-8?B?YmtkT0l5cGlvaWlsbnpvR1c3MjlzWHRkRk9Yb01JeEJxWFY2aVBKcUpMQWFx?=
+ =?utf-8?B?OFZLVndWdnBXbjJRVDNzbVkwbStpSm1ibTVlRjhENEd1dHgwVTlRT29kMlRr?=
+ =?utf-8?B?MzhXZWN3VS84ZnNQM2NRWWZETTRFeXFTc0YzSGNKbDZYcWtwSWZlWkMraE9Y?=
+ =?utf-8?B?WVlsTGpHT1Q4ZUt2c3NkMHUyZGJxeDJhbFFnOFVvM1dYcUI1UlJqMi94dFFi?=
+ =?utf-8?B?NmxsSjZqV1NHWkwwZHZ4dTJRbDRqUEFnNXlCbUV3R1N1bFhhVGYzQT09?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,461 +191,91 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261106093524.838341-10-vikas.gupta@broadcom.com> <179432756090.994134.6899387473854989127@kernel.org>
-In-Reply-To: <179432756090.994134.6899387473854989127@kernel.org>
-From: Vikas Gupta <vikas.gupta@broadcom.com>
-Date: Wed, 11 Nov 2026 10:50:57 +0530
-X-Gm-Features: AclHuK9SerFALCrmm9axCODMvbDutIaUOf4S5gZtn7THlLii6HvYbDmP9TWeSL0
-Message-ID: <CAHLZf_vP2vf1eJOKPUdLmWB9CJ+=wP6wfrvdWhrPE=joDeurGQ@mail.gmail.com>
-Subject: Re: [PATCH net-next v6 09/10] bnge: add aRFS flow steering ndo support
-To: netdev-bot+sashiko@kernel.org
-Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org, 
-	pabeni@redhat.com, andrew+netdev@lunn.ch, horms@kernel.org, 
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	bhargava.marreddy@broadcom.com, rahul-rg.gupta@broadcom.com, 
-	vsrama-krishna.nemani@broadcom.com, rajashekar.hudumula@broadcom.com, 
-	dharmender.garg@broadcom.com, ajit.khaparde@broadcom.com
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
-Content-Type: multipart/signed; protocol="application/pkcs7-signature"; micalg=sha-256;
-	boundary="000000000000ee47fe065ff95c55"
+X-Exchange-RoutingPolicyChecked: MH10IfR8w9xNxL8kebtVSZOT9KS0G+tiaVVmcT+O4c3jGjV5ij9H0H1hh8rwMlUeFv5QpIpKGeb/OjTGTE5tsx7DozBQqlzSa8n8yC5bTZpYHFk5WLRkH7ju86lmXOiWoWsk5DjZ4tnTg02JHAsHB+PtPcaniarq6uqT8xGL6m6e4XyNbt5c68aq3IEPWivMV1HOmmlGa82i4XDYbWYk7zAU7MCWSRRa4bvdQBhcfcfoag1FS1OVejyWvO/2YSsSNSbMdfSEwGQQ9AQdj7zaFi7BVpjkgSE2umyxNBacSQP11fIMA3OK8L+O32keIWrMk1CGIMneUSg8iRUdShnKIQ==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PUZPR01MB4774.apcprd01.prod.exchangelabs.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f81a323f-5ed1-4501-0f38-08df3fb45af1
+X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Nov 2026 05:26:36.1705
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 665042ad-2a24-4d2d-b35e-cb1d8bcb0cd1
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: bbDtFjliOnovp+esrITtW3p6mdPx7ZInQfRA9u2w/SHnQUNLIwGqxhTNd6HKDo/hTRiLoAy/WedH98iqVK9AyQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SI2PR01MB4203
+X-OriginatorOrg: emc.com.tw
 
---000000000000ee47fe065ff95c55
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-I see a few of Sashiko's comments are valid and will address them in v7.
-
-On Tue, Nov 10, 2026 at 9:49=E2=80=AFPM <netdev-bot+sashiko@kernel.org> wro=
-te:
->
-> Thank you for your contribution! Sashiko AI review found 3 potential
-> issue(s) to consider.
->
-> Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 3 =C2=B7 Low: 0
->
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwor=
-k
-> know by including "pw-bot: cr" as a separate line at the end of your repl=
-y
-> (one such reply per series is enough).
->
-> - [Medium] The aRFS expiry loop in bnge_cfg_ntp_filters()
->   (drivers/net/ethernet/broadcom/bnge/bnge_filter.c) ignores the return=
-=E2=80=A6
-> - [Medium] Check-then-act race between the aRFS expiry loop in
->   bnge_cfg_ntp_filters() and the retarget path in bnge_rx_flow_steer().
-> - [Medium] bnge: race on ntp_fltr->l2_filter_id in bnge_open_core()
->   inserts duplicate filter
->
-> --
->
-> bnge: add aRFS flow steering ndo support
->
-> This commit adds an ndo_rx_flow_steer callback to the bnge driver. The
-> callback creates NTUPLE filters for aRFS and inserts them into the NTUPLE
-> hash table. A new function, bnge_cfg_ntp_filters(), runs from sp_task to
-> program pending filters in firmware, reprogram retargeted filters and
-> expire idle filters via rps_may_expire_flow().
->
-> > diff --git a/drivers/net/ethernet/broadcom/bnge/bnge_filter.c b/drivers=
-/net/ethernet/broadcom/bnge/bnge_filter.c
-> > index 6cf6531a27231..579eca2b7aee9 100644
-> > --- a/drivers/net/ethernet/broadcom/bnge/bnge_filter.c
-> > +++ b/drivers/net/ethernet/broadcom/bnge/bnge_filter.c
->
-> [ ... ]
->
-> > @@ -711,3 +711,80 @@ void bnge_clear_usr_fltrs(struct bnge_net *bn)
->
-> [ ... ]
->
-> > +     list_for_each_entry_safe(fltr, tmp, &expire_list, base.list_node)=
- {
-> > +             list_del_init(&fltr->base.list_node);
-> > +             /* Retargeted by bnge_rx_flow_steer() after the scan */
-> > +             if (test_bit(BNGE_FLTR_RXQ_UPDATE, &fltr->base.state))
-> > +                     continue;
-> > +             bnge_hwrm_cfa_ntuple_filter_free(bn->bd, fltr);
-> > +             bnge_del_ntp_filter_rcu(bn, fltr);
->
-> [Severity: Medium]
-> Should the return value of bnge_hwrm_cfa_ntuple_filter_free() be ignored
-> here?
->
-> The free can fail in two ways. bnge_hwrm_req_init() can fail to allocate
-> the request, or bnge_hwrm_req_send() can hit a firmware error or timeout.
-> In both cases filter_id stays valid:
->
-> bnge_hwrm_cfa_ntuple_filter_free() {
->     ...
->         rc =3D bnge_hwrm_req_send(bd, req);
->         if (!rc)
->                 fltr->base.filter_id =3D BNGE_FLTR_ID_INVALID;
->         return rc;
-> }
->
-> bnge_del_ntp_filter_rcu() then unlinks and frees the software filter,
-> which is the only object holding that firmware id. It also clears the
-> filter's sw_id bit in ntp_fltr_bmap.
->
-> Does this leak the firmware n-tuple rule? It would keep steering the flow
-> to the old RX queue, and the driver could not free it until the interface
-> is closed.
->
-> The update_list loop earlier in bnge_cfg_ntp_filters() handles the same
-> failure by keeping the software filter:
->
->         if (bnge_hwrm_cfa_ntuple_filter_free(bn->bd, fltr))
->                 continue;
->
-> Should the expire loop do the same?
->
-> This path becomes reachable once the follow-up patch "bnge: add cpu_rmap
-> support for IRQ affinity" sets dev->rx_cpu_rmap.
->
-> [Severity: Medium]
-> Can a concurrent retarget from bnge_rx_flow_steer() still get lost here?
->
-> The test_bit() check runs without ntp_fltr_lock. The filter also stays
-> linked in ntp_fltr_hash_tbl until bnge_del_ntp_filter_rcu() runs, which
-> happens after the sleeping HWRM free. One possible sequence:
->
-> sp_task, in bnge_cfg_ntp_filters():
->   rps_may_expire_flow() returns true, so the filter goes on expire_list
->   test_bit(BNGE_FLTR_RXQ_UPDATE) returns false
->   bnge_hwrm_cfa_ntuple_filter_free() sleeps
->
-> softirq on another CPU, in set_rps_cpu()->bnge_rx_flow_steer():
->   bnge_lookup_ntp_filter_from_idx() finds the still-linked filter
->   WRITE_ONCE(fltr->base.rxq, rxq_index);
->   set_bit(BNGE_FLTR_RXQ_UPDATE, &fltr->base.state);
->   rc =3D fltr->base.sw_id is returned to set_rps_cpu()
->
-> sp_task:
->   bnge_del_ntp_filter_rcu() unlinks the filter and clears its sw_id
->   in ntp_fltr_bmap
->
-> set_rps_cpu() then stores the returned sw_id in rflow->filter. While the
-> flow stays active on the same CPU, set_rps_cpu() then takes this path:
->
->         if (READ_ONCE(tmp_rflow->filter) !=3D RPS_NO_FILTER) {
->                 if (rps_flow_is_active(tmp_rflow, ...)) {
->                         if (hash !=3D READ_ONCE(tmp_rflow->hash) ||
->                             next_cpu =3D=3D tmp_cpu)
->                                 goto out;
->
-> So ndo_rx_flow_steer() is not called again.
->
-> Doesn't that leave the flow without hardware steering until it goes idle
-> or moves to another CPU? The RPS flow table would also hold a sw_id that
-> has been released and can be reused.
->
-> The comment "Retargeted by bnge_rx_flow_steer() after the scan" suggests
-> this check is meant to cover that case.
->
-> The scan loop also reads rxq and flow_id as two separate lockless loads:
->
->         rxq =3D READ_ONCE(fltr->base.rxq);
->         flow_id =3D READ_ONCE(fltr->flow_id);
->
-> Could these see a torn pair while a retarget is in progress, and put a
-> filter that was just retargeted on expire_list?
->
-> [ ... ]
->
-> > diff --git a/drivers/net/ethernet/broadcom/bnge/bnge_netdev.c b/drivers=
-/net/ethernet/broadcom/bnge/bnge_netdev.c
-> > --- a/drivers/net/ethernet/broadcom/bnge/bnge_netdev.c
-> > +++ b/drivers/net/ethernet/broadcom/bnge/bnge_netdev.c
-> > @@ -3222,6 +3231,132 @@ static int bnge_set_features(struct net_device =
-*dev, netdev_features_t features)
-> >       return 0;
-> >  }
-> >
-> > +#ifdef CONFIG_RFS_ACCEL
-> > +static __le64 bnge_lookup_l2_filter_from_key(struct bnge_net *bn,
-> > +                                          struct bnge_l2_key *key)
-> > +{
-> > +     u32 idx;
-> > +
-> > +     idx =3D jhash2(&key->filter_key, BNGE_L2_KEY_SIZE, bn->hash_seed)=
- &
-> > +           BNGE_L2_FLTR_HASH_MASK;
-> > +     return bnge_lookup_l2_filter_rcu(bn, key, idx);
-> > +}
-> > +
-> > +static int bnge_rx_flow_steer(struct net_device *dev, const struct sk_=
-buff *skb,
-> > +                           u16 rxq_index, u32 flow_id)
-> > +{
-> > +     struct ethhdr *eth =3D (struct ethhdr *)skb_mac_header(skb);
-> > +     struct bnge_ntuple_filter *fltr, *new_fltr;
-> > +     struct bnge_net *bn =3D netdev_priv(dev);
-> > +     struct flow_keys *fkeys;
-> > +     __le64 filter_id;
-> > +     u32 flags, idx;
-> > +     int rc =3D 0;
-> > +
-> > +     /* Hold rcu_read_lock() across the L2 filter lookup and check
-> > +      * BNGE_STATE_OPEN inside it. bnge_close_core() clears the
-> > +      * flag before bnge_shutdown_nic() frees the L2 filters via
-> > +      * kfree_rcu(), so if we observe the device open here the
-> > +      * filter cannot be freed under us for the duration of
-> > +      * this critical section.
-> > +      */
-> > +     rcu_read_lock();
-> > +     if (!test_bit(BNGE_STATE_OPEN, &bn->bd->state)) {
-> > +             rcu_read_unlock();
-> > +             return -EINVAL;
-> > +     }
-> > +
-> > +     if (ether_addr_equal(dev->dev_addr, eth->h_dest)) {
-> > +             struct bnge_vnic_info *vnic =3D &bn->vnic_info[BNGE_VNIC_=
-DEFAULT];
-> > +             struct bnge_l2_filter *l2_filter;
-> > +
-> > +             if (!vnic->uc_filter_count) {
-> > +                     rcu_read_unlock();
-> > +                     return -EINVAL;
-> > +             }
-> > +             l2_filter =3D vnic->l2_filters[0];
-> > +             filter_id =3D l2_filter->base.filter_id;
-> > +     } else {
-> > +             struct bnge_l2_key key;
-> > +
-> > +             ether_addr_copy(key.dst_mac_addr, eth->h_dest);
-> > +             key.vlan =3D 0;
-> > +
-> > +             filter_id =3D bnge_lookup_l2_filter_from_key(bn, &key);
-> > +             if (filter_id =3D=3D BNGE_FLTR_ID_INVALID) {
-> > +                     rcu_read_unlock();
-> > +                     return -EINVAL;
-> > +             }
-> > +     }
-> > +     rcu_read_unlock();
-> > +
-> > +     new_fltr =3D kzalloc_obj(*new_fltr, GFP_ATOMIC);
-> > +     if (!new_fltr)
-> > +             return -ENOMEM;
-> > +
-> > +     fkeys =3D &new_fltr->fkeys;
-> > +     if (!skb_flow_dissect_flow_keys(skb, fkeys, 0)) {
-> > +             rc =3D -EPROTONOSUPPORT;
-> > +             goto err_free;
-> > +     }
-> > +
-> > +     if ((fkeys->basic.n_proto !=3D htons(ETH_P_IP) &&
-> > +          fkeys->basic.n_proto !=3D htons(ETH_P_IPV6)) ||
-> > +         (fkeys->basic.ip_proto !=3D IPPROTO_TCP &&
-> > +          fkeys->basic.ip_proto !=3D IPPROTO_UDP)) {
-> > +             rc =3D -EPROTONOSUPPORT;
-> > +             goto err_free;
-> > +     }
-> > +     new_fltr->fmasks =3D BNGE_FLOW_IPV4_MASK_ALL;
-> > +     if (fkeys->basic.n_proto =3D=3D htons(ETH_P_IPV6))
-> > +             new_fltr->fmasks =3D BNGE_FLOW_IPV6_MASK_ALL;
-> > +
-> > +     flags =3D fkeys->control.flags;
-> > +     if (flags & FLOW_DIS_IS_FRAGMENT) {
-> > +             rc =3D -EPROTONOSUPPORT;
-> > +             goto err_free;
-> > +     }
-> > +
-> > +     new_fltr->l2_filter_id =3D filter_id;
-> > +
-> > +     idx =3D bnge_get_ntp_filter_idx(bn, fkeys, skb);
-> > +     rcu_read_lock();
-> > +     fltr =3D bnge_lookup_ntp_filter_from_idx(bn, new_fltr, idx);
-> > +     /* Filter already exists. If the flow moved to another queue,
-> > +      * retarget it, sp_task reprograms it in hardware.
-> > +      */
-> > +     if (fltr) {
-> > +             if (!(fltr->base.flags & BNGE_ACT_NO_AGING) &&
-> > +                 READ_ONCE(fltr->base.rxq) !=3D rxq_index) {
-> > +                     spin_lock_bh(&bn->ntp_fltr_lock);
-> > +                     WRITE_ONCE(fltr->base.rxq, rxq_index);
-> > +                     WRITE_ONCE(fltr->flow_id, flow_id);
-> > +                     /* Pairs with test_and_clear_bit() in sp_task */
-> > +                     smp_mb__before_atomic();
-> > +                     set_bit(BNGE_FLTR_RXQ_UPDATE, &fltr->base.state);
-> > +                     spin_unlock_bh(&bn->ntp_fltr_lock);
-> > +                     bnge_queue_sp_work(bn, BNGE_RX_NTP_FLTR_SP_EVENT)=
-;
-> > +             }
-> > +             rc =3D fltr->base.sw_id;
-> > +             rcu_read_unlock();
-> > +             goto err_free;
-> > +     }
-> > +     rcu_read_unlock();
-> > +
-> > +     new_fltr->flow_id =3D flow_id;
-> > +     new_fltr->base.rxq =3D rxq_index;
-> > +     rc =3D bnge_insert_ntp_filter(bn, new_fltr, idx);
-> > +     if (!rc) {
-> > +             bnge_queue_sp_work(bn, BNGE_RX_NTP_FLTR_SP_EVENT);
-> > +             return new_fltr->base.sw_id;
-> > +     }
-> > +
-> > +err_free:
-> > +     kfree(new_fltr);
-> > +     return rc;
-> > +}
-> > +#endif
-> > +
-> >  static const struct net_device_ops bnge_netdev_ops =3D {
-> >       .ndo_open               =3D bnge_open,
-> >       .ndo_stop               =3D bnge_close,
->
-> [Severity: Medium]
-> Can bnge_rx_flow_steer() run here before the retained user n-tuple
-> filters have been rebound to the new L2 filter?
->
-> bnge_close_core() keeps the ethtool n-tuple rules in ntp_fltr_hash_tbl
-> and usr_fltr_list. They keep the l2_filter_id they had before the
-> close. On the next open, bnge_init_chip() allocates a fresh default L2
-> filter in vnic->l2_filters[0]. bnge_open_core() then enables NAPI,
-> sets BNGE_STATE_OPEN and enables interrupts. It calls
-> bnge_cfg_usr_fltrs() only after the sleeping HWRM calls in
-> bnge_get_port_module_status() and bnge_hwrm_realloc_rss_ctx_vnic().
->
-> In that window a packet for dev->dev_addr can reach
-> bnge_rx_flow_steer(). It passes the BNGE_STATE_OPEN check and picks up
-> the new vnic->l2_filters[0]->base.filter_id. It then looks the flow up
-> with bnge_lookup_ntp_filter_from_idx(). bnge_fltr_match() compares
-> l2_filter_id, so a retained user rule for the same tuple does not
-> match while it still carries the old id. The NO_AGING branch, which
-> is meant to let the user rule win, is skipped.
-> bnge_insert_ntp_filter() then adds a second, dynamic filter for that
-> flow to the bucket.
->
-> There is also a plain data race on the field itself.
-> bnge_cfg_one_usr_fltr() rewrites ntp_fltr->l2_filter_id without
-> ntp_fltr_lock:
->
->         ntp_fltr->l2_filter_id =3D l2_fltr->base.filter_id;
->
-> At the same time, bnge_rx_flow_steer() and bnge_insert_ntp_filter()
-> can read that 64-bit value from softirq. On 32-bit the read can tear.
->
-> Doesn't this leave two hash table entries for the same flow? Once
-> sp_task programs the dynamic one, it could also leave two firmware
-> rules, one steering to the aRFS queue instead of the queue or action
-> the user configured with ethtool.
->
-> Would it make sense to restore the user filters before
-> BNGE_STATE_OPEN is set? Alternatively, bnge_rx_flow_steer() could
-> back off until bnge_cfg_usr_fltrs() has run. If the l2_filter_id
-> update has to stay where it is, should it at least be done under
-> ntp_fltr_lock?
->
-> --
-> Sashiko AI review =C2=B7 https://netdev-ai.bots.linux.dev/sashiko/#/patch=
-set/20261106093524.838341-1-vikas.gupta%40broadcom.com
-
-pw-bot: cr
-
---000000000000ee47fe065ff95c55
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Description: S/MIME Cryptographic Signature
-
-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
-ZKzsTDzWEhPsCM5DcbMg/B7eD9n+rBWHxsk+yKJKdkLpkpTKdxxTd1Y5Ln+k5KCTjxlCUQQ7Q2Zz
-qYU8bfRq5ZMwUVJD3NZCqEKbEIgSX2vXFS61zdPwnLyHyaC/erAWmgHLu4kzpk/V10NcnUjX9FYK
-f/Ggi9MeMNG20gEIUbCg3RgYf89YLXUJDOuoz/Yajw/VuiVlwS81wF44DmJhAVcGzrI00uydpksG
-oQY2qVlhYsvNTqU2V/uaBrKQnyM0PkU140cCAwEAAaOCAdwwggHYMA4GA1UdDwEB/wQEAwIFoDAM
-BgNVHRMBAf8EAjAAMIGTBggrBgEFBQcBAQSBhjCBgzBGBggrBgEFBQcwAoY6aHR0cDovL3NlY3Vy
-ZS5nbG9iYWxzaWduLmNvbS9jYWNlcnQvZ3NnY2NyNnNtaW1lY2EyMDIzLmNydDA5BggrBgEFBQcw
-AYYtaHR0cDovL29jc3AuZ2xvYmFsc2lnbi5jb20vZ3NnY2NyNnNtaW1lY2EyMDIzMGUGA1UdIARe
-MFwwCQYHZ4EMAQUDAzALBgkrBgEEAaAyASgwQgYKKwYBBAGgMgoDAjA0MDIGCCsGAQUFBwIBFiZo
-dHRwczovL3d3dy5nbG9iYWxzaWduLmNvbS9yZXBvc2l0b3J5LzBBBgNVHR8EOjA4MDagNKAyhjBo
-dHRwOi8vY3JsLmdsb2JhbHNpZ24uY29tL2dzZ2NjcjZzbWltZWNhMjAyMy5jcmwwIwYDVR0RBBww
-GoEYdmlrYXMuZ3VwdGFAYnJvYWRjb20uY29tMBMGA1UdJQQMMAoGCCsGAQUFBwMEMB8GA1UdIwQY
-MBaAFAApNp5ceroPry1QLdugI4UYsKCSMB0GA1UdDgQWBBQI6pBWVwIN47wGrC1m7lYfqN94QjAN
-BgkqhkiG9w0BAQsFAAOCAgEAOdSnSEyuTvTtsnmEilB0JfgRKx1MM7kNdv0pfWcINJhssfHD8Fc5
-wm+JzenYR9yJAkntX0Lr9yv+OG0Jqhvy7u9gKljfI4jXO4qxZ2jf1YvI+fDK29/NV3JAQuipT3Vs
-IxBI73CQO11VwMePOTsUNM1s+9cWT5zLuqOEEu+95jRo5KEtH1/4nahrToLU1Y+flylsBaAUhB72
-KoBBzdewa+psa32lY8X23AWDoczIlUBmPt0hmApBvHOUCYszSiBu4/VhVDuq2iMBtnYAj2j9Q7Ct
-pZHPj6fQv247S9dTDDym05r8arHAsUw7B29KvPfxeaqexL4gwQQjIsfdZeh88XYLXA+mvEej6OlO
-YO3546G7bczFxIjO6V9RrvYEeAb+n7udXYymuIm02XtxIkr/Uk0gRuFoOpG2Dw1OH8xsOUER1+16
-qGb2QKMgaKL/IIM3gXAuCxNVBOT+Fj/wh5hw7MFvTTXPFA8IKusoHZYpxdrr9xjoJ/wt6j4/E6K4
-IO/WuSc4nM6kshiwIu5c6r97213ZtJFOrjoITiBIYFP0WQsTsEbWvaBX/7daT5IVr9rvCOCk2JA8
-bOWwP4OYXCKJY5nZOntb0ECSI7RM0kGelGY4MAD42+OBWHxKU1Qvt5WK4kIXdKpdFp9Drv17PyCU
-dR4AvAJyWnkqZyi5QuRg/hMxggJXMIICUwIBATBiMFIxCzAJBgNVBAYTAkJFMRkwFwYDVQQKExBH
-bG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBSNiBTTUlNRSBDQSAyMDIz
-Agxt8eaxmNwH4eu5pUowDQYJYIZIAWUDBAIBBQCggccwLwYJKoZIhvcNAQkEMSIEIHiR3QXTgOzR
-budDaKssAqt/MCbFBO7X2xmaOq9qHGSUMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEwHAYJKoZI
-hvcNAQkFMQ8XDTI2MTExMTA1MjExMFowXAYJKoZIhvcNAQkPMU8wTTALBglghkgBZQMEASowCwYJ
-YIZIAWUDBAEWMAsGCWCGSAFlAwQBAjAKBggqhkiG9w0DBzALBgkqhkiG9w0BAQcwCwYJYIZIAWUD
-BAIBMA0GCSqGSIb3DQEBAQUABIIBAKY7VAExySHoiYAJoDZ3e9mmGRrZKOTxpALg7Ob/sHL8zdQN
-URen4CsccuOHLx4/rCx7QB3DWlKymXERUIDB/GV0N1N6A5/IGXccXzPVYmV6C5sMyD1muJh8t2+j
-d2/FL6PqsWYb5aRSSU11MqdhtnlU8G3vFqV126QuRWhsUOk9oPx40CSbPOu+9Ei0MrMcCXmL99KJ
-9r3PYYULzl1qg70D17QKtYJoeS74oBYxeL9Pb4HTlgqe8kcKQjXXQCb1S7NsHer9VsxM3XEFuTEk
-bjfuLig8hWuJJMorsztoQiWn36xP2puYzST9vWn7Ub9qyit6hVKnugajcDk86clkOgU=
---000000000000ee47fe065ff95c55--
+SGkgWWFvOg0KDQpDb3VsZCB5b3UgaGVscCB2ZXJpZnkgd2hldGhlciB0aGUgY29sb3Igb2YgdGhl
+IFRyYWNrUG9pbnQgc3RpY2sgdW5kZXJuZWF0aCB0aGUgcmVkIGNhcCBjYW4gYmUgdXNlZCB0byBp
+ZGVudGlmeSB0aGUgdmVuZG9yPw0KDQpXaGl0ZTogRUxBTg0KT3RoZXIgY29sb3JzOiBPdGhlciB2
+ZW5kb3JzDQoNClRoYW5rcw0KSklOR0xFDQoNCi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQpG
+cm9tOiBZYW8gWXVhbiA8eWFveXVhbjAzMjlvc0BnbWFpbC5jb20+IA0KU2VudDogVHVlc2RheSwg
+Tm92ZW1iZXIgMTAsIDIwMjYgOTo0OCBQTQ0KVG86IEppbmdsZSBXdSDlkLPph5HlnIsgPGppbmds
+ZS53dUBlbWMuY29tLnR3Pg0KQ2M6IERtaXRyeSBUb3Jva2hvdiA8ZG1pdHJ5LnRvcm9raG92QGdt
+YWlsLmNvbT47IElscG8gSsOkcnZpbmVuIDxpbHBvLmphcnZpbmVuQGxpbnV4LmludGVsLmNvbT47
+IFZpc2hudSBTYW5rYXIgPHZpc2hudW9jdkBnbWFpbC5jb20+OyBsaW51eC1pbnB1dEB2Z2VyLmtl
+cm5lbC5vcmc7IGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc7IFBob2VuaXggSHVhbmcg6buD
+5LiW6bWsIDxwaG9lbml4QGVtYy5jb20udHc+OyBTdGFubGV5IENoZW4g6Zmz5bu657atIDxzdGFu
+bGV5LmNoZW5AZW1jLmNvbS50dz4NClN1YmplY3Q6IFJlOiBbUEFUQ0ggMS8xXSBJbnB1dDogdHJh
+Y2twb2ludCAtIEFkZCBuZXcgRUxBTiB0cmFja3BvaW50IGRldmljZSB2YXJpYW50IGlkIDcNCg0K
+4pqgIEV4dGVybmFsIEVtYWlsOiBUaGlzIGVtYWlsIG9yaWdpbmF0ZWQgZnJvbSBvdXRzaWRlIHRo
+ZSBvcmdhbml6YXRpb24uIFBsZWFzZSB1c2UgY2F1dGlvbiB3aGVuIG9wZW5pbmcgbGlua3Mgb3Ig
+YXR0YWNobWVudHMuDQrimqAg5aSW6YOo6YO15Lu277yaIOatpOmDteS7tuS+huiHquWFrOWPuOWk
+lumDqO+8jOiri+isueaFjumWi+WVn+mAo+e1kOaIlumZhOS7tuOAgg0KDQpPbiBUdWUsIE5vdiAx
+MCwgMjAyNiBhdCAwNToyNjoyMUFNICswMDAwLCBKaW5nbGUgV3Ug5ZCz6YeR5ZyLIHdyb3RlOg0K
+DQpIaSBXdSwNCg0KPiBIaSBEbWl0cnkvWXVhbjoNCj4NCj4gV2UgaGF2ZSBjb25maXJtZWQgdGhh
+dCBGVyBBMSB3YXMgbmV2ZXIgcmVsZWFzZWQgYnkgRWxhbi4gVGhlIEVsYW4gVmFyaWFudCBJRCBo
+YXMgYWx3YXlzIGJlZW4gMy4NCg0KVGhhbmtzIGZvciB5b3VyIGluZm9ybWF0aW9uLCBMZXQgbWUg
+c2hhcmUgbW9yZSBkZXRhaWxzOg0KDQpUaGUgdHJhY2twb2ludCBoYXMgZHJpdmVyIGZyb20gIkVM
+QU4NCk1pY3JvZWxlY3Ryb25pY3MgQ29ycC4iIGluIHdpbmRvd3MgMTEgb24gc2FtZSBkZXZpY2Uu
+DQoNCkluIExpbnV4IEkgZm91bmQgdGhlIGRldmljZSBpcyBwcm9iZWQgYXMgZ2VuZXJpYyBtb3Vz
+ZSBkZXZpY2UgYnV0IG5vdCB0cmFja3BvaW50IGRldmljZSwgaXQncyBoYXJkIHRvIHVzZSBkdWUg
+dG8gbm8gc2Vuc2l0aXZpdHkgc2V0dGluZyBmcm9tIHN5c2ZzLiBJIGZvdW5kIHRoZSByZXBvcnRl
+ZCBpZA0KMHg3IGlzIG5vdCBpbiBkcml2ZXJzL2lucHV0L21vdXNlL3RyYWNrcG9pbnQuYydzDQp0
+cmFja3BvaW50X3N0YXJ0X3Byb3RvY29sKCkgYWZ0ZXIgZGVidWdnaW5nLCB0aGUgdHJhY2twb2lu
+dCBpcyBwcm9iZWQgYW5kIHdvcmtzIHdlbGwgYWZ0ZXIgYWRkIHRoZSBpZCAweDcgdGhlcmUuDQoN
+ClNvIEkgdGhvdWdodCB0aGlzIHNob3VsZCBiZSBhIEVMQU4gZGV2aWNlIHcvIElEIDB4NyBhbmQg
+Y29va2VkIHRoaXMgcGF0Y2guDQoNCg0KPg0KPiBUSEFOS1MNCj4gSklOR0xFDQo+DQo+IC0tLS0t
+T3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+IEZyb206IERtaXRyeSBUb3Jva2hvdiA8ZG1pdHJ5LnRv
+cm9raG92QGdtYWlsLmNvbT4NCj4gU2VudDogVHVlc2RheSwgTm92ZW1iZXIgMTAsIDIwMjYgMTA6
+MzYgQU0NCj4gVG86IFl1YW4gWWFvIDx5YW95dWFuMDMyOW9zQGdtYWlsLmNvbT47IEppbmdsZSBX
+dSDlkLPph5HlnIsgDQo+IDxqaW5nbGUud3VAZW1jLmNvbS50dz4NCj4gQ2M6IElscG8gSsOkcnZp
+bmVuIDxpbHBvLmphcnZpbmVuQGxpbnV4LmludGVsLmNvbT47IFZpc2hudSBTYW5rYXIgDQo+IDx2
+aXNobnVvY3ZAZ21haWwuY29tPjsgbGludXgtaW5wdXRAdmdlci5rZXJuZWwub3JnOyANCj4gbGlu
+dXgta2VybmVsQHZnZXIua2VybmVsLm9yZzsgUGhvZW5peCBIdWFuZyDpu4PkuJbptawgPHBob2Vu
+aXhAZW1jLmNvbS50dz47IA0KPiBTdGFubGV5IENoZW4g6Zmz5bu657atIDxzdGFubGV5LmNoZW5A
+ZW1jLmNvbS50dz4NCj4gU3ViamVjdDogUmU6IFtQQVRDSCAxLzFdIElucHV0OiB0cmFja3BvaW50
+IC0gQWRkIG5ldyBFTEFOIHRyYWNrcG9pbnQgDQo+IGRldmljZSB2YXJpYW50IGlkIDcNCj4NCj4g
+4pqgIEV4dGVybmFsIEVtYWlsOiBUaGlzIGVtYWlsIG9yaWdpbmF0ZWQgZnJvbSBvdXRzaWRlIHRo
+ZSBvcmdhbml6YXRpb24uIFBsZWFzZSB1c2UgY2F1dGlvbiB3aGVuIG9wZW5pbmcgbGlua3Mgb3Ig
+YXR0YWNobWVudHMuDQo+IOKaoCDlpJbpg6jpg7Xku7bvvJog5q2k6YO15Lu25L6G6Ieq5YWs5Y+4
+5aSW6YOo77yM6KuL6Ky55oWO6ZaL5ZWf6YCj57WQ5oiW6ZmE5Lu244CCDQo+DQo+IEhpIFl1YW4s
+DQo+DQo+IE9uIE1vbiwgTm92IDAyLCAyMDI2IGF0IDA5OjA4OjM2UE0gKzA4MDAsIFl1YW4gWWFv
+IHdyb3RlOg0KPiA+IFRoZSBuZXcgRUxBTiB0cmFja3BvaW50IHZhcmlhbnQgaWQgNyBpcyBmb3Vu
+ZCBvbiB0aGlua3BhZA0KPiA+IFgxNCBHZW4xIGxhcHRvcChQcm9kdWN0IE5hbWU6IDIxWE1BMDA2
+Q0QpLCBpdCdzIG5vdyBpbmNvcnJlY3RseSANCj4gPiBwcm9iZWQgYXMgR2VuZXJpYyBvciBMb2dp
+dGVjaCBQUy8yIG1vdXNlLg0KPiA+DQo+ID4gQWRkIEVMQU4gdmFyaWFudCBpZCA3IHRvIG1hdGNo
+IHRoZSBUUF9SRUFEX0lEIGNvbW1hbmQgcmV0dXJuIHZhbHVlLCANCj4gPiBwcm9iZSB0aGUgZGV2
+aWNlIGFzIHRyYWNrcG9pbnQgY29ycmVjdGx5Lg0KPiA+DQo+ID4gQkVGT1JFOg0KPiA+IGlucHV0
+OiBQUy8yIEdlbmVyaWMgTW91c2UgYXMNCj4gPiAvZGV2aWNlcy9wbGF0Zm9ybS9pODA0Mi9zZXJp
+bzEvaW5wdXQvaW5wdXQ2Mw0KPiA+DQo+ID4gQUZURVI6DQo+ID4gcHNtb3VzZSBzZXJpbzE6IHRy
+YWNrcG9pbnQ6IEVsYW5fdmFyaWFudDcgVHJhY2tQb2ludCBmaXJtd2FyZTogMHhhMSwNCj4gPiBi
+dXR0b25zOiAzLzMNCj4gPiBpbnB1dDogVFBQUy8yIEVsYW5fdmFyaWFudDcgVHJhY2tQb2ludCBh
+cw0KPiA+IC9kZXZpY2VzL3BsYXRmb3JtL2k4MDQyL3NlcmlvMS9pbnB1dC9pbnB1dDY1DQo+ID4N
+Cj4gPiBTaWduZWQtb2ZmLWJ5OiBZdWFuIFlhbyA8eWFveXVhbjAzMjlvc0BnbWFpbC5jb20+DQo+
+ID4gLS0tDQo+ID4gIGRyaXZlcnMvaW5wdXQvbW91c2UvdHJhY2twb2ludC5jIHwgMiArKyANCj4g
+PiBkcml2ZXJzL2lucHV0L21vdXNlL3RyYWNrcG9pbnQuaCB8IDEgKw0KPiA+ICAyIGZpbGVzIGNo
+YW5nZWQsIDMgaW5zZXJ0aW9ucygrKQ0KPiA+DQo+ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvaW5w
+dXQvbW91c2UvdHJhY2twb2ludC5jDQo+ID4gYi9kcml2ZXJzL2lucHV0L21vdXNlL3RyYWNrcG9p
+bnQuYw0KPiA+IGluZGV4IDNiZDhmZGY1NmNkMy4uZjQ2ZmMxNjY1Yzk2IDEwMDY0NA0KPiA+IC0t
+LSBhL2RyaXZlcnMvaW5wdXQvbW91c2UvdHJhY2twb2ludC5jDQo+ID4gKysrIGIvZHJpdmVycy9p
+bnB1dC9tb3VzZS90cmFja3BvaW50LmMNCj4gPiBAQCAtMjUsNiArMjUsNyBAQCBzdGF0aWMgY29u
+c3QgY2hhciAqIGNvbnN0IHRyYWNrcG9pbnRfdmFyaWFudHNbXSA9IHsNCj4gPiAgICAgICBbVFBf
+VkFSSUFOVF9OWFBdICAgICAgICAgICAgICAgID0gIk5YUCIsDQo+ID4gICAgICAgW1RQX1ZBUklB
+TlRfSllUX1NZTkFQVElDU10gICAgICA9ICJKWVRfU3luYXB0aWNzIiwNCj4gPiAgICAgICBbVFBf
+VkFSSUFOVF9TWU5BUFRJQ1NdICAgICAgICAgID0gIlN5bmFwdGljcyIsDQo+ID4gKyAgICAgW1RQ
+X1ZBUklBTlRfRUxBTl9JRF83XSAgICAgICAgICA9ICJFbGFuX3ZhcmlhbnQ3Ig0KPg0KPiBJIHdv
+bmRlciBpZiB3ZSByZWFsbHkgbmVlZCB0byBzYXkgIkVsYW5fdmFyaWFudDciIG9yIGlmIHdlIHNo
+b3VsZCBzaW1wbHkgc2F5ICJFbGFuIiBoZXJlIGFzIHdlbGwuDQo+DQo+IEppbmdsZSwgaXMgdGhp
+cyB5b3VyIHBhcnQ/IFdoYXQgaXMgdGhlIGRpZmZlcmVuY2UgZnJvbSBFbGFuIHRyYWNrcG9pbnQg
+cmVwb3J0aW5nIDB4MDMgYXMgaXRzIHZhcmlhbnQ/DQo+DQo+IFRoYW5rcy4NCj4NCj4gLS0NCj4g
+RG1pdHJ5DQo=
