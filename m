@@ -1,102 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.13.20
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794362910;
-	b=OV6+8GujdSOgCCkUcyuLdwemAFB3dhLODIFz074jMzj4c1Tg6D8tAKU167PrOMOwp3yR
-	 k3KgkocRKRv7bOxWKMirpmrpSb0NgH/es2PzliUmx4nQAmCopwkpOrSUVdtoPleA9fzK2
-	 2ZH9ct1iYV7KSnfRBT9ZRmoovLomd6HyFjnsfyNVxirMOZ1XC0ES5xe4BOp+pAqv89bSF
-	 r0Cn2uPPTZz0ux25mXI0j/OPH1ps64+24CsfzpwZiWcMPrukCnDS+/+CSrwbr/NunXJKB
-	 9fderLnKe8XgG99S/4PlY6dM4WAsSIN9EMUZRnROfzXBJmB5zppgakUGgIME4ST6oqQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794362910;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:
-	 X-Microsoft-Original-Message-ID:MIME-Version:
-	 X-MS-Exchange-MessageSentRepresentingType:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=nPNc2OM8u7bLEgvo/SguSftNhmsxCeRNKpZIyE2R+g8=;
-	b=z6gEYr1kjdUkdLU3GoMAcJ79KJbJdgvPddM+mZmtowSQu3cYQPI8NEmFIj6ReVInoXUT
-	 4zjGEgiy3XVBu4YTl3XP3c3+De2RjYY0JjgQ1H3qojDTDpqJY3+OYJQG2l/sdUpstERZX
-	 8NT9lurRbocknOfVYzROx4BUTZWaeniumOlKHkFswT62Xtgo+4GjEnAnFy8qQmeKzXSBB
-	 JSqY4ZfaBBu/OG4rlhLi8DxIhd/quAk138tUxCd/Mp7Rsl1p/BxoQ/9W0G+JnKIWWUVwm
-	 TPc+A+OrtDcByX4G81M5G0DwnbQgb4jEvFF880oKAsYTQ0gbkDJLX7gKsFky0x04/YA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=outlook.com;
-	spf=pass smtp.mailfrom=outlook.com;
-	dkim=pass header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=iiIIRphl;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.13.20
-Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazolkn19010020.outbound.protection.outlook.com [52.103.13.20])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794362925;
+	b=I6MLVRWtAXvvp5TDOw/utbQcumv6HKvtsKdy0rb1X1niE3hccdUN27ores9EEc05flp8
+	 djfrE8B2szZrYV7ncxk5iRVU11QagrCVcQ0d8B8ilS+xRLMCB1rdILx1mb99E9Q+0BtLj
+	 TqegQcMaQmB6SR3TdeVVoy1PkgZ2za9HTDT9jewnwY/eb4ik/+TkQPjk8xOmyKGDHt921
+	 9XRAJBfw78VqvjFbQQnp+OrpNfOsS8OdTSAAKip1z/a1pMTEw4yOz/ANnms9/6bFsLGAg
+	 2ZBV7nKa8J7vspmyRD0yyy9S9zpGpIe8eWACBN5cXyMuGQVszQ3pTg15kxQF0M1bWUw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794362925;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=IqRkQAWA6x79NK/foSAYp+LfNrOBVrF5NDpnzdsePVo=;
+	b=syz2t+hBac0vTkZNVarC2ShuNOCKo8rfgcjlopNbLGmPLUkNJYweFtH0cXqCDUEu4O2D
+	 RbTGf8KUAf2A0y6SzTw+sCkno6PMd3cS6L1tx3EnAcvbhihpGGD3qkRZWlcRjKlLbjbr2
+	 LwVYE9843Us17MzXDjEwsGDUSB7WjzsgW+sxl9kpbkYj2BlGptXUQYMwLxZLDKtXqvjRT
+	 rJ1L938xjoXzAfBtS67wvAKMVbBn41y2pp9wOfVtvocg17S0fwAaqwjhvJ+5f87c9ikWR
+	 RT9GOAbXlbfgo/TJNOlyRAVarKLzCEmg57ZYefHkWkc/GKut8hkqbUascZBL5KCjpAA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="Y/RzuCcz";
+	arc=none smtp.remote-ip=74.125.82.182
+Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2507606A31C;
-	Wed, 11 Nov 2026 02:08:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2507606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C5A8606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 02:08:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C5A8606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=iiIIRphl
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vlYqe7c4uTKTQKpeXnnCSVeeoJFVYogDqf7aDRMoc50U4SBxvcXClfd070dtVtElNNfU+qH88lvp1xHjg62qwUpsSuINVCwyQc9nWh0gO73a5p82l5IVKsr94L4uaCrkufDM+NA4OkRuW1vhvxvoRbC4fC36ipBp0Gb/Ue4/raDrswQuq6PMYRCsnzAvEBF9k7WikkNwx8xoTYVXysgsq6HqdcMQ053NLeZ5XJwX8EQU1P3VeydGOdYPVh1tyuXASEHB0/a7Ypw7WZR+lejDKjkLYvx+SEZDpMs7d+u/pfZvGMFXCPnrje5FgyXvmIBEJ/QQ26j3rMCbi2sFh/kt+w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nPNc2OM8u7bLEgvo/SguSftNhmsxCeRNKpZIyE2R+g8=;
- b=gX/aTdMkSIA7TceQAqV0IabYuRvAtsz/450bVXAkHjbSx94lR50yV43QW57dFRCYPepXShEbgvEQIRQQg9lGt0aYv16IQuW7sHfGWXqcPVyWU48Njp/nX3PYI3Uc3xTEIHqJRWV4wQJ4TRWcFAqeDhXVGJbjA2fsyaeYu9u8UPhPCnJ2JN/1Br2UffRPBFEhOkKX+8Kgp3ATSqmEbHCQl40XVlU/xI/vESg3AH0L8v5Cw4u64BMlT8JqukuZSgEwhiQcaFMK59dP0EFJNMqowTnJqhDAY45TDh72TdTgJyNEvHyNnJl+2tzF8igxYkKdlAWmPHQaOhUtlGEjHEeGcQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nPNc2OM8u7bLEgvo/SguSftNhmsxCeRNKpZIyE2R+g8=;
- b=iiIIRphlX3Bly8vNEkBoI0D1SNNOEwnExWAMvkSkvPW8bK4G1krY+bAaqOilR6MMC3PRVM4EvvcbuzQgmhfc7thHyvuZFIftYAqjE73EJNKT6xkcLz4ooO8ggvUdBKXMg44nfO23J/0Od4DGXV2VOZXsXDD1ZjRkJykQFOKyhlcLZIUbbS72eTD+yPrZ4QSUsvXUJ9yZeH82RNLXbNBENVX+GDRdAFPSN1pLlmzh5TtDvJCfdtvO14/7rhqcMSji7qJE8trpQ0TP32pcdFFlKWDILLw9kw3hywliHNmov0R3DvSSXgyDYWQSEF2gF4+TjFOmZIXsMIn0lb7eXcahGg==
-Received: from SN1PR12MB2528.namprd12.prod.outlook.com (2603:10b6:802:28::33)
- by CY8PR12MB8409.namprd12.prod.outlook.com (2603:10b6:930:7f::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.12; Wed, 11 Nov
- 2026 02:08:13 +0000
-Received: from SN1PR12MB2528.namprd12.prod.outlook.com
- ([fe80::9875:58c0:928e:cf0a]) by SN1PR12MB2528.namprd12.prod.outlook.com
- ([fe80::9875:58c0:928e:cf0a%6]) with mapi id 15.21.0592.010; Wed, 11 Nov 2026
- 02:08:13 +0000
-From: Victor Chernyakin <chernyakin.victor.j@outlook.com>
-To: cwweng.linux@gmail.com
-Cc: andy@kernel.org,
-	conor+dt@kernel.org,
-	cwweng@nuvoton.com,
-	devicetree@vger.kernel.org,
-	dlechner@baylibre.com,
-	jic23@kernel.org,
-	krzk+dt@kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-iio@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Y/RzuCcz
+Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-36d1b3b9974so9834eec.2
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 18:08:45 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794362924; x=1794967724; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=IqRkQAWA6x79NK/foSAYp+LfNrOBVrF5NDpnzdsePVo=;
+        b=Y/RzuCcz11gPiJ4voG226bkg8toO3K9UlJWCo6HoE5c4W9tW4fL1ED84UmKoUc8Zu7
+         tBfUzu3oObPhDBJOUpY1HzB5owa8Tz9wFdmGoOo9aga8JPTAxoLQoMMNwtizl0iHD/dI
+         L2UAyV6V3DV5OtOq1K9ZQRqdMUqphgZu5u850yXGYA4wUDn/ajyvB9ZbveC10Zp2pSve
+         /eULW8xTqz3yWc4EQoVlhFXMbQQBVbjQKsvqnesPnHzzf8A5aUWG8keijou05OsplmCf
+         2ckmmhCAIuU24zVnf6llkJcprGLCjdw3uPtvgjjQyK37KX9BqUNkNS6a7fJkHxr6iKzX
+         A59A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794362924; x=1794967724;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=IqRkQAWA6x79NK/foSAYp+LfNrOBVrF5NDpnzdsePVo=;
+        b=omoC8rMs2YJ0fufJDGHIifhu9hLkkEa9Tpq/0vqdUfv2RbArSgvd38+4F+xGSGZlud
+         iY9ro+cGJ7o8tEMcy2zgobELaL3IYDvKqF7TUjR0b3eNKWSghOmO5WbHBgzlHtijUiHw
+         hkLFldtiZr6DWv6nP5lJVBrcK5CpDXsTs8NA5PuhDNDaiiWd69CNdYFODKQEPTYQ76hb
+         EbSx5EAs9mEV6Su/7OrS/fnWgCa+ivP2XwUz2bocU3j07uqnlQVoT4bDowmeeIXTJheN
+         ykddiZAc7v61e5+JsXTpFGEYF1+IKfJZxfruNmNIvgAkpRtS1KuafSZxkAwx9NZEUaHh
+         hXew==
+X-Forwarded-Encrypted: i=1; AL+hErGj3obUSDXWKmld4ooLuoWzqDRe97hYUSnrwZ/idge9ksF0ew41BCVwYpaFGUqMRnRccnzZkN/rCceAtX8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8CTTTj+0cshOWW2F1stGHigveYo4KXfiZl5d+J5LtiJQgA6v/c
+	MAj10+Xbld5IrFRhptuP10u2+lVc7F0MxNUIJcDwxcpDaYeSImS2ypna
+X-Gm-Gg: AYBFou0g8Hh6P3BUt38q3FTn0cVn4FidtBeUhhBorDGPkIOfWglhHjwBks/0/JIw9UR
+	XgnmkDypK9gHBk9F1xGXZ3vl74UX2uze05CQsJ0kW2B00tHAn1waO9onLcgq8pBW8znb8vmYOSY
+	AMdxsQz9RoaqdtNp5ve9hyETwJuDB50SGjTe3oYUnFd3CDihhALw7lex+Pmqaxy81lVqhudvirR
+	q164QjJ73khM4TqzfsVlLSE5dT9UV2D+MbUCiu1S3tX4EVYFWRe0yNsfh7NW6+bVrFXgqxvExHB
+	pSpFcQHe9g4Ya4qBH1STye6qwzry3yOVoeliixJAayjawhhzQZQHCsFQU2sQo+6iwHvew6XXmvm
+	yuNKryMozxST/H5C4NagYEEuTpt3ks3xOjWr1hOFa4ibgO9KmZtxpAE/MB1SIekJXKx3mD98Sdr
+	mawkR2ZL4eXi3HE2r4R2yPhgSy1DX3+I7iBG6nAyi6Ot9Dlz61wufhm+QcGJNc71f4Au3ayihaw
+	rJbGiZv9iuJKWFWJxWX7gv1aeg6fggGyoVXpdpchQJy4Lq9fY7MmQ/sOEBQMqateIVVZiGxuwmD
+	CFNyXovzRxSkrNT8qr0BICXjwtex5Q5lZY0iJzbTWt6xSbrLyImGFVU=
+X-Received: by 2002:a05:693c:20cd:20b0:375:f846:5b3f with SMTP id 5a478bee46e88-3767fe8f34bmr2355849eec.0.1794362924193;
+        Tue, 10 Nov 2026 18:08:44 -0800 (PST)
+Received: from mi-ThinkCentre-M760t.mioffice.cn ([43.224.245.234])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3752060dc0csm12644625eec.14.2026.11.10.18.08.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 18:08:43 -0800 (PST)
+From: Wenwu Hou <hwenwur@gmail.com>
+To: linux-trace-kernel@vger.kernel.org
+Cc: rostedt@goodmis.org,
+	mhiramat@kernel.org,
+	mathieu.desnoyers@efficios.com,
 	linux-kernel@vger.kernel.org,
-	nuno.sa@analog.com,
-	robh@kernel.org
-Subject: Re: [PATCH v4 2/2] iio: adc: Add Nuvoton MA35D1 EADC driver
-Date: Tue, 10 Nov 2026 20:08:03 -0600
-Message-ID:
- <SN1PR12MB2528F7F6F04801AB698A5A60A5712@SN1PR12MB2528.namprd12.prod.outlook.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261104091136.151269-3-cwweng.linux@gmail.com>
-References: <20261104091136.151269-3-cwweng.linux@gmail.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: CH0PR03CA0181.namprd03.prod.outlook.com
- (2603:10b6:610:e4::6) To SN1PR12MB2528.namprd12.prod.outlook.com
- (2603:10b6:802:28::33)
-X-Microsoft-Original-Message-ID:
- <20261111020803.1121900-1-chernyakin.victor.j@outlook.com>
+	frederic@kernel.org,
+	Wenwu Hou <hwenwur@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] tracing/hwlat: Bind the sampler kthread instead of setting its affinity
+Date: Wed, 11 Nov 2026 10:07:55 +0800
+Message-ID: <20261111020755.1422284-1-hwenwur@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,110 +99,91 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PR12MB2528:EE_|CY8PR12MB8409:EE_
-X-MS-Office365-Filtering-Correlation-Id: 05408700-a35c-49a8-5018-08df3f98a36c
-X-Microsoft-Antispam:
-	BCL:0;ARA:14566002|260925184616899003|24021099003|4140399003|25010399006|22121099003|22091999003|24121999003|23021999003|41001999006|39105399006|5072599009|19110799012|15080799012|8060799015|40105399003|26121999007|440099028|3412199025;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?8O2xGncXhaXosalckQDdHB2cHHzLBLWf77ld5aLp5hJEmNxwpjBY1iv7F7UH?=
- =?us-ascii?Q?pibcB7o/ZAAtYsddQ50YkaIlGTkCKdoUwpOO9wmw1wyzKoLK73EFEXvQ/8k0?=
- =?us-ascii?Q?yg7+dNQkKfoRaEMqoBSeZGPPnlliD8M3B/FSIhLAB5TjI8U+YvaBmbpxdos+?=
- =?us-ascii?Q?ltsT81N6jSM8hgvUTCfTvt9zUOQEewmwRXCTIUyrpQFVSbazgxcP4yyMZ0pg?=
- =?us-ascii?Q?/lsHRPj8oyfyRGo1CJ3K+G+iUp2XB5ML9UWccemWjy1v8LfhEhzXgbUKqHpg?=
- =?us-ascii?Q?U27vSPC4/DKWIYzvzIuXAt3040nxKkL+HNwpIWDwL6mdHMZRtY6rs5Sux2Y3?=
- =?us-ascii?Q?xT8iiJjy2GLxUqJPD2GDZW9/HNnYWyQqjx3OWTcAqnStjMFg43BlA5A7D0oZ?=
- =?us-ascii?Q?ZY46tWYMRXgvxexmD8JlodznlQLbuP4Jr6hPmOqCITutTR1fdWH0EE1l/2Ad?=
- =?us-ascii?Q?TH6a78lFkeqB+6jRUXznlRPUW2SJDwLI6yueD0wK6zx126gxLQZycOMhYQLF?=
- =?us-ascii?Q?aIQ+/z3Jx9CjJEnCAaTRa/U7U8SSYjG3EbiY1QvNuIVwAs7JM/4ABafj/Nip?=
- =?us-ascii?Q?1xttbR1sXvO0Py3H5H4LY2YNb+imsfBIlim0mN5ZRXHdIp9A25Yi1E3wLuoo?=
- =?us-ascii?Q?8RKSl7xPF+CoBeQeCddAMEVYQIeGGb9l76CoYA3f2CN9yGWn8M940gemHBUy?=
- =?us-ascii?Q?/dAhIQ1U1GxOgE7xnDRv4PvtksWe2ns07H8y3YhCjwvNtaDkp8Jy+Y/TEkoX?=
- =?us-ascii?Q?lX1xmrmp9YFKs/RxBnn2wMRi/IzkN1Yt2xF5s3u/GzOiOwO9wsdBdfeGONJk?=
- =?us-ascii?Q?85mJ0oqVYqvAUqf1lgfiwevqGq8yyJbOmKv0BkPVJyEJox83sR4LKTV8jxvS?=
- =?us-ascii?Q?AGqvzDJXrFnQntp41VoER3J3VZlBCl+hCIPo7MbJqoUXm5llIUIwqxHavjaX?=
- =?us-ascii?Q?u168f9+tlys3CI7FnmtLTjp1oZxXnQM/qkL40YQTI3WpAygVNrHHg2TjhK2L?=
- =?us-ascii?Q?UstsEF60ZdYaIkSo6Zx/q5SPfpcOi5AmNSfoziqoIxWNfBJlGV+mH0oepYjB?=
- =?us-ascii?Q?v9ttWDUnx9S2ts4Qm2BIkwEfisWAryaH1HKOtkP2txzsjYWNK+I=3D?=
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?Wj6Kc8iNA8i1j+qb4aTeICGrEL9wlgDmIXLKOBaxdkMkoMtr8F+fr6WS4h/+?=
- =?us-ascii?Q?GP0EkM0GJyBwoKkz9lV9qVuykbdTEbh9N2A6JLn81TiXuPkpO52St+Zc1HwV?=
- =?us-ascii?Q?cfmQr6eaIq6u5h0TmPf0LnzK23MYrOt4mjIhfCiT42oyTutKFZMidulR/D48?=
- =?us-ascii?Q?zndY88WYqLHn8lMQaiWnFIHeuZxUKQG/d1Ric79npF2Xl89xePsisF9lS9qK?=
- =?us-ascii?Q?Mzj2LqcCiJNC7MH6FsA/Q3VuYVaqRE3s5qDGgYcB6XF4pq+dTMeuZlNGJrtt?=
- =?us-ascii?Q?cpg558W/n9wUHC8ABlCC9RnttvdjtkEzsRWcDbEGYTxrSTLWSA54UTpclzRU?=
- =?us-ascii?Q?Mgox9eSbxn4HdtJdBtY9MrUuuKPF3ldoXJZDkRnkulKeXbLKOKxDyJk0wiKW?=
- =?us-ascii?Q?Tgr42We/yyo/dLSmJZR4PAyALlI7GSgMmyHhbKTo4r/M1MAlscBFSt4Ewf8x?=
- =?us-ascii?Q?nTTkJcze0Tq+EchtkROFmhsiNiK97vf9uox07yFGDKKAR1/7chxOCLufSrsx?=
- =?us-ascii?Q?oQxQmLut7l8jz6Zf+8xM6odxOV962DfNiWR2Ohfj23bT806LmQOfboNxWHvw?=
- =?us-ascii?Q?E1A4uFEyksYwfcWyE8OzLdBmnh5BbsrUu/XQobvk7ytg6KrTSdPx7FsrJ5gI?=
- =?us-ascii?Q?p6/TlZ/Y00PZGkJVUr7mntHf/P6nn3DsdodIcqgLEMbmxBGqEbzF9xMntaEa?=
- =?us-ascii?Q?bpz3J7+Z9/OdsOIUWqwFJMq0baZtj/OUVoK6MJwcuOIb8Y3AI0cXP5XP/Vay?=
- =?us-ascii?Q?vJP3pIUpe04vJcqOnhof9XO4suunc+Ve36Gtme6KXDp3u9KjuddSL28LkT9F?=
- =?us-ascii?Q?Ce2TLF2o3Z1uuTHJDk9RA+7pGnR9DGGPW/WC5senZSs07vGvL5VuKzTxbuTl?=
- =?us-ascii?Q?qR1iVjUvFJXtxkd6+ZKOp0JLTTLQ/IJD7MebMRk/zbZbGypNmpRMS945Pg1f?=
- =?us-ascii?Q?uTLOysiWv+tNKYZ1JxsTeioCZT1xtum/Oe0CVATxQnehd7r0iRB7Vozvasq7?=
- =?us-ascii?Q?bkLaVYkcUzdtkT0rB8TCxgVpw6S63YN6euIGMFuzqys1Z8CszxwFQRSOI5Iw?=
- =?us-ascii?Q?cOVUQck+xCDu0FqyMhUbckKNMs1WjophwLXLVEn75Rm6KyhCtkSCoMEM4y0U?=
- =?us-ascii?Q?aSGLAKeShh6TZCCDr+TMhE+hNd0gPJKNLjznZe3g8MgFQqfvOcwnnuBnoutp?=
- =?us-ascii?Q?1ZQIRZysMaoc+84K/6Ta+31O0SbtICWo7OHeNZrAhbp1I0mWuLyYT/jN++2t?=
- =?us-ascii?Q?u66A9WPv7oxRxDvsIHbNgYTw/rNgbv19fwEknJb8E3+6IDFvNRtsSYwr/85v?=
- =?us-ascii?Q?cFUG0kVi4co2DT6fgBH2LYJFpCU9Hp5oHf2v9ymY3nVxWsLfKEMLN7rg8XkQ?=
- =?us-ascii?Q?cdkqbDe7sfpaOGc8WXhoU8h//LRaoDl1F50k/zupNgY4TUoSDw=3D=3D?=
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 05408700-a35c-49a8-5018-08df3f98a36c
-X-MS-Exchange-CrossTenant-AuthSource: SN1PR12MB2528.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 02:08:13.0026
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8409
+Content-Transfer-Encoding: 8bit
 
-> +static void ma35d1_adc_trigger_capture(struct iio_poll_func *pf)
-> +{
-> +	struct iio_dev *indio_dev = pf->indio_dev;
-> +	struct ma35d1_adc *adc = iio_priv(indio_dev);
-> +	struct {
-> +		u16 channel;
-> +		aligned_s64 timestamp;
-> +	} scan = { };
-> +	u16 raw;
-> +	int ret;
-> +
-> +	guard(mutex)(&adc->lock);
-> +
-> +	if (adc->suspended || !adc->scan_chan)
-> +		return;
-> +
-> +	ret = ma35d1_adc_read_conversion(adc, adc->scan_chan, &raw);
-> +	if (ret)
-> +		return;
-> +
-> +	scan.channel = raw;
-> +	iio_push_to_buffers_with_ts(indio_dev, &scan, sizeof(scan), pf->timestamp);
-> +}
+start_single_kthread() sets the affinity of the kthread it just created
+before waking it up, but kthread_affine_node() overrides that mask on the
+first wake-up. See commit 60ba9c38b931 ("kthread: Comment on the purpose
+and placement of kthread_affine_node() call").
 
-Do you need 'raw'? Seems like you could read into scan.channel directly:
+In round-robin mode, move_to_next_cpu() compares save_cpumask against
+current->cpus_ptr, sees the replaced mask, and switches the tracer to
+MODE_NONE on its very first iteration:
 
-ret = ma35d1_adc_read_conversion(adc, adc->scan_chan, &scan.channel);
+  hwlat_detector: cpumask changed while in round-robin mode,
+  switching to mode none
 
+So the tracer no longer migrates across tracing_cpumask. More importantly,
+tracing_cpumask is not honoured at all, and with isolcpus=/nohz_full= the
+thread cannot run on the isolated CPUs it is meant to sample.
 
-> +	num_channels = device_get_child_node_count(dev);
-> +	if (!num_channels)
-> +		return dev_err_probe(dev, -ENOENT, "no ADC channels configured\n");
-> +
-> +	if (num_channels > MA35D1_EADC_MAX_EXT_CHANNELS)
-> +		return dev_err_probe(dev, -ENOSPC, "too many ADC channels\n");
-> +
-> +	channels = devm_kcalloc(dev, size_add(num_channels, 1),
-> +				sizeof(*channels), GFP_KERNEL);
+Use kthread_bind_mask() instead. hwlat requires exactly the CPUs in
+tracing_cpumask, isolated ones included, so a hard binding is the correct
+semantics; the PF_NO_SETAFFINITY it sets is precisely what tells
+kthread_affine_node() to leave the thread alone. The in-thread
+set_cpus_allowed_ptr() in move_to_next_cpu() keeps working, since
+PF_NO_SETAFFINITY only gates the user-facing SCA_CHECK path.
 
-Couldn't size_add() just be regular +?
-(Question to Andy who originally suggested it)
-We've just checked that num_channels is small and won't overflow.
+The mask is now computed and validated before kthread_create(), which also
+avoids creating a thread when tracing_cpumask has no online CPU in common:
+cpumask_first() returned nr_cpu_ids there and cpumask_set_cpu() then wrote
+past the end of the mask.
+
+Tested on a 4-vCPU KVM guest, bit 0 of the mask is CPU 0:
+
+  mode        mask    before                    after
+  none        0b0101  Cpus_allowed_list: 0-3    0,2
+  round-robin 0b1111  mode -> none, no migrate  migrates 1 2 3 0
+  round-robin 0b0101  mask 0-3, no migrate      migrates 0 2
+  per-cpu     0b0110  2 threads, cpus 1,2      2 threads, cpus 1,2
+
+Fixes: d1a89197589c4 ("kthread: Default affine kthread to its preferred NUMA node")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wenwu Hou <hwenwur@gmail.com>
+---
+ kernel/trace/trace_hwlat.c | 20 ++++++++++++--------
+ 1 file changed, 12 insertions(+), 8 deletions(-)
+
+diff --git a/kernel/trace/trace_hwlat.c b/kernel/trace/trace_hwlat.c
+index 3fe274b84f1c2..65e184d800ff1 100644
+--- a/kernel/trace/trace_hwlat.c
++++ b/kernel/trace/trace_hwlat.c
+@@ -423,15 +423,12 @@ static int start_single_kthread(struct trace_array *tr)
+ 	if (kdata->kthread)
+ 		goto out_put_cpus;
+ 
+-	kthread = kthread_create(kthread_fn, NULL, "hwlatd");
+-	if (IS_ERR(kthread)) {
+-		pr_err(BANNER "could not start sampling thread\n");
+-		cpus_read_unlock();
+-		return -ENOMEM;
+-	}
+-
+ 	/* Just pick the first CPU on first iteration */
+ 	cpumask_and(current_mask, cpu_online_mask, tr->tracing_cpumask);
++	if (cpumask_empty(current_mask)) {
++		cpus_read_unlock();
++		return -EINVAL;
++	}
+ 
+ 	if (hwlat_data.thread_mode == MODE_ROUND_ROBIN) {
+ 		next_cpu = cpumask_first(current_mask);
+@@ -440,7 +437,14 @@ static int start_single_kthread(struct trace_array *tr)
+ 
+ 	}
+ 
+-	set_cpus_allowed_ptr(kthread, current_mask);
++	kthread = kthread_create(kthread_fn, NULL, "hwlatd");
++	if (IS_ERR(kthread)) {
++		pr_err(BANNER "could not start sampling thread\n");
++		cpus_read_unlock();
++		return -ENOMEM;
++	}
++
++	kthread_bind_mask(kthread, current_mask);
+ 
+ 	kdata->kthread = kthread;
+ 	wake_up_process(kthread);
+-- 
+2.43.0
 
