@@ -1,102 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.28
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794389083;
-	b=iKEoCaFzZVfCjn6mN6XXB98fgtFF5gbO1RyrPV84iiMNDAd9o5HZ/7nrgdVRr/72qBcT
-	 Tjj3aXH/2zJIIWM0TEL1vKVexSuZaDRlleDx1mWHxQ4/QFStcuUiT+j5oeO1VfPw5tyHY
-	 dwq8mRFYgeMXpFGSBTiSPIeNmiSDw96DY+VSCVbLcs2Xl4jWHBn8cojomPE+0eVqglynz
-	 b87jRqZ6f4gPhcqph4XJZmXfyaDvtvdMrH9YRvqL86UR0fuC/sPuYRK6lUuiWwzdkOpsB
-	 pe9TOng3Nwdueau27MFmTer/hMhI032JwdIzo8pk9BFpZ6IQTcO6fqe63n48Z/cEffw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794389083;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-ID:References:In-Reply-To:To:CC:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Originating-IP:
-	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=3EiSWqYW5qro8v5W+Nr83f4zTMRb1UlJSlM/AOmV9EU=;
-	b=pY/LQXfz4jVbGpmGY6l0aYYqq/l2EhPw2sMpyQMd71rJoInocTWhpSFtYI12Ph2PE+CF
-	 +wxYx8dd26Oe3iUQGxNZp6FXt2D+zUMFxkOlMep7GdEIClSxw+lSX00YXj1gy1f41fUV6
-	 OTM19eSgGk/1zBHKVLCHrv8lZDeMly7/2LBamhLWG0yYVsdUO1bkjg/Esu4uUckaK4b00
-	 zVa8rE7xwkIaYh6TOAvRoNTbvqw8v/+dV7seb/6Rs9d0M3NWpWGs/yTFvM1Evn1x8rSGd
-	 YFcqJgtfu53/Y5M31NX+Eh6Il8X/yqmmFJk9NTatEE0ouh1hxnzzHJ5FIsR4Zg3eLlg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cn.bosch.com;
-	spf=pass smtp.mailfrom=cn.bosch.com;
-	dkim=pass header.d=cn.bosch.com header.i=@cn.bosch.com header.a=rsa-sha256 header.s=selector2 header.b=RkLq3cE8;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.28
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011028.outbound.protection.outlook.com [52.101.70.28])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFD36606A324;
-	Wed, 11 Nov 2026 09:24:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BFD36606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cn.bosch.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cn.bosch.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=cn.bosch.com header.i=@cn.bosch.com header.a=rsa-sha256 header.s=selector2 header.b=RkLq3cE8
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=QYRCMEoiwc98YuBMV+UtRBoZSyt+C67THpU5dNiOCHc4FBdzLD328w0q18dJY422d07HYzQ8LXz+o1YTC9Y883ywiusJldJy1VorjZpVrHN1DLPf8Bpd06c1zoQnyHqWlbX7ZinIdp0GU4XM3DyVLIbINOeO85HMY/0MzNoHgE4jDouZL/i6NovazLOPWQddFR6AX/CkF7GQxb9qWftZXMW+JfdmBrmDzNHmhhuL2SeAyJtqXQTqKZ382odPB0llhOJKHZu3etHkj4GxQAGAQTXSwjmlqFJiXqAgK6LiX+7Wgvmk/UaCXQB831msIZ3HijwtZ4/LqnE6mcnikTuPbg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3EiSWqYW5qro8v5W+Nr83f4zTMRb1UlJSlM/AOmV9EU=;
- b=J0+lSZIyWQnYUr9dUBpNKl4T+DnjRnAU2s7O4j0PB+/QR5wgkV6T9+do+UZdu1fEhI1FvJLgnHnGaqcbBjUWdcSf6X4USxAQWhrgqZ6n9vKOvdwyPK2/GQFPbt6GalXcoV551qhfozLMeZr2KbGXB2T8xV1syhSx61XGO/6HO3cgl75E+SQaeTQ4hV7H0UVScDxVEW+93hmsQxElZS+gN2eVbo0hRpm14xdUGhwT83GGhnUMSlh6iEoPao1ajxryfgBQPJwREc3kROkV/ttnUoEZNgqRsFSsrLpivV7HTUK9hEEsWfy3OG/djJ9wOZV6IBkCsp4XaOrqB4KbBYR4Hw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 139.15.153.206) smtp.rcpttodomain=gmail.com smtp.mailfrom=cn.bosch.com;
- dmarc=pass (p=reject sp=none pct=100) action=none header.from=cn.bosch.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cn.bosch.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3EiSWqYW5qro8v5W+Nr83f4zTMRb1UlJSlM/AOmV9EU=;
- b=RkLq3cE8C4u0DuZZrdkiTTuVD7taKex6doGqwnn2OogQd4ubONzuky41rUD3ajl+2lXEZAIz0AoAfCn0bn/M6RAMePbX2yORVKZD5Hd4ZGnwhAkIxcHHRu2UIkVMxssZlL4AUkrEFHSV09VuDVUbkk312snYFqSHmgnewld27Skyd64Vwy6H14R/2zVY+wg3pfG3qhOawIiBCFkXjiSNMhTgzlxOJoPcHXqzTAxi4xru5hxcQgHANXPATFLX9MqGBZO8asrqmHNWPnoHN4/jM05dUBQxRri1C+hCfp1bix8+VC4NRq2JGOap6qowF8WGHYsvMqTQRCkcksplVAe6Ig==
-Received: from PAZP264CA0136.FRAP264.PROD.OUTLOOK.COM (2603:10a6:102:1f8::6)
- by DU2PR10MB7788.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:10:49b::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Wed, 11 Nov
- 2026 09:24:38 +0000
-Received: from MAD0EPF000008C1.eurprd05.prod.outlook.com
- (2603:10a6:102:1f8:cafe::85) by PAZP264CA0136.outlook.office365.com
- (2603:10a6:102:1f8::6) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.8 via Frontend Transport; Wed, 11
- Nov 2026 09:24:36 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 139.15.153.206) smtp.mailfrom=cn.bosch.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=cn.bosch.com;
-Received-SPF: Pass (protection.outlook.com: domain of cn.bosch.com designates
- 139.15.153.206 as permitted sender) receiver=protection.outlook.com;
- client-ip=139.15.153.206; helo=eop.bosch-org.com; pr=C
-Received: from eop.bosch-org.com (139.15.153.206) by
- MAD0EPF000008C1.mail.protection.outlook.com (10.167.241.197) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Wed, 11 Nov 2026 09:24:36 +0000
-Received: from RNGMBX3003.de.bosch.com (10.124.11.208) by eop.bosch-org.com
- (139.15.153.206) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Wed, 11 Nov
- 2026 10:24:18 +0100
-Received: from WX8-V-0008J.wx.apac.bosch.com (10.190.167.205) by
- smtp.app.bosch.com (10.124.11.208) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.57; Wed, 11 Nov 2026 10:24:15 +0100
-From: Haoning Cheng <Haoning.CHENG@cn.bosch.com>
-Date: Wed, 11 Nov 2026 17:23:23 +0800
-Subject: [PATCH v3 7/8] ARM: dts: imx6ulz: Configure UART2 pins on BSH
- SMM-M2 variants
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.242.206.163
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794389087;
+	b=BvOypxbqz58MoNtVztir6Q3A8eiOOw1B8xkbGzeMKYOR8NqNQfIuo7BkJvs9RYAwEHm0
+	 O1avvumfrzdEpRSgP+46MEPbqzcQLTcR5mgorc/m03M1Ld4PwrOERWvGdpbQeGFjwfjJt
+	 fDtxJ9x6yFH2SPN9CUSof+71xHsbMWosFV5QAbjLTYWBLFQyCQd7zyVPnhX6dUvtX7cLU
+	 HIj+fiYLq4z32C8oHB/dj5CxC9G5Q9MT788sg+hWygUGxzVMj5/lHpRWTcWEYINySYijS
+	 NP573i/LE15+FUjsV9z+Bk8wzgw5STt85irLpqzLc0USXHu2rQ/yxo6YKDRQ3QrZxUQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794389087;
+	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
+	 X-CM-SenderInfo:X-Coremail-Antispam;
+	bh=1HiZVoGdgP26KTrqD2XwxNDHWJELschXpQq9mDiL7Kw=;
+	b=0GDQSxyuK08BmeWUF2LvtMH15v0VZHc7au3M459CNcDCAobFSv27xyV6jrLm7Ef8qBVe
+	 QpJAc1EPqEOuA89e5Ng9uSgB19MmmyYR4/v1UPGAtVMufuWlOyAnpbyStzP2+N5qohHD0
+	 sZ8+UEgYEUlD2SBEU0Jc4518gKJSxmcT5UPYQfRKQ0Z4fIf5Uft/kME/bFp5y8qxwdfTH
+	 vxahSfPMui7ruzk7K1AkcDKQlRd0iQB53Qvoco5Ykha83fi8zW2SIUb1XdR9XHcNjW8sz
+	 aElJntu/f1kj4W8I46vE7QPYyOGtQJUighpmrS3eMvx62jg8K/tGieGP03Cfhd8Bf4A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=loongson.cn;
+	spf=pass smtp.mailfrom=loongson.cn;
+	arc=none smtp.remote-ip=114.242.206.163
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id DCF52606A330;
+	Wed, 11 Nov 2026 09:24:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DCF52606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [223.64.69.17])
+	by gateway (Coremail) with SMTP id _____8AxXdJZNPRq238eAA--.22658S3;
+	Wed, 11 Nov 2026 17:24:41 +0800 (CST)
+Received: from kernelserver (unknown [223.64.69.17])
+	by front1 (Coremail) with SMTP id qMiowJDxxMxRNPRqU7IzAA--.12611S2;
+	Wed, 11 Nov 2026 17:24:39 +0800 (CST)
+From: Huacai Chen <chenhuacai@loongson.cn>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>,
+	Mel Gorman <mgorman@suse.de>,
+	Huacai Chen <chenhuacai@kernel.org>
+Cc: linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Huacai Chen <chenhuacai@loongson.cn>,
+	stable@vger.kernel.org,
+	Tiezhu Yang <yangtiezhu@loongson.cn>
+Subject: [PATCH] lib/smp_processor_id: Don't warn if there is only one CPU
+Date: Wed, 11 Nov 2026 17:24:21 +0800
+Message-ID: <20261111092421.3771992-1-chenhuacai@loongson.cn>
+X-Mailer: git-send-email 2.52.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,92 +62,84 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20261111-add-bsh-smm-m2-v3-7-4abdf10e9a7f@cn.bosch.com>
-References: <20261111-add-bsh-smm-m2-v3-0-4abdf10e9a7f@cn.bosch.com>
-In-Reply-To: <20261111-add-bsh-smm-m2-v3-0-4abdf10e9a7f@cn.bosch.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>, Frank Li
-	<Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, "Pengutronix
- Kernel Team" <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>
-CC: <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<imx@lists.linux.dev>, <linux-arm-kernel@lists.infradead.org>, Haoning Cheng
-	<Haoning.CHENG@cn.bosch.com>, Akhil Narayanan <akhil.narayanan@in.bosch.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1075;
- i=Haoning.CHENG@cn.bosch.com; h=from:subject:message-id;
- bh=VqQvwx5DjvBuUeR/RiCBffb5oE02cLYBE8zFCfltHNk=;
- b=kA0DAAoW3m9onztYxqoByyZiAGr0NAyh4E1oQUppNccNvPz2SqwDQiJ4/KcHiJCc2mnsYpHL7
- oh1BAAWCgAdFiEEJWBLzRnVUDWWmXsW3m9onztYxqoFAmr0NAwACgkQ3m9onztYxqpRKQEAmxa0
- /E9xhVwXbAIr7KzRmcTJBwztNx25UQuerX9yw+oBAKlHqjTu0vAlWDuVEbZAjEleH9FYgi41X0j
- B38jHBuYE
-X-Developer-Key: i=Haoning.CHENG@cn.bosch.com; a=openpgp;
- fpr=25604BCD19D5503596997B16DE6F689F3B58C6AA
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MAD0EPF000008C1:EE_|DU2PR10MB7788:EE_
-X-MS-Office365-Filtering-Correlation-Id: dbe30eb5-ac7d-4b36-3ec9-08df3fd59abb
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|7416014|1800799024|82310400026|36860700016|56012099006|11063799006|261021121427099003|261009223027099003|261102123227099003|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	igbSPM+8Vi+Wa7Iig3GIZlYOysBmgsSQcJb5xv+D/q+oMF/Jh1FMLXPEBZwStILQCq4jdVXii30dD33k99K7nqUEvRlAN3n79j5+yWdxhgk0LJ3MnXkUqHCsuk9r4BdJiMeR3ZqC8IU30xosRcbrvgMZxKsLDwCwhyiiQsDYyV6774OnWCPa3ZiEhb+EbdUqO3qtGFBZnQ1ic/as/aR/Vv2s71ducp5wqCgalwG/7GrD0xfDceeKTKiZ80OpekhZ/dnCRWcM09zG7xZmsbXJ6GUl3JLCCNkDlI1Rugc2rwUe0U6Ia3wXjNp5cEA0XVuUqgOVZExgjE4OgnyRr03P27IsctaSxIJRNXmgS8eQM6q3yHsOkZG6V7vptkfwr3HIBemjM0xk9PKYGBlMRIF5ue/hshXE2KdHNJnTVENnQxxgWToTbAgIBKY5ZuywIcL18HgmNFx4uZKPNQyXAsIBLRK8iQDtds0F7Y9VuBcP4epnKI22rXT1abICpf09R9TGL/KqVTB83iAbNJQOq23DkGaqkB/4SwmaNaZ3wKsSGLHiLG0pb+ahW/BGxJUtvyP+wPItzjBNBz9fd33xtVzxUiAtR/Pi1BocTZPQdY7GdG89n4VsSTgnc132/WjQYSRFsokLwEVP8zMnOpNk46LFq2l82VjGlPkoZdX4yyJzxU1dxe0GLtSxFNbo1bvhledaYHcGpk/H8gk9pGNIjsC/WA==
-X-Forefront-Antispam-Report:
-	CIP:139.15.153.206;CTRY:DE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:eop.bosch-org.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(1800799024)(82310400026)(36860700016)(56012099006)(11063799006)(261021121427099003)(261009223027099003)(261102123227099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	abfheTN7CJZ3xxtOc3W+uLk6abER0AxBGgCpclmh2jsXD/whJdIsIfzy/brc1jtYO8/3W2uLFHLDLCWmNMSE9q+kJqVyvHJ18wNaHhdzGNhzFjFVeFfwtRAW7i7bNWlLCoYQjFEGRj0XAZHxUcDZpK0GL55UCIb9VrMaPSRxhDuC7VBDWYvgEfPVCIf3wfBNjJII63fwQ5lMedZIqpw9nLmfCp1bRGBfR5yYH20bJY78J9GqcgFI2m0jQCLzSmdWjkpXou08SDb63yrIo+MQVMEEvs0jcaT0ck8QZKLnzEGhPfGgvHi/IyBtPjnCfwRHHxhL/RYr0a3iOK9gxJ3/edG57+QEi5eD7c/O/8uWaqaQC3p2yKpD4Mscm4ReGkbybk+zZB1FVvp5m4AAvX67n7hM+Ud9/ORcTzmWodfTxMLCrq2mmp4+/Xg86eBXcNr0
-X-OriginatorOrg: cn.bosch.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 09:24:36.5339
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: dbe30eb5-ac7d-4b36-3ec9-08df3fd59abb
-X-MS-Exchange-CrossTenant-Id: 0ae51e19-07c8-4e4b-bb6d-648ee58410f4
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0ae51e19-07c8-4e4b-bb6d-648ee58410f4;Ip=[139.15.153.206];Helo=[eop.bosch-org.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MAD0EPF000008C1.eurprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU2PR10MB7788
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qMiowJDxxMxRNPRqU7IzAA--.12611S2
+X-CM-SenderInfo: hfkh0x5xdftxo6or00hjvr0hdfq/
+X-Coremail-Antispam: 1Uk129KBj93XoW7uryDZr4fCr43CrW3JF47trc_yoW8KFyDpa
+	40k3y8Kr48Cr1jva17Ja4kGry5Xas8ua93Cw17Aw45Zr15Aw1DJry5tF12gFyrCF4UGayU
+	GF1vqr1Fvr1rXwcCm3ZEXasCq-sJn29KB7ZKAUJUUUUP529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUBIb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AK
+	xVW8Jr0_Cr1UM2kKe7AKxVWUtVW8ZwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07
+	AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWU
+	tVWrXwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7V
+	AKI48JMxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY
+	6r1j6r4UMxCIbckI1I0E14v26r1q6r43MI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7
+	xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xII
+	jxv20xvE14v26r4j6ryUMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw2
+	0EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x02
+	67AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU0L0ePUUUUU==
 
-From: Akhil Narayanan <akhil.narayanan@in.bosch.com>
+When CONFIG_DEBUG_PREEMPT is enabled on a Non-SMP (single-core) kernel,
+calls to smp_processor_id() in preemptible contexts trigger some false
+positive "BUG: using smp_processor_id() in preemptible" warnings, which
+are harmless noise because the process always executes on CPU 0 and CPU
+migration is impossible.
 
-Configure the UART2 RX and TX pin multiplexing for the BSH SMM-M2
-variants.
+Here are some of the trimmed log messages:
 
-Signed-off-by: Akhil Narayanan <akhil.narayanan@in.bosch.com>
-Signed-off-by: Haoning Cheng <Haoning.CHENG@cn.bosch.com>
+  Call Trace:
+  [<9000000000d33e28>] show_stack+0xf8/0x1c0
+  [<9000000000d2fdac>] dump_stack_lvl+0x4c/0x78
+  [<9000000002456fc0>] check_preemption_disabled.isra.0+0x100/0x110
+  [<9000000002456ff8>] debug_smp_processor_id+0x18/0x40
+  [<9000000000d31118>] init_cache_level+0x18/0x90
+  [<9000000001adbe2c>] detect_cache_attributes+0x4c/0x640
+  [<9000000001adc44c>] cacheinfo_cpu_online+0x1c/0x310
+  [<9000000000d5ae04>] cpuhp_issue_call.constprop.0+0x94/0xd0
+  [<9000000000d5b278>] __cpuhp_setup_state_cpuslocked+0x208/0x320
+  [<9000000000d30148>] do_one_initcall+0x68/0x200
+  [<90000000024711b8>] kernel_init_freeable+0x1fc/0x294
+  [<900000000245824c>] kernel_init+0x20/0x134
+  [<9000000002455b54>] ret_from_kernel_thread+0x24/0x1d0
+  [<9000000000d31650>] ret_from_kernel_thread_asm+0xc/0x9c
+
+This warning only exists for the !CONFIG_SMP build. This is because for
+CONFIG_SMP cpuhp_issue_call() invokes callbacks in cpuhp_thread_fun()
+which is a percpu thread, but for !CONFIG_SMP build it invoke callbacks
+in the init process which is not a percpu thread. And there is such a
+skip condition in check_preemption_disabled():
+
+    if (is_percpu_thread())
+            goto out;
+
+Since there is only one CPU for the !CONFIG_SMP, we can simply skip the
+warning if (nr_cpu_ids == 1) in check_preemption_disabled().
+
+Cc: stable@vger.kernel.org
+Reported-by: Tiezhu Yang <yangtiezhu@loongson.cn>
+Signed-off-by: Huacai Chen <chenhuacai@loongson.cn>
 ---
- arch/arm/boot/dts/nxp/imx/imx6ulz-bsh-smm-m2-common.dtsi | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ lib/smp_processor_id.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/arch/arm/boot/dts/nxp/imx/imx6ulz-bsh-smm-m2-common.dtsi b/arch/arm/boot/dts/nxp/imx/imx6ulz-bsh-smm-m2-common.dtsi
-index 83df5c696748..27c7b6acc658 100644
---- a/arch/arm/boot/dts/nxp/imx/imx6ulz-bsh-smm-m2-common.dtsi
-+++ b/arch/arm/boot/dts/nxp/imx/imx6ulz-bsh-smm-m2-common.dtsi
-@@ -25,6 +25,8 @@ &snvs_poweroff {
- };
+diff --git a/lib/smp_processor_id.c b/lib/smp_processor_id.c
+index 94b3f6b19538..64901d33c0ee 100644
+--- a/lib/smp_processor_id.c
++++ b/lib/smp_processor_id.c
+@@ -19,6 +19,9 @@ unsigned int check_preemption_disabled(const char *what1, const char *what2)
+ 	if (irqs_disabled())
+ 		goto out;
  
- &uart2 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_uart2>;
- 	status = "okay";
- };
- 
-@@ -77,4 +79,11 @@ MX6UL_PAD_UART4_TX_DATA__UART4_DCE_TX	0x1b0b1
- 			MX6UL_PAD_UART4_RX_DATA__UART4_DCE_RX	0x1b0b1
- 		>;
- 	};
++	if (nr_cpu_ids == 1)
++		goto out;
 +
-+	pinctrl_uart2: uart2grp {
-+		fsl,pins = <
-+			MX6UL_PAD_UART2_RX_DATA__UART2_DCE_RX	0x1b0b1
-+			MX6UL_PAD_UART2_TX_DATA__UART2_DCE_TX	0x1b0b1
-+		>;
-+	};
- };
-
+ 	if (is_percpu_thread())
+ 		goto out;
+ 
 -- 
-2.43.0
+2.52.0
 
