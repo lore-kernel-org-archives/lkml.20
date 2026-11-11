@@ -1,60 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.157.23.187
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794386841;
-	b=5jXf4VQZyAzfZBwv/n+id3QydP/VwdCUjkEJrjfDwtx/Kgj5HpX53EwynfkE5hVIj31h
-	 ybsyVL7DUCwQLnTSKcZTLAmDbdyqxCERU7UBsifzCjO+l3tKbwfOKPWaswpCkwDLhus9a
-	 GE1pHEeyS1xrtU038Pal9+N+H7e5Iggw0Q3IHqeQvrfKBcy0sxxP0M1+TVciLxIw/+CLK
-	 nGep0IULH2qqtzYEWP7kCAf7YxxUoDCZXpVDL4ZupGw/ZlouMeEjgbIKRyiQrp4gNkb8e
-	 pzNLydvjHNu/ip0/Td6g6TQXiSFGNrQAnvzcG12OKlg0m47UkuOa8DyiuA1ftWUKlwg==
+	t=1794386862;
+	b=2op396iHfEM6Ga6YTfobKldYFqwY4Ul81yGNsQwH4Bk3Q9n0zj8pmW11aQtI8UysLaFI
+	 6jScc6FIdhvNxy3xYnFZt8ikKo/LA2EE4EHXda4UMHh07C3bTI3A/X6I8NhhNBjtvfjlf
+	 z7RWOToXMMjyu1+wcXQ+2oIYcmXbOv/NImTWVCWfTnpOz1ptbRJgYwVb2//fiUWllwSlj
+	 nB3jdWM8+Lqy5DCR+EChOCK9Zf+3r3PV4wc6218nM0kqjjbRNv9A3URcBmMvRLVGXyfzU
+	 nPI6MUglCFW7NlYsEsp8Og8Gvc5DjFaosKbeBneWj4gWwct5ye4vJg5BuxVJfqPOhxQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794386841;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:CC:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Originating-IP:X-ClientProxiedBy;
-	bh=AfMfIoBJN/WZwq0qQMcLlB6qFklRf9NEkBBNQCgCxME=;
-	b=4sbt04nmfjtTNbziHRJ/+QluQVlmOTC5OPLm0h29rNJwNqB1cw1x3BgBSRQVatfaaEv6
-	 Z1xMY4H7IrRdPx4lkI/P7IqOcDojH0xDKbAMkw38IaHVK65I44njW6uI5t90ddK9UJXx4
-	 rREuwi6Sklqfi6NtoRMjLQWb0CIX1ea+9pptY435ozxPdLt+3BAzDJTkykb4dztkSqf/i
-	 QKp1VrbWz+OEcIb+P+5uX05F1jIkcIKFQudhzIoaqc+2Gd0b/sxR70hf6vR/dqiAkJPD0
-	 FowOxFEoFQInyZtH/MPMsUOstk18vNJR/jZH9bpVBJ1oXZEusjk8JAWLSS559574Yrw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794386862;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=tyzui7WgNAPkX8M7hOxfFRpNVvHQe91//Zpxl+mx/Go=;
+	b=XaLAFNYry45b9i44ucuG7cFkNUY6Aw0jhDjsXh8VKl6q1rd3Hedhf30TYGYo/RZ5JTtA
+	 dB2+0uIX2/KeEdlpLP4HnF4uQtoHGyWQ4gfZQ8YyyVQQRmnQg8KCx/sxxH2xEh5sc26W0
+	 O6lRGlh/0ZhhXSoLy5WrJTbEWSIlLupcEb4drP8gjuJIiHyHarn0+l7plZ/QODst9mrrT
+	 lZi/dqNUC5pT+5pgPwr/iCaOSNAx5hWY7xnQUIjUOaM3jXFTT0uX95In/CcQpvs2FZd2p
+	 Q2fFcyTwSQxdLD982Z9FiK+XwUF8yKr8mZIMkHg7LgSdHZjswiJJ7yAFCmRqZ7kpIaw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=paragon-software.com;
-	spf=pass smtp.mailfrom=paragon-software.com;
-	dkim=pass header.d=paragon-software.com header.i=@paragon-software.com header.a=rsa-sha256 header.s=mail header.b=GpQgJooP;
-	arc=none smtp.remote-ip=35.157.23.187
-Received: from relayaws-01.paragon-software.com (relayaws-01.paragon-software.com [35.157.23.187])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="xh0HWaz/";
+	arc=none smtp.remote-ip=74.125.82.52
+Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D688606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 08:47:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1D688606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=paragon-software.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paragon-software.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17F6A606A326
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 08:47:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17F6A606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=paragon-software.com header.i=@paragon-software.com header.a=rsa-sha256 header.s=mail header.b=GpQgJooP
-Received: from relayfre-01.paragon-software.com (relayfre-01.paragon-software.com [176.12.100.13])
-	by relayaws-01.paragon-software.com (Postfix) with ESMTPS id 0B9111D28;
-	Wed, 11 Nov 2026 08:48:04 +0000 (UTC)
-Authentication-Results: relayaws-01.paragon-software.com;
-	dkim=pass (1024-bit key; unprotected) header.d=paragon-software.com header.i=@paragon-software.com header.b=GpQgJooP;
-	dkim-atps=neutral
-Received: from dlg2.mail.paragon-software.com (vdlg-exch-02.paragon-software.com [172.30.1.105])
-	by relayfre-01.paragon-software.com (Postfix) with ESMTPS id 3A1B52389;
-	Wed, 11 Nov 2026 08:47:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xh0HWaz/
+Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-14394530ec6so3768996c88.1
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 00:47:41 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=paragon-software.com; s=mail; t=1794386839;
-	bh=AfMfIoBJN/WZwq0qQMcLlB6qFklRf9NEkBBNQCgCxME=;
-	h=Date:Subject:To:CC:References:From:In-Reply-To;
-	b=GpQgJooPSh81/I5zM9kgRMn+5P7rl4bIWsubgmOAFLbh35UF4pkmYqPiK0/LDmLoB
-	 yCssNO1ZiQlEtZ12jbxr+vXywBMUFb+NRtSBc9s73dEetemzBZG0110BJ9GxAQC6Lw
-	 b7CjB28joPumy8Ws7mYXJlsu1hVFuwZ/AFFYu7FM=
-Received: from [192.168.95.128] (172.30.20.190) by
- vdlg-exch-02.paragon-software.com (172.30.1.105) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.7; Wed, 11 Nov 2026 11:47:17 +0300
-Message-ID: <afbabf2e-0354-4165-ace8-4a7c0b65001d@paragon-software.com>
-Date: Wed, 11 Nov 2026 09:47:16 +0100
+        d=gmail.com; s=20260707; t=1794386861; x=1794991661; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=tyzui7WgNAPkX8M7hOxfFRpNVvHQe91//Zpxl+mx/Go=;
+        b=xh0HWaz/ph7y0s/RRIf/FyNZkht8RxojkI4nReRVOsb10WfJ/Vr2pEY156BbqiiYxc
+         sI6m4WWV1UZOeQb203bYEu9vMt52AfZWHgBD8NttjrkhONqmrwKRyK8s+YOkGj4SZjK/
+         iV9TszaHfTaz5z1gkUuGXJrT3sS3FwvGEzzrleE4P4BoFpwaDQ3UfHPTWs89PkBThXGi
+         BE9rF14HnCxnvPU7txrVKQNR9ukWRbelB6Tau2ApwN1RcKglQyh0HqWN40VDTNzKJqZQ
+         fujnO6wmG8RuvQdzcik4Y19RsO63gQhPEtG2EHz2THwzLmQN4ZfvL8JnT04HhwLeTHNj
+         iu6g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794386861; x=1794991661;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=tyzui7WgNAPkX8M7hOxfFRpNVvHQe91//Zpxl+mx/Go=;
+        b=iU4h2q+pA50Neh3pfIQK6dQFarELuzn7mfwVOxwIrXw/0uVHgaUJF9TxUKNUWuD7gf
+         SmjEMVcYn47+YLQvX8YKXKDWhfpSWMOazYpBeyFsU8J3z8lcMm1WvnzzMNef/D5cUHIa
+         ffDzWVjal64e53YO/kET0UpDz/e+GlAhLWpCQEt7KJBl+VK7Qm8UA3+IYOdMLYvSheoY
+         vLSxw4CHMEu3GDSTpYvpqEe60IOKTydj093+diZrKS1gt9mAtaqWO2JITg6kBJ+nW30P
+         FDBmE/9TJWTqERIBmr9NRKBFnY+A/mzHIGohhjgzCnVr91sIZhBaLhcD5XhN5BxV4kgs
+         anTQ==
+X-Forwarded-Encrypted: i=1; AL+hErGWVraN/ruo1lcB7u7nQfWpBZIQ8QkNYQuFkpv0Ah3tsRtoLHSNWIHLaoWNoBahw4W5Fx30PJz6HSCw1GA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+ZiHy7862tg8zRePLaTs8FqppgO/yojRQeI+9TDnB1luhNVTuG
+	5P8Hj43lK4E5wmy7z1AMOxjNmksu6+nLqIOlLZJjdfJ+egjR03znJBBl
+X-Gm-Gg: AYBFou3l6V2X57oA5TZ1k5mB+4XCMvzreL/efdWVRfFosCE92D2nKde+KJJi7AnBGnU
+	o8iaQamAkrV1SzJ+oDc0F62wNwErqaq2Pq+YWYWZjcc+InyHlTxJ/ZYsPZtM4gzMSbhPrS1Y0pr
+	U4cMkxI6BjZJmh6oX0bhRHWI2vO0QfTtpltazvQbD+Mmpk+TsuLYaWopJ4WWoAxHdJ4gqO49vZy
+	jvY5htFZntinTew2EMXM3q1PjBFmn2GPmPw2IeZrnqyCcanxlqDs4LzmT/CNo6mnF5Hi3TAXjMh
+	FTCP0OBePqn8pc8mXqpL4Cb7c6bFOjGeK2LbYGjwlbGuLbb08TaZd0NEjZ7EX84iluluzFt6E/J
+	Q9BEnYTa7Svvbbamg25Wm9rp/7VhwdBv8/lwsUSKfsUeuae/Zmor773+wztM7hi9AN2sVRvD6J1
+	Y9XHgmNGM3MhpSt/onkhaMejvId3jgsWpArCOzfee8YglGJxHkJGN7evJPdVUU++xsVDje3HVbd
+	Rd6Wc2RXMNPXTUjYrNZqlDdeCIBbqEDh2++l0la7oTWbO2IhQgMJn5iRcLXcduscbH26z/8BSQJ
+	azIR3kD2HTZ2hKZAsK6ujZpnNDRwuyj1ooZURvw/Ryhpl8WbZARXQRjDXQPp2+Z6SX2c0R+tXrH
+	3QE5CbRkylsd29K3tZSia16P/0DKuSaLVrBSYZU7F
+X-Received: by 2002:a05:701b:4513:20b0:143:3c9f:10a6 with SMTP id a92af1059eb24-1b3c023deaemr1852664c88.4.1794386860845;
+        Wed, 11 Nov 2026 00:47:40 -0800 (PST)
+Received: from nugod-NUC15CRHU5.tail9f095a.ts.net ([218.237.104.87])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b4ecccsm11707400c88.13.2026.11.11.00.47.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 00:47:40 -0800 (PST)
+From: HyeongJun An <sammiee5311@gmail.com>
+To: Takashi Iwai <tiwai@suse.de>
+Cc: HyeongJun An <sammiee5311@gmail.com>,
+	Takashi Iwai <tiwai@suse.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Alyandra Zahran Nadhir <alyandra5b@gmail.com>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/4] ALSA: ump: Fix RPN/NRPN handling at MIDI 1.0 CC conversion
+Date: Wed, 11 Nov 2026 17:47:34 +0900
+Message-ID: <20261111084734.2592346-1-sammiee5311@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <87zevhugi6.wl-tiwai@suse.de>
+References: <cover.1794141913.git.sammiee5311@gmail.com> <87zevhugi6.wl-tiwai@suse.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,98 +102,17 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] fs/ntfs3: prevent attribute-list pointer underflow
-To: "Cen Zhang (Microsoft)" <blbllhy@gmail.com>
-CC: <ntfs3@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
-	<AutonomousCodeSecurity@microsoft.com>, <tgopinath@linux.microsoft.com>,
-	<kys@microsoft.com>, "Xiang Mei (Microsoft)" <xmei5@asu.edu>
-References: <20260816173713.28998-1-blbllhy@gmail.com>
-Content-Language: en-US
-From: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
-In-Reply-To: <20260816173713.28998-1-blbllhy@gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: vdlg-exch-02.paragon-software.com (172.30.1.105) To
- vdlg-exch-02.paragon-software.com (172.30.1.105)
+Content-Transfer-Encoding: 8bit
 
-> attr_set_size_ex() and attr_collapse_range() use the on-disk size of a
-> removed ATTR_LIST_ENTRY to step a pointer backward. A crafted entry whose
-> size exceeds its offset from the attribute-list buffer start underflows the
-> pointer, and the next entry dereference reads outside the allocation.
->
-> BUG: KASAN: slab-out-of-bounds in attr_set_size_ex
->    attr_set_size_ex fs/ntfs3/attrib.c:847
->    ntfs_file_release fs/ntfs3/file.c:1427
->    __fput fs/file_table.c:512
->    __x64_sys_close fs/open.c:1496
->
-> Before each backward step, reject an entry whose on-disk size exceeds its
-> offset from the attribute-list buffer start. This prevents pointer
-> underflow in both the shrink and collapse-range paths while preserving
-> their existing fail-stop error handling.
->
-> Commit be71b5cba2e6 ("fs/ntfs3: Add attrib operations") introduced the
-> vulnerable implementation. Commit 12dad495eaab ("fs/ntfs3: Add Kconfig,
-> Makefile and doc") added the local build files. Commit 6e5be40d32fb
-> ("fs/ntfs3: Add NTFS3 in fs/Kconfig and fs/Makefile") wired them into
-> the top-level build, making NTFS3 triggerable in standard kernels.
->
-> Fixes: 6e5be40d32fb ("fs/ntfs3: Add NTFS3 in fs/Kconfig and fs/Makefile")
-> Reported-by: AutonomousCodeSecurity@microsoft.com
-> Reported-by: Xiang Mei (Microsoft) <xmei5@asu.edu>
-> Reported-by: Cen Zhang (Microsoft) <blbllhy@gmail.com>
-> Signed-off-by: Cen Zhang (Microsoft) <blbllhy@gmail.com>
-> ---
->   fs/ntfs3/attrib.c | 19 ++++++++++++++-----
->   1 file changed, 14 insertions(+), 5 deletions(-)
->
-> diff --git a/fs/ntfs3/attrib.c b/fs/ntfs3/attrib.c
-> index c621a4c582f9..562bfcf3561f 100644
-> --- a/fs/ntfs3/attrib.c
-> +++ b/fs/ntfs3/attrib.c
-> @@ -779,12 +779,15 @@ int attr_set_size_ex(struct ntfs_inode *ni, enum ATTR_TYPE type,
->                          u16 le_sz = le16_to_cpu(le->size);
->
->                          /*
-> -                        * NOTE: List entries for one attribute are always
-> -                        * the same size. We deal with last entry (vcn==0)
-> -                        * and it is not first in entries array
-> -                        * (list entry for std attribute always first).
-> -                        * So it is safe to step back.
-> +                        * List entries for one attribute are expected to have
-> +                        * the same size. Validate the on-disk size before using
-> +                        * it to step back.
->                           */
-> +                       if (le_sz > PtrOffset(ni->attr_list.le, le)) {
-> +                               err = -EINVAL;
-> +                               goto bad_inode;
-> +                       }
-> +
->                          mi_remove_attr(NULL, mi, attr);
->
->                          if (!al_remove_le(ni, le)) {
-> @@ -2216,6 +2219,12 @@ int attr_collapse_range(struct ntfs_inode *ni, u64 vbo, u64 bytes)
->                                  }
->                                  continue;
->                          }
-> +
-> +                       if (le_sz > PtrOffset(ni->attr_list.le, le)) {
-> +                               err = -EINVAL;
-> +                               goto out;
-> +                       }
-> +
->                          le = (struct ATTR_LIST_ENTRY *)((u8 *)le - le_sz);
->                  }
->
-> --
-> 2.52.0
+Hello Takashi,
 
-Hello,
+Thanks for picking these up. I may be missing something, but I don't
+see the four patches in sound.git for-next yet. Only the selftest is
+there (ec925d374015), and without the fixes 11 of its 22 tests fail.
 
-Sorry for the delay.
-The patch was applied, thank you.
+Could you take a look when you have a moment?
 
-Regards,
-Konstantin
+Thanks.
 
+Best regards,
+HyeongJun An
