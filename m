@@ -1,93 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794424758;
-	b=lH2MqGBN2IkXslcrSjGzZsR9orNoqyGPZ6y90600WPwihJrWV3GqvSllPtkNVeimtNqd
-	 G/wTwBeNc19AaO1EXRWqBv2ywMLjTM2Zt7Kpny4mmqAhskf+zmWgBMZBmxRpLWl2BFx/P
-	 Y12EXN4OLehECQgpbtGQikNbAXIhz6Q9ZUkhWwXQLVwgtn9LAT1QzaYxP0EdRR+4WosAl
-	 Bof1A8V+SskIDJY3XfCUd88YtBlWTOXG2uJOjUVn628DQLm+JgVTkLg7aeeHCXTKIaHJv
-	 AyZX9wdFbXRkwEn3WUgV9hq//Q8uZ7kM5+TESl5z5F8oKsYAQU65kbJyqEUMdCwZBZg==
+	t=1794424756;
+	b=zRnRjkaE53ifhJT51vZE/3egSeW0yZ5iyXYK6bouKkVZId9tpdri2MM4fKyXhgE9RRUS
+	 KKCkURGIVnEdpt5bpZfKpaKmuj7ZASy0bAPNuEGTfro7zxqa+Jw1CYYFFDxXE8bQl+yZ2
+	 CU/EylrtsqCm1SHGz8YvXPeQF+XMZkSyMB8cnS7eSCwdZmnUBw8IHpsI6n97W4FTtbe+N
+	 3/itC8hLd5eSedNCOtjjCpol9tzz3FQEfhPs/WrUnsNeA16M7DjQ8KvP/2mCgP+NTb1nw
+	 Rce8vJZP5pr98JAFUG7HGP3yYBVgJANMPjKxWNxADD7MojVTEqxFkrNVFVGIavmrc0w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794424758;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794424756;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=DNMNS9bjIlPpM4mJV2mBmIlqngWBVSFIpNHBbmVzyeE=;
-	b=gAzT/MKuNJxw1fDAAPS/BCPzuxC+Ylygs2Oa/IL++f7bIA/ABL/H2vLue6ChdnDDRpYx
-	 Ta4ODqYaVfinx31zdWrUBHidN3OWCo34MRLjMcQqgHP/2XT0Nf5iSMNanfvMCbt6O7psk
-	 J8gilJ97CQ/gd2erDso9/tpgYpJnvpKCmwt3FEn2FRn3EljsPjyknaXM3Lqz1SwL9jMjS
-	 ljaDuGVF0KXnNb02LowZybxr1HJjL1RnSaqAl7pm6rOoeUu6GJ66O46rAvmPYRXgDv4UG
-	 hf8otiTUeCpHad5SaescF0DpMbgPm12imjDkeyl1K7UZbWZ2c2nPewdGzTfUA+nT8fg==
+	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=NXG55VLQRWz9Ej2hW5tTgWRoryYzAo6LPvqb9XxJLWo=;
+	b=GIg3nhco/j+2yl0Wsg7cCZmFXWd5OHNcKkRTFVyO20iMMKE+MzddW7RzzyQoEr0r+DkU
+	 ojPaaaDEmeEy8Y5aqAcbQUuoYqWzqPM8Q1zrhDxijo5Uw3TIUtVDIEL027ID2uGf7IrKu
+	 3dZ6CVJFQMcAOK0mDyyrjHZED9KEyHblWoDnb9EcRMAsWHE80OzzcsVR+7BUo/vLbpS7k
+	 DwPymb5zzhkNob9gdyyaTV1D4lRpaGPaLnGsZ93dRRNcPU+PIoffbRfbsXmGe14JP3Pmg
+	 tJpD43aJFka5n2H1RI1IRxU27Desnnw1/rP6KQqjXnshdvWzPZkyOBy7kNMHRRogPPQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="rGUz/LH1";
-	arc=none smtp.remote-ip=209.85.219.49
-Received: from mail-qv1-f49.google.com (mail-qv1-f49.google.com [209.85.219.49])
+	dmarc=pass header.from=linuxfoundation.org;
+	spf=pass smtp.mailfrom=linuxfoundation.org;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=google header.b=STiXiqeY;
+	arc=none smtp.remote-ip=209.85.218.49
+Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com [209.85.218.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C932E606A333
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 19:19:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C932E606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D734606A324
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 19:19:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D734606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rGUz/LH1
-Received: by mail-qv1-f49.google.com with SMTP id 6a1803df08f44-91ebec7d5dcso25481836d6.3
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 11:19:17 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=google header.b=STiXiqeY
+Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c4203bbb1e9so523709966b.3
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 11:19:14 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794424757; x=1795029557; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DNMNS9bjIlPpM4mJV2mBmIlqngWBVSFIpNHBbmVzyeE=;
-        b=rGUz/LH1Hg4ztzYnaz0kw8LJKtEtrnr0UUfOvAN67vVaber3yRKo/TYg7KU49P+wTd
-         O0rMBJXbiZB8qiLv1xgXmLavkJ0q8MhHR3KHsqj16ZxznvXlu7pF2BZHeWRCLuJA4rfO
-         MNjXk+rQE9F6kw3jSZJjar5Izm57pFLvQmD49TmYS1J6auglt1H5teqzLNqTZba2Mv0o
-         QXmHhKwbh0TbRVy4fj+6lp+QiplAtz2MrhjaofBlhK/+uW24czwIWmgAfzV/t6GSYAB8
-         B0DDCS/4WYC6H0mFrhJxRNyrgUnakvujrUUhk8Fv9Yg6TnR6x1WbRWJ73CgQU/boRfgi
-         ve8Q==
+        d=linuxfoundation.org; s=google; t=1794424753; x=1795029553; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=NXG55VLQRWz9Ej2hW5tTgWRoryYzAo6LPvqb9XxJLWo=;
+        b=STiXiqeYvcFbTGHUlI4JwJr+rKVsfRQG53PgERRAnSBworOfPR8tgLGKgoPUlG2x23
+         cPv49znAnbU0hBAmeX4mbOkE+52AncpMWFmQG4fYJO0qzk6PftJj7+MlFGcSr2YKscH0
+         TTtRwcRQEkanb8EaMMgY4+g2BrDEMvjxLP7iU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794424757; x=1795029557;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=DNMNS9bjIlPpM4mJV2mBmIlqngWBVSFIpNHBbmVzyeE=;
-        b=ZnfFRt5hD2BXv0VSahQeQv/bh04tmsyn2hqPmFifKRFGukP2SrgSbqyGiWPv6hXiOz
-         lhZfrCbhm5idYlIfgXo7/Zt0mIrKVTDH/S9t4fr6jD4i2jpLyuYIdP17nDH+HJeYIH7U
-         /Od9Sc0mrFe44RSrBjZB0iXo4HbmcpZCyqAHsh+hl5gQDYqJDy4Yok6vLlXWOdYvxVMq
-         WptJ4ekh+20HGRSNHj2CekGFKBfG2ttIggMR++jlGS/mm9Z/OrBAIWjwof/jpOXQ6HL3
-         XfBrBvoEyZq7aprJftulpZC596Oy3gUddhYd1BLVCbKk59OEDrvAEV4RRHjary9TXL1D
-         pGSA==
-X-Forwarded-Encrypted: i=1; AL+hErEgky4b9HEagLYLmT7H/PDYmpsrWxylALt9eE8AT/FuJpGA2P5Kj8sh7kBtIuRtwvHGGHCS4oB5VRrlVzA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+x/HIJ5OX4sIjLuiBDnLpOq23twbXBvVCzRk/tgYUy36hVQCft
-	N/mVgG6olUCj45FrNewA1YfnEAEkPm0c031vz55TdtIUWuqcuC+he8MU
-X-Gm-Gg: AYBFou1nWYX+HzHMPhi8gaZ6uwWa2KObK2lFUgVuG8b0Hb6ueV/p+PpBfdrrOdyG2C0
-	pDw6OHO//aLjtyWTXxhbysWrhuDCtdkPCADcb7bpkuQBTws/qYr+aS8J0mau4Sbhu/J7GIy/ObA
-	1d398GYNHIIZQuOalfS+g1eD4OzqzG8ox2of/UCUmtWuJW6Yeh+RnO6MQgXtGtwisaNVcDmNCOQ
-	A5FATUjCVFGu9UFLHERi0iXUan1FtaM/n79ivNoap4/2BEzoZ3/ci/7O8CXWa/rjSWxXNYqys6X
-	5u1L00f/Ut9XyuvbNc2nsolQQP9AvItXCUKUgeCwr6526qNVocTayw87yI7tCbRTQk1BftmIMzP
-	knz4974um+YLnSBkBM1KeOJ9agx3LbPqV7q5LTcQEFIxLeDGjNzQQ20ah5B2Ty3g/hQFODUutM3
-	edRznajrSlxSVmDcfY9D8Gx3DONDBAUztAslGcKnIc9btzITXDEbNAUzCL1uMkSDvqPs13wbkRi
-	l+tT5NSCKuzT8aBKhLW9YAIC5F5NbW/s7qMj0fj7PkgQA4hsrDmVC03uybp0nI4qtO68FCNPFwX
-	AO8NvqbGPIWJ2iJSx5msQy8MbU6p3K8dM1gQs3F/cev9UYc4IPKph5ya/kLSyRr9BGPdCe8LygU
-	=
-X-Received: by 2002:a05:6214:1c82:b0:91c:6258:ec97 with SMTP id 6a1803df08f44-91f0402b4f3mr63373686d6.11.1794424756577;
-        Wed, 11 Nov 2026 11:19:16 -0800 (PST)
-Received: from linux.. ([8.34.174.240])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ef05493desm53753466d6.45.2026.11.11.11.19.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 11:19:15 -0800 (PST)
-From: Changyul Lee <lcy8047@gmail.com>
-To: Jason Gunthorpe <jgg@ziepe.ca>,
-	Leon Romanovsky <leon@kernel.org>
-Cc: linux-rdma@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Changyul Lee <lcy8047@gmail.com>
-Subject: [PATCH] RDMA/cm: Read the remote_id_table root under cm.lock
-Date: Wed, 11 Nov 2026 14:19:13 -0500
-Message-ID: <20261111191913.98044-1-lcy8047@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20260707; t=1794424753; x=1795029553;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=NXG55VLQRWz9Ej2hW5tTgWRoryYzAo6LPvqb9XxJLWo=;
+        b=HtiPm56yy1ALX34BtgiyW3aHertjdl9JLv2sa49AUBr3AKP5x4/tcseE/hm1+gCuiD
+         S05mO6Njiwq3ykqyhVU+k9UThxzPCjzKywJ4xax5bXs2aJUbd56ZQYtGsMISKUOvJdhx
+         ZZW1BZy5Q+IOd30sJsH6oGtpCAztWnAEi61D5Ly6h+hC1MpwYBLePH59A47CiKI9z8rN
+         4xIX+iRWFj0dVNGU/HEFv6lOyth/5ruOecuBBGcQShRR05iCArmZJjYuds8gynjsb1rW
+         77K7t8bJSDPnFQ7R5YD7Qv/r8ROeQF9UFPm5tS5OlKnU2L2oFwTFTpjwYxpbyrscMSSP
+         QeUA==
+X-Forwarded-Encrypted: i=1; AL+hErGrCqit06FZ0sh19Sq3t5Ft4epzLluOAMFpqfVCjJfrghBejMnrJp9uXuUlkGas4qkjaWMno6QiRRhOfvQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9inO/cZKHDZpQ5lSdwJYVa101nOu1XtL9M3B4ktDzQD+EgFb5W
+	HCCQFOV8AoE6AEEZXjFUeqgf+ayWU2eI76J7HZZE/k9HvE9YklxBNH2+4Kj7Eh+3uYS152liPiQ
+	CSS0UkrY=
+X-Gm-Gg: AYBFou1eXE3hAGOSqIAGfZdggo3ru6WmgB+3J31t0CJf95v49QfDhnuY5aqh5OkBn8b
+	G2WJoIxLpJCQ4rybbWfA1TTzCKWb9obfdZfenZPmTJWKHlSIFBbM7Hbjz2QYCr34oX49vuCruLP
+	IAi9WBaF5+4C8kPYryTcAh1J5HEPXlrmNsGtDCLt/kxhL2ps5U3xHMmkmFeCuOUGgSeikW2npaa
+	OKuSXjbH8Xx0d33jWc63aT+i4rR4CkOCR4ASxtPQxeaZvVvpgwUxBW0Ko7E7gymbWdlhwQCQg/v
+	A0xAZXPa0up//wH6ztys7XDtpYMfYn2K3djQe98n1EpggWKt3yVxAEDH0jo9Xd2w54LI5HqYx0e
+	SvxMO8AQAas1WVc+p5IdWccwRBUWSa3sPaA+ZOlwU///3QyngAjP9E8aDYDvoXDRN0+UGj3tMy0
+	q6F9d3Sza+A+v7P4yQqqN+x/dgYVZqusrvsSsBg6LkO6acG2cs/1NG6mHD7yAGMvOd2Q0zVqBKT
+	+Jo1Kn9hQETyhD+Xzn5WBOzqgHF0fOaMc/5zBUXoV/qxRla8WYgWjxvzIFebSLUX0dfT225DUvz
+	Pie14YFuXY6RxMp2SldFU/CKdJsLjBdJSYdv/jFYjeEl6GQyj4cCPAfPvWDpnpGwU2iP/zvKjTN
+	izg==
+X-Received: by 2002:a17:907:ba01:b0:c4d:4ce1:e2b7 with SMTP id a640c23a62f3a-c506726ee0cmr269722266b.34.1794424753478;
+        Wed, 11 Nov 2026 11:19:13 -0800 (PST)
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com. [209.85.218.42])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c505d78581dsm177004366b.80.2026.11.11.11.19.12
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 11 Nov 2026 11:19:12 -0800 (PST)
+Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c3f04e0e65fso513100466b.2
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 11:19:12 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErFp40buVSCdz/BEb6AjGtt2QWy+mq8bb91nzWYlLhyKUdGhwD67inReD6khT7dE1O2XRSsNM07L8BLJv6w=@vger.kernel.org
+X-Received: by 2002:a17:907:a805:b0:c40:36ca:9d1b with SMTP id
+ a640c23a62f3a-c5066d6ae19mr293546066b.40.1794424752390; Wed, 11 Nov 2026
+ 11:19:12 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,55 +94,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <606cae9e.bbec5.1a1c54f4f9f.Coremail.18670333770@163.com>
+ <60541e98-b1f0-4f92-a155-8a29c0bb17dc@kernel.org> <44abb8ef-7711-4ad0-be9f-ca47206892a3@columbia.edu>
+ <856cdf21-7982-475a-b244-a7ceff4eb6aa@kernel.org> <avS5QcRj85yAm9ll@thinkstation>
+In-Reply-To: <avS5QcRj85yAm9ll@thinkstation>
+From: Linus Torvalds <torvalds@linuxfoundation.org>
+Date: Wed, 11 Nov 2026 11:18:55 -0800
+X-Gmail-Original-Message-ID: <CAHk-=wgA6=_152qr3x6FrD2vmw27moARkQbUjsJoehXW-aAZoQ@mail.gmail.com>
+X-Gm-Features: AclHuK9Un7jYzso2-pBVjOWTwZ9BRGN_Ct3oKTQqbfnCyzJAzUmyhZM2iKBUTgE
+Message-ID: <CAHk-=wgA6=_152qr3x6FrD2vmw27moARkQbUjsJoehXW-aAZoQ@mail.gmail.com>
+Subject: Re: [SECURITY] mm: khugepaged collapse_file() drops RWP PTE markers
+To: Kiryl Shutsemau <kas@kernel.org>
+Cc: "David Hildenbrand (Arm)" <david@kernel.org>, Tal Zussman <tz2294@columbia.edu>, n3rd <18670333770@163.com>, 
+	"linux-mm@kvack.org" <linux-mm@kvack.org>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+	"akpm@linux-foundation.org" <akpm@linux-foundation.org>, "ljs@kernel.org" <ljs@kernel.org>, 
+	"ziy@nvidia.com" <ziy@nvidia.com>, Mike Rapoport <rppt@kernel.org>, 
+	"peterx@redhat.com" <peterx@redhat.com>, "security@kernel.org" <security@kernel.org>, 
+	"Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 
-cm_find_remote_id() reads the root of cm.remote_id_table before it
-takes cm.lock. While it waits for the lock, cm_destroy_id() or
-cm_reset_to_idle() on another CPU can remove that cm_timewait_info from
-the tree and free it, and the lookup then starts from freed memory.
-This lookup is done for a REJ with reason IB_CM_REJ_TIMEOUT.
+On Wed, 11 Nov 2026 at 11:13, Kiryl Shutsemau <kas@kernel.org> wrote:
+>
+> The report registers RWP alone. That is the only setup where the access
+> after collapse goes unreported.
 
-Read the root after taking cm.lock.
+Let's just document that as "don't care" with the reasoning.
 
-Fixes: cfa68b0d0440 ("RDMA/cm: Make find_remote_id() return a cm_id_private")
-Signed-off-by: Changyul Lee <lcy8047@gmail.com>
----
-Found with a static analysis tool we are developing.
-
-Reproduced in QEMU (x86_64, KASAN) on rdma_rxe over virtio-net, with a
-test module that connects to a listener on the same device through
-rdma_cm and destroys each active cm_id while it is in IB_CM_REQ_SENT,
-so a REJ with IB_CM_REJ_TIMEOUT is sent. Another kthread destroys the
-passive cm_ids. The window was widened for the test with an msleep(20)
-between reading the root and taking cm.lock. Without this patch, KASAN
-reported 46 to 48 slab-use-after-free reads in cm_work_handler() per
-20 second run in three runs, on a cm_timewait_info allocated by
-cm_create_timewait_info() and freed by cm_destroy_id() through
-cm_reset_to_idle(). With it, there was no KASAN report in three runs.
-
- drivers/infiniband/core/cm.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/infiniband/core/cm.c b/drivers/infiniband/core/cm.c
-index 1a2c2775b14d..5347b7519a8d 100644
---- a/drivers/infiniband/core/cm.c
-+++ b/drivers/infiniband/core/cm.c
-@@ -734,11 +734,12 @@ cm_insert_remote_id(struct cm_timewait_info *timewait_info)
- static struct cm_id_private *cm_find_remote_id(__be64 remote_ca_guid,
- 					       __be32 remote_id)
- {
--	struct rb_node *node = cm.remote_id_table.rb_node;
-+	struct rb_node *node;
- 	struct cm_timewait_info *timewait_info;
- 	struct cm_id_private *res = NULL;
- 
- 	spin_lock_irq(&cm.lock);
-+	node = cm.remote_id_table.rb_node;
- 	while (node) {
- 		timewait_info = rb_entry(node, struct cm_timewait_info,
- 					 remote_id_node);
-
-base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
--- 
-2.43.0
-
+               Linus
