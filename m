@@ -1,46 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.119.170.32
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794414224;
-	b=cnmZA6Z1krb2RvyKaL+4bOnH3E3TU21nDbmTkbgNoUAFVUsqx3PIcjgDUKx4NVqOhLl/
-	 sp2z8xNfhd7+EzRXBaLWBqqGbssGqHgwblpxxHb8rPv7vHQrrWYbLstLClHXYHlD+1mTQ
-	 LKoqQvMa4cAFAAtoUdWNMjGNvvAgpS0AczDhe2F39b59EbBl40JMuSSrhT8dO4XDvYbe2
-	 bz/I8JXOi9hX73Mz5z4ureGoW4KfIBRAMNYmoUDeM/8dmHN2d0PhTWKkXPSsnA5d/1J+K
-	 CeVe2Rx0Z3c4veT1jFGq0f/7fEebTqA5bLS89MMA6yotEaQCKuJ3J899xfybJs5z5zA==
+	t=1794414289;
+	b=LguS4L/C5WSxHQjcBqGo47W5NSmzeRI1P3BCgi3C2eeZ6iMmMeFo28eXou67k3GzSq9j
+	 tmWFyvZDqg6scEI5wOVI6cahnP7NNxy8xz7AFg2C1FElLOnE+0xW7wBV2fbLW4BT4jpOz
+	 QvEzbYIhdcddXctMi8zo6e8y81dWYb5/HorlZP90ilV3OapfgN6tPfy8g6ALATtkCurPF
+	 amnz/YBg/BgCxyjeRKBdlVuV1zg1/YV8f5tLNJUbNcFXyutt0A2WZjgkM0RbE/fjXuO18
+	 nEDNBOQhzTk3pOPjljQuTbnMNcRaHUrAriNkw1SqRBKvlk2kndz4xxGbaSDkC5VZwoA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794414224;
-	h=DMARC-Filter:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
-	 References:Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=/pMmLBrxhKWmNP6kQgz/inj5Id8oSVba33IusqNJ12k=;
-	b=u8eeJeHR9jjigvy2ELm7AV59XUNHowGIzgKRro7LSB2i3kxTQsvxm+LOesW8Xxf2GqhA
-	 KCM1rZOLyEj2xBNPkEb5x6dYLFqDAhYQ2OgNUhszJagu6sQvpiAaxstpwXyDfFf8AgISa
-	 PM1PIQFWh7xHdqDJnYeJ/7YQQjPGaxTjy70PSRrVwfaocINc8UZlEbiS5IMBZ2tgjrcIf
-	 /ThlDfH13FXragKJCXuc3gu48TPClVB9stMUq/6sNFJM4qOB5QmpF+0/BDosGes6OtWJu
-	 u+j1Q9P2NVdOtqOzQvUOgFxR4UVRKpV5hFie5MNMujxNSSjhJG2e7h5Nn3Ng8x/Idrw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794414289;
+	h=Received:DKIM-Signature:X-Mailer:From:To:Cc:Subject:In-Reply-To:
+	 References:Date:Message-ID:MIME-Version:Content-Type;
+	bh=OjsO/ys/ad/piKfPb2QV+3VHWakKPWNbmqHXdLgFmLM=;
+	b=TAlS4BP/FKQP+gSjTm29iRsk7DiwNwl5D1+h9STkgob+ee9toFgU5LIB1knHw4PsPrMl
+	 FiLeRcYVu++M+ymVz7dDdgET99m7+L1jhnc7WhSezh/Z5CUXVgWE5NRMF0QyMrlKT3hIG
+	 biOdlgP2uKu7b2WyoYbUlnKh+RRzk4OT1rUT+xTMwyqRJMkpS53vaf7RnKO7A1O/iqpwd
+	 dxq7KA4AN6ETKch/7NYaTBcvYcHTxtgzm/WLB+mWrXMGb8paX0U839xi63uaou/NjC1z9
+	 c8Na9m93aFLKogZmlmTT03Nv8tvIyPblZPMLvTcYDWh3nsgXPs4oFzgcry77/mq7CbA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=crapouillou.net;
-	spf=pass smtp.mailfrom=crapouillou.net;
-	arc=none smtp.remote-ip=185.119.170.32
-Received: from aposti.net (aposti.net [185.119.170.32])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D9R3bt8I;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27DDF606A321;
-	Wed, 11 Nov 2026 16:23:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 27DDF606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=crapouillou.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crapouillou.net
-Message-ID: <1a6aac61cb167ce0eea611afe73e8c87782edd43.camel@crapouillou.net>
-Subject: Re: [PATCH] MIPS: ingenic: Let Config.VI tell whether the icache is
- virtual
-From: Paul Cercueil <paul@crapouillou.net>
-To: hunterlaux@gmail.com, Thomas Bogendoerfer <tsbogend@alpha.franken.de>
-Cc: linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org, Lars-Peter
- Clausen <lars@metafoo.de>
-Date: Wed, 11 Nov 2026 17:23:31 +0100
-In-Reply-To: <20261110-mips-xburst-icache-vi-v1-1-efba689606dd@gmail.com>
-References: <20261110-mips-xburst-icache-vi-v1-1-efba689606dd@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B006606A324;
+	Wed, 11 Nov 2026 16:24:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D9R3bt8I
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3EF51F00A05;
+	Wed, 11 Nov 2026 16:24:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794414289;
+	bh=OjsO/ys/ad/piKfPb2QV+3VHWakKPWNbmqHXdLgFmLM=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=D9R3bt8IMlmKCvjpNgRgysgj8jSfI13uGBJNO/Gz7VeltIMkdQtWk7rTUbnL+hSKP
+	 yw446sJdMUoV63jGJWmoLXrdm1ER/+eKiRPANmy8/oVLQQIHoxwQk4097d3gNv9RJN
+	 kPGqM0dBGFUDQwamvB9bgVigbzfmgo2HAwhl9bStSXnCsJPMOT+eRSw3AJbBNyDXRc
+	 8huwLIoPnXNi9b/6DowoNI3g+6A06OaWwxGcf8k5/7RxZl9Us0FcZzRZntTE+c9g0z
+	 h2AVNfplmuc6dmcm7rJeSw5ylRkvChp9Qq2tOVm3kX5/SsTu3LunBg9pwpNtEIVykp
+	 A7793R8G+sFfg==
+X-Mailer: emacs 31.1 (via feedmail 11-beta-1 I)
+From: Aneesh Kumar K.V <aneesh.kumar@kernel.org>
+To: "Tian, Kevin" <kevin.tian@intel.com>,
+	"iommu@lists.linux.dev" <iommu@lists.linux.dev>
+Cc: Alex Williamson <alex@shazbot.org>,
+	Alexey Kardashevskiy <aik@amd.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Jacob Pan <jacob.pan@linux.microsoft.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Joerg Roedel <joro@8bytes.org>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Krishna Reddy <vdumpa@nvidia.com>,
+	Lukas Wunner <lukas@wunner.de>,
+	Nicolin Chen <nicolinc@nvidia.com>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Samuel Ortiz <sameo@rivosinc.com>,
+	Shameer Kolothum <shameerali.kolothum.thodi@huawei.com>,
+	Steven Price <steven.price@arm.com>,
+	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Vasant Hegde <vasant.hegde@amd.com>,
+	Will Deacon <will@kernel.org>,
+	Xu Yilun <yilun.xu@linux.intel.com>,
+	"kvm@vger.kernel.org" <kvm@vger.kernel.org>,
+	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+	"linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
+	"linux-tegra@vger.kernel.org" <linux-tegra@vger.kernel.org>
+Subject: RE: [PATCH v8 10/15] PCI/TSM: Add vIOMMU-bound device contexts
+In-Reply-To: <SA2PR11MB4844957D715CDA1CC614E8C38C762@SA2PR11MB4844.namprd11.prod.outlook.com>
+References: <20261104161632.3547423-1-aneesh.kumar@kernel.org>
+ <20261104161632.3547423-11-aneesh.kumar@kernel.org>
+ <SA2PR11MB4844957D715CDA1CC614E8C38C762@SA2PR11MB4844.namprd11.prod.outlook.com>
+Date: Wed, 11 Nov 2026 21:54:32 +0530
+Message-ID: <yq5a4idntjy7.fsf@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -50,88 +87,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain
 
-Hi Hunter,
+"Tian, Kevin" <kevin.tian@intel.com> writes:
 
-Le mardi 10 novembre 2026 =C3=A0 21:09 -0700, Hunter Laux via B4 Relay a =
-=C3=A9crit=C2=A0:
-> From: Hunter Laux <hunterlaux@gmail.com>
->=20
-> The Ingenic CPU support treats every XBurst instruction cache as
-> virtually tagged: the feature overrides fix cpu_has_vtag_icache to 1,
-> and the probe sets MIPS_CACHE_VTAG. The setting came in with the JZ4740
-> feature overrides in commit 83ccf69d8f11 ("MIPS: JZ4740: Add base
-> support for Ingenic JZ4740 System-on-a-Chip") without a stated reason,
-> and Ingenic's own kernels treat the icache as physically tagged.
->=20
-> Neither XBurst1 nor XBurst II has a virtually tagged icache. Both
-> programming manuals describe a physically tagged one and hardwire
-> Config.VI to 0, which the cache probe already reads. On the X2600, code
-> at a virtual address remapped to another page through the TLB alone
-> runs the new page, while the old line is still in the icache. XBurst1
-> has not been tested. Treating the icache as virtually tagged is
-> incorrect and costs needless icache flushes.
->=20
-> Drop both and leave it to Config.VI.
->=20
-> Cc: Lars-Peter Clausen <lars@metafoo.de>
-> Assisted-by: Claude:claude-opus-5-5
-> Signed-off-by: Hunter Laux <hunterlaux@gmail.com>
+>> From: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
+>> Sent: Thursday, November 5, 2026 12:16 AM
+>> 
+>> An IOMMUFD vDEVICE represents a physical device within a virtual IOMMU
+>> (vIOMMU) for a guest. It must use the same TEE Security Manager as its
+>> vIOMMU. Pinning the vIOMMU backend keeps its tsm_dev registered, but
+>> does not preserve the connection between the physical function 0 (PF0)
+>> PCI device and that TSM.
+>> 
+>> Add a per-vDEVICE PCI TSM context. Verify that the PCI device and the
+>> vIOMMU use the same tsm_dev, and account active contexts on PF0. Reject
+>> disconnect with -EBUSY until all dependent vDEVICEs release their
+>> contexts.
+>
+> We really don't need so many vIOMMU/vDEVICE notations here,
+> especially in following code/comments. It's just about a tsm context
+> which holds the pf0 from disconnected. Then let's describe/code it
+> from that angle.
+>
+>> +struct pci_tsm_context *pci_tsm_context_get(struct pci_dev *pdev,
+>> +					    struct tsm_dev *viommu_tsm_dev)
+>
+> could clarify that each get returns a new context even on a same device.
+>
+> s/viommu_tsm_dev/tsm_dev/. It's just a parameter to be matched against.
+>
+>>  {
+>> -	struct pci_tsm_pf0 *tsm_pf0;
+>> -	struct pci_tdi *tdi;
+>> -
+>> -	if (!kvm)
+>> -		return -EINVAL;
+>> +	struct pci_tsm_context *context;
+>> +	struct pci_tsm_pf0 *pf0;
+>> 
+>>  	guard(rwsem_read)(&pci_tsm_rwsem);
+>> +	if (!pdev->tsm || !is_link_tsm(pdev->tsm->tsm_dev))
+>> +		return ERR_PTR(-EOPNOTSUPP);
+>> +	/*
+>> +	 * The vdevice can use a different PCI function from VIOMMU_ALLOC.
+>> The
+>> +	 * module pin keeps the vIOMMU's TSM registered, but does not
+>> freeze this
+>> +	 * function's link. Match its current TSM before pinning the link below.
+>> +	 */
+>
+> this is the example needing a rewrite...
+>
 
-The docs I have do say that both caches are "virtually indexed, physically
-tagged". So the patch looks good.
+I'll simplify this and document the vIOMMU tsm_dev reference in the CCA
+code.
 
-If anything it's missing a Fixes: tag (with stable@vger.kernel.org in Cc).
+	/* The device must be connected to the TSM requested by the caller. */
+	if (pdev->tsm->tsm_dev != tsm_dev)
+		return ERR_PTR(-EXDEV);
 
-> ---
-> Lars, the override came with your JZ4740 support in 2010. On the off
-> chance you remember a reason for setting cpu_has_vtag_icache to 1,
-> I'd like to hear it.
-> ---
-> =C2=A0arch/mips/include/asm/mach-ingenic/cpu-feature-overrides.h | 1 -
-> =C2=A0arch/mips/kernel/cpu-probe.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 3 ---
-> =C2=A02 files changed, 4 deletions(-)
->=20
-> diff --git a/arch/mips/include/asm/mach-ingenic/cpu-feature-overrides.h
-> b/arch/mips/include/asm/mach-ingenic/cpu-feature-overrides.h
-> index 7ace50127f..71c03f1dd4 100644
-> --- a/arch/mips/include/asm/mach-ingenic/cpu-feature-overrides.h
-> +++ b/arch/mips/include/asm/mach-ingenic/cpu-feature-overrides.h
-> @@ -27,7 +27,6 @@
-> =C2=A0#define cpu_has_mips3d 0
-> =C2=A0#define cpu_has_smartmips 0
-> =C2=A0#define kernel_uses_llsc	1
-> -#define cpu_has_vtag_icache	1
+>
+>> +	if (pdev->tsm->tsm_dev != viommu_tsm_dev)
+>> +		return ERR_PTR(-EXDEV);
+>> 
+>> -	if (!pdev->tsm)
+>> -		return -EINVAL;
+>> +	pf0 = to_pci_tsm_pf0(pdev->tsm);
+>> +	if (!pf0)
+>> +		return ERR_PTR(-ENXIO);
+>
+> No need to check the return error as other places do?
 
-Don't remove it, set it to 0.
+I didn't quite follow this feedback. Are you asking why we check for
+!pf0 here but not in other paths? If so, I think we can drop this check
+as well, since a valid pdev->tsm should imply a valid pf0.
 
-Cheers,
--Paul
-
-> =C2=A0#define cpu_has_dc_aliases	0
-> =C2=A0#define cpu_has_ic_fills_f_dc	0
-> =C2=A0#define cpu_has_pindexed_dcache 0
-> diff --git a/arch/mips/kernel/cpu-probe.c b/arch/mips/kernel/cpu-probe.c
-> index 489612ed9d..bef92e6cd6 100644
-> --- a/arch/mips/kernel/cpu-probe.c
-> +++ b/arch/mips/kernel/cpu-probe.c
-> @@ -1763,9 +1763,6 @@ static inline void cpu_probe_ingenic(struct cpuinfo=
-_mips
-> *c, unsigned int cpu)
-> =C2=A0	c->options &=3D ~MIPS_CPU_COUNTER;
-> =C2=A0	BUG_ON(__builtin_constant_p(cpu_has_counter) && cpu_has_counter);
-> =C2=A0
-> -	/* XBurst has virtually tagged icache */
-> -	c->icache.flags |=3D MIPS_CACHE_VTAG;
-> -
-> =C2=A0	switch (c->processor_id & PRID_IMP_MASK) {
-> =C2=A0
-> =C2=A0	/* XBurst=C2=AE1 with MXU1.0/MXU1.1 SIMD ISA */
->=20
-> ---
-> base-commit: b3dfbde62cf1981c4638939c159dfd087b7a72e9
-> change-id: 20261110-mips-xburst-icache-vi-db10a8d03dd6
->=20
-> Best regards,
+-aneesh
