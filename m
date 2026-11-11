@@ -1,113 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.135
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.139.74
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794439268;
-	b=lJxxaZ+HCnRyUWsu4z8Gjfsgk63DvnhPS46UtIlkoZ80MOAZ8sy5W8EA0KeGfye2zn4s
-	 gGEndzApwh0AjppF/cXY4P2x0+KMyL2eoTbvIt+FgfsPyUvw3tbdpD6q9dpRH7Nb1hxAn
-	 CsJYQ1ADN1Cru5lLtnFHLrV/ZxeuY8XN06ajyiCdPnyRu0tnzRAE1UdhcmL+0i4IxMHg7
-	 F1gFj1DdEtfADlpR8g+poqnfGVtmJFvFKW0nC0Gk2w/vTE8JbClRRiF3wD+dI358Ot8cB
-	 u9Eky8TyBQUQNpKx1OPaocUpqSNdUwY0tEX4XEeKpP26HJduTWArz33g0WkrgW1D2lA==
+	t=1794439306;
+	b=BN+8bEIkt6+4jMULUSaPkYdU17uW57nx7PcWZKUuAmBH/Spn+6dE8xy7FV+6u1h8eST5
+	 UAoI0vxOsrhcUH7P5+lwfeWfpGTVyVPzVGAj+AnB/9sT8XwmOm6hLPakBxhY0Wnrw7yyQ
+	 D7wsFm35cq2l8hlf7J8ud0QbMJG/ZRnhD6QLDghVRPYPXcwY051+HeBbd6+ORVTpsIiSk
+	 6WQNnZTtVt3M1eJ54XMGN/w/GS791LTq6k1REWFPEkqBKjjeJ4Vctkkf0WhjmCNxMgLJs
+	 1xYGfXGQ3fa1fCX6y2G0XqUrN1Uy2WeFrXL1a+ri6b7Ap5oSxTStz6JCbDuaD/2ypOQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794439268;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To;
-	bh=yLiNMvxVQruQcm1dmYQM6B9T1c0wqmTNiOzMtEKz3a0=;
-	b=oNcNcHfO67Fk1CUIVG2dIHQA1K68sOvQGITEvBoiWsVIGhO6o4iRj8thmWrO3Lejg9qG
-	 cqfP5qVmX/4P5jjpjUUJW5GgLd7YMcTNHG3n06awu8lusy8nObb99elSCXaxMUAXczUb/
-	 ScohbN0wn9IMEYn3YXTS8nIewSWPfG8msbwettw8vjeeRN4SLkx3Rp5JjFWiXuwBj4THu
-	 FXjU88KNUBmAxJNX+1RGjeor2bQQvsJQm31vzQ/ZS3Wy8LHyVtEx3Xi1A5uFcwOQRCHeB
-	 YNsnojRIAlGyCRqS1PVOJgJql7l6RBZqu/kZNcer1cS2RxZfwZmPPZ3VaLg2YDMYcSQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794439306;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=E2Z2d4ubA/vBybLDW0A3M/dONekPuI7b74giCSqVh1w=;
+	b=NExT9iusrzNAxbZ9jJurxjgnkj5qajl1cPwZ85XXJH5ha2lLkJF/zvNz2dtiW0weqyFJ
+	 XusILJRKgl0A7CZ2hDR6MTCmCbss3H568QG9mxCUNglFwr/JRPN2RJcbgNozmYBarxrxE
+	 k/dcL1v9D8KIrv5LKMv7XU3fRdLVYi9z/uTVsDYoHRvfrfjP4go1C2vxieFvL8nsI+PLw
+	 pc5OelzLaBf66XH+21Udgk9f4XyrIA0sYf8oNiUl5m6eeXVDWYB2EuGpL1n7bHACla3B4
+	 DJ5HB+LDJmSjbjyM8qm8kQHB9KQtVibo61ZNGPhpT/woef7IzvrLg/hjPIf4s1XFCAA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="tWA/XaWh";
-	arc=none smtp.remote-ip=74.125.229.135
-Received: from mail-dl2-f7.google.com (mail-dl2-f7.google.com [74.125.229.135])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=columbia.edu;
+	spf=pass smtp.mailfrom=columbia.edu;
+	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=VU36wWCz;
+	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=Cd5Tmp8+;
+	arc=none smtp.remote-ip=148.163.139.74
+Received: from mx0b-00364e01.pphosted.com (mx0b-00364e01.pphosted.com [148.163.139.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2922B60A3812
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 23:21:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2922B60A3812
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1079A606A330
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 23:21:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1079A606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tWA/XaWh
-Received: by mail-dl2-f7.google.com with SMTP id a92af1059eb24-13985f8229aso3336345c88.1
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 15:21:08 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=VU36wWCz;
+	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=Cd5Tmp8+
+Received: from pps.filterd (m0499198.ppops.net [127.0.0.1])
+	by mx0b-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ABMBsGB1795617
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 18:21:38 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pps01; bh=E2Z2
+	d4ubA/vBybLDW0A3M/dONekPuI7b74giCSqVh1w=; b=VU36wWCzQDQPCDJskRC8
+	GUumOBIPmH3k55QPlp1YNsxNWGQx4zstGDwIkhP9sggGaAtNDOxVNPM+CIQjV7M0
+	d76oIXkhjHWJS6/sJD0V7xwxACCKXbEImyr2R53OJ05AYwSPslCjX6JDP1dkJFLt
+	ZGLE+lAezMF3v+tbabY1FXS8t+DLmwNBkOOjfe50Y+e8kR16R4byD26CbkJ1engs
+	dELYjDkL4R1vzPRAlEtkmGpBtSZPDEYDeCqZDX8LFf2EW4XF+J1pPYC3lE2ZFibP
+	e1E7tig8fu3kP6Kh4QBMujICqMTX3AetkkzRw/0wJjtqfoXr5TsZMDAY2ei2x4fR
+	0Q==
+Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com [209.85.219.71])
+	by mx0b-00364e01.pphosted.com (PPS) with ESMTPS id 4hvyxkgwqe-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 18:21:38 -0500 (EST)
+Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-91ea39a2f8eso65585816d6.2
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 15:21:38 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794439267; x=1795044067; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yLiNMvxVQruQcm1dmYQM6B9T1c0wqmTNiOzMtEKz3a0=;
-        b=tWA/XaWhilDIFlnze3RfmXPT3zuLapRVFasaiN9nd0tewyRhLSq/JoPBuRjVBnWEQF
-         EfJ2wfgsGX9owNgchteKd1lIu6RiSP3OH9AEtymuJ65j8FrudMdGkfDxyMJoyeAIJoM5
-         wXaQ1drt7KU9O2M3MfvOiG8VNWFHnGTmcWYxF43Uv/U157sVRXT6hKUfXK1PW7gw0sHJ
-         RwVku3hTl++BEabzGqVclt/k2pJ9Vb6VrzAfl7t5hSqMBdtfkABefgGE5YtRN0IX4PLj
-         ceM2Gr/lktRQmiB0BBCRstLwizRWtFbe4/wlxG3NV4klLz1FaaanhWSP9Z65w3fzO8E2
-         J3Tw==
+        d=columbia.edu; s=lionmail; t=1794439298; x=1795044098; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=E2Z2d4ubA/vBybLDW0A3M/dONekPuI7b74giCSqVh1w=;
+        b=Cd5Tmp8+IxlXDjA5tU/GgeRi46Zb3uDPWz+QALmyneKQOujMP94KHDunl7wTrDmO7M
+         yicU1Bfn2b1YUNO7g3+boC/Cw7PN7mTm1MTLHiVRNJ4IK/JFRKDqE9NxF0ihrE4hXjCU
+         383Oy8N9LtvRkxFAMGOk61eAd6JLxQ6AGCDjS4qtQ0ou6A3kbpDRHHJ00ZkQoEYXOoLN
+         0cpw0wPJnYon+Zb2VGLtItmVwo4kBbRFQ8k//L7AlWyfpesHMZ25RCIMLZ5MvOQ/vo2C
+         smUr6ARSSboXegQizc/stiEPiVMiYfoaFneA2YQjjCoCAOWufOiMEHsjWUbAv2vTMr1C
+         1usw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794439267; x=1795044067;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=yLiNMvxVQruQcm1dmYQM6B9T1c0wqmTNiOzMtEKz3a0=;
-        b=mex4Dccv+jnDfCJaHq2fhd7nEmIhq32fZ5IItnQDGTcrp5fCHh10AUEZTOFXA4ksI3
-         yzRcqD4/dbghybp/RoSGmnQT2Nej2B+2Of548dTeIrRvW5GKN7EeDUmnUfTGDpzY+JwL
-         65AwPxJx40zQBXHGiselWtCxULNoJgzrtCYaRGIUOGkufkhO+zn7cDBzS4VTy6vWgHAP
-         7NhFSymfFo+g2nPnl6feZDisrFN7zYEX2OOtncjzAVlkx78JqtxRWpPQXMvyHUjfc8Ad
-         IAaXfiAHg/GFBZYrlsVSPE38dBO8kpMKmCL39OkMeLe5MRYMkGa5n4yBjXWo9psrSPHm
-         XR2A==
-X-Forwarded-Encrypted: i=1; AL+hErFoESw8OP0Tnffznm1dn9s+U/rXabAWK5MPoCL8VDUniZcD8XS0ZNnJax9sbaCRDX0KZScM9xTcjE5iEuI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/hrKYmcnraR48xofllWWoI9UOewdyOkPJYlaB5o7BH9fjU77q7
-	5sg7gH0GW1CmU1VUcINsYX0WsZ+E0T4JqKIiEa1ovnaFNPNaPqchD0CL
-X-Gm-Gg: AYBFou1wE0wmastby+Zi+tZZNu5M8nhnzSGws/iHQ8lWPNOYwNTmsRoMRCVxCEywY92
-	PTdap6xWutWkvA9o8cCf4YqINh43FbGVokdibFTH4aHu2iFJj/lzo580W9trFxVIxKzf2qGNGd/
-	PppumD051b/0Npo5nL4dp+TwK3QRT6NjAPhPQNICIQMB0UMFbiYGXlX017QmmGDbm+PryJc7p5e
-	oFYiEJ9K1is4MMCXvt4Y01OYdPOf/NAGaHOBEukIEZdzo3rDsTG9GcaLFYmTWJGpdnoF4f+OXX/
-	rvBbWu9gB0zX/iPbYvpqCyTZDDkZ2K7FdKSUoW1zrxipu/K/KR5MKSoXYHhzzkJy/QYD9A/J/TP
-	o/ZQgn7EIZhr4S+W8LVzPahn65r19/bAmekJsmq2cx5TMHO/CdEPuGtpOxVD9tGsSt2+etw6LW8
-	j9Kj2M8FjY29ypyLYLOCv9DstTGZ5AJ/BSNY85Sic2VCDpHel8Zs46kHrfYukuDfxwINdLsLpo0
-	ez/dtXhTKv/X1QAcpn8McaOa4gtRdEQBSId2luO/eFhr2zDoqvOZHPrllMWrr+DsWGJUQpNRLbO
-	RYozhx61rHTA+PM/T3wepgmFP/vpI+OuYdkVLRRA0/cL
-X-Received: by 2002:a05:701b:420e:20b0:144:c112:5f24 with SMTP id a92af1059eb24-1b3c031ae2fmr3766487c88.25.1794439267244;
-        Wed, 11 Nov 2026 15:21:07 -0800 (PST)
-Received: from localhost ([2a03:2880:9ff:60::])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3772121e654sm7807640eec.2.2026.11.11.15.21.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 15:21:06 -0800 (PST)
-Date: Wed, 11 Nov 2026 15:20:41 -0800
-From: Stanislav Fomichev <sdf.kernel@gmail.com>
-To: =?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>
-Cc: Magnus Karlsson <magnus.karlsson@intel.com>, 
-	Maciej Fijalkowski <maciej.fijalkowski@intel.com>, Stanislav Fomichev <sdf@fomichev.me>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Randy Dunlap <rdunlap@infradead.org>, Alexander Duyck <alexanderduyck@fb.com>, kernel-team@meta.com, 
-	Andrew Lunn <andrew+netdev@lunn.ch>, Jesper Dangaard Brouer <hawk@kernel.org>, 
-	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Alexei Starovoitov <ast@kernel.org>, 
-	Daniel Borkmann <daniel@iogearbox.net>, John Fastabend <john.fastabend@gmail.com>, 
-	Pavel Begunkov <asml.silence@gmail.com>, Jens Axboe <axboe@kernel.dk>, 
-	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Martin KaFai Lau <martin.lau@linux.dev>, 
-	Song Liu <song@kernel.org>, Yonghong Song <yonghong.song@linux.dev>, 
-	Jiri Olsa <jolsa@kernel.org>, Emil Tsalapatis <emil@etsalapatis.com>, 
-	Ihor Solodrai <ihor.solodrai@linux.dev>, netdev@vger.kernel.org, bpf@vger.kernel.org, 
-	io-uring@vger.kernel.org, Mina Almasry <almasrymina@google.com>, 
-	"Mike Marciniszyn (Meta)" <mike.marciniszyn@gmail.com>, Weiming Shi <bestswngs@gmail.com>, 
-	Nikolay Aleksandrov <razor@blackwall.org>, David Wei <dw@davidwei.uk>, 
-	Alexander Lobakin <aleksander.lobakin@intel.com>, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Stuart Clark <stuclar@meta.com>
-Subject: Re: [PATCH net-next v1 07/11] xsk: Deliver provider chunks without
- copying
-Message-ID: <avT3vVT8iyKqyW8q@devvm16445.scu0.facebook.com>
-References: <20261110102039.1002605-1-bjorn@kernel.org>
- <20261110102039.1002605-8-bjorn@kernel.org>
+        d=1e100.net; s=20260707; t=1794439298; x=1795044098;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=E2Z2d4ubA/vBybLDW0A3M/dONekPuI7b74giCSqVh1w=;
+        b=W5ZyiXxHgTSrrzRTqqFk5ZPzFW80NUIJKd4KEKe3w7gfjJ2qw3nlzR4uBxQlvMOeRg
+         F6Seg7coUtC0lJZ53EN9ypeItIoEb5GSg36b1k86YPtKNJk+lluDNaqFngIRkyiF0yuO
+         25QMz1wV/ZAw/KySPPSmsmhnKbKcMaZ72qLLmftSTEoI/9YPqsKCIr8jJn4V/uZErW8A
+         pq2371+wfQFZKEX2JWlP3o9oyl7omuO3WYHRuG8xNxXntmFF+au4r1oWoNvMj1P9Nsf9
+         ZCMfuJ8SYxAghv4G6/soVMGGUZZw4xo/ATRQM9/EnEmuYkRKP4Lg6QLLjFZdq8ZU2SgT
+         7pJw==
+X-Forwarded-Encrypted: i=1; AL+hErFQ0lSFahIPkx4xL1FM+uJd/ibp/B7gcpjsA2fPIDFfY7nsceSEKauKha26cTQZ20yNioAdupNCTBhwono=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8PGwwThSMcuE8grLmyI69QmN576MIJJ+HG+9TJ+X8nhkHmDWne
+	hUwrDNwf6mgguStvddiHMYR6zXqYKu7lktnE+nujljyfhJu/r14LhPE0KiF4SFZn37czV7nnfzq
+	rWn0wyyfsm5yrX1JvI3lSD/jutgLQ8HazbOCYU9aD21lijhz5J0gHNPCOhSIREg==
+X-Gm-Gg: AYBFou2Gzsc0Sd3ty9TImg1HcAS2WMuRHCDtCWpq+rim5+rKRwBJAy0tSbJqFcuQ5Xk
+	2c0yqBh1T6wTjUxXHCJcqv4Q+1mZKyDG8Xn3zul0Da3E2GKuAPTk61VAinwayNi8V2v0tHKM9Mp
+	l+NmdYHvYsgZqGVRXB9PtNxvcWP9i9rAYRgKv6wuJWtk2TfvPQ2bvAMX8qM3cfURuhGWu3ynZqU
+	TktzmP9f8RZqJeSAKC14frEJvbD4LkSENiSXDNT83kK4aGxv9s74P/Ol+clbjpdC9c//f6UsT39
+	7Tj37Z6XCRVzhbbX4TqCIbVS21vy2mkJBeoOq3g2SbMv55xO/+Gb5a5vOUsj+KRYUyAXKX+CCcG
+	SpDfHoX29XUQCB+/DyLaz2T3+CDyOuEBY43gZW26IJzdHY7RAp1r57NvRwk4jIZgYkyXIh0iFx2
+	0n6/moJEeYPNDEcntJtxnFoGL4RfY=
+X-Received: by 2002:a05:6214:d86:b0:91e:a629:ff92 with SMTP id 6a1803df08f44-91f04196dd4mr71943176d6.42.1794439298052;
+        Wed, 11 Nov 2026 15:21:38 -0800 (PST)
+X-Received: by 2002:a05:6214:d86:b0:91e:a629:ff92 with SMTP id 6a1803df08f44-91f04196dd4mr71942586d6.42.1794439297418;
+        Wed, 11 Nov 2026 15:21:37 -0800 (PST)
+Received: from [10.207.116.169] (nat-128-59-177-239.net.columbia.edu. [128.59.177.239])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91f02fcc4b7sm33094936d6.44.2026.11.11.15.21.35
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 11 Nov 2026 15:21:36 -0800 (PST)
+Message-ID: <e19f1fff-f1a7-4c2b-8908-2d3ee6a49069@columbia.edu>
+Date: Wed, 11 Nov 2026 18:21:35 -0500
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,262 +116,111 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261110102039.1002605-8-bjorn@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 11/12] mm/madvise: send UFFD_EVENT_REMOVE when installing
+ guard regions
+To: Kiryl Shutsemau <kas@kernel.org>,
+        "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+        Mike Rapoport
+ <rppt@kernel.org>, Peter Xu <peterx@redhat.com>,
+        James Houghton <jthoughton@google.com>,
+        Andrea Arcangeli <aarcange@redhat.com>,
+        Suren Baghdasaryan <surenb@google.com>,
+        Balbir Singh <balbirs@nvidia.com>,
+        "Liam R. Howlett" <liam@infradead.org>,
+        Lorenzo Stoakes <ljs@kernel.org>, Vlastimil Babka <vbabka@kernel.org>,
+        Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
+        =?UTF-8?B?TWljaGHFgiBNaXJvc8WCYXc=?=
+ <mirq-linux@rere.qmqm.pl>,
+        Andrei Vagin <avagin@gmail.com>,
+        Stephen Rothwell <sfr@canb.auug.org.au>, Arnd Bergmann <arnd@arndb.de>,
+        Muhammad Usama Anjum <usama.anjum@arm.com>,
+        David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>,
+        Matthew Brost <matthew.brost@intel.com>,
+        Joshua Hahn <joshua.hahnjy@gmail.com>,
+        Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>,
+        Ying Huang
+ <ying.huang@linux.alibaba.com>,
+        Alistair Popple <apopple@nvidia.com>,
+        Baolin Wang <baolin.wang@linux.alibaba.com>,
+        Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+        Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+        Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+        Chris Down <chris@chrisdown.name>, Muchun Song <muchun.song@linux.dev>,
+        Oscar Salvador <osalvador@suse.de>,
+        =?UTF-8?Q?Miko=C5=82aj_Lenczewski?= <miko.lenczewski@arm.com>,
+        Michal Hocko <mhocko@suse.com>, Mike Kravetz <mike.kravetz@oracle.com>,
+        linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+        linux-fsdevel@vger.kernel.org
+References: <20261111-uffd-state-fixes-v1-0-00713d368976@columbia.edu>
+ <20261111-uffd-state-fixes-v1-11-00713d368976@columbia.edu>
+ <avTA58zlxJZ69TB8@thinkstation>
+Content-Language: en-US
+From: Tal Zussman <tz2294@columbia.edu>
+In-Reply-To: <avTA58zlxJZ69TB8@thinkstation>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDA5MyBTYWx0ZWRfX47puus0b8yKs
+ mGHqUR11BJGtxr6ipS9fPr7HXzXoLXG3mOdqdagsq8syain5KtspUUY0l4Bs9ymx7G7Yh9iq4Qt
+ CYyEYW3HmTOLpe/1x5ts/WBV7lHWs2xu8TSRsvKR6ff2DgkReNXvUq/nEOeZDN+mQ+HyDY4OfT9
+ dap6wzlxa5OJGix7qjeh25WLg4i8isNwL14PCn3kjW8nlb0MYtFhOjtgGIw7KcrrO5+aQ6mNgac
+ AW63SFrdh25dM7aFKUtI9HYJqt3a9eF02QmN7IyyTUhUshIT7qKOUvw7FhYP8RfuIokASicPveL
+ 5qGtL5bSTxdZdFpdPNTeHzdnSeJO9YLjo3pDhB0V1SB88vD5M1nq1xqJENQ8KLpx8ADR7ToZasO
+ vH7zzAVbe6Gten6piu/pQIV5wGoysUh2v+BDOZyVngA2VWN7r7dPkdPCJT8A+VQmadBw5gP608L
+ fr4ZkTBNHW4In2akuMQ==
+X-Proofpoint-GUID: Tj9kWdbYyJ-Lzx9j-Ab9FwUuI5vJIl6M
+X-Proofpoint-ORIG-GUID: Tj9kWdbYyJ-Lzx9j-Ab9FwUuI5vJIl6M
+X-Authority-Analysis: v=2.4 cv=L/yI0OT8 c=1 sm=1 tr=0 ts=6af4f882 cx=c_pps
+ a=UgVkIMxJMSkC9lv97toC5g==:117 a=BoHXNMl2GZKy+iVh/K8zVQ==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=BpGzv1V74M3SfeTrGa8v:22
+ a=eFDYe-PYqAWV_-s2uwYA:9 a=QEXdDO2ut3YA:10 a=1HOtulTD9v-eNWfpl4qZ:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDA5MyBTYWx0ZWRfXzxA+RYG0hN78
+ Lv5ObNO9j8TlfgmTJiRroy/1s6TFdixjsJeXOKmG9bilmd/VSSzbhmeqvQY8R1RYiGsNlyPHFbD
+ W7P6JUUYNlsLndib6eVoObfqrf8iR7nrB84T3mxwU7/xbVeYdfhS
+X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11963
+ signatures=596817
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=10 clxscore=1015 bulkscore=10 adultscore=0 impostorscore=10
+ priorityscore=1501 malwarescore=0 spamscore=0 phishscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611110093
 
-On 11/10, Björn Töpel wrote:
-> A provider socket still receives through the copy path, which takes
-> FILL entries without the provider's ownership checks: a chunk that a
-> page pool holds could be handed out twice. No driver opts in yet.
++ Jose
+
+On 11/11/26 2:25 PM, Kiryl Shutsemau wrote:
+> On Wed, Nov 11, 2026 at 12:55:19PM -0500, Tal Zussman wrote:
+>> On an anonymous VMA, the zap drops uffd-wp and RWP protection along with
+>> the pages. Writes and accesses to the range after the guard is removed
+>> are then not reported, and the manager cannot know that it has to
+>> protect the range again.
 > 
-> Put packets whose buffers all belong to the socket's provider on the
-> RX ring as they are, and copy others into chunks the provider claims.
-> Only the queue NAPI may produce to such a socket, so generic XDP and
-> CPUMAP redirects to it are dropped.
+> For RWP this only holds if the range is registered without MISSING.
 > 
-> A device may place payload at chunk offset 0, as fbnic does, so only
-> the first buffer of a packet keeps the UMEM headroom. Such buffers may
-> be sent back as they are, so only descriptors with XDP_TX_METADATA
-> need room for TX metadata in front.
+> The zap frees the pages, so with MISSING the first access after the
+> guard is removed is reported as a missing fault. And there is nothing to
+> protect again: RWP only covers present PTEs, and a page faulted back in
+> shows up as accessed in PAGEMAP_SCAN.
 > 
-> Signed-off-by: Björn Töpel <bjorn@kernel.org>
-> ---
->  Documentation/networking/af_xdp.rst          |   6 +-
->  Documentation/networking/xsk-tx-metadata.rst |   3 +-
->  include/net/page_pool/memory_provider.h      |   2 +
->  net/core/page_pool.c                         |  34 +++-
->  net/xdp/xsk.c                                |  82 ++++++++-
->  net/xdp/xsk.h                                |   5 +
->  net/xdp/xsk_pp.c                             | 165 +++++++++++++++++++
->  net/xdp/xsk_queue.h                          |  18 +-
->  8 files changed, 304 insertions(+), 11 deletions(-)
-> 
-> diff --git a/Documentation/networking/af_xdp.rst b/Documentation/networking/af_xdp.rst
-> index cc3f0d16b28f..e73a0005e169 100644
-> --- a/Documentation/networking/af_xdp.rst
-> +++ b/Documentation/networking/af_xdp.rst
-> @@ -428,8 +428,10 @@ area and that your largest packet size can be 2K.
->  There is also an option to set the headroom of each single buffer in
->  the UMEM. If you set this to N bytes, it means that the packet will
->  start N bytes into the buffer leaving the first N bytes for the
-> -application to use. The final option is the flags field, but it will
-> -be dealt with in separate sections for each UMEM flag.
-> +application to use. In a multi-buffer packet, only the first buffer is
-> +guaranteed this headroom; the others may start at offset 0 of their
-> +chunk. The final option is the flags field, but it will be dealt with
-> +in separate sections for each UMEM flag.
->  
->  SO_BINDTODEVICE setsockopt
->  --------------------------
-> diff --git a/Documentation/networking/xsk-tx-metadata.rst b/Documentation/networking/xsk-tx-metadata.rst
-> index f240930ca1df..8bb74a569c26 100644
-> --- a/Documentation/networking/xsk-tx-metadata.rst
-> +++ b/Documentation/networking/xsk-tx-metadata.rst
-> @@ -59,7 +59,8 @@ The flags field enables the particular offload:
->  Besides the flags above, in order to trigger the offloads, the first
->  packet's ``struct xdp_desc`` descriptor should set ``XDP_TX_METADATA``
->  bit in the ``options`` field. Also note that in a multi-buffer packet
-> -only the first chunk should carry the metadata.
-> +only the first chunk should carry the metadata. Only a descriptor with
-> +``XDP_TX_METADATA`` needs ``tx_metadata_len`` bytes in front of it.
->  
->  Software TX Checksum
->  ====================
-> diff --git a/include/net/page_pool/memory_provider.h b/include/net/page_pool/memory_provider.h
-> index daec73c9dcee..849db08513b8 100644
-> --- a/include/net/page_pool/memory_provider.h
-> +++ b/include/net/page_pool/memory_provider.h
-> @@ -49,6 +49,8 @@ struct memory_provider_ops {
->  bool net_mp_niov_set_dma_addr(struct net_iov *niov, dma_addr_t addr);
->  void net_mp_niov_set_page_pool(struct page_pool *pool, struct net_iov *niov);
->  void net_mp_niov_clear_page_pool(struct net_iov *niov);
-> +void net_mp_release_page_pool_bulk(struct page_pool *pool,
-> +				   netmem_ref *netmems, u32 count);
->  
->  int netif_mp_open_rxq(struct net_device *dev, unsigned int rxq_idx,
->  		      const struct pp_memory_provider_params *p,
-> diff --git a/net/core/page_pool.c b/net/core/page_pool.c
-> index e897e79d31f1..56c299f2280d 100644
-> --- a/net/core/page_pool.c
-> +++ b/net/core/page_pool.c
-> @@ -1401,7 +1401,7 @@ bool net_mp_niov_set_dma_addr(struct net_iov *niov, dma_addr_t addr)
->  }
->  
->  /* Associate a niov with a page pool. Should follow with a matching
-> - * net_mp_niov_clear_page_pool()
-> + * net_mp_niov_clear_page_pool() or net_mp_release_page_pool_bulk()
->   */
->  void net_mp_niov_set_page_pool(struct page_pool *pool, struct net_iov *niov)
->  {
-> @@ -1422,3 +1422,35 @@ void net_mp_niov_clear_page_pool(struct net_iov *niov)
->  
->  	page_pool_clear_pp_info(netmem);
->  }
-> +
-> +/**
-> + * net_mp_release_page_pool_bulk() - take net_iovs back from a page pool
-> + * @pool: page pool that holds one reference to each net_iov
-> + * @netmems: net_iovs of the memory provider of @pool
-> + * @count: number of entries in @netmems
-> + *
-> + * A memory provider takes net_iovs out of a page pool without
-> + * ->release_netmem(), for example to give them to userspace. @pool may be
-> + * freed on return.
-> + */
-> +void net_mp_release_page_pool_bulk(struct page_pool *pool,
-> +				   netmem_ref *netmems, u32 count)
-> +{
-> +	bool trace = trace_page_pool_state_release_enabled();
-> +	atomic_t *release_cnt = &pool->pages_state_release_cnt;
-> +	int released;
-> +	u32 i;
-> +
-> +	for (i = 0; i < count; i++) {
-> +		DEBUG_NET_WARN_ON_ONCE(netmem_get_pp(netmems[i]) != pool);
-> +		page_pool_clear_pp_info(netmems[i]);
-> +		if (!trace)
-> +			continue;
-> +
-> +		released = atomic_inc_return_relaxed(release_cnt);
-> +		trace_page_pool_state_release(pool, netmems[i], released);
-> +	}
-> +
-> +	if (!trace)
-> +		atomic_add(count, release_cnt);
-> +}
-> diff --git a/net/xdp/xsk.c b/net/xdp/xsk.c
-> index 113b0b08356d..b419c673e3f1 100644
-> --- a/net/xdp/xsk.c
-> +++ b/net/xdp/xsk.c
-> @@ -386,6 +386,54 @@ static int __xsk_rcv(struct xdp_sock *xs, struct xdp_buff *xdp, u32 len)
->  	return -ENOMEM;
->  }
->  
-> +static int xsk_pp_rcv_copy(struct xdp_sock *xs, struct xdp_buff *xdp, u32 len)
-> +{
-> +	u32 frame_size = __xsk_pool_get_rx_frame_size(xs->pool);
-> +	u32 headroom = xsk_pool_get_headroom(xs->pool);
-> +	void *copy_from = xsk_copy_xdp_start(xdp);
-> +	u32 from_len, meta_len, rem, num_desc, i;
-> +	u64 addrs[MAX_SKB_FRAGS + 1];
-> +	skb_frag_t *frag = NULL;
-> +	u32 to_len, copied;
-> +	void *to;
-> +
-> +	from_len = xdp->data_end - copy_from;
-> +	meta_len = xdp->data - copy_from;
-> +	rem = len + meta_len;
-> +
-> +	num_desc = (len - 1) / frame_size + 1;
-> +	if (num_desc > ARRAY_SIZE(addrs)) {
-> +		xs->rx_dropped++;
-> +		return -ENOSPC;
-> +	}
-> +	if (xskq_prod_nb_free(xs->rx, num_desc) < num_desc) {
-> +		xs->rx_queue_full++;
-> +		return -ENOBUFS;
-> +	}
-> +	if (!xsk_pp_claim_copy(xs->pool->pp, addrs, num_desc)) {
-> +		xs->rx_dropped++;
-> +		return -ENOMEM;
-> +	}
-> +
-> +	if (xdp_buff_has_frags(xdp))
-> +		frag = &xdp_get_shared_info_from_buff(xdp)->frags[0];
-> +
-> +	for (i = 0; rem && i < num_desc; i++) {
-> +		to = xp_raw_get_data(xs->pool, addrs[i] + headroom) - meta_len;
-> +		to_len = frame_size + meta_len;
-> +		copied = xsk_copy_xdp(to, &copy_from, to_len, &from_len, &frag,
-> +				      rem);
-> +		rem -= copied;
-> +
-> +		__xskq_prod_reserve_desc(xs->rx, addrs[i] + headroom,
-> +					 copied - meta_len,
-> +					 rem ? XDP_PKT_CONTD : 0);
-> +		meta_len = 0;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
->  static bool xsk_tx_writeable(struct xdp_sock *xs)
->  {
->  	if (xskq_cons_present_entries(xs->tx) > xs->tx->nentries / 2)
-> @@ -453,8 +501,14 @@ static int xsk_rcv_check(struct xdp_sock *xs, struct xdp_buff *xdp, u32 len)
->  
->  static void xsk_flush(struct xdp_sock *xs)
->  {
-> +	struct xsk_pp *pp = xs->pool->pp;
-> +
-> +	if (pp)
-> +		xsk_pp_flush(pp);
->  	xskq_prod_submit(xs->rx);
-> -	__xskq_cons_release(xs->pool->fq);
-> +	/* A provider releases FILL entries under its lock. */
-> +	if (!pp)
-> +		__xskq_cons_release(xs->pool->fq);
->  	sock_def_readable(&xs->sk);
+So this makes sense, but I think this gets at the documentation point
+raised in the other thread. It seems that to use sync RWP "properly" it
+needs to be combined with MINOR for shmem and hugetlb (and MISSING for
+holes) and with MISSING for anonymous memory. Is that accurate? If so,
+this should be stated much more explicitly in the documentation + man
+page. I see that co-registering with MISSING is mentioned, but not the
+rest of the points (reclaim, collapse, etc.) The example in
+userfaultfd.rst also registers a MAP_SHARED mapping only with RWP and
+MISSING, no MINOR, so that should be clarified too. Hopefully this will
+make it into Jose's documentation patch.
 
-optional nit:
+In any case, this change is also needed for MISSING faults. If a guard
+discards the contents of a page registered with MISSING, the manager
+isn't told. Once the guard is removed and the page is faulted in again,
+the manager may fill it with the old contents, when instead it should
+have discarded them and filled it with zeroes. This is similar to
+MADV_DONTNEED's handling. I'll update the commit message to emphasize
+this point rather than the WP/RWP aspect.
 
-if (pp) {
-	pp_flush
-	prod_submit
-} else {
-	prod_submit
-	cons_release
-}
-
-sock_def_readable
-
-(hard to follow these scattered if(pp) checks :-( )
-
->  }
->  
-> @@ -464,6 +518,11 @@ int xsk_generic_rcv(struct xdp_sock *xs, struct xdp_buff *xdp)
->  	int err;
->  
->  	err = xsk_rcv_check(xs, xdp, len);
-> +	/* Only the NAPI of the queue feeds a memory provider socket. */
-> +	if (!err && xs->pool->pp) {
-> +		xs->rx_dropped++;
-> +		err = -EOPNOTSUPP;
-> +	}
-
-This is confusing? Why even call xsk_rcv_check for pp case?
-
->  	if (!err) {
->  		spin_lock_bh(&xs->pool->rx_lock);
->  		err = __xsk_rcv(xs, xdp, len);
-> @@ -488,7 +547,26 @@ static int xsk_rcv(struct xdp_sock *xs, struct xdp_buff *xdp)
->  		return xsk_rcv_zc(xs, xdp, len);
->  	}
->  
-> -	err = __xsk_rcv(xs, xdp, len);
-> +	if (!xs->pool->pp) {
-> +		err = __xsk_rcv(xs, xdp, len);
-> +	} else {
-
-[..]
-
-> +		/* A CPUMAP program runs XDP on another CPU, not in NAPI. */
-> +		if (unlikely(!xdp_rxq_info_is_reg(xdp->rxq))) {
-> +			xs->rx_dropped++;
-> +			return -EINVAL;
-> +		}
-> +
-> +		err = xsk_pp_rcv_zc(xs->pool->pp, xs, xdp);
-> +		if (err != -EXDEV)
-> +			return err;
-> +
-> +		/* Copy only packets of the queue, from its NAPI */
-> +		if (unlikely(!xsk_pp_queue_buf(xs->pool->pp, xdp))) {
-> +			xs->rx_dropped++;
-> +			return -EINVAL;
-> +		}
-> +		err = xsk_pp_rcv_copy(xs, xdp, len);
-
-Move this into __xsk_rcv_pp ?
+Thanks,
+Tal
