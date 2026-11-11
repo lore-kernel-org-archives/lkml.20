@@ -1,70 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.135
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794379318;
-	b=XnG6/TTm2NK6kblL1w8N7ofr/gt5tYFhUao/pO7JlqvA+IN38AHH2zh9cL7OS8DCJ4Er
-	 9FLY6mlyptmbVjS1SyWcLJujtrKj39F9lzOaxMm+6pTmoZcCtk9/64NXGHJGqsWHqeBm5
-	 /aZ3rrvxq5xJfU7vnKBcc6bnWOWCw+XUElNQrKp9n/zd029sx9Yhp6SAYi6fjtNohN3Rv
-	 1Z3h0KCba8HA0bFxDoMi4Aaadp8W4vYVK5lX3UcE2ALwyEXSWTKwh2bu7VJae2kT9pu5i
-	 KOt+lgOLvV+c3Muw9NACxpLKyO0hAqibNo1rArNHDNnW9hyLkAJWqAoAxX31Qftnx1A==
+	t=1794379329;
+	b=epypi5hPWmpoRdWW86zro8faU+tFQ4JTPE0bpmJ3t6zcXuCAHds0BVYNwS2PSG/y5DAR
+	 d0xZmmOqCCwRVMpC+HlDm01KG2L5zRK80zWIPBb5AmZ/5dFLpyXHcpGVIWuS9cBnQUS/G
+	 Y2thSakx2/u8baWwpxhSvtUbz+rk/G8UVifCDHrqaC7gVn+OR0mgEklnALoWfnDmale1w
+	 z7qoKgO+xEXzYopcDbT20eA46JsyLiTLpPJEpUTIDXmTBT8bI3H9gbYrUBapzxvqwHJrz
+	 s3IGwe1w6HFwkU0Ok3bLcLL1DA4soS2RQcuAhB3KHB/KtaVhqmC9EYX9iBQKRn1fvCQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794379318;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=n6L2l3CuvEy/oi/ujRg0yiSm7fAxM689ENfz+9X+Hhk=;
-	b=wgaxmT2q2ANKIimzAhOGM7UPLk3/mXLqvcPhoEp/IhkUHCCoJCI8Hh7S1WDgZ+BdVWPN
-	 WXt3eyeuGpIFUooyKrVzmNIaHkl99BPX0w1QJ7mBSomAOjKxutvukgebEzRwTL3lmDuer
-	 rODpnXCT4yjmE+nsLYsO+Yxx3v4ZjmGezt4D0+Z+7uDRbh8juG3+B52Bo0ZEeFJiavJGq
-	 l1Ot3YiIORENk0f/zk4qLPnCXa2O0+TrOxPpldGIZ6EGHE64rD8vvxYwH++44jYzoeAgD
-	 03VtjLPsDW15GARSET5W+ugcQHPoOaKBdVpBr51Si1dFvj4HVrB71KxJnZbv23JftOQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794379329;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 Mail-Followup-To:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=JMWXL0IXWU5URfYmUKPMvMiRfFnA0NQMxrEdYjaJgT0=;
+	b=4jBTT2nOU2BzKNWrM0Q/G03UHXefX/S6O0qG29ymHAXI3yWTK20zUVJn0yjDPgzxN8Cm
+	 Fuy2/Gr6D4LbSUEN8qFuN32wODQQSgLFEC8jnpmi7XSfq3qqU+BglwClcBg5GdSri3QqA
+	 dnVxgBdFjDyKlftNmJHhw7qIBHvvqXATUQbCU7q1iP6nTikmJFR7H33hNn5k7Hf8iuwoJ
+	 TTcc8ZYx9ouxxR+6mqk1VvWHVePU4oAlGhHxj4neBfeYVzpwZCP9G976ZnAlH3k5ISLh0
+	 udMitzPSRXa/d0nBAmd0FWKj4SVv4g28bsKUekFn5ZTAVHYHOF3zzWojacZ7casmMww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=KFLjowCu;
-	arc=none smtp.remote-ip=111.22.67.135
-Received: from cmccmta2.chinamobile.com (cmccmta2.chinamobile.com [111.22.67.135])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6629E606A31C;
-	Wed, 11 Nov 2026 06:41:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6629E606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="lA/icQm0";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74559606A31C;
+	Wed, 11 Nov 2026 06:42:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=KFLjowCu
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=KFLjowCu/hzn+sfXP3lMolyjBpgw48zDbByGpKclhzb5jPL6ZJpWoKOSKPuFk96ewJz3fYQxbQNFa
-	 E50FAw8h9wy9ZgTdr71BsanfrDHlaVCKSqzspRq3+9+MilaQBmWt0iKhKi++lvFrvDtmJO2xntqUW0
-	 1jw1CJq9AeZL9R0A=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app03-12003 (RichMail) with SMTP id 2ee36af40e31bb6-a13ff;
-	Wed, 11 Nov 2026 14:41:53 +0800 (CST)
-X-RM-TRANSID:2ee36af40e31bb6-a13ff
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from Z04181456177947 (unknown[10.55.1.71])
-	by rmsmtp-syy-appsvr01-12001 (RichMail) with SMTP id 2ee16af40e2dbb1-d1caa;
-	Wed, 11 Nov 2026 14:41:53 +0800 (CST)
-X-RM-TRANSID:2ee16af40e2dbb1-d1caa
-From: zhaofeng2@cmss.chinamobile.com
-To: Guenter Roeck <linux@roeck-us.net>,
-	Wim Van Sebroeck <wim@linux-watchdog.org>
-Cc: Zhao Feng <zhaofeng2@cmss.chinamobile.com>,
-	linux-watchdog@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Tomer Maimon <tmaimon77@gmail.com>,
-	Joel Stanley <joel@jms.id.au>,
-	j.neuschaefer@gmx.net,
-	Triet Hoang <triet.hoang.dev@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] watchdog: npcm: fix sleeping clock call in restart handler
-Date: Wed, 11 Nov 2026 14:41:49 +0800
-Message-ID: <20261111064150.260-1-zhaofeng2@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.55.0.windows.5
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lA/icQm0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81C4B1F00A06;
+	Wed, 11 Nov 2026 06:42:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794379329;
+	bh=JMWXL0IXWU5URfYmUKPMvMiRfFnA0NQMxrEdYjaJgT0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=lA/icQm03x4oFDQdKhJMDq5IkCpHPztAq1mDadT/f25IrRvYePGBJ6rXwORQ9u8WJ
+	 FP2za20qLk3AndaTGeBWDu+KgdQVNeUPaaF9wdPR2lJA/abLbOqdz0zVb6UsTgkMsj
+	 6VwrhKRYgCGX0XLSGP3IAfBAjiMSfGJzsuKAJsJUx54nCXKZxJH4asGSA5ijhTbWJ6
+	 iOHuVybSf3XXBSTlW6VkBRNnadLfOYeCwZIftMLKCBzoWBEcq8RzzD90MZIsXMW07p
+	 wf2yFpbl0j74NxApHQiiAyBcijZVSigYgleMnMP6mUW9e7KgYCMCn+npXBIZQaywZV
+	 XhOS4oA6YDm0w==
+Date: Wed, 11 Nov 2026 07:38:52 +0100
+From: Nicolas Schier <nsc@kernel.org>
+To: "Ahmed S. Darwish" <darwi@linutronix.de>
+Cc: Nathan Chancellor <nathan@kernel.org>,
+	Julian Braha <julianbraha@gmail.com>,
+	Clark Williams <clrkwllms@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	John Ogness <john.ogness@linutronix.de>,
+	Derek Barbosa <debarbos@redhat.com>,
+	Zbigniew =?utf-8?Q?J=C4=99drzejewski-Szmek?= <zbyszek@amutable.com>,
+	Daan De Meyer <daan.j.demeyer@gmail.com>,
+	Luca Boccassi <luca.boccassi@gmail.com>,
+	linux-rt-devel@lists.linux.dev, debian-kernel@lists.debian.org,
+	linux-kbuild@vger.kernel.org, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1 04/10] kconfig: Introduce checkconfig target
+Message-ID: <avQNfFbeoMImmtre@derry.ads.avm.de>
+Mail-Followup-To: Nicolas Schier <nsc@kernel.org>,
+	"Ahmed S. Darwish" <darwi@linutronix.de>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Julian Braha <julianbraha@gmail.com>,
+	Clark Williams <clrkwllms@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	John Ogness <john.ogness@linutronix.de>,
+	Derek Barbosa <debarbos@redhat.com>,
+	Zbigniew =?utf-8?Q?J=C4=99drzejewski-Szmek?= <zbyszek@amutable.com>,
+	Daan De Meyer <daan.j.demeyer@gmail.com>,
+	Luca Boccassi <luca.boccassi@gmail.com>,
+	linux-rt-devel@lists.linux.dev, debian-kernel@lists.debian.org,
+	linux-kbuild@vger.kernel.org, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+References: <20261106091922.7560-1-darwi@linutronix.de>
+ <20261106091922.7560-5-darwi@linutronix.de>
+ <3dd2bb0d-8486-4630-b496-e92e4ac37c29@gmail.com>
+ <20261109003909.GB3429615@ax162>
+ <avHIOS9NHwCCMITd@lx-t490>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,96 +95,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <avHIOS9NHwCCMITd@lx-t490>
 
-From: Zhao Feng <zhaofeng2@cmss.chinamobile.com>
+On Mon, Nov 09, 2026 at 02:18:49PM +0100, Ahmed S. Darwish wrote:
+> On Sun, 08 Nov 2026, Nathan Chancellor wrote:
+> >
+> > On Sun, Nov 08, 2026 at 06:59:45PM +0000, Julian Braha wrote:
+> > >
+> > > I think this tool may belong in scripts/ due to the kbuild integration,
+> > > as was mentioned in the past on another tool review:
+> > >
+> > > https://lore.kernel.org/linux-kbuild/20260428183101.GA3304253@ax162/
+> >
+> > Yeah, while I would prefer for the script to live in scripts/ due to
+> > being called from Kbuild, I am not sure if the rules/schemas belong
+> > there?
+> >
+> > It might be better to keep everything in tools/ for that reason,
+> > especially if this may be called externally, but I am open to other
+> > thoughts.
+> >
+> 
+> I would prefer to keep it under tools/ as well.  Because of the PREEMPT_RT
+> policy, and the possible extra policies from ELISA, etc.
+> 
+> This is why one of the development rules at the top of the Python script,
+> at patch 03/10, is:
+> 
+>   The tool must not depend on being run inside the kernel source tree.
+>   This simplifies invocation, testing and possible future packaging.
 
-The watchdog .restart callback runs in atomic context: it is invoked
-from the restart handler chain via atomic_notifier_call_chain(), under
-an RCU read-side critical section, on every reboot or restart.  Since
-commit af084fdccfaf ("watchdog: npcm: Enable clock if provided"),
-npcm_wdt_restart() calls clk_prepare_enable(), and clk_prepare()
-takes a mutex unconditionally, so kernels built with
-CONFIG_DEBUG_ATOMIC_SLEEP=y report
+Then, please move the argument checking from Makefile to the script
+itself.  Handling wrong arguments is good native feature for the script.
 
-  BUG: sleeping function called from invalid context
+As far as I have seen when skimming through the kconfig policy checker
+code, it does not use any Kbuild variables.  So, if it is being placed
+below tools/ and does not use Kbuild at all, and is expected to be run
+w/o Linux tree context at all: why do we need an additional top-level
+Makefile target for it at all (alongside of
+'make tools/kconfig-policy-checker')?
 
-on every reboot.  Worse, a panic-time restart can block on
-prepare_lock and never issue the reset at all.
-
-Prepare the clock once at probe time and keep it prepared for the
-lifetime of the driver (balanced by a devm action), so the restart
-handler only needs clk_enable(), which is safe in atomic context.
-clk_prepare()/clk_unprepare() accept a NULL clock, so the
-optional-clock case is unaffected.
-
-Fixes: af084fdccfaf ("watchdog: npcm: Enable clock if provided")
-Cc: stable@vger.kernel.org
-Signed-off-by: Zhao Feng <zhaofeng2@cmss.chinamobile.com>
----
-Issue reported by Sashiko's review of Triet Hoang's pending
-error-propagation patch; maintainer confirmed the problem in
-https://lore.kernel.org/linux-kernel/19258f94-ec01-48f4-9d04-22e5ecb5cac2@roeck-us.net/
-
-Based on linux-next, which already carries
-"watchdog: npcm: fix clock prepare leak when setting timeout on a
-running watchdog".
-
-Verified against linux-next.  Not runtime-tested (no Nuvoton NPCM
-hardware).
-
- drivers/watchdog/npcm_wdt.c | 21 +++++++++++++++++++--
- 1 file changed, 19 insertions(+), 2 deletions(-)
-
---- a/drivers/watchdog/npcm_wdt.c
-+++ b/drivers/watchdog/npcm_wdt.c
-@@ -242,8 +242,12 @@
- {
- 	struct npcm_wdt *wdt = to_npcm_wdt(wdd);
- 
--	/* For reset, we start the WDT clock and leave it running. */
--	clk_prepare_enable(wdt->clk);
-+	/*
-+	 * For reset, we start the WDT clock and leave it running.
-+	 * The clock was prepared at probe time; only clk_enable() is
-+	 * safe in this atomic (restart notifier) context.
-+	 */
-+	clk_enable(wdt->clk);
- 
- 	writel(NPCM_WTR | NPCM_WTRE | NPCM_WTE, wdt->reg);
- 	udelay(1000);
-@@ -393,6 +397,11 @@
- 	.restart = npcm_wdt_restart,
- };
- 
-+static void npcm_clk_unprepare(void *data)
-+{
-+	clk_unprepare(data);
-+}
-+
- static int npcm_wdt_probe(struct platform_device *pdev)
- {
- 	struct device *dev = &pdev->dev;
-@@ -421,6 +430,20 @@
- 	if (IS_ERR(wdt->clk))
- 		return PTR_ERR(wdt->clk);
- 
-+	/*
-+	 * Prepare the clock once and keep it prepared for the lifetime
-+	 * of the driver: npcm_wdt_restart() runs in atomic context and
-+	 * may only call clk_enable().
-+	 */
-+	ret = clk_prepare(wdt->clk);
-+	if (ret)
-+		return ret;
-+
-+	ret = devm_add_action_or_reset(&pdev->dev, npcm_clk_unprepare,
-+				       wdt->clk);
-+	if (ret)
-+		return ret;
-+
- 	irq = platform_get_irq(pdev, 0);
- 	if (irq < 0)
- 		return irq;
-
-
+-- 
+Nicolas
