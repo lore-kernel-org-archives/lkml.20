@@ -1,76 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.172
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794430901;
-	b=XJ/7BOyFgK9BE120YXVq4fl49egP0bQG3ifz8vpXQQ4jBA63Wx1j6vGxjsXshr+xr3ip
-	 d0TldBr2dsdLtyd1KSttK5drA52uP/K/Os8YTKhTPxthxrblZz1f/KzSAtQxOSvDDEXkN
-	 AusTx/ERnWWOTqdzmEFGI4Na0Pw9eKDGuEfTsKYrE0wU4rFE+9+loy4EzShJHn+bopqAW
-	 lpDDwFottdGbm59QG73m7ZNNX1DkQ8it8ghVYFRERtnBAFdc9EL9PdIM+9PuD88ONrDgb
-	 W46c/If9zHpHq0OxXSEhlLUV9nssXp74cZwHleU0F9RjVfe8pHoxLxY6lLxigAL39FA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794430901;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Rspamd-Queue-Id;
-	bh=phA4+CyUoxbHyvL+wVGw21rFfYJHlyNvvy1aIyXcZcQ=;
-	b=r86+uqe7tAt1NYnvDHSv6Vnwct22DUowUjy5bUd6FHszB1isdP6vKUKDM30thoSUataU
-	 mKeeQPaPaqjiCxvovvgQrpEQHFGLTJjxSI8YT9CsZ/yK9uS8U5NaJ7rNz46dxTpKJrKHt
-	 /SwArC8lRGSQUkPjGsEmZIZBRIZDa+LC0m0W/xNQaMGjmn11l5pOSOAlhpNVC6cyvgFgS
-	 K3Blazm6biGXQBTN9c0wsD6iLHFQJq/W5TeQ2TYYPesaggaBRfHEey7k0pw9B+J0qMOit
-	 2kVjZC+viv7yynw9mewr+h/Jwv0eC2t6W9FWvGWpUQCJ37xG08o/xd9HKCWdTGhDtLw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=timsurber.de;
-	spf=pass smtp.mailfrom=timsurber.de;
-	dkim=pass header.d=timsurber.de header.i=@timsurber.de header.a=rsa-sha256 header.s=MBO0001 header.b=Tn968xXV;
-	arc=none smtp.remote-ip=80.241.56.172
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794430947;
+	b=joYl/AQCNwvqlX2SPlUySOy/YMYv1kvXPzHJ+W3R+L2vfqHwfVyVBKk0QK/pH27b3CWj
+	 uMm3RIrBR08Rp6ZKuNcrbuUAMrp4BJaTviiKQWvnKzbXWPviX4RbW7dw0ieKQIowNr+Vm
+	 HBNOP+wTZ4fF0INaPVsbBAbXU1rsTWRlm+/5jEMgCAHfiGS9CZhwOqot1S7W2X6ejUm5W
+	 wR2JWWG327eE/ABWE5sa0mo7a/yweU6dc7xoeLJix5m6mM2xAAbTt+R0za4y4ntq/YBzZ
+	 Veyt2ydS6yUkwFo11eEBiv45U8gLxCsYTmc1SQTfLI7DXwCM3yQAD0SIlCGLeSLz9LA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794430947;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=Gvn5m3zvm2JBXqWK7LIJzhjZYVT4WuG035S4Y95swAA=;
+	b=aWkEg0Wr9F5lwRwkum/4Bah91p2iTMKIv4YTn/7azX7aiO7EJB2pEAF55pixkglqjHrB
+	 7xCQm7yQ5udzCdcxZrQ5lF3cCdGXRrO7yvin38DYcg5j+iDXD5G1atJ3MfQQ0MAOH4wwv
+	 B2T/ESri5FIqBYKA1waXAupwXipbjt+20Hi/gucdw1nykqnjz5nxbh2qc0Flp8XcPo9XV
+	 TqLgErYLkNQtZ49Ugvq6bXHnX965hd/oscoxFoHCCtjz4MkDotcNUDA7/HybSFQu0kJ8v
+	 662jXFeT/kcP9OADVhBmoeOHRoQLm24dtQbfqASsiV9P6oW9sGbS3UOTLiBLUTVg7dw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nv3rYXKt;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FC1C606A32A;
+	Wed, 11 Nov 2026 21:02:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nv3rYXKt
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794430947;
+	b=l278fNp9d9N2zATavbmJ80MFeQLAIJEcM3eLNNkiyXZ5lagGEmmZAsw4b/Fpvc4R++io
+	 bBuxszgxhIvrZUkDcE73G+GWKgZ8gJed1Sb+bygn3vjkuOwJIv3GzRiDGo77OH7kvsFnp
+	 WPzJEcEHvt9pVS2xycP29jysgJsShALN+qFZePf5Ho1T8UeGiApEuqruVjabexHiPFxJ5
+	 nvJTi3C7v6YK94fzKxTIDo2y5G3l8+1sfiDbkN4KpXxvqnsXxFZy1MCJ1OAiqr3+G6iRW
+	 IJx5BLspGj2F4JHJsI7DM+wG9bYZIpvXyLHukjG73jf2CoCcV3tn813ilV6C52omOiQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794430947;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=Gvn5m3zvm2JBXqWK7LIJzhjZYVT4WuG035S4Y95swAA=;
+	b=iiP3whytwGfv6RQCoyzLgiLJPNnYnhgVFGlFy6oNcCQ08cUkIt4g+AGt0sdngvHSkHHh
+	 ZtwU3RXxrdGYsg06Cs06Ua4dlNsQ5Lsfu18f51SozZZ9xfUbR0EgJ+EcsedT1NoLpLZkE
+	 FNS7XTfXoMecWdrPmyW3QTubtOvcqrQIi2MUOrzpa+4KN56MxupqLSGQ2q+hC9hJSlG+Y
+	 FnQlBzd5YoQxeUs/8JSXq0bXB1PyvKiihVL1ZJemf8kz75D7x1K1AVnkh/hnoyu/LxtHr
+	 YkBgkk4+WOfryxAELRDwIAHgS5/By9UuKkV+iKxYPbwPXewOqXIPYW1D/w9Oj9ZFaYg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7680C606A882;
-	Wed, 11 Nov 2026 21:01:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7680C606A882
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=timsurber.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=timsurber.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=timsurber.de header.i=@timsurber.de header.a=rsa-sha256 header.s=MBO0001 header.b=Tn968xXV
-Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4jPwtS4K9FzMltJ;
-	Wed, 11 Nov 2026 22:01:36 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=timsurber.de;
-	s=MBO0001; t=1794430896;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=phA4+CyUoxbHyvL+wVGw21rFfYJHlyNvvy1aIyXcZcQ=;
-	b=Tn968xXVlYzLor7lhnO8lOrnrfj6E34WPUDS7qe52XfNv0TO7dyqCsbOhysif9yRlZ8yyp
-	XmvTQiDN1ezNsZSJ1kEvkl5WoU5SefjwlG7Hc28xQm6QoI5g8VaXWPON1s0FdTMPO9YXwv
-	rPl+prqWhfXG2gSrr60kWnSqTJ5hLdPaGBblqhvx9A5g1YHpN6GjnUrZh+cVn6LOKVM2uU
-	rzXZ0YZU8UJP+bczfpjgCweDU0mRYCbBHZ7o/Zat+h1r4Zviw8J8HsySn4P/FPLZdeuxnt
-	gnuh7O0XkM19zaKRT8zRIQbEb3KAZVVeCyeDRKz0VCWTG5dqZJAsxJ8vLTyXHg==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=none;
-	spf=pass (outgoing_mbo_mout: domain of me@timsurber.de designates 2001:67c:2050:b231:465::2 as permitted sender) smtp.mailfrom=me@timsurber.de
-From: Tim Surber <me@timsurber.de>
-To: Heiko Stuebner <heiko@sntech.de>
-Cc: Tim Surber <me@timsurber.de>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	=?UTF-8?q?Valentin=20H=C4=83loiu?= <valentin.haloiu@gmail.com>,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 1/1] arm64: dts: rockchip: fix HDMI RX 5V detection pin on CM3588 NAS
-Date: Wed, 11 Nov 2026 22:00:27 +0100
-Message-ID: <20261111210059.3489502-2-me@timsurber.de>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261111210059.3489502-1-me@timsurber.de>
-References: <20261111210059.3489502-1-me@timsurber.de>
+	by smtp.kernel.org (Postfix) with ESMTPS id 685501F00A05;
+	Wed, 11 Nov 2026 21:02:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794430947;
+	bh=Gvn5m3zvm2JBXqWK7LIJzhjZYVT4WuG035S4Y95swAA=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=nv3rYXKtVXvIr8mwVSKlp4nl8PAJre7lrxqv4k4STzBao0didPURRYtBe39K4Fmkz
+	 EzqkCsJ9if3w/n2eOH5em5/q10c1A2jXVYsKJ+Tg2wifeN9PEfPLXuABl10zPoZuOP
+	 9S/EJGFQydBmuDSLL48D3lor3FwwWfoB1OlebLg3DMsIicXC5EJ8Gy7letovlmn1Uz
+	 AKXDKZti69+QiiGe2wYAoKqGGst8gCRXqL8CF325oRnUEWJejyvKfKvHkogsYiES2z
+	 t33s1DSnAQWTmMlaSOHt08XxLOSn5Ohy4+J2dHvqjDrivRCEWXtb0VohK6qdfWMe2I
+	 1rjVckapfe9tw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id B22CE490F8;
+	Wed, 11 Nov 2026 21:02:25 +0000 (UTC)
+From: Mani Tofigh via B4 Relay <devnull+mt4022.columbia.edu@kernel.org>
+Date: Wed, 11 Nov 2026 16:02:25 -0500
+Subject: [PATCH] pipe: keep per-write wakeups for EPOLLEXCLUSIVE consumers
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,72 +82,120 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 4jPwtS4K9FzMltJ
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261111-pipe-epollexclusive-wakeup-v1-1-0af6283e9fda@columbia.edu>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ6CMBBG4auQWTsJbdCgVzEuoPzqaAOTjkUSw
+ t2t+nbf5q1kSAKjU7VSwiwm01jgdhWFezfewDIUk6/9wZVYRcHQKUYsIWaTGfzunsjKx9btfVs
+ 3rm8GKgNNuMrym58vf1vuHwiv75G27QObfYctfgAAAA==
+X-Change-ID: 20261111-pipe-epollexclusive-wakeup-981528041b4d
+To: Christian Brauner <brauner@kernel.org>, 
+ Alexander Viro <viro@zeniv.linux.org.uk>
+Cc: Jan Kara <jack@suse.cz>, Oleg Nesterov <oleg@redhat.com>, 
+ linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ tz2294@columbia.edu, stable@vger.kernel.org, 
+ Mani Tofigh <mt4022@columbia.edu>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794430945; l=3875;
+ i=mt4022@columbia.edu; s=20261026; h=from:subject:message-id;
+ bh=AMo3CuUQRFmmdnadGKZpp80pX6RvxZnQfgMh8Vg/BZs=;
+ b=vKagOaquZDeNf8CRSF5BrdESHWSEON6SGjDwk4FBb4Vfz1qkjFSxsKl31j4K60lWFb24/LumK
+ fWzBA7CejUbDqSjbFj6mS+PWDVzPdCQJYxe3tDV+kqpfafvnMpEKd7r
+X-Developer-Key: i=mt4022@columbia.edu; a=ed25519;
+ pk=gljCMQDuxyKPmd5y37CRpEJGSPXDV1MyAnHBhCgXl0I=
+X-Endpoint-Received: by B4 Relay for mt4022@columbia.edu/20261026 with
+ auth_id=1322
+X-Original-From: Mani Tofigh <mt4022@columbia.edu>
+Reply-To: mt4022@columbia.edu
+Content-Transfer-Encoding: 7bit
 
-The HDMI receiver node uses GPIO3_D4 both as the receiver's HPD output
-(hdmim1_rx_hpdin) and as its 5V detection input (hpd-gpios and the
-hdmirx_hpd pin group). Both pin groups are in the same pinctrl state and
-the later one wins, so the pin ends up as a GPIO input with pull-up.
-The controller can then never drive HPD: the source sees HPD asserted
-all the time, and the 5V detection reads back the HPD line instead of
-the source's 5V.
+From: Mani Tofigh <mt4022@columbia.edu>
 
-The driver relies on HPD being low while it writes the EDID, at probe
-and on VIDIOC_S_EDID. With HPD stuck high, a source may read the EDID
-while it is being written. A source that does so at boot keeps the
-damaged copy, as it never sees the HPD pulse that should make it read
-the EDID again. On a CM3588 NAS with HDMI0 looped back into HDMI RX
-this happened on 3 of 10 boots: HDMI0 logged "EDID has corrupt header",
-found no valid EDID and fell back to 1024x768. Changing the EDID with
-VIDIOC_S_EDID was not noticed by the source at all.
+A task blocked in read() on a pipe can sleep while the pipe holds data,
+when an epoll(EPOLLEXCLUSIVE) watcher of the read end was added before
+it.  The watcher's entry on ->rd_wait is exclusive and sits ahead of the
+reader, so a write into an empty pipe wakes only the watcher.  The
+watcher reads without sleeping in anon_pipe_read() and doesn't pass the
+wakeup on.  Since commit f1cebdec9739 ("pipe: only enable the extra
+wake_up(rd_wait) for EPOLLET consumers") the next writes into the
+non-empty pipe don't wake anyone anymore:
 
-FriendlyElec's vendor device tree for the CM3588 uses GPIO1_D5, active
-low with pull-up, for the 5V detection. The NanoPC-T6 uses the same pin
-upstream. Use that pin and leave GPIO3_D4 to the HPD function.
+  Task E                   Task A                 Task C
+  epoll_wait(ep, -1)
+    /* EPOLLEXCLUSIVE */
+                           read(p[0])
+                                                  write(p[1], "1")
+                                                    /* wakes E only */
+                                                  write(p[1], "2")
+                                                    /* no wakeup */
+  read(p[0], 1 byte)
+  exit()
+                           /* still asleep, "2" is in the pipe */
 
-With this change the pin multiplexing shows GPIO3_D4 in the HPD
-function, the source's HPD interrupt fires on every EDID update, and a
-changed EDID reaches the source within 0.5 s. In 10 boots (5 power
-cycles, 5 reboots) the EDID read by HDMI0 always matched the one
-written by the receiver, and HDMI0 came up at its native mode every
-time. The receiver still detects the source's 5V and locks to its
-signal.
+A then sleeps until the next write into an empty pipe, if ever.  Before
+that commit any pipe_poll() enabled the per-write wakeups.  Those
+reached A because an EPOLLEXCLUSIVE entry only takes a wakeup while a
+task sleeps in epoll_wait().
 
-Using the pin in two groups also made pinctrl warn on every unbind of
-the receiver ("not freeing pin 124 (gpio3-28) as part of deactivating
-group hdmim1-rx-hpdin - it is already used for some other setting"),
-and in earlier testing the following bind sometimes failed with
--EINVAL. With this change the warning is gone.
+So EPOLLEXCLUSIVE consumers depend on the per-write wakeups too, for a
+different reason than EPOLLET.  Enable them for EPOLLEXCLUSIVE as well
+and say why in the comment.  With the fix, A reads the second byte.
 
-Fixes: f9f45293f0d8 ("arm64: dts: rockchip: Enable HDMI receiver on CM3588")
-Signed-off-by: Tim Surber <me@timsurber.de>
+This bug was identified and confirmed with the help of a deterministic
+hypervisor currently under development.  The C reproducer below however
+hits it within about 2s.
+
+Fixes: f1cebdec9739 ("pipe: only enable the extra wake_up(rd_wait) for EPOLLET consumers")
+Cc: stable@vger.kernel.org
+Signed-off-by: Mani Tofigh <mt4022@columbia.edu>
 ---
- .../boot/dts/rockchip/rk3588-friendlyelec-cm3588-nas.dts      | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Reproducer: https://github.com/manitofigh/files/blob/main/linux-repros/pipeexcl.c
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588-friendlyelec-cm3588-nas.dts b/arch/arm64/boot/dts/rockchip/rk3588-friendlyelec-cm3588-nas.dts
-index f4c34da61..b2df36113 100644
---- a/arch/arm64/boot/dts/rockchip/rk3588-friendlyelec-cm3588-nas.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3588-friendlyelec-cm3588-nas.dts
-@@ -376,7 +376,7 @@ &hdmi_receiver_cma {
- };
+There are a couple of older gaps like this (a single write, and the
+write side with EPOLLOUT|EPOLLEXCLUSIVE).  I left both alone here though.
+---
+ fs/pipe.c                 | 6 +++++-
+ include/linux/pipe_fs_i.h | 2 +-
+ 2 files changed, 6 insertions(+), 2 deletions(-)
+
+diff --git a/fs/pipe.c b/fs/pipe.c
+index 4c1122597a3c..8ad792d300c9 100644
+--- a/fs/pipe.c
++++ b/fs/pipe.c
+@@ -700,9 +700,13 @@ pipe_poll(struct file *filp, poll_table *wait)
+ 	 * and the ->pseudo_edgetrigger check in anon_pipe_write().
+ 	 * Currently io_uring sets EPOLLET for multishot polls, so it gets the
+ 	 * same behaviour.
++	 *
++	 * EPOLLEXCLUSIVE needs them too.  Its entry is an exclusive waiter on
++	 * ->rd_wait that can take the wakeup meant for a blocked reader, and
++	 * unlike a woken reader in anon_pipe_read() it doesn't pass it on.
+ 	 */
+ 	if ((filp->f_mode & FMODE_READ) &&
+-	    wait && (wait->_key & EPOLLET) &&
++	    wait && (wait->_key & (EPOLLET | EPOLLEXCLUSIVE)) &&
+ 	    unlikely(!READ_ONCE(pipe->pseudo_edgetrigger)))
+ 		WRITE_ONCE(pipe->pseudo_edgetrigger, true);
  
- &hdmi_receiver {
--	hpd-gpios = <&gpio3 RK_PD4 GPIO_ACTIVE_HIGH>;
-+	hpd-gpios = <&gpio1 RK_PD5 GPIO_ACTIVE_LOW>;
- 	pinctrl-0 = <&hdmim1_rx_cec &hdmim1_rx_hpdin &hdmim1_rx_scl &hdmim1_rx_sda &hdmirx_hpd>;
- 	pinctrl-names = "default";
- 	status = "okay";
-@@ -571,7 +571,7 @@ hdmi1_tx_on_h: hdmi1-tx-on-h {
- 
- 	hdmirx {
- 		hdmirx_hpd: hdmirx-5v-detection {
--			rockchip,pins = <3 RK_PD4 RK_FUNC_GPIO &pcfg_pull_up>;
-+			rockchip,pins = <1 RK_PD5 RK_FUNC_GPIO &pcfg_pull_up>;
- 		};
- 	};
- 
--- 
-2.55.0
+diff --git a/include/linux/pipe_fs_i.h b/include/linux/pipe_fs_i.h
+index 95f6236c5c5b..6b2e14ec6ef8 100644
+--- a/include/linux/pipe_fs_i.h
++++ b/include/linux/pipe_fs_i.h
+@@ -90,7 +90,7 @@ struct anon_pipe_prealloc {
+  *	@files: number of struct file referring this pipe (protected by ->i_lock)
+  *	@r_counter: reader counter
+  *	@w_counter: writer counter
+- *	@pseudo_edgetrigger: has an EPOLLET consumer, enable per-write wakeups
++ *	@pseudo_edgetrigger: enable per-write wakeups for EPOLLET/EPOLLEXCLUSIVE
+  *	@fasync_readers: reader side fasync
+  *	@fasync_writers: writer side fasync
+  *	@bufs: the circular array of pipe buffers
+
+---
+base-commit: b0993210e420f2f1d61e6719fbcd3966b96ff9ed
+change-id: 20261111-pipe-epollexclusive-wakeup-981528041b4d
+
+Best regards,
+--  
+Mani Tofigh <mt4022@columbia.edu>
+
 
