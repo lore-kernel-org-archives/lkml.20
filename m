@@ -1,98 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794383630;
-	b=ZFJAewKn8VvXRsBlumRU7p96BOvu7phGijEU+CxvisqfEXfATpVbm8QOh2XTWUXThtYA
-	 8IKNhzP+ZPV5MsxDdsqDBLRffyIJJ09VqOkFJSuWB98jDuuju/rL2QrsYMlTxt9qfB44s
-	 oDkErJP9Ndhg2GQGMYqjGPuf8OdB6YqV8PfTjlxgMNzvmAFlcH7+ZfQvx52Ts0pBx8Rqq
-	 Ix/hdAxLaPLla98cCeMNQ/ZMq7YLLI9mxf03fu15Z2ROGIfggGtCTaGfkatpBFywqGTe6
-	 dBynrCZedM+LO6Gq70FstPw/gM6mhrcDIH1IjyNGAHa1TQr/czjNYlui3RGoWx3Zdbg==
+	t=1794383639;
+	b=aNxJq1Y+b2ZC8t/Uv2mlnYp4ONNJW6Y1Qjd5MoiFBCZ4DG1yTUdpgXdASxsiyF3uLVCn
+	 2gPkgi9uladOAMrjsyvfPP/LePkkVf3zCbpCB5bhNAw98E+vxWRhRw2lT3a+raO348rme
+	 vDF2xF+U5qIObWzXXB2ONPHEmQZtZVyRNJXNAL/m6bYVLAPXjEVGxgT2VTiZS49FWIYZv
+	 KNZhrW02YxAA//nZKkZbfEihjjCtE0KCcYV7tAeiq40ko0AABqJ4NTkTxEYvhQ1Jv08Uq
+	 4BotTUL+T97egMoHZtuQwAQXtvM+qbscwL9XMSUVjEgSixOw/17yDcH1aO2NOnQDgJg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794383630;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To:User-Agent;
-	bh=SSI9syxLw5WcjFuLZ1glFarNni2XFz8U30mQtyysmWI=;
-	b=nsHZb1C5GA3JKdMSgYLliKUXzGmyelIW+W7iMYSVPl1TZpUaHpr47RHSliwpetvrub5R
-	 oiMicrPnIi/4rnM20qJye2cO0lx+XChElgEbzlZEHpul5r4sJNCpdGDMBv2iC948Xktkj
-	 qr9VWPRgRZiDnOUnUn1aoc3V9z2CjENWKxmrUcaCbIyFP228DcqqfQNI8vB9tJ2vSE8Wi
-	 K8INY+LqS9RTQMRNBAddqqskwyycoThnOYewmtTn5O7nmYdFe8j2K3hUUULpm8XfYmaiP
-	 /7Ge3D0Qg2nT3QVFss8yK6dmtpIPF85PQx/FZP7SAo/GWfWauRPXAF/KQt6YpGkhs/g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794383639;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=Wx44Jqgp9Clr6iznTe8eWUnZX1Xya+lT304p4BistjI=;
+	b=h3M7+lH71hsiXuFh+2erOh2ydEJpbznhXlZcS62ketSGPeHu2ieWx7xWUb7cquTWpxY/
+	 6plH0v55+676OiwmwEtqtA6fvF+mcorNEOJideTLVQhvRfWqmZWXavE8RFFpiOaqU/l7x
+	 VZ3qS84fodEsTBlnwzA344Ft4w9CIINAOFe2B8J3i/joOe4c0UhsVy++htdAbTxkxD3wx
+	 Bkp8dh3yXM/s8SjOZqsX859OBxcJFefCjTaZ9iClJUzeKG7SzxWMnYlbcftJH1JSzBIug
+	 ot/4naufiqPLQ7N5jkDxNrMd5bxGQE82oKJbtMf5NcpG3I9ovGOaJ0mCRzBjd895RbA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chrisdown.name;
-	spf=pass smtp.mailfrom=chrisdown.name;
-	dkim=pass header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=eSrG0lFG;
-	arc=none smtp.remote-ip=209.85.216.50
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y7VvQopT;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40CF460A261D
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 07:53:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40CF460A261D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=chrisdown.name
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chrisdown.name
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB3B4606A33F;
+	Wed, 11 Nov 2026 07:53:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=eSrG0lFG
-Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-3b08cf16decso1897783a91.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 23:53:50 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chrisdown.name; s=google; t=1794383629; x=1794988429; darn=vger.kernel.org;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=SSI9syxLw5WcjFuLZ1glFarNni2XFz8U30mQtyysmWI=;
-        b=eSrG0lFG7ySeSzefrD8AR8ZX0qx68Br5x/TZblJhR3nl+ObylVOTerjSzmy8C4PBMi
-         zQ8XaEcAQ853WdxMFYccDPa1xeiDsJZyucqlmn4WRgozQGECM/gtMifq/tBf/bSL7BIf
-         7HssaeBv173YHqdkxXqCrzCGGeEn1Z0k2X2II=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794383629; x=1794988429;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=SSI9syxLw5WcjFuLZ1glFarNni2XFz8U30mQtyysmWI=;
-        b=QEE+7n45r+vwFZmyZYbsDc+ArkuUBuMv8eLYkj+pLv02ASczTpSEGPGecqYYA8vD05
-         I/TPMNm1YNexrW3LQyvpdliKFokmJFTOoGtc5IRCDTnPOAUT1vkXRM1ZnpM0kFyib2n4
-         Xd7+mjSCqO3mqIsqRKdBLsExr1RClUovaZ+s6VQoLOUPVD9NtJCiwK9vWLnMZYzfW1x4
-         100Megbsgv74M17xaTgybDgz21Zh/NV58lpK925Sq34NDbjKIH/iI7jK45rRIuQa4ARc
-         AM54pkNhM6t7Za6MzZmI6FO1ZhMymgL93BX3Rpp33zTtwCD2nVr+z82CUtLxf6j3Ymd3
-         DhfQ==
-X-Forwarded-Encrypted: i=1; AL+hErFf7viqIvj+VfzUYmOaGcVK7YX9/1aNFZYC5Z56D0htCt1x/RBmOeNLRk7U0klQ2eryygeAyZk0Uz9I9a0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8cI4Q8qAXvPVx/3Q0uwW8UGDHXpmIZqvjP9dhCKMoLkPXHsMU/
-	rsLr7+iX4d6V1HizWAIWg2NMpgwBP03t19QRwV/or95+PkBWX8BjRBQhNC70rW0BmLE=
-X-Gm-Gg: AYBFou0NPU/z2mAltdg+TDCBoNb6rrzChXAm213yDPKxB+2BMleHkC8v6FWx7EvruGj
-	vpiRcsgCIqfgSCevQyIivwEy1Q6YDgPNjb28otWRS5e4L340RtU5ZdNwJaDQHAplMpWTs9EWi3M
-	+DKLf1nH1WGF8OR8wHWPlgridU27RJSfnKQXrAusIgLJx9o6WUPiJdpVxd0VzjLvExM80FzZsFJ
-	RdFqnA5W2AwHVzXGS/VZhnvwkB2kqUg/TC6AaIgG4p28IWBVYzFIfPTezeuVsTRIjkqnqlrVcam
-	tQ3Q4xfziOuTJHElJ6aRaM+r+rBjgNBOmyDSTZ8W3pt3vW9pig5hprO/K9oDUAdZXg0BiQfYa4q
-	Qlc2m/qIuDzSoRoZTM+PXcPnVC7elfSS6+oFeQwQ72Z6yPmQ1mHY3mUNsvqldFPJxCCI+dUuwGJ
-	tn1LQ0TGmFGSOx42RC4gNA1HcxmsjBFkwn9XxwFlSb3ntOx7BTjoC88ng6PLCtEr+px6hA4bggG
-	FEwxt9/s+lRwEun6N7jPHCboQ4gfjzuf9ooEvBWjUPzglQRrzrFGb5s2S1GpzfI6A3QZxRDgXOb
-	KLpkW6JClKZTtkvLp3BWKQlFV5Z6f6YUw4fEHcHSA+lKuyOdCA/XBLvfhg51jSr9iFqSfmJdiCZ
-	/jyMv15eMq0ydkUxF0ADJolZI+VB4pQteR7WVsSLD9VSmBCnR/OgmL0VXYUpN9yBsBiPgLtsSrf
-	vJrT/iDPG3nUCMqogYqcw3lbt0te8nq0mheZ2YtPJzP9q3Wkdf4Gn7
-X-Received: by 2002:a17:90b:5483:b0:3ac:80dc:f419 with SMTP id 98e67ed59e1d1-3b182fb308emr1835511a91.25.1794383629583;
-        Tue, 10 Nov 2026 23:53:49 -0800 (PST)
-Received: from localhost ([199.201.64.8])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b17da4cd8csm3404966a91.2.2026.11.10.23.53.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 23:53:49 -0800 (PST)
-Date: Tue, 10 Nov 2026 23:53:45 -0800
-From: Chris Down <chris@chrisdown.name>
-To: Pasha Tatashin <pasha.tatashin@soleen.com>,
-	Mike Rapoport <rppt@kernel.org>,
-	Pratyush Yadav <pratyush@kernel.org>
-Cc: Alexander Graf <graf@amazon.com>, Baoquan He <baoquan.he@linux.dev>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>, kexec@lists.infradead.org,
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org,
-	kernel-team@meta.com
-Subject: [PATCH 9/9] selftests/liveupdate: Check handover revival, sequence
- and memory stats
-Message-ID: <738fbfd19034ce495de9b22c705a7815a236907d.1794383544.git.chris@chrisdown.name>
-References: <cover.1794383544.git.chris@chrisdown.name>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y7VvQopT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E488D1F00A07;
+	Wed, 11 Nov 2026 07:53:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794383638;
+	bh=Wx44Jqgp9Clr6iznTe8eWUnZX1Xya+lT304p4BistjI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Y7VvQopTyiYLsfhNqmwj+Q0kimGb5POR2v14SGLQsD72WJyDcwJRcfUR3sqJ5Kmue
+	 NvA9OnXRvf7pqNQlDmTkavzjMzSYd4Pc6OcscROatd2gmxTFwxf8ZWFobDDQTb9vfI
+	 h4sJIc/sn1H2H/KuLO40piUNQvaqMnF9f0wsuCAnIKIWFvrqqsTHsKUR+DuVvY6asB
+	 Z9/b7+lM3qtIOzNfbdcfDuIByE/aOR9g6g+gBALZ3dmHhdtWwVp0ksL4Z8Xu6SNDg7
+	 x/EEjATAZCa8epM4RiadiuigzQpXOa7c+UwrkUBqNTHDljfviKzETFtmctSr+2qBBM
+	 6CC1F9ESuBHog==
+Message-ID: <5fcaf2c0-d38b-42c7-96fe-52dccbe87f14@kernel.org>
+Date: Wed, 11 Nov 2026 08:53:52 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,205 +51,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <cover.1794383544.git.chris@chrisdown.name>
-User-Agent: Mutt/2.3.3 (9073d26d) (2026-06-12)
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 1/2] dt-bindings: phy: Add CIX Sky1 USB3 PHY
+To: Hongliang Yang <hongliang.yang@cixtech.com>, Vinod Koul
+ <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Gary Yang <Gary.Yang@cixtech.com>, Fugang Duan <fugang.duan@cixtech.com>
+Cc: linux-phy@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ cix-kernel-upstream@cixtech.com
+References: <20261111030937.2954646-1-hongliang.yang@cixtech.com>
+ <20261111030937.2954646-2-hongliang.yang@cixtech.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261111030937.2954646-2-hongliang.yang@cixtech.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Extend the handover stats test to cover the new files. On the first
-boot, kho_incoming/state should be none, liveupdate_num 0, and both KHO
-sizes 0. After the kexec, the handover should be revived and
-liveupdate_num should be 1.
+On 11/11/2026 04:09, Hongliang Yang wrote:
+> Add device tree binding for the CIX Sky1 USB3 PHY, the SuperSpeedPlus
+> PHY of the two USB3 Type-A ports of the SoC.
+> 
+> The two lanes are not separate devices: they live in one register
+> block, share the same clocks and resets, and are brought up by the
+> same initialization sequence. The node is therefore a single PHY
+> provider with #phy-cells = <0>, referenced by both controllers, and the
+> driver reference counts phy_init() and phy_exit() so that the block is
+> set up once for all of them.
+> 
+> Signed-off-by: Hongliang Yang <hongliang.yang@cixtech.com>
+> ---
+> Changes in v7:
+> - Describe the PHY as one provider of both lanes and say why. v5 had
+>   one child node per lane, v6 dropped them, and nothing in the binding
+>   or the changelog said where the second lane went.
+> - Reword the description so that it describes the provider instead of
+>   the register programming of the block.
+> 
 
-restored_size should grow by at least a page each time a memfd is
-retrieved or dropped. The memfd in the unclaimed session is retrieved
-last, once everything else is done.
+You gave me exactly 0 minutes to reply to your answer on v6. Nice
+process - bury existing comments it with new version, hoping people will
+move on. Dropping from DT patchwork as previous issues are not answered.
 
-Signed-off-by: Chris Down <chris@chrisdown.name>
----
- .../selftests/liveupdate/luo_handover_stats.c | 74 +++++++++++++++++--
- 1 file changed, 67 insertions(+), 7 deletions(-)
-
-diff --git a/tools/testing/selftests/liveupdate/luo_handover_stats.c b/tools/testing/selftests/liveupdate/luo_handover_stats.c
-index f18df79dda55..2863630b823e 100644
---- a/tools/testing/selftests/liveupdate/luo_handover_stats.c
-+++ b/tools/testing/selftests/liveupdate/luo_handover_stats.c
-@@ -10,6 +10,7 @@
- #include <libliveupdate.h>
- 
- #define INCOMING_DIR "/sys/class/misc/liveupdate/incoming/"
-+#define KHO_INCOMING_DIR "/sys/kernel/kexec/kho_incoming/"
- 
- #define SESSION_CLAIMED "stats-claimed"
- #define SESSION_UNCLAIMED "stats-unclaimed"
-@@ -28,13 +29,13 @@
- /* The first open starts deserialization. */
- static char state_before_open[16];
- 
--static void read_incoming(const char *name, char *buf, size_t len)
-+static void read_sysfs(const char *dir, const char *name, char *buf, size_t len)
- {
- 	char path[128];
- 	ssize_t n;
- 	int fd;
- 
--	snprintf(path, sizeof(path), INCOMING_DIR "%s", name);
-+	snprintf(path, sizeof(path), "%s%s", dir, name);
- 	fd = open(path, O_RDONLY);
- 	if (fd < 0)
- 		fail_exit("open %s", path);
-@@ -54,6 +55,11 @@ static void read_incoming(const char *name, char *buf, size_t len)
- 		buf[n - 1] = '\0';
- }
- 
-+static void read_incoming(const char *name, char *buf, size_t len)
-+{
-+	read_sysfs(INCOMING_DIR, name, buf, len);
-+}
-+
- static void expect_state(const char *state, const char *expected)
- {
- 	if (strcmp(state, expected))
-@@ -61,13 +67,13 @@ static void expect_state(const char *state, const char *expected)
- 				   expected);
- }
- 
--static unsigned long long read_number(const char *name)
-+static unsigned long long read_number(const char *dir, const char *name)
- {
- 	unsigned long long val = 0;
- 	char buf[32];
- 	char *p;
- 
--	read_incoming(name, buf, sizeof(buf));
-+	read_sysfs(dir, name, buf, sizeof(buf));
- 	for (p = buf; *p >= '0' && *p <= '9'; p++) {
- 		if (val > (ULLONG_MAX - (*p - '0')) / 10)
- 			break;
-@@ -75,19 +81,45 @@ static unsigned long long read_number(const char *name)
- 	}
- 	if (p == buf || *p)
- 		ksft_exit_fail_msg("%s%s reads '%s', not a 64-bit unsigned number\n",
--				   INCOMING_DIR, name, buf);
-+				   dir, name, buf);
- 	return val;
- }
- 
- static void expect_count(const char *name, unsigned long long expected)
- {
--	unsigned long long val = read_number(name);
-+	unsigned long long val = read_number(INCOMING_DIR, name);
- 
- 	if (val != expected)
- 		ksft_exit_fail_msg("%s is %llu, expected %llu\n", name, val,
- 				   expected);
- }
- 
-+static void expect_kho_state(const char *expected)
-+{
-+	char state[16];
-+
-+	read_sysfs(KHO_INCOMING_DIR, "state", state, sizeof(state));
-+	if (strcmp(state, expected))
-+		ksft_exit_fail_msg("kho_incoming/state is '%s', expected '%s'\n",
-+				   state, expected);
-+}
-+
-+static unsigned long long kho_size(const char *name)
-+{
-+	return read_number(KHO_INCOMING_DIR, name);
-+}
-+
-+static unsigned long long expect_more_restored(unsigned long long prev)
-+{
-+	unsigned long long restored = kho_size("restored_size");
-+
-+	if (restored < prev + getpagesize() ||
-+	    restored > kho_size("preserved_size"))
-+		ksft_exit_fail_msg("restored_size went from %llu to %llu\n",
-+				   prev, restored);
-+	return restored;
-+}
-+
- static void expect_counts(long retrieved, long dropped)
- {
- 	char state[16];
-@@ -111,6 +143,10 @@ static void run_stage_1(int luo_fd)
- 	expect_state(state_before_open, "none");
- 	expect_count("sessions", 0);
- 	expect_count("files", 0);
-+	expect_count("liveupdate_num", 0);
-+	expect_kho_state("none");
-+	if (kho_size("preserved_size") || kho_size("restored_size"))
-+		ksft_exit_fail_msg("KHO sizes aren't 0 on a cold boot\n");
- 
- 	create_state_file(luo_fd, STATE_SESSION_NAME, STATE_MEMFD_TOKEN, 2);
- 
-@@ -144,11 +180,16 @@ static void run_stage_1(int luo_fd)
- 
- static void run_stage_2(int luo_fd, int state_session_fd)
- {
--	int claimed_fd, mfd, stage;
-+	int claimed_fd, unclaimed_fd, mfd, stage;
-+	unsigned long long restored;
- 
- 	ksft_print_msg("[STAGE 2] Checking state before and after the first open...\n");
- 	expect_state(state_before_open, "pending");
- 	expect_counts(0, 0);
-+	expect_count("liveupdate_num", 1);
-+	expect_kho_state("revived");
-+	if (!kho_size("preserved_size"))
-+		ksft_exit_fail_msg("kho_incoming/preserved_size is 0\n");
- 
- 	restore_and_read_stage(state_session_fd, STATE_MEMFD_TOKEN, &stage);
- 	if (stage != 2)
-@@ -163,6 +204,7 @@ static void run_stage_2(int luo_fd, int state_session_fd)
- 	if (claimed_fd < 0)
- 		fail_exit("luo_retrieve_session for '%s'", SESSION_CLAIMED);
- 
-+	restored = kho_size("restored_size");
- 	mfd = restore_and_verify_memfd(claimed_fd, MFD_RETRIEVED_TOKEN,
- 				       MFD_RETRIEVED_DATA);
- 	if (mfd < 0)
-@@ -170,6 +212,7 @@ static void run_stage_2(int luo_fd, int state_session_fd)
- 			  MFD_RETRIEVED_TOKEN);
- 	close(mfd);
- 	expect_counts(2, 0);
-+	restored = expect_more_restored(restored);
- 
- 	ksft_print_msg("[STAGE 2] Finishing '%s'...\n", SESSION_CLAIMED);
- 	if (luo_session_finish(claimed_fd) < 0)
-@@ -177,6 +220,7 @@ static void run_stage_2(int luo_fd, int state_session_fd)
- 	close(claimed_fd);
- 
- 	expect_counts(2, 1);
-+	expect_more_restored(restored);
- 
- 	ksft_print_msg("[STAGE 2] Finishing the state session...\n");
- 	if (luo_session_finish(state_session_fd) < 0)
-@@ -185,6 +229,22 @@ static void run_stage_2(int luo_fd, int state_session_fd)
- 
- 	/* Finishing the state session must not drop anything. */
- 	expect_counts(2, 1);
-+	restored = kho_size("restored_size");
-+
-+	ksft_print_msg("[STAGE 2] Retrieving the memfd in '%s'...\n",
-+		       SESSION_UNCLAIMED);
-+	unclaimed_fd = luo_retrieve_session(luo_fd, SESSION_UNCLAIMED);
-+	if (unclaimed_fd < 0)
-+		fail_exit("luo_retrieve_session for '%s'", SESSION_UNCLAIMED);
-+	mfd = restore_and_verify_memfd(unclaimed_fd, MFD_UNCLAIMED_TOKEN,
-+				       MFD_UNCLAIMED_DATA);
-+	if (mfd < 0)
-+		fail_exit("restore_and_verify_memfd for token %#x",
-+			  MFD_UNCLAIMED_TOKEN);
-+	close(mfd);
-+	close(unclaimed_fd);
-+	expect_counts(3, 1);
-+	expect_more_restored(restored);
- 
- 	ksft_print_msg("\n--- HANDOVER STATS TEST PASSED ---\n");
- }
--- 
-2.54.0
-
+Best regards,
+Krzysztof
