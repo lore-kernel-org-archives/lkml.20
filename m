@@ -1,70 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.246.68.102
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.34.181.151
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794436955;
-	b=dvAkyNmyAHpgrAlHCZvXxF2idLDPWJY+deeqWsHXy0fza/36X1Y/zJSgcAZpkg/SzZrl
-	 ZsAvkKGokmaUJPu4n4kDLSI2+E5RBNWGoozhx4akA0EzsqzaQ5Il+QgQdo07QhyU3IZ2O
-	 gGjsX6KUx+I1YUGRu5VNp1s0YToZbGWui71Q8MvcljWccoQ7aDyiCB4IUpEJ4QwR32JSG
-	 PLKudrw4TkVgghzjre9YF9dKqVhl1llp44j4bvOG00UlK8ujNCS7eIsaq64WEr1ZAb4F5
-	 L/eaVj80Xs2I7RvtWV7/Upp/HSrOObX4Hmpz+8K9xLmmwIT+htH2TBY8oDhaOwGAkGw==
+	t=1794436956;
+	b=J4OL+w2G/TttCvZbT9KoASVMNxSlLoopizvX55Pz9fvghoNo/uBMshqO4i34EuZZ6iJD
+	 Q3FtWZD9tH8tSdCG3uySHTR9AnnP0Ve6tLcybzlP+Sr4DY6dbtRqyP/INHQlQWIp3pkc8
+	 zvoRPE20k7NH88kOVimu7+3PO3lc0fr7R4f4aQ7OjrJg7Et0z+5eEAab3cka1nFnUymq4
+	 FgQRSsZJTmy22KI6F+Dpdh3LBGB+zMgbdpPd+ZGYgFcg3l5diOIzh+DziPTw8Fr+xl/gt
+	 VJx4v3E9z8H2YqLrw3Bp/RYdVknYVXC7aNgNsMZAegf+N4mzulqziTHQzsaLMLdlnfQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794436955;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794436956;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
 	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
 	 X-ClientProxiedBy;
-	bh=q/elCZSoXLJDWwdqt0XBoC1ZfH26lVl5Bs45VHydWUE=;
-	b=raUSFkcPUlcMZqSAAj6pU9Mlng0fqlhPntJEEcwBDebEKU6i1cWtAcorlClTN5X+ooRG
-	 +dLbm7YGwvmaRe33cN/gJBN5hKLapBBemQvUzXMoMHtVxOXEOGT/1Le49vLpyjHagrYts
-	 As3y033QpPDebJfnqkbEkAUYilZQNX2Lus/+pnseqyiX+kUkBJrY4+SgqltKLNzTWMQvl
-	 OEcifuYiL+k3VIdXiPV3wvHwaEGIgmsb8FdmgK8dPPnfwcHmTHu6dUUv533suj30KbLsE
-	 bVHqmyhEiic0eTmzeIWWXylpY6ghHEnKcXBin3qxOtfInU4Zey2hHmYMXpgXHrhq14g==
+	bh=UxYweRxm1jxmevq4ssKlYUqBx3+MSGqJMKtXpG6cMZs=;
+	b=ZfuuSGfxK/t6pSl2rv0sm9FRvxMN1LD8bVFxCNN1exQrLerQ5KePPgv8y7g6GrcMiRsj
+	 Hsu2pIoqSXK+HTkhwyJ/7ynyxskMmLGcmrEk1Jac++1GSPqlRQpVL8gqFcu2kgJ/Vscca
+	 SvYg13y1V3DTvKiTW+UFOJ+NsZqbDfupX+5a+V1qh0hOU7DQG3OO2LNyZzzT0W5WKdvuO
+	 0sm9dJ3zUiv20s6rYYY78gUZqNLs9Cxx/6n+E+nPUdlufXtZoVFmK0H8Xbr4sZXBin9p8
+	 zCELYJ1AwvNdbmwUkdTqrrpoqKwc0SWE5UOq15V0UCHBu++O3oAcZw08xRM9StxEx1Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=amazon.com;
 	spf=pass smtp.mailfrom=amazon.de;
-	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=FJW4U6Pz;
-	arc=none smtp.remote-ip=44.246.68.102
-Received: from pdx-out-003.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-003.esa.us-west-2.outbound.mail-perimeter.amazon.com [44.246.68.102])
+	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=mvzxoq5q;
+	arc=none smtp.remote-ip=52.34.181.151
+Received: from pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.34.181.151])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 510BB606A339;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92B2C606A337;
 	Wed, 11 Nov 2026 22:42:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 510BB606A339
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92B2C606A337
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=FJW4U6Pz
+	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=mvzxoq5q
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
   d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
   t=1794436955; x=1825972955;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=q/elCZSoXLJDWwdqt0XBoC1ZfH26lVl5Bs45VHydWUE=;
-  b=FJW4U6PzCvvIEdOmjNvUeoGPWIBKTVhsYxCvtI1vRarVSguWbQiugzph
-   l8yoCtxWX7Tz+y8NRS2rol4GVxMdetjJvNbdxwRQ4p5pm7iMiJMAqVqE6
-   6yLeJralD8Qv6k+gGtPjZ0qwUUBWQvashpV+vSzMZdoXVuSn6Rf4TYtE1
-   msUp7ejuIMiBXQMpeql9Vfe95cA9kadpOcrMd1Kj0NJqcihHdiUbiglgZ
-   yPbZS3nYrx9FLTsT2j0P5XBPTvaX1hz9IJvzy9UOhMMWus/3IzS5ijG5q
-   TUHYgUR0rSB2X0mW3es0vJp1Gbqw+h+bz49+Bk6ArXjEgQrRp2Sb5tHSq
-   A==;
-X-CSE-ConnectionGUID: ELWECH3AT4aXJkQnrdwYfA==
-X-CSE-MsgGUID: iYfTsDp0ROy9R6LX9GXREQ==
+  bh=UxYweRxm1jxmevq4ssKlYUqBx3+MSGqJMKtXpG6cMZs=;
+  b=mvzxoq5qgBGQyQgdYlsVD4tt6LQwCUWniW0RPEnXKzr2vL6UZLaXyYiU
+   ZPIibTNMItUMGIceSXMuFR8wL9wsGxtQAysoTiSg9Vtz9T4Gu+JJ++njT
+   TVC4CgVtbsofCfNIwsmiv2MLFdS35pb6/ueZWIbEZ9pQZnPHqLXSouxTH
+   MaIJppW/Czl4sK1f+9T2HYhj/y2CpINnskFJR7qy2qdH9cBwBv/0gfN4K
+   l2kL2CumhumyTWT//4kCDhQo0o+yPn7df0+SB7bWDYWEUNXNuIeUc6N86
+   A98dWxn2+5RYSPk9OZxa0P2qw1939UmX0BoyS5W+mA2hauiXzdWQVK9nC
+   w==;
+X-CSE-ConnectionGUID: rXovG/BETqmn+vbmyNsKtQ==
+X-CSE-MsgGUID: RqVgO+5rQaKtb0DX5vPaTA==
 X-IronPort-AV: E=Sophos;i="6.27,208,1787011200"; 
-   d="scan'208";a="33677410"
-Received: from ip-10-5-6-203.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.6.203])
-  by internal-pdx-out-003.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 22:42:33 +0000
-Received: from EX19MTAUWB001.ant.amazon.com [205.251.233.104:13794]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.31.142:2525] with esmtp (Farcaster)
- id 92d871d6-7006-4cf3-91d1-6bc6dafd0698; Wed, 11 Nov 2026 22:42:32 +0000 (UTC)
-X-Farcaster-Flow-ID: 92d871d6-7006-4cf3-91d1-6bc6dafd0698
+   d="scan'208";a="33756177"
+Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
+  by internal-pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 22:42:35 +0000
+Received: from EX19MTAUWC002.ant.amazon.com [205.251.233.111:20493]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.16.231:2525] with esmtp (Farcaster)
+ id fc83ea97-8a60-4672-82e4-94100366064e; Wed, 11 Nov 2026 22:42:35 +0000 (UTC)
+X-Farcaster-Flow-ID: fc83ea97-8a60-4672-82e4-94100366064e
 Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWB001.ant.amazon.com (10.250.64.248) with Microsoft SMTP Server
+ EX19MTAUWC002.ant.amazon.com (10.250.64.143) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Wed, 11 Nov 2026 22:42:32 +0000
+ Wed, 11 Nov 2026 22:42:34 +0000
 Received: from ip-10-253-83-51.amazon.com (172.19.99.218) by
  EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Wed, 11 Nov 2026 22:42:29 +0000
+ Wed, 11 Nov 2026 22:42:32 +0000
 From: Alexander Graf <graf@amazon.com>
 To: <linux-kernel@vger.kernel.org>, Greg Kroah-Hartman
 	<gregkh@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>
@@ -76,9 +76,9 @@ CC: The AWS Nitro Enclaves Team <aws-nitro-enclaves-devel@amazon.com>, "Shuah
 	<david@kernel.org>, Mike Rapoport <rppt@kernel.org>,
 	<nh-open-source@amazon.com>, <linux-mm@kvack.org>, Jonathan Corbet
 	<corbet@lwn.net>
-Subject: [PATCH 01/40] nitro_enclaves: Allow the CPU pool to span NUMA nodes
-Date: Wed, 11 Nov 2026 22:41:46 +0000
-Message-ID: <c1973df40561159c3d6a32e58b22b963bf7fc507.1794393490.git.graf@amazon.com>
+Subject: [PATCH 02/40] nitro_enclaves: Add NE_ADD_ANY_VCPU
+Date: Wed, 11 Nov 2026 22:41:47 +0000
+Message-ID: <205db2f63e5458098d7d147a28efa04af2d4930d.1794393490.git.graf@amazon.com>
 X-Mailer: git-send-email 2.47.1
 In-Reply-To: <cover.1794300002.git.graf@amazon.com>
 References: <cover.1794300002.git.graf@amazon.com>
@@ -96,449 +96,228 @@ Content-Type: text/plain
 X-ClientProxiedBy: EX19D031UWC004.ant.amazon.com (10.13.139.246) To
  EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-With Nitro Sandboxes, we allow users to span a sandbox across multiple
-NUMA nodes and place their sandbox on a NUMA node different from 0.
-Allow the ne_cpus= CPU pool to span NUMA nodes.
+A Nitro Sandbox can span multiple NUMA nodes. The current NE_ADD_VCPU ioctl
+only takes a target CPU id as input or a special ANY id. With NUMA, we want
+to be able to take any CPU from a specific NUMA node. Add a new
+NE_ADD_ANY_VCPU ioctl with nid parameter to select the target node. The new
+ioctl returns the selected CPU id or NE_ERR_NO_CPUS_AVAIL_IN_POOL.
+
+To already prepare for later argument extension, filter out the size field
+of the ioctl and handle the fields we know about.
 
 Signed-off-by: Alexander Graf <graf@amazon.com>
 ---
- Documentation/virt/ne_overview.rst        |   3 +-
- drivers/virt/nitro_enclaves/ne_misc_dev.c | 159 +++++++++++++++-------
- drivers/virt/nitro_enclaves/ne_misc_dev.h |   5 +-
- include/uapi/linux/nitro_enclaves.h       |  22 ++-
- samples/nitro_enclaves/ne_ioctl_sample.c  |  10 +-
- 5 files changed, 137 insertions(+), 62 deletions(-)
+ drivers/virt/nitro_enclaves/ne_misc_dev.c | 92 ++++++++++++++++++++++-
+ include/uapi/linux/nitro_enclaves.h       | 54 +++++++++++++
+ 2 files changed, 145 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/virt/ne_overview.rst b/Documentation/virt/ne_overview.rst
-index 74c2f5919c886..aecd3704acaf5 100644
---- a/Documentation/virt/ne_overview.rst
-+++ b/Documentation/virt/ne_overview.rst
-@@ -47,7 +47,8 @@ The memory regions carved out of the primary VM and given to an enclave need to
- be aligned 2 MiB / 1 GiB physically contiguous memory regions (or multiple of
- this size e.g. 8 MiB). The memory can be allocated e.g. by using hugetlbfs from
- user space [2][3][7]. The memory size for an enclave needs to be at least
--64 MiB. The enclave memory and CPUs need to be from the same NUMA node.
-+64 MiB. The enclave memory and CPUs need to be from the same NUMA node,
-+unless the CPU pool spans several of them.
- 
- An enclave runs on dedicated cores. CPU 0 and its CPU siblings need to remain
- available for the primary VM. A CPU pool has to be set for NE purposes by an
 diff --git a/drivers/virt/nitro_enclaves/ne_misc_dev.c b/drivers/virt/nitro_enclaves/ne_misc_dev.c
-index cb1efc95a7f34..6e36abeff01a2 100644
+index 6e36abeff01a2..576f1909c7304 100644
 --- a/drivers/virt/nitro_enclaves/ne_misc_dev.c
 +++ b/drivers/virt/nitro_enclaves/ne_misc_dev.c
-@@ -24,6 +24,7 @@
+@@ -9,11 +9,13 @@
+  */
+ 
+ #include <linux/anon_inodes.h>
++#include <linux/build_bug.h>
+ #include <linux/capability.h>
+ #include <linux/cpu.h>
+ #include <linux/device.h>
+ #include <linux/file.h>
+ #include <linux/hugetlb.h>
++#include <linux/ioctl.h>
+ #include <linux/kernel.h>
+ #include <linux/limits.h>
+ #include <linux/list.h>
+@@ -24,12 +26,15 @@
  #include <linux/module.h>
  #include <linux/mutex.h>
  #include <linux/nitro_enclaves.h>
-+#include <linux/numa.h>
++#include <linux/nodemask.h>
+ #include <linux/numa.h>
  #include <linux/pci.h>
  #include <linux/poll.h>
  #include <linux/range.h>
-@@ -36,8 +37,8 @@
+ #include <linux/slab.h>
++#include <linux/stddef.h>
+ #include <linux/types.h>
++#include <linux/uaccess.h>
+ #include <uapi/linux/vm_sockets.h>
  
- /**
-  * NE_CPUS_SIZE - Size for max 128 CPUs, for now, in a cpu-list string, comma
-- *		  separated. The NE CPU pool includes CPUs from a single NUMA
-- *		  node.
-+ *		  separated. The NE CPU pool may include CPUs from more than
-+ *		  one NUMA node.
+ #include "ne_misc_dev.h"
+@@ -42,6 +47,23 @@
   */
  #define NE_CPUS_SIZE		(512)
  
-@@ -126,13 +127,27 @@ static const struct kernel_param *ne_cpus_kp;
-  *				from the pool rather than derived from a thread
-  *				count, so a machine whose cores do not all have
-  *				the same number of threads is sized correctly.
-- * @numa_node:			NUMA node of the CPUs in the pool.
-+ * @numa_node:			NUMA node of the CPUs in the pool, or
-+ *				NUMA_NO_NODE if the pool spans multiple nodes or
-+ *				no pool is set up.
-+ * @core_nid:			The NUMA node of each core slot, indexed the
-+ *				same way as @avail_threads_per_core. Every slot
-+ *				holds a core, so every entry names a node. A slot
-+ *				keeps its node after its core is handed to an
-+ *				enclave, because ne_get_cpu_from_cpu_pool()
-+ *				still reads it when it reuses a sibling of that
-+ *				core. Read while
-+ *				the pool CPUs are still online, before
-+ *				ne_setup_cpu_pool() offlines them, because
-+ *				cpu_to_node() is not documented to answer for an
-+ *				offline CPU.
-  */
- struct ne_cpu_pool {
- 	cpumask_var_t	*avail_threads_per_core;
- 	struct mutex	mutex;
- 	unsigned int	nr_parent_vm_cores;
- 	int		numa_node;
-+	int		*core_nid;
- };
- 
- static struct ne_cpu_pool ne_cpu_pool = {
-@@ -160,14 +175,16 @@ static void ne_free_core_slots(void)
- {
- 	unsigned int i = 0;
- 
--	if (!ne_cpu_pool.avail_threads_per_core)
--		return;
-+	if (ne_cpu_pool.avail_threads_per_core) {
-+		for (i = 0; i < ne_cpu_pool.nr_parent_vm_cores; i++)
-+			free_cpumask_var(ne_cpu_pool.avail_threads_per_core[i]);
- 
--	for (i = 0; i < ne_cpu_pool.nr_parent_vm_cores; i++)
--		free_cpumask_var(ne_cpu_pool.avail_threads_per_core[i]);
-+		kfree(ne_cpu_pool.avail_threads_per_core);
-+		ne_cpu_pool.avail_threads_per_core = NULL;
-+	}
- 
--	kfree(ne_cpu_pool.avail_threads_per_core);
--	ne_cpu_pool.avail_threads_per_core = NULL;
-+	kfree(ne_cpu_pool.core_nid);
-+	ne_cpu_pool.core_nid = NULL;
- }
- 
++/**
++ * NE_EA_IOCTL() - Mask the size and direction bits out of an ioctl command, so
++ *		   that an Extensible Argument ioctl matches whatever size of
++ *		   argument the caller passed. The direction bits go with them,
++ *		   so a caller that spells the command _IOW(), _IOR() or
++ *		   _IOWR() reaches the same handler, and the handler decides
++ *		   what it reads and writes.
++ * @cmd:	The ioctl command to mask.
++ */
++#define NE_EA_IOCTL(cmd)	((cmd) & ~(IOC_INOUT | IOCSIZE_MASK))
++
++/*
++ * NE_NUMA_ANY reaches the core allocator as a node id, so the uapi spelling
++ * and the kernel one have to agree.
++ */
++static_assert(NE_NUMA_ANY == NUMA_NO_NODE);
++
  /**
-@@ -218,6 +235,10 @@ static int ne_build_core_slots(const struct cpumask *cpu_pool)
- 
- 	ne_cpu_pool.nr_parent_vm_cores = nr_cores;
- 
-+	ne_cpu_pool.core_nid = kmalloc_objs(*ne_cpu_pool.core_nid, nr_cores);
-+	if (!ne_cpu_pool.core_nid)
-+		goto free_slots;
-+
- 	for (i = 0; i < nr_cores; i++)
- 		if (!zalloc_cpumask_var(&ne_cpu_pool.avail_threads_per_core[i], GFP_KERNEL))
- 			goto free_slots;
-@@ -237,6 +258,8 @@ static int ne_build_core_slots(const struct cpumask *cpu_pool)
- 			cpumask_set_cpu(cpu_sibling, processed);
- 		}
- 
-+		ne_cpu_pool.core_nid[next_core_idx] = cpu_to_node(cpu);
-+
- 		next_core_idx++;
- 	}
- 
-@@ -275,7 +298,9 @@ static int ne_setup_cpu_pool(const struct cpumask *cpu_pool)
- {
- 	unsigned int cpu = 0;
- 	unsigned int cpu_sibling = 0;
--	int numa_node = -1;
-+	bool have_node = false;
-+	bool multi_node = false;
-+	int numa_node = NUMA_NO_NODE;
- 	int rc = -EINVAL;
- 
- 	mutex_lock(&ne_cpu_pool.mutex);
-@@ -305,29 +330,34 @@ static int ne_setup_cpu_pool(const struct cpumask *cpu_pool)
- 		}
- 
- 	/*
--	 * Check if the CPUs from the NE CPU pool are from the same NUMA node.
-+	 * Determine the NUMA node of the CPUs in the pool. If the pool spans
-+	 * multiple NUMA nodes, set numa_node to NUMA_NO_NODE; the pool is then
-+	 * treated as node-agnostic for placement and memory-locality checks.
-+	 * A CPU that reports no node at all is refused, because otherwise such
-+	 * a CPU would join a single-node pool and turn it into a spanning one.
+  * NE_EIF_LOAD_OFFSET - The offset where to copy the Enclave Image Format (EIF)
+  *			image in enclave memory.
+@@ -334,7 +356,8 @@ static int ne_setup_cpu_pool(const struct cpumask *cpu_pool)
+ 	 * multiple NUMA nodes, set numa_node to NUMA_NO_NODE; the pool is then
+ 	 * treated as node-agnostic for placement and memory-locality checks.
+ 	 * A CPU that reports no node at all is refused, because otherwise such
+-	 * a CPU would join a single-node pool and turn it into a spanning one.
++	 * a CPU would join a single-node pool and turn it into a spanning one,
++	 * and its core would be unreachable through a node-named pick.
  	 */
--	for_each_cpu(cpu, cpu_pool)
--		if (numa_node < 0) {
--			numa_node = cpu_to_node(cpu);
--			if (numa_node < 0) {
--				pr_err("%s: Invalid NUMA node %d\n",
--				       ne_misc_dev.name, numa_node);
-+	for_each_cpu(cpu, cpu_pool) {
-+		int nid = cpu_to_node(cpu);
+ 	for_each_cpu(cpu, cpu_pool) {
+ 		int nid = cpu_to_node(cpu);
+@@ -1592,6 +1615,73 @@ static long ne_enclave_do_ioctl(struct file *file, unsigned int cmd, unsigned lo
  
--				rc = -EINVAL;
-+		if (nid < 0) {
-+			pr_err("%s: CPU %d reports no NUMA node\n",
-+			       ne_misc_dev.name, cpu);
- 
--				goto unlock_hotplug;
--			}
--		} else {
--			if (numa_node != cpu_to_node(cpu)) {
--				pr_err("%s: CPUs with different NUMA nodes\n",
--				       ne_misc_dev.name);
-+			rc = -EINVAL;
- 
--				rc = -EINVAL;
-+			goto unlock_hotplug;
+ 		return 0;
+ 	}
++	}
++
++	/* Extensible Argument ioctls */
++	switch (NE_EA_IOCTL(cmd)) {
++	case NE_EA_IOCTL(NE_ADD_ANY_VCPU): {
++		struct ne_add_any_vcpu_args __user *uargs = (void __user *)arg;
++		unsigned int usize = _IOC_SIZE(cmd);
++		struct ne_add_any_vcpu_args args;
++		u32 vcpu_id = 0;
++		int rc;
++
++		if (usize < offsetofend(struct ne_add_any_vcpu_args, vcpu_id))
++			return -EINVAL;
++
++		rc = copy_struct_from_user(&args, sizeof(args), uargs, usize);
++		if (rc)
++			return rc;
++
++		if (args.numa_node != NE_NUMA_ANY &&
++		    (args.numa_node < 0 || args.numa_node >= nr_node_ids ||
++		     !node_state(args.numa_node, N_POSSIBLE))) {
++			dev_err_ratelimited(ne_misc_dev.this_device,
++					    "Invalid NUMA node %d\n", args.numa_node);
++
++			return -EINVAL;
 +		}
- 
--				goto unlock_hotplug;
--			}
-+		if (!have_node) {
-+			numa_node = nid;
-+			have_node = true;
-+		} else if (numa_node != nid) {
-+			multi_node = true;
- 		}
-+	}
 +
-+	if (multi_node)
-+		numa_node = NUMA_NO_NODE;
- 
- 	/*
- 	 * Check if CPU 0 and its siblings are included in the provided CPU pool
-@@ -414,7 +444,7 @@ static int ne_setup_cpu_pool(const struct cpumask *cpu_pool)
- 	cpus_read_unlock();
- reset_pool:
- 	ne_cpu_pool.nr_parent_vm_cores = 0;
--	ne_cpu_pool.numa_node = -1;
-+	ne_cpu_pool.numa_node = NUMA_NO_NODE;
- 	mutex_unlock(&ne_cpu_pool.mutex);
- 
- 	return rc;
-@@ -452,7 +482,7 @@ static void ne_teardown_cpu_pool(void)
- 
- 	ne_free_core_slots();
- 	ne_cpu_pool.nr_parent_vm_cores = 0;
--	ne_cpu_pool.numa_node = -1;
-+	ne_cpu_pool.numa_node = NUMA_NO_NODE;
- 
- 	mutex_unlock(&ne_cpu_pool.mutex);
- }
-@@ -633,7 +663,13 @@ static bool ne_donated_cpu(struct ne_enclave *ne_enclave, unsigned int cpu)
- /**
-  * ne_get_unused_core_from_cpu_pool() - Get the id of a full core from the
-  *					NE CPU pool.
-- * @void:	No parameters provided.
-+ * @nid:	Required NUMA node for the core, or NUMA_NO_NODE for no
-+ *		node constraint.
-+ *
-+ * When @nid names a specific node, only a free core whose CPUs are
-+ * on that node is returned; if none is available the function returns -1
-+ * rather than spilling onto another node. When @nid is NUMA_NO_NODE, any
-+ * free core is returned.
-  *
-  * Context: Process context. This function is called with the ne_enclave and
-  *	    ne_cpu_pool mutexes held.
-@@ -641,19 +677,19 @@ static bool ne_donated_cpu(struct ne_enclave *ne_enclave, unsigned int cpu)
-  * * Core id.
-  * * -1 if no CPU core available in the pool.
-  */
--static int ne_get_unused_core_from_cpu_pool(void)
-+static int ne_get_unused_core_from_cpu_pool(int nid)
- {
--	int core_id = -1;
- 	unsigned int i = 0;
- 
--	for (i = 0; i < ne_cpu_pool.nr_parent_vm_cores; i++)
--		if (!cpumask_empty(ne_cpu_pool.avail_threads_per_core[i])) {
--			core_id = i;
--
--			break;
--		}
-+	for (i = 0; i < ne_cpu_pool.nr_parent_vm_cores; i++) {
-+		if (cpumask_empty(ne_cpu_pool.avail_threads_per_core[i]))
-+			continue;
-+		if (nid != NUMA_NO_NODE && ne_cpu_pool.core_nid[i] != nid)
-+			continue;
-+		return i;
++		rc = mutex_lock_killable(&ne_enclave->enclave_info_mutex);
++		if (rc)
++			return rc;
++
++		if (ne_enclave->state != NE_STATE_INIT) {
++			dev_err_ratelimited(ne_misc_dev.this_device,
++					    "Enclave is not in init state\n");
++
++			mutex_unlock(&ne_enclave->enclave_info_mutex);
++
++			return -NE_ERR_NOT_IN_INIT_STATE;
++		}
++
++		rc = ne_get_cpu_from_cpu_pool(ne_enclave, &vcpu_id, args.numa_node);
++		if (rc < 0) {
++			dev_err_ratelimited(ne_misc_dev.this_device,
++					    "Error in get CPU from pool [rc=%d node=%d]\n",
++					    rc, args.numa_node);
++
++			mutex_unlock(&ne_enclave->enclave_info_mutex);
++
++			return rc;
++		}
++
++		rc = ne_add_vcpu_ioctl(ne_enclave, vcpu_id);
++		if (rc < 0) {
++			mutex_unlock(&ne_enclave->enclave_info_mutex);
++
++			return rc;
++		}
++
++		mutex_unlock(&ne_enclave->enclave_info_mutex);
++
++		args.vcpu_id = vcpu_id;
++
++		if (copy_to_user(uargs, &args, min_t(size_t, usize, sizeof(args))))
++			return -EFAULT;
++
++		return 0;
 +	}
  
--	return core_id;
-+	return -1;
- }
- 
- /**
-@@ -710,39 +746,62 @@ static int ne_set_enclave_threads_per_core(struct ne_enclave *ne_enclave,
-  *				sibling of a new CPU core.
-  * @ne_enclave :	Private data associated with the current enclave.
-  * @vcpu_id:		vCPU to get from the NE CPU pool.
-+ * @nid:		Required NUMA node for a newly taken core, or
-+ *			NUMA_NO_NODE for no node constraint. A core already
-+ *			held by the enclave is subject to the same
-+ *			constraint, so that a run of requests for one node
-+ *			does not hand back a sibling on another.
-  *
-- * Context: Process context. This function is called with the ne_enclave mutex held.
-+ * The sibling walk reads ne_enclave->threads_per_core[] and
-+ * ne_cpu_pool.core_nid[] at the same index, and stays below the smaller of
-+ * their two lengths.
-+ *
-+ * Context: Process context. This function is called with the ne_enclave mutex
-+ *	    held, and takes the ne_cpu_pool mutex over the sibling walk and the
-+ *	    new-core path.
-  * Return:
-  * * 0 on success.
-  * * Negative return value on failure.
-  */
--static int ne_get_cpu_from_cpu_pool(struct ne_enclave *ne_enclave, u32 *vcpu_id)
-+static int ne_get_cpu_from_cpu_pool(struct ne_enclave *ne_enclave, u32 *vcpu_id,
-+				    int nid)
- {
-+	unsigned int nr_cores = 0;
- 	int core_id = -1;
- 	unsigned int cpu = 0;
- 	unsigned int i = 0;
- 	int rc = -EINVAL;
- 
-+	mutex_lock(&ne_cpu_pool.mutex);
-+
-+	nr_cores = min(ne_enclave->nr_parent_vm_cores,
-+		       ne_cpu_pool.nr_parent_vm_cores);
-+
- 	/*
- 	 * If previously allocated a thread of a core to this enclave, first
- 	 * check remaining sibling(s) for new CPU allocations, so that full
--	 * CPU cores are used for the enclave.
-+	 * CPU cores are used for the enclave. Cores on a node other than the
-+	 * requested one are skipped, so a run of requests for one node does
-+	 * not hand back a sibling on another.
- 	 */
--	for (i = 0; i < ne_enclave->nr_parent_vm_cores; i++)
-+	for (i = 0; i < nr_cores; i++) {
-+		if (nid != NUMA_NO_NODE && ne_cpu_pool.core_nid[i] != nid)
-+			continue;
-+
- 		for_each_cpu(cpu, ne_enclave->threads_per_core[i])
- 			if (!ne_donated_cpu(ne_enclave, cpu)) {
- 				*vcpu_id = cpu;
-+				rc = 0;
- 
--				return 0;
-+				goto unlock_mutex;
- 			}
--
--	mutex_lock(&ne_cpu_pool.mutex);
-+	}
- 
- 	/*
- 	 * If no remaining siblings, get a core from the NE CPU pool and keep
- 	 * track of all the threads in the enclave threads per core data structure.
- 	 */
--	core_id = ne_get_unused_core_from_cpu_pool();
-+	core_id = ne_get_unused_core_from_cpu_pool(nid);
- 
- 	rc = ne_set_enclave_threads_per_core(ne_enclave, core_id, *vcpu_id);
- 	if (rc < 0)
-@@ -970,7 +1029,8 @@ static int ne_sanity_check_user_mem_region_page(struct ne_enclave *ne_enclave,
- 		return -NE_ERR_INVALID_PAGE_SIZE;
- 	}
- 
--	if (ne_enclave->numa_node != page_to_nid(mem_region_page)) {
-+	if (ne_enclave->numa_node != NUMA_NO_NODE &&
-+	    ne_enclave->numa_node != page_to_nid(mem_region_page)) {
- 		dev_err_ratelimited(ne_misc_dev.this_device,
- 				    "Page is not from NUMA node %d\n",
- 				    ne_enclave->numa_node);
-@@ -1329,7 +1389,8 @@ static long ne_enclave_do_ioctl(struct file *file, unsigned int cmd, unsigned lo
- 
- 		if (!vcpu_id) {
- 			/* Use the CPU pool for choosing a CPU for the enclave. */
--			rc = ne_get_cpu_from_cpu_pool(ne_enclave, &vcpu_id);
-+			rc = ne_get_cpu_from_cpu_pool(ne_enclave, &vcpu_id,
-+						      NUMA_NO_NODE);
- 			if (rc < 0) {
- 				dev_err_ratelimited(ne_misc_dev.this_device,
- 						    "Error in get CPU from pool [rc=%d]\n",
-diff --git a/drivers/virt/nitro_enclaves/ne_misc_dev.h b/drivers/virt/nitro_enclaves/ne_misc_dev.h
-index 283c17558f2a3..23a783bab3d2f 100644
---- a/drivers/virt/nitro_enclaves/ne_misc_dev.h
-+++ b/drivers/virt/nitro_enclaves/ne_misc_dev.h
-@@ -54,7 +54,10 @@ struct ne_mem_region {
-  *				per full CPU core in the NE CPU pool the enclave
-  *				was created from.
-  * @nr_vcpus:			Number of vcpus associated with the enclave.
-- * @numa_node:			NUMA node of the enclave memory and CPUs.
-+ * @numa_node:			NUMA node of the enclave memory and CPUs, or
-+ *				NUMA_NO_NODE if the CPU pool it was created from
-+ *				spans nodes, in which case its memory is not held
-+ *				to a node.
-  * @slot_uid:			Slot unique id mapped to the enclave.
-  * @state:			Enclave state, updated during enclave lifetime.
-  * @threads_per_core:		Enclave full CPU cores array. Each cpumask in the
+ 	default:
+ 		return -ENOTTY;
 diff --git a/include/uapi/linux/nitro_enclaves.h b/include/uapi/linux/nitro_enclaves.h
-index e808f5ba124d4..206546f24748e 100644
+index 206546f24748e..e266b8a611c92 100644
 --- a/include/uapi/linux/nitro_enclaves.h
 +++ b/include/uapi/linux/nitro_enclaves.h
-@@ -26,8 +26,8 @@
-  *		  https://www.kernel.org/doc/html/latest/admin-guide/kernel-parameters.html
-  *		  CPU 0 and its siblings have to remain available for the
-  *		  primary / parent VM, so they cannot be set for enclaves. Full
-- *		  CPU core(s), from the same NUMA node, need(s) to be included
-- *		  in the CPU pool.
-+ *		  CPU core(s) need(s) to be included in the CPU pool. The
-+ *		  pool may span NUMA nodes.
-  *
-  * Context: Process context.
-  * Return:
-@@ -50,8 +50,9 @@
-  * NE_ADD_VCPU - The command is used to set a vCPU for an enclave. The vCPU can
-  *		 be auto-chosen from the NE CPU pool or it can be set by the
-  *		 caller, with the note that it needs to be available in the NE
-- *		 CPU pool. Full CPU core(s), from the same NUMA node, need(s) to
-- *		 be associated with an enclave.
-+ *		 CPU pool. Full CPU core(s) need(s) to be associated with an
-+ *		 enclave. When the CPU pool spans NUMA nodes, the cores of
-+ *		 one enclave can be from different nodes.
-  *		 The vCPU id is an input / output parameter. If its value is 0,
-  *		 then a CPU is chosen from the enclave CPU pool and returned via
-  *		 this parameter.
-@@ -108,8 +109,11 @@
- /**
-  * NE_SET_USER_MEMORY_REGION - The command is used to set a memory region for an
-  *			       enclave, given the allocated memory from the
-- *			       userspace. Enclave memory needs to be from the
-- *			       same NUMA node as the enclave CPUs.
-+ *			       userspace. When the CPU pool sits on one
-+ *			       NUMA node, enclave memory needs to be from
-+ *			       that node. An enclave built out of a pool
-+ *			       that spans nodes has no node of its own, and
-+ *			       its memory can come from any node.
-  *			       The user memory region is an input parameter. It
-  *			       includes info provided by the caller - flags,
-  *			       memory size and userspace address.
-@@ -138,7 +142,9 @@
-  * * NE_ERR_MEM_NOT_HUGE_PAGE		- The memory region is not backed by
-  *					  huge pages.
-  * * NE_ERR_MEM_DIFFERENT_NUMA_NODE	- The memory region is not from the same
-- *					  NUMA node as the CPUs.
-+ *					  NUMA node as the CPUs. Not returned
-+ *					  for an enclave whose CPU pool spans
-+ *					  nodes.
-  * * NE_ERR_MEM_MAX_REGIONS		- The number of memory regions set for
-  *					  the enclave reached maximum.
-  * * NE_ERR_INVALID_PAGE_SIZE		- The memory region is not backed by
-@@ -223,6 +229,8 @@
- /**
-  * NE_ERR_MEM_DIFFERENT_NUMA_NODE - The user space memory region is backed by
-  *				    pages from different NUMA nodes than the CPUs.
-+ *				    Not returned for an enclave whose CPU pool
-+ *				    spans nodes.
+@@ -83,6 +83,60 @@
   */
- #define NE_ERR_MEM_DIFFERENT_NUMA_NODE		(264)
+ #define NE_ADD_VCPU			_IOWR(0xAE, 0x21, __u32)
+ 
++/**
++ * struct ne_add_any_vcpu_args - Argument for %NE_ADD_ANY_VCPU.
++ * @numa_node:	The NUMA node the vCPU has to come from, or %NE_NUMA_ANY for
++ *		any node.
++ * @vcpu_id:	The vCPU id the kernel chose, set on success. Ignored on
++ *		input.
++ */
++struct ne_add_any_vcpu_args {
++	__s32	numa_node;
++	__u32	vcpu_id;
++};
++
++/**
++ * NE_NUMA_ANY - Value for &struct ne_add_any_vcpu_args.numa_node that asks for
++ *		 a vCPU from any NUMA node.
++ */
++#define NE_NUMA_ANY			(-1)
++
++/**
++ * NE_ADD_ANY_VCPU - The command is used to set a vCPU for an enclave, chosen
++ *		     from the NE CPU pool. @numa_node confines the choice to
++ *		     one NUMA node; %NE_NUMA_ANY leaves it unconstrained. A
++ *		     caller that spreads an enclave over several nodes asks
++ *		     for each node in turn and stops when a node runs out.
++ *		     @vcpu_id carries back the vCPU id the kernel chose, so
++ *		     a caller collects the enclave's vCPU set as it builds
++ *		     it.
++ *		     The ioctl can be invoked on the enclave fd, before an
++ *		     enclave is started.
++ *
++ * Context: Process context.
++ * Return:
++ * * 0				- Logic successfully completed.
++ * * -1				- There was a failure in the ioctl logic.
++ * On failure, errno is set to:
++ * * ENODEV			- The NE PCI device is not available.
++ * * EFAULT			- Argument read or write-back failure.
++ * * EINVAL			- The argument is shorter than @vcpu_id, or
++ *				  @numa_node is neither %NE_NUMA_ANY nor a
++ *				  possible NUMA node.
++ * * EIO			- Current task mm is not the same as the one
++ *				  that created the enclave.
++ * * E2BIG			- The argument is longer than this kernel knows
++ *				  about and the excess is not all zero.
++ * * NE_ERR_NOT_IN_INIT_STATE	- The enclave is not in init state (init =
++ *				  before being started).
++ * * NE_ERR_NO_CPUS_AVAIL_IN_POOL - No CPUs available in the NE CPU pool on
++ *				  @numa_node.
++ * * NE_ERR_VCPU_INVALID_CPU_CORE - The core the pool handed back is outside
++ *				  the enclave's core slots.
++ * * Error codes from the NE PCI device request.
++ */
++#define NE_ADD_ANY_VCPU			_IOWR(0xAE, 0x2D, struct ne_add_any_vcpu_args)
++
  /**
-diff --git a/samples/nitro_enclaves/ne_ioctl_sample.c b/samples/nitro_enclaves/ne_ioctl_sample.c
-index 765b131c73190..84caf5e66fcbd 100644
---- a/samples/nitro_enclaves/ne_ioctl_sample.c
-+++ b/samples/nitro_enclaves/ne_ioctl_sample.c
-@@ -11,9 +11,10 @@
-  * -----
-  *
-  * Load the nitro_enclaves module, setting also the enclave CPU pool. The
-- * enclave CPUs need to be full cores from the same NUMA node. CPU 0 and its
-- * siblings have to remain available for the primary / parent VM, so they
-- * cannot be included in the enclave CPU pool.
-+ * enclave CPUs need to be full cores. They come from the same NUMA node
-+ * unless the CPU pool spans several of them. CPU 0 and its siblings have to
-+ * remain available for the primary / parent VM, so they cannot be included
-+ * in the enclave CPU pool.
-  *
-  * See the cpu list section from the kernel documentation.
-  * https://www.kernel.org/doc/html/latest/admin-guide/kernel-parameters.html#cpu-lists
-@@ -41,7 +42,8 @@
-  *	dmesg
-  *
-  * Setup hugetlbfs huge pages. The memory needs to be from the same NUMA node as
-- * the enclave CPUs.
-+ * the enclave CPUs, unless the CPU pool spans nodes, in which case the enclave
-+ * is not held to a node and its memory can come from any of them.
-  *
-  * https://www.kernel.org/doc/html/latest/admin-guide/mm/hugetlbpage.html
-  *
+  * NE_GET_IMAGE_LOAD_INFO - The command is used to get information needed for
+  *			    in-memory enclave image loading e.g. offset in
 -- 
 2.47.1
 
