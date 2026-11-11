@@ -1,55 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.178.41.114
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794410645;
-	b=tNMGBAT9mgEB4qAtE4Bq0jyxd+jhQJQ4Yd/XVLRLgLnWrCeIAqS/YbekYzGk36Czkzw3
-	 8YTUneeemfV0tT/eZlm3Gh8nJt4swt3JpzZfLorBtM3IB4D7DWz1u7fChvwcai2kuZppe
-	 irhneXLEs9PURapnc4j7lWrOMrE18ITbDIaAi1+VdeNrBQblEVZmlMyDspdPmYftaTQpY
-	 TiSOFHfV5+q/PEnVTZ0YKn+Jka5orVs1g2OvrpKKVgo7FXlqe0wgiy/idrqa/RkFjmXHu
-	 kmYQjQS40BBjZD4ez4ShrvkqTQXmw+Wakbiv7AJPAkt+S3YNWh5aIIbzqP7OnyGZwMg==
+	t=1794410672;
+	b=BXVdGWLd2ukwSO80ZewBQLZfanGMV2WAGyJAQh5hXGBX3Wpk1m59PkOmrEUmOEMEl91V
+	 AQedTS3Up6bx9KH1Cy250vcrRLEr3V25FSZ4lZTSRO+CM5NbKbr6wGTsxi/xuGMpvuP9c
+	 gsUsmE9/5hNo11UWYJv01utm4/1VPr7wZ9Xz9RjWGyM/p3aFBXGZWKgyz9IE2FpC+FS27
+	 Or5TOWEXi4r8n4zew++ubWfHIJrsAgLjArtpxWy3qrk6azBUY7gBmttU2JO9wUWHjpya6
+	 izlXohBRuhbOKEWo25Lgpo5JXocr/IuzyA3T51MfZjj1EzLOsF8LRyY/jWBr/rN0PwQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794410645;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer;
-	bh=l8E6CAg871M6o26VCTM4QGlPjPFhAzOzf3/AvOe/bZw=;
-	b=XCs3kAg1pIIg5YEsvGOkTIYfdxooVjWgbST4r3bG0SLRnOKQecubQLuOXS7jqDz+5klg
-	 /yK57AmbKkKJ7jhx1SkCpUJehYAQfHRAS9D9HaExyXTbGm/5rcbaAXIrBrKB/wcQJeiTF
-	 iUDlHsf7aujt9noqLSZ4zxJPK+8bTTMcWTyS2+AlHRXD8uqjlJX9GrygCi58nXcOghK2q
-	 ORt3ZkhFWahpXoebqEhpRHnLiFB2/KiSgkHnLSinax0OafIRn6UaZEhqCf8POttM+BVh3
-	 mbMdLZQN2Nq3pRUBNSPkKnwEBIZhdKBfn3OjvciXXJQuI9EwvB3UBGSSQ0wPRJ2jlKA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794410672;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=joqpnfazpg45b8CAOPhTIGRk8ga+vSwh/VQww6gpLz8=;
+	b=NWn0gvKyUJ5JVJFK5/2ZyoqicLGU/beQ6ai+1keHxZGiGhMaMae+FXLZLjCNfU3YJdTS
+	 0bajIPxb6NvhOczbSt7kTpxKRllC8Jpva5/QNEsz4A+tKQs1bhlpycwCZtAUtKrinagAM
+	 MuE7qrEJd/PPLJtlwdeiIe/1FmoGch+K/mr8bCYTb9Mz9unJpvfjaF3dSI0tfYSF+iuWx
+	 dQCWsXonFzk6Bm6aGciOqkPdPlllAnpPzCnLi1VDJVf6/48e0MAwAHSUb+TilDOaKqZiE
+	 31UcKni+eLf5dAAm4KJOJm6rewDon9nst7VvhBanlcM3+1uJDgOTTRnb6o5kB4nQJDQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mVMUlHyQ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=bencteux.fr;
+	spf=pass smtp.mailfrom=bencteux.fr;
+	dkim=pass header.d=bencteux.fr header.i=@bencteux.fr header.a=rsa-sha256 header.s=mail header.b="MCT2UNH/";
+	arc=none smtp.remote-ip=51.178.41.114
+Received: from beta.bencteux.fr (114.ip-51-178-41.eu [51.178.41.114])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BD20606A332
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 15:24:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F206A606A321;
+	Wed, 11 Nov 2026 15:24:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F206A606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bencteux.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bencteux.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mVMUlHyQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB0B81F00A05;
-	Wed, 11 Nov 2026 15:24:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794410645;
-	bh=l8E6CAg871M6o26VCTM4QGlPjPFhAzOzf3/AvOe/bZw=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=mVMUlHyQqTAVZ1c4DLJvZbwcCJgUDUZpTbYZkG6wrtulkAMbkGPxk2NZdUwcFVBqq
-	 lmDEBuJa+vz44ituuC2uC76Co0foxlZON8fGb7kTjDNQzmZQnCltsiLAzLPoVKAa5z
-	 Tvyihu7VOquOgvua+XMrM+9/FL6BV3IbEmX6+TFzjNJU1aWhMudXLYRcCXp4whCSiL
-	 X0qNUBZbN6Fq4vx9VYqQ1lzsErh2qs8jU9BzR7DEuCobvL2Kqbyn/CKU5GVneiom6o
-	 pB9QKRPvjdFUmJasukWWGqNvxWDl2reGfRiZdfGHHqWxDnnK1q5aZ2/OS7AfBXyc+O
-	 mipV08l5OL/Jw==
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Sasha Levin <sashal@kernel.org>
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
- Reid Downing <skibletz@gmail.com>, linux-kernel@vger.kernel.org
-In-Reply-To: <20261109134708.263012-1-sashal@kernel.org>
-References: <20261109134708.263012-1-sashal@kernel.org>
-Subject: Re: [PATCH] memory: fsl_ifc: Do not dereference the unset global
- pointer in probe
-Message-Id: <179441064353.189405.12967857924485810562.b4-ty@b4>
-Date: Wed, 11 Nov 2026 16:24:03 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=bencteux.fr header.i=@bencteux.fr header.a=rsa-sha256 header.s=mail header.b=MCT2UNH/
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bencteux.fr; s=mail;
+	t=1794410489; bh=DQZ/K8C5Xuvonbckgw4rX87bpSwrJG+odV2IIvPcb0I=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=MCT2UNH/sg5PVMBKhGCRYKzj0DbK8bi9cxaj+UiCJk5T7ZWUQL6l1Yu3I+MFALkOq
+	 vtCoOshcPucn5uqwleBzXDCMBqmJRIS2vW6h2449+5xxwGYuP6c9+QEU+t9DxlKwZx
+	 0SVUNx7YDorK5WQULnj6h+AVLc1xIf0cjsEFciOY=
+Received: from localhost (unknown [146.70.188.209])
+	by beta.bencteux.fr (Postfix) with ESMTPSA id 33BBF4029F;
+	Wed, 11 Nov 2026 16:21:29 +0100 (CET)
+Date: Wed, 11 Nov 2026 16:12:05 +0100
+From: Jeffrey Bencteux <jeff@bencteux.fr>
+To: Ricardo Robaina <rrobaina@redhat.com>
+Cc: Arnd Bergmann <arnd@arndb.de>, Paul Moore <paul@paul-moore.com>,
+	Eric Paris <eparis@redhat.com>, audit@vger.kernel.org,
+	Linux-Arch <linux-arch@vger.kernel.org>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] audit: add missing syscalls to signal class
+Message-ID: <avSFxQDmHlxNhrJ7@ultrabook.localdomain>
+References: <20261111110200.30415-1-jeff@bencteux.fr>
+ <e817126f-83b7-4450-a893-ac4e59460ae1@app.fastmail.com>
+ <avRzKRB2f_dP-xEv@ultrabook.localdomain>
+ <6f26e8fd-6198-4c2c-9702-3b7b8dc73f7c@app.fastmail.com>
+ <CAABTaaCAhp7n-yNLMPoyJ6=uYaLjkA82KT0CTG4MGfKHdjMvDQ@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,27 +65,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAABTaaCAhp7n-yNLMPoyJ6=uYaLjkA82KT0CTG4MGfKHdjMvDQ@mail.gmail.com>
 
-
-On Mon, 09 Nov 2026 08:47:08 -0500, Sasha Levin wrote:
-> Commit a78ee2e05f7c ("memory: fsl_ifc: Clear fsl_ifc_ctrl_dev on probe failure
-> and removal") assigns fsl_ifc_ctrl_dev near the end of probe, but probe still
-> reads the IFC revision and fsl_ifc_ctrl_init() still programs the event
-> registers before that. Both go through ifc_in32() and ifc_out32(), which take
-> the register endianness from fsl_ifc_ctrl_dev, so the first probe dereferences
-> a NULL pointer.
+On Wed, Nov 11, 2026 at 11:50:48AM -0300, Ricardo Robaina wrote:
+> On Wed, Nov 11, 2026 at 11:31 AM Arnd Bergmann <arnd@arndb.de> wrote:
+> >
+> > On Wed, Nov 11, 2026, at 14:52, Jeffrey Bencteux wrote:
+> > > On Wed, Nov 11, 2026 at 12:18:01PM +0100, Arnd Bergmann wrote:
+> > >> Why the #ifdef checks? These should be available on all architectures.
+> > >
+> > > I included them as convention, should they be removed?
+> >
+> > Not sure where the convention comes from, it just seemed
+> > odd that you have the #ifdef checks for the newly added
+> > entries but not the ones that are already in this file.
+> >
+> > I had not checked the other files that have similar ones.
+> >
+> >      Arnd
+> >
 > 
-> [...]
+> Hello everyone!
+> 
+> It's not a convention. Arnd is right, ifdef checks should only be used
+> for the ones that are not available on all architectures.
+> 
+> Jeffrey, please take a look in this commit c0d73c09381e ("audit: add
+> missing syscalls to PERM class tables"). Note that '__NR_statx' is not
+> guarded by a ifdef.
+> 
 
-Applied, thanks!
+Arnd, Ricardo,
 
-[1/1] memory: fsl_ifc: Do not dereference the unset global pointer in probe
-      https://git.kernel.org/krzk/linux-mem-ctrl/c/1a509eca07176bc3363031c030d038ca9be9dfc0
-
-Best regards,
--- 
-Krzysztof Kozlowski <krzk@kernel.org>
-
+Thanks, it is now clear to me these are always available.
