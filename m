@@ -1,111 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794398994;
-	b=ND6kF2fn8ijk2UWlEavI8h1X7StB8m5dIaOcDQWfgDzgP5z3E+BZULSvFdueORL1N4oM
-	 bzIiF9jsOEJtZ+vWmJTErpIKVpQzy90BwVcPRXkyd258aplB1Fsz95YilPfyBQcwvK8NX
-	 INiYB2e6qh9ppuCZ6VVspy2gfwjDHZABNgqOIT2OnzQih48QiwxBpaY5FJCrBpEAbk23A
-	 Bw+wJtNJ6Yt9qA/3nxoVQ+aMkB3VlsgpBcNhUXJs4M52fOumSRK/IBGRZpJje+stGRIy8
-	 e/PyGrhcpX2g0OvboymnvR0waNu3d5uDwU7SImTiAspvXGR69fBxFc1pVnhDP8DdXMg==
+	t=1794398996;
+	b=fFWr/fZNaJhCcAiP1O/vtQZyNTNZoIopQPJ48aVS8VXKYmdvdaZ6PRzKd7O/8o8t/2zJ
+	 Cocui6yq6LiJzVdiiX9sS2GPBu0ILR/yzjJOdDk+Qz5o+PINNv629hx+bvyOGg1v+J69C
+	 0rfHpNy7Uvknxy6RhnICymrYlcofg7g0AAZnWR/D9ejSztYykkSMg2LldSAJmLZUfRFzO
+	 +IB0QhoehKkYuyGl8ZEyJ6Agmr0jzlWCjvbqDkg/RtEJ+5o55ZhtLsj82FecZ18XRtGNY
+	 LxUY/TGiaVoyj//OlVmY97Z+AGuPih6p4dlDFDqsGy1hyOYLFKtQeOazQcm2u85z9wg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794398994;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=E0NJ0Tjdg/pYbIbqMZNbeV94Mj/dKmq8NmNovao9J/o=;
-	b=yVcDe3AEOGMgANuaX7FOWbj0V/vjvZCARKGc5KKIjkNl1I3gxwwxSnAqpNA2dnrN7I70
-	 Htg7pcWdJckZCvw01w9i/nVXRbMRMpvDmnzosXpBJolnYThUNmeZdJdQJFvSEbt8a+/h1
-	 zO0qpj8vxepSI7491X8uNi1/f+k052IB67M1ypTWUty92TSCqHs/EK0mtPzzNv7bFlcdD
-	 PbQ3pRg3q8ujynkhToAMKU3mJ75Xhyp466tKwGxNp8NR5J2v2UGG1I6pK5+V3GV9Lv/sf
-	 fV5VM9mATdpZIKB/Ky2QWuzLKtNE/6dYj7IEGnY0VaM2M0FdbI/r838NaUiPke59xFA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794398996;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:Date:
+	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=+EtG8CyQ59kAhcLxDyXRX3sibsUSs2m78jp4eyjdC+8=;
+	b=FKQdj3IMGdHst7lNjiKNkIK1aAtJiVHzIzY+Z0D7F56jeMCcv7o/t8GxmxewJ9edhg88
+	 AZ146MWgwNvuaMJXFw8KoGgqMxqij76Og4zYbm/iHneeluoh8FkaZMTdmJ71Mi+Tvbfgg
+	 yNLKx4jv63DMZP4NjGvhbEPvxQPPLEJqE6xCwLQF+cXm8Xg//3uqU8eYB0gsESEtsF0nM
+	 EJBy/4jrBFW8EJw39WflbL3thlsI1YqlicuLsSVOkwVO2dMeW0sHCsfQJQLtcxOwXxPzz
+	 gfkbZpUrA6oPYFlylyFT5r6cZg/dUFWTAdeebnhkW1BrgpJCnouxzXJboW945TwAz9w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NzQgpPq3;
-	arc=none smtp.remote-ip=209.85.210.52
-Received: from mail-ot1-f52.google.com (mail-ot1-f52.google.com [209.85.210.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=sang-engineering.com;
+	spf=pass smtp.mailfrom=sang-engineering.com;
+	dkim=pass header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=WkRCID3y;
+	arc=none smtp.remote-ip=194.117.254.33
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D051606A894
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AE2760A2612
 	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 12:09:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7D051606A894
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4AE2760A2612
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NzQgpPq3
-Received: by mail-ot1-f52.google.com with SMTP id 46e09a7af769-82109f51565so1356839a34.2
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 04:09:54 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794398993; x=1795003793; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=E0NJ0Tjdg/pYbIbqMZNbeV94Mj/dKmq8NmNovao9J/o=;
-        b=NzQgpPq3wUl1i3FkFxZ5E4mkj9nQ/Kty6du7nwjR+DbkrZWWhFf9Am+gxOfno3pmNC
-         ufRqkQsZs2L9PePy2dgVEohJv2/tffYzvJ/Zka7wR7NRp74XVmgCIRmBAdJPrRXNaGJ6
-         wHXIdlqyE/z575W3jia2OhOzq8f+qxTdyfC0OIcHD5/VkKgv5d/9oDy2qFhdNnoTkxDB
-         YeJLeZANeJI7zdDDTkGT4v8SQUu8U0kDIrwzSd0QLGaKdEtw7sPZTU5yplO2Tzizcp+E
-         BfixZzdaZjdOB4e2BmuJ6UkTHTtUrcwmWZXZuYeDZwOExXSw7yC7bPCQkhxbB97OXVGB
-         gRdw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794398993; x=1795003793;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=E0NJ0Tjdg/pYbIbqMZNbeV94Mj/dKmq8NmNovao9J/o=;
-        b=THs+yRYKrWeltLteodG5SgcJBT17jjeqPC6mQhun0PNoEOZAiPxf5OWOEd7fcJWJdr
-         kmdZTMlNIkm1cPbIvF+To2Dtpdb/9PP0VA7g66Pzqc/pntGma/y23LndSqM4hQZESHzS
-         I8ILjL60CKXzLURI1iVtgTcCQrM20w7GxBVoUD9B+BvTdeN4AMv1AZyk6FzBTZo+32rB
-         oXRu2FdJVKmNYdw8z3eOI/R1sGCrynBLPH1A1kW6qrzY60aZPcKEIufLPbIBp1iPKW/P
-         mFzIJ+pUBenXY7hfA398Rhc1iLr08w7+G1QZuzSyuj8+2bsJGqFV8uEoizCYtDN+fZX5
-         HDJQ==
-X-Forwarded-Encrypted: i=1; AL+hErG6E7UA64LkXzTefitsBwL0AhOScHFEEMyLbIhtc86U2JhINYC2X4VGvcLjHywe+hLaQppdGX2+qvK2eYs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9NgvfdXbB1QfyJlhhsFSFodb3GnRT1DgjkVZ/TMz+ytXInZfp1
-	vMR8Ap+Va6VFpd+pyQuG3VTmnqFXwGbxaSKiRQKDW4ysIdE0imM6q99T
-X-Gm-Gg: AYBFou3hllIKDQBu1pQxO6Y48YVwY48pycUNUgE0FdRhELVfMG1CkV8U1orE/KpNbLu
-	b9IyxmgVnwZZR+XjtflNbbBcbAZTaKgtlpdZLfJtPvtpVhD6Z6zv7zq+TY48qSwzAXLeim7zNP1
-	s/7Sx/arZAtyoGLEFRnUBlbhs7SQ0RKllLwfhoHTtaVC/U1NnKIBCCrRhcCoPY5ZgHx6msVwgnr
-	M0gVjiTpuWBG0LPdaFjbydf3hfydviamjFzisajvty5nYwpqRGJrBimTXUCoPB9OXNKmrkFjfzL
-	DFYwt/Q6bV2AYIdDWTKYua4XH1Y9FKMCRgtGdJi+ev/go7J+Gion7QwtrZXHM0FvHmdk3Z9Cc9h
-	qY/7qQ3yGmpgxHS9gy45pyk5F6xZ7oyoyJBJUNFZpIg8hHTgYN5CeOgMKkmCG7PldBnwc27seXZ
-	xvs11GtIGcBi98qm1P0E6YGXOGpWbnw5SuHB0fpA25cLYbcN3d1vx8Om2nt4lWzjiTi1ktOkpvo
-	NonI81Jwh2R/320RHcYtms7LFs8I97KLYwxnSC6xy7lLOPh2oIKFe00IpVvZEO923NS2xcqUiWM
-	zd+07RSeD4vhv2voInvdpvvkxfcqIX5y4SHOlPf0kGWWl4rN7hWINZx69RCLrWF3+gOzN81JnYr
-	t8cRA9cYjwDKxlS/+GSDdjBIzGQ==
-X-Received: by 2002:a05:6830:25c6:b0:829:8a9b:de79 with SMTP id 46e09a7af769-860f268b747mr1620889a34.4.1794398993361;
-        Wed, 11 Nov 2026 04:09:53 -0800 (PST)
-Received: from AMD.home.internal (dhcp-9-244-8-156.gobrightspeed.net. [9.244.8.156])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-860dc85a9e8sm4218356a34.0.2026.11.11.04.09.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 04:09:52 -0800 (PST)
-From: Enzo Adriano <enzo.adriano.code@gmail.com>
-To: andre.przywara@arm.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	wens@kernel.org,
-	jernej.skrabec@gmail.com,
-	samuel@sholland.org
-Cc: Maxime Ripard <mripard@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-sunxi@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Junhui Liu <junhui.liu@pigmoral.tech>,
-	Jerome Brunet <jbrunet@baylibre.com>,
-	Pablo Mazzini <pmazzini@gmail.com>,
-	Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>,
-	Alexander Sverdlin <alex@sverdlin.org>,
-	Jun Yan <jerrysteve1101@gmail.com>,
-	Lukas Schmid <lukas.schmid@netcube.li>
-Subject: Re: [PATCH v3 0/3] arm64: dts: allwinner: add A733/Cubie A7S support
-Date: Wed, 11 Nov 2026 07:09:50 -0500
-Message-ID: <20261110-a7s-dt-v3-deps-reply@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <cover.1794227241.git.enzo.adriano.code@gmail.com>
-References: <cover.1794227241.git.enzo.adriano.code@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=WkRCID3y
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=+EtG
+	8CyQ59kAhcLxDyXRX3sibsUSs2m78jp4eyjdC+8=; b=WkRCID3yVbwXRqKJohqV
+	Reen4BzE0JuLOnYgLguV7+HYnRrzpAXfIcBbRX96w++mby2m5tXCx1HDPKfe5h8S
+	hYeryuP54O9NrT6zZuJ6doM03pKU63M6lGkx16WzhowviJL3RcZuQuBiQOgBnsC/
+	SRGHu1jk8X2SaH888i79a1juIRyiO7+PN/0IOB9GRp9ZJYbrU+906ocm/EwlmOY/
+	jgN7rvBoLKMNGifpiOSCBUe/JUyXdQT6fU14rtUCk8Z4IFT2PEToJXjIJQUEQJOc
+	mgXe68JCGLRUNnoYHip9McVi4UmUgYXLxCErHQToQ74EMUZzUoqaENnGtaEpx3ya
+	jg==
+Received: (qmail 603641 invoked from network); 11 Nov 2026 13:09:52 +0100
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 11 Nov 2026 13:09:52 +0100
+X-UD-Smtp-Session: l3s3148p1@fXCIEv9fKq0ujnun
+Date: Wed, 11 Nov 2026 13:09:52 +0100
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: phucduc.bui@gmail.com
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
+	linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4] drm: shmobile: Fix white screen after resume when
+ LCDC is stopped
+Message-ID: <avRbEGoPh3bqR93f@ninjato>
+References: <20260707093004.987846-1-phucduc.bui@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,31 +69,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260707093004.987846-1-phucduc.bui@gmail.com>
 
-> [4] A733 8250_dw v2, patches 2-4:
-> https://lore.kernel.org/r/cover.1792439398.git.vinicius.eduardo.pedrosa@gmail.com
+On Tue, Jul 07, 2026 at 04:30:04PM +0700, phucduc.bui@gmail.com wrote:
+> From: bui duc phuc <phucduc.bui@gmail.com>
+> 
+> The LCDC on R8A7740 may show a completely white screen after resuming
+> from suspend (s2idle or s2ram).
+> 
+> After resume, both Set A and Set B registers are reset to 0. As the
+> Frame End interrupt is not generated while the controller is stopped
+> (DO=0), the hardware register switching mechanism is not triggered.
+> Consequently, Set A remains at 0x00000000 even though a valid Start
+> Address is written to Set B, resulting in a white screen.
+> 
+> This is a timing-dependent race condition. In some configurations,
+> debug options slow down the resume path enough for a Frame End
+> interrupt to occur, which can mask the issue.
+> 
+> Fix this by priming both register sets with the Start Address while the
+> controller is stopped, ensuring a valid base address is available
+> immediately after resume.
+> 
+> Tested-by: Geert Uytterhoeven <geert+renesas@glider.be>
+> Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+> Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
+> ---
+> 
+> Note:
+> It was originally posted in March and has already received both 
+> Reviewed-by and Tested-by tags. I'm resending it to bring it back 
+> to attention in case it was overlooked.
+> 
+> Changes in v4:
+>  - No functional changes.
+>  - Resend.
 
-Correction: the runtime dependency is patches 1-4, the complete posted v2
-series. Patch 2/4 needs context introduced by 1/4, which is absent from
-v7.4-rc1 and the checked tty-next and next-20261109 snapshots; all four
-applied cleanly together.
+Still not upstream? Who is the person to pick this up? This is a
+valuable fix we surely want to have.
 
-AXP318W PMIC v8 5/5 also needs a context-only change on v7.4-rc1 from
-sizeof(*desc) to sizeof(*new_desc), introduced by b53a09c957b68.
-After IRQ-bank v3, pinctrl voltage-mode v3 needs its hunk context adjusted
-to the IRQ-bank map; its voltage-mode change is unchanged.
-The older clock helpers are already in v7.4-rc1; no other input adaptation
-was needed, and DT v3 itself applied with ordinary git am.
-
-> Untested: boot with pinctrl v3, card writes, hotplug, 1.8 V switching,
-
-DT v3 with pinctrl v3 reached an initramfs shell on one Cubie A7S with
-vendor firmware. In these boots, warm reboot returned to vendor Linux only
-with bus-r-riscv and bus-r-msgbox marked critical (firmware-clock patch [5]).
-No card-write, hotplug, 1.8 V switching or other functional coverage was
-added, and no new schema check was run.
-
-Thanks,
-Enzo
