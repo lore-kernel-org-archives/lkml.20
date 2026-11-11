@@ -1,13 +1,13 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794406672;
-	b=dRWIhWuYeN7h71ADKOkXAZfDw+YcMZUyDDYSntNuFBrZgRBtrWW8VHBEVnvqXcrmcwgu
-	 fakkIjIRmAzGjVUc24ztZGK6+5TP9PozFFFSF2z9cnS88Jm5GbHHUsEzAoxGg4aOQ1a7W
-	 rQiXbHvvvZrlf03N1Ut/QhCGYA/MaTvVf9xDdciYl0fxKpERrByYc1Yw81ZWX/+wz4rAE
-	 islmFf+1xTEwr/GvfL8X47NGctdKIj4Rl4LMxlaaXeJZc5uxgL79i+uRoqAwLO44tdsvB
-	 7gj+M88RN2/2+A1/18NqhfboDQMxB6rKDCWTkbHAmEtlmP5jhibOsnlaNC1T2Xermxw==
+	t=1794406673;
+	b=zmmfXEE2gFDLeEBaO5M6zh5EmZ5aK1EEpUB/TBwit6JPhny9sEkoAYuuE+8SzcMRmHcd
+	 jLiIiypL4bMiYJ1ehe3sdfTf6OWR6aUpgj05z7wuqqFAMj4LgejFmPdUiDjbLYrQIvzmX
+	 JJyAfK2yhA2lsVfj/ml1Fsj63x/8hgHhvTKokFJ+8bjGBcJRSCrzwr9jxec7GHUeq/hor
+	 TUPfM+VQyubHsHq7ObAfNB6B1tloxYbRM/cGLrJadwQ0HIePTT4U4AjgWuGCRJlrThEW3
+	 qqCMSQYstZyMDQQeKEy7ZuEWmRE/T8zuJOEYMvbJTMd7FPAmFJCGfLrl63/kB9jswfw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794406672;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794406673;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
@@ -17,97 +17,96 @@ ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
 	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
 	 X-Proofpoint-Spam-Details;
-	bh=abnYs5U4L9bKrmw3WJVtrxPRARSoubCvJFVtGzfloC0=;
-	b=o+GTDx0jUhMyVROiLbCdEvE/K3uvuEkbRMKs+jR2Qs7yttRSzhShvVuJxWsA59msR6j7
-	 mYZK4Mn7Tt2+ZKq+HtgN6C2/dvA8WJw1HniZ/KTg6p7VtyLZTaOHqAdoICXeFi4CKB+Wy
-	 9OXQ4jzvt2OtUYU+uoTfO0wm3lPoQnlaDswqLLvA1T9Wsy9tzRYCIMo9quuzWe9j/dcNk
-	 3pXr/cW9rcrMeSBAkWD9dh3k8dOQbuE0TONdr+1wD1OiUE35AtC+QAcss2IxmC02q+vW0
-	 G+suaKB2saBpxUeCHdhDGs1KNaAntumwcnlW2sAaCapbls0iFVMa9VKNWKg/mBZJ86A==
+	bh=6HT8hHbJeK5I+tO3cjERj1hO0RTkiT/uf2C7Ao/T0oc=;
+	b=vJZ8Bvv+aGt6QzUCTSOkMyFzGYIUFFFurv/tR4PhbwGE2VX/AgJAPGhPTOb2JJXWC+6w
+	 6S3PQsSdXT8lqX7FywhKhd2zKZxA5KLgxjg6dfUwkXU5qrTtS0isnirPmS9Esgam9rzOq
+	 jOJkNkrsSJ9cfvEGFCpDMSa6KdlB9V4n7qdm2B/AVJcVfP5wMsbZbAEEkuWutH1XMppf9
+	 3XccR0zugSsXuhXMG2de3pwIm/0jVHASZpA4cTpkaUnlWUs8Cse/8A+OKrPechY9laLCf
+	 5enfi7WFzvLirvPRl9+JotmjsYZaUBlyKINeqFF6AQKayg8jOKfl55rTD774pPFJVAw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.qualcomm.com;
 	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Q1wu5TCM;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=UBfrJE19;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=o6ivmwQw;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=QTGCyCCV;
 	arc=none smtp.remote-ip=205.220.180.131
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A7D3606A88D
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 14:17:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A7D3606A88D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 478A360A2609
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 14:17:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 478A360A2609
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Q1wu5TCM;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=UBfrJE19
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=o6ivmwQw;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=QTGCyCCV
 Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ABEHnwe1471243
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 14:17:50 GMT
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ABEHmGb1471224
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 14:17:52 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	abnYs5U4L9bKrmw3WJVtrxPRARSoubCvJFVtGzfloC0=; b=Q1wu5TCM1g5WkJp2
-	KJene2q4aWFyBkiTGgzMpVCZUUPFxk26z8Qc0+Vc31DdYDEtGYpSMQbm5gq58S3J
-	L1ncYOKKOAzHeOa6/9aWzNbnRIXRwIpYrGT49FXR++9LhqllIs4Qqc4YMMuZKSll
-	8HwuXjYIdkHkHbh1qk78TTjlp07epU37PD74ohErEhOYwV+bcPmgkB7hRFubWvx5
-	NDn6g1yevlEF2RFiugMuz3oTfvJoOzWndShm2gsvkt22Uu8fbXgq+ckgOubnIvWR
-	7AecN4DVZzKjcACtM6bzCLS5+bRBZsdF5xinTfPR+CQmpQ5B49CbS49WRl30cL6X
-	F23o4Q==
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvs4m083s-1
+	6HT8hHbJeK5I+tO3cjERj1hO0RTkiT/uf2C7Ao/T0oc=; b=o6ivmwQwRgG4pHwy
+	q+afwrSICKZZR2siQ1gTy04fwkgZRhr+lHnfA30bd+Vsym8aPcCSgEW4Rp4ic+AT
+	pd7x+sbkgNl3Keiuet3TtrHMHt+SqAkCdWkzK7T8rm5/4ETAOP6t0pBGpFJA9GQX
+	L3RJobIiglW2Ei4mUk33TzEN7f1besSUDLRH952m+J86P1GJcmg5VfCW8R/uPzUo
+	2jYvhDSNiTIzKhsd6cuhHjLy+GUOMCOwJnKp80mcNeCIILEIcxfar9NTORYzcNpM
+	o1fVRmD40IQBI0GHBERTr28xYsnN2+UskFK5GK8klZykmaeq51HHTyV5OZXzYHyj
+	+PUpOw==
+Received: from mail-dl1-f72.google.com (mail-dl1-f72.google.com [74.125.82.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvs4m0846-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 14:17:49 +0000 (GMT)
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-30bcb065bfdso5375322eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 06:17:47 -0800 (PST)
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 14:17:48 +0000 (GMT)
+Received: by mail-dl1-f72.google.com with SMTP id a92af1059eb24-1af203073e0so3878479c88.1
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 06:17:48 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794406651; x=1795011451; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1794406656; x=1795011456; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=abnYs5U4L9bKrmw3WJVtrxPRARSoubCvJFVtGzfloC0=;
-        b=UBfrJE19stojvXAU7YUeRhPKeFIAXDFWdCs9R3G1XwCSWin5oJZPMeCCmgUNVz+Vx6
-         c4s4q/YEDOivhxAOTeT/sv116bcs7x9FC4pjCrTtiDsYipiQFZEt3ry+LmZ5AlSqqxqE
-         JOPO6tCXZqCFFVUbaD8+CMLPMUZ/SBgGk5HuET60dfR9Kq0tg9uCO52fm/LKewFWAxep
-         99Lk0Lm73PH4VqoKYjDDRCe2QoTtukz0aLkquqM7Q5znH8X3CFNha8CVerVh5uZLWfBv
-         /njCCGxKuTn4QLjt6E3YDDoRqIBbcZqT5dC1qhaId24/1eaTB8U3uJ0b9iLycqqFdp5F
-         3zGw==
+        bh=6HT8hHbJeK5I+tO3cjERj1hO0RTkiT/uf2C7Ao/T0oc=;
+        b=QTGCyCCVtTvqmRdxog4MBplwyFsoGPVAXycO9pjpT2PJOe64eXqRFhzw6uqEfUVK2O
+         QPvEZqxF53pYUH6PUwfnJi/NsajBQ/PnyQVXrAJsGP5sFk+zohSe1JPMnZ83zB9SxLXx
+         uSx1P2Qvi6ajTHev/duVDYw/HJMVAsh84xo9YPKmxsOxNCTnDtwrMCfYVoTqSSuGDCYt
+         hk8wlzHL1pPt7t3hB07IxFsn4DxSK6u0yxnOyy03cRwixhxGVrESNpWHONTtxMv37r1j
+         LiD39zgGBdmc97KcSmAgIdY951dYc1fXV3WnP7Fdh+mx0hIhmLLZ515wCWBYxv/07NID
+         99yQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794406651; x=1795011451;
+        d=1e100.net; s=20260707; t=1794406656; x=1795011456;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=abnYs5U4L9bKrmw3WJVtrxPRARSoubCvJFVtGzfloC0=;
-        b=ILuL4lztDFlTQVSztPxyopIHSyZpxC+4JhwwCx0oxdeI58By9kZZaMQKQL2cc6fr0B
-         SHKYm4NIOhoD9s+BatgKuWWwzJ+6J7+C475IWhSNTRG0xqpzJuIqCkwB0D2SFiYKG80I
-         pQsF3KFHEkKYMpgL5WFLfv/e/BP/Icn6mwl2crwMzmEliGd2j8lbwZXpVKmVJ47Z0qqY
-         5HhxIEeqkILVrnvp+pFoBDaKqIGXnW+gEbXMOHPaOGoZfAfvZPk+Zr5n8mr2WjpwtM4B
-         kVF3RLGIw/kn7wlvFdPf7sdSua0i7IeXz3nrO9hJAcIg8/g6EExKEF5Lqg8B6zE/RuhA
-         CqPA==
-X-Forwarded-Encrypted: i=1; AL+hErEKX50bdg4cCe4oM83rjE8OcTDe3vie71tT1iJ/vucWmYGRzrhs6vk+Zmh35qsUt0TAVaCzX38Nwcu/oFQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8gsrrMvfQrr/zqaW83gkNTLW6sckLgP+aBA7pSSSVQ6Fa+zHdk
-	944pFxnznvzayKdgPt9lzS2czojr4A7wEKdgrBDbkK+xEu67iMVtnJBLau2AYlvmaMqUwDmdDW4
-	NQRZ2o76cd4E0NheoAgVSM4a6irJ5x9aVx59n64tgOfp6Z1oaLIL4NEHTp4+GawBswtE=
-X-Gm-Gg: AYBFou1+Q0R8iMJRl6758f6tH+0YHtumg+0pQpZN4eZXq/4roDLsyySR7dy5B9cLgsI
-	YbNHCtdD9Hdb/TY7lotVbdcCpTN7sUIBj0x90mJ/idTVM4QKym4byC0QNcoJfwM3MBXaAHN3vP7
-	muzOd4+/YHix3nIeQzRiVX8rTG2kdcqa0iShFB2oDWzB2FepOz7BRpU7jQlqVgV+H62BVoqzccE
-	ipWWAKZHpLroshpU+ZBFYA99LE+6ogmbLiWKTMBTePRcAQyOminRndMTNNTj1j0tRFkFLnSAyLR
-	3y5K0mNeVSIHtRG5LTgM6odqox+e9zsyn5g66ymmrenSMddlm7UWc+JoAf20T8xk0U5pZHMOk8A
-	nZRuIvPxEreq0nBPAIM1ANeIlUFbVL1D9/82EtqBbBwOUzMmdgk97V360kIaKSNoZdQzCqk44ww
+        bh=6HT8hHbJeK5I+tO3cjERj1hO0RTkiT/uf2C7Ao/T0oc=;
+        b=VziTdmYxtPJiiMRtOZEWTuzPmfRdzPzflBVV78EYEOLyfE4us0yGASsx5BgeA5YgzG
+         3UIDqOLQ8eiTqDZtbUSIUKePU4dd+8/uz794KVYapcTypDJ1/I61LPFM6IrRXKRdOeBj
+         sUd1sW1mbbkK3ltmac888TDeeK3LDxxSZTVquGsGVR/NBxXkzS7//DRRML7K1oqoBm6m
+         U0DzZ12uRUKNnC3eJmyUNMsOc9otIiw5+rYjrqObMXgsU3BkBgqmMFLxfhuNPpdmG2i2
+         YWwfPQ/MaadJsliJu5OEuljILOO99p1snSlvUN/NFisAs6/7d7OufSIpRgr393AmjNAV
+         OpvA==
+X-Forwarded-Encrypted: i=1; AL+hErHvg9/2/GtXnjcHFqzGJUduJbteGXyJSr3S16Nvx/7GRKl8V4XaNOv5DEFcSSkczyfUKxA6KwT1x0okPtg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z++jBzIfcU7FzuxCctCu4EjMnO/rA7IHFRXHAi8uaSUQcWdCWGY
+	y42xoOps6fXev6dfRpOzhSPGS25cQobAHSoIlxvRBHMsjWuITrWH//J89f3QoiB+LZlGLLBDQUQ
+	c58fvrh8p0yH5clGlqS8Hn1idVj4YA4gMJprIaKZhQkjWdERt400FTWmW4TwK8Haqxrg=
+X-Gm-Gg: AYBFou26QInWtCsF03jOB2W6PsdIrgcyZs4o87UxgBep5J5CI4cmzMvZviOaIxMcPcB
+	ZUF4A6k0xHa5S8gJ8Qd+APw3md6AFl+HM5cf/8xLP9JdUhkKkEypPWr0VxvyOwSNOEomBl0G5/4
+	CSVEsV8Uq1jItz4zKoqETf+L4zVqHLl4Eyj2nI4d+qo0q10rMYlrHE3/eOHWCnjL/ZkK5Zz6hCw
+	RsnKOrWQLIpXysF11RdCNOTFLLRqWV9Hy5itMa9l4Q3LJZ63wfSZ0SjrreCDRon2yDSuEoSYjds
+	NjRKJEkp8wDld5WDX9PAivjP7DoM3+/AT92VCoX4uAwdB1I3toDpkTaFGlC/95opf6wkCMWtNEm
+	gbM/7zB6blk/Q9j9ILG88rj/FTF6Ixae2IE8jTT1VH8D6KlBuyyOhkjlVEUicTCMAaDRkjFKkVQ
 	==
-X-Received: by 2002:a05:7022:ef0c:b0:1b2:611a:89fd with SMTP id a92af1059eb24-1b3c0376c9emr2495649c88.45.1794406651007;
-        Wed, 11 Nov 2026 06:17:31 -0800 (PST)
-X-Received: by 2002:a05:7022:ef0c:b0:1b2:611a:89fd with SMTP id a92af1059eb24-1b3c0376c9emr2495603c88.45.1794406650160;
-        Wed, 11 Nov 2026 06:17:30 -0800 (PST)
+X-Received: by 2002:a05:701b:2903:b0:18d:5ef2:1644 with SMTP id a92af1059eb24-1b3c036ee7bmr2169550c88.30.1794406655765;
+        Wed, 11 Nov 2026 06:17:35 -0800 (PST)
+X-Received: by 2002:a05:701b:2903:b0:18d:5ef2:1644 with SMTP id a92af1059eb24-1b3c036ee7bmr2169521c88.30.1794406654965;
+        Wed, 11 Nov 2026 06:17:34 -0800 (PST)
 Received: from hu-hdev-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b2fc09sm33747063c88.10.2026.11.11.06.17.25
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b2fc09sm33747063c88.10.2026.11.11.06.17.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 06:17:29 -0800 (PST)
+        Wed, 11 Nov 2026 06:17:34 -0800 (PST)
 From: Harshal Dev <harshal.dev@oss.qualcomm.com>
-Date: Wed, 11 Nov 2026 19:47:02 +0530
-Subject: [PATCH v2 2/6] firmware: qcom_scm: Transition to ICE TZ agnostic
- operations
+Date: Wed, 11 Nov 2026 19:47:03 +0530
+Subject: [PATCH v2 3/6] firmware: qcom: Add a TEE bus based ICE back-end
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -119,7 +118,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261111-ice-migrate-tee-svc-v2-2-29d19f6c92ab@oss.qualcomm.com>
+Message-Id: <20261111-ice-migrate-tee-svc-v2-3-29d19f6c92ab@oss.qualcomm.com>
 References: <20261111-ice-migrate-tee-svc-v2-0-29d19f6c92ab@oss.qualcomm.com>
 In-Reply-To: <20261111-ice-migrate-tee-svc-v2-0-29d19f6c92ab@oss.qualcomm.com>
 To: Eric Biggers <ebiggers@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
@@ -134,32 +133,32 @@ Cc: Basant Kumar <basantk@qti.qualcomm.com>, linux-kernel@vger.kernel.org,
         linux-arm-msm@vger.kernel.org, linux-crypto@vger.kernel.org,
         Harshal Dev <harshal.dev@oss.qualcomm.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794406634; l=10991;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794406634; l=13396;
  i=harshal.dev@oss.qualcomm.com; s=20251124; h=from:subject:message-id;
- bh=Pmb4MUn+uTR/v5tX3hXQMwdOTSqTP0Nj2WhJpwlwLmw=;
- b=zUWpKqbL5xLNfyVDZAOfcWbF5TnXjKWawJtSfb+GANBALuNeqZjC/8RiYq6IFP46w0FC1EW/h
- wdSksf2sOZ4ByMjJ4yemeiOvrDwWlG7gCN6k6dZk5+Dk6xgHaRXAyQy
+ bh=PylHrxFtErCha1pfSPdVeT6/oar8gRRa1n/cWHdZRSo=;
+ b=ym6OEzmHFd+rmBlgPher3t/9TdCUEi5uF2SyQ0G8HM1LpRk1ImpnBfEM01Ql+8HQkB2Sv6mN7
+ YLc0pwyGpCTACftJ8pjRGvSxAGFbV5y4nsw5phqDsehqQ8krU/HiBXf
 X-Developer-Key: i=harshal.dev@oss.qualcomm.com; a=ed25519;
  pk=SHJ8K4SglF5t7KmfMKXl6Mby40WczSeLs4Qus7yFO7c=
-X-Proofpoint-ORIG-GUID: FJELO5wP_RrG9z1pgUxL2TUUYUmFdZKe
-X-Authority-Analysis: v=2.4 cv=OYANnRTY c=1 sm=1 tr=0 ts=6af4790d cx=c_pps
- a=cFYjgdjTJScbgFmBucgdfQ==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+X-Proofpoint-ORIG-GUID: TN-vILtMn-U-cwq2bFmnPT2GIV6KLl6Z
+X-Authority-Analysis: v=2.4 cv=OYANnRTY c=1 sm=1 tr=0 ts=6af47910 cx=c_pps
+ a=bS7HVuBVfinNPG3f6cIo3Q==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
  a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
  a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=EUspDBNiAAAA:8 a=XqWMBioEo9w5ZlPikzoA:9 a=QEXdDO2ut3YA:10
- a=scEy_gLbYbu1JhEsrz4S:22
-X-Proofpoint-GUID: FJELO5wP_RrG9z1pgUxL2TUUYUmFdZKe
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDA1NiBTYWx0ZWRfX8XuDIRhccfdT
- o3lDhYRmnbODIvU0/AB3Y+1PATuD/PaVfMzOZrxhXsKzqFbyLq39C4Ko+e+gkBNnqesk+o4+Ho2
- iU7DAZ4Y1rXIca45wXALFyBHYN2xOrBXhoPiBafONuFywzDlfsA3LRZYTjaouLN5cQRNK3XdXti
- sgaYo73aesv021B6v9sHWbVAUVihskzLanoEYa5ISy2/PvHcCXpMQm7gCDobccmN8T0MMvTdsBM
- FDdpcaYcq2QEYWmZfu7fMY8cQnf6xWjwCCDsouFoc4+LzXt1ZYf+FzIPqY8mDF8NGxQapmK2LCj
- 8si4urnhEofFsSg88Is8ZXJFgKtaJijCiFbg+vygtWinwQqQsKRmEa24j1xBpPJmqgypZXLucX3
- +qV77k3yUJiSIF59qSBatNQDfPzhqRH23sdWzx+tGZ5FRo4YgOutLXmJdt9B37ipdu5aAcPz1UX
- Lh87HddvARcm1KlMD2A==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDA1NiBTYWx0ZWRfX49R5bPkgvcpo
- cjXarvoI2bRrXux0t3WW9YTOvRleCrWx30Z5VDJ4pYh0B3XcmBaOTpTPO+QEgaBg2Kq3oFLIVk/
- OTzyx3au8bZenBc0AVgYOrI95BV7ENo=
+ a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=wV6y_F6WGLPFbETn8MUA:9 a=QEXdDO2ut3YA:10
+ a=vBUdepa8ALXHeOFLBtFW:22
+X-Proofpoint-GUID: TN-vILtMn-U-cwq2bFmnPT2GIV6KLl6Z
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDA1NiBTYWx0ZWRfXzMj1mQ5ypNN6
+ zE4mzR0ZyauT/eX7GZn1zD9hIgVbfzkCkqR7e1KEBslPSLMBYsdiFty2Zc/rvKnKrfUW5NvkVCT
+ LxNjnFppbLpCx7POqqWbcAYjDBmAjw3Y6C1bjv9mvdXO4XJiiL0W0ln7JZJamJWS8I6Y8LRaOFr
+ POCDoVUiq7vYkFvlzt9fFHY8DpYg67cXK69+UHz2cwFyqlyMQQpqD2XjkITH1VKlkwreeYk3Ua+
+ 2qh49EnFX8LiZErD46Pya4bxNxaQSSIlAoF6xyUNxYGz4ciPFRCf78a3O5jc0GErAO5wh9//1Za
+ FTUZWseVOpmcCX6eP2VAP3dyZ2WokDmdAlKe4SF6MUIPlIA3m06/o/heIJJ1GU3CzX14NLB3Hl0
+ ee8EBNWxzWmSB3lw0OFt12ssAzSJfK2UeQK1km37UrBsMfEzE2vzZ7Vrzoas2TXHyj9mg+oI/19
+ Zfesen0+aNjguQJi43A==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDA1NiBTYWx0ZWRfXy+LCN1wZkIYu
+ gVYs6XBtz3Yo594/BDwX4AsIBQBgxW2s5ZtcM7V+8r2NLT7LS7gbFn337UCi+QA6VS9q1dSiq3B
+ 4iytuoBfE0ZbGd+kJeYpuhuEJ99DDJ0=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-11_03,2026-11-11_02,2025-10-01_01
@@ -169,315 +168,475 @@ X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611110056
 
-Transition the ICE related SCM calls to the generic ICE TZ operations by
-registering them with the ICE driver and wrapping them in exported APIs
-with the same signature.
+Add support for a TEE client driver which forwards calls from the Inline
+Crypto Engine (ICE) driver to the OPTEE ICE Pseudo-TA.
 
-This prepares the ICE driver for eventual migration to the TZ agnostic
-secure programming interfaces once the TEE bus based back-end becomes
-available.
+The ICE PTA supports both ICE Legacy and Standard modes. In Standard mode
+Hardware Key Manager v1 is supported.
 
 Signed-off-by: Harshal Dev <harshal.dev@oss.qualcomm.com>
 ---
- drivers/firmware/qcom/qcom_scm.c | 131 +++++++++++++++++++++++++++++++--------
- 1 file changed, 106 insertions(+), 25 deletions(-)
+ MAINTAINERS                          |   7 +
+ drivers/firmware/qcom/Kconfig        |   9 +
+ drivers/firmware/qcom/Makefile       |   1 +
+ drivers/firmware/qcom/qcom_ice_tee.c | 402 +++++++++++++++++++++++++++++++++++
+ 4 files changed, 419 insertions(+)
 
-diff --git a/drivers/firmware/qcom/qcom_scm.c b/drivers/firmware/qcom/qcom_scm.c
-index 43e250faea75..6b66bcedc84f 100644
---- a/drivers/firmware/qcom/qcom_scm.c
-+++ b/drivers/firmware/qcom/qcom_scm.c
-@@ -32,6 +32,8 @@
- #include <linux/sizes.h>
- #include <linux/types.h>
+diff --git a/MAINTAINERS b/MAINTAINERS
+index f58a305de664..1132e456488b 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -23007,6 +23007,13 @@ F:	Documentation/devicetree/bindings/crypto/qcom,inline-crypto-engine.yaml
+ F:	drivers/soc/qcom/ice.c
+ F:	include/soc/qcom/ice.h
  
++QUALCOMM INLINE CRYPTO ENGINE TEE SERVICE
++M:	Harshal Dev <harshal.dev@oss.qualcomm.com>
++L:	linux-arm-msm@vger.kernel.org
++L:	linux-crypto@vger.kernel.org
++S:	Maintained
++F:	drivers/firmware/qcom/qcom_ice_tee.c
++
+ QUALCOMM INTERCONNECT BWMON DRIVER
+ M:	Krzysztof Kozlowski <krzk@kernel.org>
+ L:	linux-arm-msm@vger.kernel.org
+diff --git a/drivers/firmware/qcom/Kconfig b/drivers/firmware/qcom/Kconfig
+index 3ad22f8fc3e5..189ada7fdcd6 100644
+--- a/drivers/firmware/qcom/Kconfig
++++ b/drivers/firmware/qcom/Kconfig
+@@ -25,6 +25,15 @@ config QCOM_PAS_TEE
+ 	  Enable the generic Peripheral Authentication Service (PAS) provided
+ 	  by the firmware TEE implementation as the backend.
+ 
++config QCOM_ICE_TEE
++	tristate
++	depends on TEE
++	depends on !CPU_BIG_ENDIAN
++	default m if ARCH_QCOM
++	help
++	  Enable the generic Inline Crypto Engine (ICE) firmware service TEE
++	  implementation as a backend.
++
+ config QCOM_SCM
+ 	tristate "Qualcomm PAS SCM interface driver" if ARCH_QCOM || COMPILE_TEST
+ 	select QCOM_PAS
+diff --git a/drivers/firmware/qcom/Makefile b/drivers/firmware/qcom/Makefile
+index 88ce74d74c3e..5ef64f17e6e5 100644
+--- a/drivers/firmware/qcom/Makefile
++++ b/drivers/firmware/qcom/Makefile
+@@ -11,3 +11,4 @@ obj-$(CONFIG_QCOM_QSEECOM)	+= qcom_qseecom.o
+ obj-$(CONFIG_QCOM_QSEECOM_UEFISECAPP) += qcom_qseecom_uefisecapp.o
+ obj-$(CONFIG_QCOM_PAS)		+= qcom_pas.o
+ obj-$(CONFIG_QCOM_PAS_TEE)	+= qcom_pas_tee.o
++obj-$(CONFIG_QCOM_ICE_TEE)     += qcom_ice_tee.o
+diff --git a/drivers/firmware/qcom/qcom_ice_tee.c b/drivers/firmware/qcom/qcom_ice_tee.c
+new file mode 100644
+index 000000000000..694aa05847f0
+--- /dev/null
++++ b/drivers/firmware/qcom/qcom_ice_tee.c
+@@ -0,0 +1,402 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
++ */
++
++#include <linux/kernel.h>
++#include <linux/module.h>
++#include <linux/slab.h>
++#include <linux/tee_drv.h>
++#include <linux/uuid.h>
++#include <linux/firmware/qcom/qcom_ice_tee.h>
++
 +#include <soc/qcom/ice.h>
 +
- #include <dt-bindings/interrupt-controller/arm-gic.h>
- 
- #include "qcom_pas.h"
-@@ -1397,6 +1399,14 @@ int qcom_scm_ocmem_unlock(enum qcom_scm_ocmem_client id, u32 offset, u32 size)
- }
- EXPORT_SYMBOL_GPL(qcom_scm_ocmem_unlock);
- 
-+bool __qcom_scm_ice_available(struct device *dev)
-+{
-+	return __qcom_scm_is_call_available(dev, QCOM_SCM_SVC_ES,
-+					    QCOM_SCM_ES_INVALIDATE_ICE_KEY) &&
-+		__qcom_scm_is_call_available(dev, QCOM_SCM_SVC_ES,
-+					     QCOM_SCM_ES_CONFIG_SET_ICE_KEY);
-+}
++#define PTA_QCOM_ICE_INVALIDATE_KEY		0
++#define PTA_QCOM_ICE_SET_CONFIG_KEY		1
++#define PTA_QCOM_ICE_GENERATE_KEY		2
++#define PTA_QCOM_ICE_IMPORT_KEY			3
++#define PTA_QCOM_ICE_EXPORT_KEY			4
++#define PTA_QCOM_ICE_GET_RAW_SECRET		5
++#define PTA_QCOM_ICE_HAS_WRAPPED_KEY_SUPPORT	6
 +
- /**
-  * qcom_scm_ice_available() - Is the ICE key programming interface available?
-  *
-@@ -1405,10 +1415,7 @@ EXPORT_SYMBOL_GPL(qcom_scm_ocmem_unlock);
-  */
- bool qcom_scm_ice_available(void)
- {
--	return __qcom_scm_is_call_available(__scm->dev, QCOM_SCM_SVC_ES,
--					    QCOM_SCM_ES_INVALIDATE_ICE_KEY) &&
--		__qcom_scm_is_call_available(__scm->dev, QCOM_SCM_SVC_ES,
--					     QCOM_SCM_ES_CONFIG_SET_ICE_KEY);
-+	return __qcom_scm_ice_available(__scm->dev);
- }
- EXPORT_SYMBOL_GPL(qcom_scm_ice_available);
- 
-@@ -1424,7 +1431,7 @@ EXPORT_SYMBOL_GPL(qcom_scm_ice_available);
-  *
-  * Return: 0 on success; -errno on failure.
-  */
--int qcom_scm_ice_invalidate_key(u32 index)
-+static int __qcom_scm_ice_invalidate_key(struct device *dev, u32 index)
- {
- 	struct qcom_scm_desc desc = {
- 		.svc = QCOM_SCM_SVC_ES,
-@@ -1434,7 +1441,12 @@ int qcom_scm_ice_invalidate_key(u32 index)
- 		.owner = ARM_SMCCC_OWNER_SIP,
- 	};
- 
--	return qcom_scm_call(__scm->dev, &desc, NULL);
-+	return qcom_scm_call(dev, &desc, NULL);
-+}
++#define TEE_NUM_PARAMS				4
 +
-+int qcom_scm_ice_invalidate_key(u32 index)
-+{
-+	return __qcom_scm_ice_invalidate_key(__scm->dev, index);
- }
- EXPORT_SYMBOL_GPL(qcom_scm_ice_invalidate_key);
- 
-@@ -1459,8 +1471,10 @@ EXPORT_SYMBOL_GPL(qcom_scm_ice_invalidate_key);
-  *
-  * Return: 0 on success; -errno on failure.
-  */
--int qcom_scm_ice_set_key(u32 index, const u8 *key, u32 key_size,
--			 enum qcom_scm_ice_cipher cipher, u32 data_unit_size)
-+static int __qcom_scm_ice_set_key(struct device *dev, u32 index,
-+				  const u8 *key, u32 key_size,
-+				  enum qcom_ice_cipher cipher,
-+				  u32 data_unit_size)
- {
- 	struct qcom_scm_desc desc = {
- 		.svc = QCOM_SCM_SVC_ES,
-@@ -1485,25 +1499,38 @@ int qcom_scm_ice_set_key(u32 index, const u8 *key, u32 key_size,
- 	memcpy(keybuf, key, key_size);
- 	desc.args[1] = qcom_tzmem_to_phys(keybuf);
- 
--	ret = qcom_scm_call(__scm->dev, &desc, NULL);
-+	ret = qcom_scm_call(dev, &desc, NULL);
- 
- 	memzero_explicit(keybuf, key_size);
- 
- 	return ret;
- }
-+
-+int qcom_scm_ice_set_key(u32 index, const u8 *key, u32 key_size,
-+			 enum qcom_scm_ice_cipher cipher, u32 data_unit_size)
-+{
-+	return __qcom_scm_ice_set_key(__scm->dev, index, key, key_size,
-+				      (enum qcom_ice_cipher)cipher,
-+				      data_unit_size);
-+}
- EXPORT_SYMBOL_GPL(qcom_scm_ice_set_key);
- 
--bool qcom_scm_has_wrapped_key_support(void)
-+static bool __qcom_scm_has_wrapped_key_support(struct device *dev)
- {
--	return __qcom_scm_is_call_available(__scm->dev, QCOM_SCM_SVC_ES,
-+	return __qcom_scm_is_call_available(dev, QCOM_SCM_SVC_ES,
- 					    QCOM_SCM_ES_DERIVE_SW_SECRET) &&
--	       __qcom_scm_is_call_available(__scm->dev, QCOM_SCM_SVC_ES,
-+	       __qcom_scm_is_call_available(dev, QCOM_SCM_SVC_ES,
- 					    QCOM_SCM_ES_GENERATE_ICE_KEY) &&
--	       __qcom_scm_is_call_available(__scm->dev, QCOM_SCM_SVC_ES,
-+	       __qcom_scm_is_call_available(dev, QCOM_SCM_SVC_ES,
- 					    QCOM_SCM_ES_PREPARE_ICE_KEY) &&
--	       __qcom_scm_is_call_available(__scm->dev, QCOM_SCM_SVC_ES,
-+	       __qcom_scm_is_call_available(dev, QCOM_SCM_SVC_ES,
- 					    QCOM_SCM_ES_IMPORT_ICE_KEY);
- }
-+
-+bool qcom_scm_has_wrapped_key_support(void)
-+{
-+	return __qcom_scm_has_wrapped_key_support(__scm->dev);
-+}
- EXPORT_SYMBOL_GPL(qcom_scm_has_wrapped_key_support);
- 
- /**
-@@ -1522,8 +1549,9 @@ EXPORT_SYMBOL_GPL(qcom_scm_has_wrapped_key_support);
-  *
-  * Return: 0 on success; -errno on failure.
-  */
--int qcom_scm_derive_sw_secret(const u8 *eph_key, size_t eph_key_size,
--			      u8 *sw_secret, size_t sw_secret_size)
-+static int __qcom_scm_derive_sw_secret(struct device *dev,
-+				       const u8 *eph_key, size_t eph_key_size,
-+				       u8 *sw_secret, size_t sw_secret_size)
- {
- 	struct qcom_scm_desc desc = {
- 		.svc = QCOM_SCM_SVC_ES,
-@@ -1552,7 +1580,7 @@ int qcom_scm_derive_sw_secret(const u8 *eph_key, size_t eph_key_size,
- 	desc.args[2] = qcom_tzmem_to_phys(sw_secret_buf);
- 	desc.args[3] = sw_secret_size;
- 
--	ret = qcom_scm_call(__scm->dev, &desc, NULL);
-+	ret = qcom_scm_call(dev, &desc, NULL);
- 	if (!ret)
- 		memcpy(sw_secret, sw_secret_buf, sw_secret_size);
- 
-@@ -1560,6 +1588,13 @@ int qcom_scm_derive_sw_secret(const u8 *eph_key, size_t eph_key_size,
- 	memzero_explicit(sw_secret_buf, sw_secret_size);
- 	return ret;
- }
-+
-+int qcom_scm_derive_sw_secret(const u8 *eph_key, size_t eph_key_size,
-+			      u8 *sw_secret, size_t sw_secret_size)
-+{
-+	return __qcom_scm_derive_sw_secret(__scm->dev, eph_key, eph_key_size,
-+				   sw_secret, sw_secret_size);
-+}
- EXPORT_SYMBOL_GPL(qcom_scm_derive_sw_secret);
- 
- /**
-@@ -1573,7 +1608,8 @@ EXPORT_SYMBOL_GPL(qcom_scm_derive_sw_secret);
-  *
-  * Return: 0 on success; -errno on failure.
-  */
--int qcom_scm_generate_ice_key(u8 *lt_key, size_t lt_key_size)
-+static int __qcom_scm_generate_ice_key(struct device *dev,
-+				       u8 *lt_key, size_t lt_key_size)
- {
- 	struct qcom_scm_desc desc = {
- 		.svc = QCOM_SCM_SVC_ES,
-@@ -1592,13 +1628,18 @@ int qcom_scm_generate_ice_key(u8 *lt_key, size_t lt_key_size)
- 	desc.args[0] = qcom_tzmem_to_phys(lt_key_buf);
- 	desc.args[1] = lt_key_size;
- 
--	ret = qcom_scm_call(__scm->dev, &desc, NULL);
-+	ret = qcom_scm_call(dev, &desc, NULL);
- 	if (!ret)
- 		memcpy(lt_key, lt_key_buf, lt_key_size);
- 
- 	memzero_explicit(lt_key_buf, lt_key_size);
- 	return ret;
- }
-+
-+int qcom_scm_generate_ice_key(u8 *lt_key, size_t lt_key_size)
-+{
-+	return __qcom_scm_generate_ice_key(__scm->dev, lt_key, lt_key_size);
-+}
- EXPORT_SYMBOL_GPL(qcom_scm_generate_ice_key);
- 
- /**
-@@ -1614,8 +1655,9 @@ EXPORT_SYMBOL_GPL(qcom_scm_generate_ice_key);
-  *
-  * Return: 0 on success; -errno on failure.
-  */
--int qcom_scm_prepare_ice_key(const u8 *lt_key, size_t lt_key_size,
--			     u8 *eph_key, size_t eph_key_size)
-+static int __qcom_scm_prepare_ice_key(struct device *dev,
-+				      const u8 *lt_key, size_t lt_key_size,
-+				      u8 *eph_key, size_t eph_key_size)
- {
- 	struct qcom_scm_desc desc = {
- 		.svc = QCOM_SCM_SVC_ES,
-@@ -1644,7 +1686,7 @@ int qcom_scm_prepare_ice_key(const u8 *lt_key, size_t lt_key_size,
- 	desc.args[2] = qcom_tzmem_to_phys(eph_key_buf);
- 	desc.args[3] = eph_key_size;
- 
--	ret = qcom_scm_call(__scm->dev, &desc, NULL);
-+	ret = qcom_scm_call(dev, &desc, NULL);
- 	if (!ret)
- 		memcpy(eph_key, eph_key_buf, eph_key_size);
- 
-@@ -1652,6 +1694,13 @@ int qcom_scm_prepare_ice_key(const u8 *lt_key, size_t lt_key_size,
- 	memzero_explicit(eph_key_buf, eph_key_size);
- 	return ret;
- }
-+
-+int qcom_scm_prepare_ice_key(const u8 *lt_key, size_t lt_key_size,
-+			     u8 *eph_key, size_t eph_key_size)
-+{
-+	return __qcom_scm_prepare_ice_key(__scm->dev, lt_key, lt_key_size,
-+				  eph_key, eph_key_size);
-+}
- EXPORT_SYMBOL_GPL(qcom_scm_prepare_ice_key);
- 
- /**
-@@ -1667,8 +1716,9 @@ EXPORT_SYMBOL_GPL(qcom_scm_prepare_ice_key);
-  *
-  * Return: 0 on success; -errno on failure.
-  */
--int qcom_scm_import_ice_key(const u8 *raw_key, size_t raw_key_size,
--			    u8 *lt_key, size_t lt_key_size)
-+static int __qcom_scm_import_ice_key(struct device *dev,
-+				     const u8 *raw_key, size_t raw_key_size,
-+				     u8 *lt_key, size_t lt_key_size)
- {
- 	struct qcom_scm_desc desc = {
- 		.svc = QCOM_SCM_SVC_ES,
-@@ -1697,7 +1747,7 @@ int qcom_scm_import_ice_key(const u8 *raw_key, size_t raw_key_size,
- 	desc.args[2] = qcom_tzmem_to_phys(lt_key_buf);
- 	desc.args[3] = lt_key_size;
- 
--	ret = qcom_scm_call(__scm->dev, &desc, NULL);
-+	ret = qcom_scm_call(dev, &desc, NULL);
- 	if (!ret)
- 		memcpy(lt_key, lt_key_buf, lt_key_size);
- 
-@@ -1705,8 +1755,26 @@ int qcom_scm_import_ice_key(const u8 *raw_key, size_t raw_key_size,
- 	memzero_explicit(lt_key_buf, lt_key_size);
- 	return ret;
- }
-+
-+int qcom_scm_import_ice_key(const u8 *raw_key, size_t raw_key_size,
-+			    u8 *lt_key, size_t lt_key_size)
-+{
-+	return __qcom_scm_import_ice_key(__scm->dev, raw_key, raw_key_size,
-+				 lt_key, lt_key_size);
-+}
- EXPORT_SYMBOL_GPL(qcom_scm_import_ice_key);
- 
-+static struct qcom_ice_tz_ops qcom_ice_scm_ops = {
-+	.drv_name = "qcom_scm",
-+	.ice_invalidate_key = __qcom_scm_ice_invalidate_key,
-+	.ice_set_key = __qcom_scm_ice_set_key,
-+	.ice_has_wrapped_key_support = __qcom_scm_has_wrapped_key_support,
-+	.ice_derive_sw_secret = __qcom_scm_derive_sw_secret,
-+	.ice_generate_key = __qcom_scm_generate_ice_key,
-+	.ice_prepare_key = __qcom_scm_prepare_ice_key,
-+	.ice_import_key	= __qcom_scm_import_ice_key,
++struct qcom_ice_tee_private {
++	struct device *dev;
++	struct tee_context *ctx;
++	u32 session_id;
 +};
 +
- /**
-  * qcom_scm_hdcp_available() - Check if secure environment supports HDCP.
-  *
-@@ -2820,6 +2888,18 @@ static int qcom_scm_probe(struct platform_device *pdev)
- 					     "Failed to request qcom-scm irq\n");
- 	}
- 
-+	/*
-+	 * If the ICE SCM interface is available, the operations MUST be
-+	 * registered before the SCM API is published below, otherwise
-+	 * ICE driver could attempt to call the ICE SCM pointers before
-+	 * they are registered and assume that they aren't available.
-+	 */
-+	if (__qcom_scm_ice_available(scm->dev)) {
-+		qcom_ice_scm_ops.dev = scm->dev;
-+		ret = qcom_ice_tz_ops_register(&qcom_ice_scm_ops);
-+		WARN(ret < 0, "failed to register ice SCM ops: %d\n", ret);
++static int qcom_ice_tee_invalidate_key(struct device *dev, u32 index)
++{
++	struct qcom_ice_tee_private *data = dev_get_drvdata(dev);
++	struct tee_ioctl_invoke_arg inv_arg = {
++		.func = PTA_QCOM_ICE_INVALIDATE_KEY,
++		.session = data->session_id,
++		.num_params = TEE_NUM_PARAMS,
++	};
++	struct tee_param param[TEE_NUM_PARAMS] = {
++		[0] = {
++			.attr = TEE_IOCTL_PARAM_ATTR_TYPE_VALUE_INPUT,
++			.u.value.a = index,
++			.u.value.b = 0,
++		}
++	};
++	int ret;
++
++	ret = tee_client_invoke_func(data->ctx, &inv_arg, param);
++	if (ret < 0 || inv_arg.ret != 0)
++		ret = ret ?: -EINVAL;
++
++	return ret;
++}
++
++static int qcom_ice_tee_set_key(struct device *dev, u32 index,
++				const u8 *key, u32 key_size,
++				enum qcom_ice_cipher cipher,
++				u32 data_unit_size)
++{
++	struct qcom_ice_tee_private *data = dev_get_drvdata(dev);
++	struct tee_ioctl_invoke_arg inv_arg = {
++		.func = PTA_QCOM_ICE_SET_CONFIG_KEY,
++		.session = data->session_id,
++		.num_params = TEE_NUM_PARAMS,
++	};
++	struct tee_param param[TEE_NUM_PARAMS] = {
++		[0] = {
++			.attr = TEE_IOCTL_PARAM_ATTR_TYPE_VALUE_INPUT,
++			.u.value.a = index,
++			.u.value.b = cipher,
++		},
++		[1] = {
++			.attr = TEE_IOCTL_PARAM_ATTR_TYPE_VALUE_INPUT,
++			.u.value.a = data_unit_size,
++		},
++		[2] = {
++			.attr = TEE_IOCTL_PARAM_ATTR_TYPE_MEMREF_INPUT,
++		}
++	};
++	struct tee_shm *key_shm;
++	u8 *key_buf;
++	int ret;
++
++	key_shm = tee_shm_alloc_kernel_buf(data->ctx, key_size);
++	if (IS_ERR(key_shm))
++		return PTR_ERR(key_shm);
++
++	key_buf = tee_shm_get_va(key_shm, 0);
++	if (IS_ERR(key_buf)) {
++		ret = PTR_ERR(key_buf);
++		goto exit;
 +	}
 +
- 	/*
- 	 * Paired with smp_load_acquire() in qcom_scm_is_available().
- 	 *
-@@ -2876,6 +2956,7 @@ static void qcom_scm_shutdown(struct platform_device *pdev)
- 	/* Clean shutdown, disable download mode to allow normal restart */
- 	qcom_scm_set_download_mode(__scm, QCOM_DLOAD_NODUMP);
- 	qcom_pas_ops_unregister();
-+	qcom_ice_tz_ops_unregister(&qcom_ice_scm_ops);
- }
- 
- static const struct of_device_id qcom_scm_dt_match[] = {
++	memcpy(key_buf, key, key_size);
++	param[2].u.memref.shm = key_shm;
++	param[2].u.memref.size = key_size;
++
++	ret = tee_client_invoke_func(data->ctx, &inv_arg, param);
++	memzero_explicit(key_buf, key_size);
++	if (ret < 0 || inv_arg.ret != 0) {
++		dev_err(dev,
++			"ICE set_key failed, idx=%u, ret=%d, err=0x%x\n",
++			index, ret, inv_arg.ret);
++		ret = ret ?: -EINVAL;
++	}
++exit:
++	tee_shm_free(key_shm);
++	return ret;
++}
++
++static int qcom_ice_tee_wrapped_key_call(struct device *dev, u32 cmd,
++					 const u8 *in, size_t in_size,
++					 u8 *out, size_t out_size)
++{
++	struct qcom_ice_tee_private *data = dev_get_drvdata(dev);
++	struct tee_ioctl_invoke_arg inv_arg = {
++		.func = cmd,
++		.session = data->session_id,
++		.num_params = TEE_NUM_PARAMS,
++	};
++	struct tee_param param[TEE_NUM_PARAMS] = { };
++	struct tee_shm *in_shm = NULL;
++	struct tee_shm *out_shm = NULL;
++	size_t out_buf_size;
++	u8 *buf;
++	int ret;
++
++	if (in && in_size) {
++		in_shm = tee_shm_alloc_kernel_buf(data->ctx, in_size);
++		if (IS_ERR(in_shm))
++			return PTR_ERR(in_shm);
++
++		buf = tee_shm_get_va(in_shm, 0);
++		if (IS_ERR(buf)) {
++			ret = PTR_ERR(buf);
++			goto exit;
++		}
++		memcpy(buf, in, in_size);
++
++		param[0].attr = TEE_IOCTL_PARAM_ATTR_TYPE_MEMREF_INPUT;
++		param[0].u.memref.shm = in_shm;
++		param[0].u.memref.size = in_size;
++	}
++
++	if (out && out_size) {
++		out_shm = tee_shm_alloc_kernel_buf(data->ctx, out_size);
++		if (IS_ERR(out_shm)) {
++			ret = PTR_ERR(out_shm);
++			goto exit;
++		}
++
++		param[1].attr = TEE_IOCTL_PARAM_ATTR_TYPE_MEMREF_OUTPUT;
++		param[1].u.memref.shm = out_shm;
++		param[1].u.memref.size = out_size;
++	}
++
++	ret = tee_client_invoke_func(data->ctx, &inv_arg, param);
++	if (ret < 0 || inv_arg.ret != 0) {
++		dev_err(dev,
++			"ICE cmd %u failed, ret=%d, err=0x%x\n",
++			cmd, ret, inv_arg.ret);
++		ret = ret ?: -EINVAL;
++		goto exit;
++	}
++
++	if (out && out_size) {
++		out_buf_size = param[1].u.memref.size;
++		if (out_size != out_buf_size) {
++			ret = -EINVAL;
++			goto exit;
++		}
++
++		buf = tee_shm_get_va(out_shm, 0);
++		if (IS_ERR(buf)) {
++			ret = PTR_ERR(buf);
++			goto exit;
++		}
++		memcpy(out, buf, out_buf_size);
++		memzero_explicit(buf, out_buf_size);
++	}
++exit:
++	if (in_shm && !IS_ERR(in_shm)) {
++		buf = tee_shm_get_va(in_shm, 0);
++		if (!IS_ERR(buf))
++			memzero_explicit(buf, in_size);
++		tee_shm_free(in_shm);
++	}
++	if (out_shm && !IS_ERR(out_shm)) {
++		buf = tee_shm_get_va(out_shm, 0);
++		if (!IS_ERR(buf))
++			memzero_explicit(buf, out_size);
++		tee_shm_free(out_shm);
++	}
++
++	return ret;
++}
++
++static int qcom_ice_tee_derive_sw_secret(struct device *dev,
++					 const u8 *eph_key,
++					 size_t eph_key_size,
++					 u8 *sw_secret,
++					 size_t sw_secret_size)
++{
++	return qcom_ice_tee_wrapped_key_call(dev, PTA_QCOM_ICE_GET_RAW_SECRET,
++					     eph_key, eph_key_size,
++					     sw_secret, sw_secret_size);
++}
++
++static int qcom_ice_tee_generate_key(struct device *dev,
++				     u8 *lt_key, size_t lt_key_size)
++{
++	struct qcom_ice_tee_private *data = dev_get_drvdata(dev);
++	struct tee_ioctl_invoke_arg inv_arg = {
++		.func = PTA_QCOM_ICE_GENERATE_KEY,
++		.session = data->session_id,
++		.num_params = TEE_NUM_PARAMS,
++	};
++	struct tee_param param[TEE_NUM_PARAMS] = { };
++	struct tee_shm *key_shm;
++	u8 *buf;
++	size_t out_size;
++	int ret;
++
++	key_shm = tee_shm_alloc_kernel_buf(data->ctx, lt_key_size);
++	if (IS_ERR(key_shm))
++		return PTR_ERR(key_shm);
++
++	param[0].attr = TEE_IOCTL_PARAM_ATTR_TYPE_MEMREF_OUTPUT;
++	param[0].u.memref.shm = key_shm;
++	param[0].u.memref.shm_offs = 0;
++	param[0].u.memref.size = lt_key_size;
++
++	ret = tee_client_invoke_func(data->ctx, &inv_arg, param);
++	if (ret < 0 || inv_arg.ret != 0) {
++		dev_err(dev,
++			"ICE generate_key failed, ret=%d, err=0x%x\n",
++			ret, inv_arg.ret);
++		ret = ret ?: -EINVAL;
++		goto exit;
++	}
++
++	buf = tee_shm_get_va(key_shm, 0);
++	if (IS_ERR(buf)) {
++		ret = PTR_ERR(buf);
++		goto exit;
++	}
++
++	out_size = param[0].u.memref.size;
++	if (out_size != lt_key_size) {
++		ret = -EINVAL;
++		goto clear;
++	}
++
++	memcpy(lt_key, buf, out_size);
++clear:
++	memzero_explicit(buf, lt_key_size);
++exit:
++	tee_shm_free(key_shm);
++	return ret;
++}
++
++static int qcom_ice_tee_prepare_key(struct device *dev,
++				    const u8 *lt_key,
++				    size_t lt_key_size,
++				    u8 *eph_key,
++				    size_t eph_key_size)
++{
++	return qcom_ice_tee_wrapped_key_call(dev, PTA_QCOM_ICE_EXPORT_KEY,
++					     lt_key, lt_key_size,
++					     eph_key, eph_key_size);
++}
++
++static int qcom_ice_tee_import_key(struct device *dev,
++				   const u8 *raw_key,
++				   size_t raw_key_size,
++				   u8 *lt_key,
++				   size_t lt_key_size)
++{
++	return qcom_ice_tee_wrapped_key_call(dev, PTA_QCOM_ICE_IMPORT_KEY,
++					     raw_key, raw_key_size,
++					     lt_key, lt_key_size);
++}
++
++static bool qcom_ice_tee_has_wrapped_key_support(struct device *dev)
++{
++	struct qcom_ice_tee_private *data = dev_get_drvdata(dev);
++	struct tee_ioctl_invoke_arg inv_arg = {
++		.func = PTA_QCOM_ICE_HAS_WRAPPED_KEY_SUPPORT,
++		.session = data->session_id,
++		.num_params = TEE_NUM_PARAMS,
++	};
++	struct tee_param param[TEE_NUM_PARAMS] = {
++		[0] = {
++			.attr = TEE_IOCTL_PARAM_ATTR_TYPE_VALUE_OUTPUT,
++			.u.value.a = 0,
++		}
++	};
++	int ret;
++	bool has_support = false;
++
++	ret = tee_client_invoke_func(data->ctx, &inv_arg, param);
++	if (ret < 0 || inv_arg.ret != 0) {
++		dev_err(dev,
++			"ICE wrapped_key_support failed, ret=%d, err=0x%x\n",
++			ret, inv_arg.ret);
++		goto exit;
++	}
++
++	has_support = param[0].u.value.a;
++exit:
++	return has_support;
++}
++
++static struct qcom_ice_tz_ops qcom_ice_tee_ops = {
++	.drv_name = "qcom-ice-tee",
++	.ice_invalidate_key = qcom_ice_tee_invalidate_key,
++	.ice_set_key = qcom_ice_tee_set_key,
++	.ice_has_wrapped_key_support = qcom_ice_tee_has_wrapped_key_support,
++	.ice_derive_sw_secret = qcom_ice_tee_derive_sw_secret,
++	.ice_generate_key = qcom_ice_tee_generate_key,
++	.ice_prepare_key = qcom_ice_tee_prepare_key,
++	.ice_import_key = qcom_ice_tee_import_key,
++};
++
++static int optee_ctx_match(struct tee_ioctl_version_data *ver, const void *data)
++{
++	return ver->impl_id == TEE_IMPL_ID_OPTEE;
++}
++
++static int qcom_ice_tee_probe(struct tee_client_device *ice_dev)
++{
++	struct device *dev = &ice_dev->dev;
++	struct qcom_ice_tee_private *data;
++	struct tee_ioctl_open_session_arg sess_arg = {
++		.clnt_login = TEE_IOCTL_LOGIN_REE_KERNEL,
++	};
++	int ret;
++
++	data = devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
++	if (!data)
++		return -ENOMEM;
++
++	data->ctx = tee_client_open_context(NULL, optee_ctx_match, NULL, NULL);
++	if (IS_ERR(data->ctx))
++		return -ENODEV;
++
++	export_uuid(sess_arg.uuid, &ice_dev->id.uuid);
++	ret = tee_client_open_session(data->ctx, &sess_arg, NULL);
++	if (ret < 0 || sess_arg.ret != 0) {
++		dev_err(dev,
++			"tee_client_open_session failed, ret=%d, err=0x%x\n",
++			ret, sess_arg.ret);
++		ret = ret ?: -EINVAL;
++		goto err_sess;
++	}
++
++	data->session_id = sess_arg.session;
++	dev_set_drvdata(dev, data);
++
++	qcom_ice_tee_ops.dev = dev;
++	ret = qcom_ice_tz_ops_register(&qcom_ice_tee_ops);
++	if (ret)
++		goto err_ops;
++
++	return 0;
++err_ops:
++	tee_client_close_session(data->ctx, data->session_id);
++err_sess:
++	tee_client_close_context(data->ctx);
++	return ret;
++}
++
++static void qcom_ice_tee_remove(struct tee_client_device *ice_dev)
++{
++	struct device *dev = &ice_dev->dev;
++	struct qcom_ice_tee_private *data = dev_get_drvdata(dev);
++
++	qcom_ice_tz_ops_unregister(&qcom_ice_tee_ops);
++	tee_client_close_session(data->ctx, data->session_id);
++	tee_client_close_context(data->ctx);
++}
++
++static const struct tee_client_device_id qcom_ice_tee_id_table[] = {
++	{UUID_INIT(0x29e87b9e, 0x012a, 0x4878,
++		   0xa1, 0xe1, 0xa1, 0xb9, 0x0a, 0x21, 0x5b, 0x16)},
++	{}
++};
++MODULE_DEVICE_TABLE(tee, qcom_ice_tee_id_table);
++
++static struct tee_client_driver qcom_ice_tee_driver = {
++	.probe		= qcom_ice_tee_probe,
++	.remove		= qcom_ice_tee_remove,
++	.id_table	= qcom_ice_tee_id_table,
++	.driver		= {
++		.name = "qcom-ice-tee",
++	},
++};
++
++module_tee_client_driver(qcom_ice_tee_driver);
++
++MODULE_LICENSE("GPL");
++MODULE_DESCRIPTION("Qualcomm ICE TEE driver");
 
 -- 
 2.34.1
