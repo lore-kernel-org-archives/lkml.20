@@ -1,51 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.78
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794359503;
-	b=IhzrgzDmSzHhyoaldyLxP2ZALBFSgL+nl60cd0ukcKCs+e45j2NKq/wS2WsIgUVyy2yy
-	 njtgqOaFB9ZPDYFcdkj+Bz9XOIsYP/Y5/dhULnsQjC5ZgjJm9C58MAlXttw9dq5LocMMY
-	 Wzmy47ovM3s7GBhk6aFPezz6zq9xp5VJO+5r2qyoV4cNR/IIb/4vffUHPQoaaffaKgtER
-	 4NOTtlnHj0gGB74xV6ASFLhZqlx4JRiZjIlU7XL/36XMzavAj94wOyAL1vjOvahyyr8zv
-	 JZ0RFsdfK5vhfhoj694WTzDpWZSmIGskGriNurwshb7duw/DRcGQ69pwBfw6XZjrzjQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794359503;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Mime-Version:Content-Type:Date:
-	 Message-Id:Cc:Subject:From:To:X-Mailer:References:In-Reply-To;
-	bh=sl4qN9RDn6HEHsCUVdU22P9o6RoytL5nBRI3/NVeG/Y=;
-	b=KPXfcjMDCuPEImpfIiUauJTruVXqEyuyz63NpHSsXf6nuc2yjP5rhkAyM4gxEoQkQJ7j
-	 +oMfOXlBBPfNiUs13sgGPvZmY50Vj+MEtp79c9ikXx+tKVlJQGya4+GUA5wBeZzjHnRhY
-	 h2u1x5fplTIrlEEw5UrB7EcojfFYORpOyTsyItd1jZoIwLsxRQfjbZWIl1cWKT5EYK7p3
-	 iBpo4HOPHeQiLan000IWLHy9XOoWsh1QVNybiW5mH8AI6nBcDw2UYgVW/Lq2EuxMXQE4g
-	 zgJsFmCHo7htVbwgRRiKAwkJXA6qTtoUMKjWugwpNM1/soCIq3qe4JNPVH+keKS/xJA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="NtmP/+Rc";
-	arc=none smtp.remote-ip=91.218.175.78
-Received: from mta0.migadu.com (out-78.mta0.migadu.com [91.218.175.78])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.28
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794359512;
+	b=hqjGpRpitgyN8E++5USILcpI19xXokj7FY3sXIAUlaWMy1r1Q2Ms/xf9NQsUQgENDV5p
+	 YrV1H8/Id3h0PQBXr96Sb7UlbDTDXitNxr90iVY6iVKYwrBa2MmeAgahL5jL98Bes+Tfd
+	 pfrp3/IYw+g631KHsqzJlOmRNlh/aKnGX2TNUVOV+KvtwQpT6YhrnbNZpNXvTCotnu0Mm
+	 DzcuowjC57Toqh5cLw8xeSjw6XmusJW1ISrlqM5x0R73FaBdFT8oZqK+6rdg7fGcU3yzG
+	 mtc7qM6z7bnCMtsujt9S0QPv5rvSXnFagoan7fypLyvQ2DQ9VysdB4ibAy5vS37Rtmg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794359512;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:To:Cc:Subject:
+	 From:References:In-Reply-To:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:
+	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=klamGhN65K8ipUBLWt2gDGRDqctZ8vVDMeAW1wCZ4bI=;
+	b=HSrhmmBpaSvZqtdMrRJuv185tTZaxoFB1I0nEED6OEODhqW9xRWstG/cYKhBNtfsSskc
+	 kEKa1hlxiQCkREyNBTHNgwHnVVreS8QmGnwuTXgNPqAVoDwM6/UIxht6cXP78LokxUeA4
+	 p7zMhzffG+0nfN4NFowOGbNPkFKZAqd6WICamBA/KezaBeq75L9bh9Q9TXBy5+C4OkhFe
+	 zbcyXeePHPZUN01OocEIudRVZhcnNgLnbASaSoVetfibUdIlGgIrODdlUTBosYsI+Q05R
+	 zL5fSyZFc6KX8doQk+5iEjmvR9esqlqSx7mMvy8TmtQWJlcn2JLen372MArrv2rrV/w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=a21Wlag8;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.28
+Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011028.outbound.protection.outlook.com [40.107.208.28])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84B04606A320
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 01:11:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 84B04606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73191606A321;
+	Wed, 11 Nov 2026 01:11:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73191606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=NtmP/+Rc
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=bF/s9Eh+bsdrjEWqer0i7ryNUlXG2OzjJkfX9ENKl+o=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794359500; v=1; x=1794964300;
- b=NtmP/+Rcp7qgfUY4bkpOKWxPgWjvawC2d3RoZibsSji56xk+92MIFDvhEPywj0vuES/5b7mD
- +HIsTAaebOqdwSuJ/GhEm4t/Wh2kkkZjeTyTactMdLg9PI5iInzEJPEqoyvqEns1py0cVbOUcha
- YP1u9Y2fZtL0jWSLOTxuH8O8=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id 01af7b6ba4ef9efc;
-	Wed, 11 Nov 2026 01:11:40 +0000
-X-Mizu-Trace-ID: 01af7b6ba4ef9efc
-X-Migadu-Flow: FLOW_OUT
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=a21Wlag8
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=tamvwrhwaRuu2teG+uEoExDyyRtqgGmpvidpEIvKUKufi225zkO3vyBXe2XUvDWD+hIoYT01o7r2FxiWYPhY1ntO4nCpDQ0tAG052rLigWdlH6EhYdQfUYlEkMwjTHjwqiSRVZGsKcN6P3tzWK7THAfGXnaHSyKh8KYg5UUoeK9G+AkbP6htiOnGrW9t9SJjgZnLxMTklrFuzfefXqFodjW4sGlHtwySoiTLtw+bHFV89XNiTUhMuvGV9jMXmywpKyMT7vqlttqUeScL4hGwXP47CM3rmo5JMX68Ii4aRiR92LCn21vPSwGQI9Oxgo6t43ou1Y8auRrrBy4YDWrvmw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=klamGhN65K8ipUBLWt2gDGRDqctZ8vVDMeAW1wCZ4bI=;
+ b=EMEqBVniqHC2fA988i8p8pAeGtgUfsOXixSWAF2J1SC8xwXyquvz+1EcoJ8noQj8Ldi8Mu8/zFUJdCtkCvUHC62awx/vm9hr6HANNsIm0vOyXkNPsfhMQrqmZPysVYQApIwxjuDd2yZ0UsJMG0D3tHUpqrt+/kKfjQedyzJabMCwwIesGU4O7I7aWC/G/iQsR3uOZT10ooXfy2ekWCY5MFfc/C2Cw0Q7quESmiotUo3InqiM1gb2RB1gO4WX0k0b44OpOk8YkYGE+W2XpVBZVOEiJMFAYhwm+F8CWj4Xb287/jj74tmzHwgKULJpKBTq1S1SaVr3Y2VOHzf6Q7hklw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=klamGhN65K8ipUBLWt2gDGRDqctZ8vVDMeAW1wCZ4bI=;
+ b=a21Wlag8AweDYOCP/3AnRgMjAMYPMQdvcFFQq7mt9x7I2HWBqHINe/GoN7Oi4kEOumNLpDdKJSDboSVX/q0035nZOBbb8M6IAgUPF+sv6snzuRL7JMBgCgASbxyIvCo83cQZial9rdc6Z2WNQ3/LbIR/j76Uh9KvTgbD+jmCf+Bgq6ypa1nEXBboXJsXVH7E+WUUrP8h+QMuro3sajQD1jDc86frNxQ6j63kH3jro9eATsL1py/T4MZRwpkGcnFouqL0WM3S6JqYBb1coopRheYARZ1EfYvchlg1p40Nwqz3bep2W2cgefS1rx6Zl5s2r8munUXrrSN+6zWaJZSPow==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
+ by PH8PR12MB7230.namprd12.prod.outlook.com (2603:10b6:510:226::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.13; Wed, 11 Nov
+ 2026 01:11:47 +0000
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0592.010; Wed, 11 Nov 2026
+ 01:11:47 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 11 Nov 2026 10:11:39 +0900
+Message-Id: <DMRZCU0UJL9Q.251K7FN6X4GTW@nvidia.com>
+To: "Sami Tolvanen via B4 Relay"
+ <devnull+samitolvanen.google.com@kernel.org>
+Cc: <samitolvanen@google.com>, "David Airlie" <airlied@gmail.com>, "Simona
+ Vetter" <simona@ffwll.ch>, "Danilo Krummrich" <dakr@kernel.org>, "Alice
+ Ryhl" <aliceryhl@google.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun
+ Feng" <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
+ Gross" <tmgross@umich.edu>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "Lyude Paul"
+ <lyude@redhat.com>, <dri-devel@lists.freedesktop.org>,
+ <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] rust: drm: gem: shmem: do not leak pages when
+ sg_table() fails
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+References: <20261019-rust-shmem-fixes-v1-1-3f7f6de5b5e7@google.com>
+In-Reply-To: <20261019-rust-shmem-fixes-v1-1-3f7f6de5b5e7@google.com>
+X-ClientProxiedBy: TY4PR01CA0055.jpnprd01.prod.outlook.com
+ (2603:1096:405:372::11) To MW4PR12MB6873.namprd12.prod.outlook.com
+ (2603:10b6:303:20c::17)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,97 +106,95 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: multipart/signed;
- boundary=dbbf7b4062f21184826499ede7d5460c438b26e25673e1cb068044142669;
- micalg=pgp-sha512; protocol="application/pgp-signature"
-Date: Wed, 11 Nov 2026 01:11:36 +0000
-Message-Id: <DMRZCSZ0W7NS.K8CUKB6WCX01@linux.dev>
-Cc: "Anup Patel" <apatel@ventanamicro.com>,
- <linux-riscv@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2 1/2] irqchip/riscv-aplic: Use handle_edge_irq() for
- edge-triggered MSI sources
-From: "Troy Mitchell" <troy.mitchell@linux.dev>
-To: "Thomas Gleixner" <tglx@kernel.org>, "Troy Mitchell"
- <troy.mitchell@linux.dev>, "Anup Patel" <anup@brainfault.org>, "Radu
- Rendec" <radu@rendec.net>, "Paul Walmsley" <pjw@kernel.org>, "Palmer
- Dabbelt" <palmer@dabbelt.com>, "Albert Ou" <aou@eecs.berkeley.edu>,
- "Alexandre Ghiti" <alex@ghiti.fr>, =?utf-8?q?Bj=C3=B6rn_T=C3=B6pel?=
- <bjorn@rivosinc.com>
-X-Mailer: aerc 0.21.0-reader-ipc4
-References: <20261110-aplic-affinity-fix-v2-0-6c143b8b4e8c@linux.dev>
- <20261110-aplic-affinity-fix-v2-1-6c143b8b4e8c@linux.dev>
- <87ik24telo.ffs@fw13>
-In-Reply-To: <87ik24telo.ffs@fw13>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|PH8PR12MB7230:EE_
+X-MS-Office365-Filtering-Correlation-Id: 68e09c75-9717-43cb-3eb3-08df3f90c20a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|10070799003|23010399003|376014|7416014|1800799024|366016|261026121527099003|11063799006|261009223027099003|261022075727099003|261021121427099003|56012099006|261026140227099003|261022105027099003|261028144727099003|261102123227099003|22082099003|18002099003|6133799003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	eozQps1KACa+v0PVYnR3I32+DvfULPoNsGNqTK2EwvIs5epXDZpuqPiwH03Ao9qmESlWY/BQmjKSXePrVe+GQSgPb2XFyH7SkiQ9KwDdLUnDBs6LAx4uvNMrPvHATSSDnhNaMyzbqjuK5Meio7uzq14F9JANjgUu4EGxSesjvY+SQMsY8Zcu/LvQPoAIVxh3dDdaxjal6XAWoTEJVMt8JnxF+sQcEohS7sHJ9qzTdGYFUKDBBoPReiBcszICK+FaNSmj4H+DAdzmiBxXIZKAjLsFN5JpaGSP3ncL26j283ngThx5l29lC+5UUgE+1hnvgT/NdoXXQ98ps1RB7riTWJQXeVckZZiH4zfKCancKhRLX2mDYJSa+0bfQh/KnaAm72+SmsSWHz03HBRyTJZKFHCpkzL6DwatNxFFOaBL0X1CmfegMU2QXsKh3CzvXVF09TclU0mDllfP8L3d0jiuXahMhYlg6IteBwnNfpNf9QFwdApqOp4Ws1yMAZ0zmRd5qLnD5msMxdfKNkTsZVr2Vxwak9+WoStVI1rNky4C0wtiO+EjUJ08OhtisnxheaSHXbXUMXBNe8G+tdWDOjXmUM+CsbItZFpjgrPhpkBvXpZWsCyzHyfwULRkrQYKxTe7dU3imLyPFHdfqJY5tPEP6Y3V3FZA/uQgI+M0uNRTwjs=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(23010399003)(376014)(7416014)(1800799024)(366016)(261026121527099003)(11063799006)(261009223027099003)(261022075727099003)(261021121427099003)(56012099006)(261026140227099003)(261022105027099003)(261028144727099003)(261102123227099003)(22082099003)(18002099003)(6133799003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?RCs2c1hVdVkwd2tUbFIwbUdEaU1SWk9tdXJrNkwvdGQ3Qm01U1VxVVdlYkNF?=
+ =?utf-8?B?QnNYeEw1dXFkb3YwbjBhSnVsdjVId0JVYkxrMWpja2h4a3lncUVGUEFGUlk1?=
+ =?utf-8?B?aW9mTG5zcU03dHR1M0RRSlRyN1cyU3FmOGkzRTh6cG83LytkQjJleW5YcHZS?=
+ =?utf-8?B?bFhUUVNhRk5WZWpLYnlFTE1ZOHJrY25oUHkxcUJVZU1nZHd0K3ZvSHVlVnQx?=
+ =?utf-8?B?cTlIVWpVeGk5aFhUbEd2QWdSTFk3Kzk2N1UwUGxQaEJ6OHI4UFFkcndBV0xw?=
+ =?utf-8?B?alliSElRaW13SjBWYWFOSnZDbnR0T05QZVVnaHp2Ni9ZazlnZ1c5TW5zQXBm?=
+ =?utf-8?B?dGNJM1AxV3NBNEsyTktOM3JqL2RQSnZJbUJrRHRUalZYZ25QZlQ1TTV3Q3Qr?=
+ =?utf-8?B?ejE0VG54YnVkM1VFNG9pczAxTFRwYnRuUUFzQlpnUVhxdDMxQnJVSUVyeEdz?=
+ =?utf-8?B?MVlWZG9DSlB5T1NFQTd1RDFLQnpuZktnZFZXSXZRejVzNWF3TjE3eE5PaTlL?=
+ =?utf-8?B?NlRaeUZwZjQrbmxrbGpaSXZ3eEptc0pPaXo1UVg5SUxGTUlKRVgwcHpIV0tS?=
+ =?utf-8?B?K3lBMTRxRTFvWkR5TkY0UDhXaXp4N01NYk9vaUFQb0lqVUhua05sSHdaN0FG?=
+ =?utf-8?B?ZXdweVNhcVYxUmYrOG9IdXpvUFpHbFpaL1daUnpGdVh3bnVtN0pQRVRpU3Bu?=
+ =?utf-8?B?V3JaQllMclpXNDNOYUIwc0t2aHhQc2xJNHpNamwwa0xzTzQ3bGRmaWgxZmdB?=
+ =?utf-8?B?R0FzdWZpYnNjM2VQTnlXd1dLU0pwbkdEODg2UFBKejFTcEF5a0FRWS80SUJj?=
+ =?utf-8?B?RDFiN1hsaUhLVUl4NlcrYXhYV1RxQzRNSzAzZlJmdUQxWHRZZmw0OFB6eFI2?=
+ =?utf-8?B?NnFSNHR2NWZ4bEtRTHprcnVhMHBxaVNhZEx0SityTXN6eWpTakphaWJ5SDZV?=
+ =?utf-8?B?RWtpWFJITzZaaThyV3I0WHVSRXl5UGdhTHRMdEtLTVF1N3diL2hUWDNrTjBi?=
+ =?utf-8?B?SFhoWHFuSERKd29yc1Z0SlJ1T0o1SVZzTTVwM2xMVW5VVTR4T0hodnorVGRD?=
+ =?utf-8?B?Sjc4ampHL3FmN001MVcxWmhkTEZhWElJZUZWLy9FTThqdVhISEQ5dXdvSHZ1?=
+ =?utf-8?B?bW1FakxyRSs5ZWVUekxVdWNnak1hWmZ3Q1pQOXcxbXZ5d2I3bVB6TjJzb2ti?=
+ =?utf-8?B?OUVXTmdKdWpucEIyWnpVczRkeGx2bndGQkl6Umo0Q3ErRTVBNXhaenFET2tt?=
+ =?utf-8?B?enJtUXVySzM0UGdlR3hGWUdjbkZwU3pSRTFZcHhQN1J0Zmd6WlcrWEtqY2l6?=
+ =?utf-8?B?bXV0aHB0STlLZy9DVnNMVW9nQk0zYWVZTnJTc0ZQbEpiR1BWWFZ3ajVxb21D?=
+ =?utf-8?B?bVhIN1JDaG9ENGs3elM5M3pZWHFRRWxSVjRucnlXN3VZbC9HdGpnUzJVakdE?=
+ =?utf-8?B?RmhqQTlwY080TS9HWDRYZjZXb25YVDhhd1FuVXh1THlnRXlKdEdqckpDNmdx?=
+ =?utf-8?B?WnkrVms3dG5kTkFXS1lQWU1HUUVPZm0xUEwvL2Q5Tmw1TkZ1VzA4SEptU2N0?=
+ =?utf-8?B?b2krSE1tbTFnUVBEZnV6NHI1cVArOHFMOWFBNHZrazFKbnQzeXdWUVdaRDJU?=
+ =?utf-8?B?YlhLOG9hUEtJR0thbkF4V29QQk5nYjZCdW1uekJPMGRqZndla1BFejc0N3pv?=
+ =?utf-8?B?ZU9GYlBmNi9xZWpvOVgxL3BNN0hyYUtDZVlrTWtFZ0NJWnNQQlNsMFZQYnNo?=
+ =?utf-8?B?UDVWOVVVZHpBWW54dC9veWxPd2hKRkVWQktCSDZ5L3JVWEp3Z01wM1o1SGw5?=
+ =?utf-8?B?MUpFdkFwOWRjN1FqS3JhWVRJdlZLWnN3REU5VTBGYkNKbm9DUkdtczhyV1dQ?=
+ =?utf-8?B?Ryt0YUZObkgxa1ppc010QlJTZnBJM3ZQWEZ0YXlUTm5NdmZyZkZtWEdjSi9J?=
+ =?utf-8?B?Vk00czFYdm9zT0NTc2hGcXd6NzFCWVpHb2g3enhYMEJlb3hIYWlpc2tIUzRj?=
+ =?utf-8?B?Z0ZnaWxUamhkdVZoR2syK0RXMWtUTEtINE5FOTBxeDNlTWRURVg3dTlxc0po?=
+ =?utf-8?B?Q3N6RXlSWExzNkdoMTBnWkRPditmYXJNRE91WUxHZ3ZXNlc3YXlTZlE3Umpt?=
+ =?utf-8?B?eDd4blZ5OUJQb2xIV2xienphWHBHVXZHQ0JBTFI1VWk4VGN1K0g5R0dVcFVO?=
+ =?utf-8?B?U0pOYnlCWDBIQ1BiRHNVQmpFT3A0dWdCWVdDNzMvWGVuYUFCWitkNmlaK3VJ?=
+ =?utf-8?B?L3owQmR3ellIRXJ2VkN1YndDMGJVZGcrMmlqUi8xMjY3ZXl0clM2bHIzZDdv?=
+ =?utf-8?B?d1BqejFZS3VQVmRyM013QzVnZmE3NzRXc2ZoczZDK1NCb3JjclJNWVBZT0Ro?=
+ =?utf-8?Q?plsrgLTSAXbsiqarCAsS6fsQwkEWa5Kl+0nMkJvNY8YMB?=
+X-MS-Exchange-AntiSpam-MessageData-1: 7WmebA/QcdAK5g==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 68e09c75-9717-43cb-3eb3-08df3f90c20a
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 01:11:47.5102
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ai4RGfJuVSgJNcjc1Ve8MOvqd0airhnN4WTf3Zhm+OcDRMiD4G5gt+hHXrP8pw68Y1pZIAHpc370/87ezUKXmw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7230
 
---dbbf7b4062f21184826499ede7d5460c438b26e25673e1cb068044142669
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-
-Hi Thomas,
-
-On Wed Nov 11, 2026 at 12:07 AM GMT, Thomas Gleixner wrote:
-> On Tue, Nov 10 2026 at 12:06, Troy Mitchell wrote:
->> In MSI mode, all APLIC interrupts are handled by handle_fasteoi_irq().
->> For an edge-triggered source the APLIC forwards each edge as an MSI and
->> keeps no state after that, so an edge which the CPU side drops is lost.
->> After an affinity change, the next MSI can arrive on the new CPU while
->> the previous one is still being handled on the old CPU, and
->> handle_fasteoi_irq() then drops it.
->>
->> The fasteoi flow also never calls irq_ack(), which is where IMSIC applie=
-s
->> an affinity change that was deferred while a previous vector move was in
->> flight. Such a change stays pending, and later affinity changes of the
->> interrupt only update the pending mask.
->>
->> Use handle_edge_irq() for edge-triggered sources. It acknowledges the
->> interrupt before invoking the handler. If the interrupt is still in
->> progress on the previous target CPU, it either waits for it to complete
->> or marks it pending so that the handler runs again.
->>
->> Fixes: ca8df97fe679 ("irqchip/riscv-aplic: Add support for MSI-mode")
->> Signed-off-by: Troy Mitchell <troy.mitchell@linux.dev>
+On Tue Oct 20, 2026 at 5:21 AM JST, Sami Tolvanen via B4 Relay wrote:
+> From: Sami Tolvanen <samitolvanen@google.com>
 >
-> Not that I care at all about showing up in some made up git-tag metrics,
-> but in general it's a matter of courtesy to point out that the solution
-> to the problem was suggested by someone else, no?
-
-I'm so orry about that. Will add your Suggested-by in v3.
-
+> `SGTableMap::new()` takes a pages reference and maps the table before
+> `Devres::new()` allocates. If the allocation fails, dropping the map
+> frees the table but keeps the reference, and the next `sg_table()`
+> takes another one. `drm_gem_shmem_release()` puts only one, so the
+> pages leak.
 >
->> +	/*
->> +	 * Edge-triggered sources are fire and forget, so they must be
->> +	 * acknowledged before the handler runs. The edge flow handler also
->> +	 * replays an interrupt which arrives while the previous one is
->> +	 * still being handled on another CPU after an affinity change.
->> +	 */
->> +	if (type & IRQ_TYPE_EDGE_BOTH)
->> +		irq_set_chip_handler_name_locked(d, irq_data_get_irq_chip(d),
->> +						 handle_edge_irq, "edge");
->> +	else
->> +		irq_set_chip_handler_name_locked(d, irq_data_get_irq_chip(d),
->> +						 handle_fasteoi_irq, "fasteoi");
->> +
+> Take the pages in the initializer, after the allocation.
 >
->   https://docs.kernel.org/process/maintainer-tip.html#bracket-rules
+> Fixes: 616c229ab010 ("rust: drm: gem: Introduce shmem::Object::sg_table()=
+")
+> Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
 
-Will add the braces in v3. Thanks for your review!
+Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
 
+As Alice mentioned we probably want a follow-up that makes the API more
+symmetric (by calling `drm_gem_shmem_put_pages_locked()` in the
+destructor?), as right now SGTableMap's Drop implementation doesn't undo
+its constructor completely.
 
---=20
-Troy Mitchell
-
-
---dbbf7b4062f21184826499ede7d5460c438b26e25673e1cb068044142669
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iI4EABYKADYWIQSL4Ay2cExaPXAQcU2YCe+A+TM0LwUCavPAyBgcdHJveS5taXRj
-aGVsbEBsaW51eC5kZXYACgkQmAnvgPkzNC/ATwEA68tz0LWjoLhQ6lydmRmFFbH4
-SqBX5eKqpNjMrVEbw78BAJVfavwwDwGaomM3yvjCdAxmfV9e269wEMCMPm3Cz1UN
-=57iv
------END PGP SIGNATURE-----
-
---dbbf7b4062f21184826499ede7d5460c438b26e25673e1cb068044142669--
+But this change is good to have regardless as we want to acquire the
+pages after Devres' allocation succeeds, otherwise there is not point
+returning an `impl Init`.
