@@ -1,56 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.137
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794386468;
-	b=T2xQ3M13vQkYr4TVDe9PHqzt10HTuUoBxjQzEw0qiMiaG+1c3Uhe6Nuv+l+O/aUgI6sn
-	 5EIL3LY5eTOTJK6iI7ak2b/S1rIdSPmiHO1NZFG2wjE3C5PKWYDJS9TFBrNSDi8s6FLla
-	 TIVlerV2WcB+Jl5ytCF00E4jAI1nFidX3qDf8s4b9GHpNwyaqpjvu14GggYlRBq2o9xe5
-	 Pr0fsO9vR79KKPzYGXa4ttXhw1EHduF660xEgqQaEHHuRx9KUPBPlA0IRta+xroEWP7vS
-	 NM/1m6JjlA0E3oxSE0Rh9N0Rcx0GzWwPNMvG/bVpP1aEYLLTXy/w38YdSLnecyH85mQ==
+	t=1794386472;
+	b=5IMghvAG7eLkCf4mNUWKkdryTqsX6ql5NdEbHMYSzx37vS14WPBe8USrvqk16x3sZS6Z
+	 1mh9vcMYWD7fWMbrcLSC86Ou5m6giGOCU8jKU4wM3LmjeMRdpg1IbfpAVzrf4T8RI9xLB
+	 Lirl0nJZhN4iq1F+rSOui+kxXSIX7AzIO+zjHC/vcarfi2KON3XILaUGpaaX3SUieEPsf
+	 Wrb7FvY364g380WHsgN+VCOy6h9r7yPsPT45BS1/3mveJ48wXVKASUz55gzR+18iijnOk
+	 sBDRUhefHhhpLwQ7YQ3tcEnApHvWagUWNL0lo2RMZ8avbDDFb7oc47WNqNycGghlQZg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794386468;
-	h=DMARC-Filter:DKIM-Signature:Date:From:To:Cc:Subject:X-Priority:
-	 X-Mailer:X-NTES-SC:Content-Transfer-Encoding:Content-Type:
-	 MIME-Version:Message-ID:X-Coremail-Locale:X-CM-TRANSID:
-	 X-CM-SenderInfo:X-Coremail-Antispam;
-	bh=R4Zcw3rubr2XGwn0yn+KJncXn3gFJBg/JleZNOkAzL0=;
-	b=JRc1heHqM3xzVNSw0BhgJWpsW1BwbNXeGtRsjj7UwCAemAVHKtUsDEHbHYLuFxL2M2aV
-	 GB3PSESwJEgRlW2NNTMQaHnSYRD9Dkb/51lYk/9RhDbymIz3Ic3s7SyQlszDTRXm0pa7J
-	 vzES+U0MiN2Cm7IGOMlt78siMQK4G8fheyI9Xhx4Ty18uXdZBk9VwLT63SgEnbgm9Jcrm
-	 jZUMpeO/SNPCJ7at3lLjqKGOQrYdK1sz1RzZWC22Mzunsms2bIsVfuN0avML+cVowojV6
-	 VTz6Q9lcjttcJ44vu8AdiBymVG2OGvmVNpn1J46Y8iw8FyD5mscm3Umwxs1xHijKcjQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794386472;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=swPiF6htnL+2dH9xeaFftbCr5b2e/UQbCzmsRYhDYuY=;
+	b=xI5DzTIib0an9VCOsPwE98sczC3pbL2AtZ8wMW/aqJIDIMD8RH8RLw3bqihNkYbPpImY
+	 C28zJMoG2hNHD6jo0Ql5SNDUyEhJpyeU/HLS3KeOLqmkzWKueqvIZ4/Gpla6vlMEQ7cxs
+	 oXnUuEdUkGVj3Ks6dlnqQT8ZspSSm/QqVrHLI7oEYJ+Wfr0DRkS+NKp/JI7sisE7XQUl6
+	 BE1VUAYRYT/d9L0ep9xyTnd+s2WiOv1twTiwpvhqvU0R072xkUOf4NXeoXMmwewq8ReXe
+	 OQ3Yo7Ah0nAc7ChNMG069bn5SOgqbr7rRU8/Wil4nHmbZG6TA4BdK9D5ZtxyHJdRVTw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=FSNczDvI;
-	arc=none smtp.remote-ip=220.197.31.4
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3A58606A31C;
-	Wed, 11 Nov 2026 08:41:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3A58606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=fNtYylUI;
+	arc=none smtp.remote-ip=111.22.67.137
+Received: from cmccmta4.chinamobile.com (cmccmta4.chinamobile.com [111.22.67.137])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8499B606A33E
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 08:41:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8499B606A33E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=FSNczDvI
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=R4Zcw3rubr2XGwn0yn+KJncXn3gFJBg/JleZNOkAzL0=; b=F
-	SNczDvInthMa8GMeOzpcWCrIQgGc1o3QDUs6CYvX3AvKDxIkhJN8E2Ni2MGcxBmY
-	CcEqltvzK2Rk8VgGVjUZrXFtKKjIqcM781hA4HZFSq0q0ldDgpdRtsrKvZhDMWBo
-	0oubOP+O1FPX/GMe0FL9irabMvlgU87qjeBRb5GyqA=
-Date: Wed, 11 Nov 2026 16:40:48 +0800 (CST)
-From: CJ <firefly0158@163.com>
-To: mchehab@kernel.org
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject:  WARNING in usb_submit_urb from gl861_ctrl_msg on v7.3-rc2
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-X-NTES-SC: AL_Qu2SBv+TuUwv7iOaZOkdmEsTju82UcS4ufQl245Xc8EEuS7f5iUqRlhADGXE8O6qGhC3lDKJfD1fz9lHWIZJJS7IyAf3ye3y+4E++1FgdQ==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=fNtYylUI
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=fNtYylUID7CC+exWCShu3TTB7wRBjmW58SfC1KsioXVWq8I8tAKxzWx7/6/OP4tT75n+fGqmwF1EG
+	 IonPxHBZo9NprQIo+fZqw8jwQ6OT0bJ/nBOH8aGzWbmezl1aTqkdH2CUE0i6zn8ZntTz3x6DRaynvx
+	 1zyBAlKbV91WVjsw=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app08-12008 (RichMail) with SMTP id 2ee86af42a2596c-76af3;
+	Wed, 11 Nov 2026 16:41:09 +0800 (CST)
+X-RM-TRANSID:2ee86af42a2596c-76af3
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from devin-VMware-Virtual-Platform.localdomain (unknown[10.55.1.72])
+	by rmsmtp-syy-appsvr03-12003 (RichMail) with SMTP id 2ee36af42a24aa2-d4c7d;
+	Wed, 11 Nov 2026 16:41:09 +0800 (CST)
+X-RM-TRANSID:2ee36af42a24aa2-d4c7d
+From: Zhu Jun <zhujun2@cmss.chinamobile.com>
+To: tglx@kernel.org
+Cc: anna-maria@linutronix.de,
+	frederic@kernel.org,
+	linux-kernel@vger.kernel.org,
+	syzbot+0b91948d3c6b28c0d4c7@syzkaller.appspotmail.com,
+	Zhu Jun <zhujun2@cmss.chinamobile.com>
+Subject: [PATCH] timer_list: Annotate the clock event deadline snapshot
+Date: Wed, 11 Nov 2026 16:41:08 +0800
+Message-ID: <20261111084108.80870-1-zhujun2@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.51.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,36 +70,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <1f7be7.73a0.1a1c9c44fc8.Coremail.firefly0158@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:gSgvCgDnZ3MQKvRqe6lrAA--.476W
-X-CM-SenderInfo: piluvw1o1qikqy6rljoofrz/xtbC3RBmGGr0KhBAvwAA3o
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Content-Transfer-Encoding: 8bit
 
-CkhpLAoKCnN5emJvdCByZXBvcnRlZCAiV0FSTklORyBpbiBnbDg2MV9jdHJsX21zZy91c2Jfc3Vi
-bWl0X3VyYiIgb24gTGludXggNi4xLiBUaGUgc2FtZSBmYWlsdXJlIGlzIHN0aWxsCnJlcHJvZHVj
-aWJsZSBvbiB2Ny4zLXJjMiB3aXRoIHRoZSBhZGFwdGVkIHJlcHJvZHVjZXIgZGVzY3JpYmVkIGJl
-bG93LgoKClRoZSByZXByb2R1Y2VyIGNvbm5lY3RzIGFuIGVtdWxhdGVkIEdMODYxIERWQiBVU0Ig
-ZGV2aWNlIG92ZXIgcmF3LWdhZGdldC4gRHVyaW5nIHByb2JlLCB0aGUgZHZiLXVzYiBpMmMgYWRh
-cHRlciBpcyByZWdpc3RlcmVkIG9ubHkgZm9yIGEgc2hvcnQgd2luZG93OyB0aGUgYWRhcHRlZCBD
-IHJlcHJvZHVjZXIgc3RhcnRzIGEgY29uY3VycmVudCBwb2xsZXIgYmVmb3JlIHRoZSBVU0IgY29u
-bmVjdCwgc2NhbnMgdGhlIGkyYyBtaW5vcnMsIGFuZCBpc3N1ZXMgYSB6ZXJvLWxlbmd0aCBJMkNf
-UkRXUiByZWFkIHRocm91Z2ggdGhlIGRyaXZlci4gVGhlIFVTQiBkZXNjcmlwdG9ycyBhbmQgaW9j
-dGwgcGF5bG9hZCBhcmUgdW5jaGFuZ2VkLCBhbmQgbm8gZmF1bHQgaW5qZWN0aW9uIGlzIHVzZWQu
-CgoKVGhlIHRhcmdldCBjb25zb2xlIHJlcG9ydHMgYSBXQVJOSU5HIGF0IGRyaXZlcnMvdXNiL2Nv
-cmUvdXJiLmM6NDExIGluIHVzYl9zdWJtaXRfdXJiLCByZWFjaGVkIGZyb20gZ2w4NjFfY3RybF9t
-c2cgYW5kIGdsODYxX2kyY19tYXN0ZXJfeGZlciB0aHJvdWdoIHRoZSBpMmMtZGV2IGlvY3RsIHBh
-dGguCgoKVGhlIHdhcm5pbmcgaXMgcmFpc2VkIHdoaWxlIHRoZSBkcml2ZXIgc3VibWl0cyB0aGUg
-emVyby1sZW5ndGggY29udHJvbCBVUkIuIFRoZSBhdmFpbGFibGUgY29uc29sZSBkb2VzIG5vdCBl
-c3RhYmxpc2ggd2hpY2ggVVJCIGludmFyaWFudCBpcyB2aW9sYXRlZC4KCgpUaGlzIGlzIGEgZm9s
-bG93LXVwIGZvciB0aGUgZXhpc3Rpbmcgc3l6Ym90IHJlcG9ydCBodHRwczovL3N5emthbGxlci5h
-cHBzcG90LmNvbS9idWc/ZXh0aWQ9N2UyMjU1M2QzYjRmN2EzZTI3NDIsIG5vdCBhCmJpc2VjdGVk
-IHJvb3QgY2F1c2UuIFRoZSB0YXJnZXQgcmVwb3J0IHNoYXJlcwo4IGtleSBmcmFtZXMgd2l0aCB0
-aGUgc291cmNlIGNyYXNoIHJlcG9ydC4KCgpSZXByb2R1Y2VyOgrCoCBDIHJlcHJvZHVjZXI6IGh0
-dHBzOi8vcGFzdGViaW4uY29tL3Jhdy9KZEZMNjJMTAoKCmNvbnNvbGUgb3V0cHV0OiBodHRwczov
-L3Bhc3RlYmluLmNvbS9yYXcvQjIzZUtGQjIKa2VybmVsIGNvbmZpZzogaHR0cHM6Ly9zeXprYWxs
-ZXIuYXBwc3BvdC5jb20vdGV4dD90YWc9S2VybmVsQ29uZmlnJng9NmE1Y2JkMjY4NDA2YmY0MwoK
-Cktlcm5lbDoKwqAgSEVBRCBjb21taXQ6IGRmMjkwODA5MGNkYTM2OGIwMWZmNDM3MDlmNTE4OTAw
-NzZjNTYxNTcKwqAgZ2l0IHRyZWU6IGxpbnV4LXN0YWJsZQrCoCBrZXJuZWwgdmVyc2lvbjogNy4z
-LjAtcmMyCsKgIHRlc3RlZCB0YWc6IHY3LjMtcmMyCgoKTGV0IG1lIGtub3cgaWYgeW91IG5lZWQg
-bW9yZSBkZXRhaWxzIG9yIHRlc3RpbmcuCgoKVGhhbmtzLgoK
+print_tickdevice() reads next_event while the remote CPU can update it
+from its timer interrupt. The value is only printed to /proc/timer_list,
+so synchronizing the clock event device is unnecessary.
+
+Use a single diagnostic snapshot and mark the intentional race, as is
+already done for the tick scheduler statistics in print_cpu().
+
+Fixes: 289f480af87e ("[PATCH] Add debugging feature /proc/timer_list")
+Signed-off-by: Zhu Jun <zhujun2@cmss.chinamobile.com>
+---
+ kernel/time/timer_list.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/kernel/time/timer_list.c b/kernel/time/timer_list.c
+index 0406bf4488e9..5f80af00729e 100644
+--- a/kernel/time/timer_list.c
++++ b/kernel/time/timer_list.c
+@@ -177,6 +177,7 @@ static void
+ print_tickdevice(struct seq_file *m, struct tick_device *td, int cpu)
+ {
+ 	struct clock_event_device *dev = td->evtdev;
++	ktime_t next_event;
+ 
+ 	touch_nmi_watchdog();
+ 
+@@ -199,7 +200,9 @@ print_tickdevice(struct seq_file *m, struct tick_device *td, int cpu)
+ 	SEQ_printf(m, " mult:           %u\n", dev->mult);
+ 	SEQ_printf(m, " shift:          %u\n", dev->shift);
+ 	SEQ_printf(m, " mode:           %d\n", clockevent_get_state(dev));
+-	SEQ_printf(m, " next_event:     %lld nsecs\n", (long long)dev->next_event);
++	/* Take a diagnostic snapshot without locking the clock event device. */
++	next_event = data_race(READ_ONCE(dev->next_event));
++	SEQ_printf(m, " next_event:     %lld nsecs\n", (long long)next_event);
+ 
+ 	SEQ_printf(m, " set_next_event: %ps\n", dev->set_next_event);
+ 
+-- 
+2.51.0
+
+
+
