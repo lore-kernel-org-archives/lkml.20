@@ -1,56 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=84.42.129.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794418190;
-	b=hnFdVz8X1bUtXIOkG6GfZtnvTN3888BG1nmFbbDas6WxC5Xo53SFyZF8cGKE96rr97+f
-	 CMiUOtkH8lN/zBHklt17QaZ4wYQJiqVGFrr26gNHZQ5z0rKklG75T+LqXLqCqX1BaLd88
-	 Bw4QixlXol5EW1bmK85O8iRE8DsbtwbwHlfjFmmk6lWaphUPYKm6IUEwUgoA4skkuNr6+
-	 BQL4AtrcHTYVFlf9npXbOJayxr9NJA80/GGXz50QiBu0mApuISYsr7b0YLowezwFHXIoW
-	 XlVpP9ZMOm+gNTBIJeO9uJA4ILdKU7OhhMGmU/MNqcHsSzvXl94Lvr1D84pV8/80Tog==
+	t=1794418199;
+	b=zS+B26BOQZU4hbZUEt8Plca4doKMC/vxUKzvWjeOYWM1gOxu5BYC0cx5Q/8970Cqs9jb
+	 DI+fga1vZA2yzh9P/18mHBwuAaJIeYlDm+0hB/RuahtC/CJATZXB9wEM7i/yeuLEmba7Z
+	 dL24ROrVMGmuL/uxQeckXH52w4Q5NH3CIWvJtVPXrY/ElHsGxLGZDCTzdTUmdMs2FBbV8
+	 u+aFU027L2iWe/FCzqpPPT16hJtNbnWtoRujJPdHZ0pTs35C5IYnWt7bvlWQLiZtlRnwB
+	 tTjb0kXZxgRTxWbniTvXmyQiOjWAao/0ppRENG+/+FNb7P4H7HJ2sFiMM5KR7pG3hNQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794418190;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=k3MMiiyrE2/vmmPniubC6NRjrxdD0IHNvZtfdmL4CEY=;
-	b=HOT+Ni6vyvKKf49x/u3TZXNwYulcJWTKr5YPx4AurHfLqb92ZOugHe8cewKZ/GXLL5uY
-	 DY8VrzD1g19i/WeysN8zB4KbWUQjLfuNoxl0FNEhlvWAHeOGaHpuPAFltAYSEbpWqiC0n
-	 MBf3EIp7p9USzNFrdG367k9PR07teZbToekYLOrW5x/zaAcLxalc2nwuLWjY00YO7QtMo
-	 hsCNtYJJ+J0wczqf9iQNK6NQe+8kAmfueRArGoAFmAXA8gJmr7i2KCoQt1k9qxJ4zqCK3
-	 2V+3lLkNSPeQKn6PGm/1n7DMVdssVGox6nJ7w7QktuVwdgWPMQdawOrSQ1k7r2AilXQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794418199;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=hWVnipVnpqlmDrtqQEQzI1nIW+peyVDfq10bD9YNiNU=;
+	b=W7SsY1sq0femM9vdOm8Vse0MNSBK0kReiuK/tBfaQLgwSnIIw4uNDPEN6CbA7Ypuhml/
+	 D0REawOtSp9nByCAs9BA7c+6cMkMMNchM1YRSCicqjPND48GiNC5FchjVpwwxCJgBCsMR
+	 HIfV2AnTTXCqG5J04K3vy/Ox8YIa7znfoV+zL3sOFFR++HrThAjukLuERKz6mASZBaqHu
+	 sGX2x2T1FDowYXVlmTy5SzQUt3vLvakwOKNLD612ofjYURY7vyB8YyFyOjI2ODXIdnTHf
+	 NUjmJTlOMauZM9AYGWYukG6ssHwVFt0d2MWDbniD6HdG4aDaYE38RM3zdS2NwG5H3NA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ixit.cz;
-	spf=pass smtp.mailfrom=ixit.cz;
-	dkim=pass header.d=ixit.cz header.i=@ixit.cz header.a=rsa-sha256 header.s=dkim header.b=fGHQHaS9;
-	arc=none smtp.remote-ip=84.42.129.46
-Received: from ixit.cz (ixit.cz [84.42.129.46])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vJF4jtNG;
+	arc=none smtp.remote-ip=209.85.128.44
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F5A3606A324;
-	Wed, 11 Nov 2026 17:29:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F5A3606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6006C606A331
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 17:29:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6006C606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ixit.cz header.i=@ixit.cz header.a=rsa-sha256 header.s=dkim header.b=fGHQHaS9
-Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id D0B5E53402D8;
-	Wed, 11 Nov 2026 18:29:40 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1794418181;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=k3MMiiyrE2/vmmPniubC6NRjrxdD0IHNvZtfdmL4CEY=;
-	b=fGHQHaS9F7ZFVd+364/66JcZ8oed39njITFaTgv8CWSWFywsOTCOeWz5N8oGYEx+jR4x5C
-	Jm99AyjoofTdqXi47GeQeA8XmseBWbZoNXe0OWjvXz8kgZI82XBrVQBv/bw77Vx0kXdSDD
-	oeH9wm/Xwdwbf2pghpAgD1SQPbruuoY=
-Message-ID: <792a95df-af0c-42ee-8b30-f5f71b0f4b53@ixit.cz>
-Date: Wed, 11 Nov 2026 18:29:40 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vJF4jtNG
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a208d93758so36752135e9.3
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 09:29:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794418198; x=1795022998; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hWVnipVnpqlmDrtqQEQzI1nIW+peyVDfq10bD9YNiNU=;
+        b=vJF4jtNG9ztldXnWy3XgVGfj+s8YQWsZfHIbDvGy3dQTi4BzCXol6j5PdIf2vBtn6H
+         KFPM/yBRMuMATvpT4o8vfjAA3dRLviT6V3rUeKVqQLr1QzGdQxaMsr7yOdeKqxAJ9JWt
+         P0JZOqZ215Fz6ewfN4NoxLkSsXrXO4h67rIPbmljO3oqJ0RP/G7KpOa0SVIF4wvbrFMz
+         tUtwSW/vX3vrEGUWk3YXtqgcsHe+n/aeYRg71fYJAsmY1fLX/Zo9YyV3+Phidn6Q3HMD
+         SGPMSeUfi+KrkrweDZ9Lp/Taepi4lWEM+gxq5gJuGWJ5e9LY8qpDAZ6kBWX259kau+/W
+         HZkA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794418198; x=1795022998;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=hWVnipVnpqlmDrtqQEQzI1nIW+peyVDfq10bD9YNiNU=;
+        b=IsnaC9rds6IpcERyGeDRX8K2prKCrIKZlKXl5PBV3P9Usr8p92pvtOAH4+m4+zUqyv
+         Cmo76Zs0NQAK8R0fpxJXXKnuzhBcQ/E9tM9x4fy78wEejhd46cDbBcCxGRZer+deAb7f
+         SSJ9Xvrn04fab4K3HW6esez68bmOjWjLjOSO65EMKdXxO2MfRBhSrr+zr6cNSejwI9rr
+         vnQhsK4XPHmyL81hb2mkchlN+1TTh/DnYIHlLI3WStdeIVBySgboNuUgN6bAfgK1JXAm
+         roqOwlFiLBEXGSXSbGNmPslsya/FW2MHvklljyehxU4CHJO64gkT0onLpezTTId5DrNW
+         XfeA==
+X-Forwarded-Encrypted: i=1; AL+hErEVbVdDmrkWccEqj51aty/omwkeb6IruvWPKXfF2/nywL56kJv2VejZOItZAkc0zw9wLuChuwZ7REecXs4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/Leqr6co44mB4X7SHxfP6gFV88acq1ZXKpGoHaHck1gFTCFi5i
+	sblmoRbjHX0qHb54Jnj1DNwoGlGXGOWPdmzANqRcOjyNH3coGM3mDVFF
+X-Gm-Gg: AYBFou0fpIyFNswxpr4icF3ro3gKEGPSssAxryBmj1vOxIaq+zLZrYAYxNRyPmvPmqL
+	iB8MW3oZdGlPIUaa7v4BrjuKZprBjdy/Y6XqGwDymf5pz8e0oXKm/mi2LFKI5P0yxqnZKMuBnOZ
+	CCuryIySFPGBzUWl83Q2IjgagsIQc/cgNc1G8eLEIAqVmN4KbOFTQqk7M+i6nB3Pnpa8S03Fec1
+	VtkxzlBoYNYmuY2mK1Osl7+fCe1/w5UsIzIVLRB/XJMlgN1JIXDnCyGF0khs8VVm1w8nyGPpbgs
+	AqH4aRxPMNFvt0au4OTOagOuEP7NedSFU9ye9clGain9kalJxNC+EFoHVwUAV1LWmVV7fPoBsa9
+	9RTu/KW2Fd24dKQgn0YZFaOI2xn5c36tKgCJ7nEEawEhedLqbVJZSABcZq8hN9pUzXopTnbOWn3
+	zcdn5Gij7eyjQ+mQaQd4J1wtXTK8+BCRoR0IVX/qkjA2HytcA17rg/Z70EzBtFPRyKOwFw4NEef
+	Aqq94XJXKaKmUyVjqSy9dj6rDb47dnTJUCIK1XSc9GF8W6Lell/WPXwwJG30Qx6H+KHTTe2cZhJ
+	rukTVCT1Sik9OrD50zMvf5VhpDm/JuY+nlnKssNVu1FuC7xLZRQjD5ksOrj8/3wBvpd6xrmcUml
+	+
+X-Received: by 2002:a05:600c:4e45:b0:4a0:1fb9:2f51 with SMTP id 5b1f17b1804b1-4ba0936efc4mr61545245e9.14.1794418197595;
+        Wed, 11 Nov 2026 09:29:57 -0800 (PST)
+Received: from stjepan-Aspire-F5-573G.tailc0f20e.ts.net ([2a00:1bb8:118:d39e:d655:6a9b:5ab8:7f68])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb4e26700fsm3134525e9.10.2026.11.11.09.29.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 09:29:57 -0800 (PST)
+From: Stjepan Poljak <stjepan.poljak@gmail.com>
+To: "Michael S. Tsirkin" <mst@redhat.com>,
+	Jason Wang <jasowangio@gmail.com>
+Cc: =?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+	Andy Lutomirski <luto@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Mathieu Poirier <mathieu.poirier@linaro.org>,
+	virtualization@lists.linux.dev,
+	linux-remoteproc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 1/2] virtio_ring: reject a split ring size that is not a power of two again
+Date: Wed, 11 Nov 2026 18:29:37 +0100
+Message-ID: <20261111172947.3579982-2-stjepan.poljak@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261111172947.3579982-1-stjepan.poljak@gmail.com>
+References: <20261111172947.3579982-1-stjepan.poljak@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,105 +105,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 7/7] arm64: dts: qcom: sdm845-google: Add WCD9340 codec
- and microphone capture
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Srinivas Kandagatla <srini@kernel.org>,
- Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- David Rhodes <david.rhodes@cirrus.com>,
- Richard Fitzgerald <rf@opensource.cirrus.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- David Rhodes <drhodes@opensource.cirrus.com>,
- Conor Dooley <conor+dt@kernel.org>, Abel Vesa <abelvesa@kernel.org>
-Cc: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>,
- linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, patches@opensource.cirrus.com,
- devicetree@vger.kernel.org, phone-devel@vger.kernel.org
-References: <20260925-pixel3-audio-v5-0-7ffb32c980bf@ixit.cz>
- <20260925-pixel3-audio-v5-7-7ffb32c980bf@ixit.cz>
- <b1570552-958b-4cce-977d-f04e03fdb4bd@oss.qualcomm.com>
-Content-Language: en-US, cs-CZ
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <b1570552-958b-4cce-977d-f04e03fdb4bd@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 15/10/2026 13:08, Konrad Dybcio wrote:
-> On 9/25/26 5:28 PM, David Heidelberg via B4 Relay wrote:
->> From: David Heidelberg <david@ixit.cz>
->>
->> The Pixel 3 sound card so far only drove the two CS35L36 speaker
->> amplifiers. Wire in the WCD9340 codec , add a SLIMbus capture link
->> for it and route the three digital microphones
-> 
-> [...]
-> 
->> +&swm {
->> +	/*
->> +	 * Nothing hangs off the codec's SoundWire bus on this board: the
->> +	 * speakers are CS35L36 amplifiers on QUAT_TDM. With an empty bus the
->> +	 * controller reports port mismatches and frame-generator timeouts on
->> +	 * every boot.
->> +	 */
->> +	status = "disabled";
->>   };
-> 
-> Does our driver need fixes?
+The split ring indexes its avail and used rings with num - 1 as a mask,
+so its size must be a power of two. Commit 2a2d1382fe9d ("virtio: Add
+improved queue allocation API") moved that check from
+vring_new_virtqueue() into the new allocation path, which
+vring_new_virtqueue() does not use.
 
-it's possible, out of scope of this change-set thou.
+remoteproc calls vring_new_virtqueue() with a ring size from the
+firmware, checked only to be non-zero. With 100 entries, for example,
+the driver would put buffers 4 and 8 in avail slot 0. The device would
+look for them at slots 4 and 8, possibly reading the wrong data.
 
-I changed comment in v7 to just state it's unused, so we disable it.
+Put the check back for the split ring; the packed ring has no such
+restriction.
 
-David
+Fixes: 2a2d1382fe9d ("virtio: Add improved queue allocation API")
+Signed-off-by: Stjepan Poljak <stjepan.poljak@gmail.com>
+---
+remoteproc still reports this as -ENOMEM, although the "Bad virtqueue
+length" warning names the cause. Returning an error pointer from
+vring_new_virtqueue() is left for later; the same change for
+vring_create_virtqueue() is here:
+https://lore.kernel.org/r/20261106055635.3019889-1-stjepan.poljak@gmail.com
+---
+ drivers/virtio/virtio_ring.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-> 
-> Konrad
+diff --git a/drivers/virtio/virtio_ring.c b/drivers/virtio/virtio_ring.c
+index f683a2d6a200..8da9bd0e70f4 100644
+--- a/drivers/virtio/virtio_ring.c
++++ b/drivers/virtio/virtio_ring.c
+@@ -3513,6 +3513,12 @@ struct virtqueue *vring_new_virtqueue(unsigned int index,
+ 						    name, map);
+ 	}
+ 
++	/* The split ring indexes its rings with num - 1 as a mask. */
++	if (!is_power_of_2(num)) {
++		dev_warn(&vdev->dev, "Bad virtqueue length %u\n", num);
++		return NULL;
++	}
++
+ 	vring_init(&vring_split.vring, num, pages, vring_align);
+ 	return __vring_new_virtqueue_split(index, &vring_split, vdev, weak_barriers,
+ 				     context, notify, callback, name,
+
+base-commit: 1a577f9402c1780cc1e663f48d5dd54c02051b09
+-- 
+2.53.0
 
