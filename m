@@ -1,57 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.70
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794375358;
-	b=GF+sG/woqWC24lmIVahZqj3tkxo4lvX4EVBqg4oXEUTtsbmS+cYMw+ZGSO+6+PBxdyUA
-	 uuRfuwAobH3Xp6e48/pa5lW6x65kX2R3J7WfwIgUDC5thqssK5kJ9JkJjegrTkyOv2Y4h
-	 KlHhcUJO9ioiIGLmd+WUpzojyDve8B3+BBrHM0tvhEFF+duO8Jn0ObESKJwrNPYEjCUgO
-	 I2Cok4N+rygwVtg+/ppN1F/R5tBJZmZ0e1Hg/PQ4aBj0Uy7Ws0wOdbirC8v58/vP8OOfB
-	 BgTCvgib30SKuK+Ha4w1+r2Wx73pdR7liYMTaJ/doyD6YrTz9he1XKhM4jACCf/Z/ZQ==
+	t=1794375422;
+	b=1msh+9DjY02P97B/YJkrR7ChWPpud6WQIpcX3drOnEF3YsrdKSMNQyrIWgErYP72PclI
+	 IDbU5x1vfeGsxr/lyKV3fnmjFquzcMtAyuG5KqUKEOfuTs6AJEoPBg7P70rpsdaCY5ilA
+	 vwXn2IaJXmKM7Kp3r4jjtyyexRVD8NHbAfJCc2rKrb1WWT2dbgE28gPeACzERwXxvGbcl
+	 gn54Ow9f1XNkk7CaPveMd7kf0/pYZ1XcpVOzpboww71ROTEUlQyBMKOT69ZvXRrx+VJuI
+	 HkGw+xm9ZLY3lxMdZArQncd86JmWjXaI68ZIKBOSBDfbvvjFhqRa/+5YQB1xkXIFkwg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794375358;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=AlOVI4d/PmC2P0LcNq83nBnChqQ4tWInDLtYGmrQi7k=;
-	b=rGRoWYp6ITEHj0bg/F2dQ32XOPRaGFjYViq1gvJmdksxRs6FLklmxx1S1xORYj9Sx4Pr
-	 Mwn539YU2mA/UUt1rsskr7kiQ/WJhjtMhb/KXE9VRCwvyVURNPkpQWdai3l32lj+deOkW
-	 yMsc+/dfOhs3DFAi1F+opRLqdLvWqrsYbgyBNHc5pWGRr31QTFR8l9o77aSYwl1QtIE6M
-	 lDnrwfD0LDHWUz2HdRh/XXfkNF+OdCHcBgO4UDHE06BeFF4ObRU33q2QWpNfICDxL2C6k
-	 ifI57HXcQjjFpIE5IU4xOfDsviqsyS27T9/CK1xL+wXXpPoEWpF1tZvBT3VlRn/Bc8A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794375422;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=eLmVTYOfswJ+cGfMoCZUFy1VK5TCu4veYLS+0REM4CM=;
+	b=bBTFf9mgNZjJ8f8Q7w3HFRGBJw2ozyLL/6dATNbepNUrX53wdTwcJD/krb/Na/P++BE3
+	 KifNei7LEqrqzIy1BMu76+sOaFa8H1ZQnrjWYTWxrYEgYFecLzunWvSxGohBMXR3ja8od
+	 9X9aqy4wmqj5JGYJjfeuvM2hDyRYdC7O0mvahTMVvv+MuzuXZ3S09buMfeuiH7ZlIE+VB
+	 yCVv/wEN96WgphuaU+EUpjbSW/efJlmMe3nUQ2p9tKFYqncmyg00GsLUzVVEvI3KabK6e
+	 LSfrB5+Zt7CuehCDQ69URh5Syp+7hT+TR3jIh0PmviWVXp0zKnyvtoj48WooEioLeeQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OEqaARNZ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--tarunsahu.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=j0h7t6W2;
+	arc=none smtp.remote-ip=209.85.128.70
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com [209.85.128.70])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4E4C606A31C;
-	Wed, 11 Nov 2026 05:35:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92F12606A326
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 05:37:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92F12606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--tarunsahu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OEqaARNZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8E331F0089F;
-	Wed, 11 Nov 2026 05:35:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794375357;
-	bh=AlOVI4d/PmC2P0LcNq83nBnChqQ4tWInDLtYGmrQi7k=;
-	h=From:To:Cc:Subject:Date;
-	b=OEqaARNZkqEx+i4XhyraBVxOnG+gYMMjxqZQ22YA9vbUF3MI9SKCp3OP3I2Ty7vJn
-	 z6ZOyuh0RLOKOsrbe9tWFoEU1RcaLMhmxgxr+aim6N6SMERx6+teo4w28lYZFbIpLD
-	 ohtV9B50I55TCGDKIS/MAEpAM5Ww+DEsczlDwqkmoMGzlL2OMvQWy8wjjvFigN8vRb
-	 xdHnwnq7U3Da/ig+C3rG9eHeh+9g1uEoZg50/Ev/fZJTCsLYjTqBk55O9cvYpLB2Sr
-	 aRQnz3LO+djRI2m3LYJZaSO767GDOzRhhbSr1gEidHuUvz6+R6+/ciwJJGZRW0idBA
-	 f0nP3dIv//DnQ==
-From: Song Liu <song@kernel.org>
-To: rcu@vger.kernel.org,
-	paulmck@kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	kernel-team@meta.com,
-	rostedt@goodmis.org,
-	leitao@debian.org,
-	david.dai@linux.dev,
-	Song Liu <song@kernel.org>
-Subject: [PATCH] rcu-tasks: Use pr_debug() for callback contend/collapse messages
-Date: Tue, 10 Nov 2026 21:35:51 -0800
-Message-ID: <20261111053551.3367903-1-song@kernel.org>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=j0h7t6W2
+Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-4ba01393800so13044135e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 21:37:01 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794375420; x=1794980220; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=eLmVTYOfswJ+cGfMoCZUFy1VK5TCu4veYLS+0REM4CM=;
+        b=j0h7t6W2DhVdMUK6Ake7JqZjqrnTvHtViAvJAdnP83aR3NfgvIHJywMNNZw2qDFFYJ
+         pZVHUlmqFSM0KTJ6KVSrk78AmbGhzrjkNyJThYbaCbowANuc6lSdDGXt5hINeyqJspkW
+         6+9+aP/K6t57zRXMZvIa1sdCqATbWCBs0Af0GV+w/9ssx/kDyne1QjMnI7LNbeKsR2nY
+         z2sf5dPvG4eOvKvELtfHTr97/MUcE9vGfDqwxg7s9FgiDgwLaLfE15EIe132P5/hGL2M
+         iHhvk0FcES6c9vCnyFTpsE2akeQay/L41FGbDg0wZPy0W0HZvzH2GkJkEQUovdYlXLBz
+         EZyQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794375420; x=1794980220;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=eLmVTYOfswJ+cGfMoCZUFy1VK5TCu4veYLS+0REM4CM=;
+        b=o/kKv8Z6z+kbFHbQ+2tSC4DTZiYus5W2fp+vIsUF4kniB+JqDOdMVR8TlXlPd7u9gn
+         gLkGsJgv319uFs7do1dIiiqqwqEO7NysHscKS+3/LPZJBnqHoaIeu2HfMRfGLnKkcbhu
+         TLGlmuNHUGdtcROlnVtML2mX7IgRVh2S3o45gqeDu8LA3J9PRfowWn0hVaW+ah/W1XKw
+         DuSmTP/e3BVNYBGJx3y1F0ZPnSjoitrVtN7GhhjCLv8oCTFSyLrxSXkH418Hc576YyHe
+         YH7r9tjPLliBww6d15MxVPMb7wpYwk729kZp8Nc2/mmztzVtCyKJmmLrUb+rlOf0h2CH
+         fYCg==
+X-Forwarded-Encrypted: i=1; AL+hErFaSkEDmTZhPOn3xyMnt7POTFqCTeQ13O9+8705u8U1Nq/Z7XeHdEj7VFgcJ+iTicGsKUcnmDI8bPchCkU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/sxkm1mvwnJDrkpqApjLFYn/4Z78tYYqyR0K0OUcrj8UV0HNa0
+	Yx+4xoOnL9WnbKcvGSo+JAxkB4Ayg/Fuk+cPJX25JoyxmM78YCZHNd0orbG+Pb7iqDrc062Kah4
+	pydj6P6flh9QbScsh5A==
+X-Received: from wmsl10.prod.google.com ([2002:a05:600c:1d0a:b0:4a3:5d5b:9ad9])
+ (user=tarunsahu job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:600c:810c:b0:4a1:fbd2:f689 with SMTP id 5b1f17b1804b1-4ba09379cc1mr15865455e9.7.1794375419814;
+ Tue, 10 Nov 2026 21:36:59 -0800 (PST)
+Date: Wed, 11 Nov 2026 05:36:58 +0000
+In-Reply-To: <DMRJJX2ZSYQT.2U1TTBGE7R4RA@soleen.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,107 +77,128 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20261110050202.529473-1-tarunsahu@google.com> <DMRJJX2ZSYQT.2U1TTBGE7R4RA@soleen.com>
+Message-ID: <9huz5wy4q685.fsf@tarunix.c.googlers.com>
+Subject: Re: [PATCH v4 00/19] kho, liveupdate: Add feature header for
+ fine-grained ABI compatibility
+From: tarunsahu@google.com
+To: Pasha Tatashin <pasha.tatashin@soleen.com>, Mike Rapoport <rppt@kernel.org>, robin.murphy@arm.com, 
+	maz@kernel.org, will@kernel.org, David Matlack <dmatlack@google.com>, 
+	Alexander Graf <graf@amazon.com>, seanjc@google.com, jgg@nvidia.com, loganodell@google.com, 
+	arnd@arndb.de, dwmw2@infradead.org, baolu.lu@linux.intel.com, 
+	Bjorn Helgaas <bhelgaas@google.com>, oupton@kernel.org, alex@shazbot.org, 
+	gle.com@google.com, pbonzini@redhat.com, 
+	Andrew Morton <akpm@linux-foundation.org>, kevin.tian@intel.com, joro@8bytes.org
+Cc: kvmarm@lists.linux.dev, linux-pci@vger.kernel.org, 
+	Pratyush Yadav <pratyush@kernel.org>, kexec@lists.infradead.org, kvm@vger.kernel.org, 
+	iommu@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+	skhawaja@google.com, sagis@google.com, linux-arch@vger.kernel.org, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Commit 5de907d24919 ("rcu-tasks: Disable callback contend/collapse
-messages by default") added the rcupdate.rcu_task_collapse_debug module
-parameter to gate the three pr_info() messages that report RCU Tasks
-switching between CPU-0 and per-CPU callback queuing.
+"Pasha Tatashin" <pasha.tatashin@soleen.com> writes:
 
-The kernel already has a mechanism for debug-only messages that are off
-by default: pr_debug().  Use pr_debug() for these messages, and remove
-the rcu_task_collapse_debug module parameter, its documentation, and
-its boot-time announcement.
+> On Tue Nov 10, 2026 at 12:01 AM EST, Tarun Sahu wrote:
+>> This v4 of feature flags support for LUO and KHO is no longer an RFC.
+...skip
+>>
+>> Each serialized structure is preceded in memory by struct kho_ser_hdr
+>> and registered via DECLARE_KHO_SER(name, payload_size, nr_required,
+>> nr_optional). Both struct kho_kexec_metadata and struct pci_dev_ser are
+>> explicitly marked with __aligned(8) because their largest member is a
+>> 32-bit integer, and 8-byte alignment is required by DECLARE_KHO_SER() so
+>
+> I do not believe we need __aligned(8), because the struct immediately 
+> follows the newly introduced kho_ser_hdr, which is 8-byte aligned. 
+> However, we should verify that the combined size (header + payload) 
+> is 8-byte aligned.
 
-The messages stay off by default.  On CONFIG_DYNAMIC_DEBUG=y kernels,
-they can be enabled at boot with:
+Yes, we can check total size alignment and remove the __aligned(8). I
+will update it.
 
-  dyndbg="file kernel/rcu/tasks.h +p"
+~Tarun
 
-or at runtime with:
-
-  echo 'file kernel/rcu/tasks.h +p' > /proc/dynamic_debug/control
-
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: Song Liu <song@kernel.org>
----
- Documentation/admin-guide/kernel-parameters.txt |  7 -------
- kernel/rcu/tasks.h                              | 15 +++------------
- 2 files changed, 3 insertions(+), 19 deletions(-)
-
-diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
-index 0b3c140babd9..176648941aec 100644
---- a/Documentation/admin-guide/kernel-parameters.txt
-+++ b/Documentation/admin-guide/kernel-parameters.txt
-@@ -6369,13 +6369,6 @@ Kernel parameters
- 			period to instead use normal non-expedited
- 			grace-period processing.
- 
--	rcupdate.rcu_task_collapse_debug= [KNL]
--			Enable debugging prints that record when RCU Tasks
--			and RCU Tasks Trace expand to per-CPU callback
--			queuing and collapse back to CPU-0 queuing.
--			This is default-disabled due to the fact that
--			some workloads can make it quite noisy.
--
- 	rcupdate.rcu_task_collapse_lim= [KNL]
- 			Set the maximum number of callbacks present
- 			at the beginning of a grace period that allows
-diff --git a/kernel/rcu/tasks.h b/kernel/rcu/tasks.h
-index fcac7361ec51..743f777b4c18 100644
---- a/kernel/rcu/tasks.h
-+++ b/kernel/rcu/tasks.h
-@@ -178,8 +178,6 @@ static int rcu_task_contend_lim __read_mostly = 100;
- module_param(rcu_task_contend_lim, int, 0444);
- static int rcu_task_collapse_lim __read_mostly = 10;
- module_param(rcu_task_collapse_lim, int, 0444);
--static bool rcu_task_collapse_debug __read_mostly;
--module_param(rcu_task_collapse_debug, bool, 0644);
- static int rcu_task_lazy_lim __read_mostly = 32;
- module_param(rcu_task_lazy_lim, int, 0444);
- 
-@@ -392,8 +390,7 @@ static void call_rcu_tasks_generic(struct rcu_head *rhp, rcu_callback_t func,
- 			WRITE_ONCE(rtp->percpu_enqueue_shift, 0);
- 			WRITE_ONCE(rtp->percpu_dequeue_lim, rcu_task_cpu_ids);
- 			smp_store_release(&rtp->percpu_enqueue_lim, rcu_task_cpu_ids);
--			if (data_race(rcu_task_collapse_debug))
--				pr_info("Switching %s to per-CPU callback queuing.\n", rtp->name);
-+			pr_debug("Switching %s to per-CPU callback queuing.\n", rtp->name);
- 		}
- 		raw_spin_unlock_irqrestore(&rtp->cbs_gbl_lock, flags);
- 	}
-@@ -514,9 +511,7 @@ static int rcu_tasks_need_gpcb(struct rcu_tasks *rtp)
- 			smp_store_release(&rtp->percpu_enqueue_lim, 1);
- 			rtp->percpu_dequeue_gpseq = get_state_synchronize_rcu();
- 			gpdone = false;
--			if (data_race(rcu_task_collapse_debug))
--				pr_info("Starting switch %s to CPU-0 callback queuing.\n",
--					rtp->name);
-+			pr_debug("Starting switch %s to CPU-0 callback queuing.\n", rtp->name);
- 		}
- 		raw_spin_unlock_irqrestore(&rtp->cbs_gbl_lock, flags);
- 	}
-@@ -524,9 +519,7 @@ static int rcu_tasks_need_gpcb(struct rcu_tasks *rtp)
- 		raw_spin_lock_irqsave(&rtp->cbs_gbl_lock, flags);
- 		if (rtp->percpu_enqueue_lim < rtp->percpu_dequeue_lim) {
- 			WRITE_ONCE(rtp->percpu_dequeue_lim, 1);
--			if (data_race(rcu_task_collapse_debug))
--				pr_info("Completing switch %s to CPU-0 callback queuing.\n",
--					rtp->name);
-+			pr_debug("Completing switch %s to CPU-0 callback queuing.\n", rtp->name);
- 		}
- 		if (rtp->percpu_dequeue_lim == 1) {
- 			for (cpu = rtp->percpu_dequeue_lim; cpu < rcu_task_cpu_ids; cpu++) {
-@@ -711,8 +704,6 @@ static void __init rcu_tasks_bootup_oddness(void)
- 		pr_info("\tTasks-RCU CPU stall info multiplier clamped to %d (rcu_task_stall_info_mult).\n", rtsimc);
- 		rcu_task_stall_info_mult = rtsimc;
- 	}
--	if (rcu_task_collapse_debug)
--		pr_info("\tTasks-RCU callback contend/collapse debug enabled.\n");
- #endif /* #ifdef CONFIG_TASKS_RCU */
- #ifdef CONFIG_TASKS_RCU
- 	pr_info("\tTrampoline variant of Tasks RCU enabled.\n");
--- 
-2.53.0-Meta
-
+>
+>> trailing feature payloads remain 8-byte aligned across 32-bit and 64-bit
+>> kernels.
+>>
+>> Also, Introduce DECLARE_KHO_SER_HDR(ser_name, fhdr) which is just the
+>> wrapper for struct kho_ser_hdr fhdr, This makes it clear
+>> To which ser_name, this fhdr belongs to.
+>>
+>>
+>> Series structure:
+>>   - Patch 1 removes __packed from KHO, LUO, and memfd ABI structures and
+>>     asserts their natural size and 8-byte alignment under CONFIG_64BIT.
+>>   - Patch 2 records entry_size in struct kho_block_header_ser so the
+>>     incoming kernel derives the entry stride from the block header.
+>>   - Patch 3 converts callers that embedded struct kho_vmalloc by value
+>>     (memfd_luo and test_kho) to reference it via DECLARE_KHOSER_PTR so
+>>     struct kho_vmalloc can grow independently.
+>>   - Patch 4 converts struct luo_session_ser to reference
+>>     struct luo_file_set_ser via DECLARE_KHOSER_PTR instead of embedding
+>>     it by value so both structures can grow independently.
+>>   - Patch 5 introduces struct kho_ser_hdr, DECLARE_KHO_SER(),
+>>     DECLARE_KHO_SER_HDR(), and the serialization/validation helpers in
+>>     include/linux/kho/abi/feature.h.
+>>   - Patches 6-18 add the feature header to each of the 13 KHO, LUO, PCI,
+>>     and memfd serialized structures in independent patches.
+>>   - Patch 19 adds a KUnit test suite (kho_feature) covering the feature
+>>     header helpers.
+>>
+>> [1] https://lore.kernel.org/all/20260903023452.721732-1-loganodell@google.com/
+>> [2] https://lore.kernel.org/all/20261021152527.375070-1-tarunsahu@google.com/
+>> [3] https://lore.kernel.org/all/20261026174217.603114-1-tarunsahu@google.com/
+>>
+>> Tarun Sahu (19):
+>>   liveupdate, kho: Remove __packed from KHO, LUO and memfd ABI
+>>     structures
+>>   kho: block: Record the entry size in the block header
+>>   kho, memfd_luo: Reference struct kho_vmalloc via serialized pointer
+>>   liveupdate: Reference struct luo_file_set_ser via serialized pointer
+>>   kho: Add feature header for fine-grained ABI compatibility
+>>   kho: kexec_metadata: Add the feature header
+>>   kho: vmalloc: Add the feature header
+>>   kho: block: Add the feature header to blocks
+>>   liveupdate: Add feature header to struct luo_ser
+>>   liveupdate: Add feature header to struct luo_session_ser
+>>   liveupdate: Add feature header to struct luo_file_set_ser
+>>   liveupdate: Add feature header to struct luo_file_ser
+>>   liveupdate: Add feature header to struct luo_flb_header_ser
+>>   liveupdate: Add feature header to struct luo_flb_ser
+>>   PCI: liveupdate: Add feature header to struct pci_ser
+>>   PCI: liveupdate: Add feature header to struct pci_dev_ser
+>>   mm: memfd_luo: Add feature header to struct memfd_luo_ser
+>>   mm: memfd_luo: Add feature header to struct memfd_luo_folio_ser
+>>   kho: Add KUnit test for the feature header helpers
+>>
+>>  MAINTAINERS                            |   1 +
+>>  drivers/pci/liveupdate.c               |  99 +++----
+>>  include/linux/kexec_handover.h         |  15 +-
+>>  include/linux/kho/abi/block.h          |  21 +-
+>>  include/linux/kho/abi/feature.h        | 372 +++++++++++++++++++++++++
+>>  include/linux/kho/abi/kexec_handover.h |  11 +-
+>>  include/linux/kho/abi/kexec_metadata.h |  17 +-
+>>  include/linux/kho/abi/luo.h            | 102 ++++---
+>>  include/linux/kho/abi/memfd.h          |  27 +-
+>>  include/linux/kho/abi/pci.h            |  66 ++---
+>>  include/linux/kho_block.h              |   8 +-
+>>  kernel/liveupdate/kexec_handover.c     |  98 ++++---
+>>  kernel/liveupdate/kho_block.c          | 172 +++++++++---
+>>  kernel/liveupdate/luo_core.c           |  43 +--
+>>  kernel/liveupdate/luo_file.c           |  58 ++--
+>>  kernel/liveupdate/luo_flb.c            |  69 +++--
+>>  kernel/liveupdate/luo_internal.h       |   9 +-
+>>  kernel/liveupdate/luo_session.c        |  55 +++-
+>>  lib/Kconfig.debug                      |  13 +
+>>  lib/test_kho.c                         |  38 ++-
+>>  lib/tests/Makefile                     |   1 +
+>>  lib/tests/kho_feature_kunit.c          | 184 ++++++++++++
+>>  mm/memfd_luo.c                         | 183 ++++++++----
+>>  23 files changed, 1271 insertions(+), 391 deletions(-)
+>>  create mode 100644 include/linux/kho/abi/feature.h
+>>  create mode 100644 lib/tests/kho_feature_kunit.c
+>
+> -- 
+> Pasha
