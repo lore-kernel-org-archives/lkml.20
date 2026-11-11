@@ -1,47 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794411843;
-	b=GRfztecC9bJOdyzF+YpCfSJxJmaqgU0nHH9Vxb45Q3t358RaeJky//MBW/76RwlF8ew8
-	 e8Ii7SVUXNa6oyml+jRxBC1LNMehazN6hKucNCD1jiTYdpb8glP8zLRCGCyJR0mx8eqa9
-	 TdDmIr+649Ovmxm3pPRUWySVAxbiQUYRlioqkBf5xxZ4tIBj84GkoyOeIGlBP/87siXbP
-	 8N21b2YFPH3Hxw8gf4umVZYzNS9qU8JjilMyrdMicsh7wSfQ5WF0Ccuu9rdOgVv4GJkTk
-	 MWwG2P3qtuEdpBVO/skh3JWhFvTPckSw4+On+EFsSblACIQheGqPdwvL/Izp9y/40bg==
+	t=1794411870;
+	b=u0rD0659yepQiaeFCOKNmOVfR586qq4qhkfnZ43/qx4BH+njXG5H+QYnzzVeSOr02lOW
+	 YEdWZu+97TQdaj0Rqjrydgvo233VS+niksCsjd352D+Wyomxp7ZWiK/UCDwuLDsMJ9DGC
+	 Kwr5oFwTFtWUsMPQTYxxorn0LzviDM3EvAKyAwb0eTNZWiYjX5zfJXT4RfBwhVYSmEBoX
+	 2ynJ8dmy0+0PkbRxJ4FF4KmmxzMSAlQsH9mfjljK/Ni5ibZFpcYvMpn+3/YXiEMhBUbi2
+	 Gf0ms6Pjqg189Ul/SlSi94OM5gXYhBzWClpbUeLAgxIa+Wybd/Wh5CQrhzF3A39j21A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794411843;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:Content-Language:To:Cc:References:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=sGZsPOiIfmsPmYtcqZWbb30z+VsRcrH1VH92p1yDihA=;
-	b=C5cmBoRcTMgYQE3oiPMjAvaimX92DvkY3eGCDQocNuoE3zCS46iegFcuC8CNrFS1cAVu
-	 +MA0cxNxlmvWFF5Pa2qauc/zQL+xaMPkJeZn0sHLh17eayDlhOEmpQCdR5KWwq2c/VXQl
-	 pt92uiUFK3TXFu/zqwc0nDC9pNZWlrTDQZPtksNf4samvYjs84NQ6e7TWxUxghVrdMouR
-	 63b6vBDs+OMuEuxGEQZyfgmSzyHJUWnI18FgIlg3bmHgyl8dQ2j1YGIBXZQPiLWkaebL4
-	 SlKYB/8Wl7GS90mh0RScLztKDMW9tVhURYMuZjB4Tm1LzTYf1FnrBzSblZ8751YSnyw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794411870;
+	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To:User-Agent;
+	bh=WZBJJYuO9Jw3Mle6p1PSqvX7wbBUqo9myC1U18B7xmc=;
+	b=XyK+P7JnDf1lWsyoCc4QBOLjldsjOKrgNJVwB3EI7jIxHWlQ9k0YYrrkftcNf1UJjqO1
+	 2EA4gSb8S1nQTSaxUwU+blLWOaxYQPTrs4v+2SZ8F9MXRErMlTNdAN+klDQ54s7FmHqA/
+	 3UV+GdvgT26GnXEArWEJlWTuBCL8uH+aPwSEgXf8zkvt6ObSC/kqKV1QNMyKDam/vUgE1
+	 zwTc/foeKfe24a3R2JtufAlFPhaYe3BDS5RWipM1EdKwZ/V3o9uG58y8O0HdkZyidy3vx
+	 1ZDJzUydxx86bzAalmlA2NWz9tZde+KdDDXtG541R2GUBjRpi/xafVQiM7IJs1plKPg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bnwKN41t;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mLIQXOdC;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67DC7606A337;
-	Wed, 11 Nov 2026 15:44:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D0C8606A321;
+	Wed, 11 Nov 2026 15:44:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bnwKN41t
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D5711F00A07;
-	Wed, 11 Nov 2026 15:44:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mLIQXOdC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 203D11F00A05;
+	Wed, 11 Nov 2026 15:44:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794411843;
-	bh=sGZsPOiIfmsPmYtcqZWbb30z+VsRcrH1VH92p1yDihA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=bnwKN41tiMDWegJQL3lMFUN/kBXPGY7tkOpwBLMR9dSbQqcNASqYAn4QfxFahHdwH
-	 eG/OzF0E/7tQ8SiCLwkeoPaZLRRznXMYvUdVifHqaN+mVXxgIqEV9GBgKCoZWKvPnh
-	 2vTX7TBbVLMIy5xLv9l3O7ajuS+iKYEcigzD83F7g4UZittxQ3OE66EsJzSn76iqwU
-	 6ik7h2vHF5BoApmoeG4BoQni2cwH7KjK+QUs4OQueKvUJeux9vNhsaecGT4ddRjPku
-	 tUoknm/9chw3n69iZvspFGOZhtcTa9o9MYiJI7iafCtFJ9Qa+qe+H/rrCYmg7GEqPK
-	 oCYQpHH2BXI2A==
-Message-ID: <2b277604-0452-41c7-b0a3-f6f935d802fd@kernel.org>
-Date: Wed, 11 Nov 2026 09:44:01 -0600
+	s=k20260515; t=1794411870;
+	bh=WZBJJYuO9Jw3Mle6p1PSqvX7wbBUqo9myC1U18B7xmc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=mLIQXOdCphxrNEOezHV7qZTRnFCz1/RTBvvn2M/tyZav0mX1LGGj1ZYOlqdZQ3aHT
+	 sJKSCIX/ibWDPlON49uZzFngJmQ9gl+OI3igH3UwntBvSu+fSXT7AzD0BVeMf65mcJ
+	 QzLvPCDDUafmvh5ObPt32qP0xnKcQEKQaT++M1ZYicuVZVLOeFmXtxyTnpfOGE9Ri2
+	 yJ06MEbo3NsrZjh3JLzaB5BfCHMOSuFsySfp9dkfDD6+Um19sax9dzbCly+6rBiqik
+	 GekRWxOkrnhNx/V2K9Q0gwEeVHH8TtgKBw+x7Vqr2UIq78LQpa8prU7slFgR2YHp54
+	 Ui2EcsLQ96roQ==
+Received: by pali.im (Postfix)
+	id 3988465A; Wed, 11 Nov 2026 16:44:27 +0100 (CET)
+Date: Wed, 11 Nov 2026 16:44:27 +0100
+From: Pali =?utf-8?B?Um9ow6Fy?= <pali@kernel.org>
+To: shadyabh <shady.abh@gmail.com>
+Cc: Armin Wolf <W_Armin@gmx.de>, Guenter Roeck <linux@roeck-us.net>,
+	linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] hwmon: (dell-smm) Add Dell Pro Precision 7 16 PW716260
+ to fan control whitelist
+Message-ID: <20261111154427.cigjsua4gregykiu@pali>
+References: <20261111150435.75965-1-shady.abh@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,58 +60,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCHv2 2/4] dt-bindings: edac: altera: agilex5: document new
- edac support
-Content-Language: en-US
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: bp@alien8.de, tony.luck@intel.com, rounakdas2025@gmail.com,
- niravkumar.l.rabara@altera.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, linux-edac@vger.kernel.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-References: <20261109162523.1698129-1-dinguyen@kernel.org>
- <20261109162523.1698129-2-dinguyen@kernel.org>
- <20261111-tunneling-elated-grouse-1f8bf7@quoll>
- <9d87c457-d692-4c55-835b-796029a5e54b@kernel.org>
-From: Dinh Nguyen <dinguyen@kernel.org>
-In-Reply-To: <9d87c457-d692-4c55-835b-796029a5e54b@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261111150435.75965-1-shady.abh@gmail.com>
+User-Agent: NeoMutt/20180716
 
++Armin
 
-
-On 11/11/26 06:04, Krzysztof Kozlowski wrote:
-> On 11/11/2026 13:02, Krzysztof Kozlowski wrote:
->> On Mon, Nov 09, 2026 at 10:25:21AM -0600, Dinh Nguyen wrote:
->>> +  - if:
->>> +      properties:
->>> +        compatible:
->>> +          contains:
->>> +            const: altr,socfpga-agilex5-ecc-manager
->>> +    then:
->>> +      properties:
->>> +        interrupts:
->>> +          maxItems: 7
->>
->> minItems
->>
->> Also, missing constraint for interrupt-names.
->>
->>> +      required:
->>> +        - interrupt-names
->>> +    else:
->>> +      properties:
->>> +        interrupts:
->>> +          maxItems: 2
->>
->> interrupt-names: false
->>
+On Wednesday 11 November 2026 15:04:35 shadyabh wrote:
+> On the Dell Pro Precision 7 16 PW716260 the firmware fan control
+> cannot be overridden using the default SMM method, writes to pwmX
+> are ignored and pwmX_enable returns -EINVAL. The firmware AC fan
+> policy also requests speeds below the minimum sustainable speed of
+> the fans, so one fan repeatedly stops and restarts every few
+> seconds at low load.
 > 
-> And I already asked for this which you did not respond to.
+> Add the machine to the fan control whitelist using the
+> I8K_FAN_30A3_31A3 SMM codes. With this, writing 1 to pwm1_enable
+> disables automatic fan control, the fans follow the requested
+> state (0: off, 1: ~2500 RPM, 2: ~3950 RPM), and writing 2 to
+> pwm1_enable restores automatic fan control.
 > 
+> Tested on BIOS 1.5.0 with kernel 7.2.15.
+> 
+> Signed-off-by: shadyabh <shady.abh@gmail.com>
 
-Apologies for missing that. All comments will be addressed in v3.
+Acked-by: Pali Rohár <pali@kernel.org>
 
-Thanks,
-Dinh
-
+> ---
+>  drivers/hwmon/dell-smm-hwmon.c | 8 ++++++++
+>  1 file changed, 8 insertions(+)
+> 
+> diff --git a/drivers/hwmon/dell-smm-hwmon.c b/drivers/hwmon/dell-smm-hwmon.c
+> index 5ec487843..250d8c1e6 100644
+> --- a/drivers/hwmon/dell-smm-hwmon.c
+> +++ b/drivers/hwmon/dell-smm-hwmon.c
+> @@ -1687,6 +1687,14 @@ static const struct dmi_system_id i8k_whitelist_fan_control[] __initconst = {
+>  		},
+>  		.driver_data = (void *)&i8k_fan_control_data[I8K_FAN_30A3_31A3],
+>  	},
+> +	{
+> +		.ident = "Dell Pro Precision 7 16 PW716260",
+> +		.matches = {
+> +			DMI_MATCH(DMI_SYS_VENDOR, "Dell Inc."),
+> +			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "Dell Pro Precision 7 16 PW716260"),
+> +		},
+> +		.driver_data = (void *)&i8k_fan_control_data[I8K_FAN_30A3_31A3],
+> +	},
+>  	{ }
+>  };
+>  
+> -- 
+> 2.56.0
+> 
