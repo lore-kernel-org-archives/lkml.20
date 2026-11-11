@@ -1,71 +1,70 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=68.232.154.123
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794407488;
-	b=dLT1n/i36OX/Hvsx+zK7EMzb9MwVDg48exc/SjFoL4fISY28LoY7YvZVWYpOdie0pQDr
-	 FDq0WD6ay+dhlBYF06MOOz8XH0tUuCLbG00fk547kLyW+0XPwSrm/8vIc+jqOcosOJDzO
-	 HCJdGxfd6aejPRjgng0E9av6kUNTjlCCIVVcsB9tvhCN6jqbn+uhOmMvV9VOXV3hTOnne
-	 21/4uCuqP9lMQHFCNvXArDzy7D3KAhuxxD/FzmofnrhyL977NKGwIBNw6/zORliddlnuM
-	 m0xIM+O1FAYGNpn8+4H27m4Aq+Ud1z3YgCZFmf8ke01Vb3SIhsi0zRmMuK0ymM3ipAg==
+	t=1794407495;
+	b=0f8XTzxt0CC3A9PUDvdwnAoisOxfQtHpyC1K78+YiTDfeMHEyNysV/jPDojly5WSw96H
+	 zI1v5uCJiQmX295rRtVPojEKGnftkzBnVjqnCOCCCoxa4MZAtQlo0AImMLLOULXKPHPp9
+	 iFE3NUC7sQoml+1dFo6Sl5yTb7AZ/+8aamJZ5S7kSIq8EuoBBEmk7EwxmcJoj7HVw8pxy
+	 NCu8bXyNwTWom40aoDqCi2tqcSiaJdoTvJdwu8hHReuHO9AS+POyIBg8sV9SAe7Ugkl2X
+	 1If/f18z/V3In5Ton0ekIs6RXpLwT6vU1WRr88nTELNIOA6b9ZwUwp05NAfG6FXkTgg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794407488;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794407495;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-Amp-Result:Received:Received:Received:From:Subject:
-	 Date:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-B4-Tracking:X-Change-ID:To:CC:X-Mailer;
-	bh=Ffya1PyP3rVgK3FKUJMeUTOknHVDLAS7rmXQhoJQICA=;
-	b=mM5iWsmBK2DHfe5/0D4dVOf3kivo++3p/CLWJk86uOLIO8I5U1+sDvrqMnFtfYnHGDmw
-	 4W0RScXuO+gRc5h5JDxeD/TnNZ12G24NE48ofZtJEXVoEKDE3lkVd2h5DklTQAPECGN2o
-	 47lwAudBUfpHgbO3HJdGJAqaV4Qc489LzmpbQ8Nli4mYs9b3ZOWxtonkwPauO024VbX0D
-	 lfg8d+jW+++LtfBiPWWy6oug3PbY3td7EfRMadzVrecVRTEQ9qniUI4ONSSkksIvhGUZF
-	 2gI6iCSnvcQAezCKO62IW6asvPzDbjXNlpEKXk/0tdYaCei6jo8fHmAEJM7gWkCAHnQ==
+	 X-IronPort-AV:X-Amp-Result:Received:Received:Received:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-ID:References:In-Reply-To:To:CC:X-Mailer;
+	bh=1hD9UnFUoPw7mpXyEiUYUOLSoqgMlHjlWfYdwenzm8Y=;
+	b=Milq16CUgp3qWVIzdUNh8621NiCLaMoe3LcRCHq+RD24ooeROc6ExgrTyWmpu0yurdxD
+	 ST46OqZFB/TqbFcxzwx3F4S3q0ETJP9mimh5Rs1DXEJx1heanzyL7c0PjU9v0U3VSXruC
+	 c3ULRGLoOQwo1XxgvlHzmfwHvVNeP2bnHVn2D0VydXAPstyw/yVLyxarZAasVwHHD5PeB
+	 V5b1c1KqTuBSnQtOMtMUZOWo9voSl6Elq9roOw5aPALpYiyhGrApGJUYyDzHpRTrhyppI
+	 VDki9iruZ3SRwPr5FsNpbnxC2NoLzVAG11j/jhRM97TqcQra58QSZbYa4cSTJhZPMrg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=microchip.com;
 	spf=pass smtp.mailfrom=microchip.com;
-	dkim=pass header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b="CI/3Rm9B";
+	dkim=pass header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=nVE+EZvC;
 	arc=none smtp.remote-ip=68.232.154.123
 Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6821606A321;
-	Wed, 11 Nov 2026 14:31:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C6821606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67F4F606A327;
+	Wed, 11 Nov 2026 14:31:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67F4F606A327
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=CI/3Rm9B
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=nVE+EZvC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1794407488; x=1825943488;
-  h=from:subject:date:message-id:mime-version:
-   content-transfer-encoding:to:cc;
-  bh=ARf6Qy9+lKPIUIodkBHNGoX/Amz6H0JQ2oSXq5Hzxl8=;
-  b=CI/3Rm9BxO2wWI+lonsgPsKzZzOEC7f+dOCB8auwCbrR8wmTABu5J/1T
-   XezkbDzyl1bNk6WCz/yQ9rZUhuUydgFkln7kmXDI3oNikP0n5aofEb8ET
-   FsFsWWauIcek89lVQSm1AEr8BQJ3mAGoUfeHqq4v36xSzT19nUyboo9FJ
-   e79b9nnQz26B4e8+8INu5Xk0lGtbKUbNe6vdgPqU7ZYXxapQalA/trGgG
-   cB6E9HC/UhD8j7RasGCLY1ezAigx9dsKLV33N8P1+IjCLAwSjTV7foclb
-   5L+0S8n7D3YaobGy+dRHJ4f1XBKLGU/4EYWw2LrWEe94B8pdFzUFjQb24
+  t=1794407495; x=1825943495;
+  h=from:date:subject:mime-version:content-transfer-encoding:
+   message-id:references:in-reply-to:to:cc;
+  bh=SW1hK4buuMn4e9UpYlOurWbuC9mLjcKJ06uapBXeTkg=;
+  b=nVE+EZvC9IXGxMCpY2LME0eO9YLNUp9m3ZFIbQtnbGOn5ZkFYhQqlcP0
+   6Uc9hrRBzAk8YkYe2c84cNOjAmAnzw0H05BdMl1kaNabwt3jrq5ztNkho
+   HoPLwgwzo4mOuDswVCYzcmVHVX3drCdD5/sSRY41rEllZIHd4TtXAKWM0
+   Wet8wxbh6U6I7nx8ixKnPeBKVIN4qGE/2wtut5WaldKGcCdRSdKxi4FYB
+   tgZDi69pkJJHCbYGZfRXKb4P8eDje9JfsTy8NZBSoeChVBYUlAXBdbkhh
+   0EgG2eVUa9I9Ehx57YfbLxqcLRxIIsaOQDB/2x+11k6JijbZyY1TS2nGI
    w==;
-X-CSE-ConnectionGUID: xPdy8HDdQ8WgP3ZgxhmbiA==
-X-CSE-MsgGUID: txKp6d8FTIWKTSByyUbJig==
+X-CSE-ConnectionGUID: pKPNovUBQHKULKfwbxwNUg==
+X-CSE-MsgGUID: 6qGPi11zQC2+fqlEtccgAA==
 X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
-   d="scan'208";a="66598085"
+   d="scan'208";a="66598096"
 X-Amp-Result: SKIPPED(no attachment in message)
 Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa2.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 07:31:27 -0700
-Received: from chn-vm-ex04.mchp-main.com (10.10.87.151) by
- chn-vm-ex4.mchp-main.com (10.10.87.33) with Microsoft SMTP Server
+  by esa2.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 11 Nov 2026 07:31:35 -0700
+Received: from chn-vm-ex04.mchp-main.com (10.10.85.152) by
+ chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.56; Wed, 11 Nov 2026 07:31:26 -0700
+ 15.1.2507.58; Wed, 11 Nov 2026 07:31:34 -0700
 Received: from DEN-DL-M70577.microsemi.net (10.10.85.11) by
  chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server id
- 15.1.2507.58 via Frontend Transport; Wed, 11 Nov 2026 07:31:23 -0700
+ 15.1.2507.58 via Frontend Transport; Wed, 11 Nov 2026 07:31:32 -0700
 From: Daniel Machon <daniel.machon@microchip.com>
-Subject: [PATCH net-next v2 0/9] net: sparx5/lan969x: add support for
- changing the MTU
-Date: Wed, 11 Nov 2026 15:31:10 +0100
-Message-ID: <20261111-sparx5-mtu-change-v2-0-59c91357e8f6@microchip.com>
+Date: Wed, 11 Nov 2026 15:31:13 +0100
+Subject: [PATCH net-next v2 3/9] net: sparx5/lan969x: add a helper for
+ setting the MAC max frame length
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,11 +76,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAC589GoC/22NwQ6CMBBEf4Xs2TVtEVBO/ofh0JZF9kBL2kowh
- H+3Eo8eJ2/mzQaRAlOEttgg0MKRvctBnQqwo3ZPQu5zBiVULW6lwDjrsFY4pRf+Cn1DxkjdDFZ
- ryLs50MDr4XyAo4SO1gRdJiPH5MP7OFvkwb9eKUX1x7tIFDioxmhTXcWlLu8T2+DtyPPZ+gm6f
- d8/e3qRBcAAAAA=
-X-Change-ID: 20260930-sparx5-mtu-change-d7ebb1a7fcaa
+Message-ID: <20261111-sparx5-mtu-change-v2-3-59c91357e8f6@microchip.com>
+References: <20261111-sparx5-mtu-change-v2-0-59c91357e8f6@microchip.com>
+In-Reply-To: <20261111-sparx5-mtu-change-v2-0-59c91357e8f6@microchip.com>
 To: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
 	<davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski
 	<kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Steen Hegelund
@@ -94,84 +91,180 @@ CC: <netdev@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
 	<jensemil.schulzostergaard@microchip.com>
 X-Mailer: b4 0.14.3
 
-This series adds support for changing the MTU on Sparx5 and lan969x.
+The maximum frame length accepted by a port is set in the MAC_MAXLEN_CFG
+register of its MAC. All ports have a 2G5 device, the 5G, 10G and 25G
+ports also have a high speed device, and the lan969x RGMII ports have an
+RGMII device instead. The register is currently written open-coded in
+sparx5_port_init(), with a fixed length of 1518 bytes.
 
-Currently, there is no ndo_change_mtu callback, and the MAC maximum
-frame length, the FDMA buffers, the queue watermarks and the TAS guard
-band are all fixed for a 1518 byte frame. This series makes them follow
-the MTU, and sets the maximum MTU from the 14000 byte frame limit of the
-MACs. As the FDMA is shared by all ports, new buffers are allocated
-while the FDMA keeps running, and the FDMA is only stopped briefly to
-replace them. Details are in the commits.
+Add sparx5_port_max_len_set(), which sets the maximum frame length in the
+devices of a port, and use it in sparx5_port_init(). To support the
+RGMII devices, add the DEVRGMII_MAC_MAXLEN_CFG register, and make
+lan969x_port_dev_mapping() return the RGMII device index for the RGMII
+ports.
 
-Patches 1-2 are fixes: patch 1 makes the FDMA stop sequence actually
-stop the channels, and patch 2 frees the FDMA buffers on init errors
-and deinit. They are routed to net-next rather than net, as they
-fix issues that are not regressions, and the stop sequence is only used
-on deinit until this series uses it to resize the buffers.
+The helper is used to change the maximum frame length with the MTU, later
+in this series.
 
-Patches 3-4 prepare for the MTU change, by adding a helper for setting
-the MAC maximum frame length, and by making the FDMA init and alloc
-functions operate on the rings passed to them.
-
-Patches 5-6 size the FDMA buffers from the port MTUs, and add support
-for resizing them.
-
-Patches 7-8 scale the queue watermarks and the TAS guard band with the
-MTU.
-
-Patch 9 adds the ndo_change_mtu callback and sets the maximum MTU.
-
-Tested on Sparx5 (PCB135) and lan969x (EV23X71A), by forwarding frames
-up to the MTU and checking that frames one byte over the MTU are
-dropped, by sending jumbo frames to and from the CPU while stepping the
-MTU up and down between 1500 and 9216, and by changing the MTU
-repeatedly while flooding the CPU with frames in both directions.
+No functional change intended.
 
 Signed-off-by: Daniel Machon <daniel.machon@microchip.com>
 ---
-Changes in v2:
-- Patch 1: add a Fixes tag.
-- Patch 2: also release the lan969x TX buffers that are still in flight
-  on deinit, store the length of the mapped TX buffers so that two-step
-  PTP skbs are not touched when unmapping, and add Fixes tags.
-- Patch 6: reuse the lan969x TX buffer release from patch 2, and mention
-  in the commit message that frames still in flight are dropped.
-- Rebase on net-next, which now has commit 873363ac591a1 ("net:
-  sparx5/lan969x: release the in-flight slot of a stale TX skb"), so
-  that a two-step PTP frame dropped by a resize no longer leaks its
-  timestamp slot.
-- Link to v1: https://lore.kernel.org/r/20261105-sparx5-mtu-change-v1-0-f27bab580463@microchip.com
+ .../ethernet/microchip/sparx5/lan969x/lan969x.c    |  9 ++++
+ .../ethernet/microchip/sparx5/sparx5_main_regs.h   | 11 +++++
+ .../net/ethernet/microchip/sparx5/sparx5_port.c    | 50 ++++++++++++++++------
+ .../net/ethernet/microchip/sparx5/sparx5_port.h    |  4 ++
+ 4 files changed, 61 insertions(+), 13 deletions(-)
 
----
-Daniel Machon (9):
-      net: sparx5/lan969x: stop the FDMA channels properly
-      net: sparx5/lan969x: free the FDMA buffers on init errors and deinit
-      net: sparx5/lan969x: add a helper for setting the MAC max frame length
-      net: sparx5/lan969x: pass the FDMA rings to the init and alloc functions
-      net: sparx5/lan969x: size the FDMA buffers from the port MTUs
-      net: sparx5/lan969x: add support for resizing the FDMA buffers
-      net: sparx5/lan969x: scale the queue watermarks with the MTU
-      net: sparx5/lan969x: scale the TAS guard band with the MTU
-      net: sparx5/lan969x: add support for changing the MTU
+diff --git a/drivers/net/ethernet/microchip/sparx5/lan969x/lan969x.c b/drivers/net/ethernet/microchip/sparx5/lan969x/lan969x.c
+index c02499d1b297a..e8c30049b54cf 100644
+--- a/drivers/net/ethernet/microchip/sparx5/lan969x/lan969x.c
++++ b/drivers/net/ethernet/microchip/sparx5/lan969x/lan969x.c
+@@ -180,6 +180,15 @@ static u32 lan969x_port_dev_mapping(struct sparx5 *sparx5, int port)
+ 		}
+ 	}
+ 
++	if (lan969x_port_is_rgmii(port)) {
++		switch (port) {
++		case 28:
++			return 0;
++		case 29:
++			return 1;
++		}
++	}
++
+ 	/* 2g5 port */
+ 	return port;
+ }
+diff --git a/drivers/net/ethernet/microchip/sparx5/sparx5_main_regs.h b/drivers/net/ethernet/microchip/sparx5/sparx5_main_regs.h
+index df438be0ec552..5302c7686e207 100644
+--- a/drivers/net/ethernet/microchip/sparx5/sparx5_main_regs.h
++++ b/drivers/net/ethernet/microchip/sparx5/sparx5_main_regs.h
+@@ -8430,6 +8430,17 @@ extern const struct sparx5_regs *regs;
+ #define DEVRGMII_MAC_ENA_CFG_TX_ENA_GET(x)\
+ 	FIELD_GET(DEVRGMII_MAC_ENA_CFG_TX_ENA, x)
+ 
++/* LAN969X ONLY */
++/* DEV1G:MAC_CFG_STATUS:MAC_MAXLEN_CFG */
++#define DEVRGMII_MAC_MAXLEN_CFG(t)                                             \
++	__REG(TARGET_DEVRGMII, t, 2, 36, 0, 1, 36, 8, 0, 1, 4)
++
++#define DEVRGMII_MAC_MAXLEN_CFG_MAX_LEN          GENMASK(15, 0)
++#define DEVRGMII_MAC_MAXLEN_CFG_MAX_LEN_SET(x)\
++	FIELD_PREP(DEVRGMII_MAC_MAXLEN_CFG_MAX_LEN, x)
++#define DEVRGMII_MAC_MAXLEN_CFG_MAX_LEN_GET(x)\
++	FIELD_GET(DEVRGMII_MAC_MAXLEN_CFG_MAX_LEN, x)
++
+ /* LAN969X ONLY */
+ /* DEV1G:MAC_CFG_STATUS:MAC_TAGS_CFG */
+ #define DEVRGMII_MAC_TAGS_CFG(t)                                               \
+diff --git a/drivers/net/ethernet/microchip/sparx5/sparx5_port.c b/drivers/net/ethernet/microchip/sparx5/sparx5_port.c
+index ef06bed3a9cc4..701d310df0ba6 100644
+--- a/drivers/net/ethernet/microchip/sparx5/sparx5_port.c
++++ b/drivers/net/ethernet/microchip/sparx5/sparx5_port.c
+@@ -613,6 +613,42 @@ static int sparx5_port_max_tags_set(struct sparx5 *sparx5,
+ 	return 0;
+ }
+ 
++/* Set the maximum frame length accepted by the MAC of a port */
++void sparx5_port_max_len_set(struct sparx5 *sparx5,
++			     struct sparx5_port *port,
++			     u32 len)
++{
++	u32 pix = sparx5_port_dev_index(sparx5, port->portno);
++	const struct sparx5_ops *ops = sparx5->data->ops;
++	void __iomem *devinst;
++
++	if (ops->is_port_rgmii(port->portno)) {
++		spx5_rmw(DEVRGMII_MAC_MAXLEN_CFG_MAX_LEN_SET(len),
++			 DEVRGMII_MAC_MAXLEN_CFG_MAX_LEN,
++			 sparx5,
++			 DEVRGMII_MAC_MAXLEN_CFG(pix));
++		return;
++	}
++
++	/* All other ports have a 2G5 (shadow) device */
++	spx5_rmw(DEV2G5_MAC_MAXLEN_CFG_MAX_LEN_SET(len),
++		 DEV2G5_MAC_MAXLEN_CFG_MAX_LEN,
++		 sparx5,
++		 DEV2G5_MAC_MAXLEN_CFG(port->portno));
++
++	if (ops->is_port_2g5(port->portno))
++		return;
++
++	/* The MAXLEN_CFG register layout is shared by the high speed devices */
++	devinst = spx5_inst_get(sparx5,
++				sparx5_to_high_dev(sparx5, port->portno), pix);
++
++	spx5_inst_rmw(DEV10G_MAC_MAXLEN_CFG_MAX_LEN_SET(len),
++		      DEV10G_MAC_MAXLEN_CFG_MAX_LEN,
++		      devinst,
++		      DEV10G_MAC_MAXLEN_CFG(0));
++}
++
+ int sparx5_port_fwd_urg(struct sparx5 *sparx5, u32 speed)
+ {
+ 	u32 clk_period_ps = 1600; /* 625Mhz for now */
+@@ -1068,18 +1104,15 @@ int sparx5_port_init(struct sparx5 *sparx5,
+ 	u32 pause_start = sparx5_wm_enc(6  * (ETH_MAXLEN / SPX5_BUFFER_CELL_SZ));
+ 	u32 atop = sparx5_wm_enc(20 * (ETH_MAXLEN / SPX5_BUFFER_CELL_SZ));
+ 	const struct sparx5_ops *ops = sparx5->data->ops;
+-	u32 devhigh = sparx5_to_high_dev(sparx5, port->portno);
+ 	u32 pix = sparx5_port_dev_index(sparx5, port->portno);
+ 	u32 pcs = sparx5_to_pcs_dev(sparx5, port->portno);
+ 	bool sd_pol = port->signd_active_high;
+ 	bool sd_sel = !port->signd_internal;
+ 	bool sd_ena = port->signd_enable;
+ 	u32 pause_stop = 0xFFF - 1; /* FC generate disabled */
+-	void __iomem *devinst;
+ 	void __iomem *pcsinst;
+ 	int err;
+ 
+-	devinst = spx5_inst_get(sparx5, devhigh, pix);
+ 	pcsinst = spx5_inst_get(sparx5, pcs, pix);
+ 
+ 	/* Set the mux port mode  */
+@@ -1119,10 +1152,7 @@ int sparx5_port_init(struct sparx5 *sparx5,
+ 		return err;
+ 
+ 	/* Set Max Length */
+-	spx5_rmw(DEV2G5_MAC_MAXLEN_CFG_MAX_LEN_SET(ETH_MAXLEN),
+-		 DEV2G5_MAC_MAXLEN_CFG_MAX_LEN,
+-		 sparx5,
+-		 DEV2G5_MAC_MAXLEN_CFG(port->portno));
++	sparx5_port_max_len_set(sparx5, port, ETH_MAXLEN);
+ 
+ 	/* 1G/2G5: Signal Detect configuration */
+ 	spx5_wr(DEV2G5_PCS1G_SD_CFG_SD_POL_SET(sd_pol) |
+@@ -1171,12 +1201,6 @@ int sparx5_port_init(struct sparx5 *sparx5,
+ 	if (sparx5_is_baser(conf->portmode))
+ 		sparx5_dev_switch(sparx5, port->portno, true);
+ 
+-	/* Set Max Length */
+-	spx5_inst_rmw(DEV10G_MAC_MAXLEN_CFG_MAX_LEN_SET(ETH_MAXLEN),
+-		      DEV10G_MAC_MAXLEN_CFG_MAX_LEN,
+-		      devinst,
+-		      DEV10G_MAC_MAXLEN_CFG(0));
+-
+ 	/* Handle Signal Detect in 10G PCS */
+ 	spx5_inst_wr(PCS10G_BR_PCS_SD_CFG_SD_POL_SET(sd_pol) |
+ 		     PCS10G_BR_PCS_SD_CFG_SD_SEL_SET(sd_sel) |
+diff --git a/drivers/net/ethernet/microchip/sparx5/sparx5_port.h b/drivers/net/ethernet/microchip/sparx5/sparx5_port.h
+index c8a37468a3d1d..912f97a506768 100644
+--- a/drivers/net/ethernet/microchip/sparx5/sparx5_port.h
++++ b/drivers/net/ethernet/microchip/sparx5/sparx5_port.h
+@@ -88,6 +88,10 @@ int sparx5_port_init(struct sparx5 *sparx5,
+ 		     struct sparx5_port *spx5_port,
+ 		     struct sparx5_port_config *conf);
+ 
++void sparx5_port_max_len_set(struct sparx5 *sparx5,
++			     struct sparx5_port *port,
++			     u32 len);
++
+ int sparx5_port_config(struct sparx5 *sparx5,
+ 		       struct sparx5_port *spx5_port,
+ 		       struct sparx5_port_config *conf);
 
- .../ethernet/microchip/sparx5/lan969x/lan969x.c    |  10 +
- .../ethernet/microchip/sparx5/lan969x/lan969x.h    |   2 +
- .../microchip/sparx5/lan969x/lan969x_fdma.c        | 193 +++++++++++--
- .../net/ethernet/microchip/sparx5/sparx5_fdma.c    | 321 ++++++++++++++++++---
- .../net/ethernet/microchip/sparx5/sparx5_main.c    |   2 +
- .../net/ethernet/microchip/sparx5/sparx5_main.h    |  14 +
- .../ethernet/microchip/sparx5/sparx5_main_regs.h   |  34 +++
- .../net/ethernet/microchip/sparx5/sparx5_netdev.c  |  48 ++-
- .../net/ethernet/microchip/sparx5/sparx5_port.c    | 123 +++++---
- .../net/ethernet/microchip/sparx5/sparx5_port.h    |   5 +
- drivers/net/ethernet/microchip/sparx5/sparx5_tas.c |  43 ++-
- 11 files changed, 693 insertions(+), 102 deletions(-)
----
-base-commit: 368fbf5d82da9ebce309449c74fc0b128f7d0219
-change-id: 20260930-sparx5-mtu-change-d7ebb1a7fcaa
-
-Best regards,
 -- 
-Daniel Machon <daniel.machon@microchip.com>
+2.34.1
 
