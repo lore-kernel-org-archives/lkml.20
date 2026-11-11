@@ -1,69 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794394754;
-	b=bk/QSiKHbchQPlXy8igEz9LvBEBqnf10O34bykCUBNhAmwn4DEuCA0FPAv2RBboObfGX
-	 t/O4DFMO6y3Nt+GgA/9Br7Wgz6ifDEGA7Ug5cT1qXRKGQwcVFUK2UWzfaPglZ5TkDSSwT
-	 Qyo9pu9HRgYjrnTpI5iKiT0+6a9f+yv7z+lYqui6m7l1BrmYMlhzLMYpAQ+hoFAD4+Zc0
-	 sWDuLGUpdSjxoE637c+BLwislb5m0RVUGv4rctOkFrGgP9Q937+0ZDsxkJMjh/rVIqbNW
-	 IFaJKafwMYQHeoRLSPyol43MTVGK2P0NY3oee015rRL8OJMgolJil/E3EW59nzk/ufQ==
+	t=1794394767;
+	b=yODs7IUxy3Kpd9Ca+0A0uFZKRMU1awoF9+UVzm3UzrOVLUHE6z/IDTkLs8cvwzTEv0Tt
+	 jg6JZKRsNo7YdWceP1lOhN1CIJmmXQ6lEcTNj6EOQw2Q32WCSBD04z6KbhC8Cpsg6bKac
+	 O5nPIruVYh0Csyq3EuJzNXtE3P5Ekf8rzgxTjSU7vm2XzKBrFONE62IpKHwF5DdYBiSqs
+	 JfZEYCAwfhTfaBlxr+eCbaIRY/7ZfHNylQuerGj+Us/So5/3vD67Cwh5JwQAFb0jlVz8w
+	 g+DSLdd3mYupbAIuCPXj4VtR6+jzLiSO7zn+80leZuHNFK/agwOXlZ3TOZDMXw1ohyw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794394754;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=9o4ST70UuO46LLtkIMPxTPAkfT/+TeanQNFZfYQrPrE=;
-	b=XjBiCs+T2SCG7wZU4UGq4mokCXIkZWGuywir6vCTtnxbfXCNAmyJYhFA+YgvCSIH3wMz
-	 y7byCZdv0BkcJSZIGAFePY3VXtioWqESgMzHLF+JueszKcTSTdTziJ7dLZJzM30tzLOVH
-	 fy3Xj7H26Ak8StCU6tPVyaj1McxlOtwilSezdb/S2gwBgc4KujRXIS00EQ4OvfxY3HO+m
-	 EVHK0Ijbx4L8VQg/MkhGsq6oy2mRdo7vFvyUwFLU7FalecPYhElpjwHG0ftf/eKbnieoX
-	 yL+X/7Gij8i7+E4UswX4QOV5hIaaroKCzVT9AoZSh1SHeWx7IQtg+vzWL7Zlg7++U4w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794394767;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=yKYud9p8+aP8cT7V12zkUbmCop1ErkdHEczU+hWaU/k=;
+	b=t53J8btXQ2meN9xlgmaKrTYV0JXO/Ke4lyxNxioXToauiJ0WMiPaEiLeiw1pvhSmlKbb
+	 Mtmb9irBMd3zULeDpyqZpGI2ipX+nWVyt+UGyaD7XoiYjI3cQwjcYUbtdbPQ6tqYsWIBY
+	 6v6v/164/W0Q+8IXhoFHimWz9nTwNL6o/s3QuhmU4enr4658OJ3QmOz9elPl1F644KkJ3
+	 NQaCauzwDnlT12KqXB4VKd1KHMMvgyS7hgsdqds44DrcwxUnBnIUdRTt5ENie3q8CUbnX
+	 /WV+CS0f2ABB8nZud7mUu5kbHJW7QgAj9+EUA4yyZM6DBl49q/BkV2Xxi+Jdv+S571A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X+C81saN;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jzgJ50o2;
+	arc=none smtp.remote-ip=74.125.82.174
+Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB14D606A31C;
-	Wed, 11 Nov 2026 10:59:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D95B606A321
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 10:59:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D95B606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X+C81saN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 395AD1F00A05;
-	Wed, 11 Nov 2026 10:59:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794394754;
-	bh=9o4ST70UuO46LLtkIMPxTPAkfT/+TeanQNFZfYQrPrE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=X+C81saNxCyYeNerjLrjfYH67ag3HjJ0s0IEHn9r6ikrVQ7UlH97OpChbMH7gVcoN
-	 XvRgc+5dDzkp4ze//9mJ2bJYBMddwCDGHGIA0+zfUP1oNPwxmYsmUEB6G4f0fS0Hcd
-	 CdlDXjg2edBVgptBdp5RVMz/JIEseNTF19NlCfh2N7RqZ0oxkXDuFNTb/qNp/6nV/P
-	 g4MqrclLquJ9XgDjWuzObmvrJAPrQII9Msm+4vEdkcz7CM7ERIsdNpTYyoSFyh809i
-	 CeSBXDU2Dj6sYOmuntw57mEgWxuo2EQ+iqDxKRdtCq/kweowl6u2QfnpZHui/ZL97t
-	 MuVgWB3TMOUKw==
-Date: Wed, 11 Nov 2026 11:59:05 +0100
-From: Alejandro Colomar <alx+linux-hardening@kernel.org>
-To: David Laight <david.laight.linux@gmail.com>
-Cc: Joe Perches <joe@perches.com>, Alejandro Colomar <alx@kernel.org>, 
-	linux-hardening@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>, 
-	"Maciej W. Rozycki" <macro@orcam.me.uk>, Geert Uytterhoeven <geert@linux-m68k.org>, 
-	Andreas Schwab <schwab@linux-m68k.org>, Andy Shevchenko <andy@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Daniel Scally <djrscally@gmail.com>, 
-	Danilo Krummrich <dakr@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Hans Verkuil <hverkuil-cisco@xs4all.nl>, Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
-	Johan Hovold <johan@kernel.org>, Kees Cook <kees@kernel.org>, 
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Len Brown <lenb@kernel.org>, 
-	Linus Torvalds <torvalds@linux-foundation.org>, Linus Walleij <linusw@kernel.org>, 
-	Namhyung Kim <namhyung@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Saravana Kannan <saravanak@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
-	Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux-gpio@vger.kernel.org
-Subject: Re: [PATCH v3 5/5] string: Make strprefix() const-qualifier-generic
-Message-ID: <avRKYMNAQEUDVnS-@devuan>
-References: <cover.1794323750.git.alx@kernel.org>
- <35bf6672f84f07de3f40e8db9e7fcfd643894fec.1794323750.git.alx@kernel.org>
- <64aa89daf23821f95780813fe96882ff61688578.camel@perches.com>
- <avOn57pfHntiwcaD@devuan>
- <20261111102836.759ec121@pumpkin>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jzgJ50o2
+Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-36fc0a3fe93so5963899eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 02:59:27 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794394766; x=1794999566; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=yKYud9p8+aP8cT7V12zkUbmCop1ErkdHEczU+hWaU/k=;
+        b=jzgJ50o2ITwSxxgDaLwhe9bWux9JjZB0ky0fdJgTV8MPlZSI6BvT8RWM/D5Y2Cvrjw
+         zTUcVE0qM8i6YiJ407eD9cbPC2rOAVeUgk2AwaMHcCSRh/Bi2twfEaG21xlovSMrSHmR
+         BeqjPW3UYLWv0lWappN+SgtRs/yznVjY3y1Tbf1FF+360BGSoD+Jf8dVTKb9IuH16jeb
+         srXj6/681BBaHaTA7jYQHg7SgwJYl7IqdcBWrGFq6FeSQKJqDcE0zbuS/C+DKYUw/2Kt
+         ixZCSYxcTvMNrwlTeHU/OsLRoQ38o8EHJyiVhkDz3YNLgjV6ZLAursqaffEvur8+rI6n
+         zLyw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794394766; x=1794999566;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=yKYud9p8+aP8cT7V12zkUbmCop1ErkdHEczU+hWaU/k=;
+        b=Sslx2qG9MV+YeuUs+lreUkrYb1r1M6Jkqwr92dflJDQ65CFH9vz5bXc4z0FFU0WCo8
+         F80XeaUhbxwVr2TsLElDVZzApjyin/IV2i0sv3WrrKkVMeJTlDN0AXaAUlV81OXK+mNO
+         L7+ziPfcb2RrLvKX1LkpGqoz3aaXFZ/A0YtCn2IVbTyKjr6zeOFyozpYwIUkvoUWtHfa
+         aSU6GQHh4PhX7yCfZKDWEMOJYeQ9et0XuYHvB/g6SSursuNPBqNMlphEQS2Xecuni+pR
+         oezO940Oy7DA32/vFMFEoatN5btVsGuEBL+p95p3TBu+54jTqOYmfUG9ihBDOmRy7VSr
+         dJ7w==
+X-Gm-Message-State: APuU4Z/F5mXmvBGWSQAAAp4t0yzgPfI7/+/xYx0qwkot+r4P9PKcfafz
+	PEkJpyKayklzgvqZY2pam43r1bdNrKTK9W0GHKo9FiCaZSpNZCb4w18m
+X-Gm-Gg: AYBFou30pSU3/8jBcb/z6S9+/0dmgI4nMlzwprA+4g66cySfZpbAA+CHhFv52mm4OX1
+	4zYYsMd0PszfwlyziNLi13UP/kjzzhyf1cyfUc05DwRPBcQoWda3JnVD96UxMqJnYfgQfenPkKK
+	7mI89wa5G8iL+bp5HZkKEj967bS5Tu9rKyLZR8T/tnUs7kBvbRhpNWDgOYBEjVhS7nQfM8/J5lf
+	lJ8N5NdC8qz/7b1xAhvnc+C1mnrwNNvJtBFwqEjyurJEXhKQShMAj0C/gfDCo/YH1jM+67bEv6E
+	9He4IO4AfjimMTTvwLp6EZd45vfYZGwZ+0m47jSpFVykFaxZpdvUW43FCOkxp8ZYZ/n5NQ8hbXQ
+	eucx62UToZZHjgBB7smasFSmQzEngNMgFff7oLYi6EAf951KyzLvBdD/zRA/8hk/bfIPt42Cgti
+	58XzFuzzvVJEvv39z2nCuTBrxw8Z+cvkzk1Ce44nCk4GXDUTc43VM9y1pdN9aDXpVJTKuuWfd8t
+	eiBujFiXcLGPzorm5TaGk3IO4kOyd0mbviD/jWS+2Tzy9sEROeYLZhtmaS7ylzRfWV50oGQ1ZOy
+	gChlWhV/qSEIgV/Q2YhLaVms0LvePATyG2xBS8ptaauptHQSOx0=
+X-Received: by 2002:a05:693c:69d5:b0:36c:d1fe:84ce with SMTP id 5a478bee46e88-37686d34204mr3123191eec.33.1794394766119;
+        Wed, 11 Nov 2026 02:59:26 -0800 (PST)
+Received: from localhost.localdomain ([103.178.205.70])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3751fe306e3sm15880508eec.7.2026.11.11.02.59.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 02:59:25 -0800 (PST)
+From: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+To: tiwai@suse.de
+Cc: linux-kernel@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	perex@perex.cz,
+	sreekuttan2156239@gmail.com,
+	tiwai@suse.com
+Subject: Re: [PATCH v3] ALSA: control: Validate element info in compat ioctl
+Date: Wed, 11 Nov 2026 10:58:58 +0000
+Message-ID: <20261111105858.2619-1-sreekuttan2156239@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <87ld6zu4oa.wl-tiwai@suse.de>
+References: <87ld6zu4oa.wl-tiwai@suse.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,132 +99,11 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="5ivl7qlzmrv4rlgf"
-Content-Disposition: inline
-In-Reply-To: <20261111102836.759ec121@pumpkin>
+Content-Transfer-Encoding: 8bit
 
+Hi,
 
---5ivl7qlzmrv4rlgf
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx+linux-hardening@kernel.org>
-To: David Laight <david.laight.linux@gmail.com>
-Cc: Joe Perches <joe@perches.com>, Alejandro Colomar <alx@kernel.org>, 
-	linux-hardening@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>, 
-	"Maciej W. Rozycki" <macro@orcam.me.uk>, Geert Uytterhoeven <geert@linux-m68k.org>, 
-	Andreas Schwab <schwab@linux-m68k.org>, Andy Shevchenko <andy@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Daniel Scally <djrscally@gmail.com>, 
-	Danilo Krummrich <dakr@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Hans Verkuil <hverkuil-cisco@xs4all.nl>, Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
-	Johan Hovold <johan@kernel.org>, Kees Cook <kees@kernel.org>, 
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Len Brown <lenb@kernel.org>, 
-	Linus Torvalds <torvalds@linux-foundation.org>, Linus Walleij <linusw@kernel.org>, 
-	Namhyung Kim <namhyung@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Saravana Kannan <saravanak@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
-	Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux-gpio@vger.kernel.org
-Subject: Re: [PATCH v3 5/5] string: Make strprefix() const-qualifier-generic
-Message-ID: <avRKYMNAQEUDVnS-@devuan>
-References: <cover.1794323750.git.alx@kernel.org>
- <35bf6672f84f07de3f40e8db9e7fcfd643894fec.1794323750.git.alx@kernel.org>
- <64aa89daf23821f95780813fe96882ff61688578.camel@perches.com>
- <avOn57pfHntiwcaD@devuan>
- <20261111102836.759ec121@pumpkin>
-MIME-Version: 1.0
-In-Reply-To: <20261111102836.759ec121@pumpkin>
+Thanks for applying the patch!
 
-Hi David,
-
-> Date: 2026-11-11 10:28:36+0000
-> From: David Laight <david.laight.linux@gmail.com>
->
-> On Wed, 11 Nov 2026 00:27:28 +0100
-> Alejandro Colomar <alx+linux-hardening@kernel.org> wrote:
->=20
-> > Hi Joe,
-> >=20
-> > > Date: 2026-11-10 08:32:41-0800
-> > > From: Joe Perches <joe@perches.com>
-> > >
-> > > On Tue, 2026-11-10 at 16:33 +0100, Alejandro Colomar wrote:
-> > >=20
-> > > no commit description on proposed patch =20
-> >=20
-> > There isn't much to say, but I'll add something (the explanation of why
-> > the parentheses are needed around the function name, for example).
-> >=20
-> > > > Suggested-by: Geert Uytterhoeven <geert@linux-m68k.org>
-> > > > Signed-off-by: Alejandro Colomar <alx@kernel.org>
-> > > > ---
-> > > >  include/linux/string.h | 4 +++-
-> > > >  1 file changed, 3 insertions(+), 1 deletion(-)
-> > > >=20
-> > > > diff --git a/include/linux/string.h b/include/linux/string.h
-> > > > index 9e59f9697c9e..55ca4cb5122c 100644
-> > > > --- a/include/linux/string.h
-> > > > +++ b/include/linux/string.h
-> > > > @@ -590,7 +590,9 @@ void memcpy_and_pad(void *dest, size_t dest_len=
-, const void *src, size_t count,
-> > > >   * *  @s+strlen(@prefix) if @s starts with @prefix
-> > > >   * *  NULL if @s does not start with @prefix
-> > > >   */
-> > > > -static inline char *strprefix(const char *s, const char *prefix)
-> > > > +#define strprefix(s, pfx)  const_cast(CQChar_of(s) *, strprefix(s,=
- pfx))
-> > > > +
-> > > > +static inline char *(strprefix)(const char *s, const char *prefix)=
- =20
-> > >=20
-> > > Why introduce a new coding style? =20
-> >=20
-> > It's not style; the parentheses are technically needed to avoid macro
-> > expansion, since the macro has the same name as the function.
-> >=20
-> > Alternatively, I could rename the function to __strprefix().
->=20
-> Or put the #define after the function definition.
-
-Done for v4.
-
-
-Cheers,
-Alex
-
->=20
-> David
->=20
-> >=20
-> >=20
-> > Have a lovely night!
-> > Alex
-> >=20
->=20
->=20
-
---=20
-<https://www.alejandro-colomar.es>
-
---5ivl7qlzmrv4rlgf
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmr0SnkACgkQ64mZXMKQ
-wqkSIw/+JANAA68nz5/+CG2Uu2FsDG/gwOlqCGmdZXBmRcZJU8hhQqw3mrZAC8D3
-87/DX6VsCnivD0LWOuqVybLeLXV8hfdE5AuccAnhXvNHNR2nJzl3VnIBxRh9/+rk
-BKA7J1WLaOY4qBVNB4A6Napon9uwLwMjCa8qLheKVJXcAi3r/aCWkjPZVDijD41w
-bp3DfOTRvzN6baIyu1J2cKhU/HJxIIXDnKFWykwcFwCi6bhJJZYRyI4l48poIZxo
-o1VIiASPJnfSrs7l5/k0GdM5g9wAD/cIge7HxlAEsu6jYCZ3TLTOod1UNi9Tel/5
-XZkqEF23vXriQc6KSYpbAX4QwRlu5p9m6CWSnwKBH9AqbmZ9kAiFT1qE/Xvdq0zZ
-u4WQ6r4lGqu7rOd4uhXM2cBU/bD7wMjuTHeqqQF2ay9WN08S5AsrW9De439mdKVP
-K9whrKLOTfjz2oWglsMIY1sDt0MmjVFA1+N6rB06jXGprYNPptJfOAhc4ktulq8l
-de4HZR2dPsF1YOwagXCfmHoMFU02ZnNnKLYqb2VrlAA7s1xeR4t+uQNknaAZShYX
-HeNI8vDCSK+aOuEf5r1HjK44NVtUxd/ZzgB8nJskAsGzOxfpVkDVeIOYZrVfcbDn
-Qihv6z0V8jh2CmUbkWzfK04Hw+dHgaoqt6tHCOntuTECFHZzuDs=
-=1grF
------END PGP SIGNATURE-----
-
---5ivl7qlzmrv4rlgf--
+Best regards,
+Sreeraj
