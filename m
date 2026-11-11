@@ -1,154 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.150.75
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794438713;
-	b=JWmefjf+JCGTsYL/zifoOOeWc9RUwK/l9cbUuA0M8sGRY59de576cVGWbmlHHsaiLYKS
-	 vtZCuVKNdZvum3TiRVfT9T3/7PUgAxBYMVjH3CBLTqqKXDwKNwFTetKiKy2vxv8UaowdU
-	 8t+5vT2H6p/TPqgZ7q0dDSmAewpRNyzVRX2GF5IfmfXSBy2Y9StKVfLBvdyVjQfUpYNEy
-	 f3jV8mWV3khYO26+04tR9/7z9qrMeTFzuhn1EQEg7NyfWyiPD1BMJfbEfaNJ0ZUd2JVKn
-	 13hcd0gkwk4rAp5YAGmFc5MTKqKlIuaESf7XiWLzhp6AGNWXNXDATaAfrH3ZVLvn/Zw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794438713;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:DKIM-Signature:
-	 Received:Received:X-MS-Exchange-Authentication-Results:Received-SPF:
-	 Received:Received:Received:Received:Received:From:To:CC:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
-	 X-OriginatorOrg:X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=j9vsSf1KR1yvjgoj1lKORvu+cfW5WUPAo7fpPbR0G5w=;
-	b=m0rQhzKAv6SIOHhD1ctbiFrN3yJmbV3+JYR4WG8IfGfzBifjhnmhIeAQVzK2TYGcPbDN
-	 oNxswNaujDcm3oPG1gUCgD2wN/ORXYPp3LI9paCy2IvOyRt83gQEr49KPNJkuNSUm1TO4
-	 HZzSoTYfQ7J/fA5PdNmYrOwyFSJzwj7sihlBf+1eQqx2+Koh4A/nzSv5hI9wcETuSo8QU
-	 xuW4sRTlNpUjp/4h+B6sCL7mcBpBZwJl6fomle8r7yYzTIn+08NNNAlv8wtWzeiLkstQI
-	 PVfXspvSBcsU3YIhf1DIBzEmWoRAjzRu4Ac+ec1KVz2v149h9BYBvBX4xt1nSQfJgKQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ti.com;
-	spf=pass smtp.mailfrom=ti.com;
-	dkim=pass header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b=epRX5QAN;
-	dkim=pass header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b=rL8pmSEd;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.150.75
-Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.162.73.231
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794438741;
+	b=Hfh5lRPxO/nAQF5T6l9eYcySNY7tyqoGvKQddikKHOKdmXYaDYxWPWLbsxE7TUyXXh8h
+	 fg/8y81qH4FTs8deqTB1Qh915gRkPJy5lR4PswUPb3b5hdzTmMRnmHK82M7a13P1TL8qS
+	 kjSuYvJkEyesxkG16B93tpSndE4JxaNtqhBH7munZ7Z8aREI7Z1rK/kZlcovYItbHEbh4
+	 LNPSrYh+pEx/3SUm/gRisVRIlp+ahuIKYDMF2v/6vqfJcGtWTW2LjZt7TviylAO7b3sCF
+	 QTuzGe9WIp2OmStgOuSo589cBZKoJBz0T6739qQMb5tloleF6BMfzoDZEn+juHYtA5w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794438741;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
+	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=VNIEPDuhqStN4HF4N7LcMFdEdY9vqc1YFIz5yG1MSFs=;
+	b=pM+dKZZr3Ze/mZSj0P1kN4rODWEETmbMKxVf7NlpF8Nb+EGTJTTLAFknR4labCLMZRIv
+	 1xtnUUcwERm3+bFJYH+ygbHnvShIoK5fgRa+xNktgcFjqbCIorcyE9dOiyHnCz/W8a5r6
+	 KVQdCxDG0T9rnyLD96pbX+gzJOA2IolqwEltbPD234t3zprJMSyvMM7ZWsJFwRq+f8t56
+	 X+ZgRWFz79M/U/rUG3KEhNY1p2e/lhkeARlxenCoY04saA1PtLmoUQQYWVTV1kK2NEzFp
+	 ooDCnDtgLbvMgl/ivm7BlE8hnx0DbdhxNabs6Eq6KU6KRAxS8Ih7TZv6Qy2kD4+qTAA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amazon.com;
+	spf=pass smtp.mailfrom=amazon.de;
+	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b="D/0HOxAz";
+	arc=none smtp.remote-ip=35.162.73.231
+Received: from pdx-out-012.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-012.esa.us-west-2.outbound.mail-perimeter.amazon.com [35.162.73.231])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80B7E606A31C;
-	Wed, 11 Nov 2026 23:11:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 80B7E606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6E87606A321;
+	Wed, 11 Nov 2026 23:12:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D6E87606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b=epRX5QAN;
-	dkim=pass (1024-bit key, unprotected) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b=rL8pmSEd
-Received: from pps.filterd (m0384305.ppops.net [127.0.0.1])
-	by m0384305.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 6ABMbpjb2648340;
-	Wed, 11 Nov 2026 17:11:14 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	proofpoint-05-2026; bh=j9vsSf1KR1yvjgoj1lKORvu+cfW5WUPAo7fpPbR0G
-	5w=; b=epRX5QANw7XYCxMEOP8txVYVJ4/PbjqkZlxwOYSM7cKea8Z8R8QZv4L9S
-	4ROMneQ3KgT27Trhz8Iz11NtF7xLKajKb61vXwYvQyprVrAQciDwmkKN0sIqPTrQ
-	74boNwdYoV0QTg0oWOY6f6KFPKRrfXWwev0Ya9iTeSuBzjeiQcaExkNc2Cerwf66
-	twPe2RM8JWY6BcEYz7SU5kc6ddL4wulXrPehBhp/+fPCBzrCrcOPPUAI/A3EYu40
-	lEOM/6ezLPztuVaLVM7KF/qF+OX7dc/H/7IxbTGW26aVnwz6i2GHYoSmVY+xqjjg
-	45nzeuiU7BVpYaAb2hFkVXmd4Ty5A==
-Received: from ph8pr06cu001.outbound.protection.outlook.com (mail-westus3azon11012062.outbound.protection.outlook.com [40.107.209.62])
-	by m0384305.ppops.net (PPS) with ESMTPS id 4hveygxexg-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 11 Nov 2026 17:11:14 -0600 (CST)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=WFZly/VwFA/14pjJabdUSh3KNWsMZNAAdxIltFJ3cbHtTiMd32LK9xdU17E+2wRTN8En0fUaRoUS99F/jMearZktOjqMecQAQNJ9uWYzEcqN6rbW65nHZ5cJ7cAgeKa1Yg9zFFGPHjwQNAcZb50QjiWuzRDf95RH+whPclHfeHTMG1+I/zDYkqcwMv39C4dbIXOR8F5XtMwl52dz/O7VZhcIbjG+2P9BGbP93zC+y3fc51cWp4tTL9SO6ZfkfZV4PklEis/o8lYLnaW47g3wGAYH/v1ZqSUY6+9iv1NTsaRb98+tB3v3910zXww2ARBnfawX7wRZ3zeLavaNBzoV3A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=j9vsSf1KR1yvjgoj1lKORvu+cfW5WUPAo7fpPbR0G5w=;
- b=ayM6e/OP6oibGFJw2UXkcXdf+X7kobYERBnKmN3DaGlEDDqvqsXRh38me7T89qsCs1oO6DP8JAaDh0O19Q2YpMXjsIEfJd0DWFzCgrnHSxa/0PSubdNFcnYcP1OROsBsGV5nJDnsfxalnnjvEyFrw8MZGXlhhANFvTMf7NEDD72OoGkU0Nsw7OtTZY4JRwGghXulKF0KlOHXTGMgZ7hhffWSIGSoF3F1PrcpYgWQId97MouZCmPWvBPoU1Kp2ZcjSIFjWAInOzCTzq2P/kUo8EhuH1WuDwn3j1LTR0Qkk2Z/E4RlUr1IZLedMdUwW1BtVf4GEDWPfGCGFKsGdkhNiQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.23.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
+	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=D/0HOxAz
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ticloud.onmicrosoft.com; s=selector1-ticloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=j9vsSf1KR1yvjgoj1lKORvu+cfW5WUPAo7fpPbR0G5w=;
- b=rL8pmSEdo2huZnS1k3ZhwK+u6HLCeWqz8VtrIGEfQCSNzaMDla6EyF3oBZEe34pu6oSMboo6Rf/bsevLE9Vq1QfVy8hd11Zvobd/3kBskhZOOMIJkUhPhoxWGR/MAbSK87e8wtaoEj5sNYoG2VIa8jG+f1K/BEdxdQY8HYSpJtY=
-Received: from MW4P220CA0001.NAMP220.PROD.OUTLOOK.COM (2603:10b6:303:115::6)
- by PH0PR10MB4678.namprd10.prod.outlook.com (2603:10b6:510:3b::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Wed, 11 Nov
- 2026 23:11:12 +0000
-Received: from SJ5PEPF000001F6.namprd05.prod.outlook.com
- (2603:10b6:303:115:cafe::1a) by MW4P220CA0001.outlook.office365.com
- (2603:10b6:303:115::6) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.9 via Frontend Transport; Wed, 11
- Nov 2026 23:11:11 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 198.47.23.194) smtp.mailfrom=ti.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.23.194 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.23.194; helo=lewvzet200.ext.ti.com; pr=C
-Received: from lewvzet200.ext.ti.com (198.47.23.194) by
- SJ5PEPF000001F6.mail.protection.outlook.com (10.167.242.74) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Wed, 11 Nov 2026 23:11:11 +0000
-Received: from DLEE214.ent.ti.com (157.170.170.117) by lewvzet200.ext.ti.com
- (10.4.14.103) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 11 Nov
- 2026 17:10:54 -0600
-Received: from DLEE202.ent.ti.com (157.170.170.77) by DLEE214.ent.ti.com
- (157.170.170.117) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 11 Nov
- 2026 17:10:54 -0600
-Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DLEE202.ent.ti.com
- (157.170.170.77) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
- Transport; Wed, 11 Nov 2026 17:10:54 -0600
-Received: from ula0226330.lan ([10.249.32.167])
-	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 6ABNAru6641796;
-	Wed, 11 Nov 2026 17:10:53 -0600
-From: Andrew Davis <afd@ti.com>
-To: Igor Korotin <igor.korotin@linux.dev>, Danilo Krummrich <dakr@kernel.org>,
-        Daniel Almeida <daniel.almeida@collabora.com>,
-        Miguel Ojeda
-	<ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
-        Gary Guo
-	<gary@garyguo.net>,
-        =?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?=
-	<bjorn3_gh@protonmail.com>,
-        Benno Lossin <lossin@kernel.org>,
-        "Andreas
- Hindborg" <a.hindborg@kernel.org>,
-        Alice Ryhl <aliceryhl@google.com>, "Trevor
- Gross" <tmgross@umich.edu>,
-        Tamir Duberstein <tamird@kernel.org>,
-        "Alexandre
- Courbot" <acourbot@nvidia.com>,
-        =?UTF-8?q?Onur=20=C3=96zkan?=
-	<work@onurozkan.dev>
-CC: <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-        "Andrew
- Davis" <afd@ti.com>
-Subject: [RFC PATCH v2] rust: i2c: Remove use of bindings::i2c_match_id
-Date: Wed, 11 Nov 2026 17:10:53 -0600
-Message-ID: <20261111231053.529616-1-afd@ti.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261111205204.481923-1-afd@ti.com>
-References: <20261111205204.481923-1-afd@ti.com>
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+  t=1794438740; x=1825974740;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=VNIEPDuhqStN4HF4N7LcMFdEdY9vqc1YFIz5yG1MSFs=;
+  b=D/0HOxAzMQrjGnmIjq+fBDqjU2PeYehgqQ8+T/Gva6NKbxKYRKeUMGfq
+   oLgIs9Ldd6lTiEGZhNlnqNu+0Eo5owLztrQfqPQ2Vhvy4bwaN0b6TcAzj
+   BnMv3k0Lz+ASRe+ZHIp2ExYPuZQ3OHVDFBCIEsygHDQXTBv3qa0OeSEMw
+   nYBVenc61dsjzVSmVbxxJzakTjj8E+9hwNN6K3ayROAUTfpUzNVKgym4j
+   dYB0MWK6zQnOze29BX1orVhY7xAqapN8RuCSRYc8K+mBdEMt4Beo48Zz/
+   1T/mvXLQLAUdrp0QnJ83IbFxVNV0dUSgrzAtaSet7+5w2obZvvHx2iv7n
+   g==;
+X-CSE-ConnectionGUID: kvBWXK+hTsOPZuf+0vvGNw==
+X-CSE-MsgGUID: 5eZIbGlDTzm7wjOwWzmaKw==
+X-IronPort-AV: E=Sophos;i="6.27,208,1787011200"; 
+   d="scan'208";a="33573918"
+Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
+  by internal-pdx-out-012.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 23:12:20 +0000
+Received: from EX19MTAUWA001.ant.amazon.com [205.251.233.182:17378]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.12.127:2525] with esmtp (Farcaster)
+ id 1e72a3cb-0649-4a32-9a1c-1b640a0756a6; Wed, 11 Nov 2026 23:12:20 +0000 (UTC)
+X-Farcaster-Flow-ID: 1e72a3cb-0649-4a32-9a1c-1b640a0756a6
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWA001.ant.amazon.com (10.250.64.204) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
+ Wed, 11 Nov 2026 23:12:19 +0000
+Received: from ip-10-253-83-51.amazon.com (172.19.99.218) by
+ EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
+ Wed, 11 Nov 2026 23:12:16 +0000
+From: Alexander Graf <graf@amazon.com>
+To: <linux-kernel@vger.kernel.org>, Greg Kroah-Hartman
+	<gregkh@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>
+CC: The AWS Nitro Enclaves Team <aws-nitro-enclaves-devel@amazon.com>, "Shuah
+ Khan" <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>,
+	Marek Szyprowski <m.szyprowski@samsung.com>, Robin Murphy
+	<robin.murphy@arm.com>, <linux-doc@vger.kernel.org>, <iommu@lists.linux.dev>,
+	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand
+	<david@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+	<nh-open-source@amazon.com>, <linux-mm@kvack.org>, Jonathan Corbet
+	<corbet@lwn.net>
+Subject: [PATCH 37/40] nitro_enclaves: Add NE_ENCLAVE_CPU_OVERCOMMIT_MODE
+Date: Wed, 11 Nov 2026 22:59:41 +0000
+Message-ID: <58469275b84367e8a49ae9975df231abc26234ea.1794393491.git.graf@amazon.com>
+X-Mailer: git-send-email 2.47.1
+In-Reply-To: <cover.1794300002.git.graf@amazon.com>
+References: <cover.1794300002.git.graf@amazon.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -160,136 +93,501 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001F6:EE_|PH0PR10MB4678:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7cbb2057-46ae-4bb0-4f58-08df404913bc
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|7416014|23010399003|36860700016|82310400026|261021121427099003|56012099006|261021123027099003|261102123227099003|261026121527099003|261009223027099003|261022075727099003|921020|6133799003|18002099003|10067099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	dABLNZWO12gMWHk4jb/Mg7bk3AmnlrD/2eDq+qgfwZXqEaF8j7NOLuMKAPy/viholrrk15IdXfao0UJpzS2xLKF9LIHcxqnMg0fx/p0WXrPL1bLQ58r87cVF+GyG4ygyrPwvZKuzdx63BzjScYN1Cmp5u7wEBPhKYpOOmx7XG+8cuGKQpdDNF0oXHSM3K2E2rb/C3K714pqwZBte3WJt4OCrcl0rh1OYj3jJL4NSAmFX7Pgqgu+HixHS31XqPk2B7eEGlNK6V5pVLooe9LQbv66RuQVK5z0bcUsgq09ca8q04+4qyk/GVtH6SvIeVLnVp7AjSEXuyLs42pabkZM6/TPy/PEFozDLsRoAajeXT3uJSkQ9Tu9LKqnoAFlXaZFebIKEWAucQ4wp3T1nkfvzV2mzqV9jmHLmFbKYLgoEeUXYiaXpxShYw/8UKnCSPuehY+Bx1YaG5JQazgvqmiID8ihqL9IePyloqWz28aPoLj9exEEs6PHzqiZ4j0pvyVNm5G9/XdblKBHW61KOlds1aogtVi3PbL6OIcBhS/59ZoSwLZD6q4ks2mMkDb4WQ0IGLcp61kCFTrgVHp1drnNB/Yhu0m5+jCXCP9Q3jkLBLBA3P/iwqSDe6APjzSWITAXiLAxr03NRGHtSNImUmaF14vUhfHXO/tiGkYSA0qkml4U1/S3hQBoskaH9XLh7dBTozTbnFnIK98PXxEYLBoiFx93BzEMRpAKXpleCY/PJ9RE0OF1Zffx80wbI5abGNNua
-X-Forefront-Antispam-Report:
-	CIP:198.47.23.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet200.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(23010399003)(36860700016)(82310400026)(261021121427099003)(56012099006)(261021123027099003)(261102123227099003)(261026121527099003)(261009223027099003)(261022075727099003)(921020)(6133799003)(18002099003)(10067099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	hT+oD8EG6YDnk4aAedYS9iubbY77R1Iy2PBLCHBrstJvMgCNEHVIPndlaus5jJFGY94wM5GdqPHduausaB+42qQMJwvv2rhFXbZOR0CE4REiSfVguIWePtHHBbSwakUXeUZT1GNNbenrHVuKUQhuYgDs/C2/+Qeff7z8tEarUFMmc7o5+tM4RIcSz9cA0MD5OvGslcDysybxLorbFHw0jiYRSFzCW3Vwuss6doZaRaRhvhLsQ7i/7Cgm1N/2P2NoGMODJvNJC3oV7swJHWUNs+mVarb+2l9uy5BiXlBxhErqt3VnhTjjof7m+dKPUPz2EhJTsgTqe6AC/S1lVOd2XD/4BMVXYCYt5g3DfDWzUBS4tIPh75zQltz5QeSLWsMywVmGuJxed02LWYE0g0ZUQDNTtA1in8PAp0keFOLIwGHNdWwELr2PSrO0ujM1W5RY
-X-Exchange-RoutingPolicyChecked:
-	EO8KVkl32Nq2wa6ChdCI3HYBCYwwvQu6aFrxNobC+PwyjecLgcopoBP4Uo0PP6ftddAudQePVby27LtaG0jiPwPQJQybPWCVQ+rYiJaphX8nnq0Q9FAaVQ3L616GADMWklRqbJpEnnnrAt0m74ByttxVMLr4Oi67uxTh/5EWZat04dNkWCXEnVnmplEi4lr1sm/dxlcOZEXGPavgBQ7IDRL57jBzve752mq+T8nMbQjGrctNHSRDK3VDmOCEXcljF9ES56hkj6luB2PD8NhxbNU9fN5ZtkiEFJVdP5YcHVC2n7EZTUfugn5f/ct/oMaQLr9fKRjoDw/HtQxQQIvz/g==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 23:11:11.6463
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7cbb2057-46ae-4bb0-4f58-08df404913bc
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.194];Helo=[lewvzet200.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ5PEPF000001F6.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR10MB4678
-X-Proofpoint-GUID: ywL4O1moL4QTy1NXxcMGfmyxmr2HtzGQ
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDA5MiBTYWx0ZWRfXxeGWGbtcsqWP
- 5kRr2f40/+afcf75znG83EF9zRXrTegxhvi0/HTHNVsKBgegHC+VYrusRZG0iqmtlb/HW+KtGO2
- 7jhMj5GhO7eKRnlgi8mELfogdPWfU1o=
-X-Proofpoint-ORIG-GUID: ywL4O1moL4QTy1NXxcMGfmyxmr2HtzGQ
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDA5MiBTYWx0ZWRfX9vAloLMgnHpN
- r8QkwuFgSuNVh/8Mxm7yPCW9rK17WIhUWvsFGGcoyNtnsfLQ7Zc8X5CMHhAFRUhPh0C0bnmCNGK
- /7CxmsPMYGrp/sBJiWhfZts3AL5yKs821M+4P5oUJmr4KKvIWrqBJsnPVB5J39mVNgRWveHi00n
- 6gQHeUr5Ri5xsPs7lHpxLpTWc59jaloETeSDICTYkeMmehpdaiRD2ar2iYhjx8763KWQXNuTNfM
- lsHJURT4YZcH7MwKh+/X+RVIgGfs7vHAYZDGG5V3JEKpwtT+SYngfYcKWrWvcHZmo7lfIqmXlLF
- vlYxfhNDVb31+44DOlEv6t9G2oWMXmvb88cz43saJ630b6xDKTfg5AnIY1WdrmlE0f3e6M9l1pE
- cJxl0PcMB6ZQzDUZ/YV63IzHVfzEfT9pQD7dnaxuOKGy1KTUK8MJtEwoZ8Mdp6AkoaszyQaIoY5
- kWcrhANOFmLWrJSRJpQ==
-X-Authority-Analysis: v=2.4 cv=FpaQbGrq c=1 sm=1 tr=0 ts=6af4f612 cx=c_pps
- a=6wJ5VEhJUsGCSgd7q/o3PA==:117 a=WotqVVQAdb04rnGuttW3Kw==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=zJRp6_cAMcgA:10 a=s63m1ICgrNkA:10
- a=AlMIdn_sM9wA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
- a=taLDd7a_hP9WKsMzeGRc:22 a=sozttTNsAAAA:8 a=JX5HHOsB-ljCSBZzwqgA:9
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-11_06,2026-11-11_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 bulkscore=0 adultscore=0 impostorscore=0 suspectscore=0
- priorityscore=1501 malwarescore=0 spamscore=0 phishscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611110092
+X-ClientProxiedBy: EX19D031UWA001.ant.amazon.com (10.13.139.88) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-The C function i2c_match_id() is slated for removal, remove use of this
-from Rust I2C by switching to bindings::i2c_get_match_data().
+Nitro Sandboxes relax the dedicated-vCPU requirement and allow a sandbox
+to opt-in to CPU overcommitment. When active, the hypervisor performs
+vCPU scheduling of sandbox vCPUs (vCores really) on top of the parent's
+vCPUs.
 
-Signed-off-by: Andrew Davis <afd@ti.com>
+Add the NE_ENCLAVE_CPU_OVERCOMMIT_MODE flag and relax the dedicated CPU
+validation and pooling logic when the mode is active.
+
+Signed-off-by: Alexander Graf <graf@amazon.com>
 ---
+ Documentation/virt/ne_overview.rst        |  15 +-
+ drivers/virt/nitro_enclaves/ne_misc_dev.c | 249 ++++++++++++++++++++--
+ drivers/virt/nitro_enclaves/ne_misc_dev.h |   1 +
+ include/uapi/linux/nitro_enclaves.h       |  45 +++-
+ 4 files changed, 283 insertions(+), 27 deletions(-)
 
-Well Sashiko suggested I take the easy way and just re-use a different C
-function instead of trying to open-code the loop in Rust. The C function
-implements the same lookup as i2c_id_info did so we can drop that out and
-its i2c_id_table helper. Still would like some help on checking if this
-is actually correct though..
-
-Thanks,
-Andrew
-
- rust/kernel/i2c.rs | 39 +++++++--------------------------------
- 1 file changed, 7 insertions(+), 32 deletions(-)
-
-diff --git a/rust/kernel/i2c.rs b/rust/kernel/i2c.rs
-index b4ff25c830fc0..37d914fcb3662 100644
---- a/rust/kernel/i2c.rs
-+++ b/rust/kernel/i2c.rs
-@@ -148,10 +148,13 @@ extern "C" fn probe_callback(idev: *mut bindings::i2c_client) -> kernel::ffi::c_
-         // INVARIANT: `idev` is valid for the duration of `probe_callback()`.
-         let idev = unsafe { &*idev.cast::<I2cClient<device::CoreInternal<'_>>>() };
+diff --git a/Documentation/virt/ne_overview.rst b/Documentation/virt/ne_overview.rst
+index 5984fd32ec07a..3aa33d3f06cf2 100644
+--- a/Documentation/virt/ne_overview.rst
++++ b/Documentation/virt/ne_overview.rst
+@@ -113,10 +113,23 @@ each node in turn, and sets numa_node to NE_NUMA_ANY when it does not
+ care. Both start from a free thread of a core the enclave already holds,
+ and only take a new core once there is none.
  
--        let info = Self::i2c_id_info(idev).or_else(|| {
--            // SAFETY: `idev` matched data is of type `Self::IdInfo`.
--            unsafe { <Self as driver::Adapter>::id_info(idev.as_ref()) }
--        });
-+        // SAFETY: `idev` is a valid `struct i2c_client` bound to this driver, so
-+        // `i2c_get_match_data()` may read `idev.dev.driver`.
-+        let raw_info = unsafe { bindings::i2c_get_match_data(idev.as_raw()) };
++A slot allocated with NE_ENCLAVE_CPU_OVERCOMMIT_MODE has its vCPUs
++scheduled by the host alongside the parent's own and takes no core out of
++the pool, so the pool is not consulted for it. Both NE_ADD_VCPU and
++NE_ADD_ANY_VCPU choose an id the enclave does not hold yet, and the host
++schedules the vCPU alongside the parent CPU that id names, so the node
++NE_ADD_ANY_VCPU takes still places it, and a node with no free id left
++fails the request. Both prefer a free id whose SMT sibling the enclave
++already holds, so its vCPUs share cores as they do with a pool, and
++otherwise take the lowest free id. A parent that never set a pool up runs
++such an enclave.
 +
-+        // SAFETY: Non-NULL match data is either the OF/ACPI entry data or the `driver_data` of an
-+        // I2C id entry. Both are built from `&'static Self::IdInfo` by this driver's tables.
-+        let info = unsafe { raw_info.cast::<T::IdInfo>().as_ref() };
+ The node says where cores come from. NE_ALLOC_MEMORY takes its own node;
+ see `Memory pool`_. An enclave built out of a pool that spans
+ nodes has no node of its own, so the rule that its memory be on that node
+-does not apply to it and its memory can come from any node.
++does not apply to it and its memory can come from any node. A slot
++allocated with NE_ENCLAVE_CPU_OVERCOMMIT_MODE holds no core at all, so it
++has no node of its own either.
  
-         from_result(|| {
-             let data = T::probe(idev, info);
-@@ -184,34 +187,6 @@ extern "C" fn shutdown_callback(idev: *mut bindings::i2c_client) {
+ The pool occupancy is readable under
+ /sys/devices/virtual/misc/nitro_enclaves/cpu_pool/, and per node under
+diff --git a/drivers/virt/nitro_enclaves/ne_misc_dev.c b/drivers/virt/nitro_enclaves/ne_misc_dev.c
+index 870b3a6368cf9..e79740eac6f29 100644
+--- a/drivers/virt/nitro_enclaves/ne_misc_dev.c
++++ b/drivers/virt/nitro_enclaves/ne_misc_dev.c
+@@ -267,6 +267,12 @@ static const struct kernel_param *ne_cpus_kp;
+  *				ne_setup_cpu_pool() offlines them, because
+  *				cpu_to_node() is not documented to answer for an
+  *				offline CPU.
++ * @core_cpus:			The threads of each core slot, indexed the same
++ *				way as @avail_threads_per_core. Unlike that
++ *				array it does not change while the pool is set
++ *				up, so it names the SMT siblings of a pool CPU
++ *				while the CPU is offline and
++ *				topology_sibling_cpumask() no longer names them.
+  * @node_cpus:			The threads of the pool on each NUMA node, indexed
+  *				by node id and sized by nr_node_ids. It partitions
+  *				@total_cpus: a thread sits in the entry of the node
+@@ -292,6 +298,7 @@ struct ne_cpu_pool {
+ 	unsigned int	nr_parent_vm_cores;
+ 	int		numa_node;
+ 	int		*core_nid;
++	cpumask_var_t	*core_cpus;
+ 	cpumask_var_t	*node_cpus;
+ 	struct cpumask	total_cpus;
+ 	struct cpumask	used_cpus;
+@@ -656,6 +663,14 @@ static void ne_free_core_slots(void)
+ 	kfree(ne_cpu_pool.core_nid);
+ 	ne_cpu_pool.core_nid = NULL;
  
-         T::shutdown(idev, data);
-     }
--
--    /// The [`i2c::IdTable`] of the corresponding driver.
--    fn i2c_id_table() -> Option<IdTable<<Self as driver::Adapter>::IdInfo>> {
--        T::I2C_ID_TABLE
--    }
--
--    /// Returns the driver's private data from the matching entry in the [`i2c::IdTable`], if any.
--    ///
--    /// If this returns `None`, it means there is no match with an entry in the [`i2c::IdTable`].
--    fn i2c_id_info(dev: &I2cClient) -> Option<&'static <Self as driver::Adapter>::IdInfo> {
--        let table = Self::i2c_id_table()?;
--
--        // SAFETY:
--        // - `table` has static lifetime, hence it's valid for reads
--        // - `dev` is guaranteed to be valid while it's alive, and so is `dev.as_raw()`.
--        let raw_id = unsafe { bindings::i2c_match_id(table.as_ptr(), dev.as_raw()) };
--
--        if raw_id.is_null() {
--            return None;
--        }
--
--        // SAFETY: `DeviceId` is a `#[repr(transparent)` wrapper of `struct i2c_device_id` and
--        // does not add additional invariants, so it's safe to transmute.
--        let id = unsafe { &*raw_id.cast::<DeviceId>() };
--
--        // SAFETY: `id` comes from `table` which is of type `IdArray<_, Self::IdInfo>`.
--        Some(unsafe { id.info_unchecked::<T::IdInfo>() })
--    }
++	if (ne_cpu_pool.core_cpus) {
++		for (i = 0; i < ne_cpu_pool.nr_parent_vm_cores; i++)
++			free_cpumask_var(ne_cpu_pool.core_cpus[i]);
++
++		kfree(ne_cpu_pool.core_cpus);
++		ne_cpu_pool.core_cpus = NULL;
++	}
++
+ 	if (ne_cpu_pool.node_cpus) {
+ 		for (nid = 0; nid < nr_node_ids; nid++)
+ 			free_cpumask_var(ne_cpu_pool.node_cpus[nid]);
+@@ -719,6 +734,10 @@ static int ne_build_core_slots(const struct cpumask *cpu_pool)
+ 	if (!ne_cpu_pool.core_nid)
+ 		goto free_slots;
+ 
++	ne_cpu_pool.core_cpus = kzalloc_objs(*ne_cpu_pool.core_cpus, nr_cores);
++	if (!ne_cpu_pool.core_cpus)
++		goto free_slots;
++
+ 	ne_cpu_pool.node_cpus = kzalloc_objs(*ne_cpu_pool.node_cpus, nr_node_ids);
+ 	if (!ne_cpu_pool.node_cpus)
+ 		goto free_slots;
+@@ -728,7 +747,8 @@ static int ne_build_core_slots(const struct cpumask *cpu_pool)
+ 			goto free_slots;
+ 
+ 	for (i = 0; i < nr_cores; i++)
+-		if (!zalloc_cpumask_var(&ne_cpu_pool.avail_threads_per_core[i], GFP_KERNEL))
++		if (!zalloc_cpumask_var(&ne_cpu_pool.avail_threads_per_core[i], GFP_KERNEL) ||
++		    !zalloc_cpumask_var(&ne_cpu_pool.core_cpus[i], GFP_KERNEL))
+ 			goto free_slots;
+ 
+ 	cpumask_clear(processed);
+@@ -746,6 +766,9 @@ static int ne_build_core_slots(const struct cpumask *cpu_pool)
+ 			cpumask_set_cpu(cpu_sibling, processed);
+ 		}
+ 
++		cpumask_copy(ne_cpu_pool.core_cpus[next_core_idx],
++			     ne_cpu_pool.avail_threads_per_core[next_core_idx]);
++
+ 		core_nid = cpu_to_node(cpu);
+ 
+ 		ne_cpu_pool.core_nid[next_core_idx] = core_nid;
+@@ -1166,6 +1189,118 @@ static bool ne_donated_cpu(struct ne_enclave *ne_enclave, unsigned int cpu)
+ 	return false;
  }
  
- impl<T: Driver> driver::Adapter for Adapter<T> {
++/**
++ * ne_cpu_pool_core() - Find the core slot of a CPU in the NE CPU pool.
++ * @cpu:	CPU to look up.
++ *
++ * Context: Process context. This function is called with the ne_cpu_pool mutex
++ *	    held.
++ * Return:
++ * * Index of the core slot that holds @cpu.
++ * * -1 if @cpu is not in the pool.
++ */
++static int ne_cpu_pool_core(unsigned int cpu)
++{
++	unsigned int i = 0;
++
++	if (!cpumask_test_cpu(cpu, &ne_cpu_pool.total_cpus))
++		return -1;
++
++	for (i = 0; i < ne_cpu_pool.nr_parent_vm_cores; i++)
++		if (cpumask_test_cpu(cpu, ne_cpu_pool.core_cpus[i]))
++			return i;
++
++	return -1;
++}
++
++/**
++ * ne_get_floating_vcpu_id() - Choose a vCPU id for a slot whose vCPUs the host
++ *				schedules.
++ * @ne_enclave :	Private data associated with the current enclave.
++ * @vcpu_id:		The chosen vCPU id, set on success.
++ * @lowest_id:		The lowest id the caller allows to be chosen.
++ * @nid:		The NUMA node the vCPU should land on, or NUMA_NO_NODE
++ *			for no preference.
++ *
++ * The host schedules such a vCPU wherever it schedules the parent's own
++ * threads, so no core is taken and there is no pool to take one out of. It
++ * reads the id as the parent CPU to schedule the vCPU alongside, so
++ * cpu_to_node() on the id says which node the vCPU lands on, and only a free
++ * id on @nid is chosen. A node with no free id fails instead of yielding an
++ * id on another node. Without NE_ENCLAVE_PCIE_NUMA_MODE the hypervisor
++ * refuses a slot whose vCPUs straddle nodes, and the caller would only learn
++ * that when it starts the enclave.
++ *
++ * A free id whose SMT sibling already holds one of the enclave's vCPUs comes
++ * first, so the vCPUs fill whole cores the way they do for a slot that takes
++ * its cores from the pool. Otherwise the lowest free id is chosen. The siblings
++ * and the node of a CPU in the NE CPU pool come from what the pool recorded
++ * while the CPU was online, because the pool may have taken it offline since.
++ * An id that is not a possible CPU names no host CPU and is only chosen when
++ * @nid is NUMA_NO_NODE.
++ *
++ * @lowest_id is 1 where the caller hands the id back in the same word it
++ * read the request from, since zero is the request there.
++ *
++ * Context: Process context. This function is called with the ne_enclave mutex held.
++ * Return:
++ * * 0 on success.
++ * * Negative return value on failure.
++ */
++static int ne_get_floating_vcpu_id(struct ne_enclave *ne_enclave, u32 *vcpu_id,
++				   unsigned int lowest_id, int nid)
++{
++	const struct cpumask *siblings;
++	unsigned int first = nr_cpu_ids;
++	unsigned int cpu;
++	int core;
++
++	mutex_lock(&ne_cpu_pool.mutex);
++
++	for (cpu = lowest_id; cpu < nr_cpu_ids; cpu++) {
++		if (cpumask_test_cpu(cpu, ne_enclave->vcpu_ids))
++			continue;
++
++		if (!cpu_possible(cpu)) {
++			if (nid != NUMA_NO_NODE)
++				continue;
++
++			if (first == nr_cpu_ids)
++				first = cpu;
++
++			continue;
++		}
++
++		core = ne_cpu_pool_core(cpu);
++		if (core >= 0)
++			siblings = ne_cpu_pool.core_cpus[core];
++		else
++			siblings = topology_sibling_cpumask(cpu);
++
++		if (nid != NUMA_NO_NODE &&
++		    (core >= 0 ? ne_cpu_pool.core_nid[core] : cpu_to_node(cpu)) != nid)
++			continue;
++
++		if (first == nr_cpu_ids)
++			first = cpu;
++
++		if (cpumask_intersects(ne_enclave->vcpu_ids, siblings))
++			break;
++	}
++
++	mutex_unlock(&ne_cpu_pool.mutex);
++
++	if (cpu >= nr_cpu_ids)
++		cpu = first;
++
++	if (cpu >= nr_cpu_ids)
++		return -NE_ERR_INVALID_VCPU;
++
++	*vcpu_id = cpu;
++
++	return 0;
++}
++
+ /**
+  * ne_get_unused_core_from_cpu_pool() - Get the id of a full core from the
+  *					NE CPU pool.
+@@ -2578,7 +2713,37 @@ static long ne_enclave_do_ioctl(struct file *file, unsigned int cmd, unsigned lo
+ 			return -NE_ERR_INVALID_VCPU;
+ 		}
+ 
+-		if (!vcpu_id) {
++		if (ne_enclave->launch_flags & NE_ENCLAVE_CPU_OVERCOMMIT_MODE) {
++			/*
++			 * The pool hands out the parent VM cores a slot runs
++			 * its vCPUs on, and a slot the host schedules the vCPUs
++			 * of takes none, so the pool is not consulted for it.
++			 * An id of zero asks this kernel to choose, as it does
++			 * for any other slot; an enclave still cannot be given
++			 * the same id twice.
++			 */
++			if (!vcpu_id) {
++				rc = ne_get_floating_vcpu_id(ne_enclave, &vcpu_id,
++							     1, NUMA_NO_NODE);
++				if (rc < 0) {
++					dev_err_ratelimited(ne_misc_dev.this_device,
++							    "Error in choosing a vCPU id [rc=%d]\n",
++							    rc);
++
++					mutex_unlock(&ne_enclave->enclave_info_mutex);
++
++					return rc;
++				}
++			} else if (ne_donated_cpu(ne_enclave, vcpu_id)) {
++				dev_err_ratelimited(ne_misc_dev.this_device,
++						    "CPU %d already used\n",
++						    vcpu_id);
++
++				mutex_unlock(&ne_enclave->enclave_info_mutex);
++
++				return -NE_ERR_VCPU_ALREADY_USED;
++			}
++		} else if (!vcpu_id) {
+ 			/* Use the CPU pool for choosing a CPU for the enclave. */
+ 			rc = ne_get_cpu_from_cpu_pool(ne_enclave, &vcpu_id,
+ 						      NUMA_NO_NODE);
+@@ -2823,15 +2988,38 @@ static long ne_enclave_do_ioctl(struct file *file, unsigned int cmd, unsigned lo
+ 			return -NE_ERR_NOT_IN_INIT_STATE;
+ 		}
+ 
+-		rc = ne_get_cpu_from_cpu_pool(ne_enclave, &vcpu_id, args.numa_node);
+-		if (rc < 0) {
+-			dev_err_ratelimited(ne_misc_dev.this_device,
+-					    "Error in get CPU from pool [rc=%d node=%d]\n",
+-					    rc, args.numa_node);
++		if (ne_enclave->launch_flags & NE_ENCLAVE_CPU_OVERCOMMIT_MODE) {
++			/*
++			 * The host schedules the vCPUs of such a slot wherever
++			 * it schedules the parent's own threads, so the slot
++			 * takes no core out of the pool and the pool is not
++			 * consulted for it. It reads the id as the parent CPU
++			 * to schedule the vCPU alongside, so @numa_node still
++			 * says which node the vCPU lands on and the id is
++			 * chosen to match it.
++			 */
++			rc = ne_get_floating_vcpu_id(ne_enclave, &vcpu_id, 0,
++						     args.numa_node);
++			if (rc < 0) {
++				dev_err_ratelimited(ne_misc_dev.this_device,
++						    "Error in choosing a vCPU id [rc=%d]\n",
++						    rc);
+ 
+-			mutex_unlock(&ne_enclave->enclave_info_mutex);
++				mutex_unlock(&ne_enclave->enclave_info_mutex);
+ 
+-			return rc;
++				return rc;
++			}
++		} else {
++			rc = ne_get_cpu_from_cpu_pool(ne_enclave, &vcpu_id, args.numa_node);
++			if (rc < 0) {
++				dev_err_ratelimited(ne_misc_dev.this_device,
++						    "Error in get CPU from pool [rc=%d node=%d]\n",
++						    rc, args.numa_node);
++
++				mutex_unlock(&ne_enclave->enclave_info_mutex);
++
++				return rc;
++			}
+ 		}
+ 
+ 		rc = ne_add_vcpu_ioctl(ne_enclave, vcpu_id);
+@@ -3433,22 +3621,31 @@ static int ne_create_vm_ioctl(struct ne_pci_dev *ne_pci_dev, u64 flags,
+ 		slot_alloc_req.flags = flags;
+ 	}
+ 
+-	mutex_lock(&ne_cpu_pool.mutex);
++	/*
++	 * The pool hands out the cores a slot runs its vCPUs on, and it has
++	 * none left once every core in it has had its threads taken, which is
++	 * also where a parent that never set one up starts. A slot the host
++	 * schedules the vCPUs of takes no core out of the pool, so what the
++	 * pool has left says nothing about it.
++	 */
++	if (!(flags & NE_ENCLAVE_CPU_OVERCOMMIT_MODE)) {
++		mutex_lock(&ne_cpu_pool.mutex);
+ 
+-	for (i = 0; i < ne_cpu_pool.nr_parent_vm_cores; i++)
+-		if (!cpumask_empty(ne_cpu_pool.avail_threads_per_core[i]))
+-			break;
++		for (i = 0; i < ne_cpu_pool.nr_parent_vm_cores; i++)
++			if (!cpumask_empty(ne_cpu_pool.avail_threads_per_core[i]))
++				break;
+ 
+-	if (i == ne_cpu_pool.nr_parent_vm_cores) {
+-		dev_err_ratelimited(ne_misc_dev.this_device,
+-				    "No CPUs available in CPU pool\n");
++		if (i == ne_cpu_pool.nr_parent_vm_cores) {
++			dev_err_ratelimited(ne_misc_dev.this_device,
++					    "No CPUs available in CPU pool\n");
+ 
+-		mutex_unlock(&ne_cpu_pool.mutex);
++			mutex_unlock(&ne_cpu_pool.mutex);
+ 
+-		return -NE_ERR_NO_CPUS_AVAIL_IN_POOL;
+-	}
++			return -NE_ERR_NO_CPUS_AVAIL_IN_POOL;
++		}
+ 
+-	mutex_unlock(&ne_cpu_pool.mutex);
++		mutex_unlock(&ne_cpu_pool.mutex);
++	}
+ 
+ 	ne_enclave = kzalloc_obj(*ne_enclave);
+ 	if (!ne_enclave)
+@@ -3459,7 +3656,17 @@ static int ne_create_vm_ioctl(struct ne_pci_dev *ne_pci_dev, u64 flags,
+ 	mutex_lock(&ne_cpu_pool.mutex);
+ 
+ 	ne_enclave->nr_parent_vm_cores = ne_cpu_pool.nr_parent_vm_cores;
+-	ne_enclave->numa_node = ne_cpu_pool.numa_node;
++
++	/*
++	 * The node an enclave takes its memory from is the node its cores
++	 * are on. A slot the host schedules the vCPUs of holds no core, so
++	 * it has no node of its own and its memory can come from any of
++	 * them.
++	 */
++	if (flags & NE_ENCLAVE_CPU_OVERCOMMIT_MODE)
++		ne_enclave->numa_node = NUMA_NO_NODE;
++	else
++		ne_enclave->numa_node = ne_cpu_pool.numa_node;
+ 
+ 	mutex_unlock(&ne_cpu_pool.mutex);
+ 
+diff --git a/drivers/virt/nitro_enclaves/ne_misc_dev.h b/drivers/virt/nitro_enclaves/ne_misc_dev.h
+index ed1b29997e1bb..f18b57a225325 100644
+--- a/drivers/virt/nitro_enclaves/ne_misc_dev.h
++++ b/drivers/virt/nitro_enclaves/ne_misc_dev.h
+@@ -27,6 +27,7 @@
+ 					 NE_ENCLAVE_PCIE_VSOCK_MODE | \
+ 					 NE_ENCLAVE_PCIE_VIRTIO_MODE | \
+ 					 NE_ENCLAVE_PCIE_HOTPLUG_MODE | \
++					 NE_ENCLAVE_CPU_OVERCOMMIT_MODE | \
+ 					 NE_ENCLAVE_PCIE_NUMA_MODE)
+ 
+ struct cma;
+diff --git a/include/uapi/linux/nitro_enclaves.h b/include/uapi/linux/nitro_enclaves.h
+index f204d0f6e7efd..bfe1ca5ef7f7f 100644
+--- a/include/uapi/linux/nitro_enclaves.h
++++ b/include/uapi/linux/nitro_enclaves.h
+@@ -96,6 +96,21 @@
+  */
+ #define NE_ENCLAVE_PCIE_HOTPLUG_MODE	(1u << 8)
+ 
++/**
++ * NE_ENCLAVE_CPU_OVERCOMMIT_MODE - Allocate a slot whose vCPUs the host
++ *				    schedules alongside the parent's own,
++ *				    instead of running them on cores taken out
++ *				    of the NE CPU pool. The pool is not consulted
++ *				    for such a slot: %NE_ADD_VCPU and
++ *				    %NE_ADD_ANY_VCPU both choose an id the enclave
++ *				    does not hold yet, and the host schedules the
++ *				    vCPU alongside the parent CPU that id names.
++ *				    Requires
++ *				    NE_ENCLAVE_PCIE_MODE and
++ *				    NE_ENCLAVE_PCIE_VIRTIO_MODE.
++ */
++#define NE_ENCLAVE_CPU_OVERCOMMIT_MODE	(1u << 11)
++
+ /**
+  * NE_ENCLAVE_PCIE_NUMA_MODE - Allocate a slot whose memory and vCPUs may come
+  *			       from more than one host NUMA node. Without it the
+@@ -162,7 +177,9 @@ struct ne_create_vm_args {
+  * * ENOMEM				- Memory allocation failure for internal
+  *					  bookkeeping variables.
+  * * NE_ERR_NO_CPUS_AVAIL_IN_POOL	- No NE CPU pool set / no CPUs available
+- *					  in the pool.
++ *					  in the pool, for a slot allocated
++ *					  without
++ *					  %NE_ENCLAVE_CPU_OVERCOMMIT_MODE.
+  * * Error codes from get_unused_fd_flags() and anon_inode_getfile().
+  * * Error codes from the NE PCI device request.
+  */
+@@ -177,7 +194,12 @@ struct ne_create_vm_args {
+  *		 one enclave can be from different nodes.
+  *		 The vCPU id is an input / output parameter. If its value is 0,
+  *		 then a CPU is chosen from the enclave CPU pool and returned via
+- *		 this parameter.
++ *		 this parameter. A slot allocated with
++ *		 %NE_ENCLAVE_CPU_OVERCOMMIT_MODE takes no CPU out of the pool,
++ *		 so the pool is not consulted for it: an id of 0 asks this
++ *		 kernel for one the enclave does not hold yet, preferring an
++ *		 id whose SMT sibling the enclave already holds, and the id
++ *		 it chooses is never 0.
+  *		 The ioctl can be invoked on the enclave fd, before an enclave
+  *		 is started.
+  *
+@@ -200,7 +222,9 @@ struct ne_create_vm_args {
+  * * NE_ERR_NOT_IN_INIT_STATE		- The enclave is not in init state
+  *					  (init = before being started).
+  * * NE_ERR_INVALID_VCPU		- The provided vCPU is not in the available
+- *					  CPUs range.
++ *					  CPUs range, or the slot was allocated
++ *					  with %NE_ENCLAVE_CPU_OVERCOMMIT_MODE and
++ *					  every id is taken.
+  * * Error codes from the NE PCI device request.
+  */
+ #define NE_ADD_VCPU			_IOWR(0xAE, 0x21, __u32)
+@@ -208,7 +232,9 @@ struct ne_create_vm_args {
+ /**
+  * struct ne_add_any_vcpu_args - Argument for %NE_ADD_ANY_VCPU.
+  * @numa_node:	The NUMA node the vCPU has to come from, or %NE_NUMA_ANY for
+- *		any node.
++ *		any node. For a slot allocated with
++ *		%NE_ENCLAVE_CPU_OVERCOMMIT_MODE it is the node the host
++ *		should schedule the vCPU on.
+  * @vcpu_id:	The vCPU id the kernel chose, set on success. Ignored on
+  *		input.
+  */
+@@ -231,7 +257,13 @@ struct ne_add_any_vcpu_args {
+  *		     for each node in turn and stops when a node runs out.
+  *		     @vcpu_id carries back the vCPU id the kernel chose, so
+  *		     a caller collects the enclave's vCPU set as it builds
+- *		     it.
++ *		     it. For a slot allocated with
++ *		     %NE_ENCLAVE_CPU_OVERCOMMIT_MODE the host schedules the
++ *		     vCPU rather than a core out of the pool running it, so
++ *		     the pool is not consulted and the chosen id is the
++ *		     parent CPU the host schedules it alongside. The kernel
++ *		     prefers an id whose SMT sibling the enclave already
++ *		     holds.
+  *		     The ioctl can be invoked on the enclave fd, before an
+  *		     enclave is started.
+  *
+@@ -251,6 +283,9 @@ struct ne_add_any_vcpu_args {
+  *				  about and the excess is not all zero.
+  * * NE_ERR_NOT_IN_INIT_STATE	- The enclave is not in init state (init =
+  *				  before being started).
++ * * NE_ERR_INVALID_VCPU	- The slot was allocated with
++ *				  %NE_ENCLAVE_CPU_OVERCOMMIT_MODE and every id
++ *				  on @numa_node is taken.
+  * * NE_ERR_NO_CPUS_AVAIL_IN_POOL - No CPUs available in the NE CPU pool on
+  *				  @numa_node.
+  * * NE_ERR_VCPU_INVALID_CPU_CORE - The core the pool handed back is outside
 -- 
-2.43.0
+2.47.1
 
