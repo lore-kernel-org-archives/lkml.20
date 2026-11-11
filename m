@@ -1,54 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794430848;
-	b=K4zEqsgxJc6TxZ0w/vbTMRf19NP41PeR7bE2yr+ouUraZWrVtBNY0+HOVIJ92h1NQQXr
-	 22Eq0oxyKZpNanzjOKtvB4B5r60Tf8lu67/IkHMeJOocZH9Pq78/NZilUmJi6dm2PuV1I
-	 O/xziWVYwdbxoiKubTYdLI7DnZMKwsHoP5MQwdoIquzSOqF5rci41UctPO4kpx5fx4212
-	 kw7kmgzIzxQgNJI2SJwG4PBIvajgKgnPH1AxF0vCE14giGIomr5HzArl64a9eU6Sjc3cW
-	 9ByNwosV1tRhqwbyAwCw6/7uL51R3VvBNliQkfIgqPJ2w9Pa3+9pSFRz6TVQoyRhsWQ==
+	t=1794430853;
+	b=tCL/eJx26Ss53Wwq5seNUHS2z+A9ZZlPR93h8KH5prHhbd3CfBmqaYRXn3sWXGgACqMq
+	 c9jKUUKDQpgearSwBSFCAlv3vZLoe9YVaQ81dFubLyGCoKwNpOrj1NaoFcPPOstKoC9cU
+	 Rk0iU/GKCtd+uFvDKTC0TLB1peVWaTgFad4gaFJS4bbJuwZLVwxUPW85RXcfjRlh6qQ9b
+	 KYOakIDCnlXz8pA36/xpUTwGgSgodW3lY/NjuXhbz74XcKHlQ33CG5sExzi3oqKtL/edW
+	 Lt41Xm+mkc4vi2GoNsyBfq/KCdEf6hv8Vq0dk8Ry1vMTezuStUOz19MZcffiXKKWX9g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794430848;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Cc:Content-Type;
-	bh=UiXqhrqbmglfZobN9GIqHYTdJesjGb7wUn73x2yWjd8=;
-	b=BnXSZQBrw8jzuS/U2bAQ5KqvKAHFaUj7rEqwfN5AQQTWCLX2I9cjg9bYHG8Uqwyou3Vn
-	 8w+J0iHE0C3wCUi5VG0j2fosqsC40sbtWVY16lIon1GLGkliLYaa+Oo20h+1VBJCSMSzw
-	 KjxyCSqBH6r8sDoQYr0OnN1mJHiM16i/ClYlCrcTy8e7q+kO3ZbaOmsE9o3xMvjatv64P
-	 xbp+tE3p9s46tdZbhhL3PnY7o9gCzUJe9WNqXzVYuby82KIxal3Io06bUeqoHOui/L949
-	 QZEy4ZGDLjQ5jLfCtJO6P+LpmOn/7IaCgn2c1uG9WzbD5t85jJ0W6G9b4BFQNpiiTnw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794430853;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=yugBpGGxGGEc6RbqJpkbtgb6PEZsTe7c84zW38n+L+k=;
+	b=Fma97dFegJE3eL0LD1iibG/yErUasAa6GiUUl2DCMqRGHOaOsFlGldPTiojm/R2GDL9H
+	 UZ3uTSHriUvIH4U5Kso4APGyL0ZN+H32UVEmwXhcgg1VOQGbHl8pAORxlCkXc4HqcMCwF
+	 1Aqf7JWlz9pf0WO5rBGfflSsBut272+ihPAFAYqDCquS462IDKD32jWJg0hSMrJpXHAkl
+	 kcEg6Bgf+a6VBy5uHPCxX6nZqleh2gLzWQLrMlO1uf6OVlEfwaLalwYHLndJKHhGUAM2T
+	 cvLKOBhJopckdUXVcGRUK/CqMa4gd/+gn+NKGQXQm3hHmScXQQ+rxGJU0MOTbSC7GUQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.198
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=apP7P1JO;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 601F3606A327
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 21:00:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 601F3606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4db3db8687fso4381986b6e.0
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:00:48 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794430847; x=1795035647;
-        h=content-type:cc:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=UiXqhrqbmglfZobN9GIqHYTdJesjGb7wUn73x2yWjd8=;
-        b=TodR7ACWdSuTZTrbfq2UjX5SbzAL7VuRpRQcv9vUrq6E83CdhWEmiVQWfg9qqCKVxr
-         23pPn9IEr+rAsxmqZAj4LTjiOZoBcvIksBTl6cf25gdCh0kdznMB6jWKmvkXj/ef5AXe
-         JpvXTUS4sorgkeawc/6s+Od1G1VxjEeXjV5UGfMgFAGMW8RI5LlB9xbriqMHT46BTxCe
-         UaDaQVSlfLqa/ueVwLos+agOKE3BWcMQOQojTms6HavdQ69WJ7WN2JpIpeAaXgKznTb9
-         3rltVrDeufIoTaVFh3jDb9zXPICCHJG3MrfUNdKnIoSZxm5ZlkR4ENhKQ1Q8RswDPnuv
-         K6eg==
-X-Forwarded-Encrypted: i=1; AL+hErFbwC6G0MD5PXz/+pMraYSNiCqCpPoByFsldF8SomunG28v6EyalfzZsNcafrf6+gY/BtJ/aMQMZFwv8Gk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8AEUXrAN+RCk3m3JjmEtHPNGFTdYoBIRtnatruJw86i5tTQ2oy
-	FjghsGzdpMvMxs+2RQXHBdZtrW7sh1DJKpoTEpnavHNZcKACrPwBM7Xzy7d/RHzU4M74u1nr9it
-	e6XE0cigNmxn+zICsFnpyN8Tzv/5sUoAiAgC2gKgG5KkDe4sqRUeX6uJ6F14=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EC08606A32D;
+	Wed, 11 Nov 2026 21:00:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=apP7P1JO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81AA31F00A06;
+	Wed, 11 Nov 2026 21:00:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794430853;
+	bh=yugBpGGxGGEc6RbqJpkbtgb6PEZsTe7c84zW38n+L+k=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=apP7P1JOgRHAaJRS2NtEcZEGKyhQrLL2TFz8vgTi+ZcVBQpYA48YgDhYja0NjUvFn
+	 5h1AmY1Dya53gfjc4TJCasiaMRX5Yw6kNF9gFJXr+Qx5RRjGRqPB9XedoUHcMVvCUI
+	 /HH/d9bSa3UNR2Rjz3w2IZs49828+eQZfJWJOiffc9bhpua2P1QWzaiIhHKp5ABtp6
+	 iunxX9h1/S9E9aZ5kqO1Om2Km6foS0Sg5JnGJOPKJ7b+JcLvaCl6f5g1X+z0a+PXax
+	 QZuNG1GWPrKf4qYEPK0eQSf1UtHtlIUHD8aIpOLgk+Cz4KKzvshyZWR2NMHun5tNRk
+	 5AKxV/nYcDoPA==
+Subject: Re: [PATCH net-next v12] net: reduce ARFS flow updates by checking
+ LLC affinity
+From: netdev-bot+sashiko@kernel.org
+To: nashuiliang@gmail.com
+Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, horms@kernel.org, corbet@lwn.net,
+ skhan@linuxfoundation.org, sdf.kernel@gmail.com, daniel@iogearbox.net,
+ bobbyeshleman@meta.com, kuniyu@google.com, willemb@google.com,
+ netdev@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Date: Wed, 11 Nov 2026 21:00:52 +0000
+Message-ID: <179443085204.2199510.12725312671048285646@kernel.org>
+In-Reply-To: <20261109030042.2956-1-nashuiliang@gmail.com>
+References: <20261109030042.2956-1-nashuiliang@gmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,43 +66,127 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:150d:b0:4ea:686e:fe86 with SMTP id
- 5614622812f47-56b98227486mr3327304b6e.63.1794430847269; Wed, 11 Nov 2026
- 13:00:47 -0800 (PST)
-Date: Wed, 11 Nov 2026 13:00:47 -0800
-In-Reply-To: <20261111210000.302485-1-emmaonana18@gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6af4d77f.b1d299f9.122b8e.0001.GAE@google.com>
-Subject: Re: [syzbot] [net?] WARNING in stack_depot_save_flags (2)
-From: syzbot <syzbot+1827030ed7bc886dd0a5@syzkaller.appspotmail.com>
-To: emmaonana18@gmail.com
-Cc: emmaonana18@gmail.com, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
 
-> #syz test: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-Patch testing via #syz test is temporarily disabled.
-See https://github.com/google/syzkaller/issues/8122 for details.
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
->
-> diff --git a/lib/stackdepot.c b/lib/stackdepot.c
-> index 90c52f2e0d3f4..da4dba8b40bd3 100644
-> --- a/lib/stackdepot.c
-> +++ b/lib/stackdepot.c
-> @@ -299,7 +299,13 @@ static bool depot_init_pool(void **prealloc)
->  		/* Bail out if we reached the pool limit. */
->  		WARN_ON_ONCE(pools_num > stack_max_pools); /* should never happen */
->  		WARN_ON_ONCE(!new_pool); /* to avoid unnecessary pre-allocation */
-> -		WARN_ONCE(1, "Stack depot reached limit capacity");
-> +		/*
-> +		 * Exhaustion is a handled resource limit, not a bug:
-> +		 * all users cope with a failed save, and privileged workloads
-> +		 * (e.g. BPF JIT churning unique stacks under KASAN) can reach
-> +		 * it legitimately. Keep a one-time notice, not a WARN() splat.
-> +		 */
-> +		pr_warn_once("Stack depot reached limit capacity");
->  		return false;
->  	}
->  
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [Medium] set_rps_cpu() (net/core/dev.c:5281-5284) decides whether to
+  skip ARFS hardware steering by comparing next_cpu with old_cpu.
+
+--
+
+net: reduce ARFS flow updates by checking LLC affinity
+
+This patch makes set_rps_cpu() skip the ARFS ndo_rx_flow_steer() call
+when the CPU recorded for the flow and the new target CPU share an LLC.
+rflow->cpu is still updated. A new sysctl, net.core.arfs_llc_affinity,
+turns this on and off, and it is off by default.
+
+> diff --git a/net/core/dev.c b/net/core/dev.c
+> index 3b60b15e2175e..0011cec296402 100644
+> --- a/net/core/dev.c
+> +++ b/net/core/dev.c
+
+[ ... ]
+
+> @@ -5273,6 +5277,12 @@ set_rps_cpu(struct net_device *dev, struct sk_buff *skb,
+>  		if (!skb_rx_queue_recorded(skb) || !dev->rx_cpu_rmap ||
+>  		    !(dev->features & NETIF_F_NTUPLE))
+>  			goto out;
+> +
+> +		if (static_branch_unlikely(&arfs_llc_affinity) &&
+> +		    old_cpu < nr_cpu_ids && cpu_online(old_cpu) &&
+> +		    cpus_share_cache(old_cpu, next_cpu))
+> +			goto out;
+> +
+
+[Severity: Medium]
+Does rflow->cpu reliably show which LLC services the hardware queue the
+flow is arriving on?
+
+get_rps_cpu() takes old_cpu from the hash slot in the arrival queue's
+table:
+
+	tcpu = rflow->cpu;
+	...
+		rflow = set_rps_cpu(dev, skb, rflow, tcpu, next_cpu, hash);
+
+That value is software bookkeeping, and other flows can share the slot.
+The new check runs before the cpu_rmap_lookup_index() /
+skb_get_rx_queue() comparison. So it can suppress ndo_rx_flow_steer()
+even when the arrival queue's IRQ/NAPI CPU is in a different LLC from
+next_cpu.
+
+The skip path still reaches:
+
+	WRITE_ONCE(rflow->cpu, next_cpu);
+
+sd_llc_id equality is transitive, so every later migration inside that
+LLC would skip again. Could the flow then stay on a far queue
+indefinitely?
+
+Here are some ways rflow->cpu can drift away from the real hardware
+queue:
+
+- After a successful steer from queue A to queue B, packets still in
+  flight on A go through set_rps_cpu() again and hit:
+
+		if (hash != READ_ONCE(tmp_rflow->hash) ||
+		    next_cpu == tmp_cpu)
+			goto out;
+
+  This records next_cpu (LLC X) in A's slot, but A's IRQ may be in LLC
+  Y. Two later cases then hit the new skip, with the application on
+  another CPU in LLC X. One is a flow whose hash collides with that slot
+  and which RSS delivers on A. The other is the original flow coming
+  back on A after rps_may_expire_flow() let the driver drop its rule.
+  No failure is needed for this to happen.
+
+- The existing goto out paths still record next_cpu without moving the
+  hardware queue. These are ndo_rx_flow_steer() returning rc < 0 (for
+  example -ENOMEM, -EPERM or -EPROTONOSUPPORT from
+  mlx5e_rx_flow_steer()), a target queue with no flow table, and an
+  active colliding filter. Before this patch the next migration retried
+  the steer. With the sysctl on, migrations within the same LLC never
+  retry.
+
+- irqbalance or an admin moves queue A's IRQ to another LLC. cpu_rmap
+  gets updated, but the skip happens before cpu_rmap is consulted.
+
+- A driver drops all of its hardware rules without touching
+  rps_dev_flow, for example mlx5e_arfs_disable()->arfs_del_rules().
+
+In each case NAPI would process the packets on a remote LLC, and they
+would then go through the RPS backlog to the application's CPU with an
+IPI.
+
+This also seems to conflict with the new text in
+Documentation/networking/scaling.rst, and with the similar wording in the
+commit message:
+
+  "since the application's cache locality is preserved either way"
+
+The reported ~99% drop in mlx5e_rx_flow_steer calls cannot tell avoided
+redundant updates apart from steering that is wrongly suppressed.
+
+Would it be more accurate to compare next_cpu with the CPU servicing the
+arrival queue instead of the previously recorded rflow->cpu? For example,
+that could be smp_processor_id() for non-threaded NAPI, or the CPU tied
+to the queue from skb_get_rx_queue(skb).
+
+>  		rxq_index = cpu_rmap_lookup_index(dev->rx_cpu_rmap, next_cpu);
+>  		if (rxq_index == skb_get_rx_queue(skb))
+>  			goto out;
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261109030042.2956-1-nashuiliang%40gmail.com
