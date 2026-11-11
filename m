@@ -1,72 +1,148 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.29
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794387291;
-	b=WXv6PA6pG/LBbACOsoMjiV6Kie7SJpqKLFjudaK9LNSOECvg81NXNwuyQyNpazxvrKHL
-	 vyLy1SHMfGDq35ls29DWbdeYVLG08gAmLjsKh3FoG60xUNYh2rMH1qVkPZtSh5xNDs9Bk
-	 SE5gLUn0hIhr1mLsxjWFqJeOI6n/rr45mgLH/B7OzSYbsPoRmKtzDCrb/aydiZRNoJDRf
-	 6+uMcyDsLkJGixREXcgqm/H49Xk3zkq5KKabhFamoPZPDEOs+NFlve9mlzDbNE8UDTVje
-	 NeDnTYseehZRs1STLXpqxOYVQ5Wsi4pNisewuNvm9ZbzkYq31KcxP/f+4pSyH8uZ1CQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794387291;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=Xep7SBbbNDO5bMEHEU9WWCJxZIaQH/GFG20RUGACPvc=;
-	b=x6Sn41OQpeWkUPIbd8Gq/NtL5j1Pi37r7WY7n3T51EqUr5U7rRHzKtI+FJ7ZB46jBHQu
-	 CUzLaiIfB2IPhpUdnzqSkeqQXgOZe7+XMJy3eNzdKNEsMvqb0BQ68gpg09P0bW7fRE7qh
-	 TrDwnxzv6TwfakkU3lI5Kt83/40JwEAhY4Qogiv20+jmSZMpCqs/tq4fn7HBXyi4OB++0
-	 HWp3H38Ujv4tzBu36uQuS/fJhCMVziwnmpfpygedUBaoWgyZtHOEwtrFrVQCrBF9rKAmT
-	 nKmzqMOjFAHWEy0v9P0JbZp0zGsLmmWiGNR7iL/Z9CLC5Df5c7eGs8ngDm8NT6h4UHg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=QC9KmbNq;
-	arc=none smtp.remote-ip=91.218.175.29
-Received: from mta0.migadu.com (out-29.mta0.migadu.com [91.218.175.29])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.8
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794387309;
+	b=bN3ryVY4ESXsWMZi1g8QWpud4v/ZCgkx1goTWAGF0wPf3XTvZxlTvbdpoYdBts+thytF
+	 Ovrk0n66hfTL1qMF7q1IXwy5latHt7LMUc+SkeWGa4HfIQHBzKBgsoYvht8O5HqcBG2WT
+	 +KaPYfxQSduUobeNSMWRCyPf/nLp8x4O53AzfvEGFyQSBKagvJddfm6CUsgB4C0LfN40p
+	 2xQYWSzl2fDU18RovslZPAxEKNmSAcn37Nn6n3rwnHGDwx5/7yiDWBJ/WRWHWfrrON50p
+	 mq47ElperKMn1vXaogH2qSKMhTd+bfKvnB0XDbwjO7hVRJfJYqJtEl8/2IzFW7kS6qA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794387309;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
+	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
+	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
+	 msip_labels:x-ms-publictraffictype:x-ms-traffictypediagnostic:
+	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
+	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
+	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
+	 x-ms-exchange-antispam-messagedata-chunkcount:
+	 x-ms-exchange-antispam-messagedata-0:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-originalarrivaltime:
+	 X-MS-Exchange-CrossTenant-fromentityheader:
+	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
+	 X-MS-Exchange-CrossTenant-userprincipalname:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=AokTGQCiLUqUMqHBE0dr4DU+tIljusSSzhPmNlehGjc=;
+	b=Mi2Iygnd2ULBp6iJW0nuRBblh+bNXgB/8DvLi8zR0UlUNRnujIcrg9Kb2wHnxoph3vXq
+	 ah76kLRcHH3ORRHh9grzp3H/lejALhCO+PsjBii29xl5J9z0oR0vbCSDoxkGwqBtsz972
+	 82GfL+B6uPSY1IoX7JTG287D3FIXvKhgfXtZlVodZEPmH2AmNpcRhFWjY2u9qRCwFFkDP
+	 F+rIMuzrWfN94Lt58C3klW6sv9u/mw1sF4HFBGXVvreuIWVyXbsJYGCQhkBZaTnB00dJK
+	 a0RxlbtJqbwx71fVAzHwIEh8/mdiu17FVvcuS5mYagL071RVnEL4ILaXkbSdHWdkCcg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nxp.com;
+	spf=pass smtp.mailfrom=nxp.com;
+	dkim=pass header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b=LThVbZ3W;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.8
+Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010008.outbound.protection.outlook.com [52.101.69.8])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCF09606A327
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 08:54:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DCF09606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD6A3606A327;
+	Wed, 11 Nov 2026 08:55:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD6A3606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=QC9KmbNq
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=NENmiS2g+Y1HlHuwMownwP4RTuyExhGZrangX/wccZU=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794387289; v=1; x=1794992089;
- b=QC9KmbNqMylSkMQ+J8EMF5eX+pJzPm61NDVJU7T59gqn3k+faeEJgJc6zn0L5ei94LRFaT5g
- JdlcCllSInDfsA1QNQEkDuekZGv+0LYKjwJJC1nnv11zukCF/oF4FOuVf6+vM5M7SnQGzpoR2KD
- cGXfqiRl9faASGg0ZWO4qF6I=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id ebd9db9384436d83;
-	Wed, 11 Nov 2026 08:54:49 +0000
-X-Mizu-Trace-ID: ebd9db9384436d83
-X-Migadu-Flow: FLOW_OUT
-From: Fuad Tabba <fuad.tabba@linux.dev>
-To: Paolo Bonzini <pbonzini@redhat.com>,
-	Sean Christopherson <seanjc@google.com>
-Cc: kvm@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Jonathan Corbet <corbet@lwn.net>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Janosch Frank <frankja@linux.ibm.com>,
-	Claudio Imbrenda <imbrenda@linux.ibm.com>,
-	Huacai Chen <chenhuacai@kernel.org>,
-	linux-mips@vger.kernel.org,
-	Will Deacon <will@kernel.org>,
-	Fuad Tabba <tabba@google.com>
-Subject: [PATCH 1/7] Documentation: KVM: Fix references to non-existent identifiers
-Date: Wed, 11 Nov 2026 08:54:42 +0000
-Message-ID: <20261111085448.1130701-2-fuad.tabba@linux.dev>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261111085448.1130701-1-fuad.tabba@linux.dev>
-References: <20261111085448.1130701-1-fuad.tabba@linux.dev>
+	dkim=pass (2048-bit key, unprotected) header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b=LThVbZ3W
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=cjtgegdJpyq05idc5rvfEkSPKYSFOVUIkbaJDtwUIEetHFb66RmERSDnaOdpY6jixliqkqx8USNuHdm/0BkwVwJQwO9YxaU/dTn8ZuzniZ4j9cdR3l4hI1coBqZJRbxV9siEm2cdppFQsbNl89QVqQtMTVaVqar1yI/44aRKFQ98sMILRHMjmMws/hq/6nnqa9G4rCi4LahD8sdBVuvW/KUYBvZBt/n1DhS8ryJXd/kTHDVfWHz9m91aN7xiVoZ13QdVWv5RLD4dIJO4/eGg2lLPEbSCDrewvDq4xPzywor6EvWQEC52pu0J5jRz830jLFgrF6wBqrvjoEbBTd+XHg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=AokTGQCiLUqUMqHBE0dr4DU+tIljusSSzhPmNlehGjc=;
+ b=DfLtzVIUqqs4P1ZAaAuobtrcF2n1f3H+aDbLuKwSVNzwiz5H0QJTwE1biv9nxV/H3k6QETo/lTJb1txFiWjpk/jPoJaxMAQmMtMyV2Fb2bXt2ZM9APaQ1XHwMeGJoG+PtH42DHn5MFSD2JsPoWzZRw4eTq99XdPVwKZod+ZWNDitq09zjFezODhrNiCiirF67tx8mRgF/iZpjFi9O9CiuzTKudj2n3rpmhrn3Ukyt3YmILHKNpUawcBhUhiPe0B5umJ9QfbHHHj4m1gEJoQsA71NSFo83uZ4hvh7q/tWByEOUE/97ic6TBD2bQ8IXohrLsFTjm7gSL9U92I3iY5V8A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=AokTGQCiLUqUMqHBE0dr4DU+tIljusSSzhPmNlehGjc=;
+ b=LThVbZ3WJJ3l9hdCqQSLO40cPjWr97JQ5SyZSwjQaq9sV5cyUSeBpROiwzpDANR+3lQatRHpgOAgV80diK3qsd0inlK8GXa184B8a5B1RRdEJZBUfnITWBicE/YSj4FMfupuC8S4Im3Uh8qOVk5Fi4vqs0zUSWxK3+cF7P4NIdwIf336/oqBQtOyUFFfJaqzrGOtrShnsGoJVpfOCzth1iOVB0g1r+E0OyJEySPnC3sdieKOzhGLo0KM5ReP1F/Mn9vfXLyXF6OuH/NPkXFVhGmJPc3eglypzXs5H34A5HDSXxLt2P52Bnj8A7xYdnOOzfUXI5YMOrm4cxc7kF6kUA==
+Received: from GV2PR04MB11740.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cd::13) by AM8PR04MB8018.eurprd04.prod.outlook.com
+ (2603:10a6:20b:236::8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Wed, 11 Nov
+ 2026 08:55:05 +0000
+Received: from GV2PR04MB11740.eurprd04.prod.outlook.com
+ ([fe80::ca5f:7e1c:a67a:a490]) by GV2PR04MB11740.eurprd04.prod.outlook.com
+ ([fe80::ca5f:7e1c:a67a:a490%6]) with mapi id 15.21.0615.007; Wed, 11 Nov 2026
+ 08:55:05 +0000
+From: Claudiu Manoil <claudiu.manoil@nxp.com>
+To: Simon Horman <horms@kernel.org>
+CC: "netdev@vger.kernel.org" <netdev@vger.kernel.org>, dl-S32 <S32@nxp.com>,
+	Vladimir Oltean <vladimir.oltean@nxp.com>, Wei Fang <wei.fang@nxp.com>, Clark
+ Wang <xiaoning.wang@nxp.com>, Andrew Lunn <andrew+netdev@lunn.ch>, "David S.
+ Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub
+ Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	"imx@lists.linux.dev" <imx@lists.linux.dev>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH net-next v3 2/5] net: enetc: Enable probing of version 4.4
+ devices
+Thread-Topic: [PATCH net-next v3 2/5] net: enetc: Enable probing of version
+ 4.4 devices
+Thread-Index: AQHda5zqnIx6OMg9R0KUIBh7/TYuDbcmCqCAgAKOT2A=
+Date: Wed, 11 Nov 2026 08:55:05 +0000
+Message-ID:
+ <GV2PR04MB1174069E2031569C5C43DBB6096712@GV2PR04MB11740.eurprd04.prod.outlook.com>
+References: <cover.1793712309.git.claudiu.manoil@nxp.com>
+ <bf8effe9a06ba569b5e5a36cc1d1982b2e3fff53.1793712309.git.claudiu.manoil@nxp.com>
+ <20261109173701.GW18859@horms.kernel.org>
+In-Reply-To: <20261109173701.GW18859@horms.kernel.org>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: GV2PR04MB11740:EE_|AM8PR04MB8018:EE_
+x-ms-office365-filtering-correlation-id: 0cbc232c-0e84-429f-ce6a-08df3fd17afc
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|23010399003|19092799006|376014|1800799024|366016|18002099003|22082099003|11063799006|56012099006|261009223027099003|261026121527099003|261022075727099003|10067099003|38070700021|4143699003;
+x-microsoft-antispam-message-info:
+ f6dyWKAgcPeUOU+4XjG8m1KAEHi1cC7H8zln8JDHfuSDhozEam0HOROaQyVnDX5IIyVyJ1dV7tC+UbcOADpni0jDykiHVN2ecX8rV2CFqHw81ukBIG2D93QG1CbPraFRU4xSGg7/nt8cydZIcX0jZxLnlVSS+k2BY018Nn2s+TR60XPQfSx4OCB4wuLlb/LaHKLvZLq3mQfMcNBrHPedIPk20mY2DIdsAZ11SWh5ZHVHfz0y0OFA6wVi8KU7MQ8lvIdhSPJ8BjL83E3hLZaJNI2sIlA9bFFAKFS7um4uIIHy0QNGVQn8dcqzqrdtEi5JZz4Butdr08vkyb0Q6Iypii3tuYecfjqjgItEebOgiCcMj5VNZG07QgVTUc/O5o5tiN4CD4KAmWoqP6/iKFEgDUE6QZLyosmjMgxqwDXasUBlJnZPhsBGht9lxwTrPoPGcsLNQXma9GflDtouaLoFSY7hdq9Xr1toSjVxWfxmD7+xuSL90S7Va3bGWi0H/IAxXOl7740w4Q1Zwl2Z0fsSZt7XO1PVTcQoNPZF3Ny76DmGsQf/eJ0a0ZiYXvSq4t+cqS4YFmRtRUSL0lnrT6T10Ha4yHzMIP0cUHZo0/phzeFgiY88/Dn3J7cZl7prMmjqvpP0bMR1EIP1k+h4OdVIHuJeTIkRpWNxAT+ZeWyjmQpUx+Zwny6pdDWHdnOiD/fC6IYInp/fVLXUFt6mnJDdI12qoSlXVjTbOVa3GIKeZBM=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11740.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(19092799006)(376014)(1800799024)(366016)(18002099003)(22082099003)(11063799006)(56012099006)(261009223027099003)(261026121527099003)(261022075727099003)(10067099003)(38070700021)(4143699003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?ZDDwGnex889iTCm6lA3ja6+e3nZfqki2JkKcbHb3Y0nDnMrH3JPNeUG8CZnr?=
+ =?us-ascii?Q?y0FLi0bvQjD0Ir14j0L9pgjXGLcLfLrcU9QtNGyp62KvfaxJ11aGNRVmsKjg?=
+ =?us-ascii?Q?gfXZGiTtSWRgUsJ3/f6bnkc/nQrOGgMK9OC1gDhnzSKtxBpbjhR8zi3bVhOU?=
+ =?us-ascii?Q?rlkfLUcdJ9oBR2kdHwidyAeXmd4Mbgys52Y/QCcEedBqTECBofbJqib4xXm0?=
+ =?us-ascii?Q?7tEm9I0JhF2lKlGFKhHiKWpkuHzH0WWcU5qzTKyau0jYJw3xmVtdcNfiTL7d?=
+ =?us-ascii?Q?ih52o0ypBbxRk/FPKdM5hG7cKciZjRA0WCKkhX41/kB2jjMNUSQAGwPiAjiZ?=
+ =?us-ascii?Q?XA83jnoqxtnpgV+AEEAXPPJMOOB/QVG7tA30rCsxvfrR2JQKh/bWwj/CaDbP?=
+ =?us-ascii?Q?z7QdNiX4AuB5nIebGcMwQLum0MJnFPggAWDi8nSjhqsltKKjVRFTqD+HB4nl?=
+ =?us-ascii?Q?7oMBc2pX0zcJd+Gv+bt8bf8VdtXqt3s3NmSMyr4qQl8lXoNV9OgIlkAWcPSl?=
+ =?us-ascii?Q?RRl366/0XyLo91G5Bp0KUCTwh5b0lIwXzRdO5N18Pr+u/cvrDIiPNv4NU7EM?=
+ =?us-ascii?Q?sXFaFYUKHY7Oba1CMq5Qt3lDhfohfaPB5nTrokvj/ErGCRB5cuA7NyzJNTfl?=
+ =?us-ascii?Q?4rvQaMRnovLJCqJrp3ZPVoJvKDNNPQ4CU/zIn6lX8YUxPb2toCwvfitPNTps?=
+ =?us-ascii?Q?eyRz4oWG8IPC2Cez1NFADCTp6Fi5U+jjkJcIW3G4kPWu6KkyVwqxzH3Nut7z?=
+ =?us-ascii?Q?InBBGHypk5PvKVSdojb9gxGQcBWcxujCQ7qHPnzs/JsMPdma8a9ukfl3r3W5?=
+ =?us-ascii?Q?o0vRUc+tuojM+lsF61f7SoZjSmALm1nnA4B6jJACN4MSmZAgJddGawAJn80J?=
+ =?us-ascii?Q?EgHV9Xl1X/a2ByfrLfOZ5BbOoLLJcmWaDA+sXPDhSdVTAzZ4Cv3rDL95NHVe?=
+ =?us-ascii?Q?UcNK/kM5xIAM/h/Ukmab+7KyJwOYK2XWwNIjYJxOJMIqMirxiGg1gZBQpNBd?=
+ =?us-ascii?Q?RH4ti3Mmqc0Z2hSRTNIB2cf9FtgI+gnqglbI41FMFENYAlbQgSggBsIps8TH?=
+ =?us-ascii?Q?lXU9SBQh9M4d6wqQt9QHlxutEYYOjvM/ag1tQR0U5FQpHiNcalZwlw2nsY6H?=
+ =?us-ascii?Q?L+FP7fK1F6PCVajOMtUau9j9ywzYK6BJA1sctIr+2dk6fJYRI6N8Op6pd/q+?=
+ =?us-ascii?Q?h2cJEdTKBcsoDArUYrthp+raLNlfXgtcEb64JzPFltK4ZGg0TBqzxoguiIjJ?=
+ =?us-ascii?Q?Z/QfSUfCnovMH93DXJGzUkmmDdvxTWLiFO+L0AS2TD4dDcs6xH79wno8ewZO?=
+ =?us-ascii?Q?We+yI5mXOzESZh7T6chjDH/CwsIlz+DQGfL6tVpJXaVD4yFnM7xTVJKip8bK?=
+ =?us-ascii?Q?3phds6ynVV5Tkqsd4pzzYMMowLUXgTQ1JfSZXIgNAJwWo1UKns2fPyO0tu6t?=
+ =?us-ascii?Q?iEhaKLT7Paah50/VN9WoC1pQ8Z/s2eL03MvCwyjVmRa1ssb0rymSOU5N4rG/?=
+ =?us-ascii?Q?IP3OZEb4b3STLiRmy0pqAg2SlaTIHxEZHJn2aHF/HhCDHHxlLNNyywV1F7TD?=
+ =?us-ascii?Q?7jjLX/HGYPPy0CXmyZecEVUsk5ht5AoY4mPRXL6XFhD7/cSLtHedgbASJkPM?=
+ =?us-ascii?Q?gi2PA17oHyj6axjy02NJ3dXUrQQDUJluP6M1Wy9u2v2xMFUNjibeotZmYHLO?=
+ =?us-ascii?Q?SPp02Xx3tDda4N118nNT5QMLOq68lLr5bzQug/6FNAtMVSQAjsGrRBDxEhVb?=
+ =?us-ascii?Q?Y3P09ZXvWw=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,164 +152,101 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11740.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0cbc232c-0e84-429f-ce6a-08df3fd17afc
+X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Nov 2026 08:55:05.3717
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: P+XL0/BDBDNkJsFTMbl7GjqYF3Vb6y+aQ7LcF3DSE76NSM3xaCtMxjOh9v3+cabgR/UeZlRYQoKposSEwGI5Mg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR04MB8018
 
-The KVM API documentation and the review checklist refer to
-non-existent ioctls, capabilities, structures, fields and constants.
-Use the names from the uAPI headers.
+From: Simon Horman <horms@kernel.org>
+Sent: Monday, November 9, 2026 7:37 PM
+> To: Claudiu Manoil <claudiu.manoil@nxp.com>
+[...]
+> Subject: Re: [PATCH net-next v3 2/5] net: enetc: Enable probing of versio=
+n 4.4
+> devices
+>=20
+> On Tue, Nov 03, 2026 at 04:09:08PM +0200, Claudiu Manoil wrote:
+> > The ENETC v4.4 devices are present on S32N79 SoCs and feature only
+> > Pseudo-MAC ENETC ports, whose PFs use either the 0xe101 or the 0xe110
+> > PCI device ID, and the VFs answer to the usual device ID of 0xef00.
+> >
+> > While the ENETC PF instances are usually designated by the 0xe101 ID,
+> > in newer IP versions the 0xe110 ID was introduced to indicate the
+> > power-on reset default NETC switch management interface. These IDs do
+> > not indicate any functional difference between the designated ENETC
+> > instances, and can be interchanged and re-assigned at boot time (i.e.
+> > from firmware).
+> >
+> > Signed-off-by: Claudiu Manoil <claudiu.manoil@nxp.com>
+> > ---
+> > v3:
+> >  - Added sysclk_freq info for the v4.4 ENETC devices.
+> >
+> > v2:
+> >  - Described why there are two ENETC PF IDs in the commit message, as p=
+er
+> >    review.
+>=20
+> I realise this was forwarded somewhere by an automation, but it seems not=
+ to
+> the full CC list, so I'm reproducing it here:
+>=20
+>   commit 6de2e15f2fb313f3ab9a84d0bfd5a867de11c72c
+>   Author: Claudiu Manoil <claudiu.manoil@nxp.com>
+>=20
+>   net: enetc: Enable probing of version 4.4 devices
+>=20
+>   This commit adds driver data and platform info entries for ENETC v4.4 P=
+F and
+>   VF devices on S32N79 SoCs with a 500 MHz system clock frequency.
+>=20
 
-Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
----
- Documentation/virt/kvm/api.rst              | 40 ++++++++++-----------
- Documentation/virt/kvm/review-checklist.rst |  2 +-
- 2 files changed, 21 insertions(+), 21 deletions(-)
+Will add this line to the commit message.
 
-diff --git a/Documentation/virt/kvm/api.rst b/Documentation/virt/kvm/api.rst
-index e95c9cda085d9..ccdc210575e25 100644
---- a/Documentation/virt/kvm/api.rst
-+++ b/Documentation/virt/kvm/api.rst
-@@ -897,7 +897,7 @@ x86 allows the operating system to program the interrupt polarity
- (active-low/active-high) for level-triggered interrupts, and KVM used
- to consider the polarity.  However, due to bitrot in the handling of
- active-low interrupts, the above convention is now valid on x86 too.
--This is signaled by KVM_CAP_X86_IOAPIC_POLARITY_IGNORED.  Userspace
-+This is signaled by KVM_CAP_IOAPIC_POLARITY_IGNORED.  Userspace
- should not present interrupts to the guest as active-low unless this
- capability is present (or unless it is not using the in-kernel irqchip,
- of course).
-@@ -941,7 +941,7 @@ be used for a userspace interrupt controller.
-   struct kvm_irq_level {
- 	union {
- 		__u32 irq;     /* GSI */
--		__s32 status;  /* not used for KVM_IRQ_LEVEL */
-+		__s32 status;  /* not used for KVM_IRQ_LINE */
- 	};
- 	__u32 level;           /* 0 or 1 */
-   };
-@@ -3219,7 +3219,7 @@ With KVM_CAP_IRQFD_RESAMPLE, KVM_IRQFD supports a de-assert and notify
- mechanism allowing emulation of level-triggered, irqfd-based
- interrupts.  When KVM_IRQFD_FLAG_RESAMPLE is set the user must pass an
- additional eventfd in the kvm_irqfd.resamplefd field.  When operating
--in resample mode, posting of an interrupt through kvm_irq.fd asserts
-+in resample mode, posting of an interrupt through kvm_irqfd.fd asserts
- the specified gsi in the irqchip.  When the irqchip is resampled, such
- as from an EOI, the gsi is de-asserted and the user is notified via
- kvm_irqfd.resamplefd.  It is the user's responsibility to re-queue
-@@ -4982,8 +4982,8 @@ Errors:
-   #define KVM_STATE_NESTED_VMX_VMCS_SIZE	0x1000
-   #define KVM_STATE_NESTED_SVM_VMCB_SIZE	0x1000
- 
--  #define KVM_STATE_NESTED_VMX_SMM_GUEST_MODE	0x00000001
--  #define KVM_STATE_NESTED_VMX_SMM_VMXON	0x00000002
-+  #define KVM_STATE_NESTED_SMM_GUEST_MODE	0x00000001
-+  #define KVM_STATE_NESTED_SMM_VMXON		0x00000002
- 
-   #define KVM_STATE_NESTED_GIF_SET		0x00000100
- 
-@@ -5448,14 +5448,14 @@ KVM_PV_DISABLE
-   KVM_PV_ASYNC_CLEANUP_PERFORM, it will be torn down in this call
-   together with the current protected VM.
- 
--KVM_PV_VM_SET_SEC_PARMS
-+KVM_PV_SET_SEC_PARMS
-   Pass the image header from VM memory to the Ultravisor in
-   preparation of image unpacking and verification.
- 
--KVM_PV_VM_UNPACK
-+KVM_PV_UNPACK
-   Unpack (protect and decrypt) a page of the encrypted boot image.
- 
--KVM_PV_VM_VERIFY
-+KVM_PV_VERIFY
-   Verify the integrity of the unpacked image. Only if this succeeds,
-   KVM is allowed to start protected VCPUs.
- 
-@@ -5951,7 +5951,7 @@ This ioctl (when supported) replaces the KVM_SET_SREGS.
- 4.133 KVM_GET_STATS_FD
- ----------------------
- 
--:Capability: KVM_CAP_STATS_BINARY_FD
-+:Capability: KVM_CAP_BINARY_STATS_FD
- :Architectures: all
- :Type: vm ioctl, vcpu ioctl
- :Parameters: none
-@@ -6087,10 +6087,10 @@ Bits 0-3 of ``flags`` encode the type:
-   * ``KVM_STATS_TYPE_LINEAR_HIST``
-     The statistic is reported as a linear histogram. The number of
-     buckets is specified by the ``size`` field. The size of buckets is specified
--    by the ``hist_param`` field. The range of the Nth bucket (1 <= N < ``size``)
--    is [``hist_param``*(N-1), ``hist_param``*N), while the range of the last
--    bucket is [``hist_param``*(``size``-1), +INF). (+INF means positive infinity
--    value.)
-+    by the ``bucket_size`` field. The range of the Nth bucket
-+    (1 <= N < ``size``) is [``bucket_size``*(N-1), ``bucket_size``*N), while
-+    the range of the last bucket is [``bucket_size``*(``size``-1), +INF).
-+    (+INF means positive infinity value.)
-   * ``KVM_STATS_TYPE_LOG_HIST``
-     The statistic is reported as a logarithmic histogram. The number of
-     buckets is specified by the ``size`` field. The range of the first bucket is
-@@ -6962,8 +6962,8 @@ to the byte array.
- 
- .. note::
- 
--      For KVM_EXIT_IO, KVM_EXIT_MMIO, KVM_EXIT_OSI, KVM_EXIT_PAPR, KVM_EXIT_XEN,
--      KVM_EXIT_EPR, KVM_EXIT_HYPERCALL, KVM_EXIT_TDX,
-+      For KVM_EXIT_IO, KVM_EXIT_MMIO, KVM_EXIT_OSI, KVM_EXIT_PAPR_HCALL,
-+      KVM_EXIT_XEN, KVM_EXIT_EPR, KVM_EXIT_HYPERCALL, KVM_EXIT_TDX,
-       KVM_EXIT_X86_RDMSR and KVM_EXIT_X86_WRMSR the corresponding
-       operations are complete (and guest state is consistent) only after userspace
-       has re-entered the kernel with KVM_RUN.  The kernel side will first finish
-@@ -8607,7 +8607,7 @@ See Documentation/arch/x86/sgx.rst for more details.
- :Parameters: args[0] whether the feature should be enabled or not
- 
- When this capability is enabled, an emulation failure will result in an exit
--to userspace with KVM_INTERNAL_ERROR (except when the emulator was invoked
-+to userspace with KVM_EXIT_INTERNAL_ERROR (except when the emulator was invoked
- to handle a VMware backdoor instruction). Furthermore, KVM will now provide up
- to 15 instruction bytes for any exit to userspace resulting from an emulation
- failure.  When these exits to userspace occur use the emulation_failure struct
-@@ -9232,7 +9232,7 @@ utilises it.
- If KVM_CHECK_EXTENSION on a kvm VM handle indicates that this capability is
- available, it means that the VM is using full hardware assisted virtualization
- capabilities of the hardware. This is useful to check after creating a VM with
--KVM_VM_MIPS_DEFAULT.
-+KVM_VM_MIPS_AUTO.
- 
- The value returned by KVM_CHECK_EXTENSION should be compared against known
- values (see below). All other values are reserved. This is to allow for the
-@@ -9541,8 +9541,8 @@ related to event channel delivery, timers, and the XENVER_version
- interception.
- 
- The KVM_XEN_HVM_CONFIG_RUNSTATE_UPDATE_FLAG flag indicates that KVM supports
--the KVM_XEN_ATTR_TYPE_RUNSTATE_UPDATE_FLAG attribute in the KVM_XEN_SET_ATTR
--and KVM_XEN_GET_ATTR ioctls. This controls whether KVM will set the
-+the KVM_XEN_ATTR_TYPE_RUNSTATE_UPDATE_FLAG attribute in the KVM_XEN_HVM_SET_ATTR
-+and KVM_XEN_HVM_GET_ATTR ioctls. This controls whether KVM will set the
- XEN_RUNSTATE_UPDATE flag in guest memory mapped vcpu_runstate_info during
- updates of the runstate information. Note that versions of KVM which support
- the RUNSTATE feature above, but not the RUNSTATE_UPDATE_FLAG feature, will
-@@ -9750,7 +9750,7 @@ Local APIC features
- 
- CPU[EAX=1]:ECX[21] (X2APIC) is reported by ``KVM_GET_SUPPORTED_CPUID``,
- but it can only be enabled if ``KVM_CREATE_IRQCHIP`` or
--``KVM_ENABLE_CAP(KVM_CAP_IRQCHIP_SPLIT)`` are used to enable in-kernel emulation of
-+``KVM_ENABLE_CAP(KVM_CAP_SPLIT_IRQCHIP)`` are used to enable in-kernel emulation of
- the local APIC.
- 
- The same is true for the ``KVM_FEATURE_PV_UNHALT`` paravirtualized feature.
-diff --git a/Documentation/virt/kvm/review-checklist.rst b/Documentation/virt/kvm/review-checklist.rst
-index 053f00c50d669..5f8398be52472 100644
---- a/Documentation/virt/kvm/review-checklist.rst
-+++ b/Documentation/virt/kvm/review-checklist.rst
-@@ -18,7 +18,7 @@ Review checklist for kvm patches
- 5.  New features must default to off (userspace should explicitly request them).
-     Performance improvements can and should default to on.
- 
--6.  New cpu features should be exposed via KVM_GET_SUPPORTED_CPUID2,
-+6.  New cpu features should be exposed via KVM_GET_SUPPORTED_CPUID,
-     or its equivalent for non-x86 architectures
- 
- 7.  The feature should be testable (see below).
--- 
-2.47.3
+>   > diff --git a/drivers/net/ethernet/freescale/enetc/enetc.c
+> b/drivers/net/ethernet/freescale/enetc/enetc.c
+>   > index c6571b5cc8425..b989823859ff2 100644
+>   > --- a/drivers/net/ethernet/freescale/enetc/enetc.c
+>   > +++ b/drivers/net/ethernet/freescale/enetc/enetc.c
+>=20
 
+[...]
+
+>   Can probing ENETC v4.4 on an 8-core S32N79 SoC overflow priv->int_vecto=
+r[] in
+>   enetc_int_vector_init()?
+>=20
+
+I already have a downstream 'fix' for this, where int_vector is allocated d=
+ynamically.
+I'm going to include it in the v4 patchset.  Since this issue only affects =
+the new chip
+(S32N79), it's not a 'net' kind of fix.
+
+[...]
+
+>=20
+> Link:
+[...]
+>=20
+> This does seem to be a legitimate concern to me, and I think it warrants =
+a v4.
+>=20
+> There is also a review of patch 1/5, here, which I think warrants investi=
+gation too.
+>=20
+> Link:
+[...]
+
+Thanks for sharing the links, I wasn't aware that Sashiko already scrutiniz=
+ed v3.
+
+Regards
+Claudiu
