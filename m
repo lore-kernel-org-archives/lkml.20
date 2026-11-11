@@ -1,54 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794404498;
-	b=RhLFyoYHTPqEQu1t98HGjH18+qO1Ih6HKET22gcugNtYxuK/evomDcAkTgg8zoAGy/0P
-	 TjvWpiVqWGutCuI71DxoZIukoDk0n7HSCG7Mv9kfI0ax4oGFGEZOFZV57m90oO9qFy1tf
-	 c8PwalagcE5rDf9PE3rpXLhZZTxg3KuGzdJPcyS6C3Keak8pW3HzetxBeshqaPrvgQpn2
-	 e5W4+TuEXYh/69tWI9JZ9hjaARKNzSl0dEex2NzaRTPtbxqXhC3h3VGo77GrlQVZxB3sf
-	 tLZX/fzn2ykIlw7mhw5XqJTZEm1W5ba+1dO0KjON6SmaDEYJBS49+th6a86ZJWjqp4A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794404498;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=lBNxRck0sagxRQGTzKp7MHUYtsYXNZUwRLR8qck3nLM=;
-	b=uQyPI2fjFll3DKpdAM5+Ju9MAtxLky/Mof/nRmsT72iidLAIbDzDYJFRxHzc0rIldqBp
-	 tiHZay7m/Kh9uYLkkhH5wqpqG6+2sAXkjiCxMC2eP8r99BxiLRIm23PNhx0cc6FMJnUcZ
-	 8OlVsbRl2HyEDP4M0OpyO//V+cHt41NxqQEUHWu0njx2W6XAuQJlDzRXCIkD2/s9gVth8
-	 HoIYI/7Avbz34BcMqqE7MCGsWsx43WdoKgjWkHe4RLsOPmIQbBwIfCcHSxoKVFW0b6Dv4
-	 v5Lu7t+YeuUPBZp96tsLV9bVj8fyPn6BSA8tZ96mEA5XvrbUYxfTTWRHeRIvzqxhn+A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=akQ8hHrG;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.231.203
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794404519;
+	b=2hf9tpqnyYcXmpQmDvJm0ajQartkcS/X/CtDLhPhQbahUs1FeshGMLGOlLJG2T6Renix
+	 hqm29qOgnEkECppMa/U2QjkuocoqXvzosrYEhDE6eSFyqOy665FGwDpiMROAmjfuBiARx
+	 D0XbtSfoBAmB6JIPUsi8fN1L6k9ajs51FA8eZZ+wc1TFcp9zmqdgPFobEgldj3t0EjBT1
+	 RHCG9eSR8bdZi656PVcrGe8HxiwfY+x9QnAayl9MHmV+z9h6SN5itqvckFKE51d5V6+SF
+	 kLqU/NDMREbVgTxCQuswDgYW4olTADYrqz8j2yVccuktEC6Qq8RgD68cYj4C/DahdWw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794404519;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=DXnOrYJndBjtvfOZAozL2l4Cp0d2hZXtDRZnAOOlgK4=;
+	b=DRIlqOZScVEL1tj7Cj5xbKjiukkRQIrqPBltLVMubw4OZaYEoAJPkNG/145DytPx+g/G
+	 dg0y3/zFA736FHFzTXHDGUvSE1Tqn04SX2KJgxRkVVRXlpM+YdxTZoN7OXKHOoF+uiG9c
+	 5/+oTwzDcXSxIyhMaKEUJtPOAXDOSypWGZ18iZX4bhU23qH1PlwTzWkKmeaGmPMNTV92h
+	 HN3z7hm9ZGuso2UbyT/ETVcF/s0Wd2E+tbLUJ4kZEWCCnDyxNRC7BEVzsdl+n1gRVeDiQ
+	 WDGkLO5KecPqrgzuxo4YeX0S01Q9/cDyvxh752axSl3SKOpTvFHmC9CUR8QPazNYK0Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=g90birjF;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.231.203
+Received: from mail-oi2-f11.google.com (mail-oi2-f11.google.com [74.125.231.203])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48C9D606A324;
-	Wed, 11 Nov 2026 13:41:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42F69606A327
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:41:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 42F69606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=akQ8hHrG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88C9A1F00A05;
-	Wed, 11 Nov 2026 13:41:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1794404497;
-	bh=lBNxRck0sagxRQGTzKp7MHUYtsYXNZUwRLR8qck3nLM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=akQ8hHrGyNORMns1NGnZMMNc0fe+TW7gcZPw+smeNHyiaTqCVe8aB6W73Wt5Y+Qyv
-	 1kGNUjadyfGW2JMhNQtCNSm69ER7COh66Vtk47SxML9d9+ReSWCHpfP2kHbzp5maYM
-	 W2ZZTcrDKV0acgaFD+GpaBWpLePH+YGiDMJGRKXA=
-Date: Wed, 11 Nov 2026 08:41:36 -0500
-From: Greg KH <gregkh@linuxfoundation.org>
-To: =?utf-8?B?5b6Q5pmX57+U?= <xuhx@hust.edu.cn>
-Cc: tj@kernel.org, driver-core@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: kernfs: kernfs_drain()'s fast-path decision reads the active
- count without acquire ordering -- on weakly-ordered architectures the forced
- ->release()/unmap can be skipped
-Message-ID: <2026111106-blurb-mantra-4b92@gregkh>
-References: <4c7f9772.192e1.1a17d5c2ed5.Coremail.xuhx@hust.edu.cn>
- <2026102727-data-sequel-ce41@gregkh>
- <61919bed.2429b.1a1c983aa11.Coremail.xuhx@hust.edu.cn>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=g90birjF
+Received: by mail-oi2-f11.google.com with SMTP id 5614622812f47-56820670d00so1262000b6e.0
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 05:41:59 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794404518; cv=none;
+        d=google.com; s=arc-20260327;
+        b=cpDUywlle6JOFAjZJ1WhvSDcLHvm0l34gT/I0BjOTBMjz8Lf3EBxXPueeQvJKG3JZ+
+         MyPP3DO9W4yVZZyltQorBDwi8mGDVG0echtxazbuFa/oDEl03WwGGdv4PDRRB57rE0KV
+         ryRk5S9W6lJ0LKk1HqZmNfn3Ab4oUOWlE5/BmOyeqGCJ5WzeQFZSvzQWNRpuNV83LC+j
+         0XIDXD+u0LkLvDVJooFJznI4iiU+RNGlw7esUYIfSQbFjjjxbtXohz0koM8RrtslM/y/
+         0kute7Dpb1ddZgJ2JaTdE87NbVHGI3S4ELcjrV3xeaDFBjKd5COX5P0XGZkSfDljGZSP
+         OwyQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=DXnOrYJndBjtvfOZAozL2l4Cp0d2hZXtDRZnAOOlgK4=;
+        fh=5CB/06D0a+SaeJaMegO/kRsnByAWNnt6nkHdDmMVXoY=;
+        b=KGf2OQaVeIXocuMFm+OojJrhQggB5GaPkXlcIlANswCxHITlYfbng3v4YURqJBkBvk
+         seu3IX3boBX0IHBfsn3fqIlTvekTZhre7n3RPyhSmDf7D39wyOCSdSgwuzoRXM16mrhW
+         ym5Mx9yfoAn86wDgAOzLc1mEX2tbowJvEW21APZ4VxNw06ssuSe3JGRNxV9LdzP+EcVd
+         5FuAr01REcvXM3GwFxZEJdzwdYFGctqebe+LEiBEyEHCmqgIOwI9s9p6/+kFsPCfLlMT
+         x1N6LdAWbP9RLHa0Bk5bbzPn95C///bStw6WWChBbX6xaJUJFdBC/yZQ/GkpKh2naqCD
+         c83Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794404518; x=1795009318; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=DXnOrYJndBjtvfOZAozL2l4Cp0d2hZXtDRZnAOOlgK4=;
+        b=g90birjF51kGiHNi911bO4MwqBelgEELX+vyzPNk+SOLHF+7TbZ0bMj8500ez/uy8e
+         ZrQEXliuV86UgyR4l6e7htHKO4P2TzesiSsRciHkULeuTEh2Vr+ppWsqmB+Fj1L+cmIZ
+         cuspCo0ll37tCrXTBp+dQyUrO73YGrAw5Srd1GYqGUihiK8eY7iMJwWCIaL0KNShVObA
+         /GjDwSE/nml/rN7h3upqn7Na1I8GHTUMQe0uk6l+ElYTduAciMQrwZkBjUnOmrTL8p4R
+         F/q4q45jAZrbJ7fcwljfqcnRVX7vCTL0ToO7h/RleoK8zZeAJNH1CsBqFqlh0Cpsl8uC
+         VaUA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794404518; x=1795009318;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=DXnOrYJndBjtvfOZAozL2l4Cp0d2hZXtDRZnAOOlgK4=;
+        b=mVYgn+1aXhHQ+uwff+8jvmF1kvptavwMPBoh8sxLkJ812gotoGlQ9SCh2o5xAWAVoG
+         tO8j5XwGo2BgAPA+SAXyFb6cnQKNBIVWcB+jahTqN47vBH4RCrSHhLiR6Ksey5MjFcm4
+         hft7fZj1tqQvvm6kSvRTqJyTbTSAETiE3I0O+WW3ji7QTtNMoCWEKP6tnJw5kbrAnac0
+         E3eWNff0Em0rc1aLp0O0rex3q1K9Si0NcniwA7q9cUDykFCF16ol5/9CbQfcuiP3inhQ
+         9QdmtfeiYcgofkcblEsGZC0p92hSkUCLFlLdYzPOJkGo1BpEOMZrUolKA+eVjXVlGN9W
+         2ACA==
+X-Forwarded-Encrypted: i=1; AL+hErFhHT3fiAy80uai1LzTNsEYMbwtlPLxZM4W+Dz74oL5bH7eI5toXN4wH1i6XGRSuOvW8bYximdW3gfApio=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/xOK/cvXWFq8t9GZobwNaaod9JV1XUMPYgDMBLJzAMTFuVHJyk
+	O+XgGYGdY4/359zECGPoneRegelb+rOWh7oOfx834PNe7qmIxrmVx6qXOrieyxwuTXnZgq/8u/V
+	SlZ+bPIKCEFII19O2CFHMNb3m5aMnRylAzBGgRZcARE0c
+X-Gm-Gg: AYBFou2eyNqccdop7cwaFTZzgzK/PNIjSv5ThTXxlI2lz9B+avEUIg7YDOOaCeeD3WM
+	0aQ8zOV6IlLHmcJ/4x4sx/PdWzRktKPbDRUBL5w2bav5T7tcJyV4fQu80fTE5HXQJwNCVXpnPZB
+	g4Ob4grlcO9pSMhXw1Pp0uR/6XU4XSZ3CxiQHGVZJYITINt9jNUV7UCRdvvLpcEp1cA6h0pVN6n
+	HcINBoiqLZo5TTAyFAKYO7AAYQmEFl7t82KK27LSoIqhkwN8Y+7+ViNFfBesyRVRBKi3f3tgzY7
+	T3exFqlBxcOubmQO9rL+pxh/4vXhLsRiTa3haFyBPtgrs5OrTVvCfIIfxx6VbpozC2AUudYr4fb
+	uMHumSdlq9Lq/GgB2snJAYZ8OiBLV8umHOF8FPSrZYk5iEZE22bO0/sYSgv9A2NoWaZN9plB9b/
+	Myy1nKbXe1viseHqKDWYRQ/n0veU/bkmJTMvKqUE47VxA0WGcwCgOJwajfoY/usOECB4X7r91ZD
+	Q==
+X-Received: by 2002:a05:6808:10cd:b0:55b:f88d:6ebd with SMTP id
+ 5614622812f47-56b9293c5f0mr1861940b6e.3.1794404518140; Wed, 11 Nov 2026
+ 05:41:58 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,60 +105,21 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <61919bed.2429b.1a1c983aa11.Coremail.xuhx@hust.edu.cn>
+References: <20261104191621.89561-1-dennylin0707@gmail.com>
+In-Reply-To: <20261104191621.89561-1-dennylin0707@gmail.com>
+From: Hungyu Lin <dennylin0707@gmail.com>
+Date: Wed, 11 Nov 2026 05:41:47 -0800
+X-Gm-Features: AclHuK979fFPsKcuUOg3hUc17dq81L1BTuEdNVZioITPsDqDO4LERCg-x-Z03Ik
+Message-ID: <CAGEkeHeMnYs_SM610dCCBPufJHAN6t00WBtC6YtgyZbw_GfUcA@mail.gmail.com>
+Subject: Re: [PATCH] f2fs: read atomic replacements through the COW inode
+To: jaegeuk@kernel.org, chao@kernel.org
+Cc: daehojeong@google.com, linux-f2fs-devel@lists.sourceforge.net, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, Nov 11, 2026 at 03:30:11PM +0800, 徐晗翔 wrote:
-> kernfs_drain() (fs/kernfs/dir.c:508-551) decides whether it must
-> drain open files with the fast-path test "atomic_read(&kn->active)
-> == KN_DEACTIVATED_BIAS && !kernfs_should_drain_open_files(kn)" --
-> both a plain atomic_read (relaxed) and an unlocked read of
-> kn->attr.open / on->nr_mmapped / on->nr_to_release.  The writer side
-> (the last active holder) releases correctly -- its writes to
-> attr.open/counter happen under the hash lock, followed by the fully
-> ordered atomic_dec_return() that wakes the drain waiter
-> (dir.c:491-495) -- but on the READER side there is no acquire edge
-> on any fast path: the early-return branch (:522-524), the
-> wait_event's non-sleeping first check (:537-538), and the slow-loop
-> checks where the waker has not yet touched the queue lock.  The
-> phase-1 BIAS add is itself a relaxed atomic_add (:1563), and the
-> kernfs_rwsem write lock the remover holds has no intersection with
-> the putter.  On a weakly-ordered architecture (arm64, powerpc,
-> riscv; x86-TSO is immune because plain load-load does not reorder),
-> the remover can therefore observe "active drained" WITHOUT observing
-> the racing opener's attr.open/nr_to_release/nr_mmapped updates, skip
-> kernfs_drain_open_files() entirely, and leave the mandatory
-> ->release() and unmap_mapping_range() to be deferred to the last fd
-> close.  Consequences under current semantics: no memory corruption
-> (of->kn/inode stay pinned through the dentry chain; the close path
-> performs the release and decrements then, and the accounting WARN
-> never fires) -- the observable effects are a delayed
-> cgroup_file_release()/put_cgroup_ns() (a cgroup-namespace reference
-> pinned for the lifetime of a leaked-open fd) and a skipped
-> unmap_mapping_range() (mmap'ed vmas survive until their next fault
-> takes the kernfs fault path and SIGBUSes, safely).  I verified the
-> RACE itself dynamically on a stock Linux 7.3 KCSAN kernel: a
-> cgroup2-slot hammer (attached) produced 17 captures of exactly the
-> target race pair -- kernfs_fop_release (the nr_to_release--
-> writer, inlined in the close path) vs kernfs_should_drain_open_files
-> (read), with the reader stack at kernfs_drain+0xba, which I mapped
-> back to dir.c:522-524 (the early-return decision) via objdump (the
-> cmp $0x80000001 / KN_DEACTIVATED_BIAS immediate).  The consequence
-> itself needs a weakly-ordered machine plus a microsecond window, so
-> I did not and could not trigger it on x86 -- the report is therefore
-> a memory-ordering fix with (a) the race pair proven to occur as a
-> matter of course on x86, (b) an LKMM litmus showing the outcome is
-> Allowed on linux-kernel.cat and Never on x86-TSO (available; please
-> run it), and (c) a one-line fix that closes all three fast paths.
+Hi Chao,
 
-<snip>
+Gentle ping on this.
 
-This is a wall of LLM text that isn't useful to anyone, sorry.
-
-Please just submit normal patches, as our documentation asks for.
-
-thanks,
-
-greg k-h
+Thanks,
+Hungyu
