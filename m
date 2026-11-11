@@ -1,64 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794392127;
-	b=w1VZo97t6kHaAUW64VW1a6+oHRR6+I5z85iOA+pqXS0M6dfZOgR1eOYuXX/HldhuUx9n
-	 ETwQSwGgRsE9JVt4KGblZd7Ql5BHe/ME2kGZ8RE9gV7WWv4lwbeDQw/pdKUuaTtUTLzeT
-	 Y15UQNQJOphYAAaBYtuXAiMztzVZF2Jlhh8JNxGK8oWKPMTRm/7kkr/ZKVW0jjNHoAZg/
-	 ee3G+1UmSvaAzsWK65Hv4lwsq6Qt6/9utRwmKbozyTJ1fm8K8mES5IFMrBl29MZqysmjR
-	 eOLxzbjFZmZYoFBPmgwO1acOThAPB1iPzUVBSsWkB3WMOt7EWVto+HINK3urgWiZFDg==
+	t=1794392186;
+	b=LufmlXllwiuYL4CShPj0S76OO6Fz+y1pF2CD+qSmnEvc2BGg07B5I6GjAb1GtfWqnIEd
+	 WeXFqn2qxTWw07IqUkdB9+V6EHgMJD36MuD5bofLDzWY2qZDFrHDlGPXAWvWyTFMse3Ou
+	 5Jk3U+ETHKV328uCIod650Tvmnr6n6PdhH05BBe2npuCNzdShHHqJTAeqO+9yYfjqNPoh
+	 yMIGxkFZoQiVmlT12boYNHb7SEY4zcs0AOY4bBQsNIkkysxqyfO3ASoPc3wSocseZ+Iou
+	 5rwh0cuaPevcG+lm9SuxXdxUSHBK04/FMRg8B7P6M0bQaYhj8ychl9YogTh8eI/uBZw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794392127;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=rK3zf3WORu1ZXVGJG2PmksRY90fhsQibZT0nyfHuenc=;
-	b=DCoQzS0MUrHVlMwqb2YLRww7waTreYhyfgW33hKcechnUIfn3Wsi7uOvgeUXFT9thpYO
-	 sth7eVDZQEKlgAGREG2DBEXTL0YW22U/e2nKynPZ+2ggR8xZQhwXSfAmvZPKqmjiE4Wcj
-	 L6KGhzMcduq3EhLSE+xyviZRPG+5WZpQnhU2lH7qwep2rOCgTHl+aqyCQp3sBQJCHoC75
-	 Z3VfaDiQkPOKYiV3MoAq3jbP/1tOJlAoLp3mmGkQw4HSvIBULP8RzkH/YqMcvnrI3HcA7
-	 M0APGYrEk3g9khNdGo4O4jkvyNuvTMQltyI/64W/JJkJCesauX16JZ9Khc4V0HoTGig==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794392186;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=PvjHD5xBoQ0K8cdpA5aBSTc2W83sPTGK/ro8kbHtLgQ=;
+	b=w2EQAiXxI1bgxgmMnaAdlUkIwSfci8W6qsTgaPolTAZdMRjSA0ZEzS9MUyegzbD8i8Iz
+	 jsQMKV08vYPVBrU7xEymyWtKm8e9H69bETrm7/OmoEC8lXXGHRcZKwt7fO1DKbi4uPAR+
+	 7e3bilmvvYZaHHIlrw0kzsRTMqL1ojSWizIvYJIdHFHkNUcdk3rlSU4aJeqjHPi87n/jT
+	 5fVdH/kmUc6JY1Wbh6FErujV7MGgMDecKBK96CnQZ8euQjfHPqmucLo7OA9advdp+PYrx
+	 xlqq7VupM2gOn6miKUX7+BupqcywNgdQ5CVXE3TfSaeoqTiK2u2pScLlCjYGn8TREKg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=m6QWUogq;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 048F2606A31C;
-	Wed, 11 Nov 2026 10:15:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 048F2606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b="l8/uvvXQ";
+	arc=none smtp.remote-ip=209.85.221.50
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C08C606A326
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 10:16:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C08C606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=m6QWUogq
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4B40C1576;
-	Wed, 11 Nov 2026 02:15:23 -0800 (PST)
-Received: from pluto (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 05E4D3F632;
-	Wed, 11 Nov 2026 02:15:22 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794392126; bh=0HlfkY9hnP7PkFvX7q+xnImD2I72F3eSwZqnjsju5x8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=m6QWUogqmrU+D+IusNfo+7RENCrkzi092lTtwXoEamRlM3gUAzdE8G1Qn8+BaU0YB
-	 Y7+7Vtlp8e4gNTg95tt1c+SdkaATlzyXhf3KwPqDtoCW8dFAWhW/xZ64dHQSE1Vnvw
-	 B7eSrwp1R6DsvMI8m//gQ58HEZkuUvxuazb5VwNQ=
-Date: Wed, 11 Nov 2026 10:15:16 +0000
-From: Cristian Marussi <cristian.marussi@arm.com>
-To: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-Cc: Cristian Marussi <cristian.marussi@arm.com>,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	arm-scmi@vger.kernel.org, linux-doc@vger.kernel.org,
-	sudeep.holla@kernel.org, james.quinlan@broadcom.com,
-	f.fainelli@gmail.com, vincent.guittot@linaro.org,
-	etienne.carriere@st.com, peng.fan@oss.nxp.com, michal.simek@amd.com,
-	d-gole@ti.com, elif.topuz@arm.com, lukasz.luba@arm.com,
-	philip.radford@arm.com, david@kernel.org,
-	souvik.chakravarty@arm.com, leitao@kernel.org, kas@kernel.org,
-	puranjay@kernel.org, usama.arif@linux.dev, kernel-team@meta.com
-Subject: Re: [PATCH v15 00/35] Introduce SCMI Telemetry support
-Message-ID: <avRANKPwp-r-QSR4@pluto>
-References: <20261109091221.2532706-1-cristian.marussi@arm.com>
- <20261110163809.000070d6@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=l8/uvvXQ
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-492f0a1b685so2055025f8f.0
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 02:16:25 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1794392184; x=1794996984; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=PvjHD5xBoQ0K8cdpA5aBSTc2W83sPTGK/ro8kbHtLgQ=;
+        b=l8/uvvXQyUpDwc2GLjrDT1bnuyDZE6FuDzWdb2uwISwSZ5EyLuDoHo/dPhB2W+b+Sm
+         M9u/hR1EcnrqKuaMpXUEV7wKcx5m4bc6f7YwVZCXeEbRjVH1QkXKeUjAVMphw/FkAu2J
+         VG5aIqboFM1lzT6dAEh+pgKraaSY78EmvqhioAwrkJ4wk4S30tplLN9qR455UG6Npxau
+         gkejjbHdehkSB9tftfuUQeaj7tkGV7dtFDL4xx49Ep1xzmokz1EsYoB//4DPsrZ9GkZS
+         dKoSr01miwOl4cCPd3nXTpReSmcIz3FcvzTWuteIecTP1tEvG4lvViRDIOeL0BmBqKOo
+         aLGg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794392184; x=1794996984;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=PvjHD5xBoQ0K8cdpA5aBSTc2W83sPTGK/ro8kbHtLgQ=;
+        b=fsQaZ6z0nFhtToOwC9u0akoCzC6lOZOgnRuAM0KiCtueNPK3IGl009NCE9WQk20DZI
+         Dx0zCBC19GKIWi/dblH3NnwiZxKj30p0+6PqIq8LVVX6Fep+WyOhgXMPNpz27DDbTcWF
+         aJ4D+KgNTDQQC9wmY2u1Lwcp1CzCpCGLFwEojpHtkmk/rOOF9oK7YXuXNBa5ldbbo+sg
+         B7L5Fk6SlAdMLH6ixB+WeHbLl03+frm7Iwh9LnpH2N051gAO+5p9VRXfqIVO22ziLcS0
+         d8fs7JL21Pt8e1MhxcFfv0fCp9lERu2rCOTCeSZ1BErJ/NOeHYulHiRutfPTvdWd9ooD
+         1zWQ==
+X-Forwarded-Encrypted: i=1; AL+hErE7V9DZ5YkfslTNa3Nwmm00pKMC1L5P6685tpTYjerOyyp+4K09dk6XAJd8LwFHchinZKyv5BdhwZ/vJU8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+mQoOFNUFYI/+kjwDtSOX3FqTpfwA5Sfk9bC9xjepjQcUZmCBx
+	5PffdLku9WPeJaXzRPCj0dJY5Y1q1JUAUq7WA3+0MTWnG+ul+7ex3D2s4wEIbvrLdr4=
+X-Gm-Gg: AYBFou3ql8mQ2viB7WMNtqJYZ7vNTOpMTsiFGHVGjN74/OS/P8846kqKuI51TIsZP1/
+	u9Xiz1vDk5lEw3lOMM9OtfSRFr84rTk3um9jzUU9yq36cBh8Bvp34NshaQ5rjmHbJgVh0F7Ujaf
+	SkW+RbKjSXOV6vgfzNsKay+AKwscUDXOm/YW9k5QLAk6n6psERFCc9jKyiqM/oGmtXkDPITgd3s
+	1UZr+9qzeqwxlRMMzzgYyD9ocBDupYXUlZTafbDTyFEnACrrVAsl85aLcdLvRmfluMxJv3CmMQ6
+	6gwu6tuB0PljgGqYTmIAES2kkJmEzIOU/sLdCI/cqbcS5BD4WSa+TV25WBazwOpQ9L2PQM9C36V
+	dFtU5esCBDhk3x/r87NAuFbY1uht3kX6GWj6JzqgadK4FqrsiY2S6vC0cO+zo3dyRxQOa19Xqng
+	AeTAx6cW28+eHuO024AevX4rhfehzciw2I2mjNK871TPjMdMNEPy3T6Su1Sl1KMJCh1n2oxwpRE
+	oidaPvE5/jsG4pYngadFxT3LFAjUzxzgo+GMgTiWRLtH+r4qkhBQ0DfwLijdyfM7zh+CJdZ6WSb
+	DxO4Dk1izMw0ZuCL3xidyeNitD4b6LFx36w5rOoT8VMkp5N/p0n8sZk=
+X-Received: by 2002:a05:6000:288f:b0:48d:ff06:c626 with SMTP id ffacd0b85a97d-499c6cac56dmr3026544f8f.35.1794392184151;
+        Wed, 11 Nov 2026 02:16:24 -0800 (PST)
+Received: from [192.168.1.3] ([37.18.141.193])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498366c2793sm10054961f8f.45.2026.11.11.02.16.23
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 11 Nov 2026 02:16:23 -0800 (PST)
+Message-ID: <39ac224f-2903-496e-9a08-b4c5a33dc87f@linaro.org>
+Date: Wed, 11 Nov 2026 10:16:22 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,92 +92,121 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261110163809.000070d6@oss.qualcomm.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] perf vendor events arm64 AmpereOneX: Fix misspelled
+ PublicDescription keys
+To: TAKANO Mitsuhiro <takano32@gmail.com>
+Cc: linux-perf-users@vger.kernel.org,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Ian Rogers <irogers@google.com>,
+ John Garry <john.garry@linux.dev>,
+ Ilkka Koskinen <ilkka@os.amperecomputing.com>,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20261108183846.3804875-1-takano32@gmail.com>
+ <bf6925f6-613f-4e20-8491-2a99183f34fb@linaro.org>
+ <179433972506.1746408.6665119010100304383@gmail.com>
+Content-Language: en-US
+From: James Clark <james.clark@linaro.org>
+In-Reply-To: <179433972506.1746408.6665119010100304383@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, Nov 10, 2026 at 04:38:09PM -0800, Jonathan Cameron wrote:
-> > The upcoming SCMI v4.0 specification [0] introduces a new SCMI protocol
-> > dedicated to System Telemetry.
-> > 
+
+
+On 10/11/2026 19:42, TAKANO Mitsuhiro wrote:
+> On 2026-11-09 10:24, James Clark wrote:
 > 
-> Hi Cristian,
-
-Hi Jonathan,
-
-thanks for your time...I sincerely hope you're travelling abroad on some
-remote timezone given the time these reviews came in :D
-
+>> Shouldn't jevents enforce some kind of schema? This seems like a bug in
+>> the generator that it's allowed. And we have all the json files in one
+>> repo, so we can fix everything when adding strict validation.
 > 
-> So, the main issue here is pretty much summarized by:
+> You are right, and there is a patch for it now:
 > 
->  28 files changed, 12801 insertions(+), 99 deletions(-)
-> (obviously there are tests etc, but it's still > 10k lines)
->
-
-Usually I try to implement the complete set of features of a new protocol
-but indeed this new Telemetry thing is huge by itself so it became quickly
-overwhelming to review...imagine to code and test it.
-
-> There are relatively few reviewers who would even consider taking that on.
-> I foolishly thought it wouldn't be too bad (and I review a lot of code).
-> By about 3/4 of the way though, probably much earlier, I know the quality
-> of review went down considerably. Honestly it was probably a waste of
-> time continuing but I'm stubborn like that.
+> https://lore.kernel.org/linux-perf-users/20261110193239.1741014-1-takano32@gmail.com/
 > 
-> So, unless you have a path to bribing or sweet talking various folk to
-> deal with reviewing this with each having to set aside multiple days
-> to do it, likely repeating for a couple of versions yet, I think you've
-> got to figure out out how to make the first patch set more manageable.
-> Probably don't split it up as much as the mpam or CCA folk have had to,
-> but you have a lot of colleagues who are experiencing the same problem
-> at the moment. They may be able to advise.
+> It is not a schema, and I don't think it should be one yet.  It checks
+> nothing about types, required fields or value ranges.  It reports the keys
+> that jevents.py never asks for, when the spelling is a near miss for a
+
+IMO I would rather have something that's incredibly strict and simple, 
+or nothing at all. Having to work around edge cases and report near 
+misses doesn't sound great.
+
+> name it does ask for.  The failure here is that "PublicDescrition" was
+> never read, so the field was dead in 16 objects and nothing in the build or
+> in the tables said so.  What makes it cost something is the AMD tables:
+> "BriefDescript6ion" is the only description those three objects have, so
+> the generated table carries an empty text field for ls_inef_sw_pref.all on
+> Zen 4, Zen 5 and Zen 6.  In your table the output is unchanged, because the
+> value repeats BriefDescription and jevents.py drops the long description
+> when the two are equal - which is exactly why the typo could sit there
+> unnoticed.
 > 
-> So it would be nice if what was in that first patch set was 'functional'
-> but I don't think it needs to function on every systems or support more
-> than an absolutely minimal feature set.  Just fail to probe when you see
-> something that isn't supported by that minimal set if that means
-> the thing won't be functional.
+> I did not go the schema route because a table may legitimately carry a
+> field for another reader: the Intel tables carry Counter, CountersNumFixed,
+> CountersNumGeneric and Experimental, none of which jevents.py reads, and
+> Experimental is read by metric.py.  A schema, or an allow list inside
+
+But we can have a schema for json files that are checked into 
+tools/perf/pmu-events/arch/ regardless of who reads them. The schema can 
+say that "Counter" is valid as long as we agree that it's ok for that 
+field to exist, even if jevents.py doesn't read it.
+
+Then it's as simple as:
+
+   from jsonschema import validate
+   for path in Path(pmu-data).rglob("*.json"):
+     validate(json.loads(path.read_text()), schema)
+
+Where 'schema' is something like:
+
+   schema = {
+     "type": "array",
+     "items": {
+         "type": "object",
+         "required": ["EventCode", "EventName", "BriefDescription"],
+     ...
+
+> jevents.py, would mean asking every vendor that adds such a field to edit
+> perf's Python first.  So the set of names jevents.py reads is the only
+> list, and a key below the similarity cutoff is left alone.  It will not
+> catch everything -- a key that is a word of its own, or a misspelling that
+> lands on another existing key, gets through -- which is why I would rather
+> not present it as validation.
 > 
-> Once that's in place, over a couple of additional patch sets you can
-> get to everything you have here.
+> It reads the whole tree, not just the architecture being built: the typo is
+> cheapest to fix by whoever reads that table next, and that person may be
+> building something else -- this arm64 one shows up in a run over the whole
+> tree from an x86 box.  The exit status is 0 for a clean tree, 1 when
+> something was reported and 2 when a table could not be read.  make turns
+> both failures into its own status, so a script that has to tell them apart
+> should run pmu-events/jevents.py directly; for a person it is
 > 
-> So what if you choose one data path (shmti perhaps), no notifications,
-> events, maybe even simplify to one of the readback paths.
-> Maybe even drop event groups initially. 
-
-Based on our real world initial customer of this I can certainly drop a
-few features that are not supported anyway by the real FW and move it to
-a later patchset, stuff like groups, notifications and single sample
-reads, but all of the rest is hardly removable while keeping the system
-functional and usable.
-
-> Possibly even drop timestamps.  Definitely drop things like boot-on
-> support and debugfs (unless you are using that as a cheeky 'functional'
-> test ahead of the main userspace interface.
-
-Not sure what you mean by drop timestamps, definitelly cannot drop
-boot-on (it is how systems are configured indeed) neither debugfs used
-for bring-up and FW debug.
-
+>    make -C tools/perf jevents-check
 > 
-> How much would that slim things down?  It doesn't even have to be
-> useful, just testable.  Realistically I think the hope of getting
-> enough review doubles if you can halve the size of what you are asking
-> people to look at.
-
-I am not sure how many lines I can shed with the above features drops but
-I'll give it a go anyway at slimming down the series after I have gone
-through this round of Sashiko pains.
-
+> which reads the whole tree, and JEVENTS_CHECK_ARCH=x86 reads x86 plus the
+> common and test tables every build reads.  I kept it out of `make check`,
+> which is the sparse run over the C sources and needs a configured tree and a
+> C parser, and out of perf test as well: tests/pmu-events.c compares what it
+> generates from testarch/testcpu against a fixed list, and a key jevents.py
+> never read leaves no trace in the generated C, so a runtime test has
+> nothing to assert on.
 > 
-> Anyhow, gut feeling only but the code felt like it was in a much
-> better state than some of the versions I've looked at in the past,
-> so I think the game is now how to get it over the line!
+> It is not wired into the build: I had a version that ran it from
+> pmu-events/Build on every build and dropped it, because a report about a
+> table this build does not use would fail the build for everyone.  It costs
+> nothing when it does not run, since the tracking that makes a report
+> possible is switched off unless the check asked for it.
+> 
+> The two misspellings it finds were posted separately: the arm64 one is
+> this thread, the AMD one is
+> 
+> https://lore.kernel.org/linux-perf-users/20261108184600.3810059-1-takano32@gmail.com/
+> 
+> The generated tables are byte for byte the same as before on x86, arm64 and
+> the whole tree.
+> 
+> Written with Hermes Agent, an LLM assistant; the author reviewed it and ran
+> the checks it describes.
 > 
 
-From the testing/functional/performance standpoints the series has
-definitely improved especially, but still some road to go.
-
-Thanks,
-Cristian
