@@ -1,113 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.69
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794437266;
-	b=RyBzy+Dmzb5Vt0UpJdL2oWxnmSSpO2nFsT8pXXAdnqgOHN/xyFz2iMTv/lCV4oy5Fq8f
-	 SsgdppJe+IFD+MrClH1xJMjIIwYPgZ1AJA1ZFXqP2wTETWANGKZVP3Z+gLBQ2RE9h4Z1E
-	 +/f1n3utq4y5rua982QELeSOhNq4EFaZ4MDTUuBmD+dAX729KDPLr61itu1oZipUmk3HP
-	 xNQnTIXQKnBrzsp2yjsiE4Mkr10eEHNe2kw83bBPJTgMcbx2nRsJhfMLK1rtF25jPZ/U+
-	 9yVuxcrK3B7GXlGefQg6jrqierlLmjlejbFuZKJH19uWSbmiJZUPgUNP4tLVD68/qSw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794437266;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=5qBnRXo+Kgi2EIoBw3OSAp57VGbxvf+3VYzD3ClRUe0=;
-	b=wycnE/Ob2vZHMdgn46Dvdr27co5jZ1Co0mGWBm6NO1HNJV/Ht1ibZiFQGK9VQ1K7oeS8
-	 lpqVXfUdFqT/IpUB2/N7oWgB8S/bDlpOeu5oB/me9MEkyiqIWs5O1HBEnquCKpR41FxKz
-	 CNBWxM4Ob2BUDRgVCVSnfmwVtR/q1wzpXPtlCY3u7ZbYBboLODIYRd+hRM5yH1ZYr0A0W
-	 wZ9Cm+zUeIIbIVRGhCM1nqAQmhMNHbmu2rnOMJf/a80hw+jLHsixVwI4yATt2z2/8orHK
-	 yF4Di2eh0j6LYEK2CDeL4DPEru3nkz8VEtlN3T0kxPI7HXrPtV/rn+d6Y8I/ApNcBSg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=xXERj62P;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.69
-Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011069.outbound.protection.outlook.com [52.101.52.69])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794437267;
+	b=NZNKXJt/nrEaIFtbFqTB/939fqxZ+MIPA1NoTzxB3NOYh9nhIi/ypO0TjaE+YGTXeHaV
+	 kUDimCCBMNA/6MKXjg9SYPaqv9vSZTe0zz2rBgmjhNiXCdfdEZRWQSIR6BlwMldp5ZJuz
+	 yBKR5TxvnPVYe2TcBJgz0t2omCxdqdE/i8KQuwoNF1E5GKAbGyS0CcpmjGs13u6a9J3kI
+	 0juQ5sB3nxxqqzSYi1T4RlerbnbDkB8UeokTNqOrWF+k6GTFdPBD/CpfrrRWfFnoGAlHO
+	 Xf17WaB3i4G6kw01UDmyRhJqFFUUDCpB295TANaURIvCseg0ZpnKRmiwZEciYKR0w2A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794437267;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=tp4FwDBE4d49Hi9WrTjNIMNYb2nVWF+rLrH6T68Pxk4=;
+	b=NxBQOBiDJwEgW4kLhbiI0tdWCA8ciLDQ6IOhwVwN0PegH/J7uc4IlwTpiYad+xpHVTfF
+	 en+lgvt3V6B0ij/pEUdgLfxsl0Ivgikv3T2yBfeubCRRN1ldvIW73VUhYoqc0hg1FwGs1
+	 eylWPnQv4EFF39CpjNoa6LO9OPbRzOIK+ZKZ5wzJYAc5/idtduJjfLVv5ZMRjRcstUPk8
+	 QYh+rGssEmQY73D+o44ob6Hh7ohiOZMG+YmQmbBFLIYwgS/9Dgbwsgyf5xatetL/rhBoE
+	 l3fq5c0I4lVthdraD2d4RWcTBtp6Kdw0sRkIIVhOlI1Fi8PgZZ+e8yAHiaH2NUKSb0g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="LLuo6V/7";
+	arc=none smtp.remote-ip=74.125.229.131
+Received: from mail-dl2-f3.google.com (mail-dl2-f3.google.com [74.125.229.131])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 755E6606B757;
-	Wed, 11 Nov 2026 22:47:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 755E6606B757
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EBB7606E2B7
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 22:47:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9EBB7606E2B7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=xXERj62P
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rf+wnXRW+jy6STTkSI2qrNF8seZD3+0wPf5Dh4vy0EMOIY+QSQEX13h2B9M5oPq9eURxLgQGlPM1hZDq+sDGGmUu2oFIONYF4zUsdAfbjeDH5GEh+iC1bXQXGxQL1fGJOMU2GRmGwQ7sFFnQ4mOFElYUQDxsqRl7DUbjpBpUf9c5mCuad5LTPqFVits4Gbr4xK71qd7Mf/yLRmPMPz4fTfMQ3T+GNbTkHcMBGWbNu6q28OKR6lyV41rC4TkC3VguETnY8YeecTSyHmKDzPez3TxlVx7k6uZlmprIZv9Y/2Yvxj+QHccAdYG6ufdWMrjNnZhejiMdoO/hK4aZ5SRm5w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5qBnRXo+Kgi2EIoBw3OSAp57VGbxvf+3VYzD3ClRUe0=;
- b=knW1XuOMdIYhxPS5GgKWDPtNRgi3rK2mn7DEyDRpg0xYmzH4LMKh32oITVk2GdqdVqW3pEAg0QHp3sE4drLWN3ouS0zD6nKtylc/J9nwnAit4hyb+x7P3E1X4EmZFz8UdGlUQaIIHmpvZhZVRKjAL3NTPY9ybpillwW0kYC2C0J6gIO+Xwhj7E7MhS64myCfAC5Axhr2mGnw6zPrTF8LXjLt3j5nwYJ4Jr4oa4Cm/Ag8ywpUHUKseb6Wo+KQ5aSj7gO4lx4ReeWk0M3DlzxckWzitDTZHA6BTQN6RiLkOY4prZSSL0OKbnSbA+uHCW3QOnca13UAs4EEl/LN4Qt0EQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=intel.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5qBnRXo+Kgi2EIoBw3OSAp57VGbxvf+3VYzD3ClRUe0=;
- b=xXERj62Pg6s+K4rEp8gx4dwbrgJhqml8gHxOq32Itv9nPJDfc2e36b0HTsWN1k0TzldkNP94mD8aIl4G3FDR/Pt0iK0tjWYsfHzhYSToAG9NubUffmSIb6EJbH6/A3sgARNXDjGLYhWHbQIt7cPTFFGvDYErB0scYp5HRQrGqe0=
-Received: from PH7PR10CA0013.namprd10.prod.outlook.com (2603:10b6:510:23d::9)
- by DM4PR12MB6254.namprd12.prod.outlook.com (2603:10b6:8:a5::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Wed, 11 Nov
- 2026 22:47:32 +0000
-Received: from SJ5PEPF000001F5.namprd05.prod.outlook.com
- (2603:10b6:510:23d:cafe::91) by PH7PR10CA0013.outlook.office365.com
- (2603:10b6:510:23d::9) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.9 via Frontend Transport; Wed, 11
- Nov 2026 22:47:31 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ5PEPF000001F5.mail.protection.outlook.com (10.167.242.73) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Wed, 11 Nov 2026 22:47:31 +0000
-Received: from bmoger-ubuntu.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 11 Nov
- 2026 16:47:16 -0600
-From: Babu Moger <babu.moger@amd.com>
-To: <tony.luck@intel.com>, <reinette.chatre@intel.com>, <ben.horgan@arm.com>,
-	<Dave.Martin@arm.com>, <james.morse@arm.com>, <bp@alien8.de>
-CC: <babu.moger@amd.com>, <corbet@lwn.net>, <skhan@linuxfoundation.org>,
-	<rdunlap@infradead.org>, <x86@kernel.org>, <fustini@kernel.org>,
-	<tglx@kernel.org>, <mingo@redhat.com>, <dave.hansen@linux.intel.com>,
-	<hpa@zytor.com>, <fenghuay@nvidia.com>, <rppt@kernel.org>, <arnd@arndb.de>,
-	<kmehltretter@gmail.com>, <dapeng1.mi@linux.intel.com>, <elver@google.com>,
-	<enelsonmoore@gmail.com>, <jlayton@kernel.org>, <seanjc@google.com>,
-	<ewanhai-oc@zhaoxin.com>, <binbin.wu@linux.intel.com>, <nikunj@amd.com>,
-	<ashish.kalra@amd.com>, <peterz@infradead.org>, <superm1@kernel.org>,
-	<thomas.lendacky@amd.com>, <prathyushi.nangia@amd.com>,
-	<kim.phillips@amd.com>, <ricardo.neri-calderon@linux.intel.com>,
-	<darwi@linutronix.de>, <linux-doc@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>
-Subject: [PATCH v7 18/19] fs/resctrl: Allow userspace to write kmode_cpus/kmode_cpus_list
-Date: Wed, 11 Nov 2026 16:44:11 -0600
-Message-ID: <f236e7f6d752b59d8871e13e439357221ee2c503.1794437052.git.babu.moger@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1794437052.git.babu.moger@amd.com>
-References: <cover.1794437052.git.babu.moger@amd.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LLuo6V/7
+Received: by mail-dl2-f3.google.com with SMTP id a92af1059eb24-1afb6473195so706581c88.0
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 14:47:46 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794437266; x=1795042066; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=tp4FwDBE4d49Hi9WrTjNIMNYb2nVWF+rLrH6T68Pxk4=;
+        b=LLuo6V/7kIsfNKiTCG734leNRhC9dyI/J8vOcEIJ7nHklg/FevWrQTnrhiRgp0MDf4
+         ljL2KVoCzseQ2GNnAwyATO9XCS4ckFDZ0RbEx6EwB4IWqje5bupXLy1wqgqrYhCyz/Kr
+         kg1K35thVoKr6zz0wLAzm0MA0hTwUGGICCp1EBVVZhvmNbD8gkt1yTckU3hCP9O6GiLE
+         6P0IfwW/i6lEmzLVUTNYvfnqFMSvzMEUKGqa0qIVQQgZJCNjA4xwVkoznQyjVYzcpfBx
+         ocjjzHxI3A2PkgiLRQ3K73ZT/cJVVeaAsrgfw3DCP/+xNXD22ctrZYrh5wLNPJZtq7Yr
+         Hbiw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794437266; x=1795042066;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=tp4FwDBE4d49Hi9WrTjNIMNYb2nVWF+rLrH6T68Pxk4=;
+        b=fxXjQKHS3tGkNPCSMXe62i5tv200F4YxwCz9KKuToGFQJ3xICD5yNsFfC+93CLX2OU
+         wXPGmoHh6HpTEZk9c4hdwZjdJTFIV4K0qKjzm0O25YrkbBMbdgY0MrqUb+Y+XCUM/7ux
+         CXUk0QVKGPdau+4TnLZQWI4k5VFtsNKYtbP5Ke5AG0ybkzMqSrCyPB7wByYPdNuy3LTO
+         Use0aTL+2gmc0kAx/XQ7Be8hERZIMFUwLfU3+c9UiiLvZqDZMDzSOK4zIOjUgNY4HY3Q
+         hibMaT9+wL0rd/HU/BhqpXNxVBVg+KhXaOUYefSc1Z9qGrQbUnb6Ucen90gB5oh64WC2
+         rMnQ==
+X-Forwarded-Encrypted: i=1; AL+hErFmaIir1fn8CxTZlXmBDuHC5eY08VCFNsZzeZceKe6Vr5ykfk0lKk3+Ils14RYMGscQczjxqd9/0N9VHds=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/PMut2LUcubR29XJxDLQ1kyytgsRHJmc5+dUV2rbmHegLmV8w9
+	JahTmkT4GvL42kR4kbrn+tBxTkqUgv5ySZPu6G+2fNfHd+wItQRmPcOv
+X-Gm-Gg: AYBFou20JTiBuDhNndrjH88nfbThf7Tigt6MVG/A19V52HdnA6MwWtb9xnHgAY5mSRL
+	9B3X3ah6VbaWOL/bDjWK7hq5F42TTisNwtzTiNXUnZATompJFHMWmEmHPJw3RbqpOQGdHobuiVx
+	qaAHBspCJOir0DWcjHr7F2RdGUDZ88iWqU1f5WrXSSfble5crpKBEnR5CsPhwpaA1XkVWDgGwI1
+	AiCHRrspDk5a+rVU4fZ3m0zjWu9sCB0opDaC9wBcFVCy7hFJeX+DnTT5ki0LT+qi2+Bt7Rt7n/z
+	VdlHM24prRZYsn4FszdWevuITFrIPOPiHiBFK7IsmpHJv6sovcY2whrEiByrmS2WSE68Y/zWpLY
+	1vcYaXLPIK8Pa/Cl4GsSI1QhO4LidacCETyYTB4oN0Mzzxe1VLlSLKRY46mBq8Fil6CTkaF04PB
+	MhScTNYadSQ7n3ABWKDMk0fKyDoIzDA1bYPe0K+zAhEiOChC+HOeofxpQCdqtVYYXtG9PUbnpKK
+	durysYZZKTVWPrgsd9tZl5AMSdIU++xbY6W0duMzbtsV8cShyUcZ/EPDwT7TSlTAzlbL2vE/k7M
+	2fwnfofY5pTZ+VLewKGMWgU=
+X-Received: by 2002:a05:701b:2610:b0:199:e38c:29a0 with SMTP id a92af1059eb24-1b3c03390c1mr3026458c88.31.1794437265699;
+        Wed, 11 Nov 2026 14:47:45 -0800 (PST)
+Received: from localhost ([2a03:2880:9ff:61::])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5890e04sm19170807c88.2.2026.11.11.14.47.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 14:47:45 -0800 (PST)
+From: Stanislav Fomichev <sdf.kernel@gmail.com>
+X-Google-Original-From: Stanislav Fomichev <sdf@fomichev.me>
+To: netdev@vger.kernel.org
+Cc: davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	michael.chan@broadcom.com,
+	pavan.chebbi@broadcom.com,
+	andrew+netdev@lunn.ch,
+	edumazet@kernel.org,
+	horms@kernel.org,
+	shuah@kernel.org,
+	almasrymina@google.com,
+	sdf@fomichev.me,
+	leitao@debian.org,
+	dtatulea@nvidia.com,
+	asml.silence@gmail.com,
+	bobbyeshleman@meta.com,
+	daniel@iogearbox.net,
+	razor@blackwall.org,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org
+Subject: [PATCH net-next v4 3/5] net: devmem: use niov_shift in net_devmem_get_niov_at()
+Date: Wed, 11 Nov 2026 14:47:38 -0800
+Message-ID: <20261111224740.2744522-4-sdf@fomichev.me>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261111224740.2744522-1-sdf@fomichev.me>
+References: <20261111224740.2744522-1-sdf@fomichev.me>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -118,253 +117,42 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001F5:EE_|DM4PR12MB6254:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9afec300-3e07-448c-490a-08df4045c53f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|36860700016|7416014|82310400026|1800799024|376014|260925022911599003|260925021911599003|260925021311599003|5023799004|11063799006|56012099006|18002099003|22082099003|6133799003|10067099003|13003099007|261009223027099003|261021123027099003|261028144727099003|261102123227099003|261026121527099003|261022105027099003|261026140227099003|261022075727099003|3023799007|261021121427099003;
-X-Microsoft-Antispam-Message-Info:
-	dCzP36Wd48RAGHH4iDEyntU0Nyt6CZr+BFu0KOtv495SgugO4FCsQDPO7VQcyrGFLij570HyHdhcPkpSH6pHMCc0qfjM3UI9mJsmQz37wEd2laWGW5IEjnHKuVtJj3xbqtwyu/ZGzvPwlljnx+Us3jPdIFHIA3C1pi38VIRoDuLpW3OQqxkwKvJcOqZEYZmcqXfJaZYz0uQ71yLGOGPazxrE3ACBJNCT22sOJ76Yow+hDjtg/D0U4RZIuYBqFEzu0yCG5QO/P4SlsVUUJbf52LwsxM5GQhil4Xghjt8NG/cr0Ukq8ezQEwzfY8MUW9QGy0BX6xRxvfGKR6ZoWfHWoraAKh+4ViucYEDHVG4Fk8sbyJYzNl71vddHif2EuMwjs7QR21wASHmtydAtTWVClVVJrhLy5NRJz28FP9C2G6pjLfSBhEWWgwlv+D9eQa4uXNbQnjABnwqyj6fvcKTx3h/UAcRJVJar672oZasQpPqARjvl1PXByObgxjLcjixeJ0k8w2cXYoUSJU8ejnL5yprUdjL0kBlPU9sxZZyewz8phFueRg7t0BQe8rl2iBODqQ7NZCmLqAs4SI2yP3Q1++YWy7jVy1DRfYg/EaU2R4v/Ijhts+vAo0VK0GVUxfvkhXfon3csD9IQrTcnphnmwg==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(7416014)(82310400026)(1800799024)(376014)(260925022911599003)(260925021911599003)(260925021311599003)(5023799004)(11063799006)(56012099006)(18002099003)(22082099003)(6133799003)(10067099003)(13003099007)(261009223027099003)(261021123027099003)(261028144727099003)(261102123227099003)(261026121527099003)(261022105027099003)(261026140227099003)(261022075727099003)(3023799007)(261021121427099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	eQFe6oFvyCRXfGgTPjyf1NIls5hf/FpJXSApwcLU5ojXSj1elSejvtwgIumMNT9BBUeDJO8y0LmR/AMsfOL+lb+q0f3oTNm5+/xOefCJeRQQe81rhMp29XwDgDoZ/hIgnaUjX81J+cf9sb33xC2s38xqf/1WHbZ651dmMUTXGo/mbCjzhzs7gTVDdRcab0x83YDd7ddM4LIHD1k3pl7k1GpFF8GQWC1F4nbnb4FVWNTVZ87nkkfHL0uUpg//El/1B2Z3QVORx+LWD1EHUaDsiVtBL5vGxK1pzicwlmL8aVSKn1+PqVm4cTOiU2i8sxqyE99rWuI5ZBciOvyjA+rRxplCUDgUiCHQnOQV/K4x8JYEIEHzJdsikPAx7oqqmp1BuAxWuFjQj2t4HtI0I3d/IwqoeWDfz9tEHfIx3FEoTDzKt3pAUztP/UYh0Co0lTGe
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 22:47:31.4836
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9afec300-3e07-448c-490a-08df4045c53f
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ5PEPF000001F5.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6254
 
-The global per-CPU kernel mode allows CPUs to use different CLOSID and/or
-RMID associations when transitioning from user mode to kernel mode. The
-mode is enabled on a per-CPU basis, and kmode_cpus and kmode_cpus_list
-expose the CPUs used by active kernel mode.
+TX bindings use PAGE_SIZE net_iovs, and the TX lookup hard-codes it.
+Derive the index and offset from binding->niov_shift instead, so TX
+bindings can use larger net_iovs. No functional change, TX bindings are
+still created with PAGE_SHIFT.
 
-Add write support so userspace can update the CPUs used by the active
-kernel mode.
-
-Document the interface in Documentation/filesystems/resctrl.rst.
-
-Signed-off-by: Babu Moger <babu.moger@amd.com>
+Signed-off-by: Stanislav Fomichev <sdf@fomichev.me>
+Reviewed-by: Mina Almasry <almasrymina@google.com>
+Reviewed-by: Dragos Tatulea <dtatulea@nvidia.com>
 ---
-v7: Changelog update.
-    Last_cmd_status message update to keep the messages consistant.
-    Minor changes to handle resctrl_kmode data structure changes.
+ net/core/devmem.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-v6: Use flattened resctrl_kmode and global_enable_per_cpu.
-    Fix the sashiko reported issue.
-    https://sashiko.dev/#/patchset/cover.1787772750.git.babu.moger%40amd.com?part=15
-    Update the changelog.
-
-v5: Adapt to the resctrl_kcfg caps and active split. Use
-    resctrl_kcfg.active.ctrl_mode and mon_mode in kmode_cpus_write().
-    Use full ctrl=/mon= syntax in the kmode_cpus example.
-
-v4: Empty masks are now allowed and updated masks are in rdtgroup->kmode_cpu_mask.
-    Updated the changelog.
-
-v3: New patch to add "kmode_cpus" and "kmode_cpus_list" to support
-    kernel_modes.
----
- Documentation/filesystems/resctrl.rst |  30 +++++++
- fs/resctrl/rdtgroup.c                 | 114 +++++++++++++++++++++++++-
- 2 files changed, 142 insertions(+), 2 deletions(-)
-
-diff --git a/Documentation/filesystems/resctrl.rst b/Documentation/filesystems/resctrl.rst
-index 1a1877222624..2f0f6f01766f 100644
---- a/Documentation/filesystems/resctrl.rst
-+++ b/Documentation/filesystems/resctrl.rst
-@@ -716,6 +716,36 @@ All groups contain the following files:
- "cpus_list":
- 	Just like "cpus", only using ranges of CPUs instead of bitmasks.
+diff --git a/net/core/devmem.c b/net/core/devmem.c
+index 5c7d9640e9d1..c6868f39261a 100644
+--- a/net/core/devmem.c
++++ b/net/core/devmem.c
+@@ -581,13 +581,15 @@ struct net_iov *
+ net_devmem_get_niov_at(struct net_devmem_dmabuf_binding *binding,
+ 		       size_t virt_addr, size_t *off, size_t *size)
+ {
++	size_t niov_size = 1UL << binding->niov_shift;
++
+ 	if (virt_addr >= binding->dmabuf->size)
+ 		return NULL;
  
-+"kmode_cpus":
-+	Accessible only within the resource group backing the active global
-+	per-CPU kernel mode (see "info/kernel_mode").
-+
-+	Bitmask of the logical CPUs used by resource group backing the kernel
-+	mode. When kernel mode is activated through info/kernel_mode, every
-+	currently online CPU is included. CPUs that come online later are
-+	automatically added to the group.
-+
-+	Writing a mask replaces the CPU mask. The mode is enabled on CPUs
-+	added to the mask and disabled on CPUs removed from it. An empty mask
-+	disables the mode on all currently online CPUs. CPUs that come online
-+	later are still automatically added to the group. The mask must
-+	contain only online CPUs; masks naming offline CPUs are rejected.
-+	Errors are reported in "info/last_cmd_status".
-+	Example::
-+
-+	  # mkdir ctrl1
-+	  # echo "global_enable_per_cpu:ctrl=assign;mon=assign;group=ctrl1//" \
-+	        > info/kernel_mode
-+	  # echo 0-3 > ctrl1/kmode_cpus_list
-+	  # cat ctrl1/kmode_cpus
-+	  f
-+	  # cat ctrl1/kmode_cpus_list
-+	  0-3
-+
-+"kmode_cpus_list":
-+	Just like "kmode_cpus", only using ranges of CPUs instead of bitmasks.
-+	Writable with the same semantics and restrictions as "kmode_cpus".
-+
+-	*off = virt_addr % PAGE_SIZE;
+-	*size = PAGE_SIZE - *off;
++	*off = virt_addr & (niov_size - 1);
++	*size = niov_size - *off;
  
- When control is enabled all CTRL_MON groups will also contain:
- 
-diff --git a/fs/resctrl/rdtgroup.c b/fs/resctrl/rdtgroup.c
-index 86bd6a66812b..0d67e7086e25 100644
---- a/fs/resctrl/rdtgroup.c
-+++ b/fs/resctrl/rdtgroup.c
-@@ -427,6 +427,114 @@ static void resctrl_configure_kmode_global(const struct cpumask *mask,
- 					    enable);
+-	return binding->tx_vec[virt_addr / PAGE_SIZE];
++	return binding->tx_vec[virt_addr >> binding->niov_shift];
  }
  
-+/**
-+ * kmode_cpus_write() - Update @rdtgrp's kmode_cpu_mask from @newmask
-+ * @rdtgrp:	Resctrl group whose kmode_cpu_mask is being updated.
-+ * @newmask:	New CPUs for @rdtgrp's kernel mode association.
-+ * @tmpmask:	Caller-allocated scratch cpumask used to compute the
-+ *		incremental enable/disable deltas.
-+ *
-+ * Enable the kernel mode on CPUs added to the mask and disable it on
-+ * CPUs removed from the mask.
-+ */
-+static void kmode_cpus_write(struct rdtgroup *rdtgrp,
-+			     cpumask_var_t newmask, cpumask_var_t tmpmask)
-+{
-+	/* CPUs dropped from this group: old & ~newmask. */
-+	cpumask_andnot(tmpmask, &rdtgrp->kmode_cpu_mask, newmask);
-+	if (!cpumask_empty(tmpmask))
-+		resctrl_configure_kmode_global(tmpmask, rdtgrp, false);
-+
-+	/* CPUs newly added: newmask & ~old. */
-+	cpumask_andnot(tmpmask, newmask, &rdtgrp->kmode_cpu_mask);
-+	if (!cpumask_empty(tmpmask))
-+		resctrl_configure_kmode_global(tmpmask, rdtgrp, true);
-+
-+	cpumask_copy(&rdtgrp->kmode_cpu_mask, newmask);
-+}
-+
-+/**
-+ * rdtgroup_kmode_cpus_write() - Write kmode_cpus or kmode_cpus_list
-+ * @of: kernfs open file
-+ * @buf: CPU bitmask or list from userspace
-+ * @nbytes: length of @buf
-+ * @off: unused
-+ *
-+ * Update the CPU mask of the group that backs the kernel mode.
-+ *
-+ * Return: @nbytes on success, negative errno on error.
-+ */
-+static ssize_t rdtgroup_kmode_cpus_write(struct kernfs_open_file *of,
-+					 char *buf, size_t nbytes, loff_t off)
-+{
-+	cpumask_var_t tmpmask = CPUMASK_VAR_NULL, newmask = CPUMASK_VAR_NULL;
-+	struct rdtgroup *rdtgrp;
-+	int ret;
-+
-+	rdtgrp = rdtgroup_kn_lock_live(of->kn);
-+	if (!rdtgrp) {
-+		ret = -ENOENT;
-+		goto out_unlock;
-+	}
-+
-+	if (!buf) {
-+		rdt_last_cmd_printf("%s: Invalid input\n",
-+				    is_cpu_list(of) ? "kmode_cpus_list" :
-+						      "kmode_cpus");
-+		ret = -EINVAL;
-+		goto out_unlock;
-+	}
-+
-+	if (!zalloc_cpumask_var(&tmpmask, GFP_KERNEL) ||
-+	    !zalloc_cpumask_var(&newmask, GFP_KERNEL)) {
-+		rdt_last_cmd_printf("%s: Kernel allocation failure\n",
-+				    is_cpu_list(of) ? "kmode_cpus_list" :
-+						      "kmode_cpus");
-+		ret = -ENOMEM;
-+		goto out_free;
-+	}
-+
-+	if (resctrl_kmode.active != RESCTRL_GLOBAL_ENABLE_PER_CPU) {
-+		rdt_last_cmd_puts("No active global per-cpu kernel mode\n");
-+		ret = -EINVAL;
-+		goto out_free;
-+	}
-+
-+	if (resctrl_kmode.rdtgrp != rdtgrp) {
-+		rdt_last_cmd_puts("Group is not backing the global per-cpu kernel mode\n");
-+		ret = -EINVAL;
-+		goto out_free;
-+	}
-+
-+	if (is_cpu_list(of))
-+		ret = cpulist_parse(buf, newmask);
-+	else
-+		ret = cpumask_parse(buf, newmask);
-+
-+	if (ret) {
-+		rdt_last_cmd_puts("Bad CPU list/mask\n");
-+		goto out_free;
-+	}
-+
-+	/* kernel-mode association is only programmed on online CPUs. */
-+	cpumask_andnot(tmpmask, newmask, cpu_online_mask);
-+	if (!cpumask_empty(tmpmask)) {
-+		rdt_last_cmd_puts("Can only assign online CPUs\n");
-+		ret = -EINVAL;
-+		goto out_free;
-+	}
-+
-+	kmode_cpus_write(rdtgrp, newmask, tmpmask);
-+
-+out_free:
-+	free_cpumask_var(tmpmask);
-+	free_cpumask_var(newmask);
-+out_unlock:
-+	rdtgroup_kn_unlock(of->kn);
-+
-+	return ret ?: nbytes;
-+}
-+
- /*
-  * Update the PGR_ASSOC MSR on all cpus in @cpu_mask,
-  *
-@@ -2689,17 +2797,19 @@ static struct rftype res_common_files[] = {
- 	},
- 	{
- 		.name		= "kmode_cpus",
--		.mode		= 0444,
-+		.mode		= 0644,
- 		.hidden		= true,
- 		.kf_ops		= &rdtgroup_kf_single_ops,
-+		.write		= rdtgroup_kmode_cpus_write,
- 		.seq_show	= rdtgroup_kmode_cpus_show,
- 		.fflags		= RFTYPE_BASE,
- 	},
- 	{
- 		.name		= "kmode_cpus_list",
--		.mode		= 0444,
-+		.mode		= 0644,
- 		.hidden		= true,
- 		.kf_ops		= &rdtgroup_kf_single_ops,
-+		.write		= rdtgroup_kmode_cpus_write,
- 		.seq_show	= rdtgroup_kmode_cpus_show,
- 		.flags		= RFTYPE_FLAGS_CPUS_LIST,
- 		.fflags		= RFTYPE_BASE,
+ /*** "Dmabuf devmem memory provider" ***/
 -- 
-2.43.0
+2.53.0-Meta
 
