@@ -1,64 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794434458;
-	b=a7R9QL06beAahuno0hNZcd+EL96Oip4j3dMQUjzSBNKWjUK1a4nf9vPX+Jgu0y4tTsKI
-	 hepEFlp5zpLTi+rRpaDf7zswgEwGgiVnGEb8mJKvx9vfEiynFXzIaqWBbtkCcFG+DamIZ
-	 totfPwURyXt7EEbkPykOFR429U+fVMk2XpjwkTcbf5t3s8C5p62lascpXU9kX6TsPeyP+
-	 fzWcRj4U3Ioz7x/KjxvSIviAZNU/aVzFcD9Fy2kbsTGtGqI9cIemE3jDFgs5QJx9CK/fT
-	 LeRnAOjFJNWBpUIhEDDj7h2fvxWiOjEWVXvts9R9E45S4LFO+qEmiim4BgorNUmKXLg==
+	t=1794434460;
+	b=tV5G+nnxIXJg8fsUUhYxtZRt1a0mb4a7iwxF2elKsmT4KoD+stJoTLrXaSJHXrhD64TU
+	 SzZwpkvDkuy7XqLbiWq3nRxe9FW1Hyb0qQxRssgNYA3hqj91c0kn5fOk8tS7/NcTmxRzL
+	 4dii7G3Vj1rmeOWdq8i6nCVXMrLhSr8Zw3rin2loyECcWMvq4PpulOjiiYdFnoacFkhlR
+	 buUquz8fTBX1j/SI4SxiHs+tXfQTOJTeCrsh1n1v45ANVHbl2Ax21LKMPxQwVDyygZZdz
+	 aLIdrYpkNufaSozktbsVNm6TpYwNfiPz11zxF+35Ne1bqvkKbtcdSNQiP9wnh8GA5JQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794434458;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794434460;
 	h=Received:DKIM-Signature:Received:Subject:From:In-Reply-To:References:
 	 X-PR-Tracked-List-Id:X-PR-Tracked-Message-Id:X-PR-Tracked-Remote:
 	 X-PR-Tracked-Commit-Id:X-PR-Merge-Tree:X-PR-Merge-Refname:
 	 X-PR-Merge-Commit-Id:Message-Id:Date:To:Cc;
-	bh=Tq/ip9Zm2MQbR2BQIY9HvE2MPoq/Q+vmfjbAPwav2zY=;
-	b=sPDZoVQdcfZ8b1CyVmTeNXgeicpxohHZKocP+ic8oMHgdfZbVl+3iboM7NCFX0OMBosT
-	 5Rese5UsfCNTa0oZVAT5rU2dNF6CuhDVDfOqKsW40ABU9Y37mXX1PV4yG7ZxzlhXggKt8
-	 cIjbtFMVhLwhO2mMaLTPoxi+ln9EtM8VpDEw2eaDlhe2sqd6y6xsPEuFwVKo+9oj7M32I
-	 L9fKm5otLz7wsdXu3icPDm1H5KIHLsk0lae3Kf0MN0nWZbqGzI2PTxLW8x6X3MQseQjYS
-	 BztUCaJUFlazwbwEqH+Ty83j16SZcajjcJAG1o9LOVEyXulRkJBWlAKhX2VlWy2mEzw==
+	bh=8XAiWXGUUjdOqLPEz8B5qkEY7IIzdgIv8dHSwzYxyw4=;
+	b=KEsSnx1Wx5gqmaOXJzdQmE8KBQYvrc9qj/Qog4SPMlzt0MqC/iybofM4f4x9hEnx/Blo
+	 jijK2gDYNLpciZZdBK/LQzBug8A+Zdq/JPyZvqqDfR9yRvVEF/t2VszAtcq5s/o3SVfda
+	 LEVkSrMXSXClhY5xKt6rnkYxfbhKHM4inOS+TLTQdJfdKzDmgCo787fayr+tvMw9/aGmL
+	 GIWbeZhYVa/Wo+3DQryRnZsyoJquZyBdD43o3os4t5vGLFiEvEqJqYsSOejyWjNTH7Yhb
+	 Rr6rLa5fPWxvcTuYpXjKDMeYjYZG4ll4pJvaWXoQQbZgFBVtM2dgGQMo7QR36WTSOAQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hf70Z85Y;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jNxG+lRk;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87D89606A33D;
-	Wed, 11 Nov 2026 22:00:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14FCA606A890;
+	Wed, 11 Nov 2026 22:01:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hf70Z85Y
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 652C41F00A06;
-	Wed, 11 Nov 2026 22:00:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jNxG+lRk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E34481F00A06;
+	Wed, 11 Nov 2026 22:00:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794434458;
-	bh=Tq/ip9Zm2MQbR2BQIY9HvE2MPoq/Q+vmfjbAPwav2zY=;
+	s=k20260515; t=1794434459;
+	bh=8XAiWXGUUjdOqLPEz8B5qkEY7IIzdgIv8dHSwzYxyw4=;
 	h=Subject:From:In-Reply-To:References:Date:To:Cc;
-	b=hf70Z85YdjocoAvwEL5+cFn8jRBDY7y/EODlmZgktijLlQMz1fwwneAFK5tTjDWEi
-	 Qnnl78rqlNlNv/oTQF7YzGWIaaYnRzusYfUKSU6SKBne/iv9HCfVnHH6o66tGT1+Ek
-	 0rvJldkAjfSVuPGeL0vnkGJl8xwdTi7d2kGMhxPLPZubjd1+Y/d/0WwCMPN4mRyN12
-	 RNOGPqi/WrcWkZ1IIiOtm9s+XH/CmZHnVU2gCPed6OyBCGoH7sjgFEaOKOBtXLwflE
-	 slUugProhHHKXra2VsEU9LkNt8rmCToim5kzq9DqVSyiSlmksBExl+a6zZIHkBXVJ7
-	 yYO3IZwZxOujA==
+	b=jNxG+lRky6MZZKND/V9WnPkb0TuJ4I8992hsoRue94RW99Am4JlkMaV6gz0UCBptS
+	 JbqTwi7JZbD9x6IquJjLI2ceFzJe2kAFLtcr6EYMbAUq5q7xl3+aeDgP5QIqsGJ7RX
+	 uk8WTOIp/OKIwDwMB76CTYJqadwe0WRG0DPvzxDEvfpClLbNGoeb9ThVNlQ+4npPgv
+	 Tm34a7MDOGTbN2n4u1OUwjY2I7lwgLdUBC0ZDWU9PdiFg03aIldipdaJglyQMbom4t
+	 Zvgc/riziUwLZtV2UYGki5VP9eOtMpL9jr9Z6Pj/7ZzbqIKRaxgwYl44rDFHMqjb/J
+	 76Ph6zV42zGjA==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 5A7B3391AFAE;
-	Wed, 11 Nov 2026 22:00:58 +0000 (UTC)
-Subject: Re: [GIT PULL] Crypto Fixes for 7.4
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D8305391AFAA;
+	Wed, 11 Nov 2026 22:00:59 +0000 (UTC)
+Subject: Re: [GIT PULL] LoongArch fixes for v7.4-rc3
 From: pr-tracker-bot@kernel.org
-In-Reply-To: <avRMpKP0ZQhAyqu7@gondor.apana.org.au>
-References: <avRMpKP0ZQhAyqu7@gondor.apana.org.au>
+In-Reply-To: <20261111140535.3899978-1-chenhuacai@loongson.cn>
+References: <20261111140535.3899978-1-chenhuacai@loongson.cn>
 X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
-X-PR-Tracked-Message-Id: <avRMpKP0ZQhAyqu7@gondor.apana.org.au>
-X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/herbert/crypto-2.6 tags/v7.4-p2
-X-PR-Tracked-Commit-Id: 26ca5f34841f0a86d0883664a1c13be89a01d351
+X-PR-Tracked-Message-Id: <20261111140535.3899978-1-chenhuacai@loongson.cn>
+X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/chenhuacai/linux-loongson.git tags/loongarch-fixes-7.4-1
+X-PR-Tracked-Commit-Id: 422e532809572ba1043192bf6a0c653bc68b3140
 X-PR-Merge-Tree: torvalds/linux.git
 X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: 0eaee8fc9305b4ae8e75e68c30e7e93b6b367234
-Message-Id: <179443445699.1663589.12074273684430387636.pr-tracker-bot@kernel.org>
-Date: Wed, 11 Nov 2026 22:00:56 +0000
-To: Herbert Xu <herbert@gondor.apana.org.au>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, "David S. Miller" <davem@davemloft.net>, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, Linux Crypto Mailing List <linux-crypto@vger.kernel.org>
+X-PR-Merge-Commit-Id: 79eb6679ef6a0d5ea68da53a8321fb1dc72299b9
+Message-Id: <179443445882.1663589.5239313471674239048.pr-tracker-bot@kernel.org>
+Date: Wed, 11 Nov 2026 22:00:58 +0000
+To: Huacai Chen <chenhuacai@loongson.cn>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, Huacai Chen <chenhuacai@kernel.org>, loongarch@lists.linux.dev, linux-kernel@vger.kernel.org, Guo Ren <guoren@kernel.org>, Xuerui Wang <kernel@xen0n.name>, Jiaxun Yang <jiaxun.yang@flygoat.com>, Huacai Chen <chenhuacai@loongson.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,12 +68,12 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 
-The pull request you sent on Wed, 11 Nov 2026 19:08:20 +0800:
+The pull request you sent on Wed, 11 Nov 2026 22:05:34 +0800:
 
-> git://git.kernel.org/pub/scm/linux/kernel/git/herbert/crypto-2.6 tags/v7.4-p2
+> git://git.kernel.org/pub/scm/linux/kernel/git/chenhuacai/linux-loongson.git tags/loongarch-fixes-7.4-1
 
 has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/0eaee8fc9305b4ae8e75e68c30e7e93b6b367234
+https://git.kernel.org/torvalds/c/79eb6679ef6a0d5ea68da53a8321fb1dc72299b9
 
 Thank you!
 
