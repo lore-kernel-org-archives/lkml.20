@@ -1,125 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794383551;
-	b=QRmBI9uAHCoHpQvGG63i6C27vAa4CXvKqVlLKT16uRbmDkcnCJbKKcMAgbPhPkznLOJW
-	 Ar9TMAXw4LZehyvtQLNvyqBB70ffS6LZEPXXO0s6rbSiSQHD/GkoYp7aeBfnzoxbOcBP/
-	 C4DdsdF/1szKteB6/v4mtHKfgVv/VPCjBwYybyb8p06MiTcDMbhN8naMrZy3381U2i54t
-	 Clo6HqC42jiQrlwt7lHfSO/s/7w3UJ1J9Sna+FmJYlU1u5Cp4/a2wFg9T2l07LBu6tnyP
-	 4pOv3TWoO/XQRwz8DGuRsijE3yRGs0BsQ1G/JEIVlk99kZDCvry2uL8EolUUFPql5Gw==
+	t=1794383571;
+	b=StffP3iqYVzNrue1rrr+LJhFyWnPn5nBCbzA7/miibw1mTY0DWkDyMSMt3KJNwnCQSSR
+	 wAYgu3L9cXiJ07L6xDlbh4GLE3pJNwbV18fNr4Txg7tFYVyBoXY9FvSBdBrh9iLpcP4Q0
+	 Q8+H09VNLWlDrbQyhM8n6/10Rj8E0wHFpJKLo+MSzCRT4SS1NfnpbbGaDUv5W48QNcfJB
+	 iUpDCnwn3KmtdWIg5TIzqFDvzyyGpV/ScSWD8uoYLSZymGzS4rQNoZw+tPvdWHvYDS4WJ
+	 doehEHYHEyKm4CspsfuMNAG0QzpjRms0vZtjlvbQtW247RJVIFe6gXuSOq4YuUIpPBw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794383551;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=H1FTmvvuzLSB0xhxVui9xLIa/5Rt4Meo03vMKHS6kVE=;
-	b=q2H+ZDfrTMDYqn2qMT6MscALoYRb0alB7XNo+SoOrjDP/PdOe8w4+VAf9a24frZSeaEj
-	 69lwy81BDO0WBgCKHjhQaJlN6EZ5XflnishMGgcKSBpNWQ/K89HLgrqAkMzSjkEMS7Eyt
-	 288/DUeZbEj5UExW+c854SsPomx4ZCE9kc4Ghr2G87bb7OMHe6K40iKIzo25bGvRKzVXN
-	 NeBlxBTA0Y76XbMSTztW3kxWz56AXnC/DHVY+aokmDG7t7m8dN40eu/8Qe7o31wjbPcF3
-	 DnMC4evLchN383UoWWC/ENBozPK+ZocPsP9hz/rbGhuwAps5sYhz20TnHTVb7Ni+3Pg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794383571;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:User-Agent;
+	bh=59sgXJgrAjzlF6lUUIt9hHd7ZlSVCeSH79v3f3zBjaU=;
+	b=NykUyBzDtFYd73r9qPpthKbPHymT0yLMyX0x2WZxVRZDWSzduXBthgG3LcYeu7FMN2Qa
+	 /v6xv2+ewvoi9T5wO19pOD/AzV74BH0vDlFE5cfFk4zaxPe4giSPkHlv49bv6tEmmjSII
+	 3j2eSK1VkikRY87ppFj1h28Ln0A8qyL5K8reEySvf8rKubjCRoIY3wEm7RFVY1uESJfuD
+	 QmeEuc+1P/T0iDS3oXsQaUVUlZLHwhhGTgbLDUNuYvqKT+cUXWf8SD/kRaKUiT9UDrmDK
+	 WsgPBNy28TjnBEWN0qAkQ3TcJq2G3vChwRDj/olGx/fRkjlI3hrjOnP9FNGCQwTLfsQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=MxDw1JwY;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=gV4BTd2z;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=chrisdown.name;
+	spf=pass smtp.mailfrom=chrisdown.name;
+	dkim=pass header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=rg0AnoZk;
+	arc=none smtp.remote-ip=209.85.214.172
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3197660A262D
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 07:52:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3197660A262D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57F7B606A321
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 07:52:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 57F7B606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=chrisdown.name
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chrisdown.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=MxDw1JwY;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=gV4BTd2z
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AB5LB5I1052930
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 07:52:30 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=H1FTmvvuzLS
-	B0xhxVui9xLIa/5Rt4Meo03vMKHS6kVE=; b=MxDw1JwYm675bIC7xzYAztv9GJi
-	g7nkdsaRe0y/7w5AW5CoKQCvV9vUH9LOWO8hjuwgeq9FiTIKox/uckH8Q9SRyaw0
-	3azXe9LuExqooW6lH4h2rmL9F9IEUwXaLoOh0R4KuNYLWl/EZRsfqa755DNTncJ9
-	jhojylvx+2lIJeNspc5vKbBEcWyUkqZMtT32OD8AqVDoDntuIWs8957jf0XWV9Dy
-	DlHS2L2cy5esbNsCjuhUqWmurLzHRKTnuCzGbJMwxUww5pY/fU9/rzhWPIjv4QOM
-	nf4oGB6e9DIHeddqYPkYUOwmSnL7CENRbZayqdNBhi2JLpGigXm4mI1rf2w==
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvdrh1fhy-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 07:52:30 +0000 (GMT)
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-30c0d568830so6354376eec.1
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 23:52:30 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=rg0AnoZk
+Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2eb0f1b592bso11220915ad.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 23:52:51 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794383549; x=1794988349; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=H1FTmvvuzLSB0xhxVui9xLIa/5Rt4Meo03vMKHS6kVE=;
-        b=gV4BTd2zUV3gALOVSBe0GseCRCGwIxcvQpWb+F28bMZTaBJE1JEYTBftDuXldXYofj
-         nPzPgpdqJ50F9w1x4JatPqPybTGTSGMSLiaFGt7k+DuXAtwvHeB3XEtwQp4N6nEqIA4C
-         dqTGMLZENgvxyTkX7QTcrFyagVNTHkn7U707dcy0UPAOs3pyTWE5TO87XTatp/Z9lCoj
-         B03p9EfBN7oHphzyWBGQKpkzz90eliEM7+srKAGhkbrUoe/f5Rx+wdGD7GTAOZreL0PN
-         2YQVwkyP1J6CkzG3K5Qwx+JtzRfS9yI17i269CDipLzwWXcQMhxOs96HV6B12QnUQT67
-         AqGQ==
+        d=chrisdown.name; s=google; t=1794383571; x=1794988371; darn=vger.kernel.org;
+        h=user-agent:content-disposition:content-type:mime-version:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=59sgXJgrAjzlF6lUUIt9hHd7ZlSVCeSH79v3f3zBjaU=;
+        b=rg0AnoZkPwtV1r39FwY0fYtx+B96qCAj4XVMip88C/9myzm80RBPFU2IAquryZOpEw
+         HdyksEXUIKYlStPIHQFe+XswkRSfDVjCV+PuDM5mPVvVsB5Zhzq12JVethAv4uT7qDLh
+         gLXECA+eszlPSiHp3RlqZOoUtxhu/9gEEG7ag=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794383549; x=1794988349;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=H1FTmvvuzLSB0xhxVui9xLIa/5Rt4Meo03vMKHS6kVE=;
-        b=zWY5bbLgL47CjQzYmK+bA5Qe4X2YmbkPoTGQ6kfRJpDyMv5bMiGvqlcEIPnOOmPPlw
-         7PgMkWY/eAkKF99pxwM6MtULQdXUZ6yK4Plk9sR41zDfVxZB30mqDBGsfvmdN0X4DI2v
-         FqBtRZxct89Li02NpcyDmDwNdugwsLTO1PpF1H/1tLJx4R7yV8Pt/vrVl4ACnQpkRwtr
-         ZSTp2id1ynnWQQ7+Mb8UYusYqwpjbjaZTp9EsP0u8Bs/aNetauXXerE/1EK3pize4/+k
-         VQLVy+XiWn2d8NohIInN3Vbci7t3qGj7NW4jETmFO95LLpMHUg9GRXDICAcL/v3Rqgo1
-         +2NQ==
-X-Forwarded-Encrypted: i=1; AL+hErGG7Ui9Ty09G/5wMbGp9C1St6bnzW6dkRgas/6tbJcWvCKlhdC1pjFdmLOqCO8pVHZjEWqVaGLSTFZTsfA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/QfjCb3o+tSXr2GMgnDXWkYTLHSXYgQYuncYT0soWvR61A0rX8
-	NDSRnbXjoushp4hdQc4+P4qjDoor4ztBA++ruq/GFTjlROiwDkUGd2hNsYUTo1GRuI6WyXhaIq5
-	U8D+UITdzxcQC9r2gdu6SXBYAvZsvvZje03VNhj55J+GYY5gFXumS70mSRL3NTDE6lb0=
-X-Gm-Gg: AYBFou13i1PyIgpcbqtbmHV4DDH43sU1BiESjr54W3ko6gJRRnETFWoPi0tShYmx8Mp
-	K8GKjbLP1J0E3ojFTIqQOWSMh1FZmWH/1P3A09kR+URiQRncz14Iwzlp36ZNX+M90NUInCvmR7Q
-	yK4vED70GO7G56coMExG+wyEN2NeuTvTy+Nu5+P/MVKuYA/kegai3O7mnmR5xHihxjygysIfYlm
-	2FpLVWhXTF/P3TEOxiAPZldSM8g7mj9Z10J0CnjD2I41aue97Gsjc2dqeypE4CAazukx77kArE9
-	vMs69bVc+U0gg/2uoKmRQXglmVZ2oNxWjhpmzYJCgruJ9GMZ7KRn1gijxVIcPCuJxG7bi+ONL2X
-	N1bgTrPB7B8kiU17VFKsy61vAfRQj2x4x+pnciN2+amnV19T34Anp2z3IJXJkkn9bvRyd6iTJ4u
-	Laa/H3hWio6YUtn9xdGt7zDvVPCpq1jzJ+
-X-Received: by 2002:a05:693c:88c5:20b0:369:daea:812a with SMTP id 5a478bee46e88-3768694df2fmr2222271eec.30.1794383548969;
-        Tue, 10 Nov 2026 23:52:28 -0800 (PST)
-X-Received: by 2002:a05:693c:88c5:20b0:369:daea:812a with SMTP id 5a478bee46e88-3768694df2fmr2222243eec.30.1794383548209;
-        Tue, 10 Nov 2026 23:52:28 -0800 (PST)
-Received: from QCOM-aGQu4IUr3Y.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-377531d3287sm187032eec.0.2026.11.10.23.52.24
+        d=1e100.net; s=20260707; t=1794383571; x=1794988371;
+        h=user-agent:content-disposition:content-type:mime-version:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=59sgXJgrAjzlF6lUUIt9hHd7ZlSVCeSH79v3f3zBjaU=;
+        b=bgqJ9k/RAL/VCLGOxpXzRYEy+M6lTiKVnkF2OiDh6zFXmxLNgxEgVUxsz2L9n/pI6Y
+         JRyrb1PkiDqGARwrKXBjJuhf1UUxd1Nj5WLCzlonqwo4fmCgId0OKcdXHI2TUjS1dtx5
+         yjYQGH1VngrQ0Z4WZm1G9QSSq8Bw0FpMVqZ+Qx5RULrFIQYtmeioY6ciE/98ys3MwuLn
+         L76Sk1XEIFYd6v0GGNMMjEnExAFHAzIqnNo2lt+frLgoHKMutLE6vRN3jGYl6r/v4uDP
+         CTllH2FYaLN5BbSse55JA1GATuc26WIDq/QKVzF8K6hWBpXknPrIJ0Mr+Qjya1KFlZbw
+         kBAg==
+X-Forwarded-Encrypted: i=1; AL+hErHnjb1z6P55nJyTQE8B93fIoEHwarIrGE1VWQN6CNe/7Fn+FTwSgBgTmrCdBmQ5kYW14Ell91M9z7U/1k4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/SuWnXTQbejgmGwF//NzfF0GryG9ZVPjQ6zriZq/2tqryQ2yOj
+	Z8iYusnKLEn7U4a0+G17djLR6mZqlt2y0C2ONPcqbVQWh7+aurokKrGyukKrunB3Nf4=
+X-Gm-Gg: AYBFou0q3CqW+1cTAU71LXiNMyv/Sylvro/t80m6NlWAYDHyipfczQdfvyrdW97aX09
+	X9jIUMWPlqhkvRZIdWZaWLPwLIVhuUxOHVlAB/bux16HrBOcPZcOwSQ6egb1geOB4DRZgcuF09W
+	kSvMaB6osgUjFk4ojTL9J9qm0fW8Qww7vWaf7Dbr05zRocHN04ZkotwLWEAKsp9uGga0yPjmIfZ
+	wZoiSeBafBqNMYwvjSm76WZ2+3bBAixs/L1y4iHebNhOrWv1xPmBPy7yAtEVDcrvtCctPM8BTf4
+	kVbp99YbjKmL8Zp1OGgC+S0iDHV5JCZL2S//97/7sJ8GMYBlWtPu7CNph9P+riqbsht0NrvCl/D
+	4tBscsLMJn19gMXYBh1Mn2pRMTD5UF0lCtbooHDsIPVeQcOMbax9m4GVJGOr6W9Zhw9w6bXBrWo
+	XWKA79P7vUvlO1g0Qd7Tjg+C9GtYvtbIEaZtNAd5lYfxCpKPJYNJ7zPtHLGfgwkaN4QjBdMThcv
+	U1xq0GQC+HM7lMk80XFyvMtIDmTeJeIiJwIQE2wj2HSO/1Zpgnw1OR0VZuo0JUVi+PQGA3ON1GF
+	0DtZ4Z6oSg/h1yF4TjWAIeEScmysYOTcgfhNmxjkPBdHiqSoeN2zJAc1pBb7M/aFlzT5ku4VKde
+	Hzg/EVejmd6ZyOQ9bQkLygMaG+IoDW4l3CN21/vsBfRU5CyfovBSm2CQc84YBi1KNsIb+EB9/MG
+	Fu9ZsmBFFWpNdIwNHwUNFC8By+cICoNNBwFIWz5YweAfXheBIWXl/k
+X-Received: by 2002:a17:902:ce83:b0:2ed:205e:eac3 with SMTP id d9443c01a7336-2edd7673ee3mr20690885ad.12.1794383570630;
+        Tue, 10 Nov 2026 23:52:50 -0800 (PST)
+Received: from localhost ([199.201.64.8])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2edb6e0d5c0sm17541865ad.71.2026.11.10.23.52.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 23:52:27 -0800 (PST)
-From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>,
-        Yu Zhang <yu.zhang@oss.qualcomm.com>,
-        Shuai Zhang <shuai.zhang@oss.qualcomm.com>, devicetree@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Abel Vesa <abel.vesa@oss.qualcomm.com>,
-        Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Subject: [PATCH v5 7/7] arm64: dts: qcom: nord-rrd: Add WCN7850 Bluetooth support
-Date: Wed, 11 Nov 2026 15:51:41 +0800
-Message-ID: <20261111075141.3710366-8-shengchao.guo@oss.qualcomm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261111075141.3710366-1-shengchao.guo@oss.qualcomm.com>
-References: <20261111075141.3710366-1-shengchao.guo@oss.qualcomm.com>
+        Tue, 10 Nov 2026 23:52:50 -0800 (PST)
+Date: Tue, 10 Nov 2026 23:52:46 -0800
+From: Chris Down <chris@chrisdown.name>
+To: Pasha Tatashin <pasha.tatashin@soleen.com>,
+	Mike Rapoport <rppt@kernel.org>,
+	Pratyush Yadav <pratyush@kernel.org>
+Cc: Alexander Graf <graf@amazon.com>, Baoquan He <baoquan.he@linux.dev>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>, kexec@lists.infradead.org,
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org,
+	kernel-team@meta.com
+Subject: [PATCH 0/9] kho, liveupdate: KHO/LUO observability
+Message-ID: <cover.1794383544.git.chris@chrisdown.name>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -129,92 +99,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDAzMSBTYWx0ZWRfX27bvU7AaBuy/
- 3i79gCR7WjHQ/zCy6P33j/If/SAd9Eid7PL3lSc4UzZpUn/p+8NmfDDvDTDhPpoUv+TC6U0QbIY
- 2xpuNTkTg4mPOWlBdqqSDjR8AktNEJE=
-X-Authority-Analysis: v=2.4 cv=PoQG/AM3 c=1 sm=1 tr=0 ts=6af41ebe cx=c_pps
- a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=EUspDBNiAAAA:8
- a=grFeI82b2oVWyHTUkKAA:9 a=bBxd6f-gb0O0v-kibOvt:22
-X-Proofpoint-GUID: EnAwBGtL61oyciioNScMhD3pkBR8s5n6
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDAzMSBTYWx0ZWRfX6aTU6mW+bpRB
- vTwfhsT6pE1L/1ZUgMYrfTvJLkX64OF97tGsyze4dcoxhEFcf0mlNqhBS8qwaerLrZ9wW3OpeaM
- XHxkDtuqIpTnox4DQZQW1l0z5TLH/aBtM58Ij2srt7co9iEhdE8VxFneNYvBcmUN4tMoQQrciee
- PENvvGrOf6bzilDReXAuu2yowpxcGAlSwTp8QQ619MBuWdEwxJSBwxOS7lUyJtCkXy/sdRYllpH
- zxAPmLwPoldV8PYouE4qOU9lujFH633SQFVa292TEOFqVIGLeNyM5wvje/IJB7YKoghI1B4c90M
- uOCYWLAo0fkWjoZVC9NvC4LmgnBMC8MVHvRmg5Y/7A2PKHL5u4JDKwqwiSjo0yVziFPQG0k53f7
- pT9AQ54QeiBdKFIScoVqWeu2uYQmackVb9ih0LMtnkA1iR/1Duh8eZWVn+8wsjmuBkvlADCreH7
- koBXESzV7OZ01FloX5w==
-X-Proofpoint-ORIG-GUID: EnAwBGtL61oyciioNScMhD3pkBR8s5n6
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-11_02,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 suspectscore=0 clxscore=1015 priorityscore=1501
- malwarescore=0 bulkscore=0 adultscore=0 impostorscore=0 spamscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611110031
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+User-Agent: Mutt/2.3.3 (9073d26d) (2026-06-12)
 
-From: Shuai Zhang <shuai.zhang@oss.qualcomm.com>
+At Meta, we are moving towards using live update on hypervisors whose
+VMs can't be migrated away first. We also want to preserve service fd
+stores across systemctl kexec.
 
-Enable Bluetooth for the WCN7850 module on the Nord RRD: route the
-BT UART (uart17) as serial1, add the bt-enable GPIO (pmau0102_e GPIO9)
-to the WCN7850 PMU and describe the bluetooth node with its supplies.
+Our kernel rollout is driven by health checks from each host. For
+example, an increase in rejected handovers or retrieval failures may be
+a reason to stop a rollout, and the bootmem size and sequence number
+help us understand what is happening on which hosts. The series exposes:
 
-Signed-off-by: Shuai Zhang <shuai.zhang@oss.qualcomm.com>
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/nord-rrd.dts | 19 +++++++++++++++++++
- 1 file changed, 19 insertions(+)
+- how much memory KHO set aside
+- whether the new kernel accepted the incoming handover
+- whether LUO could give back the state that userspace handed over
 
-diff --git a/arch/arm64/boot/dts/qcom/nord-rrd.dts b/arch/arm64/boot/dts/qcom/nord-rrd.dts
-index b23c1a81a376..827d3ba3a238 100644
---- a/arch/arm64/boot/dts/qcom/nord-rrd.dts
-+++ b/arch/arm64/boot/dts/qcom/nord-rrd.dts
-@@ -18,6 +18,7 @@ / {
- 
- 	aliases {
- 		serial0 = &uart15;
-+		serial1 = &uart17;
- 	};
- 
- 	chosen {
-@@ -102,6 +103,7 @@ vreg_wcn_core_vh_1p95: regulator-wcn-core-vh-1p95 {
- 	wcn7850-pmu {
- 		compatible = "qcom,wcn7850-pmu";
- 
-+		bt-enable-gpios = <&pmau0102_e_gpios 9 GPIO_ACTIVE_HIGH>;
- 		wlan-enable-gpios = <&pmau0102_e_gpios 10 GPIO_ACTIVE_HIGH>;
- 
- 		vdd-supply = <&vreg_wcn_3p3>;
-@@ -602,6 +604,23 @@ &uart15 {
- 	status = "okay";
- };
- 
-+&uart17 {
-+	status = "okay";
-+
-+	bluetooth {
-+		compatible = "qcom,wcn7850-bt";
-+		max-speed = <3200000>;
-+
-+		vddaon-supply = <&vreg_pmu_aon_0p59>;
-+		vddwlcx-supply = <&vreg_pmu_wlcx_0p8>;
-+		vddwlmx-supply = <&vreg_pmu_wlmx_0p85>;
-+		vddrfacmn-supply = <&vreg_pmu_rfa_cmn>;
-+		vddrfa0p8-supply = <&vreg_pmu_rfa_0p8>;
-+		vddrfa1p2-supply = <&vreg_pmu_rfa_1p2>;
-+		vddrfa1p8-supply = <&vreg_pmu_rfa_1p8>;
-+	};
-+};
-+
- &ufs_mem_hc {
- 	reset-gpios = <&tlmm 181 GPIO_ACTIVE_LOW>;
- 
+We expose these in sysfs so the collector can read them without opening
+/dev/liveupdate, which starts deserialisation, or depending on debugfs
+or the kernel log.
+
+I also noticed that the incoming kexec metadata page stays reserved
+after boot, so free it once its contents have been copied.
+
+Chris Down (9):
+  kho: Reclaim the metadata page left reserved after kexec
+  kho: Make bootmem reservations visible to fleet monitoring
+  liveupdate: Make failed retrieves distinguishable from dropped files
+  selftests/liveupdate: Catch incorrect file accounting across kexec
+  selftests/kho: Catch missing or zero bootmem reports before kexec
+  kho: Expose rejected handovers that look like cold boots
+  kho: Report how much handover memory is preserved and restored
+  liveupdate: Expose the sequence number for consecutive live updates
+  selftests/liveupdate: Check handover revival, sequence and memory
+    stats
+
+ .../ABI/testing/sysfs-class-misc-liveupdate   |  56 ++++
+ .../ABI/testing/sysfs-kernel-kexec-kdump      |  30 ++
+ Documentation/admin-guide/mm/kho.rst          |  19 +-
+ Documentation/userspace-api/liveupdate.rst    |   8 +
+ MAINTAINERS                                   |   1 +
+ include/linux/kexec_handover.h                |   3 +
+ kernel/kexec_core.c                           |  26 +-
+ kernel/liveupdate/kexec_handover.c            |  82 +++++-
+ kernel/liveupdate/luo_core.c                  |  58 ++++
+ kernel/liveupdate/luo_file.c                  |  16 +-
+ kernel/liveupdate/luo_internal.h              |  34 +++
+ kernel/liveupdate/luo_session.c               |   6 +
+ tools/testing/selftests/kho/init.c            |  24 ++
+ tools/testing/selftests/kho/vmtest.sh         |   1 +
+ tools/testing/selftests/liveupdate/Makefile   |   1 +
+ tools/testing/selftests/liveupdate/init.c     |   5 +
+ .../selftests/liveupdate/luo_handover_stats.c | 258 ++++++++++++++++++
+ .../selftests/liveupdate/run-vmtests.sh       |   1 +
+ tools/testing/selftests/liveupdate/vmtest.sh  |   2 +
+ 19 files changed, 624 insertions(+), 7 deletions(-)
+ create mode 100644 Documentation/ABI/testing/sysfs-class-misc-liveupdate
+ create mode 100644 tools/testing/selftests/liveupdate/luo_handover_stats.c
+
+
+base-commit: a0dc8eddbfdb6dd9c5c2b70eb66ab49cb1978425
 -- 
-2.43.0
+2.54.0
 
