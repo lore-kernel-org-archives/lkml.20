@@ -1,102 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.54
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794393865;
-	b=LKqXRlvEbkyybSJDb4fKtcOOeA2vxgzabGWZkLMM6TsROkMv2PxxG8iVB6wZIfnrs89x
-	 iVwYyx0yo3XXamL7Syx8YHMaTKrK00brMUE8uutEBrnTsi0+qsGpVvgfuRssFRzdpBZGM
-	 lp49lRawOMhOheZ9e0iUz3EL70BQWx3XRubmjZjm3DsPRrCcHHUwEJLyyKj632YhW4ry6
-	 Tnmp1Y2wQBSvIKuZ/t1AaJsFXQEXdnOIRiCEKAoLalilp+6F9r/qw8iyi5fLAtqI8Rz89
-	 KVEP/QPbV//K4KET4T9ws5/klej1Hh3IvPvz6g3k/BTQN3Tj3ziqdZlDQVnlrfUZV1A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794393865;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=XDltiKjGMBTBW0kCAum/jL7npP4ychg3vu8xCXEIE5Y=;
-	b=OMk6xUzc26H5kE3J5rhtgfuWsVU+5qg14Hsd2YMxiYrH+H4mqgtI+NTzgjAKulUNqZNf
-	 VZjOkAuIBckHHslqiW9fXI+LY2+gfMoAFgGRT1hWzBbAeToawkLYYKMcFQtPjlFfZdgRK
-	 hSb5UZhrv8kRltiamTvTqGcWN54MrIbFGuxFjWZZ5KuM8z2UAHjcMdafWgFVYDMVJeX+x
-	 ti92gAASxQZSKim77lnt6FoKz/GRxD/9Tk4kg6kyhMo16dFj5rJTanUoWcfXqnSiMnO79
-	 hFcy76gcK4b+PZtTfB6iL2E1wSEiF/KjSYpBG8+VElPZdPgb+wVj00DrdvUH+uMx24A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Fs8YFliw;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.54
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=180.181.231.80
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794393896;
+	b=XrF9lzznfVCKPMqX47zbYIb+a/OThEHGLKsFKHwlsipvtpf0ib7HAwdZzHJM8zjsjmOT
+	 T6IIhZDMKRYpLnova5FfXSGc+6vht2d5YTiXvyM0UIKA6SwWPX6+3AOpQ63/dAXjsH7uE
+	 nDm6egqME2J4QLfUQB5TyVXBJWvOIWO7l5JpisZ6I+HL3iC111gRpg2ngFK2VXGn2J3aA
+	 go1qFt6bwvy7Q1KF/JXg8ZUKu7FGWmnL93zPhLHl0NBE7c36if/yiC3YTTkOnSNrtTJyv
+	 qDmfiZQtpRtV/xGq+WLgX6IBxv6f4Jx1184XU6s0Bf+TJlcNLR6+cK4GMmyhOOyHX5w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794393896;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=QXEhi4g+1QbPElhmNqyuHB6NGR5M3lkugk5YWNvi+aM=;
+	b=htHgf5as9f8LVXKCP9//yysTQWFJ9GhppRCkL2x3q53KNqNKMOMT93MtCrFzulAYm5/E
+	 I2+dqJHYd9Mmz5QYqvwWiviVj4n9KmjFkY5GV6UNfqRR9mtXZvmV+S1/0D4iRSpOgoLEz
+	 9WkKoEXFndEn0WElMWw2kh195C567Prkpdwoc60jHIJngN3krjiLHCy12QNiUREfsESAF
+	 ehabSrneUIHDhmwYAY1eL6EuN2IyzngdohHFkSMA8FPIxwx8bc5a5ocj9f16ZcTQTSOsU
+	 3FebeSFDlJdq4ap2KdyrtN4a9TT8IkarznnXohxA+BzPjK1SQIWvVgep5Z8efoHzi/A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gondor.apana.org.au;
+	spf=pass smtp.mailfrom=gondor.apana.org.au;
+	dkim=pass header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=KbRa+Eee;
+	arc=none smtp.remote-ip=180.181.231.80
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8C5E606A321
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 10:44:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8C5E606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D20B606A31C;
+	Wed, 11 Nov 2026 10:44:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5D20B606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Fs8YFliw
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4afe2d546f9so38349395e9.3
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 02:44:24 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794393863; cv=none;
-        d=google.com; s=arc-20260327;
-        b=frWoYWbkCVKZIOtCfdACG2HZdJX74OC0cLDgafLYYHAPC5LftWibI/6M52wrRu2anT
-         NSiETKNVbeGUwZgM9o6KU1fiNtDi1IAUAWeSGsWQSjLfW32NQ1v+Ef6i4lSp0U8LWW7Y
-         +rV+GflBVjIIjzDj1Aq6lZszdl/vbD8GFZwMaYm8Fe/gd4ilC7CRrHIVNTR2w4iwF56/
-         4ELF0kr2aXoHCR3VgdvTchM1LcBuH7QBbzaKUM5ICp8zg6XDKYkHbj5JNJ6mszJkZgrY
-         OIv/Jr7rVgOmEuBZrfwhZ3k1p7+076VuVbJ+fK22phDpaftMTQDCivE07rOHbboJioIl
-         TdAw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=XDltiKjGMBTBW0kCAum/jL7npP4ychg3vu8xCXEIE5Y=;
-        fh=ibL00Pn7aAS9T/MlR55GqD74mRzJX+bdalQBwWXQdEE=;
-        b=dVnbQd5iQDVLIR0SiDQcbVd5tQL014xbmkDlG0jqJPnNaSg7xEIQWwFBL5fGPh8ZrM
-         /BNNUNC4IjnQpxXQ29PDA1mzSNs423pfGAypRAetUICgDb2Mf2XjbHMDKVmyfmKVdXf+
-         oEe+WQq3sj/R4EbJYX2Na6/5hxY7wnP6ZEzm6qr1V6EpCxuDn1HneLKZtC2ymuyXS1xw
-         Y+77imJvNL5Afp2CPrQ6sgkI7Y3uzcUzRkPQhmlTokXQOeitAjZyThNSysz7Q0DKR3d0
-         nxKDDu3JbqMPOSwbKNmODoORkjLfgPn0PoZt+VltEF9y+8NHh88wszQ/qO6qwd8HBo2O
-         t3QQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794393863; x=1794998663; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=XDltiKjGMBTBW0kCAum/jL7npP4ychg3vu8xCXEIE5Y=;
-        b=Fs8YFliwR0dE34yAPVXf0YnsrVCXForfvJ5syM6fGnqXF0TTrrD5zLHNLZoIj967Wn
-         RkAiWlwsQ+st7JAel/3WbkKBe3YGM5XueyFFIrdx2dWshV1w16XKa0uRdcaYj0ENjexd
-         RyOynvqSjSfduPmadS6ldC1bPwlAaUW56tFRBvyyJ6zx+maDOCLVHqCZHRotfKppcOvW
-         GVtKM1+P/6pCmQOeLmBtcl+lbgnKIWaIjmgPB622r7IrZGKxMfaoTw17fX2o9ZO1ABgp
-         /rEM5vemp+9VtVNA75SbpJMAbgJVCWY6lK53nhEfMpprCN1m2ArawIwFpZRa9e5hXbKE
-         V29A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794393863; x=1794998663;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XDltiKjGMBTBW0kCAum/jL7npP4ychg3vu8xCXEIE5Y=;
-        b=eevg57AkrNLFVRu040FnQpWr70tB6nkn0bulWPVVzlIwNzYd/w8RtzSFDuwjEtAp0i
-         DBqtf4GXwgRAZbF/OJ7jRyOV+7sd/zIK/Jq7BJw5YsOMTu6zxQL8w8sMxhkAYa9w9zwK
-         sFNQmGUOMO5aGz5P0Rjq82TnYZ+4ylMKKNWc3Xv0Y/92/TjjbzYrLGSRk2Z9ajjGuzC6
-         Wsemr14BvIlJLnqRI/+N136818BRlBchd8Fe+RXNllzHQcWxVgq96gnrLlBj5FL7IobJ
-         egSEtaoxA73oZp7W6tdpXjnW790MUEbPCPHzveoG1Vfft4cJDzEU3Bld/dtRCkLp0ID/
-         hoKg==
-X-Forwarded-Encrypted: i=1; AL+hErH+7tDdjYbCK1/CSo6hfA2Ey1qzym5a8TDRRXqcxxr3ZPCFiZ8hotelBlnB10lrXn442fuTFQyqGPBWarU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/YGRJuu//+FKEByKtu4f0L7KMcW3pCCUHJ5FrkrMqRQhzCUX9M
-	cCrbbuR5F/Rh3Br+vuR8VvP2EI0LTNoWgGrl1NSxU7nr7rymGwf2COeAJ9xy39jlp1LshBlfADd
-	6Sxd4AJXfC855TXj2Hpt8Ar/6bFxvQ9E=
-X-Gm-Gg: AYBFou3Ka8jxngt4ArI90SFaGS2TFyxT2XvKZDALXABwbCgzkCyUANTDkn19HZuLesS
-	WdYQVMJ3WkF57aPBSEtKmVb7Q+zGG6W03ukuSwXHWPGOhNLajD25BUzQtqxF6etuN0XNBRctzWJ
-	/Bzqr4LcDwFNsY6V9vs/N/rrERgBlVY/KXqYDaosOEDjt/Ga+tEdZrSyGa8VmMHL7HhLYtb0Ho9
-	1y60AHnsozQjOvGiApXivFQ/J0swNt3XSAXv8/9TW5r4Efk56niUuS9bD1x45hbXYlSDEmTF3zE
-	5mBm5MvlATfZLA4mdr5DGPlRfs8PN0L1lILD2JQDTQ5drPfDFsMf396u66iGqhSZWcEaiCn8hCa
-	yRQrz0KkQn/JC3YK8RHQIVEbqXi3IpJIrior4RfQIbIs+I0/tZ2NjNSQXwbhEcbpvy9OJegmq9+
-	aAM66QvIneYIRDSxqxg8wJHvk/lUUTjbKnHwfAefQUIf7IZ832D/LqLA8JEmVF45V4iTtiqRIar
-	zhTMOo=
-X-Received: by 2002:a05:600c:a00d:b0:4a2:1a:a129 with SMTP id
- 5b1f17b1804b1-4ba093b7ffcmr37431285e9.35.1794393863111; Wed, 11 Nov 2026
- 02:44:23 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=KbRa+Eee
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
+	from:content-type:reply-to; bh=QXEhi4g+1QbPElhmNqyuHB6NGR5M3lkugk5YWNvi+aM=; 
+	b=KbRa+Eeeo1zU2vH++8/Ff0bpzI3/EAl29l+JDm56IiwP+sbf+AyrN9hmgX7ebEDbokJssqeBRMK
+	AwVF4ZC3vGKCA4acaZLkip6jgFicG3/iYntf2SG6hkmwz2TJ7WHkLo+HI9JXmJT1q+eF8DJMow4Ue
+	q7JPE8CTLRB1n84gjPFGEy5rQKYEwD2OyqFeyw4eLlhiKUj71NNeCiabT/Qhi5gf9vwgNkCbC6vFH
+	9bLFdkD85vOUn88QaJraTS7qcsjn1W+s0gDbw7sEvOrFWEjAGzcVT8ieLKKCd9Etki8uRqXw70qAn
+	E8u5IdNSo+4VPChLefApzzoZJjQxw/vOmb7Q==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
+	id 1xR5ow-0000000Dlpg-19Rw;
+	Wed, 11 Nov 2026 18:44:51 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Wed, 11 Nov 2026 18:44:50 +0800
+Date: Wed, 11 Nov 2026 18:44:50 +0800
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: Vinicius Costa Gomes <vinicius.gomes@intel.com>
+Cc: Kristen Accardi <kristen.c.accardi@intel.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 3/4] crypto: iaa - use RCU per-package WQ tables
+Message-ID: <avRHIuISSNUxfAU4@gondor.apana.org.au>
+References: <20261019-iaa-crypto-wq-tables-v1-0-fab67b2a1538@intel.com>
+ <20261019-iaa-crypto-wq-tables-v1-3-fab67b2a1538@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,72 +66,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261009165710.1320233-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <CAMRc=MdcWS0c9E0V3cJj9B9WMAe0vSs9e2s2EauRH5zFkOng+w@mail.gmail.com>
- <CA+V-a8uVxwP+AFbRYb-weN+EHQ5rFxo7gXPus4muSrMri1QAAA@mail.gmail.com> <CAMRc=McjH1CE9wZpqWVWOa23oQn-Zxsq64akB4FgW=dA28vGTA@mail.gmail.com>
-In-Reply-To: <CAMRc=McjH1CE9wZpqWVWOa23oQn-Zxsq64akB4FgW=dA28vGTA@mail.gmail.com>
-From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Date: Wed, 11 Nov 2026 10:43:56 +0000
-X-Gm-Features: AclHuK_vtK80w1Fs6m3xd960NvDg0_oPO4I0vQEHXEfEWlJLombO_D83MeFpWaU
-Message-ID: <CA+V-a8uERLULKgthkRu87eqCjNPexNi9sUKz_6SKx-y6WNq-OQ@mail.gmail.com>
-Subject: Re: [PATCH v2 0/5] Add ADC power sequencing support for RZ/V2H(P) and
- RZ/V2N SoCs
-To: Bartosz Golaszewski <brgl@kernel.org>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
-	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org, 
-	Prabhakar <prabhakar.csengg+renesas@gmail.com>, Biju Das <biju.das.jz@bp.renesas.com>, 
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261019-iaa-crypto-wq-tables-v1-3-fab67b2a1538@intel.com>
 
-Hi Bartosz,
+On Mon, Oct 19, 2026 at 04:06:22PM -0700, Vinicius Costa Gomes wrote:
+> rebalance_wq_table() gives CPU n all the WQs of IAA device
+> n / cpus_per_iaa. The flat index ignores package boundaries, so a CPU
+> can be paired with a device on another package, and each CPU sends all
+> its requests to one device while the other devices of its package stay
+> idle. The table is also rebuilt in place, so a request issued during a
+> probe or remove can read a NULL WQ and fail with -ENODEV.
+> 
+> Replace it with one table per package, holding the WQs of every IAA
+> device on that package, and have each CPU round-robin over its package's
+> table. Rebalance builds the whole set of tables and publishes it with
+> rcu_replace_pointer(). The submit paths look the WQ up, and take their
+> reference on it, inside an RCU read-side section.
+> 
+> - A package without IAA devices gets a copy of another package's table,
+>   so the lookup needs no fallback.
+> - Every table has room for all the WQs, a few pointers more than it
+>   needs, so they can be sized without counting per package.
+> - If a rebalance fails, the current tables are kept. On removal they
+>   are cleared instead, because they still hold the removed WQ. Removal
+>   then waits for a grace period before returning, because the idxd_wq
+>   can be freed after that.
+> 
+> Signed-off-by: Vinicius Costa Gomes <vinicius.gomes@intel.com>
+> ---
+>  drivers/crypto/intel/iaa/iaa_crypto.h      |   7 -
+>  drivers/crypto/intel/iaa/iaa_crypto_main.c | 346 ++++++++++-------------------
+>  2 files changed, 117 insertions(+), 236 deletions(-)
 
-On Thu, Oct 15, 2026 at 1:08=E2=80=AFPM Bartosz Golaszewski <brgl@kernel.or=
-g> wrote:
->
-> On Thu, 15 Oct 2026 13:05:10 +0200, "Lad, Prabhakar"
-> <prabhakar.csengg@gmail.com> said:
-> > Hi Bartosz,
-> >
-> > On Thu, Oct 15, 2026 at 10:43=E2=80=AFAM Bartosz Golaszewski <brgl@kern=
-el.org> wrote:
-> >>
-> >> On Fri, 9 Oct 2026 18:57:05 +0200, Prabhakar <prabhakar.csengg@gmail.c=
-om> said:
-> >> > From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> >> >
-> >> > Hi all,
-> >> >
-> >> > This patch series adds support for ADC power sequencing on the RZ/V2=
-H(P)
-> >> > and RZ/V2N SoCs. It introduces per-SoC probe functions for the
-> >> > renesas-pwrrdy power sequencer driver and ensures that the necessary
-> >> > Kconfig options are selected for these SoCs.
-> >> >
-> >> > Note, the ADC driver and binding patches have been posted separately=
-.
-> >> >
-> >> > Merge strategy:
-> >> > option #1:
-> >> >  - Once the pwrseq-renesas-pwrrdy driver is merged in only then
-> >> >    the sysc driver can be merged via renesas tree.
-> >> > option #2:
-> >> >  - Merge all the patches via renesas tree.
-> >> >
-> >>
-> >> IIUC there are no build-time dependencies, so the pwrseq and soc parts=
- can be
-> >> queued separately?
-> >>
-> > Yes there are no build-time dependencies, and since renesas-soc is
-> > closed for v7.4, the pwrseq patches can go via your tree.
-> >
->
-> It's rc7 so I prefer to leave it for the next cycle too.
->
-Gentle ping (the patches apply cleanly on top of next-20261110)
+Please respond to this comment:
 
-Cheers,
-Prabhakar
+https://sashiko.dev/#/patchset/20261019-iaa-crypto-wq-tables-v1-0-fab67b2a1538%40intel.com
+
+Thanks,
+-- 
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
