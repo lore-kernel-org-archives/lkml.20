@@ -1,92 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794404155;
-	b=qv2D0UcqUJUkPSYls756oidMUmbVrPw2WR6DUtR4CKlngNo9YKBWEkFLjv02+KLC+1SM
-	 qxZWrohes/0VJA2ziseYJYWzSCjLJl990+hJrGZED3iBtl7IjYmjoCjgcJ73Uedx4aZMe
-	 AhguSmvRicIxTu0K+/h9T1CA0TL8kDfhoNTY7PoiU2npwy43jyuUqFEBH3Bg3NB0ut5rM
-	 6eQzGDgLwDEE72fkge9CR2rJ6FZiO3a09kqQODg7gLTAD+LON0Lu7BWGvJ6iD49hXlSsi
-	 HbwTUgnpIqIMuUbA6O7dxN1ASF9RiuWa9Uc7Mz0fpnveco6wn+N6T/0mEANTe/7Uyvg==
+	t=1794404220;
+	b=TI6/q3VCuph/cyqbpfE4sMBoKSPalOxM2I2mTmsKc0ElpXnrEjvnlQeWKwn+xDVwHAKd
+	 IsR/xEq0QoXA9aUwmO7UUQA/YILV43HyKq4iwEeB7iVJa5IRnisz06s5JQtFCB6w1wfiD
+	 ZIR6Dw+0uphF4cW/bgxRkmd8C3z4PDmGasagnA0GC8ecBFcyW7ov9SRpoXkIrvc8i9KFF
+	 En/n7QNGr6uh6gdx/X67Soqh2CTcaDJwu3qamQaLLhex9XXvY5c2DJ2JfCLNfkf04chUi
+	 RCq5UUhYFd9+wMLhfbxACajLm77I0mz0sXpe3UhJxl2KFLpmQ2G65Ix+CrtZWvT84sA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794404155;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-Mailer;
-	bh=4wr+TVHDubo7QkZWmXYb7l0IP18SbqIz/pFvG9rCN0M=;
-	b=ZcfBXGT6e6YMURC6fAXixbxDgneewmL5L+NiJwE8rPu2n6jotBT7vIdPLBbLdCwFSIcP
-	 jJBuqo1UqI7hWMnKDuPp4S+gl+ScFrfOF5IShdlavLG4qs3i2sjqWojRV+7iPVKoW3vj2
-	 W3BrgUKwZdwLcS8QYRLi6vI3Lk/eG8g1eHn6Sd22b0OgF+T1LSHWJatizXteCMO5uLVOl
-	 wH0zoBuQXslGypwExq+1w69LvfuKG0hBkL9ObyYCegnTVyPZBbJzDJF1sL4ufh1Wzj21U
-	 EbaEqzT+8eSUQne0lMlYXebaPTrAwtTVn5ND8KNxmKOf1HocXd6B8s+YQjdXgtE87cw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794404220;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:X-Developer-Signature:X-Developer-Key:
+	 Content-Transfer-Encoding;
+	bh=WET0xlYV7rXuRE+d7+OZIC1CPgEIolv+NtAvCsaAG0w=;
+	b=xLbjJQjye9SC3ARqJULbEIa3zDOei2FNrmc2/csNOoJ0o6e1wzhY4RHtsTKJ5DmwHQOt
+	 BSjRfpPRfBloMo21cLV14AArAJdqR65Xf89xjLWR6+yMrHQp7QW1DmsRCwPcIfQHl+aoB
+	 OXAiTbHu6gVF1GwlYPZJ1z0e8R/nmRtAztWq4cD+ntkk3GUzQ9xESBIbhxGJCLBiifgd7
+	 WAEr/GQYbOY+A/EIf7Z/GV0GUmnjBcXnHd2zbcbtM0pdzjHM1+z7o+KYTEmbODiRjmWUf
+	 5HPuJobCY0oTIaKH/tEvBSis9F5cB2TxRDPLJKmQ/TT2HgEpIoPy8GZTegPSKPkAIEw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=moqFFupm;
-	arc=none smtp.remote-ip=74.125.82.50
-Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mwyARJPd;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95510606A326
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:35:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 95510606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7887E606A327
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:37:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=moqFFupm
-Received: by mail-dl1-f50.google.com with SMTP id a92af1059eb24-1a2761c69fbso5335605c88.0
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 05:35:54 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794404154; x=1795008954; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=4wr+TVHDubo7QkZWmXYb7l0IP18SbqIz/pFvG9rCN0M=;
-        b=moqFFupmYR9lYl6wdBWqUMvCSsmLgYHZTGD5nU1AGOYQVltDTdsWdzZNMX4LjKYrY/
-         kZa7Dug1IltSBlnlINkTXgUnv3ct3iUnLY08ZMTisKGWv4ECauRCeQRPPfEmiXlbKhj6
-         kTMIMxQ2ubKmksn5nGhHtXvuoaghsLWtK3E8FpcoKfcpQgj+mS3Dd4rphk8mdxAnRgTt
-         8+Vm+X+ApdOn8W5n8HmhsKcgTlf6B0Eg4FkRjxOYsTRaoYFRQHfYg7WZSNs+SlvdPSe9
-         RHF8QBrQplbtrevs2xFfPSTnh0/QtikXGWsq6sQ5rNy4nKGQxjONb+mqXnmBGzU26cs6
-         avXw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794404154; x=1795008954;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4wr+TVHDubo7QkZWmXYb7l0IP18SbqIz/pFvG9rCN0M=;
-        b=v+ACFqs/XEcGkk4QyIZAzGYKAU2ahdeH9Jygx7Da1v5NI+3ebVaXeHyk/D0Ll55xHK
-         R73HGgMAPMzWhtZfWzVegWakctE73X9BsczBR1Zq+c2I8LMiGZVt4okQ3gat7RG2lous
-         O12Ixv5Ax9iIXEiNT8+VpijCXW6f0iXtDyJaH0lfAA9hjF2wYQZ7mDjHV+kFdOWp6y02
-         92GqBz6qrYaBn2YewF4AqmfkKYkXWPW0KydZVXYykygtwQHSpQl63BmP0RE5pqLhhYy9
-         S7JDTQijnNJM4q8haW6DQuy+bGd5D2kq0JEkuZXwRbDsWPoOCsOJbaHsAMbNdSj/WSCH
-         VZVQ==
-X-Forwarded-Encrypted: i=1; AL+hErGnv+brGo5QSVj0WBQ6nHlsPQQccwgW/7DYEsAhA1t5oraT7R7w1s+RSs0Y6SZm5kcshPY/BLBrTzHfzKo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9sdGX0wQl5mU1N2P1Ry50T+xNCgvTHslO7WD0opqyXP7R0AfbK
-	iUxxXMWCy2ptQ78K/ZV6g/ZQEou+nLhaSCQby8SwReFh/MlVZYlgPgEMMVEnqfmg
-X-Gm-Gg: AYBFou3A/8ItIHViqCpTn1A9bekJg1bbU0/6wNOoIZyYJt1b17PRBpCJ0gD+ITMB89B
-	GOe5xfU4CWJMWaw1kBbiZj/yFN/uRj7TIDyORtVcGEm0Tge8gaxNOiNjPJ6g55DFWOXP2ufkBKs
-	bA4bVcfQOzD8pS7Mu5Oy7ebijM8eGNGi2AYyCDElCrIzKqWW97zWCH3pizhe4d42eaKeZtiyFGe
-	WhFrmiBHUIRWl+6WHKaKUIhpDEbVo1BAVyDybBwoXddDL8Ner2gP+juVylNz4WCeRUTkrauioSH
-	WS4jxSnXQDtSiK5F9oIAZ1Fgc+pnsV81A5SkitmO18HMMBQDbhdWcZQdEPxQ/zpNV6WRn3LSJ3/
-	Z4TiTmAhehexpFAeQ+VgILi7SCCN+/JSIHcCeG6qJU/zBAB9nRXYcUQ3C//sIg56znYa+7Mcm++
-	mdSBABQcGrOy6MqvR6jLJAvqRUdoab70DcaXBV2uk5aoIZxiAWgapavU6zxSYMVCt87V0rCwnEj
-	XN45pCu5IORUQZe5MQ9+6iUgCmlJVzI22fG0isjJxia0V7HoPm47kHpkJlRxDheB8ql75z9e4Yl
-	soUJ94dEixBd9fU1fXv1zbSgHZU=
-X-Received: by 2002:a05:7301:db15:b0:375:b560:a323 with SMTP id 5a478bee46e88-3768366a43cmr3063455eec.1.1794404153449;
-        Wed, 11 Nov 2026 05:35:53 -0800 (PST)
-Received: from [127.0.1.1] ([161.33.196.121])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-375212e9d78sm17768172eec.25.2026.11.11.05.35.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 05:35:51 -0800 (PST)
-From: TAKANO Mitsuhiro <takano32@gmail.com>
-To: James Clark <james.clark@linaro.org>
-Cc: linux-perf-users@vger.kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Ian Rogers <irogers@google.com>, John Garry <john.garry@linux.dev>, Ilkka Koskinen <ilkka@os.amperecomputing.com>, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] perf vendor events arm64 AmpereOneX: Fix misspelled PublicDescription keys
-Date: Wed, 11 Nov 2026 13:35:48 +0000
-Message-ID: <179440414898.2353714.11591904089911934138@gmail.com>
-In-Reply-To: <39ac224f-2903-496e-9a08-b4c5a33dc87f@linaro.org>
-References: <20261108183846.3804875-1-takano32@gmail.com> <bf6925f6-613f-4e20-8491-2a99183f34fb@linaro.org> <39ac224f-2903-496e-9a08-b4c5a33dc87f@linaro.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mwyARJPd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EE5F1F00A05;
+	Wed, 11 Nov 2026 13:36:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794404219;
+	bh=WET0xlYV7rXuRE+d7+OZIC1CPgEIolv+NtAvCsaAG0w=;
+	h=From:To:Cc:Subject:Date;
+	b=mwyARJPdm3b3e5qMSPk95IYFuFI1WnwQMb3IrPTcBE5WoCX4vh+2wWDWdYIn5O/Ph
+	 BZ/Ezk1c4FC8DzAxOWr+g97SyEhP9RHzHp3wah/d0ynIYmBkevQRHN87MDKJHy/sR4
+	 pRjrOXNxj2tQuQQzanI1PbqRajLW/VtDQ32FWyOufB16qfVokKLfyhP9K6flcAJ3Ga
+	 HKfcrD3bgirC4SUsVH0uKQTqUUSCqN14DqbfwfDQDwKkdfvUln7FrkBV7JkqZR4dJ0
+	 6msArhbwLiVQo+7WbLGeOdNbIxYYz9rGN2mHXjamlWAM98ntYe/84soJUvbN8HH4wY
+	 g+9340udv7E/Q==
+From: Thorsten Blum <blum@kernel.org>
+To: "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Andy Lutomirski <luto@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Juergen Gross <jgross@suse.com>
+Cc: Thorsten Blum <blum@kernel.org>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 1/2] x86/mm: Make highstart_pfn and highend_pfn local to initmem_init()
+Date: Wed, 11 Nov 2026 14:36:34 +0100
+Message-ID: <20261111133635.75044-3-blum@kernel.org>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,37 +66,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1824; i=blum@kernel.org; h=from:subject; bh=J8CWfehBozpbvQSbVKv+hYbNyWna8OSl3L8/aXEoDOk=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFlf8pODPWQnyX2cXiuxwi5y1+4ZDx9IuEh2J+nNMN546 H3Enr0hHaUsDGJcDLJiiiwPZv2Y4VtaU7nJJGInzBxWJpAhDFycAjCRY/cYGX5n87UURf7IPVC3 YsITxbwVwV06tuqRF3c4OCQ2LdPSrmRkaPDJbnRXfhJyidFEbc7ahvKZH+9XFEpPY7S9IbfQqz6 AAQA=
+X-Developer-Key: i=blum@kernel.org; a=openpgp; fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
 Content-Transfer-Encoding: 8bit
-X-Mailer: kpatch-send.py
 
-On 2026-11-11 10:16, James Clark wrote:
+Since commit 35c3151a98a6 ("x86/mm: Consolidate initmem_init()") removed
+arch/x86/mm/numa_32.c, highstart_pfn and highend_pfn are only used in
+initmem_init().
 
-> IMO I would rather have something that's incredibly strict and simple,
-> or nothing at all. Having to work around edge cases and report near
-> misses doesn't sound great.
+Declare both variables locally and remove their unused extern
+declaration. Use min() to initialize highstart_pfn.
 
-Agreed, and the near-miss report is gone.  The series is posted again:
+No functional change.
 
-https://lore.kernel.org/linux-perf-users/20261111132622.2349165-1-takano32@gmail.com/
+Signed-off-by: Thorsten Blum <blum@kernel.org>
+---
+ arch/x86/include/asm/highmem.h | 3 ---
+ arch/x86/mm/init_32.c          | 8 +++-----
+ 2 files changed, 3 insertions(+), 8 deletions(-)
 
-The check is now a fixed list of the 51 keys a json object under arch/ may
-carry: 47 of them jevents.py reads, one more metric.py reads, and three are
-read by nothing although the tables hold them (Counter, CountersNumFixed,
-CountersNumGeneric).  A key outside that list is reported with the object
-that carries it.  There is no cut-off, no similarity and nothing that
-depends on what a run of the generator happened to read, so there is no
-edge case left to work around.
-
-It still runs as "make check-jevents" and as a perf test rather than as part
-of the build, and on the tree today it reports exactly the two misspellings
-we have, the 16 in this file and 3 in the AMD tables, so it wants those
-fixes in front of it or together with it.
-
-The one thing I did not do is put the list in a json schema file, because
-perf's build would then require jsonschema, which it does not use today and
-which is not in every builder's python.  The list holds the same names that
-a schema with "additionalProperties": false would say.  If you would rather
-have the schema file and take the dependency, it is a small change from
-here.
-
+diff --git a/arch/x86/include/asm/highmem.h b/arch/x86/include/asm/highmem.h
+index decfaaf52326..31d6d2a556f6 100644
+--- a/arch/x86/include/asm/highmem.h
++++ b/arch/x86/include/asm/highmem.h
+@@ -27,9 +27,6 @@
+ #include <asm/fixmap.h>
+ #include <asm/pgtable_areas.h>
+ 
+-/* declarations for highmem.c */
+-extern unsigned long highstart_pfn, highend_pfn;
+-
+ /*
+  * Right now we initialize only a single pte table. It can be extended
+  * easily, subsequent pte tables have to be allocated in one physical
+diff --git a/arch/x86/mm/init_32.c b/arch/x86/mm/init_32.c
+index 0908c44d51e6..9b0a3dd02da0 100644
+--- a/arch/x86/mm/init_32.c
++++ b/arch/x86/mm/init_32.c
+@@ -55,8 +55,6 @@
+ 
+ #include "mm_internal.h"
+ 
+-unsigned long highstart_pfn, highend_pfn;
+-
+ bool __read_mostly __vmalloc_start_set = false;
+ 
+ /*
+@@ -615,9 +613,9 @@ void __init find_low_pfn_range(void)
+ void __init initmem_init(void)
+ {
+ #ifdef CONFIG_HIGHMEM
+-	highstart_pfn = highend_pfn = max_pfn;
+-	if (max_pfn > max_low_pfn)
+-		highstart_pfn = max_low_pfn;
++	unsigned long highstart_pfn = min(max_pfn, max_low_pfn);
++	unsigned long highend_pfn = max_pfn;
++
+ 	printk(KERN_NOTICE "%ldMB HIGHMEM available.\n",
+ 		pages_to_mb(highend_pfn - highstart_pfn));
+ 	high_memory = (void *) __va(highstart_pfn * PAGE_SIZE - 1) + 1;
