@@ -1,95 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.170
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794440528;
-	b=sHYjhapRB/71azkl9vU3cRIQfuOZ+3hYxOlCjAO2CupFYR+YG+1YpeWpLXT5FqO8wnS1
-	 g7+QPdnyR+Qg3J0QVjdnQyF7BfBu89nRlYgK4Oz+3Nv5metF3y/AMgh57XV/pznFGDeRb
-	 HIeLty+UZw5UncssfLZ/sPJ5ZiKKCwcVWdNcomZdGLxV34OCdMQm70fMNCsWJY216TpBd
-	 TR99c8UIYf+qLL/LyEEt1hQiuUhhN3s8/GDVNJxtlWLDyN7qcnoXPvay7WZadPONx7VUk
-	 f80WKJVkOmNluYQHHyus5pHHzKF++Umpu55K8dpnyr6ByASNnF3Z2Zd/vUguSgSfGMQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794440528;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=MlLwmC7eqhyj5SluG/jr8wz+fFfa83Uj4sPyAVlAWdU=;
-	b=MAa9rrvEDoaO+3dT1GPX/pQheSlLe2VUj0pFy2ICskSNGQOvltCIEVOYJN2g7wHdvtn0
-	 CWtubhlmWREt7+MuU/f9AtID3FEaM5YKlZpV6FCCFej38yKXTjLXtwt3gsybJzZVmZ04t
-	 363U015UxCe6fZCmaqf1tpqTEVs+yvaxoC8QsoN4l+BkewOSL3qTxpclET1M5RLphmaYg
-	 /X6G8l9aaiHAHRtaFDZwaG/EPa5PfSgv3krv4QuYzCWYWjEQr8HRvJxoN9Mbi0HuluAQc
-	 s4Wi77O0txG9kz+F4CHxwCRjNgVJ0h64vPHSgPLSVelzxTLFgf4riHpnA9cioQ8I0UQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=purestorage.com;
-	spf=pass smtp.mailfrom=purestorage.com;
-	dkim=pass header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=LxWaKLhO;
-	arc=none smtp.remote-ip=74.125.82.170
-Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794440608;
+	b=wWYGXRNt9WpVk/2HNXG11XvwgcN+YbUiBCUbpZl0ozVaMbofMx6Vs2+Muyf4WjEu9S0t
+	 cSDKmE4O0rm6PsVMJddn7FqWFlf7p6aitdslxRy/4l+e8UL5aq8C/+jiTmNa9E/RlgM3o
+	 oWPm42W7Suqbf2zlrJN/AN7CJzWj5HK0LLFsJINRWNphjL+zCqxNYiuxGU1nUxBK2FEaH
+	 +sKHUfNmseVY4QBYG7FJjyfR6O0ZXTMgY+B7yYsR6rhLQRKU0l9Zt8nRlPh5gVRzqZog3
+	 db1/O00ar0hPJcfniVDMH40juzONVZGyEv+qGUOZ3We9LYYYdMZjXoqro80PaFG3yAQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794440608;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Zoho-Virus-Status:X-Zoho-AV-Stamp:
+	 X-ZohoMailClient;
+	bh=Y0DPhWDGCAl8AXWho1ttYK+VaSR0hirYI/i/ympk22U=;
+	b=vmaaXqX+w05fI7JSq9cUKVYqbEQgKEQba6NaKTMnV6rtv2b3xsejlZBjw5n0g7+1APK+
+	 IQeaX+p4WvpOueDek+gSNVKrLWir27RDib55BXSins5gSooZOENGjTYAHOxtc/8NZk9Sb
+	 wNQGTltkk+4yeS6hym7SjQeJ3S3l3Cgefbq/Yb3ycK14ZJShjSI7MtKFrxi6XMWvmwcjl
+	 u9LvAfvYWZsEwgpOoFSLoxmbZeu7qNEVS2ABTb8XfqmtN41FpU5FkXpe0ZK2m//p+1ay7
+	 W95ln07/8scHfPDCMH5bJaE3oDCJF0FRJ/6kaNgiNhGZjU7zdv8sRuDJEmvi/NbpxSA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=jtlAh+Va;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABCEB606A32E
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 23:42:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ABCEB606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01675606A326;
+	Wed, 11 Nov 2026 23:43:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 01675606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=LxWaKLhO
-Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-37605faade6so125843eec.3
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 15:42:07 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=purestorage.com; s=google2022; t=1794440526; x=1795045326; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=MlLwmC7eqhyj5SluG/jr8wz+fFfa83Uj4sPyAVlAWdU=;
-        b=LxWaKLhOfRi65GLeDTlvV8UU5t5kaXs/qlvKWB1L1rpvsA4tUJ5NspotgCTsvD2ovw
-         +RQUHQfJtpFCwosuQYFjnjkYPKBCCFWw1wtsIlqilU283K1LK32olZGlgGpJ/OYbpJbI
-         +mo09+4hbtab85qRNyQvW6D9Gq9va4SuDk3znCoXSHcODVSskkPj8Cun7wpBjCWsZouZ
-         ug3EnZAHhZpT3IfRqki4kClThkAse3An4Rt8JYOf14lXqfJ7d27gdsrQsGdvNKYq98Tf
-         keYGE+xk3fMUI9Zt8/VRi8DvraKOVkUf/1Bsv+BJfVjjNr/oZ4fbGpHoXQBIuGSsVrqd
-         2s/w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794440526; x=1795045326;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=MlLwmC7eqhyj5SluG/jr8wz+fFfa83Uj4sPyAVlAWdU=;
-        b=HdjCDcts+uFP/zgbjjGmGYn+u0mPARbhrc8GKO6Mco7v0spJJjLQ99vyp2wsgKLt1e
-         cCapdfj8jHsrcPfEZU5mWWtbmJ5S1pe7eRZXOrf+2gm+Ut1EO0ANLil7VAHtyRn+ZTnK
-         TJuJMWD08sUubc6D/CtEtCTinDKNl/KB8R2VINJSK5JL5QIEhMvt/4VBp54QNx/7peBB
-         2nvx/8rR7WWAH5A4i+tKsFjfkDUXKPx594v0pEE7q7RRKNB5DnVZWvrpUTdDrsggUdia
-         Va97N05pU2uFqhiSxfKZ0pbDY4AUK60ZJhU1NZffcJvTdmFogAR7tsArS0k33bkohZYt
-         XG8g==
-X-Forwarded-Encrypted: i=1; AL+hErGY+KvhYNsdMc+viWfB1tn3vU1AhyAXXLcQwYfGHLIEitCD+aVlEPHJCWIusGuPPh2XEb1uBgrAFn5e/4o=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+JXeT34mtlwFk6itijxEGiG45icdtwok6Wpa87ZC+v62hIEwTc
-	OGkvUnMDcWCCeiEtv6o6OEORiqh6F1ARNAFbUolLaCEgZvZI9+ycuSeO+62Zvegj96o=
-X-Gm-Gg: AYBFou3ZGfc3+esvtky/7NKv+FoCBd0icuiKIWSSdkQL37sbgBPPG1dhUbONPGekoo2
-	HsC9iTbFxP2Vvr2BTNEkCNpEG0aFa61vGrN50iMMRcQEHRAddHKUjmcvW5QXvTwOah22KnhlpGn
-	7cFrAyOCmfvnfU7BKTPPEDNuUikLIDP7MHmPR+C6YGekA49ldCaUQd6G3zXVrtlfiIsLpwlr6KG
-	fwrXsdeB6VOUdLr/c9a8CYUjp5Qu9uO4mK6X1o22DdUt+ZOOIASl6mq5u709SDQahLvCBTpFikN
-	pTfuppISqea9SzpqSrgSRqzHMPLFJCqH8Q631nDSrtgn3Zoe2x0l3J9EWk0pIM3zSAI3O0OFP6o
-	zWjtEktf2j1qg7bXjaycWaJSKSechmyqCkl/uU4xf+2AIifPRd1/UUI3G21+qveRZ9LQWq8+OmV
-	G5sCjhVU9RQgVZYIqPWAjbuWXH7uOe0sdERt2DfJxs9aMG+Gg87gEjIvF9piwW8a3gIpad4BEbH
-	AKoUTVEcvGBDFVQT0RrSym+nCNMcVfK9zkY5S+aZxEAvtPpCMTyIU9SejCCYoHF+/39f4NbQXQW
-	Cg9I+gI0Wg7KTGMDsbUp/hANg4MqKtl59A//YzGXQ1agE5cmXjBRzdEyB+DH200feW7Pu4J+wfs
-	fohk=
-X-Received: by 2002:a05:7022:3a86:b0:143:5c2a:e45f with SMTP id a92af1059eb24-1b3c01600d4mr5838434c88.0.1794440526019;
-        Wed, 11 Nov 2026 15:42:06 -0800 (PST)
-Received: from dev-cachen2.dev.purestorage.com ([208.88.159.128])
-        by smtp.googlemail.com with ESMTPSA id a92af1059eb24-1b3b5b2fc09sm40240128c88.10.2026.11.11.15.42.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 15:42:05 -0800 (PST)
-From: Casey Chen <cachen@purestorage.com>
-To: Namhyung Kim <namhyung@kernel.org>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>
-Cc: Ian Rogers <irogers@google.com>,
-	Matt Fleming <matt@readmodwrite.com>,
-	linux-perf-users@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Casey Chen <cachen@purestorage.com>
-Subject: [PATCH] perf hist: Don't update the map of a hist entry to a NULL map
-Date: Wed, 11 Nov 2026 16:41:56 -0700
-Message-Id: <20261111234156.2276500-1-cachen@purestorage.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=jtlAh+Va
+ARC-Seal: i=1; a=rsa-sha256; t=1794440566; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=FHwE49+0n9QYPLepTlh99nmt2+owAv5olRorS8PSn86GXGe04Lw/1bxgw/O3fBE63/4tUylxpQzFBZEC7D3nu1AGynQelZszZ19XdHtjqecNiyoWnwUjZmmmhpaHQkxhC4trC+2+iNM9Q0t749cAWe19Ik9fSFwzcvVvJsRynKI=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1794440566; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=Y0DPhWDGCAl8AXWho1ttYK+VaSR0hirYI/i/ympk22U=; 
+	b=FKoUtux3CSTJcCHigGoMB6JMvqYfZSes7IPtJj7eM2E9p5u45OYAmCYlTH/sElDt5yPt7ChIBE8U8aSCVCLY2adpBEu3MHYK0skzAzr4IFoWPE1j9MhuasBJLKIfUU5usc/vnfq22HajEjSOu9/k8TyfzZbtRr0ua6WOKwN71fg=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
+	dmarc=pass header.from=<sebastian.reichel@collabora.com>
+DKIM-Signature: a=rsa-sha256; b=jtlAh+Va4DX3ctCXwghLOqJRssCbOuJOJWzQExa+sB1tIEEutcCTKwNsL+arsFNVQ6BbfkCOSR/kPFiaGlPcLBO0Zcsf7mGgVm4N5kwkhu2y1xR52CQHBlPywAggY2ouQ7wVK2iHmWVrAYoll9SM+yxM2jDrsI0utr0FX4NV7WI=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=Y0DPhWDGCAl8AXWho1ttYK+VaSR0hirYI/i/ympk22U=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1794440564379638.9691780582154;
+	Wed, 11 Nov 2026 15:42:44 -0800 (PST)
+Received: by venus (Postfix, from userid 1000)
+	id 4F506180BC0; Thu, 12 Nov 2026 00:42:41 +0100 (CET)
+Date: Thu, 12 Nov 2026 00:42:41 +0100
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+To: Alexey Charkov <alchark@flipper.net>
+Cc: Badhri Jagan Sridharan <badhri@google.com>, 
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] usb: typec: tcpm: Record the partner's Product Type VDOs
+Message-ID: <avT9WdUgL02MXMpn@venus>
+References: <20261102-tcpm-product-type-vdo-v1-1-02e90dadbc2d@flipper.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,75 +68,100 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="v3h6xjzlfvroq4wu"
+Content-Disposition: inline
+In-Reply-To: <20261102-tcpm-product-type-vdo-v1-1-02e90dadbc2d@flipper.net>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/294.427.16
+X-ZohoMailClient: External
 
-perf c2c report, including --stats, segfaults on c2c data recorded on
-a loaded system:
 
-  map__find_symbol
-  hists__findnew_entry
-  __hists__add_entry
-  process_sample_event      (builtin-c2c.c)
-  perf_session__deliver_event
-  ordered_events__deliver_event
-  __ordered_events__flush
-  perf_session__process_user_event
-  perf_session__process_events
-  perf_c2c__report
+--v3h6xjzlfvroq4wu
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH] usb: typec: tcpm: Record the partner's Product Type VDOs
+MIME-Version: 1.0
 
-When a new sample matches an existing hist entry whose map differs,
-hists__findnew_entry() replaces the entry's map with the new sample's
-and re-resolves the entry's symbol in it.  The new sample's map is NULL
-when its address is not in any known mapping, and
-map__find_symbol(NULL, ...) then dereferences it in map__load().
+Hi,
 
-perf c2c sets the sym flag for its symbol and iaddr columns but groups
-samples by cacheline, so samples from different code locations, with
-and without a map, end up in the same entry.  perf report without a sym
-sort key never reaches this code, and perf report and perf script
-process the same perf.data without problems.
+On Mon, Nov 02, 2026 at 06:21:24PM +0400, Alexey Charkov wrote:
+> A Discover Identity response can carry up to three Product Type VDOs
+> after the Product VDO, describing what the partner is as a UFP, DFP or
+> alternate mode adapter. The Type-C class keeps them in the identity and
+> shows them as product_type_vdo1-3, but TCPM stores only the ID header,
+> Cert Stat and Product VDOs of a partner, so those always read 0. Cable
+> identities already get their VDOs.
+>=20
+> Store the Product Type VDOs as received and zero the ones the partner
+> does not send, leaving their PD revision specific layout to the reader.
+>=20
+> Signed-off-by: Alexey Charkov <alchark@flipper.net>
+> ---
 
-Skip the update when the new sample has no map.  There is nothing to
-update to, and the entry keeps its existing map and symbol instead of
-being reset by a sample that did not resolve.
+Reviewed-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 
-Tested on an x86-64 system (2 sockets, 192 CPUs) with perf c2c data
-recorded under heavy load: perf c2c report --stats and
-perf c2c report --stdio --full-symbols --no-source -NN segfault without
-this change and complete with it.  The data comes from a proprietary
-workload and cannot be shared; no synthetic reproducer was produced.
+Greetings,
 
-The bug was found and analyzed, and the fix written, with the help of
-an AI coding assistant.  The patch was also reviewed with Sashiko, which
-reported no issues.  I reviewed and tested the change.
+-- Sebastian
 
-Fixes: ac01c8c42465 ("perf hist: Update hist symbol when updating maps")
-Signed-off-by: Casey Chen <cachen@purestorage.com>
----
- tools/perf/util/hist.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+>  drivers/usb/typec/tcpm/tcpm.c | 5 +++++
+>  1 file changed, 5 insertions(+)
+>=20
+> diff --git a/drivers/usb/typec/tcpm/tcpm.c b/drivers/usb/typec/tcpm/tcpm.c
+> index d721baef5210..8fd6b1f842b3 100644
+> --- a/drivers/usb/typec/tcpm/tcpm.c
+> +++ b/drivers/usb/typec/tcpm/tcpm.c
+> @@ -2064,6 +2064,7 @@ static void svdm_consume_identity(struct tcpm_port =
+*port, const u32 *p, int cnt)
+>  {
+>  	u32 vdo =3D p[VDO_INDEX_IDH];
+>  	u32 product =3D p[VDO_INDEX_PRODUCT];
+> +	int i;
+> =20
+>  	if (cnt <=3D VDO_INDEX_PRODUCT)
+>  		return;
+> @@ -2073,6 +2074,10 @@ static void svdm_consume_identity(struct tcpm_port=
+ *port, const u32 *p, int cnt)
+>  	port->partner_ident.id_header =3D vdo;
+>  	port->partner_ident.cert_stat =3D p[VDO_INDEX_CSTAT];
+>  	port->partner_ident.product =3D product;
+> +	/* Product Type VDOs, if any, follow the Product VDO */
+> +	for (i =3D 0; i < ARRAY_SIZE(port->partner_ident.vdo); i++)
+> +		port->partner_ident.vdo[i] =3D VDO_INDEX_PRODUCT + 1 + i < cnt ?
+> +					     p[VDO_INDEX_PRODUCT + 1 + i] : 0;
+> =20
+>  	if (port->partner)
+>  		typec_partner_set_identity(port->partner);
+>=20
+> ---
+> base-commit: 7649ba73f9e7e1e04d0b46213e39c79ae09dd55c
+> change-id: 20261102-tcpm-product-type-vdo-af873ef1fdf4
+>=20
+> Best regards,
+> -- =20
+> Alexey Charkov <alchark@flipper.net>
+>=20
 
-diff --git a/tools/perf/util/hist.c b/tools/perf/util/hist.c
-index 364754e9d12a..d5763199205b 100644
---- a/tools/perf/util/hist.c
-+++ b/tools/perf/util/hist.c
-@@ -723,9 +723,12 @@ static struct hist_entry *hists__findnew_entry(struct hists *hists,
- 			 * become out-of-date due to an exec() or
- 			 * similar, update it.  Otherwise we will
- 			 * mis-adjust symbol addresses when computing
--			 * the history counter to increment.
-+			 * the history counter to increment.  Skip it when the
-+			 * new sample has no map (an unresolved address):
-+			 * there is nothing to update to.
- 			 */
--			if (hists__has(hists, sym) && he->ms.map != entry->ms.map) {
-+			if (hists__has(hists, sym) && entry->ms.map &&
-+			    he->ms.map != entry->ms.map) {
- 				if (he->ms.sym) {
- 					u64 addr = he->ms.sym->start;
- 					he->ms.sym = map__find_symbol(entry->ms.map, addr);
+--v3h6xjzlfvroq4wu
+Content-Type: application/pgp-signature; name="signature.asc"
 
-base-commit: edd09316bd3784bcae2b3281a892700e272d5d40
--- 
-2.34.1
+-----BEGIN PGP SIGNATURE-----
 
+iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmr0/XAACgkQ2O7X88g7
++poxuQ//Z6pr81dPA9c2GQT/w+mm2cVFbGVgCXMw23o/NYRD9kraTBU9hZA3Lkra
+tCrglt7pj2yvIk1ocjQx1x3F3BkMpEx3qFAKkbdFp6ZYseaF94WAWoVBeV7dtDXb
+PdcCICI93qja77tvChk6GCQfcU+ynAkbWHR+bA4FMRY3+m1Ty20agprkLXw9uHTX
+u6DJTWvBq9vvUpnBgwdkIiWGr7xULbjK90IzqwUR8jeaWX0FlQBE1JXW8xRB13k5
+a4PcPHnI47HunyciJFa9yfweln7qKc92Ldv/U/zhPmY9RXVS/Nc48S2caQ6Ya5+r
+V0aff0Q5deQINAqcRJtmEEhfvXG7dcZJ5HFF2wTZjI5roCboFkjF4MdqiFJCh6Fb
+KsFKDpRrcy27hSYATbrnUkExnVGL+6Lws4CdZUho12f/HDuwfDi9ZCbJcbGKVNn4
+rhrwNdTC8zQTqHUZdXhigBcLjEJyfWHB2vc5xTk2o+/whQxF5jqHHjx2BVL+EoqP
+f9+/NiBwgu3ylF+S8yEBK2uMsWIAqZge5JQiAUaExWTxryeTo/J9uGDIv9kmGEtd
+YWo3NFl/TZVmm6Ufrtjp7ToPFHemFB/M5b/gQkJLvxyNOS8apeVykGEOARj+k6BV
+KA3fqa1Z55CtC58HQwtuXye84ufaMRhKI7nI87zkeaoMf7n5G4c=
+=g58g
+-----END PGP SIGNATURE-----
+
+--v3h6xjzlfvroq4wu--
