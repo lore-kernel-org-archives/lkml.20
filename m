@@ -1,104 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794391608;
-	b=Sl8ilqHf2w3XSrg6WeqzDyMfuO8elaQd/IhYu3Ah2Ss9fLrbRR1FE4VzVp+mmYQb4w+F
-	 vkJpeKzAS++xq/lAmWvtHnJVQ0KV/ODQW3REic/amQO2YjqBxvESDM4zzmNmVUhMLnbaa
-	 Egha9D481UXlYoPbfzx+g1kIBl/yN2m8tHKgSO4v7S9t0C+3LQI3mipg8yWg/lX1jnmEW
-	 U4rDlSr1qCn6QPQWkW1OtcqXLpg9B03Ma9+ArO/cAvBQ4Gz1fIrNbp5oZj79CQJ4UZmki
-	 g1DJQspFoiPQsdFRakBwAgIiaTMBTTelxvRfvgE8/gzkNSA7FMV9kM9J5kEH4qfsokA==
+	t=1794391615;
+	b=XMrEzI83yHCzh30cMmtTpxPlgSuygM2NZLN2JqUshNGnrsBtYgbnRz7RIwTtK9AgmyLV
+	 TBslmcp72bs5HqJGJbWwxGVp9RMsH83pdpIYQkX5o8KEqoaeftLfEszsS2vy5/ckKpMIe
+	 gagZFD6eOk6Trx8P0Hey/a4nR11SPEDwnxlKckrSze2f4i7igIxmPGA5e6uKdflZ+CIcE
+	 Y/VSQ1oM9kV6GrIdqe3ewawKX9/HCc6nQ9TyWoBKWREIDixaP2q3bHH9mzY3+zX6jGGFa
+	 /FreNAfr7gMt6DmA3Ze2D70utV75EPLpDcKqy1TWfsBRmuZiXkvZK/kE5tB4ilHn2aw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794391608;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=3fdl99wflmpgOQFz3rP4SGWHHNVvKJz4CW8AnVydfWM=;
-	b=kRqbrlbYm1xmZdqFd+YGHzYVJBwxBK3BfnUsQy+jhykmF7jMHWSUBiAf4FCbKpDkkFKc
-	 Ihtt35pWnOImXr2Okgcr1zsK4/SgZjdmV9ztUtmtLwNxJ6Hp9njLtAYFpngmPkWcDerF/
-	 mxNFf47bQNwrl/10LXK4tOD5wlk9lz2kgW4xaH/mTuTrTnqJtWNynghiuSgqYj1vyNZcP
-	 nRIugVu8WmfEzrUGNEU5KT2UP/tYPGzS5DbnsQFtTGao2YRwg/EQkAN1Mklvkwcji/TSI
-	 oPGI1+h2/aItp8lnc9Of/NwuTeEVGzu9/bBMyJOLe6mPVlBfAvT+G0NxIUdkFoKQmKA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794391615;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=VlfbgDgQAEitsNSmJqDXQTJdALRr6On/NT0I0OmkIfA=;
+	b=J3jIlMt9+DTOlwyRu76iiU9YMEa5dZlLw+MC3VYu78VIy8jN6mPeIW0iB0f260US4p4F
+	 JgeyWX62Z7Xb4i4yEiidBkGF3vYZ1mBnOUUYmx1igPdJ1qonrlnOtqfN9MqGb8zPtIfh6
+	 r/7DGNWrbZlhiyhdHmtE81IqAsvOHmJeG3WmgbZCmaU6ysMH8OpvhKz/ecsJzzQD/0c/2
+	 MbAZ+Fui2J/o9BSnYRJKoSJA5Zsh2qYCdaNLMJ4uFRgCKbWeUdUrEid1XRXv+47WV6TX+
+	 hvRjTmUka94U0HsFH/osA+944m/PAAy9uQoyK/wPfrgSHpEKRr3HE6RZwYEyGUPbD6A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uYvMDd0G;
-	arc=none smtp.remote-ip=74.125.82.172
-Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e4p588Da;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D421606A33C
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 10:06:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6D421606A33C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F23CB606A333;
+	Wed, 11 Nov 2026 10:06:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uYvMDd0G
-Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-3645f0f3fcdso6184273eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 02:06:48 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794391607; x=1794996407; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3fdl99wflmpgOQFz3rP4SGWHHNVvKJz4CW8AnVydfWM=;
-        b=uYvMDd0GBsLTJHSnn2sYsMI5EGdcAiHlXmubqKa5UygquPqeJK6AoV3mZBCHyHIOg2
-         soJaqSZuvFHSTdApDLhyJyQD4GERLNl/rqZOiRr3Y521GEPTIiM2fA1iVIDVAOBio4Sc
-         N6gqfVHMBlfJKPIIcPLeFQxwqqFi9UXrKBQZFDbJVAV39T5LVJcdrELXOhmK+9HJBglr
-         6i4U0V64dzCYJEFSdmOvD4bORXbGz2+922lGKvoDIdNqjUOX33sF0w8fENU4Cs+p+YBL
-         RxVlW6LV97+n9wY2P1e9GhrGmMi52NrI9LRR1WdeZ+lDK3YinwpQccrNW3g5MOkMZRw0
-         q0Qg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794391607; x=1794996407;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3fdl99wflmpgOQFz3rP4SGWHHNVvKJz4CW8AnVydfWM=;
-        b=rTh4lnxadSyrZzncxjKTZSkgQbNxlsjGIXXDvl/d9hUfV9l9UWIkX9AJzPsOyWYjgk
-         UABllfSsGAC26RmEI1dFc4q+Pqlm7vSsAL9BNYFk3A6MqOHiV4Mk6V0K2ELSoB0j3NBr
-         kbaXNMCzm+nEsOH5RKiq9c0HkeVPB1A7GA3QBbJJkg0p0mbi/eFFqZQApXYZSII7PQD0
-         zIdEhbcze+sQJNDTNptnn8AHAt9HE+SYwcA4Dhre4BMPTpR+Dgkv0dj6XfbHn9tnoLxD
-         FBrBl2d9lQZnnCVWW1UHDY6n3Mymz7Tc3hneEO308rpTGveyiEsutwTHGM0DE/zuO4Xg
-         BIgA==
-X-Forwarded-Encrypted: i=1; AL+hErFkGVZbr4LhYJSYUBvCNyxPoCeTXZMNZhBe42Q8ugz8BK6uNOk8BQJ3of35xeVifSFkU3X2kqrr74d9940=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9eHeFLrCrNV4r+wbqLPYwQMRh1544xT/Cwk2QJkEr9k1tIt4dV
-	hzWJr/Jtzhe3flujoiIeHnIMTAGQwcNjruodAT8AZnK20bV2oeripLe1
-X-Gm-Gg: AYBFou2f45+j7PJvOp7AByRiR3k5hr9Er5O+kjfnKuE8pe1q+bHzSQFW0BwdpbfNr1Y
-	iI5yFty6q9zSekXwb6lUVPGJwBe4wR4lnsjze3WHA2zhnjkYKzgLqqF4be9nh25o3VuIiy+eWRl
-	Zs2vbgUVAHYUKsy57TplMkrZKGahsvaaP4vE/B8y5hfXDkeyMfF3+CVI515+eTsgSJWbRZpsk2o
-	vcqrm7zNkumVP3+mvlsFNWIC6LEjlH/CZrT8Z7LOdMcse6GnB40QDVXA0LTiBqssHVJW9Mh4Tgs
-	mb8vuQ1FL0Wau9oa7RcxJ33IkqARhjzrl9JCdWTOBsxp+KCjKZW3uL9rSUnHBz0kwvxQ2cIEzpy
-	ESusMtMxGvHaeNQY4EcYZD2JLLFztlXJuiEKevyjdh0ZLJMH5AuBz2pmChwAPaOOiLe2tp1fZw/
-	S2W3OLmPICinfv4QswWo4JcRxZiKXgUQBaLc7bT+QW5V0j56ESMb8KSwD3he3Hi6LU7hIu/4Il4
-	+e5+yZMaKzbzGL0jRUtswuaaELbCam3um1sqwuVaNGDhkeDmJmy+ujeAp5J+FKTdxE0HeshyMq2
-	yahgzeh5U9aLG3qPIrdsXm2+rf6/Udjf97parWjx0wq20s66BVAYHP3qN4GI5HvPbv53pE1m7ZY
-	u109DhHyweZ0CECi+OG3ZX5dJPO2af0MkULIK8LEA2t+N
-X-Received: by 2002:a05:701b:4301:b0:1a9:cad6:5b58 with SMTP id a92af1059eb24-1b3c0362b3cmr1960965c88.39.1794391607537;
-        Wed, 11 Nov 2026 02:06:47 -0800 (PST)
-Received: from phuc-desktop.. ([183.91.15.56])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5890584sm15778025c88.3.2026.11.11.02.06.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 02:06:47 -0800 (PST)
-From: phucduc.bui@gmail.com
-To: Mark Brown <broonie@kernel.org>,
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
-	Andrei Simion <andrei.simion@microchip.com>,
-	Nicolas Ferre <nicolas.ferre@microchip.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Codrin Ciubotariu <codrin.ciubotariu@microchip.com>,
-	linux-sound@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	bui duc phuc <phucduc.bui@gmail.com>
-Subject: [PATCH v2 2/2] ASoC: atmel-i2s: Fix I2SC_WS slot width configuration
-Date: Wed, 11 Nov 2026 17:06:16 +0700
-Message-ID: <20261111100616.31211-3-phucduc.bui@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261111100616.31211-1-phucduc.bui@gmail.com>
-References: <20261111100616.31211-1-phucduc.bui@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e4p588Da
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1598C1F00A05;
+	Wed, 11 Nov 2026 10:06:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794391614;
+	bh=VlfbgDgQAEitsNSmJqDXQTJdALRr6On/NT0I0OmkIfA=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=e4p588Da+7AjF2uWURuees2FVLx9OHEFnt6AQUUn5ItfCjASqQlduuuqtghPqvLbf
+	 wtl8MByo8ihpgEWCT1D1I/sHb1uCZ1/kCPfeaPIz7RiB1kYYwfFq8y5kNmkLgQozk0
+	 WtQ9nqzBEuERWQ4hwEoOo/T/SU3+KMDkcGok88Mj+nbLg5kr5tUE57aoTQQbR91WcL
+	 qlc+n91Qdwqgv1EnX3JA5B/KGqtsYfsnrIqBmOzSYjCFs/2QEZt6WHyae4SahsIxEB
+	 yiP9T4qCJhko56XnxlOdxTHwM5tRhHu+snaXEQnhyOmKHdxwWHGMsDGfn6Pyi2Tibn
+	 JWvxrtCyr7q7A==
+Subject:
+ Re: [PATCH net v5 1/2] gve: refuse XDP on queue formats without XDP support
+From: netdev-bot+sashiko@kernel.org
+To: amaan.cheval@gmail.com
+Cc: netdev@vger.kernel.org, joshwash@google.com, hramamurthy@google.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, bcf@google.com, jordanrhee@google.com,
+ przemyslaw.kitszel@intel.com, maciej.fijalkowski@intel.com,
+ pkaligineedi@google.com, maolson@google.com, csully@google.com,
+ willemb@google.com, yangchun@google.com, npl@google.com,
+ awogbemila@google.com, shailend@google.com, nktgrg@google.com,
+ maxyuan@google.com, bpf@vger.kernel.org, john.fastabend@gmail.com,
+ hawk@kernel.org, sdf@fomichev.me, daniel@iogearbox.net, ast@kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Wed, 11 Nov 2026 10:06:52 +0000
+Message-ID: <179439161258.2199510.10096207449822395421@kernel.org>
+In-Reply-To: <20261109100437.331423-2-amaan.cheval@gmail.com>
+References: <20261109100437.331423-2-amaan.cheval@gmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,41 +70,154 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: bui duc phuc <phucduc.bui@gmail.com>
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-The atmel_i2s_hw_params() function configures the PCM formats
-S18_3LE, S20_3LE and S24_3LE, which require a 24-bit I2SC_WS
-slot width.
+Critical: 0 · High: 0 (1) · Medium: 1 · Low: 0
 
-However, ATMEL_I2SC_MR_IWS is missing from the mask passed to
-regmap_update_bits() when updating ATMEL_I2SC_MR. As a result,
-the IWS bit is never updated, potentially leaving the slot width
-at 32 bits.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Add ATMEL_I2SC_MR_IWS to the mask to ensure the slot width is
-configured correctly.
+- [Medium] The commit message misstates which queue formats the new check
+  affects.
 
-Fixes: 3b7961a326f8 ("ASoC: atmel-i2s: Fix usage of capture and playback at the same time")
-Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
----
- sound/soc/atmel/atmel-i2s.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but the patch
+  extends it.
 
-diff --git a/sound/soc/atmel/atmel-i2s.c b/sound/soc/atmel/atmel-i2s.c
-index 60e885980f4c..d23ac43590d8 100644
---- a/sound/soc/atmel/atmel-i2s.c
-+++ b/sound/soc/atmel/atmel-i2s.c
-@@ -329,7 +329,7 @@ static int atmel_i2s_hw_params(struct snd_pcm_substream *substream,
- 	int ret;
- 
- 	mr_mask = ATMEL_I2SC_MR_FORMAT_MASK | ATMEL_I2SC_MR_MODE_MASK |
--		ATMEL_I2SC_MR_DATALENGTH_MASK;
-+		  ATMEL_I2SC_MR_DATALENGTH_MASK | ATMEL_I2SC_MR_IWS;
- 	if (is_playback)
- 		mr_mask |= ATMEL_I2SC_MR_TXMONO;
- 	else
+--
+
+gve: refuse XDP on queue formats without XDP support
+
+This patch adds a check to gve_verify_xdp_configuration() that refuses XDP
+setup when dev->xdp_features lacks NETDEV_XDP_ACT_BASIC. It replaces the
+queue format gate dropped by commit d8a8ca14c937. The aim is to keep XDP
+off DQO-QPL, whose RX page accounting can free a page that is still
+DMA-mapped and registered in the QPL.
+
+> Refuse XDP setup in gve_verify_xdp_configuration() whenever the driver
+> advertises no XDP features for the current queue format, which today
+> means DQO-QPL.
+
+[Severity: Medium]
+Is "which today means DQO-QPL" accurate? gve_set_netdev_xdp_features() only
+sets NETDEV_XDP_ACT_BASIC for GQI-QPL and DQO-RDA:
+
+drivers/net/ethernet/google/gve/gve_main.c:gve_set_netdev_xdp_features() {
+	if (priv->queue_format == GVE_GQI_QPL_FORMAT) {
+		xdp_features = NETDEV_XDP_ACT_BASIC;
+		...
+	} else if (priv->queue_format == GVE_DQO_RDA_FORMAT) {
+		xdp_features = NETDEV_XDP_ACT_BASIC;
+		...
+	} else {
+		xdp_features = 0;
+	}
+	...
+}
+
+GQI-RDA also falls into the else branch. gve_adminq.c can still select
+GVE_GQI_RDA_FORMAT from the GQI_RDA and GQI_RAW_ADDRESSING device options,
+so the new check refuses GQI-RDA as well.
+
+The check that d8a8ca14c937 removed (queue_format != GVE_GQI_QPL_FORMAT)
+also refused GQI-RDA. Since that commit, XDP could be attached on GQI-RDA,
+and XDP_TX there takes this path:
+
+gve_rx()
+  gve_xdp_done()
+    gve_xdp_xmit_one()
+      gve_tx_fill_xdp()
+
+gve_tx_fill_xdp() always uses tx->tx_fifo: it calls gve_tx_alloc_fifo(),
+memcpy()s into tx->tx_fifo.base and reads tx->tx_fifo.qpl->page_buses. A
+raw-addressing TX ring never allocates that FIFO. Isn't that a NULL
+dereference that this patch also fixes without saying so?
+
+Could the commit message mention GQI-RDA? Two things are worth stating:
+GQI-RDA now gets -EOPNOTSUPP, and this closes the XDP_TX crash there. That
+would help stable backporters.
+
+The follow-up patch "gve: fix RX page refcount overflow from INT_MAX
+pagecnt_bias" uses the same wording ("The previous patch keeps it that way
+by blocking XDP on DQO-QPL"). Its safety argument also depends on XDP being
+blocked on GQI-RDA.
+
+> diff --git a/drivers/net/ethernet/google/gve/gve_main.c b/drivers/net/ethernet/google/gve/gve_main.c
+> index 2437cd8ba6331..fe560f5c5408c 100644
+> --- a/drivers/net/ethernet/google/gve/gve_main.c
+> +++ b/drivers/net/ethernet/google/gve/gve_main.c
+> @@ -1723,6 +1723,12 @@ static int gve_verify_xdp_configuration(struct net_device *dev,
+>  	struct gve_priv *priv = netdev_priv(dev);
+>  	u16 max_xdp_mtu;
+>  
+> +	if (!(dev->xdp_features & NETDEV_XDP_ACT_BASIC)) {
+> +		NL_SET_ERR_MSG_MOD(extack,
+> +				   "XDP is not supported on this queue format.");
+> +		return -EOPNOTSUPP;
+> +	}
+> +
+
+[Severity: High]
+This is a pre-existing issue that this patch did not introduce, but the
+patch adds another exit to the same gate. gve_xdp() calls
+gve_verify_xdp_configuration() before it looks at the command, so the gate
+also runs for teardown:
+
+drivers/net/ethernet/google/gve/gve_main.c:gve_xdp() {
+	err = gve_verify_xdp_configuration(dev, xdp->extack);
+	if (err)
+		return err;
+	switch (xdp->command) {
+	case XDP_SETUP_PROG:
+		return gve_set_xdp(priv, xdp->prog, xdp->extack);
+	case XDP_SETUP_XSK_POOL:
+		if (xdp->xsk.pool)
+			...
+		else
+			return gve_xsk_pool_disable(dev, xdp->xsk.queue_id);
+	...
+}
+
+Several of the gate's conditions can become true after a successful bind:
+
+- gve has no ndo_change_mtu, so the MTU can be raised above max_xdp_mtu
+  while a zero-copy pool is bound.
+- gve_set_features() refuses HW-GRO only when priv->xdp_prog is set, so
+  HW-GRO can be turned on while only a pool is bound.
+- The queue counts can be changed the same way.
+
+When the AF_XDP socket is then closed:
+
+xp_release_deferred()
+  xp_clear_dev()
+    __xp_clear_dev()
+      xp_disable_drv_zc()
+        gve_xdp()
+          gve_verify_xdp_configuration()   /* returns -EOPNOTSUPP */
+
+On failure, xp_disable_drv_zc() only does WARN(1, "Failed to disable
+zero-copy!\n"). The core then goes on to xsk_clear_pool_at_qid(),
+xdp_put_umem() and xp_destroy().
+
+Because gve_xsk_pool_disable() never runs, clear_bit(qid, priv->xsk_pools),
+xsk_pool_dma_unmap() and gve_unreg_xsk_pool() are all skipped. Won't
+rx->xsk_pool and tx->xsk_pool still point at the freed pool when the RX
+refill and XSK TX NAPI paths use them? The UMEM DMA mappings would also be
+leaked.
+
+dev_xdp_uninstall() follows the same pattern for programs. It does WARN_ON()
+on the failed removal and then calls bpf_prog_put(), which leaves
+priv->xdp_prog dangling.
+
+The new xdp_features check cannot change between setup and teardown by
+itself, since gve_setup_device() computes it only from queue_format. Even
+so, would it be better to run the verification only for XDP_SETUP_PROG with
+a non-NULL prog and for pool enable, so that teardown is never refused?
+
 -- 
-2.43.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261109100437.331423-1-amaan.cheval%40gmail.com
