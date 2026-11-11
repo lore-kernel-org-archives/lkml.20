@@ -1,102 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794411167;
-	b=OKjP9N8kJ/3ZRzia+h9SYUt4OcEqjJz8dFE//0tcChPdDWCiRKo+MfN5AMUTJBT3VI2G
-	 rpR/58skJ32hr10t+2bItB6ob7Bhe98mSAglaVNpVVpBoAPF79odqG15Y1C8FgkrOpuTe
-	 IQhrZxB8aCXBoTkwGjWc3JbCICpY/kX8mIPfmwvqZZGSP5TodNcihGLaZ+xtrb7986Spd
-	 8OVKhnkvoOq1SLhuZCIiBwbVEHMY/ujc3Ls2bH+hTpbtj1EKIOjucG3nBAH8UqqsvfbRs
-	 fk/QVeONgV46smq445f+nTc25XPKE0r0lk16eJsX5UavrcgHE/fDUSUGNI5pRrliIAg==
+	t=1794411186;
+	b=AM25GAFHTJGxYTj38q4wf0bXvmxLpfvoCePDxZh5hx/NtchedO/U1tvY0QII7ozfmICK
+	 swMjcbQ6JQt6ZlGW2OzyBQzuKGJKr3p3xDGneAGLOOh4bOko+ZzWnI6IK9ANqo8w2Ih6V
+	 eYW+kTRQqh89V0zJTRodnu6MPILkARvnZzCM+4VNBYomK+7wu56A0g9kXDeg1QXvrjy5i
+	 tjzDFif7TmgCsJqfetAZ/MRerAmeZJ+UfcMjC75NgRl0wvIkOVlWIsPd06F2kuDGmRDqS
+	 30oMl2D+DGSdLoOWxqABODYRWW0jX25HGx1MhsQXMIpU2d9krkgODNDrh4J/LOK80lQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794411167;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Spam-Flag:
-	 X-Spam-Level:X-Spamd-Result:X-Spam-Score;
-	bh=0QX7Nn84u4s0DnwYMDSu32uRZsi//MdgfufFu6UTqA0=;
-	b=oW2oePIVMpvmgLR7kolZOXxODPLhfbq5G4G/DPiGFWt/uh3OYfazvpwyaJ/Mp4RTv5qY
-	 unxnetygms9an71WqqmGWChUQ0cU4xyqV4Ep2BrFCyeM2qYwAREVeK9Q4Y6/tgdQbbLq7
-	 r3nJx2AQYXWgDThmFlvyTvvVHr2Xu/WM4o3w6VKscwQ0lHUXzQ5iARcZJQez50WTa8J1D
-	 gNEMrHVsaKb2WP8C/z6ATIhSPVSG9DX4+a3hvTq/a5+FVwU0ocvL5NlRXtmzi/uynaUVf
-	 4sJrCWavy0b20OSEj81Rb9J6jddkeCM0tXKOVHtBCDRu8WwhEa6CKSCgCHJu9shE2pg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794411186;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=EGBcdLyH+qWtPFF9G1WLyu068WqshojAGB+pBC2wncc=;
+	b=kn4ZLv9GsJyuY/2iy03kpKtSYXzpvcsGMnvo5s5P2RaOU2eRFt9rRmyassKY4dNJVGUp
+	 mVpVwxoAZvZh68z3QFc+EnSboAHeelnPyEFldOigLO+D6M4RFIh24Pg7J/5frwnEvoIIP
+	 Isl6R3en37dcn0gKx3zLkGHRubHiyH71/TlndYo9thFkq1KScJEd7m6Ff86IHKfbz+PJr
+	 NEcK5b9wb51y3/QUhCWzGeJWDuOiH7oiMnXb+08BwH49/vdBTbeEpDVyjq+lZVYgatTIc
+	 Qd8KzA7KgnmPugi2QTqwUW7Bu+fqnO2NZnzw6PDzWv3PImBFFbz1TvwCBI9daUM4eCw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=S987N5Xs;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=s9WDYQY+;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=S987N5Xs;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=s9WDYQY+;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=fU0WQK3T;
+	arc=none smtp.remote-ip=95.215.58.44
+Received: from mta1.migadu.com (out-44.mta1.migadu.com [95.215.58.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84A5E606A324;
-	Wed, 11 Nov 2026 15:32:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 84A5E606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F4CE606A333
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 15:33:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6F4CE606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=S987N5Xs;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=s9WDYQY+;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=S987N5Xs;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=s9WDYQY+
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id AA9C721EA8;
-	Wed, 11 Nov 2026 15:32:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794411164; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=0QX7Nn84u4s0DnwYMDSu32uRZsi//MdgfufFu6UTqA0=;
-	b=S987N5XsWK2X6//jsNSWKUmEbdvyx7490xFLwWQtcW3BW+Y7DPovDD/aQPd2UlwA0v0Zpp
-	dPXDEcLZwe1tvxT/ww+fxNHPZW0u/hP2oP96sa7JuyFwKzwG+hxELdmEQTUjc86l0Y94/U
-	ChPYzDQf3qhaJalWmHPnRyuLEfcGcEc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794411164;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=0QX7Nn84u4s0DnwYMDSu32uRZsi//MdgfufFu6UTqA0=;
-	b=s9WDYQY+f+6araYdRSy/SwbNb8i3TlWvODYlvROUxJVBE3C84zDV+wERB7nD66LozH0tOd
-	2y6hNGeoeptzqlBA==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794411164; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=0QX7Nn84u4s0DnwYMDSu32uRZsi//MdgfufFu6UTqA0=;
-	b=S987N5XsWK2X6//jsNSWKUmEbdvyx7490xFLwWQtcW3BW+Y7DPovDD/aQPd2UlwA0v0Zpp
-	dPXDEcLZwe1tvxT/ww+fxNHPZW0u/hP2oP96sa7JuyFwKzwG+hxELdmEQTUjc86l0Y94/U
-	ChPYzDQf3qhaJalWmHPnRyuLEfcGcEc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794411164;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=0QX7Nn84u4s0DnwYMDSu32uRZsi//MdgfufFu6UTqA0=;
-	b=s9WDYQY+f+6araYdRSy/SwbNb8i3TlWvODYlvROUxJVBE3C84zDV+wERB7nD66LozH0tOd
-	2y6hNGeoeptzqlBA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2DB441339F;
-	Wed, 11 Nov 2026 15:32:43 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id oBajMZuK9Go7UQAAD6G6ig
-	(envelope-from <tzimmermann@suse.de>); Wed, 11 Nov 2026 15:32:43 +0000
-Message-ID: <57163572-846b-476d-9a90-f28d82598eec@suse.de>
-Date: Wed, 11 Nov 2026 16:32:43 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=fU0WQK3T
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=FYJ5fe5bszWYbPmBUf7pMhzfw1+piK655vw2zkho3KU=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794411183; v=1; x=1795015983;
+ b=fU0WQK3TlyT/bMe+6X8gJE8piiEwBp+qMghoBptDNTz0q5iWaaHpEOkjV6eI8sKdavNcRvay
+ fT6z3ZByUvQQ3mvS9nHCbxnH5C5RJz0loaFPjS+a4TyiF0E1ul1kPTEoNFDPSwifCmifz+6PE+V
+ iwLZeNeNcl50T2eBrkew/rrU=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id e7ccb356486f714d;
+	Wed, 11 Nov 2026 15:33:02 +0000
+X-Mizu-Trace-ID: e7ccb356486f714d
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <ab4e5c29-b835-4ea8-853b-57ae7ad2eafe@linux.dev>
+Date: Wed, 11 Nov 2026 23:32:50 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,123 +59,99 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/2] Add monochrome framebuffer support to
- simple-framebuffer
-To: Hans de Goede <hansg@kernel.org>, Sebastian Raase <linux@sraa.de>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, linux-fbdev@vger.kernel.org,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Helge Deller <deller@gmx.de>
-References: <cover.1793758480.git.linux@sraa.de>
- <ae6f7b88-ea9a-49f7-a3ad-ba90185528c2@kernel.org>
+Subject: Re: [PATCH bpf-next 5/9] libbpf: Add log_opts support for
+ BPF_TRACE_ITER
+To: bot+bpf-ci@kernel.org, bpf@vger.kernel.org
+Cc: ast@kernel.org, daniel@iogearbox.net, john.fastabend@gmail.com,
+ andrii@kernel.org, eddyz87@gmail.com, memxor@gmail.com,
+ martin.lau@linux.dev, song@kernel.org, yonghong.song@linux.dev,
+ jolsa@kernel.org, emil@etsalapatis.com, ihor.solodrai@linux.dev,
+ rostedt@goodmis.org, mhiramat@kernel.org, mathieu.desnoyers@efficios.com,
+ kpsingh@kernel.org, matt@bobrowski.net, shuah@kernel.org,
+ linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, netdev@vger.kernel.org,
+ martin.lau@kernel.org, mason@kernel.org
+References: <20261109140816.5196-6-leon.hwang@linux.dev>
+ <8b9e5217cbe9c192e678ce5c8d59f573c80a659d72211f5b91c905ed00ebb799@mail.kernel.org>
 Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <ae6f7b88-ea9a-49f7-a3ad-ba90185528c2@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Spamd-Result: default: False [-11.79 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	XM_UA_NO_VERSION(0.01)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	TAGGED_RCPT(0.00)[dt];
-	RCPT_COUNT_TWELVE(0.00)[14];
-	RCVD_TLS_ALL(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com,gmx.de];
-	TO_DN_SOME(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[linux.intel.com,kernel.org,gmail.com,ffwll.ch,vger.kernel.org,lists.freedesktop.org,gmx.de];
-	MID_RHS_MATCH_FROM(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:url]
-X-Spam-Score: -11.79
+From: Leon Hwang <leon.hwang@linux.dev>
+In-Reply-To: <8b9e5217cbe9c192e678ce5c8d59f573c80a659d72211f5b91c905ed00ebb799@mail.kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi
+On 2026/11/9 22:47, bot+bpf-ci@kernel.org wrote:
+>> libbpf: Add log_opts support for BPF_TRACE_ITER
+> 
+> TL;DR:
+> - libbpf BPF_TRACE_ITER case may not reject stray bytes after iter.len
+>   (missing OPTS_ZEROED check), so unknown fields could be silently ignored
+> - Nit: iter.len test in the legacy branch looks like dead code
+> 
+>> diff --git a/tools/lib/bpf/bpf.c b/tools/lib/bpf/bpf.c
+>> --- a/tools/lib/bpf/bpf.c
+>> +++ b/tools/lib/bpf/bpf.c
+> 
+> [ ... ]
+> 
+>> @@ -821,6 +816,16 @@ int bpf_link_create(int prog_fd, int target_fd,
+>>  			return libbpf_err(-EINVAL);
+>>  	}
+>>  
+>> +	if (iter_info_len) {
+>> +		if (OPTS_GET(opts, iter.len, 0))
+>> +			return libbpf_err(-EINVAL);
+>> +		iter_info = OPTS_GET(opts, iter_info, (void *)0);
+>> +	} else {
+>> +		log_opts = OPTS_GET(opts, log_opts, (void *)0);
+>> +		iter_info = OPTS_GET(opts, iter.info, (void *)0);
+>> +		iter_info_len = OPTS_GET(opts, iter.len, 0);
+>> +	}
+>> +
+> 
+> When the legacy iter_info_len is non-zero, the check above already requires
+> OPTS_ZEROED(opts, target_btf_id), which covers every byte from that offset
+> up to sz, including iter.info and iter.len.  Can this OPTS_GET(opts,
+> iter.len, 0) test ever be true?  It looks like dead code.
+> 
 
-Am 11.11.26 um 12:15 schrieb Hans de Goede:
-> Hi Sebastian,
->
-> On 4-Nov-26 03:34, Sebastian Raase wrote:
->> This patch series adds support for monochrome framebuffers (1 bpp, packed-pixel)
->> to simple-framebuffer.
->>
->> Monochrome framebuffers require far less video memory and bandwidth than
->> 16bpp or 32bpp framebuffers, making them useful for small devices or FPGA
->> implementations.
-> Thank you for your patch-series and I see that Helge has just
-> applied this to the fbdev tree.
->
-> Have you considered also extending the simpledrm driver to also
-> support these monochrome formats there ?
->
-> Most Linux distributions now a days have switched from using simplefb
-> to using simpledrm.
->
-> But I must admit I've no idea how well the drm subsys / kernel-mode-
-> setting API handles monochrome formats.
+Will drop the iter.len check.
 
-Only kind of. We either support it natively if the compositor can handle 
-it, or we convert from XRGB8888 to the internal pixel format. But our 
-helpers for converting pixel formats expect 8-bit per pixel at a 
-minimum. All the drivers with lower pixel size do some kind of 
-workaround. I'd love to see better support, but had no time to work on it.
+> [ ... ]
+> 
+>>  	switch (attach_type) {
+>>  	case BPF_TRACE_ITER:
+>>  		attr.link_create.iter_info = ptr_to_u64(iter_info);
+>>  		attr.link_create.iter_info_len = iter_info_len;
+>>  		break;
+> 
+> Every other union member's case ends with a check such as:
+> 
+>     if (!OPTS_ZEROED(opts, tracing_multi))
+>             return libbpf_err(-EINVAL);
+> 
+> Should the BPF_TRACE_ITER case do the same with OPTS_ZEROED(opts, iter)?
 
-Best regards
-Thomas
+Will add OPTS_ZEROED(opts, iter) check.
 
+Thanks,
+Leon
 
->
-> Regards,
->
-> Hans
->
->
->
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
-
+> 
+> On the new iter.info/iter.len path, nothing checks the bytes after iter.len.
+> A caller that sets opts.iter.info, opts.iter.len and opts.tracing_multi.cnt
+> gets the stray field silently ignored instead of -EINVAL.  Likewise, a
+> later field added to the iter struct after len, built against newer
+> headers, would be silently dropped by this libbpf because sz still equals
+> sizeof() and OPTS_VALID() cannot see it.
+> 
+> Legacy callers would be unaffected, since their union is already zero, and
+> the iter.len test in the legacy branch could then be dropped.  The later
+> commits in this series only touch selftests and do not address this.
+> 
+> 
+> ---
+> AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+> See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+> 
+> CI run summary: https://github.com/kernel-patches/bpf/actions/runs/42633880300
 
