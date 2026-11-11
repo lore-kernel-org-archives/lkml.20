@@ -1,59 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794411512;
-	b=zs0k1HhjRE5tWmGpgr4idO8eVWUye5kB70caXmfBrJL+fAo2MyEu96KrpMh1DZgKtc+s
-	 IBy9dyl9rvPILjzOQI7kxheul6rilD+6PaPMGJ6/O9fjALMSomcaBhMANo1ANqH9eoH3U
-	 OjF8FiF1Gso22Lr49fzQOmZYxe7V+SGmjf2/4HhNnegUkO/Quskp/3ut92CqwSTHP/rzO
-	 U+sOKd1E3f5SRRkIqN4jEcuIKO5LEJ6KoA7mkk1wG7VTFMGIw5NnSdxfpn0NLFjA5B1wH
-	 tZYC70CKh1gsEW5wUpHKB1DQzZIZX42H9zqGXtygeMgYzfeYCgk8GK6EUQmgz0Qtunw==
+	t=1794411522;
+	b=ahoGOHiNnDgm/jKGb1hFj2l67YzzTuNOou+pot0JvWBVxjhatk1pXihcTyQzImN7aJdM
+	 hglbQ4kYsVouMHlatG/dIbsteXJVWFFfLVzjcBDFiwXKrbt+TGLDgMsFwAq/zlApa98/T
+	 HDDCpL+bUpMUtMo0kMAKjdJ7lEK9cGaIwCqMNs3yhAjQjRsj3RoQJvSnMxhG9jRUJngQi
+	 o/V8orwbSxsvwptNu50GR/HlGV0DsdRMtz+YXbkbyWnM+YfXCcUnawVpVxojjIfVTvajI
+	 ZjS8AL3f5qeEV7KAnVkCT5vHXbNtgwv5RiAPpuxWAepuPkGwBfekY1dnPnvrfF70lsg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794411512;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=TEvRSsKR5xs8YQSy5o2nBc/tYG6RojwW1Cuv81ErJuA=;
-	b=MQ7Hi9ah8+BYpTbKVS92frXpzJpvs3T4lqoLpEt0MSVsHQYPbgdpJRX+iaG2hwclrnmI
-	 ZMlKF8IGu33OTshoZP0vDaQN+mMQq5UMmcI+ocbVVys7K8nZmz2ZLeKlQoPMvXwTJiveg
-	 1vYj5imVL+WYxHuhlGuFoN9Yy40G2bKyo9CoWVSxqxJdMv9mMefsXe8BRcJrZbViEo7ny
-	 HPFBGWqVmg/XVXrUTh7iH2KT14Ur2UIlEiDJyWxNul7qFKQ0NfU7BvL3lnymPIgYa2Szx
-	 OIFWVbRSa47WcbFRlOyEyy0qynr6C7m4JY6ydE6YijWH6brReZPBjCQmjmZ/1gMu3Qg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794411522;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:From:To:Cc:References:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=3hzhLkfLUr5hkJiZG4EDECMR3tAu6ENF4hGmO7g9NvQ=;
+	b=PE3VwePdQp4aCsMqfs/h+MPt1xzpfy6nzMrZywCHKzkh2qeAqfePj8P6B6GSFj7QX+QH
+	 4vd+6K0gH6lHGhF2kaaGqmB/uIB9p8mA1+kiw2KSPDRW4pfWtIiqIrFHHN3Fz7RfeXq1J
+	 j4CIw3d9+hcVmOegNau472wBzLoR2/VLy1Bk+nFaiEBq47qIPwfMJir+BFw3RcUVmWJfl
+	 jiOqp2MIfKq++vSQCPS4LaaRpU8ZPahu0lvltUKKBcDTU7TdmP4xvC43mKSqUIwo6pmdn
+	 /FASdpGNZBwovAiIUq+QhqvYhSs53CCUapNBvh0PkJXjdtV8TfhXjJKtl+WyAn8u/uw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="jInUJ/jo";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YepYSDR+;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7834606A324;
-	Wed, 11 Nov 2026 15:38:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52CAD606A32D
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 15:38:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jInUJ/jo
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4BD1A1F00A05;
-	Wed, 11 Nov 2026 15:38:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YepYSDR+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4FE151F00A0D;
+	Wed, 11 Nov 2026 15:38:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794411511;
-	bh=TEvRSsKR5xs8YQSy5o2nBc/tYG6RojwW1Cuv81ErJuA=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=jInUJ/joXmAvAjXofXhzBoowYvUBv/zZ4aYtnkoTJm0oLycIf/MhWZ2jd6/ZpjDpE
-	 niuk9wZxf6alTP0USL/m1pS9rU0BCnIv5KoH1BsCgia+2UqcxYrgBPb9kwZvhdLwAe
-	 sRzNdXWq9un6pd3vO3FNPAEDbJYqeMXz1A6r6+5Q3Yt7VPQ5rK7wog6yK9xNBz67ya
-	 o1ovH8K5GI4bACJ4BIlR1WwzvSFgps53jkfP1weif4iSY1aRJ6VK60bmeXAdqXNDKq
-	 CRIXpWgZSmNAOpMiSeUrvhMH7qCjoTKyfKwpwwLGgmiMTSrhfLrvFklFVBEKPHsxGA
-	 2yhWNkwyQI+YA==
-Subject: Re: [PATCH net] net: dsa: motorcomm: Do not inherit ports from
- dynamic FDB entries
-From: netdev-bot+sashiko@kernel.org
-To: mmyangfl@gmail.com
-Cc: netdev@vger.kernel.org, andrew@lunn.ch, olteanv@gmail.com,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- linux-kernel@vger.kernel.org
-Date: Wed, 11 Nov 2026 15:38:30 +0000
-Message-ID: <179441151084.2199510.11035302452325241587@kernel.org>
-In-Reply-To: <20261109153407.1761032-1-mmyangfl@gmail.com>
-References: <20261109153407.1761032-1-mmyangfl@gmail.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1794411522;
+	bh=3hzhLkfLUr5hkJiZG4EDECMR3tAu6ENF4hGmO7g9NvQ=;
+	h=Date:Subject:From:To:Cc:References:In-Reply-To;
+	b=YepYSDR+fVSkax6M38d+Eushf1cgyV6Yhbsvg925tS2ENWgdJAty1V2Dfzn1SL7cd
+	 5j3dh8sgynVFcNuYllukCisvDfCAGcgujhWr4s8pvK3RQdN1KInRUY37yzVVMM5WIz
+	 S37q4tKc7wqmlVoxbaz4YuS1kEwlGcTo5yIzobv8ykIwmZ+3mbqqlZznudAmb85ETn
+	 TUNp/REa39RG37sVx/se0hHymcDSrrgRxwzOsjiOfSLSD7U9yNQvCSg9mtaHgXlkQo
+	 cM9Yhl0zGGjOuJsKZL11B+O0KAcOqnU6UfzGVACFxGufhwk2ZgXsy2WgvNaBZmyTmH
+	 foKByViQf+LrA==
+Message-ID: <30db0b9c-cd43-409e-a39c-f91dee446d55@kernel.org>
+Date: Wed, 11 Nov 2026 16:38:38 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,103 +51,95 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/3] x86/cpu: don't gate PROCESSOR_SELECT with EXPERT
+From: Vincent Mailhol <mailhol@kernel.org>
+To: Dave Hansen <dave.hansen@intel.com>, Thomas Gleixner <tglx@kernel.org>,
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ "H. Peter Anvin" <hpa@zytor.com>
+Cc: linux-kernel@vger.kernel.org
+References: <20261031-processor_select_is_not_an_expert_feature-v1-0-6227bdbbe5a9@kernel.org>
+ <20261031-processor_select_is_not_an_expert_feature-v1-3-6227bdbbe5a9@kernel.org>
+ <efbf7f55-755b-49e1-aa01-dae92fadb426@intel.com>
+ <efe70a7a-32ad-4b7c-a514-b27bc1ac16b3@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=mailhol@kernel.org; keydata=
+ xjMEZluomRYJKwYBBAHaRw8BAQdAf+/PnQvy9LCWNSJLbhc+AOUsR2cNVonvxhDk/KcW7FvN
+ JFZpbmNlbnQgTWFpbGhvbCA8bWFpbGhvbEBrZXJuZWwub3JnPsKZBBMWCgBBAhsDBQsJCAcC
+ AiICBhUKCQgLAgQWAgMBAh4HAheAFiEE7Y9wBXTmfyDldOjiq1/riG27mcIFAmrTM8wFCR1O
+ HxcACgkQq1/riG27mcJ2KAEAhG19xBSkjiA9dtatvq2WJnGaes4SUmY+LSn7dh1Lf7YBAIwB
+ lsMMmigMTk3Qgwymg1nT+Z8z1Owc/TGtRlo4ZcwMzjgEZx4y8xIKKwYBBAGXVQEFAQEHQJrb
+ YZzu0JG5w8gxE6EtQe6LmxKMqP6EyR33sA+BR9pLAwEIB8J+BBgWCgAmAhsMFiEE7Y9wBXTm
+ fyDldOjiq1/riG27mcIFAmrTNKcFCRUFdT0ACgkQq1/riG27mcLEVwD/VmnQtTf6yhowaIFj
+ AjUtwiyQz9ja4NRu9GOvz/pb2L8A/3QcADR0dcxADGsmOiBpN2M9KI7nqdNIq3VPM/3/5fcB
+In-Reply-To: <efe70a7a-32ad-4b7c-a514-b27bc1ac16b3@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+Hi Dave, Boris,
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 0
+On 01/11/2026 at 12:26, Vincent Mailhol wrote:
+> On 31/10/2026 at 14:58, Dave Hansen wrote:
+>> On 10/31/26 00:51, Vincent Mailhol wrote:
+>>> Remove the EXPERT dependency from PROCESSOR_SELECT. Make the option N by
+>>> default so that all x86 CPU types remain supported by default.
+>>
+>> I actually kinda despise the vendor selection stuff in the first place.
+>>
+>> It just causes problems. Like for protection keys. I diligently made it
+>> Intel-only when it was merged. But AMD came along and ruined my party
+>> when they added support for it. We had to go do more work later to make
+>> it available on AMD.
+> 
+> I think I am still missing the connection between the protection-key
+> example and keeping PROCESSOR_SELECT behind EXPERT. When AMD added
+> protection-key support, the dependency needed updating regardless of
+> whether vendor selection was visible outside EXPERT.
+> 
+> I understand that setting the correct CPU_SUP_* dependencies can be
+> challenging, but those dependencies are the developer's
+> responsibility. I don't think EXPERT is intended to hide symbols
+> whose dependencies are difficult to implement correctly in Kconfig. My
+> understanding is that it hides questions which require advanced
+> knowledge from the user configuring the kernel.
+> 
+>> It's also one of those things that inevitably hides build problems.
+>>
+>> Hiding it all behind EXPERT seems very prudent to me. I'm not seeing
+>> justification in this series to change that.
+> 
+> My justification is that the configuration process currently seems
+> backward. For example, an AMD-only build doesn't need
+> MITIGATION_CALL_DEPTH_TRACKING. Today, the user would need to navigate
+> the "Mitigations for CPU vulnerabilities" menu and understand that
+> option to disable it individually. It seems easier to ask which CPU
+> vendors need to be supported and let Kconfig exclude features specific
+> to the other vendors. The same reasoning applies to other symbols with
+> CPU_SUP_* dependencies.
+> 
+> Generally speaking, my opinion is that EXPERT should be applied to the
+> child symbols rather than their parents. The deeper we go in the
+> dependency tree, the more specialised the options become and the more
+> expertise they require.
+> 
+> I agree that keeping vendor selection behind EXPERT reduces exposure
+> to configuration combinations that may receive limited testing. But if
+> there is a bug in Kconfig, is limiting exposure the correct strategy?
+> In the end, it just hides a genuine bug without addressing the root
+> cause.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Have you had a chance to read my replies?
 
-- [High] This patch replaces the egress port mask in yt921x_fdb_join()
-  (drivers/net/dsa/motorcomm/chip.c) only when the existing hardware…
+I wrote patch 3 because, as a user configuring a kernel for my own
+machine, I felt that choosing the supported CPU vendors directly
+improved the configuration experience.
 
---
+If, after considering my arguments, you still prefer to keep
+PROCESSOR_SELECT behind EXPERT, that's fine with me. In that case, would
+you consider picking up patches 1 and 2 independently?
 
-net: dsa: motorcomm: Do not inherit ports from dynamic FDB entries
 
-This patch changes yt921x_fdb_join() so that when the existing hardware
-FDB entry is not static, its egress port mask is replaced instead of
-merged. The goal is to avoid converting hardware-learned ports into a
-static entry that DSA does not track and can never delete.
+Yours sincerely,
+Vincent Mailhol
 
-> diff --git a/drivers/net/dsa/motorcomm/chip.c b/drivers/net/dsa/motorcomm/chip.c
-> index 33e5fc127244d..150c51f1aa358 100644
-> --- a/drivers/net/dsa/motorcomm/chip.c
-> +++ b/drivers/net/dsa/motorcomm/chip.c
-> @@ -799,7 +799,10 @@ yt921x_fdb_join(struct yt921x_priv *priv, const unsigned char *addr, u16 vid,
->  
->  	ctrl1 = val1 & ~YT921X_FDB_IO1_STATUS_M;
->  	ctrl1 |= YT921X_FDB_IO1_STATUS_STATIC;
-> -	ctrl2 = val2 | YT921X_FDB_IO2_EGR_PORTS(ports_mask);
-> +	ctrl2 = val2;
-> +	if (ctrl1 != val1)
-> +		ctrl2 &= ~YT921X_FDB_IO2_EGR_PORTS_M;
-> +	ctrl2 |= YT921X_FDB_IO2_EGR_PORTS(ports_mask);
-
-[Severity: High]
-If the existing entry is already static, this path still ORs the new port
-into the mask, and it does so for unicast addresses too. Can a static
-unicast entry still be "silently expanded and can never be deleted"
-when it moves between ports?
-
-One sequence that seems to reach this:
-
-  bridge fdb add <mac> dev swp0 master static
-  bridge fdb replace <mac> dev swp1 master static
-
-In net/bridge/br_fdb.c:fdb_add_entry(), fdb_update_dst() sees that the
-port changed and returns true. The bridge then calls only
-fdb_notify(br, fdb, RTM_NEWNEIGH, true). As a result,
-br_switchdev_fdb_notify() sends SWITCHDEV_FDB_ADD_TO_DEVICE for swp1
-and sends no delete for swp0.
-
-For user ports, dsa_port_do_fdb_add() in net/dsa/switch.c calls
-ds->ops->port_fdb_add() directly. That ends up in
-yt921x_fdb_join(priv, mac, vid, BIT(swp1)).
-
-The hardware entry is already STATIC there, so ctrl1 == val1. The new
-clear of YT921X_FDB_IO2_EGR_PORTS_M is skipped, and EGR_PORTS becomes
-swp0 | swp1. Unicast frames to <mac> would then go out both ports, while
-the bridge thinks the address is only on swp1.
-
-A later delete on swp1 goes through yt921x_fdb_leave(), which clears only
-the departing port's bit:
-
-	ctrl2 = val2 & ~YT921X_FDB_IO2_EGR_PORTS(ports_mask);
-	if (ctrl2 == val2)
-		return 0;
-	if (!(ctrl2 & YT921X_FDB_IO2_EGR_PORTS_M)) {
-
-That leaves a static entry pointing at swp0 in hardware. The driver only
-flushes with flush_static=false, so nothing would remove that entry
-later.
-
-A host FDB entry on the CPU port, installed with
-assisted_learning_on_cpu_port, looks like it can reach the same path
-when a replace moves the address to a user port.
-
-For comparison, mv88e6xxx_port_db_load_purge() replaces the port vector
-for static unicast and merges only otherwise:
-
-	if (state == MV88E6XXX_G1_ATU_DATA_STATE_UC_STATIC)
-		entry.portvec = BIT(port);
-	else
-		entry.portvec |= BIT(port);
-
-Hardware-learned entries can only be unicast, because source MACs are
-never multicast. Would it work to decide based on the address instead,
-for example by replacing the mask when !is_multicast_ether_addr(addr)
-and merging only for MDB entries? That would cover both the dynamic
-case this patch targets and the static port-move case above.
-
->  	if (ctrl1 == val1 && ctrl2 == val2)
->  		return 0;
->
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261109153407.1761032-1-mmyangfl%40gmail.com
