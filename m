@@ -1,79 +1,113 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.35
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794437193;
-	b=OhCVy90zxLG6iUglZlAkOuV0tS5Nd7TjBzYsw9tEKb/KBS1Dl4g8TVGwRar1YkOW7Ox3
-	 2IfO8tud/UGIosLwBrWM9JAynlMaLRtGmWYMLB/6XZx5lLUK4IVf6D4prYXbCHAvwkHGp
-	 Pwe9cj92lQh8ngwBEgOYwhzMsbVz0ec8Bo1qJi4U/lnMGluoAeZzy1ptO+csHpRMYuS+9
-	 l6us4Y9l+6+S7FHUgmnGnWGFJzs1PQfNHm5nQF75dJEt+ibAxEL9/m0LuoUwL73lZmhO6
-	 AckCi9NJ8qn/xY3ditBvpNqUZM+Wo7tfDko+hrjp49CcfrJuejW58iR7uwGdfxt/VoA==
+	t=1794437195;
+	b=S2Dagx9W4kf0GRKowr/ZojUSblLpAOiGn9rRzj189iB+dWSWUQD7X3Flk0zSbhrC3J9E
+	 sK+e0uYsc+EnqhpsYwPazhemXBE9/PuK0qoiIKh9YCqirdIBQW0RNxdCH9r1WkD1/HTjE
+	 WkKFO2lXE+sW+Lp7iqbo67STrjmSC3H0+RpodeGMuGuKTMp0HcWOI1tB2evb5dlKH1sc6
+	 gfEyNBezffgXL21rgKu+keJEMUy8Fg8Ly8fxU1oHQryGETBqPF8N+rejatk5w5SMEAU62
+	 C7h5p9nQunbu7J1hGSWlXZqCN9yzehphS7Cz/GoGXDzEfMix0EaDrkPlGoTlWehV+3Q==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794437193;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=AjpfbymZu8Tt2ID8CSknEr5GE1ZOsi7uzDe6VqE3cqM=;
-	b=zztW3vt+nMVq2pMtijEDsGD2teuH3GmNW7LFeQ280lGhv/k7aqLP10q106o+FR9Fl/HH
-	 VE5Z1ODYer4NWWHO5N8hMCSejfKsoZWYaeZ+Smr0ablrT7Wi6gLVfHj/Kk7QzGAeQADt7
-	 HBb519AbZwDNXDw/gcCFFA9hplaNGmHPkgUhKst2TbG0witDY88YcoTI80AhjQwFsrRm6
-	 h9jEyGEJHopQp4ns1eWvbKjBYgvCfUU3oBbAMPbObSNT+feLMioWF1Bf3WcxMv3tvlVzy
-	 BSTWVgW67Yzkfpt+815xrVNMJ0koCnznAzBGB2K6+AYtGjFw9t7cu5T5J3LAD+aJU+g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794437195;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=GmXPCelTq6ueAkM1sFyrEyraoBa28nCsHUayLmEXAHU=;
+	b=ir3CG0wKiIAZHwmvETbDLVRDGcuHlLvkb6Ghwqds/YEDihUDTIdmOSUEHXIn/Qc6w97z
+	 bh/ffikLOqw0thuDUuVA81ihzITIQbduBgW7jNetgoQoU13H/ryW5uuel2Mbul0iui2BO
+	 iCf732y16END6kbLKhVg+sMnr+uKxB0QpSSCbQyVvW9ohG2vSyozFS7AiR6hbNKNwFJ7J
+	 q3BTF31Bwk0qPProGRxkGeMl7uARMcoGAv6G0clGFqSrYnOSrGDlkLXPNPzQwnJpFivvB
+	 JUYihBJMjApo5R0M32GqOCObydWlzjQIpONv5XzEiAZQZjPynVZe5eJN7+3rayqjFxQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GAsmaNuH;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=g3nMQ60L;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.35
+Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010035.outbound.protection.outlook.com [52.101.85.35])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78443606B00A;
-	Wed, 11 Nov 2026 22:46:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5D9B606AED7;
+	Wed, 11 Nov 2026 22:46:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5D9B606AED7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GAsmaNuH
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794437193;
-	b=OtQuJtYL7wxYk39Gz8k7KG77ZXcNtq4EHliFCRSrBoNf60IPOuP3M0FoetDHBWDGAhwU
-	 5u/cB3sqshlotm1apJorwi4UsF7bYhaXrWJbx+YlCW0Q8qkHBod2hswTC5pq4hLALNv9E
-	 PN8a5u09y76FChoqgC2cKa+6N3HzGkDvWooV43xGb2/yu2JevKhhc/PvRNFJsjI6kRyX+
-	 RMvXQAd5dFUi4Q/dEkrnxUhVbw7EuPqgMEI3GeufLx+Bqx1CuPSe71OVTmAYjEP7RrnJQ
-	 9NKbPC1MUHxb8PEkaLKMSolDk7cKRMibffKhwy48wfMkFo1KCE4qFbdMT9SWtluJsKA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794437193;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=AjpfbymZu8Tt2ID8CSknEr5GE1ZOsi7uzDe6VqE3cqM=;
-	b=dDHEwt1LSwyRNrvy6vq8FzgPu4U8ZbMX2d3x2niX1B5WRLOUV02SHLbxDyGLPlP2eTKO
-	 W6ZnTqRgnVxg+ZNL6QAXwybgvA1HHwl0z3O7e4ifHeDrwubOQR2tVgBgeQ7vTNgu9JcPL
-	 +cTXeHA7p+62+wSe3mZhHIc4v5MA/mTZ8MuZg0GEV940kwuaDEJ9fori2oR8vD05nfP35
-	 j1nyHo+W7np1VzZOHs4vQ6x/4w1vBmW/Xl+AIhKXvXYMQsDRF75ec6uHncluG+AK/OFs0
-	 MsRrGyqawE7zwuWKH1A5wASX/OjD9VMD7OjU2Um7bMOIPdp/IU0P19j8nb9ATSHOPrA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 467611F00A08;
-	Wed, 11 Nov 2026 22:46:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794437193;
-	bh=AjpfbymZu8Tt2ID8CSknEr5GE1ZOsi7uzDe6VqE3cqM=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=GAsmaNuHZ9pShJbdgZGHi61EKqFk3NQRTm04Xm/62F3DGx1wfJmIdTFQrju2c/uyX
-	 J+lnG9EmIZ1xrA9FgqyEzNRoB94t+aokFvy+R+eHEm/09MsgbUTebcjEoFfWBcDewj
-	 NJuONisTmNalqZyuB9X4vMGHvrE3eTQutFP2oSTqu+yiM/QWQBjv15OrN++blwO5KB
-	 g3LdOd0/ePhd+RjaoYO+A8cPAA7GJyrECwJJiQJDMHggL8LLSWF4MVuCXs49TpqaQC
-	 vJxNPPxRIgleG4/YLzkmyUFlks2xoiyQ4O2z/ARAkvtT5CMdX8dJqPF+QuJVVR0iyS
-	 7V+QgCm0pB5eQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 8DC7C49139;
-	Wed, 11 Nov 2026 22:46:31 +0000 (UTC)
-From: Mani Tofigh via B4 Relay <devnull+mt4022.columbia.edu@kernel.org>
-Date: Wed, 11 Nov 2026 17:46:31 -0500
-Subject: [PATCH] nvme: fix deadlock on nvme_subsystems_lock in
- nvme_init_subsystem()
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=g3nMQ60L
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=bQzDhJ+YpPRqm5KmSrgXNc0XW5SoR5Fjv/liOEsbKON75hDAZlall6N4y+QRSbIhxIf1MgdVPEMpX0WYvTxfFIgPP1+aBmnWECtuL+jDa5vKMJSXxuSts0MJ1XBaQzYFMUw2fjtxIY9CaAJ8j8tRUWFldEj/Ev4iBriWQUVrUp/fBjLHS90ugOpWBEQvBynXqDyRCe1DgkKkSfrA8hgGSDduNS3r+btFjR6mlMuQFgT2ZeBYAx3RI4BNkBwYQ1Ji+jHS9t9jM8HSWwDn29qobi5oEsJ0JmIR9hYULXNqeHHBHhs51Xp+SaiqCeoDjOp/shM8VnhvSUxRBr5p2AjBCg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=GmXPCelTq6ueAkM1sFyrEyraoBa28nCsHUayLmEXAHU=;
+ b=UJt3jcedI4IUYVPlr2jHljxDcChFViOHxd76QXoY5sK0I7CpC3ZP9EvEC9lHq+ZPwE7FJNLO0BlU3IHKipMeltvbQNhGEhAdkMaU8n3pTOvqiB/JEpVDVyt7WWi51kR/rRziFXLo0cdCSCe3T/qP41Dk66FlVE89yUrmQvdgM2ouNPddM3pi9s7IejsPCtE6+945Upj1sYUyJ9V5v3d3f+nOn2r2whSuxA+wFEz+kOJ77zP+oNFS1gp3VBFDSJjCKCfJAPReg6gCuxA7LYsy11keVsliVpFh5bHEVsCM1Kef+lHpcvsqWx6RhhZ0ikvyzb+abJLWzs/NMC3pdQ4Vlg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=intel.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=GmXPCelTq6ueAkM1sFyrEyraoBa28nCsHUayLmEXAHU=;
+ b=g3nMQ60LqaKpXNmHKXReBCyYMSVWvtXea7jm6SIfVzWL8/nuS5Cdmx7oNgZ2wbn56XD791epM2c72znMBfXJ+fMdKMxlNT43PDdfGUULx7SXt4PswoXNYcmpSuGfcAwDsLxP2x8f+GmEy1bIku//EoXrEjRnCIL/zV5eGtWYEbA=
+Received: from SJ0PR13CA0005.namprd13.prod.outlook.com (2603:10b6:a03:2c0::10)
+ by AT6PR12MB026552.namprd12.prod.outlook.com (2603:10b6:170:116::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.9; Wed, 11 Nov
+ 2026 22:46:31 +0000
+Received: from SJ5PEPF000001F0.namprd05.prod.outlook.com
+ (2603:10b6:a03:2c0:cafe::21) by SJ0PR13CA0005.outlook.office365.com
+ (2603:10b6:a03:2c0::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.8 via Frontend Transport; Wed, 11
+ Nov 2026 22:46:31 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ5PEPF000001F0.mail.protection.outlook.com (10.167.242.68) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Wed, 11 Nov 2026 22:46:31 +0000
+Received: from bmoger-ubuntu.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 11 Nov
+ 2026 16:46:29 -0600
+From: Babu Moger <babu.moger@amd.com>
+To: <tony.luck@intel.com>, <reinette.chatre@intel.com>, <ben.horgan@arm.com>,
+	<Dave.Martin@arm.com>, <james.morse@arm.com>, <bp@alien8.de>
+CC: <babu.moger@amd.com>, <corbet@lwn.net>, <skhan@linuxfoundation.org>,
+	<rdunlap@infradead.org>, <x86@kernel.org>, <fustini@kernel.org>,
+	<tglx@kernel.org>, <mingo@redhat.com>, <dave.hansen@linux.intel.com>,
+	<hpa@zytor.com>, <fenghuay@nvidia.com>, <rppt@kernel.org>, <arnd@arndb.de>,
+	<kmehltretter@gmail.com>, <dapeng1.mi@linux.intel.com>, <elver@google.com>,
+	<enelsonmoore@gmail.com>, <jlayton@kernel.org>, <seanjc@google.com>,
+	<ewanhai-oc@zhaoxin.com>, <binbin.wu@linux.intel.com>, <nikunj@amd.com>,
+	<ashish.kalra@amd.com>, <peterz@infradead.org>, <superm1@kernel.org>,
+	<thomas.lendacky@amd.com>, <prathyushi.nangia@amd.com>,
+	<kim.phillips@amd.com>, <ricardo.neri-calderon@linux.intel.com>,
+	<darwi@linutronix.de>, <linux-doc@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>
+Subject: [PATCH v7 12/19] fs/resctrl: Introduce kmode_cpus/kmode_cpus_list per rdtgroup
+Date: Wed, 11 Nov 2026 16:44:05 -0600
+Message-ID: <918bff3f72298c9f0925831498237b6ee975a71d.1794437052.git.babu.moger@amd.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <cover.1794437052.git.babu.moger@amd.com>
+References: <cover.1794437052.git.babu.moger@amd.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,112 +117,148 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261111-nvme-subsys-lock-deadlock-v1-1-1837b8e9076f@columbia.edu>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMSw7CMAwFr1J5jaU2Aiq4CmIR4kdrPimKoQJVv
- TumvNWbxcxEhqIw2lcTFYxqOmSHZlVR6mPuwCrOFOqwbXycxzvYXif7GN+GdGVBlOW06wCBiGx
- 2kdx/FJz1vbQPxz+7d0F6/oI0z1+LO4dAfQAAAA==
-X-Change-ID: 20261111-nvme-subsys-lock-deadlock-742ededdd59a
-To: Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>, 
- Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>
-Cc: linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org, 
- tz2294@columbia.edu, stable@vger.kernel.org, 
- Mani Tofigh <mt4022@columbia.edu>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794437191; l=2940;
- i=mt4022@columbia.edu; s=20261026; h=from:subject:message-id;
- bh=cOZLSGE+OmO3+XZiW2AyMoXiLb0mQ0fDaQF1JNZtd3I=;
- b=DFCsz9vJwyVkdjRUdcJS1+RgfZoeSSZgklxln7oPkWlolfNySJO2nXIEmKzRhVDzA1zS+lXKZ
- M3QEdsuQ0g2BRHGDCojYiG0FWbXULh3Y8n+Fdf2bPkfZM6ohEJRIE1B
-X-Developer-Key: i=mt4022@columbia.edu; a=ed25519;
- pk=gljCMQDuxyKPmd5y37CRpEJGSPXDV1MyAnHBhCgXl0I=
-X-Endpoint-Received: by B4 Relay for mt4022@columbia.edu/20261026 with
- auth_id=1322
-X-Original-From: Mani Tofigh <mt4022@columbia.edu>
-Reply-To: mt4022@columbia.edu
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001F0:EE_|AT6PR12MB026552:EE_
+X-MS-Office365-Filtering-Correlation-Id: ba95bc69-cbdd-4223-ef5d-08df4045a146
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|23010399003|82310400026|1800799024|376014|7416014|261026121527099003|261102123227099003|261021121427099003|11063799006|5023799004|56012099006|10067099003|22082099003|261009223027099003|18002099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	0/POKVA7xRdI2z3aAHlYumTLAt6RMh4KE35x1PwZWRLznCWU/qFonmXgtoJ4dRRaxxLZ0G9d4lFAl09pw3FIcEVJvymDC8EiFQ7JLeC3Xvbv2MV9wd06tEpD4ib3kPb/hl1A7XViOSe1QoYFsH7ySUAXOZUMsjJXNNzM/M3RxBWtoF1bCk4pfj1Q9IefJxiFTHRI/9lQXMILxRJcY/4nv9cADvkz0m9NY+Mr6R9qUrhhE+ifCaxgSTSoa+Tpqid2k5OsMrhJul5yMUCWP3jkmJovheZiINAtfqWJf5/MNFGyFetszCKmbsPY7Uh3bzZ/XXprI5psZcj4lzK/oglX+zS8w1NXspUUle0XEgYAS1HiOHSGs4FVvaUyKzOO0IBLHMcjBPUv4z8mQLxbbsa3K8u7NFcIUlTUxjiJVty7m4DE7VGHX1N5pfgr0J56QamvhLMyP2f+FSeJbF5wFbenZxOAuB39ICWEHorZNDTfG812/ITpI/lGKEh/opmwaUXma+7GYgGn4Yknb8mY/LQNBjgxBcWeajY2X+7lqN3KDdlgzfVxB4JRyIobTSsFXBvXojIYAjyvs5B5Bs0XlgJeFFibWwCh7KNMuoMiA7jriRgmrVC0Av6bH8beIaD/P+GJzP7cXDIKMaexeh8OVSfrvO4GYAoIQMtG11Uo1TKe+7s=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(82310400026)(1800799024)(376014)(7416014)(261026121527099003)(261102123227099003)(261021121427099003)(11063799006)(5023799004)(56012099006)(10067099003)(22082099003)(261009223027099003)(18002099003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	pdq766CTMdQFluX57zDOVeAzEyCgiS+YoDAqDIx227+JIBzSiu8O5Y1reGTmy2uWP6k7A1eddGrJwRH9P/+LqRl4a7A9O2mzlAnKKO6bDsRHI1pNtrlbU/teLuOEkt6vwiF4blnfkFDRx2YYtJUP+8w0i/Rei+XRBJiaLUdnj97a6YA0UQrMZsSCn3aOaDZ/OW5RTVO6XL2BEssqa4EPhXHMdMxqnJ79j5LaaRfNvcVajKXTEh/ow0SRFf/MfE4EMCxRClve6hFCQ/eWUJv0JJ34FXgcSYWtT0DnyoAFiGzVTg2kQ7LFNsHrdiTgmicF5zjTq23DlhR567ETcYv4/Aan0coIUBEg9QiaScDkBs8FtcMUb4WnM08M+/dSjbKHeMELekgD1g6zKuONDLdJ+weIO+9e8AsacU68qb8jgmhxJHNF8cXfMYSnLODzwsW2
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 22:46:31.1348
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ba95bc69-cbdd-4223-ef5d-08df4045a146
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ5PEPF000001F0.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AT6PR12MB026552
 
-From: Mani Tofigh <mt4022@columbia.edu>
+The RESCTRL_GLOBAL_ENABLE_PER_CPU kernel mode allows CPUs to use different
+CLOSID and/or RMID associations when transitioning from user mode to kernel
+mode. When active, it is enabled or disabled on a per-CPU basis through a
+backing resource group.
 
-Connecting a controller to a new subsystem deadlocks when
-sysfs_create_link() fails in nvme_init_subsystem(), e.g., on an
-allocation failure.  The error path drops the last subsystem reference
-with nvme_subsystems_lock held and nvme_destroy_subsystem() takes the
-same lock again:
+Add kmode_cpus and kmode_cpus_list to display the CPUs in a resource group
+backing the active kernel mode.
 
-  nvme nvme0: failed to create sysfs link from subsystem.
-  ============================================
-  WARNING: possible recursive locking detected
-  ...
-  nvmesubsys/95 is trying to acquire lock:
-  (nvme_subsystems_lock){+.+.}-{4:4}, at: nvme_destroy_subsystem+0x1b/0x1e0
-
-  but task is already holding lock:
-  (nvme_subsystems_lock){+.+.}-{4:4}, at: nvme_init_identify+0x81e/0x34b0
-  ...
-  Call Trace:
-   __mutex_lock+0x1a2/0x26e0
-   nvme_destroy_subsystem+0x1b/0x1e0
-   nvme_init_identify.cold+0x3bc/0x56f
-   nvme_init_ctrl_finish+0x1bc/0x7a0
-   nvme_loop_configure_admin_queue+0x205/0x2b0
-   nvme_loop_create_ctrl+0x480/0xd10
-   nvmf_dev_write+0x365/0x650
-   vfs_write+0x1e3/0x1250
-   ksys_write+0xfa/0x200
-   do_syscall_64+0xfb/0x590
-   entry_SYSCALL_64_after_hwframe+0x77/0x7f
-  ...
-  INFO: task nvmesubsys:95 blocked for more than 20 seconds.
-  INFO: task nvmesubsys:95 is blocked on a mutex likely owned by task nvmesubsys:95.
-
-Every later controller setup or removal then waits for the lock too.
-The nvme_validate_cntlid() error path for an existing subsystem does the
-same put, and deadlocks the same way if the other references go away in
-between.
-
-Drop the lock before the put.  For a new subsystem, take it off the list
-first so another controller can't find it in between.  With the fix,
-the connect fails and the next connect works.
-
-This bug was identified and confirmed with the help of a deterministic
-hypervisor currently under development.  The C reproducer below however
-hits it within about 30s.
-
-Fixes: 32fd90c40768 ("nvme: change locking for the per-subsystem controller list")
-Cc: stable@vger.kernel.org
-Signed-off-by: Mani Tofigh <mt4022@columbia.edu>
+Signed-off-by: Babu Moger <babu.moger@amd.com>
 ---
-Reproducer: https://github.com/manitofigh/files/blob/main/linux-repros/nvmesubsys.c
+v7: Changelog updated with consistant terms.
+    Code comment update.
 
-It uses nvme-loop and fault injection to fail the sysfs link.
+v6: Drop rdtgrp::kmode. Rewrite changelog (not a bugfix; association).
+    https://lore.kernel.org/lkml/ef8804d5-f20c-49a1-87cf-ab39437a5f0d@intel.com/
+
+v5: Updated the changelog.
+    Removed the RDT_MODE_PSEUDO_LOCKED check and added rdtgroup->kmode check.
+    Files are created hidden.
+
+v4: Rewrote the change to be generic.
+
+v3: New patch to add "kmode_cpus" and "kmode_cpus_list" to support
+    kernel_modes.
 ---
- drivers/nvme/host/core.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ fs/resctrl/internal.h |  3 +++
+ fs/resctrl/rdtgroup.c | 43 +++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 46 insertions(+)
 
-diff --git a/drivers/nvme/host/core.c b/drivers/nvme/host/core.c
-index cd0df9b03806..f43582e5f6c4 100644
---- a/drivers/nvme/host/core.c
-+++ b/drivers/nvme/host/core.c
-@@ -3413,7 +3413,11 @@ static int nvme_init_subsystem(struct nvme_ctrl *ctrl, struct nvme_id_ctrl *id)
- 	return 0;
+diff --git a/fs/resctrl/internal.h b/fs/resctrl/internal.h
+index 909511e985a1..a473b408dd9d 100644
+--- a/fs/resctrl/internal.h
++++ b/fs/resctrl/internal.h
+@@ -216,6 +216,8 @@ struct mongroup {
+  * @mon:			mongroup related data
+  * @mode:			mode of resource group
+  * @mba_mbps_event:		input monitoring event id when mba_sc is enabled
++ * @kmode_cpu_mask:		list CPUs in the group when backing the active
++ *				RESCTRL_GLOBAL_ENABLE_PER_CPU kernel mode
+  * @plr:			pseudo-locked region
+  */
+ struct rdtgroup {
+@@ -229,6 +231,7 @@ struct rdtgroup {
+ 	struct mongroup			mon;
+ 	enum rdtgrp_mode		mode;
+ 	enum resctrl_event_id		mba_mbps_event;
++	struct cpumask			kmode_cpu_mask;
+ 	struct pseudo_lock_region	*plr;
+ };
  
- out_put_subsystem:
-+	if (!found)
-+		list_del_init(&subsys->entry);
-+	mutex_unlock(&nvme_subsystems_lock);
- 	nvme_put_subsystem(subsys);
-+	return ret;
- out_unlock:
- 	mutex_unlock(&nvme_subsystems_lock);
+diff --git a/fs/resctrl/rdtgroup.c b/fs/resctrl/rdtgroup.c
+index 9235f094245c..16f68f4317ef 100644
+--- a/fs/resctrl/rdtgroup.c
++++ b/fs/resctrl/rdtgroup.c
+@@ -390,6 +390,32 @@ static int rdtgroup_cpus_show(struct kernfs_open_file *of,
  	return ret;
-
----
-base-commit: f92fe8dea19c743eb9e4d998ae0384344dd40091
-change-id: 20261111-nvme-subsys-lock-deadlock-742ededdd59a
-
-Best regards,
---  
-Mani Tofigh <mt4022@columbia.edu>
-
+ }
+ 
++/*
++ * Display CPU mask of the kernel mode backing the resource group.
++ * Supports both "kmode_cpus" (bitmap format) and "kmode_cpus_list"
++ * (range list format); the output format is selected accordingly.
++ *
++ * Returns -ENOENT on error.
++ */
++static int rdtgroup_kmode_cpus_show(struct kernfs_open_file *of,
++				    struct seq_file *s, void *v)
++{
++	struct rdtgroup *rdtgrp;
++	int ret = 0;
++
++	rdtgrp = rdtgroup_kn_lock_live(of->kn);
++
++	/* Verify the group is the active kernel mode backing group */
++	if (!rdtgrp || rdtgrp != resctrl_kmode.rdtgrp)
++		ret = -ENOENT;
++	else
++		seq_printf(s, is_cpu_list(of) ? "%*pbl\n" : "%*pb\n",
++			   cpumask_pr_args(&rdtgrp->kmode_cpu_mask));
++	rdtgroup_kn_unlock(of->kn);
++
++	return ret;
++}
++
+ /*
+  * Update the PGR_ASSOC MSR on all cpus in @cpu_mask,
+  *
+@@ -2266,6 +2292,23 @@ static struct rftype res_common_files[] = {
+ 		.flags		= RFTYPE_FLAGS_CPUS_LIST,
+ 		.fflags		= RFTYPE_BASE,
+ 	},
++	{
++		.name		= "kmode_cpus",
++		.mode		= 0444,
++		.hidden		= true,
++		.kf_ops		= &rdtgroup_kf_single_ops,
++		.seq_show	= rdtgroup_kmode_cpus_show,
++		.fflags		= RFTYPE_BASE,
++	},
++	{
++		.name		= "kmode_cpus_list",
++		.mode		= 0444,
++		.hidden		= true,
++		.kf_ops		= &rdtgroup_kf_single_ops,
++		.seq_show	= rdtgroup_kmode_cpus_show,
++		.flags		= RFTYPE_FLAGS_CPUS_LIST,
++		.fflags		= RFTYPE_BASE,
++	},
+ 	{
+ 		.name		= "tasks",
+ 		.mode		= 0644,
+-- 
+2.43.0
 
