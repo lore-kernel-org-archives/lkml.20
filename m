@@ -1,100 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794426987;
-	b=2YlcussJwEtAMQ43/otmah1M7WuL5Qub0vE5RCy8QECiGLcHTIhWVp54bk9yC8p44GFE
-	 g7ydTnPb6gGm5HE9UgqtcZbclnOt0ra6VlKGKCfJDTg/gpNz5G4Z4u/Cb83/bTpfIqPEA
-	 SPfRjFwYv2kaYsGZNFrlAVFweXSjWGToJyZoAEv0fQ9nO2Nz2O84j6iN12Nc9L1RHZRdS
-	 mKe/Ip8wm0VSiw7h5pFaJo7Q3XYXH3cXMZaVoEEu5JJ2mGgYEpNNdoe0XhU14s3qHjohB
-	 TnwLh8qS6eg6ZxSYVHE11cDhVqATNSUQnrkpLQS3uFfyZ8IoLMnJocjTug+W+LY5mqg==
+	t=1794426988;
+	b=Ul0SfhnFF/g3JKxQTRAvZ1A18iCKyryjJU5bYlii9HRCzSWSxxdlquIkwxT0er0cZ9ke
+	 5KfgbfDHADxF7ZGLAd2Otfm8EyV5vzGJIWiKxMJ+730++bBDTpMCoZ/YXfelv3o+HXVWw
+	 JXxWo1H5HvlwKMJu9cVRTpVGVrlrEm7BcrmQsmDc4ObgTbSUibr7oEgjAhOB6fDHwz/yc
+	 K7edGuZ2zHOYpfXbZZ2Q1TxURg9ySgwNTjsCoeT0NreKI8S1ppbbT2DHkO1/J/j2kq0US
+	 FoKJZMI4ZEWdVu424xqkrfN1wu3/AuCeDf3Z3C6tkH1xl47TqKCUg6ZbHoDSgkShngQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794426987;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=c2mdiRnTGW3Gwps9rTf99dl9KpELe38/AhZ0uri7Zbk=;
-	b=O6GCpYinqtU2hFYp2noLKED9YTNuBMYxAmmMBnGnIbcsvE3p3bbZk2OucWQKQfTI0qN+
-	 qYSawZNRRhDisUBlIXgv+dn6nD28d+k9zqoWqZ1DImxXVbyac2KLG5V0eALR2tsJOXjWH
-	 h8cHoMsN/YpOnZHwXUBg2NU7nou5IEZijUx9AzEORvRF34qCqV2huxW6DymjZsuJRMk3D
-	 +tGhEVgTKXAAR6Ouf7oKrcTv4KKdmlFLHHy8MxZ10EFTiRl4XSzsb8TgddAjTTJlEmCiy
-	 1BAZ7dIIRDeBVy+Wuxud/ajPvQAGMfXqRwsPJZ17/jm9MLiZ+K+lGDqmVwnTtkOm6Wg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794426988;
+	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
+	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
+	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
+	bh=v3Qa5vOCuuvOXb/Xv35GctSnGrHaFWpH9kgty02qfxM=;
+	b=un7Bo/MlBg9YzipW4kRxFyJTyK6nnEZWMf9Arel4qpOnqoyKPTDmoTYya+gCC7STbLhm
+	 ihw2DnYHeLqJPep4Jko+8aaw6EIrCpFQax0Vuueekb8AtbgtMWfwoqJY62ozEBnP1o3/H
+	 ncajELubyzKNl3BmJ2wy4jcwIl2x42lOBqyPKd0zJARfLEV17FXLDYvPPLavWmvKgz/vy
+	 lEKIFYVoHHzAvdFJVST1U7ezTFhWkWrbBK3rp7rLXfQ6QVknhACeZlqD1jFdXoPK2vGaA
+	 D+KJDMaXl6vQGcGUXN7W4E/SpV8QLmoREX05mHaxWoML8aes6TmowGFguVjN/kahGpg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KMMWTx7X;
-	arc=none smtp.remote-ip=74.125.82.52
-Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=ywxRhDZD;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=CIYcXcjD;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0097606A8B4
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 19:56:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0097606A8B4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9948160A2633;
+	Wed, 11 Nov 2026 19:56:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9948160A2633
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KMMWTx7X
-Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-1b3b4bcbfc9so1191909c88.1
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 11:56:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794426986; x=1795031786; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=c2mdiRnTGW3Gwps9rTf99dl9KpELe38/AhZ0uri7Zbk=;
-        b=KMMWTx7XNrJc0FASemx2jnpRfXqKIqX5CRrqhz0yI/WmYbBQxRu5YZV38bENsM3vOX
-         5QhYjS7gsv8KFlU3rnDdcRVxzw3vIo4Tsp5EMeVXVehuYMdCA7VRPZCIsGbuZY4j9keZ
-         02bes7rDTA7ab6STvh0T5QZDBcHshnOP1oZ583sMUH+FhlYcdPomwyz5u5tfn54hdKLI
-         ZefCLlNyyhny8+7X2qCtLXkIvuv3vM1shMicC9BEd6qwwGaY4nOyB1bS37PjSGPxO/qL
-         6T8o8exTuTjfSilbikdwQgaEyMQfTIk+Xl4CIdqtE3sYqbMkIHwlB/g7DJkmzLbBGvhD
-         cTQA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794426986; x=1795031786;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=c2mdiRnTGW3Gwps9rTf99dl9KpELe38/AhZ0uri7Zbk=;
-        b=HHlgAUdGPlNSL2RZ+yNNAy3r/q10M+MvgR65/S5aqxtz/zcB7i2S3K5yIysnXTCJ9e
-         TGeKGRm2c5PcO5tp14TVqrpRzn27ib4+hXO3SNgfX3tohcM7xGoqKw5MHJJ9JjAEH1Gk
-         avZ3EwTjHhOl+C82TqSbulndblbdP2sd94shELy3sInkgoE50VEHGDvii20Ji8J0Cft1
-         O8AcblWLEFJy2nHDmG0V91EtwrDPbIeBRwaKT4isR2saq7rmwO6PvQQjkpZfur5u44kJ
-         BEgQwUYza6DrzT+uzOiwLEkDLF8VtCNIiGJZXqOrvvSpFVJHiUzajhTADuxz6eLBGgCF
-         L7SA==
-X-Forwarded-Encrypted: i=1; AL+hErGszWdLbuQqyAOtHEjxFw8LGgTAizKxbj8l8Vzjdppg+5cP2GnO4tWYvMgDgPewfea1Z3zrkQlOBrUzcC0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8cQTzL8C77/zwioKzcj4PqW1t17bnS7iRjfSb3LIlqtywqjvJL
-	Ry1YIi5ewjGtCbvpYrBbULqwD/wXTSOL9KZ1Yhk67ROVK0IJsNxFSdtA
-X-Gm-Gg: AYBFou3buqihLhsry5lSEyNmDCp22C++huxV205pXvkJrVZBxm2uyQZfUgAOIae5BlR
-	hKgSeURlr/9EFQwulpFKAyPbsOjNGtAlJLaQE/YcGE8iCh3XtBtyFhnSi7ZHjgfC4GkjABvh9b1
-	lGp0wWzgfkOXA9AeEms4esg1dw+FSTiTUcAFaJ5goQVy6LW4cPRDFUcnAbaSPjcNThvNwMrMW8V
-	8EVuJmcrl1K5shO7tgKfFXbClwlnhsqkaAdBDGaflbTpb1q14HN3BtrSmqUJUo8P4K2RCPJ8ttJ
-	A8G9eCT+J22MFVEviNlGQ2Kpn4XrZmG3SF7ve4KqiNQ64/gBMQ0wjDKtLHEfN53MH0fSGJ2BjQd
-	UCOBipMB51ap0r4H60LZ7hySD9f0N5J70xODFgL0e4tSmgAN4HezR622orrMhL/yu67wL3CyEOu
-	H8cvDGMx7JTw21Ix2T8LQEGkKd6Ta8YxIVrxdQb+fkbnYvBV5DnppD8w+FhGlzV5JGJJnRn7Rt2
-	OV7d5ClkLt/7AylnsNQhw0q4MkLd6hZpO6D8w3wTc68x3l75nm4964UZgDvnDByXpTv0NXyeB9b
-	wS7yDUTY9DgGAFw0B+5EiFlendZkT1g8e4ZWp+5MsViQvIUyZwQk5ji/UKZ8hgi3ydhYtvhwv+v
-	GmwuJbOmEF5YRFGsYpr98rbS9gg==
-X-Received: by 2002:a05:701b:20ce:10b0:1b3:a05f:8929 with SMTP id a92af1059eb24-1b3c034b506mr3343896c88.39.1794426985566;
-        Wed, 11 Nov 2026 11:56:25 -0800 (PST)
-Received: from smalls.localdomain (ip-198-145-71-161.az.bambroadband.net. [198.145.71.161])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-375212ec002sm21273012eec.26.2026.11.11.11.56.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 11:56:25 -0800 (PST)
-From: Hunter Laux <hunterlaux@gmail.com>
-To: "H. Nikolaus Schaller" <hns@goldelico.com>
-Cc: Paul Cercueil <paul@crapouillou.net>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	linux-mips@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Lars-Peter Clausen <lars@metafoo.de>,
-	Paul Boddie <paul@boddie.org.uk>,
-	Discussions about the Letux Kernel <letux-kernel@openphoenux.org>
-Subject: Re: [PATCH] MIPS: ingenic: Let Config.VI tell whether the icache is virtual
-Date: Wed, 11 Nov 2026 12:56:25 -0700
-Message-ID: <20261111195625.2694287-1-hunterlaux@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <BA039439-3960-4865-B6D4-17B845BD77DB@goldelico.com>
-References: <20261110-mips-xburst-icache-vi-v1-1-efba689606dd@gmail.com> <BA039439-3960-4865-B6D4-17B845BD77DB@goldelico.com>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=ywxRhDZD;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=CIYcXcjD
+Date: Wed, 11 Nov 2026 19:56:24 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1794426986;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=v3Qa5vOCuuvOXb/Xv35GctSnGrHaFWpH9kgty02qfxM=;
+	b=ywxRhDZDlB6lvZtz1OFgHVmpKtfC67+/KrExNc0NDRLfyZSx2J28LQo7tGJ+cbub9HEl5Z
+	Xj2V1yxEeTPXDR0PF8X1CLZj6pzqL7u1BRBaVntsP/8cQDCzB+lixOs1vIw/fgGtHzcVIE
+	m69K0h9sVxj57MPDo+cQWpXaSF4swKCnJWSvIIoGC4dyW6M8GqmWe92y5L21xkyhTPkGlX
+	Mr3s2wdjT3s/m3CUNYyqRQZQGqbzFnNNlHlSpIK6Xr9NhZOET5j0ZKOI2O58OzgEIFhwex
+	OxE2qGEnyUym28EaP0GXgiR8wrYgNgwtTHwmUfIGbp0AYQaqodJLm93RT7WUsA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1794426986;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=v3Qa5vOCuuvOXb/Xv35GctSnGrHaFWpH9kgty02qfxM=;
+	b=CIYcXcjD0Tb635P5hkG+5PLlT2ICRAG83dQBY/5z3N29UY/crVrm9jHr5tQepXHu4fPamO
+	YMZKm8drhOVLhNBA==
+From: "tip-bot2 for Zyta Szpak" <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject: [tip: irq/drivers] irqchip/mediatek: Add Kconfig option for MediaTek
+ SYSIRQ and CIRQ
+Cc: Zyta Szpak <zyta@google.com>, Thomas Gleixner <tglx@kernel.org>,
+ x86@kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261105104234.2734199-1-zyta@google.com>
+References: <20261105104234.2734199-1-zyta@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,21 +78,86 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Message-ID: <179442698465.2093942.14344894051795365589.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Nikolaus,
+The following commit has been merged into the irq/drivers branch of tip:
 
-On Wed, 11 Nov 2026 18:00:47 +0100, H. Nikolaus Schaller wrote:
-> it appears that this looks quite similar to what had been sent to us by
-> Zhou Yanjie 5 years ago for testing and we integrated it into our
-> out-of-tree kernel but it never arrived upstream
+Commit-ID:     702ae15488ce96d9818deee812d9fc271316fa6e
+Gitweb:        https://git.kernel.org/tip/702ae15488ce96d9818deee812d9fc27131=
+6fa6e
+Author:        Zyta Szpak <zyta@google.com>
+AuthorDate:    Thu, 05 Nov 2026 10:42:34=20
+Committer:     Thomas Gleixner <tglx@kernel.org>
+CommitterDate: Mon, 09 Nov 2026 11:16:45 +01:00
 
-Thanks, that's the same change, and good to know it has run in Letux
-for that long. v2 will credit Zhou's patch and link the Letux commit.
+irqchip/mediatek: Add Kconfig option for MediaTek SYSIRQ and CIRQ
 
-The other half of that commit, the UserLocal part, is needed too:
-XBurst II implements UserLocal, and the override hides it. I have a
-patch for it on my list, but I'm still looking into it.
+Currently, the MediaTek SYSIRQ (irq-mtk-sysirq) and CIRQ (irq-mtk-cirq)
+interrupt controller drivers are unconditionally built whenever
+CONFIG_ARCH_MEDIATEK is enabled, without a dedicated Kconfig symbol.
 
-Hunter
+Not all MediaTek SoCs require SYSIRQ or CIRQ (for example, newer ARMv8
+SoCs and platforms using the MStar interrupt controller), so building
+these drivers unconditionally prevents disabling them in tailored kernel
+configurations. Tying the build rule directly to CONFIG_ARCH_MEDIATEK in
+the Makefile also prevents compile-testing these drivers on non-MediaTek
+architectures via CONFIG_COMPILE_TEST.
+
+Introduce the CONFIG_MTK_IRQ Kconfig option to control building
+irq-mtk-sysirq.o and irq-mtk-cirq.o. Make it depend on ARCH_MEDIATEK ||
+COMPILE_TEST, default to ARCH_MEDIATEK to preserve existing behavior for
+all MediaTek configurations, and select IRQ_DOMAIN and
+IRQ_DOMAIN_HIERARCHY as required by both drivers.
+
+Signed-off-by: Zyta Szpak <zyta@google.com>
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Link: https://patch.msgid.link/20261105104234.2734199-1-zyta@google.com
+---
+ drivers/irqchip/Kconfig  | 14 ++++++++++++++
+ drivers/irqchip/Makefile |  2 +-
+ 2 files changed, 15 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/irqchip/Kconfig b/drivers/irqchip/Kconfig
+index 1620a57..90daedb 100644
+--- a/drivers/irqchip/Kconfig
++++ b/drivers/irqchip/Kconfig
+@@ -793,6 +793,20 @@ config MST_IRQ
+ 	help
+ 	  Support MStar Interrupt Controller.
+=20
++config MTK_IRQ
++	bool "MediaTek Interrupt Controller"
++	depends on ARCH_MEDIATEK || COMPILE_TEST
++	default ARCH_MEDIATEK
++	select IRQ_DOMAIN
++	select IRQ_DOMAIN_HIERARCHY
++	help
++	  Support for the MediaTek System Interrupt Controller (SYSIRQ) and
++	  Core Interrupt Controller (CIRQ) found on various MediaTek SoCs.
++	  SYSIRQ provides interrupt polarity configuration in front of the
++	  GIC, while CIRQ records and flushes external interrupts during
++	  system suspend and resume when the primary interrupt controller
++	  is powered down.
++
+ config WPCM450_AIC
+ 	bool "Nuvoton WPCM450 Advanced Interrupt Controller"
+ 	depends on ARCH_WPCM450
+diff --git a/drivers/irqchip/Makefile b/drivers/irqchip/Makefile
+index 16a5fd1..eb539d4 100644
+--- a/drivers/irqchip/Makefile
++++ b/drivers/irqchip/Makefile
+@@ -72,7 +72,7 @@ obj-$(CONFIG_BCM7120_L2_IRQ)		+=3D irq-bcm7120-l2.o
+ obj-$(CONFIG_BRCMSTB_L2_IRQ)		+=3D irq-brcmstb-l2.o
+ obj-$(CONFIG_KEYSTONE_IRQ)		+=3D irq-keystone.o
+ obj-$(CONFIG_MIPS_GIC)			+=3D irq-mips-gic.o
+-obj-$(CONFIG_ARCH_MEDIATEK)		+=3D irq-mtk-sysirq.o irq-mtk-cirq.o
++obj-$(CONFIG_MTK_IRQ)			+=3D irq-mtk-sysirq.o irq-mtk-cirq.o
+ obj-$(CONFIG_ARCH_DIGICOLOR)		+=3D irq-digicolor.o
+ obj-$(CONFIG_ARCH_SA1100)		+=3D irq-sa11x0.o
+ obj-$(CONFIG_INGENIC_IRQ)		+=3D irq-ingenic.o
