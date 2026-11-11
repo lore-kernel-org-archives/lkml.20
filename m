@@ -1,76 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794408645;
-	b=rvozevHpBjY+2i75a1PjFTxw3yPizYrYykePBFhwVApB4+EXJafNth5yUX4VmM1b+Xfz
-	 T0l1UoApIWmLiVTXt48I2ahul8yRehJWg/XGkMzqLDDpTOM/kS3llpuKVnw0ND5Ti7doE
-	 JzSUtEOAf/NMQyOSbzjs1bGcuINKfHR2QnBrfm+ArBz/V+I387itvjvwDiDhPwFfAzlGU
-	 QabEVLRuZQdF9yXn9fX7gfIKj7/u9JvNTY67qtSLudv6axSaMsELAl3CN7cXgZYWhDp/N
-	 0gY7ftqGQx0Cv2K+W++xV47O9YkLK9GvpP0QCt76U4EgFieW2RSBTODNJMz4hvSBRNQ==
+	t=1794408652;
+	b=Dn/8Y5+M8iT6frLDHbRctMduGJ4FNzVFaqvfa1EkTNnTAMsaZIYj3NOS3IJyf4NT3H40
+	 a9mclZrBOcAALmiATgH/ipSC7MjcTUg1aVu6KYPP+gfYGr7um4akdPg4quEOz/eKhgV4a
+	 bAGT5rE/aQTy8ve4DFwsuTMJR7pgh1StoJIWEz+2HPKx9Mx7KV9P+M5cCTRUL9xYl9Pwr
+	 5F3RgD9OWXebpgpeHTrqPAH/C7drCny2BVH57cFG+r6+uFD+D6P1M8qm64uoRHCRZUAsr
+	 Jmug5y6WFUX9fDG3nU+vbasUjAQYtymtMgFIALa0iHt8ae5Dbtx12IiTzdnDWCHFoLQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794408645;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=4FWWb4o5SchgDHm5mqCIIXOnj7Mqgj8LASpYet+2SAo=;
-	b=wumTJnf8VG5I4YTWRVodtpLmj7fXLyCtJsReRT8R7+ggPdF2oFbjJPePa/dtzrO23kSq
-	 xc15vsp2rhrLeTv9fWlj0ftq0d5Duen0nLkyUvosyNsuJH0eKr2W1e92Ou3xXKbKCnc+N
-	 w7ojOinFY45Stulu05TNWsRzmI/iYscoUas0H5mFSzDujnH+KUEqj1+gWCtI/48TfLP4E
-	 mTMn9ngFq+X8L7+gYYpDIcPVsGjHvmCi44/hp9PxPFY3H7VoCq+go+0tjxFrrZF61F/JY
-	 klSMWTRnaNn7KCo+cYcbmIziYXewBgAUpsmlWF9bVv9h7K8qtF7UVLRgPxoxz0EtZ2Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794408652;
+	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=CRO5Tel1RjzXs1ay2+39z6lAjKHeD4/T/34ACHBY2o0=;
+	b=4/dJutJjEn37O8iCF5nVfQ9zvO6ZE3ZY6KWj9Oacyy47k5T4ezjxSfgdG+kdVi799Gd6
+	 Kzv1Sf09I+bdCC/+7ud4MVJV1Rduzon/AYbSOcJdvWDGgqvA949xYo8HUCNajQVgDzi4h
+	 9bFv1whcIfIWkhXSsn8LaX6Km9EhaOqoIhcn1ePSDbwullry0K5M1SGVoj8qoIiibzuN0
+	 wzZUOfik/3K8gMnABI3x+Pk0kvW74DuZQ2B4l78/oQYIZbdE9UllS7V04GV4Cj4YNE4Tv
+	 WhH6L/jc8r03Rl0IYvP2VIz+j7yk0W9OdvWjz0Hiy7YPh9pi/66xUsKHczpsrzOAR7w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=eAMtBMf1;
-	arc=none smtp.remote-ip=192.198.163.10
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oquIw1Lu;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FC1B606A327;
-	Wed, 11 Nov 2026 14:50:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4FC1B606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7A74606A33E;
+	Wed, 11 Nov 2026 14:50:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=eAMtBMf1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794408646; x=1825944646;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=u+reCr2n3ZGSYWGD5zRemuSnY2HUeSRA/CkUL28YHd4=;
-  b=eAMtBMf1VnhSvIXIPBVEupXOLbZoE1sJxQg5pidk4FHtrIIJRQDcTCuv
-   sJjWx3rUGSx7n/Ju8MdbQhj2icW9s6+xdEKdRP2jdV8yrFxmLBFvAWK+w
-   JPOJWGjq8oTpkL4VYvLbel6caGaLHeG+bTpgFXn3XXCBSTS5NZ3Tx+245
-   hxwXPleZx0dmHi4l0ULYDG1EU2ccKClvy8tr076qAE5v/VAfkPItGTHCJ
-   QUJvTbeYsBAEVv9MTwPkcCcIv/5nBzzXAunwt/hJSdj9bynQmvf5RXatP
-   Cj4IVDGuf1pplmX2/i1zMb9u2wSZ37xxXeWO/iacx4kViP1O1KMLM4XnG
-   Q==;
-X-CSE-ConnectionGUID: ndK0hZFvRsaWT87WXfyH8g==
-X-CSE-MsgGUID: a56FBBcAT6S9FPvEqOPNCA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3080810"
-X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
-   d="scan'208";a="3080810"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 06:50:45 -0800
-X-CSE-ConnectionGUID: VNRC6fx4SG6YIVdW7gHtsg==
-X-CSE-MsgGUID: PbFGHHi1SzmOU69wxacT6A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
-   d="scan'208";a="8249878"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.142])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 06:50:42 -0800
-Date: Wed, 11 Nov 2026 16:50:40 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Victor Chernyakin <chernyakin.victor.j@outlook.com>
-Cc: andy@kernel.org, dlechner@baylibre.com, jic23@kernel.org,
-	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
-	nuno.sa@analog.com
-Subject: Re: [PATCH v8 4/4] iio: cdc: add Texas Instruments FDC1004 driver
-Message-ID: <avSAwLDgDAOM-9Gu@ashevche-desk.local>
-References: <avQqQ8s3-fkvIiGX@ashevche-desk.local>
- <MW2PR12MB2523036E2E017B5952015D9AA5712@MW2PR12MB2523.namprd12.prod.outlook.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oquIw1Lu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CCB71F00A07;
+	Wed, 11 Nov 2026 14:50:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794408652;
+	bh=CRO5Tel1RjzXs1ay2+39z6lAjKHeD4/T/34ACHBY2o0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=oquIw1LuPko9xQrUJELBnwskn345Pa0CjNLnbaWuTe1gPG46TRshOlT3TQTMUsqWr
+	 H5HPwgGE2gaTAEiCIIPcRxefE/kDsuVfCrlIruA+VfqXzNAE+AZqo1RBFiaP9D64+X
+	 chT/Mt7RzF/In9eWtub/qYXtnu7lb18rmyQtPEC+na4fQBU00FTD0BjKK79DNcz3py
+	 ker3YOqseqzE5f9NMCriCvAZJKaA1plKrNeZJiPPPj2anRJ3lLh3FpFXfKyiOQUM4A
+	 zpEvBx9/ykoYnWsNrmihF87OpWsKUmIJYkwO+ng+MmQP0mIXpEDwVBaG57p/04JaT4
+	 ftu1eTthVnb7g==
+Received: from johan by xi.lan with local (Exim 4.100.1)
+	(envelope-from <johan@kernel.org>)
+	id 1xR9ez-00000000VcO-449A;
+	Wed, 11 Nov 2026 15:50:49 +0100
+Date: Wed, 11 Nov 2026 15:50:49 +0100
+From: Johan Hovold <johan@kernel.org>
+To: Tapio Reijonen <tapio.reijonen@vaisala.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>, stable@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org
+Subject: Re: [PATCH 1/2] serial: core: do not hold the port mutex while
+ waiting for references
+Message-ID: <avSAyV6QE0Id3rAk@hovoldconsulting.com>
+References: <20261104-serial-core-remove-deadlock-v1-0-6a30597adcbf@vaisala.com>
+ <20261104-serial-core-remove-deadlock-v1-1-6a30597adcbf@vaisala.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,88 +65,56 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <MW2PR12MB2523036E2E017B5952015D9AA5712@MW2PR12MB2523.namprd12.prod.outlook.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20261104-serial-core-remove-deadlock-v1-1-6a30597adcbf@vaisala.com>
 
-On Wed, Nov 11, 2026 at 08:10:49AM -0600, Victor Chernyakin wrote:
-
-...
-
-> > > > > +static const int fdc1004_calibbias_decomposed[] = {
-> > > > > +	lower_32_bits(fdc1004_calibbias[0]), upper_32_bits(fdc1004_calibbias[0]),
-> > > > > +	lower_32_bits(fdc1004_calibbias[1]), upper_32_bits(fdc1004_calibbias[1]),
-> > > > > +	lower_32_bits(fdc1004_calibbias[2]), upper_32_bits(fdc1004_calibbias[2]),
-> > > > > +};
-> > > > > +
-> > > > > +static const int fdc1004_calibscale_decomposed[] = {
-> > > > > +	lower_32_bits(fdc1004_calibscale[0]), upper_32_bits(fdc1004_calibscale[0]),
-> > > > > +	lower_32_bits(fdc1004_calibscale[1]), upper_32_bits(fdc1004_calibscale[1]),
-> > > > > +	lower_32_bits(fdc1004_calibscale[2]), upper_32_bits(fdc1004_calibscale[2]),
-> > > > > +};
-
-> > > > Can we prepare them dynamically at runtime? Use global variables and a macro
-> > > > from once.h to make the populate function a singleton, so we don't have as many
-> > > > copies as devices on the system that are driven by this code. We can probably
-> > > > do this later, though.
-> > > 
-> > > Are you sure there's a separate copy for each device? In my understanding,
-> > > these static variables are loaded along with the module, and the module
-> > > is loaded only once and shared between all devices.
-> > 
-> > I started my paragraph with "Can we prepare them dynamically at runtime?"
-> > which assumes that the rest of the paragraph is elaborating that idea.
+On Wed, Nov 04, 2026 at 10:27:15AM +0000, Tapio Reijonen wrote:
+> serial_core_remove_one_port() takes the port mutex and then waits for
+> the uart_port_ref() holders to drop their references. Since commit
+> 8ca59f7baee7 ("serial: fix ioctl hangup race") uart_wait_until_sent()
+> takes the port mutex on every poll iteration to check for the hangup
+> before it touches the hardware, while holding its reference for the
+> whole wait. A tcdrain() in flight when the port is removed therefore
+> deadlocks: the removal holds the mutex and waits for the reference,
+> the drain holds the reference and waits for the mutex. Both tasks sit
+> uninterruptible, and the port is unusable until a reboot.
 > 
-> Oh, I see how I misread that, sorry.
+> Reproduced by unbinding a UART driver while a process drains a few
+> kilobytes at 300 baud: the unbind blocks in wait_event() under the
+> mutex, the drain in mutex_lock(), and reading the driver's proc file
+> blocks on the same mutex.
 > 
-> Here's the implementation I tried:
-> 
-> static int fdc1004_calibbias_decomposed[6];
-> static int fdc1004_calibscale_decomposed[6];
-> 
-> static void fdc1004_init_decomposed_arrays(void)
-> {
-> 	for (int i = 0; i < ARRAY_SIZE(fdc1004_calibbias); i++) {
+> Drop the mutex around the decrement and the wait. The decrement is an
+> atomic paired with uart_port_ref() and uart_port_deref(), which never
+> take the mutex; the clearing of the port pointer stays under it, where
+> uart_port_check() readers expect it. Between the hangup and this wait
+> the removal already runs without the mutex, so a mutex holder seeing
+> the released port is not a new state.
+> uart_wait_modem_status() takes a reference and then the mutex in the
+> same way, with a smaller window, and is covered by the same change.
 
-This is not fully correct.
+Thanks for catching this. I can reproduce it here as well, and we should
+fix it even this is hardly something anyone would hit during any kind of
+normal use.
 
-> 		iio_val_s64_decompose(fdc1004_calibbias[i], &fdc1004_calibbias_decomposed[2 * i],
-> 							    &fdc1004_calibbias_decomposed[2 * i + 1]);
-> 		iio_val_s64_decompose(fdc1004_calibscale[i], &fdc1004_calibscale_decomposed[2 * i],
-> 							     &fdc1004_calibscale_decomposed[2 * i + 1]);
-> 	}
-> }
+> Stable trees before the guard() conversion of this function need the
+> same change with explicit calls: mutex_unlock() before the
+> wait_event(), mutex_lock() around the store of the port pointer.
+> 7.3.y has the guard() form and takes the patch with a three-way
+> merge.
 
-This can be reduced to supply the pointers to the arrays along with the size
-to some helper and call it twice (three functions), but that might be not
-better either by size.
+Right, the guard conversion makes any backport a bit harder, but that's
+something for the stable team to deal with. So you can drop this
+paragraph.
 
-> static int fdc1004_read_avail(...)
-> {
-> 	DO_ONCE(fdc1004_init_decomposed_arrays);
-> 	....
-> }
-> 
-> Running bloat-o-meter, the code got quite a bit bigger unfortunately:
-> 
-> Function                                     old     new   delta
-> fdc1004_read_avail                           141     369    +228
-> ____versions                                1408    1536    +128
-> ____version_ext_names                        406     437     +31
-> ___once_key                                    -      16     +16
-> ____version_ext_crcs                          88      96      +8
-> ___done                                        -       1      +1
-> Total: Before=8750, After=9162, chg +4.71%
-> 
-> (This was compiling with KCFLAGS="-Os". I also tried KCFLAGS="-O2" and
-> the result is very similar)
+> Fixes: 8ca59f7baee7 ("serial: fix ioctl hangup race")
+> Cc: <stable@vger.kernel.org> # 6.18.y and older need the open-coded form, see below
 
-However, this is not about the size of the binary, it's about robustness of
-the code and having one point of data. As I already mentioned, this is just
-an idea how to solve it, maybe Jonathan and others have a better one...
+And just drop the comment here, and if you want to help, send a backport
+when the fix fails to apply to older trees.
 
--- 
-With Best Regards,
-Andy Shevchenko
+> Signed-off-by: Tapio Reijonen <tapio.reijonen@vaisala.com>
 
+Reviewed-by: Johan Hovold <johan@kernel.org>
+Tested-by: Johan Hovold <johan@kernel.org>
 
+Johan
