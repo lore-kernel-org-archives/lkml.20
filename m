@@ -1,99 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794364418;
-	b=bqZifKMgigQqWCb+10PGiXpphKhc16iYNF7SBO8m86x0srm/Y0cdtZ3ed7F3HJetFr/t
-	 7sXalQBw3cLkVpBq5mIUBHxG8iWqJ2uyBrQwkBW18FUGT9UHFmHMtmQP6SG/Oze+lW1V0
-	 54eztEY70iKTzmlCgtZhPeUJawykBaarzNZvKiaAcpIwzkMDp0blWTUC/IGMmTJv7t0Vo
-	 JWANk+HeGugrBtFuBmvYpzjeHGPMDR/yqVzMJQEXNmi8wU+HgEAUSJiWQcgdB79dXmGjS
-	 oU6ubOoKJnn+SIGu63517PyBderj3w5YlPjVeOt8KsROheq4rZEuOixaTJqBHxuBKTA==
+	t=1794364495;
+	b=GwpJz42lD9UClQAqnDDrmsmSYWhgnKm0OzViXWvXxpLsRpYlv1VUCASOkCwVPif2gCgt
+	 nuxZpNB0DhQ7LMxRF1NFhPunrpOGZR6Qg4UnX+QMV9ZNpofCBYiZIkQJyR69V5SmgXPpU
+	 4E9KWFOpp1ID7O2BdjR6RQHSHZGtjZsrimRbd90OU0mFbpoIrBWoqDIAN6ZMyzXtar9Zq
+	 unb3KBT9s/abZI72mvrbVkT5IUrqEKiGznKanYQtV4f0vgtBRkTkTMdVwo2JW2wfgYqXV
+	 PEiQ/P/ij72pHqv05sqWYRVXGFDE4fscjv2jeC6CNorifr1Kc18wmFHz5OrkPQdmHNA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794364418;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794364495;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=s18d0QtUAH5SO1XlwoaKN258QqfdDcIgzB60hufTnb0=;
-	b=PCkmX+ge+EXsrEpAPoLU4+09090AzkSDVcAVbLtmFn8gUgiOL/rQaDMD8AF9yKo2XPbq
-	 hlEtFiiuzfEKIF4fB1cN9XBfItJ3yKzeiL/ris9JhABMLrI5uDG/win4hEftG2OtvbSYc
-	 o1Hfw4ykhW8TEN+mueJXzwDPSAOkadhlOXaWvn24/JdpSkL5WkOeTFiR/pkuMMtWHUpwE
-	 JJ8QbSWKWgg/ByOlHxW3vRONZoXene7HutavKnzXV+6oa1H7E4s4OP5wJ2qRQj1jCa70H
-	 ckgyLYNvwer0gcz6cT0GDnCdNv7cZwEiQogqtqV3n0SfWid3S2Gmgd786mNJi3+h+VQ==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=ZY/yXrMk9KshKJitniBsyfv4SHkHHsRLReltZI/KTmM=;
+	b=DMbMwAxWjLP8IbyeIKHn2rZPw2+3zIWsZ/d4ExRCzGAx4YCXIURhOBJQ+jFyNPq8J75f
+	 4xlr6cX8VdsqIZZd9zjWVScYHOpk4ziWqV1Qzyw3vqOodvIQStCmNbMnSxiEpcw7R/VAk
+	 hV2i4NDBrGBsOPWNGPYHSsfzvmgZ2jDdgCOTJNSNG4ixZTmrgMPvNA0656PlpO7KSPQTD
+	 WMGpM29HCaK5Kp/MGAqgM9Y6FYI3+H+/zQcv7tI1lpKl+P/qd49s3+Q+eQTdGsof3WxOD
+	 zdZuJFeDl7v4fElZ/fd67kPozmV8uh70//Sy4ef1UYO2HHxU8c5ptmdnVCAdwlMyy2Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TPU37TsB;
-	arc=none smtp.remote-ip=209.85.167.181
-Received: from mail-oi1-f181.google.com (mail-oi1-f181.google.com [209.85.167.181])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TAe1lMoJ;
+	arc=none smtp.remote-ip=74.125.82.174
+Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2094C606A321
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 02:33:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2094C606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1F5C606A32A
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 02:34:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1F5C606A32A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TPU37TsB
-Received: by mail-oi1-f181.google.com with SMTP id 5614622812f47-4d198f1a591so1559736b6e.2
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 18:33:37 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TAe1lMoJ
+Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-37628596783so1413347eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 18:34:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794364417; x=1794969217; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=s18d0QtUAH5SO1XlwoaKN258QqfdDcIgzB60hufTnb0=;
-        b=TPU37TsBWhjAn+woivD6kvRf5j9T/wDRenHNZo/USasoDaW8ijLoHHy9339EKRiXUG
-         2LxJI1zOZRwNBvFCnQFHLLc9WCbRwHW7+R/UXyodAbuThzicWhO4KqkaYKk0eke95xon
-         y9/KTlLYGMu9sTFvZP/TlNmKn+X4hN3L48yMVvwKoiMDs5deNEBSGAlNjwwOvse2yGrh
-         Ay/Iz47eTbEf71OdHCJCwDK70/F+oChWrqf0AVLYYjnf7j3LH9H+q9rf03xVih8BYbS0
-         9uZ47C8g7DWX3YGF/fcdCHwe4Ej9IT+QWHvurwv6ebDrypk4PtDuIMtPKWeS1+gCunui
-         MQog==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794364417; x=1794969217;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1794364494; x=1794969294; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=s18d0QtUAH5SO1XlwoaKN258QqfdDcIgzB60hufTnb0=;
-        b=xfXb/k/UI9fgp7yV8QGfJGm9bJsN/dfz0CDUKzpHAsfbX/MJIftfgCmj/XQh3cZ1rp
-         xSoGoyXxCN9j/FMUltBA8uPAiQb4dhVLBGm3ptj9qhNS90S4kzwlCF+BRV3Hk/Cys/VF
-         sZIuxtzVX2SbuWWcX+vsAw0hjfZwnTt1y+/g41/Ci0vouqJqTDcQMH9ok9toGpNGw29F
-         BsXwe4W//qMO9fvQpXEsyyzORMCvTvNBeUQIeAgyvFemdshq8DpUpy2Cum7FWzZXeH/H
-         PiKihTDDHdzGaWAbz8G7yVMxJ4v1w9naLrwfJiyCTrYCsBK+UMi+HqWvg0mtSiBN4U/8
-         JAPg==
-X-Forwarded-Encrypted: i=1; AL+hErErKIt5u0LUwXssXxJMKCr54zH8VYqrXgOjlJw5/oRMsNBZS62cbgIpfV9sDkcZbfyNSqI5MOUwBfqfmIk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8AtbD3t1THtu+M4p+52fG/hfx4hEdrDLOfR4WQPPzzRtCqgXks
-	oXJhBKtt2RFURdsCzSjJXpkSgLEK++BLOIEVEcc+H3JvVyhvy98ABPo3
-X-Gm-Gg: AYBFou2ala2Ah7FVwaUMZE+D6TAgEUgXc7f0lQKMU+bwjITSpTeul33KG+sHQuMifkQ
-	u3YWfs9bMzQR8NummC+ZS9lDxETOZP50rFy10PuyvJkHjtllPaKOTGokv08/JzjlBluQedsP/LR
-	j2haJMtluXOtv+DjJn7+xg5h6NQUdTkVGBYBvzhC7hNBoCXF+qM6x+9cQ1DknqYqg0cyjqQ9Fk2
-	FybIJzuXdVdvS19sB9b7XoXE6w9KabxZ5uj+cXjNAPIIeLY7vkTG0NFI7fZRwBn5l3QXSzh1Hci
-	bQcr03dFy8oDUT49gjdADVqH3BFwFQI9hW5YYJze9I96cDvpQ2+mgbWLY21pOYOabnJ0Dg4DVrt
-	7DKU8UlEuxAxVGDsI0sywHNaIWQJ+1hsY2syInF3POGhIgh7MH1tFSJaO3OgKVUZTxpnuLi9TRK
-	tOUPaY9LJQvxrxoFPY/ANZDvytmfNUpt56x/DXoshQmpcaqWyexaW8SQtRtMXytVf9OchefEZeM
-	JaaQieOTzL8f5E3TB7p0GuRfgXgwWcIKNz8WVvqgH90yCNSoOJ3P+5TEmvud8CRPaJncCO6Sn7Z
-	FHJvZzqgpfaMT2zYFaROXyUoykyD98JOymIPKztBsi5mGoYZtJc49NjZCYR9c1PpVBrMeWDS8sO
-	jryyjeTthW18WMoMNAhU0edGtiA4NWZPT+1B9KEaNU5Znn+M/acdxgc13u2RwJZhf30TlGmJu5V
-	LPDw==
-X-Received: by 2002:a05:6808:138a:b0:567:e9b5:37b6 with SMTP id 5614622812f47-56b97c1742dmr835978b6e.41.1794364416881;
-        Tue, 10 Nov 2026 18:33:36 -0800 (PST)
-Received: from ryzen.lan ([2601:644:8000:37f::e34])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-56906036028sm4103177b6e.11.2026.11.10.18.33.33
+        bh=ZY/yXrMk9KshKJitniBsyfv4SHkHHsRLReltZI/KTmM=;
+        b=TAe1lMoJh46WtDwrffmktGuTNKEpSjONxHx7b6ts+iMpyQbXe7IrgEvNbgjuAJaerX
+         fwK/004hKHG0ceE9Mf3xgOVUb2jjBzcIvs2i4fMOvTWQKCEz8aeSWN62jT+e8w9px7ng
+         yCYoyWyEFaiI0zVJQVbEuDQcV2GbzClOoTb6Ssd8XCXwibQihSaNyigPMcs7TsZHUlfP
+         nSu4beApA6PKG8qaG1tY3UJs2O1/dJJmDReK50xc4JDVJSQLn/VuCDtmDC2allGiItz7
+         oh5x7wYZnoJtUYHxVBduJrv/Ct3N9fQroxcYxRyZecFyp4EJ34+3Rit+X7tOqZIs4Y1o
+         b1hg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794364494; x=1794969294;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ZY/yXrMk9KshKJitniBsyfv4SHkHHsRLReltZI/KTmM=;
+        b=xFHR8PRxR2MFgyAW13VjlQjDz3swNUCnXmX6Wk8mBvKplKonY4Ici3VRZX8+vVqAlk
+         huE+lM8nU+Q74G306FwyJzT4HBHY3+ZyqF++T0wMcrLqO13iOWV40ShaqZMIbe0MRo2C
+         7W8Z/1+BlDMm/Gbg81rx1blo++pl3bv9m48BjzP+CjFlvEQE45kC2fHYItjfxAIrs7Ge
+         E86Wg7Y2hSeCUGlW8mK2sPOFLPsbiE/AjgGoR/gMRAlKOAyw9WL9/sHMrjhphmiLnWHF
+         8ZaV/h4B8A+XH7zq36SGR1TTwq8WzD+QNCV6IRI4Wl/LUTXKgOEoddrQp2x22sD/BYK+
+         2sGA==
+X-Forwarded-Encrypted: i=1; AL+hErF7JkwBYD7Wj2DmwxPMpHLvCbEcrnKHQhq/+r7uTUDt+OLh9HDEqj1V8o+7rd6VsWe3txlIjqdLLP5sQDc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z860IrtfavB2Z8HuvlEGvkfQfXR/j9qk84amjF2Iz296jq+10MK
+	CwKftQ51HhAVuxTu1dMxbFdh95t80hjKQgl16Zq/oRlu4hQogI8ZHNSZ
+X-Gm-Gg: AYBFou2RN3rkRnzG6CeFUhC7PtRNIUzKOZMkke9Sq4ynDYlRXaVxB9mDmqR7gu99thn
+	mWbZBzl0Kv1+7NtwZB2/L1psQN0SFgxJLZQJzPHLEnb8qZA2Lf+gsY/qEi72McA802+64021Aie
+	EZXRxK+jZIfMv42zSYrhVSOj8/0D/U227np2l9BRUy4AMstoMAVSJfL18zVjtZmEWtmQNqohYSE
+	ShkXadMBwKrGExR2YiKqQcmpjZoZBuCBjCEwG1aFKma1AV/nNnMUtWr+HQSyfecX6Uiwe51eAOb
+	XFPBP0Tw1HTsYwJ2Dq2Uwcaig6YorXC/8Mdh72wua+yCODGMLUd/OZKN6NYerr2EKbWe2QU6wm8
+	r9lnMSaUYHOJiJ0nq+wP8CB8ie1xojQNLKFayNkJZ79zrEVqCm8lOcETtWGrRjjF0aZXHsDjPTN
+	E2PPTTI7aIQzpf6lV76QzJ5QFdjyc+Ucgf5xgLkVtR/PfVvo6cqP2/YlDrhpxcgGN2BFjRNgSTJ
+	oMzkO4RP5tesaeEAqyWO1WFf/rJemLofOWgoI1b5uokPx5QANeFJF79syiQohYZk4DqERF1ugPT
+	xFpQOXe9Tla9KP19UQJz
+X-Received: by 2002:a05:7022:1184:b0:1b2:6b1f:1d89 with SMTP id a92af1059eb24-1b3c0360627mr960969c88.36.1794364493779;
+        Tue, 10 Nov 2026 18:34:53 -0800 (PST)
+Received: from a1-free ([161.33.196.121])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b11435sm11752369c88.4.2026.11.10.18.34.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 18:33:35 -0800 (PST)
-From: Rosen Penev <rosenp@gmail.com>
-To: Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Nathan Chancellor <nathan@kernel.org>
-Cc: Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-perf-users@vger.kernel.org,
+        Tue, 10 Nov 2026 18:34:53 -0800 (PST)
+From: TAKANO Mitsuhiro <takano32@gmail.com>
+To: linux-perf-users@vger.kernel.org,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>
+Cc: Ian Rogers <irogers@google.com>,
 	linux-kernel@vger.kernel.org,
-	llvm@lists.linux.dev
-Subject: [PATCH] perf: arm_v7_pmu: suppress -Winitializer-overrides for perf maps
-Date: Tue, 10 Nov 2026 18:33:26 -0800
-Message-ID: <20261111023326.70922-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	TAKANO Mitsuhiro <takano32@gmail.com>,
+	James Clark <james.clark@linaro.org>,
+	John Garry <john.garry@linux.dev>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Mark Rutland <mark.rutland@arm.com>
+Subject: [PATCH v2 1/3] perf jevents: Name the metric when a MetricExpr is missing
+Date: Wed, 11 Nov 2026 02:34:46 +0000
+Message-ID: <20261111023448.1970467-2-takano32@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261111023448.1970467-1-takano32@gmail.com>
+References: <20261110222250.1864777-1-takano32@gmail.com>
+ <20261111023448.1970467-1-takano32@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,50 +108,104 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The perf_map and cache_map arrays intentionally use a range initializer
-to fill all entries with HW_OP_UNSUPPORTED / CACHE_OP_UNSUPPORTED, then
-override specific entries with supported event codes. This is valid C99
-designated initializer behavior (last initializer wins), but Clang's
--Winitializer-overrides warns about each overridden entry.
+jevents.py reads each field it wants out of a JSON object by name, so a
+MetricExpr key that is missing or spelled another way leaves the object
+with a MetricName and no expression. Two different failures followed,
+neither of which named the metric: the rewrite in _read_json_events_impl()
+raised AttributeError on the None, and a metric that got that far reached
+print_pending_metrics(), whose assert fired on it.
 
-Suppress the warning around these array definitions using the kernel's
-__diag infrastructure, since the pattern is intentional and widespread
-across all CPU-specific perf map variants in this file.
+Raise in the reader instead, naming the metric, before either of them can
+happen. The check is not inside the '-' test that decides whether a metric
+takes part in the rewrite: a name with a dash in it can lose its
+expression the same way.
 
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
+Two smaller changes on the same path:
+
+- An architecture standard table that does not parse now carries the
+   reason in its message ("Failure processing '<file>' in '<dir>':
+   <cause>").  The traceback used to end with the file name alone, and
+   only the chained exception said why.
+
+- A table that does not parse is reported on stderr with a "jevents:
+   error:" prefix instead of on stdout, where it was mixed with the
+   generated output.
+
+And the output file is opened after the tables have been read, and not by
+argparse, so a build that fails while reading them leaves a file the
+caller named as it was instead of truncating it to the header.
+
+Signed-off-by: TAKANO Mitsuhiro <takano32@gmail.com>
 ---
- drivers/perf/arm_v7_pmu.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ tools/perf/pmu-events/jevents.py | 35 ++++++++++++++++++++++++++------
+ 1 file changed, 29 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/perf/arm_v7_pmu.c b/drivers/perf/arm_v7_pmu.c
-index a1e438101114..9ac28c8adf80 100644
---- a/drivers/perf/arm_v7_pmu.c
-+++ b/drivers/perf/arm_v7_pmu.c
-@@ -146,6 +146,15 @@
+diff --git a/tools/perf/pmu-events/jevents.py b/tools/perf/pmu-events/jevents.py
+index 080e04b51b8c..86060a228b75 100755
+--- a/tools/perf/pmu-events/jevents.py
++++ b/tools/perf/pmu-events/jevents.py
+@@ -460,11 +460,17 @@ def _read_json_events_impl(path: str, topic: str) -> Sequence[JsonEvent]:
+     with open(path, encoding='utf-8') as f:
+       events = json.load(f, object_hook=JsonEvent)
+   except BaseException:
+-    print(f"Exception processing {path}")
++    print(f'jevents: error: Exception processing {path}', file=sys.stderr)
+     raise
+   metrics: list[Tuple[str, str, metric.Expression]] = []
+   for event in events:
+     event.topic = topic
++    if event.metric_name and event.metric_expr is None:
++      # A MetricName without a MetricExpr leaves nothing to put in the
++      # generated tables, whether or not the name has a dash, so the build
++      # must not go on.  Name the metric instead of letting the table printer
++      # assert on the None.
++      raise RuntimeError(f'Metric {event.metric_name!r} has no MetricExpr')
+     if event.metric_name and '-' not in event.metric_name:
+       metrics.append((event.pmu, event.metric_name, event.metric_expr))
+   updates = metric.RewriteMetricsInTermsOfOthers(metrics)
+@@ -493,7 +499,7 @@ def preprocess_arch_std_files(archpath: str) -> None:
+         if event.metric_name:
+           _arch_std_events[event.metric_name.lower()] = event
+     except Exception as e:
+-        raise RuntimeError(f'Failure processing \'{item.name}\' in \'{archpath}\'') from e
++      raise RuntimeError(f'Failure processing \'{item.name}\' in \'{archpath}\': {e}') from e
  
- #define SCORPION_ITLB_MISS				0x12021
  
-+/*
-+ * The perf_map and cache_map arrays use range initializers to fill all
-+ * entries with HW_OP_UNSUPPORTED / CACHE_OP_UNSUPPORTED, then override
-+ * specific entries with supported event codes. This is valid C99 but
-+ * triggers Clang's -Winitializer-overrides.
-+ */
-+__diag_push();
-+__diag_ignore_all("-Winitializer-overrides", "");
-+
- /*
-  * Cortex-A8 HW events mapping
-  *
-@@ -530,6 +539,8 @@ static const unsigned scorpion_perf_cache_map[PERF_COUNT_HW_CACHE_MAX]
- 	[C(BPU)][C(OP_WRITE)][C(RESULT_MISS)] = ARMV7_PERFCTR_PC_BRANCH_MIS_PRED,
- };
+ def add_events_table_entries(item: os.DirEntry, topic: str) -> None:
+@@ -1490,12 +1496,29 @@ such as "arm/cortex-a34".''',
+       type=dir_path,
+       help='Root of tree containing architecture directories containing json files'
+   )
+-  ap.add_argument(
+-      'output_file', type=argparse.FileType('w', encoding='utf-8'), nargs='?', default=sys.stdout)
+-  ap.add_argument(
+-      'output_string_file', type=argparse.FileType('w', encoding='utf-8'), nargs='?', default=None)
++  ap.add_argument('output_file', nargs='?', default=None,
++                  help='file to write the tables to, default standard output')
++  ap.add_argument('output_string_file', nargs='?', default=None,
++                  help='file to write big_c_string to when it is to be kept '
++                       'apart from the tables')
+   _args = ap.parse_args()
  
-+__diag_pop();
-+
- PMU_FORMAT_ATTR(event, "config:0-7");
- 
- static struct attribute *armv7_pmu_format_attrs[] = {
++  # Opened here, and not by argparse, so that a failure before the tables are
++  # written cannot empty a file the caller named.
++  if _args.output_file in (None, '-'):
++    _args.output_file = sys.stdout
++  else:
++    try:
++      _args.output_file = open(_args.output_file, 'w', encoding='utf-8')
++    except OSError as e:
++      ap.error(f'argument output_file: {e}')
++  if _args.output_string_file == '-':
++    _args.output_string_file = sys.stdout
++  elif _args.output_string_file is not None:
++    try:
++      _args.output_string_file = open(_args.output_string_file, 'w', encoding='utf-8')
++    except OSError as e:
++      ap.error(f'argument output_string_file: {e}')
+   _args.output_file.write(f"""/* SPDX-License-Identifier: GPL-2.0 */
+ /* THIS FILE WAS AUTOGENERATED BY `jevents.py arch={_args.arch} model={_args.model}` ! */
+ """)
 -- 
-2.56.0
+2.53.0
 
