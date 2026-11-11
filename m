@@ -1,94 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.170
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794410755;
-	b=1Pmq/8KgIeQfzNv7NCUvmWHEt5ib13VRhhMYEcuKxkUo4a8kU6nWFlcoCvbNVHEHvO8G
-	 JMkkyH1jnO3vobCoDL4RIYk9dF2U6RpshfkoTIOE6ywrLXBPMmTjP249dx5/5/oEShKBc
-	 jhL54StrbrJSzwhOUWEjj+AjlBci3p7BGfNBHeN+7mOhbQSfnzAi8n4ko0fMWH8cI/Q2y
-	 GNcBr7uVOjFBr+Q4ndDkS9ezjS6xHKGD0jstluNYxBDConTMvMVwg0yw37Hkc4XnVJP9Y
-	 cOxbXHxR/KSpPHpTsMbKuOLHkyQ2XJo5zHMIC8/8T0ZzwbGpPwrEkr74SSUfSQgdTtA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794410755;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=VVuhmpTOxkpymn0weSleRGrGxCwyKmh4kNc2qrZbhPg=;
-	b=URSK/1l6z87Px2ptQrlDjqAYB3BECqhgsOPwJm0qbbQMzPsSdqBLvecIW5dXqPlJmALs
-	 X0smoPDqvD+scGxsaAuEy9noZSCBeWUuOQ2/ZXHrpKhU34+TxpCQPQln/Hl8coWu/d10m
-	 vNvYP/76xxUTBc3CJIxNXw1VWco0MInT1easr/8k1n0aMtI/Rn1IHuO75+zXtsw+1gN0i
-	 8oCm8a6J/Rdi975XTslR9MVsfdz125k94V0Zzihb19od32+hErfehkxADOSVKmeQUZwUa
-	 eoDtwMcBqfQHmzDHEDlnHsY+YjQQUqiMFM4f/Zxa1AzwpmXcMfg2T0CP85wO53cbOsA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rowland.harvard.edu;
-	spf=fail smtp.mailfrom=g.harvard.edu;
-	dkim=pass header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=nNGvMAIL;
-	arc=none smtp.remote-ip=209.85.160.170
-Received: from mail-qt1-f170.google.com (mail-qt1-f170.google.com [209.85.160.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794410779;
+	b=I6MSuewKOm9wZrf4jFwULcm0I5yxwy12cf4NBlJuDA59Q/eJGI/vC2UgIVyQ9LbBW1He
+	 1DLxmobmHn/hldG03kPIquqoposhSijLl/MbqGnC5ednnhmzejIXigDbHFHDBrdUcr/zr
+	 8i46RxLNI+ySAPORoE/odQcVgeyZnrYZ4PkOVvUe9xSwBqj0IOX8qIuh5kJufx/NbAy5M
+	 AQEHok+N1abDfzr4sLh6l6cZYGY5VKpmzgp+jqDveR4XC676ZVA0Tg8gxXMCpVNtKvJ8Y
+	 97pPmGcx/aieVihHyzG5qk38tyB27rrGEEfsYDkao9FPM903kCWBzvWZzJwYozMwNQA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794410779;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:From:Subject:Date:
+	 Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=FgqKrUQegjyMdS6hczol3PkFr3FN1vQ0ioUtLWKimwk=;
+	b=AfeG9C/fKUbR9YoU8gT29TD9XuEvzvxxd9LZDJIAoDsZVx87LfrzylsgDqfa4qeOmwn5
+	 BynSOdLiEfuz424v3q1kLSuHggpiUnFOfqQR33uDtbCTXm8xNQDeaaYbcVBi7OqT26fxY
+	 RObhSrxYbAcudX8ns2UfNPoCbZE1jba0tTMu67YvxygMsB0ZWG1vjdVAl8I5VhwbmVFRV
+	 8VNGpmxi2I/0tDXUFr+OKt4uuHzBYMGN0NmeLuzbLMi1FiuMmuMwQUrY6eeSLEBNjB8kG
+	 k9y6iYXxbYNjQf+ZalejU181GO9OeoDMVaVEfGf+Csph5PArd6a5CkJS5rjTmGj/wdQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=aJUlSBIX;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45DD1606A326
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 15:25:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 45DD1606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3DED606A333;
+	Wed, 11 Nov 2026 15:26:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3DED606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=nNGvMAIL
-Received: by mail-qt1-f170.google.com with SMTP id d75a77b69052e-5495d549924so33300161cf.1
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 07:25:55 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rowland.harvard.edu; s=google; t=1794410754; x=1795015554; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=VVuhmpTOxkpymn0weSleRGrGxCwyKmh4kNc2qrZbhPg=;
-        b=nNGvMAILLhIgpSoaRMs9TXupHeAJcVzXWR7e4jlC4QcIAGFon1n43zEsGUnQzyYj4T
-         /cqjz2kPZtxEXRtaRzUeNuobDbt1po0n1thnjWj5aBlikM9PiREmxVOKIH5N+qfSNCf2
-         1a80QphSH/bW4nH/V1F5fUP0LGuFqRQc4GTK6zZrtcBupN/GF+bvddj3vrPtrwXsq3+3
-         alTS32l1WW9pXSSkHhFjvHpoXthbHSBfJnIizENmzz5znt7G1HpmNReXq/1vumc2S97p
-         YukMPBPqoMbQgaHGDnd6nJqH2FhAiCxTX4lfAhQmczRTG59MmUjR8YswEsLNeZe/3uii
-         eHPw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794410754; x=1795015554;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VVuhmpTOxkpymn0weSleRGrGxCwyKmh4kNc2qrZbhPg=;
-        b=iVLXMstro8C6jnUh6/+Gi8KLbanIlB0U1Wu6OhlwebC5A7EEuYSV/SnwBQEAWtozeV
-         LYaxYWftZlhn9JdnH0bObHaHM4157agU9LF32n3ytQbHKBh7g5JPIrFR+kgHrR3GcYUX
-         +958T9kmEphELBXrrmB0pq+7uw5+Ycn9rCaA1Y9SKYGZIbcRdM91e1clZkFcBUzD5TZF
-         42euZDRiA15sRHPnhxp9WruBlx7Le39qGCMclS5cn/5WvHUKN3IGNUS2Av7DC9wgMQnP
-         aJX+pgIO73q+FKHMf6Ifcy/Zb2P5QJe6raMnSrLaxe69z4tT0wE29s8nyTje/IIjyzNu
-         +6mQ==
-X-Forwarded-Encrypted: i=1; AL+hErGQaQrIogUCqjMXRDJlFSYrhpPEZat8yCgAoENA0V+OxNT87KKaOJtkyUc4a9NFDqcTjg9Z84ntHvDmpdw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8vGgb8Noiz0CBQ18g9DhCv/k4XrwsWpgimss8nRTnPUFhum3zq
-	KURAiZ2ie+iuHaQYiLG4If7PF6ahW+EhkrzfSyq4kFCwg6IwEP+Bk17u80MPMzYlXw==
-X-Gm-Gg: AYBFou0onINzj/dDiJrsNju62lGSr3dXAYzGCKdypaa63urIlIaiSZn3XMWCht7jD5m
-	nlCAwJQ7sS3IU65VuC2HlznQ+eqi8mYN8cQWLYtlWARcUYiDM/dB+ME6VxZbqXbw8iiGamHl6I4
-	H4F4nWZDMwxOkiLLtbG0rfVYu0cg37Y/MINYedEpnOYrc+MNSalLmhq9FWawTlPFjhRV1+ihTuf
-	gQfgSFw6oOz7ekY1oORr9OOKSh+Fw04ItZSPjhCutDoXE8hLSLWx6FHb4Ts2mCLlLVLyA3LjsBC
-	PZ2qGSGGHrYxqV4GoMfEGYVQYmBb3xBtbwEys5SM/KnKk5mRcqc2L5PrJVYXZKaivksBMGn8boD
-	3XsEbqF1fYF2JoAhtHeOyN2zUpZ8ogfJIbjx3O+fvy2LFu99bTd3l/p40SCEX4WdmklamqhSpGI
-	N0p71Xj7PbKuSWlqRp1hwh8uELpM6PgvI2pTqkvTVazYK6ecwPyZe2CmCAD0fXofTUFeUBJV52P
-	Z4gJqd8QTreV4DZi6/oL0ksnuWrPTwXCdfekZlZP1YChOazqQicH2GlAkOHh8daV7jk1RlvJ9rD
-	ks9HCOTpVEf+gT/nithLIOMdw5H9F3sfps2ek+mw66A7Q4sxex4=
-X-Received: by 2002:ac8:5dd0:0:b0:535:fc2d:b7c2 with SMTP id d75a77b69052e-556c1391522mr40169741cf.33.1794410753989;
-        Wed, 11 Nov 2026 07:25:53 -0800 (PST)
-Received: from rowland.harvard.edu ([2601:19b:d01:d210::d355])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5550b9425c5sm52788841cf.17.2026.11.11.07.25.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 07:25:53 -0800 (PST)
-Date: Wed, 11 Nov 2026 10:25:50 -0500
-From: Alan Stern <stern@rowland.harvard.edu>
-To: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-usb@vger.kernel.org, usb-storage@lists.one-eyed-alien.net,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] usb-storage: onetouch: Fix potential use-after-free on
- input failure
-Message-ID: <c342c36a-df9f-4bf7-b96a-a4609f128b0e@rowland.harvard.edu>
-References: <20261111-e5624093d6-usb-storage@mail.sdu.edu.cn>
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=aJUlSBIX
+Received: from dude04.red.stw.pengutronix.de (dude04.red.stw.pengutronix.de [IPv6:2a0a:edc0:0:1101:1d::ac])
+	(Authenticated sender: relay-from-dude04.red.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id B726A2000EB;
+	Wed, 11 Nov 2026 16:26:11 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794410771;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=FgqKrUQegjyMdS6hczol3PkFr3FN1vQ0ioUtLWKimwk=;
+	b=aJUlSBIXxj/r5ZbpUuSVVwXUhF5NGn3XghOMov7uyTtrlgRGnhLr1fIJbNqsSEmt7Rd5pe
+	2iIb/h5mc6mnEb7EA7stJh6ivy4nAWZdub1FIm1XXE2g5l3Ouuen9GfcZXr46fgN0r+avT
+	OAq9tLXPbaa4DkOEYxycWIe0UgHlHx7L/z8T1KUk0rGqFw3PMjtTKRyqvrxr+cxRDf20bx
+	VNG08YZK4aDku3kQXlOe1MuNDVK1WazhARhVd1Ym0/wo1ZUFUG8271aC2rtTxmQxUT1Q33
+	VdXtvomfUvil/1/N5wpkvUpfoVYOYjNSNJKZQ8ycYaZ13U/6GHIddvZiwz/nFA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794410771;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=FgqKrUQegjyMdS6hczol3PkFr3FN1vQ0ioUtLWKimwk=;
+	b=M/cNSnraf5vgYLiI1VKcfLSxa1QeDIN7wcqHcfDlM2gcZ48SOApYkIpaBRLe9GGlHcaAlm
+	lQsuzPV5eFQYgJmoVrK/i8AGhYzoRaCL6I476DdBPKjmv1kRe9U9ouNQ/LeSiQ0xUU7ePD
+	ibY8wi8Fj9tpbItIJ2SFj9+pjEXEJTgv5ktsWly2H/WYcv6c1OHjZMujSUpf9m6+zJhfbj
+	XrmAY53xeNqjpaArhCwaZEry7kHVM/Prpr1rJPJZArVfdkPvHLNE+CoQKh3kxLtDIEFTRw
+	n5nlyUFqTPZ0gpu7dMQ7fPpbY/vcxtkoP2fDoXKJsUhpwSy3RobqrxkNu48nQQ==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794410771; a=rsa-sha256;
+	cv=none;
+	b=DfUsSI/BnYxBnLBnwDppYzy83MtB86ZkVO88H2af7NeJhm/xULA++5MNzhzrNIZuolLuU6
+	jZTJ1ZAhMCVbM4znddGXznhNsxC44MJR0BwXW6zTWjBi1dojnReag1/9vxskYbrP7RaiQI
+	XOA8rLTxbhXt3AY3aQ/Jci85vdgepkUwLlzV3bCBWT+uvig7fcf6X/5EoTPWi9euhEIM7R
+	Nm9AydU8MpIZEtFGBMXLKYpH7QehCGo7IfFqH30KiPu8ELbMW2TsaPERlIbHAxpqa6GfSN
+	dOxNY7ovoyiA9TQQiupVURWD23+7NmT6fByiiZefPsQhSEoY3jwkiL48tgBZ5A==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=relay-from-dude04.red.stw.pengutronix.de smtp.mailfrom=ore@pengutronix.de
+Received: by dude04.red.stw.pengutronix.de (Postfix, from userid 1058)
+	id AAF71380329; Wed, 11 Nov 2026 16:26:11 +0100 (CET)
+From: Oleksij Rempel <o.rempel@pengutronix.de>
+Subject: [PATCH can-next v3 0/9] selftests: can: add J1939 socket and
+ transport tests
+Date: Wed, 11 Nov 2026 16:25:49 +0100
+Message-Id: <20261111-j1939-selftests-v3-0-5a80277ab363@pengutronix.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,57 +85,95 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261111-e5624093d6-usb-storage@mail.sdu.edu.cn>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAP2I9GoC/x2MQQqDMBBFryKz7tAklqC9SnExxklNqdOSCSKId
+ 2/q8vH+fzso58QK92aHzGvS9JEK7aWBMJM8GdNUGZxx3lpzw5ft2x6V37GwFkXrYui88X0XDNT
+ XN3NM21l8QCBB4a3AUM1IyjhmkjD/ixOtvFRbzsV1oSRwHD/tyEU2kQAAAA==
+X-Change-ID: 20261104-j1939-selftests-12fc860698c0
+To: Robin van der Gracht <robin@protonic.nl>, 
+ Oliver Hartkopp <socketcan@hartkopp.net>, 
+ Marc Kleine-Budde <mkl@pengutronix.de>, Shuah Khan <shuah@kernel.org>
+Cc: kernel@pengutronix.de, linux-can@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ Felix Maurer <fmaurer@redhat.com>, Vincent Mailhol <mailhol@kernel.org>, 
+ =?utf-8?q?Alexander_H=C3=B6lzl?= <alexander.hoelzl@gmx.net>, 
+ Quchaosheng <quchaosheng000406@163.com>, 
+ Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>, 
+ Oleksij Rempel <o.rempel@pengutronix.de>
+X-Mailer: b4 0.14.2
 
-On Wed, Nov 11, 2026 at 08:23:03PM +0800, Guangshuo Li wrote:
-> If input_register_device() fails, onetouch_connect_input() frees the
-> onetouch state but leaves it installed in ss->extra. USB-storage cleanup
-> then calls onetouch_release_input() on the freed state.
-> 
-> Install the extra state and callbacks only after input registration
-> succeeds.
-> 
-> This issue was found by our static analysis tool under development.
-> 
-> Fixes: 17efe155253e ("USB: onetouch - handle errors from input_register_device()")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
-> ---
+net/can/j1939 has had no in-tree selftests. This series adds a kselftest
+suite for the J1939 socket layer and the TP/ETP transport, run on vcan with
+a CAN_RAW socket as an independent on-the-wire peer.
 
-Acked-by: Alan Stern <stern@rowland.harvard.edu>
+The timer checks are relaxed by default, for slow CI machines;
+J1939_STRICT_TIMING selects tight bounds. Not covered yet: the ETP abort
+and timeout paths.
 
->  drivers/usb/storage/onetouch.c | 8 ++++----
->  1 file changed, 4 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/usb/storage/onetouch.c b/drivers/usb/storage/onetouch.c
-> index 49d281f7bef6..e09b3c6b9a6a 100644
-> --- a/drivers/usb/storage/onetouch.c
-> +++ b/drivers/usb/storage/onetouch.c
-> @@ -237,16 +237,16 @@ static int onetouch_connect_input(struct us_data *ss)
->  	onetouch->irq->transfer_dma = onetouch->data_dma;
->  	onetouch->irq->transfer_flags |= URB_NO_TRANSFER_DMA_MAP;
->  
-> +	error = input_register_device(onetouch->dev);
-> +	if (error)
-> +		goto fail3;
-> +
->  	ss->extra_destructor = onetouch_release_input;
->  	ss->extra = onetouch;
->  #ifdef CONFIG_PM
->  	ss->suspend_resume_hook = usb_onetouch_pm_hook;
->  #endif
->  
-> -	error = input_register_device(onetouch->dev);
-> -	if (error)
-> -		goto fail3;
-> -
->  	return 0;
->  
->   fail3:	usb_free_urb(onetouch->irq);
-> 
-> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-> -- 
-> 2.43.0
-> 
+This series changes no kernel code. Known bugs in the stack affect these
+tests or limit what they can cover. The fixes belong in the stack and are
+not part of this series:
+- The stack updates a session from the loopback echo of its own CTS, RTS
+  and DT frames, and a CAN_RAW peer can see that echo before the stack
+  does. A peer frame that follows quickly can then cancel the session and
+  fail a TP or ETP test (patches 7 and 8). I have not seen this in QEMU
+  runs.
+- If the last J1939 socket closes while an address-claim timer is still
+  pending, the kernel keeps a reference to the interface, and deleting it
+  hangs (patch 5). The tests keep a socket open until the timer has run.
+- On success, setsockopt() for SO_J1939_PROMISC and SO_J1939_ERRQUEUE
+  returns the value passed in instead of 0. The tests accept any value
+  >= 0 (patches 4 and 9).
+- The stack ignores a Connection Abort received on a kernel TX session,
+  so no test covers it.
+- An ETP CTS can ask for more packets than remain in the message. The
+  stack lowers the count to what remains. It does not abort with reason
+  15 (ECTS requested packets exceeds message size), so no test can reach
+  that abort.
+
+I used Claude Code (mainly Claude Opus 5.5) to write most of the test
+code, the commit messages, the Q&As and the changelogs, and to review
+them. I have read, edited and run all of it myself, on vcan under QEMU.
+
+v1: https://lore.kernel.org/all/20261014154435.3577983-1-o.rempel@pengutronix.de/
+v2: https://lore.kernel.org/all/20261104-j1939-selftests-v2-0-cf797c83317b@pengutronix.de/
+
+---
+Oleksij Rempel (9):
+      selftests: can: install net/lib.sh with the CAN tests
+      selftests: can: add J1939 test helper header and library
+      selftests: can: add J1939 base functional tests
+      selftests: can: add J1939 socket option and metadata tests
+      selftests: can: add J1939 addressing and concurrency tests
+      selftests: can: add J1939 wire-format tests against CAN_RAW
+      selftests: can: add J1939 TP/ETP multi-frame tests against CAN_RAW
+      selftests: can: cover J1939 transport abort and timeout paths
+      selftests: can: check SO_J1939_PROMISC receive effect
+
+ tools/testing/selftests/net/can/.gitignore         |   5 +
+ tools/testing/selftests/net/can/Makefile           |  21 +-
+ tools/testing/selftests/net/can/config             |   2 +
+ tools/testing/selftests/net/can/j1939_helpers.c    | 524 ++++++++++++
+ tools/testing/selftests/net/can/j1939_helpers.h    | 374 ++++++++
+ tools/testing/selftests/net/can/j1939_lib.sh       |  92 ++
+ tools/testing/selftests/net/can/j1939_tests.h      |  71 ++
+ tools/testing/selftests/net/can/test_j1939_addr.c  | 736 ++++++++++++++++
+ tools/testing/selftests/net/can/test_j1939_addr.sh |   4 +
+ tools/testing/selftests/net/can/test_j1939_base.c  | 236 +++++
+ tools/testing/selftests/net/can/test_j1939_base.sh |   4 +
+ tools/testing/selftests/net/can/test_j1939_multi.c | 950 +++++++++++++++++++++
+ .../testing/selftests/net/can/test_j1939_multi.sh  |   4 +
+ tools/testing/selftests/net/can/test_j1939_opts.c  | 434 ++++++++++
+ tools/testing/selftests/net/can/test_j1939_opts.sh |   4 +
+ tools/testing/selftests/net/can/test_j1939_wire.c  | 196 +++++
+ tools/testing/selftests/net/can/test_j1939_wire.sh |   4 +
+ 17 files changed, 3659 insertions(+), 2 deletions(-)
+---
+base-commit: 6584acd42820478910a771efb28a355a707e9cb0
+change-id: 20261104-j1939-selftests-12fc860698c0
+
+Best regards,
+-- 
+Oleksij Rempel <o.rempel@pengutronix.de>
+
