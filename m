@@ -1,80 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794379636;
-	b=S+PeYVRRqvH/TR3qV4ozuLCG+F2XMup/xlNWvA8bWBN4do9iOcANLJi9YVf2MTpgj9yB
-	 iMnFvWUZp0fcxnPReXc+N9kXQ8K10p9JRL7yeXENPlmO5xs65fUjt/c/wY/oLxcCfN9NY
-	 kyW20u2KHhmRGhwmQREyiak5H+9w6Btm995CaUQnEOa3FJv9ThTtLqKj7jtPm4sJJh/VR
-	 CrxX8O/1G532TTO3u55o4GxpVg/7IS2kr0BmHDQcV9r665LwIquIeJel8KkEIy7sgXU1V
-	 I8UUZwx9DWrhV5cO215bhuI92iWPaMIik9lxnGFNdOzQW9bLgBKSZ+/+yYm8EfU+TXA==
+	t=1794379638;
+	b=RdobpII4h3sTIH5VxGkZ6B7kVAHltiMAMkwcUL1PCLOt/3+Y55o4clQhPTkLA6FE8PH3
+	 Q6sZ0mlu+rUbIi07j9T0u95WFg+dEz1F5svOwOVbWMK1qwwKAFYi/k+piugLq1A6goCRZ
+	 72ydMvw71pM/vefDV/R0EupBsCkulLq1lcvKEpFLzacl7GAy0XtGYXFGx7oGXYZP7jST8
+	 C0cWdBSwILWjN7IyGDsUDhKazhnVCL7E/8rrI6bRWHQAX/08K1Th07hFW0gVuQOz7Ax4B
+	 Kc7U1rEAKh3N6Y83omxrgHw8bQxEmatHMr/WSFqfEyXRwu8B2aN49b+U4O2YXLVyIqw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794379636;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794379638;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=4EiG4ohiaJ+2VhSrJi2s5uqPv+5cYMcFL4w9Bign1CU=;
-	b=vArW3sHYbZUL8nU5XolbmMeQ45aysHdhxC5kDiboN2JSBlgqA/JgwqV9mcQ6DzfgrZWx
-	 P9VldREFArFgU4Oh3oym32yCGxHBoWzC1SGxbeXtgUM1vy5MqtNhpmOSv+YxYWEuL/e/j
-	 PNiAophfEchv7x+J34VToidf0QDhozTqrrkGUphQRRj7sSM8iv0pVQSuBaPvNZErw1tXx
-	 +7VLcaHX/9FuxcguoFO/pi5tRUzkC4EPnVX+SVplPOU5ysfx6hK5uKsDIbs7+FQTmTeXO
-	 0XJEh6qmwjN751X1nl5nvH14wzy/fA28P+NcF0G4EQC9hFJVHQ6kk/s13W7ZFgfho8g==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=LoLBKM4Sjqa25bXrwKOIU9y0T4xg6/+5J3Td4BlyGMY=;
+	b=BaIaCKDnGdDVKZbMSbeNy4mOxDNeK0VuAFjS/qJD6HKS4CMw5gtbmw5qDHLY3yVGv1N0
+	 d9J+RW0j1+sI0jDPPzPv8yfRgHQCS9JNKAEYclUimfRv9NMbHI3Gomr1JcpQNMppjuUEO
+	 5R+CJaAlxBZbE/3eg6ktFgNGUDbezGK+302bM6G96TFIX3reaFFj7ekPH/kjypNO4aeJ3
+	 IASsf/dYu+nah4hmCmUlTRi9OtqrJ3KEikjFU9AVp93PrJD/trsjjyW4oEg9ZptunokmH
+	 Azi2TJC4vdyIH9nhESQlCyCAOR6cJ/xHTK4Tq0ReRCDrbmywnM7DicaBDahcYyVKTRA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=chromium.org;
 	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=knniPS1e;
-	arc=none smtp.remote-ip=209.85.216.46
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=RMs0yD1B;
+	arc=none smtp.remote-ip=209.85.216.42
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9684A606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 06:47:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9684A606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69D92606A336
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 06:47:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 69D92606A336
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=knniPS1e
-Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3b147e06befso1328651a91.2
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 22:47:15 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=RMs0yD1B
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-3ac9f49b984so1610120a91.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 22:47:18 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1794379635; x=1794984435; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4EiG4ohiaJ+2VhSrJi2s5uqPv+5cYMcFL4w9Bign1CU=;
-        b=knniPS1e72GntIsVk/zyaULRK+Nk4LLiHalU4UClNzfKUJK+jc58jcK1VWFaKflT8e
-         Dro9Due/Q3ItEaAipvKKjmnciBiQROiPTN9U5xGeCtyxMqYACfRTlA2rv+eGQWIAw+CX
-         BHkYkCQznjd8NrvbqzmfM0nnyA8G5yLofyLsU=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794379635; x=1794984435;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=chromium.org; s=google; t=1794379638; x=1794984438; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=4EiG4ohiaJ+2VhSrJi2s5uqPv+5cYMcFL4w9Bign1CU=;
-        b=u1X0cCXzpP7oCxPg1ovCHhhYZQTKXCYKkph7DkdRvP7sooIJWf96jQXA8EjrSg/VGp
-         UMPqLYDcmSMbSWtpXZU/Pv6Y98jJGkTtZDwBYEI20rSWoLd4NcLYW/zCeU5mmwB0xcOT
-         LcRuMlAHik/BGNsRIFeXZJjtKXrPNML5B0UQ2Dyd+1RjzqjkVz6bGGA//SVI8a+68Pbq
-         Q3P3JCUPuDmJCqsbbcGFKxvF8wYUNoLkM1msibuASezmENT3BxZWyNZA5JRw5fEwDPPQ
-         CgaTxwbdtVZQFaag8th+uXB7inFFReCa9skGLKez8DAuhJc+t5IA15w3+GZmOL5msZzZ
-         jI7w==
-X-Forwarded-Encrypted: i=1; AL+hErEjs2NruzClr5ZLSiTE3Yjm4ZQeszCAcP7EaLoYUqb+fBBaQm15zEMnqEfV/PIInZJDfSN9pQ0yf+Nl7c4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+PeJVmt6w1ncLHafuMT8Tiiasg3e/ksIfASYd0+abT6MIrlJj7
-	u+4MKSlfvDHZEbTb7DaxVEc/WND8kBPOWwi6avH8q0Nlfm5VZYcA+ShKl3fxDhMuig==
-X-Gm-Gg: AYBFou166P0h/qYNPjPTZgeMDua3JZQRCcL98yt9AKXL65WbnbRzxzphrfzVrCD/W7U
-	JQf9Ij9BnMLL82PXtPh4+p8w3mmXL7D7rALn1jzDLG+SRsSsut5rEDcb092RxSTuBrJiVP25DIr
-	fkv+D2k6wUArLHBdfo6T7aGPqmw3NthVqEMjnNYy7mP+s0KQ7hchovodvhV96HTyMoyPtpB04oH
-	NZY1ZibAAUROI9nLbU64+tchofiHVCiqUYlMxPdS6EfDhDGxjKxZnqi7qugQgSfsAlX2A/eL7wx
-	ux8cn2M0C61EubXma+4ZF3UHOXZ23ASV2meypcX96YSYfe0RQdizZNIZORo5OAmQN7y2sTHBSzo
-	RDThqFwXRaYRKkc5pWzvltM5s1cc36OFrDjuS07l3bOtMty8IAR1aH33pbqY4J2pIZUwMmkD8wa
-	X610qyKXiWGM2peFEAOPvPvWqMSTlLcUlW5T75Uwbc14+jE6/mv/ZeBg1TkhGiCjoBjCrF584h0
-	tjfY5SsNxZNVRZyy0Wl+U/LdYoJ38ctOfm0odSN72yO6m0ov0WMEZUDEoKx0HuX3bu/2d/rcTdW
-	acbADtlYR9gdwaDyVnr9nIfZXX+80t9kY3U48hxuKy7Z+VFULHeH/0+z4Fz+6BBMFktyrB4kRiV
-	cQec5ukQU9VMTeRoZenctpQS3zSrqIErVd40E03k=
-X-Received: by 2002:a17:90b:37c3:b0:3ab:413:49bc with SMTP id 98e67ed59e1d1-3b182ee2462mr1689014a91.37.1794379634902;
-        Tue, 10 Nov 2026 22:47:14 -0800 (PST)
+        bh=LoLBKM4Sjqa25bXrwKOIU9y0T4xg6/+5J3Td4BlyGMY=;
+        b=RMs0yD1BAbRNlQCyHoYg25Frt8KVLLLZ/hDDP7KKI5L/b343Dqv4AhSj+L4oxUViu8
+         xlH9SuM53RG019S6bVnt3EARx7kILuexpZh0hQSK3NAh4YieTCsdROG3uvFp28tNfF4k
+         Bl5pX10oDkS50DdclVyevwlsfRxSB+zZr1reQ=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794379638; x=1794984438;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=LoLBKM4Sjqa25bXrwKOIU9y0T4xg6/+5J3Td4BlyGMY=;
+        b=oyOw3qfL28406FU+N+YRJ7D4dVqM/KG+6zyaCVE49z1m76Gt9DOg1ZXLFbZ1aJNyrF
+         6tPtTq4uc1UviDbrnzLBmrVIuU3uo9kCZPxndZh1kbmRXdIxYYKZ2DLcqqtdeRgWr51v
+         +yiWc62ZoECDzZE7tptQJKpOSufFYoS17q+RSinZlFdTw5GjOVcqfvvDoOle2SX7w/39
+         eklY1/2aY21iclAJM/5jh6cKs1yn0ab5+YujASuphir2d+t7I1W8RZgRNE1YBof0YY/v
+         5bEGQXJ1ao6qC4M0NmvDqd0+pGAZtrsf2JHKhMLEKlum04oLhkr+GzicAqGgGzydAHnM
+         +HGg==
+X-Forwarded-Encrypted: i=1; AL+hErHn1LH4bMYTL+YqXnntOHtlq3yEAGoI8wdWnm+YQOy1jbR6e2x1BCdy37cWr4b8Bj3hdySdjZL+soEeg0g=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9G9iFfj4QyfU7YR7jSecAB7g8doq5/6UAHs2UBXicpNqDWVE5r
+	Yi7J1SLqA3orFx4hnU3cDYtMyYM/oUef0JMJcTESIGFYfF92MJiuHwCPAkr4BXNGBw==
+X-Gm-Gg: AYBFou0WEgqW+CTiusmadfNq2CZSRItaXre+/DlJ2mReU4gCM/C33ksyzMrKjQWUZqB
+	5vfKQefhbD/AdmqaERm2iwANgkxkVvQJrPHpiafVK9ObN3TMnjkOdera1svyMvLKbVTssbCpBsY
+	jFJe5f/fcxz8d1yg/vIGN1Na8YdM9jv33SEHGXncXTdPtAWiAWOaalTu+pXwo0LBsd/15POZj12
+	4wT+UqOK+MCqq/EmYC7NqawzH7LGk5H3nf+iOvaRyaPaH5d/wP3/lsy42Dpc5sBLOCNJTkdxkiq
+	yB7q7LatuP/koU6bA/vLYBFNOwiZAh0H6ne4DfHMUspyMYp/lNBb2sbxQUWqVLA+yaxjn+EMdKi
+	t5kUp7xSfF0Qx0qWX5bpJEwAIcr0efL4KdMulBnEetqNEkrhhVYH66Gxvurm+gs46FwrwoUIbsj
+	/l5Rj8mtEzN8q0maOA2b3vDcUkXoM9+cuIPQItURrRrFvc28iwswFMIeO4B6v/dCEmwpqHJt0jf
+	g0heW+O4Dmlxia+yOSIkBMJdI5D1c4CunlpsxadPEgiKbepv8mFdz7W4871cZBhoNcbtZDB0KSP
+	Vmmci/SffEty43v6sEWfWZ9mgptTG4jDm2FTpRMdqL5xqluLc7uAeb4sZooGEvsYd/kIH5n9ITW
+	ZasFVIxkocUUwnsGOSn9TcwveuuHytXD2WVhJWpk=
+X-Received: by 2002:a17:90b:3c06:b0:3b0:a413:dd8e with SMTP id 98e67ed59e1d1-3b182fd6335mr947201a91.43.1794379637677;
+        Tue, 10 Nov 2026 22:47:17 -0800 (PST)
 Received: from tigeriii.tok.corp.google.com ([2a00:79e0:2031:6:ad6a:b446:df00:78dc])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b17db85a9bsm3268666a91.14.2026.11.10.22.47.12
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b17db85a9bsm3268666a91.14.2026.11.10.22.47.15
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 22:47:14 -0800 (PST)
+        Tue, 10 Nov 2026 22:47:17 -0800 (PST)
 From: Sergey Senozhatsky <senozhatsky@chromium.org>
 To: Andrew Morton <akpm@linux-foundation.org>
 Cc: Nhat Pham <nphamcs@gmail.com>,
@@ -87,10 +88,12 @@ Cc: Nhat Pham <nphamcs@gmail.com>,
 	linux-block@vger.kernel.org,
 	linux-mm@kvack.org,
 	Sergey Senozhatsky <senozhatsky@chromium.org>
-Subject: [PATCH v3 00/11] zsmalloc: redesign object alloc API
-Date: Wed, 11 Nov 2026 15:46:23 +0900
-Message-ID: <20261111064707.2568433-1-senozhatsky@chromium.org>
+Subject: [PATCH v3 01/11] zram: drop stale comment in write_incompressible_page()
+Date: Wed, 11 Nov 2026 15:46:24 +0900
+Message-ID: <20261111064707.2568433-2-senozhatsky@chromium.org>
 X-Mailer: git-send-email 2.56.0.542.g3ef89b7020-goog
+In-Reply-To: <20261111064707.2568433-1-senozhatsky@chromium.org>
+References: <20261111064707.2568433-1-senozhatsky@chromium.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,52 +105,30 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Both zram and zswap already have per-entry structures that store zsmalloc
-handles, so allocating a separate handle_cachep object per stored page is
-redundant.  This series embeds struct zs_handle directly into zram and
-zswap entries and drops handle_cachep, saving 8 bytes and a slab
-alloc/free per stored object (2MB per 1GB of swapped out 4K pages).
+zram doesn't do fast/slow-path handle allocation anymore, so
+the comment in write_incompressible_page() is stale.  Drop it.
 
-It also folds zs_malloc() and zs_obj_write() into zs_store() so we don't
-take pool->lock and look up object location again right after allocation.
+Signed-off-by: Sergey Senozhatsky <senozhatsky@chromium.org>
+---
+ drivers/block/zram/zram_drv.c | 5 -----
+ 1 file changed, 5 deletions(-)
 
-A simple zram test on a 24-vCPU VM
-==================================
-165 fewer kernel instructions and 0.7-1.8% fewer kernel cycles per write;
-lz4 single writer +2.3% IOPS / -2.6% average latency;
-24 writers +0.9-+1.0% IOPS; no regressions.
-Memory: 8 bytes less per stored page.
-
-v2 -> v3:
-- addressed Sashiko review: alignment and READ/WRITE_ONCE mem_limit
-- picked up review tags from Yosry and Nhat
-- added handle validation helper
-- change definition of ZS_HANDLE_SIZE
-
-Sergey Senozhatsky (11):
-  zram: drop stale comment in write_incompressible_page()
-  zram: drop get_slot_handle() and set_slot_handle()
-  zsmalloc: return handle from obj_allocated()
-  zsmalloc: switch handle type to struct zs_handle
-  zram: check mem_limit before allocating zsmalloc object
-  zram: allocate zsmalloc object under slot lock
-  zswap: do not free the entry if its pool is NULL
-  zsmalloc: encode 1-based obj_idx so valid obj is never 0
-  zsmalloc: embed struct zs_handle into zram and zswap entries
-  zsmalloc: fold zs_obj_write() into zs_store()
-  zsmalloc: populate new zspage outside class->lock in zs_store()
-
- Documentation/admin-guide/blockdev/zram.rst  |   4 +-
- Documentation/admin-guide/mm/slab.rst        |   2 +-
- Documentation/core-api/memory-allocation.rst |   2 +-
- Documentation/mm/zsmalloc.rst                |  22 +-
- drivers/block/zram/zram_drv.c                | 148 ++++------
- drivers/block/zram/zram_drv.h                |  10 +-
- include/linux/zsmalloc.h                     |  36 ++-
- mm/zsmalloc.c                                | 288 +++++++++++--------
- mm/zswap.c                                   |  28 +-
- 9 files changed, 297 insertions(+), 243 deletions(-)
-
+diff --git a/drivers/block/zram/zram_drv.c b/drivers/block/zram/zram_drv.c
+index 632045b65bdb..380615b73446 100644
+--- a/drivers/block/zram/zram_drv.c
++++ b/drivers/block/zram/zram_drv.c
+@@ -2271,11 +2271,6 @@ static int write_incompressible_page(struct zram *zram, struct page *page,
+ 	unsigned long handle;
+ 	void *src;
+ 
+-	/*
+-	 * This function is called from preemptible context so we don't need
+-	 * to do optimistic and fallback to pessimistic handle allocation,
+-	 * like we do for compressible pages.
+-	 */
+ 	handle = zs_malloc(zram->mem_pool, PAGE_SIZE,
+ 			   GFP_NOIO | __GFP_NOWARN |
+ 			   __GFP_HIGHMEM | __GFP_MOVABLE, page_to_nid(page));
 -- 
 2.56.0.542.g3ef89b7020-goog
 
