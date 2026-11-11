@@ -1,73 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794418901;
-	b=vSa6mz9SJau4JDnLfn72GGSLstShnAnZInHcDJyyjNHCd6l8aZfOTRJEXowgVgciZCqz
-	 oE8ve3yQPVyBgHNL0E02Q7CdE8WW0gsGaSHqL+EzE5lDXW5UFcGcRdBA48QT9TtFc0Ejo
-	 3g84z1OIBMrTGGZobplT2H5O4DTDYP9syAGyQjIpZ2TAoBklio0jBqx2L3pQqg5QA4b+c
-	 TMmLOCWmQO9xibnuaBd6rW8t6rvRXK9iopJbFl5Or1+zachMYG8SG0Np4yLCt3iE1eIl8
-	 SHvSoUgZIQowtnrcjjz8Zgic2qWusE1O8C5U3/rOFbGWN9jdU8QqAbWxop62C/2Zs+A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794418901;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date:
-	 MIME-Version:User-Agent:X-ZohoMailClient;
-	bh=iqjriVRV+XaVhh5T/bP5TLkCUtH+I0gT57VpXww08Ts=;
-	b=wDE12LD0nibRA2YYtBXeXzHtPqfm8GqNHht8U4s/QzMOhigjkujrQtm07kWc818qjCYF
-	 yuadzEBjuY2H6KKtG2Mzw6cnmFh/xuXeVIwLhn2LNwWTrvxn4rEIDdluLT2HPmmyxpO7e
-	 ZFUlflP3xRvb0ekHBGbe3oyWoIFf3sqmlOb7UDh0c89392/RWCYrFDKoyIiZfGroCGzsS
-	 sTklBlPf+1sNKE2YB1hbUmdAFa5q4hL2ekieKQ9RksqbSrtlIXG9XVcgMHRY4UqC6NYui
-	 /3KoL3dzIwlLQN82lDpPY8D1p0ULRqVI33w41mB4tLYXJu309i6DNXk5l8bMeDjjJeg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rong.moe;
-	spf=pass smtp.mailfrom=rong.moe;
-	dkim=pass header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=GQAG+RSi;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.69
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794418940;
+	b=nTJiBxWAG9NMiikKEd/MNleyYx/gccJR9cYTuomTOeyvchOZ6Sqw2DVrOpUh7RHt5gl9
+	 UFBkAtLLDu9nbBym6A/hZxfl8rlQynw72zLvTU7Wjo68EDFncmkCWypw8ziygkfxPDuVl
+	 0U1hF1+JfB+Yh81fNCT7ot5X8g5p+O8MGB1S2ggouktSWWjBj0II44wr2r9ExESPK4HoF
+	 mkqEvEUzea7kLjDWUV5GVkhCbhZxAQL3GUcCpz6dJp7cGCV+1vIxsOs+0COdJ/pXDvIv2
+	 1oqYQRBMaZRv0RjnjFpRG1nhMDydw6egwklDob7AtxiseEJguGruFFI9fMVXckKVn/g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794418940;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=yh8nkpT4+CYfMHL+eFwrZnzXCycE6ehY6JiHLBYE62o=;
+	b=3nVEE5pEOjbI+9DBXN4c9L0CkordoVb9Dy5GtYjuEoZKFUx4Xn5f/qRJvAhaT5NCMcR0
+	 TMJcsGMNlb5KQps9INrrdwowmN7wDX/8A9Wnlc0IKvVCLc4SqOAdHzHQyeW4GyWTcDA8e
+	 KNPd3kKfKcVeeGV341045OkGkSgGFIyCC/X4akbN6kSGUYWoYznhx60P1i0NwHoEdsWCH
+	 jsFE4C1OQ7D/PDq/SU8YYKrqoT8YB2+YEyvTQraqpQAF0m8x57+Y1Xza2C1IimSYTDEc8
+	 9ywk+qQwEcE0ZwQKSM0jy9lcF4GHnVhvbfLXaCtnD2HytNxxsI8gswpqRHFCL2TO00A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=gX0HeSls;
+	arc=none smtp.remote-ip=209.85.160.69
+Received: from mail-oa1-f69.google.com (mail-oa1-f69.google.com [209.85.160.69])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C356B606A331;
-	Wed, 11 Nov 2026 17:41:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C356B606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rong.moe
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6C1B606A32E
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 17:42:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A6C1B606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=GQAG+RSi
-ARC-Seal: i=1; a=rsa-sha256; t=1794418886; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=Wz+9A2bJsK1w1aCWKBDxj/F9POezsA0iczu87wUfwlQ5T94JTw3hZ0Wea0WPz/40Ytgn1AEKgM9rZPz5GbQFxHjD5FWggGJkKz9yfGWiuNHRYmRGbXvPQMoTvJ3G+CxfUKkNl+QX3rAWyeddedtk6cycznag6yoocp59BAVB2KA=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1794418886; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=iqjriVRV+XaVhh5T/bP5TLkCUtH+I0gT57VpXww08Ts=; 
-	b=CZQ9ZwJUcWcDp3sQmd1t0GhN4buM2apamNQwJggpMjYOpKMX6vFZL9GUn1fBzDJJziy7JSsV70bCF1DgpzGGDzRKraQKQuh+dPM0nVFQbaBrv2aYsqG5WqavV/D1TjJd/APlyHIfnf+CAFHV/3wic6z64YubrIaVdv7clNk6o64=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=rong.moe;
-	spf=pass  smtp.mailfrom=i@rong.moe;
-	dmarc=pass header.from=<i@rong.moe>
-DKIM-Signature: a=rsa-sha256; b=GQAG+RSi9TiIBnyVIMRoyJfyca8aX9lHAoLUgQgAFx6j6fEtPuQXaA+7fiNEk3wW0zNF585CbxufYjIr8H7HXNp5eEZ/kQn0i7t4oKg79OxleSqjcDbwBV+pfKD7oZUxLNPwZiecQYx5pJZzegUV4Uhs+n6iEhasqL8CWp4XaqGRO3UMWJ5LWByaQrXKKJ2YERWOxb9BNE2cV2B0zdCb3SU1cRB3YFb8Lj6QEFnZ1VtyBDOvOZHWWo7qHhnXnVYZHflqo8GHej3B5NTCotv14uT4JKkkld7gcFxoXaDz6d7tSvPPUwic8DYQRczI1LQAWDswp2VD/s/NgxzifLhmXw==; c=relaxed/relaxed; s=zmail2048; d=rong.moe; v=1; bh=iqjriVRV+XaVhh5T/bP5TLkCUtH+I0gT57VpXww08Ts=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1794418885665864.7927191318593;
-	Wed, 11 Nov 2026 09:41:25 -0800 (PST)
-Message-ID: <47e0364e0de6b9c22b21019d3d7e506defe58964.camel@rong.moe>
-Subject: Re: [PATCH v2 2/2] HID: lenovo-legion: Add keyboard backlight
- driver for Legion Gen 10
-From: Rong Zhang <i@rong.moe>
-To: Ciro Pedrini <ciro.pedrini@gmail.com>
-Cc: Mark Pearson <mpearson-lenovo@squebb.ca>, "Derek J. Clark"	
- <derekjohn.clark@gmail.com>, Ike Panhc <ikepanhc@gmail.com>, Hans de Goede	
- <hansg@kernel.org>, Ilpo =?ISO-8859-1?Q?J=E4rvinen?=	
- <ilpo.jarvinen@linux.intel.com>, Jiri Kosina <jikos@kernel.org>, Benjamin
- Tissoires <bentiss@kernel.org>, Werner Sembach <wse@tuxedocomputers.com>,
- Aaron Erhardt	 <aer@tuxedocomputers.com>,
- platform-driver-x86@vger.kernel.org, 	linux-kernel@vger.kernel.org,
- linux-input@vger.kernel.org
-In-Reply-To: <CAPKD0HfHuv4vKWeff_uhGxXosuU279qB+kkmXNPXJYL2kxFR2w@mail.gmail.com>
-References: <20261110-legion-lighting-rfc-v2-0-845726afb71c@gmail.com>
-	 <20261110-legion-lighting-rfc-v2-2-845726afb71c@gmail.com>
-	 <9002537db845b7a0a900612fe3a4a3638f06cd37.camel@rong.moe>
-	 <CAPKD0HfHuv4vKWeff_uhGxXosuU279qB+kkmXNPXJYL2kxFR2w@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 12 Nov 2026 01:36:18 +0800
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=gX0HeSls
+Received: by mail-oa1-f69.google.com with SMTP id 586e51a60fabf-45ecb9dd589so2440728fac.0
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 09:42:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794418938; x=1795023738; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=yh8nkpT4+CYfMHL+eFwrZnzXCycE6ehY6JiHLBYE62o=;
+        b=gX0HeSlsm6KtQAm76hqJroi5arfRFXPsHDOBP94yc2q/cnD1/Mev3IgmeXAfzSFEjB
+         uoUlmn7y7kqzvjT0+Q/tM/VH2DCDWTko3kICzq7061Pe6KhShK05s7gxT/l2e/inr95B
+         a9A3YKztrZwa5/tnfRnLtYpqjw+aMsfxZJSJPMFRnqyYPFlXlNaFm4kMAIzLjckuDzFh
+         +1u28dgXDTvgQyaSysZcwBSBq0njAAmcaklCiD8LmCrkeJuwQduiet4pxnNLhCcF95UO
+         dP970rYVGMme8CL8sAiInJc5bDpN891pCjlqHvNTEQnMryKQrjAuLBc4DqdKonXWm6bb
+         JA8A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794418938; x=1795023738;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=yh8nkpT4+CYfMHL+eFwrZnzXCycE6ehY6JiHLBYE62o=;
+        b=Fuq2MowbSwLh+SNk7plNObrzbUa1oiEEjsk2/9Kc/l6eJKcSfhXm75pjume7nIrcX0
+         1+RmfbXQYyR4RCqnMph/Fm5K8mtuSMX9pDLUUMo1AL4ovi/PeyMlBGN41jnziF2fWbxx
+         Xc5Gx6fsJEy5zXL10POwm3rQKcACCUu+kay5gKEQLuHvUHX5ChG5NPjvyXcXj3SXc/Q2
+         h6e5nXRIGMeqt3sD3Jn7yQrhvrNGr+fC5aq6HRH6Q/fQHGQdHDVP+8uhBuFdfW0I8nsi
+         geImH3AnqlGbd1bpXj9y+NPIC1YdMUxbiFcTDiqpTfqX1Aa5pE3E1fSe8Kj5fmRBaZwB
+         CDEg==
+X-Forwarded-Encrypted: i=1; AL+hErEN9K6EqFDXvsMds0L4d4uWhrFUdqCYITc7BXoAaGuEfFwRJrx05qQ1+YHdNVLgfQyh7fSazUel4jOE3xU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9G1c8i3lm1r6vxTb0+djKOE7Sw3VfasrdbirSeLjJPDT+nl/IW
+	dT5wnmbs/oLVyW7JoN6AnGxD85PgcGCDVyZfMa99RvisRGdi9fKQ7Zzt6P6F70DxVbmzMufnCMB
+	VRDBR7VvPgQ==
+X-Received: from oacbc4.prod.google.com ([2002:a05:6871:a184:b0:4a7:3874:712b])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6870:148e:b0:49e:1c69:1f57
+ with SMTP id 586e51a60fabf-4ae46c43101mr2625466fac.41.1794418938199; Wed, 11
+ Nov 2026 09:42:18 -0800 (PST)
+Date: Wed, 11 Nov 2026 09:41:52 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,95 +75,246 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Evolution 3.62.1-3 
-X-ZohoMailClient: External
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.567.gdb80ae8cd5-goog
+Message-ID: <20261111174213.3526604-1-irogers@google.com>
+Subject: [PATCH v12 00/20] tools/perf: Adopt kernel compiler-context-analysis.h
+ annotations
+From: Ian Rogers <irogers@google.com>
+To: irogers@google.com, acme@kernel.org, namhyung@kernel.org
+Cc: adrian.hunter@intel.com, bvanassche@acm.org, elver@google.com, 
+	james.clark@linaro.org, jolsa@kernel.org, justinstitt@google.com, 
+	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org, 
+	llvm@lists.linux.dev, mingo@redhat.com, morbo@google.com, nathan@kernel.org, 
+	ndesaulniers@google.com, peterz@infradead.org
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Ciro,
+The perf tool previously added Clang thread-safety annotations in
+tools/perf/util/mutex.h (GUARDED_BY, LOCKABLE, EXCLUSIVE_LOCK_FUNCTION,
+UNLOCK_FUNCTION, etc.). Since then, the Linux kernel has adopted a
+unified set of static context analysis macros and attributes in
+include/linux/compiler-context-analysis.h (context_lock_struct,
+__guarded_by, __acquires, __releases, __must_hold, etc.).
 
-On Wed, 2026-11-11 at 14:12 -0300, Ciro Pedrini wrote:
-> Hi Rong,
->=20
-> Thanks for the review. I'll fix the rest in v3, but before I go on with
-> it I would like to hear from you on these.
->=20
-> On Wed, 2026-11-11 at 20:09 +0800, Rong Zhang wrote:
-> > On Tue, 2026-11-10 at 20:29 +0000, Ciro Pedrini via B4 Relay wrote:
-> > > Its hardware brightness, 0..9, is stored in the controller and applie=
-s to
-> > > every LED of the machine (keys, front strip, rear vents, lid logo).
-> >=20
-> > I don't know if it's appropriate to represent so many things with the
-> > name "legion::kbd_backlight".
->=20
-> I gave splitting it some thought, and looked (with the help of an LLM)
-> at how other drivers handle this. We could register one LED per zone,
-> but that seems to be usually rejected, because they would not be
-> independent: the controller has a single brightness for all zones, so
-> writing any of them would change all of them.
+This series makes tools/include/linux/compiler-context-analysis.h
+functional by synchronizing it and the required compiler_types.h helpers
+with the kernel headers, converts tools/perf from its custom mutex.h
+macros to the kernel-style compiler-context-analysis.h annotations, and
+expands context analysis coverage across comm, dso/dsos, thread/threads,
+config, intel-tpebs, env, and maps. Along the way, separate preparatory
+patches fix an unlocked __dsos__add() call and TOCTOU race in
+__machine__addnew_vdso(), skip BPF and OOL DSOs in
+dsos__find_kernel_dso(), ensure DSOs created in auxtrace, machine, and
+symbol helpers belong to a dsos collection, avoid dropping
+_dso__data_open_lock in dso__list_del() under REFCNT_CHECKING, switch
+dso__data_open_lock and tpebs_mtx to DEFINE_MUTEX(), add a read-lock
+fast path to dsos__findnew_id(), fix an unlocked read of
+tpebs_reader_thread and double-close of tpebs_cmd.out in intel-tpebs,
+avoid a potential read-to-write deadlock in maps__load_first(), and fix
+map index lookup fallback and removal in maps.
 
-My opinion is that we'd better figure out another representative name, as
-it actually affects other things...
+This series was developed and reviewed with assistance from an AI coding
+agent (Gemini 3.1 Pro) and reviewed with Sashiko.
 
->=20
-> Per-zone control is only possible through the LampArray (c193). It has
-> 319 lamps, each with its own colour, and they are grouped by zone (keys,
-> front strip, rear vents, lid logo), so a LampArray driver could light
-> or dim each zone on its own. That needs c197 to hand the LEDs over
-> first, as discussed in the other thread.
->=20
-> Also, going with kbd_backlight seems like a good idea so that UPower
-> and the desktops pick it up automatically.
->=20
-> Thoughts? I'd like a confirmation from someone who knows how this is
-> usually handled in Linux, as I don't have much experience with it.
+v12:
+  - Rebase onto perf-tools-next.
+  - Newline-terminate control commands in tpebs_send_record_cmd() so
+    consecutive writes cannot coalesce in evlist__ctlfd_recv(), send
+    SIGTERM in tpebs_stop() if ENABLE had not completed (tpebs_enabled,
+    annotated __guarded_by(&tpebs_mtx) in patch 17) or sending STOP
+    fails, and ignore late samples in process_sample_event() once
+    tpebs_stopping is set.
 
-...though I won't insist if you still prefer kbd_backlight, as long as
-others are not opposed to it.
+v11:
+  - Rebase onto perf-tools-next.
+  - Add Fixes tags to patches 7, 15, and 18.
+  - Serialize tpebs_send_record_cmd() with teardown via
+    tpebs_cmd_in_flight and tpebs_cmd_cond, check
+    check_if_command_finished(&tpebs_cmd) under tpebs_mtx only when not
+    stopping, guard evsel__tpebs_open() against a concurrent tpebs_stop()
+    with a generation counter (tpebs_gen) and tpebs_stopping across
+    closing the fds and finish_command(), and annotate tpebs_cmd,
+    control_fd, ack_fd, tpebs_stopping, tpebs_cmd_in_flight, and
+    tpebs_gen with __guarded_by(&tpebs_mtx) in patch 17.
 
->=20
-> > Just curious, can the software select which effect to use, or listen to
-> > an event when Fn+Space is pressed?
->=20
-> Yes. 0xCA reads the current effect and 0xC8 sets it. On Fn+Space the
-> controller sends report 5 as 05 01 P (P =3D the new effect), then
-> 05 02 B (B =3D the brightness).
+v10:
+  - Split the maps__load_first() lock inversion fix (patch 18) from the
+    maps index lookup and removal fixes (patch 19).
+  - Fall back to the linear pointer scan in maps__by_address_index() and
+    maps__by_name_index() when bsearch() returns NULL, check
+    map__start(prev) < map__start(new) in __maps__insert(), factor out
+    __maps__remove_at() so maps__remove_maps() removes at index i
+    directly without risking an infinite loop, guard against -1 index
+    wraparound in maps__find_next_entry(), refresh sort invariants in
+    maps__fixup_end() and machine__create_kernel_maps(), and add a unit
+    test in tests/maps.c.
 
-Got it. We can figure out a way to coordinate LampArray autonomous mode
-with it in the future.
+v9:
+  - Rebase onto perf-tools-next (resolving the conflict in
+    tools/include/linux/compiler.h with ASSERT_STATIC_STORAGE() and
+    converting the newly added dso__set_symsrc_filename() lock
+    annotation in tools/perf/util/dso.h).
+  - Move __must_hold_shared(&dsos->lock) on __dsos__find() from patch 13
+    into patch 7 where __dsos__find() is introduced so every commit in
+    the series builds cleanly with -Wthread-safety.
 
->=20
-> > I wonder, what if we set the report with a short report size, say,
-> > struct_size(msg, params, len)? Could the device handle it properly in
-> > this case? If so, there is a chance that we don't need to sleep for 100=
-ms
-> > later (I guess the device is processing too much data, causing the
-> > massive delay).
->=20
-> You were right. I tried it on the laptop: it takes the short request,
-> and it only ever answers 5 bytes anyway, even when asked for 960. The
-> answer is there right away, I read it with delays from 100 ms down to 0
-> and it was always correct. So a brightness read goes from ~115 ms to
-> ~2 ms.
->=20
-> Setting the brightness with a short request works too, and reading it
-> right after returns the new value.
+v8:
+  - Set DSO_BINARY_TYPE__BPF_IMAGE for non-OOL ksymbol DSOs in
+    machine__process_ksymbol_register() and skip
+    DSO_BINARY_TYPE__BPF_PROG_INFO, DSO_BINARY_TYPE__BPF_IMAGE, and
+    DSO_BINARY_TYPE__OOL in dsos__find_kernel_dso_cb() so that
+    dsos__find_kernel_dso() does not match ksymbol DSOs in
+    machine->dsos (patch 8).
+  - Split the dsos__add() additions in auxtrace, machine, and symbol into
+    a standalone patch (patch 9) before "perf dso: Pass dso_data to
+    close_data_fd() and dso__list_del()" (patch 10).
 
-In this case you don't need the pre-allocated buffer, too. Let's allocate
-a tiny buffer on stack.
+v7:
+  - Add newly created DSOs in machine__process_ksymbol_register() and
+    dso__split_kallsyms() to machine->dsos so assert(dso__dsos(dso)) in
+    dso__list_add() always holds.
+  - Add __guarded_by(&config_mutex) to function-local static parser
+    buffers in parse_value() and perf_parse_file().
+  - Remove from maps_by_name before calling
+    map__put(maps_by_address[address_idx]) in __maps__remove() so
+    callers such as maps__remove_maps() that pass maps_by_address[i] as
+    map do not use a freed handle in maps__by_name_index() under
+    REFCNT_CHECKING.
 
->=20
-> In v3 I'll send and read short reports and drop the msleep().
->=20
-> > Ditto, what if we get the report with struct_size(msg, params, 1)?
->=20
-> Same, that works.
+v6:
+  - Rebase onto perf-tools-next.
 
-Great :-)
+v5:
+  - Hold machine->dsos.lock in write mode across machine->vdso_info
+    initialization and temporary file creation in
+    machine__findnew_vdso() and __machine__findnew_compat(), and
+    annotate __machine__addnew_vdso() with
+    __must_hold(&machine->dsos.lock).
+  - Reset tpebs_cmd.pid = 0 and return early without setting
+    t->started = true if start_command() fails in
+    evsel__tpebs_start_perf_record().
 
-Thanks,
-Rong
+v4:
+  - Place the DSO loaded in addr_filter__resolve_syms() into a dsos
+    collection so dso__dsos(dso) is populated.
+  - Join tpebs_reader_thread on error in evsel__tpebs_open(), document
+    why tpebs_cmd.pid is cleared before pthread_join() in tpebs_stop(),
+    and include <pthread.h> and <signal.h> in util/intel-tpebs.c.
+  - Include <string.h> in util/maps.c.
 
->=20
-> Thanks,
-> Ciro
+v3:
+  - Rebase onto perf-tools-next (converting the newly added
+    dso__find_binary_type() lock annotations in util/dso.c).
+  - Separate bug fixes, DEFINE_MUTEX() cleanups, and improvements (vdso,
+    dso_data, dso__data_open_lock, dsos__findnew_id, intel-tpebs,
+    tpebs_mtx, maps) from the annotation patches.
+  - Move AI coding assistant attribution to the cover letter and drop
+    per-commit Assisted-by tags per linux-next
+    Documentation/process/coding-assistants.rst.
+  - Add Marco Elver's Reviewed-by to patch 1.
+  - Define __diag_clang_23() and Clang ASM_INPUT_G/ASM_INPUT_RM/
+    ASM_OUTPUT_RM overrides in tools/include/linux/compiler-gcc.h.
+  - Probe for -Wthread-safety-pointer/-Wthread-safety-beta in
+    Makefile.config.
+  - Pass write_locked to __dsos__find().
+  - Pass struct dso_data * to close_data_fd() and dso__list_del() to
+    remove the REFCNT_CHECKING dso pointer from struct dso_data and
+    avoid dropping dso__data_open_lock in dso__list_del(), and include
+    <assert.h> in util/dso.c.
+  - Re-validate DSO lookup under the write lock in dsos__findnew_id()
+    via __dsos__findnew_id(), and handle NULL dso_id in
+    dso__needs_improve_id(), __dso__improve_id(), and dso_id__cmp().
+  - Reset tpebs_cmd.out = -1 if start_command() fails and include
+    <stdint.h>, <stdlib.h>, <string.h>, and <unistd.h> in
+    util/intel-tpebs.c.
+  - Bounds-check the index in __maps__remove() (freeing maps_by_name if
+    out of bounds).
+
+v2:
+  - Use -c rather than -E when probing for
+    -fexperimental-late-parse-attributes in Makefile.config to avoid
+    -Werror,-Wunused-command-line-argument.
+  - Acquire machine->dsos.lock in write mode across duplicate checking,
+    dso__set_long_name(), and __dsos__add() in __machine__addnew_vdso().
+  - Avoid dropping dso__data_open_lock in dso__list_del() under
+    REFCNT_CHECKING.
+  - Pass tpebs_cmd.out directly to __sample_reader() and set
+    tpebs_cmd.out = -1 in evsel__tpebs_open() to avoid a double-close in
+    tpebs_stop(), and clarify the config_set_mutex comment.
+  - Drop maps__lock before calling map__load() in maps__load_first() to
+    avoid a read-to-write self-deadlock when loading kernel maps inserts
+    additional trampoline maps.
+
+Ian Rogers (20):
+  compiler-context-analysis: Avoid unused parameter warning in
+    _context_unsafe_alias()
+  tools headers compiler: Synchronize compiler_types.h with the kernel
+    sources
+  tools headers: Synchronize linux/compiler-context-analysis.h with the
+    kernel sources
+  perf mutex: Use kernel style compiler-context-analysis.h annotations
+  perf build: Enable additional Clang thread-safety flags
+  perf comm: Add __guarded_by annotations to struct comm_strs
+  perf vdso: Fix unlocked __dsos__add() and race in
+    __machine__addnew_vdso()
+  perf dsos: Skip BPF and OOL DSOs in dsos__find_kernel_dso()
+  perf dsos: Ensure DSOs in auxtrace, machine, and symbol are in dsos
+  perf dso: Pass dso_data to close_data_fd() and dso__list_del()
+  perf dso: Use DEFINE_MUTEX for dso__data_open_lock
+  perf dsos: Use read lock fast path in dsos__findnew_id()
+  perf dso: Expand context analysis annotations
+  perf thread: Expand context analysis annotations to threads and
+    namespaces_lock
+  perf intel-tpebs: Fix race in tpebs_stop() and tpebs_cmd.out fd
+    handling
+  perf intel-tpebs: Use DEFINE_MUTEX for tpebs_mtx
+  perf config, intel-tpebs, env: Add __guarded_by and __must_hold
+    annotations
+  perf maps: Fix lock inversion in maps__load_first()
+  perf maps: Fix map index lookup fallback and removal
+  perf maps: Add context analysis annotations
+
+ include/linux/compiler-context-analysis.h     |   2 +-
+ .../include/linux/compiler-context-analysis.h | 518 ++++++++++++++++--
+ tools/include/linux/compiler-gcc.h            |  72 ++-
+ tools/include/linux/compiler.h                |  50 +-
+ tools/include/linux/compiler_types.h          | 206 ++++++-
+ tools/perf/Makefile.config                    |   8 +-
+ tools/perf/builtin-sched.c                    |  16 +-
+ tools/perf/builtin-top.c                      |   4 +-
+ tools/perf/check-headers.sh                   |   1 +
+ tools/perf/tests/dso-data.c                   |   4 +
+ tools/perf/tests/maps.c                       | 140 +++++
+ tools/perf/util/annotate.c                    |   4 +-
+ tools/perf/util/annotate.h                    |   8 +-
+ tools/perf/util/auxtrace.c                    |  16 +-
+ tools/perf/util/bpf-event.h                   |   5 +-
+ tools/perf/util/comm.c                        |  10 +-
+ tools/perf/util/config.c                      |  47 +-
+ tools/perf/util/dso.c                         | 140 +++--
+ tools/perf/util/dso.h                         |  17 +-
+ tools/perf/util/dsos.c                        |  34 +-
+ tools/perf/util/dsos.h                        |  12 +-
+ tools/perf/util/env.c                         |   1 +
+ tools/perf/util/env.h                         |  19 +-
+ tools/perf/util/intel-tpebs.c                 | 226 +++++---
+ tools/perf/util/libbfd.c                      |   4 +-
+ tools/perf/util/machine.c                     |  34 +-
+ tools/perf/util/maps.c                        | 216 +++++---
+ tools/perf/util/mutex.c                       |   4 +-
+ tools/perf/util/mutex.h                       |  90 +--
+ tools/perf/util/rwsem.c                       |   8 +-
+ tools/perf/util/rwsem.h                       |  10 +-
+ tools/perf/util/symbol.c                      |   4 +
+ tools/perf/util/thread.c                      |  10 +-
+ tools/perf/util/thread.h                      |  30 +-
+ tools/perf/util/threads.c                     |   4 +
+ tools/perf/util/threads.h                     |   6 +-
+ tools/perf/util/vdso.c                        |  53 +-
+ 37 files changed, 1492 insertions(+), 541 deletions(-)
+
+
+base-commit: cc905a18a647a8e3ad42cd1596baa0e08fba26eb
+-- 
+2.56.0.542.g3ef89b7020-goog
+
