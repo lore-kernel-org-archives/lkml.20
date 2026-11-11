@@ -1,57 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794393462;
-	b=n//R49geoWyNxfgbK2CR4u741WeDd1uY6GJqNhVEGqVWVMghw/UHQ3lEiKEIZq6NQDD7
-	 EthW32/9X1d3CzzDLkU1fN3RwyPaavSySe3Tmlly68IbbKPwqoRQ9pg9mm5Ahv+BrH1NS
-	 f/oqwLfRCz9RciFO9I0EyS4puPozwwCOvkxrVX2+l9P8f7C3eCWtbBrivlK3EjQB6HvFD
-	 xxheNX5tqNgo6MbYhF8WoG4QNmk32eOrQLXXuOgJtda/19fjzAnURAq7B1oLteppHnfJX
-	 WV5f8zpQYvX+PXkgctjvf1mPYWjmyqBC2WWgbe5oZ+C7bv6ovon3cE0Kb3cAvgtdwsQ==
+	t=1794393464;
+	b=qRrcDt+/7X7Yt9q2oIFLSiFlcSK2B7aWIYUneApcksRfGRouQYFzB2PfP4hqhj/qIaNB
+	 aldg+VUVdI7CHm/Vv1ZBp0NQ1gLlFMW7koKCHnQzDbhB5lOJCPyYoqU8OPT6SuLueXbzD
+	 yEgIH58+Yy82ojjuGs3ccQT5PDqqVOv/cqW8qrkfJsIa1QN0HrAVzG0XCIqapd2cVqLh9
+	 HQ7zMnn1VS8dA0cyc4E2qgQUkjSE9qDOfbtcFW2hTpQuo4XuJQsjy8pLP4B01TEoQID+e
+	 AbEcNmr+6t5HyyN9mBxB/sT8uT7jhroMJbyOBTYNjLHDEZMOYpyBlkI/dWksmACsc8g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794393462;
-	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=o7SRZFmppRjb9BEcBE8C/dEOzRCctvE4fO7K4fNweYc=;
-	b=3Ou364jKWTsL+YshqTkKBWGPZuDn4oXzCKcrYo/mXiIqVn6vRXDfaHatuKrP0e2DUPtm
-	 /7UxIB1oiiMsekFHfOjkEE32+vyU0Dp4wf34hAgHefy5LSZO67a32nIenUOuAPnBq68G0
-	 hYtGUHjT91z3XL2dk+1XsLA6Lcj2/7ZJbBTR+ygx8/Y+rTEHT04bom4c0iBPUN4Kq1OjO
-	 2DCSPQbkQWUKGbVmwJaLoWFrlEwPg72o+K0yGY5PTmncAl3QrjLGKJJutT1PtYPnbB3ez
-	 2w6l8uaMfd6wETTuuO2kMAY/59oYCkuKeTk95UKCgg/q6l9eyuz2Rlz9M2JR6Af+CEA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794393464;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=0qMWUwpenvvRooHCV912wT6twGzrEe+8/IZ/0k0HJCU=;
+	b=Ds5I37TXWq0dWaC5l31qwbsXLC6Jr0ajeLxAYvrR0yc6piyebgzQ1iWY5jej+V2XRQM5
+	 UYhVpt+5DzxJqTM2MAiGK/fWGh6l72Ges7rZFHVHWDgr0xFSPEQMpslUZLCEhJFirjUMQ
+	 W/+FXoxuPFCUvMnhCJkQhvwO2EPvn7OyKwJ6BWhzPHx+1PKOiSNb378skOrDHGfo4kT0j
+	 KFJpvFYFP6Pmd/Rd4qFZ6tOo9Y82soAUavqtlG2mKRrXyhY42HLON24enUBvJ0URZxMVA
+	 0BkhZwYYlG5E0m+Yn1g/voncNnA27544mABSqXwYbqvxljOPFQcnBgZ8zw15h6A4GhQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=HjQErhaF;
-	arc=none smtp.remote-ip=117.135.210.4
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=Qc8xrak4;
+	arc=none smtp.remote-ip=74.125.82.48
+Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01B38606A31C;
-	Wed, 11 Nov 2026 10:37:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 01B38606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9F58606A894
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 10:37:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9F58606A894
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=HjQErhaF
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version:
-	Content-Type; bh=o7SRZFmppRjb9BEcBE8C/dEOzRCctvE4fO7K4fNweYc=;
-	b=HjQErhaFqrZ+okoTOuMo1sfBoqjqBbMmk59Wpk6wwVTQneHsXfBXdTD+oZb1Ol
-	mw4XTZkHLCgsYJ/VjUmuhMHn0QO/OfhMpGsrdft0NyZGHMcg13GNAWcqaq3KtnNq
-	1E8j6Zv0kgonsqzk1gaUateEW2NFs2PbF9ATu+PVIgi1g=
-From: Chaosheng Qu <quchaosheng000406@163.com>
-To: Marc Kleine-Budde <mkl@pengutronix.de>
-Cc: Robin van der Gracht <robin@protonic.nl>,
- Oleksij Rempel <o.rempel@pengutronix.de>,
- Oliver Hartkopp <socketcan@hartkopp.net>, kernel@pengutronix.de,
- linux-can@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v8 0/4] can: j1939: fix the abort timer and bound EDPO
-Date: Wed, 11 Nov 2026 18:36:00 +0800
-Message-ID: <179439336063.276536.1205296974801485658@163.com>
-In-Reply-To: <20261111-daffy-bright-galago-0e3bd2-mkl@pengutronix.de>
-References: <1794300100.11111.1000000@163.com>
- <20261111-daffy-bright-galago-0e3bd2-mkl@pengutronix.de>
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=Qc8xrak4
+Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-1b3a05f8b5bso4357928c88.1
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 02:37:43 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1794393463; x=1794998263; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=0qMWUwpenvvRooHCV912wT6twGzrEe+8/IZ/0k0HJCU=;
+        b=Qc8xrak4/32Gna3SdE8hXByhMXfk5ZZ39ef3KlM7LHsk/FC0f7Gjv11KdQfftmNbKi
+         ZtMFOwXoIgdUsue1L1z9jsQjczEeNfC+aru77qwkE0bRpriBwNJj/5HhYqznr8rtacKj
+         JcoVLxM3d59zgKMcBFHGHPpODNY+xk7Tqy/b4=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794393463; x=1794998263;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=0qMWUwpenvvRooHCV912wT6twGzrEe+8/IZ/0k0HJCU=;
+        b=1KBootIBtY3o843uIWThYK/O9jRJNFErqlxwaMRPmvqLggbGlF+5exfjtAl7xUnI29
+         +upEL4EMuIw8Ky2FdaQnjsKpNlJwTPITnemr7Ci5ktXtM+kDGeqQpnDdvWnQ4OhjOuZy
+         cBULpAxsR9j5cMV9ker1zGMgDjgjnl6VEQwAL4XL2AkKcsBxzXZu2inv2KTnxfb//u6l
+         zXazt3KN6sT3t5OsPCn5NyVmxvU6eeZS+dxkuEa0ArE/YEj4j2KyQnUhLcUcqPBHaAc1
+         FfmKW17achB63GmT2U2877zCOkwyqr2Dz4cTbGyBEbLBkwDYgA1OKL/afDe1xioauO/P
+         HmyQ==
+X-Forwarded-Encrypted: i=1; AL+hErF4fkjz7Tf+b7ktMLOUN0+2oqCSrBg15pz+ZuyqpduEpNr38xkmI26Ox19uvpUVKSZsMPwBtxX1fz/F3es=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/h5CsWxTXehioB8RQTVgAbLthQ02C39m+mJEiRISATtsqiRP53
+	02bWb8jXoOwUeK2GD8kddjb6W7zZXIPOeKJxiqIjxLqa2gb3yMKO/iNTqBAA8KMFVw==
+X-Gm-Gg: AYBFou3ebMrK0P8QO/NhXPjLgCF7vId93TIjRJ3PhmDwskjuBsTGOFaRr01j7t3Es/K
+	QFC7smR6CHTQ9xhF8VS6serAkPl8e6vLpz8QfWmN8DOGSdmoqz69qXaN/PX9BmC069mPdvM7PAH
+	GTBvdhsEXJd3efsKa7UkD5Wc+uRBpj8I+6prXqt9T3FoSDzzpy6F09BAWfJBkFL1pCxgGPm8hWK
+	gqGVNiDMYXtIsBfl/4JKDbftEGPuDfLiQfoKFYbF+F/Bg4h5qO4v3DhmbeCRn5hkzu9ZOCrWtdm
+	d3XgaUUY2eQOx1x4Y6Oh4GNqSn4mz/rnHLTrZOptFAc+ZO0ZbiyJMKyJQRoAtjG3t0KFOTviGW6
+	p4tLH8skwwqCmxnUnkLq/aTugDPg2ebR1l15NKwQdlp89g2FEG9/agyYdbiREycPn7AMdAqBnkD
+	lWiqdyh4VumSr+129lbHVpwIgNgr7G1jcA8Di0cqODHRxfxuNeV1A3yhzJnGxMWA0QjmQKlOA+J
+	DTul6T/02d6Z85YmSGIOlIdSPfE01fps4qYFXWRw/vraVM5IjBGimbdM1rP6KuUj6BwK/o1xDaZ
+	WbcU/i6ynsQqzN2gXTYz8hdfNfZXPfl65/Qoli/p1ZA43YKjB6AsPZxYg1GL3Ked604PooUriu8
+	rvV0O8c0a58ikdkvfvduzp+ZlWUa4zbmYcis08g==
+X-Received: by 2002:a05:7022:c91:b0:143:2968:564c with SMTP id a92af1059eb24-1b3c0318478mr1829313c88.26.1794393462774;
+        Wed, 11 Nov 2026 02:37:42 -0800 (PST)
+Received: from fshao-cloudtop.c.googlers.com.com (61.14.81.34.bc.googleusercontent.com. [34.81.14.61])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5890e04sm14735194c88.2.2026.11.11.02.37.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 02:37:42 -0800 (PST)
+From: Fei Shao <fshao@chromium.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Matthias Kaehlcke <mka@chromium.org>
+Cc: Fei Shao <fshao@chromium.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-usb@vger.kernel.org
+Subject: [PATCH 1/2] dt-bindings: usb: Add Genesys Logic GL3525 hub controller
+Date: Wed, 11 Nov 2026 18:36:12 +0800
+Message-ID: <20261111103710.1393311-2-fshao@chromium.org>
+X-Mailer: git-send-email 2.56.0.542.g3ef89b7020-goog
+In-Reply-To: <20261111103710.1393311-1-fshao@chromium.org>
+References: <20261111103710.1393311-1-fshao@chromium.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,42 +101,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3f+tdRfRqFJVJHQ--.9277S2
-X-Coremail-Antispam: 1Uf129KBjvdXoW7Jry8Cw4Dtw17Zr4kuFW3Jrb_yoWkAFb_W3
-	yqq3yUt3WxJFWfKw43CFZ8Zr40vw47Ar95Jr9Yvr12kwnYyrs7WFna9r9aqr1xXFs5Jr98
-	A3s0vw47CayI9jkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IUjByI5UUUUU==
-X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbDAB5AtWr0RV41-gAA3l
 
-Hi Marc,
+Add USB 3.2 (usb5e3,629) and USB 2.0 (usb5e3,630) compatibles for the
+Genesys Logic GL3525 hub controller, which is powered by a 5V VDD supply
+like GL3523.
 
-All three points were right. v9 is out with them fixed.
+Signed-off-by: Fei Shao <fshao@chromium.org>
+---
 
-The threading one was the worst and it was entirely my fault: I generated the
-five mails with my own script and never set `In-Reply-To`, so the four patches
-went out as four separate threads. They are not separate now — v9 goes through
-`b4 send`, the patches are replies to the cover letter, and the series carries a
-`change-id` and a `base-commit`. The hand-rolled script is retired for this
-series.
+ Documentation/devicetree/bindings/usb/genesys,gl850g.yaml | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-The cover letter now has an overview of the two bugs and the two hardening
-changes, the testing status, and a bulleted change log for v9 and v8.
-
-All four changelogs start in the imperative.
-
-Two things I fixed on my own while rerolling, because they would have cost you
-review time:
-
-- [1/4] and [4/4] were missing `Fixes: 9d71dd0c7009`. All four patches fix
-  behaviour that dates from the original J1939 commit, so they all carry the tag
-  now, plus `Cc: stable@vger.kernel.org`.
-- [2/4] said the CTS bound was "a separate fix" while [4/4] of the same series
-  does it. That now says where it lives.
-
-Functionally nothing changed since v8 except one comment in [2/4].
-
-Thanks,
-Chaosheng
+diff --git a/Documentation/devicetree/bindings/usb/genesys,gl850g.yaml b/Documentation/devicetree/bindings/usb/genesys,gl850g.yaml
+index e8b8c03f87a0..5153a988a835 100644
+--- a/Documentation/devicetree/bindings/usb/genesys,gl850g.yaml
++++ b/Documentation/devicetree/bindings/usb/genesys,gl850g.yaml
+@@ -17,6 +17,8 @@ properties:
+       - usb5e3,620
+       - usb5e3,625
+       - usb5e3,626
++      - usb5e3,629
++      - usb5e3,630
+ 
+   reg: true
+ 
+@@ -70,6 +72,8 @@ allOf:
+             enum:
+               - usb5e3,610
+               - usb5e3,620
++              - usb5e3,629
++              - usb5e3,630
+     then:
+       properties:
+         peer-hub: true
+-- 
+2.56.0.542.g3ef89b7020-goog
 
