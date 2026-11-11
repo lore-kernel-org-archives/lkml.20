@@ -1,97 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.10.39
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794356311;
-	b=Gns2Jp8m9S8cHaz1HTLxO3Zc/yej8VpR5lg6WYrfMREOk5ajciegJEIHt62ffG0vwkfv
-	 PCmEPjTwP+by9Hkmlcreg28OyKrf6LHc0mQK20d3QsGXONj9SeY9mD0G3fMullPpL0ZOp
-	 OFfTd6fqLkEoLqCeYriBbHotUcvQvouwYWp5oQ0BFrtDA3xxRqDa0UvVrTwCdoGo+573r
-	 hkah1mB2mvjmoIGhFJxvRYMykcJX71hUtJAmMH8kaWWGuLSYFLVrDr3wPTFDUQ89v0AXi
-	 RTApCC/Ng7JgRBSoAcd1E4IkmfFgiber0FTnBeA5DNOE5j63wz0pnBvovSvAoSdpkzw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794356311;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:
-	 X-Microsoft-Original-Message-ID:MIME-Version:
-	 X-MS-Exchange-MessageSentRepresentingType:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=iYWjfhlEiTwSaTjFsQgWDxjy3ff0h86TXxfZgju05fE=;
-	b=MtRNNjegq4amQJENKH1/FhgzPlmHSWqQH2D1vmiX1OKKMXhSs3s5Gs7I4leDh1asug6u
-	 rl50/zgKUycp1RRfT2A+mlywgUZs+QKfElqkCCx7Nw6xkeNmL0MCRzzkDXk1VWlTUv5Zc
-	 zqQ9jCPkKAec9znlKArJkkKZSFhFJznBBDOWWZCFhP/Umf7OGgTdKvlg+8yVviz5N+aMU
-	 KUo0Gaz55Nz76tmVs3V81eboLtMkZSb15EO7jmWxP4yrMTCPkgesyrrEX/sorHiEWgLsQ
-	 AAfUq/IkYBo9J9A4xcDs6Urp1dgHWhQUvhb3Ei4wgwdxweEtesZ+ZmVaBeAzzk1FdLw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=outlook.com;
-	spf=pass smtp.mailfrom=outlook.com;
-	dkim=pass header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=EXEb0Rfy;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.10.39
-Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azolkn19010039.outbound.protection.outlook.com [52.103.10.39])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=67.231.145.42
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794356345;
+	b=1AwvvM5DiKnfbkREjFENU2tS36Ru57dbYt3X6N+T97HPvUpMnTqyGmayKYnYuf1efJUm
+	 PsSABCmZe0b6qYiuWMuMzRB50MlU3Sw5eBbxEl7UJBLAV8BOvpuPZCdyYSu+UfurKbCTU
+	 qDHrcYsMCgrNlxJkqQYpFG2TeId2Q6zcyU9RsN25PlWcmLjsXXGOyovjR4Q/DFGi59LmQ
+	 YruQqYvxtXC9vNZ3HcykO76nU3fCvhK6kYYg0u787uVcmS8/YSgso2hzvJcGAPybgnYNy
+	 m2gagKhWFunzhqI2wkO9oeO802tZeNd3dSpGxLX2eFkMyQv7c23OIHqFY02ceAPbaRA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794356345;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:To:CC:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-Originating-IP:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Virus-Version;
+	bh=Qf3gvKGL/Wt2G3I75f6VpEfIvMUhVj+jtpc7e96xAQk=;
+	b=FBuId47+uo3ILQ1Y1YEu1Fl4tXPvYS3x9vvmfgBl/6O8DkJYBTlGOldn5Xnx7AkkaS/3
+	 LyoGWrH3JX6c5IyRweUDs/twl1oAtbGjo2/08jowf2j0oOtBISQYTl/QgOsgTBtAgTLXH
+	 MDupZuks+3OBgyHo8UvswNJ2AkcHlu/L6C0Mn0NUQGvCWz3+cf16Rvoy97lmzb6MVRQRv
+	 Z6pd97gfuysf5Zjthd524oxXYaLPdPMfEfuPZ8IW4lFgKJkYk9Ry7dFkzM0hFmV9lef7C
+	 se34TX9mP9lmxEEH2qKxx+yNKUP/T7mrSbVZwBhZHDU5tZFgIx+vpreTqyGvUKyM39Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=meta.com;
+	spf=pass smtp.mailfrom=meta.com;
+	dkim=pass header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=i9vNYOwG;
+	arc=none smtp.remote-ip=67.231.145.42
+Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com [67.231.145.42])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DD47606A31C;
-	Wed, 11 Nov 2026 00:18:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3DD47606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B5C360A2615;
+	Wed, 11 Nov 2026 00:19:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6B5C360A2615
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meta.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=EXEb0Rfy
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JTBdK5FVqCc5Zsqx6FRzDSk/BV8UZ3WmOJibtbrnFk7ygesniIX2eDkro3fKC4RibmcNcBzfxBnUbGh/h8628/5TiPqdhj6kCUnY7bL6ASkpyoRJgcobfUC5sPnwShOO2R2C2uDdw/98KI7CJH+I9j7Q2TTzRcIkTQSPeRZtRRbOIEXuAKCrdirmxF9AqgT6C58V19i4LqnvaLBg3niOxjA/X3yC2iqb+meRI8H5wLtSvxcU2LRbGQE+PYyRkOEr94NLi5UeLrEjWF6TdAjYNxKLlRwKbj73phVTO5+RGVvzjcQZhfGpuKxEJF7m/C2NLc4qeyIeZeogHGjSsDDikw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iYWjfhlEiTwSaTjFsQgWDxjy3ff0h86TXxfZgju05fE=;
- b=grVf0kmjyuh0Nu14y+q0kRFYRT7mlvEDuccuCzk3pMLZSwFWXoLI3tBjQ3TJCo+ZA8eFMDJRNELvNuP+fGE5OXqms1nPA1fJ10/pBwNq9XieygoIxWWjeq73wHYVLwDCsjCymKfTrJx9RDjqKbWLcDQbEKLGG1W8k6tdvirUgL6xgo/4kDw9jTgMUDKkoCWPjHP3FJF9ED/WNGAtwiBY6KOF+ncMYQe7FkVzgrxmklB57yx8F9092nJHtA81smmCFjUqmDSTNyAL30HATJ625B13clKuD3xJi+/LgnC9j7SfpuQ7PkkaCwx7Hfy9T0LXzqu3syJ7tmB64WB6Tyo+Tg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iYWjfhlEiTwSaTjFsQgWDxjy3ff0h86TXxfZgju05fE=;
- b=EXEb0RfyfeyT4Evo4hH7J1VOQoMLWxCv6kZjkcT/fkDPNpCqZaRpx5/BCIvGOB2x9pql0p4LcGbYKeQo/gqPGZeaKzs1HkmDaP6VIASIxaI3Kgkgz4P50lG+p5F/hMONo9ajCZDbFkYFS8fNZmM/IiyoAtE/CepVlRQT/7lhWI1loEyxNzsvobMOnpO9BPZ/4qcYEbf6B3SVvuHBghCv+9BkYUMyagYNOhEJk6W06cNmCVRK6DdYgDrsc1iPQW1MfwUGErYodpsNsEo5xYZfidhzTy0lh+AyMXLG8hDQStCLUEnTLFyweCHYUMYFCmrSyQPm1QfsLOqPOnij4ovbFA==
-Received: from SN1PR12MB2528.namprd12.prod.outlook.com (2603:10b6:802:28::33)
- by SA1PR12MB6994.namprd12.prod.outlook.com (2603:10b6:806:24d::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.12; Wed, 11 Nov
- 2026 00:18:25 +0000
-Received: from SN1PR12MB2528.namprd12.prod.outlook.com
- ([fe80::9875:58c0:928e:cf0a]) by SN1PR12MB2528.namprd12.prod.outlook.com
- ([fe80::9875:58c0:928e:cf0a%6]) with mapi id 15.21.0592.010; Wed, 11 Nov 2026
- 00:18:25 +0000
-From: Victor Chernyakin <chernyakin.victor.j@outlook.com>
-To: andriy.shevchenko@intel.com
-Cc: andy@kernel.org,
-	chernyakin.victor.j@outlook.com,
-	dlechner@baylibre.com,
-	jic23@kernel.org,
-	linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	nuno.sa@analog.com
-Subject: Re: [PATCH v8 4/4] iio: cdc: add Texas Instruments FDC1004 driver
-Date: Tue, 10 Nov 2026 18:18:16 -0600
-Message-ID:
- <SN1PR12MB252866C4690F808A80429926A5712@SN1PR12MB2528.namprd12.prod.outlook.com>
+	dkim=pass (2048-bit key) header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=i9vNYOwG
+Received: from pps.filterd (m0044012.ppops.net [127.0.0.1])
+	by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AAMKcx8602412;
+	Tue, 10 Nov 2026 16:18:51 -0800
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	pps82601-s2048-2026-q3; bh=Qf3gvKGL/Wt2G3I75f6VpEfIvMUhVj+jtpc7e
+	96xAQk=; b=i9vNYOwGMMrXVGpfAMzgAqxgmigujRDTBhpq3WfTqLxMy1axvaOCV
+	Sn3x8FB3xZG5wRT6BP2Bd0ad/MO6JZs1klIC3NyfjIDK37dP5XvZmwhqC2H+KLvS
+	XgmXuKjcAyFtGmZVgVf939GvVjwbhGh7+GnmaCfldQw6ggzNvjP9Bw5pd04utDP/
+	Yd9QNZJVBzTXN5VpVWE9P71GG/i8H6rbv+3Hhq2Ttw5rbi8S4rju2bHPsadRtCCI
+	N42bA7+lCuxZihR+JQWwvdWUPF1RwpTQGzO1ux+j8eBbP6U3tg2JnGoEm/pM68ke
+	4ZzsS1g3gVSgGmftOQp8DevXZFwOCAvGw==
+Received: from maileast.thefacebook.com ([163.114.135.16])
+	by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4hv75dujyr-8
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+	Tue, 10 Nov 2026 16:18:51 -0800 (PST)
+Received: from localhost (2620:10d:c0a8:1b::2d) by mail.thefacebook.com
+ (2620:10d:c0a9:6f::8fd4) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.56; Wed, 11 Nov
+ 2026 00:18:49 +0000
+From: Todd Freed <toddfreed@meta.com>
+To: <netdev@vger.kernel.org>, <toddfreed@meta.com>
+CC: "David S. Miller" <davem@davemloft.net>,
+        Andrew Lunn
+	<andrew+netdev@lunn.ch>,
+        =?UTF-8?q?Bj=C3=B6rn=20T=C3=B6pel?=
+	<bjorn@kernel.org>,
+        Boris Pismenny <borisp@nvidia.com>, Cosmin Ratiu
+	<cratiu@nvidia.com>,
+        Daniel Zahka <daniel.zahka@gmail.com>,
+        David Ahern
+	<dsahern@kernel.org>,
+        Dragos Tatulea <dtatulea@nvidia.com>,
+        Eric Dumazet
+	<edumazet@kernel.org>, Ido Schimmel <idosch@nvidia.com>,
+        Jakub Kicinski
+	<kuba@kernel.org>,
+        John Fastabend <john.fastabend@gmail.com>,
+        Leon Romanovsky
+	<leon@kernel.org>, <linux-kernel@vger.kernel.org>,
+        <linux-kselftest@vger.kernel.org>, <linux-rdma@vger.kernel.org>,
+        Mark Bloch
+	<mbloch@nvidia.com>, Paolo Abeni <pabeni@redhat.com>,
+        Raed Salem
+	<raeds@nvidia.com>,
+        Rahul Rameshbabu <rrameshbabu@nvidia.com>,
+        "Sabrina
+ Dubroca" <sd@queasysnail.net>,
+        Saeed Mahameed <saeedm@nvidia.com>, Shuah Khan
+	<shuah@kernel.org>,
+        Simon Horman <horms@kernel.org>, Tariq Toukan
+	<tariqt@nvidia.com>,
+        Wei Wang <weiwan@google.com>,
+        Willem de Bruijn
+	<willemdebruijn.kernel@gmail.com>,
+        Sashiko <sashiko-bot@kernel.org>
+Subject: [PATCH net v5 5/8] ipv6: icmpv6: don't quote decrypted payload in icmpv6 errors
+Date: Tue, 10 Nov 2026 16:18:28 -0800
+Message-ID: <20261111001831.3710881-6-toddfreed@meta.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <avOKDbkkDwqhHEaC@ashevche-desk.local>
-References: <avOKDbkkDwqhHEaC@ashevche-desk.local>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: CH0PR04CA0100.namprd04.prod.outlook.com
- (2603:10b6:610:75::15) To SN1PR12MB2528.namprd12.prod.outlook.com
- (2603:10b6:802:28::33)
-X-Microsoft-Original-Message-ID:
- <20261111001816.1116411-1-chernyakin.victor.j@outlook.com>
+In-Reply-To: <20261111001831.3710881-1-toddfreed@meta.com>
+References: <20261111001831.3710881-1-toddfreed@meta.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,87 +108,94 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PR12MB2528:EE_|SA1PR12MB6994:EE_
-X-MS-Office365-Filtering-Correlation-Id: 30a60061-62d5-452b-0880-08df3f894cc2
-X-Microsoft-Antispam:
-	BCL:0;ARA:14566002|260925184616899003|8060799015|19110799012|25010399006|4140399003|24021099003|23021999003|5072599009|15080799012|24121999003|22091999003|52005399003|40105399003|26121999007|440099028|3412199025|1710799026;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?SK3JliM8H1SAz4WrMJDc5zE3lqtyt9jsN8wa4SW3J7j7beyPXOBjT9nzM0Ri?=
- =?us-ascii?Q?Sl9vowa2bLTwYEd9PdyAC5MjzHW03XPQHQjwXnihiF4RowycpRWXUUKLzlVo?=
- =?us-ascii?Q?nTGPSfhip0hQtTfpPixRxlYmbxSi7cRPpyE93TM/ZQPWHzLIg/cM0kB+e5c7?=
- =?us-ascii?Q?7cBiJHr4IzOceIl7K6avecYvj2y6otuRIBz6V9E0I5G5DVkKkjpd4TbT4qGv?=
- =?us-ascii?Q?5szA3PprWGgreWxiiM+84Djk5FxM2jzfytXwSuPmeAFb6IFoeQPWGcilZK8w?=
- =?us-ascii?Q?C36au2ZEvzzQNXoH/sOe762L4KcS0iZnZ4rKrgtRSGG7dfMb2590Iz9+jOvH?=
- =?us-ascii?Q?lMODAweo4KmqV7YIr146RJsxbUUqV2BpE66zMbI1XQNPVLsoB+k7yRYo0cIx?=
- =?us-ascii?Q?ptjPjSsp6P0BKe1KUcoT5Rv50qVoOoN3oM720URWqV5ubUparG1AyZIDFX1j?=
- =?us-ascii?Q?LB46GPy5+TDUsHgsx73cQ10nxsSkpKcwBf6tSH6koUgk5w1qQYLtCa3F1GBy?=
- =?us-ascii?Q?Iu7kkRIE902EBjZ4d/k9jRwXguuFulPfdEoarSXRwhTzBk0pJcjWMc1TsmyB?=
- =?us-ascii?Q?z8W8hJUmgUWgh8CIAEj4i6IkVwaQGjvkBGVqPDptPTCxmwU3DUyYZsrge0QO?=
- =?us-ascii?Q?flI7KGLJcrlBEi6wl9pJhDW+h9aY6lvMEuHvWdtQW98sDCQk+9z2Y3ZbODDE?=
- =?us-ascii?Q?6GMshmv9v784DiKB0egQ1eWXN52psmPxbGBvRcze22nHuwIrkBvLoBFf5HLl?=
- =?us-ascii?Q?PLUXDWqQB+5QZ5AN4Ca3H+bLDRp41fww0RXH92H7xBKX4ikaJlkM3/w6b8/S?=
- =?us-ascii?Q?8LmLzDqUELzQX/xKhXINCG/9ELxSwlYonBHTuvIfNKCXLrNB6BWsvB/a9gUc?=
- =?us-ascii?Q?e6Oro9q+O7fIzsAf1je5AKFbJCOqB8krd7Bx99TZsYyqe6TjbwZOOMy85X/5?=
- =?us-ascii?Q?OpGMXU22XzJP5oAi1TjlD7IS/TTHtSSLzXSRIaufOJLNZwJRechJJAX0N7bZ?=
- =?us-ascii?Q?KYEepO9wKTgjK475Ly/DDzMNZ/4LdVj14w+fKwn0lDbP8fA4UHupJMaaAkA5?=
- =?us-ascii?Q?Ataekwty?=
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?/LqHmTSkfm2hXRZUHjPaKg4Km+cQDpmHy//6bebgbQAotJGgqYYTsjZ7MWq3?=
- =?us-ascii?Q?E2eIMjdts7vV1kgBkQhctpKheRdD8YIWlrcv647a1GtRf0jn/k/6spYYgEC6?=
- =?us-ascii?Q?pNX4CwShYZ63P9y6Oogtt8f9HeEjQlvhQw07Z1D8SyN9fSdbgZutDuYA0kNb?=
- =?us-ascii?Q?vGluDuXFnVPV5kMaH5AiKP864LLzbtyOyT57ifuesSHFFf6HnZ0W0Y79gd4e?=
- =?us-ascii?Q?FPnvL5o5YyTV26E5zf68dNlCWXBuEPhqKMN/sgrHCZ+NoTQwbXgz9BHuYMIE?=
- =?us-ascii?Q?048gW6Q4fxaPMjd1feaTI1B3IFMd4XyXPXRDF9hTn1yncyAeQ5VRsqrPoBPj?=
- =?us-ascii?Q?cjvx5dt8sNu9T2LDqKah2aHLBo/8yNPZDnABLOk8GSFjnwSlEPg1BCM7Y3SV?=
- =?us-ascii?Q?VcRC/zFpraCilU74u3IvT/Lia2J0GDwRooKqRjhJMP6apxBgMfeUr+lvGJ3V?=
- =?us-ascii?Q?wo4bhZ6UT0wLucng0YBEIXEQBZcDeFUlAHQtvF89ENae9beDtAhR8YOBvZe6?=
- =?us-ascii?Q?ISM1EZrC6n4+pp8+2hqmSwELFx3K9MBTYTgToyKXhLdaKkDFQUSfi/qHijy6?=
- =?us-ascii?Q?RtY/E0e5568wl78WXfU1OMpu5JSStAW9RRFQD8j6zOipircoir1vGKsDP/8c?=
- =?us-ascii?Q?E+JmWwtRDrEPLgP7OFIsiRIgmEqnCHP9MynZmCFXLYqVVPoYlmmomsPCwqLm?=
- =?us-ascii?Q?10YDD0a3wwNRdRPawcj1DaztHelM4iuLKBNjiZqQ8n0+mxHkwsRGe9SO/muz?=
- =?us-ascii?Q?MhBUWP1D7YqH8CKEHzTvbhP+fNQsqRM2vyZ6gtaX9Xwg+p29GDvxWskoXM26?=
- =?us-ascii?Q?LsVz07io2WxeGlrk771w5AUzsux4zTQEFmGiSMnS/gd0hjRF+erjERdapHfQ?=
- =?us-ascii?Q?vn2ioc4UvaINyNXe1v8NXpfuevpdaxL+pHz0oOn9ExH5wh8t+J2d6vhdQd6H?=
- =?us-ascii?Q?x3bZ/n5WQH/170sRTnIBCVQmST8oZxDo57FWGyWb2ILW62ZO8ijCiw3dcGqG?=
- =?us-ascii?Q?zoBCVuZNoqC1UZ0MD39gVIzR5ALeLQdPC6mfNzuL1iGb9EB+wipLi2uuJKkb?=
- =?us-ascii?Q?JMnNP5HrEMS3pkDm6frxVj9C7c+vGedcoN06cD7y0iFMdK8k7QKknaUE1N6U?=
- =?us-ascii?Q?3YS8jKqhoSkLX33cWP6RFayTRWb7UWjpZD8c4WCOMIa+5e5eb8EwR2Yw/na1?=
- =?us-ascii?Q?IDV9HsHLTZUXhFgItEH9t/L1iiWwW1xBFGy1msW95pFk82yFCFjj+nF+bBFM?=
- =?us-ascii?Q?Y+/ZAhaIsTAWEe+71Ltto7M/y29PRx2VuTVzfPNu1POkBj5uoyP16z4c/8/0?=
- =?us-ascii?Q?KJdVvzOxx1GsfHyDnAuTOtr77oZSZWuITDFxhDVbGO417dmGzTxI/E4IaU/A?=
- =?us-ascii?Q?SC+bZlimODDHJbtmVrzrRovvPV8T5InWW179WtwjDulM6qD9yw=3D=3D?=
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 30a60061-62d5-452b-0880-08df3f894cc2
-X-MS-Exchange-CrossTenant-AuthSource: SN1PR12MB2528.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 00:18:25.0252
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6994
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=RthQvymK c=1 sm=1 tr=0 ts=6af3b46b cx=c_pps
+ a=MfjaFnPeirRr97d5FC5oHw==:117 a=MfjaFnPeirRr97d5FC5oHw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=7x6HtfJdh03M6CCDgxCd:22 a=PAz_-FQ8hEVmOPYdF0yf:22 a=9R54UkLUAAAA:8
+ a=VabnemYjAAAA:8 a=VwQbUJbxAAAA:8 a=SjbIXyxL3abUfL5CBMIA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=YTcpBFlVQWkNscrzJ_Dz:22 a=gKebqoRLp9LExxC7YDUY:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDAwMCBTYWx0ZWRfX2Q6XzzKn8ytn
+ UY4bClf05E+aCkyhndY44HuljpilAr3NeQ0BB6BDQGp1e1HVDHsGjotD1TfhMYPPRf1o1epKoBV
+ GEIPOkZk2M3VP4xohxCAAMKZBDch6sa6jUln/9KSLcEvrbm1hC1fJG9llPLhGitWJ8wjoRXsjfr
+ Fj8aJO5AE7RtzYm0YDLtjmbZ2oO0ppiMW5SnhduO5aonB0am4YjXmngd6GmyKNGOvq1omVakZN+
+ H/AwHA87N6/BNlVeHd2CqgjeBOIlKbMC/foANoc2EvcVSWcForLmgJtSEJQNY5UVka0OM63EIw/
+ g++gT0RPQgvAB9V+sag8xcQs8jWZdJogDtP9YFAtIDBDBRZrXeoreIHWJ8xYnMUkuhmIxyL9+9w
+ AGFhBGjrAgzzCPVxoltPd/3gKa/tx8meQpP9dpS/YqqgnlrHUdOu8o8cA0fWdI9TDR1P2k1Cx/E
+ RG80OiNab7yLVvqFLGw==
+X-Proofpoint-ORIG-GUID: mI9y3GVU93lenaJkq1otk35TK9d6sUhc
+X-Proofpoint-GUID: mI9y3GVU93lenaJkq1otk35TK9d6sUhc
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDAwMCBTYWx0ZWRfXzNYd1yS0v5Td
+ wwRlOOns03cTFkRy/Al+Yo4qFwabQBgAoExbpTqGnUsSfY6iCyzWGa9vZXzZB4tp1rcz6AVeGNz
+ 7P4hHHNujZfnZD+MZ0PJu1DUVJUomNM=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-10_07,2026-11-06_01,2025-10-01_01
 
-> > +static const int fdc1004_calibbias_decomposed[] = {
-> > +	lower_32_bits(fdc1004_calibbias[0]), upper_32_bits(fdc1004_calibbias[0]),
-> > +	lower_32_bits(fdc1004_calibbias[1]), upper_32_bits(fdc1004_calibbias[1]),
-> > +	lower_32_bits(fdc1004_calibbias[2]), upper_32_bits(fdc1004_calibbias[2]),
-> > +};
-> > +
-> > +static const int fdc1004_calibscale_decomposed[] = {
-> > +	lower_32_bits(fdc1004_calibscale[0]), upper_32_bits(fdc1004_calibscale[0]),
-> > +	lower_32_bits(fdc1004_calibscale[1]), upper_32_bits(fdc1004_calibscale[1]),
-> > +	lower_32_bits(fdc1004_calibscale[2]), upper_32_bits(fdc1004_calibscale[2]),
-> > +};
-> 
-> Can we prepare them dynamically at runtime? Use global variables and a macro
-> from once.h to make the populate function a singleton, so we don't have as many
-> copies as devices on the system that are driven by this code. We can probably
-> do this later, though.
+an icmpv6 error quotes as much of the invoking packet as fits in the
+minimum ipv6 mtu. if the device had decrypted the packet (as indicated
+by skb->decrypted) then the icmpv6 error is sending part of it back out
+onto the network in cleartext.
 
-Are you sure there's a separate copy for each device? In my understanding,
-these static variables are loaded along with the module, and the module
-is loaded only once and shared between all devices.
+as in the previous patch for icmp: ktls rx device offload and psp can't
+be told apart reliably, and psp also encrypts the l4 header, so don't
+send an error about a received decrypted skb at all. linux receivers
+would drop an error whose quote stops before the l4 header anyway
+(icmpv6_notify()).
+
+on tx, skb->decrypted is also set. an error about a locally originated
+skb (skb_iif is 0) is sent in full as before, if its route goes to a
+local address (RTF_LOCAL), like RTCF_LOCAL in the previous patch.
+
+an error about a received decrypted skb is dropped before the rate
+limit, so that it doesn't use up the peer's and the global icmpv6
+credit.
+
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261023234640.1459291-1-toddfreed%40meta.com
+Suggested-by: Jakub Kicinski <kuba@kernel.org>
+Suggested-by: Björn Töpel <bjorn@kernel.org>
+Fixes: 784abe24c903 ("net: Add decrypted field to skb")
+Signed-off-by: Todd Freed <toddfreed@meta.com>
+---
+ net/ipv6/icmp.c | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
+
+diff --git a/net/ipv6/icmp.c b/net/ipv6/icmp.c
+index d8203ebad882..949025d83e15 100644
+--- a/net/ipv6/icmp.c
++++ b/net/ipv6/icmp.c
+@@ -778,6 +778,13 @@ void icmp6_send(struct sk_buff *skb, u8 type, u8 code, __u32 info,
+ 
+ 	np = inet6_sk(sk);
+ 
++	/* Don't send parts of a decrypted skb onto the network, see
++	 * __icmp_send(): no error about a received skb. Before the rate
++	 * limit, so that a suppressed error costs no credit.
++	 */
++	if (unlikely(skb_is_decrypted(skb) && skb->skb_iif))
++		goto out_unlock;
++
+ 	if (!icmpv6_xrlim_allow(sk, type, &fl6, apply_ratelimit))
+ 		goto out_unlock;
+ 
+@@ -799,6 +806,15 @@ void icmp6_send(struct sk_buff *skb, u8 type, u8 code, __u32 info,
+ 	if (IS_ERR(dst))
+ 		goto out_unlock;
+ 
++	/* An error about a locally originated decrypted skb is sent only if
++	 * it is routed to a local address.
++	 */
++	if (unlikely(skb_is_decrypted(skb)) &&
++	    !(dst_rt6_info(dst)->rt6i_flags & RTF_LOCAL)) {
++		dst_release(dst);
++		goto out_unlock;
++	}
++
+ 	ipc6.hlimit = ip6_sk_dst_hoplimit(np, &fl6, dst);
+ 
+ 	msg.skb = skb;
+-- 
+2.53.0-Meta
+
