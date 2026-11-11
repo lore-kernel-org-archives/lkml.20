@@ -1,98 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794387891;
-	b=V/IHltdi3zMQvXOZSDnUzVuNpnX1QufBhUzgsK1CuaOckZGuzOtcZIplHHUYIdnIqELt
-	 U5KKMx6Tw7HsHG+NNmZbDLKCT7J4xF873A5b8AtYTbHk4wwf51+RzsEt36OekUjLbgEdm
-	 sA9gEfCQ/rR12Ih7gNSAI4U31OExXqr8gBeaY/u8zEGem2wzy5B01o62cRjXN4WgM77Zd
-	 SYv32L+U1F7f6jODuEEUgadLqyYGVU06vwVwyzPoTP3DexqUTDWFPGK02Lxd+L7ah0S99
-	 TyKR1E2y1w7aOX6+47nxY6m9m2NSI3473hfWw8MlkZwjMTi5zCOlQTU6y6wskh36tZA==
+	t=1794387901;
+	b=cdFs0EdhMpCGU6oKgeS2UQORn/B2HKRdhDHbLnrmbxpameyEPNHvRH2F9H/IxhOdgtdp
+	 F6t6kMqsMcCjfm2fWdaXLfC36T2IK03vpScy67h+IE+qqfcCPQTO01kUPBnpUXnHCtTwv
+	 ThKHBYzbo62eO9yrWIV5wpevzg8CKQ8/adHCdW1gqdbHe8qP8ZVLro3rY4wHML28IVDnw
+	 S1GoIzPB5uL6E5+PNdCqfcKOm2Ow1SOE72j2X7RgBzXa7FLjXiqOaXlPYxQ+dZEFovcnQ
+	 waMLVbztOSP8H0QIb/TlL1mjT7hAWuKPsjKykYAEDtmkLJKMNIwy+d4M1FeQMaPy39Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794387891;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794387901;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=iM99u/wwPmE5KLLz4YhFtMNm6JUk93fDNNTlNEo4DKo=;
-	b=Rcjv1o0nFTIZpdgemf8cyNqUQ2sZZvIAJSvYv68bj0/vtq2OnJOBFpQSXgYHGkS+mMdC
-	 nEXaWayDkwSxKLK/WBrB5e2R8zMpPCtRNSks9Zzf9+Hj6cuin7XF+oBbZeBW6fW0TCom/
-	 qnMKpGcXMGYHjPeV6cY2MZYg5FnwpI48F3Wi21e7d4IoKz7eDuglJAt0f6KisgnKo9jr8
-	 7u8O5jMquC2XeIFdk8yGvxR0vY3Vdy8wfJL6CgbYMJ41IBX08rooggJFxPuUF6YoNwYlf
-	 YMfiyvKIUQexdc5zPKl89yLXooEYmiSeY7LDTqdskql6FYl9ZwLDoG+hxgmQHPnL4dA==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=lWvHlJP/BhWXCtzu8EBRNTpvuRwa2bkgzs02+RZsqMY=;
+	b=uSm9y3Lmo8Efabzv6ETO/rFS7ArKojN2MnI9OjZEZ3W1FyPZ70uVD+3r8FJkvIvRwgNI
+	 j8vvS0fx6U+JO1xLEv47fPJ85FBHKRYe5zFo5N3AGawWgPn/UAY5g1N8r5ILu0K85NtP7
+	 nf+jBhbOJzo1tf5McTkQnyzgyhteE7ZjhpGPIcIN0gLnKRJ0XDKKAJt7a2SiXfZmQxuzY
+	 AaY6KKpwxEwR78bcDTT1t7BhiatKjACCm+jrJLwpZ/dR1UA+pO5iGepMyHrKS364Jcs07
+	 9CkR3jeApfKD+SQ2RFaVdRlXpNAW2+Qt69EoU02gfuStXRw6fY50x4e3Vi5QHNBodcQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wmwdv3VI;
-	arc=none smtp.remote-ip=209.85.210.173
-Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JSkSDtEp;
+	arc=none smtp.remote-ip=74.125.82.180
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3063C60A2636
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 09:04:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3063C60A2636
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20D7460A2601
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 09:05:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 20D7460A2601
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wmwdv3VI
-Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-8b29b83fdf1so1343931b3a.2
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 01:04:51 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JSkSDtEp
+Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-3704d30b84fso3781321eec.1
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 01:05:00 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794387890; x=1794992690; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=iM99u/wwPmE5KLLz4YhFtMNm6JUk93fDNNTlNEo4DKo=;
-        b=wmwdv3VI5m4akzuGKAZPQWZZeDQaxHrrkQIfBa8c5nMeNf6/THhx0+dFVu7QrvdAHT
-         14QJfg4i25MVqvWfmIV1e8L9iZSPLnyUfTu5balhj9ftzhmjjpQ2dHjnWfWt86/onNrW
-         UF+UpNsTA3oCGS/RbiE0l4dXhs+keHfqdkYLBgdBqV0AD6IgO2JUrR1vDVyQmtoFyNQp
-         xCo3/V5b8X0gjAM0H53pASf1WJFgPaBlfCIoELYieMLYa78zXdWokmVBXbqzYWQesRgB
-         ct4eSr6vsL6YSpGPtE05RV25BFoy8YCxnH4+PbqK4umryyEolRSWmccus+3ofA0DNOgv
-         o+Dw==
+        d=gmail.com; s=20260707; t=1794387900; x=1794992700; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=lWvHlJP/BhWXCtzu8EBRNTpvuRwa2bkgzs02+RZsqMY=;
+        b=JSkSDtEpMeWO+FjL9oZ11YGGFfiza8PqjVEz02vDfborSl2ArjiU6T7kiZvSti2uRv
+         JXWJcA0sRmc8xsm6KiwPOrokbNO5aLtOsm14+va23tDpoQu5bAd6CPUxCHkLO1aAuj/F
+         LCgd4VmqZ4tzOu+EcJGUkTBpDk/2x6gKQd6Iwn+9qwl/cWh16Nlm8gcoqUBWz/rvZv7x
+         LZm+H7GUt6C2489UZQ3GZeO9tXk09ysy+OYGIozg/YI7/z8npcL2+smoEs6XWtNtMfW6
+         qF0/TYBEIVJcB8nDs/GWEDw5emYryvRLNQWH7PMl4yByiOjdWMrszAk5bq1hinAuVOKh
+         LdkA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794387890; x=1794992690;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=iM99u/wwPmE5KLLz4YhFtMNm6JUk93fDNNTlNEo4DKo=;
-        b=ap2OK55u1U/xatxWO8GZbOWrmKxIybkTkiCY3MEMgRSbUNaYshqPqxpBff7zk/yULp
-         W0LQfqjtAIGkrR9+yLbUoa8r9OyyCFWFjFO6Ss6wLf7fug0uBdUpNxlJ+bB60HHc4t5Y
-         jFdRyOdVdQD2pljJ6is5oE2Z/gSN1uXL8EMJQoV3HfeBO02V2Mm/AV0iKHYbA3cG06tc
-         ZlToUUfmiVJbLdU+coqY/hNql9OXuXWa5tPiz1ECWROOz+pguegzZo+16ygQHTHewztF
-         +9TGJq0SpxvcLdoTmDrfWFiDMckfLeMpJz/NQCRKiiK3aru4jtuPQoeple9cq/2DFqIQ
-         Za/w==
-X-Forwarded-Encrypted: i=1; AL+hErEpenlCH+iBMHNjzXtzqKlEOtpmr93juZZDd3R7FS5gAUorX5EkrpBARUCkFBoE6DF3hZ0qXMUjW4D8kCw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8yO4g4OJXY3fct3LxDJR3pQ513bKigYKOD0P4W143GD/cluYnS
-	rzsJFKGG56ZC8JRjZtT7uJGvMxHkMbvpz75F/YMHBOfAhhMqiILfVoUG
-X-Gm-Gg: AYBFou1GKdop1bOYPEf2hFr2sNBHKLGzNNkMSTlJh0oLUzIXgpB8+Jmi5EKrWBqFVob
-	qkfVlyWscpbpP1xJM6Ni7gGBRrICSLjIZkOfQuP5qjLiYtvTqbKHFb3CAgokgWqWfj2AryVvZLM
-	dWC0CTYgqp0eKGfIY57tb3whAL/f25iC108/zREkYpZ1MCrAScdQWleQUuTeJZ5U5Y1h2Jfeikl
-	9jC5Z29yCYxma+JjVxQ1jVRC6lIqRDn9wuprqn10CFyLK15NkVC7jUoi9P9/GSEVXz7Au32cIhc
-	Bxhdgvn4WIX/Y/U2K/YjIZAp1KiQtUmxcrgrPNbM96Ttl6RlbaNK8IFKD1Jwf1SmC5s76MzCgWA
-	/NUZFtzMk0Bg7WPxgPVP3LEN+F71BFVnBnrrhtACPSWMg0J79FGnwvN/fJrS9VoCnWnU9QIyA9b
-	Ld6WZCbndKd2N1QQA9D2Py0T93eG1XCFll6i9AVYpZjOIwvo+dGhAFBYWlZ6Hn7fS0zoPe5HbBz
-	o5vzslIrcPowfPuMhfxAqMxTYIksTnYgl8b4gWDkNcN7+MlzA69ApshOiExOODk12cB+SdedRHM
-	L1YA7y/BAJxzGqw6AgF4TQeeglPVv0vm6lAOzg5ACm3kWsodCaXF7ZfFK2kZ7tE8bHAeI4+MZhA
-	iO/DbF/D08J3sjbvmux8OEV7wEtPc1mvkV33lnPoX
-X-Received: by 2002:a05:6a20:160f:b0:3e1:6010:fb16 with SMTP id adf61e73a8af0-3f2fcf9f826mr1765772637.23.1794387890430;
-        Wed, 11 Nov 2026 01:04:50 -0800 (PST)
-Received: from nugod-NUC15CRHU5.tail9f095a.ts.net ([218.237.104.87])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8baa7cede06sm1929924b3a.7.2026.11.11.01.04.48
+        d=1e100.net; s=20260707; t=1794387900; x=1794992700;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lWvHlJP/BhWXCtzu8EBRNTpvuRwa2bkgzs02+RZsqMY=;
+        b=Q8twkFZ6IlDC+E+cB5ojhnJTPrw8oVDlGisc2HPDDZY1+CSrJ6q9rxZ9lOOqhgTgOK
+         h2W/0a63xph8s+d8mYI+HkgK1Z/tRy4XX5UcGlbN5o2qXuPkqPw6Ed+FK5dr87BVyh99
+         +j9HmcmxQbRwWeqfBCqSpnKs7MibNJKdcs7bqP4aPhHFavpmOxsgf+JWl7lRpTvwqoge
+         274fDMJoAOoZ7raWXNa3snIX8VzD4WfKvMvA/+et9K7seGkaIUUo9kf7xQHa1GbzCMtO
+         +g67LbhE8zkjuXNuFQyDm7hO4PDcnU3/qVoFpbPesgLRAqaWFZj/vEmPUYlervLzJj8a
+         9iKA==
+X-Forwarded-Encrypted: i=1; AL+hErGbZonDtxkteeDydZovGuf7io2sAhIulbXXGQlc+7m3m3tG158jby1dT8pJlBKOJpRZtTCIfjUgRdxoMeo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+Vor1POtF5P3u2d4cZ9mTPcysMYwe1QmfFI5cE95SHuM7JZeTq
+	OGPL9JmgYkObCRJuOjxJqvoWvuN30aGUTH+WYBp1viVz9NVX01V74K+/
+X-Gm-Gg: AYBFou1CHiwX4vmAMnX8La8E8o0XZwtdnkajKoXvUzsRc07rcyZgYu4VrY3srih+p8F
+	CiZQh8u9ffmC8MTwcWQK4U6L+3JCXZ4RcApXyOJXLrPr3xJa0FE0XXTCkTNZ4kxmKXJckykxL2d
+	uxWC6yAHlgcHK+iI+xm2MvaVnEAIieStX36tBzUY1y1uwtYrDOBRNXfzERJEVIvctNeKivlA2XE
+	Dv6pxT4I6EFdm8Knocfju+IePpqknf1S9ftVTNYm8TqYOrwD2PIPqtoaBd1EL9HioVgTK+afgAZ
+	+MNXTvOsju5peyRuVMzRVWrZxqnKAKIH3yc+sD507uFvJCG0Mm7zRiwba+Mcs+rr800lrKcr88y
+	7rGgFjcKSx5rMUd8SftudAF/yUyCz2kmVx0thHCoK9yMDL4t0qQ8675Lrcf2/DJY6GZvG6OOL3e
+	afB1ebxTxjhwqGwqoY8Q2xkxV8iN8U+srqi3UDmOX/wmnLclAFMT4w4LTv6gyL1c0jAyss+rWBX
+	OAxmsz0Z1pW3pARCBkJ+HyV/SBEsQVwl/89pdVLEk9X/dw2fBX76d08ssKjWOkMHLMjSOV167uM
+	URLoR6staGB5POjIhXyJ7+e16HInx15zKWcieAcxInEGU7rd
+X-Received: by 2002:a05:693c:8012:b0:376:203e:7d7b with SMTP id 5a478bee46e88-3768385dbc3mr2405165eec.2.1794387899983;
+        Wed, 11 Nov 2026 01:04:59 -0800 (PST)
+Received: from hj.. ([163.239.22.29])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3751ff2ab59sm14180891eec.6.2026.11.11.01.04.57
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 01:04:49 -0800 (PST)
-From: HyeongJun An <sammiee5311@gmail.com>
-To: tiwai@suse.com
-Cc: perex@perex.cz,
-	ivan.orlov0322@gmail.com,
-	broonie@kernel.org,
-	linux-sound@vger.kernel.org,
+        Wed, 11 Nov 2026 01:04:59 -0800 (PST)
+From: Hyunjung Ko <hj351016@gmail.com>
+To: Sebastian Reichel <sre@kernel.org>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Kaixin Wang <kxwang23@m.fudan.edu.cn>,
 	linux-kernel@vger.kernel.org,
-	HyeongJun An <sammiee5311@gmail.com>
-Subject: [PATCH v2 2/2] ALSA: pcmtest: Add a volume control with event fault injection
-Date: Wed, 11 Nov 2026 18:04:29 +0900
-Message-ID: <c49e86d563eb751961bd40f4284c2549bf81126b.1794386073.git.sammiee5311@gmail.com>
+	Hyunjung Ko <hj351016@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] HSI: ssi_protocol: don't cancel_work_sync() under ssi->lock in ssip_reset
+Date: Wed, 11 Nov 2026 18:04:47 +0900
+Message-ID: <20261111090447.3047656-1-hj351016@gmail.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1794386073.git.sammiee5311@gmail.com>
-References: <cover.1794386073.git.sammiee5311@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,191 +99,39 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The mixer-test selftest checks that a control sends an event when its
-value changes, and only then. No virtual driver has a control that
-breaks this rule, so without broken hardware nothing shows that these
-checks work.
+ssip_reset() calls cancel_work_sync(&ssi->work) inside the
+spin_lock_bh(&ssi->lock) section. cancel_work_sync() calls might_sleep(),
+so running it under the bh spinlock triggers "BUG: sleeping function called
+from invalid context". In addition, the cancelled work ssip_xmit_work() ->
+ssip_xmit() takes ssi->lock itself, so waiting for it while holding the
+lock can deadlock.
 
-Add a stereo volume control to pcmtest, and two parameters that make
-its put callback report the wrong result. With inject_ctl_no_event it
-reports no change, and with inject_ctl_spurious_event it reports a
-change every time. Document both parameters.
+Move cancel_work_sync() out of the locked section. It still runs in
+ssip_reset() before teardown, so the use-after-free fix is preserved.
 
-The control is always present. It is named "Test Playback Volume", a
-name that the OSS mixer emulation does not map.
-
-With both parameters off, mixer-test passes on the control. With
-either one on, only the matching event check fails.
-
-Signed-off-by: HyeongJun An <sammiee5311@gmail.com>
+Fixes: e3f88665a780 ("HSI: ssi_protocol: Fix use after free vulnerability in ssi_protocol Driver Due to Race Condition")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
 ---
- Documentation/sound/cards/pcmtest.rst | 14 ++++++
- sound/drivers/pcmtest.c               | 68 +++++++++++++++++++++++++++
- 2 files changed, 82 insertions(+)
+ drivers/hsi/clients/ssi_protocol.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/Documentation/sound/cards/pcmtest.rst b/Documentation/sound/cards/pcmtest.rst
-index ed0b57f583b7..351f1123b8e7 100644
---- a/Documentation/sound/cards/pcmtest.rst
-+++ b/Documentation/sound/cards/pcmtest.rst
-@@ -17,6 +17,7 @@ At this moment the driver can do the following things:
- 	* Inject delays into the playback and capturing processes
- 	* Inject errors during the PCM callbacks
- 	* Pause the streams
-+	* Report wrong change results from a mixer control
- 
- It supports up to 8 substreams and 4 channels. Also it supports both interleaved and
- non-interleaved access modes.
-@@ -37,6 +38,8 @@ The driver has several parameters besides the common ALSA module parameters:
- 	* inject_hwpars_err (bool)
- 	* inject_prepare_err (bool)
- 	* inject_trigger_err (bool)
-+	* inject_ctl_no_event (bool)
-+	* inject_ctl_spurious_event (bool)
- 
- 
- Capture Data Generation
-@@ -100,6 +103,17 @@ Errors can be injected into the following PCM callbacks:
- 	* prepare (EINVAL)
- 	* trigger (EINVAL)
- 
-+Control event injection
-+-----------------------
-+
-+The driver has a 'Test Playback Volume' control. Its 'put' callback reports a change
-+only when the value changes, so a change event is sent only then.
-+
-+With 'inject_ctl_no_event' set, the callback reports no change, and no event is sent
-+even when the value changes. With 'inject_ctl_spurious_event' set, it reports a change
-+on every accepted write. The mixer-test selftest (alsa/mixer-test.c) checks for both.
-+If both parameters are set, 'inject_ctl_no_event' wins.
-+
- Playback test
- -------------
- 
-diff --git a/sound/drivers/pcmtest.c b/sound/drivers/pcmtest.c
-index 66bee8a2ce34..98685e6158cc 100644
---- a/sound/drivers/pcmtest.c
-+++ b/sound/drivers/pcmtest.c
-@@ -34,6 +34,7 @@
- #include <linux/init.h>
- #include <sound/pcm.h>
- #include <sound/core.h>
-+#include <sound/control.h>
- #include <linux/dma-mapping.h>
- #include <linux/platform_device.h>
- #include <linux/string.h>
-@@ -57,6 +58,8 @@
- 
- #define MAX_PATTERN_LEN 4096
- 
-+#define MAX_VOLUME	100
-+
- static int index = -1;
- static char *id = "pcmtest";
- static bool enable = true;
-@@ -65,6 +68,8 @@ static bool inject_hwpars_err;
- static bool inject_prepare_err;
- static bool inject_trigger_err;
- static bool inject_open_err;
-+static bool inject_ctl_no_event;
-+static bool inject_ctl_spurious_event;
- 
- static short fill_mode = FILL_MODE_PAT;
- 
-@@ -109,11 +114,17 @@ module_param(inject_trigger_err, bool, 0600);
- MODULE_PARM_DESC(inject_trigger_err, "Inject EINVAL error in the 'trigger' callback");
- module_param(inject_open_err, bool, 0600);
- MODULE_PARM_DESC(inject_open_err, "Inject EBUSY error in the 'open' callback");
-+module_param(inject_ctl_no_event, bool, 0600);
-+MODULE_PARM_DESC(inject_ctl_no_event, "Report no change from the control 'put' callback");
-+module_param(inject_ctl_spurious_event, bool, 0600);
-+MODULE_PARM_DESC(inject_ctl_spurious_event, "Always report a change from the control 'put' callback");
- 
- struct pcmtst {
- 	struct snd_pcm *pcm;
- 	struct snd_card *card;
- 	struct platform_device *pdev;
-+	spinlock_t mixer_lock;	/* protects volume[] */
-+	long volume[2];
- };
- 
- struct pcmtst_buf_iter {
-@@ -544,6 +555,58 @@ static const struct snd_pcm_ops snd_pcmtst_capture_ops = {
- 	.pointer =	snd_pcmtst_pcm_pointer,
- };
- 
-+static int snd_pcmtst_volume_info(struct snd_kcontrol *kcontrol,
-+				  struct snd_ctl_elem_info *uinfo)
-+{
-+	uinfo->type = SNDRV_CTL_ELEM_TYPE_INTEGER;
-+	uinfo->count = 2;
-+	uinfo->value.integer.min = 0;
-+	uinfo->value.integer.max = MAX_VOLUME;
-+	return 0;
-+}
-+
-+static int snd_pcmtst_volume_get(struct snd_kcontrol *kcontrol,
-+				 struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct pcmtst *pcmtst = snd_kcontrol_chip(kcontrol);
-+
-+	guard(spinlock_irq)(&pcmtst->mixer_lock);
-+	ucontrol->value.integer.value[0] = pcmtst->volume[0];
-+	ucontrol->value.integer.value[1] = pcmtst->volume[1];
-+	return 0;
-+}
-+
-+static int snd_pcmtst_volume_put(struct snd_kcontrol *kcontrol,
-+				 struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct pcmtst *pcmtst = snd_kcontrol_chip(kcontrol);
-+	long left = ucontrol->value.integer.value[0];
-+	long right = ucontrol->value.integer.value[1];
-+	bool changed;
-+
-+	if (left < 0 || left > MAX_VOLUME || right < 0 || right > MAX_VOLUME)
-+		return -EINVAL;
-+
-+	guard(spinlock_irq)(&pcmtst->mixer_lock);
-+	changed = pcmtst->volume[0] != left || pcmtst->volume[1] != right;
-+	pcmtst->volume[0] = left;
-+	pcmtst->volume[1] = right;
-+
-+	if (inject_ctl_no_event)
-+		return 0;
-+	if (inject_ctl_spurious_event)
-+		return 1;
-+	return changed;
-+}
-+
-+static const struct snd_kcontrol_new snd_pcmtst_volume = {
-+	.iface = SNDRV_CTL_ELEM_IFACE_MIXER,
-+	.name = "Test Playback Volume",
-+	.info = snd_pcmtst_volume_info,
-+	.get = snd_pcmtst_volume_get,
-+	.put = snd_pcmtst_volume_put,
-+};
-+
- static int snd_pcmtst_new_pcm(struct pcmtst *pcmtst)
- {
- 	struct snd_pcm *pcm;
-@@ -582,11 +645,16 @@ static int pcmtst_probe(struct platform_device *pdev)
- 	pcmtst = card->private_data;
- 	pcmtst->card = card;
- 	pcmtst->pdev = pdev;
-+	spin_lock_init(&pcmtst->mixer_lock);
- 
- 	err = snd_pcmtst_new_pcm(pcmtst);
- 	if (err < 0)
- 		return err;
- 
-+	err = snd_ctl_add(card, snd_ctl_new1(&snd_pcmtst_volume, pcmtst));
-+	if (err < 0)
-+		return err;
-+
- 	strscpy(card->driver, "PCM-TEST Driver");
- 	strscpy(card->shortname, "PCM-Test");
- 	strscpy(card->longname, "PCM-Test virtual driver");
+diff --git a/drivers/hsi/clients/ssi_protocol.c b/drivers/hsi/clients/ssi_protocol.c
+index 7c6ca8391a6b..96c20850fd66 100644
+--- a/drivers/hsi/clients/ssi_protocol.c
++++ b/drivers/hsi/clients/ssi_protocol.c
+@@ -397,11 +397,11 @@ static void ssip_reset(struct hsi_client *cl)
+ 	spin_unlock_bh(&ssi->lock);
+ 	if (test_and_clear_bit(SSIP_WAKETEST_FLAG, &ssi->flags))
+ 		ssi_waketest(cl, 0); /* FIXME: To be removed */
++	cancel_work_sync(&ssi->work);
+ 	spin_lock_bh(&ssi->lock);
+ 	timer_delete(&ssi->rx_wd);
+ 	timer_delete(&ssi->tx_wd);
+ 	timer_delete(&ssi->keep_alive);
+-	cancel_work_sync(&ssi->work);
+ 	ssi->main_state = 0;
+ 	ssi->send_state = 0;
+ 	ssi->recv_state = 0;
 -- 
 2.43.0
-
