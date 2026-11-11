@@ -1,65 +1,65 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794381822;
-	b=SA7FwC+GGMnqCr54WfkClDZg312XHkdG4zGc/NjFm9xWFOLK5vksCpbTV0PtJknKp9P9
-	 nLwnZwFI01WDVRGrEJFYLTrhqTrZD7toDvvwnEXSvlqvnE5U1uf08iHr8JuSMsziGFrvQ
-	 qbvGElozMbUqj+aS8YoSTpAxttqOW/bmnoPiKzkXRmXYJGqzkmWfOM5ysQcJ4bV+wfikn
-	 dXYpysEA+QQUyk1JGiXv4G3K6HEQxcP8bUvJZGSnQ614759ViNl73GKzQ7TEJAKNwq2Iy
-	 x7Q2yWC42Yif1wfUSowl4PSulDgFe6UT4fdt4A41TUiXa90ClRha28txAXjOljNZLCg==
+	t=1794381824;
+	b=LGLk1gXc9DSChMxjpkJm3OaP8TQIaA80ExxgD82HtW+N/fylFNTupdrmIzVz4QgDFz6h
+	 JFTsGGoq4bJbIeIkz4taMYrnU4mrKFJs7QU3GXsD7zgNLAn8fvN6B37HXssEPVVY+lXgi
+	 QB07rYGGxumeOm9EbxOo5j26v/qtbYPH5mr6jSrDiuy7/GP17kjneKNON4meETZVR9AFt
+	 u2a86orQkTiNFmMMAYtGtswOqqUWiL+Vhsm8XSSz9ft/CvUfUhDyAle0aNqf9LDcCWc2B
+	 Iqu8h5P1jkNNbfliVI0Pk9cDqQulxluZq9HSHaSdqB7/9G74waViaO5+vAVp/w0O8KQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794381822;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794381824;
 	h=DMARC-Filter:From:DKIM-Signature:DKIM-Signature:Date:Subject:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
 	 References:In-Reply-To:To:Cc:X-Developer-Signature:X-Developer-Key;
-	bh=FnaiI9Makeyhmcykg0ul9RCJzRdbJabnK5sU0v9rIkw=;
-	b=iEpP3CognlI+wajhdY+ZVk4us5V7g05bmY5GziTKEtxXq4tzhGncbu+dRlkTK73BSj5N
-	 1R7AXjL4PA0SIIaIE9MlUGE/DNRfwh+d2E754YF0jW8N5moPT8yvQvNIHX6PSJW2J+uEf
-	 jbHQKQAGS+vzaX837j2AXg6EmBXwnV43oLp5g+mXKBFED9m3kHAcSG65PfSKc+vwhbsuZ
-	 MDKzM1SMmWffCajtD4Fff4njmPsDGLe8yBBhXpTA6jM+4vTVPHj70XvKh7ZGHJ8jpYnyP
-	 4Ay3WCA5TL+TXvm2uZlgmIB7iAGK1PxjwkM/+WaulwsYfwGEPa7Mpr563xNmjt6RJnw==
+	bh=L5OI5FX7JL+kgNYLtItHyl+SG6enyYh3fOM8vlFTvoY=;
+	b=mKYGjVN39ZmAS5dDpTZPzv5V0sAjh7XDRPHVaktxju+j4B1pWt1+Dycpe1H9nZN0t+kd
+	 1Si8ao5xAuWWSjwA29p4hznxk0zfaVhLm0m42EQlUwsZgwJPq+L0XekpbGKhkompDua4t
+	 3bmCMjdVDzCM7e5kwBWVlTyCQ6KEAWcEFmhrDcm0LNMuQn6ofrcPrx4l+tUoxzmDU0Sc+
+	 c9hD+U0HlnKwp/WxvwIlnuOpJ4LLdF6TYDvbPaUEmf+0FJIoBWakpBUHcrdyRdS6tWcHf
+	 7N59fod9z5YTCM7tqM1ChQEk9iJxjgZhs4GUKG41jHsuIfG1GIR5SoITXpU6G0I5aVg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linutronix.de;
 	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=kuLfAJkP;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=ePjsRSkF;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=2nxCh3ph;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=KsUmiqsp;
 	arc=none smtp.remote-ip=193.142.43.55
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23479606A332;
-	Wed, 11 Nov 2026 07:23:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23479606A332
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 791D960A263F;
+	Wed, 11 Nov 2026 07:23:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 791D960A263F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=kuLfAJkP;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=ePjsRSkF
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=2nxCh3ph;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=KsUmiqsp
 From: Gregor Herburger <gregor.herburger@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1794381814;
+	s=2020; t=1794381817;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=FnaiI9Makeyhmcykg0ul9RCJzRdbJabnK5sU0v9rIkw=;
-	b=kuLfAJkP0gsNtn3Z6A988FxHafmPB+TViVsGbc3lr5avA5bUreW+SahBqiUKrxtx/VNJxv
-	GbiQwvg36B9KFyWhc9FWgNUMJjcWe+tdXdqZtvE9Jscfl8pPhQrrr2hTMEcTdOO+2xdBa3
-	lsz7jy3STxgdKBnUjqZOkHKmYGkyw6Pd092OWBFGp0IOHsulff+E/fo0cSTvQbGyzxrYC2
-	m/h9sQkEyTSgt6lYP/NdZ+eer+G3wQeZvru2rZYsq5HbcUvfqdFOM+V+xyVaqcgbAhlVIj
-	sWIWuBYSU+SCtIrzcKVXQjPoBFoy5l0/zRG4reiA5h+td42H1dW2Bw1BPLOBjw==
+	bh=L5OI5FX7JL+kgNYLtItHyl+SG6enyYh3fOM8vlFTvoY=;
+	b=2nxCh3phL4Gg4uDcPZIkS1kWtEnMnINCjLa5gU5dXpK/Kb2ZdEeygFHY/ZFhpr8QdtuH5y
+	NSEwLtWf3uznIQQFgzTohEZ7qH2tFh8/jWnN9VO22W5cWkK9vnFXEfwkKvlRJGhYXbeEgb
+	nz+Ok/GQI3J1U4Ibr9u8EVjiotfzDlloplCDpIYXspLmBjn0/32VNH0n/7X8wL+jkAJpuC
+	onKt1NKpz/BNNhxl/2BdPU8JQWV6HG45OqLtjhPhFaDXXhK8sKeV4ZGtTUtSGI3VYrsmbB
+	W/pk6zGaN6Y5malVHzdiSHB0Bj4QTxm1FMVrebvcAnDDQArIYDGJ9SARdATJRw==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1794381814;
+	s=2020e; t=1794381817;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=FnaiI9Makeyhmcykg0ul9RCJzRdbJabnK5sU0v9rIkw=;
-	b=ePjsRSkF/LE+MhBArVJMoEdOoZhQXlvfnHFREo0Zx+RXxdPnGtsdcuNQP5LJ8baZzu30Ep
-	1ZFUKcQZ0Lryn3BA==
-Date: Wed, 11 Nov 2026 08:23:26 +0100
-Subject: [PATCH v9 04/12] dt-bindings: raspberrypi,bcm2835-firmware: Add
- bcm2712-firmware compatible
+	bh=L5OI5FX7JL+kgNYLtItHyl+SG6enyYh3fOM8vlFTvoY=;
+	b=KsUmiqsp3VOneiMdPSGwZ1ubier6tfKk3lPwNNWIj3cqghr7/xeuqbD8pFRw02SEe3paE2
+	BwJshBrusEgLF6DQ==
+Date: Wed, 11 Nov 2026 08:23:33 +0100
+Subject: [PATCH v9 11/12] ARM: multi_v7_defconfig: Enable the raspberrypi
+ otp driver as module
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,7 +71,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261111-rpi-otp-driver-v9-4-0a7292a7a5b4@linutronix.de>
+Message-Id: <20261111-rpi-otp-driver-v9-11-0a7292a7a5b4@linutronix.de>
 References: <20261111-rpi-otp-driver-v9-0-0a7292a7a5b4@linutronix.de>
 In-Reply-To: <20261111-rpi-otp-driver-v9-0-0a7292a7a5b4@linutronix.de>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -86,48 +86,40 @@ To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
  Russell King <linux@armlinux.org.uk>
 Cc: devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, 
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- linux-hardening@vger.kernel.org, Conor Dooley <conor.dooley@microchip.com>, 
+ linux-hardening@vger.kernel.org, 
  Gregor Herburger <gregor.herburger@linutronix.de>
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794381812; l=1250;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794381812; l=921;
  i=gregor.herburger@linutronix.de; s=20260226; h=from:subject:message-id;
- bh=EPoKq3QiduWfDNRfSZpcKzyFT7JcryXbpPaWX1U5Tl4=;
- b=DrByEdhV8zbr0hsjGh1FHda8VbLUW2g8up/IDit7EAzND9CFTGNiQrC0HUlqf0wm7ibhS6yCt
- 1bASqxihnqRBlLZynEnIbDIOWoZHFAwpzwVYlAPWANDBf45oO/j5c1n
+ bh=nV4q/fY0ggdL9jLjY9jN7SpLOC/gVRnDvW9cn+372lk=;
+ b=1tCk9pFjsIbMMI28Q7yk7ySbUAskKjCxomAVr8yQZxqzJEEUokn2EUalvHHHtrnPDvavNPGYO
+ LplfVhCe9/pBKXPvkwF6x3/YfNcSomA7ApAXBgimXI43ABuVG4O/GkW
 X-Developer-Key: i=gregor.herburger@linutronix.de; a=ed25519;
  pk=u72Lv7+/lS5CC1hmSrb17lv/6CK7HBh4Lvz77PHA5LM=
 
-Add a compatible string for the bcm2712 firmware. The bcm2712-firmware
-is compatible with the bcm2835-firmware so allow the bcm2835-firmware as
-fallback.
+Enable the newly added Raspberry Pi OTP driver as module to allow access
+to the otp registers. This driver provides access to the OTP registers
+present on all Raspberry Pi boards.
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Enabling this in the multi_v7_defconfg allows standard upstream kernels
+to use these registers out of the box.
+
 Signed-off-by: Gregor Herburger <gregor.herburger@linutronix.de>
 ---
- .../bindings/arm/bcm/raspberrypi,bcm2835-firmware.yaml        | 11 ++++++++---
- 1 file changed, 8 insertions(+), 3 deletions(-)
+ arch/arm/configs/multi_v7_defconfig | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/Documentation/devicetree/bindings/arm/bcm/raspberrypi,bcm2835-firmware.yaml b/Documentation/devicetree/bindings/arm/bcm/raspberrypi,bcm2835-firmware.yaml
-index dc71fd57834e8..9519157006b65 100644
---- a/Documentation/devicetree/bindings/arm/bcm/raspberrypi,bcm2835-firmware.yaml
-+++ b/Documentation/devicetree/bindings/arm/bcm/raspberrypi,bcm2835-firmware.yaml
-@@ -21,9 +21,14 @@ select:
- 
- properties:
-   compatible:
--    items:
--      - const: raspberrypi,bcm2835-firmware
--      - const: simple-mfd
-+    oneOf:
-+      - items:
-+          - const: raspberrypi,bcm2835-firmware
-+          - const: simple-mfd
-+      - items:
-+          - const: raspberrypi,bcm2712-firmware
-+          - const: raspberrypi,bcm2835-firmware
-+          - const: simple-mfd
- 
-   mboxes:
-     maxItems: 1
+diff --git a/arch/arm/configs/multi_v7_defconfig b/arch/arm/configs/multi_v7_defconfig
+index 069d5a49f01cb..e9720a22a7c44 100644
+--- a/arch/arm/configs/multi_v7_defconfig
++++ b/arch/arm/configs/multi_v7_defconfig
+@@ -1262,6 +1262,7 @@ CONFIG_NVMEM_ROCKCHIP_EFUSE=m
+ CONFIG_NVMEM_STM32_ROMEM=m
+ CONFIG_NVMEM_SUNXI_SID=y
+ CONFIG_NVMEM_VF610_OCOTP=y
++CONFIG_NVMEM_RASPBERRYPI_OTP=m
+ CONFIG_FSI=m
+ CONFIG_FSI_MASTER_GPIO=m
+ CONFIG_FSI_MASTER_HUB=m
 
 -- 
 2.47.3
