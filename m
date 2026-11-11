@@ -1,136 +1,121 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=192.198.163.17
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1794423724;
-	b=rKTFuAsUO+BiYR3ED/XEgp8+V42ECuFB64zIP+29gMymomgVxDRQMgxGLQuvrcWpjjuH
-	 y+GhI7xB9ehsMNJ3ZpygbwzN+SuWzBW4tciqxqVDGMAAuDfqADen32eG15cCsx5OfBUYh
-	 Cr9iONGmjixk+Tv4UmaqsVIHnWiGv6GNconI2zKihXEngqpOJMoqUakFb35imDZZidXQf
-	 pK5vZZSsCN1Sike/OZbNiNXd7eL27vYMPXwanmi4Lpj221nKuFqbPQjPi71hxISf4UJZx
-	 AtoYqGMJnY4gRbBtGls6sg3weGqxokl4RRzkd14XyFFu1qVJOXo0pjp9aj8lGwtZaXg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794423724;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
-	 Received:Received:Received:Date:From:To:CC:Subject:Message-ID:
-	 References:Content-Type:Content-Disposition:In-Reply-To:
-	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
-	bh=Rmfub0q3RNztW1O6r7KnOCLyLi/80kYu8jJWsJJeFWQ=;
-	b=5YliGV8Px9QjQ0sGj+Yz2ixNXY1j5pW1drLAa6VuVo6i6/qMU0PAUFXmrspi/LCJhpxf
-	 N9WHmeMOJ0FuxWTL1tBM//gyDqVkUQCzMnpGRP6B0/ogqfSvlQdH55G9ioTE0yuCoH/Oj
-	 k0lBB7Qj8MXc9BM7r2m8TeggfhietstLixgoqP8hxjjo/cwV47DiZav8Lk4el1y43vm6j
-	 KTDaNXTj3YCw6Mj4dq8fIi66plV0tlxnBHqJl1UzQ23APHzDueSpojGaGDOYFsLcrBxnV
-	 9WwiUciqgR0VHFbQLNJwAZQoAZVEIUYWSi7QSsdh2jRC0UsMTTcUtBh34xQPv5E9T7g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=AIm0RjGM;
-	arc=fail smtp.remote-ip=192.198.163.17
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.225
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794423731;
+	b=lKThwoRxrqcLRXfxDZcP+Ucsi0eqE3vfSYLBq0lGMwhrEEUlAK2+1+45YVqAx2e71Xho
+	 EpdvZx7jqPbfAGkIktDuNLE1kU5Tv6hRz/5RZjfe3M8lwAZhAnfXNhtKFzriNSysej2tF
+	 fju01rV1wdZmGtj9byssiCrnnlM36dwmInNqBZzdoXBynTUSF8fohUwlG9G5z2qRz/QxK
+	 9RmD93WT6T62xuhWOO6Cult75uvjPSXEZw4uxAL80dNetaeU8Zk2AoOVWaV8Rn244IrQ+
+	 zRfEX3VxWQPF76gbsKhpY5UVWGgavnlyT/mgJ1l5J6uWsH2wkBSFYbU/Kp+XOKkCj4g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794423731;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
+	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Received:X-Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-DetectorID-Processed;
+	bh=bppZo3I5JD/laDzucSCMcEHXq0XRsoF4ETRLYmZ5nIg=;
+	b=QKo9xiVvpPmPU6GaPrJM8v2BaQR331m16xMkqFwkuqVS7SvKMQc3pr0tD1U4TLzl5bM8
+	 jcYj6ZpgoaTTB034yFkRjdkM7g/nAPB2AXNqTWStBzDtlKt/XVHecagFcC2GFEMbAoMkG
+	 5udAmKQhlnt2wYx+cV3KX4vcfU7MWtEj12/lAzZC0J2ZAYxiYtdGIA9XL2KUe9si9coYB
+	 aL8dBMYsUEbH1bNpFeMgAjPcW/cP8UyndyBr0JtEiqVm2GryFk9YhUA/CgdWuivlvkxrx
+	 oxyS8+BZ7EZr6ptGJj0maFRFBSlyeWRz/8p8OvIGEvh6CQskpb/xawPsJyxzRGE+9ww==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=broadcom.com;
+	spf=fail smtp.mailfrom=broadcom.com;
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=aD3nWxSY;
+	arc=none smtp.remote-ip=209.85.215.225
+Received: from mail-pg1-f225.google.com (mail-pg1-f225.google.com [209.85.215.225])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A249D606A889
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 19:02:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A249D606A889
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C273D606A33A
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 19:02:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C273D606A33A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=AIm0RjGM
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794423724; x=1825959724;
-  h=date:from:to:cc:subject:message-id:references:
-   in-reply-to:mime-version;
-  bh=wTK0fJZTv6g264VfYWOUeZwmI/BD9vVX8WTpRFjb6uc=;
-  b=AIm0RjGMcBZR9Y32ksyTOduiIhYOg0Te9JPZjpmcZs3aCewX0Wg/3I8u
-   Kk1ZJnDvQD4n9jWe774iJ06IHUf5EyKqWNqMbq/5094rMlJBMUpzd85wg
-   qsv7vtY87c5tGGIim0PTdSv70U+C1pdAl4DZ68JO++cFJkf5YwnvMrHq0
-   AV1L8jkVv+4R6F+D5dv1QNSqOrDdzCRH9msCGAY3KL9cFhclNfYvQDcwj
-   DYQUbZpO55hDO0qscRSER8euAE6hxovCpfvGz8h6szX2nyReTJxMEN1GQ
-   NQWA28vptvLQc1kjrC7A83d79ZoB61MoVAPMs6AckuaRuxtYq91+C3m36
-   Q==;
-X-CSE-ConnectionGUID: GIPVNAOQQsKHD1Hq/Vl3LQ==
-X-CSE-MsgGUID: pHHRvuhlSLSOzMF/2cFHCA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3204521"
-X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
-   d="scan'208";a="3204521"
-Received: from fmviesa012.fm.intel.com ([10.60.135.152])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 11:02:03 -0800
-X-CSE-ConnectionGUID: dLRLN/n+RNOOGD6Z8qWCFg==
-X-CSE-MsgGUID: btg7nDMHS6CL9Tp9YQVYWw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
-   d="scan'208";a="10201084"
-Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
-  by fmviesa012.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 11:02:02 -0800
-Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Wed, 11 Nov 2026 11:02:01 -0800
-Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56 via Frontend Transport; Wed, 11 Nov 2026 11:02:01 -0800
-Received: from CH4PR04CU002.outbound.protection.outlook.com (40.107.201.53) by
- edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Wed, 11 Nov 2026 11:02:01 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IPp75M14cGeswNp120rxORTq/RtxD/A8z6x09ZBOkQMszjU9XWb9TSUzJEhSTXrI+J3fX55SGMb/bl1uUt24PBkw8Hn8ZTxD5ganlk7fZwBWmCH2eGwdWxoOZfoRxo49DcWuyZWfvHlNOpDBzkrRPtZbdVeY+HCLb3j8qtd5GrYlM8QkxznR719THrewlMrx53N99AI0gVv5DGiqvP0T/7cG7Qk5elbZv+qdMjOK25+UAKMps4nGEjBQvCRkL7jFfFgtxh6nqablE+eOuB7uLonZGeqCyM9QqcGDIqUmJLeSXEeTspUFuQp7dyVAqh9wI/aLnPQJdeC/RGaHKDdzRw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Rmfub0q3RNztW1O6r7KnOCLyLi/80kYu8jJWsJJeFWQ=;
- b=eqgchKxpbhLNHrivaL2dgg361qdpRsgQqWe6m7ipov3gKCXQEV0gjUr7Ifc5FwRBfvNbCFYFGDDgqAz+fhlavhxW+qFISLfLsgkdJX226TekE8gvqMFUauemeZ6e8T7mQOiOiV7PqdwH8MjLib0VKmu+7teZMJpPXySDY7Nrm+D8wFjljaEN9eaSJG3CS27DzUw80FND4kR3KT/MvaEecwpXYPYZQMWemBmWJxEwGa3DRmjsM11wnpAyeamL+liGmjB6efdV5Bnm9455/jbny6LW/I3z7IrsKwD1Nb6UpWLa1RI8UizuXpKfvr1cqfbmo/k83IIff5VJz5mVi2fiCw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from IA0PR11MB7187.namprd11.prod.outlook.com (2603:10b6:208:441::12)
- by DSWPR11MB9845.namprd11.prod.outlook.com (2603:10b6:8:4e1::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.9; Wed, 11 Nov
- 2026 19:01:54 +0000
-Received: from IA0PR11MB7187.namprd11.prod.outlook.com
- ([fe80::be96:3f58:953d:6565]) by IA0PR11MB7187.namprd11.prod.outlook.com
- ([fe80::be96:3f58:953d:6565%4]) with mapi id 15.21.0615.007; Wed, 11 Nov 2026
- 19:01:54 +0000
-Date: Wed, 11 Nov 2026 14:01:45 -0500
-From: Rodrigo Vivi <rodrigo.vivi@intel.com>
-To: Arnd Bergmann <arnd@kernel.org>
-CC: Matthew Brost <matthew.brost@intel.com>, Thomas
- =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>, David Airlie
-	<airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Matt Roper
-	<matthew.d.roper@intel.com>, Lucas De Marchi <demarchi@kernel.org>, "Riana
- Tauro" <riana.tauro@intel.com>, Arnd Bergmann <arnd@arndb.de>, Matthew Auld
-	<matthew.auld@intel.com>, Shuicheng Lin <shuicheng.lin@intel.com>, Armin Wolf
-	<W_Armin@gmx.de>, Zhanjun Dong <zhanjun.dong@intel.com>, Michal Wajdeczko
-	<michal.wajdeczko@intel.com>, Piotr =?iso-8859-1?Q?Pi=F3rkowski?=
-	<piotr.piorkowski@intel.com>, Tejas Upadhyay <tejas.upadhyay@intel.com>,
-	<intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
-	<linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] drm: xe: select configfs
-Message-ID: <avS7mZMrS7nQv_RK@intel.com>
-References: <20261026102603.2045493-1-arnd@kernel.org>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20261026102603.2045493-1-arnd@kernel.org>
-X-ClientProxiedBy: SJ0PR03CA0260.namprd03.prod.outlook.com
- (2603:10b6:a03:3a0::25) To IA0PR11MB7187.namprd11.prod.outlook.com
- (2603:10b6:208:441::12)
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=aD3nWxSY
+Received: by mail-pg1-f225.google.com with SMTP id 41be03b00d2f7-cc751eddf25so1862624a12.3
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 11:02:10 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794423730; x=1795028530;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:dkim-signature:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bppZo3I5JD/laDzucSCMcEHXq0XRsoF4ETRLYmZ5nIg=;
+        b=ibYnhlhzxl/smVSJWCSd4I2ZbLtrVPnkRa+I9iThU9CieDevakRapz+rI0KsoB4xMQ
+         0lV/l9XusvXMpQHNc9ZslPxGS1o12Zmm7G74DNJ1yaC4yxIUhvq6wVnQ4OaNYAiLdVOV
+         m78mP9ZZsCNeOZ0cqNJo71BBO5UoEn9kLAbhxSdnD7sxL8CWmMsj08oSqUlpHn4i6GMs
+         occj8gPE7Te+jNUGvjvwMlYWueOEYcRIfBg/BJsX2jlF5bt6orJdYCnvZOUwCsBnWroi
+         71m+jBBeCUesq8RSUAHNnVgoZUUHeZJcw3goZDawF4Ggc17kWmgKkyvt3kGGzT0JwUuE
+         gIwA==
+X-Forwarded-Encrypted: i=1; AL+hErGBkYRndLHWLUEGLbGOrbTr0uHOFCM3F5denJH3UhYgQaARR5NfqpEUqYpt+k17G3fdSD/HFLe34gt7lIY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/2drgEqkrU7W6IHNnnANOt3PtasN1SjYoGdImw0EtR50foXjSI
+	6fawMasL9PVciRvgLmtnw9kQQhF3CTmDF36gfR71C0coJyJhBHEvjg3mOhw2Oupf6yUrcNeFZpE
+	63x+z6aqNnvYq+40J8bMyQFv6S3VtOzSEmbdwqv71avlYkJ4Q+bOS/Wrpw/h1YoAkrhCJ1edpL3
+	c4Gg4HrqNjho+f1h7PqbGKVmzVE9/qkf2bdRWjzK5g9+kQw+DfZq2jqFyYph53PEyfoqzJwF3jw
+	zelIYyQqLDIlgMt5w1rAh3wPA==
+X-Gm-Gg: AYBFou3nMmZGqnSyKmT31I5F/Bi38QSjKyVkvNhM+UyXi4NYT3Dp8PNvlhUWFzu8vG9
+	ja/jOg89iSXNHKGXvMAkOF2hGnAbdxLW/YmEDPK1Uv07z2d/11TWo+g739fKNXX7SpEWxtNq2q0
+	UTTv1X3dUIZywYzNWlg/EPVpjRnGPdjbsjKCKGGjSfCaVEk4+O66p+UIkS3rymMzdYw3DW58SRy
+	znyp+2AU6ZKYFBOL85d48haC92nX+dtVgpvZjVp5mSknGiW/zNjcG2oN1beLx3TVJio/wnDpD7t
+	sbUztf4HUqV1+7/U4pzMVoSjhUdAReVKoEmwxb83+C5wP1QpF661CN/v8Cb2nMmqJ2SxWLw6ybR
+	1rV7OwoPDlaKq0866AA4VZ/+5A8O50nv9z6q41L/S2kwcF7RpStj9RMQpkqIaDXSyYrTRoXImVY
+	AOWFapf4Lq801xfKbQsTgazTzn8YQ0UIJaZflIz50E7w==
+X-Received: by 2002:a17:90b:2245:b0:3b0:ab34:afc8 with SMTP id 98e67ed59e1d1-3b182e94123mr3101118a91.20.1794423729950;
+        Wed, 11 Nov 2026 11:02:09 -0800 (PST)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-28.dlp.protect.broadcom.com. [144.49.247.28])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b181c01e80sm1015375a91.0.2026.11.11.11.02.09
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Wed, 11 Nov 2026 11:02:09 -0800 (PST)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-30bcb065bfdso5690224eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 11:02:08 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1794423728; x=1795028528; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=bppZo3I5JD/laDzucSCMcEHXq0XRsoF4ETRLYmZ5nIg=;
+        b=aD3nWxSYLkxfgQW6/AqhU2Lgn8lrUhZ5h2kvx4I0+/sFfynCAgHK77m5GBHYFfb7Cw
+         If6iAqI4pkiVWMUzrMEA05xe7p6ZQaiM6gtqwcMjT8r65Nor4zk2VYeOOHz5dmNqs0RY
+         YuKnvcRh7uMhRdVAwXomDp1fPzr25RE/FzDDo=
+X-Forwarded-Encrypted: i=1; AL+hErEhbByBvpGJ5Ou+T+enZLolY3V7+oxFnBt8okCoVZUsgsuuR57IFIKWao8yqTblIZj9KvLX3/PL8lRdfxw=@vger.kernel.org
+X-Received: by 2002:a05:7300:f54b:b0:36c:a42d:9bc9 with SMTP id 5a478bee46e88-37685c7a866mr3388891eec.25.1794423727360;
+        Wed, 11 Nov 2026 11:02:07 -0800 (PST)
+X-Received: by 2002:a05:7300:f54b:b0:36c:a42d:9bc9 with SMTP id 5a478bee46e88-37685c7a866mr3388850eec.25.1794423726578;
+        Wed, 11 Nov 2026 11:02:06 -0800 (PST)
+Received: from localhost.localdomain ([192.19.203.250])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-375212ec002sm20860468eec.26.2026.11.11.11.02.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 11:02:05 -0800 (PST)
+From: Bhargava Marreddy <bhargava.marreddy@broadcom.com>
+To: davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	andrew+netdev@lunn.ch,
+	horms@kernel.org
+Cc: netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	michael.chan@broadcom.com,
+	pavan.chebbi@broadcom.com,
+	vsrama-krishna.nemani@broadcom.com,
+	vikas.gupta@broadcom.com,
+	Bhargava Marreddy <bhargava.marreddy@broadcom.com>,
+	Dharmender Garg <dharmender.garg@broadcom.com>,
+	Kumar Mudide <kumar.mudide@broadcom.com>,
+	Ramakrishna Koduri <ramakrishna.koduri@broadcom.com>
+Subject: [PATCH net-next v4 2/5] bnge: add bnge_err()/bnge_warn()/bnge_dbg() logging helpers
+Date: Wed, 11 Nov 2026 19:00:08 +0000
+Message-ID: <20261111190011.53437-3-bhargava.marreddy@broadcom.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261111190011.53437-1-bhargava.marreddy@broadcom.com>
+References: <20261111190011.53437-1-bhargava.marreddy@broadcom.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -140,163 +125,131 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR11MB7187:EE_|DSWPR11MB9845:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8fcb72a2-bfde-46eb-30aa-08df4026401e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|23010399003|366016|376014|1800799024|7416014|22082099003|18002099003|6133799003|10067099003|56012099006|11063799006|261102123227099003|261026140227099003|261022075727099003|261022105027099003|261021121427099003|261021123027099003|261026121527099003|261009221227099003|261009221727099003|261009223327099003|261009220027099003|261009223027099003|261028144727099003;
-X-Microsoft-Antispam-Message-Info: DxqMfI2aJMr/J64MsMYtqq4WF9PJ0WFMfk00OyqWWJGpUcKNkJ9IoSXUarPwQg19seFPcufiQaLwvinm9YCC8FZ0JWEFuuWZeD5OtZwRBSBwgl1GNxdzJW/nE+xcZL+eziqDlbB6bLHXXrcAFwJ7dUNGXrpen+6fBAqJI29ZW+dKGAWuTjReWklNinkOVUjvpRi71UZOkgky7llfI+hFj2RTJUf2z9GOE1vjssmhd7VPGpC5RhS1S54FWElNrGScnzcDRK1Ik7xnyNLVAiAWiKXvis/CXKD5/zDvn2vTGrGjycYgn2l54a20fX+YcNQV77Db/gmFxbZQbkSTv/X9HhmTZ1iYz+vqyoXvUtefHKtaRFkzgmTZcDV8NLOk71A5AdavqXUfUe6lgO21KxMxp40Lx08qzqpiO6uHzRazNkRDH/qvmCBq9hIDEyCQYnykUfZpmijKNNyFLw5eDbaMLe4s1UC9n5nP7m7Li8E73dBEwbM7iRmd1ZAKxiBCjj92tW5Ec6Bt0kaBEzRaiTTgWMexRQntwS8SA2xHxjE/GOf27stDsy3+0uivZPledCg+1U3On+/SZ/NsI95G/o2Mgpg2hiK4Zh5W1+92a0iM+UIS1Z9ZAf0oM2usKjbuGucboAMnKnAi3LY7uL9HrXae1o7kOUChL4kAnuJEB7z1Y5Y=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR11MB7187.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(7416014)(22082099003)(18002099003)(6133799003)(10067099003)(56012099006)(11063799006)(261102123227099003)(261026140227099003)(261022075727099003)(261022105027099003)(261021121427099003)(261021123027099003)(261026121527099003)(261009221227099003)(261009221727099003)(261009223327099003)(261009220027099003)(261009223027099003)(261028144727099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?Ndaxp6aBohmRRZZsrAdvfazQn9YGFLuENTK6SPk4HSR7OX8E3f4vZCP0Xy7t?=
- =?us-ascii?Q?v4gTZSJVULeZqQtSjsnHbZXXQxa1jYoIlNoGb/jo7vbEhmYWWlbKIt00GjpV?=
- =?us-ascii?Q?19CHvOX5eayBhun7aBREMxyC8qndgrj/tinb/PPxAlbHuab2eR3SygbusnUp?=
- =?us-ascii?Q?Y6tw9/ieZMAYeppwij8X54Bzli0S5gc2urCNmDUS03sCBylK6PN14c1ARbZh?=
- =?us-ascii?Q?9uZJC9ZcofODdxlpVXfG5Z5mb28z25eRhj+/BJm7skxgSeuFhlHdGXyNiyeP?=
- =?us-ascii?Q?qgSUcWVn5xS+M7FSy4HgbFBOiP/tuZNsxqDdFR3Nb9Kfm9Ho/rXJt5880cUZ?=
- =?us-ascii?Q?oZ8nrilfJeec0AHcSxHcVwINbbSxUZaW0DVtQVPGcq3MWpErSouCaC0Y8Oqs?=
- =?us-ascii?Q?fpbWqsolV0S1MLjaZbDVvbYAX+VKMgHk4TY3nb6ypX7TKTCtu0SuUT3hQZB0?=
- =?us-ascii?Q?AEDyZQILhmbT2U+3V+cd8Up/QfaTNyyZuzNmTjDgxDu2PMKM1V3/ubp/DVti?=
- =?us-ascii?Q?BM3JVqTn+q5VdQ5G2WlD7SeunzebTMtS2FLtSdDNX4TeEYSPEEoz8mPFpnXm?=
- =?us-ascii?Q?9cg4aums5QBGtxJ3MBIaSm3x+uiudiibEPZuy8ivtwfNiijQcrQqo0Ii3aqi?=
- =?us-ascii?Q?oRAX0CXSJfQJNEDtvNW7I0+TC/53n+angHIxIM8wqc/8onMCYSS5N6y1qKjo?=
- =?us-ascii?Q?iLvhH+qHJZfb+FRgUlhkzjOqnNJS7icTnBIqKpUc2z1Mjf3iwoeGrpq0oXT3?=
- =?us-ascii?Q?z45tfY9bi58SgTK8uQVTO1rHdkPFNWpXZT2BqzrS7Rd+WX3qg5TaA7uJMQZi?=
- =?us-ascii?Q?AxgTMrf8qf9jnMBNc/xAkzCIq9vkA3LON+6soAyrpvMiHck1NJAYHlk6vXad?=
- =?us-ascii?Q?6dDawMX7dV+ZuRwmDbXa5b1W+Ov6JnUf8IC+0jTaCcVsh3IPa4vgwwon5RPk?=
- =?us-ascii?Q?SEPryri6VFrPcel8QBJ3TyBtCD8bUZY4BSA6hQJw6XP1XQpEikJiUHouGZ0o?=
- =?us-ascii?Q?ckmVFfKln6ws/AESJDxD2oJ7IGa9biNqa4JftRqkWyQqw8l/rF6DDbVzZdjb?=
- =?us-ascii?Q?gVNtnunnKxW5GmN234llzCabUQ557psJo9Qmg/L3Q9G0m3TilDdvgMqcah6a?=
- =?us-ascii?Q?vkG9QRPO23LttU5/JgwxDYSrC5czJgBoVr9/VpnlmX86AayDQZZdtbB+sHAz?=
- =?us-ascii?Q?sVnZoIljDOZBxfu9MelTvRUl94BztciaIbPGzvTQ/xIqpfX3hka57Ujklu3K?=
- =?us-ascii?Q?vHVj1SackWByWU4/DgoCL6/HUxci58rVELpqKHCF38B6rk9ZBSkTWxKpdPIQ?=
- =?us-ascii?Q?GN8GMGFOpEeRbs/anvHvNPhjSQCc8vdHkfYiyXL4yG0M8517/azYTAfIdQwr?=
- =?us-ascii?Q?GEJZ/FB7PbVNhH+3UAPbuc8X0ZpfiAptCMjhBNdyfdhIKDKa9iuFWIHHfm6A?=
- =?us-ascii?Q?RVAooeAKRJyj4ON3Txx9mZdQyuIV5FjIDOsNzRzqjJekXK8e5jn52mlSPLxQ?=
- =?us-ascii?Q?soACBkDLmXfIicZwqeS/V5fMyU7RpA46pldYrzMhx9SLjScPmYJdqjIcTrT7?=
- =?us-ascii?Q?ra3uru+SxhbCCORAxw0SPo1y/iG9SS5d4J5IzgLEKWKqQaOfmspIWR6wGh/W?=
- =?us-ascii?Q?8HOSJpBkz81yDZ+wJgwoNGSHOaPaKDbkmvpiKJxPi7T70gSSM9TismBgdeYA?=
- =?us-ascii?Q?2Iqu2t9/keSGG3DVpigA4+WnbhIwMQo3K1M/ApXpfUyaJTIf8FnCVDJ1YWqa?=
- =?us-ascii?Q?OUa1xNJngg=3D=3D?=
-X-Exchange-RoutingPolicyChecked: hJGEc0wgvlQeuhsVq3Rts4nmkwdQViikIAySyWMkGGTWEsAtLuALqAtkIT62iUESV3MjSSdFpq2rAWZ6h27kfYSB7BdFABg3Tszxi7NjMfUCu8WPSVt7/HvLaLnCsDESfoCnCVWA85QEHWFKVPeT1MsWwnvl3H1SY0C4kw3d+M9/5MR2Rye57fz9dQS/YWeiohRUohWE/XpRmEcd+Juui7YNfIa5DwBCUFGtw1H5tCYDpPhuVErPTofooMX1rBKGkcM+5ogWuuTPg3BAv6iW2W+lWJtU1AI7bPx6aYz5oqtjhv1czQ2UHsikg+ZsG8m69+jnW1Ihw8bJO0MKEJ+uug==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8fcb72a2-bfde-46eb-30aa-08df4026401e
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR11MB7187.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 19:01:54.2574
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 1HhdHtXzTt934Y+S/FIvdhP8Gj7EF7INGZSZHIYXBKAx+rikex3G5A3qiXZkkaxdTCK2jR3FEUZM1W/II7P2Sg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSWPR11MB9845
-X-OriginatorOrg: intel.com
+Content-Transfer-Encoding: 8bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-On Mon, Oct 26, 2026 at 11:25:50AM +0100, Arnd Bergmann wrote:
-> From: Arnd Bergmann <arnd@arndb.de>
-> 
-> The original addition of configfs to xe missed a compile-time dependency,
-> which leads to a link failure when configfs is enabled as a loadable module:
-> 
-> ld.lld-21: error: undefined symbol: xe_configfs_get_survivability_mode
-> >>> referenced by xe_survivability_mode.c:224
-> >>>               drivers/gpu/drm/xe/xe_survivability_mode.o:(xe_survivability_mode_is_requested) in archive vmlinux.a
-> 
-> A recent workaround added a 'IS_REACHABLE()' check around the calls into
-> configfs, which makes it link in this configuration, but this is generally
-> a bad idea because it makes the actual behavior inconsistent and confusing
-> to users that expect configfs to work if both xe and configfs are enabled.
-> 
-> Use 'select CONFIGFS_FS' instead, like every other configfs user does,
-> and remove the unnecessary stub functions. There is little practical
-> difference here as anyone using XE graphics is likely to have a complex
-> configuration that already selects configfs anyway, and the link error
-> or the IS_REACHABLE() would only manifest during randconfig testing.
-> 
-> Fixes: 30499cbd7961 ("drm/xe: Fix build with DRM_XE=y and CONFIGFS_FS=m")
-> Fixes: 16280ded45fb ("drm/xe: Add configfs to enable survivability mode")
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-> ---
->  drivers/gpu/drm/xe/Kconfig       |  1 +
->  drivers/gpu/drm/xe/xe_configfs.h | 30 ------------------------------
->  2 files changed, 1 insertion(+), 30 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/xe/Kconfig b/drivers/gpu/drm/xe/Kconfig
-> index 4fc8abdc5cb6..b52a8dc28f97 100644
-> --- a/drivers/gpu/drm/xe/Kconfig
-> +++ b/drivers/gpu/drm/xe/Kconfig
-> @@ -11,6 +11,7 @@ config DRM_XE
->  	# the shmem_readpage() which depends upon tmpfs
->  	select SHMEM
->  	select TMPFS
-> +	select CONFIGFS_FS
+netdev_err() and netdev_warn() print "(unnamed net_device)
+(uninitialized)" instead of the interface name while the netdev has not
+been registered yet. Later patches in this series run NQ0 init before
+register_netdev() in probe, so messages from the HWRM ring alloc/free
+paths and from NQ0's async event handling would be logged that way.
 
-Perhaps another option would be what Jani had suggested:
+Add bnge_err(), bnge_warn() and bnge_dbg(), which take a struct bnge_dev
+and log through the netdev once it has been registered, including while
+it is being unregistered and after, where it keeps its name. Before
+that, fall back to dev_err()/dev_warn()/dev_dbg() on the PCI device.
 
-config DRM_XE_CONFIGFS
-	def_bool y
-	depends on DRM_XE && CONFIGFS_FS
-	depends on CONFIGFS_FS=y || DRM_XE=m
+Convert the HWRM ring alloc/free error messages, the IRQ affinity hint
+warning and the async event debug message, which are reachable from
+those paths. No other message is changed.
 
-But anyway, we are depending more and more on the configfs for
-production choices. So, let's go with you select and close this
-for good.
+No functional change, apart from the log prefix of these messages
+before register_netdev().
 
-I'm pushing this to drm-xe-next.
+Signed-off-by: Bhargava Marreddy <bhargava.marreddy@broadcom.com>
+Reviewed-by: Dharmender Garg <dharmender.garg@broadcom.com>
+Reviewed-by: Kumar Mudide <kumar.mudide@broadcom.com>
+Reviewed-by: Ramakrishna Koduri <ramakrishna.koduri@broadcom.com>
+---
+ drivers/net/ethernet/broadcom/bnge/bnge.h      | 18 ++++++++++++++++++
+ .../net/ethernet/broadcom/bnge/bnge_hwrm_lib.c |  8 +++++---
+ .../net/ethernet/broadcom/bnge/bnge_netdev.c   |  5 ++---
+ drivers/net/ethernet/broadcom/bnge/bnge_txrx.c |  4 ++--
+ 4 files changed, 27 insertions(+), 8 deletions(-)
 
-Thanks for the patch.
+diff --git a/drivers/net/ethernet/broadcom/bnge/bnge.h b/drivers/net/ethernet/broadcom/bnge/bnge.h
+index 4479ccd071f5..e76ba4e063bb 100644
+--- a/drivers/net/ethernet/broadcom/bnge/bnge.h
++++ b/drivers/net/ethernet/broadcom/bnge/bnge.h
+@@ -220,6 +220,24 @@ struct bnge_dev {
+ 	u32			phy_flags;
+ };
+ 
++/* The netdev has no name until register_netdev(), so log through the PCI
++ * device before that (e.g. during probe).
++ */
++#define bnge_log(level, bd, fmt, ...)					\
++	do {								\
++		struct bnge_dev *__bd = (bd);				\
++									\
++		if (__bd->netdev &&					\
++		    READ_ONCE(__bd->netdev->reg_state) != NETREG_UNINITIALIZED)\
++			netdev_##level(__bd->netdev, fmt, ##__VA_ARGS__);\
++		else							\
++			dev_##level(__bd->dev, fmt, ##__VA_ARGS__);	\
++	} while (0)
++
++#define bnge_err(bd, fmt, ...)	bnge_log(err, bd, fmt, ##__VA_ARGS__)
++#define bnge_warn(bd, fmt, ...)	bnge_log(warn, bd, fmt, ##__VA_ARGS__)
++#define bnge_dbg(bd, fmt, ...)	bnge_log(dbg, bd, fmt, ##__VA_ARGS__)
++
+ static inline bool bnge_is_roce_en(struct bnge_dev *bd)
+ {
+ 	return bd->flags & BNGE_EN_ROCE;
+diff --git a/drivers/net/ethernet/broadcom/bnge/bnge_hwrm_lib.c b/drivers/net/ethernet/broadcom/bnge/bnge_hwrm_lib.c
+index 651c5e783516..fb960bff85fa 100644
+--- a/drivers/net/ethernet/broadcom/bnge/bnge_hwrm_lib.c
++++ b/drivers/net/ethernet/broadcom/bnge/bnge_hwrm_lib.c
+@@ -1302,7 +1302,8 @@ int hwrm_ring_free_send_msg(struct bnge_net *bn,
+ 	bnge_hwrm_req_drop(bd, req);
+ exit:
+ 	if (rc) {
+-		netdev_err(bd->netdev, "hwrm_ring_free type %d failed. rc:%d\n", ring_type, rc);
++		bnge_err(bd, "hwrm_ring_free type %d failed. rc:%d\n",
++			 ring_type, rc);
+ 		return -EIO;
+ 	}
+ 	return 0;
+@@ -1395,7 +1396,7 @@ int hwrm_ring_alloc_send_msg(struct bnge_net *bn,
+ 		req->int_mode = RING_ALLOC_REQ_INT_MODE_MSIX;
+ 		break;
+ 	default:
+-		netdev_err(bn->netdev, "hwrm alloc invalid ring type %d\n", ring_type);
++		bnge_err(bd, "hwrm alloc invalid ring type %d\n", ring_type);
+ 		return -EINVAL;
+ 	}
+ 
+@@ -1406,7 +1407,8 @@ int hwrm_ring_alloc_send_msg(struct bnge_net *bn,
+ 
+ exit:
+ 	if (rc) {
+-		netdev_err(bd->netdev, "hwrm_ring_alloc type %d failed. rc:%d\n", ring_type, rc);
++		bnge_err(bd, "hwrm_ring_alloc type %d failed. rc:%d\n",
++			 ring_type, rc);
+ 		return -EIO;
+ 	}
+ 	ring->fw_ring_id = ring_id;
+diff --git a/drivers/net/ethernet/broadcom/bnge/bnge_netdev.c b/drivers/net/ethernet/broadcom/bnge/bnge_netdev.c
+index 04f5aa75f70e..d95c3c1469da 100644
+--- a/drivers/net/ethernet/broadcom/bnge/bnge_netdev.c
++++ b/drivers/net/ethernet/broadcom/bnge/bnge_netdev.c
+@@ -2702,9 +2702,8 @@ static int bnge_nq_request_irq(struct bnge_net *bn, struct bnge_napi *bnapi)
+ 		cpumask_set_cpu(cpumask_local_spread(bnapi->index, numa_node),
+ 				irq->cpu_mask);
+ 		if (irq_set_affinity_hint(irq->vector, irq->cpu_mask))
+-			netdev_warn(bn->netdev,
+-				    "Set affinity failed, IRQ = %d\n",
+-				    irq->vector);
++			bnge_warn(bd, "Set affinity failed, IRQ = %d\n",
++				  irq->vector);
+ 	}
+ 	return 0;
+ }
+diff --git a/drivers/net/ethernet/broadcom/bnge/bnge_txrx.c b/drivers/net/ethernet/broadcom/bnge/bnge_txrx.c
+index 472b02cc43b3..2f382514c6ea 100644
+--- a/drivers/net/ethernet/broadcom/bnge/bnge_txrx.c
++++ b/drivers/net/ethernet/broadcom/bnge/bnge_txrx.c
+@@ -1135,8 +1135,8 @@ static void bnge_async_event_process(struct bnge_net *bn,
+ 	u32 data1 = le32_to_cpu(cmpl->event_data1);
+ 	u32 data2 = le32_to_cpu(cmpl->event_data2);
+ 
+-	netdev_dbg(bn->netdev, "hwrm event 0x%x {0x%x, 0x%x}\n",
+-		   event_id, data1, data2);
++	bnge_dbg(bn->bd, "hwrm event 0x%x {0x%x, 0x%x}\n",
++		 event_id, data1, data2);
+ 
+ 	switch (event_id) {
+ 	case ASYNC_EVENT_CMPL_EVENT_ID_LINK_SPEED_CFG_CHANGE:
+-- 
+2.47.3
 
-
->  	select DRM_BUDDY
->  	select DRM_CLIENT_SELECTION
->  	select DRM_KMS_HELPER
-> diff --git a/drivers/gpu/drm/xe/xe_configfs.h b/drivers/gpu/drm/xe/xe_configfs.h
-> index 327b648944ff..d726800de26a 100644
-> --- a/drivers/gpu/drm/xe/xe_configfs.h
-> +++ b/drivers/gpu/drm/xe/xe_configfs.h
-> @@ -14,7 +14,6 @@
->  
->  struct pci_dev;
->  
-> -#if IS_REACHABLE(CONFIG_CONFIGFS_FS)
->  int xe_configfs_init(void);
->  void xe_configfs_exit(void);
->  void xe_configfs_check_device(struct pci_dev *pdev);
-> @@ -36,34 +35,5 @@ u32 xe_configfs_get_ctx_restore_post_bb(struct pci_dev *pdev,
->  unsigned int xe_configfs_get_max_vfs(struct pci_dev *pdev);
->  bool xe_configfs_admin_only_pf(struct pci_dev *pdev);
->  #endif
-> -#else
-> -static inline int xe_configfs_init(void) { return 0; }
-> -static inline void xe_configfs_exit(void) { }
-> -static inline void xe_configfs_check_device(struct pci_dev *pdev) { }
-> -static inline bool xe_configfs_get_survivability_mode(struct pci_dev *pdev) { return false; }
-> -static inline bool xe_configfs_primary_gt_allowed(struct pci_dev *pdev) { return true; }
-> -static inline bool xe_configfs_media_gt_allowed(struct pci_dev *pdev) { return true; }
-> -static inline u64 xe_configfs_get_engines_allowed(struct pci_dev *pdev) { return U64_MAX; }
-> -static inline bool xe_configfs_get_psmi_enabled(struct pci_dev *pdev) { return false; }
-> -static inline bool xe_configfs_get_enable_multi_queue(struct pci_dev *pdev) { return true; }
-> -static inline u32 xe_configfs_get_migrate_ulls_period_ms(struct pci_dev *pdev) { return 5; }
-> -static inline bool xe_configfs_get_disable_vram_page_offline(struct pci_dev *pdev) { return false; }
-> -static inline u32 xe_configfs_get_ctx_restore_mid_bb(struct pci_dev *pdev,
-> -						     enum xe_engine_class class,
-> -						     const u32 **cs) { return 0; }
-> -static inline u32 xe_configfs_get_ctx_restore_post_bb(struct pci_dev *pdev,
-> -						      enum xe_engine_class class,
-> -						      const u32 **cs) { return 0; }
-> -#ifdef CONFIG_PCI_IOV
-> -static inline unsigned int xe_configfs_get_max_vfs(struct pci_dev *pdev)
-> -{
-> -	return xe_modparam.max_vfs;
-> -}
-> -static inline bool xe_configfs_admin_only_pf(struct pci_dev *pdev)
-> -{
-> -	return XE_DEFAULT_ADMIN_ONLY_PF;
-> -}
-> -#endif
-> -#endif
->  
->  #endif
-> -- 
-> 2.53.0
-> 
