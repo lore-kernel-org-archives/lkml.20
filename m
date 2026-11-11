@@ -1,72 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794390418;
-	b=Nhg17AHd9HIsgif4fVjmYtD/xKXR+uvPcs3IYUG3gJChisY2yxpIKMyBa6l0T1/NbsSq
-	 EYYJGywpl7EdxgBl8jYPljIws1lM368Pqk9GPcDVGGI67G44dCXiSZFGmgdVgWoShTCRP
-	 wIrtM6S0f/VLX+QQSIXgFVzoyeoglxgdJRyjtGFjGoZ1SG+Hrr9gjHPlRDNzktmrCt95J
-	 8bBRmZYy2HeXjR+QxNau+0VzK9STPFreHMv90uwyI7klW1CopIxlfUPgEViqIxj1EhRnH
-	 U94oxaU/dZIdfz4QWzSSg1O69Wt6cexCjRZFKveTyhZKPD+rxl+g/HPH8za6UmRWJqw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794390418;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Debian-User;
-	bh=g4FJ8o8UQUtyD0eGI0sUCpicqPvdI4Vdc4LMM0bmn0w=;
-	b=Hswx4nOcAxEn2mYXM+ZJr7H/uWd6tZV0QzCT4hYr1fl+14rNU9s+/ViqQ9z1Ugna1oRS
-	 BFkTk1j+MqQiagMQvynOawuKEKyONjBiV18uaMTwiPLVAq7qzB8keqRfSSA42kc6ODfXz
-	 i1+GfJfXQwnp8403YtvM1/TYnjXvY21mSx2W/lDKVBjpVKjMcIfgQdOpTRQe1RmRd7ZaQ
-	 bXcnFeiSpsBlotq3RK0uh3T+hRiWbt4uovHA8I7iYaz1An7qvtsK2GXwM4oWNwVjWkjHF
-	 06u2vbn8KvnfDrbtUbRfIimbv4xggVXvUlwGDZG1XSbiMUrd1DLUsP0sDl3FiaimEdg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=debian.org;
-	spf=pass smtp.mailfrom=debian.org;
-	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=cmZW0raJ;
-	arc=none smtp.remote-ip=82.195.75.108
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794390426;
+	b=czX/TzCVlJ1Tq4SocDiPUb8QhZ/FwZBuhcIbv37nhuNordzoY08usq6HUcxAmd03MZKY
+	 1Z7/5KJyobbEF/OPYQiF5V/EhKxIp9791NrkRemk4pfVxkiUNPLbOmz9GqXxIXk/dh5qV
+	 WxIW/T+wZVyGUFWM2x4WX9SJpfVKTvyzS+Q4XhbvfGD4qvW6s9u7yCwJhyKS+XJC8OhnT
+	 k1W+g3sin2+t1n4j1eWcOO+z22778JgHQZUcGhHS3rXOKQA2NtQvWvAcjxcXKcPt7ivaO
+	 +QHIA0EdeUuVOJlXfEKPcc9t5rD+64ZB2NmjUJGvPMipr5HF3s2Wed9/pOoX/uw3QXg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794390426;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ZohoMailClient;
+	bh=dDFMBYQOa4uJE7PzeKyrrGP8ivAyLwocI64qk9V7SoQ=;
+	b=mo8jK8nvmSm6vqtqrAb9mC037W3fj89GOdnTZBbP1nflEWZzcOoZL2URBb7SOpuwjwzg
+	 hBt/NABiIeEBFAq9EhIE/6VnlM4OdkETa+STu3qkSFRFeAIXIoKQmQdLy+NclKXBQj0Ht
+	 +/r3M+4pFP9wpT5w+zaHA60d0GriHzxYr0abnwAcaCN2HFLWvdCCXDDqJ/3gKsfXT5Riy
+	 W502l5kex46bxKJ3lruoHg58fAkcquVkIkZt6qf032+SCnydOwarpbr0Vkb9y+HRxkCKh
+	 IXZvlgnAD75cDU1WbilroswnrT4mOnKlVFl/Igf79wJ5JYM7BWpJUTh7fhGlQ+AsXGg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=JXBRqsR8;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A60BA606A332;
-	Wed, 11 Nov 2026 09:46:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A60BA606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9584606A336;
+	Wed, 11 Nov 2026 09:47:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9584606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=cmZW0raJ
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=g4FJ8o8UQUtyD0eGI0sUCpicqPvdI4Vdc4LMM0bmn0w=; b=cmZW0raJpZImC504fK0B0kMd2h
-	XJQXfLj15TrbtRxuoXIll7+dYj88ZVAl2AayT9vhDBlAQ57+Eho/cFEk5It94wIbKS4EH4G+cdutI
-	0K9jgabrgunrLX95HA3KOWeYRz+hLh5iGe5EyD3w5xx8w9MzCtlstOcNUcfrAtIPd3RxiWEjnELaD
-	hbo41pU2e/eygmvhOngKp7971UVKKEY71/mIvuWf0WfaOur34IyUdpGFowB9/oVJFRm81ZxsZDxLw
-	5M54Kif6OKPedXxyOCO9YpK4/4uqCIxZE2p81NHj3kV9mf9cnMGZSmbBCsLntHmPvgWT1OTOymjci
-	CwvzesXA==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1xR4up-00D5nW-2D;
-	Wed, 11 Nov 2026 09:46:51 +0000
-Date: Wed, 11 Nov 2026 01:46:43 -0800
-From: Breno Leitao <leitao@debian.org>
-To: Christian Brauner <brauner@kernel.org>
-Cc: linux-fsdevel@vger.kernel.org, Jann Horn <jannh@google.com>, 
-	Chris Mason <mason@kernel.org>, Josef Bacik <josef@toxicpanda.com>, 
-	Christoph Hellwig <hch@lst.de>, linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-nvme@lists.infradead.org, Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Jan Kara <jack@suse.cz>, linux-scsi@vger.kernel.org, target-devel@vger.kernel.org, 
-	driver-core@lists.linux.dev, linux-mm@kvack.org, bpf@vger.kernel.org, 
-	linux-security-module@vger.kernel.org, selinux@vger.kernel.org, apparmor@lists.ubuntu.com, 
-	linux-nfs@vger.kernel.org, netdev@vger.kernel.org, fuse-devel@lists.linux.dev, 
-	linux-efi@vger.kernel.org, xen-devel@lists.xenproject.org, ocfs2-devel@lists.linux.dev, 
-	linux-s390@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, linux-usb@vger.kernel.org, 
-	Amir Goldstein <amir73il@gmail.com>, linux-erofs@lists.ozlabs.org, linux-kselftest@vger.kernel.org
-Subject: Re: [PATCH RFC 16/41] configfs: use fc_init_pseudo()
-Message-ID: <avQ5dv0747H-XKmD@gmail.com>
-References: <20261110-work-loop-pseudo-v1-0-4c998976c6c7@kernel.org>
- <20261110-work-loop-pseudo-v1-16-4c998976c6c7@kernel.org>
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=JXBRqsR8
+ARC-Seal: i=1; a=rsa-sha256; t=1794390409; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=Zova7S+4VoUlY0Zd9ItVIFVeGKZs4+fz6hdRSIiIM+PM8qgLpQll0rFvUH45cx24OIhaJkkJZ9Esoxm/3I9xIcLW+oxtjnM7AbV/3jDtcJyZo2HJxpGKJoGEuvl80DYktsZ+dhrBK7dhmawDFx2dPrsByrO2fuEbrjsinKd12io=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1794390409; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=dDFMBYQOa4uJE7PzeKyrrGP8ivAyLwocI64qk9V7SoQ=; 
+	b=e4/2iRZ6OnHxulopSPGTWhuj64Le5Ki3NdOgMAB8ipfQQfOPZdAJsBLrUlZRe1UWkZuZEfJp2z7NoKbR4ibFD9SLbxneTBiZvMM7XW5FByX9NKdh/MfSLtWVkB5hr3kiiSb3EO03gd6XgosjjYG/anTBzemIqAwM6ntOkrmWrHE=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=michael.riesch@collabora.com;
+	dmarc=pass header.from=<michael.riesch@collabora.com>
+DKIM-Signature: a=rsa-sha256; b=JXBRqsR8ousycN+AeIqhe6tHpIhFzn0QMfond1bqheK7uEsFspseCpTB34+RHZMrY1LwF8HXocIlmaBxGy8GdtSvscUYaRCMUrQbuG9xCiBn9DYwnFOu2borWiFcyWKhByEyfLepxBDOPvVIZRkMPOisTjgQOYmbFPkD+BFI494=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=dDFMBYQOa4uJE7PzeKyrrGP8ivAyLwocI64qk9V7SoQ=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 17943904075303.476694908820832;
+	Wed, 11 Nov 2026 01:46:47 -0800 (PST)
+Message-ID: <51b09428-9d10-4f36-a811-a681e479e45e@collabora.com>
+Date: Wed, 11 Nov 2026 10:46:43 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,16 +58,114 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261110-work-loop-pseudo-v1-16-4c998976c6c7@kernel.org>
-X-Debian-User: leitao
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] media: rockchip: rkcif: Honour the requested
+ bytesperline on MIPI
+To: Faizel K B <faizel.kb@gmail.com>,
+ Mehdi Djait <mehdi.djait@linux.intel.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Heiko Stuebner <heiko@sntech.de>, linux-media@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, libcamera-devel@lists.libcamera.org,
+ Robert Mader <robert.mader@collabora.com>
+References: <20261105232310.385463-1-faizel.kb@gmail.com>
+ <20261105232310.385463-3-faizel.kb@gmail.com>
+Content-Language: en-US
+From: Michael Riesch <michael.riesch@collabora.com>
+In-Reply-To: <20261105232310.385463-3-faizel.kb@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 
-On Tue, Nov 10, 2026 at 10:14:32AM +0100, Christian Brauner wrote:
-> Initialize configfs as a pseudo filesystem. This raises SB_I_PSEUDO and
-> also SB_I_NOEXEC and SB_I_NODEV. configfs never holds executables or
-> device nodes.
+Hi there,
+
+Thanks for the patch!
+
+On 11/6/26 00:23, Faizel K B wrote:
+> The MIPI DMA uses bytesperline as the line stride, which must be a
+> multiple of 8 bytes, but v4l2_fill_pixfmt_mp() doesn't align it.
+
+Come to think of it, TRM p. 2111 says for e.g. VICAP_MIPI0_VLW_ID0:
+"Virtual line width of even frame for ID0 path(must be aligned to double
+word)." which I would interpret as "it must be a multiple of four
+bytes". What do you think?
+
+> Any larger bytesperline requested by userspace is also replaced with
+> the minimum.
 > 
-> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+> Align bytesperline to 8 bytes and honour a larger requested value, up
+> to the limit of the line width register. This allows DMA-BUF importers
+> that need a larger stride alignment to use the buffers directly.
+> 
+> Signed-off-by: Faizel K B <faizel.kb@gmail.com>
+> ---
+>  .../platform/rockchip/rkcif/rkcif-stream.c    | 22 ++++++++++++++++++-
+>  1 file changed, 21 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/media/platform/rockchip/rkcif/rkcif-stream.c b/drivers/media/platform/rockchip/rkcif/rkcif-stream.c
+> index f2a24832a8cf..e50f20e40f7a 100644
+> --- a/drivers/media/platform/rockchip/rkcif/rkcif-stream.c
+> +++ b/drivers/media/platform/rockchip/rkcif/rkcif-stream.c
+> @@ -23,6 +23,7 @@
+>  #define CIF_MIN_HEIGHT	 64
+>  #define CIF_MAX_WIDTH	 8192
+>  #define CIF_MAX_HEIGHT	 8192
+> +#define CIF_MAX_BYTESPERLINE 0xffff8 /* VLW: 20 bits, 8-byte aligned */
+>  
+>  static inline struct rkcif_buffer *to_rkcif_buffer(struct vb2_v4l2_buffer *vb)
+>  {
+> @@ -334,20 +335,39 @@ static const struct vb2_ops rkcif_stream_vb2_ops = {
+>  	.stop_streaming = rkcif_stream_stop_streaming,
+>  };
+>  
+> +static void rkcif_stream_set_bytesperline(struct v4l2_pix_format_mplane *pix,
+> +					  u32 req_bpl)
+> +{
+> +	u32 min_bpl = ALIGN(pix->plane_fmt[0].bytesperline, 8);
 
-Acked-by: Breno Leitao <leitao@debian.org>
+Please add support for the bytesperline field in all the plane_fmt
+entries here...
+
+> +	u32 max_bpl = min_t(u32, CIF_MAX_BYTESPERLINE,
+> +			    ALIGN_DOWN(U32_MAX / pix->height, 8));
+> +	u32 bpl = min_bpl;
+> +
+> +	if (req_bpl > min_bpl && req_bpl <= max_bpl)
+> +		bpl = ALIGN(req_bpl, 8);
+> +
+> +	pix->plane_fmt[0].bytesperline = bpl;
+> +	pix->plane_fmt[0].sizeimage = bpl * pix->height;
+> +}
+> +
+>  static int rkcif_stream_fill_format(struct rkcif_stream *stream,
+>  				    struct v4l2_pix_format_mplane *pix)
+>  {
+>  	const struct rkcif_output_fmt *fmt;
+> -	u32 height, width;
+> +	u32 height, width, req_bpl;
+>  	int ret;
+>  
+>  	fmt = rkcif_stream_find_output_fmt(stream, true, pix->pixelformat);
+>  	height = clamp_t(u32, pix->height, CIF_MIN_HEIGHT, CIF_MAX_HEIGHT);
+>  	width = clamp_t(u32, pix->width, CIF_MIN_WIDTH, CIF_MAX_WIDTH);
+> +	req_bpl = pix->plane_fmt[0].bytesperline;
+
+... and here.
+
+>  	ret = v4l2_fill_pixfmt_mp(pix, fmt->fourcc, width, height);
+>  	if (ret)
+>  		return ret;
+>  
+> +	if (stream->interface->type == RKCIF_IF_MIPI)
+> +		rkcif_stream_set_bytesperline(pix, req_bpl);
+
+Why is this restricted to the MIPI interfaces?
+
+Best regards,
+Michael
+
+> +
+>  	pix->field = V4L2_FIELD_NONE;
+>  
+>  	return 0;
+
