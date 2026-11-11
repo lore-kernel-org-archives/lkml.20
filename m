@@ -1,54 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794390979;
-	b=2gdgFI1seudaFtutDLcsyV2V7N3bGIvBQnPR6CKpZ5GUg83bwEPYdehJKKTzulFws99q
-	 WX4GEg3CjoB/tmJs3Uxmpj+wkptFA8nmVQQ51hwG8fFqQ4RfHl0uFRpxmUzPIHA009Mrs
-	 nFmAPlN2S1OGwGCtA9Fv6OjmHdZXfaLfYj0tcLx4TjBJm4xTsAjwih+Ho08wTok6HDn0d
-	 wQLCd+HkH2/+SWawQjV6hR9Tj4XIHtzxMJcCTNecdOTBA2IJqkx4YxaxtdOEsUut7VeER
-	 JX1ePd4Uh2TeClSnoLRXPuSGJovKtj8fKyFDOH9GAE9Ry/5ZsP3m+Hcu955IcvHNE3w==
+	t=1794391016;
+	b=uVLUvEdOhpB/Wp0ao/y3uftuKZJTxk6luljTrlPzW4Xif+hS6JckWOEUCP8leuxvxCPT
+	 9+RY/cfhO7jgM/GA2bhdiRyqckr5AaYkjoHmQLwUkNH7L/bM4xBFnrLHRw2OulJ6EILFn
+	 yG2ihruEYLg4k0JfAlihaXfwqbcAGAvi+h6VGHcWTp+3oV+GByg+DGsFD80sp0Lvq1QVz
+	 4wrKySBs1mlE+fzlVNm0+ExuqSHUfHZUh50ZOjhuj2K41S9tuwJM/ZaOf/Tlnf4yDfj13
+	 Bhs/xljeSMrSJKbZAbou2kYHHJTso1P2a1S5Hu/0UPQvXXGxEZ/4FczCgplMRSwJTVQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794390979;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ZohoMailClient;
-	bh=LJaA6HtGKmrxTdDdOmAvwarGqI59rOjtDYGgfbVCI0c=;
-	b=Wu3YzJM5pna4tNbnMkCQ5CJ16hpECDXjBuvZai5DOQWVGRmkx1dtVZIetuJTla799ezD
-	 5+3jDZkogJTyxLw2Ufh+D1VIDw27QEN03oITnuRY1SVpN65CNgWMZLcIj4OqyubDEWG2q
-	 5m9MjvkyhkQUIkY15NxI0GeRCVmIFlpvI5Duv2v40LGXt8y2WfkCzuoxvSeRQTWL6Tfso
-	 2rTtjbczll05TmTfu7f2qXAjCuofHn5+DRQ6VUlHXwbmScEr27imJzl5QFmZIPmDGlOVQ
-	 yJLwtMy9KtBTVaJ+0SdibFgVvrCwDoFzLd15FJcO+UCeyElfmwVUxKp9197oKm2Xnmw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794391016;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version;
+	bh=6yHenUJhGZAe3PKizh9M58G+KHfnu4we1gIlsuIpIDI=;
+	b=HoReiYKqrvfuiiJNi3DG6Lvzkz18ZamsKqKlWEdxYo7433mJrecwQ44TSByh0eBlAooY
+	 c4Ac3wXHO1buIjs0rAtXTt3wwWJVaVGi4toQqafsYodS/o5YQvLE8mq52B0oRfkrGRqu7
+	 fK4ruxm/zPDF13VXt46WAvYLKq7CYGJBX+myaRfGH6uxUh4eufDGi1wNRAOYnP+hOCYVL
+	 D4SRlcFqIiPqUL0Tf+EQyMC4wl0McSsYLudpYm3V18SYlLRY/NE/11XdAg4+IU+HkR2Ey
+	 DV86zJhx0S851haz6Qv+K1tD3vGmApuhbkSnDP2gexlKvheArYamTAc47t7gtAykHCA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=NPO9Siu5;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=WXvFk3F+;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0B7D606A335;
-	Wed, 11 Nov 2026 09:56:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B0B7D606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8CEF606A321;
+	Wed, 11 Nov 2026 09:56:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D8CEF606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=NPO9Siu5
-ARC-Seal: i=1; a=rsa-sha256; t=1794390959; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=af/0lRDissNzwJALOr/P1m/GFsSM74WEEz4Cm4KkV7VVzRmKU5VNWaGjvZfLocobjdKpGwRe4hBP66jYNTaZzyWNZOnpfCsMGuEqhu48dSBM+tL+UeyBNMeKtj+7gKLaWgI7BiPg6lnZCc51vi5zb2yP9JfCWMdcPCuRQ6qhZps=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1794390959; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=LJaA6HtGKmrxTdDdOmAvwarGqI59rOjtDYGgfbVCI0c=; 
-	b=SIrxzL+TMeUZeg9ZuVUj9Itep1BPqVpRmdyJ9IAtZmh/sW6IOqg/mfpuvf2278wrN4Tt748BrshkVn0U8WS14l3489aoOVQ2c6UVgM1A6wZ55o32r+VJbiCG1Xs1HZmCEtKqFRySGjTGPBbKUe7VLT8MBt2v/D7gMmrc0Qklf+M=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=michael.riesch@collabora.com;
-	dmarc=pass header.from=<michael.riesch@collabora.com>
-DKIM-Signature: a=rsa-sha256; b=NPO9Siu5VR34VfGZ6i7tUOjD1JcuFY6w1SejwYzSb81YgEAvz2dPhKUmWrpPmGb/BAv6lPJ6IXG+G36YhxgTvoJyyTn1yKMo5n49WQNZfMP2rHcXnOQeD8LlS6IbnGx0eHampwEZUbJz4qtbtdhLSjJeav5SEQAA6eBFGrWS2lQ=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=LJaA6HtGKmrxTdDdOmAvwarGqI59rOjtDYGgfbVCI0c=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 179439095914522.51825314890425;
-	Wed, 11 Nov 2026 01:55:59 -0800 (PST)
-Message-ID: <e76c2d98-b543-4a3e-bfa2-c0e6e27bfe4f@collabora.com>
-Date: Wed, 11 Nov 2026 10:55:55 +0100
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=WXvFk3F+
+Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
+	(Authenticated sender: pza@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 05B202006B6;
+	Wed, 11 Nov 2026 10:56:48 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794391008;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=6yHenUJhGZAe3PKizh9M58G+KHfnu4we1gIlsuIpIDI=;
+	b=WXvFk3F+61CU54Ym7trObxW9xYz/mbrKKuC2r8tnN5yObEoZn+GStCbJ3SxHmHfJlEqZH+
+	iEafUMV4dET7aYMWAhAZdy/v+ERrP2aoIO59PWV1ZmXCyvQYNLQPKlzNoWgB3O6KJpPdut
+	USk57Q3O+4o3E7s4k1WW0uYGgQPa/nNAFNtBEZt/LrBgxoDud7FYMjKhIuMLgsniyjWdrI
+	7u3hA0f6vGVmWGr8fxTB2BN0kBM0mhwijH8rmnwnLbb4CRK/vNrusJYIEN8s5JjZtbyDQC
+	4RhU5qixZszwEec8zqiOwNFeuJEz/WNQ0yhLFmhBY9IvoqBs24bNhFY/2ptu4g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794391008;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=6yHenUJhGZAe3PKizh9M58G+KHfnu4we1gIlsuIpIDI=;
+	b=QgnlPgyqEheFYwtRSP9gnS8v+A1gb91KJExubPo4sC1u2Q59fzAT6snSHH98reLplTAyXL
+	GnEqaTn3bKEc0Ja2NoH7gTytDShJs30YMd+Sym9ghxE5RQgUxHLuujQFqYm8dMwqYtfccX
+	lQN98LPe96ziiMGKaOiGLisboWt79zX4B9q+e2p30BtGEvA/Ls55ccR3T1GVPTfHmafh9v
+	soQOPLNOoHNLB7diCmv+FgwX9wRRwc6m8IWgyj4KYBGrJw66GeSkJ9mhgoa7TWAcBtyrl5
+	7mEwOu2Cqu65zxNT9eguHuBAiXeFAKYLzfntX12mrbWZMkAtzhkaSKaLtwFZIA==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794391008; a=rsa-sha256;
+	cv=none;
+	b=dTZhwMwmm5sSQ8oWQl2hPy5f7RGIxlq92RYKdJvCOuRoJkfv7x+LWIP/6o8uuWiEneQ+Ll
+	znOFaOKU8xd4J6vUNxH+CTrV2/cUyHK96BKltF5SX0vQL2+gk/6BdUCZSRfhGjBFNKLPyV
+	RqZgWFPOxvla7hyT26rUuUnwbY5KwhvsF5LjyY7js9jssEhv6TQXyH0/I42h/jJbLtKhjy
+	yUw6PdG5RX16XEDR/3iApQhm8RYEq+51D7eLvEigbrc1vEcIQEZ9qca5Me6DCLgJZoRYM8
+	TTL81xIMXQmY8LhTxtLQsNx+llWEIvxljT8m8+BmtZPOn9nYm+jmEh/Zujh0MQ==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
+Message-ID: <d59f52d1466c515f574be1e9eb127ca3e43d155b.camel@pengutronix.de>
+Subject: Re: [PATCH v2 4/4] clk: siflower: Add SF19A2890 peripheral clock
+ and reset manager driver
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: joseph@telaak.dev, Stephen Boyd <sboyd@kernel.org>, Brian Masney	
+ <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, Rob
+ Herring	 <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor
+ Dooley	 <conor+dt@kernel.org>
+Cc: Chuanhong Guo <gch981213@gmail.com>, Yao Zi <me@ziyao.cc>, Uwe
+ =?ISO-8859-1?Q?Kleine-K=F6nig?=
+	 <u.kleine-koenig@baylibre.com>, linux-mips@vger.kernel.org, 
+	linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Date: Wed, 11 Nov 2026 10:56:47 +0100
+In-Reply-To: <20261111-sf19a2890-sysm-v2-4-d2fcb723e4f1@telaak.dev>
+References: <20261111-sf19a2890-sysm-v2-0-d2fcb723e4f1@telaak.dev>
+	 <20261111-sf19a2890-sysm-v2-4-d2fcb723e4f1@telaak.dev>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,75 +100,106 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] media: rockchip: rkcif: Filter enumerated formats by
- media bus code
-To: Faizel K B <faizel.kb@gmail.com>,
- Mehdi Djait <mehdi.djait@linux.intel.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
- Heiko Stuebner <heiko@sntech.de>, linux-media@vger.kernel.org,
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, libcamera-devel@lists.libcamera.org,
- Robert Mader <robert.mader@collabora.com>
-References: <20261105232310.385463-1-faizel.kb@gmail.com>
- <20261105232310.385463-2-faizel.kb@gmail.com> <avG782VCMTWTNax0@mdjait-mobl>
- <7lkixkkeumy7l32usxweltclro5tqhgiio6xjyiyx45jnsq3lz@dx43ee4u6ffq>
-Content-Language: en-US
-From: Michael Riesch <michael.riesch@collabora.com>
-In-Reply-To: <7lkixkkeumy7l32usxweltclro5tqhgiio6xjyiyx45jnsq3lz@dx43ee4u6ffq>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
 
-Hi there,
+On Mi, 2026-11-11 at 03:19 -0500, Joseph Telaak via B4 Relay wrote:
+> From: Chuanhong Guo <gch981213@gmail.com>
+>=20
+> Add a platform driver for the peripheral clock and reset manager (CRM)
+> block found on Siflower SF19A2890 and compatible SoCs.
+>=20
+> Each CRM block manages a group of APB peripherals through three registers=
+:
+> a reset register, a clock gate register, and a shared Bus Output Enable
+> (BOE) register that must be asserted for any peripheral in the block to
+> respond to bus transactions.
+>=20
+> The driver registers a clock gate controller and a reset controller from
+> a single DT node. A shared spinlock protects all read-modify-write
+> accesses across both. BOE is managed automatically: asserted when the
+> first clock gate is enabled and deasserted when the last one is disabled.
+>=20
+> Some peripherals have more than one reset line, one for each clock
+> domain of the same IP, like the separate UART and APB resets of a
+> PL011. The driver exposes each such group as one reset, because the
+> lines have to be asserted together: the GMAC's two lines are the two
+> sides of an asynchronous AXI bridge, and asserting one alone locks up
+> the bus.
+>=20
+> Signed-off-by: Chuanhong Guo <gch981213@gmail.com>
+> [Joseph Telaak:
+>   - take it from Chuanhong's siflower-7.1 branch
+>   - one compatible per block, with its gate bits, critical gates and
+>     reset masks in tables in the driver instead of the
+>     siflower,valid-gates, siflower,critical-gates,
+>     siflower,reset-masks and siflower,num-resets properties
+>   - parent gate N to input clock N by index, not by global name
+>   - update the gates under the spinlock too
+>   - drop the separator comments
+>   - Kconfig dependencies and help, subject]
+> Co-developed-by: Joseph Telaak <joseph@telaak.dev>
+> Signed-off-by: Joseph Telaak <joseph@telaak.dev>
+> ---
+>  MAINTAINERS                                    |   1 +
+>  drivers/clk/siflower/Kconfig                   |  11 +
+>  drivers/clk/siflower/Makefile                  |   1 +
+>  drivers/clk/siflower/clk-sf19a2890-periphcrm.c | 368 +++++++++++++++++++=
+++++++
+>  4 files changed, 381 insertions(+)
+>=20
+[...]
+> diff --git a/drivers/clk/siflower/clk-sf19a2890-periphcrm.c b/drivers/clk=
+/siflower/clk-sf19a2890-periphcrm.c
+> new file mode 100644
+> index 000000000000..349e0d7ce0c3
+> --- /dev/null
+> +++ b/drivers/clk/siflower/clk-sf19a2890-periphcrm.c
+> @@ -0,0 +1,368 @@
+[...]
+> +static inline struct sf19a2890_periphcrm *
+> +rcdev_to_periphcrm(struct reset_controller_dev *rcdev)
+> +{
+> +	return container_of(rcdev, struct sf19a2890_periphcrm, rcdev);
+> +}
+> +
+> +static int sf19a2890_periphcrm_reset_update(struct reset_controller_dev =
+*rcdev,
+> +					    unsigned long id, bool assert)
+> +{
+> +	struct sf19a2890_periphcrm *crm =3D rcdev_to_periphcrm(rcdev);
+> +	unsigned long flags;
+> +	u32 reg;
+> +
+> +	spin_lock_irqsave(&crm->lock, flags);
 
-On 11/9/26 20:54, Faizel K B wrote:
-> Hi Mehdi,
-> 
-> On Mon, Nov 09, 2026 at 01:27:34PM +0100, Mehdi Djait wrote:
-> 
->>> --- a/drivers/media/platform/rockchip/rkcif/rkcif-stream.c
->>> +++ b/drivers/media/platform/rockchip/rkcif/rkcif-stream.c
->>> @@ -395,13 +395,20 @@ static int rkcif_stream_enum_formats(struct
->>> file *file, void *priv,
->>>                       struct v4l2_fmtdesc *f)
->>>  {
->>>      struct rkcif_stream *stream = video_drvdata(file);
->>> +    unsigned int i, n = 0;
->>>
->>> -    if (f->index >= stream->out_fmts_num)
->>> -        return -EINVAL;
->>> +    for (i = 0; i < stream->out_fmts_num; i++) {
->>> +        if (f->mbus_code &&
->>> +            stream->out_fmts[i].mbus_code != f->mbus_code)
->>
->> what about dvp capture. The dvp_out_fmts[] does not have the mbus_code
->> set.
->>
-> 
-> Thanks for the review. Yes, the DVP case is missing. How about only  
-> filtering the formats that have a media bus code, so DVP behaves as
-> before (see the change).
+Could be simplified with guard(spinlock)(&crm->lock);
 
-This sounds reasonable.
+> +	reg =3D readl(crm->base + REG_RESET);
+> +	if (assert)
+> +		reg |=3D crm->reset_masks[id];
+> +	else
+> +		reg &=3D ~crm->reset_masks[id];
+> +	writel(reg, crm->base + REG_RESET);
+> +	spin_unlock_irqrestore(&crm->lock, flags);
+> +	return 0;
+> +}
+> +
+[...]
+> +static const u32 sf19a2890_usb_resets[] =3D {
+> +	[RST_USB] =3D GENMASK(2, 0),
 
-> 
->        const struct rkcif_output_fmt *fmt = &stream->out_fmts[i];
-> 
->        if (f->mbus_code && fmt->mbus_code &&
->            fmt->mbus_code != f->mbus_code)
->                continue;
-> 
-> I don't have DVP hardware to test with. I can submit a v2 if that's ok.
+Do these three bits control separate reset lines?
+Does the hardware require them to be changed together?
 
-Looking forward to the v2.
+> +	[RST_USB_PHY_POR] =3D BIT(3),
+> +	[RST_USB_PHY] =3D BIT(4),
+> +};
+[...]
+> +static const u32 sf19a2890_uart_resets[] =3D {
+> +	[RST_UART0] =3D BIT(0) | BIT(4),
+> +	[RST_UART1] =3D BIT(1) | BIT(5),
+> +	[RST_UART2] =3D BIT(2) | BIT(6),
 
-Best regards,
-Michael
+Same question as above.
 
-> 
-> Regards,
-> Faizel
-> 
-> 
-
+regards
+Philipp
