@@ -1,18 +1,18 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=198.175.65.21
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1794422004;
-	b=Jz1jK8HeqUCrRFGFB+fCrwR0/3bzJvsBakicSqUSHCHYaZdTNSUtOQ7sffUoqL3nGtZx
-	 IrIs8/K9cbPlxgj+nNQtnzXNsqUukSYMsBMrBS0Y76+HfUWEI0bEpxuSJU3QhNt4eDNWC
-	 s3PDA9rA3Pr6RfiLnMSJ3XNGIfz+IFFVwozM+kt9if9a5iIlWyOgZV5H+qqCsiKfhg2t0
-	 e/om1st3KiSh9lLppZq17JPk499XhXY9g7SYXlBuxOJ8W4M+VMoGfg1Ou/ml0+OWrbxkA
-	 PjPASghhl4YTqfwLFOwZpZA+cps+QEM+5llrYe/B+i0UsN9r5FDX8rR2Y4x3VTG1nVw==
+	t=1794422027;
+	b=OoeX0yH9bwHMIZ4ITg6qFPuZzgDZG9nGFz40pnFdvl1xNS1w/F3s6F6ZoDglF19tgvdO
+	 Aqaj0Y/+unU3thYTCDRM430JM86kYiRBtkymGQFqwMX3ftZ50UC6ldrt0VMwVl2x3iKRc
+	 8ndrurfPSoN88ol/iVRYW0JsxR7CJ1QBgX4E7Z4trOPsa579LTMGWL/Cps4jxm/B3ADCv
+	 JTAMbDTx+SBKC0z0vromR3v7sk+Eu2dbt5OCHBnr0E1FZEqobqarusGDL5k4qQSQMRajU
+	 RnrWIQQXjQsz5uWsK9Z2jFh9sFfB0P2OpPgygY73lheN/KW5kQ/csfaqLnCIMX2+N3Q==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794422004;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794422027;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
 	 Received:Received:Received:Message-ID:Date:User-Agent:Subject:To:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
+	 References:From:Content-Language:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
 	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
 	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
@@ -27,73 +27,73 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
 	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
-	bh=19lcdKMgk38TdoXCiWhhelfCcBR8YDtZtnaqUa+rXMs=;
-	b=juwTSnEpE76rXdseoAQe9LM7gjVE7Fc50CSrE9p/lSTQZ5oNjxsb8h3Yua/E8qB3JM2e
-	 q36ePuOfUuEDMLaRE/ze6etWecak/HKG8dArIEDURdHxFqf5DU1UOtU1ext8w0OdvmuT0
-	 6yDskTi8D/L4OnAPCfoBYPAJMuXcvM7mL0TkuJgGsdsjWYANhS+RyEDYRwihywznr2jfc
-	 3kGrQ+Nv7Yc8WwCWjXDhuRNDxekLDbnB8IZ1JP6simLTRo62eFYbCvxkYBo3c0R20UDyr
-	 zZbt8mCqkLGep1OIwKcoOMFuhe1w6hoV9WwwGyW/aijAfJmcSimOSUYFnihECF6J29w==
+	bh=taCcAiAtr6cOBBFM1Ci3Wrnl2pqF+lvz13qUfByBeDQ=;
+	b=2hK8Jpj5ocK7iU/Yj4njJyKF2OKRf0dWrnzL7M5sggPX1vd0DdqYnjwpEY8hoXi2EEuo
+	 NSAYL7GrY7WW0pla2syRshnS71T8z1D8ieXtbCp3O62QQQUeCKcoU8WIAKQ8WiQcE8jbv
+	 NGGJD0IExV3ZZv+NHvf8En9EWl7Zvw0gZgWD9A5+iq3cY529KWDVKQfBq1i7+gCaB+XsZ
+	 w/TEOphTkCib2RLIO8sEOupb/h1pQorO5jK5765xMUaF62+o/lPix6Dw1bIOxsPM5aPNE
+	 LnIvoFRu4d1AVDNS6nk7tm3+ipfY6BT7jIq1BiT5e4LLkh4ZvU6zlssShIml/V8OZdQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=intel.com;
 	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=f5d1RGm2;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="GiOV/MvR";
 	arc=fail smtp.remote-ip=198.175.65.21
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B872606A31C;
-	Wed, 11 Nov 2026 18:33:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B872606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35120606A327;
+	Wed, 11 Nov 2026 18:33:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 35120606A327
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=f5d1RGm2
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=GiOV/MvR
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794422003; x=1825958003;
+  t=1794422027; x=1825958027;
   h=message-id:date:subject:to:references:from:in-reply-to:
    content-transfer-encoding:mime-version;
-  bh=zWm2Og6HAohtA9JVh3HCkOD+9H8QOd6KLxXPsc2XVQc=;
-  b=f5d1RGm2QR1sntF8GsHHwnAAOKtWXzpQWvJrPprzPirFMmIQDyO4zdhT
-   9w0WOlHk7dv3Ua+2Vsy2iMuMX89vTOVCWg7OTqCOp8DC/KXQCKYHkdYrJ
-   qV0YEqV3xfFUeVODKHY51KqE2Zs1Ivqf8aZ0QBY1pTafGUrmGPJ58sYZn
-   8+nn2Kf7T3vuqBG4nxJBD8ffkky6sIVhawGB1Vl0pU8KEq5j9NiJa53eZ
-   TH2R4IMLsjPRC/v/1UuStlrurOsn0XOfgWuFp9Hj/SaaKQjzCKmJG55R8
-   2ofkUxn5iN9qG2/L6YlVaN5yad996KeF/LQc6ID6g3zFv0G7/w4U7zM+S
-   Q==;
-X-CSE-ConnectionGUID: bO6iZjXyT4ymBqLZ0aAw+A==
-X-CSE-MsgGUID: AleqptewSZeRaXEjj9S2tA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3283372"
+  bh=EwIUwtMRLNrCVtZyGzlWvsDHbQhnb1b22/rcbI9wl68=;
+  b=GiOV/MvR5WYKobE+IFsJKx/NFZ0OWErMD81vC4DgUNBxs7lt0pDt2DDZ
+   tdfujMTe2T+RWbkcudQgxjrmqjoOB+aPiT/rIvIv5d3DTwFh5QLY+DS7N
+   FolU3cbGcRBQEU05bK3z96M9aBoCjPT86eBdI/6d+BKAyQkZORfyWebyy
+   0/h5bVmVbxLrkrU0Rwch/7L4AzANQwM24h74mNof2+aI730iIinMfdV3R
+   MXPJTEf5lRmimDXLxsbMtJUDDQsEu8dhMJHdi1QXkxzDiJ9QN4ADyqRfV
+   NQMd+jQynJNqbnWcBfocqdB38Hhmd6nyvTii4QGgYjLs3CLY3Z91jF4f+
+   g==;
+X-CSE-ConnectionGUID: Rs32pb3VQeaD6x/ZwyCpWw==
+X-CSE-MsgGUID: WKtrrfi6QmChpP1/hyLYMw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3283421"
 X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
-   d="scan'208";a="3283372"
+   d="scan'208";a="3283421"
 Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 10:33:22 -0800
-X-CSE-ConnectionGUID: AFurqsN5Ry2GSWuDLyiyuw==
-X-CSE-MsgGUID: ecHfPJXeT0qbdTeeq2qH4Q==
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 10:33:46 -0800
+X-CSE-ConnectionGUID: oUuXWVyPTyKhE4SQBhATZw==
+X-CSE-MsgGUID: +2ut/oyiRfKKn7q03CLXAQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
-   d="scan'208";a="8477292"
+   d="scan'208";a="8477345"
 Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
-  by orviesa002.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 10:33:22 -0800
-Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
+  by orviesa002.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 10:33:46 -0800
+Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
  fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Wed, 11 Nov 2026 10:33:21 -0800
+ 15.2.2562.56; Wed, 11 Nov 2026 10:33:45 -0800
 Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
- FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56 via Frontend Transport; Wed, 11 Nov 2026 10:33:21 -0800
-Received: from BL0PR03CU003.outbound.protection.outlook.com (52.101.53.57) by
+ 15.2.2562.56 via Frontend Transport; Wed, 11 Nov 2026 10:33:45 -0800
+Received: from BL0PR03CU003.outbound.protection.outlook.com (52.101.53.26) by
  edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Wed, 11 Nov 2026 10:33:21 -0800
+ 15.2.2562.56; Wed, 11 Nov 2026 10:33:45 -0800
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cd2y1qzauVGy0vcpTLtDCfnugxLICXBiBUQ5MDJDfNw9TPx2+plKgZWd4r6HDCQkM/s4M3YYr3hrErOMpisKjFTfk2+3psnIqhjAfN8b7xeE/i6XfoMQ0Bb3Lt40EU5IqhDptQnIIt/EqMyBXocde4sDgoMKYVJUjyeD7a/kbUHZcfGsiybO1TFZdUE41T8GMB0+9kePp6na0Zr3uDYR5eYn4oZ/Qwm1k+TKvM3KPVhkgJEgy1QCqo8IQoOv5EPVSHLMUUW1WQaT9f5r3DCj8MWkSEVdCgqMo05Z80aKCMdc0mphKrBWo7TqCRX0FTQOnYoEXydg5v3ZEAMY56+nkA==
+ b=C/cOW9dQpQ+ilIuHcxBEHH/Ic58SQVL+M+z6iSkzfxLLI2cGmeoIfMng6EpzeEZZu6bmvoicuiJO7ykaFjYRDU/t0YuqMwq02oe12g4lWJCPpywbWuUGBSwz/198FNEGxdn9F+Tr+VJdfwd0V3XyeTRnGOsCCfEu8HdYgOmT8of4SIjX6Mj+LcY2lK1G/XZ86V7Trsiume4vZm9wjNbqv5skSye8Sx3sSBVbh139dC7blGbr3NRMRpTlzvC6X1Ymo+bKfOOtIPEb5W3uK4pHvouIT0ucSh/fCVo6jKaj/CSOzN18tL9hrXdKRhaT2iTaMcEzNPiWOFiWmmIpJCSAVQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=19lcdKMgk38TdoXCiWhhelfCcBR8YDtZtnaqUa+rXMs=;
- b=BZwmrnxL0FzGOh1+5zMnk0wA0Z5axMQ6CfaPreVjaVQ4z6cID12DZTKqkK7v/ysTZ9EF1qcY7LBW271tzGWvIh3hWQFN8lDDkBd0I8/Sj6Bc089jTucMnN2aRdPzulzfoTBwFzOUPs7Uy/LsXyhsp8w/2NEHhv2G0mUGpU9nCc7aBnQXOCSpvtieTpn+Ns/zCBJVDcp0ZLEILmG6/MSm0bL3Vo21PrrhtdBTRRuof1xBZx6HrsRsECKs7xr9AGVdbvy0lcv5srKfEDP3FWUUjFaBjb3U8zKjQ5otBSxRK7AFo1Ycm42s1lRw+E1mvr38MgAnbU+JOj5nDEwTvmMRQA==
+ bh=taCcAiAtr6cOBBFM1Ci3Wrnl2pqF+lvz13qUfByBeDQ=;
+ b=yHTUurr591Jr4T4Ehauwa/ocVfO+o9p2O9W3JSs25OWggLqMNhUH+2Nj/Q1kYZ+mwsMDABLfnS9ujcK+HCJ5iMm9T35PEEJFL9YpMZyIbPNpKdmhZI4Py47xfGyT8qmV3PG6QIbWZTThGbgHb7algTqohPl7lUBFiExRgBE/KYEe1QO9rNoPTKwLJRE9dtXEMvcoJlLcAPZvqSiQJXeR6gNlJB9Cmcenutv2RBDek4XmLKYALYloU2sdro6mjklSknohdPnDjfW6qQzuZzWnzxFRsEiZWqtGAcsdWI24nIXvEcwq2cBe+IbRxlDpkFumd3P1KtrXNsQCT5X+aZb1IA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
  dkim=pass header.d=intel.com; arc=none
@@ -103,16 +103,16 @@ Received: from IA0PR11MB8379.namprd11.prod.outlook.com (2603:10b6:208:488::20)
  by EA3PR11MB771531.namprd11.prod.outlook.com (2603:10b6:303:2eb::15) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Wed, 11 Nov
- 2026 18:33:19 +0000
+ 2026 18:33:42 +0000
 Received: from IA0PR11MB8379.namprd11.prod.outlook.com
  ([fe80::549f:e4b3:e10d:aaa6]) by IA0PR11MB8379.namprd11.prod.outlook.com
  ([fe80::549f:e4b3:e10d:aaa6%6]) with mapi id 15.21.0615.007; Wed, 11 Nov 2026
- 18:33:19 +0000
-Message-ID: <3c48dac2-78af-44c9-b546-e5fcf7bbd8d6@intel.com>
-Date: Wed, 11 Nov 2026 10:33:15 -0800
+ 18:33:42 +0000
+Message-ID: <74200427-7255-491f-a146-6f5e5cec6e0a@intel.com>
+Date: Wed, 11 Nov 2026 10:33:38 -0800
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 RESEND 5/7] fs/resctrl: Release the limbo RMIDs when
- the CDP state changes
+Subject: Re: [PATCH v5 RESEND 6/7] fs/resctrl: Disallow monitor group move
+ when the RMID index changes
 To: Jinjie Ruan <ruanjinjie@huawei.com>, <tony.luck@intel.com>,
 	<Dave.Martin@arm.com>, <james.morse@arm.com>, <babu.moger@amd.com>,
 	<corbet@lwn.net>, <skhan@linuxfoundation.org>, <rdunlap@infradead.org>,
@@ -123,14 +123,14 @@ To: Jinjie Ruan <ruanjinjie@huawei.com>, <tony.luck@intel.com>,
 	<x86@kernel.org>, <linux-kernel@vger.kernel.org>,
 	<linux-doc@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>
 References: <20261110133938.3768632-1-ruanjinjie@huawei.com>
- <20261110133938.3768632-6-ruanjinjie@huawei.com>
-Content-Language: en-US
+ <20261110133938.3768632-7-ruanjinjie@huawei.com>
 From: Reinette Chatre <reinette.chatre@intel.com>
-In-Reply-To: <20261110133938.3768632-6-ruanjinjie@huawei.com>
+Content-Language: en-US
+In-Reply-To: <20261110133938.3768632-7-ruanjinjie@huawei.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MW4PR04CA0139.namprd04.prod.outlook.com
- (2603:10b6:303:84::24) To IA0PR11MB8379.namprd11.prod.outlook.com
+X-ClientProxiedBy: MW4PR04CA0128.namprd04.prod.outlook.com
+ (2603:10b6:303:84::13) To IA0PR11MB8379.namprd11.prod.outlook.com
  (2603:10b6:208:488::20)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -143,233 +143,132 @@ Precedence: list
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: IA0PR11MB8379:EE_|EA3PR11MB771531:EE_
-X-MS-Office365-Filtering-Correlation-Id: c157dad3-f002-4e42-3e88-08df4022420d
+X-MS-Office365-Filtering-Correlation-Id: c744abe4-bf44-4508-0236-08df40224fec
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|23010399003|1800799024|376014|7416014|366016|261009223027099003|10067099003|261028144727099003|261026121527099003|261026140227099003|261102123227099003|261021123027099003|261022075727099003|261021121427099003|261022105027099003|5023799004|56012099006|4143699003|11063799006|22082099003|18002099003|921020;
-X-Microsoft-Antispam-Message-Info: 40FFrXuYgRCKJBVd68GRmACiD83ebGqEDQTDHW9QeNuL3qIHtCoh/ZjKAZK5Hsq/KYKY4dgTNh4uuxy7h4e+SEk+Tgvzh93L9dKYmaUBdwUbvSD6Yups1tQQSFuJBog6thfD1GoUd6AhWecMvtywI+4W3U6SmfCfJK8D82w253Q3ou4d1ZpWPy/G+dmQq9SgNonip9/jPoVeI9KsHpXalkW+8dkfDvtVaftQ9IL6VOLTyO5Cn54sQuzV7vva4yNVQsd65al4oL+pk2qP4SO7hIH6RZl5blhgE84ii4SOejtQFQQSpB2l8G1vJt939V+rsyVBxrkM+uPmKzu4ljYhkoXd9H91Sa31UU8CuZsu4fFyry4lUjzCkTh0qnAi6DCg5ZX6kmf6NkCUkCn87Ac1Xc4GKNvy7A4U7TT/TKal61I01NkFecmlqxppnp/xjmY6JBkpRjpVAlLscTBJzbHoVlHYUUVAhotovCnjUC7GpeNroLeJl/1dvzngoZ/5cTljqbH4+P4B68IawmO10dgC/TyL/qAzvd4JflUUlTIfD4gQV3ZILLuwVDPYr7KOecq3tVG/PpfxyNy+epLa+MWOzyaXv6wtWkdvjQ11Vs7cvx4JnJfdbdMUuvUT0K0v98aVSuH9E3+VJ+NOj9eSDPQHRZnzcutVP0L+Zm0lNQYfBxOHFBt5orQPkkLaTmj67SPS5tsnVqkhUd2SNbNw97LPXg==
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR11MB8379.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(7416014)(366016)(261009223027099003)(10067099003)(261028144727099003)(261026121527099003)(261026140227099003)(261102123227099003)(261021123027099003)(261022075727099003)(261021121427099003)(261022105027099003)(5023799004)(56012099006)(4143699003)(11063799006)(22082099003)(18002099003)(921020);DIR:OUT;SFP:1101;
+X-Microsoft-Antispam: BCL:0;ARA:13230040|23010399003|1800799024|376014|7416014|366016|261009223027099003|10067099003|261028144727099003|261026121527099003|261026140227099003|261022105027099003|56012099006|4143699003|11063799006|22082099003|18002099003|921020;
+X-Microsoft-Antispam-Message-Info: AA4k50dzfI/Jl3iXdM9zlhlpuJvRww1rlhctP8/ifFXjGbGCfEU10Ab6hJjdljMhBp0JiES6PmQiUPVUkggoeT/TXp4ThNcRkYKIV6+lZjvRQSZwhFL0gn+a37j6pC/pxLuXBeI8A64YXrUNMie5HJ0v0q0CGFbCSA/UCR1jU3VFbepKDczb9p8s08IdaSBAthhloK1hZ4gfnwFlArjliHTcgPhJFpDbv0deQefQJ4HXSvI/bMrZ3dBe2HRfngDNXacZHCz+zl+7pq9o7ufJ0lJTZrKKzmwqFY0QNjknwxfyYMk41uH5gItro4gK9p2N2h6wp9nQHPo7ECRz4gDs9Hg3RyT/5Eg7VQwwPwKGy3nxQWHawiuWBlJXImA3a2tCdzwq7of20z2IzFcZ0RNzcxYcc5tvX3XnmTqCsD34PNjH0QJO4Vo19sG3ILfe3Eab8tCEZ/oBX1LWxSZYz6LL8QFbeT3V0OkW33XbmGYwzCQBIGXvkzbgDthHZr9AKbKsJi4h/K/hsnl5FgavKbDbB4YV9p5Y2iGxxk6sIKAwZwpjiNHmK6rs5eQpuJS3nxvZR9q09VBoFRz/9pNJqmEPE5qjKrNgFLOldQW3L2AFq9+UyAb23rpo25GUDhDnyiZW+1Yh391ivf8ZX1dSedVGN0s4eMJK7USFJxl8cZc/fYc=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR11MB8379.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(7416014)(366016)(261009223027099003)(10067099003)(261028144727099003)(261026121527099003)(261026140227099003)(261022105027099003)(56012099006)(4143699003)(11063799006)(22082099003)(18002099003)(921020);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WEkxMk1NaGdEQnUwVWZyM0RvRkJ2bCs3bldPTG9hak1TS3lSeFYxSitRMERN?=
- =?utf-8?B?WDM2MnhiUzEvTkhlRU1ORnRrSkNZYUR5MVRuNTdBdUZXN1R6cnJBRWVtRnhK?=
- =?utf-8?B?MXhqcElTQXlvdEZyQ2N2SWNndGdGNUJaYTlITDlSZFhxZnRTUGFIMDJtV3Nw?=
- =?utf-8?B?dk5qOGV0ekJpZFFob0E5WXd5cDJ1WS90cUN5dnd1U3lvTjBNVDZhbkcxUUNU?=
- =?utf-8?B?YWxGRk0wbkZyZUs2RVBBaHNaanZ6UGVVbjRCdE1TbytscXVONGp1MkNpME9r?=
- =?utf-8?B?YmxQeE4wbmE4R2t0Nzdqa29sZlpjQWNpei95d0o4S01aTmppTzcrcE1vVWR2?=
- =?utf-8?B?QWFyK3dvS2JKSWdlVUVIb2NtUXR4d2N4SGkrQ0NSR3ljQ2NnT3VodXF5TGs2?=
- =?utf-8?B?Z3YyMmFVak9VWkpCVDFYU0dwcGhUYXM0U1ZhbTRZazhHV3FwcHdqVTFxWjN5?=
- =?utf-8?B?THpaL3JsdU9aalU2clVMNTBpN0xtVEQ5bTQrWlk1Zk5peXFmcERIRUNBOUF0?=
- =?utf-8?B?c2gzSE1XNTNPTjVESG1iQThpSFFsdTM5YXJ3K0NzVDZxN3RtTkNtdmVRVEdw?=
- =?utf-8?B?UFplZjJqVk9aK2hDZFZWRzUxWHo0STJlRWVINzZLaERJc0FzZ1ljVlZyUmdx?=
- =?utf-8?B?djJ3aURFbUZLZ1hIdEdhNk1oVEtoc2lWalRGRGcxbnU1a0I3em9FUVZvS2VC?=
- =?utf-8?B?SmNyd2UzNURiS1ZmL2p2R3RUNjU5cHdxZmtkd2tKQTl3ZUxpQm9VQnNyc05v?=
- =?utf-8?B?ZDBRcUgvVHRrMlJOV0Z6UmtXSVphb3N5UFc1U1BKblYxb2pwM0hjOUhlalpy?=
- =?utf-8?B?SlBLMDJTbGZuTjlaWmJneExOZ1p1Y2NvRzREdFcwZkRhbTE0a05zcWhEcGpz?=
- =?utf-8?B?Wnc4L2EvZ2NJZktBNHhqMzZvdXU2K1NxaVJxR1o4YnMzcGJkMWJNWm9Ia25m?=
- =?utf-8?B?WVZlUUUxTVpKNDZPSE1HZjNUWFpNcVp4YlN4ZmlnNUJJM1UxWnlneTdOMWVp?=
- =?utf-8?B?K3BjZnhCUVRoUkV5UmhZODlwMWpOaWJJek1OK3FTSHpQbldiYVdjWCtjN01s?=
- =?utf-8?B?MzNkS3h3U25Wa2ZHU3l6Q05LdU1HQ3YzRUtJU1p2UXFDbmU3OEM5TVVnK2lQ?=
- =?utf-8?B?Yk5CL0plbjl2enZyOWV3dFp1eVFuSStzc05VNzg2YlFBQm5IWndwN1AwcTg4?=
- =?utf-8?B?NkZPeTVlRFZhaEpQMEUyTzUwbElkRDh4UzVXZ2NhZzF1K3g2RC9QZDg0eDVs?=
- =?utf-8?B?bmdnUkp5TkhhU3pOdDBIRnU4VFVvUW9nV0syZmx2THAyMlRZR3lITFJOdTNh?=
- =?utf-8?B?YzZmL1dxOFRGS2E5WlY3NW9EUnJMTEptV051ZW5MNGQvR3lxNjBBNkFrYWJI?=
- =?utf-8?B?U2NJRDZueVAwNU5UaCtHbm1UNUNEcks1aU9iU0JzcG1NQUUwbjUyd3YzcDdv?=
- =?utf-8?B?Y3diOVE5SlB0aCtBcGFMNTc5NTVlREhCWUJFR3ZETk4zSFl6ZWZ2WWpVem9L?=
- =?utf-8?B?TWl4a1ZoTXVWYmdhbXByZFVISXk4dTBBN0hSTWFaU0hJOGV6K2QxQlYwZjdp?=
- =?utf-8?B?S1E1d04rNTgvUHUyTDA0SVJEZ3JwVVRxQ2NXaWlFVTFsSG43WDVhNmpoMnpP?=
- =?utf-8?B?NG1vNUxGQjlvb210T0Z3SE1RU2dTQ1lnaDc2aGR4TDJLWExmZFNqcFBEc05Q?=
- =?utf-8?B?MjE4cHVVU0IycGRsQVZXbWpzMWQ1d3RkTi81RlpOZUI0OUV1Qi9udXRFUDVq?=
- =?utf-8?B?Tks2MVZvUFJIL2pRZDMwdEZhSVA0dzVlRlFCMmtZS2VrUHZHdU5GOW5BOXI2?=
- =?utf-8?B?N0VMRkYzYWt4VWwwUjlQUkx1d3Q1RFJlNld6ZjBibDRqd3lXZnNkTm9rR0Vs?=
- =?utf-8?B?Ui9PQVB6QXpva3BwUVZvVTJ1eU9WUHcwWFVUZndYc1BMcEtaOUhVcExZdExa?=
- =?utf-8?B?MGJLa1NZRUNndEhnS0pyLyt4QTc2SEZKRjBXQVkzRWt6d2FIaTZ4R2NSL3My?=
- =?utf-8?B?Zk8yc05YOFpTdU1xQUNKbm43T1I0QisvVVE2R3NLVnc0bWR6cjdKeFhsN0N4?=
- =?utf-8?B?SWpjeFZ3eW1pbTJDeW9Oa2poRDd2aWFUR3NuQXVkSDI1Sk5ERmlRS2oxVXpR?=
- =?utf-8?B?S1ZrTGVJaEJNbEdYZzR6bmtMUnkzRDVGUEw4d2VzRFBHQUpoUlBBdXZrNTlj?=
- =?utf-8?B?S1RxdkRyTlRqOXhmbkJseFVnbkIrNGZkQnE0NDRNbkJodWRNV2gxemNqbkRV?=
- =?utf-8?B?YXhaNURHeGtCUmFaRkZ2RzVQMUFHL3Z4OGZXcXR1Z294STVHc1NvSlhCOWJH?=
- =?utf-8?B?K3hIUmlPZk8rb0RlUVRuVDF5NElxMEw2a1c1R2pqVDUvekZwT3ptb1VyOWRk?=
- =?utf-8?Q?oqavr9BA1ClsZ4m0=3D?=
-X-Exchange-RoutingPolicyChecked: MSMrylB1RTwVFbsNcHsQNPyh9a/RvvUraPQ2IYUJ2feyI8JPxQcbhFu5If14lGS7+rryQqvBiEEC+kqHmAay34kSWv37C9NTJP/IBCV4RRd59HTF+0yWKoCVWFm83jmK0QZQ5GxbQbi0kCUNeR/4NEYXZifjjrkpncK2Df6xXzOdPlmvXTgFqZuL+z6eGYTmT7pBlpHiCzsialEiMmJ41Mr9brfd1pRSilNisfCtcXcGZ3TvJHrCdJbFjvZcOWxVdgkiNPmXXQuyk9xL8NnrN/ZBzXddq7VrDV3aqrcH6D1ckBx4SBy4AnBsRR2ce6o9p8Gf0h4E64X33/ubrJjj0g==
-X-MS-Exchange-CrossTenant-Network-Message-Id: c157dad3-f002-4e42-3e88-08df4022420d
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MExGTHN0a0w4QlJNTVFLUXJCQXdvTHpyRTAwUDhHWnJ2NnhyYVFnZUZlNDEr?=
+ =?utf-8?B?Y2FDc3lSbjlRdDI3MmMvZzNjWC9hYkNGWGt5YmM3MldKdGIwa20xNE43OWk4?=
+ =?utf-8?B?ZkNyZXpwSDNIRUM2bk14dlg1QlloVnk2WmRVNzdQcGFSS281UGRUV3VVVE1p?=
+ =?utf-8?B?N1FURnFoMUllNStnWmtHVmN3ZkZpWEhoNmt4OE5IaElpSzR1K21VSm1uZjlv?=
+ =?utf-8?B?WDNqMDNIc0VUaWRpWFVIU2VuS2lJeGxZb1BaUGRiYVVUZkxXUDhiR0RoRzdl?=
+ =?utf-8?B?Njg2aEsvcWpXYkorN3pSaUd4TW9FOXM5STY0dXhpQkw2WTBueWdEM01oTnlH?=
+ =?utf-8?B?NTVLMlI2RnN3UWFKYXdaZlA0RzBiRlB4TTdGN1FxTTBMTE91NTQ3TFFyWUlN?=
+ =?utf-8?B?OEtXZXROSmlqaWdaWEtCNWpCajkvakk1c2V1dVdlRmROSzg2cVlCSmdGRllH?=
+ =?utf-8?B?V3A3M0pRL2Jnd29nSXNlVWFORHNOcHY5VTNuejE2Slh4VTA5ZXJhY3IyMzlM?=
+ =?utf-8?B?NUdxYkRucmlKWHVtZjNPQ2lPOWUzbHRHbGhzVW5TR0tOZk1pRVZ5QXhBbjdp?=
+ =?utf-8?B?am5vWmw3elBMRHBwaDFpR0FlS293Sm5BQ0FHRHZuQ3JXVCt2RURMYTdycWc2?=
+ =?utf-8?B?ZFdiZEIxSTd5TlhPcFU1WEwwZys2aU9hQy90dVJtc2t4VCs2bkJwSTlpQW1B?=
+ =?utf-8?B?T1EvZzA4bVptUUlqSDhWS2YzV0N6dXFjVHdWL2dYcFpZWEo0bm1rZlQwMDQ3?=
+ =?utf-8?B?YXp3Nmh0RzZPbnJYY0g5UG1SNWUyVU16Zm1rMXRHYUpjRzVHRUhmK21pdmdZ?=
+ =?utf-8?B?OEt3ZzY0U09wR3o2dFJKYjRQbndzMTFJVHRMWGl4TGMwd2hUeURUSStoY24z?=
+ =?utf-8?B?Y1BvcG8xU1BzUzdtbDJhNFo2azVYbDAyM2hQaERIZllsd0EzSVMraTBIY3FB?=
+ =?utf-8?B?aHlTVXdqbldHd1lCYkdLd3JRZ2Q5akU4eVhnc1IzZFBPb1pMb3pmTzdqWWQ4?=
+ =?utf-8?B?b3I3S0d3RkJwb202cGt3NzlDa2EwcGdyN0Y3THJ5dE9tVTdGdFZGNFBsenJj?=
+ =?utf-8?B?elVnSDdnNTR4WGk3eGZHZkFXbkdKa2dwS2tLZHQxaVhvaXMxb2dVV3lJOEVx?=
+ =?utf-8?B?S1FmSlV0Sk1Pajd0RWhuVWhheFNjeEgyRkRScGRzSWlqSEZHeE5RODFkTTNR?=
+ =?utf-8?B?TldYa2owT3VTYldBamxDNFZydkxqWmd6NHFMUXY1bGVHejBUM0hpelNsRmJI?=
+ =?utf-8?B?MUdHLzhrKzdrU2JEVG5lMUY4ZkhpelZlMm5HNWIyZkNDTE5OQjF0V1RRV1dn?=
+ =?utf-8?B?SU55VDlJcy9CZ0ZlQUhTSHhTWkM2Y0ROOHlQRmwxUFVLWWFhNGJ6OUFhdXZs?=
+ =?utf-8?B?RkhGY05UNnRMUGR4ZTlHZjhVMDVmQmwvTjRIelZaNHBXOEFPQ09HK3ZXZHls?=
+ =?utf-8?B?UjErSy9wTE5ndC9VVG03TG9maVl4U2ZYVmdVaXkrWHdwV0ozT3V6WVRzNWRG?=
+ =?utf-8?B?Sk5nYXczU1A3UENCdnExTGVjUjBvVGJsMjNJWDNSdmVtSENkRE8zeHB5NzJm?=
+ =?utf-8?B?bmt6WTVPdFBhQ3dwdVFPVU1FSXdnNFY1M3JWSzVxK3hrcUJnSVNNUDJ1S3g1?=
+ =?utf-8?B?ZHhxSGVUNlVKQlVvL3FKVStNZzJCeUYyWkhraG1DeGx6NjBUSnRiV0dNZmNS?=
+ =?utf-8?B?cmpMRmpvWW9icC9uSms4N3V0VFRTMnVXU29qMXVmeGpPZm12YlVodWZBMEpH?=
+ =?utf-8?B?TDdSb2JSUFpxd2djV3dvY2x1dWRpTGt0SkNGWnY2c1JuZklMUk1TN2dxeU5n?=
+ =?utf-8?B?YmZEdk9aMG1oUDRRZFlEQWFnaXJKdlFjbTRRR2pPWWQ1RDE1aE9wN29kNWpC?=
+ =?utf-8?B?em9MRm92dFlDVVpPbXAycXRsUnNoeFFqcThkbTBWYXNPMXg5bktEY292K1FL?=
+ =?utf-8?B?YUszNVpIK215NlpCaHBJRzNsb0VxY2tVRjlGS2l1RS9kTmZRbzkxYms2SmZx?=
+ =?utf-8?B?SGFONUI4UkdJNFBxR29vcXhnRzF2MitOM1BSaUZnSllNWTNSNUFpZTJIdnFH?=
+ =?utf-8?B?VzNqOWo3U0FWbHdoN0xXV1IyQ09kWlFsRDFVTmE1WnlFc1lmM2hCRU9lTWpU?=
+ =?utf-8?B?My94ejVjWGVyampNdlM0MjFYS1NlR01kczNpSk5FYWIrbjNnTnlIQkJrbVFT?=
+ =?utf-8?B?Yk1NbGlRQ21DeWcrbHFQd0ZXSitEdlhwT1FvdU5UWUVPeEUzWStVcEJwc3g2?=
+ =?utf-8?B?NzdRYWZpeUZtd1RwQnU5THlub1hscHhIeEQyUUlGZnJFK2hwWjdQaVRlTlNl?=
+ =?utf-8?B?c0JTQ0dkN2VjZ0RoUWoyaU1kUmJVL1c0MzBkV0xvZGJ0YW5oaGt4SUp6TEtS?=
+ =?utf-8?Q?R+lZsE5H2E3eczMA=3D?=
+X-Exchange-RoutingPolicyChecked: X1WMYPAAHSKmvD8bTAQ44eSpcmUSPTexwdxWnhZCtIgpr75vO+OGowdVk14ATBgtAPnR+pxP5a0FlmhrV5gAbFqVS5E1Dt2CiPHCQa6/9SEmzjPvTpxF0oR5+Z6ewKTQ+YVK3fezSSrQGLaj/deJdcCxgKjTt71/ka7Isa2cGqSO6Q/QIMYwI6r9VxT+UW3q0AUVKxzY+RnaY1hPQaU8rg8UE3/ZME9W8+N6ypmD0PZ7Ax30Dn0bmPbZgY6Fwbrk1Eb8G2Qoq225/ikExJrmSycor9PnDymEMXrIhTHOkOm/61FL4hixb6Yfie35Myo5ElwogbqFFBQc6sS5Y7vHuA==
+X-MS-Exchange-CrossTenant-Network-Message-Id: c744abe4-bf44-4508-0236-08df40224fec
 X-MS-Exchange-CrossTenant-AuthSource: IA0PR11MB8379.namprd11.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 18:33:19.3111
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 18:33:42.4766
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: CVwS5dw62whO/b2A5fSaCnFR8ePFs1FhaV8aWLsYaQXogbOdmuYQuTf2eQmQjYx1UdNZnMY061CoCv9g68EkM1EzGpvA5Rew5iR+5UHRzfc=
+X-MS-Exchange-CrossTenant-UserPrincipalName: Nfj4T5TDGh8SK5k9p/EIDytAby7c02AMWHeSyer07BlxhjQ63SUzQMeVydrjnEOe2HdA75Rsff/xkRj4TIWOFuTeaztSrfMhAg4ei1VFBeY=
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: EA3PR11MB771531
 X-OriginatorOrg: intel.com
 
 Hi Jinjie,
 
 On 11/10/26 5:39 AM, Jinjie Ruan wrote:
-> On MPAM the counter of an RMID is selected by the PARTIDs of the CLOSID
-> that owned it. Without CDP, CLOSID c is PARTID c; with CDP it is
-> PARTIDs 2c and 2c+1. An RMID that stays in limbo across an unmount and
-> a mount that changes the CDP state is read through the PARTIDs of the
-> new state, which are not the PARTIDs its cache lines are tagged with.
+> From: Peter Newman <peternewman@google.com>
 > 
-> With 5 PARTIDs:
+> A MON group can be moved into the mon_groups directory of another
+> CTRL_MON group to move its tasks to that group's allocation while
+> keeping their monitoring data. Where the RMID is only meaningful
+> together with the CLOSID, as on arm64 MPAM where the RMID is a PMG that
+> extends the PARTID, the move changes the RMID index of the group. The
+> move succeeds, but:
 > 
->   mount                  CDP off, CLOSID c -> PARTID c
->   mkdir g1..g4           CLOSIDs 1..4
->   umount                 RMIDs enter limbo with CLOSIDs 1..4
->   mount -o cdp           CDP on, CLOSID c -> PARTIDs 2c, 2c+1
->   limbo handler          reads CLOSID 2 as PARTID 5 > PARTID_MAX 4
->                          MSC error interrupt, mpam_disable()
+> - The group's monitoring data is reset. Its counters are identified by
+>   the CLOSID and RMID together, so after the move the group reads the
+>   counters of the new CLOSID instead of the ones its tasks used.
 > 
-> The other direction is worse because nothing reports it. If resctrl is
-> mounted with CDP and mounted again without it, CLOSID c is read as
-> PARTID c, which is in range, so the limbo handler silently tests the
-> occupancy of the PARTID of a different CLOSID and frees or keeps the
-> RMIDs based on it.
+> - The group uses an RMID index that was never allocated to it. When
+>   the group is removed, free_rmid() puts an RMID index of the new CLOSID
+>   into limbo without checking that the group owns it. If another group
+>   of that CLOSID holds the index, the limbo handler tests and frees an
+>   RMID that is still in use, while the RMID index allocated to the
+>   moved group is never freed.
+
+It may also be that the new RMID index is not used by another group ...
+the RMID thus being used while considered free for allocation.
+
 > 
-> When a mount changes the CDP state, release the RMIDs in limbo without
-> reading them instead of restarting the limbo handler. Cache lines that
-
-This is a resctrl filesystem patch. Please take care to make it clear when
-the description refers to architecture specific behavior and when it describes
-filesystem behavior that impacts all architectures. First two paragraphs
-describe MPAM behavior. Above then jumps to resctrl filesystem behavior
-but it describes the filesystem behavior specific to MPAM systems as the
-new filesystem behavior for all architectures.
-
-Specifically, above needs a caveat that this new resctrl filesystem behavior
-is restricted to systems where RMID depends on CLOSID.
-
-> still carry those RMIDs are accounted to the next user of each RMID.
+> - The tasks are not moved. mongrp_reparent() sets the new parent and
+>   CLOSID of the group before rdt_move_group_tasks() looks for the tasks
+>   to update, and the search then matches on the new CLOSID, which none
+>   of the tasks carries yet. The tasks keep the old CLOSID and the old
+>   CTRL_MON group's allocation, and the group does not count them.
 > 
-> The CDP state that matters is the one that changes the PARTIDs used by
-> the monitors, which is not necessarily the CDP state of the L3
-> resource. MPAM gives every CLOSID two PARTIDs in all MSCs while CDP is
-> enabled on any resource, so enabling CDP on L2 alone also changes the
-> PARTIDs the L3 monitors use. Add resctrl_arch_mon_cdp_enabled() to let
-> the architecture report this. Only MPAM can be affected, so the RMIDs
-> are only released where the RMID depends on the CLOSID. On x86 the
-> RMID does not depend on the CLOSID, and resctrl_arch_mon_cdp_enabled()
-> returns false.
-
-nack. The helper name and value returned on x86 is the first hint that this
-is not right. For x86 the value is not a statement about x86: CDP exists on
-x86 and can be enabled, so a function called resctrl_arch_mon_cdp_enabled()
-returning false reads as wrong until the comment above it explains that what
-is really being reported is whether CDP changes the IDs the monitors use.
-
-Every architecture now needs to match this. This looks more like forcing
-every architecture to indicate whether it has the same quirk as MPAM.
-
-If there is no way to handle this in MPAM driver then handling this should at
-least be contained between resctrl filesystem and MPAM driver. This should not
-be forced on all architectures.
-
-I trust the MPAM folks to say whether it can or cannot be done in MPAM driver.
-If this is not possible in MPAM driver then it looks like this needs to go back
-to include the L2 CDP check as was done in previous version. With this check 
-gated by IS_ENABLED(CONFIG_RESCTRL_RMID_DEPENDS_ON_CLOSID) it does hint "MPAM"
-but would also need a comment to explain why that is done.
-
-> Reproduced on QEMU with the sequence above:
+> Fixing the task move does not make the move work. The RMID index is the
+> hardware ID the counters count for, so a group whose CLOSID changes
+> cannot keep its monitoring data, and it would need a new RMID index
+> allocated for the new CLOSID, which fails when every RMID index of that
+> CLOSID is in use. The documentation promises that a move keeps the
+> monitoring data, so the move cannot be supported, as decided in the
+> thread at the Link tag.
 > 
->   mpam:__mpam_irq_handler: error irq from msc:1 'MSMONCFG_ID_RANGE', partid:5, pmg: 0, ris: 0
->   mpam:mpam_disable: MPAM disabled due to hardware error interrupt
+> Reject the move with -EOPNOTSUPP when it changes the RMID index of the
+> group, and document that a move is not allowed when the monitoring data
+> or assigned tasks would be impacted.
+
+
+Below stops being imperative halfway. 
+
+ Where the RMID does not depend on
+> the CLOSID, such as on x86, the move keeps the same RMID index and is
+> still allowed. Renaming a MON group within the same CTRL_MON group keeps
+> the CLOSID and is still allowed everywhere.
+
+How about:
+	Leave the move allowed where the RMID does not depend on the CLOSID,
+	such as on x86, and leave renaming within the same CTRL_MON group
+	allowed everywhere; neither changes the RMID index.
+
 > 
-> With the change the sequence completes without an error.
-> 
-> Fixes: 6789fb99282c ("arm_mpam: resctrl: Add CDP emulation")
-> Suggested-by: Ben Horgan <ben.horgan@arm.com>
-> Suggested-by: Reinette Chatre <reinette.chatre@intel.com>
+> Fixes: 3e9b35823aab ("arm_mpam: resctrl: Add rmid index helpers")
+> Signed-off-by: Peter Newman <peternewman@google.com>
 > Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
-> Cc: <stable@vger.kernel.org> # 7.1+
+> Cc: <stable@vger.kernel.org>
+> Link: https://lore.kernel.org/lkml/3a637631-c8ec-4e26-a03c-5ac80d16fab3@arm.com/
+> ---
 
-Is the "7.1+" constraint needed?
-
-
-> diff --git a/fs/resctrl/monitor.c b/fs/resctrl/monitor.c
-> index f56d0e32fd06..87d744a168fb 100644
-> --- a/fs/resctrl/monitor.c
-> +++ b/fs/resctrl/monitor.c
-> @@ -70,6 +70,14 @@ static u32 *closid_num_dirty_rmid;
->   */
->  static unsigned int rmid_limbo_count;
->  
-> +/*
-> + * @limbo_cdp_enabled - Whether CDP changed the hardware IDs the monitors
-
-"hardware IDs" should be invisible to resctrl filesystem. The filesystem and
-architecture separation should ideally hide these details from resctrl filesystem.
-
-How about something like below that also makes clear what "true" means:
-	"True if the RMIDs in limbo were placed there while CDP was enabled."
-
-> + *			used for a CLOSID when the RMIDs in limbo were freed.
-> + *			Only set when CONFIG_RESCTRL_RMID_DEPENDS_ON_CLOSID
-
-"set" -> "used"? (to highlight that all reads and writes are gated by
-CONFIG_RESCTRL_RMID_DEPENDS_ON_CLOSID)
-
-> + *			is enabled.
-
-"enabled" -> "defined" (to match surrounding language)
-
-
-Please match the spacing of surrounding code by using spaces, not tabs.
-
-> + */
-> +static bool limbo_cdp_enabled;
-> +
->  /*
->   * @rmid_entry - The entry in the limbo and free lists.
->   */
-> @@ -1044,12 +1052,15 @@ int setup_rmid_lru_list(void)
->   * resctrl_limbo_resume() - Restart the limbo handler after a mount.
->   *
->   * The limbo handler stops while resctrl is unmounted. Restart it on every
-> - * domain that still has RMIDs in limbo.
-> + * domain that still has RMIDs in limbo. Where the RMID depends on the
-> + * CLOSID and the mount changed the hardware IDs a CLOSID is monitored
-
-What does "hardware IDs" refer to here? On the resctrl filesystem side I
-think "RMID index" will be the accurate term that makes it clear what this
-refers to.
-
-> + * with, the RMIDs in limbo can no longer be read: release them instead.
->   */
->  void resctrl_limbo_resume(void)
->  {
->  	struct rdt_l3_mon_domain *d;
->  	struct rdt_resource *r;
-> +	bool release = false;
->  
->  	lockdep_assert_cpus_held();
->  	lockdep_assert_held(&rdtgroup_mutex);
-> @@ -1057,6 +1068,13 @@ void resctrl_limbo_resume(void)
->  	if (!resctrl_is_mon_event_enabled(QOS_L3_OCCUP_EVENT_ID))
->  		return;
->  
-> +	if (IS_ENABLED(CONFIG_RESCTRL_RMID_DEPENDS_ON_CLOSID)) {
-> +		bool cdp_enabled = resctrl_arch_mon_cdp_enabled();
-> +
-> +		release = cdp_enabled != limbo_cdp_enabled;
-> +		limbo_cdp_enabled = cdp_enabled;
-> +	}
-> +
->  	r = resctrl_arch_get_resource(RDT_RESOURCE_L3);
->  	list_for_each_entry_rcu(d, &r->mon_domains, hdr.list,
->  				lockdep_is_cpus_held()) {
-> @@ -1068,7 +1086,10 @@ void resctrl_limbo_resume(void)
->  		 * it is queued again on a CPU picked now.
->  		 */
->  		cancel_delayed_work(&d->cqm_limbo);
-> -		cqm_setup_limbo_handler(d, 0, RESCTRL_PICK_ANY_CPU);
-> +		if (release)
-> +			release_limbo_rmids(d);
-> +		else
-> +			cqm_setup_limbo_handler(d, 0, RESCTRL_PICK_ANY_CPU);
->  	}
->  }
->  
+| Reviewed-by: Reinette Chatre <reinette.chatre@intel.com>
 
 Reinette
