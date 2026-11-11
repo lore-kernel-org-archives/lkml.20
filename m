@@ -1,101 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794412017;
-	b=was916ei2dPUudcj895QEyjlMTxKNIRNwMl+LSj+Jx+agmtS8uoYnSoEsFVnNYpa82Ze
-	 PEtM1GZXz7xBv1TUD5cMK8Dzk3EUvcN1EncmYF/U3PuwwcEgH4ltpiLeoh+P+AE3iqw/2
-	 UY9yK3eb3zHhoQ0wauMgpk5U8UHIaxy6fHMGrGZHi2lrlmnL1Yhb4A/vlQl41zWaVmqD5
-	 hZ/1IoOvLZBinouM4LihpNw3YgsJUFZ6b684o7Sr+3wGH85t/lPEOayomEFDcn1IJszC/
-	 hmZZr2t7RiMD/aoTerjRJ5kgzIlvJoI+5vXFj4xqGO9ootJMFKdbs6gCYk3A2n5ATXQ==
+	t=1794412022;
+	b=o73C4Tzl833coYE5WLdscK8KW/wjuG4E14cr5dkIYv9LC1Kt9bcvsTPyWR/wIHXaQ0VY
+	 SSRHWEGh3lYuH/LNbKYhIqBfxBLw4F/W6yqfzwMNUbE09MmEoHOFjazIuFfPo9B9hmRBo
+	 2Pe5UxMxlcOf2hUwneaV3CPXhDfEw/Tb+MBdb7dz6EegcV2tMfFxoxND6F54BcAFGhNXG
+	 FGEhI5sndCQUnBQyTNavjeYQSyJoaTJRcDbQJMBnx3hQb3zAR1pnDh2DpWvtX5kadQZtF
+	 xzbOcYiGQ2WvFYCcXHyOOp6YFQRtS0NNZYhLBvXH0UiyQqN9oLdM4PL71M1aYGoL7Zw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794412017;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Content-Type:Date:Message-Id:Cc:Subject:From:To:In-Reply-To:
-	 References:Content-Transfer-Encoding:MIME-Version;
-	bh=wQKRbkibDLGyy8037Dj5AspxGYwDtlAwEFieE15dtAI=;
-	b=onnVnr6lCx4xA+vYhkbiUBEiyyIKBGS39KdEkC4xLxxrwGDYxRD+R27oFa7YDuiW/Gxg
-	 LSCSnwxcyFdX3hxfHLVPCCIwjZmZQXE0fbDEvkehCbSZLS+2KTITDpd/ZNfeVxnZU+Xb3
-	 cE39TyE/UZtPnObKKshaHkmo68AB0WqnE9exE7fUlQCe1DZXglas8e2B51NUBfYvBb0lz
-	 wK1JbTH7PQH/vabTHDdt5xNucv3uqJiPc8NjxKpCEDXhmIRgBZWGh7urgxy3W032xpt8e
-	 IxwjsFyhWXdIix1D/2KobgP7pu70l97XnzUSOYPvNKvU54JhuBFx7q0gcixJ5/4s8hw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794412022;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Mime-Version:
+	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:From:Subject:
+	 Cc:To:X-Mailer:References:In-Reply-To:X-Last-TLS-Session-Version;
+	bh=lObV9SJ3OT2Wgv/d4ibJqweN/ItK4qe1uoafBv25MSk=;
+	b=vPstxg5vNewacgaWtCElPTg1RYD5cXJMot7KoFpUs5FeKcqDsWXaLFmaPz9/C6yUrzZy
+	 f1O3vFcQtMHW6mYAH77/gcMZhor91cnvHnzJmtY6I/kXUHTGl4Chkolg3EvF9v1TlkXq2
+	 gUlTFdSIuFkcDPAUzU+ojQxwsXNtHuRXQhMYyz7+SkS+jYVtIyGjmnqQSS0JgPJtncKNS
+	 BElT+geWBPWZnjWj0qORUJyWJbucID3BOUWJJHWuGDAVeJ7Xo4UupXTNNwdXONwYo+D4G
+	 98eOb4yHADBsiUYeURnlGE27gp+lv5WjTMu3snn2s5mt8zekUufSL2WElodIFXVLRVQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Vc1xSdt4;
-	arc=none smtp.remote-ip=209.85.210.179
-Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=pa1SkCau;
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2865606A330
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 15:46:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C2865606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16D4C606A33C
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 15:46:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 16D4C606A33C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Vc1xSdt4
-Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-8a070781f63so1493153b3a.1
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 07:46:56 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794412016; x=1795016816; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:references:in-reply-to:to
-         :from:subject:cc:message-id:date:content-type:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=wQKRbkibDLGyy8037Dj5AspxGYwDtlAwEFieE15dtAI=;
-        b=Vc1xSdt4cebm4rMu5+0OB509uCTBmt2Rxt5nC6VpC9wA9OsUtrQdWNdvltU5JLltcJ
-         4BRbLKV/GU5khpkhtyxpZPtUmuCW6J/sE1prp8NTe1OJIzH7mIPSKltLHk9sQ9bDbVfF
-         dRFpUEJdYLCdRjAALSwLFHoWTFTBI7IM0t9ABZ6urb/oQ4nW56XDulIEB7YHD+MQ+rQa
-         jWPJNJ6MCeFUYvmiGxBCxqaxEkMOqU1onw+zBpB0PKmWRXf0wzH8YI2rzBcCQsYCVFre
-         l3tXSLyDqfTSyaNqz1GSztwlfrVzDGoMsDeWcAmVCMx7UuguAKaImjAEOOewXJF+Mdq9
-         dCPQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794412016; x=1795016816;
-        h=mime-version:content-transfer-encoding:references:in-reply-to:to
-         :from:subject:cc:message-id:date:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wQKRbkibDLGyy8037Dj5AspxGYwDtlAwEFieE15dtAI=;
-        b=hzL4ZccY3K2DgeM+jCak84aAp0m1FgCUz7E8Pch7MdK5QD97OpWq3o/nfxKDMhrRjv
-         Y/yMP4TyksFEz8K1pQ2EosfmW+ljQn856NVoKUMBNW4BYWYzPyAS1gREVdsx4fwt+lna
-         G+AClKNtQdLVd4Ef3hcn0lGiTpHvTo3MXwSu62oV4khyqt1t4KIemCYs48PQNinyLvUh
-         hfDbCV0aSDEE3rJ9f9fGtksHNLlKjB9SxCAIzNXXkXBQE1K9t8WZH/fQpSuvBAYDVFwv
-         UozaEX6UFcphfQ/uZ8nDIRkoCg2piyJ2n1jVNNQy8bDVXfyVSaqmR9l+U6pkWSQqa44N
-         JhJg==
-X-Forwarded-Encrypted: i=1; AL+hErGLIx/4z7sLzTdFnAKD53MlMmxQiMR4/1rMW459V6+fbLRImDSIvMT/e8MdJfv5qxAcQVgn/1Ox/4zIPb0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/E+BJL7NAtisM6HsF0KBti4lVxrkSOMXCl/2CBqDwyL945PzhG
-	4ybvh8kfA/yTCfM2l1OM2VSlEMjswWxhtS0+C8s8U2lJXGSUBhyQhz82
-X-Gm-Gg: AYBFou0txCGIc2FaHm5y58JVU9CmCgvkmM31kK9MAzhkNgW610Hw4tkvpBPkoWvMcZb
-	g7okw7jHnpDYr/YaENvfpjHalMhE0FHf/gqfpTqjslqRPRAL5t4DqkynZgYopv441jxvCW8q9+G
-	XGJGe8Mx4Pa4+qac8+f3+r6M3J7RAzKRFmiLsmMvjt8TQMEUf8WRBw/LhDuizgS4mSI7+YA2JUY
-	dEbuNJS611Qeo5EkFdzycS1Xm76lAeKXRV9n6LM9N61FQfw4YItC5TnIOxBrkNxAB542g/T9I6z
-	TQZZ6ZX5DvD1rFHAcqjXnRWe7g7ihjr417hMLxCX8qMvPabMEcFPZ7WWkaKBUrFYI2ADMgcVmNQ
-	MK5+vAlVf7kXmu9Ft8NI+0Ad+xGIceSRh3lSs/WdYt7vnrxBHCmw9fk7RavjX387/Tq5/d/hdJE
-	JFu23wvbn+d2Zxyw7ptgxA0GLxHdi0TFNICCl6ik+20zvLVcu+W+efgPWWDecpB5VvhvLlMUs5U
-	XPqRltRIav0FEGb0TXvks4x4ZeQkL28YCgcLWzmdgQYSzlQ6g2Zmqc79398EwBWAa0H966Z9Hx7
-	44Cc1XeBIy9+nvk0u2Ro7PXGn16b9p2SNepqPTMBX6QaAwoO0tXRy6k0eGixd6/VI6pbdug5CQT
-	CS+N907+rehehpO+ufChQq0YHIxtPSpNJyvPupZBVl+fMrgPgltHJhJGm
-X-Received: by 2002:a05:6a00:21c8:b0:8a0:3ed7:939b with SMTP id d2e1a72fcca58-8bc1d913140mr3244215b3a.29.1794412015861;
-        Wed, 11 Nov 2026 07:46:55 -0800 (PST)
-Received: from localhost ([153.61.198.249])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8baaa1b1bf1sm2278182b3a.12.2026.11.11.07.46.55
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 11 Nov 2026 07:46:55 -0800 (PST)
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 11 Nov 2026 15:46:54 +0000
-Message-Id: <DMSHYZIRPY2U.1XX05ZPV3IA7G@gmail.com>
-Cc: "Daniel Borkmann" <daniel@iogearbox.net>, "Kumar Kartikeya Dwivedi"
- <memxor@gmail.com>, "Martin KaFai Lau" <martin.lau@linux.dev>, "Song Liu"
- <song@kernel.org>, "Yonghong Song" <yonghong.song@linux.dev>, "Ihor
- Solodrai" <ihor.solodrai@linux.dev>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH bpf] libbpf: Fix incorrect module BTF fd index in
- warning
-From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
-To: "Rahad Bhuiya" <rahadbhuiya2021@gmail.com>, <bpf@vger.kernel.org>,
- "Andrii Nakryiko" <andrii@kernel.org>, "Eduard Zingerman"
- <eddyz87@gmail.com>
-In-Reply-To: <20261111064428.1902-1-rahadbhuiya2021@gmail.com>
-References: <20261111064428.1902-1-rahadbhuiya2021@gmail.com>
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=pa1SkCau
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 1D7E6C79A86;
+	Wed, 11 Nov 2026 15:47:00 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 247E86017E;
+	Wed, 11 Nov 2026 15:46:58 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 7D2B111BC11DA;
+	Wed, 11 Nov 2026 16:46:52 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1794412016; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=lObV9SJ3OT2Wgv/d4ibJqweN/ItK4qe1uoafBv25MSk=;
+	b=pa1SkCauabOXsGW1QTvaCW47YI99lKCbofvAZexbKBnnfFh55KV3oxKqHEM9b8AaV+Uj+t
+	5oody8gTTyaxGnhdmUoldPEwpFgdESY2nZO/y6RKKMI5PkmzgzYrrVhdSJ5ACbwB/tB3J5
+	rIBNsTavzzzfCU6PazyuSxFAYXlN0Uv6yTQ/3iYgJYLR077mTxRL14irfC+co9k6O/byy0
+	BiDzxMdfpGjZdykdxVzWOk23FzoRs1a0kkhGLwlFI3j70yLhOeUn8fzujGEweeU8yfscGU
+	tFL/93qAg6YkvvjGyQpg2LPNapv51pcpxL8BbCV8cr23YQhRkfVDVZQzI7FKZg==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,13 +58,122 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 11 Nov 2026 16:46:51 +0100
+Message-Id: <DMSHYXQ01R6O.3F13LZ51TUPCP@bootlin.com>
+From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+Subject: Re: [PATCH] drm/omap: dss: fix handling deferrals
+Cc: <dri-devel@lists.freedesktop.org>, <linux-omap@vger.kernel.org>,
+ <hns@goldelico.com>, <linux-kernel@vger.kernel.org>, "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
+ "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Luca Ceresoli"
+ <luca.ceresoli@bootlin.com>
+To: "Tomi Valkeinen" <tomi.valkeinen@ideasonboard.com>, "Andreas Kemnade"
+ <andreas@kemnade.info>
+X-Mailer: aerc 0.22.0
+References: <20261111-gta04-drm-regression-fix-v1-1-1de27d5ba46a@kemnade.info> <33f63eaf-42a0-4b3f-a21c-3752436d07b4@ideasonboard.com>
+In-Reply-To: <33f63eaf-42a0-4b3f-a21c-3752436d07b4@ideasonboard.com>
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Tue, Nov 10, 2026 at 10:44 PM Rahad Bhuiya <rahadbhuiya2021@gmail.com> wrote:
-> Fixes: 9dbe6015636c ("libbpf: Support kernel module function calls")
+Hello Andreas,
 
-That's not a fix. Nothing is broken.
-One object has to call kfuncs from more than 32766 modules to see
-this message.
+On Wed Nov 11, 2026 at 3:56 PM CET, Tomi Valkeinen wrote:
+> Hi,
+>
+> On 11/11/2026 14:22, Andreas Kemnade wrote:
+>> Forward the error given by of_drm_get_bridge_by_endpoint() if it is
+>> EPROBE_DEFER to ensure output gets initialized later when available.
+>>
+>> On GTA04/OMAP3 no display was found, but it appeared after doing
+>> rmmod omapdrm ; modprobe omapdrm
+>>
+>> Fixes: b7e9b93fc8ecf ("drm/omap: dss: don't create a panel_bridge")
 
-pw-bot: cr
+Ouch, sorry about breaking this driver. To my excuse the old code removed
+by b7e9b93fc8ecf was (ans still is) pretty obscure.
+
+>> Signed-off-by: Andreas Kemnade <andreas@kemnade.info>
+>> ---
+>>   drivers/gpu/drm/omapdrm/dss/output.c | 5 +++++
+>>   1 file changed, 5 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/omapdrm/dss/output.c b/drivers/gpu/drm/omap=
+drm/dss/output.c
+>> index 36d37deac8026..220ed7e003080 100644
+>> --- a/drivers/gpu/drm/omapdrm/dss/output.c
+>> +++ b/drivers/gpu/drm/omapdrm/dss/output.c
+>> @@ -24,6 +24,11 @@ int omapdss_device_init_output(struct omap_dss_device=
+ *out,
+>>
+>>   	bridge =3D of_drm_get_bridge_by_endpoint(out->dev->of_node, out->of_p=
+ort, 0);
+>>   	if (IS_ERR(bridge)) {
+>> +		if (PTR_ERR(bridge) =3D=3D -EPROBE_DEFER) {
+>> +			ret =3D PTR_ERR(bridge);
+>> +			goto error;
+>> +		}
+>> +
+> Shouldn't we just return PTR_ERR(bridge) here? The error label will call
+> omapdss_device_cleanup_output(), which cleans up things set up later in
+> this function.
+
+Indeed.
+
+
+Additionally, by looking at the omapdss_device_init_output() code right
+now, the goto-based error management appears:
+
+ 1. unnecessarily complicated: only one goto for only one line of rollback
+    code
+
+ 2. potentially wrong, or at least doing too much, because
+    omapdss_device_cleanup_output() does two things:
+
+      a. drm_bridge_put(out->next_bridge): but when goto is invoked the
+         out->next_bridge pointer has not been touched yet
+         (I assume we should not touch the refcount in this case)
+
+      b. drm_bridge_put(out->bridge): unneeded because the goto is inside
+         an 'if (!out->bridge)', thus there is no reference at all to put
+
+Do you agree with these findings?
+
+If you do, I guess this simple patch should fix both at once (untested):
+
+---------------------------------8<---------------------------------
+@@ -31,20 +31,14 @@ int omapdss_device_init_output(struct omap_dss_device *=
+out,
+        out->bridge =3D bridge;
+
+        if (local_bridge) {
+-               if (!out->bridge) {
+-                       ret =3D -EPROBE_DEFER;
+-                       goto error;
+-               }
++               if (!out->bridge)
++                       return -EPROBE_DEFER;
+
+                out->next_bridge =3D out->bridge;
+                out->bridge =3D drm_bridge_get(local_bridge);
+        }
+
+        return 0;
+-
+-error:
+-       omapdss_device_cleanup_output(out);
+-       return ret;
+ }
+---------------------------------8<---------------------------------
+
+Can you double check this, test on hardware and if it looks correct send
+that as a separate patch?
+
+Luca
+
+--
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
