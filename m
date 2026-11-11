@@ -1,69 +1,41 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.3
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.242.206.163
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794386205;
-	b=qhiiZpuF50AuaP0g2x9BF1iCO7/DG87NoU6afwS9idGH0meaqK6ZKYdVuZjIFZufaHND
-	 Dp/rqNLkqLv60h7ue7Ooc19oBblMOESKa79TS1DMSFC6eBSPrC4PFg1TESIyy1FBUebA2
-	 uVdo4r+ZuZJ22lM3VEy+SjxEBAfCamSoUERgilCuOyT5WUGJkuD46TED2s/eoeItY83AW
-	 7Rc08k90qZZSce7D3hHj9ceOkhOKKt9jRN8Z1i22Ep004k/V/USVX3gXoClvSf3xsX+JI
-	 EFCpNawL7XUZoHSUTsDWtqWUhDyI61nThbPjg9dOfLuz7YUgeVVb/18yfxlJXWhm2cQ==
+	t=1794386208;
+	b=nsSsMdNVlQkJlK1iJk7n/k+AtPUy0lI/FlQU5n/oIlDqZ1MauFSDvh2sYKzxFRBHfM50
+	 DHsMSkjWFXkzPXCMw4sveVCWpgTiQfFoioylGVngyUl3T2Hqm7FZ51OJULNVcRyWrMq/I
+	 vC+xbmwk48ZtoZmQ/9zASnsoM3j5BjmiWe2M2J6GsMJNK5S/ydgfY2U7XfqJO4gakmRrn
+	 Er/UizSRRKRL2h2EH9jtdEctg66oqvRTLXC2JiBKTDNJSuQHNOJ/CyVt/N27wdmRuo6xz
+	 w4URxPAQXQReOaJhrtuCmQy0R+iZm+yeGOxbB3iT3pkb7DU4//rnWwDdohn5Byy+7Vg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794386205;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-Id:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=5xxIaNpSszE+yFqAyJ2Rb4E+WWq4DFNGesE5ueGQKRM=;
-	b=ZK16hqDJie4zwWlM3C7hAgfn4BH204FKWijaMwbQ+n6rDEiLZgSHHGTVmZJEtlTL7C5a
-	 ISDTlJLQhlnbO6XTRQF4vcTPYCT4UU+4Fu0IUBnNjm+jX2fwGkc48QQMhxj7XM6eKK1oi
-	 R5/1a/lxts5/Sic3XXJKL9p+sNRYkUEv2kk+U4afmq+aYO6ejZqdHV3dU37kWrH1Oi90O
-	 q43W16e+74iPxdbR3nNdYfeCj0y6c+0I6H9o0jhxn2y0t//WVZygl65E60A0WMJboFRpy
-	 W4hVAG1rsDOtceb0fTyKS7x1XYniW6SElGT9dWPHayFW9VdJVEmEzAN9+Matz8hWMDQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794386208;
+	h=DMARC-Filter:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-CM-TRANSID:X-CM-SenderInfo:
+	 X-Coremail-Antispam;
+	bh=TnhV3DbKZWbMAtT9a/e9FOskuGL611yq4OzHpAPLFCs=;
+	b=bMnwPlEqfbInlyAyWcRlLHVMNcWhsMnePJy/ar3oi13GiBrAYf3T7uL7PMKVZIqpWXeG
+	 Pxcv4c9WWFWoZTJgti1KFzGwHdJFgOfr5UD4rbyJal59gNnJrIFcNGKJdx79AnyTnxXLZ
+	 D+4xTvaOPrW5vmIek0DOrw06MqOtYjnmtf3stK3qMpmdRMlI1VneXKTF2WzW3JPZ3fVJl
+	 WR/F+CF5Gxp332AdEPI6vomxYaTrXpat+npdvxE94lAC1gO7BllktduyjGcIa1X1yko9Y
+	 H/Ba7jLkCINHYy7G6svh/pvL/VP/t6owYey1oSdnzLwcvP5ef59JDaqJkfsnBFujJAw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=SaMHMNHQ;
-	arc=none smtp.remote-ip=91.218.175.3
-Received: from mta0.migadu.com (out-3.mta0.migadu.com [91.218.175.3])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA340606A320
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 08:36:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EA340606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=SaMHMNHQ
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=k+uY4WofA8Sf868/Blel8K6cJ0//MXYQbHMDv5vxkh4=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794386203; v=1; x=1794991003;
- b=SaMHMNHQF0bVSsgGyG9oT0DkpM1ywpR6EXqL//INxGPOfDNUgSWKXvJ8dHZhIDWWSLW/DGfq
- TAB4ekSEwqwsG7nVlZS/UJcg9ykxlFtntfeUSsPgRW2/al8mktHy4V1HDZqg7+swoTzbSQ63EzD
- Fnn9QzWQv/bDmtJU+9U/QIA0=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id a175cba2f5d7ab7a;
-	Wed, 11 Nov 2026 08:36:43 +0000
-X-Mizu-Trace-ID: a175cba2f5d7ab7a
-X-Migadu-Flow: FLOW_OUT
-From: "Xu Xin (vivo)" <xu.xin@linux.dev>
-To: david@kernel.org
-Cc: ljs@kernel.org,
-	akpm@linux-foundation.org,
-	chengming.zhou@linux.dev,
-	link@vivo.com,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	tujinjiang@huawei.com,
-	xiao.wang@vivo.com,
-	xu.xin@linux.dev
-Subject: Re: [PATCH 2/4] ksm: skip rmap_item allocation for non-zero pages under only_merge_zero_pages
-Date: Wed, 11 Nov 2026 16:36:32 +0800
-Message-Id: <20261111083632.57199-1-xu.xin@linux.dev>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <avMKhCLDv-ybpmIZ@gremlin>
-References: <avMKhCLDv-ybpmIZ@gremlin>
+	dmarc=none header.from=loongson.cn;
+	spf=pass smtp.mailfrom=loongson.cn;
+	arc=none smtp.remote-ip=114.242.206.163
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 81119606A32D;
+	Wed, 11 Nov 2026 08:36:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81119606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [10.20.42.102])
+	by gateway (Coremail) with SMTP id _____8AxHNIcKfRqOnseAA--.22648S3;
+	Wed, 11 Nov 2026 16:36:44 +0800 (CST)
+Received: from [127.0.0.1] (unknown [127.0.0.1])
+	by front1 (Coremail) with SMTP id qMiowJDxg8wZKfRqdK8zAA--.11977S2;
+	Wed, 11 Nov 2026 16:36:43 +0800 (CST)
+Message-ID: <7eefcba3-42dc-4229-863f-e6d440e49e4c@loongson.cn>
+Date: Wed, 11 Nov 2026 16:33:54 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,55 +45,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 2/4] EDAC/loongson: Encode node and MC info into mc_idx
+To: Borislav Petkov <bp@alien8.de>
+Cc: Qunqin Zhao <zhaoqunqin@163.com>, tony.luck@intel.com,
+ linux-edac@vger.kernel.org, chenhuacai@kernel.org,
+ linux-kernel@vger.kernel.org, Wang Jinwei <wangjinwei@loongson.cn>,
+ Yulong Wang <wangyulong@loongson.cn>, Dongyan Qian
+ <qiandongyan@loongson.cn>, Chao Li <lichao@loongson.cn>,
+ Huacai Chen <chenhuacai@loongson.cn>
+References: <20261105025532.2055-1-zhaoqunqin@163.com>
+ <20261105025532.2055-3-zhaoqunqin@163.com>
+ <20261110064106.GAavK8ghva7DgZ35DK@fat_crate.local>
+ <809041a2-ebdd-409d-a1f4-3ac7884513d2@loongson.cn>
+ <20261110080338.GJavLP2h448voZSQRE@fat_crate.local>
+ <61dc34e7-e872-42cb-a0b1-be100a78053a@loongson.cn>
+ <20261110183101.GEavNi5Qrv3eLe80VL@fat_crate.local>
+ <f34b681b-1499-43c8-b8a7-1437409bd709@loongson.cn>
+ <88040256-91E2-4EAD-9571-4B460E69A93F@alien8.de>
+Content-Language: en-US
+From: Qunqin Zhao <zhaoqunqin@loongson.cn>
+In-Reply-To: <88040256-91E2-4EAD-9571-4B460E69A93F@alien8.de>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qMiowJDxg8wZKfRqdK8zAA--.11977S2
+X-CM-SenderInfo: 52kd01pxqtx0o6or00hjvr0hdfq/
+X-Coremail-Antispam: 1Uk129KBj9xXoW7Wr1kZw43AF43ury3Zry8Xrc_yoWxAFc_Ka
+	9xZ397G3ykJr1kG3sFvFyxurn7W3yvyry0qanxtF1I93ZIqFyFgFyDGrySg3sIqrWUXw1a
+	q395XryfCrnaqosvyTuYvTs0mTUanT9S1TB71UUUUUJqnTZGkaVYY2UrUUUUj1kv1TuYvT
+	s0mT0YCTnIWjqI5I8CrVACY4xI64kE6c02F40Ex7xfYxn0WfASr-VFAUDa7-sFnT9fnUUI
+	cSsGvfJTRUUUbVAYFVCjjxCrM7AC8VAFwI0_Jr0_Gr1l1xkIjI8I6I8E6xAIw20EY4v20x
+	vaj40_Wr0E3s1l1IIY67AEw4v_Jrv_JF1l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxS
+	w2x7M28EF7xvwVC0I7IYx2IY67AKxVWUJVWUCwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxV
+	WUJVW8JwA2z4x0Y4vEx4A2jsIE14v26F4j6r4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
+	Gr1j6F4UJwAaw2AFwI0_Jrv_JF1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjxCEc2xF0c
+	Ia020Ex4CE44I27wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jrv_
+	JF1lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrw
+	CF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwCFI7km07C267AKxVWUXVWU
+	AwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1V
+	AFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xII
+	jxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4
+	A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU
+	0xZFpf9x07jepB-UUUUU=
 
-> On Tue, Nov 10, 2026 at 07:22:06PM +0800, Xu Xin (vivo) wrote:
-> > On Tue, Nov 10, 2026 at 10:05:20AM +0000, Lorenzo Stoakes (ARM) wrote:
-> > > On Tue, Nov 10, 2026 at 03:44:49PM +0800, Xu Xin (vivo) wrote:
-> > > >
-> > > > A page that is zero now but is written before cmp_and_merge_page() runs
-> > > > is still handled correctly, because the checksum-based decision in
-> > > > cmp_and_merge_page() (added by the previous patch) is the authoritative
-> > > > one.
-> > > >
-> > >
-> > > Please re-write this in your own words.
-> > >
-> > > It seems very LLM generated, LLMs are _terrible_ at writing commit messages
-> > > and commits, please re-write all of that.
-> >
-> > Indeed, the description was generated by LLM, but I thought that was clear enough
-> > to present what this patch do and why. Aparrently, you don't like that style, I'll
-> > rewrite that by handd.
-> 
-> In general we never want LLM-generated commit messages/comments.
-> 
-> I do however obviously appreciate and empathise with using it to assist
-> non-native speakers. So that's fine, but ideally you would write it up yourself
-> and then have the LLM do simply a polishing layer, keeping the length as small
-> as possible, which should give us the best of both worlds. Thanks :)
-> 
-> >
-> > The goal is only to avoid rmap_item allocation for pages that can never merge
-> > under only_merge_zero_pages. The implementation is simple.
-> >
-> > I'll send a v3 with those changes.
-> 
-> Well let's wait on David's POV on this series for this cycle before a respin
-> first thanks!
 
-Thanks Lorenzo, makes sense.
+在 2026/11/11 16:08, Borislav Petkov 写道:
+> On November 11, 2026 6:37:39 AM UTC, Qunqin Zhao <zhaoqunqin@loongson.cn> wrote:
+>> If we encode the presence of the _DSD property into mc_idx, 
+>>
+>> the sysfs representation will become confusing. For example:
+>>
+>> loongson@loongson:~$ ls /sys/devices/system/edac/mc/
+>> mc65536  power  subsystem  uevent
+>> ^^^^^^
+> Does it really matter which wrong numbers you have there? They are wrong no matter which ones you choose. 
 
-Hi David,
+You’re right, it doesn’t matter which wrong numbers we choose. 
 
-What are your thoughts on targeting this series for this cycle? I understand
-you have a lot on your plate having just taken over mm/core.git and are
-focusing on bugfixes right now, so I'm fine with deferring this to the next
-cycle even though the implementation itself is fairly straightforward.
+I’ll rework this in the next version following your suggestion.
 
-Whenever it's a good time for sending a v3, I'll make sure to address Lorenzo's
-feedback by rewriting the commit messages and comments, and simplifying
-scan_get_next_rmap_item() as much as possible.
+Qunqin,
 
-Thanks,
-Xu
+Thanks.
+
+>
+
