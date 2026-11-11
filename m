@@ -1,101 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.23
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.177
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794429899;
-	b=hKm+Vz5mctsLpkckO/PSBGLV7hJWg7PjzIZsu600FxXYFKVxk6ZRpuDstFoJS5PveKV0
-	 VYTKZPG1yzI+kK4ogCP4oi9nuxfaK3Sd0g0xpQ3mvkmHgjQEoy990J2NbUudI6rZdxFgv
-	 53Vk0meZFHkNf2INjx4dgaHdxy2B9/4gCxVQ53UNqIWu1gSU7GdFAliOd0echW6sZEm0V
-	 qIlDiZbaaQHLn/G5Xj8N9EuGQ/y6gkXKRzqzL4vFHXqShqA0jaNTwGEqay40qyFaJxSRR
-	 6CEAOtexXHFUszRG6TeZsujksOQKv3yOT67zJPI25RGDj97PECG1tD7J9rcgrIM6d+w==
+	t=1794429916;
+	b=OLieHPG1f0qxZ4VuxhT1j1k8fKhw91ugJyZAshr0l+mM5NDXLl2e200fx4IvLHekFFJ2
+	 J+3EY/s3rS5r0t3T1vHg+N4iiBo0NIZMzopoNIj91eKXMwAgRPAzu9yrUOf953wRA5z6p
+	 gZ5+i24mD6y+8qi7/hk0IFU6IWRuWb23h6i6rjFoY5u9AUUMG9LUW/2P7Q3SqS+D20tDs
+	 rLQOhtkxeZ0KPgrN1DLpu9GoC5cB5lSHV1cgPIeAIZubZFSE7ywB3akFkOfFbdXXjhQSb
+	 lvAgc9hTet+K0KVnupo604bGlCMJ5jXfHF8uHNJ9NNl7JhpCqNLwvX9LP2w+U2e97MA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794429899;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=dJGDWtcDvqR226Fppem0GCEZZF8GtFqSS2LQOHOOVcw=;
-	b=EfEQpUPgQuBwgHs92VQz94Co3gQd9dB8THcrN5rrjqmX0/aOfexyHOtoBcup/xZIudU7
-	 J5+25hH4Z4QnalUozXH+H86IrzLpKFpoAiMcH7+9WAS8dnCfV38r8hSeY8JLlIcnGL0Rt
-	 cqBhyySBGeROSKR68SDaBiSXjxPDWoG7/wT2zASzaHUC2qnvEa2mZaky6TFlZBkziiFFq
-	 oBpLB2VuJhB1VEUv98EKnb6fwKN/N6TCoSAkA3AcZLefBs/kajOVz2wQCzGRZwgLs7tj7
-	 n1+RT9Xc9cjMKs2/9Z/t+xSnnSciWCBjPGSVjfEh2/EtIRAyybBpH2Medam8akmG9ig==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794429916;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=ejReHMBjl59d9ux/+j0JWqbuls8q6pULA6fL9qb3kCo=;
+	b=UmYQ+mOiRdnl4oIUG6GDr6zt4LOXWtg14bY5jwDubO6flvEhY51/k2DQOawG5oijC4KK
+	 zHwh8b3JVHYaB4Gnjga0sHcMlEd7cXFWsZa+VKvuwFgzP4dIiZeZUvau0KFZ92Cm59nlZ
+	 MkIj7ETQIf+uFWs5+O1weOuinflO6evbzuFJ2BANVwaBglPJ6XOs3plaPaY7HuiUF+t68
+	 1Ocm7MChaNEkStxZGRY8p9OA9zy7q/rqK3+6fAcQZO6q0XXKpYBtiY/SP3lTQhe3xIl3U
+	 kJ1vpdtzN881IKm45i45bUvigL0K2nhoCoUtFwl5WclAaggmm0EIco+jgSIosbyJqyA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=J5V9KVl+;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.23
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011023.outbound.protection.outlook.com [40.107.130.23])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Q1KyT0qI;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.177
+Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com [209.85.160.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94AAB606A324;
-	Wed, 11 Nov 2026 20:44:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 94AAB606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 519C6606A321
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 20:45:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 519C6606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=J5V9KVl+
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=E0PkAB7t3ezWEns05u51pG//WPYlTs8zLY4rLHNuEMXn1vtpCjzvKFjnT5G7vSTrOFy0+msbr4xMKAv10OPF0vONr/14cvRN2hA09sLAqNi1PkgUmQ71arPQ6TzlS5Qm7D70Uv/mpvFah0yEQXTPGLB7zbI9iKV/Bo4DUwnahG16m2zL6HeHbitLY8iQB9fyqzAr4QifN288HHr7h2xyhIPQYaQjfVyfFkecEereM8EFAdGQZYVy3bB4u87jvRtroMNfX5Ga4bDNoEagKdhMuwEu2+horOQ6MX1lTF3EAVBopAYran1+4nu8grnVG6Ssad8fwwwGwtgNp3yBv0XHwQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dJGDWtcDvqR226Fppem0GCEZZF8GtFqSS2LQOHOOVcw=;
- b=yQ5Y/gDh2kX2oIp8ovJ2o0Jg8c56G+6cTsH7/4OMAtfOwifF0BtMPo/QUJxEjuu6vm8qflc1pe6nYD2en088hcM+pPWL2QMQNgTjCZoYh5lCC2QxEH8nRBZhvFB+E2L4IDteycDHELQ/ALphlQeLCc0ocHZmzJBOlQWF0gA1NXQBZOa7jNBMVVMB4sDCZKfMM+EHUmRAEZL1Fr37B4EHEQMAygaCa+AgG52T4NTtbC1x2rP6dJ+Bi8BtzO97nhxDrYvWKozA/qQPc7z74MGdshCrWPfg1DB1TUp8VlxoQBYILwKib2JxcgINNMCsEnhFNrt70YdHHDe54gv79gQyAg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dJGDWtcDvqR226Fppem0GCEZZF8GtFqSS2LQOHOOVcw=;
- b=J5V9KVl+omu24sexio8+Mjr9u2FgyxihIGXE83P10FRsLPBqe8fqOSuQiLNc1rJj5uwPUfnI+C+OjZfoPJ7fQrz7n23lHxdQOHw2ed5ZqkqV0t4YcBJOiXBXze2gLczAVkKpiQQDXKLwyYFlVWTmCaDb3hKbW4jl1dJSX/TojtEoG5cGTEXSzk9b5aoCLiLSIfB5NctWrBxNbgvW0wENr+d9maP0eYl5Aedi0e7wzEXUavm42oqvGk0F1npP6smDpVs3ksev50grMDD2V4bmCV8NC28ulaMRcqHscRx2AI4ka3Fn8T1F2A4SdppZ3C36DWQY+JXuFdzEUagaMqygyg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by GV2PR04MB475645.eurprd04.prod.outlook.com (2603:10a6:150:39b::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.9; Wed, 11 Nov
- 2026 20:44:54 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0615.007; Wed, 11 Nov 2026
- 20:44:52 +0000
-Date: Wed, 11 Nov 2026 15:44:44 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Dave Jiang <dave.jiang@intel.com>
-Cc: linux-cxl@vger.kernel.org, nvdimm@lists.linux.dev,
-	linux-crypto@vger.kernel.org, dmaengine@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Alison Schofield <alison.schofield@intel.com>,
-	Vishal Verma <vishal.l.verma@intel.com>,
-	Matthew Wilcox <willy@infradead.org>, Jan Kara <jack@suse.cz>,
-	Davidlohr Bueso <dave@stgolabs.net>,
-	Jonathan Cameron <jic23@kernel.org>, Vinod Koul <vkoul@kernel.org>,
-	Frank Li <Frank.Li@kernel.org>,
-	Alistair Popple <apopple@nvidia.com>,
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-Subject: Re: [PATCH v2] MAINTAINERS: Update CXL, NVDIMM, DAX, and others for
- djbw
-Message-ID: <avTTvIK-K-WW6vvD@lizhi-Precision-Tower-5810>
-References: <20261110210152.3494345-1-dave.jiang@intel.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261110210152.3494345-1-dave.jiang@intel.com>
-X-ClientProxiedBy: DS7P221CA0040.NAMP221.PROD.OUTLOOK.COM
- (2603:10b6:8:25e::11) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Q1KyT0qI
+Received: by mail-qt1-f177.google.com with SMTP id d75a77b69052e-533202fe429so2331cf.0
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 12:45:15 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794429915; cv=none;
+        d=google.com; s=arc-20260327;
+        b=iNtbzhH9VYJUWfB9PwASsirf+yuKaFQhhghetqvTW7tGizvKd+ZlNoNwagClv9/RFu
+         g4r5Pz2M9iJHNpK9NuSY/fu2jRX1Tbmz/jE/OgWIhLJoTT55EzRqPFFRqNg9vyY9tgiJ
+         2aK3ZRaV/EQcJv5/Z1Kri6Ko0od8aHIlcFyZlhKJNJKipHK332u+IRoGGCtmKdMLd35z
+         1dPjU8jMm7YUa/x5Xf7nmHoOMrKI/TWsIi9iTYEx3EWD0fj2Mf9uSwS07d8AGVYPkqHT
+         6biYCJaeEEmeRDWZrpmfT/HKJF3esE60NEy2fG4008R2vTq15Tr3X3zWcDmlZBeqNKuv
+         Up1w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ejReHMBjl59d9ux/+j0JWqbuls8q6pULA6fL9qb3kCo=;
+        fh=yXtfyJ4DXzVd4+t4DLKv3gRR89qMu8mT8uugFcmAeHU=;
+        b=dFCVqDa8QpVJQBMClXtXGzBtL0asqf75dySPGZ5PEguXo8Vaqp04egnTJHgnWLT5px
+         m92UivvUdPiHYG0wZBrPuKHrEf5+UpsWpJpIVRBGTbr3gQ0EuJKIAn90jaz0+bCr3p1j
+         1rj1EhaQZi4RMCEnw6OjTAsJYQdVvNVNhjgvdkSyDC3WnDU4COTpYhk41zjMRl07vAPP
+         4X6z6rVlKslXlckx8Op4BTYIqrBCEJHFUkodDYNI8jIXlVfZ4BPA4m5CZMxQtHf/BwrP
+         VS8S4TDonUDjpaKsNTiA6/V7/IKK1ZqnvFE/R/wluNsH8w5D008A4btEczQUzQIvn8jX
+         DLDQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794429915; x=1795034715; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ejReHMBjl59d9ux/+j0JWqbuls8q6pULA6fL9qb3kCo=;
+        b=Q1KyT0qI1jokqu0yPiN+vNrClyAIKDIN3WoZGPobyfjrxhypjqeSm/0D2J768QUBhW
+         eD0wY7Cs5FYTj89g9gFYnpZq7loRbG5eU4YyJ/hxKkrmZGd87ybk48rwOJTNhp1QehtI
+         lY9bUAHdhVzhLWBFomRKm6p5kQdPdLl2oPilXDE2t1zsCHGZEjqZY0TuWVqUaN0ygQcK
+         nuXIFcCIPcdFTftmItrHGyk48RdDVXVjQhL/WIVNPS0vlHvNJPCJ8I6eReKs7nJM6AdF
+         4Nd5G36l8uQktpGPq9OMKaoOc4JffXCGdiBpKXlbEF2htDjOQFuXOSNHQBuXGUjlFrM7
+         jFWQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794429915; x=1795034715;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ejReHMBjl59d9ux/+j0JWqbuls8q6pULA6fL9qb3kCo=;
+        b=U1JZ5WyTRGYoJo3uByidr9+9n8WPnpFsxf1jvI+NNb4+YC/jhgybZEyBzzTFtMHTwy
+         ld2MLGfnLe3xcvY+ez/Ps3xOXE+hN27ebwfcALejr47jb9tABdsvEbWCs2KnkX/PG+9N
+         LRZVWOBgXBi8tE3JzCnyBx7YAnVLmG29U9OB2g8LypKVSq+eAviq0mtkMMDIsBksmWrP
+         s3vv5IPVHB/LKxnvHpRbDr4bZRc/zZ+11cgjkreGmv3vBg1wcEr+UQ4lmciOH45gcYp2
+         AyALcWJDahqJIt+2OflQypLn8fFgvM8BVTenMoRw+wtxSJ9aUZwvezrqjbJOIJ+T1lZV
+         MJZA==
+X-Forwarded-Encrypted: i=1; AL+hErGOfwMSq/gu7Eggw+y537CdkcB8COPdfq9RhkyizwBPsE3imXbPP+WWRTpjda3hR4WfRuyNkZ3mZCWwFn0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8XIRZ8hjm1IN+nCCFazdSAnonT27j9/pl0P6f2pZBwU6m6ZuBx
+	4dxAzHmRGGHwVQwdA+Yl2WxIt2pTWb7lygjoMLxnZDLy+n89UiZkic6LVka3wrjQmg01Y8Dl+3l
+	p/1oYjFCnSKHv4SAEOqY4UIitYMHmN/Z+9bhrxeQr
+X-Gm-Gg: AYBFou0rVpE2VJO4KgIIO5aglTlGSkAO7r7oj3SUuC9qo8Wja6jEz2JEP6iDXtilFbF
+	U1kvP3At77EJqykhtAQRdBw9T+ljsxPiRuX9C+FwC8uEHzEURpC1YF9dLxSrdSpeZ4/5CjbiEBd
+	zGZ1uqRQOYiXsEz1FrIlSNOx729/OBEXT7r2+pF65LuVE9Em6i4Dg4yGI1enX3rkIrmXksvTgVt
+	ThErYpIsThxcsM5iqVosqNuTGNU44++Af2C/Ko1pRhmwPxpYDLaUtb4K7emkM0bBcEc0TxW+Kl0
+	knLqkRilfnAKXYuqngH42K7bdBwhcuyqrUNHYaUWXszTY7sM0osK6ZZ/aqUCjyKAPAnX5tDCt6c
+	x2wyJyjl4NoIYFmtfFT9VWApgtdtOJRr29sKOLCJw/ilm0PT5Ks4etqbUu06ghTeCvxMh7rrJM7
+	c4cBhVEklHJCFzpHojbxl48bQE
+X-Received: by 2002:ac8:5c84:0:b0:534:d386:c3f1 with SMTP id
+ d75a77b69052e-5598d505571mr488441cf.9.1794429914175; Wed, 11 Nov 2026
+ 12:45:14 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,175 +105,104 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|GV2PR04MB475645:EE_
-X-MS-Office365-Filtering-Correlation-Id: 41c195d7-15ba-43ee-8315-08df4034a2c4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|376014|7416014|23010399003|19092799006|10067099003|11063799006|56012099006|261102123227099003|261021121427099003|261021123027099003|261022105027099003|261009223027099003|261026121527099003|261028144727099003|261026140227099003|21046099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	leQEa2eJQp8uCvc+L2/wjGXmFDJQsTvLjYiH38NH6kDlRHtoLq6zkbeXKqc9lOONSNuRoh4AKMyXqDN3yIxi6Q9R7Gpju2UrNVkaLyel5LricjIHAuSutKLTX9cKyIbqmn56z/iKSVzhOPZfvN/0G43SskAcVS0jLyJxyuM2DOfT7DK6GRvqlHecGQgXkuqob+BMcSDe9LrDz2634tjwN7k3GhVeeOaNyh4AEa02cDyqVnDJy1hd7eGQigfftEN2PC1dzFqVmlrGQWB7LOJr5meBKJyMZ/sLlgbdQFujcCLYRE57id+GFPbP62d0gRezs4I5kzYWw33lub/+dxhinxjoFmIq+B2COU1nnGNaKWf0d9W4t+kTty4gso/SZQf6G5WE7bcP8XIIhbwWHxcn8uhlSGT0PoMJlTUAg1Omo9m9w/UV/saZ0YHQ0LDelpvIMVUrg6D3gkgtsG8CJi8Dr/boAcubhRg2kvvkb4ex1sfRCgCxb5E6p2ARHjCdL+yv6ivfuqlb+Koh/Bjg6LAbPwJ3fXrywJTqfn+w9YQ4VPMNwqb5oFTSa8vb+JifpIoqIzf/JD5EKIQWX/U1Q0LV1G4NUqnr5rau7Qn25s725LPjZF2nJ9UrLpJkVj90S0Yb
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(7416014)(23010399003)(19092799006)(10067099003)(11063799006)(56012099006)(261102123227099003)(261021121427099003)(261021123027099003)(261022105027099003)(261009223027099003)(261026121527099003)(261028144727099003)(261026140227099003)(21046099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?/qtNkuynJQTUBtZhNJIEju8y6yc2kwJJFF8iWtY3i27vsdeLs5wbWWr1prnp?=
- =?us-ascii?Q?M9Za1xLecLPcNh52kp+ExmH97dp2vM4T5ATaOcwhpzNfN8h5Y5OgVHx1x0KX?=
- =?us-ascii?Q?Mv2pxwkzLxY5lON6wvafIQ7uDdK0ooAzyTilBMOYP/NIqG2J4RcI83bbHt+f?=
- =?us-ascii?Q?QT6+LSDwQYHG+YUzJMr3407+GomgFwC+wRB5fGrTImvXtRDU5tcFQJOf1Lvf?=
- =?us-ascii?Q?He/Ur0UeIez/HSkrdX4lSpLoXpB7VVNMgyojQAqIsrfhWUbH6YkcoSAGupda?=
- =?us-ascii?Q?48rUOHGgTT8v0QOjt/ThYkDlippvLX/LEXmV66VwRWAJiU0YWOxxQQ+LuZ4k?=
- =?us-ascii?Q?CxFUHo7vVkznBuqGk6db+wHBYIK/Pw76g6P8ulAqTjHJx5g4Z4xq9vViK5dH?=
- =?us-ascii?Q?HBW/1asdryepVIB7lSs37bwmSFz8FBXWIAIc1oawD1jjt8BVIrLAOcylQJRp?=
- =?us-ascii?Q?sWjuKuGxf8Mp3UJWIjaL30LVHj/rqqtF0nXEtHv8i45HsoX7xOEzkucaLT3N?=
- =?us-ascii?Q?fmTD2VfZeHD+Ty1QsUHvbEdLDReKa9OstZlA1SPEvAs1VjEC5Zrc9bRgMY3E?=
- =?us-ascii?Q?zB7kWU/jZx3eGxKqh0zANIjUN6YuvfsGzRWPK4L2JeKwtC0U+siBw+ZE47uB?=
- =?us-ascii?Q?cIz3YogVuvw5kh5OUradlmcf49IuS0RNjEFUEuByb2JlJH2vWpJ4rjJqaP7O?=
- =?us-ascii?Q?25JdiqSw/XbwdZfVrxh/f+9ad9o2LJrpK6rKfmb4PYx2zSyhbzfogkn9RVUe?=
- =?us-ascii?Q?1xfteXD73hldXzCxkXm93pFKOyK1XNLEc9SzFPVmCGEOg6h0w/vdxOrsPGoW?=
- =?us-ascii?Q?N0PhkeCba9uZ7QKiL/lqI3F8mAL4DO2WhrU0JKGXyWYLW0Qi1rG7umaFebLs?=
- =?us-ascii?Q?3oTWoWHtJCTmeM3nNoIG1cdjVzvwJhFOWT1LqzUTExAkKLVojELoIQrLgz6W?=
- =?us-ascii?Q?zKj8JGiQCvbQl0r7ZKquVOsw0AIcEjxVnsgy1UqYNwgdotdLIzxWUFrfAt85?=
- =?us-ascii?Q?QLPnwduYgxzJ4Naa+Dlr0Fc6uXxZnVAQ6X7MLWyP58Og/7Y2ysrTg19BYayW?=
- =?us-ascii?Q?d8V9dLKRxHwfFOos38Juk2Db+RVTSpuGm0tgsG6YsqDuqijt6gbUI82JwEEl?=
- =?us-ascii?Q?r2PbyJeDv7y+rmJuRv3hZZkpikMj3xTPaDALnwnzX652el1JVSiJhYA+2fTs?=
- =?us-ascii?Q?94UxwleWocsG2oiw2saaKVz/tXYWHIlnUDQZy2Z8pMfhkzOEAr1yc/AmVv4W?=
- =?us-ascii?Q?0QWqSAOsjT4hAgQ3ePdGWmy/jn4k6ohVM7F/dbLjivx9PO4QKoxHlz5rdaEX?=
- =?us-ascii?Q?wjixiGGAdlfoouGKycb63rqIY352qcQrooEOcOHLFzQsrz1VHKC3+4swZqQS?=
- =?us-ascii?Q?VI27O68sJq3LuCyIytD3I2wRdqd9ZFkqjcpc+o/QoEJt32fliNZJ9pfyj4hQ?=
- =?us-ascii?Q?OJ2hZVbSsNr4QeneabR0787l0HMDze5auplJuiAzXqEFmqq/sBSHrhTTaAA2?=
- =?us-ascii?Q?2zRTg2CopLJzq8GBuUGFVzUR8+hrKj3HDcYNo9zJcJBAXGOoz9Nv0rGBz+mC?=
- =?us-ascii?Q?t5QqVAMR2iY9cxuuX8khu3OyADV9BbMi28aF2I5SLr3884a0VuAaswu9VRcc?=
- =?us-ascii?Q?h65w6pdsXa5pPiH2nrQDa/wrpNOCkQ4vGENZ6fxvVuGQLmP3fJLL5KClV2DQ?=
- =?us-ascii?Q?DE3I0oiZPTIRUziWpSIZIghcVj/4IZP1AEo/T9xxiJREPSDZOW+PnsFcJ1MY?=
- =?us-ascii?Q?GNLhJBzw3GLrsm5rFF5Xtt4i/8wUmMIYxVf0lXQkM6jltJP+9mMk?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 41c195d7-15ba-43ee-8315-08df4034a2c4
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 20:44:52.3888
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 0n35OfjnDM8z/zhRdTxL1NxnjFQQcrhlD5KdMOWBVcDV9h7/kO2kaH/P/CwNrk35MqUY6pmJDoRiNpyA81d3nbRyP/gMSXERs0ZwrqmTFLMRqUSN+4TV35Kwq+f84YsK
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV2PR04MB475645
+References: <20261110112546.261415-1-hao.ge@linux.dev>
+In-Reply-To: <20261110112546.261415-1-hao.ge@linux.dev>
+From: Suren Baghdasaryan <surenb@google.com>
+Date: Wed, 11 Nov 2026 20:45:02 +0000
+X-Gm-Features: AclHuK-ZSzUbXpuTPMxX4-S9gb3Y2E-tjBJBsqLyAoT0xCfZuwy_cCHQcxiXGC4
+Message-ID: <CAJuCfpEUVDVZ53Pe3uzUVU_=4V3vipCLqY8jo_CC5kA_ZJSnEA@mail.gmail.com>
+Subject: Re: [PATCH v4 0/9] mm/vmalloc: fix up vmap error handling
+To: Hao Ge <hao.ge@linux.dev>
+Cc: Uladzislau Rezki <urezki@gmail.com>, Dev Jain <dev.jain@arm.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, Madhavan Srinivasan <maddy@linux.ibm.com>, 
+	Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, 
+	Shrikanth Hegde <sshegde@linux.ibm.com>, Alexander Potapenko <glider@google.com>, 
+	Marco Elver <elver@google.com>, Dmitry Vyukov <dvyukov@google.com>, Dennis Zhou <dennis@kernel.org>, 
+	Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>, linuxppc-dev@lists.ozlabs.org, 
+	linux-kernel@vger.kernel.org, kasan-dev@googlegroups.com, linux-mm@kvack.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Nov 10, 2026 at 02:01:52PM -0700, Dave Jiang wrote:
-> Dan is no longer with us. Removing entries in MAINTAINERS to prevent
-> people from keep emailing his address.
+On Tue, Nov 10, 2026 at 11:24=E2=80=AFAM Hao Ge <hao.ge@linux.dev> wrote:
 >
-> Frank will take over for async_tx until the feature is removed.
->
-> Alistair will take over on fsdax with Alison continue to wrangle patches
-> for DAX overall patches.
->
-> Cc: Alison Schofield <alison.schofield@intel.com>
-> Cc: Vishal Verma <vishal.l.verma@intel.com>
-> Cc: Matthew Wilcox <willy@infradead.org>
-> Cc: Jan Kara <jack@suse.cz>
-> Cc: Davidlohr Bueso <dave@stgolabs.net>
-> Cc: Jonathan Cameron <jic23@kernel.org>
-> Cc: Vinod Koul <vkoul@kernel.org>
-> Cc: Frank Li <Frank.Li@kernel.org>
-> Cc: Alistair Popple <apopple@nvidia.com>
-> Acked-by: Davidlohr Bueso <dave@stgolabs.net>
-> Acked-by: Vishal Verma <vishal.l.verma@intel.com>
-> Acked-by: Alison Schofield <alison.schofield@intel.com>
-> Acked-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-> Signed-off-by: Dave Jiang <dave.jiang@intel.com>
->
-> ---
+> __vmap_pages_range_noflush() and friends can install some PTEs before
+> failing and leave them mapped, and the kernel callers do not agree on
+> who cleans them up. pcpu_map_pages() and kmsan_ioremap_page_range()
+> roll back what they mapped before the failure, while
+> vm_module_tags_populate() and the __GFP_NOFAIL retry loop in
+> __vmalloc_area_node() rely on the mapping functions cleaning up and
+> do not call anything like vunmap_range() themselves. When the same
+> range is mapped again, the attempt hits the leftovers and fails with
+> a warning in vmap_pages_pte_range(). A leftover huge pmd is worse.
+> During the retry, vmap_try_huge_pmd() calls pmd_free_pte_page() on
+> it, and the x86 implementation cannot tell a leaf entry from a page
+> table and frees the mapped page.
 
-Acked-by: Frank Li <Frank.Li@nxp.com>
+Please note that there is a new function called
+vmap_pages_range_batched() which should also unmap its incomplete
+mappings on failure. This function was introduced by a patch called
+"mm/vmalloc: map contiguous pages in batches for vmap() if possible"
+in mm-new. I think it should be handled by this series as well.
+
+checkpatch.pl also complains about "Reported-by: should be immediately
+followed by Closes" on some of the patches, which can be easily fixed.
 
 >
-> v2:
-> - Add Frank as reviewer for async_tx.
-> - Alistair has been working on fsdax and agreed to be maintainer.
-> ---
->  MAINTAINERS | 12 +++---------
->  1 file changed, 3 insertions(+), 9 deletions(-)
+> After discussing with Suren and Ulad [1], we move the rollback into
+> the mapping functions. A failed vmap leaves nothing mapped, and the
+> callers no longer clean up after it.
 >
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 93abbb315065..58bdd5eff5c2 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -4294,7 +4294,7 @@ S:	Maintained
->  F:	crypto/rsa*
+> Patch 1 is the KMSAN part. The shadow and the origin of a range are
+> mapped by two separate calls, so the rollback there has to cover
+> both. Patch 2 is its disabled-KMSAN counterpart. Patches 3 to 5 bug
+> out on an unaligned range at the entry of the three range walkers.
+> Patch 6 only flushes the cache once the mapping succeeded. Patch 7
+> adds the rollback to __vmap_pages_range_noflush() and
+> vmap_page_range(). Patches 8 and 9 drop the powerpc and percpu
+> cleanups that are not needed anymore.
 >
->  ASYNCHRONOUS TRANSFERS/TRANSFORMS (IOAT) API
-> -R:	Dan Williams <djbw@kernel.org>
-> +R:	Frank Li <Frank.li@oss.nxp.com>
->  S:	Odd fixes
->  W:	http://sourceforge.net/projects/xscaleiop
->  F:	Documentation/crypto/async-tx-api.rst
-> @@ -6726,7 +6726,6 @@ M:	Jonathan Cameron <jic23@kernel.org>
->  M:	Dave Jiang <dave.jiang@intel.com>
->  M:	Alison Schofield <alison.schofield@intel.com>
->  M:	Vishal Verma <vishal.l.verma@intel.com>
-> -M:	Dan Williams <djbw@kernel.org>
->  R:	Ira Weiny <iweiny@kernel.org>
->  R:	Li Ming <ming.li@zohomail.com>
->  R:	Richard Cheng <icheng@nvidia.com>
-> @@ -7621,7 +7620,6 @@ S:	Maintained
->  F:	scripts/dev-needs.sh
+> Changes since v3:
+> - drop v3 patch 3. The clamp papered over the caller bug, a bad
+>   range now BUG_ONs at the unmap entry
+> - drop v3 patch 4. The reworked walk (24bbe1c56f63a) propagates
+>   the errors already
+> - drop v3 patch 6. The walk below checks the range already
+> - the map side checks moved from the pte level to the entries of
+>   vmap_range_noflush() and the walk, and became BUG_ON, in line
+>   with the unmap side
+> - rebase onto the walk rework, commit messages updated accordingly
 >
->  DEVICE DIRECT ACCESS (DAX)
-> -M:	Dan Williams <djbw@kernel.org>
->  M:	Vishal Verma <vishal.l.verma@intel.com>
->  M:	Dave Jiang <dave.jiang@intel.com>
->  M:	Alison Schofield <alison.schofield@intel.com>
-> @@ -10315,12 +10313,12 @@ F:	include/linux/fcntl.h
->  F:	include/uapi/linux/fcntl.h
+> [1] https://lore.kernel.org/all/20260915070001.113559-3-hao.ge@linux.dev/
 >
->  FILESYSTEM DIRECT ACCESS (DAX)
-> -M:	Dan Williams <djbw@kernel.org>
-> +M:	Alistair Popple <apopple@nvidia.com>
->  R:	Matthew Wilcox <willy@infradead.org>
->  R:	Jan Kara <jack@suse.cz>
->  L:	linux-fsdevel@vger.kernel.org
->  L:	nvdimm@lists.linux.dev
-> -S:	Supported
-> +S:	Maintained
->  F:	fs/dax.c
->  F:	include/linux/dax.h
->  F:	include/trace/events/fs_dax.h
-> @@ -13455,7 +13453,6 @@ F:	drivers/platform/x86/intel/hid.c
+> v3 link: https://lore.kernel.org/all/20261026080329.140244-1-hao.ge@linux=
+.dev/
+> v2 link: https://lore.kernel.org/all/20261019054531.87652-1-hao.ge@linux.=
+dev/
+> v1 link: https://lore.kernel.org/all/20261009063619.112313-1-hao.ge@linux=
+.dev/
 >
->  INTEL I/OAT DMA DRIVER
->  M:	Dave Jiang <dave.jiang@intel.com>
-> -R:	Dan Williams <djbw@kernel.org>
->  L:	dmaengine@vger.kernel.org
->  S:	Supported
->  Q:	https://patchwork.kernel.org/project/linux-dmaengine/list/
-> @@ -15278,7 +15275,6 @@ K:	libie
+> Hao Ge (9):
+>   mm/kmsan: undo the shadow mapping when the origin mapping fails
+>   mm/kmsan: skip vunmap_range_noflush when KMSAN is disabled
+>   mm/vmalloc: BUG_ON() on an unaligned range in vmap_range_noflush()
+>   mm/vmalloc: BUG_ON() on an unaligned range in
+>     vmap_pages_range_noflush_walk()
+>   mm/vmalloc: BUG_ON() on an unaligned range in __vunmap_range_noflush()
+>   mm/vmalloc: only flush the cache after the vmap succeeded
+>   mm/vmalloc: undo partial mappings inside the mapping functions
+>   powerpc: drop redundant unmaps of failed vmap mappings
+>   mm/percpu: stop unmapping the CPU that failed to map
 >
->  LIBNVDIMM BTT: BLOCK TRANSLATION TABLE
->  M:	Vishal Verma <vishal.l.verma@intel.com>
-> -M:	Dan Williams <djbw@kernel.org>
->  M:	Dave Jiang <dave.jiang@intel.com>
->  M:	Alison Schofield <alison.schofield@intel.com>
->  L:	nvdimm@lists.linux.dev
-> @@ -15288,7 +15284,6 @@ P:	Documentation/nvdimm/maintainer-entry-profile.rst
->  F:	drivers/nvdimm/btt*
+>  arch/powerpc/kernel/isa-bridge.c |  5 +--
+>  arch/powerpc/kernel/pci_64.c     |  4 +-
+>  include/linux/kmsan.h            |  8 +++-
+>  mm/kmsan/hooks.c                 | 21 ++++++---
+>  mm/kmsan/shadow.c                |  9 +++-
+>  mm/percpu-vm.c                   |  5 ++-
+>  mm/vmalloc.c                     | 75 ++++++++++++++++++++++++--------
+>  mm/vmalloc.h                     |  6 ++-
+>  8 files changed, 94 insertions(+), 39 deletions(-)
 >
->  LIBNVDIMM PMEM: PERSISTENT MEMORY DRIVER
-> -M:	Dan Williams <djbw@kernel.org>
->  M:	Vishal Verma <vishal.l.verma@intel.com>
->  M:	Dave Jiang <dave.jiang@intel.com>
->  M:	Alison Schofield <alison.schofield@intel.com>
-> @@ -15307,7 +15302,6 @@ F:	Documentation/devicetree/bindings/pmem/pmem-region.yaml
->  F:	drivers/nvdimm/of_pmem.c
->
->  LIBNVDIMM: NON-VOLATILE MEMORY DEVICE SUBSYSTEM
-> -M:	Dan Williams <djbw@kernel.org>
->  M:	Vishal Verma <vishal.l.verma@intel.com>
->  M:	Dave Jiang <dave.jiang@intel.com>
->  M:	Alison Schofield <alison.schofield@intel.com>
->
-> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
 > --
-> 2.54.0
->
+> 2.25.1
