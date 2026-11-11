@@ -1,123 +1,123 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.168.131
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794398648;
-	b=qzP6ezOWhH0XHJ2Y7ce8WcOdXBszpwfsKg/8Cm63NoevICpZ9PGep27u5pfuoHvJ69zz
-	 lX85rKSAG8l3XBbAljlMbnBrm1F8HEa0hcriCqBpuZIS2fJB0cOOEZP3rDhkpruPkcwdn
-	 z/2g+jNnwe1vrRp/hS+j09LeB6Ln7IsZwa2K+E4FWunwr0IZSh7UPyMiSm7JC0eBjMdtW
-	 tHhUunP6D6ug4iGO59jZg2QneMAry+5rNhyRwjqedOIgOBI+xIETG7lIjAvI5gKBTkpEy
-	 saEqQ7zcikYkECG8eF+KI/m+BFgSyVPZFgM9DewhApECKUQL51K8UBQsTnyje/TV32w==
+	t=1794398657;
+	b=BsXwkZinIvtVNh7Jo9o7Q7k6q9oW4mMXvj2iPI7o7izAJPFc8RggRkhRlMEXQkKBfFvY
+	 2UJpugirIeZfuGsuGKA9HaXkbHpei5DGGXim/T2Es4aNtUkm4aLi1lCKEajnTAX4sZj/7
+	 tVzZMA6HNMP+TpGR3xpgJMrzrI+WNSXOqqIhQqxxmzrcenyRZXfsBSjzSOjip/xEa9QgA
+	 1NflKd22FJiGvN2WcTgGCaZume3jw0Mv+hhX6nGmZ7yEPRVs1tSXyioE5/fGX0/y4yjjo
+	 kxlwEae6d4QlC6byjj0qs7a9ReU7T2hFrGO8XMmtjUkV+S7Ns1mf+LoJ7E8NohxVAiw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794398648;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794398657;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
 	 References:In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
-	 Cc:Content-Type:Content-Transfer-Encoding:X-Authority-Analysis:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 Cc:Content-Type:Content-Transfer-Encoding:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-Spam-Info:
 	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=97BeSVJCOsNBXayFIkPJjAeGpvW7WX8qTH2D2rdWJwE=;
-	b=L+apPcPefETgPan14GA147W30XqwkstBiIl9LPf0u1uPy8MwnLGMc3BqFjeiFm4+fRsX
-	 DVPdCdjwWQdEmFVDDEVYOj7y2YvdAu5m7cPpZEmy2dnalr8B73JPSzadcuEtKeVyYK+5N
-	 PzU5ee8xH5O7nCwcLeluSRG/O3x8b/FNUXxaAKvQ4BcD6kYtsQC0O7Zk164z5GNQFgdLr
-	 uWstyzXU7+sM43hu/AE4+maO1F9YbGaNTGQo9hy2cO7yGC35jgAGRLJGpfwLH0UvDsSjL
-	 EtFY4Q0k+jJOQz2oDfEpcv1Zo9X8cmc4GuHWh4fgvamcn2fObEus1qRMXx47xCj+uaA==
+	bh=X1OC0sm6myreOr6GJJBSVSvkHjaBBncy/JIQDF7f5Ok=;
+	b=0WJu9uRhHlD6pCH7WYb8x7iK4vOKcTyDWJ0YmioTpVVpUqtCNDKO9UWqFtBkd5haHD7z
+	 siO7pBx8jN82GMM6t2zUsWThAy7CxczBf7DIppgskNW4tfsaiQUEbSPhbIK9pZWnO6ndp
+	 vLxh4hjgSmegbExwvmONRZ1UAUlBiANldfpwbjwNCF9K4ec10L1ljkjnkYTHMk85a6sLp
+	 qN3O3TbwOJNla/ADIzWykxQaimlVogqj6pIB4dpStK9RxnOjb5iqiujb+vCpTgQpzUjXH
+	 U4WQS/IATVO34u9Nor6KHtwZiv1Hc3RWAFav39eV0G94V6yg/DbIm9+3wQu+IwFmM/Q==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.qualcomm.com;
 	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="X/CvY2lH";
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=OAcHUnVk;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=hlF7V0pk;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=fJIYfsna;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.168.131
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A78DC606A32E
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 12:04:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A78DC606A32E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAF7C606A332
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 12:04:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AAF7C606A332
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=X/CvY2lH;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=OAcHUnVk
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ABBQiBx1409027
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 12:04:07 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=hlF7V0pk;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=fJIYfsna
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ABBV2de2350801
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 12:04:16 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	97BeSVJCOsNBXayFIkPJjAeGpvW7WX8qTH2D2rdWJwE=; b=X/CvY2lHnrvPCeei
-	JRPs/8T6Bk5CJZOtU0EfTBYOS2lQmbTIVqOzkcqcqrNmsyZBuVmgUrDGritvAb+C
-	xnmv36+J8fK4+sEoG4q97VH7WaUXP4gs0TuJR44UFCW3eooQDoDDZ6zRCV3bquGd
-	U+j8qiiDNbWf2e5TzRLwxYgxASRCi6I3STt7ZMcMvGTZeBdEgVk19dnU/aUdTHeR
-	kE1WWk/0UMYpIUG31V57uBShQCZcZjFbJZX1oWPV7v9xdi37mIZ1IO/2PDkjQT7m
-	XEpXLPS+lfJYdvABe0yY8KfH6E7qcKT8lOp6JwJd+Hopj96CS01nt5iHdzKTNO3u
-	3N30ig==
-Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvgjdhqpd-1
+	X1OC0sm6myreOr6GJJBSVSvkHjaBBncy/JIQDF7f5Ok=; b=hlF7V0pkEwNptY6I
+	k2qXpgfx4SV+EbsQQ9Lp2+M448er1GPThyxTMxu1Hvn9wzwZwxUAz9uID0YSAYKi
+	H0IHQtNgUjB67AGWSXNT8UoqMGcvYo3HtLThXMVI1l+KiRPR/8dMg2p8p8mdotxY
+	Ud60S9JdjuJLfb8xesADWi1W0HC+4qYKzZD4iVN+gTn1dIYI7nOxy/gL949s24cI
+	HrCdSEk4aificEBQDtmBc8rJBEG9wO151qOTo4clJzhbEp+Yiwmg0B6QyiA+GKo2
+	7rfKmcDvaBdg3c1tMGbVB3HrTyIs9Bu1Ap6B2UOs2vAX15bv0xiI1WNelN1aSa2K
+	K6cjrA==
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvdnp2cut-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 12:04:06 +0000 (GMT)
-Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-8a59717b0c0so2440024b3a.3
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 04:04:06 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794398646; cv=none;
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 12:04:15 +0000 (GMT)
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3b10afdf947so2857999a91.0
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 04:04:15 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794398655; cv=none;
         d=google.com; s=arc-20260327;
-        b=p0XD07WD+OGdzUY3alIG8jdnIhB4/a9DtnmSRiH+akxp8386gjr1CIk3A6Mn1//yqx
-         1cY1eIQLpP3aOWYYQuDVQJeN6OmDeNhXhnymn9Jpza7P+Cvll+ES4VNp66GRlX8rSj60
-         2rKIqm0Ay3Eozt82sQ74YHTHAaebIrpS6BcROYJ/CV6AbOX4cknvjcXFg1NsMhgpeAWE
-         0Bh091j/3MjmG9Cy48Vn+K3SKjwSj+qqd/19jWDhsTlP2OfTXPIlQ6zeu7wo/ZXILOFa
-         lHWcLbAZIDqw3gGcb1t+b+DX7rEjEYvFNMR8bj14XuiCodfIiCHpT2bwZBb4LTI+4DTS
-         C4KQ==
+        b=m5KqeOrcPMv1P20t29Kd9EEZJV2CdL8ayFiQ/rEgjqW3JPciFqoPQutQBpt0UftQCe
+         2VyxVplLFrm5Q29M8hYjNX30FuPddtfKCoNEIX4TVfU9VsrtiGgUXehysDvEoLdVm1lK
+         IWo/YbYHvXeo7UXTLbS4JfuvYQaL7PPQXWVZoEe5dHZ2nfgeqbWJ0sMu6ls4g9E+uAXi
+         dALaj5GF1g3YbTC5moXuBh0OllwabzJki0aQFBFxZ9Imdr4dB/at1u6w65iH8+ekRBCN
+         ba6pu9RSMDBJ+cMXanWlG81AAZKlQhVG7Da4Lpvc/be7MuAAI9V2OhgNIatym+xatpuz
+         8MXQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=97BeSVJCOsNBXayFIkPJjAeGpvW7WX8qTH2D2rdWJwE=;
-        fh=4VYfYXvMOOUYQI6xZDyVwsCupYnT/KgGjJFSmBoq6ng=;
-        b=N8nNbz3REmLbVyBZQdQ3FRDLI8wCN8jLsDedTqm39ucZ0QRJKtdee/aN4l7idpH0kb
-         HrCfjR/lmBtuQLFMzC5YjNMeRe9GbUYetm2wJJWQCEp+maIL7ELxNj+OIuS5PwPNG0Qe
-         wQ6NI0t9dqWJPQ3JDXzXGgRiMV9+MrlXz8jGk+jOEkQc/HeTQo8qfj+6VjxrmeioY2B3
-         CNZAJaMxOqcPZdDFPMgMdIrPcYTCEiFwTiKceEAAr0FPX0peJ3IqniaewH2NxyTNvnlL
-         /DFpssbr93HNaTiouxPw0oINlppgreCMK8IdzFPZyFap6mNN8f+HCZaOgCUB3ZcBHu3y
-         JhEg==;
+        bh=X1OC0sm6myreOr6GJJBSVSvkHjaBBncy/JIQDF7f5Ok=;
+        fh=Fomaunxx5k3lzIKr2D+8CAkCFuexpCg8OUWTicagEL0=;
+        b=BaylySnnLZsv05k1bAXxSVT9XO/v5R35WGf8YRPwrtrP5RRyrsfl7Ct0H81yzljvR0
+         jXK5oU0Mc2V628KXvI0zqt3vYKjGgYoF2FVbIEkjBOySMRP+vkPtMWSJDzwmzcwdpCv3
+         BrPOuDovtuoYaN/IGWNHY6mBEgMHBImDsvw10PxoMQcdb7oKnA715X6fNUXIaq2CyAte
+         EaxlEXSruU/uX3m/g413a2FrdhTYNTOHdXyjgOMUGdaQ12JpKxfj1x4KUOiNa6L0j9mC
+         cc4xs9h0c68zICvGEodS2kMGVueukWXfEYztOkFnv59vAvRW1OdTLXJEnFPoym8ySxE5
+         WLQA==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794398646; x=1795003446; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1794398655; x=1795003455; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=97BeSVJCOsNBXayFIkPJjAeGpvW7WX8qTH2D2rdWJwE=;
-        b=OAcHUnVkbsxxCk9J1E5i4npIqER9Dolx1heJL/EnpuDI4PHROFyn6XS6Hy2JkVmObm
-         93gXtpZ0pYlVfLgAE8i4B+eiGE0preKtX8CxNkWSJwGI0QKxAO4woewt6ddqjzSGJrV6
-         kL+qrkI7jNnFX6U5Dx7w7LRbvcRAZfcll0lpphPkASGhs3J6nmUZjNBNK5MYxrWNGvhM
-         fEMEZ3eOk9aTnErj1aUZqWSWIgE30ocr5f2MlWsXw6J2lTQFMWxcnzoYLW66ZMJrm2U4
-         mgqaRvefOBOXF5YeWJBFaoEgNc0WHRW5Cd1mpKWY3oUphqQyvMgK8+EMCyAGk9RiJ649
-         TjOA==
+        bh=X1OC0sm6myreOr6GJJBSVSvkHjaBBncy/JIQDF7f5Ok=;
+        b=fJIYfsnaMJ7W2uS5zL5++SusZCyP5EncgY8brkQ72VQjS3/i1Z0vYn3YkK3WzV4vMd
+         jvzTqgR5n0uQJ7C/vCM94/7V8pMfr70gdBdbsHSEAjUZX9ZxiB04ICAiWV5rX18nCgAn
+         NOH4xDTUWUNUKpGWnl8BMO0MoEvFZTY66u3s5Im2YdDnVRbhdYOffeJtdWLCN+EG63Nr
+         nWxTRcin1vT4P1eiBH5gwndbvoFt2p9FuI2QQePyItV+u0Y0MmwT/pyLLR8b6zkKKmfN
+         5tF9PpZVPfglKRWpVhlhhfDIiLsF6H0XyUPRN16cXEsPjBHm1v1NAS42lZ45EVND7+XK
+         eMsg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794398646; x=1795003446;
+        d=1e100.net; s=20260707; t=1794398655; x=1795003455;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=97BeSVJCOsNBXayFIkPJjAeGpvW7WX8qTH2D2rdWJwE=;
-        b=HjoPLa/IhVdiCTyFcxMS9/L4vbKeJNHgZUsc0jkd+H1ch20MIKqLZd0InMaeSI44bS
-         dXdCnfo8Vxw0NH5afLRTABC5b2/nf8myTOY9EYhQ6A59VKIXcAQSXDja2AvZ7E3ThUu6
-         dQWku5b3rIpIOE1wbXkGBm3pBakONs/a9ExcWcgpdD51a3eNiPBtAIsv7Dsk9skuKv7S
-         iT3fj5RZplbtkj3Khkyeb/CmzGFxrw9MndEkXwEK5OWN4xCG+T7vY5jlIXGfHwz7Ihra
-         ofGpqF4vQ3MKl9tMTzQzjFo1p5BpSMFBucB6DgB+p4RdJJz61qeH160N2JuEwLSAlwvM
-         Lwcg==
-X-Forwarded-Encrypted: i=1; AL+hErGuVreD7qXZ7I1PZnFZvCQ/HnOMmLK5Zk4KzTlVCnv8lbP44W7stNfw5G/v4T3MKbBExhF/caeG7anYNNA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9T5nPpNRHhDKHj5Z3p9HBzvhGDMBdec3KOz0ramTpM02p4RzWY
-	8fQTTS2JJ7b62PyEddOCPLVgHqy4jMulXQzxUfNrM7b73EPFcDomVLSzORZTNihPkpL3/HTF2Fc
-	HoDpXsev+Y1yYt7r8AHyfkItPSIZiVlQg80zZ8q4u9S4IeRj33mfd+NP+gXRt4tX2v/6sGdfE1q
-	r68RBPAUM1aEscHi/uluO22/2zm/Y1ggYSCvtFCff8uQ==
-X-Gm-Gg: AYBFou0wc1JzvZpH+0wqow3tyamO1ohJu4GV0urD2JpLyRy/vHrT20jc3lJqxrH4osZ
-	DRdnerJiM/56d+r4cWmZOtD5l3KsfIVKsvRBChpQ+ABVHOj7Cq20FdIimlBhU2HGqbWpZGTshKf
-	uH3g6JCr9EWf9XlyZo27XElULRblw7jiQwck9u6JiQUqaGAPH6n09KO9GYBQ==
-X-Received: by 2002:a05:6a00:18a1:b0:874:706d:962a with SMTP id d2e1a72fcca58-8bc1cc6842bmr2465036b3a.28.1794398646212;
-        Wed, 11 Nov 2026 04:04:06 -0800 (PST)
-X-Received: by 2002:a05:6a00:18a1:b0:874:706d:962a with SMTP id
- d2e1a72fcca58-8bc1cc6842bmr2464996b3a.28.1794398645717; Wed, 11 Nov 2026
- 04:04:05 -0800 (PST)
+        bh=X1OC0sm6myreOr6GJJBSVSvkHjaBBncy/JIQDF7f5Ok=;
+        b=Hwh273buEFrVb9JHrDgCferVY8ZE9ALq65Whdubv4fcoBy8xMf92n+WTzu/0BUxJJS
+         RZI/7xMp2b21/2x9pjUH40ZD9uSh9WkY0iFWg1pyRrhX5tLFI2Eiqu9F0DVrM7JiW0GR
+         pU8CDoFonVWHxPhiWLDEMd4wYMMrg+IG1zWgN7l0h8gbDySroprk4a6IJiR+el5pZeFz
+         +DlehXIhtYkDAhWoFKPC2ork1ApFbiDUX8mfHbhL7DHuy/QZRMHUpLFYziPiHFUHsM4D
+         ++UGWjWWQQ6AfPO56cW33TspjpFlFcl7MTD5KUBWj4Oe1uiOvbYmeZFdWvrpf+WafIPj
+         Hv+Q==
+X-Forwarded-Encrypted: i=1; AL+hErH2B7lu9Ii3kaB8Mp0xZB4YnnABCxtYqkeewb5JSsUkCJ3IgK4C9+Ol4wCYpq8lkyGtUK+WDwYWYCBoKCc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/wlHT8Kcb+BL9gAROcQXCLo+vhpHMMarZbQxeDKM0ZVHJrBgbQ
+	/0NrmajcZFC4SgfDehT3ZbwBk62XhwkHTDvjRa4Z6f5Dj8jSXun2CWNxEv0hsBuh7zjislo4dzN
+	126DMmmR+kkDLwtWUpjARsgn2CVELCmxpDkZkw3t8qTNVKR2XNyT8dbTGnq1Ru7BS77LWssBMQC
+	aU8adT1xL5ifM1mHUZe7KNQUEALbJuLRx/rLb/SVwh7g==
+X-Gm-Gg: AYBFou3RaRFqhCAl+GxxDMuQwE61BjvEgtmZipNN4bjM9xsJ1lEMuVf0o52kT2oI3cC
+	ok9Giq9uHafmd3pWxcSPQiyIcaNY72y0NXHEySIu87SVVMdEmtHgopFteCZNihQZI2VNMEIr79L
+	rBQrF6jqD6oS+AIqPd58A7appIZDjQfjRKsrG8VUdlK/jqg+vrG1deQm0oKA==
+X-Received: by 2002:a17:90b:1b01:b0:3b0:92b2:2e73 with SMTP id 98e67ed59e1d1-3b167b067a7mr4571669a91.28.1794398655139;
+        Wed, 11 Nov 2026 04:04:15 -0800 (PST)
+X-Received: by 2002:a17:90b:1b01:b0:3b0:92b2:2e73 with SMTP id
+ 98e67ed59e1d1-3b167b067a7mr4571647a91.28.1794398654542; Wed, 11 Nov 2026
+ 04:04:14 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -127,109 +127,171 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <avNHazNbGtMQJ5pV@sirena.org.uk> <20261110170253.2694265-1-sashal@kernel.org>
-In-Reply-To: <20261110170253.2694265-1-sashal@kernel.org>
+References: <avNHazNbGtMQJ5pV@sirena.org.uk> <60f76f85-8a5f-4b3e-afec-ab4e69315ff5@sirena.org.uk>
+In-Reply-To: <60f76f85-8a5f-4b3e-afec-ab4e69315ff5@sirena.org.uk>
 From: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
-Date: Wed, 11 Nov 2026 13:03:54 +0100
-X-Gm-Features: AclHuK-TQiAr8PSNCnxTwZnldPhQ9Cil9VcJUdagL6jktT0AFdXWIAAJvTIePqU
-Message-ID: <CAPx+jO_hPY0wZHwE2QdryzgOOAPH-2C0KXZTpt=cT3Aca5d6ig@mail.gmail.com>
+Date: Wed, 11 Nov 2026 13:04:02 +0100
+X-Gm-Features: AclHuK92GSy_gMaTKyxzETTYIzUWMCxU52fK90bi8tHK7knblyXvPBzpxSsGGMY
+Message-ID: <CAPx+jO8CsTTXY3G_EKgrHR4N0td7QUinM4gA8=_odckjb0p4WQ@mail.gmail.com>
 Subject: Re: linux-next: build failure after merge of the pmdomain-fixes tree
-To: Sasha Levin <sashal@kernel.org>
-Cc: Mark Brown <broonie@kernel.org>, Ulf Hansson <ulf.hansson@linaro.org>,
-        Ulf Hansson <ulfh@kernel.org>,
-        Guangshuo Li <lgs201920130244@gmail.com>,
-        Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-        linux-pm@vger.kernel.org, imx@lists.linux.dev,
+To: Mark Brown <broonie@kernel.org>
+Cc: Ulf Hansson <ulfh@kernel.org>,
         Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
         Linux Next Mailing List <linux-next@vger.kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Authority-Analysis: v=2.4 cv=E7tYNqdl c=1 sm=1 tr=0 ts=6af459b6 cx=c_pps
- a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDA0NyBTYWx0ZWRfX1HzPlEyUNGXG
+ hJTaydYme80IOSpeqfiIYkAzJ0fa7UJ39AvoQwP0RB+IkRpq5OZzuytdsmqKsKsLIl3aysi/MoR
+ SOIDSMaWW+slNJ+Io+S0mOqa/IE8KHitdWK0xYKV+KtF+zyC1XHUedBGxWe4ioEUAh9oZ63jsuw
+ wAi3vWb/mpxhol8fsCuP1GA33yqnKq1AMyJwa6yuSeg1EfrMjyTR08W6iHplFqV10DAwpf/AQfF
+ ++K/XfIRF9xpWvkWjEiTM9Aw07Z2sm/AY8S+sSlEb/E1MNoOj2MPTJvUeC1n7hr8B16NK+o3bkU
+ 7E3wM7iSpZBMoiZsdfOAfKj3CK0qvR1aQXq+EwA2wgDEwBM1lYbhEnGJZXKfEqk8S1zz6ISbGRv
+ cUdqFJDtpEXugylhnlYg/pEZ6vzv+Z8RbNWwGgG7bYPwvisNVIuF7c+aFYn+6ifwJr6+1oQMk/Q
+ WWBoh0sEWVI7oK0CdSw==
+X-Proofpoint-GUID: swgPGTK9JnzU0RzSJerSsKbYMK8zE5Ox
+X-Proofpoint-ORIG-GUID: swgPGTK9JnzU0RzSJerSsKbYMK8zE5Ox
+X-Authority-Analysis: v=2.4 cv=NK1AaE6g c=1 sm=1 tr=0 ts=6af459bf cx=c_pps
+ a=vVfyC5vLCtgYJKYeQD43oA==:117 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
  a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=Um2Pa8k9VHT-vaBCBUpS:22 a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8
- a=FacbNd98rA_P5PhHUj8A:9 a=QEXdDO2ut3YA:10 a=OpyuDcXvxspvyRM73sMx:22
-X-Proofpoint-ORIG-GUID: xcVRvcllAfD4_tuzTq4p2KCWyjOVr-pa
-X-Proofpoint-GUID: xcVRvcllAfD4_tuzTq4p2KCWyjOVr-pa
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDA0NyBTYWx0ZWRfXxQvHchAOfrzs
- CNvXSt3TBWFia65DenhjX3wo6RV7ZPHMRPsgXN5MsgnXDOxpQa+Q0vPIKxbZChryJ9QbBjuOmPR
- 5SCUNWoXPUBbRobve0mLYsQy+03nOGe3jC+0ITvptE2agvRfZ8ptduSp610Nc2I6UUKpBIJNLFZ
- cXrYAZuz48keOdtbawKVNC/WXGU3QalkdMYO2hulrSUx2XjDiDZblLSuM2j+/ElOMcAMzoY9JcF
- NdJLrmUxEXeP3LGeUbnAHudmbIWHS5sXFUKwRlTrXx8ok2V9GDi129ob+BqAV+aLedCt5TdgOz1
- 7GuUHLin5GUdUzjvrzYg/6z+0z/iySzP1Q7gbCFn5EtWZFbGlyDhXJBdyhKEKxKuS120jtRMnmc
- lCsXoSEWjOzJK0zTQQ0Vx/n6NZqwGLLpn1thwtD73FZvDPtR9qlQ1VnK4xx92RbO3HXlBagUd+O
- 5WND+Q/2S460hZ6u34g==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDA0NyBTYWx0ZWRfXwcKjHdKDtzx9
- UtJiOHe/0MrABNfCmo0wdaeTCUNv6UDvKBa0uyHkYOCvUCB7br7dvJLI5FVUjOT37mTi1zoNu/0
- /mZ94AsWz/z2amNRajHvONEA2UrrRUE=
+ a=eoimf2acIAo5FJnRuUoq:22 a=VwQbUJbxAAAA:8 a=ToB9MXPV58jh7MJZ1wAA:9
+ a=QEXdDO2ut3YA:10 a=rl5im9kqc5Lf4LNbBjHf:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDA0NyBTYWx0ZWRfX31z7OsnSKw2j
+ C0r6tsnk7T8zE+Om6xyBWl0b6hF2CUxFSxwuGVJSlJPenG9FVi6xuvATAV9+NhRS6jx20e3Qyv0
+ yKpcjdPK5iP3EeRocd9yRCOWQPB51Hw=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-11_02,2026-11-06_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 suspectscore=0 priorityscore=1501 impostorscore=0 adultscore=0
- malwarescore=0 clxscore=1015 bulkscore=0 spamscore=0 lowpriorityscore=0
+ phishscore=0 spamscore=0 clxscore=1015 suspectscore=0 lowpriorityscore=0
+ adultscore=0 malwarescore=0 priorityscore=1501 impostorscore=0 bulkscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611110047
 
-On Tue, Nov 10, 2026 at 6:02=E2=80=AFPM Sasha Levin <sashal@kernel.org> wro=
+On Tue, Nov 10, 2026 at 7:56=E2=80=AFPM Mark Brown <broonie@kernel.org> wro=
 te:
 >
-> On Tue, Nov 10, 2026 at 04:33:47PM +0000, Mark Brown wrote:
-> >AFAICT this is caused by commit
+> On Tue, Nov 10, 2026 at 04:33:51PM +0000, Mark Brown wrote:
+> > Hi all,
 > >
-> >   d7262971a2acc (pmdomain: imx: gpc: remove all initialized power domai=
-ns)
-> >
-> >though I don't really see how.  I have used the tree from next-20261109
-> >instead.
+> > After merging the pmdomain-fixes tree, today's linux-next build
+> > (arm multi_v7_defconfig) failed like this:
 >
-> The while loop that commit adds to imx_gpc_remove() is never closed, so
-> the function is still open at the end of the file:
->
->                 while (num_domains--) {
->                         ret =3D pm_genpd_remove(&imx_gpc_domains[num_doma=
-ins].base);
->                         if (ret) {
->                                 ...
->                                 return;
->                         }
->
->                 if (num_domains =3D=3D GPC_PGC_DOMAIN_PU)
->                         imx_pgc_put_clocks(&imx_gpc_domains[num_domains])=
-;
->         }
->
-> The patch was posted that way [1]. gpc.c is only built with
-> HAVE_IMX_GPC, which only SOC_IMX6 on 32-bit ARM selects, so x86 and
-> arm64 builds do not see it.
->
-> With the brace added, gpc.o builds with imx_v6_v7_defconfig:
->
-> --- a/drivers/pmdomain/imx/gpc.c
-> +++ b/drivers/pmdomain/imx/gpc.c
-> @@ -536,8 +536,9 @@
->                                 return;
->                         }
->
-> -               if (num_domains =3D=3D GPC_PGC_DOMAIN_PU)
-> -                       imx_pgc_put_clocks(&imx_gpc_domains[num_domains])=
-;
-> +                       if (num_domains =3D=3D GPC_PGC_DOMAIN_PU)
-> +                               imx_pgc_put_clocks(&imx_gpc_domains[num_d=
-omains]);
-> +               }
->         }
->
->         of_node_put(pgc_node);
->
-> [1] https://lore.kernel.org/all/20260924142520.1594149-1-lgs201920130244@=
-gmail.com/
->
-> --
-> Thanks,
-> Sasha
+> This also affects the pmdomain tree.  Also, I still had your Linaro
+> address as a contact for all your trees - I've updated this to your
+> kernel.org one since the Linaro one started bouncing.
 
-Thanks, I amended the change like that and rebased my branch.
+Thanks!
+
+The next and fixes branch should be updated now.
 
 Kind regards
 Uffe
+
+
+>
+> > In file included from /tmp/next/build/include/linux/device.h:32,
+> >                  from /tmp/next/build/include/linux/platform_device.h:1=
+3,
+> >                  from /tmp/next/build/drivers/pmdomain/imx/gpc.c:11:
+> > /tmp/next/build/drivers/pmdomain/imx/gpc.c: In function 'imx_gpc_remove=
+':
+> > /tmp/next/build/drivers/pmdomain/imx/gpc.c:554:25: error: invalid stora=
+ge class for function 'imx_gpc_driver_init'
+> >   554 | builtin_platform_driver(imx_gpc_driver)
+> >       |                         ^~~~~~~~~~~~~~
+> > /tmp/next/build/include/linux/device/driver.h:294:19: note: in definiti=
+on of macro 'builtin_driver'
+> >   294 | static int __init __driver##_init(void) \
+> >       |                   ^~~~~~~~
+> > /tmp/next/build/drivers/pmdomain/imx/gpc.c:554:1: note: in expansion of=
+ macro 'builtin_platform_driver'
+> >   554 | builtin_platform_driver(imx_gpc_driver)
+> >       | ^~~~~~~~~~~~~~~~~~~~~~~
+> > In file included from /tmp/next/build/include/linux/printk.h:6,
+> >                  from /tmp/next/build/include/asm-generic/bug.h:31,
+> >                  from /tmp/next/build/arch/arm/include/asm/bug.h:60,
+> >                  from /tmp/next/build/include/linux/bug.h:5,
+> >                  from /tmp/next/build/include/linux/instrumented.h:10,
+> >                  from /tmp/next/build/include/linux/atomic/atomic-instr=
+umented.h:17,
+> >                  from /tmp/next/build/include/linux/atomic.h:82,
+> >                  from /tmp/next/build/include/asm-generic/bitops/lock.h=
+:5,
+> >                  from /tmp/next/build/arch/arm/include/asm/bitops.h:245=
+,
+> >                  from /tmp/next/build/include/linux/bitops.h:67,
+> >                  from /tmp/next/build/include/linux/kernel.h:23,
+> >                  from /tmp/next/build/include/linux/clk.h:13,
+> >                  from /tmp/next/build/drivers/pmdomain/imx/gpc.c:7:
+> > /tmp/next/build/drivers/pmdomain/imx/gpc.c:554:25: error: initializer e=
+lement is not constant
+> >   554 | builtin_platform_driver(imx_gpc_driver)
+> >       |                         ^~~~~~~~~~~~~~
+> > /tmp/next/build/include/linux/init.h:265:55: note: in definition of mac=
+ro '____define_initcall'
+> >   265 |                 __attribute__((__section__(__sec))) =3D fn;
+> >       |                                                       ^~
+> > /tmp/next/build/include/linux/init.h:275:9: note: in expansion of macro=
+ '__unique_initcall'
+> >   275 |         __unique_initcall(fn, id, __sec, __initcall_id(fn))
+> >       |         ^~~~~~~~~~~~~~~~~
+> > /tmp/next/build/include/linux/init.h:277:35: note: in expansion of macr=
+o '___define_initcall'
+> >   277 | #define __define_initcall(fn, id) ___define_initcall(fn, id, .i=
+nitcall##id)
+> >       |                                   ^~~~~~~~~~~~~~~~~~
+> > /tmp/next/build/include/linux/init.h:306:41: note: in expansion of macr=
+o '__define_initcall'
+> >   306 | #define device_initcall(fn)             __define_initcall(fn, 6=
+)
+> >       |                                         ^~~~~~~~~~~~~~~~~
+> > /tmp/next/build/include/linux/device/driver.h:298:1: note: in expansion=
+ of macro 'device_initcall'
+> >   298 | device_initcall(__driver##_init);
+> >       | ^~~~~~~~~~~~~~~
+> > /tmp/next/build/include/linux/platform_device.h:345:9: note: in expansi=
+on of macro 'builtin_driver'
+> >   345 |         builtin_driver(__platform_driver, platform_driver_regis=
+ter)
+> >       |         ^~~~~~~~~~~~~~
+> > /tmp/next/build/drivers/pmdomain/imx/gpc.c:554:1: note: in expansion of=
+ macro 'builtin_platform_driver'
+> >   554 | builtin_platform_driver(imx_gpc_driver)
+> >       | ^~~~~~~~~~~~~~~~~~~~~~~
+> > /tmp/next/build/include/linux/init.h:176:30: error: expected declaratio=
+n or statement at end of input
+> >   176 | #define THIS_MODULE ((struct module *)0)
+> >       |                              ^~~~~~
+> > /tmp/next/build/include/linux/platform_device.h:304:41: note: in expans=
+ion of macro 'THIS_MODULE'
+> >   304 |         __platform_driver_register(drv, THIS_MODULE, KBUILD_MOD=
+NAME)
+> >       |                                         ^~~~~~~~~~~
+> > /tmp/next/build/include/linux/device/driver.h:296:16: note: in expansio=
+n of macro 'platform_driver_register'
+> >   296 |         return __register(&(__driver) , ##__VA_ARGS__); \
+> >       |                ^~~~~~~~~~
+> > /tmp/next/build/include/linux/platform_device.h:345:9: note: in expansi=
+on of macro 'builtin_driver'
+> >   345 |         builtin_driver(__platform_driver, platform_driver_regis=
+ter)
+> >       |         ^~~~~~~~~~~~~~
+> > /tmp/next/build/drivers/pmdomain/imx/gpc.c:554:1: note: in expansion of=
+ macro 'builtin_platform_driver'
+> >   554 | builtin_platform_driver(imx_gpc_driver)
+> >       | ^~~~~~~~~~~~~~~~~~~~~~~
+> > /tmp/next/build/drivers/pmdomain/imx/gpc.c: At top level:
+> > /tmp/next/build/drivers/pmdomain/imx/gpc.c:503:13: warning: 'imx_gpc_re=
+move' defined but not used [-Wunused-function]
+> >   503 | static void imx_gpc_remove(struct platform_device *pdev)
+> >       |             ^~~~~~~~~~~~~~
+> >
+> > AFAICT this is caused by commit
+> >
+> >    d7262971a2acc (pmdomain: imx: gpc: remove all initialized power doma=
+ins)
+> >
+> > though I don't really see how.  I have used the tree from next-20261109
+> > instead.
+>
+>
