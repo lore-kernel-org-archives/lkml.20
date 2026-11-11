@@ -1,67 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794427101;
-	b=Kt+PMW8P6IofA2jN3m1CNysVZ3QwpRnlaljY3R/g1eIIY8ZRLt6dp023aQxbVoUsV1GT
-	 lGZ3/ccjiAOhuIc5qwUUETjBbJrwlvA4IdYc05/9RZ0sug5xjwjZ5WZ3BQEkKD73ubPC9
-	 CXp/+Fur3Gk4uJMFvnHvoSRm1w6M/VtfmzE6i7wU9j2qKAQxqg6B325XFOtF3ERyMRPIk
-	 Fb5ftWD3nrHgqzF6mSzA3iXSnwciOrboSoDqIkmvKgyA7zp7wGEZc2HB5hQwiE1T2mxet
-	 jF5maXcS7gm7hXc7TwtjE8reYjH2NQdLezlZbU3TXlOUmOA2W0TZFq5nUUVRGcg774g==
+	t=1794427186;
+	b=LC08J1GXsmhKo1MsJM2LVY/f1hb7iZkrumG7DVSdJczYOp/IWSfOFXP0PuORrX6JwF4h
+	 nGBs8mdAx7toq3NR4Y7gGy9f98ovtCzCQCy+BDW3uXXdX5kstGC3QITA2SdhFn9xiuj7m
+	 x5c5K1BVRMtdbkuCnSA3xdACvfdL0H6e6XNPyfmJ6OEulcEODiqgTCwtQaTa6rn/6UfiV
+	 UWGz85S0wVUbWvFJIbVWSCo2Lq/Q/VLpJ4noiYpMGmjSVTcdK3et4TZ3e1wxOME5GeVik
+	 UVSlXZcMxdVb6evIV0dDEng3GgNd46pdxonQ9Uz1WqKwQlfzPdAA4ORWcGd1LWF04Wg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794427101;
-	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
-	 Reply-To:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=+zWbU2lBimiW3VukH4sSYb/NSjNou2nKEFVFVnZ+3rY=;
-	b=HoGQ8mCVyZGmuawEi9qBPvd35tn3+/KYe4/k2tgX96gXM1TKC0rZRkfgDTsULB1913uf
-	 yndWK9WZ+040TEuDp+1Patn8xFHw+SghiW0iOfA6In3Q4QVH+tcZ/AOIIeFsA2NksZONp
-	 m0eG5mi+llteFATmjRVT+Mn+3akVynoM/fZXlPedeQkyr/P14Tc+0wXgTAF9nuCsQZV4g
-	 5EWAMGgDdCVR72wJvYI9AAQM45TfctxZhm/0AyegT9OLdvLmZoDPuNKbc2hzD7XKZsLsS
-	 jfkjlgayzsrE9meelo6yiaWTIsUXdFn48XS7hUuFXpI+Ff2aywgeZJmr+otEb4FdNFA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794427186;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type;
+	bh=EZv892Hp/w8YN/pcYxItocv35LQiqipWkaKIWNQFLHU=;
+	b=TIuH5kQ1UbBc/1F6r+TOrzCn8kSn/fxpKY3Gch7YVfEjfxT2fxKC+fpBzEq+WWeXPQm8
+	 miBZE+mXwokgcBeqxypNyLztqsY9CIbCpKS8JFm9e0u9RVYyol4pVmoaZNFLKDESUx8/G
+	 N0BozA139cHNPFQtebHvwwAX37D5kMOUDpFQY69Vl1444IDx6XRYn0MqMrFeL2wFQ9S7S
+	 2ud+OyU2xS/IyHogneNaJETYxZNF5lL3bpwF0KzqrONpLlbJV4AKfxwElk+I5hcplY/8z
+	 rJgxAGlxFHkC3CEt/37LCTd2uEs6wnP82Sj3L0gVKN+kmqe8IRBnUwfzi4/9k4gw8OQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HHjmdRYY;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--tjmercier.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=DvA5NGbS;
+	arc=none smtp.remote-ip=209.85.167.199
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF5A8606A321;
-	Wed, 11 Nov 2026 19:58:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58CC1606A327
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 19:59:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58CC1606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--tjmercier.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HHjmdRYY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62E2C1F00A05;
-	Wed, 11 Nov 2026 19:58:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794427101;
-	bh=+zWbU2lBimiW3VukH4sSYb/NSjNou2nKEFVFVnZ+3rY=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=HHjmdRYYwXI7Mj82aBQ9kRyU7oxR7K5eq4S4NH3OJJXZ0UfAXPWDRWoxTrhFPajmD
-	 sf8OXKPwN9NZb13yEyBlBeLxO8omATpKT+BAHr3rmg00OXXU+mvQUJZTKmCMcuAYkC
-	 zzpqHVF0r0SdaLAjThfZH/xnSXwRpxzhxwCFe6ZXWxD5RdjyjXK0YCPFRuF9MXHLVR
-	 OyYoXswtnozHb8FPSfiX27Bb8CYCgWpKdSCiEC8AMfgn6w67D7CL0nlMMtgfdEcq/O
-	 qY3D0InLy56myzgLhDlHER/u/c7LuffC+OqJ/jJsn0Zau/tnBBy+P9b/cm+VvKxk0Y
-	 zpNu+BZ7BZaWA==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id 26BB0CE08D1; Wed, 11 Nov 2026 11:58:21 -0800 (PST)
-Date: Wed, 11 Nov 2026 11:58:21 -0800
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Cc: linux-kernel@vger.kernel.org, David Woodhouse <dwmw2@infradead.org>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
-	Joel Fernandes <joelagnelf@nvidia.com>,
-	Josh Triplett <josh@joshtriplett.org>,
-	Boqun Feng <boqun@kernel.org>, Uladzislau Rezki <urezki@gmail.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Lai Jiangshan <jiangshanlai@gmail.com>,
-	Zqiang <qiang.zhang@linux.dev>, Davidlohr Bueso <dave@stgolabs.net>,
-	Kunwu Chan <kunwu.chan@gmail.com>,
-	Puranjay Mohan <puranjay@kernel.org>, rcu@vger.kernel.org
-Subject: Re: [PATCH v2 4/7] srcu: Add irqsave variants of the atomic SRCU
- readers
-Message-ID: <0f5b9d22-353a-4e30-91e1-aeea47461583@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <20261111145949.70845-1-mathieu.desnoyers@efficios.com>
- <20261111145949.70845-5-mathieu.desnoyers@efficios.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=DvA5NGbS
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4c55ba309c2so4358205b6e.1
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 11:59:46 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794427185; x=1795031985; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=EZv892Hp/w8YN/pcYxItocv35LQiqipWkaKIWNQFLHU=;
+        b=DvA5NGbS4keLHXdDRcrF7eUh1hbwSglEr3/uOLAcWxofxfxXp+XfkzcdCOYorAzARe
+         B6g94luwL0Ffh6liz0Ud0TMNolfZcUwtBuzHjdBGgfZCOiVM/Kl6EnyqFZY2iWZr4wb6
+         G6Rzgzj+i7SA7HuJMZ8jf7eK9Sd/Jh3aa27gd1BVSay7wUy8xGcqrFS89D28hkkexPI5
+         6rcFzmNLPEpWztfCLI2X6m6o9V7L4laQd+6nW7p4YwDuQNkjdrKMqnYJ3VXwikxY/VA8
+         atsV6zFsssF0LALTvFHVVE2rmig5jx3NNnMivkHT/M6x3X//wvtWb+DWi0IgLSyyBGDW
+         3nkQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794427185; x=1795031985;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=EZv892Hp/w8YN/pcYxItocv35LQiqipWkaKIWNQFLHU=;
+        b=z8MFTun2pXob46cQuQXlX1k0FYIOA//r3V5ZQHtzhToCAXCt+Xt3lAJm+8Aeq2KD4i
+         0AgPEl6HRxqk7G68/RmrDODwD7hoZvP6JbGwUqFEpJyhROyU9LhdgAe7f5wgmFoqm9gW
+         Fm/1u4687mpXcGyGT38hGSOIcqtL2Xt1DZg52V8iF3BYW+REI5eFp+JYsZUt5dnG2mYH
+         6Yimo4+93iHcszGfe6dFoOK90V98/X92MYsMkwFNm1J29ulyfHJJRR8Dd02ZW9VWvRpJ
+         LmCE2jPABcOkSsbGR6MjNkAd+GMwd6B/LKwa2UVEQJphkBgkneGH1iT7JOPd3qxBiLkv
+         uOYQ==
+X-Forwarded-Encrypted: i=1; AL+hErGB9gWbcTDxRcZHvZ3dpjhyW9JHsgQcdFRfkTMe8AmdcbgQ0pdJjpRlyURRI2ECMq30Uzj8GJ3x2tKaJEU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8ezsGGH7sc29tqYHWC2+r/cDyJxdFYeD5lpVyH0cCHAarEv4Ot
+	NDKsaZZ95zjiuYACm2GKtopc/9ifmaMQ9DuuFZTRWIQeCd6mnu9pC0sD0qi2GKSRivj2uEqC3aR
+	MaD7EGnN+avsd72h5Rg==
+X-Received: from iohf22-n2.prod.google.com ([2002:a05:6602:a5d6:20b0:9e3:4b87:936d])
+ (user=tjmercier job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6808:c1b2:b0:4d6:90f4:48ab with SMTP id 5614622812f47-56b97c18413mr3271887b6e.45.1794427184911;
+ Wed, 11 Nov 2026 11:59:44 -0800 (PST)
+Date: Wed, 11 Nov 2026 11:59:42 -0800
+In-Reply-To: <20261110125106.2935677-1-k.chen@smail.nju.edu.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,176 +78,109 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261111145949.70845-5-mathieu.desnoyers@efficios.com>
+Mime-Version: 1.0
+References: <20261110125106.2935677-1-k.chen@smail.nju.edu.cn>
+X-Mailer: git-send-email 2.56.0.567.gdb80ae8cd5-goog
+Message-ID: <20261111195942.1283060-1-tjmercier@google.com>
+Subject: [PATCH bpf] selftests/bpf: Test that a drained dmabuf iterator keeps
+ returning NULL
+From: "T.J. Mercier" <tjmercier@google.com>
+To: k.chen@smail.nju.edu.cn, ast@kernel.org, daniel@iogearbox.net, 
+	andrii@kernel.org, eddyz87@gmail.com, memxor@gmail.com, shuah@kernel.org
+Cc: martin.lau@linux.dev, song@kernel.org, yonghong.song@linux.dev, 
+	jolsa@kernel.org, emil@etsalapatis.com, ihor.solodrai@linux.dev, 
+	christian.koenig@amd.com, sumit.semwal@linaro.org, phasta@kernel.org, 
+	tj@kernel.org, bpf@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	linaro-mm-sig@lists.linaro.org, linux-kselftest@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, Nov 11, 2026 at 09:59:46AM -0500, Mathieu Desnoyers wrote:
-> synchronize_srcu_atomic() may be invoked with interrupts disabled, for
-> example under a raw spinlock. Its kerneldoc then requires every reader
-> of that srcu_struct to disable interrupts too. srcu_read_lock_atomic()
-> only disables preemption, so such a reader has to disable interrupts
-> itself around it.
-> 
-> Add srcu_read_lock_atomic_irqsave() and
-> srcu_read_unlock_atomic_irqrestore(). They disable interrupts instead
-> of preemption, and keep the interrupt state in a flags argument, so
-> they are macros. Both forms share the rest of the reader through
-> __srcu_read_lock_atomic() and __srcu_read_unlock_atomic().
-> 
-> Suggested-by: Paul E. McKenney <paulmck@kernel.org>
-> Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+The BPF iterator docs in bpf_iterators.rst specify that the next
+function of an open-coded iterator should keep returning NULL after it
+has been returned once.
 
-Reviewed-by: Paul E. McKenney <paulmck@kernel.org>
+Add a subtest that checks this for the dmabuf iterator. It drains an
+iterator, calls bpf_iter_dmabuf_next() once more and checks that the
+result is NULL. The dma-bufs the test creates keep the list from being
+empty, so an iterator that starts over would return one of them.
 
-(Smoke tests passed as well.)
+The existing open_coded subtest uses bpf_for_each(), which stops at the
+first NULL and never calls next() on a drained iterator.
 
-> ---
->  include/linux/srcu.h | 100 ++++++++++++++++++++++++++++++++-----------
->  1 file changed, 75 insertions(+), 25 deletions(-)
-> 
-> diff --git a/include/linux/srcu.h b/include/linux/srcu.h
-> index e3b541ceb8dd..11e9ad914a71 100644
-> --- a/include/linux/srcu.h
-> +++ b/include/linux/srcu.h
-> @@ -357,31 +357,15 @@ static inline int srcu_read_lock(struct srcu_struct *ssp)
->  	return retval;
->  }
->  
-> -/**
-> - * srcu_read_lock_atomic - register a new reader promising an atomic section
-> - * @ssp: srcu_struct in which to register the new reader.
-> - *
-> - * As srcu_read_lock(), but the caller promises that the read-side
-> - * critical section never sleeps and never blocks on anything which
-> - * may itself depend on memory allocation to make progress. Preemption
-> - * is disabled for the duration, which both enforces that promise (any
-> - * sleepable call in the section will splat on every configuration)
-> - * and bounds the section so that the update side may spin rather
-> - * than sleep when waiting for readers: see synchronize_srcu_atomic().
-> - *
-> - * The lock and matching srcu_read_unlock_atomic() must be invoked on
-> - * the same CPU, from the same context; passing the return value to
-> - * another task is not permitted for this flavor.
-> - *
-> - * This function is NMI-safe, in a manner similar to
-> - * srcu_read_lock_nmisafe().
-> +/*
-> + * Register an atomic-section reader.  The caller has disabled preemption,
-> + * or interrupts.
->   */
-> -static inline int srcu_read_lock_atomic(struct srcu_struct *ssp)
-> +static inline int __srcu_read_lock_atomic(struct srcu_struct *ssp)
->  	__acquires_shared(ssp)
->  {
->  	int retval;
->  
-> -	preempt_disable();
->  	/*
->  	 * Arm might_sleep() to catch even a *potentially* sleeping call
->  	 * in the section, not just an actual schedule: the atomic-domain
-> @@ -406,6 +390,50 @@ static inline int srcu_read_lock_atomic(struct srcu_struct *ssp)
->  	return retval;
->  }
->  
-> +/**
-> + * srcu_read_lock_atomic - register a new reader promising an atomic section
-> + * @ssp: srcu_struct in which to register the new reader.
-> + *
-> + * As srcu_read_lock(), but the caller promises that the read-side
-> + * critical section never sleeps and never blocks on anything which
-> + * may itself depend on memory allocation to make progress. Preemption
-> + * is disabled for the duration, which both enforces that promise (any
-> + * sleepable call in the section will splat on every configuration)
-> + * and bounds the section so that the update side may spin rather
-> + * than sleep when waiting for readers: see synchronize_srcu_atomic().
-> + *
-> + * The lock and matching srcu_read_unlock_atomic() must be invoked on
-> + * the same CPU, from the same context; passing the return value to
-> + * another task is not permitted for this flavor.
-> + *
-> + * This function is NMI-safe, in a manner similar to
-> + * srcu_read_lock_nmisafe().
-> + */
-> +static inline int srcu_read_lock_atomic(struct srcu_struct *ssp)
-> +	__acquires_shared(ssp)
-> +{
-> +	preempt_disable();
-> +	return __srcu_read_lock_atomic(ssp);
-> +}
-> +
-> +/**
-> + * srcu_read_lock_atomic_irqsave - register an atomic reader, interrupts off
-> + * @ssp: srcu_struct in which to register the new reader.
-> + * @flags: interrupt state to restore at srcu_read_unlock_atomic_irqrestore().
-> + *
-> + * As srcu_read_lock_atomic(), but with interrupts disabled for the
-> + * duration instead of preemption.  Use it when synchronize_srcu_atomic()
-> + * may be invoked with interrupts disabled for this srcu_struct: its
-> + * readers must then disable interrupts too.
-> + *
-> + * Returns the index to pass to srcu_read_unlock_atomic_irqrestore().
-> + */
-> +#define srcu_read_lock_atomic_irqsave(ssp, flags)			\
-> +({									\
-> +	local_irq_save(flags);						\
-> +	__srcu_read_lock_atomic((ssp));					\
-> +})
-> +
->  /**
->   * srcu_read_lock_fast - register a new reader for an SRCU-protected structure.
->   * @ssp: srcu_struct in which to register the new reader.
-> @@ -598,12 +626,11 @@ static inline void srcu_read_unlock(struct srcu_struct *ssp, int idx)
->  	__srcu_read_unlock(ssp, idx);
->  }
->  
-> -/**
-> - * srcu_read_unlock_atomic - unregister an atomic-section reader
-> - * @ssp: srcu_struct from which to unregister the old reader.
-> - * @idx: return value from corresponding srcu_read_lock_atomic().
-> +/*
-> + * Unregister an atomic-section reader.  The caller then enables preemption,
-> + * or interrupts, again.
->   */
-> -static inline void srcu_read_unlock_atomic(struct srcu_struct *ssp, int idx)
-> +static inline void __srcu_read_unlock_atomic(struct srcu_struct *ssp, int idx)
->  	__releases_shared(ssp)
->  {
->  	WARN_ON_ONCE(idx & ~0x1);
-> @@ -612,9 +639,32 @@ static inline void srcu_read_unlock_atomic(struct srcu_struct *ssp, int idx)
->  	__srcu_read_unlock_nmisafe(ssp, idx);
->  	if (in_task())
->  		non_block_end();
-> +}
-> +
-> +/**
-> + * srcu_read_unlock_atomic - unregister an atomic-section reader
-> + * @ssp: srcu_struct from which to unregister the old reader.
-> + * @idx: return value from corresponding srcu_read_lock_atomic().
-> + */
-> +static inline void srcu_read_unlock_atomic(struct srcu_struct *ssp, int idx)
-> +	__releases_shared(ssp)
-> +{
-> +	__srcu_read_unlock_atomic(ssp, idx);
->  	preempt_enable();
->  }
->  
-> +/**
-> + * srcu_read_unlock_atomic_irqrestore - unregister an irqsave atomic reader
-> + * @ssp: srcu_struct from which to unregister the old reader.
-> + * @idx: return value from corresponding srcu_read_lock_atomic_irqsave().
-> + * @flags: interrupt state saved by srcu_read_lock_atomic_irqsave().
-> + */
-> +#define srcu_read_unlock_atomic_irqrestore(ssp, idx, flags)		\
-> +do {									\
-> +	__srcu_read_unlock_atomic((ssp), (idx));			\
-> +	local_irq_restore(flags);					\
-> +} while (0)
-> +
->  /**
->   * srcu_read_unlock_fast - unregister a old reader from an SRCU-protected structure.
->   * @ssp: srcu_struct in which to unregister the old reader.
-> -- 
-> 2.47.3
-> 
+Signed-off-by: T.J. Mercier <tjmercier@google.com>
+---
+This depends on Kang Chen's fix and fails without it:
+https://lore.kernel.org/bpf/20261110125106.2935677-1-k.chen@smail.nju.edu.cn/
+Kang, feel free to carry it as 2/2 in your v2.
+
+ .../selftests/bpf/prog_tests/dmabuf_iter.c    | 19 +++++++++++++++++++
+ .../testing/selftests/bpf/progs/dmabuf_iter.c | 19 +++++++++++++++++++
+ 2 files changed, 38 insertions(+)
+
+diff --git a/tools/testing/selftests/bpf/prog_tests/dmabuf_iter.c b/tools/testing/selftests/bpf/prog_tests/dmabuf_iter.c
+index 1a5dc1adae73..c1f81b5dccdc 100644
+--- a/tools/testing/selftests/bpf/prog_tests/dmabuf_iter.c
++++ b/tools/testing/selftests/bpf/prog_tests/dmabuf_iter.c
+@@ -265,6 +265,23 @@ static void subtest_dmabuf_iter_check_open_coded(struct dmabuf_iter *skel, int m
+ 	} while (bpf_map_get_next_key(map_fd, key, key));
+ }
+ 
++static void subtest_dmabuf_iter_check_next_after_drain(struct dmabuf_iter *skel)
++{
++	LIBBPF_OPTS(bpf_test_run_opts, topts);
++	int err, fd;
++
++	fd = bpf_program__fd(skel->progs.iter_dmabuf_next_after_drain);
++
++	err = bpf_prog_test_run_opts(fd, &topts);
++	if (!ASSERT_OK(err, "test_run_opts err"))
++		return;
++	if (!ASSERT_OK(topts.retval, "test_run_opts retval"))
++		return;
++
++	/* The test buffers exist, so a restarted iteration would find one */
++	ASSERT_EQ(skel->data->next_after_drain, 0, "next_after_drain");
++}
++
+ void test_dmabuf_iter(void)
+ {
+ 	struct dmabuf_iter *skel = NULL;
+@@ -315,6 +332,8 @@ void test_dmabuf_iter(void)
+ 	}
+ 	if (test__start_subtest("open_coded"))
+ 		subtest_dmabuf_iter_check_open_coded(skel, map_fd);
++	if (test__start_subtest("next_after_drain"))
++		subtest_dmabuf_iter_check_next_after_drain(skel);
+ 
+ destroy:
+ 	destroy_test_buffers();
+diff --git a/tools/testing/selftests/bpf/progs/dmabuf_iter.c b/tools/testing/selftests/bpf/progs/dmabuf_iter.c
+index 9cbb7442646e..d5421b75c39c 100644
+--- a/tools/testing/selftests/bpf/progs/dmabuf_iter.c
++++ b/tools/testing/selftests/bpf/progs/dmabuf_iter.c
+@@ -99,3 +99,22 @@ int iter_dmabuf_for_each(const void *ctx)
+ 
+ 	return 0;
+ }
++
++/* Result of a bpf_iter_dmabuf_next() call after the iterator was drained */
++__u64 next_after_drain = -1;
++
++SEC("syscall")
++int iter_dmabuf_next_after_drain(const void *ctx)
++{
++	struct bpf_iter_dmabuf it;
++
++	bpf_iter_dmabuf_new(&it);
++	while (bpf_iter_dmabuf_next(&it))
++		;
++
++	/* Store the raw value; the verifier would remove a branch on it */
++	next_after_drain = (__u64)bpf_iter_dmabuf_next(&it);
++	bpf_iter_dmabuf_destroy(&it);
++
++	return 0;
++}
+-- 
+2.56.0.567.gdb80ae8cd5-goog
+
