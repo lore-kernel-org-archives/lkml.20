@@ -1,105 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794405473;
-	b=5saZxOzr3A8WpChYJ1lX8yYwWmrB9oQrQtNkbtm0sE9Wl2l9xP7IT9dOAMGjcJl920yP
-	 eHshGBdjg6463iaJsW08MmyVgxx03D2jh/CBHebNlDfEpfR3AdV2YEj56dEneTl3hdwAc
-	 xNkSKIeBDHMJ9SqYkLbDl8rUB09Rw2EjWm25mNFNwfKc6PwiqM+o1m2dgWBqBWCwOGiEG
-	 eeJEmyjps8fsYdb/ZvE4Cre1Hu+qkm/C4oh0c9mIKNP4N/7iDAXgdDrmOQzoJ1eaG7TDJ
-	 5k5U8ARuC7B7ZC7DD75psXYG5v8PkoEey5SycyJwqn034m64rdhha3CMiMn60iWU1yw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794405473;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-ID:References:In-Reply-To:To:CC:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-NV-OnPremToCloud:
-	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=N8IkK8KYarwKEJh7pM7PGwK538bFc6RDti2GTwZuT54=;
-	b=TIn1BmnWbbRbYwI+Ze2rFsvt6uCTMcr6zfiRdmhbVeCLsWnlZjWZQfwxiEw3QcO5y8V8
-	 2/BvIQoI7hniGhZPyz3/DOcFDRZYtIBiLUHmgoMtIQAsbeVWBCXV6xN0ffloEBHb02cge
-	 le87cVL3WFrGpaxYEU45X1PoiTRJHxr67yuUDqx0zZpod75N8drzv43qOJmRVrMkhnt3f
-	 CMpZtNCcJuk8mAOat/Rs0TbrdxvN7FWKsspZF5pFCm3tXY9D5gCk+/SvJUVUweaBBDwXv
-	 BNERJHTUmcN18Qy8dwbmOpC7eFYtAJCfdKioJp8cNcxwhgnf+7uee0HhrMm9oLAcJ0g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=TQgtYhdE;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.200.13
-Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012013.outbound.protection.outlook.com [40.107.200.13])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794405505;
+	b=IZ/ObkvzGqo2FLv8ahoA554+c+zK7EFH7rv5ZMnjhk2W/ZnBfgpwL26Ypn/YH2hSk+2i
+	 lfIAOVivMYZ61rvDRUDGvuQfFvdqvnk3XKTrJE1hdauvKUmInIhRBldR+vG/1TAIq39wr
+	 yfcmIIY06BNCC9+BmfaAZHCRkM6au4O3TMtXYa3wplyi+8gYfY7l0USSSeFwmcV0LQewG
+	 NXGwg7oMD1X6WWThXMivRZcyK/M1jV3i5NzRXf6jv1wmszzklMbxkPoKAa+3xDC/VmsZ6
+	 nsSV/VRjJG5wlxHqvBKkeqOVAZ4yZYd6lzSASjPlqfZH6hsq9D98LqF4FUnOffVyHgQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794405505;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:In-Reply-To:
+	 References:Date:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=Bq+DPKenrrA3UwT5KiiqalwoYc+RZBQDTV4Tm7GTzTU=;
+	b=0U4RWI8IysSArapf4WDDFnCSNd2D77/JPhrkg/GSi2x6csyr2HlwQy0FX3ihX6fB6uHM
+	 wDvvRslJDl/9fEfqISHk5H8x6COjP4mNOVjSXqChDl4fg3UnkrHGf4kb040j1GP3qyoBd
+	 4Xjh4hwSlWq68WERVYNmnGFGWn6e8ywAfx0O55EtSmm5DrdN/1ZbFl7bV39Cv514jWzJW
+	 Xglk+JHJIq5pidEvsrQ1NIRtVwVDMoP0JSimcuDoR/QhS1R7SLCmlHuM4y2gPM21+BRsa
+	 CgyN5YIcZ4Pmd6WJrVKnU0S3ywd8XT0bgyUENxARyhEeoOg7Err/V8o8CD8UDlycuWw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=igalia.com;
+	spf=pass smtp.mailfrom=igalia.com;
+	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=VvHCNe9a;
+	arc=none smtp.remote-ip=213.97.179.56
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 345CB606A880;
-	Wed, 11 Nov 2026 13:57:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 345CB606A880
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45BDC606A321;
+	Wed, 11 Nov 2026 13:58:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 45BDC606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=TQgtYhdE
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hQR161LGJKit9rBQB5u9wSwXwaMtu9V4pMqpNNF4dnCR+tl1QOAm/yR0h+7vlp+V3XDaz9mtLLupM5fOsb5+HjtEyvBEoIm+pECVUEZVQuAkaQ/C7pgwLUgZJmBobQfPj6BNFBOxvkFZK8doO7grOjNvdPignr9xVhZgeVFfWmoVBVeSBa/b4QKJOK+eiGIgREI8aj8Gkc3jF6Hwzo6KyrQZfzwVVohOqN/vnjhfzm1UMwwpV9AVpJfwTqB+dMtxrZy5FE7HBo87qMdfGrJdHr8nyN0wHC/2PaZEruADIZCoXQjzKPQAZXNBKSK3tkDTU29e4Tkd8F5eNAz7dJq0UQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=N8IkK8KYarwKEJh7pM7PGwK538bFc6RDti2GTwZuT54=;
- b=J5D6fbFc4bX2ZxlKXWdjH7WEiANzqZuGSdc1aD7CatjLrFHLGcGPSIrlr5V0YfTayY8jfn/8zqryxNDgjbiVrjSYWM1n2zNiC/Bbenx5zqAPiPcI3Wv4iITBTqhd188ru8CRr8ee1zwiZ0xSrQ8Pxgf9UNSDJuaDjlqKtvOxzrp5PWBcj2ilsTd2UppvIfZFRP07dqzP5nzlSP1GorORRHKiPDJkIMwv/UxxDja5Cdu2PAZ5khUIGYrQShlTYE75+ze3ojPswznbzvWVECOzS/IJwOYnTfpzz0TJzy58OhB7quoC+YKZKMVK3VNEGktYoq8nxocutAWBeW5ZbNfJJw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.160) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=N8IkK8KYarwKEJh7pM7PGwK538bFc6RDti2GTwZuT54=;
- b=TQgtYhdEbuHLeFAZrodfArzbqpi+njSyZvHrzSCzNKkuBuJjcQdzO85ChwKj1DZiqupWK7kkov4fB3DE4sDGBzinRBOidRldnw/DFuvo+66m6MkD7+sLUvdzewG2OTrJHFYsB+W7EQhla/tRvCdjS+TONn1KsY0r91eoPvyXzg2Ty9M9iOZu+swqXavkLBB2UBL4TtX75eKXGDWg60SrUoMlXGhZA2UR/hNX/SkxF3G2CBOFOszonT1fROuIZpVlkggWTrpPGllTsxfGc8Cd7FU5jYXDB+3MvtJ8AOXofWe5Z3qLqbfFKS441cwnSuBW6EqajUj/duTRutVZjueK7w==
-Received: from MW4PR03CA0061.namprd03.prod.outlook.com (2603:10b6:303:b6::6)
- by DM4PR12MB7744.namprd12.prod.outlook.com (2603:10b6:8:100::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Wed, 11 Nov
- 2026 13:57:45 +0000
-Received: from PH7PEPF00000007.namprd04.prod.outlook.com
- (2603:10b6:303:b6:cafe::9e) by MW4PR03CA0061.outlook.office365.com
- (2603:10b6:303:b6::6) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.13 via Frontend Transport; Wed,
- 11 Nov 2026 13:57:45 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.117.160) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.160) by
- PH7PEPF00000007.mail.protection.outlook.com (10.167.243.38) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Wed, 11 Nov 2026 13:57:45 +0000
-Received: from rnnvmail204.nvidia.com (10.129.68.6) by mail.nvidia.com
- (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Wed, 11 Nov
- 2026 05:57:24 -0800
-Received: from rnnvmail205.nvidia.com (10.129.68.10) by rnnvmail204.nvidia.com
- (10.129.68.6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Wed, 11 Nov
- 2026 05:57:24 -0800
-Received: from [192.168.122.1] (10.127.8.10) by mail.nvidia.com (10.129.68.10)
- with Microsoft SMTP Server id 15.2.2562.56 via Frontend Transport; Wed, 11
- Nov 2026 05:57:21 -0800
-From: Edward Srouji <edwards@nvidia.com>
-Date: Wed, 11 Nov 2026 15:57:04 +0200
-Subject: [PATCH rdma-next v2 3/3] RDMA/core: Don't warn on oversized bundle
- allocations
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=VvHCNe9a
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+	Date:Subject:Cc:To:From:From:Reply-To;
+	bh=Bq+DPKenrrA3UwT5KiiqalwoYc+RZBQDTV4Tm7GTzTU=; t=1794405503; x=2109765503; 
+	b=VvHCNe9az88hUK4BsX53T45O7ReJaFzbbmT8YwtjcQivqiQ9J3VqA6vdTjHXu4N4EPfO98KPjMP
+	rlBMf3jthFSo/R/ErXnC8rzm+p7bYo0Maq4C4czjnHmJcbYOcwi6p8/7jZJ+Z15IRCwQv+DQ/Z3i+
+	v9Xfa/b6I/VnznhsJ1plZKlAZrlSgwYek4a3yiSvTOPdaTm23d1Bwr4HF/dYjAsryk9/oop1VVyU2
+	pBPZlMnGgPFr5BhapQy9WZ18wQvsSi0QOF8iX/D02H/SrzeMR4m9/Z6MzNfNPxTxPphwmCAOsCK3Y
+	aKINqLKc2p2Li+ep/cLhMBdfLvFByrLDfl0A==;
+Received: from bl16-24-61.dsl.telepac.pt ([188.81.24.61] helo=localhost)
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+	id 1xR8q6-008qkM-37; Wed, 11 Nov 2026 14:58:14 +0100
+From: Luis Henriques <luis@igalia.com>
+To: Sang-Heon Jeon <ekffu200098@gmail.com>
+Cc: Miklos Szeredi <miklos@szeredi.hu>,  fuse-devel@lists.linux.dev,
+  linux-kernel@vger.kernel.org,  Miklos Szeredi <mszeredi@redhat.com>,
+  stable@vger.kernel.org
+Subject: Re: [PATCH] fuse: defer dentry_tree_work until fuse_dentry_tree_init()
+In-Reply-To: <CABFDxMGJ+Uum7dde3AN5Ab+H4Gwb23Upj7r9=SO21NWCo+Mhow@mail.gmail.com>
+References: <20261110150250.71520-1-ekffu200098@gmail.com>
+	<87cxsbg1fs.fsf@igalia.com>
+	<CABFDxMHOy2JRYfCk0ovp3nzXWMjpXyiYsLGO3k3Up3e76Z-wXw@mail.gmail.com>
+	<CABFDxMGJ+Uum7dde3AN5Ab+H4Gwb23Upj7r9=SO21NWCo+Mhow@mail.gmail.com>
+Date: Wed, 11 Nov 2026 13:59:55 +0000
+Message-ID: <87mrrf8o4k.fsf@igalia.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,89 +68,180 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20261111-devx-umem-mailbox-overflow-v2-3-1e7ca8237b58@nvidia.com>
-References: <20261111-devx-umem-mailbox-overflow-v2-0-1e7ca8237b58@nvidia.com>
-In-Reply-To: <20261111-devx-umem-mailbox-overflow-v2-0-1e7ca8237b58@nvidia.com>
-To: Leon Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>, "Yishai
- Hadas" <yishaih@nvidia.com>, Yishai Hadas <yishaih@mellanox.com>
-CC: <linux-rdma@vger.kernel.org>, <linux-kernel@vger.kernel.org>, "Edward
- Srouji" <edwards@nvidia.com>, Uri Dar <udar@nvidia.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794405431; l=1686;
- i=edwards@nvidia.com; s=20251029; h=from:subject:message-id;
- bh=/L4hV2+24nHi73lq6P3HZlkIYextT0+opDa5B1zcJRA=;
- b=gKtOU+M4oMlWs3BV5RL42NCJ5zQAV/SOAIeVCzwmFZ88xzFVYFz/++8mqytBu7kPGnSF0pR0L
- 1jqvhGLDl7RBukyYAF0T4Qlm42U7c12KjcbIdBrrGYelaOXfA2k0qK7
-X-Developer-Key: i=edwards@nvidia.com; a=ed25519;
- pk=VME+d2WbMZT5AY+AolKh2XIdrnXWUwwzz/XLQ3jXgDM=
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PEPF00000007:EE_|DM4PR12MB7744:EE_
-X-MS-Office365-Filtering-Correlation-Id: 816e84a5-4b11-4acb-a46e-08df3ffbc32d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|36860700016|1800799024|82310400026|10067099003|11063799006|56012099006|261021123027099003|261021121427099003|261009223027099003|261102123227099003|261026140227099003|261026121527099003|261022105027099003|261022075727099003|261028144727099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	bwpW9wAzWiEzjvSIMJ7wP5HvRDjuZvCwjhK/mM6i+vg/RVVIaVWSS2Y0uSH85Mspepq/jv7LNdhEO5oDeLcCWaaU+LDKSzZhdJNAxjumGuCvGhRcGqpT4Q1UXRsizFbIfQnvLRvZ0ICbUy3INk79864F2EbW4znVvK8/UMOSpQ9DMdmBop0yyLn1fTw00Lj8/TT8cBvXCUuUKMkReHg2sPj18jH44hpi7rwsWI4RHMA6Zxa9FmtO30YUv6QRJaDhmeWEnziADBo3wUknfBKjr4tI6wb97YL41Em8jeoDPf+taEocU28K8G6pKplzmh2BvYFXzF5jiiU0RJD3N1gaJGnHGpTKFB8DW+v0bb1gRbIUN/mkYBUnWU3W/rlEKQmP2YVoi44fT2arjOtaSgnJR1LzqST3D2S2aXCrzW9qqRSmp7EopSnnisuqw8eYM5JkyU5y4ugai1mgIUgB5mHBTydj0jJL6pIJiaAp1iMbyuKflCosMdSEK3VBP48Z6IrtOS5Fj8Nd2tNyyvMLevOFXcCws+fBRdtGdnv/e+LbUYY+3WKr2DF/IrwqE8XRA71C7efgS0vWyoO95fD6S5Vf3Pt8uP2dAuWDNQWKGnvPrjUPW7FA8uHvFapevp88ZAnc0SAvYXGadsHDFZLXUiWYy+4MC14DZVZQjqoavftVPaJc64Q+ihgEUmKsfDCFAGMeKPDwKl3quyFJ+t0ZfHHmVQ==
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(376014)(23010399003)(36860700016)(1800799024)(82310400026)(10067099003)(11063799006)(56012099006)(261021123027099003)(261021121427099003)(261009223027099003)(261102123227099003)(261026140227099003)(261026121527099003)(261022105027099003)(261022075727099003)(261028144727099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	IQvsBvYfrRkf4icfpA8bMZAhOTv9uTZYsbTI605SrS4F8b/vEeRt0YCOcC0dqGkCRSQFpwvlmFvpCUSY9F0604ltaQL5kR7/6Qlfm5oSyui8NvnWxt1Wkdfaa9XsBxjHBqMka4lGNdV23KTUsh5CbyLOdH9vYJ3UWvgwDywtEdS09J8bs+FH9mNeg+EPCdNOxzbtKRE//dlTjAhOhnDmjydEn1BHH/LWHOe0egAr6gZSImIHNMrLfOX4sFVsVV/FZBrvYUzv5TL/y7vy18BvV/393W8gRvjGOlcSuJuTkaLO2mQF7+jYoCQtLkOv7eXTpSBadxiCY17vWYVCJQ+hlhgCHQgFQSaZtqiNsi3Z2wsbivR1CHN49qeRtCqBZWbLFYoVSrXxI95e/7P9Pi2rpaHxXDfosN56mL2lH2jFs02jiUHtkJQ+qIdl4bYAu4DY
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 13:57:45.2940
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 816e84a5-4b11-4acb-a46e-08df3ffbc32d
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	PH7PEPF00000007.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7744
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-From: Uri Dar <udar@nvidia.com>
+On Wed, Nov 11 2026, Sang-Heon Jeon wrote:
 
-_uverbs_alloc() serves requests that do not fit in the bundle's internal
-buffer from kvmalloc(), prepending a small list header. The requested
-size can be derived from userspace input, and since commit 7661809d493b
-("mm: don't allow oversized kvmalloc() calls") kvmalloc() WARNs on any
-request above INT_MAX unless __GFP_NOWARN is given.
+> 2026=EB=85=84 11=EC=9B=94 11=EC=9D=BC (=EC=88=98) =EC=98=A4=ED=9B=84 8:27=
+, Sang-Heon Jeon <ekffu200098@gmail.com>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=
+=B1:
+>>
+>> Hi, Luis
+>>
+>> 2026=EB=85=84 11=EC=9B=94 11=EC=9D=BC (=EC=88=98) =EC=98=A4=ED=9B=84 6:2=
+8, Luis Henriques <luis@igalia.com>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
+>> >
+>> > On Wed, Nov 11 2026, Sang-Heon Jeon wrote:
+>> >
+>> > > inval_wq_set() schedules dentry_tree_work when inval_wq is enabled.
+>> > >
+>> > > But inval_wq_set() can be called at boot or module load before
+>> > > fuse_dentry_tree_init() initializes the work, so __queue_delayed_wor=
+k()
+>> > > warns and the work never starts.
+>> > >
+>> > > So defer scheduling the work until fuse_dentry_tree_init() sets it u=
+p.
+>> > >
+>> > > Fixes: ab84ad597386 ("fuse: new work queue to periodically invalidat=
+e expired dentries")
+>> > > Cc: stable@vger.kernel.org
+>> > > Signed-off-by: Sang-Heon Jeon <ekffu200098@gmail.com>
+>> > > ---
+>> > > QEMU based test result
+>> > > - booted with "fuse.inval_wq=3D5"
+>> >
+>> > Thank you, Sang-Heon.  I've sent a fix for this already[1], but sashiko
+>> > still has some race complains which I haven't looked into yet.  But ma=
+ybe
+>> > Miklos is happier with your patch, in which case you can add my
+>>
+>> Sorry, I missed that thread.. sashiko also complains about the same
+>> race condition between init and sysfs setup. But I'm not sure it is a
+>> realistic scenario. So I want to hear other voices as well.
+>
+> I also checked the other sashiko's complaints from your patch, the one
+> about race between module cleanup and sysfs. It looks easier to
+> reproduce, but still I'm not sure this is a realistic problem. If it
+> is worth fixing, I will sent v2 with serialization between module
+> init, cleanup and inval_wq_set()
 
-mlx5 DEVX UMEM registration is one such caller: its CREATE_UMEM mailbox
-scales with the size of the user's UMEM, and a mailbox that passes the
-driver's INT_MAX check can still exceed INT_MAX once the header is
-added.
+I agree that the first race doesn't look realistic, though it could be
+fixed by adding an extra spinlock (which could protect both inval_wq and
+dentry_tree_is_initialised).
 
-As with memdup_user(), an allocation sized by userspace should fail
-quietly rather than warn. Pass __GFP_NOWARN so such requests fail with
--ENOMEM.
+The second race would be easier to fix by setting
+dentry_tree_is_initialised back to 'false' in fuse_dentry_tree_cleanup().
 
-Fixes: 461bb2eee4e1 ("IB/uverbs: Add a simple allocator to uverbs_attr_bundle")
-Signed-off-by: Uri Dar <udar@nvidia.com>
-Signed-off-by: Edward Srouji <edwards@nvidia.com>
----
- drivers/infiniband/core/ib_core_uverbs.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+One thing I like with my version of the fix is that it replaces the usage
+of schedule_delayed_work() by mod_delayed_work().  But maybe that's out
+of the scope of this fix, and I should send that separately.
 
-diff --git a/drivers/infiniband/core/ib_core_uverbs.c b/drivers/infiniband/core/ib_core_uverbs.c
-index 74d9c006bad5aa5d8366b1b75843c9873c62c344..c41b77d7084034613678e8b4b25bc95f72c8e241 100644
---- a/drivers/infiniband/core/ib_core_uverbs.c
-+++ b/drivers/infiniband/core/ib_core_uverbs.c
-@@ -554,7 +554,7 @@ __malloc void *_uverbs_alloc(struct uverbs_attr_bundle *bundle, size_t size,
- 	if (new_used > pbundle->internal_avail) {
- 		struct bundle_alloc_head *buf;
- 
--		buf = kvmalloc_flex(*buf, data, size, flags);
-+		buf = kvmalloc_flex(*buf, data, size, flags | __GFP_NOWARN);
- 		if (!buf)
- 			return ERR_PTR(-ENOMEM);
- 		buf->next = pbundle->allocated_mem;
+Cheers,
+--=20
+Lu=C3=ADs
 
--- 
-2.49.0
 
+>> > Reviewed-by: Luis Henriques <luis@igalia.com>
+>>
+>> Thanks for your review :)
+>>
+>> > [1] https://lore.kernel.org/20261106155512.24801-1-luis%40igalia.com
+>> >
+>> > Cheers,
+>> > --
+>> > Lu=C3=ADs
+>> >
+>> > > 1) AS-IS (before fix)
+>> > > [    0.011073] Kernel command line: rootwait root=3D/dev/vda console=
+=3Dtty1 console=3DttyS0 nokaslr  fuse.inval_wq=3D5
+>> > > [    0.011114] ------------[ cut here ]------------
+>> > > [    0.011115] WARNING: kernel/workqueue.c:2704 at __queue_delayed_w=
+ork+0x11a/0x140, CPU#0: swapper/0
+>> > > [    0.011124] Modules linked in:
+>> > > [    0.011128] CPU: 0 UID: 0 PID: 0 Comm: swapper Not tainted 7.4.0-=
+rc1-00010-gab9787d7e66a #1 PREEMPT(undef)
+>> > > [    0.011130] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996)=
+, BIOS 1.17.0-debian-1.17.0-1ubuntu1 04/01/2014
+>> > > [    0.011131] RIP: 0010:__queue_delayed_work+0x11a/0x140
+>> > > [ 0.011133] Code: c4 08 48 89 df 5b e9 85 28 0a 00 90 0f 0b 90 4c 8b=
+ 42 08 48 8d
+>> > > 42 08 49 39 c0 0f 84 1c ff ff ff 90 0f 0b 90 e9 13 ff ff ff 90 <0f> =
+0b 90 e9 ec
+>> > > fe ff ff bff
+>> > > [    0.011134] RSP: 0000:ffffffff82e03e00 EFLAGS: 00010003 ORIG_RAX:=
+ 0000000000000000
+>> > > [    0.011135] RAX: 0000000000000000 RBX: 0000000000000040 RCX: 0000=
+000000001388
+>> > > [    0.011136] RDX: ffffffff83a3f320 RSI: 0000000000000000 RDI: 0000=
+000000000040
+>> > > [    0.011136] RBP: 0000000000000000 R08: 0000000000000082 R09: 0000=
+000000000001
+>> > > [    0.011136] R10: 000000000000000a R11: 000000000000000a R12: ffff=
+ffff82c09fd0
+>> > > [    0.011137] R13: ffff88807ffcfb89 R14: 0000000000000000 R15: 0000=
+000000001388
+>> > > [    0.011140] FS:  0000000000000000(0000) GS:ffff8880fa26e000(0000)=
+ knlGS:0000000000000000
+>> > > [    0.011141] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+>> > > [    0.011141] CR2: ffff888003a67000 CR3: 0000000002e30000 CR4: 0000=
+0000000000b0
+>> > > [    0.011142] Call Trace:
+>> > > [    0.011143]  <TASK>
+>> > > [    0.011143]  queue_delayed_work_on+0x6a/0x80
+>> > > [    0.011145]  inval_wq_set+0xc4/0xe0
+>> > > [    0.011149]  parse_args+0x299/0x3c0
+>> > > [    0.011151]  ? __pfx_unknown_bootoption+0x10/0x10
+>> > > [    0.011154]  start_kernel+0x3b8/0x7c0
+>> > > [    0.011156]  ? __pfx_unknown_bootoption+0x10/0x10
+>> > > [    0.011157]  x86_64_start_reservations+0x24/0x30
+>> > > [    0.011160]  x86_64_start_kernel+0xd1/0xe0
+>> > > [    0.011162]  common_startup_64+0x13e/0x158
+>> > > [    0.011165]  </TASK>
+>> > > [    0.011166] ---[ end trace 0000000000000000 ]---
+>> > > [    0.011173] ------------[ cut here ]------------
+>> > >
+>> > > 2) TO-BE (after fix)
+>> > > - no error while booting, and also fuse_dentry_tree_work works well.
+>> > >
+>> > > ---
+>> > >  fs/fuse/dir.c | 10 ++++++++++
+>> > >  1 file changed, 10 insertions(+)
+>> > >
+>> > > diff --git a/fs/fuse/dir.c b/fs/fuse/dir.c
+>> > > index da23ccd8685c..6965a77a871f 100644
+>> > > --- a/fs/fuse/dir.c
+>> > > +++ b/fs/fuse/dir.c
+>> > > @@ -39,6 +39,7 @@ static struct delayed_work dentry_tree_work;
+>> > >  /* Minimum invalidation work queue frequency */
+>> > >  #define FUSE_DENTRY_INVAL_FREQ_MIN 5
+>> > >
+>> > > +static bool inval_wq_ready;
+>> > >  unsigned __read_mostly inval_wq;
+>> > >  static int inval_wq_set(const char *val, const struct kernel_param =
+*kp)
+>> > >  {
+>> > > @@ -62,6 +63,10 @@ static int inval_wq_set(const char *val, const st=
+ruct kernel_param *kp)
+>> > >
+>> > >       *((unsigned int *)kp->arg) =3D num;
+>> > >
+>> > > +     /* Defer the work until fuse_dentry_tree_init() sets it up. */
+>> > > +     if (!inval_wq_ready)
+>> > > +             return 0;
+>> > > +
+>> > >       if (num && !old)
+>> > >               schedule_delayed_work(&dentry_tree_work,
+>> > >                                     secs_to_jiffies(num));
+>> > > @@ -224,6 +229,11 @@ void fuse_dentry_tree_init(void)
+>> > >               dentry_hash[i].tree =3D RB_ROOT;
+>> > >       }
+>> > >       INIT_DELAYED_WORK(&dentry_tree_work, fuse_dentry_tree_work);
+>> > > +     inval_wq_ready =3D true;
+>> > > +
+>> > > +     if (inval_wq)
+>> > > +             schedule_delayed_work(&dentry_tree_work,
+>> > > +                                   secs_to_jiffies(inval_wq));
+>> > >  }
+>> > >
+>> > >  void fuse_dentry_tree_cleanup(void)
+>> > >
+>> > > base-commit: ab9787d7e66ac7e6e94fc975b37c5b56fff98ca9
+>> > > --
+>> > > 2.53.0
+>> > >
+>> >
+>>
+>> Best regards,
+>> Sang-Heon Jeon
