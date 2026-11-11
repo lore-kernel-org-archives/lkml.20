@@ -1,83 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794414289;
-	b=LguS4L/C5WSxHQjcBqGo47W5NSmzeRI1P3BCgi3C2eeZ6iMmMeFo28eXou67k3GzSq9j
-	 tmWFyvZDqg6scEI5wOVI6cahnP7NNxy8xz7AFg2C1FElLOnE+0xW7wBV2fbLW4BT4jpOz
-	 QvEzbYIhdcddXctMi8zo6e8y81dWYb5/HorlZP90ilV3OapfgN6tPfy8g6ALATtkCurPF
-	 amnz/YBg/BgCxyjeRKBdlVuV1zg1/YV8f5tLNJUbNcFXyutt0A2WZjgkM0RbE/fjXuO18
-	 nEDNBOQhzTk3pOPjljQuTbnMNcRaHUrAriNkw1SqRBKvlk2kndz4xxGbaSDkC5VZwoA==
+	t=1794414304;
+	b=ER74SAaNRqw9/cO82L0n/fSv7gcXDnp2w6LYEZiLs95vTneqJ6xk6lbz8xLfTU8IbVW/
+	 JLU8rp2m/807As6cPr4TIccL1YegfsaqtsmnSBvRHHNd94B1bftTntcg8qrlJP7EXeCaJ
+	 qGerRknf43/M/yB/zIkEm7tGcXoLNjsp76i/LCtIsSv4Km+rA28Tawk9gwoghugOACZCJ
+	 fd8tHp72ckCYoaBzVJWCOjsbesxK8Z+T68FLacqb/juGRn2Ylpi4O2a83/f6iOJrehnBI
+	 IQI6EhQugJfF+84th3bRBryef6k0b5lGp0xNKCfFmqc1ULrIB4RxgqEF6jrYUXuwCMw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794414289;
-	h=Received:DKIM-Signature:X-Mailer:From:To:Cc:Subject:In-Reply-To:
-	 References:Date:Message-ID:MIME-Version:Content-Type;
-	bh=OjsO/ys/ad/piKfPb2QV+3VHWakKPWNbmqHXdLgFmLM=;
-	b=TAlS4BP/FKQP+gSjTm29iRsk7DiwNwl5D1+h9STkgob+ee9toFgU5LIB1knHw4PsPrMl
-	 FiLeRcYVu++M+ymVz7dDdgET99m7+L1jhnc7WhSezh/Z5CUXVgWE5NRMF0QyMrlKT3hIG
-	 biOdlgP2uKu7b2WyoYbUlnKh+RRzk4OT1rUT+xTMwyqRJMkpS53vaf7RnKO7A1O/iqpwd
-	 dxq7KA4AN6ETKch/7NYaTBcvYcHTxtgzm/WLB+mWrXMGb8paX0U839xi63uaou/NjC1z9
-	 c8Na9m93aFLKogZmlmTT03Nv8tvIyPblZPMLvTcYDWh3nsgXPs4oFzgcry77/mq7CbA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794414304;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=hyYB6LoS2U1xjzCyMtjFsNBPztOkeup14THpbIKKyRA=;
+	b=XaLTbGyMUzsB0jdOzO+nPhcc8rUcuLOhxycXfjvCQsHBIInMFR1GqGOKbxTMwNRcbRKL
+	 R5sb1HP8V40nFg9RHXSvboPC3Z/9R5sIGYFrk81vX0SHwHIkdhp7Ns81LMC8qfZKAlR5W
+	 EjaCmqdE7dlJ+ntZ2A2aXF8W4cFh6YqVOJkEMSOha+nIjgmONTOGSmj+NiXmXf3YAdl6C
+	 maI+DW7VudM6nB1pbofD2rjFPKTXDbC98h6dmo1rj7RknSHjAnxp9h3cB6C2qBWhJY88A
+	 XJwLZPPprKYI1vE1m3AZphGG28y6XaxDCTqLzvZwc6sSG85ak5yfcfltuhXyC83tScA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D9R3bt8I;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bbYIACwK;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B006606A324;
-	Wed, 11 Nov 2026 16:24:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF59D606A321
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 16:25:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D9R3bt8I
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3EF51F00A05;
-	Wed, 11 Nov 2026 16:24:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bbYIACwK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21EFB1F00A05;
+	Wed, 11 Nov 2026 16:25:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794414289;
-	bh=OjsO/ys/ad/piKfPb2QV+3VHWakKPWNbmqHXdLgFmLM=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=D9R3bt8IMlmKCvjpNgRgysgj8jSfI13uGBJNO/Gz7VeltIMkdQtWk7rTUbnL+hSKP
-	 yw446sJdMUoV63jGJWmoLXrdm1ER/+eKiRPANmy8/oVLQQIHoxwQk4097d3gNv9RJN
-	 kPGqM0dBGFUDQwamvB9bgVigbzfmgo2HAwhl9bStSXnCsJPMOT+eRSw3AJbBNyDXRc
-	 8huwLIoPnXNi9b/6DowoNI3g+6A06OaWwxGcf8k5/7RxZl9Us0FcZzRZntTE+c9g0z
-	 h2AVNfplmuc6dmcm7rJeSw5ylRkvChp9Qq2tOVm3kX5/SsTu3LunBg9pwpNtEIVykp
-	 A7793R8G+sFfg==
-X-Mailer: emacs 31.1 (via feedmail 11-beta-1 I)
-From: Aneesh Kumar K.V <aneesh.kumar@kernel.org>
-To: "Tian, Kevin" <kevin.tian@intel.com>,
-	"iommu@lists.linux.dev" <iommu@lists.linux.dev>
-Cc: Alex Williamson <alex@shazbot.org>,
-	Alexey Kardashevskiy <aik@amd.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Jacob Pan <jacob.pan@linux.microsoft.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Joerg Roedel <joro@8bytes.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Krishna Reddy <vdumpa@nvidia.com>,
-	Lukas Wunner <lukas@wunner.de>,
-	Nicolin Chen <nicolinc@nvidia.com>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Samuel Ortiz <sameo@rivosinc.com>,
-	Shameer Kolothum <shameerali.kolothum.thodi@huawei.com>,
-	Steven Price <steven.price@arm.com>,
-	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Vasant Hegde <vasant.hegde@amd.com>,
-	Will Deacon <will@kernel.org>,
-	Xu Yilun <yilun.xu@linux.intel.com>,
-	"kvm@vger.kernel.org" <kvm@vger.kernel.org>,
-	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
-	"linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
-	"linux-tegra@vger.kernel.org" <linux-tegra@vger.kernel.org>
-Subject: RE: [PATCH v8 10/15] PCI/TSM: Add vIOMMU-bound device contexts
-In-Reply-To: <SA2PR11MB4844957D715CDA1CC614E8C38C762@SA2PR11MB4844.namprd11.prod.outlook.com>
-References: <20261104161632.3547423-1-aneesh.kumar@kernel.org>
- <20261104161632.3547423-11-aneesh.kumar@kernel.org>
- <SA2PR11MB4844957D715CDA1CC614E8C38C762@SA2PR11MB4844.namprd11.prod.outlook.com>
-Date: Wed, 11 Nov 2026 21:54:32 +0530
-Message-ID: <yq5a4idntjy7.fsf@kernel.org>
+	s=k20260515; t=1794414304;
+	bh=hyYB6LoS2U1xjzCyMtjFsNBPztOkeup14THpbIKKyRA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=bbYIACwKteLPnI8/ivKQuJNBxFXYvfpzSZL0poH1id1ZiSygIGItH7QxlQklh/k+t
+	 SD0bmemJvlROmqQDDZkDF0yR1ZAqkW7YHbDw1Oiqy2qOGi32vjr4XBHY6om0VQXWG6
+	 AT0wnJTQqwPrXCK9BpcZ3hoQxCMhUMxXo9gX7sxmJeoYw4WTRq3Z6QGKO/GuKbHOwG
+	 6bBkTSzF7E5j/fUZHWfzsQqfEQggFQScRF419bUKjZoPyijJErCI/nlpoPxgkoi4QL
+	 zPu05t3+jYthTHf2kWbyd9/R4dPVFvSRoWU9HIM4ArTmgzvCTv3wAelFOOKGx83z2B
+	 hBoqrfQDF2LyA==
+Date: Wed, 11 Nov 2026 17:25:01 +0100
+From: Frederic Weisbecker <frederic@kernel.org>
+To: Marco Crivellari <marco.crivellari@suse.com>
+Cc: linux-kernel@vger.kernel.org, Ingo Molnar <mingo@kernel.org>,
+	Michal Hocko <mhocko@suse.com>, Aaron Tomlin <atomlin@atomlin.com>,
+	Marcelo Tosatti <mtosatti@redhat.com>,
+	"Paul E. McKenney" <paulmck@kernel.org>,
+	Anna-Maria Behnsen <anna-maria@linutronix.de>,
+	Thomas Gleixner <tglx@kernel.org>
+Subject: Re: [PATCH v2 1/4] tick/nohz: Re-evaluate the tick on return to user
+ space
+Message-ID: <avSW3VBwd1Mym6rJ@localhost.localdomain>
+References: <20261111114406.346953-1-marco.crivellari@suse.com>
+ <20261111114406.346953-2-marco.crivellari@suse.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,80 +63,148 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261111114406.346953-2-marco.crivellari@suse.com>
 
-"Tian, Kevin" <kevin.tian@intel.com> writes:
+Le Wed, Nov 11, 2026 at 12:43:47PM +0100, Marco Crivellari a écrit :
+> On nohz_full CPUs the tick is re-evaluated on IRQ exit and on idle exit.
+> 
+> This is not enough on return to user space. If the tick is left running in
+> the kernel, for example because a tick dependency was cleared
+> (tick_nohz_dep_clear*() don't kick the CPU) or a timer that kept it
+> running was cancelled, it fires at least once in userspace before
+> tick_nohz_irq_exit() stops it.
+> 
+> Stop it from context tracking right before resuming userspace. When the
+> tick is already stopped, the common case, this costs a few flag tests on
+> each return to userspace.
+> 
+> Cc: Paul E. McKenney <paulmck@kernel.org>
+> Cc: Anna-Maria Behnsen <anna-maria@linutronix.de>
+> Cc: Thomas Gleixner <tglx@kernel.org>
+> Suggested-by: Frederic Weisbecker <frederic@kernel.org>
+> Signed-off-by: Marco Crivellari <marco.crivellari@suse.com>
+> ---
+>  include/linux/tick.h      |  8 ++++++++
+>  kernel/context_tracking.c |  8 ++++++++
+>  kernel/time/tick-sched.c  | 24 ++++++++++++++++++++++++
+>  3 files changed, 40 insertions(+)
+> 
+> diff --git a/include/linux/tick.h b/include/linux/tick.h
+> index b121c5d53e30..8bfbb053f4fd 100644
+> --- a/include/linux/tick.h
+> +++ b/include/linux/tick.h
+> @@ -269,6 +269,7 @@ static inline void tick_dep_clear_signal(struct signal_struct *signal,
+>  extern void tick_nohz_full_kick_cpu(int cpu);
+>  extern void __tick_nohz_task_switch(void);
+>  extern void __init tick_nohz_full_setup(cpumask_var_t cpumask);
+> +extern void __tick_nohz_user_enter(void);
+>  #else
+>  static inline bool tick_nohz_full_enabled(void) { return false; }
+>  static inline bool tick_nohz_full_cpu(int cpu) { return false; }
+> @@ -294,6 +295,7 @@ static inline void tick_dep_clear_signal(struct signal_struct *signal,
+>  static inline void tick_nohz_full_kick_cpu(int cpu) { }
+>  static inline void __tick_nohz_task_switch(void) { }
+>  static inline void tick_nohz_full_setup(cpumask_var_t cpumask) { }
+> +static inline void __tick_nohz_user_enter(void) { }
+>  #endif
+>  
+>  static inline void tick_nohz_task_switch(void)
+> @@ -302,6 +304,12 @@ static inline void tick_nohz_task_switch(void)
+>  		__tick_nohz_task_switch();
+>  }
+>  
+> +static inline void tick_nohz_user_enter(void)
+> +{
+> +	if (tick_nohz_full_enabled())
+> +		__tick_nohz_user_enter();
+> +}
+> +
+>  static inline void tick_nohz_user_enter_prepare(void)
+>  {
+>  	if (tick_nohz_full_cpu(smp_processor_id()))
+> diff --git a/kernel/context_tracking.c b/kernel/context_tracking.c
+> index a743e7ffa6c0..347f99e1880f 100644
+> --- a/kernel/context_tracking.c
+> +++ b/kernel/context_tracking.c
+> @@ -24,6 +24,7 @@
+>  #include <linux/export.h>
+>  #include <linux/kprobes.h>
+>  #include <trace/events/rcu.h>
+> +#include <linux/tick.h>
+>  
+>  
+>  DEFINE_PER_CPU(struct context_tracking, context_tracking) = {
+> @@ -466,6 +467,13 @@ void noinstr __ct_user_enter(enum ctx_state state)
+>  			 */
+>  			if (state == CT_STATE_USER) {
+>  				instrumentation_begin();
+> +				/*
+> +				 * On nohz_full CPUs the tick may have been left running in the
+> +				 * kernel, e.g. kept by a tick dependency that is now gone.
+> +				 * Stop it now rather than let it interrupt userspace once
+> +				 * more before the next IRQ exit notices.
+> +				 */
+> +				tick_nohz_user_enter();
 
->> From: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
->> Sent: Thursday, November 5, 2026 12:16 AM
->> 
->> An IOMMUFD vDEVICE represents a physical device within a virtual IOMMU
->> (vIOMMU) for a guest. It must use the same TEE Security Manager as its
->> vIOMMU. Pinning the vIOMMU backend keeps its tsm_dev registered, but
->> does not preserve the connection between the physical function 0 (PF0)
->> PCI device and that TSM.
->> 
->> Add a per-vDEVICE PCI TSM context. Verify that the PCI device and the
->> vIOMMU use the same tsm_dev, and account active contexts on PF0. Reject
->> disconnect with -EBUSY until all dependent vDEVICEs release their
->> contexts.
->
-> We really don't need so many vIOMMU/vDEVICE notations here,
-> especially in following code/comments. It's just about a tsm context
-> which holds the pf0 from disconnected. Then let's describe/code it
-> from that angle.
->
->> +struct pci_tsm_context *pci_tsm_context_get(struct pci_dev *pdev,
->> +					    struct tsm_dev *viommu_tsm_dev)
->
-> could clarify that each get returns a new context even on a same device.
->
-> s/viommu_tsm_dev/tsm_dev/. It's just a parameter to be matched against.
->
->>  {
->> -	struct pci_tsm_pf0 *tsm_pf0;
->> -	struct pci_tdi *tdi;
->> -
->> -	if (!kvm)
->> -		return -EINVAL;
->> +	struct pci_tsm_context *context;
->> +	struct pci_tsm_pf0 *pf0;
->> 
->>  	guard(rwsem_read)(&pci_tsm_rwsem);
->> +	if (!pdev->tsm || !is_link_tsm(pdev->tsm->tsm_dev))
->> +		return ERR_PTR(-EOPNOTSUPP);
->> +	/*
->> +	 * The vdevice can use a different PCI function from VIOMMU_ALLOC.
->> The
->> +	 * module pin keeps the vIOMMU's TSM registered, but does not
->> freeze this
->> +	 * function's link. Match its current TSM before pinning the link below.
->> +	 */
->
-> this is the example needing a rewrite...
->
+You can move that a little bit further, outside "state == CT_STATE_USER", right
+before rcu_irq_work_resched(). This will need a new pair of
+instrumentation_begin()/end().
 
-I'll simplify this and document the vIOMMU tsm_dev reference in the CCA
-code.
+This way it also applies before switching to guest.
 
-	/* The device must be connected to the TSM requested by the caller. */
-	if (pdev->tsm->tsm_dev != tsm_dev)
-		return ERR_PTR(-EXDEV);
 
->
->> +	if (pdev->tsm->tsm_dev != viommu_tsm_dev)
->> +		return ERR_PTR(-EXDEV);
->> 
->> -	if (!pdev->tsm)
->> -		return -EINVAL;
->> +	pf0 = to_pci_tsm_pf0(pdev->tsm);
->> +	if (!pf0)
->> +		return ERR_PTR(-ENXIO);
->
-> No need to check the return error as other places do?
+>  				trace_user_enter(0);
+>  				vtime_user_enter(current);
+>  				instrumentation_end();
+> diff --git a/kernel/time/tick-sched.c b/kernel/time/tick-sched.c
+> index c6d86e4da8a9..645dba919386 100644
+> --- a/kernel/time/tick-sched.c
+> +++ b/kernel/time/tick-sched.c
+> @@ -1071,6 +1071,30 @@ static void tick_nohz_full_update_tick(struct tick_sched *ts)
+>  	__tick_nohz_full_update_tick(ts, ktime_get());
+>  }
+>  
+> +#ifdef CONFIG_NO_HZ_FULL
+> +void __tick_nohz_user_enter(void)
+> +{
+> +	struct tick_sched *ts;
+> +	int cpu;
+> +
+> +	lockdep_assert_irqs_disabled();
+> +
+> +	cpu = smp_processor_id();
+> +	if (!tick_nohz_full_cpu(cpu))
+> +		return;
+> +
+> +	ts = this_cpu_ptr(&tick_cpu_sched);
+> +	if (!tick_sched_flag_test(ts, TS_FLAG_NOHZ))
+> +		return;
+> +
+> +	if (tick_sched_flag_test(ts, TS_FLAG_STOPPED))
+> +		return;
+> +
+> +	if (can_stop_full_tick(cpu, ts))
+> +		tick_nohz_full_stop_tick(ts, cpu);
+> +}
+> +#endif
 
-I didn't quite follow this feedback. Are you asking why we check for
-!pf0 here but not in other paths? If so, I think we can drop this check
-as well, since a valid pdev->tsm should imply a valid pf0.
+Looks like this can move right below the definition of
+tick_nohz_full_stop_tick() to avoid more ifdef blocks.
 
--aneesh
+Thanks.
+
+
+> +
+>  /*
+>   * A pending softirq outside an IRQ (or softirq disabled section) context
+>   * should be waiting for ksoftirqd to handle it. Therefore we shouldn't
+> -- 
+> 2.56.0
+> 
+
+-- 
+Frederic Weisbecker
+SUSE Labs
