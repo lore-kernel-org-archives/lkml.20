@@ -1,61 +1,65 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794428255;
-	b=E7IIOGvJmufL8uL9DmYZK8HtLmbupvag2cFU+1KQbj2Qu2auTNf0YEsGl4g29YdJ8mFD
-	 3tKXf2tBKgyv4IJlgFbvBmUvuRisfNY9OvmkzqdbXV+zfrBQdipGrWpFKzqb9BFZa0ew7
-	 cK8CJF5gTkXNdZJp6pqeSh6nHpShH2R3I3OswAcCEq5wSPwK6B+/iSwa3+xnw89yRXjWM
-	 QrntfjYFTJdttpI+K1S8teIIA8YLWOmkD/VgRpCODEDgPCb5QxJc5K9pH+6nMzNGejaJR
-	 9fBVRHaBEXIRcFXCr8U28e+f6nuJDFSkyWKVTX9NxhCMIJtBO9xZrHd7U+ixeJ9DYjg==
+	t=1794428294;
+	b=vEqbOAOzmQV4BPqsUJPDYe2FTaN2rswqBV7bzgKpkkiTmPJp/9ayLcvNbmgTRiNNhE1Z
+	 MAyQ5gsFGHOAU+Cu1iK1Nw/BGyq8hLYnz9c0wQEd7dyOMgrEGDPsckSSWoKzuFrvV93k0
+	 rDNdd6gPM+R5L4hQ6FN+YSDyKMAE2BycCONLzRFUNJBCXTkFPQw9siI0k14FlTRppGHTK
+	 ScGMWjpwNYQcf7hfohVmnbvOQH4ZF9aFVLhiEHdCjEYxayFWQQA72eaPnvGGuTqVGSKbV
+	 9JNcPl8jOdNyqGTfaafmDkkuY0aYOLEBoFJdvoGPTiJ487RNngl1G+dWDjMmLiF1kXA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794428255;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=PwBL61PJ01ugV2zKaAESuvCkb0ROmr9+qKjPxuNeOAk=;
-	b=BwSyERCPSAftnz1NzUVqWm5UsKAVClp7hcf/F+5vxLYiX58w2nMRPwpvj7bu6gHIHYXq
-	 5tQ1bLTfMwDGInuTeRl1PTx/GpFj8ubsSHyi47QwrFgilIR/DFDy0XF2BjO8pu7buAn3E
-	 htbW35P8DxLp1poeikrZRFW2d6ekOApY4dfKWXmvfndwksV+LEeXNQD27IOegsD0qGxR2
-	 MVSiC3tGSJi0QAPAotFTkCkSX81+NvohnDLQRsd1pdfSSq+pu3vxiLYM+FxUdgjnk6Hax
-	 lh53MvW3CWiUBipsPNAoIfSW6ePVBp55I6A+w/VDy5BfgvqQ5juCjA250qTBnMhxkxQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794428294;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=Els3/l9AGCSjcC7efz1j19ntkOAQMAY8UI2QWizsyMU=;
+	b=R/w0ioztyeTGpw+iH81efs75Gr11u1T7FTX/D4R6WRKdGM/r/Lxg5Fn4aF4IZS9cakik
+	 DWqOto5Gp03qWXLqEHRnpMTRtsBGWSz89HDyRYoJ9xuP2WV9FqSRq7viKIsGFf/EpxS4Z
+	 hjPDdD8lKrC6iJVYfIaxD6a1FIO+FYYj5AtX16tBYNuzTprcLRCCMugChIX/nWtvfivnp
+	 tZBhoB41xazDU0K2euchANBodL1Tt5oFBtHeIbu/RTJI3ALUGL5Vel1Q2BwC9Tdx7aDwy
+	 jJGol60jVPU70+ZPu1+xO9lbm1bWjibvr0Qg6k3Rv2fYZ+LNhNjvWu+crD/fXZxQL5g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SWrhXLge;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="nLI3/DNW";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E89FB606A31C;
-	Wed, 11 Nov 2026 20:17:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAAF3606A321;
+	Wed, 11 Nov 2026 20:18:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SWrhXLge
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3AC8E1F00A05;
-	Wed, 11 Nov 2026 20:17:32 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nLI3/DNW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE5FC1F00A05;
+	Wed, 11 Nov 2026 20:18:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794428254;
-	bh=PwBL61PJ01ugV2zKaAESuvCkb0ROmr9+qKjPxuNeOAk=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=SWrhXLgeE+FrYfKyBsU6DYfAGhooVIPFk0Co+iwIkOeGT/88SfGOB02fVpdK9iUjo
-	 tJsV9YYKyzWDY2jK3xyqXS5TB307Y0uInW+s8x7Ioo+wyxMghlRV3zHskqD23gIDZG
-	 kzgP60EQYbLlih0sGhbaz8HtNn/+n+w/WRFdxC9Iyt9f3UIRvKvXPTqa9miFdOv8iu
-	 4CtN8IfNoY3ur55pVxSvWHSUR7cFSa/F12+C82TySfelWjIUPg0PjjH/6VeZsv1BVC
-	 qWwkTshb/bpDj9T8xXAIHZ5rSETLBO9Xp+JjGoDwdqC3VQsKzDvsndGse2T4pVnZRT
-	 VlgpTiyHcZr2w==
-From: Mark Brown <broonie@kernel.org>
-To: David Rhodes <david.rhodes@cirrus.com>, 
- Richard Fitzgerald <rf@opensource.cirrus.com>, 
- Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>, 
- Ricardo Rivera-Matos <rriveram@opensource.cirrus.com>
-Cc: linux-sound@vger.kernel.org, patches@opensource.cirrus.com, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261109-cs35l45-bpe-v1-0-9d7bc95a90a4@opensource.cirrus.com>
-References: <20261109-cs35l45-bpe-v1-0-9d7bc95a90a4@opensource.cirrus.com>
-Subject: Re: [PATCH 0/4] ASoC: cs35l45: Adds support for brownout
- prevention engines
-Message-Id: <179441367703.393238.15653744808554406033.b4-ty@b4>
-Date: Wed, 11 Nov 2026 16:14:37 +0000
+	s=k20260515; t=1794428293;
+	bh=Els3/l9AGCSjcC7efz1j19ntkOAQMAY8UI2QWizsyMU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=nLI3/DNWdeV0x1vHF44IGq1ZgW1d12PIIB+PI2iGWrUtJREN6UWn50o5jtAKDZHAP
+	 VGvfhxb5Y89pzBf6edS//7RnKRcqZRrMIYW7a1vY5srKD0JLCv3IfAUSt2JBhKSiFE
+	 kvMBGL71p1wRbe5uOqiV+7JcSYZOmAsLDhU2/AcyuoDWcu5WOegiWpyeWiCUyAGPrV
+	 GbUnZqgqkhG+L6a8A/qLfBXYEhL5XdQ5lCXIvca5JL4WgtWLqQSNJstSHEKd+7NZ0S
+	 /vEOx3OgGLn3Zpky4EquBRs3HjuxoWtbaPgQ7k31pOA+ekt+GnkTDLtexOAModBNgp
+	 4e2OsXagqP1xA==
+Date: Wed, 11 Nov 2026 21:18:05 +0100
+From: Alejandro Colomar <alx+linux-hardening@kernel.org>
+To: David Laight <david.laight.linux@gmail.com>
+Cc: linux-hardening@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>, 
+	"Maciej W. Rozycki" <macro@orcam.me.uk>, Geert Uytterhoeven <geert@linux-m68k.org>, 
+	Andreas Schwab <schwab@linux-m68k.org>, Andy Shevchenko <andy@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Daniel Scally <djrscally@gmail.com>, 
+	Danilo Krummrich <dakr@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Hans Verkuil <hverkuil-cisco@xs4all.nl>, Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+	Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>, Kees Cook <kees@kernel.org>, 
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Len Brown <lenb@kernel.org>, 
+	Linus Torvalds <torvalds@linux-foundation.org>, Linus Walleij <linusw@kernel.org>, 
+	Namhyung Kim <namhyung@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Saravana Kannan <saravanak@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
+	Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux-gpio@vger.kernel.org
+Subject: Re: [PATCH v4 4/6] stddef: Add const_cast()
+Message-ID: <avTMrylZawfodg_A@devuan>
+References: <cover.1794425425.git.alx@kernel.org>
+ <ce623fe0432ba7fe74e12171e52d2dd1f1ad2c39.1794425425.git.alx@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,64 +69,128 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2019; i=broonie@kernel.org;
- h=from:subject:message-id; bh=drDyoQTvnZT8AmPzGgIiJUyY5+pOkn1FRpCvNmmWt7A=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLK+nI3KfLh39glxx8WzOLiNWU1XxF4L5vhxpNhRRHZH3
- Z/7/6V1O0pZGMS4GGTFFFnisrhf1pe8XsN3cGEbzBxWJpAhDFycAjCRA7oM/+NMzTXurMkw8ewr
- y968Qy9tTf5ODSGBChVBz+ePPwhyNDEyXFFoy13Tei3RsZ/bj3H3Qu+LdyJePdr02PD71bDlbtr
- /eQE=
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="wqjyunsqqp33uwdl"
+Content-Disposition: inline
+In-Reply-To: <ce623fe0432ba7fe74e12171e52d2dd1f1ad2c39.1794425425.git.alx@kernel.org>
 
-On Mon, 09 Nov 2026 11:57:02 -0600, Ricardo Rivera-Matos wrote:
-> ASoC: cs35l45: Adds support for brownout prevention engines
-> 
-> The CS35L45 amplifier has two independent brownout prevention engines
-> used to prevent system brownout events induced by transient audio peaks.
-> 
-> The amplifier brownount prevention engine (ABPE) monitors the battery
-> voltage and applies attenuation to audio output in terms of either
-> decibles, voltage, or wattage. The ABPE response is configured across
-> four thresholds with four corresponding attenuation values. The attack,
-> hold, and release parameters of the associated limiter are also
-> configurable.
-> 
-> [...]
 
-Applied to
+--wqjyunsqqp33uwdl
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx+linux-hardening@kernel.org>
+To: David Laight <david.laight.linux@gmail.com>
+Cc: linux-hardening@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>, 
+	"Maciej W. Rozycki" <macro@orcam.me.uk>, Geert Uytterhoeven <geert@linux-m68k.org>, 
+	Andreas Schwab <schwab@linux-m68k.org>, Andy Shevchenko <andy@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Daniel Scally <djrscally@gmail.com>, 
+	Danilo Krummrich <dakr@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Hans Verkuil <hverkuil-cisco@xs4all.nl>, Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+	Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>, Kees Cook <kees@kernel.org>, 
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Len Brown <lenb@kernel.org>, 
+	Linus Torvalds <torvalds@linux-foundation.org>, Linus Walleij <linusw@kernel.org>, 
+	Namhyung Kim <namhyung@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Saravana Kannan <saravanak@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
+	Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux-gpio@vger.kernel.org
+Subject: Re: [PATCH v4 4/6] stddef: Add const_cast()
+Message-ID: <avTMrylZawfodg_A@devuan>
+References: <cover.1794425425.git.alx@kernel.org>
+ <ce623fe0432ba7fe74e12171e52d2dd1f1ad2c39.1794425425.git.alx@kernel.org>
+MIME-Version: 1.0
+In-Reply-To: <ce623fe0432ba7fe74e12171e52d2dd1f1ad2c39.1794425425.git.alx@kernel.org>
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.5
+Hi David,
 
-Thanks!
+> Date: 2026-11-11 20:55:39+0100
+> From: Alejandro Colomar <alx@kernel.org>
+>
+> This macro serves to cast const away without risking unwanted
+> conversions due to mistakes in the cast.
+>=20
+> It's similar to C++'s const_cast(), but it is more restrictive: it can
+> only cast away 'const', and not arbitrary qualifiers.
+>=20
+> David made it a bit more robust.
+>=20
+> Link: https://lore.kernel.org/linux-hardening/20261111102535.434c2eee@pum=
+pkin/
+> Co-developed-by: David Laight <david.laight.linux@gmail.com>
+> Signed-off-by: Alejandro Colomar <alx@kernel.org>
+> ---
+>  include/linux/stddef.h | 12 ++++++++++++
+>  1 file changed, 12 insertions(+)
+>=20
+> diff --git a/include/linux/stddef.h b/include/linux/stddef.h
+> index e1851c50c89b..5201d71db387 100644
+> --- a/include/linux/stddef.h
+> +++ b/include/linux/stddef.h
+> @@ -194,4 +194,16 @@ enum {
+>  #define TRAILING_OVERLAP(TYPE, NAME, FAM, MEMBERS)				\
+>  	__TRAILING_OVERLAP(TYPE, NAME, FAM, /* no attrs */, MEMBERS)
+> =20
+> +/**
+> + * const_cast() - At most, drop const in the left-most derivation of a p=
+ointer
+> + *
+> + * @T: Type for the cast.
+> + * @p: Pointer to be casted.
+> + *
+> + * If @p is of type const @T, then it is casted to @T.
+> + * If @p is of type @T, then it is returned without any casts.
+> + * This avoids mistakes that change anything other than 'const' in a cas=
+t.
+> + */
+> +#define const_cast(T, p)  _Generic(p, const T: (T) (p), T: (p))
 
-[1/4] ASoC: dt-bindings: cs35l45: Adds ABPE properties
-      https://git.kernel.org/broonie/sound/c/58439294499f
-[2/4] ASoC: cs35l45: Adds support for ABPE feature
-      https://git.kernel.org/broonie/sound/c/4b261eaa7e58
-[3/4] ASoC: dt-bindings: cs35l45: Adds Boost BPE properties
-      https://git.kernel.org/broonie/sound/c/65aa9fa9afbf
-[4/4] ASoC: cs35l45: Adds Boost BPE configuration
-      https://git.kernel.org/broonie/sound/c/ac474574e54a
+Ouch!  I _thought_ I had built with this already, but I might have done
+something wrong.  Trying to build now, it fails to compile.  Which
+reminds me why I used 'default:' in the first place: when T is the same
+type as const T, this fails to build, because _Generic() can't have two
+identical selectors.
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+So, indeed, we need default:.  It's not a big problem, because since
+the type T is already validated by the function itself: it T is not
+something that can be passed to strprefix()'s first parameter, it will
+fail to compile.
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+So, I'll revert this in v5.
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+Have a lovely night!
+Alex
 
-Thanks,
-Mark
+> +
+>  #endif
+> --=20
+> 2.55.0
+>=20
 
+
+
+--=20
+<https://www.alejandro-colomar.es>
+
+--wqjyunsqqp33uwdl
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmr0zXcACgkQ64mZXMKQ
+wqkGUA/+OaiDbeJU30QN+XXhjq4wsZoadkGM+HONKlcYIvwd1wpZCXvTexjqEAiu
+rBOd45EWU9TJmFtZfv0ss7JTAc5xMLd7aFuqjFWXUQeb0xlMmHyb1RyU8wEHf2TP
+b9l8iEe2F0wpccRV30rYPspU28euHBBwvIVQaoWRFNztin3JDGFM76O8OPXI4ySP
+oErRSC5piw6pB1fLLy0YfyobN4qkzm9TU6qjnz8W+LUWE2lLq3L2AyRwth6oE/5E
+Y3l1kVzSJFuyvlf2pFUxGsNTt0GyHP0UD3tRB0uSJkg/VKOCPChJPXNZiM8IERPU
+EH8hK4TivyOOgfEl6M35wtjASXP3TUtZqIajnGuVKIDCb1lq/s5nZGJavY5G9NCQ
+NCN5azwflC5oLRU+4gVaTaoXGRq06ZPZYTpMlR6qcHQAhexT+K1/MJXmCDiRpD2f
+T4HSIzb2y/3jZW48Ac+5miIOz/AJn3/kq7yu0VvSwmYqBMDqouuPYaOyD7v1CvPW
+CT/T3+VPGXsYTAgyZ/4bj4noo33Rr0K1SgBQcwrgtbKOSbCyCf3wny0cFngFZeEj
+cm0nPs5WLLhnD6aDNwvrPKRN0U6r5Dkqp/BDgQqqkIr+nDlauvmgPYboFufrkQs/
+bKfX7UNnK9v+T1LTE3qorD8tPCCSYtCabBda3K3CYLRCkdw3kic=
+=i3+x
+-----END PGP SIGNATURE-----
+
+--wqjyunsqqp33uwdl--
