@@ -1,66 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.14
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794357863;
-	b=wU7w2Bsrw9Cew9J9a/9C2Ag5jklUyxuMNCkfPsGLKagtSkp01BWyFk7HGfOdQdWEXoD+
-	 LCgJXFZxA4W9xUBLTH5DwWqGtjLDbnbASLR37LAxjD4ViyW/0Z2w+Ph01G12j4d9zhi9u
-	 NXNsdB/wpyqPyZfkIaqPpeRCucm6tQXF3oLIfehnFMkS16wWZzUZyT/h0jMfexcr3UIZQ
-	 tyYfh1NRwW5LXPBuZhq2l7/wPVV1j/IC+yOJEiovg0bH85pRZSedoERq5KkWu1vMg+NrJ
-	 hb23XyIx6g6cERuXX/BbCXjnyy8zeYNPurGfjEursgADMQ1ihi5JvcCrTgbcUp4UUvg==
+	t=1794358055;
+	b=xsejZGII/ZXwIaf2cmNd761wpyJTxiXe400Mz+vn+NyJDFNh6HzeTXEWD0+P4sgl5DBY
+	 5k9EZ9MsHU99fOBciPQ57tuRsplxRkVuBQKvTHsSEX+cDDYJQCy94UGR53IGljmRDrFwp
+	 F2hua3giugLvQrrL7fqqx/SGtq0h9LlzE+q5mfaPKxbKaBMRh0DoOt1dMNHi38Dh8dXcs
+	 1VRs+6mFCQ9B26vw/C3ii7rVLBwbsqR2ynU4VhiZchmjpO21BNYqd3zqZguRNPnPynf2j
+	 ikYQmTvGdHsBUqGvmmj9NOlmE3VS1tNFFO0cq5/hTR+8r+y4tQas2g5D5L1GYfvk84Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794357863;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=8oqnPwNZ9QuIUCkiqQZgQ2z6Wmi9drWxAq99KWLaH8w=;
-	b=MC4u81wAPC9aMm0Khu1lvbAr46zDNQfpwIa6a9ctImSKx7YRgq2bwxgdLZHRSfcQuBLF
-	 GN0aHgXJXAUrxzC4IF4qEnVyxaCkCHc6ZMyu1ZdomI5vW+hB90XXLTCqkj3EelQ1JUS++
-	 dG6+zI+MdvWWMqqP67AzGWMKWUbHja4DfmTlr1TyByEpJOOpfCwrPBPPZH4BI8Z2fLcsw
-	 FDOwEy484x7yAIN3FvdPuw1TTYXi++xGm0LdZhmYJ0Qhavo9eu0nG/LJzSujC8FElB1OX
-	 PbyiMgnXNbjTZTlpw8x0U0nPUfhrmG1fJ5iQxQFHs64fYP7BtpXb5o/mA1kksqiUxYA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794358055;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=POqYBqnjCDXSJMErzTHxYJeAhCAZrSEkM0W036mr0l0=;
+	b=iPD2EsVQqci55+asIrG7wc0aHY9gXdaac8eZNCqZXTlzEazVNyWuJE5zCiqHmmcvN4gb
+	 RhpKJI5trsNKfGOrpaFPNbxb12xnX98PAXGqkQWqJvW+OZzTPr1Vy30Hz6kPrc0NCX7fh
+	 o2XcMxwjqocye9lV8m8tKG0JcJQ/SA6upgOgUORwH+l7BDNfyKgEbcaYo/RZEY8nQp5Gx
+	 +IVHsrGOwG3iDkC7GZ4eOMrsEk8ZXnSEIvRPV2jOrN7TBbqJI6ldby8Fupr5oSImAOxpX
+	 FQcHBvbsfS1Rf/RF7ui0e6W7dwJmlHXJ7+btj7gEBGMI+nCVPO7Q+VKN8Q9JVew1W8A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=acm.org;
-	spf=pass smtp.mailfrom=acm.org;
-	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=BdE71XlL;
-	arc=none smtp.remote-ip=199.89.1.14
-Received: from 011.lax.mailroute.net (011.lax.mailroute.net [199.89.1.14])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WM6outSp;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E171606A325;
-	Wed, 11 Nov 2026 00:44:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7E171606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A73E8606A320;
+	Wed, 11 Nov 2026 00:47:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=BdE71XlL
-Received: from localhost (localhost [127.0.0.1])
-	by 011.lax.mailroute.net (Postfix) with ESMTP id 4jPPss4VQ2z1XMYJg;
-	Wed, 11 Nov 2026 00:44:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
-	content-transfer-encoding:content-type:content-type:in-reply-to
-	:from:from:content-language:references:subject:subject
-	:user-agent:mime-version:date:date:message-id:received:received;
-	 s=mr01; t=1794357855; x=1796949856; bh=8oqnPwNZ9QuIUCkiqQZgQ2z6
-	Wmi9drWxAq99KWLaH8w=; b=BdE71XlLFoQN1tu3q9sh0WsCmkwxXz0pRG8CNHKf
-	9eEzCj1c6FRAgYDDeR+OKKTnFg3+JOgfKsi1AmDFuvsEjKu7SximDhbau9607+bl
-	S2xGfBcaXVwBWDSHZ8soi9nLVV/tcq84KWsXgH+E0JFj1fH6LVkN2d1dwJ9phjP2
-	nCIG3PBE5GIlAJKMzQ1wifPFEi8s4GiVhpkEm7pdyTAsdwhKBvgWoAmp0HbifgVL
-	TzUcnW6fOc6yJfI9BEOGc1Az8DeoWUjJbsSju53wXIpFwZjy7C1B+mdmiIk3SxjH
-	Q5CbNpu38jR/y7Xp2WYhUoE3xHrL6gs5venlXKBcrK43SA==
-X-Virus-Scanned: by MailRoute
-Received: from 011.lax.mailroute.net ([127.0.0.1])
- by localhost (011.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
- id dmXf0lVUXjJD; Wed, 11 Nov 2026 00:44:15 +0000 (UTC)
-Received: from [100.80.231.125] (unknown [104.135.182.41])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bvanassche@acm.org)
-	by 011.lax.mailroute.net (Postfix) with ESMTPSA id 4jPPsq16F2z1XMYJb;
-	Wed, 11 Nov 2026 00:44:15 +0000 (UTC)
-Message-ID: <70bd9162-e9f9-4580-bfb5-cc29107a4126@acm.org>
-Date: Tue, 10 Nov 2026 16:44:13 -0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WM6outSp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C640F1F0089F;
+	Wed, 11 Nov 2026 00:47:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794358055;
+	bh=POqYBqnjCDXSJMErzTHxYJeAhCAZrSEkM0W036mr0l0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=WM6outSpn9srJTdlP80y9RSw+u+bI42TfmY8rOxOBIBFkH2+zZ9al2xsJVdmy2cKl
+	 MU0sSVdkBnD02MA/xy1279U/64ZTOQ4czNbbyMLWZZz6mk5iD1a00QVM2VmPwTOUbR
+	 ZF1xG1Tzzcmt2RmGYjSb18XhJrWbgrPDExiDFLorRcZx6DeOW5OE7FSJP6jYufwJXw
+	 IVx86JI0jYvZJZBpCqJH0hwDyURY2yqHYhIUVsQA87yxjwhfNWkXmBZK7kIu4Z5J5h
+	 pQygmpBw2U6W/sPza04838xo9erGSx0ACqeDpjESbKDNSIj/Lr51MqBwjaqYz16EIn
+	 Zbdp9el4fJtzw==
+Date: Wed, 11 Nov 2026 00:47:32 +0000
+From: Yixun Lan <dlan@kernel.org>
+To: Iker Pedrosa <ikerpedrosam@gmail.com>
+Cc: Alessio Belle <alessio.belle@imgtec.com>,
+	Luigi Santivetti <luigi.santivetti@imgtec.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	imagination@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev
+Subject: Re: [PATCH RFC 1/2] riscv: dts: spacemit: k1: add PowerVR GPU device
+ node
+Message-ID: <20261111004732-GKB2005@kernel.org>
+References: <20261015-orangepi-gpu-v1-0-03566a615660@gmail.com>
+ <20261015-orangepi-gpu-v1-1-03566a615660@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,44 +70,81 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] RDMA/srp: Reserve send queue and CQ space for
- ib_drain_qp()
-To: Praneeth Balasubramanian <praneethb2002@gmail.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>
-Cc: linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org,
- Praneeth Balasubramanian <praneeth@ucsb.edu>
-References: <20261110222421.205573-1-praneeth@ucsb.edu>
-Content-Language: en-US
-From: Bart Van Assche <bvanassche@acm.org>
-In-Reply-To: <20261110222421.205573-1-praneeth@ucsb.edu>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261015-orangepi-gpu-v1-1-03566a615660@gmail.com>
 
-On 11/10/26 2:24 PM, Praneeth Balasubramanian wrote:
- > srp_destroy_qp() calls ib_drain_qp(), which also drains the send queue.
- > ib_drain_sq() requires the caller to "ensure there is room in the CQ and
- > SQ for the drain work request and completion".
- >
- > SRP reserves that room on the receive side, where the queue and CQ have
- > queue_size + 1 entries. Commit 9294000d6d89 ("IB/srp: Drain the send
- > queue before destroying a QP") switched from ib_drain_rq() to
- > ib_drain_qp() but did not grow the send side.
+Hi Iker,
 
-Agreed. srp_destroy_qp() reaps the send CQ before it calls
-ib_drain_qp(). After the QP has been moved into the error state, up to
-m * queue_size flushed work requests may complete on the send CQ, and
-the drain work request needs a free send queue slot. Hence, both the
-send queue and the send CQ need one additional entry.
+You could drop "RFC" prefix next time..
 
- > Signed-off-by: Praneeth Balasubramanian <praneeth@ucsb.edu>
+This patch generally looks good, while note that it has to
+wait for power domain to be kicked in
 
-The From: header of this email is praneethb2002@gmail.com while the
-Signed-off-by: tag uses praneeth@ucsb.edu. If this patch is applied
-as-is, the gmail address will be recorded as the author. Please either
-add an in-body "From: Praneeth Balasubramanian <praneeth@ucsb.edu>" line
-when reposting or make sure that both addresses match.
+On 20:56 Thu 15 Oct     , Iker Pedrosa wrote:
+> Add device tree node for the Imagination Technologies PowerVR Rogue GPU
+      ~~~~~~~~~~~~~~~~~~~~ drop, it's redundant and obvious
 
-With that addressed:
+> (BVNC 36.29.52.182 / BXE-2-32) found in the Spacemit K1 SoC.
+> 
+> The GPU is located at address 0xcac00000 and uses:
+          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        drop, too much detail and not really worth mention in commit message
 
-Reviewed-by: Bart Van Assche <bvanassche@acm.org>
+> - CLK_GPU for core clock from APMU controller
+> - RESET_GPU for reset control from APMU controller
+> - K1_PMDOMAIN_GPU for power management from syscon_apmu provider
+> - IRQ 75 for interrupt handling
+> 
+..
+> Disabled by default; boards enable it individually.
+> 
+As GPU is integrated within SoC, I'd rather see it enabled by default,
+so will not only one specific board befenit from this patch,
+besides, I see no reason why people should disable it by default?
+
+> Signed-off-by: Iker Pedrosa <ikerpedrosam@gmail.com>
+> ---
+>  arch/riscv/boot/dts/spacemit/k1.dtsi | 12 ++++++++++++
+>  1 file changed, 12 insertions(+)
+> 
+> diff --git a/arch/riscv/boot/dts/spacemit/k1.dtsi b/arch/riscv/boot/dts/spacemit/k1.dtsi
+> index 3fabfd34114b..82cade2f76fe 100644
+> --- a/arch/riscv/boot/dts/spacemit/k1.dtsi
+> +++ b/arch/riscv/boot/dts/spacemit/k1.dtsi
+> @@ -5,6 +5,7 @@
+>  
+>  #include <dt-bindings/clock/spacemit,k1-syscon.h>
+>  #include <dt-bindings/phy/phy.h>
+> +#include <dt-bindings/power/spacemit,k1-power.h>
+>  
+>  #include "k1-pdma.h"
+>  
+> @@ -1119,6 +1120,17 @@ multimedia-bus {
+>  			#size-cells = <2>;
+>  			dma-ranges = <0x0 0x00000000 0x0 0x00000000 0x0 0x80000000>,
+>  				     <0x0 0x80000000 0x1 0x00000000 0x3 0x80000000>;
+> +
+> +			gpu: gpu@cac00000 {
+> +				compatible = "spacemit,k1-gpu", "img,img-bxe-2-32", "img,img-rogue";
+> +				reg = <0x0 0xcac00000 0x0 0x80000>;
+> +				interrupts = <75>;
+> +				clocks = <&syscon_apmu CLK_GPU>;
+> +				clock-names = "core";
+> +				resets = <&syscon_apmu RESET_GPU>;
+> +				power-domains = <&syscon_apmu K1_PMDOMAIN_GPU>;
+..
+> +				status = "disabled";
+as if agree with above comment, drop this line and patch [2/2]
+
+> +			};
+>  		};
+>  
+>  		network-bus {
+> 
+> -- 
+> 2.56.0
+> 
+
+-- 
+Yixun Lan (dlan)
