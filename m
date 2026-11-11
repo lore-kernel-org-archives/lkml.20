@@ -1,113 +1,163 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.139.74
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794419764;
-	b=aX1OmKeMBOd3bf5A+k6eE1yrcJAu111TRNyB1asFS/VFJJVBMDml0fnU/WjQE0cSVNJl
-	 p9OT2+6QNCMJtIiSmMTC8nln5Fbgf5oCw0IDByyQOMvYuD8V1AHUTVl6mgj9qsNQ4ga4z
-	 WdV1E7/8Mqb93XPqq7fh+bTxl4/5cgsFJ4IdEUc7/8+8UfCS8h4iosP+E+lJbGYSBPJuG
-	 hO+ny62E4FNX1SFthzIP0tE6OocXZ2XPNtkxXh4J4/4WOmGOJ+760CcPofPV+QWTd2LyR
-	 COwUG6N5FljLNndVftjaaFJX9BZT/uHAu8vMAuwqNJHwspfaEovyyKBT9BFZIwBtELw==
+	t=1794419759;
+	b=CtlF/wjti8E2PnBhSoCkPTlFFnCf4hhR1vyES0eu+NuvbkodPVUGvn90gsyVIc/CyHZX
+	 MaPW7rmVTDMamYecb7HuB581zYcKZngcxLIPIRGMgwpQZwUoiv4J7wg53jURscS+Io893
+	 xDMpNGUxUO2uLvgdiIGgCsQHB/kdNZ3hbPr796SnU8izMaThjewl0j+8uRtPF/a6ZnuEq
+	 tEOAWo2hDoCfhUrEsWwN+icWUNuzl09VQMZYMSg7J3I/5s9OJ/INsPNQwR83Gs0HACBZb
+	 jtY5SytjSTTo8tQQSSI8NaWmJRemjJyt91LSLUpDjTIqMAygI+N/vlJMpNqexmpVoQw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794419764;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794419759;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Authority-Analysis:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
 	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=R+EjyARKBaNH3SkAfWpNAWHi3Sv3+8OGpYn7wnaHoKA=;
-	b=ZRhzE1u7wodz3sBh4OEpkkDhcO5e5wN7/g3TvsXdRjVLHr6QGgdamCDPWNwH2WvBzGY7
-	 j9UxR96lb3A79C8C3VCimcy+p2BGN8SvKUh+dJelRG0gXiRyyjNZnbm09Xbd78fZcQpmR
-	 ktK79mA1wju4LdtEwkApUncDC0k7RPNykbHw52zf3sa8t/W6HFXoNIG5gddgV5+xNblS9
-	 MARg6bEUo2QfqWbWaSvQEjJjNRP5qUELn5e5YuVqb4UAqHBMzBQhGRLhMN+WzaCnyMSxo
-	 aqGSmLfegcn/NF/DkzBCig1TnUD3L5+AgtUSZdf/Xs5Gi4BX5hwSXyisT5tx05WXfjQ==
+	bh=bJecVvbaLRg2W6zbI4pyRP6HL0WXZDqT9D9QDN12sBo=;
+	b=O2x3Y4U4r4fdYycTyfVFpuvLTJgDGuC3ufrJTqpA3gIqjI5/r+4fnwYcokbo3GK9Ox+n
+	 jYoeUf9iO9t5a5vY92SBaoGo9V4uvbWCeH3w/MWOZEXUcnumKDRgf3gtmmxTjrGiKZ8FV
+	 UGjzLrGko8dHxlB1OTiJfgij5+m8RHGZB4pxMlE/lFNyDd2QtQSTMX/36k02BJMJS+9cn
+	 phPZOQ/VAPFVaMlsIeu/R0DfD7wO/ZHLxXJjEsK1O3qzvpjDfYGdQh4j77wfz92jWjglt
+	 x7CWb6LbcyDYojI6kib/WA8CM5rQdR2+C+hjWYrcxmjE+v3jl8pX4FBfa6RkJyJ/Y8A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=columbia.edu;
-	spf=pass smtp.mailfrom=columbia.edu;
-	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=G0KSRkUW;
-	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=D2eYHfct;
-	arc=none smtp.remote-ip=148.163.139.74
-Received: from mx0b-00364e01.pphosted.com (mx0b-00364e01.pphosted.com [148.163.139.74])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Nf80FLcf;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=P9Hb+CWM;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCBEC60A262B
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 17:56:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CCBEC60A262B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24E62606A32D
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 17:55:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24E62606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=G0KSRkUW;
-	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=D2eYHfct
-Received: from pps.filterd (m0167073.ppops.net [127.0.0.1])
-	by mx0b-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ABHYJtb737716
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 12:56:03 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pps01; bh=R+Ej
-	yARKBaNH3SkAfWpNAWHi3Sv3+8OGpYn7wnaHoKA=; b=G0KSRkUWtA/jxZnsPfSd
-	sLK2jnQq2mx4i88lTY+hIFSByloYyrhH4l+bsweNL0HufkFwSPkIA5L+jh4VQ8xI
-	yCr1t4YpfdhCjxoGVVwXKjHzGqm7Ra0a3vh7N4iLcAAbJTznv+VtSVNo9Bl22i/O
-	Oscf1KwEhWPIYnTU2kxBMDHKGtXqVNRLGoNxc2h2hcsT0DMN8RZ+PmGIEmoBHu+6
-	95dGU/3r6apsJpqt8EaKfqdzw41a7WlQT23y9A0siWQzvIDAFUyf0HwfB6jXETpy
-	7ZqJKdfxS9JHmMqrOKwV4cNGswEKpJVxrwN4SXDMsbZfEcW89M5o+m7G+N2LywPN
-	Xg==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
-	by mx0b-00364e01.pphosted.com (PPS) with ESMTPS id 4hvdjkd4k1-1
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Nf80FLcf;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=P9Hb+CWM
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ABHt6q13056475
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 17:55:58 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=bJecVvbaLRg2W6zbI4pyRP6H
+	L0WXZDqT9D9QDN12sBo=; b=Nf80FLcf101GVkP6snltycki0xll/7xnV/48Ns50
+	Pn6JfTrg5JJI2qyOCN5xgr6MgSFczD7Y78XlCL3jIea8P1Xhh32LyLJe3wInvZ5W
+	IoBF9gMqaKu6WfXFiG0hsKvYk1HUu/4ABEG56i7QAtoSu5pkiarIMP3/9HEzhVjZ
+	iE7yEX5Ahv6Fk2ha8iMdMXVZbLQ9f3/2riTMHkiphllQzfTEqiLN3xU3cmRPjuLm
+	XHa8GcBgecjsP6Ugl9pRzAoAHB/weWDvkGNcufrEguH6EAIAfiguFFGFKYHH3WG6
+	QoYEs/L4UjwcROyMJeUwO4A4Dld+tDUrhgK87F8iYCYShg==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvgjdk3yv-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 12:56:02 -0500 (EST)
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-5358515b4easo60204571cf.0
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 09:56:02 -0800 (PST)
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 17:55:58 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93f568dee56so520901885a.0
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 09:55:58 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=columbia.edu; s=lionmail; t=1794419762; x=1795024562; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=R+EjyARKBaNH3SkAfWpNAWHi3Sv3+8OGpYn7wnaHoKA=;
-        b=D2eYHfctTkw3HFqxmPhgEl7VX10XuV+LUEVzdKGFB17MpqUd6Y39DfDHmXxAnvChJT
-         LPgjQvsicQE0PdkQ7GWYukasDgj8YREI/TjYrVnIa2BtGkKeKbadLaTy2WzCKRcR5kYi
-         ce8abdeG8Wft/WDnXuTDsUGQmE99EOtfaB8mjp65aKJoR8QXiM2OdD+vgWf/ffaa86Cs
-         sirMtxpsefHIiXExTqnkhX0P59t3JzKcBfPiFLAP76yeEyq+axye8G2v632MEKAOZA4j
-         tvmSt7dlZtXpI/kEcafOGzng0+ZiXFUQV7hOhdwETbpoB3rTmgQzlLhSuWgkrIBExy9N
-         x4wA==
+        d=oss.qualcomm.com; s=google; t=1794419757; x=1795024557; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=bJecVvbaLRg2W6zbI4pyRP6HL0WXZDqT9D9QDN12sBo=;
+        b=P9Hb+CWMVDhKK7pOlP2nHUQjXJEjxbwn8TnzzgBdC5ja2GMgzxBBu1XI9z2GGtpsoi
+         dmV/EXZOh6sI9L3o1onJgVF30VXQISBh57YekSQa6DF6Z77YAD0gpRusxXXJp2xt+NOd
+         keId8l45sdS2FehE9PcM82tMnPAe/P3nQAJ9XrTyJmzl0vflR08+xE6MLk1Patl+HyHN
+         m1cQFzWZoEgNR6Yz5U93OUur+qTCoAZGNtWjX5yL8WklzeAOS3/+JOSgA+Us2h0Xi8tF
+         9WSm4UkSkyZUykcaxmpDUDaUOFvp97RhEaAqSfjJZHuIO8NC1e3CL+w72zKx0EVjNrDt
+         bSFw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794419762; x=1795024562;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1794419757; x=1795024557;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=R+EjyARKBaNH3SkAfWpNAWHi3Sv3+8OGpYn7wnaHoKA=;
-        b=xq5Y5WQmHJpToo3iC6SfWqB7MeZOkn0EFF5lernh6d/Z36Jv2QEcbGXAAYLlg8LpX8
-         j3AkZalC/t9zh+EBzdhdjXZDfXXnxeNMZ325pwwpGo2oy5WNMJsKP3OR74tsxykzo478
-         CyGUrvR/acLh+4IFEBfLcVzTu+RYY3HmPGoaWrsOHZCLY2OZ187vtROxMDVmtWL1Iw0d
-         4Zc2Dw75aaAADOFLA+wls+YVtXdRQqhvfEDGW5RAdcJ+s9IZWQ7wBiewJgJkejQPyCJ7
-         3P1YO229hvB1JVxMd1z3oGlu06Y4JaMNHREmsK+AdsPbGua3RprKjAsAcv/j9QSTLGVA
-         BYTw==
-X-Forwarded-Encrypted: i=1; AL+hErGc0YD7euoC93SsrhH5/XuKXLSRf7B1kQFRJy28JSLsEYIkMT7pCGx3XOx55vIdDUGZysbJEILd0tnMdKs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+rK9Ocq7wy7mwM+lWxeS3WKmfJTYrBWcisgQxta8tZjMzRfilB
-	xXNRhJcwCKVpByhaHt6Eyz4fxGyyJG38A/PTSkoq04jzRWi5SI8OiUSvf8iW/Xc24O5ycscfEKJ
-	D8pQ26bN9hfsGuPSV4GKzr6nlt7Rjt4ofktQC1s96jPVlVh9bJrIp5rhGySOaIg==
-X-Gm-Gg: AYBFou1Hdo/AMhZwgi1D3qwsURQhjsCmGCWQ+yeI9CTKqPU3btlGqN1FAg5MPyueT3T
-	BJYle8by8j3riPZ8nDY/rB2AhS0V5u+I1a3v/GDmeu1YFdzEobbRq2pjCxvlVn9SOpqobomssoJ
-	QLXqvYX+PQf70ijpHICzmvSNoO4twcyEruUk6fvr9jZMWAd+KwFHSbPm1WAmtB4b9EQvk6QW+dp
-	D1RHCbKyH8qrxU6k78nMTwgTnG8yNADxVezwOsfAiCobQgUysEUIqe4oRVTIFHPlHu46RlDcPuV
-	3rVvuvHxxm/EGqnq+vZU94E3bkPxVYJR1Jh1ise0RtINeO/s2VoIEvvbVxgQcZJ4IGqJQuHAf0h
-	/BYMobXwzMSdvRwETApUzXd4SqKKP4k1sZNuKomQjPAUL116IKwntRAWvBAtuoUo18nzkgedlI9
-	NBgLlzgMmADYrgANbxLw==
-X-Received: by 2002:a05:622a:17cb:b0:535:87c3:79e5 with SMTP id d75a77b69052e-556c02feee9mr45374701cf.39.1794419762005;
-        Wed, 11 Nov 2026 09:56:02 -0800 (PST)
-X-Received: by 2002:a05:622a:17cb:b0:535:87c3:79e5 with SMTP id d75a77b69052e-556c02feee9mr45374101cf.39.1794419761469;
-        Wed, 11 Nov 2026 09:56:01 -0800 (PST)
-Received: from [127.0.1.1] (dyn-160-39-33-242.dyn.columbia.edu. [160.39.33.242])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5550b93ee00sm54974231cf.16.2026.11.11.09.56.00
+        bh=bJecVvbaLRg2W6zbI4pyRP6HL0WXZDqT9D9QDN12sBo=;
+        b=uW5jo7kcQZNzRHHr9rTF5XC03DW9qWiPQtnv0HtXCICDXMbQ2t2ThCiWSwprA0f6QL
+         q+rG/8Q9naSARV5rx3GWS1IIXmncW7MQnECqWAQFTBbQDrUNkxoNBKj9irgt9R+JYaNq
+         Mmnb6wg+GMVzWXyAdSsO29ZH7kN4xH36vK6ILiEdUkNYHapXwm8D6yFO0duWdK0QLsNr
+         HeI0/p2Qw+6RgZc1fkOyC0QnT3+/otqZR/TsSpFqHqwDtsRlUuLxEzraOZV193qfIX+N
+         ynw7HZ3Mgkd0iJJ0+EpJhmfrvH5LnWUt2BLI8oYw3r0Y5Mjnuy4Ai1e9kzva+MjvJ4CU
+         KbbA==
+X-Forwarded-Encrypted: i=1; AL+hErFJj9sa4OPeggEh9GMxvKYBvD33Rdti/HXiOXGRqV8uTNfkSk6147oalQOk7rGfk0GcKbGU0svzAtUjfhs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/9lXlSJSHwa61GjPxRZmJ5pTSGSCPCXPytfTMdodg58/9W3gCB
+	+x0ZqFrvmsChefW6Vy4yv7lXj855LvbkMIi//UN315UUoxEp9eNQhwNdI3lNCfajcqh7mlrNWFh
+	+vw6+SKgXD59NHfSDaPPupdJJTcIq/CvnJuV25bV0f0tQVwrYdEG+xiBDl+z2IGMJo2A=
+X-Gm-Gg: AYBFou0VW0ki5LR3YrZzNkwWtTCo29t/Va+ddA0rvQRxqt7R/HYtuZNDdvOQJ+j1q39
+	oMbZcE0zuaFeR+nltZnLjMvO+1MtW3FWtIglxWNp9rGMdHJ4xCmZCEvJU5l8tpnDLAqJCAjitqV
+	HIR++ZwXCtVDOAsutSkjqw0NoxLlrxwHfB9ZdmDqPWB+JRrI47Qe6+85GzcWxYNr/N5hK4233dZ
+	7gIaxCechIk0fW9GAx89mPSwb0UTsLoOw99q4za6z9s8aBj6N3+TXWLrQc2syAW/ZVnGZXHUPa4
+	1QkBk/c4L5ejtg8bwcCKCEt1P4i5VMAoOZj9Mu7RToqQObtKPZPEpWXLS6IZT25CaXyoGLK9LLa
+	rgQ3k4PJLGQ74SDmCHOG0ejTruEV/yyxw2/Q7Lxf6Weu+hVxPpIjHENHSoTqywe5OXDfiIAtIAU
+	aLUHk0GVVXEYovRTzNq9nKBP9RclAyLIvpQeMObDlPKEOpncsyO1SgqHKwxEn5cg==
+X-Received: by 2002:a05:620a:2544:b0:93f:3829:8492 with SMTP id af79cd13be357-947b006ea1cmr485341985a.78.1794419757309;
+        Wed, 11 Nov 2026 09:55:57 -0800 (PST)
+X-Received: by 2002:a05:620a:2544:b0:93f:3829:8492 with SMTP id af79cd13be357-947b006ea1cmr485336585a.78.1794419756700;
+        Wed, 11 Nov 2026 09:55:56 -0800 (PST)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3ae177150c8sm4479411fa.40.2026.11.11.09.55.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 09:56:01 -0800 (PST)
-From: Tal Zussman <tz2294@columbia.edu>
-Date: Wed, 11 Nov 2026 12:55:14 -0500
-Subject: [PATCH 06/12] mm/huge_memory: build the moved huge zero PMD from
- the destination VMA
+        Wed, 11 Nov 2026 09:55:54 -0800 (PST)
+Date: Wed, 11 Nov 2026 19:55:52 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: Maxime Ripard <mripard@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Jessica Zhang <jesszhan0024@gmail.com>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Joel Selvaraj <jo@jsfamily.in>,
+        Jagan Teki <jagan@amarulasolutions.com>, Ondrej Jirman <megi@xff.cz>,
+        Javier Martinez Canillas <javierm@redhat.com>,
+        Michael Trimarchi <michael@amarulasolutions.com>,
+        Michael Tretter <m.tretter@pengutronix.de>,
+        Cristian Cozzolino <cristian_ci@protonmail.com>,
+        Sumit Semwal <sumit.semwal@linaro.org>,
+        Ryan Brue <ryanbrue.dev@gmail.com>,
+        Nickolay Goppen <setotau@mainlining.org>,
+        Robert Chiras <robert.chiras@nxp.com>,
+        Alexander Koskovich <akoskovich@pm.me>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        Geert Uytterhoeven <geert+renesas@glider.be>,
+        Magnus Damm <magnus.damm@gmail.com>,
+        Chris Morgan <macromorgan@hotmail.com>,
+        Barnabas Czeman <barnabas.czeman@mainlining.org>,
+        Heiko Stuebner <heiko@sntech.de>,
+        Luca Weiss <luca.weiss@fairphone.com>,
+        Arpit Saini <arpit.saini@oss.qualcomm.com>,
+        Michael Walle <mwalle@kernel.org>,
+        Ritesh Kumar <quic_riteshk@quicinc.com>,
+        Sebastian Reichel <sebastian.reichel@collabora.com>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Svyatoslav Ryhel <clamor95@gmail.com>,
+        Danila Tikhonov <danila@mainlining.org>,
+        Jens Reidel <adrian@travitia.xyz>,
+        Michael Srba <Michael.Srba@seznam.cz>,
+        Shawn Guo <shawn.guo@linaro.org>,
+        Alexandre Mergnat <amergnat@baylibre.com>,
+        Alexander Baransky <sanyapilot496@gmail.com>,
+        Abhinav Kumar <quic_abhinavk@quicinc.com>,
+        dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+        Romain TISSERAND <romain.tisserand@gmail.com>
+Subject: Re: [PATCH] dt-bindings: display: panel: Make DSI panels port
+ optional
+Message-ID: <dki5db5xizrwwijmjbnbx7irg6if24l7punctr2wx35j4toi5c@4rip7azwzt2k>
+References: <20261111110338.81717-2-krzysztof.kozlowski@oss.qualcomm.com>
+ <avRM_GhtR8vMdTO4@houat>
+ <c8dea6ad-ce41-44d2-96ab-233b0a4b1340@oss.qualcomm.com>
+ <43373a9e-9ff3-4641-b961-b63f4de21cb9@oss.qualcomm.com>
+ <oubzclitudtqiv64wvg5lvxvbhuffxmc5bgbsdz4ou24pfhbb4@decarhvjzl2a>
+ <0f2c0eae-ed05-41a2-8688-e4b6fe1b7ff3@oss.qualcomm.com>
+ <avRy_D6MTK5u01_9@houat>
+ <8a557bae-42ae-42bd-a149-cf854b7af9d5@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,118 +167,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261111-uffd-state-fixes-v1-6-00713d368976@columbia.edu>
-References: <20261111-uffd-state-fixes-v1-0-00713d368976@columbia.edu>
-In-Reply-To: <20261111-uffd-state-fixes-v1-0-00713d368976@columbia.edu>
-To: Andrew Morton <akpm@linux-foundation.org>, Mike Rapoport <rppt@kernel.org>,
-        Peter Xu <peterx@redhat.com>, James Houghton <jthoughton@google.com>,
-        Andrea Arcangeli <aarcange@redhat.com>,
-        Suren Baghdasaryan <surenb@google.com>,
-        Balbir Singh <balbirs@nvidia.com>,
-        "Liam R. Howlett" <liam@infradead.org>,
-        Lorenzo Stoakes <ljs@kernel.org>, Vlastimil Babka <vbabka@kernel.org>,
-        Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
-        =?utf-8?q?Micha=C5=82_Miros=C5=82aw?= <mirq-linux@rere.qmqm.pl>,
-        Andrei Vagin <avagin@gmail.com>,
-        Stephen Rothwell <sfr@canb.auug.org.au>, Arnd Bergmann <arnd@arndb.de>,
-        Muhammad Usama Anjum <usama.anjum@arm.com>,
-        David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>,
-        Matthew Brost <matthew.brost@intel.com>,
-        Joshua Hahn <joshua.hahnjy@gmail.com>,
-        Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>,
-        Ying Huang <ying.huang@linux.alibaba.com>,
-        Alistair Popple <apopple@nvidia.com>,
-        Baolin Wang <baolin.wang@linux.alibaba.com>,
-        Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
-        Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
-        Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
-        Kiryl Shutsemau <kas@kernel.org>, Chris Down <chris@chrisdown.name>,
-        Muchun Song <muchun.song@linux.dev>,
-        Oscar Salvador <osalvador@suse.de>,
-        =?utf-8?q?Miko=C5=82aj_Lenczewski?= <miko.lenczewski@arm.com>,
-        Michal Hocko <mhocko@suse.com>, Mike Kravetz <mike.kravetz@oracle.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
-        linux-fsdevel@vger.kernel.org, Tal Zussman <tz2294@columbia.edu>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794419750; l=2003;
- i=tz2294@columbia.edu; s=20250528; h=from:subject:message-id;
- bh=c/tJkA0ywzx7Mq78hcQB+Mewlq+Kcny7U2nx85cQ+eE=;
- b=gh8f8A+1RSt0AMZELb50zZ9wb86q/oSkQ+azdyShjWWpdd+2fo767l+7G2ocPpLH2v3rnH7js
- r1p/FefMvNpAgWeMRPyewtgYy1jmipy9Rtg6Vb0m1Snm2yWGvxN1MsH
-X-Developer-Key: i=tz2294@columbia.edu; a=ed25519;
- pk=BIj5KdACscEOyAC0oIkeZqLB3L94fzBnDccEooxeM5Y=
-X-Proofpoint-GUID: xRofVf_O-oOciXYS4FNvPcAz5g2RvJpO
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDA3MSBTYWx0ZWRfX1sKDi2jhZBoG
- teblGH8+f2TlciVdSj7RcqMqOLEsGyIk4wFTAijUma4/hO/1F0lGyUVuPHG4aLhQwMepwAbEe3B
- Z3v1tOHtY9bbKN1XADYMxHeSYXmRszjxXbG1h05Vt1qCUxMji1ZbSyAQXmBR4/NgA+zFBvo63rJ
- kpzoerAJuum27ZBDLksaQ45l1JFAi4omQ3OFG4pDQNOiBenQQx2Cc4Qaj3wxzULlmiaBS9a00/x
- TVuPbMPLmElPLatnaVw41lEESc8ZeAmox1augRzwuNK33iYkpUfQRj3clkAWfgNqWoEX0479ddP
- Rfq2vJjwUH776VVypZccuRUn4aWvOwStTu/jP9m+QCstbazgje09Ornj3L9PVijGGBvSf9mQoHO
- 25JHDCAMfZnTG+g1kReJRmeL7BKN8ukO8u35+n57IVVUhlLWvYFLT6HARExqOy+Cn9EBepBhDRJ
- dQ92GiNnbVb8+GKAfiw==
-X-Authority-Analysis: v=2.4 cv=V/boQuni c=1 sm=1 tr=0 ts=6af4ac32 cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=GaPK54s0Se3oFqK5NkZy0g==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=jHxIr1HyPKZ_Q5_91PL3:22
- a=dI9OOPIzGUgM9lhLtj0A:9 a=QEXdDO2ut3YA:10 a=a_PwQJl-kcHnX1M80qC6:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDA3MSBTYWx0ZWRfX0y5En4DxKTol
- FXuokZAWDaa/G/ahrTBxgdZkXpolxbp9n7fI7LEmvAkGt0mG3ZBnZSXM3GhAZ9xIsJWnHWBq5Js
- rRLyBQzm7El87t4TgQHsrlHswCcS+SIcyhiPmPg3X98Phm1E6w9h
-X-Proofpoint-ORIG-GUID: xRofVf_O-oOciXYS4FNvPcAz5g2RvJpO
-X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11963
- signatures=596817
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <8a557bae-42ae-42bd-a149-cf854b7af9d5@oss.qualcomm.com>
+X-Authority-Analysis: v=2.4 cv=E7tYNqdl c=1 sm=1 tr=0 ts=6af4ac2e cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=b1Xqci6IJw76lUnxh3wA:9
+ a=CjuIK1q_8ugA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-ORIG-GUID: RoSQ1-cOvK2bNUZkOC1-aYQfIk7RVNkr
+X-Proofpoint-GUID: RoSQ1-cOvK2bNUZkOC1-aYQfIk7RVNkr
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDA3MSBTYWx0ZWRfXzuGZ+JpWvWa7
+ FOzoEjWv28vH1FU3rT9avgdN6qVrvLsOq3E7uJ3ik0DQl9mx0IHUTnZjTXwDTt8uFWAaZCOsIvx
+ xyYuvAq63EuKVkfHFv90n3+IhgfH0Z92vW6E02d+6RK2u4dGsASRD3T8XzczKlq9FUqiKhp458Q
+ BS+btwkQ2XqdRXR6SkWDM3y9BVeZyB6zLaof8n4SCRFodTLz82I1F3tVauMksrxUN7nN9Ozp1aN
+ yzZJDWONd1v2jWNfqgIuTQG6xkB8EHziOrVfZMy5AW/xwdemRPEtVW8TbWyh+hksv7zJJRC5Obk
+ yMK/OHRhk/Vxe1rPpo1P4mW8Pq10COVL5j5KIN5ksdgog1tLiqn1xdDUzOIaHQ5ZnPeH3+UDxuM
+ 1zIG9IgZ21o9JiHpEWF4uaa/xBnHvLZwrd1eDBJdNz7JwsvidrZKGkzxN6QtYXcErLc26M4SvSs
+ A0WKJdCk2p2Ldd1ZFyw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDA3MSBTYWx0ZWRfXyNTMLMOILjxh
+ PCQAB+rdWGRSeRxyi5Z9VsemOcX6fIYa0SsUi/lsynrl50NP6hYLWlQqJNg0txAPF4RIMN1ZgTr
+ o6W1Mv4VQWoGr7FKyO9zluZwziR8iXs=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-11_04,2026-11-11_03,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 clxscore=1015 phishscore=0 adultscore=0 impostorscore=10
- suspectscore=0 spamscore=0 lowpriorityscore=10 bulkscore=10
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611110071
+ phishscore=0 suspectscore=0 priorityscore=1501 impostorscore=0 adultscore=0
+ malwarescore=0 clxscore=1015 bulkscore=0 spamscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611110071
 
-move_pages_huge_pmd() builds the destination PMD for the huge zero page
-by copying the source PMD and clearing its uffd bit, so the destination
-keeps the protection of the source.
+On Wed, Nov 11, 2026 at 02:54:54PM +0100, Krzysztof Kozlowski wrote:
+> On 11/11/2026 14:52, Maxime Ripard wrote:
+> > On Wed, Nov 11, 2026 at 01:44:23PM +0100, Krzysztof Kozlowski wrote:
+> >> On 11/11/2026 13:37, Dmitry Baryshkov wrote:
+> >>> On Wed, Nov 11, 2026 at 01:31:39PM +0100, Krzysztof Kozlowski wrote:
+> >>>> On 11/11/2026 13:30, Krzysztof Kozlowski wrote:
+> >>>>> On 11/11/2026 12:13, Maxime Ripard wrote:
+> >>>>>> On Wed, Nov 11, 2026 at 12:03:39PM +0100, Krzysztof Kozlowski wrote:
+> >>>>>>> DSI panels can be placed under DSI bus directly and many Linux DRM
+> >>>>>>> drivers will work fine with it: mipi_dsi_host_register() adds device for
+> >>>>>>> such panel and DRM driver does not use OF graph to configure lanes.
+> >>>>>>
+> >>>>>> That's not true. We do use the endpoints to configure the lanes through
+> >>>>>> the data-lanes property. See drm_of_get_data_lanes*
+> >>>>>
+> >>>>> Some drivers use endpoints, some not. As discussed on other thread,
+> >>>>> there are more than which do not.
+> >>>>
+> >>>> "there are more than one which do not."
+> >>>
+> >>> Which means that those should be fixed. We have legacy cases where the
+> >>> drivers assumed that, but we should not target legacy.
+> >>
+> >> These legacy drivers work fine for 10 or 15 years, like Exynos.
+> >>
+> >> You can improve them, for sure, but if no one does that then requiring a
+> >> graph is a mistake there, from the panel point of view.
+> > 
+> > At the very least the commit log needs some work then, because the
+> > situation you describe in it is simply wrong, and quite different to the
+> > situation you then described.
+> 
+> 
+> Commit msg said:
+> "many Linux DRM drivers will work fine with it"
+> 
+> So many->some? Is this the only problem? What else is not described in
+> commit msg?
 
-A source VMA registered for RWP can map the huge zero page with a
-PAGE_NONE PMD, and UFFDIO_MOVE does not check how the source is
-registered. The destination then gets a PAGE_NONE PMD without the uffd
-bit, although nothing asked for that in the destination VMA.
-
-The next access fixes it up through the NUMA hinting fault path. Until
-then, the first access to the destination takes a spurious fault and GUP
-has to take the fault path. The impact on userspace is small.
-
-The moved entry must have the protection of the destination VMA. To fix
-it, build the entry from the vm_page_prot of the destination VMA, as
-move_zeropage_pte() does for the small zero page, and keep marking it
-soft-dirty. A destination VMA registered for RWP still gets its PMD
-re-armed afterwards.
-
-Fixes: 763f43865fc4 ("mm: preserve RWP marker across PTE rewrites")
-Signed-off-by: Tal Zussman <tz2294@columbia.edu>
----
- mm/huge_memory.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index 0d589be136d2..09176b290f76 100644
---- a/mm/huge_memory.c
-+++ b/mm/huge_memory.c
-@@ -2981,9 +2981,9 @@ int move_pages_huge_pmd(struct mm_struct *mm, pmd_t *dst_pmd, pmd_t *src_pmd, pm
- 		/* Follow mremap() behavior and treat the entry dirty after the move */
- 		_dst_pmd = pmd_mkwrite(pmd_mkdirty(_dst_pmd), dst_vma);
- 	} else {
--		src_pmdval = pmdp_huge_clear_flush(src_vma, src_addr, src_pmd);
--		_dst_pmd = move_soft_dirty_pmd(src_pmdval);
--		_dst_pmd = clear_uffd_wp_pmd(_dst_pmd);
-+		pmdp_huge_clear_flush(src_vma, src_addr, src_pmd);
-+		_dst_pmd = folio_mk_pmd(huge_zero_folio, dst_vma->vm_page_prot);
-+		_dst_pmd = move_soft_dirty_pmd(pmd_mkspecial(_dst_pmd));
- 	}
- 
- 	/* Re-arm RWP on the moved PMD if dst_vma is RWP-registered. */
+The commit message points out that a minority of drivers use and require
+the port, while majority of the drivers don't. I think up to now only
+the Exynos and sunXi were mentioned. From my point of view, it would be
+better to change corresponding DSI host bindings to allow port bindings
+and then define the OF graph connecting DSI host to DSI panel (which
+might be done gradually, etc.) even if the OF graph is not used nowadays
+by those drivers instead of providing a false signal that it's okay to
+have DSI links without OF graph connection. It's not future-proof and
+not okay, especially for the new designs.
 
 -- 
-2.39.5
-
+With best wishes
+Dmitry
