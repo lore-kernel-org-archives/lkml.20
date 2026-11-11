@@ -1,79 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794361737;
-	b=e5TXi8fIw8Kqc68ayWB2fDp3aNZ6SZzDnW8CofU1lPAEJcag4QL3xOrbWY5F3UNB6Skg
-	 80FJHuYIb9oqfAYktJKJuyrDV876tRk3ElLGtWDfWrFmEAUVAybChTOPnKEf0TwWEB5EH
-	 RuKfUBiz8/LH+T+1DNEmYvwGXAJ6LsSGXD1mph2LPjS6jRth9HdIxJ4Xzne1R+fc4+T3B
-	 hTlrCsFghzuyzTQjnCxat/z438SukA2UewAzFNEMMRZxBf0MZlI8WtTonxdlcVzEOrTfv
-	 VD4AZduTeBBZ78Oj0veyYwjlCuR0/Xveo86qLaaIgJyqAitMZkIjc5og2lTVVaCX4Jg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794361737;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=33WJWI75AX3YWacDJW2bzE3Ity7fXYUwNoTbBEoJL7o=;
-	b=G/TEs5oMAVjpfS18Foc/RKzcFp8qAaiL2MONNbZ/k9vt98T3KWSp15q2GvP45QE9GAwT
-	 kt4QYS1sMkPN+OXu49xIzLHM6GOjILdlPgxa3V4YoBKNnG5xCJXJURZwfDYyTrjSF3AeA
-	 CVfXgDL/BLAJkL9jkfgJcPiZcARtOMaonxI68MpWFcvbCVNFqLedwUX1QB/HsQsIuR6Qc
-	 gdryonRPDLs2Ejt2kN6uTO8mFCl0pH8GqGD6R5jRZtwKRx83wlBJMTx5hiil33Bq5plYO
-	 rDHudO87YGk605dsOSxKkR0Ipt0Rxc56stOLAnd4KL9lAO8pLU+4T3fhkoJt8SKjy0A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DjTJLgA+;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.29.241.158
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794361791;
+	b=bgliCdpOfHhe/VFHZkvkiuTp9V6gEtAMNQsrfqVIIVI6pQ/2F/ERO0PK4nwmf2MWQvYo
+	 IwyWplYmelGERhJl0Q3LhzWurgiVbsKooot04C6ixOXsdF01fD10eaPggvSuEIDLfXLSj
+	 NWYLsff/CkjCSLWFV/zB8ddlj6RdgB3XdAUMyqac5ffd13Ogn3eeRonVKvX5MYxBvFgkN
+	 EfmoCMCF4fz3/EKMgAaUs2ry/LLof1yE8Wl7p/eCOuTbcttY+mJ7eK1PnBRneu2B9tfcw
+	 ss3ST78HZGngssa4HbZ6a9lcQk3CvMk4QfsJZPMxcsI2/1J9kvGjK77CEFNTFRsbr7Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794361791;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version;
+	bh=7Kmq+KrqsJVdamEglD05VlODQnyHuuKHPdii9uryj5M=;
+	b=f7GHLoda/me8JMn7HejgbnXK6mCntjPF/E5oosHAxQj4xNyPkqn4S/VwtxeXejtx6ugO
+	 aMYaDXwSesfoSyqN8nk7E7l1r1cKYJOZVCDwBZrz1B2v4S+e/IfrZnHdxo0ZKRbmoGPBq
+	 ej5kVN59+vW5bBA/TIG3wADShLxPg7XglNPLs6lQ5/Ihr9u3Tepkd5qFLvi/E25xkDHBd
+	 hjlXz/ILAfO6RpUcDv0+ec8wA8HL9+rtF6oT9iy4G9TOzPlHClRcSJ5idlHNXetQxoESx
+	 JP8sSQoVfr83FUriqr7g0kRTgavL/ER+Qa23tPvz+lK4pFysz0/fPUs6CMPuAJ4oCYw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=codeconstruct.com.au;
+	spf=pass smtp.mailfrom=codeconstruct.com.au;
+	dkim=pass header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=lJPVZ0ab;
+	arc=none smtp.remote-ip=203.29.241.158
+Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82B9D606A31C;
-	Wed, 11 Nov 2026 01:48:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B185606A320;
+	Wed, 11 Nov 2026 01:49:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B185606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codeconstruct.com.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DjTJLgA+
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794361737;
-	b=hxtEcRMm67qDgcXRy2hBozdOR2rsbnOQB2qgXMmdo01UOckobD8Iesw9tF1YrELVYYHi
-	 6bRTFDsN1j/2G+3FMWmYb5fS+OSG7fTiY9epYO2/NeK/2iriLasz9ZGfYdfgrtzURrrSQ
-	 Wy5PBVztrEZXg8m7YPB3buuKQ7QBOtUKEVtHOXOX/YRMzkC3gf+EoE5xfvNn15CJkdraE
-	 wy7fhgA4uu9t8mfEProJphrGCNsu/x9BDZ6GBx8Qn60BTRuJbHuDAc0Po0liZdg+lil1i
-	 cfpimW33BJNekRTza0YDaFt3AB3YiAicv6EafHIbZPuuAV8kdvvrI2I1e5G/yvUqRoA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794361737;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=33WJWI75AX3YWacDJW2bzE3Ity7fXYUwNoTbBEoJL7o=;
-	b=SqIpMUmN5Ubt6KB/SfTbWMCEhQdNZzzu2eG+HX0QqMZsc1ppRhn0TcMVBLzOUN/7OuP/
-	 0sU8q+Jh+1ufSdFNucFuQ9lgqmAMiLcJtw/1uAdccNWev7ru2MbkP0OOrcN8Kn2uK/Cag
-	 70dfzE7XdIKZt+UV0iNRj7R8NLcwbiw9LyulzXbf3J511PgthkhqSLmTYcaddQhXH70bW
-	 aVEy7M3ED7tns3bI4Tf/5ifjeKCYKFp6ZLko9CxZ8BdlIexjwv7XwJmqWpQQ32qFvGd1a
-	 +foGsTBAwWX0JEBSOPfRd380OIxeEYYi91QTMgHD2a1/yNM5qvRYRxcZft34n6G1Ykw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 736EE1F0089F;
-	Wed, 11 Nov 2026 01:48:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794361737;
-	bh=33WJWI75AX3YWacDJW2bzE3Ity7fXYUwNoTbBEoJL7o=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=DjTJLgA+2iwpvBYpTUDBD8zNvU2wvqJXS/8sUN/RG9gpKEtn2V07wIWJde4n4h+/r
-	 HpmeNQDVyBi2DnnnpYnBNER2YJ7NYbE1/xLoQmP4mS2BN8q1XOH88PpOK0aLXfQ1gZ
-	 yW+U4Tr6FGz9aZ78FkV21uZc+fjoaKU0jNzigtVPswkh5ZQufxRSlMUxn4fo4tpSmN
-	 rUc+Fu8lMx80Wx7PtHLdzkDhTDhsaMPxEFO33cmSJJP0ELipU7rL6S0qlqKw+nEHn9
-	 ZrP9v4D69+yCDgWFZBaCFMwQLGXmoIUwyo2l5Ha5p/PSIs240qyR4ADjESfSjs6eKr
-	 AjVxbwHQ0i9DQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id DFEBF48D0B;
-	Wed, 11 Nov 2026 01:48:55 +0000 (UTC)
-From: Charlie Jenkins via B4 Relay <devnull+charjenkins.tesla.com@kernel.org>
-Date: Tue, 10 Nov 2026 17:48:05 -0800
-Subject: [PATCH] scsi: ufs: exynos: Access HCI regs only while core_clk is
- enabled
+	dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=lJPVZ0ab
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=codeconstruct.com.au; s=2022a; t=1794361788;
+	bh=7Kmq+KrqsJVdamEglD05VlODQnyHuuKHPdii9uryj5M=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=lJPVZ0abKDf0DLzHSxMmK/yrfDVBM1PSNgzEXP3miyBlLjMlmo/se/vVUwfvQwlcL
+	 VITk+MFatj7sSRTvURtTFEk0ASGPf6xwTmXgeOYp7cuInxpixCQwF97hyrmsR3/zHU
+	 /BHk/NCbxj0MX2USlWM0Gwv3YbLAvPYVpZcDD1o1q3jV83Hcl66r4lMadsuTHhvxul
+	 wwpQ1UKXQTrr0znFz/caCwZqbBe196VL/6ak6l2Ob5QjREQC+7Ih4fKKQuG35TWPxZ
+	 4nopr6vQijOiHR2A9zc2pjMyBw5FBobqhn5zZPYe4cCgLRiiDpAFpekFTdjzmqFZfW
+	 leYmOUgTYQH8g==
+Received: from [192.168.68.117] (unknown [180.150.112.139])
+	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id 92D0F64C3C;
+	Wed, 11 Nov 2026 09:49:47 +0800 (AWST)
+Message-ID: <a92395610d27fc0f97af3b27b150de61583c2197.camel@codeconstruct.com.au>
+Subject: Re: [PATCH v5 2/3] ARM: dts: aspeed: Add Intel AVCRP BMC
+From: Andrew Jeffery <andrew@codeconstruct.com.au>
+To: Dawid Glazik <dawid.glazik@linux.intel.com>, Rob Herring
+ <robh@kernel.org>,  Krzysztof Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Joel Stanley	 <joel@jms.id.au>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
+	maciej.lawniczak@intel.com, Andrew Lunn <andrew@lunn.ch>
+Date: Wed, 11 Nov 2026 12:19:46 +1030
+In-Reply-To: <599f1b31-f175-47df-b074-1915688eb390@linux.intel.com>
+References: <cover.1794242015.git.dawid.glazik@linux.intel.com>
+	 <ee6958ba4b93cde4719fbac89c4027964c2236bc.1794242015.git.dawid.glazik@linux.intel.com>
+	 <fff90721f7892c0285f4fed7fed460c7c1e183cb.camel@codeconstruct.com.au>
+	 <599f1b31-f175-47df-b074-1915688eb390@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,109 +73,64 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261110-ufs_exynos_hci_order-v1-1-ce3cf68a74d5@tesla.com>
-X-B4-Tracking: v=1; b=H4sIAFTJ82oC/yXMyw6CMBBG4Vchs7ZJC95fhZgGyl8ZF62ZEYIhv
- LtVl9/inJUUwlC6VisJZlbOqcDtKgpjl+4wPBRTbeujc86aKarH8k5Z/RjYZxkgxqK79GfbHOL
- +RCV9CiIvv217+1un/oHw+r5o2z7Z+44JeAAAAA==
-X-Change-ID: 20261110-ufs_exynos_hci_order-0ea9b8035f47
-To: Alim Akhtar <alim.akhtar@samsung.com>, 
- Peter Griffin <peter.griffin@linaro.org>, 
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
- "Martin K. Petersen" <mkp@kernel.org>, 
- Krzysztof Kozlowski <krzk@kernel.org>, 
- Chanho Park <chanho61.park@samsung.com>
-Cc: linux-samsung-soc@vger.kernel.org, linux-scsi@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Charlie Jenkins <charjenkins@tesla.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794361735; l=2641;
- i=charjenkins@tesla.com; s=20261111; h=from:subject:message-id;
- bh=LAh4uxWJEJlM8NfNlEbxljfVuT2qoU7HqStq10W2Hns=;
- b=haIPNM/jxHhhj/GSLWYwPRTnUfCL/f3zCVGefXGiNVccdK//pUwTS3Lc0hUuzWhloFIVkRzL2
- GZ1rf3a9tJkDF7Dr5ZTJtqe18buZ0G92aaoVtxpEGl/wjADim/B72k5
-X-Developer-Key: i=charjenkins@tesla.com; a=ed25519;
- pk=UcHY2MxMlGrG4OWEpbHAPZ2iB7xhVAktL8U7+7y1MhU=
-X-Endpoint-Received: by B4 Relay for charjenkins@tesla.com/20261111 with
- auth_id=1484
-X-Original-From: Charlie Jenkins <charjenkins@tesla.com>
-Reply-To: charjenkins@tesla.com
-Content-Transfer-Encoding: 7bit
 
-From: Charlie Jenkins <charjenkins@tesla.com>
+On Tue, 2026-11-10 at 17:42 +0100, Dawid Glazik wrote:
+> On 11/10/2026 6:53 AM, Andrew Jeffery wrote:
+> > On Mon, 2026-11-09 at 18:41 +0100, Dawid Glazik wrote:
+> > > AVCRP is an Intel x86 server platform equipped with an ASPEED
+> > > AST2600 BMC. The BMC is used for out-of-band management, platform
+> > > monitoring, and system control.
+> >=20
+> > It's probably my fault to some degree for not providing a better
+> > explanation of what I was after on v4, and for merging changes from
+> > others in the past that were pretty lax on the description, but what I
+> > was hoping for was something more like e.g:
+> >=20
+> > - f28674fab34f ("ARM: dts: aspeed: Add NVIDIA MSX4 HPM"), or
+> > - bc83b7353d2b ("ARM: dts: aspeed: Add Facebook Anacapa platform")
+> >=20
+> > Are there more details you can provide? If there are, I'm fine if you
+> > reply here with them, and if there are no further concerns I can update
+> > the commit message while applying the patches.
+> >=20
+> > This also applies to the JNCRP patch that follows.
+> >=20
+> > Andrew
+>=20
+> Hi Andrew,
+>=20
+> Thanks, that helps. I also found one more issue in v5 (uart-routing=20
+> issue), so I'll send a v6 with the fuller descriptions below
+> instead of having you edit them. Please hold off applying v5.
+>=20
+> AVCRP is an Intel x86 server platform. The BMC is an ASPEED=20
+> AST2600-based RunBMC module on the platform's DC-SCM. It supports the
+> platform's out-of-band management and exposes board management I/O such=
+=20
+> as the system UARTs, status LEDs and control buttons, while integrating=
+=20
+> with the host's telemetry and management infrastructure.
 
-The current clock setup attempts to program the HCI clock-stop registers
-after the core clock has already been brought down. With this ordering
-on a reboot, the HCI bus clock is stopped before the clock-stop
-accesses, triggering an SError on the power-down path.
+Can you talk more about the division of duties around RunBMC vs DC-SCM?
+Can you describe how components of each spec are used in the design?
 
-SError Interrupt on CPU5, code 0x00000000bf000002 -- SError
-pc : readl+0x4/0x18
-lr : hci_readl.isra.0+0x14/0x20
-Kernel panic - not syncing: Asynchronous SError Interrupt
-Call trace:
- readl+0x4/0x18
- exynos_ufs_ctrl_clkstop+0x30/0xac
- exynos_ufs_setup_clocks+0x8c/0xa4
- ufshcd_setup_clocks+0x1c8/0x2a0
- ufshcd_suspend+0x4c/0xa8
- ufshcd_wl_shutdown+0x88/0xd4
- device_shutdown+0x158/0x1d8
- kernel_restart_prepare+0x40/0x4c
- kernel_restart+0x20/0x88
- __do_sys_reboot+0x198/0x218
+What's the motivation for designing this module vs using another? Are
+there any specific target platforms intended for it? If there are, then
+some further details about those would be nice. If not, no problem.
 
-This is visible on FSD, where the CMU gates are in manual mode so
-disabling core_clk really stops the clock.
+>=20
+> JNCRP is an Intel x86 server platform managed by an ASPEED AST2600 BMC.
+> The BMC is the platform management controller for the host system and
+> supports platform power and reset control, while participating in=20
+> out-of-band monitoring and reporting for host faults during bring-up and=
+=20
+> normal operation.
 
-Ungate in POST_CHANGE when turning clocks on and gate in PRE_CHANGE
-when turning them off, so the HCI registers are only accessed while
-core_clk is running.
+You don't mention RunBMC/DC-SCM here, so I assume the BMC is integrated
+into the platform? Can you describe the purpose of the platform itself
+(beyond the purpose of the BMC, which tends to be the same for most
+platforms)?
 
-Fixes: 91c49e7e82d7 ("scsi: ufs: ufs-exynos: Add setup_clocks callback")
-Signed-off-by: Charlie Jenkins <charjenkins@tesla.com>
----
-Found on a Tesla FSD board.
----
- drivers/ufs/host/ufs-exynos.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+Cheers,
 
-diff --git a/drivers/ufs/host/ufs-exynos.c b/drivers/ufs/host/ufs-exynos.c
-index 3bcbc9ebbb283..d2a79ebf193e3 100644
---- a/drivers/ufs/host/ufs-exynos.c
-+++ b/drivers/ufs/host/ufs-exynos.c
-@@ -1116,11 +1116,11 @@ static int exynos_ufs_setup_clocks(struct ufs_hba *hba, bool on,
- 	if (!ufs)
- 		return 0;
- 
--	if (on && status == PRE_CHANGE) {
-+	if (on && status == POST_CHANGE) {
- 		if (ufs->opts & EXYNOS_UFS_OPT_BROKEN_AUTO_CLK_CTRL)
- 			exynos_ufs_disable_auto_ctrl_hcc(ufs);
- 		exynos_ufs_ungate_clks(ufs);
--	} else if (!on && status == POST_CHANGE) {
-+	} else if (!on && status == PRE_CHANGE) {
- 		exynos_ufs_gate_clks(ufs);
- 		if (ufs->opts & EXYNOS_UFS_OPT_BROKEN_AUTO_CLK_CTRL)
- 			exynos_ufs_enable_auto_ctrl_hcc(ufs);
-@@ -1139,7 +1139,9 @@ static int exynos_ufs_pre_link(struct ufs_hba *hba)
- 	exynos_ufs_config_intr(ufs, DFES_DEF_L4_ERRS, UNIPRO_L4);
- 	exynos_ufs_set_unipro_pclk_div(ufs);
- 
--	exynos_ufs_setup_clocks(hba, true, PRE_CHANGE);
-+	if (ufs->opts & EXYNOS_UFS_OPT_BROKEN_AUTO_CLK_CTRL)
-+		exynos_ufs_disable_auto_ctrl_hcc(ufs);
-+	exynos_ufs_ungate_clks(ufs);
- 
- 	/* unipro */
- 	exynos_ufs_config_unipro(ufs);
-
----
-base-commit: e550f2b2b4aab4c5f12db89d04d8978ce4ed7b4e
-change-id: 20261110-ufs_exynos_hci_order-0ea9b8035f47
-
-Best regards,
---  
-Charlie Jenkins <charjenkins@tesla.com>
-
-
+Andrew
