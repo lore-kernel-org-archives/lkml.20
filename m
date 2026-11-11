@@ -1,93 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.57
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794425479;
-	b=TB0Rg6lxFAEcmFyW2Gb3ReRARquKcY05GPwmDewI+ExZDgiBuFVrlaLcsN9ZFIXKkAkO
-	 zEgQOd72QC8yUORu0Mn+cFt+JtSd5yiysVX+z4kC/H+j4XXrsnE52Fd7ah/Rqub6AKzQV
-	 6KaRHu8cMNERTFWpghS0o+r2LG0iTQW2rrCzhucssvO8zzbB0Y8nq6IDeArxMu5Ze5mip
-	 w6ciAs828ezJW0Nm6MsJHTNQUU9JfF4sMipFYhXsuMIySvO21Y9B1/PafIHekrUvKv+MX
-	 0hdphD6YSncm9SV+Xdpt7v50epLAPbW+MeADO/N9RvrJTGpwqmcOr+eZP6YhVzsN7GA==
+	t=1794425509;
+	b=SEf/MJsYjpqZN1AFSL9Az0TWdMMOQX7xm9bk0IK6P2Ru2Yq8tDwRYAIQoIoc01Dx/QxC
+	 zagTlIcXV6Z3XIHAoca+ES//mOun0FpCShMPGMBnUZseKjPnFokv+j8d2y70jl6ARaQnL
+	 9euT443L1KxpUkLOfMvhmcWGcwSMUHjrmOsYLb+X8F0z5z5im2+TO2qwB/lo3x2QYtm8L
+	 tP4qFaZ2tDl+6Tt3/cwWBIcasfSXnMXQksDAIZD6QV9MrufZYr58k3OKq3OYlElj5H4Qr
+	 Ch3g8HOZXpXEqo5cqvyRyX0rfGKXkO7odq2FsxqAmujasb6IP0797JGrGxWdi6Jplhg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794425479;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=z2nIEDK1cz4fspVcqEmCho3hRVDKFyX7BykmpsqZ7vc=;
-	b=IGMbb3hojm0dHOsZ0jredOZV8VXiGhajUXrqQmRtLZdRjsLsHszCaj0sIbFlWecJsc8Y
-	 2i7IjB2dTfd/52vq28U1fI+7hkDgJvmEXsllyr/vVv8MgHlEHyhI4JlHkYIbf42cKUe+p
-	 Ht6+StVy8v5mNy3XKZEYx3oIqazlDZoWyvEUct7I9uzoO5vzTpFHywOmzdGaHi3U0yeTb
-	 x3Pp/gTnOzbpigg8KarYfun95j9NflrQeO+QVu8SCzLWv1WKOSMLidqLtjXxlKtW9v8o7
-	 +mpkDb6C5IRdT7MlePoCUPd0ZaoE0pQouibQibAmmv835qvveFICg25DfFcAiQCTtzw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794425509;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=hPJTSgl4lSpxHtP18SvOW1H3AlqpcYb2ZHd7KDI91sE=;
+	b=be8Iwr1n2B4IKaxzSElWU+fYZO7sc5apDxQ0LJwekaljtY1l6NbKSvRMcGPWt1yskE1V
+	 tXlrSDd+NXGqRAoMWp4RSHp0seM0kq/e2XVFqBJj7QqKMA8iIeqawjgz5a7G/yEbYnK/n
+	 SYLfdpClkl3pnOBBbB4cdlqhHGm/BNpQDu1soVfyAjMzJK80EMuJ0TZgxatNrAx5DmOzg
+	 SQFMP2k9IRpgtcfx8OT7mp788Xdm9MOANF9CpB/rgOKrjNIm+aXTLKM/Tpur4PfLimSEQ
+	 /s4migTcKGdC7aEtVgoSllhcG6ubujdovSJ4/ZXORH1HWNUt/C5lZD3oIDIPIiXGqEw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=hRhYQ2Oa;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.57
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012057.outbound.protection.outlook.com [52.101.66.57])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="W+/T+mmy";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFBE3606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 19:31:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BFBE3606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15E68606A32A;
+	Wed, 11 Nov 2026 19:31:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=hRhYQ2Oa
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jx73jd0vf9l0E+S4OJ9Q38jVm4XXj9GNj0lpYJek8nXMTfA/2Pg+ICILDmhtHtiP04iNau5e1Hg9HcJgAkpaEJOfiYo5iurS1JzsXIl9wETv6BiYX0ySEIIvJmagdjA+tZIFzky767YWIjEfpsGLtcViuufHOxAB5193UPUaRS1y6+HNKDs3Hx+eY1DOfwsLctZlemXpI46vvVcJ0pMrmsS1rlSoksn3n2NzEuRH0RuhJuTuGKwjyOAb4kg6VOY22YZK5hNDYkiL6iRE1e3Q9opFW/gz0KXbvuhTclpxsSLmRW4Oc3oKcXKf1L+YFkT/kjjUAi9T7nhSvYyysnMn7g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=z2nIEDK1cz4fspVcqEmCho3hRVDKFyX7BykmpsqZ7vc=;
- b=J4sFXEiz5rKkkkRTjX3D6kV9sPftN0mbIid/qGRi29dMazPsM9MrtU+OBNf2xTg5Ew/uao1+tzDkB6GXYIfZ9tLq/rosIT2SsVHZddzWOhEVC+q7pBcoP5HxPijFDIheReiBkFXp/nZFNU5+e9zlRW/BisOj6F4N5fL5D4lmzzT5MNhl5TsLsfboiMu+g0Qp8fI0iNUm/K8JByTes83m5Hbik+J2vGvmbhaQGwO1cw1dd0WUrWGwC1Ggd4KfRIhbZT/9zuWlRkBX5JW1mAOihz2oq5YVPQzM/m//815OCSTCEhtqCTw+mg6Ow6LNF7ZNByPDMQV7i/QCSZ8VzpjEMQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=z2nIEDK1cz4fspVcqEmCho3hRVDKFyX7BykmpsqZ7vc=;
- b=hRhYQ2OaqmuiwkSFCCqkLV30Ho2YT2dlEkfOV0uaDgUvTWFBhXYivfu5nj+lBv/06r+E1hvPNv/Yrc9EAKhQ0Qt7zsbOg4l0/y+vkX1ARKyj66NMo5BhAjLx4lrSQQQlFeHuY0+ES8iWM7zuxb57qSERx89kICg3hNoYizeUHtP0gXVq7MoxKIl5L8Zg8iXyUmwZoHeKE43aPSohIjtzhV0irHtTMDMDC+zFJYugcVk5wE3++ZOU8C2GBkWPnIAD10H0B2mSaTBLZlm3ZS2Kyj25Yf6A3T4pzgmCUpQWU78Y7Srh3EKnnShZZUB0IOnZU4JZipVoHKDJXgwkh/MqHQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by DB4PR04MB11279.eurprd04.prod.outlook.com (2603:10a6:10:5e5::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.9; Wed, 11 Nov
- 2026 19:31:16 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0615.007; Wed, 11 Nov 2026
- 19:31:15 +0000
-Date: Wed, 11 Nov 2026 14:31:08 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	linux-i3c@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Frank Li <Frank.Li@kernel.org>
-Subject: Re: [PATCH v2] i3c: master: Fix fwnode reference leak in
- i3c_master_register_fwnode()
-Message-ID: <avTCfKlPM15hvmRw@lizhi-Precision-Tower-5810>
-References: <20261108092920.314161-1-vulab@iscas.ac.cn>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261108092920.314161-1-vulab@iscas.ac.cn>
-X-ClientProxiedBy: PH8PR15CA0013.namprd15.prod.outlook.com
- (2603:10b6:510:2d2::16) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W+/T+mmy
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794425508;
+	b=OtKQaSucPWMKJ1eFv8bMmhmDb6RH4DVPbvsTOYgYfYAfRQ1shXmDTWQWdQdofApozqIn
+	 i2KIrqdeUL5gXdQzhYYA36ZrtndbFo94H9Ojt2PL2iMp2Uw/cgFVzbXQ9TK6cIbXaMi39
+	 CLvPnXvQM2iUPaizOi4bDmjhnXaLbsw0Jd/ah1O+C8f4bZBEgLo8hsOhMRHPdScQ/cjS2
+	 xBBUe5Sd73ywfTyayYfZPWQgYvm6mkuLvZw6y1/11/E4DQVUkZMieAjkqXHu03D3uhPTB
+	 j5oesNg3sedNyPYZ0QHAMUQEf02WBE1J5dYpwa42PnUf1+V+Sb6OWTvrjof5E6gXwAA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794425508;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=hPJTSgl4lSpxHtP18SvOW1H3AlqpcYb2ZHd7KDI91sE=;
+	b=amGFHJYPv9+dNGPX1i50MNvP9gNKkCU3iDathSb5b0OwmtNKbeFFFuFw15HlGk5/9TWX
+	 FLEEu94wvhnYGmz5UU7uru8nKvPlKiSu7zD0QjQupy77d/ALf+SO96iSCxz5tTYZe50a6
+	 U06KvPviiVw3Uk6ZmO8MvgUKGmWq8aGF14JtQ0rs3xpVaEbyrmcQjpkU54wyBgMOls9WI
+	 6yQ4zHLGUf5ZG4CjbJTd31Xt3esHBSGGGsOsSSswJ/pPmVav4JEqWz4tMVqqFMgsGvKlN
+	 eO892yEk1fp4jue+koYxLy9zWleq5HujlOlvNFiwMGHUBz77zg2IIdLdkZ6A8vIaqbg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 663221F00A05;
+	Wed, 11 Nov 2026 19:31:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794425508;
+	bh=hPJTSgl4lSpxHtP18SvOW1H3AlqpcYb2ZHd7KDI91sE=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=W+/T+mmyD3X0cIpn1rAgTiINN64y3iqC/UvCFO0wOCUSYsSI7G4GU8EaG0Y25KuW9
+	 ZHCUBKdAru8o8tIh+JPWiQ6DRmNfBt6OoqdtOplPk67zlcb83fMMJ2B04FrahS0yQy
+	 UQ5NMg51hjNM4V7iAxH3w5s2zfqkVXksPEHwiVYDBdJXR8/k03N6pDMf2mUZOfwHL3
+	 kssoqQZFZImR92u2yFdn4rfBVhPimt4P/MaLu1slmhUSLF+ns2jX8Z8v72bJl+KHpa
+	 AycYA6jPejQ1daE8s/7OUTBpABNYjrz8jOauOkxwV7GkmHPuuP2m+CJlb+brcb1ep2
+	 G741PvJ3/oY1g==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id B17D7490A4;
+	Wed, 11 Nov 2026 19:31:47 +0000 (UTC)
+From: Darren Worrall via B4 Relay <devnull+darren.worrall.shopify.com@kernel.org>
+Date: Wed, 11 Nov 2026 19:31:39 +0000
+Subject: [PATCH iwl-net] idpf: select AUXILIARY_BUS to fix link failure
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,119 +82,96 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|DB4PR04MB11279:EE_
-X-MS-Office365-Filtering-Correlation-Id: 62122014-c49a-4be1-7edf-08df402a5a53
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|19092799006|376014|23010399003|18002099003|22082099003|6133799003|261009223027099003|56012099006|11063799006|261028144727099003|261102123227099003|261026140227099003|261022075727099003|261021121427099003|261022105027099003|261021123027099003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	IxM/dqlnetUa4bvtrYYwaCehSvuQCUwO2B8lVnUp045/kBLj7bC4vcFhUeAj+z5+eBEl6dR30tL7pfrWZ06tGuw4zKOnS9hkVJaL9tukE+/cK7sLjgDeBi24nbuQHrL5M/DzIpAm3a0lKJPpA2YGauFD2p4GZ43qGNmy389+JaRu0zHh1Pr8iFkJrgMIk8ECpySu4n5QRCD5nXc50qeDLWkke+H4YTYbMw0su/uZ69pNpJtmpPlPzEbBr74f6IFmF1fvSU3DFwrfzCGsRhJr18Ppv4fBCfuRXWCuwr0MxVJAC/OCqc64aI0YjAnN2qmqVVYc1vCIzFDJ4SnsN2oPQZmMgBM9k7lQSOhmL0b/5PtWi7u43O/7f6K43TPbL9dAxIxEi8qLWyeUKxtujiu95NyfCNW+sC4LH8ax+tXpns8BQqkXnLrnYn1PgxN70mVa2qYKhcy/sAS0F7EJBbJlYWShto14FOD59h4myOtGgSHGu/B6OHtA4Hxka2PLb0vfEvX5alT2CxoOPQyorFC5qdM/tM5qwiTRPA+zZoQHvXxkL724wK4VWdS+sRzJfaqkOp1g0kODmTYebdem0mmjMnRgJEVI0w4+20ggujBN/EU5cRUIvoTLynYvGVoJGd7k
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(19092799006)(376014)(23010399003)(18002099003)(22082099003)(6133799003)(261009223027099003)(56012099006)(11063799006)(261028144727099003)(261102123227099003)(261026140227099003)(261022075727099003)(261021121427099003)(261022105027099003)(261021123027099003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?ty7vkAo6ycxWdMG6ipUgyVnCcYtCDTJqVkHWy1RxRC7oH89kf59KbH2RIAnT?=
- =?us-ascii?Q?hE+vPw7+t2GThQ3e0bzBhTgh4R4phMF0HBSzee+lNjzPV/O028taPrNLr4ny?=
- =?us-ascii?Q?Hd1LzIU0xuDPpdHJj8S8kmrVXIZ2yMqZzsX8n99i4j1CrXmJ8VFCk4Lxh/9X?=
- =?us-ascii?Q?1oHuYIBa8soFBbeJQG/nXe+HaGCBaZ/hXqC8EIHgEBPkvMoQLog35LcJWqw9?=
- =?us-ascii?Q?eMw4NX8QrlkWqjK1l0BqcGFJ1bdJcxRctbhXUswoQfL3s8hFOjow0A677CX5?=
- =?us-ascii?Q?/jJlYrfuu4YegoCpdqayARYDgCWZp/ZxuO0BD5sjSlXt56eZoNNIXfLZrDay?=
- =?us-ascii?Q?8NmmO3B8zYhxNyP3gFlF/focMk0SgEeZG6v4IbC0cSfcJCIw1CajxFSSSLWi?=
- =?us-ascii?Q?j7c8Hx6j8hSbr8jvz45xEjMkjC8PEzE4a/icSd/FGWtSlzDm72rmsYrr2Tju?=
- =?us-ascii?Q?4CQESW3ANAPtq/kr8ckIKNnEgXNwbOZtDzhrxmUwJEnsrhc9FWeoWlIVE7uh?=
- =?us-ascii?Q?SWoU5/TfVkb56EguxjloewpbBsxpBphoK5gtI0A/T6NMEO8pYKba/HalW0Nq?=
- =?us-ascii?Q?Nl7FVndPqBaMzahEbeX8g+qXpmiJYLwlFyJMKdyzOhTxl0FpVyHb/t4cqfor?=
- =?us-ascii?Q?I5khw+PrDhe9KND4FcqPaDThKJQzdtEROK+JJZPTf0ymn+OIrx2miilpjV2m?=
- =?us-ascii?Q?mrLwq8BWGkZ7kt1ea6Wsw7tCtSas4NW7j+ZSoFU0OJQDQeYN+Lz2E9R1bUmk?=
- =?us-ascii?Q?qgIe5xfXdgbNuS66L6SvI+QigI+g+s7kw+eBZ6cMdjrw0pK2JOEX0TjpKrNO?=
- =?us-ascii?Q?0c4fjGOUplmgWFNNTSLjbxbtMJHekVSOhVjdvRfeeqp8FCw6Unit6E0IDbFT?=
- =?us-ascii?Q?aRiD9jUEo+b4muoz7X/yEAgbGmOf6TcufnVH9QnqTEBjWDYVvi3WxT4NBGpr?=
- =?us-ascii?Q?KHk3vsv/kmxsx4APW9V2eQeVrH/30BTQIcNtjPMuHS2ay+cTioiS8OnzmAKl?=
- =?us-ascii?Q?9qZ8e3rp1BZLtoxG4BN4Yu9sUqISPP5bkG0mqrR2qGRF+jCE6Sw5f9IlFJOJ?=
- =?us-ascii?Q?tO0HQ2hfw2jvfE92RyoouKRZKJiFSZZDE0u/5iPTQqGrrUsb+E1mZHsR1wZ/?=
- =?us-ascii?Q?uemWl5VLmfJ1aFU65UHbNy/ruL3TlLBQRoaskVEl3XMZUk843rG1xwm1TscD?=
- =?us-ascii?Q?g993c8jVoYUFk0A7NA618SGChmWDX4S+vrJWa6tDx86JshAloZyPwyGz2uVn?=
- =?us-ascii?Q?TSmF7hG5S0B9Mbmk8tIoWPCU7vYPypFpA2tYoClNwrPWAC9p05+EAYl1OhTz?=
- =?us-ascii?Q?FxmJ/wS25g2ZrDOJiotdeIRAif/zaKAD9eRqjaOpVOn/H1mzrHS4Kn7HqOC8?=
- =?us-ascii?Q?M1glOaV8/hjK1qAfSaLEAueXu8s782zGJ6IDmuH4hemHliEyJl1MnI2+woI4?=
- =?us-ascii?Q?eUElhPV7ssds7giBZJMHQQOY7aL9Y0sabUe5afzezguJuSHayjqF0DR6gnX/?=
- =?us-ascii?Q?/2y2bKN6D7icICviv0Tu3I0fG/xGoXAeVmzwzg2AfVnppDC1qE0h8SlZLiK6?=
- =?us-ascii?Q?lQ28KpXwwhJkhB30hXBZJzACtgf9RAGE6Tri+zH7GRXb7swJ/AUJ2G958AQh?=
- =?us-ascii?Q?admEoE8OGWGYZxR3FV+DhO/PTZ79F5196pTpbCEqQ5GKu0B3t4nD98u0A7DL?=
- =?us-ascii?Q?sAxNdvDultA2nCJ/eC9vbgNmuq8Ztx6iNlOndPZW2ePWVff2un43sdhLcRxV?=
- =?us-ascii?Q?C2sjBQibAYwv0AJSIfBtgchwm9lIGmFh5vAlXt0auq2EbYcAloC2?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 62122014-c49a-4be1-7edf-08df402a5a53
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 19:31:15.9061
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: jiuBCoHmYXSStqQe+//5SsSTGaoK8xCn/UL7jMyCgSdcfNGt1m66QdNV3edSfcZxR8P0G2EashH2o0trFLFhiiWHgMSaT2TPWD7ksgfTlpj2nH1MxL2eUzIoQC4NeBbJ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB4PR04MB11279
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261111-idpf-auxiliary-bus-v1-1-e76b940fc929@shopify.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMSQ6DMAxFr4K8rtUQqeNVKhYZDLhCgcaEUiHu3
+ qT9u/enDYQik8C92iDSwsJjyFAfKnC9CR0h+8yglT7XWRmnFk1aeWATP2iToFPqdCV9cf7mIQ+
+ nSC2vv9MH8HvAQDM0/0CSfZKby2WpWiOENprg+mKNkTsOR08LvhIlgn3/AmLEkuGiAAAA
+X-Change-ID: 20261111-idpf-auxiliary-bus-c0058e27cd9d
+To: Tony Nguyen <anthony.l.nguyen@intel.com>, 
+ Przemek Kitszel <przemyslaw.kitszel@intel.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Madhu Chittim <madhu.chittim@intel.com>, 
+ Joshua Hay <joshua.a.hay@intel.com>, 
+ Tatyana Nikolova <tatyana.e.nikolova@intel.com>
+Cc: intel-wired-lan@lists.osuosl.org, netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ Darren Worrall <darren.worrall@shopify.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2450;
+ i=darren.worrall@shopify.com; h=from:subject:message-id;
+ bh=RbjW4ti8gsuFIX9ZjzwA73lhgVe0TsMd8tFgxZGXUIc=;
+ b=owGbwMvMwCX2T4mx4WrYUgPG02pJDFlfDi1K9b6aINvzofyiZEOjge+28g0e39h3vWQV6XC4+
+ NLgt9qbjlIWBjEuBlkxRZZJ28v+mU1q+VUe1bULZg4rE8gQBi5OAZjIBwGG/zmqa/U2nFimHeLt
+ Fvcmu3CP2V2N1JI3lYLL1FgsLs1e4MzI8P3FuYc1cy/sZZJTuBTKY7a/aP7m5bMtItdqLI/ab+R
+ yjwcA
+X-Developer-Key: i=darren.worrall@shopify.com; a=openpgp;
+ fpr=92B776FE369284FA775A8ABAFE220180D556A530
+X-Endpoint-Received: by B4 Relay for darren.worrall@shopify.com/default
+ with auth_id=1491
+X-Original-From: Darren Worrall <darren.worrall@shopify.com>
+Reply-To: darren.worrall@shopify.com
+Content-Transfer-Encoding: 7bit
 
-On Sun, Nov 08, 2026 at 09:29:20AM +0000, Wentao Liang wrote:
-> i3c_master_register_fwnode() takes a reference on the bus firmware node
-> with fwnode_handle_get() and stores it in master->dev. That reference is
-> normally dropped by i3c_masterdev_release(), which runs when the last
-> reference on the master device is put.
->
-> If i3c_master_rpm_get() fails, the function returns before
-> device_initialize(), so put_device() is never called, the release
-> callback never runs, and the reference is leaked.
->
-> Release the reference explicitly on that path. of_node_put() is not
-> enough here: it only acts on Open Firmware nodes, so the reference would
-> still leak on ACPI and software node systems.
->
-> The candidate was found with static analysis tools; DeepSeek and GPT-6.1
-> Sol were used to audit it and to help prepare this fix.
->
-> Fixes: 3a379bbcea0a ("i3c: Add core I3C infrastructure")
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-> ---
-> Changes in v2:
-> - Sorry for the delay. v1 used of_node_put() on a reference taken with
->   fwnode_handle_get(), which Frank pointed out.
-> - Use fwnode_handle_put(dev_fwnode(&master->dev)) instead.
-> - Rebased on current mainline (fa4ad798f6f6), where this code lives in
->   i3c_master_register_fwnode().
-> - Dropped Cc: stable@vger.kernel.org. This only leaks when the runtime PM
->   resume fails during registration, so I leave the backport decision to
->   you.
-> - Build-tested with an x86_64 defconfig, including W=1: drivers/i3c/
->   compiles without warnings and checkpatch.pl is clean. I could not make
->   i3c_master_rpm_get() fail at runtime, so the failing path itself was not
->   exercised on hardware.
-> - Link to v1: https://lore.kernel.org/all/20260916160358.2081087-1-vulab@iscas.ac.cn/
->
->  drivers/i3c/master.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/i3c/master.c b/drivers/i3c/master.c
-> index 01e05bad8661..c532693f8463 100644
-> --- a/drivers/i3c/master.c
-> +++ b/drivers/i3c/master.c
-> @@ -3897,8 +3897,10 @@ int i3c_master_register_fwnode(struct i3c_master_controller *master,
->  	INIT_LIST_HEAD(&master->boardinfo.i3c);
->
->  	ret = i3c_master_rpm_get(master);
-> -	if (ret)
-> +	if (ret) {
-> +		fwnode_handle_put(dev_fwnode(&master->dev));
+From: Darren Worrall <darren.worrall@shopify.com>
 
-direct use parameter fwnode
+The build can currently fail with
 
-Frank
->  		return ret;
-> +	}
->
->  	device_initialize(&master->dev);
->
-> --
-> 2.34.1
->
+    ld: vmlinux.o: in function `idpf_plug_vport_aux_dev':
+    drivers/net/ethernet/intel/idpf/idpf_idc.c:82: undefined reference to `auxiliary_device_init'
+    ld: drivers/net/ethernet/intel/idpf/idpf_idc.c:86: undefined reference to `__auxiliary_device_add'
+    ld: vmlinux.o: in function `idpf_plug_core_aux_dev':
+    drivers/net/ethernet/intel/idpf/idpf_idc.c:223: undefined reference to `auxiliary_device_init'
+    ld: drivers/net/ethernet/intel/idpf/idpf_idc.c:227: undefined reference to `__auxiliary_device_add'
+
+if IDPF is enabled but no other driver pulls in AUXILIARY_BUS. We hit
+this building a minimal kernel for hosts with IDPF NICs. It can be
+reproduced on x86_64 from allnoconfig by enabling PCI, PCI_MSI, NET,
+NETDEVICES, ETHERNET, NET_VENDOR_INTEL and IDPF.
+
+Select AUXILIARY_BUS in IDPF, as ICE and I40E already do. The same
+link failure was fixed for BNGE in commit d7065436e8a0 ("net: bnge: add
+AUXILIARY_BUS to Kconfig dependencies").
+
+Build-tested with that configuration on net-queue (dev-queue,
+34a70a40c954) and on mainline (067c5c24cef2): vmlinux fails to link
+without this patch and links with it. Boot-tested on bare metal (AMD
+EPYC) with a Google Cloud IDPF NIC, using a 6.18.60 kernel carrying the
+same change and IDPF built in: idpf probes the NIC and its link comes
+up.
+
+Fixes: f4312e6bfa2a ("idpf: implement core RDMA auxiliary dev create, init, and destroy")
+Cc: stable@vger.kernel.org # 6.17+
+Signed-off-by: Darren Worrall <darren.worrall@shopify.com>
+---
+The link failure was diagnosed, this patch drafted and the tests above
+run with the help of an AI coding assistant. I reviewed the patch and
+the test results.
+---
+ drivers/net/ethernet/intel/idpf/Kconfig | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/net/ethernet/intel/idpf/Kconfig b/drivers/net/ethernet/intel/idpf/Kconfig
+index 586df3a4af..6b59173e0d 100644
+--- a/drivers/net/ethernet/intel/idpf/Kconfig
++++ b/drivers/net/ethernet/intel/idpf/Kconfig
+@@ -5,6 +5,7 @@ config IDPF
+ 	tristate "Intel(R) Infrastructure Data Path Function Support"
+ 	depends on PCI_MSI
+ 	depends on PTP_1588_CLOCK_OPTIONAL
++	select AUXILIARY_BUS
+ 	select DIMLIB
+ 	select LIBIE_CP
+ 	select LIBETH_XDP
+
+---
+base-commit: 34a70a40c954fb8044ecd124840a2c38cd3aa4cc
+change-id: 20261111-idpf-auxiliary-bus-c0058e27cd9d
+
+Best regards,
+--  
+Darren Worrall <darren.worrall@shopify.com>
+
+
