@@ -1,54 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794392980;
-	b=u5z36vzsNmQyJpJYyxX7+qk5aS7tkyX+Kq+5+li+5q9vLKu+u1ZU6LATm9PE3bI8ju1c
-	 zFexzrESjNdpguEhiYHPiZtTWv7Xn0BEjWjyIInS1RmDBEWbDt3D3m3cEZuiFWyd3QVp0
-	 lTYUy3yR99wlERVFv8Q5dnDqWen/75sL8FYfDpFnN+duALkXEKPE+gocXx7UtUF+FirQT
-	 K34sa5NtDGGmU8Yv2kS/KcWd+UQEF/1S4aE9ESagFLDhmyHZ/5OzAzF601ZWOVZuiK3XG
-	 uCFbSz40ZjfzO0whdae9LQlpKFzuScKjfrbiNojViFshzSLTqObVrTIhHfJnXyC4lqQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794392980;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ZohoMailClient;
-	bh=Lg42JcAukHQ8iAveVz5DalweO0LF5sTRtDq7rYcWLEc=;
-	b=4baDXkAS6Q+bPgOhDCe5lGB3b+aGvDdV7OPOkj75vOgC840Uegi+qcL3WqukpMILOE8O
-	 LN1lWr4U9uJ0kIgDguWqDjGrv8Mq2VUvbsoTpVJ5r2U4WyzRrbyAU31/TJ/gY1ccWrFxW
-	 R5jco2D2d45v7H80lSqa4Rm3NWHjznHv/mRJcTWYjwgb1zGxy/3C4BdzWBSE6PLEr5GSR
-	 zLkWIz+0uPG1HczKipdCebgYp1Huw0tBkXhFgbEuiXhmANF+DtSWuwwPKjFPUGdPA6g77
-	 q/pDBNQGDmTSFC/AZgHGsg5zAv9p6KfMqz4qigblwj3+pAPBQuwBK5pvXRJ5aQGgAFw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=AoD3nHzP;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794393013;
+	b=MCaM+lMAS7Cf64QRhvCZ0qQIiG2HIgV7Xuj1vssU789tVO9wYvmfFcvUU29RGqAODSFR
+	 8ITR/fHPYjCa/hl1kJb2+e5PQUngySL5S/cUWrGMPv3HrmfeoLVxzAImgiECcSCvnDOsI
+	 t/J50S6OcxV+lrf5KpiJn57EPb9YPDjiOWKdQyYLRItx14PY1JgvDbDQlI/OF8c3qmGZb
+	 VX3tsyJjz4drK77PXo4N3KHbybcBm1L1m4lj0zDwNVRT4RIYSUjoA9Qio2qjG/ft5MbFc
+	 pyfzcrwMxk20JxS9cVyU+z8X40rZim7g4+PCpxzxkF3RGxqdecLfBP3o48u+c3V1C5w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794393013;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:Content-Language:To:Cc:References:From:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=jOiHR4ad68Npg1NXZSugMmWFxLEASeXZ1K6QbTQKCRw=;
+	b=n1WdMI6U0GHQpnxrJfygT6CbsuHSKS/pb05A1qmxGAZR5vXJL2toq0hd36aEcqIyElUO
+	 TSCMlbanMaDiXuFNt5IbFtJosEyn96IwmwmvIF7qXQqqOSB6Yf/xWq8NTMuAobxs9O7YE
+	 6FaCuLbM/zGacD/2Fr1uQ6ZWctRBelvgzUoxlKoqDk85PoLBOi2lwh0h/QMKQs6gVSBAt
+	 ufrbdWY6vEkO5UovHswnP6naQ5eVAQdW8oDG0322z+i9LLg7lxoV3oWPITosIfrnMZVEM
+	 Kp0Y3dgMJfyvNXqgpt9pKi26zE4NxuNNNPc24lPEBm8d/B1tsuj3RMjypXHPcccG63Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QEjJdJXj;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E024606A31C;
-	Wed, 11 Nov 2026 10:29:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E024606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EC26606A881
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 10:30:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=AoD3nHzP
-ARC-Seal: i=1; a=rsa-sha256; t=1794392956; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=JTe5DoX4QFDA1xlPbGZSB+3f0P5QxcTRBjZeKv4QyppbcQWFYomOXtmOhbJ5/7eWPkl4gHGAqw73VR+bcZDZ2Zw8OjLS9Nd3fOj4xuJUEL8IeFkcToP+m4oYbB6tFU7tu/1hHYNHek1IdSqlydeFRGe4ojYU1GYgl8m84oU2H1s=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1794392956; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=Lg42JcAukHQ8iAveVz5DalweO0LF5sTRtDq7rYcWLEc=; 
-	b=kLNcBvXSZrMN1elJw3mrcslxlwsDBilJJtF8zRGBe08bqp+tfun9Q6WnGnNjtzZ457JezUXauhcz7mLEeqYfdiTHxC55u84W6HkiMb3+GTAUtoPAPIIlIziaKoXGX3hcINdYTFryxcfm0FG6jN5CPHDcURmPd2WDO88dbXQsHwM=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=michael.riesch@collabora.com;
-	dmarc=pass header.from=<michael.riesch@collabora.com>
-DKIM-Signature: a=rsa-sha256; b=AoD3nHzP+3PjVMejUKvFVKHMzU3OiYbWy/ZL3CVykrmGsEZBu5qdqjSmtElRKQxat9FbOP/NKZsD1BG+TSk4in1TBCLy9K8uNEo4pyO0IKPNree/TEE8k33cqKiOpYwk3AEDNoqof5c2KjeLMZuqZ8PlBGD6J/lA0lYkIim64Mw=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=Lg42JcAukHQ8iAveVz5DalweO0LF5sTRtDq7rYcWLEc=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1794392952987100.75485625514011;
-	Wed, 11 Nov 2026 02:29:12 -0800 (PST)
-Message-ID: <9b5f5fc4-5fa8-411c-98fd-8655f208e00e@collabora.com>
-Date: Wed, 11 Nov 2026 11:29:07 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QEjJdJXj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C75F91F00A06;
+	Wed, 11 Nov 2026 10:30:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794393012;
+	bh=jOiHR4ad68Npg1NXZSugMmWFxLEASeXZ1K6QbTQKCRw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=QEjJdJXjxc7Lur7NIFKjf55sh5sYArssTP8Vhpn9QBhF5GOPrlZ6OebMEWuma6wKx
+	 4vRXOpyYd5xdTJDEXZiVyTiVlmF5QADj9BSFmKHsUpjIOBcvmCMi3zXT2HmJ6QCoIo
+	 ZsvGLonn4K7ZQw+EeXWsiqS37DCeoSK8DQc0UU04k9ydoLmmARyrKNHTbVOOrfnFHW
+	 X/U6wJmqd97vSowvOi9ZTLvX4SVmsb26JUNLNZQuN4WyNYQuQpm+6GGaVC+5SILhsE
+	 7QEdy/Zdigj7BsBE1nC4KLIPM6L0Cg0zCO2HPnDbOtLZLAL82KzlKDgsYxXt6otr3h
+	 B9uJ9/xc9f0TQ==
+Message-ID: <ec39ce6d-e604-48ab-9582-04ff73d13c16@kernel.org>
+Date: Wed, 11 Nov 2026 11:30:09 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,72 +52,74 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 1/9] dt-bindings: phy: Add PHY_DIRECTION_TX/RX
- definitions
-To: Jason Yang <jason98166@gmail.com>, Vinod Koul <vkoul@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- Guochun Huang <hero.huang@rock-chips.com>,
- Philipp Zabel <p.zabel@pengutronix.de>
-Cc: Sebastian Reichel <sebastian.reichel@collabora.com>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-References: <20261110-dcphy-rx-v1-v6-0-d681ba20b36a@gmail.com>
- <20261110-dcphy-rx-v1-v6-1-d681ba20b36a@gmail.com>
+Subject: Re: [PATCH RFC v2 3/8] mm, slab: rework KMALLOC_RECLAIM handling of
+ SLUB_TINY
 Content-Language: en-US
-From: Michael Riesch <michael.riesch@collabora.com>
-In-Reply-To: <20261110-dcphy-rx-v1-v6-1-d681ba20b36a@gmail.com>
+To: Hao Li <hao.li@linux.dev>, Harry Yoo <harry@kernel.org>
+Cc: Christoph Lameter <cl@gentwo.org>, David Rientjes <rientjes@google.com>,
+ Roman Gushchin <roman.gushchin@linux.dev>,
+ Geert Uytterhoeven <geert@linux-m68k.org>, Conor Dooley <conor@kernel.org>,
+ Damien Le Moal <dlemoal@kernel.org>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org
+References: <20261024-slub_tiny_rework-v2-0-bf1419ab5ffd@kernel.org>
+ <20261024-slub_tiny_rework-v2-3-bf1419ab5ffd@kernel.org>
+ <auHcj2G78VkXy-Vz@fedora> <auycUvCC2mL_EQ1r@thinkstation>
+ <avE01iTQccxQnhl6@fedora>
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Autocrypt: addr=vbabka@kernel.org; keydata=
+ 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
+In-Reply-To: <avE01iTQccxQnhl6@fedora>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
 
-Hi Jason,
-
-Thanks for the patch.
-
-On 11/10/26 09:18, Jason Yang wrote:
-> A MIPI D-PHY or C-PHY can be a transmitter or a receiver. Some PHY
-> blocks have one of each and can use them at the same time, so one PHY
-> node offers two PHYs. The existing cell, PHY_TYPE_DPHY or
-> PHY_TYPE_CPHY, selects the mode of the whole block, not one of the two
-> PHYs.
+On 11/9/26 04:01, Hao Li wrote:
+> On Thu, Nov 05, 2026 at 03:19:01PM +0000, Harry Yoo wrote:
+>> 
+>> > Given that, would it make sense to
+>> > change this line to something like:
+>> > 
+>> > if (type >= KMALLOC_PARTITION_START && type <= KMALLOC_PARTITION_END &&
+>> > 	!slab_tiny_enabled)
+>> 
+>> Maybe you could send a patch as it's a separate issue from the patchset?
 > 
-> Add PHY_DIRECTION_TX and PHY_DIRECTION_RX for a cell that selects the
-> transmitter or the receiver. The first user is the Rockchip RK3588 MIPI
-> DC-PHY, where the transmitter serves a DSI host and the receiver a CSI-2
-> host.
-> 
-> Suggested-by: Michael Riesch <michael.riesch@collabora.com>
-> Link: https://lore.kernel.org/r/7425ac83-f6d8-4443-a26e-a47f9306aa24@collabora.com
-> Signed-off-by: Jason Yang <jason98166@gmail.com>
-> Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Sure thing! I'll post it once vbabka's slab_tiny series lands.
 
-Reviewed-by: Michael Riesch <michael.riesch@collabora.com>
-
-Best regards,
-Michael
-
-> ---
->  include/dt-bindings/phy/phy.h | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/include/dt-bindings/phy/phy.h b/include/dt-bindings/phy/phy.h
-> index 979b5dfd8353..9ead74d9a172 100644
-> --- a/include/dt-bindings/phy/phy.h
-> +++ b/include/dt-bindings/phy/phy.h
-> @@ -29,4 +29,7 @@
->  #define PHY_POL_INVERT		1
->  #define PHY_POL_AUTO		2
->  
-> +#define PHY_DIRECTION_TX	0
-> +#define PHY_DIRECTION_RX	1
-> +
->  #endif /* _DT_BINDINGS_PHY */
-> 
-
+It would be better if the fix preceded the series actually.
