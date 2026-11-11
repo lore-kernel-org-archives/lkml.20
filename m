@@ -1,86 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=68.232.154.123
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794398186;
-	b=U01BHNvRPEEd00zrXSB/IRoUU9AsaQ3nbNzyVxFU3EniYMsEfrflnAZikAqnyHu+XffJ
-	 HKFGuLRZVd/IPwjWE9A1V14evLb6kkHl6NrrS9p4/L2ZV4BmaQhr3IcXXg2JkfL6G9Bri
-	 bXZcr6m2e+eKXjA83feP9z8YQ8lFniCklyemWHKQFCvn5spjzOk3zsAEPU7yTunTmmbc8
-	 kd3XWuZHJaRsSqIAWP7HGxFhTbETBsNY5L9Fdu7lTQ1q3puAD9TkQC2P+vVfDEMXtPq4T
-	 B9Z5Lu9prxoZGdmrYwxPoMz+SxiA1PLzgGUcOZxlmQFzE+SKj699OKZje6Ic4M+tXvw==
+	b=A4HJYYe21+9Zedu0GxBGO1jjVWgRnOM5VgcEo9PRI9XB+k4nlZTcArFw19EnZaiJijYf
+	 yU8fJiMvlNAE4fU4KWF/0JhAUpNHeRzOBZdjQhxj9uazFbz6tKOcXBMKYL6vu048e6Z/y
+	 r05c1pENmR/J6ItEm4kW412LzFFBx/oEtWD87jFehYMykatAvikrwM/e7xaTN7Td+UioR
+	 2Bg/s2Ar/E2qm5CTPcZhLOefX9oyZLHg2Ds8GLo79fXwyldY/RJ/b938DlDEhsRCo0UZy
+	 PFtng8wesLjTwgGkTtpjK6I8u2JRBeENBvgvwOROurgkti/wHZRdo9YXcH4wXNqfCnQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794398186;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-Amp-Result:Received:Received:Received:From:To:CC:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type;
-	bh=8SfbOoc5GgUY4qQ6MHsBh7nTts0Qb+czz/4jv6s46Qc=;
-	b=QxKzY3/ZxFTXYnvKLq+LsH3npm1vu/cF560cYjZmzITc/DxOduvItfTOwTQ+2o6QOArD
-	 4zc5GmKo4ABiQ2kwE9QiLbrniimOCpP30yA2G4hmTPPAtKJ+Wb4LPzGRLOxssFdDGH2Tb
-	 MkRPEYAoprhtfY+1w46svZskicPDaPuGxwBz2D4XhaY4HxBMLHZLMVKuyYiWfKFHA8QcN
-	 LFSrgfyGtf8tcPHVoyALPG6SeXOVLjZO8Pz71mVaDRgtLJaGcjnNc+L+c9vqEH4wm/F34
-	 rmf+/xWW88XqxIfg0D8mjkjbEj/DwY5t1FPi4xcSH4ZbhV+Ya97EAlxoENsHUivBYWA==
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=mB+4CSyHNjp+rbmjLUMlfuLrwoz33uSYabd9B9NkTj8=;
+	b=Rzc+0x2fL5sH42fzmLyaIy97DTURRatxXEBeczNX7i4Ktf63qUpYiIA4vDXbouk1bDmT
+	 Ep1R7zYoXZAa//xDtze1Iithw6CM6grSnNcmR8nwXOzzGTR5V8l2LEkKY2OfBUncCcYfz
+	 hQFd1YizM8pqqqrqQ2d6iWBaaujgiawU+sfL6N7Q8oOV6ajiCR2tLCVYnov03v+IktWtd
+	 As0Ozvfz4OYozQyS2kaYyG3A0AcSX//Cb58oN5kzUQImgUfmf0mT1ricReXHfFi3Ls42Q
+	 inGMG3j3+lnTkjTaLKpzOr+SwnisL+2h9mVnPk0PTy6Nr07ZHep5elnf2M6YZiMxqBw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=microchip.com;
-	spf=pass smtp.mailfrom=microchip.com;
-	dkim=pass header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=kptBhtzZ;
-	arc=none smtp.remote-ip=68.232.154.123
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=hKr57dyx;
+	arc=none smtp.remote-ip=192.198.163.11
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC76C606A88B;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D90D2606A327;
 	Wed, 11 Nov 2026 11:56:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC76C606A88B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D90D2606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=kptBhtzZ
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=hKr57dyx
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
   t=1794398186; x=1825934186;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=cbB9ppCfJ4JPhiiXg5+JirD8QyiTkRHLmvM+DOrf6ZI=;
-  b=kptBhtzZSP0PzBlRnzvU3JUhgMp2nHVCGg0lS8sYXJNy62rFvXMIxpUE
-   wYzfagBGxsTDlFjyEs4cgAAgB3FgZGIvZfDXnuYxp+mZmeilayF+Mzoo6
-   9TBgwbcyloozHqKjNpUpR9iAuCnaGeiXa8ATe7ICvFb84jOYvY4dI1Obz
-   3HFJW/pu3YG10EOEXbRKPCsg4EiSTiux7HNYIctdx6so54PK3NInXvyyv
-   ijrGMfwlvox26zBnxqoTdUaia8p0Mywt4/fnxSijf0/ec4Xi1bg5xMfHe
-   Rj/jiK3cFuZJiI13uYNL52OlZloSFiFP9zLTV2CWGAZiMkhie7eixDo1k
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=WAI3fHizBxLRZPCvINv8vAUYHRI9fsCvBuX37VaFgF0=;
+  b=hKr57dyxwhZgdRG1O6ZyJZDymgGGaGRIdueJD7C5KTNUUOAvVBLH+F4T
+   hq07zJkkSuvBmUlDo1vboMXaww/xX2MmOpJy3IAKsWFJMStZniGwRZ6LD
+   q9MYrMUN+IaFZ+7D8RUTDkTgmLBNON8q3zBzLwKIwKVY7dfgdI7gztGOt
+   1th6oNay1f7eufvTZNnoS6HMTkR2l9voJrlpQHHgnxghtsFQL6ZsXyAVw
+   myO7XzwaTPSMC/zsR5aKR1G7R7dNiaobeh1hPWcq1qKkE6sDzqKYR8zde
+   eUmGW+nTgYmOlEnIfVBdWSLhjpgK8801Hwo/Jp3X22UkMjrzn/NPGM8X2
    Q==;
-X-CSE-ConnectionGUID: fahtkvVtS06HBrtIclWMCQ==
-X-CSE-MsgGUID: 3D21lF3IQoq+2K8Iyi+68A==
+X-CSE-ConnectionGUID: MAdaNEupT3C+SUUd6Fv7gQ==
+X-CSE-MsgGUID: ztxtEiR9RDOyEKzRpY5JeQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11962"; a="3087801"
 X-IronPort-AV: E=Sophos;i="6.27,207,1787036400"; 
-   d="scan'208";a="66592258"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa2.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 04:56:25 -0700
-Received: from chn-vm-ex02.mchp-main.com (10.10.87.72) by
- chn-vm-ex4.mchp-main.com (10.10.87.33) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.56; Wed, 11 Nov 2026 04:56:24 -0700
-Received: from che-ll-i67131.microchip.com (10.10.85.11) by
- chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server id
- 15.1.2507.58 via Frontend Transport; Wed, 11 Nov 2026 04:56:15 -0700
-From: Manikandan Muralidharan <manikandan.m@microchip.com>
-To: <pratyush@kernel.org>, <mwalle@kernel.org>,
-	<takahiro.kuwano@infineon.com>, <miquel.raynal@bootlin.com>,
-	<richard@nod.at>, <vigneshr@ti.com>, <robh@kernel.org>, <krzk+dt@kernel.org>,
-	<conor+dt@kernel.org>, <srini@kernel.org>, <nicolas.ferre@microchip.com>,
-	<alexandre.belloni@bootlin.com>, <claudiu.beznea@tuxon.dev>,
-	<linux@armlinux.org.uk>, <richardcochran@gmail.com>, <arnd@arndb.de>,
-	<linusw@kernel.org>, <enelsonmoore@gmail.com>, <aaro.koskinen@iki.fi>,
-	<pengpeng@iscas.ac.cn>, <mathieu.dubois-briand@bootlin.com>,
-	<gregkh@linuxfoundation.org>, <michael@walle.cc>,
-	<linux-mtd@lists.infradead.org>, <devicetree@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<netdev@vger.kernel.org>
-CC: <manikandan.m@microchip.com>
-Subject: [PATCH v10 3/8] nvmem: core: take a reference on dev.of_node in nvmem_register()
-Date: Wed, 11 Nov 2026 17:25:35 +0530
-Message-ID: <2bc9cde2ff5bfa2bc55bf12407bfc08f6a467bb6.1794391660.git.manikandan.m@microchip.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1794391660.git.manikandan.m@microchip.com>
-References: <cover.1794391660.git.manikandan.m@microchip.com>
+   d="scan'208";a="3087801"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 03:56:14 -0800
+X-CSE-ConnectionGUID: LFoS2Vv7TMKMkADgfwpXQg==
+X-CSE-MsgGUID: Y5hzoYFrT1q+uD/P/lQnXA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,207,1787036400"; 
+   d="scan'208";a="8579510"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by orviesa009.jf.intel.com with ESMTP; 11 Nov 2026 03:56:11 -0800
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xR6vw-00000000yof-1HmD;
+	Wed, 11 Nov 2026 11:56:08 +0000
+Date: Wed, 11 Nov 2026 19:55:39 +0800
+From: kernel test robot <lkp@intel.com>
+To: Atanas Filipov <atanas.filipov@oss.qualcomm.com>,
+	linux-media@vger.kernel.org
+Cc: oe-kbuild-all@lists.linux.dev, bod@kernel.org, mchehab@kernel.org,
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	andersson@kernel.org, konradybcio@kernel.org,
+	loic.poulain@linaro.org, dmitry.baryshkov@oss.qualcomm.com,
+	gjorgji.rosikopulos@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	atanas.filipov@oss.qualcomm.com
+Subject: Re: [PATCH v8 4/8] media: qcom: jpeg: Add Qualcomm JPEG V4L2 encoder
+Message-ID: <202611111900.i6qY7F4C-lkp@intel.com>
+References: <20261110163909.78085-5-atanas.filipov@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,53 +88,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261110163909.78085-5-atanas.filipov@oss.qualcomm.com>
 
-nvmem_register() stores config->of_node (or config->dev->of_node)
-into nvmem->dev.of_node without taking its own reference. Callers
-that get the node via of_get_compatible_child() etc. and drop their
-reference right after registering leave nvmem->dev.of_node backed by
-no reference at all.
+Hi Atanas,
 
-Take an of_node_get() when assigning nvmem->dev.of_node and release
-it in nvmem_release(). Existing callers that hold their own get/put
-pair around the registration call need no changes, since get/put on
-a device_node is per-holder and independent of core now also holding
-one.
+kernel test robot noticed the following build errors:
 
-Reviewed-by: Miquel Raynal <miquel.raynal@bootlin.com>
-Reviewed-by: Michael Walle <mwalle@kernel.org>
-Suggested-by: Michael Walle <mwalle@kernel.org>
-Signed-off-by: Manikandan Muralidharan <manikandan.m@microchip.com>
----
- drivers/nvmem/core.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+[auto build test ERROR on 630059a5a632377b9b7b487baccde92b7ae1dd47]
 
-diff --git a/drivers/nvmem/core.c b/drivers/nvmem/core.c
-index 7d4cce8e2742..2e07f95de7ff 100644
---- a/drivers/nvmem/core.c
-+++ b/drivers/nvmem/core.c
-@@ -571,6 +571,7 @@ static void nvmem_release(struct device *dev)
- 	nvmem_device_remove_all_cells(nvmem);
- 	ida_free(&nvmem_ida, nvmem->id);
- 	cleanup_srcu_struct(&nvmem->srcu);
-+	of_node_put(nvmem->dev.of_node);
- 	kfree(nvmem);
- }
- 
-@@ -973,9 +974,9 @@ struct nvmem_device *nvmem_register(const struct nvmem_config *config)
- 	nvmem->keepout = config->keepout;
- 	nvmem->nkeepout = config->nkeepout;
- 	if (config->of_node)
--		nvmem->dev.of_node = config->of_node;
-+		nvmem->dev.of_node = of_node_get(config->of_node);
- 	else
--		nvmem->dev.of_node = config->dev->of_node;
-+		nvmem->dev.of_node = of_node_get(config->dev->of_node);
- 
- 	switch (config->id) {
- 	case NVMEM_DEVID_NONE:
--- 
-2.43.0
+url:    https://github.com/intel-lab-lkp/linux/commits/Atanas-Filipov/dt-bindings-media-qcom-Add-JPEG-encoder-binding/20261110-183902
+base:   630059a5a632377b9b7b487baccde92b7ae1dd47
+patch link:    https://lore.kernel.org/r/20261110163909.78085-5-atanas.filipov%40oss.qualcomm.com
+patch subject: [PATCH v8 4/8] media: qcom: jpeg: Add Qualcomm JPEG V4L2 encoder
+config: sh-allmodconfig (https://download.01.org/0day-ci/archive/20261111/202611111900.i6qY7F4C-lkp@intel.com/config)
+compiler: sh4-linux-gcc (GCC) 16.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261111/202611111900.i6qY7F4C-lkp@intel.com/reproduce)
 
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611111900.i6qY7F4C-lkp@intel.com/
+
+All errors (new ones prefixed by >>, old ones prefixed by <<):
+
+ERROR: modpost: drivers/net/mdio/mdio-cavium.ko: symbol '__delay' undefined!
+ERROR: modpost: drivers/media/i2c/tc358746.ko: symbol 'devm_of_clk_add_hw_provider' undefined!
+ERROR: modpost: drivers/media/i2c/tc358746.ko: symbol 'devm_clk_hw_register' undefined!
+ERROR: modpost: drivers/media/i2c/tc358746.ko: symbol 'of_clk_hw_simple_get' undefined!
+>> ERROR: modpost: drivers/media/platform/qcom/jpeg/qcom-jenc.ko: symbol 'clk_set_rate_range' undefined!
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
