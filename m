@@ -1,112 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794406406;
-	b=oLYirwPbYNSneasS/VjJ7t7sfQklJvJZ+w4AHRvzkuu0uAeKVkGygpGzaRGrBfN1YA4R
-	 fE6J7rhZ7n5Nie4F+ESdYFdPMFFSMelgyK9D7eo0G1Zm1/9z9Q5sidlJcqUe4TRggdrT1
-	 BZ/foMJWMOaWWcpxHLURW9mksVrnYzFUMqbQdQi4VrulrVN8TM9iZWWi4EcSQdpdjhAAq
-	 XA5f/LnpyGa+DAl3e/YsFLSK7QyvLN9VjA4rMV+JtCqH2tz4uODXBYZKIjTT0MgC1+5T9
-	 /gXnDjqAhWq/oLh+o7aDC6DRFnq72MnLqfV4VNOhBWAV6fqlM9hQXLxcS8yT6lo4OyQ==
+	t=1794406415;
+	b=hGpHATfsEyzCGwF0XRs5QYFWypRherqlbDWe8kKwXeYN4VQVpjHgPlB8KzmzGDXGw3jJ
+	 UCHej8MetolznilKFkb/Sfk2GJJBj61nxYHVu/IH0w+pE4k/J0hsXfdXfUyIuJQCi+10o
+	 aaADUN/RnRWoHJv2kXYLdngXZXjeRObqNceLQ1VHRWfzBOCzmi/xN/03tfvCjn7KCNr9g
+	 pWt0d/jOnvQmH5jh3MD3hePWrOl/RHs8tCV4hDR34zZSnSLAF15TdUQ+kF8WTRZatxsRT
+	 qPO38+zZSgiXXH+DR3RBO7dY6uGalyxYlNy4X0fpxL3JV3g/Hqn+vqxkZeOkiyyq7rw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794406406;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=oO8bzIPeevhw5WYdeSgRvpgMT/FxpDOZ2PUW72UZblw=;
-	b=sG9aaw2FTduoSJ22btJF+djrhp4OfIKvBnAIen45vbOcvLjK6uHrUhvGjRn6jz3Wlbwe
-	 KCHlcAsQsa79XQytJciS7L2mWJF45M13fvLqLgbqwrNM7nunEAaA6lO1cBr/YWsLuodQm
-	 xl+boN3MdoJKkRvHI3w1OIm5+Vn29l1R1EkkguDiMjtJzp9I0NcQqiXKdzkuki3rAjmvX
-	 AyLTpL2N9+JVXM+KH6fcaRGIM84vmQ4C6gCyVIGt/J/2IXxDA3uZn7BPZnHsxDgyt8w/p
-	 9k3Dp0vSl6Tk9KQ/ITGLieaFX61ZWiN4RwSrm/x2kqXQd8LpgqqKVR1lIDDfw5t6C3Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794406415;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=7B57yFhhoC7EhQeanlpezdJDPtjATDROjKxXttsKNQY=;
+	b=k8/lwwDwQobTKNr9TH5Z5D6bVX73pADxEp2XULipOeP3DTF5ElJ0M7c75VeLoQZeEMEI
+	 JOpL0PeacN0uH2JneQPFKuQQRdWnpS+bhQNLGw0hJ3NI8BELmNxnRWB1szjnaSCBo/VYf
+	 1yGx2RI3B5qgE7wuD1Gbae0NKYB8O0YAetlls/jHGAzVe5LXN1q9HzCB5UggDrQCdLnAP
+	 kQi92Eo+gJTDy60aYZSiLA3U93AoK8xVzNjHRnuTTI+X48qaBZU0kAFd+2smTxKN0INNt
+	 MLOSbVJ15EHIyjTK86V3oFdsquGNHXAInrogtvvR6NyoVT1KKkpIkCIqQHrWBpzVv+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=E7Hipcsw;
-	arc=none smtp.remote-ip=209.85.215.169
-Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XX8lwRGL;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BCD6606A889
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 14:13:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5BCD6606A889
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84CE8606A332;
+	Wed, 11 Nov 2026 14:13:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=E7Hipcsw
-Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-cdb75699c7cso1332171a12.2
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 06:13:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794406406; x=1795011206; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=oO8bzIPeevhw5WYdeSgRvpgMT/FxpDOZ2PUW72UZblw=;
-        b=E7HipcswdfbRiy0VHFux3K1DgUnTdbfMIxMCi3RCrpi79Zni5z/Kt9HcoX8Bc/VBrO
-         lsh2hN1b5yquu8crVIAWhnvhmoQ6JtQl0Ab9vmc1mBOhonxk/9laRmXTTXmhLFtXgHMx
-         yUYg/j0NRC5hNC6/NeG857hJ4dDmbWekdgeAV3SqOGTEwit/b77cUPwHX/KZjsapN1CB
-         zUPK/l8tu4q3P+oBv1/acMIbGF0uoGa7kHBruVhP5TfDqbHeqC7B5lgVDSPXCGljPutU
-         tQDxO5JGwamNO1mjx+2+yMSmGa6Lsyd/GDtafsC1403qpSU4OdWL468Y1v6JUudfZc9k
-         SB1Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794406406; x=1795011206;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=oO8bzIPeevhw5WYdeSgRvpgMT/FxpDOZ2PUW72UZblw=;
-        b=AYi9mTBOGiOvjPAj4TnplaxpeCB0nJ7+6wLrlvscPt2qEBZAG0LIofGXn+f+jAtAIs
-         2dk38l38iZDrxMgEQKHmK1WjigciXUziwugB3ldeeTioDc4NwLAlVFmDR5uYwTDyQ8nX
-         3NWv2oKVK/cN9nNO0Fu0wK9rOQ2U0VDzUJY9rdTH/CJTkcayz/Iy5LWrIVis03oZzN7U
-         sQ1Y+l0ktRMOxgR0mrzRc1Hb+qGDVP0niZRu+l9rKABzHQpFKvtItzLBu+nDrqgWGJHf
-         LbqQ9NRLumghYdynMhwmk32JXb+zuWCuO4vhFVM9hVEhne/3u+GP3KxfNuycLOU1eNww
-         Vvog==
-X-Forwarded-Encrypted: i=1; AL+hErF4RuYIi4W12OYc6Jc4EwyZcaJ/gEkdRVjO8VrQRZlHW6DeR+k9J0xuZF4ka3b+k5K6U9gKsARidpwlTks=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+eeqbABBHZsmxDoPP8HiqIvcRYLSn4oNrdZ+U2p5IDOeg6erMc
-	ZcynZCVu0kpTKqTEfdO7iBABSmSxFuFMB5ThR8VbjTwmJUCgCOrFoSAe
-X-Gm-Gg: AYBFou0/Oa2sWud/XnGeZ79FYm/TBLxOv6DhwklOjS6EgJS15/DQBkzdupeEDG3JDr7
-	Gy1TIr5IerCfCAe/bqAfGxAAnhGmUkkn8PHvyii2uC86shd0SbAKM1YHlyc3I0RhPrPNyVCayZ4
-	K7cxBZ/v3RHmKmjT3x4PjWz7j1ErDz78Pz7Ds/92S5edGmKROV0y36/YiBdD4GCHFWEMzNUHjDe
-	ybCy6tLP6awpfgxqx34DpTv55wLbq5crjzZPpCHvS2VrKXZOCzPy4IdpwfCkVNziELvIYu+mxfO
-	Fh9cM9j5aWxuvN8LArGz1Dpfl5YeIXvetmrjn9VhsozhBG/ekYIH/XvuV7T1hd4sMB0gAvSgq08
-	UiimyyViY5PAFzGUPgxg2cnwcl9lN9K+KA7jRfC/Fq7yLZalmvk6vCDnspheYiQlKHEyaicHHdI
-	R/GMFylGM/6RuPE5hKdacsOuowTTe8AfusugPghARXosm/Pw3dJJKxdxvgUha1RZofVznIzVfq+
-	xjq3HfMpZu8qfBt8cGru859nn4xSWYFOQfn2BtNeefCQUzvpDtc+sIqpZxAlfto3W3rkSwJKe+H
-	48k=
-X-Received: by 2002:a17:90b:1a88:b0:3ac:aa8d:19f2 with SMTP id 98e67ed59e1d1-3b182f6a75bmr2507396a91.62.1794406405675;
-        Wed, 11 Nov 2026 06:13:25 -0800 (PST)
-Received: from qby-laptop ([2a13:edc0:18:16f::a])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b17db319bdsm4789970a91.6.2026.11.11.06.13.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 06:13:24 -0800 (PST)
-From: Mingyou Chen <qby140326@gmail.com>
-To: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Hans de Goede <hansg@kernel.org>,
-	Ilya Gladyshev <ilya.gladyshev@linux.dev>
-Cc: KentoNion <kento@kekto.ru>,
-	platform-driver-x86@vger.kernel.org,
-	ted eric <ericted8810@gmail.com>,
-	Armin Wolf <W_Armin@gmx.de>,
-	linux-kernel@vger.kernel.org,
-	Chris Taraszka <chris@miget.com>,
-	Matias Civadda <matias.civadda2342001@gmail.com>,
-	=?UTF-8?q?=E9=AB=98=20=E4=BF=8A=E6=96=87?= <btx342@gmail.com>,
-	powerfullz <wleizc7319@gmail.com>,
-	=?UTF-8?q?=E5=AD=99=20=E8=AA=89=E9=93=AD?= <wolf109909@outlook.com>,
-	=?UTF-8?q?Milo=C5=A1=20Vlku?= <vlku.milos.fun@gmail.com>,
-	Rsplwe <i@rsplwe.com>,
-	Bozhen Peng <bozhenpeng93@gmail.com>,
-	Anton Karasev <uselessfire@gmail.com>,
-	Jame Jao <jaojame6@gmail.com>,
-	Serhiy Shliapuhin <shlyapugin@gmail.com>,
-	okluar <okluar@gmail.com>,
-	Mingyou Chen <qby140326@gmail.com>,
-	Nika Krasnova <nika@nikableh.moe>
-Subject: [PATCH v16 3/6] platform/x86: bitland-mifs-wmi: Add Redmi mic-mute key entries
-Date: Wed, 11 Nov 2026 22:12:23 +0800
-Message-ID: <20261111141226.9482-4-qby140326@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261111141226.9482-1-qby140326@gmail.com>
-References: <20261111141226.9482-1-qby140326@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XX8lwRGL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98C071F00A05;
+	Wed, 11 Nov 2026 14:13:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794406415;
+	bh=7B57yFhhoC7EhQeanlpezdJDPtjATDROjKxXttsKNQY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=XX8lwRGLIbvzKxwLmD5x/4rdbUX7Orr3msOHeo9XnXqUYKMAJ5Oq8aPVlxvNIAA3/
+	 H0KsmdAGL/MgqFY0k3kR1zgtloa2r1nfRQlfIQJMvz9lFdUm+7BPFU5KrDy1Zkipz3
+	 VbbTFMOUOe/YL5o+mLtO2wVUChlEeRje7KSvuxkBaT7ysxkBpOx68VNaRv2nTc3ljB
+	 CRoDsF4QXZ6YZHTWIxWCk8xlgucDD7sXhSSpUe/+/sdih8gnnFmoYi/wdYBiBc2NxN
+	 p6v3MUWMLhy+NpsUuJUMi1YRdyPuUI2BBiDXV97RLsFpdTbX2od5w3QLmKEzTKM79o
+	 QSsbE8U2lGtqQ==
+From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+To: Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Naveen N Rao <naveen@kernel.org>,
+	"David S . Miller" <davem@davemloft.net>
+Cc: linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	Mani Tofigh <mt4022@columbia.edu>
+Subject: [PATCH v3 1/5] kprobes: Switch ftrace ops when adding probe with post_handler
+Date: Wed, 11 Nov 2026 23:13:31 +0900
+Message-ID: <179440641120.328088.15542754095040659094.stgit@devnote2>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <179440640176.328088.17106877243326801914.stgit@devnote2>
+References: <179440640176.328088.17106877243326801914.stgit@devnote2>
+User-Agent: StGit/0.19
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,45 +64,146 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
-Add the missing Redmibook mic-mute hotkey definitions to the shared
-sparse keymap table:
-- 0x00002101
-- 0x00012101
+From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
 
-Reported-by: Nika Krasnova <nika@nikableh.moe>
-Link:
-https://lore.kernel.org/platform-driver-x86/20260531123345.237521-1-nika@nikableh.moe/
-Signed-off-by: Mingyou Chen <qby140326@gmail.com>
+When an ftrace-based kprobe is registered without a post_handler, it is
+armed using kprobe_ftrace_ops. If a second probe with a post_handler is
+subsequently registered at the same address, register_aggr_kprobe() sets
+ap->post_handler to aggr_post_handler, but leaves the probe armed using
+kprobe_ftrace_ops.
+
+When the probe is later disarmed or disabled, disarm_kprobe_ftrace()
+checks whether p->post_handler is non-NULL and attempts to disarm from
+kprobe_ipmodify_ops. This fails with -ENOENT, decrements
+kprobe_ipmodify_enabled below zero, leaves the probe armed on
+kprobe_ftrace_ops, and aborts unregistration, leading to a use-after-free
+if the probe module is unloaded.
+
+Switch the armed probe from kprobe_ftrace_ops to kprobe_ipmodify_ops in
+register_aggr_kprobe() outside of text_mutex and cpus_read_lock to avoid
+lockdep and deadlock issues when modifying ftrace code. Defer adding the
+new probe onto ap->list until the ftrace ops switch completes so that the
+new probe's handlers are not published prematurely while ap is still on
+kprobe_ftrace_ops, and mark ap disabled if rollback re-arming fails.
+Also restore ftrace ops registration and counter if ftrace_set_filter_ip()
+fails in __disarm_kprobe_ftrace().
+
+Fixes: 5dd7caf0bdc5 ("kprobes: Skip clearing aggrprobe's post_handler in kprobe-on-ftrace case")
+Cc: stable@vger.kernel.org
+Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
 ---
- drivers/platform/x86/bitland-mifs-wmi.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+Changes in v2:
+ - Defer add_new_kprobe() until after ftrace_switch_ops completes so
+   that p is not visible on ap->list if switching ftrace ops fails.
+ - Set KPROBE_FLAG_DISABLED on ap if rollback arm_kprobe_ftrace() fails.
+---
+ kernel/kprobes.c |   55 ++++++++++++++++++++++++++++++++++++++++++++----------
+ 1 file changed, 45 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/platform/x86/bitland-mifs-wmi.c b/drivers/platform/x86/bitland-mifs-wmi.c
-index 013e19395d71..1f7f2fd5ce5f 100644
---- a/drivers/platform/x86/bitland-mifs-wmi.c
-+++ b/drivers/platform/x86/bitland-mifs-wmi.c
-@@ -111,7 +111,7 @@ enum bitland_mifs_event_id {
- 	WMI_EVENT_CPU_FAN_SPEED		= 26,
- 	WMI_EVENT_CONFIG		= 27,
- 	WMI_EVENT_GPU_FAN_SPEED		= 32,
--	WMI_EVENT_WIN_KEY_LOCK		= 33,
-+	WMI_EVENT_MIC_MUTE		= 33,
- 	WMI_EVENT_RESERVED_23		= 34,
- 	WMI_EVENT_OPEN_APP		= 35,
- };
-@@ -636,6 +636,10 @@ static const struct key_entry bitland_mifs_wmi_keymap[] = {
- 	{ KE_KEY, BI_HOTKEY_CODE(WMI_EVENT_SWITCHVIDEOMODE, 0, 0), { KEY_SWITCHVIDEOMODE } },
- 	{ KE_KEY, BI_HOTKEY_CODE(WMI_EVENT_REFRESH_RATE, 0, 0), { KEY_REFRESH_RATE_TOGGLE } },
+diff --git a/kernel/kprobes.c b/kernel/kprobes.c
+index dddad1e01866..b6ff971df451 100644
+--- a/kernel/kprobes.c
++++ b/kernel/kprobes.c
+@@ -1444,9 +1444,14 @@ static int __disarm_kprobe_ftrace(struct kprobe *p, struct ftrace_ops *ops,
+ 	(*cnt)--;
  
-+	/* Mic-mute key */
-+	{ KE_KEY,    BI_HOTKEY_CODE(WMI_EVENT_MIC_MUTE, 0, 0), { KEY_MICMUTE } },
-+	{ KE_KEY,    BI_HOTKEY_CODE(WMI_EVENT_MIC_MUTE, 1, 0), { KEY_MICMUTE } },
+ 	ret = ftrace_set_filter_ip(ops, (unsigned long)p->addr, 1, 0);
+-	WARN_ONCE(ret < 0, "Failed to disarm kprobe-ftrace at %pS (error %d)\n",
+-		  p->addr, ret);
+-	return ret;
++	if (WARN_ONCE(ret < 0, "Failed to disarm kprobe-ftrace at %pS (error %d)\n",
++		      p->addr, ret)) {
++		if (*cnt == 0)
++			register_ftrace_function(ops);
++		(*cnt)++;
++		return ret;
++	}
++	return 0;
+ }
+ 
+ static int disarm_kprobe_ftrace(struct kprobe *p)
+@@ -1575,17 +1580,13 @@ void kprobe_busy_end(void)
+ }
+ 
+ /* Add the new probe to 'ap->list'. */
+-static int add_new_kprobe(struct kprobe *ap, struct kprobe *p)
++static void add_new_kprobe(struct kprobe *ap, struct kprobe *p)
+ {
+ 	/* A reused cooling probe is already unoptimized */
+ 	if (p->post_handler && !kprobe_unused(ap))
+ 		unoptimize_kprobe(ap, true);	/* Fall back to normal kprobe */
+ 
+ 	list_add_rcu(&p->list, &ap->list);
+-	if (p->post_handler && !ap->post_handler)
+-		ap->post_handler = aggr_post_handler;
+-
+-	return 0;
+ }
+ 
+ /*
+@@ -1618,6 +1619,8 @@ static int register_aggr_kprobe(struct kprobe *orig_p, struct kprobe *p)
+ {
+ 	int ret = 0;
+ 	struct kprobe *ap = orig_p;
++	bool reset_post_handler = false;
++	bool ftrace_switch_ops = false;
+ 
+ 	scoped_guard(cpus_read_lock) {
+ 		/* For preparing optimization, jump_label_text_reserved() is called */
+@@ -1664,18 +1667,50 @@ static int register_aggr_kprobe(struct kprobe *orig_p, struct kprobe *p)
+ 					| KPROBE_FLAG_DISABLED;
+ 		}
+ 
++		if (p->post_handler && !ap->post_handler) {
++			reset_post_handler = true;
++			if (kprobe_ftrace(ap) && !kprobes_all_disarmed &&
++			    !kprobe_disabled(ap))
++				ftrace_switch_ops = true;
++			else
++				ap->post_handler = aggr_post_handler;
++		}
 +
- 	/* AI button has code for each position */
- 	{ KE_KEY, BI_HOTKEY_CODE(WMI_EVENT_FN_5, 1, 0), { KEY_ASSISTANT } },
+ 		/* Copy the insn slot of 'p' to 'ap'. */
+ 		copy_kprobe(ap, p);
+-		ret = add_new_kprobe(ap, p);
++		if (!ftrace_switch_ops)
++			add_new_kprobe(ap, p);
++	}
++
++	if (ftrace_switch_ops) {
++		/*
++		 * Must switch ftrace ops outside of text_mutex and cpus_read_lock
++		 * to prevent deadlocks when ftrace code modification acquires text_mutex.
++		 */
++		ret = disarm_kprobe_ftrace(ap);
++		if (ret)
++			return ret;
++
++		ap->post_handler = aggr_post_handler;
++		ret = arm_kprobe_ftrace(ap);
++		if (ret) {
++			ap->post_handler = NULL;
++			if (arm_kprobe_ftrace(ap))
++				ap->flags |= KPROBE_FLAG_DISABLED;
++			return ret;
++		}
++		add_new_kprobe(ap, p);
+ 	}
  
--- 
-2.56.0
+-	if (ret == 0 && kprobe_disabled(ap) && !kprobe_disabled(p)) {
++	if (kprobe_disabled(ap) && !kprobe_disabled(p)) {
+ 		ap->flags &= ~KPROBE_FLAG_DISABLED;
+ 		if (!kprobes_all_disarmed) {
+ 			/* Arm the breakpoint again. */
+ 			ret = arm_kprobe(ap);
+ 			if (ret) {
+ 				ap->flags |= KPROBE_FLAG_DISABLED;
++				if (reset_post_handler)
++					ap->post_handler = NULL;
+ 				list_del_rcu(&p->list);
+ 				synchronize_rcu();
+ 			}
 
