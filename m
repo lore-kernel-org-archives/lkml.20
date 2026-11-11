@@ -1,51 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.111
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.205
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794411359;
-	b=3O+iSZmLqFco1YExX6WmGh8FYBcezUr6c/9LXKpbQFmQwS1j4YXemDweXnfA+DLlxqnR
-	 KQ1Knoaf73Eby67pz0Ih7hzQMtOnAyIcqWZV64+1YE0+k5zH3uWxYbLNsKH255N5C37nc
-	 wG70Vlgig6m8CjlBsmFDYitITKMyKSo4YQUxE4Q/TKbwEAVZ1nj219bcAu0DYF84BJbpJ
-	 0dGlU5CisOM2j3iJWZmx8zxr2A4eOf2rRC6wi01fhQ5RgBjchsI/F6tdNQNYcz0132djv
-	 ZY/LXUsGrBGToOvAXVQ4mpyxDPsy8sk6ghlMfbNTnOarvE4Kqkey5q3h69ahVoWrAag==
+	t=1794411361;
+	b=PDb+t1/sDEpRNUPLxFi6cXuCJ0oNk8zPifxfgxIr5q/rukxmFUACEj71OIkC+f3BsyRZ
+	 hSOR694WKN25y7oHv5kcp/HacCmVeQV3r5de82wJdDmH4imQqRQeaiKToUPEHz9tGNl8a
+	 zvNt526g6DLNjcFbsBm8TSoPwfRLMj12a9jVHgD+yMO84jY374ip2TFdBvhe/APc2tPYJ
+	 IvvSK5/BRQMJpyoyNFyuR0A4KLsKKqiZZhvMUBxG/Cs5A2w+2sdm9L+ksDPgpKrHaMXKZ
+	 fifn4SQevYMrmE4B3i8o3fqdV0x//2PzhDEKfQI8xdwpixKpEmtt34W87rzV4NRoc+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794411359;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794411361;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=fj67uJIexCq/nLllAUwirpRaTK68JNnZnw90fZ+XBzg=;
-	b=oQV6ORN8SMHWrJOoo6JHzrLoQisSStdUq2OYOgC+JgxpUetocQgmmaL+oM10xHj/azAq
-	 /aNKBwwSTGifq82bLeOgPD9gWMYvyg0w8RVrhYI+0Rpgb07X2T4Pf0XYZKTEJmP52QPS1
-	 CEhQS9LvJCKgzQWr4t2XFI4m4wJ4sx3diM/+mtmge+Td6g++PHnYptHkl+N5ZZAC/K/VT
-	 e9NiGp7v4vgptrDfcGc2CNPTsB2INi156hchCjhFpGrO61/IrKwRwAL4Sa5hhCw4wN+Hz
-	 3M0WTebAYBMTw8AnOTQ6QU/VEPkntAT4FR9Hn0XvThy9mMXp5PZSr+UwzW7bgOMo9DQ==
+	bh=ymrbQazdLeg+pCGWurk8n0D0XL5o29ESgMmIKPn6rw0=;
+	b=pRWDzlbbWalAdGiQS9SqDCaFBzYmTsounLySGGpjsW205ySc8cKQ7VznWp9KYBNsQWXB
+	 B3Qi62uzr1hkxsNFGSuwRTSdRK7UxGDklw1CWRzMTiG4fdCuXbLY+zHsBEtNgw/4bZWZz
+	 S9NbO3LqdkKPHDT9e1TF3fjwpve92bsAF2gmlenMa31U9liW6inE8kNzp+EV+9U94kt4m
+	 c9TdK1BE8mSC9P4duIW1ozsuy1Vot42hGwQCy7MGXF3ZJZhXrVWvs2u3zv3CQD4ewcSWH
+	 tBJWkfCEhAsLHFP0jZH0e3s9cE7ytMmhtI55uVdjAqQWk22Rb5WfjxamEHZ6XTz8S0w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=lXqDEgFQ;
-	arc=none smtp.remote-ip=91.218.175.111
-Received: from mta0.migadu.com (out-111.mta0.migadu.com [91.218.175.111])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="JG/SU1Jf";
+	arc=none smtp.remote-ip=95.215.58.205
+Received: from mta1.migadu.com (out-205.mta1.migadu.com [95.215.58.205])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C19D2606A8AC
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 15:35:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C19D2606A8AC
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0647060A380A
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 15:36:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0647060A380A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=lXqDEgFQ
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=JG/SU1Jf
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=cW3e6v6S8n5JercVte195CK4nR9zZ28vbmPV4+LMgoQ=;
+DKIM-Signature: a=rsa-sha256; bh=B4avA2HMujRiEbRvCpZxZXa2sgy7oVdlWYyRAX8qanU=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794411357; v=1; x=1795016157;
- b=lXqDEgFQs69ZIepWDgXjCTUbjhRebCFqTIyg6OfAeio52PM7KbzGOs/Pi0QGQZVL9e9q7AvC
- mQA1KvSgaj9bQc7FvHfUlBEc4KUpphQ1Y+/zzG4twzU12HWkhm/EqNdNJ04+K6q7MIN2LbWeygU
- neof1gSc+H7sy0KbubsK62rE=
+ t=1794411359; v=1; x=1795016159;
+ b=JG/SU1JfyZfJp6rRj2Cg0JsuugkZ86L8wxwJDSTG6D/eGP8A18fshrbwthMgADSH4ICWAktQ
+ 3f6/j1ihVo+FJ/xBdXoKuJCEELyDoXF+ewJqE9rMVZf96wY9lSiXwoYPdiQzxLs569sLSAgOOWq
+ 7efZrvHX2EzQbuWCALmtJV5Y=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id 57900353a63a43d2;
-	Wed, 11 Nov 2026 15:35:56 +0000
-X-Mizu-Trace-ID: 57900353a63a43d2
+Received: by mta11.migadu.com with ESMTPS id 9c1c4dea31d188d1;
+	Wed, 11 Nov 2026 15:35:59 +0000
+X-Mizu-Trace-ID: 9c1c4dea31d188d1
 X-Migadu-Flow: FLOW_OUT
 From: Usama Arif <usama.arif@linux.dev>
 To: Herbert Xu <herbert@gondor.apana.org.au>,
@@ -64,9 +64,9 @@ To: Herbert Xu <herbert@gondor.apana.org.au>,
 	shakeel.butt@linux.dev,
 	kernel-team@meta.com
 Cc: Usama Arif <usama.arif@linux.dev>
-Subject: [PATCH 1/2] crypto: zstd - use vmalloc() for stream workspaces
-Date: Wed, 11 Nov 2026 07:07:39 -0800
-Message-ID: <20261111153532.1036709-2-usama.arif@linux.dev>
+Subject: [PATCH 2/2] crypto: deflate - use vmalloc() for stream workspaces
+Date: Wed, 11 Nov 2026 07:07:40 -0800
+Message-ID: <20261111153532.1036709-3-usama.arif@linux.dev>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261111153532.1036709-1-usama.arif@linux.dev>
 References: <20261111153532.1036709-1-usama.arif@linux.dev>
@@ -81,49 +81,57 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The zstd acomp streams retain their workspaces after the last transform
-has been freed. The first is allocated during transform initialization;
-additional per-CPU streams are allocated on demand. They are released
-when the algorithm is unregistered.
+The deflate acomp streams outlive the transforms that use them. One
+stream is allocated during transform initialization; additional
+per-CPU streams are allocated on demand. They are freed only when
+the algorithm is unregistered.
 
-In a 4 KiB-page x86-64 build, each stream requests 1,566,281 bytes.
-If kvmalloc() succeeds via kmalloc(), it occupies an order-9 block
-(2 MiB). vmalloc() needs 383 backing pages (1,532 KiB), 516 KiB fewer
-per stream. Across 384 populated streams, that is 193.5 MiB less
+In a 4 KiB-page x86-64 build, each stream requests 145,320 bytes.
+If kvmalloc() succeeds via kmalloc(), it occupies an order-6 block
+(256 KiB). vmalloc() needs 36 backing pages (144 KiB), 112 KiB fewer
+per stream. Across 384 populated streams, that is 42 MiB less
 workspace backing if all would have used kmalloc(). There is no such
 gain when kvmalloc() already falls back to vmalloc().
 
-Use vmalloc() and vfree() directly to avoid the high-order allocation.
-This uses vmalloc address space, page tables and bookkeeping; the
-figures above compare workspace backing only.
+Use vmalloc() and vfree() directly, as the crypto lz4 implementations
+already do. This uses vmalloc address space, page tables and
+bookkeeping; the figures above compare workspace backing only.
 
 Signed-off-by: Usama Arif <usama.arif@linux.dev>
 ---
- crypto/zstd.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ crypto/deflate.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/crypto/zstd.c b/crypto/zstd.c
-index 76bdaca327330..f012293919368 100644
---- a/crypto/zstd.c
-+++ b/crypto/zstd.c
-@@ -44,7 +44,7 @@ static void *zstd_alloc_stream(void)
- 	if (!wksp_size)
- 		return ERR_PTR(-EINVAL);
+diff --git a/crypto/deflate.c b/crypto/deflate.c
+index 710ebba7ce850..a8692532a65da 100644
+--- a/crypto/deflate.c
++++ b/crypto/deflate.c
+@@ -20,6 +20,7 @@
+ #include <linux/scatterlist.h>
+ #include <linux/slab.h>
+ #include <linux/spinlock.h>
++#include <linux/vmalloc.h>
+ #include <linux/zlib.h>
  
--	ctx = kvmalloc_flex(*ctx, wksp, wksp_size);
-+	ctx = vmalloc(struct_size(ctx, wksp, wksp_size));
+ #define DEFLATE_DEF_LEVEL		Z_DEFAULT_COMPRESSION
+@@ -40,7 +41,7 @@ static void *deflate_alloc_stream(void)
+ 						     DEFLATE_DEF_MEMLEVEL));
+ 	struct deflate_stream *ctx;
+ 
+-	ctx = kvmalloc_flex(*ctx, workspace, size);
++	ctx = vmalloc(struct_size(ctx, workspace, size));
  	if (!ctx)
  		return ERR_PTR(-ENOMEM);
  
-@@ -56,7 +56,7 @@ static void *zstd_alloc_stream(void)
+@@ -51,7 +52,7 @@ static void *deflate_alloc_stream(void)
  
- static void zstd_free_stream(void *ctx)
+ static void deflate_free_stream(void *ctx)
  {
 -	kvfree(ctx);
 +	vfree(ctx);
  }
  
- static struct crypto_acomp_streams zstd_streams = {
+ static struct crypto_acomp_streams deflate_streams = {
 -- 
 2.53.0-Meta
 
