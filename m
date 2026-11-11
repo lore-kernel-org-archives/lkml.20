@@ -1,66 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.205
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794362327;
-	b=KAqEY01ozjM02f8qrqyoYphiyrlD9EWgdI1sxfoiaAEgYIlQ9QoGkdwBm+NXs/ckfba3
-	 EWJjDSAgkpD8hiDLThoQC0vpkc7UfU1jdnGekO9KOlK0dwdzWrlk7o2/XTdGmUJmMY3U+
-	 +JH49Kgrpt51IXCWhmMmY+nalCsOiwxpe6Z0u3UB6cUDHwKKPJGijFm1rS2I++AJ4CHL6
-	 dUtz4yyZWLZZlVgSMB8/ZJEFCO95ZBTuKQI0rhij47c5uFiR50DNdu5lZWoH20wAUemr5
-	 iy5DBzU1tr1QGVe24F4OS0vCzp1clHWNL8pVOrfEm3LMXfXLP4+iQRPJLjhilbSS1KQ==
+	t=1794362407;
+	b=BOTJvr3bettluV8WH+ywmmyp0HewDFPYlzeXRt97qSQ88zfSbEnn9NX82gKmvce3B5pY
+	 TjZBGcK+d0nB878xv2sdWJtF6Z+u/VCuzb3uxx+68iP2lpgQG2OZeUBgocGvJiunhR8pT
+	 bJdkkL+oiK4JAo/FvgIYCDCTSTZYK4h8DhmH6cyNo3oSloWA5A2iE6Fm9YQWzpaAPNhTQ
+	 b5/+cvlvnNp0NUA7pWUUYtK8Fk4SVpPrdQxHEuJMTRbAP61X1Kz7lX6AdCLFGRIif2vTF
+	 KuxaefraZs0ZCm4Ack2GNLt45Ew89OhtpxaGelr89kjTe2e5g0//w14m32ZPlICD5lQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794362327;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=qklwpoi6qq8nTgE1PW1qeUUVEPXIPv2nahyGGJhDRsw=;
-	b=icF2De0UCqvjusBWT9F/2LjXRpIQdpIlAE8mzJUzffvxVRw0fcufTO2cWVzWkJKoXkPh
-	 WfW5f+Bo0Vf1LDbR5CbLX8s+nq068zWU8Y2gE1EnTufVC+EZJeiL+gQq2m4ves0H8UVgk
-	 +MerCxcAbH4ohKLtN4uk3bc1JOtOhDOK90Yzy9ahBojpQkBKHlsuvwOruHTrYshGRN4rL
-	 dDy7xLa+RLYLOdIl++cVCCz0G0JBvInEmXhUMICM9/iul4AJWjteHSoWorT/w6BhorgpL
-	 Pt+eiJFJS8Zr4b1XF+NM2MUXizbUvNUt1NApgm+pXvRpN+PwcdnOSyYzSj2ijF4H33Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794362407;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=knlC16tb0fmhvOu+uBq5yXSRa3dChQFTwNgKUBOfny0=;
+	b=EgX8G/TN0J8o1ZDu0gHxn+bS99I2y9O3EOlwSP2m5gkDisAqfZAFURdZscq7XlS7EjzW
+	 0T57c1fhnJhkOYpqFX60ycHSrdR22RZq4O4fWP1ibV2WYvOWemIrw+z5RdVYtKx5xQjNC
+	 tiwV43oad24DHLrh2LzNei/U5ZP2EEREYldV/Ftxh3miMlAji4nUK3cvY9T8PqgpKizs/
+	 7mRD3B5K/LBm3DY2quhPzVKAdV8nj5QYt8G2fJdLzD8tLUuF0vw6XshpkhtzRGMgYjZUu
+	 jmv9Hg+lomxPBE9r7puRyC5rRv4gh/QBzouij1+uVrRleFNOY9q6eLm+GnDeTTXh1iA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=UTTBV+EI;
-	arc=none smtp.remote-ip=95.215.58.205
-Received: from mta1.migadu.com (out-205.mta1.migadu.com [95.215.58.205])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Tpad2UdQ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 715BF606A321
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 01:58:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 715BF606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1ABB4606A320;
+	Wed, 11 Nov 2026 02:00:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=UTTBV+EI
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=kn3s5jPUjfCWATljI2U5Ha05zn+bxfjQnlH9S4hueak=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794362324; v=1; x=1794967124;
- b=UTTBV+EIoTyq6szgGRQsYYKgNK9FTPxsWWKuqE1liETgQIf0h7nR4tcV+jiXm477q4sEfpP+
- 7AcnZZ5qRT5xbvaxPz8K+mByDAwKJFjXiE3nC6wBfmO4Vzj96zpMu5ZVJ5dwcyE8Qx1iCULWzka
- 4uzTSxt1ifYFJ8BvMRjGc9Ck=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id 31c899d3efa8a9fc;
-	Wed, 11 Nov 2026 01:58:44 +0000
-X-Mizu-Trace-ID: 31c899d3efa8a9fc
-X-Migadu-Flow: FLOW_OUT
-Date: Wed, 11 Nov 2026 09:58:32 +0800
-From: Hangbin Liu <hangbin.liu@linux.dev>
-To: Breno Leitao <leitao@debian.org>
-Cc: Gustavo Luiz Duarte <gustavold@gmail.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Shuah Khan <shuah@kernel.org>, Simon Horman <horms@kernel.org>,
-	netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org, kernel-team@meta.com
-Subject: Re: [PATCH net] selftests: netconsole: enable the targets created by
- the torture test
-Message-ID: <avPLyMTFkhCRqRAS@fedora>
-References: <20261110-netcons_selftest_fix-v1-1-86643b837216@debian.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Tpad2UdQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2FB11F0089F;
+	Wed, 11 Nov 2026 02:00:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794362406;
+	bh=knlC16tb0fmhvOu+uBq5yXSRa3dChQFTwNgKUBOfny0=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=Tpad2UdQeAgh+2njzB98sP2gOZQTlt2hzRsLShsmj6TGSv2IbgN6GhgoeKl4QoBSG
+	 xQYl8ELxaTMDEej9ta9SrAxXKSK8/378qOIHSkPdc/I1k1yuLz5+CC54++DBb+7QKG
+	 6mum//6kjU+OE2W4AgwGvEKpbSsaff6sbDHDYRXLMftegnKJplYruKKfvLp8KA2356
+	 gWdUave4dwrGSkPIMSL4FjAUkVOzKKIMyRI08BTcgTvw7QjvrgVCa7ydPUgexVsker
+	 +eJJYlcfffg6O6fN/puNDmVC+bo/A3OEbcouUhOo3umrc992+3wU4LDZ1A5F5yiJ6b
+	 RTsW484tp9Prw==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D8202380CFE6;
+	Wed, 11 Nov 2026 02:00:06 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,55 +53,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261110-netcons_selftest_fix-v1-1-86643b837216@debian.org>
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH] riscv: pci: allow write-combining mmap of PCI BARs
+From: patchwork-bot+linux-riscv@kernel.org
+Message-Id: 
+ <179436240542.644035.285193769766011336.git-patchwork-notify@kernel.org>
+Date: Wed, 11 Nov 2026 02:00:05 +0000
+References: <20261110-riscv-pci-mmap-wc-v1-1-1d16fb8c74b4@kernel.org>
+In-Reply-To: <20261110-riscv-pci-mmap-wc-v1-1-1d16fb8c74b4@kernel.org>
+To: Troy Mitchell <troy@kernel.org>
+Cc: linux-riscv@lists.infradead.org, pjw@kernel.org, palmer@dabbelt.com,
+ aou@eecs.berkeley.edu, alex@ghiti.fr, bhelgaas@google.com,
+ linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
 
-Hi Breno,
-On Tue, Nov 10, 2026 at 04:32:25AM -0800, Breno Leitao wrote:
-> create_and_delete_random_target() is meant to create, enable and remove
-> targets while messages are sent, but it only creates and removes them.
-> The helper it calls, _create_dynamic_target(), stopped enabling the
-> target when the bonding test moved that step into
-> create_dynamic_target().
-> 
-> Enable the targets again, so they come up while messages flow and are
-> disabled before being removed. Like toggle_netcons_target(), ignore a
-> failed enable, which would otherwise end the function and leave the
-> targets behind. With a console per target, this also registers and
-> unregisters their consoles under load.
-> 
-> Fixes: 236682db3b6f ("selftest: netcons: add test for netconsole over bonded interfaces")
-> Signed-off-by: Breno Leitao <leitao@debian.org>
-> ---
->  tools/testing/selftests/drivers/net/netconsole/netcons_torture.sh | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/tools/testing/selftests/drivers/net/netconsole/netcons_torture.sh b/tools/testing/selftests/drivers/net/netconsole/netcons_torture.sh
-> index 33a44adb6f8f3a..3dfab0bf1b0756 100755
-> --- a/tools/testing/selftests/drivers/net/netconsole/netcons_torture.sh
-> +++ b/tools/testing/selftests/drivers/net/netconsole/netcons_torture.sh
-> @@ -46,6 +46,7 @@ create_and_delete_random_target() {
->  
->  		# Basic population so the target can come up
->  		_create_dynamic_target "${FORMAT}" "${RND_TARGET_PATH}"
-> +		echo 1 > "${RND_TARGET_PATH}"/enabled 2> /dev/null || true
->  	done
->  
->  	echo "netconsole selftest: ${COUNT} additional targets were created" > /dev/kmsg
-> 
-> ---
-> base-commit: b3dfbde62cf1981c4638939c159dfd087b7a72e9
-> change-id: 20261110-netcons_selftest_fix-4cbf633295ef
-> 
-> Best regards,
-> --  
-> Breno Leitao <leitao@debian.org>
-> 
+Hello:
 
-Ignore the failed enable makes sense to me, as we enabled `set -e`
-and use random target. Do we need sleep 1s like create_dynamic_target()
-to make sure the configuration loaded?
+This patch was applied to riscv/linux.git (fixes)
+by Paul Walmsley <pjw@kernel.org>:
 
-Thanks
-Hangbin
+On Tue, 10 Nov 2026 15:04:49 +0000 you wrote:
+> Define arch_can_pci_mmap_wc() for RISC-V, so that the PCI core can
+> create resourceN_wc in sysfs for prefetchable BARs. Without it, the only
+> sysfs mapping of such a BAR is resourceN, which uses pgprot_device():
+> with Svpbmt or XTheadMae that is the IO memory type, where every access
+> is strongly ordered and nothing is merged.
+> 
+> resourceN_wc is mapped with pgprot_writecombine(), which selects the NC
+> memory type when the kernel uses Svpbmt or XTheadMae. Without either,
+> _PAGE_NOCACHE is 0 and pgprot_writecombine() changes nothing, so
+> resourceN_wc would get the same PMA-defined attributes as resourceN and
+> no write-combining at all. Make arch_can_pci_mmap_wc() true only when
+> _PAGE_NOCACHE is non-zero. On 64-bit this is a runtime check, as
+> _PAGE_NOCACHE is chosen at boot from the CPU extensions; on 32-bit it is
+> always 0, so nothing changes there.
+> 
+> [...]
+
+Here is the summary with links:
+  - riscv: pci: allow write-combining mmap of PCI BARs
+    https://git.kernel.org/riscv/c/79fc9d9467a1
+
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
