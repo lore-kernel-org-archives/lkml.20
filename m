@@ -1,90 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794394931;
-	b=UVpgrYaFAPC66nXO5rzbv5yH50s0CuGJr1L5hfR8oxtRYxtFtGztyU/7RmKzvP/YnM3u
-	 Q0uvOVyV0BU0zV14+Pnq2HlhiamElZp3a5HIRjptWyF3X1Rti1o7kVD3slSksgkpDaOCW
-	 vz4+IF9dn2ruqN9jhcJfMUdv3lCjS/m9FPfwA7dH2vinzYyVLU+QNz2hFGSh4tlXZglIE
-	 4/ewJvMhcgX1U2t+WW52kqcLYkTc3c0EkEt2QOLeujcSPqimnq6vaCK8B9gri/GqIzGoB
-	 JaWlMTR0qneT/UK02ZdXJ1I9Fht5KZ9fIhdz7aKZuSG8fELbbiaNbjkwr8bNjuyEKlA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794394931;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:MIME-Version:Content-Type:Content-Disposition:
-	 X-Mailer;
-	bh=vx06wP7sOtawrWt780eGmmqhNLqmiCDx1ykk7VKYMck=;
-	b=gqkiXI8cmloumFw1NMyp0UkBJYKx2y/lGy30kK5W6eLLDd2Jcz4VXed1OEHhjRAAyWaf
-	 dVgmEyfs6ZIQEhLEIhuIWAHdxiN7tO7yyP/fIvOYpLPHQF0gRuziguyOe5LUv2tRGGoyJ
-	 kx0x2yaR5uF5PiJMPv4NW1aGE6CbQBboWkC2oeojIN8VhVp9uidV3mmQpi44XCjBcq8x0
-	 ctC4Ue9PfepIUg28zxnwyBSCt7PNlwB+r48WaUOhyAl8GR9Kiqb7tvaLxQY1JVaJlPubh
-	 0lgAtYqWrk9tnxyjs5E2+GdQkfTLiZU4T/3DNX7AM9ka6XAAByrY8KMvu/IXt5/ksuA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=cryspen.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.128.51
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.54
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794394952;
+	b=YW+xGTVUjkafvGCV4lQnV3Q6bsXCe+8wNTC5xy3RKhrE0J/Z5X0Fy9ugzClQbFxou4Ye
+	 Xh6dLMymEgkrwGOT7qpt3JetXtjPcCHybzeVtihjxFTjI4CShikTFh32mIAS9QkWFE1rm
+	 MtMQTGXtva8UfBWEv7SuyYb6bc4/yR5YI2ZzMfTtAO0sDHWVxeG468JwJuW1+aftc5QcR
+	 cPrSnsIfAR1oCJbVGiSbTy67IkKnxWL7LLA4knXUV5Z5IEYfGeGcS84f3sqQjfpW8KlJn
+	 d3PzJHbSy1JLTcahzz8o7Ylba0e0/Oykart9rfh1RoecpCSA0RKKEyYWJurQtOSzrdA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794394952;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=1STb6tedEUQJpSIkkQJO5PB0s+q8W00IXEljfx+xvjA=;
+	b=p2NkIhszQZaMCqfd36j9cPgqygTlCksY5AUxHHj8ODncdL3UlkRmFcrIlUzE1XpOoD2M
+	 nz84w/yuACzm8IIhQkUnITIwMNxsG539+58S3IUcvv1dovQWGp0/vnIn6A20ZayebFgAg
+	 9thS2BTal6KGFROkD9S4KfPpozKyY+HT+1FMEtiyADN6GunIHe5QYhceRwNMJdm1aJXJM
+	 ERdsNGD/XrG4M22qYzMoycJ5dE1+5CfGWYuYwpbrdFp0467uuBg7VZH+/GuUMMry8DgqE
+	 A/1bXlUGBekdwaeCnfZAc1JqY5WlYrhnfbOkM6WpYOKBjTEdkN19L30guNwpwxqs2Rw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=CUMKh0Rf;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.54
+Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E4BB606A324
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 11:02:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E4BB606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cryspen.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a35ac4475dso20668135e9.2
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 03:02:10 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 433DC606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 11:02:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 433DC606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=CUMKh0Rf
+Received: by mail-dl1-f54.google.com with SMTP id a92af1059eb24-14394530ec6so3898526c88.1
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 03:02:32 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794394951; cv=none;
+        d=google.com; s=arc-20260327;
+        b=smBwI8FaUa2EJM5uNS/cJEC77tb7OvBFoExNRP2VrYv7fHy4Z9t1ZKNeBnaEq6iNv+
+         A/I3CdtZaR/mAcDRTKZXh9JvFKIeoQ4HPaJ9h6UKVxhEQA5VybJLqDZJUU/cH1gIj8hG
+         kC/IWXq3shAV92QLiG4oO1AM/E84C3xZGLXH8KJRLaBgt3iQB67DtDkKriiEoqpBwUkD
+         gLU8BU1yd7GbHDCuKu9gt4kCDWD2mae6sFxfn95zEK8W83ziY7X8/MgERs+Gleue9RVA
+         Qrfw6qEzpb7GK1K4DRu+Jcd3PI07luw29pmlT7xIju9LgTOiCAE6XBrC8k0qU2YaUJw2
+         dgpg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=1STb6tedEUQJpSIkkQJO5PB0s+q8W00IXEljfx+xvjA=;
+        fh=b5y1owsADb5jZiHMQrZmfawjm+pT0MW6X/JHaP6W+8E=;
+        b=PWZWtNwZaFlbaswNxUYxAx+NdbDoWZNnJbuWTUYsTFFryCWKkVKBbJ1VaHGVRy68OY
+         8poN7S3xPedXarNhnmklwMWHtReEtS07JcCZdcuyQQabSPvs8g7T22uXAwCWwqf/SN0E
+         3NZsUHIhcOucpmaJkoK9brP3E7hLwRirZhmXXGWsP7pRH7FQZj/sU7XHpR3xRtQFwD6o
+         2gBCeuY3NK5y3D26cv+79ks9GZRvhTdYbyap/nuUWBWYZcZqPgnHMhLx7fD9B5aWP+Vs
+         r1jMwkNlmamB9sTAVIyXbQy22M7dQmO/P7O4FdZUsOxlZOAVl3Xo8BhCI/nZaHrn0Iip
+         k01A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794394951; x=1794999751; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1STb6tedEUQJpSIkkQJO5PB0s+q8W00IXEljfx+xvjA=;
+        b=CUMKh0RftPeuzHj+KvvPf1C0n8vXRdvwR9/YRL4jrD3Z3xiafjJpArL9aO1HwPhaWm
+         Dl/ebGJ6FGB5o/hM2WIMg1evNoDEtAJ5+YRtxSWYmA3HAyDZZVxawqh3uhJoNLDU+5I5
+         f0S2NQSQ0nyMZgH7vnaJV/6QTjhAwUzhj3dyPxJRf/xq65r7ZBNpGkMwwCOzptkM1Nkv
+         NFmnb8eLcMQ1aPVZlTAy7LT7bQsT2Ja2GFuqeuTjFxN7FwNY+iAT3B76YWl9evmJtmL5
+         l0R0xgBDZJAXMXyqs1nWKKrLwMGrOukO1RKMFovmhZFgsk2O9IvgSVT3gWK9h4JDpv9V
+         gdAA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794394929; x=1794999729;
-        h=content-disposition:content-type:mime-version:message-id:subject:cc
-         :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vx06wP7sOtawrWt780eGmmqhNLqmiCDx1ykk7VKYMck=;
-        b=KbF7ioS5GA+miy1oS9NO7qUvHZ5QyFXMTSqHSKpUbfhSWNHA/HPr4S/36bYFeivSvy
-         Md6bXTMEfAT1CLyhFv/kBBKgqgAO1Gcyi4RNPyw95+nwy6v6zWjaSlf0+2W1kiY7T9xu
-         Qrr5zACe17Al7QxOjxuS+1DpHgqFSL8hZeO4adsm3fffU/bXW41ymx3EWyWCkp/FtP7h
-         9Q1hYywD8ZrmIjlmEGjpfQwJH5nKdf+cMmQTxzrr2gEltw1M2wZ/P9u0wEhVQ3XxLMBI
-         hvfv7ymj2NiFOgkGPOZPi5YlGMl0FgioL60u+KkKXRrJaJZEkUAbEQ2xq6mWZeldZyLp
-         TLpA==
-X-Forwarded-Encrypted: i=1; AL+hErHISg1LvEfsne4jKPnFxYskBW/TqjXnONPO6OLGRlPPdhh4x84f0LChU+DZhzeuwSZO3hpQ5RUSmcf8u8s=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9EvKqBE/hadqVWQmguRCytE3tChImpQfFARtjasTvdOOsXun8n
-	II3hV+goPqbsz3+qfouzKRCClXiv2lYNCvm/qCDVS03M++YcmNCGSVa7
-X-Gm-Gg: AYBFou2W5+udaY6g564+Ck710w8O71IHJiHx/k52E0/O1y/noRporHf4fBWQs4L9X/3
-	LxhhzkmBFvmscLYccpSXleVkg8eaH4Lp1fG48ImoyyGiPRUhCxtPRsjm2+0JN57hog7bK7xzesW
-	SXK3uPuJ7MAcIt19E8FdvtX8PifNchnrqCqbp8s0yq6Sz1bpku8sZe0GhOiB/jGgaKzAi2QTg9R
-	vvXwQauIVG2N2QiCdU3yALlD5xT/zWzUHYiM8XnUJnPhrhSpWYiw0DmN9qimL7LdXJBBIt5HUxB
-	c6AtAivma4LtPag45aqjlsRZsODdBhfviWat4LbNcPGyCY2/6jf6Q1dJ4suUUTilNVfw4ZcpSp/
-	Bc2np5ntBnwGgHmBUDhfIcIfbQZl4LX5d5XQbB9uArNt568gB1fX1wlhcmrBfthX0LgAqbTgroI
-	c3IdKsncu+dkADRrLj0v0due44env6AlWMnq4opbsEtRt7X+Tca8TW4H74JytULDlGdNzaTYZRW
-	hD/jealKncK2w6QBsYosFCO+CZ34kfsfavsPOu5m3VXef18v5zd/Xk7AiTbqcxrb1CLjE/e3LsY
-	mkoe4XuPyAMLwVGIVXlZ1icm9xcH2+IhQnT4zhK+UF98ethfCGdt8Mw2gzOVx0w29Tba2pgr8G2
-	uZklM7o58UkfQPYmsphA0yXSctuSAjJoG0YWZbUJ/nauy6xopaZBiz88a6iG0bIzyxE2L3jhc4P
-	O5djZKKictPA==
-X-Received: by 2002:a05:600c:a00d:b0:4a1:fa27:df7c with SMTP id 5b1f17b1804b1-4ba093acadfmr38447905e9.34.1794394929145;
-        Wed, 11 Nov 2026 03:02:09 -0800 (PST)
-Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba08ddbe68sm85849165e9.0.2026.11.11.03.02.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 03:02:08 -0800 (PST)
-Date: Wed, 11 Nov 2026 14:02:04 +0300
-From: Dan Carpenter <dan@cryspen.com>
-To: Eric Auger <eric.auger@redhat.com>
-Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
-	Fuad Tabba <fuad.tabba@linux.dev>, Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
-	Sascha Bischoff <Sascha.Bischoff@arm.com>,
-	Timothy Hayes <timothy.hayes@arm.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Christoffer Dall <cdall@linaro.org>,
-	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
-	linux-kernel@vger.kernel.org, Karthik Bhargavan <karthik@pereq.eu>,
-	=?iso-8859-1?Q?Cl=E9ment?= Blaudeau <clement@cryspen.com>
-Subject: [PATCH v2] KVM: arm64: vgic: Don't truncate offsets in
- vgic_find_mmio_region()
-Message-ID: <avRLLMOiudnKoSlk@stanley.mountain>
+        d=1e100.net; s=20260707; t=1794394951; x=1794999751;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=1STb6tedEUQJpSIkkQJO5PB0s+q8W00IXEljfx+xvjA=;
+        b=CM8XPOQZvhSfFxFPwJVF8935/l1bG9kP2CyCsgTHzhYuuTbFSYUqrKQXKZeQRqtWkJ
+         kisozHrX2OinHTvb0zhTYtLKKBWyhjmXQuzZ4MVSckPvZ00l7utrswofABolTSZldnXy
+         5Col+UXD6hStATpTPxefBSlbTpUxd7dr1y7AEVcGdIyVdbe0EIfCH+mdE83037zfsgma
+         FDjAPcpmq4FJhe3t5qYb471yxEuaSsmWRIXmfHseJ4EVLWJT0YO5Ps0S79jlOMkTLYXj
+         JrbQwh/7SDn8K9eCNMP2izpm3wFpiS0AF6CNFA4F7nbMt9TmbBsAzifV6D/+BIC2glL/
+         4/RQ==
+X-Forwarded-Encrypted: i=1; AL+hErEw/2jyuDaVbwEJKZY58CMHQAn4IQP7sMwdSQvmDcScDW8zPmMMHdlit8WruWHTDTwJXvpOL4QsdI+3sFQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8kJfMxwdq3O8xLxbcQHuDpNl2u3b19dh2sg1HtETl5ATUO2UM8
+	W/zLqRBZJVjDtV5+aHRfHae2bUx5RtzVXI/8kG0XDjTQa4OJQ/QzxKtLmHyJpeUEmLguELVr4kZ
+	2xvnzQwDlEx9VadkW7x0uIcHrpjO1Bj2JxHauAmuv
+X-Gm-Gg: AYBFou3Pf+PpsfVfWb5qDYkZNFI1OW8AFO5mW9n+GMvwJP6ef5MyuZSUJayw6Ilhq7O
+	FXUmHiY85hE/t7U29CMaIi9smjoZjwBrVj8ZtyLGK2uPyTVTsezwWIEluJ2Wk4A5PmD/b57NdqD
+	FqNyoaCaz8suwn2+JXI7vdqz0yCpfvNifLtpa8FpAB9QuyKnL1ovF17vyqpZfoPQEICNdy5lyl2
+	OMwYI0YInStf9rideTJLkZXGZC5wHpHoz485V2p9XbSN9pSQf4vv3eOwxDlpphRYztKZLa8KGPN
+	Y4IQ9IygcZmv7jHXYWERgwQ++/BYQQoRqAReL0SgVOQV/qd53c8NE/owD8wOz70fuFKKFDZ0tpA
+	YTKGULgL/dyBpVgUNodJYDyR9UV0nNtGiDCLPrSa5GqBAcg3phfyxKnoto7/9qAHzcROERhczIO
+	b93ltXlRcywHErtg==
+X-Received: by 2002:a05:7022:38b:b0:144:fb31:a597 with SMTP id
+ a92af1059eb24-1b3c03b2be6mr2274447c88.47.1794394949975; Wed, 11 Nov 2026
+ 03:02:29 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,87 +104,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-X-Mailer: git-send-email haha only kidding
+References: <cover.1794250850.git.bvanassche@acm.org> <21b696a77eb6a926b0b7e3dc0519b927f4177a6b.1794250850.git.bvanassche@acm.org>
+In-Reply-To: <21b696a77eb6a926b0b7e3dc0519b927f4177a6b.1794250850.git.bvanassche@acm.org>
+From: Marco Elver <elver@google.com>
+Date: Wed, 11 Nov 2026 12:01:52 +0100
+X-Gm-Features: AclHuK_mR7wEKaxK8e8R-dN_G_Vh7nRaMLr6N5Lw24WU0IB74qK6vfd5mBOYcX4
+Message-ID: <CANpmjNP4sCyOsXX3_yND_hXq9SEAyfC5LTOt1W+kgKRXofCN=g@mail.gmail.com>
+Subject: Re: [PATCH v2 11/14] futex: Verify exit_mutex ownership in futex_exit_recursive()
+To: Bart Van Assche <bvanassche@acm.org>
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+	Will Deacon <will@kernel.org>, Boqun Feng <boqun@kernel.org>, Waiman Long <longman@redhat.com>, 
+	linux-kernel@vger.kernel.org, "Paul E . McKenney" <paulmck@kernel.org>, 
+	Christoph Hellwig <hch@lst.de>, Thomas Gleixner <tglx@kernel.org>, Nathan Chancellor <nathan@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-In vgic_its_has_attr_regs() and vgic_its_attr_regs_access() we take a
-u64 "offset" from the user and pass it to vgic_find_mmio_region() to
-find the correct region.  The problem is that vgic_find_mmio_region()
-truncates the "offset" to 32 bits so we might find a region even
-though really we shouldn't.
+On Mon, 9 Nov 2026 at 20:14, Bart Van Assche <bvanassche@acm.org> wrote:
+>
+> futex_exit_recursive() unlocks tsk->futex.exit_mutex if the futex state
+> is FUTEX_STATE_EXITING. It uses __assume_ctx_lock() to inform Clang's
+> context analysis that this mutex is held. However, __assume_ctx_lock()
+> does not verify that assumption. Convert the __assume_ctx_lock() call
+> into a lockdep_assume_ctx_held() call such that the lock ownership
+> assumption is also verified at runtime by lockdep.
+>
+> Cc: Marco Elver <elver@google.com>
+> Cc: Peter Zijlstra <peterz@infradead.org>
+> Signed-off-by: Bart Van Assche <bvanassche@acm.org>
+> ---
+>  kernel/futex/core.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/kernel/futex/core.c b/kernel/futex/core.c
+> index a240638f69e5..4e5aa0160dd2 100644
+> --- a/kernel/futex/core.c
+> +++ b/kernel/futex/core.c
+> @@ -1503,7 +1503,7 @@ void futex_exit_recursive(struct task_struct *tsk)
+>  {
+>         /* If the state is FUTEX_STATE_EXITING then futex_exit_mutex is held */
+>         if (tsk->futex.state == FUTEX_STATE_EXITING) {
+> -               __assume_ctx_lock(&tsk->futex.exit_mutex);
+> +               lockdep_assume_ctx_held(&tsk->futex.exit_mutex);
+>                 mutex_unlock(&tsk->futex.exit_mutex);
 
-Later the untruncated offset is used to calculate "addr".
+mutex_unlock() on the next line already (dynamically) checks
+ownership. If it's broken, it'll splat with lockdep (or crash in other
+spectacular ways without lockdep).
 
-	addr = its->vgic_its_base + offset;
-
-For example, an offset of 0x100000084 finds the 64-bit GITS_CBASER
-register at 0x80, and the write reaches update_64bit_reg() with an
-offset of 4 into the register and a length of 8.  It exhibits as a
-UBSAN warning.
-
-[  183.796046] UBSAN: shift-out-of-bounds in arch/arm64/kvm/vgic/vgic-mmio-v3.c:35:10
-[  183.796198] shift exponent 18446744073709551584 is too large for 64-bit type 'long long unsigned int'
-
-The GICv5 IRS code has the same problem in vgic_v5_has_attr_regs() and
-vgic_v5_irs_attr_regs_access().
-
-Make vgic_find_mmio_region() and match_region() take the offset as a
-u64, so an offset of 2^32 or more no longer matches any region.  The
-other callers only pass offsets which fit in 32 bits so they are not
-affected.
-
-Fortunately the effect of this bug is very minor.  The worst case is that
-the VMM accesses an emulated register and sets something nonsensical
-and users are already allowed to do that without the bug.
-
-Fixes: 8331c23c28e8 ("KVM: arm64: vgic-its: Implement vgic_its_has_attr_regs and attr_regs_access")
-Fixes: 71091136d145 ("KVM: arm64: gic-v5: Handle userspace accesses to IRS MMIO region")
-Signed-off-by: Dan Carpenter <dan@cryspen.com>
----
-v2: Change vgic_find_mmio_region() to take a u64 instead of rejecting
-    large offsets in the ITS callers, as Marc suggested.  This also
-    fixes the GICv5 IRS code which my previous patch didn't.  Drop the
-    Cc: stable.
-
- arch/arm64/kvm/vgic/vgic-mmio.c | 4 ++--
- arch/arm64/kvm/vgic/vgic-mmio.h | 2 +-
- 2 files changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/arch/arm64/kvm/vgic/vgic-mmio.c b/arch/arm64/kvm/vgic/vgic-mmio.c
-index fddb9da0403d..59bdec495cd7 100644
---- a/arch/arm64/kvm/vgic/vgic-mmio.c
-+++ b/arch/arm64/kvm/vgic/vgic-mmio.c
-@@ -820,7 +820,7 @@ void vgic_write_irq_line_level_info(struct kvm_vcpu *vcpu, u32 intid,
- 
- static int match_region(const void *key, const void *elt)
- {
--	const unsigned int offset = (unsigned long)key;
-+	const u64 offset = (unsigned long)key;
- 	const struct vgic_register_region *region = elt;
- 
- 	if (offset < region->reg_offset)
-@@ -834,7 +834,7 @@ static int match_region(const void *key, const void *elt)
- 
- const struct vgic_register_region *
- vgic_find_mmio_region(const struct vgic_register_region *regions,
--		      int nr_regions, unsigned int offset)
-+		      int nr_regions, u64 offset)
- {
- 	return bsearch((void *)(uintptr_t)offset, regions, nr_regions,
- 		       sizeof(regions[0]), match_region);
-diff --git a/arch/arm64/kvm/vgic/vgic-mmio.h b/arch/arm64/kvm/vgic/vgic-mmio.h
-index 38ed730d68ac..6c3c4de6883e 100644
---- a/arch/arm64/kvm/vgic/vgic-mmio.h
-+++ b/arch/arm64/kvm/vgic/vgic-mmio.h
-@@ -228,6 +228,6 @@ u64 vgic_sanitise_field(u64 reg, u64 field_mask, int field_shift,
- /* Find the proper register handler entry given a certain address offset */
- const struct vgic_register_region *
- vgic_find_mmio_region(const struct vgic_register_region *regions,
--		      int nr_regions, unsigned int offset);
-+		      int nr_regions, u64 offset);
- 
- #endif
--- 
-2.53.0
-
+Drop this.
