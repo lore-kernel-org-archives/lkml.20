@@ -1,60 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.226.149.37
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.226.149.38
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794398390;
-	b=ABCxCvno/2OK9yXg8cYfJyIASpwCrmN+wIyzUafltC9ZkK9QwmWQIQWSKqNWhyaW/EbW
-	 N638iWTANvQyZMwmFlxsk3nGW9d3ktkDjyYNFPLsCsNE8fCaiew20mGt1kc2x5MGugTG0
-	 IIf5loCYrX+DOJR7tMYLsKwOc7Trlxr3ji7w1dc7HyGw/33CGbPTH0m3tawjpxAI1RTZ2
-	 wov3gL87IxChCUEVadK+t8tRUjC++11od8hr85dx0yZ9KC38E57weTQORZN9XW5SiBv39
-	 CynoUPA11pko1HsGmILRpN1TkxOp3u2EmJ9q2FPQ4W1m6hYgRcIlIEG+mBehFhub78w==
+	b=vMs0d2uBkULevWaThvZNeBjgTKVDo6Z+wa+F2rvxDxDXDsVrEhfNb5auyZ0mrTsPfgTV
+	 0YESvpxBoH91sBuuixz8yeBYLufqiy2mbRnbhEaOzREFrwr9y8Mm8wDoZIyP02o5ngoWH
+	 nYaod1ccy9FpkT/XJptnkc7Zs1VJjpKF/JoLy1N77iRNa6VD651WBbGVO2F0CIhNovlJA
+	 KAynfYfiR3jOm4AyZz9fdtcSAoQHDiskrN5XdlCfXFBCswh2g74azjakfJnFbTvzfeK4T
+	 Vwu2L8YClDdnuTwF2J5Jkvl4I5nfosh1fs6vx6pPhNXOHsuB3xHgp/IXJ3iWB4gOfAw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794398390;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:To:Cc:
-	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Subject:Date:Message-Id:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=5og5gbIFuLrK4odCnF2cFU+0oOHDzasvRkpi1DDbr2I=;
-	b=27KyvnNisqqwcE/fZi6RBFWKRQjbFvIK9HOBmLVRIImuY9yQwq519EYRp0lheybNnYzh
-	 g+DdWmUUPCnXMByjZSOnAlYQLbsYPUS6i93rXEV4SAMSy20roUB3Rxb6NSxmgxePNTVPz
-	 YVLDF+sCUhADT2kVhyJ5EEqFlntu40zvG182767QlQj7o5GyT26Iqua78vxe9n1GAIeLJ
-	 0yRsICB8F3CvTuIdNFeROziGkWj7BkYERCkd8DfVLMLTqXv8mUwFxWiTA+OVcwD3fRnD9
-	 zHGwmIi8V0Py+bB1WsAPT8EDghSRn5QPOWTsWqHAmAN4JlDSZfAV8fFouaOf++wfzOg==
+	bh=Qu6qLyWzfr10AXBA1rh8LQcQEe/qcT2SLcMhSAghRPs=;
+	b=v+moAzEV7cT1B+g09wuoJ/NM22JJ1P2p0XJl7yMnsOe4d/07mJXH/He1HDZ3G8ig+YKp
+	 OK/xD21G7Ew/CpOChSfCG49y+grUZxZuq7wSa1jR14HAwA83+ndcbrNSuXi5jQuOiRM9m
+	 e2VgjQprJAtcEZjoqpB5HVEO1LXgUOdAZWHU0a5Ew5kGJLwykHqYv+T/1rrg50UPXf6q0
+	 Z97CawOpgq7E0bgCZVihf5LJ+mt+LBSxkwNvZxMkxhN1zPjhv+OJAKd5QucKFF9p5PMIp
+	 XWxvfypQMAslGVqMDkQJF4wttfmC36/6koPNzByjAI272Qwwg0lo4tqA9JE7aPbvyQg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=fail header.from=gmail.com;
 	spf=pass smtp.mailfrom=runbox.com;
-	dkim=pass header.d=runbox.com header.i=@runbox.com header.a=rsa-sha256 header.s=selector1 header.b=ChTyJA5y;
-	arc=none smtp.remote-ip=185.226.149.37
-Received: from mailtransmit04.runbox.com (mailtransmit04.runbox.com [185.226.149.37])
+	dkim=pass header.d=runbox.com header.i=@runbox.com header.a=rsa-sha256 header.s=selector1 header.b=lThTOElt;
+	arc=none smtp.remote-ip=185.226.149.38
+Received: from mailtransmit05.runbox.com (mailtransmit05.runbox.com [185.226.149.38])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 431B7606A32E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4696F606A331
 	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 11:59:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 431B7606A32E
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4696F606A331
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=runbox.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=runbox.com header.i=@runbox.com header.a=rsa-sha256 header.s=selector1 header.b=ChTyJA5y
-Received: from mailtransmit03.runbox ([10.9.9.163] helo=aibo.runbox.com)
-	by mailtransmit04.runbox.com with esmtps  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+	dkim=pass (2048-bit key, unprotected) header.d=runbox.com header.i=@runbox.com header.a=rsa-sha256 header.s=selector1 header.b=lThTOElt
+Received: from mailtransmit02.runbox ([10.9.9.162] helo=aibo.runbox.com)
+	by mailtransmit05.runbox.com with esmtps  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
 	(Exim 4.93)
 	(envelope-from <david.laight.linux_spam@runbox.com>)
-	id 1xR6zL-001Suu-TT; Wed, 11 Nov 2026 12:59:39 +0100
+	id 1xR6zM-001rxK-1Y; Wed, 11 Nov 2026 12:59:40 +0100
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=runbox.com;
-	 s=selector1; h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To
-	:Message-Id:Date:Subject:Cc:To:From;
-	bh=5og5gbIFuLrK4odCnF2cFU+0oOHDzasvRkpi1DDbr2I=; b=ChTyJA5y5+wuBM2O7bdH+tpas9
-	ql9IyalmR6cW5KkL5zGyIkVjpzJh6xlaP8WS8zOFkDEAyruBNFTacGUVvz8EhWxzsmvaWtGv+U2XM
-	peC0m4URPYOpy48YtVJW0/Bh95szz9AmL3ASsVIMiFLyZx08Zbbwoh9Mb4YH4y3V6vDXQ4wkNMtm3
-	hNKE6efIs+Vt91s0L1EJCMsQ3nXGwprGl0o/VxypEORoCCw0BPJtFGHN4xTEmajZD1XU8HqqT5TDa
-	PZKQ4mRzfEoBSLt3SIJBmIV1oEwDRJd3g9SMKbUSJPnVqjnqhw4KlX1sTFX9aRzKZ6zrrXaoyYTW7
-	7f8/7dSQ==;
+	 s=selector1; h=Content-Transfer-Encoding:MIME-Version:Message-Id:Date:
+	Subject:Cc:To:From; bh=Qu6qLyWzfr10AXBA1rh8LQcQEe/qcT2SLcMhSAghRPs=; b=lThTOE
+	ltfI1F5mI47xTkY6pDditfq4jztLZNYJfe8DF38A7HBG/C9WxYVTrkWnwQHGqgV8d8OjCXkRFuVsD
+	pC0FQx5vOVwLv8UyLM63i5xxdvh9LujehLgf46AyGg3GxJkw/qewNRogcdA4PJU9u7H1+bbSAoBuo
+	06sqnGUhVeglZIr9ipbrqMNRIobnt6KjQWPH1OJF/cX6oUYlFdMbULekA3/TvR8gLl0YVL5Z/g8Oa
+	0BmW8dHxbpLt8XkRlF6eOonJBFWr06DPVyzG5de3707/rK7RaY3a6cm2V10wMYgYr8ARZHPOTQmzW
+	oPCkC1ajQuPonrO0jgYHtDxOyF8A==;
 Received: from [10.9.9.73] (helo=submission02.runbox)
-	by mailtransmit03.runbox with esmtp (Exim 4.86_2)
+	by mailtransmit02.runbox with esmtp (Exim 4.86_2)
 	(envelope-from <david.laight.linux_spam@runbox.com>)
-	id 1xR6zG-0000Uf-8m; Wed, 11 Nov 2026 12:59:34 +0100
+	id 1xR6zG-0004Jj-NV; Wed, 11 Nov 2026 12:59:34 +0100
 Received: by submission02.runbox with esmtpsa  [Authenticated ID (1493616)]  (TLS1.2:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
 	(Exim 4.95)
-	id 1xR6z4-001mRM-MH;
-	Wed, 11 Nov 2026 12:59:22 +0100
+	id 1xR6z0-001mRM-Hd;
+	Wed, 11 Nov 2026 12:59:18 +0100
 From: David Laight <david.laight.linux@gmail.com>
 To: Petr Mladek <pmladek@suse.com>,
 	Kees Cook <kees@kernel.org>,
@@ -70,12 +69,10 @@ Cc: Luis Chamberlain <mcgrof@kernel.org>,
 	Andrii Nakryiko <andrii@kernel.org>,
 	Samuel Wu <wusamuel@google.com>,
 	linux-kselftest@vger.kernel.org
-Subject: [PATCH v3 next 01/13] scripts/kallsyms: Avoid overrunning on-stack buffer
-Date: Wed, 11 Nov 2026 11:58:59 +0000
-Message-Id: <20261111115911.1142000-2-david.laight.linux@gmail.com>
+Subject: [PATCH v3 next 00/13] kallsyms: optimise symbol search by name
+Date: Wed, 11 Nov 2026 11:58:58 +0000
+Message-Id: <20261111115911.1142000-1-david.laight.linux@gmail.com>
 X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20261111115911.1142000-1-david.laight.linux@gmail.com>
-References: <20261111115911.1142000-1-david.laight.linux@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,41 +84,292 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A maximum length symbol can be KSYM_NAME_LEN long (including the '\0').
-But the name being compressed contains a leading symbol type (e.g. T).
-So when the compressed name is expanded (after the hex is written out)
-the buffer needs to be KSYM_NAME_LEN+1 bytes long to allow to both the
-symbol type and the '\0'.
-But it is declared 'char buf[KSYM_NAME_LEN] so a maximal length name
-overwrites something on stack.
+These patches speed up the lookup of symbol names by a factor of about 18
+while both reducing the size of the compressed data by 9.5% (for my kernel)
+and speeding up the compression code itself.
+As well as improving the normal symbol lookup, looking up symbols that occur
+a lot of times is also massively improved.
 
-Found by code inspection, seems to have been broken before the code
-was imported into git.
+The technical content of these patches is the same as v2 except for an
+additional compression optimisation in the final patch.
+However rebasing onto 7.4-rc1 took some effort due to changes to
+sripts/kallsyms.c.
 
-I expect there aren't any maximal length symbols and/or the byte that
-is overwritten is something that is either zero or 'don't care'.
+Patch 1 is a stack buffer overrun - but in a program run during the build
+    so is isn't that improtant.
+Patch 2 improves the error reporting added for 7.4-rc1 and adds some timestamp
+    output to time the different parts of the code.
+Patch 3 obtains the target endianness from the elf file.
+    Being run-time doesn't make any significant difference.
+    (v2 extracted it from the kernel makefile.)
+Patch 4 is, in some sense, a conditional revert of 83da9f3197e5 (output binary
+    data speed output and kallsyms assembly).
+    While the binary output does speed things up it makes debugging impossible.
+    Change it to be a command line option.
+    - Output the token table first and always in text - it is small.
+    - Use a fixed format and fwrite() for the symbol values avoid printf.
+      Reduces the time to output the symbol table from 5.8ms to 2.1ms
+      (on my system, with my kernel, today).
+    - The marker array is now written to bin.out in host order.
+    Contains some of the changes from patch 14, but the size of the out.S
+    file matters less.
+Patch 5 (formally #2) is a fix to the selftest.
+Patch 6 (formally #3) is a big update to the selftest output to make
+    it less affected by interrupts (etc) and visually more obvious.
+    Includes a very long symbol to check their handling.
+The old patch 4 (error reporting) is merged elsewhere.
+Patch 7 (formally #5) is from Jim Cromie and optimises the name compare.
+    I think this is the final version of his patch, but any one will do.
+    The following patches are built on top of it.
+Patches 8 (merged #6 and #7) improve the search by name code.
+    Indexing the list of names (not the values) speeds it up ~12 times.
+    Marking duplicate symbols improves things as well, especially for
+    symbols that appear 1000s of times.
+Patches 9 (merged #8 and #9) make the 'marker density' a kernel build option
+    and changes the default from 1:256 to 1:64 (one bit for two symbols).
+    This change gives a 33% improvement on top of that from patch 8.
+The old patch 10 is dropped.
+Patch 10 (technically the same as 11, but rewritten) avoids the recursive
+    expansion of compressed data. It speeds up the compression phase
+    by about 17ms in 100ms.
+Patch 11 (formally #12) speeds up the compression code by about 35ms
+    in 100ms, it will be more for kernels with a lot of long symbol names.
+Patch 12 (formally #13) reuses unused compression tokens to improve
+    the compression ratio.
+    (Patch 11 means they don't have to be kept to expand tokens.)
+The old patch 14 is dropped, some parts went into patch 3.
+Patch 13 (formally #15) improves the compression ratio by splitting little
+    used tokens so that they can be used for more common token pairs.
+    For v3 this includes tokens for three single characters as well
+    as those where both the original tokens are still valid.
+    This improves the compression ratio (for the test kernel) from 53.35%
+    to 50.05%, so a 6% reduction in the datasize.
 
-Signed-off-by: David Laight <david.laight.linux@gmail.com>
----
+Some test output (TL;DR):
 
-Unchanged from v2.
+Timestamps from scrpts/kallsyms (typical values - they vary between runs):
+Initial (7.4-rc1 with part of patch 4 applied):
+kallsyms: stamp read elf 29.6 ms
+kallsyms: stamp shrink table 0.1 ms
+kallsyms: stamp sort symbols 2.2 ms
+kallsyms: stamp build initial token table 10.9 ms
+kallsyms: stamp insert real symbols in table 1.9 ms
+kallsyms: stamp optimize result 109.5 ms
+kallsyms: stamp write compressed names 11.3 ms
+kallsyms: stamp write token table 0.0 ms
+kallsyms: stamp write symbol values 5.8 ms
+kallsyms: stamp sort by name 18.8 ms
+kallsyms: stamp write name index 1.7 ms
 
- scripts/kallsyms.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Patch 4 (make binary data optional) changes:
+kallsyms: stamp write compressed names 12.6 ms   +1.5ms
+kallsyms: stamp write symbol values 2.1 ms       -3.8ms
+The +1.5 comes from logic changes, the -3.8 by using fwrite() not printf().
+(The all-text output is 50+ms slower overall.)
 
-diff --git a/scripts/kallsyms.c b/scripts/kallsyms.c
-index ecb444078c1c..140e888bf713 100644
---- a/scripts/kallsyms.c
-+++ b/scripts/kallsyms.c
-@@ -398,7 +398,7 @@ static void write_src(FILE *out_bin_file, const char *out_bin_name)
- 	unsigned int best_idx[256];
- 	unsigned int *markers, markers_cnt;
- 	long bin_start;
--	char buf[KSYM_NAME_LEN];
-+	char buf[1 + KSYM_NAME_LEN];
- 
- 	printf("\t.section .rodata, \"a\"\n");
- 
+Patch 10 (fully expand tokens) changes:
+kallsyms: stamp optimize result 98.2 ms           -15ms
+kallsyms: stamp write compressed names 10.1 ms     -2ms 
+The changes from removing the number of short memcpy() and (probably)
+changing the argument to compress_symbols() from 'char *' to int.
+(In fact replacing memcpy() by a byte copy loop saves ~1ms.)
+
+Patch 11 (Optimise compress symbols) is the big one:
+kallsyms: stamp optimize result 64.5 ms           -34ms
+In effect that reduces the compression from O(n^2) to O(n) in the
+length of the symbol.
+
+Patches 12 and 13 find more things to compress and make
+it ~13ms slower.
+
+One obvious change that would improve things would be to throw some
+(more) extra memory at the symbol table and keep the original symbol
+name. That would remove all the calls to expand_symbol() and make
+the loop that outputs the compressed symbols trivial.
+Potentially it would let the 'sort by name' be done be a separate thread.
+I didn't look at why 'read elf' takes ~30ms, nor have I timed the
+old code from 7.3.
+
+kallsyms_selftest output (run in a userspace wrapper).
+(Unchanged from v2, but the kernel code changes are minimal.)
+The results are comparable to each other, but the in-kernel results
+seem to be faster (possibly due to optimisation choices for functions
+like memcpy().
+
+Performance changes
+The average value is a much better indication of speed than the
+fastest (usually the middle of the table).
+The slow times are likely to be worse than the figures imply, the tests
+take long enough that the cpu clock frequency is likely to increase.
+
+The times go down from:
+kallsyms_lookup_name() looked up 123312 symbols, average 3753 ns
+	fastest 341 ns (bpf_get_netns_cookie_sock_ops_proto)
+	slowest 78069 ns (__func__.0)
+
+to:
+kallsyms_lookup_name() looked up 123312 symbols, average 204 ns
+	fastest 60 ns (_rs.0)
+	slowest 802 ns (The_time_has_come_the_Walrus_said_To_talk_of_many_things_Of_sho)
+
+Baseline (based  on 7.3.0-rc4):
+ ---------------------------------------------------------
+| nr_symbols | compressed size | original size | ratio(%) |
+|---------------------------------------------------------|
+|     123312 |       1584006   |      2969490  |  53.34   |
+ ---------------------------------------------------------
+kallsyms_on_each_symbol() traverse all: 7507638 ns
+kallsyms_on_each_match_symbol() traverse all: 9418 ns
+kallsyms_lookup_name() looked up 123312 symbols, average 3753 ns
+	fastest 341 ns (bpf_get_netns_cookie_sock_ops_proto)
+	slowest 78069 ns (__func__.0)
+	Distribution, 1280ns per column, 8714 counts per *:
+	|  *
+	|  *
+	|  *
+	|  *
+	|  **
+	| ***
+	| ***
+	|************ ****************                 ***************
+
+After 'Match compressed tokens on the fly during binary search'.
+This doesn't make much difference (yet) because the linear scan dominates.
+ ---------------------------------------------------------
+| nr_symbols | compressed size | original size | ratio(%) |
+|---------------------------------------------------------|
+|     123312 |       1584006   |      2969490  |  53.34   |
+ ---------------------------------------------------------
+kallsyms_on_each_symbol() traverse all: 7521035 ns
+kallsyms_on_each_match_symbol() traverse all: 7986 ns
+kallsyms_lookup_name() looked up 123312 symbols, average 3661 ns
+	fastest 411 ns (pciehp_poll_mode)
+	slowest 76677 ns (__func__.0)
+	Distribution, 1280ns per column, 8759 counts per *:
+	|  *
+	|  *
+	|  *
+	|  *
+	|  *
+	| ***
+	| ***
+	|******** *  *   **    **   **                            ***
+
+After 'Optimise symbol name search'.
+ ---------------------------------------------------------
+| nr_symbols | compressed size | original size | ratio(%) |
+|---------------------------------------------------------|
+|     123312 |       1584006   |      2969490  |  53.34   |
+ ---------------------------------------------------------
+kallsyms_on_each_symbol() traverse all: 7547445 ns
+kallsyms_on_each_match_symbol() traverse all: 1733 ns
+kallsyms_lookup_name() looked up 123312 symbols, average 377 ns
+	fastest 90 ns (pkcs1pad_create)
+	slowest 4578 ns (io_register_clone_buffers)
+	Distribution, 80ns per column, 3494 counts per *:
+	|   ***
+	|   ***
+	|   ***
+	|  *****
+	|  *****
+	|  *****
+	|  ******
+	| *******************           ***        *              *
+
+After 'Optimise detection of duplicate symbol names'
+marker density 256:
+ ---------------------------------------------------------
+| nr_symbols | compressed size | original size | ratio(%) |
+|---------------------------------------------------------|
+|     123312 |       1584006   |      2969490  |  53.34   |
+ ---------------------------------------------------------
+kallsyms_on_each_symbol() traverse all: 7620445 ns
+kallsyms_on_each_match_symbol() traverse all: 2976 ns
+kallsyms_lookup_name() looked up 123312 symbols, average 336 ns
+	fastest 90 ns (shmem_unuse)
+	slowest 2044 ns (The_time_has_come_the_Walrus_said_To_talk_of_many_things_Of_sho)
+	Distribution, 40ns per column, 1912 counts per *:
+	|      *****
+	|     *******
+	|    ********
+	|    *********
+	|    *********
+	|    *********
+	|   ***********
+	|  ******************                               *
+(That 'slowest' time looks like a lie.)
+
+With the marker denstity reduced to 64
+ ---------------------------------------------------------
+| nr_symbols | compressed size | original size | ratio(%) |
+|---------------------------------------------------------|
+|     123312 |       1584006   |      2969490  |  53.34   |
+ ---------------------------------------------------------
+kallsyms_on_each_symbol() traverse all: 7654179 ns
+kallsyms_on_each_match_symbol() traverse all: 2405 ns
+kallsyms_lookup_name() looked up 123312 symbols, average 204 ns
+	fastest 60 ns (_rs.0)
+	slowest 802 ns (The_time_has_come_the_Walrus_said_To_talk_of_many_things_Of_sho)
+	Distribution, 20ns per column, 2783 counts per *:
+	|         **
+	|        ****
+	|        ****
+	|        *****
+	|       ******
+	|       *******
+	|      *********
+	|   **********************               *
+
+After 'Reuse tokens that have no references'.
+Improves the compressions ratio slightly.
+ ---------------------------------------------------------
+| nr_symbols | compressed size | original size | ratio(%) |
+|---------------------------------------------------------|
+|     123312 |       1575323   |      2969490  |  53.05   |
+ ---------------------------------------------------------
+kernel code unchanged.
+
+Final version.
+Improves the compression ratio again.
+(the v3 version is slightly better - 50.05%)
+ ---------------------------------------------------------
+| nr_symbols | compressed size | original size | ratio(%) |
+|---------------------------------------------------------|
+|     123312 |       1505184   |      2969490  |  50.68   |
+ ---------------------------------------------------------
+kernel code unchanged again.
+
+
+David Laight (12):
+  scripts/kallsyms: Avoid overrunning on-stack buffer
+  scripts/kallsyms: Improve error reporting
+  scripts/elf-parse: add elf_map_big_endian() helper
+  scripts/kallsyms: make use of binary data output optional
+  kallsyms: Fix selftest startup delay
+  kallsyms: Improve selftest test_perf_kallsyms_lookup_name() output
+  kallsyms: Optimise symbol name search
+  kallsyms: Add a kernel parameter to change the kallsyms_markers[]
+    density
+  scripts/kallsyms: Keep full expansion of tokens
+  scripts/kallsyms: Optimise compress_symbols()
+  scripts/kallsyms: Reuse tokens that have no references
+  scripts/kallsyms: Reuse little-used compression tokens
+
+Jim Cromie (1):
+  kallsyms: Match compressed tokens on the fly during binary search
+
+ init/Kconfig               |  19 +
+ kernel/kallsyms.c          | 262 ++++++----
+ kernel/kallsyms_internal.h |   8 +-
+ kernel/kallsyms_selftest.c | 173 +++++--
+ scripts/elf-parse.c        |  13 +-
+ scripts/elf-parse.h        |   5 +-
+ scripts/kallsyms-sysmap.c  |   1 +
+ scripts/kallsyms.c         | 957 ++++++++++++++++++++++++++-----------
+ scripts/kallsyms.h         |   1 +
+ scripts/link-vmlinux.sh    |  13 +-
+ 10 files changed, 1034 insertions(+), 418 deletions(-)
+
 -- 
 2.39.5
 
