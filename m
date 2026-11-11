@@ -1,65 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794430700;
-	b=JKZxPC58qbHzyAKNB3xh0d0m6mud0jQpX65FUoqzmwNjb/cd53+oVnPHm5axL/Wupl24
-	 NkRt/GnstCgzApLmXiQNXaOnssqxvT40Z9KpFik30UPMmwH7Krwz6QCKC2hL0Hjttfcve
-	 2bB3Y/FJBx0o44S1xNtibC6FFbfzKKKHgpinNiH9MIpRXvIw8fpKo32hI8NFE865yRGhP
-	 incy9MBY6i68O15jSngvOZzmEWdicdRnTV2Gv50cAvJUZiYi5xpXJap27peoPAR6xBPKS
-	 CX9P9AKAHpf5Zj7ctnU1PyDHZ8ozOyI1Pwoz0klorXxunFfYjD6fU21uJmUs0aEbHrg==
+	t=1794430720;
+	b=gTVnLcDcyyXlp8bNTG1gZBBDSQTPfWGxvEz6OLeyNJRC5l+sPyKBMwO52cjuS1br1uBX
+	 4aH/xRkcAdofyH4bntR9IgF0zfq7Ya2z/43aND05JKpZeTQY+PJ7mpqtYSogP+RAKNJAK
+	 lroJCELsEeqxVWyMQ3LlYv0eboKo5Qa2dhYllBqNrmOHhKX++dHHzbEs+YE2STkeNneAS
+	 hfzk48BjFPL+vuXKQioAK6OvvSKk7RwAP1NryiRWfH2+LFEM4YsKrnOb/AZHVvNpfU6sB
+	 COhOQ9xxRdlHcUO4R92dCR9nin/r7w01bvPfPuiQCHd389J2MKSFg1AuMQNRAkbU+sQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794430700;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=avo04gh6qStJl92VR1s8c2Oe2PzA3Q8Kjvs4urcmX6o=;
-	b=quNmKeSGdR+OKMWcDBn9jLQo5z1TLv+eYTPv14v0JxPW9Xj7cz4ANWquZ560lkU5omp8
-	 KyzVSmGGVPITO4FliY9wtJGKXo6j4psXy/j4hutg7onH9LQGLwnxwdrZyGr34ffT5KJse
-	 6I6s/PBkprAHRZH755pXZW2kHyxSC9n5cYYBRwdMsHvZK5UrbsjLRcNHARFWzqaiqRk3K
-	 AJ7PJxXpd5QlykzfC+oMmQI//CxXuLE2LSB0Fwmh95y/vplNOW5PiwKdwql10zK/VRZ9L
-	 h3eGIC1wwiSqcN2MgUgMpC83ESko9HWsb/sER42wRiEovArrDQ+J40O7gGcdyzDwCKw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794430720;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 Sender:X-SRS-Rewrite;
+	bh=YUFQ0BzuROj7vKv1gEx2DSIYXCVTpEtb08fn/aq/i9g=;
+	b=GeuFDTAl0cT3P7khb19Uz+hKkDPwMXJYx2I3bGHIiuQUo2UMBM3fgvliYtsg8x+JXsac
+	 dFr0k+mZzZoXdS1kQIZVHlL2AhfAQjiTdhA0Aki/8b3KxSNp6mRvDkKl7IWFQGL8YNl2Z
+	 YJy5B+Pp/opguZ2QW7rHY9ErJ75q29FMvSjFOj3v9dlz2Tty+v8JL7axJNMGie2NYC4IX
+	 QT3vjZWCzoTJjD0FazqXJ+gbMMSJpqsrJC9BLOoV60tn/JEE9HqrqTeMIj93W+jZfu+SR
+	 45QSMIeKzhtB1b207othSHe6cyBqIFeLtenlfW1szYLI/Rj8UgwxkZHW32coufxqQnA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=e9CKAlkH;
-	arc=none smtp.remote-ip=91.218.175.4
-Received: from mta0.migadu.com (out-4.mta0.migadu.com [91.218.175.4])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=infradead.org;
+	spf=none smtp.mailfrom=casper.srs.infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=BYRXdC+e;
+	arc=none smtp.remote-ip=90.155.50.34
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED469606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 20:58:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED469606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6F6F606A31C;
+	Wed, 11 Nov 2026 20:58:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A6F6F606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=casper.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=e9CKAlkH
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=nPc7gQ7W5bZyARiFXAg3NafxeCmsOK8St8I07Lnbg+A=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794430696; v=1; x=1795035496;
- b=e9CKAlkHosCI3YtQsjI7bla6y4M1DgIdHBn8+iS1E0oSGylFnrXs4iaMGHhg2JhdY+AaNRC7
- juTNJhsaT9ONhZ/ZyePtfLAeIC1EENBS8hLn6BLDSCgfHUq75lgAweLzelyWr5ZScHpQK/PtDdT
- 33WpYqHU2ZsqaS/oHL6JZKVg=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 1328379f3ede4e52;
-	Wed, 11 Nov 2026 20:58:16 +0000
-X-Mizu-Trace-ID: 1328379f3ede4e52
-X-Migadu-Flow: FLOW_OUT
-From: Bradley Morgan <bradley.morgan@linux.dev>
-To: Christian Brauner <brauner@kernel.org>,
-	=?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>,
-	Paul Moore <paul@paul-moore.com>,
-	"Serge E . Hallyn" <serge@hallyn.com>,
-	James Morris <jmorris@namei.org>
-Cc: Josef Bacik <josef@toxicpanda.com>,
-	linux-security-module@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Bradley Morgan <bradley.morgan@linux.dev>
-Subject: [PATCH] userns: security: Inform LSMs of capability check during userns creation
-Date: Wed, 11 Nov 2026 20:58:14 +0000
-Message-ID: <20261111205814.3282968-1-bradley.morgan@linux.dev>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=BYRXdC+e
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=Sender:Content-Transfer-Encoding:
+	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Reply-To:Content-Type:
+	Content-ID:Content-Description:In-Reply-To:References;
+	bh=YUFQ0BzuROj7vKv1gEx2DSIYXCVTpEtb08fn/aq/i9g=; b=BYRXdC+eNh2MLKCFHYtHOlfJ7x
+	z0WWYh4ivfCNrvP1yonwgAV9TfOEeQGWAunQ4KkAWk5oawGTBATJXrNIIsUjbki8DTlnbbCMnNBZ1
+	xQmY4VFdEtau8ifckcdm3GOhnw6LtTT8mK5znOGEaJRFyfWBO4vxDlIk1/zjfNeB3ybwSwZGf6kfC
+	GVAmpEsPglkv1Bi3filNDXrol1TLz4CcE7zaZ6GB1ABadukinFf2NYrMXGKJ/95aw8xI7lDS2x7mF
+	MSnxXPE/5ZFivEjWfpXuZm6DmKvHYDKpWe7msuJoKyE0Fzvhqy/p5hnBTIoY8QDt1HdbcqbEAUw0L
+	yS3nQQMA==;
+Received: from [2001:8b0:10b:1::425] (helo=i7.infradead.org)
+	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xRFOu-0000000Ea66-3PGx;
+	Wed, 11 Nov 2026 20:58:36 +0000
+Received: from dwoodhou by i7.infradead.org with local (Exim 4.99.5 #2 (Red Hat Linux))
+	id 1xRFOu-0000000HZ7e-2DQI;
+	Wed, 11 Nov 2026 20:58:36 +0000
+From: David Woodhouse <dwmw2@infradead.org>
+To: kvm@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	linux-hyperv@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Sean Christopherson <seanjc@google.com>,
+	Vitaly Kuznetsov <vkuznets@redhat.com>,
+	Marcelo Tosatti <mtosatti@redhat.com>,
+	Joerg Roedel <joro@8bytes.org>,
+	Tom Lendacky <thomas.lendacky@amd.com>,
+	James Bottomley <James.Bottomley@HansenPartnership.com>,
+	Thara Gopinath <tgopinath@linux.microsoft.com>,
+	Wei Liu <wei.liu@kernel.org>,
+	Michael Kelley <mhklinux@outlook.com>,
+	Nicolas Saenz Julienne <nsaenz@amazon.com>,
+	Nikolas Wipper <nik.wipper@gmx.de>,
+	Mushahid Hussain <hmushi@amazon.co.uk>,
+	Sriram Nambakam <snambakam@linux.microsoft.com>,
+	David Woodhouse <dwmw@amazon.co.uk>
+Subject: [PATCH 0/4] KVM: x86: hyper-v: Forward unimplemented hypercalls to userspace
+Date: Wed, 11 Nov 2026 12:58:32 -0800
+Message-ID: <20261111205836.4186584-1-dwmw2@infradead.org>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,52 +84,85 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Sender: David Woodhouse <dwmw2@infradead.org>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
-Right now security_capable() gets called in create_user_ns() to snapshot
-whether the parent could setfcap, but the LSM gets zero context on where
-the check actually came from. It is the same story as setid: without a
-dedicated flag, security modules cannot tell this apart from regular
-capability checks.
+From: David Woodhouse <dwmw@amazon.co.uk>
 
-Add CAP_OPT_USERNS_CREATE and pass it along from create_user_ns().
+KVM implements a fixed set of Hyper-V hypercalls and fails every other
+code with HV_STATUS_INVALID_HYPERCALL_CODE. A VMM that wants to
+implement more of the TLFS, such as the VSM hypercalls Windows uses for
+Virtualization Based Security, never sees them.
 
-Suggested-by: Christian Brauner <brauner@kernel.org>
-Link: https://lore.kernel.org/all/20261111-kommt-gischt-ohnedies-469998d2f219@brauner/
-Signed-off-by: Bradley Morgan <bradley.morgan@linux.dev>
----
-Thanks Christian for the suggestion :).
----
- include/linux/security.h | 2 ++
- kernel/user_namespace.c  | 3 ++-
- 2 files changed, 4 insertions(+), 1 deletion(-)
+This series adds KVM_CAP_HYPERV_FORWARD_HCALL. As with KVM_CAP_XEN_HVM
+and KVM_CAP_EXIT_HYPERCALL, KVM_CHECK_EXTENSION returns a bitmask of
+features and KVM_ENABLE_CAP takes the subset to enable, rejecting any
+bit the kernel does not report:
 
-diff --git a/include/linux/security.h b/include/linux/security.h
-index 40831fab54709..d24666a0b4833 100644
---- a/include/linux/security.h
-+++ b/include/linux/security.h
-@@ -75,6 +75,8 @@ struct nsset;
- #define CAP_OPT_NOAUDIT BIT(1)
- /* If capable is being called by a setid function */
- #define CAP_OPT_INSETID BIT(2)
-+/* Is capable being called from the user namespace creation path? */
-+#define CAP_OPT_USERNS_CREATE BIT(3)
- 
- /* LSM Agnostic defines for security_sb_set_mnt_opts() flags */
- #define SECURITY_LSM_NATIVE_LABELS	1
-diff --git a/kernel/user_namespace.c b/kernel/user_namespace.c
-index 57b7f10be74e1..37480f6d8369f 100644
---- a/kernel/user_namespace.c
-+++ b/kernel/user_namespace.c
-@@ -134,7 +134,8 @@ int create_user_ns(struct cred *new)
- 	 * audit: the creator may never map uid 0.
- 	 */
- 	ns->parent_could_setfcap =
--		!security_capable(new, parent_ns, CAP_SETFCAP, CAP_OPT_NOAUDIT);
-+		!security_capable(new, parent_ns, CAP_SETFCAP,
-+				  CAP_OPT_NOAUDIT | CAP_OPT_USERNS_CREATE);
- 
- 	ret = ns_common_init(ns);
- 	if (ret)
+ - KVM_HYPERV_HCALL_FORWARD_UNKNOWN (bit 0) sends the hypercalls KVM
+   does not implement, and extended hypercalls in fast form, out
+   through the existing KVM_EXIT_HYPERV_HCALL exit.
+
+ - KVM_HYPERV_HCALL_RAISE_UD (bit 1) lets userspace complete such an
+   exit by raising #UD at the hypercall instruction, which the TLFS
+   specifies for some invalid uses, instead of returning a status.
+   Userspace asks for that with KVM_HYPERV_HCALL_UD in a new 'flags'
+   field after the hypercall parameters; KVM zeroes it on every exit,
+   and refuses bits it does not know. The field fits in the existing
+   union, so struct kvm_run does not grow.
+
+Further mask bits will follow for HvCallVtlCall and HvCallVtlReturn on
+VMs with planes, so that KVM can handle VTL transitions in the kernel.
+
+Patch 3 reports HV_X64_HYPERCALL_XMM_OUTPUT_AVAILABLE, since a VMM
+handling a forwarded fast hypercall can write the XMM output itself.
+Patch 4 adds a selftest.
+
+This is orthogonal to KVM_CAP_HCALL_FAULT_EXIT in the memory attributes
+series, which Vitaly asked about on v3 [2]. That one is about a memory
+fault *during* the processing of a hypercall KVM does implement, which
+it turns into KVM_EXIT_MEMORY_FAULT. This one is about the hypercalls
+KVM does not implement at all. A forwarded hypercall goes out to
+userspace before KVM touches any guest memory on its behalf, so the two
+never meet, and a VMM can use either without the other.
+
+This is the first part of the VSM work posted as an RFC [1] that does
+not depend on planes or memory attributes.
+
+The series is based on v7.4-rc2 and also applies cleanly to
+kvm-x86/next (cbe54fc3462b). It has been compile-tested on x86_64 with
+and without CONFIG_KVM_HYPERV.
+
+Tested on v7.4-rc2 with this series and the KVM_TRANSLATE fix posted
+alongside it, on an Intel Xeon 6 system (itself a KVM guest, so VMX
+there is nested) and on a bare-metal AMD EPYC (Zen 4) system. The new
+hyperv_forward_hcall selftest passes on both, as do hyperv_clock,
+hyperv_cpuid, hyperv_extended_hypercalls, hyperv_features, hyperv_ipi
+and hyperv_tlb_flush. hyperv_evmcs passes on Intel and hyperv_svm_test
+on AMD, each skipping on the other vendor.
+
+[1] https://lore.kernel.org/kvm/20261017122501.610248-1-dwmw2@infradead.org/
+[2] https://lore.kernel.org/kvm/kupv77y5yrc.fsf@vkuznets-thinkpadx1carbongen12.rmtcz.csb/
+
+David Woodhouse (4):
+  KVM: x86: hyper-v: Add KVM_CAP_HYPERV_FORWARD_HCALL
+  KVM: x86: hyper-v: Let userspace fault a forwarded hypercall
+  KVM: x86: hyper-v: Advertise XMM fast hypercall output
+  KVM: selftests: Add Hyper-V hypercall forwarding test
+
+ Documentation/virt/kvm/api.rst                |  65 +++++
+ arch/x86/include/asm/kvm_host.h               |   2 +
+ arch/x86/kvm/hyperv.c                         |  38 ++-
+ arch/x86/kvm/hyperv.h                         |   9 +
+ arch/x86/kvm/x86.c                            |  14 +
+ include/uapi/linux/kvm.h                      |   7 +
+ tools/testing/selftests/kvm/Makefile.kvm      |   1 +
+ .../selftests/kvm/x86/hyperv_forward_hcall.c  | 268 ++++++++++++++++++
+ 8 files changed, 402 insertions(+), 2 deletions(-)
+ create mode 100644 tools/testing/selftests/kvm/x86/hyperv_forward_hcall.c
+
+
+base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
 -- 
-2.53.0
+2.50.1
 
