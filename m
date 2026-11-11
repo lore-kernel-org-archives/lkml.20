@@ -1,74 +1,137 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.71
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794421935;
-	b=hH0VfsSIOOduny5mfITRCX8MLDmym21lqt7Y9Am967almFgLfKZsT5GpBOOPmDCXODav
-	 NpO6WM+0VkZs7dTy2ABhGA5IWi7fXXcsa3yen97iwUd4Pia3jODEu8+PoH/vJBS2N4tZY
-	 8GuVfTtqCU+0BPUvezovPTBHi/65CXC3v/oqqCzqmZigp06vCj99jgje9Rpfb13jNO1w7
-	 jKI1kKb+Pxc2dMLFT7zeB1reab0KEWh+r75aW5An7H6R96kPIIu6fXx77PHpimftYtLr/
-	 TdssWepEzxvs6DYMELm4h3UlIZwbsVtxpSLAdFEBTTXaC01J6bc4t772288VP3AD7tA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794421935;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=vZmzfUzzweDILEhd2+M+U3xfy6iAuTlSFuI18jyrNso=;
-	b=WKvDSsJdAbgBOykKEDS46DxqsSl/WyJF1wvY49zmw2/c0PKnhNvhBuVI0Iy6XaxIntwW
-	 waZoGJ3HRzMvEgxVNWQO4tWCEgGCspjv1zpHYczp4ZlODFfVSAobJgrcksm/uOXidQrIi
-	 +A1ESNt0XWhVPJdW86Wq8CcrfGdYlGt8BILAL6ySiluUtPCdDH5bOiOla87oQFe+rSkAz
-	 1S0ptIdStt9CkN6BE5HUAkM6xn78O2P3X+rjooBewdvuCMOZTScd7IOcOxiCj6cUeyUCs
-	 eDeOQ6GsZAqRL66UrVuwZEfjyyA1edmmFUFnsNaEA19CLylL2AHFmzNhD+QF6x6IBmA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--ctshao.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=dS73KLWm;
-	arc=none smtp.remote-ip=209.85.210.71
-Received: from mail-ot1-f71.google.com (mail-ot1-f71.google.com [209.85.210.71])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=198.175.65.21
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1794422004;
+	b=Jz1jK8HeqUCrRFGFB+fCrwR0/3bzJvsBakicSqUSHCHYaZdTNSUtOQ7sffUoqL3nGtZx
+	 IrIs8/K9cbPlxgj+nNQtnzXNsqUukSYMsBMrBS0Y76+HfUWEI0bEpxuSJU3QhNt4eDNWC
+	 s3PDA9rA3Pr6RfiLnMSJ3XNGIfz+IFFVwozM+kt9if9a5iIlWyOgZV5H+qqCsiKfhg2t0
+	 e/om1st3KiSh9lLppZq17JPk499XhXY9g7SYXlBuxOJ8W4M+VMoGfg1Ou/ml0+OWrbxkA
+	 PjPASghhl4YTqfwLFOwZpZA+cps+QEM+5llrYe/B+i0UsN9r5FDX8rR2Y4x3VTG1nVw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794422004;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
+	 Received:Received:Received:Message-ID:Date:User-Agent:Subject:To:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
+	bh=19lcdKMgk38TdoXCiWhhelfCcBR8YDtZtnaqUa+rXMs=;
+	b=juwTSnEpE76rXdseoAQe9LM7gjVE7Fc50CSrE9p/lSTQZ5oNjxsb8h3Yua/E8qB3JM2e
+	 q36ePuOfUuEDMLaRE/ze6etWecak/HKG8dArIEDURdHxFqf5DU1UOtU1ext8w0OdvmuT0
+	 6yDskTi8D/L4OnAPCfoBYPAJMuXcvM7mL0TkuJgGsdsjWYANhS+RyEDYRwihywznr2jfc
+	 3kGrQ+Nv7Yc8WwCWjXDhuRNDxekLDbnB8IZ1JP6simLTRo62eFYbCvxkYBo3c0R20UDyr
+	 zZbt8mCqkLGep1OIwKcoOMFuhe1w6hoV9WwwGyW/aijAfJmcSimOSUYFnihECF6J29w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=f5d1RGm2;
+	arc=fail smtp.remote-ip=198.175.65.21
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6710C606A324
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 18:32:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6710C606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--ctshao.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B872606A31C;
+	Wed, 11 Nov 2026 18:33:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B872606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=dS73KLWm
-Received: by mail-ot1-f71.google.com with SMTP id 46e09a7af769-85c1135c289so2591595a34.3
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 10:32:14 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794421933; x=1795026733; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:mime-version:date:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=vZmzfUzzweDILEhd2+M+U3xfy6iAuTlSFuI18jyrNso=;
-        b=dS73KLWm8Cj1YP2E11u/jG6biyWe+l4V1QVgIA+7xF2dJbbm+iX38lzP2aqChQCxw2
-         amuaAtY1lQWALElhJyn5xKZfOOy1tWLYPW9jT0jZJNkMysb/vSPTDuQggX7JnHKlKjka
-         JmHIa9ysIusPvvyEPRwB8NUwI0CsXnPb+GWFMxUifkknyloPFsqUNC1JqmoAamo8+Nwb
-         RJAwRDuygNKYAkkRBdaQPlgBmUX6BZrY39oxOPrkJZBabtMJy3adfMlnqJ5Tg2qpZN7F
-         qyQkZJgNclY4ZvKt4eO942ua+E8hhxyvIjiI19IKfyj4S79HtZfmLNc75TCJCseVpKbE
-         lJzg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794421933; x=1795026733;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:mime-version:date:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=vZmzfUzzweDILEhd2+M+U3xfy6iAuTlSFuI18jyrNso=;
-        b=r2UiK0cjinH6NEov7gYfc8p2Ejv3ahFU6AbI03dYc3DH7eFzaFUOy0JTrdmJCLtmKT
-         a3pTt9+QK8im9l4i1EMvtcXaPIErYVd0qcAMt028foFnj0XXBM6VlLsQr1uxdTaC6OaR
-         aZcGeX96H5cx3930mLEjH/fQ3HvYC71rFY6nzSJNdKKWK4CptRSEMvDIvJXE0B7Izp2j
-         gHSNuIYOnCxhPNCYIUVB9C7pUoDJvXbkjxyi7Hm+oHNeGH/k/cb8u3H8CZhVfCAY21TT
-         MIAOA0JaPlexcJPmdIRp51a/zUhOWrlxBBjVrrTf3PacNvxMSBoH42EelA8RNq8fVtNC
-         2RJw==
-X-Forwarded-Encrypted: i=1; AL+hErGKrcIko9vNaY17SX9umsBlZNwVYXRCbnwJw/DSyK2twCquFkdz1UigdJKK5wtnTLzkP6mY24c2LdNgzuI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/WiCpDqE7zoFJ6d02MgSyL8JMUGI+Rc8jvlUjytqwVONUgm96q
-	K2YgJ9ynZzaHlTh/9h04oWSPanYAkLnggnjCZC+bbRp6c0uwE5JWAIWHMx2p24/lY9tbSiBbqJ5
-	FJLWcKw==
-X-Received: from jahi21.prod.google.com ([2002:a05:6638:8b55:b0:615:c1f0:a936])
- (user=ctshao job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6808:5390:b0:4c3:e93e:e331
- with SMTP id 5614622812f47-56b967c2a3fmr2150104b6e.30.1794421932812; Wed, 11
- Nov 2026 10:32:12 -0800 (PST)
-Date: Wed, 11 Nov 2026 10:32:09 -0800
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=f5d1RGm2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794422003; x=1825958003;
+  h=message-id:date:subject:to:references:from:in-reply-to:
+   content-transfer-encoding:mime-version;
+  bh=zWm2Og6HAohtA9JVh3HCkOD+9H8QOd6KLxXPsc2XVQc=;
+  b=f5d1RGm2QR1sntF8GsHHwnAAOKtWXzpQWvJrPprzPirFMmIQDyO4zdhT
+   9w0WOlHk7dv3Ua+2Vsy2iMuMX89vTOVCWg7OTqCOp8DC/KXQCKYHkdYrJ
+   qV0YEqV3xfFUeVODKHY51KqE2Zs1Ivqf8aZ0QBY1pTafGUrmGPJ58sYZn
+   8+nn2Kf7T3vuqBG4nxJBD8ffkky6sIVhawGB1Vl0pU8KEq5j9NiJa53eZ
+   TH2R4IMLsjPRC/v/1UuStlrurOsn0XOfgWuFp9Hj/SaaKQjzCKmJG55R8
+   2ofkUxn5iN9qG2/L6YlVaN5yad996KeF/LQc6ID6g3zFv0G7/w4U7zM+S
+   Q==;
+X-CSE-ConnectionGUID: bO6iZjXyT4ymBqLZ0aAw+A==
+X-CSE-MsgGUID: AleqptewSZeRaXEjj9S2tA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3283372"
+X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
+   d="scan'208";a="3283372"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 10:33:22 -0800
+X-CSE-ConnectionGUID: AFurqsN5Ry2GSWuDLyiyuw==
+X-CSE-MsgGUID: ecHfPJXeT0qbdTeeq2qH4Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
+   d="scan'208";a="8477292"
+Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
+  by orviesa002.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 10:33:22 -0800
+Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Wed, 11 Nov 2026 10:33:21 -0800
+Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
+ FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56 via Frontend Transport; Wed, 11 Nov 2026 10:33:21 -0800
+Received: from BL0PR03CU003.outbound.protection.outlook.com (52.101.53.57) by
+ edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Wed, 11 Nov 2026 10:33:21 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=cd2y1qzauVGy0vcpTLtDCfnugxLICXBiBUQ5MDJDfNw9TPx2+plKgZWd4r6HDCQkM/s4M3YYr3hrErOMpisKjFTfk2+3psnIqhjAfN8b7xeE/i6XfoMQ0Bb3Lt40EU5IqhDptQnIIt/EqMyBXocde4sDgoMKYVJUjyeD7a/kbUHZcfGsiybO1TFZdUE41T8GMB0+9kePp6na0Zr3uDYR5eYn4oZ/Qwm1k+TKvM3KPVhkgJEgy1QCqo8IQoOv5EPVSHLMUUW1WQaT9f5r3DCj8MWkSEVdCgqMo05Z80aKCMdc0mphKrBWo7TqCRX0FTQOnYoEXydg5v3ZEAMY56+nkA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=19lcdKMgk38TdoXCiWhhelfCcBR8YDtZtnaqUa+rXMs=;
+ b=BZwmrnxL0FzGOh1+5zMnk0wA0Z5axMQ6CfaPreVjaVQ4z6cID12DZTKqkK7v/ysTZ9EF1qcY7LBW271tzGWvIh3hWQFN8lDDkBd0I8/Sj6Bc089jTucMnN2aRdPzulzfoTBwFzOUPs7Uy/LsXyhsp8w/2NEHhv2G0mUGpU9nCc7aBnQXOCSpvtieTpn+Ns/zCBJVDcp0ZLEILmG6/MSm0bL3Vo21PrrhtdBTRRuof1xBZx6HrsRsECKs7xr9AGVdbvy0lcv5srKfEDP3FWUUjFaBjb3U8zKjQ5otBSxRK7AFo1Ycm42s1lRw+E1mvr38MgAnbU+JOj5nDEwTvmMRQA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from IA0PR11MB8379.namprd11.prod.outlook.com (2603:10b6:208:488::20)
+ by EA3PR11MB771531.namprd11.prod.outlook.com (2603:10b6:303:2eb::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Wed, 11 Nov
+ 2026 18:33:19 +0000
+Received: from IA0PR11MB8379.namprd11.prod.outlook.com
+ ([fe80::549f:e4b3:e10d:aaa6]) by IA0PR11MB8379.namprd11.prod.outlook.com
+ ([fe80::549f:e4b3:e10d:aaa6%6]) with mapi id 15.21.0615.007; Wed, 11 Nov 2026
+ 18:33:19 +0000
+Message-ID: <3c48dac2-78af-44c9-b546-e5fcf7bbd8d6@intel.com>
+Date: Wed, 11 Nov 2026 10:33:15 -0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 RESEND 5/7] fs/resctrl: Release the limbo RMIDs when
+ the CDP state changes
+To: Jinjie Ruan <ruanjinjie@huawei.com>, <tony.luck@intel.com>,
+	<Dave.Martin@arm.com>, <james.morse@arm.com>, <babu.moger@amd.com>,
+	<corbet@lwn.net>, <skhan@linuxfoundation.org>, <rdunlap@infradead.org>,
+	<tglx@kernel.org>, <mingo@redhat.com>, <bp@alien8.de>,
+	<dave.hansen@linux.intel.com>, <hpa@zytor.com>, <ben.horgan@arm.com>,
+	<fenghuay@nvidia.com>, <tan.shaopeng@fujitsu.com>, <will@kernel.org>,
+	<gshan@redhat.com>, <zengheng4@huawei.com>, <jic23@kernel.org>,
+	<x86@kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-doc@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>
+References: <20261110133938.3768632-1-ruanjinjie@huawei.com>
+ <20261110133938.3768632-6-ruanjinjie@huawei.com>
+Content-Language: en-US
+From: Reinette Chatre <reinette.chatre@intel.com>
+In-Reply-To: <20261110133938.3768632-6-ruanjinjie@huawei.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MW4PR04CA0139.namprd04.prod.outlook.com
+ (2603:10b6:303:84::24) To IA0PR11MB8379.namprd11.prod.outlook.com
+ (2603:10b6:208:488::20)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,329 +140,236 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.567.gdb80ae8cd5-goog
-Message-ID: <20261111183209.1892421-1-ctshao@google.com>
-Subject: [PATCH v8] perf stat: Include PMU name and split uncore events per
- PMU in metric-only JSON output
-From: Chun-Tse Shao <ctshao@google.com>
-To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
-	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>
-Cc: Mark Rutland <mark.rutland@arm.com>, 
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
-	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
-	James Clark <james.clark@linaro.org>, Hang Zhengyang <hang.zhengyang1010@gmail.com>, 
-	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Chun-Tse Shao <ctshao@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PR11MB8379:EE_|EA3PR11MB771531:EE_
+X-MS-Office365-Filtering-Correlation-Id: c157dad3-f002-4e42-3e88-08df4022420d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|23010399003|1800799024|376014|7416014|366016|261009223027099003|10067099003|261028144727099003|261026121527099003|261026140227099003|261102123227099003|261021123027099003|261022075727099003|261021121427099003|261022105027099003|5023799004|56012099006|4143699003|11063799006|22082099003|18002099003|921020;
+X-Microsoft-Antispam-Message-Info: 40FFrXuYgRCKJBVd68GRmACiD83ebGqEDQTDHW9QeNuL3qIHtCoh/ZjKAZK5Hsq/KYKY4dgTNh4uuxy7h4e+SEk+Tgvzh93L9dKYmaUBdwUbvSD6Yups1tQQSFuJBog6thfD1GoUd6AhWecMvtywI+4W3U6SmfCfJK8D82w253Q3ou4d1ZpWPy/G+dmQq9SgNonip9/jPoVeI9KsHpXalkW+8dkfDvtVaftQ9IL6VOLTyO5Cn54sQuzV7vva4yNVQsd65al4oL+pk2qP4SO7hIH6RZl5blhgE84ii4SOejtQFQQSpB2l8G1vJt939V+rsyVBxrkM+uPmKzu4ljYhkoXd9H91Sa31UU8CuZsu4fFyry4lUjzCkTh0qnAi6DCg5ZX6kmf6NkCUkCn87Ac1Xc4GKNvy7A4U7TT/TKal61I01NkFecmlqxppnp/xjmY6JBkpRjpVAlLscTBJzbHoVlHYUUVAhotovCnjUC7GpeNroLeJl/1dvzngoZ/5cTljqbH4+P4B68IawmO10dgC/TyL/qAzvd4JflUUlTIfD4gQV3ZILLuwVDPYr7KOecq3tVG/PpfxyNy+epLa+MWOzyaXv6wtWkdvjQ11Vs7cvx4JnJfdbdMUuvUT0K0v98aVSuH9E3+VJ+NOj9eSDPQHRZnzcutVP0L+Zm0lNQYfBxOHFBt5orQPkkLaTmj67SPS5tsnVqkhUd2SNbNw97LPXg==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR11MB8379.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(7416014)(366016)(261009223027099003)(10067099003)(261028144727099003)(261026121527099003)(261026140227099003)(261102123227099003)(261021123027099003)(261022075727099003)(261021121427099003)(261022105027099003)(5023799004)(56012099006)(4143699003)(11063799006)(22082099003)(18002099003)(921020);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WEkxMk1NaGdEQnUwVWZyM0RvRkJ2bCs3bldPTG9hak1TS3lSeFYxSitRMERN?=
+ =?utf-8?B?WDM2MnhiUzEvTkhlRU1ORnRrSkNZYUR5MVRuNTdBdUZXN1R6cnJBRWVtRnhK?=
+ =?utf-8?B?MXhqcElTQXlvdEZyQ2N2SWNndGdGNUJaYTlITDlSZFhxZnRTUGFIMDJtV3Nw?=
+ =?utf-8?B?dk5qOGV0ekJpZFFob0E5WXd5cDJ1WS90cUN5dnd1U3lvTjBNVDZhbkcxUUNU?=
+ =?utf-8?B?YWxGRk0wbkZyZUs2RVBBaHNaanZ6UGVVbjRCdE1TbytscXVONGp1MkNpME9r?=
+ =?utf-8?B?YmxQeE4wbmE4R2t0Nzdqa29sZlpjQWNpei95d0o4S01aTmppTzcrcE1vVWR2?=
+ =?utf-8?B?QWFyK3dvS2JKSWdlVUVIb2NtUXR4d2N4SGkrQ0NSR3ljQ2NnT3VodXF5TGs2?=
+ =?utf-8?B?Z3YyMmFVak9VWkpCVDFYU0dwcGhUYXM0U1ZhbTRZazhHV3FwcHdqVTFxWjN5?=
+ =?utf-8?B?THpaL3JsdU9aalU2clVMNTBpN0xtVEQ5bTQrWlk1Zk5peXFmcERIRUNBOUF0?=
+ =?utf-8?B?c2gzSE1XNTNPTjVESG1iQThpSFFsdTM5YXJ3K0NzVDZxN3RtTkNtdmVRVEdw?=
+ =?utf-8?B?UFplZjJqVk9aK2hDZFZWRzUxWHo0STJlRWVINzZLaERJc0FzZ1ljVlZyUmdx?=
+ =?utf-8?B?djJ3aURFbUZLZ1hIdEdhNk1oVEtoc2lWalRGRGcxbnU1a0I3em9FUVZvS2VC?=
+ =?utf-8?B?SmNyd2UzNURiS1ZmL2p2R3RUNjU5cHdxZmtkd2tKQTl3ZUxpQm9VQnNyc05v?=
+ =?utf-8?B?ZDBRcUgvVHRrMlJOV0Z6UmtXSVphb3N5UFc1U1BKblYxb2pwM0hjOUhlalpy?=
+ =?utf-8?B?SlBLMDJTbGZuTjlaWmJneExOZ1p1Y2NvRzREdFcwZkRhbTE0a05zcWhEcGpz?=
+ =?utf-8?B?Wnc4L2EvZ2NJZktBNHhqMzZvdXU2K1NxaVJxR1o4YnMzcGJkMWJNWm9Ia25m?=
+ =?utf-8?B?WVZlUUUxTVpKNDZPSE1HZjNUWFpNcVp4YlN4ZmlnNUJJM1UxWnlneTdOMWVp?=
+ =?utf-8?B?K3BjZnhCUVRoUkV5UmhZODlwMWpOaWJJek1OK3FTSHpQbldiYVdjWCtjN01s?=
+ =?utf-8?B?MzNkS3h3U25Wa2ZHU3l6Q05LdU1HQ3YzRUtJU1p2UXFDbmU3OEM5TVVnK2lQ?=
+ =?utf-8?B?Yk5CL0plbjl2enZyOWV3dFp1eVFuSStzc05VNzg2YlFBQm5IWndwN1AwcTg4?=
+ =?utf-8?B?NkZPeTVlRFZhaEpQMEUyTzUwbElkRDh4UzVXZ2NhZzF1K3g2RC9QZDg0eDVs?=
+ =?utf-8?B?bmdnUkp5TkhhU3pOdDBIRnU4VFVvUW9nV0syZmx2THAyMlRZR3lITFJOdTNh?=
+ =?utf-8?B?YzZmL1dxOFRGS2E5WlY3NW9EUnJMTEptV051ZW5MNGQvR3lxNjBBNkFrYWJI?=
+ =?utf-8?B?U2NJRDZueVAwNU5UaCtHbm1UNUNEcks1aU9iU0JzcG1NQUUwbjUyd3YzcDdv?=
+ =?utf-8?B?Y3diOVE5SlB0aCtBcGFMNTc5NTVlREhCWUJFR3ZETk4zSFl6ZWZ2WWpVem9L?=
+ =?utf-8?B?TWl4a1ZoTXVWYmdhbXByZFVISXk4dTBBN0hSTWFaU0hJOGV6K2QxQlYwZjdp?=
+ =?utf-8?B?S1E1d04rNTgvUHUyTDA0SVJEZ3JwVVRxQ2NXaWlFVTFsSG43WDVhNmpoMnpP?=
+ =?utf-8?B?NG1vNUxGQjlvb210T0Z3SE1RU2dTQ1lnaDc2aGR4TDJLWExmZFNqcFBEc05Q?=
+ =?utf-8?B?MjE4cHVVU0IycGRsQVZXbWpzMWQ1d3RkTi81RlpOZUI0OUV1Qi9udXRFUDVq?=
+ =?utf-8?B?Tks2MVZvUFJIL2pRZDMwdEZhSVA0dzVlRlFCMmtZS2VrUHZHdU5GOW5BOXI2?=
+ =?utf-8?B?N0VMRkYzYWt4VWwwUjlQUkx1d3Q1RFJlNld6ZjBibDRqd3lXZnNkTm9rR0Vs?=
+ =?utf-8?B?Ui9PQVB6QXpva3BwUVZvVTJ1eU9WUHcwWFVUZndYc1BMcEtaOUhVcExZdExa?=
+ =?utf-8?B?MGJLa1NZRUNndEhnS0pyLyt4QTc2SEZKRjBXQVkzRWt6d2FIaTZ4R2NSL3My?=
+ =?utf-8?B?Zk8yc05YOFpTdU1xQUNKbm43T1I0QisvVVE2R3NLVnc0bWR6cjdKeFhsN0N4?=
+ =?utf-8?B?SWpjeFZ3eW1pbTJDeW9Oa2poRDd2aWFUR3NuQXVkSDI1Sk5ERmlRS2oxVXpR?=
+ =?utf-8?B?S1ZrTGVJaEJNbEdYZzR6bmtMUnkzRDVGUEw4d2VzRFBHQUpoUlBBdXZrNTlj?=
+ =?utf-8?B?S1RxdkRyTlRqOXhmbkJseFVnbkIrNGZkQnE0NDRNbkJodWRNV2gxemNqbkRV?=
+ =?utf-8?B?YXhaNURHeGtCUmFaRkZ2RzVQMUFHL3Z4OGZXcXR1Z294STVHc1NvSlhCOWJH?=
+ =?utf-8?B?K3hIUmlPZk8rb0RlUVRuVDF5NElxMEw2a1c1R2pqVDUvekZwT3ptb1VyOWRk?=
+ =?utf-8?Q?oqavr9BA1ClsZ4m0=3D?=
+X-Exchange-RoutingPolicyChecked: MSMrylB1RTwVFbsNcHsQNPyh9a/RvvUraPQ2IYUJ2feyI8JPxQcbhFu5If14lGS7+rryQqvBiEEC+kqHmAay34kSWv37C9NTJP/IBCV4RRd59HTF+0yWKoCVWFm83jmK0QZQ5GxbQbi0kCUNeR/4NEYXZifjjrkpncK2Df6xXzOdPlmvXTgFqZuL+z6eGYTmT7pBlpHiCzsialEiMmJ41Mr9brfd1pRSilNisfCtcXcGZ3TvJHrCdJbFjvZcOWxVdgkiNPmXXQuyk9xL8NnrN/ZBzXddq7VrDV3aqrcH6D1ckBx4SBy4AnBsRR2ce6o9p8Gf0h4E64X33/ubrJjj0g==
+X-MS-Exchange-CrossTenant-Network-Message-Id: c157dad3-f002-4e42-3e88-08df4022420d
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR11MB8379.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 18:33:19.3111
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: CVwS5dw62whO/b2A5fSaCnFR8ePFs1FhaV8aWLsYaQXogbOdmuYQuTf2eQmQjYx1UdNZnMY061CoCv9g68EkM1EzGpvA5Rew5iR+5UHRzfc=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: EA3PR11MB771531
+X-OriginatorOrg: intel.com
 
-When running `perf stat` with `-A` (--no-aggr) and `--metric-only` in
-JSON output mode (`-j`), `perf stat` evaluates metric expressions
-across all matching PMUs (including uncore PMUs like `uncore_iio_0`,
-`uncore_iio_1`, etc.).
+Hi Jinjie,
 
-However, `perf stat` previously formatted JSON output by printing only
-"cpu" : "<id>" and grouping all metric values on a single line per CPU
-without identifying which PMU instance evaluated each metric. As a
-result, when an uncore event spans multiple PMU boxes, `perf stat`
-printed repeated, ambiguous metric keys without PMU names.
+On 11/10/26 5:39 AM, Jinjie Ruan wrote:
+> On MPAM the counter of an RMID is selected by the PARTIDs of the CLOSID
+> that owned it. Without CDP, CLOSID c is PARTID c; with CDP it is
+> PARTIDs 2c and 2c+1. An RMID that stays in limbo across an unmount and
+> a mount that changes the CDP state is read through the PARTIDs of the
+> new state, which are not the PARTIDs its cache lines are tagged with.
+> 
+> With 5 PARTIDs:
+> 
+>   mount                  CDP off, CLOSID c -> PARTID c
+>   mkdir g1..g4           CLOSIDs 1..4
+>   umount                 RMIDs enter limbo with CLOSIDs 1..4
+>   mount -o cdp           CDP on, CLOSID c -> PARTIDs 2c, 2c+1
+>   limbo handler          reads CLOSID 2 as PARTID 5 > PARTID_MAX 4
+>                          MSC error interrupt, mpam_disable()
+> 
+> The other direction is worse because nothing reports it. If resctrl is
+> mounted with CDP and mounted again without it, CLOSID c is read as
+> PARTID c, which is in range, so the limbo handler silently tests the
+> occupancy of the PARTID of a different CLOSID and frees or keeps the
+> RMIDs based on it.
+> 
+> When a mount changes the CDP state, release the RMIDs in limbo without
+> reading them instead of restarting the limbo handler. Cache lines that
 
-Fix this by:
-1. Including "pmu" : "<pmu_name>" in print_aggr_id_json in metric-only
-   AGGR_NONE mode (-A) when evsel->pmu is a non-core hardware or hybrid
-   PMU. Software and tool events don't belong to a hardware PMU instance
-   and so are not labeled.
-2. Starting a new JSON metric line in AGGR_NONE mode (-A) whenever the
-   PMU name changes, so that a line only has metrics from the PMU it is
-   labeled with.
-3. Opening a metric line only for events that have a metric, as other
-   events print nothing in metric-only mode. This avoids spurious lines
-   like {"cpu" : "0", "pmu" : "tool"} for events like user_time, while
-   metrics on tool events, like tma_info_system_time (duration_time),
-   are still printed with the line prefix.
-4. Updating perf_json_output_lint.py to recognize the new "pmu" key in
-   the JSON test suite.
+This is a resctrl filesystem patch. Please take care to make it clear when
+the description refers to architecture specific behavior and when it describes
+filesystem behavior that impacts all architectures. First two paragraphs
+describe MPAM behavior. Above then jumps to resctrl filesystem behavior
+but it describes the filesystem behavior specific to MPAM systems as the
+new filesystem behavior for all architectures.
 
-Before the fix:
-  $ perf stat -M iio_bandwidth_read -a -A --metric-only -j -I 1000
-  {"interval" : 1.001017947, "cpu" : "0", "MB/s  iio_bandwidth_read" : "0.0=
-", "MB/s  iio_bandwidth_read" : "0.0", "MB/s  iio_bandwidth_read" : "22.5",=
- "MB/s  iio_bandwidth_read" : "0.0", "MB/s  iio_bandwidth_read" : "0.2", "M=
-B/s  iio_bandwidth_read" : "0.0", "MB/s  iio_bandwidth_read" : "0.0", "MB/s=
-  iio_bandwidth_read" : "0.0", "MB/s  iio_bandwidth_read" : "0.0", "MB/s  i=
-io_bandwidth_read" : "0.0"}
+Specifically, above needs a caveat that this new resctrl filesystem behavior
+is restricted to systems where RMID depends on CLOSID.
 
-There is no way to determine which uncore device generated the metrics.
+> still carry those RMIDs are accounted to the next user of each RMID.
+> 
+> The CDP state that matters is the one that changes the PARTIDs used by
+> the monitors, which is not necessarily the CDP state of the L3
+> resource. MPAM gives every CLOSID two PARTIDs in all MSCs while CDP is
+> enabled on any resource, so enabling CDP on L2 alone also changes the
+> PARTIDs the L3 monitors use. Add resctrl_arch_mon_cdp_enabled() to let
+> the architecture report this. Only MPAM can be affected, so the RMIDs
+> are only released where the RMID depends on the CLOSID. On x86 the
+> RMID does not depend on the CLOSID, and resctrl_arch_mon_cdp_enabled()
+> returns false.
 
-After:
-  $ perf stat -M iio_bandwidth_read -a -A --metric-only -j -I 1000
-  {"interval" : 1.000314908, "cpu" : "0", "pmu" : "uncore_iio_0", "MB/s  ii=
-o_bandwidth_read" : "0.0"}
-  {"interval" : 1.000314908, "cpu" : "0", "pmu" : "uncore_iio_1", "MB/s  ii=
-o_bandwidth_read" : "0.1"}
-  {"interval" : 1.000314908, "cpu" : "0", "pmu" : "uncore_iio_11", "MB/s  i=
-io_bandwidth_read" : "0.0"}
-  ...
-  {"interval" : 1.000314908, "cpu" : "56", "pmu" : "uncore_iio_0", "MB/s  i=
-io_bandwidth_read" : "0.0"}
-  {"interval" : 1.000314908, "cpu" : "56", "pmu" : "uncore_iio_1", "MB/s  i=
-io_bandwidth_read" : "0.0"}
-  {"interval" : 1.000314908, "cpu" : "56", "pmu" : "uncore_iio_11", "MB/s  =
-iio_bandwidth_read" : "0.0"}
+nack. The helper name and value returned on x86 is the first hint that this
+is not right. For x86 the value is not a statement about x86: CDP exists on
+x86 and can be enabled, so a function called resctrl_arch_mon_cdp_enabled()
+returning false reads as wrong until the comment above it explains that what
+is really being reported is whether CDP changes the IDs the monitors use.
 
-Assisted-by: Gemini:gemini-3.1-pro-preview
-Signed-off-by: Chun-Tse Shao <ctshao@google.com>
----
-v8:
-  - Gate "pmu" output in print_aggr_id_json() on metric-only mode and
-    skip software PMUs via perf_pmu__is_software(), keeping plain
-    `perf stat -a -A -j` unchanged and avoiding splitting default
-    metrics onto a separate "software" line. (Hang Zhengyang)
-  - Rebase onto the latest perf-tools-next.
-v7: lore.kernel.org/20261030192537.3079368-1-ctshao@google.com
-  - Pass the evsel to print_metric_begin() explicitly from all callers
-    instead of falling back to evlist__first(). (Ian)
-v6: lore.kernel.org/20261027203115.2647914-1-ctshao@google.com
-  - Open metric lines for events that have a metric instead of skipping
-    tool events, so metrics on tool events (e.g. tma_info_system_time)
-    keep the line prefix and are terminated properly. (Sashiko)
-  - Split JSON lines only when the shown PMU name changes. Tool event
-    metrics are no longer mislabeled with an uncore PMU name, and the
-    STD and CSV output are no longer split.
-  - Rebase onto the latest perf-tools-next.
-v5: lore.kernel.org/20260811230518.3360-2-ctshao@google.com
-  - Fix perf test "perf stat JSON output linter" failure.
-v4: lore.kernel.org/20260804210659.112192-1-ctshao@google.com
-  - Fix the line splitting issue, causing spurious empty {"pmu": "tool"}
-    objects and order-dependent PMU mislabeling.
-v3: lore.kernel.org/20260729170416.41904-1-ctshao@google.com
-  - Add before the fix output.
-v2: lore.kernel.org/20260715203055.2981363-1-ctshao@google.com
-  - Fix print_metric_begin() initialization in print_no_aggr_metric()
-    to ensure tool events always open lines cleanly.
+Every architecture now needs to match this. This looks more like forcing
+every architecture to indicate whether it has the same quirk as MPAM.
 
- .../tests/shell/lib/perf_json_output_lint.py  |  1 +
- tools/perf/util/stat-display.c                | 79 ++++++++++++++++---
- 2 files changed, 68 insertions(+), 12 deletions(-)
+If there is no way to handle this in MPAM driver then handling this should at
+least be contained between resctrl filesystem and MPAM driver. This should not
+be forced on all architectures.
 
-diff --git a/tools/perf/tests/shell/lib/perf_json_output_lint.py b/tools/pe=
-rf/tests/shell/lib/perf_json_output_lint.py
-index 8cde22ac9d97..0a16cae92766 100644
---- a/tools/perf/tests/shell/lib/perf_json_output_lint.py
-+++ b/tools/perf/tests/shell/lib/perf_json_output_lint.py
-@@ -65,6 +65,7 @@ def check_json_output(expected_count):
-       'metricgroup': lambda x: True,
-       'node': lambda x: True,
-       'pcnt-running': isfloat,
-+      'pmu': lambda x: True,
-       'socket': lambda x: True,
-       'thread': lambda x: True,
-       'unit': lambda x: True,
-diff --git a/tools/perf/util/stat-display.c b/tools/perf/util/stat-display.=
-c
-index b337cc23f413..6c9358b64b38 100644
---- a/tools/perf/util/stat-display.c
-+++ b/tools/perf/util/stat-display.c
-@@ -1,6 +1,7 @@
- #include <stdlib.h>
- #include <stdio.h>
- #include <inttypes.h>
-+#include <string.h>
- #include <linux/string.h>
- #include <linux/time64.h>
- #include <math.h>
-@@ -23,6 +24,7 @@
- #include "pmu.h"
- #include "pmus.h"
- #include "tool_pmu.h"
-+#include "metricgroup.h"
-=20
- #define CNTR_NOT_SUPPORTED	"<not supported>"
- #define CNTR_NOT_COUNTED	"<not counted>"
-@@ -361,9 +363,34 @@ static void print_aggr_id_csv(struct perf_stat_config =
-*config,
- 	}
- }
-=20
-+/*
-+ * In no-aggregation metric-only mode, JSON output includes the PMU name o=
-f
-+ * non-core hardware and hybrid events so that metrics from different PMU
-+ * instances, like uncore_iio_0 and uncore_iio_1, can be told apart. Softw=
-are
-+ * and tool events don't belong to a hardware PMU instance and so are not
-+ * labeled.
-+ */
-+static const char *json_pmu_name(const struct evsel *evsel)
-+{
-+	if (!evsel || !evsel->pmu || perf_pmu__is_software(evsel->pmu))
-+		return NULL;
-+	if (evsel->pmu->is_core && !evsel__is_hybrid(evsel))
-+		return NULL;
-+	return evsel->pmu->name;
-+}
-+
-+static bool json_pmu_name_changed(const char *name, const char *prev)
-+{
-+	if (!name || !prev)
-+		return name !=3D prev;
-+	return strcmp(name, prev) !=3D 0;
-+}
-+
- static void print_aggr_id_json(struct perf_stat_config *config, struct out=
-state *os,
- 			       struct evsel *evsel, struct aggr_cpu_id id, int aggr_nr)
- {
-+	const char *pmu_name;
-+
- 	switch (config->aggr_mode) {
- 	case AGGR_CORE:
- 		json_out(os, "\"core\" : \"S%d-D%d-C%d\", \"counters\" : %d",
-@@ -397,6 +424,11 @@ static void print_aggr_id_json(struct perf_stat_config=
- *config, struct outstate
- 			json_out(os, "\"cpu\" : \"%d\"",
- 				id.cpu.cpu);
- 		}
-+		if (config->metric_only) {
-+			pmu_name =3D json_pmu_name(evsel);
-+			if (pmu_name)
-+				json_out(os, "\"pmu\" : \"%s\"", pmu_name);
-+		}
- 		break;
- 	case AGGR_THREAD:
- 		json_out(os, "\"thread\" : \"%s-%d\"",
-@@ -1010,13 +1042,16 @@ static void print_counter_aggrdata(struct perf_stat=
-_config *config,
- 		fputc('\n', output);
- }
-=20
-+/*
-+ * Start a metric-only line. @evsel only provides the line prefix: the
-+ * aggregation id, the PMU name in JSON (see json_pmu_name()) and the cgro=
-up.
-+ */
- static void print_metric_begin(struct perf_stat_config *config,
--			       struct evlist *evlist,
-+			       struct evsel *evsel,
- 			       struct outstate *os, int aggr_idx)
- {
- 	struct perf_stat_aggr *aggr;
- 	struct aggr_cpu_id id;
--	struct evsel *evsel;
-=20
- 	os->first =3D true;
- 	if (!config->metric_only)
-@@ -1031,7 +1066,6 @@ static void print_metric_begin(struct perf_stat_confi=
-g *config,
- 		else
- 			fprintf(config->output, "%s", os->timestamp);
- 	}
--	evsel =3D evlist__first(evlist);
- 	id =3D config->aggr_map->map[aggr_idx];
- 	aggr =3D &evsel->stats->aggr[aggr_idx];
- 	aggr_printout(config, os, evsel, id, aggr->nr);
-@@ -1069,7 +1103,7 @@ static void print_aggr(struct perf_stat_config *confi=
-g,
- 	 * Without each counter has its own line.
- 	 */
- 	cpu_aggr_map__for_each_idx(aggr_idx, config->aggr_map) {
--		print_metric_begin(config, evlist, os, aggr_idx);
-+		print_metric_begin(config, evlist__first(evlist), os, aggr_idx);
-=20
- 		evlist__for_each_entry(evlist, counter) {
- 			print_counter_aggrdata(config, counter, aggr_idx, os);
-@@ -1095,7 +1129,7 @@ static void print_aggr_cgroup(struct perf_stat_config=
- *config,
- 		os->cgrp =3D evsel->cgrp;
-=20
- 		cpu_aggr_map__for_each_idx(aggr_idx, config->aggr_map) {
--			print_metric_begin(config, evlist, os, aggr_idx);
-+			print_metric_begin(config, evsel, os, aggr_idx);
-=20
- 			evlist__for_each_entry(evlist, counter) {
- 				if (counter->cgrp !=3D os->cgrp)
-@@ -1131,7 +1165,8 @@ static void print_no_aggr_metric(struct perf_stat_con=
-fig *config,
-=20
- 	perf_cpu_map__for_each_cpu(cpu, all_idx, evlist__core(evlist)->user_reque=
-sted_cpus) {
- 		struct evsel *counter;
--		bool first =3D true;
-+		const char *line_pmu =3D NULL;
-+		bool line_open =3D false;
-=20
- 		evlist__for_each_entry(evlist, counter) {
- 			u64 ena, run, val;
-@@ -1146,12 +1181,32 @@ static void print_no_aggr_metric(struct perf_stat_c=
-onfig *config,
- 				if (config->aggr_map->map[aggr_idx].cpu.cpu =3D=3D cpu.cpu)
- 					break;
- 			}
-+			if (aggr_idx >=3D config->aggr_map->nr)
-+				continue;
-=20
- 			os->evsel =3D counter;
- 			os->id =3D aggr_cpu_id__cpu(cpu, /*data=3D*/NULL);
--			if (first) {
--				print_metric_begin(config, evlist, os, aggr_idx);
--				first =3D false;
-+
-+			/*
-+			 * Only events with a metric print something in metric-only
-+			 * mode, so let the first of them open the line. For JSON,
-+			 * start a new line when the PMU name changes so that all
-+			 * metrics on a line share the same "cpu" and "pmu" prefix.
-+			 */
-+			if (config->iostat_run ||
-+			    metricgroup__lookup(evlist__metric_events(evlist), counter, false))=
- {
-+				const char *pmu_name =3D json_pmu_name(counter);
-+
-+				if (line_open && config->json_output &&
-+				    json_pmu_name_changed(pmu_name, line_pmu)) {
-+					print_metric_end(config, os);
-+					line_open =3D false;
-+				}
-+				if (!line_open) {
-+					print_metric_begin(config, counter, os, aggr_idx);
-+					line_pmu =3D pmu_name;
-+					line_open =3D true;
-+				}
- 			}
- 			val =3D ps->aggr[aggr_idx].counts.val;
- 			ena =3D ps->aggr[aggr_idx].counts.ena;
-@@ -1160,7 +1215,7 @@ static void print_no_aggr_metric(struct perf_stat_con=
-fig *config,
- 			uval =3D val * counter->scale;
- 			printout(config, os, uval, run, ena, 1.0, aggr_idx);
- 		}
--		if (!first)
-+		if (line_open)
- 			print_metric_end(config, os);
- 	}
- }
-@@ -1523,7 +1578,7 @@ static void print_cgroup_counter(struct perf_stat_con=
-fig *config, struct evlist
- 				print_metric_end(config, os);
-=20
- 			os->cgrp =3D counter->cgrp;
--			print_metric_begin(config, evlist, os, /*aggr_idx=3D*/0);
-+			print_metric_begin(config, counter, os, /*aggr_idx=3D*/0);
- 		}
-=20
- 		print_counter(config, counter, os);
-@@ -1573,7 +1628,7 @@ void evlist__print_counters(struct evlist *evlist, st=
-ruct perf_stat_config *conf
- 		} else if (config->cgroup_list) {
- 			print_cgroup_counter(config, evlist, &os);
- 		} else {
--			print_metric_begin(config, evlist, &os, /*aggr_idx=3D*/0);
-+			print_metric_begin(config, evlist__first(evlist), &os, /*aggr_idx=3D*/0=
-);
- 			evlist__for_each_entry(evlist, counter) {
- 				print_counter(config, counter, &os);
- 			}
---=20
-2.56.0.542.g3ef89b7020-goog
+I trust the MPAM folks to say whether it can or cannot be done in MPAM driver.
+If this is not possible in MPAM driver then it looks like this needs to go back
+to include the L2 CDP check as was done in previous version. With this check 
+gated by IS_ENABLED(CONFIG_RESCTRL_RMID_DEPENDS_ON_CLOSID) it does hint "MPAM"
+but would also need a comment to explain why that is done.
 
+> Reproduced on QEMU with the sequence above:
+> 
+>   mpam:__mpam_irq_handler: error irq from msc:1 'MSMONCFG_ID_RANGE', partid:5, pmg: 0, ris: 0
+>   mpam:mpam_disable: MPAM disabled due to hardware error interrupt
+> 
+> With the change the sequence completes without an error.
+> 
+> Fixes: 6789fb99282c ("arm_mpam: resctrl: Add CDP emulation")
+> Suggested-by: Ben Horgan <ben.horgan@arm.com>
+> Suggested-by: Reinette Chatre <reinette.chatre@intel.com>
+> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+> Cc: <stable@vger.kernel.org> # 7.1+
+
+Is the "7.1+" constraint needed?
+
+
+> diff --git a/fs/resctrl/monitor.c b/fs/resctrl/monitor.c
+> index f56d0e32fd06..87d744a168fb 100644
+> --- a/fs/resctrl/monitor.c
+> +++ b/fs/resctrl/monitor.c
+> @@ -70,6 +70,14 @@ static u32 *closid_num_dirty_rmid;
+>   */
+>  static unsigned int rmid_limbo_count;
+>  
+> +/*
+> + * @limbo_cdp_enabled - Whether CDP changed the hardware IDs the monitors
+
+"hardware IDs" should be invisible to resctrl filesystem. The filesystem and
+architecture separation should ideally hide these details from resctrl filesystem.
+
+How about something like below that also makes clear what "true" means:
+	"True if the RMIDs in limbo were placed there while CDP was enabled."
+
+> + *			used for a CLOSID when the RMIDs in limbo were freed.
+> + *			Only set when CONFIG_RESCTRL_RMID_DEPENDS_ON_CLOSID
+
+"set" -> "used"? (to highlight that all reads and writes are gated by
+CONFIG_RESCTRL_RMID_DEPENDS_ON_CLOSID)
+
+> + *			is enabled.
+
+"enabled" -> "defined" (to match surrounding language)
+
+
+Please match the spacing of surrounding code by using spaces, not tabs.
+
+> + */
+> +static bool limbo_cdp_enabled;
+> +
+>  /*
+>   * @rmid_entry - The entry in the limbo and free lists.
+>   */
+> @@ -1044,12 +1052,15 @@ int setup_rmid_lru_list(void)
+>   * resctrl_limbo_resume() - Restart the limbo handler after a mount.
+>   *
+>   * The limbo handler stops while resctrl is unmounted. Restart it on every
+> - * domain that still has RMIDs in limbo.
+> + * domain that still has RMIDs in limbo. Where the RMID depends on the
+> + * CLOSID and the mount changed the hardware IDs a CLOSID is monitored
+
+What does "hardware IDs" refer to here? On the resctrl filesystem side I
+think "RMID index" will be the accurate term that makes it clear what this
+refers to.
+
+> + * with, the RMIDs in limbo can no longer be read: release them instead.
+>   */
+>  void resctrl_limbo_resume(void)
+>  {
+>  	struct rdt_l3_mon_domain *d;
+>  	struct rdt_resource *r;
+> +	bool release = false;
+>  
+>  	lockdep_assert_cpus_held();
+>  	lockdep_assert_held(&rdtgroup_mutex);
+> @@ -1057,6 +1068,13 @@ void resctrl_limbo_resume(void)
+>  	if (!resctrl_is_mon_event_enabled(QOS_L3_OCCUP_EVENT_ID))
+>  		return;
+>  
+> +	if (IS_ENABLED(CONFIG_RESCTRL_RMID_DEPENDS_ON_CLOSID)) {
+> +		bool cdp_enabled = resctrl_arch_mon_cdp_enabled();
+> +
+> +		release = cdp_enabled != limbo_cdp_enabled;
+> +		limbo_cdp_enabled = cdp_enabled;
+> +	}
+> +
+>  	r = resctrl_arch_get_resource(RDT_RESOURCE_L3);
+>  	list_for_each_entry_rcu(d, &r->mon_domains, hdr.list,
+>  				lockdep_is_cpus_held()) {
+> @@ -1068,7 +1086,10 @@ void resctrl_limbo_resume(void)
+>  		 * it is queued again on a CPU picked now.
+>  		 */
+>  		cancel_delayed_work(&d->cqm_limbo);
+> -		cqm_setup_limbo_handler(d, 0, RESCTRL_PICK_ANY_CPU);
+> +		if (release)
+> +			release_limbo_rmids(d);
+> +		else
+> +			cqm_setup_limbo_handler(d, 0, RESCTRL_PICK_ANY_CPU);
+>  	}
+>  }
+>  
+
+Reinette
