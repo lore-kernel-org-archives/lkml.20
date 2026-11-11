@@ -1,56 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.246
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794404847;
-	b=QbsYvFzQXURj0GFS804fWowLKGzKMUk8M2py8YNdFEDu79cMyY4uWJ7ALnUI/pXDAcUF
-	 8rR39phkKeZTPEGsgxlWUNsP5L3NR6E65CWSJHjkrWrjlyEHxXP8thUnpeG60QOBD6m01
-	 hdj+sv6hCuMscy3UnoTIF18TJYR08S0DXtnS/xvBcceeAXftFPAyQ8NlpefjdVzdFXlRL
-	 svDZGYVQCCX8A5s0ZdJlXC0DbA15N9EknJgF8f2saaUtKJSbrZn7v21Lz7noTtMfZWRG5
-	 552ScCMWgLkd09oPJmNyepY2NJWQLCjJxROQm1DvdkQ0aRsd3gBSNU5PSgatKnAH+JA==
+	t=1794404953;
+	b=dLo6qtxvfgiq76wamRgcPp4G3/AwX4kOiQ/kBM8N0XJs/thXPn/RWd0lykit9cP0Vql5
+	 250rl2Crpi0A9t3CAFkW9DaJQWhrlfZ73gnR1Emh8KvS8lG1PBlp5zJgwBw7i1WpwgGzp
+	 nKBScaOU4ohMpnUEkgBvykv2Nk3x2PFpWpQWKQZzhclhZdQblolPXBkUW5kkyo+Ebo0IK
+	 EnQLV+aFxXYBzAq2Y8/teKoVOuKzehjRUKz+86Lm69+c1o/PzhJq29zWgsgVlKVMszk3l
+	 UnNuUIjSp0mDU6iEknYWMHGlJOC5rg85S+JXdOknNC/PiKT2lf21obeXvV1/P94f85Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794404847;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:To:Cc:
-	 X-Mailer;
-	bh=1BizE5bm2337kNlpzWkzdIe8Co2mGkxHMEG1w5RSHWo=;
-	b=k9kDCx4LeqbMZLp5iqOQnm/SskBLjAgFYk+8Dvsy5I54KeibzcvNNVFG1vD2K6NPu0oQ
-	 YFSLXDCHkSpMpdP8sP/v05mtlVPyXgVhzHytSDV+b7bzbbUOALqvn1Pw+rk3VPNtEUpEJ
-	 OLRugU/DNS/Em3qYiOnfuGv+uku81kStlG3ENdlg//szV3zzB9Jnl8LN1wo+Cv4oXq/ym
-	 URCpXIJeMo5wrFuOkKIuT9UnlvEGgFx5ZBBWiUFA1hjRqBVYc94d2PAs/LCrJRUEYWRho
-	 K77x+4/UFWq/id13eyu1tm5AVmTz1I5XDF3w8GBTyb3c8BCblDlbMocHb3p1080/rBQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794404953;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:From:
+	 Subject:To:Cc:References:Content-Language:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=Qdx8SBFr5A9el3l62V1Hnpyo8SLW7HjNDS/vMXmANvM=;
+	b=bmIEsnjelFDDUV6uguEFEXpS6mlWWiE/RCucd+LOlCDk6SDDK6SGRWWVlsjw/fiU8VGS
+	 af8oOjmd2wRcnxj3GjjLWsvoekxXUxtI6f3y3O+1H0bMYxbR4rzUUeosEQ7iTaOdCHh4U
+	 gm9ccQgugypr/ws4UXVaELYJ0gIBxtHRWH/gOJtKroEa7QARvOTazlS0oCNn2EqHZaR0W
+	 SmoWgw5RvFmUqUd9QEzk4CQTmfI0Rdr1Sryo97LI4fhZ13P9gGys1UwJfsNDbOkenKEVh
+	 zYjZkCGoK/e8+bDqVRXVwk068L0APvTd5Y/VqsYRsya9gAxoOuVDPLz/kwK/mItRamQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Sq9mFaZd;
-	arc=none smtp.remote-ip=91.218.175.246
-Received: from mta0.migadu.com (out-246.mta0.migadu.com [91.218.175.246])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kHGSC6rH;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AA66606A338
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:47:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9AA66606A338
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47C69606A326;
+	Wed, 11 Nov 2026 13:49:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Sq9mFaZd
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=VdMYcUi7XPWWy7iGCRQJnDkZk3T3knnACfUGqAi7Z1w=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794404844; v=1; x=1795009644;
- b=Sq9mFaZd7V6ryc7f0aRbOR9KaP+B+bn+Ot+Vu67lxIiKn+756DO83Zgt1lSyvJhzuTRuup6T
- eMO0Mpbu7d2EL0rr/jQmZYzZNZ13euWK+1QM4QaHZDGgKIGmkDI7nJDHllijpftJESBf5Mfrrgf
- k64WGpIMEYKUzHDlAsMB1pJQ=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 1d625bdf92d81dfe;
-	Wed, 11 Nov 2026 13:47:24 +0000
-X-Mizu-Trace-ID: 1d625bdf92d81dfe
-X-Migadu-Flow: FLOW_OUT
-From: Qiliang Yuan <qiliang.yuan@linux.dev>
-Date: Wed, 11 Nov 2026 08:47:18 -0500
-Subject: [PATCH] scsi: target: alua: Free target port groups with
- kfree_rcu()
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kHGSC6rH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46C871F00A05;
+	Wed, 11 Nov 2026 13:49:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794404952;
+	bh=Qdx8SBFr5A9el3l62V1Hnpyo8SLW7HjNDS/vMXmANvM=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To;
+	b=kHGSC6rHES3fHGZkuagSOTPK0LWKUZKCjuI+lKf1BasID5OyztlT+Ko/nNpHMz4Sv
+	 vPAcVMYZPLUMmmqJCkf1oJjzzW6wkhqQ8ypErW107oHctP34/qcyCdss4xUTb6qQja
+	 nOqGHv5GsAovhkdPZxCk1ybqg3zw7k8AXnC2viWd6wc+BVvA6sXa4KHjdNry0+KKQ3
+	 M9neRAmq4YT8GzC/oY/GKN2OGEC1piS7TW9gn7ccAXrbMDsGLeqgqOQ4Ui0G7OvsxZ
+	 aUxrSMvyzFwDzfCJUFgYI6yA9/fWRUlZxJVj5/nuV3CRsGjZXBe78pwJwitdKROhku
+	 Fu43Uec9NT9ZA==
+Message-ID: <5b068d22-4f46-4f82-8914-ffed5a0f6f0f@kernel.org>
+Date: Wed, 11 Nov 2026 14:49:08 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,75 +51,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+From: Hans Verkuil <hverkuil+cisco@kernel.org>
+Subject: Re: [PATCH v2 0/2] media: aspeed: order probe cleanup and last close
+To: Myeonghun Pak <mhun512@gmail.com>, Eddie James <eajames@linux.ibm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Jammy Huang <jammy_huang@aspeedtech.com>, Joel Stanley <joel@jms.id.au>,
+ Andrew Jeffery <andrew@codeconstruct.com.au>,
+ Ryan Chen <ryan_chen@aspeedtech.com>, Billy Tsai
+ <billy_tsai@aspeedtech.com>, linux-media@vger.kernel.org,
+ openbmc@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
+ linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+ Ijae Kim <ae878000@gmail.com>
+References: <20261109235731-aspeed-v2-0-mhun512@gmail.com>
+Content-Language: en-US, nl
+In-Reply-To: <20261109235731-aspeed-v2-0-mhun512@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261111-bug-target-alua-free-gp-v1-1-d1e692ae8694@linux.dev>
-X-B4-Tracking: v=1; b=H4sIAOVx9GoC/x3MQQqEMAxA0atI1gZM1YJzlcFF1FgD4khqRRDvP
- sXlW/x/QxRTifApbjA5Nepvy6CygHHhLQjqlA2ucp6IKhxSwIMtyIG8JsbZRDDsSI1v27pj5zu
- GXO8ms17v+ds/zx8vWtVmaQAAAA==
-To: "Martin K. Petersen" <mkp@kernel.org>
-Cc: Mike Christie <michael.christie@oracle.com>, linux-scsi@vger.kernel.org, 
- target-devel@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Qiliang Yuan <qiliang.yuan@linux.dev>
-X-Mailer: b4 0.13.0
 
-core_alua_free_tg_pt_gp() frees a target port group when its configfs
-group goes away, including the default group of every device when its
-backstore is deleted. Readers of lun->lun_tg_pt_gp may still hold the
-group, so it waits for an RCU grace period before freeing it.
+Eddie or Jammy,
 
-The wait is synchronous, so deleting a backstore spends most of its time
-in synchronize_rcu(), which adds up when tearing down many of them.
+On 10/11/2026 05:58, Myeonghun Pak wrote:
+> This revision requests the IRQ after its dependencies and synchronizes
+> IRQ/work before manual probe cleanup. The second patch fixes last-close
+> ordering and keeps the engine available until VB2 release completes.
+> 
+> Compile-tested on ARM64 with LLVM, W=1.
+> No hardware testing.
 
-Free the group with kfree_rcu() instead. Nothing else in the function
-needs the grace period to have elapsed, and kmem_cache_destroy() waits
-for pending kfree_rcu() calls on module unload.
+Can you review/test this series?
 
-Deleting 256 rd_mcp backstores through configfs, five rounds
-alternating with and without this patch, takes (median, min-max in
-parentheses):
+I don't feel comfortable merging this without your OK.
 
-  backstores  before (ms)       after (ms)     change
-         256  2108 (2105-2127)  692 (675-700)    -67%
+Regards,
 
-Signed-off-by: Qiliang Yuan <qiliang.yuan@linux.dev>
----
- drivers/target/target_core_alua.c | 3 +--
- include/target/target_core_base.h | 1 +
- 2 files changed, 2 insertions(+), 2 deletions(-)
+	Hans
 
-diff --git a/drivers/target/target_core_alua.c b/drivers/target/target_core_alua.c
-index 140154d93c430..4ef243ae843bb 100644
---- a/drivers/target/target_core_alua.c
-+++ b/drivers/target/target_core_alua.c
-@@ -1771,8 +1771,7 @@ void core_alua_free_tg_pt_gp(
- 	}
- 	spin_unlock(&tg_pt_gp->tg_pt_gp_lock);
- 
--	synchronize_rcu();
--	kmem_cache_free(t10_alua_tg_pt_gp_cache, tg_pt_gp);
-+	kfree_rcu(tg_pt_gp, rcu_head);
- }
- 
- static struct t10_alua_tg_pt_gp *core_alua_get_tg_pt_gp_by_name(
-diff --git a/include/target/target_core_base.h b/include/target/target_core_base.h
-index 002b0fc575876..cec29cbec1643 100644
---- a/include/target/target_core_base.h
-+++ b/include/target/target_core_base.h
-@@ -331,6 +331,7 @@ struct t10_alua_tg_pt_gp {
- 	struct list_head tg_pt_gp_lun_list;
- 	struct se_lun *tg_pt_gp_alua_lun;
- 	struct se_node_acl *tg_pt_gp_alua_nacl;
-+	struct rcu_head rcu_head;
- };
- 
- struct t10_vpd {
-
----
-base-commit: b3dfbde62cf1981c4638939c159dfd087b7a72e9
-change-id: 20261110-bug-target-alua-free-gp-1465539a269a
-
-Best regards,
--- 
-Qiliang Yuan <qiliang.yuan@linux.dev>
+> 
+> Changes in v2:
+> - Rebase onto managed reserved-memory initialization.
+> - Remove the research sentence and Assisted-by tag.
+> - Join the IRQ and delayed work before manual probe-failure cleanup.
+> - Keep VB2 release before normal last-close hardware shutdown.
+> - Drain the IRQ producer before cancelling resolution work.
+> - Balance IRQ disable/enable within stop and check STOPPED before power-on.
+> 
+> Myeonghun Pak (2):
+>   media: aspeed: join IRQ and work before probe cleanup
+>   media: aspeed: drain IRQ work before stopping the engine
+> 
+>  drivers/media/platform/aspeed/aspeed-video.c | 38 +++++++++++++++++++++++++-------------
+>  1 file changed, 25 insertions(+), 13 deletions(-)
+> 
 
