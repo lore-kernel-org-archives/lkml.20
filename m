@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794404376;
-	b=OcbScUnvcfVM0rXpQQTtaorghsfUMKM8CFa+DabeZQ1zhepUsSc3emdpoFJ0iffubtaw
-	 Fe1wd5v1Tla/zNEktRmQVXlNfgdIIEpctDRCCIACqRD7UMolgf+UWRFWSHTTbNLXBks6B
-	 8pO7elRi9J78TyOTYVrgZyvMvJGk7ukcuvKB6vmMcsvvdKNdTtOnlIGIHT+MDl61SQg5W
-	 xNEde+u8/xWvYQCrWL4zLE7saZT5lN9+SwswNzaexUUOrrG6M4KBq2kVX9sKnGgxbs0ll
-	 NbNWBk115ph7omEqRx/02unfu4CdB07l6Krzl32U1+SZNQFaz5sW572BlY4fzunYL3w==
+	t=1794404377;
+	b=Q488sh7nu4jCyVvXNWHG8UJsDjb3e/S/6Xs2BYuV6ZUIWXdbCZxtyVXG3eTMCGE2jCrX
+	 JKoP+Es0t8ffm64sA0WF5ZFKEEOyoZ9IDTqjn8lAv5oKJDc7YEx+ySuNXfT7VLaORC+91
+	 Z5nPchBcPHCWBOxEFZfk+yXUq+q5qRODDMFPr9PwET8Jsict5wBY6sOnR2q2GgqKbK5Xs
+	 CBbFECL4TM7uc346Vf8EI8UpWyfFCv8WMXS/WYpPsb4mcy4x37RkHSKea9L1yQOx44m7M
+	 sCTpKsxd8bQBZZuIcROsfagdIsTbLNtiFu560Eqjz4MaWkciSWpNrBiE7UEVpyUZUNw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794404376;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794404377;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=K4I/o6CHV7uwSOMyUOEfYoRv5bKSkijBCtQn3yP4qjQ=;
-	b=t7hrSAdISS6RIN2a6xMGUc81CuWsF4b7wd0thh75JXB7XwYpOZPvb4x42tEZlVyMODJD
-	 uQVMrI+97GCUJe1pgBXqRjmLVWEsheb+EHa1EmIyPRG/kntgfkx0+I3vkgn5ifdna2l+6
-	 l7r104v1fOKhAOVfnSq57lvPXh2PnHxlIWH2y0qApvLsCRX/QzDdWd+6T0Exp3k19RSe5
-	 OCM2Mz25zI5DruiQV7EfUebfXC28H5NB2Vo4kpy9Cu0JoAb1Zitqcc6an0TkA/zOUiBMC
-	 726VT1C36sLE4CL5tOgxfpCPpCWuyPV0pNwk2Abpmoqu63WDsdy9v+bm7DiB0lDZmwA==
+	bh=2kS9dicq9WJtkdcbUOwlBh5D/SqIBgi+IJdoGVG42Y0=;
+	b=Aih1aty53dG7VJw+vt+scHGWO/IN+egLD+VoHzE+TbfoOBXpN78hlo8wYDYEs+nc+7Cr
+	 7oAp8VLNjcgg/GvFsN4HTJRg8fGViRb6CebCpMoC9dOKcbY7dE3/1WVekd+uRJF+banlj
+	 UyloFKk6VJrRaxmRdJgGsVq+oRqSY/Z8Ji8RSJgeu9thqySP2M+CWUh4kXJinDiayan0X
+	 H4LTpIrUhA92p2nqPBgRwGs0aEHVVbEAI9nIHwU+qZ4myjyJtdWeADplue5uiKX/OkT0x
+	 TPQSzaG2L9guCnWETX7TKvfp3BSfzUtuaNBBQpGm4yRBWzewTnm5MUVD7lIwVEGxLsg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jYKgJGbw;
-	arc=none smtp.remote-ip=209.85.128.52
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PlV2MFSu;
+	arc=none smtp.remote-ip=209.85.128.47
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F617606A333
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D8C9606A33B
 	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:39:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F617606A333
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0D8C9606A33B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jYKgJGbw
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-49d05d51553so22220155e9.2
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PlV2MFSu
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a214c5c4c0so32058245e9.3
         for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 05:39:36 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794404374; x=1795009174; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794404375; x=1795009175; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=K4I/o6CHV7uwSOMyUOEfYoRv5bKSkijBCtQn3yP4qjQ=;
-        b=jYKgJGbwUMVzW6XM81olAybW2wZS3bz+4DJ8tE6l0NP0HhKrIBhxYe/6dKNJgHRAtX
-         0DPTYRmUh87+VUDIjARIVDWnE7pZZqcuePMYfFfGcrbg4KBcibWHr8xwlWQZpbBx2csE
-         VjxRSD3l+P8v3N8KnZrW5SatK/wjZwOdn5RdKwssH8JZWgnSWjjAuQgg0tq5cPla7qya
-         4ggrMNBgLGWS5JvgbTcajtV90SoHkfUp9ASWatXSraDN5bqxh4bg8FKORA9APWEgCn8j
-         2XGpchJT0GGbUFMlDd5meZmG+OWqrFRieVg4D8QYu317rlUbBtEnOzN9LjgR1Dbm2tpn
-         TnpA==
+        bh=2kS9dicq9WJtkdcbUOwlBh5D/SqIBgi+IJdoGVG42Y0=;
+        b=PlV2MFSuY3H+C2n/mlx9LVvCgKhCSJ3Z65sL1DoxD8Z7od8VnEbTN4OWZ6J0odDZAg
+         +pnCyEWSGy9wgrRviG/OyDetWNIbM+7xCzf0vwN5cgGN89Xts7c2T++JUAB6G4zFSaid
+         ou6qfPzwAfMp0XXwvQh5kwTfRLw1qpe4KHvQSVrzSqlGEGTidG1zjt+VMHHrqbIuwJ1L
+         tYq3X2GeA+UC5UxsxnfuhdviMK9HJ0bGmmlGUM2HQ6inABNIvOiXe5IED+r4kDeV1s8j
+         asHIBcTEm/1LVCsTWZJpw2FlyJeStHEzdEcfjqYZK5fup4a8jKL8r9ppjO5mpxgfONTV
+         Pkvg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1794404375; x=1795009175;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=K4I/o6CHV7uwSOMyUOEfYoRv5bKSkijBCtQn3yP4qjQ=;
-        b=ROXaVEX1wwnlODLRC+/Eyod1tzQCAvy2IRrN2ISbnDqwQmeNZOR/ZxY1/gDi3CekWB
-         FR4pGERRYeMihZUbMDSnrPlKs67CokFefsASf/oppqUnPClvZEAKUV6xoaFFPi24Q2j3
-         vX9tII1/Tg3hEPwyR9YBq1xH+1AN0qIVNvZfrio2A4kGP1ORlWLHDGXeQPW+91W+bwqO
-         cMqNiEd7qdsMA0jlK1DQPnN0HWBgFl3FdIWLcHRiiV7mfN0CsMkcGw9yxmrF4pB13TDM
-         3mmfaqZcUVvyuD8eUFPmq+pkFU6jwJ6K9q9RFExacSzn2XPqUXVUoCf3BMPO+B0O0jeU
-         3kPw==
-X-Forwarded-Encrypted: i=1; AL+hErGZaOwJeGGbnqei7yDuKNnBx4b8u9KYLy8gjsVX/skAtlrLavhcumZ6KXzPiMlKp/ghbl/4M77DVsCkNmI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8Px965vnDex9MHkuUzr3KJD7BgCbKcoyInu8wnE394U7m4ng5X
-	uRfEotSQZpYwfP75//Qms/JS8qXPaTsW7yclGr9tosRxRbfOPyvMXKbA
-X-Gm-Gg: AYBFou27ap+CRfyWHGSzwH6IpMaSVied7K9Mtyk925uRnrkNEi6dDv3sZLbebkCGuS8
-	yy+U4yOI5IExzekzWxNkOQy5IWaOJYvsSEQ1ndXiC2rSkItTum/OSeuz3Sfk7qnAb+1KI6FAPiR
-	q30lqJZySYNvVrfjK23iuv4JYK8PMPCe2NW+GoUWmEMIUOxzIBphf8OTn9tZgpv/w+nHXzhgtu3
-	XpwfV/bJC6t8lMY0UGlw+GxxEznsKKYFrvLDl8bv/xjUTDGdZ7raz2mfwkD0zI9ttZcmRR26WWQ
-	HjgOTIZEv7OAo/qG73rEytuElrEaGrGybed+6+uUfmvpTAWXv+9RZp1CSQj0CkMIYxPZ1yWBm07
-	P0fXT2UbyNxW7v/xLMvvllKFWjwlFNYs5oBpybCesaysQN5biK+T3ARDB0z2svEfGJ2cuLysoyj
-	jFRfE7gj8UFrY6Pg1rhFdqpHB6cWtwbQaCtE2Bn2GAYbZTKfiB8+gET4A2SRi9Y7Sn4UcON5MC3
-	GmdBtNpZK6wMsH3R8+QPd4f4EvQv3pLi0aK0J5YRAuqsroGNROeDZyr9J8nlrne5EQ+3EcK/15V
-	l4OYObe67394AwXIWwKA6CrusPxmOH1sV3I=
-X-Received: by 2002:a05:600c:1e04:b0:4a2:267:25b3 with SMTP id 5b1f17b1804b1-4ba093b8f23mr42257385e9.35.1794404374505;
-        Wed, 11 Nov 2026 05:39:34 -0800 (PST)
+        bh=2kS9dicq9WJtkdcbUOwlBh5D/SqIBgi+IJdoGVG42Y0=;
+        b=aCt/8/a0ki2Gxn6TipklqMBgqHCWNdLXoyGxYwvfZBXOAsOSwSZwvWErWQplYP061m
+         /pxg6EICEAj9htKP+Kylro7ph3pOzAZCZ3sM6Tb8cBWoF/MV9we/OuNy0c7D9w9qLU4a
+         WeaZgAYhoEG6J19sNzdVZdAE4smhap5ZfEYit6QSgwZYW8ro/biBlJ8vOBAtmgi57etN
+         u2wjzF1NEPDfj4S+Fx8FQlFemXMV6dufxflGZ83HPxVF9OiOyP0T/Hb6Fq8iwN8zIj29
+         ukHPxDrkF11xDF+rMkC9xXXWQHfRqBEB3EDGaXn61g1mrDi4HidbkueUB6n5ZEKZ77L4
+         Iwmw==
+X-Forwarded-Encrypted: i=1; AL+hErHFETAsw1HGtdlvIbfBg5ZnjMTG9i/r3GT7OO73zUQqSE4zFRWMJVd5c8FjKxmv9742IxW94IUI8e/6DAU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8Uwfr2tjHAHcr37QbGnQMyUexq9t2TAIgwQD/65CElqj7zxsuf
+	RBsEOYX38ctsJaZ06TX5yjqNckPcATSh3+4pD2QxBe3vGVHh1iNAtaD1
+X-Gm-Gg: AYBFou2pUisSF6c3N2iSsdcraGBg6ey20jhXP+f436zmCSadHwCVKUSwxQDMaDmG4Jy
+	2h2GIP/uvpsZEt/PDvgXodHy4TRVDrNoOpaP7XkB27q+PT97cY3IDonklqyJrpbB1jvqJeRdoe/
+	96sVjzJzzY/gvvXZdnw6fZmM1XcJaPAUCIOSP/2w6869b/6nwAvndKbpWmboaiXtxewfUTnP9tF
+	on+0aDxIAugxv0ZUFE/4jYVkeLQZRJySkNzhVi4m2qqL842H+BYv97su7RjI8VpmiJus2DzOB76
+	7n4eNxvatBnporcfDemfE565biHOlzeeHzyWmpWC0VW8QZCwb5qhkeH/PzmBdFIPxaxSlrzPlgF
+	SvtL9SAy5eacVBJfZ6BZvujcVkdFTZoDYlWYpibUwy8d/UFG8JfoGHQY5VN+mygHSNydWcus5pu
+	fZD6kQlLskT4he815dlkOAua3UTFvAuCgkeUW/vXU9RjwP89sWMsyDfJv9h/RVWgRC9xv3rB1EE
+	OsVnZTDAZX7AujxYrbEVl8/TsVKypf+3KnsuEaCnr8ZRziBXQHwNQmC5s3/9rAb0rqgMJRsSrUM
+	xLXvGgbY7u64TSc6gddZMrhzOjn4Hcxkt40=
+X-Received: by 2002:a05:600c:3486:b0:4a1:d8fc:8165 with SMTP id 5b1f17b1804b1-4ba093b981fmr42016525e9.20.1794404375439;
+        Wed, 11 Nov 2026 05:39:35 -0800 (PST)
 Received: from dev.Default ([86.127.229.203])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba01fea745sm136757365e9.10.2026.11.11.05.39.32
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba01fea745sm136757365e9.10.2026.11.11.05.39.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 05:39:33 -0800 (PST)
+        Wed, 11 Nov 2026 05:39:34 -0800 (PST)
 From: Agustin Santiago Isasmendi <isasmendi.agus@gmail.com>
 To: Russell King <linux@armlinux.org.uk>
 Cc: linux-arm-kernel@lists.infradead.org,
@@ -86,9 +86,9 @@ Cc: linux-arm-kernel@lists.infradead.org,
 	=?UTF-8?q?Stefan=20D=C3=B6singer?= <stefandoesinger@gmail.com>,
 	Navid Ghahremani <ghahramani.navid@gmail.com>,
 	Krzysztof Kozlowski <krzk@kernel.org>
-Subject: [PATCH 1/2] ARM: l2c: factor out the number of ways
-Date: Wed, 11 Nov 2026 14:39:29 +0100
-Message-Id: <20261111133930.3665251-2-isasmendi.agus@gmail.com>
+Subject: [PATCH 2/2] ARM: l2c: honour status = "disabled" on the L2 cache node
+Date: Wed, 11 Nov 2026 14:39:30 +0100
+Message-Id: <20261111133930.3665251-3-isasmendi.agus@gmail.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20261111133930.3665251-1-isasmendi.agus@gmail.com>
 References: <20261111133930.3665251-1-isasmendi.agus@gmail.com>
@@ -103,86 +103,87 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-__l2c_init() derives the number of ways from the cache ID and the
-auxiliary control register.  Move that into l2c_num_ways() so that the
-next patch can use it before the cache is initialised.  No functional
-change.
+l2x0_of_init() looks the L2 cache node up by compatible and enables the
+cache whatever its status property says, so a device tree cannot keep
+the L2 cache off.
+
+On the ZTE ZX279128S (dual Cortex-A9, L2C-310 r3p3) a PCIe read on one
+CPU deadlocks against an L2C-310 line operation by physical address or a
+Cache Sync on the other CPU, and the board hangs within seconds of WiFi
+traffic.  Running with the L2 cache off avoids the deadlock, so a board
+needs a way to say so.
+
+Honour the status property, as the newer cache controller drivers
+already do (drivers/cache/ax45mp_cache.c, starfive_starlink_cache.c).
+If the firmware left the cache enabled, it cannot simply be ignored,
+since nothing would maintain it: clean, invalidate and disable it
+instead.  No in-tree L2 cache node is disabled, so nothing changes for
+existing device trees.
+
+Tested on the ZTE ZXHN H3600: with the node disabled the cache stays
+off and the system runs normally; with it enabled the cache comes up as
+before.  The firmware-enabled path was exercised with a test-only
+change that enables the cache before the check.
 
 Assisted-by: LLM
 Signed-off-by: Agustin Santiago Isasmendi <isasmendi.agus@gmail.com>
 ---
- arch/arm/mm/cache-l2x0.c | 50 +++++++++++++++++++---------------------
- 1 file changed, 24 insertions(+), 26 deletions(-)
+ arch/arm/mm/cache-l2x0.c | 35 +++++++++++++++++++++++++++++++++++
+ 1 file changed, 35 insertions(+)
 
 diff --git a/arch/arm/mm/cache-l2x0.c b/arch/arm/mm/cache-l2x0.c
-index 470867160076..eaa1fb44886e 100644
+index eaa1fb44886e..0687e5a6ad10 100644
 --- a/arch/arm/mm/cache-l2x0.c
 +++ b/arch/arm/mm/cache-l2x0.c
-@@ -778,6 +778,26 @@ static const struct l2c_init_data l2c310_init_fns __initconst = {
- 	},
+@@ -1757,6 +1757,34 @@ static const struct of_device_id l2x0_ids[] __initconst = {
+ 	{}
  };
  
-+/* Number of ways, from the cache ID and the auxiliary control register */
-+static unsigned int __init l2c_num_ways(u32 cache_id, u32 aux)
++/*
++ * The device tree marks the cache as disabled.  Leave it off; if the
++ * firmware enabled it, clean, invalidate and disable it rather than leave
++ * it running without any cache maintenance.
++ */
++static void __init l2c_of_disabled(void __iomem *base)
 +{
-+	switch (cache_id & L2X0_CACHE_ID_PART_MASK) {
-+	case L2X0_CACHE_ID_PART_L310:
-+		return aux & L310_AUX_CTRL_ASSOCIATIVITY_16 ? 16 : 8;
++	u32 cache_id, aux;
++	unsigned int sync;
 +
-+	case L2X0_CACHE_ID_PART_L210:
-+	case L2X0_CACHE_ID_PART_L220:
-+		return (aux >> 13) & 0xf;
-+
-+	case AURORA_CACHE_ID:
-+		return 2 << ((((aux >> 13) & 0xf) + 1) >> 2);
-+
-+	default:
-+		/* Assume unknown chips have 8 ways */
-+		return 8;
++	if (!(readl_relaxed(base + L2X0_CTRL) & L2X0_CTRL_EN)) {
++		pr_info("L2C: disabled by the device tree\n");
++		return;
 +	}
++
++	pr_warn("L2C: disabled by the device tree but enabled by the firmware, disabling it\n");
++	cache_id = readl_relaxed(base + L2X0_CACHE_ID);
++	aux = readl_relaxed(base + L2X0_AUX_CTRL);
++	sync = (cache_id & L2X0_CACHE_ID_PART_MASK) == AURORA_CACHE_ID ?
++		AURORA_SYNC_REG : L2X0_CACHE_SYNC;
++	l2x0_way_mask = (1 << l2c_num_ways(cache_id, aux)) - 1;
++	__l2c_op_way(base + L2X0_CLEAN_INV_WAY);
++	writel_relaxed(0, base + sync);
++	l2c_wait_mask(base + sync, 1);
++	l2c_write_sec(0, base, L2X0_CTRL);
++	dsb(st);
 +}
 +
- static int __init __l2c_init(const struct l2c_init_data *data,
- 			     u32 aux_val, u32 aux_mask, u32 cache_id, bool nosync)
+ int __init l2x0_of_init(u32 aux_val, u32 aux_mask)
  {
-@@ -809,33 +829,11 @@ static int __init __l2c_init(const struct l2c_init_data *data,
- 		pr_warn("L2C: DT/platform modifies aux control register: 0x%08x -> 0x%08x\n",
- 		        old_aux, aux);
+ 	const struct l2c_init_data *data;
+@@ -1779,6 +1807,13 @@ int __init l2x0_of_init(u32 aux_val, u32 aux_mask)
  
--	/* Determine the number of ways */
--	switch (cache_id & L2X0_CACHE_ID_PART_MASK) {
--	case L2X0_CACHE_ID_PART_L310:
--		if ((aux_val | ~aux_mask) & (L2C_AUX_CTRL_WAY_SIZE_MASK | L310_AUX_CTRL_ASSOCIATIVITY_16))
--			pr_warn("L2C: DT/platform tries to modify or specify cache size\n");
--		if (aux & (1 << 16))
--			ways = 16;
--		else
--			ways = 8;
--		break;
--
--	case L2X0_CACHE_ID_PART_L210:
--	case L2X0_CACHE_ID_PART_L220:
--		ways = (aux >> 13) & 0xf;
--		break;
--
--	case AURORA_CACHE_ID:
--		ways = (aux >> 13) & 0xf;
--		ways = 2 << ((ways + 1) >> 2);
--		break;
--
--	default:
--		/* Assume unknown chips have 8 ways */
--		ways = 8;
--		break;
--	}
-+	if ((cache_id & L2X0_CACHE_ID_PART_MASK) == L2X0_CACHE_ID_PART_L310 &&
-+	    (aux_val | ~aux_mask) & (L2C_AUX_CTRL_WAY_SIZE_MASK | L310_AUX_CTRL_ASSOCIATIVITY_16))
-+		pr_warn("L2C: DT/platform tries to modify or specify cache size\n");
+ 	l2x0_saved_regs.phy_base = res.start;
  
-+	ways = l2c_num_ways(cache_id, aux);
- 	l2x0_way_mask = (1 << ways) - 1;
++	if (!of_device_is_available(np)) {
++		l2c_of_disabled(l2x0_base);
++		iounmap(l2x0_base);
++		l2x0_base = NULL;
++		return -ENODEV;
++	}
++
+ 	data = of_match_node(l2x0_ids, np)->data;
  
- 	/*
+ 	if (of_device_is_compatible(np, "arm,pl310-cache") &&
 -- 
 2.30.2
 
