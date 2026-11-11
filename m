@@ -1,67 +1,41 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.181.117.226
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794411334;
-	b=0ZyivYa0zpZP/iNbyH529jdrgn6fgeFB9Ds+RoolosOhKLWB74k8DiY5ClqyCk3ow89m
-	 E0umsX0f/AnJRlvLo3lGKnqCyCQHmgMn501z5yL+3uG4OhcxOSQ96pBgmznxQ8gV/FB13
-	 IuY1piudnPPoOr8zINYZWowvuGbQYZEVNlbSQhi5UTMxj0VyPsvwaqmIWCUBSbNabIbmv
-	 eG9eJU+fvGoApI+F5vCASTWph+s1NmNYSc1zsZAePGnZO/zvTc4FrpOQ4J8mPpRtc9YdE
-	 6j0rnCipuuYL8+FBfmqcg6+1IIgxavkLup8Xotm19kPfHgPGxQY4BAOy6knvjMYGMlw==
+	t=1794411340;
+	b=EYCjc//KsmSytTlia6KHcfhZLaDq+AFcn6832a1+jeWnLaFnIguTm8v07L4f6Ds1MtJz
+	 cv8dFN350BJI/Bq3Hx9LZfq13lf1iFCVH0H+autFWhGsAEdiAwTACf1bDIATToVfd9T9M
+	 HZSvBqT/V4jPieDqFz7HZz8u7ObdY25jCeiaaEGT+x/n/ClHs4DuMlPpnaPtcgymS1dem
+	 dlqh3wv5y9FoqmgFz7RGuaxSBIWJszBL0e+j7n4ReNwXYUvBb3CaOlY4Ga+GrvFrwfUwb
+	 LUvIc/vf/nAhCJqkA01ojcqgESfLL4w/Arw2nKwaCjXqGcv8eB7b805GT6ICs+Mthcg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794411334;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Scanned-By;
-	bh=eyAJwUXldOFiID1lt8LpzD8hOYLOWfNlSGMR02veMHU=;
-	b=EhbMJS+jU6uZzoFA/zNG5H8dId+edBB+yc3yG4vQMfLJbVCLhDxoYZ1n3fe8ca+9w7zT
-	 A/BA6HH5qJIm/j8jHc1RVJ2qwrLvDeHXF60S0kRixRQL4J+06VbbkTh30lTQc8hkKWh3K
-	 zyG86K5f7rYAEnXnEQ4QghGQqXdU69N/RDbxPp0CmZwwKdK6lCVfdZkkxs1eR+pdD1OUV
-	 wKqN/hcsYE/nJk4035k/eqznz5Cgb3587fGk5ihCtRO/nSNkOFCniGPDev4yoXKzbdD4l
-	 488AvYJBER6ltT/0EL9mA0VWFhJBET8AFSX4361NXh6JbxCYTJHFOSm8hB9BwuaE+Vw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794411340;
+	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:CC:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Originating-IP:
+	 X-ClientProxiedBy:X-EsetResult:X-EsetId;
+	bh=mn38Zl0I5ijetFhWRJtk/mApFNozzi2IHfkiTDeT1UA=;
+	b=jCKfLthyu3p19m6vu6d4+2zWYtpTHetjWP5rQr63MWpxIOSBbeFABeaVPny3qfnGoDp+
+	 DKIySVhwrnJtvW3EK+GQAQCTNMKbXeUsRgcvnta7jYiZUP7zGVfYaXKj/K5nfzAjz4+eH
+	 nBxacV3P/R6JVe0n3R78/NbbjtBlTe/+Erohu9g+I/QJwCSoGZDASjqlcOXcCb+0jbGpQ
+	 i2EEx4KXfpUHf59Ux16D0MPMbsOq7BJ2J65tm7tgn8hcBmDXBrJfkPFq3X6WCiHvuovG9
+	 7qGJxTkbZY4dkWyaUtrMOEEzf+6SiP755PzkSqWf+ea4lolbuzINJEfHE5xaHM2tO3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=iBFxcBzi;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=actia.se;
+	spf=pass smtp.mailfrom=actia.se;
+	arc=none smtp.remote-ip=212.181.117.226
+Received: from mail.actia.se (mail.actia.se [212.181.117.226])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 801E6606A331
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 15:35:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 801E6606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=iBFxcBzi
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794411332;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=eyAJwUXldOFiID1lt8LpzD8hOYLOWfNlSGMR02veMHU=;
-	b=iBFxcBziA3q9foKoJrYhazy5UenSJUnoQcwiCzrm8a4pTB/9LzW6pddKcIM2cbmkjdTo7E
-	GXeTV3IZGuhwcWp4XZ93GPiNO77L9elWeKALAXf8JB0tBbCLGDDVU3UO8mAUet5Kh+OPwo
-	lrOnTFcGqiCc5NARtOLY/HDP7FYf4ks=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-257-o0S3b9heP5iY-9-aCziosQ-1; Wed,
- 11 Nov 2026 10:35:27 -0500
-X-MC-Unique: o0S3b9heP5iY-9-aCziosQ-1
-X-Mimecast-MFC-AGG-ID: o0S3b9heP5iY-9-aCziosQ_1794411325
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 5D7A418007F5;
-	Wed, 11 Nov 2026 15:35:22 +0000 (UTC)
-Received: from [100.91.101.41] (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 105FD180054B;
-	Wed, 11 Nov 2026 15:35:17 +0000 (UTC)
-Message-ID: <88ed35ab-0e35-44b7-a74a-fe8db58755b9@redhat.com>
-Date: Wed, 11 Nov 2026 16:35:16 +0100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6465E606A336;
+	Wed, 11 Nov 2026 15:35:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6465E606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=actia.se
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=actia.se
+Received: from [10.12.12.95] (10.12.12.95) by S185ANL.actianordic.se
+ (10.12.31.116) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Wed, 11 Nov
+ 2026 16:35:31 +0100
+Message-ID: <427d908d-1fa2-442c-ac91-b3e925e5c7bb@actia.se>
+Date: Wed, 11 Nov 2026 16:35:31 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,52 +46,43 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v15 01/13] dpll: omit pin phase attributes the
- driver has no value for
-To: Ali Rouhi <arouhi@sitime.com>, "jiri@resnulli.us" <jiri@resnulli.us>
-Cc: "vadim.fedorenko@linux.dev" <vadim.fedorenko@linux.dev>,
- "arkadiusz.kubalewski@intel.com" <arkadiusz.kubalewski@intel.com>,
- "kuba@kernel.org" <kuba@kernel.org>, "pabeni@redhat.com"
- <pabeni@redhat.com>, "robh@kernel.org" <robh@kernel.org>,
- "krzk+dt@kernel.org" <krzk+dt@kernel.org>,
- "conor+dt@kernel.org" <conor+dt@kernel.org>,
- "cjubran@nvidia.com" <cjubran@nvidia.com>,
- "Oleg.Zadorozhnyi@devoxsoftware.com" <Oleg.Zadorozhnyi@devoxsoftware.com>,
- "prabhakar.mahadev-lad.rj@bp.renesas.com"
- <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-References: <20261110202607.55744-1-arouhi@sitime.com>
- <20261110202607.55744-2-arouhi@sitime.com>
+Subject: Re: [PATCH 2/2] usbip: identify the event handler with current_work()
+To: Michael Grzeschik <grzeschik@puzzle.ch>, Valentina Manea
+	<valentina.manea.m@gmail.com>, Shuah Khan <shuah@kernel.org>, Hongren Zheng
+	<i@zenithal.me>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+CC: <linux-usb@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+References: <20261111-usbip-v1-0-da5217ac71d7@puzzle.ch>
+ <20261111-usbip-v1-2-da5217ac71d7@puzzle.ch>
 Content-Language: en-US
-From: Ivan Vecera <ivecera@redhat.com>
-In-Reply-To: <20261110202607.55744-2-arouhi@sitime.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: John Ernberg <john.ernberg@actia.se>
+In-Reply-To: <20261111-usbip-v1-2-da5217ac71d7@puzzle.ch>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
+X-ClientProxiedBy: S185ANL.actianordic.se (10.12.31.116) To
+ S185ANL.actianordic.se (10.12.31.116)
+X-EsetResult: clean, is OK
+X-EsetId: 37303A29379CA95B667063
 
-On 11/10/26 21:26, Ali Rouhi wrote:
-> From: Oleg Zadorozhnyi<Oleg.Zadorozhnyi@devoxsoftware.com>
-> 
-> Let phase_offset_get and phase_adjust_get return -ENODATA for a pin the
-> driver has no value for, and leave DPLL_A_PIN_PHASE_OFFSET and
-> DPLL_A_PIN_PHASE_ADJUST out of the message in that case, as
-> dpll_msg_add_ffo() already does for the fractional frequency offset.
-> Today any error from either callback fails the whole pin dump.
-> 
-> A driver that measures the phase offset only on the input its PLL
-> tracks, or whose part holds a delay larger than the s32 the adjust
-> attribute carries, has no value to report for the pin, and a zero
-> cannot be told from a measurement.  A phase adjust request on such a
-> pin is passed to the driver without the comparison against the old
-> value, so the delay can still be set or cleared.
-> 
-> Signed-off-by: Oleg Zadorozhnyi<Oleg.Zadorozhnyi@devoxsoftware.com>
-> Signed-off-by: Ali Rouhi<arouhi@sitime.com>
-> ---
->   drivers/dpll/dpll_netlink.c | 14 ++++++++++----
->   1 file changed, 10 insertions(+), 4 deletions(-)
+Hi Michael,
 
-Reviewed-by: Ivan Vecera <ivecera@redhat.com>
+On 11/11/2026 12:34, Michael Grzeschik wrote:
+> usbip_in_eh() compares the task with worker_context, the first worker
+> that ever ran the event handler. Workers of the unbound usbip_event
+> workqueue are reaped when idle and new ones run the handler later, so the
+> check fails inside the event handler, and the remembered task_struct may
+> be reused by any other task, which then wrongly counts as the event
+> handler. stub_disconnect() relies on it to skip the shutdown of a device
+> reset from the event handler.
+> 
+> Ask the workqueue which work item the current task executes instead.
+> 
+> Signed-off-by: Michael Grzeschik <grzeschik@puzzle.ch>
 
+We sent a similar patch back in August that we forgot to follow up on. [1]
+
+Reviewed-by: John Ernberg <john.ernberg@actia.se>
+
+[1]: 
+https://lore.kernel.org/linux-usb/20260803104342.2790105-1-john.ernberg@actia.se/
+
+Thanks! // John Ernberg
