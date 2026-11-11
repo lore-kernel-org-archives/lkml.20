@@ -1,91 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.13.214.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794399652;
-	b=Tbv1K9q8umfq/pDKCpQ+ZOD0X9Qzx2SmRUcCJd/Ng3bncOq3/y/gSav7eOXsRLvCr6dO
-	 TivOWsTyB/vTUn1FCSMXjYYIqvicD9ybqBic6DbJECjs59wyKL5/87LfDhJflDdFFiQBq
-	 38Pfqoab7xPXw2A8YxNQcCCYLHnrCyk53jCT99HRrUPkvBM8EA1RXZ785gEnr0lDBMT5S
-	 vFDVJZzSO1P8Z8RS1x/djrcIg4fMFol5lIYgKCmzQO0SbSxTiojLbRvStEXsYPbCKVgDN
-	 SBL3QZxnJyesFCeJSxDkD/EHdcaR94NVpujiU8Ss1QhzBkY6YTTNBx9afTNI8vA4qtg==
+	t=1794399694;
+	b=2gTj3H0h2eg4S0t350qKu5QCHv+EbuH84v/3Y+t0HkBQPOTyvqnUEKKFNNzp36W4V36e
+	 oGy7yntawEqhmw9GMRHXGT+bqFaLUdL8KxySoS9PEF7TG5vpbNQezXFr1An3kjdAS+bZD
+	 Bx8dHQOb62ZeWJgmWKiWDBNdj8g9E3AXJe6IL8NMNjlx6heTJvgMQ4VFEP0vVhwFfQ4wG
+	 VZUiGhxxdPzDIPpA22WTAs8r2lfw+A9YW4MupaWTRQBJ/uNOAbXDkXYwSSAWgnBGVfQXQ
+	 bvj/RbRpuoCmIy/2Bd3TbNfx4Nq+cvbgh6an6ehHgggh4BFB5e8V/nfR4UVQr07r+Yw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794399652;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:X-Originating-IP:X-ClientProxiedBy:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794399694;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:From:
+	 Subject:To:Cc:References:Content-Language:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=4R7AlVu0KKxyJKqIxy2nyuf2wvMo6Z36suAc2KUbM/g=;
-	b=q3Inuntwt7k7Z4dGH2TfaeqC9kc/emPA84t7QsjzIQBqWwp+tAyyPEUwjaYO+2abgShY
-	 onVWqfGHlxcM6ydwbcEtJhPNzuTt3iCtpfIqodQsAq6q+53AP8t70iBWGAItYeNfD3dfz
-	 fU0sFs7tpr72HemwjHCiu+GoQyB8ArvBZ5+MGKwSgu89oJWY1w62yGKD4wPYvPCPlOFdP
-	 vYS/0poBkkcubU4qEJKCPAecHZ7D8Utt5Yr4MrIy9fRkvxGyIajYC4yD5Dd/fHTlbLat9
-	 H2yaOCwE6SrGuyeqx7Y/nrIRUauqY+eMl++pnyAOQX3nEC2WMvPixaLSJ6vqMOBnFYw==
+	bh=QixnS2+P928Z3P7eYyGnBjyll/ZkDWQqTsXeUlcA1nU=;
+	b=OhPRIl+/B9yRX3V1kCa1JSXy2tQxIgO/u2U2eTps0doVQfXeVVUMHQ8XNoA5JMA0GMNS
+	 BRqwdaxZ3wvU9xCW6pV8cc7gI2xLI8gdKatpYke9JT1cQ5dCJaOuJhSjKhyBeE+s/34d8
+	 pq9yRWfIWnZLGc+1Zbqtt6t5jdCs50EieOnn6TuTtirbls6Ws3NY9Nvr/qvL62oLeFj3e
+	 nhD4cT9lURvyVjZdYEP/5LQtyHB91pRcQuP9izQV4+HxpXzjY+AlIRl2w/k9f+iE3ZDhN
+	 5m39TEufocGngHkEFmMVAzXaUP8Y/CpJKYbWMiqZfflJ407r/s0RAJsCsd/9Q7OlPpA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amazon.com;
-	spf=pass smtp.mailfrom=amazon.com;
-	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=r5IsAGa+;
-	arc=none smtp.remote-ip=52.13.214.179
-Received: from pdx-out-005.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-005.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.13.214.179])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WoEIrym4;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8494606A326;
-	Wed, 11 Nov 2026 12:20:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8494606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63AB4606A31C;
+	Wed, 11 Nov 2026 12:21:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=r5IsAGa+
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1794399651; x=1825935651;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=4R7AlVu0KKxyJKqIxy2nyuf2wvMo6Z36suAc2KUbM/g=;
-  b=r5IsAGa+AGEj//078IM2laq01cLcB/G7fvGe7S1X3hDe8/lP/IsuZsj6
-   b+885D4XZEJ84m2ETjvZsW5ApxqLnPi4DHGdZFenfPQV581sJKx4QgXxg
-   k0YKt7qfEqqnljNdAVFlQMCXg7FE5didyiWsGPOiiEAJ6QWhKwgCZpn5T
-   GafPiJN6nj+81qrraLsj3KaGATZnI57WCCd+EBUUyuufgG042c0vyjGJh
-   m8RCwSBelzQ/vO/UE/SuWRZAKA+Kw26xug13KjhGe+As5h185k2yA5Cdp
-   Zdiknm4LzAVpSCsTLQanjvfwXNtsZI3NcYB419qdT+wd34lpNgUm0AVlO
-   A==;
-X-CSE-ConnectionGUID: vOcIWaQ9TryzBkvjITWbGQ==
-X-CSE-MsgGUID: CEa1KDJARp6SlAGeMjns2g==
-X-IronPort-AV: E=Sophos;i="6.27,207,1787011200"; 
-   d="scan'208";a="33687110"
-Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
-  by internal-pdx-out-005.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 12:20:49 +0000
-Received: from EX19MTAUWA001.ant.amazon.com [205.251.233.236:2064]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.50.212:2525] with esmtp (Farcaster)
- id 2b19eaad-eae1-4b65-b738-4396258f975f; Wed, 11 Nov 2026 12:20:49 +0000 (UTC)
-X-Farcaster-Flow-ID: 2b19eaad-eae1-4b65-b738-4396258f975f
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWA001.ant.amazon.com (10.250.64.204) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Wed, 11 Nov 2026 12:20:48 +0000
-Received: from dev-dsk-sieberf-metal-1a-7543e84d.eu-west-1.amazon.com
- (172.19.116.227) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56; Wed, 11 Nov 2026
- 12:20:44 +0000
-From: Fernand Sieber <sieberf@amazon.com>
-To: <tj@kernel.org>
-CC: <mingo@redhat.com>, <peterz@infradead.org>, <juri.lelli@redhat.com>,
-	<vincent.guittot@linaro.org>, <bsegall@google.com>,
-	<dietmar.eggemann@arm.com>, <rostedt@goodmis.org>, <mgorman@suse.de>,
-	<vschneid@redhat.com>, <kprateek.nayak@amd.com>, <hannes@cmpxchg.org>,
-	<mkoutny@suse.com>, <void@manifault.com>, <arighi@nvidia.com>,
-	<changwoo@igalia.com>, <skhan@linuxfoundation.org>, <corbet@lwn.net>,
-	<rdunlap@infradead.org>, <cgroups@vger.kernel.org>,
-	<sched-ext@lists.linux.dev>, <linux-doc@vger.kernel.org>,
-	<linux-kselftest@vger.kernel.org>, <bpf@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <nh-open-source@amazon.com>,
-	<hborghor@amazon.de>, <fmubeen@amazon.de>, <dwmw@amazon.co.uk>,
-	<karataev@amazon.com>, <sieberf@amazon.com>
-Subject: Re: [PATCH v2 0/4] sched/fair: cpu.max.runtime and idle refill for CPU credits
-Date: Wed, 11 Nov 2026 14:20:39 +0200
-Message-ID: <20261111122039.47687-1-sieberf@amazon.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <3bdd435fd868ed7ca7ea9061e5966b7b@kernel.org>
-References: <3bdd435fd868ed7ca7ea9061e5966b7b@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WoEIrym4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 181701F00A05;
+	Wed, 11 Nov 2026 12:21:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794399694;
+	bh=QixnS2+P928Z3P7eYyGnBjyll/ZkDWQqTsXeUlcA1nU=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To;
+	b=WoEIrym4EsVqXZzQ8NzbP3q6u2nORtof/OJ/xly5S1cS/jZe6f6AbJbYrg8NFTyUv
+	 PHsfQ98GIJQqIFrx21aEtEhbnwW3JxaiLAqZwpzoJDHzm9aXAg+5NstQdcRgugD613
+	 b3cBYIE6nx1xM3yVitEvVKBswEHWNo+eZI/q78GRI/M08FZ7IUTnH4cFFEpCxkpFdO
+	 HUIbrUZr2NlSlmRvt7qkJDNrvfYO4KoCbo4FMivfjHPMK5u0DQ8/v+HBG4Iy2jwqLZ
+	 J34FfMzvxuZFmvA0ytuPhp7j69nA1wMVUrk+b0h5o/2mMrO4CksLKzPB3hPIT5zF9m
+	 /15wO+yhDIaww==
+Message-ID: <028d9a3b-8de0-4a98-b3d1-07d83143361a@kernel.org>
+Date: Wed, 11 Nov 2026 13:21:31 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,46 +51,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-X-ClientProxiedBy: EX19D031UWA001.ant.amazon.com (10.13.139.88) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
+User-Agent: Mozilla Thunderbird
+From: Hans Verkuil <hverkuil+cisco@kernel.org>
+Subject: Re: [PATCH] MAINTAINERS: Remove Tomasz from VIDEOBUF-2
+To: Tomasz Figa <tfiga@chromium.org>, linux-media@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Hans Verkuil <hverkuil@kernel.org>,
+ Marek Szyprowski <m.szyprowski@samsung.com>
+References: <20261105070828.1992653-1-tfiga@chromium.org>
+Content-Language: en-US, nl
+In-Reply-To: <20261105070828.1992653-1-tfiga@chromium.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Hi Tejun,
+Hi Tomasz,
 
-Thank you for your prompt feedback.
+On 05/11/2026 08:08, Tomasz Figa wrote:
+> I've been working on other parts of the kernel for quite some time and
+> haven't had enough time to follow the development of the Media
+> Subsystem, including the videobuf2 framework.
+> 
+> Please accept my apologies and let me step away from the maintainer
+> role, so that someone with more time available for it can take care.
 
-On Tue, 10 Nov 2026 10:10:41 -1000, Tejun Heo wrote:
-> If a burstable budget is something useful to add to fair, can you do
-> that first and separately? It should be able to stand on its own.
+Thank you so much for all your efforts w.r.t. the vb2 framework. You made
+major contributions to it, and you'll be missed.
 
-That works for me as a starting point. I will resend just patches 1
-and 2 as v3.
+Best regards,
 
-> Seamlessly switching tasks between the classes in partial mode has a lot
-> of other integration problems beyond this one
-> [...]
-> The sched_ext part can just be a feature of your own BPF scheduler,
-> which you seem to be using already. There, the credit level is just
-> state in your BPF maps which your userspace can read and set, so the
-> maximalist version can wait until the need is proven. If you want a
-> handover between your scheduler and fair, that can be done from
-> userspace.
+	Hans
 
-The minimal viable bar for us is to never lose track of CPU credits.
-With patches 1 and 2, the userspace handover you suggest covers the
-planned transitions: on roll out and roll back, userspace reads
-cpu.max.runtime before the switch and writes it back after. The one
-case it cannot cover is an unplanned exit, a BPF scheduler erroring out
-or killed by the watchdog and falling back to fair, where there is no
-window for userspace to hand the level back.
-
-Thanks,
-Fernand
-
-
-
-Amazon Development Centre (South Africa) (Proprietary) Limited
-29 Gogosoa Street, Observatory, Cape Town, Western Cape, 7925, South Africa
-Registration Number: 2004 / 034463 / 07
+> 
+> Signed-off-by: Tomasz Figa <tfiga@chromium.org>
+> ---
+>  MAINTAINERS | 1 -
+>  1 file changed, 1 deletion(-)
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 93abbb315065..af302622c849 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -29512,7 +29512,6 @@ S:	Maintained
+>  F:	drivers/media/platform/video-mux.c
+>  
+>  VIDEOBUF2 FRAMEWORK
+> -M:	Tomasz Figa <tfiga@chromium.org>
+>  M:	Marek Szyprowski <m.szyprowski@samsung.com>
+>  L:	linux-media@vger.kernel.org
+>  S:	Maintained
 
