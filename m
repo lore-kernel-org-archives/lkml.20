@@ -1,102 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794403930;
-	b=TffM54Bn/QbR/G+Q4OXYSE6Smkr3g2tBfYbQavonEGTFDDG35pWpDFZIzyS6HwMzPJdQ
-	 f2tIJaAS5Lv8iX/Td0AGYAYyRy0VrFwAui1/Jz6OMe/JnJKWTvyZ+Ve7Tv1Mhr2I7+Lw6
-	 olxEYyP7HzvBo3LUPLpCVDWmm5SSEbYUVfLxsciTzdXWsJdUoikdMtCPSdy8W0KYelbL7
-	 Fe32DKAsVNBjTphHUDPjlAUkfvBIXWbgbSinRqD2gPiKhEPxzNezT5rqYBgGTjGnGJUDO
-	 gGqM9XeCGa9JJZnXV+PK6KntdIRwnwKwETwtzM67PJetrn8wL/Ih09rWsLq2NCe5NOg==
+	t=1794403941;
+	b=oeej90kStFU6adwPBaFtbkf8nKL+wLWU32FuAAgTnaUCU7IzXkLDXFfY3fCuBI0yG14T
+	 iS2C5S/4p26SfkYachGrmcT/z3ULfrlw+ITzzxBunen5qPbnMcphUtqPPFedKGECeTO+L
+	 HSnrL/BgIJhEbqAl1KYDjocj6ItBsM5JeZ+NZjqgLcHAp4Fyn7NBq3h7n9wUVrJay8FXt
+	 DyeULRP7dLPSPnhYBpx5i0SHGhBb2SWKrMl0ZI/YUidVI1xMVFwD2+TY4hgpvJ78Eq43a
+	 PvDYzcGdKapug7iq5CD+w9v/rOHUGZ8PCTkYsK7XhbHBmzKI421K/V1fK481eaagNOA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794403930;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Spamd-Result:
-	 X-Spam-Score:X-Spam-Level:X-Spam-Flag;
-	bh=8P9Gu9qBqcpDxpNjEf0DY5+KTMy2tpOB+o7FIRyeAgI=;
-	b=AZCBNM+z7VnWI5iVQMUzm1ZZqK+GTHeEek5BY+SL+6cck4wBBmZD5Oyt5ED7eOhJA5ax
-	 Wh83qhfrPKced1hWrnl8+0snhjb+d2n0XB4HsqTsIguhZUOjBLeYHVNraFTujMcfs2Vju
-	 oLd3AyGq3/uD/9/Y9D5ZQDQcF1r/3J2AKa106HL+1D9rWeuEIJ4n9bm7fVKGPz2e7zZ4H
-	 i41KasCAAzYm0zbPUMmjaexnrq8QuyIoTGxG2zblVR5pozqDYRHxNWgVlVRZEYiyhxt96
-	 VRPHZ+9V+cq4a9Z9/vDtHKXBiOzWMe16outLOgUZaca+Mv2jwGlwL0egHjvj3B+hioQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794403941;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=NVTyTjSD88ZslZBZa+qkaw0eEzwB/Yf3D99qESsb/J8=;
+	b=koeJNaQmLhc6g9t+dlqUsq9QCe2MZF/2TWMXPyGw9tYWUFmy8pA1TqKYroLyEPKM/IwV
+	 uimN5ptk+W9X1vTalRjig6SpMHVhOj3uVWUuSX2ikSpFTZgG3b91/RYk09VTGaRHWCOsg
+	 CpA2/F6R+q5d15aGPk9OYD9u2eVrIPkJ79/+vUXhd8qS2lqdUdTEGpqVCBYYgiqYWwT3f
+	 LTewy/EW8hDm7USx2Kqvc96r4XTJ4Th/ROhdIKre7Fd3ZGcr5PqRrG93115jM3hXZmpjH
+	 tGockUqznQhdw8zWq2FaEWl5JzHLjZrhbqM5PdRQHxsIkMs2ZUtzhMF1E+1cC7B6vrg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=rtTrYSlE;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=lmy+uA73;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=rtTrYSlE;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=lmy+uA73;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=UlO7TVsp;
+	arc=none smtp.remote-ip=209.85.128.49
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AFB0606A881;
-	Wed, 11 Nov 2026 13:32:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8AFB0606A881
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A5D5606A338
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:32:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0A5D5606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=rtTrYSlE;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=lmy+uA73;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=rtTrYSlE;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=lmy+uA73
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 87F915C4AC;
-	Wed, 11 Nov 2026 13:31:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794403913; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=8P9Gu9qBqcpDxpNjEf0DY5+KTMy2tpOB+o7FIRyeAgI=;
-	b=rtTrYSlElDgrPSs1uSVZcz0+060Gg1y/UDP2E/Nd2GeWP4ZvVADQE6k25qP37Q9UdCcKi2
-	h7UM9vNt4O0zjF6OldSUlwVZsTNcsiF/IjNR1xOl3LpT993busznKqIcf0NnVJrYwnM+7A
-	wnzJWSuIhciRC51xPy6CGHf3gd+JmXI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794403913;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=8P9Gu9qBqcpDxpNjEf0DY5+KTMy2tpOB+o7FIRyeAgI=;
-	b=lmy+uA73Aw+ljWQbrLvH3Kv0nCrZHFq7Trnth+h8DtbugolcZNEzmpgG2w5BjsGwZP4mIL
-	nocHAK7n7FnQt+Bg==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794403913; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=8P9Gu9qBqcpDxpNjEf0DY5+KTMy2tpOB+o7FIRyeAgI=;
-	b=rtTrYSlElDgrPSs1uSVZcz0+060Gg1y/UDP2E/Nd2GeWP4ZvVADQE6k25qP37Q9UdCcKi2
-	h7UM9vNt4O0zjF6OldSUlwVZsTNcsiF/IjNR1xOl3LpT993busznKqIcf0NnVJrYwnM+7A
-	wnzJWSuIhciRC51xPy6CGHf3gd+JmXI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794403913;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=8P9Gu9qBqcpDxpNjEf0DY5+KTMy2tpOB+o7FIRyeAgI=;
-	b=lmy+uA73Aw+ljWQbrLvH3Kv0nCrZHFq7Trnth+h8DtbugolcZNEzmpgG2w5BjsGwZP4mIL
-	nocHAK7n7FnQt+Bg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id AA91F1339F;
-	Wed, 11 Nov 2026 13:31:52 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 0iPRGEhu9GodVAAAD6G6ig
-	(envelope-from <tzimmermann@suse.de>); Wed, 11 Nov 2026 13:31:52 +0000
-Message-ID: <ed28619d-6ca7-46aa-82c0-c83f30a836e3@suse.de>
-Date: Wed, 11 Nov 2026 14:31:51 +0100
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=UlO7TVsp
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a214af2076so23509645e9.0
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 05:32:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794403939; x=1795008739; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=NVTyTjSD88ZslZBZa+qkaw0eEzwB/Yf3D99qESsb/J8=;
+        b=UlO7TVspUXSlocLLHY+xdNnTQFFzFI+0cINbb6Sg1Tn4yPiBCKR40++aZ4ooCKnCLV
+         EfMcGds/wjr+WCLnHyUwfHvHSDhIHcRS+mQKDfTZkRlna5eTjk59Rr6CO81D+V2Aah/V
+         WHODxTeVpICKMxLa5TqKOWGPiz7tHe8XdUGS0of9wMQXVB9c0XcwLVRHoDZDQ+v0/gFO
+         hfAGITQFUVIZR7cJuVCwqF3mkrwZHBrVUtrgnp6RwsJ/6vG99PKxoysj4QELbPxe0+Mk
+         iOByEbttPqohzAgTeNlgYnElPNG48arMMDUg8SafT7UYbFNfjdVgbRBwOtYOJA4r1irH
+         WF1w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794403939; x=1795008739;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=NVTyTjSD88ZslZBZa+qkaw0eEzwB/Yf3D99qESsb/J8=;
+        b=G2sR+jfqPUc7cyryZS6GFkI8titw3sPDiRND3TlE2wC0qvz7OjGX9vd2iu21TNL68Y
+         tGSDzAguIldmGlXvGSlr6MlNfZjVizHI24IHecpSgshUb09ndNbCpjyeiu32x4EPrAmo
+         1/qBY4KC0MdMKjVAihyxlJ8IPDYbL098GuFWvB88jTmTWjbTgtW/x1OKf6jAwoAgWVG0
+         +yqUPCN4/wWazcIYIecVpQ2IccBECdTw9LLObxS3kPFIaRKm1CD8yGGhO5p1SDIMci7b
+         Bb+LoBVRWyKRIUD+01B5EzwSimUo8XF1qVHpUTlOXSggCSORMIokFnIClhwtcsbOMqPR
+         eTXQ==
+X-Forwarded-Encrypted: i=1; AL+hErGQeEC4ibe0KU3KxPsZWZGBVREHF3NEgPcG7B8Su5Lx/Z0u4QUraFge2fTJ2+pm25ljKpDoFMqFDIbxEkY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9dmwKvO6UpBrA/JWfjldiimzN8P8CIljk/a/pLVFFjGeAZCEUh
+	/LB6H1JTRfNr4R49Obo7k1ufEQvcTWioJuP7DHJ+BGrf8uo7icwiisnP7rZecR7TGw==
+X-Gm-Gg: AYBFou0HZfkhZDrdYJZMN2l1V6pHtRbQxLH/Y8Z384y6lilcgtzMopKdPmNsNEDfeKk
+	8ei49Qugomw1Dz+GwPsajnP0qnxxGv5zJ86E7zZIUvVdccQq17VYFNKl7ThzwiyNHXWhovmIBhL
+	y+V4VJyFrbIMlx4c6oy6l7LfKk4NW5nUPSlWF1Jx7XkQmp7Xw6qo9yruCYOPxQQV59AxvvJs0GQ
+	hXb8wMweE9RTiw/vpKdhEYwTnyThAj7qjA6VmaZz7/kiQoBJZ5kEx9d4TGr6qsJ+8Bo1Gr/IBO1
+	Qref2isMqpVI1iAEmGTCHKqS3sxwLNm6gUZ6KGFsJ31/DZMtTLZRXRpmlzxV3xyVJ8ySRXvfH0J
+	1k4WVCIYJKMfdzXPVTyxUeeUbhoEWYaXM9zeLBpEk+PMqJ+qTFDWQYM91ugiAEDas1sY7jr8D7M
+	qVwSeN5YNMeUyx3ugwpCOPfpt9LHeVISqakKwsjsBJMM5ZDCNzoRyIlZxJPue2/n+XmcbuJU4YS
+	91y4KCjDQ27sMLj68HmNiXtE0yoI2JCEfRDxLNOqjxUMoXTjbwJAhulPcLIpVX2/XALz5oDdmFp
+	/i7fmmCHuX2int52kQjju63yj1TB0e4PK03T7GYUgdDN8Zreegr17MwaANyinUk66A==
+X-Received: by 2002:a05:600c:6214:b0:49c:fa20:cbfd with SMTP id 5b1f17b1804b1-4ba09375bb4mr41985575e9.20.1794403938536;
+        Wed, 11 Nov 2026 05:32:18 -0800 (PST)
+Received: from google.com (0.182.34.34.bc.googleusercontent.com. [34.34.182.0])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba0951fe22sm64107395e9.3.2026.11.11.05.32.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 05:32:17 -0800 (PST)
+Date: Wed, 11 Nov 2026 13:32:13 +0000
+From: Vincent Donnefort <vdonnefort@google.com>
+To: Steven Rostedt <rostedt@goodmis.org>
+Cc: Breno Leitao <leitao@debian.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
+	Steven Rostedt <srostedt@redhat.com>, kernel-team@meta.com,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2] ring-buffer: Handle a reader taking the new head in
+ rb_handle_head_page()
+Message-ID: <avRuXVxVrp-Kjiqj@google.com>
+References: <20261105-ring-buffer-head-moved-v2-1-05da40cebccc@debian.org>
+ <20261105155729.0f9c7e4d@gandalf.local.home>
+ <avGQnBjyUMwunknT@google.com>
+ <20261110025202.78c8c03a@fedora>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,140 +104,124 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 05/15] MAINTAINERS: add entry for DRM splash client
-To: =?UTF-8?Q?M=C3=A0xim_Pedraza_Padilla?= <maximpedraza@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Ard Biesheuvel <ardb@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>, Helge Deller <deller@gmx.de>,
- Peter Jones <pjones@redhat.com>
-Cc: Francesco Valla <francesco@valla.it>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Javier Martinez Canillas <javierm@redhat.com>,
- Jocelyn Falempe <jfalempe@redhat.com>, Sam Ravnborg <sam@ravnborg.org>,
- Ilias Apalodimas <ilias.apalodimas@linaro.org>,
- Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
- <rdunlap@infradead.org>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-efi@vger.kernel.org,
- linux-fbdev@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-embedded@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261027135342.2003632-1-maximpedraza@gmail.com>
- <20261027135342.2003632-6-maximpedraza@gmail.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20261027135342.2003632-6-maximpedraza@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-11.79 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	XM_UA_NO_VERSION(0.01)[];
-	TAGGED_RCPT(0.00)[dt];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com,gmx.de];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com,linux.intel.com,kernel.org,ffwll.ch,lwn.net,gmx.de,redhat.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	RCPT_COUNT_TWELVE(0.00)[28];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	TO_DN_SOME(0.00)[]
-X-Spam-Score: -11.79
-X-Spam-Level: 
-X-Spam-Flag: NO
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261110025202.78c8c03a@fedora>
 
-Hi
+On Tue, Nov 10, 2026 at 02:52:02AM -0500, Steven Rostedt wrote:
+> On Mon, 9 Nov 2026 09:21:32 +0000
+> Vincent Donnefort <vdonnefort@google.com> wrote:
+> 
+> > > The issue I think you hit was that we have two HEAD pages, when interrupts
+> > > come in. That is, we can get a state of:
+> > >   
+> > >   --> subbuf --UPDATE--> subbuf --> subbuf --HEAD--> subbuf -->  
+> > 
+> > How we can end-up in this situation? The cmpxch will only swap HEAD for UPDATE. 
+> 
+> The cpu_buffer->head_page is only updated by the reader, when it did its last read.
+> 
+> Let's look at it one at a time:
+> 
+>                               cpu_buffer->head_page
+>                      tail               |
+>                       v                 v
+>   +--> subbuf ----> subbuf --HEAD--> subbuf ----> subbuf ----> subbuf --+
+>   |                                                                     |
+>   +---------------------------------------------------------------------+
+> 
+> Then the writer moves the HEAD page around the buffer while there are
+> no reads happening
+> 
+> 
+>                               cpu_buffer->head_page
+>                                 tail |
+>                                   v  v
+>   +--> subbuf ----> subbuf ----> subbuf --HEAD--> subbuf ----> subbuf --+
+>   |                                                                     |
+>   +---------------------------------------------------------------------+
+> 
+>                               cpu_buffer->head_page
+>                                     |          tail
+>                                     v            v
+>   +--> subbuf ----> subbuf ----> subbuf ----> subbuf --HEAD--> subbuf --+
+>   |                                                                     |
+>   +---------------------------------------------------------------------+
+> 
+>                               cpu_buffer->head_page
+>                                         |                      tail
+>                                         v                        v
+>   +-HEAD-> subbuf ----> subbuf ----> subbuf ----> subbuf ----> subbuf --+
+>   |                                                                     |
+>   +---------------------------------------------------------------------+
+> 
+>                               cpu_buffer->head_page
+>         tail                             |
+>           v                              v
+>   +--> subbuf --HEAD--> subbuf ----> subbuf ----> subbuf ----> subbuf --+
+>   |                                                                     |
+>   +---------------------------------------------------------------------+
+> 
+> Now, I'll break up the update part:
+> 
+>                               cpu_buffer->head_page
+>         tail                             |
+>           v                              v
+>   +--> subbuf --UPDATE--> subbuf ----> subbuf ----> subbuf ----> subbuf --+
+>   |                                                                       |
+>   +-----------------------------------------------------------------------+
+> 
+>                                  cpu_buffer->head_page
+>         tail                                |
+>           v                                 v
+>   +--> subbuf --UPDATE--> subbuf --HEAD--> subbuf ----> subbuf ----> subbuf --+
+>   |                                                                           |
+>   +---------------------------------------------------------------------------+
+> 
+> An interrupt comes in and moves the head even more.
+> 
+>                                  cpu_buffer->head_page
+>         tail                              |
+>           v                               v
+>   +--> subbuf --UPDATE--> subbuf ----> subbuf --HEAD--> subbuf ----> subbuf --+
+>   |                                                                           |
+>   +---------------------------------------------------------------------------+
+> 
+> Now  the reader decides to read again and starts between the UPDATE and the HEAD
+> 
+> 
+>                                                  cpu_buffer->head_page
+>         tail                                              |
+>           v                                               v
+>   +--> subbuf --UPDATE--> subbuf ----> subbuf --HEAD--> subbuf ----> subbuf --+
+>   |                                                                           |
+>   +---------------------------------------------------------------------------+
+> 
+> It finds a page with the HEAD pointer set but not the UPDATE pointer and does a swap!
+> 
+> 
+>                                                         reader_page -----+
+>                                                                          |
+>                                                  cpu_buffer->head_page   |
+>         tail                                                         |   |
+>           v                                                          v   v
+>   +--> subbuf --UPDATE--> subbuf ----> subbuf ----> subbuf --HEAD--> subbuf --+
+>   |                                                                           |
+>   +---------------------------------------------------------------------------+
+> 
+> Now the commit finishes and moves forward and will even hit a blank
+> page but the last write is now on the reader page. This breaks the
+> entire integrity of the ring buffer.
+> 
+> Does this make sense?
+> 
+> -- Steve
 
-Am 27.10.26 um 14:53 schrieb Màxim Pedraza Padilla:
-> From: Francesco Valla <francesco@valla.it>
->
-> Add myself as maintainer for the DRM splash client.
->
-> Signed-off-by: Francesco Valla <francesco@valla.it>
-> [Màxim: add myself as co-maintainer]
-> Signed-off-by: Màxim Pedraza Padilla <maximpedraza@gmail.com>
-> ---
->   MAINTAINERS | 8 ++++++++
->   1 file changed, 8 insertions(+)
->
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index a08087fb6e67..321ecb9f5b5b 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -9168,6 +9168,14 @@ F:	Documentation/gpu/drm-ras.rst
->   F:	drivers/gpu/drm/drm_ras*
->   F:	include/drm/drm_ras*
->   
-> +DRM SPLASH
-> +M:	Francesco Valla <francesco@valla.it>
-> +M:	Màxim Pedraza Padilla <maximpedraza@gmail.com>
-
-I don't think Francesco should be listed here. Although he wrote the 
-initial implementation, it's yours now.  Maybe list him as R: if you 
-want to.
-
-
-> +L:	dri-devel@lists.freedesktop.org
-> +S:	Maintained
-> +T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
-> +F:	drivers/gpu/drm/clients/drm_splash.c
-
-This patch should be merged with the one that added drm_splash.c.
-
-Best regards
-Thomas
-
-
-
-
-> +
->   DRM TTM SUBSYSTEM
->   M:	Natalie Vock <nat@pixelcluster.dev>
->   M:	Arun Pravin <arunpravin.paneerselvam@amd.com>
+Yes, now I spent more time on it, I believe it makes sense. I looked at what we
+could do and I'm trying to use a temporary RB_PAGE_HEAD | RB_PAGE_UPDATE. This
+link flag is then only converted to RB_PAGE_HEAD by the outer writer. I believe
+this would fix the race entirely... However that means the reader spins as long
+as the buffer writing is interrupted, which I admit is far from ideal.
 
 -- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
-
-
+Vincent
