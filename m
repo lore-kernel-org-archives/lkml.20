@@ -1,109 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=46.4.11.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794387416;
-	b=yPtUc6qq4KmjBbtxNrlqU5MtPXsBFTkMutoLZ85cuwJl/a2s2ySiC7gn5a3Df8YQV8dB
-	 PgnKkm3iUkgzoZQNp1s29JICDodkrbyIsmPj5NrY3cSrOXkVm5paW3axFK34VxI2VoSod
-	 hs2zFRfChTpNLLiymnWAMEEyhoMSEeQam2n5hTX2O1Pem4RheLoQhDtvHmWncllcrRz4W
-	 8BRhUzp8m2y06bCvzZCnNyg2qrU17dEbekfL1lrJoKw+POHnHSHb6yLtR9Ln997gJPw3c
-	 kZ2zDkbdlxeoEFCzkK00NZMn5fVl33doul494nkDbaJx/6a2nwE84r6C95iZdWszKdw==
+	t=1794387422;
+	b=G9CxaHNqxr/SIseHgm4WlJQkLVdzKv+RUCUsrtT/a5SnuPBFAlF4xpZV93IDNTs2qo/Q
+	 kkNVfEOUkehvSJ5q2ZPZ8N4fkrogD88Bs/PRq8q/wyfWOq0Vl5Ua8Pml3HsTY7+sNhP/7
+	 4w7RYBwEZ/BoNNpRh1PNRfik9W3C8/wfHp5Bwjcysk9Zfyl5ejmwSUqdOHxFkQwC7wRP2
+	 DTSWGWvqbCkvj0MDys9fTfNlPWsdTsALbl3lPpgPp9iXPeDDNNyZ4HQKbDHkh5VUt8/C3
+	 7h2gDFuDNl5/9ZNx22hja53WIxYAbkuMNciR/zM9HxX1jyyIJdvCQCkZ/Zi7lmho6nQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794387416;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-Spamd-Result:X-Spam-Score:X-Spam-Level:X-Spam-Flag;
-	bh=iTH2PGuf8s6V32nzIWF9ox5EmLsqUvV2utYTKjzqkvM=;
-	b=mxDH7iKXQMJcaVA/ibbVlVayMgzhTHmvYxM2hvDRAmII2DCi1cJ3iTAbU8B8bzA8CaLq
-	 /IlcBzSqlWdLydN7OS/SWQmDISB1evGaGKuba8MORKhgwTRlkdKdkpm2jnJyI+sVvR2ca
-	 lWz6MXBFNJMZlBf0OZvlB0t9l3Kb/QkEy5giVbJ1Ld3VsfUV8VRTsfFSJrYgcMb8yE2qV
-	 3jz/7bQZlxuNCddXFo9KIfnO2JrYAYh/K93+y1Prn2C1UWIhu4sbWrIZkgsFIpfsoUZ2D
-	 jUQI0tFWWa29lG0Qq+ELJbeY8kVUc5As2GZnzC4A459+4TbKHv4mtcYcDoCj511X30Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794387422;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=bq4bq0oT90GXoLgNGE/Tu4QxnayujsmVrhNZxOI8hIY=;
+	b=hASWZSx+kfLeDr1sEWRV8Zs2XhyjfJpgiS40TkLweSOCJkvZH/4j06WdaEO6+v21q9kE
+	 0PCMwmeXcj9a5iuxOQxScyTw2a4CRLkjqtWY57jTFze9QV8KLy2aAcrizK1z3zijEnyN1
+	 F7o/AObiAGfmiW3lmX6x1SpfJaHjcNN2ivEzoRMiTpd1Vi66M1cp5KUIhXjUmBoXfI4Rw
+	 DyySJmUjbXqC3TA5NvFIJatn1E2HCnwqPp+BULrqoRFT0vW2G9tgoy6AGv4IJ0I9jPFon
+	 9F8icyov9sbZzO+q3jKUT8JOdmsUJiAGEdxxy/yXUo0YJkxLuokIHhRZv4LDA3vsXDQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=TrdxllSs;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=pc0qdu4B;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=TrdxllSs;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=pc0qdu4B;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	dmarc=none header.from=phrozen.org;
+	spf=pass smtp.mailfrom=phrozen.org;
+	arc=none smtp.remote-ip=46.4.11.11
+Received: from nbd.name (nbd.name [46.4.11.11])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59DA9606A321;
-	Wed, 11 Nov 2026 08:56:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59DA9606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=TrdxllSs;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=pc0qdu4B;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=TrdxllSs;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=pc0qdu4B
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 7068221EF9;
-	Wed, 11 Nov 2026 08:56:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794387414; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=iTH2PGuf8s6V32nzIWF9ox5EmLsqUvV2utYTKjzqkvM=;
-	b=TrdxllSsGc1EnpOTMyWud05vei+GCK2t2KSnCPPOPfIysR+RtzEeWjewbxK0ZxPTkUqwD7
-	eZbgXosgTfmYI0jHG1T/FVnuFMZSgnPF70Ym1I9oivLRRtC4sn3Bud41Ys5mMEjQq6M9Eq
-	4zRJr6w0ukQSZKxPm0YxCFg8uYZCmnc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794387414;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=iTH2PGuf8s6V32nzIWF9ox5EmLsqUvV2utYTKjzqkvM=;
-	b=pc0qdu4BZHF7HH5sZYc8RxFZZgNWNoZd9CR54IO61oTwG9JvY4VGHyA+Hz9//Ts2sB1vxh
-	od2ZGTZ13L4oxVAA==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794387414; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=iTH2PGuf8s6V32nzIWF9ox5EmLsqUvV2utYTKjzqkvM=;
-	b=TrdxllSsGc1EnpOTMyWud05vei+GCK2t2KSnCPPOPfIysR+RtzEeWjewbxK0ZxPTkUqwD7
-	eZbgXosgTfmYI0jHG1T/FVnuFMZSgnPF70Ym1I9oivLRRtC4sn3Bud41Ys5mMEjQq6M9Eq
-	4zRJr6w0ukQSZKxPm0YxCFg8uYZCmnc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794387414;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=iTH2PGuf8s6V32nzIWF9ox5EmLsqUvV2utYTKjzqkvM=;
-	b=pc0qdu4BZHF7HH5sZYc8RxFZZgNWNoZd9CR54IO61oTwG9JvY4VGHyA+Hz9//Ts2sB1vxh
-	od2ZGTZ13L4oxVAA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 114081339F;
-	Wed, 11 Nov 2026 08:56:54 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id jJ+0NtUt9GpNMwAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Wed, 11 Nov 2026 08:56:54 +0000
-Date: Wed, 11 Nov 2026 09:56:53 +0100
-Message-ID: <87ld6zu4oa.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
-Cc: tiwai@suse.de,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34C0760A2609;
+	Wed, 11 Nov 2026 08:57:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 34C0760A2609
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=phrozen.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=phrozen.org
+Received: from [2a04:4540:1401:33fc:b262:f9a8:847e:6650] (helo=bertha10..)
+	by ds12 with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <john@phrozen.org>)
+	id 1xR48Q-001TSi-38;
+	Wed, 11 Nov 2026 09:56:51 +0100
+From: John Crispin <john@phrozen.org>
+To: Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: Christian Marangi <ansuelsmth@gmail.com>,
+	lei.dong@airoha.com,
+	Linqi.zhang@airoha.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-clk@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	perex@perex.cz,
-	tiwai@suse.com
-Subject: Re: [PATCH v3] ALSA: control: Validate element info in compat ioctl
-In-Reply-To: <20261110160510.2697-1-sreekuttan2156239@gmail.com>
-References: <87y0b1ug39.wl-tiwai@suse.de>
-	<20261110160510.2697-1-sreekuttan2156239@gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	linux-mediatek@lists.infradead.org,
+	Lorenzo Bianconi <lorenzo@kernel.org>,
+	Rajeev.kumar@airoha.com,
+	upstream@airoha.com,
+	Weifeng.xu@airoha.com,
+	zhengping.zhang@airoha.com
+Subject: [PATCH 0/2] clk: en7523: two fixes for the EN7581 clock and reset driver
+Date: Wed, 11 Nov 2026 09:56:48 +0100
+Message-Id: <20261111085650.632025-1-john@phrozen.org>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,61 +66,26 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spamd-Result: default: False [-12.30 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	RCVD_TLS_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -12.30
-X-Spam-Level: 
-X-Spam-Flag: NO
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Tue, 10 Nov 2026 17:05:10 +0100,
-Sreeraj S Kurup wrote:
-> 
-> Hi Takashi,
-> 
-> The validation in snd_ctl_elem_write() happens too late. Before calling 
-> snd_ctl_elem_write(), the compat handler calls copy_ctl_value_from_user(), which 
-> uses the type and count returned by get_ctl_type() to determine how many values to copy.
-> 
-> If the control's info callback returns an invalid count, the integer and boolean paths 
-> can access beyond the fixed-size integer value array. Other paths can also calculate a 
-> copy size larger than the available kernel buffer.
-> 
-> The read path has a similar issue. It uses the same type and count when copying the values 
-> back to userspace, which can result in an out-of-bounds read from the kernel buffer.
-> 
-> So, validation in snd_ctl_elem_write() cannot prevent these problems because the unsafe 
-> accesses can happen before it is called.
-> 
-> Using __snd_ctl_elem_info() in get_ctl_type() ensures that the type and count are validated 
-> before they are used by the compat handlers. It also reuses the existing element ID handling 
-> and access checks.
-> 
-> Therefore, I think this validation is necessary.
+Patch 1 stops en7581_pci_disable() from sleeping in a .disable callback,
+which the clock core calls with the enable spinlock held.
 
-OK, it makes sense.  Now applied to for-next branch.
+Patch 2 adds a reset operation, so device_reset() works for consumers
+such as i2c-mt7621.
+
+The series applies to next-20261105 and has no dependencies.
+
+John Crispin (2):
+  clk: en7523: do not sleep in the EN7581 PCIe clock disable
+  clk: en7523: add a reset operation
+
+ drivers/clk/clk-en7523.c | 14 +++++++++++++-
+ 1 file changed, 13 insertions(+), 1 deletion(-)
 
 
-thanks,
+base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
+-- 
+2.34.1
 
-Takashi
