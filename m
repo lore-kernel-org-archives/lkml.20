@@ -1,74 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794426984;
-	b=fKC234uV6JzhYxA57bSZd4ZHfG/mZ/aYJNCRjBEB9fDy27/3lSF1djABTvzb7xzx6/5A
-	 hVtMSxM+qMWRInDGlhLCPmJq5fe2ITy0bp5QXWJJwleOxj/VbmSTjXxd4dvtQj/6kq3Yf
-	 dWw+mZ5R/vfKfEF68GP4KB9ecp8Y3HeTQ67RQ8n0SrmYC0mijGE2EYsT/LF61YxCRFh2w
-	 LPJc7plIc9iul1ZTPUooyBX0HSNj7D+w/Sm4DQ80DkTnaOByV6qmYheFh5+c0urg/rlOY
-	 0dbCueeFWNMklQXXfY4410SrGANzi7BS1cOVpTu+X8nGV34ka2TNOAJ20VqVU+9yxww==
+	t=1794427058;
+	b=dW5Mrd0ZzMEjUUtlYVl5Yq1BUu8thvIIqS97RcFl73+FuRcatf0l5GEpmw/cXfYAd6gR
+	 wPNOF4KwQmVXy43GQg4UBZuPyU+EK9jrV5NtqMscvdG/IXo5DttrPKYJZouXUIk03R77D
+	 I64YVT75g/eqdtrJzxhioNXospJeXlp8nC8d/JEjsS5uP62sxprokCPtW4fqa0hxHUhoW
+	 0+STXo1xtXuY6kIkqkDe8CQjPnX6wea+42qfjQmmpJyJvvKQPOxE3xRa8hOlkpd2GYMea
+	 ljw3jdu5C4CFkakaTd7LDA3kI7rDCsHnf7EErlK1N587kWlgXevJac+6ODj22U3y2Cw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794426984;
-	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
-	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
-	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
-	bh=CMlrOwuDS3pvHjYZja16oEjaKx0nHtm9+gGTuZBie28=;
-	b=rdAF3UNu9Uxe9R4orgqHVFP8LqWLMso3HGnSEMjwQaZUkgjs96PNox6pFa39LpB5LWX+
-	 BFDEIrRmuYAh8ojAXc5AffyZsgtWSMYaif56x6VvoWuNOzpNTIw+A4+VHRHzNC1Sjfj5y
-	 N7aXVQWjvQx9It8eBF8PNS+82UZ7glL7nHAv6YYJhb6l1xlnkk3VP1nv2Wq+I7SvPigl9
-	 4DfajyPjIG3jHmx9CRzjTbsN5oANOYv6ovQewVf+/nX7t+kL32qM9sd7JkXeUcsy9kg0L
-	 RI0op8RDPSI0Qjs5l+ZFJGExVuzU/GK8Kg4D8ic9ekGFT+Phde4lqehCdV34xMv5AfA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794427058;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=QWBWav1cp1GKn3RCOV39/sy+/mqjj3e4l5sc6Ipflxw=;
+	b=x0vkktVt3fa8el8XYai3PGC7MOunJNwPjQBpzrGgLFI21ejYtabDvLJPphTI2a7mqaol
+	 jGQBHhpVmlU2Q0z8e6cL8Aju2YpWarPOdlxlYbeVD9UKTmAK8bdMtNSJ+HGMRK7dwsKAB
+	 XM88/9Kp4rQ6kfZmwsCH/GLb+LsB3UCPSiWC63PmzSjL8lZ7s6X1u5PiW+92ct9zFw7j/
+	 YA6eFDhfIcL9BPJ7LttiP/X3ybWPEvyTT17j4zYgZGiyKOeQultdN5484/ceubIkXQlDI
+	 T48VdLtePrF+67AsOaqBmemogNH17uqNWWCjKSnla4RMp5jTVQP5USewxQAClB+rZMA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=XIuvAFiG;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=dmlyVdkO;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UWqivWmr;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48508606A326;
-	Wed, 11 Nov 2026 19:56:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 48508606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE565606A31C;
+	Wed, 11 Nov 2026 19:57:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=XIuvAFiG;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=dmlyVdkO
-Date: Wed, 11 Nov 2026 19:56:20 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1794426982;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=CMlrOwuDS3pvHjYZja16oEjaKx0nHtm9+gGTuZBie28=;
-	b=XIuvAFiGSeW1KGWWjYECfw+lBh0o44AT+4o1f3z9gizwVKCWVJSZzDFLzEz6tWOFJSK6fe
-	aCQpz4sHdv6r4tpZTZzWYKLiaCQ04kOMZovRBgqJhWFdP1GI4tncG0jl0rWXcEbBd9BMd7
-	ZDg57yLrzCdVQA5qyijYa26Y9PXvHIWI+q8feR7OlKCIBv04RR4YdSRAxwKO4Tljd6L6xj
-	iQsriaOG4pVTmTKJnzxoWmdbZ98a70yNPruHGcLyWfOEwV/5B1ZFlZgfMnbYk0SG+UcCYC
-	/1aT6K9AyaaJu+U6Cfa2IZcn2MMOULg/A0dEgooZXITNmfe0+nAmnKqx34DImQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1794426982;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=CMlrOwuDS3pvHjYZja16oEjaKx0nHtm9+gGTuZBie28=;
-	b=dmlyVdkO4TQqLvrB0mgUn/uZkTE3v0dFB/OIl+J+ac+8wvqMacc4/PN1GEmlayOu08XZYO
-	lEu5iNgFLey6QyCQ==
-From: "tip-bot2 for Rosen Penev" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject: [tip: irq/drivers] MIPS: ath79: Flush the DDR write buffers of an
- interrupt in parallel
-Cc: Thomas Gleixner <tglx@kernel.org>, Rosen Penev <rosenp@gmail.com>,
- x86@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261108215738.113582-4-rosenp@gmail.com>
-References: <20261108215738.113582-4-rosenp@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UWqivWmr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8DD4A1F00A05;
+	Wed, 11 Nov 2026 19:57:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794427058;
+	bh=QWBWav1cp1GKn3RCOV39/sy+/mqjj3e4l5sc6Ipflxw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=UWqivWmrkbKzsiRjycnRaUXRmPS6cQD99O9eWIpZznd6Hc8LQBxNGmjimWWvLEi9D
+	 OYVmXpoeXfZG4Nu721aa0F+r5u/9xBqd5k8ldxq4f0O2yLia2F0kZpJcmonuqTW4NT
+	 pqa+eksNtrOQtwJ5wgKfkZrpfUywc7hAg1H0HLRqwRLPmF1e0lYQMNlCSch2dRtdSj
+	 VNhcNcAV8ZLXRwlb1j1f+2ArJaehGkXR//BAkTZB0OuCsFij7H5sPzvtn5nDSK7h1h
+	 kpDRF6v9x0jkdfc2MSNrL2NXHo3jUcM8ZoyhVd7ztBHRArBuTigK6/Qb0yUoBbDa7b
+	 Lypa2riHNLRbg==
+Date: Wed, 11 Nov 2026 20:57:30 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: linux-hardening@vger.kernel.org
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, 
+	"Maciej W. Rozycki" <macro@orcam.me.uk>, Geert Uytterhoeven <geert@linux-m68k.org>, 
+	Andreas Schwab <schwab@linux-m68k.org>, Andy Shevchenko <andy@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Daniel Scally <djrscally@gmail.com>, 
+	Danilo Krummrich <dakr@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Hans Verkuil <hverkuil-cisco@xs4all.nl>, Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+	Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>, Kees Cook <kees@kernel.org>, 
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Len Brown <lenb@kernel.org>, 
+	Linus Torvalds <torvalds@linux-foundation.org>, Linus Walleij <linusw@kernel.org>, 
+	Namhyung Kim <namhyung@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Saravana Kannan <saravanak@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
+	Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux-gpio@vger.kernel.org
+Subject: Re: [PATCH v4 0/6] Add strprefix() and fix a bug with it
+Message-ID: <avTIWshl9klX0obF@devuan>
+References: <cover.1794425425.git.alx@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,170 +68,368 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <179442698022.2093942.10867861115492414418.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="67pbkwc2bccukozj"
+Content-Disposition: inline
+In-Reply-To: <cover.1794425425.git.alx@kernel.org>
+
+
+--67pbkwc2bccukozj
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: linux-hardening@vger.kernel.org
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, 
+	"Maciej W. Rozycki" <macro@orcam.me.uk>, Geert Uytterhoeven <geert@linux-m68k.org>, 
+	Andreas Schwab <schwab@linux-m68k.org>, Andy Shevchenko <andy@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Daniel Scally <djrscally@gmail.com>, 
+	Danilo Krummrich <dakr@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Hans Verkuil <hverkuil-cisco@xs4all.nl>, Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+	Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>, Kees Cook <kees@kernel.org>, 
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Len Brown <lenb@kernel.org>, 
+	Linus Torvalds <torvalds@linux-foundation.org>, Linus Walleij <linusw@kernel.org>, 
+	Namhyung Kim <namhyung@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Saravana Kannan <saravanak@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
+	Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux-gpio@vger.kernel.org
+Subject: Re: [PATCH v4 0/6] Add strprefix() and fix a bug with it
+Message-ID: <avTIWshl9klX0obF@devuan>
+References: <cover.1794425425.git.alx@kernel.org>
+MIME-Version: 1.0
+In-Reply-To: <cover.1794425425.git.alx@kernel.org>
 
-The following commit has been merged into the irq/drivers branch of tip:
+> Date: 2026-11-11 20:55:07+0100
+> From: Alejandro Colomar <alx@kernel.org>
+>
+> Hi!
+>=20
+> str_has_prefix() is based on sizes and lengths, which means it must
+> overload the valid length 0 to mean not found.  This is a typical
+> consequence of choosing to design an API around sizes and lengths, and
+> vanishes when moving to pointer-based similar APIs.
+>=20
+> According to its author (Steven R.), str_has_prefix() was never meant to
+> accept an empty prefix, but that's not documented, and there's no
+> obvious reason why that would be acceptable for a generic string
+> function (as opposed to a function very specific to its original use).
+> Anyway, as suggested by Steven, I've added a WARN_ON_ONCE() to catch
+> such uses, and also added documentation stating this limitation.
+>=20
+> Users of strings need a function whose behavior extends naturally to the
+> empty string, and we can do better, by returning a pointer.  And indeed,
+> users have ended up using str_has_prefix() with empty prefix, expecting
+> it to work (as is natural of a generic string API).
+>=20
+> This patch set adds strprefix(), deprecates str_has_prefix(), and uses
+> strprefix() in one place to fix a bug reported by Bartosz.
+>=20
+> We can later work on replacing the other uses of str_has_prefix(), which
+> might hide similar bugs.
+>=20
+> This patch set also adds infrastructure to make string functions return
+> a pointer that is as qualified as the input pointer.
+>=20
+> Changes in v4
+> ~~~~~~~~~~~~~
+>=20
+> -  [1/6]
+>    -  Remove deprecation notice.  [Steve]
+>    -  Move documentation of str_has_prefix() to strprefix().  [Steve]
+>    -  Document str_has_prefix() by comparing it to strprefix().
+>    -  Match parameters in documentation and code.
+> -  [2/6]
+>    -  Add WARN_ON_ONCE() to str_has_prefix().  [Steve]
+>    -  Document limitation of str_has_prefix().
+> -  [3/6]  -- no changes --
+> -  [4/6]
+>    -  Document that it might drop const, but doesn't need to.
+>    -  Make const_cast() more robust, by replacing 'default:'
+>       with 'T:'.  [David]
+> -  [5/6] =20
+>    -  Replace [0] array notation with * pointer notation, to silence
+>       spurious -Wpointer-arith diagnostic.  I wouldn't have changed
+>       anything if it weren't nontrivial, because that diagnostic is not
+>       part of -Wall -Wextra, and is also not too important, but since
+>       the solution was trivial, I'm fine with it.  TBH, I prefered [0],
+>       but I can live with *.  [sashiko]
+> -  [6/6]
+>    -  Define the macro after the function, to avoid wrapping the
+>       function name in parentheses.  [Joe, David]
+>    -  Document why we need CQChar_of() --the simpler typeof()-- is not
+>       good enough.  [David]
+>    -  Change the function to return non-const.  const_cast() can't add
+>       const, it only removes it; thus, we must have it always in the
+>       function, and then have const_cast() drop it conditionally.  This
+>       also removes a cast.  [sashiko]
+>=20
+> I didn't apply some changes requested by reviewers:
+>=20
+> -  I didn't rename const_cast(), since I'm not convinced about the
+>    suggested alternatives being better.  And after all, a cast is only
+>    needed for dropping const, but never for adding it (because it adds
+>    implicitly), so a const_cast() obviously implies that const might be
+>    dropped.
+>=20
+> See range-diff below.
+>=20
+> Testing
+> ~~~~~~~
+>=20
+> I haven't changed the implementation of the function meaningfully, so
+> haven't re-run tests.  Since the changes since v2 are only about type
+> safety and diagnostics, I have built again with 'allmodconfig', just to
+> make sure it still compiles.
 
-Commit-ID:     08b814ca0a6945b8effc1a0d64999d562f24c923
-Gitweb:        https://git.kernel.org/tip/08b814ca0a6945b8effc1a0d64999d562f2=
-4c923
-Author:        Rosen Penev <rosenp@gmail.com>
-AuthorDate:    Sun, 08 Nov 2026 13:57:38 -08:00
-Committer:     Thomas Gleixner <tglx@kernel.org>
-CommitterDate: Wed, 11 Nov 2026 00:56:19 +01:00
+Ouch!  It seems I had built before adding WARN_ON_ONCE(), not after.
+I just saw a compiler error in a background terminal after hitting send.
 
-MIPS: ath79: Flush the DDR write buffers of an interrupt in parallel
+	$ make=20
+	  DESCEND objtool
+	  CC      arch/x86/purgatory/sha256.o
+	In file included from ./include/crypto/sha2.h:10,
+			 from lib/crypto/sha256.c:13:
+	./include/linux/string.h: In function =E2=80=98str_has_prefix=E2=80=99:
+	./include/linux/string.h:619:9: error: implicit declaration of function =
+=E2=80=98WARN_ON_ONCE=E2=80=99 [-Wimplicit-function-declaration]
+	  619 |         WARN_ON_ONCE(len =3D=3D 0);
+	      |         ^~~~~~~~~~~~
+	make[4]: *** [arch/x86/purgatory/Makefile:12: arch/x86/purgatory/sha256.o]=
+ Error 1
+	make[3]: *** [scripts/Makefile.build:572: arch/x86/purgatory] Error 2
+	make[2]: *** [scripts/Makefile.build:572: arch/x86] Error 2
+	make[1]: *** [/srv/alx/src/linux/linux/master/Makefile:2244: .] Error 2
+	make: *** [Makefile:248: __sub-make] Error 2
 
-When several devices share a CPU interrupt, plat_irq_dispatch() flushes
-their DDR write buffers one after the other, waiting for each to drain
-before starting the next.
+Will fix that for v5, and fully test again.
 
-Make ath79_ddr_wb_flush() take a mask of channels, and start the flush
-of every channel before waiting for any of them, so that the write
-buffers drain in parallel. For a single channel the sequence is
-unchanged. Its only user is the built-in irqchip, so drop the export.
 
-Keep flushing twice, as the AR7100 datasheet asks, and quote it instead
-of the comment that it must be run twice.
+Cheers,
+Alex
 
-Suggested-by: Thomas Gleixner <tglx@kernel.org>
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
-Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Link: https://patch.msgid.link/20261108215738.113582-4-rosenp@gmail.com
----
- arch/mips/ath79/common.c                 | 52 +++++++++++++++++------
- arch/mips/include/asm/mach-ath79/ath79.h |  2 +-
- drivers/irqchip/irq-ath79-cpu.c          | 13 ++----
- 3 files changed, 46 insertions(+), 21 deletions(-)
+>=20
+> Alejandro Colomar (6):
+>   string: Add strprefix(), and deprecate str_has_prefix()
+>   string: Warn if the prefix is the empty string
+>   device property: Fix fwnode_name_eq() for empty node names
+>   stddef: Add const_cast()
+>   string: Add [C]QChar_of() and QVoid_of()
+>   string: Make strprefix() const-qualifier-generic
+>=20
+>  drivers/base/property.c  |  5 +---
+>  include/linux/stddef.h   | 12 ++++++++
+>  include/linux/string.h   | 62 +++++++++++++++++++++++++++++++++++++---
+>  lib/tests/string_kunit.c |  9 ++++++
+>  4 files changed, 80 insertions(+), 8 deletions(-)
+>=20
+> Range-diff against v3:
+> 1:  556766412884 ! 1:  a74fabd985a8 string: Add strprefix(), and deprecat=
+e str_has_prefix()
+>     @@ Commit message
+>     =20
+>          We'll slowly migrate existing code from str_has_prefix() to strp=
+refix().
+>     =20
+>     -    Copy the description from str_has_prefix().
+>     +    Move the description from str_has_prefix(), and describe
+>     +    str_has_prefix() by comparing it to strprefix().
+>     =20
+>          Reported-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualco=
+mm.com>
+>          Link: https://lore.kernel.org/linux-hardening/20261104-fwnode-fo=
+r-each-prop-v1-1-6e28fe1c72c4@oss.qualcomm.com/
+>     @@ Commit message
+>     =20
+>       ## include/linux/string.h ##
+>      @@ include/linux/string.h: void memcpy_and_pad(void *dest, size_t de=
+st_len, const void *src, size_t count,
+>     + 	       sizeof(*(obj)) - offsetof(typeof(*(obj)), member));	\
+>       })
+>      =20
+>     - /**
+>     -- * str_has_prefix - Test if a string has a given prefix
+>     -- * @str: The string to test
+>     -- * @prefix: The string to see if @str starts with
+>     ++/**
+>      + * strprefix - string prefix
+>      + * @s: The string to be tested
+>      + * @prefix: The string to see if @s starts with
+>     -  *
+>     -  * A common way to test a prefix of a string is to do:
+>     -  *  strncmp(str, prefix, sizeof(prefix) - 1)
+>     -  *
+>     -  * But this can lead to bugs due to typos, or if prefix is a pointer
+>     -- * and not a constant. Instead use str_has_prefix().
+>     -+ * and not a constant. Instead use strprefix().
+>     ++ *
+>     ++ * A common way to test a prefix of a string is to do:
+>     ++ *  strncmp(s, prefix, sizeof(prefix) - 1)
+>     ++ *
+>     ++ * But this can lead to bugs due to typos, or if prefix is a pointer
+>     ++ * and not a constant.  Instead use strprefix().
+>      + *
+>      + * Returns:
+>      + * *  @s+strlen(@prefix) if @s starts with @prefix
+>     @@ include/linux/string.h: void memcpy_and_pad(void *dest, size_t des=
+t_len, const v
+>      +	return strncmp(s, prefix, len) =3D=3D 0 ? (char *) s + len : NULL;
+>      +}
+>      +
+>     -+/**
+>     -+ * str_has_prefix - Test if a string has a given prefix
+>     -+ * @str: The string to test
+>     -+ * @prefix: The string to see if @str starts with
+>     -+ *
+>     -+ * DEPRECATED: Use strprefix()
+>     -+ *
+>     -+ * A common way to test a prefix of a string is to do:
+>     -+ *  strncmp(str, prefix, sizeof(prefix) - 1)
+>     -+ *
+>     -+ * But this can lead to bugs due to typos, or if prefix is a pointer
+>     -+ * and not a constant. Instead use strprefix().
+>     + /**
+>     +  * str_has_prefix - Test if a string has a given prefix
+>     +  * @str: The string to test
+>     +  * @prefix: The string to see if @str starts with
+>     +  *
+>     +- * A common way to test a prefix of a string is to do:
+>     +- *  strncmp(str, prefix, sizeof(prefix) - 1)
+>     +- *
+>     +- * But this can lead to bugs due to typos, or if prefix is a pointer
+>     +- * and not a constant. Instead use str_has_prefix().
+>     ++ * This is similar to strprefix(), but returns an offset instead of
+>     ++ * a pointer.
+>        *
+>        * Returns:
+>        * * strlen(@prefix) if @str starts with @prefix
+> -:  ------------ > 2:  cd09427148a0 string: Warn if the prefix is the emp=
+ty string
+> 2:  eed085c85f36 =3D 3:  0058b60f662c device property: Fix fwnode_name_eq=
+() for empty node names
+> 3:  2bf5cf7baad8 ! 4:  ce623fe0432b stddef: Add const_cast()
+>     @@ Commit message
+>          It's similar to C++'s const_cast(), but it is more restrictive: =
+it can
+>          only cast away 'const', and not arbitrary qualifiers.
+>     =20
+>     +    David made it a bit more robust.
+>     +
+>     +    Link: https://lore.kernel.org/linux-hardening/20261111102535.434=
+c2eee@pumpkin/
+>     +    Co-developed-by: David Laight <david.laight.linux@gmail.com>
+>          Signed-off-by: Alejandro Colomar <alx@kernel.org>
+>     =20
+>       ## include/linux/stddef.h ##
+>     @@ include/linux/stddef.h: enum {
+>       	__TRAILING_OVERLAP(TYPE, NAME, FAM, /* no attrs */, MEMBERS)
+>      =20
+>      +/**
+>     -+ * const_cast() - Drop const in the left-most derivation of a point=
+er
+>     ++ * const_cast() - At most, drop const in the left-most derivation o=
+f a pointer
+>      + *
+>      + * @T: Type for the cast.
+>      + * @p: Pointer to be casted.
+>      + *
+>      + * If @p is of type const @T, then it is casted to @T.
+>     -+ * Otherwise, @p is returned without any casts.
+>     ++ * If @p is of type @T, then it is returned without any casts.
+>      + * This avoids mistakes that change anything other than 'const' in =
+a cast.
+>      + */
+>     -+#define const_cast(T, p)  _Generic(p, const T: (T) (p), default: (p=
+))
+>     ++#define const_cast(T, p)  _Generic(p, const T: (T) (p), T: (p))
+>      +
+>       #endif
+> 4:  415453a31ebf ! 5:  206d2045abcf string: Add [C]QChar_of() and QVoid_o=
+f()
+>     @@ include/linux/string.h
+>      + * This macro produces the type name 'void',
+>      + * qualified with any qualifiers present in the element of @p.
+>      + */
+>     -+#define QVoid_of(p)       typeof((__QVoidptr_of(p)){0}[0])
+>     ++#define QVoid_of(p)       typeof(*(__QVoidptr_of(p)){0})
+>      +#define __QVoidptr_of(p)  typeof(1?(p):(void*){0})
+>      +
+>      +/**
+> 5:  35bf6672f84f ! 6:  69d1792e5edf string: Make strprefix() const-qualif=
+ier-generic
+>     @@ Metadata
+>       ## Commit message ##
+>          string: Make strprefix() const-qualifier-generic
+>     =20
+>     +    Add a macro of the same name, which returns a pointer that is
+>     +    const-qualified iff the input string is const-qualified.  The re=
+turn
+>     +    type is a possibly-const-qualified pointer to char, even if the =
+input
+>     +    is a possibly-const-qualified pointer to void, which is why we r=
+equire
+>     +    the CQChar_of() macro.
+>     +
+>     +    The function now needs to return 'const char *', because const_c=
+ast()
+>     +    can only drop const, but never add it.
+>     +
+>          Suggested-by: Geert Uytterhoeven <geert@linux-m68k.org>
+>     +    Cc: Joe Perches <joe@perches.com>
+>     +    Cc: David Laight <david.laight.linux@gmail.com>
+>          Signed-off-by: Alejandro Colomar <alx@kernel.org>
+>     =20
+>       ## include/linux/string.h ##
+>     @@ include/linux/string.h: void memcpy_and_pad(void *dest, size_t des=
+t_len, const v
+>        * *  NULL if @s does not start with @prefix
+>        */
+>      -static inline char *strprefix(const char *s, const char *prefix)
+>     -+#define strprefix(s, pfx)  const_cast(CQChar_of(s) *, strprefix(s, =
+pfx))
+>     -+
+>     -+static inline char *(strprefix)(const char *s, const char *prefix)
+>     ++static inline const char *strprefix(const char *s, const char *pref=
+ix)
+>       {
+>         size_t len =3D strlen(prefix);
+>     -   return strncmp(s, prefix, len) =3D=3D 0 ? (char *) s + len : NULL;
+>     +-  return strncmp(s, prefix, len) =3D=3D 0 ? (char *) s + len : NULL;
+>     ++  return strncmp(s, prefix, len) =3D=3D 0 ? s + len : NULL;
+>     + }
+>     ++#define strprefix(s, pfx)  const_cast(CQChar_of(s) *, strprefix(s, =
+pfx))
+>     +=20
+>     + /**
+>     +  * str_has_prefix - Test if a string has a given prefix
+>=20
+> --=20
+> 2.55.0
+>=20
 
-diff --git a/arch/mips/ath79/common.c b/arch/mips/ath79/common.c
-index 137abbc..672e840 100644
---- a/arch/mips/ath79/common.c
-+++ b/arch/mips/ath79/common.c
-@@ -9,6 +9,7 @@
-  *  Parts of this file are based on Atheros' 2.6.15/2.6.31 BSP
-  */
-=20
-+#include <linux/bitops.h>
- #include <linux/kernel.h>
- #include <linux/export.h>
- #include <linux/types.h>
-@@ -53,21 +54,48 @@ void ath79_ddr_ctrl_init(void)
- }
- EXPORT_SYMBOL_GPL(ath79_ddr_ctrl_init);
-=20
--void ath79_ddr_wb_flush(u32 reg)
-+static void __ath79_ddr_wb_flush(unsigned long chans)
- {
--	void __iomem *flush_reg =3D ath79_ddr_wb_flush_base + (reg * 4);
--
--	/* Flush the DDR write buffer. */
--	__raw_writel(0x1, flush_reg);
--	while (__raw_readl(flush_reg) & 0x1)
--		;
-+	u32 __iomem *base =3D ath79_ddr_wb_flush_base;
-+	unsigned int chan;
-+
-+	/*
-+	 * Start every flush before waiting for any of them, so that the
-+	 * write buffers drain in parallel instead of one after the other.
-+	 */
-+	for_each_set_bit(chan, &chans, 32)
-+		__raw_writel(0x1, base + chan);
-+
-+	for_each_set_bit(chan, &chans, 32) {
-+		while (__raw_readl(base + chan) & 0x1)
-+			;
-+	}
-+}
-=20
--	/* It must be run twice. */
--	__raw_writel(0x1, flush_reg);
--	while (__raw_readl(flush_reg) & 0x1)
--		;
-+/**
-+ * ath79_ddr_wb_flush - flush DDR write buffers
-+ * @chans: mask of the write buffer channels to flush
-+ *
-+ * Every DMA master of the SoC (the Ethernet MACs, USB, PCIe, WMAC) writes
-+ * to DDR through its own write buffer in the DDR controller. The buffer
-+ * may still hold data when the device raises its interrupt, so it has to
-+ * be flushed before the interrupt handler looks at the DMA'd memory.
-+ * Setting bit 0 of the channel's flush register starts the flush, and the
-+ * controller clears it once the buffer is empty.
-+ */
-+void ath79_ddr_wb_flush(unsigned long chans)
-+{
-+	/*
-+	 * The AR7100 datasheet says to flush twice, after reading the
-+	 * interrupt status of the device, to ensure that its descriptor
-+	 * updates have reached memory before software reads them. It does
-+	 * not say why a single flush is not enough. The datasheets of the
-+	 * later SoCs drop the note, but nothing says the need went away, so
-+	 * flush twice on all of them.
-+	 */
-+	__ath79_ddr_wb_flush(chans);
-+	__ath79_ddr_wb_flush(chans);
- }
--EXPORT_SYMBOL_GPL(ath79_ddr_wb_flush);
-=20
- void ath79_ddr_set_pci_windows(void)
- {
-diff --git a/arch/mips/include/asm/mach-ath79/ath79.h b/arch/mips/include/asm=
-/mach-ath79/ath79.h
-index 70cda74..15897d0 100644
---- a/arch/mips/include/asm/mach-ath79/ath79.h
-+++ b/arch/mips/include/asm/mach-ath79/ath79.h
-@@ -145,7 +145,7 @@ static inline int soc_is_qca956x(void)
- 	return soc_is_qca9561() || soc_is_qca9563();
- }
-=20
--void ath79_ddr_wb_flush(unsigned int reg);
-+void ath79_ddr_wb_flush(unsigned long chans);
- void ath79_ddr_set_pci_windows(void);
-=20
- extern void __iomem *ath79_pll_base;
-diff --git a/drivers/irqchip/irq-ath79-cpu.c b/drivers/irqchip/irq-ath79-cpu.c
-index ec39c37..64272b1 100644
---- a/drivers/irqchip/irq-ath79-cpu.c
-+++ b/drivers/irqchip/irq-ath79-cpu.c
-@@ -10,7 +10,7 @@
-  *  Parts of this file are based on Atheros' 2.6.15/2.6.31 BSP
-  */
-=20
--#include <linux/bitops.h>
-+#include <linux/bits.h>
- #include <linux/interrupt.h>
- #include <linux/irqchip.h>
- #include <linux/of.h>
-@@ -44,8 +44,8 @@ static u32 irq_wb_chans[8];
-=20
- asmlinkage void plat_irq_dispatch(void)
- {
--	unsigned long pending, chans;
--	int irq, chan;
-+	unsigned long pending;
-+	int irq;
-=20
- 	pending =3D read_c0_status() & read_c0_cause() & ST0_IM;
-=20
-@@ -57,11 +57,8 @@ asmlinkage void plat_irq_dispatch(void)
- 	pending >>=3D CAUSEB_IP;
- 	while (pending) {
- 		irq =3D fls(pending) - 1;
--		if (irq < ARRAY_SIZE(irq_wb_chans)) {
--			chans =3D irq_wb_chans[irq];
--			for_each_set_bit(chan, &chans, 32)
--				ath79_ddr_wb_flush(chan);
--		}
-+		if (irq < ARRAY_SIZE(irq_wb_chans) && irq_wb_chans[irq])
-+			ath79_ddr_wb_flush(irq_wb_chans[irq]);
- 		do_IRQ(MIPS_CPU_IRQ_BASE + irq);
- 		pending &=3D ~BIT(irq);
- 	}
+
+
+--=20
+<https://www.alejandro-colomar.es>
+
+--67pbkwc2bccukozj
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmr0yKoACgkQ64mZXMKQ
+wqk6OQ//fvLw+hv6dBfrCvd1p5QemKtJEuczYppccITn2BPjI3zTJOyh6inDRYak
+MbUyJ+o66Z8l7Vmnt4IZ1bCI0i6V41C+loT03Z13xvS/9fiWMoahzaTmfk/rdArT
+zbGWu5QcJCMBvv02y1P0vx2K4yzq9j4Q44nLgCl68O0XXgXWA7BxwFrlSbKTzwcV
+sjmc3zHlohYfhhDK+8pr7uPO92hWdoxe3prZb3usQNhiLoB05Jp2nU9y3F6yZOCo
+WlcyrujpzHznTEQoKBnNpPvOFWSkm0ADyilcAmfmzW7RQaMb5eq/6hww6AOj3fBg
+vyyUB8S578Z6SDiF+9aaB20pvk/X3PTa3On2L6GQk/OlHljiXpc1xjJnD6WMjwMf
+/eZXPjT42wyW37hP2zOp1sppIgcxkczBfPmBlHKALJGZ58uLprwdOxNXqR4f8TGF
+hdc1fyVO7dGJdLwA2TpYQssK5Yykf1a7J4/Q2pqdXqqLIxygHvM+YA3fnj7SHcVK
+52gualgVZXADHUMCTwaJFvS8HA9RYWBNMmCuoOdnSIjW1dgkLd4LAMvnstjohVhN
+XEeqFwnA87P8KeQFn5kjfrLc+XAN7x7SRIk8/d0o/NGy+8yHEchUpuQCnIO07hWy
+u82hwKQUJ1+ITup9imAYd9jns/pOYyePXUAd/pwb7O0dQNhj4Bs=
+=6klB
+-----END PGP SIGNATURE-----
+
+--67pbkwc2bccukozj--
