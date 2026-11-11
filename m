@@ -1,113 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794381772;
-	b=DpmiRZoYhHu/9GMGuWqb194nW0+HrF6l8GbqHJCdLA/e0dqEgsy4uTSqwZmVjqJs76hX
-	 FkdS7M2UH+3iEoiavfIv1DXRECiepJ3Th+gSCdl2UBalIn53/PY8VgMy2uAVTwyXCVHMS
-	 m4pCiK9MsnGjuzH/UZMgOhuUEAM0Ltv7Rzi7RgMQZvAgk0f9aR/hhC/lzqLNHBpUFaG25
-	 xsB/s9yde5MlDk3bWDXTRQAQLQxChP6QSvVpPLtqsq9MW9vRjOeMpGhW+g5su3enyBARk
-	 Xp+jHcLc2CCy+6r49IrUGyStWyo2XQ7jBUWf8Sr1+jsXeWRqWNHlJ5Xx7wWvRcYRm/A==
+	t=1794381782;
+	b=QXTfJMoqUidex3C0ry9z5tdsRFHC07JYfYhAwwt/dpz77DtbRJBR7jjd9n8nQOTCISJ2
+	 pmLPUTg/yrz9+7hBv7tQHAn05gByghYNf10iRMoxIJFBTPmAbhB+FtXyMib2KobaoPoFS
+	 mDmMd2Tj4WPSZRErCkNX6Yr00sedDs1wHvhQ7RwSGlyBYXFbUXBPzwtecBlXmuCEhnIe2
+	 WG5ka9H/o9oX4GIHnSjzQrP2GA2XLRqQZbUotV7iXSUSuzdU7aj3CQKTXbIW2/9qDJyWL
+	 bKzS9R2eNhWhn0SnUcdHo6Gq4MdycsNLp/QpsFdyibwtQdfhevYpRPksrF4Peh11fBw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794381772;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:
-	 X-Google-Original-From:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=DUUqgzMDZU6jkGklSFHfQKm3XqkkFiKlJqKfaf5+tiY=;
-	b=Id8pf4IeOfZLyjyYF1DcBvSKlDUWVoIVxHDENfRUfJT+lpbmNEjExKBfBAfgp25ynBy9
-	 l5LvAoA98HAah6Riit/k4UieMhx2YUy05EXsR/nvVSM1G6RE6ZVjLRcl5RlmLfmZ+4IDb
-	 TUKVFSb7mWKWo1w+xO594P4SEzdwWDZn79+fWe+ZP2bf0jCff8/RrFiQsuv4ebs8hrUtd
-	 1pfWCg0Qnw0FxAhqnNGed6bWIRRj7wRq93T9Cg4HCVT9ElWo3m+veDnR0smF2NFCtfZ4V
-	 bLX+HCEJ4EgEksujLWiao0cD7IFyQo2VRnPhkDL9mIS5Prkko7nPUSAP9y15CrcBD2g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794381782;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=NH/RCBHe4j+B/KuhXgvP5McWYYKWKQYjKk9U30Okeec=;
+	b=rUSFpeESeovb9NJwmWGSVV4s8KW40LZhECq06wpozVekFLvdUpG5w09q1ej2ZJ3+T05F
+	 GYDz/xSEpEg3bAAzKiShdLq/XQsRA+ikNGLjDCY2aWEtXL/9yUmPb+Wc9XsgB5o4ugiWP
+	 s82quo0PT8t3H0LokNoNaQmMt7X4iydbJqtckptmXpUzdngG51+OMMviWTuL/tHoic+Ee
+	 SOh4URRXz8J2J5ujidTcLa9qDaEa8da21IJv49e/U8oHEPYE9wCNyfp8NbrYOciBcB43V
+	 XkNdbMSFOzk4Z5j/lth+Afo689e3JBBzqQBGPRmpyZp5DX7hEua1uFH30dsyErJsARA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=TRHYywpM;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="aA/cu1Lc";
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RZLzHr0q;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA9CE606A326
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 07:22:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BA9CE606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EC42606A324;
+	Wed, 11 Nov 2026 07:23:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=TRHYywpM;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=aA/cu1Lc
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AB5KSOE2021321
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 07:22:50 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	DUUqgzMDZU6jkGklSFHfQKm3XqkkFiKlJqKfaf5+tiY=; b=TRHYywpMfVoRVoTk
-	+SqcWAWoUnNuinI2QxHGx5253PijHCo/AdCB8tkC3NH2BO9EDwk4dJIcjtDHnRM6
-	NGet+Log20I8LeprwlvsncnnEDNSpYv0Jmsnbd1mMd8cJt8VHNnWe51NKA5FahgV
-	awqDPMbgIvED2rduQx2H1XsGs0dNcvqLmUjm5CfULpTrrFgbUv33pRm4Poy8JVn3
-	tD24PjtpBFq7tRI69S8D03h4qIPgtmobfwiwYfSv8/HaYZKbY+EcbPOJVK6MrfyS
-	x1BhZ22cViDoO3ApFRkqWCP6SgEa6Eh27lAVMIiswGuD92qHFfdTBdVH32HB1kce
-	vJ2LsQ==
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hv4pvbr03-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 07:22:50 +0000 (GMT)
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3ae72da2f57so4071776a91.1
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 23:22:50 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794381770; x=1794986570; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DUUqgzMDZU6jkGklSFHfQKm3XqkkFiKlJqKfaf5+tiY=;
-        b=aA/cu1LcMpqdLW+9GBeXhD/pZ5UtaVq5+8xfWS1A0khJqWCqcJqN55qEFKkzJWFN3u
-         QPD/fxCp6gnekictL4nymitXKQUZ2kTnD9mi+uRkPK9c/DX4kDvecvu4j9+wF5T/cRyj
-         Qw6LktxB9O0RnnONSDMAMxNgUpCaEaLQVUbv2r12q+zKIPNf7u9AmTjuh66bWT9L4GDx
-         s2dDx3+6/jof87TsZWKtuq+NGZG73BaaSUcYdFczeJMsYiL7c281Was+jHUEkMWrFEMO
-         ABbMAZad1hjAsl0aaI+Wa5ZoS156PSXYue1Q9aMibRH+LiAcw6Ouz19hY+wxZGgRoUc5
-         kuJQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794381770; x=1794986570;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=DUUqgzMDZU6jkGklSFHfQKm3XqkkFiKlJqKfaf5+tiY=;
-        b=Eu4sTWQsH1Q7NuWbsu/NuuuhSsocRBdmQZvHeWfqmb0R9nYzDplXWfheSI592O66Ep
-         SoQ+RehrFEMAfPlNh37JHNCIG+gZubgsw1FlbUdT003X7GTf4x/iShTWHaz0in+3+ao9
-         QPI4RpP+Dgw8UfFxJ9Pw9sHCd5nZECHQwiS6XD0RLvR6tNriPIlExM+xN0o44M/6LkZC
-         O/5sVLKyIhDDlnsSE9gpgXSCwHO0kZ27UOcHHBK3NgZ40uyYJ1mzDU7W01RSKcCQPPP+
-         LW/rmz1THMFAUN2IEmKs5BaM/frueyHqwsezoeY4f1K7cuDNYZABylPHObwwOL29cUA7
-         MyNA==
-X-Forwarded-Encrypted: i=1; AL+hErEQA7OMnmLPuIbJAh8jN+hyRZXi/w40go9ZpGrddRF+CLC+oc/ysP8RbvyuccvLsKd76huUzG0+R6MwI2U=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/m63b2zyE10v/CepS/+7gI2edk6afYmRW1cyAuGynNOWfxuP1S
-	5T9dc8Eixe25aUjY3F1dvP9HWTexe8VfQnElx2aSguwqPxyKg+3yXlTKsR4f+sEntxg6dlua4oJ
-	qQQn2ujUtaKL3ACRF3u/9oEWhxyrZ1liPJhdmYwwxCOMofbIZT1Ijd0qjfSGeaMqjneo=
-X-Gm-Gg: AYBFou31Jyc0gHxiNtq59KxViW7RJ/NCSXxU6WkoO4MkZk5qiS/5Xi+DMymZD8TP9tE
-	Yjc4ft5IbnnwIBxPH08OirOEjbRtsJssKEi6xBZVBS02xIzE39uPEAV7DXc+BFpM1uTL7nyeJki
-	pO/5ddWQ01jXb6MwH32D/L1mT9B2HGIDJXy0u8W0bZq1VlVZjWuudzubg6f17/l2h5SAr8zu2+b
-	9W5Meif3xRz/kms3/Mxd5q0FzePCGZkHHoe+rUWuXkM8RJeWomgkKjRb1kLxRW8gVRUv7WCULFS
-	BPQUT42+kwMCFSNpaT2gIsr4qVvc7vANm3mYucUTQ4iRj0GT+WU5zQZ4DcYIffSazlTubmE4aYj
-	L6KYW5M4AS3FsGP8aPCr5HysaOCuoUnldlLj9QSL8E+R625EtWjo/JV6T0bDWFQAlQnXvfWym8K
-	Gipp6jY1s=
-X-Received: by 2002:a17:90b:2246:b0:3a8:9d0d:ca50 with SMTP id 98e67ed59e1d1-3b182e94574mr1699804a91.10.1794381769451;
-        Tue, 10 Nov 2026 23:22:49 -0800 (PST)
-X-Received: by 2002:a17:90b:2246:b0:3a8:9d0d:ca50 with SMTP id 98e67ed59e1d1-3b182e94574mr1699775a91.10.1794381768897;
-        Tue, 10 Nov 2026 23:22:48 -0800 (PST)
-Received: from [10.204.79.28] ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b17dfb7a84sm3100788a91.2.2026.11.10.23.22.37
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 10 Nov 2026 23:22:48 -0800 (PST)
-From: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
-X-Google-Original-From: Jayant Shekhar <jshekhar.shekhar@oss.qualcomm.com>
-Message-ID: <284e530a-2c66-4cd2-a09b-983c93b5e200@oss.qualcomm.com>
-Date: Wed, 11 Nov 2026 12:52:36 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RZLzHr0q
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7EED51F00A0F;
+	Wed, 11 Nov 2026 07:22:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794381781;
+	bh=NH/RCBHe4j+B/KuhXgvP5McWYYKWKQYjKk9U30Okeec=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=RZLzHr0qjUHvIFATC6/7ZIpPlsFylU9Bi7RzL6FZ/JktCxWbLMWy3kknJ/1UDF5Cm
+	 iKOZeYx7AP7HDaPjWNdLgRO4Ftpc3yIxY67Qku7W3pUAes03r1CYOv0dqrkITW7Oop
+	 ZZO5oZiswXDdKjYYCGr6z4RVnmhrTinsh9XFRXPK4oei4wfF4TbfVhCHosyjASL/R+
+	 NOCMV2NlRBC3pKJtSy6LN9HS4vGBHrQtRQgSTnhOrVYWStBHhgCRpeo6qMlBCasOiz
+	 eiPDdj5ITKvWNORf5ZAgMZgUDUfLXBASFq9w6gt6hq6HyRu8otP7YIOijeuCrrMdAf
+	 UCFRJzzplEvWA==
+Message-ID: <b59239f9-fcbd-42b3-a3a9-9fb57de0b547@kernel.org>
+Date: Wed, 11 Nov 2026 08:22:45 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -118,369 +52,300 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 19/23] drm/msm/dcp: Add Qualcomm VirtIO transport
- wrapper
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar
- <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        "Michael S. Tsirkin" <mst@redhat.com>,
-        Jason Wang <jasowangio@gmail.com>,
-        =?UTF-8?Q?Eugenio_P=C3=A9rez?=
- <eperezma@redhat.com>,
-        Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-        Sumit Semwal <sumit.semwal@linaro.org>,
-        =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
-        Philipp Stanner <phasta@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>,
-        "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
-        Robin Murphy <robin.murphy@arm.com>,
-        Flemin Jose <flemin.jose@oss.qualcomm.com>,
-        Mahadevan P <mahap@oss.qualcomm.com>, virtualization@lists.linux.dev,
-        linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
-        linaro-mm-sig@lists.linaro.org, iommu@lists.linux.dev
-References: <20261026-jshekhar-dcp-hlos-v2-0-7cf014efdee1@oss.qualcomm.com>
- <20261026-jshekhar-dcp-hlos-v2-19-7cf014efdee1@oss.qualcomm.com>
- <ib5ts37i4f7qx4wqoscawrwnpeld3pcnarb4w7y3z4b3kolgkf@5avoy2fyp22l>
+Subject: Re: [RFC PATCH 0/3] mm: enable filesystem page-cache large folios
+ without THP
+To: Fang Xieyan <fangxy@xiaopeng.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>,
+ Matthew Wilcox <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Hugh Dickins <hughd@google.com>, Carlos Maiolino <cem@kernel.org>
+Cc: Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R . Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Muchun Song <muchun.song@linux.dev>,
+ Kairui Song <kasong@tencent.com>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ linux-xfs@vger.kernel.org
+References: <20261110035205.3036-1-fangxy@xiaopeng.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
-In-Reply-To: <ib5ts37i4f7qx4wqoscawrwnpeld3pcnarb4w7y3z4b3kolgkf@5avoy2fyp22l>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20261110035205.3036-1-fangxy@xiaopeng.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=XqZvqlF9 c=1 sm=1 tr=0 ts=6af417ca cx=c_pps
- a=RP+M6JBNLl+fLTcSJhASfg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=EUspDBNiAAAA:8 a=CjK5iXD0z7442N0G1AIA:9 a=QEXdDO2ut3YA:10
- a=iS9zxrgQBfv6-_F4QbHw:22
-X-Proofpoint-ORIG-GUID: nxM1ixMnXVTyLCX5_TaWADuFmTJFwo8m
-X-Proofpoint-GUID: nxM1ixMnXVTyLCX5_TaWADuFmTJFwo8m
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDAyOSBTYWx0ZWRfX5ZPlDB9owfXO
- OM096zBv/SHLCzkGwMUfT5SfdtpkmejnGSljQJYcXz+1tR3EgNtgMwXXbIzT1BU1tEASS0FnzYZ
- 3qtexo6+I/RH741te6KhS20usxGvR14=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDAyOSBTYWx0ZWRfXzIDNCGsV6HlH
- Fiy+cWFjg4CImRisplW1wV3XMJz6yew+VbYv4Gaw2kPVbsFxNIlr3HMrwTreVubiN/GOjkgCCoi
- yRt+2I9mPd21UfOCMjzG7tnFDuPtF1KKKUok04FzvCFiuZq38uQyBtDv5JTxHZEPii+7FnqATle
- 7uAMj4Jqx61tK5BkpR6errPeWbTZTqgC8Ym3BRN/3yU+31UC8SWtox5+FDcDNqjiBJXbiNFRGFU
- Jej8/4CHqRK2Kj3w8HgcZTSih5epqixUuhpfnlUEeIkZzHjeEC/XMRFZ3L9mbNgg08LfNYLBuEi
- H5sa5OilGGoW8bDCon+Fj55FdVQybJQ3DcmIi9ZRGcFCWnclN+it+gBtHQPu8xBBoQeKmV3zDXC
- i5Nxglz0lhK5CdqEqO66ckJ3295W6ULPK7ORQ29LELbd03nnuNFR81EV8dzv+NUTVI9+NB3APNG
- MmchJqX81l2yWTi/Myw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-11_02,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 suspectscore=0 clxscore=1015 priorityscore=1501
- malwarescore=0 bulkscore=0 lowpriorityscore=0 adultscore=0 spamscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611110029
 
+On 11/10/26 04:52, Fang Xieyan wrote:
+> This series makes filesystem page-cache large folios work on kernels
+> built with CONFIG_TRANSPARENT_HUGEPAGE=n, and keeps them splittable
+> there.
+> 
+> 1. Why this is needed
+> 
+> TRANSPARENT_HUGEPAGE depends on !PREEMPT_RT (mm/Kconfig), so a
+> PREEMPT_RT kernel always has THP off.  Today that also removes
+> file-backed large folios entirely: the helpers that split them live in
+> mm/huge_memory.c under CONFIG_TRANSPARENT_HUGEPAGE, and the order
+> accessors in include/linux/pagemap.h short-circuit to "no large
+> folios" when THP is off, so every filesystem that opts in silently
+> ends up with order-0 folios.
+> 
+> The consequence is not only throughput.  XFS allows block sizes up to
+> 64K and fs/xfs/xfs_super.c refuses to mount anything larger than
+> mapping_max_folio_size_supported().  With THP=n that helper reports
+> PAGE_SIZE, so a 64K-block filesystem cannot be mounted at all:
+> 
+>     XFS (vda): block size (65536 bytes) not supported; Only block size (4096) or less is supported
+> 
+> There is no degraded mode to fall back to, because a block has to fit
+> in a single page-cache folio - which is why
+> fs/xfs/libxfs/xfs_ialloc.c derives min_folio_order from
+> sb_blocklog - PAGE_SHIFT.  Either page-cache large folios work without
+> THP, or the filesystem is unusable.
+> 
+> 2. What the series does
+> 
+> The anon and file split helpers were already separated by Kairui
+> Song's "mm/huge_memory: clean up and decouple the anon and file split
+> helpers" (v6 04/17, in mm-unstable); that is the base this series
+> starts from.
+> 
+> 1/3 moves the folio-splitting implementation out of mm/huge_memory.c
+> into mm/folio_split.c without changing any behaviour.  The new object
+> is still built by CONFIG_TRANSPARENT_HUGEPAGE, so a THP build keeps
+> exactly the code it had before; a pure move is also the easiest thing
+> to rebase on top of further churn in this area.
+> 
+> 2/3 builds that object for CONFIG_LARGE_FOLIO instead, and drops the
+> anon, PMD and khugepaged dependencies a file-only build cannot have.
+> The symbol comes from Matthew Wilcox's "[PATCH v9 12/15]"; if that
+> series is in first, this patch shrinks to its Kconfig default and the
+> accessors it already rewrites.
+> 
+> 3/3 enables filesystem page-cache large folios when THP is off.  It
+> lifts the compile-time short circuits in pagemap.h for
+> mapping_max_folio_size_supported(), mapping_set_folio_order_range(),
+> mapping_max_folio_order() and mapping_min_folio_order().
+> PREFERRED_MAX_PAGECACHE_ORDER is left alone: an LF-only build keeps
+> the existing cap of order 8 instead of following HPAGE_PMD_ORDER.
+> Without THP such folios cannot be PMD-mapped, so raising the ceiling
+> would mainly increase the maximum page-cache allocation size.  The
+> changelog has the arm64 64K-page arithmetic, which is a calculation
+> and not a measurement.
+> 
+> The split side is not rewritten: truncate, migration and memory-failure
+> already call the helpers outside any THP ifdef, so with 2/3 in place
+> they simply stop resolving to the -EINVAL stubs once 3/3 turns
+> allocation on.  madvise is inside a THP ifdef and does not take part.
+> 
+> 3/3 also makes the XFS mount failure above say why it failed: when
+> CONFIG_LARGE_FOLIO is not set, the warning now names the missing
+> option instead of only reporting the block size as unsupported.  With
+> LF=y the added warning is compiled out completely.
+> 
+> 3. Testing
+> 
+> Six configurations build clean as full kernels, bzImage and the
+> vmlinux link included, with no new warnings: A (THP=y), B (THP=n,
+> LF=y), C (B plus HUGETLBFS), D (THP=n, LF=n), and RT-B and RT-C with
+> PREEMPT_RT=y.  The PREEMPT_RT configurations were build-tested only.
+> No runtime PREEMPT_RT stress test or livelock validation was
+> performed.
+> 
+> THP=y is unchanged: the .text sections of mm/filemap.o,
+> mm/readahead.o and mm/shmem.o are byte-identical before and after the
+> series (md5 equal, 45896, 7139 and 35314 bytes).  With THP=n and LF=n
+> mm/filemap.o and mm/readahead.o stay identical (44584 and 6259 bytes)
+> and every function in mm/shmem.o keeps its size; the only difference
+> there is one dead argument load that the folded-out
+> mapping_set_large_folios() call leaves behind, so the section keeps
+> its 29778 bytes while its md5 does not match.
+> 
+> In the new LF=y, THP=n configuration mm/shmem.o keeps its size as well,
+> 48 bytes shorter at 29730.  That difference is not from 3/3: 40 of the
+> bytes are shmem_writeout(), which shrinks because 2/3 turns
+> split_folio_to_list() from an inline -EINVAL stub into a real call, and
+> the other 8 are the padding in front of the following function; the
+> same 29730 bytes appear with 2/3 alone, and 3/3's own shmem hunk
+> changes no function size.  The new call is unreachable in this
+> configuration anyway, since shmem_alloc_and_add_folio() still forces
+> order 0 without THP.
+> 
+> Where the generated code really changes is the allocation policy:
+> mm/readahead.o grows by 880 bytes of .text (6259 to 7139) and
+> mm/filemap.o by 134 (44584 to 44718).  nm -u mm/folio_split.o lists no
+> anon, pmd or khugepaged symbols.
+> 
+> Runtime, x86_64, 4K pages, THP=n, QEMU/KVM, on a 64K-block XFS image
+> (mkfs.xfs -b size=64k -s size=4k), with kprobes on
+> filemap_alloc_folio, filemap_add_folio and __folio_split:
+> 
+>   - writing 64M: 84 allocations - 59 at order-8, 5 at order-7, 5 at
+>     order-6, 5 at order-5, 10 at order-4, i.e. exactly 64M;
+>   - reading the same 64M back after drop_caches: 72 allocations,
+>     62 at order-8, 1 at order-7, 5 at order-6, 4 at order-4;
+>   - truncating 1M to 700K: one __folio_split, landing at order-4,
+>     which is the min_folio_order XFS asked for; order-0 never appears
+>     in any of the three phases;
+>   - tmpfs writing 32M: 8192 shmem_alloc_folio calls, all order-0;
+>   - shmem write vs F_SEAL_GROW, reproducible as: memfd_create(),
+>     ftruncate() to exactly 4096 bytes, F_ADD_SEALS with F_SEAL_GROW,
+>     then a single pwrite() of 8192 bytes at offset 0, comparing the
+>     syscall's return value.  It returns 4096, the same as the
+>     pre-series THP=n kernel.  A THP=y kernel returns -EPERM here, and
+>     so did the LF-only build before shmem's mapping was put back
+>     behind THP; that -EPERM is pre-existing behaviour of THP kernels,
+>     this series neither introduces it nor extends it to other
+>     configurations.
+> 
+> Same image on the pre-series kernel, for reference: it fails to mount
+> with -ENOSYS before any of the above can run.  The whole probe was
+> re-run on the final revision of the series with identical numbers.
+> 
+> 4. What this turns on for existing filesystems
+> 
+> LF=y makes the existing opt-in take effect for every filesystem that
+> already asks for large folios, and that list is not ext4 only: ext4,
+> xfs, btrfs, f2fs, fuse, afs, erofs, nfs, cifs and zonefs all call
+> mapping_set_folio_order_range() or mapping_set_large_folios() from
+> their inode or superblock setup, unconditionally, today.  Those paths
+> run on any THP=y kernel; the new configuration is only THP=n with
+> LF=y.  With THP off the ceiling is PREFERRED_MAX_PAGECACHE_ORDER,
+> which stays at order 8.
+> 
+> On the tested 4K-page configuration, 4K-block ext4 gets min order 0
+> and max order 8, while 64K-block XFS gets min order 4.  Btrfs derives
+> both ends from the mkfs sectorsize and nodesize.  A THP=y kernel keeps
+> the order-9 ceiling (HPAGE_PMD_ORDER) it has today on 4K pages.
+> 
+> shmem keeps its THP dependency: its mapping is only marked large-folio
+> capable when THP is enabled, because shmem_alloc_and_add_folio() still
+> forces orders to zero without it.  This matters beyond cosmetics.
+> generic_perform_write() sizes its write chunk from
+> mapping_max_folio_size() and passes that length to ->write_begin()
+> before clamping it to folio_size(), and shmem_write_begin() rejects
+> pos + len > i_size for F_SEAL_GROW.  On a 4K memfd sealed with
+> F_SEAL_GROW, an 8K write at offset 0 returns 4096 on the pre-series
+> THP=n kernel and -EPERM on a THP=y kernel; advertising order 8 while
+> allocating order 0 reproduced the -EPERM on an LF-only build.  Tying
+> shmem's policy to LARGE_FOLIO means the allocation, swap and split
+> sides together, which is a separate series.
+> 
+> 5. What is not covered
+> 
+> Since PREEMPT_RT is the motivation, the RT side needs to be explicit.
+> The freeze-to-xarray-update window in __folio_freeze_split_file() is
+> the fourth freeze site named by Matthew Wilcox in the RT livelock
+> thread started by Dong Hui
+> (<c2ff0c66422c4e2d869499a1186ff0ae@xiaomi.com>):
+> 
+>     There's also __folio_freeze_split_file().  I know PREEMPT_RT
+>     disables TRANSPARENT_HUGEPAGE at the moment, but hopefully that
+>     restriction will be lifted.
+> 
+> This series does not fix that problem and does not claim to be
+> RT-safe.  It only makes a code path that already exists on THP kernels
+> reachable in a configuration that has no THP, which is the same
+> exposure Kairui described in 06/17 as "should be fixed generically".
+> One detail that may matter if a reader-side fix is chosen: the
+> function already holds the xarray lock until the folio is no longer
+> frozen and visible, since folio_ref_unfreeze() happens before
+> xas_unlock_irq(), so a generic fix of that shape would cover this path
+> without touching it.
+> 
+> Also not tested here: the migration, memory-failure and madvise split
+> entries at runtime (only truncate was exercised end to end), arm64
+> with 64K pages, nommu, KASAN and lockdep, xfstests, and the btrfs
+> order range.
+> 
+> 6. Questions
+> 
+> (a) Non-THP split accounting.  count_mthp_stat() is a no-op without
+> THP, so in an LF-only build a file split updates no counter at all and
+> THP_SPLIT_PAGE does not even appear in /proc/vmstat.  I have a
+> follow-up patch that gives the file path its own counter.  Would you
+> rather see a new vmstat item, an existing one reused, or nothing?
+> 
+> (b) Should XFS select LARGE_FOLIO itself?  Three lines of
+> "select LARGE_FOLIO if MMU" in fs/xfs/Kconfig make 64K-block XFS
+> mountable on a THP=n kernel with no manual configuration; I built such
+> a kernel and mounted the 64K image.  The cost is mm/folio_split.o: 3.2K
+> of .text in a THP=n build, code that every THP=y build already carries,
+> paid also by XFS builds that will never use a block size above the page
+> size.  Kconfig cannot express "only when a 64K filesystem is mounted".
+> I left it out because it changes default coverage for a decision XFS
+> maintainers should make, but I can add it as 4/4 if that is preferred.
+> 
+> Comments welcome.
+> 
+> Fang Xieyan (3):
+>   mm: move folio split code into mm/folio_split.c
+>   mm: build file-backed folio splitting with CONFIG_LARGE_FOLIO
+>   mm: enable filesystem page-cache large folios without THP
+> 
+>  MAINTAINERS                |   1 +
+>  fs/xfs/xfs_super.c         |   2 +
+>  include/linux/huge_mm.h    |  60 ++-
+>  include/linux/page-flags.h |   5 +-
+>  include/linux/pagemap.h    |  17 +-
+>  mm/Kconfig                 |  19 +
+>  mm/Makefile                |   1 +
+>  mm/folio_split.c           | 969 +++++++++++++++++++++++++++++++++++++
+>  mm/huge_memory.c           | 920 -----------------------------------
+>  mm/internal.h              |   1 +
+>  mm/shmem.c                 |  11 +-
+>  11 files changed, 1054 insertions(+), 952 deletions(-)
 
-On 26-10-2026 15:37, Dmitry Baryshkov wrote:
-> On Mon, Oct 26, 2026 at 11:51:29AM +0530, Jayant Shekhar wrote:
->> Add the Qualcomm-specific VirtIO transport required by DCP firmware.
->>
->> The transport sends an IPCC power notification before accessing the
->> VirtIO MMIO registers, then registers a VirtIO device directly.
->>
->> Implement MMIO configuration access, feature negotiation, virtqueue
->> setup, interrupt handling, reset, DMA setup, and suspend/resume
->> sequencing in the transport. Keep power-management ordering in the
->> transport so VirtIO queues are quiesced before DCP power changes.
->>
->> Assisted-by: LLM
->> Signed-off-by: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
->> ---
->>   drivers/gpu/drm/msm/Makefile                   |   1 +
->>   drivers/gpu/drm/msm/dcp/dcp_virtio.h           |  23 +
->>   drivers/gpu/drm/msm/dcp/dcp_virtio_transport.c | 643 +++++++++++++++++++++++++
-> This is a separate VirtIO host driver. Please move it to drivers/virtio
-> like the rest of the VirtIO hosts. It has nothing to do with the drm
-> subsystem now.
->
+I'm sorry, but I have 0 capacity for that right now.
 
-Will be moving this into drivers/virtio in v3.
+https://lore.kernel.org/linux-mm/a2f584f6-e382-4876-aa6d-d5a34de6ee59@kernel.org/
 
+-- 
+Cheers,
 
->>   3 files changed, 667 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/msm/Makefile b/drivers/gpu/drm/msm/Makefile
->> index 9f0a9bfeb2a7..e1a995a8c980 100644
->> --- a/drivers/gpu/drm/msm/Makefile
->> +++ b/drivers/gpu/drm/msm/Makefile
->> @@ -85,6 +85,7 @@ msm-display-$(CONFIG_DRM_MSM_DCP) += \
->>   	dcp/dcp_hfi_plane.o \
->>   	dcp/dcp_ipcc.o \
->>   	dcp/dcp_encoder.o \
->> +	dcp/dcp_virtio_transport.o \
->>   	dcp/hfi/hfi_packer.o \
->>   	dcp/hfi/hfi_unpacker.o \
->>   	dcp/hfi/hfi_utils.o
->> diff --git a/drivers/gpu/drm/msm/dcp/dcp_virtio.h b/drivers/gpu/drm/msm/dcp/dcp_virtio.h
->> new file mode 100644
->> index 000000000000..a9c3b9aff61d
->> --- /dev/null
->> +++ b/drivers/gpu/drm/msm/dcp/dcp_virtio.h
->> @@ -0,0 +1,23 @@
->> +/* SPDX-License-Identifier: GPL-2.0-only */
->> +/*
->> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
->> + */
->> +
->> +#ifndef __DCP_VIRTIO_H__
->> +#define __DCP_VIRTIO_H__
->> +
->> +#include <linux/device.h>
->> +#include <linux/virtio.h>
->> +
->> +struct dcp_drv;
->> +struct dcp_ipcc;
->> +
->> +struct dcp_ipcc *dcp_virtio_get_ipcc(struct virtio_device *vdev);
-> What is the use for it? The DCP driver should not communicate to the
-> IPCC, it's a part of the underlying VirtIO mechanism. If we export DCP
-> to the VM there will be no IPCC anymore.
->
->> +
->> +int dcp_virtio_transport_register(void);
->> +void dcp_virtio_transport_unregister(void);
->> +
->> +int dcp_virtio_register(void);
->> +void dcp_virtio_unregister(void);
-> Unused, remove these two.
->
->> +
->> +#endif /* __DCP_VIRTIO_H__ */
->> diff --git a/drivers/gpu/drm/msm/dcp/dcp_virtio_transport.c b/drivers/gpu/drm/msm/dcp/dcp_virtio_transport.c
->> new file mode 100644
->> index 000000000000..02c0e2a9fafe
->> --- /dev/null
->> +++ b/drivers/gpu/drm/msm/dcp/dcp_virtio_transport.c
->> @@ -0,0 +1,643 @@
->> +// SPDX-License-Identifier: GPL-2.0-only
->> +/*
->> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
->> + *
->> + * Qualcomm DCP VirtIO transport.
->> + */
->> +
->> +#include <linux/acpi.h>
->> +#include <linux/delay.h>
->> +#include <linux/dma-mapping.h>
->> +#include <linux/highmem.h>
->> +#include <linux/interrupt.h>
->> +#include <linux/io.h>
->> +#include <linux/list.h>
->> +#include <linux/module.h>
->> +#include <linux/of.h>
->> +#include <linux/of_device.h>
->> +#include <linux/platform_device.h>
->> +#include <linux/pm.h>
->> +#include <linux/slab.h>
->> +#include <linux/virtio.h>
->> +#include <linux/virtio_config.h>
->> +#include <uapi/linux/virtio_mmio.h>
->> +#include <linux/virtio_ring.h>
->> +
->> +#include "dcp_ipcc.h"
->> +#include "dcp_virtio.h"
->> +
->> +#define VIRTIO_MMIO_VRING_ALIGN		PAGE_SIZE
->> +
->> +#define to_dcp_virtio_transport(_plat_dev) \
->> +	container_of(_plat_dev, struct dcp_virtio_transport, vdev)
->> +
->> +struct dcp_virtio_transport {
->> +	struct virtio_device vdev;
->> +	struct platform_device *pdev;
->> +
->> +	void __iomem *base;
->> +	unsigned long version;
->> +
->> +	bool wake_irq_enabled;
->> +	struct dcp_ipcc ipcc;
->> +};
->> +
->> +static u64 dcp_virtio_get_features(struct virtio_device *vdev)
->> +{
->> +	struct dcp_virtio_transport *transport = to_dcp_virtio_transport(vdev);
->> +	u64 features;
->> +
->> +	writel(1, transport->base + VIRTIO_MMIO_DEVICE_FEATURES_SEL);
->> +	features = readl(transport->base + VIRTIO_MMIO_DEVICE_FEATURES);
->> +	features <<= 32;
->> +
->> +	writel(0, transport->base + VIRTIO_MMIO_DEVICE_FEATURES_SEL);
->> +	features |= readl(transport->base + VIRTIO_MMIO_DEVICE_FEATURES);
-> Can we turn virtio-mmio into the library code instead of copy-pasting
-> everything here?
->
->> +
->> +	return features;
->> +}
->> +
-> [...]
->
->> +
->> +	magic = readl(transport->base + VIRTIO_MMIO_MAGIC_VALUE);
->> +	if (magic != ('v' | 'i' << 8 | 'r' << 16 | 't' << 24)) {
-> Is it really a correct magic here? should it be a different magic as you
-> are not just a virtio-mmio?
->
->> +		dev_warn(&pdev->dev, "Wrong magic value 0x%08lx!\n", magic);
->> +		ret = -ENODEV;
->> +		goto err_node;
->> +	}
->> +
->> +	transport->version = readl(transport->base + VIRTIO_MMIO_VERSION);
->> +	if (transport->version < 1 || transport->version > 3) {
-> Isn't transport version fixed for the DCP purposes? Why do we need to
-> determine it again at the runtime?
->
->> +		dev_err(&pdev->dev, "Version %ld not supported!\n",
->> +			transport->version);
->> +		ret = -ENXIO;
->> +		goto err_node;
->> +	}
->> +
->> +	transport->vdev.id.device =
->> +		readl(transport->base + VIRTIO_MMIO_DEVICE_ID);
->> +	if (!transport->vdev.id.device) {
->> +		ret = -ENODEV;
->> +		goto err_node;
->> +	}
->> +	transport->vdev.id.vendor =
->> +		readl(transport->base + VIRTIO_MMIO_VENDOR_ID);
->> +
->> +	if (transport->version == 1) {
->> +		writel(PAGE_SIZE,
->> +		       transport->base + VIRTIO_MMIO_GUEST_PAGE_SIZE);
->> +		ret = dma_set_mask(&pdev->dev, DMA_BIT_MASK(64));
->> +		if (!ret)
->> +			ret = dma_set_coherent_mask(&pdev->dev,
->> +						    DMA_BIT_MASK(32 + PAGE_SHIFT));
->> +	} else {
->> +		ret = dma_set_mask_and_coherent(&pdev->dev, DMA_BIT_MASK(64));
->> +	}
->> +	if (ret)
->> +		ret = dma_set_mask_and_coherent(&pdev->dev, DMA_BIT_MASK(32));
->> +	if (ret)
->> +		dev_warn(&pdev->dev,
->> +			 "Failed to enable 64-bit or 32-bit DMA. Trying to continue, but this might not work.\n");
->> +
->> +	ret = register_virtio_device(&transport->vdev);
->> +	if (ret) {
->> +		put_device(&transport->vdev.dev);
->> +		dcp_ipcc_deinit(&transport->ipcc);
->> +		platform_set_drvdata(pdev, NULL);
->> +		return ret;
->> +	}
->> +
->> +	return 0;
->> +
->> +err_node:
->> +err_ipcc:
->> +	dcp_ipcc_deinit(&transport->ipcc);
->> +err_free:
->> +	platform_set_drvdata(pdev, NULL);
->> +	return ret;
->> +}
->> +
->> +static void dcp_virtio_transport_remove(struct platform_device *pdev)
->> +{
->> +	struct dcp_virtio_transport *transport = platform_get_drvdata(pdev);
->> +
->> +	unregister_virtio_device(&transport->vdev);
->> +	platform_set_drvdata(pdev, NULL);
->> +	dcp_ipcc_deinit(&transport->ipcc);
->> +}
->> +
->> +static int dcp_virtio_transport_suspend(struct device *dev)
->> +{
->> +	struct dcp_virtio_transport *transport = dev_get_drvdata(dev);
->> +	int ret;
->> +
->> +	ret = virtio_device_freeze(&transport->vdev);
->> +	if (ret)
->> +		return ret;
->> +
->> +	ret = dcp_ipcc_enable_irq_wake(&transport->ipcc);
->> +	if (ret)
->> +		goto err_restore;
->> +
->> +	ret = dcp_ipcc_send_power_notify(&transport->ipcc);
->> +	if (ret) {
->> +		dcp_ipcc_disable_irq_wake(&transport->ipcc);
->> +		goto err_restore;
->> +	}
->> +
->> +	return 0;
->> +
->> +err_restore:
->> +	virtio_device_restore(&transport->vdev);
->> +	return ret;
->> +}
->> +
->> +static int dcp_virtio_transport_resume(struct device *dev)
->> +{
->> +	struct dcp_virtio_transport *transport = dev_get_drvdata(dev);
->> +	int ret;
->> +
->> +	ret = dcp_ipcc_send_power_notify(&transport->ipcc);
->> +	if (ret)
->> +		return ret;
->> +
->> +	dcp_ipcc_disable_irq_wake(&transport->ipcc);
->> +	if (transport->version == 1)
->> +		writel(PAGE_SIZE,
->> +		       transport->base + VIRTIO_MMIO_GUEST_PAGE_SIZE);
->> +
->> +	return virtio_device_restore(&transport->vdev);
->> +}
->> +
->> +static const struct dev_pm_ops dcp_virtio_transport_pm_ops = {
->> +	.suspend = dcp_virtio_transport_suspend,
->> +	.resume = dcp_virtio_transport_resume,
->> +};
->> +
->> +static const struct of_device_id dcp_virtio_transport_of_match[] = {
->> +	{ .compatible = "qcom,dcp-virtio" },
->> +	{ }
->> +};
->> +MODULE_DEVICE_TABLE(of, dcp_virtio_transport_of_match);
->> +
->> +static struct platform_driver dcp_virtio_transport_driver = {
->> +	.probe = dcp_virtio_transport_probe,
->> +	.remove = dcp_virtio_transport_remove,
->> +	.driver = {
->> +		.name = "qcom-dcp-virtio",
->> +		.of_match_table = dcp_virtio_transport_of_match,
->> +		.pm = &dcp_virtio_transport_pm_ops,
->> +	},
->> +};
->> +
->> +int dcp_virtio_transport_register(void)
->> +{
->> +	return platform_driver_register(&dcp_virtio_transport_driver);
->> +}
->> +
->> +void dcp_virtio_transport_unregister(void)
->> +{
->> +	platform_driver_unregister(&dcp_virtio_transport_driver);
->> +}
-> Turn it into a separate driver, use module_platform_driver().
->
+David
