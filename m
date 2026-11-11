@@ -1,75 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.137
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794390529;
-	b=B/P/Tl96yz9+KE52CWjecM2vRCz2Q/CWzgFRnmTR14hAUqW9tVauzfFJpOFaSuytGBXE
-	 EJV1pV0HSxb1IVNjBx+ZrXo169jrfCmjJt6IG+gaSawH5fQ6acazfjE1+V2mx3cWEzqN7
-	 GOI8+bUyxMJxLmcPHuJEzEYCp50y9dc/D6qT7ieTBOEPqQFBB7h8VTw+mLBRJvSqC6QXc
-	 b+K+k9h/s6iON8EgCE3RHpAd2F8mXEPTFsOgl87hmPNWCrJUI00eSzBePXOQBNuqSOSWV
-	 wGpi+A3DeKy5gpdZ6qL+tQ0wTWZHSwW/dvQbPZEb5xaQUAL4+2Rgph/7uuZdHdHzuCw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794390529;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=EFr8QXqohI+L1KI/KcXXm4sKk4+earfHZx5Zb0ejnso=;
-	b=b94Rt4c0CHRFAU/3TTNV8KS/bhe1pqqlC8neJTdlUQO5TA7I5IPcTLX0cyeKy7/11T4w
-	 xyBkMXRqAJa4hpwrJcCzx7A7GG62oYWTFRAs1mLD47nUwMp2c4mlpJu6HOqTGECXc+KTm
-	 0cusSaPBKccMXixbYqd5cj6ZeIplZdIC6K6iD+58depgfRfcfXUSpT+JyO2shIBw1QVgU
-	 kbUXndvir7ezog5ujPgaApACLkQwiryyvO3UR6M7xkrK6g9KXMgxTqmzVUXJooUebATo+
-	 ikRRiErrE+O7ktPtUFCN0OwXEtwCLWHGDK8IPrILOZ2NbTleWq/4k7KdVrb2H5W49Zw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b="UUew/Oz/";
-	arc=none smtp.remote-ip=111.22.67.137
-Received: from cmccmta4.chinamobile.com (cmccmta4.chinamobile.com [111.22.67.137])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3DE3F606A321
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 09:48:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3DE3F606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794390550;
+	b=QsBp9x3gcerz7p0sp1FprSergEX72d7ZWEFMjaFHFOGgiTwJcUXHXi3btPPeXkNiTKJB
+	 qH8BIF3hVrb5A1lobx1wQMD9L/Cql+J5V03VHQFY7DviVQoCZIN6nFKH/vaUyVs6Qi7UP
+	 ChINKHFVqlFvotKXCr6ZUCv7/xHTif6/qJwfoY3QxeTzFm878GIHdBzbX/5b8AEUIaAUX
+	 UlFcmSFlGwjfv9m2lkXSkbNNZ6+KxRUMBw3wNDZ0atwXLNUGj2ULoQDwsWx7m0hqVvg5w
+	 9VlnewQGqB+GKkmrRVu5dzpWCcAGlLJRK47vKwSLIARE4oSxw76U1mRtRdMKttKDdRA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794390550;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version;
+	bh=JuoAQwfcljWx2dFYJyXxbF5HVpquu71Q4cfUewNA3ac=;
+	b=mRIjsYfmjtJ8rTY5+fvLqO/q1n9qWKjXo4nASuuI4eFv17EbRcG8PeCpNJZHrw13N3nN
+	 fnkcdeyaoQ2wMz+WWN5QioWtbxHuff0W1hl4xDD5KSx35H2k3BHtA//GCAB8ZPLRsLfKL
+	 CEEP7BcKFCas/rM+vKHdjf8bZVdTAoxr309O5NsdafdGfLAAacBtNAGUAk+Bz9st63Guo
+	 DfyTORYcU9IT80t8FFPnD+G4MbwfSd2NL7RowyobWj4HLdKCpPMO33OpyHuMj7WDhv2OS
+	 nmKeJ8DsRmVsAaYYk3jSEHkgc2JzNVEOTKyPo6VsunQ5alE379NU9TkqILZ16/AZk3Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b="ZlzaV/MX";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18727606A327;
+	Wed, 11 Nov 2026 09:49:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 18727606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=UUew/Oz/
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=UUew/Oz/rUrlYEg/mMgL3LFx5lIL74NPwy/xBW4ODKKW6MzaLDaSmx3Xkom7PaFwi0C+DBDjE7XTt
-	 iOMWaobxzAhJzOyvnKoJ0R/LYggZyCyZd9DHfla86ElY9NcnsvoONKfSl0dKoGQUzhQEnp7VDdeQRX
-	 cFp+KDhysD2x9GHo=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app08-12008 (RichMail) with SMTP id 2ee86af439ffafa-77ce4;
-	Wed, 11 Nov 2026 17:48:47 +0800 (CST)
-X-RM-TRANSID:2ee86af439ffafa-77ce4
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from DESKTOP-3K8GUTQ (unknown[223.108.79.98])
-	by rmsmtp-syy-appsvr03-12003 (RichMail) with SMTP id 2ee36af439fdf36-d712c;
-	Wed, 11 Nov 2026 17:48:46 +0800 (CST)
-X-RM-TRANSID:2ee36af439fdf36-d712c
-From: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
-To: andrzej.hajda@intel.com,
-	neil.armstrong@linaro.org,
-	rfoss@kernel.org,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	tzimmermann@suse.de,
-	airlied@gmail.com,
-	simona@ffwll.ch
-Cc: Laurent.pinchart@ideasonboard.com,
-	jonas@kwiboo.se,
-	jernej.skrabec@gmail.com,
-	luca.ceresoli@bootlin.com,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
-Subject: [PATCH v3] drm/bridge: analogix_dp: Drop dead error check for analogix_dp_init_analog_func()
-Date: Wed, 11 Nov 2026 17:48:44 +0800
-Message-ID: <20261111094845.1673-1-laixiangwu@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.50.1.windows.1
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=ZlzaV/MX
+Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
+	(Authenticated sender: pza@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id C096520062C;
+	Wed, 11 Nov 2026 10:49:06 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794390546;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=JuoAQwfcljWx2dFYJyXxbF5HVpquu71Q4cfUewNA3ac=;
+	b=ZlzaV/MXm0KxLALRtJsaYjn1Og6jld/xP/jTC7hE9Gp38bcI0pIAcIvGkfkZwXRD0yrVnr
+	Qz8/snotVAYZQWu6wZDLVsDDC3nomzcAHcsLB/cq15Ol7Vjjw5EX4RnRRMXZpagVe57yWB
+	Q7tTgm/vAHjh1LfWV4ioJSK7R6lFesqTvbtXPZagBjj4acUrpSeLFgB40OypHD0U40cfbV
+	wty+OAboG4XXR6a8gElKLkAqL33r2w+BEBPhvR6EsSShLPohtfB7XQKP7HZs97xal8urAE
+	hdaWVRtl8vTIPZrmBBAdJRbm9qgqs5UMscokZHOISWvuJ3xcaqZbsNnxCA4pLg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794390546;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=JuoAQwfcljWx2dFYJyXxbF5HVpquu71Q4cfUewNA3ac=;
+	b=QcqDIYXR2JFkuTPG65DJRUhMyFt317k8jE7ZSJMljXrlzhEwCHqwEsaPBu19lMGR/ZyfO4
+	tUVKAq3oUnwNqAl+QWFyNWYoz5KyS/9okQwraqauMaLaOtvvZ30RGQBvvmYwvhTZOK32Pj
+	dSnmaQ8DpS8hfGELwD0wWlPbWKOePlMoLEFmS61xtVmXP6D+Co+W/wL21qjXH1mcLRpBpZ
+	k9yOusRA6hux3eCuckRtJKsLNzOMj2LD4n371tT5EG2YFol/ob4KMO+GBSW+ZcyrH5bBlm
+	ehTjKau/acGMHdSo4qdoySkIhlBYzt9zS7Mmv43XLkJhjMfNZldUCZ97SrZo7g==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794390546; a=rsa-sha256;
+	cv=none;
+	b=gM88XHLBxnSNYuZtcLlhrnUkTqlyfqg4rA3GDhCoKikC5jwMJdSaYZFDdYcsVcno09DTah
+	VAqBpejybq3Da4ejXrPIcTi6F/eoScYm3xDkjTOPccH5Ubn7QBIspe+9T7uWecYSvV/eII
+	2zpzxfIs/fZn8LkDyaOeDzNXT0Lu382RulMHgzh3QXzWzXYxtzQjld8kPMdCAmaNEbmo1x
+	bVP7xWRmR090N/xNcwBkeybQ4ljd3JSj40uelQEFvjiYXQU7IcugX3incSYMlz727UH7Kh
+	FX6LEhaBtcafi4rNUbXI2Y+ZJe6KNNDQ886WjyEzxqim95rTT1C9iJKtGwqvAw==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
+Message-ID: <0c96f978571c569de6552fc11131e45b55cada1b.camel@pengutronix.de>
+Subject: Re: [PATCH 2/2] clk: en7523: add a reset operation
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: John Crispin <john@phrozen.org>, Stephen Boyd <sboyd@kernel.org>, Brian
+ Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>,
+ Matthias Brugger	 <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno	
+ <angelogioacchino.delregno@collabora.com>
+Cc: Christian Marangi <ansuelsmth@gmail.com>, lei.dong@airoha.com, 
+	Linqi.zhang@airoha.com, linux-arm-kernel@lists.infradead.org, 
+	linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-mediatek@lists.infradead.org, Lorenzo Bianconi <lorenzo@kernel.org>, 
+	Rajeev.kumar@airoha.com, upstream@airoha.com, Weifeng.xu@airoha.com, 
+	zhengping.zhang@airoha.com
+Date: Wed, 11 Nov 2026 10:49:06 +0100
+In-Reply-To: <20261111085650.632025-3-john@phrozen.org>
+References: <20261111085650.632025-1-john@phrozen.org>
+	 <20261111085650.632025-3-john@phrozen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,93 +100,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-analogix_dp_init_analog_func() cannot fail: since commit 917c8d192ba6ad
-("drm/bridge: analogix_dp: don't wait for PLL lock too early") removed
-the PLL lock polling loop, the function only performs register writes
-and always returns 0.  The error check on its return value in
-analogix_dp_set_bridge() is therefore dead code.
+On Mi, 2026-11-11 at 09:56 +0100, John Crispin wrote:
+> The reset controller implements assert, deassert and status but not
+> reset, so device_reset() fails with -ENOTSUPP. The i2c-mt7621 driver
+> calls it at probe and after a transfer timeout.
 
-Drop the dead check and make the function void.
+Is the i2c-mt7621 driver actually used with any reset controller that
+implements .reset but not .assert/.deassert?
 
-Signed-off-by: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
----
-Changes in v3:
+If not, it would be better to let i2c-mt7621 use
+reset_control_assert/deassert() instead of adding .reset ops to all
+reset controller drivers it is used with.
 
-- Use the real name "Xiangwu Lai" for the author and in the
-  Signed-off-by trailer instead of the account handle, as noted by
-  the Sashiko AI review (Developer's Certificate of Origin).
+The .reset op is for (compatibility with) self-deasserting resets.
 
-Changes in v2:
+> Every I2C bus that
+> references an SCU reset, as on the EN7581 and the AN7589, therefore
+> logs "I2C reset failed!" and is never reset.
+>=20
+> Add a reset operation that asserts and then deasserts the line, as the
+> MT7621 reset controller does for the same I2C block.
+>=20
+> Signed-off-by: John Crispin <john@phrozen.org>
+> ---
+>  drivers/clk/clk-en7523.c | 13 +++++++++++++
+>  1 file changed, 13 insertions(+)
+>=20
+> diff --git a/drivers/clk/clk-en7523.c b/drivers/clk/clk-en7523.c
+> index 8f63482cbb7b..eb893259d470 100644
+> --- a/drivers/clk/clk-en7523.c
+> +++ b/drivers/clk/clk-en7523.c
+> @@ -818,6 +818,18 @@ static int en7523_reset_deassert(struct reset_contro=
+ller_dev *rcdev,
+>  	return en7523_reset_update(rcdev, id, false);
+>  }
+> =20
+> +static int en7523_reset_reset(struct reset_controller_dev *rcdev,
+> +			      unsigned long id)
+> +{
+> +	int ret;
+> +
+> +	ret =3D en7523_reset_assert(rcdev, id);
+> +	if (ret)
+> +		return ret;
 
-- Rework the patch completely.  The v1 fixed the runtime PM reference
-  leak on the analogix_dp_init_analog_func() failure path, but as
-  noted in the Sashiko AI review that path is unreachable: since
-  917c8d192ba6ad ("drm/bridge: analogix_dp: don't wait for PLL lock
-  too early") removed the PLL lock polling loop, the function only
-  performs register writes and always returns 0.  Instead of keeping
-  a fix for an unreachable path, drop the dead error check and make
-  the function void.
+Is having no delay here valid for all possible reset consumers or are
+we implicitly assuming that this will only ever be used for specific
+i2c resets?
 
-Link: https://lore.kernel.org/all/20261111080149.1567-1-laixiangwu@cmss.chinamobile.com
-Link: https://lore.kernel.org/all/20261030082820.1457-1-laixiangwu@cmss.chinamobile.com
- drivers/gpu/drm/bridge/analogix/analogix_dp_core.c | 4 +---
- drivers/gpu/drm/bridge/analogix/analogix_dp_core.h | 2 +-
- drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c  | 3 +--
- 3 files changed, 3 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-index 6df696374..5b1b05d24 100644
---- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-+++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-@@ -996,9 +996,7 @@ static int analogix_dp_set_bridge(struct analogix_dp_device *dp)
- 
- 	pm_runtime_get_sync(dp->dev);
- 
--	ret = analogix_dp_init_analog_func(dp);
--	if (ret)
--		return ret;
-+	analogix_dp_init_analog_func(dp);
- 
- 	/*
- 	 * According to DP spec v1.3 chap 3.5.1.2 Link Training,
-diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h
-index 456059760..440007e22 100644
---- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h
-+++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h
-@@ -192,7 +192,7 @@ void analogix_dp_set_pll_power_down(struct analogix_dp_device *dp, bool enable);
- void analogix_dp_set_analog_power_down(struct analogix_dp_device *dp,
- 				       enum analog_power_block block,
- 				       bool enable);
--int analogix_dp_init_analog_func(struct analogix_dp_device *dp);
-+void analogix_dp_init_analog_func(struct analogix_dp_device *dp);
- void analogix_dp_init_hpd(struct analogix_dp_device *dp);
- void analogix_dp_force_hpd(struct analogix_dp_device *dp);
- enum dp_irq_type analogix_dp_get_irq_type(struct analogix_dp_device *dp);
-diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
-index c1344a3f0..3d196cf96 100644
---- a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
-+++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
-@@ -351,7 +351,7 @@ void analogix_dp_set_analog_power_down(struct analogix_dp_device *dp,
- 	}
- }
- 
--int analogix_dp_init_analog_func(struct analogix_dp_device *dp)
-+void analogix_dp_init_analog_func(struct analogix_dp_device *dp)
- {
- 	u32 reg;
- 
-@@ -372,7 +372,6 @@ int analogix_dp_init_analog_func(struct analogix_dp_device *dp)
- 	reg &= ~(SERDES_FIFO_FUNC_EN_N | LS_CLK_DOMAIN_FUNC_EN_N
- 		| AUX_FUNC_EN_N);
- 	writel(reg, dp->reg_base + ANALOGIX_DP_FUNC_EN_2);
--	return 0;
- }
- 
- void analogix_dp_clear_hotplug_interrupts(struct analogix_dp_device *dp)
--- 
-2.50.1.windows.1
-
-
-
+regards
+Philipp
