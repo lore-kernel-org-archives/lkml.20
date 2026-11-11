@@ -1,103 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794371010;
-	b=WKfl+LHbRD86/7ItuLFbjSoNc8WzMpEu/TLKrse1xbWkYKfVIqZ8+yYtW+pqumNNewHO
-	 AQlucaVcGmv5NYiRKI9zzGjTDkRFfDOWAMbCJRM8bR0uy4BpjzZuFkqOfjOtqEALrNo5Q
-	 x4Op/D3JOnupkAaTwks2164I8CLwia8aNAa/iLpaFzs0bLl/9Y1Z0rTZc8Hj22y9/WI+V
-	 Fo73QfXA3IeITVCbrrfZV2uWIx7DZlVjbWuTf5VCwFI9uuKSPRYvTJTQw7mKkBWX8mKPf
-	 9pxYZHMBGfpjetGHKTbocxK/9SOdsTSkq0ayGPZVmYThcISETKqJze8kkGD/px6szrg==
+	t=1794371036;
+	b=anzYy4bYx4QT5oDzlJ2pI2PzNzu27iKLpVzd3N0k+/SCBwD9MNWhBmqmMld/OvVj6Ata
+	 sYqZrYL6wkVdfARzrJLhNTCscImMakBiU5+c7+jb31LL8VFmgVVEoFINqpGPc2/nFasjw
+	 xJuLVAzbnFq0LAQGYYuIFGHalvx9PlhmtyRv3AWrMh+h6kf4oeZDh9WC8JUsy/W9ULvLa
+	 jVZKCom70FNwND+HGn5RbukCQmnUh01df+qDzPbGddA3m+35IbHTnSTCyGXHH0obyUpyT
+	 fCkrOd2tZYeEZaKixR1XCYTxBCcsTfigCmjDeaVpUrq2G5T1/jPIBtmVkUr6ZuJXR4g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794371010;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=8TP2cltB6myhAN3zqq3XC6T8gNcR9V3LAoG3G2EM6wY=;
-	b=Da4r1jZJqxlQzT5AsGpWN+CdWrvMXKc0vNcfQPPTYBvwaoDNm8FB2gdx6pxVu7ob1uAC
-	 d5atpjJ+38wAeYf6k2AZPLs16XCv3wqh7Vcpr3VEOhUGZuVu9LYctSS5Rge3wLjU22geo
-	 ibYn/7hCUDSi2E1/eDfiihvEgz3AYTZNRNrBAgthl4CCb6PEKIUZdU6bLRy++BLFgWhjv
-	 q91SITUo2kN2a2kTYBaHrP1AT6PKsU3AD6nFRFLrfWps4Hi+Grlho6fbHD2U3ZWD2wBwO
-	 MCoVnGHHFM+fHiixCkhvuqTqYfqmpRAcCB0eNexDRsHXxzN+0eOpWlvjtUPbE6nGuYA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794371036;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=3/oMUvfjnRDqTYECREY0yvKf+oNzhYCqjwUaHTL4kiI=;
+	b=S5H9mPLOx6Zs7fRvv7EXYWZrE1HBCfbDITskM6pD4RmbtayTIOvymlO+xDhM6mHxdDBR
+	 f+hsAB0twurIqzadk1u3Ay/G2wZ1Rti4jSdaLubhreMgiaApYTdP4MIdcza2jWSEgoHkK
+	 +12hSiCyK5tlQXVcSWNuAn4/CbfdGFejOEWKWXS9VU779LUk8w8QgMb1PVymUSI4v4o82
+	 9LdxJT8RhuPP//kIj64/Osfw6V6X7cuVfPT+uZjok/TLcRkXGBl5+NpRi4tT4/Tur5XAC
+	 xrkc9EsUDjDiwdmEfw2iM9ywBQqjg3dm0SO9Nt5CbBGfcqUNTTFhpFXvxgwSY85a4kQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
+	dmarc=fail header.from=andrewgigena.dev;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Fen0ScLX;
-	arc=none smtp.remote-ip=74.125.82.45
-Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
+	arc=none smtp.remote-ip=209.85.128.181
+Received: from mail-yw1-f181.google.com (mail-yw1-f181.google.com [209.85.128.181])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C117D606A321
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 04:23:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C117D606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 943EE606A321
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 04:23:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 943EE606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=andrewgigena.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Fen0ScLX
-Received: by mail-dl1-f45.google.com with SMTP id a92af1059eb24-18818daa3e7so893118c88.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 20:23:29 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794371009; x=1794975809; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8TP2cltB6myhAN3zqq3XC6T8gNcR9V3LAoG3G2EM6wY=;
-        b=Fen0ScLXmhaK+yaDIgQ136/qilWNldR7SWWcw78zV2UOs41dWlxU5iVusttf0r5HJp
-         e+ZrS7twa4D/2I+09r5w5de2NN3wANmX4N7DXqTScWj/z0ZJ2nqISonJ7ErJK5h8ehaa
-         OAtK80N04TyrtOc4k6zMsjLgWs7ZImMfj50wQRr3MDSedxKaTdN3vzRKqIfE0Zqx1aLW
-         VTz8fQGGdOYEsABiOSkXYwZiX/+WwCUUZTg+oZ7pmMHKTjG4eBEDjhGiOkGq1m+YwPdQ
-         2IFS10YKxd7Ig3kSNqhzoG0+eojfpPYh/fvbBt+SDxkdLqDBiF5OxPJ02P+uvzHbe/kR
-         bpoQ==
+Received: by mail-yw1-f181.google.com with SMTP id 00721157ae682-8b394e2af9cso11084037b3.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 20:23:56 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794371009; x=1794975809;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8TP2cltB6myhAN3zqq3XC6T8gNcR9V3LAoG3G2EM6wY=;
-        b=LL9VzaDYxncM6AxOdzLRtp9s11Su06UDMypURa5i5Oe2NY9+SGYVsc1u8L+pb8eEQd
-         fRl7qUsynhltj5xlHV0YpKCtmY5+sGaUQNZTkplh9+d4N+KAW5sRA1aUv6xA3lHOcR63
-         YcIYEcY2fP6SB+M5kFrdaJn75u3ytyUv1BjMAjuf8TIG8e0NH++gAGLgL4EYFI0gSAUF
-         tpxtQC5UoSmY350lbRoBOCbh++yUFwH5shB2S7Z3dX46d3LvEVEivPA5TobTkAYeYdla
-         MPTnUupC5pZBB0VfVVGfZlurmyAziYFb+BDbUu3CSMBt0QG6WVAB9AiHI4Dh/R66WKca
-         YaFQ==
-X-Forwarded-Encrypted: i=1; AL+hErHD0CykM+daeAlHSE3SWZ3uMW0sbwp0aUJSg1Txr3Ap0/j7rtsSHo5yc4DEn5lRT6Zi+hcqzMUxGD6u0VQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/Tk+FqSof+3UxxjTRiaeEkG0Qiv4nZjSP9FHQrK3cGrX14y5Ck
-	Q9PvkGuCnftxzyNCDIqVsrLFgn1QSNLCGQj0HyRJ+4zMq7NP0ye3aXXp
-X-Gm-Gg: AYBFou0FxGaXNAQ+AEkgPjm58rzxD8lt/8YN+ATYMg3R4PCn7rBCaLPTqjLrHF3hJa4
-	I8NkqYfD6PUgoal0Z+d2Pfq1RLMk32kQi2jHxr/Qy4IyrPdoEcVLVmUUS+m78+uWRWoIx2r43ps
-	TnY8Y15H7/7a5BKuVfzd6bZKW7Zi1JH/lbnw0+55KqAdnMzVvjE4ZzhFHNuKago/A0MCbxPiQ++
-	e6v+Kk3T/8Q4mH5Z0HWsq1lCD4VnRDnKchXEJi7N0mN++RJGYTvPxvaoCboVF4+kV5PliHGv8gm
-	z0WqYajcXiEDJ4vnHFdRy+J6pno80uQsRgu3VdTnLPdrwCPxU8I4EaPKMUBRmsEWjg6NSbNI29V
-	i37pONTXV/gri8CHyoC/22g4CKRzg4fMmDom6aW8P1fWycL+aAdL/qbvC44aC8uMNQkvvjdFxTn
-	vuVLiIjQzTHplq+5KcioAfw7qikF+l2yFpCm5I8A9CL1xlB22qE6gn0OO3Vn+UWzeWAj0kMWzjs
-	Esay9HaOUdfkDfcfyjtBXSaFq3x+ZcDlyle1sg3lr4nqBnDRL9OvbZSegV46HGCjGhEtzzzYN8c
-	N+vZBu0+4P4/U5p/49a1S3QtYuuIN9EuZ7c9B7Zxx8F2GoREz/68eJUHMiS7uaodnTYTpZpa3L1
-	DVqAE39EjwzA=
-X-Received: by 2002:a05:7022:130d:b0:1b2:3e1d:17ee with SMTP id a92af1059eb24-1b3bef0a955mr1889024c88.9.1794371008492;
-        Tue, 10 Nov 2026 20:23:28 -0800 (PST)
-Received: from LAPTOP-KD1TH5BD.tail375eb4.ts.net ([47.11.96.168])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b11150sm15985536c88.5.2026.11.10.20.23.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 20:23:27 -0800 (PST)
-From: Gopal Malaviya <gopalmalaviya53@gmail.com>
-To: alireza.haddadi@it.uu.se
-Cc: jack@suse.cz,
-	willy@infradead.org,
-	akpm@linux-foundation.org,
-	vishal.moola@gmail.com,
-	fujunjie1@qq.com,
-	roman.gushchin@linux.dev,
-	linux-mm@kvack.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	regressions@lists.linux.dev,
-	tracekotae@gmail.com
-Subject: Re: [PATCH] mm/filemap: let sequential faults restart mmap readahead
-Date: Wed, 11 Nov 2026 04:23:10 +0000
-Message-ID: <20261111042310.191979-1-gopalmalaviya53@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261109-mmap-miss-v1-1-8b44b33f3358@it.uu.se>
-References: <20261109-mmap-miss-v1-1-8b44b33f3358@it.uu.se>
+        d=1e100.net; s=20260707; t=1794371035; x=1794975835;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3/oMUvfjnRDqTYECREY0yvKf+oNzhYCqjwUaHTL4kiI=;
+        b=VgZM84Qwl77PCN766DodcAXCTFXm8cu5D+PqFNb7WRsygU5TovZDxkLRlXNpZJO8EH
+         KOhXVrtUY4eBdMdka0BoyqifMucLGqA2KZZs5ymQ5I7qYQL33ps/qX5+ndxGK84ytlSY
+         yrdIZ8GrA3DOm9t8NPI5EMM8CbRbNN5boI9J3XV3VMk/r49eH2wn5ikoMldm8tLxtIp5
+         QF9ruHIzz5r92fkgR0zgtzD5+n9cRgNe1AId2ZooL5Pl3ihtD3QwgKL2Gv8V0ZUNYmwS
+         bDUC9J3ql5tyEkgz/FYixB/wyXxEh5dh7L2GqB8jaiInby45ydteNnD5oyw4Ld2c/CTF
+         5g9g==
+X-Forwarded-Encrypted: i=1; AL+hErF2uKtEvQMFW1vBNgqUOarnonvmkedPdzqOzqMg/ome9Fyst1df8NN44wb7piUQSGJEQ3PUFqKse+dd0Yw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+zCJVBQwA5X9CC/4Uk9/PifgGWlqUmxWNK0l47ZfF+qN/tkB5a
+	G6JSpqDZbldQsiWt1af4CbxQMas+HLBW1lPk/yyVEpmAiQW0bD+399aB
+X-Gm-Gg: AYBFou19t7miXR4+eGAmeKrRW3ceLu6wj2zFybfzek5UenNGNDNCBobLXI+sbrHG+lS
+	AFaXplgf8mfM/V4plHVfcXX7eGuopmU1Dv1U5zcxNw3F7xBdSDeJLyb2MIbS1BfknRAWpBex/yN
+	T0y4dMpriTpND0khbJ+3j2A39IKe+wBaObwSWTRUkv1fYE2+J8RCBgLORmrvFUz852rRK7CWMDH
+	Edf/OqEBNiG6IKG7n9N3taSZ6EXz1onncAiIFbCQwfRSTkRm3hW2BaIVnxoJIA9r4j61dnS8VbJ
+	fBeN0Ms817K42oZwl0S/T1Jk0UdFglD5yJqlrhROG7xcazHyij5OcjthTunZYG7Ea17RL2ldJ6Q
+	8GYA2ZNbczodqGbzUyHEMs2klroUhh/83o66Oa4b2rFaTlVB5GqQ5nnoghtV15yJTIoqU9H0TSM
+	TA8DBPX6DMsuZbq8JCWW+DlEXffqNqAk/SRtLd8RRhlheAfGAk6eEM0ZQSr2wwbNTKf9n2vaqaB
+	aYHRfSO65Lu/mfZ0V5yL36h++Pw5DMuh2ilxPjBrFwGoKl8AZQ8r3FYFTU/gJNe8jA6pzlDqRXi
+	w8GD4ZLDNRze0XC3pOUn4QSAqO6wm/TZUBX44s1QiCpNCvVUJECKhqOPXqRXvmlrGddDJ7XF
+X-Received: by 2002:a05:690c:7342:b0:8b3:23f3:134d with SMTP id 00721157ae682-8b3a80ee26emr9648857b3.42.1794371035274;
+        Tue, 10 Nov 2026 20:23:55 -0800 (PST)
+Received: from ?IPV6:2800:a4:806:ef00:6378:bcd1:64fa:19e3? ([2800:a4:806:ef00:6378:bcd1:64fa:19e3])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b3933a165csm36073107b3.14.2026.11.10.20.23.49
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 10 Nov 2026 20:23:54 -0800 (PST)
+Message-ID: <fb4d03b3-eb35-4aeb-baa1-f4df54653192@andrewgigena.dev>
+Date: Wed, 11 Nov 2026 04:23:48 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,57 +75,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] dt-bindings: crypto: ice: Document sm8150 inline
+ crypto engine
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Abel Vesa <abelvesa@kernel.org>, Herbert Xu
+ <herbert@gondor.apana.org.au>, "David S. Miller" <davem@davemloft.net>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>,
+ Alim Akhtar <alim.akhtar@samsung.com>, Bart Van Assche <bvanassche@acm.org>,
+ Bean Huo <beanhuo@micron.com>, Stanley Jhu <stanleyjhu@google.com>,
+ Bjorn Andersson <andersson@kernel.org>, Andy Gross <agross@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
+ linux-crypto@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-scsi@vger.kernel.org
+References: <20261104-sm8150-ice-rfc-v2-0-d697bbce0278@andrewgigena.dev>
+ <20261104-sm8150-ice-rfc-v2-1-d697bbce0278@andrewgigena.dev>
+ <20261106-offbeat-hawk-of-purring-50a8aa@quoll>
+Content-Language: en-US
+From: Andrew Gigena <mail@andrewgigena.dev>
+In-Reply-To: <20261106-offbeat-hawk-of-purring-50a8aa@quoll>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Alireza,
+> This part should be a separate commit.
 
-I had sent a different fix for the same regression [1], reported by
-Trace in [2]. Jan prefers yours, so I have dropped mine. I ran your
-patch, also with the v2 change you describe to Jan, through the tests
-I had: a KVM guest (x86_64, 2 vCPUs, 3 GiB), mm-hotfixes-unstable as
-of 2026-11-08, ext4 and XFS with 16 KiB blocks on virtio-blk,
-read_ahead_kb 128 unless noted.
+I splitted it into two commits in v3:
+1. Add qcom,sm8150-inline-crypto-engine compatible.
+2. Move qcom,sm8150-ufshc to the standalone-ICE UFS binding.
 
-The reproducer from [2] (2000 single-page faults 1 MiB apart, then a
-64 MiB sequential read), major faults in the sequential part:
+> And what about eight clock? All existing DTS will report warning? I
+> don't quite get the need of this move.
 
-                       base   as posted   with v2 change
-  ext4                16384           2                2
-  XFS, 16 KiB blocks   4096        4096                2
-
-Touching 1% of the pages of a cold 20 GiB file, larger than memory, in
-random runs of 1, 2 or 4 adjacent pages, MiB read from disk with the
-v2 change (first of two runs; the second was within 10%):
-
-                       read_ahead_kb 128     read_ahead_kb 8192
-                        base   with v2        base   with v2
-  random                 259       234        1057      1070
-  stride 2053 pages      271       236         992       992
-  random 2-page runs     257       373        1135      2538
-  random 4-page runs     240      1146        1200     57748
-
-The 4-page runs at read_ahead_kb 8192, which is what this guest's
-virtio-blk disk gets by default, read about 48 times more. As far as I
-can tell, each run now has two misses and up to two hits on the new
-window, so mmap_miss stays around MMAP_LOTSAMISS, and each time it is
-back at the limit the next random miss gets the full 8 MiB
-read-around. My patch ran into the same and kept mmap_miss at its cap
-on that path; something like that may help here, but you and Jan know
-this better.
-
-On the Fixes tag: with the commits of the series built one by one,
-commit 0b9c0aeba938 ("mm/filemap: count only the faulting address as
-a mmap hit") alone does not show the problem (1 major fault with the
-reproducer), and commit 9b0fcac3cfe7 ("mm/filemap: do not count
-FAULT_FLAG_TRIED retries as mmap hits") does (16384). [2] is the same
-regression, in case you want to add Reported-by and Closes tags for
-regzbot.
-
-I am happy to run these again on your v2. The tests were set up with
-the help of an AI assistant.
-
-[1] https://lore.kernel.org/all/20261109091444.128521-1-gopalmalaviya53@gmail.com/
-[2] https://lore.kernel.org/all/20261105192517.228523-1-tracekotae@gmail.com/
-
-Thanks,
-Gopal
+After the move, SM8150 UFS no longer provides the ICE register region or
+ice_core_clk; those live in the standalone ICE node. The only in-tree
+user of qcom,sm8150-ufshc is arch/arm64/boot/dts/qcom/sm8150.dtsi, which
+is converted in the DTS patch, so there are no leftover users of the
+embedded-ICE binding for this compatible and no schema warnings.
