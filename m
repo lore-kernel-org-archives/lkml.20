@@ -1,85 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.202
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794382817;
-	b=T/YK9djNJ1FjfX2XV7czsZFLcOG1dUrKXfftIriSIB3EurUYDoGTfrw4PcGoZVM0Raus
-	 lo5seUFv+HwpvzWyDFy7stqVmBgX9S/6Xcx8LP17KaFTrk+mOWAmyQV8b9TFgd1Ogr73W
-	 OzgPVNwjBHdN5let9PAuO3a1y/MPxMxtSF6xkqc2ZapMiNJcCRUDfUExtNHxX02fkURv2
-	 pmqBE1oOVFMud5Eg8nXJ4pXQE76UEPcbkb7lpHeaZ34q5/pMWGHKRRYO7WblL1Tbe47OH
-	 zDaJNtMbNsMBDXpBqLn5Hyu5kPoTx3EJF/A+v+l+yOAKBQrEXcaxGX+4AU2oGVzaQ9A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794382817;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.52
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794382814;
+	b=oBOBhKNKskWcIWVrgiJjvfToV72dFIi/XhORbcquV3nIWw35kueqmo0FIyvoyuhH+jEJ
+	 ARSF0HxY0kglvfRnf3Vxk0QQy36PcTC27EtAP2w2NETSCEr9llKc65K3U0YeZRvBhgEmt
+	 9P+efCX9wGFl8aAOSDNlE9nsPIb08tq1Bktvh77PoSp1pCyA6pzKmJSTyIOMQMpkSmwgk
+	 3SSa2cLUofKHjyDL9nEIHY4QyWG44F6tauOozNWS5gckiD6ncC9kfGHt25ZpvC5QukW5j
+	 Sr2TI7BbySZlh66WRTFBVaOgr8UrI1f9zi581rEY75+x3l8197hfnBirfkc+ebGntBw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794382814;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:Date:
-	 Message-Id:To:Cc:In-Reply-To:References:X-Mailer;
-	bh=5sA/bJ7zlvzB4PjwB/BzIEOEcwq2h4lfsdHKluSnl6M=;
-	b=PLzQk2DUJQvzwRR+rWoqu2ul4DjBi9IRB2tVEAQOYxFNozSUblU3peGNAZsQnljvrhbj
-	 jjJU81ntzQPmCYAujILhieEaNH4yaeYrnL7iCE8g3zGx5FJs7IxV08RgcAPmVALHoxePi
-	 NKARnkBUg7sq+u+FiqOih3mInddsVXW1k9si+zMlzNKppeAysKT96Yu3qmdcMsHVqZT4v
-	 Uk2x9qSn9dyOhK93qjIvrCpPzgmA9P97YUlsIHydLm1wDjPaNUUrwJq3PRWTLYVU5qrjN
-	 Ra1vKf+21XOPBoGKjn8SddZvRHMjfC3lNM7j62dEVfk8NfBVPa3wxllNeYqS+sPgl0g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=UE+ZO+LDbUQkJMK6amSVRY89ivr6MWd0ox+os4xr0eo=;
+	b=nf+HXf6xKcBoL0G+7O6AOMqnrQkTlNwHMH0+04j/bEjGlT8VyG9yIFisMjCN20s/RUvP
+	 633h87oreezlrer8bn8y+VgkQVyzZMrLYCSL1I9ZixFe+A/wHoGv4x1h667giJcsNqJaL
+	 +H0XOexair8uyn821ywgbYeFXS2jX7rh2ZLqVXKQWYswwV2HKcZM8pXyZbm7XK8hhy3QB
+	 sfU27LgwCx8qtSwQtwiqEgDFPgQnXwqmxNDBuUao0AckdulGcPXUbv0pZy9bkx5tIvMtk
+	 k+lT24n2MQkQJd5jXJHmpN8Y3xhqpW4NFfgdP6nXQgi+89yjTxSa0rOColT52dmn6iQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RshPZ4Ni;
-	arc=none smtp.remote-ip=74.125.227.202
-Received: from mail-pi2-f10.google.com (mail-pi2-f10.google.com [74.125.227.202])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VCD6QF64;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.52
+Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6069606A320
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 07:40:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6069606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA85E606A326
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 07:40:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA85E606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RshPZ4Ni
-Received: by mail-pi2-f10.google.com with SMTP id 41be03b00d2f7-cd6b195dd0cso750252a12.1
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 23:40:16 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VCD6QF64
+Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6b7221c0f2cso2275867a12.3
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 23:40:13 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794382812; cv=none;
+        d=google.com; s=arc-20260327;
+        b=TWpY67BZyChTjTqHzcKY58JsJUHfRN5keFPuGuKF9omBPB4xdOZDmtanbTr2SZ4cA5
+         MyjIacw2VyBSQVB/qen0L0WKL/yHsDVlCM0M5AamcDbU//1fcjuNLXHLkG8YLR2AIUn5
+         mE1Z0XwEJIdzrbj+7tnoxoyx4UUNAmF1sjGcI1t3TfXtnAn21c89ZPvSlk7RO1kd8tFA
+         ASlOINi0mAlrdl5wuDrh7LuzYgN4FXG58sdhilhYgwR+AcWygAI6x+eat0jIx8L3pupt
+         dX6ABqy1HG32fGDNCfy351AiKTZXUQxdWeT05X3LRp43JnwLXRIbwnKFnWyZshpBSaw8
+         klBw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=UE+ZO+LDbUQkJMK6amSVRY89ivr6MWd0ox+os4xr0eo=;
+        fh=9uLrPbuNRazYFQUnpqi9UN4uYSBoqU8MLYe8oAT1va0=;
+        b=CQKT4CuqfLT9rEEVk2uTaLMGO+zhOozDKRwDPfvWt6R6e/xbpzJTM02i32OC9n9FTr
+         70ome6p/9drjYrMh9PG/SOPHrY/qPcR3qMBBhJZeQ3T4cQTJoCoxFGh5ikPSS4Y+WOig
+         SP35Uu5X5v2Iee6oclVRHTZGzpFgMKSXz4B0UbVTM0dxzB8Z/J6PJsEIRzsCtFf+bagv
+         H0bo7GIp+FJHEd7OT10jj/sO01/2bxu23eAzDY426WaYVADfYXJnhZNqJXL2wsCC+iTF
+         wc7w1QE2pd23xjyqbtgPECz/3RULFQKDU6aBpddioK7kgLujsIh9bXx3QFPBnHcxFBa+
+         4dGA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794382816; x=1794987616; darn=vger.kernel.org;
-        h=references:in-reply-to:cc:to:message-id:date:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=5sA/bJ7zlvzB4PjwB/BzIEOEcwq2h4lfsdHKluSnl6M=;
-        b=RshPZ4NiZ3yyINW4tEcVjyvremNrPP0ZAsQXV6Slh3WDu0fI6Bfxv5vH9S2S6zksDQ
-         PB/TpcB8s5qifEhzKZ+/rA8tJBr6eOcZPnuy3AcwnB5qwLvOgg06jliCu5PqRroc6DFv
-         gM5ZzMkUWfhp1kivGjKjaUyKB7Blwnk9IeRVt1QwQ/LQjFq2fgj/V5MfABBARa1iMLR2
-         7J6lS2KljnM3f5tH/ka9kfloyLOnK6cGO9fMQfwCfKq3ibQigdpsLiouz1vXXUgdqCaZ
-         iyPFC289FZsHf5jkmMp95GL0mBZcl8+jsxzAv7mkk6J2XYs6tmv7hzT2U9tYUHiY4h1v
-         rcYA==
+        d=gmail.com; s=20260707; t=1794382812; x=1794987612; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=UE+ZO+LDbUQkJMK6amSVRY89ivr6MWd0ox+os4xr0eo=;
+        b=VCD6QF64cq+6EajKVeH2KGvi/U5cBgOq2QaZUPujN9TUpScC8tW0bSWQt0oDUSy4JW
+         S6Z8D6nWlIJvYo0C12W4DfrOkGdol86fJwYUUTyy4O1KRs5ZZZUMVLH5TcN2PkElzTMC
+         CDPcO/9EjC2evHTSCepGDSbwuoSelf7KCGcOupsWhHmqIXstiHNkS+oNFTvRiDsE9USX
+         LiWsrb9RYjjdGp3t/FMvX1MXOCXDbkNCM98PDcj50ceTD5evbGSrKBzvVmJsknTflsiz
+         goYBb6lxDQzfivXfrbKsifTYJfLVgLYCutTWcyI9Jo7kHyPrf094IrOod562TSGGHij3
+         JFcg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794382816; x=1794987616;
-        h=references:in-reply-to:cc:to:message-id:date:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1794382812; x=1794987612;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=5sA/bJ7zlvzB4PjwB/BzIEOEcwq2h4lfsdHKluSnl6M=;
-        b=rRFpDRczkH6j4q0DGRjXRVXkY9AWuNNw8Q7el8u7BjYG6Kck52u9xF7VLneNWPe5V5
-         DQ1Cff6US0d4hbG07gSSPEylOg1WuKRxdw6tR7+4pIc36ZbBLlphpUodZbuPlfpa6ogf
-         v9HHZJSEWfntoGhrB+T8FpIWhK6viW4Ta146bcg3cTOWflJ38owd5Ql7fJrC769JC6gL
-         zukyr3q1w6UEx2XvFtSg3pHIR8g/YmdH9d/vCQikO7sLhqqzqBVg2bl8uHg/XLcD1faP
-         dh+yiAh9wriBhn2ax/Ff6vnC5x91ulFE41kc4siznxQmMG1+uuLINMRVB/Pm2Yg7kkAQ
-         cp3g==
-X-Forwarded-Encrypted: i=1; AL+hErFbKV2coVjuKmZ9CAF3iTmEalpU6sJ7vjWfSIiG/mtdhaezUI3aINU0GgFPPoQ+BNrvKhImAHzHF/FA8CM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+RGsENEQ9dRZRdzIpaZuRqU3PCPYnNXLCtzi3444RGm7Xx3F9A
-	EcdsS95tiin6mcxykMwraqdnmwQO4CAVM35Nj/z0kf7kdD4PsGdtKy3L0yVlmWKi3XCKQQ==
-X-Gm-Gg: AYBFou3qo25dEfRPgdy9sWzNJAKO5+KP1hnl1h8ykuxg56MyxYHpqjInqRiECI6AsRn
-	QlGaDGCvKt8BRCA36iYYp/HkyL1WeqGdIdkUhcPZg5kjBFZ9loKwnY42IubRR9sdfnqwcpD57N+
-	7bU26+uHRPL53Rx2+vnB9badBkR/1dsBNAqQ/j1FI1vMPJGqZoa9xvuYJQLqKAsMPHmCOCpVm/9
-	CdBeIsVHA9V2jQEfjdGNULbq2dJS3uU5i8ePDwEjWGjeDSWnOhmXAuEp49JnqQIBeX5S5ebfv8Q
-	7RNtQGx8/q7kKWzcfSjL6wv6IYCgXzkrdH1iAgeVfo1fCzHcc4zdKtnJIasvF2Jh0fxk5gQLyMG
-	jlHYDMaW4kZnL8Lkfyf1CEJOPfHrfoP5TApOTz2zgzFYEjDW4SrqOtCfQFa7E7VFu61UA3YNhIk
-	LLIN1lJgiGdlucwXoPb4ZQQ190Uc3tvqr7fm6Hmi9ISeAayeg7WmbXu/QVygnbnzU7WELDd8oYY
-	gI3a2aNBzqXp/Y2HQxOqxe1G32LdZbKxBQ6S7aF0GarOGPAOgCFYndWC8lCzZPo0YCPSvPSeA9M
-	Xdtx3i2LqVytCjB/4nZ9xWl8hl8HM3Fwuxp9GuiO4WYcHNfe4sbmfoIHUoBG6iUnd7mZ36+O+9/
-	YczrPJpDRDI37SJ592cjBRjyJwA==
-X-Received: by 2002:a05:6a00:813:b0:89d:5a80:5256 with SMTP id d2e1a72fcca58-8bc1c59482dmr1963449b3a.9.1794382816055;
-        Tue, 10 Nov 2026 23:40:16 -0800 (PST)
-Received: from localhost (n106-71-19-159.sun21.vic.optusnet.com.au. [106.71.19.159])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8baaae3e110sm1781918b3a.36.2026.11.10.23.40.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 23:40:15 -0800 (PST)
+        bh=UE+ZO+LDbUQkJMK6amSVRY89ivr6MWd0ox+os4xr0eo=;
+        b=M4WaNiGq2tFl8VcCOxtFEvG9L58XrIsaHA6Uup9sOEkFV8MKnOtQKkNbNENLtJcw0p
+         //+WY4JOkiVBejXKhsdj3s0MzvGUb7vWvKiTmn42i6rZXXkITiFsCWJqcduredkv//LD
+         Kkc3KgCWtaPvbTy+XDGXgGQTGroJ9jX6EpAj3tURffVX36BKe9QAlm6Bmkpf1mRVDVNU
+         dPmE6Pk8DUTLac6GcKgeciZlHDtpAjuo88fZzSXBw4uEbLFFaCjHpvDAoAnQMe3CHW5v
+         wYwzpZc7IPyM89hZX3nQvGGTnfRcjVRdz/E22M6QXn4vh5BuwiOJdDElMvutvZsdwHLX
+         wqpg==
+X-Forwarded-Encrypted: i=1; AL+hErFCyXgXWAES0UU2kxdHtonWaqrCJ096or6RWPJnAE8payAsDI3kJ2FY9asKM4k9Kkw1Fd7O2epO7rPVkNg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/w/FW+88Xob8cu4/teeh+2L015vr+4f0gV7mHjC1HbeT4pkCb3
+	/JCn7wnOE56PpHCW/Lmz1QosILKHLKOSaGtfpjtck1zG7eone8GmR5cQZ/E2ROzQ0JKGzwUQsQa
+	Ie4UXp9rijPrrQOaK6Fpg40B9Ix1dE64=
+X-Gm-Gg: AYBFou11Mi5LhkMMQVoJL9YoyQC0bVZcf6maPDet2HZHAbJiQco4g7ufwDydJmnn/tf
+	H27ZM25zIUx+uG4EXNQlvKtzp62cfr5s/nPxKVinSlwSKH97bHBGt05fabcpiagG12GISOrAtss
+	YolWNcxGzv9DQhNTTn2BZ3CElju0jM2XStvwfkHQdDL/rjqaFaYeFr5zWuX6GNTDKcEQggorU8c
+	D00J53MIecuWJ6vnTgnEuYf5YUInRgUGknkVZBEHxH99Z6ms6Nhtlc68jrdNt4VG6IKm1LU1/Zi
+	hZVqVpY7ehwjMRtW/x5J83pUzgLWkEzuNXh0xFL9QU/mbeZhssE6HHrfM0NwGUI0xB+fnKfMuGq
+	zbu5m5XdbbLlGcfBWa5UWQRQjBU+2nbXlr4jU23ZJVxNpANR7ayVXS/OY/y1peeZg3nXbQg==
+X-Received: by 2002:a05:6402:a614:b0:6b4:2aa6:2bf7 with SMTP id
+ 4fb4d7f45d1cf-6b7773fba00mr814626a12.17.1794382812113; Tue, 10 Nov 2026
+ 23:40:12 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,50 +104,75 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [RFC PATCH v0] Docs/mm/damon/design: document data attributes
- report infra design (beyond page table accessed-bit milestone 2)
-From: Aveline Noir <jm5905938@gmail.com>
-Date: Wed, 11 Nov 2026 18:35:52 +1100
-Message-Id: <179438255225.3134195.10613668244848761847.b4-reply@b4>
-To: SJ Park <sj@kernel.org>
-Cc: Jonathan Corbet <corbet@lwn.net>, damon@lists.linux.dev, 
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
- Ravi Jonnalagadda <ravis.opensrc@gmail.com>, 
- Randy Dunlap <rdunlap@infradead.org>, 
- Shuah Khan <skhan@linuxfoundation.org>
-In-Reply-To: <20261017195747.89961-1-sj@kernel.org>
-References: <20261017195747.89961-1-sj@kernel.org>
-X-Mailer: b4 0.16.0
+References: <20261105-tonyk-syscall_table-v9-0-8d1275885d9c@igalia.com> <20261105-tonyk-syscall_table-v9-10-8d1275885d9c@igalia.com>
+In-Reply-To: <20261105-tonyk-syscall_table-v9-10-8d1275885d9c@igalia.com>
+From: Magnus Lindholm <linmag7@gmail.com>
+Date: Wed, 11 Nov 2026 08:40:00 +0100
+X-Gm-Features: AclHuK-efo-IN8C0PeBM3H51GRM-qrC5WxHB8slQK0l-tYnt6GeST1OC-lb_0Yw
+Message-ID: <CA+=Fv5RNznnVyh4AM_ZTdwyK4iv-8TEO5Ejx0_81sf5CTeoGgw@mail.gmail.com>
+Subject: Re: [PATCH v9 10/15] alpha: Define entry point for
+ set_mempolicy_home_node syscall
+To: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
+Cc: Masami Hiramatsu <mhiramat@kernel.org>, Arnd Bergmanon <arnd@arndb.de>, 
+	Christian Brauner <brauner@kernel.org>, linux-kernel@vger.kernel.org, 
+	linux-kbuild@vger.kernel.org, kernel-dev@igalia.com, 
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>, linux-alpha@vger.kernel.org, 
+	linux-s390@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	soc@lists.linux.dev, linux-mips@vger.kernel.org, sparclinux@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi SJ,
+Hi Andr=C3=A9
 
-On Sat, 17 Oct 2026 12:57:45 -0700 SJ Park wrote:
+On Thu, Nov 5, 2026 at 9:06=E2=80=AFPM Andr=C3=A9 Almeida <andrealmeid@igal=
+ia.com> wrote:
+>
+> Instead of explicitly defining set_mempolicy_home_node as sys_ni_sycall i=
+n
+> the syscall table, define it as the real syscall entry point,
+> sys_set_mempolicy_home_node. As per commit fdb7d9b7acd0 ("alpha: remove
+> DISCONTIGMEM and NUMA"), alpha doesn't have NUMA support, so none of the
+> mempolicy sycalls will ever be compiled for alpha, resulting in the
+> COND_SYSCALL() fallback being used to result in the sys_ni_syscall.
+>
+> There's no function change here, but this step helps to unify the syscall
+> tables and create a common table to rule them all.
+>
+> Acked-by: Magnus Lindholm <linmag7@gmail.com>
+> Signed-off-by: Andr=C3=A9 Almeida <andrealmeid@igalia.com>
+> ---
+>  arch/alpha/kernel/syscalls/syscall.tbl | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/arch/alpha/kernel/syscalls/syscall.tbl b/arch/alpha/kernel/s=
+yscalls/syscall.tbl
+> index 52e3538cc7df..8fc4701a6328 100644
+> --- a/arch/alpha/kernel/syscalls/syscall.tbl
+> +++ b/arch/alpha/kernel/syscalls/syscall.tbl
+> @@ -489,7 +489,7 @@
+>  # 557 reserved for memfd_secret
+>  558    common  process_mrelease                sys_process_mrelease
+>  559    common  futex_waitv                     sys_futex_waitv
+> -560    common  set_mempolicy_home_node         sys_ni_syscall
+> +560    common  set_mempolicy_home_node         sys_set_mempolicy_home_no=
+de
+>  561    common  cachestat                       sys_cachestat
+>  562    common  fchmodat2                       sys_fchmodat2
+>  563    common  map_shadow_stack                sys_map_shadow_stack
+>
+> --
+> 2.56.0
+>
 
-> +The data attribute probe supports the reports.  The probes can be configured to
-> +hit for a given memory region depending on the existence of specific types of
-> +reports that associated with the memory region in given report buffers.
+My Acked-by already in this patch still stands.
 
-I'm wondering how this would interact with the region size.  If each
-page of a region is reported with probability q, a region of s pages
-would hit with probability 1 - (1 - q)^s, so a large region may hit
-more often than a small region of the same access density.  The page
-table accessed-bit check samples one page per region, so its hit rate
-doesn't depend on the region size in the same way.
+I tested the series against my Alpha for-next, with the integration
+adjustments described in my replies to patches 11 and 12. Full GENERIC
+SMP and DP264 UP builds passed.
 
-A quick replay of the crediting rule of Ravi's RFC v4 [1] on synthetic
-traces showed a similar trend.  The adaptive regions adjustment would
-mitigate this to some extent, but large cold-only regions still kept
-high hit rates after split and merge in the replay.  I'm not sure how
-much it matters on real workloads, though.
-
-Would crediting the hits relative to the region size, e.g., reported
-bytes / region bytes, make sense to you?  It would need probe_hits
-wider than u8, so it is not free.  If you think it is worth exploring,
-I may run more experiments and share the results.
-
-[1] https://lore.kernel.org/all/20261005-damon-perf-rfc-v3-send-2026-10-03-v4-0-b03452e137f3@gmail.com/
+The generated dispatch table changes syscall 560 to
+sys_set_mempolicy_home_node as intended. Alpha has no NUMA support,
+so this still resolves to the sys_ni_syscall fallback.
 
 Thanks,
-Aveline Noir
+Magnus
