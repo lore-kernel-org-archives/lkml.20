@@ -1,53 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794372123;
-	b=Y0v7P3xdMeJiDlziyC3GJ4xs9KKiyo40xoP3mXfoy/nJZZqxeClYtw7MWSXWX/4v0VvC
-	 pJvhVxgcNxIxQ0RJGHb34BR4cLQiMJWDeMceQqjlykVCqkOyvckrpukQ9L0AI2U/iOnSu
-	 UQZeaNUtSRyWfG0gGWPW3hm99aWMyIKU9R7ovQ8oMVce8eH1aYhiCmbAlxUWgc0pFmv1f
-	 O6xgovEL/R/DvV0u7Xa0m1QAFTeeOgXhBn6CRz6p4njBHdUzFzqyD7I3cilcoRK+6T44i
-	 MP52BTeADQgmte1amDWaCoN6226mHtnkZ8M9120sxW/M+Nxtdd/tf+IWwAAlsGUlR3Q==
+	t=1794372124;
+	b=b86bx6DPEf8cRrIEyU1et5No4c2/WJ+t5hrpOpX5c7RoRh4XTxVFBD3p0hh96q4yt9IE
+	 KB7b8L79IRY65rYpQVEU6oMfIB20xjh/IrgSM2uRycG1FmEWNwnC7L3dXlGD2Sw28zrZX
+	 cmI9X+0BzYpC/hEGhiBk8ha8n2V6vNsFds4W+xVB+tpzAnvPrpSUiMYJoghYexrT+qJqa
+	 ltNhPQtf0ET9dSxy1Xx5Y4ObZM/qyH9H9FyVegZ5BYHiKGP8I4rAh+wUuOhZ1BgAtoQE2
+	 e5ap0Y4yoC7HMPk3eGm3iOZ2q9+Iq8y+l7yVvMZ5uYxSxmcIILBkc9OUpE84STXPNGw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794372123;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
-	 MIME-Version:X-Received:Date:In-Reply-To:X-Google-Appengine-App-Id:
-	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
-	 Content-Type;
-	bh=FRneNlikMLGlcgwXeyNT0zePXHoEfbyzXnwyA+onIVc=;
-	b=Qr8dv1M4v5iDXJLjLLzToSPmVHSBPEiQqpwwgIlyx1KrbnbGDOAQUAt2XFiOkZIqyPPw
-	 sAr30gm+GibkSozknmmmDLTF41JP4e0eQt+Sq1l82amUuPl8k/FWVJUCoodv5MmXHxTz3
-	 ljL3njurj1xD71Dplgiyh0ZVfCuCKYarfElfrvWci5hOuUdnZHKt69iPi4WI9cgrosRR9
-	 CCuMJNLcywOrBCiOyTq4zlHu+Qc56OIoZoGw2K/+vO7otlp7TlhQ5Y0R+1b7HCAJ52Igb
-	 Tlo2M6WkwplodcfxwzN+OXcL9aSAJqy0kMVHF/sPinwx2LY47RVcV4uTd1tsmPQgSUQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794372124;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=LBWMkcN1tef9AYjk2Bp3If0hhjn0Q863wdyvj1dL6Dg=;
+	b=hYsJLDE9tT5oL0NnUShbe/xhPcwkB59FU5b3d8LoMoGsd7tL/bfrwUvFWAUP0R78e686
+	 8Y7SjBbA9lLKQ42+hb9W3M6YzCl0X8PzvIkrA/ZVRLYLBaA8ff87NKcuVyqT6Cdl/ft1n
+	 OFIwODL0nTvYeMvBAD0/hwy6rfYUzN8CnBaLxL1xipTrYCEtR2QsCQVzIydeNxUM78VOB
+	 82W2EyVJQozv22SQPq8tqIArB/ekAtoE6Wv0uBjffxepQycUcntg9YbH1gRWRg/yLwt7A
+	 LrBk9NL88WSHisRp8CzTzh4gKCr8jUVtMc/v+BAbm1FvlBnNsHZQpnFs0LcRok8AKDg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.198
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Tb8EYn5U;
+	arc=none smtp.remote-ip=74.125.229.4
+Received: from mail-dy2-f4.google.com (mail-dy2-f4.google.com [74.125.229.4])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28940606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 04:42:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28940606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4a41f46d629so3859719b6e.3
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 20:42:02 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22E38606A332
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 04:42:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 22E38606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Tb8EYn5U
+Received: by mail-dy2-f4.google.com with SMTP id 5a478bee46e88-36f2f262b19so1948461eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 20:42:03 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794372123; x=1794976923; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:content-type:references
+         :in-reply-to:subject:cc:to:from:message-id:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=LBWMkcN1tef9AYjk2Bp3If0hhjn0Q863wdyvj1dL6Dg=;
+        b=Tb8EYn5UL5TPN4jrj25I2JBolJE+4LfY73wyOfqANHUNWQ//ZRgSlRYHUVN+LIB2we
+         MfjhZtYgorMdYNUUdWxpYmku5O5oKZ5DXLNNPmZoqDaFMmvNL4HwqCrDmRa5DFYFoTwJ
+         Q63GoZ/tv02pI42Ch0YDvkYx/G0C8eJzTUJPlQfYc6h6Cdhj/Z2lNDN33mqpZalTb7sI
+         zFgSrDJbeHJ25XyiK3oz7d+AXggzRSfVZT+wwmfeRA6sKT7+AOMlNUl0NKXAb/8A/jyh
+         Px8hGxqnssvWdlULG6GGl+pi7O/1Am0iOHjypP8QT4Hg1vzoe7dAX04wln+YCX5neXAg
+         RqLA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794372122; x=1794976922;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=FRneNlikMLGlcgwXeyNT0zePXHoEfbyzXnwyA+onIVc=;
-        b=Xvvoos8sd3KXgwjt16wehr7+7TxvmLWDK8Lu0FQ/rln4XRgpztxR0pSbiOgyGG/ntI
-         p4cjdb50RE6zZyf6AKw7E0rI5W9NDOWzmQPnyfgBp9rwGNqX84z2dnWT6SYJt/05zWGn
-         k5XJ68aRJRR9eLf6pYu0zQOqBAawNyfGLBOFcKpqDR39+PKL431QLQ8tvLH+yCvoaJvn
-         +whrYD1J/hFo/BW8cPqNI5dSl4i8mujCrjxsUjO7HkjrYXog9zfMiz52gJoTZIANmYuM
-         G50teuhrvfDTAPmPN9LJq1Vu4lv9mEc3RYSAcXvPzOKF6rIP+wT6gZ9ikW+pOwcj4W4z
-         JCQg==
-X-Gm-Message-State: APuU4Z8pCwF2QOuj5B06eGqeV8nw8anbytr91sFs0BSnGnblqOehcmr7
-	S8cOCXEG+tHz2eC/PgqRHLC/W3WMTLNJtSRmmPTgM7KX13sJHG+kFMB7S4W2ghAwLwe4uhK8McT
-	i3CxrKVC2lZgk7jXqEU8iMYFp0zNZDGzbFSFuwcYyMpmpfltwHEgZYP+0GWQ=
+        d=1e100.net; s=20260707; t=1794372123; x=1794976923;
+        h=mime-version:content-transfer-encoding:content-type:references
+         :in-reply-to:subject:cc:to:from:message-id:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=LBWMkcN1tef9AYjk2Bp3If0hhjn0Q863wdyvj1dL6Dg=;
+        b=UGSVd8FpWyMd1b+ioVKx5ZeFg39J8qFS0u1jPSfXtCTtohEEIUQ055HPeBIiVx+4Q1
+         7V3y6DssIL3EAqhRwPDHiguY9/pWg99JxV515iYzCbAa8or8s7ujLV+lkUrr0RDVrQBB
+         j9og9VLZ5UsjMs9fUjhr55LvlKBw+iCF191fy6lln4qRyDE2/9JuEek8bywJGkDsEZDK
+         1kGM0NiNpdVpP+rajbxhVqxj7T4dIr88xR01LzhOJl88KcgVTbkq0zXCx/EPaErepsvj
+         UjE5paVFzdSNIdsEzNsX8w6j7MLcqn9N9eObeYrIPJ73c+C8pxTZOsqddVEfKNlKtbhd
+         ElVA==
+X-Forwarded-Encrypted: i=1; AL+hErEUWoJZrHJ2AmAkMjMzM6Au45ZVa8fmw1Ed5d7tgv2kkhfro3w96xKiegnLYKi4AJO/0IY8DSy0buM5lC8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9cFvfZaZI2fZs/xBpPdKTEpmTj5hy1Mq+756C1T9+AkzLVML7W
+	QeQ9nP1yldLLMaN062YxBnJa8AyDJB7KtosLs3nnzYQHP4Cr2aQRVYZ1
+X-Gm-Gg: AYBFou0v8czZzXPga4m0LLflaDL5tvat9t1gMUw9B05mafgQdIJxTr4cPk/0zIHFDcm
+	0nXJfOC0Lj6H5yXy2QGUq+2j0faHVwotaywS2+oaHaRqFNh/kKAaREN5+guDzmWhRb28fyrdNGQ
+	CJgoCIbkYy6m5iFBzjDa+SRk6GkX0ZG9hS89OG6/s/bnXr/47XOAEssiiER2pE0aZ/AWuazi08d
+	4eBSC0yi6ZnEjKf8D25B16d7YHeXty5kK1weWN7VobT8IMbaKVSiOXgR3pJjR1vhDnl7i1PhXJk
+	uEOsdZJluzjnNyaoeHxHmstMY5Z9EUROWLqgZ7nGPTb9F8UyWMuzM9yqFRrSzJnYbBymiTzz3Ec
+	n/zX1bOBBFT3YtvKIlCKVUN9wK74B5TJTJEgV/pZcJ8wIiissKHYlovHrv8gBIEbQ+zh2UuwAUZ
+	JtRww68Rat3FO1lUuNAXmEV2UkMNA3kVatGUSSlamrNEan/teHng0+fXvvkHW18dLfAdLSSX+Us
+	fHaPrgLUvNJKP/C4c4aFfREA8GUBeiRnl10rKgLk8SdfN9kK5pVC47WCP+r/ns2fG4vx7kNPp4N
+	Cz51eCt0eQ/0XpDTfzwI110Q
+X-Received: by 2002:a05:7301:4184:b0:36a:1f4f:3e9 with SMTP id 5a478bee46e88-37685d753c3mr2904495eec.20.1794372122835;
+        Tue, 10 Nov 2026 20:42:02 -0800 (PST)
+Received: from localhost ([2403:2c80:6::10d9])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37520512ec1sm11023535eec.12.2026.11.10.20.42.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 20:42:02 -0800 (PST)
+Date: Wed, 11 Nov 2026 12:41:58 +0800
+Message-ID: <531e628a379b6733632a25d998337d77.codykang.hk@gmail.com>
+From: Cody Kang <codykang.hk@gmail.com>
+To: Sarah Emery <sarah.emery@canonical.com>
+Cc: airlied@gmail.com, alex@ghiti.fr, aou@eecs.berkeley.edu,
+ bmasney@redhat.com, conor+dt@kernel.org, devicetree@vger.kernel.org,
+ dlan@kernel.org, docular.xu@gmail.com, dri-devel@lists.freedesktop.org,
+ heylenay@4d2.org, krzk+dt@kernel.org, linux-clk@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
+ linux-riscv@lists.infradead.org, maarten.lankhorst@linux.intel.com,
+ me@ziyao.cc, mripard@kernel.org, mturquette@baylibre.com,
+ neil.armstrong@linaro.org, p.zabel@pengutronix.de, palmer@dabbelt.com,
+ pjw@kernel.org, robh@kernel.org, sboyd@kernel.org, simona@ffwll.ch,
+ spacemit@lists.linux.dev, tzimmermann@suse.de, u.kleine-koenig@baylibre.com,
+ vkoul@kernel.org
+Subject: Re: [PATCH v2 11/17] drm/spacemit: add Saturn DPU DRM device driver
+In-Reply-To: <546efd00-ddaf-47f4-9387-2635785a1bf5@canonical.com>
+References: <20260809-k3-display-v2-11-327d7910bf71@gmail.com>
+ <546efd00-ddaf-47f4-9387-2635785a1bf5@canonical.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,117 +109,23 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:178f:b0:4b9:e65b:8c33 with SMTP id
- 5614622812f47-56b970eca6fmr999487b6e.33.1794372122110; Tue, 10 Nov 2026
- 20:42:02 -0800 (PST)
-Date: Tue, 10 Nov 2026 20:42:02 -0800
-In-Reply-To: <CAO7_G+xxRab6PJQnffPhpV+fiYbEj85bDOLYO6Uho360ohVYLw@mail.gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6af3f21a.926a6ce0.263fd.0198.GAE@google.com>
-Subject: Re: [syzbot] [block?] BUG: unable to handle kernel paging request in blk_mq_complete_request_remote
-From: syzbot <syzbot+2e3bf0bd49acd9b21d4b@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, nenkov2004@gmail.com, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
 
-Hello,
+Hi Sarah,
 
-syzbot has tested the proposed patch but the reproducer is still triggering an issue:
-KASAN: use-after-free Write in rht_lock
+On Tue, 10 Nov 2026 18:02:42 +0100, Sarah Emery wrote:
+[...]
+> I'm sending this here in the hope that it will be useful for a future 
+> revision.
+> Is there a v3 in preparation?
 
-bond0 (unregistering): (slave bond_slave_0): Releasing backup interface
-bond0 (unregistering): (slave bond_slave_1): Releasing backup interface
-bond0 (unregistering): Released all slaves
-==================================================================
-BUG: KASAN: use-after-free in instrument_atomic_read_write include/linux/instrumented.h:112 [inline]
-BUG: KASAN: use-after-free in test_and_set_bit_lock include/asm-generic/bitops/instrumented-lock.h:57 [inline]
-BUG: KASAN: use-after-free in bit_spin_lock include/linux/bit_spinlock.h:40 [inline]
-BUG: KASAN: use-after-free in rht_lock_nested include/linux/rhashtable.h:330 [inline]
-BUG: KASAN: use-after-free in rht_lock+0x74/0x19c include/linux/rhashtable.h:339
-Write of size 8 at addr ffff000139838a68 by task kworker/u8:7/1394
+Thank you for the fix, and yes, a v3 is on the way. I am working on it
+with a friend, and it may be posted by him rather than by me.
 
-CPU: 1 UID: 0 PID: 1394 Comm: kworker/u8:7 Not tainted syzkaller #0 PREEMPT 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 11/06/2026
-Workqueue: netns cleanup_net
-Call trace:
- show_stack+0x2c/0x3c arch/arm64/kernel/stacktrace.c:499 (C)
- __dump_stack+0x30/0x40 lib/dump_stack.c:94
- dump_stack_lvl+0xd8/0x12c lib/dump_stack.c:120
- print_address_description+0xb0/0x238 mm/kasan/report.c:378
- print_report+0x68/0x84 mm/kasan/report.c:482
- kasan_report+0x8c/0xc4 mm/kasan/report.c:595
- check_region_inline mm/kasan/generic.c:-1 [inline]
- kasan_check_range+0x17c/0x1ac mm/kasan/generic.c:200
- __kasan_check_write+0x20/0x30 mm/kasan/shadow.c:37
- instrument_atomic_read_write include/linux/instrumented.h:112 [inline]
- test_and_set_bit_lock include/asm-generic/bitops/instrumented-lock.h:57 [inline]
- bit_spin_lock include/linux/bit_spinlock.h:40 [inline]
- rht_lock_nested include/linux/rhashtable.h:330 [inline]
- rht_lock+0x74/0x19c include/linux/rhashtable.h:339
- __rhashtable_remove_fast_one include/linux/rhashtable.h:1069 [inline]
- __rhashtable_remove_fast include/linux/rhashtable.h:1150 [inline]
- rhashtable_remove_fast include/linux/rhashtable.h:1179 [inline]
- tipc_sk_remove net/tipc/socket.c:3051 [inline]
- tipc_release+0x54c/0x10d0 net/tipc/socket.c:648
- __sock_release+0xf8/0x1d4 net/socket.c:735
- sock_release+0x24/0x34 net/socket.c:763
- tipc_topsrv_stop net/tipc/topsrv.c:770 [inline]
- tipc_topsrv_exit_net+0x224/0x26c net/tipc/topsrv.c:782
- ops_exit_list net/core/net_namespace.c:200 [inline]
- ops_undo_list+0x3cc/0x81c net/core/net_namespace.c:253
- cleanup_net+0x474/0x6c4 net/core/net_namespace.c:708
- process_one_work kernel/workqueue.c:3495 [inline]
- process_scheduled_works+0x91c/0x1250 kernel/workqueue.c:3578
- worker_thread+0x798/0xbd0 kernel/workqueue.c:3659
- kthread+0x304/0x3d4 kernel/kthread.c:436
- ret_from_fork+0x10/0x20 arch/arm64/kernel/entry.S:854
+I am glad you brought this up here on the list. I had already noticed
+your work: the series, with your two fixes on top, has been running in
+the Ubuntu 26.10 release on the SpacemiT K3 boards.
 
-The buggy address belongs to the physical page:
-page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x179838
-flags: 0x5ffc00000000000(node=0|zone=2|lastcpupid=0x7ff)
-raw: 05ffc00000000000 fffffdffc4e60e08 fffffdffc4e60e08 0000000000000000
-raw: 0000000000000000 0000000000000000 00000000ffffffff 0000000000000000
-page dumped because: kasan: bad access detected
+I would be honoured to have your Tested-by once v3 is out. Thanks
+again, and thanks to the Canonical team.
 
-Memory state around the buggy address:
- ffff000139838900: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
- ffff000139838980: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
->ffff000139838a00: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
-                                                          ^
- ffff000139838a80: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
- ffff000139838b00: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
-==================================================================
-hsr_slave_0: left promiscuous mode
-hsr_slave_1: left promiscuous mode
-batman_adv: batadv0: Interface deactivated: batadv_slave_0
-batman_adv: batadv0: Removing interface: batadv_slave_0
-batman_adv: batadv0: Interface deactivated: batadv_slave_1
-batman_adv: batadv0: Removing interface: batadv_slave_1
-veth1_macvtap: left promiscuous mode
-veth0_macvtap: left promiscuous mode
-veth1_vlan: left promiscuous mode
-veth0_vlan: left promiscuous mode
-team0 (unregistering): Port device team_slave_1 removed
-team0 (unregistering): Port device team_slave_0 removed
-netdevsim netdevsim3 netdevsim0: set [1, 0] type 2 family 0 port 6081 - 0
-netdevsim netdevsim3 netdevsim2: set [1, 0] type 2 family 0 port 6081 - 0
-wlan1: Created IBSS using preconfigured BSSID 50:50:50:50:50:50
-wlan1: Creating new IBSS network, BSSID 50:50:50:50:50:50
-bridge0: port 1(bridge_slave_0) entered blocking state
-bridge0: port 1(bridge_slave_0) entered forwarding state
-bridge0: port 2(bridge_slave_1) entered blocking state
-bridge0: port 2(bridge_slave_1) entered forwarding state
-
-
-Tested on:
-
-commit:         58c1eb84 arm64: sdei: Preserve the interrupted context..
-git tree:       https://github.com/torvalds/linux.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=1356e03d580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=a58b6b4d667e7a61
-dashboard link: https://syzkaller.appspot.com/bug?extid=2e3bf0bd49acd9b21d4b
-compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
-userspace arch: arm64
-
-Note: no patches were applied.
+Cody
