@@ -1,64 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=61.135.153.166
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794380449;
-	b=GVx7xGImHSMib0oWE62uG60qa8cyVOt5EdqK5qGDFcERBcm9k3JcNkIRrN5GbbZMTrHj
-	 H6cCpOl+ot7x8ZYW3V0c4G7BcnHGrMVR3z2gx8esXil6isRGfnOgnHuamC6L4dbK+xl+w
-	 4n36YKixgvN2JAF0RehC5GwKeAXwkhnnjadBrMbX4KjW8NumObUdpptgiwoU6KUSXCds+
-	 i5PJpyaPw2uTdUAb2WcY7jnZyAfgSM/iBmN8J6BEcg9h4Qxe8ifGSnzp0OtnTfkfVAbxt
-	 SZGqYkLx3axcmEnexOvywrd5YgOM9JG7zwJ3HnCIvHs47c51itMhYgSqO6ZO+oXKkzA==
+	t=1794380524;
+	b=MErLRkzSFsv+I/jYBcMtjqeEieKjeQBeguKzl/tKqgir6eIgQN+cZaR/MC7BPnYbuGZj
+	 SHiHPqEAz5FrGRHu9lDcCuuqsyoJUS4QZlbVG2JAzuzbv18xabWHJ+7nDGKA0u7QH6qGe
+	 FpxYVtBuF9eYIQWI5+OSUQkHib3bnn8rzdYBBFNr+BVddRkLiCuAAkTxnr88bsUVQx1JO
+	 mcb4AWD5f8fNrxAAYU6w3iT6dK5BiX9io7sdsDpANIZWG5fXHPCwVBegz3dvqTOJgbkIT
+	 +eYWUiBuYYJuAs6MvE/ylboW8sgp/2USH8CR68MBzq4jw8uyrTuhtPQlLWQFBvDEnkg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794380449;
-	h=DMARC-Filter:DKIM-Signature:X-SMAIL-HELO:Received:X-Sender:X-Auth-ID:
-	 X-SMAIL-MID:X-SMAIL-UIID:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=2ouSIVibQ0IAuWP6veUt46S6PYfL1Q7e71p91rBGGR8=;
-	b=jDP0qI8hdfIi5yY+L/trX7RCz0DElfss/+Vm/1EiyOm1QUn3LujtdO7FcaGGVpd2yWGY
-	 ax+yYY6MZ3vit0+Wkxja8tvijqBRcvgt+Wvn0c6J1PGE5uq2W23WyvPEXXokRToj1HXAo
-	 vwmm4lChab/AQvsftMKZ+Ly+y8390jwOgeb9icyaoT1l4HveeouJMZLMZd09mlkWja5Vo
-	 hZ8TLflCR93pjT57EjzrfsVr0ynulmY+BE2F3lr5d7FlDhjASNBywddOJhXNtFDo1Zqag
-	 5C8SKJKnvioyKj9GptlrXgyFMmVymEAvNxobmZIjTFcU9vRXnsxxAsK89ZYqjAqQj6Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794380524;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=zj5W+mWMoleltIi+J43CDQ9xYqfZUJIVme278zEG12g=;
+	b=syQPeTVEvx8hS92oTHX36m1fd0w8TSKneTpmJ3hAI79hbSYfJU925mP42VSr0wbXsc68
+	 jiIt/nnoi2RZBlsx2y1QCpUL00RO+q1y0iDosrwx+rmugksYM4QBRvA6gWLhYQorG2RH2
+	 kS59rVSAkZT7G3THmPnD03EpM+Xr8m9V4j+mTF76St/ZrkLbJhzPw0TJTQes1FOJt47AW
+	 ourM1UFw0ThupWDX6taAYvERJVwKdBFw1Jm5gR9YgOq+tPI1f+D62+sOlZ711RX8gWHjZ
+	 5TabgPQzbg/3t1kCz/jN8xVcLOR7Wm9Uzb7oejD6UiombM/+NqYRtcp3ppj7X6Soh8Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sina.com;
-	spf=pass smtp.mailfrom=sina.com;
-	dkim=pass header.d=sina.com header.i=@sina.com header.a=rsa-sha256 header.s=201208 header.b=lFc7wsOv;
-	arc=none smtp.remote-ip=61.135.153.166
-Received: from smtp153-166.sina.com.cn (smtp153-166.sina.com.cn [61.135.153.166])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.199
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF2E7606A320
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 07:00:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BF2E7606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=sina.com header.i=@sina.com header.a=rsa-sha256 header.s=201208 header.b=lFc7wsOv
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1794380445;
-	bh=2ouSIVibQ0IAuWP6veUt46S6PYfL1Q7e71p91rBGGR8=;
-	h=From:Subject:Date:Message-ID;
-	b=lFc7wsOvdNMlMLuTGS6/3FhI2BV520y9+2NOBUXRZw3tSLd2YJpUKldUvl+UQx3Ty
-	 wuj26Fgr3obDuCSzluUdLU3VmlSZuIphb8QcOODHCWhXsYTkRIWkb+4KxHkM4VZg+U
-	 rq1gRppMjx0SfySzRVq1Bi9GoRQSBjDRFO0ICo0s=
-X-SMAIL-HELO: localhost.localdomain
-Received: from unknown (HELO localhost.localdomain)([114.244.129.109])
-	by sina.com (10.54.253.33) with ESMTP
-	id 6AF4128F000073E2; Wed, 11 Nov 2026 15:00:35 +0800 (CST)
-X-Sender: hdanton@sina.com
-X-Auth-ID: hdanton@sina.com
-Authentication-Results: sina.com;
-	 spf=none smtp.mailfrom=hdanton@sina.com;
-	 dkim=none header.i=none;
-	 dmarc=none action=none header.from=hdanton@sina.com
-X-SMAIL-MID: 2496976685437
-X-SMAIL-UIID: 234134A976844ED78BCD497480B8C07D-20261111-150035-1
-From: Hillf Danton <hdanton@sina.com>
-To: syzbot <syzbot+b1146b58a9d6d90e0eb4@syzkaller.appspotmail.com>
-Cc: linux-kernel@vger.kernel.org,
-	syzkaller-bugs@googlegroups.com
-Subject: Re: [syzbot] [bluetooth?] WARNING in disable_delayed_work_sync
-Date: Wed, 11 Nov 2026 15:00:36 +0800
-Message-ID: <20261111070037.422-1-hdanton@sina.com>
-In-Reply-To: <6af2d48b.4dd4714a.f8d02.0024.GAE@google.com>
-References: 
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BC0A606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 07:02:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1BC0A606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4b37620eb73so4108929b6e.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 23:02:03 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794380523; x=1794985323;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=zj5W+mWMoleltIi+J43CDQ9xYqfZUJIVme278zEG12g=;
+        b=xLKk8D7di6Hd9AD96SkL/Ss29Uqa4dZc7ycaoXxrtoLUXCYkqPkkpY6j7C5yP5MIOW
+         J2oLkHh6t8y6VBQExdNFTnL2IIQyscAxqN2hxMhmLTVlbwLx0r+g3xPeC2zaCfLMMG8H
+         kW0OrPZlKIyRHRvC+gpDOKocYLfUcDfkQhQpjqQI57/1WknrnntlPQ0XrI0ClncEDFMd
+         mkNXijTAnS0bEaWvWMnCl9hodB8vpV3X13jGnvxEBPHUy/F8K89Zi7S+8ruyuqh+Gn2g
+         VD0huwg60rGwwkT4WViqLLhLdltjLJEAnDW8xbe3X7UYJw2wcUmC6wPcoKPVABF6awRL
+         e2Ew==
+X-Forwarded-Encrypted: i=1; AL+hErEF2z/YzCi8JKi6E54Hk9ETeOos+pA8wvTMuUH9vQP6rvyMEdsJAFElNshPaevBDyI35/aTacphVmy99QY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/pQtRqEfOzhymi3D0G70lRed6ZpuFeRAnmHwY06/9/UxzLL59g
+	GbieLmowiuIHmxuL8lzeAljx/xL2mZSj0ajlHs1hOXUBvw+NvqGqTBj73Zths4+TN4qGwUui7bG
+	4kRodjNbc9CeGFl/a2hCSaGZrpr2F02/EbcMiiiIbmiafPZyMKQPdpfS1+ic=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,40 +58,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6808:6404:b0:53c:7298:3598 with SMTP id
+ 5614622812f47-56b9750c385mr1312681b6e.31.1794380523077; Tue, 10 Nov 2026
+ 23:02:03 -0800 (PST)
+Date: Tue, 10 Nov 2026 23:02:03 -0800
+In-Reply-To: <20261111070037.422-1-hdanton@sina.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6af412eb.926a6ce0.263fd.019c.GAE@google.com>
+Subject: Re: [syzbot] [bluetooth?] WARNING in disable_delayed_work_sync
+From: syzbot <syzbot+b1146b58a9d6d90e0eb4@syzkaller.appspotmail.com>
+To: hdanton@sina.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-> Date: Tue, 10 Nov 2026 00:23:39 -0800	[thread overview]
-> Hello,
-> 
-> syzbot found the following issue on:
-> 
-> HEAD commit:    58c1eb84e977 arm64: sdei: Preserve the interrupted context..
-> git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux.git for-kernelci
-> console output: https://syzkaller.appspot.com/x/log.txt?x=1070f24e580000
-> kernel config:  https://syzkaller.appspot.com/x/.config?x=a58b6b4d667e7a61
-> dashboard link: https://syzkaller.appspot.com/bug?extid=b1146b58a9d6d90e0eb4
-> compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
-> userspace arch: arm64
-> syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=12869155580000
+Hello,
 
-#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux.git for-kernelci
+syzbot tried to test the proposed patch but the build/boot failed:
 
---- x/net/bluetooth/hci_conn.c
-+++ y/net/bluetooth/hci_conn.c
-@@ -1151,6 +1151,7 @@ static struct hci_conn *__hci_conn_add(s
- 	}
- 
- 	hci_conn_init_sysfs(conn);
-+	hci_conn_get(conn);
- 	return conn;
- }
- 
-@@ -1316,6 +1317,7 @@ void hci_conn_del(struct hci_conn *conn)
- 	 * rest of hci_conn_del.
- 	 */
- 	hci_conn_cleanup(conn);
-+	hci_conn_put(conn);
- 
- 	/* Dequeue callbacks using connection pointer as data */
- 	hci_cmd_sync_dequeue(hdev, NULL, conn, NULL);
---
+failed to checkout kernel repo git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux.git/for-kernelci: failed to run ["git" "-c" "core.hooksPath=/dev/null" "fetch" "--force" "433dfd5a8a5d80bbf0669b14e9ed908911a52dd6" "for-kernelci"]: exit status 128
+
+
+Tested on:
+
+commit:         [unknown 
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux.git for-kernelci
+kernel config:  https://syzkaller.appspot.com/x/.config?x=a58b6b4d667e7a61
+dashboard link: https://syzkaller.appspot.com/bug?extid=b1146b58a9d6d90e0eb4
+compiler:       
+userspace arch: arm64
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=11decebe580000
+
