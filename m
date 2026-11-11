@@ -1,50 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=57.103.75.63
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794388843;
-	b=swFOG2waGt3jijZyP4nONRP0Rzsrb4WvIsV3nFBrUafKCe0ZrVDZJL+9sAw4HWRjWhjf
-	 3ka0M7cysDr0zSBziNeI6xNycsDNNpfwupNb3+QUwmsT96oKgMfDIYyn9a1xZJPz4y/Pn
-	 KoXLmYsdUUd2tjJxndrByPZI0RpWuHKT8CaYEGNhTXcXZz4mBC7Sx4jy8seQf4stZXIe3
-	 DuS4BXhLT6UIbayp/N5CR1r6trcTza/4Q5E/algejr/+P2KfhzsG6+Q4XWfh5CfNKsUgJ
-	 hWDtBB3Vqn/17uwq+PcC5x6+mUc5+fk0NP3550umyHt991ckHIalgs/zAZkQmnwt0JQ==
+	t=1794388891;
+	b=PWlBnZq/jpm20F+3Qu+ijl4q6K3oCKiS7nVv9E6hNyhDwRACkNsSqriDGi6+QDVJrY2n
+	 5pxZlfu+s7nUusfUk5134gWJ4UNB7zmRlH2Y1r2tkb7AmWdVeYCCtGvOboWk3dChpNCXb
+	 PqncPDMfDT48hQ8KB2wHLBRLXv6f0uFVX9exUf/uOKL1C4FNavNkfLqBwZPsuVYyb+yO7
+	 yy+HTzNQJhVCH28clq/15i6IqvcLNhElfeqt8BvVQDYRwcwwbKbO5ua0SremnPkliOB6K
+	 OMDCqY4f+f/sUCPMvArKZ/LbamNfelgSTmUtimcpAo64VWqJuNliMsX/tXmDAE5vp1g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794388843;
-	h=DMARC-Filter:Received:X-ICL-RepId:Dkim-Signature:
-	 mail-alias-created-date:Received:Mime-Version:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Cc:Subject:
-	 From:To:X-Mailer:References:In-Reply-To:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Authority-Info-Out:X-JNJ;
-	bh=emiE0LSrob/0Gy6mQd2xuosVJeZv2KMBCzBELLcokfE=;
-	b=iuT9oSr8VbKT9AjK+r3mG5NDdAmH04EPxCtHMp6Nj3SWrjnnLTEKZ4VG/vK3cmL+lVuS
-	 ssz+K8nYuQ6fPN9J1tcX2TEZVlQKY86j3TqtFA0DqlD6vFatubV1GOr0RUwo0xLCDtjWC
-	 nzb4aBkgr2J9VTE5xNYFn/t1odmQ0cbamVJwOxNgzce/Xo+2Wan3rS9i+Ld6rBoDbg+Bg
-	 U/eTgW8NfxbdzOxNhbeLZU9oc2qHrAybQPu/7N2pt/4pEZE6q9gt9JEds1wco9k8nDBtw
-	 tbQ3XbaNRN7yoW47vCj2Ope77nzcw49zTpdiS5mIOzNMtSNom9sR+zZzhD247f6SE2w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794388891;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=vASGdBDK0jxA0uShAgE7rl6Vlf+M5+5BGwKhsyeYqnM=;
+	b=V7Q0A19N/Ipm9x76Z8GLhIZKRGxtNyKMPsbAS6DeTrj4E6q9vChNDMQOmWP8zG0EeAbq
+	 8JdpIPFMRDgcZyOO5RvmxtRWn/kQBQX2CdH8zJBmIEbEeoPLAC8C2NKErxiMcxKK0RH0x
+	 833dJrBC5OaJzzfzN46iZ6KTTmehaM86ikYtcls0enUcmCFcbQz9y2/456heLjxTp1+7C
+	 umovCdIba0wLpoABe/42rXLdTJy0RMQ4LXfEo+ByjwPnB58KR761Ut/AqvunNUpA1k/My
+	 fbDS8fRDbPTbQOS5TL84YqQGSAn95E6Xnl1+XoHFLlD9AxL2ptZWnbowKUU9qufVvCA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=verdict.gg;
-	spf=pass smtp.mailfrom=verdict.gg;
-	dkim=pass header.d=verdict.gg header.i=@verdict.gg header.a=rsa-sha256 header.s=sig1 header.b=F+TwZV5z;
-	arc=none smtp.remote-ip=57.103.75.63
-Received: from outbound.ms.icloud.com (ms-2006h-snip4-11.eps.apple.com [57.103.75.63])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IpO3GVfM;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40C03606A321
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 09:20:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40C03606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=verdict.gg
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=verdict.gg
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 249A8606A31C;
+	Wed, 11 Nov 2026 09:21:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=verdict.gg header.i=@verdict.gg header.a=rsa-sha256 header.s=sig1 header.b=F+TwZV5z
-Received: from outbound.ms.icloud.com (unknown [127.0.0.2])
-	by p00-icloudmta-asmtp-us-west-3a-100-percent-11 (Postfix) with ESMTPS id 7017C1800397;
-	Wed, 11 Nov 2026 09:20:40 +0000 (UTC)
-X-ICL-RepId: 01a1c9e8-cf36-79a0-82d8-9c5452a9ca2b
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=verdict.gg; s=sig1; t=1794388841; x=1825924841; bh=emiE0LSrob/0Gy6mQd2xuosVJeZv2KMBCzBELLcokfE=; h=Mime-Version:Content-Type:Date:Message-Id:Subject:From:To:x-icloud-hme; b=F+TwZV5zNY9bpkpdE6uQUlkIcMRl0u4xew5tOeREKen1rG5ADQ4LBDC+Cd4Mzir7gry/v+ihFFRXNVEISRdeRZUDpYepglGFrxv1BGdqVlcFgI9o9PDJf6hxSBkGkinjtBLqqH8IoL6vYLJ4fD+OOBodnToRwUOsbAFQcxQF/Va0C6mMFzbBjrNy0VfNxM4J6ubLM10OkNs7sgtHHj6GiJ6ev6VhwTpZ+Dj8NwHDEXJ8bNjaKBYAjszFGh/aVO3wwz6tGLYkw/FNysURAY5CIcBAQrlkSuxiRzt53e6PO7Y/VpOlxD22tKHFma7MM7tUabvG5cyrJxAwNPfyPDiBHw==
-mail-alias-created-date: 1621344842221
-Received: from localhost (unknown [17.156.208.39])
-	by p00-icloudmta-asmtp-us-west-3a-100-percent-11 (Postfix) with ESMTPSA id 658D1180011B;
-	Wed, 11 Nov 2026 09:20:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IpO3GVfM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB46D1F00A05;
+	Wed, 11 Nov 2026 09:21:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794388890;
+	bh=vASGdBDK0jxA0uShAgE7rl6Vlf+M5+5BGwKhsyeYqnM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=IpO3GVfMLL6t0wuAsOXe9IXyJRO65VjdvmZWeWTfwiwz/RloQFbnzLpDSG75pssJJ
+	 SX0ZgydBEhKDvc+P9p97WcsDvwD2J4bcqAOI23tQY69tJeWzAElhLBpbmIwK5kAq2n
+	 ZWfN3M6NQNaLEEUF4PVMaB+8CljYvziVTS8RmlQfg0rNpwzh+MSarmv+64dAdoFGkv
+	 q/u8MgvbRARaoFLWUQzBQqRBY7P+Fex1d+0p/nKeQfdkw3TYhmuX9XmaP34H6haiWe
+	 yQdbbbcYPMCf9OfeuEL6B/Wmoc+qKn9zw6r7w1mmuvAOs/A4tX0yrVZDcCVs/QS/kk
+	 Kh5Q48vLibcoA==
+Message-ID: <1e584df0-c74a-454f-a580-75dc7567abe1@kernel.org>
+Date: Wed, 11 Nov 2026 10:21:26 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,83 +50,105 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 11 Nov 2026 12:20:34 +0300
-Message-Id: <DMS9R6RG6OKW.15NILH6RW6578@verdict.gg>
-Cc: "David Ahern" <dsahern@kernel.org>, "Ido Schimmel" <idosch@nvidia.com>,
- "David S. Miller" <davem@davemloft.net>, "Eric Dumazet"
- <edumazet@kernel.org>, "Jakub Kicinski" <kuba@kernel.org>, "Paolo Abeni"
- <pabeni@redhat.com>, "Simon Horman" <horms@kernel.org>, "Shuah Khan"
- <shuah@kernel.org>, <netdev@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-kselftest@vger.kernel.org>
-Subject: Re: [PATCH net-next v2 0/3] ipv4/ipv6: Cache pmtu on all paths of a
- multipath route
-From: "Vladimir Vdovin" <deliran@verdict.gg>
-To: <netdev-bot+sinfo@kernel.org>, "Vladimir Vdovin" <deliran@verdict.gg>
-X-Mailer: aerc 0.22.0
-References: <20261110095903.84813-1-deliran@verdict.gg>
- <179430520494.488859.8396860489135491042@kernel.org>
-In-Reply-To: <179430520494.488859.8396860489135491042@kernel.org>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDAzNyBTYWx0ZWRfX9XAf6MsiQ2dB
- oQiR6mWlSiHpvOPZsX/S/TDT1oCsipu/wWhOdidgIcgq1f94wFO+5ymo3+AaoSB6AS4Eg351Cih
- kPvGXn0lXZmnEB3KYC0Z2p0q7+N1woZMjjt13QHNqbBwqt0xzKaW+YrEC4KVt2FHyM34Bwk5Q5s
- H2gkjkShiuUX/fTmpO7sOijD7I+MPE23FgquDCBFDjybnLINyIlzcNIrevcihNPCzHgIwpR3Jue
- bQtyrkO7C6wftrDptlVXNgL9uCXMUShxX/lQXDUxli3xYH/64ExwyJbJsqMdFJvGvxWkXUwXqOf
- i+w8qemp/KuUJs0GSl85AOvnfYLSXOB5FOnK5DD+Z86v42WR0gZ2kODLPS+1o8=
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDAzNyBTYWx0ZWRfX4prJEIYIvlJI
- 90w/x+gyjFtlqXAQGHWPONIVeEvB27GLuQKgcC7a1JRccu7eGNKedGKjS1ZO71bHDt1yni6h+95
- EBmRLWic11xjY91P9X3obLY5aJXkQyg=
-X-Proofpoint-GUID: 1gpICloqEuvM2jL9llB7HfrG0NqYtiPg
-X-Proofpoint-ORIG-GUID: 1gpICloqEuvM2jL9llB7HfrG0NqYtiPg
-X-Authority-Info-Out: v=2.4 cv=W7qtxhWk c=1 sm=1 tr=0 ts=6af43369
- cx=c_apl:c_pps:t_out a=kRaGL2Q7qLiahLf3O6OaIA==:117
- a=kRaGL2Q7qLiahLf3O6OaIA==:17 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Lz8lNifEoAKVmCoaIBl5:22 a=nt9yOg7Ld-NCdoK0S7LV:22
- a=VwQbUJbxAAAA:8 a=slS2ziH7K9J5olFhi2UA:9 a=QEXdDO2ut3YA:10
-X-JNJ: AAAAAAAB1zj+NsaxmxfPI77N0QmgMnZta+6UzS2tAB+wCuqrmJjmSn+VokQoxYC5Zycux8
- hLUVNtLDUoif5Wo0JN7UJX3ATlXdTImnJtaFU5gFDaetqrmcamqVtT7bFVQYUn8WFcbZFP
- 3KMf5sviVUFn2T1ABRPn7LsQ/FHXb6wtH81FSr9UsfFMRrU1jqE9KlupXfQOSUr2VWGmox
- x3caz6SPF/N12ORrx5l+V5akPmfyNUSfjjbpYxWqNDO4XusDsmS40FZGVsaoRXoo2WMFwO
- A5CxaBoVSXwoTZGfCUXTc4cjG9al90iDyq3FVrtFYl/gIZ6n2Z0tRgZH2Ygo4CSJHf4twc
- GmOZtNNDFEvFRgqtmk9V/CLeVJypVlAd2oiQQpwsUW2MOn8nKslEZVyn6uKVDk6pP7ktAc
- g8Wt6zMuVOrLFNcsSh71HA0gEBmBacmnjcRUx6G8arxjQl1gsYKT0MILul0YbOfVrJVPo/
- uV9KFhfSty5RLErGwoonCzbDoHgHTyW1P2Z0wRz52Qi+LG0j7SZr7hQgVTYwoLwW6LTHnA
- RFqf1Z58D2GAf8rOW3u3JdUcV67T/qMTemfdnzsdCcCgwCEihYVxNhGfaD4zHothGYY/1h
- n4OKjNl2DURITXoz7b7hcHieWXT55xpSsxVICX6tciT7rfqh/7z7H4SM0UGCkKwn23yav5
- 1J7Kgqfy9A1PuFnxDXSt3io0iZiiw78KmXk+6rvAxDNZeOPopJpLwJXkTViS2QRjSJb5xP
- InJ7wx0GIJM0TbEAbqv+9i5PU84Hbj8n4ApQNeaHjFiL37dCmrqC3cL4uSRfTDARt+LEiR
- 7mCXPAW+5s5Nx4J5cFbLURBvA60N/Z//tjYcwuR8GvRv9x3b1Nu3aolc2n8UlZeYpWltDM
- zQe6ZHPcJtWPid2VDQnJMvwEP8zxKPJb6VqOzRAOxoyOTSiPcNtD8tRcFF7Iup5oNcDKwt
- PAL3uCCcdqt4aCMH/B5b1jQtkpN1VOkfHWhsYtJ+VkE3fc+iFTV6Ej8iJHJZ8jahG17NRE
- cM8ulYcKAVpgvSOl99nGTz6s9gC0oX7jXJQm6G3TMkhWEGUCmsXWFLem+SKxC1WS5QKCiN
- tvwRGWZDpQTUPn9m4jrqIJGIFGCiJDCFwj3NNxwxkL1/boQEMGAiClsl4V6yJjdUE8/hjz
- advbX8lbo/d6pneh5HwRThQ2yJZz0G+tFNiGZvvlFWjRCpNcfnAC5k2dbB9JI9sF85r8e/
- wIFOY3ADFpvPUnpPPKryq1vmUOEMkiAlrbcZ3eMNfQYa+PblIVSvVGAce/1wVT7igm2GUN
- Uopeod2UpiDFgf71I43j1nx04mdgxIsLb5R/z5ljrrV/tPhZCVhfklv+nwHdK1x0Hw+7hw
- 5ZBqbqGayLnVxg7g1QnRBSvQ
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] tty: serial: imx: return error when clk_per fails in
+ imx_uart_poll_init()
+To: Gu Bin <gubin@cmss.chinamobile.com>, gregkh@linuxfoundation.org
+Cc: Frank.Li@nxp.com, s.hauer@pengutronix.de, kernel@pengutronix.de,
+ festevam@gmail.com, linux-serial@vger.kernel.org,
+ linux-kernel@vger.kernel.org, daniel.thompson@linaro.org
+References: <20261110105456.1563-1-gubin@cmss.chinamobile.com>
+Content-Language: en-US
+From: Jiri Slaby <jirislaby@kernel.org>
+Autocrypt: addr=jirislaby@kernel.org; keydata=
+ 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
+In-Reply-To: <20261110105456.1563-1-gubin@cmss.chinamobile.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, Nov 10, 2026 at 10:06:44AM +0000, netdev-bot+sinfo wrote:
->  - How the issue was discovered, e.g. hit in production, hit during
->    development, syzbot report, manual code inspection, LLM or static
->    analysis tool scan.
+On 10. 11. 26, 11:54, Gu Bin wrote:
+> In imx_uart_poll_init(), when clk_prepare_enable(sport->clk_per) fails
+> the error branch only disables the previously enabled clk_ipg and then
+> falls through: the function keeps programming the UART (imx_uart_setup_ufcr
+> and the register writes below) with both clocks disabled and eventually
+> returns 0, reporting success for a port that never came up.
+> 
+> The sibling imx_uart_startup() handles the same situation by returning
+> the error after the rollback.
+> 
+> Return the error after rolling back clk_ipg, matching
+> imx_uart_startup().
+> 
+> Fixes: 6b8bdad96164 ("serial: imx: add imx_poll_init()")
+> Signed-off-by: Gu Bin <gubin@cmss.chinamobile.com>
 
-Patch 2 (ipv6) is the counterpart of the IPv4 issue fixed in commit
-7d3f3b4367f3 ("net: ipv4: Cache pmtu for all packet paths if multipath
-enabled") [1]: a host with two ECMP uplinks and a smaller MTU further
-down the path had flows blackholing after a Packet Too Big. The IPv6
-side was deferred back then at David's request [2]. The new pmtu.sh
-tests in patch 3 reproduce it and fail without patch 2.
+I am not sure this is correct at all.
 
-Patch 1 (ipv4) was found by code inspection while reworking v1 after
-the Sashiko (LLM) review of it [3]: the same "replace the exception"
-step that review flagged in the IPv6 code is in the IPv4 fan-out from
-7d3f3b4367f3 as well.
+Ccin the author of the code would've helped. Done now.
 
-[1] https://lore.kernel.org/netdev/20241108093427.317942-1-deliran@verdict.=
-gg/
-[2] https://lore.kernel.org/netdev/ad29493c-9e48-4a94-b327-e47af3a9d137@ker=
-nel.org/
-[3] https://lore.kernel.org/netdev/179236119085.3135.2701233313088371263@ke=
-rnel.org/
+> ---
+>   drivers/tty/serial/imx.c | 4 +++-
+>   1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/tty/serial/imx.c b/drivers/tty/serial/imx.c
+> index 0831bd5ee3dc..2a931361d17c 100644
+> --- a/drivers/tty/serial/imx.c
+> +++ b/drivers/tty/serial/imx.c
+> @@ -1954,8 +1954,10 @@ static int imx_uart_poll_init(struct uart_port *port)
+>   	if (retval)
+>   		return retval;
+>   	retval = clk_prepare_enable(sport->clk_per);
+> -	if (retval)
+> +	if (retval) {
+>   		clk_disable_unprepare(sport->clk_ipg);
+> +		return retval;
+> +	}
+>   
+>   	imx_uart_setup_ufcr(sport, TXTL_DEFAULT, sport->rxtl);
+>   
+
+
+-- 
+js
+suse labs
