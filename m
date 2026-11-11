@@ -1,121 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.201.62
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794409238;
-	b=14AUBgFc6qWderkzHw3rDO5/x908IBp4WuArj3WWS5DFACEOVlOv6GhmVZlkStfS2Xpb
-	 kOMHHTTf0PfQEA98+LWSqWkPyFlol5Kc3x74sKQmwJ0F1U4fR8NpPXuhAm03lz/U6G6Jh
-	 exr5TuOpPKUsQbtxqqom1AIVziSAEmWm7IYHIW4Vnkq4ZHDTMDsYDm/r81bn/TXPaUviN
-	 ZrNllhV6ANPYYXcVx1LJGr7WtZGZYgmCW6IlU2t+RpBGpub+0izZB4Kks4vvUds5Iw+zv
-	 Z4v8DkEZF+IdpMFUQnKP4vaBsymcCD7AEylTDCaDsf9OEEk8KpBS0nMB50M8NKD9iaA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794409238;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=jEgBOX51oxGk0zNP8LBUYHnZtRiLsW6z1jYKsV94y38=;
-	b=uyq7S8AnGmiklk+e9BdizrQYyfvasbcsx9flxbR61nwPeeB4yaDVLeK1tW0QgyWvjjpP
-	 pVpdjztrfLSANkz+c6ui3Fw80xmnW9EaNvBb9Fftjt8IQVDekRjEMxYfi2787r8yuodye
-	 7WzYwDtrwHINYWbkkhelx7EvGAo2o18FMSKXO8sfq7HvX37lBbW1ra4saQRqbF9YcOMvR
-	 GgHtMybJJoQn1hohy1b7/vdWXThpPcVVK3BO/iSI6fhNi0YHCfLTswvSSnnRC+jVJB76U
-	 VKUmlNsic4+Ij0Otiwnpt/S+qDNVhFM4+ELBVuup/icuFq+xTspN0ttHwlYE67PISkg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=I4tAeXCM;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.201.62
-Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013062.outbound.protection.outlook.com [40.93.201.62])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E50E3606A8A6
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 15:00:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E50E3606A8A6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794409244;
+	b=wVp7TxS67yDIVUHy8G81tZ3ujlqGELd0qNHVIOmZYY+s4d/jnQKXbAPTE7GJk7bEXe4+
+	 rWrtZdArKbCqEhrESfvtLYfzI8aAkfsQ09/gwwjCikuUvGpQ146/GV+2RoiX92IiuYK+Q
+	 3uHEg8U/cOuaAGfXKRjhyamDb305+Lq1UyQsMcqPXDbXYf8EbwF1vPzA8qi7kXwNfQe+q
+	 bNDL3SMUWXAvazR9tBV1jzKAFeDmvJqDWIc+eZVnCuHbem1JSTQ4HijKeO6QBwKoc3Upr
+	 SAgvcdKxZ92FZWKUhlETUmuX6p4UzgQZ3nKxNV2VCqbNmLZ0AtA4Lu2JkLJdT6QMcBg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794409244;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=dRGEJNcy+74OVTPVFz0Nfo59XU6+zDE0WTqrtLz4siQ=;
+	b=tl4ElXO5jRd2yMRNvPad7scODpTOFqoEm5rA33tsvGr1Ph9eo2cVRqpKJnGy2CYt63qE
+	 RllUbw8bUuQB+Y4PTjsKxxalygHKlOWlZPh/FIgu0s57OQ9YralnQb7boDPUHqqonlmKI
+	 q/qW+Pyn/6WaXcg7RVnnp2csD0oGFKg5Wbd6Viw44a7eBmvcNp3YVwYV45uB1Iu8OEy3S
+	 CHzqjUxDjT6VMKpLnYxsh9UUm6HP9oTg9+t5TWb3gaEYMyo4KmY5jqKyE6t2X7Xzh7el9
+	 hhMoNUiL7B3ss3PRHqWgasHf2LX1rwSfuGcOzNxH+hN6kJbXWSqJSAB+8u6qjlzGWTQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=gN+E9Mi0;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 25C77606B203
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 15:00:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 25C77606B203
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=I4tAeXCM
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=K8n+RkDDOPqpn2iglr64EM38nhUiYv0zZTudWPY6TCbXiuPZNqlB+NUyD+OAWoC0SAb0Cb8OJt/O7DpOXTjGyLfDQvlVDlSQlPZR25L0fBoHeg/QwlTVw0RA2PN5WwffEAOP+8lZzDsxsWdzwLgYcWp1ew1bVdq9YWQc7B2Ybj1y3y2n2diVKfppKJ1bgv3OajoCDnUNN6zhKA9wmbwfgsq0ib6RoNnUXTX0YJcFXjDE9Gn9YgcpFK2zGu9C5QR6Sh8pX1OhNNpE5Q+nNFGKAp1QMKqlRqcBV+tHFHkZRajeeasfrrxvFNOUM5nj51wYopcA6+AIdmcLHJS8BZIeUQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jEgBOX51oxGk0zNP8LBUYHnZtRiLsW6z1jYKsV94y38=;
- b=KOZfnVJCUnozshzwBOfnDaViftRUrHzvbRMkHflzDCuJimQ1rkjY54/0HDmlLyyrjU7PQj+6ROr+qJJ8SKgaHSZ8iMz6tIoFjY+eo2HxKLzYOlgOfY6/0/vrGdGu3KyjrPCr/vBVum6Z8B2NBujv4MkaRVKS/p4sW9gLW9ffBeUO7nHSCH8MjG4oY8Z9xA6g3AxRA/1z4yk+jRusw1HMOMCxK3yBrDuEqSuuzPXNiM5pJ63dccIXmVaXeAN1+7wtk855GvZBC91pYQTfG95uloRnOfEkUIf9MUuvh9cUhEbI4k77gqxiGYXu5nZDmvofke4IyuGxFgWJFAhEOg2AKA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jEgBOX51oxGk0zNP8LBUYHnZtRiLsW6z1jYKsV94y38=;
- b=I4tAeXCM+Ou/oPgfieo5moBHof2CgGP4IDfuX8tWH9ZYseYagb3cLu5lVSXbYcWI8kicXReHEvHoleIckD0PSdRPvUbK8zNEXYJhkoW15+XJWXver0V+lgwwlbwGcb4ZYtdO/5LSJ6UPy7e34p3dI24pETyH19S2blIBfd88g17eRE9hzc183j8PiMoQ/WIA3deQ40lh43Qx/sG/4F2OwfSbUS3F7c1IWghM/d5ZlrBx+5HOOfGBZP4hgmk6AM36bLLcLkWJQ7rsQ1YmGp77jR/3VOlFvHYYuEIEPvUNhtlBb2Kg7Ju+TATlMIy04YzrL6HkY++28aVCAZ2K+HBM6g==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CHBPR12MB731189.namprd12.prod.outlook.com
- (2603:10b6:610:33d::12) by IA1PR12MB6018.namprd12.prod.outlook.com
- (2603:10b6:208:3d6::6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Wed, 11 Nov
- 2026 15:00:31 +0000
-Received: from CHBPR12MB731189.namprd12.prod.outlook.com
- ([fe80::b0e5:123d:fe06:e10d]) by CHBPR12MB731189.namprd12.prod.outlook.com
- ([fe80::b0e5:123d:fe06:e10d%6]) with mapi id 15.21.0615.008; Wed, 11 Nov 2026
- 15:00:31 +0000
-Date: Wed, 11 Nov 2026 11:00:29 -0400
-From: Jason Gunthorpe <jgg@nvidia.com>
-To: "Tian, Kevin" <kevin.tian@intel.com>
-Cc: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>,
-	"linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>,
-	"Li, Xiaoyao" <xiaoyao.li@intel.com>,
-	"Hansen, Dave" <dave.hansen@intel.com>,
-	"dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
-	"kas@kernel.org" <kas@kernel.org>,
-	"seanjc@google.com" <seanjc@google.com>,
-	"mingo@redhat.com" <mingo@redhat.com>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"pbonzini@redhat.com" <pbonzini@redhat.com>,
-	"nik.borisov@suse.com" <nik.borisov@suse.com>,
-	"aneesh.kumar@kernel.org" <aneesh.kumar@kernel.org>,
-	"Verma, Vishal L" <vishal.l.verma@intel.com>,
-	"Peng, Chao P" <chao.p.peng@intel.com>,
-	"hpa@zytor.com" <hpa@zytor.com>,
-	"tglx@kernel.org" <tglx@kernel.org>,
-	"nicolinc@nvidia.com" <nicolinc@nvidia.com>,
-	"Duan, Zhenzhong" <zhenzhong.duan@intel.com>,
-	"bp@alien8.de" <bp@alien8.de>, "Gao, Chao" <chao.gao@intel.com>,
-	"aik@amd.com" <aik@amd.com>,
-	"yilun.xu@linux.intel.com" <yilun.xu@linux.intel.com>,
-	"x86@kernel.org" <x86@kernel.org>
-Subject: Re: [RFC PATCH 06/15] virt: tdx-guest: Support TDI bind and unbind
- operations
-Message-ID: <20261111150029.GJ738765@nvidia.com>
-References: <IA3PR11MB9136FE2B23CA52EC68EF2139926E2@IA3PR11MB9136.namprd11.prod.outlook.com>
- <bd0f63af98521d76e0d34ea31f18accc063d1d27.camel@intel.com>
- <IA3PR11MB9136FEF30F06D8D5118B389292692@IA3PR11MB9136.namprd11.prod.outlook.com>
- <a63e7dbdba277b5a551ec74d09144e97f55504dc.camel@intel.com>
- <IA3PR11MB91369A1E95D047DBEDB53B7892722@IA3PR11MB9136.namprd11.prod.outlook.com>
- <f1cdd989f6bcf6a177dcd83e55fb8465e0ee849f.camel@intel.com>
- <20261110195745.GG738765@nvidia.com>
- <e44f3f12b3fecdc5f3c05aa1f1b0ceb1befad0b7.camel@intel.com>
- <20261111001606.GH738765@nvidia.com>
- <CO1PR11MB4835656CEB24B31B557162258C712@CO1PR11MB4835.namprd11.prod.outlook.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CO1PR11MB4835656CEB24B31B557162258C712@CO1PR11MB4835.namprd11.prod.outlook.com>
-X-ClientProxiedBy: YT4PR01CA0164.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:ac::6) To CHBPR12MB731189.namprd12.prod.outlook.com
- (2603:10b6:610:33d::12)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=gN+E9Mi0
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7028C1576;
+	Wed, 11 Nov 2026 07:00:40 -0800 (PST)
+Received: from [10.2.212.8] (e134344.arm.com [10.2.212.8])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 9BBA53F632;
+	Wed, 11 Nov 2026 07:00:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794409243; bh=4ZfRjG3ZJ15BhDnrsZxfFWKNcfLEyZXluHKVjSfWFyM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=gN+E9Mi062PgcLsHuL17j2j0rJ+z9SxthQ6m3qIHW1594eLqHZHPIDvR6ceNv5FLf
+	 7ZQ2qR9NglCgyeTZHfpOAiaC7lCiyQNEnaeL1q8BFmx4FYrI651cc+bgrWmRAbg9M/
+	 pNRNE7NvGX6mnbftQVNRESh+eBkqBzmW9iPoCzrg=
+Message-ID: <a97b8d1c-7fe6-40c4-a145-82f63bd0f6e5@arm.com>
+Date: Wed, 11 Nov 2026 15:00:41 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -125,78 +53,82 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CHBPR12MB731189:EE_|IA1PR12MB6018:EE_
-X-MS-Office365-Filtering-Correlation-Id: 83e845fc-6f58-47fa-3428-08df400487c6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|7416014|18002099003|22082099003|10067099003|4143699003|5023799004|11063799006|261028144727099003|261102123227099003|261021121427099003|56012099006|261022105027099003|261026140227099003|261022075727099003|261026121527099003;
-X-Microsoft-Antispam-Message-Info:
-	5bfeBq21PTdWtgbO/quYKCB+xOzG242+9lr5V1qpsW9v41YcIGVNuNfhUXLuwunEi54ghi6kw7LedqFLVO2ku5Tu5LQyXhuk/1qJ/oS3JgtzuCDg2j+E+DjilUfJgMPMuU84trC80wTxx65BrvCyn3YS1fZGbMffv+PX9xOUEFJryEKa1a3CMONEIVMqzxf4P8DirUYkkrfsTZ5WkWmE3+Eu0bCvAOvZnNH5JVamaoGz19Gi4rC2qrt3HFSytjrsBZhfpW+pV16tp9SPujA0mV+JgBKW7R4j5wWAjNr2bSWlAKtu0eO5zhtS0CSP3JZMVPfL7IFlBUplhbTrfBbBs1y/vrjH/gurze/LKkuXJVks/xRSXXHvYZWeF2AmMb04nbbicYN4pw3bFQYHKTtTaBuWOIKkPg3DynraYm1AtvUDGqv6a8ZNEXkoVCVscZUlpWtOeRk70ixDQ34Hwq3NmHElw/FZpbrPfGnY0wSfbiuXi2fWs4kKLLoPds36o3hub6bPMu4rfJpHipL7CJkzig1cRYh71acxjZnR3rGpYPFSn+Pf1MRkg+HS5i6UbSS+2PmZh+gLIqBKaEJS5izbFwrF7iSnCgG4WNu/e/PLCsS7tVeSbOqfwd2dJXeskgwDsGpiIqKLehcoVfYwSrYpLcQnWOyc52DHy1XnroZBH0g=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CHBPR12MB731189.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(7416014)(18002099003)(22082099003)(10067099003)(4143699003)(5023799004)(11063799006)(261028144727099003)(261102123227099003)(261021121427099003)(56012099006)(261022105027099003)(261026140227099003)(261022075727099003)(261026121527099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?Vrv7xd5yytBSoijoqHHHoVifn4ZpnJiqdkGGaOy+pS1R/ZlVmKSnoLYRT/fF?=
- =?us-ascii?Q?FHWGpgkrm2f/7Y9KQic2criJnv5r15PbHC+frSsAjd+ZQro+p/0/V186+A0k?=
- =?us-ascii?Q?fpz13q5cj4ZLBfJe7eAf2ZsS4xHc3Uphw9jaEJrq6A2FGS9MMfA0u9EWSN17?=
- =?us-ascii?Q?8vYl4imhYLu8VIaeE089pFRC0CQn6KTpOxAtA19e6Qdx0/TH9Swz7u7fmhq6?=
- =?us-ascii?Q?kp3fGC8kHv3Qoo/+veojCtMItiL4SlTiY/rDEtfr3iUuQYbOzKc3+jaTmTmA?=
- =?us-ascii?Q?bac8mNHF4vgN2fAZpDgLITsi5APTO/gemLCLbc8HmJMQnDCAMjCh8YKT4euC?=
- =?us-ascii?Q?HYXzFcCSzqBIag39gHPYIe2ppfz42phRHnvjf0u430LfYVoKNrQFZX+SOnU0?=
- =?us-ascii?Q?f3gajtXe8AecexPm1TDh0XCv1Z5HKcSbK6M9NzX1A7oLfA6sADE4vkodIXYB?=
- =?us-ascii?Q?KWmKLkSV0l1TlBVLJgcWuGRtrHezgMxhx7rOeFUwJNZWme9vuwk3wJw5kG7r?=
- =?us-ascii?Q?rxvyTLJ2UfgoTymcruFeS4r0yBb+mGS7q1HIuMxqbN+9jv+nWQnSKvRF4wGV?=
- =?us-ascii?Q?62ESIioejMpVWt93rF3CP4JqRBVDGRFDxWvN5E1vuSlIWgdXdb8i9Slz2Chj?=
- =?us-ascii?Q?wkWD9X1aDO48opW2QgK86ILa1ZXzkQLWJYVSPPAvFT0oEyRDDdgqyPEyfS8M?=
- =?us-ascii?Q?Hr8fjaI0scFzPEZHjTcK8ysmbfWODhG5SGRYK0+W5xD8Nq0TA+OprEoO/JRu?=
- =?us-ascii?Q?P7/jKdvGu9ZR87n1XwX6acw/cCFq8j45Yq6qvYz0m2VrKXFs2JB25NvGqchO?=
- =?us-ascii?Q?wWaJ/xWw+wed1/vbcu/45ejBHw1MVHMUfNuLL+9i+39AYNm3kWf6SgYr4lJE?=
- =?us-ascii?Q?qFTskqoSztLVwIWQosBKEA9BliTXqA73odUfQ2aRmQ5bCKskbm6ot5lpMm0g?=
- =?us-ascii?Q?FYF4391pEM3BZjRqFK/LvPiNpTL0bJ6OUST5auxSnVFHiMH1OMiyFWHzuvdg?=
- =?us-ascii?Q?+U67ChXF6h8wGBXT9/TPLMAv4fBkTpNWlAzET3UBnB1VbscOxJnEHiCtKys0?=
- =?us-ascii?Q?r2vLwQOZsx3P21/K1KJipz1pP4MM0xHtfgYaygIBHt+XDtkZL9JTgTgDCXFF?=
- =?us-ascii?Q?cTkrBERCFHLXuJU/i7+SXyCK3d7HAR6L02gdPEWyq2fc0vkuydHjyoOLYJoy?=
- =?us-ascii?Q?5ZiDlXupFVxH9wF1F38cOsKhTA9wVJckPrLpfbexMOFq66Y5MtBtldkWhWgp?=
- =?us-ascii?Q?zUg1QH6eBj70ApbR3iHd2uFKdFiOT97UokrGqb1UXgC64CFE9f75wrawZEuJ?=
- =?us-ascii?Q?oLTFRTZiA3J4bqixJ4bZmGMJjumxe0+QyXLM1EzkGYWeTNNWU+6mDjJKKGLy?=
- =?us-ascii?Q?SvKUkj79NMcJuaknEeIqC0Q+3BeJbjRgQtNsEAUnyJ3FxGRFGpe5OUrz6jcg?=
- =?us-ascii?Q?bl+EcF1Svcn/IJ02d37fVLitS8xpBTG3wXnQMVnyK8Hvpk4PWak4PlN6vGMu?=
- =?us-ascii?Q?W4REpBDHer/GGZzaAhLCuVGPxmlJnoU/BWYuPUNWlakZYhk5leo1fyajbDR5?=
- =?us-ascii?Q?aIblxBaHxSJvF/1pogexAsCQDuO0vkvZ1pGXPAwaOx9tzzRynb8QNfQY+vNy?=
- =?us-ascii?Q?iwvfeYbahZLsHFx3sIg2VJLgnkIzjrppMFMKwhle2Cr+S5DTW4OGvIUT2WgR?=
- =?us-ascii?Q?8vauM0UFzCb1Z7Q6geBArpRsMh8utQaem25SKifsaQsGtJbt?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 83e845fc-6f58-47fa-3428-08df400487c6
-X-MS-Exchange-CrossTenant-AuthSource: CHBPR12MB731189.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 15:00:31.3078
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: N7pxb8CyVH4Kg1jdqiLoDF4rqGyWGBFkELK+va1lBjZ9nb9SST2Ww98IJxQASzvC
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6018
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm_mpam: Account for a MBWU overflow before reading the
+ counter value
+To: Ping Li <leeonion.muyu@gmail.com>, james.morse@arm.com
+Cc: reinette.chatre@intel.com, fenghuay@nvidia.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <d45dd5d2-15d2-41fc-adef-b8e9af9eb1a9@arm.com>
+ <20261111125601.4120592-1-leeonion.muyu@gmail.com>
+Content-Language: en-US
+From: Ben Horgan <ben.horgan@arm.com>
+In-Reply-To: <20261111125601.4120592-1-leeonion.muyu@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Nov 11, 2026 at 09:44:42AM +0000, Tian, Kevin wrote:
+Hi Ping,
 
-> The interesting case is about such failures after attest e.g. unlock
-> which is supposed to be a void operation. Maybe we don't need do
-> anything special in tsm core - the secure firmware maintains the
-> state machine so future lock will fail if the current state is not
-> unlocked. 
+On 11/11/2026 12:56, Ping Li wrote:
+> From: leeonion.muyu@gmail.com
+> 
+> Hi Ben,
+> 
+> Thanks for taking a look.
+> 
+>> Is the a theoretical fix or has this been observed in practice?
+> 
+> Not observed in practice. My hardware team was reviewing the software
+> overflow and NRDY checking logic with me, and we found this while
+> walking through the code together.
+> 
+>> Based on this, for MBWU you should only see NRDY set in the
+>> MAX_NRDY_USEC after a change of monitor settings. At such a reset
+>> the VALUE is reset to 0. Are you seeing or potentially seeing an
+>> overflow in this window of time?
+> 
+> I agree. Our starting assumption was IHI0099B.d 6.2.1 RGKWNB - that on
+> a settings update the monitor VALUE field keeps counting using the new
+> criteria without automatically resetting to 0. But as you point out,
+> looking at the reconfiguration path in write_msmon_ctl_flt_vals(),
+> the driver deliberately writes VALUE to 0 as part of the IDGYLF
+> sequence, so the accumulated count is discarded there and even a
+> 31-bit monitor cannot overflow within the NRDY window after a
+> reconfiguration. The overflow and NRDY cannot collide.
+> 
+> My apologies - there was a second trigger in my original analysis
+> that the commit message failed to mention: any error reading the
+> counter value after the status bit has been cleared loses the
+> accounting the same way, and mpam_msmon_read() does not retry
+> non-EBUSY errors. For a MPAM_F capable MSC, mpam_msc_read_mbwu_l()
+> and mpam_read_monsel_reg() go through the PCC mailbox and can return
+> -ETIMEDOUT or -EIO on transport errors. So I believe the patch still
+> provides protection against this failure path - it moves the
+> accounting to the point where the status bit has been read but not
+> yet cleared, and it is a no-op in the normal path.
 
-unlock can't fail, we have no way to cope with that.
+I see. This is a side effect of the recent addition of support for MPAM-Fb (which uses  the PCC
+mailbox). Any error relating to MPAM-Fb is considered as an indication of MPAM being broken and mpam
+is disabled using mpam_fb_disable_mpam(). After this point normal driver behaviour cannot be
+expected. So, if we do hit one of the MPAM-Fb failures then we've already triggered a tear down of
+the driver. Hence, your patch isn't fixing anything that effects the normal operation of the driver.
 
-If unlock does not result in the MMMIO returned to host control then
-the system will surely MCE.
+Having said that, it is not pretty to rely on the MPAM-Fb failures being catastrophic and makes the
+driver more fragile and difficult to reason about. Jin Jie has a patch [1] which addresses a problem
+related to when control configuration fails due to an MPAM-Fb error. I don't currently intend to
+merge either of these patches as I still think there is likely to be more of the same lurking in the
+driver and I don't want to do this piecemeal. I may take them later though, after I've audited for
+any similar problems; a couple of small changes are worth it for making the driver easier to reason
+about.
 
-This should have nothing to do with a crashed device, the disposition
-of the MMIO is under TDX module control, revert it back to host and
-accept you get AERs for the incorrect T= bit if the device isn't syncd.
+[1] https://lore.kernel.org/linux-arm-kernel/20261104101541.563113-1-ruanjinjie@huawei.com/
 
-The OS would have to kill the SPDM session and FLR the PF to bring it
-all back.
+Thanks,
 
-Jason
+Ben
+
+
+> 
+> Thanks,
+> Ping
+
