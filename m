@@ -1,104 +1,123 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794434502;
-	b=DP+sU4kT2TG8Ai3JjBp6wc0j2yR4s8EtM6ShtMCaLF8hr8yKNsbZ0uOwTtivAUawIbm+
-	 4UKXzLVrQcbbk5SXiqexAviv+TKH0/BCKRAI9zFAfw5z8GVbayk7mvB9R8XT+JyuIhjGe
-	 O6P13hGT4fOEorYgPgq10Z7OFfTzr3mQydCIlTrNrQeaWWazyNhPyq3Lni5eKLIeGAyHU
-	 JNyGFY9iekzwP+Jj9mmIRtpOgtPXmtZsWOlzP5Oif1BZMzQ/i6T0kmr9W7XCX7oyCU5Q4
-	 wLN6UuBVh6iD12BKFq3u+KCH66PBBjsjsEDkwUvUMDWWKgADwO4YCuSm+kC0ybdiy2g==
+	t=1794434587;
+	b=m0rJNXonjjzzwcTDcwTO4H1ldWx2S483c/CamjyQxS7tHfthY19pXuJ5mWXKXZgrmn9/
+	 zCyem5ACf1s8qYMaBl+RTOvNQRX4E7Siq5VCwrj0N3aFsJA/+JtSpg8wBP4VxEJuFMyxc
+	 2daXbJMRdBow7664nIwUmXNtHWAfVyTBNDdgdgSYhkWsD7DrBuqjE1J/D6yNcQCrSREpw
+	 lFw0SXr/a6Fp//aNF1HX7Ucud6e/iJRWSemd4gTWmSZN+XweB4RLrS9ukaWzvzYJJfhGz
+	 9fml/LOt8SWAtlhWgRMMGL7YyzrP/LUpaRYumD1GgEI9v6okCbNVAXFASPd3LyeP5gg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794434502;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=LOO2h5QK8CfY8Gg/3IS9sOkN8AMCYlWmi2Pn5OTG2Oo=;
-	b=LahAB/F7SO5LTNDhMy0s9YmqvNoFzBpaODT4AhaimwM0dAr4B7SR0dSMw1Znc02T3RBi
-	 aWtS1wVcBzOZi97VTl9sXzePU0mrrENPmI8WbbGUFqC5Q2fOHFHIVVNpeVAbL7MKSEYbj
-	 6s1bK3+GqDkegNPHKS76MKr++0fwE4hq7OZGxYA7zMhtfOtbHEfxUQINzDKsfncO2A7ss
-	 VDjsnlVD8/nF0fRalGNc5dswFicZyTl/QQhUktr0XgX7VtkX47mpwCNhupSTvoczsLWKc
-	 a0nm+LQZV771QUZU2ctOL5l2tDE3LgJRU0X46JI2gGQelXV03/sIzmkT9urRGqOEb4w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794434587;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 Mail-Followup-To:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=/29Fh1u2FOm5/5k1pmwlztbcmx561O6eu158ApMSsyU=;
+	b=oDLLqt2wZocMgWJg+j0Xz9D0Ncm7u4C7fyJizRS281dwA7RhjGR90esX195TmYd9taxq
+	 DwZw2WoEcxZ7dK7WtSk8N8ClxxsmuJ3j7XUuvlvGJwBx5d4i/pXO17rNfWNgL0UttUjSW
+	 el/a6J3GinaCMJgsmuQB1VZZEdgNn9AAygnKMp+QgKrYUO6dHN3hfprNfIfueoRJLQcD2
+	 jaY3J2mzyRMzUTIW8wp3L1caGOEiM8UOagT4m1PHCU/vt3aYVQk/xPGX69ABXpu1c275i
+	 +bIcDBqpTo/EVqtt8gknlNJkm9kqDQSJcPhVsTzS3Ftg5ndS1zVEsSlZyWJI7gt3dDg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="yP81/8gz";
-	arc=none smtp.remote-ip=209.85.210.54
-Received: from mail-ot1-f54.google.com (mail-ot1-f54.google.com [209.85.210.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H2HTk8rO;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F2D360A5BDC
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 22:01:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F2D360A5BDC
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37B77606A32D;
+	Wed, 11 Nov 2026 22:03:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yP81/8gz
-Received: by mail-ot1-f54.google.com with SMTP id 46e09a7af769-85ac281604dso2090847a34.0
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 14:01:42 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794434501; x=1795039301; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=LOO2h5QK8CfY8Gg/3IS9sOkN8AMCYlWmi2Pn5OTG2Oo=;
-        b=yP81/8gzn1Ll3IwuLCMoEbwPV0nMk1P0BANs+bgr5w90XkSeiq9vbfukn2+cw0IvPw
-         BELqNQ/UghmV3vPpfIY8uKZTgtrVbFpFkqvuwLbl4B39z1o4mvXXvXHXaX3xYTjqfuUG
-         mnFO6bx6foH0Is6jPiOc8vt0FWnJfcsvqwWjoaycm002osiIlKozAjH5bDuNMVpk2i36
-         ZKOquwGqNrRDElTVfKSsv5qNhdEKrOxkDeN0B4q6wTQo1JzJCCbtVdLyqjZXiFINhoY3
-         lZMcZnlzozw93HATT0hdeTPHF6qmMfm9P9J0qG0s87Dai2dmov4rGZOMxhx6gRoRlWDA
-         ekMQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794434501; x=1795039301;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=LOO2h5QK8CfY8Gg/3IS9sOkN8AMCYlWmi2Pn5OTG2Oo=;
-        b=i5y+nXTrIQzG0ZsgkJG4dLi9y4ByK/cYy1QPppRsU8K9jXHAtHetOBHig/7kd1Eb1h
-         8SfvHbwjmZYPW5urAXlfcZAzvWJw8en9wGBjcNx4lzA3Zvpo5Pe2CmEutsjoG1l2Lh0v
-         Zl//Vjz/q1kLoGbU5tiiGFLCBGPcx9oh/TA3hgBNIL7H0WsPrMnb2Gwn6cwjNhNATw75
-         8+u6hMzMCPfX1gCK0udB/Rp2Kk+Mr5hPCVVl8H9ZWYa9bm3BtnPZDyesWMDr4mKg/mAJ
-         3CvYrvw6j5kdwNUv7TnHAaB5hkHoqpKkJDfsYEtnQKylx1wdMdy+7ELCpieiwEKrZO13
-         39/w==
-X-Forwarded-Encrypted: i=1; AL+hErEnKsBN4kAs5prWW+/CdCXhOBNd7wGJbaCQV9JlmK1ekyQBdxd130V5Q1MPC5EB7IJ5WFNasMFvbieP4GA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9W6DJBH23kY/OmJoyenugdyXdEyCc7qB4T5bA2BK+Udaner9IB
-	azOoZY/Y6vR6ClhkYpP+CG9/ZNAjBkA6pzkjnn0E93EPxpyMkaXmZQ6E
-X-Gm-Gg: AYBFou2a/ADUIYfFOtGE+9R18UuO12PkTDYE3apcGTVpIny9TJG5ydfynPONicw3Vw5
-	m6zxCVgY1py/DPydN1645Onfne7nbrq0VQm7sl8tDtBp5xrmwGpDtj0zo15uvzydZR1chZpnCwO
-	GwU4TDJ7qC7umotD2mJZXyTVnZYOLyTSXj3Pg3qoBE4B7PaBmzyiAgfLThcSmYPbndDmLzpdSe2
-	VY8W1zTaNpQk78Oh7OLmutWM+clqhgkpKSI6emBuXqqLhbQ+6YXLlyWFnQjkWZumObhbeIbXg5p
-	oZ+tzP2jRLQikS6DMNOfep+oeQ0CAchP3Yfn0X7EYqqWI0JNLGxYuE72wvvctdjPtQsN1KUqwWa
-	LsudXcdvov8vFgVtp9e68hdCEGl3JZPE+zUpbOTw524UXNdDzPPj68EcflZfF/Z38PIGWBrdF+6
-	WizLtFW12TNgfMGSfwLQiAEQQUxu/aJuX/3pLB3cAtnp7WFeNwfw+Sb5PGkimighl7vIFncVm3F
-	Kbaaeo8NB+limEG2Q1BJ3JTCds4Mivn3Oho6DPpVShumxpR9i4QCO0uAfUKNnr0ILUpu4rcpFBv
-	WpkwQnBP8183HhWkdZV1wryCRzSiPK/K9duSiQBBoR+u4QAWnlbAdCq3W2upu7z0G57JLALot/m
-	4r5c1llzHtOciBwxAcWX/+tM818o6TSibowS1V6ThySQXrCMyEorygDqISdNwpGficwmsyHRI2o
-	8MCA==
-X-Received: by 2002:a05:6820:1ca8:b0:717:866:abef with SMTP id 006d021491bc7-7191789058bmr2582841eaf.34.1794434501099;
-        Wed, 11 Nov 2026 14:01:41 -0800 (PST)
-Received: from ryzen.lan ([2601:644:8000:37f::e34])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4ae23095c5csm4206140fac.16.2026.11.11.14.01.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 14:01:39 -0800 (PST)
-From: Rosen Penev <rosenp@gmail.com>
-To: Inki Dae <inki.dae@samsung.com>,
-	Seung-Woo Kim <sw0312.kim@samsung.com>,
-	Kyungmin Park <kyungmin.park@samsung.com>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	Kees Cook <kees@kernel.org>
-Cc: Alim Akhtar <alim.akhtar@samsung.com>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	dri-devel@lists.freedesktop.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-samsung-soc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-hardening@vger.kernel.org
-Subject: [PATCH v2] drm/exynos: fimc: allocate formats as a flexible array member
-Date: Wed, 11 Nov 2026 14:01:29 -0800
-Message-ID: <20261111220129.12128-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.56.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H2HTk8rO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2E751F00A05;
+	Wed, 11 Nov 2026 22:02:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794434586;
+	bh=/29Fh1u2FOm5/5k1pmwlztbcmx561O6eu158ApMSsyU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=H2HTk8rOLZgWw9Lm2uB8it44XJGQ1VP252zKM3Vsl27YeQT3fQC/oPf+9dR1GGuPe
+	 fTrdVHJg83sazuCLRwsK7FMBmZ65BjYmx/5l1Fr9V4zrWbVX2E4c/EGrAZHOJ23iP5
+	 K6oVJy3Ue6XdepxFi87RWoq3TdzVK9qDLL8BM8XMCz9n7H3pjJ8s2COHz+NjnFIDwg
+	 2eGJ+4dbOKk2dBpxqBDuRpXAU1slNtJxbA2Dkar3W/730CiqV+uxXwdTMmafxIRXoH
+	 hanK6KHxVmWrohkzaChiP47GtgTq+nQUar+jL+4xWJclsB1e8afff/e4uoWiQs4JB9
+	 jrQrJYXOzTbWA==
+Date: Wed, 11 Nov 2026 23:02:51 +0100
+From: Gao Xiang <xiang@kernel.org>
+To: Michal Wilczynski <m.wilczynski@samsung.com>
+Cc: Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+	Helge Deller <deller@gmx.de>, Heiko Carstens <hca@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Sven Schnelle <svens@linux.ibm.com>,
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>, Minchan Kim <minchan@kernel.org>,
+	Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Jens Axboe <axboe@kernel.dk>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	linux-kernel@vger.kernel.org, llvm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-mips@vger.kernel.org,
+	linux-parisc@vger.kernel.org, linux-s390@vger.kernel.org,
+	linux-block@vger.kernel.org, Yann Collet <yann.collet.73@gmail.com>,
+	Nick Terrell <terrelln@meta.com>, Gao Xiang <xiang@kernel.org>,
+	Chao Yu <chao@kernel.org>, Jaegeuk Kim <jaegeuk@kernel.org>,
+	Eric Biggers <ebiggers@kernel.org>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	David Laight <david.laight.linux@gmail.com>,
+	Sungguk <sungguk.na@samsung.com>,
+	Jaehoon Chung <jh80.chung@samsung.com>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	linux-erofs@lists.ozlabs.org,
+	linux-f2fs-devel@lists.sourceforge.net,
+	linux-crypto@vger.kernel.org
+Subject: Re: [PATCH v2 12/15] lib/lz4: widen LZ4_DECOMPRESS_INPLACE_MARGIN
+ for the fast decode loop
+Message-ID: <avTmC_1I59FKA1FN@MacBookPro.fritz.box>
+Mail-Followup-To: Michal Wilczynski <m.wilczynski@samsung.com>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+	Helge Deller <deller@gmx.de>, Heiko Carstens <hca@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Sven Schnelle <svens@linux.ibm.com>,
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>, Minchan Kim <minchan@kernel.org>,
+	Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Jens Axboe <axboe@kernel.dk>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	linux-kernel@vger.kernel.org, llvm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-mips@vger.kernel.org,
+	linux-parisc@vger.kernel.org, linux-s390@vger.kernel.org,
+	linux-block@vger.kernel.org, Yann Collet <yann.collet.73@gmail.com>,
+	Nick Terrell <terrelln@meta.com>, Gao Xiang <xiang@kernel.org>,
+	Chao Yu <chao@kernel.org>, Jaegeuk Kim <jaegeuk@kernel.org>,
+	Eric Biggers <ebiggers@kernel.org>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	David Laight <david.laight.linux@gmail.com>,
+	Sungguk <sungguk.na@samsung.com>,
+	Jaehoon Chung <jh80.chung@samsung.com>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	linux-erofs@lists.ozlabs.org,
+	linux-f2fs-devel@lists.sourceforge.net,
+	linux-crypto@vger.kernel.org
+References: <20261106-lz4-vendor-upstream-v2-0-ee04c3f0d7dc@samsung.com>
+ <CGME20261106144309eucas1p2a9bfcc1cf81779d473fb073e7d9139b7@eucas1p2.samsung.com>
+ <20261106-lz4-vendor-upstream-v2-12-ee04c3f0d7dc@samsung.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,75 +127,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261106-lz4-vendor-upstream-v2-12-ee04c3f0d7dc@samsung.com>
 
-The formats array is allocated separately with devm_kcalloc() and only
-referenced through the fimc_context. Make it a flexible array member at
-the end of the context and allocate both in one go.
+Hi Michal,
 
-Annotate it with __counted_by(num_formats) so the array accesses can be
-bounds checked with FORTIFY_SOURCE and UBSAN_BOUNDS.
+On Fri, Nov 06, 2026 at 03:42:52PM +0100, Michal Wilczynski wrote:
+> erofs decompresses a pcluster in place when the slack after the output
+> is at least LZ4_DECOMPRESS_INPLACE_MARGIN(compressed size), upstream's
+> (compressedSize >> 8) + 32.
+> 
+> That holds for the fork, which overshoots its output by at most 8
+> bytes. Upstream's LZ4_FAST_DEC_LOOP, which the next patch brings in for
+> x86 and arm64, copies in 32-byte steps and can overwrite input it has
+> not read yet: of 172410 valid streams laid out as erofs does at exactly
+> that margin, 3660 fail to decode, none with the fork. The worst needs
+> (compressedSize >> 8) + 33. Images mkfs.erofs built did not hit this,
+> but nothing in the format rules it out.
+> 
+> Use (compressedSize >> 8) + (compressedSize >> 15) + 36, which takes a
+> 4K pcluster's margin from 48 to 52 bytes. Upstream's lz4.h defines the
+> macro too, so undefine it first.
+> 
+> Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
 
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
----
- v2: use devm_kzalloc_flex().
- drivers/gpu/drm/exynos/exynos_drm_fimc.c | 16 +++++-----------
- 1 file changed, 5 insertions(+), 11 deletions(-)
+First, I really think kernel LZ4 should be updated for many years, so
+thanks for this!
 
-diff --git a/drivers/gpu/drm/exynos/exynos_drm_fimc.c b/drivers/gpu/drm/exynos/exynos_drm_fimc.c
-index 9c2ad95799ee..9233cd3b2f04 100644
---- a/drivers/gpu/drm/exynos/exynos_drm_fimc.c
-+++ b/drivers/gpu/drm/exynos/exynos_drm_fimc.c
-@@ -99,7 +99,6 @@ struct fimc_context {
- 	void		*dma_priv;
- 	struct device	*dev;
- 	struct exynos_drm_ipp_task	*task;
--	struct exynos_drm_ipp_formats	*formats;
- 	unsigned int			num_formats;
- 
- 	void __iomem	*regs;
-@@ -108,6 +107,7 @@ struct fimc_context {
- 	struct fimc_scaler	sc;
- 	int	id;
- 	int	irq;
-+	struct exynos_drm_ipp_formats	formats[] __counted_by(num_formats);
- };
- 
- static u32 fimc_read(struct fimc_context *ctx, u32 reg)
-@@ -1273,19 +1273,16 @@ static int fimc_probe(struct platform_device *pdev)
- 	if (exynos_drm_check_fimc_device(dev) != 0)
- 		return -ENODEV;
- 
--	ctx = devm_kzalloc_obj(dev, *ctx);
-+	num_formats = ARRAY_SIZE(fimc_formats) + ARRAY_SIZE(fimc_tiled_formats);
-+	ctx = devm_kzalloc_flex(dev,*ctx, formats, num_formats);
- 	if (!ctx)
- 		return -ENOMEM;
- 
-+	ctx->num_formats = num_formats;
-+	formats = ctx->formats;
- 	ctx->dev = dev;
- 	ctx->id = of_alias_get_id(dev->of_node, "fimc");
- 
--	/* construct formats/limits array */
--	num_formats = ARRAY_SIZE(fimc_formats) + ARRAY_SIZE(fimc_tiled_formats);
--	formats = devm_kzalloc_objs(dev, *formats, num_formats);
--	if (!formats)
--		return -ENOMEM;
--
- 	/* linear formats */
- 	if (ctx->id < 3) {
- 		limits = fimc_4210_limits_v1;
-@@ -1319,9 +1316,6 @@ static int fimc_probe(struct platform_device *pdev)
- 		formats[j].num_limits = num_limits;
- 	}
- 
--	ctx->formats = formats;
--	ctx->num_formats = num_formats;
--
- 	/* resource memory */
- 	ctx->regs = devm_platform_ioremap_resource(pdev, 0);
- 	if (IS_ERR(ctx->regs))
--- 
-2.56.1
+But my personal thought is that could you just fold this patch into
+the next one ("lib/lz4: switch the decompressor to the vendored sources")?
+Because this one should be part of the fast loop update.
 
+Although the current patch order is also fine, but my potential concern
+is that people don't know the details maybe pick the random ones for
+backporting, which is what I'd like to avoid so I hope this patch could
+be just part of it, otherwise the inplace decompression could be broken.
+
+Thanks,
+Gao Xiang
