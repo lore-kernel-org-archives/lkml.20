@@ -1,57 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794386505;
-	b=1MuBCdm4GCDr52Z1s4XORSNMQ3yZlwJZft9Nqu9F4D9TTUJPtc91VvcMm6qyMF6pu1TQ
-	 nsnn8R8QUuIvRsnzmtyS0Zst2HnOhb3LdZMD4KhrlLtMjh3vk3oQiL4a8LLXYTGoE65K9
-	 FZvbfi6gmZmP5yXZFBX0ZQuwVvD+TEqudbRw98noqDf4UzuhjIRRKQ2X7bCNq4BvqpjWX
-	 2E24yQ9b7Ptq/JWmG/6a79rp3lAloFsEyEiJfISexxbgCF9tswvSmRNcj50MfuQJ1bP2W
-	 TUy/GNyXANBKKF4qG+FJpOdHdI7oWQ3U8UUalL1tZQ5ucxfmox41XWNvgFatCbHGMCQ==
+	t=1794386506;
+	b=pUcWeQ3r6Lb8FBKOj8oL3qjOzrrHie3mYiZK5O7E5zQOasFfe68H5FMWdz7UPOpfjc19
+	 /DSG7TbMlnZVgKFgWePM8VnVIP03+8J/wbCgjah04+7XQLrvwvAA7ezimUpvW6NwxBl2m
+	 52sx7xem7Amw5kXFpZZHhXvZled39e7gSZ/A7pIcZACnuCewRg7pLpR2o1r+qyZKzSiff
+	 TIHM5h/HsHd6/P5FRsw8Jav7JS1TgLi9sUohjkqTxzK1LDvBJE83X6peYU3/PAivpdJkB
+	 +eALKJQrqg+vd9RW2dcEkFpP0F1Fw5yq6ETrqn1JAglI8w7eV7t1G0YoGYkYo3B1/9A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794386505;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=9KQQ3MjJIgY9DKMpqHoAdZ9dgCXvyAkuy+xEhirgwpE=;
-	b=zw0WXJjngJiv5HzDGkncqyX4KEqD8Dt/BC8wUTYbweRJoTqjEcImUnOEUlL/M4JADniT
-	 QOduD5GqfiPIOwNSBoi0t8LZqVw+11bI7wRTCw4oTJ/yxWLkEg+YBokFUALfr0j18Hxqx
-	 6Nqtp1Zm0NDBKBxN0ul9CDUF758VKF+YZkjjC1sWI1X8JjHbJ34VDZ0k/BRJk/vdtIyk+
-	 3H9zAIYbUETjMP6GB73ADmHljRqA0BkFBpajXJm5Jlr5f6duZaEwdDti3y/XJmfBM9+Oz
-	 IPI3tT8BYp6FHx4gAspk6009PmHIRZ3eIfRi3HpkCdMaUo++9IPrjgojtGm29LWqbwg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794386506;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=Z9LfUtXUIH0h9LuWEMESz7PfYddMA6xbpQRbaf34nzQ=;
+	b=XJv/vbAYkD66XvYvNMsYBuYMKvXJH6Hb7awGRbgE6/hSwbYWwwevqtKuhyX7De6UQThg
+	 z0FEEl1mndnHOyOmRaXtW1U+f6WhDIV360LS5/FG6OOnZyb8MowfMawRan0czHARXmNse
+	 mYJorzXmZdEPTP3EbTQ9dgqXlaUvZNlh1uK69M9O70JU1YATNp4o1/+WhQYqC7f04jRgk
+	 ILvp7tiuBC2MR5WaYB1d3Ox7nz5DBwZYyI68/1P5tAsRp33pXMM5XzHg6ejeQN+fpruVj
+	 OH3NWhdlDVeqPdnwfHgDtZfBMMYFWyxwhNMPgcFPmZYTn7TuJG9V+wErOVjubnPyv8Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SUd0s6IX;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=m8CYrk6G;
+	arc=none smtp.remote-ip=198.175.65.11
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7E5D606A32A;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B861606A31C;
 	Wed, 11 Nov 2026 08:41:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7B861606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SUd0s6IX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 326071F00A05;
-	Wed, 11 Nov 2026 08:41:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794386505;
-	bh=9KQQ3MjJIgY9DKMpqHoAdZ9dgCXvyAkuy+xEhirgwpE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=SUd0s6IXY1E1nvv2mVfy5r7Jh95iT2P+imXJg1yFfVxk1wPDIvimvrbLAU1oSLLed
-	 3VE1PwPcbLNx09fEzKM4D4F+VHGgKHxSwGMQe1a9ctTfpngjSo1j2yHGb60PprkwNK
-	 U6QVLa/67V0JRJm1W/uxnBjKRX2+vLHn2VFQDNHG+34bWSzoXVDKOc2hIMwZjetZbZ
-	 33U2U8OV20pcJqHMsiqDJmAZNtirbPgyPCURiIo88us1hoX91nomYNwzgMb41RzCOr
-	 DCcpO/EN/gSNtOBrBigAWfRYGFf9mVoAia0BWCDjHVaXl2rGbp+RVvLw/wG4IZU2O2
-	 2PCx1OIHrezDg==
-Date: Wed, 11 Nov 2026 09:41:40 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Mark Brown <broonie@kernel.org>
-Cc: Aniket Limaye <a-limaye@ti.com>, Andi Shyti <andi.shyti@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	linux-i2c@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	lianfeng.ouyang@starfivetech.com, s-jain1@ti.com, andriy.shevchenko@linux.intel.com
-Subject: Re: [PATCH v5 1/2] dt-bindings: i2c: Add Synopsys DWC_i2c controller
-Message-ID: <20261111-smooth-meerkat-of-judgment-dbe8bc@quoll>
-References: <20261111-tda54-upstream-i2c-v5-0-280a4a779b24@ti.com>
- <20261111-tda54-upstream-i2c-v5-1-280a4a779b24@ti.com>
- <fc1fe51e-952c-4c8f-8dc1-fb832b03943b@sirena.org.uk>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=m8CYrk6G
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794386505; x=1825922505;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=Y/XOELi0xXFCVMEtPO8EZ8t4PWPLUJNKHA9Qs/A4IDM=;
+  b=m8CYrk6GBUBGbL7sT0jWeVpd1cLOnFei0Cmp0jI6+b8tWKghEcGufO+R
+   6mjH7ivVKWebxbbPI3ehfMGCRunaNjmBBpUyTmDoipcYRn3rnWgacIWeP
+   S9omnROiL5EFQlcrsNI7TVIPL1D/G/EIZ3mNr9a6Iaq5dK5deZqB0Wbtr
+   VcZF+G2+XqkrVH2z6jVkfwvYc3d8gBD2pqkBKdh91/Nk+575fQNxtubut
+   3te8zlNTTWRoEiUsjf1x6oxUAj6PhMLikhcz91fxZRDSGqDUnKJA22sb1
+   SwACZMZYARsLlL6kbigLnckiwrvrflLkGMG5K/H0375bfoi0PjMZQtMMK
+   A==;
+X-CSE-ConnectionGUID: lz9Vt/GFSg+UE0vvSM4WNQ==
+X-CSE-MsgGUID: tH4IhHvESkW7Lbh5AUMSYQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11962"; a="3049158"
+X-IronPort-AV: E=Sophos;i="6.27,207,1787036400"; 
+   d="scan'208";a="3049158"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 00:41:43 -0800
+X-CSE-ConnectionGUID: bnats4KYRiuBX5RMJ/YMhA==
+X-CSE-MsgGUID: Af5AvszQRWGa6J8xSAUotQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,207,1787036400"; 
+   d="scan'208";a="8442906"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.142])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 00:41:41 -0800
+Date: Wed, 11 Nov 2026 10:41:39 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Victor Chernyakin <chernyakin.victor.j@outlook.com>
+Cc: andy@kernel.org, dlechner@baylibre.com, jic23@kernel.org,
+	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+	nuno.sa@analog.com
+Subject: Re: [PATCH v8 4/4] iio: cdc: add Texas Instruments FDC1004 driver
+Message-ID: <avQqQ8s3-fkvIiGX@ashevche-desk.local>
+References: <avOKDbkkDwqhHEaC@ashevche-desk.local>
+ <SN1PR12MB252866C4690F808A80429926A5712@SN1PR12MB2528.namprd12.prod.outlook.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,29 +80,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <fc1fe51e-952c-4c8f-8dc1-fb832b03943b@sirena.org.uk>
+In-Reply-To: <SN1PR12MB252866C4690F808A80429926A5712@SN1PR12MB2528.namprd12.prod.outlook.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Wed, Nov 11, 2026 at 12:05:15AM +0000, Mark Brown wrote:
-> On Wed, Nov 11, 2026 at 02:05:48AM +0530, Aniket Limaye wrote:
-> > Add documentation for the Synopsys Advanced I2C (DWC_i2c) controller, as
-> > found on the TI TDA54 SoC.
+On Tue, Nov 10, 2026 at 06:18:16PM -0600, Victor Chernyakin wrote:
+
+...
+
+> > > +static const int fdc1004_calibbias_decomposed[] = {
+> > > +	lower_32_bits(fdc1004_calibbias[0]), upper_32_bits(fdc1004_calibbias[0]),
+> > > +	lower_32_bits(fdc1004_calibbias[1]), upper_32_bits(fdc1004_calibbias[1]),
+> > > +	lower_32_bits(fdc1004_calibbias[2]), upper_32_bits(fdc1004_calibbias[2]),
+> > > +};
+> > > +
+> > > +static const int fdc1004_calibscale_decomposed[] = {
+> > > +	lower_32_bits(fdc1004_calibscale[0]), upper_32_bits(fdc1004_calibscale[0]),
+> > > +	lower_32_bits(fdc1004_calibscale[1]), upper_32_bits(fdc1004_calibscale[1]),
+> > > +	lower_32_bits(fdc1004_calibscale[2]), upper_32_bits(fdc1004_calibscale[2]),
+> > > +};
+> > 
+> > Can we prepare them dynamically at runtime? Use global variables and a macro
+> > from once.h to make the populate function a singleton, so we don't have as many
+> > copies as devices on the system that are driven by this code. We can probably
+> > do this later, though.
 > 
-> > The block cannot work on its own and needs SoC integration, e.g. the
-> > FIFO depths are not discoverable from the IP. Do not add a generic
-> > compatible and only list SoC specific compatibles. The file is named
-> > after the IP so that other SoCs integrating it can be added here.
-> 
-> I still think we should have a fallback compatible here, while we can't
-> discover the FIFO depths all the uses have a programmed trigger and we
-> know the minimum depth configurable in the IP so we can fall back to
-> using that.  This would be useful for distro kernels, it's one less
-> thing that forces using a kernel with specific SoC support.
+> Are you sure there's a separate copy for each device? In my understanding,
+> these static variables are loaded along with the module, and the module
+> is loaded only once and shared between all devices.
 
-If the driver does not match on such generic compatible - and that's my
-impression from commit msg -  then it is pretty useless.
+I started my paragraph with "Can we prepare them dynamically at runtime?"
+which assumes that the rest of the paragraph is elaborating that idea.
 
-Best regards,
-Krzysztof
+-- 
+With Best Regards,
+Andy Shevchenko
+
 
