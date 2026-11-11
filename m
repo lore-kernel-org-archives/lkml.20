@@ -1,87 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.155.198.111
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794437046;
-	b=3PAjHXRTMJBblF4N7f1prdocqLb5oYcumGlUSLGx2kFsyuiceAb+U2K/E+9wlNxcWNtH
-	 2FILZrqT/B6awE3kR5EtcQioDeTrfhOmS+Li4noLT/YQS+7AWZz3CVqP271b0mbLqwiiE
-	 T81xjHnNpZSbVvHehurItcwGbVhTsvmYV4tZ1pOcdrdPgq0Pvkn5ys+X8R2dFN96oGHu0
-	 QPA8ndjUB0J2iwKYrlX0Pikz44lfBAY89OEa2c8edS1cwLwq+KnNcQ9lNtE+Zg9UdtTxu
-	 LuvlW4+XUzd8dYo2YbE4eTeL6avZcc6L85vMmkAzIsZ63cYdE/S7/D8gZ/A4Z/CNE1Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794437046;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=n8Lc096Oet60aLIy9WQq9zqJJ5FyBT2YGQ3yPJEK0l0=;
-	b=iXd3gyOq6mERKeCl9EATmukOe+Ue+kRobNfw7YmxWwHi/PJsvn0piG4ikdw8D6tH68yd
-	 hIakrSKoujhJZix5hbPGR5tmG18VMd0hO6MdqXxmDmMYchMup7BuHas6FtexDwpifsqmi
-	 LUvH/4B9V114ulbldz4csXg9o4OycrtvIiRisoGoUcWIXbzBHUpMZ75rp4At4X62nEjfp
-	 9JlP0DQ4cTpLNyE21UJKFuggQS1eb6HwJzmkUZocJmfw49aeqd2DFZJkT3NNEoDlLrXoW
-	 Aav4fNMsqPn79d0t/VU/WV7h7ROrU9WhVI15+2LkNvdUfRchtec++w4r9mYYav6DVlg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amazon.com;
-	spf=pass smtp.mailfrom=amazon.de;
-	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=FqjYNpOT;
-	arc=none smtp.remote-ip=35.155.198.111
-Received: from pdx-out-009.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-009.esa.us-west-2.outbound.mail-perimeter.amazon.com [35.155.198.111])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794437060;
+	b=LZaaV27UhnDQpbmv8i0pIFqmeIJDvGGQf+Iko7xr/uVOeryKKmF+PO8sO19f9bwl0QlF
+	 F0VBUIkwMveZ4y3IrA+nMEqnfweKPEP8iLvCh0o3IYkL9ZKSUyanp/XqI0/rbBG5n6U+f
+	 L096RGmbawhlt6mIn8Qrcyj0zhdJTdC20YuR+iutWl96UVXyCARDZ0Gw2euNzrxum8zOa
+	 GDEpQJzwLe5tNlZNH/R7Y2RA/C14EmCNTDyvfpgQXCANABBMO4B78hs62nMMPNH/7+up8
+	 yrV7MFGHh02vIgHBQ74+R2WH4EPEkhm6RcYu78vRMmxq5XGdUhLIlZLL7LQ5MI+pv5Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794437060;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Zoho-Virus-Status:X-Zoho-AV-Stamp:
+	 X-ZohoMailClient;
+	bh=r88vezn/zIBt4uU/LbYZSvwiy9RpMWU9N5UW0qDOzGI=;
+	b=aU1DXRkh/dfO6LE1GP5AxdpakM056jmj3BS1jzF3dYxJdxVSY10JRDhGzpURRAGGyNxn
+	 fXGYKg+O8KomSfolTDIrojDxAmWsMJsu613ypWASWueVmHG/LK0d1YC4xGNkJ0lR5PRkF
+	 7vYtIrUxTul/Mj1Gw6ZHT1rNXcCgHe9xKYdiWAp22Zgr6nYyureFJ5shsAu2tPEK41LHs
+	 RTjylZW1xN2uZBqbiZUX6cNWoXz/sEcQgsQ1RWZyzHIsdQ9WX5oZWkRMK03eP0nTnxtqL
+	 HjJMyXQupaWLxFYRuj3zPNyQoB9hAGVtm/KHev+6sHKCfGgRBMWrZukgRg9icdX2lFA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=TvSQUbhN;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
+Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F07BC606E2B1;
-	Wed, 11 Nov 2026 22:44:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F07BC606E2B1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2109C606A324;
+	Wed, 11 Nov 2026 22:44:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2109C606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=FqjYNpOT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1794437045; x=1825973045;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=n8Lc096Oet60aLIy9WQq9zqJJ5FyBT2YGQ3yPJEK0l0=;
-  b=FqjYNpOTd7CFPCQaBtNf114crFd0a+5ghR2QgL8SC7gtp07cT4ReAXqu
-   8IsqF651vclQew0ltmDc/C+pXu99B/7m9JJ4iAypif50ljJnLIQibu2Ra
-   49BazQRjS/npCNsR/E92NaxK2azE5fGTre8aDNScMYxYVBnxCJ8cjPgTN
-   oVvgxRJrlK3JhXgBElC8ou47eY6+taUYLbIB69rSsHJihHehuFtybR4ew
-   u5PKKg7uJhucvLSCNg8MNU1rrIeaOd7yEiChYriSg9D4hyI1mznMpmFaM
-   ANUM+X+043TMW3kiW3YGoU3O3CLXII/kjLQHIGXiFQbCm6UYAsBpBHoOd
-   g==;
-X-CSE-ConnectionGUID: rACnm+byQrOkc60LRF9f1A==
-X-CSE-MsgGUID: pcu9icCDSn+CECtcsEsy0A==
-X-IronPort-AV: E=Sophos;i="6.27,208,1787011200"; 
-   d="scan'208";a="33662130"
-Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
-  by internal-pdx-out-009.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 22:44:03 +0000
-Received: from EX19MTAUWB002.ant.amazon.com [205.251.233.48:30654]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.5.141:2525] with esmtp (Farcaster)
- id 57fa7319-0315-4534-8905-169f80a09adf; Wed, 11 Nov 2026 22:44:02 +0000 (UTC)
-X-Farcaster-Flow-ID: 57fa7319-0315-4534-8905-169f80a09adf
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWB002.ant.amazon.com (10.250.64.231) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Wed, 11 Nov 2026 22:44:02 +0000
-Received: from ip-10-253-83-51.amazon.com (172.19.99.218) by
- EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Wed, 11 Nov 2026 22:43:59 +0000
-From: Alexander Graf <graf@amazon.com>
-To: <linux-kernel@vger.kernel.org>, Greg Kroah-Hartman
-	<gregkh@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>
-CC: The AWS Nitro Enclaves Team <aws-nitro-enclaves-devel@amazon.com>, "Shuah
- Khan" <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>,
-	Marek Szyprowski <m.szyprowski@samsung.com>, Robin Murphy
-	<robin.murphy@arm.com>, <linux-doc@vger.kernel.org>, <iommu@lists.linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand
-	<david@kernel.org>, Mike Rapoport <rppt@kernel.org>,
-	<nh-open-source@amazon.com>, <linux-mm@kvack.org>, Jonathan Corbet
-	<corbet@lwn.net>
-Subject: [PATCH 11/40] nitro_enclaves: Add NE_ENCLAVE_PCIE_MODE launch flag
-Date: Wed, 11 Nov 2026 22:41:56 +0000
-Message-ID: <a183902fff38e2e2aab7be409569cdfa3aee4a4a.1794393490.git.graf@amazon.com>
-X-Mailer: git-send-email 2.47.1
-In-Reply-To: <cover.1794300002.git.graf@amazon.com>
-References: <cover.1794300002.git.graf@amazon.com>
+	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=TvSQUbhN
+ARC-Seal: i=1; a=rsa-sha256; t=1794437048; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=oE/D62gU21CYuAA6thLge+3tC8tzqVNRHD0rnDg2DHKoK5ciD0gQu2q51dhvVJfEHXE7PEsCapeZGbddM5Xp+NxqxXQ4pEDwBa/BKCkIp/BgzMAkwrsDTxYanjQnvBXTnf49XdyNc1QZ/xYsQCY9YMDFI1obEYnpjTANtBdG1Gg=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1794437048; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=r88vezn/zIBt4uU/LbYZSvwiy9RpMWU9N5UW0qDOzGI=; 
+	b=DAWMundu/4XamJL2Hg8G7HTMhvixY9zjH3SbEo7tpO8oLPbhTNXKs1k1sh4oYDiVgHrljVS6HkdPvMTZV+Qh6kmoTjDM5cyFMnvmjT9WJyf80Bw/w+mMsWMR3Li715OgTuS9qEqJtdXff7PwZxoJcZaUIwsiNCmy5tdWUw0w998=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
+	dmarc=pass header.from=<sebastian.reichel@collabora.com>
+DKIM-Signature: a=rsa-sha256; b=TvSQUbhN7THmVvFM7UQFg4p8WafvAU93wPQAdlXaN1sNavBsqlNUarL2+XuQ6RGPcBl83XiW5o5OjUWw3xegadecmqxCmwJ563QeBKNRkUxWcG1SdiWSBPVzBpnIPWNO62IsY3qHYQ7klB5jgTsng7IPOLAiruR65kUzHe6b23A=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=r88vezn/zIBt4uU/LbYZSvwiy9RpMWU9N5UW0qDOzGI=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1794437047434579.4818392138392;
+	Wed, 11 Nov 2026 14:44:07 -0800 (PST)
+Received: by venus (Postfix, from userid 1000)
+	id 4BC3A180758; Wed, 11 Nov 2026 23:44:03 +0100 (CET)
+Date: Wed, 11 Nov 2026 23:44:03 +0100
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+To: ricardo@pardini.net
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Heiko Stuebner <heiko@sntech.de>, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 2/6] arm64: dts: rockchip: describe PCIe RTL8125
+ Ethernet on ROCK 5 family
+Message-ID: <avTuNC0STGUciyiI@venus>
+References: <20261109-rk3588-dts-rtl-eth-describe-dt-alias-v6-0-91f1efefba0b@pardini.net>
+ <20261109-rk3588-dts-rtl-eth-describe-dt-alias-v6-2-91f1efefba0b@pardini.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,150 +71,158 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D031UWA003.ant.amazon.com (10.13.139.47) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="ipmlxrtzmokewoal"
+Content-Disposition: inline
+In-Reply-To: <20261109-rk3588-dts-rtl-eth-describe-dt-alias-v6-2-91f1efefba0b@pardini.net>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/294.427.16
+X-ZohoMailClient: External
 
-Nitro Sandboxes give their guest virtio devices that the parent
-provides, on a PCIe bus. The hypervisor sets up that bus when it
-allocates the slot, so user space asks for it with a launch flag.
 
-Define NE_ENCLAVE_PCIE_MODE, the first launch flag, and forward it in
-SLOT_ALLOC. struct slot_alloc_req gains a flag word, and at offset 0,
-over the unused field, a payload_version byte that tells the device to
-read it. We send version 1 when a flag is set, and the all-zero request
-of today otherwise.
+--ipmlxrtzmokewoal
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v6 2/6] arm64: dts: rockchip: describe PCIe RTL8125
+ Ethernet on ROCK 5 family
+MIME-Version: 1.0
 
-A device that takes launch flags publishes a vendor-specific PCI
-capability. A device that predates them ignores the flag word and
-allocates a plain slot, so refuse a launch flag with -EOPNOTSUPP on a
-device without the capability.
+Hi,
 
-Signed-off-by: Alexander Graf <graf@amazon.com>
----
- drivers/virt/nitro_enclaves/ne_misc_dev.c | 19 ++++++++++++++++++-
- drivers/virt/nitro_enclaves/ne_pci_dev.h  | 23 +++++++++++++++++++++--
- include/uapi/linux/nitro_enclaves.h       | 14 ++++++++++++++
- 3 files changed, 53 insertions(+), 3 deletions(-)
+On Mon, Nov 09, 2026 at 01:32:17PM +0100, Ricardo Pardini via B4 Relay wrot=
+e:
+> From: Ricardo Pardini <ricardo@pardini.net>
+>=20
+> The Radxa ROCK 5B, 5B+ and 5T carry an on-board Realtek RTL8125 NIC
+> behind pcie2x1l2; the ROCK 5T has a second one behind pcie2x1l1.
+>=20
+> Describe the PCI function nodes and attach ethernet0 (and, on the
+> ROCK 5T, ethernet1) aliases, so that U-Boot's fdt_fixup_ethernet() can
+> fill in their MAC addresses from its ethaddr/eth1addr environment.
+>=20
+> The shared NIC goes in rk3588-rock-5b-5bp-5t.dtsi, the ROCK 5T's second
+> NIC in rk3588-rock-5t.dts.
+>=20
+> Signed-off-by: Ricardo Pardini <ricardo@pardini.net>
+> ---
 
-diff --git a/drivers/virt/nitro_enclaves/ne_misc_dev.c b/drivers/virt/nitro_enclaves/ne_misc_dev.c
-index 68c497df4f14b..0bf62f703806e 100644
---- a/drivers/virt/nitro_enclaves/ne_misc_dev.c
-+++ b/drivers/virt/nitro_enclaves/ne_misc_dev.c
-@@ -2475,13 +2475,30 @@ static int ne_create_vm_ioctl(struct ne_pci_dev *ne_pci_dev, u64 flags,
- 	int rc = -EINVAL;
- 	struct slot_alloc_req slot_alloc_req = {};
- 
--	if (flags) {
-+	if (flags & ~(u64)NE_ENCLAVE_PCIE_MODE) {
- 		dev_err_ratelimited(ne_misc_dev.this_device,
- 				    "Unknown launch flag bit set 0x%llx\n", flags);
- 
- 		return -NE_ERR_INVALID_FLAG_VALUE;
- 	}
- 
-+	/*
-+	 * A device that takes launch flags publishes a vendor-specific
-+	 * capability. One without it takes no launch flags and would allocate a
-+	 * slot without the properties they ask for.
-+	 */
-+	if (flags && !pci_find_capability(ne_pci_dev->pdev, PCI_CAP_ID_VNDR)) {
-+		dev_err_ratelimited(ne_misc_dev.this_device,
-+				    "Device takes no launch flags\n");
-+
-+		return -EOPNOTSUPP;
-+	}
-+
-+	if (flags) {
-+		slot_alloc_req.payload_version = 1;
-+		slot_alloc_req.flags = flags;
-+	}
-+
- 	mutex_lock(&ne_cpu_pool.mutex);
- 
- 	for (i = 0; i < ne_cpu_pool.nr_parent_vm_cores; i++)
-diff --git a/drivers/virt/nitro_enclaves/ne_pci_dev.h b/drivers/virt/nitro_enclaves/ne_pci_dev.h
-index 19e129d14a3a0..b0957e2606ec3 100644
---- a/drivers/virt/nitro_enclaves/ne_pci_dev.h
-+++ b/drivers/virt/nitro_enclaves/ne_pci_dev.h
-@@ -7,10 +7,12 @@
- #define _NE_PCI_DEV_H_
- 
- #include <linux/atomic.h>
-+#include <linux/build_bug.h>
- #include <linux/list.h>
- #include <linux/mutex.h>
- #include <linux/pci.h>
- #include <linux/pci_ids.h>
-+#include <linux/stddef.h>
- #include <linux/wait.h>
- 
- /**
-@@ -174,12 +176,29 @@ struct enclave_stop_req {
- 
- /**
-  * struct slot_alloc_req - SLOT_ALLOC request.
-- * @unused:	In order to avoid weird sizeof edge cases.
-+ * @payload_version:	Wire version at offset 0. Zero is the value a driver
-+ *			without launch flags leaves here, and tells the device
-+ *			to disregard @reserved and @flags. 1 means @flags is
-+ *			valid.
-+ * @reserved:		Alignment padding between @payload_version and
-+ *			@flags. Zero.
-+ * @flags:		Launch flag word from NE_CREATE_VM2, valid when
-+ *			@payload_version >= 1.
-  */
- struct slot_alloc_req {
--	u8	unused;
-+	u8	payload_version;
-+	u8	reserved[3];
-+	u32	flags;
- };
- 
-+/*
-+ * The device picks these fields out of the payload by offset, so a change
-+ * to the layout here changes the SLOT_ALLOC wire format.
-+ */
-+static_assert(sizeof(struct slot_alloc_req) == 8);
-+static_assert(offsetof(struct slot_alloc_req, reserved) == 1);
-+static_assert(offsetof(struct slot_alloc_req, flags) == 4);
-+
- /**
-  * struct slot_free_req - SLOT_FREE request.
-  * @slot_uid:	Slot unique id mapped to the slot to free.
-diff --git a/include/uapi/linux/nitro_enclaves.h b/include/uapi/linux/nitro_enclaves.h
-index 8e43be9a0a1fa..8ccf16e9cf5fb 100644
---- a/include/uapi/linux/nitro_enclaves.h
-+++ b/include/uapi/linux/nitro_enclaves.h
-@@ -46,6 +46,18 @@
-  */
- #define NE_CREATE_VM			_IOR(0xAE, 0x20, __u64)
- 
-+/**
-+ * DOC: NE_CREATE_VM2 launch flags
-+ */
-+
-+/**
-+ * NE_ENCLAVE_PCIE_MODE - Allocate a slot with a PCIe bus. The
-+ *			  hypervisor selects PCIe backing for the slot at
-+ *			  SLOT_ALLOC time, so a caller that wants it asks
-+ *			  for it here and not at enclave start.
-+ */
-+#define NE_ENCLAVE_PCIE_MODE		(1u << 6)
-+
- /**
-  * struct ne_create_vm_args - NE_CREATE_VM2 argument (in / out).
-  * @flags:	Launch-time flag word (in). Flags select properties of the
-@@ -82,6 +94,8 @@ struct ne_create_vm_args {
-  * * EFAULT				- Argument read or write failure.
-  * * NE_ERR_INVALID_FLAG_VALUE		- Unknown flag bit set, or
-  *					  NE_ENCLAVE_DEBUG_MODE set.
-+ * * EOPNOTSUPP			- A launch flag is set and the NE PCI
-+ *					  device takes no launch flags.
-  * * EINVAL				- The argument stops before @slot_uid.
-  * * E2BIG				- The argument carries a field this kernel
-  *					  does not know, set to a non-zero value.
--- 
-2.47.1
+root@rock5b+ ~# lspci -nv -d 10ec:8125
+0004:41:00.0 0200: 10ec:8125 (rev 05)
+	Subsystem: 10ec:0123
+	Device tree node: /sys/firmware/devicetree/base/pcie@fe190000/pcie@0,0/eth=
+ernet@0,0
+	...
 
+Reviewed-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+Tested-by: Sebastian Reichel <sebastian.reichel@collabora.com> # Rock 5B+
+
+Greetings,
+
+-- Sebastian
+
+
+>  .../arm64/boot/dts/rockchip/rk3588-rock-5b-5bp-5t.dtsi | 15 ++++++++++++=
++++
+>  arch/arm64/boot/dts/rockchip/rk3588-rock-5t.dts        | 18 ++++++++++++=
+++++++
+>  2 files changed, 33 insertions(+)
+>=20
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3588-rock-5b-5bp-5t.dtsi b/ar=
+ch/arm64/boot/dts/rockchip/rk3588-rock-5b-5bp-5t.dtsi
+> index b8d90936fc20..e8a3eb33e402 100644
+> --- a/arch/arm64/boot/dts/rockchip/rk3588-rock-5b-5bp-5t.dtsi
+> +++ b/arch/arm64/boot/dts/rockchip/rk3588-rock-5b-5bp-5t.dtsi
+> @@ -10,6 +10,7 @@
+> =20
+>  / {
+>  	aliases {
+> +		ethernet0 =3D &rtl_eth0;
+>  		mmc0 =3D &sdhci;
+>  		mmc1 =3D &sdmmc;
+>  		mmc2 =3D &sdio;
+> @@ -488,6 +489,20 @@ &pcie2x1l2 {
+>  	reset-gpios =3D <&gpio3 RK_PB0 GPIO_ACTIVE_HIGH>;
+>  	vpcie3v3-supply =3D <&vcc3v3_pcie2x1l2>;
+>  	status =3D "okay";
+> +
+> +	pcie@0,0 {
+> +		reg =3D <0x400000 0 0 0 0>;
+> +		#address-cells =3D <3>;
+> +		#size-cells =3D <2>;
+> +		ranges;
+> +		device_type =3D "pci";
+> +		bus-range =3D <0x41 0x4f>;
+> +
+> +		rtl_eth0: ethernet@0,0 {
+> +			compatible =3D "pci10ec,8125";
+> +			reg =3D <0x410000 0 0 0 0>;
+> +		};
+> +	};
+>  };
+> =20
+>  &pcie30phy {
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3588-rock-5t.dts b/arch/arm64=
+/boot/dts/rockchip/rk3588-rock-5t.dts
+> index 425036146b6d..b1a3e4b2165f 100644
+> --- a/arch/arm64/boot/dts/rockchip/rk3588-rock-5t.dts
+> +++ b/arch/arm64/boot/dts/rockchip/rk3588-rock-5t.dts
+> @@ -8,6 +8,10 @@ / {
+>  	model =3D "Radxa ROCK 5T";
+>  	compatible =3D "radxa,rock-5t", "rockchip,rk3588";
+> =20
+> +	aliases {
+> +		ethernet1 =3D &rtl_eth1;
+> +	};
+> +
+>  	analog-sound {
+>  		compatible =3D "audio-graph-card";
+>  		label =3D "rk3588-es8316";
+> @@ -76,6 +80,20 @@ &pcie2x1l1 {
+>  	reset-gpios =3D <&gpio4 RK_PA2 GPIO_ACTIVE_HIGH>;
+>  	vpcie3v3-supply =3D <&vcc3v3_pcie2x1l1>;
+>  	status =3D "okay";
+> +
+> +	pcie@0,0 {
+> +		reg =3D <0x300000 0 0 0 0>;
+> +		#address-cells =3D <3>;
+> +		#size-cells =3D <2>;
+> +		ranges;
+> +		device_type =3D "pci";
+> +		bus-range =3D <0x31 0x3f>;
+> +
+> +		rtl_eth1: ethernet@0,0 {
+> +			compatible =3D "pci10ec,8125";
+> +			reg =3D <0x310000 0 0 0 0>;
+> +		};
+> +	};
+>  };
+> =20
+>  &pcie30phy {
+>=20
+> --=20
+> 2.47.3
+>=20
+>=20
+
+--ipmlxrtzmokewoal
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmr076sACgkQ2O7X88g7
++ppRlA/7BZbFdW26Nysdh5hvnnHFucfXaReOSjRgpRCzlxg0xbcJycroKWkm+oNw
+umZsN7MOjOJt8B0po0zgb51sG5hxaOKbtz3jvuMuNALWnw4y/aDcuW0XbU9oLJCf
+Kl90Ng/+ETdZu8qagdlfHow5K5Ii9h2UgWJnSVdHlqeZmV6ixM2R+PX07A4WcvV/
+vCmPt+Xrq/Y1r8HtvRmNjwyEtzhv8RDF0VVXemXZk/JureDqVQW28/uTEPj3Ghhu
+/LMt1j9bD8YppxhtOvw8JfXe9maPFO1KpbIIhgt231EbiR4530IuSNMyc50mX1tG
+1cI1Nk318lueHeS2dNOr8wOd7o8wlt58E6emUS8WVYWmI1Cjhgrz4freweqjjxPM
+e8zrQMiS12PDmQ6aKW1r9R6GW6weGDqLO2LtHsypbShyPn3whR7QI6cyFnbT38ao
+MffKL9EXKiLiOZVyzT10oHbx0LvQ3Wkpj4PlwlZDX6uc+O/tJNsA2pmTSgDWoD7Y
+JiqBU2JK4KebPXO2E3GJswDSX5q6SiaUutOBPIIYBdAo6yj7AjfAED/1/29Lgn8O
+8fol+9AFY5F5o2sB6BjNT6idVmcomgMw0T8Ts33Nxe3Cm/gMkMQAU4w7Md0v87G1
+F8exRIEZvhCJQd88+Ug4Rav9SAsmzjIPd5PY45fl+NW+I2rNCf4=
+=jpKD
+-----END PGP SIGNATURE-----
+
+--ipmlxrtzmokewoal--
