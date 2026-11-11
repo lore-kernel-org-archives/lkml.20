@@ -1,62 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794430785;
-	b=uUX3DLjQt6gD/i1Wib7AodwscxHsGpH3N+cwQBJypveo5MMo9N57wx7A2ttnpGgEW/4p
-	 8G0t4hHVc3yEWnCCfD+7SYzM4aXuK1IiyKOtpFJOpEZuUzVU8BPOxlTiNaJYLJ68SfnNc
-	 tp+XxBfslxt3Xr5oagLB5tsDAEqhaOI6co+aDPYBpYkxxRWC9T23+CpP16QPY3WHQzpow
-	 gouCimu15yMS3uG87NxY9ELa5l9pF7fX44uZT6pPTjVuZHFEOzaOhmYAHzCW3f1Q9dbzH
-	 yNLDyG8fU4YOCf1RaAnvVMgcLFqNMjI+y3/MEmLjCPuEJM4E2nEOo7NmrbHHBUvOtTQ==
+	t=1794430848;
+	b=K4zEqsgxJc6TxZ0w/vbTMRf19NP41PeR7bE2yr+ouUraZWrVtBNY0+HOVIJ92h1NQQXr
+	 22Eq0oxyKZpNanzjOKtvB4B5r60Tf8lu67/IkHMeJOocZH9Pq78/NZilUmJi6dm2PuV1I
+	 O/xziWVYwdbxoiKubTYdLI7DnZMKwsHoP5MQwdoIquzSOqF5rci41UctPO4kpx5fx4212
+	 kw7kmgzIzxQgNJI2SJwG4PBIvajgKgnPH1AxF0vCE14giGIomr5HzArl64a9eU6Sjc3cW
+	 9ByNwosV1tRhqwbyAwCw6/7uL51R3VvBNliQkfIgqPJ2w9Pa3+9pSFRz6TVQoyRhsWQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794430785;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=rJtMZ+oQ2ftbIpYEVBAu9rDREp/nXzUYJLHQXQsg0HU=;
-	b=r4f3miA/45/efFwZnplQUHAPrtn3cOoRFmZmpIzdflfWUgLjTVboY74aA7TyWiVzoeGL
-	 TI51W4fr+pzcPBF5eSw9nmgeCg4Zw5La8L4dsGJUnw8TOofGKgCL0vTPfUdlCZVykwrAU
-	 v8RsL34LXFoiKP1XhraoirEA5nT63DNjN1Nqe7OX60v/bnAI4Jhj0njBROw8hmbeaOnTK
-	 icNgtbzrgZP4BjHcB/ufu8hj+68yIJFk5kybq+ezD5UXEPWsYWO2lP7RIpL1GR20qBrv0
-	 vv4i3x3BOboWR32yFcmfC27J7j7SNQ7oopyJwlTlKBuwRpeyCpchQnddN+yVVS+AD6A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794430848;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Cc:Content-Type;
+	bh=UiXqhrqbmglfZobN9GIqHYTdJesjGb7wUn73x2yWjd8=;
+	b=BnXSZQBrw8jzuS/U2bAQ5KqvKAHFaUj7rEqwfN5AQQTWCLX2I9cjg9bYHG8Uqwyou3Vn
+	 8w+J0iHE0C3wCUi5VG0j2fosqsC40sbtWVY16lIon1GLGkliLYaa+Oo20h+1VBJCSMSzw
+	 KjxyCSqBH6r8sDoQYr0OnN1mJHiM16i/ClYlCrcTy8e7q+kO3ZbaOmsE9o3xMvjatv64P
+	 xbp+tE3p9s46tdZbhhL3PnY7o9gCzUJe9WNqXzVYuby82KIxal3Io06bUeqoHOui/L949
+	 QZEy4ZGDLjQ5jLfCtJO6P+LpmOn/7IaCgn2c1uG9WzbD5t85jJ0W6G9b4BFQNpiiTnw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=EcNEcgLx;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 88DE6606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 20:59:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88DE6606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=EcNEcgLx
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 68503153B;
-	Wed, 11 Nov 2026 12:59:39 -0800 (PST)
-Received: from thinkpad-e142931.arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 4E9FE3F85F;
-	Wed, 11 Nov 2026 12:59:41 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794430782; bh=GvTWPjgOeMhK10lBp/x80dBPCkX7FkHbNjd4m6Rj3Io=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=EcNEcgLxh8R4qgoGx5zt/BAiEPlEPgPQ5bJyg31SxFdqKQtTwJ6iyFz9dR8Pa45eo
-	 5bjD6JCeoE+Z6XkT6uG1bDWU/8OkCGqilXZCHG+WVhKDKQL1oYbZ4gyatCCuN2U6IT
-	 0gN8y26J/JidPb860oE6jToCtYBB/N74sVWdrtgU=
-Date: Wed, 11 Nov 2026 20:59:27 +0000
-From: Wei-Lin Chang <weilin.chang@arm.com>
-To: Haseeb Ashraf <haseebashraf091@gmail.com>, maz@kernel.org, 
-	Oliver Upton <oupton@kernel.org>
-Cc: Haseeb Ashraf <haseeb.ashraf@siemens.com>, 
-	Fuad Tabba <fuad.tabba@linux.dev>, Joey Gouly <joey.gouly@arm.com>, fahad.arslan@siemens.com, 
-	Steffen Eiden <seiden@linux.ibm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
-	Zenghui Yu <yuzenghui@huawei.com>, Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
-	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] KVM: arm64: Resume stage-2 unmap where the walk
- stopped
-Message-ID: <lnqoq6pirbxwdl3ki3khiju6kkh3itw2meh67emmd6ck4lu6sl@ai5ctyvuhpuy>
-References: <20261110164706.582879-1-haseebashraf091@gmail.com>
- <20261110164706.582879-2-haseebashraf091@gmail.com>
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.198
+Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 601F3606A327
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 21:00:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 601F3606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4db3db8687fso4381986b6e.0
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:00:48 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794430847; x=1795035647;
+        h=content-type:cc:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=UiXqhrqbmglfZobN9GIqHYTdJesjGb7wUn73x2yWjd8=;
+        b=TodR7ACWdSuTZTrbfq2UjX5SbzAL7VuRpRQcv9vUrq6E83CdhWEmiVQWfg9qqCKVxr
+         23pPn9IEr+rAsxmqZAj4LTjiOZoBcvIksBTl6cf25gdCh0kdznMB6jWKmvkXj/ef5AXe
+         JpvXTUS4sorgkeawc/6s+Od1G1VxjEeXjV5UGfMgFAGMW8RI5LlB9xbriqMHT46BTxCe
+         UaDaQVSlfLqa/ueVwLos+agOKE3BWcMQOQojTms6HavdQ69WJ7WN2JpIpeAaXgKznTb9
+         3rltVrDeufIoTaVFh3jDb9zXPICCHJG3MrfUNdKnIoSZxm5ZlkR4ENhKQ1Q8RswDPnuv
+         K6eg==
+X-Forwarded-Encrypted: i=1; AL+hErFbwC6G0MD5PXz/+pMraYSNiCqCpPoByFsldF8SomunG28v6EyalfzZsNcafrf6+gY/BtJ/aMQMZFwv8Gk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8AEUXrAN+RCk3m3JjmEtHPNGFTdYoBIRtnatruJw86i5tTQ2oy
+	FjghsGzdpMvMxs+2RQXHBdZtrW7sh1DJKpoTEpnavHNZcKACrPwBM7Xzy7d/RHzU4M74u1nr9it
+	e6XE0cigNmxn+zICsFnpyN8Tzv/5sUoAiAgC2gKgG5KkDe4sqRUeX6uJ6F14=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,117 +58,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261110164706.582879-2-haseebashraf091@gmail.com>
+X-Received: by 2002:a05:6808:150d:b0:4ea:686e:fe86 with SMTP id
+ 5614622812f47-56b98227486mr3327304b6e.63.1794430847269; Wed, 11 Nov 2026
+ 13:00:47 -0800 (PST)
+Date: Wed, 11 Nov 2026 13:00:47 -0800
+In-Reply-To: <20261111210000.302485-1-emmaonana18@gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6af4d77f.b1d299f9.122b8e.0001.GAE@google.com>
+Subject: Re: [syzbot] [net?] WARNING in stack_depot_save_flags (2)
+From: syzbot <syzbot+1827030ed7bc886dd0a5@syzkaller.appspotmail.com>
+To: emmaonana18@gmail.com
+Cc: emmaonana18@gmail.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-Hi,
+> #syz test: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
 
-On Tue, Nov 10, 2026 at 09:47:06PM +0500, Haseeb Ashraf wrote:
-> From: Haseeb Ashraf <haseeb.ashraf@siemens.com>
-> 
-> kvm_vm_stage2_unmap_range() unmaps a range one block-sized chunk at a
-> time. The walker steps over an invalid entry in one go, but the next
-> walk starts at the following chunk, so an invalid entry larger than a
-> chunk is visited once for every chunk it covers. Unmapping the whole
-> IPA space of a shadow stage-2, as emulating TLBI VMALLS12E1IS and TLBI
-> ALLE1IS does, takes 2^18 walks with 4K pages and a 48-bit IPA space,
-> however little it maps. Each walk also ends with a range TLBI when
-> FEAT_TLBIRANGE and FWB are available.
-> 
-> On an AmpereOne A192-32X (192 CPUs, Xen on KVM, 4K pages, 48-bit IPA),
-> a full-range unmap of one shadow stage-2 took 0.82-0.94 s (mean 0.91 s
-> over 192 unmaps) on 6.18.29. With this change and the mainline commits
-> it builds on backported, it took 2.1-27.8 ms (mean 3.8 ms over 128
-> unmaps), with 512 to 1024 walks instead of 262144. A TLBI VMALLS12E1IS
-> trap that unmapped two shadow stage-2s took up to 1.85 s before.
-> 
-> Add kvm_pgtable_stage2_unmap_range(), which returns the address its
-> walk reached, and have the unmap loop resume from there.
-> kvm_pgtable_stage2_unmap() still returns 0 or an error, for its
-> callers at EL2. The walk handles every entry it steps over, including
-> invalid entries that carry state, so nothing has to be looked up
-> beforehand.
-> 
-> The unmap of a shadow stage-2 also drops the guest stage-2 records of
-> the whole span the walk covered: nothing is mapped in the part it
-> stepped over, so any record there is stale. Each walk that remains
-> ends with the same deferred TLB invalidation as before. The spans that
-> were skipped have no valid entry, so there is nothing to invalidate.
-> 
-> Suggested-by: Oliver Upton <oupton@kernel.org>
-> Signed-off-by: Haseeb Ashraf <haseeb.ashraf@siemens.com>
-> ---
+Patch testing via #syz test is temporarily disabled.
+See https://github.com/google/syzkaller/issues/8122 for details.
 
-[...]
-
-> +/*
-> + * Unmap [start, end) one chunk at a time, resuming from the address that each
-> + * walk reached. An invalid entry that is larger than a chunk is then stepped
-> + * over once, rather than once for every chunk that it covers.
-> + */
-> +static int stage2_apply_unmap_range(struct kvm_s2_mmu *mmu, phys_addr_t start,
-> +				    phys_addr_t end,
-> +				    s64 (*fn)(struct kvm_pgtable *, u64, u64),
-> +				    bool resched)
-> +{
-> +	struct kvm *kvm = kvm_s2_mmu_to_kvm(mmu);
-> +	bool lock_dropped = false;
-> +	phys_addr_t addr = start;
-> +	u64 next;
-> +	s64 ret;
-> +
-> +	do {
-> +		struct kvm_pgtable *pgt = mmu->pgt;
-> +
+>
+> diff --git a/lib/stackdepot.c b/lib/stackdepot.c
+> index 90c52f2e0d3f4..da4dba8b40bd3 100644
+> --- a/lib/stackdepot.c
+> +++ b/lib/stackdepot.c
+> @@ -299,7 +299,13 @@ static bool depot_init_pool(void **prealloc)
+>  		/* Bail out if we reached the pool limit. */
+>  		WARN_ON_ONCE(pools_num > stack_max_pools); /* should never happen */
+>  		WARN_ON_ONCE(!new_pool); /* to avoid unnecessary pre-allocation */
+> -		WARN_ONCE(1, "Stack depot reached limit capacity");
 > +		/*
-> +		 * We may be raced on PGT teardown when we release the
-> +		 * kvm->mmu_lock. That's fine as the PGT is legitimately no
-> +		 * longer present.
+> +		 * Exhaustion is a handled resource limit, not a bug:
+> +		 * all users cope with a failed save, and privileged workloads
+> +		 * (e.g. BPF JIT churning unique stacks under KASAN) can reach
+> +		 * it legitimately. Keep a one-time notice, not a WARN() splat.
 > +		 */
-> +		if (!pgt)
-> +			return lock_dropped ? 0 : -EINVAL;
-> +
-> +		next = stage2_range_addr_end(addr, end);
-> +		ret = fn(pgt, addr, next - addr);
-> +		if (ret < 0)
-> +			return ret;
-> +
-> +		next = min_t(u64, ret, end);
-> +		if (resched && next != end) {
-> +			cond_resched_rwlock_write(&kvm->mmu_lock);
-> +			lock_dropped = true;
-> +		}
-> +	} while (addr = next, addr != end);
-> +
-> +	return 0;
-> +}
-
-In my opinion it is worth giving the same treatment to all users of
-stage2_apply_range(), instead of having this new
-stage2_apply_unmap_range() that is almost identical.
-
-Thanks,
-Wei-Lin Chang
-
-> +
->  static void kvm_vm_stage2_unmap_range(struct kvm_s2_mmu *mmu,
->  				      phys_addr_t start,
->  				      u64 size, bool may_block)
->  {
->  	struct kvm *kvm = kvm_s2_mmu_to_kvm(mmu);
-> -	int (*fn)(struct kvm_pgtable *, u64, u64);
-> +	s64 (*fn)(struct kvm_pgtable *pgt, u64 addr, u64 size);
+> +		pr_warn_once("Stack depot reached limit capacity");
+>  		return false;
+>  	}
 >  
->  	if (kvm_is_nested_s2_mmu(kvm, mmu))
->  		fn = kvm_pgtable_stage2_unmap_tracked;
->  	else
-> -		fn = kvm_pgtable_stage2_unmap;
-> +		fn = kvm_pgtable_stage2_unmap_range;
->  
-> -	WARN_ON(stage2_apply_range(mmu, start, start + size, fn, may_block));
-> +	WARN_ON(stage2_apply_unmap_range(mmu, start, start + size, fn, may_block));
->  }
->  
-
-[...]
