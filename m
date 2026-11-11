@@ -1,13 +1,13 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.139.77
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.135.77
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794403351;
-	b=bsxlU6c6ltMGR2z36CgKAT37yO5rBOIJfDOfuCUtSzdfZrEAbBEyJuY96LNzwiIw3dbL
-	 TzkgT/mrL0QlnkN2FTdzT5nDM8H6LeKzLYHb4/isYqKg0/ek8IVLfniUAodcaKOQdGQo0
-	 Fyg5O1pz97g8u7g18/wzPrsKQ31Z4iXCiuEgg9XDahQgwWTsltHdDEh3/FN/ZKU92Dxql
-	 JhEb4TokbgkifyYqhwd+lT6eCvDRre0ko614gC88VEeDFQix4kIs1lDvYdWonrOpHd2LT
-	 VlVG4l9MwbZlxh1ERFGLQVCkUpOc8tTh0najw7wmXCZHRhXFbuQgif9RMqOwv1WskXw==
+	t=1794403352;
+	b=p+pi/85mfk7e30h/3wEIboOtBFkeBemKnsmoicxWKDQrtGyzoPPvupBEMVOhMp/809Z+
+	 xuaYPWBjuv6G5A/7mw4dOwcgdvLW7VzmvkE7t8GQpYPQz88485FVZUrpfqigkR3K82mMn
+	 WYIpHiAg2nLGW90bapR7PPOYcp4rT5F7ifWxNL5A502BT6JImSx81mTORZKL0zPqyq2M6
+	 ypTrzNxpFyA04CT7h+tkvQhOIbJXVSPqV2puz4uPdoQii3hyVxw3CmJ0lbKjFLvPyzXuZ
+	 /tZB2QtkS25VD/vw1vsxBMK6hCOagXKz0zwjgQRcl+hAH5vQ65lkBeQ0YEC+UwGefhA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794403351;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794403352;
 	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
 	 Received:Received:From:Date:Subject:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
@@ -25,67 +25,67 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
 	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
-	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
 	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=KJSYNJt288PpIF68pmujRTErvBSVIMMTyH8aMuMJ6FI=;
-	b=c9njk4+FOM1d545al7CILaQdOWdpQUtfZAY/cR54f4O0X/ePdfup5uZzEI/2PWQu7YP8
-	 ix2CamCC73B29xlko+tVU1Id4YeYUiSeAF6vF2Um2ZpebuSX4VLIzRtdXopkfW+BI1hyf
-	 oQbuGSKTl911GO632EGfMeakdFld1NNnRWc6it2zAYyUTdqmg3PJ/o6rSv9l+8core7tR
-	 lynOomn6KQrBjQomg9TCzeKZ4NgdRifIkrDcc319e2mGtMoludp81dn/cdSCOJ9k/HsiJ
-	 VVC8aLO23W2yuAWe1bjXk3q7v6q9eZs3sx5ySjRcn1D6MjGttYtEZPf3JBMBYarblKw==
+	bh=NPG67XUdJLQ8Ojc4fHFh2NN+x4vnu6VuVTSXY2S/nhk=;
+	b=SE4vJjV+xB5SzfZfkIvv7o58hJeTvJb4unpRAvH1moFmoF7RobPl13cvI3bkncwAWqiM
+	 OTQJHaDmvHrQReqqQocQQ7x0PxGbu7dvSD+gP69yRQiyD2nMt2oD3uKUWoXp+/IVoqCzj
+	 yBxj7TWM7c3o9hX2x8XE3z8yt4oUfMCiwTUgaaMl7gS7wo9JwkGddXNSOyWWWuG8OtmA0
+	 /nAPLVpZ4TRuSRCs5OBz9B1x3pOzQ94g4KWsNi/v9I4aoKIgqY2oUjDJnKMF+8pIf3/M3
+	 M0xqOIMOilyhRErhb/bDuQsm9Ucw9WwyNrxwHkhK53t5OtvjpOUOudmqEQUTHwsPTig==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=analog.com;
 	spf=pass smtp.mailfrom=analog.com;
-	dkim=pass header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=VUHSpzrs;
-	dkim=pass header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b="dvu/RAj9";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.139.77
-Received: from mx0b-00128a01.pphosted.com (mx0b-00128a01.pphosted.com [148.163.139.77])
+	dkim=pass header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=uMGMSxcD;
+	dkim=pass header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b="ZPG3/yj7";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.135.77
+Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FC4A606A336;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D88EC60A2601;
 	Wed, 11 Nov 2026 13:22:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5FC4A606A336
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D88EC60A2601
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=VUHSpzrs;
-	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=dvu/RAj9
-Received: from pps.filterd (m0167091.ppops.net [127.0.0.1])
-	by mx0b-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ABCWGcW226402;
-	Wed, 11 Nov 2026 08:22:03 -0500
+	dkim=pass (2048-bit key) header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=uMGMSxcD;
+	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=ZPG3/yj7
+Received: from pps.filterd (m0167088.ppops.net [127.0.0.1])
+	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ABCWG6n3230321;
+	Wed, 11 Nov 2026 08:22:11 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vtelectron.com;
 	 h=cc:content-transfer-encoding:content-type:date:from
 	:in-reply-to:message-id:mime-version:references:subject:to; s=
-	DKIM; bh=KJSYNJt288PpIF68pmujRTErvBSVIMMTyH8aMuMJ6FI=; b=VUHSpzr
-	syzAJFW146aKluZosoTwX0cWWVmI+Xu0480+5l4O9NnXPn3OU+lSzz0H3RmsD9RC
-	yvDehwcxk3K9rwQajSACg5ZaN9to7FetdT7GRLpDRcvp9dVpBSyBOaRfh44I4HNW
-	jt0UxX4vlM4MpY9H32mi97GabcI6Mi1g/oytphKo8yZp5YlEAJzbQp8W9nGY54Av
-	Vdr34953hP/lPDRc5OGc3pw3amMFKxZv17vH721iSAiAsjXwIGYTjwED8ajrl3/v
-	S+MCPDymk/DG4yvVuWYOQ1xxO9puY1vwoS8waaASMfJlcdgXZMUCYuhjuF44QrIT
-	fP95xKTtS/dyj+Q==
+	DKIM; bh=NPG67XUdJLQ8Ojc4fHFh2NN+x4vnu6VuVTSXY2S/nhk=; b=uMGMSxc
+	DpipLvuekINbqjgex9vdz+liWxj1Mx8/Yk+kg+DO8d4SEl503IeBO2EFsIR7j92D
+	eEgJC5zNvo1zljDdVwN2djlKSnkzuTo67SBryY63ur3zR9+5HfKj5Zs6m5p9elO6
+	4gKvifahcg3166kJVqsaub0KPdog2/z232M3zOe6tUS6GiaczGeICso2aqWlKTN/
+	Ls+6fO8ys295md0yzeGy+omlR7K3ConQP6WHOBSgesoCcHVmnSlGsyWCAuN3TwGt
+	a9Nr6dUVaCa2Y+mJYOf+7ATOKtlVdHsvJsG+/mouzbuB60yHGM3Z160B+m6utU4S
+	5WNpcomjVr0/BGw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
 	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=DKIM; bh=KJSYN
-	Jt288PpIF68pmujRTErvBSVIMMTyH8aMuMJ6FI=; b=dvu/RAj9xnvfPBatX1cXP
-	QV4j4yiwXNZ286sSZH1wGBFmdYHBHeLCQIL/DbPgbzqZ2tlbRAfEJdi5C0tXMZ/T
-	4pjpGiQQCYAX+JHqaWLTvQ+isrJyyYIgvCzn5bAJFAAryjd4hvGbyR89FLhRzTVq
-	1XbXxlHIY+NltSfYptv8cNvrtOy+Rhu6ymuJJWMxlMAj7h92NjUG74DUfP2y4U05
-	M3SgRfVOSuRcsm1Nstvdi/dE6tIxmsx2dgRLXpGRUgMwrocY6pwtvjsgUDPVCtrB
-	lycP0sFNq/uZAJj/5nvQA14by/jiuYVDfL8perBpRq7P7M+dl/o5C0PWrfwyH8q4
-	w==
-Received: from cy7pr03cu001.outbound.protection.outlook.com (mail-westcentralusazon11010049.outbound.protection.outlook.com [40.93.198.49])
-	by mx0b-00128a01.pphosted.com (PPS) with ESMTPS id 4hvhw3aa7a-1
+	:message-id:mime-version:references:subject:to; s=DKIM; bh=NPG67
+	XUdJLQ8Ojc4fHFh2NN+x4vnu6VuVTSXY2S/nhk=; b=ZPG3/yj75TJrDyHsP7FMj
+	PJTnbPybIEcjrm0b8O8S6qC7090F4Ajj9dReVEc3gBIwJWM8HvMYMNMx8Vo8iuDd
+	luUSmsb9b90kP44+Z94Nw1hfZTWvsK1xL+VAT1MdE9wU8wDDcr3tjNJNNW2Wpt63
+	ptu4SSoj2ABiGi3Gadzi7ARcsAGsQLx/hCQ8dLjY3A7+VRny9qg3yRQMnPkcuAqz
+	iikfqdvWUrPvL2NTTRFrbLeoMADGYiFTylQdL6RgIWQkkmLWxJciNsKlrsqxsqfk
+	d8hypey9/h3OariLXMNl/suiCWUPz49gFYnXhpfjLWZCRWY28B2XuHXeYfwoNBXO
+	A==
+Received: from ch4pr04cu002.outbound.protection.outlook.com (mail-northcentralusazon11013023.outbound.protection.outlook.com [40.107.201.23])
+	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4hvjvpa8mh-1
 	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 11 Nov 2026 08:22:02 -0500 (EST)
+	Wed, 11 Nov 2026 08:22:11 -0500 (EST)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DjLKgZB1AddkWSf1MjBvYm/XkSUmZ7NhRpZj+7HbaFBkBCuDhfgnSgvG2Oa2UivXcJltG5jDoRxn5bUP5dMUnK4yKPgKJKJVnIvYZDx2aTHvN0F5Cmm4mg5UEJce818RU+UDlDonAeJwgCd7T6ZLNQ0w/viJEq+/vMWK9McdcqATskU8PvfbpHCsOu6fzXWvepOafxieeRuEOcHHRts73ue6IxAH22hR9AzD8chyIQ5buWzulN+jwhqUixIDvz+KH/0zp25kPOS2kJgatMC1hwMacDJKdtzBw2RpZapvqg7/XotLoguqsGlnuU5NQR4KAFCPtyrfDZv4KK7Ned4LVw==
+ b=xvI5V+LkSSooZKF8+7gdxE5uLcWwfpWQcFUQ36a0O3Ao05VjW9kJrmJxyuE2RzxUpk1fJx5RK86652RRD9dHP5MCRGPkbE0/16uV6Z42Dx/Yyjl5NSCo9Op0k/y1gPCnfXPdXjncCvG6QffVNYudSGZalD3q5UG9J9otqo+67XZjjVl9nhR3puWH/DSsvlCzVBHzRrJiD2z2EVgojnbp1C3O754pmBSEExMWna3OJclzCBXynEN3HOWxL6v9msPBBvEXIFk/Tdp7lEi5JvuxnnZxaQ3gm6ZZEZJ5KdhTDeBvoN+UvFEOBuQEv+PdiuhOtylFRVq115wkV2OjqpW3Sw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KJSYNJt288PpIF68pmujRTErvBSVIMMTyH8aMuMJ6FI=;
- b=tjRK63bv9MMQw3sQRlTndtpcT72Kib5iGANPfiVCAA7SalbIx3lD2DAFKBGJQsptDk1hopKMG9sYTjWQjP1KmYr6F1ehelu1io+ojJFQH17XLbueP5s4QQOPCU/GC25yBZNUKkSjz9GxfRH9oEskdm2ivs09Bq1c78A1FN/w8F7KP2U9YK69hrFCy4Sj9slhf+VpN70naoAEga9NoomLtYbVgcRy+e2eXqv3FA357lAyqnmKXEtc2NId86MblDrXMwLanfGX4Av9bS+HJVoUIb208EqC+VrHF0aiZz0h4X/3Lg9wzjZYO8TBDC/few2pArzWkSxZcIC6ILqjqVcLzw==
+ bh=NPG67XUdJLQ8Ojc4fHFh2NN+x4vnu6VuVTSXY2S/nhk=;
+ b=m8SxzRb6zm+VKu3lbw6eH2ki1fFzoPjtAoc6Xg3WkmfyO8Tk7QKUbO2DdRI5uqrJw3k8W9OzpDOZ+mFLycA/mfMRjZVSyeuHrpCqouYfluhArLswmGgMSHDsSrK79QZYtTXPmwXGzKkEm92twt6Ajh0jIpDaNfgEwMra+VFPBvMOcgxo+wmoiPiMUYYKyMLIQjD57ck9pjAsNzsOKkWpIO7oeAqQV9GHpYPNjtqTM6tpJqP4z6aoRiZyQzMcFHXPB1aMAZLqR6yUyylaDI6ZUPcAMkE/CjjTdff3Av6oytO/RgxCA3up0gl7BSXyWU8YUN6gahfWhWweQ7S4ktohwQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=analog.com; dmarc=pass action=none header.from=analog.com;
  dkim=pass header.d=analog.com; arc=none
@@ -95,18 +95,17 @@ Received: from SJ0PR03MB5469.namprd03.prod.outlook.com (2603:10b6:a03:28a::17)
  by SA3PR03MB7348.namprd03.prod.outlook.com (2603:10b6:806:37d::14) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Wed, 11 Nov
- 2026 13:22:00 +0000
+ 2026 13:22:09 +0000
 Received: from SJ0PR03MB5469.namprd03.prod.outlook.com
  ([fe80::2a19:76b2:e731:8c5a]) by SJ0PR03MB5469.namprd03.prod.outlook.com
  ([fe80::2a19:76b2:e731:8c5a%6]) with mapi id 15.21.0592.012; Wed, 11 Nov 2026
- 13:22:00 +0000
+ 13:22:09 +0000
 From: =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>
-Date: Wed, 11 Nov 2026 13:23:06 +0000
-Subject: [PATCH v2 5/8] spi: cadence-xspi: move platform specifics into
- driver data
+Date: Wed, 11 Nov 2026 13:23:08 +0000
+Subject: [PATCH v2 7/8] spi: cadence-xspi: add ADI SC846 platform support
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20261111-xspi-cadence-add-acmd-v2-5-d339046ada8b@analog.com>
+Message-Id: <20261111-xspi-cadence-add-acmd-v2-7-d339046ada8b@analog.com>
 References: <20261111-xspi-cadence-add-acmd-v2-0-d339046ada8b@analog.com>
 In-Reply-To: <20261111-xspi-cadence-add-acmd-v2-0-d339046ada8b@analog.com>
 To: linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org,
@@ -120,15 +119,15 @@ Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
         Konrad Kociolek <konrad@cadence.com>, Mark Brown <broonie@kernel.org>,
         Jayshri Pawar <jpawar@cadence.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794403385; l=9608;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794403385; l=5060;
  i=nuno.sa@analog.com; s=20231116; h=from:subject:message-id;
- bh=7oIGlIze5PR9LyZK/bzGFBKc2UPX6wtQCAu8XY1UHHk=;
- b=nnqhu+AyOPdfgykDD9+1C1VAdQByAKU1rJmXkbCqatcLiGyzxNPyElg0tk6p7777lfOn1DERf
- uG4XYeQKhZuCwSgQ8/u67oi9B8TonUPiiL/4HIucRj9MhuRtZVM+8Zm
+ bh=j/uVSnFFscOgWkc5pOtRWPZiLw53yn3gH2ZcUeHduRg=;
+ b=RaM2FZ0NiGyutamuvYzt8JRZ9Q9WTNTFvxFiTS6o+3e/R9tE6zx/H8/R1YBs/jsjzK9wyK/VE
+ Le6gQCmYl0+CCEDeaUI9nBdfSugm0cS+LI2gsi+T3GI35zhMKBY3T0y
 X-Developer-Key: i=nuno.sa@analog.com; a=ed25519;
  pk=3NQwYA013OUYZsmDFBf8rmyyr5iQlxV/9H4/Df83o1E=
-X-ClientProxiedBy: ZR1PEPF000077D1.CHEP278.PROD.OUTLOOK.COM
- (2603:10a6:918::408) To SJ0PR03MB5469.namprd03.prod.outlook.com
+X-ClientProxiedBy: MR1P264CA0144.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:501:51::8) To SJ0PR03MB5469.namprd03.prod.outlook.com
  (2603:10b6:a03:28a::17)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -141,355 +140,236 @@ Precedence: list
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: SJ0PR03MB5469:EE_|SA3PR03MB7348:EE_
-X-MS-Office365-Filtering-Correlation-Id: 90acb523-bbbd-404c-e3d7-08df3ff6c49f
+X-MS-Office365-Filtering-Correlation-Id: a937b940-d9cf-43a9-67a6-08df3ff6c9b6
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|23010399003|1800799024|366016|261022105027099003|56012099006|261026140227099003|261021121427099003|261009220027099003|261022075727099003|261026121527099003|261021123027099003|261009223327099003|261009221227099003|261009221727099003|261009223027099003|261102123227099003|261021135927099003|11063799006|261028144727099003|22082099003|6133799003|18002099003|10067099003;
+	BCL:0;ARA:13230040|7416014|376014|23010399003|1800799024|366016|261022105027099003|56012099006|261026140227099003|261021121427099003|261009220027099003|261026121527099003|261021123027099003|261009223327099003|261009221227099003|261009221727099003|261009223027099003|261102123227099003|261021135927099003|11063799006|261028144727099003|22082099003|18002099003|10067099003;
 X-Microsoft-Antispam-Message-Info:
-	FqAHPXEEwiwdfhqyjiqmV69JNL3AvazWTgZ1b4vpQbcBdIWOE2PBYedweEg/dODSCFs1II0cgAP/oNrvQYaJCiqaDbg3Y4CrAfWqhZs5EexwYQG8/1YvYKI+EflqEKMy1KNdZvvO9iZoF2ZLrfmc4Uz1aQJkiD3M20pjVaVxsN8rDx8vjdNgPr2BaEJCYqWRsLegr4yWVWbbab44szMxEpN9bz+Llxs+A/+JPtsEh5HEHnImyQaAmHi3Rrk9xYge1YHaUUGqI1POz7bCe1nokoaU/Keqhks37GA6KaQ1K4/Ef55571PGsh+Yts3ZQ0Pc5dmR8hVpIhk5M9jwdF9BMR02UTums4DUlGO1iRWz2ivJMVGCnT5HH6N/sMSIu8acAfpFKv9P7ZSr44rutU5FdV5mrIKSb/wcfUrIMBCbQRatE2bQSs9sDjpR2KOVEFGYZSuGvzp5DHUT8HtyPo60q7/4H0e+hw5YZ7P256ukQSJ5ecPwoZUojHOWZteKAq6u4heqPmTMZNIfj4l+5IApVHcjpKItXT5CGBmyR+Ftr3JW6+Fjm4SJEKdQNXqNhCDmBbr8SEIdpSxRYY1cMtqa4STJXisfWF70Da05cW1TKOhaA2WpZLTpS9X4+ZzJekTl3nIapl7QBTFRj1wEpEMXgFb7XnGJ8W/ocMqFQiiQY2I=
+	3frqFF2R9qfZQP2/Glu7TT97FVhSqZqQFnCaT7jBcDqpEF7W0Y8UEIHnIBHiUOwQ2K/WyKpYUpmHQwTv4NLqgZO3gvXRVs6KsjRmnqWRHYMAI1r/rwKjLbGfIeyHbOTRpF3Sunl5LXcrahnIVjOgQi+sNvs475bAYYplu04DGjO4/TazQ0BcrUdhMTscSktnNoF/cTcX874XN1Jm7l9IuXxYe5GZO/mjFuIywIP8hcy94mjNzIfliElcyHW1LnOV4Wl08tmipZGJc+AD5qOGT1Dg2vQPaAuA8vDQKUysPk3A3zFDXpXhyWoodX1S4jihLIrUolgD+/54Ej2JkGgjTH1FHwFbuU+A9wR7wDGw1Cd5Ki9u4kV/ADmQwRFesFmr7LiBCtebSEMAFt6HpKxKPYz50ZTnRzlupbY75TFMDnixmmukn0OyS1t/XrmQGzViN3PzbYAKSZd4AAd7VWiXp5/vPtxzc9CxZSgD7oI5/gBziNvvov51i7QEPhQ4Hi2+ZVk+sASKfIEMCxFRZktxG2H1u/nrkj1havnBND+S0j0cS5rdczIHtdFMmDJYIAz147Ahku1hc6X0XeyMf6et6Mlkegt5XaA+zs7W/YZfO9HkQfeg1+3yBeK0XsSXBrrJU2A6jhSZDrRBmZ3wcK+JQn1u45NsXYKYwzGWwfwDVQc=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB5469.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(1800799024)(366016)(261022105027099003)(56012099006)(261026140227099003)(261021121427099003)(261009220027099003)(261022075727099003)(261026121527099003)(261021123027099003)(261009223327099003)(261009221227099003)(261009221727099003)(261009223027099003)(261102123227099003)(261021135927099003)(11063799006)(261028144727099003)(22082099003)(6133799003)(18002099003)(10067099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB5469.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(1800799024)(366016)(261022105027099003)(56012099006)(261026140227099003)(261021121427099003)(261009220027099003)(261026121527099003)(261021123027099003)(261009223327099003)(261009221227099003)(261009221727099003)(261009223027099003)(261102123227099003)(261021135927099003)(11063799006)(261028144727099003)(22082099003)(18002099003)(10067099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?SkZZcUI4S2tCaHFnOGRDeGo4OHJxd29oSzRncndZRWxkZEdMRDRObW1FNW5i?=
- =?utf-8?B?bDJvQVJNU08rbzFvdFA3ZmM1U043NlMxSXk3dEpGZkhyREJwUU4wUDVPR2hi?=
- =?utf-8?B?enJvVmhZMU4wU3V4Skg2dW0zaHZLQVp3Tk1DcVN4U3l0UVVIa2xLY0pEY2Yv?=
- =?utf-8?B?R09nZ2Z0U2ZXelhSS1NoNHdWRExxQlQ4VUFURjZmN2lZV2JhSnEyNkdxSkl1?=
- =?utf-8?B?SkpYWkRuNHd5YlNYSlpQTHdJa1VCRzA4LzkyYUtFMEU3L0J1YnhMUC9mb2pY?=
- =?utf-8?B?MUZWMjJlMEdINjlYL1FzMVpVZThpSG40V1hVWmwyVk1hNy91T0NjOFh4cWFU?=
- =?utf-8?B?OTBkVVB2VCtKdE0yNitYdXJiTU0waFJYdGpEMFovUmg2NzY5ZUd2TlhIaWRB?=
- =?utf-8?B?SnIxS01NajczNmJOMTM2MlFCajVKMGtLbGpLRXRzMlZtTHNIczcyUVNENHdj?=
- =?utf-8?B?RWJtVUV3dXE1d2g0Vm9mQ1Z0UGxYUlpWQWRzSkNJY3hCaGtNQlVtZ2JxY0py?=
- =?utf-8?B?dFEwaTBNcXBWeFZwNDZhN2U1MERHdDNpUzc5RzFYcmgvZXp4KzNYRUl0alVH?=
- =?utf-8?B?dzVEc2NQNjU0Y3hhYW81NHYvczI0QjQxZWQ3c0tPZ29ObEF6RGdFV1QrdXZG?=
- =?utf-8?B?TDFtWU42VUE3OFdQbUo2bnVwYXBGaS94c3BPM0NiR3BQbzZqL3VQWFBnN295?=
- =?utf-8?B?bUQvYVl5SkhzMk1qT1hMSGwrRFM0OThJaUtGSVZab1VoMmtPdm1NM1FkbWs3?=
- =?utf-8?B?SGlRUWdqc0pIbUFMcGtZc01adnRFWkFiS1F3Y2h0QStCRGRUOHJmY1NEdWFI?=
- =?utf-8?B?QnlucDFqR29HZVV1cjRlS29iMVhUU3NJTTYyUWF5TnJQOGhLQWduaWZjYzVW?=
- =?utf-8?B?cE1kenlJR05weC9KK3ZJY2ZvMldBY25jVDhBa05RWlEzK0xQVncvNE9aWGx4?=
- =?utf-8?B?d1BxZXQ1UWwyZnFmUTRVQlFwVjJzaTkyc0Y0aW5qei9STmFvTno3RWpWdEpa?=
- =?utf-8?B?TlBYSUVsSXV2WmNMZWc3N25CVTlRZkNNT0tSeEIzdGtwbTZFT1dDVUxGS0ty?=
- =?utf-8?B?djhuMTN6czJRZHNydHQ2a3o0c0lQT0xESmNGRnRjVmVodXVVSjJUVjVCNXFa?=
- =?utf-8?B?dlBVVmhIZDE2ZWl1dFJ1aHNlYWdYRlBzNXZlMThPNFVnVjdNR0tjNkhnU2Nq?=
- =?utf-8?B?a3k0a0M4R2dVZnZtekVtaXc3S2dMZWFrUWl6NmdqeGNlWUx1NkdqS01vY2Z4?=
- =?utf-8?B?V3RoNmpueHJwaTNwelc2a3VPUzFBNFQxWUhtZlpjSzN3ZHA1dXdwWFpybDBu?=
- =?utf-8?B?QkxIZG42UDBuQmZGV0d1MzErbzBKaXF0TnI4NFhWZ1pnNlhKTmZvdzV1d1cx?=
- =?utf-8?B?RW9POU9ZcFBlbE5QQ2w2OHcyM1ZaM0JtWDJacEJvbUJOckNIMXNubmpWTUdw?=
- =?utf-8?B?MEZCaUFxUUY3aTk3ZlRYNllETFd6dTR1d2pQM0hZQnFsbGtPOC9oS3huS1Jq?=
- =?utf-8?B?NVo2SURieTQxcnlob2dBdGtzS0NjNnMwSHBMUEZRWm9Qa1dEVjJtOWdoVDlj?=
- =?utf-8?B?WUE5VlRaRk9jdkxUd3I4dkRMc2NFdEliYXFucDVHQVljL2VjNXI1cXArMzZ2?=
- =?utf-8?B?VWk4OUFqZ0xwb0ttOEpNTUpFMjlGYjhtTDNpYTdFeG8zSDdZQmhEVHZTeWJn?=
- =?utf-8?B?dU1zNHZSbzRFcU13OHlNYTZ5a1dlR3BEZmFZRGZ4UXBSRU1zeVU3bXJYYjFZ?=
- =?utf-8?B?eUFodVpVRm5naWNNOVVWWDdGR0wvRFR0WW4xWDFSNmRDdUZ1Uys2VTBlK2tT?=
- =?utf-8?B?ZTQra2xNRzlOanpiWUtzOHp0TUVHZnRYZTFBbmhoYWR3MDNQT0V0TjVucFQ1?=
- =?utf-8?B?dU9XbkxScG9oYnhWMGhBT0kwUlU0U1ExN25rRWFaSVYvRnhZc0ZyQ0VzaWVQ?=
- =?utf-8?B?SU5CQ2llcHdES3NFREhjUGRMdm5OdzQvZDlzTXNQbHhXbHVOTzJLQWdCUXlz?=
- =?utf-8?B?OVk4K1kvdXc1L2ZtNE5QSksxYXg2akNhT0VvQTc2MWRzZHhVSGRhdjM3R0Vi?=
- =?utf-8?B?TzFDMjBTWHF6VkhHOGhEVklnek1DQmY5cHRrbmRrUDNFUWtwOHRwNloyd1R4?=
- =?utf-8?B?a080V0JHSUdKcDhxeTNzVDA3V3dFcDlldVA1N2hCOEFOQTdkay9Sd2pDeGpD?=
- =?utf-8?B?emFJNmI5Tng4eGwvZVc0UHk3dFNIcFphTk1JN3B1cnF6Q05hRC9YVU8rcEtJ?=
- =?utf-8?B?ZjBsNnN4MVAwb1Jqdk51QTVrU3FIcTBNYWZIbE5zRnB1d3VsZVZwOTYzZU9u?=
- =?utf-8?B?MzhMemFMZ2l5eFJXV1p6Q3c0dW5Nd3ZUZ3hXc3FTSWNrQnVNSHhDUT09?=
+	=?utf-8?B?NlZhSVFOZFB5RlVTY1BZTDBFWGpUcVBZNXcxNWF3aldmcGdCeDZXMUo4TnZ1?=
+ =?utf-8?B?SGFYbVZYcG93dFJLeWVWMVRNMVh3cUlqakhkVzJqYkVXQmx1NHVZMU54TU9p?=
+ =?utf-8?B?cWFUZ0R5dHNiN3lPc2VJRldrTG9oWTJkUjRJWHlaT3I2d1psMVdTMDNMa1NM?=
+ =?utf-8?B?MkxnK2hVajdHN2pzMVpMVFNLQzhYcVVibTRUdVB6anFDMzMyREFNdGNTdGZy?=
+ =?utf-8?B?NDRtMER6OFV4VG01NjdmWmdXa1k0eVJXWno4VnR3WFlCR2NQOHQ5VmtKbnRy?=
+ =?utf-8?B?dTJTY1M1bm1KSHdXR1VxcnFoUDkraDZYVmQybnFQZXpaVzVmVXk4bVh6d0ZE?=
+ =?utf-8?B?YXpBUlZTM1BaK0YvbERLTFU2MTM0MXBnUEVYUGNCaHl5NVI5dUtzVVY0TDcr?=
+ =?utf-8?B?MXpPdjdHMDA0Y20wbTBDWVZIeXlIZXljZ0dXdzhnR3pzd3NuOTIxNzA3OFQw?=
+ =?utf-8?B?alNaTmdteUJ5Z0ovWkYrdVg0UnVIY3ljbUtZUWpRMExONWhmT3ppcGNSYWcw?=
+ =?utf-8?B?cFNjeE5neGRtWThKZWFaa054Vy9PU21oSVdYSVBhRGo5Y2pDa2xJdVVLNEdK?=
+ =?utf-8?B?SFF6ankwQUF1dUpOaThkdFE1dE5Jc2pPZ0lKWVdZNlZ5eUpISXVNbjRuRE1y?=
+ =?utf-8?B?WEFUdFJXaXU3UStlL1A2Y29hQ0NPTkxha1RmZ0Q4L1ZYVEdPL1hDYXdvWlFt?=
+ =?utf-8?B?dFFQbURZN3hKa2xUWjhWbk9MUVp0WU82c3owdEtoenF3dVZHTHhBU3JkeTd5?=
+ =?utf-8?B?OTlNU3h6RDhoQ2d4STh1SVREZjFQc3hjWTVlRUZlc01pS3kxSllmR3M4MmVJ?=
+ =?utf-8?B?QkF1cDZ5NnNzOTZ2ZzlWR0RVbExULzJaSXZHd2hvNjFya0RDQ1FCRUhjNWNq?=
+ =?utf-8?B?V0Y5MVdLZnVXKzNJcDY1Uy9HKzN1MnRxKzlQZEw4Y2ROVmFsbFN6dU5wSmt4?=
+ =?utf-8?B?M1BoWkVtaVRSUHhuZDF3c2dVZ29FSDllWkswaVhXU2x0TXUzY3VET3VUZFk1?=
+ =?utf-8?B?T3A2N1BPRXcvWFZVUTA3UFlYODl1dGRxVzlCM0s2eDdZOENPT2ZGb3dIekRr?=
+ =?utf-8?B?UXd0MGMyN3NhcTYxZjQ0KzhhR0U3dHFZcmhQUFhjQStjSmpiam50RHJoRkVj?=
+ =?utf-8?B?QTRhS2NyWnl2aG8yaFFoL1ZJTXN1RVorT3dWK3ByeHN4dUpNS1ZYNStqR0dQ?=
+ =?utf-8?B?OEIzeWZZM0NKeVhwV2xTYnJlb3gxTVVRa3IvR0FkQ1lIdFdONm00UGo3MjNH?=
+ =?utf-8?B?bklVRWlyUUFZSElScGw1dDJ1WldYc0RSN2xJVGxCczdsd25wZFRvNU0zRS8w?=
+ =?utf-8?B?L0dZY1M2VlNVQ0w3em51SzVTSHlIaWRyNldhcVBLMW9WTzhEenNrOHVRRHUz?=
+ =?utf-8?B?TWZYVEJjYVYxTXNsSGRKNkFockViVkU3aDNEZlFhTjVDd2U5TEVrWHJCbUpB?=
+ =?utf-8?B?N3VUWXlLOUxCdWMxNkZwM2dCalR5R3A1RFQ0YnBjQmNkMHhheFV0S0dEdGow?=
+ =?utf-8?B?T1lGWlB2NkNUako0Y2N3SUUveEREeHhaU0FVWGx0eThOUUtydm8xU1RnbHRO?=
+ =?utf-8?B?dElsZUNyZnNSU01kWWVtVHVFaXlzZEtRSGNOOTRJUENhN3JWeEs0aFdkTUhn?=
+ =?utf-8?B?MlNRd3B6b1dtdzJoOHFNb1k3TUxDMDJNSWNxNGpPWlNmQVhrUm5Od0p3NStm?=
+ =?utf-8?B?ZGtHWmhvamFOZjBQMkJOcUx3cS9VTGN2T0FFMDVNQzRHeWdDdzl1QzhUMWUz?=
+ =?utf-8?B?UlVPUFJkVnpKRlNWWUh2SnZOYVJPbkRnMEVKSmpSKy9ZZkhQaXVxeWd0Tzh1?=
+ =?utf-8?B?OHo0WlhiekJNVmFNbWo4aTFVaGFuMnFOTE9GcGY4MGtaMWFkOGY0L0N6cTh3?=
+ =?utf-8?B?a2cyMk92Z0JKbGRYaDlucitvYndPaUlCWnhUVDAybEJzbklhdWliRzg0ZjZt?=
+ =?utf-8?B?cjh2TmVTUWVhTEh2ZUY4bGNUZGR1WFRYREVPa21Kb1NIMUJLbkFnL2JUR2J2?=
+ =?utf-8?B?YUFRMmpBNGNTU3FCZ21qNU5hcG1FUFgwODVvbkkvcXRxcVAvMEQrVS9DUjlp?=
+ =?utf-8?B?cFBSM2FJNGJySi83aVV2ZTRCdStRem5vNmJrakl0SkN6ekpmY25KNmIrUDhF?=
+ =?utf-8?B?ZDh1dUFqL0FFdDlVbnFEVm81UFRTdGdwTmI3aFl6Q1BiK3FZVTZham1iSWJF?=
+ =?utf-8?B?K1lENWxqSXpJRVJjYlNPQXU4bFAxSEx5MEhaSHZEZUVrOEMvYzBrM2hOd1Vy?=
+ =?utf-8?B?UmwxbXk0K2ZxWk9MdHRvdGxWWUZXMXo1d2lrZFY2ZUhWL1VzOXhyS24wOTVS?=
+ =?utf-8?B?dWw4RVpmUW5vRDc3OW5iQjQ2MjYzZXRzbFluWEN0RWNxVUxGRnJTQT09?=
 X-Exchange-RoutingPolicyChecked:
-	oFFcWZ10r8d5VOZqpro8irAAfz13UPWaNO7+48Fsivh1a6i7MiBwPRfSWy6Ei6QnJ/RqLoDbnSmqkNgwDCgGK1oZDuLFvkeu7cSQhgbfCcI8HVh0SvYT3dzIL0T/O3plrekOCr8LgarHKda76E01QNy87wDqWghczo/IqVPHsqDYDfyfKDtwjNKVyK5wsHC7J/5ka8SS9GPIh0Dg1qTX5eKxni9jqhC3kx2enNoAFNBvE+8gnNdXUaD6GIzPiSsvQcLGE8mZzSl2jVqUw+Bf9jhpkYysv9FEA0IvA7LSt5JNbLYoyRewyJWe3CMPifa4dFjXPyXe7KfN0QxSGzj3ug==
+	FhV6n1M8fIVS8cZy2HytJ6v4ZZ46B6aoctMLJKxjItjX80O53tCh4o6VZEPJQxcD11+vnFsBEezj3Svumr8SGDc9jfN0xlrPRPvN6yi2y29BclS1hFJG0w9EqgZpkveOl2YYUa2nSCOOvK8miInorKzP6/nyRryoVAXLe6GHK/puC2FUbMFOdJvIIBDXpbCqlqbRi8IK1jFIW79CI6mVvv5fEgtNe29NivICJJYa2FsqxVwrQQjg6lU7jlEKxwdy/aWxk6nw4nSFQNiyRxS0ePgkY8+3FAQYj8eWP+o11Q8Btpvu0vEuq3cjVdBVC4+6AXfRazuyE+SpJXkMyFMYHQ==
 X-OriginatorOrg: analog.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 90acb523-bbbd-404c-e3d7-08df3ff6c49f
+X-MS-Exchange-CrossTenant-Network-Message-Id: a937b940-d9cf-43a9-67a6-08df3ff6c9b6
 X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB5469.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 13:22:00.6200
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 13:22:09.3775
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: eaa689b4-8f87-40e0-9c6f-7228de4d754a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: dyIuZRvrFRfXv3F+18zO1ywxp3oOv9mbmNFlLldS0+5fzzsKgLq8fHqg/XfEib6B+yK80RIsM9DxR3fvXn9pXg==
+X-MS-Exchange-CrossTenant-UserPrincipalName: TKqW5s6w2gRwh7gtiD7Q+uR2LD7Qfwl1XcO2BnldAkhfLmC27b9WyybrquEYv2w0wrDgaK+bJQNqa0ZViV9eSA==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR03MB7348
-X-Authority-Analysis: v=2.4 cv=VJhIDNPX c=1 sm=1 tr=0 ts=6af46bfa cx=c_pps
- a=+3f3g5PcVU0WeXiSVbezXg==:117 a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19
+X-Authority-Analysis: v=2.4 cv=bvnZl0ai c=1 sm=1 tr=0 ts=6af46c03 cx=c_pps
+ a=JigUrrSO7vm3KiUpdjzzBg==:117 a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19
  a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19 a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19
  a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=M51BFTxLslgA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22 a=ugNRTJOwpmtT476g4l8T:22
- a=gAnH3GRIAAAA:8 a=7m7CLd9EMIogzCAbFYcA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: uhSOsInBuYPbKoHqym_1D2wMxXFQi8LI
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDA1MyBTYWx0ZWRfX6kS0F2FNOyIo
- DjfC5HN72Sxij9vGOyDbNRb3C+e/4dLraKn5/F8kat/BUHjC5zfx6Ix4/08cl9zZF5rZ5kSs9CS
- QV+g/F2dovlusLKfcMhR5Hvggr/gid7ewFhNJpD1A2sx33QYAqYO
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDA1MyBTYWx0ZWRfXwf5EUHqVK/pk
- q0isehdxDizZq6WZpQqctKxqIS2o8qifd/gSySKDHIDV7GpnEWH16rDr9KrmC2qeRHLTvhjDJsB
- 83qBUxZahNrpfzo6um94C8UyRWrw3gcvAZKv4g/7G4SC1dCaTUXugFcFT1NtYNspSolprVAmHx6
- vD/e2wxbpwXqoMmVpRwS2dZq1T9z0NxXFieU4aNocnSJALr/pt08vd8o8QnbYLE8bW7kEyNa4TY
- 1mCd5x9RfWBJSmgvQuEFoYIVslijCNNJxiky78v71DWZMnsLPr7VNpQ14XS4VatqaaNbCf0Gyb3
- ET5BP0F89A/5CR1c2hnxcpBhKBgIRIqTS/syZvvWrt+dtDFc8sXR4qRBxZxttH6BGNjPFwKe2bV
- 9milhsVZ7LymWhGBfGqx9ctpIbJV/3hSkTbLZqyYDHOlbKiTR/WBwvDUOr4KUnrzO3sWinWY4W+
- /a09x61Cmvun1BXqBgA==
-X-Proofpoint-ORIG-GUID: uhSOsInBuYPbKoHqym_1D2wMxXFQi8LI
+ a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22 a=uXIjobp8t2wMuQ0fPvqm:22
+ a=gAnH3GRIAAAA:8 a=R62x5OX-oynB5HbIHSUA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: v1UPIXktQM8FdTG3526Hd6OE2Q06Tix-
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDA1MyBTYWx0ZWRfXy5+zuC+yUr9o
+ iSKunK26gebDP2/GLG0MVnUx35zWRmDJ7eQjS2VDzbi1/TybcPvruvyghwP1H4AdeinWSHSrnlJ
+ 29Enf2Axn4RJzcSBYeydmMdUL8QvErZJ6KtdvOH/oNbtJC3EHFX62HV17/38AS+ARpeHMF5l1lt
+ tVSxEXt4rY0g8j2ZvHiGLmnMjaBfFnNym2A4Jz3L2xlz95neJ2mApurUCRwzOSRIAhnxh+akwwu
+ C316q/nlK1QbNxkVBtFOgPFWCXP9mHaPbKt4Lfz5HNfQD27crOnuHhrkE/o77xNw69oSF+6esuL
+ SvOc5ql/Iy24+IdHwusDQNgPPoJ45qWeboLlearetqX3f2OQhCPjRzLnnS72UPyUXDo/2yqtHW0
+ /nRUYfDr0dZr5+Sc8yx73lwyN0OtpTO5tNbcBtDumBvImTjEafaEJ+4qCjQfgvPQHtaIGN7/rXc
+ V+iLCN7sN5ntcgSfJcw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDA1MyBTYWx0ZWRfXwM81d5Jk7xYg
+ Vd9+B/+VEvZywtPOWHarR7fgtPwRrJLFRid3z7Sd282TIDh61l8WBg6K0gLWHeMTs7gQ9DrNcVp
+ XQdiefL1QZclvaP7v8a5j2fQuQE/2UCMHu+MMJwuqhutU28PvokZ
+X-Proofpoint-ORIG-GUID: v1UPIXktQM8FdTG3526Hd6OE2Q06Tix-
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-11_02,2026-11-11_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 malwarescore=0 impostorscore=0 phishscore=0 spamscore=0
- lowpriorityscore=0 priorityscore=1501 clxscore=1015 adultscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611110053
+ priorityscore=1501 spamscore=0 malwarescore=0 bulkscore=0 impostorscore=0
+ suspectscore=0 clxscore=1015 phishscore=0 adultscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611110053
 
-The driver uses a mrvl_hw_overlay boolean in the driver data to decide,
-at several points in the common probe and resume paths, whether the
-Marvell integration specifics have to be applied. Adding another
-integration would mean adding more of these conditionals.
+Add driver data for the Analog Devices ADSP-SC846 integration of the
+Cadence xSPI controller. It uses the generic Cadence memory operations
+and handlers, and only needs a hw_init() callback programming the SC846
+specific PHY settings before resetting the DLL. Being a hw_init()
+callback, the PHY is also set up again on resume.
 
-Turn the driver data into a set of per-compatible operations instead,
-including two optional callbacks: init(), for one time vendor specific
-initialization at probe, and hw_init(), for the vendor specific hardware
-setup done both at probe and resume. The probe and resume paths now just
-use these.
-
-The Marvell XFER register mapping moves into init() while the clock
-setup and PHY configuration move into hw_init(). Since the PHY timing
-values were only ever the Marvell ones, drop them from the driver data
-and write the constants directly, and rename the helper to
-cdns_mrvl_xspi_configure_phy() to make that explicit.
-
-No functional change intended.
+Waiting for the DLL to lock is done on the PHY DLL observable register
+rather than on the register used by the Marvell path, as that is what is
+documented for this platform.
 
 Signed-off-by: Nuno Sá <nuno.sa@analog.com>
 ---
- drivers/spi/spi-cadence-xspi.c | 148 ++++++++++++++++++++++-------------------
- 1 file changed, 78 insertions(+), 70 deletions(-)
+ drivers/spi/spi-cadence-xspi.c | 75 +++++++++++++++++++++++++++++++++++-------
+ 1 file changed, 64 insertions(+), 11 deletions(-)
 
 diff --git a/drivers/spi/spi-cadence-xspi.c b/drivers/spi/spi-cadence-xspi.c
-index 5d8d102ef397..d592512dda63 100644
+index d592512dda63..55b37175f08f 100644
 --- a/drivers/spi/spi-cadence-xspi.c
 +++ b/drivers/spi/spi-cadence-xspi.c
-@@ -306,22 +306,6 @@ enum cdns_xspi_stig_cmd_dir {
- 	CDNS_XSPI_STIG_CMD_DIR_WRITE,
- };
+@@ -42,9 +42,15 @@
+ /* PHY gate loopback control register */
+ #define CDNS_XSPI_CCP_PHY_GATE_LPBCK_CTRL	0x0008
  
--struct cdns_xspi_driver_data {
--	bool mrvl_hw_overlay;
--	u32 dll_phy_ctrl;
--	u32 ctb_rfile_phy_ctrl;
--	u32 rfile_phy_tsel;
--	u32 rfile_phy_dq_timing;
--	u32 rfile_phy_dqs_timing;
--	u32 rfile_phy_gate_lpbk_ctrl;
--	u32 rfile_phy_dll_master_ctrl;
--	u32 rfile_phy_dll_slave_ctrl;
--};
--
--static struct cdns_xspi_driver_data cdns_driver_data = {
--	.mrvl_hw_overlay = false,
--};
--
- struct cdns_xspi_dev {
- 	struct platform_device *pdev;
- 	struct spi_controller *host;
-@@ -357,6 +341,17 @@ struct cdns_xspi_dev {
- 	int current_xfer_qword;
- };
- 
-+struct cdns_xspi_driver_data {
-+	const struct spi_controller_mem_ops *mem_ops;
-+	int (*transfer_one_message)(struct spi_controller *ctlr,
-+				    struct spi_message *msg);
-+	int (*sdma_handler)(struct cdns_xspi_dev *cdns_xspi);
-+	void (*set_interrupts_handler)(struct cdns_xspi_dev *cdns_xspi,
-+				       bool enabled);
-+	int (*init)(struct cdns_xspi_dev *cdns_xspi);
-+	int (*hw_init)(struct cdns_xspi_dev *cdns_xspi);
-+};
++/* PHY DLL master control register */
++#define CDNS_XSPI_CCP_PHY_DLL_MASTER_CTRL	0x000C
 +
- static int cdns_xspi_wait_for_controller_idle(struct cdns_xspi_dev *cdns_xspi)
- {
- 	u32 ctrl_stat;
-@@ -794,18 +789,6 @@ static void cdns_xspi_print_phy_config(struct cdns_xspi_dev *cdns_xspi)
+ /* PHY DLL slave control register */
+ #define CDNS_XSPI_CCP_PHY_DLL_SLAVE_CTRL	0x0010
+ 
++/* PHY DQS input enable timing register */
++#define CDNS_XSPI_CCP_PHY_IE_TIMER		0x0014
++
+ /* DLL PHY control register */
+ #define CDNS_XSPI_DLL_PHY_CTRL			0x1034
+ 
+@@ -235,6 +241,14 @@
+ #define MARVELL_RFILE_PHY_DLL_MASTER_CTRL	0x00800000
+ #define MARVELL_RFILE_PHY_DLL_SLAVE_CTRL	0x0000ff01
+ 
++/* ADI SC846 PHY default values */
++#define ADI_XSPI_PHY_DQ_TR			0x00000101
++#define ADI_XSPI_PHY_DQS_TR			0x00300400
++#define ADI_XSPI_PHY_GATE_LPBK_CTL		0x00180030
++#define ADI_XSPI_PHY_DLL_MSTR_CTL		0x00140084
++#define ADI_XSPI_PHY_DLL_SLAVE_CTL		0x00003fc4
++#define ADI_XSPI_PHY_IE_TR			0x00100000
++
+ /* PHY config registers */
+ #define CDNS_XSPI_RF_MINICTRL_REGS_DLL_PHY_CTRL			0x1034
+ #define CDNS_XSPI_PHY_CTB_RFILE_PHY_CTRL			0x0080
+@@ -788,6 +802,45 @@ static void cdns_xspi_print_phy_config(struct cdns_xspi_dev *cdns_xspi)
+ 		 readl(cdns_xspi->auxbase + CDNS_XSPI_CCP_PHY_DLL_SLAVE_CTRL));
  }
  
++static void cdns_xspi_reset_dll(struct cdns_xspi_dev *cdns_xspi)
++{
++	u32 dll_cntrl = readl(cdns_xspi->iobase +
++			      CDNS_XSPI_RF_MINICTRL_REGS_DLL_PHY_CTRL);
++
++	/* Reset DLL */
++	dll_cntrl |= CDNS_XSPI_DLL_RST_N;
++	writel(dll_cntrl, cdns_xspi->iobase +
++			  CDNS_XSPI_RF_MINICTRL_REGS_DLL_PHY_CTRL);
++}
++
++static int cdns_sc846_xspi_hw_init(struct cdns_xspi_dev *cdns_xspi)
++{
++	u32 dll_obs;
++
++	writel(ADI_XSPI_PHY_DQ_TR,
++	       cdns_xspi->auxbase + CDNS_XSPI_CCP_PHY_DQ_TIMING);
++	writel(ADI_XSPI_PHY_DQS_TR,
++	       cdns_xspi->auxbase + CDNS_XSPI_CCP_PHY_DQS_TIMING);
++	writel(ADI_XSPI_PHY_GATE_LPBK_CTL,
++	       cdns_xspi->auxbase + CDNS_XSPI_CCP_PHY_GATE_LPBCK_CTRL);
++	writel(ADI_XSPI_PHY_DLL_MSTR_CTL,
++	       cdns_xspi->auxbase + CDNS_XSPI_CCP_PHY_DLL_MASTER_CTRL);
++	writel(ADI_XSPI_PHY_DLL_SLAVE_CTL,
++	       cdns_xspi->auxbase + CDNS_XSPI_CCP_PHY_DLL_SLAVE_CTRL);
++	writel(ADI_XSPI_PHY_IE_TR,
++	       cdns_xspi->auxbase + CDNS_XSPI_CCP_PHY_IE_TIMER);
++	writel(0, cdns_xspi->iobase + CDNS_XSPI_RF_MINICTRL_REGS_DLL_PHY_CTRL);
++
++	cdns_xspi_reset_dll(cdns_xspi);
++
++	/*
++	 * Unlike the Marvell integration, the DLL lock is documented on the
++	 * PHY DLL observable register.
++	 */
++	return readl_poll_timeout(cdns_xspi->auxbase + CDNS_XSPI_DATASLICE_RFILE_PHY_DLL_OBS_REG_0,
++				  dll_obs, dll_obs & CDNS_XSPI_DLL_LOCK, 10, 10000);
++}
++
  #ifdef CONFIG_64BIT
--static struct cdns_xspi_driver_data marvell_driver_data = {
--	.mrvl_hw_overlay = true,
--	.dll_phy_ctrl = MARVELL_REGS_DLL_PHY_CTRL,
--	.ctb_rfile_phy_ctrl = MARVELL_CTB_RFILE_PHY_CTRL,
--	.rfile_phy_tsel = MARVELL_RFILE_PHY_TSEL,
--	.rfile_phy_dq_timing = MARVELL_RFILE_PHY_DQ_TIMING,
--	.rfile_phy_dqs_timing = MARVELL_RFILE_PHY_DQS_TIMING,
--	.rfile_phy_gate_lpbk_ctrl = MARVELL_RFILE_PHY_GATE_LPBK_CTRL,
--	.rfile_phy_dll_master_ctrl = MARVELL_RFILE_PHY_DLL_MASTER_CTRL,
--	.rfile_phy_dll_slave_ctrl = MARVELL_RFILE_PHY_DLL_SLAVE_CTRL,
--};
--
  static const int cdns_mrvl_xspi_clk_div_list[] = {
  	4,	//0x0 = Divide by 4.   SPI clock is 200 MHz.
- 	6,	//0x1 = Divide by 6.   SPI clock is 133.33 MHz.
-@@ -844,23 +827,23 @@ static bool cdns_xspi_is_dll_locked(struct cdns_xspi_dev *cdns_xspi)
- }
+@@ -806,17 +859,6 @@ static const int cdns_mrvl_xspi_clk_div_list[] = {
+ 	128	//0xD = Divide by 128. SPI clock is 6.25 MHz.
+ };
  
- /* Static configuration of PHY */
--static bool cdns_xspi_configure_phy(struct cdns_xspi_dev *cdns_xspi)
-+static bool cdns_mrvl_xspi_configure_phy(struct cdns_xspi_dev *cdns_xspi)
+-static void cdns_xspi_reset_dll(struct cdns_xspi_dev *cdns_xspi)
+-{
+-	u32 dll_cntrl = readl(cdns_xspi->iobase +
+-			      CDNS_XSPI_RF_MINICTRL_REGS_DLL_PHY_CTRL);
+-
+-	/* Reset DLL */
+-	dll_cntrl |= CDNS_XSPI_DLL_RST_N;
+-	writel(dll_cntrl, cdns_xspi->iobase +
+-			  CDNS_XSPI_RF_MINICTRL_REGS_DLL_PHY_CTRL);
+-}
+-
+ static bool cdns_xspi_is_dll_locked(struct cdns_xspi_dev *cdns_xspi)
  {
--	writel(cdns_xspi->driver_data->dll_phy_ctrl,
-+	writel(MARVELL_REGS_DLL_PHY_CTRL,
- 	       cdns_xspi->iobase + CDNS_XSPI_RF_MINICTRL_REGS_DLL_PHY_CTRL);
--	writel(cdns_xspi->driver_data->ctb_rfile_phy_ctrl,
-+	writel(MARVELL_CTB_RFILE_PHY_CTRL,
- 	       cdns_xspi->auxbase + CDNS_XSPI_PHY_CTB_RFILE_PHY_CTRL);
--	writel(cdns_xspi->driver_data->rfile_phy_tsel,
-+	writel(MARVELL_RFILE_PHY_TSEL,
- 	       cdns_xspi->auxbase + CDNS_XSPI_PHY_CTB_RFILE_PHY_TSEL);
--	writel(cdns_xspi->driver_data->rfile_phy_dq_timing,
-+	writel(MARVELL_RFILE_PHY_DQ_TIMING,
- 	       cdns_xspi->auxbase + CDNS_XSPI_PHY_DATASLICE_RFILE_PHY_DQ_TIMING);
--	writel(cdns_xspi->driver_data->rfile_phy_dqs_timing,
-+	writel(MARVELL_RFILE_PHY_DQS_TIMING,
- 	       cdns_xspi->auxbase + CDNS_XSPI_PHY_DATASLICE_RFILE_PHY_DQS_TIMING);
--	writel(cdns_xspi->driver_data->rfile_phy_gate_lpbk_ctrl,
-+	writel(MARVELL_RFILE_PHY_GATE_LPBK_CTRL,
- 	       cdns_xspi->auxbase + CDNS_XSPI_PHY_DATASLICE_RFILE_PHY_GATE_LPBK_CTRL);
--	writel(cdns_xspi->driver_data->rfile_phy_dll_master_ctrl,
-+	writel(MARVELL_RFILE_PHY_DLL_MASTER_CTRL,
- 	       cdns_xspi->auxbase + CDNS_XSPI_PHY_DATASLICE_RFILE_PHY_DLL_MASTER_CTRL);
--	writel(cdns_xspi->driver_data->rfile_phy_dll_slave_ctrl,
-+	writel(MARVELL_RFILE_PHY_DLL_SLAVE_CTRL,
- 	       cdns_xspi->auxbase + CDNS_XSPI_PHY_DATASLICE_RFILE_PHY_DLL_SLAVE_CTRL);
+ 	u32 dll_lock;
+@@ -1416,6 +1458,13 @@ static const struct cdns_xspi_driver_data cdns_driver_data = {
+ 	.set_interrupts_handler = cdns_xspi_set_interrupts,
+ };
  
- 	cdns_xspi_reset_dll(cdns_xspi);
-@@ -1231,6 +1214,31 @@ static int cdns_xspi_transfer_one_message_b0(struct spi_controller *controller,
- 
- 	return 0;
- }
-+
-+static int cdns_mrvl_xspi_init(struct cdns_xspi_dev *cdns_xspi)
-+{
-+	struct platform_device *pdev = cdns_xspi->pdev;
-+
-+	cdns_xspi->xferbase = devm_platform_ioremap_resource_byname(pdev, "xfer");
-+	if (IS_ERR(cdns_xspi->xferbase)) {
-+		cdns_xspi->xferbase = devm_platform_ioremap_resource(pdev, 3);
-+		if (IS_ERR(cdns_xspi->xferbase)) {
-+			dev_info(cdns_xspi->dev, "XFER register base not found, set it\n");
-+			// For compatibility with older firmware
-+			cdns_xspi->xferbase = cdns_xspi->iobase + 0x8000;
-+		}
-+	}
-+
-+	return 0;
-+}
-+
-+static int cdns_mrvl_xspi_hw_init(struct cdns_xspi_dev *cdns_xspi)
-+{
-+	cdns_mrvl_xspi_setup_clock(cdns_xspi, MRVL_DEFAULT_CLK);
-+	cdns_mrvl_xspi_configure_phy(cdns_xspi);
-+
-+	return 0;
-+}
- #endif
- 
- static int cdns_xspi_probe(struct platform_device *pdev)
-@@ -1256,17 +1264,10 @@ static int cdns_xspi_probe(struct platform_device *pdev)
- 	if (!cdns_xspi->driver_data)
- 		return -ENODEV;
- 
--	host->mem_ops = &cadence_xspi_mem_ops;
--	cdns_xspi->sdma_handler = &cdns_xspi_sdma_handle;
--	cdns_xspi->set_interrupts_handler = &cdns_xspi_set_interrupts;
--#ifdef CONFIG_64BIT
--	if (cdns_xspi->driver_data->mrvl_hw_overlay) {
--		host->mem_ops = &marvell_xspi_mem_ops;
--		host->transfer_one_message = cdns_xspi_transfer_one_message_b0;
--		cdns_xspi->sdma_handler = &marvell_xspi_sdma_handle;
--		cdns_xspi->set_interrupts_handler = &marvell_xspi_set_interrupts;
--	}
--#endif
-+	host->mem_ops = cdns_xspi->driver_data->mem_ops;
-+	host->transfer_one_message = cdns_xspi->driver_data->transfer_one_message;
-+	cdns_xspi->sdma_handler = cdns_xspi->driver_data->sdma_handler;
-+	cdns_xspi->set_interrupts_handler = cdns_xspi->driver_data->set_interrupts_handler;
- 	host->bus_num = -1;
- 
- 	platform_set_drvdata(pdev, cdns_xspi);
-@@ -1312,19 +1313,11 @@ static int cdns_xspi_probe(struct platform_device *pdev)
- 		}
- 	}
- 
--#ifdef CONFIG_64BIT
--	if (cdns_xspi->driver_data->mrvl_hw_overlay) {
--		cdns_xspi->xferbase = devm_platform_ioremap_resource_byname(pdev, "xfer");
--		if (IS_ERR(cdns_xspi->xferbase)) {
--			cdns_xspi->xferbase = devm_platform_ioremap_resource(pdev, 3);
--			if (IS_ERR(cdns_xspi->xferbase)) {
--				dev_info(dev, "XFER register base not found, set it\n");
--				// For compatibility with older firmware
--				cdns_xspi->xferbase = cdns_xspi->iobase + 0x8000;
--			}
--		}
-+	if (cdns_xspi->driver_data->init) {
-+		ret = cdns_xspi->driver_data->init(cdns_xspi);
-+		if (ret)
-+			return ret;
- 	}
--#endif
- 
- 	/* Optional to keep compatibility with existing devicetrees */
- 	clk = devm_clk_get_optional_enabled(dev, NULL);
-@@ -1356,12 +1349,11 @@ static int cdns_xspi_probe(struct platform_device *pdev)
- 		return ret;
- 	}
- 
--#ifdef CONFIG_64BIT
--	if (cdns_xspi->driver_data->mrvl_hw_overlay) {
--		cdns_mrvl_xspi_setup_clock(cdns_xspi, MRVL_DEFAULT_CLK);
--		cdns_xspi_configure_phy(cdns_xspi);
-+	if (cdns_xspi->driver_data->hw_init) {
-+		ret = cdns_xspi->driver_data->hw_init(cdns_xspi);
-+		if (ret)
-+			return ret;
- 	}
--#endif
- 
- 	cdns_xspi_print_phy_config(cdns_xspi);
- 
-@@ -1404,12 +1396,11 @@ static int cdns_xspi_resume(struct device *dev)
- 	if (ret)
- 		return ret;
- 
--#ifdef CONFIG_64BIT
--	if (cdns_xspi->driver_data->mrvl_hw_overlay) {
--		cdns_mrvl_xspi_setup_clock(cdns_xspi, MRVL_DEFAULT_CLK);
--		cdns_xspi_configure_phy(cdns_xspi);
-+	if (cdns_xspi->driver_data->hw_init) {
-+		ret = cdns_xspi->driver_data->hw_init(cdns_xspi);
-+		if (ret)
-+			return ret;
- 	}
--#endif
- 
- 	cdns_xspi->set_interrupts_handler(cdns_xspi, false);
- 
-@@ -1419,6 +1410,23 @@ static int cdns_xspi_resume(struct device *dev)
- static DEFINE_SIMPLE_DEV_PM_OPS(cdns_xspi_pm_ops,
- 				cdns_xspi_suspend, cdns_xspi_resume);
- 
-+static const struct cdns_xspi_driver_data cdns_driver_data = {
++static const struct cdns_xspi_driver_data sc846_driver_data = {
 +	.mem_ops = &cadence_xspi_mem_ops,
 +	.sdma_handler = cdns_xspi_sdma_handle,
 +	.set_interrupts_handler = cdns_xspi_set_interrupts,
++	.hw_init = cdns_sc846_xspi_hw_init,
 +};
 +
-+#ifdef CONFIG_64BIT
-+static const struct cdns_xspi_driver_data marvell_driver_data = {
-+	.mem_ops = &marvell_xspi_mem_ops,
-+	.transfer_one_message = cdns_xspi_transfer_one_message_b0,
-+	.sdma_handler = marvell_xspi_sdma_handle,
-+	.set_interrupts_handler = marvell_xspi_set_interrupts,
-+	.init = cdns_mrvl_xspi_init,
-+	.hw_init = cdns_mrvl_xspi_hw_init,
-+};
-+#endif
-+
+ #ifdef CONFIG_64BIT
+ static const struct cdns_xspi_driver_data marvell_driver_data = {
+ 	.mem_ops = &marvell_xspi_mem_ops,
+@@ -1428,6 +1477,10 @@ static const struct cdns_xspi_driver_data marvell_driver_data = {
+ #endif
+ 
  static const struct of_device_id cdns_xspi_of_match[] = {
++	{
++		.compatible = "adi,adsp-sc846-xspi",
++		.data = &sc846_driver_data,
++	},
  	{
  		.compatible = "cdns,xspi-nor",
+ 		.data = &cdns_driver_data,
 
 -- 
 2.56.0
