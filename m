@@ -1,101 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.44
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794415531;
-	b=2NdujrmM8ta2/xyhY7XuDVm2YWET0YIXexoWvuQA2opHghO0ILvlhYYSk5wjLNhYq4fu
-	 x8vZ/hgEFGmzpiun8uJJb2LpTPBojxArv5Auz8mi5AIriRRdD5p4gf8OKihqayB4oWDEn
-	 KBa5+pfLYuMq/EW+K3pzPhi+1x4Zugmk57SaJ9IfELFlAJvxNZZFm6Ecf8cK37OnAYyE0
-	 EZvFGmxCJ31KHMrMR2bG2zwB5P7e4D4j444eUznY7WXRkMeFNKkwUIZMSDqtrOUb7g0OH
-	 +x1cf0fc8iHz61P3TCsVDoP7yZSwev6sOcnw0/IJD9rqMCXq8JQY6+tThCFwTUYtTiQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794415531;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=NYfQE24rcCL3ET4V0w0obYmaTrEBQ7wONKSMJ15jXBQ=;
-	b=H1TiM3NJK9vYDrkt0RIx87TVIe3yAhRJeOGZokiPeJCF1X6jh8Na3VPlCziUEkNHA4fY
-	 E1iL5U+QUqhCD7ebxSoWKyHi8FSit/1RZf0FwDNcJwwu38XosJhs0A+t4H83uQhkRA2GE
-	 0oFIHWrmMZC4cTiBUFDax1COZ8Dbv37PhU0oLiOMPf7eYLLWXSrZxoY61T/2uyfhrHzzT
-	 zZHR2N66OPVXxMGHcqI1kiSLX/w12bcRTyku6XS1OaC1rwrtAHQgYH0G6b+/QMkFxCEDk
-	 /QP5eI0e/V0909hpM7w+MhPIS4tY283PuWXGIyKD2U2oEAmrdCrjc3+oZo/tw8UsiDw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eIZH3DQY;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.44
-Received: from mail-oo1-f44.google.com (mail-oo1-f44.google.com [209.85.161.44])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.114
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794415573;
+	b=QFpDuWIkn60EOK5kmUufUzUAKvxyRsRpPYhyjkwimbtPYjirXO4YCETB6kOKqA0DhH4j
+	 yh/V77CWvINe4QDnd7IEJDj4lcLFnX4mwVgTx3ud9ycJnyIKDUKYnIoGHzO0WkPi4ZSWy
+	 POWwWHU+uxagTcISr141clJlFI1T36Gizyo0xRTm/USpofT/BAYlJYaFbU153ontvOClS
+	 vlP1B4CMWZX07fKXfIhU/HcQsBrpV6hH7ySJ3/Hg7fP1bBvYeen6J+pjeu1uskqQuwUZN
+	 9rEU4Esq9g+PyPuhntwgsJaSRTGTThfBMZzAFOHYamsxP4KvUSmOS6Nn16l1b+iBMaA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794415573;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=zfYkUkK1FvEiamJkD2w+G92+ZaU+ueOZOEIhISapy8E=;
+	b=huXcbwHvb/vezjlrNNl22blPLChHLNw+hvuhsHQYiOUHGGWB/VF15JUAtyDgnVLp2OJF
+	 ZL79nn4R9vmcRck0gl/CsrI3Nvaqqe/4uxmDhRdyD9RgNK1+6ZctRdjhNzY4o8L/6ZjCd
+	 ZLUIsx7FugOdt+gg74rFcZJGHr5zGfYjVRiDI1KNvmBWkMmpzCMGKgETOF6p8+wqOzwf4
+	 7T0CW5z57FRJ5MKwrGTijc+V8PdisN7G6qw5ZNA2wjeQFNBwBm/l3z0jG4xotV+izdDFa
+	 DoHlqNK4umMq2CGBS63aSm+tTw/F3zKKZwCxbUjqF3xDdKBynDJduMmYQ5h3xg6KU9w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=UejACTDM;
+	arc=none smtp.remote-ip=91.218.175.114
+Received: from mta0.migadu.com (out-114.mta0.migadu.com [91.218.175.114])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08C1C606A321
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 16:45:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 08C1C606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95B80606A324
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 16:46:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 95B80606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eIZH3DQY
-Received: by mail-oo1-f44.google.com with SMTP id 006d021491bc7-6aa9606ddadso1940069eaf.0
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 08:45:30 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794415530; cv=none;
-        d=google.com; s=arc-20260327;
-        b=gXa7mp0qH50ohnEPIVgSXbysiYdViub3Gv6JZaAcjhdtK0E7MyfXlbRKARezAsz9Is
-         TEzXiwNwppo5fCyHY/8S2MupleROYz7I/SFu5SSK/PPNNelBAqk9E1Ctp3EZG9zFarF4
-         GW3hbmEYJ8TXCeFIF7UdgVM5l/0mGUbt3hujx4xStmMe7Z1stYPpefettAs/rSiTg5rS
-         cUXmg4G02BA8yQaSWRLyyqBTxON868P9rXUiffsLK6Oi67LYdUUSYJ5rCfmsF4LWRNXz
-         NcJ6IajkZcCrRNGl3zjZOA/0eTG2ed93dFyPyJeIgT28pI5OTY6hxYfX7IJ+v63qqC+9
-         SKFA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=NYfQE24rcCL3ET4V0w0obYmaTrEBQ7wONKSMJ15jXBQ=;
-        fh=efieAJZtoLZ/yV+RD/9VYY6x+BhoiBVkABBRIV7DFHs=;
-        b=gvL2lkfht5DIYjNkz5UVl/RPO3QwwuLneTHitPHlnS65MdqPtx2rjuvJxtB4gKQ7MZ
-         /QLANnN+9Zxg3FB0kYN3cR7aklHj1hxwZB44jOtnhpns6viXymcqsGFbF2C7wzMkvjs3
-         N7F66gBmknicwC/hkKEC4WdITF5+HUqLgyCUR7VWRoocfcy3pPOUoahqGHSFakPkUGpg
-         RqAda6XGv3CGAVhChafRCGxHA5ujSRqNoV6mcMaokOp83Km5o0X9CPlnz5c5vN8n15Uh
-         gecC+lRcBhURdKWCrpOV//ZicRDjvHQ28I46U0RB+OWPu9Y99iHdDKghPugr3RZp2FWb
-         VoAA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794415530; x=1795020330; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=NYfQE24rcCL3ET4V0w0obYmaTrEBQ7wONKSMJ15jXBQ=;
-        b=eIZH3DQYvWCLFcN6b0w6H/jQlcOtH69HbdfA5AKWKoj+GEuH3pSVkFT6/4bDSCqiZh
-         S3HyDCED/cNpqq6pgpSPimiopfytOJ4Pve0hPfFmyMtyifMNrHKxOblqWMj4az49i1L6
-         zyqMfXaFNHYNfeoL4sp42w4z60VvvD01/S1Iz6/wbhyy6tdr0+5meIhlvdKesTaa5/HC
-         5jO7Y+5Nl7sTYQjthFE/pqP9xNqK3U3RU8e3Jk1Ix5GtQB9vcIo0JI89+j5MgiRgsE8t
-         LdPsR3jRT+0YWV7fE8X+K0v+zA42O/eQQknE1sqQt2j0URdlzr9sTYGSiEe3AK7nv1Md
-         kb1w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794415530; x=1795020330;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=NYfQE24rcCL3ET4V0w0obYmaTrEBQ7wONKSMJ15jXBQ=;
-        b=1+3eAPMt5tp0AI+U0HLZBrlye9yhNyg7U1JFtXlCUD2I95A+tAQZNwG2++Oglk+lxe
-         0WlTfi73ehQ78KuNVPv4h+TPUJ8iXD9IDQGNxEaKGxVrlh0YT959YSH1iCoFfTnyQ//N
-         2wqOrle8gP4dxIBaJJ82Z52od17gbviMYQIH9O9B0NY6HNd/3l1vPlZvcF9N6M/FddFf
-         jDJ+XlIlossoWVwi1F+tIHKs9TkMn7krwhULwYpo57ZOgcxvdSqbFWaU0Q/PJC5El/rx
-         04cKGvV8Vdg+iJsE83B6y2W7stbQE9vDKf1wtfO4QDoPg5nTWHDVBGOcsdr6S3fdZWWB
-         CU/w==
-X-Forwarded-Encrypted: i=1; AL+hErEvwo7KcQ+4jECucHUO+EaXZFsr8w4oXf3fgOpaeouZcOtqQf36dFkFtWADZvtz3G0RZaeZTVQx93sD7IU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9ondO8lIfR5XcXr7/nb2s1mZhN4PYcQAUtmWGJpvg2m+sokPf4
-	2NT7QDcrcwzJsTMg34TIIj2Q7pPHM5+CWSXDv1NKYLEhlftldC+24eRCjnNYa141BfeuNN+jYmt
-	PiS2qGYEK0av6WkxD/slcVWZVnCWbnhQ=
-X-Gm-Gg: AYBFou36yL++4L5Y2PDT55Fa1eecXKznmfP0Lo4mTEcdcNjCgkJ/ZWHk7vIz0YNXA6A
-	eM6UJaT6ByhKs3h/8tNrQ+QUmPeWctURwS64JJs7v3xkKD7yqrMgzRvASZTKTZdvYlpLBGCj1Qh
-	MDMBwA2OnEty5kwHBmfNkZkT61fZUkORHBPDu06SKdsR9X8ftP9buVMWQk//ytjJZXAfp3Oa/3I
-	PrUSTjKR5cNNUVKgrYQlrA6rFEYQEU8R3xlXVExAZhIo+LjkUkci/NNadLZY14K+7CHPISY2gUx
-	IyqW8qlCeJLQwSv56pWlJwJnMe8Mxwdr+gWJqUNUyiaDLYU8IxWFKHCmniR2bulODNdw1+OEiA3
-	HPwGWOCIxBTQbWYRC7zQkDkF7G9+tkApvukbt3t3QkGMigJp/AXRmWLH3+HTEdP72ERGPoh9hqc
-	ZIw6bXJZUjiMziHm8=
-X-Received: by 2002:a05:6808:4442:b0:4b9:e5fa:8903 with SMTP id
- 5614622812f47-56b961943a4mr2467100b6e.22.1794415529378; Wed, 11 Nov 2026
- 08:45:29 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=UejACTDM
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=vTOKXuEi2SgorO3quCcM6rXO+IcsXT+k+wyiUNo4CmU=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794415569; v=1; x=1795020369;
+ b=UejACTDM9Qsq3/MhNcmU2Utg71fqJTzULps2pDQL/6lB09U1zZRx53C5ipp2DnyCJtz8nMRS
+ tQi0znxT1OiGbq0Yx67gPzx+ScSc1Dm4wJwlbTrK/nRqfB1AVwwVdrikK/aneM05fJvXHfOMJ1h
+ iDFjuoMvlp3ow++if+zW2UyY=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 5976e7e889082f28;
+	Wed, 11 Nov 2026 16:46:09 +0000
+X-Mizu-Trace-ID: 5976e7e889082f28
+X-Migadu-Flow: FLOW_OUT
+Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-5be58ad9600so7380e87.0
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 08:46:04 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErFcFv8gNiYm5AKIW/Ob6wt1UGLGs03exkgYHS1L/ZKVYMKFrxMhb7vOWvYVcdN4SGjO3M0brHPAeX94Oy0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+6pYlUb8JNuPYh2+43+G6/teXJAlvzZWPUh2c3D0/f3AgWUwa6
+	ckDhWNBrr5/x+aXNPVBkqUsScCDNl6gKp3e96SQmTzehkdf/Cl6psRdFshBVg59MifMEOW4KvoJ
+	WVxLC1dIgRkclx81BvvkdQCYCr8mA+LFQOKxGK50j
+X-Received: by 2002:a05:6512:1281:b0:5c1:488e:a067 with SMTP id
+ 2adb3069b0e04-5c15e321265mr149685e87.16.1794415563460; Wed, 11 Nov 2026
+ 08:46:03 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,39 +66,89 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261109153407.1761032-1-mmyangfl@gmail.com> <179441151084.2199510.11035302452325241587@kernel.org>
-In-Reply-To: <179441151084.2199510.11035302452325241587@kernel.org>
-From: David Yang <mmyangfl@gmail.com>
-Date: Thu, 12 Nov 2026 00:44:53 +0800
-X-Gm-Features: AclHuK9SuMIDImvwgyuePoaTCeasdPT2EycqKe2EK8Pk9ehfERFg1PA81NN2qcw
-Message-ID: <CAAXyoMP5hQC8Jgg9LgY-X59ftAGThOMXVf3jTCmRzUPjvC+Qrg@mail.gmail.com>
-Subject: Re: [PATCH net] net: dsa: motorcomm: Do not inherit ports from
- dynamic FDB entries
-To: netdev-bot+sashiko@kernel.org
-Cc: netdev@vger.kernel.org, andrew@lunn.ch, olteanv@gmail.com, 
-	davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, 
-	linux-kernel@vger.kernel.org
+References: <20261001135711.1640520-1-fuad.tabba@linux.dev>
+ <20261001135711.1640520-10-fuad.tabba@linux.dev> <5fa8a1fb-4e2c-4746-8a70-a47f387ef0d6@arm.com>
+In-Reply-To: <5fa8a1fb-4e2c-4746-8a70-a47f387ef0d6@arm.com>
+From: Fuad Tabba <fuad.tabba@linux.dev>
+Date: Wed, 11 Nov 2026 16:45:27 +0000
+X-Gmail-Original-Message-ID: <CA+EHjTyCcGPMte9=HuqyvCS7CCCt80Lc_JQuA+1e3ZE+3A0zqQ@mail.gmail.com>
+X-Gm-Features: AclHuK_8e85qNvEPUChw2hXq-xwQhB1Rl-UgkdF_cZM8i8KqhVquzOK3Y1yl4BA
+Message-ID: <CA+EHjTyCcGPMte9=HuqyvCS7CCCt80Lc_JQuA+1e3ZE+3A0zqQ@mail.gmail.com>
+Subject: Re: [PATCH v4 09/18] KVM: arm64: Implement HVC handling for protected
+ guests at EL2
+To: Ryan Roberts <ryan.roberts@arm.com>
+Cc: maz@kernel.org, oupton@kernel.org, kvmarm@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	catalin.marinas@arm.com, will@kernel.org, joey.gouly@arm.com, 
+	seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, 
+	mark.rutland@arm.com, steven.price@arm.com, vdonnefort@google.com, 
+	qperret@google.com
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Wed, Nov 11, 2026 at 11:38=E2=80=AFPM <netdev-bot+sashiko@kernel.org> wr=
-ote:
->
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue(s) to consider.
->
-> Critical: 0 =C2=B7 High: 1 =C2=B7 Medium: 0 =C2=B7 Low: 0
->
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwor=
-k
-> know by including "pw-bot: cr" as a separate line at the end of your repl=
-y
-> (one such reply per series is enough).
->
-> - [High] This patch replaces the egress port mask in yt921x_fdb_join()
->   (drivers/net/dsa/motorcomm/chip.c) only when the existing hardware=E2=
-=80=A6
+Hi Ryan,
 
-Looks like a pre-existing issue.
+On Wed, 11 Nov 2026 13:59:17 +0000, Ryan Roberts <ryan.roberts@arm.com> wrote:
+[...]
+> > diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
+[...]
+> > @@ -2622,6 +2622,10 @@ static void kvm_hyp_init_symbols(void)
+> >          kvm_nvhe_sym(__icache_flags) = __icache_flags;
+> >          kvm_nvhe_sym(kvm_arm_vmid_bits) = kvm_arm_vmid_bits;
+> >
+> > +        kvm_nvhe_sym(spectre_v2_state) = arm64_get_spectre_v2_state();
+> > +        kvm_nvhe_sym(spectre_v4_state) = arm64_get_spectre_v4_state();
+> > +        kvm_nvhe_sym(spectre_bhb_state) = arm64_get_spectre_bhb_state();
+>
+> Is it really correct to snapshot this state then use it at runtime assuming its
+> still accurate? See below...
+
+These can't change after this point: update_mitigation_state() doesn't
+update a state once system_capabilities_finalized() is true, and
+kvm_arm_init() runs after that.
+
+[...]
+> > diff --git a/arch/arm64/kvm/hyp/nvhe/pkvm.c b/arch/arm64/kvm/hyp/nvhe/pkvm.c
+[...]
+> > @@ -1181,8 +1187,70 @@ bool kvm_handle_pvm_hvc64(struct kvm_vcpu *vcpu, u64 *exit_code)
+[...]
+> > +        case ARM_SMCCC_ARCH_FEATURES_FUNC_ID:
+> > +                /* The workaround calls themselves are handled on hyp entry. */
+> > +                val[0] = SMCCC_RET_NOT_SUPPORTED;
+[...]
+> > +                case ARM_SMCCC_ARCH_WORKAROUND_2:
+> > +                        switch (spectre_v4_state) {
+> > +                        case SPECTRE_VULNERABLE:
+> > +                                break;
+> > +                        case SPECTRE_MITIGATED:
+> > +                                /* With SSBS advertised the guest's default is safe. */
+> > +                                if (kvm_has_feat(vcpu->kvm, ID_AA64PFR1_EL1, SSBS, IMP))
+> > +                                        break;
+>
+> For this case (and the break immediately above) you return val[0] =
+> SMCCC_RET_INVALID_PARAMETER (from init at top of this function). But the
+> kernel's kvm_smccc_call_handler() returns val[0] = SMCCC_RET_NOT_SUPPORTED in
+> these cases (which seems more likely to be correct). Does this violate the ABI?
+
+Both return NOT_SUPPORTED. val[0] is set to it at the top of the
+ARM_SMCCC_ARCH_FEATURES_FUNC_ID case.
+
+>
+> > +                                fallthrough;
+> > +                        case SPECTRE_UNAFFECTED:
+> > +                                val[0] = SMCCC_RET_NOT_REQUIRED;
+>
+> Is it possible that the (compromised) kernel could have disabled the mitigation
+> after the state snapshot was taken? I.e. spectre_v4_state == SPECTRE_MITIGATED
+> and the VM doesn't advertise SSBS so it returns SMCCC_RET_NOT_REQUIRED here. But
+> the kernel has since turned off the mitigation?
+
+Yes, where the mitigation is the firmware one. The host can disable it
+with an ARM_SMCCC_ARCH_WORKAROUND_2 call, which EL2 forwards, and EL2
+doesn't enable it again before running the guest. With TF-A that's
+only on a Cortex-A76 without SSBS, the only CPU it implements the
+dynamic workaround for.
+
+I'll send out a fix. Thanks for spotting this!
+
+Cheers,
+/fuad
