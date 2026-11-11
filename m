@@ -1,68 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.95.11.211
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794415383;
-	b=s+u7jG8NhcWkVqlpeYHR1PMaoPXDTjGW+5y2Jh7SlFaiDfSpQBGMwwss3r/6g4y/e2Xr
-	 wIUz1C0MeVrBc1+lNVsE1JHUa9/0F3wNL5BzxK9ZPgItCkN8faRa4sQIwhnIA2zUJq5Qq
-	 oqK+0d6cA0Zh2l3/OshYBFPoKiFd1lTThMP0MNciI6p/jOxsNKD+UUvDn9OGMGpMY/6Nd
-	 qx+DIFIlZXSVNBFIPq/j0TSEd+e6oVxp3gBW7xt5ly58FApNM23ldwL17LDp+TqsJfDWK
-	 9yz18K2DI3UQdpIuDRXmuZlYqKjDSYB9509oFf51r6Ih3OGeJLN9sGNrTCZwye34/ug==
+	t=1794415395;
+	b=gvjvbsPl2Q0ivpSYYNuvYZza16u8Yuncyn8LW25bmjLbRHocszVe8+r/U1kBSMbYlFCt
+	 4vCSVQIVTTSUmlMI3noiQlrqnTfe55gMUa8FyVnjJ7BM9a/Muz02Gqcm5gb2AS1G6cEDN
+	 H6z2IDRnPcd9QmxibapCtYROxy8HASPqwe0SwHnhorl7oPWTrUCHS/1iflZ87pSMxGoUf
+	 cdB519kHBM8U/yz5DJFJyXZhpv0pkVFYJt2dmLWT1m2vo9Y7eDvtrBYU3neX9/oxE1WXM
+	 bTOpQL4zyQHDXkj4/uMIcXInrmL2F/fo6vreEakGMkR71vOzVc72EEAAbwbyEibwYQA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794415383;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:X-Developer-Signature:X-Developer-Key:
-	 Content-Transfer-Encoding;
-	bh=XfL1LkLV6PZp/sIgqFTspEab58+KJnpcSZkBxVzkdRw=;
-	b=xiOBvTfwbr9hdx3cnf37gUxcSH3jISw2UvxBd+uD7VyRMQbaX9a0fc5U32LzBoE0klLI
-	 pkVy0gIm7RVGjEdHDePqiIbM8jBhTYdFL0pd/NTujgaH+HK/J1+y6+XEVEfElfnoiR9sN
-	 iF4dhVrnILry8q6Uo1Le5XjLTOFandt/OEakt5wpKB8jqU7CyYUlSQ85j5mx6oq/FBv2h
-	 HE//9oVPSnfd2AewI/D27eoaY4d/5KEsPdEeWBg5rvG76/D1HmTBdd3KP7o09vpNA7YzI
-	 vCD1DKtiVDWjBGb1HBOzZsTF/Pb3QXRAGQbLcmd1wFr/g4AdL8eKS4XDOvlI93Gunkw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794415395;
+	h=DMARC-Filter:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To:User-Agent;
+	bh=mMNwc/L5WVh73MBuimgul84oe/8CoXdF45cgMt+e8jc=;
+	b=LSz9BeEZv//a4Cjk+usHwKaPyKqxFk9Odbwpsw3GBLf3nodkDy+9lrZFkQS/B9BhFwdJ
+	 Y1QgAWMY7lPXTBc+n0fVmxdkenfsHmPMyTiswlmiGq8EQCy6/q4MKBxJvmnOvHh/qzQwF
+	 VCLqAwh1q/I2Tyg/dwzmky35hyPge1mAd+nSYtDBHRDS499UJ14yqgO//74ujhpOITblQ
+	 xYq95oMLJgRpoRFBWhuoVxEyBKTCs1NWXRHApmUvpNxoEQw6srq3v4h09i3aggpZdEyLx
+	 Ax2rcUkXMEYUOrdU0qwmEz94opk7wYNKhNCs71vCuGPGsfHTpGPUkJtQwy6O5jiSm3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="jNnud/yw";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=lst.de;
+	spf=pass smtp.mailfrom=lst.de;
+	arc=none smtp.remote-ip=213.95.11.211
+Received: from verein.lst.de (verein.lst.de [213.95.11.211])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE8F5606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 16:43:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jNnud/yw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7252E1F00A06;
-	Wed, 11 Nov 2026 16:42:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794415382;
-	bh=XfL1LkLV6PZp/sIgqFTspEab58+KJnpcSZkBxVzkdRw=;
-	h=From:To:Cc:Subject:Date;
-	b=jNnud/yw5Gdx9dHj8hc00zIESj/FRZkNQkZzz/XHMES4+CJ0RrTbyZnZV1h91kKyD
-	 SwFz6v6MYXL8qbLLgIm5q2Rq929flsQLg80l56tQRfELv1b2rOYydPU0PCNPf0wk3w
-	 kMM0rEGq0XzHW1GrSlitBghDG3cZ4bqOxlzDOHC9GgT1ckkwVwMgr4YsFBcSdgXdFO
-	 ht5xbhRFQbxnix2zUpvIHS8KMZv/x8Y1vN/nuaFkeJG0RmG/ZGuvVzOQwgY4bgwDgB
-	 OCmP3w6gYXM5hYyBntMurlsBgkJNGVeYqw6R2Yw/hLoBNPxyu9F9XabCsnkLQ15u1P
-	 h1Q4VmFMPwPKg==
-From: Thorsten Blum <blum@kernel.org>
-To: Andrzej Hajda <andrzej.hajda@intel.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Robert Foss <rfoss@kernel.org>,
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Damon Ding <damon.ding@rock-chips.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Heiko Stuebner <heiko@sntech.de>
-Cc: Thorsten Blum <blum@kernel.org>,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH RESEND] drm/bridge: analogix_dp: Use str_supported_unsupported() helper
-Date: Wed, 11 Nov 2026 17:42:41 +0100
-Message-ID: <20261111164243.77775-2-blum@kernel.org>
-X-Mailer: git-send-email 2.56.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6458D606A881;
+	Wed, 11 Nov 2026 16:43:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6458D606A881
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lst.de
+Received: by verein.lst.de (Postfix, from userid 2407)
+	id 0E6CB68D17; Wed, 11 Nov 2026 17:43:12 +0100 (CET)
+Date: Wed, 11 Nov 2026 17:43:11 +0100
+From: Christoph Hellwig <hch@lst.de>
+To: shao.mingyin@zte.com.cn
+Cc: kbusch@kernel.org, axboe@kernel.dk, hch@lst.de, sagi@grimberg.me,
+	linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 2/2] nvmet: use overflow-safe range checks in the file
+ backend
+Message-ID: <20261111164311.GB18076@lst.de>
+References: <20261111224134934XG6vMtntrNJQL1ztj7imr@zte.com.cn> <20261111224247129g0VbfWdGlwDMhBpChnT-8@zte.com.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,37 +49,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1209; i=blum@kernel.org; h=from:subject; bh=7Wa0OVeoMbTi4Rsw1ZGgLgGEh6+ZD0fkqEJ0pQ0kuzo=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFlfZjPvMLVfu+PgiWl3feNKBa8psEs2l33i0+94z+vD/ 0/9Zll1RykLgxgXg6yYIsuDWT9m+JbWVG4yidgJM4eVCWQIAxenAExEToaR4XXZneNJngVfpyqG ztHJVj/BYnptM+tGtYn3uJpdK5bI+jD8r32S3dr6L2bjo/rVeiXNZ+v0Z8uvjC383Kwwa8vdSff +sQAA
-X-Developer-Key: i=blum@kernel.org; a=openpgp; fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261111224247129g0VbfWdGlwDMhBpChnT-8@zte.com.cn>
+User-Agent: Mutt/1.5.17 (2007-11-01)
 
-Replace hard-coded strings with the str_supported_unsupported() helper.
-This unifies the output and helps the linker with deduplication, which
-can result in a smaller binary.
+On Wed, Nov 11, 2026 at 10:42:47PM +0800, shao.mingyin@zte.com.cn wrote:
+> From: Shao Mingyin <shao.mingyin@zte.com.cn>
+> 
+> The file backend shifts a host-supplied SLBA to form a byte offset
+> before checking it against the namespace size. The shift can discard
+> high bits: with a 4 KiB block size, SLBA 2^52 + 1 becomes offset 4096.
+> The range check then accepts a command aimed outside the namespace and
+> the backend accesses data at the wrapped offset.
+> 
+> Reject overflowing LBA-to-byte conversions and check the transfer
+> length against the remaining namespace size without adding it to the
+> offset. Apply the checks to reads, writes, discard and write zeroes.
+> 
+> Fixes: 9c891c139894 ("nvmet: check fileio lba range access boundaries")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
+> ---
+> 
+> Tested on 7.3.0-next-20261030 (QEMU/TCG guest) with the loop transport
+> and a 4 MiB file-backed namespace.
+> 
+> A Write with SLBA = 2^52 + 1 and a 4 KiB block size yields a byte
+> offset that wraps to 0x1000 and passes the size check:
+> 
+>   unpatched                            patched
+>   ret=0 (write accepted at 0x1000)     ret=24705 (Capacity Exceeded)
+>   drivers/nvme/target/io-cmd-file.c |   41 +++++++++++++++++++++++++++----------
+>  1 file changed, 30 insertions(+), 11 deletions(-)
+> 
+> diff --git a/drivers/nvme/target/io-cmd-file.c b/drivers/nvme/target/io-cmd-file.c
+> index 695963dd932e..d59dbf61b1b0 100644
+> --- a/drivers/nvme/target/io-cmd-file.c
+> +++ b/drivers/nvme/target/io-cmd-file.c
+> @@ -125,17 +125,22 @@ static bool nvmet_file_execute_io(struct nvmet_req *req, int ki_flags)
+>  	size_t len = 0, total_len = 0;
+>  	ssize_t ret = 0;
+>  	loff_t pos;
+> +	u64 pos64;
+>  	int i;
+>  	struct scatterlist *sg;
+>  
+>  	if (req->f.mpool_alloc && nr_bvec > NVMET_MAX_MPOOL_BVEC)
+>  		is_sync = true;
+>  
+> -	pos = le64_to_cpu(req->cmd->rw.slba) << req->ns->blksize_shift;
+> -	if (unlikely(pos + req->transfer_len > req->ns->size)) {
+> +	if (unlikely(check_shl_overflow(le64_to_cpu(req->cmd->rw.slba),
+> +					req->ns->blksize_shift,
+> +					&pos64) ||
+> +		     pos64 > req->ns->size ||
+> +		     req->transfer_len > req->ns->size - pos64)) {
 
-Signed-off-by: Thorsten Blum <blum@kernel.org>
----
- drivers/gpu/drm/bridge/analogix/analogix_dp_core.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+This condition looks like something that should be factored into a
+helper to a bit more readable and so that the pos64 variable can be
+hidden inside it.
 
-diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-index 6df6963740d2..59d3ff9bcde4 100644
---- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-+++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-@@ -19,6 +19,7 @@
- #include <linux/of.h>
- #include <linux/phy/phy.h>
- #include <linux/platform_device.h>
-+#include <linux/string_choices.h>
- 
- #include <drm/bridge/analogix_dp.h>
- #include <drm/display/drm_dp_aux_bus.h>
-@@ -745,7 +746,7 @@ static int analogix_dp_fast_link_train_detection(struct analogix_dp_device *dp)
- 	}
- 	dp->fast_train_enable = !!(spread & DP_NO_AUX_HANDSHAKE_LINK_TRAINING);
- 	dev_dbg(dp->dev, "fast link training %s\n",
--		dp->fast_train_enable ? "supported" : "unsupported");
-+		str_supported_unsupported(dp->fast_train_enable));
- 	return 0;
- }
- 
+Otherwise looks good.
+
