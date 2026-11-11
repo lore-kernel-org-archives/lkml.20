@@ -1,74 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.70
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794375422;
-	b=1msh+9DjY02P97B/YJkrR7ChWPpud6WQIpcX3drOnEF3YsrdKSMNQyrIWgErYP72PclI
-	 IDbU5x1vfeGsxr/lyKV3fnmjFquzcMtAyuG5KqUKEOfuTs6AJEoPBg7P70rpsdaCY5ilA
-	 vwXn2IaJXmKM7Kp3r4jjtyyexRVD8NHbAfJCc2rKrb1WWT2dbgE28gPeACzERwXxvGbcl
-	 gn54Ow9f1XNkk7CaPveMd7kf0/pYZ1XcpVOzpboww71ROTEUlQyBMKOT69ZvXRrx+VJuI
-	 HkGw+xm9ZLY3lxMdZArQncd86JmWjXaI68ZIKBOSBDfbvvjFhqRa/+5YQB1xkXIFkwg==
+	t=1794375481;
+	b=FiJPcTKmYjaIhgKT9vvWD/LRQXrNrIQn7jVfDJWOJsXjaWGgUKmtnABErwljJDXyJn3g
+	 fH9y0CyNqilQBmcjlVgHBCRoP2M0c9NCRNfHn6B8tlgkNDjUTBfr45EoKiOTsf4xm/hXR
+	 /YPlQEYg+9YoaVfqqkv2UxoftwjV9d1RhBAxGIrytUale+7AM9Ics1PM75bCTuicsBYua
+	 Lg5YX2jhOdCtBAXp2H+mcgL4IGd2AE+QTNRY1Ityx/t1qkidrfvICKm1gpVlumrIBs93Y
+	 4gqQ9qu6Q30iuIxoqSAAbcV7qwxvuwAuImSQiohvU7UEs8xukAK24BZ/wKt/hFiK38A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794375422;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=eLmVTYOfswJ+cGfMoCZUFy1VK5TCu4veYLS+0REM4CM=;
-	b=bBTFf9mgNZjJ8f8Q7w3HFRGBJw2ozyLL/6dATNbepNUrX53wdTwcJD/krb/Na/P++BE3
-	 KifNei7LEqrqzIy1BMu76+sOaFa8H1ZQnrjWYTWxrYEgYFecLzunWvSxGohBMXR3ja8od
-	 9X9aqy4wmqj5JGYJjfeuvM2hDyRYdC7O0mvahTMVvv+MuzuXZ3S09buMfeuiH7ZlIE+VB
-	 yCVv/wEN96WgphuaU+EUpjbSW/efJlmMe3nUQ2p9tKFYqncmyg00GsLUzVVEvI3KabK6e
-	 LSfrB5+Zt7CuehCDQ69URh5Syp+7hT+TR3jIh0PmviWVXp0zKnyvtoj48WooEioLeeQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794375481;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=TM4300ynVj56R1yAfUhdSHiB+9FZEDCjo5dKTPk4HbE=;
+	b=OCysNxjkhr0aGXJHAJi30ZLixVW60pLjOXih2Ivit9nwgwSRBsWag8XFaPjwxGnJRZfg
+	 uZZlKGr5z/FBoA6LFlTb0XtkxhbFQTxJhclE9bjtD5k08p0xH6MCld7v8hgJkFYsKnU9i
+	 aF5AYbatfoPH8GlKvNllJPa+w8KweuHrHYVG4lE7h6FfQUn6hYtAciffmq7A3YUnp9NSc
+	 0cSuPvNeBLu5GdzfhRQYYXYLuqxR2PcZugtyPJ3nIMtfIA2MuzIAu5JncXjQw924Q2Hy3
+	 lmw4yQ+pnmIhO7vyUlPQ7mXoaGh2NE1s35HKdi+RN85Sse4TCvK4em9dAhv5fsZE2Ng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--tarunsahu.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=j0h7t6W2;
-	arc=none smtp.remote-ip=209.85.128.70
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com [209.85.128.70])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="GS/+SAjL";
+	arc=none smtp.remote-ip=198.175.65.9
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92F12606A326
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 05:37:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92F12606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--tarunsahu.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B08A606A31C;
+	Wed, 11 Nov 2026 05:37:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B08A606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=j0h7t6W2
-Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-4ba01393800so13044135e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 21:37:01 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794375420; x=1794980220; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=eLmVTYOfswJ+cGfMoCZUFy1VK5TCu4veYLS+0REM4CM=;
-        b=j0h7t6W2DhVdMUK6Ake7JqZjqrnTvHtViAvJAdnP83aR3NfgvIHJywMNNZw2qDFFYJ
-         pZVHUlmqFSM0KTJ6KVSrk78AmbGhzrjkNyJThYbaCbowANuc6lSdDGXt5hINeyqJspkW
-         6+9+aP/K6t57zRXMZvIa1sdCqATbWCBs0Af0GV+w/9ssx/kDyne1QjMnI7LNbeKsR2nY
-         z2sf5dPvG4eOvKvELtfHTr97/MUcE9vGfDqwxg7s9FgiDgwLaLfE15EIe132P5/hGL2M
-         iHhvk0FcES6c9vCnyFTpsE2akeQay/L41FGbDg0wZPy0W0HZvzH2GkJkEQUovdYlXLBz
-         EZyQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794375420; x=1794980220;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=eLmVTYOfswJ+cGfMoCZUFy1VK5TCu4veYLS+0REM4CM=;
-        b=o/kKv8Z6z+kbFHbQ+2tSC4DTZiYus5W2fp+vIsUF4kniB+JqDOdMVR8TlXlPd7u9gn
-         gLkGsJgv319uFs7do1dIiiqqwqEO7NysHscKS+3/LPZJBnqHoaIeu2HfMRfGLnKkcbhu
-         TLGlmuNHUGdtcROlnVtML2mX7IgRVh2S3o45gqeDu8LA3J9PRfowWn0hVaW+ah/W1XKw
-         DuSmTP/e3BVNYBGJx3y1F0ZPnSjoitrVtN7GhhjCLv8oCTFSyLrxSXkH418Hc576YyHe
-         YH7r9tjPLliBww6d15MxVPMb7wpYwk729kZp8Nc2/mmztzVtCyKJmmLrUb+rlOf0h2CH
-         fYCg==
-X-Forwarded-Encrypted: i=1; AL+hErFaSkEDmTZhPOn3xyMnt7POTFqCTeQ13O9+8705u8U1Nq/Z7XeHdEj7VFgcJ+iTicGsKUcnmDI8bPchCkU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/sxkm1mvwnJDrkpqApjLFYn/4Z78tYYqyR0K0OUcrj8UV0HNa0
-	Yx+4xoOnL9WnbKcvGSo+JAxkB4Ayg/Fuk+cPJX25JoyxmM78YCZHNd0orbG+Pb7iqDrc062Kah4
-	pydj6P6flh9QbScsh5A==
-X-Received: from wmsl10.prod.google.com ([2002:a05:600c:1d0a:b0:4a3:5d5b:9ad9])
- (user=tarunsahu job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:600c:810c:b0:4a1:fbd2:f689 with SMTP id 5b1f17b1804b1-4ba09379cc1mr15865455e9.7.1794375419814;
- Tue, 10 Nov 2026 21:36:59 -0800 (PST)
-Date: Wed, 11 Nov 2026 05:36:58 +0000
-In-Reply-To: <DMRJJX2ZSYQT.2U1TTBGE7R4RA@soleen.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=GS/+SAjL
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794375479; x=1825911479;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=puKIpX6ZiFMLpkLQOCcxTMxREkeXgFUZUCvVOUptx0Q=;
+  b=GS/+SAjL1HAYyqcA8P4UOpFsn9i4Db52M2i8bxta5J8tZjC9FL5aWK2O
+   dTqjJkxSvlxpbz0VwaH/WbmM1S1BULHmw1j39gddz36spm4eYBlI4d/Pz
+   BosW7iS+AK4wTXZNkKZGCWsAz7zPI0B9xSLl40pmTghIXf8FkweoNXu2z
+   xYbiYrHeP88sWXaPHmO8gHrFOd4qrvxJQ56Zb4aQrdhSgR1KPw8MTt+dM
+   LmVGfx5F9l0iekqZslp7HiRB2oUE9kkPJz04/pPHmNt5tIKqGsRPDd/O6
+   e8SSEbY0iV5SDerbR+5JQ0cLIWkeJv2LOjci1/g5Y5hGPohXBbmFsmhj4
+   w==;
+X-CSE-ConnectionGUID: YollsKrkSWyGumYlNQLXEQ==
+X-CSE-MsgGUID: onslGFLxSU2l4/4RXq5fdg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11962"; a="3047276"
+X-IronPort-AV: E=Sophos;i="6.27,207,1787036400"; 
+   d="scan'208";a="3047276"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 21:37:58 -0800
+X-CSE-ConnectionGUID: 6Q7RpQDzROyZWen9Dj3xXQ==
+X-CSE-MsgGUID: Ak1aABBOR8aI6hevP974vw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,207,1787036400"; 
+   d="scan'208";a="8761142"
+Received: from p16nuc01ptl.png.intel.com ([10.107.254.77])
+  by fmviesa007.fm.intel.com with ESMTP; 10 Nov 2026 21:37:55 -0800
+From: KhaiWenTan <khai.wen.tan@linux.intel.com>
+To: Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Richard Cochran <richardcochran@gmail.com>,
+	Vinicius Costa Gomes <vinicius.gomes@intel.com>,
+	Tony Nguyen <anthony.l.nguyen@intel.com>
+Cc: netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Song Yoong Siang <yoong.siang.song@intel.com>,
+	Looi Hong Aun <hong.aun.looi@intel.com>,
+	KhaiWenTan <khai.wen.tan@intel.com>
+Subject: [PATCH net 1/1] af_packet: Fix wrong timestamps in tcpdump
+Date: Wed, 11 Nov 2026 13:37:28 +0800
+Message-Id: <20261111053728.2611070-1-khai.wen.tan@linux.intel.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,128 +88,90 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261110050202.529473-1-tarunsahu@google.com> <DMRJJX2ZSYQT.2U1TTBGE7R4RA@soleen.com>
-Message-ID: <9huz5wy4q685.fsf@tarunix.c.googlers.com>
-Subject: Re: [PATCH v4 00/19] kho, liveupdate: Add feature header for
- fine-grained ABI compatibility
-From: tarunsahu@google.com
-To: Pasha Tatashin <pasha.tatashin@soleen.com>, Mike Rapoport <rppt@kernel.org>, robin.murphy@arm.com, 
-	maz@kernel.org, will@kernel.org, David Matlack <dmatlack@google.com>, 
-	Alexander Graf <graf@amazon.com>, seanjc@google.com, jgg@nvidia.com, loganodell@google.com, 
-	arnd@arndb.de, dwmw2@infradead.org, baolu.lu@linux.intel.com, 
-	Bjorn Helgaas <bhelgaas@google.com>, oupton@kernel.org, alex@shazbot.org, 
-	gle.com@google.com, pbonzini@redhat.com, 
-	Andrew Morton <akpm@linux-foundation.org>, kevin.tian@intel.com, joro@8bytes.org
-Cc: kvmarm@lists.linux.dev, linux-pci@vger.kernel.org, 
-	Pratyush Yadav <pratyush@kernel.org>, kexec@lists.infradead.org, kvm@vger.kernel.org, 
-	iommu@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	skhawaja@google.com, sagis@google.com, linux-arch@vger.kernel.org, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-"Pasha Tatashin" <pasha.tatashin@soleen.com> writes:
+From: Vinicius Costa Gomes <vinicius.gomes@intel.com>
 
-> On Tue Nov 10, 2026 at 12:01 AM EST, Tarun Sahu wrote:
->> This v4 of feature flags support for LUO and KHO is no longer an RFC.
-...skip
->>
->> Each serialized structure is preceded in memory by struct kho_ser_hdr
->> and registered via DECLARE_KHO_SER(name, payload_size, nr_required,
->> nr_optional). Both struct kho_kexec_metadata and struct pci_dev_ser are
->> explicitly marked with __aligned(8) because their largest member is a
->> 32-bit integer, and 8-byte alignment is required by DECLARE_KHO_SER() so
->
-> I do not believe we need __aligned(8), because the struct immediately 
-> follows the newly introduced kho_ser_hdr, which is 8-byte aligned. 
-> However, we should verify that the combined size (header + payload) 
-> is 8-byte aligned.
+Since commit 97dc7cd92ac6 ("ptp: Support late timestamp determination"),
+timestamps may need to be retrieved with input from the driver
+.ndo_get_tstamp(). Support was missing from mmap'ed AF_PACKET sockets.
 
-Yes, we can check total size alignment and remove the __aligned(8). I
-will update it.
+The problem was noticed using the igc driver, that since commit
+069b142f5819 ("igc: Add support for PTP .getcyclesx64()") has migrated to
+use .ndo_get_tstamp() that timestamps were wrong on the receiving side,
+when using tcpdump.
 
-~Tarun
+Fixes: 069b142f5819 ("igc: Add support for PTP .getcyclesx64()")
+Cc: stable@vger.kernel.org
+Signed-off-by: Vinicius Costa Gomes <vinicius.gomes@intel.com>
+Signed-off-by: KhaiWenTan <khai.wen.tan@linux.intel.com>
+---
+ net/packet/af_packet.c | 29 ++++++++++++++++++++---------
+ 1 file changed, 20 insertions(+), 9 deletions(-)
 
->
->> trailing feature payloads remain 8-byte aligned across 32-bit and 64-bit
->> kernels.
->>
->> Also, Introduce DECLARE_KHO_SER_HDR(ser_name, fhdr) which is just the
->> wrapper for struct kho_ser_hdr fhdr, This makes it clear
->> To which ser_name, this fhdr belongs to.
->>
->>
->> Series structure:
->>   - Patch 1 removes __packed from KHO, LUO, and memfd ABI structures and
->>     asserts their natural size and 8-byte alignment under CONFIG_64BIT.
->>   - Patch 2 records entry_size in struct kho_block_header_ser so the
->>     incoming kernel derives the entry stride from the block header.
->>   - Patch 3 converts callers that embedded struct kho_vmalloc by value
->>     (memfd_luo and test_kho) to reference it via DECLARE_KHOSER_PTR so
->>     struct kho_vmalloc can grow independently.
->>   - Patch 4 converts struct luo_session_ser to reference
->>     struct luo_file_set_ser via DECLARE_KHOSER_PTR instead of embedding
->>     it by value so both structures can grow independently.
->>   - Patch 5 introduces struct kho_ser_hdr, DECLARE_KHO_SER(),
->>     DECLARE_KHO_SER_HDR(), and the serialization/validation helpers in
->>     include/linux/kho/abi/feature.h.
->>   - Patches 6-18 add the feature header to each of the 13 KHO, LUO, PCI,
->>     and memfd serialized structures in independent patches.
->>   - Patch 19 adds a KUnit test suite (kho_feature) covering the feature
->>     header helpers.
->>
->> [1] https://lore.kernel.org/all/20260903023452.721732-1-loganodell@google.com/
->> [2] https://lore.kernel.org/all/20261021152527.375070-1-tarunsahu@google.com/
->> [3] https://lore.kernel.org/all/20261026174217.603114-1-tarunsahu@google.com/
->>
->> Tarun Sahu (19):
->>   liveupdate, kho: Remove __packed from KHO, LUO and memfd ABI
->>     structures
->>   kho: block: Record the entry size in the block header
->>   kho, memfd_luo: Reference struct kho_vmalloc via serialized pointer
->>   liveupdate: Reference struct luo_file_set_ser via serialized pointer
->>   kho: Add feature header for fine-grained ABI compatibility
->>   kho: kexec_metadata: Add the feature header
->>   kho: vmalloc: Add the feature header
->>   kho: block: Add the feature header to blocks
->>   liveupdate: Add feature header to struct luo_ser
->>   liveupdate: Add feature header to struct luo_session_ser
->>   liveupdate: Add feature header to struct luo_file_set_ser
->>   liveupdate: Add feature header to struct luo_file_ser
->>   liveupdate: Add feature header to struct luo_flb_header_ser
->>   liveupdate: Add feature header to struct luo_flb_ser
->>   PCI: liveupdate: Add feature header to struct pci_ser
->>   PCI: liveupdate: Add feature header to struct pci_dev_ser
->>   mm: memfd_luo: Add feature header to struct memfd_luo_ser
->>   mm: memfd_luo: Add feature header to struct memfd_luo_folio_ser
->>   kho: Add KUnit test for the feature header helpers
->>
->>  MAINTAINERS                            |   1 +
->>  drivers/pci/liveupdate.c               |  99 +++----
->>  include/linux/kexec_handover.h         |  15 +-
->>  include/linux/kho/abi/block.h          |  21 +-
->>  include/linux/kho/abi/feature.h        | 372 +++++++++++++++++++++++++
->>  include/linux/kho/abi/kexec_handover.h |  11 +-
->>  include/linux/kho/abi/kexec_metadata.h |  17 +-
->>  include/linux/kho/abi/luo.h            | 102 ++++---
->>  include/linux/kho/abi/memfd.h          |  27 +-
->>  include/linux/kho/abi/pci.h            |  66 ++---
->>  include/linux/kho_block.h              |   8 +-
->>  kernel/liveupdate/kexec_handover.c     |  98 ++++---
->>  kernel/liveupdate/kho_block.c          | 172 +++++++++---
->>  kernel/liveupdate/luo_core.c           |  43 +--
->>  kernel/liveupdate/luo_file.c           |  58 ++--
->>  kernel/liveupdate/luo_flb.c            |  69 +++--
->>  kernel/liveupdate/luo_internal.h       |   9 +-
->>  kernel/liveupdate/luo_session.c        |  55 +++-
->>  lib/Kconfig.debug                      |  13 +
->>  lib/test_kho.c                         |  38 ++-
->>  lib/tests/Makefile                     |   1 +
->>  lib/tests/kho_feature_kunit.c          | 184 ++++++++++++
->>  mm/memfd_luo.c                         | 183 ++++++++----
->>  23 files changed, 1271 insertions(+), 391 deletions(-)
->>  create mode 100644 include/linux/kho/abi/feature.h
->>  create mode 100644 lib/tests/kho_feature_kunit.c
->
-> -- 
-> Pasha
+diff --git a/net/packet/af_packet.c b/net/packet/af_packet.c
+index cf6429f09477..7197236c8a3b 100644
+--- a/net/packet/af_packet.c
++++ b/net/packet/af_packet.c
+@@ -456,15 +456,20 @@ static int __packet_get_status(const struct packet_sock *po, void *frame)
+ 	}
+ }
+ 
+-static __u32 tpacket_get_timestamp(struct sk_buff *skb, struct timespec64 *ts,
+-				   unsigned int flags)
++static __u32 tpacket_get_timestamp(struct net_device *dev, struct sk_buff *skb,
++				   struct timespec64 *ts, unsigned int flags,
++				   unsigned int sk_tsflags)
+ {
+ 	struct skb_shared_hwtstamps *shhwtstamps = skb_hwtstamps(skb);
+ 
+-	if (shhwtstamps &&
+-	    (flags & SOF_TIMESTAMPING_RAW_HARDWARE) &&
+-	    ktime_to_timespec64_cond(shhwtstamps->hwtstamp, ts))
+-		return TP_STATUS_TS_RAW_HARDWARE;
++	bool cycles = sk_tsflags & SOF_TIMESTAMPING_BIND_PHC;
++
++	if (shhwtstamps && shhwtstamps->hwtstamp &&
++	    (flags & SOF_TIMESTAMPING_RAW_HARDWARE)) {
++		ktime_t tstamp = netdev_get_tstamp(dev, shhwtstamps, cycles);
++
++		return ktime_to_timespec64_cond(tstamp, ts) ? TP_STATUS_TS_RAW_HARDWARE : 0;
++	}
+ 
+ 	if ((flags & SOF_TIMESTAMPING_SOFTWARE) &&
+ 	    ktime_to_timespec64_cond(skb_tstamp(skb), ts))
+@@ -476,11 +481,16 @@ static __u32 tpacket_get_timestamp(struct sk_buff *skb, struct timespec64 *ts,
+ static __u32 __packet_set_timestamp(struct packet_sock *po, void *frame,
+ 				    struct sk_buff *skb)
+ {
++	struct net_device *dev = skb->dev;
++	unsigned int sk_tsflags;
+ 	union tpacket_uhdr h;
+ 	struct timespec64 ts;
+ 	__u32 ts_status;
+ 
+-	if (!(ts_status = tpacket_get_timestamp(skb, &ts, READ_ONCE(po->tp_tstamp))))
++	sk_tsflags = READ_ONCE(po->sk.sk_tsflags);
++	ts_status = tpacket_get_timestamp(dev, skb, &ts, READ_ONCE(po->tp_tstamp), sk_tsflags);
++
++	if (!(ts_status))
+ 		return 0;
+ 
+ 	h.raw = frame;
+@@ -2424,9 +2434,10 @@ static int tpacket_rcv(struct sk_buff *skb, struct net_device *dev,
+ 	/* Always timestamp; prefer an existing software timestamp taken
+ 	 * closer to the time of capture.
+ 	 */
+-	ts_status = tpacket_get_timestamp(skb, &ts,
++	ts_status = tpacket_get_timestamp(dev, skb, &ts,
+ 					  READ_ONCE(po->tp_tstamp) |
+-					  SOF_TIMESTAMPING_SOFTWARE);
++					  SOF_TIMESTAMPING_SOFTWARE,
++					  READ_ONCE(sk->sk_tsflags));
+ 	if (!ts_status)
+ 		ktime_get_real_ts64(&ts);
+ 
+-- 
+2.34.1
+
