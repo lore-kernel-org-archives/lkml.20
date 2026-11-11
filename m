@@ -1,54 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.5
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794381514;
-	b=qAmHmkUYEbv8ezZ4s5ZaskvNLJiVQX/q//og7cZblbB6HskNhkQ81cyLHmuw6p9V6Yu9
-	 zo0typMAqNn0aKuamNKE5mErpB4QwBAqQlwg79x5avNEVyMvuonQmv2uXUsEPxF2OCW+k
-	 Y8dZ0zZzOsKo5E++2GwVyLKl6rDyPbjgzPDJ3zzakTpsSrKlsRG3GzJu9kcMzvLUBcXnV
-	 IT6V7fPW39cBIuZTA9osRp8xdqRGEyd4/ivVOgh2k6CcZviF1Glkc8WcZwWGkB8T2ImYX
-	 jZoNgWw/gJdRY7izZJD0yZe8zvwruKR0tkYkzz6rso9oALCRN/cB2qIOpOFGNaYHqWw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794381514;
-	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-CM-TRANSID:
-	 X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=NXrfmHI5m7P6Ka/WZtyj2dVnXi1+V6LgIXrMbsaEdd0=;
-	b=Rt5umbi9jD8SOW2KTD96/8IiW5KuhZLMSWhtS4LoXLtjSkdua4pr9wWKzoI2HOa26RwU
-	 /jR9h55Cq4uysy16jsu6L2n+Pgr+1CSUe9anFL1DxPMBEJ5yUS/ITSdKRs7T4Ph6xTJOM
-	 iC2YWVk710HLg1E6HkZniKGY2sobTDGzL7d697HPyihlTAwhqYxK872jvntsgpxhpaJ2K
-	 MT70HpT8m9VKqB4U0YkWf+VmgmwDahb0DjLbCo0+WdBVYhg6TeXJ+dnvztDEL3KImHhoC
-	 oJPdJIMcGGlWaAwJ/JBguqAa1ovMTXTUJl/O6Osb7Z6LjKPzEwGaPJZ1qg3vZ8+sbZQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=EmgzznpL;
-	arc=none smtp.remote-ip=117.135.210.5
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794381582;
+	b=DRboKnMXzoJ7x7X9iyoRb+T1FY9hPjYQyi5WCyglQjeIO/uas3QyE3zNV+4IUCWZD2E7
+	 MI2DemXhCEXG0QSIab7VeTCxgUFXBYyIKs70Jbfx821GYRSPtZCOk1R03qXmTeMkxrpfd
+	 yH2JxomD6QqvoLyjqu7W3q62dzpoRuTC+Ydw67WOjIZLPF9r3nCP9IxmV8lCxFIgDDFEO
+	 5b+bcb0phUeNSRvkagpZrWy/7fx3Tp/x4gAnvgq+tQaBySSz9ebmghkRWoK1Wsq8TvUQZ
+	 1H4PXu1ZodqutsQP4xivzv+9eTXk0/2cgp+7JmDFxJxEwl4HgMmgtzUDX50mslHaoSQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794381582;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=83VQc+V/d7sVytOA37pnJFrWAXWZbo8taqD5cZTmQxw=;
+	b=xIGKlKXoWS1Oi17GKKh7KGTLnf9gLZkM1GdczwQfsE0vCFxXHqncb/kzhXe6WTANgUzN
+	 HHb5Kkj7cxC6LcyQwWV48jsZAsB1lcrBKI6xopIDSSlJcWbKSoKiprQFiC5wxwiWSicEJ
+	 twGse3mRX6ibfKoUlVXf9CkoRrqLGhyEHNW0YWZbwmjb2auJ2vrgoOeXgHocGJNdSPl4V
+	 6ZCZXmp9VndOgEQ9a3cxwAebmKTqbGBPtFzz11KeCsgxWwWSOzdyGqq19KW2F/LMCrTQm
+	 mGitbtTD14V/niXRQbzaJdXIy0YNYc4mgdAHdw1WnLkFDkHYsMjZ3p2IC11tWjutV4Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Eyu0Dzke;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7F22606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 07:19:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Eyu0Dzke
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794381582;
+	b=i7U5cy1IMGIYDIghRZr9xuLBHRB4nzNsOoC2ibO6rLnwpL5NTKxCBw/gSOAliUfBSLxu
+	 QLNysSAIJTzCeQ8VB5TuvtEPA9xWjTezIVuyigCKNzX3QQ+hE15ep/SBLriCEcLWOxkTD
+	 7/czv45VsCy5y9y+8K0OcMT2UmbswdsVOuD0C0adbJYjU7Qz/1RzXHYEEhlWStFkriDNv
+	 zzBPoC0k1/D3YTEUvuXz2rC95Engs3LDIJtkF2jYNlaWoytzFtvb0aceySlcYTsMX93Sr
+	 O6T7st24TZWR6hMEEmiHbj1xS1YG6xIsdttAqr7Qyu+x+sTOZKiyO0wtJy2CI6xeEsA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794381582;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=83VQc+V/d7sVytOA37pnJFrWAXWZbo8taqD5cZTmQxw=;
+	b=pcT6WQBWqhz0a6XcKSaqrYEz8OyAya2pYIXa5rQBhrLXL7YF2IRERVvmOJl7Jrv+9Bxx
+	 4GrOgxkGgUHOStj8eoa72/q6P/UIULgMp4IDwkQcygKdmcve2PkyRr2fmjvfy8OyHoK5y
+	 JdrVEs4+UCXjPTJmE7ogxwJfxYDvhDM0KYydFgUfsBq+CtjV4SkdJR5BP4elGs7kCcgdg
+	 ueTQNy/GYDeesEmNWPQdv8t6HT+ajgX93/rlBU/oyDZTx11H/Ik5khA3BVeX0/rc2ZMze
+	 2mTNRgioJid0fLcpQL/FuWn5whYEjDN7tBUQcHj1BpaQf6Xwi464lxq+AtoiNwsAUzQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB13A606A320;
-	Wed, 11 Nov 2026 07:18:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB13A606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=EmgzznpL
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version:
-	Content-Type; bh=NXrfmHI5m7P6Ka/WZtyj2dVnXi1+V6LgIXrMbsaEdd0=;
-	b=EmgzznpLQefOSiFNRSApwZ7UvYvdqyH6I3n9neTV+tMky8aawjhv+UC6lidcG+
-	gehXfZFLXngb40rZdM+ypfYDD/wOHjq6sRl8iacuWe3uuMtzT0utkJkHtqPTgrR8
-	Ehop7REIwVEnETz0KkZ15LqnrQJ12s7doUfRfAWkBfJHo=
-From: Chaosheng Qu <quchaosheng000406@163.com>
-To: Robin van der Gracht <robin@protonic.nl>,
- Oleksij Rempel <o.rempel@pengutronix.de>,
- Oliver Hartkopp <socketcan@hartkopp.net>,
- Marc Kleine-Budde <mkl@pengutronix.de>
-Cc: kernel@pengutronix.de, linux-can@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH net v8 0/4] can: j1939: fix the abort timer and bound EDPO
-Date: Wed, 11 Nov 2026 15:20:00 +0800
-Message-ID: <1794300100.11111.1000000@163.com>
+	by smtp.kernel.org (Postfix) with ESMTPS id B67EC1F00A05;
+	Wed, 11 Nov 2026 07:19:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794381582;
+	bh=83VQc+V/d7sVytOA37pnJFrWAXWZbo8taqD5cZTmQxw=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=Eyu0Dzkecdtiey1ZynU2sG/qi8i1f/+P4YKS3y+4Gkn4K55QV95okpA0c1lVKHOWm
+	 KiFMD7wkdq1S3Rg+ZC6IlZPHxU9swHK5QmKhy4exCFC8e3XBTvmoKBij0IU1yqOcrq
+	 1ozdWXTVxpVoms7ba1pIoSbw6O9xYorL/H9RDcpd1KyOeWq2v+WKjvklneT0a+2fxY
+	 Kc5mix5TiO2kv3oUQ4SE9UQ2QiNQ/924t3X6E6kSZR4BQB1t+Rwol9LAkVsKc/ISwx
+	 o39+PsFVBixthzVfPMG7cEO8seAykS+6YQ3Gl7hE8tyOOMWu+k4cI/+gT2pygTlYbU
+	 Kippfj3w0atCg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 1654948E41;
+	Wed, 11 Nov 2026 07:19:41 +0000 (UTC)
+From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
+Date: Wed, 11 Nov 2026 07:19:41 +0000
+Subject: [PATCH v2] drm/bridge: Fail an unsatisfiable bus format
+ negotiation with -EINVAL
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,48 +84,139 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PigvCgBn8zitFvRqUahNFQ--.11610S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7WFy7WFy3JF43WF13Wr18AFb_yoW8Ww4Dpr
-	Wagry5Jr1DJF429ws3JF4DXFy5Zr4ftay5Jrnag34xAay5GF15KFyUG3sIgFZrA3ykC3y2
-	9rsFgw15Cr4qv37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jomhrUUUUU=
-X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbC4w6I-Wr0Fq7HOgAA3D
+Message-Id: <20261111-drm-bridge-busfmt-einval-v2-1-fbb74905614b@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/42NTQ6CMBBGr0Jm7RimEKKuvIdhQdsBxlAwLTQaw
+ t0teAGXL9/PWyGwFw5wy1bwHCXINCZQpwxM34wdo9jEoHJVEVGO1jvUXmxK9BJaNyPLGJsBlTE
+ XXVjKy2sBaf7y3Mr7uH7UPw6LfrKZ97+90UuYJ/853JH23h+aSEhokqTUVhWqKu+da2Q4m8lBv
+ W3bF9Z/s8LSAAAA
+X-Change-ID: 20261110-drm-bridge-busfmt-einval-2cc8b3d10493
+To: Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
+ Boris Brezillon <boris.brezillon@collabora.com>, 
+ Arun Iyengar <aiyengar1990@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794381580; l=4655;
+ i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
+ bh=Ziyi2IZLgbKXw37gKHjsH70kDZh1z3mkpnBpz48qVjs=;
+ b=CTIsg0OH7JUFZHae3BOEI0lTa03NHzsUj5+AJYyeUAkZXBYalcoBcTWtAguxGRZ2EpGL2Qucv
+ 5Xtku29gr03C7dzC4uZ1Sz8P/z6KDmNLgM9vJDlwzeeE3DIKfNGMmX/
+X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
+ pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
+X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
+ auth_id=1480
+X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
+Reply-To: aiyengar1990@gmail.com
+Content-Transfer-Encoding: 7bit
 
-v8 addresses the three findings from the sashiko review of v7.
+From: Arun Iyengar <aiyengar1990@gmail.com>
 
-1/4 is rewritten.  The v7 version cancelled the receive timer before
-taking active_session_list_lock and started it again under the lock, so
-two concurrent callers could both reach hrtimer_start(): the second one
-reprograms an already armed timer and the reference taken for the first
-arm is never dropped, leaking the session and its netdev reference.  The
-new j1939_tp_arm_rxtimer_locked() uses hrtimer_try_to_cancel(), which
-never waits for a running callback, so the cancel and the start happen
-together under the lock.  j1939_tp_set_rxtimeout() and the rx timeout
-branch of j1939_tp_rxtimer() use the same helper, so there is one arming
-path instead of three.
+drm_atomic_bridge_chain_select_bus_fmts() reports that no chain of bus
+formats fits with -ENOTSUPP, and drm_atomic_bridge_chain_check() passes
+that straight back through drm_atomic_helper_check_modeset() to the
+atomic and legacy modeset ioctls. -ENOTSUPP (524) is a kernel-internal
+code that userspace does not know; for a configuration the hardware
+cannot do the atomic API returns -EINVAL. Since the connector "color
+format" property makes the negotiation fail for any requested format a
+bridge chain cannot output, userspace now hits this routinely: a DW DP
+connector asked for YCbCr 4:2:0 on a sink without 4:2:0 support gets
+here with no matching format and would fail the atomic commit with
+errno 524, where an HDMI connector asked for the same returns EINVAL
+from the HDMI state helper.
 
-2/4 now calls j1939_session_timers_cancel() before aborting on an
-out-of-range EDPO, as the other receive-path abort handlers do.
-j1939_session_cancel() only rearms the abort timer, so the transmit timer
-stayed armed on an aborting session: on the transmitter path the retries
-kept firing until J1939_XTP_TX_RETRY_LIMIT and overwrote session->err with
--ENETUNREACH, on the receiver path they sent CTS or EOMA and clobbered the
-abort timeout.  It also carries the Fixes tag for the NULL dereference.
+Return -EINVAL when the negotiation finds no chain, with a debug
+message naming the encoder, and make the drm_bridge KUnit test of a
+chain with no bus format path, drm_test_bridge_rgb_yuv_no_path(),
+expect -EINVAL from the atomic commit.
 
-3/4 and 4/4 are unchanged from v7.
+Fixes: f32df58acc68 ("drm/bridge: Add the necessary bits to support bus format negotiation")
+Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+---
+Found while making the DW DP bridge honour the "color format" connector
+property on an Orange Pi 5 (RK3588S): once dw-dp only offers the bus
+formats of the requested colour format, a request the sink or the mode
+cannot take leaves the chain with no format, and the atomic check
+returns the kernel-internal -ENOTSUPP.
 
+Tested on that board with this patch and that dw-dp change, with a
+DisplayPort monitor whose EDID has no YCbCr 4:2:0 support: all 74
+commits asking for YCbCr 4:2:0 over the monitor's modes and depths are
+refused with EINVAL, as the same request on the HDMI connector is; the
+296 RGB, YCbCr 4:4:4/4:2:2 and automatic cases still get their format,
+with the picture checked by a camera.
 
-Chaosheng Qu (4):
-  can: j1939: serialize cancel and rearm of the receive timer
-  can: j1939: validate the EDPO packet number
-  can: j1939: drop the message when the reassembled skb is gone
-  can: j1939: reject a CTS that names more packets than the message has
+This patch was developed with Claude (Anthropic) as a coding assistant:
+it wrote the code and the commit message, and I reviewed and tested it
+as described above.
+---
+Changes in v2:
+- Make drm_test_bridge_rgb_yuv_no_path() expect -EINVAL instead of
+  -ENOTSUPP; v1 broke it, and I had not run the DRM KUnit tests. All
+  drivers/gpu/drm/tests suites pass with v2 (UML). Reported by Sashiko.
+  The colour format series added that check to record the value the
+  negotiation already returned; I found no review comment about the
+  error code on the test's postings (v6 to v17), and the atomic uAPI
+  reports a state the hardware cannot do with -EINVAL, as the HDMI state
+  helper does for the same colour format request.
+- Add the Fixes tag, for the commit that made the atomic check return
+  -ENOTSUPP. Suggested by Sashiko.
+- Cc Nicolas Frattaroli (author of the test) and Boris Brezillon
+  (author of the commit in Fixes).
+- Link to v1: https://patch.msgid.link/20261110-drm-bridge-busfmt-einval-v1-1-c0494bd23264@gmail.com
+---
+ drivers/gpu/drm/drm_bridge.c            | 11 +++++++++++
+ drivers/gpu/drm/tests/drm_bridge_test.c |  2 +-
+ 2 files changed, 12 insertions(+), 1 deletion(-)
 
- net/can/j1939/transport.c | 119 +++++++++++++++++++++++++++++++-------
- 1 file changed, 97 insertions(+), 22 deletions(-)
+diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
+index 8ae2f9b1db44..6a97b579c604 100644
+--- a/drivers/gpu/drm/drm_bridge.c
++++ b/drivers/gpu/drm/drm_bridge.c
+@@ -1437,6 +1437,17 @@ int drm_atomic_bridge_chain_check(struct drm_bridge *bridge,
+ 
+ 	ret = drm_atomic_bridge_chain_select_bus_fmts(bridge, crtc_state,
+ 						      conn_state);
++	/*
++	 * -ENOTSUPP is the internal "no bus format chain" code of the
++	 * negotiation. It is not a valid userspace error code; an atomic
++	 * check that cannot be satisfied fails with -EINVAL.
++	 */
++	if (ret == -ENOTSUPP) {
++		drm_dbg_atomic(bridge->dev,
++			       "[ENCODER:%d:%s] no bus format chain found\n",
++			       bridge->encoder->base.id, bridge->encoder->name);
++		return -EINVAL;
++	}
+ 	if (ret)
+ 		return ret;
+ 
+diff --git a/drivers/gpu/drm/tests/drm_bridge_test.c b/drivers/gpu/drm/tests/drm_bridge_test.c
+index 15583ade8494..792dbd035501 100644
+--- a/drivers/gpu/drm/tests/drm_bridge_test.c
++++ b/drivers/gpu/drm/tests/drm_bridge_test.c
+@@ -1351,7 +1351,7 @@ static void drm_test_bridge_rgb_yuv_no_path(struct kunit *test)
+ 		drm_modeset_backoff(&ctx);
+ 		goto retry_commit;
+ 	}
+-	KUNIT_EXPECT_EQ(test, ret, -ENOTSUPP);
++	KUNIT_EXPECT_EQ(test, ret, -EINVAL);
+ 
+ 	drm_modeset_drop_locks(&ctx);
+ 	drm_modeset_acquire_fini(&ctx);
 
--- 
-2.43.0
+---
+base-commit: 8deaade4a5a4ff635df91e246e42139ab2b33f6d
+change-id: 20261110-drm-bridge-busfmt-einval-2cc8b3d10493
+
+Best regards,
+--  
+Arun Iyengar <aiyengar1990@gmail.com>
 
 
