@@ -1,80 +1,131 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794376811;
-	b=AJLkKXLhU5ygIurVneIOvU3rd3CzG85qM0wbg+CzTcYROgDTaRAPjVQoW4tWJ27faIio
-	 25GBbuQhLs4GHVTXhHEngfF/it2/q1uF5nrrXh/AkSHcsW80h+y5B2jODQa5v3EPPQiad
-	 kcLBN/Kxe/Rs8gsXYMjQDo/K3bnNLtIwF/G8b7IrvYVnUgz2P8IaE3SbRPELmUtLxd+ht
-	 0TaDWgBikTkPKPc+JSwa4fbTkbOPS4BgSb634Vxt81WyM/yWRoLKeLHOlG0Gxlw9aNmIg
-	 25pMC7uax3wk4iMZhn5XqnOZGk47JmHh4odEbQyQAW5UUDpRLHR5G+tjk0nvIObUYOg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794376811;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=rWyI2kn+bRFE4cg/aEwcjlnzCwXp15YvqY3EZ5DhaVY=;
-	b=fcGJWC83kdHZpqbiUFryijDYJCrtGEBaPtp7t+hmK9Vd5pczUWhtY9IUNwifAbraApPJ
-	 GyHNuGoLxpS8Zig8atlvyR2O3GhAsnlO3dLXh7rGl0fJz36SVYf7+ISH31jmbeWB5oOM0
-	 59x6qBU5NJG8RDQgnerWlnpT36R1VgZYI+OzToCIyQ88i3i2xccqlN/pgLPM9MHY5HrBo
-	 QAElHR8EALSiN+z1RmtQm76hUcQL7Lj7Tklp3XYdAZ2rX4ZRbXxxz+bEARZEXltNuFdgf
-	 yX4WSoOD0s2ko6pQR/tHIDiQ9zrELKUkkTc8gzNAuguivHk1BTd1uGJOpLKzYApspFg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QfHrM5Q5;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31AB0606A31C;
-	Wed, 11 Nov 2026 06:00:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QfHrM5Q5
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794376811;
-	b=pmteJnxMAmJrgXq0GK40OQL4ZgOENIu9PMC+QhgRNUB3TQyqWQqxcB1W/kyUmSIQxTlD
-	 +YKJfGC6xMErZI+m339vH78Ta401w9lEV5zVVVNrEn3fXxKbu6Mp0J+WOdZupeQ9jQNTe
-	 gdnyJ4AeyZcReGef7dvWXaqOG0LQgoEaxRw30F9a6VZNa3WSpVJVNf3ZVT0UkZjbxxSUF
-	 hPnl1hjRF8Q8lK43urSujpCHvNT0yiG1o/wo3xu2IJNDWa5o6F4hHMPBnOBQTQcdDlFVF
-	 sJc7nePjNhoayQgUx226ELnCZyR4B62LzD9i+EhosuX9gh5xMvj9Gk+hXA6r79E1MUA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794376811;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=rWyI2kn+bRFE4cg/aEwcjlnzCwXp15YvqY3EZ5DhaVY=;
-	b=IAthSS9gnVfxktqq/T7baSgMc+QzxY8db60yQtXnHIOgiMJ+AODSrDyNIvKTwsSvrb8v
-	 SAejvY7r0QRSuh3HAjDL0nZC/BQleXJ9Nc35PR4io/EZ+W6fk5IB42/j1P2tZQM75rA7A
-	 afJNYNC0KD4nFRBI8YNFPf1uWBBOYvOGwsO4ifXhmJN4Z7sNGxOYUu2btYIF6hhJJ24CC
-	 4mR+vFxhHJyG/p7og1m97LW87HA4j/+KpwShWx0t5tnda/tPuRNAjPmsnNYj07MCb06Fy
-	 sqmA35rJHeKrr43y1YHjpugu9E1zhHXBkyGSyovgQuQvMxG/rG7A7x2yYU/0m9reNoQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.228
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794376831;
+	b=5tOP7zkgjGYGIcf5kJ7MceQhtcK0N5vKvGNgMWdlkJYFrLQ/ynS1su2Fyv+WHh7B9IwL
+	 NNhLw7d7X/2jwwaRspmiGdasEz3xpE9XrTE2+F0NWuSmfhojJDTjAi/13MVM8kiQ0JTZW
+	 DKKkgeExqvsaT9N6s1Crvf/tXU+DWrFc3MfDxMzTlcvbHHSZ9X8iQutOyBLORGMx0fei8
+	 n9VSeaeYF6FNL1xKW0juiZATwgODLdXPc9NGIazqv6SATJ32h7tnDlYDEBpl8pq+Z8jSt
+	 p4wkacVtivD4z4LYejC7juxRTK9BzS7EW7i28DhtmRGt/bFhrjJjHjdmGUBfuu+2A0Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794376831;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
+	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Received:X-Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-DetectorID-Processed;
+	bh=Wea7mMzw8MaI8LWt3cOMZKJ4EZ/5ojFJ5zLjX644Hno=;
+	b=jsplNXYICrQwYZRQXs3uHtBTAWWbRHfdfINr6b1FClF/Qt2GJGnMOo2+hEh2S0DGhY9y
+	 9Cdf1/7CGeQ8AieqlyHiZ+vUXM/y9TP3/DOJqd6260L3tThWbyZJHW3ycwYGNW2t2CIfj
+	 xsK6vOX0eeOTUseyhZNJedWhaH+cSnE10H24hTwejdLRnGBNIcYS7RIH3GkokBKaxHmXg
+	 aRNG2MiS4GUUHc1sVYCYf5jr6K//PhUiQ3kewM9UZkn6/Za3fyZsPMdGODA31EMJkNZsV
+	 nDdRKIQhRuCyg35a115g+TtgOcF9b7QVILgePPaHMhWDUrO42kw7g1gOLTN1kPQBskQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=broadcom.com;
+	spf=fail smtp.mailfrom=broadcom.com;
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=MswletqD;
+	arc=none smtp.remote-ip=209.85.215.228
+Received: from mail-pg1-f228.google.com (mail-pg1-f228.google.com [209.85.215.228])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 2FCBB1F00A06;
-	Wed, 11 Nov 2026 06:00:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794376810;
-	bh=rWyI2kn+bRFE4cg/aEwcjlnzCwXp15YvqY3EZ5DhaVY=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=QfHrM5Q5tlCF82OayNgYUv9e9GxPsgBGJpXEE7XmMvL8v0yuuMNnE0pdUjIsX8uaS
-	 L1s5QL69aqWukC2B+SONdqxjSsaG4ev5/SPxrs9CqED6WJvuYaYRDZsey6XRaz2Ro/
-	 urZtTUVUV54J6ScA6Lz6fRmFwdbtwwMfRHKKrJ9bnJuC3kG8aDNGF27tOKj4ntOK1U
-	 MggPKSgKDOm62Mnm+gO3fTgxTEy+YX7hp/3Dbj9jOvAAoR6zPBBOms4WltT9h8Rsjp
-	 gWbKvXS5CFJMaIugejZXhRkpZDsjNd2mkwQHyQGqQ6kL0CjBhGBsEmdCasVJbZT0Yz
-	 2TfuqjfKT7xhg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 838E648DD7;
-	Wed, 11 Nov 2026 06:00:07 +0000 (UTC)
-From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Subject: [PATCH v2 0/8] arm64: dts: allwinner: h616: Orange Pi Zero2 fixes,
- GPU DVFS and GPU cooling
-Date: Wed, 11 Nov 2026 06:00:06 +0000
-Message-Id: <20261111-h616-zero2-dt-v2-0-88d8030fc975@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D38A860A261D
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 06:00:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D38A860A261D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=MswletqD
+Received: by mail-pg1-f228.google.com with SMTP id 41be03b00d2f7-cdab938dc83so1131668a12.3
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 22:00:30 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794376830; x=1794981630;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:dkim-signature:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Wea7mMzw8MaI8LWt3cOMZKJ4EZ/5ojFJ5zLjX644Hno=;
+        b=XPlm8//A3AEOpkYaPWUgwQ43NuA3kh87Uex5WrNVsrBmgAxOt8NnILfSmXvQTqxAuF
+         ueMYkxvUiQwG/FPiP1Za2jWKYz+GIzZSKVT802v5snoFyZr7ChgkxIJD8++zjVDDz+w0
+         9HGr3ncenTI0d3qg+J7swASP1/RPk9tPJ+Tn1kfKa21iFtPHzNtEZ75L9ByafvDXT236
+         Vgy1ZSFAbzXbBvSRF77QaiTxZtCq33RUlcCAYyyt0xSJHQ2fiZ3DtHQ8lYO4bGG8rcb5
+         FaS3fvOuXfU+isdFlk6SFAtNnTpV6m1xJYV002TkCNzepQ7BKJW3cJaxnJXcnt/tOGmn
+         4/xA==
+X-Forwarded-Encrypted: i=1; AL+hErGkKtUn2Rm+uvWX2X38lVnPKHf/hS6CI2ge5esIR6EsrO/fqc9k88my47uaDENL46lQ06CnQN2ODj1Szik=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/fl7ieDyiMCGMmQSOwVcfSySHzjcLsRSme4XgXRq7qt8GW5ffB
+	dvr6EAtCVMZgbC83l8abdMWz6YgpgOlm56eMvpSP+STE/EOSJmksCKhsxW/Jqht7f6p2EGCC3jy
+	dGnLwrxK2nQZm2BfDWrKzMn9m8MMoZ5QGs/ZSEefVZLHBy9HtaK6EhjccvZyK+VSqdHcat0EdLx
+	yMie3nnofLxjtvxOBhvOA8QNEZMuqnYTFRpogKt80YRy8UeK9RbsR/siA6EE5X7U5ObKDzD2GgM
+	b6NPsT4sXiYAxAn
+X-Gm-Gg: AYBFou0wO4dBxtBpeDn4hQWMoeeG+deokSN/CXx1L/1ZRPKJtVd85kZlJqjpVhdBZUx
+	aKTGZKu6PEZiF1mJrDC7eS18xU48GGOv7JZ9Ak0AcC2Xzcvk7iXfrLhjF5obwa+zI/yzyqJRhSu
+	9LXzvIhbMM3i08ctYA7FZHbhCAj/BhkLbd6GZ9liJDgTkC8y0S2jXx89moeGt8N3BQX4ZKvbT1t
+	lJ3yh+IvvMyUt+y2gdza3dE58j8osNkWE3VU3UpN04MyIl3ollZsgOX73GHc17GPBfJq4eT0Xm4
+	QSNcE4tUv2LL8BTzLYHVjP28zUEpJZYogp1PFgXJlVHPYeEMEo2mQL1ceMzc2LHC1k9YVSYS1t0
+	iDxIMJ/QtdzBluLQwzN92n4n93wBPmKLxLPXB2FriqLZXMPgNiDF6k9bGGm/e+Ma/cjfm8HaE71
+	JVzLLdHdFo5BVF6lGAFzH8AW4Drv6sZU5s
+X-Received: by 2002:a17:90b:5866:b0:3ac:83c1:2c0 with SMTP id 98e67ed59e1d1-3b182ff3f47mr1338245a91.64.1794376830044;
+        Tue, 10 Nov 2026 22:00:30 -0800 (PST)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-22.dlp.protect.broadcom.com. [144.49.247.22])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b17d915366sm1303609a91.0.2026.11.10.22.00.29
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Tue, 10 Nov 2026 22:00:30 -0800 (PST)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-945b0154705so432821885a.3
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 22:00:29 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1794376829; x=1794981629; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Wea7mMzw8MaI8LWt3cOMZKJ4EZ/5ojFJ5zLjX644Hno=;
+        b=MswletqDCx3BRZ3J9bAae0sCHSDskFHbqRtt0M//OutG3/KDTVx5fYqVot9mbPF88G
+         OH8EN9PdZRXgticEVajwvHNHlpsgohisg8/l6nA35J9K0PICqW0ILR+yUnPBjwcFDyf8
+         IA9d9UyzHLLZpgdDoUvCSvO8LhQY6D5KBEs/E=
+X-Forwarded-Encrypted: i=1; AL+hErGT6chtggn1rM1X/ftbb7khAeHWLrJ3Y2PKdp+XumMod9ldAn68vm4ksYGFX2AINXryZ0nwbVRD4vIk1QI=@vger.kernel.org
+X-Received: by 2002:a05:620a:2993:b0:940:f224:5a67 with SMTP id af79cd13be357-947b00cea7amr220970085a.69.1794376828399;
+        Tue, 10 Nov 2026 22:00:28 -0800 (PST)
+X-Received: by 2002:a05:620a:2993:b0:940:f224:5a67 with SMTP id af79cd13be357-947b00cea7amr220963685a.69.1794376827725;
+        Tue, 10 Nov 2026 22:00:27 -0800 (PST)
+Received: from vertex.localdomain (pool-173-49-113-140.phlapa.fios.verizon.net. [173.49.113.140])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9479e7e7f3bsm411506885a.37.2026.11.10.22.00.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 22:00:24 -0800 (PST)
+From: Zack Rusin <zack.rusin@broadcom.com>
+To: Sean Christopherson <seanjc@google.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	kvm@vger.kernel.org
+Cc: Doug Covelli <doug.covelli@broadcom.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Shuah Khan <shuah@kernel.org>,
+	Vitaly Kuznetsov <vkuznets@redhat.com>,
+	David Woodhouse <dwmw2@infradead.org>,
+	Paul Durrant <paul@xen.org>,
+	Xin Li <xin@zytor.com>,
+	Francesco Lavra <flavra@baylibre.com>,
+	=?UTF-8?q?Radim=20Kr=C4=8Dm=C3=A1=C5=99?= <rkrcmar@ventanamicro.com>,
+	Liran Alon <liran.alon@oracle.com>,
+	Arbel Moshe <arbel.moshe@oracle.com>,
+	linux-doc@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	bcm-kernel-feedback-list@broadcom.com,
+	linux-kernel@vger.kernel.org,
+	Zack Rusin <zack.rusin@broadcom.com>
+Subject: [PATCH v3 06/12] KVM: x86: Forward VMware hypercalls to userspace
+Date: Wed, 11 Nov 2026 00:59:55 -0500
+Message-ID: <90467782be23b83fd3e9a6afe2f1d2149eaf9db9.1794374897.git.zack.rusin@broadcom.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <cover.1794374897.git.zack.rusin@broadcom.com>
+References: <cover.1794374897.git.zack.rusin@broadcom.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,109 +135,401 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNQQ6CMBBFr0Jm7ZhOIzVx5T0MizIMMEaoaYGoh
- LsLuHb5kvffnyFJVElwyWaIMmnS0K9gDxlw6/tGUKuVwRrriMhg68jhR2KwWA3ouTwxC3tvalg
- 3zyi1vvberfhxGsu78LBFNqPVNIT43g8n2rx/7YnQoMlz46qzM7Wla9N5fRw5dFAsy/IFAwUNP
- bwAAAA=
-X-Change-ID: 20261110-h616-zero2-dt-acb4ccecaa0f
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Samuel Holland <samuel@sholland.org>, Ryan Walklin <ryan@testtoast.com>, 
- Andre Przywara <andre.przywara@arm.com>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
- Arun Iyengar <aiyengar1990@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794376807; l=3816;
- i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=6jel4MoJqtTxrypSxxUTQ6tVnFHWyOMfTonT2Q2GlFE=;
- b=hSLIz7TyuZtdWQpe2KdWRIiqTkjVZpDUD2GjXphRwSTHIhU6vD4iiunD1Ci38649ec1wddF1P
- zaz9AqIzrcwCsV5BKSRpyIUJmDEhY7ZYYAxFm5Z+/Q/bvih9Y3rS4I2
-X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
- pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
-X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
- auth_id=1480
-X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
-Reply-To: aiyengar1990@gmail.com
+Content-Transfer-Encoding: 8bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-This series collects the device tree changes we carry for the Orange
-Pi Zero2 (H616):
+Add KVM_VMWARE_ENABLE_HYPERCALL.  When it is enabled, exit to userspace
+with KVM_EXIT_VMWARE when an L1 vCPU executes VMCALL or VMMCALL with
+VMware's magic value in EAX, and let userspace complete the call by
+updating the guest's registers or by having KVM inject #UD, #GP or #PF.
 
-- Patch 1 makes the H616 codec node cover the DAC RAMP register that
-  the driver uses (it currently works only because ioremap() rounds up).
-- Patch 2 fixes intermittent dead-RX boots of the Zero2's Ethernet by
-  letting the RTL8211F add the RX delay ("rgmii-rxid"), as the Zero3
-  already does.
-- Patches 3 and 4 add an H616 GPU OPP table and make the Mali-G31 a
-  cooling device of the GPU thermal zone, with a passive trip point.
-- Patches 5 and 6 enable GPU DVFS on the Zero2. Patch 5 first raises the
-  floor of the GPU supply to 900 mV, because on this board the rail is
-  shared with VDD-SYS and the video engine corrupts decoded frames at
-  810 mV.
-- Patch 7 describes the SPI NOR supply, patch 8 adds i2c aliases so the
-  header buses keep the controller's number.
+VMware guests reach the hypervisor through the "backdoor": either the
+I/O-port interface that KVM already emulates or, on newer guests,
+VMCALL or VMMCALL, with the same commands and register conventions.
+VMware's userspace implements the roughly one hundred commands, and
+reviewing the command list on the mailing list found none that needs
+to be handled in KVM (see the Links), so leave them in userspace.
 
-Testing, on an Orange Pi Zero2 with a v7.3-based kernel carrying the
-same DT content:
-- RGMII: 10 of 10 cold boots with a working receive path (the problem
-  showed up as intermittent dead-RX boots before); iperf3 853/873 Mbit/s
-  and 86 minutes of traffic without loss.
-- VDD-SYS: with the VE at 600 MHz, only 6 of 13 4K H.265 decodes were
-  bit-exact with the rail at 810 mV; 3 of 3 at 890 mV and 3 of 3 at
-  950 mV. With the 900 mV floor, a 70-minute decode soak (H.265 and VP9)
-  had 42 of 42 runs correct.
-- GPU DVFS: panfrost devfreq scales 306-600 MHz and the vdd-gpu-sys
-  voltage follows the OPPs within [900, 990] mV.
-- GPU cooling: the gpu-thermal zone binds the panfrost devfreq cooling
-  device. The 85 C trip itself was not reached on this board (it peaked
-  at about 70 C).
-- SPI NOR: the "supply vcc not found, using dummy regulator" message is
-  gone; the flash reads back correctly.
-- i2c aliases: TWI3 enabled by an overlay shows up as i2c-3.
-- Codec: analog line-out playback works.
+Only claim calls that carry the magic value, so that the same VM can
+still use Xen, Hyper-V or KVM hypercalls.  Never claim a call from L2:
+the only L2 hypercall that L0 handles itself is Hyper-V's L2 TLB flush,
+which doesn't use RAX as an input.
 
-The series is based on sunxi/dt-for-7.5. "make CHECK_DTBS=y W=1" gives
-no new warnings for the H616/H618 boards. The Zero3 shares the GPU
-supply design, but I have no Zero3 to test, so it is left out.
+Pass operands and results through KVM_SYNC_X86_REGS instead of defining
+a second register ABI; KVM_EXIT_HYPERCALL returns a single value in
+RAX, while backdoor commands use RAX through RBP.  Report the CPL and
+leave the privilege policy to userspace, as VMware Tools call the
+backdoor from user mode.  Instead of completing the call, userspace can
+have KVM inject a validated #UD, #GP or #PF at the hypercall, and may
+update the registers as well to keep the partial progress of a
+high-bandwidth transfer.
 
-These patches were developed with Claude (Anthropic) as a
-coding assistant: it investigated the problem, wrote the code and
-the commit messages. I reviewed them, and they were tested on an
-Orange Pi Zero2 (H616) as described above.
+Don't forward hypercalls of vCPUs whose state is protected, as KVM
+can't access their registers: reject the flag for VMs with protected
+state, omit it from their VM-scoped KVM_CHECK_EXTENSION result, and
+ignore it once a vCPU of a VM set up with the legacy KVM_SEV_ES_INIT
+becomes protected.
 
+Link: https://lore.kernel.org/r/c60b32a3-e699-4a8c-8d52-09b34c4d5269@redhat.com
+Link: https://lore.kernel.org/r/CADH9ctD1uf_yBA3NXNQu7TJa_TPhLRN=0YZ3j2gGhgmaFRdCFg@mail.gmail.com
+Link: https://lore.kernel.org/r/CADH9ctBivnvP1tNcatLKzd8EDz8Oo6X65660j8ccxYzk3aFzCA@mail.gmail.com
+Link: https://lore.kernel.org/r/aIEmawm9gLflg8zt@google.com
+Signed-off-by: Zack Rusin <zack.rusin@broadcom.com>
 ---
-Changes in v2:
-- h616: Add GPU OPP table: use <target target max> voltage triplets
-  like the H6 GPU OPP table, so that boards whose GPU supply cannot
-  reach an OPP's target voltage lose that OPP instead of running it
-  undervolted (found by the Sashiko AI review). No change on the
-  Orange Pi Zero2 (AXP305 DCDCC at 900 to 990 mV keeps all ten OPPs).
-- Link to v1: https://patch.msgid.link/20261110-h616-zero2-dt-v1-0-05506d760f21@gmail.com
+ Documentation/virt/kvm/api.rst  | 84 ++++++++++++++++++++++++++++++++-
+ arch/x86/include/uapi/asm/kvm.h | 24 ++++++++++
+ arch/x86/kvm/vmware.c           | 78 ++++++++++++++++++++++++++++++
+ arch/x86/kvm/vmware.h           |  7 +++
+ arch/x86/kvm/x86.c              | 11 ++++-
+ include/uapi/linux/kvm.h        |  5 ++
+ 6 files changed, 206 insertions(+), 3 deletions(-)
 
----
-Arun Iyengar (8):
-      arm64: dts: allwinner: h616: Cover the codec RAMP register
-      arm64: dts: allwinner: orangepi-zero2: Let the PHY add the RX delay
-      arm64: dts: allwinner: h616: Add GPU OPP table
-      arm64: dts: allwinner: h616: Throttle the GPU from the GPU thermal zone
-      arm64: dts: allwinner: orangepi-zero2: Keep VDD-SYS at or above 900 mV
-      arm64: dts: allwinner: orangepi-zero2: Enable GPU DVFS
-      arm64: dts: allwinner: orangepi-zero2: Describe the SPI NOR supply
-      arm64: dts: allwinner: orangepi-zero2: Add i2c aliases
-
- .../boot/dts/allwinner/sun50i-h616-gpu-opp.dtsi    | 62 ++++++++++++++++++++++
- .../dts/allwinner/sun50i-h616-orangepi-zero2.dts   | 22 ++++++--
- arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi     | 17 +++++-
- 3 files changed, 96 insertions(+), 5 deletions(-)
----
-base-commit: a7f6e476aaedba0d8ec575acaeb3257f900a592f
-change-id: 20261110-h616-zero2-dt-acb4ccecaa0f
-
-Best regards,
---  
-Arun Iyengar <aiyengar1990@gmail.com>
-
+diff --git a/Documentation/virt/kvm/api.rst b/Documentation/virt/kvm/api.rst
+index 57517ebd4340..e2f0e329f748 100644
+--- a/Documentation/virt/kvm/api.rst
++++ b/Documentation/virt/kvm/api.rst
+@@ -6963,7 +6963,7 @@ to the byte array.
+ .. note::
+ 
+       For KVM_EXIT_IO, KVM_EXIT_MMIO, KVM_EXIT_OSI, KVM_EXIT_PAPR, KVM_EXIT_XEN,
+-      KVM_EXIT_EPR, KVM_EXIT_HYPERCALL, KVM_EXIT_TDX,
++      KVM_EXIT_EPR, KVM_EXIT_HYPERCALL, KVM_EXIT_TDX, KVM_EXIT_VMWARE,
+       KVM_EXIT_X86_RDMSR and KVM_EXIT_X86_WRMSR the corresponding
+       operations are complete (and guest state is consistent) only after userspace
+       has re-entered the kernel with KVM_RUN.  The kernel side will first finish
+@@ -7017,6 +7017,73 @@ Definition of ``flags``:
+ At the point of exit, PC points to the instruction immediately following
+ the trapping instruction.
+ 
++::
++
++		/* KVM_EXIT_VMWARE */
++		struct kvm_vmware_exit {
++			__u32 type;
++			__u32 pad1;
++			union {
++				struct {
++					__u32 longmode;
++					__u32 cpl;
++					struct {
++						__u32 inject;
++						__u32 pad2;
++						__u32 vector;
++						__u32 error_code;
++						__u64 address;
++					} exception;
++				} hcall;
++			};
++		} vmware;
++
++KVM_EXIT_VMWARE is returned when userspace has enabled VMware hypercall
++forwarding and the guest executes a VMCALL or VMMCALL with VMware's magic
++value in RAX.  ``type`` is ``KVM_EXIT_VMWARE_HCALL``.  ``longmode`` reports
++the calling convention and ``cpl`` reports the privilege level.  Userspace
++must set ``pad1`` and ``exception.pad2`` to zero when re-entering KVM.
++
++The VMware exit takes precedence over Xen, Hyper-V, and KVM hypercalls only
++when the low 32 bits of RAX contain VMware's magic value.  Non-matching calls
++continue through the normal hypercall dispatch.  Xen and KVM hypercall numbers
++never match the magic value, but a 64-bit Hyper-V hypercall does not use RAX
++as an input, so one issued with the magic value left in RAX is reported as
++KVM_EXIT_VMWARE.  KVM reports CPL but does not enforce a VMware hypercall
++privilege policy; that policy belongs to userspace.
++
++KVM never reports an L2 hypercall through KVM_EXIT_VMWARE.  VMX reflects an
++L2 VMCALL to L1 and SVM injects #UD for an L2 VMMCALL that L1 does not
++intercept, except that both handle a supported Hyper-V nested TLB flush
++hypercall in L0, as a Hyper-V hypercall even if RAX holds VMware's magic
++value.  VMware hypercall exits cannot be enabled for a VM with protected vCPU
++state, and KVM does not forward hypercalls from a vCPU whose state is
++protected, e.g. in a VM initialized with the legacy KVM_SEV_ES_INIT.
++
++Hypercall operands are available through ``KVM_SYNC_X86_REGS``.  Userspace
++must request synchronized REGS through ``kvm_valid_regs`` on every KVM_RUN
++that can produce this exit; otherwise the synchronized state is stale.  To
++complete the hypercall successfully, userspace may update all GPRs and RFLAGS,
++set ``kvm_dirty_regs`` accordingly, and re-enter with KVM_RUN.  KVM applies
++the synchronized registers using KVM_SET_REGS semantics and then advances
++past the hypercall instruction.  Userspace must leave synchronized RIP at the
++hypercall instruction so that KVM advances it exactly once.  RFLAGS is
++accepted with normal KVM_SET_REGS ownership; KVM forces X86_EFLAGS_FIXED but
++does not apply an exit-specific writable-bit mask.
++
++Userspace may instead set ``exception.inject`` to one and request #UD, #GP,
++or #PF.  #UD requires a zero error code and address.  #GP accepts an error
++code verbatim and requires a zero address.  #PF also accepts the error code
++verbatim and uses ``address`` as CR2.  Userspace may dirty synchronized REGS
++when requesting an exception, e.g. to preserve partial progress from a
++high-bandwidth backdoor transfer.  KVM applies the synchronized registers
++before queuing the exception.  Userspace must leave synchronized RIP at the
++hypercall instruction so that the exception is delivered at the faulting
++instruction.  Invalid completion data makes KVM_RUN fail with -EINVAL and
++leaves the instruction incomplete.  The completion callback is consumed, so
++another KVM_RUN re-executes the instruction and produces a fresh
++KVM_EXIT_VMWARE.
++
+ ::
+ 
+ 		/* KVM_EXIT_TPR_ACCESS */
+@@ -9211,6 +9278,21 @@ instruction.  Enabling this flag therefore does not bypass the guest's I/O
+ permission checks.  Privileged backdoor I/O and pseudo-PMC accesses remain
+ available.
+ 
++``KVM_VMWARE_ENABLE_HYPERCALL`` forwards VMCALL and VMMCALL instructions to
++userspace as ``KVM_EXIT_VMWARE``.  The architecture-specific ``vmware``
++member of ``struct kvm_run`` reports the guest's calling convention and CPL.
++Operands and successful register and RFLAGS outputs are transferred through
++``KVM_SYNC_X86_REGS`` as described in chapter 5.  The flag cannot be enabled
++for a VM with protected vCPU state, and a VM-fd ``KVM_CHECK_EXTENSION`` omits
++the flag for such a VM.  In a VM initialized with the legacy
++``KVM_SEV_ES_INIT``, the flag can be enabled but has no effect on a vCPU once
++its state is protected.
++
++Userspace can instead request that the hypercall instruction inject an
++exception by setting ``vmware.hcall.exception.inject`` and filling in the
++validated vector, error code, and address fields.  When an exception is
++requested, KVM does not advance past the hypercall instruction.
++
+ 8. Other capabilities.
+ ======================
+ 
+diff --git a/arch/x86/include/uapi/asm/kvm.h b/arch/x86/include/uapi/asm/kvm.h
+index 57167683692b..3b9f53bce2d9 100644
+--- a/arch/x86/include/uapi/asm/kvm.h
++++ b/arch/x86/include/uapi/asm/kvm.h
+@@ -53,6 +53,7 @@
+ #define __KVM_HAVE_DEBUGREGS
+ #define __KVM_HAVE_XSAVE
+ #define __KVM_HAVE_XCRS
++#define __KVM_HAVE_VMWARE_EXIT
+ 
+ /* Architectural interrupt line count. */
+ #define KVM_NR_INTERRUPTS 256
+@@ -966,6 +967,29 @@ struct kvm_hyperv_eventfd {
+ #define KVM_EXIT_HYPERCALL_LONG_MODE	_BITULL(0)
+ 
+ #define KVM_VMWARE_ENABLE_BACKDOOR	_BITULL(0)
++#define KVM_VMWARE_ENABLE_HYPERCALL	_BITULL(1)
++
++struct kvm_vmware_exit {
++#define KVM_EXIT_VMWARE_HCALL	1
++	__u32 type;
++	__u32 pad1;
++	union {
++		struct {
++			/* out */
++			__u32 longmode;
++			__u32 cpl;
++
++			/* in */
++			struct {
++				__u32 inject;
++				__u32 pad2;
++				__u32 vector;
++				__u32 error_code;
++				__u64 address;
++			} exception;
++		} hcall;
++	};
++};
+ 
+ #define KVM_X86_DEFAULT_VM	0
+ #define KVM_X86_SW_PROTECTED_VM	1
+diff --git a/arch/x86/kvm/vmware.c b/arch/x86/kvm/vmware.c
+index 3136e2971afe..8407dccf81fd 100644
+--- a/arch/x86/kvm/vmware.c
++++ b/arch/x86/kvm/vmware.c
+@@ -11,6 +11,7 @@
+ #include <asm/vmware.h>
+ 
+ #include "vmware.h"
++#include "x86.h"
+ 
+ static bool __read_mostly enable_vmware_backdoor;
+ module_param(enable_vmware_backdoor, bool, 0444);
+@@ -29,6 +30,10 @@ int kvm_vmware_enable_cap(struct kvm *kvm, u64 flags)
+ {
+ 	int r = -EINVAL;
+ 
++	if (kvm->arch.has_protected_state &&
++	    (flags & KVM_VMWARE_ENABLE_HYPERCALL))
++		return -EINVAL;
++
+ 	mutex_lock(&kvm->lock);
+ 	if (!kvm->created_vcpus) {
+ 		kvm->arch.vmware.enabled_caps |= flags;
+@@ -39,6 +44,79 @@ int kvm_vmware_enable_cap(struct kvm *kvm, u64 flags)
+ 	return r;
+ }
+ 
++static int complete_vmware_hypercall_exit(struct kvm_vcpu *vcpu)
++{
++	struct kvm_vmware_exit *vmware = &vcpu->run->vmware;
++	u32 pad1 = READ_ONCE(vmware->pad1);
++	u32 inject = READ_ONCE(vmware->hcall.exception.inject);
++	u32 pad2 = READ_ONCE(vmware->hcall.exception.pad2);
++	u32 vector = READ_ONCE(vmware->hcall.exception.vector);
++	u32 error_code = READ_ONCE(vmware->hcall.exception.error_code);
++	u64 address = READ_ONCE(vmware->hcall.exception.address);
++
++	if (pad1 || pad2 || inject > 1)
++		return -EINVAL;
++
++	if (!inject)
++		return kvm_skip_emulated_instruction(vcpu);
++
++	switch (vector) {
++	case UD_VECTOR:
++		if (error_code || address)
++			return -EINVAL;
++		kvm_queue_exception(vcpu, UD_VECTOR);
++		break;
++	case GP_VECTOR:
++		if (address)
++			return -EINVAL;
++		kvm_queue_exception_e(vcpu, GP_VECTOR, error_code);
++		break;
++	case PF_VECTOR: {
++		struct x86_exception fault = {
++			.vector = PF_VECTOR,
++			.error_code_valid = true,
++			.error_code = error_code,
++			.address = address,
++		};
++
++		kvm_inject_page_fault(vcpu, &fault, false);
++		break;
++	}
++	default:
++		return -EINVAL;
++	}
++
++	/* Retry the instruction so the exception is delivered at its RIP. */
++	return 1;
++}
++
++bool kvm_is_vmware_hypercall(struct kvm_vcpu *vcpu)
++{
++	/*
++	 * Never claim a hypercall from L2: the only one that L0 handles is
++	 * Hyper-V's L2 TLB flush.  The exit also needs the vCPU's registers,
++	 * which KVM can't access once the vCPU's state is protected.
++	 */
++	return kvm_is_vmware_cap_enabled(vcpu->kvm,
++					 KVM_VMWARE_ENABLE_HYPERCALL) &&
++	       !is_guest_mode(vcpu) && !vcpu->arch.guest_state_protected &&
++	       lower_32_bits(kvm_rax_read_raw(vcpu)) == VMWARE_HYPERVISOR_MAGIC;
++}
++
++int kvm_vmware_hypercall(struct kvm_vcpu *vcpu)
++{
++	struct kvm_vmware_exit *vmware = &vcpu->run->vmware;
++
++	memset(vmware, 0, sizeof(*vmware));
++	vcpu->run->exit_reason = KVM_EXIT_VMWARE;
++	vmware->type = KVM_EXIT_VMWARE_HCALL;
++	vmware->hcall.longmode = is_64_bit_hypercall(vcpu);
++	vmware->hcall.cpl = kvm_x86_call(get_cpl)(vcpu);
++
++	vcpu->arch.complete_userspace_io = complete_vmware_hypercall_exit;
++	return 0;
++}
++
+ bool kvm_is_vmware_io_port(struct kvm_vcpu *vcpu, u16 port)
+ {
+ 	return kvm_is_vmware_backdoor_enabled(vcpu) &&
+diff --git a/arch/x86/kvm/vmware.h b/arch/x86/kvm/vmware.h
+index c4ad1958a4da..de1dc8971ec6 100644
+--- a/arch/x86/kvm/vmware.h
++++ b/arch/x86/kvm/vmware.h
+@@ -23,6 +23,7 @@ kvm_is_vmware_backdoor_enabled(struct kvm_vcpu *vcpu)
+ 	return kvm_is_vmware_cap_enabled(vcpu->kvm, KVM_VMWARE_ENABLE_BACKDOOR);
+ }
+ 
++bool kvm_is_vmware_hypercall(struct kvm_vcpu *vcpu);
+ bool kvm_is_vmware_io_port(struct kvm_vcpu *vcpu, u16 port);
+ bool kvm_is_vmware_backdoor_pmc(struct kvm_vcpu *vcpu, u32 pmc_idx);
+ bool kvm_is_vmware_backdoor_opcode(u8 opcode_len, u8 opcode);
+@@ -46,6 +47,11 @@ kvm_is_vmware_backdoor_enabled(struct kvm_vcpu *vcpu)
+ 	return false;
+ }
+ 
++static __always_inline bool kvm_is_vmware_hypercall(struct kvm_vcpu *vcpu)
++{
++	return false;
++}
++
+ static __always_inline bool
+ kvm_is_vmware_io_port(struct kvm_vcpu *vcpu, u16 port)
+ {
+@@ -68,6 +74,7 @@ kvm_is_vmware_backdoor_opcode(u8 opcode_len, u8 opcode)
+ 
+ void kvm_vmware_init_vm(struct kvm *kvm);
+ int kvm_vmware_enable_cap(struct kvm *kvm, u64 flags);
++int kvm_vmware_hypercall(struct kvm_vcpu *vcpu);
+ int kvm_vmware_pmu_rdpmc(struct kvm_vcpu *vcpu, unsigned int idx, u64 *data);
+ 
+ #endif /* __KVM_X86_VMWARE_H */
+diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
+index 1425376b4f0e..bd4142763f10 100644
+--- a/arch/x86/kvm/x86.c
++++ b/arch/x86/kvm/x86.c
+@@ -118,7 +118,8 @@ EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_host);
+ 
+ #define KVM_CAP_PMU_VALID_MASK KVM_PMU_CAP_DISABLE
+ 
+-#define KVM_CAP_VMWARE_VALID_MASK KVM_VMWARE_ENABLE_BACKDOOR
++#define KVM_CAP_VMWARE_VALID_MASK (KVM_VMWARE_ENABLE_BACKDOOR | \
++				   KVM_VMWARE_ENABLE_HYPERCALL)
+ 
+ #define KVM_GUESTDBG_VALID_MASK \
+ 	(KVM_GUESTDBG_ENABLE | \
+@@ -2432,8 +2433,11 @@ int kvm_vm_ioctl_check_extension(struct kvm *kvm, long ext)
+ 		break;
+ 	case KVM_CAP_X86_VMWARE:
+ 		BUILD_BUG_ON(KVM_CAP_VMWARE_VALID_MASK > INT_MAX);
+-		if (kvm_is_vmware_supported())
++		if (kvm_is_vmware_supported()) {
+ 			r = KVM_CAP_VMWARE_VALID_MASK;
++			if (kvm && kvm->arch.has_protected_state)
++				r &= ~KVM_VMWARE_ENABLE_HYPERCALL;
++		}
+ 		break;
+ 	default:
+ 		break;
+@@ -7469,6 +7473,9 @@ EXPORT_SYMBOL_FOR_KVM_INTERNAL(____kvm_emulate_hypercall);
+ 
+ int kvm_emulate_hypercall(struct kvm_vcpu *vcpu)
+ {
++	if (kvm_is_vmware_hypercall(vcpu))
++		return kvm_vmware_hypercall(vcpu);
++
+ 	if (kvm_xen_hypercall_enabled(vcpu->kvm))
+ 		return kvm_xen_hypercall(vcpu);
+ 
+diff --git a/include/uapi/linux/kvm.h b/include/uapi/linux/kvm.h
+index e43c15c6e5cc..c01bb6a612fe 100644
+--- a/include/uapi/linux/kvm.h
++++ b/include/uapi/linux/kvm.h
+@@ -193,6 +193,7 @@ struct kvm_exit_snp_req_certs {
+ #define KVM_EXIT_ARM_SEA          41
+ #define KVM_EXIT_ARM_LDST64B      42
+ #define KVM_EXIT_SNP_REQ_CERTS    43
++#define KVM_EXIT_VMWARE           44
+ 
+ /* For KVM_EXIT_INTERNAL_ERROR */
+ /* Emulate instruction failed. */
+@@ -497,6 +498,10 @@ struct kvm_run {
+ 		} arm_sea;
+ 		/* KVM_EXIT_SNP_REQ_CERTS */
+ 		struct kvm_exit_snp_req_certs snp_req_certs;
++#ifdef __KVM_HAVE_VMWARE_EXIT
++		/* KVM_EXIT_VMWARE */
++		struct kvm_vmware_exit vmware;
++#endif
+ 		/* Fix the size of the union. */
+ 		char padding[256];
+ 	};
+-- 
+2.53.0
 
