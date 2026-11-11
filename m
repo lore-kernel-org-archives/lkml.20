@@ -1,65 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.223
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794407543;
-	b=HFnr5l0OpntYDQbcwep7LAswdQgD6EBCww2LucaWYRik4dF4x2te16r8ERKkKIUFofHK
-	 ZNEA26fxIJ0BpgL+7Vr+zbz3Wp0xqyYwg387U2KPoMtQPUX/92237AZAl5yBcIBRyySxY
-	 cV1ZGVlOnne6+n9OtVYNCBYHjrYknANuAS1w3R5rmllKDhQI355cW8KNAeTaQXqs95ggo
-	 jM5kbHwcwu4HoxVr1sCBO3esyrj6AXsidTMXFIW+sbDaNuwPlLVrTAedI7TrlMAhtPGRd
-	 WdI9dV7b6f0TAWiPa+nBi12bFbspAGv7GERHw2kHRkDmEHrJoNftLih/zSRebv0H0pA==
+	t=1794407558;
+	b=a8FgWFKU4JsW8Qua/griwjgRIJB9f8saxJ1A+hauJAWlv/uOe9SzyDKYBXAGvEKofAUU
+	 fnxTGelrK+aq60LAg90WTSfjFgxokdO4k/zrLvvdvCFFuiqtSV+xdI95+oNbgzZ8Atp1k
+	 wmybET/xhXFft2CcWAEUT/TboWAxeZUIzlBFtgws0UaY8VQm/RHNvemHLwmXAKybU3qwz
+	 8I4IByxrBs4BsLkj+ondDV7r6jlq6HHqBTYZLnsdmniXG5rmj61NElavBM7fCmwupz9J/
+	 OfLGjyR0v+/obW79dcwMiz+uStjDOD6AqKn0CZljUzAGef8Du+TzTi8BBtNsSyQUcRA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794407543;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=yw39txjshF04QxM2ZUCzatgd1dstHV7RQAXlNYztymc=;
-	b=lCt1rYNI+uOg5+NAzXRK/deDcwoV+PuxCLiJUR4d9EmOA3hTSa/5fHHe5j2YioGlm5ST
-	 rWAsMXtMH4qLy919x2/GZCUOKujq6fyTydhP0dJ/FkbQvV+vz6cYpUqs8W1wCZOma9XCu
-	 QwjJfq9eZTkeG5YBP5VeWukOorF955LqPf5RBEyqXhR3VAO5tfIJBbBZ4KQsh6egXXKqW
-	 Za6Mrw5U/0ZQBIQ8ymyck6IoM5Yy5l5hjiBGudbz1rhpCuPlFQ7HUw6iL9XmlT6m7ht60
-	 FAjS0ZlvN+xEpuH9xYmiC7F1h6acEte1iSveLnyg7HHwAknGrVOwGUzaBYYvcUysmSw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794407558;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=u2q57S1P8aLiRzndP7EZ4yhSSjdu/KIimRft1ZX+f7s=;
+	b=BviAaaXJZAbzjzV6J/CeUm9ildJdkDQO7OiK1NbfDxd9AOtbTQITvbYM9DrJOVfs+XO8
+	 WpRvi6c9IPg/ulOnWFp8bhvfIK0JIi1rGjVIVx345BUvuwEjwrW03MDlV6HH7rbwQNce1
+	 kv78kwpG2/20evD5wp6WPzpVdEAN2cJvg5BEMt6eGTaMuOjKtjA1tp2iMLSxI5v2Y4JK1
+	 naxW6L1cq5I10GzWnHMqppZCrwXPjkGNkgcEwjPY5G/V7Xb129pv2N5qycnc6KtV8JaRi
+	 c2fZYD07djHI7TWcVVk4qOIrzQ8Nk7BR4Xxmes8DP+kVczO47ETgdQmxeA2VBmnrVhA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=wyuan.org;
-	spf=pass smtp.mailfrom=wyuan.org;
-	dkim=pass header.d=wyuan.org header.i=@wyuan.org header.a=rsa-sha256 header.s=key1 header.b=KyauV0wn;
-	arc=none smtp.remote-ip=95.215.58.223
-Received: from mta1.migadu.com (out-223.mta1.migadu.com [95.215.58.223])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kGESD6D3;
+	arc=none smtp.remote-ip=209.85.128.54
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8605C60A260C
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 14:32:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8605C60A260C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wyuan.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wyuan.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF15F606A885
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 14:32:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF15F606A885
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=wyuan.org header.i=@wyuan.org header.a=rsa-sha256 header.s=key1 header.b=KyauV0wn
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=cfDolrEDxRMXmTVkQgq0uF0qRxhtqOMDdRP/AhirgHg=;
- c=simple/simple; d=wyuan.org;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794407540; v=1; x=1795012340;
- b=KyauV0wndCdlNa7fgWaYNiYenYRFCCWqm/UcxtnL0bUAljeHkGXDCcJisGyYs9//aSoQiX2X
- wyLreJWe0LMtB0acFf63+xTnIn+Zl0hMoUOdgnWGMZkUFZkzQ8NhlKQILraM7jB+Jsl8cjPsbWj
- URVVHe0Ev6r1KG29XQe+RmMtSd5zl635elNzuNNAijQNHdPCvv0m624qHjHV+0qRJLinmRyDqak
- 4jbi7WaoS9V1Om1XkLloadwBFiMB0WBucboJx1YLBC/hDv+597DDLly8OSd3oWFi58YEVWS1iNP
- erugsFtoaznFXZxPEXWRu896s0v4YoynfhCX704s916BA==
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id dacb061bc7a84b96;
-	Wed, 11 Nov 2026 14:32:20 +0000
-X-Mizu-Trace-ID: dacb061bc7a84b96
-X-Migadu-Flow: FLOW_OUT
-Date: Wed, 11 Nov 2026 22:32:13 +0800
-From: Weijie Yuan <wy@wyuan.org>
-To: Chen-Yu Yeh <chenyou910331@gmail.com>
-Cc: Alex Shi <alexs@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
-	Dongliang Mu <dzm91@hust.edu.cn>, Yanteng Si <si.yanteng@linux.dev>,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 02/25] docs/zh_TW: process: sync 2.Process.rst with the
- English original
-Message-ID: <avR8baubOL7Aoeh9@wyuan.org>
-References: <20261106113142.706783-1-chenyou910331@gmail.com>
- <20261106113142.706783-3-chenyou910331@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kGESD6D3
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a5036bbac7so20796585e9.3
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 06:32:37 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794407556; x=1795012356; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=u2q57S1P8aLiRzndP7EZ4yhSSjdu/KIimRft1ZX+f7s=;
+        b=kGESD6D3K5rNLXktY3XUbrN1LELRYhOLI4vtgb5J7UqgZe0eKNJEgP2mDmH6uZwK4M
+         BiMOTHlZZFFXe7cRhCG/KhCN54/JGd74gxJ+L5CMq5ylf4bpJ1Ijo/m9EMproX0MAJUA
+         oie3qUbyQtSjde5Xjhq+ynB8rT4dJLGTqfWWYdB5tqgfz9TUu49i+6lXtIFYUrSNI0Ep
+         kpTVnATgKS82Rl+dbR55im460UtSO+ZxZ7SB6TcT0x8OPcyk7ALN/OxIhAqdSxiZV6cL
+         Wp0eTR1aA1mPfEh/jXBJvI2fJPFySod8Ep5/eO1Li/ObLtx1AvqPHmFgdBaprWsjrRhg
+         nz8Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794407556; x=1795012356;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=u2q57S1P8aLiRzndP7EZ4yhSSjdu/KIimRft1ZX+f7s=;
+        b=1LnHRDeNlBGNEdy28XrGmznwalHc1q8Y/f1/s0Vn75EtPXuaxjw3aaoGtViY2oHA3m
+         emWRLog4NJ0LVRmZMg0rLF6slm+hgoDFr6ZVCrdo6iAP76zzRlj4jFnt26sjq9zjC/hj
+         UL/Gzatcyu/qIk7vzXNmC9S4H+t2/xJN4wZkayJw7yzy31bxYng+v5wLunLRe7L13xQX
+         BF6b4hhX2+Vxmf299OxJ0fpquvsKbu7cTWsW2oHI33L3ktMldvjzzWKbHLMrvm49ixMU
+         3LsRfAeGGh7t00FCHsC1OauE6JyKElSNzdA1s7W4zXd02BdS7EvcG/Z30yvGwuScKi29
+         rFxw==
+X-Forwarded-Encrypted: i=1; AL+hErG62XG8qKB8xhXPRcZlFbEGub3TP5GXMCfjXARFPo+/bY8KJP56tHga5MYGUdn4eRJrhO+AOnzwuiXL6QE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/q92kiDelksE7uAhGhJLArsdNWqxyoYgX+YmqLPF3wcEOPviPT
+	f3ODvH8A/EnzkTvqLcjTYxhy89TO7fS7azk6tv4VAPT37fQJC7Fr+50k
+X-Gm-Gg: AYBFou00qwFIhbJZMBV2yc6Mld1Y3CNXJZ0BlnTPaFjhEwc1zl0qlUSUhCfAMEKxqiS
+	ktDPhCJcVdM7vBshPtW3+8jGLsjpzaajKabVK6asyrIB/MYO2V5YPjTlcMHFcGbx1oR+lbBfGRZ
+	d3PMsryeeyZpXQh1siJD098h23ECoGhmi5VPJ33SxAfRwfZD9/L1iZKx2E0s5FLqWWAL33jcDFq
+	bCxsVVQ6VoZDdXebVdNjgIECwVHiYEfEJrtbkJQQ6x9THfA7sthY650YgXK4lENZ99J9Vl0eFki
+	eRa3MwAE/rwjanBOX6yFuGReg5kSMFnho39q6ZCAAYoi8mPmYXvi78SoiKP0vS4Owx+aU8wJNl2
+	hr8oVVnlAh0GMEIc9j+HX4DaM4i9qKBQWwqDVrEA7Fk1giRXNEUq+GGRxpOk2lbn/Dd9IVbQltJ
+	S4dmxHwVJxiGxpxssiqPohn/X2iY3Jdebj9rZda9N5dVqnD/ynRcWQQjzm2gB8XKy74HyyUr5re
+	t8GjiA6EJOpzMH7/ijfEa6NOVZ+8874dBfIvGQi5V5kfvO6EdszM5kM0hyKz69DiLJIYDODRFgW
+	BQydJJfTPUPsNwHU0pxcH8U7lrdBbECJjClOB4th8KuXQrQ5XnANcbQIhxzYrUs=
+X-Received: by 2002:a05:600c:1d1d:b0:4ab:cc03:7f60 with SMTP id 5b1f17b1804b1-4ba09365d6fmr46922765e9.18.1794407555956;
+        Wed, 11 Nov 2026 06:32:35 -0800 (PST)
+Received: from [10.111.176.198] ([2001:19f0:6c01:2c43:5400:5ff:fef6:1b30])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba08e423dfsm62256485e9.1.2026.11.11.06.32.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 06:32:35 -0800 (PST)
+From: Oarora Etimis <oaroraetimis@gmail.com>
+Date: Wed, 11 Nov 2026 14:32:24 +0000
+Subject: [PATCH] drm/vkms: use a bitmask instead of a bool for composer
+ users
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,189 +91,236 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261106113142.706783-3-chenyou910331@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261111-composer-v1-1-9d5fa94656f8@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWM0QpAQBBFf0XzbGt3axW/Ig+MwShWu0hp/93gv
+ p2659wQKTBFqLIbAp0c2a8CJs8Ap3YdSXEvDFbbwsgU+mXzIinEsrDaGddhD3LfAg18fam6+Tk
+ e3Uy4vz6k9ABvGo/TbAAAAA==
+X-Change-ID: 20261111-composer-cc9620515bcd
+To: Louis Chauvet <louis.chauvet@bootlin.com>, 
+ Haneen Mohammed <hamohammed.sa@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Melissa Wen <melissa.srw@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>, Liviu Dudau <liviu.dudau@arm.com>, 
+ Rodrigo Siqueira <siqueira@igalia.com>
+Cc: dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Oarora Etimis <oaroraetimis@gmail.com>
+X-Mailer: b4 0.15.2
 
-On Fri, Nov 06, 2026 at 07:31:17PM +0800, Chen-Yu Yeh wrote:
-> The last update claimed to follow commit 46298375477b ("linux-next:
-> update maintainer info."), but a section-by-section comparison against
-> the current English text shows it never picked up several earlier and
-> later changes.  Bring it in line with the full current original:
-> 
-> - add the missing sentence that no upcoming release has known plans
->   for long-term support
-> - rewrite the top-posting hint to recommend interleaved replies and
->   link to the corresponding section of submitting-patches.rst
-> - capitalize Git and Quilt consistently, and replace "他或她" with a
->   gender-neutral wording
-> - fix the 5.2.1 date in the 5.2 table, the Mercurial and Quilt URLs,
->   the LWN URL and the drivers/staging/ path
-> - keep Andrew Morton's quote verbatim in its literal block and add the
->   translation after it
-> - retranslate sentences whose meaning had drifted (delaying the final
->   release, "when the process works", the TODO file, distributors, how
->   well the process works without tools, bringing in-house developers up
->   to speed, linux-next as an expected snapshot)
-> - fix leftover mainland terms and conversion artifacts (內核, 視頻,
->   搜索, 回復, 被髮布, 一箇)
-> - expand tabs in the tables and literal blocks
-> 
-> update to commit fdd100ee60a0 ("docs: process: use gender-neutral
-> pronouns")
-> 
-> Signed-off-by: Chen-Yu Yeh <chenyou910331@gmail.com>
+The composer has a single on/off switch, shared by the CRC reader and the
+writeback job, and no record of who needs it. Either of them turns it off
+for both:
 
-Looks good for all the wordings.
+  - with CRC being captured, cleaning up a writeback job stops the CRC
+    entries;
+  - with a writeback job pending, closing the CRC source leaves the frame
+    uncomposed and its out-fence never signalled.
 
-But a few points.. See below.
+Replace the switch with a bitmask holding one bit per user, so a user only
+clears its own bit and the composer stays active while any bit is set. The
+vblank reference follows the bitmask: taken when it becomes non-zero and
+dropped when it becomes zero again. vkms_set_composer() becomes
+vkms_composer_get() and vkms_composer_put().
 
-> ---
->  .../translations/zh_TW/process/2.Process.rst  | 176 +++++++++---------
->  1 file changed, 93 insertions(+), 83 deletions(-)
-> 
-> diff --git a/Documentation/translations/zh_TW/process/2.Process.rst b/Documentation/translations/zh_TW/process/2.Process.rst
-> index cf9bd1b1444a..72a0cc1f7652 100644
-> --- a/Documentation/translations/zh_TW/process/2.Process.rst
-> +++ b/Documentation/translations/zh_TW/process/2.Process.rst
-> @@ -29,8 +29,8 @@ Linux核心使用一種鬆散的、基於時間的滾動發布開發模式。每
->         認為足夠大時才會遞增9（例如，Linux 5.0是繼Linux 4.20之後發布的）。
->  
->  對於每個版本的補丁合併，遵循一個相對簡單的規則。在每個開發週期的開頭，“合併
-> -視窗”被開啟。這時，被認為足夠穩定（並且被開發社群接受）的程式碼被合併到主線內
-> -核中。在這段時間內，新開發週期的大部分變更（以及所有主要變更）將以接近每天
-> +視窗”被開啟。這時，被認為足夠穩定（並且被開發社群接受）的程式碼被合併到主線核
-> +心中。在這段時間內，新開發週期的大部分變更（以及所有主要變更）將以接近每天
->  1000次變更（“補丁”或“變更集”）的速度合併。
->  
->  （順便說一句，值得注意的是，合併視窗期間整合的更改並不是憑空產生的；它們是經
-> @@ -41,7 +41,7 @@ Linux核心使用一種鬆散的、基於時間的滾動發布開發模式。每
->  將被稱為9.x-rc1。-rc1 版本是一個信號，表示合併新特性的時間已經過去，穩定下一
->  個核心的時間已經到來。
->  
-> -在接下來的6到10周內，只有修復問題的補丁才應該提交給主線。有時會允許更大的
-> +在接下來的6到10週內，只有修復問題的補丁才應該提交給主線。有時會允許更大的
->  更改，但這種情況很少發生；試圖在合併視窗外合併新功能的開發人員往往受不到
->  友好的接待。一般來說，如果您錯過了給定特性的合併視窗，最好的做法是等待下一
->  個開發週期。（偶爾會對未支援硬體的驅動程式進行例外；如果它們不改變已有程式碼，
-> @@ -53,60 +53,63 @@ Linux核心使用一種鬆散的、基於時間的滾動發布開發模式。每
->  
->  例如，這裡是5.4的開發週期進行情況（2019年）:
->  
-> -	==============  ==============================
-> -	九月 15         5.3 穩定版發布
-> -	九月 30         5.4-rc1 合併視窗關閉
-> -	十月 6          5.4-rc2
-> -	十月 13         5.4-rc3
-> -	十月 20         5.4-rc4
-> -	十月 27         5.4-rc5
-> -	十一月 3        5.4-rc6
-> -	十一月 10       5.4-rc7
-> -	十一月 17       5.4-rc8
-> -	十一月 24       5.4 穩定版發布
-> -	==============  ==============================
-> +        ==============  ===============================
-> +        九月 15         5.3 穩定版發布
-> +        九月 30         5.4-rc1 合併視窗關閉
-> +        十月 6          5.4-rc2
-> +        十月 13         5.4-rc3
-> +        十月 20         5.4-rc4
-> +        十月 27         5.4-rc5
-> +        十一月 3        5.4-rc6
-> +        十一月 10       5.4-rc7
-> +        十一月 17       5.4-rc8
-> +        十一月 24       5.4 穩定版發布
-> +        ==============  ===============================
+Fixes: dbd9d80c1b2e ("drm/vkms: Add support for writeback")
 
-The Enlish version uses tab here, not space.
+Signed-off-by: Oarora Etimis <oaroraetimis@gmail.com>
+---
+- Why not use a refcount? Because there are only a few users, and a bit
+  per user shows the working state of each one. A repeated put() from the
+  same user does nothing, and it also helps future work that makes the
+  vblank timeout synchronous.
 
-Is this a big deal that requires a reroll?
+- Tested with vng: read crc/data and submitted three writeback jobs with a
+  small libdrm helper. The entries kept coming at the full rate of the
+  1024x768@60 mode, 235 to 237 of them over the 3.97 s the three jobs
+  took, where the current code stops at five.
+---
+ Documentation/gpu/vkms.rst            |  5 -----
+ drivers/gpu/drm/vkms/vkms_composer.c  | 34 ++++++++++++++++++++++++++--------
+ drivers/gpu/drm/vkms/vkms_crtc.c      |  2 +-
+ drivers/gpu/drm/vkms/vkms_drv.h       | 27 +++++++++++++++++++++++----
+ drivers/gpu/drm/vkms/vkms_writeback.c |  4 ++--
+ 5 files changed, 52 insertions(+), 20 deletions(-)
 
-Nice catch btw.
+diff --git a/Documentation/gpu/vkms.rst b/Documentation/gpu/vkms.rst
+index 1e79e62a6bc4..fe7dc8def44a 100644
+--- a/Documentation/gpu/vkms.rst
++++ b/Documentation/gpu/vkms.rst
+@@ -246,11 +246,6 @@ module through configfs. Use/Test-cases:
+ Writeback support
+ -----------------
+ 
+-- The writeback and CRC capture operations share the use of composer_enabled
+-  boolean to ensure vblanks. Probably, when these operations work together,
+-  composer_enabled needs to refcounting the composer state to proper work.
+-  [Good to get started]
+-
+ - Add support for cloned writeback outputs and related test cases using a
+   cloned output in the IGT kms_writeback.
+ 
+diff --git a/drivers/gpu/drm/vkms/vkms_composer.c b/drivers/gpu/drm/vkms/vkms_composer.c
+index 0fc915a954ba..59f1dd50b5bd 100644
+--- a/drivers/gpu/drm/vkms/vkms_composer.c
++++ b/drivers/gpu/drm/vkms/vkms_composer.c
+@@ -711,19 +711,34 @@ int vkms_verify_crc_source(struct drm_crtc *crtc, const char *src_name,
+ 	return 0;
+ }
+ 
+-void vkms_set_composer(struct vkms_output *out, bool enabled)
++void vkms_composer_get(struct vkms_output *out, u8 user)
+ {
+-	bool old_enabled;
++	bool was_enabled;
+ 
+-	if (enabled)
+-		drm_crtc_vblank_get(&out->crtc);
++	if (drm_crtc_vblank_get(&out->crtc))
++		return;
++
++	spin_lock_irq(&out->lock);
++	was_enabled = out->composer_users;
++	out->composer_users |= user;
++	spin_unlock_irq(&out->lock);
++
++	/* Another user already holds the reference for the composer. */
++	if (was_enabled)
++		drm_crtc_vblank_put(&out->crtc);
++}
++
++void vkms_composer_put(struct vkms_output *out, u8 user)
++{
++	bool was_set, enabled;
+ 
+ 	spin_lock_irq(&out->lock);
+-	old_enabled = out->composer_enabled;
+-	out->composer_enabled = enabled;
++	was_set = out->composer_users & user;
++	out->composer_users &= ~user;
++	enabled = out->composer_users;
+ 	spin_unlock_irq(&out->lock);
+ 
+-	if (old_enabled)
++	if (was_set && !enabled)
+ 		drm_crtc_vblank_put(&out->crtc);
+ }
+ 
+@@ -735,7 +750,10 @@ int vkms_set_crc_source(struct drm_crtc *crtc, const char *src_name)
+ 
+ 	ret = vkms_crc_parse_source(src_name, &enabled);
+ 
+-	vkms_set_composer(out, enabled);
++	if (enabled)
++		vkms_composer_get(out, VKMS_COMPOSER_CRC);
++	else
++		vkms_composer_put(out, VKMS_COMPOSER_CRC);
+ 
+ 	return ret;
+ }
+diff --git a/drivers/gpu/drm/vkms/vkms_crtc.c b/drivers/gpu/drm/vkms/vkms_crtc.c
+index fe17f49305a9..4e15abfd92a0 100644
+--- a/drivers/gpu/drm/vkms/vkms_crtc.c
++++ b/drivers/gpu/drm/vkms/vkms_crtc.c
+@@ -29,7 +29,7 @@ static bool vkms_crtc_handle_vblank_timeout(struct drm_crtc *crtc)
+ 	state = output->composer_state;
+ 	spin_unlock(&output->lock);
+ 
+-	if (state && output->composer_enabled) {
++	if (state && READ_ONCE(output->composer_users)) {
+ 		u64 frame = drm_crtc_accurate_vblank_count(crtc);
+ 
+ 		/* update frame_start only if a queued vkms_composer_worker()
+diff --git a/drivers/gpu/drm/vkms/vkms_drv.h b/drivers/gpu/drm/vkms/vkms_drv.h
+index dea6cad3f1b9..c3bb3cd46863 100644
+--- a/drivers/gpu/drm/vkms/vkms_drv.h
++++ b/drivers/gpu/drm/vkms/vkms_drv.h
+@@ -27,6 +27,9 @@
+ 
+ #define VKMS_LUT_SIZE 256
+ 
++#define VKMS_COMPOSER_CRC  (1U << 0)
++#define VKMS_COMPOSER_WB   (1U << 1)
++
+ /**
+  * struct vkms_frame_info - Structure to store the state of a frame
+  *
+@@ -210,8 +213,9 @@ struct vkms_crtc_state {
+  *	       vblank timestamps
+  * @composer_workq: Ordered workqueue for @composer_state.composer_work.
+  * @lock: Lock used to protect concurrent access to the composer
+- * @composer_enabled: Protected by @lock, true when the VKMS composer is active (crc needed or
+- *		      writeback)
++ * @composer_users: Bitmask of the users that need the VKMS composer; the composer is only
++ *		    active when it is non-zero. Updated under @lock, and read with
++ *		    READ_ONCE() from the vblank timeout.
+  * @composer_state: Protected by @lock, current state of this VKMS output
+  * @composer_lock: Lock used internally to protect @composer_state members
+  */
+@@ -222,7 +226,7 @@ struct vkms_output {
+ 	struct workqueue_struct *composer_workq;
+ 	spinlock_t lock;
+ 
+-	bool composer_enabled;
++	u8 composer_users;
+ 	struct vkms_crtc_state *composer_state;
+ 
+ 	spinlock_t composer_lock;
+@@ -317,7 +321,22 @@ int vkms_verify_crc_source(struct drm_crtc *crtc, const char *source_name,
+ 
+ /* Composer Support */
+ void vkms_composer_worker(struct work_struct *work);
+-void vkms_set_composer(struct vkms_output *out, bool enabled);
++
++/**
++ * vkms_composer_get() - Enable the composer for a user
++ * @out: VKMS output
++ * @user: bit of the user that needs the composer (VKMS_COMPOSER_CRC or
++ *	  VKMS_COMPOSER_WB)
++ */
++void vkms_composer_get(struct vkms_output *out, u8 user);
++
++/**
++ * vkms_composer_put() - Disable the composer for a user
++ * @out: VKMS output
++ * @user: bit of the user that no longer needs the composer
++ */
++void vkms_composer_put(struct vkms_output *out, u8 user);
++
+ void vkms_writeback_row(struct vkms_writeback_job *wb, const struct line_buffer *src_buffer, int y);
+ 
+ /* Writeback */
+diff --git a/drivers/gpu/drm/vkms/vkms_writeback.c b/drivers/gpu/drm/vkms/vkms_writeback.c
+index 858df1f89f66..7e2f82e44b39 100644
+--- a/drivers/gpu/drm/vkms/vkms_writeback.c
++++ b/drivers/gpu/drm/vkms/vkms_writeback.c
+@@ -118,7 +118,7 @@ static void vkms_wb_cleanup_job(struct drm_writeback_connector *connector,
+ 
+ 	drm_framebuffer_put(vkmsjob->wb_frame_info.fb);
+ 
+-	vkms_set_composer(vkms_output, false);
++	vkms_composer_put(vkms_output, VKMS_COMPOSER_WB);
+ 	kfree(vkmsjob);
+ }
+ 
+@@ -141,7 +141,7 @@ static void vkms_wb_atomic_commit(struct drm_connector *conn,
+ 	if (!conn_state)
+ 		return;
+ 
+-	vkms_set_composer(output, true);
++	vkms_composer_get(output, VKMS_COMPOSER_WB);
+ 
+ 	active_wb = conn_state->writeback_job->priv;
+ 	wb_frame_info = &active_wb->wb_frame_info;
 
-And..
+---
+base-commit: 1116f4aee916ca13d3e40ce87e67835f51576fcb
+change-id: 20261111-composer-cc9620515bcd
 
->  開發人員如何決定何時結束開發週期並建立穩定版本？最重要的指標是以前版本的
->  迴歸列表。不歡迎出現任何錯誤，但是那些破壞了以前能工作的系統的錯誤被認為是
->  特別嚴重的。因此，導致迴歸的補丁是不受歡迎的，很可能在穩定期內刪除。
->  
->  開發人員的目標是在穩定發布之前修復所有已知的迴歸。在現實世界中，這種完美是
-> -很難實作的；在這種規模的專案中，變數太多了。需要說明的是，延遲最終版本只會
-> +很難實作的；在這種規模的專案中，變數太多了。到了某個時候，再延遲最終版本只會
->  使問題變得更糟；等待下一個合併視窗的更改將變多，導致下次出現更多的迴歸錯誤。
->  因此，大多數核心版本都有一些已知的迴歸錯誤，不過，希望沒有一個是嚴重的。
->  
->  一旦一個穩定的版本發布，它的持續維護工作就被移交給“穩定團隊”，目前由Greg
->  Kroah-Hartman和Sasha Levin組成。穩定團隊將使用9.x.y編號方案不定期地發布穩
-> -定版本的更新。要合入更新版本，補丁必須（1）修復一個重要的缺陷，且（2）已經
-> -合併到下一個開發版本主線中。核心通常會在其初始版本後的一個以上的開發週期內
-> -收到穩定版更新。例如，5.2核心的歷史如下（2019年）：
-> -
-> -	==============  ===============================
-> -        七月 7 	        5.2 穩定版發布
-> -	七月 13	        5.2.1
-> -	七月 21	        5.2.2
-> -	七月 26	        5.2.3
-> -	七月 28	        5.2.4
-> -	七月 31	        5.2.5
-> -	...	        ...
-> -	十月 11         5.2.21
-> -	==============  ===============================
-> +定版本的更新。
-> +
-> +要合入更新版本，補丁必須（1）修復一個重要的缺陷，且（2）已經合併到下一個開
-> +發版本主線中。核心通常會在其初始版本後的一個以上的開發週期內收到穩定版更新。
-> +例如，5.2核心的歷史如下（2019年）：
-> +
-> +        ==============  ===============================
-> +        七月 7          5.2 穩定版發布
-> +        七月 14         5.2.1
-> +        七月 21         5.2.2
-> +        七月 26         5.2.3
-> +        七月 28         5.2.4
-> +        七月 31         5.2.5
-> +        ...             ...
-> +        十月 11         5.2.21
-> +        ==============  ===============================
-
-..the same?
-
->  
->  5.2.21是5.2版本的最終穩定更新。
->  
->  有些核心被指定為“長期”核心；它們將得到更長時間的支援。當前的長期核心
->  版本及其維護者的列表，請參考以下連結：
->  
-> -	https://www.kernel.org/category/releases.html
-> +        https://www.kernel.org/category/releases.html
-
-And also, you use space here while English one is tab.
-
-The same for all the links below, and the quoted part.
-
-Please let me know if I'm saying it wrong, then I can blame my editor
-neovim instead. ;-)
-
-> -長期支援核心的選擇純粹是維護人員是否有需求和時間來維護該版本的問題。
-> +長期支援核心的選擇純粹是維護人員是否有需求和時間來維護該版本的問題。目前
-> +沒有已知的計畫要為任何即將推出的特定版本提供長期支援。
->  
->  補丁的生命週期
->  --------------
->  
-> -補丁不會直接從開發人員的鍵盤進入主線核心。相反，有一個稍微複雜（如果有些非
-> +補丁不會直接從開發人員的鍵盤進入主線核心。相反，有一個稍微複雜（儘管有些非
->  正式）的過程，旨在確保對每個補丁進行品質審查，並確保每個補丁實作了一個在主
-> -線中需要的更改。對於小的修復，這個過程可能會很快完成，，而對於較大或有爭議
-> +線中需要的更改。對於小的修復，這個過程可能會很快完成，而對於較大或有爭議
-
-Good catch.
-
-For the label thing, as discussed before, let's clean up after finishing
-our goal. If we do care the labels here, I'm afraid that it will
-probably affect our progress in these two series.
-
-Thanks.
-
+Best regards,
+--  
+Oarora Etimis <oaroraetimis@gmail.com>
 
