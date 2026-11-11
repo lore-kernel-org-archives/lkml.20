@@ -1,90 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.53
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794376820;
-	b=a0S2IC6AaXAx36DmHyfK2KFmos1aOelUv6xq4yHzHKEdNKNxZ6nLkeGjQ5rybWfs5lLR
-	 gEzNbelgt+GUV4rduWZ0LNh16k3N7QGNGqjQ22e4Z66UF+jt0mGnmU7ygrbQI/K5gKVW2
-	 1r/cnJtAuCqbiKnDZGiAZ+l9FRcfzoshqcqWMmn0CxcU7k4wIfWiBS6XLmhzHBq5At3Mu
-	 iK9mpU9x3UfIEyOEsnT0BjrzMEHKLCxXSVDj/pbEfjoL+uTAxUKUQ188WK64tHb8WOdcQ
-	 GixyToe6aJAx6I/8iZb0rNtMuS0Q8YG7L0cl3CLXgsDsJ8yGj4FtlHWozlfYuuiSPIw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794376820;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=cMEdyLvG0WO8h2gcVneXCt4kujyphjxRvduCSlQeHKk=;
-	b=Hu2P/XMlOBr+o/TF5KRqBfxbbZxf6flXPZyHg4r0UdqAVdbsjUHAqwag4ugbIgPnPKy/
-	 /M/6hAhfaZoWa6Hwft94GXpMbU971FtlLfaRZ/fhHjvYE+QTYh3cdMnl7eVu/xZ6DXXJx
-	 73WjP4+fiWZgtds91FZWrgt2i2dMWqkIN5GqQNKpwgtUHQAAl5OuVdUVhjI6t0g4Tu77K
-	 cwoBBpEr4SND2QCPqEE3YvgsW+ow34DQqhrPQE3401Eyi9VVOPRSXadvc2Cl3XajtWWnR
-	 Kb+R2X9hiDSq1NJVc9/r8R9bXccbpi0zdBVAMDCk1uPoJwUtZGNuVGCqaX++KY0fy1A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RqzHKapO;
-	arc=none smtp.remote-ip=209.85.216.53
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794376811;
+	b=AJLkKXLhU5ygIurVneIOvU3rd3CzG85qM0wbg+CzTcYROgDTaRAPjVQoW4tWJ27faIio
+	 25GBbuQhLs4GHVTXhHEngfF/it2/q1uF5nrrXh/AkSHcsW80h+y5B2jODQa5v3EPPQiad
+	 kcLBN/Kxe/Rs8gsXYMjQDo/K3bnNLtIwF/G8b7IrvYVnUgz2P8IaE3SbRPELmUtLxd+ht
+	 0TaDWgBikTkPKPc+JSwa4fbTkbOPS4BgSb634Vxt81WyM/yWRoLKeLHOlG0Gxlw9aNmIg
+	 25pMC7uax3wk4iMZhn5XqnOZGk47JmHh4odEbQyQAW5UUDpRLHR5G+tjk0nvIObUYOg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794376811;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=rWyI2kn+bRFE4cg/aEwcjlnzCwXp15YvqY3EZ5DhaVY=;
+	b=fcGJWC83kdHZpqbiUFryijDYJCrtGEBaPtp7t+hmK9Vd5pczUWhtY9IUNwifAbraApPJ
+	 GyHNuGoLxpS8Zig8atlvyR2O3GhAsnlO3dLXh7rGl0fJz36SVYf7+ISH31jmbeWB5oOM0
+	 59x6qBU5NJG8RDQgnerWlnpT36R1VgZYI+OzToCIyQ88i3i2xccqlN/pgLPM9MHY5HrBo
+	 QAElHR8EALSiN+z1RmtQm76hUcQL7Lj7Tklp3XYdAZ2rX4ZRbXxxz+bEARZEXltNuFdgf
+	 yX4WSoOD0s2ko6pQR/tHIDiQ9zrELKUkkTc8gzNAuguivHk1BTd1uGJOpLKzYApspFg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QfHrM5Q5;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31AB0606A31C;
+	Wed, 11 Nov 2026 06:00:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QfHrM5Q5
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794376811;
+	b=pmteJnxMAmJrgXq0GK40OQL4ZgOENIu9PMC+QhgRNUB3TQyqWQqxcB1W/kyUmSIQxTlD
+	 +YKJfGC6xMErZI+m339vH78Ta401w9lEV5zVVVNrEn3fXxKbu6Mp0J+WOdZupeQ9jQNTe
+	 gdnyJ4AeyZcReGef7dvWXaqOG0LQgoEaxRw30F9a6VZNa3WSpVJVNf3ZVT0UkZjbxxSUF
+	 hPnl1hjRF8Q8lK43urSujpCHvNT0yiG1o/wo3xu2IJNDWa5o6F4hHMPBnOBQTQcdDlFVF
+	 sJc7nePjNhoayQgUx226ELnCZyR4B62LzD9i+EhosuX9gh5xMvj9Gk+hXA6r79E1MUA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794376811;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=rWyI2kn+bRFE4cg/aEwcjlnzCwXp15YvqY3EZ5DhaVY=;
+	b=IAthSS9gnVfxktqq/T7baSgMc+QzxY8db60yQtXnHIOgiMJ+AODSrDyNIvKTwsSvrb8v
+	 SAejvY7r0QRSuh3HAjDL0nZC/BQleXJ9Nc35PR4io/EZ+W6fk5IB42/j1P2tZQM75rA7A
+	 afJNYNC0KD4nFRBI8YNFPf1uWBBOYvOGwsO4ifXhmJN4Z7sNGxOYUu2btYIF6hhJJ24CC
+	 4mR+vFxhHJyG/p7og1m97LW87HA4j/+KpwShWx0t5tnda/tPuRNAjPmsnNYj07MCb06Fy
+	 sqmA35rJHeKrr43y1YHjpugu9E1zhHXBkyGSyovgQuQvMxG/rG7A7x2yYU/0m9reNoQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53BCF60A2619
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 06:00:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53BCF60A2619
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RqzHKapO
-Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-3ad41b47541so1768361a91.1
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 22:00:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794376820; x=1794981620; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=cMEdyLvG0WO8h2gcVneXCt4kujyphjxRvduCSlQeHKk=;
-        b=RqzHKapO+QtDvs7uHnjoQORw3iYRXoaenL17JZMtLVDsAjHcXvEFGpusWy+QEtwPMW
-         HmBoNUJ3pjLygwPvZntvIHPVDyHUfhAET1nltf6Arc5PkSiP3YP+gGLx3WVgXZVlP1Cd
-         e//j+uvSWKASN2gI9QWLbq7I4wQsSira6axZlYoI+cVoO3Yja5VQjXeNZdbER/icro17
-         PNIAUf8FI/j40le9cczdKAOXmppDUg25pLarFdDvWmkCxzji18DhWbrVEZslgMZ1vu2T
-         uztnlixlHwFWb83h1XjmIcAYrP07tUGKERYrsq3tLzCjHtKC1wCRnPN8QrAQa0B/sFUQ
-         Maxw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794376820; x=1794981620;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=cMEdyLvG0WO8h2gcVneXCt4kujyphjxRvduCSlQeHKk=;
-        b=pYqZxX6ZHR/M9Dnn5zVvq6OaIRIMCvxUKsYol3SzPInw8gZqdqGJQzJOn23JYOucen
-         dpE38UxXLptKWt8RbtwaSaN+s5s+YWqCLC+jHJvO9/S24Bt3W78Ywq7/PmrazC1FZVOx
-         ymQ60vH112CEjOFx93aw7NTNHc8aWlfvv/4R0IleTA4G2ceHmOyL5Q3OFXt1OrgolodE
-         z9ruWVDp8B/vnQbUUt8pEUpzgmD2rhiOPybB8J+dOJMPbRf5y2y1pPsvOU5wiCCqRkx8
-         lLuhukB0/3DVErT3FntI7gF6AGWg4j9O9za2kaSr6RlaoXNUZxiZ31+qA7/TmiCfe9Mc
-         0r+w==
-X-Forwarded-Encrypted: i=1; AL+hErHizQ5lbfCk9/Mc3l6Cn9aInYKYgTat0B+bwt9kh71eXwQuZUU4cfgtKkSTLYL3PZy4W+OGIlcPcOef8nA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8ynbaKtb6NJKfzOEdWOww97WfYVOvEukCkILvsnN2HOs34i+zw
-	7mwX1Re3r74hf3TUUeNkf0924WZxXJyfddK522EWU+lvHpzPGS4x1F+3
-X-Gm-Gg: AYBFou0iXzMQ4I2Jmg4iL05XcTWUDjSS6lbCu89lAHRDn4wU02AU3sXUMy0qog18zwA
-	cOhxaF+pR1PZO9lS6F+Aj9hcHTydxGBhzJ1pXUdNvLL9Gle9XLMSkv2yApun8suHLJDjM2/WoM5
-	lqbeCawbbIXEvnxDBXCDuyrl8bxcVqNK04orKSQY0WmWjcUC0ClnW6h/uF/+xTnDNDpKEKueNf+
-	Z9xCcNvx8bbDm4de7rru9+sdMHtbppRbtpbKy4pyiHHAD5c7EIWse85784ZvQsI9kW8j57D1Bqr
-	bO2QDVunR0yILZ33xUp4YIrWAf8/OfJYg+TuogmQ2/pwrFgbt+K8Coi95VbY8A5dSF+cZcf+smk
-	f0MLrjANaF9SClEMhUAS0LzQQjYNH45Z1Evzyfn0foWPSrLQGmRonYbyhDPF3NNXmo1t596KHso
-	FeyI6A1bh4q+dRcKjIIOG/ZDRwnn2bEQiaaraRfGq8r/7AXzAwNFcMvSPnfPU/Q48sZMfV7EiOv
-	BPHUz6tbafS5aQRt6wcn7U4RYQCNHYhZ32WofzsazummZ16jctKI/SbguzI9FTLmawUG26cPGBk
-	zdfLXRVltjS4NvgR4mFQxda8rOrB9BGM75XHTonKbyHQS47og5ptXM8L+xSU933TsKfkS8SwlSX
-	RklT7VnZDaQS4fkGBhtBhqWfBlfE806BRrHz/abVENiA+/dK37zdfwLkyWC3k/0eMue2M7Oaob8
-	N87ihA1MHW6Y8WtG0Hut/z
-X-Received: by 2002:a17:90b:1a91:b0:3b1:2810:dfd6 with SMTP id 98e67ed59e1d1-3b182f36f48mr1556357a91.64.1794376819334;
-        Tue, 10 Nov 2026 22:00:19 -0800 (PST)
-Received: from [127.0.1.1] (125-227-154-99.hinet-ip.hinet.net. [125.227.154.99])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b17db56c7esm2879890a91.8.2026.11.10.22.00.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 22:00:18 -0800 (PST)
-From: LiangCheng Wang <zaq14760@gmail.com>
-Date: Wed, 11 Nov 2026 14:00:14 +0800
-Subject: [PATCH] ASoC: max98090: keep the MIC boost across mic input
- power-up
+	by smtp.kernel.org (Postfix) with ESMTPS id 2FCBB1F00A06;
+	Wed, 11 Nov 2026 06:00:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794376810;
+	bh=rWyI2kn+bRFE4cg/aEwcjlnzCwXp15YvqY3EZ5DhaVY=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=QfHrM5Q5tlCF82OayNgYUv9e9GxPsgBGJpXEE7XmMvL8v0yuuMNnE0pdUjIsX8uaS
+	 L1s5QL69aqWukC2B+SONdqxjSsaG4ev5/SPxrs9CqED6WJvuYaYRDZsey6XRaz2Ro/
+	 urZtTUVUV54J6ScA6Lz6fRmFwdbtwwMfRHKKrJ9bnJuC3kG8aDNGF27tOKj4ntOK1U
+	 MggPKSgKDOm62Mnm+gO3fTgxTEy+YX7hp/3Dbj9jOvAAoR6zPBBOms4WltT9h8Rsjp
+	 gWbKvXS5CFJMaIugejZXhRkpZDsjNd2mkwQHyQGqQ6kL0CjBhGBsEmdCasVJbZT0Yz
+	 2TfuqjfKT7xhg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 838E648DD7;
+	Wed, 11 Nov 2026 06:00:07 +0000 (UTC)
+From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
+Subject: [PATCH v2 0/8] arm64: dts: allwinner: h616: Orange Pi Zero2 fixes,
+ GPU DVFS and GPU cooling
+Date: Wed, 11 Nov 2026 06:00:06 +0000
+Message-Id: <20261111-h616-zero2-dt-v2-0-88d8030fc975@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,119 +86,107 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261111-max98090-mic-boost-v1-1-20b9bd8816db@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAG0E9GoC/x2MywqAIBAAf0X2nKD2IPuV6GC21R7KcCME6d+Tb
- jOHmQyMkZBhEBkiPsQUziK6EuB3d24oaSkORplOa63k4ZLtlS1AXs4h8C1907X1sjpU1kMJr4g
- rpX86Tu/7AQ/Se4NkAAAA
-X-Change-ID: 20261110-max98090-mic-boost-c4653dfae09c
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Jerry Wong <jerry.wong@maximintegrated.com>, 
- Ralph Birt <ralph.birt@maximintegrated.com>, 
- LiangCheng Wang <zaq14760@gmail.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794376816; l=3781;
- i=zaq14760@gmail.com; h=from:subject:message-id;
- bh=Lc66jw5s26WwD5JavhljQJeyZ6ZUCJVqeJsR1Vj5mjs=;
- b=PL7ALtf+UhJ2CZlWwRE+Etw7x2bjlHjnnnH6v3rWn+FTrA8WgKQwJ+3EOqcPjeD/eH5sW4SLk
- p6BBicb+7z3B1IEwa/O3zQg68j2jSWgzfefTUEa/CmiyZHCe6XC/RUO
-X-Developer-Key: i=zaq14760@gmail.com; a=ed25519;
- pk=5IaLhzvMqasgGPT47dsa8HEpfb0/Dv2BZC0TzSLj6E0=
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNQQ6CMBBFr0Jm7ZhOIzVx5T0MizIMMEaoaYGoh
+ LsLuHb5kvffnyFJVElwyWaIMmnS0K9gDxlw6/tGUKuVwRrriMhg68jhR2KwWA3ouTwxC3tvalg
+ 3zyi1vvberfhxGsu78LBFNqPVNIT43g8n2rx/7YnQoMlz46qzM7Wla9N5fRw5dFAsy/IFAwUNP
+ bwAAAA=
+X-Change-ID: 20261110-h616-zero2-dt-acb4ccecaa0f
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Samuel Holland <samuel@sholland.org>, Ryan Walklin <ryan@testtoast.com>, 
+ Andre Przywara <andre.przywara@arm.com>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ Arun Iyengar <aiyengar1990@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794376807; l=3816;
+ i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
+ bh=6jel4MoJqtTxrypSxxUTQ6tVnFHWyOMfTonT2Q2GlFE=;
+ b=hSLIz7TyuZtdWQpe2KdWRIiqTkjVZpDUD2GjXphRwSTHIhU6vD4iiunD1Ci38649ec1wddF1P
+ zaz9AqIzrcwCsV5BKSRpyIUJmDEhY7ZYYAxFm5Z+/Q/bvih9Y3rS4I2
+X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
+ pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
+X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
+ auth_id=1480
+X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
+Reply-To: aiyengar1990@gmail.com
 
-PA1EN/PA2EN select both the MIC1/MIC2 preamp enable and its gain
-(0 = off, 1 = 0 dB, 2 = +20 dB, 3 = +30 dB). "MICn Boost Volume" keeps
-the selected gain in max98090->pa1en/pa2en while the input is off, and
-max98090_micinput_event() writes it to the field when the "MICn Input"
-widget powers up.
+This series collects the device tree changes we carry for the Orange
+Pi Zero2 (H616):
 
-The event handler also reads the field back to keep the stored gain in
-sync ("Update for volatile"), but it does so on POST_PMU and POST_PMD.
-The widget drives PA1EN/PA2EN as a single enable bit, the low bit of
-the field, so at both points DAPM has just rewritten it:
+- Patch 1 makes the H616 codec node cover the DAC RAMP register that
+  the driver uses (it currently works only because ioremap() rounds up).
+- Patch 2 fixes intermittent dead-RX boots of the Zero2's Ethernet by
+  letting the RTL8211F add the RX delay ("rgmii-rxid"), as the Zero3
+  already does.
+- Patches 3 and 4 add an H616 GPU OPP table and make the Mali-G31 a
+  cooling device of the GPU thermal zone, with a passive trip point.
+- Patches 5 and 6 enable GPU DVFS on the Zero2. Patch 5 first raises the
+  floor of the GPU supply to 900 mV, because on this board the rail is
+  shared with VDD-SYS and the video engine corrupts decoded frames at
+  810 mV.
+- Patch 7 describes the SPI NOR supply, patch 8 adds i2c aliases so the
+  header buses keep the controller's number.
 
-  - POST_PMU: DAPM has set the field to 1, so the read-back stores
-    0 dB and the handler then restores 0 dB.
-  - POST_PMD: DAPM has cleared the low bit, so a +30 dB (3) gain reads
-    back as +20 dB (2).
+Testing, on an Orange Pi Zero2 with a v7.3-based kernel carrying the
+same DT content:
+- RGMII: 10 of 10 cold boots with a working receive path (the problem
+  showed up as intermittent dead-RX boots before); iperf3 853/873 Mbit/s
+  and 86 minutes of traffic without loss.
+- VDD-SYS: with the VE at 600 MHz, only 6 of 13 4K H.265 decodes were
+  bit-exact with the rail at 810 mV; 3 of 3 at 890 mV and 3 of 3 at
+  950 mV. With the 900 mV floor, a 70-minute decode soak (H.265 and VP9)
+  had 42 of 42 runs correct.
+- GPU DVFS: panfrost devfreq scales 306-600 MHz and the vdd-gpu-sys
+  voltage follows the OPPs within [900, 990] mV.
+- GPU cooling: the gpu-thermal zone binds the panfrost devfreq cooling
+  device. The 85 C trip itself was not reached on this board (it peaked
+  at about 70 C).
+- SPI NOR: the "supply vcc not found, using dummy regulator" message is
+  gone; the flash reads back correctly.
+- i2c aliases: TWI3 enabled by an overlay shows up as i2c-3.
+- Codec: analog line-out playback works.
 
-As a result every capture starts at 0 dB: a boost set while the input is
-powered down, e.g. restored by alsactl or an audio HAL at boot, never
-takes effect, and one changed during capture is lost at the next
-power-up.
+The series is based on sunxi/dt-for-7.5. "make CHECK_DTBS=y W=1" gives
+no new warnings for the H616/H618 boards. The Zero3 shares the GPU
+supply design, but I have no Zero3 to test, so it is left out.
 
-Read the field back on PRE_PMD instead, while it still holds the active
-gain, and only restore the stored gain on POST_PMU.
-
-Tested on i.MX95 with a MAX98090 headset mic on MIC1, running NXP's
-6.18.38 vendor kernel (max98090_micinput_event() is the same as in
-mainline): with MIC1 Boost Volume set to 2 (+30 dB) before capture,
-register 0x10 reads 0x20 (0 dB) during capture without this change and
-0x60 (+30 dB) with it, and a boost changed during capture is kept for
-the next capture.
-
-Fixes: 685e42154dcf ("ASoC: Replace max98090 Device Driver")
-Signed-off-by: LiangCheng Wang <zaq14760@gmail.com>
----
- sound/soc/codecs/max98090.c | 22 ++++++++++++----------
- 1 file changed, 12 insertions(+), 10 deletions(-)
-
-diff --git a/sound/soc/codecs/max98090.c b/sound/soc/codecs/max98090.c
-index a985853e48eb6fc4b02c8f148f73fb70bf18168b..3ed513f6d81cd6bdc85caea12f38030f85cdda13 100644
---- a/sound/soc/codecs/max98090.c
-+++ b/sound/soc/codecs/max98090.c
-@@ -743,14 +743,6 @@ static int max98090_micinput_event(struct snd_soc_dapm_widget *w,
- 	else
- 		val = (val & M98090_MIC_PA2EN_MASK) >> M98090_MIC_PA2EN_SHIFT;
- 
--	if (val >= 1) {
--		if (w->reg == M98090_REG_MIC1_INPUT_LEVEL) {
--			max98090->pa1en = val - 1; /* Update for volatile */
--		} else {
--			max98090->pa2en = val - 1; /* Update for volatile */
--		}
--	}
--
- 	switch (event) {
- 	case SND_SOC_DAPM_POST_PMU:
- 		/* If turning on, set to most recently selected volume */
-@@ -759,6 +751,14 @@ static int max98090_micinput_event(struct snd_soc_dapm_widget *w,
- 		else
- 			val = max98090->pa2en + 1;
- 		break;
-+	case SND_SOC_DAPM_PRE_PMD:
-+		if (val >= 1) {
-+			if (w->reg == M98090_REG_MIC1_INPUT_LEVEL)
-+				max98090->pa1en = val - 1;
-+			else
-+				max98090->pa2en = val - 1;
-+		}
-+		return 0;
- 	case SND_SOC_DAPM_POST_PMD:
- 		/* If turning off, turn off */
- 		val = 0;
-@@ -1121,11 +1121,13 @@ static const struct snd_soc_dapm_widget max98090_dapm_widgets[] = {
- 
- 	SND_SOC_DAPM_PGA_E("MIC1 Input", M98090_REG_MIC1_INPUT_LEVEL,
- 		M98090_MIC_PA1EN_SHIFT, 0, NULL, 0, max98090_micinput_event,
--		SND_SOC_DAPM_POST_PMU | SND_SOC_DAPM_POST_PMD),
-+		SND_SOC_DAPM_POST_PMU | SND_SOC_DAPM_PRE_PMD |
-+		SND_SOC_DAPM_POST_PMD),
- 
- 	SND_SOC_DAPM_PGA_E("MIC2 Input", M98090_REG_MIC2_INPUT_LEVEL,
- 		M98090_MIC_PA2EN_SHIFT, 0, NULL, 0, max98090_micinput_event,
--		SND_SOC_DAPM_POST_PMU | SND_SOC_DAPM_POST_PMD),
-+		SND_SOC_DAPM_POST_PMU | SND_SOC_DAPM_PRE_PMD |
-+		SND_SOC_DAPM_POST_PMD),
- 
- 	SND_SOC_DAPM_MIXER("LINEA Mixer", SND_SOC_NOPM, 0, 0,
- 		&max98090_linea_mixer_controls[0],
+These patches were developed with Claude (Anthropic) as a
+coding assistant: it investigated the problem, wrote the code and
+the commit messages. I reviewed them, and they were tested on an
+Orange Pi Zero2 (H616) as described above.
 
 ---
-base-commit: b3dfbde62cf1981c4638939c159dfd087b7a72e9
-change-id: 20261110-max98090-mic-boost-c4653dfae09c
+Changes in v2:
+- h616: Add GPU OPP table: use <target target max> voltage triplets
+  like the H6 GPU OPP table, so that boards whose GPU supply cannot
+  reach an OPP's target voltage lose that OPP instead of running it
+  undervolted (found by the Sashiko AI review). No change on the
+  Orange Pi Zero2 (AXP305 DCDCC at 900 to 990 mV keeps all ten OPPs).
+- Link to v1: https://patch.msgid.link/20261110-h616-zero2-dt-v1-0-05506d760f21@gmail.com
+
+---
+Arun Iyengar (8):
+      arm64: dts: allwinner: h616: Cover the codec RAMP register
+      arm64: dts: allwinner: orangepi-zero2: Let the PHY add the RX delay
+      arm64: dts: allwinner: h616: Add GPU OPP table
+      arm64: dts: allwinner: h616: Throttle the GPU from the GPU thermal zone
+      arm64: dts: allwinner: orangepi-zero2: Keep VDD-SYS at or above 900 mV
+      arm64: dts: allwinner: orangepi-zero2: Enable GPU DVFS
+      arm64: dts: allwinner: orangepi-zero2: Describe the SPI NOR supply
+      arm64: dts: allwinner: orangepi-zero2: Add i2c aliases
+
+ .../boot/dts/allwinner/sun50i-h616-gpu-opp.dtsi    | 62 ++++++++++++++++++++++
+ .../dts/allwinner/sun50i-h616-orangepi-zero2.dts   | 22 ++++++--
+ arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi     | 17 +++++-
+ 3 files changed, 96 insertions(+), 5 deletions(-)
+---
+base-commit: a7f6e476aaedba0d8ec575acaeb3257f900a592f
+change-id: 20261110-h616-zero2-dt-acb4ccecaa0f
 
 Best regards,
--- 
-LiangCheng Wang <zaq14760@gmail.com>
+--  
+Arun Iyengar <aiyengar1990@gmail.com>
+
 
