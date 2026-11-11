@@ -1,65 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794404573;
-	b=iKb8tVGtqOAzqng+SL93kjSt7ZXgrI4fZG8eZp7TS1Nuloo78/jInIEUqwrzuqXWiEdQ
-	 fwC+KUxbpUMG3DFQzFGMDI93XS2nHO1WcH95NbBqwcx97SwdIcAXRR4gqkNR8Dl9bxipP
-	 pYsVB/sDPrW5ZTWI05Rcj0weqTIoRE7Perm3xI8UzLhuX4QsZvQhBosO0ofSdU5oalAG6
-	 ZlVRJ3SiBpcGsTlFuyBHyqibv+xbjDCvERegq91t+p8aGTpgeib5gIVJNyo9ySQw0NXRm
-	 o5j+ZuIA7ZmJ1YNhIKcwOBpHfd1HT8kAseJSxiuzUqHqO7lXZBZgCyl5DSW7ueNtQPg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794404573;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=r2uDapf2vLabhbDFIRRtIj4i5+V0KX58w12edhkpSZU=;
-	b=qePUMrYrdwdtOp6/IhFCq0d+UYDIjlXTXG9m7rj4Oapymmy3inzAgAYpmUD6uSJLFUA2
-	 HFy2VB7jun+hFTHynrR8meKo1pplZTxMAULEzNW+MXNzLwWR964VIP3PklsvXEDskmsRu
-	 W2RXu5RkiWqz1lx3jgHJdT8D24P4CH1U4T9XpkYvevBF2bbZBrhCdSN+z5DA4D/jAdBeo
-	 URp/nYhEUzgPxLSLQ0x2C3MEIp4ahsD2+LsT0jRKjV1lp+5VrcFx27MsGETEZJFptid6l
-	 Op9103l/w9g1fTSUp+P+RbwBr9nQj0K3Z99LPMHZtwWIx+tHNuAlr7N7e0gTkVRADFw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N1FWFgdc;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.70
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794404571;
+	b=2a3K74ERh5oI6e3tDPwkrTr9nm5CSwDrvZDjOYvgvj3YAGr51SpR3dDf0UYcwXbHqZAB
+	 mfUaB9BJK9gNucXx+B/IglYsoe4DRkvtcncfvmclg+zhDKTs2ZX4YNeVZhvjcanZFfnPj
+	 JMx7YWXRYuUKiUphC72m8Zd4vpwJbpmtfMyXJSdHSgRNhZeaED3RxhBu9dD4CkovFOhWH
+	 /NUZSkQ2qs+uKdp5xRrcIKTdPlBSXUeeilbhZMMA7hUsiTIF1ahLHsjwdtU2yPjmL1Der
+	 dydvyiYCXUyPiGRlS4RwFrBbLmOSaElNILucdtodVfB5noX4tnA2yoUx90BgxedngxA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794404571;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=142BWzo5SqdeGbDyQUFihRMgsSKnM/QLJMWd8Z8Vmvs=;
+	b=Fk6ESkrHQeLcnEJWnnTA45C2lVyXy2+xMCce6dXnWAr5i6+3TI7lLn4QhzQ0lyljA/oa
+	 ZAXliZVXXq+0eQvC6I6xaW7z7xavEioduilgtXHIELGaLW2wkPZzwmbtnVCAsAPH4iLzL
+	 zVUIAPHoyEGnVG9OVK8rFH1O7wrD5rZQoXHWuuOGj77tcFoxAIdyEg4Ll5kOib2XFQwhO
+	 fmTYNykKQODQkyFtiC0vzdHqCSI/+lus9rZ4/4LDG61MmysJYm09oHhgTCh4g0f8xW6Sd
+	 hCfJEQfZMD5fjLgsiO1oJ88O41RxcfLnJdU6tRvcp/FO9U7UnqjySD+yYu0m/7E4Sbw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=nJCReKkB;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.70
+Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012070.outbound.protection.outlook.com [52.101.66.70])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56F06606A32E;
-	Wed, 11 Nov 2026 13:42:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 623D4606A336;
+	Wed, 11 Nov 2026 13:42:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 623D4606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N1FWFgdc
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48B351F00A06;
-	Wed, 11 Nov 2026 13:42:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794404573;
-	bh=r2uDapf2vLabhbDFIRRtIj4i5+V0KX58w12edhkpSZU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=N1FWFgdc7n3FyJi4mWq7kE7aBBRtNzoz7OTcWnlRMydaapZ3nDIlCS4Okv1TVPC3m
-	 JL6rQ4hb45pb3iD/dM5aW7LzXLL/qyYUni1xL1rlyF6YBcPpru6XkKZzzFwowC9Y6y
-	 C7NiuCGH+vmHlWX+5tIej70Q1CIcqLl6FT43SjHcnbxrNC7mmiqAQmKBwWSoAD7GLd
-	 ArJzKTz6tCYzM+6Y3ek8ew3nEUuf+jxXUBKm3e9gdsw66SDyb8OUIR83eD2WnwijaO
-	 dPW/jiYjBeQgF5n7srNsN9thQlouIMfyRaahC/yQazXkj1+PCWlU+Bj+iM7D9axTAT
-	 G3hqLCcrRvQ3g==
-Date: Wed, 11 Nov 2026 14:42:44 +0100
-From: Christian Brauner <brauner@kernel.org>
-To: Matthew Wilcox <willy@infradead.org>, 
-	Linus Torvalds <torvalds@linux-foundation.org>
-Cc: "Kiryl Shutsemau (Meta)" <kas@kernel.org>, 
-	Alexander Viro <viro@zeniv.linux.org.uk>, Miklos Szeredi <miklos@szeredi.hu>, Amit Shah <amit@kernel.org>, 
-	Jan Kara <jack@suse.cz>, "David Hildenbrand (Arm)" <david@kernel.org>, 
-	Zi Yan <ziy@nvidia.com>, Bernd Schubert <bschubert@ddn.com>, 
-	Hugh Dickins <hughd@google.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, Arnd Bergmann <arnd@arndb.de>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
-	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, linux-fsdevel@vger.kernel.org, 
-	fuse-devel@lists.linux.dev, virtualization@lists.linux.dev, netdev@vger.kernel.org, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com
-Subject: Re: [PATCH 1/4] virtio_console: copy pipe buffers in splice_write()
-Message-ID: <20261111-thunfisch-wirbt-waldrand-822275b2d3b1@brauner>
-References: <20261110145241.536019-1-kas@kernel.org>
- <20261110145241.536019-2-kas@kernel.org>
- <avNuQqLf9CG9dSsE@casper.infradead.org>
- <20261111-heimreisen-ungeziefer-empfunden-a892571f2c07@brauner>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=nJCReKkB
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=vxO3AUUVFj85GOVeG9tXVeI5hqIeQneMit+MlBOBWNmU5cEtEWcTtQndqb0F+P0EMe5OFNdfGrlmSG1P8LvoNG6yHTL+gTRFO/b3sQG/+4gBgg1cvzZLmpmgYT9PCWEchvrynBZdX2K9lnjinamfj7woBy/7ldeiHygQLfJlcpRQ3077bFDLR+qoLUSB542+OmDWTOekKpzccz7OUzvaeNOAnEylKbyoWWUye1RyAnmqNCuf1amAuCM0EXZFopCqTbyYZmB03oxX+dfOcs09oT1SrmpFfTzkYQUlNfn9yIZIxaKcDl2jH222h+MELuB0JnCpeRW32GklTxb19uLkJQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=142BWzo5SqdeGbDyQUFihRMgsSKnM/QLJMWd8Z8Vmvs=;
+ b=ddGWfPv68na6+fmkL5TVNQj8fKo5ETD+FC+EX3mkOsBkInQ0GiVGxGhlitP8ZfesvvLPiO+6A6aRg5TGFrptKB8l6CPiaO/SZXWcJLXgpN28vXeGFjv9om8tuf7P+lSdIlOsz6XcNDnuOVUnqqx6e+umjZkKaVi8hcFTp8iHp8Ev3U4+sl1oIC8XaDLiG/EuKEVCujkl8WHtyXTvySKNliZ/vFJptcbCOCPAgFDWSyKDOaoVfiv0D+KwmYitzJDx7NUeVR916wHtOHJUKWEuPOqVjuZiCty33eTT6KBnqSDL+v3E5fiBhnAceXZG35uMM+jxNCHIq2oHcq6WC9Aohw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=142BWzo5SqdeGbDyQUFihRMgsSKnM/QLJMWd8Z8Vmvs=;
+ b=nJCReKkBWVlIxMaSY8zfFuh+AAYbJzOrg3E90UnIHQf5OI/JM/6UNSSaoPFoDc/MsWFoc3DTmlOxJ1SKR1HW3NGapbjISoW2C2x+aZnuUM4AH5lbrN3Z0PHjNJ75iiKBL4W3iEBrvdakZXln9b9WRffinyC0ZyPRBbedn78sT4B+/jtvyzzS2PopywRlx9Zs+jcDgvgYAaDojHIkGaB0DQj6HzRwaDx5vfqcWWf0QFmQN+/MBuwo9k+LRdpO7c18ucUbhzuMUxHAMUWSJaHblVOVfm0SzpkYAwxVBgJ+0i1bCGHleNu15LSnt3b20Cer4nw0M70tkjXvqZEDDs3h1Q==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from AM8PR04MB7874.eurprd04.prod.outlook.com (2603:10a6:20b:24d::9)
+ by CPHPR04MB721690.eurprd04.prod.outlook.com (2603:10a6:380:104::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.9; Wed, 11 Nov
+ 2026 13:42:48 +0000
+Received: from AM8PR04MB7874.eurprd04.prod.outlook.com
+ ([fe80::ac38:1699:6f18:c5d9]) by AM8PR04MB7874.eurprd04.prod.outlook.com
+ ([fe80::ac38:1699:6f18:c5d9%5]) with mapi id 15.21.0615.007; Wed, 11 Nov 2026
+ 13:42:48 +0000
+From: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+Date: Wed, 11 Nov 2026 21:47:30 +0800
+Subject: [PATCH v5 2/7] dmaengine: add a bus for DMA channel devices
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261111-edma-iommu-v3-v5-2-2537cebe6ca2@nxp.com>
+References: <20261111-edma-iommu-v3-v5-0-2537cebe6ca2@nxp.com>
+In-Reply-To: <20261111-edma-iommu-v3-v5-0-2537cebe6ca2@nxp.com>
+To: Frank Li <Frank.Li@nxp.com>, Vinod Koul <vkoul@kernel.org>, 
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
+ Robin Murphy <robin.murphy@arm.com>, Laxman Dewangan <ldewangan@nvidia.com>, 
+ Jon Hunter <jonathanh@nvidia.com>, 
+ Thierry Reding <thierry.reding@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>
+Cc: Frank Li <Frank.Li@kernel.org>, 
+ Larisa IIeana Grigore <larisa.grigore@nxp.com>, imx@lists.linux.dev, 
+ dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ iommu@lists.linux.dev, linux-tegra@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ Peng Fan <peng.fan@nxp.com>
+X-Mailer: b4 0.16-dev-7bc12
+X-ClientProxiedBy: SI2PR02CA0010.apcprd02.prod.outlook.com
+ (2603:1096:4:194::15) To AM8PR04MB7874.eurprd04.prod.outlook.com
+ (2603:10a6:20b:24d::9)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,102 +108,164 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261111-heimreisen-ungeziefer-empfunden-a892571f2c07@brauner>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM8PR04MB7874:EE_|CPHPR04MB721690:EE_
+X-MS-Office365-Filtering-Correlation-Id: f7b82664-c614-403b-28d1-08df3ff9acb9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|1800799024|366016|23010399003|19092799006|921020|10067099003|11063799006|261009223027099003|261022105027099003|261022075727099003|261021123027099003|261021121427099003|261102130727099003|261102123227099003|261102124527099003|56012099006|261026140227099003|261026121527099003|261028144727099003|22082099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	xym/GbsRdQCU60oIPFv3/yO0QpsZElfKXiP5uixZUvJXnrSdcgRjTXG5WMXhWM0LCbW+qCis9K15PEDfYcihmZm4BML5zz5bWU9JBBECAg8yAmZdKAQzTaguXMj2g259SaDwh1cYvFUXT4FMpDiB9F6Kr582De1mu2UOv49PwPpsyrEeeyKYBE1julSq1ZKCyaSyzXZD1i5E9mb5mLPgdP2zRygjgHZtAJA4KMoOH+5stonW2itZxEfO7sfFpRzylEKZ3EYuI2Rkc6CCCPse5qLdDw7ugpB04VCNmRYJGVEz6NrLR2+ZkmhGx9zzSXxyZAWqoR7zC0pjLFz+JfNwmwrmEdNkLm1CRMink6I8sk1LDz6rasno30MeXDO/Ls7Pc/bRzJnGDajko38Qq86pkh/ra0I3UxVp/oAilTYk0WegrWWA8as1/CY8FAlV5EL6BIEv/zdI8RJmCZNTB2X7n5EjBOmC7OVevwUvfEi8ujSCDqjlQujrb8XJF0ZHqQtZQ2iz30NFcL1YqRRtBpjhe8EB7xyJF02TKOp0a7T3m5aYuahpXCJaqWVqOX8kVJGH+LbvmuKpjqZlTgfLU3SSDVg608VRFWMC+yXnxlz5LNycToQ3m0RJL8t7jSUOPg1V+MpyXtOdejGGlqVdlc3atYHrB1Ow4ooTNqN9aqfXFYmQnJMkXvGJxgnkrr35sOXlVPMIa/ICOGCx7TpBn65McQ==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM8PR04MB7874.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(366016)(23010399003)(19092799006)(921020)(10067099003)(11063799006)(261009223027099003)(261022105027099003)(261022075727099003)(261021123027099003)(261021121427099003)(261102130727099003)(261102123227099003)(261102124527099003)(56012099006)(261026140227099003)(261026121527099003)(261028144727099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?QXMrUXlWdlBsa2NOWCticUVFZXlVTk5uR29CeDBIQ1lmV1drbStpWndSVjJ0?=
+ =?utf-8?B?eGJvMnNyMjdQSGVUN21QOGJFMk11UzhENXdxcXd6QmZNWTc5d2NJRzYrUlNM?=
+ =?utf-8?B?N1hNdFhOR1d0b1R4Y3psaVAvNUNQZVRRQ01RRzV4aytBekxXVnhuZnord2R3?=
+ =?utf-8?B?cWhtRnZBYTJOdmo3K094emovTFNGVVRhTmFOZE94N2xrQjJVM3RHcXZ0Qko1?=
+ =?utf-8?B?MUVLdExiRDkyOHNHUndLblpLRzNzNngzQndjblBHSnV3T21UOHVFMnplbjJB?=
+ =?utf-8?B?K2JKZEd4RURKeExxN0JoNFdSOE9qcnJ0bmluVmdJL3FnNDNPSXVENmZxMkRU?=
+ =?utf-8?B?NXh4SUNjWHhENXBkdTYreE9qS0FnbDFHZXVTME0wSThRTjhveTNZUUlPNVg1?=
+ =?utf-8?B?VWwvQk51MmM1aVJBNEc3RGNjVEF2MVlwUS9zMFlaNHkxZGF3SE9WM3I5M3lw?=
+ =?utf-8?B?eG1aSGp3UTdORzhQbWpGUzhaMVVMUmFocDhwZG5uVlo2dmFQUCswem9rR3l4?=
+ =?utf-8?B?eFJEZllmNmlJcVRJeW1TenVlMlNZQXBvWWNNWWR3MGpYSE5YK0ZhQjlZaUwr?=
+ =?utf-8?B?WGJ0ZEw2RmpzUGpSd1g1U2VFcDdPVzFZZGlidlFZTlJlcklFRENIV0QrZnB5?=
+ =?utf-8?B?YWJBTXp1MFROMHR1YTFkVGdwODFZQm5ZNitsQTlSa2J2bml6aUQ1aVpsMUY1?=
+ =?utf-8?B?MjIyVGMvMkcwWW5vOTAxdGVmY0h1S3ZndmI0SHFSbDhiMjU1bUtlWlVKNUZQ?=
+ =?utf-8?B?UHNxa3JOZ002Q3JVdGZVRzVoV3pBaTRHbUVKYm1sdENPbytHM0djSU43TGlx?=
+ =?utf-8?B?RnUzUTRkaXErR3JMRTBsc21sNTkzVCtoTnF1aG1aWjBPU29ETmRNeEUvUk93?=
+ =?utf-8?B?emx2c1lwazlrMHpPdEQxYndtcTdJLzhvREg0M0JjeHZuTnhRS2pmaEIyK3gr?=
+ =?utf-8?B?VCs3dHA1ZVNpWEJ5SWJuVG8ybVBXNWYxT2h2MHdpelp4VWcwc255czNMbjhV?=
+ =?utf-8?B?Y2I5Tlh3cmlNNVV3SU41SWdXSFppdmtUUFNaOXl6SDVQc2o4ajF4T1dOMFRu?=
+ =?utf-8?B?U2ZNNkU4TzZGTXlQcU9nbGZ5dW1RdUhvNFIzd0UvT3k2aW5ORkIram10U2l2?=
+ =?utf-8?B?TXdRUmxVZUNyTzdLc3ZqMmZRbTc0MWVrV2gxWVlzc1pUVUl1eU1Id2RmYTYz?=
+ =?utf-8?B?SUJRZm4yMmtKN0s4Um9PTjQrcEZvcS9tWkFON2JmUVJ4d2hsd1R1TzBRbjFj?=
+ =?utf-8?B?c0RBOXdBcmM5SlpleE1QRGdhUTI2VzZDakVSSFNqK0tuUDBFRlVKME1BdE80?=
+ =?utf-8?B?TnlISkdzaEN5b2JQWDQvTUZtd3VvZHlwZzRsK0pOMXhMdHRMMXpyTVd4M3Fl?=
+ =?utf-8?B?OXF0UFF4cTZMREtINklvZ3ZMTUVJeXhscWJjdzhBUzZNcGtwMVZmZFpBZG5M?=
+ =?utf-8?B?ZE04MFJaU3ZUMDgxaUFkT2JiMk8vWmUvMWlCaHBFRTdDMHFSWjdESk91VFBW?=
+ =?utf-8?B?WTc4eXBla1EvV2t2Tll4Qk8rSGJROC82dnNzZ1dTSm9EeklxVXZ3emJwMi9V?=
+ =?utf-8?B?Q3JrQmN5Ukk0Mkhmb2VENmk2enZZR3lmSDNDKzRqaFoyVlhDSnM2SC9iRVc4?=
+ =?utf-8?B?djJ1Yk93VlVmQW16OTR6WVRiZUc0elY5SjQxSlQvaG9kY1o0QnJ5UmFHWlZB?=
+ =?utf-8?B?aUYycVNEb1hzQ3ZMa0dLM1NNY1pBdjZBRlJxWFBWYUp6a29BSkFhaWlwZ0t3?=
+ =?utf-8?B?Szk4TERNN1FnRDJFN01FVGJFUVR4RHBMYXY4R2ljMU9CSkd1eDN6OFBJZm1h?=
+ =?utf-8?B?VGRUYWhvN011cTFjb0xpU0xYTGJ3clU3VXByek93Rm5yRzlKalNKaHdKWVM0?=
+ =?utf-8?B?UTNjYmtxeEZRYWw3Q2FvMzgwb2NhdkFLNXJNbzMxdTdVZmR6QVRpdy9ab3lO?=
+ =?utf-8?B?eWN0M0xLYXJNdXRJTTB5M2QvK3VpaThRcGN5cTlJZDA1NEdEd1JZYmYvdklV?=
+ =?utf-8?B?YmJOc1VJNVRCZm5YTVpFK1BJbWt6cFhPNzYwaTlqOG1MckNpUExpTmtqUVdE?=
+ =?utf-8?B?eWVXYURZRTRSRXB2U0R6dE1LSzBDTjhaWmFzbVgzMzBZMjFyUTB2UTFzZk9y?=
+ =?utf-8?B?SFZnQVJIUUZTYWRGRmgyaXdyZ0FtTlRPYUUxcUUwYWo3Y3FHRDh0S0NhU1Uw?=
+ =?utf-8?B?S1VIKzJieFE2K3VmdjF1UGtwZlppc1FubGxRVzZ0eFdtckhyekZQa1FKaElY?=
+ =?utf-8?B?aUp2UkE1Q3hxUGdkRVRtM0FodVJMVHN0OSsxbWNKR3pvdGFTU0RieHF3N0tQ?=
+ =?utf-8?B?SEQrMXdGZEpRdXNpa0EwdjYzaVVHaXhzM2FjeEFoVm80S3dYYjR0UlNsazhW?=
+ =?utf-8?Q?N1+IJLOI18LkrrYwCYh8k6ZlcWripK3jASnw2?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f7b82664-c614-403b-28d1-08df3ff9acb9
+X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7874.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 13:42:48.8387
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 26m2oaBiLV/aQvsLTwu6io3lsj7Dfi5fD2AkLWPhSW2OdMXGl+/1oG2WJiD/1K4uXgN2nPiHKTFz3rV1WK6hKruJQ66yeWnl3psNnDPbA22oCGoUdNflJnvX6X0s+uGP
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CPHPR04MB721690
 
-On Wed, Nov 11, 2026 at 01:36:37PM +0100, Christian Brauner wrote:
-> So we need to copy per page which would fix both.
+From: Peng Fan <peng.fan@nxp.com>
 
-So the fix below is what we've done before for pipes and I think it's
-the right thing to do here too. I put the following on vfs.fixes:
+DMA channel devices are currently created as class devices without a bus.
+This works for sysfs, but it prevents per-channel DMA/IOMMU configuration:
+of_dma_configure() only probes the IOMMU when dev->bus is set, and the
+IOMMU core only installs probe/release notifiers for buses listed in
+iommu_buses[].
 
--- >8 --
-From: Christian Brauner <brauner@kernel.org>
-Subject: [PATCH] virtio_console: copy pipe buffers that span multiple pages
+Drivers that need per-channel IOMMU support currently work around this by
+assigning dev->bus after device_register(). That leaves the bus subsystem
+reference count unbalanced because bus_add_device() already ran with a NULL
+bus, and bus_remove_device() will later drop a reference that was never
+taken.
 
-pipe_to_sg() maps buf->page with kmap_local_page() and then copies up
-to a page worth of data starting at buf->offset. But kmap_local_page()
-only maps a single page and a pipe buffer can span multiple pages of a
-compound page with buf->offset pointing past the first one:
+Add a dedicated bus for DMA channel devices and register it during
+dmaengine initialisation.  Use core_initcall so the bus exists before any
+IOMMU driver can call iommu_device_register(), which iterates iommu_buses[]
+and fails on an unregistered bus.  The match callback always reports no
+match, so no driver can bind to these devices.  A follow-up patch will
+register the channel devices on this bus.
 
-- skb_splice_bits() for AF_UNIX and TCP sockets
-- tracing_buffers_splice_read() with sub-buffers larger than a page
-- fuse_dev_splice_read() which hands out the page cache folios of WRITE
-  requests. Those can be large folios since b46e09667411 ("fuse: enable
-  large folios").
+Clean up the unmap pools if dmaengine initialisation fails after they have
+been allocated.
 
-Without HIGHMEM this happens to work because kmap_local_page() is just
-page_address() and a compound page is contiguous in the direct map.
-With HIGHMEM the copy reads past the mapping. A fuse server on a 32-bit
-HIGHMEM guest that splices a WRITE request into a virtio port crashes:
-
-  BUG: unable to handle page fault for address: fffab000
-  #PF: supervisor read access in kernel mode
-  #PF: error_code(0x0000) - not-present page
-  Oops: Oops: 0000 [#1] SMP
-  EIP: pipe_to_sg+0x158/0x1e0
-  Call Trace:
-   __splice_from_pipe+0xd6/0x1f0
-   port_fops_splice_write+0xf9/0x170
-   do_splice+0x2c1/0x810
-   __ia32_sys_splice+0x2e7/0x310
-   ia32_sys_call+0x1916/0x2510
-   __do_fast_syscall_32+0xd4/0x550
-   do_fast_syscall_32+0x32/0x70
-   do_SYSENTER_32+0x15/0x20
-   entry_SYSENTER_32+0xa6/0x115
-
-pipe_read() had the same problem and 08aa64796016 ("teach
-copy_page_to_iter() to handle compound pages") fixed it by mapping one
-subpage at a time. So copy the buffer with copy_page_to_iter() as well.
-
-Fixes: b46e09667411 ("fuse: enable large folios")
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Signed-off-by: Peng Fan <peng.fan@nxp.com>
 ---
- drivers/char/virtio_console.c | 15 +++++++++++----
- 1 file changed, 11 insertions(+), 4 deletions(-)
+ drivers/dma/dmaengine.c   | 28 +++++++++++++++++++++++++---
+ include/linux/dmaengine.h |  4 ++++
+ 2 files changed, 29 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/char/virtio_console.c b/drivers/char/virtio_console.c
-index b1b1aaf43e07e..b93a31b81cf4e 100644
---- a/drivers/char/virtio_console.c
-+++ b/drivers/char/virtio_console.c
-@@ -12,6 +12,7 @@
- #include <linux/freezer.h>
- #include <linux/fs.h>
- #include <linux/splice.h>
-+#include <linux/uio.h>
- #include <linux/pagemap.h>
- #include <linux/idr.h>
- #include <linux/init.h>
-@@ -891,8 +892,9 @@ static int pipe_to_sg(struct pipe_inode_info *pipe, struct pipe_buffer *buf,
+diff --git a/drivers/dma/dmaengine.c b/drivers/dma/dmaengine.c
+index 34be53487a21..9a9d54d8f7c6 100644
+--- a/drivers/dma/dmaengine.c
++++ b/drivers/dma/dmaengine.c
+@@ -1643,6 +1643,17 @@ void dma_run_dependencies(struct dma_async_tx_descriptor *tx)
+ }
+ EXPORT_SYMBOL_GPL(dma_run_dependencies);
+ 
++static int dma_chan_bus_match(struct device *dev,
++			      const struct device_driver *drv)
++{
++	return 0;
++}
++
++const struct bus_type dma_chan_bus_type = {
++	.name  = "dma-chan",
++	.match = dma_chan_bus_match,
++};
++
+ static int __init dma_bus_init(void)
  {
- 	struct sg_list *sgl = sd->u.data;
- 	unsigned int offset, len;
-+	struct iov_iter to;
- 	struct page *page;
--	char *src;
-+	struct kvec kv;
+ 	int err = dmaengine_init_unmap_pool();
+@@ -1650,10 +1661,21 @@ static int __init dma_bus_init(void)
+ 	if (err)
+ 		return err;
  
- 	if (sgl->n == sgl->size)
- 		return 0;
-@@ -907,9 +909,14 @@ static int pipe_to_sg(struct pipe_inode_info *pipe, struct pipe_buffer *buf,
- 	if (len + offset > PAGE_SIZE)
- 		len = PAGE_SIZE - offset;
++	err = bus_register(&dma_chan_bus_type);
++	if (err)
++		goto err_destroy_unmap_pool;
++
+ 	err = class_register(&dma_devclass);
+-	if (!err)
+-		dmaengine_debugfs_init();
++	if (err)
++		goto err_unregister_bus;
  
--	src = kmap_local_page(buf->page);
--	memcpy(page_address(page) + offset, src + buf->offset, len);
--	kunmap_local(src);
-+	/* The buffer can span several pages of a compound page. */
-+	kv.iov_base = page_address(page) + offset;
-+	kv.iov_len = len;
-+	iov_iter_kvec(&to, ITER_DEST, &kv, 1, len);
-+	if (copy_page_to_iter(buf->page, buf->offset, len, &to) != len) {
-+		__free_page(page);
-+		return -EFAULT;
-+	}
++	dmaengine_debugfs_init();
++	return 0;
++
++err_unregister_bus:
++	bus_unregister(&dma_chan_bus_type);
++err_destroy_unmap_pool:
++	dmaengine_destroy_unmap_pool();
+ 	return err;
+ }
+-arch_initcall(dma_bus_init);
++core_initcall(dma_bus_init);
+diff --git a/include/linux/dmaengine.h b/include/linux/dmaengine.h
+index 805668fbe437..14d8f182c7cb 100644
+--- a/include/linux/dmaengine.h
++++ b/include/linux/dmaengine.h
+@@ -412,6 +412,10 @@ struct dma_chan_dev {
+ 	bool chan_dma_dev;
+ };
  
- 	sg_set_page(&sgl->sg[sgl->n], page, len, offset);
- 	sgl->n++;
++#ifdef CONFIG_DMA_ENGINE
++extern const struct bus_type dma_chan_bus_type;
++#endif
++
+ /**
+  * enum dma_slave_buswidth - defines bus width of the DMA slave
+  * device, source or target buses
 
 -- 
+2.34.1
+
