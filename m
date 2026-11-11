@@ -1,75 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794399911;
-	b=BsoAtCKe0ndizzflzyB+hG+eEhIjfoP2KE6w5MamTbC0VejLBL8NA+p5XhyboZw6igZ9
-	 hETRsR1vkvCDYhB5+4IaFGgKErV9Rb3rvKKJaOhwCMHwOExm9F3IGtOc7lxelmLnyfGfK
-	 tUHKTMcoUibmEm2Jnv8hskNGr8UHWR4+sAhXmOcUTEUEwr+WN4U+57kI1yCA5T+UtMZ0j
-	 zJZ+saHateCTULWB5tYEwJFSbQ2fW7Jn28bv9NqI6PONWawFzCqHA4eyMgXpvgMXzrFqV
-	 6Slt7Pl7qL9uII1ZFfXpxjUjLqOzzbH0jj21tpvdvAs7NR7ZYDMheWbuDj+2rU9lS1A==
+	t=1794399936;
+	b=RA1W6iY37SuJvFOaqqBXWRWmRADlO7tIGM5KmCKvrrgy6BeF5gTJA4dcKzbm0iZMSqIH
+	 Gq7oFXj0Vzo64xw92Gpq3F7tZ4Bjyn6CNb3utN6ld4fYY/MOCoXPO1f2b2fK9+FPYhs1U
+	 ShE72UgblJEpV5J6xoykAHJKZRceG8n07kr4RNjKbxm95QMNdtoH1A9G5UjDeUK9w9rXX
+	 Z47sAUAomtokcsu8nn64377DU3fw87Af0JfM4hxqf7HVavqyOdXnY3MtDsWpXCLmT1mor
+	 pzMb/lZu+g8+itC1gAGpUw3+c01zahhXwASEby+jgZGWO6ulNYOUALcgM1uIVY1Kd4Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794399911;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 User-Agent;
-	bh=STCS3l/zlpLuADxUotZrhurI2/8ti5xPCPFt7Px/rs8=;
-	b=eU9xlHu6G0kqDWufWXASEecPmr6Isx0ykQ4t82BGOZxf+giWeIvKSFdj48u24vMYNT99
-	 N/X5H9bYQ2CxYBF/PVZsDXVIogn9Ume1Pz4EWpxwPqE4SK+NC8mDxcdFd0LoRyHmHZ3Li
-	 UpN0uxIgK7k+sLhyDJyfGY+pMBe823KMPKnCxDyThVkhJqsCPhz4/6H7zC43qZebcnUFJ
-	 PlVM0oj3Kneed1xzXzmznS5hA73RHjlYpixYrOvgnxhVoWIA6o41bRhFieUpYlt+cUvQz
-	 9CUyjJpMb0+YDRYmZsIc+wJQajqRmLNkLDmu7Tf5Qy1jF295HwLMhnrryDmDQ7TCG0w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794399936;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=p79kXd0X+zHSh937Czz/lUXTjQQnAOAOUb3K0wIS5yo=;
+	b=du6v+CqCyZ/ERlBspYBAeTQT2iCS3YCXiOGhkLl6GF+QBbq2ntpN2yVwRgOeY/9Z0RXC
+	 8s1/kNHKtlm4KDT/3iZulvdFpqN+HiPRnbUGcfc78kqTxycwP58NKiukNDAioxq5Kl1NY
+	 2D8spHMFUtjgJmnU6YH1nwfJXkRm2P+KuILl9ja+76V6MUQWHkM5muZDwDFhNVgb4yZCS
+	 WhhaqoI1MjfG8JSzsudEHqnrPaV8+tEFHmAMNhnh8JqdSR07nSi8ZaQ6SACkZZ6bpuX6m
+	 ylRdoKl/rcb1XKbHGl78QME3AA1pmN5sgytPVRbm3d5ArvylR8pFu7Fv11P+AM4I9Sg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bRlg66S4;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=WW9Lc5OC;
+	arc=none smtp.remote-ip=90.155.50.34
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76FDE606A321;
-	Wed, 11 Nov 2026 12:25:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0330606A321
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 12:25:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0330606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bRlg66S4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8CB71F00A09;
-	Wed, 11 Nov 2026 12:25:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794399911;
-	bh=STCS3l/zlpLuADxUotZrhurI2/8ti5xPCPFt7Px/rs8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=bRlg66S4iIXJo+2HWV2SwS8uM9Xye5xipVQWhkWwFlH8LK5W360qY/YEz4j1PAG0a
-	 6pgX9vYTQitWSDG8/WUlT++MR65jDJbJ8q9q5qVwY2yIC+zh2NN5ueGCa6lFY7s72T
-	 wl3tWtwv7F9TwZ8Bptv4fkyoRFoFuZCbuUTmaT1jKA6BmlVaNbkrPp1BuHmY+kmQwj
-	 wZFRKBOl1YYp8pjiRSD6gZgj2BF8l0JWMBnFiNm66yfHeO2p409KwZ1oerndynr9lo
-	 SqnUtJK05DmeOadb7yWC7Ia3oe7BpPHi/AZFDoSWrkPM8sKIWzOhxyFbXE3ZAZSaRR
-	 MSaKoYNYVrtgw==
-Date: Wed, 11 Nov 2026 07:25:07 -0500
-From: Brian Masney <masneyb@kernel.org>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Long Zhao <longzhao@ambarella.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	soc@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Jerome Brunet <jbrunet@baylibre.com>, linux-clk@vger.kernel.org,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, devicetree@vger.kernel.org,
-	Long Zhao <zl020895@163.com>, linux-kernel@vger.kernel.org,
-	Linus Walleij <linusw@kernel.org>
-Subject: Re: [PATCH v11 0/5] arm64: add Ambarella CV75 SoC support
-Message-ID: <avReozTC_GEmfIxG@x1g10>
-References: <20261105-cv75-soc-v11-0-aa6ee0b2380d@ambarella.com>
- <179427375370.1061670.4050288038934218487.b4-review@b4>
- <20261110-interesting-hilarious-shark-2dbfc0@quoll>
- <7eeaf54d-2d7d-420c-a34e-eebc6dd0effe@app.fastmail.com>
- <bbc16906-45e2-4d81-ae81-ad93e87b13be@kernel.org>
- <c67939c7-9725-459e-97dd-e104f3b14022@app.fastmail.com>
- <avMM8z-LYncKS8ip@x1g10>
- <avMmKJpczepWTRdc@ashevche-desk.local>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=WW9Lc5OC
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=p79kXd0X+zHSh937Czz/lUXTjQQnAOAOUb3K0wIS5yo=; b=WW9Lc5OCkxPZccFCDA31tt29gp
+	SpRZdKoBmkpX/rGtcTiBDEKdIYxus8zYX/Ed52V6l1EVHiFOu6o3EM8XsRCBBy75a86PXnIyAnaob
+	7ABodDj/uRQtrJrBiRUBFfwbnS+yjH3PcadzjswmgGmfX274/UQ2OXu2RUL3D6f+e2KUART0zVNDA
+	Z/ouTRolX+qel75JjAbNdZr1MKpw3ilYWERVq8GNYSAH0NT8xhB+AK7bqxr+WuADFA9wrZB9K3EZp
+	mbsfLIyhAV5H5lItwDJp6DffDzC6pdr95OiKFyxJ8KbcCzbHfxHL9C76yCiz7rsH/hGyeNwRx9iO1
+	2SrOBMjA==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xR7OH-00000009eyG-1Nmd;
+	Wed, 11 Nov 2026 12:25:26 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 43636300969; Wed, 11 Nov 2026 13:25:24 +0100 (CET)
+Date: Wed, 11 Nov 2026 13:25:24 +0100
+From: Peter Zijlstra <peterz@infradead.org>
+To: Tejun Heo <tj@kernel.org>
+Cc: mingo@kernel.org, juri.lelli@redhat.com, vincent.guittot@linaro.org,
+	dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com,
+	mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com,
+	linux-kernel@vger.kernel.org, ziqianlu@bytedance.com
+Subject: Re: [PATCH v2 04/12] sched/core: Make __update_rq_clock() skip
+ updates on UPDATED
+Message-ID: <20261111122524.GC2669272@noisy.programming.kicks-ass.net>
+References: <20261107115913.261163891@infradead.org>
+ <20261107120207.126979364@infradead.org>
+ <3ac37e055b66a46f72edd235f1e93f5f@kernel.org>
+ <20261111102817.GN1779021@noisy.programming.kicks-ass.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,54 +74,58 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <avMmKJpczepWTRdc@ashevche-desk.local>
-User-Agent: Mutt/2.4.2 (2026-08-30)
+In-Reply-To: <20261111102817.GN1779021@noisy.programming.kicks-ass.net>
 
-Hi Arnd / krzk,
-
-On Tue, Nov 10, 2026 at 04:11:52PM +0200, Andy Shevchenko wrote:
-> On Tue, Nov 10, 2026 at 07:24:19AM -0500, Brian Masney wrote:
-> > On Tue, Nov 10, 2026 at 09:46:29AM +0100, Arnd Bergmann wrote:
-> > > On Tue, Nov 10, 2026, at 09:27, Krzysztof Kozlowski wrote:
-> > > > On 10/11/2026 09:23, Arnd Bergmann wrote:
-> 
-> ...
-> 
-> > > > There is a build dependency - DTS needs clock binding
-> > > > header - so it has to be second, unless the dependency
-> > > > is decoupled.
-> > > 
-> > > Ok, I see. Let's go with Brian's suggestion then.
+On Wed, Nov 11, 2026 at 11:28:17AM +0100, Peter Zijlstra wrote:
+> On Tue, Nov 10, 2026 at 03:11:28PM -1000, Tejun Heo wrote:
+> > Hello, Peter.
 > > 
-> > I see that the pinctrl driver was merged into v7.4-rc1 and also
-> > lists ARCH_AMBARELLA. It doesn't cause any build warnings or issues, so
-> > I'm fine with this too just as long as ARCH_AMBARELLA is going to appear
-> > in the tree.
+> > On Sat, Nov 07, 2026 at 12:59:17PM +0100, Peter Zijlstra wrote:
+> > >  static void __update_rq_clock(struct rq *rq)
+> > >  {
+> > > +	bool update;
+> > > +
+> > >  	lockdep_assert_rq_held(rq);
+> > >  
+> > > +	update = !(rq->clock_update_flags & RQCF_NOP_MASK);
+> > >  	rq->clock_update_flags |= RQCF_UPDATED;
+> > >  
+> > > -	if (!(rq->clock_update_flags & RQCF_ACT_SKIP)) {
+> > > +	if (update) {
+> > 
+> > RQCF_UPDATED is cleared only by rq_pin_lock() and
+> > double_rq_clock_clear_update(), so a path which takes the rq lock with
+> > raw_spin_rq_lock() inherits it from the previous holder and its
+> > update_rq_clock() is now silently skipped.
 > 
-> We have a bug about dangling / orphaned symbols in Kconfig. It's discouraged to
-> have them. I dunno if we get the checker patch being applied (it was some
-> activity a few months ago).
+> Let me look at that specific case.
+> 
+> > Previously, you said to clear on unlock. Why not do that? That'd be less
+> > confusing overall.
+> 
+> Yes, that's what I tried, but it doesn't work for core-sched. What
+> happens is that SMT0 and SMT1 interleave and things go to hell, patch 6
+> has that picture.
+> 
+> That is, we can still clear on unlock too, but clear on unlock alone
+> isn't sufficient :/
+> 
+> Patch 6 even has the clear on unlock, but commented out.
 
-OK that makes sense.
+Right, so the complication is that for core I want the rq-clock to be
+'frozen' over the rq-lock drop.
 
-So how about this:
+Notably, I want dequeue and pick / set-next to have the same timestamp
+such that the whole of schedule appears to happen at one instant in
+time.
 
-- Have Long post a new version that splits out the creation of the new
-  Kconfig symbol ARCH_AMBARELLA into it's own patch. I assume Arnd could
-  provide an ACK on this?
+For ext you've explicitly chosen to not do so, per the placement of
+scx_rq_clock_invalidate().
 
-- I create an immutable branch that contains that the two dt-binding
-  patches, plus the ARCH_AMBARELLA Kconfig patch.
+The consequence is that the raw_spin_rq_lock() functions must remain
+independent of rq_clock management; otherwise we cannot drop rq-lock
+while keeping time frozen.
 
-- Then I can merge the clk driver cleanly. The DTS folks can take the
-  DTS changes.
-
-If the DTS folks didn't want the ARCH_AMBARELLA in the immutable branch,
-then we could do two immutable branches:
-one for ARCH_AMBARELLA from SoC folks, and one from me for the
-dt-bindings.
-
-Alternatively, I could just provide an Acked-by for the clk driver, and
-this could just go through the SoC tree.
-
-Brian
+This means the rq-clock management must live in {pin,drop,repin,unpin};
+and at that point, I didn't really see an advantage in doing it at
+unpin.
