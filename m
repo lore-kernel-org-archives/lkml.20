@@ -1,74 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.10
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794409443;
-	b=r5g2PzUGQVSjPXqa1wbi9hVyOfAt4zwPk0fu52Lmw8CjQsyK+4/aKYOGuWF20RLqIbFy
-	 vgj4gKkXsKtWyASXwlMWiCrQChDd+8TOPLMtAZ11KZMEtBhX1JwkBiL2fH6Q0g2Nv2hg+
-	 3lUZO8+8+AlxRdn9XbOGF4JuxhxsVys+7u49xVMWGwMghmOdOaeeBGQu/lhvqjVnsGyzj
-	 NJVPJKjkXvkY0uLgXB4wVwY13PTv/OgjvrDnQItXc4DdFjH5qe956Iugzzivb5ECK/b4h
-	 bzqOQs3i5cFTlf3emxcXH0yW2C9uOcyISZy7VVPU2Ll4OgbAEn/mATref304eQ+C14g==
+	t=1794409460;
+	b=ec+vERMKS5LYX6dL5H1sbLgNUbDdpHR6oeHMYULmHU2WVeNjtM6sBdej2/fKVMliWvgC
+	 XVdMKNkjdMTFgySWw+NDG1vzVL2/C9pCGRTuGB+hXboBYR72kI/HL84lGIxRG5sslwSCq
+	 KP9CEsGhWdTPBtbN2TtvpUj0rXbkc7LZ02TwGrmoKVROeONYJF6ZdqQEV97+flf10yUiB
+	 icGN9zApqJF2aZQi/c9FSyOCTYmQEfe3Dn5tk7sne9dNFSF9uAo1/9i7kFTeC4E37z3O9
+	 7Thm2OzlkvH0krcC+Z79ksSLlXa+FZOftxsjT9dFXcPqNvGcJnsnIEfgTpl4zjpEFDg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794409443;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=Xohx1IjDZdPJHBCO9sIOedwalhMTflOLnFId8LnvsXI=;
-	b=UgJ/P+KL98d8gVodn+JefTbuXkL4Iknd29GLvsl5/S1p0vvKNns8H0AavJNN6gH41Qgh
-	 ZHg3hwes/WLzPDQikvbiIhZalx+1XF8PeXBG/Dcx3A92m1By6S1tFzZh/t4jzFHmKgv74
-	 yLcHic99D60k+6x/qlBzvnYPnOEbDb341HMOXguQElq54cYOdXEKM+yI3nH72wxMxDa7f
-	 BMx3Tm6fetcI8sRtsuPEQmqIsCEQDG/Dsk2UWumrZB39JUCQZHQQPE2xMFYQ7ru3BRTqp
-	 cu4XIQvGqAIp9lTTYlhvnIp1mZhG2oewuUx9CCYbIyqjAe5FZaKXE4tKuXDKqaGktGw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794409460;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=MMRRnvmnigTVNukZ0z7qN4rgNghyuOPuWedVFff/mPQ=;
+	b=S7B36JgbfP4MLytrAKQiqp3a/Wt7hutJA/8YqnGs6+LroSncOR20kLeQnJsL5iDCy0rs
+	 P8I6oxNz6/NTDn1YTMKTCjV7fsW/eFHpyU5vlelkcVxzGM6Ii9DUQFhZnMNpeqzLVI9RL
+	 gGSZvmOUxsRSZviFTzBBRYhPnCZJNUWbWn3d5asimoTqqsQWNC/jZ7R4cQjYU8McyD0YZ
+	 Rs41t0WD8mA28K0KO6WoyrRE4bPmHZLKJwfuTMp1ce0bL3Hm+L6U+mIkDo8unAbU/wfRX
+	 lyFTTasV4zjy5F52m95q2ATtq6v/m7l6rEgHEY+XPyJLKSCpfHz6mq1sD/ayMyea8pQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="n/7yjK/k";
-	arc=none smtp.remote-ip=209.85.214.199
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZK8gb8VU;
+	arc=none smtp.remote-ip=198.175.65.10
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B60A6606A335
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 15:04:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B60A6606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1054606A321;
+	Wed, 11 Nov 2026 15:04:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1054606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=n/7yjK/k
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2ed08904845so47768815ad.3
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 07:04:02 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794409442; x=1795014242; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Xohx1IjDZdPJHBCO9sIOedwalhMTflOLnFId8LnvsXI=;
-        b=n/7yjK/kTZvRrtlAjD9jXSl4O4X++3TVgI0zZran1lmgIqefGlQoYyAB3too7WEhWW
-         EOhAilb/PE6ciMYe2naEPqjM3T/dDV3Mo1c1O+WOZlAfrt2uVOSqzTV3SlTLb6pWTdOp
-         WKIkgJtuUjbxx/fusxCQoDo6wiTI3f1E7mbxNCy7SRomYbogWuBjKknekLThyZA6kgym
-         if8FSqiTSgvLu0Bb7EyE8V/9stC9m9ex7w1gh3RviydfZOLwYQ+LAyFbmc+2CFIKX73K
-         XnVHbGokuP8uJ1WaAE1pIl+pOGBeKf+/jbaUXu7QSIbPRPT9kwAApLrIkTBImcdSlPVh
-         8QkQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794409442; x=1795014242;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Xohx1IjDZdPJHBCO9sIOedwalhMTflOLnFId8LnvsXI=;
-        b=bgonzDGMXvPE1G4jBr+6sIedI+PqRIIIfh5ZkfAKBksXMmu0SoFjZORrJvvAgYL//6
-         q6Gdin1tWoO26AHPbaGmDmIEBGedPTQ6SnMzCneleGjBogVGe22BYMpOTfdfboe7Q0sl
-         IPuVeo/JJuTST9QBNnRRocrwVlnLwsO557+IRxiIarXkIMukitzZpx5V9UkuPD/iTID2
-         bSAzKunbWWB/cIz0JbedUYN5U6gr7eKG7iy6lze2sAfo4WTLYlsoI4JPYvdU5FI6n5Cl
-         hW7X+YRiK+jv0wt05+BON1RX5zXzmUxcQk8ntYqT6FFDDRWdKnJ2h2BfSu5tSEEFuCtl
-         I01w==
-X-Forwarded-Encrypted: i=1; AL+hErEjQmh5aD5X9+5ILiD2urGEDuojbPs/3pQQyp9Xv2r1xXt1qdPnvEIdMZFEphszIc8UAvN0vBoDYZGaVt0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+4eRFLmRRa6dfhTp+Vr8jCh/r/kWAsLLmP69CLMV21RlJLyxZL
-	HR9g1Qxq8usDB+JoEhq41UydzA/6gR1xRxYba3YwT3LND3ktvDRaQs5asuIgHAaVjK3wL1KIJnC
-	xttsUvg==
-X-Received: from plgd1.prod.google.com ([2002:a17:902:cec1:b0:2eb:260:cd54])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:f645:b0:2df:aed3:2ac0
- with SMTP id d9443c01a7336-2edd76d544cmr31113705ad.10.1794409441694; Wed, 11
- Nov 2026 07:04:01 -0800 (PST)
-Date: Wed, 11 Nov 2026 07:04:00 -0800
-In-Reply-To: <20261111122128.12998-1-sarunkod@amd.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZK8gb8VU
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794409460; x=1825945460;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=RdztAk9YKicYrEIegIuHZlbqYSu6obOf8O+YMmLeZ+I=;
+  b=ZK8gb8VUVWiQgXtgOe1uPbDnjBXIJ5loc3KqFLT46r1OxM8s0uBETdgy
+   0IP8Vyp6mBKdjRXi2TvLnLWEODZiQ8EwMzuKqWb30onEb8mCoffPWZb1C
+   1+0NEZVVcjaml8PwQ5exGewWmEDr0qlCEcWqiusqwEilMVBCipFlrX6W+
+   SbkpvuMFJQVppnbpYcsJZbUvJEsVKWlSt7qeiu6jA5rUOvf5gNBoGbzKB
+   Yof1wSSsPSCD/AX472+EDWM7IvE5AvjdF6lsSu/f24ryUQVpyo2IEwIfh
+   ejXRkvo4HRedXE5QJYOzaPNZ9llRmYLLCTpbzGdBjgIQR9LjoQM8izuT8
+   A==;
+X-CSE-ConnectionGUID: 3zl1rNiSQDyviSKx2TnavA==
+X-CSE-MsgGUID: eULWe7/HT4Gj1pXEC07iQg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3090059"
+X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
+   d="scan'208";a="3090059"
+Received: from fmviesa011.fm.intel.com ([10.60.135.151])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 07:04:20 -0800
+X-CSE-ConnectionGUID: tAje5x0nTc+K7i6SfZ5M7Q==
+X-CSE-MsgGUID: qOPQ7diMSU214av9P7EVpQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
+   d="scan'208";a="10223106"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by fmviesa011.fm.intel.com with ESMTP; 11 Nov 2026 07:04:19 -0800
+Received: by black.igk.intel.com (Postfix, from userid 1008)
+	id 1143799; Wed, 11 Nov 2026 16:04:17 +0100 (CET)
+Date: Wed, 11 Nov 2026 16:04:17 +0100
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: Changyul Lee <lcy8047@gmail.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] usb: typec: Check the alternate mode ID allocation
+Message-ID: <avSD8X8aRtT--4iK@black.igk.intel.com>
+References: <20261111041446.3072716-1-lcy8047@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,49 +79,66 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261111122128.12998-1-sarunkod@amd.com>
-Message-ID: <avSD4O4AELPcmhqb@seanjc-mac.roam.internal>
-Subject: Re: [PATCH v2] x86/kvm: Use RCU for svm_vm_data_hash
-From: Sean Christopherson <seanjc@google.com>
-To: Sairaj Kodilkar <sarunkod@amd.com>
-Cc: "H. Peter Anvin" <hpa@zytor.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, Ingo Molnar <mingo@redhat.com>, 
-	Paolo Bonzini <pbonzini@redhat.com>, Thomas Gleixner <tglx@kernel.org>, kvm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, x86@kernel.org, vasant.hegde@amd.com, 
-	suravee.suthikulpanit@amd.com
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261111041446.3072716-1-lcy8047@gmail.com>
 
-KVM: SVM:
+On Tue, Nov 10, 2026 at 11:14:46PM -0500, Changyul Lee wrote:
+> typec_register_altmode() stores the return value of altmode_id_get()
+> in an unsigned int without checking it. When ida_alloc() fails, the
+> error code becomes the ID, and the alternate mode is registered under
+> a name such as "port0-partner.4294967284". A second failure on the same
+> partner then fails with a duplicate name:
+> 
+>   [    0.423055] sysfs: cannot create duplicate filename '/devices/platform/altfail/typec/port0/port0-partner/port0-partner.4294967284'
+> 
+> Return the error when the ID allocation fails.
+> 
+> Fixes: 8a37d87d72f0 ("usb: typec: Bus type for alternate modes")
+> Signed-off-by: Changyul Lee <lcy8047@gmail.com>
 
-"x86/kvm:" is specifically for guest-side code, e.g. arch/x86/kernel/kvm.c
+CC stable...
 
-> Changes since v1:
-
-In the future, please wait the "normal" amount of time before sending a new
-version, e.g. a day or two for something relatively simple like this.  I.e.
-treat feedback from Sashiko like feedback from a human reviewer, and don't spam
-patches.
-
-There are times when it's acceptable to break the "don't spam patches" rule, but
-this isn't one of those times.
-
->  int avic_vcpu_precreate(struct kvm *kvm)
-> @@ -373,9 +373,12 @@ void avic_vm_pre_destroy(struct kvm *kvm)
->  	if (WARN_ON_ONCE(!enable_apicv) || !kvm_svm->avic_vm_id)
->  		return;
+> ---
+> Found with a static analysis tool we are developing.
+> 
+> Reproduced in QEMU (x86_64) with a test module that registers a port,
+> a partner and 63 partner alternate modes, and then two more with
+> failslab (task-filter) making ida_alloc() fail with -ENOMEM. Without
+> this patch, the first of the two is registered as
+> "port0-partner.4294967284" and the second fails with -EEXIST and the
+> error above. With it, both return -ENOMEM. Same result in three runs
+> each.
+> 
+>  drivers/usb/typec/class.c | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/usb/typec/class.c b/drivers/usb/typec/class.c
+> index 54c7810b563b..29fb13ca9f28 100644
+> --- a/drivers/usb/typec/class.c
+> +++ b/drivers/usb/typec/class.c
+> @@ -641,11 +641,14 @@ typec_register_altmode(struct device *parent,
+>  		       const struct typec_altmode_desc *desc,
+>  		       const struct device_type *type)
+>  {
+> -	unsigned int id = altmode_id_get(parent);
+> +	int id = altmode_id_get(parent);
+>  	bool is_port = is_typec_port(parent);
+>  	struct altmode *alt;
+>  	int ret;
 >  
-> -	guard(spinlock_irqsave)(&svm_vm_data_hash_lock);
-> +	{
-> +		guard(spinlock_irqsave)(&svm_vm_data_hash_lock);
-> +		hash_del_rcu(&kvm_svm->hnode);
+> +	if (id < 0)
+> +		return ERR_PTR(id);
+> +
+>  	alt = kzalloc_obj(*alt);
+>  	if (!alt) {
+>  		altmode_id_remove(parent, id);
+> 
+> base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
+> -- 
+> 2.43.0
+> 
 
-Eww.  Don't open code scoped_guard(), e.g. this should work:
-
-	scoped_guard(spinlock_irqsave, &svm_vm_data_hash_lock)
-		hash_del(&kvm_svm->hnode);
-
-	synchronize_rcu();
-
-I'm a little hesitant to put a full synchronize_rcu() in the destroy path, but
-in practice it's should be ok.
+-- 
+heikki
