@@ -1,59 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794424176;
-	b=Le+N8h4DXpXvd/bycEakw7qGgIyQIXYIVSSs4xHpdWiGEShdFhBHho1EOhoHgTI1ynKB
-	 eb4ea+RUccojBEiOAGKaIT8lkcZkBcul1V4B2DhC1scZ3usivoDYMtcfw9296q65wZvVO
-	 vWrr+Zyl/92VKUY5p5qG5hiyldA1qF+c73A+XdYFwXh8BgB8JD71MlsAAbMZDsXgv5JKu
-	 8YmSDCyKvCU4GwBD2NohvxUgwPcy2mqr30Fx6Y8dPioqNmeNyg+mm8WDmJPYT/QgZ1djt
-	 2IsSVWB4d3YEdo+GPjW5HlzU8YO5G0cST2mwhqUyDrj0N8mp21X3yKDYtKfovBm+/TA==
+	t=1794424171;
+	b=McNWqZRj2gDrQsTgAkcUHQbQ8onSTdP+o61rL7nDlwvzq2ezosGFVr1dcGY4n1YVXs58
+	 qeeAJWcjLbgN6xKV7kaITXKEWQqoWk+LHbwVp8sGFOkjNbEszurntY/WKuwyZy5A9WeGS
+	 rq2lkhOaJ7fiWMA5H2R+UcGqTC3NNBGREjwOFOMCq12NnAP69iagKv69O8xd6QstNdx9+
+	 fIT4k90l01EqE1rfn/gWH1xuoBOU92eDaSRtIVJnIFXhVBe9vfYwVlzIxw583j5U9pplh
+	 Qk1E0wTSz034r7Ct/lUvKeQb2lKPtLSlmnBHLc2P4optAq9+VL49bzUm50hX71qOs9w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794424176;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794424171;
 	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
 	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 X-Mailer;
-	bh=n8g69Ffy8X8/MidEKWQhACh6qmyitgBHvkPD7FRYFPs=;
-	b=WumfFkS/5GKLmZ0fXYluv8O5WiD946b+6l7JwpOinrCdg/RdswI7oIJNaRpG43EhbQ4r
-	 z/QxiS/40eHihJxOPzyQdhXWsosYRq91Ezn+QzsLZ74bdVjdAfl16QSHEuZKErHh628ZO
-	 LyPRelp/mD4wNEr9ARBzielln5+ZQmzjWdElefJEJbgxW7NsbHZMNuFugYJsluLNhaaIF
-	 7MorxRbtmAKajISb6TrGAkm7ZNdZdU8jHAxoAT3ZBQGK32mvYuA1IJIERlXJTGs9ZIQGy
-	 NGNvJTU4LFaje5ZyhjjeCbb0VFDqr6Zoqirfrs5LFzwkhrbwAvZDIIffUUUN5pSNp8g==
+	bh=toNVohFME4CPzz3aQG8YWlAvJejHByTzrBnth7OtCCs=;
+	b=rGAfzSG6X4PWuIQvqdHX/2QOI802D2w2p7mSILIojyKgUhqxkEuh5NMu0Oiy/fJa0gxz
+	 sBoq6W7HnAEPkdAT7D7SkeowQLraOOIApQRsIYQqUmYwpNaVKVBYMIqU0EhGOaXp5uYkp
+	 uZBULnC6owFUm+6K9ceRs2tDZyzfZLKlraFnm6BWjQhv6z92i8nKtlfu84JA89tMwvSy+
+	 WTpmz4njzLtDscJJREmrhOiL5pl3pB2dbGw2jmdeTMxBfy2oy4XcsXZr16EgFRW8Kx4us
+	 YnYuV9o3CQhHcdVvkQROyHVgkGK9uJgdR2aFpoMIP2HZZ7eYBnJWke9OA7OQrp3tkhw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aBRw9e2T;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JXjXfzY2;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3299D60A2604;
-	Wed, 11 Nov 2026 19:09:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69206606A327;
+	Wed, 11 Nov 2026 19:09:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aBRw9e2T
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C15021F00ACC;
-	Wed, 11 Nov 2026 19:09:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JXjXfzY2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 541AA1F00A05;
+	Wed, 11 Nov 2026 19:09:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794424176;
-	bh=n8g69Ffy8X8/MidEKWQhACh6qmyitgBHvkPD7FRYFPs=;
+	s=k20260515; t=1794424171;
+	bh=toNVohFME4CPzz3aQG8YWlAvJejHByTzrBnth7OtCCs=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=aBRw9e2TqfUocSssJ6RZBOTqXpmgachx3SCxgtoXnTNLsA7YxaJKaQmAYnNzUTbyn
-	 7dytq2/s9GEEWbgqIiGd8Zn5BsHb5Wd4n/4scnqXTmmxVPZmnoq+zEiSyfXQjQrOdb
-	 6YrWdg0gVXJyl2mBqnpcW0hHodlrtNGhAjAbhFXRmmGLbo7px+VjZszKLSMMhZaRlO
-	 TGyRtDKB+C5Al+MUagVIClaod10D971df2L0HHZdFcCGHXr/U6mVzkklW1JN0293Dh
-	 2Ecr5pPXG75PSSiiTem+vRDpUOYUlNDjUzNZsaFgqASRyl4/ARCOA3Dx2bvZboV92s
-	 Q0pZESNlIA6lA==
+	b=JXjXfzY28+cZcBXXiqBMUy+JhA9OwYvVTHDkaMOeSbc+w3UYbpgb+Pm4juBCNjHw5
+	 GEa4B6YWUi9y3KlrJpVJzxOcrDBEbk41lmwA5bNCbTrke8DcsfDM9rw5nNfJyJquYP
+	 tDV10VKz3u76oJ2Nx1C/SwzRUwO29nURwCcL7Gu/Llv0GJwd0uBpEbnmJl/mIzdEMn
+	 2Mkv6x8Zlq6Q2BVjplfpbwLkSMlAjKgnLyXOJG2CjxDypJZPdBXZk0HNL6k30Rvr49
+	 46QOs23TVV0hV6wID4ga9TTpUmawLn86Fwqp3oVgo8RgIRMwN7lw7VzJZTU3pwgJe/
+	 bs2BPPnSbn1Yg==
 From: Namhyung Kim <namhyung@kernel.org>
-To: linux-perf-users@vger.kernel.org, 
+To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
  Arnaldo Carvalho de Melo <acme@kernel.org>, 
- TAKANO Mitsuhiro <takano32@gmail.com>
-Cc: Ian Rogers <irogers@google.com>, John Garry <john.garry@linux.dev>, 
- James Clark <james.clark@linaro.org>, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, 
- Ilkka Koskinen <ilkka@os.amperecomputing.com>
-In-Reply-To: <20261107051730.1880691-1-takano32@gmail.com>
-References: <20261107051730.1880691-1-takano32@gmail.com>
-Subject: Re: [PATCH] perf vendor events arm64: AmpereOne/AmpereOneX: Fix
- typos
-Message-Id: <179442417564.676192.15713798103748970108.b4-ty@b4>
-Date: Wed, 11 Nov 2026 11:09:35 -0800
+ Mark Rutland <mark.rutland@arm.com>, 
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
+ Adrian Hunter <adrian.hunter@intel.com>, Jakub Brnak <jbrnak@redhat.com>, 
+ Leo Yan <leo.yan@arm.com>, James Clark <james.clark@linaro.org>
+Cc: Arnaldo Carvalho de Melo <acme@redhat.com>, 
+ linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261109-james-perf-test-fixes-v4-0-355ee6b81917@linaro.org>
+References: <20261109-james-perf-test-fixes-v4-0-355ee6b81917@linaro.org>
+Subject: Re: (subset) [PATCH v4 0/4] perf tools: LLVM dwarf and flaky test
+ fixes
+Message-Id: <179442417019.676192.135153254035516738.b4-ty@b4>
+Date: Wed, 11 Nov 2026 11:09:30 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,13 +69,13 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.15.2
 
-On Sat, 07 Nov 2026 05:17:30 +0000, TAKANO Mitsuhiro wrote:
-> Three distinct words are misspelled in eight description fields in the
-> AmpereOne and AmpereOneX PMU tables: "Preditable" in BPU_BTB_UPDATE
-> (AmpereOneX only), "satisified" in LD_FROM_ST_FWD, and "misprediciton"
-> in the branch_mispredict metric.  jevents.py copies the strings into the
-> generated tables, so perf list prints them and a grep for the correct
-> spelling misses the entries.
+On Mon, 09 Nov 2026 13:48:07 +0000, James Clark wrote:
+> Running the tests on an LLVM build results in some dwarf issues that
+> need fixing. And there is an easy fix for some flakiness caused when
+> tests are run in parallel.
+> 
+> Assisted by Claude Opus 5.5
+> 
 > 
 > [...]
 
