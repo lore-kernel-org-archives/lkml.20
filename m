@@ -1,106 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=180.181.231.80
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794394154;
-	b=ZY5Nwd+Zu/OqxQ0ACAon5482N7PvoNC57lt8t0HO/zdNVB9mTDf4uHydSShbo4gtG+e2
-	 kYybR7tBp6DHLkpaWh+oAzUODbVG7NvotGTrQBh7/tqFs0BX9aG55iXjpUVghhqJBuAbX
-	 KyT6SzksZd7kb//Y6D5mSNEP77aIde1QwoQDHBdBlvPBMjpe6DrOfTAgbwNKNa6tzoxQZ
-	 2/+TDw1gZ05tg8+mVgzOP8Bt4yLT4uU/nwKcS2vU8KwkhuOla3Uypvji9nCJizjcE8+C1
-	 ZHxlZTLVBNjy7zKZ53Hx7PH5sTa6Y/YZnjDROz+DDXUwYsNOqrb5y3Iv2ZhYYZZeS4Q==
+	t=1794394229;
+	b=oxMoYJOO90kYzEcZ087AiGgk7ljZVjIY/m6rAbxEv/sQDZZEYT0N5a8pVV0tuwJD/907
+	 c4rLHw7qSYkm03UDjUZElH3PntUEpFoHIf+x7NOnYxfTUEt8n9eB0tI+XETpLhTnlEcrX
+	 q2MLxb7hi4JKhbkWubGyi/69mvwLggvtfORlkr4aHXBoOyvQvOryBe8yN/uaZgKLoltX8
+	 JmNqNh8gNtB4XWABH2YRrypi2kaJfR6pwmD2c1VaofpVo7utTv0F8GzYoQu4R8tkd9d/F
+	 y4qWLQxF53fERwONY6DBMAVSo5uHIg2iqlM93puwMAWNEht0vxrvV5Z7/zTYmI6nEYQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794394154;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:Date:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=fkkdgBcWl/gXMWZL41R2xtfz4IY0JzduuuEbE0bKcow=;
-	b=ybEMI56IXiem8QUE7Q/BNKslsep5+UhyAfqehutz338RRYzDDXrUM04OBMNzKIA/M+Pm
-	 e/wYbH68zD0kfKsKxMQzj6fNqVzghrBnB232fYeiKDIf7KPUm3zzt/UIONTNeAEEaA16t
-	 3IWJAMkk5My33qagxZvSR6gdi1+momjwWscIJkJH8RRLdShvVSql9wTxfIOZ/clxjyfTW
-	 nvoPVSZBfLzUtY7it5rqfbrD/k6vSwmZ8kKM6NzMMChZGaqzrRAY8ZYURDfo8xQ6wQJHB
-	 d3j9qtKzjQ1pja+gbKyoOTzajH1sMG3zPXKXbsCDMkHgj4n2PJtwZSwPfmveHNcbxMw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794394229;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=AvcBgrPzTkerP4XT6zd7gDQi0L+d93ktdb5ouA+0y+0=;
+	b=w9Yp2dJBG8HfgWjg2dSmhHof16q/TFVoh65qowaCu8oQSKO0CIWVf6dZbQ5wGAFOp7Y5
+	 s0bdmQZSJNYEcBUP11i6ZWuBx4Xa00ngzWlo+pm55HtQ8pKfcjq+qZyiHvst3P7nsYuGi
+	 LpkcBDngdOVfDEOwGtH9Vx9h4o9IXuSs6zXDRH8fMgiPfM8VpXQ++41WKdiiTyb6teJml
+	 OFhQOPVwpVFTQCl7nANO2VcL0BfldXcxIh1kkM4MIC7vSpRnYZB7/0cTpAeNMgP9fZoMi
+	 fX10ftl4Aa2+2T5n9yAPY2ldjndFFttg0nKRGVr6gCz6ml/wJoKWX8c7jL9C8HLgvig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oooZo4JY;
-	arc=none smtp.remote-ip=209.85.128.42
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=gondor.apana.org.au;
+	spf=pass smtp.mailfrom=gondor.apana.org.au;
+	dkim=pass header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=hXyb69Uk;
+	arc=none smtp.remote-ip=180.181.231.80
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 893A2606A89E
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 10:49:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 893A2606A89E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81B4F606A31C;
+	Wed, 11 Nov 2026 10:50:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81B4F606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oooZo4JY
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a1b07c3c5fso29050965e9.1
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 02:49:14 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794394153; x=1794998953; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:date
-         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fkkdgBcWl/gXMWZL41R2xtfz4IY0JzduuuEbE0bKcow=;
-        b=oooZo4JYlJ2CA1rNGsEhbm/Vh1zARDhdjXBHBkBQFL9enJyj+XofgSJLMeZ9+GKxbo
-         xok/3WGW+7zKaDcdDmW6AmGqsymXOQ6yiG/TEMbbbrEyTpuEH96hQdA2JsfLDtw41Eyr
-         Sq2XWmm/XXn4bmWMceYyGu6JBYckHG8RS4VEVfx00q48LCt7osTBKv7fub58aMqyjRoZ
-         nslXmn7Y+YxO6NwpCpCXO3PtFaKh9qhBufe4ceuiQ2H30+4TNUaM/4xKC0tBs6QDF1P7
-         vrmAAtrDs3bzYwahjECqPBoax5ttmw1jsuUmag3V4MtFo5Y25+V2ukVgT+hGMBD5uaJB
-         CsVQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794394153; x=1794998953;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:date
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=fkkdgBcWl/gXMWZL41R2xtfz4IY0JzduuuEbE0bKcow=;
-        b=t3XBDLhbrfA+1r3Q/PpAsqHIs1mprwCGlcYtp+MEJ4N4spvp3iHGiWlU8/HY9us5Pw
-         UMxvS5GYGUHMGtqPozKgbeDLLt5W+vBRRkN6AywuvHeCifbpG0SK2k3pMkGbsJ9EMZk5
-         ClYMGfMyv3aCn06qDjzhIaqmJxiJRuIm0kMR+4/O2aukarvp+Y+FT+pBrrWwWn2+UwRt
-         /UtezBiKfV2hUaSb/XoECnV4pEszTFmpW2slbTuJ9W0eSBllzuVdv3nO2HA/hM003DzX
-         pOkZk49wOEHN4qNx8KgC2XMfz948+JJpfQCdk+U7EqZhRrm179SgDxWzxKqwIZ8QOhOP
-         kscA==
-X-Forwarded-Encrypted: i=1; AL+hErEqSmIPI1tgGt0FSwpam4Yzy+PjSvEKXcrrSu5MxjiPzvi677fzgsrxaSwpcWYRiduyTLfrRUd8i1qA6C4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/UrbgESIODXQAqbXM/ETJbunfgw5Hvn536Te7CTEhV7aQ8uhuf
-	4tJ/m1ytOCRsFlcRvVQwcgP9HTIKRY3HXuBxMD+4C1d5OPOZXvwhLXd3
-X-Gm-Gg: AYBFou2qeIYkaiB/qTBZgvmtxwFZCnKKFCXuh+5/s6OF39+9hnTi2RWOA4hmNkDg0Fs
-	nDQBvZJqS6pI78vhvbNLBZpiIN++OuKreMn13AhJsCgxSE1y9CQeGXgKOSFHMRXl4TYEYYfGTc5
-	Trp6Rs+kbXlXQog1AExlzu8fKZwyb+lsZzbPJlEwxc//ajHbfTcCDqv6DwwW2T9JCuHGpRLDkI0
-	DOVN4rsqnkDKEwqLXm+mrxsSxx3NWToyTPhtdZR0f0HLQd9aFvedlVqnn7jCuEFxs9CCYXpcC1H
-	DPByD5WyCZtYA45QmMx4DVTOCxpualXI6q6Mhu2esSivY6/0UkvrecDvDtS/Wy0p2hsLXwhauDP
-	tpbJUQjlqlQ6uWwjcXMR80vYGpTkM0TxVII6fVoCq6AMtP+diJy5kQr6M7C1zFVK/lSqx8nDryu
-	x9i+5pnQVYosgTJy7bZaHWVpc+fcvRD976MxixZf/sag5ygpKlDBSP6Imt2yR3PLuO711pgNNyI
-	6xYSaUR63CVfBZ7dtI56ajH2icY0FHuGdBQEM2dZz53DHbc15az25dh4KrIHLw8393QwwHzWm7w
-	S9M=
-X-Received: by 2002:a05:600c:19d0:b0:4ac:aae6:6401 with SMTP id 5b1f17b1804b1-4ba09375031mr37014455e9.12.1794394152548;
-        Wed, 11 Nov 2026 02:49:12 -0800 (PST)
-Received: from krava ([2a02:8308:a00c:e200::25dc])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49835d2c05dsm10153242f8f.25.2026.11.11.02.49.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 02:49:12 -0800 (PST)
-From: Jiri Olsa <olsajiri@gmail.com>
-X-Google-Original-From: Jiri Olsa <jolsa@kernel.org>
-Date: Wed, 11 Nov 2026 11:49:10 +0100
-To: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
-Cc: Jiri Olsa <olsajiri@gmail.com>, Naveen N Rao <naveen@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Josh Poimboeuf <jpoimboe@kernel.org>,
-	Jason Baron <jbaron@akamai.com>, Alice Ryhl <aliceryhl@google.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ard Biesheuvel <ardb@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>, Alan Maguire <almagui@kernel.org>,
-	x86@kernel.org, linux-trace-kernel@vger.kernel.org,
-	linux-kernel@vger.kernel.org, bpf@vger.kernel.org
-Subject: Re: [PATCH 04/13] kprobes: Maintain an rbtree of registered probes
-Message-ID: <avRIJuSolFTwT_Tk@krava>
-References: <20261109194916.1089703-1-jolsa@kernel.org>
- <20261109195517.1090787-1-jolsa@kernel.org>
- <undine-1794298339502831052-1b6960b8f9b38e7d@undined.local>
- <avLz8k0gdZwYTeA5@krava>
- <undine-1794325083765212173-9c2dd2a4d5c010fe@undined.local>
+	dkim=pass (2048-bit key, unprotected) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=hXyb69Uk
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
+	from:content-type:reply-to; bh=AvcBgrPzTkerP4XT6zd7gDQi0L+d93ktdb5ouA+0y+0=; 
+	b=hXyb69UkKGHtHfUMegNRZjUDd8HJ5ZsS8vLHvqR6Z8sgsl6Ae91HiIYVHMq8AVk6IJRKRVET2Wp
+	hy2ypgFRqQtS49xWcrqDu50yjlM8tbFt9sgX+hZgCa0FIWpRuSejwz4Jv5og2a9+4GXiJJcwYUsjS
+	xox4DyqCBV7wvOBgPBrQf9MW9sVzKvC7esqCqrtLEA1RX7Tei6tIaf8w1fE9Qg2ZJ5tkyjXvnwWTA
+	QnPTVeTaPgdRSPDI3cXJ667uWHnW0Vsu5mEiKQoBmqWcZ9CMLRmRia1omdX0mhQihCigywWsryJW+
+	Ba4M4tpo3PnsrYMPv2WR2acZxm3DqEqVWR1w==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
+	id 1xR5u6-0000000Dlyt-1IvG;
+	Wed, 11 Nov 2026 18:50:11 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Wed, 11 Nov 2026 18:50:10 +0800
+Date: Wed, 11 Nov 2026 18:50:10 +0800
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: Changwei Zou <changwei.zou@canonical.com>
+Cc: sahil.malhotra@nxp.com, davem@davemloft.net, horia.geanta@nxp.com,
+	pankaj.gupta@nxp.com, gaurav.jain@nxp.com,
+	jeffbarnes@linux.microsoft.com, stephane.debusne@cynove.com,
+	iuliana.prodan@nxp.com, martin.kepplinger-novakovic@ginzinger.com,
+	lukas@wunner.de, sahil.malhotra@oss.nxp.com,
+	linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 2/2] crypto: caam - Use bounce buffer for unaligned
+ RSA destination buffers
+Message-ID: <avRIYjWB6AUbeLUS@gondor.apana.org.au>
+References: <20261020025426.955531-1-changwei.zou@canonical.com>
+ <20261020025426.955531-3-changwei.zou@canonical.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,39 +70,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <undine-1794325083765212173-9c2dd2a4d5c010fe@undined.local>
+In-Reply-To: <20261020025426.955531-3-changwei.zou@canonical.com>
 
-On Wed, Nov 11, 2026 at 12:38:03AM +0900, Masami Hiramatsu (Google) wrote:
-> On Tue, 10 Nov 2026 11:37:38 +0100, Jiri Olsa <olsajiri@gmail.com> wrote:
-> > On Tue, Nov 10, 2026 at 08:12:19AM +0000, Masami Hiramatsu (Google) wrote:
-> > > On Mon,  9 Nov 2026 20:55:17 +0100, Jiri Olsa <jolsa@kernel.org> wrote:
-> > > > Add an address-ordered rbtree for registered probes. Keep it synchronized
-> > > > with the hash table when probes are added, removed, or replaced by
-> > > > aggregator probes.
-> > > 
-> > > Could you tell me why don't you use hlist (get_kprobe) instead?
-> > > I would NOT like 2 different lists which is basically doing the
-> > > same thing.
-> > 
-> > The speedup comes from finding the first relevant kprobe, then iterating
-> > over the remaining probes in address order. The hash table supports
-> > exact-address lookups, but it doesn’t provide that ordering.
-> > 
-> > I agree that maintaining both indexes is less convenient. What do you think
-> > about centralizing their updates as in the change below? untested
+On Tue, Oct 20, 2026 at 01:54:26PM +1100, Changwei Zou wrote:
+> The rsa-caam driver directly DMA-maps the destination buffer supplied by
+> the caller via req->dst without checking whether it meets the cacheline
+> alignment requirements of DMA-incoherent hardware such as i.MX8.
 > 
-> If you can replace the hash table with other faster design, it is OK to me.
-> But I would like to avoid this simple-adding another lookup table for the
-> rare usage case (because of the maintenance cost, and duplicating a list
-> makes it difficult to handle cases where discrepancies arise between the
-> two lists.)
+> On CPUs with non-coherent DMA caches, if the destination buffer shares a
+> cacheline with other data (i.e. it is not cacheline-aligned), cache
+> writeback/invalidation during DMA can corrupt adjacent memory or cause
+> stale data to be read back. This manifests as intermittent -EKEYREJECTED
+> errors when loading signed kernel modules.
 > 
-> Can you change the size of the hashtable and measure how the performance
-> is changed? I need more options.
+> When any segment of req->dst is not cacheline-aligned in either its
+> start offset or length, allocate a single contiguous aligned bounce
+> buffer covering the full dst_len rounded up to a cacheline multiple,
+> redirect the operation to it, and copy the result back to the original
+> destination once the hardware has completed successfully.
+> 
+> Introduce a helper sg_is_dma_aligned() that checks both sg->offset and
+> sg->length for cacheline alignment. Checking sg->offset suffices for
+> the start address since physical pages are always page-aligned and
+> PAGE_SIZE is a multiple of dma_get_cache_alignment(). sg->length is
+> also checked to ensure the buffer end does not share a cacheline with
+> adjacent memory.
+> 
+> The intermittent error 'Key was rejected by service' on i.MX8 with CAAM
+> can be triggered when loading signed kernel modules:
+> 
+>     for i in $(seq 1 100); do
+>         sudo modprobe xfs 2>&1 && echo "SUCCESS on attempt $i" \
+>         && sudo rmmod xfs || echo "FAILED on attempt $i"
+>     done
+> 
+> Reported-by: Martin Kepplinger-Novakovic <Martin.Kepplinger-Novakovic@ginzinger.com>
+> Closes: https://lore.kernel.org/r/6029acc0f0ddfe25e2537c2866d54fd7f54bc182.camel@ginzinger.com
+> Signed-off-by: Changwei Zou <changwei.zou@canonical.com>
+> Assisted-by: OpenCode:claude-sonnet-4.6
+> Tested-by: Martin Kepplinger-Novakovic <martin.kepplinger-novakovic@ginzinger.com>
+> Tested-by: Stephane Debusne <stephane.debusne@cynove.com>
+> ---
+>  drivers/crypto/caam/caampkc.c | 87 ++++++++++++++++++++++++++++++++++-
+>  drivers/crypto/caam/caampkc.h |  6 +++
+>  2 files changed, 92 insertions(+), 1 deletion(-)
 
-yep, I'll check on that
+Please respond to the Sashiko comments:
 
-jirka
+https://sashiko.dev/#/patchset/20261020025426.955531-1-changwei.zou%40canonical.com
+
+I'm also disappointed with the lack of response from the caam
+maintainers.  Unless active maintainence can be demonstrated
+for this driver, I'm going to have it removed again.
+
+Thanks,
+-- 
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
