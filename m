@@ -1,79 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794377085;
-	b=3v30w22vCvQfFz0FLZAWmri31AuRFieLKMtIIw+ammYhMi1023l49aEwPiG9HX4aTrnI
-	 M4tr5fJuMeW9rQMehbbLFPGe1K2W9mzipIZ/T1EebR7YIErAECUgKRp7R41Q7BWtX+Cqj
-	 +I2QsdtlI4OQBPr/QWWlw8Jlm9SSeYd1h8/zuk4n6xYlp/Cf5G0S/s5eDVTY/y7k/46xm
-	 vnOQ2m5UQFs1O2QMXQGRrMucVYAp7DiqJqN5OCgC8+pvsb1q1okwycj5oKr0IahrEm+7T
-	 hqTtsSqkcTroSq2SStkigSFL2U6pNMifA24wrnWQnn+0TSz62rjzDku7jl4ELFWQ6PA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794377085;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=/tRUYN2i/+hTnIgV7K4+afN0OwNPqEU1lHoM8NyxiRY=;
-	b=XUXMg90rk23QUBaFCcoPKo3x+nqOVEvSBNBr2U9qMBybrV83cqyRPuGEp7KGZb4Ljpht
-	 uooxIW8fJYYXOwCAzATJmoji2j4bxP07x+jXj6w6heu3nI81vimdtmZZ0TRRxR7ie65TG
-	 qDJJ+atM0blCjX6IFitaUlBorD0V4qvTOJUU6E97ySTdCKC3PdmpA6gFmvAg/ZiBW0K9j
-	 E/MJUSKNPlTuF4A8x0rBbtqVFCOeqLWQOpCy4cE84rWO9lK/kjdmfCer6v4xlpE0zL0hV
-	 omNF5VOR1/PE8JGIBLoKBSOYGTc31CNHme4FEpyCZykGsTPAUdLNi35KamwjrtmqJYg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R0aOzIQw;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE4A2606A31C;
-	Wed, 11 Nov 2026 06:04:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R0aOzIQw
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794377085;
-	b=KBcT8jGIYYuSzq9GWUj947iXk46AcankyaOEsVuIIyW3aXD4WEFJeGQ9mxrawnn3cYDh
-	 85R3jqgkxXn7fxT+2p/kaPJRj0dk5/5uHs1wXLrWuQeraqG/zAW+X0CUFTJqKJc+koT04
-	 t1laZyT6G6UJZacyhUrbcZsGCznSpnDwvINdrDx7wkTsJLl6XWSfp+wSkDEU4ChWAn0jl
-	 jwEHR3Mf60BSNbUA9oe8WVyD/YEKY5kCUNwqitlVVtm+W2n968j4emrNzEs0T8rf27Nl+
-	 dUIbn7uUHj533wK5MQjesS8u6iluGmzxFb6l8r4gjlYUZvUnRPgpJiPxHnokcytz7CA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794377085;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=/tRUYN2i/+hTnIgV7K4+afN0OwNPqEU1lHoM8NyxiRY=;
-	b=lo34T8cgk3c0gLAO1SyUEA+D+ButaRxQAjFfnieYnk5JchOVu8xPtk2zz4ptZPrnekKm
-	 0wWvMnSt3K8sl5p9Jy+l+8l8oBLrD53YQ5+eiHWFlpOvej2U+SVY6ER2AqR5lK6zCk4Ow
-	 r4SHFG/mMrM5BJQccsTLcvK8rwlNZeqYnGOa6aU242TBAgdb9GX4INE6KF/aZpEvXa9Z7
-	 /2lFCuy5x7XuYitDycmldao7/hDLUscOJHXoW1mU3PJepQk0rG1Obq4ZRdaN90+N5qjol
-	 g0lbKyefuHd5nd+22S561J/9KzG3FPZz/SE2txzlPD4qe2icAR15uGSm8GU31/IL3fw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.50
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794377118;
+	b=GA5hY6vSIcvTcL1gQ/qdIPoljuAJvn3uSofuISNtSk/SgOl67vttanF2IkNOCszQDTKO
+	 15xADgh0mViqtGyT3x4ViZ80QHXjOjMPQ8ZZwBDXxcs+azT1f93yDBoH/ToOMupkUgSlA
+	 mH5Q93vWvZ4W0KPGLA10soCuhG0biRfmH1jeBoa+oXJJbxwTK10cpNpYWT58FU8Semovz
+	 Uy+3TArqg0lg/jpsZyeEppKZL/XI5N1YEhmhdgcexvgGo1SG2XzfjXbkyNcHrR7jHKyBF
+	 tH6a9dWAka+TJbeX7QGW8fUIIrV4uUel5B4JBrPDdN36/J/fCGAkzPO7Xt0FBcP9kyg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794377118;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
+	 In-Reply-To;
+	bh=IM8our1qODgBYXBjuIaJFEMcF7pAsbTKhqQQH1o60eI=;
+	b=ps8qEejukfVxi0IyLK+Niw2puO3m9MJfnJJCoAw7q8LICxe39sj713eZMi6i730QXrNP
+	 ss+h4/SveqX8O/1/9Tv1wYtU/o3voBlvKrygN8JkGnzSze0cFzQ8XWXTcOYwN3Vpg7jA4
+	 QLsHvKA493n30rvEADeNLvLqZAwkTgjD4aUUzP/iN6sfepoJlJ4EhYOsx5GrwjcwlCBtR
+	 QQf1LZ1Gey7wFD7MEBhYBwiW5DzE1d0d16JwaWSjnoMKaDc8m5FIWM3+en1A0YqeI+VeV
+	 rjkTHQXLWz0w1J3izvKMat2aM2uUhp2br9EaWXLKtexjihU8qV8G5yqgesgzRQd79gw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=BM3W0ImJ;
+	arc=none smtp.remote-ip=209.85.216.50
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id C7E601F00A05;
-	Wed, 11 Nov 2026 06:04:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794377085;
-	bh=/tRUYN2i/+hTnIgV7K4+afN0OwNPqEU1lHoM8NyxiRY=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=R0aOzIQwRzeRrxtXOMHzDH+Z6lDGqSa+hBtO3C5LsnqxiF8/YTHWIyF6yExNE+yZh
-	 CYOBpP+1sakoQ+Yzp6uhSzQ3/LevBvRK34lNwRpUPf5dmiNFxJDcwiKFKw9MVvbs6K
-	 r7SpQLGMlyG0+e7M7OE1muzhKJfTkbipNs2uTDGmElDgyuY8kWUCqF01abjnad/if1
-	 5FUTADwoCECsMllULd0zW3an+3dNl3G5aUKFyFwiTXvntyusJBnx99pjsbvP4GChkB
-	 +OQE1D4mqmo4ItGzs/JKVmaReQ7/m8oB4r3Oxdf0iuhhB6/zItptu7MeUT7UPQtsE8
-	 kELTOwnVn+eRQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 2786F48DD4;
-	Wed, 11 Nov 2026 06:04:44 +0000 (UTC)
-From: Hang Zhengyang via B4 Relay <devnull+hang.zhengyang1010.gmail.com@kernel.org>
-Date: Wed, 11 Nov 2026 14:04:41 +0800
-Subject: [PATCH v2] perf stat: Count kernel events in a group led by a tool
- event
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3855B606A320
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 06:05:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3855B606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=BM3W0ImJ
+Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-3ae1da332bcso1341105a91.2
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 22:05:18 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1794377117; x=1794981917; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=IM8our1qODgBYXBjuIaJFEMcF7pAsbTKhqQQH1o60eI=;
+        b=BM3W0ImJ/AnF6hGKXgR5cMiYjO9JnWPpCmADsQJeLCubm8lklE3HbOnzULfoeBiGFD
+         9UsR25vVppFKHNWEwM52J84Osd3lAfTkcFb1cxZd7AJdGNiqjHw8FjR5cj8sjbr0q6GZ
+         i4ZT6VY7c4lNVVwOIYCC54Tr6eAwgM9EugRO8=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794377117; x=1794981917;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=IM8our1qODgBYXBjuIaJFEMcF7pAsbTKhqQQH1o60eI=;
+        b=0Mm4fkPI/jxycBVV4wTHQXzNfCBET9vOIjUqXIHU0297Tb6W7gaSzu4FPDBCp3sH9o
+         JmdObpg/tygfKXQ6avwit0dL9095FRKggkbLJMHievv6HOdrYxRJwFsnlBxUHU+jwY3o
+         SK2i/1Y1b8F6h7+45Pzd+H1tIXmP2PotnMFkdWzLe2FuMgNXPHHP4wgpB2q03f2/gmVx
+         /MX6ult9uJ+F1rOEUT/hqiUzz+zhuftxYkeko+1kcoXTIP8pUYByCMaQX2REk6UUUob1
+         IX1qL+QtcbgeN2Qw8rjZAGpxI+mzCQj+Ntlw5PeS0tFla1ygKLSEVlHMnypnMKLQXlbo
+         DvLA==
+X-Forwarded-Encrypted: i=1; AL+hErFqtQwvlPRPAuVL0RdFmoWm4o5DOKu53KA2N73ENp66WogDP2euL8wvnvQwwkuHyKaB4Q3CRqKXEQObDA4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z80ZHE9vJAecaZy6G84KoPdZePv7DhUeNARpW2BYamh2s0BUUu1
+	0pArl7RP21ekQUAG4t2wlPMqvw4hoMTnve9utQRVEkHBsqE0zJhUktr0qfD3Q2cOZw==
+X-Gm-Gg: AYBFou19/wWguw7bGFFMswTd2TAIV7GfRAx9GbsD48HBzrMQjVL8y7WHh6T/wMQNz4Z
+	0sUxKs2IpZhApjKKY92rUxAQjSwugjimrl2LWcs9MSjdPjE7wHAsEmVehl/iLdW4nVAxWkYU48g
+	IPYeV6AQSHb3Ftt/JWC08ue1mwaKNmYxhtG0zfmvVebtH+QTb4MOnioKZutmKYPZ4X25eC6ML7P
+	tHyEdt2Ng5avfY1UHIqe/GJAgI4l5k+Wt3SQ5xCqzgTVmDwqQl4b2T+Amcj1x2UENEByysmm5kS
+	4joMqHHPhlHykaPWRWtxFBHloM1rKiRIbGoJynHcgQhYnOkeagbNhFgxC5TsEXPzs9o9UOLjnb3
+	oy+8ug5gPfCJuhCxqenSZ06nsFlosE/SbDMxYgERSsYCt9lMxKvuwRGBYXr0fXw5/cLsyKfwqDQ
+	7JzSmNvWbBpV5pv9T+tGG6wCjyEALUT0n18ikbf/edlSHEwbRJmUAenoIr98RGSH+OmTXHzt+3e
+	lmcVBTtMkmK1ez/g++vg6oI445ZbZaE5yrAymq99catvNmfsyorZMaW0KiYTDaa1DK62c8S7QHy
+	y8zywLoNQR/toy80csOvOANBLR8eRM4TwnfiIz7xxQrVr5U6UFBA+6aU79N7EiVl0REZuw==
+X-Received: by 2002:a17:90a:e708:b0:3a4:6f38:f2a2 with SMTP id 98e67ed59e1d1-3b182f26e6bmr1551048a91.25.1794377117628;
+        Tue, 10 Nov 2026 22:05:17 -0800 (PST)
+Received: from google.com ([2a00:79e0:2031:6:ad6a:b446:df00:78dc])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b17e313932sm2766371a91.16.2026.11.10.22.05.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 22:05:16 -0800 (PST)
+Date: Wed, 11 Nov 2026 15:05:11 +0900
+From: Sergey Senozhatsky <senozhatsky@chromium.org>
+To: Nhat Pham <nphamcs@gmail.com>
+Cc: Sergey Senozhatsky <senozhatsky@chromium.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, Yosry Ahmed <yosry.ahmed@linux.dev>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Brian Geffon <bgeffon@google.com>, 
+	Minchan Kim <minchan@kernel.org>, Richard Chang <richardycc@google.com>, 
+	linux-kernel@vger.kernel.org, linux-block@vger.kernel.org, linux-mm@kvack.org
+Subject: Re: [PATCH v2 10/11] zsmalloc: fold zs_obj_write() into zs_store()
+Message-ID: <avQFhb2EwjRkSM-a@google.com>
+References: <20261110054836.1515030-1-senozhatsky@chromium.org>
+ <20261110054836.1515030-11-senozhatsky@chromium.org>
+ <CAKEwX=PJObB4gDPtsOWGjW6FJD4dtoz0qDu9KpK9jzP0=N=d_w@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,146 +99,33 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261111-tool-pmu-leader-v2-1-3faa0fb98c51@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WPy27DIBBFf8ViXSIehhirqvofURYDHieoxqTgW
- Kki/3sxWXTV2d2R5sy5T5Ixecykb54k4eqzj3MJ4q0h7grzBakfSiaCCc3L0CXGid7CnU4IAyY
- 6CDVix5VUxpBydUs4+kclns6vnPD7XsDLa0kC5gwV3DfvlcuEZJ3Swhy4Nq1pOS1/4AvmKMXnJ
- YCfDi6Gjx1vISMtIfilb5wzTAHvQLdH6FDC0Ao3cGW0BWDIutGC0GjJLnL1eYnppzZdeTX5t9S
- 6G2h+lFYpbUZl/izIedu2X9zanL83AQAA
-X-Change-ID: 20261111-tool-pmu-leader-d25fe8153599
-To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
- Adrian Hunter <adrian.hunter@intel.com>, 
- James Clark <james.clark@linaro.org>
-Cc: linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, 
- TAKANO Mitsuhiro <takano32@gmail.com>, 
- Hang Zhengyang <hang.zhengyang1010@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794377083; l=4370;
- i=hang.zhengyang1010@gmail.com; s=20261008; h=from:subject:message-id;
- bh=M1/caRbl8ok29UtGPD8dLXYXGCUc8+9tdV+yKMNQmW4=;
- b=9CUe61prZppY25kmgHtgvIcuxAisnPFupsBvenXEB6mnjX7FEqiKvPiY/zzfMuho0cI/SWkcQ
- 6eiEGejZMAFApW8oBY1KR20V5bHxrNJnXcMhpAl2gxSOl62eMPhz7DG
-X-Developer-Key: i=hang.zhengyang1010@gmail.com; a=ed25519;
- pk=5drRny3PqRPLhKVB0YIQXN5YyD8miKCpXWhnEPvafAI=
-X-Endpoint-Received: by B4 Relay for hang.zhengyang1010@gmail.com/20261008
- with auth_id=1133
-X-Original-From: Hang Zhengyang <hang.zhengyang1010@gmail.com>
-Reply-To: hang.zhengyang1010@gmail.com
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAKEwX=PJObB4gDPtsOWGjW6FJD4dtoz0qDu9KpK9jzP0=N=d_w@mail.gmail.com>
 
-From: Hang Zhengyang <hang.zhengyang1010@gmail.com>
+On (26/11/10 11:01), Nhat Pham wrote:
+> On Mon, Nov 9, 2026 at 10:49 PM Sergey Senozhatsky
+> <senozhatsky@chromium.org> wrote:
+> >
+> > zram and zswap always call zs_obj_write() right after zs_malloc(), and
+> > zs_obj_write() has to take pool->lock and look up object location
+> > again, which zs_malloc() just did.
+> >
+> > Replace zs_malloc() and zs_obj_write() with one single zs_store()
+> > call.
+> >
+> > zs_store() takes zspage read lock under class->lock, before it drops
+> > class->lock to copy the data, while zs_obj_write() used to take it
+> > under pool->lock.  Compaction and page migration already take zspage
+> > lock under class->lock, so this follows the existing pool->lock ->
+> > class->lock -> zspage->lock order.  We don't need pool->lock there,
+> > zs_store() doesn't look up the object via the handle, it already has
+> > the zspage from the allocation.
+> 
+> Oh nice, this looks like it'd save a pool lock acquisition?
+> 
+> That (effectively global) lock can be quite contend-y under memory
+> fragmentation, etc...
 
-A tool event like user_time has no perf event in the kernel, but
-get_group_fd() still passes its fd, the /proc/stat fd, as the group_fd
-of the members.  The kernel rejects each member with EBADF and nothing
-is counted:
-
-  $ perf stat -a -e '{user_time,cycles,instructions}' -- sleep 0.05
-                   0      user_time
-     <not supported>      cycles
-     <not supported>      instructions
-
-Open the members with group_fd = -1, as the enable/disable code already
-assumes.  They are then on their own, so read them without
-PERF_FORMAT_GROUP and open them disabled like a leader, so that -D,
---control and enable_on_exec still apply.  Keep reporting a broken
-group when the leader failed to open.
-
-  $ perf stat -a -e '{user_time,cycles,instructions}' -- sleep 0.05
-                   0      user_time
-            38257394      cycles
-            21228043      instructions
-
-The kernel events in such a group are no longer scheduled together.
-
-Fixes: 6828d6929b76 ("perf evsel: Refactor tool events")
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Hang Zhengyang <hang.zhengyang1010@gmail.com>
----
-This goes on top of TAKANO's segfault fix, as asked in that thread.
-A tool event as a member, as in '{cycles,user_time}', is still not
-counted; I'll send that separately.
-
-Ian, the other way is to take tool events out of such groups in perf
-stat with a warning, the way mismatched cpus are handled, which also
-covers the member case.  I went with the group_fd = -1 that
-0b18bced5444 describes; happy to switch if you'd rather split them.
----
-Changes in v2:
-- Open the members disabled like a leader, so -D, --control and
-  enable_on_exec apply to them (sashiko)
-- Report a broken group when the leader failed to open, as before, so
-  perf record is unchanged (sashiko)
-- Limit to tool event leaders: a hwmon leader can't enable its members
-- Link to v1: https://lore.kernel.org/r/20261111-tool-pmu-leader-v1-1-6173b5569f59@gmail.com
----
- tools/perf/builtin-stat.c | 10 ++++++----
- tools/perf/util/evsel.c   |  8 ++++++++
- 2 files changed, 14 insertions(+), 4 deletions(-)
-
-diff --git a/tools/perf/builtin-stat.c b/tools/perf/builtin-stat.c
-index 37752d6bfef4..07d01028bdea 100644
---- a/tools/perf/builtin-stat.c
-+++ b/tools/perf/builtin-stat.c
-@@ -719,9 +719,10 @@ static int create_perf_stat_counter(struct evsel *evsel,
- 	/*
- 	 * The event is part of non trivial group, let's enable
- 	 * the group read (for leader) and ID retrieval for all
--	 * members.
-+	 * members.  Members of a tool event leader are opened and
-+	 * read on their own.
- 	 */
--	if (leader->core.nr_members > 1)
-+	if (leader->core.nr_members > 1 && !evsel__is_tool(leader))
- 		attr->read_format |= PERF_FORMAT_ID|PERF_FORMAT_GROUP;
- 
- 	attr->inherit = !config->no_inherit && list_empty(&evsel->bpf_counter_list);
-@@ -748,9 +749,10 @@ static int create_perf_stat_counter(struct evsel *evsel,
- 	/*
- 	 * Disabling all counters initially, they will be enabled
- 	 * either manually by us or by kernel via enable_on_exec
--	 * set later.
-+	 * set later.  Members of a tool event leader are opened on
-+	 * their own and enabled with it, so they need it too.
- 	 */
--	if (evsel__is_group_leader(evsel)) {
-+	if (evsel__is_group_leader(evsel) || evsel__is_tool(leader)) {
- 		attr->disabled = 1;
- 
- 		if (target__enable_on_exec(&target))
-diff --git a/tools/perf/util/evsel.c b/tools/perf/util/evsel.c
-index 560741d9599d..e3ed645cc289 100644
---- a/tools/perf/util/evsel.c
-+++ b/tools/perf/util/evsel.c
-@@ -2378,6 +2378,14 @@ static int get_group_fd(struct evsel *evsel, int cpu_map_idx, int thread)
- 	if (!evsel->supported || evsel__is_group_leader(evsel))
- 		return -1;
- 
-+	/*
-+	 * A tool event leader has no perf event to group with, so open
-+	 * the member on its own, or report the group as broken (-2) if
-+	 * the leader failed to open.
-+	 */
-+	if (evsel__is_tool(leader))
-+		return leader->supported ? -1 : -2;
-+
- 	/*
- 	 * Leader must be already processed/open,
- 	 * if not it's a bug.
-
----
-base-commit: cc905a18a647a8e3ad42cd1596baa0e08fba26eb
-change-id: 20261111-tool-pmu-leader-d25fe8153599
-prerequisite-message-id: <20261023085629.1694941-1-takano32@gmail.com>
-prerequisite-patch-id: b92ce8b0c6248a4af182670458912b760b98a410
-
-Best regards,
--- 
-Hang Zhengyang <hang.zhengyang1010@gmail.com>
-
-
+Right.
