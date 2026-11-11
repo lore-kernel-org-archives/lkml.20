@@ -1,59 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.25
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794359145;
-	b=LhaZ0SGtwjC8u0fJR5YgQEVNxEMfzHhuba9ijkL1K8qbnGJvuVsI5Kq4ycPzQ5gMnX90
-	 UFNvfxoTQDgX6CimJn2CeZOeNXbPq83VJjD3YtLmf/KK/xdPtzWYXonx/q+wO19CXMA4D
-	 c+GYhMvA+Y8/yhSmlnzvmWTZT14LRb4cPHzDZCz/YsWTJGS2bAquR0OP0hNd/iIVmPjW5
-	 /JyVO2q7ynqHHVVi2MDqJWShSCgvm8X5/cfaOl5bTnwS6deO4vy9BR0vlWLlf87vv5Aw9
-	 tzKwmW8RuN0m8wVltXmNioFAFMrfDFmcCTgK83/P5ezavptLBlxRA9u7zXco+vWo7Iw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794359145;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 Mime-Version:Subject:Reply-To:Sender:From:To:CC:X-Priority:
-	 X-Content-Kind-Code:In-Reply-To:X-CPGS-Detection:X-Drm-Type:
-	 X-Msg-Generator:X-Msg-Type:X-Reply-Demand:Message-ID:Date:
-	 X-CMS-MailID:Content-Transfer-Encoding:Content-Type:X-Sendblock-Type:
-	 CMS-TYPE:X-CPGSPASS:X-CPGSPASS:cpgsPolicy:X-CFilter-Loop:
-	 X-CMS-RootMailID:References;
-	bh=pkbznhaBkCFi1U32w1V8mYszmNFl3w7n8yFnD+biYIw=;
-	b=0mxlo6jSqQi4qmOy8ywA2MV1CeFu5oLiol4DlduDI8VPSsG/fAkdg4IgDKsrESy7anpO
-	 CkZrCYz+dmInpQuSFUoPAeMRoZ5nfuNKD56yzbJRI7M1M1RzTY2sd27TG/LOtcIciMdZh
-	 w2QmTIL2A6n350GoKxgRrHYGIyLJlnOKhcxZeYEay0QPA78cpzhwiwIJQWG0bul8oB4by
-	 I4Yavkq/1t/oHKygkhZ5sXtHMLeE1BRWWWpgEZ6z38nI5J3NDKg9SZUz5mS62dCvuKIFm
-	 KT+2SyfPBbUoVPgF2Jw8QezzbEAGqWzPaqEY7WJ1PPElBwQhmW9ViP3e1kod9OVPilA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=roQgUXRE;
-	arc=none smtp.remote-ip=203.254.224.25
-Received: from mailout2.samsung.com (mailout2.samsung.com [203.254.224.25])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794359218;
+	b=0f8IXa+FZ8LTO1X6Urykus/LH9a+LsX48dTH9UWzuvAbVoxNkzS2OncdLAiQ3mXQFE1k
+	 4CF8thH/vvVDWJVINvogguGCHeiGmJojaLK4Xkx4V2oraP8Qj+DuKegfgwENj+v5x50Gk
+	 lA6nvPIsq3EBYFBzIefNQMZ/DzBLytwbeBzGb4KLRxV8zbsai8zSrZjIFR2R8hUz0l2be
+	 9e7SUWbUVBgB0AFqjVne0fAxghh+9zCfLCp/CYWoGUwHPKlx16dbR15eCwgb22rviFXsw
+	 CVr8ZCif/IC6VRBoVWL0dKuEXvo0Sjz8K9iJes85hg70sLM00On+d9YDpuDNiD/LPSQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794359218;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=jtmK1+bR8Vpcga/gdTbnHubufTCEtNPEJ3YD6hd7teM=;
+	b=HImIm0tUzF1EIgdCWlDzL9J5o2XW1+4d5SB7eQdfGOWFOIGNrz77HeC3S418m5PYWaQu
+	 DZ2pAdU5KN2cTg65QKNP/Hvimt7AIaAGzL8MFYRi8H0aBjguLk5FZfNiaZsEiMiUVexyF
+	 1cpWcWyZtuBRJr9PoaAAOse4Zq22ElB3S59wvIKfJ4JOJ059VBq45V+gk28Xl5SrOvzEf
+	 djhY61k4eewfJVo8ajHz0afptLVX1XaXRT6YSOeFJz4HRkjmCE7NlFyDa+M+PaJj8b2di
+	 Hb1hsHB23uAMQliFR+HNefEeIZ4VJwCCcPcpByJKu1oLHIrNBVbD9J2p3GGm7fOXmgg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XcugkCBo;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B2C2606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 01:05:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B2C2606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49310606A31C;
+	Wed, 11 Nov 2026 01:06:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=roQgUXRE
-Received: from epcas2p1.samsung.com (unknown [182.195.41.53])
-	by mailout2.samsung.com (KnoxPortal) with ESMTP id 20261111010542epoutp02d13839da58c424a648c4b185200a23ee~m2CIYokoI1281212812epoutp02G
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 01:05:42 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.samsung.com 20261111010542epoutp02d13839da58c424a648c4b185200a23ee~m2CIYokoI1281212812epoutp02G
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1794359142;
-	bh=pkbznhaBkCFi1U32w1V8mYszmNFl3w7n8yFnD+biYIw=;
-	h=Subject:Reply-To:From:To:CC:In-Reply-To:Date:References:From;
-	b=roQgUXREzBn4PfbSNNPJFipYYxMKmlJNlUFuGkW9D9DrheXqA54S5ACaUV9czG+Qa
-	 VmHowaBd2VR8xflhxYJImrXBVePSubzCN2QUCj7fxh7lOOEXpNefErry18kT5Jw9DX
-	 5D1Bo/hg7Nk1G0gDc/aPE/WuARmmw93wvW3XMEq8=
-Received: from epsnrtp04.localdomain (unknown [182.195.42.156]) by
-	epcas2p2.samsung.com (KnoxPortal) with ESMTPS id
-	20261111010541epcas2p200b17ebabe51ea1b2f88afdadd42392f~m2CH3vTV00724607246epcas2p2W;
-	Wed, 11 Nov 2026 01:05:41 +0000 (GMT)
-Received: from epcas2p1.samsung.com (unknown [182.195.38.200]) by
-	epsnrtp04.localdomain (Postfix) with ESMTP id 4jPQLY44jsz6B9m9; Wed, 11 Nov
-	2026 01:05:41 +0000 (GMT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XcugkCBo
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794359218;
+	b=tgtYKebY6S4+u06/g3RpoLckz1BT1Wlgn0P8EPt9Mon/6NEBTk7Z2fmXgRPnRrJT1Qg9
+	 f17kwFnQ2QWIRdIPjnjhKTs7l2tAx8X8iaht+4GYXLoyO7qkzVXSa9jD73XBLJhCOeIRy
+	 4LeF7nSf3djC/VaGcuuFc6nbZkGd4SfuWycUuIokeT3T9UMJUhZfSgHJq940EWCAT7zge
+	 TuJqj1mHKlHKzpBIlbaIg15xwwyApxnHdAeBRTUrqXzPwvjETlrxURB8phAPL17hUxfPr
+	 GcEH0QowWRdjfthwbFl5Oh+LRoH7npVrR4vGbMZ+T2/P9V0do0xT4BpsTXjvNZCRUlA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794359218;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=jtmK1+bR8Vpcga/gdTbnHubufTCEtNPEJ3YD6hd7teM=;
+	b=Rr21Of+zcpczI2KQadRHHuqJ2kE3YRq1m7J2yV+bys6wUsc7JJS2gPLw0u49uPGN1r4i
+	 kvpzxNqIVSxswb8mqoGQLqVT0z0Q8n1noM4MLpvWKs3pKzuJEHwTuhyUD4j8n/LcIOTgi
+	 mX3PM+pRaNFmxkNzDKp7mpR+IyYGWr8ezrXZT307sQh2Zc9al20APFhAGE7TP18CHHvSJ
+	 okFDdD+J4yPabqGXZi7d0bM//fqfwlHecIDHZLGlf9PWWD1AEEWtui3gSx++4BSVWM56W
+	 H9VRt4zceIy3DVPZCDC/vwUw4MabPniPBT68fq3DHbGJcJ3b2vTrd+iv2B22jR4s8EA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 363D01F0089F;
+	Wed, 11 Nov 2026 01:06:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794359217;
+	bh=jtmK1+bR8Vpcga/gdTbnHubufTCEtNPEJ3YD6hd7teM=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=XcugkCBox/wXm7usJasRdokWSHYEY4g9uT610gzsl+E94KhgaaxDeOATg5ovM7sW2
+	 cjBEhWwGYydRDzWDqgtjoufriaoASfABmLxw80pkw33r/YnId/ymXW0wHm3XtMr9nb
+	 NaIFmFwlBZK14EhfKroFACmAWZRRxVmDOcMHYCSOur4Bh4OYkszhyW5/32qTZGkNfU
+	 OrFkL12sP0kUaX/lyYtEjmyCYK1UfPvcwqmcR4FR+YZQ2K9P34sNwXQvxJq7vE0SeN
+	 ekRIkPcjbvptLdl4oGDehcN4yQpWU2iJoRvZi/F5L1HJ5gRQR3RXhia7Nc27MEsFf8
+	 ZaBj1GqAzyc7A==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 9579148742;
+	Wed, 11 Nov 2026 01:06:56 +0000 (UTC)
+From: Haipeng Lin via B4 Relay <devnull+jimmie.lin.gmail.com@kernel.org>
+Date: Tue, 10 Nov 2026 20:06:30 -0500
+Subject: [PATCH RFC v2] bus: mhi: host: pci_generic: Add MBIM-mode config
+ for generic SDX65
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,91 +82,153 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Subject: RE:(2) [PATCH 2/2] xfs: skip the fsync flush when a later flush has
- completed
-Reply-To: daejun7.park@samsung.com
-Sender: Daejun Park <daejun7.park@samsung.com>
-From: Daejun Park <daejun7.park@samsung.com>
-To: Brian Foster <bfoster@redhat.com>
-CC: Carlos Maiolino <cem@kernel.org>, "linux-xfs@vger.kernel.org"
-	<linux-xfs@vger.kernel.org>, Christoph Hellwig <hch@lst.de>, Dave Chinner
-	<david@fromorbit.com>, "Darrick J. Wong" <djwong@kernel.org>, Amir Goldstein
-	<amir73il@gmail.com>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, Daejun Park <daejun7.park@samsung.com>
-X-Priority: 3
-X-Content-Kind-Code: NORMAL
-In-Reply-To: <avIGmcLZPKIDlf06@bfoster>
-X-CPGS-Detection: blocking_info_exchange
-X-Drm-Type: N,general
-X-Msg-Generator: Mail
-X-Msg-Type: PERSONAL
-X-Reply-Demand: N
-Message-ID: <20261111010540epcms2p1ac660f3ce4c6c2ed55836c8b1615a4d6@epcms2p1>
-Date: Wed, 11 Nov 2026 10:05:40 +0900
-X-CMS-MailID: 20261111010540epcms2p1ac660f3ce4c6c2ed55836c8b1615a4d6
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-X-Sendblock-Type: AUTO_CONFIDENTIAL
-CMS-TYPE: 102P
-X-CPGSPASS: Y
-X-CPGSPASS: Y
-cpgsPolicy: CPGSC10-223,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20261109174511epcas2p22eb1ad7fec0b96837feb110984f57fa7
-References: <avIGmcLZPKIDlf06@bfoster>
-	<20261105-xfs-fsync-flush-seq-v1-0-299bdf5e28c3@samsung.com>
-	<20261105-xfs-fsync-flush-seq-v1-2-299bdf5e28c3@samsung.com>
-	<CGME20261109174511epcas2p22eb1ad7fec0b96837feb110984f57fa7@epcms2p1>
+Message-Id: <20261110-mhi-sdx65-mbim-rfc-v2-1-f1d71a5ac9ab@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32NTQrCMBSEr1Le2idJa9voShA8gFvpIn9tH5hGE
+ gmV0rsbcgCX3wzzzQbRBrIRLtUGwSaK5JcM9aECPctlskgmM9Ss7jjjHN1MGM3ategUOQyjRiG
+ 1UJKZvhcS8vAd7EhrkT7hcb/BkMOZ4seHbzlKvFT/nIkjR8HEWZ1M05hWXScn6XXU3sGw7/sPr
+ DEQQLkAAAA=
+X-Change-ID: 20261011-mhi-sdx65-mbim-rfc-8ac8ba0d778a
+To: Manivannan Sadhasivam <mani@kernel.org>, 
+ Jeff Hugo <jeff.hugo@oss.qualcomm.com>
+Cc: mhi@lists.linux.dev, linux-arm-msm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, daleyo@gmail.com, 
+ Johan Hovold <johan@kernel.org>, Haipeng Lin <jimmie.lin@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794359216; l=4467;
+ i=jimmie.lin@gmail.com; s=20261011; h=from:subject:message-id;
+ bh=ZLVxxQwkggsrloBrxJyjFyMexniwKJn2AL6lIKjlQ4w=;
+ b=QboCyMkwfvriVeAw1+gALoE8intbzqfiWahZTM9uJq33pOwZ/IHc2Yt5cJW6tboFn5cL8/ey3
+ J/ycjjJzXIhAcJLA4TBrt4m78+WfpJzLBmsDfnmRpbyr/pvzebI9x+A
+X-Developer-Key: i=jimmie.lin@gmail.com; a=ed25519;
+ pk=3KDRF1RQ/9A7ZUVTdRVEZnVrGltdmq1bRocsOYeXezI=
+X-Endpoint-Received: by B4 Relay for jimmie.lin@gmail.com/20261011 with
+ auth_id=1164
+X-Original-From: Haipeng Lin <jimmie.lin@gmail.com>
+Reply-To: jimmie.lin@gmail.com
+Content-Transfer-Encoding: 7bit
 
-On Mon, Nov 09, 2026 at 12:44:57PM -0500, Brian Foster wrote:
-> > 16 fio jobs of 4k append + fsync, QEMU guest on a 990 PRO without
-> > power loss protection (virtio-blk, cache=none): 809 -> 4185 fsyncs/s,
-> > mean fsync latency 19.8 -> 3.8 ms.
->
-> Can you include this in the commit log so we have a record of the perf
-> impact?
+From: Haipeng Lin <jimmie.lin@gmail.com>
 
-Thanks, will do in v2. I measured both kernels again on the current
-for-next, so the numbers differ from the ones above, and added a single
-job line.
+The Surface Pro 11 5G carries an SDX65 that enumerates with Qualcomm's
+generic IDs (17cb:0308, subsystem 17cb:0308) but runs the MBIM-mode
+firmware it ships with for Windows.
 
-[...]
-> I think it would be helpful if the comment here and perhaps above
-> xfs_buftarg_flush_seq() referred to the submit/completion ordering logic
-> being applied. Maybe even rename seq -> submit_seq as well to make it
-> more clear. For example, something like:
->
-> "Return true if a flush has been submitted and completed since
-> @submit_seq was sampled. If so, this guarantees writes completed before
-> @submit_seq are flushed to disk."
+Control is MBIM only (the QMI channel never answers), and data on
+channels 100/101 is framed as MBIM NTBs: the modem reports a WDA data
+format of raw IP with MBIM aggregation, up to 32 KiB downlink.
 
-Agreed. v2 will rename the argument of xfs_buftarg_flushed_since() to
-submit_seq and reword its comment along those lines. The comment above
-xfs_buftarg_flush_seq() will say that it samples the submit counter, and
-that a flush numbered above the sample was submitted after the sample.
+The generic qcom-sdx65m entry names channels 100/101 "IP_HW0", which
+binds mhi_net. mhi_net expects raw IP, so no data session can work.
+The MBIM-mode modules in this driver name them "IP_HW0_MBIM" instead
+which binds mhi_wwan_mbim.
 
-[...]
-> Ok, so I think I follow the logic. We write the file, sample the submit
-> sequence (after write completes), then can optimize away our own flush
-> if we can confirm that a flush submitted after write completion has
-> already completed. Right?
+Boards with a Qualcomm-ID modem in MBIM mode have so far been told
+apart by subsystem ID, like the SC8280XP CRD's SDX55 (17cb:010c).
+This modem carries the generic subsystem ID, so select an MBIM
+configuration by machine compatible instead.
 
-Yes, that is the logic.
+Like the SC8280XP CRD entry, reuse the Foxconn SDX55 channel config
+which works with this firmware. The MRU is 32 KiB to match the
+modem's downlink aggregation size.
 
-> That kind of makes me wonder whether we could do something like "flush
-> or wait on any flush submitted after this seq," but maybe that's
-> something for another day. ;)
+Tested on a Surface Pro 11 5G (Surface_Pro_with_5G_11th_Edition_2077,
+modem firmware 251216-DE-dc49bb9-00197) on a v7.2.11-based kernel:
+ModemManager registers the modem on wwan0mbim0, uses wwan0 for data and
+wwan0at0 for AT commands, and connects over LTE and 5G NR.
 
-I'd like to leave waiting for an in-flight flush to a follow-up.
+Assisted-by: LLM
+Signed-off-by: Haipeng Lin <jimmie.lin@gmail.com>
+---
+Hi Mani and Jeff,
 
-[...]
-> > -	 * If the log force was a no-op, we may still need to flush the
-> > -	 * file data target cache here. This can happen for fdatasync/O_DSYNC
-> > -	 * when no metadata needed to be committed.
->
-> Did we intend to remove the comment on why we flush in the first place?
+A follow-up to the RFC I sent last month (linked below). 
 
-No, that was not intended. Thanks for catching it. The paragraph was
-deleted while I was cleaning up the comment changes. v2 keeps it and
-adds the new condition after it.
+I tested the Foxconn SDX55 channel configuration on this modem and it
+works, so v2 reuses it like the SC8280XP CRD entry does, and only the
+selection is new. Hope this makes the patch clearer.
+
+I would appreciate comments on whether matching the machine compatible
+in probe is the acceptable approach, or if you would prefer a property
+on the PCIe endpoint's DT node (although that would be a bigger patch)
+
+Thanks.
+---
+Changes in v2:
+- Reuse modem_foxconn_sdx55_config instead of adding a channel table.
+  This adds the DUN channel (tested: answers AT commands) and drops
+  IPCR which is unused by the Surface Pro 11.
+- Link to v1: https://lore.kernel.org/r/20261011-mhi-sdx65-mbim-rfc-v1-1-8089b4d33d5b@gmail.com
+---
+ drivers/bus/mhi/host/pci_generic.c | 33 +++++++++++++++++++++++++++++++++
+ 1 file changed, 33 insertions(+)
+
+diff --git a/drivers/bus/mhi/host/pci_generic.c b/drivers/bus/mhi/host/pci_generic.c
+index 7193a384cca4..29b275572603 100644
+--- a/drivers/bus/mhi/host/pci_generic.c
++++ b/drivers/bus/mhi/host/pci_generic.c
+@@ -12,6 +12,7 @@
+ #include <linux/device.h>
+ #include <linux/mhi.h>
+ #include <linux/module.h>
++#include <linux/of.h>
+ #include <linux/pci.h>
+ #include <linux/pm_runtime.h>
+ #include <linux/timer.h>
+@@ -582,6 +583,34 @@ static const struct mhi_pci_dev_info mhi_foxconn_sdx55_info = {
+ 	.sideband_wake = false,
+ };
+ 
++/*
++ * Some machines have an SDX65 with the generic Qualcomm IDs
++ * (17cb:0308, subsystem 17cb:0308) running MBIM-mode firmware
++ * they ship with for Windows.
++ * The exact channel configuration is not known but the Foxconn SDX55
++ * configuration works with this firmware.
++ */
++static const struct mhi_pci_dev_info mhi_qcom_sdx65_mbim_info = {
++	.name = "qcom-sdx65m-mbim",
++	.fw = "qcom/sdx65m/xbl.elf",
++	.edl = "qcom/sdx65m/edl.mbn",
++	.edl_trigger = true,
++	.config = &modem_foxconn_sdx55_config,
++	.bar_num = MHI_PCI_DEFAULT_BAR_NUM,
++	.dma_data_width = 32,
++	.mru_default = 32768,
++	.sideband_wake = false,
++};
++
++/*
++ * The PCI IDs cannot tell these modems apart from QMI-mode modules,
++ * so match the machine instead.
++ */
++static const char *const mhi_qcom_sdx65_mbim_machines[] = {
++	"microsoft,denali",
++	NULL
++};
++
+ static const struct mhi_pci_dev_info mhi_foxconn_t99w175_info = {
+ 	.name = "foxconn-t99w175",
+ 	.edl = "qcom/sdx55m/foxconn/prog_firehose_sdx55.mbn",
+@@ -1389,6 +1418,10 @@ static int mhi_pci_probe(struct pci_dev *pdev, const struct pci_device_id *id)
+ 	unsigned int dma_data_width;
+ 	int err;
+ 
++	if (info == &mhi_qcom_sdx65_info &&
++	    of_machine_compatible_match(mhi_qcom_sdx65_mbim_machines))
++		info = &mhi_qcom_sdx65_mbim_info;
++
+ 	dev_info(&pdev->dev, "MHI PCI device found: %s\n", info->name);
+ 
+ 	/* mhi_pdev.mhi_cntrl must be zero-initialized */
+
+---
+base-commit: 0b1883ca75c0005ab5ca52c7bc1a26329bc39746
+change-id: 20261011-mhi-sdx65-mbim-rfc-8ac8ba0d778a
+
+Best regards,
+-- 
+Haipeng Lin <jimmie.lin@gmail.com>
+
+
