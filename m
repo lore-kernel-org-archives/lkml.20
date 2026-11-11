@@ -1,22 +1,22 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.20.114.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794367002;
-	b=tAAfFTef6McTIdotrH12MhnPKtRoHF+wvLLx75Zy/cKxv3iBNpXl3uiiI65O0rZP7AOL
-	 1jiWPti1MZ5cOI0heecDYOdOsPNOAEGoAJfC7q7HugBYQ33U42q4wuDSv5mjACqkJ4Fsf
-	 sqaryQ3buZaTfqxx4hvzZRCi3weJkRnrpwBVGq6PZaCMIBIxwXd3oT2kXmPirILRFbK2w
-	 hOcqHANjuX00pcQD4dWPaaOBCKTaixAajp5qD0sQvLWRb2it3NBoRMkUM1Fn+rWJdhIVz
-	 VSOH7E7vqLtfIhYVzqBsnVdllv7q8kEw02Cy65/ovE/q1YtVdfOztRwE9vFHxpvfQ0A==
+	t=1794367008;
+	b=4GBYKYz/xPuQ1hq231tQYkofzLVYnId0y7dRz/W0FBXAigBs477rZUBS5/w9/Sm84bYq
+	 ubwG40c6bxnWQfGmR8MBkMvnQMjhBicdqq0Cz2+IrwLqfQ9fHV0oeTyR4L95XGd1jJnVV
+	 Kz3MGQayP/3buqSWrLq7d50l/MLfyE8kzt+JRCsFJ5TJnwPMlyJ6kDo6DwdILxbN9idH0
+	 e/uUoZeiVnGcfCDr1zoaOEaJwjOCi3OAgxPwMzxLTRRQCkdai6je7hqDW2ONso7Oi6BPX
+	 wsR/soNiFIpJCLdb8ueFGUbMFAocdpv3w+TGnW6xFZoL9CLcANkzidmIbxHx7QX2s7g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794367002;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794367008;
 	h=DMARC-Filter:Received:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-ID:References:
 	 In-Reply-To:To:CC:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=o9bTZqbR1XvBSmTu8qrSg1NGYiQ9aPrsGDJsuKNGJzc=;
-	b=shjk2iIWnkeU89/RwDYgoTzDDpVUiIiY83XYZjOYbJPNmbTqMFRWQhEIX3FAnnhcTxoA
-	 kVRHvaElyPWrLYqj2gaWuZJSCG4KH8l5/w8nCscA/10TkUVcaFjmVib5/ac0uOO1dZ9IY
-	 N9g4u3ZkDNxzl5sGrh64SLmouk1nNNjZaDpom4NxVT7V1ENM2O00T6KTaRmRLXOkpfhSo
-	 88ie55D1NsfYx1ib55UZ85niTbSZf3I3M3PGvefnDXVPgKgL3+ged00aeW/nDQLciYL9L
-	 BIy7MwavI5FekBqSgMiuuIXHirb1y5IUGiaaf1d7BujMU00t4vRwu1lw53vMONbMRTA==
+	bh=vMR8H+3uCA7GO/uhsPfaheOQptrCQxLJzVvOfIVQ0WM=;
+	b=qK0OgPPfQMR/NG9R0T/+zQgyV55zegNcdOVN8OhSSZH2ds4rLAap13P8WaQT19PQkmym
+	 3dZXbQXhegKCec79ZyiMlaoCiFnMIHyVik4OuKv+3PxCu0JuQQ7QNH4+ZZlVXppGiHOk0
+	 D/jigqzdkBlYs7mvBYbpZJlygRA/vKckXAsAUvbM0Dhjo3i77PlOGnOIVIorF1fqzYR8+
+	 k1W7nbYkeC8fa90WTDMEI1jOW9bwmZ4XY4BrUwVJIjfS+A3m+hCFeUKdjA7ecEODH3Kce
+	 jK1MmwQssZb4xnd+pPoiKfewRKAVgnrqjUOt/MKLcwBykdZRAaB0UpUETEWuHsq22CA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=aspeedtech.com;
 	spf=pass smtp.mailfrom=aspeedtech.com;
@@ -24,22 +24,22 @@ ARC-Authentication-Results: i=1; smtp.subspace.kernel.org;
 Received: from twmbx01.aspeedtech.com (mail.aspeedtech.com [211.20.114.72])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A5F6606A33E;
-	Wed, 11 Nov 2026 03:16:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A5F6606A33E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 050D360A3818;
+	Wed, 11 Nov 2026 03:16:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 050D360A3818
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
 Received: from TWMBX01.aspeed.com (192.168.0.62) by TWMBX01.aspeed.com
  (192.168.0.62) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.39; Wed, 11 Nov
- 2026 11:16:31 +0800
+ 2026 11:16:32 +0800
 Received: from [127.0.1.1] (192.168.10.13) by TWMBX01.aspeed.com
  (192.168.0.62) with Microsoft SMTP Server id 15.2.1748.39 via Frontend
- Transport; Wed, 11 Nov 2026 11:16:31 +0800
+ Transport; Wed, 11 Nov 2026 11:16:32 +0800
 From: Billy Tsai <billy_tsai@aspeedtech.com>
-Date: Wed, 11 Nov 2026 11:16:30 +0800
-Subject: [PATCH v2 2/9] dt-bindings: i3c: Document the AST2700 I3C
- controller
+Date: Wed, 11 Nov 2026 11:16:36 +0800
+Subject: [PATCH v2 8/9] i3c: mipi-i3c-hci: Improve AST2700 PIO TX queue
+ utilization
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,7 +51,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID: <20261111-b4-i3c-hci-ast2700-v2-2-4d8fff5c5196@aspeedtech.com>
+Message-ID: <20261111-b4-i3c-hci-ast2700-v2-8-4d8fff5c5196@aspeedtech.com>
 References: <20261111-b4-i3c-hci-ast2700-v2-0-4d8fff5c5196@aspeedtech.com>
 In-Reply-To: <20261111-b4-i3c-hci-ast2700-v2-0-4d8fff5c5196@aspeedtech.com>
 To: Alexandre Belloni <alexandre.belloni@bootlin.com>, Frank Li
@@ -65,140 +65,155 @@ CC: <tbevis@amazon.com>, <linux-i3c@lists.infradead.org>,
 	<linux-aspeed@lists.ozlabs.org>, <linux-kernel@vger.kernel.org>, Billy Tsai
 	<billy_tsai@aspeedtech.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794366991; l=4018;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794366991; l=5992;
  i=billy_tsai@aspeedtech.com; s=20251118; h=from:subject:message-id;
- bh=C7LPU47uCZf5PPs+zL2heQyebkx3hyevu7kHTop8XYA=;
- b=C5w0tgnbjl+kPCYW/DP5xE3+7DqdIX0sv2WA1xt/Uef0X70Oj+iPFJLJ6MC91BmLvag49ScN3
- BwtoHa8o8nhCrF9EDbHA0drYLD0Ex2K4q3MOEIHmXhsjcyPFb1Gbrs3
+ bh=PnUI0aMUfWomkFnXNrj/l47pexR/eLZ4/01b0YThnl0=;
+ b=IC2QMoBS4HhTkUdyZfh73t5mJWN2P2/C2HES5gXTsxZFnXkH93e/0NnxY7hm5jp2FjM5z82BO
+ CNEEfODeEb4D0D3LTAFcyCyAgQPjGVOAP0xSAyHVzRnwb7ULgJanuEI
 X-Developer-Key: i=billy_tsai@aspeedtech.com; a=ed25519;
  pk=/A8qvgZ6CPfnwKgT6/+k+nvXOkN477MshEGJvVdzeeQ=
 
-The AST2700 I3C controller implements the MIPI I3C HCI programming
-model, extended with an ASPEED in-house control block and a PHY
-programming window advertised through an HCI vendor extended
-capability.
+The PIO TX path only pushes data once STAT_TX_THLD reports that
+tx_thresh_size words are free, with the threshold set to half the TX
+FIFO. The FIFO is therefore never filled beyond half from a single
+wait, which under-utilizes the queue, and sending buffers larger than
+the threshold makes software race against the hardware draining the
+FIFO, resulting in an unstable flow.
 
-The controller takes a core clock for PHY timing and two resets,
-named in reset-names as the controller's own reset and its DMA engine
-reset.
-
-Boards without external I3C pull-up resistors can use the PHY's
-built-in pull-ups instead, selected with bias-pull-up; the achievable
-strength set depends on which pin group backs the bus, since that
-fixes the pin voltage domain. Reuse bias-pull-up (pincfg-node.yaml)
-for the strength in Ohms; it is declared on this node rather than a
-pin-config node since the pull-up switch is part of the I3C PHY, not
-the broader SoC pin control IPs.
+The AST2700 vendor block exposes the TX FIFO read and write pointers,
+which give the exact number of free entries. When HCI_QUIRK_VENDOR_TX_AVAIL
+is set, size each burst from those pointers, using CIRC_SPACE() to
+derive the free-entry count, so the FIFO can be used up to its full
+depth. Other controllers keep the existing threshold-based flow.
 
 Signed-off-by: Billy Tsai <billy_tsai@aspeedtech.com>
-
 ---
-We considered expressing bias-pull-up's dependency on a pinctrl state
-in the schema, but couldn't find a clean way to say "depends on
-whichever pinctrl-N is active" without hard-coding pinctrl-0
-specifically, which would be wrong in general (a node's active pin
-state doesn't have to sit at index 0). We've added pinctrl-0 to the
-example to illustrate the typical usage instead, without a formal
-schema-level dependency.
----
- .../bindings/i3c/aspeed,ast2700-i3c-hci.yaml       | 89 ++++++++++++++++++++++
- 1 file changed, 89 insertions(+)
+ drivers/i3c/master/mipi-i3c-hci/aspeed.c | 11 +++++++++++
+ drivers/i3c/master/mipi-i3c-hci/aspeed.h |  6 ++++++
+ drivers/i3c/master/mipi-i3c-hci/core.c   |  3 ++-
+ drivers/i3c/master/mipi-i3c-hci/pio.c    | 25 +++++++++++++++++++++----
+ 4 files changed, 40 insertions(+), 5 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/i3c/aspeed,ast2700-i3c-hci.yaml b/Documentation/devicetree/bindings/i3c/aspeed,ast2700-i3c-hci.yaml
-new file mode 100644
-index 000000000000..873398cbbcf6
---- /dev/null
-+++ b/Documentation/devicetree/bindings/i3c/aspeed,ast2700-i3c-hci.yaml
-@@ -0,0 +1,89 @@
-+# SPDX-License-Identifier: GPL-2.0 OR BSD-2-Clause
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/i3c/aspeed,ast2700-i3c-hci.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
+diff --git a/drivers/i3c/master/mipi-i3c-hci/aspeed.c b/drivers/i3c/master/mipi-i3c-hci/aspeed.c
+index 4a73e0180a10..8f2a00a940f7 100644
+--- a/drivers/i3c/master/mipi-i3c-hci/aspeed.c
++++ b/drivers/i3c/master/mipi-i3c-hci/aspeed.c
+@@ -7,6 +7,7 @@
+  */
+ 
+ #include <linux/bitfield.h>
++#include <linux/circ_buf.h>
+ #include <linux/clk.h>
+ #include <linux/device.h>
+ #include <linux/i3c/master.h>
+@@ -156,6 +157,16 @@ void aspeed_i3c_ibi_grow_threshold(struct i3c_hci *hci, unsigned int ibi_max_len
+ 			 FIELD_PREP(ASPEED_I3C_IBI_TERMINATE_LEN, ibi_max_len));
+ }
+ 
++/* Free TX FIFO entries derived from the vendor FIFO read/write pointers */
++unsigned int aspeed_i3c_avail_tx_entries(struct i3c_hci *hci)
++{
++	u32 ptr = aspeed_i3c_read(hci, ASPEED_I3C_QUEUE_PTR0);
++	unsigned int w = FIELD_GET(ASPEED_I3C_QUEUE_PTR0_TX_W, ptr);
++	unsigned int r = FIELD_GET(ASPEED_I3C_QUEUE_PTR0_TX_R, ptr);
 +
-+title: ASPEED AST2700 I3C controller
++	return CIRC_SPACE(w, r, ASPEED_I3C_TX_QUEUE_ENTRIES);
++}
 +
-+maintainers:
-+  - Billy Tsai <billy_tsai@aspeedtech.com>
+ static void aspeed_i3c_phy_write(struct i3c_hci *hci, u32 reg, u32 val)
+ {
+ 	writel(val, to_aspeed_vendor_data(hci)->phy_regs + reg);
+diff --git a/drivers/i3c/master/mipi-i3c-hci/aspeed.h b/drivers/i3c/master/mipi-i3c-hci/aspeed.h
+index 7aecce04bba7..e80a0dff0dc9 100644
+--- a/drivers/i3c/master/mipi-i3c-hci/aspeed.h
++++ b/drivers/i3c/master/mipi-i3c-hci/aspeed.h
+@@ -38,6 +38,7 @@ u32 aspeed_i3c_read(struct i3c_hci *hci, u32 reg);
+ void aspeed_i3c_write(struct i3c_hci *hci, u32 reg, u32 val);
+ int aspeed_i3c_phy_init(struct i3c_hci *hci);
+ void aspeed_i3c_ibi_grow_threshold(struct i3c_hci *hci, unsigned int ibi_max_len);
++unsigned int aspeed_i3c_avail_tx_entries(struct i3c_hci *hci);
+ 
+ #define ASPEED_I3C_CTRL				0x00
+ #define ASPEED_I3C_CTRL_CLOCK_STALL_EN		BIT(14)
+@@ -54,6 +55,11 @@ void aspeed_i3c_ibi_grow_threshold(struct i3c_hci *hci, unsigned int ibi_max_len
+ #define ASPEED_I3C_DAA_INDEX2			0x18
+ #define ASPEED_I3C_DAA_INDEX3			0x1c
+ 
++#define ASPEED_I3C_QUEUE_PTR0			0xd8
++#define   ASPEED_I3C_QUEUE_PTR0_TX_R		GENMASK(24, 20)
++#define   ASPEED_I3C_QUEUE_PTR0_TX_W		GENMASK(16, 12)
++#define ASPEED_I3C_TX_QUEUE_ENTRIES		32
 +
-+description:
-+  The AST2700 I3C controller implements the MIPI I3C HCI programming model,
-+  extended with an ASPEED in-house control block and a PHY programming window
-+  that are advertised through an HCI vendor extended capability.
+ #define ASPEED_I3C_INTR_STATUS			0xe0
+ #define ASPEED_I3C_INTR_STATUS_ENABLE		0xe4
+ #define ASPEED_I3C_INTR_SIGNAL_ENABLE		0xe8
+diff --git a/drivers/i3c/master/mipi-i3c-hci/core.c b/drivers/i3c/master/mipi-i3c-hci/core.c
+index 31fab1fe614c..5e7af7717da7 100644
+--- a/drivers/i3c/master/mipi-i3c-hci/core.c
++++ b/drivers/i3c/master/mipi-i3c-hci/core.c
+@@ -1415,7 +1415,8 @@ static const __maybe_unused struct of_device_id i3c_hci_of_match[] = {
+ 				  HCI_QUIRK_VENDOR_INTR_SUMMARY |
+ 				  HCI_QUIRK_VENDOR_RESOURCES |
+ 				  HCI_QUIRK_VENDOR_DAA_INDEX |
+-				  HCI_QUIRK_IBI_PAYLOAD_THLD) },
++				  HCI_QUIRK_IBI_PAYLOAD_THLD |
++				  HCI_QUIRK_VENDOR_TX_AVAIL) },
+ 	{},
+ };
+ MODULE_DEVICE_TABLE(of, i3c_hci_of_match);
+diff --git a/drivers/i3c/master/mipi-i3c-hci/pio.c b/drivers/i3c/master/mipi-i3c-hci/pio.c
+index a95ef7fc351c..b58edff234ea 100644
+--- a/drivers/i3c/master/mipi-i3c-hci/pio.c
++++ b/drivers/i3c/master/mipi-i3c-hci/pio.c
+@@ -14,6 +14,7 @@
+ #include "hci.h"
+ #include "cmd.h"
+ #include "ibi.h"
++#include "aspeed.h"
+ 
+ /*
+  * PIO Access Area
+@@ -397,11 +398,23 @@ static bool hci_pio_do_tx(struct i3c_hci *hci, struct hci_pio_data *pio)
+ 	p += (xfer->data_len - xfer->data_left) / 4;
+ 
+ 	while (xfer->data_left >= 4) {
+-		/* bail out if FIFO free space is below set threshold */
+-		if (!(pio_reg_read(INTR_STATUS) & STAT_TX_THLD))
++		unsigned int avail = pio->tx_thresh_size;
 +
-+properties:
-+  compatible:
-+    const: aspeed,ast2700-i3c-hci
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  clocks:
-+    maxItems: 1
-+
-+  resets:
-+    items:
-+      - description: Core controller reset.
-+      - description: DMA engine reset shared by all I3C controllers.
-+
-+  reset-names:
-+    items:
-+      - const: core
-+      - const: dma
-+
-+  bias-pull-up:
-+    $ref: /schemas/pinctrl/pincfg-node.yaml#/properties/bias-pull-up
-+    enum: [177, 231, 261, 317, 400, 470, 550, 600, 750]
-+    description:
-+      Enable the PHY-internal pull-ups on SCL and SDA and select their
-+      strength, in Ohms. High-voltage pins support 400, 470 or 600 Ohms, and
-+      low-voltage pins support 177, 231, 261, 317, 400, 550 or 750 Ohms. When
-+      absent the internal pull-ups stay disabled and the bus relies on
-+      external pull-ups.
-+
-+  i3c-od-scl-high-period-ns:
-+    default: 380
-+
-+  i3c-od-scl-low-period-ns:
-+    default: 620
-+
-+  i3c-pp-sda-hold-ns:
-+    default: 10
-+
-+  i3c-sr-p-scl-low-period-ns:
-+    default: 40
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - clocks
-+  - resets
-+  - reset-names
-+
-+allOf:
-+  - $ref: i3c.yaml#
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    i3c@14c24000 {
-+        compatible = "aspeed,ast2700-i3c-hci";
-+        reg = <0x14c24000 0x1000>;
-+        interrupts = <100>;
-+        clocks = <&syscon 20>;
-+        resets = <&syscon 37>, <&syscon 34>;
-+        reset-names = "core", "dma";
-+        bias-pull-up = <177>;
-+        pinctrl-names = "default";
-+        pinctrl-0 = <&pinctrl_i3c4_default>;
-+        #address-cells = <3>;
-+        #size-cells = <0>;
-+    };
++		if (hci->quirks & HCI_QUIRK_VENDOR_TX_AVAIL) {
++			/*
++			 * The vendor FIFO pointers give the exact free space,
++			 * allowing better TX FIFO utilization than the
++			 * threshold status.
++			 */
++			avail = aspeed_i3c_avail_tx_entries(hci);
++			if (!avail)
++				return false;
++		} else if (!(pio_reg_read(INTR_STATUS) & STAT_TX_THLD)) {
++			/* bail out if FIFO free space is below set threshold */
+ 			return false;
++		}
+ 		/* we can fill up to that TX threshold */
+-		nr_words = min(xfer->data_left / 4, pio->tx_thresh_size);
++		nr_words = min(xfer->data_left / 4, avail);
+ 		/* push data into the FIFO */
+ 		xfer->data_left -= nr_words * 4;
+ 		dev_dbg(&hci->master.dev, "now %d left %d",
+@@ -418,8 +431,12 @@ static bool hci_pio_do_tx(struct i3c_hci *hci, struct hci_pio_data *pio)
+ 		 * also get some bytes past the actual buffer but no one
+ 		 * should care as they won't be sent out.
+ 		 */
+-		if (!(pio_reg_read(INTR_STATUS) & STAT_TX_THLD))
++		if (hci->quirks & HCI_QUIRK_VENDOR_TX_AVAIL) {
++			if (!aspeed_i3c_avail_tx_entries(hci))
++				return false;
++		} else if (!(pio_reg_read(INTR_STATUS) & STAT_TX_THLD)) {
+ 			return false;
++		}
+ 		dev_dbg(&hci->master.dev, "trailing %d", xfer->data_left);
+ 		pio_reg_write(XFER_DATA_PORT, *p);
+ 		xfer->data_left = 0;
 
 -- 
 2.34.1
