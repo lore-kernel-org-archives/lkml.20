@@ -1,65 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.221
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.231.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794363774;
-	b=wQzZsM1x06zBJa8exztc10Xd2JCAPCJrKSorOrtszJueveDbvzxzQ8ooCPIxG0D8UBjl
-	 GCPgDdrLtlfLqMVe1aOg7GmzQ72mQFrZ1SpDOLQ+Z09hPPMd/jVHTQ1msjpdPbM+bKnhr
-	 jCacn+1TABYXZldWxFBS6qVJaQGBDXsW0VQZp2PUCqLjN31mOaLwgvgOiCtMqPieRunjj
-	 C9uc0IlpqGpFKpQPvqzBFUljrTT2qgv+5VZv0b80zThwD6i4FEbbaOJqNqXg9R6lo9Ydj
-	 ZoTc8FpdAhIy8M8vnXbj5UhpMoje6Q9zIsLfvd/UJ43wy6BEdwblFUfagEQOIEbKgTQ==
+	t=1794363856;
+	b=mAdJJti40xvZsU8bteI/tx3xSKebk7XGxfwTJPXte7xX83CaefVpf5elTVqZeF9GPIcn
+	 K4XsNf2N62/vBiFNkCc6WUp2ogPoGPIMDj1yrCfv8WTw5qw+2Ube6CCrVEqi0D3YvG4Q8
+	 1KDqDz1xZMav6363lN+AWYoaqSXjtZak0IRuaeGJpiSZ6ejdeyjhwiVe1pKJWmxCsgPSx
+	 LAfUinBjlP2IEE4UhYZ7yBf+Z5ITvH1HSfv43BKEOWzjn5iwFbobOYUvrC9GVMukt4j1v
+	 AxjJc5O4WoPNo5J8H7E8teEn3qDkjZk415oz9ilslVr+103X3ENLaKMRgrRnC4aoFag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794363774;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=UWESZWo6gRDJLbe6b+kb8OCoSR2NRoF3AodRyX5rbn4=;
-	b=y7YNRr7GjU/BPAGkhgGKYxyUfdQRXuXgoEB/AfxLpygN6dHGZG3oSKH8ErnwLhP5EwQr
-	 CxQa11CaHkhCUR60Wu9xw28xhRx4cwIgsFtx3H/etfzNEuULbXjTx220mMsxIvlf0gO3+
-	 tTH0MH66E4Wzzve+zCxNLSyk9x3vNUs/Wpr4ds/ecuZkqL5NyaJ4CudKeANOEdSM9aIGJ
-	 AJcyVkqUmv36SyDo02VviBuK39aXnItw2eyc+74lZuSruntdDMs0ry5/oEH2pbvZMINbn
-	 GWDLXO8tFi466m/7K0PEA+dGfOsaSAhWaYR1wxyVb3dwjQOU/wix4J4qAFI0Y2JzTQA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794363856;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=4OlrevCe0/UiiEV9eDZQ+cK59Yv0r9XD6ToHjH9AnwA=;
+	b=pBvUfiT45iKJpgxfRqFbf8RMVLJPBLLDyOHzBatI1nB7mQXtJDAuLKxaznz8KwZq73G1
+	 s5rIpGOfZ/S123YsO0NRFEMKs9TDgfjgKbhpzZ6RRnOltmCalKem0Jeo8ISm8LfZybSAv
+	 4+y9I/1ibMI4G0DYWlTF3F0DalV6OVwl4Zo3/c/HFNlHr8gsZw2VXM58PxNJVvlH7QIhU
+	 QCXVD6nt4tIEuc/kRZDG2AQ8tY/Ua1Q8Nxyq3N/RXaC9cYVIp76SNtlwlETbcwDz6JUWp
+	 DP0Eq5k9qiMC9pw9xopk8wGy2j5kLjmdvtaC8iGByJNVD5kbQTr2D285laujoWZ0sag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=b9zIfTjL;
-	arc=none smtp.remote-ip=95.215.58.221
-Received: from mta1.migadu.com (out-221.mta1.migadu.com [95.215.58.221])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QydkEyaZ;
+	arc=none smtp.remote-ip=74.125.231.200
+Received: from mail-oi2-f8.google.com (mail-oi2-f8.google.com [74.125.231.200])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C30C7606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 02:22:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C30C7606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C6B3606A320
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 02:24:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2C6B3606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=b9zIfTjL
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=37SDGn2nMjZ1Z7oz6sEfcaIMb9d+InDjeAh5oHf8swE=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794363770; v=1; x=1794968570;
- b=b9zIfTjLmRwOvux3PXLjVurEN5l2T0Y9JK89N1JAoMnOI5cNwwjdKp30TlUYqQ/AogqAFJxk
- vUcFSf6CQ+MAde9KlACWnVB5XkX2kwjNCJa26X2e67n6pbbPVhJcjpbQaQhP/DsJLgAEs04PZIh
- PQPX/BoUm9zSrLOiTUlbVXzE=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 618b1c1bb1ebb779;
-	Wed, 11 Nov 2026 02:22:50 +0000
-X-Mizu-Trace-ID: 618b1c1bb1ebb779
-X-Migadu-Flow: FLOW_OUT
-Date: Wed, 11 Nov 2026 10:22:40 +0800
-From: Hangbin Liu <hangbin.liu@linux.dev>
-To: Hannes Laimer <h.laimer@proxmox.com>
-Cc: David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>,
-	netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Petr Machata <petrm@nvidia.com>
-Subject: Re: [PATCH net-next] selftests: forwarding: vxlan_reserved: drop
- redundant in_defer_scope
-Message-ID: <avPRN_C333cX7HlI@fedora>
-References: <20261110-vxlan-reserved-tests-v1-1-a252d69c841e@proxmox.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QydkEyaZ
+Received: by mail-oi2-f8.google.com with SMTP id 5614622812f47-51cddc2451aso1053694b6e.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 18:24:15 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794363855; x=1794968655; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4OlrevCe0/UiiEV9eDZQ+cK59Yv0r9XD6ToHjH9AnwA=;
+        b=QydkEyaZsSwLeYgL9wbu8wErtH7+qB9NvP2gw4SNzvObFzkZLzrIUAMDrH/bfnga+D
+         2VxS2x6Z1QSTge1XAzPzxd4d7M6SvC2hejFvFdkVv/VzfBRaMrRlRVJ3+WTPhA1qAkLV
+         j1bfNwRhjEwhfKzR8ne6ogOXSNO7M4H9lLwktm9QL9467y4Pd5ntRa63VpoOk7qZ9WUU
+         MBD8sqa/PCy6lALWcOMuYc7Uw7TwN7EbUrHodShxto4zerTrqpwFBbMB+AM4m/+uL3YT
+         FqxMWoYwnM36csHBOuaREjB0mOyYA+FJqFXkSXXyuo7zDD1iW/BJjG2pLEbvQDWnXxJq
+         Q2TA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794363855; x=1794968655;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4OlrevCe0/UiiEV9eDZQ+cK59Yv0r9XD6ToHjH9AnwA=;
+        b=IlvwxcdPgaICcsJwPLsQJe1yAgfY9bCNmY213R5whAXVf62I9d/ABgQQwAW31Z/fK4
+         p3/PF3x+zCX3lugGo8xEC+OQLQB5iAn1PHcXFQCkWD+YzYYs8y1ipLCcf1XgHZtEh8ga
+         zoebcsOgsfvFnj7/Z5kbAB6GtEajvrWmYuB004IMPfXolPPsggbWlOiIvm7PG89bJcBK
+         lvdnTjBPeSBDxbR6xNfLP+fxlLCWkCdo5kMjxHqxZ2REElXsRgWpQ7JEecA8ieEwens9
+         BxGDTYwUCSMPdWAVy0/aCXyU3taAx6ZlWDMJkYd7yX11ztYVG8sxB3MNYg3k7a/sY7U7
+         AwgQ==
+X-Forwarded-Encrypted: i=1; AL+hErHGDqRu4PZUS5Q7BbRXj180bA5peKTEkUiRDHS4TdnqVh0bB1/Uj7BlCFK+isyKrs1THOQtS/hbDTqnxi8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z91QeZMGuEprdknSTxvxIQoklICDS7m5hoJlW6WstwQStM1qLd3
+	ztTwksc7Gh9FYRUFPa4XFbrenijubizvnhgtryjhMRfqkbaJWE3v/x1k
+X-Gm-Gg: AYBFou2Xps8iMU0HYUXqC/vU82KsEUYOtgzgZdgDIHOTu0AHBGRjV+AJk0OXgD40Bac
+	1Mca42JFJ3zAnK/ei8doDrSOpY9X30+EZU1r+T+b9lTduwZQctgfMLc5WmcDbAI0j9LFIa6kPz8
+	dkgHGvXrnlY5g+6MRYfVJGF78tYW27EGOCDznNcV3dCHRtC/64LXGuYzBlMeiNXhe0pIAY+D42J
+	QilsmH5e4kK2Y7qcQpFLHQI4F50+hptpVuMmM1Bwycri62LQhj98mTM2p9cKN4ZNKe2QI6YY5yA
+	J96n2lBK83Ww9D8a3EK9se1OAmvXxgXoveTa6UxtqwoUTLtm0hb9qiGxzSRaRE0R3Vyqn4zjLU/
+	OMFrpd43Ee96qmJo/jip8snJrN7xIqm0rl7Irkh12vdXU7pJ3T64VI/H856pLNvC+l8ZG5JAJwJ
+	D8R5rEFihRTjjV0A88yEzZCbN20S35FlebdYB+u5ROnVVMYNhvZ/MrBOj3x6hTqo3GTBbRm+zvb
+	EWsE3EtCe6CpZVEpKX0Ynf/7v7aa/HDxheWw7ziJnqOQGmawp/5Bs77aCkkAxga0L0D9bS4dBJf
+	Za5WudC28raCD2zxwndSchn536sUS6rX3J5s4nhQpj+Vsg==
+X-Received: by 2002:a05:6808:6408:b0:4f4:d7:b16d with SMTP id 5614622812f47-56b98728e6amr910942b6e.60.1794363855042;
+        Tue, 10 Nov 2026 18:24:15 -0800 (PST)
+Received: from ?IPV6:2600:8804:5716:d800::f01a? ([2600:8804:5716:d800::f01a])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-860dcbc82b5sm3364957a34.17.2026.11.10.18.24.11
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 10 Nov 2026 18:24:13 -0800 (PST)
+Message-ID: <a6a47813-97e7-4d22-b8e6-7dfab8ae79ce@gmail.com>
+Date: Tue, 10 Nov 2026 20:24:11 -0600
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,129 +92,75 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261110-vxlan-reserved-tests-v1-1-a252d69c841e@proxmox.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] clocksource/drivers/timer-mediatek: Don't override the
+ arch timer sched_clock
+To: Chen-Yu Tsai <wenst@chromium.org>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Thomas Gleixner
+ <tglx@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: Luca Leonardo Scorcia <l.scorcia@gmail.com>,
+ linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20261109120757.847266-1-wenst@chromium.org>
+Content-Language: en-US
+From: Ryan Brue <ryanbrue.dev@gmail.com>
+In-Reply-To: <20261109120757.847266-1-wenst@chromium.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Tue, Nov 10, 2026 at 03:03:55PM +0100, Hannes Laimer wrote:
-> With commit a6e263f125cd ("selftests: net: lib: Introduce deferred
-> commands") tests_run() already runs every test in its own defer scope.
-> So the per-test in_defer_scope here does not do anything. Drop the
-> in_defer_scope calls and the wrappers that only exist for that.
-> 
-> Suggested-by: Petr Machata <petrm@nvidia.com>
-> Link: https://lore.kernel.org/all/875wyo6b7d.fsf@pmachata.org/
+Hi Chen-Yu,
 
-Nit:
+On 11/9/26 6:07 AM, Chen-Yu Tsai wrote:
+> Before the conversion, both drivers used TIMER_OF_DECLARE and
+> timer-mediatek.o is linked before arm_arch_timer.o, so the arch timer
+> registered last and won.
 
-Closes: https://lore.kernel.org/all/875wyo6b7d.fsf@pmachata.org/
+On MT8173 the GPT already replaced the arch timer as sched_clock before 
+7a097aba7255. Every boot log I have from 7.3 on the Fire HD 10 shows the 
+same swap, for example on 7.3.0-rc5:
 
-> Signed-off-by: Hannes Laimer <h.laimer@proxmox.com>
-> ---
->  .../selftests/net/forwarding/vxlan_reserved.sh     | 39 +++++-----------------
->  1 file changed, 8 insertions(+), 31 deletions(-)
-> 
-> diff --git a/tools/testing/selftests/net/forwarding/vxlan_reserved.sh b/tools/testing/selftests/net/forwarding/vxlan_reserved.sh
-> index 0ce264cc57f8..a273e1fcd26c 100755
-> --- a/tools/testing/selftests/net/forwarding/vxlan_reserved.sh
-> +++ b/tools/testing/selftests/net/forwarding/vxlan_reserved.sh
-> @@ -273,30 +273,18 @@ __default_test_do()
->  	log_test "$what: drops reported"
->  }
->  
-> -default_test_do()
-> +default_test()
->  {
->  	vxlan_device_add
->  	__default_test_do 0 "Default"
->  }
->  
-> -default_test()
-> -{
-> -	in_defer_scope \
-> -	    default_test_do
-> -}
-> -
-> -plain_test_do()
-> +plain_test()
->  {
->  	vxlan_device_add reserved_bits 0xf7ffffff000000ff
->  	__default_test_do 0 "reserved_bits 0xf7ffffff000000ff"
->  }
->  
-> -plain_test()
-> -{
-> -	in_defer_scope \
-> -	    plain_test_do
-> -}
-> -
->  reserved_test()
->  {
->  	local bit=$1; shift
-> @@ -311,35 +299,30 @@ reserved_test()
->  
->  reserved_0_test()
->  {
-> -	in_defer_scope \
-> -	    reserved_test 0
-> +	reserved_test 0
->  }
->  
->  reserved_10_test()
->  {
-> -	in_defer_scope \
-> -	    reserved_test 10
-> +	reserved_test 10
->  }
->  
->  reserved_31_test()
->  {
-> -	in_defer_scope \
-> -	    reserved_test 31
-> +	reserved_test 31
->  }
->  
->  reserved_56_test()
->  {
-> -	in_defer_scope \
-> -	    reserved_test 56
-> +	reserved_test 56
->  }
->  
->  reserved_63_test()
->  {
-> -	in_defer_scope \
-> -	    reserved_test 63
-> +	reserved_test 63
->  }
->  
-> -gbp_changelink_test_do()
-> +gbp_changelink_test()
->  {
->  	vxlan_device_add gbp
->  	__default_test_do 25 "gbp"
-> @@ -347,12 +330,6 @@ gbp_changelink_test_do()
->  	__default_test_do 25 "gbp after changelink"
->  }
->  
-> -gbp_changelink_test()
-> -{
-> -	in_defer_scope \
-> -	    gbp_changelink_test_do
-> -}
-> -
->  trap cleanup EXIT
->  
->  setup_prepare
-> 
-> ---
-> base-commit: 6db9448a443afde26231aaed7b112ed17b33f468
-> change-id: 20261026-vxlan-reserved-tests-f2ceea83bb0c
-> 
-> Best regards,
-> --  
-> Hannes Laimer <h.laimer@proxmox.com>
-> 
-> 
+   [    0.000000] arch_timer: cp15 timer running at 13.00MHz (phys).
+   [    0.000000] clocksource: arch_sys_counter: mask: 0xffffffffffffff 
+max_cycles: 0x2ff89eacb, max_idle_ns: 440795202429 ns
+   [    0.000001] sched_clock: 56 bits at 13MHz, resolution 76ns, wraps 
+every 4398046511101ns
+   [    0.000366] clocksource: timer: mask: 0xffffffff max_cycles: 
+0xffffffff, max_idle_ns: 147020034397 ns
+   [    0.000378] sched_clock: 32 bits at 13MHz, resolution 76ns, wraps 
+every 165191050201ns
 
-Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
+and on 7.3.0-rc6:
+
+   [    0.000001] sched_clock: 56 bits at 13MHz, resolution 76ns, wraps 
+every 4398046511101ns
+   [    0.000192] clocksource: timer: mask: 0xffffffff max_cycles: 
+0xffffffff, max_idle_ns: 147020034397 ns
+   [    0.000201] sched_clock: 32 bits at 13MHz, resolution 76ns, wraps 
+every 165191050201ns
+
+Neither kernel had changes to drivers/clocksource or kernel/time iirc.
+
+I think the reason is that timer_probe() walks the device tree nodes in 
+order and matches each one against __timer_of_table, so link order only 
+decides which entry a node matches, not which timer initializes first.
+
+In mt8173.dtsi the arm,armv8-timer node comes before soc/timer@10008000, 
+so the GPT registered second then too, and with the same rate it 
+replaced the arch timer.
+
+So what the conversion changed is when the swap happens, late enough to 
+trigger the splat, rather than whether it happens.
+
+The patch still LGTM, and it gives MT8173 the 56-bit arch counter back. 
+It's just the history paragraph that I wanted to give my anecdote for.
+
+On the Fire HD 10 (2017), v7.4-rc2 with this patch prints only 
+"sched_clock: 56 bits at 13MHz", where the rc1 boot before it switched 
+to the GPT's 32 bits. Boot, suspend/resume, and cpufreq are fine.
+
+Tested-by: Ryan Brue <ryanbrue.dev@gmail.com> # on Amazon Fire HD 10 
+(MT8173)
+
+Thanks!
+Ryan Brue
