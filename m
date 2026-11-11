@@ -1,53 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794404294;
-	b=ZkGB5ImfCy0zlnCzYY6x1bhCCoJS6rKsB2qwcW/EWSNx+rc0R/99Bc0+hw4DsAKULYPl
-	 NqlRyslzNta1EwG8LUAeVYoxa8scn6dhio8QIOAyueBWCoeHsZAB0OAI4PMOgibGMl3xa
-	 wzLEDUVwoWKcC9bJJZphgOTWDV4MwbffG2eyWGAn+ehgdYJcudUjyjcNdDWWZ0xm8+peh
-	 mOm5seaT5qOXaR4O18z1RjFTN8lMIlrimqQNBHBOQDGLF7oohExDQFfyQxnvDz+FFfWEQ
-	 mdB7Vgt8XMaOPva/z5f1oRUPpWdmUeYbLsms0lEZ8fn4RuYFrqrnT/G4+/+fNg4jfqQ==
+	t=1794404375;
+	b=uiNy4J65dMbK6HbN+RSgCRUOUrgoDwtaoUWY/DoZ1BcgEX7DGmZf/LVKFGP6zCYNEM6D
+	 c9uL40bZkkYQo/EUXU8Od60vA2wMDEi/P5ATfOgPppy0+gDpslpBbkEQED7RpO5eNBI9/
+	 kSkIfZp0yblW13j3wQ0JSLSwJqrVGPYTpaLXq8If//pPJiDN78YHcVTL08C4TRJ2nhrt3
+	 tdmDjiEi0dmClsrEGnuamLlTuVqbC9gQIXn7LWK1bN5xkR7fxOIIg2hczFWCgtzBCS2QV
+	 vnLnnZVYrdfqeprIXmCoW/wkcZ/nJ/hIrd9tiIF+5LlZ/QilNzCY7Lfv5u/4rWWN2LQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794404294;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=u5UXXfLjdcD8s36JEwM0JvoXfnr0525eeXKE1fUsHhA=;
-	b=ZNjpndKC8671E0fXZMr352UG9NozPZas0sXYIZgJtoQYaRJJVo0Rxl3torfkz6mBRSf8
-	 Dr0/BkDf5AD4q14GsU9ZG2DkCsCQYWJY9GO413TWQqIYLP/Iv1l2F/K/bKSuK5i9aEsa9
-	 ee9M7pd0UC0qfDTZXEoi+r/n6+s5ckIaxFFcJ6Ys38Qk9dGEa3cwFqSdBXzAqC4JOfll8
-	 /y45gK4ncSW/21j5JiGQ2vrFW7he6bGyz/kydSojYendup5pCRtwVQTm7wwhhYmg4LbOv
-	 HDad0+tWNbXFsa1VHbshwa1eQXTV1sdyzUg3GcGlppgSKZzAJs9+SMNsXwaC8hka8yg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794404375;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=a90TSHLYo3ufI2Ap4R5Yr5uKZJ9gis2VXsyUzLmZH4s=;
+	b=R0hhQQ4aXXbVyvXY+vGNdNfk+j1IiUZ9quX8+bK3SNHZ4X0Dh9BFw5WItc2Oolry/FCZ
+	 4s7lYff4MogX+Cfs1sl4Fx0xV/eh8rJgOgEtuTj+3jRBRPTqacHAZ787TYAQV5WRWitVI
+	 XvbMHyFlggSRt5lzRvUnZ7KQkFC9GTOsaInd1gEpG7kNDvqcVD7pRYjB8zInn26sDMi1A
+	 ASbF0Y1MpB10Rf4c1KSj3MPPBMx6DoJ9R8v/yK5BNBnlwOQs/zPCrcbB7ZXoySv0rG2B/
+	 wtvAOKhxMM3mvjPP7Mmf94hqWb/TKYIiNB4z326RtcyRbslsUUlfvOi29Ej7yJPXkMg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dYWewhp+;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=adBNghs0;
+	arc=none smtp.remote-ip=209.85.128.45
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39C42606A32D;
-	Wed, 11 Nov 2026 13:38:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F0BC606A326
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:39:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9F0BC606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dYWewhp+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65F091F00A05;
-	Wed, 11 Nov 2026 13:38:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794404294;
-	bh=u5UXXfLjdcD8s36JEwM0JvoXfnr0525eeXKE1fUsHhA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=dYWewhp+8DTAc7QQsC9lhI++VogBEsco6/bbPQoEzK2t+wYzgvvkyklkf6YL4Mb5C
-	 XDQAy1cU0FqpvbveGG3zUhcc0R6tEiySV+V9CDtzusSosJl/oyGZu2h8jM7Za8GHtn
-	 Eaa/ZklFLlFTt9QDce7aPzs2vP4h3Mvs3PP1f3F9nOZL/RfL7D3Jl/vqKi2Ad5Ffh6
-	 woinDOICekSskNZSnFcHfNxsc/k3ke5NTlfQA/CSYD12gPr6je/UHwXgiOJPk/Fj8d
-	 SjOrQfIxYiW9YhEsqdJWzFczQTn8RuG0eow7KASY4j/AQDrwjUk7Uqm92OOtsXXwoW
-	 Pn9viK+BfTqlA==
-Date: Wed, 11 Nov 2026 15:38:10 +0200
-From: Leon Romanovsky <leon@kernel.org>
-To: Yuehong Wu <wuyuehong@cmss.chinamobile.com>
-Cc: linux-rdma@vger.kernel.org, Jason Gunthorpe <jgg@ziepe.ca>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH rdma-rc] RDMA/ucma: free a queued CONNECT_REQUEST with
- its new context
-Message-ID: <20261111133810.GS8635@unreal>
-References: <20261109-ucma-conn-req-ctx-1-yuehongwu@cmss.chinamobile.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=adBNghs0
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a2072b9832so18544595e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 05:39:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794404373; x=1795009173; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=a90TSHLYo3ufI2Ap4R5Yr5uKZJ9gis2VXsyUzLmZH4s=;
+        b=adBNghs0Dn91E1Kvu/DtTmKNR4ihrbC8itA+9BHzZeHLBgmlo2FURAsJ/QLaJywqm8
+         t2sK5saIh3wE4mHrv5gM7cEl8UDtAevV/2YRRr8m3TiiKSK5yrr/NDhWbFG5wzKeYdHx
+         M76wq50/B95EPJB6tW7jV9YT/1XvoU65q0dXPrb1rjvWn7BqUjDXrS+5ZXbqV97sJBj6
+         wcdi2+NRXHsYjLgBQzPlKtwlYkwZmlj1U4zwAwu3NY/hqw79+DKBUPlmFO1SuSDSLlIN
+         Pe0YlWI9xK+IImsjwtxC8475LCNHGwhwzdsIwj8xm1SOZcXI4YVz1QpLHSkc5AmJ+aCM
+         V84Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794404373; x=1795009173;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=a90TSHLYo3ufI2Ap4R5Yr5uKZJ9gis2VXsyUzLmZH4s=;
+        b=fsiwwEQ+sMaciRbpaIqg18ABRzaxK165EIgUc1EGnfylYjVKgTfJ5axFtVF/vMuz+t
+         sOH6SOAP6b5YvOx1S/qF8dRhACpzyUCjvwqEpvKsPQi9bLuT7Wp1S/QDjU6vYaEOzKea
+         ectWQJJ2f49Z1F8200JEUGrT0SaG6aQLCk7ORnWSyWpsB/cdkeiye1UA0+w8inFAz+hu
+         DoWsQjLzDqomloUYEfeY0vg93tKtwfiV99Pk8NLEdbR70XfkuF4pOpBO9FJFRwGdWEWI
+         bhYZCGrAxiwO+zmbgZGgRzqbKh5XQtfWMV3NVy9G4v6juI6WqUBCPhGUlm0ZBnvJv0tG
+         BClw==
+X-Forwarded-Encrypted: i=1; AL+hErHPoM4SDMBdjlPyruFLQUx8qwT9eDQC4jCRyEy8qPlPJno6K2xjWpeoXfeXzx+xf/TfMZhjzCtbmnOEaZg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8OKmPqwn7W4pjOGwo3jGKA1AxboHT83xYU/pt4VcndRRjA/i3e
+	3U03R/iaWYW7hsbHEjLYEgr72m35w4xXNxf9mX0OzMP+6PrZsZHfL5iA
+X-Gm-Gg: AYBFou3zjAubb9jZlk0GpPVz2WaiYdVIZK6xOFId8P+27YneTVR24Q0Cu/O3u8eFdSu
+	Q+Y2qxWCbi2umGiU1LwGLhgYSu14TC68m2imuuq6NZ05WWfA9qDqk2DQHUOjMRz7aDdd+/gJ6uw
+	92J5IdWE0duHKKVVCSjOw/ROd8mgTjxUHgRl5bP5eUejMkJ8bwjB0j85FsUJKK3ekZqmbHHdOGl
+	XLg3PzDtvG8foEoebHiFVrolk7OVsM8BVbOg0G2N8Gx+qmYic3ILoLm//nxVHUWWTNaWVkT6JR/
+	6wVHZMpVSJWWMz8lntZxEy1oCGMkoOIICI1WUMuERZZADu7n46M4+PhP/rtvcEX4frZTITaBPOZ
+	6KrOHtl+34e0BC/3u41UCHSAVCb7zr9hU5kPNkc1VArFBiXovl2jEWo6HbvFJBSPjTlhKqbTomb
+	nm5FBerKaUeFmhaYvksH7DWlSfRKVb+xnPJ4XS0nWLszdyuZ/oeBXvj5QxCFMylKozo+uGXWoKg
+	AfpHcdcjB01AzZ1MbtkLY+/2sSc24eZ8fR5lWfRQu9BtGx3n38TKwjSYbZXSUCwgHHWaAFoVdbO
+	cse2s5zqGf+AVOMCSTg6nh2zH/7DYew7Vr0GOHIyN5xs1KGideFOTKjF
+X-Received: by 2002:a05:600c:34d4:b0:4ba:cd:f45a with SMTP id 5b1f17b1804b1-4ba09376eb2mr47955805e9.14.1794404372781;
+        Wed, 11 Nov 2026 05:39:32 -0800 (PST)
+Received: from dev.Default ([86.127.229.203])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba01fea745sm136757365e9.10.2026.11.11.05.39.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 05:39:32 -0800 (PST)
+From: Agustin Santiago Isasmendi <isasmendi.agus@gmail.com>
+To: Russell King <linux@armlinux.org.uk>
+Cc: linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Arnd Bergmann <arnd@arndb.de>,
+	=?UTF-8?q?Stefan=20D=C3=B6singer?= <stefandoesinger@gmail.com>,
+	Navid Ghahremani <ghahramani.navid@gmail.com>,
+	Krzysztof Kozlowski <krzk@kernel.org>
+Subject: [PATCH 0/2] ARM: l2c: honour status = "disabled" on the L2 cache node
+Date: Wed, 11 Nov 2026 14:39:28 +0100
+Message-Id: <20261111133930.3665251-1-isasmendi.agus@gmail.com>
+X-Mailer: git-send-email 2.30.2
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,84 +98,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261109-ucma-conn-req-ctx-1-yuehongwu@cmss.chinamobile.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 09, 2026 at 11:20:00AM +0800, Yuehong Wu wrote:
-> ucma_cleanup_ctx_events() only frees the events that belong to the
-> context being destroyed.  A CONNECT_REQUEST uevent that has not been
-> delivered to user space belongs to the listening context, but it also
-> keeps the newly created connection context in uevent->conn_req_ctx, and
-> that context is already reachable from user space because
-> ucma_finish_ctx() published its id before the event was queued.
-> 
-> If user space destroys the new id while the event is still queued, i.e.
-> before it fetches it with get_event, the event is skipped here and stays
-> in the listener's event list with a pointer to a context that
-> ucma_destroy_private_ctx() then frees.  Destroying the listener later
-> (which is what closing its file does) reaches the
-> uevent->conn_req_ctx->id lookup in the xa_cmpxchg() below with a
-> dangling pointer, and when the freed context was reallocated the
-> comparison can match an unrelated live context, which is then detached
-> from the id table and freed.
-> 
-> The match in commit 8ae291cc95e4 ("RDMA/ucma: Do not miss ctx
-> destruction steps in some cases") replaced "uevent->ctx == ctx ||
-> uevent->conn_req_ctx == ctx" with a plain "uevent->ctx != ctx" test and
-> lost the case where the new context is the one being destroyed.
-> 
-> Free the event in that case and return the backlog slot it consumed: it
-> was never delivered to user space, so it can no longer be acted upon.
-> 
-> Fixes: 8ae291cc95e4 ("RDMA/ucma: Do not miss ctx destruction steps in some cases")
-> Cc: <stable@vger.kernel.org>
-> Signed-off-by: Yuehong Wu <wuyuehong@cmss.chinamobile.com>
-> ---
-> Validated in a QEMU/KVM guest running this tree with CONFIG_KASAN=y and
-> CONFIG_RDMA_RXE=y.  A reproducer creates an rxe device, queues a
-> CONNECT_REQUEST, sees it with poll() without fetching it, finds the new
-> connection id by trying the small integer ids that belong to its own
-> file, destroys that id and then the listener.  The unpatched kernel
-> reports
-> 
->   BUG: KASAN: slab-use-after-free in ucma_destroy_private_ctx+0x1c0/0x4f0
->   Read of size 4 at addr ff11000102295a00 by task c9repro/302
->   Allocated by task 12:
->    ucma_alloc_ctx+0x2b/0x170
->    ucma_event_handler+0x1ad/0x3a0
->   Freed by task 302:
->    ucma_destroy_private_ctx+0x468/0x4f0
->    ucma_destroy_id+0x180/0x1e0
-> 
-> With this patch the same sequence run four times produces no report, and
-> a probe shows the queued event is dropped when the new context is
-> destroyed.
-> 
-> Note: ucma_migrate_id() can move the new context to another file, which
-> leaves its queued CONNECT_REQUEST in the original file's event list.
-> That cross-file case predates 8ae291cc95e4 and is left for a separate
-> fix.
-> 
->  drivers/infiniband/core/ucma.c | 17 ++++++++++++++++-
->  1 file changed, 16 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/infiniband/core/ucma.c b/drivers/infiniband/core/ucma.c
-> --- a/drivers/infiniband/core/ucma.c
-> +++ b/drivers/infiniband/core/ucma.c
-> @@ -534,8 +534,23 @@ static int ucma_cleanup_ctx_events(struct ucma_context *ctx)
->  	/* Cleanup events not yet reported to the user.*/
->  	mutex_lock(&ctx->file->mut);
->  	list_for_each_entry_safe(uevent, tmp, &ctx->file->event_list, list) {
-> -		if (uevent->ctx != ctx)
-> +		/*
-> +		 * A CONNECT_REQUEST that has not been delivered to user
-> +		 * space belongs to the listening context but also holds the
-> +		 * new one. 
+Hi Russell,
 
-I don't understand this sentence. conn_req_ctx is created and added to
-event_list at the same function without any conditions.
+l2x0_of_init() finds the L2 cache node by compatible and never looks at
+its status property, so a device tree cannot keep the L2 cache off.
+Patch 2 makes it honour status = "disabled", as the newer cache
+controller drivers in drivers/cache/ already do.  If the firmware left
+the cache enabled it cannot just be ignored, since nothing would
+maintain it, so it is cleaned, invalidated and disabled instead.  Patch 1 moves
+the number-of-ways computation out of the per-part init code so that
+the disable path can reuse it.
 
-Please explain with function call chain how your claim is possible.
+The user is the ZTE ZX279128S (dual Cortex-A9, L2C-310 r3p3), where a
+PCIe read on one CPU deadlocks against an L2C-310 line operation by
+physical address or a Cache Sync on the other CPU, and the board hangs
+within seconds of WiFi traffic.  Running with the L2 cache off avoids
+it, and that was suggested as the fallback for the platform when a
+lock-based workaround was found too invasive for generic code:
 
-Thanks
+  https://lore.kernel.org/r/20261110153522.1620088-1-isasmendi.agus@gmail.com
+
+Whether the ZX279128S device tree disables the cache is a decision for
+that thread; this series only makes the property work.
+
+No in-tree L2 cache node is disabled, so existing device trees are not
+affected.  Tested on the ZTE ZXHN H3600 (not in mainline yet, on top of
+Navid Ghahremani's v2 platform series): with the node disabled the cache
+stays off (control register 0) and the system runs normally; with it
+enabled the cache comes up as before; the firmware-enabled path was
+exercised with a test-only change that enables the cache before the
+check.  Builds without warnings with W=1 (board config and
+multi_v7_defconfig); checkpatch --strict is clean.
+
+Agustin Santiago Isasmendi (2):
+  ARM: l2c: factor out the number of ways
+  ARM: l2c: honour status = "disabled" on the L2 cache node
+
+ arch/arm/mm/cache-l2x0.c | 85 ++++++++++++++++++++++++++++------------
+ 1 file changed, 59 insertions(+), 26 deletions(-)
+
+
+base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
+-- 
+2.30.2
+
