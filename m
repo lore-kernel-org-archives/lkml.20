@@ -1,79 +1,131 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.100
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794376813;
-	b=dGvh4m5f4ZErL2DH6gdE6jmS+xO3zZRPwO/ZH3Elh288EOma/Y7Svqvt90tYHbrZbQer
-	 neay3ixNOI1mLgFefS2eCE4Jyj/XjSSt7nnEmK3rs6mP6/+jO7X7BWiUFrZt5RuC0xPur
-	 Jyp6IRYcrY0gEt+g4mhmSqyq5x9fZT+qhGGLqCN9m4EA0f9IuhRsjqS6dm6zGNB+cVZ6s
-	 4+qNzOFFtLNOdchxt0ujdnCmZA9y9+AB3RUTu8mHoLhbn4M9VxotghIDYuYgKivYvXCne
-	 tN5OxlP7Veg62cr7o6RpcTWTKd7zRAeOG1P+u9uPqssJHfeHfdIvbVoBedaDyFlXsOA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	b=HvB9ubiyfFvaLoi6yCIseweMMg+4gzr0m7Lq9X2O12/hx4thFluZVi3OULeqJJZVSVUK
+	 LUV9Ff/syWuMYkMcqsYLTcDb8GV7aTu+srB31S7K5XXU9Kc/DZNOdW83siUTNel1w5dOH
+	 uRXb2giSbA5CwJC9SxSpyebCZComEcApmh7VjKWLExCaduRET5qGKUtN50tmXBxJQKhg2
+	 e3DVDqVxpeH1eL2oXGBKkCVin9Ry4Sk7EBPmkdtgIALC9PWHPY2spB0SyIj3650/lPrym
+	 7S1a6RCIyhmeTjAEke6XgyKeRgOOBMdO7c8TuXV0KFfgUGNhlSkc5dBYC9SYWzt8TEg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794376813;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=FKWK2tfwOubwz0NYfMnsGtzNrT9KfhXRngDWEiE1I+k=;
-	b=jlCjVTtYcDJV2GxVFzkI5+sBCCmm3HpqABdRAtlcdIMHZhzUPkX7TagyDBFzNkPDvNDn
-	 Ozr7jnv1Pi6v/fRRUwvB8+zSVHmZVpMjq7HS7DnY86lCkzylaa5jE7F2x/vjGCBHJTf99
-	 QWzVmj/MboXqGh4S6Q8gdopukPhwQaQ3f2PC4tWD8rcknpU4s1Hl8gnW1yXreM5CsyICd
-	 VQaKD4euW9hzz3a+pQ4JMmeG/SF2qV6jInnAuSe5IuIDUbjYn29qxsWf9IiAh4xFafWNZ
-	 4ZbhBL8Ttb/X2P1nKcgB31yuWXOANwOwYiWIGuDGFE1ogCpTzoLRdHXEcbq7w3x7Jwg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CpMtYLk0;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3962660A262D;
-	Wed, 11 Nov 2026 06:00:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CpMtYLk0
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794376813;
-	b=tGluTC7Q4yGRDyL1UX8mXkQrJsOH687bQi1Ug9Auz57rXBJB34pNVnujEGVNbAvNlTN7
-	 +NkMAkGGtFeBclLCbFZaSrY8TBWyMTw2Q38MTvDYVzNLkpEd3Jxvv6+axnVnsBhNefwSd
-	 Lf43UMoZQaRO7TS/rqhWCwd+KJ4RMjjMNopbX0H91oykvkQsI1UNTFIj4XGNm3KNemKWH
-	 AyD0nqzOI19OB0T6+WkgMeNosFRZRCFXHOJqToxyBGLF2M+etZOQbsUBoYjlE/R99h5Ce
-	 r8nuXe3ifGjnsVp2VjlGzFnBlOo4a/GRYX8ZxXwaXnX89l8cgp8lvznKZo6NqZYTebg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794376813;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=FKWK2tfwOubwz0NYfMnsGtzNrT9KfhXRngDWEiE1I+k=;
-	b=hcLR2NzQ8e9hr5FEhmZr7iujlp3A7dBwRMesUWQrlGNFV5dI3fQbyoV/oWTJODUjzaka
-	 DaWPPqOiSs3Ev4pEkWIIP0lbwToKAkevzVmTRzKAdD2VzRzuWYK+CT80Yu6XUo4hO+nO5
-	 s+vR959QxlnxdGjN3X4crVGncXhQ3sXYHlzkFrbqwSFcfGWkbedMBmmP5MdJGotkjkSbd
-	 iwGnueOK3O0WaCxlyaLVa1NFlrr4u3G9JDSeZNqDLn/spzpPjjSZZExmT5YPsjSRP9IqU
-	 6h33iCtwEOxUy9Ia5gq8FnI920CqPegSlIbewFlDJkmi0Mi3vB0l4rFcVot9J/ycXaQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
+	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Received:X-Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-DetectorID-Processed;
+	bh=Op/9/DpgcKIe0jcvYLiJPNqXkkmx6XxpHhTMkcCwGrc=;
+	b=2jB0BjijKuSmHmgRuledT+zRIxd4Ppa678x0ePeogQFKsF/FBBDvMo6w5f7cDnwdIagJ
+	 7AHnJ4Gy6LLiUx5PBbwxyOeikZt+FH/HmiUsjlGHzkpyDe0EKKGMQrI9Rhro+s6Z/l79X
+	 zzgEU9gcXH93/5aS853Ww7cK0WApNEm0hQquCDlzDmbcNCAzs4vI9No9JcgDxz6RETAth
+	 g431X/h4PnBiIH0nNTkZCxOwAvqgIvsJtRLJ03sX1A+m1DRcFT8xl7gQXGU2FO3t7DeVU
+	 WFKuc7rF6yqavjsCkdEi6nOr8QL2VZE4oaB+vHEhgEyHb9jLaoUVkMcGMQXaSHpEgqA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=broadcom.com;
+	spf=fail smtp.mailfrom=broadcom.com;
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=ZjFvApRI;
+	arc=none smtp.remote-ip=209.85.219.100
+Received: from mail-qv1-f100.google.com (mail-qv1-f100.google.com [209.85.219.100])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 287031F00A0D;
-	Wed, 11 Nov 2026 06:00:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794376813;
-	bh=FKWK2tfwOubwz0NYfMnsGtzNrT9KfhXRngDWEiE1I+k=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=CpMtYLk0SZ9JMGD0MaKWfupCmjfTL4UZxIu+tJNYjfHMMtk8iDthD+U+K10DX9FKB
-	 S39sybRTWFsQJzmA8JKiwZJWGlRiWgqCpr1IOJJz8lI69D1nydoAvn0u5vBjYy+0/P
-	 KFFDD0f9A3X91vD0rxDc6PaZrSoGzchxmAcwQYeVni+Tz6lCXcQve0ZJvCZd0ni7xb
-	 +3dZqvjXVz4xsak8Vz639JCroDbt3IBdCQk4m1L9Cye4NHVYG+fDz1gy2J4qHR8U10
-	 ayitwyv1G6hamtiGlLB1ZWYO3pB7UfrumYqLFZMrLF0P65oe6mvtZs6PLlgr7n9WeY
-	 8+w9MIp4TujIw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 323DD48DF2;
-	Wed, 11 Nov 2026 06:00:08 +0000 (UTC)
-From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Wed, 11 Nov 2026 06:00:13 +0000
-Subject: [PATCH v2 7/8] arm64: dts: allwinner: orangepi-zero2: Describe the
- SPI NOR supply
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 406A260A2637
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 06:00:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 406A260A2637
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=ZjFvApRI
+Received: by mail-qv1-f100.google.com with SMTP id 6a1803df08f44-91eb46044c4so35277066d6.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 22:00:13 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794376812; x=1794981612;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:dkim-signature:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Op/9/DpgcKIe0jcvYLiJPNqXkkmx6XxpHhTMkcCwGrc=;
+        b=mm4csvSF0b76Qx54lMhXJgdjEZWw/q8FYyL9PBHk05GA/B3/Ysi0F/5hSn6LqhktzR
+         TLuy5uRQwtlemCeV+7GR4RVtFtkzgEj/71aVKjZpmb9wxJXws2KuazaPKDHpdt2HOG1L
+         VieZ1uwLXb1kbowJH0WaRKyr+7IMcGpklrO3QLetUSUDq1yeD4XCNmBOhZRhUspvK/PR
+         yXQbEU2GRR5qJ+pmqCo4Ttuv7dA8iqMV+YHWwf6xEzM67BuX0BfAiZluqvH996DXOeI9
+         2THytkiW0Vqg/i4L2J3A9jFRlgenED6jl3VS71KT3F/+wM4Wo2Ke092fIsoEwmdnOePw
+         zaaQ==
+X-Forwarded-Encrypted: i=1; AL+hErFcKwMVO3xPYI6XjTNTZkXkJiMuyEXE6KHi7v/b+oQCgTlfXVnDPc3Co8gB3uSsGwvkFUli+j2BzIL5ojY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z933gQc6PYuT2dBpVc4CwsUISp3cJhDMgXw3i7ayImYN7iEm1nj
+	b/y5sgLBNpNTHp4jF9bC48pRA8Q6nAovs0e7/RjaCKN/UbHG0dIhjzYRJfy9gODhTlCrQAqY85c
+	q/GtuNW6rdSYbqTwGo7H8yGG8t3698YCIWGPYQPPO+6RResW5bXOmPTvHsqI9PR/X2kEtD7bRXZ
+	GzEYpfrLTrXUzFhB6TrO0vjj174x68zg95O/MsMHtl8wv+DK4KMYaxYJ/WHux9OYB7hPs/QfhmK
+	UZ9d6FqieTCcXu8
+X-Gm-Gg: AYBFou2NHTtOnQMeop/xZFQF9FiAaEeK/Dm1yhvG1y1sOaoAaOa7fiT+dhzABY9Gc0Z
+	05mlJ2Is0HM0HE7ZtDhqH0hG7p51EkkfBBAJGpaOFBN5VSVtAfTfw8csmrgQ5/8lziys9Q3maVd
+	y4v0HEJWBxNYygfcS+gGmIwueOjdneAJtaR0uKY1MyRVI+y8kdAgUJyd6+u1Kd0ZoLXNJDU4DU9
+	WSGev3DdQ1WYE3FrDgNogW76amJsTGbw43hCCRleL0rAsb4n7UUXhQsNO6Qye/w56nUz4k6bBcr
+	vTul5vExLppuddPM85GA7CoQ+q3iQ17cfnfn+6nshLkajrBnCZ/qPys0Gi+KyjjDnUlRcJ/h1//
+	mkt157B7trnRr63/anhavlGaslRKGWNkgPk6g3DajhAvIYDBa0XamFaxQAVHjNqoQOBCmGFCx8C
+	DyyhgLiAWms9SO1S3C0EJU/YxU2dhl4v/t
+X-Received: by 2002:a05:620a:1713:b0:93f:334e:df25 with SMTP id af79cd13be357-947b00388e2mr222328985a.41.1794376811991;
+        Tue, 10 Nov 2026 22:00:11 -0800 (PST)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-28.dlp.protect.broadcom.com. [144.49.247.28])
+        by smtp-relay.gmail.com with ESMTPS id af79cd13be357-9479efcea89sm53476285a.12.2026.11.10.22.00.07
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Tue, 10 Nov 2026 22:00:11 -0800 (PST)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93e49a1d3b1so677351485a.2
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 22:00:07 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1794376807; x=1794981607; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Op/9/DpgcKIe0jcvYLiJPNqXkkmx6XxpHhTMkcCwGrc=;
+        b=ZjFvApRIFsh5X67BEGnT6S/tCiy4gMnxOiTiBifW6Drt+KGNJIneE5/tzwMbbqtCaI
+         wWn/hwbp5ViDEJsqFOytKVMZJF4tQsgDlD81YvXuiLTVio1CuU3HnOXlzvqLWikXEJ58
+         EQa5SyazNYqU9R5FDBYimR48SIikcfIev0Xto=
+X-Forwarded-Encrypted: i=1; AL+hErFn2YHf6RbBigVK84p8r/PYmW0sduVuZ3dgI7aoE6iDTJFU+xt0UicsugKbZVEOS4mzds0zxQcg+49yG6I=@vger.kernel.org
+X-Received: by 2002:a05:620a:29c8:b0:93c:720c:94e0 with SMTP id af79cd13be357-947b001c6afmr209721285a.30.1794376807011;
+        Tue, 10 Nov 2026 22:00:07 -0800 (PST)
+X-Received: by 2002:a05:620a:29c8:b0:93c:720c:94e0 with SMTP id af79cd13be357-947b001c6afmr209716085a.30.1794376806575;
+        Tue, 10 Nov 2026 22:00:06 -0800 (PST)
+Received: from vertex.localdomain (pool-173-49-113-140.phlapa.fios.verizon.net. [173.49.113.140])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9479e7e7f3bsm411506885a.37.2026.11.10.22.00.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 22:00:05 -0800 (PST)
+From: Zack Rusin <zack.rusin@broadcom.com>
+To: Sean Christopherson <seanjc@google.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	kvm@vger.kernel.org
+Cc: Doug Covelli <doug.covelli@broadcom.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Shuah Khan <shuah@kernel.org>,
+	Vitaly Kuznetsov <vkuznets@redhat.com>,
+	David Woodhouse <dwmw2@infradead.org>,
+	Paul Durrant <paul@xen.org>,
+	Xin Li <xin@zytor.com>,
+	Francesco Lavra <flavra@baylibre.com>,
+	=?UTF-8?q?Radim=20Kr=C4=8Dm=C3=A1=C5=99?= <rkrcmar@ventanamicro.com>,
+	Liran Alon <liran.alon@oracle.com>,
+	Arbel Moshe <arbel.moshe@oracle.com>,
+	linux-doc@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	bcm-kernel-feedback-list@broadcom.com,
+	linux-kernel@vger.kernel.org,
+	Zack Rusin <zack.rusin@broadcom.com>
+Subject: [PATCH v3 01/12] KVM: x86/pmu: Honor enable_vmware_backdoor for VMware pseudo-PMCs
+Date: Wed, 11 Nov 2026 00:59:50 -0500
+Message-ID: <e08e3b6d0a8dcd25f1ee3e97a64acc1cbd3c0f1d.1794374897.git.zack.rusin@broadcom.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <cover.1794374897.git.zack.rusin@broadcom.com>
+References: <cover.1794374897.git.zack.rusin@broadcom.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,65 +135,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261111-h616-zero2-dt-v2-7-88d8030fc975@gmail.com>
-References: <20261111-h616-zero2-dt-v2-0-88d8030fc975@gmail.com>
-In-Reply-To: <20261111-h616-zero2-dt-v2-0-88d8030fc975@gmail.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Samuel Holland <samuel@sholland.org>, Ryan Walklin <ryan@testtoast.com>, 
- Andre Przywara <andre.przywara@arm.com>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
- Arun Iyengar <aiyengar1990@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794376807; l=1094;
- i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=koI5LGgxBRvtt44PpABti87vN3ELbNOlU9mgjrDscGI=;
- b=2CQ6LDVGiv2EC0iUm+5zPuEgt3Jsm8LTq/f7YbI63awhqKxYsof4T27Fn2j6wOGkMLVOM7DPJ
- eMOEMt+5bvXDriM7m6KvXhv2+ATUMLPbg+hEE+04XgcFP6fPzmtx84C
-X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
- pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
-X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
- auth_id=1480
-X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
-Reply-To: aiyengar1990@gmail.com
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-From: Arun Iyengar <aiyengar1990@gmail.com>
+Check enable_vmware_backdoor before kvm_pmu_rdpmc() hands an RDPMC of a
+VMware pseudo-PMC to the VMware emulation.
 
-The SPI NOR core requests a "vcc" supply for the flash. It is not
-described for the Orange Pi Zero2, so the core falls back to a dummy
-regulator and logs at boot:
+The pseudo-PMCs are part of the VMware backdoor, but only the
+emulator's check for RDPMC at CPL3 with CR4.PCE clear honors
+enable_vmware_backdoor.  An RDPMC that KVM intercepts at CPL0, or at
+CPL3 with CR4.PCE set, returns the host TSC or time to any guest, even
+with the backdoor disabled.  Inject #GP instead, as for any other
+invalid PMC index.
 
-  spi-nor spi0.0: supply vcc not found, using dummy regulator
-
-Per the Orange Pi Zero2 v1.3 schematic, the 2 MiB SPI NOR flash on SPI0
-(port PC) is powered from the 3.3 V VCC-IO rail generated by ALDO1,
-which already supplies port PC here. Describe it.
-
-Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+Fixes: 2d7921c499af ("KVM: x86: Add support for VMware backdoor Pseudo-PMCs")
+Signed-off-by: Zack Rusin <zack.rusin@broadcom.com>
 ---
- arch/arm64/boot/dts/allwinner/sun50i-h616-orangepi-zero2.dts | 6 ++++++
- 1 file changed, 6 insertions(+)
+ arch/x86/kvm/pmu.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h616-orangepi-zero2.dts b/arch/arm64/boot/dts/allwinner/sun50i-h616-orangepi-zero2.dts
-index ca78d094c431..d5d39bac5915 100644
---- a/arch/arm64/boot/dts/allwinner/sun50i-h616-orangepi-zero2.dts
-+++ b/arch/arm64/boot/dts/allwinner/sun50i-h616-orangepi-zero2.dts
-@@ -148,3 +148,9 @@ &pio {
- 	vcc-ph-supply = <&reg_aldo1>;
- 	vcc-pi-supply = <&reg_aldo1>;
- };
-+
-+&spi0 {
-+	flash@0 {
-+		vcc-supply = <&reg_aldo1>;
-+	};
-+};
-
+diff --git a/arch/x86/kvm/pmu.c b/arch/x86/kvm/pmu.c
+index eef2f792dc9e..ca6dfb44949f 100644
+--- a/arch/x86/kvm/pmu.c
++++ b/arch/x86/kvm/pmu.c
+@@ -759,7 +759,7 @@ int kvm_pmu_rdpmc(struct kvm_vcpu *vcpu, unsigned idx, u64 *data)
+ 	if (!pmu->version)
+ 		return 1;
+ 
+-	if (is_vmware_backdoor_pmc(idx))
++	if (enable_vmware_backdoor && is_vmware_backdoor_pmc(idx))
+ 		return kvm_pmu_rdpmc_vmware(vcpu, idx, data);
+ 
+ 	pmc = kvm_pmu_call(rdpmc_ecx_to_pmc)(vcpu, idx, &mask);
 -- 
-2.55.0
-
+2.53.0
 
