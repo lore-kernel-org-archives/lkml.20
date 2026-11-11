@@ -1,98 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794426972;
-	b=MKuTUgwmclE62y8W/tCYjW1+31j+NTShnCmvinVkQxbejTHNEhnilDawp1UtS42jig0G
-	 VtMRSH9ZdeeotPH4iV+/S4EO52KKS3CiMcFyPgyb1hK0USekJpOvASqs3PpNs59oO00fr
-	 93hQZNGkCSLVdiXxITnolQO402D11NY4xa/xMOUoXE0qAevnymXMFOk95cipTQz782/a2
-	 5aKv6eJlXQkQb37ZVc1pM/epBWqJsEdBtimUrK1csnwbqUOxPzYpRN4aO3nwskwMF3VTA
-	 RLa8SKpnoFhg6+kLMYdwFISl4nxiTCNkXI8RhCwkkOCjK5aE8g/RWPQZB1Qt+Cs/ukg==
+	t=1794426973;
+	b=MZTNqwoRLrSHPz2EUoSTOsYGfTrcabVrGJ/QmYAKaEAhctLCLJR/bO/NqcvS8lo+gDNs
+	 dCea6V74SCcFdCX9/owOreDlw4Uw6SmMmvRFR2P5MfgisfbIjSpuGCQviR2moCVQG+PqR
+	 TOqgJPCiMb6nOkDnTGpW/ejFYJsLOwWXt8/gH6+UzqlEOy2kGbGCSQT6J1BwnnML0ODXD
+	 4423T2oISgZ0UtY6XHutJ5/QI4sW9XOTcZdQtC5rOHxTZIb7XuB7dcyCrprXPULR/xOd4
+	 rWeHc76ZddCQsXQ0wJ2jALOPkklFvqjVkZY87khiggm6uzmlpabhVugLeuDJXYlej2A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794426972;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794426973;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=upfL+B9eEMA70OzYaC5FfA43/7aUmNJ/6D8byJUgj14=;
-	b=nlAI2Tr2MEoNsYhXLskWDCwJkAfkbsHDeK40mdG9J6rLVOWjz4kDCyR6UXwYPNllmhUx
-	 s9si91doAUUpqc8KJd0XI5vZgj+Tqvx1Sjw0Fiv+OfaL/dCjQDXmLznwGuFywz1/2AZLY
-	 mX0cd2f3mDxnclaOw3xBTGSmU5T6murEknhBhiWdoUFK50UeutnaWBtVwv/Jmu8hi3sTj
-	 IHDPEmVn5LBYG2ldwKUTXC1sG2FsBk2BDGmpL2OMdnV97ILGXc+j//6O4ghgQhrAFDGRx
-	 YXwR+aJqR+L//oaQxkrC+/S/coH6M2STQdYNQMJm0qy3xZY6OMje/yP5LhBVC4P3xrg==
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=KW38EDguzPKmx8VkeacRZuMXAWaeadLZ5kGyBS7By/A=;
+	b=SKmWpuPsDr6RmEUcV7oXVyniA1dKm99T0q6IsNPHxs+WUFOZLs4mRp47Te3X7dcUFAJk
+	 JOpJSAbKGByhSOJKuyTePA03bhK+MM3p+HNng0XRSnjxdO/M0N4qclqJxDpcMJsuMsMWv
+	 RXGxSXwu87C8wTHpC+PWJh6LJl6RcxfQEiVRO0orFCvy5ZVG9UIVAOrM86KZDUIm+ntkb
+	 ORq7k/nVQjdOb84IFloiT3v5Gi4wdIZhzdkpAuzWVOJWlvF8FIIi9CU6vGDArX7QEia7w
+	 pZVdhhcDWAURU0X2cUrZwffrowG1o0mtG2120WzXFc8ofwzsX85jNnJTficcnxWQA0Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=H1tI7V8p;
-	arc=none smtp.remote-ip=74.125.82.181
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EIpbZRjj;
+	arc=none smtp.remote-ip=209.85.218.52
+Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 506E2606A330
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 19:56:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 506E2606A330
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE995606A894
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 19:56:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE995606A894
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=H1tI7V8p
-Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-36f8cdd30beso6300919eec.1
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 11:56:11 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EIpbZRjj
+Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c4d2b741ed9so549755166b.2
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 11:56:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20260707; t=1794426971; x=1795031771; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=upfL+B9eEMA70OzYaC5FfA43/7aUmNJ/6D8byJUgj14=;
-        b=H1tI7V8pjUpsuRRzZxXCHtNfRWQ0HPt2db8FnCzwtKcYlM2KREK94qWkufa2iRf9+N
-         4JyI7xr+7Kimla/MYNC0whOkjw5Hzw/EbXDRKjJieN8SuKcTOn65AvZ94wyw3IdeyKQz
-         OKcvyNwmju4xiv4NideVKrE4tCS8/KjkJV3BYFL5TndTHT71MQ+0HvajTH9cgBFYCJbE
-         6WMiR2/78gyOvJCgk2G7aMsPNPAtulnu73rMZZf71rzArs4ImllTtP5KbtnC2LcPAeb5
-         3EvUTypAl51nwPEBEDZEHA+MB7NeIh09bPftYZ+PVQ2QMbjv3YIZlTmsU7YYGbS+nx/D
-         aWLA==
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KW38EDguzPKmx8VkeacRZuMXAWaeadLZ5kGyBS7By/A=;
+        b=EIpbZRjj9fW0ykx0VoxHfhEmWWBdBdutHFh+r44V7BbCY9khO3Vg8HOCSjrNQG6cmF
+         dLzfMZu7eY6Jd6tlMQTlrfhwMTuZXOmRpJL2EFnO7M4o0npml6Y5R6+E+iFQ/kP8+Jd0
+         vmkndacwgXb/MqC8xwwCdNuOFqKUB9OZ5Vie1LkFhYL9mYTG5VqpXbpwqZOI28u0w519
+         Hj+sJKNu3dzzRScqqt3N7A5Lo0+ZRojz+GPMrjCUfe0fQGz9cJIh2wqE9zwypEptuOuk
+         VBYyj/Sr2RxaII91SKBHHRt89ySQSPpPRSB9C2veZ1KL11bkWBcvjrlwENWzZvHesws4
+         nSSQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1794426971; x=1795031771;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=upfL+B9eEMA70OzYaC5FfA43/7aUmNJ/6D8byJUgj14=;
-        b=yP3LXBnWDCPYbfBEZCbd4eHhAm7TW+Ae0AJcyXoT4xqUaEWiNVRhU+wvm+K+oc1VUn
-         p6+a9Z9kzzsClerM7GuYsDGAESpR6i9MQoZupW0P9kz0x44EfIaAjMdn0wJJF6QFmJFL
-         h74Q1UgYNRyrSjbH0EGqdZ+dlvRZ5oPF9deYH3TOVdZ0MAfp6RUsEvDAEvHtxMkRzsIg
-         RbcZS8l6MEx/Aal/4dfgNi8Uu4vsal4/YRg7trZKw54wAhFjRae9H2q0nMWpKaBUL/O3
-         9fEp+rYuIWcDRlW+8Fcc0fws0mo7Jz89rIQBeNTrXdnpTZENU5zGggxgpzyFyAnjpEGy
-         Wstw==
-X-Forwarded-Encrypted: i=1; AL+hErGD3NydyAPTUzy4NpuYhAy8HFN92DfW5qsnNznnI+0yJTwTl0BAgQ/d7FowGefxThtDyY50TaFlvFYwZL4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+c5K1RF4VJrX3fYUPFYdlsVvVbdNROcNo4OdUQe0C7xZBOXM9T
-	7cbQizipS0i3gHeRzJqmWNq63WVIxPooxEgDkdvTNWF8AnS6AYvBzkcd
-X-Gm-Gg: AYBFou3XHIwuY3N0lDVPSTpcJi56fbN19m+qd44zlebn66XxhKjoPp0mXIz8Z9ewHRm
-	Fdci3wtLJRq0EcbfJMwHxUT+cxPdKC4zSR9xJM6CVGiCNDwmXycJGlfFN+wN4bN4N/g1XzxLhJp
-	roP0OF7/cgfy06SAFXWhXxqSW4K894IlNHLZerLGg33a+amcSl7/aCG3t/FLZ53FdqEJ5PAv5Xn
-	iSWb6N9sSEG6XQ3AbHC/v+eDGsh5UZehIfBiBYY8ZmH7bjgcmKujUVSWJAooUHGi22Y9qxAxqBH
-	4Yr6rLHFjgCJ41KuVlyXjZw4vZHb2z/jbx9sgsTlpUA2bRxVBHD2R3A5ITjqfQi2ItCmwddk3ZR
-	kCx13uW6BTJ1+IxNyPdXzA8u3muVDX+Sp4dqPFf3LbESsyJ8Sm1hQpD6vqMg28lSlDCrVhtF0Js
-	9HCjhdRbvXFiHgciQ+7d1mpp9zRyJia34SgsVfj938RwfeDe5+1l9ADa3FqpO9LMeRADA/3z8ZG
-	nk8XL+fQQ2xsflgYoqaUv5ynsMT38w+3r4UAymR7ph2Yk7DRTtEnao/uzyaE/9NQKiRgTuznWKD
-	HBYJFE9lMQZ6uRJ069yppPw7d40ywoP0I5Y5MBc7Yq6ryQA29kog5Jo086L0WblfIl9Npn494FA
-	6SdNxx+RcZJbJcQ0Q5aT4iTLoxQ==
-X-Received: by 2002:a05:7301:906:b0:35d:4185:5395 with SMTP id 5a478bee46e88-37686171e97mr4425039eec.16.1794426970704;
-        Wed, 11 Nov 2026 11:56:10 -0800 (PST)
-Received: from smalls.localdomain (ip-198-145-71-161.az.bambroadband.net. [198.145.71.161])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37520512b6asm17414286eec.10.2026.11.11.11.56.09
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=KW38EDguzPKmx8VkeacRZuMXAWaeadLZ5kGyBS7By/A=;
+        b=kBuCJwi4MCdxZylhPN5mJAvZGImR97qvvfSxmbfhNAlUdaaNDtfN6VmvonONQ3Bh2o
+         U1lI4ggl3qguh+TbFhlyZUHpv6HfC2ouUncqp7wNieht3BXQZ/ygc1jIFU29n9ob+BwW
+         54DutsFjoyoi+08ON1jfAuateyQoQ/NGnuPf8tPhA/bOMejtFBXSwMMf1a5vyGSGXqtK
+         XOHJnENLTFOrqhxz/bEAadpEm7UK+xm58X3r766PAxYgqOBLsjcYD4SicZcVgy+nBdkB
+         2eSQsfj4worP84EJT7sFXH9+fMRdU9kVtngtg8LZtvTF6/BnWnzHwyBzeRKOYfx3yUFP
+         IaiQ==
+X-Forwarded-Encrypted: i=1; AL+hErFyabZoPYx6E7iUtsh2IAjAgFDeljLfzhVxXac4ShJu4XrlSE9jZz6yN6Vjdpbv8+lUe5YAqvUN70hneT8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z98s6tHVzXQ7zwlHD4iKNaGiSoxqMXtTVUBH1wDVCbcT07Q/y9k
+	bMn4wR3Fs3VPCCFid/nY9s84uDosZmaAPQktj+CBRbLk1Dgdo3RIyqMS
+X-Gm-Gg: AYBFou1p2Yik4Ro5kCwv8D7D+rVyTclZwX5yvT4mFBNNU22OlA2JIgjNnRErjveeWS7
+	dlBhZQXqof3IW2kgjupo62Dzz0iXEt4sF4Wqy59Ypxjwy7oM5Q2xLL6DFcjG/vVyFI+KpYtfpVx
+	+j8GuB7ta6LgqFTMnfW1Ze3KeCKrFVC9y/oc5GFErH62NFv3RVWecArDSFfJ6lkG7DgoUaNGCjT
+	ljOn6HWt3pJdK+/u9UHCJhBkAM65rCpqmhoYpqxtMP5TU/AWRsGej7jRM83cieXkKj08vDqj8fY
+	t9baECeNbd3fqUQjLT4StFVAe2PRWi+mUeD76XV0CvqUrdHvLNjHFzb9ke5ezXfews7q7J5wCXz
+	YZZ4vkyTaEsp0R1iNc4DQAaK0mvhew+cAFj4H4M5f1aBUqN0qVq9L4KTBAsOoOvznhxEobhJ9lU
+	yKY4V8Uj3xncYRZX+98NQEPWCcg7f/vLu+Mr6YFcFMbBgkadR3rRSWb5YQhNw5ofRKLnoO5CFU8
+	ckDoB4pAe31yCaHjfmL9aaOJ71J58m+GIC2chQE1cSFxeFFKPpAO/cB3Csyf8mDe//XIwf6847e
+	PQd/m/KWoiEW6dywv8bWx7GRh3qcPFclmASZUMb7YRJkE/L9/MR4Pi9nPvFGp2I6spXUpaE3rZg
+	g
+X-Received: by 2002:a17:907:8dc9:b0:c29:f5d8:9c82 with SMTP id a640c23a62f3a-c5066cf9644mr299944166b.49.1794426971015;
+        Wed, 11 Nov 2026 11:56:11 -0800 (PST)
+Received: from localhost.localdomain ([2a13:e746:396c:c600::31a])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c504a57085fsm264408166b.22.2026.11.11.11.56.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Wed, 11 Nov 2026 11:56:10 -0800 (PST)
-From: Hunter Laux <hunterlaux@gmail.com>
-To: Paul Cercueil <paul@crapouillou.net>
-Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	linux-mips@vger.kernel.org,
+From: "Kordian Chmielewski (mlody1212)" <kudzo51@gmail.com>
+To: dev@deq.rocks
+Cc: arend.vanspriel@broadcom.com,
+	asahi@lists.linux.dev,
+	brcm80211-dev-list.pdl@broadcom.com,
+	brcm80211@lists.linux.dev,
+	j@jannau.net,
 	linux-kernel@vger.kernel.org,
-	Lars-Peter Clausen <lars@metafoo.de>,
-	"H. Nikolaus Schaller" <hns@goldelico.com>
-Subject: Re: [PATCH] MIPS: ingenic: Let Config.VI tell whether the icache is virtual
-Date: Wed, 11 Nov 2026 12:56:09 -0700
-Message-ID: <20261111195609.2694096-1-hunterlaux@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <1a6aac61cb167ce0eea611afe73e8c87782edd43.camel@crapouillou.net>
-References: <20261110-mips-xburst-icache-vi-v1-1-efba689606dd@gmail.com> <1a6aac61cb167ce0eea611afe73e8c87782edd43.camel@crapouillou.net>
+	linux-wireless@vger.kernel.org,
+	marcan@marcan.st,
+	michael.reeves077@gmail.com,
+	sebastian.reichel@collabora.com,
+	"Kordian Chmielewski (mlody1212)" <kudzo51@gmail.com>
+Subject: [PATCH wireless-next] wifi: brcmfmac: msgbuf: count tx status only for the current flowring
+Date: Wed, 11 Nov 2026 20:55:59 +0100
+Message-ID: <20261111195559.160650-1-kudzo51@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261111200714.7897345f@kait2en-mbp15-1>
+References: <20261111200714.7897345f@kait2en-mbp15-1>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,28 +107,161 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Hi Paul,
+brcmf_proto_msgbuf_rx_trigger() reads the tx complete ring before the
+control complete ring. When the firmware writes the tx status of a packet
+shortly before the delete response of its flowring, the host can see the
+response in one pass and the status only in the next one, after
+brcmf_msgbuf_remove_flowring() has released the flowid. If a new flowring
+got the flowid in the meantime, the status decrements its outstanding_tx,
+which brcmf_msgbuf_schedule_txdata() and the trickle check in
+brcmf_proto_msgbuf_rx_trigger() rely on. This happens whatever order the
+firmware sends the two messages in.
 
-On Wed, 11 Nov 2026 17:23:31 +0100, Paul Cercueil wrote:
-> The docs I have do say that both caches are "virtually indexed, physically
-> tagged". So the patch looks good.
+Give each flowid a generation that goes up when the flowid is released,
+and keep it in the tx pktid of every packet posted to the flowring. A tx
+status of an older generation still releases its packet, but no longer
+touches the counter.
 
-Thanks for checking.
+Signed-off-by: Kordian Chmielewski (mlody1212) <kudzo51@gmail.com>
+---
 
-> If anything it's missing a Fixes: tag (with stable@vger.kernel.org in Cc).
+Notes:
+    Hi Andre,
+    
+    thanks for checking the trace. Here is the patch, on top of your
+    [PATCH 4/4] wifi: brcmfmac: msgbuf: send the flowring delete without waiting for tx status
+    https://lore.kernel.org/all/20261107154810.89780-5-dev@deq.rocks/
+    
+    The generation goes up when the flowid is released, not when the delete
+    is sent, so the debug message in your patch still counts the tx status
+    that comes before the response. My tree for a BCM43684 access point
+    bumps it when the delete is sent; this version is compile-tested only.
+    Feel free to take it into the next version of your series.
 
-I don't think it needs to go to stable. The vtag setting doesn't cause
-wrong behaviour, only extra icache flushes. I can add a Fixes: tag
-without Cc: stable if you'd like the origin recorded.
+ .../broadcom/brcm80211/brcmfmac/msgbuf.c      | 34 ++++++++++++++++++-
+ 1 file changed, 33 insertions(+), 1 deletion(-)
 
->> -#define cpu_has_vtag_icache	1
->
-> Don't remove it, set it to 0.
+diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/msgbuf.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/msgbuf.c
+index 8fd970571..9d8360d3e 100644
+--- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/msgbuf.c
++++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/msgbuf.c
+@@ -247,6 +247,7 @@ struct brcmf_msgbuf {
+ 	struct brcmf_commonring **commonrings;
+ 	struct brcmf_commonring **flowrings;
+ 	dma_addr_t *flowring_dma_handle;
++	u16 *flowring_gen;
+ 
+ 	u16 max_flowrings;
+ 	u16 max_submissionrings;
+@@ -293,6 +294,7 @@ struct brcmf_msgbuf {
+ struct brcmf_msgbuf_pktid {
+ 	atomic_t  allocated;
+ 	u16 data_offset;
++	u16 gen;	/* tx: flowring_gen of its flowid when posted */
+ 	struct sk_buff *skb;
+ 	dma_addr_t physaddr;
+ };
+@@ -559,6 +561,21 @@ static void brcmf_msgbuf_rxreorder(struct brcmf_if *ifp, struct sk_buff *skb)
+ {
+ }
+ 
++/*
++ * Called when a flowid is released. A tx status can still come for a packet
++ * of the old flowring after that: brcmf_proto_msgbuf_rx_trigger() reads the
++ * tx complete ring before the control complete ring, so it can see a delete
++ * response before a tx status the firmware wrote first. The flowid may have
++ * gone to a new flowring by then, and the status must not decrement the
++ * outstanding_tx of the new one.
++ */
++static void brcmf_msgbuf_flowring_next_gen(struct brcmf_msgbuf *msgbuf,
++					   u16 flowid)
++{
++	WRITE_ONCE(msgbuf->flowring_gen[flowid],
++		   msgbuf->flowring_gen[flowid] + 1);
++}
++
+ static void
+ brcmf_msgbuf_remove_flowring(struct brcmf_msgbuf *msgbuf, u16 flowid)
+ {
+@@ -566,6 +583,7 @@ brcmf_msgbuf_remove_flowring(struct brcmf_msgbuf *msgbuf, u16 flowid)
+ 	void *dma_buf;
+ 
+ 	brcmf_dbg(MSGBUF, "Removing flowring %d\n", flowid);
++	brcmf_msgbuf_flowring_next_gen(msgbuf, flowid);
+ 
+ 	dma_sz = BRCMF_H2D_TXFLOWRING_MAX_ITEM * BRCMF_H2D_TXFLOWRING_ITEMSIZE;
+ 	dma_buf = msgbuf->flowrings[flowid]->buf_addr;
+@@ -768,6 +786,8 @@ static void brcmf_msgbuf_txflow(struct brcmf_msgbuf *msgbuf, u16 flowid)
+ 			bphy_err(drvr, "No PKTID available !!\n");
+ 			break;
+ 		}
++		msgbuf->tx_pktids->array[pktid].gen =
++			READ_ONCE(msgbuf->flowring_gen[flowid]);
+ 		ret_ptr = brcmf_commonring_reserve_for_write(commonring);
+ 		if (!ret_ptr) {
+ 			brcmf_msgbuf_get_pktid(msgbuf->drvr->bus_if->dev,
+@@ -920,10 +940,13 @@ brcmf_msgbuf_process_txstatus(struct brcmf_msgbuf *msgbuf, void *buf)
+ 	struct sk_buff *skb;
+ 	u16 flow_ring_id;
+ 	u16 flowid;
++	u16 gen = 0;
+ 
+ 	tx_status = (struct msgbuf_tx_status *)buf;
+ 	idx = le32_to_cpu(tx_status->msg.request_id) - 1;
+ 	flow_ring_id = le16_to_cpu(tx_status->compl_hdr.flow_ring_id);
++	if (idx < msgbuf->tx_pktids->array_size)
++		gen = msgbuf->tx_pktids->array[idx].gen;
+ 	skb = brcmf_msgbuf_get_pktid(msgbuf->drvr->bus_if->dev,
+ 				     msgbuf->tx_pktids, idx);
+ 	if (!skb)
+@@ -937,7 +960,9 @@ brcmf_msgbuf_process_txstatus(struct brcmf_msgbuf *msgbuf, void *buf)
+ 
+ 	set_bit(flowid, msgbuf->txstatus_done_map);
+ 	commonring = msgbuf->flowrings[flowid];
+-	atomic_dec(&commonring->outstanding_tx);
++	/* not for a packet of a flowring that had the flowid before */
++	if (gen == READ_ONCE(msgbuf->flowring_gen[flowid]))
++		atomic_dec(&commonring->outstanding_tx);
+ 
+ 	brcmf_txfinalize(brcmf_get_ifp(msgbuf->drvr, tx_status->msg.ifidx),
+ 			 skb, true);
+@@ -1325,6 +1350,7 @@ brcmf_msgbuf_process_flow_ring_delete_response(struct brcmf_msgbuf *msgbuf,
+ 
+ 	if (status) {
+ 		bphy_err(drvr, "Flowring deletion failed, code %d\n", status);
++		brcmf_msgbuf_flowring_next_gen(msgbuf, flowid);
+ 		brcmf_flowring_delete(msgbuf->flow, flowid);
+ 		return;
+ 	}
+@@ -1681,6 +1707,10 @@ int brcmf_proto_msgbuf_attach(struct brcmf_pub *drvr)
+ 			     msgbuf->max_flowrings);
+ 	if (!msgbuf->flowring_dma_handle)
+ 		goto fail;
++	msgbuf->flowring_gen = kzalloc_objs(*msgbuf->flowring_gen,
++					    msgbuf->max_flowrings);
++	if (!msgbuf->flowring_gen)
++		goto fail;
+ 
+ 	msgbuf->rx_dataoffset = if_msgbuf->rx_dataoffset;
+ 	msgbuf->max_rxbufpost = if_msgbuf->max_rxbufpost;
+@@ -1732,6 +1762,7 @@ int brcmf_proto_msgbuf_attach(struct brcmf_pub *drvr)
+ 		kfree(msgbuf->txstatus_done_map);
+ 		brcmf_msgbuf_release_pktids(msgbuf);
+ 		kfree(msgbuf->flowring_dma_handle);
++		kfree(msgbuf->flowring_gen);
+ 		if (msgbuf->ioctbuf)
+ 			dma_free_coherent(drvr->bus_if->dev,
+ 					  BRCMF_TX_IOCTL_MAX_MSG_SIZE,
+@@ -1772,6 +1803,7 @@ void brcmf_proto_msgbuf_detach(struct brcmf_pub *drvr)
+ 				  msgbuf->ioctbuf, msgbuf->ioctbuf_handle);
+ 		brcmf_msgbuf_release_pktids(msgbuf);
+ 		kfree(msgbuf->flowring_dma_handle);
++		kfree(msgbuf->flowring_gen);
+ 		kfree(msgbuf);
+ 		drvr->proto->pd = NULL;
+ 	}
+-- 
+2.56.0
 
-The Config.VI probe already reports it correctly, so I left it to the
-probe. Would you prefer the constant anyway?
-
-Hunter
