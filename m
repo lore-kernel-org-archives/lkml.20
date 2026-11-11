@@ -1,90 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794410492;
-	b=uZAC2JGLd5fKDW/HXPMif9BxI0M5wMfhUVSbrDaFGZNvG8tqhBbqLZ96wm0sEyPA9hZ4
-	 klUlwpnVuWUADy1Tz3+HlYLZ0jTYqmJIIKpGClxPrGdS/ouaCNXHeQzHr8s5wxE0DluSh
-	 0osdwGaMfkBOwzuKNWOF7jcev+nDN1xJp4o5fvbdDtpxg1M+TJUyS80+ug3ULT1PuhSgz
-	 0bbNHmv39W7savad9vumJZadOi9Yuoezqei9nH9kuJtVF4EmJWPv9vytVnp8ocR9dn+A9
-	 6lLQJw9BS0QgnrADbCnOvnzzIXav9Vi+c94JFTevl1snVxNK8dT+g0uyUPDk7fMcygw==
+	t=1794410528;
+	b=TsFIthpZsjU3kH6hLf/KW4qYYaUugdGwNqEDaed+wkEVnM/r7y+Npv/HBLj4b9ttm1X/
+	 ayjjwz5v0r6XNWpuScGfXmb13Y5WHG75uWFieVZjJaK5TE1U3HvFJC6xJwMTNKe4eXfst
+	 C7GpSoABhXjyKr+r17+urCihhmaqAXNKxcnXapcELIBA0BsSu86JeiOU14eQZ0PDaRmYs
+	 LwVwSTUpTp/PqB9lFFQY0hCOBoQBLuXlH6+YMOC8s0HWhFgOvSdCWNXbI146iUayKfT5N
+	 pGsP0VxxjGX+ud7XAtx+EA/O0xYC9DMKm67cBt3smq+895pQAXDbeNux/eoTbCqDdEA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794410492;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794410528;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=vcM1XHbJaDYY1o8UTgUvOJULrKbAVAkgtgj4pxKK5cM=;
-	b=1rZsIiwBU3gyGb8wKry0CrsaYNuXAXSYodXF/QfbeXxQUpp7+WZf2Pf99L0Zy8kZ1/9O
-	 rpyMfKXUXwoGmi5bJO6xR/FPD9eKMuFlVO9DRD5wnAdXJ78CVsXvi9FqJPNiTyc5NrC+F
-	 ADmPvM83LJDFp6wz0+zdMoMgExBoWx5Xz81ipB+vPPVjj3q5OgaxhDJn1n/x5YRRy1f0T
-	 oehB9TP2lALRAw26E3t1ZHAaH376gvyq56qRRhYwgxPKI4FOKKRIeIdHRAQI0xCPZ7xpg
-	 yNpT013ICtVa3trJBR6ImE9f9nXuerZEvOySWI1Gfy8DyDZHIh8MZPZwvclyVfGX2Ag==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=spmuZfC/dhB9wOC0shsRTlNKhiKFYUA58QCJu4KnRLs=;
+	b=akfboB8prTzcGaiSvQ0C7XWHulhhWU/jCtRdSt2DGmCALtD0i6tITkHiIOaiya9Eglja
+	 NoAnFFML4Smu/gwyJP4UNyQIaz3bNT4P6E5masNagEwViUcnk051zgjVnLLfCPZf8v1zf
+	 HtoXPhzoJhSS3OYaAFR2zG6JQv20UuvtZC6zmY5mFNCJxGoAdaCXxdwXytALguyHYI6eD
+	 YTvmqOeh/blMiJuX0qtCjYIWVqPCtRDZ2UtDZyukn/FDbZGDx3FePZH8KpsZigbUpX7K8
+	 L7YFFpbmOlUA9elkrozmKnCoHCeTcexI/uje5C64Nw0GqRYlM/OOEIeR21QhT5k5Omw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=furiosa.ai;
-	spf=none smtp.mailfrom=furiosa.ai;
-	dkim=pass header.d=furiosa.ai header.i=@furiosa.ai header.a=rsa-sha256 header.s=google header.b=c9a2pXRo;
-	arc=none smtp.remote-ip=74.125.82.180
-Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BmnYm6ZF;
+	arc=none smtp.remote-ip=209.85.128.42
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6965E606A335
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 15:21:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6965E606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=furiosa.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=furiosa.ai
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23DA8606A32E
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 15:22:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23DA8606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=furiosa.ai header.i=@furiosa.ai header.a=rsa-sha256 header.s=google header.b=c9a2pXRo
-Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-37071c0f42aso5655980eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 07:21:32 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BmnYm6ZF
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a35a60499eso25407705e9.0
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 07:22:07 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=furiosa.ai; s=google; t=1794410491; x=1795015291; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vcM1XHbJaDYY1o8UTgUvOJULrKbAVAkgtgj4pxKK5cM=;
-        b=c9a2pXRoSpRqO3bXGLwqqb8axR2+UHb4wbIBY354YfVFEXjJr9YptH50ahUaY4G2qa
-         j86tV/Z/9fqn9fPjDmgAa5O1O3/klg7egDlCPN/2VfJ30BKg9ejyl9639joAKTLaLSNm
-         vtII1RP8Y4G3c2Gy6008L7L6G3NeowGmgvrCY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794410491; x=1795015291;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1794410526; x=1795015326; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=vcM1XHbJaDYY1o8UTgUvOJULrKbAVAkgtgj4pxKK5cM=;
-        b=HyovwA+oSsNG4pvCcNp+NG7BhMxdgtUo19feORo+FmO54WR/x/bS1sq8In2hoy1Ieo
-         16O64k+f3Z1PZS7IRiVcjtLXCfbqh0KUDHo5NyQRZyyB5sJRBkPcdF+tJB9pYLdXRoDW
-         gWDdaPcIgiTiQF6557OqbKzWTJE71zoimpRxn2YQAI51smP3OZE3L4vxTKR2PemrRP38
-         0jJdldE1DmdbwLrhn4RQyFxVIaes9c/NzT0rxvHYoYUeDjhX74UdK64VQyfx3eAuo6mo
-         VO1E7UgIuV5SurAPomRCr6NSJ/eu+k1ehkB+ZT5GS++yhrtGqlb0pj4AQFXbSQPQTvW5
-         JefQ==
-X-Forwarded-Encrypted: i=1; AL+hErEW+v1l3Vj/+K4Fi2rE61KoFAu0zrzh/RG+voOE0IctkHj9DphSyCSCKwBCKdb66KCkQmP2JsnTCYp89oQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9wu18wMnypSyikZl7ohBLccU/JGmg9DA8m3rbH500BhGceWKTP
-	jmD4Dk3Hq6IYDq1rUp46Zrn4T7yjZt95YMUhVTmEk+uPX66mP5/1KZe2GTMe+DHfgX0=
-X-Gm-Gg: AYBFou2IeO3//8d3riV4EMpgrzF/tJZGeB+7JxFf6k93GcM8TuHLxBQUXfnvpe/4KQn
-	lGa5qeUCDtt1D/rWpptIOJbz+F2gMVWe/M6eCbhHBXwaIzHf2/znSrTraA9jo1Ocv8gAwMX+ZEW
-	KmscAk9JiN8KLn8ahM3f62BzaIuEKme99H4Xya/75obibnJYRICB8sudkIn3Q570WEdCkBWmWIu
-	a7b1xQxV3dJahGbotnLMBfAMgz/ueqFqLf0QnspHJLhbhf9XF6KRiTbEf1L9GqIuj9g4frM7/xI
-	o9Cpy94jY4GHphqo0EPoSCWgUL1HBzBOQky5lo6LCT+r3i2leC/uHNMB4/XH7KkSQ8W6BuAX/ra
-	YOh25aFH0kY472aYYBUlDQsH5v3NmhLSqUYgEVJnYTZC7Ob/96a7s8V/SAN7OHVrGzBMhecoOm+
-	wR0qi5maNA3VXomXYz6ekbUnZtL2xTDERrlniYq4hxPzWxyP292ssFg+wuvVu8StMsSuEH+khi/
-	/7xZMlmtOStAQYT9MSMj8bVQj4RA7XAT+DMHVMBCypJ7wQMug5c8p4BLqWuNELyf8I12ggHvtYa
-	TBOSB+S1LTj9mfIXw/JKxcyhAvBXmXqMBuHtw9r8NHa9Gr0dnFbx6egCMrK+QZevsvcoQoYcF7e
-	Z4viYPykMiBZMKJUAPBkjM1jutW9gZyEbsxEIPLU=
-X-Received: by 2002:a05:7300:e9c8:20b0:376:49a8:a87e with SMTP id 5a478bee46e88-3768579fb42mr3477954eec.6.1794410490223;
-        Wed, 11 Nov 2026 07:21:30 -0800 (PST)
-Received: from furiosa-sungho.nest.netbird.furiosa.in ([119.196.190.183])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3751dae6377sm15806266eec.3.2026.11.11.07.21.26
+        bh=spmuZfC/dhB9wOC0shsRTlNKhiKFYUA58QCJu4KnRLs=;
+        b=BmnYm6ZFBBeKmlthKXbmWB2LvyBF/QXG85L/s3IcHytWRRPZNScsc0utVWkTITbAJ2
+         om1ZR0lTO6zY02r6TRTDYJiiH8lFegskbVH8roj+aVsvl9VLAqvR6XhBu6EK76+QLrQN
+         FjZQt2O2ZojQB3BHGioG7bchG9MnUN5/dC8FXT+7mjyc9rHJWOPjR7rLkm6nSN3B6WnT
+         MXt0fNNqN0WkvmPOuq8lqRBaiecWjKQEHmd24p6lb7Gl1UO+LQTWGGuRu5kOCJ/jNqoG
+         IWoKO6Xwfhz/l0R1dI2F5lh87r2vCJJhSpSIEs6ixxvfrUEFC3NZ/zGpUrFipbpIGd9a
+         absQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794410526; x=1795015326;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=spmuZfC/dhB9wOC0shsRTlNKhiKFYUA58QCJu4KnRLs=;
+        b=f3TCVug07l9q+FoOu3CQ9nl14IBa8hJaT34jNWX/zgOkTkaqSb3gutARknyv2kbTWt
+         s9//39WH+Ot/jnF32Ol0cQpGR8beQuCZSIILPmiPa8XgETc+4nf43Cvb9VJlWmpb/toa
+         znuVxKlN5QfNSHYNJlfhs0988FLR7DqutkHVyGYtua9qFJpVGHlNDeJ5NtzUOeF22aBb
+         BiIaoxcJxRp6Uherh7mWzfT4JagPxhSU0NUnxRMSkaUWNFwln8q7QrSi1wCIfCHhzDMW
+         cpJ0ky123ZA1TZr7yzjm5KaXDC0fw6UDpsOt+AqW9fn3H1H1wmt6NAijoIp+76pWIn/g
+         zjSg==
+X-Forwarded-Encrypted: i=1; AL+hErG+wFrC90/A37pY45BhKaezOccxJdyRMyNgmtibpJZ1bjK7FSuFTPgpmJ3sKehYp/qCjg9n8YiyyzEU0Bk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9qJDbEPZYV57QtkhgloUslBboO+Ipc9jSnPExlK+Npumiq+Lm4
+	nijYGr7+ZUH7teprPoN94vlkB44Zs5GMaoTAzewmSO2cXfYBdjoWtNs/
+X-Gm-Gg: AYBFou0eBJYx3B4DAD0jIDUM6kbmfvtJ6aYOpS4jkqG1kJn0RZlP3Qa1avssL6QrZS1
+	DLXbTFQn9E47LYlL+yVL/MubCD59b9x5cuwON/ghiukVjk+TkekrpokGeQhCvXlW4S0UpIJJPqx
+	eS2aCgn1Fp7yK8pIJ2tUnNhP5e0tU9vnw3yMI3BJpJekd1UQciMF8oWC8gJsvUHCcBqZRSRbYbp
+	cIVffSAPK4rXB3Zp5fCBGUhiRVmX5n1Ba2Ixo5UOIUJGEbQ5IqOI40VVg8eBrSk6cUcCBEwQyvt
+	4JvCoEB0ke0BlCmzdOTW1bfU1J4AYiAB1+lwN9sV1kwCpOQ9hGPKE31YrincwNxqRQp8oUaNshy
+	2YCsnSTRd1wdO1XeHoumjA2BL/7ghtM8DJzjUIX879MHHuZCCL+IZqp9BcoobDa0L6i54GVl3xO
+	7WuIfjqg5FqqCSjmqKK32w3xjuzM+qh6oRqCOFpPK+8eJ8hkaaRtoLGx5MKCFRur9OX1MhvJC/j
+	WfiEgRvdNngCzRqcRxuNAtlX6fca44zWeWe85EedKHJLJ+ecD1YzJTEKy4IrFvyc9WNfEK4TOKx
+	mjfEQVQRBzXgFSQMYDfKX+CGMZZBseiaFeGcHsFMt3Y0FOfWS7uf34Nsen+xcWd/JapgkFA7BOZ
+	V63KhrSfhVQ==
+X-Received: by 2002:a05:600c:1c0d:b0:4a2:1e1:d55 with SMTP id 5b1f17b1804b1-4ba093a3cf9mr55715145e9.28.1794410526239;
+        Wed, 11 Nov 2026 07:22:06 -0800 (PST)
+Received: from VivoBook-ASUS-X712UA-M712UA.lan (user-46-112-80-97.play-internet.pl. [46.112.80.97])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498369a4238sm12079575f8f.54.2026.11.11.07.21.59
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 07:21:27 -0800 (PST)
-From: Sungho Kim <sungho.kim@furiosa.ai>
-To: Vinod Koul <vkoul@kernel.org>
-Cc: Frank Li <Frank.Li@kernel.org>,
-	dmaengine@vger.kernel.org,
+        Wed, 11 Nov 2026 07:22:04 -0800 (PST)
+From: Stanislaw Pal <kuncy7@gmail.com>
+To: Johan Alvarado <contact@c127.dev>
+Cc: Mieczyslaw Nalewaj <namiltd@yahoo.com>,
+	alvin.sipraga@analog.com,
+	gabonpivovich@gmail.com,
+	linusw@kernel.org,
+	andrew@lunn.ch,
+	olteanv@gmail.com,
+	kuba@kernel.org,
+	davem@davemloft.net,
+	edumazet@google.com,
+	pabeni@redhat.com,
+	linux@armlinux.org.uk,
+	luizluca@gmail.com,
+	maxime.chevallier@bootlin.com,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Sungho Kim <sungho.kim@furiosa.ai>
-Subject: [PATCH] dmaengine: pl330: report a failed transfer through callback_result
-Date: Thu, 12 Nov 2026 00:21:08 +0900
-Message-ID: <20261111152109.1551738-1-sungho.kim@furiosa.ai>
-X-Mailer: git-send-email 2.53.0
+	gusfmora@gmail.com,
+	fabianotassotti@gmail.com
+Subject: Re: [PATCH net-next v9 08/11] net: dsa: realtek: rtl8365mb: re-latch the family D SerDes
+Date: Wed, 11 Nov 2026 16:21:58 +0100
+Message-ID: <20261111152158.467255-1-kuncy7@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <b68807e4-1470-4f4b-8975-e8a70dffd011@c127.dev>
+References: <9b73858d-fc09-4988-8bab-fd7b88db9412@yahoo.com> <39e46930-0d24-46d6-8861-5dd309bb7640@yahoo.com> <1e8da5e3-0d1c-4ce6-bb3c-4b9b7a5789a6@c127.dev> <f84cfedb-b551-4316-8d2b-4d6e06fc151b@yahoo.com> <b68807e4-1470-4f4b-8975-e8a70dffd011@c127.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,119 +115,68 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A channel fault still completes the descriptor as a success, and the
-callback is invoked with a NULL result. Record the outcome and pass
-DMA_TRANS_ABORTED to callback_result on a fault, an abort or a rejected
-request, reporting it on the last descriptor of the transaction.
+Hi Johan,
 
-Signed-off-by: Sungho Kim <sungho.kim@furiosa.ai>
----
- drivers/dma/pl330.c | 30 +++++++++++++++++++++++++++++-
- 1 file changed, 29 insertions(+), 1 deletion(-)
+On Tue, Nov 10, 2026 at 12:49:04AM -0500, Johan Alvarado wrote:
+> Oleg, could you check this on the AX55 before the first ifup of the
+> conduit? A single register read tells:
+>
+>   devmem 0x98218    # UNIPHY MISC2: 0x70 = SGMII, 0x50 = SGMII+
 
-diff --git a/drivers/dma/pl330.c b/drivers/dma/pl330.c
-index c2d0b473b..d479d73cb 100644
---- a/drivers/dma/pl330.c
-+++ b/drivers/dma/pl330.c
-@@ -458,6 +458,12 @@ struct dma_pl330_chan {
- 	/* for cyclic capability */
- 	bool cyclic;
- 
-+	/*
-+	 * First failure among the completed descriptors of a transaction,
-+	 * reported once its last descriptor completes.
-+	 */
-+	enum dmaengine_tx_result result;
-+
- 	/* for runtime pm tracking */
- 	bool active;
- };
-@@ -534,6 +540,8 @@ struct dma_pl330_desc {
- 	struct pl330_reqcfg rqcfg;
- 
- 	enum desc_status status;
-+	/* How the transfer of this descriptor ended */
-+	enum dmaengine_tx_result result;
- 
- 	int bytes_requested;
- 	bool last;
-@@ -1572,6 +1580,8 @@ static void dma_pl330_rqcb(struct dma_pl330_desc *desc, enum pl330_op_err err)
- 	spin_lock_irqsave(&pch->lock, flags);
- 
- 	desc->status = DONE;
-+	if (err != PL330_ERR_NONE)
-+		desc->result = DMA_TRANS_ABORTED;
- 
- 	spin_unlock_irqrestore(&pch->lock, flags);
- 
-@@ -2059,6 +2069,7 @@ static inline void fill_queue(struct dma_pl330_chan *pch)
- 		} else {
- 			/* Unacceptable request */
- 			desc->status = DONE;
-+			desc->result = DMA_TRANS_ABORTED;
- 			dev_err(pch->dmac->ddma.dev, "%s:%d Bad Desc(%d)\n",
- 					__func__, __LINE__, desc->txd.cookie);
- 			tasklet_schedule(&pch->task);
-@@ -2101,12 +2112,26 @@ static void pl330_tasklet(struct tasklet_struct *t)
- 
- 	while (!list_empty(&pch->completed_list)) {
- 		struct dmaengine_desc_callback cb;
-+		struct dmaengine_result res = { .residue = 0 };
- 
- 		desc = list_first_entry(&pch->completed_list,
- 					struct dma_pl330_desc, node);
- 
- 		dmaengine_desc_get_callback(&desc->txd, &cb);
- 
-+		/*
-+		 * callback_result is only on the last descriptor of a transaction
-+		 * (tx_submit copies just callback to the periods of a cyclic
-+		 * one), so a failure of an earlier descriptor is held on the
-+		 * channel until the last one completes.
-+		 */
-+		if (pch->result == DMA_TRANS_NOERROR)
-+			pch->result = desc->result;
-+		res.result = pch->result;
-+		if (desc->last)
-+			pch->result = DMA_TRANS_NOERROR;
-+		desc->result = DMA_TRANS_NOERROR;
-+
- 		if (pch->cyclic) {
- 			desc->status = PREP;
- 			list_move_tail(&desc->node, &pch->work_list);
-@@ -2126,7 +2151,7 @@ static void pl330_tasklet(struct tasklet_struct *t)
- 
- 		if (dmaengine_desc_callback_valid(&cb)) {
- 			spin_unlock_irqrestore(&pch->lock, flags);
--			dmaengine_desc_callback_invoke(&cb, NULL);
-+			dmaengine_desc_callback_invoke(&cb, &res);
- 			spin_lock_irqsave(&pch->lock, flags);
- 		}
- 	}
-@@ -2167,6 +2192,7 @@ static int pl330_alloc_chan_resources(struct dma_chan *chan)
- 
- 	dma_cookie_init(chan);
- 	pch->cyclic = false;
-+	pch->result = DMA_TRANS_NOERROR;
- 
- 	pch->thread = pl330_request_channel(pl330);
- 	if (!pch->thread) {
-@@ -2295,6 +2321,7 @@ static int pl330_terminate_all(struct dma_chan *chan)
- 
- 	power_down = pch->active;
- 	pch->active = false;
-+	pch->result = DMA_TRANS_NOERROR;
- 
- 	/* Mark all desc done */
- 	list_for_each_entry(desc, &pch->submitted_list, node) {
-@@ -2579,6 +2606,7 @@ static struct dma_pl330_desc *pluck_desc(struct list_head *pool,
- 		list_del_init(&desc->node);
- 
- 		desc->status = PREP;
-+		desc->result = DMA_TRANS_NOERROR;
- 		desc->txd.callback = NULL;
- 		desc->txd.callback_result = NULL;
- 	}
--- 
-2.53.0
+I can't answer for Oleg's unit. Mine is an Archer AX55 v1 with an
+RTL8367S, family C like your MR80X v2, so this is a second family C
+board, not the family D answer.
 
+That image has no /dev/mem, so I printed MISC2 and MODE_CTRL from
+qca-uniphy instead: at probe, around your preconfig, and before and
+after every pcs_config(). On every boot, warm and cold, probe reads
+MISC2 0x70 and MODE_CTRL 0x421. Without your commit, SGMII+ (0x50,
+0x821) shows up at the first pcs_config(), at about 7.4 s, while the
+switch configures 2500base-x at about 5.0 s.
+
+One note on the values. In the pcs-qca-uniphy table, MISC2[6:4] = 7
+(0x70) is the USXGMII value; SGMII is 0x30 and SGMII+ is 0x50, as
+FlyFish-go pointed out on an RC3000 v3 [1]. MODE_CTRL says the same as
+your reading, though: 0x421 has SGMII_MODE (bit 10) set and 0x821 has
+SGPLUS_MODE (bit 11). So the hand-over is SGMII either way, and 0x70 in
+MISC2 is just not what tells it. On his board, MISC2 reads 0x70 after
+the boot loader's block reset when U-Boot runs no network command, and
+0x30 after a U-Boot ping.
+
+Reboot loop on our OpenWrt tree (6.18, dwmac-ipq5018 + qca-uniphy), with
+the OpenWrt ordering patch removed in both images. A boot counts as
+broken on ping loss to a host on lan1, or FCS errors or PAUSE frames on
+CPU port 6.
+
+- Without your commit: 2 of 15 broken.
+  - In one, the switch sent PAUSE frames to the CPU (1368 on port 6) and
+    to lan1, and almost nothing got through. No FCS errors.
+  - In the other, frames from lan1 reached the CPU, but nothing from the
+    CPU went out on lan1, although port 6 ifInOctets kept counting. No
+    FCS errors, no PAUSE frames.
+  In our tree the conduit is closed and opened again at about 26 s
+  (pcs_config() runs again, the UNIPHY already in SGMII+), and that
+  didn't cure either boot. This fits your note that a re-sequence on the
+  SoC side does not help.
+
+- With your commit: 0 of 23 broken (20 reboots, 3 power cycles). The
+  preconfig puts the UNIPHY in SGMII+ at about 2.1 s, 3.2-3.3 s before
+  the switch configures its port, and pcs_config() at open finds the
+  mode already set.
+
+2 of 15 against 0 of 23 is weak on its own, but it points the same way
+as your 18 of 51 against 0 of 32. In the same thread [1], FlyFish-go ran
+the RC3000 v3 (RTL8367S, family C) at 2500base-x with only the OpenWrt
+ordering patch removed: 4 of 7 cold boots broken, against 0 of 5 with
+it. In every broken boot the SoC-to-switch direction was the one that
+failed.
+
+I have put the same result on your OpenWrt PR [2].
+
+Tested-by: Stanislaw Pal <kuncy7@gmail.com> # Archer AX55 v1
+
+[1] https://github.com/kuncy7/openwrt-nss-edma/pull/73#issuecomment-6796451511
+[2] https://github.com/openwrt/openwrt/pull/26597
+
+Best regards,
+Stanislaw
