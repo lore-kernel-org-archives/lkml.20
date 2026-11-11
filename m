@@ -1,65 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.216.248.207
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794398584;
-	b=cEkFpHIpD5XPxxYJownRodgv4qq5RLRx8d5vjit4U4urtFOnC+DUXEfpJ6UNd+lInEYk
-	 JQzzdCjVoYIw132mnbbLBLsf0uU9gAKtnMTiIjO34OpC4NjS6FCs1I3Vubr+cW4L4kgyM
-	 j7slNer03s16gTBzDpTyCe0aG4nlyvRThFQPu0IV+Wf1ci7t/+5KJIUuARI+kw2F1qLEA
-	 ybgJYfk3XekA4aVATcYcbcu0plL6ZPxvGDRA0LXyshrJhsKRayEMS/UBUrzu17eBhHPyX
-	 faeFIVQqsz5PSyXnjZUg9IKXYzg3glcCEzpa7k1CjZNrODfZYEucj0aNWNIqDPxbIzQ==
+	t=1794398601;
+	b=r2yNk0D2J6YjHp1+aVdVqVbMRlol2nDssyBMOfQ8PLq5hWNUwblujfgy/tR85W5Mcvhw
+	 zpM+TmiJloBRADU5s06z6NpsmPunkbQLJe1cbDzLU4ZG17YMBHcUlGfy4avAI5/30aKqv
+	 7j/8gvkTV3Oke9FyZ9v7suGN6zxQjVfrFg4kJtRzUidGrvc3tqPHO+kX1puMZ4usCI4uU
+	 cM32voOW7tlODNNO+5COZE0kwjYtvK+q7tSbyMeGnPEywxXNnCUkvzLkZHyyjt8SqAxzJ
+	 8NunjnPvLgtLIMmbys5aHUQOvY+9FTIR8wQ8Ya0zLSvVNjc4P52s7T6o4H9NFK370sw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794398584;
-	h=DMARC-Filter:From:DKIM-Signature:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=GU1rR6DOyFxE66mLliEw1hVk/Ddk8r/dNCEfmv4kUDw=;
-	b=OsMcrCBLI2B/QVyrE7//UzmCAFyHt5/IVgsJIEZqg6sHv/4MIOsYCkUEfLYSKG8hqBZb
-	 h6ngdC0qnfWIrKbigjyMdW12rOnjb/yQI38kxR4H3j/gB2ATwOVYCjtSYHssjRRPQCdLe
-	 jxkzW0mlm0VRWZYYtdJ0n/9/fsjoIEb8NvNsYt8OVRWTTr4EnbaHFtZ1RE2C2KNwsK2p9
-	 nBOWv9+F2qv79EJ3dSLOYgKCHzWA/9hDbcwbUOC15zq2mlQbAQ85RELkADxYFN7jt7UTR
-	 J3VBsEOvgxP5FadpuRiuJMmOh/wMiVaLzPVRTHddHa7mftTKEwk9w3/UC6SyoZCIQ1A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794398601;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=GV/jfsFbMmkXTAQ4EO3mdq+1dYga/vXLHfb1SaIoXw4=;
+	b=QuqwtPAG/xv+aNDQzFaTK7ePh9CMFtty9sRFpLSvPupUdcMT+z1DpGKa29exF8FP/MRh
+	 NM4H1VuhAXnCaHlv0SufZWZI+vXaYOlP/N43TY37SWb9AbCPW0KX7mulzyX31NKSXAtHf
+	 9bwDvnBVUo3dEg7OJGt/5Fk3yRBBDzpDbgzwDmSfWEmJ19pCJMg017UM+ahlkklf2+3r+
+	 ymF1wBbcJKMNPh6qDamn+RUlOm3t1ZRbb/FE0HRmPqwsPbh+GauR3p9PVSbXT8VWMukjf
+	 XOs7CrfR+njfgjSIFo9lyh8uyoCmCo26OmHMXtwOOC7xpZIOt284k1cyPwmGwbtifCQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=deq.rocks;
-	spf=none smtp.mailfrom=deq.rocks;
-	dkim=pass header.d=deq.rocks header.i=@deq.rocks header.a=rsa-sha256 header.s=securedbylima-20251205 header.b=JbpPxQlk;
-	arc=none smtp.remote-ip=91.216.248.207
-Received: from mx5.mail-out.lima-city.de (mx5.mail-out.lima-city.de [91.216.248.207])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pBkjc51O;
+	arc=none smtp.remote-ip=74.125.224.46
+Received: from mail-yx1-f46.google.com (mail-yx1-f46.google.com [74.125.224.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59458606B60E;
-	Wed, 11 Nov 2026 12:03:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59458606B60E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=deq.rocks
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=deq.rocks
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D6CE606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 12:03:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0D6CE606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=deq.rocks header.i=@deq.rocks header.a=rsa-sha256 header.s=securedbylima-20251205 header.b=JbpPxQlk
-From: Andre Eikmeyer <dev@deq.rocks>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=deq.rocks;
-	s=securedbylima-20251205; t=1794398575;
-	bh=yawQ4E02fUTwAlaYm0llbngJGLthGeeE2ZDGDd72jJM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=JbpPxQlkys15RVAJz3GjgfOx3YBNrGh80v6rH8HnDaHjqxID5IuXUqB6zQ2vd660j
-	 jGtbdlcNKFhOb6V386Wy4c5KKcrd9ELSJEtC4U3VFdWt0cVYVndEibYWDXyuw3BNqM
-	 8mrUTHkB41bMQoshQjFj9YYORvHnoDQqGK2fLAqC1xV8Et/xjDJVpQzs0h9Y4crNUY
-	 PpPoKx4x8qjr2Ir2D7x2fvUAgLm/QwneO44IZFkoLJLEH7Hq9H9Q///wtWMrUO4ASR
-	 kvYiPjMvCAsyNOjU4cBeqdkuZhIL3pjcCPt6OgpdH2E8FEZeyHUUiSWy7tJto7VTSL
-	 CiCz4Be2+tXBg==
-To: sven@kernel.org,
-	marcel@holtmann.org,
-	luiz.dentz@gmail.com
-Cc: j@jannau.net,
-	neal@gompa.dev,
-	asahi@lists.linux.dev,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pBkjc51O
+Received: by mail-yx1-f46.google.com with SMTP id 956f58d0204a3-67bf3c6654fso3525939d50.1
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 04:03:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794398600; x=1795003400; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=GV/jfsFbMmkXTAQ4EO3mdq+1dYga/vXLHfb1SaIoXw4=;
+        b=pBkjc51OphVSOwhCdOltnrUOcIL+F7afGlrKKau62RTGi32/YVQDIKIW04qh/UBBvA
+         QI6He6DncEKAh8cGRS71C2ZNdmAb0l2CUZ89Gs1s6LqPsE6pfoahu4VEMa4XBkqwfUnV
+         94n4yWd735Iq8TPKDKK83KglYNHINHMWw/9s30LzxAQoVQZINKYU0oeC5PJyE3ACGrcU
+         vdzVTUFzuj5u3sLLooVDjzbJhPmBU/FNyaRFESone2QJPCNr9EJqKwMIVMxB6xTPC2qz
+         vvijN6NSqR5wM7NFuHwoBKaDLIC9QdlbHQKSMJGZISI9bO0miG5wxpybrtynJKh3wVtb
+         Hh/w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794398600; x=1795003400;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=GV/jfsFbMmkXTAQ4EO3mdq+1dYga/vXLHfb1SaIoXw4=;
+        b=LPRhNZuEHfpmHAqOubUaU8HxMhHV6ZnSk0qjUyjDb67bC75WWa6vUlGdhLpUQQXzk3
+         vVkSzT3mMKGz7FrS8HWtO+OegZoZyRMFh3OKgHPTksGk2AT88+l56M6fbxXSdX47+N4s
+         l0zicsebUwS+GMW5t8Y0Q19LWx50FviKaG7SEcbQgKujqifJFTMv9KYdLAfIp4XgSPOw
+         UH0X7DfccQHhEB3D3qEpJtoErfmAmrJHZh7yXDvxcbDQbw5cIreA81kWbQoWeNsgyQlw
+         fUvI7layEs+hfC86bcf69GmcHgND+yAGXCFRhzoFymS0xp0Eh/5s13kf2VRjtII7c/Jl
+         uTxw==
+X-Forwarded-Encrypted: i=1; AL+hErHf1TLeL2jg5Q91QYDXkywKDYjg2Dqq9CFiExBnhxQsPBu9WS7O2D0B3wz85tORYXUKV6kGQ5XW1u4OQ0k=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8H9LaO+qgvDAXJJskjhYcZxZgLXMe359bPr4MNswWoEbHtxnso
+	2dgFrdGdaa2rpxiBVd32Isa9+NnObW3xNZrPVZZ7xSNc2S3B3NYUlzai
+X-Gm-Gg: AYBFou1/k7m7QXKr2/68zH4Ym9T8W0iTWjat/CprSCdiB+Xk8mnr+u2IZefb4cIYMaG
+	4jNvXoCZ/u5emCv6It2HNlWPZbrYF59FpYtX+0LNgx9GdUu8hOZBmYnemeY7VXhtxLKskIo/aN9
+	eZhsjR/Qk2Houlds6u7CPqn5qwoBkJw2QKKc8ZrTalsnbUp6q9bmUKO58mRuQDiV6bVLk0LHi7+
+	/GX/oRETtbzqI1rn904XwU+J4ij1h6muJYGhjuHY8YT0nUGvDClmB1JsDB0+BW1XN36GwdlRfKB
+	NOvka9Z8onxmMtPoY6mJqnmnZQvHkfYX5xrguRu1NMX3E6rZG28tYv+uGv4CAowFLm+GtRob92R
+	voJHgEy1g/8Lxn+i29SuVnD8uA9ywHdxSaqtutrVvuh/dUqjFCsdcjvFD+ib7dS7tLQpuBgkhnn
+	WqvCoz2ASreU3z6NFxaf8QCpgjxSS0F4fDuYO6eZXbHNHsPBgv11EwhQi2vyNAM6oWjkS3BNeS8
+	GdFpp3cznxX4urWbVWdjrpASM2Q3ApaV6fWsBEuGkQyXFXcN60fUz98TP7FdMIVc3rcDiTnEBI8
+	kTx05WsHc04VgpWnJrxGIh0VTSxUmt8G/nFyPASzJGlOyd2cnz4Nwv/8OdJ7uPEbaPYh/dNDdq2
+	/1nJd8Mb7qecnBxmsdSjuuQjay5+5+ihZJ3xU6CA/9zz9dcYTTOkZ/Nq4eY4GClv5lQbJqOu0zZ
+	w=
+X-Received: by 2002:a05:690e:134c:b0:67c:33ba:4367 with SMTP id 956f58d0204a3-67c67fee82emr1588399d50.123.1794398599941;
+        Wed, 11 Nov 2026 04:03:19 -0800 (PST)
+Received: from MaquinaLab.. (189.27.147.77.dynamic.adsl.gvt.net.br. [189.27.147.77])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67c58a09074sm4389527d50.18.2026.11.11.04.03.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 04:03:19 -0800 (PST)
+From: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
+To: Enzo Adriano <enzo.adriano.code@gmail.com>
+Cc: andre.przywara@arm.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	wens@kernel.org,
+	jernej.skrabec@gmail.com,
+	samuel@sholland.org,
+	Maxime Ripard <mripard@kernel.org>,
+	devicetree@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
-	linux-bluetooth@vger.kernel.org,
+	linux-sunxi@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	Andre Eikmeyer <dev@deq.rocks>
-Subject: [PATCH v2 1/3] Bluetooth: hci_bcm4377: treat only negative hci_register_dev() returns as errors
-Date: Wed, 11 Nov 2026 13:02:46 +0100
-Message-ID: <20261111120248.21062-2-dev@deq.rocks>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261111120248.21062-1-dev@deq.rocks>
-References: <20261111120248.21062-1-dev@deq.rocks>
+	Junhui Liu <junhui.liu@pigmoral.tech>,
+	Jerome Brunet <jbrunet@baylibre.com>,
+	Pablo Mazzini <pmazzini@gmail.com>,
+	Alexander Sverdlin <alex@sverdlin.org>,
+	Jun Yan <jerrysteve1101@gmail.com>,
+	Lukas Schmid <lukas.schmid@netcube.li>
+Subject: Re: [PATCH v3 2/3] arm64: dts: allwinner: add A733 SoC description
+Date: Wed, 11 Nov 2026 09:02:35 -0300
+Message-ID: <20261111120240.32497-1-vinicius.eduardo.pedrosa@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <7c0ee4e609db5979d2a6598f46f40896b4f47a57.1794227241.git.enzo.adriano.code@gmail.com>
+References: <cover.1794227241.git.enzo.adriano.code@gmail.com> <7c0ee4e609db5979d2a6598f46f40896b4f47a57.1794227241.git.enzo.adriano.code@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,33 +116,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-If another controller already holds hci0, a USB Bluetooth dongle for
-example, the BCM4377 is registered as hci1 and probe returns 1. The PCI
-core takes that as success, but the devm action that unregisters the
-controller is never added, so it stays registered after unbind while
-its driver data is freed.
+On 11/9/26 23:45, Enzo Adriano wrote:
+> Provide the SoC description needed for the Cubie A7S console, PMIC and
+> microSD support.
 
-hci_register_dev() returns the index of the new controller on success.
-Check for a negative return, as the other drivers do.
+Tested-by: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com> # Radxa Cubie A7Z
 
-Fixes: 8a06127602de ("Bluetooth: hci_bcm4377: Add new driver for BCM4377 PCIe boards")
-Signed-off-by: Andre Eikmeyer <dev@deq.rocks>
----
- drivers/bluetooth/hci_bcm4377.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+I tested the A733 SoC dtsi with the posted prerequisite series and a
+local board DT.
 
-diff --git a/drivers/bluetooth/hci_bcm4377.c b/drivers/bluetooth/hci_bcm4377.c
-index 66d49b47154..da0a48c2be3 100644
---- a/drivers/bluetooth/hci_bcm4377.c
-+++ b/drivers/bluetooth/hci_bcm4377.c
-@@ -2410,7 +2410,7 @@ static int bcm4377_probe(struct pci_dev *pdev, const struct pci_device_id *id)
- 		return ret;
- 
- 	ret = hci_register_dev(hdev);
--	if (ret)
-+	if (ret < 0)
- 		return ret;
- 	return devm_add_action_or_reset(&pdev->dev, bcm4377_hci_unregister_dev,
- 					hdev);
+UART0, R-I2C0/AXP318W, RTC, MMC0 at 3.3 V (hash-checked reads and
+writes), eight CPUs, PSCI reboot/power-off and 20 CPU hotplug cycles
+worked. GPIO interrupts worked on both edges for PB, PC, PD, PE, PG, PH,
+PJ and PK.
+
+MMC0 card-detect hotplug needed my separate A733 EINT-mux fix. PI is not
+exposed on this board, and I haven't tested the R-PIO interrupts or the
+A7S-specific DT patches.
+
+I'll send the A7Z board DT as a separate series based on this one.
