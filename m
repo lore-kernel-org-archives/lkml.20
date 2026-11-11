@@ -1,54 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794359477;
-	b=fr4+ZikM6i8LZwuYxA2S622WUhhSvfMPuBSmQELbj2dbOHYfbW0I7amjHxzUBzFzxq9w
-	 roI8hM90buslO30Y9AshhGrzKgnWGzCTQj5Aj4WZkwKeucI6/3axKReiOwWej/uUqzcas
-	 Y5sqsO9Rhd0zFUviu6u2jOxa0EcTIAGxZ47WiH45KD/sJVcJFMfPQtjXNZZFxWcWHiNUy
-	 EkEuMHs7VsqwygfCZowuwjSUN/SgA9IM3msIbTBPMk3PeKzqaCe6fmRuSteOXczBmwDfH
-	 rHlouw80cV0mfCASKKlsATC+YjwYcSo7WuEThxqgkNVw7HEjw70dhEfH87mwLzyN8uw==
+	t=1794359489;
+	b=v3YvvymWh4icoTloyahZkRhnELw4O+GpcrABfR3qmKWj18vJT1ibATR0e4ChRMWQAz1i
+	 sfoSAwW/G6pBG0A9jTCBgKj4y9tTaorS8N6EvndkMMntcXG9F9N80JcZ6wdVOEWjXf7V0
+	 0ibuLtUr8DNsyqcbYwKY5JUS086h9TUq8RdfdH6J0Q/MLBWf8+9uWYJErV7/+v1emz4Lv
+	 2huv6WSHsSuECnaXEmN2eliffAEPn4MRJaHr2/VzMyptj9kicgnyMyFgJkQWOP2dtUuOH
+	 UWe4vvYKwVXocH6r9EhF0S/wTh6kI9co2zcxgO2uhg42d7fzvfBtQO1q3WTpXow1gDg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794359477;
-	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
-	 X-CM-SenderInfo:X-Coremail-Antispam;
-	bh=zKSEdF9+1/4Is5GWGmFxtOqEqpvl78JV1G/SHbLFOjA=;
-	b=L3pZcKKNonp5UpKBhokLRt1xUDUnJrvYguZImIrNBPCdI2Xix5TmQRg2A3C/D4ZTpAOo
-	 siX98WOVQ6YPIOqvHWfDnSUBSsv/z9XQ33l7todj1cPDItmGGJIAWtWmrOhcaj8+mDPqq
-	 q/LV6DGF3prArk/h8omK7yIucmftkxFxUL6RkSoMkR9FaWRCQqNBy6TNmfiZp9XzMNHZc
-	 uvrLVK0A+EPkUG0CeBJybfNMcYg3vrQ02IId0Wzc8xKlM/It7Wc5n/gv3X/aKjf5mvbqq
-	 QcGhuYUI5AjnWW3BzaXytGWpvv8Mn+LGfgiYVmKBylWWLqdQgWF43opEdw/5r4XbKXw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794359489;
+	h=Received:DKIM-Signature:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=sacFON38Zqc0y3/J2tRgjPnVF2lQtxza0CfI8l1J14w=;
+	b=QaaTq0t0TC/ZNDn0Au0hbzePBfjJYwlccx7PraD0mwG5UD7ngm7UMrAzj3EKxXWCCbf7
+	 XFkLwmbvYpi1gWi6LSH0NhnEOI055zhqHb+yjlmD3K3It7ghIV1ainSB9S52H3E7M0u3J
+	 JnOv9ygKJfMALxtWYYGIML2QQHcbsxjKL8JnN5R576d1D0p9C8JZsqP+pyxIIQ2mu06dS
+	 dtK72Qw669M24SkLSfq2azx0obdZ5IdfnqNui3TOFQWDf7kUll0PYGXBs5HUhuDtJCXOX
+	 PXxJk22E7QfZpRhP+4Mo+xRdZsQASxbX5QRimfNA0ae16Xo3FRFe5n7NrdGlsQzbGzw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=loongson.cn;
-	spf=pass smtp.mailfrom=loongson.cn;
-	arc=none smtp.remote-ip=114.242.206.163
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4FFF2606A320;
-	Wed, 11 Nov 2026 01:11:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4FFF2606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [123.138.236.242])
-	by gateway (Coremail) with SMTP id _____8DxjdKwwPNqQmMeAA--.21968S3;
-	Wed, 11 Nov 2026 09:11:12 +0800 (CST)
-Received: from linux.localdomain (unknown [123.138.236.242])
-	by front1 (Coremail) with SMTP id qMiowJDxxMyswPNqH5wzAA--.12474S2;
-	Wed, 11 Nov 2026 09:11:10 +0800 (CST)
-From: Tiezhu Yang <yangtiezhu@loongson.cn>
-To: Vlastimil Babka <vbabka@kernel.org>,
-	Harry Yoo <harry@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Hao Li <hao.li@linux.dev>,
-	Christoph Lameter <cl@gentwo.org>,
-	David Rientjes <rientjes@google.com>,
-	Roman Gushchin <roman.gushchin@linux.dev>
-Cc: linux-mm@kvack.org,
-	loongarch@lists.linux.dev,
-	bpf@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3] mm/slub: Genericize x86-specific cmpxchg16b comment
-Date: Wed, 11 Nov 2026 09:11:08 +0800
-Message-ID: <20261111011108.29311-1-yangtiezhu@loongson.cn>
-X-Mailer: git-send-email 2.42.0
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=khPm8Q3l;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35B04606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 01:11:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=khPm8Q3l
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD0D41F0089F;
+	Wed, 11 Nov 2026 01:11:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794359489;
+	bh=sacFON38Zqc0y3/J2tRgjPnVF2lQtxza0CfI8l1J14w=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=khPm8Q3l6F4l9V4rcj12Iu8e0Gak+NZZJR83Rr5qogwDtvtCmtOPxisQE0yU4d4zs
+	 uJx1sep3ZEUYayqkaZJEhVem0wZD4rJm4W/k0i+BMhH3gP3ixS9+khNvHdrkne2Tnk
+	 6xsBAH8CRhF+Ka+f5mWRb79956wzAU1EN0phtKkX7xKH4SIcgD+1YyEXSImSKr5daL
+	 j/d90Ot9YMP2Up+WZF1rJIERAlcudbis8eATnIikfHVBXZSufMLOJhfsd35Q3rUnHx
+	 0F1jfCUKi1oNoionkI6zwyKU0hUTu3t7XQHRkdZ1G07CnQYJ7lvDVdy9lVSYWPb98D
+	 tE0jS9RBu66Bw==
+Date: Tue, 10 Nov 2026 15:11:28 -1000
+Message-ID: <3ac37e055b66a46f72edd235f1e93f5f@kernel.org>
+From: Tejun Heo <tj@kernel.org>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: mingo@kernel.org, juri.lelli@redhat.com, vincent.guittot@linaro.org,
+ dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com,
+ mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com,
+ linux-kernel@vger.kernel.org, ziqianlu@bytedance.com
+Subject: Re: [PATCH v2 04/12] sched/core: Make __update_rq_clock() skip updates on UPDATED
+In-Reply-To: <20261107120207.126979364@infradead.org>
+References: <20261107115913.261163891@infradead.org> <20261107120207.126979364@infradead.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,55 +60,33 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJDxxMyswPNqH5wzAA--.12474S2
-X-CM-SenderInfo: p1dqw3xlh2x3gn0dqz5rrqw2lrqou0/
-X-Coremail-Antispam: 1Uk129KBj9xXoW7JF1rZry8AryDKFy8Kw4UGFX_yoWkWFbE9F
-	4fXr45Gr15JFZI9r12yF15uF1Y9r1kuanFgFW2vFy7JwnYqFy8XrWDZFW5CrWrWFsakrs3
-	CwsrWr9xGr17WosvyTuYvTs0mTUanT9S1TB71UUUUjJqnTZGkaVYY2UrUUUUj1kv1TuYvT
-	s0mT0YCTnIWjqI5I8CrVACY4xI64kE6c02F40Ex7xfYxn0WfASr-VFAUDa7-sFnT9fnUUI
-	cSsGvfJTRUUUbfxYFVCjjxCrM7AC8VAFwI0_Jr0_Gr1l1xkIjI8I6I8E6xAIw20EY4v20x
-	vaj40_Wr0E3s1l1IIY67AEw4v_Jrv_JF1l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxS
-	w2x7M28EF7xvwVC0I7IYx2IY67AKxVW8JVW5JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxV
-	W8JVWxJwA2z4x0Y4vEx4A2jsIE14v26r4j6F4UM28EF7xvwVC2z280aVCY1x0267AKxVW8
-	JVW8Jr1ln4kS14v26r126r1DM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2
-	x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r126r1D
-	McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr4
-	1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_
-	Gr1l4IxYO2xFxVAFwI0_JF0_Jw1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67
-	AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8I
-	cVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI
-	8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v2
-	6r1j6r4UYxBIdaVFxhVjvjDU0xZFpf9x07j0mhrUUUUU=
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
 
-In __kmalloc_nolock_noprof(), update the comment from x86-specific
-"cmpxchg16b" to generic "double-width atomic cmpxchg".
+Hello, Peter.
 
-Suggested-by: Harry Yoo <harry@kernel.org>
-Signed-off-by: Tiezhu Yang <yangtiezhu@loongson.cn>
----
-v3:
-  - add missing Suggested-by tag for Harry
-  - use shorter commit message as requested
+On Sat, Nov 07, 2026 at 12:59:17PM +0100, Peter Zijlstra wrote:
+>  static void __update_rq_clock(struct rq *rq)
+>  {
+> +	bool update;
+> +
+>  	lockdep_assert_rq_held(rq);
+>  
+> +	update = !(rq->clock_update_flags & RQCF_NOP_MASK);
+>  	rq->clock_update_flags |= RQCF_UPDATED;
+>  
+> -	if (!(rq->clock_update_flags & RQCF_ACT_SKIP)) {
+> +	if (update) {
 
- mm/slub.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+RQCF_UPDATED is cleared only by rq_pin_lock() and
+double_rq_clock_clear_update(), so a path which takes the rq lock with
+raw_spin_rq_lock() inherits it from the previous holder and its
+update_rq_clock() is now silently skipped.
 
-diff --git a/mm/slub.c b/mm/slub.c
-index 45e077c7526c..090302f1daeb 100644
---- a/mm/slub.c
-+++ b/mm/slub.c
-@@ -5589,8 +5589,8 @@ static void *__kmalloc_nolock_noprof(DECL_TOKEN_PARAMS(size, token), gfp_t gfp_f
- 	if (!(s->flags & __CMPXCHG_DOUBLE) && !kmem_cache_debug(s))
- 		/*
- 		 * kmalloc_nolock() is not supported on architectures that
--		 * don't implement cmpxchg16b and thus need slab_lock()
--		 * which could be preempted by a nmi.
-+		 * don't implement double-width atomic cmpxchg and thus need
-+		 * slab_lock() which could be preempted by a nmi.
- 		 * But debug caches don't use that and only rely on
- 		 * kmem_cache_node->list_lock, so kmalloc_nolock() can attempt
- 		 * to allocate from debug caches by
--- 
-2.42.0
+Previously, you said to clear on unlock. Why not do that? That'd be less
+confusing overall.
 
+Thanks.
+
+--
+tejun
