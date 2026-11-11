@@ -1,89 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794364505;
-	b=naFVj/tI4KSvDvcYjYYS2f6mbCkNDLc9ztl2rFgddrIK/AEK8zDLdvnU0yRHFfqVDg3L
-	 ZgvXF9TLlpvGZROQgA3nqgpgXm3S9h+f9QROwCbc8Y762gRf3pt6wZqxkSG13jsUprZFy
-	 UC64u4lBf/JmHdI3SM8i3p/32jhN1fVH55mKUeKb10CDXfHmNxWT/rMKQin1BU/L+EkH8
-	 dp+PRMmxWGl0KiUJIUU6tnbMmP8EDj8HLbqhhOcTyakQnLBrC22ThrGBmN6MRFnE7k6cq
-	 MNLi6wtUqBBx3/1chLKwP0avbci3FK4B4F/kWJpCNonR4lmUSRuvRPY+vl/maeuM5vQ==
+	t=1794364510;
+	b=zlnVHOR446GVB1sk5NjQfRgJqS87sA0FlET26V9zqCifucDGfuS0oVOdL7kB43qHBzs+
+	 3K2uKLJTK1ZIBrtoKCp2ubCHSo9cyYlD34OuvI/wxahy8WewQ2elrdO8woW7nUAu48TGL
+	 OfZ67YMuFEzg91P10UcuyAj1eY785TtbWA4S7JQLMyxr5j4maIph7gobiKmReP/rjrMOH
+	 /WCtQXvg2hyENgSWIWqooB17li3ngGf7IY6qa/K5dxw9Loe6cGU7gFy3217cFACybysEN
+	 S0ahUQUN7f/4PG9nfVSH//8Trq9zUtH2g1eD6AlYrzCNrdB+AhcK4XkeQ9pDDncnDgA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794364505;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794364510;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=V75Giv+e07vuq5RNj3c4MeVDXR/UQ6y5MO2wUYYunZo=;
-	b=Bq1nGD15XC5jh/0QDhDxwc3CFbhglwnLagsvEJMUU1R4nweAg9Mc3SKyL/SVgG5r4aLJ
-	 EDR99lr55rsyX6qwUyAN6TcqJi6g0edEgZuNAwhSEchPatdn7EP+64WU5DytPuSpIHzfJ
-	 8d4nTpKXwph70VXphkXWnHd13fjOwYbP3FA6ddZFhhKb2IHTyhieGRFUG0IKIvFk7CxKm
-	 p97RCqohCJbHdvmiNeKgPFMcltzsVip1BT2xAYOXo2Sgx/1Tb0S4j0jcAQpN3p1FBPAKZ
-	 4Ojxn8hQGiTSM5sIqjXA4pQNGMQ2lqkIcXq5PCDPUoGqt3vi086lscKVUlFW9OFbxuw==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=pvFlzi2o7O4yiwN3RVeD+t8QNKHH1e+ewDHzVj4XZ1I=;
+	b=Bzy2dGf+t9P+PD3x6vgb1ds5LwSejHo2NPetgugpZYQAOo/RGh/S7/CmCKocsYdLsX30
+	 6X4L89bRpAKQG2kbRVi8P0U70S+t/A8tJYnO8doKXw2vEQdV1G46VGxqEfYNYFYnyu9z2
+	 VmIw5FDc8L+vOU4Kehe2Jy6FaUbJ2EpWkkHfZaAiQcoAveWwSfbuGmhnUbuEEimxqayp3
+	 JyuXrUdB+AlCq+IEzdlbXFbRuCk6hQOs9ip3G4CMrBhcVrRyrNJpoJIXVBYPm6hnNpK1n
+	 qGwNuvUTcz4ibQ8lAhO88v6hpz6XxlbgwUlQb978f++C9Od4CD/sIUnjH29t0wqdVKw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zTcyhR1o;
-	arc=none smtp.remote-ip=209.85.167.178
-Received: from mail-oi1-f178.google.com (mail-oi1-f178.google.com [209.85.167.178])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MiXVDnSg;
+	arc=none smtp.remote-ip=209.85.128.46
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 256F1606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 02:35:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 256F1606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00382606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 02:35:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00382606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zTcyhR1o
-Received: by mail-oi1-f178.google.com with SMTP id 5614622812f47-4f55a53898cso1282079b6e.3
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 18:35:05 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MiXVDnSg
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4afe2d546f9so34909385e9.3
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 18:35:09 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794364504; x=1794969304; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794364508; x=1794969308; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=V75Giv+e07vuq5RNj3c4MeVDXR/UQ6y5MO2wUYYunZo=;
-        b=zTcyhR1o6wGRLJcDfRc0m0+EDyM7DnkJclPUy1kQ1UdAbkc5R5ekQ3A273YJX/P7M+
-         IKxQ04A4hYzWjYMM3+Rt+ip24qYSf5Jb/lKkKiSXc2Lxt6EHVwAKuU7SFbzpw99Zw3kP
-         MYXO2f8o2JRiIhQGaw/hvWZUGWc0D4chBG9dnmJC8+LDLbmpdE+yK+6fVW5XPiMvFGaB
-         tyRwQUNh621WjAa4h8mMYohiKKOSvsQjcuqoZil+EvbgTXeZxKiHMbw14HBGX5DjtMNs
-         FTYJ3dxN76wxrICcSFOyK+MQZ3Y64ZL0O6avgfvb1cIxOyaXYVac78FPqZF9DMWNig3O
-         w5zg==
+        bh=pvFlzi2o7O4yiwN3RVeD+t8QNKHH1e+ewDHzVj4XZ1I=;
+        b=MiXVDnSgHBWYnboD/HyxozsQwvv+2TngziTL8LHvl25iqzDDmOpr/XBbVV6mXQshLd
+         vt3PFz0YTUFmMu23kjuQolTLM56JwIYUN37CA1ne+sudJZ/Z0He0OhTvP0pLqDkjGHh3
+         5l/VVbk+v+dlm4WTmV85ADZs4rixxvEPg/Bnb2JkI3v9GtHZ47brXlspuXTkqiyyAY0o
+         6wOuHqkEfc5qnsc5+fTdn6TiBkfM3uIC70DbDth3lQADyw+q21ZRqFElE+kcx6V3wOgP
+         oxZXKuedb1EmVYGle3mvgXViypRPk2a6UNVF2z24OWYv191NFHSgCJWnHEXkRaAzhQ1V
+         UsEg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794364504; x=1794969304;
+        d=1e100.net; s=20260707; t=1794364508; x=1794969308;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=V75Giv+e07vuq5RNj3c4MeVDXR/UQ6y5MO2wUYYunZo=;
-        b=zwryVDOQ6IIqPhLzUyrt3fhDkiL88h7PAxnGVcrlSgj3nzNKhhIBF/KbgGlzfm9bLG
-         Q2cbhhm1o+dabqXxIZPZbLM5sKX/vh5gCe77Hs8MpOi1bNwxIes2CyHisLzcEQnE/ILI
-         VPA6LTgEyVhwXY4S0fIZjpWdxpGOoSUMuL2/GtvhrB29+p/VuRBJ/KaAYE/Y9TQLpcbo
-         zLjbJaLJ2OnJj2q7EsY1SwLOXjfvp+KY06cqo9WTWr6n8ZPWHU8fvuptxhsiOoGEd1+Q
-         WYXH0q/8LRaW54wknMDOgNjf5eDNNMyIIwjdiHcPOmEsY2Eeo5IXsqadvV9yR1rbCef3
-         rljA==
-X-Gm-Message-State: APuU4Z/DaforXGW+aRX5bckSLIsMsb4+MVxzaultGOmBhsr45zLgRRJd
-	LYcb3B0iWrhfnpvgqRLEqXsjZPCTgnMAojShvHpIhhMaoUpw+4vjQbc77wT1fDN+
-X-Gm-Gg: AYBFou1DVX0uYKInoC2AnKwibZ5QlKDfEaTqwGVd69FKYt/0cWwk2Yk0IYFVtZi8lDE
-	1ivnhQzMEWMlsygP2onVopE+vs+rbt+1JzuxDdIEI3dAQJbwfNjMahie9fyQpXfX4NdQrbUkeGk
-	QmEbFM3VBB4kvEqkfFUyBlFMtCnwI/MZdqEvY0zjKGrsNgTvTKZ4wf1HEqlfezlUyIHyM0mbg65
-	1uuJkm9AesIAlzj4XkAX3aEP4N46owe/D2BTOUar5zmWT/o67vhLojx9mPQAjKjH3pzmweVp55E
-	cnbiRPPfyM2Yp25fZ07SvmVRKMfPGdm/7Rb2ZxuKgtfx8RuRMxAsOEAVCHkBaUKTe3WYSZbVrbK
-	PxMBgU4VBzPGbUbZ9CTduzc37Ki0BDQshSX0AxpZLpVliq2/qZUFagiB5VB3sD0YTGpgDpg7omu
-	rm2q9tKhZpzvE13sJHJcQaMYfE1IGCXyKDOCIchs3qyoiPEV1N+FjlYMyrt5vIgYxaF2RInodR1
-	FuDOcL6ROmlju9o99NPK9hG+WomyjxOCZeDaGJnJl5oSh+CYFFC9j/Jc5G3QOoZ3ctJCTyPv/BK
-	dYsRY6eJG2AP5CzQcbGe3L7oteShw63gxbmgfCGzKnNd198IKN6nL7/5pi6xS+wXg2AMfHsKX/K
-	XLayg7XGr7COia+30xKfXCebzhKXYSdvl8P+qty2qFHG28ES6iSEUEiO9rUjAWoUK0I2Rb3fdbG
-	dIpzk=
-X-Received: by 2002:a05:6808:4fd2:b0:4f4:73a9:f831 with SMTP id 5614622812f47-56b96bd1a1fmr820292b6e.19.1794364504066;
-        Tue, 10 Nov 2026 18:35:04 -0800 (PST)
-Received: from ryzen.lan ([2601:644:8000:37f::e34])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-56906330dc0sm3873864b6e.16.2026.11.10.18.35.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 18:35:02 -0800 (PST)
-From: Rosen Penev <rosenp@gmail.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH] lib/bch: use flexible array member for xi_tab
-Date: Tue, 10 Nov 2026 18:34:58 -0800
-Message-ID: <20261111023458.72092-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.56.0
+        bh=pvFlzi2o7O4yiwN3RVeD+t8QNKHH1e+ewDHzVj4XZ1I=;
+        b=dIrGyDjXIR7AiDL3QL+YDeRMJ/SvQ9i3h88wwg4R0iSRv+RSQtzF4t7sBuq9ThwQY5
+         zTbR20BGIyJU4HpwdzECHOaOXHlvt493UWoZRUdTQ0jMP2DRB9eaCSDb45DoHkvEBA2n
+         MM8IsdxTFeF2qmD8IcwsLLg4AwYeE6uTCxzU1kRAHVz6sMwdiU7kneQJsSzNFDql8m2J
+         SSfW9kO8tdY226T6x0BsJ1jC/Am+tL8p81Y8z005fmihZbDolyC0M2hmGw/iX7SsHDH7
+         JxLfPTFgFVXKsG0Kq0Xd2r4QCKK+aTaHazr+U8OiM9eZO60nTu+zzpYs+nYua9bI+Pcd
+         9Yug==
+X-Forwarded-Encrypted: i=1; AL+hErFy4TFSKB3v6gA3Czfh1e9zuE5DWcDf4ygxAnBmeAQJkIEeGJpPYzPLRgZCTERzCm2AWFxkVkID2i6yWHk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8CHOBo1BQGcJlKBjzwc457RYF2an0V3k1D1XmsEFG+AvmYZ7/n
+	vWZbsPZFvdJNe+oNFnyMfVH96tjAIgKVG3nmo/S5CnYY8vleJph1VzuRWAIIDmNZ2b0=
+X-Gm-Gg: AYBFou2pQ21eNWAGfqlKPVVOMPv9DxtsmqTO2YtzahZerVOcyCACfKsWgCrkBwWNHrs
+	9fuT4RkovRkL/dmMQlzT61Qxmkdt1o6P5l9FC4WzY1japsr0pJ51l+5y9POBoxIAZR0TJTKLrG5
+	fFQH9vq50Cghnkq66E/4SY5amJwhNLb7/FXQFfHzsUi5Go3EiDCBdEEJN8tOy81KLdUlOj99ybl
+	urSGIqZM/3Ivqy9y6LfP+08YZ52KRoWkjNeqxkdYR5y5dUUfPe5o4n7dzqS195OPSWYqIuv1mXH
+	5RBu7U1LLHnUsmYp/bmOWKzh8q+0yzWhmac8rdoy1tnyEonmVlAnQLxFPYZRRuUOd222Hln7haL
+	XB5KhM/ZIi4EdlsXzL5cbgcu0Pxam+K3ZPeKUN6GoW3ifaDd0P10dffiCu/7Dt4Hves42eBydlg
+	3cP8EDBld4LhAe/507nbntbq7fCbXikZOwnp2lzfECGHTYjk/D301eduSqdbNV6h6wGdrD+mWvz
+	zjrVxjmR5atslqtwWAklrvTrLqKRUeyOOygz2du9V6eJzhnpHmvEPaCzr9Zk4QXtcAovaeQMwZb
+	WvtAp7o11VOrtl0wiqYLEImN5gtwQq6cdSITtK3yfAxNJKav6xxJ7T/MwQhlMdM0KNllsRhROUt
+	jAiDH6HCH5P7X6Q3qXSmnH26vDpSdM9wjD78JIAVHip7p9apohuazXP8YGCz9exU=
+X-Received: by 2002:a05:600c:3b86:b0:4a1:df52:3e36 with SMTP id 5b1f17b1804b1-4ba0939aef5mr14296425e9.27.1794364508185;
+        Tue, 10 Nov 2026 18:35:08 -0800 (PST)
+Received: from localhost.localdomain (cl-hedp4-wifi-nat.herts.ac.uk. [147.197.250.34])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba08e423dfsm24233455e9.1.2026.11.10.18.35.07
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 10 Nov 2026 18:35:07 -0800 (PST)
+From: Zhiyuan Zhang <zhiyuanzhang912@gmail.com>
+To: Joseph Qi <joseph.qi@linux.alibaba.com>,
+	Mark Fasheh <mark@fasheh.com>,
+	Joel Becker <jlbec@evilplan.org>,
+	Heming Zhao <heming.zhao@suse.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	yangwenfang <vicky.yangwenfang@huawei.com>,
+	ocfs2-devel@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Zhiyuan Zhang <zhiyuanzhang912@gmail.com>,
+	syzbot+42984127d45ad96219de@syzkaller.appspotmail.com,
+	stable@vger.kernel.org
+Subject: [PATCH] ocfs2: fix kernel BUG in ocfs2_page_mkwrite() when write_end fails
+Date: Wed, 11 Nov 2026 02:34:44 +0000
+Message-ID: <20261111023444.22688-1-zhiyuanzhang912@gmail.com>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,69 +105,104 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Convert xi_tab in struct bch_control from a separately allocated
-pointer to a flexible array member trailing the struct. This co-locates
-the xi_tab data with the struct allocation, reducing the number of
-individual heap allocations and simplifying cleanup.
+From: Zhiyuan Zhang <zhiyuanzhang912@gmail.com>
 
-The xi_tab member is moved to the end of the struct and changed from
-'unsigned int *' to 'unsigned int []'. The allocation in bch_init()
-switches from kzalloc_obj + bch_alloc to kzalloc_flex, and the
-corresponding kfree in bch_free() is removed.
+syzbot reported a kernel BUG in the ocfs2 write fault path:
 
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
+  (syz.0.17,5578,0):ocfs2_write_end_nolock:1945 ERROR: status = -30
+  kernel BUG at fs/ocfs2/mmap.c:106!
+  Call Trace:
+   do_page_mkwrite+0x147/0x310 mm/memory.c:3879
+   do_shared_fault mm/memory.c:6145 [inline]
+   handle_mm_fault+0x1a53/0x3750 mm/memory.c:6943
+
+__ocfs2_page_mkwrite() calls ocfs2_write_begin_nolock() and then
+ocfs2_write_end_nolock(), and uses BUG_ON() to assert that the latter
+returns the full length.  But ocfs2_write_end_nolock() can fail: since
+commit 7f27ec978b0e ("ocfs2: call ocfs2_journal_access_di() before
+ocfs2_journal_dirty() in ocfs2_write_end_nolock()") it gets journal
+access to the inode buffer again, because the handle may have been
+restarted since ocfs2_write_begin_nolock().  That fails with -EROFS or
+-EIO once the journal has been aborted or jbd2 has seen write errors
+on the device.  The syzbot reproducer gets there by shrinking the
+backing loop device to zero with LOOP_SET_STATUS while writing to a
+shared file mapping.
+
+Handle the failure instead of crashing.  ocfs2_write_end_nolock()
+leaves the mmap folio locked, because ocfs2_unlock_folios() skips it
+when w_target_locked is set so that it can be returned with
+VM_FAULT_LOCKED, and do_page_mkwrite() does not unlock it either when
+->page_mkwrite() returns an error.  So unlock it and fail the fault;
+the faulting task gets SIGBUS, like for the other errors in this
+function.
+
+For an mmap write ocfs2_write_end_nolock() returns either len or a
+negative errno: inline data has already been converted to extents by
+ocfs2_write_begin_nolock(), and copied is equal to len.
+
+The BUG matters for local mounts, where the filesystem is expected to
+go read-only and keep running after a journal abort.  On clustered
+mounts ocfs2_abort() panics the node anyway as soon as it notices the
+aborted journal.
+
+Fixes: 7f27ec978b0e ("ocfs2: call ocfs2_journal_access_di() before ocfs2_journal_dirty() in ocfs2_write_end_nolock()")
+Reported-by: syzbot+42984127d45ad96219de@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=42984127d45ad96219de
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-fable-5-2
+Signed-off-by: Zhiyuan Zhang <zhiyuanzhang912@gmail.com>
 ---
- include/linux/bch.h | 2 +-
- lib/bch.c           | 4 +---
- 2 files changed, 2 insertions(+), 4 deletions(-)
 
-diff --git a/include/linux/bch.h b/include/linux/bch.h
-index 85fdce83d4e2..e736b3a46e96 100644
---- a/include/linux/bch.h
-+++ b/include/linux/bch.h
-@@ -47,12 +47,12 @@ struct bch_control {
- 	uint32_t       *mod8_tab;
- 	uint32_t       *ecc_buf;
- 	uint32_t       *ecc_buf2;
--	unsigned int   *xi_tab;
- 	unsigned int   *syn;
- 	int            *cache;
- 	struct gf_poly *elp;
- 	struct gf_poly *poly_2t[4];
- 	bool		swap_bits;
-+	unsigned int    xi_tab[];
- };
- 
- struct bch_control *bch_init(int m, int t, unsigned int prim_poly,
-diff --git a/lib/bch.c b/lib/bch.c
-index c991c71c4cbd..f003965a21b9 100644
---- a/lib/bch.c
-+++ b/lib/bch.c
-@@ -1320,7 +1320,7 @@ struct bch_control *bch_init(int m, int t, unsigned int prim_poly,
- 	if (prim_poly == 0)
- 		prim_poly = prim_poly_tab[m-min_m];
- 
--	bch = kzalloc_obj(*bch);
-+	bch = kzalloc_flex(*bch, xi_tab, m);
- 	if (bch == NULL)
- 		goto fail;
- 
-@@ -1334,7 +1334,6 @@ struct bch_control *bch_init(int m, int t, unsigned int prim_poly,
- 	bch->mod8_tab  = bch_alloc(words*1024*sizeof(*bch->mod8_tab), &err);
- 	bch->ecc_buf   = bch_alloc(words*sizeof(*bch->ecc_buf), &err);
- 	bch->ecc_buf2  = bch_alloc(words*sizeof(*bch->ecc_buf2), &err);
--	bch->xi_tab    = bch_alloc(m*sizeof(*bch->xi_tab), &err);
- 	bch->syn       = bch_alloc(2*t*sizeof(*bch->syn), &err);
- 	bch->cache     = bch_alloc(2*t*sizeof(*bch->cache), &err);
- 	bch->elp       = bch_alloc((t+1)*sizeof(struct gf_poly_deg1), &err);
-@@ -1384,7 +1383,6 @@ void bch_free(struct bch_control *bch)
- 		kfree(bch->mod8_tab);
- 		kfree(bch->ecc_buf);
- 		kfree(bch->ecc_buf2);
--		kfree(bch->xi_tab);
- 		kfree(bch->syn);
- 		kfree(bch->cache);
- 		kfree(bch->elp);
+Notes:
+    Testing: syzbot C reproducer in QEMU (x86_64) on a defconfig-based
+    kernel with KASAN, lockdep, DEBUG_VM and hung task detection enabled
+    (not syzbot's own config).
+    
+     - Unpatched: BUG in 3 of 3 runs, within 22 iterations.
+     - Patched: 437 iterations over 3 runs hit the failing write_end 21
+       times (11 x -EROFS, 10 x -EIO), all ending in SIGBUS, with no BUG,
+       KASAN, lockdep, DEBUG_VM or hung task report.
+     - Negative control: without the folio_unlock(), inode eviction hangs
+       on the locked folio in truncate_inode_pages_range() in 3 of 3 runs
+       that hit the error.
+    
+    Not tested on a clustered mount.
+    
+    AI assistants were used to analyse the report, to write the patch
+    and the changelog, and to run the tests above.
+    
+    ocfs2_dio_wr_get_block() has the same BUG_ON(ret != len).  It is left
+    alone here because the pending "migrates ocfs2 DIO from buffer_head to
+    iomap" series removes that function.
+
+ fs/ocfs2/mmap.c | 12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
+
+diff --git a/fs/ocfs2/mmap.c b/fs/ocfs2/mmap.c
+index 6c570157caf1..1c03f45e8965 100644
+--- a/fs/ocfs2/mmap.c
++++ b/fs/ocfs2/mmap.c
+@@ -103,7 +103,17 @@ static vm_fault_t __ocfs2_page_mkwrite(struct file *file,
+ 		goto out;
+ 	}
+ 	err = ocfs2_write_end_nolock(mapping, pos, len, len, fsdata);
+-	BUG_ON(err != len);
++	if (err != len) {
++		/*
++		 * ocfs2_write_end_nolock() keeps the mmap folio locked so
++		 * that it can be returned to the VM with VM_FAULT_LOCKED.
++		 * On failure nobody else will unlock it, so do it here.
++		 */
++		folio_unlock(locked_folio);
++		mlog_errno(err);
++		ret = vmf_error(err);
++		goto out;
++	}
+ 	ret = VM_FAULT_LOCKED;
+ out:
+ 	return ret;
+
+base-commit: 067c5c24cef23d913b67eaaf71ae67e7169a6620
 -- 
-2.56.0
+2.50.1 (Apple Git-155)
 
