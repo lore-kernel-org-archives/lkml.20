@@ -1,45 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794440044;
-	b=jG7JGPFugQc9MlPAZTQaArfzqLugSM3087EzzYtA42HpxMkgRRfpU6x2YxQmDH48m5Yb
-	 u3z/5IqNMIyALjncWV2LnXW0sfupILe1TO09/MBs2v3tdfSJAyeBO4wZ+MlHs2+HWderc
-	 dC9n15cy2UksguiEKqJ18FVb4P9jxrYp6LRbfJgFfFlm2ZPztS3kim+ou5B9Ykp8v3QDy
-	 QR1EQf3D1mALDxcFZGbHBR7shJao8QvalWsQRDdCom5qd9B21RC+SSLZWvxE8k99h1CxN
-	 JVA/3RSw8UYBJy7xyW8lqQwMZVZLwWOlj8LLWMnyF6YgYrpdyF2Sn2m7xG9f8YMXW0Q==
+	t=1794440106;
+	b=QslHCf4Z3xWtQReKN6QRBHi2mKPdddQo6KgZdtSqTyYVgwy1EU6XDsf17BUbVjpRgGta
+	 ffF8/w3aY05TCUQL/mNFBerEPJ/HXvfn3HTdK/H0WOYU2BrG7YZU37p/6+vkosLaUNYHe
+	 1tJ9ROL2i7pNqkXl35MIR247RcU84r00F78iO8tz0GoDyslOp7nSvjf9h/A7zkELLGwhM
+	 ma4sk2QS6BMLbEJAwmBuBPySzR7/jLiOOi+E0miX0FpdYJGUXVOytBhgacWVbQDCtUCQg
+	 NP1Op9U5f9I4uvrsSb/JkLjMauOITXCXJl02FDJDu1TTnUbiaWTRnu9kQ91HNerXXHg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794440044;
-	h=Received:DKIM-Signature:Content-Type:MIME-Version:Message-Id:
-	 In-Reply-To:References:Subject:From:To:Cc:Date;
-	bh=IyJnyR+SDoNsHFXVp/2Wt9KkzpRaN5lxj9HriXnRMhI=;
-	b=WGNWu9AP+ejzccH/8X4uPIp5Z1UKMr4nEfQMbzojpaEaHb3IUM20Tv0nA1XK9cSeZBI7
-	 1AyNktpzyjIMX5iuJfkKii3mxIuCDyzDN7DeE7MqH2vI6GDFw+xtQ6zD9N7LTrUiqgl0U
-	 GzHdQCPqs1TpxI4RzAUOIsCQvzD8WHaFdQA3MbZuZ0n+NJ3oZIS7ZbVAJ/oezFqKwq8c6
-	 TeFQQi0Z3P1Guq2jwSGXqzHNekovIw022FG3fhh5QwXyRHCmPmZFY7GVjnNmE8TK7jzBc
-	 GA84wK0zl9G11iy5ZDfPaWzYl+hgTHRuXePfm/3W9ux30VTqPowbm4U+xUKAI4qxePw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794440106;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Scanned-By;
+	bh=/saIjk+/mSYq8iZPgFXOiIKZ5cwgIKJ/PXOQnMC6enM=;
+	b=t2UOOFiEV6CaKhGbKhNwjpSCijhdpCCOl4oaAkS8soJognsG4eDw2p+sWAZ7YszBRKR7
+	 b3xMcN51JzvLA6zA7C0OXnqaSBNEAykMtBElgUkA9IGMng8E8KTExlHl8jL/b6HMe7QwN
+	 cwzutURpCyo+mxar5O9UhW4Rpawi3GErN5TucVe3Mum7UeVKh1yl5k9EegMnf/yG3goyn
+	 D+ryGaH8jWt7CKt/O+ws5WRa8ugoS4+oA+FkrKLCikUq2JzfHN8oo3oBGLS7J0zRwIoNJ
+	 g/tOvX1IATwcTNO6I4z+ooHnNdmpzTBHp8lspf8oSvdQJpTUb68jUYPKn7EkwtTiC3Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cAIxChdU;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=XpJ6qy9H;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EFA1606A8A5;
-	Wed, 11 Nov 2026 23:34:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7C00606A330
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 23:35:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7C00606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cAIxChdU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFA571F00A05;
-	Wed, 11 Nov 2026 23:34:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794440043;
-	bh=IyJnyR+SDoNsHFXVp/2Wt9KkzpRaN5lxj9HriXnRMhI=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=cAIxChdUeCsBC1JhUo4xDQEIvoOnch4nQks3/1Ib/V6S6rX0Sjaupp4FOp/WYnneM
-	 jvrscAQcY0LFA3nmUlYC33PaLYtoTSWaSDD/5SQ4wHLVnvSREKLNK+VFBL7CtkZggX
-	 E4dVOZeswNOXZCY4INLvuVz1B9jMxBha0btw/Xelv0i/fKzd+Gp20cVKiOP1gRLZhE
-	 al3O8TI4wVi3T21ICuXJQgWDv2v+45YDNgKYsMqZXH8Ngt6YaL+HD3kRknewKHBTQk
-	 PjScVOVOi3TrGilTH5cumyNtntyjS9ALnlDzCT6ds3Bi71lKhq18KOfrwEDkKKZZIs
-	 T+O9Wsg26Vqmw==
-Content-Type: multipart/mixed; boundary="===============8855634537732790590=="
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=XpJ6qy9H
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1794440104;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=/saIjk+/mSYq8iZPgFXOiIKZ5cwgIKJ/PXOQnMC6enM=;
+	b=XpJ6qy9HgGE05zsUNrcGz2t2PoshZgwfOq69m1zKybqr/lWZTUaaZakdSojU3DqEZT9uHh
+	Eq3FHlSUs9SkmtlV+6Tav/voJUAmX3LvNiZNetpVBVqMhnaAysI0xYuRV4GXvZaCbZU0Pk
+	HqfN2E6FGAPHwhDwe1DYX999To4MXnY=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-104-pXEQOR1MOveyCYTcvZquSA-1; Wed,
+ 11 Nov 2026 18:34:59 -0500
+X-MC-Unique: pXEQOR1MOveyCYTcvZquSA-1
+X-Mimecast-MFC-AGG-ID: pXEQOR1MOveyCYTcvZquSA_1794440097
+Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 4670719560B5;
+	Wed, 11 Nov 2026 23:34:57 +0000 (UTC)
+Received: from onestero-thinkpadp1gen7.tpbc.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id BBD27410;
+	Wed, 11 Nov 2026 23:34:54 +0000 (UTC)
+Received: by onestero-thinkpadp1gen7.tpbc.csb (nbSMTP-1.00) for uid 13628
+	oleg@redhat.com; Thu, 12 Nov 2026 00:34:56 +0100 (CET)
+Date: Thu, 12 Nov 2026 00:34:53 +0100
+From: Oleg Nesterov <oleg@redhat.com>
+To: Mani Tofigh via B4 Relay <devnull+mt4022.columbia.edu@kernel.org>
+Cc: Christian Brauner <brauner@kernel.org>,
+	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>,
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
+	tz2294@columbia.edu, stable@vger.kernel.org,
+	Mani Tofigh <mt4022@columbia.edu>
+Subject: Re: [PATCH] pipe: keep per-write wakeups for EPOLLEXCLUSIVE consumers
+Message-ID: <avT7nQs7zYseYtMw@redhat.com>
+References: <20261111-pipe-epollexclusive-wakeup-v1-1-0af6283e9fda@columbia.edu>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -49,67 +81,24 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-Id: <accc0cb4b44bd410326ca2a60238127519258fa64d48fc4b090311199e1848ad@mail.kernel.org>
-In-Reply-To: <20261111115911.1142000-13-david.laight.linux@gmail.com>
-References: <20261111115911.1142000-13-david.laight.linux@gmail.com>
-Subject: Re: [PATCH v3 next 12/13] scripts/kallsyms: Reuse tokens that have no references
-From: bot+bpf-ci@kernel.org
-To: david.laight.linux@gmail.com,pmladek@suse.com,kees@kernel.org,david.laight.linux@gmail.com,linux-kernel@vger.kernel.org,linux-kbuild@vger.kernel.org,bpf@vger.kernel.org,jim.cromie@gmail.com,ljs@kernel.org
-Cc: mcgrof@kernel.org,andrey.grodzovsky@crowdstrike.com,rostedt@goodmis.org,andrii@kernel.org,wusamuel@google.com,linux-kselftest@vger.kernel.org,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Wed, 11 Nov 2026 23:34:02 +0000 (UTC)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261111-pipe-epollexclusive-wakeup-v1-1-0af6283e9fda@columbia.edu>
+X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
---===============8855634537732790590==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+On 11/11, Mani Tofigh via B4 Relay wrote:
+>
+> From: Mani Tofigh <mt4022@columbia.edu>
+>
+> A task blocked in read() on a pipe can sleep while the pipe holds data,
+> when an epoll(EPOLLEXCLUSIVE) watcher of the read end was added before
+> it.  The watcher's entry on ->rd_wait is exclusive and sits ahead of the
+> reader, so a write into an empty pipe wakes only the watcher.
 
-> scripts/kallsyms: Reuse tokens that have no references
+I am already sleeping, but at first glance this is already wrong?
 
-TL;DR: Nits only: sym_arr_free_all() in scripts/kallsyms.c has a misleading
-name, since it only zeroes counts, and returns its argument needlessly. The
-review suggests a void reset helper instead.
+I mean, a WQ_FLAG_EXCLUSIVE waiter should not sit ahead of non-exclusive
+waiter, no?
 
-> diff --git a/scripts/kallsyms.c b/scripts/kallsyms.c
-> --- a/scripts/kallsyms.c
-> +++ b/scripts/kallsyms.c
+Oleg.
 
-[ ... ]
-
-> @@ -720,6 +733,19 @@ static void token_add_symbol(unsigned int token_idx, unsigned int sym_idx)
->  	sym_arr_add(arr, sym_idx);
->  }
->  
-> +static unsigned int sym_arr_free_all(unsigned int ch)
-> +{
-> +	unsigned int i;
-> +
-> +	/* Just zero the counts, the entries are about to be reused. */
-> +	for (i = 0; i < 256; i++) {
-> +		token_syms[token_index(i, ch)].cnt = 0;
-> +		token_syms[token_index(ch, i)].cnt = 0;
-> +	}
-> +
-> +	return ch;
-> +}
-
-This isn't a bug, but would a name like token_syms_reset_char() with a void
-return be clearer here?
-
-sym_arr_free_all() sits next to sym_arr_free(), which really frees a struct
-sym_arr, but this function frees nothing and only clears ->cnt for the
-token_syms[] pairs containing ch.
-
-It also returns its argument unchanged just so the caller can write:
-
-	to_process[idx++] = sym_arr_free_all(token_first(best));
-
-Would a plain to_process[idx++] = token_first(best) at the call site, after a
-separate reset call, read more directly?
-
-
----
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
-
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/43116767394
---===============8855634537732790590==--
