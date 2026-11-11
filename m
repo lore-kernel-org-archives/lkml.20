@@ -1,90 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794425537;
-	b=wY13BcKb+NZq9ZK/SWidr3bEzCymJUbboUng500oetM18FG1YK8Hf/nGm5Arar9VLO0V
-	 cA25yzpXmyJ/RwB/3GpaQOErl/LXSf+RudPtAA10+zR0cr7eDrwnICs1tE86UlTA9WvqZ
-	 MokircZqMdGb8M/GYcEsZTZQO1jQ+SzZkyQOUzW9liwGzm9vPBKjnmUNepSdjvc+RdJlH
-	 Nql8t2N6WubJ5hYl3C8/L499PrvT7rwxDOUcTePYOwfjxqZiiT+Jqh86b7vbQdtoDP7rV
-	 izBLCi/9h0aSNttfneeNeMjc6ZVAB8Bg4SSVzZRaYoJTW4L8vYr2IQGKfp20EIYqutg==
+	t=1794425577;
+	b=UgCRoDf/tYP3UdP+Z0u9svtYzn+hhdoJn5wyYuuAT3AeCZEkC/a3HxsigZ7zCsuGBFQe
+	 iygkIhR6rmxq7CSxRw2LixLuwJoPzvDv1DeIeJ0Uppmj9lSek91qXqtcwSqjN60lx9BWi
+	 w0ScknX84pYitLo32velS3PaRH/3EwqjW80avAkTes6KmXhfUlECDW/iDUKwqBzSq3HEl
+	 oGmGVh6WACwasy3VALqYQNq0M+NHG70Ym/nVLaLjhlgTNwRP3ITHfpZ/LKUUoRA3vzoaU
+	 HUl7SdcMKmpohd0dt2hD9dsqQOqemn9hc2WIho4kz/XdEMW1VD8QGavoG76WL/RSVDA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794425537;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
-	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=wd2WluVLwj4r2VIyBQDufDpYxaAOyEu9BCBLHFr84dA=;
-	b=I3hg6cGNwsWJBGciTwdvMT2r4pXMDfPmThMG8Sb1RSLvwrGmIYaJTFP6c5lsbs0qcpYr
-	 0318HbgMmzz1pYswgImC9yJahdIDKivSvLQLLADkpCeMEAT03NCddLmgN1j90sUD9hAh5
-	 v59IlK0nxd9EP4q88q0Ehsc4HsFcaajdGtizn1rOmboTUnMFT12b28hQ2KjFmJyKyZMVR
-	 AlGRGVifFnNuTPamhQCrlCUkqlvDp5XzGiinYkp41/vamfPoHjxBQjRKP8P78rM8srt8J
-	 sFlW7jIjJRI0WpOqtwnftPreLOHDqkZbWe3RCi9xLEJ5orjq2Y8b8OkMiVYwfc2gV6g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794425577;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 Mail-Followup-To:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=Fes9FPtsLKfqHmPVcvpxVOfAN/gOdDJJxJ44rGZjokU=;
+	b=KR2LKCx8eujd7y8JioZoMUMW6jPFKkfKPDpyu9tykPX7tW+jjSRykd+4eLsboztG0xWQ
+	 h8vDSCGSbyMQCr0RoFQJjcPsmgjC3DU4+4pkUB3ZxAYfP+byE6iWi3gf+JsZuX2c8eWjo
+	 FCYhO1njjJd+sWpzNu4DPVdwEfoTQ6mxYoghttYbZkg+DCjcO9TfJUi+EpNxbuK9pJZTF
+	 wghZwuapWT/xCmnmhG0BvRHddaKZ1r4zho8dKPJJrBbnNCd9GGkYtGnSy/4mkPEC2u6DG
+	 qmb/ECSd8f8rD/So/Y6Y6xBE+FSQUsJOPO0b5svoR7iFluONA31opf4kDAZuLHB0ijg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux-foundation.org;
-	spf=pass smtp.mailfrom=linuxfoundation.org;
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=GfO64ZFW;
-	arc=none smtp.remote-ip=209.85.218.48
-Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PAwokv9u;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22C57606A321
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 19:32:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 22C57606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FD2B606A321
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 19:32:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=GfO64ZFW
-Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c49c32650adso349554466b.0
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 11:32:15 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linux-foundation.org; s=google; t=1794425534; x=1795030334; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wd2WluVLwj4r2VIyBQDufDpYxaAOyEu9BCBLHFr84dA=;
-        b=GfO64ZFW1BR8XJSmTsKnWVJB0jG52awdHYFKa3KauoDVSpbe5nSa4/K+kXvDARCE1/
-         3HKWMlc+Ny6JF+wBFqhYUz1H61iGaGBA64MZUqphYXWIJL1NhcfBm+mNawc3tD7qDI6D
-         NjOd1sZzhfsuJT/koVVegWGQtgxPU2LBgkZEg=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794425534; x=1795030334;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=wd2WluVLwj4r2VIyBQDufDpYxaAOyEu9BCBLHFr84dA=;
-        b=kqguAHZ3pQmluBlf4rjnGThwtiupxwdMd8CEaTCcNIrNDdWnMUf0oFkuVCp81GuAmR
-         IAvaY/+Rra2dhA6Yd4iJBQ/Bsk2KUNPURnwnGoB0fgQcF6JFGmGiAwPL6kBYJ/UUNIKn
-         xEui1LltvzDuo3anpCI/4AS85ejCtlIg8z7eUSpkzzfs1omdFK4b0ofS5sUmW3vTZvAS
-         04oA0YIAPxi43Zi2FsFnlxMk7QNEoxc+iM59XdsMAYAojDf+pb2RHUQgyO3nSVHPhZX0
-         5ZtMU3kbII7WVFeZdByR9i2AHV1waXQcxgsB4E+2Gq98rZFNRlPerJjVQ2g9nQbCAFjB
-         FjdQ==
-X-Forwarded-Encrypted: i=1; AL+hErHZknLZNgLc5NWfkfPDk2Xqx9D41JLUEov/RPdXT58gGnQe8ZJeHy4Hw/tOwGHWBVwGM2dxZ/rT2IPpWEI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9jRsSQ/g+uQdOnHngSEfiJQZ7GRngk0c2gJwEDMEIYHiyZdgyn
-	7A3330tSVwHd11RzosW5sgJTWrouZ1XAg9biqKUnwNu+vN8iAorTFjNUhLQrmrAO2DKZgjZ7/hM
-	MmKQpYUiEmQ==
-X-Gm-Gg: AYBFou0and8n5ZvUFv7jWsugplaUOQLQO5SIZaIpg6jbg5nI8ybpUBhv1QBk30FrYZ2
-	NAf6VM4ZUQCEoa/+ehqOcLgMS9+aGVB5aGozh2AdTxy6RoGkBkL91e4A1W89waX983bBWlqx7fw
-	qjz22ZdY819ih4zPsvw8EsT98VcrRVhZep/pgTGwbHhYrE4V+Opw+YrU/3UE6L0xkQUefQsfmOW
-	h3W1JVi92vXL+Rt6QMWrBp2zBALOJmQ+KCtBOUQdo1E8z7jCvmRIvSWqsIbVDHecxWoRKXvoDEr
-	ZUqI7uL1Ktu+9F7eUHsPxtKXGqcaVOe7QdUrVGkyqdhBGmURYK0Jh4ig0ENAGH4vZx3kVPkdO4m
-	c3XwHC1jiuse98Fl0RENUaoedl8fsLwWPmI8CEP8o2K7kqWHaCby4HUNAf9TXbjcqfIC+C1pBrR
-	JRwmCzmnJqpbI/m64t6L7w5Sir7M13Pg+cc/mBq9G9OrND2Yw/if/QfyTnzgtGqJMV5FA4gZ9jt
-	QgXZ8KTSon3J+0YX6CCcBrkgFUSgJL+B+Cfur/X6YrdA9VyBI3n3VJPrKS75b1K0LJn+jR+Wr2X
-	gsNjL9hRM26S31rDQbEBrxuntL7vHyvcS6EPH0FBroALlZQDwmKQVlJkOGlWgjxkFMhO0gsVs3D
-	TMrs=
-X-Received: by 2002:a17:907:ea8b:b0:c46:8b9a:39ae with SMTP id a640c23a62f3a-c5066b65a98mr263796566b.28.1794425534395;
-        Wed, 11 Nov 2026 11:32:14 -0800 (PST)
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com. [209.85.221.45])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b7578bed97sm2791330a12.9.2026.11.11.11.32.14
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 11 Nov 2026 11:32:14 -0800 (PST)
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-492f0a1b685so2404683f8f.0
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 11:32:14 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErEhxvsus/cnIuY1YJinFZES+8gWAew/h3zW5ZyrUVh4KaMHifLpJmVBwTwq2IdXiBg/ZrQkxz8Dc9+j8Xo=@vger.kernel.org
-X-Received: by 2002:aa7:d1ca:0:b0:6b5:6478:a9a5 with SMTP id
- 4fb4d7f45d1cf-6b7773edf34mr1838418a12.10.1794425186528; Wed, 11 Nov 2026
- 11:26:26 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PAwokv9u
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C0D61F00A05;
+	Wed, 11 Nov 2026 19:32:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794425577;
+	bh=Fes9FPtsLKfqHmPVcvpxVOfAN/gOdDJJxJ44rGZjokU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=PAwokv9uNWTvsDzvS9gdrLQ2vPV7+rqM+JtOA9rCtUByaXsTVqZJFF/2lbpJaaG31
+	 R1pKFvXu5oaUVZtDdu0aMaPhW9CLe8egEoZrC2ANh+2DOch9r5Telq4OH4iQCk5iy8
+	 AP1cXtUS4RmMqDz51LL1OrT3yVzmWRhIl/v/jsH4OdVLF6QOPsZZLBBC3nKQiAH0GP
+	 AWlmC5JIC5Z0B/Md3DjRiNEqovl/5yJS2tdvRu9zANXZ5fkJOogMkFOAs/hfxymT9g
+	 vY5rGXMFuQiyDxj1r6XTPKmYwtuNKSM0b+YYk0ag1K/CQXhFTINqE6ar8jb7p79jn9
+	 /PWnpAJjl1mhg==
+Date: Wed, 11 Nov 2026 20:32:49 +0100
+From: Gao Xiang <xiang@kernel.org>
+To: Zhan Xusheng <zhanxusheng1024@gmail.com>
+Cc: xiang@kernel.org, chao@kernel.org, zbestahu@gmail.com, jefflexu@163.com,
+	dhavale@google.com, hongbohbli@tencent.com, guochunhai@vivo.com,
+	linux-erofs@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+	zhanxusheng@xiaomi.com
+Subject: Re: [PATCH] erofs: reset buf->off in erofs_init_metabuf()
+Message-ID: <avTC4Q5Ps2xBxslw@MacBookPro.fritz.box>
+Mail-Followup-To: Zhan Xusheng <zhanxusheng1024@gmail.com>,
+	xiang@kernel.org, chao@kernel.org, zbestahu@gmail.com,
+	jefflexu@163.com, dhavale@google.com, hongbohbli@tencent.com,
+	guochunhai@vivo.com, linux-erofs@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org, zhanxusheng@xiaomi.com
+References: <20261111141529.719166-1-zhanxusheng1024@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,53 +64,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261110145241.536019-1-kas@kernel.org> <20261110145241.536019-2-kas@kernel.org>
- <avNuQqLf9CG9dSsE@casper.infradead.org> <20261111-heimreisen-ungeziefer-empfunden-a892571f2c07@brauner>
- <20261111-thunfisch-wirbt-waldrand-822275b2d3b1@brauner> <CAHk-=wjPY=kfgnmtx4COEQjD5UzKx9m2-=KLGAZP4d=RKEH+pg@mail.gmail.com>
- <20261111-stumpf-montag-miterleben-c4e2feac8090@brauner>
-In-Reply-To: <20261111-stumpf-montag-miterleben-c4e2feac8090@brauner>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Wed, 11 Nov 2026 11:26:09 -0800
-X-Gmail-Original-Message-ID: <CAHk-=wjGXBnme-N+HvbzHH40ftb7Suc=kZVT5cuintQWyMHJ7Q@mail.gmail.com>
-X-Gm-Features: AclHuK8LZq7-9ajWCZDJwTRjmLDnovqaiY30E_XKr8U-iLvj6BsIi-SShy4XPgk
-Message-ID: <CAHk-=wjGXBnme-N+HvbzHH40ftb7Suc=kZVT5cuintQWyMHJ7Q@mail.gmail.com>
-Subject: Re: [PATCH 1/4] virtio_console: copy pipe buffers in splice_write()
-To: Christian Brauner <brauner@kernel.org>
-Cc: Matthew Wilcox <willy@infradead.org>, "Kiryl Shutsemau (Meta)" <kas@kernel.org>, 
-	Alexander Viro <viro@zeniv.linux.org.uk>, Miklos Szeredi <miklos@szeredi.hu>, Amit Shah <amit@kernel.org>, 
-	Jan Kara <jack@suse.cz>, "David Hildenbrand (Arm)" <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
-	Bernd Schubert <bschubert@ddn.com>, Hugh Dickins <hughd@google.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Andrew Morton <akpm@linux-foundation.org>, 
-	Arnd Bergmann <arnd@arndb.de>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	linux-fsdevel@vger.kernel.org, fuse-devel@lists.linux.dev, 
-	virtualization@lists.linux.dev, netdev@vger.kernel.org, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, kernel-team@meta.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261111141529.719166-1-zhanxusheng1024@gmail.com>
 
-On Wed, 11 Nov 2026 at 10:53, Christian Brauner <brauner@kernel.org> wrote:
->
-> If that's the official new stance than I'm very happy.
+On Wed, Nov 11, 2026 at 10:15:29PM +0800, Zhan Xusheng wrote:
+> From: Zhan Xusheng <zhanxusheng@xiaomi.com>
+> 
+> erofs_init_metabuf() sets buf->off only for the block device and keeps
+> the old value when it switches to the metabox or the managed cache.
+> erofs_bread() adds buf->off to every offset, so the result depends on
+> how the buffer was last initialized.
+> 
+> getxattr and listxattr init the same buffer twice, for the inline and
+> the shared xattrs, with in_metabox taken from different places.  On a
+> block device mount with fsoffset=, if the inode is outside the metabox
+> and COMPAT_SHARED_EA_IN_METABOX is set, the shared xattrs are read at
+> their metabox offset plus fsoffset.  The same image mounted file-backed
+> returns the right values.
+> 
+> Reset buf->off on every init.
+> 
+> Fixes: 414091322c63 ("erofs: implement metadata compression")
+> Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
 
-I definitely want to remove HIGHMEM entirely in the not too distant
-future. And before we remove it, we can most definitely document the
-fact that we will not be worried about insane users.
+Reviewed-by: Gao Xiang <xiang@kernel.org>
 
-And things like security issues count as "insane user": if you use
-HIGHMEM outside of controlled embedded setups or museum pieces you get
-to keep both pieces when it breaks.
-
-IOW, it's legacy. We should aim to not introduce *new* bugs to it, but
-if there are pre-existing bugs they very much count as "don't care",
-this will be removed soon.
-
-I think the only reason it wasn't removed a couple of years ago
-already is basically a few old 32-bit ARM platforms that still used
-it.
-
-Those platforms still exist, and I predict that they'll still exist
-next year, but if those users have to stay at the current LTS kernel,
-that's fine.
-
-                  Linus
+Thanks,
+Gao Xiang
