@@ -1,47 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794392895;
-	b=Ld/5k3T7sSlx2h7DWpOeeHHBgPKi7sO6zhTwlz+ERnluXaIj1QrrkFa4qrnebJxJNIOp
-	 6YUdBo4gALtEl48ko1MtQEiTIItJ/QxqRHP4asQkPSJfN2qMTvPt6MbhdUmuwpBISrRXP
-	 6C2tHPkhCoTn36RS3iuC71SXAtGn7Sgddn1yMZJSqInTaRv1tygy/YzAmOQbbPc+O3RTS
-	 zHhZH4WI8ZCyOMXSc20HJsXg+H/aKAiE58BrCzBq1bCuG6gYk0zvQESRSnbAYcmYKl4vo
-	 rI2ClYvtnyJpj6lZgtcrIiZe4E/4uGe8en37JwgwzbBdfDBTtLoakkOJAabdFsXBL5Q==
+	t=1794392894;
+	b=28vFK8h9qbLrOFXrHyDsklBv3GbHoN949tEk2k4pcMextFhNW14aLIjIRpA8xwXG1dvk
+	 mLaeLcU3hLy9+aDQJpPbN0p8cyNW5G7uKywaWby/rdXdUD9XgJhDjHxa819MpsBjGQ0XB
+	 Eza1xvuJKHi6t5RO7pNp6kfuN+2yr9p71ZLn9inHXg0FTWlffgj/6zuO6lST8EamGZTm3
+	 /XgrvJnrnQ1f+BdwjwKLPsAscZmULxfBqlhuQUWmHD8ESQFzjCN6BOrZ7QgnumMxkLbkq
+	 HCIzJ9kTWBzSKeO08r5Jwg+ApnXqUINC97miw2mTCw/hOd+FmH7OOs0DuSiPqtlZDFQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794392895;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=pffzYjLc24zLkwM750JTE8R2tBDNVqjTU9V9Vefp1ME=;
-	b=MBd76xcBleyjW6Nan58+J3Js/9P7HFu9wvqZsyj2JjN7+C6hS2h18Q8r3Yc25WN1GpXK
-	 gDP+zLBhb5f9kvN7KQIyPsC/vTXAL5garDsWaVYsv/zBSrZ49zu7n+GvQ7trm7MwhF5QT
-	 vUtd398wXnOOvoEhcaOHALa+fPu718Vhqwn4+52cMjgyjtAmTDm5D7y3VUyFyX+Hp3nz+
-	 zEjUpekXr2MdFAsK63pv10pl4QGfpIJ9J6FxQkFYjKYMh2xbZYB1YQrKHF/fpBiM1t1tP
-	 2eOGSItYrFtFzib0z9z580tnbiWkb2kAr8pbosoSb4SdqlPJS26msW2ac8MtWheMQ5Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794392894;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:Date:
+	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=UFoLO/iOJWXUZ8LPtrfxkOTStHkWrqT3iuMucBrRSF0=;
+	b=xy9l1q8XGAbrEafSVXfHSfkf9szZ2Ks/mdfWQxIImgl7tgTD9Vi4NOQdxbFY0v4ORHwJ
+	 AuNT5rph9P8k0Jw1zkq9m95osyr0Vz5x+h5yK4V29WE7Dxmx47StlaxJsTnq1iLzyQ/XO
+	 k/iT/lqAd8ZDuO/wqmEKx2XPmBEpEwX2DOhYdaqoSTkf0lEYQMm5/PCavjcd30ZnVoFbg
+	 rvH8no3n7gndcG0q2IlTR3Kq4rpfAMwM4PjBT1gjWmmBLpl/s8/OghmNAuSkp2nSWZmp2
+	 UyCFgCfNl5udaHl+TYoO82Ro1USc9l8GE8soqfJfkJ4+ie15T9uTB0YlMK5JOmOlZMg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZeAi18VV;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=sang-engineering.com;
+	spf=pass smtp.mailfrom=sang-engineering.com;
+	dkim=pass header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=ahJkmHjc;
+	arc=none smtp.remote-ip=194.117.254.33
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FCE0606A89A;
-	Wed, 11 Nov 2026 10:28:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24990606A32D
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 10:28:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24990606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZeAi18VV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C5CC1F00A05;
-	Wed, 11 Nov 2026 10:28:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794392895;
-	bh=pffzYjLc24zLkwM750JTE8R2tBDNVqjTU9V9Vefp1ME=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ZeAi18VVLJ89QheHEsiQjTnP8iCg6V2rf6LvWg5a0h7xltizH6zWe5sg86ldUby96
-	 dIA+Ygwf4Ik4Uj9AGqGdIivaJ4KZeaFIZ6XOt48WTXojFL6vkpJMCJExDlp/IoAMpK
-	 E6V0u9tUsJGDBJWo4xyZvsXHb3SZ2wXLE9DyxW10QTozVGGsIKFk/kzmoU/5k0dEHo
-	 nnV7kUpe9qLry6Wo1759xeBLlT86qbm2X+nOBHXp6XFRLJrqCa1K7grlJeughGRBic
-	 YVReqvSAOf4ENAQRqy3fRFh3C0e8um2R/Md4BjL5NTpJii+DJVUFb3I+v/6cC5iOkL
-	 ZforpNeZjRvPA==
-Message-ID: <5398114b-538c-4e7a-9b36-35029f301630@kernel.org>
-Date: Wed, 11 Nov 2026 11:28:06 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=ahJkmHjc
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=UFoL
+	O/iOJWXUZ8LPtrfxkOTStHkWrqT3iuMucBrRSF0=; b=ahJkmHjcaauoFZIGscNZ
+	Rb0iiLRERHmHMIMp3HT6/ZOz81NXw6AWqSN0g+LY4KAq6ewLqYhHBqKrv9+u541o
+	yIkalt90fhUtR6dhzV1pzfy6eZbd/pn29p+R/q2WhJjtwN66bfCafCI46pQOtFE9
+	1ii+/C3ijdeR8RUwiFgYys16LiDuUVtk1LEiNqqtXk7pZjrHbBug2OpSUvbH58yp
+	wdv8BlL13ybvDFUs3NVhM0FZnO6Kwbcmmj2MxvhfGqMz7cXg20D1cUX0MxEaoBox
+	s36BG5sYjQ9Trepqssd7alH8EaC2H5wfQ2RCxaH4EkODjog48ynOxKvk/YTv5sLJ
+	Lg==
+Received: (qmail 570348 invoked from network); 11 Nov 2026 11:28:10 +0100
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 11 Nov 2026 11:28:10 +0100
+X-UD-Smtp-Session: l3s3148p1@2aLUpv1fHsAujnun
+Date: Wed, 11 Nov 2026 11:28:10 +0100
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: Biju Das <biju.das.au@gmail.com>
+Cc: Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>, linux-mmc@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
+	Biju Das <biju.das.jz@bp.renesas.com>
+Subject: Re: [PATCH v25 07/11] mmc: renesas_sdhi: Add tuning delay support
+ for RZ/G2L
+Message-ID: <avRDOl1O5eXkbX6V@shikoro>
+References: <20261028-rzg3l_sdhi-v25-0-57f16691c2ed@bp.renesas.com>
+ <20261028-rzg3l_sdhi-v25-7-57f16691c2ed@bp.renesas.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,110 +72,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] dt-bindings: display: panel: ilitek, ili9488: make
- the port optional
-To: Icenowy Zheng <uwu@icenowy.me>,
- Romain TISSERAND <romain.tisserand@gmail.com>
-Cc: Igor Reznichenko <igor@reznichenko.net>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- sashiko-reviews@lists.linux.dev
-References: <20261109160706.2272332-1-romain.tisserand@gmail.com>
- <20261109160706.2272332-2-romain.tisserand@gmail.com>
- <20261110-comical-adder-from-saturn-8c8fbb@quoll>
- <68b5a51d767248a71c050110d5faf6c50c964d50.camel@icenowy.me>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <68b5a51d767248a71c050110d5faf6c50c964d50.camel@icenowy.me>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="LxrXcrfTQN6mcX3w"
+Content-Disposition: inline
+In-Reply-To: <20261028-rzg3l_sdhi-v25-7-57f16691c2ed@bp.renesas.com>
 
-On 11/11/2026 11:26, Icenowy Zheng wrote:
-> 在 2026-11-10二的 13:00 +0100，Krzysztof Kozlowski写道：
->> On Mon, Nov 09, 2026 at 05:07:04PM +0100, Romain TISSERAND wrote:
->>> The panel is a MIPI-DSI peripheral, a child node of its DSI host,
->>> and the
->>> driver does not use a graph port. A port is only needed when the
->>> host
->>> links its panel through the graph; other DSI hosts, such as the
->>> Allwinner
->>> sun6i-a31-mipi-dsi one, link the child node and have no output port
->>> to
->>> point at. The PinePhone panel is described that way on the same
->>> host,
->>> without a port.
->>>
->>> Keep the port allowed (panel-common) but no longer required, as for
->>> other
->>> DSI panels such as ilitek,ili9881c.
->>
->> ilitek,ili7807s and a few others have the same and it is confusing.
->> The
->> port should be required when this is connected over SPI or I2C, but
->> not
->> for MIPI DSI. I think that for MIPI DSI port is meaningless so
->> actually
->> incorrect.
-> 
-> I found that the dw-mipi-dsi common code (e.g. on Rockchip SoCs with
-> dw_mipi_dsi-rockchip) would expect the panel to be connected via a port
-> even if it's the child node of the DSI controller.
-> 
-> Such an example is at arch/arm64/boot/dts/rockchip/rk3399-pinephone-
-> pro.dts .
-> 
+--LxrXcrfTQN6mcX3w
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Yes, the same for Qualcomm. So I actually wonder who needs the change here.
+On Wed, Oct 28, 2026 at 12:51:24PM +0000, Biju Das wrote:
+> From: Biju Das <biju.das.jz@bp.renesas.com>
+>=20
+> RZ/G2L and later SoCs (RZ/V2M and RZ/G3E) need a hardware adjustment
+> delay written to SCC_TMPPORT2 on signal-voltage switch during
+> tuning: 0x1 for 1.8V, 0x0 for 3.3V.
+>=20
+> Add a TMIO_MMC_TUNING_DELAY flag and
+> renesas_sdhi_set_hw_adjustment_delay(), called from
+> renesas_sdhi_start_signal_voltage_switch() after the regulator is
+> set, and reset SCC_TMPPORT2 to 0 at the start of
+> renesas_sdhi_execute_tuning() when the flag is set and tap_num =3D=3D 8.
+>=20
+> Add a dedicated of_data_rz_g2l descriptor with this flag and switch
+> of_rzg2l_compatible to use it instead of the generic R-Car Gen3
+> descriptor.
+>=20
+> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
 
-Best regards,
-Krzysztof
+Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+
+
+--LxrXcrfTQN6mcX3w
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmr0QzoACgkQFA3kzBSg
+KbYHwg//WaJ+AmtoO2sQG9kq3fSF0VqC8Jm2BspR4uJuGYm99ZXjEaqMBLjEOEK4
+O4kyFkT8fZdpL27J6FWySQTJo2tu8io+0xSVOGdJqH/HRp+W4/zhzPxcNXmoBJh0
+vn4I1liUsdaluoxMoXM7jgdvHSrHssRoFJXWESE+bl+k6JFulNvRR5TYcbH44DYY
+xu1+YFSkI+hgGrRP8ifr7hsjhDdlJMtxsYykU6Lm2TPjMsUNsoR59WdbNWX2TnHi
+rKlMgNfvum8qxcJ8//KMDijp9QEorxccH6QAGe8hJ1eyBK7Eurvv9Hf6J4y3jdSn
+ZK/4lWQaHsmCZUCP9sZ3yfGheTzq5aMW78r3NfvA+mFZKA++Sm67eiaHeVaYBLdi
+DP+ZuuIpZJBlzkyb+P/KBLp/yQCRjV6OMMEu9c9RKI3NpvGEFlTZaFHlGKmsVFMn
+BpFALILwgxxzjqS8/7MSU0vJTxOhtvYsjX2s2iB3b9NcyiSakitPkIz2LBsJrt6y
+MCgIQrI16zhWMY+FfYMsB1OdWNIJoONWZB1etrF/YElHs2vNC3OvzxNDfdGlESN6
+GIzuC2e8v/3xI7YNyDYdF0H2f6tObUNKIIVNaIYaSzwAs0Jodn1OISlatE0qxxW6
+AG9xqVNIGaQ2ZfIlUOE4VEp4j4fn9ZjnjUpf/9eGb/FyYcjXZsI=
+=tmOV
+-----END PGP SIGNATURE-----
+
+--LxrXcrfTQN6mcX3w--
