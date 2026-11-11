@@ -1,49 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794426037;
-	b=Q6AP4bvii2IXtiW+mbhSyNStFOg14YL9bndwmrlntMDPbKHWUkz7l7muQWMWQpr2qkbw
-	 YB2Y2b+2nkPFLv1dr0OcdNQFnTX25oNEdF6D8leVSsVT+eOzlEg0hph0PJWRRKITSs7uB
-	 6SJCVv86EQQwHccLkSrDQbkw1DVIzrRkdU9unGyBrtfrAa0UZs7wL1Awp0pT870ljlLGK
-	 AZusKSONSiqWjiVdwyYzbt0XMFtNX5vUg0S/8CHGA2ExXe4TZudaQtGrY+8ckoxbtzpM2
-	 +CC3f65aHBjBpeIrpjcotk16zvIwJSQCjUZQ7Jrzz0lKMHM/ZCWGhprL6FVoOw5L0SQ==
+	b=REKfKNFk8EMTkcx6C/TcrRSpsmXRPwZ47HzUtIeIgO0FVFKHicOX5HYDKpDPulUDyIGi
+	 tnALOjMPAa62KEL6hF7b9vlVzuKkwM2d6Ytea7LYF/HuQY/BELec/ZILpu7w1vTQwby6x
+	 BhLQ2izwzgWau4s3cRUtLw+eV2Yh5JaFK4aYla23PJPMNd8yCgWNhsihAMdTtazrq/nIQ
+	 MitGQLT6SWKpYO77q3QcCLzE+AsEiUsUbYPfhe0q0jJmH1iY65+BIzTwWY0BmuDN0zC1v
+	 LKX0hjGAW6TycQkfkct9LAQKnPaWuCPnXwutjcMwrRrcaGqWiOQImINBendCvefcxCQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794426037;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer;
-	bh=hDdzGyyUm8Hc15zcIjN0Non0VUWJmRzS3/4uJqPKrXo=;
-	b=csGNXHgraOTiP+4e4ghp5YlvvUVGBaIdNzzUHN9NJeF/8FE7edFUsVyoMm2ASTAl+p+h
-	 j+p8T8XL/w3RtCEarCT8AbJuD/I1bHSoKEpb6aQ2B94CDQC2986fyFa6W49JVh4JBFA3n
-	 htQ5H7Wv56dpQjuuSRQgNM7d441o2wwWqJndv/VaOHDy02nizrZXWAOiqsZU8n55sJO8u
-	 brm7wELKsDIIqm/FRxLNx+jScs4vIHpoS8av/eiR7MAlEkFTHrNpTIaEvYSj3w4D490sS
-	 icRVYDD9ZwJwIWV5X7NMRGwvngzuG9FGC6gQPH+2HMN1PRQI6G3Nj8nvarfB13KQfYA==
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=QlMNLrjFCKMvbIv5BxgSsbHdwfPDXIwUE7VZtJM3UGU=;
+	b=yxdS9ZxC6ymgvpDBNpGlJVKl3AMNKUmdopeyOZH/QHwRbGCz7CSSb9W+6wvT5+OA9l1v
+	 Os3Cru6ChZTnjzEURRXHPMHk1Zb7pxpHPRl1tWf9MTxTB4ZbfI7jXQfsjPiuwJs6J/mph
+	 z/hE6RRD8VJ7ZXfNB5ERp9RDyDxgpUgIDuHe+jS5jWdxbVvghpwDvFdHgAu2URQLt+XVW
+	 kaZgi633ixpFL2C9hCN1Utxoymfh9U4C+jKGYP5yhgfaprIPllNm5j8nJOPg71KxW7keW
+	 Bpz8ZNhETOSkvU/SIUDAMX/18wCk8YAd96YDA+vjO3wsqjyfIIyhXVYDssJGPkKBSNQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iLDqJjZj;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Xgh/iYq3";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5705260A6F47;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61DB860A6F48;
 	Wed, 11 Nov 2026 19:40:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iLDqJjZj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBBDB1F00A07;
-	Wed, 11 Nov 2026 19:40:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Xgh/iYq3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D89F1F00A0E;
+	Wed, 11 Nov 2026 19:40:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1794426037;
-	bh=hDdzGyyUm8Hc15zcIjN0Non0VUWJmRzS3/4uJqPKrXo=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=iLDqJjZjyhX5HyCtluNW82kEvHx0OhEkl9ImfgZJk3PsMkBXxmJiZW1wErryldws2
-	 4DG/91DMYsVCLuVMJK9xhtXrlQUI2a4ErOB7nd3KBJmGOcOd0BMZp3PetRlYwlhjNZ
-	 0LzDBiUUHTL4nKFS/s9Gkm2i5wPhIXOnDHWTjTqsUEQhwdmHhHV84fql+aJQa10rx6
-	 B29ShsLEukuXxcvJPKNN11MOfs+dnJitQp+5ZGGAyb1jtoIbvO5sZ8gA2JP63RaVdQ
-	 2/pftyhYVmipWR08GuhUsqMeJEGDVfRf2rqKrvyDPj1CYfGmCosOz/rq7w2eK1+pQ0
-	 24b40AYtQTZNw==
-From: "Rob Herring (Arm)" <robh@kernel.org>
-Date: Wed, 11 Nov 2026 13:40:18 -0600
-Subject: [PATCH 08/12] arm64: dts: hisilicon: Move non-MMIO nodes out of
- simple-bus nodes
+	bh=QlMNLrjFCKMvbIv5BxgSsbHdwfPDXIwUE7VZtJM3UGU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Xgh/iYq3vd67L6NTqm8caRRgqD3doSELAM90BwjbiVe2TuOfg5HU/nGnVnxM5ZViT
+	 xKFD0jmWf9ybwTYZReajidXaZZDdSRcocRYyTsFQaP+J1fTlYvExJ2byegLxqTg3Ob
+	 B+oiXrUeResJs9rVN/oF5nd17NJiD/wjpWH1qYpB6sgmWHtdr2ke7nHMRda46oPHPQ
+	 9kD3l9BYsuA8DIGTKGDv5q1jvOfzpsbdZVPPa5txyY/Q4DaN5TDhfIaSJbiLYAo6Rm
+	 Fb2PKqEN/CWk12hkxW8BDE0VwyAzozMeIqXzxgaEYJNEamhYXt3XiipU7S9ZQAyGbh
+	 ZlqWr9sTlgtXQ==
+Message-ID: <95682ddd-d200-4827-a009-77ee59d14f86@kernel.org>
+Date: Wed, 11 Nov 2026 20:40:17 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,673 +51,128 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 04/13] mm/migrate_device: allocate THP deferred split
+ heads
+To: Kiryl Shutsemau <kas@kernel.org>, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: "Liam R. Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ David Rientjes <rientjes@google.com>, Shakeel Butt <shakeel.butt@linux.dev>,
+ Andrew Morton <akpm@linux-foundation.org>, Jann Horn <jannh@google.com>,
+ Pedro Falcato <pfalcato@suse.de>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Nhat Pham <nphamcs@gmail.com>, Johannes Weiner <hannes@cmpxchg.org>,
+ Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>,
+ Gregory Price <gourry@gourry.net>, Ying Huang
+ <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
+ Usama Arif <usama.arif@linux.dev>, Kairui Song <kasong@tencent.com>,
+ Balbir Singh <balbirs@nvidia.com>, =?UTF-8?B?SsOpcsO0bWUgR2xpc3Nl?=
+ <jglisse@redhat.com>, Yu-cheng Yu <yu-cheng.yu@intel.com>,
+ Dave Hansen <dave.hansen@linux.intel.com>, Dennis Zhou <dennis@kernel.org>,
+ Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>,
+ Peng Fan <peng.fan@nxp.com>, Josef Bacik <jbacik@fb.com>,
+ Chris Mason <mason@kernel.org>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ "Borislav Petkov (AMD)" <bp@alien8.de>, Mark Brown <broonie@kernel.org>,
+ "Dennis Zhou (Facebook)" <dennisszhou@gmail.com>,
+ Rick Edgecombe <rick.p.edgecombe@intel.com>,
+ Josef Bacik <josef@toxicpanda.com>, stable@vger.kernel.org
+References: <20261111-mason-migrate-et-al-fixes-v1-0-3d2454362e8d@kernel.org>
+ <20261111-mason-migrate-et-al-fixes-v1-4-3d2454362e8d@kernel.org>
+ <avTB6h61nXfvCXUS@thinkstation>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <avTB6h61nXfvCXUS@thinkstation>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261111-dtbs-hisi-v1-8-6c9f5f80716c@kernel.org>
-References: <20261111-dtbs-hisi-v1-0-6c9f5f80716c@kernel.org>
-In-Reply-To: <20261111-dtbs-hisi-v1-0-6c9f5f80716c@kernel.org>
-To: Lee Jones <lee@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Guodong Xu <guodong.xu@linux.dev>, 
- Wei Xu <xuwei5@hisilicon.com>
-Cc: mfd@lists.linux.dev, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-X-Mailer: b4 0.16-dev
 
-Move non-MMIO provider nodes out of the soc simple-bus nodes.
-This includes HiKey GPIO range helpers, Hi3660 and Hi3670
-reset controllers, Hi3660 and Hi6220 thermal zones, Hi6220
-stub clock and USB PHY providers, and static CoreSight funnel
-and replicator graph helpers.
+On 11/11/26 20:30, Kiryl Shutsemau wrote:
+> On Wed, Nov 11, 2026 at 06:13:18PM +0000, Lorenzo Stoakes (ARM) wrote:
+>> From: Josef Bacik <josef@toxicpanda.com>
+>>
+>> A THP that device migration maps into an empty PMD can end up on the wrong
+>> deferred split list when it is later queued for a deferred split.
+>>
+>> This occurs if the memcg has no heads yet (resulting in a warning if
+>> CONFIG_DEBUG_VM is set), where deferred_split_folio() will then queue the
+>> folio on the parent's list.
+>>
+>> Once a later THP fault in the same memcg allocates the heads,
+>> __folio_unqueue_deferred_split() and the split path resolve folio_memcg()
+>> to the memcg's own, now existing, list and take its lock.  They then
+>> list_del_init() a folio that is linked on the parent's list, racing with
+>> anything holding the parent's lock, and both lists' nr_items counts go
+>> wrong.
+>>
+>> Resolve the issue by calling folio_memcg_alloc_deferred() after the charge
+>> in migrate_vma_insert_huge_pmd_page() and falling back like a failed charge
+>> if that fails, as __do_huge_pmd_anonymous_page() does.
+>>
+>> This was originally discovered by code inspection.
+>>
+>> Fixes: fafaeceb89a5 ("mm: switch deferred split shrinker to list_lru")
+>> Cc: <stable@vger.kernel.org>
+>> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+>> [ ljs: tweak commit message, remove unnecessary comment ]
+>> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> 
+> mm-new already has this: "mm/migrate_device: allocate deferred split
+> sublists for new huge folios", same Fixes: tag.
+> 
+> Hm?
 
-These nodes do not have register ranges of their own, so they
-don't belong under an MMIO "simple-bus".
+I assume that's one from Andrew that he created after a security report (where I
+was CCed and the reporter didn't follow up), but he never sent it out officially.
 
-Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
----
- .../arm64/boot/dts/hisilicon/hi3660-coresight.dtsi | 138 ++++++++++-----------
- arch/arm64/boot/dts/hisilicon/hi3660.dtsi          | 117 ++++++++---------
- arch/arm64/boot/dts/hisilicon/hi3670.dtsi          |  26 ++--
- .../arm64/boot/dts/hisilicon/hi6220-coresight.dtsi |  69 +++++------
- arch/arm64/boot/dts/hisilicon/hi6220.dtsi          | 110 ++++++++--------
- .../arm64/boot/dts/hisilicon/hikey960-pinctrl.dtsi |  10 +-
- .../arm64/boot/dts/hisilicon/hikey970-pinctrl.dtsi |   8 +-
- 7 files changed, 236 insertions(+), 242 deletions(-)
-
-diff --git a/arch/arm64/boot/dts/hisilicon/hi3660-coresight.dtsi b/arch/arm64/boot/dts/hisilicon/hi3660-coresight.dtsi
-index 4c6a075908d1..7862a03c3094 100644
---- a/arch/arm64/boot/dts/hisilicon/hi3660-coresight.dtsi
-+++ b/arch/arm64/boot/dts/hisilicon/hi3660-coresight.dtsi
-@@ -9,6 +9,73 @@
-  *
-  */
- / {
-+	/* An invisible combo funnel between clusters and top funnel */
-+	funnel {
-+		compatible = "arm,coresight-static-funnel";
-+		clocks = <&crg_ctrl HI3660_PCLK>;
-+		clock-names = "apb_pclk";
-+
-+		out-ports {
-+			port {
-+				combo_funnel_out: endpoint {
-+					remote-endpoint = <&top_funnel_in>;
-+				};
-+			};
-+		};
-+
-+		in-ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			port@0 {
-+				reg = <0>;
-+				combo_funnel_in0: endpoint {
-+					remote-endpoint = <&cluster0_etf_out>;
-+				};
-+			};
-+
-+			port@1 {
-+				reg = <1>;
-+				combo_funnel_in1: endpoint {
-+					remote-endpoint = <&cluster1_etf_out>;
-+				};
-+			};
-+		};
-+	};
-+
-+	replicator {
-+		compatible = "arm,coresight-static-replicator";
-+		clocks = <&crg_ctrl HI3660_PCLK>;
-+		clock-names = "apb_pclk";
-+
-+		in-ports {
-+			port {
-+				replicator_in: endpoint {
-+					remote-endpoint = <&top_etf_out>;
-+				};
-+			};
-+		};
-+
-+		out-ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			port@0 {
-+				reg = <0>;
-+				replicator0_out0: endpoint {
-+					remote-endpoint = <&etr_in>;
-+				};
-+			};
-+
-+			port@1 {
-+				reg = <1>;
-+				replicator0_out1: endpoint {
-+					remote-endpoint = <&tpiu_in>;
-+				};
-+			};
-+		};
-+	};
-+
- 	soc {
- 		/* A53 cluster internals */
- 		etm@ecc40000 {
-@@ -303,43 +370,6 @@ cluster1_etf_out: endpoint {
- 			};
- 		};
- 
--		/* An invisible combo funnel between clusters and top funnel */
--		funnel {
--			compatible = "arm,coresight-static-funnel";
--			clocks = <&crg_ctrl HI3660_PCLK>;
--			clock-names = "apb_pclk";
--
--			out-ports {
--				port {
--					combo_funnel_out: endpoint {
--						remote-endpoint =
--							<&top_funnel_in>;
--					};
--				};
--			};
--
--			in-ports {
--				#address-cells = <1>;
--				#size-cells = <0>;
--
--				port@0 {
--					reg = <0>;
--					combo_funnel_in0: endpoint {
--						remote-endpoint =
--							<&cluster0_etf_out>;
--					};
--				};
--
--				port@1 {
--					reg = <1>;
--					combo_funnel_in1: endpoint {
--						remote-endpoint =
--							<&cluster1_etf_out>;
--					};
--				};
--			};
--		};
--
- 		/* Top internals */
- 		funnel@ec031000 {
- 			compatible = "arm,coresight-dynamic-funnel", "arm,primecell";
-@@ -395,40 +425,6 @@ top_etf_out: endpoint {
- 			};
- 		};
- 
--		replicator {
--			compatible = "arm,coresight-static-replicator";
--			clocks = <&crg_ctrl HI3660_PCLK>;
--			clock-names = "apb_pclk";
--
--			in-ports {
--				port {
--					replicator_in: endpoint {
--						remote-endpoint =
--							<&top_etf_out>;
--					};
--				};
--			};
--
--			out-ports {
--				#address-cells = <1>;
--				#size-cells = <0>;
--
--				port@0 {
--					reg = <0>;
--					replicator0_out0: endpoint {
--						remote-endpoint = <&etr_in>;
--					};
--				};
--
--				port@1 {
--					reg = <1>;
--					replicator0_out1: endpoint {
--						remote-endpoint = <&tpiu_in>;
--					};
--				};
--			};
--		};
--
- 		etr@ec033000 {
- 			compatible = "arm,coresight-tmc", "arm,primecell";
- 			reg = <0 0xec033000 0 0x1000>;
-diff --git a/arch/arm64/boot/dts/hisilicon/hi3660.dtsi b/arch/arm64/boot/dts/hisilicon/hi3660.dtsi
-index 374aa173bec6..9f0b5d5b97cb 100644
---- a/arch/arm64/boot/dts/hisilicon/hi3660.dtsi
-+++ b/arch/arm64/boot/dts/hisilicon/hi3660.dtsi
-@@ -334,6 +334,65 @@ IRQ_TYPE_LEVEL_LOW)>,
- 					  IRQ_TYPE_LEVEL_LOW)>;
- 	};
- 
-+	crg_rst: crg_rst_controller {
-+		compatible = "hisilicon,hi3660-reset";
-+		#reset-cells = <2>;
-+		hisi,rst-syscon = <&crg_ctrl>;
-+	};
-+
-+	iomcu_rst: reset {
-+		compatible = "hisilicon,hi3660-reset";
-+		hisi,rst-syscon = <&iomcu>;
-+		#reset-cells = <2>;
-+	};
-+
-+	thermal-zones {
-+		cls0: cls0-thermal {
-+			polling-delay = <1000>;
-+			polling-delay-passive = <100>;
-+			sustainable-power = <4500>;
-+
-+			/* sensor ID */
-+			thermal-sensors = <&tsensor 1>;
-+
-+			trips {
-+				threshold: trip-point0 {
-+					temperature = <65000>;
-+					hysteresis = <1000>;
-+					type = "passive";
-+				};
-+
-+				target: trip-point1 {
-+					temperature = <75000>;
-+					hysteresis = <1000>;
-+					type = "passive";
-+				};
-+			};
-+
-+			cooling-maps {
-+				map0 {
-+					trip = <&target>;
-+					contribution = <1024>;
-+					cooling-device =
-+						<&cpu0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+						<&cpu1 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+						<&cpu2 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+						<&cpu3 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-+				};
-+
-+				map1 {
-+					trip = <&target>;
-+					contribution = <512>;
-+					cooling-device =
-+						<&cpu4 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+						<&cpu5 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+						<&cpu6 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+						<&cpu7 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-+				};
-+			};
-+		};
-+	};
-+
- 	soc {
- 		compatible = "simple-bus";
- 		#address-cells = <2>;
-@@ -346,13 +405,6 @@ crg_ctrl: crg_ctrl@fff35000 {
- 			#clock-cells = <1>;
- 		};
- 
--		crg_rst: crg_rst_controller {
--			compatible = "hisilicon,hi3660-reset";
--			#reset-cells = <2>;
--			hisi,rst-syscon = <&crg_ctrl>;
--		};
--
--
- 		pctrl: pctrl@e8a09000 {
- 			compatible = "hisilicon,hi3660-pctrl", "syscon";
- 			reg = <0x0 0xe8a09000 0x0 0x2000>;
-@@ -378,12 +430,6 @@ iomcu: iomcu@ffd7e000 {
- 
- 		};
- 
--		iomcu_rst: reset {
--			compatible = "hisilicon,hi3660-reset";
--			hisi,rst-syscon = <&iomcu>;
--			#reset-cells = <2>;
--		};
--
- 		mailbox: mailbox@e896b000 {
- 			compatible = "hisilicon,hi3660-mbox";
- 			reg = <0x0 0xe896b000 0x0 0x1000>;
-@@ -1115,51 +1161,6 @@ tsensor: tsensor@fff30000 {
- 			#thermal-sensor-cells = <1>;
- 		};
- 
--		thermal-zones {
--
--			cls0: cls0-thermal {
--				polling-delay = <1000>;
--				polling-delay-passive = <100>;
--				sustainable-power = <4500>;
--
--				/* sensor ID */
--				thermal-sensors = <&tsensor 1>;
--
--				trips {
--					threshold: trip-point0 {
--						temperature = <65000>;
--						hysteresis = <1000>;
--						type = "passive";
--					};
--
--					target: trip-point1 {
--						temperature = <75000>;
--						hysteresis = <1000>;
--						type = "passive";
--					};
--				};
--
--				cooling-maps {
--					map0 {
--						trip = <&target>;
--						contribution = <1024>;
--						cooling-device = <&cpu0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
--								 <&cpu1 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
--								 <&cpu2 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
--								 <&cpu3 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
--					};
--					map1 {
--						trip = <&target>;
--						contribution = <512>;
--						cooling-device = <&cpu4 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
--								 <&cpu5 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
--								 <&cpu6 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
--								 <&cpu7 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
--					};
--				};
--			};
--		};
--
- 		usb3_otg_bc: usb3_otg_bc@ff200000 {
- 			compatible = "hisilicon,hi3660-usb3-otg-bc", "syscon", "simple-mfd";
- 			reg = <0x0 0xff200000 0x0 0x1000>;
-diff --git a/arch/arm64/boot/dts/hisilicon/hi3670.dtsi b/arch/arm64/boot/dts/hisilicon/hi3670.dtsi
-index 0db1849a2878..835b6a620548 100644
---- a/arch/arm64/boot/dts/hisilicon/hi3670.dtsi
-+++ b/arch/arm64/boot/dts/hisilicon/hi3670.dtsi
-@@ -139,6 +139,19 @@ IRQ_TYPE_LEVEL_LOW)>,
- 		clock-frequency = <1920000>;
- 	};
- 
-+	crg_rst: crg_rst_controller {
-+		compatible = "hisilicon,hi3670-reset",
-+			     "hisilicon,hi3660-reset";
-+		#reset-cells = <2>;
-+		hisi,rst-syscon = <&crg_ctrl>;
-+	};
-+
-+	iomcu_rst: reset {
-+		compatible = "hisilicon,hi3660-reset";
-+		hisi,rst-syscon = <&iomcu>;
-+		#reset-cells = <2>;
-+	};
-+
- 	soc {
- 		compatible = "simple-bus";
- 		#address-cells = <2>;
-@@ -151,13 +164,6 @@ crg_ctrl: crg_ctrl@fff35000 {
- 			#clock-cells = <1>;
- 		};
- 
--		crg_rst: crg_rst_controller {
--			compatible = "hisilicon,hi3670-reset",
--				     "hisilicon,hi3660-reset";
--			#reset-cells = <2>;
--			hisi,rst-syscon = <&crg_ctrl>;
--		};
--
- 		pctrl: pctrl@e8a09000 {
- 			compatible = "hisilicon,hi3670-pctrl", "syscon";
- 			reg = <0x0 0xe8a09000 0x0 0x1000>;
-@@ -194,12 +200,6 @@ media2_crg: media2_crgctrl@e8900000 {
- 			#clock-cells = <1>;
- 		};
- 
--		iomcu_rst: reset {
--			compatible = "hisilicon,hi3660-reset";
--			hisi,rst-syscon = <&iomcu>;
--			#reset-cells = <2>;
--		};
--
- 		uart0: serial@fdf02000 {
- 			compatible = "arm,pl011", "arm,primecell";
- 			reg = <0x0 0xfdf02000 0x0 0x1000>;
-diff --git a/arch/arm64/boot/dts/hisilicon/hi6220-coresight.dtsi b/arch/arm64/boot/dts/hisilicon/hi6220-coresight.dtsi
-index 3f387f4cf5e0..7d540cb040d3 100644
---- a/arch/arm64/boot/dts/hisilicon/hi6220-coresight.dtsi
-+++ b/arch/arm64/boot/dts/hisilicon/hi6220-coresight.dtsi
-@@ -9,6 +9,39 @@
-  */
- 
- / {
-+	replicator {
-+		compatible = "arm,coresight-static-replicator";
-+		clocks = <&acpu_sctrl HI6220_ACPU_SFT_AT_S>;
-+		clock-names = "apb_pclk";
-+
-+		in-ports {
-+			port {
-+				replicator_in: endpoint {
-+					remote-endpoint = <&etf_out>;
-+				};
-+			};
-+		};
-+
-+		out-ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			port@0 {
-+				reg = <0>;
-+				replicator_out0: endpoint {
-+					remote-endpoint = <&etr_in>;
-+				};
-+			};
-+
-+			port@1 {
-+				reg = <1>;
-+				replicator_out1: endpoint {
-+					remote-endpoint = <&tpiu_in>;
-+				};
-+			};
-+		};
-+	};
-+
- 	soc {
- 		funnel@f6401000 {
- 			compatible = "arm,coresight-dynamic-funnel", "arm,primecell";
-@@ -60,42 +93,6 @@ etf_out: endpoint {
- 			};
- 		};
- 
--		replicator {
--			compatible = "arm,coresight-static-replicator";
--			clocks = <&acpu_sctrl HI6220_ACPU_SFT_AT_S>;
--			clock-names = "apb_pclk";
--
--			in-ports {
--				port {
--					replicator_in: endpoint {
--						remote-endpoint =
--							<&etf_out>;
--					};
--				};
--			};
--
--			out-ports {
--				#address-cells = <1>;
--				#size-cells = <0>;
--
--				port@0 {
--					reg = <0>;
--					replicator_out0: endpoint {
--						remote-endpoint =
--							<&etr_in>;
--					};
--				};
--
--				port@1 {
--					reg = <1>;
--					replicator_out1: endpoint {
--						remote-endpoint =
--							<&tpiu_in>;
--					};
--				};
--			};
--		};
--
- 		etr@f6404000 {
- 			compatible = "arm,coresight-tmc", "arm,primecell";
- 			reg = <0 0xf6404000 0 0x1000>;
-diff --git a/arch/arm64/boot/dts/hisilicon/hi6220.dtsi b/arch/arm64/boot/dts/hisilicon/hi6220.dtsi
-index 21eb268b5731..8bb74b4274a9 100644
---- a/arch/arm64/boot/dts/hisilicon/hi6220.dtsi
-+++ b/arch/arm64/boot/dts/hisilicon/hi6220.dtsi
-@@ -249,6 +249,61 @@ timer {
- 			     <GIC_PPI 10 (GIC_CPU_MASK_SIMPLE(8) | IRQ_TYPE_LEVEL_LOW)>;
- 	};
- 
-+	stub_clock: stub_clock {
-+		compatible = "hisilicon,hi6220-stub-clk";
-+		hisilicon,hi6220-clk-sram = <&sram>;
-+		#clock-cells = <1>;
-+		mbox-names = "mbox-tx";
-+		mboxes = <&mailbox 1 0 11>;
-+	};
-+
-+	usb_phy: usbphy {
-+		compatible = "hisilicon,hi6220-usb-phy";
-+		#phy-cells = <0>;
-+		phy-supply = <&reg_5v_hub>;
-+		hisilicon,peripheral-syscon = <&sys_ctrl>;
-+	};
-+
-+	thermal-zones {
-+		cls0: cls0-thermal {
-+			polling-delay = <1000>;
-+			polling-delay-passive = <100>;
-+			sustainable-power = <3326>;
-+
-+			/* sensor ID */
-+			thermal-sensors = <&tsensor 2>;
-+
-+			trips {
-+				threshold: trip-point0 {
-+					temperature = <65000>;
-+					hysteresis = <0>;
-+					type = "passive";
-+				};
-+
-+				target: trip-point1 {
-+					temperature = <75000>;
-+					hysteresis = <0>;
-+					type = "passive";
-+				};
-+			};
-+
-+			cooling-maps {
-+				map0 {
-+					trip = <&target>;
-+					cooling-device =
-+						<&cpu0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+						<&cpu1 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+						<&cpu2 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+						<&cpu3 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+						<&cpu4 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+						<&cpu5 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+						<&cpu6 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+						<&cpu7 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-+				};
-+			};
-+		};
-+	};
-+
- 	soc {
- 		compatible = "simple-bus";
- 		#address-cells = <2>;
-@@ -298,14 +353,6 @@ medianoc_ade: medianoc_ade@f4520000 {
- 			reg = <0x0 0xf4520000 0x0 0x4000>;
- 		};
- 
--		stub_clock: stub_clock {
--			compatible = "hisilicon,hi6220-stub-clk";
--			hisilicon,hi6220-clk-sram = <&sram>;
--			#clock-cells = <1>;
--			mbox-names = "mbox-tx";
--			mboxes = <&mailbox 1 0 11>;
--		};
--
- 		uart0: serial@f8015000 {	/* console */
- 			compatible = "arm,pl011", "arm,primecell";
- 			reg = <0x0 0xf8015000 0x0 0x1000>;
-@@ -769,13 +816,6 @@ i2c2: i2c@f7102000 {
- 			status = "disabled";
- 		};
- 
--		usb_phy: usbphy {
--			compatible = "hisilicon,hi6220-usb-phy";
--			#phy-cells = <0>;
--			phy-supply = <&reg_5v_hub>;
--			hisilicon,peripheral-syscon = <&sys_ctrl>;
--		};
--
- 		usb: usb@f72c0000 {
- 			compatible = "hisilicon,hi6220-usb";
- 			reg = <0x0 0xf72c0000 0x0 0x40000>;
-@@ -872,46 +912,6 @@ i2s0: i2s@f7118000 {
- 			#sound-dai-cells = <1>;
- 		};
- 
--		thermal-zones {
--
--			cls0: cls0-thermal {
--				polling-delay = <1000>;
--				polling-delay-passive = <100>;
--				sustainable-power = <3326>;
--
--				/* sensor ID */
--				thermal-sensors = <&tsensor 2>;
--
--				trips {
--					threshold: trip-point0 {
--						temperature = <65000>;
--						hysteresis = <0>;
--						type = "passive";
--					};
--
--					target: trip-point1 {
--						temperature = <75000>;
--						hysteresis = <0>;
--						type = "passive";
--					};
--				};
--
--				cooling-maps {
--					map0 {
--						trip = <&target>;
--						cooling-device = <&cpu0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
--								 <&cpu1 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
--								 <&cpu2 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
--								 <&cpu3 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
--								 <&cpu4 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
--								 <&cpu5 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
--								 <&cpu6 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
--								 <&cpu7 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
--					};
--				};
--			};
--		};
--
- 		ade: ade@f4100000 {
- 			compatible = "hisilicon,hi6220-ade";
- 			reg = <0x0 0xf4100000 0x0 0x7800>;
-diff --git a/arch/arm64/boot/dts/hisilicon/hikey960-pinctrl.dtsi b/arch/arm64/boot/dts/hisilicon/hikey960-pinctrl.dtsi
-index b801a48041f9..dd1426c4eada 100644
---- a/arch/arm64/boot/dts/hisilicon/hikey960-pinctrl.dtsi
-+++ b/arch/arm64/boot/dts/hisilicon/hikey960-pinctrl.dtsi
-@@ -7,12 +7,12 @@
- #include <dt-bindings/pinctrl/hisi.h>
- 
- / {
--	soc {
--		/* [IOMG_000, IOMG_123] */
--		range: gpio-range {
--			#pinctrl-single,gpio-range-cells = <3>;
--		};
-+	/* [IOMG_000, IOMG_123] */
-+	range: gpio-range {
-+		#pinctrl-single,gpio-range-cells = <3>;
-+	};
- 
-+	soc {
- 		pmx0: pinmux@e896c000 {
- 			compatible = "pinctrl-single";
- 			reg = <0x0 0xe896c000 0x0 0x1f0>;
-diff --git a/arch/arm64/boot/dts/hisilicon/hikey970-pinctrl.dtsi b/arch/arm64/boot/dts/hisilicon/hikey970-pinctrl.dtsi
-index 8f7bf80e6ece..cd924a091214 100644
---- a/arch/arm64/boot/dts/hisilicon/hikey970-pinctrl.dtsi
-+++ b/arch/arm64/boot/dts/hisilicon/hikey970-pinctrl.dtsi
-@@ -6,11 +6,11 @@
- #include <dt-bindings/pinctrl/hisi.h>
- 
- / {
--	soc {
--		range: gpio-range {
--			#pinctrl-single,gpio-range-cells = <3>;
--		};
-+	range: gpio-range {
-+		#pinctrl-single,gpio-range-cells = <3>;
-+	};
- 
-+	soc {
- 		pmx0: pinmux@e896c000 {
- 			compatible = "pinctrl-single";
- 			reg = <0x0 0xe896c000 0x0 0x72c>;
+So let's review this one here. It's supposed to go through my tree either way :)
 
 -- 
-2.53.0
+Cheers,
 
+David
