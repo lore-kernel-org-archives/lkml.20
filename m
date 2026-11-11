@@ -1,47 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794399413;
-	b=Suhl+ugXOvcmMcuzDEv7kJCP9wiJQ1zvsnptV9s6xSatN/u3XtqR0HsP1zscLwC8kpnz
-	 Fz5wJbkmldSTpHYv17vN30Qoh9KSofJ8+fm5atpuIzxO4xaSUFM9M3uTE0G/faIv5QQ65
-	 F1rPssg94pR7i31/OyCoKTHAlE/2SAjIFaFKv0+yTrmhigz1I5cuSc1jv0qt6izADRqX4
-	 QBBEDW8InQP1ch6zTvvYEQe7J9HwCUGSwN/Qqrn4NBvFkkGBQCbXU2vYZ/8HVJIL8Kwn/
-	 Wp8DaIeIADZ+aDOP09J7czzuDflMVqzQJOysdmQi7B+0SxCr1Vvw2N2NeHyuxxWWThQ==
+	t=1794399427;
+	b=yTVgDT8tPC+5CBTrXttUDccMAHho9lhXvR532M3ixXPxIJueaiz9/8pL4n2BNMdTzEOR
+	 zc5kLvVFXUJEOXeX8q2R3rSw+1k81NfmbIvcRHu1uRtYZB+qOoyc2DgzM818aeA1m2EGl
+	 QzJsB9LPZ0P7Y3b3PPub+s2ecQiQWkBQHrbuZVLXsO5woGbRACBwheD6+Y7OySmR3TQ0o
+	 o0hgyRQXGH2FfLgtBX8aariRlLCi3r7xnE69JsQEllORhlXUKLKRb6W90BdIOn4WDdVBT
+	 EcxiB17NbfEu7zYDLRXRf2s4MJ1scWpdPBJpxu8hpoQ8dkhoQWdtJ+u3kf2xlwIJQ5Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794399413;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:From:
-	 Subject:To:Cc:References:Content-Language:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=toXYVHFsQoupESzefAh9im258cK3fvprVw5/ZiZgXO8=;
-	b=BIIKkMlPFVnyEjNiztqo4WKSC0U3+Qzne3G3+T1sqDMn485/ovIycaxFurBqcLH4+WOV
-	 ZFckJS9TYDPGpEs53ZDus9eJEy+s5qzClBeE/EZQiemuT3s2eFXdDvZ+vdjZ/uwZ5ta8B
-	 EmD9LdhUn2ZRXxeHnjHNBDEZdo5hzmgsQzvGuGv4i7Mb7LUQbOn2CYkG7n4njJPogJZ45
-	 5pMeojDQvsBbdQHADB0vn3Lph4Mki6lox+Pi3URe25rErLHyO8jKJ8aMw8c3T9w0K9tuj
-	 3iTVpD6o73LZULhUNGWa5NtZdB9GmQ50TORbsxinBPZ5947y/S2W6zETsR4lHk9EVLQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794399427;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=0OUhnsXuNnApLOqX+snDYVrViIC+Bne8/zuEptDdEfE=;
+	b=S4al/RPo91zoZpYLuxBWuUR+LB3uM7flma8fUBkUXYKmTS2Zh/g8CyOLJB/1jWgt+z0E
+	 HeCjD7cXzPd6F0vba0l/pP4DV5wTMDRnQ/UlyTzK7oNez99C1PQ1c3qw56mPUW/LLuA3X
+	 tbraQZ4fvtKmcaVV+MIDkywTeJDB/3twjwknumonfmm39pbMRRu7U05TR94hzPIowUS2a
+	 7mYXR1TEy0fOZkAEX2kIBBPcUj3hlfybyPG7qGdQUi+oQSPFfFBsg/JzLgOSrQXnMEvIN
+	 Z4dxLQQDINH9VTqnldHxiCtRXHA9YXBkLW+jncIPf1QQ6LFJyW2On9GWAzjXTwl1DhQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="TwV/YYxH";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bSv64gGd;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C34DE606A33A;
-	Wed, 11 Nov 2026 12:16:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C084606A33F;
+	Wed, 11 Nov 2026 12:17:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TwV/YYxH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE3A01F00A05;
-	Wed, 11 Nov 2026 12:16:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bSv64gGd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6AB0B1F00A05;
+	Wed, 11 Nov 2026 12:17:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794399413;
-	bh=toXYVHFsQoupESzefAh9im258cK3fvprVw5/ZiZgXO8=;
-	h=Date:From:Subject:To:Cc:References:In-Reply-To;
-	b=TwV/YYxHKlZAZX7Z+iiidNB1r4Azhihbl0hzccPDuKfv4g0OY4hYYluenVdrPLqMD
-	 JUtObW/2UuQf0bUL6HN4CuhOuXYN5JC5LpGePcco5FxQ0TKRMe26WaMY4PNk+e5rHg
-	 3EMpbmhG1hcG8/Fus4Y1I/C4mFVRvqYwlhL8/vA+tz3wZG2Yd8w1q/GdEx3acRiwTr
-	 SLhOLcSVUKdVWX5skLUpXeZpGd5kis3GgRHdc4S1/ngsQZR/Ohj0we1wZYUPDxKJFJ
-	 F+OV5IL9bNUSbvvVcIeVn21EzE6j0iMXeH5zBdK213a4HONFF9eeVKnPm/vA0XWx44
-	 hD4zeu2qFs0pQ==
-Message-ID: <38706010-b949-4f70-b45c-6800f7fcf942@kernel.org>
-Date: Wed, 11 Nov 2026 13:16:38 +0100
+	s=k20260515; t=1794399427;
+	bh=0OUhnsXuNnApLOqX+snDYVrViIC+Bne8/zuEptDdEfE=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=bSv64gGdermjnKSMSrKhHyFIefH8xJhXzmx9VO5aKPyoAF8YTKbPV/4ghkJKnQH0L
+	 kNJfortLIxiO+rjv3FW8y/9H8rpqLw/774RK8BroqC3DB+fuX2Gt/2Mx9upaiby2bC
+	 VNULkksFqdl6NWpgccXAPJZYYWdCVaa1+N6Gpu0XOF/0dyYolNSJi+qEIJwi1t9+WJ
+	 Q2JgiDFsbDj1QA2zdsN1AGh/k/jWzI5J4p6RUbERoDG5hlOjGmkcQHGtBv5Q5mcHEZ
+	 3fQ+gkWeKBs/xgswJx/DC3nl+bH4QggqiGtCRx0vU+TObADWrU4zTMavtSw7yFEuvT
+	 uXth4zYG+CqnQ==
+Subject:
+ Re: [PATCH net] net/sched: release old template when replacing a chain
+From: netdev-bot+sashiko@kernel.org
+To: shawnq1@163.com
+Cc: jhs@mojatatu.com, jiri@resnulli.us, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Wed, 11 Nov 2026 12:17:05 +0000
+Message-ID: <179439942593.2199510.2721267685779477046@kernel.org>
+In-Reply-To: <20261109121448.2589374-1-shawnq1@163.com>
+References: <20261109121448.2589374-1-shawnq1@163.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,362 +63,216 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Hans Verkuil <hverkuil+cisco@kernel.org>
-Subject: Re: [PATCH 5/5] media: i2c: it6625: capture compressed and HBR audio,
- not just LPCM
-To: Hermes.wu@ite.com.tw, Mauro Carvalho Chehab <mchehab@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>, linux-sound@vger.kernel.org,
- linux-api@vger.kernel.org
-References: <20261103-upstream-it6625-alsa-i2s-v1-0-bb91e2879b01@ite.com.tw>
- <20261103-upstream-it6625-alsa-i2s-v1-5-bb91e2879b01@ite.com.tw>
-Content-Language: en-US, nl
-In-Reply-To: <20261103-upstream-it6625-alsa-i2s-v1-5-bb91e2879b01@ite.com.tw>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 03/11/2026 07:50, Hermes Wu via B4 Relay wrote:
-> From: Hermes Wu <Hermes.wu@ite.com.tw>
-> 
-> The capture DAI accepts only LPCM. The bridge also outputs compressed
-> IEC 61937 streams (AC-3, DTS, ...) and high bit rate (HBR) streams
-> (Dolby TrueHD/MAT, DTS-HD Master Audio) on the same I2S interface, but
-> these are rejected.
-> 
-> Add it6625_audio_xport(), which derives the I2S frame rate and slot
-> count from the stream's coding type and sampling rate. LPCM is
-> unchanged. A compressed stream is carried in 2 slots at its own
-> sampling rate, except at the HBR rates of 768 kHz and 705.6 kHz, where
-> one IEC 61937 stream is spread over 8 slots on 4 data lines at a quarter
-> of that rate. The bridge firmware also reports the HBR coding type for
-> some compressed streams at ordinary rates, such as 48 kHz DTS, so the
-> sampling rate, not the coding type, selects the layout. A compressed
-> stream at 768 kHz or 705.6 kHz is rejected when fewer than 4 data lines
-> are connected.
-> 
-> Use the derived rate and channel count in the eligibility check, the
-> startup constraints and the hw_params comparison. DSD is still
-> rejected. The driver does not parse the compressed data: userspace
-> receives the IEC 61937 words as they are.
-> 
-> Add a read-only "Audio Type" menu control, V4L2_CID_IT6625_AUDIO_TYPE,
-> so that userspace can tell LPCM, compressed, HBR and DSD streams apart
-> without parsing the audio InfoFrame, and document it.
-> 
-> Signed-off-by: Hermes Wu <Hermes.wu@ite.com.tw>
-> ---
->  .../userspace-api/media/drivers/it6625.rst         |  30 ++++++
->  drivers/media/i2c/it6625.c                         | 118 ++++++++++++++++++---
->  include/uapi/linux/it6625.h                        |  25 +++++
->  3 files changed, 157 insertions(+), 16 deletions(-)
-> 
-> diff --git a/Documentation/userspace-api/media/drivers/it6625.rst b/Documentation/userspace-api/media/drivers/it6625.rst
-> index efd970e8124979abffb6f9ba3ea1e1bc193820b3..1c4d319f88946ef79e0d847ba0f8adf5b2132210 100644
-> --- a/Documentation/userspace-api/media/drivers/it6625.rst
-> +++ b/Documentation/userspace-api/media/drivers/it6625.rst
-> @@ -16,3 +16,33 @@ them are read-only and describe the audio of the HDMI input.
->  ``V4L2_CID_IT6625_AUDIO_PRESENT (boolean)``
->  -------------------------------------------
->      Whether the bridge currently receives HDMI audio.
-> +
-> +``V4L2_CID_IT6625_AUDIO_TYPE (menu)``
-> +-------------------------------------
-> +    The coding type of the HDMI audio stream, as last read successfully from
-> +    the bridge. The value is kept when audio goes away or reading the audio
-> +    status fails, so it describes the current stream only while
-> +    ``V4L2_CID_IT6625_AUDIO_PRESENT`` is set and
-> +    ``V4L2_CID_IT6625_AUDIO_SAMPLING_RATE`` is not 0.
-> +
-> +.. flat-table::
-> +    :header-rows:  0
-> +    :stub-columns: 0
-> +    :widths:       1 4
-> +
-> +    * - ``V4L2_IT6625_AUDIO_TYPE_LPCM``
-> +      - Linear PCM.
-> +    * - ``V4L2_IT6625_AUDIO_TYPE_NLPCM``
-> +      - Compressed audio in IEC 61937 format.
-> +    * - ``V4L2_IT6625_AUDIO_TYPE_HBR``
-> +      - High bit rate compressed audio in IEC 61937 format. The bridge also
-> +        reports this type for some compressed streams at ordinary sampling
-> +        rates.
-> +    * - ``V4L2_IT6625_AUDIO_TYPE_DSD``
-> +      - One-bit audio. It cannot be captured.
+Thank you for your contribution! Sashiko AI review found 4 potential
+issue(s) to consider.
 
-This too should become a standard DV audio control.
+Critical: 0 · High: 1 · Medium: 2 · Low: 1
 
-Regards,
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-	Hans
+- [High] The patch adds a use-after-free race on chain->tmplt_priv.
+- [Medium] The patch treats a symptom.
+- [Medium] tc_chain_tmplt_add() creates and offloads the new template
+  (fl_tmplt_create() -> fl_hw_create_tmplt() sends…
+- [Low] The commit message reads like a bug-report email rather than a
+  kernel changelog.
 
-> +
-> +Compressed and high bit rate streams are captured as raw IEC 61937 data. The
-> +capture layout follows the sampling rate, not the coding type: at 768 kHz and
-> +705.6 kHz the stream is captured as 8 channels at a quarter of that rate,
-> +which needs 4 connected I2S data lines; at other rates it is captured as 2
-> +channels at the sampling rate.
-> diff --git a/drivers/media/i2c/it6625.c b/drivers/media/i2c/it6625.c
-> index f1bd42ad15eda1a2bd22dac00ba11a5b1c790e71..f9cd15dc24960cf2caf98576ecccd3f803dbfd86 100644
-> --- a/drivers/media/i2c/it6625.c
-> +++ b/drivers/media/i2c/it6625.c
-> @@ -101,6 +101,9 @@ MODULE_PARM_DESC(debug, "debug level (0-3)");
->  #define REG_HDMI_AUDIO_INFO3 0x6D
->  #define M_AUD_TYPE  GENMASK(1, 0)
->  #define AUD_TYPE_LPCM 0
-> +#define AUD_TYPE_NLPCM 1
-> +#define AUD_TYPE_HBR 2
-> +#define AUD_TYPE_DSD 3
->  #define B_AUD_MS  BIT(2)
->  #define B_AUD_3D  BIT(3)
->  
-> @@ -119,6 +122,9 @@ MODULE_PARM_DESC(debug, "debug level (0-3)");
->  #define IT6625_AUDIO_MAX_LANES 8
->  #define IT6625_AUDIO_MAX_CHANNELS 8
->  #define IT6625_AUDIO_MAX_RATE 192000
-> +/* HBR: one IEC 61937 stream spread over 4 lanes (8 slots) per frame */
-> +#define IT6625_AUDIO_HBR_LANES 4
-> +#define IT6625_AUDIO_HBR_CHANNELS 8
->  /* status re-check period while a capture stream is open */
->  #define IT6625_AUDIO_REFRESH_MS 200
->  /* re-checks after an event that left present audio without a valid rate */
-> @@ -322,6 +328,7 @@ struct it6625 {
->  	struct v4l2_ctrl *ctrl_5v_detect;
->  	struct v4l2_ctrl *ctrl_audio_sampling_rate;
->  	struct v4l2_ctrl *ctrl_audio_present;
-> +	struct v4l2_ctrl *ctrl_audio_type;
->  	struct v4l2_ctrl *ctrl_link_freq;
->  
->  	struct delayed_work hpd_delayed_work;
-> @@ -1069,6 +1076,9 @@ static int it6625_audio_update_ctrls(struct it6625 *it6625)
->  	if (!ret)
->  		ret = __v4l2_ctrl_s_ctrl(it6625->ctrl_audio_present,
->  					 info.present);
-> +	if (!ret)
-> +		ret = __v4l2_ctrl_s_ctrl(it6625->ctrl_audio_type,
-> +					 info.stream.type);
->  
->  	v4l2_ctrl_unlock(it6625->ctrl_audio_present);
->  
-> @@ -2124,6 +2134,25 @@ static const struct v4l2_ctrl_config it6625_ctrl_audio_present = {
->  	.flags = V4L2_CTRL_FLAG_READ_ONLY,
->  };
->  
-> +static const char * const it6625_audio_type_menu[] = {
-> +	[V4L2_IT6625_AUDIO_TYPE_LPCM] = "LPCM",
-> +	[V4L2_IT6625_AUDIO_TYPE_NLPCM] = "NLPCM",
-> +	[V4L2_IT6625_AUDIO_TYPE_HBR] = "HBR",
-> +	[V4L2_IT6625_AUDIO_TYPE_DSD] = "DSD",
-> +	NULL,
-> +};
-> +
-> +static const struct v4l2_ctrl_config it6625_ctrl_audio_type = {
-> +	.id = V4L2_CID_IT6625_AUDIO_TYPE,
-> +	.name = "Audio Type",
-> +	.type = V4L2_CTRL_TYPE_MENU,
-> +	.min = V4L2_IT6625_AUDIO_TYPE_LPCM,
-> +	.max = V4L2_IT6625_AUDIO_TYPE_DSD,
-> +	.def = V4L2_IT6625_AUDIO_TYPE_LPCM,
-> +	.qmenu = it6625_audio_type_menu,
-> +	.flags = V4L2_CTRL_FLAG_READ_ONLY,
-> +};
-> +
->  static int it6625_v4l2_init_controls(struct v4l2_subdev *sd)
->  {
->  	struct it6625 *it6625 = sd_to_6625(sd);
-> @@ -2131,7 +2160,7 @@ static int it6625_v4l2_init_controls(struct v4l2_subdev *sd)
->  	bool cphy_3trio = it6625->bus_type == V4L2_MBUS_CSI2_CPHY &&
->  			   it6625->csi_lanes == 3;
->  
-> -	v4l2_ctrl_handler_init(hdl, 4);
-> +	v4l2_ctrl_handler_init(hdl, 5);
->  
->  	it6625->ctrl_5v_detect =
->  		v4l2_ctrl_new_std(hdl, NULL, V4L2_CID_DV_RX_POWER_PRESENT,
-> @@ -2143,6 +2172,8 @@ static int it6625_v4l2_init_controls(struct v4l2_subdev *sd)
->  				     NULL);
->  	it6625->ctrl_audio_present =
->  		v4l2_ctrl_new_custom(hdl, &it6625_ctrl_audio_present, NULL);
-> +	it6625->ctrl_audio_type =
-> +		v4l2_ctrl_new_custom(hdl, &it6625_ctrl_audio_type, NULL);
->  	it6625->ctrl_link_freq =
->  		v4l2_ctrl_new_int_menu(hdl, NULL, V4L2_CID_LINK_FREQ, 0, 0,
->  				       cphy_3trio ? it6626_cphy_3trio_link_freq :
-> @@ -2186,26 +2217,74 @@ static unsigned int it6625_audio_max_channels(const struct it6625 *it6625)
->  	return min(2U * it6625->audio_lanes, IT6625_AUDIO_MAX_CHANNELS);
->  }
->  
-> +/*
-> + * I2S frame rate and slot count that carry this stream. Pure, callable in
-> + * atomic context; returns -ENODEV for a stream the I2S output can't carry.
-> + *
-> + * LPCM goes out as is. A compressed IEC 61937 stream at up to 192 kHz
-> + * takes 2 slots at its own sampling rate, whatever channel count the
-> + * source signals. An HBR stream (AUD_FS 768 or 705.6 kHz) is one IEC 61937
-> + * stream at 4x the frame rate spread over 4 lanes: 8 slots at a quarter of
-> + * that rate.
-> + *
-> + * The firmware doesn't keep AUD_TYPE to its documented meaning: it reports
-> + * HBR for a plain 48 kHz DTS stream too. So the rate, not NLPCM vs. HBR,
-> + * selects the layout of a compressed stream.
-> + */
-> +static int it6625_audio_xport(const struct it6625 *it6625,
-> +			      const struct it6625_audio_stream *s,
-> +			      u32 *rate, unsigned int *channels)
-> +{
-> +	u32 fs = it6625_audio_fs_to_rate(s->fs_code);
-> +
-> +	if (!fs)
-> +		return -ENODEV;
-> +
-> +	switch (s->type) {
-> +	case AUD_TYPE_LPCM:
-> +		*rate = fs;
-> +		*channels = s->channels;
-> +		break;
-> +	case AUD_TYPE_NLPCM:
-> +	case AUD_TYPE_HBR:
-> +		if (fs == 768000 || fs == 705600) {
-> +			*rate = fs / IT6625_AUDIO_HBR_LANES;
-> +			*channels = IT6625_AUDIO_HBR_CHANNELS;
-> +		} else {
-> +			*rate = fs;
-> +			*channels = 2;
-> +		}
-> +		break;
-> +	default:
-> +		return -ENODEV;
-> +	}
-> +
-> +	if (*rate > IT6625_AUDIO_MAX_RATE)
-> +		return -ENODEV;
-> +
-> +	if (*channels < 2 || *channels % 2 ||
-> +	    *channels > it6625_audio_max_channels(it6625))
-> +		return -ENODEV;
-> +
-> +	return 0;
-> +}
-> +
->  /* can this audio status be captured? Pure check, callable in atomic context. */
->  static int it6625_audio_check(const struct it6625 *it6625,
->  			      const struct it6625_audio_info *info)
->  {
->  	const struct it6625_audio_stream *s = &info->stream;
-> -	u32 rate = it6625_audio_fs_to_rate(s->fs_code);
-> +	unsigned int channels;
-> +	u32 rate;
->  
->  	if (!info->read_ok || !info->vid_stable || !info->present ||
->  	    info->avmute)
->  		return -ENODEV;
->  
-> -	if (s->out_if != AUD_OUT_IF_I2S || s->type != AUD_TYPE_LPCM ||
-> -	    s->multi_stream || s->is_3d)
-> -		return -ENODEV;
-> -
-> -	if (!rate || rate > IT6625_AUDIO_MAX_RATE)
-> +	if (s->out_if != AUD_OUT_IF_I2S || s->multi_stream || s->is_3d)
->  		return -ENODEV;
->  
-> -	if (s->channels < 2 || s->channels % 2 ||
-> -	    s->channels > it6625_audio_max_channels(it6625))
-> +	if (it6625_audio_xport(it6625, s, &rate, &channels))
->  		return -ENODEV;
->  
->  	if (!it6625_audio_wl_bits(s->i2s_wl))
-> @@ -2281,8 +2360,9 @@ static int it6625_dai_startup(struct snd_pcm_substream *substream,
->  	struct it6625 *it6625 = dai_to_6625(dai);
->  	struct snd_pcm_runtime *runtime = substream->runtime;
->  	struct it6625_audio_info info;
-> +	unsigned int channels;
->  	unsigned long flags;
-> -	u32 gen;
-> +	u32 gen, rate;
->  	int ret;
->  
->  	it6625_audio_refresh(it6625);
-> @@ -2298,13 +2378,16 @@ static int it6625_dai_startup(struct snd_pcm_substream *substream,
->  	if (ret)
->  		return ret;
->  
-> +	/* the check above passed, so this can't fail */
-> +	it6625_audio_xport(it6625, &info.stream, &rate, &channels);
-> +
->  	ret = snd_pcm_hw_constraint_single(runtime, SNDRV_PCM_HW_PARAM_RATE,
-> -					   it6625_audio_fs_to_rate(info.stream.fs_code));
-> +					   rate);
->  	if (ret < 0)
->  		return ret;
->  
->  	ret = snd_pcm_hw_constraint_single(runtime, SNDRV_PCM_HW_PARAM_CHANNELS,
-> -					   info.stream.channels);
-> +					   channels);
->  	if (ret < 0)
->  		return ret;
->  
-> @@ -2378,18 +2461,21 @@ static int it6625_dai_hw_params(struct snd_pcm_substream *substream,
->  				struct snd_soc_dai *dai)
->  {
->  	struct it6625 *it6625 = dai_to_6625(dai);
-> -	const struct it6625_audio_stream *s;
-> +	unsigned int channels;
->  	unsigned long flags;
-> +	u32 rate;
->  	int ret;
->  
->  	it6625_audio_refresh(it6625);
->  
->  	spin_lock_irqsave(&it6625->audio_lock, flags);
->  	ret = it6625_audio_validate_locked(it6625);
-> -	s = &it6625->audio_accepted;
-> +	if (!ret)
-> +		ret = it6625_audio_xport(it6625, &it6625->audio_accepted,
-> +					 &rate, &channels);
->  	if (!ret &&
-> -	    (params_rate(params) != it6625_audio_fs_to_rate(s->fs_code) ||
-> -	     params_channels(params) != s->channels ||
-> +	    (params_rate(params) != rate ||
-> +	     params_channels(params) != channels ||
->  	     params_format(params) != SNDRV_PCM_FORMAT_S32_LE))
->  		ret = -EINVAL;
->  	spin_unlock_irqrestore(&it6625->audio_lock, flags);
-> diff --git a/include/uapi/linux/it6625.h b/include/uapi/linux/it6625.h
-> index a895658aaf6a80d3fb624cdece33c5135161c72d..9ab85378ac77d1e06bc87964c1066d35ad177c15 100644
-> --- a/include/uapi/linux/it6625.h
-> +++ b/include/uapi/linux/it6625.h
-> @@ -22,4 +22,29 @@
->   */
->  #define V4L2_CID_IT6625_AUDIO_PRESENT		(V4L2_CID_USER_IT6625_BASE + 1)
->  
-> +/*
-> + * Coding type of the HDMI audio stream, as last successfully read from the
-> + * bridge. Read-only menu. It is kept, not cleared, when audio goes away or
-> + * a status read fails, so it describes the current stream only while
-> + * V4L2_CID_IT6625_AUDIO_PRESENT is set and
-> + * V4L2_CID_IT6625_AUDIO_SAMPLING_RATE is non-zero.
-> + *
-> + * LPCM:  linear PCM, captured as is.
-> + * NLPCM, HBR: IEC 61937 compressed stream, as reported by the bridge
-> + *        firmware (which also reports HBR for plain 48 kHz DTS). The
-> + *        capture layout follows V4L2_CID_IT6625_AUDIO_SAMPLING_RATE: at
-> + *        768/705.6 kHz (TrueHD/MAT, DTS-HD MA) 8 channels on 4 I2S lanes
-> + *        at a quarter of that rate, otherwise (AC-3, DTS, ...) 2 channels
-> + *        at that rate.
-> + * DSD:   one-bit audio; not capturable.
-> + */
-> +#define V4L2_CID_IT6625_AUDIO_TYPE		(V4L2_CID_USER_IT6625_BASE + 2)
-> +
-> +enum v4l2_it6625_audio_type {
-> +	V4L2_IT6625_AUDIO_TYPE_LPCM = 0,
-> +	V4L2_IT6625_AUDIO_TYPE_NLPCM = 1,
-> +	V4L2_IT6625_AUDIO_TYPE_HBR = 2,
-> +	V4L2_IT6625_AUDIO_TYPE_DSD = 3,
-> +};
-> +
->  #endif /* _UAPI_LINUX_IT6625_H */
-> 
+--
 
+net/sched: release old template when replacing a chain
+
+With this patch, tc_chain_tmplt_add() destroys any template already on
+the chain once the new template has been created. It targets a chain that
+a goto-chain action keeps alive after RTM_DELCHAIN and that RTM_NEWCHAIN
+then recreates. In that case the old template and its module reference
+used to leak.
+
+> Hello,
+
+[ ... ]
+
+> HEAD commit:    c03c1a14507dfaf8b856c2608f9ac216021fc222
+> Git tree:       30fd2ef82912c26cf3a58ad0ba6afc375fa851ac
+> Source version: Linux 7.3.0
+> Compiler:       gcc 11.4.0, GNU ld 2.38
+>
+> The console output, kernel config, reproducer, namespace launcher, and
+> patched-kernel validation logs are available here:
+
+[ ... ]
+
+[Severity: Low]
+This isn't a bug, but the changelog reads like a bug report email. It has
+the "Hello," greeting, reproducer instructions, the gist URLs, QEMU test
+logistics, the reporter's tree SHAs and compiler versions. It also has the
+note that the positive PoC reports a failed threshold on the patched
+kernel.
+
+Could this material go below the --- line or into a cover letter, so that
+the changelog only covers the problem, its impact and the fix?
+
+> diff --git a/net/sched/cls_api.c b/net/sched/cls_api.c
+> index bd0d635fe3fed..59f96e899c214 100644
+> --- a/net/sched/cls_api.c
+> +++ b/net/sched/cls_api.c
+> @@ -3143,6 +3143,8 @@ static int tc_chain_tmplt_add(struct tcf_chain *chain, struct net *net,
+>  		module_put(ops->owner);
+>  		return PTR_ERR(tmplt_priv);
+>  	}
+> +	/* An action-held chain can retain a template after RTM_DELCHAIN. */
+
+[Severity: Medium]
+Should the template survive RTM_DELCHAIN at all? Right now
+__tcf_chain_put() only releases it when the chain is finally freed:
+
+net/sched/cls_api.c:__tcf_chain_put() {
+    ...
+	if (refcnt == 0) {
+		tc_chain_tmplt_del(tmplt_ops, tmplt_priv);
+		tcf_chain_destroy(chain, free_block);
+	}
+}
+
+While action_refcnt is non-zero, the delete notification is still sent
+through tc_chain_notify_delete(). The chain is then hidden from dumps,
+RTM_GETCHAIN and RTM_DELCHAIN, but its template stays active.
+
+This has a few side effects that the patch doesn't address.
+
+After chain N is deleted, tc_new_tfilter() still gets the same chain
+through tcf_chain_get(block, N, true). It rejects other filter kinds with
+"Chain template is set to a different filter kind":
+
+	if (chain->tmplt_ops && chain->tmplt_ops != tp->ops) {
+
+An RTM_NEWCHAIN without TCA_KIND on that chain takes this early return in
+tc_chain_tmplt_add(), so the recreated chain silently inherits the old
+template:
+
+	/* If kind is not set, user did not specify template. */
+	if (!tca[TCA_KIND])
+		return 0;
+
+The old template's hardware offload also stays installed after the
+delete.
+
+The new comment describes this retention as expected behaviour. Would it
+be better to release the template when the chain becomes action-only,
+with suitable synchronization against readers? That would fix the leak
+and these cases, and this hunk would not be needed.
+
+> +	tc_chain_tmplt_del(chain->tmplt_ops, chain->tmplt_priv);
+
+[Severity: High]
+Can this free the old struct fl_flow_tmplt while an unlocked filter add
+is still reading it?
+
+tc_ctl_chain() drops block->lock before it calls tc_chain_tmplt_add(),
+so only rtnl is held at this point. RTM_NEWTFILTER is
+RTNL_FLAG_DOIT_UNLOCKED. For flower on ingress/clsact or on a shared
+block, tc_new_tfilter() skips rtnl_lock() altogether. fl_change() then
+reads tp->chain->tmplt_priv without any lock.
+
+CPU0 (RTM_NEWCHAIN, holds only rtnl)
+tc_ctl_chain()
+    chain->explicitly_created = true;
+    mutex_unlock(&block->lock);
+
+CPU1 (flower RTM_NEWTFILTER on chain N, no rtnl)
+tc_new_tfilter()
+    tcf_chain_get(block, N, true);
+    passes the chain->tmplt_ops check
+    fl_change()
+        loads tp->chain->tmplt_priv (the old template)
+
+CPU0
+tc_chain_tmplt_add()
+    ops->tmplt_create()
+    tc_chain_tmplt_del()
+        fl_tmplt_destroy()
+            fl_hw_destroy_tmplt(tmplt->chain, tmplt);
+            kfree(tmplt);
+
+CPU1
+fl_mask_fits_tmplt(tp->chain->tmplt_priv, mask)
+    reads tmplt->mask from the freed object
+
+The free also happens before the new pointers are stored. A reader that
+loads chain->tmplt_priv between the kfree() and this store gets a pointer
+that is already dangling:
+
+	chain->tmplt_priv = tmplt_priv;
+
+Before this patch, the only template free was in __tcf_chain_put() at
+refcnt == 0, when nothing else could hold the chain. The commit message
+notes that a user namespace is enough for CAP_NET_ADMIN, and running
+DELCHAIN/NEWCHAIN cycles next to concurrent flower filter adds would
+reach this window.
+
+[Severity: Medium]
+With this order, fl_hw_create_tmplt() sends FLOW_CLS_TMPLT_CREATE for the
+new template before fl_hw_destroy_tmplt() sends FLOW_CLS_TMPLT_DESTROY for
+the old one. Both use the same chain_index. Can that leave offload drivers
+in the wrong state?
+
+The in-tree drivers seem to assume one template per chain index, and they
+match DESTROY by chain_index only. In sparx5, create records the current
+port keyset as orig:
+
+drivers/net/ethernet/microchip/sparx5/sparx5_tc_flower.c:sparx5_tc_flower_template_create() {
+    ...
+	sparx5_vcap_set_port_keyset(ndev, admin, fco->common.chain_index,
+				    state.l3_proto,
+				    ftp->keyset,
+				    &kslist);
+
+	if (kslist.cnt > 0)
+		ftp->orig = kslist.keysets[0];
+    ...
+}
+
+Here orig is the old template's keyset. Destroy then restores orig from
+the first entry with a matching cid, which is the old template's entry:
+
+drivers/net/ethernet/microchip/sparx5/sparx5_tc_flower.c:sparx5_tc_flower_template_destroy() {
+    ...
+	list_for_each_entry_safe(ftp, tmp, &port->tc_templates, list) {
+		if (ftp->cid != fco->common.chain_index)
+			continue;
+
+		sparx5_vcap_set_port_keyset(ndev, admin,
+					    fco->common.chain_index,
+					    ftp->l3_proto, ftp->orig,
+					    NULL);
+    ...
+}
+
+So the port runs the keyset from before any template while the new
+template is active. Once the new template is destroyed, the port goes
+back to the old template's keyset.
+
+In mlxsw, mlxsw_sp_flower_tmplt_create() reuses the existing ruleset for
+the chain index through mlxsw_sp_acl_ruleset_get(), so the new template's
+elusage is ignored. In prestera, prestera_acl_ruleset_keymask_set()
+overwrites ruleset->keymask with kmemdup() without freeing the previous
+one, so each cycle leaks one keymask.
+
+The mlxsw and prestera behaviour already existed before this patch, but
+create-first keeps it, while destroy-then-create would let the ruleset be
+released and rebuilt.
+
+The commit message says create-first keeps the old template intact if
+creation fails. Would destroying the old template first give drivers a
+consistent sequence?
+
+>  	chain->tmplt_ops = ops;
+>  	chain->tmplt_priv = tmplt_priv;
+>  	return 0;
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261109121448.2589374-1-shawnq1%40163.com
