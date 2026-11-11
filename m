@@ -1,104 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.181
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794416818;
-	b=CaRoJYdMmGCuOaZJmSFGFiXTGT1lJtU9Sfg/1ciZhY/O1mRl5/+g1YkgB4Pff7DpvQW5
-	 cSYTd+ppEyrA0yRxIVFmbudk9mZoxtm+RPon7eUOsJvZTGDmN0R5Q0FSB+j2un4Cfce2A
-	 dt8pizT8t91TJRoj91kn9qxq32fu6otEKyiETOFavVbaXKQI5ncJzKl27AdLX26kM0jFb
-	 BsrOIaWUdBsHVR247vdGaFYFhe0KwcbDZ2Jct/IAAJ7QFIl0QmDrdiiSg6AkE9TYDdd28
-	 ymojRRATFPZYJQoM8H+QNTlNfwsFvM91OsZkIYEfDDSjwaLLZjf4/OelPr+Zz2uTrPg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794416818;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.172
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794416862;
+	b=p7LI6HNhjMaQkQpYpXtS1nQrKJX/MrYjdsI9GUuOWAcXUeMnc1Kg/PUWyGhcXZFEWArH
+	 28arrC+OQqVnX3DAgXUhR/WqmbZg9vRWrzPX83TW0ROxzhl1cE2JJr/0KeONnXcM9g9JB
+	 FLnXZn8Jvw0HaoxG6SV3musftQLA1CskhmhlQO2z7mm7zjf+iGGdX0BSC5EAxULh0GImf
+	 Lv95xd1kmB3TxWm1/Lh6vTi/hUGNOYpknCMXPXehdbUHZTQakdzc64hDIW6+XBB5VFDBs
+	 +imfPmtkPDd0pPBaqLSyqk15Mn7lsQWAouVQVX1HaibU1bO1EeQCFS04d0YADTK4cBQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794416862;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=AwZjNt+AmvnnJlc2JIDYQN6kjA0XRtfGXpIO1xxacwA=;
-	b=tvcVvS9k033eRC7XvznZgndKKa/+cEKB9Fo9EeX00/sV8D0T2u10drEEeJyuSIl+N+mf
-	 H+xsQqV3phmbrxp97BQvIsdpgVpX6PWIqy7ILvkmfRtt2DNqhpEc6ZXYW7EdesUIw6bsx
-	 HtRibtQIbZUNINTGGZ7wkjEIrnSSKpKyQTmcL8SnYaM6bTWUQ4O6guvvK8wPvhFgAbNma
-	 /8nQcVM0Pr9WZZneuHzKYKWsoDOrbEaK1DN0M6N4oBXCLOzGE+k4cKWlumselmjcSaJVR
-	 tlXtrxl3X4yPZx0XWnA/xuBdW74YjYoe8Fip9ZgM7nOrTOqNp0ohJ9osfy1Jc+IQ7Fg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=m8C3iSuJZb/bfGc8EsYwKela7J4KFddbxGMaPc1LKNI=;
+	b=T6PCdAaaTCz5M3auAOH0e6fHZOPyKOl6BaZALOdczlMEir4f1LhuwJVDzSqYWZethrZa
+	 x5LWVE0cwgQRYg6blcycfETIOu352H4T5CLwdOJjHIB8RG50t/FtpxJ2GCAq+IQR3e2iV
+	 TSv9+LqAao7LWS3Ax993po5RvhBqkHFkvs2bHh2HN4D+W2T48K2DBXlCSO87qFe6RqZTA
+	 0Jjas9QqgVkD9p0rdIIsQAtigYUhzhZkXu2giXz9UCVYWq5jWka7jHYgHJWx2dyTwunOr
+	 PbbqY4xP3RwR6buwzony8YhKYGiXVAxmnzGWBpt35u6upmazRsyLELNH7HlrcKrS1PQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IbmojHWm;
-	arc=none smtp.remote-ip=209.85.210.181
-Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Yu0tahuo;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.172
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E40160A261A
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 17:06:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0E40160A261A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A15DB606A324
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 17:07:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A15DB606A324
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IbmojHWm
-Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-8b32bc605d9so1461129b3a.2
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 09:06:56 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Yu0tahuo
+Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-372cba0ecf9so85464eec.2
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 09:07:41 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794416861; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Sk8WmxEFwFezTYseUJjRrZ+5aTljXK2DJ2/1DzxVZTRiMqpTmrT0nwTZovAEQ1G5Ac
+         eo3LQmZYoRbE4Nlm06U+l3CDweVTZtIguq7l/jzNYFxBMcmFdJw54Hcw7yJ8+GM6AcQO
+         HTBxR/EUK5iKX+H4CSyIltfyCYYkha0bjKwtT8TMcfZpQOZ9ZumMwGVzVzWFSCkKiVtA
+         b7qM1nxDKVlqQX6qFDK9c0E01bHf4ZJOVnu8jFsSNBbHxQAoEAaxutd8ZLwn9P7IS3eB
+         zK8RzMnZC3OGhtxNV3IKPvXXTCcbPGPfrr4rHlmChusxFZXiC4FvICbiCZHEV8LluLuH
+         0rJg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=m8C3iSuJZb/bfGc8EsYwKela7J4KFddbxGMaPc1LKNI=;
+        fh=ov6HcoEUjbtcHy4nV6aozD5vwkgFcdISk/t7CsO1B98=;
+        b=jQYY5/pnYYfpJorPbWZ9t8gY2JJaqRAgkBLs0odgvr7wqHU8Xg5VT3Y/0dzM3OD304
+         rGWo2KrtCSYS6WJcPLult43YsHmNMAIlR8Ui6E2jXlv019+YLFhgYW+q5+bzV4DPQ1ll
+         Sdn7JnDuf4rvVuh8OR6Lf70sH6jBwKUxMtPmcGHy7VHCq0N5ESrltQIodGTI5XTknCpC
+         UDOOstWEWpj6l7A+j9g5VAMRfDyMGWcitjytP4n/tLokqm7oXcV5UeXjVBuTZDUGpapw
+         r/UrII1zL21OIzNV0uaIirsMgya/8D9Ms8QDgvz4wY/3LcRNcJTfTXe545YfA1KyA4T2
+         wl3A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794416816; x=1795021616; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=AwZjNt+AmvnnJlc2JIDYQN6kjA0XRtfGXpIO1xxacwA=;
-        b=IbmojHWmWD70omZcaVCBU3b2W6NUiCjIa+IrJtazBOuwzFIQceMskZjfN16dYaqWZ6
-         CxswnpmLBmfzKvCU6kXcO1hbDMh6hzwXXM1hSxZT/vNjrk0O5eZ99M1XDQ/E9KFfaE3k
-         XkfHU/7oBuP4ua0kzM/7hh+lf76behzLaDXzQAUIdBJ30Ay01n8Dl5LpZFhTcBHjz5B6
-         G07uRZMTBpihE03hkQ+eLytZG0lKOF9rN19d3+rpmxWwVNndqrDNk1fHMYnEL6JPsVNv
-         6Zgi2Wm8u619S2db1cNeIkt+txLvd50wKvx4yNIw5QOm0oXTSVdoihymawXrTlM4dbfx
-         ssTw==
+        d=gmail.com; s=20260707; t=1794416861; x=1795021661; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=m8C3iSuJZb/bfGc8EsYwKela7J4KFddbxGMaPc1LKNI=;
+        b=Yu0tahuocuESYqefq+y7fSQYzAxt4lPHSsg5PGKLsWgwc3nznCgyZoywvLPhsnWXaL
+         naTEK8iktIklEsNs6WGYObHqJmu/w/VY5IxwuHHnJU8DdKNH6RS+5MSDELQhLRfPbJN7
+         U6khKuJMZ6CmYJYj/TiGT50rf1I6yS2tca1y6tLxdM8jXW8R/+XwwtLonfE6zrMyXDeQ
+         54ScTlscyGh73yv9Gg2joc4Qqvrmb8Xf+b5cQ3d0XSzwYmmKneN9p2fbsDvPZA/sjCAK
+         +hmhfjJaSH21k1NVqzl5XRhA8F8l2/QZD2M7ssSNUHE1mC3vzZxMKc6gYcx6Q19DmKKR
+         mx0Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794416816; x=1795021616;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=AwZjNt+AmvnnJlc2JIDYQN6kjA0XRtfGXpIO1xxacwA=;
-        b=L05kMQnBzCmcQg/xyEa+5WVeot7OlkXd+2HmspF1jPDHpjQ+kiZDTT8FfuqIGdj0mC
-         P64c659UXj35L37ZlQTyApPgHHpW6RI8eBi9zqvxYVEZWGysfEz1RHYc4GxKG0umSM28
-         MHNTq7WPsk0v0DzA0fm4IE2YNgLinpiNkiiMgX/OVRyQrevGesXpzAG4Xhsq1Thj4StO
-         9BgQLcwhzMSbisG9AoCF4B9oY8dLQLysnDWz6QQhMeVzdQZXeAbHIMEC9jmXOvM5lUFm
-         cp5aRbfBJQ7Ams2kBx6f/gW5AZdNUAXrs1J/vRgRwVvKsVt6nyxHHdR1BTMn8HtvUELR
-         hVzw==
-X-Forwarded-Encrypted: i=1; AL+hErG930TQJvobJvDS+i7ubGODjgXkbSC/GWSW/NiyVFP5z9jhtgp4X7eh2gMMm+KFCxpb4SoComAfNF7WBl4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/UQdhjRQcu0wSkVzGHDewEGkJBQZHSPdD/GX16Y+hNqk7CvEo+
-	Kb0XZwj6OnSMTYYY3+HwHAQ0FJ8BCrrMb1dYesXx0mTsZHH/Ugrh91gi
-X-Gm-Gg: AYBFou0/QQrCHCWUf9Xr3X88EZAHD1D5wNNIDl7vyQjI//8wncTSlj/FI980DdH/vO6
-	HRRc1uUs02XQSksJD4EY1EZOHS3cmjh2rdMQ4+osQKWZvfr5PhvBnYpE//qvP9zhSUGhDXG+/Rk
-	/r4Pvbmedl2VgQlgkjG8lRYo6Py19lbpZkd7QrHnIl1z/OTGyh27rdwT5zrEiRvqQ1bp1VitPjk
-	bQOwp8GKNAHCklRzmbOVNdNSx5GjzBNxfrxufoC2nSOShHtejZ3pDaajgTT0jkFRNT+358F1K7t
-	Nq8hkgM01vtJpIpl9kCILKkJwbZW1haMgRULMA04OqkXHInyF8ZAEkOfbFewdnE6tT0J0nSL3A0
-	VCScCDZdZ+sVYUXHBJpAI2ymH/nXVajSIsTXKz2RgKXkA5Z9ajdPLyEg0O2mWOBOUebefbifVlr
-	OGYyqPM/Pt/qgEaY71kh1XtAa51KXQP8MsmsEmao2vONvdshklrE+xzU3muAsfPhGMkOxMq/xsu
-	4zBNrS2U96O5VAsBrjv6dqUXxYrribtg84/ZtMDSWuYvgCzjEF3LyJKuD9/avnUFH3q6ZDDlntr
-	Mak+zpAnQLj4v2nrKm7nQauyc4z7GSnHtVEudFMicrE8JxnM9xuRmuEzWsqms7rQ7C015Pht6fR
-	REg==
-X-Received: by 2002:a05:6a20:ef01:b0:3e2:4bd9:683e with SMTP id adf61e73a8af0-3f2feedf34emr2685736637.73.1794416816286;
-        Wed, 11 Nov 2026 09:06:56 -0800 (PST)
-Received: from Terra.tail0ac356.ts.net ([198.176.50.208])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8baa7de3619sm2347806b3a.5.2026.11.11.09.06.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 09:06:55 -0800 (PST)
-From: Weiming Shi <bestswngs@gmail.com>
-To: "David S . Miller" <davem@davemloft.net>,
-	David Ahern <dsahern@kernel.org>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Kees Cook <kees@kernel.org>,
-	"Gustavo A . R . Silva" <gustavoars@kernel.org>
-Cc: netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-hardening@vger.kernel.org,
-	bpf@vger.kernel.org,
-	Xiang Mei <xmei5@asu.edu>,
-	Weiming Shi <bestswngs@gmail.com>,
-	stable@vger.kernel.org,
-	co+beaa1ed2d7aaec16@bugs.sh
-Subject: [PATCH net] net: initialize ICMP error queue opt_stats
-Date: Wed, 11 Nov 2026 09:05:30 -0800
-Message-ID: <20261111170528.495116-3-bestswngs@gmail.com>
-X-Mailer: git-send-email 2.56.0
+        d=1e100.net; s=20260707; t=1794416861; x=1795021661;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=m8C3iSuJZb/bfGc8EsYwKela7J4KFddbxGMaPc1LKNI=;
+        b=QJ8foOWyPcR3Uvp+9o4BIynqUN9iBufkGdqDGBneqDkdQRelnAHVjQZWP9QoQ4bpx1
+         RWYhSjB1KVoXNLsu0NraQqU0+UpkG+QAIH7scENwAxfZpOvV3cQbNNDMeEBDqyW2PkIc
+         pYm6h6ZO5YK4Ccd/BredFVsTozon6rxgFfcSHdhRTTuNGaQLl4Lf6x8U3st5RLF6selM
+         BQ3c1fZYVoU2VxcJdla4LB6/NCf28abinEGbQWVHbxfSqDllojJSKhWzGxA+lFhPeNlw
+         NrGnZsXfo+QhV0ooQw14BcnEVqzXT+W07PcQu/PAM6uFNxOMlhWDtDO9Ky1f18kdTww2
+         gQfw==
+X-Forwarded-Encrypted: i=1; AL+hErGzsVV4BsqBCdEAHCOahyUx5ktWz3fdW73UKiiQnef1JK7I//rm3QYyRYzm5vPBHBfSncWy3+AknpH9jgU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+52+p4VppuPKuGOKpI7SczCVzD0QYM6xqcMeCciUpjZVjD0vQz
+	7+fyKwGqmsG+Xx+z3pwM2HkK2Tv6Y7YHltd/XeawuA8oK9eDX3nkoEM7eHC8fXZe7pms9/RNbKQ
+	s1is08r9ah8WINQt3wdo7zxAHLafwbT5mIw==
+X-Gm-Gg: AYBFou39JdxIM4lqtR4TX+/X79A+9rby47dYrqk/Lqm1KVpoAMbbbm5gh/Y+PU0jlWR
+	+fiWUrTScO6qJQGnv74Hr7NEWbmpGhxze+qCRpnLR4aWI3F9ihkV18Q1IvOkpygdM7esQ9AvfVU
+	7XSIio7gltox6T+CHOLeIPD6oWHBfSYkheiGgXnZ/MyqISaLUEyj9kjpgn3NRbbcUvbzsj+OBop
+	H6xf/oXEJ7jqehlwADMNPQGOB82OHBjpOxsj3TDuulLOGF87lSvjMijHiIdgrWpIqu9kAotE7KC
+	YPwPSxWwhYFqwG4lmlV444J+x67XIZrLFdPw61cEQM6Noc0r8qiqZdi5m7lOryNCl0qucWwCLEQ
+	YwwCNqvEbzwJ7MEyDdsxyqGvlniv+0gqevBxpBRfBqTpR0WsHa31e849GQQ922hLbQHqwBvBMG2
+	zgZltRNBg2ur0rockfJX+3/iiSr1w7JatnltmsGbgyZoS50g0JK9FWFNNSVDw=
+X-Received: by 2002:a05:7022:3a86:b0:143:5c2a:e45f with SMTP id
+ a92af1059eb24-1b3c01600d4mr4530976c88.0.1794416860548; Wed, 11 Nov 2026
+ 09:07:40 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,88 +105,110 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261109155215.3946844-1-amisiurov@cloudlinux.com>
+In-Reply-To: <20261109155215.3946844-1-amisiurov@cloudlinux.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 11 Nov 2026 12:07:28 -0500
+X-Gm-Features: AclHuK-_9BWEPd6xXKjNjzph_kbOJc93rFAg-o-qHWWs0SN7OfCKCcfKPgpijZs
+Message-ID: <CADnq5_N=v=k0e=+aqwohNMoKEmoCbMj5PyEM38_fKa=h6O1Z=A@mail.gmail.com>
+Subject: Re: [PATCH] drm/radeon: Bound GPIO I2C table entry count from VBIOS
+To: Andrey Misiurov <amisiurov@cloudlinux.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, 
+	=?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+	amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-ip_icmp_error() and ipv6_icmp_error() clone a received ICMP skb before
-building its error queue entry.  skb_clone() preserves the complete control
-buffer, while the IP receive paths initialize only the portion aliased by
-sock_exterr_skb::header.  The two functions initialize ee, addr_offset, and
-port, but leave the final byte containing opt_stats and unused untouched.
-A TCX classifier can leave bpf_skb_data_end::data_end across that byte,
-forging opt_stats and making __sock_recv_timestamp() pass skb->len bytes
-from skb->data to put_cmsg().  For a non-linear ICMP skb, this reads beyond
-its linear head.
+Reviewed and applied.  Thanks!
 
-Initialize both bitfields in the two clone-based producers.  Do not clear
-the whole sock_exterr_skb because the error receive paths consume the saved
-IP control-buffer header.
-
-  usercopy: Kernel memory exposure attempt detected from SLUB object
-            'skbuff_small_head' (offset 72, size 59964)!
-  kernel BUG at mm/usercopy.c:102!
-  Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
-  RIP: usercopy_abort (mm/usercopy.c:102)
-  Call Trace:
-   __check_heap_object (mm/slub.c:8146)
-   __check_object_size (mm/usercopy.c:258)
-   put_cmsg (net/core/scm.c:276)
-   __sock_recv_timestamp (net/socket.c:1061)
-   ip_recv_error (net/ipv4/ip_sockglue.c:550)
-   udp_recvmsg (net/ipv4/udp.c:2034)
-   inet_recvmsg (net/ipv4/af_inet.c:896)
-   sock_recvmsg (net/socket.c:1159)
-   ____sys_recvmsg (net/socket.c:2918)
-   ___sys_recvmsg (net/socket.c:2961)
-   __sys_recvmsg (net/socket.c:2993)
-   do_syscall_64 (arch/x86/entry/syscall_64.c:94)
-   entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:130)
-  Kernel panic - not syncing: Fatal exception
-
-With HARDENED_USERCOPY enabled, the reproducer aborted the unpatched kernel
-on its first packet.  With runtime usercopy checks disabled and KASAN left
-in report mode, the same recvmsg() returned 59,964 control-message data
-bytes sourced past a 704-byte skb head.  Beyond offset 1,024, 58,932 bytes
-differed from the prefilled userspace marker, including 6,288 nonzero
-bytes.  The patched build completed 2,000 packets under both configurations
-without a forged SCM_TIMESTAMPING_OPT_STATS message or sanitizer report.
-Networking selftests were not run.
-
-Fixes: 4ef1b2869447 ("tcp: mark skbs with SCM_TIMESTAMPING_OPT_STATS")
-Cc: stable@vger.kernel.org
-Reported-by: <co+beaa1ed2d7aaec16@bugs.sh>
-Signed-off-by: Weiming Shi <bestswngs@gmail.com>
-
----
- net/ipv4/ip_sockglue.c | 2 ++
- net/ipv6/datagram.c    | 2 ++
- 2 files changed, 4 insertions(+)
-
-diff --git a/net/ipv4/ip_sockglue.c b/net/ipv4/ip_sockglue.c
-index a55ef327ec93..3ab84a4c31e5 100644
---- a/net/ipv4/ip_sockglue.c
-+++ b/net/ipv4/ip_sockglue.c
-@@ -429,6 +429,8 @@ void ip_icmp_error(struct sock *sk, struct sk_buff *skb, int err,
- 	serr->addr_offset = (u8 *)&(((struct iphdr *)(icmp_hdr(skb) + 1))->daddr) -
- 				   skb_network_header(skb);
- 	serr->port = port;
-+	serr->opt_stats = 0;
-+	serr->unused = 0;
- 
- 	if (skb_pull(skb, payload - skb->data)) {
- 		if (inet_test_bit(RECVERR_RFC4884, sk))
-diff --git a/net/ipv6/datagram.c b/net/ipv6/datagram.c
-index ca3605acb433..85f646f8d059 100644
---- a/net/ipv6/datagram.c
-+++ b/net/ipv6/datagram.c
-@@ -330,6 +330,8 @@ void ipv6_icmp_error(struct sock *sk, struct sk_buff *skb, int err,
- 	serr->addr_offset = (u8 *)&(((struct ipv6hdr *)(icmph + 1))->daddr) -
- 				  skb_network_header(skb);
- 	serr->port = port;
-+	serr->opt_stats = 0;
-+	serr->unused = 0;
- 
- 	__skb_pull(skb, payload - skb->data);
- 
--- 
-2.56.0
-
+On Tue, Nov 10, 2026 at 3:41=E2=80=AFAM Andrey Misiurov
+<amisiurov@cloudlinux.com> wrote:
+>
+> radeon_atombios_i2c_init() derives the number of GPIO I2C entries from
+> the size field of the VBIOS GPIO_I2C_Info table and stores a bus for
+> every valid entry in rdev->i2c_bus[i], which has RADEON_MAX_I2C_BUS
+> (16) slots.  A table that claims more than 16 entries makes it write
+> past the end of the array into the rest of struct radeon_device.  A
+> size smaller than the common header wraps the subtraction and the loop
+> walks far past the table.  radeon_lookup_i2c_gpio() uses the same
+> calculation.
+>
+> Reject undersized tables and cap the entry count at
+> RADEON_MAX_I2C_BUS.
+>
+> Fixes: f376b94fbc0a ("drm/radeon/kms: unify i2c handling")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Andrey Misiurov <amisiurov@cloudlinux.com>
+> ---
+> Found by code inspection.  Not reproduced at runtime; it needs a VBIOS
+> with a malformed GPIO_I2C_Info table.
+>
+>  drivers/gpu/drm/radeon/radeon_atombios.c | 22 ++++++++++++++++++----
+>  1 file changed, 18 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/radeon/radeon_atombios.c b/drivers/gpu/drm/r=
+adeon/radeon_atombios.c
+> index 3dd9724..c4e1272 100644
+> --- a/drivers/gpu/drm/radeon/radeon_atombios.c
+> +++ b/drivers/gpu/drm/radeon/radeon_atombios.c
+> @@ -125,6 +125,22 @@ static struct radeon_i2c_bus_rec radeon_get_bus_rec_=
+for_i2c_gpio(ATOM_GPIO_I2C_A
+>         return i2c;
+>  }
+>
+> +/*
+> + * The VBIOS table size is not checked against the image; cap the
+> + * entry count to RADEON_MAX_I2C_BUS, the size of rdev->i2c_bus[].
+> + */
+> +static int radeon_atombios_gpio_i2c_num_entries(uint16_t size)
+> +{
+> +       u32 bytes;
+> +
+> +       if (size < sizeof(ATOM_COMMON_TABLE_HEADER))
+> +               return 0;
+> +
+> +       bytes =3D size - sizeof(ATOM_COMMON_TABLE_HEADER);
+> +       return min_t(u32, bytes / sizeof(ATOM_GPIO_I2C_ASSIGMENT),
+> +                    RADEON_MAX_I2C_BUS);
+> +}
+> +
+>  static struct radeon_i2c_bus_rec radeon_lookup_i2c_gpio(struct radeon_de=
+vice *rdev,
+>                                                                uint8_t id=
+)
+>  {
+> @@ -142,8 +158,7 @@ static struct radeon_i2c_bus_rec radeon_lookup_i2c_gp=
+io(struct radeon_device *rd
+>         if (atom_parse_data_header(ctx, index, &size, NULL, NULL, &data_o=
+ffset)) {
+>                 i2c_info =3D (struct _ATOM_GPIO_I2C_INFO *)(ctx->bios + d=
+ata_offset);
+>
+> -               num_indices =3D (size - sizeof(ATOM_COMMON_TABLE_HEADER))=
+ /
+> -                       sizeof(ATOM_GPIO_I2C_ASSIGMENT);
+> +               num_indices =3D radeon_atombios_gpio_i2c_num_entries(size=
+);
+>
+>                 gpio =3D &i2c_info->asGPIO_Info[0];
+>                 for (i =3D 0; i < num_indices; i++) {
+> @@ -176,8 +191,7 @@ void radeon_atombios_i2c_init(struct radeon_device *r=
+dev)
+>         if (atom_parse_data_header(ctx, index, &size, NULL, NULL, &data_o=
+ffset)) {
+>                 i2c_info =3D (struct _ATOM_GPIO_I2C_INFO *)(ctx->bios + d=
+ata_offset);
+>
+> -               num_indices =3D (size - sizeof(ATOM_COMMON_TABLE_HEADER))=
+ /
+> -                       sizeof(ATOM_GPIO_I2C_ASSIGMENT);
+> +               num_indices =3D radeon_atombios_gpio_i2c_num_entries(size=
+);
+>
+>                 gpio =3D &i2c_info->asGPIO_Info[0];
+>                 for (i =3D 0; i < num_indices; i++) {
+> --
+> 2.43.7
+>
