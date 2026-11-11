@@ -1,62 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=67.231.145.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=67.231.153.30
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794356353;
-	b=0hqDAsfW13dGNhFbcyAUoCwsI3pJsGWQOHjPuuRbVhbsqRMnFDHpxIp/e4JdJV2OLxFj
-	 7ftqCKF/kKy9YO2wrPeS9/3jny6vIAWvsHu947Y1lHgHHDjfVdK9XqeRLdFQBDMQJkjYk
-	 I4wA1ATjSIsQ0EQ2NFk49w5p+lEUIYgKBnXD1YTog3a3iUuOi31MEH0Cvh/cpFiGO4RLe
-	 mlBdoyTVWcMip3hYOxsfLVzcGFG1ZojUjnXjJg6KYvsYEOBQ3LshQAqQuOKJf6QkkSPei
-	 iOTMCC73+jUlcwxDvGZCP6LNagjpIUtwsH0frHsa5PVLUQSPmAmJacsziKdBSa87Bbg==
+	t=1794356355;
+	b=4eNvUUStl2vnZKWOdxv2Cpn09qUJB5fBAhyy8QRxrnOUB5zooxm2i2aYJj0IqmWbxm8n
+	 Xzw2SR95lFg+7UJKTzUXJzgGhayssvSPmN/esH78jIPb6t5SpfKsP8hj8Jf8DS9uZGiHy
+	 19vjImcC982Poju6wzASc5BovLicmhAFBxyXFFeVHSUW/KTT/Kruut6niHpbQn98kpZbj
+	 lX78WRzlkS4t8djGcFqmnSxYJnj7okwaLAfBK78x3G2Vy4LeAKeS70o8GJeujoS3kZfNP
+	 vN7WidrARVympJ5dOP0e/TuFPDLyc4URCEO7LvwVFVZNJgc8TajZid8ECjhXpCosenw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794356353;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794356355;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:To:CC:
 	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Authority-Analysis:X-Proofpoint-Virus-Version;
-	bh=ISqsUTGog03ABwLKZKBqbrbiqJpc93C6X/R8OcENsq0=;
-	b=e345RcJdUs4RYAR8z+yO9a/e1oqDp3yZkRNQ8f3irVS8TpeQ3C1c+f3Nxsx5Kx5ltiKG
-	 vq28J+ejBEKGDNBxROCtDBatcfeigXhWAZOqQkWuB6kIjkqSZpalQf7Z/zOkrl/VYbCF1
-	 1fa53p8jjm4lTgyWrrJYQGqk5BBqeKCSS43OV8KJHqYXk9C8GGMqt3kWGlhCb8DBWRS05
-	 SpNiawlcHc23oQNbAYeSDo0DK7V5DMSb9WCkg6+MEVkher7zYYQHn4vIAxl6BglBgU4zS
-	 Ul4p2BwtQbtFNJTEvulrpgWWSmCdBMpeerxuVxAZBmPe956BlnPmSczV6K69x8TPK3g==
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
+	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Virus-Version;
+	bh=g+MWHMRxcXzv7wOFHOUfT5Dnfi1frvr4zOpXqitHGao=;
+	b=d+Gy3IyuHPLcvM608IHDT9XE0iE07s7iVkqU2GbULa8HMEpX3wLZ5zS5QesIBxehcPck
+	 WPSFYkYguG2UvqWkTSmnjdCPjtRbde5Gh3fF2GcYhKdztL4kP+TCccZCx0L5bRjjPsoiM
+	 IO1eF1tY4krWLtaY66CbBS61jArR00tM6C2EMfw+DMYSxIhc6D3kbz/n13GEM29TJjUVZ
+	 oJcGMal2okqGMzuZUn5Bgk7yX5ZKdpgkJsMXpgte00WZlh+i7+XliXGXJnOJIWVvuc1sz
+	 9IJQcr4NSDFNb/kly+TE9svU91/luXx9hDEXQtHGY6ZbnyyPEsXGpnTwOxhi3VxXYaA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=meta.com;
 	spf=pass smtp.mailfrom=meta.com;
-	dkim=pass header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=c5PFRtFd;
-	arc=none smtp.remote-ip=67.231.145.42
-Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com [67.231.145.42])
+	dkim=pass header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=LX1l5zIW;
+	arc=none smtp.remote-ip=67.231.153.30
+Received: from mx0a-00082601.pphosted.com (mx0b-00082601.pphosted.com [67.231.153.30])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3705A606A339;
-	Wed, 11 Nov 2026 00:19:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3705A606A339
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B460360A5BC7;
+	Wed, 11 Nov 2026 00:19:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B460360A5BC7
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meta.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=c5PFRtFd
-Received: from pps.filterd (m0148461.ppops.net [127.0.0.1])
-	by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AAMK1C32810117;
-	Tue, 10 Nov 2026 16:18:59 -0800
+	dkim=pass (2048-bit key) header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=LX1l5zIW
+Received: from pps.filterd (m0089730.ppops.net [127.0.0.1])
+	by m0089730.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 6AAMKVMR721830;
+	Tue, 10 Nov 2026 16:18:54 -0800
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
 	:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=
-	pps82601-s2048-2026-q3; bh=ISqsUTGog03ABwLKZKBqbrbiqJpc93C6X/R8O
-	cENsq0=; b=c5PFRtFdVzPWaIIZU5Kqus7BKaUXMA2CjobGWgWIW6LYU7/aEBamm
-	sebRXTp/PBol9TQur4gT77ETTw/wGJGlCLzPhrTm+3b9nsl6ieeiwJ+62Wp84MCQ
-	lfV01WG9ffoMDUjLzrOsLLmbRTDLc9opN0vyXsoVGoeXEfaRtBUkcm9L1kFxKgVx
-	ZdDU4qbTNB+SMw8fdXm/FVb3XnA9wMrNZpOxfx+2pkzPhdXiewjC9o/5vbGQi5NL
-	XBIISMI6aR+KbjJkqCaSK5LV75uXhcmlTF1pA6BAp4MiDV+gbezWW3xNfAJ3jPdt
-	xDMOO9PxjT6i53P2HfDnf6AStCA2MfNwA==
-Received: from maileast.thefacebook.com ([163.114.135.16])
-	by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4hv7vgk6bj-4
+	pps82601-s2048-2026-q3; bh=g+MWHMRxcXzv7wOFHOUfT5Dnfi1frvr4zOpXq
+	itHGao=; b=LX1l5zIW1WYpEufX0TfXpRymDuA9Vs1/DhdMtC0qOPqAEXaTbSm8J
+	DtwdU+nkjj6nb46JwSvURPZNdd9sbcDAuQ79rLQaxRHGl5WEsl/1Mjk0ESTz9qs+
+	C/O5gvmJgs/qt8Ry0pKBt42W9b55k2Rv2Tl7blxLBUojv1QvLEdctYWkUIMIKKZS
+	xjJ0Mhy3ccpq38q0itBck3EgrBwmkLFJ8gOSWeA0nvmWEjmYO7gbQutNcJakEiFI
+	oQb86IOYw6D/BIsvsvOzGeAOrBBAa9zhNfuZLe4DdefWNwXLkVkQxBtZkpSZBpgt
+	xGSxVPMQqp7Y5TH69TWiaEvRJLoG1+hng==
+Received: from mail.thefacebook.com ([163.114.134.16])
+	by m0089730.ppops.net (PPS) with ESMTPS id 4huqmr91ns-5
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
-	Tue, 10 Nov 2026 16:18:59 -0800 (PST)
-Received: from localhost (2620:10d:c0a8:1b::30) by mail.thefacebook.com
- (2620:10d:c0a9:6f::237c) with Microsoft SMTP Server (version=TLS1_2,
+	Tue, 10 Nov 2026 16:18:53 -0800 (PST)
+Received: from localhost (2620:10d:c085:108::150d) by mail.thefacebook.com
+ (2620:10d:c08b:78::c78f) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.56; Wed, 11 Nov
- 2026 00:18:46 +0000
+ 2026 00:18:52 +0000
 From: Todd Freed <toddfreed@meta.com>
 To: <netdev@vger.kernel.org>, <toddfreed@meta.com>
 CC: "David S. Miller" <davem@davemloft.net>,
@@ -92,9 +92,9 @@ CC: "David S. Miller" <davem@davemloft.net>,
         Wei Wang <weiwan@google.com>,
         Willem de Bruijn
 	<willemdebruijn.kernel@gmail.com>
-Subject: [PATCH net v5 2/8] psp: don't encapsulate ipv6 packets with extension headers
-Date: Tue, 10 Nov 2026 16:18:25 -0800
-Message-ID: <20261111001831.3710881-3-toddfreed@meta.com>
+Subject: [PATCH net v5 8/8] net/mlx5e: psp: tso: replace only the length in checksum seed
+Date: Tue, 10 Nov 2026 16:18:31 -0800
+Message-ID: <20261111001831.3710881-9-toddfreed@meta.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261111001831.3710881-1-toddfreed@meta.com>
 References: <20261111001831.3710881-1-toddfreed@meta.com>
@@ -109,97 +109,94 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-Proofpoint-GUID: _d7G2TRV-ugnt2JDh5a9c5mAtTPFsFnH
-X-Proofpoint-ORIG-GUID: _d7G2TRV-ugnt2JDh5a9c5mAtTPFsFnH
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDAwMCBTYWx0ZWRfX7NdSbmcFqOK2
- 2xF3qyqUnt+maUGyllD85BEf/ueDLMEiFep1eSf1+hS0lc/LaRjC/GnVvB/aq177729ulfVqCjY
- HyaAtwY3zk0uxone/mbS+Jhd5u81Gh4PNM9P8fr5JTZLdINbe+n+ZOev1b23XimrCMorZyt3ZhU
- JOqJxuE3V1N6PKE8VXLurkE5DrLM0akmyCMGLxQcY5rXDvX8jMmpyA6Zpo503yFUqXG/j02Zj22
- sdkBpPlEB3Xnu5S4/QdaTvnMd9Nk66T7H4M76TCJJ49YBlHFL4jlB8Vqn7Q3GISBQpCfsImDhSA
- 008hJKNEsCgJhQdqOK1HZgy0350jZeqG5SGP7603jztvtNno1JZZdm2R/6K650s6s0P3rY1RaLU
- qa+EkU7fi5b2DQ+Lc31ya6Fq9zVPb3RfyEORbWPQtYlsbU13nPIHazN9TB1xI09chqrpzZ5xPD5
- T5exPQLLtA0GRAPu39g==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDAwMCBTYWx0ZWRfX3WS9PGH10Wzq
- aZxndY7ve2S+F0OV8S+Tgn+l2jAnBB91M3VCNigWdTmbI0jcLfOXgLZOJN7z7wHi0BOL6MlOOzn
- /6/ZVBm+PmD6XKpoocsmy/fzlfnoqMY=
-X-Authority-Analysis: v=2.4 cv=feA4WEQF c=1 sm=1 tr=0 ts=6af3b473 cx=c_pps
- a=MfjaFnPeirRr97d5FC5oHw==:117 a=MfjaFnPeirRr97d5FC5oHw==:17
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDAwMCBTYWx0ZWRfX2HCcR9d6eIVs
+ nVAzJ551tICZpjoKBil307UsTQ5wv8wNWqkRDOcbBJKKMAqlvHUXGw2pm0rNtcrIcKBlsjZHT9G
+ fdbTrVWgcOp3d0f91WYsaJ81E0rkuMg=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDAwMCBTYWx0ZWRfX/pNWHGRB5aNK
+ i/lJq/hOg1HG40zTSjYlbX6EsJsapDZpyvLj1VIm10SZNn2sygkiQoNBhkOpnfCs7xlwGnUBYjB
+ PiwhE9tYZr4hiyWNm5EgaNLzAcrYKn65B34xLgjhsdWRnIknsQ+B5yvztNvUXK1WRSaAKD1VrBR
+ e3v+UM4uQZcXkIPHJaAsns/ETCJuVBS908M1pkJ6wE/cXjcZObzInLdtl/T0Mp/1FF7RJg9Mxmu
+ ZMearJZLpaysNNMbMxknkdlFj3bB/T8P63L9RgrgMJ/e/VeEnF35IGI6bsTVokHZVNCniobJsmR
+ VDBqo0wnpuHOIFPkXgptLVK5qlfZX54/XNGD/mwOYRtTwCndz/N76fJTvk1/cp/j3XtOde7QMSz
+ T8404b+rakj1Ao0AcKFwEou7SaS36Jn34zf7RPeciemhPwMzmopvOsjU59u4Bjp/myCHI139Nhp
+ fIqOJnqfkEnL+ETSzuQ==
+X-Authority-Analysis: v=2.4 cv=YIgKWhGx c=1 sm=1 tr=0 ts=6af3b46d cx=c_pps
+ a=CB4LiSf2rd0gKozIdrpkBw==:117 a=CB4LiSf2rd0gKozIdrpkBw==:17
  a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22
- a=03ozwUkBphtHgyqjj1sw:22 a=VabnemYjAAAA:8 a=buWBFQgmpo4aVRCz9EcA:9
- a=gKebqoRLp9LExxC7YDUY:22
+ a=855S8uPTkML1Oy45N9_h:22 a=pGLkceISAAAA:8 a=VabnemYjAAAA:8
+ a=nThHfc4DiEoPSTtPicgA:9 a=gKebqoRLp9LExxC7YDUY:22
+X-Proofpoint-GUID: X8TguCogmc0mmwFmypAnbm425qiR5iGT
+X-Proofpoint-ORIG-GUID: X8TguCogmc0mmwFmypAnbm425qiR5iGT
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-10_07,2026-11-06_01,2025-10-01_01
 
-psp_dev_encapsulate() inserts the udp+psp headers at the transport
-header, rewrites the protocol of the fixed ip header to udp, and writes
-tcp as the psp next header. so tcp must directly follow the fixed
-header.
+for psp tcp with tso,
 
-if the packet is an ipv6 packet with extension headers, udp+psp is
-placed after them, but the next header indicating the l4 protocol is on
-the last extension header in the chain, not in the fixed header.
-therefore this produces a malformed packet.
+ - __tcp_transmit_skb() -> tcp_v6_send_check() or tcp_v4_send_check()
+   computes the checksum seed using the addresses on the socket and the
+   total length, then
 
-in addition to being malformed, with mlx5 this kind of packet goes out
-unencrypted. since the tx association encodes intent to send encrypted
-packets, drop such packets instead.
+ - mlx5e_psp_handle_tx_skb() recomputes the checksum seed using
+   addresses from the packet's l3 header, and the length of one segment
 
-a psp tcp socket emits such packets if certain socket options are set on
-it (e.g. IPV6_DSTOPTS). refusing the combination of such socket options
-with psp association would be helpful but is not implemented here. since
-extension headers can also come from a route the datapath check is
-needed anyway.
+the length difference is expected by the device. however, the difference
+in addresses is incorrect in cases where the l3 header daddr is an
+intermediate hop, for example,
 
-the check also covers ipv4: the l4 protocol must be tcp, and the
-transport header must follow the ip header and its options. packets of
-a psp tcp socket always pass it.
+ - ipv4 source route option (IP_OPTIONS with lsrr or ssrr)
+ - ipv6 IPV6_RTHDR header (conceptually ; ipv6 extension headers are not
+   properly supported on this path yet)
 
-Fixes: fc724515741a ("psp: provide encapsulation helper for drivers")
+in these cases every segment of the tso packet to go out with a bad tcp
+checksum
+
+the fix is to replace only the length in the seed which tcp had already
+computed. this is also what tcp_gso_segment() does.
+
+tested on connectx-7, with a psp tcp socket whose ipv4 loose source
+route's first hop isn't the final destination, and the peer checking
+tcp checksums in software.
+
+Fixes: e5a1861a298e ("net/mlx5e: Implement PSP Tx data path")
+Acked-by: Daniel Zahka <daniel.zahka@gmail.com>
 Signed-off-by: Todd Freed <toddfreed@meta.com>
 ---
- net/psp/psp_main.c | 21 +++++++++++++++++++--
- 1 file changed, 19 insertions(+), 2 deletions(-)
+ .../mellanox/mlx5/core/en_accel/psp_rxtx.c    | 21 ++++++++-----------
+ 1 file changed, 9 insertions(+), 12 deletions(-)
 
-diff --git a/net/psp/psp_main.c b/net/psp/psp_main.c
-index 273b010d2355..c071f507261b 100644
---- a/net/psp/psp_main.c
-+++ b/net/psp/psp_main.c
-@@ -245,6 +245,24 @@ static void psp_write_headers(struct net *net, struct sk_buff *skb, __be32 spi,
- 	memset(&psph->iv, 0, sizeof(psph->iv));
- }
- 
-+/* UDP+PSP goes in at the transport header, the protocol of the fixed IP
-+ * header becomes UDP, and TCP the PSP next header: TCP must directly follow
-+ * the fixed header. It doesn't with IPv6 extension headers, whose last one
-+ * holds the L4 protocol.
-+ */
-+static bool psp_dev_encap_ok(const struct sk_buff *skb)
-+{
-+	u32 network_len = skb_network_header_len(skb);
-+
-+	if (skb->protocol == htons(ETH_P_IP))
-+		return ip_hdr(skb)->protocol == IPPROTO_TCP &&
-+		       network_len == ip_hdrlen(skb);
-+	if (skb->protocol == htons(ETH_P_IPV6))
-+		return ipv6_hdr(skb)->nexthdr == IPPROTO_TCP &&
-+		       network_len == sizeof(struct ipv6hdr);
-+	return false;
-+}
-+
- /* Encapsulate a TCP packet with PSP by adding the UDP+PSP headers and filling
-  * them in.
-  */
-@@ -255,8 +273,7 @@ bool psp_dev_encapsulate(struct net *net, struct sk_buff *skb, __be32 spi,
- 	u32 ethr_len = skb_mac_header_len(skb);
- 	u32 bufflen = ethr_len + network_len;
- 
--	if (skb->protocol != htons(ETH_P_IP) &&
--	    skb->protocol != htons(ETH_P_IPV6))
-+	if (!psp_dev_encap_ok(skb))
+diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_accel/psp_rxtx.c b/drivers/net/ethernet/mellanox/mlx5/core/en_accel/psp_rxtx.c
+index 348fd7a96261..d9c2742b3c24 100644
+--- a/drivers/net/ethernet/mellanox/mlx5/core/en_accel/psp_rxtx.c
++++ b/drivers/net/ethernet/mellanox/mlx5/core/en_accel/psp_rxtx.c
+@@ -177,18 +177,15 @@ bool mlx5e_psp_handle_tx_skb(struct net_device *netdev,
  		return false;
+ 	}
+ 	if (skb_is_gso(skb)) {
+-		int len = skb_shinfo(skb)->gso_size + inner_tcp_hdrlen(skb);
+-		struct tcphdr *th = inner_tcp_hdr(skb);
+-
+-		if (skb->protocol == htons(ETH_P_IP)) {
+-			const struct iphdr *ip = ip_hdr(skb);
+-
+-			th->check = ~tcp_v4_check(len, ip->saddr, ip->daddr, 0);
+-		} else {
+-			const struct ipv6hdr *ip6 = ipv6_hdr(skb);
+-
+-			th->check = ~tcp_v6_check(len, &ip6->saddr, &ip6->daddr, 0);
+-		}
++		u32 seg_len = skb_shinfo(skb)->gso_size + inner_tcp_hdrlen(skb);
++		u32 len = skb->len - skb_inner_transport_offset(skb);
++
++		/* update just the length component of the checksum seed
++		 * tcp computed the seed with the total length, but mlx5
++		 * devices are expecting the segment length
++		 */
++		inet_proto_csum_replace4(&inner_tcp_hdr(skb)->check, skb,
++					 htonl(len), htonl(seg_len), true);
+ 	}
  
- 	if (skb_cow_head(skb, PSP_ENCAP_HLEN))
+ 	return true;
 -- 
 2.53.0-Meta
 
