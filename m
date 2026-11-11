@@ -1,66 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.61
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.78
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794440210;
-	b=R60noWWzp/LmqCAZid7lDxbLok7iKs0jY+AI4aFW6qyR9AWJxMtR0wGRVQirTPRiDnB9
-	 q3qEzyvJ1bx0ApaduzLkKeDePP/Udjw//nSG1pYd9krI0URjlpaEIAoL8SNA8neoi5+TZ
-	 oLFui7JkbHbbdGwpywURcLxiZcU2zDr++UJWcNvPs8SJR0d4Z7JagLiPcbLFqUWataw2/
-	 w/w47qpb5exwC0PgygzHrYkQ7tLlVVkw5GD69KHgkiO262tSgZ9lZcxWRFeOmEKAJSY/a
-	 xhi7SQ2HzoXKkJwsEBYqg9+WWNq37GeTs4NWTvHyGXv4yq5wIzqL3qx5p2InT3ZUGfQ==
+	t=1794440325;
+	b=gHKZaaKRjux2eH7yWUwG8uOC/SUSwAzNfWyZh65n8AS1zokIRb6uODKy1+xs2yRzRxLh
+	 c8wHxyKCdvjWS35OCS3c2EMwDsfPVCB0yUozIMJDs4hdzJtjRPwFE6brQirfJB8bQw/ct
+	 ivhSS0iWOMkwFgJnpOj/Td83A+6q2JQOuH9sDBRxwd/au/R1dXUApadA/qrXOJxbL2qj+
+	 kCV0pICb2PfI5fB2/Wf3t1Lh5TxrqO6lLcmavDXNNP6QO2yZeZQ3CZ/YPcCN0K6vlizTw
+	 QDX+e3KEb1fTg0Z6U+GKfy9kgs32Dsj2ULOvUFlb3GRQzWG1YeF1gepmsbmKAFUnS/w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794440210;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794440325;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Subject:X-Change-ID:To:Cc:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Date:Message-Id;
-	bh=klPxEVlV5vJD8T8vgL/Cq3QGPhsTWJ6oYKoaaEvavVc=;
-	b=FV0+wYAar21w03LvlQaeTNLa5n7M4hxVKggpHcmOYWjXMbnJ9yj0ucGc+yx0M27l+4le
-	 ru7kKKZdBfEF7/5O09kuR8so+p1KpRE8KuhARRd24Uh3+E2Lzk8D8eAkYkCZqgROr6cSt
-	 nl/BvKzlOA9HtP/D0cV4zfqYlswdRyAdQinjxiMsXo9/WfcLelmFgxpgYBMYhPW1TJroU
-	 EBlJk0ZiGXw7YkJ+P/H10cYAORQ51iLm/F7V9uZJXnHvGQKWFkOt4UhqYanG6G13ct6D9
-	 JcfYaVEkczCMvaFAl+SPZHb2B/D5Q+U6+ppBZMmhbYoL+FkSTIsJgTBGj34VMQea61w==
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=FBtMya5JHiIoe+mvC9LpyA8nsmCcAGgftQwnt4hAqeI=;
+	b=BolY0JkHI2DFx4Us+fdelno7NMsYxBnglE5ZXKlnYqS0nJhEiltOSL4H93ihtdPJZXVO
+	 SlYnQtmIO8CSw/Vcp77gm0fGm3CdowKn8uLzra+YFABsUcHRwjyg9NBcKXbZlxiDVCbWm
+	 uWWGNxJ4khqOCwbbGHajGmOlz9S9l5O3/5mUoS3uBqegO+2xYY3Q95TDjqzsFe52VCM4n
+	 YQb5fNPi4/ISM7QCoWDKg0Y5GLqAj4CliCh4HYYFGouHUGPM7vFpwkZTmfcGD7G/tmyzc
+	 RlQZFhh0T4ND+bE9IIw6CaUoqwJ1VrCYoawQAygiU7V7Xpj5u0uod9yVbx4t2VMtdqg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cressey.dev;
-	spf=pass smtp.mailfrom=cressey.dev;
-	dkim=pass header.d=cressey.dev header.i=@cressey.dev header.a=rsa-sha256 header.s=key1 header.b=q9eETb3J;
-	arc=none smtp.remote-ip=91.218.175.61
-Received: from mta0.migadu.com (out-61.mta0.migadu.com [91.218.175.61])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=cii2UW+7;
+	arc=none smtp.remote-ip=91.218.175.78
+Received: from mta0.migadu.com (out-78.mta0.migadu.com [91.218.175.78])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8370F606A326
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 23:36:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8370F606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cressey.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cressey.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD6B2606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 23:38:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD6B2606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=cressey.dev header.i=@cressey.dev header.a=rsa-sha256 header.s=key1 header.b=q9eETb3J
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=cii2UW+7
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=jvnaHbrD3GKuc0kVTJXIvjvxRseCe9rmXMZmsYFOqy0=;
- c=simple/simple; d=cressey.dev;
+DKIM-Signature: a=rsa-sha256; bh=n4XGoevqqrbLPiJf0WVzjodKBgKSfEnOAs+PZZo3dNg=;
+ c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794440207; v=1; x=1795045007;
- b=q9eETb3JPeZxZBrD/mFXAIHDWksZmYd0/ZcBa/GduTVnJytZ6df6fPYIEd3Z07cXvInGRfpx
- gChdfr15HLgv4Kmt/D/KVNYn2Ss4mSLgA5UiEldYxzZrWOEt7TdrXuHEGZ7wNhQ6T2HRqOpJEfk
- yoDQ9pXEX5E4bdJz9qrQj0CtmjAUmK4y2XZKv7Dvx3aQk6fuD+Y+I0/7SdX4igt9STRdH1EzoPI
- 09j/k5GXaoqLDoeIpxkmhGMFU7v4tpqS8OouNKa1dwt/KjBHrjgskVwLD1dLpsBF6ELC8tnGhZn
- vJVQfDTnzf+gk1QWpn4EvWbhw/8kR4KwprNQVIXLZa2ew==
+ t=1794440321; v=1; x=1795045121;
+ b=cii2UW+7VcxrIVAWlCPVxc2A7k2LTA3p/TddiEUWVZc4+BUMo6mGN2irt4FP7mJoecm0BhLU
+ yTLvkBYJJl7IaDDKdMTfb8bnEE4craruu464TSTbjJiZTaWR8fiCHC2lC4dM1J2JKz+ahIVeFrz
+ zfvhBY1EHDqzCn2idFHrM/VI=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id dba58aabdcacc9cc;
-	Wed, 11 Nov 2026 23:36:47 +0000
-X-Mizu-Trace-ID: dba58aabdcacc9cc
+Received: by smtp.migadu.com with ESMTPS id b7a6aef2bc15d97d;
+	Wed, 11 Nov 2026 23:38:41 +0000
+X-Mizu-Trace-ID: b7a6aef2bc15d97d
 X-Migadu-Flow: FLOW_OUT
-From: Ben Cressey <ben@cressey.dev>
-Subject: [PATCH v2] PCI: Add ID@path device format for pci= parameters
-X-Change-ID: 20260919-pci-idpath-selector-2847a8afe92c
-To: Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>, Bjorn Helgaas <bhelgaas@google.com>
-Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-pci@vger.kernel.org, 
- =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
- Logan Gunthorpe <logang@deltatee.com>, Alex Williamson <alex@shazbot.org>, 
- Wei Wang <wei.w.wang@hotmail.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
- "Anthony Vardaro (Anthropic)" <me@anthonyvardaro.com>
-X-Mailer: b4 0.15.2
+Message-ID: <9b795d3a-1818-4265-a364-58fba139c651@linux.dev>
+Date: Wed, 11 Nov 2026 23:38:39 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,154 +58,122 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 03/13] mm: cachestat: restart the walk after each entry
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+ David Hildenbrand <david@kernel.org>, "Liam R. Howlett"
+ <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, David Rientjes <rientjes@google.com>,
+ Shakeel Butt <shakeel.butt@linux.dev>,
+ Andrew Morton <akpm@linux-foundation.org>, Jann Horn <jannh@google.com>,
+ Pedro Falcato <pfalcato@suse.de>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Nhat Pham <nphamcs@gmail.com>, Johannes Weiner <hannes@cmpxchg.org>,
+ Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>,
+ Gregory Price <gourry@gourry.net>, Ying Huang
+ <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
+ Kairui Song <kasong@tencent.com>, Balbir Singh <balbirs@nvidia.com>,
+ =?UTF-8?B?SsOpcsO0bWUgR2xpc3Nl?= <jglisse@redhat.com>,
+ Kiryl Shutsemau <kas@kernel.org>, Yu-cheng Yu <yu-cheng.yu@intel.com>,
+ Dave Hansen <dave.hansen@linux.intel.com>, Dennis Zhou <dennis@kernel.org>,
+ Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>,
+ Peng Fan <peng.fan@nxp.com>, Josef Bacik <jbacik@fb.com>,
+ Chris Mason <mason@kernel.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, "Borislav Petkov (AMD)" <bp@alien8.de>,
+ Mark Brown <broonie@kernel.org>,
+ "Dennis Zhou (Facebook)" <dennisszhou@gmail.com>,
+ Rick Edgecombe <rick.p.edgecombe@intel.com>
+References: <20261111-mason-migrate-et-al-fixes-v1-0-3d2454362e8d@kernel.org>
+ <20261111-mason-migrate-et-al-fixes-v1-3-3d2454362e8d@kernel.org>
+Content-Language: en-US
+From: Usama Arif <usama.arif@linux.dev>
+In-Reply-To: <20261111-mason-migrate-et-al-fixes-v1-3-3d2454362e8d@kernel.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Date: Wed, 11 Nov 2026 15:36:31 -0800
-Message-Id: <20261111-pci-idpath-selector-v2-1-83ea668e38f0@cressey.dev>
 
-The <pci_dev> grammar shared by pci=resource_alignment=,
-pci=disable_acs_redir= and pci=config_acs= names a device either by
-address, with an optional path, or by ID. When one command line serves
-more than one platform, neither form limits an entry to the intended
-device: an address applies to whatever occupies it on each platform, and
-an ID applies to every instance, such as all Downstream Ports of a
-switch rather than the one that needs different ACS settings.
 
-Accept pci:<vendor>:<device>[:<subvendor>:<subdevice>]@<path>, where
-<path> is the address format, and match only when both halves match. An
-entry written for one platform is then inert on another where that
-address holds a different device. For example,
 
-  pci=config_acs=xx111x1@pci:10b5:8749@0000:80:02.0/00.0/08.0
+On 11/11/2026 18:13, Lorenzo Stoakes (ARM) wrote:
+> From: Chris Mason <mason@kernel.org>
+> 
+> cachestat() can leave cached pages out of its counts. This happens if
+> the entry that the call has just counted is replaced by a larger folio
+> that starts in the same XArray slot.
+> 
+> The issue is that filemap_cachestat() walks the page cache under the RCU
+> read lock, so racing concurrent collapse/split is possible.
+> 
+> Thus, an entry can be replaced immediately after the walk has returned
+> it. When that happens, the next xas_find() skips the sibling entries that
+> point to the slot of that entry, since ordinarily they belong to that
+> entry.
+> 
+> However a concurrent collapse_file() or __filemap_add_folio() (when
+> replacing a shadow entry) can store a larger folio in the slot, in which
+> case the sibling entries belong to the new folio and the walk still skips
+> them.
+> 
+> Consider:
+> 
+>     cachestat                         collapse
+>     =========                         ========
+>     count a 64-page folio in slot 8
+>                                       store a 512-page folio in slot 8,
+>                                       with sibling entries in slots 9-15
+>     xas_find() starts at slot 8
+>     and skips slots 9-15
+>       /* 448 pages are never counted */
+> 
+> Also consider:
+> 
+>     filemap_cachestat()                  __filemap_add_folio()
+>     ===================                  =====================
+>     counts the shadow entry in slot 0
+>                                          slot 0: a folio of 32 pages
+>                                          slots 1-31: siblings of slot 0
+>     xas_find() skips slots 1-31
+>       /* 31 pages are never counted */
+> 
+> Essentially the fact that large folios might be present means we cannot
+> safely continue the XArray walk, and must reset the iterator each time.
+> 
+> Fixes: cf264e1329fb ("cachestat: implement cachestat syscall")
+> Signed-off-by: Chris Mason <mason@kernel.org>
+> [ ljs: squashed 2 commits, fixed up comment in code, and commit message ]
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> ---
+>  mm/filemap.c | 7 ++++---
+>  1 file changed, 4 insertions(+), 3 deletions(-)
+> 
+> diff --git a/mm/filemap.c b/mm/filemap.c
+> index 7c05e4fad081..c4e82891767b 100644
+> --- a/mm/filemap.c
+> +++ b/mm/filemap.c
+> @@ -4731,10 +4731,11 @@ static void filemap_cachestat(struct address_space *mapping,
+>  		if (folio_last_index >= last_index)
+>  			break;
+>  
+> -		if (need_resched()) {
+> -			xas_set(&xas, curr_index);
+> +		/* Collapse or new folio spanning shadow entries needs reset. */
+> +		xas_set(&xas, curr_index);
+> +
 
-configures ACS on the Downstream Port at that path only if it is a
-PEX 8749 port.
+I imagine this will be a performance hit for the call, as each entry now
+needs a traversal from the xarray root. Might be good to callout in commit
+message. But is the right thing to do.
 
-The path goes last since pci_dev_str_match_path() consumes up to the
-next ';'. The IDs are compared first, and the path is parsed only for a
-device that matches them. The <order>@ and <flags>@ prefixes of
-resource_alignment and config_acs are stripped before
-pci_dev_str_match() is called, so the callers are unchanged.
+Acked-by: Usama Arif <usama.arif@linux.dev>
 
-Suggested-by: Wei Wang <wei.w.wang@hotmail.com>
-Signed-off-by: Ben Cressey <ben@cressey.dev>
----
-Changes in v2:
-- Compare the IDs first and walk the path only for a device that matches
-  them. An entry whose IDs do not match skips its path up to the next
-  ';', so that later entries are still read. Thanks to Wei Wang for the
-  review and the suggestion.
-  https://lore.kernel.org/r/SI2PR01MB4393779B4E590C6D76FD12A3DC822@SI2PR01MB4393.apcprd01.prod.exchangelabs.com
-- A malformed path is now an error only for a device that matches the
-  IDs. Any other device skips it.
-- Rebase onto v7.4-rc1.
-- Drop Anthony Vardaro's Reviewed-by, since the matching logic moved.
-- Drop the Assisted-by tag. The notes below say how tools were used.
-- Link to v1: https://lore.kernel.org/r/20260919-pci-idpath-selector-v1-1-5881de83f248@cressey.dev
 
-The ID comparison is assigned to ret with the same lines as Wei Wang's
-"[PATCH v10 3/6] PCI: Consolidate delimiter handling into
-pci_dev_str_match()". The two conflict in that hunk, whichever is
-applied second; on top of 3/6 the hunk is an 8-line insertion.
-https://lore.kernel.org/r/SI2PR01MB4393A855D592C1F484DEF778DC832@SI2PR01MB4393.apcprd01.prod.exchangelabs.com
-
-Tested under QEMU (TCG). Each of the three options selected only the
-intended one of several devices with the same ID, and a later entry
-still applied after one that did not match. The two ACS options were
-tested on Root Ports, since QEMU's switch ports have no ACS capability.
-v2 has not been run on hardware; the test on two server models in v1's
-notes was of v1.
-
-An LLM wrote the patch, the changelog and these notes, wrote and ran
-the QEMU test, and ran W=1 builds of drivers/pci/ for x86_64 and arm64.
----
- Documentation/admin-guide/kernel-parameters.txt | 10 ++++++++-
- drivers/pci/pci.c                               | 28 +++++++++++++++++++------
- 2 files changed, 31 insertions(+), 7 deletions(-)
-
-diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
-index 0b3c140babd9..12b91186a1ec 100644
---- a/Documentation/admin-guide/kernel-parameters.txt
-+++ b/Documentation/admin-guide/kernel-parameters.txt
-@@ -5038,6 +5038,7 @@ Kernel parameters
- 
- 				[<domain>:]<bus>:<dev>.<func>[/<dev>.<func>]*
- 				pci:<vendor>:<device>[:<subvendor>:<subdevice>]
-+				pci:<vendor>:<device>[:<subvendor>:<subdevice>]@<path>
- 
- 				Note: the first format specifies a PCI
- 				bus/device/function address which may change
-@@ -5052,7 +5053,14 @@ Kernel parameters
- 				renumbering issues).  The second format
- 				selects devices using IDs from the
- 				configuration space which may match multiple
--				devices in the system.
-+				devices in the system.  The third format
-+				combines the first two: the device must
-+				match the IDs and also be at the address
-+				given by <path>, which takes the first
-+				format.  This allows an entry written for a
-+				device on one system to have no effect on
-+				another system where the same address is
-+				occupied by a different device.
- 
- 		earlydump	dump PCI config space before the kernel
- 				changes anything
-diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
-index 7c6f2aba8144..cd5b627da88d 100644
---- a/drivers/pci/pci.c
-+++ b/drivers/pci/pci.c
-@@ -343,6 +343,7 @@ static int pci_dev_str_match_path(struct pci_dev *dev, const char *path,
-  *
-  *   [<domain>:]<bus>:<device>.<func>[/<device>.<func>]*
-  *   pci:<vendor>:<device>[:<subvendor>:<subdevice>]
-+ *   pci:<vendor>:<device>[:<subvendor>:<subdevice>]@<path>
-  *
-  * The first format specifies a PCI bus/device/function address which
-  * may change if new hardware is inserted, if motherboard firmware changes,
-@@ -359,6 +360,12 @@ static int pci_dev_str_match_path(struct pci_dev *dev, const char *path,
-  * legacy reasons and convenience so users don't have to specify
-  * FFFFFFFFs on the command line.)
-  *
-+ * The third format combines the first two: the device must match the IDs
-+ * and also be at the address given by <path>, which takes the first
-+ * format.  This allows a parameter written for a device at a known
-+ * address on one system to have no effect on another system where that
-+ * address is occupied by a different device.
-+ *
-  * Returns 1 if the string matches the device, 0 if it does not and
-  * a negative error code if the string cannot be parsed.
-  */
-@@ -385,12 +392,21 @@ static int pci_dev_str_match(struct pci_dev *dev, const char *p,
- 
- 		p += count;
- 
--		if ((!vendor || vendor == dev->vendor) &&
--		    (!device || device == dev->device) &&
--		    (!subsystem_vendor ||
--			    subsystem_vendor == dev->subsystem_vendor) &&
--		    (!subsystem_device ||
--			    subsystem_device == dev->subsystem_device))
-+		ret = (!vendor || vendor == dev->vendor) &&
-+		      (!device || device == dev->device) &&
-+		      (!subsystem_vendor ||
-+		       subsystem_vendor == dev->subsystem_vendor) &&
-+		      (!subsystem_device ||
-+		       subsystem_device == dev->subsystem_device);
-+
-+		/* Third format: the device must also be at <path> */
-+		if (ret && *p == '@')
-+			ret = pci_dev_str_match_path(dev, p + 1, &p);
-+		else if (*p == '@')
-+			p = strchrnul(p, ';');
-+		if (ret < 0)
-+			return ret;
-+		if (ret)
- 			goto found;
- 	} else {
- 		/*
-
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20260919-pci-idpath-selector-2847a8afe92c
+> +		if (need_resched())
+>  			cond_resched_rcu();
+> -		}
+>  	}
+>  	rcu_read_unlock();
+>  }
+> 
 
