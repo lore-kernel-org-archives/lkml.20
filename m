@@ -1,48 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794404482;
-	b=QrX1fhwjOZtdsw7z+KnCuXvbinRn+Smjl4tHdnpk6jpErolbXrNTtg0s1vovtHktkhDI
-	 ATUyjhBrFS23JDfvG4COHZSJtuRhJ9UiXZVrGcObt3cK1vrkgOI7ggfxHxgob/hjZnoXo
-	 3aNLCoCYmhBUmMtJoL4t6IxqokgG9SAeGCeKsbcmKr/KXojFOUC6cMzRgCe4JWXZ9Yi3z
-	 LqyByV/nUy6k1bGHT7ER6qKBMbJKekK0zgMgGux/LUKOzHDzwi7Muzj0cU6LStjpdsgF0
-	 +qtLb7uglGTtXswf0yf1ooELHsEfA1GNxrjOUJYl52jkDlEsPz2nnC4DuEK0FqK1FBg==
+	t=1794404496;
+	b=zzIApKSwZ9XjCBFZ1phf6kQibwHbe1moBrkTLTATk18ZjEWNlCKSvMNaeTGimDW400Ny
+	 WsmXYK608aqMBLWpJOXHAowFFixFjQpAEvfX87HMIdybreHLDqTC4yLr2QEj8KZ7lxQ50
+	 K0Kl+bMJjqdjRFvnWkP+s1fy/lLUIapyvC6zAIpkdsnqyKf/jCYEu5lSpJz24O8rpyUn9
+	 oZf+ZaYr7929rUnZhDesEVIFoB7chNV4u4JFfuJX7/atT+Tu+vW/ETiEVR/Y3GogMtm5b
+	 YR8L7A+L6ct9b2PPEn2SMCRXSqt5tPW/5QLL4OgJQB5RjM5xPy1pPrtEpsyQmdCo9WA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794404482;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=SkbdlxpS/Sq1iXhAPXJHQNNt5ZBReMg1cK8wjB9zo1s=;
-	b=QLLkwcn/EQqdPLlml5bHMappwM4zj02WcTf3PC5z2i/Vys/lfsVlKU3mRnUb6i7LG3ht
-	 +1lXOSI+iBHrxyskg7DKGALqpDTDIDOcLB+67KyT5WGooRIohUxtXJ4c3cht5lShxrUsO
-	 jZxxw2gHzhJdUrMhY4qkIjmt4jD/kQXgCw88JLKUVFmHbJQeVHRt4Nh+br17Gb0755pI7
-	 xzEq2lF+ljJW6UOvMdi6rTfnlFF6nS0x5a/Yb20VZ1CnLyqtAI/JAynm2BrICbQ2ZL38i
-	 TIGxTSOW9uYg41ll0nWPKP+kaoPfMyo/OGOJuJWu8qmg5PRG7Es6AsGZOZEhlG7J31g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794404496;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=tgcyXRom+DYUOBHj/B31scavrv/8OCK7JtPppDaBX+M=;
+	b=5U0pWRrwTz9YJh+UzSWZ76RShPOICssq61Xh24uPn6ixnShQwkUBtrS3BeWOh2eiFJmS
+	 YdLAvYgu0TIZhhH9sxaj8PtMPke8wURQsD7x8Xksbod+EZ7pcFc6FqDgppmasNKnrKKyk
+	 ergj3LR6W2RmrFeN983NoHIEAmebhO3pTKMzoH8aG0CUTgq8BKEbShqctc6S76nI+0Bcf
+	 d+kSqGwAebnnm7S2KOzwzz1WNINxV7wdqoyD4mbbRGVyx37nfvoBQWTQWryg66d1uv1R/
+	 WEsLcM4K9I6y75OiWNYQVBFbyXyS2JqwRYkWpxkr3E4vGndKs2rt64gKxDANQi8sBkw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UTeQPVjP;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=F2M43Q5h;
+	arc=none smtp.remote-ip=209.85.160.49
+Received: from mail-oa1-f49.google.com (mail-oa1-f49.google.com [209.85.160.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98734606A891;
-	Wed, 11 Nov 2026 13:41:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9852606A32E
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:41:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9852606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UTeQPVjP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 741501F00A07;
-	Wed, 11 Nov 2026 13:41:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794404482;
-	bh=SkbdlxpS/Sq1iXhAPXJHQNNt5ZBReMg1cK8wjB9zo1s=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=UTeQPVjPmqkSmpaELrob+fhumbeUluX/Tzqz6hnwCurnbwBtfJ+sv+Rno9UFjbFWz
-	 NObLLMBF4g/qh874wBbfm2bHEpo1eeQuOLdAhmPSWgUYA+440aj0Pr8PTD9IfBeo7k
-	 Fv9TH2u/bZy0TSWMfNBduhG0pwpIeXzK2OW5qlM/WXFIal/+LBMp8ZiwQVzGRISFOb
-	 bH1V3DvM+/d9nzyxtDPEsc5HoVG19NcSh96TSP95d5e+LLX1880LrS1u14udmRC9+K
-	 16ZYXzWZnfCwJbAyzlj+wa6S02fGzTGBprXjV6Jhatwlbi9uxCnUb+Bx5OvvOXyVy3
-	 8h4apdNhjaTSw==
-From: Vincent Mailhol <mailhol@kernel.org>
-Date: Wed, 11 Nov 2026 14:41:05 +0100
-Subject: [PATCH 3/3] kbuild: move scripts/mod target out of single-build
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=F2M43Q5h
+Received: by mail-oa1-f49.google.com with SMTP id 586e51a60fabf-4adea5b7a2fso1411235fac.2
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 05:41:35 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794404495; x=1795009295; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=tgcyXRom+DYUOBHj/B31scavrv/8OCK7JtPppDaBX+M=;
+        b=F2M43Q5hBJqtm2Z8XTdPEPr3gXFWQKX57WO91E8JYaXNf8lFx6xv482WviotB9saBF
+         Fk+pOxkRYsN41HIKHasxbMsR7hGp9UKInskQMg3dj/B5EReUx5meqbv8GAPATba1xkzj
+         U2usazsmFAsfu4tkfuq5XgEqVgxmLq0/7SYCvDclv2kJg6nO/F/eAa3nLqJ1z0utVWPR
+         vqYVl5i9ccwHZ6kQoiqvCqzLlaywgPJkcKZmF+yudB5MxXUZ0KhcDomdVJJEXcBN1Bri
+         LtbtJ1+br4+ExfFu/N41ytzS/8Afdlw5bpVE/1d0zOK1m0wDf6cmPF3mOMF0s/E05sVj
+         46/g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794404495; x=1795009295;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=tgcyXRom+DYUOBHj/B31scavrv/8OCK7JtPppDaBX+M=;
+        b=vXgYlXlZZbbwljLSroOh2+MO31J7+2lUNeWJoQk2DDdbxqiZWF0BVceDnIggO3WRud
+         SfO/tsvOG8s3gy+sB3vFMCdFQMzZrPDIJf4dOywZthH7PWpyBlwQTffoZHCoaDMNsq9g
+         lB2IeAsCunWxA1LxJsiWXxIO7odoWQgslahQ0Z0qWBR3ETpr3sYhj/5HYfnpCsOfRfPk
+         rD0/uJ2JdLqGgpxBpLVHaI/+V3+ceB58qXYGQ1fJXQC9FnHjmvkp9CaJtj3imNlovh1P
+         ZZqH2Mi0G14EWMEoPpQ8tbJ4bGxa2P/F+you/I74lrifnsKpaexJ4vHiJXdR/QP13lzl
+         lmdg==
+X-Forwarded-Encrypted: i=1; AL+hErG+p+KKnB/vRXo8fM84Kk24LpXaL3ZMJeg8oXM3zSSz0x+Kcl5ZJ/CymCLbuY72NNsCaS+8aOJ0oIyADCI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9sEd8rSMWIIzXwTNJor/1YcUzRUtxrOe3VACXPT8IKoZjfiMLY
+	p8WFNeyLXWhpMSUF4UeNSBZinRyNokaHvpymGNmtwMlqT174c5uY8iBOkYrzOEIK
+X-Gm-Gg: AYBFou097r87OsBY6W4qHAnGvbHUhHBZ7+/lt8Bpw0ZmSNFf4xk615oKB7ySfLXe+a+
+	uMp9d7815gNAXMS1EDIt45Shijka4hTNs2WgcTxYy9ejEYqzWkY1LnGNoQBaCKoePfRMw5K6AoD
+	ClXYceXsTlfmI4wCOdDVGtxr6WAhY6mIAog7/2tj47D+vOfT7VggtvvTxnm/Qmlrpg3c1/ra6gY
+	F5Xd6AfpW5LxmmXukLpaVlWnFs0TLEARuc6AAY7qmr10GCCYXvUjrrnf9tVRpscFjN1QB+iLXLh
+	pxyDpULNotRajymOsktA5Fa0NMTcp8Pb3MvqfbpgJAvbCix5C90vSMWg8dk1sIyoXGTiqYM5p+u
+	5EXsCJJ3rBkF5hFq+MVd9HZTjMJO9kyDmRDv5dEyIaVVxuyeZSDx+3hPTFiN3KZK7vy6T3FBNl2
+	DPKAIsTzQQq1TCjBMZ2ZL7f95g+nDj9alNPB3RR5mcOXzsPD+Y1bgIZRn9qbZVS+xeiRQfWS3YM
+	ne1FmwjQdYqjnbtCCXuLwoWZxy2X/QdPRkL4c3kEwJhMxtTk1NkQXKIsdUtVfBQI9NZkFQtyP6h
+	1AN0rKTHIr7fyzzhhENAxpt0OCbW+U3OO9q8TzPyJRcifjIcDWieDeCVBhsvKc+9mNIlXFv1Y4w
+	=
+X-Received: by 2002:a05:6870:ab8f:b0:494:7af4:954a with SMTP id 586e51a60fabf-4ae46848ac6mr2154035fac.8.1794404494609;
+        Wed, 11 Nov 2026 05:41:34 -0800 (PST)
+Received: from jeffmr (63-152-14-173.cdrr.qwest.net. [63.152.14.173])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4ae22fc1041sm3410611fac.7.2026.11.11.05.41.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 05:41:34 -0800 (PST)
+From: Jeff Roach <jeff.roach0@gmail.com>
+To: Fenglin Wu <fenglin.wu@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	David Collins <david.collins@oss.qualcomm.com>,
+	Subbaraman Narayanamurthy <subbaraman.narayanamurthy@oss.qualcomm.com>,
+	Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>,
+	Tingguo Cheng <tingguo.cheng@oss.qualcomm.com>,
+	linux-arm-msm@vger.kernel.org,
+	linux-rtc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/3] soc: qcom: pmic_glink: Add GIO pmic_glink instance
+Date: Wed, 11 Nov 2026 07:41:01 -0600
+Message-ID: <20261111134101.15019-1-jeff.roach0@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261111131424.51869-1-jeff.roach0@gmail.com>
+References: <20261111131424.51869-1-jeff.roach0@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,78 +107,13 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261111-reduce-single-build-dependencies-v1-3-7196ca986a85@kernel.org>
-References: <20261111-reduce-single-build-dependencies-v1-0-7196ca986a85@kernel.org>
-In-Reply-To: <20261111-reduce-single-build-dependencies-v1-0-7196ca986a85@kernel.org>
-To: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>
-Cc: linux-kernel@vger.kernel.org, linux-kbuild@vger.kernel.org, 
- Vincent Mailhol <mailhol@kernel.org>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1942; i=mailhol@kernel.org;
- h=from:subject:message-id; bh=0sF8VsL9CRgOH/a13nzodBXkj5zHDfpfgSGiaMVJ3EM=;
- b=owGbwMvMwCV2McXO4Xp97WbG02pJDFlfCmrMr6203si2fc2EqBuK6Z8W9H3VDkmZfUd4i/jbf
- 83J5ZreHRNZGMS4GCzFFFmWlXNyK3QUeocd+msJM4eVCWSItEgDAxCwMPDlJuaVGukY6ZlqG+oZ
- Ahk6RgxcnAIw1YqvGRlO3fy7pLv8Y8He++tfK/1iDu1RmPK4bo6QuqqjSTWvZtIERobv+nOqzjP
- OCH2kI/qLacZ77oIP1x8xuSiFHj+1xIhz8QUeAA==
-X-Developer-Key: i=mailhol@kernel.org; a=openpgp;
- fpr=ED8F700574E67F20E574E8E2AB5FEB886DBB99C2
+Content-Transfer-Encoding: 8bit
 
-The scripts/mod target is currently set as a preparation dependency.
-However, this is not needed to compile, for example, a single object.
+One more thing I noticed: after the GIO test, qcom-battmgr-usb stopped
+getting uevents on charger plug/unplug (sysfs "online" still changed,
+but no USB property notification seemed to arrive), so the desktop
+plug/unplug sound was gone. It stayed broken after unloading the GIO
+modules and a warm reboot into the stock pmic_glink. A full power-off
+fixed it.
 
-Add a new modpost_prepare target for scripts/mod and make in-tree
-modpost and modules_prepare depend on it so that the prepare target does
-not trigger that dependency anymore.
-
-Signed-off-by: Vincent Mailhol <mailhol@kernel.org>
----
- Makefile | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
-
-diff --git a/Makefile b/Makefile
-index 2c1289a44c56..93236f310f08 100644
---- a/Makefile
-+++ b/Makefile
-@@ -1405,7 +1405,7 @@ scripts: scripts_basic scripts_dtc
- # archprepare is used in arch Makefiles and when processed asm symlink,
- # version.h and scripts_basic is processed / created.
- 
--PHONY += prepare archprepare
-+PHONY += prepare archprepare modpost_prepare
- 
- archprepare: outputmakefile archheaders archscripts scripts include/config/kernel.release \
- 	asm-generic $(version_h) include/generated/utsrelease.h \
-@@ -1414,6 +1414,8 @@ archprepare: outputmakefile archheaders archscripts scripts include/config/kerne
- 
- prepare0: archprepare
- 	$(Q)$(MAKE) $(build)=. prepare $(if $(single-build),,prepare_checks)
-+
-+modpost_prepare: archprepare
- 	$(Q)$(MAKE) $(build)=scripts/mod
- 
- # All the preparing..
-@@ -1765,7 +1767,7 @@ endif
- modules: modules_prepare
- 
- # Target to prepare building external modules
--modules_prepare: prepare
-+modules_prepare: prepare modpost_prepare
- 	$(Q)$(MAKE) $(build)=scripts scripts/module.lds
- 
- endif # CONFIG_MODULES
-@@ -2189,7 +2191,8 @@ KBUILD_MODULES :=
- endif # CONFIG_MODULES
- 
- PHONY += modpost
--modpost: $(if $(single-build),, $(if $(KBUILD_BUILTIN), vmlinux.o)) \
-+modpost: $(if $(KBUILD_EXTMOD),,modpost_prepare) \
-+	 $(if $(single-build),, $(if $(KBUILD_BUILTIN), vmlinux.o)) \
- 	 $(if $(KBUILD_MODULES), modules_check)
- 	$(Q)$(MAKE) -f $(srctree)/scripts/Makefile.modpost
- 
-
--- 
-2.56.1
-
+Jeff
