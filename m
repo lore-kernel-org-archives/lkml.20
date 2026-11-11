@@ -1,68 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.135
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794393181;
-	b=LRyMQ+MzOa5mtHHseLQirqfVs0ZYWB3/5isXVnysG7Q2lHCFVMafcAe3szwk5qf/RPVW
-	 iny5TUP4t/lcq5Dt1ZIzw3rDd9NaRGnxBzkjv3VprTaB9WGK76VIHKPgCYZeE+da+3acX
-	 q1WzPvs0765GP+igFM1AuyWqIWjU+CkEAZpHwpfA/TkQHaQfAOHayuG/xmmB+VpnlTW+1
-	 f40Ai2xqkEiV8EA9z89vncVAgf3+IbEm/dUB5nz7Dt/XJykMg7znOAR+IDaF53bGe6+Ef
-	 Kkv8N9kFrSxozEhrYDTZnb5D1XJqmXSYpb4tLaHP/nK4Z/6cW58YDwAmmdq8kisCbUQ==
+	t=1794393178;
+	b=mv/oWwCMPIebF9Gz34i+ENfjYLj9C74Y19xiUWdXxKjA2U4OkPNVpGOgzN8CFG96MvQ+
+	 IxXpG+36NoOB5G/NflPQo6bHkYnynBU6Ii/kjpfwnF7mlIXma4z1g+r5VdnG5eeSL2tdH
+	 TOM99lngQE+F3UVFvtLOdG0DuRjHjsaqzST3LFA48oRcop63wSeQByjFxaMfvc4bkR7Xn
+	 Sb4dNlyu1JQo8yNQymFFAuBxg9WHimzvr5yvFMbP3T6uWLfWMfenBys63gzQdD6MWfwov
+	 w0QDdV9VIDSfN+AHM3XIPD+yStk6TllM/dgbnyEi6yJ83g6WFuAjEvdluw4qE6SGW/w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794393181;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:Date:
-	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=1a2CtR8JxmoelHHjl5muP6NMwoul1o/ElRxIx5HOCyM=;
-	b=25Nd3qbC/56y14XilOsA041AuFjiISSlZwgHCr4VIne5ziSmkTlE3XeTYDziap6KPt/G
-	 WRSX1AKaEn/fPi861xv5Bx1a7JmtDDOnw21GeOLWTt+Izx66M8BKk81EWEgw2Hn2VZGCq
-	 8TmCxbPPB4OXuJVTkmNiBRJhmle97XqsnZJ4HFuNyiLKo0jdvOGFmXosVZ2DtE0tT6TAM
-	 vM8U/CTw1jy7DIqkojPUguX2iMOfZr9e3Yw1Vmgqjsw6G8yP3CMuiC9WVu0RsHpiy5hDL
-	 vH2/4/baEl+P9AiMpgnJrrCHtxPubR8mv3WgS3EyLrq8gVDl3IA6DiDoGUnWl8nrGTQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794393178;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=5LxVGBk0nGoYs31KnbsVJCWarpNoNytCYPFUuR+hl2o=;
+	b=rvqJ8fO56QKQd5UVF3/hOPbd8xYKSkEzzQLrdHMAiWp5sx9rZoBsmh7i0g4+o5tv+tX3
+	 MdAlynVe8HG3lYUPycc3anPy82vnugxLt3z3wNuBM+PU40hO6fHrr5IWjFa/7+2s7Y4Vd
+	 I5Ic6/mhpsCcA9sKOO8gwY9shzKyoQOz4kFnovC4rMIz4GyCXol5e8QUJ50iz+dkq/7CK
+	 gPs7ZWTIM1HK8L3thKIsXPEPCOVlqlMN5ewK99OZrQE8iicqlMsvuwoQuLtBSV0gYyjN8
+	 FizVEkDOhVPT7nOdSne6oibaXdZu64bSj1Kg5rIo7IUpkeMTE8qvjLafbVGKrowpJ8A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=sang-engineering.com;
-	spf=pass smtp.mailfrom=sang-engineering.com;
-	dkim=pass header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b="VK9/tqch";
-	arc=none smtp.remote-ip=194.117.254.33
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21BC6606A337
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 10:32:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 21BC6606A337
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=gfI0vyH7;
+	arc=none smtp.remote-ip=111.22.67.135
+Received: from cmccmta2.chinamobile.com (cmccmta2.chinamobile.com [111.22.67.135])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id BAF61606A31C;
+	Wed, 11 Nov 2026 10:32:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BAF61606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=VK9/tqch
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=1a2C
-	tR8JxmoelHHjl5muP6NMwoul1o/ElRxIx5HOCyM=; b=VK9/tqchzYbevShFFs4t
-	vRv5K6tQ7keH5esVT5gvjrKx775hI/lXDEuJILdkExehah63twdJNV50r9FgtAaP
-	zjjrGt+DQakgMuY6YcZmC2dBI5BJi6ItQEPvICrYGGmGVIblyG9jX03zviViOEyv
-	0KiHoR04Hrlj7zQPrCIzAwn4T9GUdIbXefhZtHEsio3gms7KQmPbhjpDuDrdcwqj
-	Y96SM/Bklorg5rks3w/KwlrU+SXKqamFud14fLZMHs1qE1nSCkdQ9TJ6ZN2Jwn6z
-	x+NVppAIL5g2PPGjDK35h2Se5Di7Q6VevRxZJyfpTNKFuSiMnOohqdZZRwYcyKbb
-	kQ==
-Received: (qmail 571814 invoked from network); 11 Nov 2026 11:32:57 +0100
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 11 Nov 2026 11:32:57 +0100
-X-UD-Smtp-Session: l3s3148p1@sAXwt/1f6JIujnun
-Date: Wed, 11 Nov 2026 11:32:57 +0100
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: Biju Das <biju.das.au@gmail.com>
-Cc: Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>, linux-mmc@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org,
-	Biju Das <biju.das.jz@bp.renesas.com>
-Subject: Re: [PATCH v25 08/11] mmc: renesas_sdhi: Add
- TMIO_MMC_INTERNAL_DIVIDER flag
-Message-ID: <avREVcauIMrumfiY@shikoro>
-References: <20261028-rzg3l_sdhi-v25-0-57f16691c2ed@bp.renesas.com>
- <20261028-rzg3l_sdhi-v25-8-57f16691c2ed@bp.renesas.com>
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=gfI0vyH7
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=gfI0vyH7pOB8czxqaryCpXcOBP99ohzOKmBD2emZCTRp6Yhy7gZdlmlI5eqc64hgvQ1y55j0ceWfn
+	 HrF4uwLu9EU1fRdVUqJXMdoTgyl8icTLhY64s3LhZsOB/TPRdQy6iwk9O2oDUEJKdvulUsUXFXAxjJ
+	 u72q/41jhoX80ISg=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app07-12007 (RichMail) with SMTP id 2ee76af4445671f-d90bc;
+	Wed, 11 Nov 2026 18:32:54 +0800 (CST)
+X-RM-TRANSID:2ee76af4445671f-d90bc
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from DESKTOP-3K8GUTQ (unknown[223.108.79.98])
+	by rmsmtp-syy-appsvr01-12001 (RichMail) with SMTP id 2ee16af44454467-d960e;
+	Wed, 11 Nov 2026 18:32:54 +0800 (CST)
+X-RM-TRANSID:2ee16af44454467-d960e
+From: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
+To: netdev@vger.kernel.org
+Cc: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	danishanwar@ti.com,
+	rogerq@kernel.org,
+	jan.kiszka@siemens.com,
+	diogo.ivo@siemens.com,
+	haokexin@gmail.com,
+	horms@kernel.org,
+	vigneshr@ti.com,
+	m-malladi@ti.com,
+	jacob.e.keller@intel.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 net 0/4] net: ti: icssg: Fix device_node handling in prueth_probe()
+Date: Wed, 11 Nov 2026 18:32:51 +0800
+Message-ID: <20261110161000.3143-laixiangwu@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.50.1.windows.1
+In-Reply-To: <20261110064118.1138-1-laixiangwu@cmss.chinamobile.com>
+References: <20261110064118.1138-1-laixiangwu@cmss.chinamobile.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,66 +84,24 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="KWbUZnbI0l9JpoUn"
-Content-Disposition: inline
-In-Reply-To: <20261028-rzg3l_sdhi-v25-8-57f16691c2ed@bp.renesas.com>
+Content-Transfer-Encoding: 8bit
 
---KWbUZnbI0l9JpoUn
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Hi,
 
-On Wed, Oct 28, 2026 at 12:51:25PM +0000, Biju Das wrote:
-> From: Biju Das <biju.das.jz@bp.renesas.com>
->=20
-> RZ/G3L has a fixed internal /2 clock divider active in all bus
-> timing modes except HS400, where the divider is bypassed. Add a
-> TMIO_MMC_INTERNAL_DIVIDER flag to mark controllers with this
-> divider.
->=20
-> Add renesas_sdhi_clk_get_rate() to fold the /2 division into the
-> reported clock rate when the flag is set, and use it in
-> renesas_sdhi_clk_update() in place of clk_get_rate(). HS400 is not
-> yet supported in software for this SoC. Adjust clkh_shift for the
-> internal divider case.
->=20
-> No existing platform sets this flag, so this is infrastructure only,
-> with no functional change for current SoCs.
->=20
-> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+The netdev patchwork cc_maintainers check reports that some people
+listed by get_maintainer.pl for the files touched by this series
+were not on Cc:
 
-Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+- Vignesh Raghavendra <vigneshr@ti.com> (original contributor of
+  the ICSSG driver code this series fixes)
+- Meghana Malladi <m-malladi@ti.com>
+- Jacob Keller <jacob.e.keller@intel.com>
 
-> +	/*
-> +	 * The clock driver may not know the maximum working frequency, so it
-> +	 * should come from the 'max-frequency' property. If it is missing,
-> +	 * assume the current rate is the maximum. SoCs with an internal
-> +	 * divider can't do that, because the current rate is not
-> +	 * meaningful for them, so the property is mandatory there.
-> +	 */
+Adding them here for visibility. They will be included directly in
+the Cc list of any future revision of the series. No action is
+required from them.
 
-Good description!
+Best regards,
+Xiangwu Lai
 
 
---KWbUZnbI0l9JpoUn
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmr0RFUACgkQFA3kzBSg
-KbZ8IQ/+JQDoXdLga1QEmjWuNKg5MxFaXkOMhDHYzcYkviBTerkDsT8bwVkLmwXY
-qPvHmkekBwsj8sonpNklm13HMg/rUJ3i1OWyilgQtHZxsnW5HilA6/99/kmRvFhQ
-vS/oz7c3tufBKq9EuAkwWcbrQGpqkJJ79ZQ3rBfXVunM42w2Kw1dO+ORCm4WJbZQ
-COmfTzOn61y4cpA2RhblEeQzN5yMIZTmI6KWZdu3zGG5Hwf1PPWRT7UEEGY6iO7e
-IqAzReu5hUcDEkpnSFE3g++BRdf97bwPuvJLOCNhsyK31ioG/zk9CS2SBDpEF8mD
-f71+/caM9Jds4k0qIya/l2yQuhSCyL8F3gxkd+5EzfKG8Gc6B3ZNL4JgzywbZKAH
-+Szwt60da6ETz6oY6mb9Ml1/rbNsvld23+ZakxtnVWCUS0Qe2oodvKUGW3+5RtC7
-pzXoSg5MCFDAGQxfVqbwXK5z+5cMV/aArVLNrX/3ZDKU4tFbzRX2JA0Ngy9kCIKj
-ZMP6O9K/TfCrYxhDd63/jx57fY9M01IQcJ/OxCjIHnfWnRgo3a9jtavV0OtT/dLD
-RR+Kt/ehVCtjEcOggh9NTUBu9cEJ21/GQ5pciIpikvUIzHRPWinrkSyCo5oNfvwf
-B7QSUJBLG/xM1gHzX+k9qGGoyPPuNZ7OVU2MXjJeDOpHUsba848=
-=QL25
------END PGP SIGNATURE-----
-
---KWbUZnbI0l9JpoUn--
