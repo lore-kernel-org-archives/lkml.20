@@ -1,64 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794400606;
-	b=ZoDbn4XkpgmfRRBknpJTsq99LYjPgEBr+cgkP65nfFGdDjUEhh0/xntY8ajwXfnFpzvN
-	 ET96UJZSLtuBsOv4Y8qnVgnLa8m84ppmxTOu83zpOloougy6qEq2+WJDfbZkQnYhsWcxp
-	 ZdJce/3CCIRbTs2/lQWD+33LPklquLl8Nu1uXjkyTDuxqAumJy2TAz2Fe4In6Ufpx4kzW
-	 qLoEc1Dl85Ndv6hqErt7NHqDvLUy3i+VosCfyNudvln51DDrFlWMQWv4klySqGVkaH6RC
-	 T+JXn0xFJ7YtCb2MLviVhShrAQC0Ey7nAwXJrl5EdGEgaUqUEvFDeMOVldFN+a2UZKQ==
+	t=1794400629;
+	b=Yks3jpPC4wEtpyhZJePeiGzAEF4pRkTDuPiw8rT0/TCxhb68xlu2sCBhgkcGoFRIpkTu
+	 OeeYnk4J4MFMgwYfkM9x4KOHtA46kqLWUbGZ+UhIe5OMgoPKjQBAZvTFyKVOi8sRLDojj
+	 gy7Z1bUnzoe+ULlCE92Cg3Qf8TyxIUlEnt3OOlApnLDJyLo/paeSCTqqriGTE6OKfWiDg
+	 DUuIBdewOtWQ4xEXe7yAf3vF9a6LIjVv2Moc9bqq+1lQ6R1lrdxR/1Ab7aWir9RxDwcAz
+	 +O0OcMEZn7L2WNRhdNrGiVfrw41r5a1YaC+hurS+QdxAa4EiLKsO17/vH+lK0s0ALkg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794400606;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794400629;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=NA3S0+TcajF90K5hGXvldMp+JqFlXBnQmtQs2Oovhrc=;
-	b=VtCKViELcXU2I9OTdpwvzQ5v2aKf5PsWsd+d0u5vH14anhyJ/FE+rLBBctXGPqrKAz+N
-	 tXPWthOZvHYw490LL6cMrUFihHD9hFBhsz267NuNSY7pId/gtAuj60p1/PPoCOIaDAovR
-	 q5hoynHjS1AbKJUio++b1xB/tY0UtWPMlReIMEspLbM7KQdVldvHdjCg3kLKQmikuwH2u
-	 wLst+STG3D8iszJceaDqmZByfRdqHxQarDgGU072507rUmjfa4jvI1ws+s7/UjeUpM3cC
-	 TIp161rr9eKadbVyTLTp9S+aD2NVr0ClQY1AA587/s/woPaUknq0u0paXT+tsdSUSDA==
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=DrEyZ9Dy/vdt9Enxk47/lufRYYKMANPK/dWOzZVfB0Q=;
+	b=3V2kMgtZqOcRKjwOi9vyb7bF/aboFaTL9pFCcEZ90soUAcd+sP6TWuc1MWUpMMwruV6n
+	 iNvpHtJPhlroXAoK+kAD6mnG/Ce664gOB+CzcS6kNstynqqh9VfrdnH2JPCigyNOEgLwJ
+	 6c3vUgNzlMQDiDO+D13oFEJwdn+jJRpR70mohrNGdGd38Cvyl0b+WRp+pT7aukijSRngO
+	 Xxga5z3qLq6oaPYFiECknuBWUrZ/ACiATbenBjh/jycI4Ubfd7T/M/bBo4jaLj1PNbzfW
+	 BmNvcpzz4/vQ+WQUVPrg8LD0aeWi8Gr52bt7FS6dBuWNX7Un94vX5bg6oa1WV4Uc80w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H9+vLzd2;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Fm8TTeVI;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9873A606A326;
-	Wed, 11 Nov 2026 12:36:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2C0E606A31C;
+	Wed, 11 Nov 2026 12:37:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H9+vLzd2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB07A1F00A07;
-	Wed, 11 Nov 2026 12:36:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Fm8TTeVI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5654C1F00A05;
+	Wed, 11 Nov 2026 12:37:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794400606;
-	bh=NA3S0+TcajF90K5hGXvldMp+JqFlXBnQmtQs2Oovhrc=;
+	s=k20260515; t=1794400629;
+	bh=DrEyZ9Dy/vdt9Enxk47/lufRYYKMANPK/dWOzZVfB0Q=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=H9+vLzd2Lhu/eWWmeDsvRPseso8wUf+PyA2D4q8090P92qb4NNccLDohXyYUMEpnb
-	 hf7xzk8PyBrRkszUciwVXEBszNLjVAruA91NZhWmmuH5klyj2fPK3lz/jjQ3qtjSJ5
-	 QWvEGKlnB7uHH5OepDSKp0OOexS+hkY4/i5H8NWFyVE617U/vDgqHpECZ9GypiMXft
-	 ZhndU/e1LMyGF1CC/qVU0NGj7ESGf5Won6mywMD0lED3dPbzw5yjdvNRqjQzl0N+6E
-	 mPPllJ+h5ALbxOucIniGOXGpeJ6E92tSJu/75MFcA7ofbbBw23SCOC2LT23EMRNqKl
-	 rxKTcpqwbMw0Q==
-Date: Wed, 11 Nov 2026 13:36:37 +0100
-From: Christian Brauner <brauner@kernel.org>
-To: Matthew Wilcox <willy@infradead.org>, 
-	Linus Torvalds <torvalds@linux-foundation.org>
-Cc: "Kiryl Shutsemau (Meta)" <kas@kernel.org>, 
-	Alexander Viro <viro@zeniv.linux.org.uk>, Miklos Szeredi <miklos@szeredi.hu>, Amit Shah <amit@kernel.org>, 
-	Jan Kara <jack@suse.cz>, "David Hildenbrand (Arm)" <david@kernel.org>, 
-	Zi Yan <ziy@nvidia.com>, Bernd Schubert <bschubert@ddn.com>, 
-	Hugh Dickins <hughd@google.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, Arnd Bergmann <arnd@arndb.de>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
-	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, linux-fsdevel@vger.kernel.org, 
-	fuse-devel@lists.linux.dev, virtualization@lists.linux.dev, netdev@vger.kernel.org, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com
-Subject: Re: [PATCH 1/4] virtio_console: copy pipe buffers in splice_write()
-Message-ID: <20261111-heimreisen-ungeziefer-empfunden-a892571f2c07@brauner>
-References: <20261110145241.536019-1-kas@kernel.org>
- <20261110145241.536019-2-kas@kernel.org>
- <avNuQqLf9CG9dSsE@casper.infradead.org>
+	b=Fm8TTeVIKgELMl8vk3ebBz7NjeNXK0VYlflbnvI+1DhF7tIPs8mjFhfsCxu4SsCEC
+	 dZj5z/6m0WsxBJK8mNC/CKIelsRlDPZdTa/pY7f0UXzHHt8WfrwUmxE9lglxm2Jtzy
+	 ius5pA6JqZ9CZAaURmR4YUp0cICYP8cHohV5iTpnxTi5YmKzzykZdIlMaAN0TRnmYd
+	 Zxzr5OmMoCKOA8mBYNhaX5S/A7N19hoWoLQBvBH9PJz6uTXVtIKiSKOWwV5aPYIwXo
+	 y8K+aQpIJIsvL9F+8W77GqC4igMTpEEwNnrjNb7YCtMZsInr7OcxaULuCk0CQzOWS6
+	 ScuUbS0ZJToZw==
+Date: Wed, 11 Nov 2026 13:37:05 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Jyothi Kumar Seerapu <jyothi.seerapu@oss.qualcomm.com>
+Cc: Mark Brown <broonie@kernel.org>, Vinod Koul <vkoul@kernel.org>, 
+	Frank Li <Frank.Li@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org, linux-spi@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, dmaengine@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH 2/6] dt-bindings: dma: qcom-gpi: Add QSPI protocol
+ identifier
+Message-ID: <20261111-daring-salamander-from-tartarus-4c72bd@quoll>
+References: <20261106-qspi_upstream_series-v1-0-21f43042dd60@oss.qualcomm.com>
+ <20261106-qspi_upstream_series-v1-2-21f43042dd60@oss.qualcomm.com>
+ <20261109-wandering-miraculous-mamba-0cf21a@quoll>
+ <2fc8f7ea-651e-466e-9346-c47e0a38c5bb@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,60 +67,35 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <avNuQqLf9CG9dSsE@casper.infradead.org>
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <2fc8f7ea-651e-466e-9346-c47e0a38c5bb@oss.qualcomm.com>
 
-On Tue, Nov 10, 2026 at 07:19:30PM +0000, Matthew Wilcox wrote:
-> On Tue, Nov 10, 2026 at 02:52:36PM +0000, Kiryl Shutsemau (Meta) wrote:
-> > +	src = kmap_local_page(buf->page);
-> > +	memcpy(page_address(page) + offset, src + buf->offset, len);
-> > +	kunmap_local(src);
->
-> 	memcpy_from_page(page_address(page) + offset, buf->page, buf->offset,
-> 			len);
+On Mon, Nov 09, 2026 at 08:03:29PM +0530, Jyothi Kumar Seerapu wrote:
+>=20
+>=20
+> On 11/9/2026 7:12 PM, Krzysztof Kozlowski wrote:
+> > On Fri, Nov 06, 2026 at 08:31:20PM +0530, Jyothi Kumar Seerapu wrote:
+> > > Add QCOM_GPI_QSPI to identify QSPI (Quad SPI) channels in GPI DMA
+> > > specifiers. Its value, 9, matches the GENI serial engine firmware
+> > > protocol ID for QSPI.
+> >=20
+> > What is GENI serial engine firmware? How does the Linux rely on it that
+> > we add bindings for it?
+>=20
+> Hi Krzysztof,
+> GENI firmware runs on the serial engine=E2=80=99s programmable sequencers=
+ and
+> implements protocols such as SPI and QSPI. Linux configures the engine and
+> submits transfers to it.
+> The existing GPI DMA specifier includes a client protocol ID. Linux progr=
+ams
+> this ID into the DMA channel and selects the corresponding descriptor
+> format. QCOM_GPI_QSPI adds the QSPI protocol encoding 9 to that interface.
+> I will clarify this in the commit description in V2.
 
-I don't think that works. pipe_to_sg() only clamps len to the
-destination page. A pipe buffer however can span multiple pages of a
-compound page iircu. And buf->offset can point past the first one.
+Does not really answer. I see no reason why GENI firmware needs ABI for
+Linux.
 
-I found two exmples:
+Best regards,
+Krzysztof
 
-(1) skb_splice_bits() for AF_UNIX and TCP
-(2) tracing_buffers_splice_read() with buffer_subbuf_size_kb > 4,
-
-And virtio-trace splices that stuff.
-
-Which means VM_BUG_ON() in memcpy_from_page() fires:
-
-kernel BUG at include/linux/highmem.h:542!
-Oops: invalid opcode: 0000 [#1] SMP NOPTI
-RIP: 0010:pipe_to_sg+0x130/0x150
-Call Trace:
- <TASK>
- __splice_from_pipe+0x92/0x1e0
- port_fops_splice_write+0x13f/0x1a0
- do_splice+0x3b6/0x8e0
- __do_splice+0x20a/0x230
- __x64_sys_splice+0x97/0x130
- do_syscall_64+0xde/0x4b0
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-Fwiw, the open-coded copy is broken as well. Just on HIGHMEM...
-
-Starting with b46e09667411 ("fuse: enable large folios")
-fuse_dev_splice_read() hands out large page cache folios and
-kmap_local_page() only maps the first page.
-
-So a fuse server on a 32-bit HIGHMEM guest that splices a WRITE request
-into a virtio port crashes mainline:
-
-BUG: unable to handle page fault for address: fffab000
-#PF: supervisor read access in kernel mode
-#PF: error_code(0x0000) - not-present page
-EIP: pipe_to_sg+0x184/0x2b0
-Call Trace:
- __splice_from_pipe+0xd6/0x1f0
- port_fops_splice_write+0xf9/0x170
- do_splice+0x2c1/0x810
- __ia32_sys_splice+0x2e7/0x310
-
-So we need to copy per page which would fix both.
