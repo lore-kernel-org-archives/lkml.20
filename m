@@ -1,93 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794389705;
-	b=C7yNI6veImETxQjIG1nVB2npKM9t+uYTd1uTraaKHniTj6h0uLy7tuFpWZkz13siAujw
-	 J6Cv3Ro5n+uZSad5Gt+PHXwMZePh3PkEGYQlMTtyG4RizUSFxisByl7t0z5BEAFQ6rDA4
-	 fSmPWNkPY4N1UClWKoMeYU+BBXkPAXQ8YxDNHYgts2Pc/2o/8B9GT7V7vIsv8ArvRLFpW
-	 rSSiSvSW3WR1zwbVR5d+vqAg9ipNdL+Kw8HTejcQGU5uZ21Wj/B/Hy755SWXSiB0eO46g
-	 31+m08bz5rVIAn/PhTA4czYjrrIqHmvsVJnxt1IgppsEn1+OfCGIPmfYfKjEsX4JSGQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794389705;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=7/ak2wJxgQz/GEeeix3feX0c94ZhF3VpppiIw7196jw=;
-	b=DweBu+3XgiQHo6dRmciKnenjW49ZbNxWA6dMoqRwmSgZw1O45RR9rAFk5/FFOpE8pw73
-	 UhlzI+wISPrBxf9niWIGku7w1kWPFnNsFsyQW0ABgWxj2yixBEoPGFiPDWUdP9NHw6Q2y
-	 2XxmgrAKgWE1INSzYTWogHSmuejBASHsfqb+OYhBpjtdvNxckGE5aauuLIM2umtHFgaI0
-	 OgUCi2iY8aiC4rkEpDTUptQ3EZzb6IBlXCz4aeBsoEiekm7a01KdiKQQaNmjY011SlRi+
-	 7OX1J3kIF8ha2mV7Q9S2sCRGChfEavmhnLutma8Ym0Jr+yn1HRJ/lxsLsZ/M8VkomYQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=l9FLmy1L;
-	arc=none smtp.remote-ip=74.125.82.178
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.53.14
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794389733;
+	b=FHYF5KcAt7/S2XbJ1Br800nsu+Ej6PQZzAXIAE7Sxx1z47I8ny8VfQWJqR7OUFNYt39D
+	 3wSB9pR9uPfq+eX7CQfNLZmhRSTPef0ZwKFuEYKRcpPbA5qyLR8FVqeO/8NDeJiNprsnh
+	 QSmUNnRERQZxx+6GlNApj0G7a5ZOT+Pv5c2xq9VKxufru93agDEsDG86DDCh04XPsEBLa
+	 /kaiVPDLT1zpngFOy8U3zDhw6XSZE7uzY0/ZdaXi7DRdO4ysR0YQCrT2UK2bZzlVOR4mw
+	 vGz8wIrRZTYhHUyl27uh4YePH+cD1ARYuel4/9gkLFRqX+vX63gvb7uakalRsZjrUmQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794389733;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=aYhYJ0Pn/kw47L2f7Bw5f7orCu8Df38zI6mVGbTsLA8=;
+	b=eNcNtuHzijwoZQTBuRXtpdan8kyOwhFdtD9mTjncdtKIjU1CuvYcXx7eflQiDwAI61Hs
+	 4fLllhRvpdG2JDf5YhK14ws0yNUJhAhCBLV6hT4I4KfryiQxkub5BSSAyf9GPxSSZKzSv
+	 MPN8Smu4uaNHCvg2P2nKznB5yBUa04nS8F1chSSjYvu+Lowc+s6R7Z2yDvOUTMI8axy5/
+	 vw5sq11bPsDnhRX0z3peyeViHCIlQiJhPY3JaVoeWlTGwNcByVS5cpDepFCzir+tfiW+M
+	 r3oKheDgpc1f796TFSPbaB9+Nu11bGcsTHUnFDNiHgjsiJfSJglszpusAg2dTzIXtyA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=WkIoDFV0;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.53.14
+Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012014.outbound.protection.outlook.com [52.101.53.14])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21A93606A324
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 09:35:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 21A93606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E3C0606A324
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 09:35:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E3C0606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=l9FLmy1L
-Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-3282db206d3so2755739eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 01:35:04 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794389704; x=1794994504; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7/ak2wJxgQz/GEeeix3feX0c94ZhF3VpppiIw7196jw=;
-        b=l9FLmy1LIuNJsn6YZZr/Jt0hy7PbuSSPwBSnGzgLvX2eVGphu8bnFNGiEiMv8xiOVW
-         oSZgjLYLDfua/V0qgvNHVoZUFdmH+4zaRSNUM3rlwP4tSLBgucoswNDIZ6RMpLYmvZgc
-         +VH4aFwf2/z2V608s7MXRvqyUl77L/Ev+NLVzT3jwvwsj/glo087iVHd46CDT2siZyN8
-         bJV9K6rZg8U52HPXIKYJUTt6bHmcq6JTnDElUmyoExgULd9HLYwr8LapaOkKOz3wAjHE
-         scOV/j7tz5DyA/C96wX9ty3kSAs0qXg5IIg8bovl7ndGAXiq92mREETbj2IidFIlaEHh
-         Me6A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794389704; x=1794994504;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7/ak2wJxgQz/GEeeix3feX0c94ZhF3VpppiIw7196jw=;
-        b=1WVOM5h6iLFt2IkjUM63siMwqB0dHjm8FX7nwn3lDuR8iETbosUCqv8ITuGQ3IfXEj
-         0WO7uA1ZCKdSE8oiXXOKbHUOWFUBoGd4CvM9QO+hrCTEQP5XczknAmyvLRMI93CdoHbL
-         lAncuW2NJD2uWkzVvFjuHu0Ho2HQlgAFoPAVWcU9I8+yV17tghu6KeVHmDLF1SMr/tOq
-         KU3hEG0KPJ6BCltTO9HIQltAxHY/bpRgamQeQbB1AcZvwrnUEVXqYtiWJQQBbVonqWX/
-         yOfK0pIFsUd3HkO4I18pu5ondRB+i4ZpkL4jh6ukbmBTkfqcVMoJEOGfi9/PEOds2vrk
-         tBBw==
-X-Forwarded-Encrypted: i=1; AL+hErHtzq4HW4fu71v/w4hRRDsV+epfffM4FKwW46P/LBJA9FfBSpRAMwCNckuZ6ufNwcyqXavByuwg8X/oGtY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+6QjiZmnXgaQzsDE5qK7sizJs8eIvQFDfEC3WAIb2woBtn7jn7
-	Jfo5ruqEx5sV/CwNf1ZuFllzHshJc4tLIdSo8e/aBJnWQMtq0B6S2XY9
-X-Gm-Gg: AYBFou1iWBJ6TIXDTT+pycM0axP33xv4qm6Oii7dWDnWX1uUkjjBw5BSvN8ahqvqjVK
-	PunBwbGWffLUerL6E1HaS8z+H4RxfrX17HeP3nXWzA1ZxhuaAw82gbd5Fq2PfDjlHslEpy/rLW2
-	Ta9VD3KV4IhnIVj6FGvfBs14w56Pyi2jwHS+7Kt2jlMQTJwe6D1DGLFyteHKW8aFSYfnsVHkvMA
-	qPuLPg3dBLMtHvoI/HRMtVZ+rSQZSlHSt9gGOJTq98eZpKOM0YQSA4vTiWpgff3zZ0pvA7je2/R
-	wyAfBQj6VvlZjsaPG+6pf2Ps9SE2ls1BpNG9jwbmm0GycCBD2tBAP9NZD44+CXZHEBYbQhHO9bm
-	nj6xRhAzH4jhYscaSKw3IGcwSuGNnbBLaw4AQlPIaIzWotmrNJbFP5YBGSO6/lcwA78oL2zuLlv
-	AebBq9wDQhMOC35dlPc0Vb7VmCFaMeDt9WHOYG4AawsfqneM16xsg/vBbtUpwZNKlXAAw2a2Tx2
-	IAmftYw0rY1DzVbfqY9veiwoHmA63xxUaGoK9XRsXgKk3bi37ladETFKvvt7jIEhLJger59yRSO
-	uY2+JVAysSQ53Rf/Dt8sMDAgF3kF8/p/5U1dnP+hvvwbWw==
-X-Received: by 2002:a05:7301:2424:b0:36a:21b8:b6c4 with SMTP id 5a478bee46e88-376851ce3acmr2539201eec.8.1794389703938;
-        Wed, 11 Nov 2026 01:35:03 -0800 (PST)
-Received: from osman.mioffice.cn ([43.224.245.178])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3751fe3261csm12625718eec.4.2026.11.11.01.35.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 01:35:03 -0800 (PST)
-From: Zhan Xusheng <zhanxusheng1024@gmail.com>
-To: linkinjeon@kernel.org,
-	hyc.lee@gmail.com
-Cc: ntfs@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	zhanxusheng@xiaomi.com,
-	stable@vger.kernel.org
-Subject: [PATCH] ntfs: trim the sizes after a short write
-Date: Wed, 11 Nov 2026 17:34:59 +0800
-Message-ID: <20261111093459.660484-1-zhanxusheng1024@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=WkIoDFV0
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=m87pW9yBSfXUjkzRZbkNcM60lGl8AokpdkdW4vcLSNRB6Mk6rpKJEx3aQRJCkVEJc/ZENFSXGmfimdso3YYTWm3BgPJ13rcMmBgLCTaRI1NpCmuzA9om8BxZYR/wX+al6LIQg+x+KO/S+EEov+a8JyfNn7b2fqOI5PrDksUEhPDcsMIB/j+R517JuSDkxQkZRF0dnjPFBMmDAYje5G2fwW73dEe3I8vECI6Om84IZXpCxnLLsA/KbgGnextBf1XTVPUml4SQNavmKOUrE3dlRSsiUr2YEd59mtEiQrEjlGh2b5wsHQh+utv62xBqVaFgIjwSVCt7E5OTeNMFdnhqIQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=aYhYJ0Pn/kw47L2f7Bw5f7orCu8Df38zI6mVGbTsLA8=;
+ b=EnzdlQ8VyRzGgY4koNCCP8y6i+A3gzZ5Aho/g55dKhfnGu3QAOKtxyTIDRZUaDmOhLFDPlroJe65tp3hRZC/Ncp4gn3vO453XgKc1qkqYReFEQM3ErIUWFpXdPLLV72+T9eGsK0fh9a9ogb52WBxzhiToRxqeFw9eKjOpJ2FntEi3RIKJaVkyYZBPYzvkbH+0rB5MEbCnF75ZShjNimpY8MoKVU/g/g1KeTLC/X7T4+mi6ibgiYMVvE70kV1HONHBjtDdhsECyeQDhhZ7SdbofNWK56sA9EY85WuLiCWnFaFgW9L8EKilUD819mdwlwgVdrv1drGcApYOVD3JteE4w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=aYhYJ0Pn/kw47L2f7Bw5f7orCu8Df38zI6mVGbTsLA8=;
+ b=WkIoDFV0y6EoGxJcyHLHH4GW34KlcN5WGUuVN0TGqPGqWJB2uP7SX9zscWP/YkMNJpW8cCoULwazjUNDaA6FMShzvdQtxWR1T46iFvU9Qi/VuShzC38TjKDFlRM1gWyMBGKV++5JJy4udIUCc6eo7Sp+rYNtDh36ez1RdQ9Gc5c=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CHAPR12MB999225.namprd12.prod.outlook.com
+ (2603:10b6:610:2fe::11) by CH1PPF73CDB1C12.namprd12.prod.outlook.com
+ (2603:10b6:61f:fc00::615) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Wed, 11 Nov
+ 2026 09:35:30 +0000
+Received: from CHAPR12MB999225.namprd12.prod.outlook.com
+ ([fe80::a4c2:82c3:da88:c585]) by CHAPR12MB999225.namprd12.prod.outlook.com
+ ([fe80::a4c2:82c3:da88:c585%6]) with mapi id 15.21.0615.008; Wed, 11 Nov 2026
+ 09:35:30 +0000
+Message-ID: <30437e95-2104-4bce-9565-d672d3e97d8a@amd.com>
+Date: Wed, 11 Nov 2026 17:35:23 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC 3/3] drm/amd/display: Warn about an invalid ATIF
+ backlight signal range
+To: Hugo Sales <hugo@hsal.es>, harry.wentland@amd.com, siqueira@igalia.com,
+ amd-gfx@lists.freedesktop.org, sunpeng.li@amd.com, alexander.deucher@amd.com
+Cc: mario.limonciello@amd.com, christian.koenig@amd.com,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ simona@ffwll.ch, alex.hung@amd.com, airlied@gmail.com
+References: <20261104-backlight-curve-validate-v1-0-10c688880e85@hsal.es>
+ <20261104-backlight-curve-validate-v1-3-10c688880e85@hsal.es>
+Content-Language: en-US
+From: Ray Wu <ray.wu@amd.com>
+In-Reply-To: <20261104-backlight-curve-validate-v1-3-10c688880e85@hsal.es>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: TPYP295CA0029.TWNP295.PROD.OUTLOOK.COM (2603:1096:7d0:a::6)
+ To CHAPR12MB999225.namprd12.prod.outlook.com (2603:10b6:610:2fe::11)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,106 +99,101 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CHAPR12MB999225:EE_|CH1PPF73CDB1C12:EE_
+X-MS-Office365-Filtering-Correlation-Id: 36597511-c1de-46ab-4749-08df3fd72039
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|366016|1800799024|376014|18002099003|22082099003|4143699003|10067099003|11063799006|5023799004|261102123227099003|261021123027099003|261021121427099003|56012099006|261009223027099003;
+X-Microsoft-Antispam-Message-Info:
+	/Z4uRq4fpRHrYMKg9d8lUSfdPHNDmuJSHq4Joymq0s3fG1XCvXjtPcwb4caIAuwHOgTwaFMcMVoMAbXbJm9MBANJO7ur14suwbWlSzEkaT27BJvUGx+kVtgu4n5emTEsuaoWthz9b1k744UUxYKHCYD07+yfV/Yh+9PD9RwUEoQ/9XH3HTgOjn6hudFcak2tEAPBkkQeEcCIKizIkwZYtmBY6ZZC/mbwEEoWJUU7xFPXCAe6oFmEsIOu17+Q51acae4WzGhPEqvFHBSNFDphiEFoeZa5ea134fuovdtKnmTIMvM81dAUIgKKC4XwGVWuAxlDdF0ywQQvcK5r+xOWFoctc7F4LXgHLbFxFQgPcD4LuIaG/LMNlH8Q7FvbnlkLFkNvtHj1R7DDk4PWf/km5nP58Q+eLwH35vxjp1B9789nFiaM/Y/FfudZLvT2glpw2RDh8rvxabXrzrAvIGAzOGJ/heieUV0NqNBLToY3pDoozQYaMgXTCuCOZEbVrCT53zoeH8Uhm0s0ip1p026DBddNjwri1e5QtsowmxH+xtauu9K+Q7eGBaYl1oKvDtQP8OQ7ueSbYRn5CaPANaLVRA3vUbfeWbfFpNpBsbpwbroQLLx5LDbPQ7yOM7P/cu1OC9pdWjpfmJzWGNerEttPLr09V7yEFJzp1TysSlxyRkw=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CHAPR12MB999225.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(18002099003)(22082099003)(4143699003)(10067099003)(11063799006)(5023799004)(261102123227099003)(261021123027099003)(261021121427099003)(56012099006)(261009223027099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?UnByRUoxYWlFdDUvUTZKR1ZkYXV5SzVDamhUaGxScmJmWmN5R1BvalNXaXdI?=
+ =?utf-8?B?L09Lc0lWSkhjQmpjSk1YcTFGRUNjRUZEeGxqcFN3SDNaeVlDcDN3R2lxTEZw?=
+ =?utf-8?B?c0VjTkdCMytmSnBIdXdWY3ZFRmkrdHFwakQ5MXNCWHNYUHlVNGoyOW1PMml1?=
+ =?utf-8?B?RlFTY3hVWDBoOXVSeFluY29La3oycktNMU9BY0ZrK1NBajBMZ1pMVk5nditl?=
+ =?utf-8?B?dFNEenVycTErb3I4amh6T2NPUWg0aUEwTEJMMTJJd0lzQ0ZIRHlSYnFIWE1P?=
+ =?utf-8?B?YjVDNE9BcTJUVnlUVEpXYW1WQlNMUytaMTZzeHJUQys2eS9ZVC9uQVZlUnJz?=
+ =?utf-8?B?SFFURVpObk80RStNUU5scGFlckVTL0FMYVc0NWhnMTBQdDVLeE9OUVNnTVo2?=
+ =?utf-8?B?NXJRK09Wakd5SVlKUzF6U045N1pSVWJWZXN4YnZGU3ZjOUswVTl4OFowZlRq?=
+ =?utf-8?B?Ykp0ZmRVbjJmVjA1ZG1KTmx6QUk1T09INkxEdWZrUkJ0WXRBVTN4UmtDRG5v?=
+ =?utf-8?B?K3puYzhuNFgwbEZreFZOWkNTdmxsWW9oUHgyeE8yQVhlZnlzLzRPVzlhWUUr?=
+ =?utf-8?B?aG9JVnhDa1lucExRcVpGSVhBOFh5WnpDZldVWk5BSDQyWm0wNXJ2bjA0YlBr?=
+ =?utf-8?B?Q0JGRld0Vkl1V2IzUEFtZzdqNVNpMnVqUWlCdXVXZGFxQUZqN2pIcTVYSW1k?=
+ =?utf-8?B?ckNJUmU1TW5DaTdUM25YSVdLMUFTWGFEQXhLTURvcllKYWYyYWcvQW1pYldx?=
+ =?utf-8?B?VzZMY0FXRDRUUkQ4T1Ztdk1YUS91ZE9xV3ZMRzFORTYrQkJpbE1wNWpZNXhV?=
+ =?utf-8?B?TFR2bU1XbXBYeWxXV01wQWJKTSt0V0xHb2puelphbEpSNDQ0ME1lQ0VNcVJI?=
+ =?utf-8?B?SXJZZnpsRUR4ZnlTN1BacnZodjMwOUlnQTB0NjFiYjcxdVlTSGtocS9xU0hD?=
+ =?utf-8?B?dXRWLy9oSkpIWEtaUlozUFV5MXJCOXVYOEFPV0t2ZTcydFJYekRlRlJnS01p?=
+ =?utf-8?B?c3pKWVB2RDU5dFozNERhMWF1ZXU1cWdSYU4wVHBXc0F0UGhlR2w1U0VlRHBa?=
+ =?utf-8?B?QVpEemZJNEJJaDd0clVyN3JveHU0eUxJRlJlNGhLeU82Q1ZCaWR6dzhoVjNy?=
+ =?utf-8?B?Z3ZWOWtCKy9tWXZnNjJJdyt3OXJycHh2UWx1SUliSVVyTnZlTFVYU3dRNWYy?=
+ =?utf-8?B?TWVwQmFEQzIwVXQ2SkNYTzJScHFwcFZDa0JtRXl4akJzYktiNzMwY2pEQ2VJ?=
+ =?utf-8?B?SkNPWkp0TXBIMWZYd3U3VTcxYzB4UzB6WnI3eHpxaU9WUS9ZTUxHK2ZTdlJC?=
+ =?utf-8?B?ZTAzLzFuYzNlWW5Ua01OeUxaNms5QWViNnBVcFYya1NiNzB1SUN0T3hCTkhP?=
+ =?utf-8?B?Tm9Wc25jK3JlSVZRMDZLRjBGdEhzb2x2VmpsWmR1a0I3RklZRHZmV05nam1y?=
+ =?utf-8?B?R1UwL1FpQzNlV3NCV1pUYlE0RUlyL3ZLa1p2UjlNZHllbnlMUVIzZVlCc1Er?=
+ =?utf-8?B?VC9XelIrWVZDT0tQMUZGTWY3T1lSMHRIL0pNQjUvak9wOEZXdDNvUG9iVjRW?=
+ =?utf-8?B?UG1mK1g0VjZLQkJHdzRZT0tvaEZjdGdzNEJVOWNkMWd5c3RGSVVsQXNiUldr?=
+ =?utf-8?B?QTNqTG9JMHlsVUhURG9kVkNRWmxKS0FhQ2h5V0FOb09OOHFaYk9HRUkzc3ZD?=
+ =?utf-8?B?VmxoSHgrVjYreXJFS3NxdWc0TWRIcUtJTjBHSkh1N1I1WVdQaVkyVzRRMnJa?=
+ =?utf-8?B?WUtvNTcwZjB6SkRUWkU1WWJHY1hreWMyUTdJS1puYWhqc1ZhekhIYVQ4bEs3?=
+ =?utf-8?B?d2hHSHpmSCtyMkFlbjFFZkF3cURCZzNXR2lJTDRyY3B0RUsyQ2VUWnN0cHJy?=
+ =?utf-8?B?UEdqSmlNR054dk53NnNyZzI1Qitsa1dpR0VzbDhGN0VSS0JNU1A2VDR2cjBI?=
+ =?utf-8?B?K3JiUmZVV3d1aUlOYWNocFVzODdIeUdHR2U4MGxwd0FDWjBvMHJJbUozZzBx?=
+ =?utf-8?B?emh2Q25xYkc4YlY2NVNVVVU0T2Y3T01LT0pQTUlIUkZ0OXRjTW1EYnp1MUhD?=
+ =?utf-8?B?azg4OVNNM2JoQlVtdUdpRjhkdVpkUC9oOE5Eb05MYWx1alQzVklnUExKYjhU?=
+ =?utf-8?B?bmZ2K0VmU0tMYWtjWDdlTWlFQVJHWGVVajBqTW9HR0F5NGtKU1dYSkM2bW1w?=
+ =?utf-8?B?cU9CTnlQbFg1Mmo0aWdtVlN1L1g4K0wvR1JJbE9oTm1LUW1DZ3ZCVlRwZy94?=
+ =?utf-8?B?aUJveGxWQUJZZEk0S3NDTk9XT0VOTmEvWWJITUJ6R2ZsTUU2aGhZQmRnNzB5?=
+ =?utf-8?B?d0QxdlNOL3lFYm54SzZCaWk4RDhLR29EYnpzV0lkWEZuNTEvVlJUZz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 36597511-c1de-46ab-4749-08df3fd72039
+X-MS-Exchange-CrossTenant-AuthSource: CHAPR12MB999225.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 09:35:30.3615
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: uIE7QJdJwRCmo5p4Dbj/Wl5UgUOMJOkCIzZsEh9JCPTouR+yMaMTp8lZVFKsM0r6WUstnKoXp+R0FeBsx6RmWQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PPF73CDB1C12
 
-From: Zhan Xusheng <zhanxusheng@xiaomi.com>
+Reviewed-by: Ray Wu <ray.wu@amd.com>
 
-ntfs_file_write_iter() moves the data size and, for a non-resident
-uncompressed file, the initialized size to pos + count before the copy.
-__ntfs_extend_initialized_size() only zeroes [old initialized size, pos),
-so the range [pos, pos + count) is initialized only by the copy itself.
-When iomap_file_buffered_write() copies less than count, it returns a
-positive short count and the error rollback at out: does not run.  The
-file keeps the size pos + count, and [pos + ret, pos + count) reads back
-whatever the freed clusters held before, also after a remount.  A local
-user can read the old contents of freed clusters this way.
-
-Run the existing rollback for a short write as well, and roll the two
-sizes back to the end of what was written instead of to the old sizes.
-
-Fixes: b041ca562526 ("ntfs: update iomap and address space operations")
-Cc: stable@vger.kernel.org
-Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
----
-A reproducer is available on request.
-
-Tested in a VM on mainline b3dfbde62cf1, with the free space filled
-with a known pattern first.  Short append of 4M that stops after
-1056768 bytes:
-
-                     write()   size grows by   old data readable
-  before             1056768   4194304         3137536 bytes
-  after              1056768   1056768         0
-
-A short write 1M past EOF gives the same results.  Full writes and
-compressed files are unchanged.
----
- fs/ntfs/file.c | 25 ++++++++++++++++++-------
- 1 file changed, 18 insertions(+), 7 deletions(-)
-
-diff --git a/fs/ntfs/file.c b/fs/ntfs/file.c
-index 3213a0c9f96b..98bb3d5d420e 100644
---- a/fs/ntfs/file.c
-+++ b/fs/ntfs/file.c
-@@ -928,10 +928,21 @@ ssize_t ntfs_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
- 		ret = iomap_file_buffered_write(iocb, from, &ntfs_write_iomap_ops,
- 				&ntfs_iomap_folio_ops, NULL);
- out:
--	if (ret < 0 && ret != -EIOCBQUEUED) {
-+	/*
-+	 * Both sizes were moved to end before the copy, so a short write,
-+	 * like a failed one, must take back what it did not write.
-+	 */
-+	if (ret < count && ret != -EIOCBQUEUED) {
-+		loff_t new_init_size = old_init_size;
-+		loff_t new_data_size = old_data_size;
- 		int init_err = 0;
- 		int data_err = 0;
- 
-+		if (ret > 0) {
-+			new_init_size = max(old_init_size, pos + ret);
-+			new_data_size = max(old_data_size, pos + ret);
-+		}
-+
- 		/*
- 		 * Like ntfs_setattr_size(): __ntfs_attr_truncate_vfs()
- 		 * expects the invalidate lock held across the size
-@@ -940,13 +951,13 @@ ssize_t ntfs_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
- 		filemap_invalidate_lock(vi->i_mapping);
- 
- 		/* ntfs_attr_set_initialized_size() rejects a resident one. */
--		if (ni->initialized_size != old_init_size &&
-+		if (ni->initialized_size != new_init_size &&
- 		    NInoNonResident(ni)) {
- 			struct ntfs_inode *mrec_ni = ntfs_base_inode(ni);
- 
- 			mutex_lock(&mrec_ni->mrec_lock);
- 			init_err = ntfs_attr_set_initialized_size(ni,
--					old_init_size);
-+					new_init_size);
- 			mutex_unlock(&mrec_ni->mrec_lock);
- 		}
- 		/*
-@@ -955,13 +966,13 @@ ssize_t ntfs_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
- 		 * the uninitialized tail, so skip it unless the rollback
- 		 * above restored that size.
- 		 */
--		if (ni->data_size != old_data_size && !init_err) {
-+		if (ni->data_size != new_data_size && !init_err) {
- 			struct ntfs_inode *mrec_ni = ntfs_base_inode(ni);
- 
--			truncate_setsize(vi, old_data_size);
-+			truncate_setsize(vi, new_data_size);
- 			mutex_lock(&mrec_ni->mrec_lock);
--			data_err = __ntfs_attr_truncate_vfs(ni, old_data_size,
--					old_data_size);
-+			data_err = __ntfs_attr_truncate_vfs(ni, new_data_size,
-+					new_data_size);
- 			mutex_unlock(&mrec_ni->mrec_lock);
- 			/* Like ntfs_setattr_size(): stay on the durable size. */
- 			if (data_err)
-
-base-commit: b025f526c5d04929212c9d5fb7ffc96608f3eacc
--- 
-2.43.0
-
+On 11/4/2026 6:31 PM, Hugo Sales wrote:
+> When the ATIF signal range is out of bounds or narrower than
+> AMDGPU_DM_MIN_SPREAD, amdgpu_dm_validate_backlight_caps() drops the
+> firmware caps and the driver falls back to a range of 12-255. It only
+> says so with drm_dbg_kms(), so a user whose brightness range changed
+> finds nothing in dmesg to report
+>
+> Make it a drm_warn() with FW_BUG, like the custom curve warnings
+>
+> Signed-off-by: Hugo Sales <hugo@hsal.es>
+> ---
+>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c | 6 ++++--
+>   1 file changed, 4 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
+> index 3a27fb956627a..68b34654fca02 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
+> @@ -104,8 +104,10 @@ void amdgpu_dm_validate_backlight_caps(struct amdgpu_display_manager *dm, int bl
+>   	    caps->min_input_signal < 0 ||
+>   	    spread > AMDGPU_DM_DEFAULT_MAX_BACKLIGHT ||
+>   	    spread < AMDGPU_DM_MIN_SPREAD) {
+> -		drm_dbg_kms(adev_to_drm(dm->adev), "DM: Invalid backlight caps: min=%d, max=%d\n",
+> -			    caps->min_input_signal, caps->max_input_signal);
+> +		drm_warn(adev_to_drm(dm->adev), FW_BUG
+> +			 "ATIF: backlight signal range %d to %d is invalid, using %d to %d\n",
+> +			 caps->min_input_signal, caps->max_input_signal,
+> +			 AMDGPU_DM_DEFAULT_MIN_BACKLIGHT, AMDGPU_DM_DEFAULT_MAX_BACKLIGHT);
+>   		caps->caps_valid = false;
+>   	}
+>   
+>
