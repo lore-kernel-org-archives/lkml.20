@@ -1,63 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=15.235.45.126
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794363042;
-	b=ybW35P4ADPvqaeeZZ4gviXInNKWeg/3d1/JPmey8FeyG/d0ZHRhfN8QJho46AlSTYYyn
-	 geuQSezd+SnuSthCainLMhROl7zNEqdoeGuZivtYUICdXCku+0jDKh6DqzPnNDu3i/h/E
-	 zNpHssj+KWkcmfC8Tk0i5vK6p9BfcPxDkXmNC/EpvjMHoZhWQUjckl570ow3ytoZHoCrM
-	 P/33cEds/OoO7ola0AAwOB+hMqh0XHACS+SaHE9LH//D0+8Nav4PhTe1CfXSQa0O3we1n
-	 htgCJvy3788A9SI3jUKuOcqlp+ZK/U13SLh1Kz4vHnrWgrYCnW8rk5qKwbicb2BMTUA==
+	t=1794363083;
+	b=NqOk2KMXC7YnVI7chfeCTJVLeaWGmrZlsVzUI0wkNfP8YPVvYtzQyCkhP0BRCE77MM19
+	 hXaUIVs7RSFumHxMiLR2EywCtKi9MkghBsHqP34BvpFd6YKnEbiikT0HwT5eYKq6UH/Gl
+	 HWNnm8B8UmyzZl9RecIuNn25wrPW9FYRPfE9iVn4/oSzn5kH6BgqULXiHdRbjWpO3k7ms
+	 Xs9kvnHT0mVGfG16f/gXimLbB2BN/5l+/cw14RQYkjPGCOyrn1IvHP1MkRho9BnsXQFtz
+	 4wcgeX517jUeZ5BXONkz/X8BYEU3EZkc2WjPaElBTm2UzeVUzJZvyU+CYjt07W+Qx9w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794363042;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=w9QJunT9bd8vtlEuB9KqD4wnu7mXcZwBhzxqWM8pK6o=;
-	b=jd4aoUNIJrGTxMPjzjhE6rlLJQ0FlnjT6ARRSylV2W1IfBVKbV4Fe7QdX+FFEByBlg/5
-	 Ui63KuyO3fzh7nKlQBg9tGBMmowtrBPyrBmqWbP9nxRZcYMoERyC5lUVYtpXAj/w1BVah
-	 sLfaR4ysd17F8vZJypLUH1uY9UhsQ9SeiPZRAfnLHtg0ciTspV6L3hLrIo7bI7+lszTfp
-	 IKCUjOwtT8nNznE3+YGSqDHt22zspkhXoP7ROI9VLWAzTe8r5GzNRhI5LVPx1HcPHCQd9
-	 hzegr1pbk6m3ZUbu/HsyAHFtX0nkJcQtEqfAFPEGIEhgNYAM26YaOa4+c36bgJZhaEA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794363083;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=ySVn32+21zYg7Tj5ZrVgbfGHI6nDULtj/EICklOEM+0=;
+	b=SFAKFmzLmSh1OIi0KoslbX2uS2VJryyiRp/hoiEsSxM+mIbWciT+TV290Ht1NlA3A9C+
+	 5vaikac4cMZNqEw7ZKnuW2C8vD4JRah1p/Ml0KKiEkEZKUZvqzsqHrNJIAyDF+CXKeeCN
+	 ED5oPmS6p5VIGEsM8YQ3W8X/xe6eCzReV8bo6p4daAXSBqS+2UTD4ucNXAV80uIe8W2HD
+	 e7pjMWqdDeilNWCh9KKnYCG3x4w7bnMzY/X/GgRicJh3lphKZaTZBpTR/0YgH9+stprta
+	 33jTvGgeVWjI6vsTRR0lTvPiP0BcOwrU9e6TkOqGoivKCpZU7zT6vAY4jajbv/nsXlw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=petermarshall.ca;
-	spf=pass smtp.mailfrom=logotherapy.ca;
-	dkim=pass header.d=petermarshall.ca header.i=@petermarshall.ca header.a=rsa-sha256 header.s=mail header.b=lzOBeYL3;
-	arc=none smtp.remote-ip=15.235.45.126
-Received: from d2-2-bhs5.logotherapy.ca (d2-2-bhs5.logotherapy.ca [15.235.45.126])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=RQSeL3GN;
+	arc=none smtp.remote-ip=198.175.65.18
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16EA7606A320;
-	Wed, 11 Nov 2026 02:10:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 16EA7606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=petermarshall.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=logotherapy.ca
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA6A1606A320;
+	Wed, 11 Nov 2026 02:11:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA6A1606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=petermarshall.ca header.i=@petermarshall.ca header.a=rsa-sha256 header.s=mail header.b=lzOBeYL3
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=petermarshall.ca;
-	s=mail; t=1794363028;
-	bh=+pDOmRH4H1/exPVI44n/CbERpYc7hXCGLqgk7LiCK7A=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=lzOBeYL3yS9S4GUmSX1UEw9eEy8FObN4tUz0hp8XM9OBuR2nt2CoeUp6VlCoVAjhI
-	 it7rCBkJ3i2/G4EzdzBbWUXUevALJJxVvb/GmpBiHTD8D4jodxJ4J2BK7PNrE44mX5
-	 MZ8T31fy9v3LhxFYsGZpS9hGnvEzMQhHe9jV9bGUeKv5iE34aflVuY8fMvQf1GLAlZ
-	 iq75NSBSaeXtwEvJrNOQZ76dR5R7te1MTm8O69HEsO3PTFQ2UHTxWA+4ntK0KzW1BX
-	 GDHXdW3JTbccssNlP45aHLzHKjmqMOKpyv7cPzRw1INqAHXSqsfqDFErJxfpI5Y/DM
-	 wV98xc+IDse/g==
-Received: by d2-2-bhs5.logotherapy.ca (Postfix) id E8BDE20555;
-	Wed, 11 Nov 2026 02:10:27 +0000 (UTC)
-From: Peter Marshall <pm@petermarshall.ca>
-To: Maximilian Luz <luzmaximilian@gmail.com>,
-	Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: platform-driver-x86@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Peter Marshall <pm@petermarshall.ca>
-Subject: [PATCH] platform/surface: platform_profile: handle fan standby state
-Date: Tue, 10 Nov 2026 21:09:16 -0500
-Message-ID: <20261111020916.3557508-2-pm@petermarshall.ca>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261111020916.3557508-1-pm@petermarshall.ca>
-References: <20261111020916.3557508-1-pm@petermarshall.ca>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=RQSeL3GN
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794363083; x=1825899083;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=YIl9mNbtsYzhplOgGa0cGhEfEaFtNRnooftTOeSQs1A=;
+  b=RQSeL3GNx4WR18CTswrPgiR/5xj04UUzPAc4iPgfFadPPjoVocucnqGy
+   Sqj3UKN21Vi60+PLVaLWlYhdXUVvQW0pwt1LPjuV4TNGoMcxN7KHNTJHP
+   6aFHW2PC1H6+gsmsBpnivzY7uCod/j1W1VN6plb9GbCxCm+Nv6ewt+l/h
+   dqscC8BLWKczrFeJd4x5muQ2u0jHbGxSXGwtCgbk1VZclC0VInDW0lIaC
+   bUeGQPuofmORonULsgzRNOBijc80HJUTfBsIqkqsWO20Ugj+ywOPJvuN/
+   Ste1qalVgAJ+QE+X5nKOgNngLqyYjlRy+ekyXV9FrUVvz7XYFvu/dCBaG
+   g==;
+X-CSE-ConnectionGUID: P0qoq/ZRREu4zEQymqY4WQ==
+X-CSE-MsgGUID: MYw8nHOqRfC6DB32bv5gQA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11962"; a="3150135"
+X-IronPort-AV: E=Sophos;i="6.27,206,1787036400"; 
+   d="scan'208";a="3150135"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 18:11:22 -0800
+X-CSE-ConnectionGUID: KWKSWiA6RYG2k7q5uu9mdQ==
+X-CSE-MsgGUID: WcxeZuelSJ60aUdbvg1pug==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,206,1787036400"; 
+   d="scan'208";a="8472020"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa002.fm.intel.com with ESMTP; 10 Nov 2026 18:11:17 -0800
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xQxns-00000000xt8-1mQS;
+	Wed, 11 Nov 2026 02:11:12 +0000
+Date: Wed, 11 Nov 2026 10:10:53 +0800
+From: kernel test robot <lkp@intel.com>
+To: Richard Leitner <richard.leitner@linux.dev>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Daniele Alessandrelli <daniele.alessandrelli@gmail.com>,
+	"Paul J. Murphy" <paul.j.murphy@intel.com>,
+	Martina Krasteva <martinax.krasteva@intel.com>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	Bryan O'Donoghue <bod@kernel.org>, Jacopo Mondi <jacopo@jmondi.org>
+Cc: oe-kbuild-all@lists.linux.dev, linux-media@vger.kernel.org,
+	Gyula Kelemen <gyula.kelemen@advasolutions.com>,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v3 3/8] media: i2c: ov9282: fix flash duration to/from
+ microseconds conversion
+Message-ID: <202611110928.rZQK4WSx-lkp@intel.com>
+References: <20261110-ov9282-fixes-v3-3-cb6df80cbc22@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,118 +92,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261110-ov9282-fixes-v3-3-cb6df80cbc22@linux.dev>
 
-Send a fan standby command if a fan is present when entering a PM
-suspend transition and set it back to normal during resume.
+Hi Richard,
 
-Signed-off-by: Peter Marshall <pm@petermarshall.ca>
----
- .../surface/surface_platform_profile.c        | 63 +++++++++++++++++++
- 1 file changed, 63 insertions(+)
+kernel test robot noticed the following build errors:
 
-diff --git a/drivers/platform/surface/surface_platform_profile.c b/drivers/platform/surface/surface_platform_profile.c
-index 0e479e35e66e..203d21aa715c 100644
---- a/drivers/platform/surface/surface_platform_profile.c
-+++ b/drivers/platform/surface/surface_platform_profile.c
-@@ -32,6 +32,11 @@ enum ssam_fan_profile {
- 	SSAM_FAN_PROFILE_BEST_PERFORMANCE   = 4,
- };
- 
-+enum ssam_fan_state {
-+	SSAM_FAN_STATE_NORMAL  = 1,
-+	SSAM_FAN_STATE_STANDBY = 2,
-+};
-+
- struct ssam_tmp_profile_info {
- 	__le32 profile;
- 	__le16 unknown1;
-@@ -61,6 +66,13 @@ SSAM_DEFINE_SYNC_REQUEST_W(__ssam_fan_profile_set, u8, {
- 	.instance_id = 0x01,
- });
- 
-+SSAM_DEFINE_SYNC_REQUEST_W(__ssam_fan_state_set, u8, {
-+	.target_category = SSAM_SSH_TC_FAN,
-+	.target_id = SSAM_SSH_TID_SAM,
-+	.command_id = 0x0f,
-+	.instance_id = 0x01,
-+});
-+
- static int ssam_tmp_profile_get(struct ssam_device *sdev, enum ssam_tmp_profile *p)
- {
- 	struct ssam_tmp_profile_info info;
-@@ -88,6 +100,13 @@ static int ssam_fan_profile_set(struct ssam_device *sdev, enum ssam_fan_profile
- 	return ssam_retry(__ssam_fan_profile_set, sdev->ctrl, &profile);
- }
- 
-+static int ssam_fan_state_set(struct ssam_device *sdev, enum ssam_fan_state s)
-+{
-+	const u8 state = s;
-+
-+	return ssam_retry(__ssam_fan_state_set, sdev->ctrl, &state);
-+}
-+
- static int convert_ssam_tmp_to_profile(struct ssam_device *sdev, enum ssam_tmp_profile p)
- {
- 	switch (p) {
-@@ -236,6 +255,49 @@ static int surface_platform_profile_probe(struct ssam_device *sdev)
- 	return PTR_ERR_OR_ZERO(tpd->ppdev);
- }
- 
-+#ifdef CONFIG_PM_SLEEP
-+
-+static int surface_platform_profile_pm_prepare(struct device *dev)
-+{
-+	struct ssam_platform_profile_device *tpd;
-+	int status;
-+
-+	tpd = dev_get_drvdata(dev);
-+
-+	if (tpd->has_fan) {
-+		status = ssam_fan_state_set(tpd->sdev, SSAM_FAN_STATE_STANDBY);
-+		if (status)
-+			dev_err(&tpd->sdev->dev, "pm: fan standby notification failed");
-+	}
-+
-+	return status;
-+}
-+
-+static void surface_platform_profile_pm_complete(struct device *dev)
-+{
-+	struct ssam_platform_profile_device *tpd;
-+	int status;
-+
-+	tpd = dev_get_drvdata(dev);
-+
-+	if (tpd->has_fan) {
-+		status = ssam_fan_state_set(tpd->sdev, SSAM_FAN_STATE_NORMAL);
-+		if (status)
-+			dev_err(&tpd->sdev->dev, "pm: fan resume notification failed");
-+	}
-+}
-+
-+static const struct dev_pm_ops surface_platform_profile_pm_ops = {
-+	.prepare  = surface_platform_profile_pm_prepare,
-+	.complete = surface_platform_profile_pm_complete,
-+};
-+
-+#else /* CONFIG_PM_SLEEP */
-+
-+static const struct dev_pm_ops surface_platform_profile_pm_ops = { };
-+
-+#endif /* CONFIG_PM_SLEEP */
-+
- static const struct ssam_device_id ssam_platform_profile_match[] = {
- 	{ SSAM_SDEV(TMP, SAM, 0x00, 0x01) },
- 	{ },
-@@ -247,6 +309,7 @@ static struct ssam_device_driver surface_platform_profile = {
- 	.match_table = ssam_platform_profile_match,
- 	.driver = {
- 		.name = "surface_platform_profile",
-+		.pm = &surface_platform_profile_pm_ops,
- 		.probe_type = PROBE_PREFER_ASYNCHRONOUS,
- 	},
- };
--- 
-2.56.0
+[auto build test ERROR on 7475ea8b58616b33c04afb976cf0fbaad9dd63fb]
 
+url:    https://github.com/intel-lab-lkp/linux/commits/Richard-Leitner/media-i2c-ov9282-handle-error-from-exposure-range-update/20261110-141010
+base:   7475ea8b58616b33c04afb976cf0fbaad9dd63fb
+patch link:    https://lore.kernel.org/r/20261110-ov9282-fixes-v3-3-cb6df80cbc22%40linux.dev
+patch subject: [PATCH v3 3/8] media: i2c: ov9282: fix flash duration to/from microseconds conversion
+config: i386-buildonly-randconfig-1004-20261111 (https://download.01.org/0day-ci/archive/20261111/202611110928.rZQK4WSx-lkp@intel.com/config)
+compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261111/202611110928.rZQK4WSx-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611110928.rZQK4WSx-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+   ld: drivers/media/i2c/ov9282.o: in function `ov9282_set_ctrl':
+>> ov9282.c:(.text+0x9af): undefined reference to `__udivdi3'
+   ld: drivers/media/i2c/ov9282.o: in function `ov9282_try_ctrl':
+   ov9282.c:(.text+0xe20): undefined reference to `__udivdi3'
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
