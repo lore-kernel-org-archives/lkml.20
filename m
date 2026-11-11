@@ -1,104 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794386408;
-	b=hXdK/TCW3UeEY/JdVAvfoTz7sps5D0Tb4laQtYWKSdzmIcqnbZL1GvE7XdGZ7q+qHJOi
-	 C2LyzYldxdpJMqQSYqQebjxoE4OJMkQUeiJX7yfcGplUjlRTRG3cb8MgrwzfiL3Stuy5h
-	 E1pBqEvyqUjUZL05aahLtaQu6kfMyagkKaq/EyCi/2ao5LcmX5p0zPh3ajn7JcgpZHK6V
-	 L9oYxhVu+EotTWYYSEPif0v81ax3pwQhCleH9Nb7Bta/GClFONuXth0l1sD2RIFdjreJv
-	 j6ZE9qIbEIwPd1JFgOJR0C/K6BdR5zPOpvhixMj3tDEZmkcZZ4/U54cBLWFPyr53DVg==
+	t=1794386407;
+	b=dM4/9yfDKwd5U0ekxGbUDI150IEUno50+Rg+BfghNgQOjf28qDqcDLWFTMc+FFUz53UK
+	 ZFGT2I/wSyg0iuVzXV8SGjdkoEr/1mHfNgk9xad+qjRRP4sJUVLA1OzCCpudNoY5n7DRj
+	 mP6MHOJ1V53eV24oNrEkuXv9DkT4EWzznqomy0VkstXOU/rSXFxF1qQA5p8+taqDf5UsP
+	 9sYS4cpHUHpzAutSm3vsXJWMPPQDsJsl8m3Une4nLtszhBavY2b+CGcjAZ3mjyFa4CLpS
+	 v6rSFMlNl+/kHGwyKQ55ncWTo71pcTrG7cafpU1SsXBTZ8QhHolgYXsRctasusSSFYg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794386408;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Spamd-Result:
-	 X-Rspamd-Server:X-Rspamd-Action:X-Spam-Flag:X-Spam-Score:X-Spam-Level:
-	 X-Rspamd-Queue-Id;
-	bh=gnJvDURHt21VSS9VNgOWA1JCgbUtMplgT3PhOzmWyag=;
-	b=NQn+5wWnzw+T+P/8hSgV6rrEb2CO9ZwjnHRzs+eZzkap1sv03HFrH6P+FzmkAMxa/CaR
-	 +t/aNkPjPA+U7ijlh9N73slDH6Spefpo9lnxv+106CQU9jc1CG+AH9dnxP/Ru9eOjMhBS
-	 sJlZ0Jm+A62X3IxvwWXKdkByel9ct/c8/u6UTeoKWEQtX0jTMcFgTg7Y00mMncXGu5In5
-	 Py/Ceo+ijP50FjIp+FkwbBkidU0JwFG0FBKEJZTesePdyzptvXIpysufoJEaMkgbbIVDZ
-	 Inv3spcIwYl19WOXbGWCHgudP0eYGmbncl5h4EFxlV7gTrVYCRBfM02wjGb+QIdauiA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794386407;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=ExDVWijlDii6IKHmwPi4pgSXddbMzGH+ApjyDrW/l+s=;
+	b=zw4DcM0igRsKkwSVMvirAyM39eFx/AJOq/kyQn4WQ1SPM/EDayr1bb/CU+D2jzP9RPB7
+	 z3L25IqbtD6sFx3ovX4XAxbRXlwBzTLeturftNQc2fXTNDkbRmn/FacNjcW/N6cIU/Vs/
+	 uBWcvJHTwTzSgG1vOjI8h27iRBLVDLDVumYr72eeo8mZO+Dpnej/leWZWNAZtCaYzB/Rw
+	 Oiyyiv8ur/B8TYnr6V/dCxfdUpm7Jhsk/75fMP1b5catpb2M6ULakd1goLcxXPbioQ1rU
+	 KSVomwbDjvgTNoyOYakroc0bSly91Ke9bbc017Rb/TXqVex15t4FARUxtxuBQihmFhQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=2PtjXHpS;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Rdb+4Qoz;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=2PtjXHpS;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Rdb+4Qoz;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YRquJ+dq;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 145A560A2613
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 08:40:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 145A560A2613
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB0E8606A31C;
+	Wed, 11 Nov 2026 08:40:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=2PtjXHpS;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Rdb+4Qoz;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=2PtjXHpS;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Rdb+4Qoz
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 120261F88B;
-	Wed, 11 Nov 2026 08:40:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794386406; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=gnJvDURHt21VSS9VNgOWA1JCgbUtMplgT3PhOzmWyag=;
-	b=2PtjXHpSGzyt+RJh3YYI2VLzRFSFPTtHkAu9T2q/bmmJ+3ofYcx7y8eijCPu4YZIWaD+Tb
-	2MbLok3an3xak6lSHesnNMG10+1q1pKtCHmxEyhFZxmgP5N2WNU7GXN0/OhodKXC41MYx6
-	PjNUF5FyIq3b4sFIq51dI4DIOY+JEpQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794386406;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=gnJvDURHt21VSS9VNgOWA1JCgbUtMplgT3PhOzmWyag=;
-	b=Rdb+4QozDqV6QLoCPpKDvOqvJq29+03TPfXfIlEma9kmdSjCAH+KvKc80kOP6IL/cq8ILz
-	BZtTJ9n/xZYLmdAw==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=2PtjXHpS;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=Rdb+4Qoz
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794386406; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=gnJvDURHt21VSS9VNgOWA1JCgbUtMplgT3PhOzmWyag=;
-	b=2PtjXHpSGzyt+RJh3YYI2VLzRFSFPTtHkAu9T2q/bmmJ+3ofYcx7y8eijCPu4YZIWaD+Tb
-	2MbLok3an3xak6lSHesnNMG10+1q1pKtCHmxEyhFZxmgP5N2WNU7GXN0/OhodKXC41MYx6
-	PjNUF5FyIq3b4sFIq51dI4DIOY+JEpQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794386406;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=gnJvDURHt21VSS9VNgOWA1JCgbUtMplgT3PhOzmWyag=;
-	b=Rdb+4QozDqV6QLoCPpKDvOqvJq29+03TPfXfIlEma9kmdSjCAH+KvKc80kOP6IL/cq8ILz
-	BZtTJ9n/xZYLmdAw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9B60B134E5;
-	Wed, 11 Nov 2026 08:40:05 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id ZaXLHOUp9GofIgAAD6G6ig
-	(envelope-from <tzimmermann@suse.de>); Wed, 11 Nov 2026 08:40:05 +0000
-Message-ID: <3d67a8ac-58b4-41c3-8359-06ff0a4e2b08@suse.de>
-Date: Wed, 11 Nov 2026 09:40:04 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YRquJ+dq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67BB91F00A06;
+	Wed, 11 Nov 2026 08:40:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794386407;
+	bh=ExDVWijlDii6IKHmwPi4pgSXddbMzGH+ApjyDrW/l+s=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=YRquJ+dqvO+ql9V7Lw0rD4ih0Q2gbZ0yeWPt35fIe3RMm8BWLG2T9FpDKKtOIpgmY
+	 Y/TIz23BWm9pMI+8fh/0R8wHyA+asum6WEw13YSnGaDg/yahf6uIRZ8mPZg8ILaOXQ
+	 W8GO92eMM3J1XWypMZgj+GyPXE+HsAZkeNSn3UnjAH1pdzWpXyLm/VhmgZnEq4OSYM
+	 8Ox4GeKsqVR67Tz5GgW46n0tdmTSfygJCrZ+NgEC5jAo0AUbn+zBjVh2phiAI+pLDq
+	 HPgsmKK1Y5KhIc/F4I43ZZ6dWuijyu4e53D6q+0sEq6dwrWckoBZjExmOiaATo9mSe
+	 vcYf4D7naP1GQ==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 5E17938007E9;
+	Wed, 11 Nov 2026 08:40:07 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,159 +53,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1] drm: Drop #include <linux/mod_devicetable.h> from
- <drm/display/drm_dp_aux_bus.h>
-To: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig_=28The_Capable_Hub=29?=
- <u.kleine-koenig@baylibre.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <21c9390024479ec625ca7a2e7a5b959f04d85878.1786032838.git.u.kleine-koenig@baylibre.com>
- <avQk9v83d-jEGTiX@monoceros>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <avQk9v83d-jEGTiX@monoceros>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-13.50 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	XM_UA_NO_VERSION(0.01)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	FREEMAIL_CC(0.00)[gmail.com,ffwll.ch,lists.freedesktop.org,vger.kernel.org];
-	DKIM_TRACE(0.00)[suse.de:+];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[baylibre.com:email,suse.com:url,suse.de:email,suse.de:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spam-Score: -13.50
-X-Spam-Level: 
-X-Rspamd-Queue-Id: 120261F88B
+Subject: Re: [PATCH net-next] liquidio: enlarge the interrupt name buffer
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179438640618.794109.4972687983974562949.git-patchwork-notify@kernel.org>
+Date: Wed, 11 Nov 2026 08:40:06 +0000
+References: <20261106095114.3564335-1-xujiahao@cmss.chinamobile.com>
+In-Reply-To: <20261106095114.3564335-1-xujiahao@cmss.chinamobile.com>
+To: Jiahao Xu <xujiahao@cmss.chinamobile.com>
+Cc: davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
+ pabeni@redhat.com, andrew+netdev@lunn.ch, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
 
-Hi
+Hello:
 
-Am 11.11.26 um 09:21 schrieb Uwe Kleine-König (The Capable Hub):
-> Hello,
->
-> On Thu, Aug 06, 2026 at 06:16:06PM +0200, Uwe Kleine-König (The Capable Hub) wrote:
->> Only .c files include <drm/display/drm_dp_aux_bus.h> (see
->>
->> 	git grep -l drm_dp_aux_bus\\.h
->>
->> ). From the device-id structures that <linux/mod_devicetable.h> provides
->> there are:
->>
->>   - 8 files using struct auxiliary_device_id;
->>   - 2 files using struct i2c_device_id; and
->>   - 10 files using struct of_device_id
->>
->> (and no other usages; see
->>
->> 	git grep -l drm_dp_aux_bus\\.h | xargs grep -oh -E "\<(acpi_device_id|amba_id|ap_device_id|apr_device_id|auxiliary_device_id|bcma_device_id|ccw_device_id|cdx_device_id|coreboot_device_id|css_device_id|dfl_device_id|dmi_(device|system)_id|eisa_device_id|fsl_mc_device_id|hda_device_id|hid_device_id|hv_vmbus_device_id|i2c_device_id|i3c_device_id|ieee1394_device_id|input_device_id|ipack_device_id|isapnp_device_id|ishtp_device_id|mcb_device_id|mdio_device_id|mei_cl_device_id|mhi_device_id|mips_cdmm_device_id|of_device_id|parisc_device_id|pci_device_id|pci_epf_device_id|pcmcia_device_id|platform_device_id|pnp_(card_)?device_id|rio_device_id|rpmsg_device_id|sdio_device_id|sdw_device_id|serio_device_id|slim_device_id|spi_device_id|spmi_device_id|ssam_device_id|ssb_device_id|tb_service_id|tee_client_device_id|typec_device_id|ulpi_device_id|usb_device_id|vchiq_device_id|vio_device_id|virtio_device_id|wmi_device_id|x86_(cpu|device)_id|zorro_device_id|cpu_feature)\>" | sort | uniq -c
->>
->> ).
->>
->> The 8 files using struct auxiliary_device_id already include
->> <linux/auxiliary_bus.h>, the 2 files using struct i2c_device_id include
->> <linux/i2c.h> and drm_dp_aux_bus.h itself includes <linux/device.h>
->> which provide struct auxiliary_device_id, struct i2c_device_id and
->> struct of_device_id respectively.
->>
->> So the include of <linux/mod_devicetable.h> can just be dropped. This
->> gets one step closer to being able to remove that header.
->>
->> Signed-off-by: Uwe Kleine-König (The Capable Hub) <u.kleine-koenig@baylibre.com>
+This patch was applied to netdev/net-next.git (main)
+by Dave Miller <davem@davem-thinkpadp1gen8.ibmlond.csb>:
 
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
+On Fri,  6 Nov 2026 17:51:14 +0800 you wrote:
+> The PF and VF interrupt names are assembled as "LiquidIO%u-pf%u-rxtx-%u"
+> and "LiquidIO%u-vf%u-rxtx-%u" into INTRNAMSIZ (32-byte) slots.  Three
+> full-range %u do not fit, which gcc reports in a W=1 build:
+> 
+>   drivers/net/ethernet/cavium/liquidio/lio_core.c:1119:76: warning: '%u' directive output may be truncated writing between 1 and 10 bytes into a region of size between 0 and 13 [-Wformat-truncation=]
+>   drivers/net/ethernet/cavium/liquidio/lio_core.c:1124:76: warning: '%u' directive output may be truncated writing between 1 and 10 bytes into a region of size between 0 and 13 [-Wformat-truncation=]
+> 
+> [...]
 
-> This is still all true, including the statistics (as of next-20261110)
-> and the patch still applies fine.
->
-> Can someone get convinced to apply it?
+Here is the summary with links:
+  - [net-next] liquidio: enlarge the interrupt name buffer
+    https://git.kernel.org/netdev/net-next/c/1be1e065008d
 
-Of course, will be merged soon.
-
-Best regards
-Thomas
-
-
->
-> Thanks
-> Uwe Kleine-König
->
->> ---
->>   include/drm/display/drm_dp_aux_bus.h | 1 -
->>   1 file changed, 1 deletion(-)
->>
->> diff --git a/include/drm/display/drm_dp_aux_bus.h b/include/drm/display/drm_dp_aux_bus.h
->> index 8a0a486383c5..ca8db8ccc1f9 100644
->> --- a/include/drm/display/drm_dp_aux_bus.h
->> +++ b/include/drm/display/drm_dp_aux_bus.h
->> @@ -11,7 +11,6 @@
->>   #define _DP_AUX_BUS_H_
->>   
->>   #include <linux/device.h>
->> -#include <linux/mod_devicetable.h>
->>   
->>   /**
->>    * struct dp_aux_ep_device - Main dev structure for DP AUX endpoints
->>
->> base-commit: 1701fda2f58e345c050f4309971bdc07cd6146ba
->> -- 
->> 2.55.0.11.g153666a7d9bb
->>
-
+You are awesome, thank you!
 -- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
 
