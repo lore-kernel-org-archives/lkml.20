@@ -1,93 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.47
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794433772;
-	b=Jtrz/63WHfWvfY60xgHpXiV7qfAEQXuLmMcPiavq32PVHwVyVJQn+ggR3kfW+RdVdQFj
-	 OBruH4vMDwn13Zh7o9ONgPQYcLZ4JDHdN1g803+l5Ynbt50QWvqEzXvpQ9nQZIM56mh68
-	 00vGkiZUzVx5WVZZexzTWuxGsQhKeddhMx3+Ucp0cinOM/j+pPWwC1sRJiyQQd+AMn5PT
-	 Kz9KHXSBSvTbaF0wgLXHnlYhgaNxBEW54VghGGFvF+OAIkecos0tpRMq6+9yDoRh/PG8E
-	 aoR2PX294KL7xOmo4UpMmCcreM9dW2/2k9wiqRekpEBiPgleIljVGoVo4qgPbKUOJpA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794433772;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=ghwIfE96OI9y9XOfb0MeMDcamu6SW78slBiWypbpbcM=;
-	b=5FFnSuMto+rRfvoMtFGkEXdV1fYSbkl7RTN0Y3QSOK82yWsdXLPkW0OTxi6uuFxwZAhJ
-	 Y3ffcD1gV1K5HlAQRISIpdPi1m3Udowrb8eezXmkJNDuIbn5qyi1btyW8CXMCqO+QdPhz
-	 5qvQBmlb+MDlAPRhvK7b7V8o7kg/nkKdkzHETnaK/ZKiph4ewduZlq4RQGowsG+HUJ2n5
-	 QAmaG/+Kyw+hUKXddtu06snzcRyd8/RWjZr7iUiMk0G/I/X3ZjsSKXX4QHaJhQj47tV0w
-	 x8X/2fl8GT/eTDn2nBx8V4vb5MIpBQJzZR/niScv8zYwgrk/JcPskikQabY8zupkT8Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=udAPqJer;
-	arc=none smtp.remote-ip=209.85.210.47
-Received: from mail-ot1-f47.google.com (mail-ot1-f47.google.com [209.85.210.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=67.231.145.42
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1794433789;
+	b=VmVmxdsMvV4/1qp9aFdlULRPsMfW0PxgCtt2V5bgK13SdInYk1Ob71km9L7dhigjcPIr
+	 Y8kIe8fv6UCyfbqysWVxKUMJUh5C75CRPovd+a3e1ZGqW7gujK9aRW6rc1c7DNJdxKp5Y
+	 hke9OUixqd6LJAD3Zi0w3qdQ98uqrBUWPw9fFHD9NSr4FGHteIWbOVzVozlq0oxgPbKyP
+	 77QFPdHRvRNyHJfKAWipGQ99k6EKDsvaScPTkX9AulZ8pPtFDYhSSY+euyo8t+r9lqUPv
+	 5xFW2GnpXZ52Ssit1kCIWeZyqJxcEpCiFpDUQ886rxWhxNpjsUFd6Rlt5QwoloXhjSg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794433789;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 X-Google-DKIM-Signature:X-Forwarded-Encrypted:X-Gm-Message-State:
+	 X-Gm-Gg:X-Received:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Virus-Version;
+	bh=5hjKfboVBJ7OBGDq8Y9w5OdAYwdgZTN1RE/HZ7spSHE=;
+	b=CBGtjj4sIFugGGKVypgUSQCqjVOzrmXK3dvDkdAqOs83CuZGquTod3gG5RoR8HHFXeHx
+	 hfDwq2Bvrp/1RP/rTA+LAJtioPzMIqL6L92OWbXcAbqGWRG9U9SN2zFgXfk2QAsSptcAt
+	 CoNwzUbgHcKUwnfX0xsgKnPk3bs0gmgsyELhUjT5pUZE1yY0lOP4prOR/sXNQorXEYSgS
+	 VzXj37sLBK9kPWUGztSGjUEXi5UBNTMWBh5u+vkUy/53HwxPzkOhltbvuj7NGpx0vU0Rn
+	 TO7uJXPnWhWyDrMM/Q+Ri4WC9aUa98iPs/2nXzm68HWFL7cKXpeRW4zMgwKukAgAYRA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=meta.com;
+	spf=pass smtp.mailfrom=meta.com;
+	dkim=pass header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=GeyeUFFi;
+	arc=fail smtp.remote-ip=67.231.145.42
+Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com [67.231.145.42])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 049FB606A321
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 21:49:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 049FB606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6D32606A332
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 21:49:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B6D32606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meta.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=udAPqJer
-Received: by mail-ot1-f47.google.com with SMTP id 46e09a7af769-843a4ca671eso1501507a34.2
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:49:31 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794433771; x=1795038571; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ghwIfE96OI9y9XOfb0MeMDcamu6SW78slBiWypbpbcM=;
-        b=udAPqJern4cV9Bh6LXrHWrTixhlYTe5DhEO5f2N57XeXVF8uCvHX3eIxz3FsbGtyW/
-         b8+wiGvyDwZ5yRnDkKd+4vLt9tnUp98WyhVDuDPYzBC/mVCO2VEMWpRoJl4nuVUTvRyi
-         oOzgYIt3lkmmzEuTTVxHkPBnCZSHSm5k75ZG4blFcHdWdV2L40kzxBGwqTmxMDfY2Yx9
-         oyl7Lmq4qbuoAazcMDvcJZKKWw2AaGyV4Wxw+sehEq1qXy2Xb7jZHHzmcdEPnvMUDVSI
-         ysuvj16vQIUd7dHDJ201FrLoxGpQOIIx5BWwDyBBYc1bc5qDbes42p75NLr/p4UPPxMd
-         +yKQ==
+	dkim=pass (2048-bit key) header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=GeyeUFFi
+Received: from pps.filterd (m0109334.ppops.net [127.0.0.1])
+	by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ABKjqFZ1606544
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:49:48 -0800
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pps82601-s2048-2026-q3; bh=5hjKfboVBJ7
+	OBGDq8Y9w5OdAYwdgZTN1RE/HZ7spSHE=; b=GeyeUFFiqCEKPkYZuQ6WCtcJ+ir
+	veBlhkSCp2XR6ZvVC1Xnkgk73qpCo4mRZiSx00pz0ZaPhEttkWlhUPmxfs40TTQ5
+	/X8zBYWeMo5qo2ppLp4+UZMJyHFMoiEX2DHlDDezkJ+ymYQXutBVAG3oQhntG9hM
+	ZVeerH9U4yDTyfZo8k5T3RGORiWlI7Sy4seS228sgPILhH6xhQjGBjjWZwg6qsn8
+	Vlh4ScYyoi1E4wMGavc4pJXl7aCS2fuFIr3busZsxl7CXn30LOVds332fP4+nkTl
+	nDWVNpN6J2Xxb3bHvFuoJ6S2atc4WxsC5TivihwZ04AgSP+XyPVs1XTkmTQ==
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com [209.85.128.69])
+	by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4hv85sjmpq-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:49:47 -0800 (PST)
+Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-4ae2756fa7aso26690365e9.0
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:49:47 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794433786; cv=none;
+        d=google.com; s=arc-20260327;
+        b=OUBBwgE1mLahn/D9uxNF34SHMCwAUDWz5bP61pFq2Feh3ypSNlpZe+wQM2HGRdgf/b
+         KE7MpKQnT9BCiOHONQs4Kac4AoHeIcMkmW2U8rXJnDCJm3Nh9uN2k/bjL88mGopD6UXZ
+         qHMiA5aWVmZ28l3gIhFwJ+Ra+OsfrWrTcCh5JNqpw5oCgEzjZYqai7KhRKpiWGA6V2BM
+         i0iEfEyNUWoG7bPjOCsrITkU+/A/l7Ssuyr/Z7P72EWGmPI7G8hRHikUCvuBlJg2K0a9
+         qpwoGIZn8/P4/ayiTr2Q6u8dgAVenPxzj6J5PL3xasan9oWy/FHvlTm7ro6hOvTa+icN
+         OBvA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version;
+        bh=5hjKfboVBJ7OBGDq8Y9w5OdAYwdgZTN1RE/HZ7spSHE=;
+        fh=uqS3hcocgQ5y9IOwerzFCZ/BQjxzDjg45DrhVW0bRDw=;
+        b=l0iuAg7uL1If9/kYrzRRhi4FfHCZa/17EMePddI/9anSiXTZZSC1m68ND7SRWUggUa
+         cjHCXLaSbULPtLb9iTGeFsc812RgKZwq3aPZ4dVRQWc+W4VwQRRaBLLvNYkNwT6qqtRV
+         DmX8kBwRtG0p5N3GiyAVhVaU7pyGz/w77W8iUF80/cmY0i0XmrQoTs8+SpsLv+7knozv
+         cScvxsIyp+P56vWSJxbJ8ZqhY/+2s676VBX+RfrEqqbumNiJO4yKNCC+mdSve7Md7nzy
+         JMTLwIIEo+fF83WAimRUqS0MMwyRkrlKCfOgO4hoq0eeUXFdn7u+w+KB/bXzss+pegGC
+         QodQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794433771; x=1795038571;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ghwIfE96OI9y9XOfb0MeMDcamu6SW78slBiWypbpbcM=;
-        b=GA8lXu1u6CKHxE6k/bwcUMXpyBoOt+1s5ELIfEukAeW20RtYN1OXGtoylWS8Yqj6Ys
-         LwSyZuxTi9RFImH2jUUNbkC/zQmMKn6+d3cmoPS3k3Nta2u/IAubkOdgMUycHF3dKDtm
-         MO2eCZn9uI+GgSdzXcejRVcxgMH47Vrw0RlH4SQcjHsgVkJH9LBGsmb8eFHbF8tWKQ1h
-         NfHnpXogKwuJosX2fgV7vmcaEDJFyfjGMxJlYtjrV2M/dM79W3oX4fbKP53siuN3KTie
-         8dF5kNcW3w4cJpxvX9EPUYwO/Pihg7o3eCexVUvpn7GTHkPVvrQagc1BWDfM88a8q966
-         MxXg==
-X-Forwarded-Encrypted: i=1; AL+hErHDqwjSLmmrGEtda3rf0Zv2q1V1F2dy82a6ojyU4Mdp7GDrYclnZlh+iKtDRBbTp4n9CWmWrcSJ5H13AbE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9tpkvB7cpiVmBlvBlUvrV+HzebpmWmTKYQF06DIxwj0Nd5in2G
-	0Z2CcIW5eGcziMQwqIiHnR4IL+4Fy8tkinSzKoDwhJOZP1/25KxKMHcuMl9vzfgt
-X-Gm-Gg: AYBFou17Q9hXy7GXEQyYGPfgAyJpdfN53dnxBCOTjZFCCM2lLhNlR++7wOwAy1QysJ9
-	ABbCVuGLSqq4x8XYE7tOfiC0gv5la5ogcSbY8LehdNvPuRBVBufqiy/bAkncYBYpQ2knqA/p8fP
-	wjXQ7ou4X+YMCIlqkeJrKbw2G1QY8HDbNRibVguyKSDd23f7K5nkT8LKLV2LVBxLy52nzTTaR3l
-	OpgzK1vK+MnaadgyzXylmLZevqYTJdK8X3twq7QsH0N2VCvUwlGy30v2OQl81ENhkgHp1O3NwjV
-	a+hlKfZ++23DFHi7TTnFl4/AZ830ScBYQWv/w37hq/IazE9SmfLsmp5VJVY6g+v9DYB0FowSLcp
-	DVCxL4lOBREUwi959H71iMCx8osfkpicsjA8coTsgOiC58zdvBNbHW6TxH+NjM94LDZ+UsdC2RD
-	V9AmPHfvusMtqS8KxKPytTyWX1NQxBxXsTTWWJEXndTtraFarinc+1n9gj7J2QY4YKSXxvmocxD
-	pOn/JL/CQd/h4IKweE3XzMycqPLOoiY3k/oWufYUJDY1xu33UxAhKdr+4LWxMaoSLyrYyTVpPIy
-	UyQUlPJWEXAogdc/ELgbzHrG
-X-Received: by 2002:a05:6830:254a:b0:818:125c:f4d3 with SMTP id 46e09a7af769-860f28740afmr4236916a34.14.1794433770817;
-        Wed, 11 Nov 2026 13:49:30 -0800 (PST)
-Received: from en1.. ([204.144.167.9])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-860dcbebfc6sm5124610a34.18.2026.11.11.13.49.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 13:49:30 -0800 (PST)
-From: Amir Abudubai <amirabudubai@gmail.com>
-To: linux-bluetooth@vger.kernel.org
-Cc: luiz.dentz@gmail.com,
-	marcel@holtmann.org,
-	surban@surban.net,
-	linux-kernel@vger.kernel.org,
-	Amir Abudubai <amirabudubai@gmail.com>
-Subject: [PATCH] Bluetooth: L2CAP: Fix size check for receive buffer space
-Date: Wed, 11 Nov 2026 15:49:05 -0600
-Message-ID: <20261111214905.518429-1-amirabudubai@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20260707; t=1794433786; x=1795038586;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=5hjKfboVBJ7OBGDq8Y9w5OdAYwdgZTN1RE/HZ7spSHE=;
+        b=ohBg5vAeVBTwV2ECsmYqz0cyCedDIFZQaFVN5JbbTMClNtShXO6ujVr5dKuKKBh2sp
+         OeDJ1/i2x6R0abAjNsF4uf6BMKWE/+fN0+LUchVxSz5qOyoNiLOp1HnwMt8lkMUUHTZR
+         hu6X5UurHdKuyGLrxtaoT8cQ1FEpJVYZbn2W2chW77SQ3ohmnkHn+r/j26rKDRpXEPg2
+         xApr4dvTHZd5oKBd8/urZpXipY+bPlzmJU5Tg1i/D4hsW41+/uCs54dr3DYEhXhmyuES
+         YqNFCNO645GGWmLl1Y/pNeVm+2OmxxUUocNCs7xmRsQzV3VJ70oGsgASxe0nzvThKzQr
+         8r5w==
+X-Forwarded-Encrypted: i=1; AL+hErG6u7QJCbS9hmghTLkQ7ALEf/yzSP1+hHYI2asbXlomfaCZ/hbRVZtTFxjYfs72T+wS40/+HPf78nuBWU8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8YX7LwsefvRTSz7tbiZ/9MotFpDHN7iWLncwZsJnjFBNZRHeXV
+	jwATH/ZY5tF2gco63B4d6wdzV+NoD2A3rnOPB8ABNxMEF9ERS80heD8WjAj1E8oTcmiIFW1RI1k
+	QJnkZyYrjfFJfzq4hgt0FiqoCqBfHkpraf5lEY2bv7Xi7Iz93DB8xwRu0D5VHF9J71n8zRzd+dX
+	eSSXHMw3TM/qiveZcZT8jvuEE6CpBesRliZmlozas=
+X-Gm-Gg: AYBFou3MyO+yiXyniipkBYgljlM/di0zf24qihaJ3ooFGFDF5xbNRXSXCBMYMe1LZvK
+	g5TrQc3s83uH3h4RCN4/3CW5SH0DTfk5tKJYFQWgDnXZzhd3tuPvPyfulyBqJ9xvnJrv2iIbdkk
+	ZsseHBzfre/Di/C5McSo92pX9kkBwPDuEUXaBR9wllPcwwyQ2SUEfvfhwynm6eekv3cP6QpoErp
+	o9NT2sLgCbst51hbecTiKGOFfSqLCXS
+X-Received: by 2002:a05:600c:34c7:b0:49f:e701:51c8 with SMTP id 5b1f17b1804b1-4ba093583eemr60183625e9.9.1794433786463;
+        Wed, 11 Nov 2026 13:49:46 -0800 (PST)
+X-Received: by 2002:a05:600c:34c7:b0:49f:e701:51c8 with SMTP id
+ 5b1f17b1804b1-4ba093583eemr60183425e9.9.1794433786168; Wed, 11 Nov 2026
+ 13:49:46 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,45 +111,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261111005533.6436-1-toddfreed@meta.com> <20261111005533.6436-5-toddfreed@meta.com>
+ <DMSJB8MZZCXK.MCEBRZQDAM5Q@gmail.com> <CADh2yMx8MPjcH7Bpj72rNNd_tT=6uSC5Ow9JyGjTMjFgs499Pw@mail.gmail.com>
+ <DMSM3RNRY412.1GXB07F4KGJYR@gmail.com>
+In-Reply-To: <DMSM3RNRY412.1GXB07F4KGJYR@gmail.com>
+From: Todd Bert Freed <toddfreed@meta.com>
+Date: Wed, 11 Nov 2026 13:49:33 -0800
+X-Gm-Features: AclHuK_3wPHrs7nAKCIlAv8DB3IRwLLgS4civoUiRATHWDoZevdks1911kjhq28
+Message-ID: <CADh2yMwFu5Gyadm2Y-NHCBtayEvN5H9LUM=Kf-tT69vmjm0DEw@mail.gmail.com>
+Subject: Re: [PATCH net-next v1 04/15] psp: add support for socket-less psp associations
+To: Daniel Zahka <daniel.zahka@gmail.com>
+Cc: netdev@vger.kernel.org, "David S. Miller" <davem@davemloft.net>,
+        Andrew Lunn <andrew+netdev@lunn.ch>,
+        =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>,
+        bpf@vger.kernel.org, Daniel Borkmann <daniel@iogearbox.net>,
+        Donald Hunter <donald.hunter@gmail.com>,
+        Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+        Jamal Hadi Salim <jhs@mojatatu.com>, Jiri Pirko <jiri@resnulli.us>,
+        John Fastabend <john.fastabend@gmail.com>, linux-doc@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+        linux-rdma@vger.kernel.org, Martin KaFai Lau <martin.lau@linux.dev>,
+        Paolo Abeni <pabeni@redhat.com>, Saeed Mahameed <saeedm@nvidia.com>,
+        Simon Horman <horms@kernel.org>, Tariq Toukan <tariqt@nvidia.com>,
+        Wei Wang <weiwan@google.com>,
+        Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+X-Proofpoint-GUID: 2aCBCjVHdElNnEmEoUgiAf7qCEOtRqH2
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDA4NiBTYWx0ZWRfX1Z2eWwfizJ0N
+ FRnoZ6CmM54wJJ5JlVLgVRLzmy8H8EM8alup1V6XrVRMMWUJ0uAZ+Lwe2dUA4tqxEf0/hAk2kHK
+ I0P8OcXfXnywjpRpHr3Z0Vz6Z7kE8tM=
+X-Authority-Analysis: v=2.4 cv=RsZQvymK c=1 sm=1 tr=0 ts=6af4e2fb cx=c_pps
+ a=Ech0Gv1thIkdqUNjVc2Ehg==:117 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22 a=crHB47gyY4rKiduisYu9:22
+ a=VU9VbmEmTQsFja8ue1gA:9 a=QEXdDO2ut3YA:10 a=cZgK7WzY9ta9U-6s7oqD:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDA4NiBTYWx0ZWRfX+HbbqhMDwBX1
+ G6fL731sdOGwOxpTKl+iwDqt5Jtqcgzw9KItq771RMOyR716gbIUxn4JWjFyqJYsiFU9KAIG2+z
+ eEqtXk7VpNxFc0O+v+/3d0Vf4UCSCRSVwJ/C6yJdyenvlDUd1/WdTKOMBiBbKQL2K0Vw1qc9cgV
+ LHV0GgTPDu2Ohz+cwRbiMKWxmbO1+o08gIhjbBRYD3NUMtzixuUPTYhAn/jTlf7wfQ9fvgaSFxl
+ c5MklwLlqJiXfU8V774V8Tz0Th+tfDx9sSto9b03Tc7jVq5VImfRGqYjx/YeVsIZ2+mrCZANzPc
+ tz6XQWBc9tSMuxVRYPRK5o7cTk2Di2e7adhi7YOfD76HlzspxpXefPYSCNAtgXcRJRmmZK3pkhG
+ kd9QrHM2gr2FHyMr9aR4afeMg5QS4GxsEMnqLytcbRzWQ9SZnOvGv2T5K6IH7wNEevXLmGOnmjM
+ bgKQYr+yWNH+ytOLcKQ==
+X-Proofpoint-ORIG-GUID: 2aCBCjVHdElNnEmEoUgiAf7qCEOtRqH2
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-11_05,2026-11-11_03,2025-10-01_01
 
-Check that available receive space covers a full MTU-sized SDU and its
-overhead, rather than just the overhead. Otherwise, credits can be
-exhausted before an SDU is completed. This could result in a deadlock under
-some configurations and SDU combinations.
+> I think it makes more sense for userspace to just get rid of the rules
+> before rotating the keys.
 
-This follows the SDU-sized credit policy from commit 96cd8eaa131f
-("Bluetooth: L2CAP: Derive rx credits from MTU and MPS"). Clarify the
-comment by replacing "packet" with "SDU".
+Ok. I will drop the rx assoc objects. The robust userspace protocol will
+be some combination of using cookies for state recovery from a rule
+dump, and using chains to flush old-generation rules at once.
 
-Fixes: ce60b9231b66 ("Bluetooth: compute LE flow credits based on recvbuf space")
-Signed-off-by: Amir Abudubai <amirabudubai@gmail.com>
----
-The exact SDU length that causes a deadlock depends on build and configuration.
-On my machine, 13090-byte SDUs caused deadlocks and this patch fixed it.
-
-AI assistance: OpenCode/GPT-6 Astra for testing and analysis.
-
- net/bluetooth/l2cap_sock.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/net/bluetooth/l2cap_sock.c b/net/bluetooth/l2cap_sock.c
-index 7a2551ef7f50..8603e63defb5 100644
---- a/net/bluetooth/l2cap_sock.c
-+++ b/net/bluetooth/l2cap_sock.c
-@@ -1229,11 +1229,11 @@ static void l2cap_publish_rx_avail(struct l2cap_chan *chan)
- 
- 	/* Correct available memory by estimated sk_buff overhead.
- 	 * This is significant due to small transfer sizes. However, accept
--	 * at least one full packet if receive space is non-zero.
-+	 * at least one full SDU if receive space is non-zero.
- 	 */
- 	expected_skbs = DIV_ROUND_UP(avail, chan->mps);
- 	skb_overhead = expected_skbs * sizeof(struct sk_buff);
--	if (skb_overhead < avail)
-+	if (avail - skb_overhead >= chan->imtu + L2CAP_SDULEN_SIZE)
- 		l2cap_chan_rx_avail(chan, avail - skb_overhead);
- 	else
- 		l2cap_chan_rx_avail(chan, -1);
-
-base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
+-Todd
