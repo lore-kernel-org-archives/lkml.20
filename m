@@ -1,89 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794416096;
-	b=hwKhTXquhH8dyAGzTdRx00CJzzfngLgY2uae5hxIDlIwLpJa5ri7jSpa3su8Q1Wg6yTL
-	 rl6DXOebqObZFbCqFLg2Z1rmXIFRlVBh8dmm1jByZu6YhlCwegZZUKdJkW3uRGe5kzcJX
-	 j+Bp1alzp0WinotPViPzCk431EdySUgw2RTPoO+cuXmtUzEJYkHlCHA5oqrhw0cwgjP6A
-	 9sx5Djgg32F5C2Rr7jaTyyXKN+Yh4RZybFOCScU0DEll+psKYtxOUPBvhY0NAL4CJ+7/w
-	 P4l7QxWOwW5NMehQ/zhKw7m8IuVTXMkd3MtAqQyeGrG66HYqqf6TgrmG+jIa9LbJbkw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794416096;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=Bt8vCFJ78PDhrhf1lGPW3TnU1901Xv/Y93kmnDKVKUQ=;
-	b=DoaBFChOv2JEcg9BYZHPFdZIrxIBZwrXEEa9KGL8JB5dtPa4SYOP3D2Ox0DmhoNrVMC3
-	 LOkZQU9QhBUtQGCJybz5oVjEhIcMIaWBQOlZlqYUmz+Q2F5cL5OCcgnWqF78YrmhDOT5S
-	 +cGiOilCpVB0Oic9sblGUoM6TKFG/0b1MHpdJfoYCkAX2nR5Ud9YNxEIqZerMh0gfLvqx
-	 RF0a6R137kksG1Lf/kavj86RNvaUWRMz6zbRIY6vkyP9B77ctbW6FdMp+3Aaj5w2itIMZ
-	 WVWV/lauR1psYSCoexEs6N+GVHKEIpAqZfjljpQubhT6pvKqd9+PyZrCiYHdWbTRFag==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=h6gIDP2b;
-	arc=none smtp.remote-ip=209.85.221.48
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794416098;
+	b=Ppp4aPirZB3ZUjxTnnejucHR4jwndTvQd+R16VR2xeJiFTmIBQ/H3DYzxvFaFPRznmUz
+	 obcaren5xmhFJLcO8RIhTElxRhbY6ciiVYo0ZFwyOqDnPvuxVsXcToD69FTRTPwADSZtD
+	 XNFMBChZYc+2ANAKArRZFSrfGXRt+EDcQ7z3IrdxtRqAqcTVmiRDvQz0RI3I8+IclXOr8
+	 GirCJDQ5A3eZQfkBQxtgPZYyX9pVKvByqdyNf3e5LyhOQ8bfgEWCqYUjfv+XFK90U1Uvv
+	 w5n+tFHU74l6Hr1jmi4jcBEmDdNbYzlrHxQzhIPiAdQiGVDHY8m+RtyAIpS0TeziSyQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794416098;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Message-ID:
+	 In-Reply-To:References:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Importance:User-Agent:X-Mailer;
+	bh=anBX1iahvKt8bwlS8JRUYhxSTZUTNVrvDroUXrWSpb8=;
+	b=lXaxgHlQHIrJn1d+inkax5TX+UefExrlZ7ZEY/uz/+CQuem6btV8Lb1eEYpBNgfVPnYw
+	 GRDbqz0zzU3u0dje9uoSRCepdL2kLV9JsWeII56z/Psh2aIpTDYyQf36900Z/LRerfTdc
+	 lKbiBcudUxhrUHvGsc29tgPiGDwD3/ngxDoYPHd0e3Mq/ks9kNIeF95NQEvDdsDu6c81q
+	 qP8XFKB3AjzclwcAE094DmraYf/1Z9DLg+Vj96lgjrZR22GKlcI7Vv5DhAD9qqeo52+2c
+	 /De/j6IsCsvuvJVt0xwT47bfM0a3u49N+cj+/dXv/F4RD8uUR70adNp2U2ragEZOF0A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b="YrRCI/SC";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
+Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42F56606A321
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 16:54:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 42F56606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66EB2606A338;
+	Wed, 11 Nov 2026 16:54:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66EB2606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=h6gIDP2b
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48dee593f18so2588365f8f.3
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 08:54:55 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794416093; x=1795020893; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Bt8vCFJ78PDhrhf1lGPW3TnU1901Xv/Y93kmnDKVKUQ=;
-        b=h6gIDP2bR+ndlNlwUwFpPDjipDxEkAuXkZD9KDzYyZtK+jMT0/14OlPfSDDCII9gkf
-         T/npnVs1hBlBRLClggxVNz/TpCnqBuggKdShsruFOMJy5Xfhkc4vK7nu5VVzQG/t37ky
-         eFqk+RuWxtsTTmBYlkP5aLwkqzfG/teu/Ak+b52DMtWI3DVp5vZBOvBYA+r0Lo+N+TqF
-         escboYZcbAGqtcR/C0gnLiRM23j49eM/bVrkNUuLd71A8KfZnGRKBp6Omsth9qTZIUHG
-         71kzS+DA0tW78FwUUavB0ifqnihUzBe1w5QzCloPMXTq80dfwopu8wPrNHe7WZdfmb1a
-         wVSg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794416093; x=1795020893;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Bt8vCFJ78PDhrhf1lGPW3TnU1901Xv/Y93kmnDKVKUQ=;
-        b=HBe7yhKpoEvWiEro8NLpuVawdnWjD8LZDddDeKMLmNeKz+m0OlwylgbaTx3NqgNaR8
-         /aLwks5FGMkOYwyOWZ+Ar9MI6BfkM55BZeEdE/4CrsI9m0vE/mXpolMVOFMtB/enKLOJ
-         0sIlF7m38IvI2lpVuVpFjJgTAnkRDk9bFU3bE15zk+g3zA8m6R58UYTMhX9zNUZEbmeo
-         PjCZLe1ztJ1YWvxzwpUUbBJ3P8iUN3Uru/I0oo9hk0gZRXmZYF3w3wXxNmozytNPXDyK
-         dswkSbqnDTlNKgxJfvfbBa+CfL7XJm7Fa6/Bb/Y6G94nisTvs1CUHg85sqwpOA7a/lrw
-         Jllw==
-X-Forwarded-Encrypted: i=1; AL+hErFqBLFSmDoLhuD8Ax++9emFOT329w8Jg3KDKT+g/tlWrQYW2LG5Gnr7hyi1+5B3x3wXpg/YBZVHqUIdp8s=@vger.kernel.org
-X-Gm-Message-State: APuU4Z83qzE4MlL0eBAqwV1Ojx4Gk52u3S3wtjMC7fbWMxkSuQY6NkTY
-	iYvsNWx7i+yqgy4Bzzq5rz311LtOsLZ+Liys5EmjyF94MzLMUc8T3e0Q
-X-Gm-Gg: AYBFou2k7r8E7DNXxwxhveHOLDLrl6W0cusi4OAcSKwWsqHuu5n0oPPqRwAIcx1a+A1
-	dtK57CC0l0kT8mqcpds52EkQ9BuueBGIU5y2nMFE38QJDtiy3u1p3bhmkKQP71BYyGEtSAl2ym0
-	Xrb/3blkcSZxA0caWs166+Q7AxFPpo+5RCQD87S+pPtP8xajGmwJQUIrKMNY8zZhkPUv2ZXVcN8
-	Goal1ef7O6h2nEBBXVAb+TZ6iUOYlMHtM3V5dYlCGKGPgPn+EA3zJ2Th3lDNNST/zV5THY8PDQR
-	1gFFaOKbFkCHzJaHyAjZCQmRiSv4EsC70LvQf4LSFE89ykXehYWRxDk75l2mA7AtI9MowUXjX+9
-	5aWvpVIprD+yJxRHZUvjyildC/lLXMJQrB8Qxv308EaGgrDPlUkzUhSkbjc6eyn69S/x7Jgrfqt
-	WcF/E6nTpde3DUbxFlx1QpRBiH9EY/dAwjp62O/EAx/3AoAz/T22Ywx8S0PPUU5cirIL2rSPEvq
-	0oXcGrN585Y6AaNtyg/g8na0/W/NJ+u4X/EL/H+y5ukdTgsI3ykOFWHyyj4R1JNmXgv+PMOxIqY
-	WWeBUJqdE5mgHrfxNxfFAiLkxXexl9KNJ7/HfuuhdflcJYI1Dmoq7AX+7ybx12jA8HlWLEuOseX
-	8eG/OMN4ihHzE9g==
-X-Received: by 2002:a05:6000:490a:b0:48b:a4b:5a2c with SMTP id ffacd0b85a97d-499c5783a79mr5463489f8f.3.1794416093393;
-        Wed, 11 Nov 2026 08:54:53 -0800 (PST)
-Received: from [172.31.15.113] (6.red-83-60-147.dynamicip.rima-tde.net. [83.60.147.6])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49836c835fcsm11451395f8f.59.2026.11.11.08.54.51
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 11 Nov 2026 08:54:52 -0800 (PST)
-Message-ID: <8c221ebf-ccc0-4541-bdc7-ae216d149dae@gmail.com>
-Date: Wed, 11 Nov 2026 17:54:50 +0100
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=YrRCI/SC
+ARC-Seal: i=1; a=rsa-sha256; t=1794416045; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=MtTGZx4kbRO7jubVIf2+B7jKJWmy8aP1wK1Az6LPjajCTNhMbkLd2PNQiwCvjmGlnzknYrpNeEHEc5du38u8KKGdwpW6CjFFyFPn5qO2oXmaiiVmb271fBaTUVqMoV/n7JEbyc98/PwElPfLfyX0AGWBlGbynLWgPE839jFaF3o=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1794416045; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=anBX1iahvKt8bwlS8JRUYhxSTZUTNVrvDroUXrWSpb8=; 
+	b=bIrPcfQGvmUstLvfOrclgBBgRWPfxLaVD8Gu3ouqkSC7SaumggN/2V0dyH8QeCY3NHw+8FXywTw229MAegdvhYAmTCf/oUjnwcQGHkR8ib5Rt5EhwbGsvlaCYJ1vD5RaNEk3q/80HpqBblqnG4zXAM5cIE/w8ztTG733YYDcx10=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
+	dmarc=pass header.from=<daniel.almeida@collabora.com>
+DKIM-Signature: a=rsa-sha256; b=YrRCI/SCYZnWGK6UWC56IKByqgiyk5EnemJkzINpCd5B08tLFoIuKCQ4HvHJlIywJ3bo9w3FD73tl7qFmbP0rtHWWra6odsIjsk0KLa/caLmx6vXuq4DhElAxyPoPFyWKiSDoNajrGIDJ6XJdNd5zbXjK7HC0Ltv2YDoMnRHQ6I=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=anBX1iahvKt8bwlS8JRUYhxSTZUTNVrvDroUXrWSpb8=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: from mail.zoho.com by mx.zohomail.com
+	with SMTP id 1794416041785477.2653723756649; Wed, 11 Nov 2026 08:54:01 -0800 (PST)
+Date: Wed, 11 Nov 2026 13:54:01 -0300
+From: Daniel Almeida <daniel.almeida@collabora.com>
+To: "Daniel Almeida" <daniel.almeida@collabora.com>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
+	"Viresh Kumar" <viresh.kumar@linaro.org>,
+	"Danilo Krummrich" <dakr@kernel.org>,
+	"Alice Ryhl" <aliceryhl@google.com>,
+	"David Airlie" <airlied@gmail.com>,
+	"Simona Vetter" <simona@ffwll.ch>,
+	"Michal Wilczynski" <m.wilczynski@samsung.com>,
+	"Drew Fustini" <fustini@kernel.org>, "Guo Ren" <guoren@kernel.org>,
+	"Fu Wei" <wefu@redhat.com>,
+	=?UTF-8?Q?=22Uwe_Kleine-K=C3=B6nig=22?= <ukleinek@kernel.org>,
+	"Stephen Boyd" <sboyd@kernel.org>,
+	"Brian Masney" <bmasney+clk@redhat.com>,
+	"Jerome Brunet" <jbrunet+clk@baylibre.com>,
+	"Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
+	"Gary Guo" <gary@garyguo.net>,
+	=?UTF-8?Q?=22Bj=C3=B6rn_Roy_Baron=22?= <bjorn3_gh@protonmail.com>,
+	"Benno Lossin" <lossin@kernel.org>,
+	"Andreas Hindborg" <a.hindborg@kernel.org>,
+	"Trevor Gross" <tmgross@umich.edu>,
+	"Tamir Duberstein" <tamird@kernel.org>,
+	"Alexandre Courbot" <acourbot@nvidia.com>,
+	"linux-pm" <linux-pm@vger.kernel.org>,
+	"linux-kernel" <linux-kernel@vger.kernel.org>,
+	"dri-devel" <dri-devel@lists.freedesktop.org>,
+	"linux-riscv" <linux-riscv@lists.infradead.org>,
+	"linux-pwm" <linux-pwm@vger.kernel.org>,
+	"linux-clk" <linux-clk@vger.kernel.org>,
+	"rust-for-linux" <rust-for-linux@vger.kernel.org>,
+	"Boris Brezillon" <boris.brezillon@collabora.com>,
+	=?UTF-8?Q?=22Onur_=C3=96zkan=22?= <work@onurozkan.dev>,
+	"Maurice Hieronymus" <mhi@mailbox.org>
+Message-ID: <1a1cb87df11.2c57f9fa237371.844135553238709982@collabora.com>
+In-Reply-To: <20261013-clk-type-state-v6-0-a5e9977b3509@collabora.com>
+References: <20261013-clk-type-state-v6-0-a5e9977b3509@collabora.com>
+Subject: Re: [PATCH v6 0/7] Clk improvements
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,130 +94,177 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/4] mm/huge_memory: use the large-page PAT encoding for
- huge pfn mappings
-To: Eliav Farber <farbere@amazon.com>,
- Andrew Morton <akpm@linux-foundation.org>
-Cc: David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Zi Yan <ziy@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
- Kiryl Shutsemau <kas@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>,
- x86@kernel.org, William Kucharski <william.kucharski@linux.dev>,
- Vishal Moola <vishal.moola@gmail.com>, Alex Williamson <alex@shazbot.org>,
- Peter Xu <peterx@redhat.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org
-References: <20261111140655.34281-1-farbere@amazon.com>
- <20261111140655.34281-5-farbere@amazon.com>
-Content-Language: en-US
-From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
-In-Reply-To: <20261111140655.34281-5-farbere@amazon.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
+Importance: Medium
+User-Agent: Zoho Mail
+X-Mailer: Zoho Mail
 
-On 11/11/26 3:06 PM, Eliav Farber wrote:
-> insert_pmd() and insert_pud() build the entry from the pgprot that
-> vmf_insert_pfn_pmd()/_pud() took from vma->vm_page_prot and passed
-> through pfnmap_setup_cachemode_pfn(). That pgprot carries the PTE-level
-> cache mode encoding, but x86 keeps the high PAT bit at bit 7 for a PTE
-> (_PAGE_BIT_PAT) and at bit 12 for a PMD or PUD (_PAGE_BIT_PAT_LARGE),
-> where bit 7 is _PAGE_PSE.
-> 
-> A memtype that needs that bit, write-through or write-protected, loses
-> it: the cache mode index of the huge entry drops from 4-7 to 0-3, so a
-> write-through range is mapped write-back. The other x86 paths that build
 
-here contradicts the cover letter, shouldn't it say the same as the 
-cover letter since its the one right?
+Hi all,
 
-> a large entry from a PTE pgprot convert it first, see populate_pmd() and
-> populate_pud().
-> 
-> Convert in the two huge pfn paths. Add a generic pgprot_4k_2_large()
-> that returns its argument unchanged, so that only architectures which
-> encode the levels differently have to define it, and x86's existing
-> definition is picked up.
-> 
-> The folio paths keep using vma->vm_page_prot as is. They map
-> struct-page-backed memory, which x86 maps write-back.
-> 
-> Fixes: 6857be5fecae ("mm: introduce ARCH_SUPPORTS_HUGE_PFNMAP and special bits to pmd/pud")
+ > This series contains a few improvements that simplify clock handling for
+ > drivers.
+ > 
+ > Patch 1 converts clk.rs to the kernel-vertical style for imports.
+ > 
+ > Patch 2 replaces OptionalClk with Clk::get_optional(). There is no struct
+ > optional_clk in C, and Clk already allows a NULL pointer.
+ > 
+ > Patch 3 implements the same typestate pattern that has been used
+ > successfully for Regulators. This is needed because otherwise drivers
+ > will be responsible for unpreparing and disabling clocks themselves and
+ > ultimately handling the reference counts on their own. This is
+ > undesirable. The patch automatically encodes this information using the
+ > type system so that no misuse can occur.
+ > 
+ > Patch 4 adds guards that prepare and/or enable a clock for the lifetime
+ > of the guard without consuming the Clk, so that a driver can keep a
+ > long-lived Clk<Prepared> and enable it for scoped sections.
+ > 
+ > Patch 5 makes things more convenient by offering devres-managed APIs. This
+ > lets drivers set clock parameters once and forget about lifetime
+ > management.
+ > 
+ > Patch 6 adds ExclusiveClk<T>, which holds rate exclusivity over a Clk<T>
+ > in any state until it is dropped.
+ > 
+ > Patch 7 uses it in pwm-th1520 to lock the clock rate for the lifetime of
+ > the driver data.
+ > 
+ > ---
+ > Changes in v6:
+ > - Rebased onto the latest clk-next.
+ > - Moved the import style conversion to the front (Alexandre, Onur).
+ > - Kept Alexandre's and Onur's Reviewed-by on the imports patch, and
+ >   Alexandre's on the devres patch. Dropped Alexandre's Reviewed-by on the
+ >   type-state patch, which changed too much since v5.
+ > - Split the OptionalClk removal into its own patch (Gary).
+ > - Replaced "rust: clk: implement Clone for Clk<T>" with EnabledGuard,
+ >   PreparedGuard and PrepareEnabledGuard (Alexandre, Gary). Clones shared
+ >   a single struct clk, so per-consumer state such as the rate
+ >   exclusivity taken by clk_rate_exclusive_get() was shared between them.
+ > - Dropped Clk::<Prepared>::with_enabled(), superseded by EnabledGuard.
+ > - Named the ClkState constants ENABLED and PREPARED from the start
+ >   (Alexandre).
+ > - Implemented Debug for Error<State> (Alexandre).
+ > - Documented that dropping a prepared or enabled Clk may sleep
+ >   (Alexandre).
+ > - Used a different connection id for the second clock in the example
+ >   (Alexandre).
+ > - Used `?` in the per-state get() and get_optional() shortcuts.
+ > - Dropped the trailing `//` from doctest imports (Alexandre).
+ > - Removed the intra-doc links from SAFETY comments (Onur) and reworded
+ >   the devm_enable_optional() documentation (Alexandre).
+ > - Expanded the devres commit message (Gary).
+ > - Added ExclusiveClk and its pwm-th1520 user, based on Maurice
+ >   Hieronymus's series [1], with ExclusiveClk made generic over the clock
+ >   state, ExclusiveClk::new() in place of Clk::rate_exclusive_get(), and
+ >   a new ExclusiveClk::into_inner().
+ > - Link to v5: https://patch.msgid.link/20260706-clk-type-state-v5-0-67c5f326a16c@collabora.com
+ > 
+ > [1] https://lore.kernel.org/rust-for-linux/20260711-rate-exclusive-get-th1520-v4-0-8244a0666a71@mailbox.org/
+ > 
+ > Changes in v5:
+ > - Rebased onto the latest clk-next.
+ > - New patch: "rust: clk: implement Clone for Clk<T>". Each clone is an
+ >   independent view of the same underlying clock, owning its own
+ >   prepare/enable counts; the raw pointer is shared through an Arc so
+ >   clk_get()/clk_put() stay balanced. Follows the v3 discussion with
+ >   Boris Brezillon and Gary Guo.
+ > - Moved rate() and set_rate() from Clk<Enabled> to all states; the C API
+ >   does not restrict these to enabled clocks, and some clocks can only
+ >   change rate before being prepared.
+ > - Made Clk::<Enabled>::disable() infallible, matching unprepare() and
+ >   the void C API (Onur).
+ > - Fixed a typo in the "# Invariants" section, fixed SAFETY comments
+ >   that referred to the non-existent `self.0` field, and added missing
+ >   INVARIANT comments on the state transitions.
+ > - Added the missing rustdoc link definitions for clk_unprepare and
+ >   clk_put (Maurice).
+ > - Dropped the redundant `Result` import and the `use
+ >   kernel::error::Result;` lines from the doctests; the prelude already
+ >   provides it (Miguel).
+ > - Added #[inline] to the devm_* helpers.
+ > - Link to v4: https://patch.msgid.link/20260618-clk-type-state-v4-0-8be082786080@collabora.com
+ > 
+ > Changes in v4:
+ > - Rebased onto clk-next. Alice Ryhl's "rust: clk: implement Send and Sync"
+ >   series is now merged upstream, so it is no longer carried as a dependency.
+ > - Fixed the build with CONFIG_CPUFREQ_DT_RUST=y. The generic DT cpufreq
+ >   driver only has the (unbound) per-CPU device, so it cannot hand a
+ >   &Device<Bound> to Policy::set_clk(). Added a pub(crate) Clk::get_unbound()
+ >   for the few in-tree abstractions that operate on a device outside a bind
+ >   scope; set_clk() now takes &Device and uses it. Clk::get()/get_optional()
+ >   and the devm_* helpers still require &Device<Bound>.
+ > - Added impl From<Error<State>> for kernel::error::Error, so the fallible
+ >   state transitions can be used with `?` (and chained) instead of
+ >   .map_err(|e| e.error).
+ > - Added Clk::<Prepared>::with_enabled(), which runs a closure with the clock
+ >   temporarily enabled, scoping the Enabled state without giving up the
+ >   prepared clock.
+ > - Documented how to change a clock's state at runtime via an enum, for
+ >   drivers that enable/disable across resume/suspend.
+ > - Link to v3: https://lore.kernel.org/r/20260107-clk-type-state-v3-0-77d3e3ee59c2@collabora.com
+ > 
+ > Changes in v3:
+ > - Rebased on top of 6.19-rc4
+ > - Dropped patch 1 (from Alice), added her series as a dependency instead
+ > - Fixed Tyr, PWM_TH1520 drivers
+ > - Changed clk.rs imports to kernel-vertical style
+ > - Added support get_optional shortcut for Prepared and Enabled (i.e.:
+ >   Clk::<Enabled>::get_optional())
+ > - Fixed misplaced #[inline] tag
+ > 
+ > Thanks, Danilo {
+ >   - Moved the devres changes into its own patch
+ >   - Require &Device<Bound> for all functions where a &Device is used
+ >   - Account for con_in in SAFETY comments where applicable
+ >   - Added backticks
+ > }
+ > 
+ > - Link to v2: https://lore.kernel.org/r/20250910-clk-type-state-v2-0-1b97c11bb631@collabora.com
+ > 
+ > Changes in v2:
+ > - Added Alice's patch as patch 1, since it is a dependency.
+ > - Added devm helpers (like we did for Regulator<T>)
+ > - Fixed missing clk_put() call in Drop (Danilo)
+ > - Fixed missing parenthesis and wrong docs (Viresh)
+ > - Removed extra "dev" parameter from "shutdown" example (Danilo)
+ > - Removed useless type annotation from example (Danilo)
+ > - Link to v1: https://lore.kernel.org/rust-for-linux/20250729-clk-type-state-v1-1-896b53816f7b@collabora.com/#r
+ > 
+ > ---
+ > Daniel Almeida (6):
+ >       rust: clk: use 'kernel vertical style' for imports
+ >       rust: clk: replace `OptionalClk` with `Clk::get_optional()`
+ >       rust: clk: use the type-state pattern
+ >       rust: clk: add guards for scoped prepare and enable
+ >       rust: clk: add devres-managed clks
+ >       rust: clk: add `ExclusiveClk`
+ > 
+ > Maurice Hieronymus (1):
+ >       pwm: th1520: Lock clock rate with clk_rate_exclusive_get
+ > 
+ >  drivers/cpufreq/rcpufreq_dt.rs |   7 +-
+ >  drivers/gpu/drm/tyr/driver.rs  |  32 +-
+ >  drivers/pwm/pwm_th1520.rs      |  25 +-
+ >  rust/kernel/clk.rs             | 834 +++++++++++++++++++++++++++++++++++------
+ >  rust/kernel/cpufreq.rs         |   8 +-
+ >  5 files changed, 748 insertions(+), 158 deletions(-)
+ > ---
+ > base-commit: d3645b43ad60fe1ab3b4a869f6908414d5831a65
+ > change-id: 20250909-clk-type-state-c01aa7dd551d
+ > 
+ > Best regards,
+ > --  
+ > Daniel Almeida <daniel.almeida@collabora.com>
+ > 
+ > 
 
-I think that 5cad465d7fa6 ("mm: add vmf_insert_pfn_pmd()") would fit 
-better, IMHO.
 
-> Signed-off-by: Eliav Farber <farbere@amazon.com>
-> ---
->   arch/x86/include/asm/pgtable_types.h | 2 ++
->   include/linux/pgtable.h              | 9 +++++++++
->   mm/huge_memory.c                     | 4 ++--
->   3 files changed, 13 insertions(+), 2 deletions(-)
-> 
-> diff --git a/arch/x86/include/asm/pgtable_types.h b/arch/x86/include/asm/pgtable_types.h
-> index b1a669e775f4..b1ffd72e47ef 100644
-> --- a/arch/x86/include/asm/pgtable_types.h
-> +++ b/arch/x86/include/asm/pgtable_types.h
-> @@ -497,6 +497,8 @@ static inline pgprotval_t protval_4k_2_large(pgprotval_t val)
->   	return (val & ~(_PAGE_PAT | _PAGE_PAT_LARGE)) |
->   		((val & _PAGE_PAT) << (_PAGE_BIT_PAT_LARGE - _PAGE_BIT_PAT));
->   }
-> +
-> +#define pgprot_4k_2_large pgprot_4k_2_large
->   static inline pgprot_t pgprot_4k_2_large(pgprot_t pgprot)
->   {
->   	return __pgprot(protval_4k_2_large(pgprot_val(pgprot)));
-> diff --git a/include/linux/pgtable.h b/include/linux/pgtable.h
-> index 780fe849ff8b..112814d31f0c 100644
-> --- a/include/linux/pgtable.h
-> +++ b/include/linux/pgtable.h
-> @@ -1787,6 +1787,15 @@ void arch_sync_kernel_mappings(unsigned long start, unsigned long end);
->   #define pgprot_mhp(prot)	(prot)
->   #endif
->   
-> +/*
-> + * Convert a pgprot built for a PTE so that it can be used in a PMD or PUD
-> + * entry. Only needed on architectures that encode attributes differently
-> + * between the levels; elsewhere the pgprot is used as is.
-> + */
-> +#ifndef pgprot_4k_2_large
-> +#define pgprot_4k_2_large(prot)	(prot)
-> +#endif
-> +
->   #ifdef CONFIG_MMU
->   #ifndef pgprot_modify
->   #define pgprot_modify pgprot_modify
-> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-> index 052c50dadc48..945d480c1512 100644
-> --- a/mm/huge_memory.c
-> +++ b/mm/huge_memory.c
-> @@ -1675,7 +1675,7 @@ static vm_fault_t insert_pmd(struct vm_area_struct *vma, unsigned long addr,
->   			add_mm_counter(mm, mm_counter_file(fop.folio), HPAGE_PMD_NR);
->   		}
->   	} else {
-> -		entry = pmd_mkhuge(pfn_pmd(fop.pfn, prot));
-> +		entry = pmd_mkhuge(pfn_pmd(fop.pfn, pgprot_4k_2_large(prot)));
->   		entry = pmd_mkspecial(entry);
->   	}
->   	if (write) {
-> @@ -1804,7 +1804,7 @@ static vm_fault_t insert_pud(struct vm_area_struct *vma, unsigned long addr,
->   		folio_add_file_rmap_pud(fop.folio, &fop.folio->page, vma);
->   		add_mm_counter(mm, mm_counter_file(fop.folio), HPAGE_PUD_NR);
->   	} else {
-> -		entry = pud_mkhuge(pfn_pud(fop.pfn, prot));
-> +		entry = pud_mkhuge(pfn_pud(fop.pfn, pgprot_4k_2_large(prot)));
->   		entry = pud_mkspecial(entry);
->   	}
->   	if (write) {
+Gentle ping here.
+There's been no further comments, should I assume this is good?
 
-the code LGTM in general.
+-- Daniel
 
--- 
-cheers,
-jose a. p-a
