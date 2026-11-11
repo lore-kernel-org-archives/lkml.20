@@ -1,72 +1,71 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.10
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794382855;
-	b=UVp6H2yUj8WrY4e0IoQDqMXMrPUJqeD5L0OCW1VvS+GOoC3wBFL8vm/dKPU4AzXCovvv
-	 bTzuDRSjb7Rhw6HCrkpVEa4zmPMbtexrDZm9SZxBN2X2j1cF9X9ZVHHqwY4NEQIJu7q8L
-	 QtkgD92VYqDCPkPy5Ek1IndIhWwPRUxOTODRV7gr2J2MvpgEpq57KNz/44Byd65SwNvlO
-	 p+vF1Kt9XJLzAJ/DnYOC0+waFkeEPGxO5DbcQtI+OQmuZLMFoGdTTNkch9GQSwdHgymHl
-	 LnGLvukHrvSJsm0l7QeHjnvZrTSfCzGpJfY3GqYoeREG7iQLvtnl6WfbAIlj3ph8EvA==
+	t=1794382857;
+	b=XC+Feb0eXlJAZUvKWiHTK4v5qsyOGRbxsos0xWOZXn+dlboO6uYC6XYdad8EYTf+2ObI
+	 eiT5wOSo+dtga7pobLGO5WVMP6i60DHcRWq8zSz1G4bMlmt+RxTNfA3KIOkSsRvW299z9
+	 8DDMesWIc75cgTggvdHVtnfCzuQNKDFpk3mOzfFq2jEfxratmWkylT6BGlGkGsH3qkCKV
+	 PP9slh6dgvbkHpb5Uq9tMvOzgK4igM4sBQuwxUA7qc7PEffgEwAArc7jatMvBvJnxIJHA
+	 Bi9BK9V7mWtAwwiPowwprrwpJ3IRx7uLAp0IJNoPJNuIsdd74JvW242cg5/c5nl4Jlw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794382855;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794382857;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Subject:Date:
-	 Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
 	 X-Developer-Key;
-	bh=nkQxoHdOueAQdzZHRd+b9EKTqCHn37MgW5PhsGKle4g=;
-	b=nKZWzOcAiR6UbJTD+AtfejlfwgrEi/Xb3PzEfO/iabRl/our0T0O1DiOipVJqvYN0sLA
-	 u8YHRdIpNCtnEjfMuH2u181ka/c6z7hLR5svwcZjy9iW55K/2oi8ufvUTjMR9oRqcJcaL
-	 XSXNDu/FlqEdL6o21tBcID/9ChiXIHR9bfOqW5AEYwB/xfSii519wN+kyB+sNHwMJ2mRs
-	 9wIWVeYIKzkl6IY+538Tnbdr2ea2HR1by9BVdOKftdKEh0vA7kJgBN4DM/eOpz1tq/THf
-	 Z9Ldg0pZfT55kJUDqO6Hgnc+8PFqlIPSx/KwxUr713k8FmVYMCEM7I9Y2EHC+C9n6aw==
+	bh=IElCwPDetwNgoqqqKU3CT3ITZTN6XLpxBW87qye44PQ=;
+	b=PzxrWRKpPlbPkwBGYrF0s9tH25AZwV4p62VOSRrUcL1jLIJZfT3zpBxxFhhUPmJsI4yv
+	 peYwi2/K7zLsy5ZvI+sBmFONHgQ1JyDoMtSnkuoLzds9D0Ae0rMV01otrQ5M6JW7VH3WB
+	 I+1w/faVtkVLDdTZ62MkSlYZLfCqoN75BLWUr1yXYFKvPiYFXt9mxu9irGfo1DHJiwl87
+	 bGnDi90SfAEbyldL9VgNzfRg4eIt8ZMrJ7z+W9thQjC0qoFbGn3nYR+D7ew6fueQe/OnD
+	 RiKZwcUqQWxFfdvHDTWB3xLG3xmbb19jldqKakxc34mppg0TLXMNQU6KVJA/Y3E/eFA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=intel.com;
 	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=TRzzsqjs;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ikmyejBz;
 	arc=none smtp.remote-ip=192.198.163.10
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4335B606A321
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 07:40:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4335B606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2AC6606A32E
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 07:40:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2AC6606A32E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=TRzzsqjs
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ikmyejBz
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794382855; x=1825918855;
-  h=from:subject:date:message-id:mime-version:
-   content-transfer-encoding:to:cc;
-  bh=YAwTxhSZ+YHhES4PIVDSYrfwwLjEoMo0ouSc06I6P8Q=;
-  b=TRzzsqjsZuvmXO/UBCsHpHV2CwpZui1wi6G26SzIH7c+eeAeLm32y0tc
-   N0A9xKREkyBzG3ov8beJvtus5Pjp03asok1Rrvgwl0XVR/zNTYUjTTjlV
-   vZ1VO4asSnFgROsgvjLX1iCTevvHLhx49zbOKHtkBsVb+Htd4zEtIB6yA
-   NAM8jLgYPVWSA1zH25yVIrdBJ0T0s3ZZpKQFKadnac1RXX0no0AqsHWm+
-   tcXuHHHST9XhWt6OTe3stsJk+KNI21+K3XImfhMT+B58pjtZK+f6koNAz
-   SiSFlkmvEEoJ8W+xZtYHNN5kPiWGVlQ/mXuLfYkjACEJ6v9GnVDhdIdlW
-   g==;
-X-CSE-ConnectionGUID: yk51XMDfRU6agrpOMc9LLg==
-X-CSE-MsgGUID: MdCHrZEVR+aKpy0AYCuXIA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11962"; a="3050827"
+  t=1794382857; x=1825918857;
+  h=from:date:subject:mime-version:content-transfer-encoding:
+   message-id:references:in-reply-to:to:cc;
+  bh=kVyvIAWiJL/xLv1nqDIpUBurEg7V1MU3c1/iL5AtYX0=;
+  b=ikmyejBzV9Gmvbqtvnr+ZE0v2/XxWTycwraOM0PG15jB/fzkhtTHSJNc
+   ifgeqjDEwCb0yPBvKNQtaQsk6PVdS28vpTogg81TdcMZSp5I/+cZtPeYZ
+   kWhErOCtzN21vVkR7WYMeaRNGny4UEVrv0vaM6mmExmdxiyi8IA5GmW8H
+   S77xOHQ5VQYJKCl5sI0cxtkRFSxSf4XmMPXoGGlm0g+coHrAaK0tji7ye
+   Ym38H/CYcxOTEZStFqu32jC2yozR3Ark7ImLusKXyuIeaZHz9iE39mzI0
+   QIw4wTQYVBjOhfgREmBxOidN80WeohxgkFpDyzJ07FZ+vh70PdpMY8KVR
+   Q==;
+X-CSE-ConnectionGUID: 8c/LS53zRQGQDeEiiV8oeg==
+X-CSE-MsgGUID: Qr2Zzgh6TQSNXVHsuMwgrA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11962"; a="3050831"
 X-IronPort-AV: E=Sophos;i="6.27,207,1787036400"; 
-   d="scan'208";a="3050827"
+   d="scan'208";a="3050831"
 Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 23:40:55 -0800
-X-CSE-ConnectionGUID: MEFv7j97TdK1+38jHSmLig==
-X-CSE-MsgGUID: 1mV2bIoKT+qGZJPK8+4gXw==
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 23:40:57 -0800
+X-CSE-ConnectionGUID: PxKyLT1aTf2btvEjnkU2lA==
+X-CSE-MsgGUID: qFWaG1RIRIyNzeBiqNMk2w==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,207,1787036400"; 
-   d="scan'208";a="8923835"
+   d="scan'208";a="8923843"
 Received: from sannilnx-dsk.jer.intel.com (HELO [127.0.1.1]) ([10.12.231.107])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 23:40:53 -0800
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 23:40:55 -0800
 From: Alexander Usyskin <alexander.usyskin@intel.com>
-Subject: [PATCH char-misc-next v3 0/4] issei: runtime power management, dma
- and in-kernel interface
-Date: Wed, 11 Nov 2026 09:40:29 +0200
-Message-Id: <20261111-issei_pm_and_itf-v3-0-4f4f6d626ff3@intel.com>
+Date: Wed, 11 Nov 2026 09:40:30 +0200
+Subject: [PATCH char-misc-next v3 1/4] issei: save power_down flag while
+ processing event
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,70 +77,115 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3XNTQqDMBAF4KtI1k3JjxrbVe9RioRkrAM1ShKCR
- bx706xctMvHvPneRgJ4hECu1UY8JAw4uxzkqSJm1O4JFG3ORDDRcsYbiiEA9svUa2d7jAO1/MK
- 5sUqCYSS/LR4GXAt5/xqeThgMdbBG8sj3EUOc/bssJl5a//HEKaOd4ELITjdK1zd0EV5nM08FS
- +IIdD8AkQGlmaobAbJl7RHY9/0DQpsxSwEBAAA=
-X-Change-ID: 20261015-issei_pm_and_itf-d1911cd73ec0
+Message-Id: <20261111-issei_pm_and_itf-v3-1-4f4f6d626ff3@intel.com>
+References: <20261111-issei_pm_and_itf-v3-0-4f4f6d626ff3@intel.com>
+In-Reply-To: <20261111-issei_pm_and_itf-v3-0-4f4f6d626ff3@intel.com>
 To: Arnd Bergmann <arnd@arndb.de>, 
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Cc: linux-kernel@vger.kernel.org, Menachem Adin <menachem.adin@intel.com>, 
  Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>, 
  Karol Wachowski <karol.wachowski@linux.intel.com>, 
- Alexander Usyskin <alexander.usyskin@intel.com>, 
- Reuven Abliyev <reuvenab@gmail.com>
+ Alexander Usyskin <alexander.usyskin@intel.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794382852; l=1719;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794382852; l=3128;
  i=alexander.usyskin@intel.com; s=20260315; h=from:subject:message-id;
- bh=YAwTxhSZ+YHhES4PIVDSYrfwwLjEoMo0ouSc06I6P8Q=;
- b=iY/dxNWpQE4Lqemae9fWlMI9pwsj6+m0Ma2OJXYBV7WzI4h9G2UZqAr4IbcGVV1xRliM+yYex
- sIe7fdJMUc8BgdUzqkkFw0JiagCjHAHRYvys/MO3h6Y3XU0HvRdwLv4
+ bh=kVyvIAWiJL/xLv1nqDIpUBurEg7V1MU3c1/iL5AtYX0=;
+ b=xS9643DaiGDIKz8+HlJptR95nKLyaIIjy86oT8EtVv0t8zM16c3jh1AmMTcg8FCsO/ICBIXK9
+ ZbGlzWbwIUrDjuJ1O2a+V7iLKKrAPreji+wkJcM357n/P9lFcXOgyt8
 X-Developer-Key: i=alexander.usyskin@intel.com; a=ed25519;
  pk=X+qoF/nFCdDOV04IForWSxnkyoCAbUE10egZi6PSfcU=
 
-Pack of additions for issei driver:
-
-1. Support for runtime power management
-2. Support for DMA allocation on request from client
-3. In-kernel interface that allows kernel drivers to communicate directly
-   with issei.
-4. Fix for power down flow
+Change in power_down flag may confuse event thread.
+Save flag status at the first available moment and
+work according to saved value.
 
 Signed-off-by: Alexander Usyskin <alexander.usyskin@intel.com>
 ---
-Changes in v3:
-- fix print specifier
-- Link to v2: https://lore.kernel.org/r/20261018-issei_pm_and_itf-v2-0-7a07452e3606@intel.com
+ drivers/misc/issei/main.c | 22 ++++++++++++----------
+ 1 file changed, 12 insertions(+), 10 deletions(-)
 
-Changes in v2:
-- remove the stub helpers in include file (Arnd)
-- fix wait_event_interruptible_timeout return value handling (Arnd)
-- Link to v1: https://lore.kernel.org/r/20261015-issei_pm_and_itf-v1-0-8212238a57a4@intel.com
+diff --git a/drivers/misc/issei/main.c b/drivers/misc/issei/main.c
+index 5987fb340250..8aaf2d47392b 100644
+--- a/drivers/misc/issei/main.c
++++ b/drivers/misc/issei/main.c
+@@ -24,7 +24,7 @@ static void issei_rst_state_set(struct issei_device *idev, enum issei_rst_state
+ 		wake_up(&idev->wait_rst_state);
+ }
+ 
+-static int issei_reset(struct issei_device *idev)
++static int issei_reset(struct issei_device *idev, bool power_down)
+ {
+ 	int ret;
+ 
+@@ -34,14 +34,14 @@ static int issei_reset(struct issei_device *idev)
+ 	issei_fw_cl_remove_all(idev);
+ 	/* No need to check for overflow here, the counter is used only for info */
+ 	idev->all_reset_count++;
+-	ret = idev->ops->hw_reset(idev, !idev->power_down);
++	ret = idev->ops->hw_reset(idev, !power_down);
+ 	issei_dmam_setup(idev);
+ 	if (ret) {
+ 		dev_err(&idev->dev, "hw_reset failed ret = %d\n", ret);
+ 		return ret;
+ 	}
+ 
+-	if (idev->power_down) {
++	if (power_down) {
+ 		dev_dbg(&idev->dev, "powering down: end of reset\n");
+ 		issei_rst_state_set(idev, ISSEI_RST_STATE_DISABLED);
+ 		return -ENODEV;
+@@ -87,24 +87,26 @@ static int issei_process_thread(void *_dev)
+ {
+ 	long timeout, old_timeout = MAX_SCHEDULE_TIMEOUT;
+ 	struct issei_device *idev = _dev;
++	bool power_down;
+ 	int ret;
+ 
+ 	while (!kthread_should_stop()) {
+ 		dev_dbg(&idev->dev, "process_work in %d\n", idev->rst_state);
++		WRITE_ONCE(idev->has_data, false);
++		power_down = idev->power_down; /* to save state */
+ 		if (!idev->ops->hw_is_ready(idev) && idev->rst_state > ISSEI_RST_STATE_HW_READY) {
+-			if (!idev->power_down)
++			if (!power_down)
+ 				dev_dbg(&idev->dev, "HW not ready, resetting\n");
+ 			idev->rst_state = ISSEI_RST_STATE_INIT;
+ 		}
+-		if (idev->power_down)
++		if (power_down)
+ 			idev->rst_state = ISSEI_RST_STATE_INIT;
+-		WRITE_ONCE(idev->has_data, false);
+ 		dev_dbg(&idev->dev, "reset_step in %d\n", idev->rst_state);
+ 		timeout = MAX_SCHEDULE_TIMEOUT;
+ 		ret = 0;
+ 		switch (idev->rst_state) {
+ 		case ISSEI_RST_STATE_DISABLED:
+-			if (idev->power_down) {
++			if (power_down) {
+ 				dev_dbg(&idev->dev, "Interrupt in power down?\n");
+ 				break;
+ 			}
+@@ -115,7 +117,7 @@ static int issei_process_thread(void *_dev)
+ 			idev->ops->irq_clear(idev);
+ 			idev->ops->irq_sync(idev);
+ 
+-			if (!idev->power_down) {
++			if (!power_down) {
+ 				idev->reset_count++;
+ 				if (idev->reset_count > ISSEI_MAX_CONSEC_RESET) {
+ 					dev_err(&idev->dev, "reset: reached maximal consecutive resets: disabling the device\n");
+@@ -124,8 +126,8 @@ static int issei_process_thread(void *_dev)
+ 				}
+ 			}
+ 
+-			ret = issei_reset(idev);
+-			if (idev->power_down) {
++			ret = issei_reset(idev, power_down);
++			if (power_down) {
+ 				dev_dbg(&idev->dev, "Powering down\n");
+ 				return 0;
+ 			}
 
----
-Alexander Usyskin (4):
-      issei: save power_down flag while processing event
-      issei: add runtime pm
-      issei: host_client: add dma allocation support
-      issei: add driver to driver interface
-
- MAINTAINERS                       |   1 +
- drivers/misc/issei/Makefile       |   1 +
- drivers/misc/issei/cdev.c         |  12 +-
- drivers/misc/issei/host_client.c  |  70 ++++++++++
- drivers/misc/issei/host_client.h  |  12 ++
- drivers/misc/issei/hw_heci.c      |  21 ++-
- drivers/misc/issei/issei_dev.h    |   3 +
- drivers/misc/issei/issei_device.c | 269 ++++++++++++++++++++++++++++++++++++++
- drivers/misc/issei/main.c         | 233 ++++++++++++++++++---------------
- drivers/misc/issei/pci_heci.c     |  21 +++
- include/linux/issei_device.h      |  31 +++++
- 11 files changed, 560 insertions(+), 114 deletions(-)
----
-base-commit: 37a87cdaa3e2f10bb83ebee847fbc4761ac531af
-change-id: 20261015-issei_pm_and_itf-d1911cd73ec0
-
-Best regards,
 -- 
-Alexander Usyskin <alexander.usyskin@intel.com>
+2.53.0
 
