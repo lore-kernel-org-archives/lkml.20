@@ -1,51 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.251
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.253
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794403343;
-	b=TRizDU4aijrmoFUyG/gVy+L01wWWmAQQb61qhdQrbmSkOniQRmAAbQnBgiRCivFXN4J/
-	 QDYSLxtUxZitOdy3EDyjNZDZB0FzCjbLO/2DU553P3gZHng6znXCBIsaeMeMMQSbe5gTc
-	 itw+pWiVKuwFBGx1eLcXvhT8DzFXJ9GOgI1Nw9oNTP0izA09euVemdenbQG412K5Bl6rx
-	 8gDEs4He5QtX2jJvz3dace1mqnqYShA+q7T87Y2RiQ4ukYSKvLOPkZn7n+9YoOvLTQTwv
-	 4Wt80sc2nqGOD2UQYVopmESNANwnnSp8Q+RyJpnErjyMdIIfstvRs9j0JEEcZcOex3Q==
+	t=1794403345;
+	b=W53+Xd82CsvoFCnvuqwTKrR7fU5An0RwPNfnyyr7u8iYMWQAnyMumHDL57wGHNPLpDsA
+	 LrqsrK12VmJJVy9GSflLMoELGaNps0xqsLu2/oKrsL1Hi6ReauQw8CM/zmBk8LiflWs8t
+	 I6CFsax2811gACrXKXj5380Fzn2N1VoxUxO17/huCkz8oqpajOpqXYuBASPywPIEMVBbZ
+	 R8YqAmVNlH/jV1AXNidzudgsl3bbtXmTwPAZDLE3YX01KzCUYo9rhYo6xep5L6O8vZ3xc
+	 3NATeuTi+JtWZTmzpaPznz+3zTKHBGFSathCHbd3Vs7awvbE0cW+64LUe0aie0auSCw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794403343;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794403345;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=73zqHQNbOKPRrmT3b3llwUzg6vJRAmXf+tx88qea+Qw=;
-	b=LFWzRXOtaWEm3zEcTc+FpobUZQyZolGjg/3bUXi8FxKnc7MaDa5SWRdkyq2C7+CU85mg
-	 K23ifdFgNHuazTxH7JDm6CitdaLvS1IsfRXEsfQ8fsACZfd/5C8eaPUUgfCzLz3bmqrBN
-	 gb85+SpbOSaR2VBI7CmKEIQqe/QCJvmYIogEm0rtI7CKcm/K9nqFK0JZf7fO2t42bJH9M
-	 xPAvI/0XIxgHwAOgThFe1m0+T5r91wqje6+buYjwsOLLFC+PkdNFDkEFzEPLOIo/gQ0b9
-	 lBhn34gGtN+5bv952Es9L6m6zNL6C3xw4f8mp7TzxCoVrw+GQRcmQGi89m23fBNJgPQ==
+	bh=E/45XS6kOhXEH4Vbvnuouc3+HJpGog7iZwTgGT4HZws=;
+	b=CdNlrvcg7h1Fe2qNvAIAseP8ixV/o8YYNwnTTOON5fBuHjwzHPiCK28ToVMAc92JKkrk
+	 R4HUSncy5xMXNbDWKu3FaJZgEF0k+qeHZHtXf3bKGCvC8BpDWArJJDOSvDyg+uRzAFiPq
+	 SgpoMghgskKlLExodomt4aVawCaUa6+MRDOUiXerYAc1DdoIXuIAULYm+w/pm2LpbqsCR
+	 TQO0LUOwVPpVn0GrNuZKXzjEhqVofnNGz4qhNW4QOJwM+VReipSpjg5xd+CW0Ir2exhzi
+	 zCfn8qJuxkJ1xJXmXYxc0KS96MxsFk1ZWspWO1hWlj6r6sfb1mirtNa/pEHRCApEMBg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=g3tbM1Zd;
-	arc=none smtp.remote-ip=95.215.58.251
-Received: from mta1.migadu.com (out-251.mta1.migadu.com [95.215.58.251])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=H3Ec2yz1;
+	arc=none smtp.remote-ip=91.218.175.253
+Received: from mta0.migadu.com (out-253.mta0.migadu.com [91.218.175.253])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FE32606A8A3
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:22:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8FE32606A8A3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BE6C606A8B3
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:22:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1BE6C606A8B3
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=g3tbM1Zd
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=H3Ec2yz1
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=BB/nJSIAnk4695CccdaVaROjbSuX01pgcKgySiPClek=;
+DKIM-Signature: a=rsa-sha256; bh=q4bKncdlu5h0Ydk9tuGuFTG8deC9R5JyHB0UMOxC5eA=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794403340; v=1; x=1795008140;
- b=g3tbM1ZdDCwO5gtZoad9yQtfps8baV5pNPT4yCGGBmX0VZvn2MRDvA2jnOUTVs1FgwpHP6d2
- YnhmAX3/xBPlDNFxEU6/UWCCnHjkXB4xkhTdVQs5Dk6qgKT4TtxfZzG3CMMluVHqEN3DilklWHF
- c1ENLdpwjnmoD6NWwsZGClRo=
+ t=1794403342; v=1; x=1795008142;
+ b=H3Ec2yz1WX8baODdh4ERNDIyuizIAPb+hcrrlv1mmZSfccKoO9D7lqdyKHUanjDBWK2KHad7
+ b9wCd6l1bpK8sk++saboetxbWwytSrZur8TmBQjZhfKLb8jBU9o03+DC+s2GjDrjV+G+9NifDfK
+ SO/7blHfByKANwLiPVhV1txk=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id 93e8838dec6035d2;
-	Wed, 11 Nov 2026 13:22:20 +0000
-X-Mizu-Trace-ID: 93e8838dec6035d2
+Received: by mta11.migadu.com with ESMTPS id b3063572b479c9be;
+	Wed, 11 Nov 2026 13:22:22 +0000
+X-Mizu-Trace-ID: b3063572b479c9be
 X-Migadu-Flow: FLOW_OUT
 From: Usama Arif <usama.arif@linux.dev>
 To: david.laight.linux@gmail.com,
@@ -65,9 +65,9 @@ To: david.laight.linux@gmail.com,
 	riel@surriel.com,
 	shakeel.butt@linux.dev,
 	kernel-team@meta.com
-Subject: [PATCH v3 1/2] x86/lib: Keep the scalar memcpy() count in RCX
-Date: Wed, 11 Nov 2026 05:20:52 -0800
-Message-ID: <20261111132214.2979125-2-usama.arif@linux.dev>
+Subject: [PATCH v3 2/2] x86/lib: Use REP MOVSB for large memcpy() on ERMS CPUs without FSRM
+Date: Wed, 11 Nov 2026 05:20:53 -0800
+Message-ID: <20261111132214.2979125-3-usama.arif@linux.dev>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261111132214.2979125-1-usama.arif@linux.dev>
 References: <20261111132214.2979125-1-usama.arif@linux.dev>
@@ -82,163 +82,88 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Use RCX for the scalar loop count and tail indexing, and RDX for the
-small-copy data temporary. Initialize RCX from the incoming RDX count in
-memcpy_orig().
+Since commit 68674f94ffc9 ("x86: don't use REP_GOOD or ERMS for small
+memory copies"), memcpy() uses REP MOVSB only on FSRM CPUs, so ERMS CPUs
+without FSRM, such as Skylake and Cooper Lake, copy every size with
+the scalar loop. Large copies matter there: in Meta's x86 fleet, about a
+third of the time in memcpy_orig() is btrfs zstd decompression copying
+pages into and out of zstd's buffers.
 
-This prepares the ERMS size check to use RDX as scratch while preserving
-the REP MOVSB count in RCX. The FSRM path and copy policy stay the same.
+Use REP MOVSB from 2048 bytes on ERMS CPUs. On a 1.4 GHz Cooper Lake, an
+aligned, cache-hot 4 KiB memcpy() then takes 66.8% less time (123.3 ns
+instead of 371.6 ns). In a single-vCPU guest, reading a synthetic
+512 MiB btrfs zstd file takes 14.8% less time (median of five kernel
+pairs). Smaller copies keep the scalar loop: using REP MOVSB from
+32 bytes made 32/64/128/256-byte copies
+111.8%/68.0%/63.2%/15.6% slower.
 
-No functional change.
+Prepare the return value and RCX count before the FSRM alternative. On
+FSRM CPUs, REP MOVSB replaces the jump to memcpy_orig(), followed by a
+RET in ordinary text. ITS then selects return handling using the RET's
+execution address.
+
+For ERMS CPUs, shift the scratch copy of the length in RDX after the
+32-byte check. RCX already holds the count, so large copies need no
+reload. Copies below 32 bytes skip the check, which is a single NOP
+without ERMS.
 
 Signed-off-by: Usama Arif <usama.arif@linux.dev>
 ---
- arch/x86/lib/memcpy_64.S | 59 ++++++++++++++++++++--------------------
- 1 file changed, 30 insertions(+), 29 deletions(-)
+ arch/x86/lib/memcpy_64.S | 21 +++++++++++++--------
+ 1 file changed, 13 insertions(+), 8 deletions(-)
 
 diff --git a/arch/x86/lib/memcpy_64.S b/arch/x86/lib/memcpy_64.S
-index 12a23fa7c44c5..7bb146c811029 100644
+index 7bb146c811029..5320862e0274e 100644
 --- a/arch/x86/lib/memcpy_64.S
 +++ b/arch/x86/lib/memcpy_64.S
-@@ -46,8 +46,9 @@ EXPORT_SYMBOL(memcpy)
+@@ -27,15 +27,13 @@
+  *
+  * The 'rep movsb' itself is small enough to replace the call, but the
+  * two register moves blow up the code. And one of them is "needed"
+- * only for the return value that is the same as the source input,
++ * only for the return value that is the same as the destination input,
+  * which the compiler could/should do much better anyway.
+  */
+ SYM_TYPED_FUNC_START(__memcpy)
+-	ALTERNATIVE "jmp memcpy_orig", "", X86_FEATURE_FSRM
+-
+ 	movq %rdi, %rax
+ 	movq %rdx, %rcx
+-	rep movsb
++	ALTERNATIVE "jmp memcpy_orig", "rep movsb", X86_FEATURE_FSRM
+ 	RET
+ SYM_FUNC_END(__memcpy)
+ EXPORT_SYMBOL(__memcpy)
+@@ -45,12 +43,16 @@ SYM_PIC_ALIAS(memcpy)
+ EXPORT_SYMBOL(memcpy)
  
  SYM_FUNC_START_LOCAL(memcpy_orig)
- 	movq %rdi, %rax
-+	movq %rdx, %rcx
- 
--	cmpq $0x20, %rdx
-+	cmpq $0x20, %rcx
+-	movq %rdi, %rax
+-	movq %rdx, %rcx
+-
+ 	cmpq $0x20, %rcx
  	jb .Lhandle_tail
  
++	/*
++	 * RCX holds the count for REP MOVSB and scalar copying; RDX is scratch.
++	 * Shift RDX to check length >= 2048 without destroying the REP count.
++	 * The 10-byte alternative fits a NOP without ERMS.
++	 */
++	ALTERNATIVE "", __stringify(shrq $11, %rdx; jnz .Lerms), X86_FEATURE_ERMS
++
  	/*
-@@ -56,9 +57,9 @@ SYM_FUNC_START_LOCAL(memcpy_orig)
- 	 */
- 	cmp  %dil, %sil
- 	jl .Lcopy_backward
--	subq $0x20, %rdx
-+	subq $0x20, %rcx
- .Lcopy_forward_loop:
--	subq $0x20,	%rdx
-+	subq $0x20,	%rcx
- 
- 	/*
- 	 * Move in blocks of 4x8 bytes:
-@@ -75,23 +76,23 @@ SYM_FUNC_START_LOCAL(memcpy_orig)
- 	movq %r11,	3*8(%rdi)
- 	leaq 4*8(%rdi),	%rdi
- 	jae  .Lcopy_forward_loop
--	addl $0x20,	%edx
-+	addl $0x20,	%ecx
- 	jmp  .Lhandle_tail
- 
- .Lcopy_backward:
- 	/*
- 	 * Calculate copy position to tail.
- 	 */
--	addq %rdx,	%rsi
--	addq %rdx,	%rdi
--	subq $0x20,	%rdx
-+	addq %rcx,	%rsi
-+	addq %rcx,	%rdi
-+	subq $0x20,	%rcx
- 	/*
- 	 * At most 3 ALU operations in one cycle,
- 	 * so append NOPS in the same 16 bytes trunk.
- 	 */
- 	.p2align 4
- .Lcopy_backward_loop:
--	subq $0x20,	%rdx
-+	subq $0x20,	%rcx
- 	movq -1*8(%rsi),	%r8
- 	movq -2*8(%rsi),	%r9
- 	movq -3*8(%rsi),	%r10
-@@ -107,11 +108,11 @@ SYM_FUNC_START_LOCAL(memcpy_orig)
- 	/*
- 	 * Calculate copy position to head.
- 	 */
--	addl $0x20,	%edx
--	subq %rdx,	%rsi
--	subq %rdx,	%rdi
-+	addl $0x20,	%ecx
-+	subq %rcx,	%rsi
-+	subq %rcx,	%rdi
- .Lhandle_tail:
--	cmpl $16,	%edx
-+	cmpl $16,	%ecx
- 	jb   .Lless_16bytes
- 
- 	/*
-@@ -119,53 +120,53 @@ SYM_FUNC_START_LOCAL(memcpy_orig)
- 	 */
- 	movq 0*8(%rsi), %r8
- 	movq 1*8(%rsi),	%r9
--	movq -2*8(%rsi, %rdx),	%r10
--	movq -1*8(%rsi, %rdx),	%r11
-+	movq -2*8(%rsi, %rcx),	%r10
-+	movq -1*8(%rsi, %rcx),	%r11
- 	movq %r8,	0*8(%rdi)
- 	movq %r9,	1*8(%rdi)
--	movq %r10,	-2*8(%rdi, %rdx)
--	movq %r11,	-1*8(%rdi, %rdx)
-+	movq %r10,	-2*8(%rdi, %rcx)
-+	movq %r11,	-1*8(%rdi, %rcx)
- 	RET
- 	.p2align 4
- .Lless_16bytes:
--	cmpl $8,	%edx
-+	cmpl $8,	%ecx
- 	jb   .Lless_8bytes
- 	/*
- 	 * Move data from 8 bytes to 15 bytes.
- 	 */
- 	movq 0*8(%rsi),	%r8
--	movq -1*8(%rsi, %rdx),	%r9
-+	movq -1*8(%rsi, %rcx),	%r9
- 	movq %r8,	0*8(%rdi)
--	movq %r9,	-1*8(%rdi, %rdx)
-+	movq %r9,	-1*8(%rdi, %rcx)
- 	RET
- 	.p2align 4
- .Lless_8bytes:
--	cmpl $4,	%edx
-+	cmpl $4,	%ecx
- 	jb   .Lless_3bytes
- 
- 	/*
- 	 * Move data from 4 bytes to 7 bytes.
- 	 */
--	movl (%rsi), %ecx
--	movl -4(%rsi, %rdx), %r8d
--	movl %ecx, (%rdi)
--	movl %r8d, -4(%rdi, %rdx)
-+	movl (%rsi), %edx
-+	movl -4(%rsi, %rcx), %r8d
-+	movl %edx, (%rdi)
-+	movl %r8d, -4(%rdi, %rcx)
- 	RET
- 	.p2align 4
- .Lless_3bytes:
--	subl $1, %edx
-+	subl $1, %ecx
- 	jb .Lend
- 	/*
- 	 * Move data from 1 bytes to 3 bytes.
- 	 */
--	movzbl (%rsi), %ecx
-+	movzbl (%rsi), %edx
- 	jz .Lstore_1byte
- 	movzbq 1(%rsi), %r8
--	movzbq (%rsi, %rdx), %r9
-+	movzbq (%rsi, %rcx), %r9
- 	movb %r8b, 1(%rdi)
--	movb %r9b, (%rdi, %rdx)
-+	movb %r9b, (%rdi, %rcx)
- .Lstore_1byte:
--	movb %cl, (%rdi)
-+	movb %dl, (%rdi)
+ 	 * We check whether memory false dependence could occur,
+ 	 * then jump to corresponding copy mode.
+@@ -170,5 +172,8 @@ SYM_FUNC_START_LOCAL(memcpy_orig)
  
  .Lend:
  	RET
+-SYM_FUNC_END(memcpy_orig)
+ 
++.Lerms:
++	rep movsb
++	RET
++SYM_FUNC_END(memcpy_orig)
 -- 
 2.53.0-Meta
 
