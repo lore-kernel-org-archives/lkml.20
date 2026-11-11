@@ -1,60 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.157.23.187
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.113
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794386891;
-	b=a87EK4/zvYIka4jzTK6zO/eC8BgJoIzSi+fnHrMGCVT9d26UvFMTXiQYSo5IdhJkfrJ9
-	 quwSlSpdld7WCXBa4qgQOottedriI/fpvLymzr7KlVmew9hm/TTJVCN5APTBuLMNBmN+I
-	 R9la0PUYJmqe5hOHptR3AMq8WVBo90LVD3pfT2gADNJS7y+zXWKH39yf+wwI9iylLvZCF
-	 kjscocUlfi5lAa4UZ/won7I7oeGj2aGsV5fdwOOOxzECEADXYYMUWStK2jprCxNZNj6o4
-	 SU9MQnsIIPCkAqQFsenIuEai7Ig5kvqsellNf83GETz1ZAlIl/MNCQxhEicdbr8Mb7Q==
+	t=1794386893;
+	b=VQRsuUNBBu9K21f0rJAcI/bghX3iP7OmeYdhdkOCM0nGTzaa5rq/4vMucxssqNoVU3Wl
+	 cefxyfirOFGtGG7Mm7BIZyHiUdT6Wv1kl5enJC2lpc/u2cIfnFd808CZCSEQ//RAj8LIg
+	 q/HRau9ZOGKY/klmKdwEwsxXgEWQND0U0LBFuOAEHnn5+yTX1USAJh0+2NiwFcC50KAm5
+	 fF/dURvK8HNgHJsKdko1MBVnXVBNNx5PVKgi0daj3YwU1NOn7DSxVEa17piLCaXuPaI29
+	 0C2r/PdX92ayizhuN97YblcRlemc0XuR+c1F3t8CWDCS2aaA0tTsJMIB5tQ3GVMArHQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794386891;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:CC:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Originating-IP:X-ClientProxiedBy;
-	bh=u3gjj22FEU/NRDk8rlpoyAVMb8UJArISed9hypSimJQ=;
-	b=GekHcc8VD+u52x1VmMJWZzDSvbZmuPovewjEzfkzwk0BRKe82vpGvkJxyNVoKwHVOvGH
-	 3x8kXODwmFN376bA8cI//KPZ3+Yz8Ywndy48GsqVD7ISC0WZf/5DueF5YXh2UFSL1oV03
-	 rYrdAGL5EJ2XJgviwHYot1Pv1aNm23KVebU12KyR30fh7PnsOKAuuMchzMU3hankcScUI
-	 lMxo0TKVrdr9NSSIce0BisVMMVhXQ+/D93P21G8L9NfyQbRWSyvkqzRQ8ChEk8oZHk0oO
-	 WWR1vJmJBdqfBzzgLfBm4mkQK7ISIRH6zJMlDyzrAUzWn9+yytuDYTEqJRJ2qeevRYw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794386893;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=blmHauaC7Hp6K+IDvLelJ5eVBYGSa7O3m7psBls7pXc=;
+	b=Al1rXDN7WcGYy2ZCYgGC3hA/LeAyVbNyW5IZZp0FoHsOO5Ky31nAQHiIWDxqsv76vd2E
+	 xFgJJMtKSkTEESHHRpUUEIoiRuZooilflocfm9YIlQCo23K3Uwrn9NZJdRxjNCBq7YCz0
+	 8rfVDc3jiOZu3xVlGLMRde+DUjoaTqrtnK4XVOjsT1G2zwdL5F0EMUSrtsgZBDt0TTCct
+	 4Unwg4aPcPDMi1Tgl7ueqbRw4R3UtSzrFSYluveAgUniAqcQZtmyawWONQWuqQmpLSS/l
+	 8ckpL+F5hQOLG3/yQxJSaEiwXCSdJLx2tnIGUC4ViWARgCVos3Lo6NiutSwKGddKAqw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=paragon-software.com;
-	spf=pass smtp.mailfrom=paragon-software.com;
-	dkim=pass header.d=paragon-software.com header.i=@paragon-software.com header.a=rsa-sha256 header.s=mail header.b=Fn8UA6AI;
-	arc=none smtp.remote-ip=35.157.23.187
-Received: from relayaws-01.paragon-software.com (relayaws-01.paragon-software.com [35.157.23.187])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=RVv+5bs2;
+	arc=none smtp.remote-ip=115.124.30.113
+Received: from out30-113.freemail.mail.aliyun.com (out30-113.freemail.mail.aliyun.com [115.124.30.113])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26068606A324
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 08:48:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26068606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=paragon-software.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paragon-software.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 308F7606A338;
+	Wed, 11 Nov 2026 08:48:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 308F7606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=paragon-software.com header.i=@paragon-software.com header.a=rsa-sha256 header.s=mail header.b=Fn8UA6AI
-Received: from relayfre-01.paragon-software.com (relayfre-01.paragon-software.com [176.12.100.13])
-	by relayaws-01.paragon-software.com (Postfix) with ESMTPS id 08BE01D28;
-	Wed, 11 Nov 2026 08:48:53 +0000 (UTC)
-Authentication-Results: relayaws-01.paragon-software.com;
-	dkim=pass (1024-bit key; unprotected) header.d=paragon-software.com header.i=@paragon-software.com header.b=Fn8UA6AI;
-	dkim-atps=neutral
-Received: from dlg2.mail.paragon-software.com (vdlg-exch-02.paragon-software.com [172.30.1.105])
-	by relayfre-01.paragon-software.com (Postfix) with ESMTPS id 367162389;
-	Wed, 11 Nov 2026 08:48:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=paragon-software.com; s=mail; t=1794386888;
-	bh=u3gjj22FEU/NRDk8rlpoyAVMb8UJArISed9hypSimJQ=;
-	h=Date:Subject:To:CC:References:From:In-Reply-To;
-	b=Fn8UA6AI8qsCqYt3O3nFJkGFB4KnINVl/ZKF2fjOLAPlEvrrBvFYeaFt3BDZnqgwA
-	 cKWUE/LlEUskUh5kv2qO/llpTr3sZOIXnqbGj7h1EAaoZoFuVjQQN8fY6yCw8Srn5j
-	 7nBOFCf3Y2QGROuDOQXASFNmoU9qPfyYzC6Ep2gY=
-Received: from [192.168.95.128] (172.30.20.190) by
- vdlg-exch-02.paragon-software.com (172.30.1.105) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.7; Wed, 11 Nov 2026 11:48:05 +0300
-Message-ID: <d0647e5c-0b78-4ca3-8ab2-8ff0ab6ab7e7@paragon-software.com>
-Date: Wed, 11 Nov 2026 09:48:03 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=RVv+5bs2
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1794386882; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=blmHauaC7Hp6K+IDvLelJ5eVBYGSa7O3m7psBls7pXc=;
+	b=RVv+5bs2VriRBt9XeBydWHV8EKXJL2noXHQl7NmUrQ9gdjsK4hamNThOlbtYFIDPzTI2upUEkM4AVWX/3Pews9SwE3RHDlyjHy5ckFjez4nmnY91Jzip4ej/KQxSEPHm8AyicmCBILqymwPs/4Mp5cn2HPeAU1WGD8ljr6A/JpE=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R131e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=10;SR=0;TI=SMTPD_---0XEYJjsU_1794386881;
+Received: from 30.221.145.127(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XEYJjsU_1794386881 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Wed, 11 Nov 2026 16:48:01 +0800
+Message-ID: <4c1bb9c0-547f-4994-958c-f59ec8b754d2@linux.alibaba.com>
+Date: Wed, 11 Nov 2026 16:48:00 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,67 +54,121 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] fs/ntfs3: check wnd_set_used() in ntfs_look_free_mft()
-To: Baolin Liu <liubaolin12138@163.com>
-CC: <ntfs3@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
-	<liubaolin12138@gmail.com>, Baolin Liu <liubaolin@kylinos.cn>
-References: <20260805073615.2044614-1-liubaolin12138@163.com>
-Content-Language: en-US
-From: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
-In-Reply-To: <20260805073615.2044614-1-liubaolin12138@163.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+Subject: Re: [PATCH] ocfs2: fix kernel BUG in ocfs2_page_mkwrite() when
+ write_end fails
+To: Zhiyuan Zhang <zhiyuanzhang912@gmail.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Heming Zhao <heming.zhao@suse.com>
+Cc: Mark Fasheh <mark@fasheh.com>, Joel Becker <jlbec@evilplan.org>,
+ yangwenfang <vicky.yangwenfang@huawei.com>, ocfs2-devel@lists.linux.dev,
+ linux-kernel@vger.kernel.org,
+ syzbot+42984127d45ad96219de@syzkaller.appspotmail.com, stable@vger.kernel.org
+References: <20261111023444.22688-1-zhiyuanzhang912@gmail.com>
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
+In-Reply-To: <20261111023444.22688-1-zhiyuanzhang912@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: vdlg-exch-02.paragon-software.com (172.30.1.105) To
- vdlg-exch-02.paragon-software.com (172.30.1.105)
 
-On 8/5/26 09:36, Baolin Liu wrote:
 
-> From: Baolin Liu <liubaolin@kylinos.cn>
->
-> wnd_set_used() can fail, but ntfs_look_free_mft() ignored
-> the error and could return success after leaving the MFT
-> bitmap unmarked.
->
-> Check the return value and unwind the new subrecord on failure.
->
-> Signed-off-by: Baolin Liu <liubaolin@kylinos.cn>
+
+On 11/11/26 10:34 AM, Zhiyuan Zhang wrote:
+> From: Zhiyuan Zhang <zhiyuanzhang912@gmail.com>
+> 
+> syzbot reported a kernel BUG in the ocfs2 write fault path:
+> 
+>   (syz.0.17,5578,0):ocfs2_write_end_nolock:1945 ERROR: status = -30
+>   kernel BUG at fs/ocfs2/mmap.c:106!
+>   Call Trace:
+>    do_page_mkwrite+0x147/0x310 mm/memory.c:3879
+>    do_shared_fault mm/memory.c:6145 [inline]
+>    handle_mm_fault+0x1a53/0x3750 mm/memory.c:6943
+> 
+> __ocfs2_page_mkwrite() calls ocfs2_write_begin_nolock() and then
+> ocfs2_write_end_nolock(), and uses BUG_ON() to assert that the latter
+> returns the full length.  But ocfs2_write_end_nolock() can fail: since
+> commit 7f27ec978b0e ("ocfs2: call ocfs2_journal_access_di() before
+> ocfs2_journal_dirty() in ocfs2_write_end_nolock()") it gets journal
+> access to the inode buffer again, because the handle may have been
+> restarted since ocfs2_write_begin_nolock().  That fails with -EROFS or
+> -EIO once the journal has been aborted or jbd2 has seen write errors
+> on the device.  The syzbot reproducer gets there by shrinking the
+> backing loop device to zero with LOOP_SET_STATUS while writing to a
+> shared file mapping.
+> 
+> Handle the failure instead of crashing.  ocfs2_write_end_nolock()
+> leaves the mmap folio locked, because ocfs2_unlock_folios() skips it
+> when w_target_locked is set so that it can be returned with
+> VM_FAULT_LOCKED, and do_page_mkwrite() does not unlock it either when
+> ->page_mkwrite() returns an error.  So unlock it and fail the fault;
+> the faulting task gets SIGBUS, like for the other errors in this
+> function.
+> 
+> For an mmap write ocfs2_write_end_nolock() returns either len or a
+> negative errno: inline data has already been converted to extents by
+> ocfs2_write_begin_nolock(), and copied is equal to len.
+> 
+> The BUG matters for local mounts, where the filesystem is expected to
+> go read-only and keep running after a journal abort.  On clustered
+> mounts ocfs2_abort() panics the node anyway as soon as it notices the
+> aborted journal.
+> 
+> Fixes: 7f27ec978b0e ("ocfs2: call ocfs2_journal_access_di() before ocfs2_journal_dirty() in ocfs2_write_end_nolock()")
+> Reported-by: syzbot+42984127d45ad96219de@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=42984127d45ad96219de
+> Cc: stable@vger.kernel.org
+> Assisted-by: Claude:claude-fable-5-2
+> Signed-off-by: Zhiyuan Zhang <zhiyuanzhang912@gmail.com>
+
+Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
 > ---
->   fs/ntfs3/fsntfs.c | 15 ++++++++++++---
->   1 file changed, 12 insertions(+), 3 deletions(-)
->
-> diff --git a/fs/ntfs3/fsntfs.c b/fs/ntfs3/fsntfs.c
-> index d0434756029b..ab9e03156cce 100644
-> --- a/fs/ntfs3/fsntfs.c
-> +++ b/fs/ntfs3/fsntfs.c
-> @@ -741,10 +741,19 @@ int ntfs_look_free_mft(struct ntfs_sb_info *sbi, CLST *rno, bool mft,
->   	}
->   
->   	/* We have found a record that are not reserved for next MFT. */
-> -	if (*rno >= MFT_REC_FREE)
-> -		wnd_set_used(wnd, *rno, 1);
-> -	else if (*rno >= MFT_REC_RESERVED && sbi->mft.reserved_bitmap_inited)
-> +	if (*rno >= MFT_REC_FREE) {
-> +		err = wnd_set_used(wnd, *rno, 1);
-> +		if (err) {
-> +			if (ni) {
-> +				ni_remove_mi(ni, *mi);
-> +				mi_put(*mi);
-> +				*mi = NULL;
-> +			}
-> +			goto out;
-> +		}
-> +	} else if (*rno >= MFT_REC_RESERVED && sbi->mft.reserved_bitmap_inited) {
->   		__set_bit(*rno - MFT_REC_RESERVED, &sbi->mft.reserved_bitmap);
+> 
+> Notes:
+>     Testing: syzbot C reproducer in QEMU (x86_64) on a defconfig-based
+>     kernel with KASAN, lockdep, DEBUG_VM and hung task detection enabled
+>     (not syzbot's own config).
+>     
+>      - Unpatched: BUG in 3 of 3 runs, within 22 iterations.
+>      - Patched: 437 iterations over 3 runs hit the failing write_end 21
+>        times (11 x -EROFS, 10 x -EIO), all ending in SIGBUS, with no BUG,
+>        KASAN, lockdep, DEBUG_VM or hung task report.
+>      - Negative control: without the folio_unlock(), inode eviction hangs
+>        on the locked folio in truncate_inode_pages_range() in 3 of 3 runs
+>        that hit the error.
+>     
+>     Not tested on a clustered mount.
+>     
+>     AI assistants were used to analyse the report, to write the patch
+>     and the changelog, and to run the tests above.
+>     
+>     ocfs2_dio_wr_get_block() has the same BUG_ON(ret != len).  It is left
+>     alone here because the pending "migrates ocfs2 DIO from buffer_head to
+>     iomap" series removes that function.
+> 
+>  fs/ocfs2/mmap.c | 12 +++++++++++-
+>  1 file changed, 11 insertions(+), 1 deletion(-)
+> 
+> diff --git a/fs/ocfs2/mmap.c b/fs/ocfs2/mmap.c
+> index 6c570157caf1..1c03f45e8965 100644
+> --- a/fs/ocfs2/mmap.c
+> +++ b/fs/ocfs2/mmap.c
+> @@ -103,7 +103,17 @@ static vm_fault_t __ocfs2_page_mkwrite(struct file *file,
+>  		goto out;
+>  	}
+>  	err = ocfs2_write_end_nolock(mapping, pos, len, len, fsdata);
+> -	BUG_ON(err != len);
+> +	if (err != len) {
+> +		/*
+> +		 * ocfs2_write_end_nolock() keeps the mmap folio locked so
+> +		 * that it can be returned to the VM with VM_FAULT_LOCKED.
+> +		 * On failure nobody else will unlock it, so do it here.
+> +		 */
+> +		folio_unlock(locked_folio);
+> +		mlog_errno(err);
+> +		ret = vmf_error(err);
+> +		goto out;
 > +	}
->   
->   out:
->   	if (!mft)
-
-Hello,
-
-Sorry for the delay.
-Your patch is applied, thank you.
-
-Regards,
-Konstantin
+>  	ret = VM_FAULT_LOCKED;
+>  out:
+>  	return ret;
+> 
+> base-commit: 067c5c24cef23d913b67eaaf71ae67e7169a6620
 
