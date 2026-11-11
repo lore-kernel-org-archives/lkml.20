@@ -1,61 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.238.236.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794483336;
-	b=pFFrmPujYoAvt2wEYUGUy1Ts1Jyq6ngeBDUDn0BQh5Lh9o1sZ0zeio+5FwovfIz/yXQA
-	 +LmK2H3HieHY5ztR5RAbft/oy+UnA7UvufddC/Wh41g8fSysKMVboPhk/3WU6yLdZeI3/
-	 YVBW3II5bA77IDIN5JoS3YX+XmW7WeJKlLWnewh4VQhSgfdMf2wiiYHf1l1xHWTKoBh3a
-	 5EurEm/BDiG4RqL3akEyenutvuOASUbrRfu5trXp9cLR1eCssWhqgngjIqm/xzyjTfiT/
-	 g04Nsy23pSREWcUqDNAsk47gFkCYmHgfGsB0Vvf6HP1QjVwnLSlKrHqASPYOChkJHnw==
+	t=1794483415;
+	b=cp5KvD6BGmIhEa/fuvmD7o0GAR5dtm7hXBDoeCUh355Vra9fhy8IzeGdT6eP66iYAzpC
+	 4uUS5KNHzKbmvJLWugBmvmdcgaCk6XX0kcB9Wav4npOQ7Em2sekQADu+/5t7/bmQLEj5q
+	 Z2bWu2BtipxoJh6r5OMymR1JF+BuBqUKDFJCYQAcArETqTceaFSU1VGgbLdzQPlGvCmbb
+	 xwHfVjG8gTolVvHN21A74zXu6Tj5HszOsog8MCRqV/G23+GDXHh/5i76Vzqh8vxvA/1SJ
+	 iucXW9D7b8+sx9UBz8eSr3QabkVyQ87xkKAraNk/ffuDAzJrTn7YitMHrFf5YbNh+cA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794483336;
-	h=DMARC-Filter:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=EPcJkEv6Mv9K5uRm29JHqDQ1ukD6n2G1FK8ZkT2iuVE=;
-	b=Nsalad3bQ4jo/GIvjHPjP/h1KWlCkn2ugzbR/YrBc8jdmWaLQB/u6rXlO64hZDdzuB46
-	 FOlO/Pa/xp/+QdaeqCaSCBPCguhaWtT2jvWmuJzXAwA/vuwdaPg7kE1oSRPJ/vT/JoR+S
-	 NPDbHEkGQVGuxGzubZkHqFu6NKSS8/RyZ61ZKeqZWjn7j0kwvt4YhIQKV5HwuFLTiCjb0
-	 eB+Ocy0yvVfY8vYWoqXcRzrVmHlv04K72P2GTl3nOmLpT/RHSA200N+XjIds9Q2aSuX0h
-	 5srrsZ9iZed0JCWQ2GtEndCx6v7wuO/8XUAaX1JVLtnmKQi9Q/0px/G/LYcuE/TClSA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794483415;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer;
+	bh=XJtNcCJMFDWQYwcUNbsbODBqgC368Pu1CnYyfVfGjQY=;
+	b=YdSFpwYodaUo8g/SIY4evj9ALYOB0irKrAk7BzJDRXDwDkObw4aVvRVho+dZNYpqlfle
+	 t+4m7WJMwj9MCpbWwK7lGfiAjNY7TD+OOhCC9NwyXtGBa5OHE4lyPrV/Fu+U03j61sntM
+	 NXZZtyh/PzyncqJi9EwQQ555Yp28lJuaDBH3PsDYlhkeVyhEjn11nulXlbdgb0vGfxLg8
+	 ZLfpx6pDbbaz8XzKqbfRq2xK8SS6/eL2qtaCg2pPou99UQPW27Rfe44n1/VJWoxrgeD66
+	 tJr2qDocwX9IDEjE0ushIXMubo1Op5GUCyhXC7K7yq4Es0w7+0rRubrLPgQzAcBmxnA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=kemnade.info;
-	spf=pass smtp.mailfrom=kemnade.info;
-	dkim=pass header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=0fe1SDEf;
-	arc=none smtp.remote-ip=178.238.236.174
-Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="JcUDWBH/";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1FC7606A31C;
-	Thu, 12 Nov 2026 11:35:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1FC7606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kemnade.info
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C37B606A31C;
+	Thu, 12 Nov 2026 11:36:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=0fe1SDEf
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=kemnade.info; s=20220719; h=References:In-Reply-To:Subject:Cc:To:From:
-	Reply-To:Content-ID:Content-Description;
-	bh=EPcJkEv6Mv9K5uRm29JHqDQ1ukD6n2G1FK8ZkT2iuVE=; t=1794483335; x=1795692935; 
-	b=0fe1SDEfB9b2igjfKc7fzsFKJNemg5u0zOwnfPtbIWkuobtQVwNUHWpUaraw/maTeD+93V+qMSb
-	7akUkWxvGjdggGbn3ZI9TdypIxIr1eERjeBftGtq7LRXHGHr20lFPjbTzPoz1uEZUIhcnnFITrchE
-	O53PvWmnPvqHmwOYoyXUCC08i+B5cZqiNt+uPXRNOm1cLyGrr13dybIdoU9BmHQtqkAWSPzhPILTA
-	d6sWnTD9OkMear1GHkLcKWW0OHGqKQfSYQXejti7F9mNhgQ158uk510Am3Gm8susOOv8fUobmlcmO
-	eXVW00vp6F2zlm3XCF1EyNvsbcb8ICKbzZYQ==;
-Date: Thu, 12 Nov 2026 12:35:22 +0100
-From: Andreas Kemnade <andreas@kemnade.info>
-To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Cc: dri-devel@lists.freedesktop.org, linux-omap@vger.kernel.org,
- hns@goldelico.com, linux-kernel@vger.kernel.org, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Luca Ceresoli <luca.ceresoli@bootlin.com>
-Subject: Re: [PATCH v2] drm/omap: dss: fix handling deferrals
-Message-ID: <20261112123522.09ef73fd@kemnade.info>
-In-Reply-To: <e93d1911-a6d9-4256-a2cb-cd2d6112a4c0@ideasonboard.com>
-References: <20261111-gta04-drm-regression-fix-v2-1-010caf3b08bd@kemnade.info>
-	<e93d1911-a6d9-4256-a2cb-cd2d6112a4c0@ideasonboard.com>
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; aarch64-unknown-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JcUDWBH/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18A461F00A05;
+	Thu, 12 Nov 2026 11:36:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794483415;
+	bh=XJtNcCJMFDWQYwcUNbsbODBqgC368Pu1CnYyfVfGjQY=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=JcUDWBH/LZPxwUzvHOtxhZv81slueft+P6MqFVWRmK+aIfNe90HvxpwRMXRsfN0hQ
+	 wxBWIy0ETMriNEbhbUWogS8f+tt9STvZPNKpk/jIUn9qgFsVt+RP/4WqsYQmByE6LG
+	 ISe5S06S0fgR1i7g2yUtQZN9bNT6iCzEBP9sgqIF9SzoXxRve/Taer25jP6TstlQrC
+	 lrL3Tx8mYDHRCJCduE2HuqMIwt6fFHLWOQ1thq49icgtlUUehIRfCnzSwc/UdY0+Ph
+	 5tVmJGZnnJO5AMlMaxz88EG9AJl+6CYqBLIcNcVD2blxYj0TXkWDabb/QTrkCH+vOi
+	 07dA1lMA3KacQ==
+From: Mark Brown <broonie@kernel.org>
+To: linux-spi@vger.kernel.org, zhaofeng2 <zhaofeng2@cmss.chinamobile.com>
+Cc: Li-hao Kuo <lhjeff911@gmail.com>, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org
+In-Reply-To: <20261111024235.1542-1-zhaofeng2@cmss.chinamobile.com>
+References: <20261111024235.1542-1-zhaofeng2@cmss.chinamobile.com>
+Subject: Re: [PATCH v2] spi: sunplus-sp7021: fix clock prepare leak in
+ system sleep suspend
+Message-Id: <179442874822.513646.429223063588831846.b4-ty@b4>
+Date: Wed, 11 Nov 2026 20:25:48 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,64 +59,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
 
-On Thu, 12 Nov 2026 12:25:20 +0200
-Tomi Valkeinen <tomi.valkeinen@ideasonboard.com> wrote:
+On Wed, 11 Nov 2026 10:42:35 +0800, zhaofeng2 wrote:
+> spi: sunplus-sp7021: fix clock prepare leak in system sleep suspend
 
-> Hi,
-> 
-> On 11/11/2026 23:14, Andreas Kemnade wrote:
-> > Forward the error given by of_drm_get_bridge_by_endpoint() if it is
-> > EPROBE_DEFER to ensure output gets initialized later when available.
-> > 
-> > On GTA04/OMAP3 no display was found, but it appeared after doing
-> > rmmod omapdrm ; modprobe omapdrm
-> > 
-> > Fixes: b7e9b93fc8ecf ("drm/omap: dss: don't create a panel_bridge")
-> > Signed-off-by: Andreas Kemnade <andreas@kemnade.info>
-> > ---
-> > Changes in v2:
-> > - do not use the error goto
-> > - Link to v1: https://patch.msgid.link/20261111-gta04-drm-regression-fix-v1-1-1de27d5ba46a@kemnade.info
-> > ---
-> >   drivers/gpu/drm/omapdrm/dss/output.c | 3 +++
-> >   1 file changed, 3 insertions(+)  
-> 
-> Thanks, I'll push to drm-misc-next.
-> 
-Isn't it drm-misc-fixes? This issue is new in v7.4-rc1.
+Applied to
 
-Regards,
-Andreas
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-7.5
 
->   Tomi
-> 
-> > diff --git a/drivers/gpu/drm/omapdrm/dss/output.c b/drivers/gpu/drm/omapdrm/dss/output.c
-> > index 36d37deac8026..b5cef5093a883 100644
-> > --- a/drivers/gpu/drm/omapdrm/dss/output.c
-> > +++ b/drivers/gpu/drm/omapdrm/dss/output.c
-> > @@ -24,6 +24,9 @@ int omapdss_device_init_output(struct omap_dss_device *out,
-> >   
-> >   	bridge = of_drm_get_bridge_by_endpoint(out->dev->of_node, out->of_port, 0);
-> >   	if (IS_ERR(bridge)) {
-> > +		if (PTR_ERR(bridge) == -EPROBE_DEFER)
-> > +			return PTR_ERR(bridge);
-> > +
-> >   		dev_dbg(out->dev, "failed to find video sink\n");
-> >   		return 0;
-> >   	}
-> > 
-> > ---
-> > base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
-> > change-id: 20261111-gta04-drm-regression-fix-f7ef51c66ed3
-> > 
-> > Best regards,
-> > --
-> > Andreas Kemnade <andreas@kemnade.info>
-> >   
-> 
-> 
-> 
+Thanks!
+
+[1/1] spi: sunplus-sp7021: fix clock prepare leak in system sleep suspend
+      https://git.kernel.org/broonie/spi/c/2bc7eb398cd0
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 
