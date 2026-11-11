@@ -1,73 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794391842;
-	b=WC5lFimvRPrZVWzFJNZjgVYTK8mRL5+4YJ5G6g4pauI/jbBcK6eeMLJu4ACgSAhexQuN
-	 4ka4zMXUvkeNURi/6yu5NNjfBALogqU2WbpG0ymSL8hFZwH/hPT0gTsySf30FzTMOHav+
-	 +O6gaV0S1ldEinIiRsA7XkNdtdmRCIbUOM0hbYitzrJ7zVOxUZkI3SXXDbCqEmJDh2wIQ
-	 vrp3ahi2ghZv2yKMDhm4CjQedeG8Ft9Ty9Oph502OMimST/fzQmiJdp7tesqZb14M0bj6
-	 X4Bw4UdGOVXFEJDfyEm8lDebDYHgLYKmZZIfpRQu5VxTIIa7z2VTJStz/jm8DXc8k5A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794391842;
-	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
-	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
-	 References:Subject:Content-Type:Content-Transfer-Encoding;
-	bh=IufNXsNoB8xfQAU7zCYVR5erkbYE0FcNy66hIgW4lkI=;
-	b=XJHwhI7hg/+PQLRVcvyJmxy2mJ/qBSb87LTJWzv9htvBgeeWabrmrgTcwsdlnhq7PMbd
-	 QDOoSJcDzIe6/z8SlPsGsp484IocNNZeNQqwC62D/OcUMLh6yhY1Iwqwc57E3F8vr5khO
-	 JupMti+jFYGIkkXuftTektYGc/BZ+wrSvnJy+RP7NuD246ITQTFttIBDBwjqUKiIqt702
-	 KcXS2EPayTPx17MDMm/0JEYy8Bq117KVHCxsfdk0w4004ktjnFVbOFTddHg6XmC4M8dUG
-	 HR9bS6HV36Z9WGyrJEEhCnTvOjDeFxxLTLsWUSpmEZfuMlYnnMgFmfl/PGRbd97HXhA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f4E3SUao;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794391866;
+	b=DsD90nvYZbcBZbPV/4y9Q/as9ERaijDzTT5vVd+lKZX7xAT+dgktxGCGPicgMnXqo29s
+	 MlZHOJzHJ/eeLqql2k8B60CkqHH48cNeyh+cZ+S87NIw6YKKigGily/fbCNQGv8PB7YxA
+	 OXoSY98MajB3AjxC4je0NsPo+e2IPB4bTgpRrTAFiO6gnWolqQVQHPciQ15uEdXPC9fWf
+	 624n3kBeGHWAIIev6soZ4mnp5Ec+5XqQjZOirB4OQXWgdI+vQf5k9lHZmz1nL62LqD+gc
+	 WJhN1t/bowtFp1OcSodkMX/1KhpGP3qrDxArNYOnfG0lfA90fIqPIjtiYUdk6ki9Oow==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794391866;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=AUsolObt8QXatVB+sDxCGLaLW6XPzWoZiEKzrGUA9m0=;
+	b=z9rauh0E0JgZQKK2WTv+6CNYFz+EqK256GwPt8iDn1liDTSbwYj9fYjw9z9mm8dFU+OZ
+	 A8zIPXkuBl3MOw2vbgsNxnf+880S6Vj6kFWJsI7JZM2fcrQiB4Pd0FrQIi8y2lh9Iaj4C
+	 lfE1VASs7FYAZf4xPJukHOQ84BrUd6Sg5rcT1en7QEzwQaPN5OJvBAAOKyJXYETYMFeyV
+	 FwUddz6Osgpiy56DPOKiMneZhnZippoJecpwZmmhB3/ffIuT7vUR6txSRWcGuNzqErT89
+	 RQxZkcRimZh9jtRdyU76dE4dqgGOwhvksyqbpUJqOUvSaztGJAiVE1witlWi3SLfB9w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=civehD1t;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B14EE606A327
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 10:10:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FE6E606A88F;
+	Wed, 11 Nov 2026 10:11:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f4E3SUao
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D91601F00A09;
-	Wed, 11 Nov 2026 10:10:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=civehD1t
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794391865;
+	b=d5qS/D+oWjiF+lGBWkcxhHzW7sj+rssTauKjZVGOEtiJlP5vcC/u58yN75ZLpLR/HucK
+	 cRGCzlW//pVUTMRcQdPljyKa1vtFUsN2VTqFC39+b40wo3aEJGo/3a55sJdXNhiG5rP7o
+	 lMmVEr5fAFRzfTpwYf4r9p6uzNXkx5K5w1PSd8wKjyxze2YirHWBoqsNUjA+QwVA9MApS
+	 JzS1EqkplfdlS2mepHuMnR8E5ttBtlOmMZ9Sf+uyzuqsHpYfb9b9EbolbBzBS3hjsiABk
+	 /IGkftcaBzKBEgleHwXdteav+shCG1xPOzwlYEry3F4r/p+9rtbsfCNmij8s+4BW+gA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794391865;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=AUsolObt8QXatVB+sDxCGLaLW6XPzWoZiEKzrGUA9m0=;
+	b=zI3bl9dgsPIu9J/tYEUUozJMP610LGxgfi02kjaMFkXWZsQC+wFNS2nTSmV5xo3Y5Zf7
+	 iPuA4SZqA1Zaw6MZrdrBY7jgm+9QuuPRuIaQn2jGewkrQtqzk+dnxJ1D0w1n4VeornUH/
+	 IRFlJrY2eBNfxIzmbvJpbb5gADO7dReSC63+OJr/e0cBS7ZshMcQD0eHMG1oh2GABv0CW
+	 /gDcJ4wcUX4qQp/NX93xf0iWywiqaQOd4M3WX2yapmqCp1/5mw/s/D7uQUf1uj3OdTfQP
+	 bQawAxMCXDG5iP68/9jyATUdWFT+h/YYIz42eMTpP6M/GoPDHBEmStRC4qxz1rHxFqQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 626BA1F00A06;
+	Wed, 11 Nov 2026 10:11:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794391842;
-	bh=IufNXsNoB8xfQAU7zCYVR5erkbYE0FcNy66hIgW4lkI=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=f4E3SUaoNRt8xinz7Y8nw81C8p+E8Ofs1kInONw+r7aJ9L2T+vq18ODnBd/qtj0V8
-	 hiHwJaK/TpMFKcHniF6cHXFOmHe/aOvqPFwkFft2cZuUZW+LJzGfGVDd0eO5ruLzSw
-	 8e+3OTa1RLKdLhdOxnViCW3dVIP8Q17k8UVcCzIhjkrmhUe1iR0H5Yc5ZF6TvypGyU
-	 OyLqRh1ctHd6HKTx/+ydcxbG7SXKE00sI328WaU3bXj1KVBOCu1evnUgx4TS2uMI53
-	 8Gijs9iN4cSsDIcRyo2G2Ezoy9BIwKxhKo+jg//iKFLOGC7f45Iyt6v+y30md1fbpn
-	 XLe9gHjLi7Gww==
-Received: from ams-compute-01.internal (ams-compute-01.internal [10.64.2.61])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 19D6B1980052;
-	Wed, 11 Nov 2026 05:10:40 -0500 (EST)
-Received: from ams-imap-19 ([10.64.2.39])
-  by ams-compute-01.internal (MEProxy); Wed, 11 Nov 2026 05:10:40 -0500
-X-ME-Sender: <xms:Hj_0auPQeOWyXnuroeoDVDbOxN5baiELB3WUouDCiNowmGu0luTRkw>
-    <xme:Hj_0any274b2r5v-d8yqt7mqPz4ryOSUQ5a8HNYlygx7oH6BXbVbKU_FQjEim6eow
-    A85qsgRK9fKc-268vTR5tRFb4cP3rBFEeKkVlY2sBeovk57CyZ6dsx2>
-X-ME-Proxy-Cause: dmFkZTFjDI7QWig021/eXFx0ahuxZXlbfi5d9h4/xo+SDWkvQu0Q91/jB5v0OKL7bsQyiE
-    XrkYcU/GbBBquYJXZH1wiXPCPavomNV9/Z3MLh8hzXM/B3FL3cjFSMMoXZzGAH6jddHYIo
-    fTPa0KI/aikSUFyC+8HJAlqV14z/JGyYY0CAejqmHBXSpFN1UBCAumHBk+PJ/r4HGsio8o
-    BKlREcY0J0VhMtU+jfV1B+YgqI5nCoeASECQFNYYHPOgZKZjIDnimifxsS1OJITdCUife4
-    3OfAjRw89oVLdio6q8uTxuxRcXEkM4V7IqmCP9yQjoJXOUot8+QJAi5PwC/FduEFfRtpQH
-    5VMXzzhLVl4MYBAmnFIkS7ynM0QoEE76Oo1QSqBxFXCT/SgGlOnx8a3qJithD9UfoDQ7AP
-    HCpY2DbaRSbIK0Za5JUm4dtwI2lqSns4mvqmWTGsXYmo+Pr7tet/WIPdrSICG5mm4fiOzh
-    wEWcTtumsAmdJg0ysFNfu3YJe061XtLmAkFVvHRXkkWBsF7Ad2aXpZ1QKrPJTXtFkgeU/n
-    xfO8pzihxdj1ZFMLTHqZ+LfS+9mchaQuLJAjsoj1Kjk6tjbaA54GUdBV2+PuT3VRHnNV5i
-    aG/jvsjhe2Ycl+J08//fSrWVTMkRRNTAsG0kNuI6L7XEGqNhcoArvZ+Ws6tg
-X-ME-Proxy: <xmx:ID_0auywWTqQ3s3s-WixPrj-YGZ7qrPT-70LnCpA1F14j_-lS8RQbg>
-    <xmx:ID_0aryGVbSb-zlWyx3ijAsByd2ENuEf0m85S8kJxkm6YFh0ifZyuA>
-    <xmx:ID_0agYD3RFyXFW64VjlGCtr0caLybCB__6nPg4BdV8oBMYvATEHPA>
-    <xmx:ID_0akUHVi211vXinfeZ31qSnignvRNLLWLo9YuK7Uxy5GD6DpxZgw>
-    <xmx:ID_0amhe_ndzn2iY3gE0NszbcX6KWCO0Qq-kBvtUndWc_mXNwZM4sO-Z>
-Feedback-ID: ia3204a8f:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 73AF92F8005A; Wed, 11 Nov 2026 05:10:38 -0500 (EST)
-X-Mailer: MessagingEngine.com Webmail Interface
+	s=k20260515; t=1794391865;
+	bh=AUsolObt8QXatVB+sDxCGLaLW6XPzWoZiEKzrGUA9m0=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=civehD1t5HZ3v1TJM0TWCk0pXAgluujZR6IN4DmXz/bpd6n1BoYTO3UWAPOEMIqt2
+	 25WGPZQkQoNPYHDf40UkRBxdcwNp+tCAvSVBYa29pxoNa7IAuv8nW8vpKGLPfLQ0kc
+	 Od24q7lxY5OyIQg40vVka//Qq6XEJbgcFVzljjEyOwHisBw+MwiTHlv33/TBiAomNR
+	 /B1KV3hpO8u8tpA5u1Q53FChq9po9e7nwVqgTFo0W0FNjHaJLqou8tQHzDjWlPGiJX
+	 zyUEj8Tz85CGpkalvrL77A1zSEEB+W1aK7rpgMJ9p9DYj3OwqxkAEbQ9f1uiM7ENpI
+	 v2/aMjTGKzGfg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 724FF48F43;
+	Wed, 11 Nov 2026 10:11:04 +0000 (UTC)
+From: Patrick Fischer via B4 Relay <devnull+admin.tsv-stahl-riesa.de@kernel.org>
+Date: Wed, 11 Nov 2026 11:11:01 +0100
+Subject: [PATCH 6/6] ARM: tegra: Add EMC channel registers on Tegra114
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,47 +82,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ThreadId: Am_MQAJHDGj7
-Date: Wed, 11 Nov 2026 11:10:03 +0100
-From: "Imre Kaloz" <kaloz@kernel.org>
-To: "Maciej W. Rozycki" <macro@orcam.me.uk>
-Cc: "Thomas Bogendoerfer" <tsbogend@alpha.franken.de>,
- linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org
-Message-Id: <7b19087a-986a-414c-a35c-e44052458495@app.fastmail.com>
-In-Reply-To: <alpine.DEB.2.21.2611080926150.17804@angie.orcam.me.uk>
-References: <20261107005245.20299-1-kaloz@kernel.org>
- <alpine.DEB.2.21.2611080926150.17804@angie.orcam.me.uk>
-Subject: Re: [PATCH v2] MIPS: sgi-ip32: Fence PIO reads on CRIME 1.1
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261111-upstream-emc-t114-v1-6-54d9e1bceb6a@tsv-stahl-riesa.de>
+References: <20261111-upstream-emc-t114-v1-0-54d9e1bceb6a@tsv-stahl-riesa.de>
+In-Reply-To: <20261111-upstream-emc-t114-v1-0-54d9e1bceb6a@tsv-stahl-riesa.de>
+To: Krzysztof Kozlowski <krzk@kernel.org>, 
+ Thierry Reding <thierry.reding@kernel.org>, 
+ Jonathan Hunter <jonathanh@nvidia.com>, 
+ Svyatoslav Ryhel <clamor95@gmail.com>, 
+ Mikko Perttunen <mperttunen@nvidia.com>, Rob Herring <robh@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-tegra@vger.kernel.org, 
+ Thierry Reding <thierry.reding@gmail.com>, devicetree@vger.kernel.org, 
+ Patrick Fischer <admin@tsv-stahl-riesa.de>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794391862; l=937;
+ i=admin@tsv-stahl-riesa.de; s=20261020; h=from:subject:message-id;
+ bh=T59sEe/f17u37JLlvAN3pI/wxW5PHR4RdVn2Jyt/Ljk=;
+ b=4smoglDsXKDNvXsQ2jiYAlIYolcSJZmo8yABt6+cC9hXJz4IJwIgUZKUOmq+54NcT1p4IutRi
+ WmznIROMpvsArDTaPtH46uaxf+peeJojMUQ4TaOKUa6fN0YQlCFxU3V
+X-Developer-Key: i=admin@tsv-stahl-riesa.de; a=ed25519;
+ pk=D+v6EloYcEY9PIUHFyTM5sqcGIU/fIXzLUdkR8vjAtk=
+X-Endpoint-Received: by B4 Relay for admin@tsv-stahl-riesa.de/20261020 with
+ auth_id=1251
+X-Original-From: Patrick Fischer <admin@tsv-stahl-riesa.de>
+Reply-To: admin@tsv-stahl-riesa.de
 Content-Transfer-Encoding: 7bit
 
-On Sun, Nov 8, 2026, at 10:28, Maciej W. Rozycki wrote:
-> On Sat, 7 Nov 2026, Imre Kaloz wrote:
+From: Patrick Fischer <admin@tsv-stahl-riesa.de>
 
-<snip>
+Describe the EMC0 and EMC1 register blocks next to the broadcast
+registers, so that the EMC driver can program the pad auto-calibration
+of each channel.
 
->> +static inline void plat_read_fence_end(unsigned long flags)
->> +{
->> +	crime_read_fence_end(flags);
->> +}
->
->  This seems hackish to me with the call to local_irq_restore() buried in 
-> crime_read_fence_end().  Why is is out of line?
+Signed-off-by: Patrick Fischer <admin@tsv-stahl-riesa.de>
+---
+ arch/arm/boot/dts/nvidia/tegra114.dtsi | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-Good point, thanks.  Only the 5us udelay() needs to be out of line,
-so that asm/io.h does not have to pull in linux/delay.h, the irq
-restore had no business being buried in there with it.
+diff --git a/arch/arm/boot/dts/nvidia/tegra114.dtsi b/arch/arm/boot/dts/nvidia/tegra114.dtsi
+index a5958f3a965b..cf3d98274b36 100644
+--- a/arch/arm/boot/dts/nvidia/tegra114.dtsi
++++ b/arch/arm/boot/dts/nvidia/tegra114.dtsi
+@@ -804,7 +804,8 @@ mc: memory-controller@70019000 {
+ 
+ 	emc: external-memory-controller@7001b000 {
+ 		compatible = "nvidia,tegra114-emc";
+-		reg = <0x7001b000 0x800>;
++		reg = <0x7001b000 0x800>, <0x7001a000 0x800>,
++		      <0x7001a800 0x800>;
+ 		interrupts = <GIC_SPI 78 IRQ_TYPE_LEVEL_HIGH>;
+ 		clocks = <&tegra_car TEGRA114_CLK_EMC>;
+ 		clock-names = "emc";
 
-v3 keeps local_irq_save() and local_irq_restore() together in
-read-fence.h and makes only crime_read_fence_delay() out of line.
-
-It has been retested on a CRIME 1.1 O2 with audio and SCSI DMA
-running: 0 stale reads in 50M read pairs with the fence on, 15 in 10M
-with it off.
+-- 
+2.56.0
 
 
-Thanks,
-Imre
-
-P.S:
-v3: https://lore.kernel.org/r/20261111095650.14954-1-kaloz@kernel.org/
