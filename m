@@ -1,68 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794392894;
-	b=28vFK8h9qbLrOFXrHyDsklBv3GbHoN949tEk2k4pcMextFhNW14aLIjIRpA8xwXG1dvk
-	 mLaeLcU3hLy9+aDQJpPbN0p8cyNW5G7uKywaWby/rdXdUD9XgJhDjHxa819MpsBjGQ0XB
-	 Eza1xvuJKHi6t5RO7pNp6kfuN+2yr9p71ZLn9inHXg0FTWlffgj/6zuO6lST8EamGZTm3
-	 /XgrvJnrnQ1f+BdwjwKLPsAscZmULxfBqlhuQUWmHD8ESQFzjCN6BOrZ7QgnumMxkLbkq
-	 HCIzJ9kTWBzSKeO08r5Jwg+ApnXqUINC97miw2mTCw/hOd+FmH7OOs0DuSiPqtlZDFQ==
+	t=1794392907;
+	b=OCPzTGWUgyyzQ8z25KVl1EIt46OgMtepFVu6Vl/WgEso8pirDKIE2YBHgvhkY/ABnFoj
+	 8vJIwJL6+pesY8vPuAvFN/t7+WbBnkIjxNDYdxmdo1evaGBdLrkN7icPF/vDrRRH59rvb
+	 K+XbN8m7ebcaAiXXSvBiYv9kP70mJKixe4/AHPc2gRcG+neHugYEbxI3v66EakmiPKzQL
+	 EJ7IxNtjPQ0D4ge2tehwzC01xvMd3kCEehzz2A2jTfYNSvOoqwuMwhuIOpTIca5sCv1mK
+	 BUnGDEij8RHzhv5Rp7yf/QO8O5QK2ddPcCNad1SOdxUt1oFc+yykLsTxqW+SWYCridQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794392894;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:Date:
-	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794392907;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
 	 Content-Disposition:In-Reply-To;
-	bh=UFoLO/iOJWXUZ8LPtrfxkOTStHkWrqT3iuMucBrRSF0=;
-	b=xy9l1q8XGAbrEafSVXfHSfkf9szZ2Ks/mdfWQxIImgl7tgTD9Vi4NOQdxbFY0v4ORHwJ
-	 AuNT5rph9P8k0Jw1zkq9m95osyr0Vz5x+h5yK4V29WE7Dxmx47StlaxJsTnq1iLzyQ/XO
-	 k/iT/lqAd8ZDuO/wqmEKx2XPmBEpEwX2DOhYdaqoSTkf0lEYQMm5/PCavjcd30ZnVoFbg
-	 rvH8no3n7gndcG0q2IlTR3Kq4rpfAMwM4PjBT1gjWmmBLpl/s8/OghmNAuSkp2nSWZmp2
-	 UyCFgCfNl5udaHl+TYoO82Ro1USc9l8GE8soqfJfkJ4+ie15T9uTB0YlMK5JOmOlZMg==
+	bh=TFQAtw2bHUiyoK/CSmtS8daD/f7tLYiZ9TxppAyT5oU=;
+	b=1xf+2xIxIxrooq3I8yqlzZWma/wVTWybl5Cz9CDbgnra4PCAtB6QlTUxgT7DGTlcW3sg
+	 X8Bl60zEJjbOvxKHEVOM2voDjINyIkzSL//kykqHSil07er9yHzPix8sDr7AQN1xd14ZY
+	 YYjp6CbgEuzPmJ7emeYC2J3pBNxvGTspQy9370lqFbcrdYTzsCQbkuZ2zlli2n0HrAUnG
+	 0+7KJzpScQZ6kXmdE0GLXpaVi4TlWPv6a7X1DLJ82e3pb68GiIyo1S6cmWshI/lLSbUiL
+	 FOBcKhxQuAErr9fS8B8nyZ7x5Cemv5W9ORZxZiGhbFkuwStNHYJzjVxc8BPoZ4VEqzw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=sang-engineering.com;
-	spf=pass smtp.mailfrom=sang-engineering.com;
-	dkim=pass header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=ahJkmHjc;
-	arc=none smtp.remote-ip=194.117.254.33
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=ECBU4HW9;
+	arc=none smtp.remote-ip=90.155.50.34
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24990606A32D
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 10:28:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24990606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F01D4606A336
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 10:28:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F01D4606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=ahJkmHjc
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=UFoL
-	O/iOJWXUZ8LPtrfxkOTStHkWrqT3iuMucBrRSF0=; b=ahJkmHjcaauoFZIGscNZ
-	Rb0iiLRERHmHMIMp3HT6/ZOz81NXw6AWqSN0g+LY4KAq6ewLqYhHBqKrv9+u541o
-	yIkalt90fhUtR6dhzV1pzfy6eZbd/pn29p+R/q2WhJjtwN66bfCafCI46pQOtFE9
-	1ii+/C3ijdeR8RUwiFgYys16LiDuUVtk1LEiNqqtXk7pZjrHbBug2OpSUvbH58yp
-	wdv8BlL13ybvDFUs3NVhM0FZnO6Kwbcmmj2MxvhfGqMz7cXg20D1cUX0MxEaoBox
-	s36BG5sYjQ9Trepqssd7alH8EaC2H5wfQ2RCxaH4EkODjog48ynOxKvk/YTv5sLJ
-	Lg==
-Received: (qmail 570348 invoked from network); 11 Nov 2026 11:28:10 +0100
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 11 Nov 2026 11:28:10 +0100
-X-UD-Smtp-Session: l3s3148p1@2aLUpv1fHsAujnun
-Date: Wed, 11 Nov 2026 11:28:10 +0100
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: Biju Das <biju.das.au@gmail.com>
-Cc: Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>, linux-mmc@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org,
-	Biju Das <biju.das.jz@bp.renesas.com>
-Subject: Re: [PATCH v25 07/11] mmc: renesas_sdhi: Add tuning delay support
- for RZ/G2L
-Message-ID: <avRDOl1O5eXkbX6V@shikoro>
-References: <20261028-rzg3l_sdhi-v25-0-57f16691c2ed@bp.renesas.com>
- <20261028-rzg3l_sdhi-v25-7-57f16691c2ed@bp.renesas.com>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=ECBU4HW9
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=TFQAtw2bHUiyoK/CSmtS8daD/f7tLYiZ9TxppAyT5oU=; b=ECBU4HW9Vzch+XVnaztWXtqeDZ
+	BnF9Cov4Xv+pSMdwoaLmFdd23b+KLQYQfdkueDrRpWAo2z98SxWC+RvY9ECzjC8yA+m5bbgu1yZXc
+	3ocEW4GjvPk9POXL8VLV/cqTrlwMxF2UnjQCKL+PkQ++uScfgAGDvCz0tKF63v2sLmmKAcTh8avl4
+	HP1sb4ekcMX0D5Flp/E3muIMQc9jn5JQ5cEv3PdiKE/YDXoXPm+1i2UDzWD5R8LXT4N4UMMG0g31H
+	wQfSvpge6n2s0EGd5JI9zeE/WnSXnlJC3vwWhvP08/mY2YgwrZP/1/8npYrcP+2l37TfCjLHsZ5Ne
+	r+Yd0bKQ==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xR5Yw-00000008XPN-1bVO;
+	Wed, 11 Nov 2026 10:28:18 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 4FB6430025D; Wed, 11 Nov 2026 11:28:17 +0100 (CET)
+Date: Wed, 11 Nov 2026 11:28:17 +0100
+From: Peter Zijlstra <peterz@infradead.org>
+To: Tejun Heo <tj@kernel.org>
+Cc: mingo@kernel.org, juri.lelli@redhat.com, vincent.guittot@linaro.org,
+	dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com,
+	mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com,
+	linux-kernel@vger.kernel.org, ziqianlu@bytedance.com
+Subject: Re: [PATCH v2 04/12] sched/core: Make __update_rq_clock() skip
+ updates on UPDATED
+Message-ID: <20261111102817.GN1779021@noisy.programming.kicks-ass.net>
+References: <20261107115913.261163891@infradead.org>
+ <20261107120207.126979364@infradead.org>
+ <3ac37e055b66a46f72edd235f1e93f5f@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,56 +71,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="LxrXcrfTQN6mcX3w"
-Content-Disposition: inline
-In-Reply-To: <20261028-rzg3l_sdhi-v25-7-57f16691c2ed@bp.renesas.com>
-
---LxrXcrfTQN6mcX3w
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <3ac37e055b66a46f72edd235f1e93f5f@kernel.org>
 
-On Wed, Oct 28, 2026 at 12:51:24PM +0000, Biju Das wrote:
-> From: Biju Das <biju.das.jz@bp.renesas.com>
->=20
-> RZ/G2L and later SoCs (RZ/V2M and RZ/G3E) need a hardware adjustment
-> delay written to SCC_TMPPORT2 on signal-voltage switch during
-> tuning: 0x1 for 1.8V, 0x0 for 3.3V.
->=20
-> Add a TMIO_MMC_TUNING_DELAY flag and
-> renesas_sdhi_set_hw_adjustment_delay(), called from
-> renesas_sdhi_start_signal_voltage_switch() after the regulator is
-> set, and reset SCC_TMPPORT2 to 0 at the start of
-> renesas_sdhi_execute_tuning() when the flag is set and tap_num =3D=3D 8.
->=20
-> Add a dedicated of_data_rz_g2l descriptor with this flag and switch
-> of_rzg2l_compatible to use it instead of the generic R-Car Gen3
-> descriptor.
->=20
-> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+On Tue, Nov 10, 2026 at 03:11:28PM -1000, Tejun Heo wrote:
+> Hello, Peter.
+> 
+> On Sat, Nov 07, 2026 at 12:59:17PM +0100, Peter Zijlstra wrote:
+> >  static void __update_rq_clock(struct rq *rq)
+> >  {
+> > +	bool update;
+> > +
+> >  	lockdep_assert_rq_held(rq);
+> >  
+> > +	update = !(rq->clock_update_flags & RQCF_NOP_MASK);
+> >  	rq->clock_update_flags |= RQCF_UPDATED;
+> >  
+> > -	if (!(rq->clock_update_flags & RQCF_ACT_SKIP)) {
+> > +	if (update) {
+> 
+> RQCF_UPDATED is cleared only by rq_pin_lock() and
+> double_rq_clock_clear_update(), so a path which takes the rq lock with
+> raw_spin_rq_lock() inherits it from the previous holder and its
+> update_rq_clock() is now silently skipped.
 
-Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+Let me look at that specific case.
 
+> Previously, you said to clear on unlock. Why not do that? That'd be less
+> confusing overall.
 
---LxrXcrfTQN6mcX3w
-Content-Type: application/pgp-signature; name=signature.asc
+Yes, that's what I tried, but it doesn't work for core-sched. What
+happens is that SMT0 and SMT1 interleave and things go to hell, patch 6
+has that picture.
 
------BEGIN PGP SIGNATURE-----
+That is, we can still clear on unlock too, but clear on unlock alone
+isn't sufficient :/
 
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmr0QzoACgkQFA3kzBSg
-KbYHwg//WaJ+AmtoO2sQG9kq3fSF0VqC8Jm2BspR4uJuGYm99ZXjEaqMBLjEOEK4
-O4kyFkT8fZdpL27J6FWySQTJo2tu8io+0xSVOGdJqH/HRp+W4/zhzPxcNXmoBJh0
-vn4I1liUsdaluoxMoXM7jgdvHSrHssRoFJXWESE+bl+k6JFulNvRR5TYcbH44DYY
-xu1+YFSkI+hgGrRP8ifr7hsjhDdlJMtxsYykU6Lm2TPjMsUNsoR59WdbNWX2TnHi
-rKlMgNfvum8qxcJ8//KMDijp9QEorxccH6QAGe8hJ1eyBK7Eurvv9Hf6J4y3jdSn
-ZK/4lWQaHsmCZUCP9sZ3yfGheTzq5aMW78r3NfvA+mFZKA++Sm67eiaHeVaYBLdi
-DP+ZuuIpZJBlzkyb+P/KBLp/yQCRjV6OMMEu9c9RKI3NpvGEFlTZaFHlGKmsVFMn
-BpFALILwgxxzjqS8/7MSU0vJTxOhtvYsjX2s2iB3b9NcyiSakitPkIz2LBsJrt6y
-MCgIQrI16zhWMY+FfYMsB1OdWNIJoONWZB1etrF/YElHs2vNC3OvzxNDfdGlESN6
-GIzuC2e8v/3xI7YNyDYdF0H2f6tObUNKIIVNaIYaSzwAs0Jodn1OISlatE0qxxW6
-AG9xqVNIGaQ2ZfIlUOE4VEp4j4fn9ZjnjUpf/9eGb/FyYcjXZsI=
-=tmOV
------END PGP SIGNATURE-----
-
---LxrXcrfTQN6mcX3w--
+Patch 6 even has the clear on unlock, but commented out.
