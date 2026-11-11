@@ -1,55 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794364530;
-	b=EfiV8gPveaPNsu15jtVxtfE83uyMrZGUozhr9qmr1wIrFMBj7FN5URm/60hMCXkOdYxU
-	 W+FSMAEQppyvG4s+cofNgfLm0dFO/VhM4jbd3N/RWVaE32uAr2tZiW/i3/4vCoMl4tm46
-	 yq0CQR7T4+REtw4V7Y3I8rvG4JPtAhnN+KiIqaP0vYeNnfBLZuV6BkaSSZD5oA1MJ4fNK
-	 e/WHk8nC13teWzxbBJ3bUmHlkGO3uad14VZbvn7ewAmV8zgK4ZBFN6cvuu9jCcshzgZCi
-	 pCjYtIJMsyNRyozHMMv0jttNEVIxKrzWHjQxm58IUp1hpckGb8mou6C8aTIdOh0hSWQ==
+	t=1794364555;
+	b=s0mzgi58wZ28OnQiTFAbjqfKCTnqStQjP3upJ4h+19kYqqnyT2LYImlgvJryfxA244O5
+	 FiahncC3SjMa7tb5KVwbXeH69w7cHY++JTT4unk96r6v/KLRH1FZBP4/utP3vB1GaK4E+
+	 SirhPD/WADegLjpRewwGDXwd0NyEG+9jv0GiPPHPrfQf8zbivFX3awjVNoF7+2v9UnnLU
+	 pA6SS1tHjuApN3xyx6H75tKhTfN+2A6CQaeOkUqtIeZ0bsCHwx1XJdUNHcVBJJo/aT5nz
+	 zgw59YpSaFE80/TjrO10vxefk0QqsnZuAy/Hwg0VhD/e0UX8/b77YUQGX0mNmX6MNFQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794364530;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=/TGkmkl5EXAQoGi2DbHL8eyxYqMYYgybSMdpzQ49ATc=;
-	b=3DmCL/gz0lTRy0ew5JiWyDS6iBiWQUnYSLzgkxBDThyYc+269hPbmhLgFb4U39upijVB
-	 RsEdV2PgQJAq90T3Trf1G+j8MeBvcL5iOvymJ7bSzVASp9qe/uh6Ozht8ryi8a/nVoyMH
-	 48U492XSiNzHZ9WDPGL43qPs58mxU1zJYfAGvdlGtLS1eZQ1dOYper1ERGP1zZ+S8Aoi6
-	 26rkevXajTs3xF8nKVB1bKgOtvvhXbRVUzjUVk/etpBkCzhLPchpKL88sa3PQu/rqamGS
-	 9t7JcDfNFouZkMjUqEu4eV2UvA8K3v9fWe63P3PoiKHsqOO0Q8DX3V5wIwrV102Rdnw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794364555;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=6zeVpQQIPxzRW921jNzANvtYeiWb1Rf7rLm7zqTskZk=;
+	b=R1f1lFm6mO9VqdLyL0iPG2i9SX5pe3aBdbEDCU9s23OxOoEgLEE8x//4yuz7lqH8NX5g
+	 T6LRxujGwGYVhCORkQucspLNaGvti+vR9cr7wsIdWxAX+51B1oD2zEo48C1Cb4ZpgZCpZ
+	 cVZDHO3WubZnSOjGQViXwzoqDrJ3sIZMO/IYl0LEujarU5yXBtJ9sKGeDm3+hxHfdHLVj
+	 TGmtac3IaGZn19a+xiG6tyaqeByC8pjGEpstfFztAYUHylz9rA3Ka2cz7yQN8+3Jo1D9a
+	 biceWmdJGa6OfWkjM4E+IBTUSy8/Y+/nDPqaUcRjG2PxH4sPIY8iTbPRqPdHaa7dObA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="KjpTvGb/";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kdpO8OlD;
+	arc=none smtp.remote-ip=74.125.82.179
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AAD3606A321
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 02:35:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3CA3606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 02:35:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3CA3606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KjpTvGb/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1EFE1F0089F
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 02:35:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794364529;
-	bh=/TGkmkl5EXAQoGi2DbHL8eyxYqMYYgybSMdpzQ49ATc=;
-	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
-	b=KjpTvGb/4X9mKEH810dOhhaUHOo5iLr8WVxnxqmWYRpJuVVJU2ofYZVL93GJ5cgju
-	 saSlTXA5okLlbwFk3Vx248sug+H1celxydL/n8VJ3zCmI6R1kESsERdAVMYN6P9/cq
-	 im7CyIwzgDfu/3dZnhOlNWeBR6DVpOANkbo4m+ePKATjzCXWAgUTKachbkzbU/+OoL
-	 bOrf4m24aoleTvqhKcsuJRDPbarAzEIKLzm3bkPj3ljzAtlxdUz/fvkF2Qdl3Tikb4
-	 wHT23gf6FnFbm94HxmTH1LKmXDLJZvs0qMgaqrT6K+hY5Od4/rNrPoCp/NCo+/U/bZ
-	 YjnjAbs9w8euA==
-Received: by mail-lj1-f176.google.com with SMTP id 38308e7fff4ca-3ad0102edd4so23526681fa.1
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 18:35:29 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErGvr/GVbiww1psSMWrfjl23aREkOqmzyWpKL3ODhF5Wb8eN61Lp7QB/3nMsZ+1PQyOL33MExWBBlyM5Qb0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8jSvYckhgGGp9V1i7RDHA49mpMRNIdpt3k2JaRvAdhQTZLfTHP
-	TRD5RK1jpNZoJQUPKuWCYL7AuIDe0mBOyUFo9oftQEJbNHSpBHSQYwbtIiyCJ/pmUY/bLFLL2Es
-	yLi6HkoT691y0apGw184T1M2gIjY5WU4=
-X-Received: by 2002:a2e:bc03:0:b0:3a9:9a60:2c47 with SMTP id
- 38308e7fff4ca-3ae126ed0f1mr1190701fa.29.1794364528033; Tue, 10 Nov 2026
- 18:35:28 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kdpO8OlD
+Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-36fc0a3fe93so5373285eec.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 18:35:54 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794364554; x=1794969354; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6zeVpQQIPxzRW921jNzANvtYeiWb1Rf7rLm7zqTskZk=;
+        b=kdpO8OlDuqFGxJ6pYbm8Eaa90beQ0xoCFDd3zMa/4VEP+NaHxsAXkHAvgi28M/RDnF
+         RAMYOXkE952mBG90pGuP/RY8/psMI/ddWvyJAzpCX3fLPcN/Ogr7/MzO5OYCLiaKOkrq
+         pkr1abSKO9yLHD34ENOIJS668yBBCud4Ynmo0/7go9ggpgfrBYoAJWpevHj1NajYfiBV
+         Ve2p5Zt5IdMTPTypm8YgI1HO6FrmFSPyR7COQbjw1G5jr3bRVjril9MOilyETwxtzBy0
+         4KOEc+B3e0GTJiNasFdeX18tbLmKUu9CXgg6/olRgTsP+AJ8fDZvTFcocQOJuCv+EaNB
+         p9mA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794364554; x=1794969354;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6zeVpQQIPxzRW921jNzANvtYeiWb1Rf7rLm7zqTskZk=;
+        b=sGLbibe0++6+JcQznRQdtVCUSSxGeOjsJTUHm+h8zQ6HCa27BpIXuRDDBC9f3UjnCt
+         GbRZYfQBqBHZnDSVc3Val8ifrDDwk7Lir1XZm7HjKRDw5cQouzgkjGlH3rKawxdG7cAd
+         /hok5+UCtFg25E2onkS3BSvOGy4ZHDQSZY3MlZP6gpjORPEZBOgn7nWOaxgLxKTk1fy/
+         MCzZEqn9KKpRH1sLKuts0GPVCHDxQwAB0wsb0TDgj5tuNEEqANYaL5EYkyQ6bIjqDBDH
+         Labxb80j9Ikau+uJus+88bMdCXnbCEEXx/qnR4uiU2fAccEAbrWOp2Ggqga5FHTgZxNd
+         EGiQ==
+X-Forwarded-Encrypted: i=1; AL+hErGtEyCjstL5C+S9/ZloGUKvPQs+MMBkwWjKthkbruOHPkGqnYmoRhoL4oQUOp4UcnEBfHGN5v7KmDQjjPA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/xBfl45c2FoyrcnKCG7TVohOMhFAFmWLPXDcipZx+3WCNkF4AB
+	cdqQp7PGfhajuiN0ByrbqPf2Yz2PFjC25Me7GEV3b0bD8tB3jx8ZURK9
+X-Gm-Gg: AYBFou1Fazg4/h79SqXn8CmzI/B4bsIjFciDBhXpDp0UbSt63A5xwGcEM5l9XOlMXE/
+	9fRTMX6Y9ovmyAjKu7AL0DkkbIRZPcakJV6PtkFAW8+7/52Ly0FpSjP3u7rAaNNdwkp4+FtuHea
+	9k9CglrtUfYFVSOFxaO2TWw7ZL2oD7+6mtXKBIEO+U/2yrP/2vhn2d840l+HldGFThSwwZw5URZ
+	Gyq5viv863PCpKMleEInb/sa+Yo9D9QZ6mnDCqb5YbfsEyXXDZ2rddtSZoEaoF0QmAg8TYRSb41
+	WUPWFnbTs3FAP414P0M+OEKmICQip/B9+kVhOJQf5996trboUM36WzrRE7HKqPFwh43bVASrZSz
+	D9RK7t89Qg0f1C2B6K0tWbSutPQ9Z6Qez5S/scY7Y0w273KZ+VVNB6i1F5k+AkqqW6XJ0IYgwvy
+	ucecX7MqVQG6G+wiEGcIGNP5w5Pcc9b6ons53sNPBlwYce070eUnHlRzcijec/x1Q5mmbUAnmpg
+	mvvMnHBA9U7ABPA4Tqktsea+WpS2G1T7E3pwL+jztnwamqF1JNVJWypn49W7G7wHhfI5wzCyz6v
+	SoeTV2jtY7hUX5oEoPrn
+X-Received: by 2002:a05:7300:1486:b0:376:feb:2df3 with SMTP id 5a478bee46e88-376861801e9mr2280854eec.20.1794364553911;
+        Tue, 10 Nov 2026 18:35:53 -0800 (PST)
+Received: from a1-free ([161.33.196.121])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37520bfb58dsm20493219eec.18.2026.11.10.18.35.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 18:35:53 -0800 (PST)
+From: TAKANO Mitsuhiro <takano32@gmail.com>
+To: Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>
+Cc: Mark Rutland <mark.rutland@arm.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Namhyung Kim <namhyung@kernel.org>,
+	James Clark <james.clark@linaro.org>,
+	linux-doc@vger.kernel.org,
+	linux-perf-users@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	TAKANO Mitsuhiro <takano32@gmail.com>
+Subject: [PATCH v2] arm64: perf: Drop the example the userspace counter section points at
+Date: Wed, 11 Nov 2026 02:35:50 +0000
+Message-ID: <20261111023550.1971639-1-takano32@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261106234551.1474417-1-takano32@gmail.com>
+References: <20261106234551.1474417-1-takano32@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,85 +104,73 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261110-usb-port-pairing-v1-0-9307e29d2ed2@gmail.com> <20261110-usb-port-pairing-v1-1-9307e29d2ed2@gmail.com>
-In-Reply-To: <20261110-usb-port-pairing-v1-1-9307e29d2ed2@gmail.com>
-Reply-To: wens@kernel.org
-From: Chen-Yu Tsai <wens@kernel.org>
-Date: Wed, 11 Nov 2026 11:35:15 +0900
-X-Gmail-Original-Message-ID: <CAGb2v65goAuKgYu-849171FGeCxZ8Cq3GUxQLDLaHLbhRTMmqA@mail.gmail.com>
-X-Gm-Features: AclHuK9N0O7U9-W_pxCYXlT-RQ5jch4QkX4b2hO5JJ4vf-cajfPSp8p0sSn_nO4
-Message-ID: <CAGb2v65goAuKgYu-849171FGeCxZ8Cq3GUxQLDLaHLbhRTMmqA@mail.gmail.com>
-Subject: Re: [PATCH 1/4] dt-bindings: usb: generic-ehci: Allow describing the
- root hub ports
-To: aiyengar1990@gmail.com
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Heiko Stuebner <heiko@sntech.de>, Alan Stern <stern@rowland.harvard.edu>, linux-usb@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Tue, Nov 10, 2026 at 4:20=E2=80=AFPM Arun Iyengar via B4 Relay
-<devnull+aiyengar1990.gmail.com@kernel.org> wrote:
->
-> From: Arun Iyengar <aiyengar1990@gmail.com>
->
-> The USB 2.0 lines and the SuperSpeed lanes of a USB 3 connector don't
-> always reach the same host controller. On the Rockchip RK3588, the
-> SuperSpeed-only USB 3.0 host 2 (xHCI) is paired on the board with one
-> of the separate USB 2.0 hosts (EHCI/OHCI). Only the device tree knows
-> which EHCI root hub port shares a connector with which SuperSpeed port.
->
-> The USB core already reads a hub's OF graph, with one graph port per
-> downstream port, and uses it for the port connect type. Allow the same
-> "ports" node on EHCI controllers, so that a root hub port can be linked
-> to its usb-connector node.
->
-> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
-> ---
->  Documentation/devicetree/bindings/usb/generic-ehci.yaml | 13 +++++++++++=
-++
->  1 file changed, 13 insertions(+)
->
-> diff --git a/Documentation/devicetree/bindings/usb/generic-ehci.yaml b/Do=
-cumentation/devicetree/bindings/usb/generic-ehci.yaml
-> index 908b02d9175e..9dcba539d60d 100644
-> --- a/Documentation/devicetree/bindings/usb/generic-ehci.yaml
-> +++ b/Documentation/devicetree/bindings/usb/generic-ehci.yaml
-> @@ -160,6 +160,19 @@ properties:
->        - host
->        - otg
->
-> +  ports:
-> +    $ref: /schemas/graph.yaml#/properties/ports
-> +    description:
-> +      The root hub's downstream facing ports, linked to the connectors t=
-hey
-> +      are wired to. Needed when a connector's SuperSpeed lanes go to a
-> +      different host controller, which then pairs with the root hub port
-> +      through the connector.
-> +
-> +    patternProperties:
-> +      "^port@[1-9a-f][0-9a-f]*$":
-> +        $ref: /schemas/graph.yaml#/properties/port
-> +        description: Root hub port, numbered from 1.
-> +
+Documentation/arch/arm64/perf.rst points at
+tools/perf/arch/arm64/tests/user-events.c, in the text and in the link
+target, but the file does not exist: no file of that name is in
+tools/perf/arch/arm64/tests/, and no commit in the history leading to this
+base has added one.
 
-Would this patch covering all HCDs be better?
+The section already describes how to use the libperf helpers and points at
+tools/lib/perf/tests/test-evsel.c as the example, so the sentence that
+sends the reader elsewhere is redundant. Remove it and the link target
+rather than pointing at another test, and move the instruction for running
+the example into the How-to section, next to the reference it belongs to.
 
-https://lore.kernel.org/all/20261014082037.1774672-2-wenst@chromium.org/
+v1 pointed the reference at tools/perf/tests/mmap-basic.c. The review said
+that file is a confusing example and that the section above already covers
+the how-to, which is what this version does.
 
-Also see Rob's comment about covering the port numbers.
+Signed-off-by: TAKANO Mitsuhiro <takano32@gmail.com>
+---
+ Documentation/arch/arm64/perf.rst | 17 ++++++-----------
+ 1 file changed, 6 insertions(+), 11 deletions(-)
 
-ChenYu
+diff --git a/Documentation/arch/arm64/perf.rst b/Documentation/arch/arm64/perf.rst
+index 997fd716b82f..5b9cc2aeb642 100644
+--- a/Documentation/arch/arm64/perf.rst
++++ b/Documentation/arch/arm64/perf.rst
+@@ -131,7 +131,12 @@ changed.
+ 
+ The userspace access is supported in libperf using the perf_evsel__mmap()
+ and perf_evsel__read() functions. See `tools/lib/perf/tests/test-evsel.c`_ for
+-an example.
++an example, which can be built and run from the source tree:
++
++.. code-block:: sh
++
++  make -C tools/lib/perf make-tests
++  tools/lib/perf/tests-static
+ 
+ About heterogeneous systems
+ ---------------------------
+@@ -140,14 +145,6 @@ only be enabled when the tasks are pinned to a homogeneous subset of cores and
+ the corresponding PMU instance is opened by specifying the 'type' attribute.
+ The use of generic event types is not supported in this case.
+ 
+-Have a look at `tools/perf/arch/arm64/tests/user-events.c`_ for an example. It
+-can be run using the perf tool to check that the access to the registers works
+-correctly from userspace:
+-
+-.. code-block:: sh
+-
+-  perf test -v user
+-
+ About chained events and counter sizes
+ --------------------------------------
+ The user can request either a 32-bit (config1:0 == 0) or 64-bit (config1:0 == 1)
+@@ -160,8 +157,6 @@ userspace must treat the upper 32-bits read from the counter as UNKNOWN. The
+ and should be used to mask the upper bits as needed.
+ 
+ .. Links
+-.. _tools/perf/arch/arm64/tests/user-events.c:
+-   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/tools/perf/arch/arm64/tests/user-events.c
+ .. _tools/lib/perf/tests/test-evsel.c:
+    https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/tools/lib/perf/tests/test-evsel.c
+ 
 
->  required:
->    - compatible
->    - reg
->
-> --
-> 2.55.0
->
->
->
+base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
+-- 
+2.53.0
+
