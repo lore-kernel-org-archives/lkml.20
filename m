@@ -1,127 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794400048;
-	b=zAulZQChzojUkCQpXHw8JsufyyHKDJl2wYXjbIHzvMuZH8mZM3aRuU21giPBBn4MSWRh
-	 y77nOrLW+/w/NGkMKYwsLCr3v6mUtK0WDKPnx7qXzt2H+ZBQojhPpB+wgt1o00i6FfH35
-	 8SLyzGQR9msN+MdqBm2U9HFejXmL0wLxZ31MMsJ1dGkKJZ+nhkfZiZgapPNzjfpxTe/Pz
-	 gpsjQB+2GFV8L1HlZeH7p50PaioRZTwnOysjhnqXg0vZlJvaT6Yj1jzC5efOIFFw8z2Gd
-	 QmhF/6yiuJfoilfCzVa11JS/Xiu6jxjCQU1Fiz+cpoHMYQJLunzORwzXp/CzLHSGvkw==
+	t=1794400081;
+	b=lYpYGTSuSVvrzqB19xszkzkxIBYCRZa5PfCKqSG+G+ELZofzK6WOcPyPU0CfOSVMW498
+	 74n/Hs9CrI0Cv8PUWwPtfrZgSfETEA7v06WuhlDDr4O2GAr72EApoYXlp+C3maN0iVqUW
+	 HDxhizch0oc2ljn4LohmEhk50NMDuQbqnvXj402WO+wrqIRoDxCis+JfP+DQaT1xoyN9H
+	 aywciipDj1HaS/UyvJnVIHTENhEe7TiDV7MmmZQHAOdBLLYh7DIfpZZZFul/neSq5DhHc
+	 gIQLn4PBpdf7cAcO743MF4+c1fpwzzI1PdtHF9rhSUkIdqHqTwMd9z6DNWWCxaQGOng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794400048;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=svc0vgDYFwBl6hVKJjHTfBuPN1VEmv+TcUmZfTB8SLw=;
-	b=vPtXllOpRfKm96MHWCpbO6gMQm5Pqc5QaTLG8wGqEWeLVz9e4mPJLtlsXp6P49mGzBVN
-	 UOnD6UK429/YkHxrzsFM49AYPT4hrS+0uwMikr9G4DDmhyk6VuVycQrRuyBaM/h1Epi0i
-	 rNIkkVbeUO8oe9BJrsam7b5sEdeuoR12+cEKMOoXDTh20rWTp4iYkE6PY8qFCY9pmOxnD
-	 kU+OlQW9uWGD4lqMPwLfpZg93J8/FMMbON4mtcgmekmGSMg9FV93xdbVWz902KEpaUtMo
-	 82Yja+33dw+oKyrfTCbP7/RA6jCjf0Pxj7v0/nKwmSVA+8k/m/bjwMsZqqu04i/G0fA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794400081;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=47lVK3cOyaNIyjPMt8H8DbVBV5H9SqcaWOsJ4QNlPsY=;
+	b=g23smWZK+BOLTNvLoiBVKODFdYr24HAswE582Ha2Soqk4c5T84G7v33pe/vFlUPwZ4x+
+	 bOT0J+3ouJhsfJy1WlZZzkOLA23ayjgzm2t48nRCuRDLETMxSt319dy9o3gjbFfCuEXTK
+	 al/MDyJT2MqLdBZxEFxHtcns4/+awZfdsVVO2CAXsXMwlzvjxMqyppmGsQNhb4YVUO9Ak
+	 SiH177gpkhSarwoquBMUXNj5wqKFV1J9azhVApLOs5Tuz6pvk4S4f2+Gz6Dlm38Y5JCTK
+	 Mts2eKgN+I+3RARBps6FcF1DiHw1JQEdwE+4DTSzgjuUN2lhzZG6UtdVkkiMD/Fd17g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=oLJJPizK;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=JRMEQPkP;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m1SjANHJ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AD02606A324
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 12:27:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6AD02606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E242606A31C;
+	Wed, 11 Nov 2026 12:28:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=oLJJPizK;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=JRMEQPkP
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ABCPNrd1338899
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 12:27:27 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=svc0vgDYFwBl6hVKJjHTfBuP
-	N1VEmv+TcUmZfTB8SLw=; b=oLJJPizKWuoveTH+O48KXBTXUn6nPwdC+PcZb6af
-	2MIm/MSSCiV2Z7cQVVFtunwvcEdr6K/hzA20MNrH2YIWYrIWOpLfNOW1faslZqtY
-	sPg1xVZG+xjHPpoyJfG3/XkoPaKP2vhMXLY1VJyYB2aOlpKqCN/oC3c9+6J24r7K
-	c4QTWMLg9jEHmRw14dAxUj0iawoTcFsrkHcd5FBApgLe8BeKs/mHzKfDpuWNJ299
-	+cfCvBgXLMArH0BywroWC00xK7ybV4NkZZZ8ZrFOX0OSF+w5tSJv9wJ+p1ZZUs+l
-	D4mYtrUIbLH8O593Nv+wEjGGvb+4bHuawmH6RRFZCJo3UQ==
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvk7ps7vy-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 12:27:27 +0000 (GMT)
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-36fa5673fccso1677680eec.1
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 04:27:27 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794400047; x=1795004847; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=svc0vgDYFwBl6hVKJjHTfBuPN1VEmv+TcUmZfTB8SLw=;
-        b=JRMEQPkPTfTog7fWMXYVgDVHQxqR4RXPnYOLwDR2FDnPIOEYyfSS6ixuDsBj1wWHGL
-         rudH9KQ+YUlGLh2n45voJ8T6gl43svmXHqJ/s+so8tg7/sMCaFsBoe/NxuXhlfo3niDU
-         dHgZyeJa3hgCM7RtbXAlW8kFeVX/iD7WdBKdGbvyRYCRi/Ggh5jI/jO4FjI+sMMQkNLp
-         HTupJcS7Q/RdLCMPK2iNE11VWydiQHJl5dmo7oORbshLHYNtpvhDj8Ql3vHjRJ+6r6sV
-         L7WLyygbP5MFVIi3DgVNs6Eqpxuq6F+kEhL9UtTqUwU4GP/FIipngZ+l9H3vP9gRSFT4
-         VdPA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794400047; x=1795004847;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=svc0vgDYFwBl6hVKJjHTfBuPN1VEmv+TcUmZfTB8SLw=;
-        b=ueBx7KJ7YaUDGLkoCiqDWLoMSBozOi0qVzx1/DMX7QgLbrsgoFLnZR8uIrPRYW1aHp
-         Twh4Ee7VTj4dwxF43N7Tm0UlRYhTpaO/L+XCHvYInQIsLzedFEE7hhaZryqsCewFiXsA
-         IfNnmUlScheSvBgzfObPrAdxjnSVVWQ3D8ySfeIbEwIVhmURD9l08TZ8jffd/4VKdEwA
-         q8ZgTUMo9hFAsm7Niho0hNzPSUAV2678Nd0qXm4GsNlx6a7iy05GYaPwHeJxbEYQcl1X
-         ++DTAnv7kYXPii/KP3TQEjfCuaHkAEHjL0oUuxLSastVpC/XkXEVUPPF1gkmM/pf3lWV
-         dFwA==
-X-Forwarded-Encrypted: i=1; AL+hErEnpxyt1FxVg/0WPfmvXXZ8XX8pbv756WU1r31fTiZkYQLQEFh6uE8kTNxBns7ajvoHSOthdYDG8IRQvnc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9twFA9mooAahOqbF6KSnBe30rj+qHg/NGxdkys/TNPMFWaEJl3
-	8KLwsyaPXbWgtjLkOSPYvHPp1WuUIqY0/NZxRgBAovIaCX4SHr2xnR5N9zwDXP4jmtkO678kk/n
-	zPq4bwFkZ2LcLmL03pjS47aY9jPZFUqWcOu9FR5b6AlO6VSfpECv2Qw9guom9nFbpobU=
-X-Gm-Gg: AYBFou0n/StGXe01XpZ5zk9d6vKaTaejB8uYOhXRnn03PXDj2zl4oNiIbu+mqsDThq7
-	TeV48txi6U9IpfXcZjIQJcV5VFJrgdSFLt5tf8JlNnzNhVqrIsoQtfREhCqtk85wjBukLURTbtO
-	DN9BtjU66fShrdHiJAbu1j7xQJGLhpnhqDFwRD3n10z4h9FmJ2g3vU3YKPOjbwSU0rvpO5N5zix
-	ozleNQbCcEVxdmSTDDba72N8DvcduREUjxMyiNOoM6aTNB9F9ElZliOyJC0dAXRYZQfPx7/xQj+
-	ruqUWlTWycnMOX6W0sXTwalbLivCTwo9NDRm+qB4TWcs2X7z9AO6XMtc58D2xmYUA/AdAEACHhM
-	if+1lm1IIBT+8KG7OWbxvhwX4UEPknWazVSApEu0F/D2XscNhUZJecCfN8SUe5I6vw4R/RyTq5X
-	qv6XbgfadkiP6E4lDy/ardosHucnspyvBuqGyDIGyNFivaMz9ZHbp6ut7oAvNyO0jQ
-X-Received: by 2002:a05:693c:41da:20b0:36a:79e7:2fd with SMTP id 5a478bee46e88-3768721410bmr2952378eec.40.1794400046640;
-        Wed, 11 Nov 2026 04:27:26 -0800 (PST)
-X-Received: by 2002:a05:693c:41da:20b0:36a:79e7:2fd with SMTP id 5a478bee46e88-3768721410bmr2952343eec.40.1794400045893;
-        Wed, 11 Nov 2026 04:27:25 -0800 (PST)
-Received: from hu-anancv-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3766146551asm7902709eec.1.2026.11.11.04.27.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 04:27:25 -0800 (PST)
-Date: Wed, 11 Nov 2026 17:57:19 +0530
-From: Ananthu C V <ananthu.cv@oss.qualcomm.com>
-To: Dietmar Eggemann <dietmar.eggemann@arm.com>
-Cc: Vincent Guittot <vincent.guittot@linaro.org>,
-        Sudeep Holla <sudeep.holla@kernel.org>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        "Rafael J. Wysocki" <rafael@kernel.org>,
-        Danilo Krummrich <dakr@kernel.org>,
-        Viresh Kumar <viresh.kumar@linaro.org>,
-        Jie Zhan <zhanjie9@hisilicon.com>,
-        Pierre Gondois <pierre.gondois@arm.com>, linux-kernel@vger.kernel.org,
-        driver-core@lists.linux.dev, linux-pm@vger.kernel.org,
-        "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
-        Oleg Keri <okerixx@gmail.com>
-Subject: Re: [PATCH v3 2/2] cpufreq: fix policy max not returning to
- non-boost freq on boost disable
-Message-ID: <avRfJ8ikcDJsfrqO@hu-anancv-blr.qualcomm.com>
-References: <20260929-schedutil-boost-frequency-handling-v3-0-68de169498c7@oss.qualcomm.com>
- <20260929-schedutil-boost-frequency-handling-v3-2-68de169498c7@oss.qualcomm.com>
- <33d9cbb5-d4fb-4f16-b63e-5ae89051952a@arm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m1SjANHJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA3CC1F00A05;
+	Wed, 11 Nov 2026 12:27:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794400080;
+	bh=47lVK3cOyaNIyjPMt8H8DbVBV5H9SqcaWOsJ4QNlPsY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=m1SjANHJ+Mi0oTsBGnxlg+2Ju1lu+wi4uIGVlaj1AE6czkPKkPgH0Qw8GWoTSmK5/
+	 EJ24qp/39mVkPX2kxa/5u0xlDAWUZ4teFxX/BhT5Y67VvkTjwUQ5MBzLMUdNXoQHty
+	 yjLB9lMTLQpqvBiK22zy8FuBoRhl+Efkbfrl5KYqaYUf/mp3e9i3QHjm/b2sgBfAef
+	 2lybkqHwVj34L9dRmib3HUbxkThkoH2lyeq1IFfZ4REjUcFp+HcSFBKNBA0A668db0
+	 gxh80Fw7BcAo/lLMJVXwVPCY2ohzXlW6dCbay/xl13qWd6Cz/C7TSltq6XnAf+6zDX
+	 ZBrwmTtoihG8g==
+Date: Wed, 11 Nov 2026 13:27:56 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: christian.koever-draxl@student.uibk.ac.at
+Cc: gregkh@linuxfoundation.org, robh@kernel.org, krzk+dt@kernel.org, 
+	conor+dt@kernel.org, neil.armstrong@linaro.org, khilman@baylibre.com, 
+	jbrunet@baylibre.com, martin.blumenstingl@googlemail.com, linux-usb@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	Christian Stefan =?utf-8?B?S8O2dsOpci1EcmF4bA==?= <ckoever@outlook.de>
+Subject: Re: [PATCH] dt-bindings: usb: amlogic,meson-g12a-usb-ctrl: add S4
+ support
+Message-ID: <20261111-beryl-fossa-of-excitement-eff7eb@quoll>
+References: <20261106104632.54161-1-christian.koever-draxl@student.uibk.ac.at>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -131,107 +62,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <33d9cbb5-d4fb-4f16-b63e-5ae89051952a@arm.com>
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDA0OSBTYWx0ZWRfXyDP3loWYXjNp
- fvvCUhWg7WH0cD+JtpzAqROx16y3qVSXjVEQGq9VKfElum7S8K6v87GWgOEgC4ncNjrtqecqOBK
- e13QWtmUythveQeu08FGchCwsk/uJ44=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDA0OSBTYWx0ZWRfX0vmbGseLzYvo
- Jrj9MTTTuEKoH58QdrcQ0lYQD7cYZyHDuZkEyI43cl0z39r0ocUu/NhHp9rK4m+H7UHC1pRhJ6b
- tpsNesli83MSCL9cvKRni48BSZ9fVJ0v0xp5pZmDMMVP4UUpNlRRH9YLdu4nY1WMp+bJ8RomGrb
- ikE9dzU0Xu5SHz0KgXehN7Cs9dN+0T/I4qX0y8MYbZgRhqd8N2mZfDzoRuMdeYaXxS73Rjkezgm
- CN7kElfiE5YWe9r4cA2NbqSA2GNnTN6/3J7+4Yy3BWmvI3UVBDyGdoXKRwk6AN56AarZr7dcES3
- aHXDXml1efW20RVdvtu6ydC8d0EwIoi02Tn9Y5NYXRP1+o40KgtdFQayhl3yxaV5Q0CUL7UhyS1
- 8aSj8E7jhbLSfEHRHd6fIQ7cYUUvdW0uTciCh7GS7AR7/RucRj55XLYIyY6jrKtzlZ2f5XZsKBz
- ZPK3/CwzuUrQv3l8wqg==
-X-Proofpoint-GUID: CZRAY1o3WlO2hRS_WYgTFnBWOfd4ULn7
-X-Proofpoint-ORIG-GUID: CZRAY1o3WlO2hRS_WYgTFnBWOfd4ULn7
-X-Authority-Analysis: v=2.4 cv=BpcIUoX5 c=1 sm=1 tr=0 ts=6af45f2f cx=c_pps
- a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=EUspDBNiAAAA:8 a=z0i6psv0inyxDjA-2G0A:9 a=CjuIK1q_8ugA:10
- a=6Ab_bkdmUrQuMsNx7PHu:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-11_02,2026-11-11_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 clxscore=1015 spamscore=0 lowpriorityscore=0 adultscore=0
- priorityscore=1501 phishscore=0 malwarescore=0 suspectscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611110049
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20261106104632.54161-1-christian.koever-draxl@student.uibk.ac.at>
 
-Hi Dietmar,
+On Fri, Nov 06, 2026 at 11:46:32AM +0100, christian.koever-draxl@student.ui=
+bk.ac.at wrote:
+> From: Christian Stefan K=C3=B6v=C3=A9r-Draxl <ckoever@outlook.de>
+>=20
+> The S4 USB glue is the G12A one, but it fronts an xHCI host controller
+> instead of a DWC3 core, with two USB2 PHYs and no USB3 PHY. Add an S4
+> compatible with the G12A one as fallback, and allow a generic xHCI
+> child node.
+>=20
+> Signed-off-by: Christian Stefan K=C3=B6v=C3=A9r-Draxl <ckoever@outlook.de>
+> ---
 
-On Mon, Oct 12, 2026 at 01:42:39AM +0200, Dietmar Eggemann wrote:
-> On 29.09.26 13:38, Ananthu C V wrote:
-> > Commit 538b0188da46 ("cpufreq: ACPI: Set cpuinfo.max_freq directly if
-> > max boost is known") introduced a guard for cpuinfo max updates to only
-> > increase, to preserve driver-set values above the freq table maximum.
-> > Later commit db80ad776cd2 ("cpufreq: Remove driver default policy->min/max
-> > init") dropped the 'policy->max = max_freq' assignment from
-> > cpufreq_frequency_table_cpuinfo, leaving that one-way-guard to be the only
-> > path for cpuinfo max and consequently policy max to be updated, causing
-> > both values to be stuck at boost frequency even when boost is disabled.
-> > 
-> > Unconditionally track the highest non-boost frequency (max_base_freq)
-> > in the freq table. If boost frequencies are available, use the highest
-> > frequency from the table/max_base_freq instead of cpuinfo->max_freq to
-> > control boost values, so the value can decrease again when boost is
-> > disabled.
-> > 
-> > Fixes: db80ad776cd2 ("cpufreq: Remove driver default policy->min/max init")
-> > Signed-off-by: Ananthu C V <ananthu.cv@oss.qualcomm.com>
-> > ---
-> >  drivers/cpufreq/cpufreq.c    | 16 +++++++++++++++-
-> >  drivers/cpufreq/freq_table.c |  9 ++++++++-
-> >  include/linux/cpufreq.h      |  3 +++
-> >  3 files changed, 26 insertions(+), 2 deletions(-)
-> > 
-> > diff --git a/drivers/cpufreq/cpufreq.c b/drivers/cpufreq/cpufreq.c
-> > index 96515880b4ac..5e6afb6f8826 100644
-> > --- a/drivers/cpufreq/cpufreq.c
-> > +++ b/drivers/cpufreq/cpufreq.c
-> > @@ -574,6 +574,8 @@ static ssize_t show_local_boost(struct cpufreq_policy *policy, char *buf)
-> >  
-> >  static int policy_set_boost(struct cpufreq_policy *policy, bool enable)
-> >  {
-> > +	unsigned int max_freq;
-> > +	unsigned int max_table_freq;
-> >  	int ret;
-> >  
-> >  	if (policy->boost_enabled == enable)
-> > @@ -587,7 +589,19 @@ static int policy_set_boost(struct cpufreq_policy *policy, bool enable)
-> >  		return ret;
-> >  	}
-> >  
-> > -	ret = freq_qos_update_request(&policy->boost_freq_req, policy->cpuinfo.max_freq);
-> > +	max_table_freq = cpufreq_frequency_table_max(policy);
-> > +
-> > +	if (policy_has_boost_freq(policy)) {
-> > +		max_freq = enable ? max_table_freq : policy->cpuinfo.max_base_freq;
-> > +
-> > +		if (!max_freq)
-> > +			/* when the freq table contains only boost frequencies */
-> > +			max_freq = max_table_freq;
-> > +	} else {
-> > +		max_freq = policy->cpuinfo.max_freq;
-> > +	}
-> > +
-> > +	ret = freq_qos_update_request(&policy->boost_freq_req, max_freq);
-> 
-> This looks pretty convoluted. You have to find the correct freq argument
-> for freq_qos_update_request() for freq_table drivers but work around
-> this for e.g. the CPPC driver.
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-We do need quite a bit of wrangling to account for every case, which is why I
-didn't like the idea of having to deal with all of this in core to begin with.
-My initial idea (revision 1) was to simply drop the one way guard from core
-and have the drivers deal with it in some way, but we wanted to keep it,
-I suppose. I am open for suggestions, but my guess is that if we have to keep
-implementing these fixes in core itself, it will be convoluted in one way or
-other.
+Best regards,
+Krzysztof
 
-Best,
-Ananthu
