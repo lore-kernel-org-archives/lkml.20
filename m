@@ -1,84 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.42.203.116
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794405889;
-	b=5S047bkwc62+THx8hNwZfGESvC5VCZGC/mbodRVmjb1fb+KQe14SaEAlRmmpOSG+/vlp
-	 eINM7HepP/pWybq3L9dk/KXKGRNVy9cozihBHylGOzNpWYc24gParmi8ALyc03j2yWTxl
-	 5aLaz+Nr7AvRHP2IlZIeXV7E1o6NomQLp4Yj8f14qBNN4cRXns5s5FTEre0x3cVq5P+QQ
-	 cEdE2HsVPimU46XtCvykKip3kAA0uwhoe1lyrIlxx4EvbTHDK6sw47LWBNm2Xti7x85fS
-	 29HLEuRHBbD9Y+aLDPEaqz+lbo/7WQj3FhUqt6d+xsKkOPxnHTHe3MK2TEeNFA8C1tg==
+	t=1794405904;
+	b=vEXG3Y22hJFfEhMytITyDKHseZuj7OJhLwf7sbHF1CDHGeJOixwk1W7S1lbeRGcKma+N
+	 /6uRnIK+2uSkK1rFR0CDjoAjKM8ZCGLcwpv2sT7yGG1Rkf85J6gJwgJdTc9dP9RpR6ebK
+	 JuUs22vN2NWVIPXCPgTyvhjJmICGyFrZLxKNY4VTtx4ERACAAMa+ofU8QiAdOBS09P5VG
+	 OrjOzY7Zc/ybH9d822Q4oj4qd1EAU5NSMs/XRV3OAo+wPGcW0AHan1JtNeI8mzVYTApFw
+	 MQkw2bIANKr7xrRMA7/gYMSIftZ8wvPR3UmdMVPbJG0pHD2bhigiqsEHDp1bxW0S3Eg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794405889;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=ajXEYqjwM+nCEIVJkZ6WILdonbk+OIty74QS6bYQ+DU=;
-	b=ORsVwqKEFMgiSmKpBAuGCd0Y3uzkAgnKif/gvf2Vqv/a8b6DvcHiMF+NX5vABI3ho/TW
-	 2PhoETLT34jSuT4Jvm6mE6edMFFqRAVu+9MDQlG2kJE6/rCW/iZWTFKf5hzqMUVuUM4gs
-	 4SWzrcvttxJYPRfcjTB1DRmJDCqzfstca93hVQt6E4SKNEX9ek7sS/VkCxHZrTJYq2nVI
-	 ZXhuUGgdBHa0uc7qXAIIpdbxP2o1og6wmP+QzlTktIJX/fASTUpkEJHtxwgHOp1kSFhd6
-	 oGxz+sxzazOvEjUE7+Cc9c4jVHqvot760kN193fXRiRnI/GiZK2D5GDLUVkwnPsjg7w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794405904;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
+	 In-Reply-To;
+	bh=/2TL98f8PghA+Pe3iD4T1awywNMH5AS+0iuSUCcKU2I=;
+	b=xT4YGmffasl88SXkKx9qm3IG7GvjVWdb+GRswXJFTaw9kuD2+91+mHkmk+VnkS1BtQ/b
+	 mcqd1/8fOqLQMrVpfePPwWdsEmn4PZx5d1IrBZwfRA5XPhvpqZ5wa5hk72/FYvw4sO8oW
+	 N877QXHF3wVXsNZf09pKIAAO/W3ClqxvlEsdf4FkZIFcLBNzGb33BvuAySods4gWhxG8O
+	 H/QQvla6E1GyZ/Yg1BzhDR+MLdWQhx5NvCDe9hIrDc+brbJ8OKNgeYNoEz8wTgi95n+fD
+	 06LbTqjSdOssFv4KAPXONY0urE60KUuUquhDmIdJvDt5tdGowgbl+sD8+AexmGIck9g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amazon.com;
-	spf=pass smtp.mailfrom=amazon.de;
-	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b="X/rDSNse";
-	arc=none smtp.remote-ip=52.42.203.116
-Received: from pdx-out-008.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-008.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.42.203.116])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lkXjTjV3;
+	arc=none smtp.remote-ip=74.125.82.176
+Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29C2E606A32E;
-	Wed, 11 Nov 2026 14:04:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29C2E606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C83E5606A326
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 14:05:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C83E5606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=X/rDSNse
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lkXjTjV3
+Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-3282db206d3so3170111eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 06:05:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1794405889; x=1825941889;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=ajXEYqjwM+nCEIVJkZ6WILdonbk+OIty74QS6bYQ+DU=;
-  b=X/rDSNseJUL5D1mDWpguwOaxmfSRzzZk5u1qHIXQ8ci8qitdNyXR3xxs
-   blkKgqRul4vyMVPqeODvgGxiwjlWmM41xFnedjc6LJNXSWy/aaANbrUwX
-   GLIN+rOREBy+usQ6SEsBF7sIihP4nNJghbHL9/npKgHw08VaAhViJSi7b
-   kiNNpeuZCMiSgrbyXYtDIt0dnzolQvjRQv8Uaa1qgveSKbWRP+ELio2dv
-   SuSCxDR7PeSKgmk+D0/Z2W3ruNrSPQU2OYS6WGENinxO3WM43r341R1hu
-   h/CjebbxH5t3ePUuWkwe+mQrkgODC9ODRvje5jOCRGTUhlE99p44iDwCN
-   w==;
-X-CSE-ConnectionGUID: mp+qsCQeQSa3lZBPareIIw==
-X-CSE-MsgGUID: OV2cOm+zQAGswQmM5sZIqw==
-X-IronPort-AV: E=Sophos;i="6.27,207,1787011200"; 
-   d="scan'208";a="33751363"
-Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
-  by internal-pdx-out-008.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 14:04:45 +0000
-Received: from EX19MTAUWB001.ant.amazon.com [205.251.233.104:17225]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.31.142:2525] with esmtp (Farcaster)
- id 5ffd8552-4597-40d9-9dd4-121f17a20803; Wed, 11 Nov 2026 14:04:45 +0000 (UTC)
-X-Farcaster-Flow-ID: 5ffd8552-4597-40d9-9dd4-121f17a20803
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWB001.ant.amazon.com (10.250.64.248) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Wed, 11 Nov 2026 14:04:44 +0000
-Received: from ip-10-253-83-51.amazon.com (172.19.99.218) by
- EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Wed, 11 Nov 2026 14:04:42 +0000
-From: Alexander Graf <graf@amazon.com>
-To: <linux-kernel@vger.kernel.org>, Marek Szyprowski
-	<m.szyprowski@samsung.com>
-CC: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>, Robin Murphy <robin.murphy@arm.com>,
-	<linux-doc@vger.kernel.org>, <iommu@lists.linux.dev>, Andrew Morton
-	<akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, "Mike
- Rapoport" <rppt@kernel.org>, <nh-open-source@amazon.com>,
-	<linux-mm@kvack.org>, The AWS Nitro Enclaves Team
-	<aws-nitro-enclaves-devel@amazon.com>
-Subject: [PATCH] dma-contiguous: support percentage sizes in cma_pernuma= and numa_cma=
-Date: Wed, 11 Nov 2026 14:04:40 +0000
-Message-ID: <20261111140440.43024-1-graf@amazon.com>
-X-Mailer: git-send-email 2.47.1
+        d=gmail.com; s=20260707; t=1794405903; x=1795010703; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/2TL98f8PghA+Pe3iD4T1awywNMH5AS+0iuSUCcKU2I=;
+        b=lkXjTjV3UgTWiWpT2DEeM3Kq4oY1qH5YYmhP9vK9ercB+vkMouyO/ic7yPk8cP83kC
+         aCL1yLtyK0YpmTSRKjq419TvpeLpdGWfuc66X2vU9yLwTStpMqEukhtz0Df8m3VKcYQr
+         QsL8JFU/BGYdcuIg7Qg3zJeGj3CTxP4RZwbx3nGC/leGgceB6oVPATWHfnrdZYavApYD
+         4SFfBY8pLElH7ymNDIPgkHCfJ6L/6QIemD/ziYi0X+rzaedYDTItDgwnEJ+GVKyyKq4S
+         F4m/GxE7lRHM6ZbE6R+Hlj601Gc3xNyeyEZC2tkeCk8Eo/CXf3aoxwNxykOERdH71v2s
+         XBIw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794405903; x=1795010703;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=/2TL98f8PghA+Pe3iD4T1awywNMH5AS+0iuSUCcKU2I=;
+        b=Dv7S0gsIpCmxt3UwpWq5URzOlRpEoAtvTZoB7xy5MjlCuf5bd1Uj6RuhdX/Ju9tbzf
+         nTTQlUUqEzqTCTiC06/A02dXYWM/10sqHGanjvzO+ImM+mmYJKiHIcfcC6T5JSGoStzR
+         VWphjf8lHZRLpbcjeL4hX2+gFxrBQlk8O0PW3bd5keAB7t+NEAzaHJMmxlwk+a15UWWK
+         vf7vIbYvDgkShko97Ffs5RQKCPNgOL7LmcSd957T1ERRFh86SxsYOVVjUCCb4mHAaA95
+         WLZEpZV5EbtmcD4z0fHvj4wg2mUhao7CXtLUtDkZmvBqKYzu/0P/tS2DPF19CPSpMMER
+         4FDQ==
+X-Forwarded-Encrypted: i=1; AL+hErH7HeIHJZ+QWI02yp5JtlGdy8jiN5Kw6tZR2StvUv5vks4A5xwelB4UYg3bZg0PjbhgCs5SJY2IAoiDwlc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+V4Gk2yGeFymwMkUVr0Hth+KiD0KRbXj5I4d+U9jQNyJQHHkOM
+	agMdduFDxMyVREdcKwDSiqkwYgpKt7FFYslsTbxhOKVKAavK3IhmxjBH
+X-Gm-Gg: AYBFou3nQIP+3GEn+QENbA3a7rK0s2HmbISBpafT1QpAtltTnj8IwOZIYnpKTxCpjx+
+	F9fQYgpha8DRSE/mA+ZaylI7/W9DGEwYn0Q7Hr+hGquASRCiyObhJrFw9bEiofy3yOAIrrbt/9K
+	Wla3hZaCuHmWUmK7ttJrLueqimFiu8zdgflxFhgtXAsEHAGODNCddKUIOATqjlnf9tx4oaOn1Ib
+	OmJjW9cA6RgOdXEiyE1E4wvcOePRvJQ4gutFo8fVLLtjbzRZFF512ueaYmKeUUbunTzS9GMHzed
+	oczJfRpBkj0jCAjorI8/alFz66EyDtF4qT3fIfxARtRAnXLggyKznrbiEGk6YjU+M29VxZZMt+t
+	qF3w0d1PMgyy70EywM2UKk/2M8YFQyf2JxhtTPswu9gzBaWOjwaJLPayUA1D5uht8HX/SNnwa6U
+	B3w1Jk4daTi4fizIZGwEAnyxUgr+16NhxAGd8eBD8cH2p1OscnUaHBHO5ieQsl79opa7cp85SRe
+	Js0GEr6Dwggz+FWPHqRKrDJ4KKIsJjIwOUFwNCMZ1LlMJm1SYQUT81+0o/JtNIzPO5cGiPEHySz
+	bYFz0jFyOi9ZyAgQ04TdhGLs3uE=
+X-Received: by 2002:a05:7300:f28a:b0:36e:a11a:b2f1 with SMTP id 5a478bee46e88-37686464a66mr3277755eec.30.1794405902642;
+        Wed, 11 Nov 2026 06:05:02 -0800 (PST)
+Received: from localhost ([154.21.93.22])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37520608b52sm14716222eec.13.2026.11.11.06.05.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 06:05:00 -0800 (PST)
+Date: Wed, 11 Nov 2026 22:04:57 +0800
+From: Yao Yuan <yaoyuan0329os@gmail.com>
+To: Jingle Wu =?utf-8?B?5ZCz6YeR5ZyL?= <jingle.wu@emc.com.tw>
+Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+	Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>, Vishnu Sankar <vishnuocv@gmail.com>, 
+	"linux-input@vger.kernel.org" <linux-input@vger.kernel.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+	Phoenix Huang =?utf-8?B?6buD5LiW6bWs?= <phoenix@emc.com.tw>, Stanley Chen =?utf-8?B?6Zmz5bu657at?= <stanley.chen@emc.com.tw>
+Subject: Re: [PATCH 1/1] Input: trackpoint - Add new ELAN trackpoint device
+ variant id 7
+Message-ID: <avRttU9N0EZeq8nY@sapienza>
+References: <20261102130836.11863-1-yaoyuan0329os@gmail.com>
+ <20261102130836.11863-2-yaoyuan0329os@gmail.com>
+ <avKBsi-E7IeUgsSY@google.com>
+ <TY0PR0101MB4786C8CF42ED66617BD9DA1EDC722@TY0PR0101MB4786.apcprd01.prod.exchangelabs.com>
+ <avMcB0q7wF9oP5X8@sapienza>
+ <PUZPR01MB477458CD012208A31DE60068DC712@PUZPR01MB4774.apcprd01.prod.exchangelabs.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,361 +105,130 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D031UWC004.ant.amazon.com (10.13.139.246) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
+In-Reply-To: <PUZPR01MB477458CD012208A31DE60068DC712@PUZPR01MB4774.apcprd01.prod.exchangelabs.com>
 
-While CMA_SIZE_PERCENTAGE supports percentages for built-in defaults, the
-CMA allocation kernel parameters currently only take a fixed size argument.
-That makes it difficult to have a single system image that sizes its CMA
-allocation based on the available memory. To use CMA as backing pool for
-large, physically contiguous guest memory, I want to be able to say
-"allocate 90% of system RAM minus 1 GiB for CMA". Per NUMA node.
+On Wed, Nov 11, 2026 at 05:26:36AM +0000, Jingle Wu 吳金國 wrote:
+> Hi Yao:
+>
+> Could you help verify whether the color of the TrackPoint stick underneath the red cap can be used to identify the vendor?
+>
+> White: ELAN
+> Other colors: Other vendors
 
-Extend the CMA parser logic to accept command line options like this:
+Hi Wu,
 
-  cma_pernuma=80%, numa_cma=0:95%-1G,1:4G
+The thin stick under the red cap is black.
 
-To avoid incomplete allocations on parsing errors, check for them
-before actually allocating.
+Also I visited the lenovo's supporting website, there's only
+1 ELAN dirver for this thinkpad X14 gen1 model's trackpoint:
 
-Signed-off-by: Alexander Graf <graf@amazon.com>
----
- .../admin-guide/kernel-parameters.txt         |  64 +++++-
- kernel/dma/contiguous.c                       | 184 +++++++++++++++---
- 2 files changed, 217 insertions(+), 31 deletions(-)
+https://newthink.lenovo.com.cn/driveList.html?selname=ThinkPad%20X14%20Gen1
 
-diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
-index 0b3c140babd94..1ca82f8c29f97 100644
---- a/Documentation/admin-guide/kernel-parameters.txt
-+++ b/Documentation/admin-guide/kernel-parameters.txt
-@@ -862,10 +862,13 @@ Kernel parameters
- 			contiguous memory allocations and optionally the
- 			placement constraint by the physical address range of
- 			memory allocations. A value of 0 disables CMA
--			altogether. For more information, see
-+			altogether. The size is absolute; the percentage form
-+			is accepted by 'cma_pernuma=' and 'numa_cma=' only, and
-+			CONFIG_CMA_SIZE_PERCENTAGE sizes this area as a fraction
-+			of memory instead. For more information, see
- 			kernel/dma/contiguous.c
- 
--	cma_pernuma=nn[MG]
-+	cma_pernuma=nn[MG]|nn%[-nn[MG]]
- 			[KNL,CMA,EARLY]
- 			Sets the size of kernel per-numa memory area for
- 			contiguous memory allocations. A value of 0 disables
-@@ -875,14 +878,61 @@ Kernel parameters
- 			first try to allocate buffer from the pernuma area
- 			which is located in node nid, if the allocation fails,
- 			they will fallback to the global default memory area.
--
--	numa_cma=<node>:nn[MG][,<node>:nn[MG]]
-+			The size may also be given as a percentage (nn%) of
-+			each node's memory present at boot as seen by memblock;
-+			hot-added memory is not counted. It is evaluated at
-+			reservation time.
-+			A percentage of 0 reserves nothing, like an absolute
-+			size of 0. A value that does not parse, such as a
-+			missing size, text after the value or a percentage
-+			above 100, makes the whole parameter invalid: no node
-+			takes a size from it, and
-+			it does not fall back to mirroring the default area
-+			onto every node either. An absolute size takes
-+			priority over a percentage whichever order the two
-+			were given in. A 'numa_cma=' on the same command line
-+			still applies.
-+
-+			A percentage may be followed by a size to keep back
-+			from it, so cma_pernuma=95%-1G reserves 95% of each
-+			node less 1G. Keeping back at least as much as the
-+			percentage came to reserves nothing on that node, and
-+			warns as any other percentage resolving to nothing
-+			does. The size kept back belongs to the percentage: a
-+			later 'cma_pernuma=' percentage given without one
-+			keeps nothing back.
-+
-+	numa_cma=<node>:nn[MG]|nn%[-nn[MG]][,<node>:nn[MG]|nn%[-nn[MG]]]
- 			[KNL,CMA,EARLY]
- 			Sets the size of kernel numa memory area for
- 			contiguous memory allocations. It will reserve CMA
--			area for the specified node.
--
--			If it is setup together with upper 'cmd_pernuma='
-+			area for the specified node. A per-node size may also
-+			be given as a percentage (nn%) of that node's memory
-+			present at boot as seen by memblock; hot-added memory
-+			is not counted. It is evaluated at reservation time.
-+			A size of 0, absolute or percentage, is the same as not
-+			naming the node at all, so the node falls back to
-+			'cma_pernuma=' when that is given. An entry that does
-+			not parse, such as a node number of MAX_NUMNODES or
-+			more, a missing size, text after a size or a
-+			percentage above 100, makes the whole parameter
-+			invalid: no node named
-+			here gets an area, and there is no fall-back to
-+			mirroring the default area onto every node either. A
-+			'cma_pernuma=' on the same command line still applies.
-+
-+			A node may be named more than once. The last value of
-+			each form is the one kept, and an absolute size takes
-+			priority over a percentage for that node whichever
-+			order the two were given in, so numa_cma=0:4G,0:50%
-+			reserves 4G on node 0.
-+
-+			A percentage may be followed by a size to keep back
-+			from it, per node, so numa_cma=0:95%-1G reserves 95%
-+			of node 0 less 1G; see 'cma_pernuma=' above for what
-+			keeping back more than the percentage came to does.
-+
-+			If it is set up together with upper 'cma_pernuma='
- 			(unlikely), its size setting takes priority for the
- 			specified numa nodes.
- 
-diff --git a/kernel/dma/contiguous.c b/kernel/dma/contiguous.c
-index 90937dc7c627d..c04d50ee0f7c8 100644
---- a/kernel/dma/contiguous.c
-+++ b/kernel/dma/contiguous.c
-@@ -41,6 +41,7 @@
- 
- #include <linux/memblock.h>
- #include <linux/err.h>
-+#include <linux/math64.h>
- #include <linux/sizes.h>
- #include <linux/dma-map-ops.h>
- #include <linux/cma.h>
-@@ -135,45 +136,132 @@ EXPORT_SYMBOL_GPL(dev_get_cma_area);
- static struct cma *dma_contiguous_numa_area[MAX_NUMNODES];
- static phys_addr_t numa_cma_size[MAX_NUMNODES] __initdata;
- static phys_addr_t pernuma_size_bytes __initdata;
-+static unsigned int numa_cma_pct[MAX_NUMNODES] __initdata;
-+static unsigned int pernuma_pct __initdata;
-+static phys_addr_t numa_cma_sub[MAX_NUMNODES] __initdata;
-+static phys_addr_t pernuma_sub __initdata;
- static bool numa_cma_configured __initdata;
- 
--static int __init early_numa_cma(char *p)
-+/*
-+ * What numa_cma_parse() does with a string it accepts: NUMA_CMA_CHECK leaves
-+ * everything outside the function as it is, so a caller can validate the
-+ * whole string before NUMA_CMA_APPLY lets any part of it take effect.
-+ */
-+enum numa_cma_action {
-+	NUMA_CMA_CHECK,
-+	NUMA_CMA_APPLY,
-+};
-+
-+/*
-+ * Parse one numa_cma= string: a comma separated list of <node>:<size>, where
-+ * <size> is a size or <percent>%[-<size>]. Anything else fails the parse.
-+ */
-+static int __init numa_cma_parse(char *p, enum numa_cma_action action)
- {
- 	int nid, count = 0;
- 	unsigned long node;
--	phys_addr_t size;
--	char *s = p;
-+	phys_addr_t size, sub;
-+	char *s = p, *start;
- 
- 	while (*s) {
--		if (sscanf(s, "%lu%n", &node, &count) != 1)
--			break;
--
--		if (s[count] == ':') {
--			if (node >= MAX_NUMNODES)
--				break;
--			nid = array_index_nospec(node, MAX_NUMNODES);
--
--			s += count + 1;
--			size = memparse(s, &s);
-+		if (sscanf(s, "%lu%n", &node, &count) != 1 || s[count] != ':' ||
-+		    node >= MAX_NUMNODES)
-+			return -EINVAL;
-+		nid = array_index_nospec(node, MAX_NUMNODES);
-+
-+		start = s + count + 1;
-+		size = memparse(start, &s);
-+		if (s == start)
-+			return -EINVAL;
-+
-+		if (*s == '%') {
-+			s++;
-+			if (size > 100) {
-+				pr_warn("numa_cma: node %d percentage %llu%% > 100\n",
-+					nid, (unsigned long long)size);
-+				return -EINVAL;
-+			}
-+			sub = 0;
-+			if (*s == '-') {
-+				start = ++s;
-+				sub = memparse(start, &s);
-+				if (s == start)
-+					return -EINVAL;
-+			}
-+			if (action == NUMA_CMA_APPLY) {
-+				numa_cma_pct[nid] = size;
-+				numa_cma_sub[nid] = sub;
-+			}
-+		} else if (action == NUMA_CMA_APPLY) {
- 			numa_cma_size[nid] = size;
-+		}
- 
--			if (*s == ',')
--				s++;
--			else
--				break;
--		} else
--			break;
-+		if (*s == ',')
-+			s++;
-+		else if (*s)
-+			return -EINVAL;
- 	}
- 
--	numa_cma_configured = true;
- 	return 0;
- }
-+
-+static int __init early_numa_cma(char *p)
-+{
-+	int rc;
-+
-+	/*
-+	 * Per-node CMA is configured either way. Leaving the flag clear on a
-+	 * string this rejects would tell dma_numa_cma_reserve() that nobody
-+	 * asked for per-node areas, and on a CMA_SIZE_PERNUMA kernel it would
-+	 * then clone the default area onto every node.
-+	 */
-+	numa_cma_configured = true;
-+
-+	rc = numa_cma_parse(p, NUMA_CMA_CHECK);
-+	if (rc)
-+		return rc;
-+
-+	return numa_cma_parse(p, NUMA_CMA_APPLY);
-+}
- early_param("numa_cma", early_numa_cma);
- 
- static int __init early_cma_pernuma(char *p)
- {
--	pernuma_size_bytes = memparse(p, &p);
-+	phys_addr_t val, sub;
-+	char *start;
-+
-+	/* See early_numa_cma(): a rejected string still counts as configured. */
- 	numa_cma_configured = true;
-+
-+	start = p;
-+	val = memparse(start, &p);
-+	if (p == start)
-+		return -EINVAL;
-+
-+	if (*p == '%') {
-+		p++;
-+		if (val > 100) {
-+			pr_warn("cma_pernuma: percentage %llu%% > 100\n",
-+				(unsigned long long)val);
-+			return -EINVAL;
-+		}
-+		sub = 0;
-+		if (*p == '-') {
-+			start = ++p;
-+			sub = memparse(start, &p);
-+			if (p == start)
-+				return -EINVAL;
-+		}
-+		if (*p)
-+			return -EINVAL;
-+		pernuma_pct = val;
-+		pernuma_sub = sub;
-+	} else {
-+		if (*p)
-+			return -EINVAL;
-+		pernuma_size_bytes = val;
-+	}
-+
- 	return 0;
- }
- early_param("cma_pernuma", early_cma_pernuma);
-@@ -198,6 +286,33 @@ static inline __maybe_unused phys_addr_t cma_early_percent_memory(void)
- #endif
- 
- #ifdef CONFIG_DMA_NUMA_CMA
-+static phys_addr_t __init numa_cma_node_size(int nid)
-+{
-+	unsigned long spfn, epfn;
-+	phys_addr_t total = 0;
-+	int i;
-+
-+	for_each_mem_pfn_range(i, nid, &spfn, &epfn, NULL)
-+		total += (u64)(epfn - spfn) << PAGE_SHIFT;
-+
-+	return total;
-+}
-+
-+/*
-+ * A percentage of the node, less the size the boot line asked to keep back.
-+ * Keeping back more than the percentage came to reserves nothing.
-+ */
-+static phys_addr_t __init numa_cma_pct_size(int nid, unsigned int pct,
-+					    phys_addr_t sub)
-+{
-+	phys_addr_t size = mul_u64_u32_div(numa_cma_node_size(nid), pct, 100);
-+
-+	if (size <= sub)
-+		return 0;
-+
-+	return size - sub;
-+}
-+
- static void __init dma_numa_cma_reserve(void)
- {
- 	int nid;
-@@ -214,16 +329,37 @@ static void __init dma_numa_cma_reserve(void)
- 		int ret;
- 
- 		if (!node_online(nid)) {
--			if (pernuma_size_bytes || numa_cma_size[nid])
-+			if (pernuma_size_bytes || pernuma_pct ||
-+			    numa_cma_size[nid] || numa_cma_pct[nid])
- 				pr_warn("invalid node %d specified\n", nid);
- 			continue;
- 		}
- 
- 		/* per-node numa setting has the priority */
--		size = numa_cma_size[nid] ?: pernuma_size_bytes;
--		if (!size)
-+		if (numa_cma_size[nid])
-+			size = numa_cma_size[nid];
-+		else if (numa_cma_pct[nid])
-+			size = numa_cma_pct_size(nid, numa_cma_pct[nid],
-+						 numa_cma_sub[nid]);
-+		else if (pernuma_size_bytes)
-+			size = pernuma_size_bytes;
-+		else if (pernuma_pct)
-+			size = numa_cma_pct_size(nid, pernuma_pct, pernuma_sub);
-+		else
- 			continue;
- 
-+		/*
-+		 * A percentage of a memoryless online node, and a percentage
-+		 * entirely consumed by the size kept back, resolve to nothing
-+		 * to reserve. Say so, since the operator asked for memory.
-+		 */
-+		if (!size) {
-+			if (numa_cma_pct[nid] || pernuma_pct)
-+				pr_warn("node %d percentage reserves nothing\n",
-+					nid);
-+			continue;
-+		}
-+
- 		cma = &dma_contiguous_numa_area[nid];
- 		snprintf(name, sizeof(name), "numa%d", nid);
- 		ret = cma_declare_contiguous_nid(0, size, 0, 0, 0, false, name, cma, nid);
+The laptop model I'm using is 21XM, the driver works well in
+windows 11.
 
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
--- 
-2.47.1
+Now I'm confused on who is the real vendor of this
+trackpoint device. I may ask help on Lenovo's supporting
+website yet. Wu, is that ok to refer this mail there ?
 
+>
+> Thanks
+> JINGLE
+>
+> -----Original Message-----
+> From: Yao Yuan <yaoyuan0329os@gmail.com>
+> Sent: Tuesday, November 10, 2026 9:48 PM
+> To: Jingle Wu 吳金國 <jingle.wu@emc.com.tw>
+> Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>; Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>; Vishnu Sankar <vishnuocv@gmail.com>; linux-input@vger.kernel.org; linux-kernel@vger.kernel.org; Phoenix Huang 黃世鵬 <phoenix@emc.com.tw>; Stanley Chen 陳建維 <stanley.chen@emc.com.tw>
+> Subject: Re: [PATCH 1/1] Input: trackpoint - Add new ELAN trackpoint device variant id 7
+>
+> ⚠ External Email: This email originated from outside the organization. Please use caution when opening links or attachments.
+> ⚠ 外部郵件： 此郵件來自公司外部，請謹慎開啟連結或附件。
+>
+> On Tue, Nov 10, 2026 at 05:26:21AM +0000, Jingle Wu 吳金國 wrote:
+>
+> Hi Wu,
+>
+> > Hi Dmitry/Yuan:
+> >
+> > We have confirmed that FW A1 was never released by Elan. The Elan Variant ID has always been 3.
+>
+> Thanks for your information, Let me share more details:
+>
+> The trackpoint has driver from "ELAN
+> Microelectronics Corp." in windows 11 on same device.
+>
+> In Linux I found the device is probed as generic mouse device but not trackpoint device, it's hard to use due to no sensitivity setting from sysfs. I found the reported id
+> 0x7 is not in drivers/input/mouse/trackpoint.c's
+> trackpoint_start_protocol() after debugging, the trackpoint is probed and works well after add the id 0x7 there.
+>
+> So I thought this should be a ELAN device w/ ID 0x7 and cooked this patch.
+>
+>
+> >
+> > THANKS
+> > JINGLE
+> >
+> > -----Original Message-----
+> > From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+> > Sent: Tuesday, November 10, 2026 10:36 AM
+> > To: Yuan Yao <yaoyuan0329os@gmail.com>; Jingle Wu 吳金國
+> > <jingle.wu@emc.com.tw>
+> > Cc: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>; Vishnu Sankar
+> > <vishnuocv@gmail.com>; linux-input@vger.kernel.org;
+> > linux-kernel@vger.kernel.org; Phoenix Huang 黃世鵬 <phoenix@emc.com.tw>;
+> > Stanley Chen 陳建維 <stanley.chen@emc.com.tw>
+> > Subject: Re: [PATCH 1/1] Input: trackpoint - Add new ELAN trackpoint
+> > device variant id 7
+> >
+> > ⚠ External Email: This email originated from outside the organization. Please use caution when opening links or attachments.
+> > ⚠ 外部郵件： 此郵件來自公司外部，請謹慎開啟連結或附件。
+> >
+> > Hi Yuan,
+> >
+> > On Mon, Nov 02, 2026 at 09:08:36PM +0800, Yuan Yao wrote:
+> > > The new ELAN trackpoint variant id 7 is found on thinkpad
+> > > X14 Gen1 laptop(Product Name: 21XMA006CD), it's now incorrectly
+> > > probed as Generic or Logitech PS/2 mouse.
+> > >
+> > > Add ELAN variant id 7 to match the TP_READ_ID command return value,
+> > > probe the device as trackpoint correctly.
+> > >
+> > > BEFORE:
+> > > input: PS/2 Generic Mouse as
+> > > /devices/platform/i8042/serio1/input/input63
+> > >
+> > > AFTER:
+> > > psmouse serio1: trackpoint: Elan_variant7 TrackPoint firmware: 0xa1,
+> > > buttons: 3/3
+> > > input: TPPS/2 Elan_variant7 TrackPoint as
+> > > /devices/platform/i8042/serio1/input/input65
+> > >
+> > > Signed-off-by: Yuan Yao <yaoyuan0329os@gmail.com>
+> > > ---
+> > >  drivers/input/mouse/trackpoint.c | 2 ++
+> > > drivers/input/mouse/trackpoint.h | 1 +
+> > >  2 files changed, 3 insertions(+)
+> > >
+> > > diff --git a/drivers/input/mouse/trackpoint.c
+> > > b/drivers/input/mouse/trackpoint.c
+> > > index 3bd8fdf56cd3..f46fc1665c96 100644
+> > > --- a/drivers/input/mouse/trackpoint.c
+> > > +++ b/drivers/input/mouse/trackpoint.c
+> > > @@ -25,6 +25,7 @@ static const char * const trackpoint_variants[] = {
+> > >       [TP_VARIANT_NXP]                = "NXP",
+> > >       [TP_VARIANT_JYT_SYNAPTICS]      = "JYT_Synaptics",
+> > >       [TP_VARIANT_SYNAPTICS]          = "Synaptics",
+> > > +     [TP_VARIANT_ELAN_ID_7]          = "Elan_variant7"
+> >
+> > I wonder if we really need to say "Elan_variant7" or if we should simply say "Elan" here as well.
+> >
+> > Jingle, is this your part? What is the difference from Elan trackpoint reporting 0x03 as its variant?
+> >
+> > Thanks.
+> >
+> > --
+> > Dmitry
