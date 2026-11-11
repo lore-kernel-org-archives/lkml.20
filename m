@@ -1,53 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794428223;
-	b=H6Iv9JI51V+qzI0QBB0xethvotIvaCiPERsGzh7/YCQwM6j53htiWBQ6tHiMaqhJ+sH6
-	 EpBQ5bj+J/l8wzTeKhxXZSJWUfQIUhmAm+8Y2+2lyrH++mlYh+60PWPOQ4T9fpbgt3Tjf
-	 eAoj2F8aBoDlTiBRBB9Avalfhpu51Qkd4soi2nbsvkvEmvxyR+vdijDW51VlR8AtOix2C
-	 7XJjrooKLDCIbQOtUJyd73VkB64+tLBAOazPu0ke1DMCmKYw/3xK3CXUKQ4onhYzdoqEB
-	 rsnytu19EMPJwCQjYPMm6ExIOaZkv/hXfNvrGu0g/LmKF0L8LAX0EPolKVPpTg6r+iw==
+	t=1794428230;
+	b=clOC6P53P2c4kyjZ87NkTC8J/9YwRnUVYHe3qBUsL1jt1FHFRf/SkrnktxXyfqMdzn7z
+	 Mp7YfVxVcl108egK7bZywMaNmqSkn/JnEowE1XOJD+4ERyeRFdf1wQy3+qUh4n9b2wGvl
+	 WTxmLxwRq0RU7TjBpbaKlKPIyAhzXJQjcs/W02gqP5m7f3iYwTA9QNA+RldoEGcmfIctF
+	 +R0nOktrZt66o2OWKhFUY5tfc77efPaNlke67MIv2A+C+Nha4UD+OWBzo+RJbVbp7eAGk
+	 ls7N2MbFJE/3UovDi4IYyyOq+kzAd9V4SqwMFilOQTJ7Ch2Si1db3qeWUD0k9uf6flw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794428223;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
-	 MIME-Version:X-Received:Date:In-Reply-To:X-Google-Appengine-App-Id:
-	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
-	 Content-Type;
-	bh=RfkBKF58kVgbWsdJ+ZVq9Di3pEhjn/OspdlJxdGJBqM=;
-	b=jwOL+RS6fzdYXvdk8+U1QhMH0D50cY8Lp6nKiWBNsbVJHQOwdMhE6sEhcy4ZiIi8qYU6
-	 /94AlCDkeyKN5PFn+esdPxQppq5swyjQSJC8LulcPxRkeBpbpeGvbdRC7tKv/GXVEEWdF
-	 zgfPphEuG0C5gBH3gQkGm69dZwwkbVpBJnboTo0Zuuc1ukQH2EWQu6V1fSOd1uzNFhtJ+
-	 36I2kNLx6vZ3/vJSeY8LQH1qopxc/OO05VFELnIwnNHFDfrELzot6g8LVnIuVvEDb9vDC
-	 3osCqJuXos5SEhmD/4+yvXRBlK7RSRURem/RRtS+T0W7DBKB21EwiayslADDr/BLd2A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794428230;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=oD3CNLbIRk9zgIo0q6lJWHOlAEvsBK/j/BkurlWIEZE=;
+	b=HDGkJOR3Xvw2WSqLHPXGP2UHRstrfmUN6YzgirCfTkuoGa7mAFh+CdOClSK0jnEtysFS
+	 tw05srqy6j1GBQ0A39ZK5t1NyewqnoGAkbHT3EV4ymg0QIkH2CQkzzVDPfYa0SAKIDvbz
+	 M7qLIVl2wkXOWEhe2qdwKX9QihhaCkeIx/U2JMshbyZZ6zRMrAwXD9wxFnbLv5Bip7f1W
+	 A9EuRWAzS8f69aG1/OwSRcSHbPM8NBAcL6Mv+etfVfqnQ4qYGfX1TxItvP2QMWtMtCGnh
+	 05pH227XKP4AKFMfOUxQwt0UUglg9CdcOusFcL1D3wXAhTzwhXwc13uwNNO1oph+wvA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.199
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=rLAFqeBU;
+	arc=none smtp.remote-ip=198.137.202.133
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17A7A606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 20:17:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17A7A606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-5682eb98dafso4039199b6e.0
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 12:17:02 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794428222; x=1795033022;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=RfkBKF58kVgbWsdJ+ZVq9Di3pEhjn/OspdlJxdGJBqM=;
-        b=nbprmc/aQqcUfn9/dx384EbiL4a+nrxYDIV44PUlfhnNm83h2j1o7AMU7e+HIgSECK
-         ctt3Xa71ZSYSYnnFXvOLpjrUSwlCw5MQrIJ6LnSZL4tyXrZA4W/32ptv5FbTQlPw3WBV
-         B4z0/rWsKZI0e4Ixk3U8v3fQBSQ7sFaHcBbomtc7clb05yz2YzdX3/YOZngTtFYFl438
-         491VdjuEWx6l6cKtwcwxn2W14YnVvDNmXK0f+HK+Quxwsemd6Z9QSyNCj4Mg4sFhENrU
-         Maz8DrIN7WzgmPc2yj/semHNhI2hxRB2oWNOsxj7Q3ADn52VdDx7cyProPdarNAAxgPM
-         VY2A==
-X-Gm-Message-State: APuU4Z9GaCzoOTNV/qx5tSPfvwE1imSHNfhPWxi/WAWRlzmA52Nxgms9
-	KqZxZZWTWHizFNyNtSXmO2Nrklv7gYalR0nPweS8vAnkSHZ6UNANZ0zacSaJWd+rkgcR/4bBe16
-	iL87RpteHzy2DEu5wNBzF5T+BSjtRWGnTySuXdGQcVAwFztb4XHdFtXrctkI=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A7D2606A324
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 20:17:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A7D2606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=rLAFqeBU
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
+	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=oD3CNLbIRk9zgIo0q6lJWHOlAEvsBK/j/BkurlWIEZE=; b=rLAFqeBUcRnY4NFkuIHyq7axiM
+	OXoJlAbDb0EldqG2BE/m1cR/pt7hEIOLwW/UrBT8SD/09THyBOdupL7HrT/Pin5s5AS+ljJpiuV91
+	uFBF1p3C0+GrY12Z51g4zudUG9d0I/4SNRMta9KcCqF2XA5QiF1uxLR7BumUoYnoQqeQctvrqmmr1
+	23k9UcSdMZspzmPMbgIClHfC2bTLvo4KCW56OA11vkfrts/urzO6HaA6MWEApc+rNK5pQzZzljSXE
+	zYWK6hijsIIwAHOD19U9V7c6nttMAWznydYLvAbPxtcTIatXZoHTZbtpncxPE2Vk64Ln4f3IW+54X
+	ifyMh7PQ==;
+Received: from [38.23.173.23] (helo=localhost)
+	by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xREkj-00000007bhW-1sZ9;
+	Wed, 11 Nov 2026 20:17:05 +0000
+Date: Wed, 11 Nov 2026 15:17:03 -0500
+From: "Liam R. Howlett" <liam@infradead.org>
+To: Florian Schmaus <florian.schmaus@codasip.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Andrew Ballance <andrewjballance@gmail.com>, 
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Dimitris Charisis <dchar@cslab.ece.ntua.gr>, linux-kernel@vger.kernel.org, maple-tree@lists.infradead.org, 
+	linux-mm@kvack.org
+Subject: Re: [PATCH v2] test_maple_tree: test maple_range_64 node below the
+ root in RCU mode
+Message-ID: <b444rjvq32jvaljx2jp25ky7jp3zwkgvojemuq4hvwua4fdyqo@unnxuu64mnqo>
+References: <20261102-maple-tree-fix-slab-corruption-v2-1-d0037f04ecd6@codasip.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,33 +68,100 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:10d0:b0:567:caf2:9540 with SMTP id
- 5614622812f47-56b9293be4fmr3146072b6e.1.1794428222023; Wed, 11 Nov 2026
- 12:17:02 -0800 (PST)
-Date: Wed, 11 Nov 2026 12:17:02 -0800
-In-Reply-To: <20261111113252.307157-1-timo.joannin@gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6af4cd3e.6d8d289a.8382.0000.GAE@google.com>
-Subject: Re: [syzbot] possible deadlock in wg_ratelimiter_uninit
-From: syzbot <syzbot+72fceb8393e04ce876d9@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com, 
-	timo.joannin@gmail.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261102-maple-tree-fix-slab-corruption-v2-1-d0037f04ecd6@codasip.com>
 
-Hello,
+On 26/11/02 10:14AM, Florian Schmaus wrote:
+> Commit baed735a956f ("maple_tree: fix maple_range_64 crashes in RCU
+> mode") fixed mt_free_walk() taking the metadata in the last slot of a
+> maple_range_64 node with 15 children for a child node.  The bug only
+> affects nodes at least two levels above the leaves.  The test added
+> along with the fix, check_range64_in_rcu(), uses a height 3 tree, in
+> which the root is the only such node.
+> 
+> The height 3 tree only exposes the bug because the same commit also
+> removed mt_clear_meta(), which used to clear the metadata of the root.
+> On the code before that commit, the bug is only reachable below the
+> root, and the height 3 tree is destroyed without a crash.  If the
+> metadata of the root were cleared again, the existing test would no
+> longer detect the bug.
+> 
+> Add a height 4 tree in which a child of the root has 15 children and
+> keeps its metadata in the last slot.  5191 insertions produce such a
+> tree on a 64-bit build.  Destroying it crashes without the
+> mt_free_walk() fix, with or without mt_clear_meta().  For example, on
+> the code before the fix, the userspace test harness reports:
+> 
+>   lib/maple_tree.c:4755:27: runtime error: member access within
+>   misaligned address 0x00000000000e for type 'struct maple_node'
+> 
+> Signed-off-by: Florian Schmaus <florian.schmaus@codasip.com>
 
-syzbot tried to test the proposed patch but the build/boot failed:
+Reviewed-by: Liam R. Howlett (Google) <liam@infradead.org>
 
-drivers/block/nbd.c:1360:29: error: expected ';' after expression
-
-
-Tested on:
-
-commit:         067c5c24 Merge tag 'page_alloc-for-7.4-rc2' of git://g..
-git tree:       https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-kernel config:  https://syzkaller.appspot.com/x/.config?x=d30e1495ee3ac817
-dashboard link: https://syzkaller.appspot.com/bug?extid=72fceb8393e04ce876d9
-compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=106e3955580000
-
+> ---
+> v1 of this series fixed two bugs when freeing RCU-mode maple trees. Both
+> are now fixed in mainline by Dimitris' commit baed735a956f ("maple_tree:
+> fix maple_range_64 crashes in RCU mode"), so only the height 4 test case
+> remains, which I offered to send as a follow-up in [1]. It now extends
+> check_range64_in_rcu().
+> 
+> Testing: the userspace test harness (tools/testing/radix-tree) passes
+> on x86_64 with ASan and UBSan, and on s390x (big-endian) under
+> qemu-user with UBSan. On both, the new case fails without the
+> mt_free_walk() fix, with or without mt_clear_meta(), while the
+> existing height 3 case only fails once mt_clear_meta() is gone.
+> 
+> 1: https://lore.kernel.org/all/46073a08-20fd-465e-86e8-9c358787f9b3@codasip.com/
+> ---
+> Changes in v2:
+> - Drop the two fixes, superseded by commit baed735a956f ("maple_tree:
+>   fix maple_range_64 crashes in RCU mode").
+> - Rebase onto current mainline.
+> - Add the height 4 case to check_range64_in_rcu() instead of a separate
+>   check_rcu_destroy(), using its insertion pattern (5191 entries).
+> - Drop the full root case, which check_range64_in_rcu() already covers.
+> - Link to v1: https://patch.msgid.link/20261015-maple-tree-fix-slab-corruption-v1-0-160d97f7304c@codasip.com
+> ---
+>  lib/test_maple_tree.c | 13 +++++++++++++
+>  1 file changed, 13 insertions(+)
+> 
+> diff --git a/lib/test_maple_tree.c b/lib/test_maple_tree.c
+> index fb40e193a3cb..121f521e263f 100644
+> --- a/lib/test_maple_tree.c
+> +++ b/lib/test_maple_tree.c
+> @@ -3738,6 +3738,19 @@ static noinline void __init check_range64_in_rcu(struct maple_tree *mt)
+>  
+>  	mtree_destroy(mt);
+>  	rcu_barrier();
+> +
+> +	nr_entries = 5191; /* Height 4. Root child has 15 children + metadata */
+> +
+> +	MT_BUG_ON(mt, !mtree_empty(mt));
+> +	mt_init_flags(mt, MT_FLAGS_USE_RCU);
+> +
+> +	for (i = 0; i < nr_entries; i++) {
+> +		MT_BUG_ON(mt, mtree_test_insert_range(mt, i*10, i*10 + 9,
+> +						      xa_mk_value(i)));
+> +	}
+> +
+> +	mtree_destroy(mt);
+> +	rcu_barrier();
+>  }
+>  
+>  static DEFINE_MTREE(tree);
+> 
+> ---
+> base-commit: d89e1d186ec9271bf78e62771779e9fc03bf0fc3
+> change-id: 20261015-maple-tree-fix-slab-corruption-d1f098521d15
+> 
+> Best regards,
+> --  
+> Florian Schmaus <florian.schmaus@codasip.com>
+> 
+> 
+> -- 
+> maple-tree mailing list
+> maple-tree@lists.infradead.org
+> https://lists.infradead.org/mailman/listinfo/maple-tree
