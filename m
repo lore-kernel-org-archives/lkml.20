@@ -1,96 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794371945;
-	b=vBelab7YtP1j5bMk0KLDcWiT+3fIfe/GiUFl9KWq/gOy4blS7V8mRsNF15/gYTUAbc7S
-	 wD+QXvSFmHde7q67oEtvYAolvSJVAyeWsWOzqIjGAOoRUxsCVbEzFFDG/0kKQTKEltqfJ
-	 7Hvs4Y/lkZeBjbMBwhB1w9qGapC4ZfhXDA+J31vmOsGikTTlVefStIPqCoBjvfA0+Xboe
-	 jRpnPQbqQAC5IuHbBxStAUfmZYUL8vKBo3jF2Zo8tkUDUyc1Hs+Gh3yzycct9ulJlvr6j
-	 caOuPlwAEMwsKvcvfkOxu90S6ysw+7XKVfjayHZxesVrhshpaQBiRz8IJAg7ntEyqNA==
+	t=1794372123;
+	b=Y0v7P3xdMeJiDlziyC3GJ4xs9KKiyo40xoP3mXfoy/nJZZqxeClYtw7MWSXWX/4v0VvC
+	 pJvhVxgcNxIxQ0RJGHb34BR4cLQiMJWDeMceQqjlykVCqkOyvckrpukQ9L0AI2U/iOnSu
+	 UQZeaNUtSRyWfG0gGWPW3hm99aWMyIKU9R7ovQ8oMVce8eH1aYhiCmbAlxUWgc0pFmv1f
+	 O6xgovEL/R/DvV0u7Xa0m1QAFTeeOgXhBn6CRz6p4njBHdUzFzqyD7I3cilcoRK+6T44i
+	 MP52BTeADQgmte1amDWaCoN6226mHtnkZ8M9120sxW/M+Nxtdd/tf+IWwAAlsGUlR3Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794371945;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=siZmirI+f1Pyy8EXeDTuyyN9Ke8UwfOLkM0owVcLHTc=;
-	b=EY2GG1HlylUjcgKtqEi/XbIyeBPZAmxvz1BK4tYUNyzPr6nchaq9FukOn3PRvBgDJUDA
-	 zPjPJujCbuL03Xt6VjYCpABWDHikkTe/L6o+ZkxKYlzkW/YvJuMTrzWXwKeDCKzZaVdql
-	 VYRTER1j8t7MWAb5Vjirxs43U7yeGLjM9smgplYjaBhcLoGsoip8W+h8TuNEljKVYU6zC
-	 LT9lNgXGb3CZJITcPdQPh8kC/dvFxIZWSNg06VKZB/XW/vjoMN1XeWhHLEP3d2yC1LR0Z
-	 AU0UDjo1QMJVAVJX7sujJYlZK7Xc/4/ga6RC3McffVHfG3qU3VqTxSHdHTUykwm4+SQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794372123;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
+	 MIME-Version:X-Received:Date:In-Reply-To:X-Google-Appengine-App-Id:
+	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
+	 Content-Type;
+	bh=FRneNlikMLGlcgwXeyNT0zePXHoEfbyzXnwyA+onIVc=;
+	b=Qr8dv1M4v5iDXJLjLLzToSPmVHSBPEiQqpwwgIlyx1KrbnbGDOAQUAt2XFiOkZIqyPPw
+	 sAr30gm+GibkSozknmmmDLTF41JP4e0eQt+Sq1l82amUuPl8k/FWVJUCoodv5MmXHxTz3
+	 ljL3njurj1xD71Dplgiyh0ZVfCuCKYarfElfrvWci5hOuUdnZHKt69iPi4WI9cgrosRR9
+	 CCuMJNLcywOrBCiOyTq4zlHu+Qc56OIoZoGw2K/+vO7otlp7TlhQ5Y0R+1b7HCAJ52Igb
+	 Tlo2M6WkwplodcfxwzN+OXcL9aSAJqy0kMVHF/sPinwx2LY47RVcV4uTd1tsmPQgSUQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ihi7Z3mW;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.198
+Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBF72606A321;
-	Wed, 11 Nov 2026 04:39:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ihi7Z3mW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B0221F0089F;
-	Wed, 11 Nov 2026 04:38:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794371945;
-	bh=siZmirI+f1Pyy8EXeDTuyyN9Ke8UwfOLkM0owVcLHTc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Ihi7Z3mWuOUA+kXYCdelMQfc0wNHEyM63cO8JoyRFYBXxLRj8v9SXEXjRfpt4HZsv
-	 II8l7k07UN+GKvuGkYa8T9S1h38HBW19Rc0o9Hxs5BkXX0G2sL3QNUJqiwVXXT5ZSO
-	 41eAboMlgACcl6rcoxul6g6au1reU9+lgHoppdBVGDiUeRgoQeUpuPIInwj97STiaz
-	 qrj49xx01AHBcnRPjlhs2SzAiXgvOgz7ILb1AnMtBVoA0VaOOFVv0XcS/9vr86vOqh
-	 wVb5zsw2OiBPHuZn/vrAQEVMXB94uXx3SwfFKg4196+omMgSgdfscT1mCVx2pZ0y4o
-	 ip2vQIxoEvWbw==
-Date: Wed, 11 Nov 2026 12:18:36 +0800
-From: Jisheng Zhang <jszhang@kernel.org>
-To: Conor Dooley <conor@kernel.org>
-Cc: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Will Deacon <will@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Mark Rutland <mark.rutland@arm.com>, Gary Guo <gary@garyguo.net>,
-	Yury Norov <yury.norov@gmail.com>,
-	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
-	Chao-ying Fu <chao-ying.fu@globalfoundries.com>,
-	Conor Dooley <conor.dooley@microchip.com>,
-	torvalds@linux-foundation.org, olof@lixom.net,
-	aleksa.paunovic@htecgroup.com, arikalo@gmail.com,
-	Boqun Feng <boqun@kernel.org>, Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	Luke Nelson <luke.r.nels@gmail.com>, Xi Wang <xi.wang@gmail.com>,
-	=?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>,
-	Pu Lehui <pulehui@huawei.com>, Puranjay Mohan <puranjay@kernel.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Oleg Nesterov <oleg@redhat.com>, Miguel Ojeda <ojeda@kernel.org>,
-	=?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
-	bpf@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
-	Charlie Jenkins <thecharlesjenkins@gmail.com>,
-	Nam Cao <namcao@linutronix.de>, rust-for-linux@vger.kernel.org
-Subject: Re: [PATCH v6 2/6] riscv: build kernel atomics from LR/SC when Zaamo
- is disabled
-Message-ID: <avPsnAlbfEsNa5zq@xhacker>
-References: <20261110-lrsc-only-v6-0-bafc3cc0fcae@mobileye.com>
- <20261110-lrsc-only-v6-2-bafc3cc0fcae@mobileye.com>
- <20261110-revivable-saint-9bcfaa2fd0e7@spud>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28940606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 04:42:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28940606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4a41f46d629so3859719b6e.3
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 20:42:02 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794372122; x=1794976922;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=FRneNlikMLGlcgwXeyNT0zePXHoEfbyzXnwyA+onIVc=;
+        b=Xvvoos8sd3KXgwjt16wehr7+7TxvmLWDK8Lu0FQ/rln4XRgpztxR0pSbiOgyGG/ntI
+         p4cjdb50RE6zZyf6AKw7E0rI5W9NDOWzmQPnyfgBp9rwGNqX84z2dnWT6SYJt/05zWGn
+         k5XJ68aRJRR9eLf6pYu0zQOqBAawNyfGLBOFcKpqDR39+PKL431QLQ8tvLH+yCvoaJvn
+         +whrYD1J/hFo/BW8cPqNI5dSl4i8mujCrjxsUjO7HkjrYXog9zfMiz52gJoTZIANmYuM
+         G50teuhrvfDTAPmPN9LJq1Vu4lv9mEc3RYSAcXvPzOKF6rIP+wT6gZ9ikW+pOwcj4W4z
+         JCQg==
+X-Gm-Message-State: APuU4Z8pCwF2QOuj5B06eGqeV8nw8anbytr91sFs0BSnGnblqOehcmr7
+	S8cOCXEG+tHz2eC/PgqRHLC/W3WMTLNJtSRmmPTgM7KX13sJHG+kFMB7S4W2ghAwLwe4uhK8McT
+	i3CxrKVC2lZgk7jXqEU8iMYFp0zNZDGzbFSFuwcYyMpmpfltwHEgZYP+0GWQ=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,89 +57,117 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261110-revivable-saint-9bcfaa2fd0e7@spud>
+X-Received: by 2002:a05:6808:178f:b0:4b9:e65b:8c33 with SMTP id
+ 5614622812f47-56b970eca6fmr999487b6e.33.1794372122110; Tue, 10 Nov 2026
+ 20:42:02 -0800 (PST)
+Date: Tue, 10 Nov 2026 20:42:02 -0800
+In-Reply-To: <CAO7_G+xxRab6PJQnffPhpV+fiYbEj85bDOLYO6Uho360ohVYLw@mail.gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6af3f21a.926a6ce0.263fd.0198.GAE@google.com>
+Subject: Re: [syzbot] [block?] BUG: unable to handle kernel paging request in blk_mq_complete_request_remote
+From: syzbot <syzbot+2e3bf0bd49acd9b21d4b@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, nenkov2004@gmail.com, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Nov 10, 2026 at 07:02:48PM +0000, Conor Dooley wrote:
-> On Tue, Nov 10, 2026 at 03:20:59PM +0200, Vladimir Kondratiev wrote:
-> > The A extension is Zaamo plus Zalrsc. On some CPUs Zaamo is present
-> > only formally. MIPS P8700 traps every AMO instruction into M-mode and
-> > emulates it there, so the extension is supported but very slow. A
-> > typical uncontended atomic increment costs:
-> > 
-> >   native AMO                                     2..5 cycles
-> >   LR/SC, private L1 reservation monitor         6..12 cycles
-> >   LR/SC, PoC (L2) reservation monitor       about 40 cycles
-> >   AMO emulated by an M-mode trap           about 600 cycles
-> > 
-> > The last two were measured on the eyeq7h hardware. On such a CPU the
-> > kernel must use LR/SC for every atomic.
-> > 
-> > Add RISCV_ISA_ZAAMO, default y. The default keeps "a" in -march and
-> > the generated code unchanged. When it is disabled, -march carries
-> > _zalrsc instead of "a", and atomic_*, bitops, xchg, futex and the
-> > early boot code use LR/SC loops. The sequence is chosen with the
-> > preprocessor, on CONFIG_RISCV_ISA_ZAAMO like the other ISA options in
-> > the headers, because the assembler rejects AMO mnemonics once -march
-> > lacks Zaamo. A kernel built this way runs on any hart that implements
-> > A; it just does not use AMO. It is therefore a plain option, not a
-> > NONPORTABLE one, and the hart keeps advertising "a" to userspace,
-> > which is true.
-> > 
-> > The LR/SC loops follow the ordering convention of the existing ones
-> > in cmpxchg.h, from commit 5ce6c1f3535f ("riscv/atomic: Strengthen
-> > implementations with fences") and commit 1d84afaf0252 ("riscv: Fix
-> > fully ordered LR/SC xchg[8|16]() implementations"): a fully ordered
-> > operation is lr, sc.rl and a trailing fence rw,rw; acquire is lr.aq
-> > with a plain sc; release is a plain lr with sc.rl. The futex loop is
-> > bounded to 128 retries and returns -EAGAIN after that, as arm64 does,
-> > because userspace can keep the word changing from another thread and
-> > futex_wake_op() retries on -EAGAIN anyway.
-> > 
-> > Zabha, Zacas and the ssamoswap instruction of Zicfiss are AMO
-> > instructions, so RISCV_ISA_ZABHA, RISCV_ISA_ZACAS and RISCV_USER_CFI
-> > depend on RISCV_ISA_ZAAMO. The riscv64imac Rust target emits AMO too,
-> > so RUSTC_SUPPORTS_RISCV depends on it as well.
-> > 
-> > The choice is made at compile time rather than with alternatives.
-> > Nearly every CPU has a native A extension, and an alternative would
-> > inflate all those kernels with the nops needed to pad one AMO to the
-> > size of an LR/SC loop, at every atomic site, for the benefit of a few.
-> > 
-> > Turning Zaamo off needs a compiler that accepts _zaamo and _zalrsc in
-> > -march. GCC 15.1 is the first release that does.
-> > TOOLCHAIN_HAS_ZALRSC_ZAAMO checks for it; with an older compiler the
-> > option stays at y.
-> > 
-> > Three sets of extensions provide every atomic Linux needs. "a" is what
-> > the kernel supports today. Zalrsc plus Ziccrse is what this patch adds:
-> > every atomic is a constrained LR/SC loop, and Ziccrse is the
-> > forward-progress guarantee for such loops. Zaamo plus Zacas would do
-> > as well, with CAS loops in place of LR/SC as on x86, and is left for
-> > whoever has such hardware.
-> > 
-> > Suggested-by: Chao-ying Fu <chao-ying.fu@globalfoundries.com>
-> > Nacked-by: Conor Dooley <conor.dooley@microchip.com>
-> > Link: https://lore.kernel.org/linux-riscv/20261106-smock-headband-d6a7d568c228@spud/
-> 
-> I had a quick glance at this revision, and I think you've at least tried
-> to resolve the things I was pointing out. Did I miss something, or why
-> have you kept the NAK after having resolved the things that I was
-> objecting to?
-> 
+Hello,
 
-I searched the maillist for this errata, or workaround or downgrading 'A'
-or anything else it's named, found something interesting:
+syzbot has tested the proposed patch but the reproducer is still triggering an issue:
+KASAN: use-after-free Write in rht_lock
 
-IIUC, Paul has rejected the series, at least call for "hold off on merging them"
-see
-https://lore.kernel.org/linux-riscv/8afa0702-4d30-86e2-5afb-a7c113a92dec@kernel.org/
+bond0 (unregistering): (slave bond_slave_0): Releasing backup interface
+bond0 (unregistering): (slave bond_slave_1): Releasing backup interface
+bond0 (unregistering): Released all slaves
+==================================================================
+BUG: KASAN: use-after-free in instrument_atomic_read_write include/linux/instrumented.h:112 [inline]
+BUG: KASAN: use-after-free in test_and_set_bit_lock include/asm-generic/bitops/instrumented-lock.h:57 [inline]
+BUG: KASAN: use-after-free in bit_spin_lock include/linux/bit_spinlock.h:40 [inline]
+BUG: KASAN: use-after-free in rht_lock_nested include/linux/rhashtable.h:330 [inline]
+BUG: KASAN: use-after-free in rht_lock+0x74/0x19c include/linux/rhashtable.h:339
+Write of size 8 at addr ffff000139838a68 by task kworker/u8:7/1394
 
-and 
+CPU: 1 UID: 0 PID: 1394 Comm: kworker/u8:7 Not tainted syzkaller #0 PREEMPT 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 11/06/2026
+Workqueue: netns cleanup_net
+Call trace:
+ show_stack+0x2c/0x3c arch/arm64/kernel/stacktrace.c:499 (C)
+ __dump_stack+0x30/0x40 lib/dump_stack.c:94
+ dump_stack_lvl+0xd8/0x12c lib/dump_stack.c:120
+ print_address_description+0xb0/0x238 mm/kasan/report.c:378
+ print_report+0x68/0x84 mm/kasan/report.c:482
+ kasan_report+0x8c/0xc4 mm/kasan/report.c:595
+ check_region_inline mm/kasan/generic.c:-1 [inline]
+ kasan_check_range+0x17c/0x1ac mm/kasan/generic.c:200
+ __kasan_check_write+0x20/0x30 mm/kasan/shadow.c:37
+ instrument_atomic_read_write include/linux/instrumented.h:112 [inline]
+ test_and_set_bit_lock include/asm-generic/bitops/instrumented-lock.h:57 [inline]
+ bit_spin_lock include/linux/bit_spinlock.h:40 [inline]
+ rht_lock_nested include/linux/rhashtable.h:330 [inline]
+ rht_lock+0x74/0x19c include/linux/rhashtable.h:339
+ __rhashtable_remove_fast_one include/linux/rhashtable.h:1069 [inline]
+ __rhashtable_remove_fast include/linux/rhashtable.h:1150 [inline]
+ rhashtable_remove_fast include/linux/rhashtable.h:1179 [inline]
+ tipc_sk_remove net/tipc/socket.c:3051 [inline]
+ tipc_release+0x54c/0x10d0 net/tipc/socket.c:648
+ __sock_release+0xf8/0x1d4 net/socket.c:735
+ sock_release+0x24/0x34 net/socket.c:763
+ tipc_topsrv_stop net/tipc/topsrv.c:770 [inline]
+ tipc_topsrv_exit_net+0x224/0x26c net/tipc/topsrv.c:782
+ ops_exit_list net/core/net_namespace.c:200 [inline]
+ ops_undo_list+0x3cc/0x81c net/core/net_namespace.c:253
+ cleanup_net+0x474/0x6c4 net/core/net_namespace.c:708
+ process_one_work kernel/workqueue.c:3495 [inline]
+ process_scheduled_works+0x91c/0x1250 kernel/workqueue.c:3578
+ worker_thread+0x798/0xbd0 kernel/workqueue.c:3659
+ kthread+0x304/0x3d4 kernel/kthread.c:436
+ ret_from_fork+0x10/0x20 arch/arm64/kernel/entry.S:854
 
-https://lore.kernel.org/linux-riscv/6201870b-b50d-f6e2-814b-7a1fdbf064db@kernel.org/
+The buggy address belongs to the physical page:
+page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x179838
+flags: 0x5ffc00000000000(node=0|zone=2|lastcpupid=0x7ff)
+raw: 05ffc00000000000 fffffdffc4e60e08 fffffdffc4e60e08 0000000000000000
+raw: 0000000000000000 0000000000000000 00000000ffffffff 0000000000000000
+page dumped because: kasan: bad access detected
 
-But I'm not sure why the same series is still continuously sent out but
-in different titles. I think this series can be ignored until riscv
-maintainers agree to downgrade the 'A' to subset of 'A', I.E zalrsc
+Memory state around the buggy address:
+ ffff000139838900: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
+ ffff000139838980: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
+>ffff000139838a00: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
+                                                          ^
+ ffff000139838a80: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
+ ffff000139838b00: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
+==================================================================
+hsr_slave_0: left promiscuous mode
+hsr_slave_1: left promiscuous mode
+batman_adv: batadv0: Interface deactivated: batadv_slave_0
+batman_adv: batadv0: Removing interface: batadv_slave_0
+batman_adv: batadv0: Interface deactivated: batadv_slave_1
+batman_adv: batadv0: Removing interface: batadv_slave_1
+veth1_macvtap: left promiscuous mode
+veth0_macvtap: left promiscuous mode
+veth1_vlan: left promiscuous mode
+veth0_vlan: left promiscuous mode
+team0 (unregistering): Port device team_slave_1 removed
+team0 (unregistering): Port device team_slave_0 removed
+netdevsim netdevsim3 netdevsim0: set [1, 0] type 2 family 0 port 6081 - 0
+netdevsim netdevsim3 netdevsim2: set [1, 0] type 2 family 0 port 6081 - 0
+wlan1: Created IBSS using preconfigured BSSID 50:50:50:50:50:50
+wlan1: Creating new IBSS network, BSSID 50:50:50:50:50:50
+bridge0: port 1(bridge_slave_0) entered blocking state
+bridge0: port 1(bridge_slave_0) entered forwarding state
+bridge0: port 2(bridge_slave_1) entered blocking state
+bridge0: port 2(bridge_slave_1) entered forwarding state
+
+
+Tested on:
+
+commit:         58c1eb84 arm64: sdei: Preserve the interrupted context..
+git tree:       https://github.com/torvalds/linux.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=1356e03d580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=a58b6b4d667e7a61
+dashboard link: https://syzkaller.appspot.com/bug?extid=2e3bf0bd49acd9b21d4b
+compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+userspace arch: arm64
+
+Note: no patches were applied.
