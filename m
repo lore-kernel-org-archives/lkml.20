@@ -1,99 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.135.77
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794391307;
-	b=MZTteiK8et8nfD7M8LlqQotfeqI2AR7H+1S8XO9IXW+qho25qB78xDjoVbZJsBdrN78G
-	 7251wG/ApwAlTW93r6GTeZ3+sRLfCfNr0/pMQChS2BgaK1WUuLoeugLbgburqfQEfBu62
-	 A6IpbyDxni3IRPxQSxHKoX7gHwuiD8P3BjtfFPPFdNkjP40xJFm9AJzPiMtane1O3F6+n
-	 UW8iFkd5A2HsUsWhQdTwW7FGoJoGO00QMqsuXm6J7IPXkSS9kjr9MYVU0LgnbnZPdbqYt
-	 iO6u79hcQSnuYlsyYWW/lnFMBMFfVTow8NkDMSsW5YWaZx1nsFnORwB0fzXsvA4JOkQ==
+	t=1794391337;
+	b=nWomrw9cKJwgs6Ccf53N2nDXP/AXgudJju8zSF2fhClig4hctoBk+l5s3l5Qx31U7jva
+	 5OcEpBXh1p8TL4sJcVxSEFNIC99aRJ15VCJRgvjKwweyzrEqwOJcGCo1/abp4cM/zx/yd
+	 ni/aKTzDjXiXEvyj+SBG8GLXQw+/isGG167vM9VW5NC8YFg+1/ioSb058V/EffEBK0yNu
+	 H4jBk4+pyrdyVrLDxGNB85jHQu0AiyYfI5Rp9veKdVTzSY4I1zjEhaXNY0aFPj0+doNZ6
+	 MXKSx3KD5uPL38oudPF61ioV9mWwPxJ9G+tElVEt9bE8vL1LG9gJmNB4KpciwuZk04w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794391307;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
-	 Received:Received:Received:Received:From:To:CC:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 Content-Type:X-ADIRuleOP-NewSCL:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=6o/et0VAAZnc5uOVXXXU6rPPsOTQn/o6zow/4OJOOfM=;
-	b=TGufATKUfpFzrcPMo9z8STksdSlC9dnSVPTfr0PzlhgtEijemf+okLheAJnW67v0TVDx
-	 Esy/zRMRes/irq2lvvhHY31QkY8rDR6kgL/dWW9JQ4+v3FfnVBePWzJfax5OpNbwl89dt
-	 hT+1xrfdaFzBtyGGMHYLkA5/OCl2/Jf2azGUhcdgkAGxVuDBtQs4L5nOOPhd/kKE8NPWP
-	 E2bJ1uGd42G+mpGaBreSdLvO9qOcSAYu4pOSgOUr6bnWUfkwrmHVNc6+uR17IYRvhzNtx
-	 vVDHJ06GEZIqf611YnuaKwM6+UTjeWrbem0/9K+c1n8oacU56LbOfyJa7zTgRSc22uQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794391337;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=h4AVeGPggLSUFeJTT3dwsO6oUDmB9dp8f3J2h1ds3aI=;
+	b=Frwwinm9ZlWpVgs+UiyQGEPIFBwklEyTzi/3M7q3aneRIhK8zFWbLKUL9AUrSECCjZUM
+	 2yX48likO/660Hf/Zp9FhWAbZ+0Y0h5D/1uq3NSofhsgNabVennEbzYVj97AKJIHB5EU1
+	 5b9fLXgCOi97ajBp386liCQL2rmFpJu6tSopPsm3MjQaRkFezaY61E1mNTBsAM+Gcr4so
+	 VNtEk5SsZUAA6LWJHX8pQYDdyptAPFJCAJHdKKsAMzJDPegH9/uv/u/rHj/oaS5WudOtw
+	 ztEmGYvC5tO1Ky8pGvDxUJE2t9lYMZU93stughiDIMRSLXmc8kMaQCvUISZo7yXmWfQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=analog.com;
-	spf=pass smtp.mailfrom=analog.com;
-	dkim=pass header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=Iq8fE4ck;
-	dkim=pass header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b="khh/OCG5";
-	arc=none smtp.remote-ip=148.163.135.77
-Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZbZRW1ql;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FD0C606A326;
-	Wed, 11 Nov 2026 10:01:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4FD0C606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7E76606A326;
+	Wed, 11 Nov 2026 10:02:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=Iq8fE4ck;
-	dkim=pass (2048-bit key, unprotected) header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=khh/OCG5
-Received: from pps.filterd (m0516787.ppops.net [127.0.0.1])
-	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AB8C4CT1791512;
-	Wed, 11 Nov 2026 05:01:18 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vtelectron.com;
-	 h=cc:content-transfer-encoding:content-type:date:from
-	:message-id:mime-version:subject:to; s=DKIM; bh=6o/et0VAAZnc5uOV
-	XXXU6rPPsOTQn/o6zow/4OJOOfM=; b=Iq8fE4ckw9dnwkAbgdTO2Y+OXzpgkFam
-	xTNMdZdNS+NdYbkqgLpd2Hz//hY2SntO5/MGblDksZJtdPst9uQvlnYrrZTtYhwc
-	x/iZ7zcci2A3VT71snqZ1C5gzKawxQHiL2ZWRiuOQ18YkLIOvFgGDXByOhMcUTT/
-	xP6HhNOyPy1oxI5fAGWblTCTRFJRdSUz5uue95PKpkzPnicBDwBQqnzOjYwpfNnY
-	/TevRHzFU9QbkS2/iVUDOhT1QecNbX/CeAeYBiMlAyKsO57KszVwZleNy4ynnt6C
-	gMqr6KeYtAgsNQ1+EWHQ6Zi30cid8y1zefFP6xoIf/UhQfDLmhB9Tg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
-	:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=DKIM; bh=6o/et0VAAZnc5uOVXXXU6rPPsOT
-	Qn/o6zow/4OJOOfM=; b=khh/OCG5EG7nUs2weKrIKldT/7sTlRWK8FRmf6CYwyl
-	zKOCRImEhetLKgV4VYhuAVmS6pJ2ddoXQM7AQaeUFC06RDf4hK/LGtxtUQJNVaKl
-	9P9WfITetAbKjfosfxJ1PiAP2AMIS9w43OaO53WaXIRRL9doyz1FODZ1RP/7xqYc
-	asPdyTWn8KvE3JSIRDZJ9PTbozHwZ+tRF99lKS0FmcrpKFeTxjf4sif730tQxd5p
-	GVzzApEatcCHIdm5ZikUN6bpSmQ+ZTOQRdC4R2UGdrQLo7z6wcCiRJ/kqY636kTq
-	YUHCYVIVOoSX1j+WNskcWsNpdfFyBg0L+0f/uhL6bvw==
-Received: from nwd2mta3.analog.com ([137.71.173.56])
-	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4hva22mec3-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 11 Nov 2026 05:01:18 -0500 (EST)
-Received: from ASHBMBX8.ad.analog.com (ASHBMBX8.ad.analog.com [10.64.17.5])
-	by nwd2mta3.analog.com (8.14.7/8.14.7) with ESMTP id 6ABA1GUR019671
-	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Wed, 11 Nov 2026 05:01:16 -0500
-Received: from ASHBMBX9.ad.analog.com (10.64.17.10) by ASHBMBX8.ad.analog.com
- (10.64.17.5) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Wed, 11 Nov
- 2026 05:01:16 -0500
-Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx9.ad.analog.com
- (10.64.17.10) with Microsoft SMTP Server id 15.2.2562.56 via Frontend
- Transport; Wed, 11 Nov 2026 05:01:16 -0500
-Received: from HYB-6AVb5If9qTU.tail230d3d.ts.net (HYB-6AVb5If9qTU.ad.analog.com [10.135.4.43])
-	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 6ABA0s1M021835;
-	Wed, 11 Nov 2026 05:00:59 -0500
-From: Iustin Stolniceanu <iustin.stolniceanu@analog.com>
-To: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>,
-        Russell King <linux@armlinux.org.uk>,
-        "David S. Miller"
-	<davem@davemloft.net>,
-        Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski
-	<kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>,
-        Stefan Eichenberger
-	<eichest@gmail.com>, <netdev@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>
-CC: Iustin Stolniceanu <iustin.stolniceanu@analog.com>
-Subject: [PATCH net v3] net: phy: c45: select BASE-T1 type for the forced speed
-Date: Wed, 11 Nov 2026 12:00:53 +0200
-Message-ID: <20261111100053.345196-1-iustin.stolniceanu@analog.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZbZRW1ql
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD4961F00A05;
+	Wed, 11 Nov 2026 10:02:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794391336;
+	bh=h4AVeGPggLSUFeJTT3dwsO6oUDmB9dp8f3J2h1ds3aI=;
+	h=From:To:Cc:Subject:Date;
+	b=ZbZRW1qlJiOojFLzHjuxEoj4UfngzibvCjsvMqQR7C86NTKOjihLkfEbkvHph2Cop
+	 nyjN5vvT2ibj1Gb3KaUgLMK0FW1yuXAMA5DewTBrkTsPJ/pnqm5rphoxEIMMOTZJFm
+	 GtCpF+1LBUW2f/1r2tmxesW8Mxo4jcRqIpvT6D18bHlR8yapslRM9HNbkyOiGGX5g0
+	 7MwYbERL85wy6zamfpkcTy28jT8/o4UCowlLIb/QtnJQqLe1kE4ExH8OEPhtQhD9Kc
+	 /sPGHDBUpxIiwprkx4/DoWWo1urNGrNoHFu5nf6aWWqWvPoxCp9FBeaTdiH5ha1t4B
+	 e8tG/IB9Khnzg==
+From: Andrey Albershteyn <aalbersh@kernel.org>
+To: Alexander Viro <viro@zeniv.linux.org.uk>,
+	Christian Brauner <brauner@kernel.org>,
+	Jan Kara <jack@suse.cz>,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: ebiggers@kernel.org,
+	hch@lst.de,
+	Andrey Albershteyn <aalbersh@kernel.org>
+Subject: [PATCH] fs: constify inode argument of inode_state_read_once()
+Date: Wed, 11 Nov 2026 11:01:49 +0100
+Message-ID: <20261111100148.3665035-2-aalbersh@kernel.org>
+X-Mailer: git-send-email 2.54.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,189 +62,33 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ADIRuleOP-NewSCL: Rule Triggered
-X-Proofpoint-ORIG-GUID: 2ceJxnRQp5Bwe6F25rTEVizSy0Z1wVN_
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDAzOSBTYWx0ZWRfX89qOJD3YAARY
- SdwSzpmJlQQpBzr+QncKYtEmV1HSvJ2p1XVk3zz9ev+uo2mMReJiDZ05E+CaQBWPY9WCDvT7Nz1
- QAGAV8fMUhI6dladiXRIW7KvJu+ja4xMMaj4defWga+2YQtFltdClhousGgwX5mkT9O6zecJIJM
- 5ilJ+5m3J6mNNo2QpCs2w+AVQEkHsKa0e4j1MAkt8cYRf4uEmD70aF3rCcR9bGoW9y91HpwRNh2
- XkNuIdD2BuJ4+wrF09mX5JazGqsyafLfRkGnbx/0mMc0BF+b15UdFkDkHPrVG0RH2Ne7ZY26w+E
- fGXKPelZ4FdWgD2rqgT4NtHCHAc494LPwKS5pm3w00iCAyMSy/WBjmeaD2hN3RzxWdh/YbmDs6A
- H/b2tsJuYfBRWp1OZBBY075z3am2FokNM+pUuBZPidsuNgqSt9N2LcMiHBTvcoBpgJmWWyOkEgG
- iFtBNyZ8BxrqctYyJTg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDAzOSBTYWx0ZWRfX0ZqhsdGugBFg
- DC64Dr8cjr2OPY3wiyunZpMa1VHyEFTfuzDaWV9zvNy0MMXFPVPiPYcuKXmrF09rdQ452+VnoDu
- xFx3yDfKjgVKv6An4jWQQs+b/06xk7pqgZmLRd/jIHkPJmspgRyL
-X-Proofpoint-GUID: 2ceJxnRQp5Bwe6F25rTEVizSy0Z1wVN_
-X-Authority-Analysis: v=2.4 cv=ZYmIpcVA c=1 sm=1 tr=0 ts=6af43cee cx=c_pps
- a=PpDZqlmH/M8setHirZLBMw==:117 a=PpDZqlmH/M8setHirZLBMw==:17
- a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22
- a=OmVn7CZJonkx5R5zMQLL:22 a=VwQbUJbxAAAA:8 a=gAnH3GRIAAAA:8
- a=kTs4aKTdxJRZGFSXfREA:9
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-11_02,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 bulkscore=0 adultscore=0 priorityscore=1501 phishscore=0
- spamscore=0 clxscore=1015 malwarescore=0 impostorscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611110039
 
-Commit 25108a834e14 ("net: phy: c45: add support for 1000BASE-T1 forced
-setup") made genphy_c45_pma_setup_forced() write the type selection
-field (bits 3:0) of the BASE-T1 PMA/PMD control register (1.2100) on
-every forced setup: 1000BASE-T1 for SPEED_1000, and 0 for everything
-else. 0 selects 100BASE-T1, so forcing a 10BASE-T1L PHY to 10 Mbit/s
-now also switches its PMA to 100BASE-T1, a mode it does not implement.
+Constify inode parameter so that callers can pass const inode. Callers
+do not need a change.
 
-Seen on an ADIN1110 (internal ADIN1100 PHY): after
-
-  ethtool -s ethX autoneg off speed 10 master-slave forced-master
-
-1.2100 reads 0xc000 instead of the 0xc002. Since the field is not
-restored by re-enabling autoneg, the PHY keeps the wrong type until
-the next forced setup or reset.
-
-Add a helper that returns the type selection value for the forced speed
-and the supported link modes: 100BASE-T1, 1000BASE-T1, and 10BASE-T1L or
-10BASE-T1S for SPEED_10 depending on the supported 10 Mbit/s modes. Fail
-with -EINVAL when no type matches instead of writing 100BASE-T1. This
-also applies to forced 2.5G, 5G and 10G on BASE-T1 capable PHYs, for
-which there are no link modes yet.
-
-The field is called "type selection" in IEEE 802.3-2022 (45.2.1.214,
-Table 45-178). Keep the old STRAP names as aliases.
-
-Tested on EVAL-ADIN1110EBZ: with this change, forcing 10 Mbit/s writes
-1.2100 = 0xc002 (10BASE-T1L) instead of the invalid 0xc000.
-
-Fixes: 25108a834e14 ("net: phy: c45: add support for 1000BASE-T1 forced setup")
-Signed-off-by: Iustin Stolniceanu <iustin.stolniceanu@analog.com>
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+Signed-off-by: Andrey Albershteyn <aalbersh@kernel.org>
 ---
-Changes in v3 (review by Andrew Lunn):
-- Sort the cases of genphy_c45_baset1_type_sel() by speed.
-- Add Reviewed-by from Andrew Lunn.
-- No functional change.
-- Link to v2: https://lore.kernel.org/r/20261109144837.738619-1-iustin.stolniceanu@analog.com
 
-Changes in v2 (review by Andrew Lunn):
-- Name the type selection values after 802.3-2022 (Table 45-178) and
-  define all of them, including 2.5GBASE-T1, 5GBASE-T1 and 10GBASE-T1.
-  The old STRAP name comes from 6f1c646d88c5 and is kept as an alias
-  for userspace.
-- Add a helper that returns the type selection for the forced speed and
-  the supported link modes, also covering 10BASE-T1S. It returns
-  -EINVAL when no type matches instead of writing 100BASE-T1, which
-  also applies to forced 2.5G, 5G and 10G on BASE-T1 capable PHYs.
-- Resolve the type before the first register write, so a failure leaves
-  the PHY untouched (reported by the Sashiko review bot).
-- Retitle the patch, as it is no longer specific to 10BASE-T1L.
-- Link to v1: https://lore.kernel.org/r/20261104152534.1425241-1-iustin.stolniceanu@analog.com
+Notes:
+    I will have a user with const inode in fsverity
+    https://lore.kernel.org/fsverity/20261105115532.613467-3-aalbersh@kernel.org/
 
- drivers/net/phy/phy-c45.c | 46 ++++++++++++++++++++++++++++++++++-----
- include/uapi/linux/mdio.h | 13 +++++++++--
- 2 files changed, 52 insertions(+), 7 deletions(-)
+ include/linux/fs.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/net/phy/phy-c45.c b/drivers/net/phy/phy-c45.c
-index 870920311f9a..828af4c4e9d4 100644
---- a/drivers/net/phy/phy-c45.c
-+++ b/drivers/net/phy/phy-c45.c
-@@ -104,6 +104,36 @@ int genphy_c45_pma_baset1_setup_master_slave(struct phy_device *phydev)
+diff --git a/include/linux/fs.h b/include/linux/fs.h
+index 99caef43ff3c..c5ba625c8ae1 100644
+--- a/include/linux/fs.h
++++ b/include/linux/fs.h
+@@ -877,7 +877,7 @@ struct inode {
+  *
+  * We hide all of it behind helpers so that we can validate consumers.
+  */
+-static inline enum inode_state_flags_enum inode_state_read_once(struct inode *inode)
++static inline enum inode_state_flags_enum inode_state_read_once(const struct inode *inode)
+ {
+ 	return READ_ONCE(inode->i_state.__state);
  }
- EXPORT_SYMBOL_GPL(genphy_c45_pma_baset1_setup_master_slave);
- 
-+/* Type selection value for the BASE-T1 PMA/PMD control register (1.2100,
-+ * 802.3-2022 Table 45-178) matching the forced speed. 10 Mbit/s is ambiguous
-+ * between 10BASE-T1L and 10BASE-T1S, so the supported link modes decide.
-+ * 2.5G, 5G and 10GBASE-T1 are not handled as there are no link modes for them
-+ * yet.
-+ */
-+static int genphy_c45_baset1_type_sel(struct phy_device *phydev)
-+{
-+	switch (phydev->speed) {
-+	case SPEED_10:
-+		if (linkmode_test_bit(ETHTOOL_LINK_MODE_10baseT1L_Full_BIT,
-+				      phydev->supported))
-+			return MDIO_PMA_PMD_BT1_CTRL_TYPE_SEL_10BT1L;
-+		if (linkmode_test_bit(ETHTOOL_LINK_MODE_10baseT1S_Full_BIT,
-+				      phydev->supported) ||
-+		    linkmode_test_bit(ETHTOOL_LINK_MODE_10baseT1S_Half_BIT,
-+				      phydev->supported) ||
-+		    linkmode_test_bit(ETHTOOL_LINK_MODE_10baseT1S_P2MP_Half_BIT,
-+				      phydev->supported))
-+			return MDIO_PMA_PMD_BT1_CTRL_TYPE_SEL_10BT1S;
-+		return -EINVAL;
-+	case SPEED_100:
-+		return MDIO_PMA_PMD_BT1_CTRL_TYPE_SEL_100BT1;
-+	case SPEED_1000:
-+		return MDIO_PMA_PMD_BT1_CTRL_TYPE_SEL_1000BT1;
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
- /**
-  * genphy_c45_pma_setup_forced - configures a forced speed
-  * @phydev: target phy_device struct
-@@ -166,6 +196,16 @@ int genphy_c45_pma_setup_forced(struct phy_device *phydev)
- 		return -EINVAL;
- 	}
- 
-+	/* Resolve the type before the first write, so a speed without a
-+	 * matching type leaves the PHY untouched.
-+	 */
-+	bt1_ctrl = 0;
-+	if (genphy_c45_baset1_able(phydev)) {
-+		bt1_ctrl = genphy_c45_baset1_type_sel(phydev);
-+		if (bt1_ctrl < 0)
-+			return bt1_ctrl;
-+	}
-+
- 	ret = phy_write_mmd(phydev, MDIO_MMD_PMAPMD, MDIO_CTRL1, ctrl1);
- 	if (ret < 0)
- 		return ret;
-@@ -179,12 +219,8 @@ int genphy_c45_pma_setup_forced(struct phy_device *phydev)
- 		if (ret < 0)
- 			return ret;
- 
--		bt1_ctrl = 0;
--		if (phydev->speed == SPEED_1000)
--			bt1_ctrl = MDIO_PMA_PMD_BT1_CTRL_STRAP_B1000;
--
- 		ret = phy_modify_mmd(phydev, MDIO_MMD_PMAPMD, MDIO_PMA_PMD_BT1_CTRL,
--				     MDIO_PMA_PMD_BT1_CTRL_STRAP, bt1_ctrl);
-+				     MDIO_PMA_PMD_BT1_CTRL_TYPE_SEL, bt1_ctrl);
- 		if (ret < 0)
- 			return ret;
- 	}
-diff --git a/include/uapi/linux/mdio.h b/include/uapi/linux/mdio.h
-index 06f4bc3c20c7..2806f60ed105 100644
---- a/include/uapi/linux/mdio.h
-+++ b/include/uapi/linux/mdio.h
-@@ -417,8 +417,17 @@
- #define MDIO_AN_10BT1_AN_STAT_LPA_EEE_T1L	0x4000 /* 10BASE-T1L LP EEE ability advertisement */
- 
- /* BASE-T1 PMA/PMD control register */
--#define MDIO_PMA_PMD_BT1_CTRL_STRAP		0x000F /* Type selection (Strap) */
--#define MDIO_PMA_PMD_BT1_CTRL_STRAP_B1000	0x0001 /* Select 1000BASE-T1 */
-+#define MDIO_PMA_PMD_BT1_CTRL_TYPE_SEL		0x000F /* Type selection */
-+#define MDIO_PMA_PMD_BT1_CTRL_TYPE_SEL_100BT1	0x0000 /* Select 100BASE-T1 */
-+#define MDIO_PMA_PMD_BT1_CTRL_TYPE_SEL_1000BT1	0x0001 /* Select 1000BASE-T1 */
-+#define MDIO_PMA_PMD_BT1_CTRL_TYPE_SEL_10BT1L	0x0002 /* Select 10BASE-T1L */
-+#define MDIO_PMA_PMD_BT1_CTRL_TYPE_SEL_10BT1S	0x0003 /* Select 10BASE-T1S */
-+#define MDIO_PMA_PMD_BT1_CTRL_TYPE_SEL_2P5GBT1	0x0004 /* Select 2.5GBASE-T1 */
-+#define MDIO_PMA_PMD_BT1_CTRL_TYPE_SEL_5GBT1	0x0005 /* Select 5GBASE-T1 */
-+#define MDIO_PMA_PMD_BT1_CTRL_TYPE_SEL_10GBT1	0x0006 /* Select 10GBASE-T1 */
-+/* Legacy names, kept for userspace */
-+#define MDIO_PMA_PMD_BT1_CTRL_STRAP		MDIO_PMA_PMD_BT1_CTRL_TYPE_SEL
-+#define MDIO_PMA_PMD_BT1_CTRL_STRAP_B1000	MDIO_PMA_PMD_BT1_CTRL_TYPE_SEL_1000BT1
- #define MDIO_PMA_PMD_BT1_CTRL_CFG_MST		0x4000 /* MASTER-SLAVE config value */
- 
- /* 1000BASE-T1 PCS control register */
-
-base-commit: 241dec6f9ab74d8c3ef246764f3611666b96b9e1
 -- 
-2.43.0
+2.54.0
 
