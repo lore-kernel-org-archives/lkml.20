@@ -1,107 +1,113 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794408281;
-	b=VntOIlDjhhHr7vV2PWnsY9zISJXntbnBsUIISiaq5HSBUaPcyRpoj+1uK5mjWgWxp9pH
-	 k2sASGesmhnwoPcCPAwAwtSksvdy52+W2/JScdkbsioIDXgMNzU6mQkuWABcAi1bVEiBV
-	 SZqa4CUzvkwyCIx0pdZFBo/fXRAulc6eid3X1TlyhUbHBQyhRIqRDlt10+2uPa74ZKR3y
-	 Y7eeoolcp0Qx/RRh7is0oUfts9mKcd27yD5aY3GsUlj+mLOKUjdRvx9qElkwUtkc6Ot3a
-	 0HJ9u+TC0DGk5uI6T0zmikBj1aZxRJLnw/1+FPlG7hYLfExkYxN11IkmiyYMf6PKr4g==
+	t=1794408348;
+	b=5jICnd4LaYvMSFuJktgG4SAocgd4Tmb5N+cq9CxslA7fVSZY/uU7gM0FCnosS3NyI2lI
+	 319j/tibInaQTBx2EOaHqBqLdPrj1V3L+pXeJg15PQ0XNnbe/hX33AGMoT4SaMaCuFafB
+	 hmMfIuTeSUodSZc4JuWEt53fC37JByZqkxdXdN9srOAJeFdezXowOTpGK+IZPP3j+ff78
+	 b1YhFZL3VPJInkGOBzupWAw4HyZjJsfNcw52b507K+LNkgFVpdcZVVf/iWnDuVEsjWBc+
+	 b3KXfV/OaoQdDl2iQmUj1oj6BeTElazorxsRJ06VyQ7Mdg+E93iIYA2dTvVqQySWPKg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794408281;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=LPsq33bOSJgVO/RNV124EKVcCGGrlMvdhjL7wfKrHy8=;
-	b=u5PqiRmTanTlTZLfZDKWqngxT9bRfxIt8uG+TjCCTCTZ1tXnUm6s8OWc9ZFnQ0vM/gsO
-	 OwOY7LApuNPZ8PP69pM98f2WxsAvdBjLaph5n09TX2KhVny++7p+Hv8kOucFwwV3XOA76
-	 D9oNdnqn7ePQcIrEDwX6GlALDL+LbseAmYM0k5eKXCpLmT+uv0RW8vVskaztbBYLyXMU7
-	 JJwjGM4LUoHku+RUOfdFrvpRJ2iUf/nczVZy4OWJ9VkWa3oHXdojLoWUo5mDXiyX20Wx+
-	 gnsRAx8DH9DIwcZQEHmOJPceuWtVJDZY9jhEAZljPf6p+kFbD+pxjTQn9fJ10li84zw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794408348;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
+	bh=+/KI1uKtvmdWUDWfBWuIRSM1SIl3IB8I/zH1iiRa4B4=;
+	b=2KJqPEh1vQ2gzGWMqowFanVcQ6WlCyxD1j3gUaS5NYkjSKe5LDriZS5l5rATC9jnDMo8
+	 2nfI9eO6/p6FWVrrPdnWWQIUAGYFHTRdrqbB6hxdHJv1JSyHL9pReNL9i5UAxiYt7W9lx
+	 vawNi+tHk/aoUnB9xcOg8TixPh10WUoRIv7nzshSYlI4dOr+43D16gkuWsRr6zj+btS38
+	 +NEhUu1IllUb7YzMqZG9BQ01DxQZiS2u3flPWg0YvW77fEqTt0gS632UrqMtgoTVLUKFn
+	 YftDK8HZkCsB33XZ/3tLp/u9OfxUNkv4BQX4jPZm7bGPb7t/yLQJpZRvThbe240l7vg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=k+Swmzkm;
-	arc=none smtp.remote-ip=209.85.128.43
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=suse.cz;
+	spf=pass smtp.mailfrom=suse.cz;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=UPC4lBDk;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=1KNLLQ0F;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=URS7iJnM;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=UAn9B18O;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B78D60A3811
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 14:44:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B78D60A3811
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A774C606A33B;
+	Wed, 11 Nov 2026 14:45:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A774C606A33B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=k+Swmzkm
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a5036bbac7so20882225e9.3
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 06:44:41 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794408280; x=1795013080; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=LPsq33bOSJgVO/RNV124EKVcCGGrlMvdhjL7wfKrHy8=;
-        b=k+SwmzkmeruMyqeW5z6x/dsExshBytMDpxcO1OU4qU2kAfFNVuzAQtHDrHYdDz8Hvm
-         OUTVWbCxynl3CtGFNMp8o95ip7H7qCrf4O6LhRcD83LHbP/PYgnVvUZaJmlWhGa5x4ye
-         n61r0y9ZWtacYE/iYoFN16Awu2pzCeBbK6DKAMF0mtTVLikRG4NeubyuQlF5y78PQYbA
-         HvE6ncIX0yo6Ivf0fAlIYHFj80507YdfWQS6mwo4eka9u/uBZjTqhRu3dyNjpovlWdeH
-         LGurjKJgjfzKrmdes3ZpL4QHaBLzB4aG5TSa3q/Ry1xfjk3b0BtgqZPPlQoCFDt/oENg
-         APVg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794408280; x=1795013080;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=LPsq33bOSJgVO/RNV124EKVcCGGrlMvdhjL7wfKrHy8=;
-        b=iju23kOzl57DM8i1OS00RCBFjqYaiWCjSB9PfPWD1LmjM9vYBFK/NfdHuNWaS1KrAX
-         pQS5IYFm37USLr+xw6A/plfAW2+GF5J3/8s1dQgJh1fI9iOJS37Zg/ROqvOefTVdplhJ
-         92TkHD8iERH2VkPGsAvaVLwQjr7tc3lKkF+6Ya2X4ng/K7bayQ/JLZ9lF5M4lax6j2Ro
-         NNnduWxdy6MBlOF7oigBMVi31rXMSaxy531uTU5J8Efc6q6RW9nS95Gpi+1zBKazSGFj
-         9N6mtKZvcsSXAXmxunAr+gSWgtztBb1IwOm+/WGI85xs/H51pyQXixfH8tIHR/f/nuNH
-         yF6g==
-X-Forwarded-Encrypted: i=1; AL+hErHB4WaAW+/zVakS3zu8SB2yIpOM54Kww3kx8SYqn9CluxJFkIHAlrRuZIpUc+aPQVbCftSTITDy3DUcw2Q=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/StORc2EjND+7Z8BnX5Izdy1bh79jlBYIUgOYeCMPb++3cPguU
-	qB2GFtoZiYR+b+p6J0xUNhM0/HT7dLPPS3MZiL0EPjJm2QWPkl4M8l9l
-X-Gm-Gg: AYBFou0J1ICpayEH311dsnsEA2nWoZ9MeFODS+Dlq8lRkfQj8ctXXV2KrX3YrcxKZEM
-	GHtvF+k0Qn1k6YVgGrIOxlZJUi9wFdIdbNwI0a0pHcNY5T8PxlEC0BcTleukk7WzF60UoMPW5Fu
-	KjlU7T7LtAPbhm4HJXgewHK6wmBrDrDMSq1+UMrz/LGNhx0ktEoaeAuK6+XKtJyn+7aAkryPIj9
-	siIGFfzVLNGeBjCkrfKsk5o5V5MatSUV8LVZcbtvb49edqUfYILEAWUj4unoNOcQoBrpbVqyEjR
-	K88czaXTxzh7uyU2z5jhUHkZbMw8SxJGfc0Lp7C7UDsoi25DMTh17B+YFGPkxTZtXhRnzb360kQ
-	w1EFUEiqsG4vccj6CG6f4ZzhuPPMqF0tIaL0rNF4eTPgEmvlvkFJirX5hgX1Wi62+J2Yn4mpfQR
-	rM5KSw0FLJkpRCyy9EMbLnTscRZHMddNjNOAvK7/ekKOaQY1otYqPw/lb7uTDrHt5vvJiPEiW1r
-	lA+6vQwGsK64q75+jKdKL2xrpC4HltjXSZZGGm4J6ky8wYiTmQ1+/6wQRSfbda6Js6eLRrQhPHv
-	ODEoNCKALRt4EnwlwWVUBGwUO+URh9cgk2f6uBJlG+LzAqYEDkP1FXFC
-X-Received: by 2002:a05:600c:c83:b0:4a2:150f:1605 with SMTP id 5b1f17b1804b1-4ba0936f386mr49865155e9.24.1794408279927;
-        Wed, 11 Nov 2026 06:44:39 -0800 (PST)
-Received: from dev.Default ([86.127.229.203])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba08de826asm46656495e9.0.2026.11.11.06.44.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 06:44:39 -0800 (PST)
-From: Agustin Santiago Isasmendi <isasmendi.agus@gmail.com>
-To: Navid Ghahremani <ghahramani.navid@gmail.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>
-Cc: "David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Junyang Han <han.junyang@zte.com.cn>,
-	=?UTF-8?q?Stefan=20D=C3=B6singer?= <stefandoesinger@gmail.com>,
-	Felix Fietkau <nbd@nbd.name>,
-	netdev@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-wireless@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=UPC4lBDk;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=1KNLLQ0F;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=URS7iJnM;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=UAn9B18O
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id D730C200FB;
+	Wed, 11 Nov 2026 14:45:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1794408346; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+/KI1uKtvmdWUDWfBWuIRSM1SIl3IB8I/zH1iiRa4B4=;
+	b=UPC4lBDk7tk3XlTWZZFeNMbc2HgsqB99ae2Z6+IxHrjxawkSXQguoZoOAtTJNAiNHMuI+A
+	uWIx2aspP7xawTUwz5vBGA2XBP702t3ykOMyaAHVfjhiYpEd87Q4NGdi0IZ8Y40T54RxCo
+	GnHTZpua0TyVocONDTZGJQknNZ3ORKQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1794408346;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+/KI1uKtvmdWUDWfBWuIRSM1SIl3IB8I/zH1iiRa4B4=;
+	b=1KNLLQ0FSTDrbOByVVvqmUpYG+qKB++a85XgTBcFdJsEG0aE9U7O2a4N7ZOR9d7+TCHSmQ
+	nau+7aFq0gMs6pCw==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1794408345; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+/KI1uKtvmdWUDWfBWuIRSM1SIl3IB8I/zH1iiRa4B4=;
+	b=URS7iJnMiKuoIJenCr94xXBJoCKNO24EFo8fwwOBs73hcb8y8JbtpOM15lcjKvf4DsvSyk
+	Zi7P7t4l4vM3LlzEAre9+W7eWZ2dO55svNS2/tXos0ejyQ/rttXFNpCUWmx6WwBrB0bgqn
+	mjLLxn2tTaXExURdVDBo+7m5dfaTM8o=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1794408345;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+/KI1uKtvmdWUDWfBWuIRSM1SIl3IB8I/zH1iiRa4B4=;
+	b=UAn9B18OtdVyoDJHzvclEfKmUIzq1ibgY5u5xG6Ima8kth8hntrf632yOismtZoMWZHO0R
+	bKJnnuuox7r+YnBQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A8BF0134E5;
+	Wed, 11 Nov 2026 14:45:45 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id bCfFIJl/9GrrIQAAD6G6ig
+	(envelope-from <jack@suse.cz>); Wed, 11 Nov 2026 14:45:45 +0000
+Received: by quack.suse.cz (Postfix, from userid 1000)
+	id 393DA22951; Wed, 11 Nov 2026 15:45:45 +0100 (CET)
+Date: Wed, 11 Nov 2026 15:45:45 +0100
+From: Jan Kara <jack@suse.cz>
+To: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
+Cc: Bryanna Marihugh <bryannamarihugh@manhattantech.edu>, 
+	Andrew Morton <akpm@linux-foundation.org>, Jan Kara <jack@suse.cz>, linux-fsdevel@vger.kernel.org, 
 	linux-kernel@vger.kernel.org
-Subject: [RFC PATCH net-next 5/5] net: ethernet: zte: zx279128s: debugfs knobs for the WLAN ring
-Date: Wed, 11 Nov 2026 15:44:26 +0100
-Message-Id: <20261111144426.1321237-6-isasmendi.agus@gmail.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20261111144426.1321237-1-isasmendi.agus@gmail.com>
-References: <20261111144426.1321237-1-isasmendi.agus@gmail.com>
+Subject: Re: [PATCH RFC] fat: use write_inode_now() on flush to avoid racing
+ the flusher
+Message-ID: <5iw7225asalwfuv7qdojzx7aqslfh7ctabqzicvrabfd5irsry@v4qvxiod3yz4>
+References: <20261029-fat-flush-isync-v1-1-69c02c258d0c@manhattantech.edu>
+ <878q3gth64.fsf@mail.parknet.co.jp>
+ <457c34c8-b52f-41c6-8b58-ed334b0dc483@manhattantech.edu>
+ <87ik2jsp9n.fsf@mail.parknet.co.jp>
+ <87a4nvso7w.fsf@mail.parknet.co.jp>
+ <9ced619f-58bd-41fa-b8fb-863bd49d5dbb@manhattantech.edu>
+ <87cxsd6ksn.fsf@mail.parknet.co.jp>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,78 +117,240 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <87cxsd6ksn.fsf@mail.parknet.co.jp>
+X-Spam-Flag: NO
+X-Spam-Level: 
+X-Spamd-Result: default: False [-12.80 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	ARC_NA(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email]
+X-Spam-Score: -12.80
 
-wlan_state (counters and port table), wlan_inject_all (inject every
-frame of the bound interfaces, as the vendor firmware does, to exercise
-the ring and the trap path without flows) and wlan_bind (bind an
-interface by name).  Testing aids, kept apart so they can be dropped.
+On Tue 10-11-26 19:30:16, OGAWA Hirofumi wrote:
+> Bryanna Marihugh <bryannamarihugh@manhattantech.edu> writes:
+> 
+> > OGAWA Hirofumi <hirofumi@mail.parknet.co.jp> writes:
+> >
+> >> > Bryanna Marihugh <bryannamarihugh@manhattantech.edu> writes:
+> >> >
+> >> >> There is some regression with small files on the uas drives from the
+> >> >> wait.
+> >> >
+> >> > Is this wait=1? The flush should just be early flush, no guarantee to
+> >> > flush completely. So I think it should be wait=0.
+> >
+> > Everything I have posted so far is wait=1. I just wanted to provide the
+> > benchmarks for my existing patch. I have a wait=0 one I have been
+> > testing now. I labeled it in the benchmarks.
+> >
+> >> > And the flush is assuming basically for removable media though, we can't
+> >> > choose. I think we need to check the result of such HDD/SSD.
+> >
+> > I did tests with this machine's dirty_background_ratio=5 (the kernel
+> > default is 10), which results in a 3.4-4 GiB threshold, and with a
+> > 256 MB threshold (dirty_background_bytes=256M,
+> > dirty_writeback_centisecs=100) to test what a more RAM constrained
+> > device might do. I set FSINFO next_cluster before each HDD run so all
+> > three kernels write to the same part of the disk.
+> >
+> > WD Blue 500G 5400RPM HDD SATA
+> > copying a 4 GiB file 3x, then sync, MB/s
+> > (requests and average size are from the third run, which was traced)
+> >
+> >   5% threshold
+> >     stock:  89.4, 86.9, 87.8  (8,913 requests, avg 471 KB)
+> >     wait=1: 97.9, 97.3, 95.2  (2,168 requests, avg 1,951 KB)
+> >     wait=0: 96.2, 95.7, 98.7  (1,626 requests, avg 2,580 KB)
+> >
+> >   256 MB threshold
+> >     stock:  81.0, 88.1, 81.4  (16,291 requests, avg 258 KB)
+> >     wait=1: 100.7, 99.7, 98.4 (2,257 requests, avg 1,859 KB)
+> >     wait=0: 101.9, 100.5, 98.7 (1,532 requests, avg 2,738 KB)
+> >
+> > WD Blue 500G, copying 1000 x 1 MiB files 2x, then sync, MB/s
+> >
+> >   5% threshold
+> >     stock:  9.44, 9.45
+> >     wait=1: 9.34, 9.32
+> >     wait=0: 9.55, 9.58
+> >
+> >
+> > Samsung SSD 870 EVO SATA, copying a 4 GiB file 3x, then sync, MB/s
+> > (requests and average size are from the third run, which was traced)
+> >
+> > The wait=0 runs were on a different day.
+> >
+> >   5% threshold
+> >     stock:  338, 340, 341     (1,460 requests, avg 2,874 KB)
+> >     wait=1: 333, 339, 339     (1,366 requests, avg 3,071 KB)
+> >     wait=0: 313, 313, 313     (1,792 requests, avg 2,441 KB)
+> >
+> >   256 MB threshold
+> >     stock:  377, 378, 377     (11,476 requests, avg 366 KB)
+> >     wait=1: 378, 378, 378     (1,675 requests, avg 2,505 KB)
+> >     wait=0: 346, 344, 345     (2,278 requests, avg 1,938 KB)
+> >
+> > 870 EVO, copying 1000 x 1 MiB files 2x, then sync, MB/s
+> >
+> >   5% threshold
+> >     stock:  9.61, 9.61
+> >     wait=1: 8.92, 8.92
+> >     wait=0: 9.61, 9.61
+> >
+> > PNY 32G USB 3.0 (usb-storage), copying a 3 GiB file 3x, then sync, MB/s
+> > (requests and average size are from the third run, which was traced)
+> >
+> >   5% threshold
+> >     stock:  6.4, 6.9, 6.9     (12,481 requests, avg 252 KB)
+> >     wait=1: 17.5, 17.9, 18.0  (3,720 requests, avg 846 KB)
+> >     wait=0: 17.9, 13.7, 16.4  (3,809 requests, avg 827 KB)
+> >
+> >   256 MB threshold
+> >     stock:  5.8, 6.1, 6.0     (13,996 requests, avg 225 KB)
+> >     wait=1: 17.9, 16.4, 14.7  (3,575 requests, avg 881 KB)
+> >     wait=0: 18.0, 18.2, 17.9  (3,663 requests, avg 860 KB)
+> >
+> >
+> > PNY 32G stick, copying 1000 x 1 MiB files 2x, then sync, MB/s
+> >
+> >   5% threshold
+> >     stock:  5.49, 5.62
+> >     wait=1: 5.82, 5.62
+> >     wait=0: 5.66, 5.65
+> >
+> > Samsung 64G USB stick (usb-storage),
+> > copying a 4 GiB file 3x, then sync, MB/s
+> > (requests and average size are from the third run, which was traced)
+> >
+> >   5% threshold
+> >     stock:  33.0, 33.0, 33.1  (12,725 requests, avg 330 KB)
+> >     wait=1: 33.2, 33.1, 33.2  (4,521 requests, avg 928 KB)
+> >     wait=0: 33.1, 33.2, 33.2  (4,583 requests, avg 915 KB)
+> >
+> >   256 MB threshold
+> >     stock:  33.3, 33.3, 33.3  (15,757 requests, avg 266 KB)
+> >     wait=1: 33.3, 33.5, 33.5  (4,534 requests, avg 925 KB)
+> >     wait=0: 33.5, 33.6, 33.5  (4,645 requests, avg 903 KB)
+> >
+> >
+> > Samsung 64G stick, copying 1000 x 1 MiB files 2x, then sync, MB/s
+> >
+> >   5% threshold
+> >     stock:  7.34, 7.34
+> >     wait=1: 7.33, 7.34
+> >     wait=0: 7.32, 7.35
+> >
+> > I was a bit surprised by the improvement on the HDD. I will see if I
+> > can find a high end HDD.
+> >
+> > With the SSD the 870 EVO I did the wait=0 test on a different day.
+> > Not sure why but it seemed to be slower on the wait=0 test, I am
+> > blaming the run being on a different day. I think performance is
+> > probably mostly flat with the fix.
+> >
+> >> And maybe it needs to check unmount time (check how many dirty was
+> >> missing to flush).
+> >
+> > wait=0 does come with that downside. If the flusher is already writing
+> > the file at close, wait=0 skips it and unmount has to write the rest.
+> > At 5% the 3 GiB file on the PNY stays under the threshold, so the
+> > flusher doesn't start until the 30 second expiry. That's why stock is
+> > still slow there and wait=0 behaves like wait=1. The 4 GiB files go
+> > over it.
+> >
+> > PNY 32G stick, 3 GiB file, cp then umount right away,
+> > average of 3 runs (5% threshold) and 5 runs (256 MB):
+> >
+> > 5% threshold   cp returns  dirty at close  umount   total
+> > stock               485 s            3 MB   0.6 s   485 s
+> > wait=1              184 s            3 MB   0.8 s   185 s
+> > wait=0              180 s            3 MB   0.6 s   180 s
+> >
+> > 256 MB         cp returns  dirty at close  umount   total
+> > stock               513 s            3 MB   0.6 s   514 s
+> > wait=1              176 s            2 MB   0.8 s   176 s
+> > wait=0              2.6 s        3,004 MB   172 s   174 s
+> >
+> >
+> > WD Blue 500G 5400RPM HDD SATA, 4 GiB file, cp then umount right away,
+> > average of 3 runs (5% threshold) and 5 runs (256 MB):
+> >
+> > 5% threshold   cp returns  dirty at close  umount   total
+> > stock              47.4 s            3 MB   0.8 s  48.2 s
+> > wait=1             43.5 s            3 MB   1.2 s  44.7 s
+> > wait=0              2.2 s        4,064 MB  42.3 s  44.5 s
+> >
+> > 256 MB         cp returns  dirty at close  umount   total
+> > stock              51.3 s            3 MB   0.8 s  52.1 s
+> > wait=1             44.0 s            2 MB   1.3 s  45.2 s
+> > wait=0              2.0 s        4,021 MB  43.2 s  45.2 s
+> >
+> >
+> > 870 EVO SSD (internal SATA), 4 GiB file, cp then umount right away,
+> > average of 3 runs (5% threshold) and 5 runs (256 MB):
+> >
+> > 5% threshold   cp returns  dirty at close  in flight  umount   total
+> > stock              11.9 s            2 MB     362 MB   1.1 s  13.0 s
+> > wait=1             12.2 s            2 MB       0 MB   0.9 s  13.0 s
+> > wait=0              1.5 s        4,006 MB      22 MB  12.3 s  13.8 s
+> >
+> > 256 MB         cp returns  dirty at close  in flight  umount   total
+> > stock              11.9 s            3 MB     112 MB   1.0 s  12.9 s
+> > wait=1             11.9 s            2 MB       0 MB   0.9 s  12.8 s
+> > wait=0              1.7 s        3,350 MB     180 MB   9.7 s  11.4 s
+> >
+> >
+> > I can type up an actual patch with wait=0 and removing the helper
+> > that Matheus suggested.
+> 
+> Hm, wait=0 looks like affect umount more than expected. The following is
+> untested and not perfect though, how about something like this?
+>
+> (I'm not sure if this is acceptable as generic function though)
+> 
+> Thanks.
+> 
+> 
+> /* This want to flush dirty without waiting write completion. */
+> int writeback_inode(struct inode *inode)
+> {
+> 	struct writeback_control wbc = {
+> 		.nr_to_write = LONG_MAX,
+> 		.sync_mode = WB_SYNC_ALL,
+> 		.range_start = 0,
+> 		.range_end = LLONG_MAX,
+>                 .for_sync = 1,	/* purpose: don't wait write completion */
+> 	};
+> 
+> 	if (!mapping_can_writeback(inode->i_mapping))
+> 		wbc.nr_to_write = 0;
+> 
+> 	might_sleep();
+> 	return writeback_single_inode(inode, &wbc);
+> }
+> EXPORT_SYMBOL(writeback_inode);
 
-Assisted-by: LLM
-Signed-off-by: Agustin Santiago Isasmendi <isasmendi.agus@gmail.com>
----
- drivers/net/ethernet/zte/zx279128s-wlan.c | 34 +++++++++++++++++++++++
- 1 file changed, 34 insertions(+)
+Yeah, I guess I can live with that.
 
-diff --git a/drivers/net/ethernet/zte/zx279128s-wlan.c b/drivers/net/ethernet/zte/zx279128s-wlan.c
-index 6c6f6a36d34f..29970db47a41 100644
---- a/drivers/net/ethernet/zte/zx279128s-wlan.c
-+++ b/drivers/net/ethernet/zte/zx279128s-wlan.c
-@@ -18,6 +18,7 @@
- #include <linux/platform_device.h>
- #include <linux/seq_file.h>
- #include <linux/tcp.h>
-+#include <linux/uaccess.h>
- #include <linux/udp.h>
- #include <net/arp.h>
- #include <net/cfg80211.h>
-@@ -751,6 +752,38 @@ static int zx_wlan_state_show(struct seq_file *s, void *data)
- 	return 0;
- }
- 
-+/* Bind an interface by name without waiting for a flow (testing) */
-+static ssize_t zx_wlan_bind_write(struct file *file, const char __user *ubuf,
-+				  size_t count, loff_t *ppos)
-+{
-+	struct zx_eth_adapter *adapter = file->private_data;
-+	char name[IFNAMSIZ + 1];
-+	struct net_device *vif;
-+	int ret;
-+
-+	if (count == 0 || count > IFNAMSIZ)
-+		return -EINVAL;
-+	if (copy_from_user(name, ubuf, count))
-+		return -EFAULT;
-+	name[count] = 0;
-+	strim(name);
-+	vif = dev_get_by_name(dev_net(adapter->wlan->napi.dev), name);
-+	if (!vif)
-+		return -ENODEV;
-+	mutex_lock(&adapter->ppe_lock);
-+	ret = zx_wlan_is_ap(vif) ? zx_wlan_port_get(adapter->wlan, vif) : -EINVAL;
-+	mutex_unlock(&adapter->ppe_lock);
-+	dev_put(vif);
-+	return ret < 0 ? ret : count;
-+}
-+
-+static const struct file_operations zx_wlan_bind_fops = {
-+	.owner	= THIS_MODULE,
-+	.open	= simple_open,
-+	.write	= zx_wlan_bind_write,
-+	.llseek	= noop_llseek,
-+};
-+
- void zx_wlan_debugfs_init(struct zx_eth_adapter *adapter, struct dentry *dir)
- {
- 	if (!adapter->wlan)
-@@ -759,6 +792,7 @@ void zx_wlan_debugfs_init(struct zx_eth_adapter *adapter, struct dentry *dir)
- 				    zx_wlan_state_show);
- 	debugfs_create_bool("wlan_inject_all", 0600, dir,
- 			    &adapter->wlan->inject_all);
-+	debugfs_create_file("wlan_bind", 0200, dir, adapter, &zx_wlan_bind_fops);
- }
- 
- /* ---- init / fini --------------------------------------------------- */
+								Honza
 -- 
-2.30.2
-
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
