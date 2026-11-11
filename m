@@ -1,114 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794392920;
-	b=Ds9V+Dj3ShCq4SJwhtgS7hNHyN63NRLnXDWEak8omKiIv/LxhoTsmTYK1UXJqbHozxPs
-	 2mskZ6VvLZGf90pf9em6lJHSw5pjbHSakFrmoNDK+DKlmSiu/4iqzWv1RzWxWjQAkZiIT
-	 qD1I9h74Z1e6p+daRIPsogkhBKRarfCscqn9UA8bWIftwQdx6uu1ViU0Sl/3fOqMtDS5K
-	 xbsJ0AFiFk1Uh9k/PiYVisKcFRd1/KYegsDwJhbO4B62+pX8Y7f+sYB4nPtjGGvwLv5Xm
-	 DepPa+9GqLVE1PCPMgK4oc8QtD7AIa4XfKtCkMmMz8YRJSpw0wosLCwn1PlLBmtge+Q==
+	t=1794392936;
+	b=Zt8AIMYAXO+tNDDu2FJH2l6Yc2uhhJCjcBBDpkF7PfUwqnjrupyZnjMCTDlMfwt7Xq2W
+	 hkQgPojrTS8BzFONiBJ24liI541xJrAQdFL0fm/G3FEdlfcBod2u4FQmjJpMLsEDcD4gH
+	 5JXmcJvlos3w1liU3ajLvkShKDgolAdAsj+mdOCxVpg3fpJj2FMVc50yLsxrlwp8ZtjPz
+	 OrORFLU8ckPZC5V3918UIjtpVpLIe4sWR8akgpc5/ay+aFLgPxlLMPDKimC/DBiAd1l61
+	 6X2ecvE2iz6aVAQAF70Sy3zGW9QNB+7/AC3XsiOIWL5eiApKHUHaRsPHxFJzldQk5kw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794392920;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794392936;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=FgfjZ6gPNStEt/RNYx2qJuKKf940MnozlyJhtYv0suI=;
-	b=4Vemq87SlrO67VMhSgOHuMZfSkmqZIabkjVRXtqPTCr/YBmDNZfsUp/lOlPdd74Z51ao
-	 ldhRno+nN8psyzfh5ItaMjDimDdhU+ttp4/docELft24XkSVBKSMlkS/Lh3e8iU0OXW+E
-	 6/FylwYJAl93DlZAhJMnNkikfbtUYeEuyM9H672c1ETX7cJVBogyc5uPlSxNBkaeydk/C
-	 I0VbIm0I2Ue8vHfmmx8O8hbBjVs5uY79ks3vqtFQugJ9vpnGzuMclL0W7s0ykTFgByvh6
-	 Mo969J2YHWB7Ns18WxU0EfYz/Zz8QmXa9ORrwYQ3ldObj8FInr0VE53cJcitZ9dUWNQ==
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=S0n6tEIf6xgoVedt+MafTEKXaK+IsDQRgSWIh9QwpkE=;
+	b=qZfGCxg3Evvm3EFwW3B+ibdsmumtrHg/8v57sMacP/Gpubqrkb3sR7lTVCkXEKvar+2U
+	 wm1AL7nHJhqUSkK8mn819+f7adzQfqiO5qKn/qDmouMSapeafQmhYZF/s9T+dhAMrFBQ0
+	 LIYeKzpVNuNgEL67lttl1n2eaZTZkD+soXUL1PbWJOjDJvUY9Oeulws8WENg3XmX2zsHj
+	 uqb5nZOF2Pbkg4wWhQKNLU2nbboxRutZizXAH9qrGHpneNTUeRzqosfAHXOPmSkxw/Eby
+	 MH+RhgwdPwEppv5eR/s96nCrTlrKiu/14VHZdlO89ydo5d6m7zG/mGqRSiCZDzNV7UA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zWDbBcPl;
-	arc=none smtp.remote-ip=209.85.221.53
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PjW39RcL;
+	arc=none smtp.remote-ip=209.85.221.42
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37219606A882
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 10:28:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37219606A882
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B721606A332
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 10:28:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B721606A332
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zWDbBcPl
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-490a0e72588so1642477f8f.3
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 02:28:39 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PjW39RcL
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-492690dd5daso2341147f8f.1
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 02:28:55 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794392918; x=1794997718; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=FgfjZ6gPNStEt/RNYx2qJuKKf940MnozlyJhtYv0suI=;
-        b=zWDbBcPlqS1AC19c/HKVJJivTF+W3QDFDNQtIKOvb3hEChlZ4gd3uHJGRCqzbATgi+
-         4WA95HRAW2CM31vuAQddh7JXzptPeou2EnYnKEFZGeKj3eOKR3tQjEXWHFnPKbtomdzT
-         qYebL4M08+kzm+fecTEfuUPhgT3cf2mQl38aA0zBrA/RVjVllPMR7+CI+ypkaVRyCVHv
-         JyASfAk8iIqtIvzNX4yFl994GJnBbETlTTUETK2oIjy7wEOHZ2MHdtCi1gKcVIEdxh/5
-         IXw9112LmYt355Rq2qfFzl+8sFHcxLKC9TnUDf617SM9jDHfoqgOW4LLz/zDpS2v6VsY
-         vYrA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794392918; x=1794997718;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20260707; t=1794392934; x=1794997734; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=FgfjZ6gPNStEt/RNYx2qJuKKf940MnozlyJhtYv0suI=;
-        b=pHB5j0P6nol+QSdVF1VuRsml8xOEgioEB2AHWUWGWcTxSmaMtafo50WM7x1leAinuI
-         +bcSW5dbpSt5K7tHkBb2E9ByGPnNXn/cjXPel1/Qh4Fq9jrUuHzjlJOnF3KZ+UxDIKb5
-         LWiGwOqMcM/Lw02/OznfStBglGiSrj91MSrQ77aK7tnWg2WfOqnRexFKv59MJ28Zqc1r
-         NnqlEnwwTEBvbwr32gs5oBNO1Rbjbi9tvQ9zuRwmDZ4i9ON7uIEBBL0hNLxsvS2Yhb+1
-         LMB9g+DBMg8HMMtEqgMb62cP3F5aOOoQK1vMPCOBDLgqJ03hxxY9RXUBmYgudMsk/RKM
-         Krmg==
-X-Forwarded-Encrypted: i=1; AL+hErGrXE5i09N5LDLC5uXPPZNkHpHhsNv0cz/sCPRbxXfFul78qBEem/H4rTGADjxYUv1gneQ6hJc5Glo62kY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+sxwYtHwtBXBjobTKf6NlYKgGRvfaMEyJW4IuYUdHSUTgHbmsR
-	KX4kbUAddQxBwEaMIA8SN5sjTnkMnNQoaObsEhUtu8tnH6qCF2SXdr2D
-X-Gm-Gg: AYBFou2wABExAAfWr7bW0zGwZEUrUcD+VHPPpAydJpu05EqSdb9Kx/uNCSukrbRVKNX
-	WaZcFQ/Tf2lck1WOjhSHXWxx7ZE7NNB2ZO2lj3MVs9gNWD41cKklw+b7MBWp8fEjmmrKkHjPv1j
-	m42KSukhuZAorXYGOFoLK2cwmD5MkkYkp2LlUURRCm7wNrh45KrTuhrBLzytdjwPvF+XeWZtc4n
-	Fv7cdWO4nKRLR3HWfX3t4qXbafV1u4XZdpKHxMqMj54g2ewWgSYXFd5dem6fQPtFC8RbJhjxC3Y
-	XnYQufDDc2iRzOXoNSl1FBWmb5Cvmtort3A8B3Z6RrpJty0/iR0E7Bd04SQGHZ5roTUGzrc5fsC
-	4WWVW7iILdI5K7ECPGBeUJZZ/OOjl76mQZdFnocZ39LedKuXRF0t6AZO1OM8SHFgYhX/EwbsKlj
-	bCF80iAjVBNMZ0iOydkZgq6B3TflBx0GYums8Vc3mdnSkdpweJout8pgQcogbBFrwHbKyzL9bXt
-	Fb42Sj7oyYTVOaBy10QZxkhOZGDez/Gr3p7HiBcMy5l3cH7b0pGIKRTLPYbP5ZKRunLUO8CVq2y
-	XXe3Cs4RjB8xJwxwC9ovyPNDLxJMruDXSaQFrVmeegbRBrJ3cr+aUXth9yuMwO7MnA==
-X-Received: by 2002:a5d:5f47:0:b0:48d:ef7a:e59f with SMTP id ffacd0b85a97d-499c75528cdmr3034821f8f.17.1794392918442;
-        Wed, 11 Nov 2026 02:28:38 -0800 (PST)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498361f674fsm10337668f8f.33.2026.11.11.02.28.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 02:28:37 -0800 (PST)
-Date: Wed, 11 Nov 2026 10:28:36 +0000
-From: David Laight <david.laight.linux@gmail.com>
-To: Alejandro Colomar <alx+linux-hardening@kernel.org>
-Cc: Joe Perches <joe@perches.com>, Alejandro Colomar <alx@kernel.org>,
- linux-hardening@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>,
- "Maciej W. Rozycki" <macro@orcam.me.uk>, Geert Uytterhoeven
- <geert@linux-m68k.org>, Andreas Schwab <schwab@linux-m68k.org>, Andy
- Shevchenko <andy@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Daniel
- Scally <djrscally@gmail.com>, Danilo Krummrich <dakr@kernel.org>, Greg
- Kroah-Hartman <gregkh@linuxfoundation.org>, Hans Verkuil
- <hverkuil-cisco@xs4all.nl>, Heikki Krogerus
- <heikki.krogerus@linux.intel.com>, Johan Hovold <johan@kernel.org>, Kees
- Cook <kees@kernel.org>, Laurent Pinchart
- <laurent.pinchart@ideasonboard.com>, Len Brown <lenb@kernel.org>, Linus
- Torvalds <torvalds@linux-foundation.org>, Linus Walleij
- <linusw@kernel.org>, Namhyung Kim <namhyung@kernel.org>, "Rafael J.
- Wysocki" <rafael@kernel.org>, Rob Herring <robh@kernel.org>, Sakari Ailus
- <sakari.ailus@linux.intel.com>, Saravana Kannan <saravanak@kernel.org>,
- Steven Rostedt <rostedt@goodmis.org>, Tom Zanussi <zanussi@kernel.org>,
- linux-acpi@vger.kernel.org, driver-core@lists.linux.dev,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- linux-gpio@vger.kernel.org
-Subject: Re: [PATCH v3 5/5] string: Make strprefix() const-qualifier-generic
-Message-ID: <20261111102836.759ec121@pumpkin>
-In-Reply-To: <avOn57pfHntiwcaD@devuan>
-References: <cover.1794323750.git.alx@kernel.org>
-	<35bf6672f84f07de3f40e8db9e7fcfd643894fec.1794323750.git.alx@kernel.org>
-	<64aa89daf23821f95780813fe96882ff61688578.camel@perches.com>
-	<avOn57pfHntiwcaD@devuan>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+        bh=S0n6tEIf6xgoVedt+MafTEKXaK+IsDQRgSWIh9QwpkE=;
+        b=PjW39RcLxzoGvtaKcQYDQP2va3T9aZKhVStCO4PitYqiXI92QH4v+JUentad+6tFcX
+         c+UIVPyEMpkFJVvDxgUAmsb9V+25vMtzatHC5XpytY7COKz5m6B2DKxs61dzKDdx5q1C
+         IB84sEugGeoLpsKYMjMfSHutuS8Fxg0BDRCbW8oRrNGJ9I9TiLf+yVdiU50A3uGbJxqv
+         jTc6W1XJX0b/KWLV4qVe++Ze3WSf/bx7y7BXZWYq/cpGiYtnpIx7WeoFZVUy8LjUBMmz
+         ohQRcTYEJQ7qB7CjNPxVVAHw95KNReLbkn0GknrUihsDOgV1LQnP4SGx6bLlmuX26UZU
+         Qr8w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794392934; x=1794997734;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=S0n6tEIf6xgoVedt+MafTEKXaK+IsDQRgSWIh9QwpkE=;
+        b=yKIe4xC0z+kh8ffnIdSBvcDX3KkZvbrbaCoz/4Py22RkxqtEIk65tq6cJh2gyTpRWV
+         wCQv91inYICFphiEeQlUa3J/zeBP/IByDpcGVOoT3gbBM1eGPHmEOqAZiRng09XtQxOw
+         E0FMp5Sfylgwx2wwzLWgEXRRJn5arkfgLndk6jTf192jPB6zZiY84SRcsWNv0A7xHDMm
+         VM1zdJdpBQi5jLz3L+U8FxT0kXYGomz4LyTEv3irllimBLP2OiieqMC9L/uOp3wKXwAe
+         mWtNcGD9AOHuU4LRLPD/q036hOW1MmmZuauRZF89JgkVVMCpxyeDbltlGjAukVrXWw8w
+         rd8A==
+X-Forwarded-Encrypted: i=1; AL+hErEzy67jm+Vopi6vXD+8DFG34J+0QdASGMbuRB+hWHFlek9Lwe6X06547kNpbW03FJ2iR8ff7ZgUbs2f9dg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8YkaBoFlggpBJDlQxk5cQ1C1lbmK7ZNxwEvIQPUXzKXxrgQZYR
+	a2XSFlEDDrK7wxMeex3+VMUy4HAj3KNvKHlO6saxf6TfTT0gjLkcbePM
+X-Gm-Gg: AYBFou28kT0TroQPulrZJfbiJO7s0pur1AE7M9DGEqVyhwd8JcJ5H0VF49eZ2eEIKU4
+	G5ksl7E+fuFwM8ZqVmJFP0h0yODF7f+EhCJOkc6WydUWzLuI4ba6tIjexStyPbu/QC4/wQEfeQj
+	B3qa5UDPELScpiblqtWfwGTnkf4QUdrqw12dB0MMIV43mTrv29TcKEuqoGqfAvEb8NMbZFYTEaf
+	IxcXOlWh6VVaQZS0YvQIlS0UmGRgl+tf6rabOklBM0vs9FsqBliZPaEjr6qfrXfok3r/jzEnfxK
+	q+lz9dpftte3+uD33wjnarQ+ZrLKbH7uxnR4nRGr7PjX0PzWOzd3dbdcmsHeZqS0KcCtrwU19HL
+	mfE6A19KxvUThyE58n2sxJH8Xs9Js3YyIU2aEgxLl5oIqU9YHMrStZu5/N6wYJgsUYSsQWHa1Nv
+	OolulP1FSuEGE4TvD207EfzipEmbgNE9NtapfS7WEM+kjokc2bAJdXnZsF34M9f5dseIHQ03Bwa
+	OeDPJxFc35f3qlahn3nxe+uhtQ999iyw+EWDSNBRh4i7uD6514ysOBD7xXAjbToYRvxVtPEMITu
+	6mwMdOUWoQWz4GXN3f200n7kn3L7pJRSo/WsbRQTJdcqQNppdaEq8uNvCdSy6O12WBeUok8pVi7
+	sf1w9QEg=
+X-Received: by 2002:a05:6000:2201:b0:48e:5cd4:aa60 with SMTP id ffacd0b85a97d-499c9dad952mr3537266f8f.42.1794392933785;
+        Wed, 11 Nov 2026 02:28:53 -0800 (PST)
+Received: from [192.168.68.73] (host-87-4-46-207.retail.telecomitalia.it. [87.4.46.207])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4983585c4fdsm10342588f8f.10.2026.11.11.02.28.52
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 11 Nov 2026 02:28:53 -0800 (PST)
+Message-ID: <a64e2fa1-6670-4018-80b8-b6856709ad5f@gmail.com>
+Date: Wed, 11 Nov 2026 11:28:52 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -118,57 +93,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ASoC: soc-core: reset rtd->num_components after
+ allocation
+To: Kees Cook <kees@kernel.org>, Takashi Iwai <tiwai@suse.de>
+Cc: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Emanuele Ghidoli <emanuele.ghidoli@toradex.com>,
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ linux-sound@vger.kernel.org, linux-hardening@vger.kernel.org,
+ linux-kernel@vger.kernel.org, wenst@chromium.org,
+ angelogioacchino.delregno@collabora.com
+References: <20261109102536.357134-1-ghidoliemanuele@gmail.com>
+ <87bj7yw9e2.wl-tiwai@suse.de>
+ <87FF4A7B-853C-466A-AB01-2D9137DEE6CC@kernel.org>
+ <EAAF07EF-6B11-4EA5-A5AF-A7787CA2F196@kernel.org>
+Content-Language: en-US
+From: Emanuele Ghidoli <ghidoliemanuele@gmail.com>
+In-Reply-To: <EAAF07EF-6B11-4EA5-A5AF-A7787CA2F196@kernel.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On Wed, 11 Nov 2026 00:27:28 +0100
-Alejandro Colomar <alx+linux-hardening@kernel.org> wrote:
 
-> Hi Joe,
-> 
-> > Date: 2026-11-10 08:32:41-0800
-> > From: Joe Perches <joe@perches.com>
-> >
-> > On Tue, 2026-11-10 at 16:33 +0100, Alejandro Colomar wrote:
-> > 
-> > no commit description on proposed patch  
-> 
-> There isn't much to say, but I'll add something (the explanation of why
-> the parentheses are needed around the function name, for example).
-> 
-> > > Suggested-by: Geert Uytterhoeven <geert@linux-m68k.org>
-> > > Signed-off-by: Alejandro Colomar <alx@kernel.org>
-> > > ---
-> > >  include/linux/string.h | 4 +++-
-> > >  1 file changed, 3 insertions(+), 1 deletion(-)
-> > > 
-> > > diff --git a/include/linux/string.h b/include/linux/string.h
-> > > index 9e59f9697c9e..55ca4cb5122c 100644
-> > > --- a/include/linux/string.h
-> > > +++ b/include/linux/string.h
-> > > @@ -590,7 +590,9 @@ void memcpy_and_pad(void *dest, size_t dest_len, const void *src, size_t count,
-> > >   * *  @s+strlen(@prefix) if @s starts with @prefix
-> > >   * *  NULL if @s does not start with @prefix
-> > >   */
-> > > -static inline char *strprefix(const char *s, const char *prefix)
-> > > +#define strprefix(s, pfx)  const_cast(CQChar_of(s) *, strprefix(s, pfx))
-> > > +
-> > > +static inline char *(strprefix)(const char *s, const char *prefix)  
-> > 
-> > Why introduce a new coding style?  
-> 
-> It's not style; the parentheses are technically needed to avoid macro
-> expansion, since the macro has the same name as the function.
-> 
-> Alternatively, I could rename the function to __strprefix().
 
-Or put the #define after the function definition.
+On 11/11/26 06:59, Kees Cook wrote:
+> 
+> 
+> On November 10, 2026 9:50:08 PM PST, Kees Cook <kees@kernel.org> wrote:
+> 
+> For example, what keeps snd_soc_rtd_add_component() from overflowing that array? If you want to protect the array, add another member, say max_component, and use that for the counter, which gets set at allocation time and protects the array from indexing beyond the actual allocation size.
+> 
+> 
 
-David
+Hello Kees,
 
-> 
-> 
-> Have a lovely night!
-> Alex
-> 
+Mark has already applied the fix to for-7.4 (d00ba321499c). I agree that
+your proposal is far better, but the applied patch was meant as the
+minimal change to fix the regression.
+
+On your question about what keeps snd_soc_rtd_add_component() from
+overflowing the array: nothing, and it already seems possible today.
+
+From an LLM-assisted review of the code: the platform loop in
+snd_soc_add_pcm_runtime() adds every component that matches the platform
+dai_link_component, while components[] has one entry per
+platform. On mt8173, for example, the AFE registers three components on the
+same device and the front-end links use it as platform, so four components go
+into three entries. The extra store has gone unnoticed in the slab slack, but
+with max_components as the counter UBSAN_BOUNDS would report it.
+
+I can't work on a follow-up. If someone picks it up, components[] probably
+needs to be sized by the matching components before the counter is switched to
+max_components.
+
+Emanuele
+
 
