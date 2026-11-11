@@ -1,47 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794390152;
-	b=RbcjY0KEnCLfHBsaIBOvzIOdce3lrfJ305D6YiVJIlbdeO31TbRLhlapn/he6QIsq2Um
-	 1m02CeCSbEihFJkNdQ1y7Hh/0GcG0RZrXGbWHVfs0qCfbzshosjq1b7L1b8OtXKUbIy2p
-	 +N3Z54r7ndN4V+UEFzopYydn5G4VS4JTp1Gij+VOgL+4qjJMcqj1dRr2jWyXwie/VhX6f
-	 APol/jaE42FYLqk2iwQPTiZsvH9Mpos9IxQVEQuWwB9a1qAIkPaUqvo4OXFQDuYT6CcK/
-	 gTUBlf33vsifKgrA2BF35YMfRryf/UODFJEjNdu5tv0JG3H40VsNuqtbXt4PE40T6Vw==
+	t=1794390182;
+	b=GwHBA/WN+sVvUbpiVeJfGIW2drVU8AwnFiUw4w9Ub9ucSi+ZSAyTwXK9UAnkZoWD5NsQ
+	 dxOQe/XF+g4NUErcEvH1uBFKMbvv7RyK0e7QoOqkQLQnDfFgWBGGSXFRmOEbTYbcFCuEQ
+	 cTlKqEadGa7xaGcIKRK21iH4pXjfylFRsjWuA0JOLMBOjdE6hz6iQkEnzngpl7rQtYypW
+	 3wKp2fyiMjrgM80yLPkxB9Yof8BDACVZC9H+0jONZXzMQnSyykFR7vMDFQsFV4LkhOjKS
+	 uFNdW20B4LOFr/Tkbi43aNY00u6+ED4mdtX3JqDunpnWa+eQ+JcOdRi/fVReb1yrzeQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794390152;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:Cc:
-	 Subject:To:References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=+UXs3lHVlQsYdFZ0M6ic3j3lh1I9mB+CJLu6Q79BNGU=;
-	b=FKMmCEOhwUtg7d+Q3/XbtZc9o7Q93HqmfP8T9zFGFpJleHDi1c0BINfmmE1qVIJGBGut
-	 uhrCLY/ZnrhTS8L0/pnmaYEnK51ZaCcD+95HjN4yCv70sZE9zlURfnSaB1bWE104Vmd8l
-	 bMo5JsX3jHvmFDRsaISzDQc2fLjIUdqo5FQ0DPXdTSKDttz4q9eg66Cgjh3A2Dzlb8Rxb
-	 1p6AySNdlOPgLvjvxIR+rsLhpLzTKdggKFF/k2wYkU0b8S025TFo+IXY9HAiX6JS2s8IP
-	 J2q3QA8huY/iKJrTjBo4vowWHQcSY//Rge3lkqBn55QfJuPZTcPYEIAIS/S3jmK3b0w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794390182;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=h6ax4dIlNvOyZOxsgskELRPbrZjl/raMdjGYwOqgRlw=;
+	b=E5lB9/wTEEpqoNd01zrEPhSaEhfy3yijBdVHIVsjs63G1jGuY6x5NOdqOJ0jmv3Wh9tu
+	 kyDIJ163t50dj2dihCqB+EPzpDklD346HjJ7++SNu9rvfq6B/dSvpHq+Ge+EH+sXO9xP2
+	 SSGf/GsruenkRonnVb1Ipz1od9Fz5qOEjl4poaVyoqiKNvDhoDKmAs7t5VjBibmrvvds3
+	 cQ0EovTzNo/gaW19fN7H2AvoOLn1a0K89w4G7jgdlaT/PVd++AZERy4GFoZJNRaYSCCET
+	 uPVDLZzf8FSNqb/7oCzEShDuLyFK6u/54XwmOR1J7v8DyYfWcUFMtdCfVKQXFcqHl9A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dYbwkVPQ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=i8cPZpHv;
+	arc=none smtp.remote-ip=90.155.92.199
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6B60606A336
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 09:42:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21D10606A326;
+	Wed, 11 Nov 2026 09:43:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 21D10606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dYbwkVPQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 552301F00A07;
-	Wed, 11 Nov 2026 09:42:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794390152;
-	bh=+UXs3lHVlQsYdFZ0M6ic3j3lh1I9mB+CJLu6Q79BNGU=;
-	h=Date:Cc:Subject:To:References:From:In-Reply-To;
-	b=dYbwkVPQ4PpwEJ8bCBzaHbXiBh6++nCCd20jv0GNzamf5Y6RzbLZk3c4fkILl96CU
-	 vsq3px58d5jXcQOU5ueifEXt5bGwEo0GF4m4Hv+U9ehRIb4B1qDrinq+XWLq6RHV0y
-	 52DiSMOcCLtPEXVvQvpbVHkaCTGFrz7CADcsYjy5teyd8ixbZLYw5McZcEarM9pZ74
-	 w+ewx2EYcsaHjK0fgZqK3CdkM+yjlGCGTl0mxlnECtxC+vmCAC/YrytzukORZx612E
-	 l2G+Q5RolRDekLTZirB82apYZ0a0aw0V/eEl/S6rgJoAFzA8FXWz7j5mA6R+i53yxU
-	 XrCy0xAH4a4mQ==
-Message-ID: <64dfd4fe-46eb-45b5-9eb1-ab0564bc2d47@kernel.org>
-Date: Wed, 11 Nov 2026 17:42:29 +0800
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=i8cPZpHv
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=h6ax4dIlNvOyZOxsgskELRPbrZjl/raMdjGYwOqgRlw=; b=i8cPZpHvIkykFMbkn1LwDTMDtg
+	zTpbGvQ89Nzmww0M3FobcEXqVDFhSofBgKXIqdlp1RpqFTcCZuuzg5Ql8+k+Blgkx16Rlui/bVnIw
+	qqsX7UXKFaXcCeEfc8yW/R2UsAVH9zTKAVdQg3REwsZUnWA/8K7UhP/9qdGw41sSnJmdWB0OaFhIq
+	eoShPwUX83e7gay7o8P/rpoPQIRDzOMe920CM2mjHfu0XflJK0hdOkW4uyfWCiSuxjCk92fSicVJi
+	L8oohW2YF7Jomx+4QZ9dbw33C4crW1FPJ/aoD4T01SH5CQ301A0ScPkHtW18fWlzBakFdFkXNDOZq
+	OazZ2QWA==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xR4r3-00000008zJW-0xgu;
+	Wed, 11 Nov 2026 09:42:57 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 1BBFE30025D; Wed, 11 Nov 2026 10:42:56 +0100 (CET)
+Date: Wed, 11 Nov 2026 10:42:56 +0100
+From: Peter Zijlstra <peterz@infradead.org>
+To: Michal Blaszczyk <michalblk@google.com>
+Cc: Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>, Tejun Heo <tj@kernel.org>,
+	David Vernet <void@manifault.com>, Andrea Righi <arighi@nvidia.com>,
+	Changwoo Min <changwoo@igalia.com>,
+	Kuba Piecuch <jpiecuch@google.com>, sched-ext@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 RESEND] sched: Lift cgroup update locking to core to
+ prevent CFS/SCX divergence
+Message-ID: <20261111094256.GY2668804@noisy.programming.kicks-ass.net>
+References: <20261110151857.1864222-1-michalblk@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,69 +76,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: chao@kernel.org, linux-f2fs-devel@lists.sourceforge.net,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] f2fs: require CAP_SYS_ADMIN for fallocate on pinned files
-To: Hungyu Lin <dennylin0707@gmail.com>, jaegeuk@kernel.org
-References: <20261108075357.43331-1-dennylin0707@gmail.com>
-Content-Language: en-US
-From: Chao Yu <chao@kernel.org>
-In-Reply-To: <20261108075357.43331-1-dennylin0707@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261110151857.1864222-1-michalblk@google.com>
 
-On 11/8/26 15:53, Hungyu Lin wrote:
-> fallocate() on a pinned file allocates blocks without zeroing them, so
-> reading the file returns whatever the blocks held before.
-> Documentation/filesystems/f2fs.rst describes this as "zero or random
-> data". Commit cad3836f9eb2 ("f2fs: allocate blocks for pinned file")
-> added this while F2FS_IOC_SET_PIN_FILE required CAP_SYS_ADMIN, but
-> commit b13bdf03bb80 ("f2fs: allow all the users to pin a file") then let
-> any user pin a file. Since then any user can create a file, pin it,
-> fallocate() it and read back data of files that other users have
-> deleted.
-
-Android should be safe, as on-disk data from user is encrypted, it will be
-decrypted only in memory w/ user's crypto key, there is no way to read the
-plain data from disk directly.
-
+On Tue, Nov 10, 2026 at 03:18:57PM +0000, Michal Blaszczyk wrote:
+> Concurrent writes to cgroup control files (such as cpu.shares or
+> cpu.weight) can lead to state divergence between CFS and SCX.
 > 
-> Require CAP_SYS_ADMIN for fallocate() on a pinned file. The documented
-> use of these blocks needs write access to the block device anyway, and
-> Android's gsid, which creates pinned image files through libfiemap, has
-> CAP_SYS_ADMIN. Users without CAP_SYS_ADMIN can still pin files, but can
-> no longer preallocate blocks for them. fallocate() on files that are not
-> pinned is not affected.
-
-Or maybe we can call f2fs_secure_erase() on the blkaddr range after
-preallocation and before return from fallocate().
-
+> For instance, in cpu_shares_write_u64(), the CFS update is serialized
+> by shares_mutex (internal to fair.c), but this lock is dropped before
+> scx_group_set_weight() is called. The latter only acquires a read
+> semaphore (scx_cgroup_ops_rwsem), allowing multiple threads to evaluate
+> and act on the sched_ext update concurrently.
 > 
-> Fixes: b13bdf03bb80 ("f2fs: allow all the users to pin a file")
-
-Jaegeuk, do we suffer any permission issue before above commit?
-
-Thanks,
-
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+> This serialization gap allows concurrent writes to interleave.
+> As a result, the recorded state in CFS, the SCX internal bookkeeping
+> (e.g., tg->scx.weight), and the BPF scheduler itself can end up operating
+> on completely distinct parameters (pairwise distinct values).
+> 
+> Similar races are present in tg_set_bandwidth(), cpu_idle_write_s64(),
+> cpu_weight_write_u64(), and cpu_weight_nice_write_s64().
+> 
+> Fix this by moving the CFS locking up into the core layer in
+> `kernel/sched/core.c`. By acquiring these locks directly in the core
+> write handlers, both the CFS and SCX callbacks are executed atomically
+> under the same lock.
+> 
+> Fixes: 819513666966 ("sched_ext: Add cgroup support")
+> Signed-off-by: Michal Blaszczyk <michalblk@google.com>
+> Reviewed-by: Andrea Righi <arighi@nvidia.com>
+> Acked-by: Tejun Heo <tj@kernel.org>
 > ---
->  fs/f2fs/file.c | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
-> index e2c0f5083313..d1b52b41a1eb 100644
-> --- a/fs/f2fs/file.c
-> +++ b/fs/f2fs/file.c
-> @@ -1973,6 +1973,9 @@ static int f2fs_expand_inode_data(struct inode *inode, loff_t offset,
->  	block_t expanded = 0;
->  	int err;
->  
-> +	if (f2fs_is_pinned_file(inode) && !capable(CAP_SYS_ADMIN))
-> +		return -EPERM;
-> +
->  	err = inode_newsize_ok(inode, (len + offset));
->  	if (err)
->  		return err;
 
+Thanks!
