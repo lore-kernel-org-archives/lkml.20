@@ -1,69 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794382401;
-	b=3bdF8NvKo1drqIeIl6b3FM3TVifkavVABRvc5a4hr629JIKYDbWRjjtqeniXeto+AZmk
-	 aJ+9mJpz9ZNKDKayiAhPtORdwaT+wcissRZRz5hqNT67LPbys3s8SgTT7zNK4DgOtL/2z
-	 3zua+X9hmLuaEQBqJtGmeYb0Yto6WDDG54YhN83cChfETx44a79lGdTdLK7QMh44ISYrj
-	 EzpSyJifRgHBS0VW4Szalymve4WjTS6ZQoiC5Z1uA1tqeY9AizutBmoNj6HZJT1n7IBeT
-	 5MUXnxeI8jSbEnzaZtHUR/IMxrZWKRpQcYmX57zeQrKN0PWEqRojK1rD61vtQZXBcQQ==
+	t=1794382413;
+	b=PQTvRmL7DXiRLla2lB1z/70VgdA/448dsumQRY8QQVUH+Pry47Be4bJGj3it0nJU9XXV
+	 9ZGd2niQg5dAjPBs3mus5Nl/7hjIDkGf85dlh06xgwDkO/sEa80aqAon/rh726ZgYB3vt
+	 iY89WZiEJw4mUDAd7picJy6Vv84bDeoRL0Q1Aw0OemBB+NecVptstDkqQEz4TfnORGeqx
+	 YmR7hVNTMxfx1auSuA7pruejdw87unCnyIwgeW5XGgfks72bljBmY6XrxajM5cRdOfxc0
+	 NgMMWkVN5nqH5AOE8SvcUWlGjLLX5lQUTRqbGbBJISqzXn+hYFcv7UP6AtXrRoaLb1w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794382401;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=xPuEMk2jVLMWocEgImFvR0HynFT+4ICJTsRNbU2/7sM=;
-	b=eNa9sUcH3s8shT1OJhUmvayo3UbRfdhQUFDBnIAU4D251KJyMu6UpuA6s7ef6Pv1w+kM
-	 hcawgyXIM87fGf6YibAO2Od55QYVh81UPNX6Hy4lUBrtAqFWDWYHhlSkAUuv3RCd/qcSU
-	 X5jACAC/1EKk2LEpK53Fjx9nEa6Nh0Zls5mOolSsSWUXZjkXbScQnQSMU9mFCwP5W2cUP
-	 Cv9Rgk7Cr4B7XLjGsgCr2OJzWN+KwmgpzaJ4dFus8oU+D/PxurgO5dhxEgwxfiZdm6VIU
-	 NL1/t4nqxM7ww9FdubdKQkfNAMqivlj38SgCatMvEz3ZAjYeYZaBY4CODZHbzp6EZJA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794382413;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:
+	 X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=0nbeGxwiuQ7g4O8n464ixeD9tsVuwafSDhk1FhHV8ow=;
+	b=aGZCAbn3GyOwJXJS0YiQlvXQl6V4jYbtUc2fqhtzNYc22KUKV4MVdd8kMuompLPocPEi
+	 U5aZXWaZHHJyhRHQSEu7D9VRxg2kau1qB7goo94Lk2k+SVjPHfqlBczq+3e3mPc72a9Lv
+	 dYHpIgxExTtqMsNjhN6kYHz8JX0llFipqkXjLBq9bDvRCyjto6Au353cBG/ytEhQGoT7G
+	 5puEybHAO/4CWD2XPDYUrHuSrZVALg3gzr4yISsnrBF1YjIQ5+G9XHU2kErwPSl1bP5X6
+	 Bpkd+HJcfAYUDUECA66gjOJJ6Xi3gar5/tMNp8yUw76WIoKtEdwzkdazjj4BFVySUjA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=wOIJGMfG;
-	arc=none smtp.remote-ip=111.22.67.139
-Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8DDE2606A326;
-	Wed, 11 Nov 2026 07:33:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8DDE2606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lBrs2ZgV;
+	arc=none smtp.remote-ip=209.85.218.48
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09597606A320
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 07:33:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 09597606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=wOIJGMfG
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lBrs2ZgV
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c4203bbb1e9so431107566b.3
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 23:33:32 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=wOIJGMfGoHUSnV2mIf7qwQyN0BT0JIjhByCqASAM1SHPNXk4tEExJ+vR+3923azzoCRuQJbvIIxuQ
-	 pMBQbSCLHYY0/TAzKa60c88y/y8Jeo0dBTVBhWlLLRtKUujFLaCcl2Y0Q/tIYAJtn4TbUJopvzG7JM
-	 6QqtNZJWmNkcwM/s=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app09-12009 (RichMail) with SMTP id 2ee96af41a3e028-db394;
-	Wed, 11 Nov 2026 15:33:18 +0800 (CST)
-X-RM-TRANSID:2ee96af41a3e028-db394
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from FHB-W5100250 (unknown[36.137.216.21])
-	by rmsmtp-syy-appsvr05-12005 (RichMail) with SMTP id 2ee56af41a370a2-d34e7;
-	Wed, 11 Nov 2026 15:33:18 +0800 (CST)
-X-RM-TRANSID:2ee56af41a370a2-d34e7
-From: Gu Bin <gubin@cmss.chinamobile.com>
-To: andrew@codeconstruct.com.au,
-	avifishman70@gmail.com,
-	tmaimon77@gmail.com,
-	tali.perry1@gmail.com,
-	herbert@gondor.apana.org.au
-Cc: venture@google.com,
-	yuenn@google.com,
-	linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] hwrng: npcm - use pm_runtime_resume_and_get() in npcm_rng_read()
-Date: Wed, 11 Nov 2026 15:33:08 +0800
-Message-ID: <20261111073309.1659-1-gubin@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.50.1.windows.1
+        d=gmail.com; s=20260707; t=1794382411; x=1794987211; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=0nbeGxwiuQ7g4O8n464ixeD9tsVuwafSDhk1FhHV8ow=;
+        b=lBrs2ZgVCKkiSzxKSfMMC3tmWFnbJDTRnbqP13M2/1lJKrfShrHxCxzwJ8QMcmYbIA
+         fcMxwtWvBDiYQpalQgwanVvDHJ7K/FUealJqLqY3XbHVOWeQ/1LFZ9tg9WqYPPM04TcC
+         aM/wIJKZ6Lki/xD9GEC3nNtz/4HTBNFQEc9B3LCCXyX4Qp/S7eg/povf7RtpzLBavnuW
+         Az1qf28A9yINTaTFu/CoxTyshX2nG2P45Evbd7sjYaaI0HVop8Yk8Oe3ueqEtxY/SXno
+         640HrKCUfl4S1h8qCk1LBmYWyd6bObkGnjMSLtBDdambu+hUxBJswvMF0YTIb8DyepPu
+         wbFA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794382411; x=1794987211;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=0nbeGxwiuQ7g4O8n464ixeD9tsVuwafSDhk1FhHV8ow=;
+        b=GAmFPO7z9ONT/BBmotB0Z+pYN/gSLsvE3WKEbRnh+jtizrklfW0KCuMIITAVB6s2sj
+         WqYvg6MqCr3imiEwrGKz7CzEiLR8nmDJ5ZU4IhHjLJ2pFkYqZLC2WH22kw+uo9G08H6v
+         ZgPP7mGR5AdObVL8VCc1ToS8mqzNUUnYngMD2NHlkKsSdpRc67a/9TRYHMX+u+Wkgghc
+         jo/abFyryZz5GDtwW8GncDUOqblPiYpNb/hxHQMpiFR6dhUnrem9QonnPBjxoTXd4YT8
+         So1ZeXStqCwaEGuCK511kdi1NSul3qgWvcNftaOW1+SdAkwSnGHKWFapzWeRWUYlKAx5
+         H5Eg==
+X-Gm-Message-State: APuU4Z8ijxGRsYeOsAzs+G7I0Lt+ss2YYdS8MwvKRLlUxNaSSj/MR9g5
+	aBYcKCHqAVCZCSB6T4+dXNlz8XZ/lZo7GohgGgcnAn2MZX/zXsoIsSvsNjwBLKGg
+X-Gm-Gg: AYBFou0LK0AiX665ivHc9uPQOfRcaQbeboCCSAjKHmVDfHCZEGQt8kOBAyv683+RNOQ
+	KgkeM1+Q2W1ytIQYv3zR73OzdXo2zmyiN1KnKVNNkpiYusYb1naR9U0d4ZdfEusOZQuwq7OQQ3R
+	yk6VP9ZHqE3C8Hmeab4mNBumWycWuya54srk8x8VxQs9X4m00njG8liTFLR5G0ZnoOF9CLg8aC7
+	zMEKy1N5Z6Tud99GWeI5IuPzweXfPVmw2aCc53UEh6nivAPHkLb2UT7d2iQalWf7zzQNYLLpPi8
+	DRnU8R/N6iU8l/4DZFZ2IRt5exUtKZcP+QShLbOldhjlj2YdhgU61DXQRav0w30ZJ7KDiL44M8q
+	71Iyth86AMF1k1uE8UiPm9zl3uggtnUCJobycbrCNQFD0rlUzP23RzoqIz5qoPtwX2pEq8eDOKU
+	PA1edIjaX1UMYxulYDMjp9S2Sf8iqLgEV5NmCWQxAMnvnfmp4btocavjtqbEFUN03Q/t5jEfQ6r
+	K/Xk0uIlBvgkgXyL/WNLto1yYOWbkzI+hgu06EQQpnBSMZE6c6VW4ihqHLoDzxbzJGUMXWWWhBp
+	56zLeIfC3c9zodg8ZM2eX6kTgq4S/ozSrP9xyM+VflqGgBMq+MicWwd0kHHyNo+PzKbe57Wa+iX
+	Y7kyMrCMURekDH1aooC/DbQ9XxHmOZYdrNuLAyGC5siijhDpwu80BHL248DNWKTWUUNo=
+X-Received: by 2002:a17:907:1c9c:b0:c40:d920:746f with SMTP id a640c23a62f3a-c5066dd1398mr113177366b.46.1794382411126;
+        Tue, 10 Nov 2026 23:33:31 -0800 (PST)
+Received: from linux-laptop.dynamic.ziggo.nl (2001-1c03-0884-3400-503b-37c4-84e0-7f98.cable.dynamic.v6.ziggo.nl. [2001:1c03:884:3400:503b:37c4:84e0:7f98])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c505a93487fsm134837266b.46.2026.11.10.23.33.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 23:33:30 -0800 (PST)
+From: Laurijssen <lauserve@gmail.com>
+X-Google-Original-From: Laurijssen <laurijssen@protonmail.com>
+To: linux-kernel@vger.kernel.org,
+	pjw@kernel.org,
+	akpm@linux-foundation.org,
+	jannh@google.com,
+	brauner@kernel.org
+Cc: Laurijssen <laurijssen@protonmail.com>
+Subject: [PATCH] add utsname_set_field to reuse code in setdomainname and sethostname
+Date: Wed, 11 Nov 2026 08:33:17 +0100
+Message-ID: <20261111073317.93929-1-laurijssen@protonmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261109114421.8414-1-laurijssen@protonmail.com>
+References: <20261109114421.8414-1-laurijssen@protonmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,46 +103,106 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-npcm_rng_read() calls pm_runtime_get_sync() without checking the return
-value and then polls and reads the RNG registers: when resuming the
-device fails (negative return), the loop reads a device that never
-resumed and the failure is lost - the function returns the (zero) byte
-count instead of an error.
+Changes after review, cleanup of duplicated code in sethostname and
+setdomainname.
 
-Use pm_runtime_resume_and_get() instead and bail out on the error: the
-helper reports the resume failure and drops the usage counter reference
-it took, which a failed pm_runtime_get_sync() leaves behind (the usage
-counter is incremented before the resume attempt, so returning
-directly after a failed get_sync() would leak the reference and the
-device could never autosuspend again). The tail
-pm_runtime_put_sync_autosuspend() must not be used for this bailout:
-the device never resumed, so balancing the counter is all that is
-needed. On success the helper returns 0, which is exactly what the
-read counter expects at that point.
+- add static utsname_set_field sys.c
+- call utsname_set_field from sethostname/setdomainname
+- code compiles now when CONFIG_SYSCTL is not defined
 
-Fixes: c98429297d8b ("hwrng: npcm - add NPCM RNG driver")
-Signed-off-by: Gu Bin <gubin@cmss.chinamobile.com>
+Signed-off-by: Laurijssen <laurijssen@protonmail.com>
 ---
- drivers/char/hw_random/npcm-rng.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ kernel/sys.c | 53 ++++++++++++++++++++++++++--------------------------
+ 1 file changed, 27 insertions(+), 26 deletions(-)
 
-diff --git a/drivers/char/hw_random/npcm-rng.c b/drivers/char/hw_random/npcm-rng.c
-index a85f745963be..67a35df3bf80 100644
---- a/drivers/char/hw_random/npcm-rng.c
-+++ b/drivers/char/hw_random/npcm-rng.c
-@@ -58,7 +58,9 @@ static int npcm_rng_read(struct hwrng *rng, void *buf, size_t max, bool wait)
- 	int retval = 0;
- 	int ready;
+diff --git a/kernel/sys.c b/kernel/sys.c
+index 755bfa5ccd92..77fedd127a3f 100644
+--- a/kernel/sys.c
++++ b/kernel/sys.c
+@@ -1419,7 +1419,7 @@ SYSCALL_DEFINE1(olduname, struct oldold_utsname __user *, name)
+ }
+ #endif
  
--	pm_runtime_get_sync(priv->dev);
-+	retval = pm_runtime_resume_and_get(priv->dev);
-+	if (retval < 0)
-+		return retval;
+-SYSCALL_DEFINE2(sethostname, char __user *, name, int, len)
++static int utsname_set_field(char __user *name, int len, enum uts_proc proc)
+ {
+ 	int errno;
+ 	char tmp[__NEW_UTS_LEN];
+@@ -1432,19 +1432,41 @@ SYSCALL_DEFINE2(sethostname, char __user *, name, int, len)
+ 	errno = -EFAULT;
+ 	if (!copy_from_user(tmp, name, len)) {
+ 		struct new_utsname *u;
++		char *field;
  
- 	while (max) {
- 		if (wait) {
+ 		add_device_randomness(tmp, len);
+ 		down_write(&uts_sem);
++
+ 		u = utsname();
+-		memcpy(u->nodename, tmp, len);
+-		memset(u->nodename + len, 0, sizeof(u->nodename) - len);
++
++		switch (proc) {
++		case UTS_PROC_HOSTNAME:
++			field = u->nodename;
++			break;
++		case UTS_PROC_DOMAINNAME:
++			field = u->domainname;
++			break;
++		default:
++			WARN_ON_ONCE(1);
++			field = u->domainname;
++			break;
++		}
++
++		memcpy(field, tmp, len);
++		memset(field + len, 0, sizeof_field(struct new_utsname, nodename) - len);
++
+ 		errno = 0;
+-		uts_proc_notify(UTS_PROC_HOSTNAME);
++		uts_proc_notify(proc);
+ 		up_write(&uts_sem);
+ 	}
+ 	return errno;
+ }
+ 
++SYSCALL_DEFINE2(sethostname, char __user *, name, int, len)
++{
++	return utsname_set_field(name, len, UTS_PROC_HOSTNAME);
++}
++
+ #ifdef __ARCH_WANT_SYS_GETHOSTNAME
+ 
+ SYSCALL_DEFINE2(gethostname, char __user *, name, int, len)
+@@ -1475,28 +1497,7 @@ SYSCALL_DEFINE2(gethostname, char __user *, name, int, len)
+  */
+ SYSCALL_DEFINE2(setdomainname, char __user *, name, int, len)
+ {
+-	int errno;
+-	char tmp[__NEW_UTS_LEN];
+-
+-	if (!ns_capable(current->nsproxy->uts_ns->user_ns, CAP_SYS_ADMIN))
+-		return -EPERM;
+-	if (len < 0 || len > __NEW_UTS_LEN)
+-		return -EINVAL;
+-
+-	errno = -EFAULT;
+-	if (!copy_from_user(tmp, name, len)) {
+-		struct new_utsname *u;
+-
+-		add_device_randomness(tmp, len);
+-		down_write(&uts_sem);
+-		u = utsname();
+-		memcpy(u->domainname, tmp, len);
+-		memset(u->domainname + len, 0, sizeof(u->domainname) - len);
+-		errno = 0;
+-		uts_proc_notify(UTS_PROC_DOMAINNAME);
+-		up_write(&uts_sem);
+-	}
+-	return errno;
++	return utsname_set_field(name, len, UTS_PROC_DOMAINNAME);
+ }
+ 
+ /* make sure you are allowed to change @tsk limits before calling this */
 -- 
-2.50.1.windows.1
-
-
+2.53.0
 
