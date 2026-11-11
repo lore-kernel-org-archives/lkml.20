@@ -1,55 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794376499;
-	b=A7rzyseDS5zP2LGYKAfDzNXOkncO+rn381viPTMLlBBjnc7rQ5Y6uoEkKfv8ETGN8lWS
-	 +2lUMSFUqe2ESD4RzGAUrt3vUMeKCUVRqOMX1fVXVemYgQd+vN/21ttdavGXCPWgYV18B
-	 6MPeUrq9LNsKb4VgMUGwheljizxHlIXoI0bmzQKJcqvTJbPiNSVXxPa5ek77OzZmnn8qN
-	 T+f+ScFHSlYDCJtS0hnZJc5ZmiuGZN5t390Vj1eUtpZs7Kqj6OYL9kERZxhC/QkDmjH8L
-	 X9UAqmsOEayOQc9EiDUYeJXDtq1IK2ea6mBrKpYwQOzVeSs/1aJb2092uXeKI4lmAYg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794376499;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Mime-Version:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Cc:To:From:
-	 Subject:X-Mailer:References:In-Reply-To:X-Last-TLS-Session-Version;
-	bh=pfbacooIO8f3wisdaRiyyaGqgo+54PzHGy2pQaUsY+c=;
-	b=hqGEcunomc3qgFE9oHrSgHqOyKVTV7//Ip1CroUY3LJ2NggNrK9vebcdtVuj9thDHdVy
-	 XZ5ubZV52FdQJwFIy/lj+qK2iIlm58vUTzUrfxaAJeXAEFX08zrV2qzIbBbALEahp6krQ
-	 ZrLTIBaUzwkHif24Al7A4Qmpqj/uU6pTnCSe73LwtW7uHlfTap4LZWyz8Qto+Esjt6L6G
-	 kWy79cZgg1zEaRmFTRTjwEox+UgrwQK9kac8QZYkOvauIH1/ocNoYvvEWO6sSLu+6LWK1
-	 dJoOxvZ+wq4TyDGuZpjeHt/cTeXSVHHhHuO+821//j/WkBOkjbLFOCRZhLEmMFaQpSA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=yNbP9gNq;
-	arc=none smtp.remote-ip=185.171.202.116
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.170
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794376603;
+	b=rKhNrq/6151a9RaHLvPl4DA0ape6TmBK8L1EKXaoKfEXIFkpuZSrSI0Syx2NKihpgAPY
+	 CnzWeerTVnOogdI+ICkE2QBcIPrybgJeH8vU5hS5tOdgZRAakXc4I4Xxw97Hj9PClW+cB
+	 LmbpmRXX7WM+O/+Xyn6w+KJt2yjrUUiq4MDKyhciOrEEd44eoc95FlxAZMalydqVHzho9
+	 i4NinIILkgfymQjPGlE8SKXURtX9EH8Buw3rtO7CDWUKdg0n1JgzLgmrq5nTku/etFfYt
+	 NDYhwHG3ibCt1scBL8r8hRl8bTNlM/VnFG3/BtKFMjq9tVS6F47omOm4PAavHn/IqZw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794376603;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=SVdC4NoqsEAb0xjeu4zg9bcnEb0TfO6Tqq8G+6Aa5+w=;
+	b=QajpkZQul5CsqF37KNScqs0TDdYIbuUICja1rONVnsCMhMqEHAgsoxDjkCfK1QK5mriS
+	 tZ6zTYJW69Vr/BKIf7ZX0QFCFr0tXkZP7pqYOF9cHx71ebt5qco2kU5vt8czm0B4RUTZ+
+	 fu/HHSx8JyFREOLgbu+nXKfD9BYIC6aXzyOqkgfRkmUs1aHdCA4bhj55+ASCq0C4rDhCS
+	 4wRdShNCUibcj6J0+TheLhCEQtbMX5Dm8tqzeA7gHnY9DXEcRFdHrBJJyBnHht75WYLcB
+	 sLwHu2C7y2NZ8XSUSHJPcC3RO0TN5DemhbnL2bFenAA6ADmik4UYUTBvii4ML1PfYpw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=j8DnNixo;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.170
+Received: from mail-oi1-f170.google.com (mail-oi1-f170.google.com [209.85.167.170])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13982606A31C;
-	Wed, 11 Nov 2026 05:54:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 13982606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12827606A320
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 05:56:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12827606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=yNbP9gNq
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 8523CC79A8F;
-	Wed, 11 Nov 2026 05:54:56 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id B7121601AD;
-	Wed, 11 Nov 2026 05:54:54 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id CA75111BC0758;
-	Wed, 11 Nov 2026 06:54:26 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1794376491; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=pfbacooIO8f3wisdaRiyyaGqgo+54PzHGy2pQaUsY+c=;
-	b=yNbP9gNqUTcBluDPTUGVBT9Sv+/GUwXc/OVvJz1InwCOkT3SDXmol6kIyZj6kX3Yq1NzGH
-	m+7vDJygTh4Aeo6ekK8CD2u9W7d6Fobhkef2pBoshtjxbvwZhaFK264cj/tLT7fgNV6x78
-	ZUPWtjg+/hKGnEpqW3ry2LwfenlL1Vnpfsx+Duk2T3/ZhtgEL63TIp90jEpCcqg3mwkQte
-	XvhXHpQreSW8ZhjjAEgEfPu3744zKJ6yYUnEtxerbgkrN+nhLUAP2VnK8ZqLwE40Hqa9Gw
-	2IyI3JXe2VizQhauO617rdUjCPI8djrehwuV7EPN2sl1qfiuh+n75Opl2PpZow==
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=j8DnNixo
+Received: by mail-oi1-f170.google.com with SMTP id 5614622812f47-4ab8cb2a6e4so1780633b6e.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 21:56:42 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794376601; cv=none;
+        d=google.com; s=arc-20260327;
+        b=O4GXmkPpebsEl9F5uAhzpsDH8sYd16b/H/zEOy3TwtIPxGhIlYnygU7XYAoW+ASzCy
+         oFVnaMaV4V5/XfQBBEjaLQ5Np6aAvf8hGnXg3DNSN9lXAFuNlwsgXkCGf4ZA9+8PrC7s
+         zlyhUgqzPvw1oTwZdLHQXOVQKeBTgBVNKvywSa+swOlSgehLdAN+A4pwxFwad/E4Cwgs
+         Fiye4LvF31um6XK0HJOcF2zxS2VOZI/zRGAlFWVF+82yoAAz1ndEAdRkppiLvg/a2lZY
+         NaEWevhVVxN/IR8FZ4FWjKTG9uWcY57DLBw9daQwayTdk3Sh2ydhKdnw8Q2WMLkZmGwa
+         B4bw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=SVdC4NoqsEAb0xjeu4zg9bcnEb0TfO6Tqq8G+6Aa5+w=;
+        fh=F94YIJfuvG1s0/B/97hmC8LpkKCtChbPBn8mChdUfqk=;
+        b=FaqGCKfXvb464RqtSx/DDEQN2mh84IOKtBEuhAcZRHJrTGLylax5XME0D8y6f1uIG/
+         aNEeNZoWFR7GgFecUfg9SIAlRijARPk2rgHYYAZFG+Aw8RnzBm++LVILdq0m99EoocTq
+         cpss+R3O9+LreDLDNiDiQwtwv0jdafGYa7U1kf0nJc87bzyJsHJn6Ga1efqIGbAdHDgP
+         US8i+vu8QdxIsx9+SBTaRysZKJ5yOUm/6l7o9ho0oa5SGYil5qFl+6LpIf7UBhJwhYRF
+         UpnRjZp1vGvvDU1fc2wQhMsdWH9ueLHyoXkYb3aQ5BNSNw+6L/mDio9Ir9STBrW5M22/
+         DBww==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794376601; x=1794981401; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=SVdC4NoqsEAb0xjeu4zg9bcnEb0TfO6Tqq8G+6Aa5+w=;
+        b=j8DnNixo91ABh6Ud1k1J3g8aT3pLJT9qPII6YHh2PMwH0GPT0uCz17ceNKSWkB4kSo
+         zNlqE6pisPqCcWJ0rHOnmVMs0oCFgNLWxkXLb9XHr1uelXj91icqJRc1JoDF3Uir7d0y
+         yq12Y/L5wojdgHri6yXzY9qQI0EiKOx1GoVa9QHA3NobFrl/0nYgHysu1rp2yqjLQd72
+         KUVmDsMyQ0hEVI2V9+KVllo1Pob7VGPMUxJ/aoyOOT4k4/f6jDvOXvzEgeecLyH5ydTq
+         cORxLEcFj1HltGhuJswiKqhQ//CWBKlYTTSVjhNP4fuu7iClRZCv8tAMyZPZWUN8leqc
+         YsxA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794376601; x=1794981401;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=SVdC4NoqsEAb0xjeu4zg9bcnEb0TfO6Tqq8G+6Aa5+w=;
+        b=cSoxHhPz4IGBCDh/zab1AhIAzx0wF65sm97XsIupH95z9YrezcDqwfASZNEn+PRqlJ
+         0U7M7dE+HD8wN9JHhfDyBF13gZ0a0seF7YbNds7p3q1L1ZXjtNSzZF6qBXK6j5QwRBlK
+         URT8UFJMA6QQId6taBXcT8P9Hq1AC2qBxd40B7NfaG89M9Xp9FpA/IDl3jO+nwmf0zsP
+         e4W8/3u6MpdSWIooa4BDwZeIvD91fLodJSUCpxolvEmwNjMhhlMBxSsAszxulverLXCq
+         oay+pYMBlqluVbTUEYwZW1bw+Q6qsH7TM9kBuguiOrC5TsKWjtfjZgHTs/KaZOhR7t4y
+         w79A==
+X-Forwarded-Encrypted: i=1; AL+hErHxW+J82Wq7pdHY0DAbTv5ivIc+7ITm0btpRBpHyY47Kpbg97lhq6ANWjeY8bJGJGDHFiADYlLAlmT9xoY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8p6rUhGqkyVq1mhGP1R1eIwgw0fu21fj4wCZ5llj7eMPJv35Cz
+	ItZRnt/qaCNVwuoJwcROP267odLlcaFJLL5ZssP1K/ypHxzwT+KqhhAworSG38zBMdocOWGGqIa
+	VTozfvL+j63UW8AlO6G/pCtBRzbQ5/VE=
+X-Gm-Gg: AYBFou0WMHZ6kEBvGvhd8IsvdzmgErH3Jdo9y906rDm5nqc8ifawSt9bn6LOjMtaD8H
+	4KQgFvbB463Cddhv4VmAhIp1FNHYWiYR5CT5OZdIAVE7a9qt6oPFLFU+zSs0LNRNSu0XNs38xzb
+	InUTCuYi/Ho0sJUsOTKtA37FLd2U4619eXCcRaktdmlp/H4rNsLUlcLEMPK3iu3g2SMv9bbzwPr
+	Fs9xk/Uie7dWuw1avpq8/B81BT9WPr3lBKjjvsAA18jRN6vxjoAi7VwMBerYkwvCH1HXijwwIit
+	3qj1lFxgQ5r2xObRp26kvH+qwgYwnH9g/MD61P1B+6f5kCJyWY3SvJF1FZ/4ihXujkL/1LmH5vi
+	/lJ+8V7GKN/XCKT/BcYfqgVMhel+fjWCXxgf9acmDXxBrGBYd3DUlFTENWmSq3RqMPwjsVDB66Y
+	F5Uw/dUF0XLVIR12MTphNruQmnmoztJaLaCcj9QKHjNW1UeEZx1+U=
+X-Received: by 2002:a05:6808:4f23:b0:53a:e153:e901 with SMTP id
+ 5614622812f47-56b932504ffmr1277212b6e.2.1794376601509; Tue, 10 Nov 2026
+ 21:56:41 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,96 +103,91 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 11 Nov 2026 06:54:25 +0100
-Message-Id: <DMS5DC411M21.387583J8N08R0@bootlin.com>
-Cc: "Linus Walleij" <linusw@kernel.org>, "Nicolas Ferre"
- <nicolas.ferre@microchip.com>, "Alexandre Belloni"
- <alexandre.belloni@bootlin.com>, "Claudiu Beznea"
- <claudiu.beznea@tuxon.dev>, "Chen-Yu Tsai" <wens@kernel.org>, "Florian
- Fainelli" <florian.fainelli@broadcom.com>, "Broadcom internal kernel review
- list" <bcm-kernel-feedback-list@broadcom.com>, "Ray Jui"
- <rjui@broadcom.com>, "Scott Branden" <sbranden@broadcom.com>, "Marek Vasut"
- <marek.vasut+renesas@gmail.com>, "James Ogletree"
- <jogletre@opensource.cirrus.com>, "Fred Treven" <fred.treven@cirrus.com>,
- "Ben Bright" <ben.bright@cirrus.com>, "David Rhodes"
- <david.rhodes@cirrus.com>, "Richard Fitzgerald" <rf@opensource.cirrus.com>,
- "Support Opensource" <support.opensource@diasemi.com>, "Krzysztof
- Kozlowski" <krzk@kernel.org>, "Peter Griffin" <peter.griffin@linaro.org>,
- "Alim Akhtar" <alim.akhtar@samsung.com>, "Tim Harvey"
- <tharvey@gateworks.com>, "Neil Armstrong" <neil.armstrong@linaro.org>,
- "Charles Keepax" <ckeepax@opensource.cirrus.com>, "Sven Peter"
- <sven@kernel.org>, "Janne Grunau" <j@jannau.net>, "Neal Gompa"
- <neal@gompa.dev>, "Chanwoo Choi" <cw00.choi@samsung.com>, "Mathieu
- Dubois-Briand" <mathieu.dubois-briand@bootlin.com>, "Luca Ceresoli"
- <luca.ceresoli@bootlin.com>, =?utf-8?q?Andr=C3=A9_Draszik?=
- <andre.draszik@linaro.org>, "Saravanan Sekar" <sravanhome@gmail.com>,
- "Matthias Brugger" <matthias.bgg@gmail.com>, "AngeloGioacchino Del Regno"
- <angelogioacchino.delregno@collabora.com>, "Frank Li" <Frank.Li@nxp.com>,
- "Sascha Hauer" <s.hauer@pengutronix.de>, "Pengutronix Kernel Team"
- <kernel@pengutronix.de>, "Fabio Estevam" <festevam@gmail.com>,
- =?utf-8?q?Jonathan_Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>, "Aaro
- Koskinen" <aaro.koskinen@iki.fi>, "Andreas Kemnade" <andreas@kemnade.info>,
- "Kevin Hilman" <khilman@baylibre.com>, "Roger Quadros" <rogerq@kernel.org>,
- "Tony Lindgren" <tony@atomide.com>, "Matti Vaittinen"
- <mazziesaccount@gmail.com>, "Orson Zhai" <orsonzhai@gmail.com>, "Baolin
- Wang" <baolin.wang@linux.alibaba.com>, "Chunyan Zhang"
- <zhang.lyra@gmail.com>, "Fabrice Gasnier" <fabrice.gasnier@foss.st.com>,
- "Maxime Coquelin" <mcoquelin.stm32@gmail.com>, "Alexandre Torgue"
- <alexandre.torgue@foss.st.com>, "Jernej Skrabec"
- <jernej.skrabec@gmail.com>, "Samuel Holland" <samuel@sholland.org>, "Liviu
- Dudau" <liviu.dudau@arm.com>, "Sudeep Holla" <sudeep.holla@kernel.org>,
- "Lorenzo Pieralisi" <lpieralisi@kernel.org>, "Geert Uytterhoeven"
- <geert+renesas@glider.be>, "Magnus Damm" <magnus.damm@gmail.com>, "Heiko
- Stuebner" <heiko@sntech.de>, <mfd@lists.linux.dev>,
- <linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
- <patches@opensource.cirrus.com>, <linux-rpi-kernel@lists.infradead.org>,
- <linux-renesas-soc@vger.kernel.org>, <linux-sound@vger.kernel.org>,
- <linux-samsung-soc@vger.kernel.org>, <linux-amlogic@lists.infradead.org>,
- <asahi@lists.linux.dev>, <linux-mediatek@lists.infradead.org>,
- <imx@lists.linux.dev>, <linux-omap@vger.kernel.org>,
- <linux-arm-msm@vger.kernel.org>,
- <linux-stm32@st-md-mailman.stormreply.com>, <linux-sunxi@lists.linux.dev>,
- <linux-rockchip@lists.infradead.org>
-To: =?utf-8?b?VXdlIEtsZWluZS1Lw7ZuaWcgKFRoZSBDYXBhYmxlIEh1Yik=?=
- <u.kleine-koenig@baylibre.com>, "Lee Jones" <lee@kernel.org>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-Subject: Re: [PATCH v4 19/20] mfd: Unify style of of_device_id arrays
-X-Mailer: aerc 0.22.0
-References: <cover.1794347059.git.u.kleine-koenig@baylibre.com>
- <2cd7c4695edff6b711f8c77ae468d295bb910cdb.1794347059.git.u.kleine-koenig@baylibre.com>
-In-Reply-To: <2cd7c4695edff6b711f8c77ae468d295bb910cdb.1794347059.git.u.kleine-koenig@baylibre.com>
-X-Last-TLS-Session-Version: TLSv1.3
+MIME-Version: 1.0
+References: <6ae09458.f0fe5aea.79aa1.008e.GAE@google.com> <20261027101009.18e9136537144533915008e4@linux-foundation.org>
+In-Reply-To: <20261027101009.18e9136537144533915008e4@linux-foundation.org>
+From: Rohith Matam <rohithmatham@gmail.com>
+Date: Tue, 10 Nov 2026 21:56:30 -0800
+X-Gm-Features: AclHuK-vbFkZZTGrimsL-YTV39zkF7VzvFxaCKkhVtRTZJlOUBJ0WGB_WgVtgM8
+Message-ID: <CA+FtcErvvvg8EQUpgravNPTib4_CnFb3W20PY-xMYSTdDH4=4A@mail.gmail.com>
+Subject: Re: [syzbot] [mm?] [usb?] WARNING in corrupted (4)
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: syzbot <syzbot+9fe09db3795456e0b442@syzkaller.appspotmail.com>, cl@gentwo.org, 
+	hao.li@linux.dev, harry@kernel.org, linux-kernel@vger.kernel.org, 
+	linux-mm@kvack.org, linux-usb@vger.kernel.org, rientjes@google.com, 
+	roman.gushchin@linux.dev, syzkaller-bugs@googlegroups.com, vbabka@kernel.org, 
+	mchehab@kernel.org, hverkuil@kernel.org, duoming@zju.edu.cn, 
+	linux-media@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue Nov 10, 2026 at 10:54 PM CET, Uwe Kleine-K=C3=B6nig (The Capable Hub=
-) wrote:
-> These arrays already mostly match the most used and generally
-> recommended coding style. That is:
->
->  - no comma after the list terminator;
->  - a comma after an initializer if (and only if) the closing } is not
->    directly following;
->  - no explicit zeros in the list terminator;
->  - a space after an opening { and before a closing }, a single space in
->    the list terminator;
->
-> Adapt the offenders accordingly.
->
-> Reviewed-by: Andr=C3=A9 Draszik <andre.draszik@linaro.org> # for Maxim MA=
-X77759
-> Reviewed-by: Charles Keepax <ckeepax@opensource.cirrus.com>
-> Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be> # renesas
-> Reviewed-by: Mathieu Dubois-Briand <mathieu.dubois-briand@bootlin.com> # =
-max7360
-> Reviewed-by: Linus Walleij <linusw@kernel.org>
-> Signed-off-by: Uwe Kleine-K=C3=B6nig (The Capable Hub) <u.kleine-koenig@b=
-aylibre.com>
+Hi Andrew,
 
-Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com> # max*
+I retested my v6 patch against the October reproducer, and syzbot
+reported the patch test as OK.
 
---
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+The patch removes URB_FREE_BUFFER from the Siano-owned buffer and also
+fixes the related work initialization and teardown ordering.
+
+Patch:
+https://lore.kernel.org/r/20260601201639.63171-1-rohithmatham@gmail.com
+
+Mauro, Hans, could you please take another look at v6 for inclusion?
+
+Thanks,
+Rohith
+
+
+On Tue, 27 Oct 2026 at 10:10, Andrew Morton <akpm@linux-foundation.org> wrote:
+>
+> On Tue, 27 Oct 2026 05:08:56 -0700 syzbot <syzbot+9fe09db3795456e0b442@syzkaller.appspotmail.com> wrote:
+>
+> > Hello,
+> >
+> > syzbot found the following issue on:
+> >
+> > HEAD commit:    5b0764a53235 Merge tag 'drm-next-2026-10-21' of https://gi..
+> > git tree:       upstream
+> > console output: https://syzkaller.appspot.com/x/log.txt?x=13739fc9580000
+> > kernel config:  https://syzkaller.appspot.com/x/.config?x=fd1433abd362f255
+> > dashboard link: https://syzkaller.appspot.com/bug?extid=9fe09db3795456e0b442
+> > compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+> > userspace arch: i386
+> > syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=11cb9b0d580000
+> >
+> > Downloadable assets:
+> > disk image: https://storage.googleapis.com/syzbot-assets/05ac8658d211/disk-5b0764a5.raw.xz
+> > vmlinux: https://storage.googleapis.com/syzbot-assets/9cfb73243216/vmlinux-5b0764a5.xz
+> > kernel image: https://storage.googleapis.com/syzbot-assets/fc45c7faf785/bzImage-5b0764a5.xz
+> >
+> > IMPORTANT: if you fix the issue, please add the following tag to the commit:
+> > Reported-by: syzbot+9fe09db3795456e0b442@syzkaller.appspotmail.com
+> >
+> > ------------[ cut here ]------------
+> > !PageLargeKmalloc(page)
+> > WARNING: mm/slub.c:6855 at free_large_kmalloc+0x97/0x110 mm/slub.c:6855, CPU#0: kworker/0:1/10
+> >
+>
+> Thanks.
+>
+> > This report is generated by a bot.
+>
+> So is this report ;)
+>
+> This looks like a double free in the Siano USB media driver, rather
+> than an MM bug.
+>
+> The failure occurs during USB probe error recovery. The allocation
+> comes from smscore_register_device(), and the page-owner records show
+> that smscore_unregister_device() has already freed it. The USB core
+> can then attempt to free the same memory because smsusb_submit_urb()
+> sets URB_FREE_BUFFER on a buffer owned by the Siano core.
+>
+> Rohith Matam posted a patch in June which removes URB_FREE_BUFFER
+> and fixes several related URB teardown races:
+>
+> https://lore.kernel.org/r/20260601201639.63171-1-rohithmatham@gmail.com
+>
+> I don't know why that patch hasn't resolved this problem, but it
+> would be worth revisiting before developing another fix.
+>
+> This doesn't appear to need any MM changes.
