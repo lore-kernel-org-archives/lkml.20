@@ -1,68 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794356980;
-	b=DgyQEbiIXvJkDM4uHMjKQPoToKWPzHB5RzVlm0sKvufKgGqwyHKS1qrHw3GB9ERIOKlP
-	 d72OILrEqW0kfXq1+cFinc5+GQag5J63rVyIaGr1ONFvCIjn6d0uDmd8YtCm3VENwxqYq
-	 llikpMSfTbEUPPNS5UnnN3oUK/tIpo2l7Tda9l33KA+YwzfBAQ7s1uog/YjmGULKookyk
-	 4SKoJzvvJhkGTRNlEN0rFW4a0SO/Gkcj6LbJoboNrCqQBeiWeu8p3d54FFv56GFAwu9SC
-	 EYcxKENXYlY/B6FJl9t9m+07TlBaAk+/ZyNME94Fm3qqbpb1+UgJ8105afy7le97H9g==
+	t=1794357012;
+	b=ARauERvu8gUbKK2jDRPPE3nUKkwXJDNR+4BmihSP10b2AeQn01eYM5mJwg8QNb2d6Y5J
+	 463BqY7OF+/WVgIpvY7ecZ8NhJ8pH78xq677aMqJofHVy2UyKtwMflReHHRSVZcIsDmzX
+	 zy/fz4XOZt9Ttbhhve/uSHSZNkOYNvIUb4JhAS3K4Nf5AptLgaozXxJjdpcxqJciCj+CW
+	 ufaxhPo6AGiQdTfBc4wc8oxUcYUPhtJYO2wrmUKCuDWuEWqb10/roIIXbi9yR68gJqh+O
+	 CTe8ZS7n0CDJXKRS+wfEri7246UCKQKnS2vcEZ0VqyE59EHQYo60Mq2A4VF13njrdHA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794356980;
-	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
-	 Reply-To:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=bfBI+4VGGG2nZ0droobSitMGQEwz44IajhqVNMUDhgE=;
-	b=DthrX/6O4+Wg9LD9xFNFtjpyF19IIMEEmvesR4AlUEGkrxQ7mPy+kqBuhAXlosKfaxNg
-	 EPek99MWaY1r//9O6nsSJusDl8O/mfm3OalDuKdcU3Roz+u2+RAViDXFTONXe1+DGsBFG
-	 6ALjdFtEtGEVSDbDWB//PFM2nyeZgtSNacFOqCOoWpMAAWMgGoKWP+y+NMQkzTUGb8RX4
-	 IaRpqE/TMJh2MEVPV/DOxLcVonRCGKiOph2BKyFSIHG8T1OXpTnoS6GRFeqcEqAC5MT5k
-	 XZk8fC5n0pEoEBWnzRQDD2s5x12Xt1m810QEjFEWtXT1L0v5N1snp2DxOlTXdtPo1tQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794357012;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=jPW4ngXyg6cTdezM/57s9UolQe7wlzejSFpNDi23C5U=;
+	b=O1mEKfShi9WYjzyMEtMrdnVeDMdaxaQh1y+gQI4mb5OMN2dmIggFfZaTULuoU2sJPDzA
+	 ck9vdNSKYq6u8flSoUxGGDF/A2vO6LEVlU6wgA3K2ihrUpXUkHCJYZf+fRmTptn8TdLzQ
+	 IgaNd9ky96W0eHe0y4md7+xHlmd40EPbfn6570ZObK+JfSWtIUpky266ILpdtgi+AARHD
+	 VtMikG5NeYEZkx7ESExNWNtrBIsUJzXtiCwM+Ih1jDSR2/QnDKSWXF6lOp9RSVqIg4mqa
+	 ZrH5zwcP1SehtVtFlh4JvcsH+1HwVAzBaZR3GT/OLck51AAHun63TA2oY9e+/y/k0Pg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ns4J7CE5;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OPwPDdys;
+	arc=none smtp.remote-ip=209.85.210.177
+Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 159A1606A31C;
-	Wed, 11 Nov 2026 00:29:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24E87606A320
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 00:30:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24E87606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ns4J7CE5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0F841F0089F;
-	Wed, 11 Nov 2026 00:29:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794356979;
-	bh=bfBI+4VGGG2nZ0droobSitMGQEwz44IajhqVNMUDhgE=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=ns4J7CE5PPdDRipBFoN+iFpeTr+LsTy8iFexxhnZsj4TZInE+U1xH8s4DmcHjAxsn
-	 8rcAmzc25KYwGyzT4uBlEdLfim3RzauT7AdvR5rkULiXrypPAOmQLPQQ7YkM2w3wPR
-	 DsTWMwZ9vrdrOHlYn5k2d9QHAd6nO09MQ0Q6Qn8oQtlCoIee3RISEXwMzi/yp3g1bz
-	 LX0guoEUEy0FVMejEe0XGKw9s9U5Q5K5tZmpvgjo7ZDqcwHIm6x0Q+Mm+f5XT0VGko
-	 rlLPidrE0nurzMDASAq2fib1ILmf9xKp9mk6L7yVpy6S0pndlr0R0sXZYuKppTRGTI
-	 1yTl0jq0UCteA==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id 719D7CE251D; Tue, 10 Nov 2026 16:29:39 -0800 (PST)
-Date: Tue, 10 Nov 2026 16:29:39 -0800
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Cc: linux-kernel@vger.kernel.org, David Woodhouse <dwmw2@infradead.org>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
-	Joel Fernandes <joelagnelf@nvidia.com>,
-	Josh Triplett <josh@joshtriplett.org>,
-	Boqun Feng <boqun@kernel.org>, Uladzislau Rezki <urezki@gmail.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Lai Jiangshan <jiangshanlai@gmail.com>,
-	Zqiang <qiang.zhang@linux.dev>, Davidlohr Bueso <dave@stgolabs.net>,
-	Kunwu Chan <kunwu.chan@gmail.com>,
-	Puranjay Mohan <puranjay@kernel.org>, rcu@vger.kernel.org
-Subject: Re: [PATCH 4/4] rcutorture: Test the irqsave forms of atomic SRCU
- readers
-Message-ID: <7551edf4-935e-42e1-84e0-290b9af4aaf3@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <20261110192844.44713-1-mathieu.desnoyers@efficios.com>
- <20261110192844.44713-5-mathieu.desnoyers@efficios.com>
- <42972bc1-721c-4bdb-8599-10f6f30cd89d@paulmck-laptop>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OPwPDdys
+Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-8a07078200fso1116082b3a.2
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 16:30:10 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794357010; x=1794961810; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=jPW4ngXyg6cTdezM/57s9UolQe7wlzejSFpNDi23C5U=;
+        b=OPwPDdysdP7qPYtq5WHgl54tlwl5qA9toVgQA4dVp82UWlPZVQqBJgMJJtVUtc+YzH
+         3zCFRqsyO5AVa4055y3f2eTmPdudak8BHbJ/7C2/9zQ2GXqKHnQvIqA9DnrDj5a0Gbez
+         JrqZj9jfd6BNa0zF09V38QqnVXOf9aYcNLHy0i1dmYPupzFMsBzZoNaA9lhvA6j8ijRQ
+         m8Ca5b3uubEKO6DXfMMK12Ry45RrMi+Yl290mjRRWofPcy+ApuslAhudEQZb4DW8Ur+4
+         GvFVpvnXjEO61yOWHZ/AXefkXI1d6Lgi2mz3I6CHO3ODxSCMB/oUNEyfTWxrRVuoRWCN
+         CmMQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794357010; x=1794961810;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=jPW4ngXyg6cTdezM/57s9UolQe7wlzejSFpNDi23C5U=;
+        b=s2w34d3dUgr234lLKbQanP9mCWptrmzvoLe6WUjfEO/pWOKBMqXkEBitGe2niR5DnZ
+         jbVIdV43aEbmFTO5MEBwpSM9QHBIbSaHfHoGlxewhP36VUAM9D4fbRUh6CSyhv7/1zR0
+         5xwukUWg6LQGbdx1dQhkPFMgV09B2AebObh1tX/tdtRjx2H3098ZL8es/9tIjG4CWjAr
+         Kpd+GMrLJ4D63FeLebq+WaQFv6qRQResi0qwE8mR27moAsdU9a/Dx1mSkE9S+ngX3cmz
+         oSividh5rhpnLH90TC27KjG8v1surc8QWQNtxLFZiZGnpskh6l17MrgAOilh1KCUFjns
+         HmGA==
+X-Forwarded-Encrypted: i=1; AL+hErFu7vFHuQlCnn7nJ/9ZYAIYs9UkJ4fgxR5pUCWpv7vR12ahbotQD7UugwZfpK+DrDf8nkMxKgHo1rUpwxE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+AuAg+qBDDWVyMEH5YVy/Vk8jWZKnP1zXJ8v7rxCIbdR69jptZ
+	4zV2M0+JqV95W3Cu+CdTVnnL76LJr9M98N0leS2rrlUxdepTCIIMkJz1
+X-Gm-Gg: AYBFou3d9Gfu7XMt1zb52RC+2mvhEl8xYV4nb5B+2/M/yrzni8Rvy7kHxZG4QHJZI39
+	G3IJPl+K116Ow3So76SIpOv7kpMm3mdTx6J9UNEuHdv1d/QiZVWCK/yaG5G4wZE7V0iufXD+mm7
+	pEqUBvwoccwOLLzrKDCUc13Vde2xiQe5qmfzR9goHZPP3oF8nDIFDNUXCYwoVGcu1NSn3f4m/Kq
+	PTtgCZ48+V2DI2/wbExkNdEm7GgQ3+Ha1d4nns45QA8J3tFsCTBNW4zbwAk3riyz9lUm0i4NDlR
+	L88QrlZcbPWxr6gLSWbBms/iYgEL3TYf355nXje3q7mIze+gv5ZkqLseHmTIDjWknnAqCGKLDfO
+	aC80XyJY/TBQEXeYTDhH0ytTV39fn6Gdqt1xOfpB/ipcQARbN08XTrqhdHJKRoD6ILWQLLC2MaI
+	r6FBLsDaCY6pyhcqYin2CPxOvmAxv1/XJdpXSUZKe/tpGu/2zPctp4aC3EFQSSZsoSB9tsDmHCG
+	MuK1Ubmp1p+/vHbFn7ShK48AyGD4MfEoRnOh/BrjBUgi74RmIj6Ndfu1fxsgzviMmfj/fHG62JS
+	h49GYo5AqJM/ZEllKAZgrQojqLoC5bO4Pe4Umj2PhdtAF2oP+WtL2Btpcq2ds2Mb9wPTQh1A/FU
+	MGr0Rr3sZ8FRsgTuji9uabAZ8sH0v+Z91KTv3G4rfmglFZD6gouejv794UnouoaQ0gitsE536hF
+	esXA==
+X-Received: by 2002:a17:90b:388b:b0:3b0:b36b:66fc with SMTP id 98e67ed59e1d1-3b182fdf9a3mr671597a91.63.1794357010270;
+        Tue, 10 Nov 2026 16:30:10 -0800 (PST)
+Received: from ryzen.lan ([2601:644:8000:37f::e34])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b17dba5ed0sm1693588a91.17.2026.11.10.16.30.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 16:30:09 -0800 (PST)
+From: Rosen Penev <rosenp@gmail.com>
+To: netdev@vger.kernel.org
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH net] net: ibm: emac: fix fixed-link speed and duplex
+Date: Tue, 10 Nov 2026 16:30:08 -0800
+Message-ID: <20261111003008.960305-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,252 +101,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <42972bc1-721c-4bdb-8599-10f6f30cd89d@paulmck-laptop>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Nov 10, 2026 at 02:33:20PM -0800, Paul E. McKenney wrote:
-> On Tue, Nov 10, 2026 at 02:28:44PM -0500, Mathieu Desnoyers wrote:
-> > Nothing tests srcu_read_lock_atomic_irqsave() and
-> > srcu_read_unlock_atomic_irqrestore(). Testing them in the normal readers
-> > has two obstacles. rcutorture_one_extend() ends the readers of a CPU in
-> > any order, but each irqrestore restores the state its own irqsave saw.
-> > It also enables interrupts and bottom halves within readers, which an
-> > irqsave reader forbids.
-> > 
-> > Add an atomic_irqsave module parameter. With it, half the atomic
-> > readers use the irqsave forms, alternating per CPU. A per-CPU count
-> > tracks these readers: the first one saves the interrupt state, and only
-> > the last one restores it. The others restore the current state, with
-> > interrupts disabled. The parameter also removes the bottom-half and
-> > interrupt reader extensions, and the reader end under ->pi_lock, which
-> > would enable interrupts under a raw spinlock.
-> > 
-> > An irqsave reader checks that interrupts are still disabled when it
-> > ends.
-> > 
-> > Add an atomic-srcu-irqsave run of SRCU-P to torture.sh.
-> > 
-> > Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-> 
-> Cute trick with the per-CPU variable for the flags value!  ;-)
-> 
-> A few questions and comments below.
-> 
-> I am pulling this series in for testing and further review, but I do
-> understand that it might need to be replaced by a later version.
+Since commit d99b408ed8e5 ("net: phy: fixed_phy: remove not needed
+initialization of phy_device members"), fixed_phy_register() no longer
+copies the fixed-link state into the new phy_device, phylib fills it in
+once the PHY state machine runs.
 
-And it passes initial "smoke" tests.  ;-)
+EMAC never attaches or starts the fixed PHY. emac_init_phy() copies
+phydev->speed and phydev->duplex right after registering it, so it now
+gets SPEED_UNKNOWN and DUPLEX_UNKNOWN and emac_configure() programs the
+MAC and RGMII bridge for 10 Mbps half duplex.
 
-							Thanx, Paul
+On the Meraki MX60, whose EMAC has a 1000 Mbps RGMII fixed-link to a
+QCA8327 switch, every transmitted frame reports carrier loss, the
+switch CPU port counts FCS errors and nothing is received.
 
-> > ---
-> >  kernel/rcu/rcutorture.c                       | 74 +++++++++++++++++--
-> >  .../selftests/rcutorture/bin/torture.sh       |  6 ++
-> >  2 files changed, 75 insertions(+), 5 deletions(-)
-> > 
-> > diff --git a/kernel/rcu/rcutorture.c b/kernel/rcu/rcutorture.c
-> > index 3b9c08a094cd..99dde988f974 100644
-> > --- a/kernel/rcu/rcutorture.c
-> > +++ b/kernel/rcu/rcutorture.c
-> > @@ -134,6 +134,7 @@ torture_param(int, preempt_interval, MSEC_PER_SEC, "Interval between preemptions
-> >  torture_param(int, read_exit_delay, 13, "Delay between read-then-exit episodes (s)");
-> >  torture_param(int, read_exit_burst, 16, "# of read-then-exit bursts per episode, zero to disable");
-> >  torture_param(int, reader_flavor, SRCU_READ_FLAVOR_NORMAL, "Reader flavors to use, one per bit.");
-> > +torture_param(bool, atomic_irqsave, false, "Half the atomic SRCU readers disable irqs");
-> 
-> What happens if there is only one reader?  Hey, you knew that this
-> question was coming!  ;-)
-> 
-> (And I see the use of ->count below.)
-> 
-> >  torture_param(int, shuffle_interval, 3, "Number of seconds between shuffles");
-> >  torture_param(int, shutdown_secs, 0, "Shutdown time (s), <= zero to disable.");
-> >  torture_param(int, stall_cpu, 0, "Stall duration (s), zero to disable.");
-> > @@ -728,6 +729,66 @@ static void srcu_torture_init_forbidden_apis(void)
-> >  	cur_ops->start_gp_poll = NULL;
-> >  }
-> >  
-> > +/*
-> > + * With atomic_irqsave, half the atomic SRCU readers disable interrupts instead
-> > + * of preemption.  rcutorture_one_extend() may end the readers of a CPU in any
-> > + * order, so the first one saves the interrupt state and the last one restores
-> > + * it.  An extension must then neither enable interrupts nor enable bottom
-> > + * halves within such a reader, and no reader may end under ->pi_lock.
-> > + */
-> 
-> Good point:  SRCU does not flatten readers by default, but you really
-> need to for the _irqsave() case.
-> 
-> > +#define SRCU_TORTURE_IRQSAVE	0x20	// The reader disabled interrupts.
-> 
-> Is this supposed to slot into the RCUTORTURE_RDR_* bit positions?
-> If so, it is overwriting RCUTORTURE_RDR_RCU_1.  Or is this a trick
-> that you are using to make half of the readers disable interrupts?
-> If so, let's please make this more explicit and more obvious to someone
-> (like yourself) who might be reading the RCUTORTURE_RDR_* bit position
-> definitions some time in the future.  ;-)
-> 
-> Except...  The rule is that RCUTORTURE_RDR_RCU_2 cannot be set unless
-> RCUTORTURE_RDR_RCU_1 is also set.  So there needs to be some other way
-> to get the "half the readers doing _irqsave()" effect.  (And I now see
-> the use of ->count below.)
-> 
-> If this is independent of the RCUTORTURE_RDR_* bit positions, why
-> the 0x20?
-> 
-> > +struct srcu_torture_irqsave {
-> > +	unsigned int count;	// Picks the form of the next reader.
-> 
-> Like maybe this count being odd or even, for example.  ;-)
-> 
-> And I do see below that this is in fact the strategy.  Very good!
-> 
-> > +	int depth;		// Readers of this CPU that disabled interrupts.
-> > +	unsigned long flags;	// Interrupt state before the first one.
-> > +};
-> > +
-> > +static DEFINE_PER_CPU(struct srcu_torture_irqsave, srcu_torture_irqsave);
-> > +
-> > +static void srcu_torture_init_irqsave(void)
-> > +{
-> > +	if (!atomic_irqsave || !(reader_flavor & SRCU_READ_FLAVOR_ATOMIC))
-> > +		return;
-> > +	cur_ops->extendables &= ~(RCUTORTURE_RDR_BH | RCUTORTURE_RDR_RBH |
-> > +				  RCUTORTURE_RDR_IRQ);
-> 
-> All the "srcu*" torture types implicitly set ->extendables to zero, so
-> you shouldn't need this.  The exception is the "busted_srcud" torture
-> type, which is supposed to fail anyway.  Or is "busted_srcud" the case
-> that this code is trying to handle?
-> 
-> If so, an alternative approach would be to only do the _irqsave()
-> readers when ->extendables is equal to zero.  Which is admittedly still
-> a bit hacky.
-> 
-> > +	cur_ops->no_pi_lock = 1;
-> > +	VERBOSE_TOROUT_STRING("srcu_torture_init atomic SRCU, irqsave readers");
-> > +}
-> > +
-> > +static int srcu_torture_read_lock_atomic(void)
-> > +{
-> > +	struct srcu_torture_irqsave *stip;
-> > +	unsigned long flags;
-> > +	int idx;
-> > +
-> > +	if (!atomic_irqsave || in_nmi() || !(this_cpu_inc_return(srcu_torture_irqsave.count) & 0x1))
-> 
-> The suggestion above would add "|| cur_ops->extendables" to the above
-> condition.  Atomic SRCU readers are a bit heavyweight, so the extra
-> runtime overhead should not be a concern.
-> 
-> > +		return srcu_read_lock_atomic(srcu_ctlp);
-> > +	idx = srcu_read_lock_atomic_irqsave(srcu_ctlp, flags);
-> > +	stip = this_cpu_ptr(&srcu_torture_irqsave);
-> > +	if (!stip->depth++)
-> > +		stip->flags = flags;
-> > +	return idx | SRCU_TORTURE_IRQSAVE;
-> 
-> OK, so the value of 0x20 instead goes into RCUTORTURE_RDR_MASK_1 and
-> maybe also into RCUTORTURE_RDR_MASK_2, correct?
-> 
-> If so, it would be good to define SRCU_TORTURE_IRQSAVE somewhere near
-> the definitions of RCUTORTURE_RDR_MASK_1 and RCUTORTURE_RDR_MASK_2.
-> 
-> /me scratches his head trying to think why 0x20 instead of 0x2, 0x10,
-> or whatever...
-> 
-> Ah, because there are five reader flavors, which consume bits 0x1 through
-> 0x10.  But we have been adding reader flavors at a surprisingly fast clip.
-> Might you therefore be willing to instead consider the value 0x80?
-> 
-> > +}
-> > +
-> > +static void srcu_torture_read_unlock_atomic(int idx)
-> > +{
-> > +	struct srcu_torture_irqsave *stip;
-> > +	unsigned long flags;
-> > +
-> > +	if (!(idx & SRCU_TORTURE_IRQSAVE)) {
-> > +		srcu_read_unlock_atomic(srcu_ctlp, idx);
-> > +		return;
-> > +	}
-> > +	idx &= ~SRCU_TORTURE_IRQSAVE;
-> > +	WARN_ON_ONCE(!irqs_disabled());  // Its section must be interrupts-off.
-> > +	stip = this_cpu_ptr(&srcu_torture_irqsave);
-> > +	local_save_flags(flags);  // Disabled: keep it so for the other readers.
-> > +	if (!WARN_ON_ONCE(stip->depth <= 0) && !--stip->depth)
-> > +		flags = stip->flags;
-> > +	srcu_read_unlock_atomic_irqrestore(srcu_ctlp, idx, flags);
-> > +}
-> > +
-> >  static void srcu_torture_init(void)
-> >  {
-> >  	rcu_sync_torture_init();
-> > @@ -747,6 +808,7 @@ static void srcu_torture_init(void)
-> >  		srcu_ctlp = &srcu_ctla;
-> >  		VERBOSE_TOROUT_STRING("srcu_torture_init atomic SRCU");
-> >  		srcu_torture_init_forbidden_apis();
-> > +		srcu_torture_init_irqsave();
-> >  	}
-> >  }
-> >  
-> > @@ -786,9 +848,9 @@ static int srcu_torture_read_lock(void)
-> >  		ret += idx << 3;
-> >  	}
-> >  	if (reader_flavor & SRCU_READ_FLAVOR_ATOMIC) {
-> > -		idx = srcu_read_lock_atomic(srcu_ctlp);
-> > -		WARN_ON_ONCE(idx & ~0x1);
-> > -		ret += idx << 4;
-> > +		idx = srcu_torture_read_lock_atomic();
-> > +		WARN_ON_ONCE(idx & ~(0x1 | SRCU_TORTURE_IRQSAVE));
-> > +		ret += ((idx & 0x1) << 4) | (idx & SRCU_TORTURE_IRQSAVE);
-> 
-> This bit manipulation is getting a bit ornate, but that is a separate
-> issue and can be dealt with later.  And who knows?  This might be optimal.
-> 
-> >  	}
-> >  	return ret;
-> >  }
-> > @@ -828,9 +890,10 @@ srcu_read_delay(struct torture_random_state *rrsp, struct rt_read_seg *rtrsp)
-> >  
-> >  static void srcu_torture_read_unlock(int idx)
-> >  {
-> > -	WARN_ON_ONCE((reader_flavor && (idx & ~reader_flavor)) || (!reader_flavor && (idx & ~0x1)));
-> > +	WARN_ON_ONCE((reader_flavor && (idx & ~(reader_flavor | SRCU_TORTURE_IRQSAVE))) ||
-> > +		     (!reader_flavor && (idx & ~0x1)));
-> >  	if (reader_flavor & SRCU_READ_FLAVOR_ATOMIC)
-> > -		srcu_read_unlock_atomic(srcu_ctlp, (idx & 0x10) >> 4);
-> > +		srcu_torture_read_unlock_atomic(((idx & 0x10) >> 4) | (idx & SRCU_TORTURE_IRQSAVE));
-> >  	if (reader_flavor & SRCU_READ_FLAVOR_FAST_UPDOWN)
-> >  		srcu_read_unlock_fast_updown(srcu_ctlp,
-> >  					     __srcu_ctr_to_ptr(srcu_ctlp, (idx & 0x8) >> 3));
-> > @@ -1015,6 +1078,7 @@ static void srcud_torture_init(void)
-> >  		WARN_ON(init_srcu_struct_atomic(&srcu_ctld));
-> >  		VERBOSE_TOROUT_STRING("srcud_torture_init atomic SRCU");
-> >  		srcu_torture_init_forbidden_apis();
-> > +		srcu_torture_init_irqsave();
-> >  	} else {
-> >  		WARN_ON(init_srcu_struct(&srcu_ctld));
-> >  	}
-> > diff --git a/tools/testing/selftests/rcutorture/bin/torture.sh b/tools/testing/selftests/rcutorture/bin/torture.sh
-> > index e7b578ec152f..18a03fad1038 100755
-> > --- a/tools/testing/selftests/rcutorture/bin/torture.sh
-> > +++ b/tools/testing/selftests/rcutorture/bin/torture.sh
-> > @@ -519,6 +519,12 @@ then
-> >  	torture_set "atomic-srcu" tools/testing/selftests/rcutorture/bin/kvm.sh \
-> >  		--allcpus --duration "$duration_rcutorture" \
-> >  		--configs "$configs_atomic_srcu" --trust-make
-> > +
-> > +	# Half the readers then use srcu_read_lock_atomic_irqsave().
-> > +	torture_bootargs="rcutorture.reader_flavor=0x10 rcutorture.atomic_irqsave=1"
-> > +	torture_set "atomic-srcu-irqsave" tools/testing/selftests/rcutorture/bin/kvm.sh \
-> > +		--allcpus --duration "$duration_rcutorture" \
-> > +		--configs "SRCU-P" --trust-make
-> >  fi
-> >  
-> >  if test "$do_locktorture" = "yes"
-> > -- 
-> > 2.47.3
-> > 
-> 
+Take the fixed-link parameters from the device tree, in both the
+"fixed-link" subnode and the legacy property form.
+
+Fixes: d99b408ed8e5 ("net: phy: fixed_phy: remove not needed initialization of phy_device members")
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ drivers/net/ethernet/ibm/emac/core.c | 36 +++++++++++++++++++++++++++-
+ 1 file changed, 35 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/net/ethernet/ibm/emac/core.c b/drivers/net/ethernet/ibm/emac/core.c
+index 9fa18ad99f4d..f097b6e49eeb 100644
+--- a/drivers/net/ethernet/ibm/emac/core.c
++++ b/drivers/net/ethernet/ibm/emac/core.c
+@@ -2696,6 +2696,40 @@ static int emac_dt_phy_probe(struct emac_instance *dev)
+ 	return res;
+ }
+ 
++/* The fixed PHY is never started, so phylib never fills in its link state.
++ * Take the link parameters straight from the device tree.
++ */
++static void emac_fixed_link_state(struct emac_instance *dev,
++				  struct device_node *np)
++{
++	struct device_node *fixed_link;
++	u32 prop[5];
++
++	dev->phy.autoneg = AUTONEG_DISABLE;
++	dev->phy.advertising = 0;
++
++	fixed_link = of_get_child_by_name(np, "fixed-link");
++	if (fixed_link) {
++		u32 speed = SPEED_UNKNOWN;
++
++		of_property_read_u32(fixed_link, "speed", &speed);
++		dev->phy.speed = speed;
++		dev->phy.duplex = of_property_read_bool(fixed_link, "full-duplex") ?
++				  DUPLEX_FULL : DUPLEX_HALF;
++		dev->phy.pause = of_property_read_bool(fixed_link, "pause");
++		dev->phy.asym_pause = of_property_read_bool(fixed_link,
++							    "asym-pause");
++		of_node_put(fixed_link);
++	} else if (!of_property_read_u32_array(np, "fixed-link", prop,
++					       ARRAY_SIZE(prop))) {
++		/* legacy <phy_id duplex speed pause asym_pause> */
++		dev->phy.duplex = prop[1] ? DUPLEX_FULL : DUPLEX_HALF;
++		dev->phy.speed = prop[2];
++		dev->phy.pause = prop[3];
++		dev->phy.asym_pause = prop[4];
++	}
++}
++
+ static int emac_init_phy(struct emac_instance *dev)
+ {
+ 	struct device_node *np = dev->ofdev->dev.of_node;
+@@ -2730,7 +2764,7 @@ static int emac_init_phy(struct emac_instance *dev)
+ 			ndev->phydev = of_phy_find_device(np);
+ 			if (res || !ndev->phydev)
+ 				return res ? res : -EINVAL;
+-			emac_adjust_link(dev->ndev);
++			emac_fixed_link_state(dev, np);
+ 			put_device(&ndev->phydev->mdio.dev);
+ 		}
+ 		return 0;
+-- 
+2.56.0
+
