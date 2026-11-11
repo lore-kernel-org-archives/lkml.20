@@ -1,74 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.71
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794415869;
-	b=IcewiFNAQXXVQFAytS4AP8PVkLvUOS7fBreyUlZrK+JgrfhoOGbPdBNqhWdcNYKETJxY
-	 eKYPTuM9AWcFLN+RiGC8YEXvyPO7Pntxqo2KDdyETzFuNRNFZImpaQ17pvdaPBQCodA1b
-	 zazjxjK6OVZYqvoOkyWARGr3eD1YXHd8jf60Y7yDDeUYlrIXlUigmTGlSxMRWyxtzFBb6
-	 57XUTgaGKOh0Mf1wBngtJ+qKHBy4r9NJicv3wSFuQF6KVo+avQ0Hml+b/VxMSGYlqN/Er
-	 lqdg3cSw0DhGxM0rcpb/4PPQdYvu+oly9PgZl7casGvkZTraMMDcmVP7Oelvx1CjV8w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794415869;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.46
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794415879;
+	b=dMIXNoh4F1NV17oLfFSDpu41/2iRVuGFi29P4XPpeti32Ff99hqx3coXuj/b1TuOcMrs
+	 f2tB/HkdvDNhFlLqJWnI9Eh2MiDPoPynhR72U5Ef14VbLo6usG8ajoIhRTLuj7sukWOfG
+	 93ZmPEpjtjMbVUfJqr5ciOIoehASDuDOIuayi5JrTFFmFOHUfoUyZVXZS+xv5YmNC5Bor
+	 4VkqVb8IHYgT5PxxwLMsFi2nCIysosEuru2yeykaqqLaGaS7fVBozQ4YyPp/wEr0uzNlD
+	 DI2zzXLvCNYaRI9CmLjpCfPUdJ3g/PCQN/lbJX0CjxN4aSWEV9LlRjSLRoDNMJULljg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794415879;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=gg3re7vfdE1PsPwfbeOVGKGJ4XbC0yjKrXDhwXuaVP4=;
-	b=Ns6vJenW78SnUaLV6TyCa0sQCdWDJE2UvCKixpgkcaVbS3ZDnAmuCOzISZzNje3YcFYM
-	 1bM7qQQGhNuzvY2xT2Tq0eU1XCXDchsCwaavxtUgBkF3c9PXMD383eH0jYmH8nSsa0OKw
-	 x1TAwHuaAi70Ty5ZUgp+uBsTUBXs81GDWj55WtLKlX3s2mX0lzdznlPaWKuQQfqgyl8Z1
-	 GQ/3BpmQ3Kwe2BoP4UQA7zDE+EKQp30C02xsfrHedngmX43THoOcZzb51+LJMfRCliYUF
-	 eZ2E4JSfNNfuCOdIfaxMUFUOgJQbTSFzowvek482Fa/8BMNl3ZJmzI5l11FdqwXhhTg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=JhP8DkU9ic6BIKk96lun3f4n8KqpEb7oFPMlil4MVPE=;
+	b=DrAQYoDaaFTg8bM2yhOtEnWHsr2i9oj2u5Hq5VZYeiBQ+hkFtp6/kO0bRBDmFDTFtUXM
+	 HR/gpN2kdmhQrgQ22VvQg4NVEggyTt25lAhbikYreT5n64OTVG2kKOha36LsuFoOeOd2x
+	 fs++54L/KbEY5HDvbxvFWJqSmBh6AyxXFHl8d4u/wJ8/taWMCSur9sQo2fa2F+5E/3ehh
+	 5/BC781b7upiVJQY84Mg4VlQB1ZSlIpe2EZJN7eoNaG3XfGoXM90CVdqmpvUhNo2rRnY3
+	 IMvqlTWak/pAQKmspwKQTB2LGkuklf+GWcLjLD18+RdsIyhJpX+z+sykla/98blngKg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=DpFIQAw4;
-	arc=none smtp.remote-ip=209.85.216.71
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=cNcy4ztK;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.46
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A0E4606A326
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 16:51:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A0E4606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C39C3606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 16:51:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C39C3606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=DpFIQAw4
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3b17b31c3beso1218652a91.2
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 08:51:09 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=cNcy4ztK
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-490d59c3edaso15656f8f.1
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 08:51:18 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794415877; cv=none;
+        d=google.com; s=arc-20260327;
+        b=XzhjBXUbqo8URSAllX59Ax2QfnQ6WOLxybQzbB69O1R/9TL96m0OdcCiX48hB4D9sm
+         BGKdidESoqEpb9oqKF6Wu1MmhnoxmWYl22pCyurV3OqBiq4kc+FSt+gK3CY/Lgbd1ZCS
+         B3im1iSc6Vbw9HKVr6b0Ut8JnPwza1582Y57JymKAhsTN2At6iFAMhfhxfRbV5m2V7rq
+         Pp358VC+ncbClarOwkt9T0/J/5tNQXjp3fNxdKhaW2yTstG/knwH83uGFrdUeweZQx6p
+         ZukVc/SnB+Oah3Od3xlu7GUPadn+mR3s5te/f8W0tbtt5q4bIaij7ZJIbay1tnatUP22
+         efgQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=JhP8DkU9ic6BIKk96lun3f4n8KqpEb7oFPMlil4MVPE=;
+        fh=keCgj2atV79/zM77p6ZRECDaEN5PULtjWFG8ua8BVwg=;
+        b=Iyo17m1XntrG9dDUfpteATNljgrCDDJpRb5ZXTh2VmE7j0B3UsLGOEgiNDkxg3Cqrd
+         tUlBlHN89IUrqdLmy/Y1xZtlJbLzOUytFELQZalbUToMGQHlnwlDagYx7aLR7aRiMwTc
+         QEAFT2BrU01iM0v5CnJhkmMvdsgIuAnbvjsMhYlQ8CdDo+6lAD0+EQxtV6R/McaImA2n
+         POEGTpahLUZO0QrsNxffCrQjCBAplQ6oMN+6+HlHt5/8x7ZbcCt5rU89PRExoJ/sDJdn
+         w/w9eT+a7XkwuRW7g8G/v92qeZfwv/Ki7plI2dyRvmqiXKLymRFh2YUvU/v+ifemiGRf
+         w9jQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794415869; x=1795020669; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=gg3re7vfdE1PsPwfbeOVGKGJ4XbC0yjKrXDhwXuaVP4=;
-        b=DpFIQAw4llDvNG5hev7PFtpFHBY0O0Gx1r2iMDRF3rDzmMVzBttMpdTyEIIC/a817f
-         kPw3q+yaFWD6wKP92abhdMfT1k1wfhjBi4n8FLvonfw/Rova2XV8BU8A1L2PI5CrRVSe
-         YMFYI82jrSpje3YIjTWlAQkiwI0Cl7gQy5LX3P5D60tSbDgRPcuqdbDgQk35QBohd0Kf
-         gjCps2EGCxVFY5zFSr6AsqnFy1pAxoglo4mWLkw8CbCXpbG2Yxg0MxIj2sjiNceSnzUe
-         xSfAIS1MEtVqQ7rHC8C1ZluanraXLIGOsbeX46MD/MWVd54NkgnGBgIOKOQ/DuXMKJ5s
-         gb6A==
+        d=google.com; s=20260707; t=1794415877; x=1795020677; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=JhP8DkU9ic6BIKk96lun3f4n8KqpEb7oFPMlil4MVPE=;
+        b=cNcy4ztKBBCUP4HFE1W66/wJVb/byaYeDzPGmQXPqeKDWSiq2ysIkoZqhwEi/WMKEh
+         U4IJbdbK+FPBZV5Bp+0ExleKbkGD274FcBQNx4ablD5DGTFeh9wxe1vyNraKYUmfycl4
+         9j58gMzjadYeuEVrQTyhAeY1nMOLcWo+MxaSTsK6ZRd6/IaTWlOoCJhmaF71X8N+Ft3s
+         mtpf84Oo0QrSBWUPrNSkeg2SL6+ZzZyBg56Cy8ylvtLnezp9yFlY+7f08x7nz0EGFFmm
+         i6C4yaAoUPUU3lAohEp7pixrq/3bN/oYRHeiYeuGpxYw37iccNIDVOBGxKsZVHnw7jpV
+         /SxQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794415869; x=1795020669;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=gg3re7vfdE1PsPwfbeOVGKGJ4XbC0yjKrXDhwXuaVP4=;
-        b=et0Y63LxYh93K5AcHrcKE/8t2ZR4ajLdZyXPD2eeLx0BQqIQR/c6qq5TwFh8kYYEcW
-         yOed3SnH+l6ecUhKwk45kePHyBUEpzmCfKqN5HHuZtvM56m9CHsfwGL0dCouf/BL0QkI
-         GzmXG/ES74gD2EGRPXE7LJ7sbt01k1YxA9F36XpDPwIWFXaUMwfwn+byOEiVUt4Vtc6q
-         AeFISi8nmjF55tKgd57wfF4OTTwYpyzT0hLoMEtYxZdwgutkh4ADd1KRkgEC1rhbM2Sk
-         9ylWiAHZtU3oKD9aymCgpZhLxogTH3LoIMrBtbFjwetDpLXZElO75vzjA00EbSg2npav
-         4InA==
-X-Forwarded-Encrypted: i=1; AL+hErED7BVg0ECgmxq6vhgLdDeJtuTzsXJPr5xg+ZV3cJnKWKmq9srqyU4QiHD2P/Zm12+CcW4zVfqnPOOJ3Co=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8AxZwEsUetcJNw1dN8vQV4lQQWVou0uw+WamB32iPwPz9MUZ/D
-	PXVqWCfnAZUn/tDWIkiTPy5IK5Hz4LlZ1YWWQUJwoxvBoOl9YAihdlgkB3033KnFcYlWPCfu5LW
-	t9gVy5Q==
-X-Received: from pjbev6.prod.google.com ([2002:a17:90a:eac6:b0:3b0:e553:8f2c])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:1647:b0:3a8:c0cd:57f9
- with SMTP id 98e67ed59e1d1-3b182f26a0emr3165414a91.25.1794415868591; Wed, 11
- Nov 2026 08:51:08 -0800 (PST)
-Date: Wed, 11 Nov 2026 08:51:07 -0800
-In-Reply-To: <20261106051726.3964374-1-jrhilke@google.com>
+        d=1e100.net; s=20260707; t=1794415877; x=1795020677;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=JhP8DkU9ic6BIKk96lun3f4n8KqpEb7oFPMlil4MVPE=;
+        b=r06xQxo/P2EtSsPAnQ/xeAQvR4E7+jtUscgjHR/LzpgnwQYBGtbLRpVRYmKtT8KbTa
+         nY6Y7DO0aFcvwszDfp9h1/Qes62Tm6wu03oQBMsjwzEZ+BqM9Wv8yNYa3SkS8YIeA2Ne
+         LA1rKF6B9uJS8xy2GY702ZAjR1AHBWqeBqv8UNiLYLKjjMx0PMB5R3qnZVQJHxRA0OB6
+         kEi/DjpLbO8isnexQ9GIbXogN53p3ZOAEITqrp1RskZVzXGrEnSv2iV5Dbj6EaeqpHb9
+         K0lNVIuplB6RxXJt49bezaMvx5rdMv8Gj0UE3dLVZlVROs77FITjyDW2tG8BiwcHqmsu
+         C/lA==
+X-Forwarded-Encrypted: i=1; AL+hErFH6xKVZ19WpeKVs6OfV7XjeeWOXSguxKHMGlU6zJvAv3FaUIjJQdACDRn3GNp+265ZXi+UDkwyevBmxFs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8A6gn6Yn1jkse+LBfhICgmkz1q0S9MLIGsaDxG2Yd4DkyFjHpL
+	JNj0zEuvAaYPnd6NharBLXBAdJ30DZoMdsxV5JTwl/IkDQBamFnMHiSPhivabHJz1mV+UhpTdqc
+	QI22kbH97XkfIRdQMDbWiOAKtDeMLCaxYPCsjTjU+
+X-Gm-Gg: AYBFou2T15896VVZT4b5yjIj54CmsFhqoDXyNHPkHkmRhnuTQdHRaOrryUFHRom9anx
+	OuvOvHn2c1YV6cemT9+31Qb1bvAglpIlVJ+BdWkZB2flWiQ5QWRLUXhRiFKsB+76g6iUPhXtFwj
+	AgfelFvMfEsiNF2waG43SHpt/1Rqpu1coeZkrsGCComOSsvdVdg9tAznTtu2Po7YvfIJ4ZqFKJV
+	Tr5OpCfLfzYqgJDx4vuSf0A7CsC9Lc2P4K5eiYzrKrowLRXE9VAEabaxzG2mrc4OiB3MpacAvdy
+	aCnVBV+4wV3OSqcraph4pkv9XgiJJuGFD47/ZjWMzWRrZjz0++yNTKnYvU7HjIlpm6LsdqgcPB5
+	i/8SDA7CvH6UowzqSZTcFW/V30sauS1QZqmTV65jGcS4EV1epndTzxWiaN5Fq6d6BqMp2kzeV7+
+	PPKTKJn3rpj9/a/vkAHgxbq3RRmN9X+dB7hTJ7I28D04ZYSsRFVhqiAHjPYwlOwtN0+8NK5mwXo
+	QGd1TUt4lwUtEFi2WPDhGT5qWrJFgejt71xGg==
+X-Received: by 2002:a05:6000:27d3:b0:492:aff5:da60 with SMTP id
+ ffacd0b85a97d-49b01cf341fmr22869f8f.13.1794415876621; Wed, 11 Nov 2026
+ 08:51:16 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,172 +105,66 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261106051726.3964374-1-jrhilke@google.com>
-Message-ID: <avSc-7J5JpEamGGl@seanjc-mac.roam.internal>
-Subject: Re: [PATCH v7] vfio: selftests: Find devices that have VFIO selftest drivers
-From: Sean Christopherson <seanjc@google.com>
-To: Josh Hilke <jrhilke@google.com>
-Cc: Alex Williamson <alex@shazbot.org>, David Matlack <dmatlack@google.com>, kvm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Vipin Sharma <vipinsh@google.com>
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+References: <20261110-kconfig-toolchain-updates-v1-0-6d4fb636290e@kernel.org> <20261110-kconfig-toolchain-updates-v1-2-6d4fb636290e@kernel.org>
+In-Reply-To: <20261110-kconfig-toolchain-updates-v1-2-6d4fb636290e@kernel.org>
+From: Nick Desaulniers <ndesaulniers@google.com>
+Date: Wed, 11 Nov 2026 08:51:05 -0800
+X-Gm-Features: AclHuK8l5K2eY2r26mTBewSe8bSK1J1SDnVW3Q9OiGp7cZxgZU2dOMsZVOmiB-k
+Message-ID: <CAKwvOdnFG1ACEvGPXGW1XK_3QN+5UaR_9EumhmrsyKOs0aYCPQ@mail.gmail.com>
+Subject: Re: [PATCH 2/4] scripts/Kconfig.toolchain: Do not dynamically probe '-fno-addrsig'
+To: Nathan Chancellor <nathan@kernel.org>, Jordan Abrahams-Whitehead <ajordanr@google.com>
+Cc: Nicolas Schier <nsc@kernel.org>, Julian Braha <julianbraha@gmail.com>, 
+	Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, Arnd Bergmann <arnd@arndb.de>, 
+	Kees Cook <kees@kernel.org>, linux-kernel@vger.kernel.org, 
+	linux-kbuild@vger.kernel.org, llvm@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Nov 06, 2026, Josh Hilke wrote:
-> Add a new script, list_supported_devices.sh, which prints out the
-> segment:bus:device.function (SBDF) numbers and names of devices on a
-> machine that have a VFIO selftest driver. This makes it easier to
-> determine if the system is capable of running VFIO selftests.
-> 
-> Some of these devices are on the vfio-pci denylist, so vfio-pci refuses
-> to bind them unless vfio_pci.disable_denylist=Y. The script marks such
-> devices as DENYLISTED and prints how to enable them, so the user is not
-> left wondering why the selftests cannot use a "supported" device.
-> 
-> Includes a -q (quiet) argument which prints just the SBDFs of devices
-> that vfio-pci can bind, so that the output can be passed directly to
-> tools/testing/selftests/vfio/scripts/setup.sh. Does not print the SBDF
-> of a device on the denylist.
-> 
-> Examples on a host with eight Intel DSA devices:
-> 
-> $ cat /sys/module/vfio_pci/parameters/disable_denylist
-> N
-> 
-> $ ./list_supported_devices.sh
-> 0000:6a:01.0 - Intel DSA SPR [8086:0b25] (DENYLISTED)
-> 0000:6f:01.0 - Intel DSA SPR [8086:0b25] (DENYLISTED)
-> ...
-> vfio-pci does not bind DENYLISTED devices while
-> vfio_pci.disable_denylist=N. To use them, reload vfio-pci:
->   modprobe -r vfio-pci
->   modprobe vfio-pci disable_denylist=1
-> If vfio-pci is built into the kernel, boot with
-> vfio_pci.disable_denylist=1 instead.
-> 
-> With vfio_pci.disable_denylist=Y, the script lists the same devices with
-> "(DENYLISTED, but vfio_pci.disable_denylist=Y)", prints no hint, and
-> includes them in the -q output:
+On Tue, Nov 10, 2026 at 9:43=E2=80=AFPM Nathan Chancellor <nathan@kernel.or=
+g> wrote:
+>
+> '-fno-addrsig' avoids generating the LLVM specific .llvm_addrsig
+> section. This flag is supported by all supported versions of clang, so
+> convert CONFIG_CC_OPT_NO_ADDRSIG into a simple string symbol that
+> depends on CC_IS_CLANG to clean up a dynamic probe that is unnecessary.
+>
+> Signed-off-by: Nathan Chancellor <nathan@kernel.org>
 
-Sorry for dragging this on, but I still find the output painful to read.
+Reviewed-by: Nick Desaulniers <ndesaulniers@google.com>
 
-To me, this does not make it obvious that the devices are usable/available:
+Jordan, I know you were playing with -Wl,--icf=3Dall recently.  Looks
+like the kernel does not use it; AFAIK, no one has ever tried.  Even
+-Wl,--icf=3Dsafe.  Worth a shot to see if it boots.  If we did, we'd
+have to update this kconfig check (the linker flag is only supported
+by LLD).  Even if the result doesn't boot, it's perhaps worth doing
+builds with BOTH to see what kind of savings are possible at the
+limit.
 
-  # ./list_supported_devices.sh
-  0000:6a:01.0 - Intel DSA SPR [8086:0b25] (DENYLISTED, but vfio_pci.disable_denylist=Y)
-  0000:6f:01.0 - Intel DSA SPR [8086:0b25] (DENYLISTED, but vfio_pci.disable_denylist=Y)
-  0000:74:01.0 - Intel DSA SPR [8086:0b25] (DENYLISTED, but vfio_pci.disable_denylist=Y)
-  0000:79:01.0 - Intel DSA SPR [8086:0b25] (DENYLISTED, but vfio_pci.disable_denylist=Y)
-  0000:e7:01.0 - Intel DSA SPR [8086:0b25] (DENYLISTED, but vfio_pci.disable_denylist=Y)
-  0000:ec:01.0 - Intel DSA SPR [8086:0b25] (DENYLISTED, but vfio_pci.disable_denylist=Y)
-  0000:f1:01.0 - Intel DSA SPR [8086:0b25] (DENYLISTED, but vfio_pci.disable_denylist=Y)
-  0000:f6:01.0 - Intel DSA SPR [8086:0b25] (DENYLISTED, but vfio_pci.disable_denylist=Y)
+> ---
+>  scripts/Kconfig.toolchain | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+>
+> diff --git a/scripts/Kconfig.toolchain b/scripts/Kconfig.toolchain
+> index 666d44cc6ba8..570c5a31016c 100644
+> --- a/scripts/Kconfig.toolchain
+> +++ b/scripts/Kconfig.toolchain
+> @@ -164,7 +164,8 @@ config CC_OPT_ZERO_INIT_PADDING_BITS
+>         def_string "$(cc-option-str,-fzero-init-padding-bits=3Dall)"
+>
+>  config CC_OPT_NO_ADDRSIG
+> -       def_string "$(cc-option-str,-fno-addrsig)"
+> +       # supported in clang, not needed for gcc
+> +       def_string "-fno-addrsig" if CC_IS_CLANG
+>
+>  config CC_OPT_DIAGNOSTICS_SHOW_CONTEXT
+>         def_string "$(cc-option-str,-fdiagnostics-show-context=3D2)"
+>
+> --
+> 2.56.0
+>
 
-Especially if I glance at the output of the "bad" state:
 
-  # ./list_supported_devices.sh
-  0000:6a:01.0 - Intel DSA SPR [8086:0b25] (DENYLISTED)
-  0000:6f:01.0 - Intel DSA SPR [8086:0b25] (DENYLISTED)
-  0000:74:01.0 - Intel DSA SPR [8086:0b25] (DENYLISTED)
-  0000:79:01.0 - Intel DSA SPR [8086:0b25] (DENYLISTED)
-  0000:e7:01.0 - Intel DSA SPR [8086:0b25] (DENYLISTED)
-  0000:ec:01.0 - Intel DSA SPR [8086:0b25] (DENYLISTED)
-  0000:f1:01.0 - Intel DSA SPR [8086:0b25] (DENYLISTED)
-  0000:f6:01.0 - Intel DSA SPR [8086:0b25] (DENYLISTED)
-  vfio-pci does not bind DENYLISTED devices while
-  vfio_pci.disable_denylist=N. To use them, reload vfio-pci:
-    modprobe -r vfio-pci
-    modprobe vfio-pci disable_denylist=1
-  If vfio-pci is built into the kernel, boot with
-  vfio_pci.disable_denylist=1 instead.
-
-IMO, the blurb at the end is also unnecessarily noisy.  I don't think we need to
-tell the user how to manage kernel modules.  I realize I'm setting a double
-standard with respect to assumed knowledge, but IMO knowing how to load kernel
-modules is table stakes for anyone running this script.
-
-The blurb (and strictly speaking, the scirpt as a whole) is also somewhat
-misleading because it doesn't actually verify that vfio-pci is loaded.
-
-Rather than squish everything into a the per-device output, what if we organize
-the devices so that it's more obvious what is what, and so that the output isn't
-as noisy/redundant.  E.g. something like the below.  And for the -q output, it
-probably makes sense to also provide a flag to show/hide unusable devices.  Probably
-to show?  i.e. have -q output show only fully supported devices by default?  And
-maybe fail -q outright if vfio-pci isn't loaded?  Dunno about that last one, not
-sure what would be the least confusing.
-
-If vfio-pci is loaded with disable_denylist=1 and there are both allowed and
-denied-by-default devices (ignore that they're all the same device):
-
-# ./list_supported_devices.sh
-Supported
-  0000:6a:01.0 - Intel DSA SPR [8086:0b25]
-  0000:6f:01.0 - Intel DSA SPR [8086:0b25]
-  0000:74:01.0 - Intel DSA SPR [8086:0b25]
-  0000:79:01.0 - Intel DSA SPR [8086:0b25]
-  0000:e7:01.0 - Intel DSA SPR [8086:0b25]
-  0000:ec:01.0 - Intel DSA SPR [8086:0b25]
-  0000:f1:01.0 - Intel DSA SPR [8086:0b25]
-  0000:f6:01.0 - Intel DSA SPR [8086:0b25]
-
-Supported (on denylist, but denylist disabled)
-  0000:6a:01.0 - Intel DSA SPR [8086:0b25]
-  0000:6f:01.0 - Intel DSA SPR [8086:0b25]
-  0000:74:01.0 - Intel DSA SPR [8086:0b25]
-  0000:79:01.0 - Intel DSA SPR [8086:0b25]
-  0000:e7:01.0 - Intel DSA SPR [8086:0b25]
-  0000:ec:01.0 - Intel DSA SPR [8086:0b25]
-  0000:f1:01.0 - Intel DSA SPR [8086:0b25]
-  0000:f6:01.0 - Intel DSA SPR [8086:0b25]
-
-Versus if vfio-pci is loaded with disable_denylist=0:
-
-# ./list_supported_devices.sh
-Supported
-  0000:6a:01.0 - Intel DSA SPR [8086:0b25]
-  0000:6f:01.0 - Intel DSA SPR [8086:0b25]
-  0000:74:01.0 - Intel DSA SPR [8086:0b25]
-  0000:79:01.0 - Intel DSA SPR [8086:0b25]
-  0000:e7:01.0 - Intel DSA SPR [8086:0b25]
-  0000:ec:01.0 - Intel DSA SPR [8086:0b25]
-  0000:f1:01.0 - Intel DSA SPR [8086:0b25]
-  0000:f6:01.0 - Intel DSA SPR [8086:0b25]
-
-Unusable (available, but denylisted by the kernel):
-  0000:6a:01.0 - Intel DSA SPR [8086:0b25]
-  0000:6f:01.0 - Intel DSA SPR [8086:0b25]
-  0000:74:01.0 - Intel DSA SPR [8086:0b25]
-  0000:79:01.0 - Intel DSA SPR [8086:0b25]
-  0000:e7:01.0 - Intel DSA SPR [8086:0b25]
-  0000:ec:01.0 - Intel DSA SPR [8086:0b25]
-  0000:f1:01.0 - Intel DSA SPR [8086:0b25]
-  0000:f6:01.0 - Intel DSA SPR [8086:0b25]
-
-  To use denylisted devices, load vfio-pci with disable_denylist=1
-  (or boot the kernel with vfio_pci.disable_denylist=1).
-
-Versus if vfio-pci isn't loaded at all:
-
-# ./list_supported_devices.sh
-Unusable (available, but vfio-pci not loaded)
-  0000:6a:01.0 - Intel DSA SPR [8086:0b25]
-  0000:6f:01.0 - Intel DSA SPR [8086:0b25]
-  0000:74:01.0 - Intel DSA SPR [8086:0b25]
-  0000:79:01.0 - Intel DSA SPR [8086:0b25]
-  0000:e7:01.0 - Intel DSA SPR [8086:0b25]
-  0000:ec:01.0 - Intel DSA SPR [8086:0b25]
-  0000:f1:01.0 - Intel DSA SPR [8086:0b25]
-  0000:f6:01.0 - Intel DSA SPR [8086:0b25]
-
-Unusable (available, but vfio-pci not loaded, and denylisted by the kernel):
-  0000:6a:01.0 - Intel DSA SPR [8086:0b25]
-  0000:6f:01.0 - Intel DSA SPR [8086:0b25]
-  0000:74:01.0 - Intel DSA SPR [8086:0b25]
-  0000:79:01.0 - Intel DSA SPR [8086:0b25]
-  0000:e7:01.0 - Intel DSA SPR [8086:0b25]
-  0000:ec:01.0 - Intel DSA SPR [8086:0b25]
-  0000:f1:01.0 - Intel DSA SPR [8086:0b25]
-  0000:f6:01.0 - Intel DSA SPR [8086:0b25]
-
-  To use denylisted devices, load vfio-pci with disable_denylist=1
-  (or boot the kernel with vfio_pci.disable_denylist=1).
+--=20
+Thanks,
+~Nick Desaulniers
