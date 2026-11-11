@@ -1,100 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794376620;
-	b=P//KpAZ20Tc7OO2dz1aefdEfk+3ZdtuYEXAA4T9g/TS1FPuNbKKqlSaCV75G04axzdmC
-	 SOZesmxIFv01BAB95gisR6oAA4XzgsJ0Az49Lqm5OfHI2HnRo7MQ99SqYmoDO7MLhr5zW
-	 DEU8uxlIjyedkr/VdokeHbqBp+0wrjEHVsRzGdDk8YUfsbYsZ1xHL5pLIa0uo/PfhsdR/
-	 XsyzRIMC2TlFChnJ6zvqor3S3kcXmk/O4ekwzyKB+/6ptnIH9fTsvBaJWZ6VxdrEMobR0
-	 j2Blmn3wj24BGrttH439ELw/p9tOMqNLgZSsJLtXTwmFr+993bkj2lU/95OkYvaRBYA==
+	t=1794376753;
+	b=2mQkRcTKZ9rxEb0at2hUGdMQlcLPnK5n1AyPUaOKOWlJt7VsPjJyCY7SAPEC0v1FpwZ6
+	 mu+uMM9hGK4tf+SGNUWWDMa4aB3vAM37SGSbrK0nFuY+mww7fb11PXpnvwUjIMocA4K6B
+	 cFMna5NqSL3PPMWXDVZfFLbhvmXhiLshPIeTPQlgNuwCDuVlpYHeMYXixFIByTLFX6MV7
+	 bp+H0Tv0ZA2LeAKG2icBx800Xq3zvy77ApJuQB6g4iSVBmoLvOJfmfpIYdFmSletZKYco
+	 EnwW6CDB5p0dJjHAHsheTvS2r8Kjni2mgOkXGJ0K3ijyXGUfnZAhpodhfz85+eF4WpA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794376620;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=Wit1oMqBgUZguWTeUkrhLstN01zhTlUg8QuqFOi5XKw=;
-	b=k60GWKRzWS3jDVNCoVC5N3gQhsnDJLvpI+GhUiTQjGrsj+ly7y9jersLhzK71F6mn9/J
-	 +pwdi9ZTuIY/rcvlWhVEt8G7k1IWprrmpwI0J50YAL/O1YU+h7TopEtZ9/2XNFkniRu7Q
-	 Pt8DOJzzVOneo2pK44/9MJsMelIPPc0b69x42zZPyG/KAYN1oesnRpHKJaivD9JbYF7s3
-	 Nc0fys0BiJkVAsiRXa2zWUHhMD8I7sQ/epyvfmtxYHRpfy0P6hdONnAxxEZmkdTHvdpnl
-	 RF44AOHEjhWLXSD+I8y0IbG4pjmCeTisMMo0uipVjbHYTk1JqEOLsCC0tncujOFBqow==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794376753;
+	h=Received:DKIM-Signature:Date:From:To:CC:Subject:User-Agent:
+	 In-Reply-To:References:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=Ka4FTyAvq+CRe6XZnT1kLUAzyaBuWwyZF5WfvkgSxxA=;
+	b=lACoCYoCFqbf2krZRstoLFXM6nD62R+A6K3B4iIKC4iBHZluX6PA+qbmQEoEtw+lf1+G
+	 8Ry86t2y/BPT3R3M18bRlF4rec1K5BBEkv0uleXvXydquH1vu5+uLv342Nh76nUhA1b0a
+	 SIG+qqiQrD0kAkyHZcS58TcJdVIGC23ZKLKTJj2MqxBFlKPZfbCtSRJErNe7t5/mjSCTs
+	 Oo0JJZOOPeHGOjISZBnjT5lfxJkMN1Rkjl4TcCsRb2tZlnU7rasSXEcIPBYSH8eMwFFWS
+	 X6UvTayeNc+FyJIIb+phaHf4pt3uGIF3XfCbZ4bLiHFat2LBxYemFoxwIbwRcEJeL1g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MAqQBKoA;
-	arc=none smtp.remote-ip=209.85.214.180
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NjRUcyAn;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24BF9606A32A
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 05:56:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24BF9606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A686D606A31C;
+	Wed, 11 Nov 2026 05:59:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MAqQBKoA
-Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2ed3d8877e6so16557095ad.3
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 21:56:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794376619; x=1794981419; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Wit1oMqBgUZguWTeUkrhLstN01zhTlUg8QuqFOi5XKw=;
-        b=MAqQBKoAzm4JhwG+TDVdZv8i0x9xYsPLOzX3jV6yyEyoyLS5iG53kvKl3h4OswOhV3
-         7EEyMgPuLC7VuF7/2/mPD1UW84hAqEElY79LYbQXeB0Cu1yR3t9vgfPzBPy6KvviuCyj
-         hrWV/sTfjkIijX6Thg+yCPWR8YvYePeAqbcFSSBmYU132nq9vVJCHrq3rNAeVFzUnMZo
-         lQ4/UtMmNBNVo/X03Fyt6Zd9RCsI++x6h27k4K8euqd2YrbhC0AZ1J/O1vaIAHjwtcm9
-         x2DG7hYSL4M6VutREIokUaVdoZminmHlafQWRr+MNRc41jjSXOINAqP968yoWlCTDBdL
-         OAjg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794376619; x=1794981419;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Wit1oMqBgUZguWTeUkrhLstN01zhTlUg8QuqFOi5XKw=;
-        b=MxfOUgPYE26CF0kXTGLSJ8zJxz/1wEBidUlZlNjQDWpvr1F0o6940kjuS7IdHYFAfy
-         SuC/EakDSTD+5cxV3Utn8R/C0cmFudvLvBV0W7SjCvtBa0ir3Gb5Jq4amzqJL/ufIy4q
-         WP9d2Fwh5TZRDj2UZ+lZMayf4lPAfoS3bxF4tJw3pG74rsBhVxZ7ALEmXg5Oamus+xYc
-         PKd5nxlYF+FEOInKSAFcZ2zfSOd91pKGaK3fn6rPgokn9eOpCeWT/CPicEn7qm5VjYdg
-         eXsVcDIFMQU0mpieVIRLVVVFoLQ63QZXy80BeIjijTqjvEcQWksXJPzBuEIL/bePM646
-         hj2A==
-X-Forwarded-Encrypted: i=1; AL+hErF+NSHCUt9zAcOh5yxk/XcUaAbFexHkmjtCOCh+h87g4fkrloFRtz/HprnXFG/rZ31pj00irWEL3WtXY2A=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/QioTxZpXdMwhQY8FgCaLY7PDT3biTpb3aEpDwNQdjr5hF4lYH
-	6e0/IYZ66tpYHHEr8pCB6YfdDcbRtLst7ynZdoLvkt0SWWiym6LOtk8a
-X-Gm-Gg: AYBFou2+M1pWXhtVj2zKMQ4wmqIy2+ZzC+FbI50Q7M1ydedL1qHSikE4/+tNLJOZBAY
-	6QsV5GBIqp2uJHKUmt8yYAAS5Shnw+tQRn/6QJTlYmoODGim2zuYGqyHGpAjtAHQcKJd0tzu8Ll
-	vTzF/ZK5FJEZhAUl+JEVUNFqA8iPso99b42RAEUQk1W1XGhTC3jh0BcFwOZYAt5BqZqhkO5CEFg
-	TRKL/jXh3DnmEItiQO2wpvekwK/3n8uLs2L9c72mjUzK3LYcxc4NGi6jyJ+qrbW7uhd7UViVaw6
-	FWAAo8KK6fPA8s/kt0gKf4P1bL6pY1GK1jLZjmDJ0SZI3/m5ArYruWmgBIgcKDADvlZ1uHGhDmw
-	/lbb1I7m5Q5x87jRjP/5TKAgS47ZpaSCTF5JRjDSias9ghZJybhh45ykhG+40QYQaHpexb8ZAsW
-	7cpVu+1bYuXkWW5gkbod0BsDkB8zY9GAStsGa6zOHBKEPxIoMsi3hXoRBxPD37zLldRMQC2GHlZ
-	SLqlB9YfP5CCqMPMiDU0p6Qyiyy3xUYUKlmNcM+IkPlbnO8KOzMwv97HsIZZErCHjstHiJzXh03
-	FxW8OIue9oOvXClMS9Y8brqtQQo=
-X-Received: by 2002:a17:903:1a4d:b0:2e9:4175:3079 with SMTP id d9443c01a7336-2edd775fea4mr18178705ad.21.1794376619395;
-        Tue, 10 Nov 2026 21:56:59 -0800 (PST)
-Received: from localhost ([2001:19f0:8000:3bef:5400:6ff:fef9:667])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2edb6a43768sm17021535ad.6.2026.11.10.21.56.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 21:56:59 -0800 (PST)
-From: Inochi Amaoto <inochiama@gmail.com>
-To: Minas Harutyunyan <hminas@synopsys.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Felipe Balbi <balbi@ti.com>,
-	Paul Zimmerman <paulz@synopsys.com>,
-	Dinh Nguyen <dinguyen@opensource.altera.com>
-Cc: Inochi Amaoto <inochiama@gmail.com>,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Yixun Lan <dlan@gentoo.org>,
-	Longbin Li <looong.bin@gmail.com>
-Subject: [PATCH v2 3/3] usb: dwc2: Add USB DRD support on CV1800 series SoC
-Date: Wed, 11 Nov 2026 13:56:18 +0800
-Message-ID: <20261111055628.183891-4-inochiama@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261111055628.183891-1-inochiama@gmail.com>
-References: <20261111055628.183891-1-inochiama@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NjRUcyAn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 322FB1F00A05;
+	Wed, 11 Nov 2026 05:59:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794376753;
+	bh=Ka4FTyAvq+CRe6XZnT1kLUAzyaBuWwyZF5WfvkgSxxA=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References;
+	b=NjRUcyAnf0nDdP1XtWMTwDn4X7UCndnE4FIOFCIu7Vgvjear0YLvHU0Kf4+YFmaIn
+	 kJBZNYOLEx7AgSEWwvIiRl5yJ24J6qink2vjWt7UP8KBBqmaXM9L7CFvYwwcDFljn3
+	 eqb/N4F6lcUW1Lrh4DYVt7HiXlXt2c59ZXOt0u1myAgiS9wrWGzO+Tq79GCYYwp1oF
+	 jWecZ9IFEyWSgCOWk8poR0c2fIYT9jabBcF5nBbDQcJzm7d35uo0X0jaCwirggSpc9
+	 MiIwtA/yzNsDokwHYMad51NO2ZkWOFlJ6aYJv4Z/roYaZPJQSEDRVpYDWtOb0O5gcD
+	 6cUiv/Ox9V8hA==
+Date: Tue, 10 Nov 2026 21:59:12 -0800
+From: Kees Cook <kees@kernel.org>
+To: Takashi Iwai <tiwai@suse.de>, Emanuele Ghidoli <ghidoliemanuele@gmail.com>
+CC: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Emanuele Ghidoli <emanuele.ghidoli@toradex.com>,
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ linux-sound@vger.kernel.org, linux-hardening@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH=5D_ASoC=3A_soc-core=3A_reset_r?=
+ =?US-ASCII?Q?td-=3Enum=5Fcomponents_after_allocation?=
+User-Agent: K-9 Mail for Android
+In-Reply-To: <87FF4A7B-853C-466A-AB01-2D9137DEE6CC@kernel.org>
+References: <20261109102536.357134-1-ghidoliemanuele@gmail.com> <87bj7yw9e2.wl-tiwai@suse.de> <87FF4A7B-853C-466A-AB01-2D9137DEE6CC@kernel.org>
+Message-ID: <EAAF07EF-6B11-4EA5-A5AF-A7787CA2F196@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,121 +64,96 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On CV1800 series SoC, it has a problem that it enters the role switch
-with a persistent Session End Detected interrupt. As a result, GOTGINT
-bit 2 remains set after write-one-to-clear accesses and prevents a
-normal boot.
 
-Keeping the BVALID override asserted in host mode avoids the observed
-interrupt storm while allowing host enumeration and device operation.
-As the BVALOVAL field is device only in the datasheet, this change is
-added as a quirk.
 
-Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
----
- drivers/usb/dwc2/core.h   |  3 +++
- drivers/usb/dwc2/drd.c    | 29 +++++++++++++++++++++--------
- drivers/usb/dwc2/params.c |  1 +
- 3 files changed, 25 insertions(+), 8 deletions(-)
+On November 10, 2026 9:50:08 PM PST, Kees Cook <kees@kernel=2Eorg> wrote:
+>
+>
+>On November 9, 2026 3:07:33 AM PST, Takashi Iwai <tiwai@suse=2Ede> wrote:
+>>On Mon, 09 Nov 2026 11:25:20 +0100,
+>>Emanuele Ghidoli wrote:
+>>On Mon, 09 Nov 2026 11:25:20 +0100,
+>>Emanuele Ghidoli wrote:
+>>>=20
+>>> From: Emanuele Ghidoli <emanuele=2Eghidoli@toradex=2Ecom>
+>>>=20
+>>>=20
+>>> Commit 4dd10fbbeb9c ("treewide: Convert devm_kmalloc() family to the
+>>> devm_kmalloc_obj() family") switched the snd_soc_pcm_runtime allocatio=
+n
+>>> in soc_new_pcm_runtime() to devm_kzalloc_flex()=2E components[] is
+>>> annotated with __counted_by(num_components), so when the compiler
+>>> provides __builtin_counted_by_ref() the allocation now also sets
+>>> rtd->num_components to the number of allocated slots=2E
+>>>=20
+>>> snd_soc_rtd_add_component() fills components[] one entry at a time and
+>>> expects num_components to start at zero=2E Starting from the allocated
+>>> size, for_each_rtd_components() stops at the first, still NULL, entry,
+>>> so the runtime has no components: they are not probed, no controls or
+>>> user-visible PCM devices are created and the card registers empty,
+>>> without any error message=2E In addition, each added component is stor=
+ed
+>>> past the end of components[]=2E On the tested board these stores still
+>>> land in the slack of the kmalloc bucket that devres rounds the
+>>> allocation up to, so KASAN does not report them=2E
+>>>=20
+>>> Reset num_components after the allocation=2E
+>>>=20
+>>> Seen on a Colibri iMX7D (simple-audio-card, fsl-sai, sgtl5000): the ca=
+rd
+>>> is listed in /proc/asound/cards, but /proc/asound/pcm is empty and
+>>>=20
+>>>   amixer: Unable to find simple control 'Capture Mux',0
+>>>   aplay: main:850: audio open error: No such file or directory
+>>>=20
+>>> Tested on that board with v7=2E4-rc2 built with GCC 15=2E2 (first seen=
+ with
+>>> GCC 16=2E2): the failure is there without this change; with it, playba=
+ck,
+>>> capture and the codec controls work again=2E
+>>>=20
+>>> The root cause analysis, this change and the testing were done with th=
+e
+>>> help of an AI coding assistant (Claude Code, Claude Opus 5=2E5)=2E
+>>>=20
+>>> Fixes: 4dd10fbbeb9c ("treewide: Convert devm_kmalloc() family to the d=
+evm_kmalloc_obj() family")
+>>> Signed-off-by: Emanuele Ghidoli <emanuele=2Eghidoli@toradex=2Ecom>
+>>> ---
+>>> 4dd10fbbeb9c only reached mainline in v7=2E4-rc2 (not in broonie/sound=
+ yet),
+>>> so this is based on v7=2E4-rc2=2E
+>>>=20
+>>> The other devm_k[mz]alloc_flex() sites added by 4dd10fbbeb9c were chec=
+ked
+>>> too: none of them fills a __counted_by() counter one entry at a time, =
+so
+>>> this one looks like the only user hit by the preset counter=2E
+>
+>Aggh, sorry for the problem, and thanks for checking the other cases=2E
+>
+>>
+>>I guess a bugzilla entry that was reported recently is also related
+>>with this problem=2E
+>>  https://bugzilla=2Ekernel=2Eorg/show_bug=2Ecgi?id=3D222249
+>>
+>>My first gut feeling was that it might be safer to revert the use of
+>>devm_kmalloc_flex() in that code, as it has a significant side-effect
+>>unlike other straight conversions=2E  But, if this fix covers well, we
+>>can go with this fix, of course=2E
+>
+>The problem is the annotation, IMO, as the counter member doesn't track a=
+llocation size, it tracks usage=2E
 
-diff --git a/drivers/usb/dwc2/core.h b/drivers/usb/dwc2/core.h
-index 298b418e6859..52ac64f67f41 100644
---- a/drivers/usb/dwc2/core.h
-+++ b/drivers/usb/dwc2/core.h
-@@ -357,6 +357,8 @@ enum dwc2_ep0_state {
-  *                      case.
-  *                      0 - No (default)
-  *                      1 - Yes
-+ * @force_bvalid_in_host: Set the BVALID override value to 1 in host mode to
-+ *                       avoid persistent Session End Detected interrupts.
-  * @power_down:         Specifies whether the controller support power_down.
-  *			If power_down is enabled, the controller will enter
-  *			power_down in both peripheral and host mode when
-@@ -460,6 +462,7 @@ struct dwc2_core_params {
- 	bool reload_ctl;
- 	bool uframe_sched;
- 	bool external_id_pin_ctl;
-+	bool force_bvalid_in_host;
- 
- 	int power_down;
- #define DWC2_POWER_DOWN_PARAM_NONE		0
-diff --git a/drivers/usb/dwc2/drd.c b/drivers/usb/dwc2/drd.c
-index 3dc194657e82..3df63c0b88d8 100644
---- a/drivers/usb/dwc2/drd.c
-+++ b/drivers/usb/dwc2/drd.c
-@@ -28,10 +28,13 @@ static void dwc2_ovr_init(struct dwc2_hsotg *hsotg)
- 	gotgctl = dwc2_readl(hsotg, GOTGCTL);
- 	dwc2_ovr_gotgctl(gotgctl);
- 	gotgctl &= ~(GOTGCTL_BVALOVAL | GOTGCTL_AVALOVAL | GOTGCTL_VBVALOVAL);
--	if (hsotg->role_sw_default_mode == USB_DR_MODE_HOST)
-+	if (hsotg->role_sw_default_mode == USB_DR_MODE_HOST) {
- 		gotgctl |= GOTGCTL_AVALOVAL | GOTGCTL_VBVALOVAL;
--	else if (hsotg->role_sw_default_mode == USB_DR_MODE_PERIPHERAL)
-+		if (hsotg->params.force_bvalid_in_host)
-+			gotgctl |= GOTGCTL_BVALOVAL;
-+	} else if (hsotg->role_sw_default_mode == USB_DR_MODE_PERIPHERAL) {
- 		gotgctl |= GOTGCTL_BVALOVAL | GOTGCTL_VBVALOVAL;
-+	}
- 	dwc2_writel(hsotg, gotgctl, GOTGCTL);
- 
- 	spin_unlock_irqrestore(&hsotg->lock, flags);
-@@ -45,18 +48,26 @@ static int dwc2_ovr_avalid(struct dwc2_hsotg *hsotg, bool valid)
- 	u32 gotgctl = dwc2_readl(hsotg, GOTGCTL);
- 
- 	/* Check if A-Session is already in the right state */
--	if ((valid && (gotgctl & GOTGCTL_ASESVLD)) ||
-+	if ((valid && (gotgctl & GOTGCTL_ASESVLD) &&
-+	     (!hsotg->params.force_bvalid_in_host ||
-+	      (dwc2_is_host_mode(hsotg) && (gotgctl & GOTGCTL_BVALOVAL) &&
-+	       (gotgctl & GOTGCTL_AVALOVAL)))) ||
- 	    (!valid && !(gotgctl & GOTGCTL_ASESVLD)))
- 		return -EALREADY;
- 
- 	/* Always enable overrides to handle the resume case */
- 	dwc2_ovr_gotgctl(gotgctl);
- 
--	gotgctl &= ~GOTGCTL_BVALOVAL;
--	if (valid)
-+	if (valid) {
- 		gotgctl |= GOTGCTL_AVALOVAL | GOTGCTL_VBVALOVAL;
--	else
--		gotgctl &= ~(GOTGCTL_AVALOVAL | GOTGCTL_VBVALOVAL);
-+		if (hsotg->params.force_bvalid_in_host)
-+			gotgctl |= GOTGCTL_BVALOVAL;
-+		else
-+			gotgctl &= ~GOTGCTL_BVALOVAL;
-+	} else {
-+		gotgctl &= ~(GOTGCTL_BVALOVAL | GOTGCTL_AVALOVAL |
-+			     GOTGCTL_VBVALOVAL);
-+	}
- 	dwc2_writel(hsotg, gotgctl, GOTGCTL);
- 
- 	return 0;
-@@ -67,7 +78,9 @@ static int dwc2_ovr_bvalid(struct dwc2_hsotg *hsotg, bool valid)
- 	u32 gotgctl = dwc2_readl(hsotg, GOTGCTL);
- 
- 	/* Check if B-Session is already in the right state */
--	if ((valid && (gotgctl & GOTGCTL_BSESVLD)) ||
-+	if ((valid && (gotgctl & GOTGCTL_BSESVLD) &&
-+	     (!hsotg->params.force_bvalid_in_host ||
-+	      (dwc2_is_device_mode(hsotg) && !(gotgctl & GOTGCTL_AVALOVAL)))) ||
- 	    (!valid && !(gotgctl & GOTGCTL_BSESVLD)))
- 		return -EALREADY;
- 
-diff --git a/drivers/usb/dwc2/params.c b/drivers/usb/dwc2/params.c
-index 091bfcfef753..16db9c3c1991 100644
---- a/drivers/usb/dwc2/params.c
-+++ b/drivers/usb/dwc2/params.c
-@@ -222,6 +222,7 @@ static void dwc2_set_cv1800_params(struct dwc2_hsotg *hsotg)
- {
- 	struct dwc2_core_params *p = &hsotg->params;
- 
-+	p->force_bvalid_in_host = true;
- 	p->otg_caps.hnp_support = false;
- 	p->otg_caps.srp_support = false;
- 	p->host_dma = false;
--- 
-2.56.0
+For example, what keeps snd_soc_rtd_add_component() from overflowing that =
+array? If you want to protect the array, add another member, say max_compon=
+ent, and use that for the counter, which gets set at allocation time and pr=
+otects the array from indexing beyond the actual allocation size=2E
 
+
+--=20
+Kees Cook
