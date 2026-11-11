@@ -1,124 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794482505;
-	b=vutuLT08S5rISoT7fuySzxIHYLKgYJocE3Rdd5GEwrAHaUwwTcpFNC3W40noVqDjT0h8
-	 FcaeapwzJBHhR/Xb0YAPG5Fu8cmHIUHpWcIRHkbbOIsobjabeBGfJzyQablik1oXzqBfb
-	 pKa+kdTLOBp7SNcEhgFjZSgNiLp7dIwUrvsPRcAP4nTey+xVRXtsDUE7sqFs8T3ABs4Uu
-	 khgmBn5eG+/6Ft1817cZtuHHVBnGu/EPadKJNnQFXWjHP7m6p65K7rYwal+eZsqwLnTIZ
-	 EJcaQum8hXefypztuTVHVoSDvnHW2HX6IH3cQR/scIIwZu23TssPL4GEHu1crRKAs3w==
+	t=1794482590;
+	b=TYo7XTRIg7PtXCP8v9Blsmvu+rLN57swpCSourpTXZ3tl8iVgcH6as6Q8f6GzmKmXQEo
+	 aCcak4RMcug7KjMzSDy1Xk5NLZ5x+jQ/W7ckFOyZLVpo9yLVv70O29XoRRKSpzTgihDo5
+	 RLZ2g+FTk/cs8Nvpd+GR/i0zwO2vbZTzoEXAesBGZ6oxGzsnhZVwL98VPoEKo3V0H33xm
+	 pVoZzuEj7cdRSWYEuvg7J4EAunS0z2krbnbf/EX4hLwK5Mt8Z5dwNRVup2Pag1B8Qp9gF
+	 h/LGyN2Vu6xCOAz902NY8wAViiJ0uVVeTJ2YSTKi6VvL+/I2slGuElNLDO/ZtcQ1SfA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794482505;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Spamd-Result:X-Rspamd-Server:X-Rspamd-Action:X-Spam-Flag:
-	 X-Spam-Score:X-Spam-Level:X-Rspamd-Queue-Id;
-	bh=b68hR85FMy64ZLKPI+SkETJKcoWTtrleDFFCwxd3C7E=;
-	b=KOLReikNhv2tPhVpuKFyY+bRaHrtRp7k8buRDdr6a5EG1AUaL3Mx/KDipEjMzrNj4Hl5
-	 Cji5CGAW5bdscN2T6YwbOkr5qVfYCG/cfR/1ZA4tFGSxIgMPyXiwctTCaxkHuNl+va7BP
-	 cJz9hdZ9/622ZWxHu823iBx8ESAG+zeoTLlGLSRyXdANMIv6dRwWW63aZbB/rMaA3nKsQ
-	 dAp3WNRQbkjysnhzEab3lCN4cllntoK7e3L5VgKVcqy6r18N7dwgAehvFSqU9lrxLbDMq
-	 BgFVth+dPZiW3gzhOHBfcdd+stL+xOCVpZ4VZG/T40DG1x6CAHPAN11TWXquSU9X8eQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794482590;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=gHRTxVfnjlGjSgmGBummULbQEqffoKgDiPyVhu8CkS0=;
+	b=PNG3VYtF6dmr+eEl4t19ItyiOlVmOgcSGhIgSwmlO0bJiXL5nuupWYrA83+BueL0dTg3
+	 fPJWXK8VPtxOIdHbugONVH/NFsvqdDue1AqHckQFHBagO50pLV5OtllGztUG/fzJoezz7
+	 AvuA8kwCWEPDh4/jLc8wTakYvmGVs9vizN114iGbrbXaT3JhEOxZlrPUUfX1EibTgug3C
+	 I/cft45UoBcVuDoj4nk8MZBMi18M1hVCeJ9sl7N8DHOaIOtrvssmake6UXb9JNzZw4E5U
+	 cnMQgV4OpMoSZf0ZeKVggP/1jPd0iZAfEtGOTtVMfcNgpGw9f89vBiOBLvJctzDMYXA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=f8PKmcO3;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Qc8cqb2R;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=f8PKmcO3;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Qc8cqb2R;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ty2U7CGP;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68859606F407;
-	Thu, 12 Nov 2026 11:21:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68859606F407
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04FA6606A885;
+	Thu, 12 Nov 2026 11:23:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=f8PKmcO3;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Qc8cqb2R;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=f8PKmcO3;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Qc8cqb2R
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 83E481F74D;
-	Thu, 12 Nov 2026 11:21:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794482502; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=b68hR85FMy64ZLKPI+SkETJKcoWTtrleDFFCwxd3C7E=;
-	b=f8PKmcO3THEm97E0clNHriq4Z64U95UVpQJKVzAHSFQsf2uA8U5cIRr+Kz2zuNFySoOqlP
-	3/9gmJ7WZkgL7nmxglnkqVcbIcqwyepaDSFJL9+m2XXYD4mn0Yp/i1+4uEaZ+yUYK3bBAO
-	Z/Zk+ThUwR6EC8Xo9kGfRh86noaXH6Y=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794482502;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=b68hR85FMy64ZLKPI+SkETJKcoWTtrleDFFCwxd3C7E=;
-	b=Qc8cqb2RCIXsDmnVlLXr1Rg/oe9HO72E9kGX41HXI6G+yK09O6MWVLkmK8wuduiymKcucb
-	szOlGWoh9SGsTfDw==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=f8PKmcO3;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=Qc8cqb2R
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794482502; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=b68hR85FMy64ZLKPI+SkETJKcoWTtrleDFFCwxd3C7E=;
-	b=f8PKmcO3THEm97E0clNHriq4Z64U95UVpQJKVzAHSFQsf2uA8U5cIRr+Kz2zuNFySoOqlP
-	3/9gmJ7WZkgL7nmxglnkqVcbIcqwyepaDSFJL9+m2XXYD4mn0Yp/i1+4uEaZ+yUYK3bBAO
-	Z/Zk+ThUwR6EC8Xo9kGfRh86noaXH6Y=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794482502;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=b68hR85FMy64ZLKPI+SkETJKcoWTtrleDFFCwxd3C7E=;
-	b=Qc8cqb2RCIXsDmnVlLXr1Rg/oe9HO72E9kGX41HXI6G+yK09O6MWVLkmK8wuduiymKcucb
-	szOlGWoh9SGsTfDw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D635A134A0;
-	Thu, 12 Nov 2026 11:21:39 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id fxoaJEOh9WodfQAAD6G6ig
-	(envelope-from <pfalcato@suse.de>); Thu, 12 Nov 2026 11:21:39 +0000
-Date: Thu, 12 Nov 2026 11:21:38 +0000
-From: Pedro Falcato <pfalcato@suse.de>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: David Hildenbrand <david@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, David Rientjes <rientjes@google.com>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Andrew Morton <akpm@linux-foundation.org>, 
-	Jann Horn <jannh@google.com>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
-	Jan Kara <jack@suse.cz>, Nhat Pham <nphamcs@gmail.com>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>, 
-	Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, 
-	Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
-	Alistair Popple <apopple@nvidia.com>, Usama Arif <usama.arif@linux.dev>, 
-	Kairui Song <kasong@tencent.com>, Balbir Singh <balbirs@nvidia.com>, 
-	=?utf-8?B?SsOpcsO0bWU=?= Glisse <jglisse@redhat.com>, Kiryl Shutsemau <kas@kernel.org>, 
-	Yu-cheng Yu <yu-cheng.yu@intel.com>, Dave Hansen <dave.hansen@linux.intel.com>, 
-	Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>, 
-	Peng Fan <peng.fan@nxp.com>, Josef Bacik <jbacik@fb.com>, Chris Mason <mason@kernel.org>, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
-	"Borislav Petkov (AMD)" <bp@alien8.de>, Mark Brown <broonie@kernel.org>, 
-	"Dennis Zhou (Facebook)" <dennisszhou@gmail.com>, Rick Edgecombe <rick.p.edgecombe@intel.com>, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH 01/13] mm/mmap: free gathered pages before MMF_OOM_SKIP
-Message-ID: <avWgulaWoKBfIFlo@pedro-suse.tail5790ac.ts.net>
-References: <20261111-mason-migrate-et-al-fixes-v1-0-3d2454362e8d@kernel.org>
- <20261111-mason-migrate-et-al-fixes-v1-1-3d2454362e8d@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ty2U7CGP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F40131F00A05;
+	Thu, 12 Nov 2026 11:23:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794482589;
+	bh=gHRTxVfnjlGjSgmGBummULbQEqffoKgDiPyVhu8CkS0=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=Ty2U7CGPIhK1UsBCQym6gt3hQPBpO2uY5lOLKRERNIEcEO4t9WIV0rQgI6EWJNN+z
+	 UWgCEQ5+OUAafIwcKKLuCSJckh6YumDNf5OKxodUPCQJqzEwMZR/GsP0/M+w8Qk13+
+	 lFXPG+k4MBbWC9hN8XA1/zqmbsaYyoknXe8AjtbVsDQJQ+5oaUI9YP5ASgU7o3TDNz
+	 0RbWJfE1NSHgeVXgSKs6Zng0qjzfnGordTBupGuLcZZbux4jdFs28DKH3BoioOqYtb
+	 WSfHHFsPBP+sOtrWJ0rRyhZhJSumAYsgNabkxMDmd8fRbZtjQ60Zb5CWk3J8eEluTp
+	 7TNc4piWybP3w==
+From: Mark Brown <broonie@kernel.org>
+To: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, 
+ Takashi Iwai <tiwai@suse.com>, LiangCheng Wang <zaq14760@gmail.com>
+Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Jerry Wong <jerry.wong@maximintegrated.com>, 
+ Ralph Birt <ralph.birt@maximintegrated.com>
+In-Reply-To: <20261111-max98090-mic-boost-v1-1-20b9bd8816db@gmail.com>
+References: <20261111-max98090-mic-boost-v1-1-20b9bd8816db@gmail.com>
+Subject: Re: [PATCH] ASoC: max98090: keep the MIC boost across mic input
+ power-up
+Message-Id: <179442030737.393238.17906609209299088030.b4-ty@b4>
+Date: Wed, 11 Nov 2026 18:05:07 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -128,131 +61,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261111-mason-migrate-et-al-fixes-v1-1-3d2454362e8d@kernel.org>
-X-Spamd-Result: default: False [-12.01 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	ARC_NA(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCPT_COUNT_TWELVE(0.00)[43];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_CC(0.00)[kernel.org,infradead.org,google.com,suse.com,linux.dev,linux-foundation.org,suse.cz,gmail.com,cmpxchg.org,nvidia.com,intel.com,sk.com,gourry.net,linux.alibaba.com,tencent.com,redhat.com,linux.intel.com,gentwo.org,nxp.com,fb.com,kvack.org,vger.kernel.org,alien8.de];
-	DKIM_TRACE(0.00)[suse.de:+];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	R_RATELIMIT(0.00)[to_ip_from(RLziudqfrzo6b7hzgpxksh1d9i)];
-	MISSING_XM_UA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.de:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spam-Score: -12.01
-X-Spam-Level: 
-X-Rspamd-Queue-Id: 83E481F74D
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1141; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=jc1mADnRG6OPF8O9WPvoflrveMn9P2s1CtF26WYvClk=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLK+Lpx5gEtyUZC5IbeY0rYXUSF30q6KNizi7ioQ6mRY6
+ Bs14UtpRykLgxgXg6yYIktcFvfL+pLXa/gOLmyDmcPKBDKEgYtTACYil8LwP+jTd1ZD5qV2s8+x
+ f/rNZHPn3qLTN1wXXHV7dHtm/96Lc04yMtz6fDz7QlRi6YS/c+5UTRI9E2YyVVkkZ8nK/9u3X13
+ z4i8/AA==
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Wed, Nov 11, 2026 at 06:13:15PM +0000, Lorenzo Stoakes (ARM) wrote:
-> The OOM killer can quickly trigger again after having selected a
-> victim. That victim might not have freed its memory yet, but its mm will
-> be marked MMF_OOM_SKIP by this point, so the OOM killer will ignore it.
-> 
-> This can cause the OOM killer to kill an innocent process when the first
-> might have freed enough memory to relieve the memory pressure.
-> 
-> Fix the issue by freeing the memory before marking the mm MMF_OOM_SKIP.
-> 
-> Note that the task which calls mmput() might not be the victim - if it
-> took a reference on the mm (e.g. ptrace), it may hold the last reference
-> and release it when it calls mmput().
-> 
-> Therefore we cannot rely on current to tell whether the mm belongs to an
-> OOM victim. Instead, partially revert commit b3541d912a84 ("mm: delete
-> unused MMF_OOM_VICTIM flag") to reinstate MMF_OOM_VICTIM, which
-> mark_oom_victim() sets on the victim's mm, and check that.
-> 
-> Reported-by: Chris Mason <mason@kernel.org>
-> Fixes: bf3980c85212 ("mm: drop oom code from exit_mmap")
-> Cc: <stable@vger.kernel.org>
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+On Wed, 11 Nov 2026 14:00:14 +0800, LiangCheng Wang wrote:
+> ASoC: max98090: keep the MIC boost across mic input power-up
 
-Looks good, thank you!
+Applied to
 
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.4
 
-> ---
->  include/linux/mm_types.h | 2 ++
->  include/linux/oom.h      | 9 +++++++++
->  mm/mmap.c                | 9 ++++++++-
->  mm/oom_kill.c            | 4 +++-
->  4 files changed, 22 insertions(+), 2 deletions(-)
-> 
-> diff --git a/include/linux/mm_types.h b/include/linux/mm_types.h
-> index 1ed35d258d2e..09e63ff12b04 100644
-> --- a/include/linux/mm_types.h
-> +++ b/include/linux/mm_types.h
-> @@ -2030,6 +2030,8 @@ enum {
->  #define MMF_TOPDOWN		31	/* mm searches top down by default */
->  #define MMF_TOPDOWN_MASK	BIT(MMF_TOPDOWN)
->  
-> +#define MMF_OOM_VICTIM		32	/* mm is the oom victim */
-> +
->  #define MMF_INIT_LEGACY_MASK	(MMF_DUMP_FILTER_MASK |\
->  				 MMF_DISABLE_THP_MASK | MMF_HAS_MDWE_MASK |\
->  				 MMF_VM_MERGE_ANY_MASK | MMF_TOPDOWN_MASK)
-> diff --git a/include/linux/oom.h b/include/linux/oom.h
-> index 00da05d227e6..a9390cb70541 100644
-> --- a/include/linux/oom.h
-> +++ b/include/linux/oom.h
-> @@ -76,6 +76,15 @@ static inline bool tsk_is_oom_victim(struct task_struct * tsk)
->  	return tsk->signal->oom_mm;
->  }
->  
-> +/*
-> + * Use this helper if tsk->mm != mm and the victim mm needs a special
-> + * handling. This is guaranteed to stay true after once set.
-> + */
-> +static inline bool mm_is_oom_victim(struct mm_struct *mm)
-> +{
-> +	return mm_flags_test(MMF_OOM_VICTIM, mm);
-> +}
-> +
->  /*
->   * Checks whether a page fault on the given mm is still reliable.
->   * This is no longer true if the oom reaper started to reap the
-> diff --git a/mm/mmap.c b/mm/mmap.c
-> index 7618e72766a5..4cb18b217048 100644
-> --- a/mm/mmap.c
-> +++ b/mm/mmap.c
-> @@ -1313,11 +1313,18 @@ void exit_mmap(struct mm_struct *mm)
->  	/* update_hiwater_rss(mm) here? but nobody should be looking */
->  	/* Use ULONG_MAX here to ensure all VMAs in the mm are unmapped */
->  	unmap_vmas(&tlb, &unmap);
-> +
-> +	/*
-> +	 * Free the memory before marking MMF_OOM_SKIP so a re-triggered OOM
-> +	 * killer will only skip this mm if it's already freed all it can.
-> +	 */
-> +	if (mm_is_oom_victim(mm))
-> +		tlb_flush_mmu(&tlb);
+Thanks!
 
-I see there's a different tlb_flush_mmu() call below (in the actual function).
-Is tlb_flush_mmu() idempotent?
+[1/1] ASoC: max98090: keep the MIC boost across mic input power-up
+      https://git.kernel.org/broonie/sound/c/58d51fa6ff1d
 
--- 
-Pedro
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
