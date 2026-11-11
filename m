@@ -1,124 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794382317;
-	b=qp/HqNByDXSUjjJ4bYEc6U2eR18AM7l+QnkM61XRFVtU8AR94so/msL65Z8sv9nOsgrb
-	 MNKPX9DIvmrAPEt4tc1HPO6e+Syc9WM05MNNz+nyFLiFEdUDXABWZ12hDQpdrCT6/EcAH
-	 N7W21vXQ4f/UxEcwBPZQVcgOIZfneRcqlTFJyCt04iEmTtNccj8kAMfC8n9XrvLIvcmoR
-	 4iRSVGNPoOUyN/bzCwNfrm6kLX8UYygxpycA6TgMOX5BKSRY9ITWGsdV2mHjeqKNWioH4
-	 twnRxp92N+Aj+M6nXgVj4dIESBEqS8jlv+/Ij0b72Ji0ApyOxsRhAXyETRZ8d3TLLoA==
+	t=1794382319;
+	b=X7Hs30U3tI34tz3ZnS4UXHHc1X2FWJWca9eGvHb7+7YicKhCZlzFf0KgODf58Jz1rbK+
+	 BY2lq1AuFP7d7IWdJTR0ja8/bZNGzYwIgUBmIzqYDDQP0YXkV1HvskOBU5oNoM87imGs7
+	 TbtZ3ICiFDNj8kfDOUZgFUBmsB1izaXh/bS3omlRrbb2eKs/3QxtxmDKBv8Q+A0PYGE8f
+	 Ieu1RbMY0vkO9krVYi71aAj6sjaic3PF3FeOyUOeBRnN2qyCZRqCDqZtKtK66IJXoFd2w
+	 E7Tsd99b6ucahNYiBvZW3UcBEKmFnPXj+NHWgVGxSlE/PHtAh8TuGxreq1mKU910j/g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794382317;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=0y9iPA4x5dubX+cAZufMH2d3neDRLs0T+y1ymr7oOcQ=;
-	b=1/iVD0c68n8OeHOyApbUCYokPT3CoVkSL22SmWX7FvC72BEkIDum/0wv7u3YesB8WtC+
-	 68fj3F2R/xfZhCsLStEPWs6o4UyksUyrHGc8mpuWYDDFj75Cpw6dOPn2dV21spEFMWf+P
-	 U2BhL4yY+ejydi2Ki/8VU/KwiTYx+i6+FDQ4i/XdWdJLLuc6ZYCxsnFFvmLdlzsMxwHy/
-	 RjV9/VvLIVIuXbOapI4wqX9Hsi3T2rDzip0aOGpcsummBqIMewqSun8QnGRXFj003c14C
-	 ThxoQ0RG56sl0+C/nGZ1H8t9LypOSb0JmkU6HfGYbY7jlOlKove/7hM6DE8fJWP+H/w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794382319;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=GwiYlhksXpDqejbEMbjPCrw3GJ3gzCBl9rC8MD6KdyU=;
+	b=AEFqh/v01daofnYiriKqWVQmyOXh+aTM5CBkaxej3muzXkDFOBEm03vCA+B9SKOVrvod
+	 KOrCwVEsmTbneTS3t/FazdTXRjzHJm+SFtoepixgJBi6PYX2LMA7AxL/t7r0T7fYn9Wtr
+	 /6dCXoEmhYpYFTFlMefNxl7y7MobwjAWS+Ks3NaD9fIMqO/1xaLO/vDH/fJI3f6H9TLk2
+	 c8S2AIhIB4AzgI7F2u+ztfNDz0h7aKCv9I4+2l+TGgAhdJkT1mOADF7BSZyAIhz6s08wB
+	 4Kr4c68mKPMlwEEb8EGmS6SdOtbNOGTcHaA9kcqLJUxF1DgJwtr1gN7KYKmoDhlUVAg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=lH5HEtlc;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=dQunFWOn;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FzZqHsTb;
+	arc=none smtp.remote-ip=74.125.82.182
+Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64E9B60A383A
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 07:31:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64E9B60A383A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C305960A383D
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 07:31:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C305960A383D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=lH5HEtlc;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=dQunFWOn
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AB5KJTp1386384
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 07:31:56 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=0y9iPA4x5du
-	bX+cAZufMH2d3neDRLs0T+y1ymr7oOcQ=; b=lH5HEtlcFuM8qw2ii7LoP0CqCmu
-	Wz+Mx+5cNK3+0H0axQgZfKtrKztkxn5HqQwGXYrW75Q4bbgRduWR5a9tx88gP4BZ
-	b2cG3T6vPN326shK+bIGCyjWm0TqJlS2nAgC6DMH75b8S4ocVxp9fNbIFPGo33fR
-	FyOLO2fvr8cQCb+YYrTapN1XWNqHqNtlBIeTGZgREbbElyJafWCYzDqItlVNHL4s
-	Jjb0VI8yZp2Tz03aLPctn7LvgL3STt8y0jY9Ay5qYfBmuLebeytIlnwgDT6wQdKd
-	uCV0L9K2mSo5KE/494IwmXPtsqPNVvqcKv6GnU0soSp1g7aI00Ncu1ZoQ+w==
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvdnm9dcp-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 07:31:56 +0000 (GMT)
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-3425098ae4bso506367eec.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 23:31:56 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FzZqHsTb
+Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-37000e7234bso737917eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 23:31:58 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794382315; x=1794987115; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794382318; x=1794987118; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=0y9iPA4x5dubX+cAZufMH2d3neDRLs0T+y1ymr7oOcQ=;
-        b=dQunFWOn2Ydo4Jm1SmWWL1jLddhGx5Te/HJsEx/rmCX2r/b6Suvg1kWBwsZq5mIEpL
-         a+0VZE1nbuIYlfylf9y9AL1u4f02xkvVuKWsy1V4JQiSprLAOmxa6u4JN9qUnr5buvBi
-         tR8oKNQscRhU+i9jygLgAmK9opmAall/EUvbiD+LsB2BQXznQdanZMFy4iMEYhb3r+k4
-         k5pTg7anDenz+SLHQqqoRW9BGa7Mu/6yMcR8zbDdsKIWwOqKmU9s87o4Zmi0BclhbQi8
-         oiIEUQY/cOvN1hkayifuKo8TXurj1ojP9tMtrQsga1KlrzGfmHDGXUQey4H+/GzvI7bA
-         hMEQ==
+        bh=GwiYlhksXpDqejbEMbjPCrw3GJ3gzCBl9rC8MD6KdyU=;
+        b=FzZqHsTb/F5bCMnXV2hCQjz1m1Jvs9THPj56cwUYnfktumCykg7M8Y/+upJHdRqwfH
+         UbrON2Lbe4dtvNk235jZymlSotHVslnkUxyVQ44PBXL9nkq9sA9ClybGole/tcoeUcef
+         rTJd2AyRHf/3QF+gxSJjLIevEgC6O9dbJ6nkbQhQdt7rQZQknRk7xF1DCrt/9QXqXIJq
+         kk6jtlxncXTSp/bjwnqykeJmm6/PCcNAncz5smWUeVS1rDGN6x932zuVyl9D0oDATpLG
+         Y6TW2iHJlkATvOAc5Ry+VJ6QhFDHAgudLFaYt8xSKGOP+pPl5oSF0YI9Wti6apZQDp+N
+         MS8g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794382315; x=1794987115;
+        d=1e100.net; s=20260707; t=1794382318; x=1794987118;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=0y9iPA4x5dubX+cAZufMH2d3neDRLs0T+y1ymr7oOcQ=;
-        b=lWARh4Bx/PlV5URhpTMYQxPLaO1evC/0Xhs9cEci+EYj7i9W3u7QlsEfd4BnE7H8Zl
-         W7fzc6K+kn/Wln5ylKXW0kG8tlwRmgZE0OtQW6l1LcOPOKJQuKsXb2zKIllxuVvBeCsS
-         CpSIGn2xeMe2+sY3hhG6ARLJxRv9NZrnQ8hf3QAI2V3sz7dxUnNWApulO1kB2dYkAPIN
-         WJUr4ZSPN/19bJaGiMN4w1C+nct9//AGrSX942OllGAKK4uq+cj4B5WMDRrodlfzNOob
-         6HAbODozYuJG2u0gIDwByybiEXlsGSOypc+3T8s97GursrJD/z91ruUyyLelIBgnV4ou
-         DtSA==
-X-Forwarded-Encrypted: i=1; AL+hErF45qbEMX9N7hiQ8s8JuAnhWewIY9DvNKmGFGzt4sC0By3IVoL653PQQBC9ATLzmMSYJjzOUlwIx/iZAcI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9somRcai9SSucb8xugFImpskFJFDF7ks7FcWyb4w08aXDIZeu9
-	m7H5EyOpL3V/1ixOYSjjWCFBYN0TkPYO/S0CUYU3pzDD1oNPVSpUarTAunPBGJ09e262QjPX4jN
-	PQ76bqVpKFS1o2nS+W3eYgetE/ODogbXwd7Ne5W5eK76YWq8HYVc5X+6ppsNwxsdbxDI=
-X-Gm-Gg: AYBFou1c8AkrMMma8srGKQIgZMULOcx3zeZ0ImVMK0f2jAUY8vBhFPUNeUn11AbVg4s
-	cE8pgTTcCYXSrcaMHDg+T1x5PUTcFJak0EiKkizl+uPKESGBDOEOW4u2wV6oKo1QgmcFIoLMmY3
-	dD4ZFW2iwfzwH1CxQSzJSYWsNbh+YafGL9HgQx/g4Dzn6iZhY/BShY3r0tg5G+X0UiGo77KWQms
-	fgJGcEUBPFOH+Kc/kH4cLWmwQrcq7FAixwvUc6f7Jsm29w5zxTv1VkOaAGfA9f+YeDxQYf2I77Q
-	Wtfit0ESujJTBWwfk2lLdqR1JRGSpIR5G0T/7rc6pEAz/MIzmgBO/g1eF2kxbeL6t67zfTGEK2c
-	jBgdQN94ApxjA9ZtUkYqaszYfH++6qS1APOCcuAy1upZPvn2RPWEDcwNbjagXOrJ9RHoomoHi4d
-	y8UhXiKwihEwVOrHK98Y2+iTBSGrWy4hoH
-X-Received: by 2002:a05:701b:2302:b0:145:ac96:3917 with SMTP id a92af1059eb24-1b3bef3979bmr2092213c88.21.1794382315129;
-        Tue, 10 Nov 2026 23:31:55 -0800 (PST)
-X-Received: by 2002:a05:701b:2302:b0:145:ac96:3917 with SMTP id a92af1059eb24-1b3bef3979bmr2092194c88.21.1794382314403;
-        Tue, 10 Nov 2026 23:31:54 -0800 (PST)
-Received: from QCOM-aGQu4IUr3Y.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b2fc09sm27220027c88.10.2026.11.10.23.31.50
+        bh=GwiYlhksXpDqejbEMbjPCrw3GJ3gzCBl9rC8MD6KdyU=;
+        b=p5upRbBa+2Cunv/keDi5tv/dKrhnzxO3LGEJXIJ+7Feb0nqCEc70re51MVHglVS6TM
+         kGrPHBTVWElh7MW8s4/PLKMyAhH9KkG6ExGkLkvNaIJyRaUD1FpV0EoZpj1rY5f9uSxp
+         vo6rSE/UvyrFhCWaqGXBbxJQzbFi/Nnsaw7n95TeEFbI+B5rTyvKl4zfVYbusgqIs8ze
+         2x6j4xDsW1NWLc1xC5/ZG5HIXlGdsQRn6eTqQHQ1AJYvqerpVbHMbvPvx6STymhlXXC3
+         9iEkYkV6dTUQaztEUh5sA/xJHJBUIyQShfw1atworRf3dyTmOsj8y2e4obhnWeKogq2H
+         iMUQ==
+X-Forwarded-Encrypted: i=1; AL+hErGr0pnkWNE7MRnYpTfwUjlDOvuGfWi7WjXs9J4aw8Q5j2JOTmhW2ZRf5pBtkVg6xlq6G7GymcbHkvn5qwE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8FuVUqlzauJRaOB3jFqyy8BiazSl8bCz4Q71hUa2YAhNUAZmLf
+	akw8ZJFN0O/nzmADj6WTaJg3SStjMGaoPyWoydbToXMKxhyf/l0C7Xbs
+X-Gm-Gg: AYBFou2goWGgce735L1WcWRtEkS3FWg4DqlsYMRyPr6mcwVSjA7ZQrHTyiZ1r65bnOp
+	jNtRHkS64+9Rkvnd/NFOkPwZrxmb9246tgOJzzgbLDVo9s+cZsVxXQZVhWMRBBb2cBGSOHIeY/1
+	XLbMH5ISg/893Yzk8Kk4dsM9LJ2HmepCrrJ3Y8YXUGq4ZSGMsjbnt1hZbQwzZQxHA5NUtUvZo+y
+	yK6oK1o7lc9zA1hsEq5FHazDhnOazF+tGhuiuk9I2y1bHZLaYDiXgnCBmZ827kqwOJhh9NVsvYL
+	AYSshrsprpLTKWMsKMDnRiv+4jqnyVEHKlLx1gellNILSQLJVkEqGNe8cH2DbOC80PY9mdt86tD
+	kQgz/Xziu9nzTmtn/brvJs9iIksQhf16W6CLwwoik3BvxmMM+LzcPX2Q1caxrJfIBI40XadAjaR
+	0uhkIVyq2Lm+ITL7bRpF+8diuKlodjMF0B/CqhtTFzNRN0ZHLYYDM7hlixrmEtLfI+bN9cyI0Bp
+	aSnO7/TtbN0Y7UQ4dIjnPti+2sZzv0G+iO9rG895j6tGTVCgghjb6SQRYUziDp6T64IApxypxDm
+	JaSlW0XdWSnQQVkh1LEgTYsVsjAN1Jeh5dB0d4N+b9J5NAc5eDhAJm1S5KxLggISYFJzg2e51kY
+	ukr3Udido8oZZ0vHD6A==
+X-Received: by 2002:a05:693c:2a17:b0:36d:a465:b38e with SMTP id 5a478bee46e88-3768395f032mr2323976eec.5.1794382317637;
+        Tue, 10 Nov 2026 23:31:57 -0800 (PST)
+Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3751fe32276sm12640655eec.8.2026.11.10.23.31.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 23:31:54 -0800 (PST)
-From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>,
-        Zhangfei Gao <zhangfei.gao@oss.qualcomm.com>,
-        Bartosz Golaszewski <brgl@kernel.org>, devicetree@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Subject: [PATCH v3 4/5] arm64: dts: qcom: nord-ride-embedded: Add sound support
-Date: Wed, 11 Nov 2026 15:31:20 +0800
-Message-ID: <20261111073121.3707030-5-shengchao.guo@oss.qualcomm.com>
+        Tue, 10 Nov 2026 23:31:57 -0800 (PST)
+From: Joey Lu <a0987203069@gmail.com>
+To: Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Jacky Huang <ychuang3@nuvoton.com>,
+	Shan-Chun Hung <schung@nuvoton.com>,
+	Hui-Ping Chen <hpchen0nvt@gmail.com>,
+	Joey Lu <yclu4@nuvoton.com>,
+	linux-phy@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Joey Lu <a0987203069@gmail.com>
+Subject: [PATCH v9 4/4] phy: nuvoton: phy-ma35d1-usb2: extend to dual-port with OTG support
+Date: Wed, 11 Nov 2026 15:31:37 +0800
+Message-ID: <20261111073137.381966-5-a0987203069@gmail.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261111073121.3707030-1-shengchao.guo@oss.qualcomm.com>
-References: <20261111073121.3707030-1-shengchao.guo@oss.qualcomm.com>
+In-Reply-To: <20261111073137.381966-1-a0987203069@gmail.com>
+References: <20261111073137.381966-1-a0987203069@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -129,287 +113,442 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: Prsyf5Jy7qB3aj_xHNKvmO1Btt62bzo1
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDAyOSBTYWx0ZWRfX2kt9varcxTFt
- ct/y+K+WCIWBwJzrwvthNC8/kOqOA6R2fLSNaBQXd+JoW/hIwX8Iru2uj4EXGwBLN83M/j/cCsF
- oT2HaTa9l3xTfBYXz1LxU1ySsoEMqfY=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDAyOSBTYWx0ZWRfXwzGo1IeDWX4V
- H+Hz1D37XdzfUmnzbghkwNex2YlKyG6pA3nnnBal8exhRiNIYoTURTBI6rI6MwDa+LWpGw40TJH
- bryKqozYuXptqMRiORQj1qaOQK3qvQL6F6vWmqgq2hjSYY3LBGGRDW4+Fr2OctfalY/z2zWBJqm
- fPB9xCd0B2MXnsP7PbSWFyGtp8HUkOYK+LTAA1/HrZ3lHZyFeqCS5iyqh2TWyj7Jq/vmBt4NLty
- 3RZmxhInzhjOqy3tOlPQYjZGfcwGlvYpZThh5cORs7HAzU78IBT0vz5ukXZBokatGk4Qv9hkyIy
- NlhRDSw90rGki/fieR0Cuy558UmfEM+VeT7zEnyfgQBbJ1TE5iMWJL7J/jvUUhXj1bmfhiWL+6N
- 3wJd2m2fL3jsjcuqlBDhdm6viW2uneBae4rSYpzwDTYlOtv7A/ulCgHN0/bLILtGlmGNk0439tF
- PPedlnbKFeJjheSItlw==
-X-Proofpoint-GUID: Prsyf5Jy7qB3aj_xHNKvmO1Btt62bzo1
-X-Authority-Analysis: v=2.4 cv=MpzHeGae c=1 sm=1 tr=0 ts=6af419ec cx=c_pps
- a=Uww141gWH0fZj/3QKPojxA==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=EUspDBNiAAAA:8
- a=WpxzUcmsBv8F2e-3JPYA:9 a=PxkB5W3o20Ba91AHUih5:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-11_02,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 clxscore=1015 impostorscore=0 lowpriorityscore=0 phishscore=0
- suspectscore=0 spamscore=0 malwarescore=0 priorityscore=1501 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611110029
 
-From: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+PHY0 and PHY1 use the same power-on/reset sequence in USBPMISCR, with
+PHY1 control bits shifted 16 positions relative to PHY0.  A separate
+driver for PHY1 would duplicate this logic, so the existing driver is
+extended to manage both ports.
 
-Enable audio on the nord-ride-embedded board. Add a soundcard node using
-the qcom,nord-sndcard compatible.
+The original driver polled only DEVCKSTB after releasing PHY0 from
+reset.  When USB0 operates in host mode (USB ID pin floating or tied
+high) only HSTCKSTB and CK12MSTB assert; DEVCKSTB never sets.  Polling
+exclusively for DEVCKSTB in host mode causes a 1 ms timeout on every
+phy_init() call from the EHCI driver.  The init callback is changed to
+accept either host-mode or device-mode clock stability, whichever
+asserts first.
 
-Add PCM1681/ADAU1979 codec nodes on I2C18, with the PCM1681 system
-clock supplied via MCLK0. The DAC control lines come off a TCA6408 I/O
-expander on the same bus.
+The init callback handles PHY reset and clock-stable polling.  The
+power_on and power_off callbacks only gate the HUSBH0_GATE clock shared
+by both ports, so it stays off when neither port is in use.  If a PHY
+already in operation mode does not report stable clocks, it is reset
+before failing.
 
-Describe DAC_ENABLE as the enable of two regulator-fixed supplies
-(3.3V and 5V load switches) feeding the PCM1681, and the three MAX9892
-click-and-pop suppressors as one simple-audio-amplifier on
-CLICK_POP_MUTE_N, routed after VOUT1..6, so DAPM controls the mute.
+A read-only USB role switch is registered for PHY0 to expose the USB0
+role to userspace via the standard role-switch sysfs interface.  The
+.set callback returns -EOPNOTSUPP because the hardware mux is fully
+automatic with no software override path.  When CONFIG_USB_ROLE_SWITCH
+is not enabled, the registration returns -ENODEV and the driver skips
+the role switch gracefully without failing probe.
 
-Signed-off-by: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Two new optional device-tree properties are implemented:
+  - nuvoton,rcalcode: writes per-port 4-bit resistor calibration trim
+    codes to the RCALCODE field in USBPMISCR.
+  - nuvoton,oc-active-high: sets the UHOVRCURH bit in MISCFCR0 to treat
+    the over-current detect input as active-high.  When absent, the bit
+    is cleared (active-low) regardless of the bootloader setting.
+
+Signed-off-by: Joey Lu <a0987203069@gmail.com>
 ---
- arch/arm64/boot/dts/qcom/nord-embedded.dtsi   |  30 ++++
- .../boot/dts/qcom/nord-ride-embedded.dts      | 166 ++++++++++++++++++
- 2 files changed, 196 insertions(+)
+ drivers/phy/nuvoton/Kconfig           |   2 +
+ drivers/phy/nuvoton/phy-ma35d1-usb2.c | 312 ++++++++++++++++++++------
+ 2 files changed, 241 insertions(+), 73 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/qcom/nord-embedded.dtsi b/arch/arm64/boot/dts/qcom/nord-embedded.dtsi
-index 003c5ba2771c..18818575b3c8 100644
---- a/arch/arm64/boot/dts/qcom/nord-embedded.dtsi
-+++ b/arch/arm64/boot/dts/qcom/nord-embedded.dtsi
-@@ -1140,6 +1140,36 @@ nsp_data_noc_3: interconnect@1fe00000 {
- };
+diff --git a/drivers/phy/nuvoton/Kconfig b/drivers/phy/nuvoton/Kconfig
+index d02cae2db315..573acd03e6c5 100644
+--- a/drivers/phy/nuvoton/Kconfig
++++ b/drivers/phy/nuvoton/Kconfig
+@@ -6,7 +6,9 @@ config PHY_MA35_USB
+ 	tristate "Nuvoton MA35 USB2.0 PHY driver"
+ 	depends on ARCH_MA35 || COMPILE_TEST
+ 	depends on OF
++	depends on USB_ROLE_SWITCH || !USB_ROLE_SWITCH
+ 	select GENERIC_PHY
++	select MFD_SYSCON
+ 	help
+ 	  Enable this to support the USB2.0 PHY on the Nuvoton MA35
+ 	  series SoCs.
+diff --git a/drivers/phy/nuvoton/phy-ma35d1-usb2.c b/drivers/phy/nuvoton/phy-ma35d1-usb2.c
+index 0b9976fb15c1..bc706356c434 100644
+--- a/drivers/phy/nuvoton/phy-ma35d1-usb2.c
++++ b/drivers/phy/nuvoton/phy-ma35d1-usb2.c
+@@ -1,6 +1,12 @@
+ // SPDX-License-Identifier: GPL-2.0
+ /*
+- * Copyright (C) 2024 Nuvoton Technology Corp.
++ * Nuvoton MA35D1 USB 2.0 PHY driver
++ *
++ * Supports PHY0 (USB0 OTG port, shared between DWC2 gadget and EHCI0/OHCI0)
++ * and PHY1 (USB1 host-only port, used by EHCI1/OHCI1). The hardware mux on
++ * PHY0 switches automatically via the USB ID pin.
++ *
++ * Copyright (C) 2024-2026 Nuvoton Technology Corp.
+  */
+ #include <linux/bitfield.h>
+ #include <linux/clk.h>
+@@ -12,131 +18,291 @@
+ #include <linux/phy/phy.h>
+ #include <linux/platform_device.h>
+ #include <linux/regmap.h>
++#include <linux/usb/role.h>
  
- &tlmm {
-+	aud_intfc8_mi2s_active: aud-intfc8-mi2s-active-state {
-+		data-pins {
-+			pins = "gpio75", "gpio76";
-+			function = "aud_intfc8_data";
-+			drive-strength = <8>;
-+			bias-disable;
-+		};
+-/* USB PHY Miscellaneous Control Register */
+-#define MA35_SYS_REG_USBPMISCR	0x60
+-#define PHY0POR			BIT(0)  /* PHY Power-On Reset Control Bit */
+-#define PHY0SUSPEND			BIT(1)  /* PHY Suspend; 0: suspend, 1: operaion */
+-#define PHY0COMN			BIT(2)  /* PHY Common Block Power-Down Control */
+-#define PHY0DEVCKSTB			BIT(10) /* PHY 60 MHz UTMI clock stable bit */
++#define MA35_SYS_PWRONOTP		0x04
++#define PWRONOTP_USBP0ID		BIT(16)
 +
-+		sclk-pins {
-+			pins = "gpio73";
-+			function = "aud_intfc8_clk";
-+			drive-strength = <8>;
-+			bias-disable;
-+		};
++#define MA35_SYS_USBPMISCR		0x60
++#define USBPMISCR_PHY_POR(n)		BIT(0  + (n) * 16)
++#define USBPMISCR_PHY_SUSPEND(n)	BIT(1  + (n) * 16)
++#define USBPMISCR_PHY_COMN(n)		BIT(2  + (n) * 16)
++#define USBPMISCR_PHY_HSTCKSTB(n)	BIT(8  + (n) * 16)
++#define USBPMISCR_PHY_CK12MSTB(n)	BIT(9  + (n) * 16)
++#define USBPMISCR_PHY_DEVCKSTB(n)	BIT(10 + (n) * 16)
++/* Mask for control bits (POR, SUSPEND, COMN) */
++#define USBPMISCR_PHY_CTL_MASK(n)	(0x7u << ((n) * 16))
++/* Host-mode ready */
++#define USBPMISCR_PHY_HOST_READY(n)	(USBPMISCR_PHY_SUSPEND(n)  | \
++					 USBPMISCR_PHY_HSTCKSTB(n) | \
++					 USBPMISCR_PHY_CK12MSTB(n))
++/* Device-mode ready */
++#define USBPMISCR_PHY_DEV_READY(n)	(USBPMISCR_PHY_SUSPEND(n)  | \
++					 USBPMISCR_PHY_DEVCKSTB(n))
++/* RCALCODE: 4-bit resistor trim */
++#define USBPMISCR_RCAL_SHIFT(n)		(12 + (n) * 16)
++#define USBPMISCR_RCAL_MASK(n)		GENMASK(USBPMISCR_RCAL_SHIFT(n) + 3, \
++						USBPMISCR_RCAL_SHIFT(n))
 +
-+		ws-pins {
-+			pins = "gpio74";
-+			function = "aud_intfc8_ws";
-+			drive-strength = <8>;
-+			bias-disable;
-+		};
-+	};
++#define MA35_SYS_MISCFCR0		0x70
++/* USB host over-current detect polarity (shared, both ports) */
++#define MISCFCR0_UHOVRCURH		BIT(12)
 +
-+	aud_mclk0_mira_active: aud-mclk0-mira-active-state {
-+		pins = "gpio99";
-+		function = "aud_mclk0_mira";
-+		drive-strength = <8>;
-+		bias-disable;
-+	};
++#define MA35_PHY_NUM			2
 +
- 	qup_i2c0_default: qup-i2c0-default-state {
- 		pins = "gpio111", "gpio112";
- 		function = "qup0_se0";
-diff --git a/arch/arm64/boot/dts/qcom/nord-ride-embedded.dts b/arch/arm64/boot/dts/qcom/nord-ride-embedded.dts
-index 49635695f832..f092c2a85fbd 100644
---- a/arch/arm64/boot/dts/qcom/nord-ride-embedded.dts
-+++ b/arch/arm64/boot/dts/qcom/nord-ride-embedded.dts
-@@ -7,6 +7,7 @@
- 
- #include <dt-bindings/gpio/gpio.h>
- #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
-+#include <dt-bindings/sound/qcom,q6afe.h>
- 
- #include "nord-embedded.dtsi"
- #include "pmau0102-nord.dtsi"
-@@ -53,6 +54,107 @@ bi_tcxo_ao_div2: bi-tcxo-ao-div2-clk {
- 			clock-div = <2>;
- 		};
- 	};
-+
-+	/*
-+	 * MAX9892 click-and-pop suppressors on the PCM1681 line outputs. All
-+	 * three parts are muted by a single CLICK_POP_MUTE_N line, so describe
-+	 * them as one amplifier.
-+	 */
-+	lineout_amp: amplifier {
-+		compatible = "simple-audio-amplifier";
-+		sound-name-prefix = "LineOut";
-+		enable-gpios = <&expander0 5 GPIO_ACTIVE_HIGH>;
-+		VCC-supply = <&vreg_per_3p3>;
-+	};
-+
-+	sound {
-+		compatible = "qcom,nord-sndcard";
-+		model = "NORD-RIDE";
-+
-+		aux-devs = <&lineout_amp>;
-+		audio-routing = "LineOut INL", "VOUT1",
-+				"LineOut INR", "VOUT2",
-+				"LineOut INL", "VOUT3",
-+				"LineOut INR", "VOUT4",
-+				"LineOut INL", "VOUT5",
-+				"LineOut INR", "VOUT6";
-+
-+		pinctrl-0 = <&aud_intfc8_mi2s_active>;
-+		pinctrl-names = "default";
-+
-+		aud-intfc8-tdm-playback-dai-link {
-+			link-name = "PCM1681 Playback";
-+
-+			codec {
-+				dai-tdm-slot-num = <8>;
-+				dai-tdm-slot-width = <32>;
-+				dai-tdm-slot-rx-mask = <1 1 1 1 1 1>;
-+				sound-dai = <&pcm1681>;
-+			};
-+
-+			cpu {
-+				dai-tdm-slot-num = <8>;
-+				dai-tdm-slot-width = <32>;
-+				dai-tdm-slot-tx-mask = <1 1 1 1 1 1>;
-+				sound-dai = <&q6apmbedai AIF_TDM_RX_8>;
-+			};
-+
-+			platform {
-+				sound-dai = <&q6apm>;
-+			};
-+		};
-+
-+		aud-intfc8-tdm-capture-dai-link {
-+			link-name = "ADAU1979 Capture";
-+
-+			codec {
-+				dai-tdm-slot-num = <8>;
-+				dai-tdm-slot-width = <32>;
-+				dai-tdm-slot-rx-mask = <1 1 1 1>;
-+				sound-dai = <&adau1979>;
-+			};
-+
-+			cpu {
-+				dai-tdm-slot-num = <8>;
-+				dai-tdm-slot-width = <32>;
-+				dai-tdm-slot-rx-mask = <1 1 1 1>;
-+				sound-dai = <&q6apmbedai AIF_TDM_TX_8>;
-+			};
-+
-+			platform {
-+				sound-dai = <&q6apm>;
-+			};
-+		};
-+	};
-+
-+	/*
-+	 * DAC_ENABLE gates two load switches feeding the PCM1681, one for the
-+	 * analog and one for the digital supply.
-+	 */
-+	vreg_3p3_dac: regulator-3p3-dac {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vreg_3p3_dac";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		gpio = <&expander0 6 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+	};
-+
-+	vreg_5p0_dac: regulator-5p0-dac {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vreg_5p0_dac";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		gpio = <&expander0 6 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+	};
-+
-+	vreg_per_3p3: regulator-per-3p3 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vreg_per_3p3";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+	};
- };
- 
- &apps_rsc {
-@@ -366,6 +468,70 @@ vreg_l3l_1p8: ldo3 {
- 	};
- };
- 
-+&i2c18 {
-+	clock-frequency = <400000>;
-+
-+	status = "okay";
-+
-+	expander0: gpio@20 {
-+		compatible = "ti,tca6408";
-+		reg = <0x20>;
-+		#gpio-cells = <2>;
-+		gpio-controller;
-+		#interrupt-cells = <2>;
-+		interrupt-controller;
-+		interrupts-extended = <&pmau0102_l_gpios 6 IRQ_TYPE_LEVEL_LOW>;
-+		reset-gpios = <&pmau0102_l_gpios 5 GPIO_ACTIVE_LOW>;
-+		vcc-supply = <&vreg_per_3p3>;
-+	};
-+
-+	/* ADI ADAU1979 - 4-channel 24-bit ADC */
-+	adau1979: adau1979@31 {
-+		compatible = "adi,adau1979";
-+		reg = <0x31>;
-+
-+		AVDD-supply = <&vreg_per_3p3>;
-+		#sound-dai-cells = <0>;
-+	};
-+
-+	/* PCM1681 DAC */
-+	pcm1681: pcm1681@4c {
-+		compatible = "ti,pcm1681";
-+		reg = <0x4c>;
-+
-+		pinctrl-0 = <&aud_mclk0_mira_active>;
-+		pinctrl-names = "default";
-+
-+		clocks = <&q6prmcc LPASS_CLK_ID_MCLK_1 LPASS_CLK_ATTRIBUTE_COUPLE_NO>;
-+		clock-names = "sck";
-+		assigned-clocks = <&q6prmcc LPASS_CLK_ID_MCLK_1 LPASS_CLK_ATTRIBUTE_COUPLE_NO>;
-+		assigned-clock-rates = <12288000>;
-+
-+		VCC1-supply = <&vreg_5p0_dac>;
-+		VCC2-supply = <&vreg_5p0_dac>;
-+		VDD-supply = <&vreg_3p3_dac>;
-+
-+		#sound-dai-cells = <0>;
-+	};
++struct ma35_phy_port {
++	struct phy *phy;
++	unsigned int idx;
 +};
-+
-+&q6apmbedai {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+
-+	dai@195 {
-+		reg = <AIF_TDM_RX_8>;
-+		clocks = <&q6prmcc LPASS_CLK_ID_QAIF_IF8_IBIT LPASS_CLK_ATTRIBUTE_COUPLE_NO>;
-+		clock-names = "bclk";
-+	};
-+
-+	dai@196 {
-+		reg = <AIF_TDM_TX_8>;
-+		clocks = <&q6prmcc LPASS_CLK_ID_QAIF_IF8_IBIT LPASS_CLK_ATTRIBUTE_COUPLE_NO>;
-+		clock-names = "bclk";
-+	};
-+};
-+
- &qupv3_0 {
- 	firmware-name = "qcom/nord/qupv3fw.elf";
  
+ struct ma35_usb_phy {
+-	struct clk *clk;
+ 	struct device *dev;
+ 	struct regmap *sysreg;
++	struct clk *clk;
++	struct ma35_phy_port port[MA35_PHY_NUM];
++	struct usb_role_switch *role_sw;
+ };
+ 
+-static int ma35_usb_phy_power_on(struct phy *phy)
++static int ma35_usb_phy_wait_ready(struct ma35_usb_phy *p, unsigned int n,
++				   unsigned int *val)
+ {
+-	struct ma35_usb_phy *p_phy = phy_get_drvdata(phy);
++	if (n == 0)
++		return regmap_read_poll_timeout(p->sysreg, MA35_SYS_USBPMISCR,
++						*val,
++						((*val & USBPMISCR_PHY_HOST_READY(0)) ==
++						 USBPMISCR_PHY_HOST_READY(0)) ||
++						((*val & USBPMISCR_PHY_DEV_READY(0)) ==
++						 USBPMISCR_PHY_DEV_READY(0)),
++						10, 1000);
++
++	return regmap_read_poll_timeout(p->sysreg, MA35_SYS_USBPMISCR, *val,
++					(*val & USBPMISCR_PHY_HOST_READY(n)) ==
++					USBPMISCR_PHY_HOST_READY(n),
++					10, 1000);
++}
++
++static int ma35_usb_phy_init(struct phy *phy)
++{
++	struct ma35_phy_port *port = phy_get_drvdata(phy);
++	struct ma35_usb_phy *p = container_of(port - port->idx,
++					      struct ma35_usb_phy, port[0]);
++	unsigned int n = port->idx;
+ 	unsigned int val;
+ 	int ret;
+ 
+-	ret = clk_prepare_enable(p_phy->clk);
+-	if (ret < 0) {
+-		dev_err(p_phy->dev, "Failed to enable PHY clock: %d\n", ret);
+-		return ret;
+-	}
++	ret = clk_prepare_enable(p->clk);
++	if (ret)
++		return dev_err_probe(p->dev, ret, "failed to enable clock\n");
+ 
+-	regmap_read(p_phy->sysreg, MA35_SYS_REG_USBPMISCR, &val);
+-	if (val & PHY0SUSPEND) {
+-		/*
+-		 * USB PHY0 is in operation mode already
+-		 * make sure USB PHY 60 MHz UTMI Interface Clock ready
+-		 */
+-		ret = regmap_read_poll_timeout(p_phy->sysreg, MA35_SYS_REG_USBPMISCR, val,
+-						val & PHY0DEVCKSTB, 10, 1000);
+-		if (ret == 0)
+-			return 0;
+-	}
++	regmap_read(p->sysreg, MA35_SYS_USBPMISCR, &val);
+ 
+-	/*
+-	 * reset USB PHY0.
+-	 * wait until USB PHY0 60 MHz UTMI Interface Clock ready
+-	 */
+-	regmap_update_bits(p_phy->sysreg, MA35_SYS_REG_USBPMISCR, 0x7, (PHY0POR | PHY0SUSPEND));
++	if ((val & USBPMISCR_PHY_SUSPEND(n)) &&
++	    !ma35_usb_phy_wait_ready(p, n, &val))
++		goto out;
++
++	regmap_update_bits(p->sysreg, MA35_SYS_USBPMISCR,
++			   USBPMISCR_PHY_CTL_MASK(n),
++			   USBPMISCR_PHY_POR(n) | USBPMISCR_PHY_SUSPEND(n));
+ 	udelay(20);
+ 
+-	/* make USB PHY0 enter operation mode */
+-	regmap_update_bits(p_phy->sysreg, MA35_SYS_REG_USBPMISCR, 0x7, PHY0SUSPEND);
++	regmap_update_bits(p->sysreg, MA35_SYS_USBPMISCR,
++			   USBPMISCR_PHY_CTL_MASK(n),
++			   USBPMISCR_PHY_SUSPEND(n));
+ 
+-	/* make sure USB PHY 60 MHz UTMI Interface Clock ready */
+-	ret = regmap_read_poll_timeout(p_phy->sysreg, MA35_SYS_REG_USBPMISCR, val,
+-					val & PHY0DEVCKSTB, 10, 1000);
+-	if (ret == -ETIMEDOUT) {
+-		dev_err(p_phy->dev, "Check PHY clock, Timeout: %d\n", ret);
+-		clk_disable_unprepare(p_phy->clk);
+-		return ret;
+-	}
++	ret = ma35_usb_phy_wait_ready(p, n, &val);
++	if (ret)
++		dev_err(p->dev, "USB PHY%u clock not stable (USBPMISCR=0x%08x)\n",
++			n, val);
++out:
++	clk_disable_unprepare(p->clk);
++	return ret;
++}
+ 
+-	return 0;
++static int ma35_usb_phy_power_on(struct phy *phy)
++{
++	struct ma35_phy_port *port = phy_get_drvdata(phy);
++	struct ma35_usb_phy *p = container_of(port - port->idx,
++					      struct ma35_usb_phy, port[0]);
++
++	return clk_prepare_enable(p->clk);
+ }
+ 
+ static int ma35_usb_phy_power_off(struct phy *phy)
+ {
+-	struct ma35_usb_phy *p_phy = phy_get_drvdata(phy);
++	struct ma35_phy_port *port = phy_get_drvdata(phy);
++	struct ma35_usb_phy *p = container_of(port - port->idx,
++					      struct ma35_usb_phy, port[0]);
+ 
+-	clk_disable_unprepare(p_phy->clk);
++	clk_disable_unprepare(p->clk);
+ 	return 0;
+ }
+ 
+ static const struct phy_ops ma35_usb_phy_ops = {
+-	.power_on = ma35_usb_phy_power_on,
+-	.power_off = ma35_usb_phy_power_off,
+-	.owner = THIS_MODULE,
++	.init		= ma35_usb_phy_init,
++	.power_on	= ma35_usb_phy_power_on,
++	.power_off	= ma35_usb_phy_power_off,
++	.owner		= THIS_MODULE,
+ };
+ 
++static int ma35_role_sw_set(struct usb_role_switch *sw, enum usb_role role)
++{
++	return -EOPNOTSUPP;
++}
++
++static enum usb_role ma35_role_sw_get(struct usb_role_switch *sw)
++{
++	struct ma35_usb_phy *p = usb_role_switch_get_drvdata(sw);
++	u32 val;
++
++	regmap_read(p->sysreg, MA35_SYS_PWRONOTP, &val);
++
++	return (val & PWRONOTP_USBP0ID) ? USB_ROLE_HOST : USB_ROLE_DEVICE;
++}
++
++static int ma35_role_switch_init(struct platform_device *pdev,
++				 struct ma35_usb_phy *p)
++{
++	struct usb_role_switch_desc sw_desc = {0};
++
++	sw_desc.set = ma35_role_sw_set;
++	sw_desc.get = ma35_role_sw_get;
++	sw_desc.allow_userspace_control = true;
++	sw_desc.driver_data = p;
++	sw_desc.fwnode = dev_fwnode(&pdev->dev);
++
++	p->role_sw = usb_role_switch_register(&pdev->dev, &sw_desc);
++	if (IS_ERR(p->role_sw)) {
++		if (PTR_ERR(p->role_sw) == -ENODEV) {
++			p->role_sw = NULL;
++			return 0;
++		}
++		return dev_err_probe(&pdev->dev, PTR_ERR(p->role_sw),
++				     "failed to register role switch\n");
++	}
++
++	return 0;
++}
++
++static void ma35_role_switch_exit(struct ma35_usb_phy *p)
++{
++	if (p->role_sw) {
++		usb_role_switch_unregister(p->role_sw);
++		p->role_sw = NULL;
++	}
++}
++
++static struct phy *ma35_usb_phy_xlate(struct device *dev,
++				      const struct of_phandle_args *args)
++{
++	struct ma35_usb_phy *p = dev_get_drvdata(dev);
++	unsigned int idx;
++
++	if (args->args_count == 0)
++		idx = 0;
++	else
++		idx = args->args[0];
++
++	if (idx >= MA35_PHY_NUM)
++		return ERR_PTR(-EINVAL);
++
++	return p->port[idx].phy;
++}
++
+ static int ma35_usb_phy_probe(struct platform_device *pdev)
+ {
+ 	struct phy_provider *provider;
+-	struct ma35_usb_phy *p_phy;
+-	struct phy *phy;
++	struct ma35_usb_phy *p;
++	int n, ret;
++	u32 code;
+ 
+-	p_phy = devm_kzalloc(&pdev->dev, sizeof(*p_phy), GFP_KERNEL);
+-	if (!p_phy)
++	p = devm_kzalloc(&pdev->dev, sizeof(*p), GFP_KERNEL);
++	if (!p)
+ 		return -ENOMEM;
+ 
+-	p_phy->dev = &pdev->dev;
+-	platform_set_drvdata(pdev, p_phy);
++	p->dev = &pdev->dev;
++	platform_set_drvdata(pdev, p);
++
++	p->sysreg = syscon_regmap_lookup_by_phandle(pdev->dev.of_node,
++						     "nuvoton,sys");
++	if (IS_ERR(p->sysreg))
++		return dev_err_probe(&pdev->dev, PTR_ERR(p->sysreg),
++				     "failed to get SYS regmap\n");
+ 
+-	p_phy->sysreg = syscon_regmap_lookup_by_phandle(pdev->dev.of_node, "nuvoton,sys");
+-	if (IS_ERR(p_phy->sysreg))
+-		return dev_err_probe(&pdev->dev, PTR_ERR(p_phy->sysreg),
+-				     "Failed to get SYS registers\n");
++	p->clk = devm_clk_get(&pdev->dev, NULL);
++	if (IS_ERR(p->clk))
++		return dev_err_probe(&pdev->dev, PTR_ERR(p->clk),
++				     "failed to get clock\n");
+ 
+-	p_phy->clk = of_clk_get(pdev->dev.of_node, 0);
+-	if (IS_ERR(p_phy->clk))
+-		return dev_err_probe(&pdev->dev, PTR_ERR(p_phy->clk),
+-				     "failed to find usb_phy clock\n");
++	for (n = 0; n < MA35_PHY_NUM; n++) {
++		if (of_property_read_u32_index(pdev->dev.of_node,
++					       "nuvoton,rcalcode", n, &code))
++			continue;
+ 
+-	phy = devm_phy_create(&pdev->dev, NULL, &ma35_usb_phy_ops);
+-	if (IS_ERR(phy))
+-		return dev_err_probe(&pdev->dev, PTR_ERR(phy), "Failed to create PHY\n");
++		if (code > 15)
++			return dev_err_probe(&pdev->dev, -EINVAL,
++					     "rcalcode[%d] %u out of range (0-15)\n",
++					     n, code);
++
++		regmap_update_bits(p->sysreg, MA35_SYS_USBPMISCR,
++				   USBPMISCR_RCAL_MASK(n),
++				   code << USBPMISCR_RCAL_SHIFT(n));
++	}
+ 
+-	phy_set_drvdata(phy, p_phy);
++	regmap_update_bits(p->sysreg, MA35_SYS_MISCFCR0, MISCFCR0_UHOVRCURH,
++			   of_property_read_bool(pdev->dev.of_node,
++						 "nuvoton,oc-active-high") ?
++			   MISCFCR0_UHOVRCURH : 0);
++
++	for (n = 0; n < MA35_PHY_NUM; n++) {
++		p->port[n].idx = n;
++
++		p->port[n].phy = devm_phy_create(&pdev->dev, pdev->dev.of_node,
++						 &ma35_usb_phy_ops);
++		if (IS_ERR(p->port[n].phy))
++			return dev_err_probe(&pdev->dev, PTR_ERR(p->port[n].phy),
++					     "failed to create PHY%d\n", n);
++
++		phy_set_drvdata(p->port[n].phy, &p->port[n]);
++	}
+ 
+-	provider = devm_of_phy_provider_register(&pdev->dev, of_phy_simple_xlate);
+-	if (IS_ERR(provider))
++	ret = ma35_role_switch_init(pdev, p);
++	if (ret)
++		return ret;
++
++	provider = devm_of_phy_provider_register(&pdev->dev, ma35_usb_phy_xlate);
++	if (IS_ERR(provider)) {
++		ma35_role_switch_exit(p);
+ 		return dev_err_probe(&pdev->dev, PTR_ERR(provider),
+-				     "Failed to register PHY provider\n");
++				     "failed to register PHY provider\n");
++	}
++
+ 	return 0;
+ }
+ 
++static void ma35_usb_phy_remove(struct platform_device *pdev)
++{
++	struct ma35_usb_phy *p = platform_get_drvdata(pdev);
++
++	ma35_role_switch_exit(p);
++}
++
+ static const struct of_device_id ma35_usb_phy_of_match[] = {
+-	{ .compatible = "nuvoton,ma35d1-usb2-phy", },
+-	{ },
++	{ .compatible = "nuvoton,ma35d1-usb2-phy" },
++	{ /* sentinel */ }
+ };
+ MODULE_DEVICE_TABLE(of, ma35_usb_phy_of_match);
+ 
+ static struct platform_driver ma35_usb_phy_driver = {
+ 	.probe		= ma35_usb_phy_probe,
+-	.driver	= {
+-		.name	= "ma35d1-usb2-phy",
+-		.of_match_table = ma35_usb_phy_of_match,
++	.remove		= ma35_usb_phy_remove,
++	.driver		= {
++		.name		= "ma35d1-usb2-phy",
++		.of_match_table	= ma35_usb_phy_of_match,
+ 	},
+ };
+ module_platform_driver(ma35_usb_phy_driver);
+ 
+ MODULE_DESCRIPTION("Nuvoton ma35d1 USB2.0 PHY driver");
+ MODULE_AUTHOR("Hui-Ping Chen <hpchen0nvt@gmail.com>");
++MODULE_AUTHOR("Joey Lu <a0987203069@gmail.com>");
+ MODULE_LICENSE("GPL");
 -- 
 2.43.0
 
