@@ -1,74 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794419152;
-	b=X3J02wj6V6l5NUkwGqZB8+He8sfip6BesM01qKWOv/GsN7YEStm0J9JKVaa5u7kH43M/
-	 Ll8vHrSYxR4ICxMlaZwOdR8/MBEs9vOipolk/Ts2GT00SkhdeM6DljklU2VYJFTmFyeAz
-	 hjsKwGapVyFCACcIC7U83C5GPml8uQcC8wFcgmvc1ueaGKUwGhfkgEUymuBP+kizcMXN4
-	 gm5NKRxWbmzEU3oUHeECVLioTMef4A+G5gEiYEL6LSQ8QHJS30juY/glLSA858H+Ad4b6
-	 tJhWxLjazIWwXNfa2P0Q1ejhh4E5fASrAOiUaKt64sCwrV1NQmvKkvHdVuEW2b0AWBQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794419152;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date:
-	 MIME-Version:User-Agent:X-ZohoMailClient;
-	bh=cnQjMemomrtAUFZ2+Y/r5Fl4C3K3H/4XXCCh9+3ZdjE=;
-	b=Gm9hw3XA5C/2Mope8rwpdKzSq5scw+FdviLD+7nMK1UMxGHF/hZqz6sqr/g+O/k7h2hL
-	 pdZ1YauUxpCMjRkX8AUf2g2xNoo7J4a7FiYaFA0QAfo07nTC57btVtE5PvFNiMC4v5eVg
-	 Nx3urQLKB3rS5ot1iHH6/sQcp2zN0hKl5/u8Uqt98kUIx+wGVoII0LkxQk1BoPrcEqsTF
-	 1ClAHHYkfl1QDn82/6k0nvyUldsC7Me3bjtt7fJfMy0D88UUWjHs98X3Hgiu+Ye887u9C
-	 UB+OLN/LTxol6WG0w8Juc0/0dWRwfvbwHIJzZl4cdrfsxoNJDgtMnO1/wSjEw2vJAGw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rong.moe;
-	spf=pass smtp.mailfrom=rong.moe;
-	dkim=pass header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=K2thFDH2;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56B0C606A331;
-	Wed, 11 Nov 2026 17:45:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56B0C606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rong.moe
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794419190;
+	b=RbK7+sY+3O6ypLtiawjf3C6Xr95aamhKQIhb21MgROt6O3vpKxmPlfp/X2w17B5ZGXFM
+	 yFy0wm0nnX6CjLIrwJH48CZBsvDDvt25rq0cHJinG22xmtCX6KmEX6bs8KRVcWtxL0dp4
+	 ybcb61wjB0dHpyDfW7KWZ8ww5WHedaNRl5LYas6+FK3xxnmCntRUnPNMIrhi4iov4csCU
+	 pYANXJzQLJ7LXbvBHFNraS5wexhOlZw8i8B/ENrQojt+ObNhjT0BVJzlyBgbpZBO90GnA
+	 uUYI/gML+N9QKutMyRH6QCHDEzIY4eyYuVYe2Px9Qq9yi0hu7AUHGX3lrWeKig4vcoQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794419190;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=Wux39rVPBd8xHmRs4BPRMKuHJT2lkiWq+nsT5+59exw=;
+	b=D0ztrLPzjLOSY9LVXvkPCDvtoqd0BB6s9i6L03/mas1M6OtNVju6KSa71HKZieTOyEiU
+	 SfWQ4PCfYwkRdpE3fGSisv0ObxKjJ2et0mdvv0oABnYVZ2RrniVaVPlAxVC0Lc7ZslCko
+	 d3Tba+RUH89zJeWHkV0JKKIuByPiR6ITnZI/XEynLXwIE+ivNYfjK5xAovAbQkPWWf02c
+	 lMh2CcgSp+73VCPCzMMRV/jRP6FQeuK3FRzmHkYmC18qIs97z2K3JDzMhOqSnvtrhLmPW
+	 FwGBIhv1xXcZtmjN2RWrsOh6qex9DyVOlilNUzkzEJB7JezStAqptPVKATsopBpE2TA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=j3zWMcIc;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id BC899606A321
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 17:46:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BC899606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=K2thFDH2
-ARC-Seal: i=1; a=rsa-sha256; t=1794419140; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=nmzuq+YuOTr/XnjX22MWYdS9WkWjipjQLSIOejurtWLKiiyf/YGBifxfe3Qh/oh0fmwXBwkCwj5cxaeO+Qat/4CpajVhefFzdRHP3nc9K4OhuRbI4fD7zVFwxzL388T2NNMAKcj0RN847YASQ0glMkz9u7lVVyQjhRTeTWpBYv0=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1794419140; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=cnQjMemomrtAUFZ2+Y/r5Fl4C3K3H/4XXCCh9+3ZdjE=; 
-	b=IvgvpvP4Fp9AHY4ykcGqAMGx1drI+Knd/ierTnMVE0x+VQDZ5G88rCaiDcrkrtWVPbuC2GWQ905bE+KaCB8uNqIooHugg/fU1ZNooZAvONCob9IzzyJNIpc469ZAAHeu/M5blbNg7KwkY94Ju1S1ZoDf3pIixRlpmY59ZbkuyUc=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=rong.moe;
-	spf=pass  smtp.mailfrom=i@rong.moe;
-	dmarc=pass header.from=<i@rong.moe>
-DKIM-Signature: a=rsa-sha256; b=K2thFDH27b7B/YJYBmnGsiaXxkHr8p1Bb5gmyzM7yimg6qiChr25HSe8lScIBZWQIA3X9YRuqBcGi/1pq1eZElm702ExxoTAv4/Cloa11K6VPYDI2AaHq4+dCuPrAVANWbgU8P1oZ9+lq+5zBRShRONf6BCAT9p78bsQvjFlQa6Nuro5TkPeJgrpNYV5rzEJS40Cg3ENz0Gs1NY6xWW+HPgO536ltUBgr4mUv2vAGmNUlGIu39N+3p98+7i1wby2+ieD7jI5xkCbz7jPkXrxPixusXZRyklLlW3W1gCTl6sG7dDuHB/vRVpctI08t7rE0x1tVRVLerJE4SzQ3fH8hQ==; c=relaxed/relaxed; s=zmail2048; d=rong.moe; v=1; bh=cnQjMemomrtAUFZ2+Y/r5Fl4C3K3H/4XXCCh9+3ZdjE=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1794419138890504.7205507541514;
-	Wed, 11 Nov 2026 09:45:38 -0800 (PST)
-Message-ID: <474a0088ab286efb0e363ad27398020dd6b15499.camel@rong.moe>
-Subject: Re: [PATCH RFC 0/2] Keyboard lighting for the Lenovo Legion Pro 7
- Gen 10
-From: Rong Zhang <i@rong.moe>
-To: Ciro Pedrini <ciro.pedrini@gmail.com>
-Cc: Mark Pearson <mpearson-lenovo@squebb.ca>, "Derek J. Clark"	
- <derekjohn.clark@gmail.com>, Ike Panhc <ikepanhc@gmail.com>, Hans de Goede	
- <hansg@kernel.org>, Ilpo =?ISO-8859-1?Q?J=E4rvinen?=	
- <ilpo.jarvinen@linux.intel.com>, Jiri Kosina <jikos@kernel.org>, Benjamin
- Tissoires <bentiss@kernel.org>, Werner Sembach <wse@tuxedocomputers.com>,
- Aaron Erhardt	 <aer@tuxedocomputers.com>,
- platform-driver-x86@vger.kernel.org, 	linux-kernel@vger.kernel.org,
- linux-input@vger.kernel.org
-In-Reply-To: <CAPKD0Hdt7WNC5n47Bpug=DMsJ8m63UnGprm+-cLaUh3tb=4vCg@mail.gmail.com>
-References: <20261109-legion-lighting-rfc-v1-0-a87e1db8c5e3@gmail.com>
-	 <71ecff766a91670d509b1286efd995b71efc21f4.camel@rong.moe>
-	 <CAPKD0HduW_atYsz47Nv-9A_88K1B33xENUnZgQAKcH4VHqV9PA@mail.gmail.com>
-	 <db41708e7676697fda99573a31d7747dee112403.camel@rong.moe>
-	 <CAPKD0Hdt7WNC5n47Bpug=DMsJ8m63UnGprm+-cLaUh3tb=4vCg@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 12 Nov 2026 01:39:56 +0800
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=j3zWMcIc
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 20F0D1576;
+	Wed, 11 Nov 2026 09:46:26 -0800 (PST)
+Received: from localhost (unknown [10.2.196.114])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C4FD43F632;
+	Wed, 11 Nov 2026 09:46:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794419189; bh=XzPMC4L9NkLD1pgowl99MR5uN/bHkG00JpBclqFOIZY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=j3zWMcIcYAlcXFIdvMucwRr83xNG17WlT17F0tDyRYnbeC/ImKWlIUBHMHbc/sW7+
+	 EgEiKp+GoWbXftj6HEJxs/e1Q0J3hHZYt0vwKoKFXlqciWKY8778EhDwERXgzU1Jij
+	 ddOMF9mLBR9KNd31ptwA4Y35+sUO60dR3DCKWrIs=
+Date: Wed, 11 Nov 2026 17:46:26 +0000
+From: Leo Yan <leo.yan@arm.com>
+To: James Clark <james.clark@linaro.org>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	coresight@lists.linaro.org,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Mike Leach <mike.leach@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Anshuman Khandual <anshuman.khandual@arm.com>,
+	Tamas Petz <tamas.petz@arm.com>,
+	Tamas Zsoldos <tamas.zsoldos@arm.com>,
+	Suyash Mahar <smahar@meta.com>, Amir Ayupov <aaupov@fb.com>
+Subject: Re: [PATCH v2 19/23] coresight: trbe: Reload the AUX buffer on
+ overflow restart
+Message-ID: <20261111174626.GF9176@e132581.arm.com>
+References: <20261016-trbe_enable_disable_irq_handle_refactor-v2-0-3f57cf3199b1@arm.com>
+ <20261016-trbe_enable_disable_irq_handle_refactor-v2-19-3f57cf3199b1@arm.com>
+ <d93b9120-197d-4b01-a9ab-8df01657716d@linaro.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,67 +69,105 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Evolution 3.62.1-3 
-X-ZohoMailClient: External
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <d93b9120-197d-4b01-a9ab-8df01657716d@linaro.org>
 
-Hi Ciro,
+On Tue, Nov 10, 2026 at 03:12:06PM +0000, James Clark wrote:
+> 
+> On 16/10/2026 17:55, Leo Yan wrote:
+> > PERF_EVENT_IOC_SET_OUTPUT lets events share another event's mapped output
+> > buffer. For AUX events, this also selects the associated AUX area and
+> > sink configuration. Perf normally establishes this sharing during setup.
+> > 
+> > Consider the following hypothetical live-redirection sequence, permitted
+> > by the inspected perf-core paths. P is a parent event and C is its
+> > inherited event, with C->parent = P. A and B are mapped AUX destination
+> > buffers owned by separate, disabled cs_etm events in different task
+> > contexts. All three are per-task events restricted to the same CPU, with
+> > compatible output settings. P has no mmap of its own, allowing its output
+> > to be redirected while A and B remain mapped through their owner events.
+> > 
+> > 1. P's output is redirected to A. C inherits from P and begins tracing
+> >     on the selected CPU, so its open AUX transaction and TRBE hardware
+> >     both use A. P can be inactive while C is running because their
+> >     events are scheduled with their respective tasks.
+> > 2. A userspace controller calls PERF_EVENT_IOC_SET_OUTPUT on P to select
+> >     B. ring_buffer_attach() calls perf_event_stop(P, 0), which returns for
+> >     inactive P without stopping C. P->rb now selects B, but C's existing
+> >     handle and hardware still use A.
+> > 3. C's next buffer overflow invokes trbe_handle_overflow() from the IRQ
+> >     handler. It saves buf for A, ends that AUX transaction, then calls
+> >     perf_aux_output_begin(handle, C). AUX begin follows C->parent and
+> >     reads P's current rb, rebinding the same handle to B.
+> > 
+> > This is a hypothetical API sequence, not a reproduced TRBE failure or
+> > an observed buffer switch in normal perf record operation.
+> > 
+> > Without reloading buf, __arm_trbe_enable() calculates the next buffer
+> > using B through the handle, but its workaround and hardware setup still
+> > receive A. If B has never been enabled, its missing CPU association can
+> > cause the normal-offset calculation to dereference NULL. With a snapshot
+> > buffer, hardware may instead keep using A while perf accounts output to B.
+> > 
+> > Reload the sink configuration after perf_aux_output_begin() so the buffer
+> > and handle refer to the same AUX transaction. If the buffer is missing or
+> > its CPU association does not match the interrupt's CPU data, truncate the
+> > new transaction and leave TRBE disabled. Truncation requests perf to stop
+> > the event; a subsequent normal restart installs the buffer and its CPU
+> > association through the sink enable path.
+> > 
+> > Stopping inherited writers during output redirection remains a separate
+> > perf-core fix.
+> > 
+> 
+> Shouldn't we do that instead of this? It seems much better to fix this in
+> perf core rather than here which is hard to understand and appears to be a
+> bit hacky, and doesn't apply to all users of aux buffers. I would expect
+> that even when using PERF_EVENT_IOC_SET_OUTPUT, the buffer should be
+> consistent between start and stops from the point of view of individual
+> drivers.
 
-On Wed, 2026-11-11 at 14:27 -0300, Ciro Pedrini wrote:
-> Hey Rong,
->=20
-> On Wed, 2026-11-11 at 20:10 +0800, Rong Zhang wrote:
-> > What if (four permutations):
-> >=20
-> > - c197 sends 07 AA 02 00 00/01 00
-> > - c193 sends autonomous_mode=3Don/off
-> >=20
-> > And what if the sequence is reversed (another four permutations)?
->=20
-> I tried all eight. Before each one the LEDs were back to the
-> controller's effect (AA 01, autonomous on). "host" below means
-> autonomous off plus all lamps set to green.
->=20
->   c197 first:   AA 00, host  -> green
->                 AA 00, auto  -> controller's effect
->                 AA 01, host  -> controller's effect
->                 AA 01, auto  -> controller's effect
->=20
->   c193 first:   host, AA 00  -> green
->                 auto, AA 00  -> controller's effect
->                 host, AA 01  -> controller's effect
->                 auto, AA 01  -> controller's effect
->=20
-> So the order doesn't matter. The LampArray only shows with AA 00 and
-> autonomous off. c193 keeps the colours it gets while AA is 01, and they
-> show up as soon as AA 00 is sent, without sending them again. AA 01
-> takes the LEDs back even when c193 is not in autonomous mode.
+This is only a hypothetical scenario. Fixing common issues in perf core
+is right thing to do, but I'd rather not spend time on this until we
+can identify a real-world case.
 
-Thanks for the experiments.
+> It makes sense to add a workaround in the driver if we can't
+> control that behavior, but the code is in the same repo. Maybe we could even
+> just leave this patch out and do the core fix later?
 
-AFAICS, we should be able to integrate both as a unified autonomous mode
-trigger. Yay!
+Let's see the simplified flow:
+
+  trbe_handle_overflow() {
+
+    buf = etm_perf_sink_config(handle);
+
+    ...
+
+    perf_aux_output_end(handle, size);
+    event_data = perf_aux_output_begin(handle, event);
+
+    buf = etm_perf_sink_config(handle);
+
+    ...
+  }
+
+The overflow handler ends one AUX transaction and starts another.
+Although perf_aux_output_begin() returns updated event_data,
+the buf pointer still refers to the old buffer, potentially causing
+a mismatch in the hypothetical scenario.
+
+In contrast, Intel PT and SPE use the updated buffer pointer returned
+by perf_aux_output_begin() to program the hardware, so they don't
+have the same issue.
+
+> Unrelated to this, the sashiko report that says there is an out of bounds
+> read if the output is switched to an ETF buffer seems to be pre-existing.
+> But it's something worth thinking about.
+
+I roughly remembered the comment mentioned a race condtion due to swap
+TRBE and ETF buffer _within_ the same session. I don't think this will
+happen. (I will double check Sashiko comment).
 
 Thanks,
-Rong
-
->=20
-> > My implementation connects the LampArray application to hid-input, so a=
-ny
-> > HID driver with hid_hw_start(HID_CONNECT_DEFAULT) or
-> > hid_hw_start(HID_CONNECT_HIDINPUT | ...) will initialize the LampArray
-> > application. Therefore, I suppose the only thing we need is a simple gl=
-ue
-> > driver[1] for c193.
->=20
-> [...]
->=20
-> > Does that make sense to you?
->=20
-> Yes, it makes sense to me.
->=20
-> > I will CC you when I submit it. For now let's focus on the driver for
-> > c197 first.
->=20
-> Thanks, I'll test it here when it's out.
->=20
-> Ciro
+Leo
