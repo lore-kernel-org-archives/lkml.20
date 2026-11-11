@@ -1,63 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794404402;
-	b=y7EAyWGYeYYg4e0wnB432pNKdk6hbUQmAC5qIDIK23oGgWHbGWLR5em17Z5CqVDAO6Hy
-	 MUJeKyTQa2977VSW+DHQUPpcWyZCHHJqQnV3iZFYxLFaBwa4+PLN3/SJNUXydeg+U69e/
-	 PsUCU9EZFsbyTHbGgqv7RipK3T73E0r6WOrm1OIF6gdcTqTqf21GqOLgKy72AaEFfcwhu
-	 9o4dkl9bQ/0GuHmim7KJGyfRUidKCvLLVyV5xuZQT3OZ3OUxDuHBuwt7dota6WLEy9mgj
-	 9YyJSX3XrTGOBsgAH8/7iLPTh5SyJPHWR9NFS5skdHK8oJruFxBlcKxI39VXQFEdkzA==
+	t=1794404478;
+	b=v768SQb7G06OiHVAu082gbV9SH/xe1HDjR9enfBEvhkIR3yWIX2QnEmZ8bH5li5gZ1Vo
+	 WNEpbQoZwdRtoGSLGUrt57YmtEAtLtPE6fG3zSnuh6gd0oNNRPWdDQ6zxAm2tiJ7mqitE
+	 OtSTIo7GWF2CaaRA+aTV5BT4HZJO+BCHzz+1IX291MxLcudhmn7zSCaINfbaumENDnI3x
+	 Juk3X5djIeXv9MvULB+FuICkfZBsfCZEES2RAoFlh3kun12F/QB7WZQ6OpVdzV8DUGjLl
+	 sb3/3lrXuIdxmww5BYw8+INAWytfJ9yCQPO765oN53QF/0t2Gb2rt+fO8s9wjqxKyVA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794404402;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=/6HHvAwRP0bBA3afQXfQ1zDZEhkkb4+3EN2Lma0qsSc=;
-	b=4Od/7kY61KiFtNbuFLpx9FLq+/gfigQxwXFew6VxqrWNnq/ItB6LJZwbIlsQTnp1kxPx
-	 Erjk6YZRrHpHWrQmCPegRJZ294wKrIpC6VJtcV73V5wwc1VXrn0pTuBMd9ZJTG+/RfcA1
-	 Dn9iM5bQY/4ygCu5Gp1L9yo7oQzZj7AEsx7QSa0cEY7lxTAY3ezsAdY3WucrmSJlMv9fP
-	 8WNN7/BkIN3iTY/bzG1aRR7Jp4h36aL2jUQcjHWblQJ6zI0y2Tkqw32tpFFqx+8OIY1/I
-	 Fr0ZWlV9PBfGfp7UCgejbBv38eg3H8sFfkON9MM97jcKBphb9zyqeLOf8V2vaBzZmmQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794404478;
+	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=Wf6GC0pos7NagAI8bEw9egY7U0gPHI7FXFb0Thd1+L0=;
+	b=u3VcrEyx4BgUp4sMCaegN/Bp9+KsNVWCb/U4zXHakL6xkX/S5d1vUVKsL99b51+xvu0+
+	 2xqPO1flBlWQDHsGb+dHNus7BL4HzVfEjNpY3BuO+EM05ZUa2aUMOKOr0XpjRb6D5D2gF
+	 S9hmiaOqZYwuWXr6GUX52O8rU/zZ45vROMLs0RbkW7f/UiUBxYeYdyR3dv8yHxFIZ5b/v
+	 YC7B7/Xdntcjqy75V8DXqdlztG5ukMSkXtJrQX40Ez280B3/mUj7qjnf3k9tFy35bp0Wv
+	 11MvFOq8P8oA/llji0ovzirwBIV40CWskGqF38ETbOztv5CYKg3566E/OA7LvubnW2Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lunn.ch;
-	spf=pass smtp.mailfrom=lunn.ch;
-	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=Lc97omma;
-	arc=none smtp.remote-ip=156.67.10.101
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BPoEitQX;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F9AD606A324;
-	Wed, 11 Nov 2026 13:40:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F9AD606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47CBE606A31C;
+	Wed, 11 Nov 2026 13:41:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=Lc97omma
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=/6HHvAwRP0bBA3afQXfQ1zDZEhkkb4+3EN2Lma0qsSc=; b=Lc97omma4TNeqNUSseJ5Bp+oX5
-	KzI27KDwxf9EscAcRG/4JoqUVgPaZuPNLllDrxjCGDsvAXak2o22KXE0HXjLbFOTgXVqh7I75JAJn
-	Lt4zo/y1Oa7PKYccSob+dXWpdVY5xa/rcIbttq4uF3gTxkYsryRTg2nJOyHg4WBV3ZFg=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xR8YI-00Fkxp-Qc; Wed, 11 Nov 2026 14:39:50 +0100
-Date: Wed, 11 Nov 2026 14:39:50 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: Hongmei Xu <hongmei.xu@oss.qualcomm.com>
-Cc: Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Sagar Cheluvegowda <sagar.cheluvegowda@oss.qualcomm.com>
-Subject: Re: [PATCH net-next v2] net: phy: aquantia: Poll global status
- register for provision ID
-Message-ID: <20881de9-927c-41c1-ae30-829382d531be@lunn.ch>
-References: <20261111-aquantia-poll-global-status-register-v2-1-b602fc7e80a9@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BPoEitQX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2121D1F00A05;
+	Wed, 11 Nov 2026 13:41:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794404478;
+	bh=Wf6GC0pos7NagAI8bEw9egY7U0gPHI7FXFb0Thd1+L0=;
+	h=From:Subject:Date:To:Cc;
+	b=BPoEitQXjGmdN5KW2c0UNs8lVzZgLqtiUG62LOacpVojt9wHT47QNOAEaFgmxQuOT
+	 LcZQV1Rmpa0SFXblA/pTGc32JglFfvU8aiKyEumqd3dS9/eS3lIfW14vZDYpWHzIjU
+	 YV0wTPf1ps+1mvFgAGcu0Igov5ACwHbDb15HJKk4fHmJcekamygvulndI/Zzl6sIW1
+	 1zT29CX5JpyNoCgNfPIDQyLF+fv0whc3CXkgUiMdPCuQM8N0QKtdgCRelmn3I3VZrY
+	 rPmuUvk/31ofqvBaA2u4g98M9Ej4T/X8jOFCN//B3+T9MpEIf4Jh1nEMUPw2IdvHzx
+	 td5j2mqW8Pl2w==
+From: Vincent Mailhol <mailhol@kernel.org>
+Subject: [PATCH 0/3] kbuild: reduce single-build dependencies
+Date: Wed, 11 Nov 2026 14:41:02 +0100
+Message-Id: <20261111-reduce-single-build-dependencies-v1-0-7196ca986a85@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,21 +53,97 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261111-aquantia-poll-global-status-register-v2-1-b602fc7e80a9@oss.qualcomm.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/y2N3QqCQBBGX0XmuiGVWshXCS9099OmdLX9CUF89
+ zZtboYDH+es5OEEnqpsJYePeJlsguKUkX40tgeLSUxlXqoiHTuYqMFebD+A2yiDYYMZ1sDqZOK
+ bUuqiuvLa5JqSZnboZNkT9/pgH9sndPh5/wuHd0ztcMyobTxYT+Moocpee+R8PLZYAtXb9gW6p
+ ZDJugAAAA==
+X-Change-ID: 20261111-reduce-single-build-dependencies-966646f25a0c
+To: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-kbuild@vger.kernel.org, 
+ Vincent Mailhol <mailhol@kernel.org>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2245; i=mailhol@kernel.org;
+ h=from:subject:message-id; bh=ayFwgbyzCc4jEX+AV8iN6VwSnjdMzA1UPAmivFUt1tc=;
+ b=owGbwMvMwCV2McXO4Xp97WbG02pJDFlfCirKvuuFvvz37cRqRikucUmpqQLHnibsj/fY2f3Yj
+ +HZ7c7mjoksDGJcDJZiiizLyjm5FToKvcMO/bWEmcPKBDJEWqSBAQhYGPhyE/NKjXSM9Ey1DfUM
+ gQwdIwYuTgGY6ohdjAxTH/g0Km0yO39w09UoZq9t0Sp7MhbuMlfgnqe5woRFVMCFkeGa+fWV+U/
+ mC83zaIltYly2d9ZWt+1iP/b6JgXsWsv+uYgbAA==
+X-Developer-Key: i=mailhol@kernel.org; a=openpgp;
+ fpr=ED8F700574E67F20E574E8E2AB5FEB886DBB99C2
 
-> +	else if (ret)
-> +		phydev_warn(phydev, "Firmware provisioning ID not ready; "
-> +			    "interface mode detection may be incorrect\n");
+Building a single .o file depends on the prepare target which contains a
+lot of dependencies. Some of those preparation dependencies are not
+needed for a single .o build.
 
-Please don't split strings. Somebody is going to grep for "Firmware
-provisioning ID not ready; interface mode detection may be incorrect"
-when they see it in their logs and not be able to find it.
+This is a small annoyance because a modification of the compilation
+flags causes several prepare dependencies to rebuild. Consequently,
+single-build incurs an artificial penalty.
 
-This is one exception we make to the 80 character rule.
+Move the generic preparation checks and scripts/mod out of the
+single-build preparation path. The first patch is a preparation change
+to make rq-offsets-file an explicit prepare dependency. The second
+addresses missing-syscalls check and atomic-checks. The third and last
+patch addresses scripts/mod.
 
-    Andrew
+== Illustration ==
 
+These are the build steps triggered when changing the compilation
+flags (here: adding W=1).
+
+Before this series...
+
+  $ time make W=1 init/main.o
+    CC      scripts/mod/empty.o
+    MKELF   scripts/mod/elfconfig.h
+    HOSTCC  scripts/mod/modpost.o
+    CC      scripts/mod/devicetable-offsets.s
+    HOSTCC  scripts/mod/file2alias.o
+    HOSTCC  scripts/mod/sumversion.o
+    HOSTCC  scripts/mod/symsearch.o
+    HOSTLD  scripts/mod/modpost
+    CC      kernel/bounds.s
+    CC      arch/x86/kernel/asm-offsets.s
+    CC      kernel/sched/rq-offsets.s
+    CALL    scripts/checksyscalls.sh 
+    DESCEND objtool
+    CC      init/main.o
+  
+  real	0m3.603s
+  user	0m2.839s
+  sys	0m0.959s
+
+... and after:
+
+  $ time make W=1 init/main.o
+    CC      kernel/bounds.s
+    CC      arch/x86/kernel/asm-offsets.s
+    CC      kernel/sched/rq-offsets.s
+    DESCEND objtool
+    CC      init/main.o
+  
+  real	0m2.060s
+  user	0m1.505s
+  sys	0m0.732s
+
+(done on an x86_64 cpu).
+
+Signed-off-by: Vincent Mailhol <mailhol@kernel.org>
 ---
-pw-bot: cr
+Vincent Mailhol (3):
+      kbuild: make rq-offsets-file an explicit preparation dependency
+      kbuild: move preparation checks out of single-build
+      kbuild: move scripts/mod target out of single-build
+
+ Kbuild   |  7 +++++--
+ Makefile | 11 +++++++----
+ 2 files changed, 12 insertions(+), 6 deletions(-)
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261111-reduce-single-build-dependencies-966646f25a0c
+
+Best regards,
+--  
+Vincent Mailhol <mailhol@kernel.org>
+
