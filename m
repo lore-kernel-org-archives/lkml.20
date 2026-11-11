@@ -1,99 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.95.11.211
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794414702;
-	b=LQ+vz8RCv2CK00ACmuJlUax8M3SjtE21Hr0nr1biSSTeoloR3ZycB/Pc3izurwJcQurg
-	 VM1HzFjQ9tOAaUEv/Wv1QTg1ffT6b3dwL/3M0qZLkuUin9mw5fzmoxepsAtajtE9GDxxl
-	 4im/xroLI9atwqu1CeAaQJ1xniuC82yehD1DYpcD23ERp/xK5ehdgU7vA9ZVtK0VfdWbo
-	 ySvGnD9+SZcp7iyW4TXX6AHSOLpC4Eiv6Zs2xZCHrQdqdhfxsfRMSMdD0tyl6DvYqP3y8
-	 Osh0uWhSsOabcg1ourQnQvYnt7RGwAvuvZnUaZ3awImmZDQpTCfBfrSZQETILm/N/RQ==
+	t=1794414796;
+	b=Bx02My43tRRs8Xcl9FBSIDI5mL7G+l//vPv6qIGRFh1j0t6dHLyxZSFYMgf3WmnBKKG+
+	 peXns6R/somw2H6DEJp/HRI1csVYfpNHvBtue8HbhU8IDniV32PIEwNg0TZeXJIQXD58W
+	 kIi0UZbqC8RAym5ViLToVGhYBpGLKGrnjpaWDOuTeeXsZO8ecfg62DICW9ZEJWUalMIRc
+	 Ps2jwm2zzb/nHQrNc5ytcYRfd1hOkOX5EAc52tx/Pzi53hHcJ8rKfERIK4fsuSkbSjin0
+	 wOXNV5XmB0gS78bcEZUfHTy5rN2ck6k5/wBtWAVWwXIMFJMfmDApgi0PHWLkbDXJulA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794414702;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=mVXVpcIxf04fTtGzwVKXj/X6mhkeKnV3VwdMgeKl5U8=;
-	b=RfYMPQJaLN8TAFPIEtD7/1hKylKvGHEYZUlWEsMYYEluRqZ67FdFbp6LNXCAklhtpU5L
-	 nUgeo/Ws5GZiKzEl423UvglY//EG9t0uzYTUW6c9aeS7nTNPUSreYtLY8vipx9kHQnARc
-	 St1ggmd4RWyHlMaPDTTNBVQkRAVk0tYLUiaSs4ZYTyYlRcQDBRvKLDtq6O+XiS9DWrbTm
-	 +PK7j3+4OIyw9FAVeYveJfm6O8V5G0FRLQc6IuCB43WXDCA/EPglXKnVIICrml9l7634Q
-	 Ek6eCqdkH3VUElrwoANc72Fb+pG78sOdLxJdl6UoLWtBbJHn/3cMx89Efqst+m+hQFA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794414796;
+	h=DMARC-Filter:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To:User-Agent;
+	bh=LH6X8w/nRCanGXnIzr1Nnjdalussa4hxV2AIO7iP3vg=;
+	b=TfLDy6av2N1cXCtXQedI72T0u/um42jYlHACOJ2GHLxl6j2E1U1kVup8hn/qzS7Wn0lG
+	 mTyBsvgSbVf3DXm+Hjj0Cg8LDNXpXGrD+bbQU7/W1RQZB3BkzQWh0FTlvPA157ys3KlxF
+	 K8AITGWmVpUyLf3SDXQSgIrMYEcbwd9mCMryeKkP7ML0Glvoozjslhx3mvXs2FIgRNeQB
+	 OFWh6Jve0pU4bRqh1cy37UZlZ6Rm8wz9XU5UMTDZed83s7oLuR9wM/cE7i0PJ+MdP15kN
+	 DxKNehSKx45rwYW1/6VyHiYK6Jg4GouTI36q25C2I0kbhn5IRirlkstqbkDRsc0EzsQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fj8HxgoM;
-	arc=none smtp.remote-ip=74.125.82.51
-Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=lst.de;
+	spf=pass smtp.mailfrom=lst.de;
+	arc=none smtp.remote-ip=213.95.11.211
+Received: from verein.lst.de (verein.lst.de [213.95.11.211])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAF46606A330
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 16:31:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CAF46606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fj8HxgoM
-Received: by mail-dl1-f51.google.com with SMTP id a92af1059eb24-1b3b4bcbfc9so939852c88.1
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 08:31:41 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794414701; x=1795019501; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mVXVpcIxf04fTtGzwVKXj/X6mhkeKnV3VwdMgeKl5U8=;
-        b=fj8HxgoMlKQajGCvS7xA0Yv2Ryc56KHF6KQdQ37bFGtOKK/GIbjJDeVeP+oIXDM2q4
-         vF+E3csA/VV3PGyO423TQAY2ZT0bwGF4+GzD6vSj4tGuFcoVWt7/Uv2udlxyc+79G2BB
-         z1sogktN+wBrp5b/ZaVGJWB5Hokg0g8ilCu5SIo4Pe1JPOpy+bA6RE2ysR/k7MVxMczY
-         4D1FNMSXlB7JWBA5h8KEE+k/YJPiUenRNoI6+H0eKUYzpMkS6jxr8YbIASoRk8BkLnMA
-         qgLO5+obMVyU1Atoj3Sg7fOwpSjLvc2CD70tXXJc2lKBRWG5IQ94RYlNC2omlyYg91vm
-         u8iw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794414701; x=1795019501;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mVXVpcIxf04fTtGzwVKXj/X6mhkeKnV3VwdMgeKl5U8=;
-        b=nKPQY0gZFs/U9xq0V+gcvYrisVsCxp3CxSOAhk0DDW8NKD2tACxObdOKbrQoLbXRSN
-         Pz82I94uAAsvfalOLevbCJaC7CoskVSOQsn1v65XU/15eIh9rdDe5hNXwPqgUklBdyqI
-         UMZUy2y9Kbo6EFjWA8TxbGi1d/EMmZfzHLx4KATAu097bEpcxNGs2yuXMtreHzS5t4+e
-         O1OvAPy7XSUO4H2KLKZRTAtoYmUnlZNYagfYfoKeWM+3HGynKG8zlXnPuUFdUwLhLcsr
-         WkAVZKmiCOh7hAEPElvb02hGW3k/d5ETdcTlCTAUMQ9gv+vJQidAxCl07GhEBoQiNtHc
-         GVxQ==
-X-Forwarded-Encrypted: i=1; AL+hErGAVSir4QMPowsGFftpcsiJaFLyJeceLPXgRK312ZkU7QRRvUmbgHQsPxtjr95rjX58O1WByyn9d+bVqVM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8qddfI32wsTOYsbg7Hs5a+cmYz32uud/P21wgfuIusozLFQCgX
-	kjdHez8DGYJFVDI3iH1x0j5ga1RvvHV5ItkOc6sYxff6hG8xFcDf18kH
-X-Gm-Gg: AYBFou1kkyBXEAJTe/T752AYxD661cAW0EGhO9SQMty2jY9UXf4x5G+7Sa0YvOeY0a9
-	Ed4fk5URZvWaYFn1W4H40sMSjQNLSqFUx4/rOCA/BJ/56VOUoppzRPPxxlhUXatXZ4NwqyM0bVR
-	THbDGDZ4yCMLDlM9fYSLgixMHWziK/BIL5IKao3Vccwzr90yhU6kdWn4GApcUKCkZTWQxB7OIra
-	NHaruWBlPPuCb8pubv0sl6EIPyADPJemom+j2MQGJhz7BF+7EDbAFyghm+E1GKx+r9+yg0VyvUY
-	LuC9xWdbFN4eX4AcppgTKoS2TXyGVEwkM3tt7jR+BZQy60S4QXqelhqlff7zn9i8swAC6XTLn3/
-	p5ifWrl9yPKhlhQzoEBtSN1HaSpqxVZRXFNtm4TEueCjnxZ46FJMr8O3jusOS9IIJnvHI8M5Dvy
-	NjeQrA1eXYc9X39eSbamwcWtI12OikOwqGsDKfyZqFYDkZ2QXjnTlzsK3qC9+Ws7TBipX/+Epdj
-	ccBtwpM/f2ZpRfdymnR+lRqg/Nl970nh5VRNrw7sSQbgQJ4uMfkI8lSn1fGz3D+uvho7dKqgFZG
-	R8bcMt3OFXnDYazhaOJFo9c3T4buR+lsUnOPcSQui+46/TFtK6UzbF+y+f56y1CBljVl4JzBeDz
-	hSB47lBlVmOC0+HaePVoCxqwLnF0=
-X-Received: by 2002:a05:7022:7e09:b0:143:868a:20c1 with SMTP id a92af1059eb24-1b3c0366cafmr3066679c88.46.1794414700262;
-        Wed, 11 Nov 2026 08:31:40 -0800 (PST)
-Received: from localhost.localdomain ([2405:201:301c:f8cd:1808:a1a7:f209:e018])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b11150sm23661200c88.5.2026.11.11.08.31.36
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 11 Nov 2026 08:31:39 -0800 (PST)
-From: Aryan Sinha <sinha.aryan03@gmail.com>
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] drm/amdgpu: fix kernel-doc in amdgpu_ualink.c
-Date: Wed, 11 Nov 2026 22:01:23 +0530
-Message-ID: <20261111163131.25965-1-sinha.aryan03@gmail.com>
-X-Mailer: git-send-email 2.46.0
-In-Reply-To: <CADnq5_N7zDDuE-S6Jyg7q706H3SW6WuM4eOTBcEU90boYJG=PA@mail.gmail.com>
-References: <CADnq5_N7zDDuE-S6Jyg7q706H3SW6WuM4eOTBcEU90boYJG=PA@mail.gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDD92606A324;
+	Wed, 11 Nov 2026 16:33:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BDD92606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lst.de
+Received: by verein.lst.de (Postfix, from userid 2407)
+	id 6E23768D1F; Wed, 11 Nov 2026 17:33:07 +0100 (CET)
+Date: Wed, 11 Nov 2026 17:33:06 +0100
+From: Christoph Hellwig <hch@lst.de>
+To: Tao Cui <cui.tao@linux.dev>
+Cc: tj@kernel.org, axboe@kernel.dk, josef@toxicpanda.com,
+	oliver.sang@intel.com, nilay@linux.ibm.com, hch@lst.de,
+	yukuai@fygo.io, linux-block@vger.kernel.org,
+	cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
+	cuitao@kylinos.cn, sashiko-bot@kernel.org
+Subject: Re: [PATCH] blk-iocost: fix the lock order in
+ ioc_cost_model_write()
+Message-ID: <20261111163306.GA17267@lst.de>
+References: <20261111162137.295523-1-cui.tao@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,15 +51,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261111162137.295523-1-cui.tao@linux.dev>
+User-Agent: Mutt/1.5.17 (2007-11-01)
 
-On Wed, Nov 11, 2026 at 11:21 AM Alex Deucher <alexdeucher@gmail.com> wrote:
-> Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-> for patch 1.  I'm skipping patch 2 because I find str_enable_disable()
-> harder to understand and just as long to write as the current code.
+On Thu, Nov 12, 2026 at 12:21:37AM +0800, Tao Cui wrote:
+> ioc_cost_model_write() holds rq_qos_mutex, which is acquired by
+> blkg_conf_open_bdev(), across blk_mq_freeze_queue(). ioc_qos_write()
+> freezes the queue before taking the mutex instead.
+> 
+> The inversion cannot currently deadlock because blk_mq_freeze_queue()
+> is in a noio scope since 1e1a9cecfa ("block: force noio scope in
+> blk_mq_freeze_queue"), so a caller freezing a queue cannot recurse
+> into the frozen queue through reclaim. Holding the mutex across
+> the freeze needlessly serializes config writers behind it and
+> leaves two different orderings in the same file. Release the mutex
+> around the freeze to match ioc_qos_write(), mirroring the fix there
+> in 9730763f4756 ("block: correct locking order for protecting
+> blk-wbt parameters").
+> 
+> Reported-by: sashiko-bot@kernel.org
+> Link: https://sashiko.dev/#/patchset/20261103132613.1952975-1-cui.tao@linux.dev?part=1
+> Signed-off-by: Tao Cui <cuitao@kylinos.cn>
+> ---
+>  block/blk-iocost.c | 7 +++++++
+>  1 file changed, 7 insertions(+)
+> 
+> diff --git a/block/blk-iocost.c b/block/blk-iocost.c
+> index 1c1025157d8e..7fe0a6fa146e 100644
+> --- a/block/blk-iocost.c
+> +++ b/block/blk-iocost.c
+> @@ -3605,7 +3605,14 @@ static ssize_t ioc_cost_model_write(struct kernfs_open_file *of, char *input,
+>  		ioc = q_to_ioc(q);
+>  	}
+>  
+> +	/*
+> +	 * Nothing in the cost model is protected yet; release rq_qos_mutex
+> +	 * around the freeze to match ioc_qos_write().
+> +	 */
+> +	mutex_unlock(&q->rq_qos_mutex);
+>  	memflags = blk_mq_freeze_queue(q);
+> +	mutex_lock(&q->rq_qos_mutex);
 
-Thanks for the review, Alex. For what it's worth, the helpers were meant to
-keep these strings consistent across the tree, but it's your driver and
-your call, so consider patch 2 dropped. Thanks! Have a nice day ahead.
+blkg_conf_open_bdev takes rq_qos_mutex aronud the disk_live
+call.  So you'll have to redo it here.  Or maybe we should just move
+that check and the locking into the callers of blkg_conf_open_bdev
+in general to better support the need for freezing and other
+potentially nested locking?
 
-Aryan
