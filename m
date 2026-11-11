@@ -1,69 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=183.62.165.209
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794409095;
-	b=LI0c45DwfD2F7ygpIhqgMS6aBB7L3uYqjqXYlXpipcVn6sFaJTpPMpqOyX5M/66ZVqio
-	 Fq5P3xpa2a54uSNcZrJa8f4C7hpi3HYHToQw6DQDK9lI70lOB5pfTqTMALYBMJkItFa4M
-	 v7GF9HGAF3CMCfSipMYekHARTtv/hWj/VkSHICKKqo5D7XlLJ49P6LqF8l1ymNXoyExyu
-	 HQHNenm6ce4ylnQE+tWjQuRFx7NXwsuGrmEHJeOi0sYcg9Xm4/xOa54fMb3u4FLfrvGfI
-	 exZYlxyMCzbIRTBlBO1Dzfu9DTmuo/vzsXpvcpMLf2HRCfsA8s8FH0AUalvqrS5LPNw==
+	t=1794409097;
+	b=IE/rjn4BpsUxuKLDB+aJZ91vDMTOBxSgbqvgx280Ehp48nPTXUVbQD6w2mz2VUPAA504
+	 9WyTa5i8Rv2lEGiHksTcune7M5UJmwE8u13arM9jalX5IEF2J8V795qGXQopV12ofaMD/
+	 pxe70kLref29l/2boAfhltt/VueIADxZH0UOd26Ek9+p6zZtjAJS895+Up6lUI24+qDDD
+	 OF5VxxJ7S32F6aGboQb21Ff2/6IRRCa+onYbAiIbx9dJrbrXiVOmojCSRyrW5n2bdn8ps
+	 Vv7BuFTfwA6TmMJ3h2l3ohJi7l2kjO9GFIco4IhdufsMluBmh0T31HE1M1jitsT5B3Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794409095;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 X-Zmail-TransId:X-Mailer:Message-ID:In-Reply-To:References:Date:
-	 Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:X-TLS:
-	 X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:X-Fangmail-Anti-Spam-Filtered:
-	 X-Fangmail-MID-QID;
-	bh=CpWCJ94xtknXCkn8v7FkrW6Znii5UB/65DwrssViU5k=;
-	b=AMFi9oeqQx0DnqLSyQoVwMjKxw+R7CQeR73uj9afALdr1tpkOG6eYDtikVTKKd196y//
-	 TJmW6nBbIcGOwXy9Luayw64rSW6ZU31qkypHb0t5c3pQAc7Q2N/BqDGwsKcVKGqZYvcJL
-	 vO7OUCJ4mMxIUrWzJZuVFy7iX3lO7b+UI6C++upYS3ABaq2L2++vX+PK3i3Htmf0AScCc
-	 Eh0vpGHF/OP2VPdq8vkpHbBbuHv2/VdlPe+aA/Dr5w4a5JgjxlKTGRv7bxyoydd0MV0lO
-	 BpuNvAiQ+y/kXUJbMF5TT+F4LQQcKV6WJ2st2I3GPizF/VCzP8ILSMqrnehAZ7u7N/Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794409097;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=hBoCvN90n2kNl5TqLdsKoeXkUjH0fLvT8u+lK5yYPXU=;
+	b=cu1dhuRXnCjKs6Gmp9NIsJP+ubhNp4cmmuYzlzT9T6V46ny1f5OhnGV8eTO/epTYiUQJ
+	 ylNTZZmBBKzU66Z5iPoYhlb8zEHiCRUvCOWJyaEVOhexHeoHI5vLXityYdxS4hwhRIDMA
+	 wr0bvoxbxpYLnjdc6XTOrEFKaPqsuU1xDgXRlQpQrjlpgPEwnijz4DsusPdsrqyMi8n0f
+	 tBj2FeQ1qYJG74XZUE9IcAH3OYp82XMqnP0qNy/fQ8sVkWQGOkO3CM4UMQu4VtTv6t4YG
+	 fX4Uhq62mfs5ULnAtOOEbGI+q0ubXNJy7JAg7WTRwf4ckODXbV1aLsowZkWKKFDr6sA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=zte.com.cn;
-	spf=pass smtp.mailfrom=zte.com.cn;
-	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b="0qLYETa/";
-	arc=none smtp.remote-ip=183.62.165.209
-Received: from mxct.zte.com.cn (mxct.zte.com.cn [183.62.165.209])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B46D60A263A;
-	Wed, 11 Nov 2026 14:58:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B46D60A263A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=vCD5faBV;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5F2AB60A380D;
+	Wed, 11 Nov 2026 14:58:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F2AB60A380D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=0qLYETa/
-Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxct.zte.com.cn (FangMail) with ESMTPS id 4jPmpz3tm4z4xPSq;
-	Wed, 11 Nov 2026 22:58:03 +0800 (CST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=zte.com.cn;
-	s=z202610; t=1794409083;
-	bh=pRKfVc7wfVb7PMZfXlLg7JaYDLTtapskOa/+zvTpT80=;
-	h=In-Reply-To:References:Date:From:To:Cc:Subject;
-	b=0qLYETa/prukg6Sc1BuWXoVB0zs0aZB4MfkzKYinbyKT0BToDFsvP8uSsTXJQois3
-	 x39B5O6sezzSdB55i2Q+KZ3jFiTBGelYUw64WAs+6am6Jo2oBJIyIwYd7ZAMGvW4G2
-	 ypmbRX0ZDULHFwUkMy9UkNxy1TuBiwZaI6L95SB4X962k3NyOjvyf9awIRujjqJ4OU
-	 Z+pLkn91liWKfBvg/AVjmK4xJjMIYnm59mmZdSyBE5g7qBKJ2o45OyEMnzcyPuidXr
-	 zVLZ8eQJcHQV4LLvP9zWnoTu0HdC4Q9yVv8K0DE/RJmBWbAg+pCXvDKWDqAveT7Y6a
-	 oii8MWYclJrWQ==
-Received: from xaxapp05.zte.com.cn ([10.99.98.109])
-	by mse-fl1.zte.com.cn with SMTP id 6ABEvwcA003794;
-	Wed, 11 Nov 2026 22:57:58 +0800 (+08)
-	(envelope-from shao.mingyin@zte.com.cn)
-Received: from mapi (xaxapp02[null])
-	by mapi (Zmail) with MAPI id mid32;
-	Wed, 11 Nov 2026 22:58:02 +0800 (CST)
-X-Zmail-TransId: 2afa6af4827a592-8b453
-X-Mailer: Zmail v1.0
-Message-ID: <202611112258022807A4cJ4GoTzO_Q2qeMKeG1@zte.com.cn>
-In-Reply-To: <202611112257529855AMDZLzg8ZmFDQ3fBstbi@zte.com.cn>
-References: 202611112257529855AMDZLzg8ZmFDQ3fBstbi@zte.com.cn
-Date: Wed, 11 Nov 2026 22:58:02 +0800 (CST)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=vCD5faBV
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id ACC2B1682;
+	Wed, 11 Nov 2026 06:58:12 -0800 (PST)
+Received: from e122027.arm.com (unknown [10.57.58.72])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8EFA83F632;
+	Wed, 11 Nov 2026 06:58:10 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794409095; bh=KoW+YqMwa9yLUI3NuylseR2UJKKrqQYGRZ3rfuc+be0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=vCD5faBVxOIGqS7zM/P/uLODjhlfhhQbsFUtbFmskhhIGTcprcoBRyJrA8ukaD13k
+	 6/GAUz+inn/h4nmR+jwIESOChtZ6K7W5JA8Dqdq73JrDpEL/bsGbvtruBaE3qOGoLz
+	 B7x673PVAnpaAWq5SpsQakjk82s91MXW+MYavL/o=
+From: Steven Price <steven.price@arm.com>
+To: kvm@vger.kernel.org,
+	kvmarm@lists.linux.dev
+Cc: Steven Price <steven.price@arm.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Marc Zyngier <maz@kernel.org>,
+	Will Deacon <will@kernel.org>,
+	James Morse <james.morse@arm.com>,
+	Oliver Upton <oliver.upton@linux.dev>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Joey Gouly <joey.gouly@arm.com>,
+	Alexandru Elisei <alexandru.elisei@arm.com>,
+	Christoffer Dall <christoffer.dall@arm.com>,
+	Fuad Tabba <tabba@google.com>,
+	linux-coco@lists.linux.dev,
+	Ganapatrao Kulkarni <gankulkarni@os.amperecomputing.com>,
+	Gavin Shan <gshan@redhat.com>,
+	Shanker Donthineni <sdonthineni@nvidia.com>,
+	Alper Gun <alpergun@google.com>,
+	"Aneesh Kumar K . V" <aneesh.kumar@kernel.org>,
+	Emi Kisanuki <fj0570is@fujitsu.com>,
+	Vishal Annapurve <vannapurve@google.com>,
+	WeiLin.Chang@arm.com,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Kohei Enju <enju.kohei@fujitsu.com>
+Subject: [PATCH v2 01/12] KVM: arm64: CCA: Reserve the RMM mode
+Date: Wed, 11 Nov 2026 14:57:45 +0000
+Message-ID: <20261111145758.217946-2-steven.price@arm.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261111145758.217946-1-steven.price@arm.com>
+References: <20261111145758.217946-1-steven.price@arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,60 +84,30 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-From: <shao.mingyin@zte.com.cn>
-To: <tom.leiming@gmail.com>, <shuah@kernel.org>, <linux-block@vger.kernel.org>,
-        <linux-kselftest@vger.kernel.org>
-Cc: <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-Subject: =?UTF-8?B?W1BBVENIIDQvNF0gc2VsZnRlc3RzOiB1YmxrOiBjbGVhciByZXVzZWQgYmF0Y2ggU1FFIGNvbW1hbmQgZmxhZ3M=?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-fl1.zte.com.cn 6ABEvwcA003794
-X-TLS: YES
-X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
-X-SOURCE-IP: 10.5.228.132 unknown Wed, 11 Nov 2026 22:58:03 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AF4827B.000/4jPmpz3tm4z4xPSq
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-From: Shao Mingyin <shao.mingyin@zte.com.cn>
+Reserve KVM_MODE_RMM for CCA realm support. The kernel parameter that
+selects this mode will be added when the Linux CCA implementation is
+ready.
 
-Batch FETCH commands set IORING_URING_CMD_MULTISHOT and select a buffer.
-When a SQE slot is reused for a PREP or COMMIT command, batch command
-initialization overwrites the SQE flags but leaves uring_cmd_flags set.
-The multishot flag then disagrees with buffer selection, so
-io_uring_cmd_prep() rejects the command with -EINVAL. The completion
-assertion aborts kublk, leaving a recovery device QUIESCED or its CLI
-waiting for a daemon notification that will never arrive.
-
-Clear rw_flags when initializing a batch command. The FETCH path sets
-its multishot flag explicitly afterwards.
-
-Fixes: cb5a6b308700 ("selftests: ublk: handle UBLK_U_IO_FETCH_IO_CMDS")
-Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
+Signed-off-by: Steven Price <steven.price@arm.com>
 ---
-Tested on next-20261105 with CONFIG_BLK_DEV_UBLK=y in a local QEMU/KVM
-VM (4 vCPUs, 4 GiB), using real kublk and fio. With the same diagnostic
-kernel and batch null workload, the original binary received -EINVAL
-for a multishot COMMIT without buffer selection and its daemon exited,
-leaving the device QUIESCED. With this change the daemon remained alive
-and the device stayed LIVE before deliberate device deletion.
-
-The four recovery scripts also passed twice with this change and a
-separate fix for commits arriving after the quiesce cancellation scan.
-
- tools/testing/selftests/ublk/batch.c | 1 +
+ arch/arm64/include/asm/kvm_host.h | 1 +
  1 file changed, 1 insertion(+)
 
-diff --git a/tools/testing/selftests/ublk/batch.c b/tools/testing/selftests/ublk/batch.c
-index 625a9c32a..fcab2ca9e 100644
---- a/tools/testing/selftests/ublk/batch.c
-+++ b/tools/testing/selftests/ublk/batch.c
-@@ -241,6 +241,7 @@ static void ublk_init_batch_cmd(struct ublk_thread *t, __u16 q_id,
- 
- 	sqe->fd	= 0;	/* dev->fds[0] */
- 	sqe->opcode	= IORING_OP_URING_CMD;
-+	sqe->rw_flags	= 0;
- 	sqe->flags	= IOSQE_FIXED_FILE;
- 
- 	cmd->q_id	= q_id;
+diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
+index 97332ffcb130..ccd2dc8f73c3 100644
+--- a/arch/arm64/include/asm/kvm_host.h
++++ b/arch/arm64/include/asm/kvm_host.h
+@@ -120,6 +120,7 @@ enum kvm_mode {
+ 	KVM_MODE_DEFAULT,
+ 	KVM_MODE_PROTECTED,
+ 	KVM_MODE_NV,
++	KVM_MODE_RMM,
+ 	KVM_MODE_NONE,
+ };
+ #ifdef CONFIG_KVM
+-- 
+2.43.0
+
