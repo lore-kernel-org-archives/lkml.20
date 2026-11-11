@@ -1,111 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794416651;
-	b=RnpsFL0ofvUITh50cjNBdS+47w/s9VGWV3IRd5qL3B7tslBjTOIFuKxNKAM5+wchI9Kt
-	 EegwQylL/ExlSZRWnZadtjgyBFIJT5Lg4c4CHQU7s+d6Qr8XG4gXRhhtmEx8U5npML5gi
-	 nNUxn7n11ABcn7jXTmPwaGCynKuqmpx+u1W1uicYYLtnsyWyvfpXNtUFbvrSMwB9306IY
-	 yr7fzX4jytEjw82MALQmQPa1ng8qBq5rE/7MZubaPoACUzOhZNqLTLYMU+guhfAfH+yLB
-	 F5eWciwpenu4FEqAbj1Vh6nFBOsf15FR2MszdXQdzeliIiGhzLAyj0SgMLm4LxAsSZg==
+	t=1794416655;
+	b=MJvsUZLMAHhqnAzvrBbTi82KrY0w3qvFOCw4B8m/bqDcNx8OV6cJs+Sa9MHE7TInou4s
+	 Q8MKV2Tb1sXD6RTKC5zjFZsL2d5Q6uxQqiax1NU1DPy4y9GxlJ+Fcntbe39Ae6YJrMD9q
+	 gu1tQL+o92XLnfHmlTwpkOBlVprUklTO9QqAapIeWidaphIvliZnFFf+Kpd7Yo/PHa8i6
+	 qLP/QlL8EZfnv0WCcZdWech0o4vRVZP6AP81vNBROtKjg3KiHyvfQ3/QXpFVNMS4pLO43
+	 qth9+H2MJZzguglxQ/ZGdYtPqq0VRZIjSSDR/eiR8y2eiOPadZJdTuH3nF5Ra58YAbA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794416651;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Authority-Analysis:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=8r5kPCHimu9UfRgTGrCITruJRz9iEK7qpnJ1StauFUA=;
-	b=ahAgjHLdUZXz7TDB6zYbVo/xyyGo2y/6Fba4bDWcnjV7tMP9ZoYdxch0Ev7h2JzK6lNS
-	 s9j0d4wa587mR6u/gEKkDP3xc3nPzFfdyLrqryKAEWY+W3r2MeANWi7OKVx/eRDADX8ZN
-	 Sgot30f3LoJHLHb8sWuv1q6jQqb7D75NrWZ11NZY1WOxLxcKMQVJJoK9NJoR/SrleD9q2
-	 qkdqfSiOXHV+HYK1Q2rcKy8k/lHO5DZOiOexk5pVp0HlBgdFIesxaJZ09y8HAz7nLURCl
-	 t8v6Y63qyyl+5yovJ9YINmXgNzI/7b9+F0JCzaj4IpyTb9c2LFkyOImOEUvu+IFD7Ag==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794416655;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=D3og3MEI53zysEm81HgrUH/b77qnl1uvybcLOq7j15s=;
+	b=kP488pQzKq19g+6cMgjzvd0Js1f/1rGJOZ+wDHF0yxSCFPJ0gzmgLVkzcGW1nzlZCiz4
+	 j2zWfxWl/JpgRgiqCU6t6DLVh1yWLad1MgLWZXmrkMlkKl8maXeVyoetfwIzRCG2LxS56
+	 CVBWqb4npvlgy5chwNgdtkEbWO1oMjFGnFOXHe9A97NIGWQaJdvGb8jxIruVCyC6FLlgO
+	 oCPET+Ul2zLjps+hHwgWSqpRP0Wm5qzWQroTygKw/NjvYyF0Tj8VDxCcN49S4/k04jjtl
+	 3CnAIbGPxaYAXagFv0oTDgRSQKJKPq2boMY/YlzaC7FoOPDFIwha4APKDV1pSea8JBg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=AMrv5y2S;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=hTRCdbup;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=miget.com;
+	spf=pass smtp.mailfrom=miget.com;
+	dkim=pass header.d=miget.com header.i=@miget.com header.a=rsa-sha256 header.s=google header.b=BLX9VuSh;
+	arc=none smtp.remote-ip=209.85.208.44
+Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80175606A332
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 17:04:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 80175606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB899606A326
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 17:04:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB899606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=miget.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=miget.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=AMrv5y2S;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=hTRCdbup
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ABF0Mw72665059
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 17:04:11 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	8r5kPCHimu9UfRgTGrCITruJRz9iEK7qpnJ1StauFUA=; b=AMrv5y2SDEj1201W
-	DsPJqv+W7HO6XEwF+NSlGw2wfde108At7Bq4KcuYbTml1XXLLOuh06F3o2BUuGQN
-	BMp/L5CCvnnEzQaBcH20VUH0FB/GVgWbYPAqngvNfMLMMenxSYpygWDPC8v1jlpa
-	SO6I/A+sb7kphRbAN/KOzHqTdEDthKjoiSXRHCmmjQCGmvvdEcKUQrLQHemYRUdB
-	dxLQrIqa6aDLx1KasgbZRKROrInvRw+Dn35K3TWnnsvdr13ECX+NOb85Ctqub+hs
-	VGpvkWul4tWllN3DEM4Zx50wVLr73mrnWhu5vp2slNkj8pw9bKri1e3Tx5AuYvML
-	+C6sJw==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvgjdjw18-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 17:04:10 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3b0afbf532eso3056354a91.0
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 09:04:10 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=miget.com header.i=@miget.com header.a=rsa-sha256 header.s=google header.b=BLX9VuSh
+Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6b167ffd132so3782187a12.1
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 09:04:14 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794416650; x=1795021450; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8r5kPCHimu9UfRgTGrCITruJRz9iEK7qpnJ1StauFUA=;
-        b=hTRCdbuperrJlE2nKG5TGEjRpkD3exwAY6wxYZY9UDHtUu3LGtxWUh1W6rywmZ28up
-         yzXZzz13VD12v/kPZK5FxCH582baGSgKh1rVndHJeeGLiOXLezj1d50pCrd59rQiZ9wA
-         o5j2IQmlw83uc++CuWtFpgOtoOlhpKAMuAF5MzWdNAlFa0rVjBIfeM2zFpNfgdROBaV8
-         Dle1EXa5YM5bBnhaHyemPqyCqLNPt94gOkvJu2SfNruF/jkCipsSSx+9J3ciG2rEQoi0
-         j/QgoHWqB/53Hq2/23OuR86hm3LDfW3QNvED3UruIMmi7W5ZAtES13GTEuyd2jUXWV/C
-         +cQw==
+        d=miget.com; s=google; t=1794416653; x=1795021453; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=D3og3MEI53zysEm81HgrUH/b77qnl1uvybcLOq7j15s=;
+        b=BLX9VuSh0tGPjDWO+v1GGRNRuZysS856JlySOYtGjbOf3NefuQLksEE4eaLchLEX9y
+         0ssKGSWuuJPseC0tWYcvt12rv1aWauXmJ368GEYUXJDcWr/rrzrcB5agBEWvYlJu/7cU
+         m7X0lTZe4GJJ/Ea+Gzy0Lvn8psBvzOW5oRvxQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794416650; x=1795021450;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8r5kPCHimu9UfRgTGrCITruJRz9iEK7qpnJ1StauFUA=;
-        b=zokcYpMwrbNWegoNWfJkhp4nmDMBP2JVVZpsKhFE9xZDjmhhCuZ2hVhFBVDX7MSqYi
-         j2/C75dc8duvy0Wya0lKW0WfZjOiHo1GDvxQjnw/nVN1DXh0iuPDDm1g+aq0sE3v2sOl
-         fqmGF4co0fGCTYwCgFMKkA2muxs59AXKUD8kC0F+vQ/G7EcaYF0RkgyWulUPOzXBEw2A
-         p2dC20nooR51d6qqcKJw/I+JO4mZSEAuLxM3nRQEbteSZjUj+FDUrOb0PpXwCry6kFKk
-         JFYEMg/tRt13/qwghKS877FD1Qwrdrmc890hiXFzZ5aj06fF+vQtBsVbBKwpt0rDKbrJ
-         PVYQ==
-X-Forwarded-Encrypted: i=1; AL+hErEInQw8weuY3KcmKDUftZZqz8QUrEF+cSg+44fbdao2V/1W9F7debkGTCzDBq5dY3OFvRik+AC1IZJqSMg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8fJBvp7aQ22kSY0TyF7rufqUAAQvIpEzloRMdF4XN47zV/ERBD
-	zXisDXLCqKL3OCa6jLh0mj60oXkq3odIjois+xRzRN8j4agyDg1ALMYXnXbj8Vtp4VK7ObUj0iz
-	C9U78YEINmrUw/cq81g552tZEFKVKUv1xxZQ0tx+cWaD+z5xdMNoQ/Pc12OBx5eDkB0o=
-X-Gm-Gg: AYBFou3o02MKig1X4fpxmLtbJPorL20Scik3r9P9I5wIxo1CgKhqISwRZfZskywWlIb
-	ZI/8UrTRXTXaApaBZ2CHrmUAFzn/L1AcjzYQ5XIOd7ZDd/F6ghlc3uV25X+Gr8CqgwDhgYQAfjn
-	aokpyHAYWl6fnMsjUZgpQ2cAFLW7DQQLfJaLZRXeJuwnIS6vtBlm3CXhATDgMv4q/jyXFk9Q8QZ
-	qlo/9gnLZcoj4OZWE+JOiVtbm1H38kxpvHgHep85Ari8CeiclcsmLpO2UzoX1e+K8/X36ERzzj0
-	zhnVvV+7YfgpRaLS+E0rI/dKzbE38dIIow6oTZWt1dLb8a9Sp5UXU5yJPClf0Ib1ftGc8PGCZ8B
-	K0KfrTeatOFp1fohbfmvsj637+0ocUkz2eo+mXo0WacKqE27BxHy7JXBDIvK+QoJtjoE=
-X-Received: by 2002:a17:90b:224b:b0:3ac:403d:6239 with SMTP id 98e67ed59e1d1-3b182f45135mr2767194a91.43.1794416650134;
-        Wed, 11 Nov 2026 09:04:10 -0800 (PST)
-X-Received: by 2002:a17:90b:224b:b0:3ac:403d:6239 with SMTP id 98e67ed59e1d1-3b182f45135mr2767168a91.43.1794416649690;
-        Wed, 11 Nov 2026 09:04:09 -0800 (PST)
-Received: from [10.213.109.130] ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b197d0f497sm84920a91.8.2026.11.11.09.04.03
+        d=1e100.net; s=20260707; t=1794416653; x=1795021453;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=D3og3MEI53zysEm81HgrUH/b77qnl1uvybcLOq7j15s=;
+        b=xbM0nyFK5+bV7sQNjzGsR5dozqUuykmkF141KJCjJz+f2uzePkU0kV0aIIz6SrQYYT
+         O9pQMZMR1Fy8NKT74z3qEE5GNHdN86MDboJ1H0JtczurC59qgcglP3H6sHYsaZGHAijX
+         3Wp1W/JH6dNzYYaau7d3nKEYtcNqlD0HRmzPVxzXRrlAqgXK/N/r7ocvx9HXrp7UObPu
+         SKrgOcG+aPUATta5SMZuJutYd8mbQLhoOJrJtoBCzUcMXb1XA7/lxQL6bVVBk9nwlkOa
+         uJuKn89z0kjT9EovME+SBtS+oR6Kor6Aiv6a6DGyW8ksSkVAcsqCZWv1B9BwtxVNTYaN
+         Fcsg==
+X-Forwarded-Encrypted: i=1; AL+hErEMVXgHULzpe/kT9MIvziTwshUMMP3ncRE9axDOoBlJIcR89f5Sa8juZmP9BotminjJpQobhkzndFgNPgc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8KTkYPqCk9AfQColUfxnmBF2f4/4EyMXkXvLxc2JS09iDw0ogg
+	Ajq0FILINHg9tOVCbp9phc7FXZeh7HeQTm5PiRb5SeyjilCpnwEpm+IerJLHLitbPxheLagGkLa
+	nsmDXsLQ=
+X-Gm-Gg: AYBFou3YQV4aZQrgT9s0CyJ8B/M88YcUvKzFF09iRy9thrVTuvqYn9CQZydF3KtpHpN
+	ViK0tvAkDTcypWrT6l9WExmhFpV69vjsRG/5D83FOq4afSkbJ6W6Cg9DjhSDMl7PtbpA/bTBRxf
+	dPIkDypJ8YdkjrjTeJL8RtEF0iMMX9AEK3SE6nrUs+c0DJDX4EFcTurwooy+pPmkG3Hk9kvfLb2
+	2ZCHe+bCOL50dVNrXXWUvdUdjo2fN1jFdWqPMp44R25yB7QDQoCJVuTrZqjkEybsuZs4njMLtXQ
+	ACFNqedlJ6Jltfiq5n00f5JOpZBtdgUGFksasr7R1JOTibbffmPYiqRsNQY7gqFczx8Ajp8h7Jc
+	bs0gtTpjfP6BC1BjNfmxWhnRIbFhpQcEDXigCnQDq1KzA/zEBAJzjmv5jjUYMYDCt/rLR0Ob91n
+	YeGpCwL8qjXm7DR6WZouLFOaT9bRG0ZzdU2RUoVcaq/bjFAjscm0XywAdQsAgG5vRwXOD0RKyCu
+	R2MUdjEI2Xz4RUyLGnumC0pK7Nwq+MOpEaGBZ7kHGXI4Wi5XmPenRdpf2sSp+RYKP1PljvcbC49
+	Bt+bkAISrlxmf9inOFH1pwaMkzwPPlUB533O0wKwddUGZRpnlBptX9ga0nwFr4Hw2gn49L2AvrX
+	Y9+aoo98E/I2Bcmn6nmURh2eC1bD98izSFIPZ
+X-Received: by 2002:a05:6402:450a:b0:6b5:875a:c2a0 with SMTP id 4fb4d7f45d1cf-6b7775eb13cmr2291718a12.24.1794416653066;
+        Wed, 11 Nov 2026 09:04:13 -0800 (PST)
+Received: from xia.tail836dc0.ts.net (user-46-112-106-110.play-internet.pl. [46.112.106.110])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b7834cdc23sm871660a12.12.2026.11.11.09.04.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 09:04:09 -0800 (PST)
-From: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
-Date: Wed, 11 Nov 2026 22:32:55 +0530
-Subject: [PATCH v4 6/7] dt-bindings: mfd: pm8008: Make interrupts optional
+        Wed, 11 Nov 2026 09:04:11 -0800 (PST)
+From: Chris Taraszka <chris@miget.com>
+To: Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: platform-driver-x86@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Mingyou Chen <qby140326@gmail.com>,
+	Ilya Gladyshev <ilya.gladyshev@linux.dev>,
+	Armin Wolf <W_Armin@gmx.de>,
+	KentoNion <kento@kekto.ru>,
+	Matias Civadda <matias.civadda2342001@gmail.com>,
+	Yun Wang <7z0423arsenova@proton.me>,
+	Oleg Rybalov <rybalov.oleg.dev@gmail.com>,
+	Chris Taraszka <chris@miget.com>
+Subject: [PATCH v5 0/4] platform/x86: bitland-mifs-wmi: Xiaomi Book Pro 14 support
+Date: Wed, 11 Nov 2026 18:04:02 +0100
+Message-ID: <20261111170406.1634428-1-chris@miget.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,103 +102,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261111-pm8010_i2c_support-v4-6-4549cab1c8e4@oss.qualcomm.com>
-References: <20261111-pm8010_i2c_support-v4-0-4549cab1c8e4@oss.qualcomm.com>
-In-Reply-To: <20261111-pm8010_i2c_support-v4-0-4549cab1c8e4@oss.qualcomm.com>
-To: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Guru Das Srinagesh <linux@gurudas.dev>,
-        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, mfd@lists.linux.dev,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Dhruvin Rajpura <drajpura@qti.qualcomm.com>,
-        Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
-        Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>,
-        Oleg Keri <okerixx@gmail.com>, Burke Cates <burke.cates@gmail.com>,
-        Christian Cortner <ccortner@gmail.com>,
-        Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794416603; l=1342;
- i=jishnu.prakash@oss.qualcomm.com; s=20251014; h=from:subject:message-id;
- bh=G5Qx+ovkui52zHAz78X3034pPz4pJoesn9ej2vCUqhA=;
- b=feaEG2hkVROaB8EYdcswFevmqiFEx+Eno2p6KQHNxWJaUuvO3Xl0tLWruMpRpCxJoNs351DJ2
- on6ScmDiLKWCSqCwaIOFYwv3fHlMaGC3MbVvmDjeCliAWY2/RmXm4bm
-X-Developer-Key: i=jishnu.prakash@oss.qualcomm.com; a=ed25519;
- pk=g89pXdLVwRjdTeQ+uX1QzvBO346E3hQAc1N7fcTXgmk=
-X-Authority-Analysis: v=2.4 cv=E7tYNqdl c=1 sm=1 tr=0 ts=6af4a00a cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=Su-V-MYFMjrvs2extU4A:9 a=QEXdDO2ut3YA:10
- a=uKXjsCUrEbL0IQVhDsJ9:22
-X-Proofpoint-ORIG-GUID: y8gLyRxJxLrIqsSDk5z61f3Vd9-i0WBX
-X-Proofpoint-GUID: y8gLyRxJxLrIqsSDk5z61f3Vd9-i0WBX
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDA2NyBTYWx0ZWRfX2BYhZOlRzxVE
- YuXEq0Ha4hJULa6W3OwNF2uc242Y4pfduyGEhNX0FQYREKPW2xbp+ujUFcwLD7rYShMmZM7cLmi
- ZQfT3piL7HOD5tuvM78I+holKgfadeDqv2WQuFm7/noTssoiBo/8ZqEXjNek3PGYVZ5Sl8lfen6
- 6/LBTFMhu7AB49blRuRDKYHbWSHNREuTT37srCOoA3jPgzKaH9nAIOGkaeqnh/ALLyqba7zUoEM
- kF0SV9i5A2P/rg/dktwXvZ8EgCCexN/MRGztYIrNjKRJj2LEx8SHVfWr6v0UQvmGAv4tiA4Oxw7
- ZYjo+vVOAomiesrs3cO3d6rQg38BfUIlI4KSjLaxKtutp/dvb0xcP9ezUQa2mC5Nd/09atRSHhA
- RL1LVCr+oomZu3YEJgE5DD4x9twoYmGoT5vRmp7JlagubXfA2IS9+jtqxP+gFo11kk5vOXc2eoe
- 3lYtzAohpPtxF6gA9aA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDA2NyBTYWx0ZWRfX+s9v38THY2m3
- GQlZ+2lDbNuAXValIwd1PhL+a8Hkm+AmI7Vn32rL7LVIJC/IhN+5XV8t/OnfbNtcwTOSXMYyJTT
- pfP01hHlr7GVZq/hKGkv2/80SxwmkOg=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-11_04,2026-11-11_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 suspectscore=0 priorityscore=1501 impostorscore=0 adultscore=0
- malwarescore=0 clxscore=1015 bulkscore=0 spamscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611110067
+Content-Transfer-Encoding: 8bit
 
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Four patches on top of Mingyou Chen's v16 "Merge redmi-wmi into
+bitland-mifs-wmi" [1] for the Xiaomi Book Pro 14 (TM2424).
 
-Some designs integrate the PMIC with the interrupt pin left
-unconnected, deliberately. That of course compromises some
-functionality, but the core function of programming the voltage
-regulators remains there.
+The firmware passes SystemPerMode to Intel DTT, and the DTT tables in
+its data vault name each mode and set its PL1 per power source.
+Low-power, balanced and performance map to 0x02, 0x09 and 0x04. On
+battery the firmware's performance mode is 0x03, so patch 2 lets a
+profile use a separate value on battery, re-applied when the power
+source changes, and patch 3 adds the quirk. Patch 1 keeps a failed
+profile read from aborting system suspend, and patch 4 makes Fn+K
+cycle the platform profile.
 
-Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
-Co-developed-by: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
-Signed-off-by: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
----
- Documentation/devicetree/bindings/mfd/qcom,pm8008.yaml | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+Changes since v4 [2]:
+- Rebase onto v16
+- Fn+K: cycle on 0x28 for every model, drop the quirk flag (Mingyou)
+- Add Mingyou's Reviewed-by to the quirk patch
 
-diff --git a/Documentation/devicetree/bindings/mfd/qcom,pm8008.yaml b/Documentation/devicetree/bindings/mfd/qcom,pm8008.yaml
-index 2701aa755f31..3c0febc8152b 100644
---- a/Documentation/devicetree/bindings/mfd/qcom,pm8008.yaml
-+++ b/Documentation/devicetree/bindings/mfd/qcom,pm8008.yaml
-@@ -90,7 +90,6 @@ properties:
- required:
-   - compatible
-   - reg
--  - interrupts
-   - vdd-l1-l2-supply
-   - vdd-l3-l4-supply
-   - vdd-l5-supply
-@@ -99,10 +98,11 @@ required:
-   - gpio-controller
-   - "#gpio-cells"
-   - gpio-ranges
--  - interrupt-controller
--  - "#interrupt-cells"
-   - "#thermal-sensor-cells"
- 
-+dependencies:
-+  interrupt-controller: [ interrupts, "#interrupt-cells" ]
-+
- additionalProperties: false
- 
- examples:
+Changes since v3 [3]:
+- Move the quirk after the battery support, so 0x03 is its battery
+  entry from the start (Mingyou)
+- Move the suspend fix to the front, as it stands on its own
+- Fn+K still only handles 0x28. Event 0x16 reports a mode change on
+  TM2135 [4] and TM2424 alike, so it stays a notification
 
+Changes since v2 [5]:
+- New mode map from the firmware's DTT tables (Kento)
+- New battery support patch
+- Fold in the Fn+K patch
+
+[1] https://lore.kernel.org/all/20261111141226.9482-1-qby140326@gmail.com/
+[2] https://lore.kernel.org/all/20261106114300.936782-1-chris@miget.com/
+[3] https://lore.kernel.org/all/20261101161814.1325847-1-chris@miget.com/
+[4] https://lore.kernel.org/all/BelDdF5woNEBX6dZ3_zJDEbVkifs1pdxEjtQ1yC-aKyZahijFJCllxm0l_SqZ5Hsj61D8wfJNa7uDSuNKmyyxo2S0tZp9QS5yaafeZUxvxE=@proton.me/
+[5] https://lore.kernel.org/all/20261025195456.43414-1-chris@miget.com/
+
+Chris Taraszka (4):
+  platform/x86: bitland-mifs-wmi: Don't fail suspend or resume on
+    profile errors
+  platform/x86: bitland-mifs-wmi: Support a separate profile value on
+    battery
+  platform/x86: bitland-mifs-wmi: Add Xiaomi Book Pro 14 quirk
+  platform/x86: bitland-mifs-wmi: Cycle the platform profile on Fn+K
+
+ drivers/platform/x86/bitland-mifs-wmi.c | 175 +++++++++++++++++++++---
+ 1 file changed, 155 insertions(+), 20 deletions(-)
+
+
+base-commit: 5680519168f65666d2c03cc6ed8fe2b7052aee12
+prerequisite-patch-id: 99b10cd2b70d630ab65d8a8bb02c1d4bf89b1a63
+prerequisite-patch-id: 27db041f827872b8be142c310a14c79962154bd5
+prerequisite-patch-id: 74fc3298fa3dceb2224dfc3d2ae4cc6d4be61c01
+prerequisite-patch-id: 290a15f4692b36391eade807db324a974a4c1f9e
+prerequisite-patch-id: 48f575fda0c7b1d4c66179af98a7f8825666ac87
+prerequisite-patch-id: 2fe8c043993034f1a2cde98b1b2e299987d5ac7f
 -- 
-2.43.0
+2.56.0
 
