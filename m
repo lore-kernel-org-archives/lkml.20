@@ -1,45 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794435090;
-	b=OMg3JBcBPK9dXm9vPjiiHb6+RVrM40Lg5nwG77lkjVLCqYS2pFqDMfhua+sR6tSw90Jl
-	 z/OxUZoXQikArpd1GrxsIkBXQ7WHmw89BXPENnF6jKduqbGFjovBWaH2iILg8iDCkOR8k
-	 g7WW8GLUjL4dQNiE2yNlqfUf3cORrmfXYjo/HlkOJgs121iRa8YrnO76naH6RVH79flBR
-	 7FgurFQ2jb6CDmh59/M8BsTnthFrgqjmacjA0KEP+AbE30y9feFcVWiSGLecTsNEWDhKe
-	 2ZYG27/AQhmRvvtfg5oxJwIK28tqbrUmhcm++2fFb6wMTobUjGU9mvEvTTxYSyUL74w==
+	t=1794435199;
+	b=GvH04D+9OJyujXI9gq0D+KVIm99ZKgFuPFjxuI0zoQidNLVI8L3QncEfJ24Oez9HVQOP
+	 r6b9fz3PAeMygwrR4tyPPWF2AVv8tD4jmKviBdQxEJZiFfJOYn4BnvUNo8oRd6j50Nvdj
+	 m5YMhDCvHSViGl9x+6rcveSkgmCVkN8davKX+AjJ9pNi6DGWf38SUH6jxhKMiJYwc0zYC
+	 F0XMFQvcUUpiPYVJStL0oumMvic89d8bZMNxUw27y7HmDnBG8PNdSp33/w1qtkREAfHE4
+	 emg3Q9fUFWwU4M3DPR/vuw1f76grUgKIuyNZ41FiG2jZYW8EUyFRKL/ppM1cLhtqWzQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794435090;
-	h=Received:DKIM-Signature:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=MUGi+6yGnkd+Ifly32JGBty8CIYlhjDD8RBpprRWoYE=;
-	b=blUqNaRtvyAjLyPs8c4aDGwh7E4gdRqsOUtbS2HiIXnrQhM29ZtgBEXl1U3GWHFjrXtR
-	 1fdyTQ2a+brQuVlxb1rNVxZDPSI9xFN6KjOJIp1B5PM3I2MUVkyKGw1nPOMXM28od0pfj
-	 BgkjNz3zT482bVdI0HHfrD5oLuEZL4SOU7jvav2Ah5zb3Ne7hMuZflD+wl6f5FkXCTT+M
-	 fAZRnpxKa+nL9fBNf0ee75fItBki3DKF9k/T4PiYxuF/3gMX+xJJ+h9GBANjSJdsHkqow
-	 uyUdWmXA/2NyhffOLYE738tDTlc+WqFDfhrwudjqFKcuymjuc8Jq80peyLa2lY811Sw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794435199;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=CkL1DxVgDMrAwGiDxbno089zDqxJvFCxMrqWkJjJQ+Q=;
+	b=IbRMXhfPMg0fbttepx2ocby3xcLqB1YxhJWBjO886JEWBK57aKNvKIolox+RHpxqqHxw
+	 1ROGJwCm1LNwcJg4LkAnPerQ55434St0DiylA5DZTQE0YugfiBZwFMUYh9ULvWTj2s2TP
+	 PcC4XXw7IixrFGD6pRRT8hY39J1iOOMo7DBXn8cF/FeoBTxoIJmaSNKUlWla3D48cyQ5O
+	 mfBGZCKiwfXkjoDA+AlYNQPXcUGaW53DSzCj13zK1gK+2Osch4IWwxSDyz76BiWzXtU8w
+	 0oA2j4H0t6b/VRdHmaWWjntYBuqp7jAE92RwybWOW53AlNLgLMWL2cJGi0nfHgKI++g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l+CZocFO;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aJBMnGSK;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C06CE606A31C;
-	Wed, 11 Nov 2026 22:11:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FC44606A321;
+	Wed, 11 Nov 2026 22:13:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l+CZocFO
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2B461F00A05;
-	Wed, 11 Nov 2026 22:11:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aJBMnGSK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 011151F00A05;
+	Wed, 11 Nov 2026 22:13:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794435090;
-	bh=MUGi+6yGnkd+Ifly32JGBty8CIYlhjDD8RBpprRWoYE=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=l+CZocFOipkssoSR4nDy8rXOPR4VscQyi4qnCL1vXPFwNQg8OaBOIuOCaInl8e96r
-	 ZwlRc1i7/6L4/vzQN+0L0DwnuPbmtt67pfOjPY+vb0dxgPlPB90E7P0j1anEKLviQv
-	 5LSrrdNHXhS/UOfzdhgQspSktdWd9/8F+qEEiPz38DK/XgFrpRqK9aYp87/QrAjErI
-	 +jyYnf8ekRSoAZKyHF1Fbpjw6W39yy9fnq3WO2Y5eYee09N9qA/Vhq3yWy92aWaXID
-	 32hmABD3dDPq1uccKqdLQN7VMxwxRDRnsHMjk9Ep7IHrJhQHw1C9tJr6BxPRHmK5Aw
-	 R1QVhNtVNZuIA==
+	s=k20260515; t=1794435199;
+	bh=CkL1DxVgDMrAwGiDxbno089zDqxJvFCxMrqWkJjJQ+Q=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=aJBMnGSK6XwDmQVb+2IsS7eW5mLAilJoTyGJqyQm0u0n165S5t7Xa+NnP+2LwQEb0
+	 VWHzNfnESLI60Sh4mY/mXoTjHfHQWhNFYDj8/Tn/5FeajuZFYp//kk9H/cHPi48gNu
+	 QSM+s4/vLZ4hgFwEjk1LLbZXBiCjD5L/sy1it3QrzRbu9JPQ7Xv63XSbcBgFMXSqy7
+	 L3e7rkmytAmyFVyEnepW43u3LD3afyW9ukLUonfC+hYJs/kLPi2Uo3xG0jTFwn0KBT
+	 5Qlzgtu4tD3VUZPESXlTy8mC/TJwr1oHXav+xiNTy98KAQbFNY9MEdUz81ULH/FsnK
+	 oyGs/pCjQ52ZQ==
+Date: Wed, 11 Nov 2026 23:13:14 +0100
+From: Michael Grzeschik <mgr@kernel.org>
+To: John Ernberg <john.ernberg@actia.se>
+Cc: Valentina Manea <valentina.manea.m@gmail.com>,
+	Shuah Khan <shuah@kernel.org>, Hongren Zheng <i@zenithal.me>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Nobuo Iwata <nobuo.iwata@fujixerox.co.jp>,
+	"linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	Wiliam Puranen <wiliam.puranen@actia.se>,
+	Michael Grzeschik <grzeschik@puzzle.ch>,
+	"stable@vger.kernel.org" <stable@vger.kernel.org>
+Subject: Re: [PATCH] usbip: Stop tracking work context in event_handler()
+Message-ID: <avToeux2DxhBWGN4@toad.puzzle.ch>
+References: <20260803104342.2790105-1-john.ernberg@actia.se>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -49,63 +63,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v3 2/5] clk: cix: Handle Sky1 AUDSS DMA interrupt gates
- as an irqchip
-From: Brian Masney <masneyb@kernel.org>
-To: Jelly Jia <Jelly.Jia@cixtech.com>
-Cc: vkoul@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
- conor+dt@kernel.org, robin.murphy@arm.com, sboyd@kernel.org, 
- bmasney+clk@redhat.com, jbrunet+clk@baylibre.com, 
- devicetree@vger.kernel.org, Frank.Li@kernel.org, 
- cix-kernel-upstream@cixtech.com, dmaengine@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- linux-clk@vger.kernel.org, joakim.zhang@cixtech.com, 
- Brian Masney <masneyb@kernel.org>
-In-Reply-To: <20261106013520.1134450-3-Jelly.Jia@cixtech.com>
-References: <20261106013520.1134450-1-Jelly.Jia@cixtech.com>
- <20261106013520.1134450-3-Jelly.Jia@cixtech.com>
-Date: Wed, 11 Nov 2026 17:11:24 -0500
-Message-Id: <179443508445.1143992.8301638068435530250.b4-review@b4>
-X-Mailer: b4 0.17-dev-7ca47
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1393; i=masneyb@kernel.org;
- s=20250903; h=from:subject:message-id;
- bh=mfXkakMz9SQLnadusaEu+YqUiKYZPgdb6OV+3ZdFD4k=;
- b=owGbwMvMwCW2/dJd9di6A+2Mp9WSGLK+vOD9uZVb4uv3nHldHjJmJjzhf5Q2x70WmpclWMz7W
- +QIq+bxjlIWBjEuBlkxRZYluUYFEamrbO/d0WSBmcPKBDKEgYtTACZiycTI8O5dXbIQ18kz2+d/
- VygRbQh/eI+l8Dr3DPbTzS/t9x94/ZWR4RNX2yHlgn8zhYU2lpdo71SbWh0lLsL4/8tpp88+Mdx
- +DAA=
-X-Developer-Key: i=masneyb@kernel.org; a=openpgp;
- fpr=A46D32705865AA3DDEDC2904B7D2DD275D7EC087
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260803104342.2790105-1-john.ernberg@actia.se>
 
-Hi Jelly,
+Hi John,
 
-> The AUDSS CRU INFO_AP_IRQC register gates each DMA-350 channel interrupt
-> onto the shared AP GIC line. Manage these gates with an irqchip in the
-> CRU driver, keeping access to CRU registers out of the DMA driver. Mask
-> and unmask the corresponding AP gate through the IRQ core; this controls
-> interrupt delivery, not AP/DSP channel ownership.
+On Mon, Aug 03, 2026 at 10:43:58AM +0000, John Ernberg wrote:
+> From: Wiliam Puranen <wiliam.puranen@actia.se>
 > 
-> The register exposes gate state but no per-channel pending status. Poll
-> each enabled child's DMA handler to check its channel-local status. Use
-> level flow handling so disabled and oneshot-threaded interrupts remain
-> masked, and mark the children as polled because IRQ_NONE is expected
-> when a different channel caused the parent interrupt.
+> The work queue used by usbip is not pinned to a specific context.
 > 
-> Use a raw regmap lock for the hard-IRQ callbacks and keep the CRU powered
-> while its IRQ resources are in use or being torn down. Quiesce the parent
-> IRQ before runtime suspend and move system sleep handling to noirq.
-> Save and restore the interrupt gates and software reset state with the
-> other CRU context. Dispose of child mappings before removing the domain.
+> When usbip_in_eh() evaluates if the call comes from the event handler
+> it doesn't actually check if the call comes from the event handler but
+> if the call comes from the same context as the event handler was first
+> called from.
 > 
-> Signed-off-by: Jelly Jia <Jelly.Jia@cixtech.com>
+> This can result in "sticky" devices on the client side, due to the
+> teardown path in stub_disconnect() being lied to, and thus skipping
+> the teardown when it shouldn't, or vice versa.
+> 
+> Fixes: bb7871ad99ea ("usbip: event handler as one thread")
+> Cc: stable@vger.kernel.org # v4.6+
+> Assisted-by: claude:opus-5
+> Signed-off-by: Wiliam Puranen <wiliam.puranen@actia.se>
+> Signed-off-by: John Ernberg <john.ernberg@actia.se>
 
-The irqchip driver doesn't belong in the clk subsystem, and it needs to
-go in the irqchip subsystem. You can use the auxilary device like what's
-done for the reset driver today.
+Just as I stated in my other mail [1]. I just did send a near copy of
+the change without knowing of this mail. But this one is the patch to
+be taken.
 
-Brian
+Fixes: bb7871ad99ea ("usbip: event handler as one thread")
+Reviewed-by: Michael Grzeschik <grzeschik@puzzle.ch>
 
--- 
-Brian Masney <masneyb@kernel.org>
+[1]: https://lore.kernel.org/linux-usb/427d908d-1fa2-442c-ac91-b3e925e5c7bb@actia.se/T/#m2d50ad8abda5dc92fe6d8690edc0cab58983ab74
+
+Thanks
+Michael
