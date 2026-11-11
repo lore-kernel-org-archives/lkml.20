@@ -1,45 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794431121;
-	b=HGTgD980q9pURAuxCSvs2lSsv75qbSWQNwyU0CmgZsjZkydQWg0UE774Rw7yt7R6HpFU
-	 F5sOj0VlPwpWcw+QkNcMNdPEIGs1iogcvcyvdqh2E0lOzxMLdwKfPUlO1PMfH7IwaIDW6
-	 YPfzhyS6cX1i2E6FLYzWfoHYVdqDyOfQjxdSptxOUn30MvS95WA6DM7cvFb6O0ljVA0FF
-	 weVadRNzPM3IX9r1456nY58bAyp8rBCAqWXV2R58TIVHY5J4ttCEPLTWCOyasEMXMKnbz
-	 P6kZTdjMACistztl44soY98pbWDYv5goa0VbPnkW21QrZOM+2Qp2yXIoboMEeKY8L2w==
+	t=1794431152;
+	b=q5XRouJ7An5OtUfwRr9U74Nur4/K4ppfCZPv+8PegUzDvvZ+fD/YcmOJVU/gaV16aCpi
+	 4QCKTeOFY95/ou3hcxAY8rc6BpJoNqzvH1ZJbNx4kCC/1T9st82bNOcsvRy2HjB0OQSZL
+	 T4QoHz0Tq6skF+qh/QmUe/BLzO8Miev5jE26yW3FLQaKJPvB05B9EtCbUrbLOs8XnOGAi
+	 pYz5bDRRvYDt/FXv+aZAypbIqfXIsDI6kPjOVwbepuqiRF+KTycAtA+t1BFr4c7kPfllV
+	 755VHCNmWwQ0vAkxTILWEq5Eh9iFAe/FNftgsF2/j81s2yx293I8p0Lui2R0eN4z+zA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794431121;
-	h=Received:DKIM-Signature:Content-Type:MIME-Version:Message-Id:
-	 In-Reply-To:References:Subject:From:To:Cc:Date;
-	bh=tNQqBz5+70EcbhvGfYXqJhYoHMclm4qNDJckCYhqgXk=;
-	b=4+59Fhe9at/SIjQEifKDE3v2v/GqCoBe9Iqz6MBPNt4Sh1U91gFuTceRTtIARLLFBcUt
-	 ekBSL+nFgJbQ055VuCe0T7WmS5whPxHQG8xFmMk7sQUAcdx5tefoBjuQlQbhO+NOp8lCc
-	 WEa4JDRMRqg451eRGnAiJxRKramh0DdXVVY9GoPHPQ4ecccS/S6nJwl++j4kzeQJ0TJek
-	 ar7uxsic9Vmi8tvP/vH4l46980aFtVBWqRYviJNELEOCv3gcy88NE1KyxvWdeEAn6ver7
-	 0kZKeoVvK1Eg9Ix+iQyYp7Rzs1rgra6R4L/0pmfem0b0cWc5IZ7u/K0ngRz+bCUeDFg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794431152;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=0aSno7noNI3FW3ofwPPvucH5lc3cIw8g/eaXqt7qoNQ=;
+	b=baNim6OWoGDbYR/zC5HV2etV8d2fCLjjkjtTr0X8GTgfaRPKwfrnKdMbd8UIdTzh4gJU
+	 exgRFFYnhR7MbczW5qTmRSf/5FghjamHgcFdnrdPLntexwNx+/j08rv2cih0UQUYA99pb
+	 P57k3oJqbF0lR9spnKTrR189yYq8q9bPLHfw2mau7XrhXYju6WZ6RAimuOwrVIxe4HwRo
+	 T2LM0yaw4SLd8B0zvHbaL1e+/GHKvongWnhw6HpQuit3KfV3EhX/lAtmiUhZCw+IUobqf
+	 oznZIavU+zaQQFJzol6qXPFvew8LOTlyvj4Wit/WSuHpgZDDztH5y2EYR8ZcdXlUVJQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="c2XAXk1/";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=acm.org;
+	spf=pass smtp.mailfrom=acm.org;
+	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=gmtvSXyZ;
+	arc=none smtp.remote-ip=199.89.1.14
+Received: from 011.lax.mailroute.net (011.lax.mailroute.net [199.89.1.14])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4E47606A321;
-	Wed, 11 Nov 2026 21:05:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A12E606A321
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 21:05:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A12E606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c2XAXk1/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5DD6E1F00A05;
-	Wed, 11 Nov 2026 21:05:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794431121;
-	bh=tNQqBz5+70EcbhvGfYXqJhYoHMclm4qNDJckCYhqgXk=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=c2XAXk1/1FlgcmzpXfA2mwLgpAVBySudM21S5Eky4Xj28kPHbLydAHh32loGW2D8a
-	 AiNWmQBSKEuI8d679u+FUaCA1M+Age94YqR3IK0TU1eOn1czVjbuc0pnSwvhFWbdjW
-	 DN5wjSdCyZx795hFTyZMx92BP8bR1SvYzbNpbAbd1GtNRW0dpeGA60O+c4f7JS7tkk
-	 KAhQZAt7Tf6saoTzFtACDSCw09t1F3Gs7meWuz4VzMYTYdU+ctzuAzZxLL44JU6cGK
-	 Bx5/LiEIijFTXKsvej4SY5GVJuEChrIY8DWX7ROFO4w3aiMI/8IIYVImtSQbcWtyHz
-	 6kq/eRUmej2Cw==
-Content-Type: multipart/mixed; boundary="===============2866188785818237921=="
+	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=gmtvSXyZ
+Received: from localhost (localhost [127.0.0.1])
+	by 011.lax.mailroute.net (Postfix) with ESMTP id 4jPwzM3S0tz1XM0ns;
+	Wed, 11 Nov 2026 21:05:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
+	content-transfer-encoding:content-type:content-type:in-reply-to
+	:from:from:content-language:references:subject:subject
+	:user-agent:mime-version:date:date:message-id:received:received;
+	 s=mr01; t=1794431149; x=1797023150; bh=0aSno7noNI3FW3ofwPPvucH5
+	lc3cIw8g/eaXqt7qoNQ=; b=gmtvSXyZAzULjFu3WsxEBMz1MFlfs/DiPTsd1MdR
+	GFOnWA1B9PbaIyqrqfen/ie+hdzjYVq1lvK8WgQfhVjPq4aQEuHi5a4mF/3KAeD7
+	/TNNXwCEA5F4RKxgU1lnzs6UTeDlRIpRmCQylSkfKeGZT0b8qOwc+GcytdGwHC9C
+	h85OLDOuF2prHZaf4B496313oOT49vOlZedvzamm81F1mtHYXTzK4dbhB+YJvYVN
+	GlO+ij4HG+cdM4ucojU3q/ys6G9PhuQ3kfi/D4D5Z4E3goowz8WxzR4pMURU7y8+
+	et+a7aa+p43QJahCdWuMGHubk5VkKLRTvPwoNYTMrHG/CQ==
+X-Virus-Scanned: by MailRoute
+Received: from 011.lax.mailroute.net ([127.0.0.1])
+ by localhost (011.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
+ id G7XAW8mVMgeb; Wed, 11 Nov 2026 21:05:49 +0000 (UTC)
+Received: from [IPV6:2a00:79e0:2ed2:d:84b5:8550:bb39:9920] (unknown [104.135.182.40])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bvanassche@acm.org)
+	by 011.lax.mailroute.net (Postfix) with ESMTPSA id 4jPwzK3DP2z1XM0nq;
+	Wed, 11 Nov 2026 21:05:49 +0000 (UTC)
+Message-ID: <c4f5a8b7-340f-4bba-b874-8956215a9c1b@acm.org>
+Date: Wed, 11 Nov 2026 13:05:48 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -49,72 +70,33 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-Id: <8be73886579dc58a6363e72f540c0f28a12e0fe089ebde311b28919a47714ef7@mail.kernel.org>
-In-Reply-To: <20261110125001.4167503-9-cui.tao@linux.dev>
-References: <20261110125001.4167503-9-cui.tao@linux.dev>
-Subject: Re: [PATCH 8/9] tools/sched_ext: scx_userland: Check dispatch buffer slots before inserting
-From: bot+bpf-ci@kernel.org
-To: cui.tao@linux.dev,tj@kernel.org
-Cc: void@manifault.com,arighi@nvidia.com,changwoo@igalia.com,liwanwu@kylinos.cn,devnexen@gmail.com,zhaomengmeng@kylinos.cn,emil@etsalapatis.com,yphbchou0911@gmail.com,mingo@redhat.com,sched-ext@lists.linux.dev,linux-kernel@vger.kernel.org,bpf@vger.kernel.org,cui.tao@linux.dev,cuitao@kylinos.cn,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Wed, 11 Nov 2026 21:05:20 +0000 (UTC)
-
---===============2866188785818237921==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 00/14] Stop lockdep_assert_held*() from assuming lock
+ ownership
+To: Marco Elver <elver@google.com>
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+ Will Deacon <will@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Waiman Long <longman@redhat.com>, linux-kernel@vger.kernel.org,
+ "Paul E . McKenney" <paulmck@kernel.org>
+References: <cover.1793654853.git.bvanassche@acm.org>
+ <avROwpyToVNLOolq@elver.google.com>
+ <40be79da-af73-480e-b3e0-155173f3ad28@acm.org>
+ <CANpmjNO51WYife2NhvS08n2En0WjP+XOzD9Mtjsj_Hc=_nw0Qw@mail.gmail.com>
+Content-Language: en-US
+From: Bart Van Assche <bvanassche@acm.org>
+In-Reply-To: <CANpmjNO51WYife2NhvS08n2En0WjP+XOzD9Mtjsj_Hc=_nw0Qw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-> tools/sched_ext: scx_userland: Check dispatch buffer slots before inserting
+On 11/11/26 11:14 AM, Marco Elver wrote:
+> The point was that the Coccinelle script could be used to add those
+> annotations tree-wide. We do not need to make the lockdep API worse,
+> if the legacy-code problem is solved another way.
 
-TL;DR: Commit message only: the sentence explaining when the dispatch buffer
-overflows is garbled (two sentences run together, stray indent); the review
-asks for a rewrite. No code issues raised.
+Coccinelle is way too slow to be run every time the kernel is built
+and hence is impractical for implementing compile-time checks. I'm
+not claiming that what I'm proposing is ideal but the approach I'm
+proposing ensures that all lock context checking happens at build time
+and doesn't increase the build time noticeably.
 
-> tools/sched_ext: scx_userland: Check dispatch buffer slots before inserting
->
-> userland_dispatch() pops up to MAX_ENQUEUED_TASKS pids from the
-> dispatched map and inserts each task into the global DSQ without
-> consulting scx_bpf_dispatch_nr_slots(). The kernel's dispatch buffer
-> holds 32 slots against MAX_ENQUEUED_TASKS (4096), so a single
->    full dispatch round overflows it long before that many tasks
-> pile up between dispatch rounds the insert past the buffer limit aborts
-> the whole scheduler. Every other tools scheduler that loops on
-> scx_bpf_dsq_insert() (scx_central, scx_qmap) checks the remaining slot
-> count; scx_userland is the odd one out.
->
-> Break out when the buffer is exhausted and leave the remaining tasks
-> queued for the next dispatch round.
->
-> Fixes: cc4448d0856d ("tools/sched_ext: add scx_userland scheduler")
-> Signed-off-by: Tao Cui <cuitao@kylinos.cn>
-
-This isn't a bug, but the sentence explaining when the overflow happens
-looks garbled.  It reads as two sentences run together:
-
-  "so a single
-     full dispatch round overflows it long before that many tasks
-  pile up between dispatch rounds the insert past the buffer limit aborts
-  the whole scheduler."
-
-The second line also has a stray three-space indent.
-
-From the code, userland_dispatch() pops pids from the dispatched queue and
-calls scx_bpf_dsq_insert() for each one.  Each insert from ops.dispatch()
-goes through scx_dsq_insert_commit(), which calls
-scx_error(sch, "dispatch buffer overflow") once
-dspc->cursor >= sch->dsp_max_batch.  Since scx_userland does not set
-ops.dispatch_max_batch, dsp_max_batch is SCX_DSP_DFL_MAX_BATCH (32).
-
-So the scheduler aborts once more than 32 pids (31 if
-dispatch_user_scheduler() also inserted the usersched task in the same
-call) have built up in the dispatched queue between two ops.dispatch()
-calls.
-
-Could the sentence be rewritten to say that directly?
-
-
----
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
-
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/43092548483
---===============2866188785818237921==--
+Bart.
