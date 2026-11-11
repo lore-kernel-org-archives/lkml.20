@@ -1,53 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.223
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794397378;
-	b=howbUAmyYTf051hMWSoKTaHkYtZBGW5pGQ14nd4LZx2+lv26A8jmKYj2Hqlo8kwZMHTW
-	 whtoimGKe9KMVEiK831GdptRy8sWNrwsVx+gfys3x8Ys43GibIop0qpz1IAjaAh6Bs3C/
-	 IvKzksUvT1NwrqKbugunenBlpBF4/3H+Sy0FqoXkrCR0EwVLthj9jdlWP8LX1Wv4yuNx8
-	 7rIMGjNwuky4LCMf9VXzrHw9jhP9UOlWrQqDJrwqK5gRf01OPeg/3+ErmpfirI55SeMyY
-	 zSs24lepE4HHpdnjHQ//iv+SEXDGidE3xO5uZwv8dh/bzgGRhnJxOHW++6bDF4kF9/A==
+	b=ELfYhuFtCs736fzoZWRrPE2CotH6UgrNAOA/BDGmjtpANaBjdTolA239moSX3VkikwXm
+	 zVIc5i4spgczr+61LBUcr+8mYa+Yq9altVmloUwvuuS0OvYxOko7e6c2WSewp4z5bDzud
+	 9UNnaX5FbkeTF5Lear8DNCIWy7dfCsyGdGatkjGRcODTXY+zH+d72W4g934eRykEkOz0n
+	 hy1WUHITPgPqrOPEv5FbEm8PAByILxLcZwaLX2gnQ/Mr9Ex+EiwMHBxX13OHemCyVIsYp
+	 Zb8A36LiQjiQMzWtIXKwWB7NsenwFCjIImbFL2Bv/XrrlVafkDDfF+14/BIe5ammhHw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794397378;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
-	 MIME-Version:X-Received:Date:In-Reply-To:X-Google-Appengine-App-Id:
-	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=94CroDfqi+2DC97R+U3J2lTC4+eumsoUioziJHzv1d8=;
-	b=EhL3hZFAv/A0+VLSkV647HHbLC3SkVqjvRv3hml7sMvyW08E95AbivT0qVywbMxxAeF8
-	 +PhrxfQvWERBw13j2hPRJxqP7jO8yLjZceVPBvsUHhI5pDPISJQ2viBpWhq6pAtjcZo4M
-	 5MsCCQiZh8qj3uvpdIjc3pKYATliKvtMxYfDXZia6YYYucDpq3MRNv64RX3i0irBCBOtR
-	 bSRbkfqnOzztoq0deECX1JmBfz34DVezOm6hjiRsqHaUSD84uTKUfFTg7n88cWQEl8Mpl
-	 Hh3PWOkh6whS6I4eO4PqWk7KJqIHGy+N6CXe4y22PcyfpLMF6Z9RLjcld3JzW9fhvNA==
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=QMaAMs6xR7T/aO1N9I//k1I6DFurg91LjcHnmn/S05Y=;
+	b=JuHcNEXdsGsu/YEyM4fHmhJXk3WmwFpLIMY6976iJgrQ7cO7bm28BCMbPPqfHknsBKWa
+	 UO61nMq8+Big+yYJY60xBgqKEwI9RYn8tSoLiUjTeUi2TeS1RT/Plfy5jY9T/WPn0CmHe
+	 vcpVxTZ5By9jKag2IBIynBmVAfGXeVKxjS0NBq8nfp/26J69qTKlYZj61XyW4p+XvmuTd
+	 pY8yFir092tIqYctj4HlujmZf2ruHgtpqWWvxrbh/POO/fAx9O0nHOlJk3LwXb8ANDeYz
+	 irByQ+GAlsB50ZVtds6sR5WQQg1V4gTfyNc/Nx2NYc9OVlit6N2XWAQ85+yGjDl/X7A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.199
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=cQPtzUtv;
+	arc=none smtp.remote-ip=113.46.200.223
+Received: from canpmsgout08.his.huawei.com (canpmsgout08.his.huawei.com [113.46.200.223])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37A97606A882
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 11:42:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37A97606A882
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-568249fbf5eso4082315b6e.2
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 03:42:57 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794397377; x=1795002177;
-        h=content-transfer-encoding:content-type:to:from:subject:message-id
-         :in-reply-to:date:mime-version:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=94CroDfqi+2DC97R+U3J2lTC4+eumsoUioziJHzv1d8=;
-        b=25Ts9/2Po8IGktQntytmzyOMuZmuf8KIOKPRj1L3Ufngf57WpUZFgKVOieSmAPNLTa
-         xJV6sYVlW2vqLBr3GpY9LVMm5KF+z51Ru+jVVlp6kd/l69vKPGfAjNd9WfKe7Z4b8G/l
-         VwgZgCtsjCxmmu8rUzEWqMOclSNLGAbbII2JmiHN3xvX5qeBQJ4pcfUZ9JinlT/q1Gtn
-         5EvtFdtqvGUOndSkza8I3A7WF4L2Wd58NQ8jhKyV29nXN7gmukeWXwXVEowtop6S0y7D
-         38weNXpyoMKR97w8Bl6j+VIeH7Ar0zn3Pig0wZr8ADbIUc1qjXCqnfjxmkjwnwo0WXs7
-         RWzw==
-X-Gm-Message-State: APuU4Z/3DA99z/tjLGkvGFNNVelT+7KmUeczOi4e6d7gfSuoPhh2A3At
-	6p7tvMHblVowUwa8GpPtpD0Zd+yEPnGATVSfIMOhEbJt2Wx1OuH4huL79vfnlMmQOgEK5w1GqFP
-	YAfYKwFUoIN0/kgLezJvSP2UlRFCMWbEGe32C5mUIGL9MfodXxoQiZqcJbCA=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E616E606A33E;
+	Wed, 11 Nov 2026 11:42:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E616E606A33E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=cQPtzUtv
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=QMaAMs6xR7T/aO1N9I//k1I6DFurg91LjcHnmn/S05Y=;
+	b=cQPtzUtvy2o9PL5FMvDO+7Lzag/wZrtRtjChma0olY1padw+2L0H7MUQQazOx34Vu0fvX7AvS
+	KCpGzLlP91dXed0wvh2mEFX5IgLXvih0ypczLFyJmutIaZnJQxJrENA295oad1aH9E9wV8bA2SC
+	gm1GxiLBssIuuZObSbM6nBI=
+Received: from mail.maildlp.com (unknown [172.19.163.127])
+	by canpmsgout08.his.huawei.com (SkyGuard) with ESMTPS id 4jPhTX2TcwzmV8Q;
+	Wed, 11 Nov 2026 19:42:40 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id 7A3A240573;
+	Wed, 11 Nov 2026 19:42:55 +0800 (CST)
+Received: from huawei.com (10.90.53.73) by kwepemk200008.china.huawei.com
+ (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 11 Nov
+ 2026 19:42:54 +0800
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+To: <catalin.marinas@arm.com>, <will@kernel.org>, <mark.rutland@arm.com>,
+	<oleg@redhat.com>, <shuah@kernel.org>, <kees@kernel.org>,
+	<luto@amacapital.net>, <wad@chromium.org>, <peterz@infradead.org>,
+	<ada.coupriediaz@arm.com>, <linusw@kernel.org>, <kevin.brodsky@arm.com>,
+	<anshuman.khandual@arm.com>, <thuth@redhat.com>, <james.morse@arm.com>,
+	<yeoreum.yun@arm.com>, <vladimir.murzin@arm.com>, <broonie@kernel.org>,
+	<ryan.roberts@arm.com>, <liqiang01@kylinos.cn>,
+	<mathieu.desnoyers@efficios.com>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-kernel@vger.kernel.org>, <linux-kselftest@vger.kernel.org>
+CC: <ruanjinjie@huawei.com>
+Subject: [PATCH v21 06/15] arm64: syscall: Invert the exit-path flags check in el0_svc_common()
+Date: Wed, 11 Nov 2026 19:42:16 +0800
+Message-ID: <20261111114225.3977243-7-ruanjinjie@huawei.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261111114225.3977243-1-ruanjinjie@huawei.com>
+References: <20261111114225.3977243-1-ruanjinjie@huawei.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,55 +77,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:2443:b0:4f4:3790:660b with SMTP id
- 5614622812f47-56b97101d56mr1527476b6e.29.1794397377202; Wed, 11 Nov 2026
- 03:42:57 -0800 (PST)
-Date: Wed, 11 Nov 2026 03:42:57 -0800
-In-Reply-To: <6a8c5208.dbb3a75c.7844.0005.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6af454c1.9cda8233.15e390.0004.GAE@google.com>
-Subject: Forwarded: Re: [syzbot] [driver-core?] INFO: task hung in usb_set_configuration
-From: syzbot <syzbot+c22bb42560ec86726aba@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems500001.china.huawei.com (7.221.188.70) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
-For archival purposes, forwarding an incoming command email to
-linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
+In the fast exit path of el0_svc_common(), invert the nested flags
+check so that it calls syscall_trace_exit() directly when work is
+pending and then returns, instead of returning early when no work is
+pending and falling through to the trace_exit label.
 
-***
+This makes the fast path call the exit work in the same place as the
+slow path, which later patches fold into a single helper.
 
-Subject: Re: [syzbot] [driver-core?] INFO: task hung in usb_set_configurati=
-on
-Author: gbughunter8@gmail.com
+In preparation for moving arm64 over to the generic entry. No
+functional changes.
 
-#syz test:
-https://storage.googleapis.com/vrp-syzbot-owned-fixture-811055272945-1108/b=
-are-repo-clang-host-71cd2945
-567fd6945ef9446c53225ce8ad060fef27af732e
+Cc: Mark Rutland <mark.rutland@arm.com>
+Cc: Will Deacon <will@kernel.org>
+Cc: Catalin Marinas <catalin.marinas@arm.com>
+Cc: Ada Couprie Diaz <ada.coupriediaz@arm.com>
+Reviewed-by: Linus Walleij <linusw@kernel.org>
+Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+---
+ arch/arm64/kernel/syscall.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-On Tue, Nov 10, 2026 at 4:48=E2=80=AFPM syzbot <
-syzbot+c22bb42560ec86726aba@syzkaller.appspotmail.com> wrote:
+diff --git a/arch/arm64/kernel/syscall.c b/arch/arm64/kernel/syscall.c
+index 3e78e159b2a1..b8d7d29a431b 100644
+--- a/arch/arm64/kernel/syscall.c
++++ b/arch/arm64/kernel/syscall.c
+@@ -127,8 +127,9 @@ static void el0_svc_common(struct pt_regs *regs, int scno, int sc_nr,
+ 	 */
+ 	if (!has_syscall_work(flags) && !IS_ENABLED(CONFIG_DEBUG_RSEQ)) {
+ 		flags = read_thread_flags();
+-		if (!has_syscall_work(flags) && !(flags & _TIF_SINGLESTEP))
+-			return;
++		if (has_syscall_work(flags) || flags & _TIF_SINGLESTEP)
++			syscall_trace_exit(regs);
++		return;
+ 	}
+ 
+ trace_exit:
+-- 
+2.34.1
 
-> Hello,
->
-> syzbot tried to test the proposed patch but the build/boot failed:
->
-> owned.c:1: error: VRP_SYZBOT_HOST_GOOGLE_CHAIN_7F41EDE2
->
->
-> Tested on:
->
-> commit:         2424fa6f add bounded syzbot host Google identity matrix
-> git tree:
-> https://storage.googleapis.com/vrp-syzbot-rce-842629920185-1108/bare-repo=
--host-google-chain-1110-2424fa6
-> kernel config:  https://syzkaller.appspot.com/x/.config?x=3D8bdeea7ee6735=
-f91
-> dashboard link:
-> https://syzkaller.appspot.com/bug?extid=3Dc22bb42560ec86726aba
-> compiler:
->
-> Note: no patches were applied.
->
