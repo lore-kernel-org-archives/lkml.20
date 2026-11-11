@@ -1,71 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.81.71.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.151
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794396911;
-	b=KSQoJ/XNRn8iTc3F0C8DUApqJxVCN4UJr63p7ln9aOjMdFpn6UblLk0U8RZwsJWRegKD
-	 ciXvQb4/YASoXT6yzmIQLSD8ayf6BVTKgzVGWI+oyCV4ZzxHRONyTNa0lVoRXi5v6JChl
-	 RKhMTG0ZI0QdcM1kmdUz1B4WyT9rIeBCcufTkj4p+KSAmLnT3bSKO9U7oImWmysDCX9J4
-	 gBNpW165KKCvSDaVj+5PimZ3Io0ts+fplhdyIsDMILzX36YjL3eVhAgNUtN+8c/5PR2qd
-	 9liEpgnoSBlb1z3Nw6XnfyxuVJnOT3PL51323GLPUU5wzbnBCOsJOWIE7Gigxl9waBA==
+	b=ReqNFgSiLig37w1QIoETwVetuUmHoWbnOyRTwQ1MiuUPHMdtBRQixwnZSsDDn+U3W0PX
+	 LLGiVGa9n4Jp9NmLl9mBcSnhkP8jno9OhqCZCFDjUxxJOByyIQnx4Vb3OgfkyquXuNdDs
+	 NeaboCPSJEB8DoKnAWcJ/dctw0+uPf137DGjCv9+gJl5OkzaK0NWKZ6SwKV7DNk7G84JI
+	 GHdNV0n2u6Y1BRMJTm3sGZc990bywb4kKUHgw8lnykvzMW3mRyscHhFXFT/ec7WNOLBSi
+	 98zSexjhV48i6ABtQ5qOaAtFlW7GPzflmXZ0q/VNMpwLaHx6pBrcSVYYxh9IPai4vLQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794396911;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:From:Subject:
-	 x-ms-reactions:Date:Message-Id:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=M1EINSxaHyw1H+TMjQrZwWJ4f5dmRsJg5xz1fJV79Ko=;
-	b=nyofoo0KYianS9n53XvNR5u05+idFV8LUeeNmqqqf5yCfjFou7trUUbyaHXJDwiQ2rbz
-	 B7pXwXy5H/6aMJesLFsZP9s/iuNvFGLzWnsvCr88hHlnGCQsy5XmbDc05yCVBmq3hU5ys
-	 v+bAQ9Oh9v0PGaLRz8voxGgfQWVRLbQUQPYOG+ZhZpPV5IDbqFUlNPggVAwEfo+reinyF
-	 vo7EmL03ysWvKW+MwavQ2/gdgGZvAzkwNnKujpTZAs9nEfT/tFtLsUERGLIz0OxAldWFE
-	 v4Oy+GUqBZc6hx1LC1/LDRvzdeqo/fkqjzCm+/Rrtw99LMnraAxBEBbxA6J4/OQYoCg==
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=zn/evyTY2YXOIPUCl2VF89xJV5FEZinteqD1qP6+XjA=;
+	b=Yqo71W9QfrZJgddTdbBqBtPpY+/D8Ko5jxEsSGvQSkeEO+5rANPQweYlyWefz2QnK4TU
+	 0IYAnxNY6248BvNa5npctG8x4qQNGMn/byiof00wTdlNbGwUm2GkHKXnNDznJNYW2dozW
+	 YKuUEq+nsURBXLzu5qVVdOVIH5V8UKHnUoSZgBAffoPbWyHSNwW+hU65zeBdCQa/VbqQI
+	 4qlXddXp/TJAUvmrXFEeJbNihc1aUa4VLCA4zufvXOdoYNpyiF0cBfiOdqc5mqEEgd1Jj
+	 q3i6NpTyTglWeBDiJzXJHgquxkbfMOtJV7P+Mj6DkqMIb6Ppy5w2e9deBKKk2PTsyCA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=puzzle.ch;
-	spf=pass smtp.mailfrom=puzzle.ch;
-	dkim=pass header.d=puzzle.ch header.i=@puzzle.ch header.a=rsa-sha256 header.s=20211209 header.b=msfu451e;
-	dkim=pass header.d=puzzle.ch header.i=@puzzle.ch header.a=rsa-sha256 header.s=20211230 header.b=fKCj+X1H;
-	arc=none smtp.remote-ip=45.81.71.124
-Received: from mx03.puzzle.ch (mx03.puzzle.ch [45.81.71.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4DEA606A32A;
-	Wed, 11 Nov 2026 11:35:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E4DEA606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=puzzle.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=puzzle.ch
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=ctmbQthb;
+	arc=none smtp.remote-ip=111.22.67.151
+Received: from cmccmta8.chinamobile.com (cmccmta8.chinamobile.com [111.22.67.151])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 28CB2606A321;
+	Wed, 11 Nov 2026 11:35:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28CB2606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=puzzle.ch header.i=@puzzle.ch header.a=rsa-sha256 header.s=20211209 header.b=msfu451e;
-	dkim=pass (2048-bit key) header.d=puzzle.ch header.i=@puzzle.ch header.a=rsa-sha256 header.s=20211230 header.b=fKCj+X1H
-Received: from mailstore02.cloud.puzzle.ch (mail.puzzle.ch [IPv6:2a06:c00::5086])
-	by mx03.puzzle.ch (Postfix) with ESMTPS id 61114193;
-	Wed, 11 Nov 2026 12:35:02 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=puzzle.ch; s=20211209;
-	t=1794396902;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=M1EINSxaHyw1H+TMjQrZwWJ4f5dmRsJg5xz1fJV79Ko=;
-	b=msfu451evHrWY7AtkmoYqMxp8lQy2+i94cYA4ua2MaIs+x7E4ognQXN83fyC27WLMKrzor
-	vkPNgkQKnmayi8oKKTGCFX6A0b6iYJh1hI+s18DrbrSOiwbPOEame0aTshV5tjANr2XNdv
-	IzZHjdSza25nmCnzj2SX7S53VirKVyzw8G2y+fkNCOfmzcmtj38B1YWmNdUmGx0+tlZQiE
-	dAtGPAl+5G3eQNr9Pvunl/ZDDFP9Ter+voG1amF2dgnxWRbz7ovkiJlg/MtvzA25AaJ6CZ
-	8m5n5YqauUqx9/P9AAkdVGVkmPsx8URrje7oiBLEq61mKpsHnRUyIfBD+f6N2g==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=puzzle.ch; s=20211230;
-	t=1794396902;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=M1EINSxaHyw1H+TMjQrZwWJ4f5dmRsJg5xz1fJV79Ko=;
-	b=fKCj+X1HaTq7zJ1Fir56kSTfTq9phCoZtxWn33kAY9OYSm2MqWx6U5vehp7200RgDm1sF3
-	CKNrZ0+GOzySrGLL2VE/MXll9tKq3au+Ek4qS9j4vTHgiJwPmiwk+WdkQB+3QxgTBZXJsk
-	zlstpXW1lIBIAVmy53nL9rmrGgoFMjlyUeYYNJ+3c/e22TarvwyYID/WxlaId45INRGGq4
-	VcMrqpzDv9s1c97g3qgRPQcbPjsfR0YFvzqmEA/Gvmdcd1mvaoNmLDKqbFCzCORRqppklj
-	D+MMVGqIujn1tk0I9SvupntFaoNdvg6Hdp5C5p1NCOZipt+pEMw7JRy8FNsGDQ==
-From: Michael Grzeschik <grzeschik@puzzle.ch>
-Subject: [PATCH 0/2] usbip: stability changes
-x-ms-reactions: disallow
-Date: Wed, 11 Nov 2026 12:34:52 +0100
-Message-Id: <20261111-usbip-v1-0-da5217ac71d7@puzzle.ch>
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=ctmbQthb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=ctmbQthbX/z3rmhYp6sHMiRaosFNrjMsuCgbCRRbEJ5FdfQzAz84h4zvsHEJAtrhjtrhDNqusug2G
+	 pLEOZO5UDvuMHViXXUPJJFuUXiWDsx39si7v0AXIOLDPBvx3IcjQQPyxs+WksuNkc+b2eYMF7ABALT
+	 eH5R07ZZsbX3wf+4=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app06-12006 (RichMail) with SMTP id 2ee66af452ec7e9-a5480;
+	Wed, 11 Nov 2026 19:35:08 +0800 (CST)
+X-RM-TRANSID:2ee66af452ec7e9-a5480
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from localhost.localdomain (unknown[223.108.79.101])
+	by rmsmtp-syy-appsvr07-12007 (RichMail) with SMTP id 2ee76af452ea9e0-dabad;
+	Wed, 11 Nov 2026 19:35:08 +0800 (CST)
+X-RM-TRANSID:2ee76af452ea9e0-dabad
+From: Xia Yan <yanxia@cmss.chinamobile.com>
+To: netdev@vger.kernel.org
+Cc: edumazet@kernel.org,
+	ncardwell@google.com,
+	kuniyu@google.com,
+	davem@davemloft.net,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	torvalds@linux-foundation.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	yana06070@163.com,
+	netdev-bot+sashiko@kernel.org,
+	jiayuan.chen@linux.dev
+Subject: [PATCH net v3] tcp: fix device binding after failed IPv6 connect
+Date: Wed, 11 Nov 2026 19:34:55 +0800
+Message-ID: <20261111113455.284747-1-yanxia@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,56 +78,111 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzNDINAtLU7KLNBNS04ySzEwMjI1STRXAqotKEpNy6wAmxMdC+EXlyZlpSa
- XgDQr1dYCAMAQuWZpAAAA
-X-Change-ID: 20261111-usbip-fcb6d02254a7
-To: Valentina Manea <valentina.manea.m@gmail.com>, 
- Shuah Khan <shuah@kernel.org>, Hongren Zheng <i@zenithal.me>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Michael Grzeschik <grzeschik@puzzle.ch>
-X-Developer-Signature: v=1; a=openpgp-sha256; l=908; i=grzeschik@puzzle.ch;
- h=from:subject:message-id; bh=p3Gb9PfSetQLF1brE+Jatwu4F0hAAwy6WhmYgARmMWo=;
- b=owEBbQKS/ZANAwAKAb9pWET5cfSrAcsmYgBq9FLjULc0sMqJWG0zkrwAVmKUzXXZN8Xnm3n/g
- VZSnUEuWKWJAjMEAAEKAB0WIQQV2+2Fpbqd6fvv0Gi/aVhE+XH0qwUCavRS4wAKCRC/aVhE+XH0
- q1waEACKPqrjYgrqsIx1tTpPpHM+/p1WaaEkwWywpf2lmWDW7XUC84RXJpcCoYHxRDDOzkMCEKd
- GvUNzskT9NSQc7Cz7paGMwnK4U+wX+oWXVE/gwBt8r27joUTGix4A5yc082bnjkjgt9xOjCnWhm
- HO+Zge00KrQWkOkk0j0kLh8GukkG33IMHCx18OYvAyke8wEhlo2JUrYY5lQkXsad4ujmjY3kxmG
- 3YVFtxlFSI7c5euoRGovSJ79hvL4YH6rNr4Mhv2CROCII6P7duUGy7XTq+bsCUOgwF3+Xo8ReZA
- TZCLdwWhHMYueQWTp68o6MMFAQpJYtnIiMv+yyTI51Tk8/IDjvPRHVavOIevsoUKiXIi4OtKf0W
- UIanfDmfuBiJeMrL9BjKsc4Vnw5RQlH+LU8LLNYjoK3J83vrexK8T9w4eZJpXzjAeKUmwulzVGY
- Ip7aAEz8mHMfNfw/ZL4gp4Yxap6PTQ0nHgOfxHgvkjgK0ctrh+likU3ouS7iKEfX+3i4wVmweoD
- sAiHdDLCu2ESpSz22wxo2knv3z39wTujnYemvglOzRaWgyDmpOApWS9ZT4VXwPj6Bc41vikMdFd
- DJqImC7zImlo1iiZ2SY7tiHAl/Mc/yizDTwuBxCPm6XHFQp7GgRYK98mlR03qWCsydsX6BYKVJy
- 83QpohouSmkS0Cw==
-X-Developer-Key: i=grzeschik@puzzle.ch; a=openpgp;
- fpr=957BC452CE953D7EA60CF4FC0BE9E3157A1E2C64
+Content-Transfer-Encoding: 8bit
 
-While using usbip on kirkwood embedded machine, I came accross
-some stability issues. This series is addressing the reference counting
-on and usage of the event handler itself.
+tcp_v6_connect() sets sk_bound_dev_if from sin6_scope_id when connecting
+to a link-local address. If the route lookup fails, the error path
+leaves that binding in place. Retrying against ::1 on the same socket
+can then fail with ENETUNREACH, although a fresh socket can connect.
 
-Signed-off-by: Michael Grzeschik <grzeschik@puzzle.ch>
+Save the original binding and restore it unconditionally on native
+IPv6 errors returned by tcp_v6_connect(). Restore it before
+tcp_set_state(TCP_CLOSE) and inet_bhash2_reset_saddr(), which uses the
+binding to select the l3mdev for the bind2 bucket. Do not restore it
+again after the TCP_CLOSE callback. Keep IPv4-mapped errors on their
+existing cleanup path.
+
+Found during LLM-assisted review of the tcp_v6_connect() error paths.
+Reproduced in UML by connecting to fe80::1 through a down dummy
+interface, then retrying against a listener on ::1 on the same socket.
+With the patch, the retry succeeds. The VRF cleanup tests also pass
+without the inet_csk_get_port() warning seen on the baseline. Tests
+also covered existing bindings and BPF sock_ops callbacks. These are
+custom userspace tests; the networking selftest suite was not run.
+
+Deferred Fast Open failures after connect() returns success are
+unchanged.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Suggested-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+Suggested-by: Jakub Kicinski <kuba@kernel.org>
+Link: https://lore.kernel.org/netdev/062d02ca-e9e1-4f4e-ac57-0de27272a205@linux.dev/
+Link: https://lore.kernel.org/netdev/20261110100224.57cbf548@kernel.org/
+Signed-off-by: Xia Yan <yanxia@cmss.chinamobile.com>
 ---
-Michael Grzeschik (2):
-      usbip: stub: reference count struct stub_device
-      usbip: identify the event handler with current_work()
+Changes in v3:
+- Restore old_bound_dev_if without the scope_id_set and current-value
+  checks, as Jakub requested.
+- Keep the early restore before TCP_CLOSE and bind2 cleanup, and
+  avoid restoring again after the close callback.
+- Leave IPv4-mapped failures on the existing cleanup path.
+- Use WRITE_ONCE() when installing the scope binding.
 
- drivers/usb/usbip/stub.h         |  3 ++
- drivers/usb/usbip/stub_dev.c     | 69 ++++++++++++++++++++++++++++++++--------
- drivers/usb/usbip/stub_rx.c      |  3 ++
- drivers/usb/usbip/stub_tx.c      |  3 ++
- drivers/usb/usbip/usbip_common.h |  6 ++++
- drivers/usb/usbip/usbip_event.c  | 17 +++++-----
- 6 files changed, 79 insertions(+), 22 deletions(-)
----
-base-commit: 067c5c24cef23d913b67eaaf71ae67e7169a6620
-change-id: 20261111-usbip-fcb6d02254a7
+v2: https://lore.kernel.org/netdev/20261102143352.135769-1-yanxia@cmss.chinamobile.com/
+v1: https://lore.kernel.org/netdev/20261031074654.73952-1-yanxia@cmss.chinamobile.com/
 
-Best regards,
---  
-Michael Grzeschik <grzeschik@puzzle.ch>
+Testing on net d2809ccf3cfc:
+- UML: reconnect and existing-binding checks, two VRF cleanup cases,
+  and five BPF sock_ops cases. The baseline reproduces the stale
+  binding and VRF warning; v3 completes without kernel warnings.
+  Native CONNECT callback bindings are rolled back on failure;
+  CLOSE callback bindings and IPv4-mapped behavior are preserved.
+- x86_64, GCC 12.3.1, W=1: completed kernel and module builds with
+  configurations derived from allmodconfig and allyesconfig.
+  WERROR, KASAN and KCSAN were disabled; allyes also had
+  KUNIT_ALL_TESTS disabled, with the resulting dependency changes.
+  tcp_ipv6.o compiled without diagnostics in both configurations.
+
+ net/ipv6/tcp_ipv6.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
+
+diff --git a/net/ipv6/tcp_ipv6.c b/net/ipv6/tcp_ipv6.c
+index b1dec5d86d633db67a754c70ee1c63290a9acb5a..641b74aaf1963e71bb59e5542899e30e33b82a1e 100644
+--- a/net/ipv6/tcp_ipv6.c
++++ b/net/ipv6/tcp_ipv6.c
+@@ -134,6 +134,7 @@ static int tcp_v6_connect(struct sock *sk, struct sockaddr_unsized *uaddr,
+ 			  int addr_len)
+ {
+ 	struct sockaddr_in6 *usin = (struct sockaddr_in6 *) uaddr;
++	int old_bound_dev_if = READ_ONCE(sk->sk_bound_dev_if);
+ 	struct inet_connection_sock *icsk = inet_csk(sk);
+ 	struct inet_timewait_death_row *tcp_death_row;
+ 	struct ipv6_pinfo *np = tcp_inet6_sk(sk);
+@@ -197,7 +198,7 @@ static int tcp_v6_connect(struct sock *sk, struct sockaddr_unsized *uaddr,
+ 			if (!sk_dev_equal_l3scope(sk, usin->sin6_scope_id))
+ 				return -EINVAL;
+ 
+-			sk->sk_bound_dev_if = usin->sin6_scope_id;
++			WRITE_ONCE(sk->sk_bound_dev_if, usin->sin6_scope_id);
+ 		}
+ 
+ 		/* Connect to link-local address requires an interface */
+@@ -251,7 +252,7 @@ static int tcp_v6_connect(struct sock *sk, struct sockaddr_unsized *uaddr,
+ #if defined(CONFIG_TCP_MD5SIG) || defined(CONFIG_TCP_AO)
+ 			tp->af_specific = &tcp_sock_ipv6_specific;
+ #endif
+-			goto failure;
++			goto out;
+ 		}
+ 		np->saddr = sk->sk_v6_rcv_saddr;
+ 
+@@ -353,9 +354,14 @@ static int tcp_v6_connect(struct sock *sk, struct sockaddr_unsized *uaddr,
+ 	return 0;
+ 
+ late_failure:
++	WRITE_ONCE(sk->sk_bound_dev_if, old_bound_dev_if);
+ 	tcp_set_state(sk, TCP_CLOSE);
+ 	inet_bhash2_reset_saddr(sk);
++	goto out;
++
+ failure:
++	WRITE_ONCE(sk->sk_bound_dev_if, old_bound_dev_if);
++out:
+ 	inet->inet_dport = 0;
+ 	sk->sk_route_caps = 0;
+ 	return err;
+
+base-commit: d2809ccf3cfc3c30581dc64ebec5f49f7ee1e228
+
 
