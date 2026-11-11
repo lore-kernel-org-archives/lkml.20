@@ -1,47 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794401547;
-	b=bKfPi1pg0W43Zck2SnL8XshKQmirQrZOgeAeV3fBELS+XK/Hcy4bg1tUrbgqdqavDRuv
-	 mUsxWlzwZyPSzUbG5c23bIWbNMf6+1TRUs5BcQOc6GDF6j7340uUzDtjilO6QBsVI8X1e
-	 gmKtEOUwTxwPAuI9YnWfdCUdpwCccYyZl3amtIwJj4a/KyMqv1Vt2RUihiBgkI6PKYWJF
-	 dzC5cWUNIEhohxw2Ojz9ivnCTmvTjiX7Tv7icvgDeidDDs9Y99M/UfYPbLDLgujj1gNKl
-	 z21VxCqSnCLXjm60x1dz8NSUFja85uMXK9BQnhOClr+lzzKJWODd9b2erwUUHTCcqkA==
+	t=1794401574;
+	b=fYlDWCbD5JknatLECxopdunmust74i8Df354EijFwAIlOSOs8i0zDAIRY7OKaNB0s8ur
+	 tqCvI3P3kR+0IdIWK+CD1Wh0omqmJcPqT1+A1jfzAg8tQEFCLH4OvxNXN6RLOy22QjYw5
+	 7+bFtUo1v+m5ZIwcliypcWWKIXaR2TFCgEh9iyZd0+cIjDLbS6lNAXlnJb/CV2L0gCpwO
+	 4AfYdzZc8pvoHzFzJ3l7Y5NEscBxzA/dePYJZkMm6DGa5ZuBE6KsY2m4uYNhfn+67nPKN
+	 niyzHDc4Gp1tUPqzggMtOxX6ZVxm5168nmAsA5jXbQv7elhpun8SUw6GbevpPAJILUQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794401547;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=8EaOYw3Ns7m59pAEKopA3/8l+QWoCfeJZjHCMiNoUTw=;
-	b=2cpx9tbPTg4ybBizG11VFUUzWMmRHK48ziKhNvySO2qZjKfjLJDirVsv4ZmDkiVTo0TG
-	 7c8QE/qdwx3vso61DrUMRs+fc/8yz16d0rivcmGdChoVPUlkquC3zzWRwYze+FQNnaE4+
-	 dm770UYt+TUJFmaPhBYWUgtYpk6c7eS6BM+dFoGBpWSJ7a8DaRlsSjdzqhVkhIrT/RxBB
-	 xQYQJgybW/zcMlRr8NgSOi7RCI3m1nZocPEmynGVUXshdEUBES9y8+1WnoKpnq2yFUxIo
-	 NeOuzKpwT99oajnEjZu0QoeSzGPTXWqDGAmg1f1UkGTmhypBdbhD7fJZiuBu8nCYJKg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794401574;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=WUIiY6/aqEcIQI9igCGxNqtAW7lC+kJkajoHFMnyrno=;
+	b=odQ9RwUTlDkmyOOJSdhxJg264zAWnEDJJt0sAVRdQY1nKDidhmSjUbBJxPSzzesuiqRd
+	 lnI305QPayk2nt/jDQjN6NCfseGvZRG3gZQuEkyuGMkyu8DrPb9prd7tjEp+gE60oI4eV
+	 BgxfhXRusFjARuPRGgfbpMWB8G/SS6Qb93PBtMCyvSaHyOngKj/G06QCr21JJ6j+cR+zD
+	 kmHWX90OJXrV6Yq8I6wxd41VgJHiSpwsw16YSkKK6SaRD6WWOh1MMezs3uOq2cCBW0ebJ
+	 9wThCFFC9AS784SCAb+l/+YgIwjNYS/F3DCr0skjn7GNx+iqv/8RTsTn0JQOOzXB5KQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="lV9/dT8F";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=ionos.com;
+	spf=pass smtp.mailfrom=ionos.com;
+	dkim=pass header.d=ionos.com header.i=@ionos.com header.a=rsa-sha256 header.s=google header.b=cBL0sfsp;
+	arc=none smtp.remote-ip=209.85.128.52
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8516606A331;
-	Wed, 11 Nov 2026 12:52:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20492606A321
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 12:52:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 20492606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ionos.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ionos.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lV9/dT8F
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6A8D1F00A05;
-	Wed, 11 Nov 2026 12:52:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794401547;
-	bh=8EaOYw3Ns7m59pAEKopA3/8l+QWoCfeJZjHCMiNoUTw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=lV9/dT8FHtdDoJpmXQ0Sy1v8sQyBKBrYr/BK878gTWYi52sLwjNxUBCbjV8eZKIL3
-	 sagrUd9iT3OSHGfcxTTqoO0fABAXkOK+KwnjfUcI/tmNdjThAiet+pKWRb9Wcu9XBK
-	 CDzvHY2EcQ4GQG4JZM4jywaYIiwgB/YRNQMAF9GDxge6c0TOjiHNEybfJoFW+gpSLO
-	 t3meqPrxAtEvpoZgfGoLzSSKBuTOnOXfx7k8vXSAKsADCmHwSnBAKcEke11OWlQ+hD
-	 0Z5LR3bBkbC66NJ1hKtDexbWuNF082TWoI0VeULw9rkGzrFU2mxUd+++7x/CbD95Si
-	 R1yVYngZ1Onsg==
-Message-ID: <9575e79a-4cbf-48fe-bd3f-ff89e2ffdb92@kernel.org>
-Date: Wed, 11 Nov 2026 13:52:20 +0100
+	dkim=pass (2048-bit key) header.d=ionos.com header.i=@ionos.com header.a=rsa-sha256 header.s=google header.b=cBL0sfsp
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a140e7405dso27251815e9.3
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 04:52:52 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ionos.com; s=google; t=1794401571; x=1795006371; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=WUIiY6/aqEcIQI9igCGxNqtAW7lC+kJkajoHFMnyrno=;
+        b=cBL0sfsppJmbAWH3u6JYGpy00djNtx9prs+tozwdSBTBJ7ZfbuCJ9y10EHpF6her5s
+         aCkBHSXO2HzYP49eKWbKuFLt1bINOAkNXV9aWjYgCK1vVId+ezyewSlHDQMQVt/isZrF
+         y4g8G01XaAXj5WbYxXaKDR7ssGDjlgYYjHTC9fQ2PYmjSjJngWsUxPe3zUdJaomt7Ktg
+         y+I8RHHWiDezcsley7OiYrLssMTlasL3jekpFk7vVRaT/Qq48w/Cs76SEbXgFtbcrbeH
+         sNA3b9QwYTX9dEdQZh1VzOfjzDRaLE+d0ebGh1sHGt7gjdEmw3QTrjkRSQ27ZaqYg6xC
+         iVcg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794401571; x=1795006371;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=WUIiY6/aqEcIQI9igCGxNqtAW7lC+kJkajoHFMnyrno=;
+        b=1TRCtzMTtiCpiu2GTbHSkClWmblNQ7cqQu5qFF7R+hgS56lqGu4LbMFCN8L/HJyTrY
+         gMzPxlCKevUjPxr+SKoaglBu/G1YZMzVHYpM/XHdZ3p42M4uZsV9OdokJQJSyAzQnSwt
+         HcpNbmVMPG4+GaWBTlqJs7uy7JNMCGmZGRUSG98cDp/vdTxqjtWQTBnwosmJsFxGtLxs
+         Ws5vArqm5t5ytq+myvrb6gEpmZzHmCqoPHmRWcUIXX3Takbr4ZCBoEeyX86gAZrSSxcM
+         9mt/LiP6gY4sIhzneH2p1leGCTFj45hr8SaX8XALFRdLEe5l4K08Mbgx0TV6qBKwmbHL
+         PRIQ==
+X-Forwarded-Encrypted: i=1; AL+hErFcVcOxGqCVDPH5+ruXj4y3/hFPYzC6wVsLtsp5c49LiG8pLuW/WYqSBXg5gYH8wsotkhnsxMy3a7Kw1FI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8rO4TMIl5YiwVCcVkXLemOuvLb764yj533ZxMpd2Lwmo5oS3Uq
+	ZijArlP+QvcOCSCdQvB0COD88/JelCWzNQulNHxt+qKqBjReGQEqbhVg7kp/Sf6Eiog=
+X-Gm-Gg: AYBFou0qudff07t+yfcn5wJQJyYTddRtVcrIhe2CSzhn2eUe9nPkXUp483FWB8ePgQf
+	UTb43GbV+b0B5aICQxSN60ZKid1RgIQsEXczyioQRvOamcOA6a4v7fE9eeC/0Q4wCiGAQYZsrxJ
+	/QlstqrhG0GLzKufqOtvoWs5NE2wZmlzc3MdfrmjWCK1Oi54EVxXyk/2kOa+jH3ATLF8kcSRsM5
+	oWP44SInKJFpxVjDydjzB406v3krJGD0YEP+2fzp5hiio4VSi9dvruK/bdAoMJLJWl6NQL1QIrC
+	3AVIXSOzDBiAUcn+A4SdyJagBQmQVtp5z8x24i50pn1xnkvCLZkwykbEaEModuF0X+EixSTrK+e
+	PzJ3PE/9SyBPhYCa6NspB5ql4YIDOKZ3tUW+l1CCCortri2n1SXDFb5uWRtlPe47k687Q9p6c3V
+	GQmbcILwLK8cqFzD6xuROoKnsiGcUyHlpdAeunRNBaiQlrjQFAn5UANzbhEgSFXd+FFNPPhvxl4
+	6scZad4iGlRN2Xn83z+Rw78sQkoPmrVZwUPvMgBs3hWdeDeNhr+udJuoSn9+2bdAD5OfA4F3X/A
+	Pd3y0cXHncpE6VojC2vkMTQZ0Jbu86kOClCraLJbhPm1dpoxTMRPnRTjavEBuYjJ8yW6QWBFQ/y
+	JIDT3DJm+pExWMW02MwwUsz/noDisZg==
+X-Received: by 2002:a05:600c:3554:b0:4a4:4d57:8487 with SMTP id 5b1f17b1804b1-4ba0936c8admr40498745e9.5.1794401571502;
+        Wed, 11 Nov 2026 04:52:51 -0800 (PST)
+Received: from raven.intern.cm-ag (p200300dc6f4cbe00023064fffe740809.dip0.t-ipconnect.de. [2003:dc:6f4c:be00:230:64ff:fe74:809])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba020433casm132712185e9.7.2026.11.11.04.52.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 04:52:51 -0800 (PST)
+From: Max Kellermann <max.kellermann@ionos.com>
+To: tytso@mit.edu,
+	adilger.kernel@dilger.ca,
+	libaokun@linux.alibaba.com,
+	jack@suse.cz,
+	ojaswin@linux.ibm.com,
+	ritesh.list@gmail.com,
+	yi.zhang@huawei.com,
+	linux-ext4@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Max Kellermann <max.kellermann@ionos.com>
+Subject: [PATCH 0/3] ext4: reduce per-inode memory overhead
+Date: Wed, 11 Nov 2026 13:52:39 +0100
+Message-ID: <20261111125242.1078620-1-max.kellermann@ionos.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,123 +102,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC] mm/filemap: fix lseek() skipping a new large folio
-To: Jan Kara <jack@suse.cz>
-Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- William Kucharski <william.kucharski@oracle.com>,
- linux-fsdevel@vger.kernel.org, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, Chris Mason <mason@kernel.org>
-References: <20261110-lseek_hole-v1-1-c089c960b846@kernel.org>
- <wkpls4kiwl3ktyu5ekahlchabnaqq45o4tgv26cmrs552ljse4@oczec23ankdt>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <wkpls4kiwl3ktyu5ekahlchabnaqq45o4tgv26cmrs552ljse4@oczec23ankdt>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 11/11/26 12:45, Jan Kara wrote:
-> On Tue 10-11-26 21:33:12, David Hildenbrand (Arm) wrote:
->> mapping_seek_hole_data() walks the page cache under RCU and only calls
->> xas_set() after entries larger than a page. Between base-page entries,
->> it continues the walk with xas_find(), which skips sibling entries
->> to return each multi-index entry only once. If a large folio replaces
->> small folio entries between iterations, the slot holding the new folio
->> can lie behind the cursor. Skipping its sibling entries then skips data
->> that has not yet been examined.
->>
->> On tmpfs, SEEK_HOLE can then return an offset inside existing data.
->> SEEK_DATA can skip data after a fallocated page that is not uptodate.
->>
->> For example, assume a 2 MiB tmpfs file backed by 4 KiB pages on x86-64,
->> with page index 63 fallocated but not uptodate and all other pages
->> uptodate. Index 63 occupies the last slot in the old xarray leaf. A
->> SEEK_DATA starting there can skip that page, then race with collapse of
->> pages 0-511 into one 2 MiB folio. The next xas_find() moves past the old
->> leaf and skips the new folio's sibling entries in the parent, returning
->> -ENXIO instead of finding data at page index 64, or 256 KiB.
->>
->> The inode lock held by lseek() does not exclude collapse or swapin.
->>
->> Restarting the xarray walk after every entry fixes this, but increases
->> SEEK_HOLE time about 24%, when scanning a fully written 1 GiB memfd backed
->> by base-page folios in an x86-64 microbenchmark.
->>
->> Instead, use xas_next() for adjacent indices. Restart the lookup from the
->> root at the requested index if it returns an empty slot or an internal
->> entry, including a sibling entry. Also restart for nonadjacent indices,
->> invalid iterator state, or failed folio validation. This avoids skipping
->> unexamined data without restarting each lookup during base-page scans.
->>
->> Fixes: 6b24ca4a1a8d ("mm: Use multi-index entries in the page cache")
->> Reported-by: Chris Mason <mason@kernel.org>
->> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
->> ---
->> I'll be more than happy if someone of the pagecache folks wants to take
->> over ;)
-> 
-> This looks good to me. Feel free to add:
-> 
-> Reviewed-by: Jan Kara <jack@suse.cz>
-> 
-> I just find it unfortunate that we have to play complicated games like
+This series reduces the size of `struct ext4_inode_info` by improving
+timestamp packing and allowing fast commit and bigalloc support to be
+omitted at compile time.
 
-"unfortunate" is a good word. I'd have used "annoying" :)
+The incremental reductions are:
 
-> these for such a simple operation as sequentially iterating over all folios
-> in a mapping. And it is not a first bug of this nature trigered by
-> compaction. So longer term I believe we need to provide saner apis
-> shielding pagecache users from these nasty details.
-Yeah, I would have preferred the simpler fix, but ~24% slowdown gave me a pause :(
+  Disable CONFIG_EXT4_FS_FAST_COMMIT              48 bytes
+  Disable CONFIG_EXT4_FS_BIGALLOC                  8 bytes
+  Compact creation time, with fast commit off      8 bytes
+                                                 --------
+  Total                                          64 bytes
 
-thanks!
+On our production server with 35 million ext4 inode objects (a big
+fscache partition), this saves 2.1 GB RAM.
+
+Both new Kconfig options default to enabled.  Without fast commit
+support, clean filesystems use ordinary journal commits; journals
+requiring fast commit recovery are rejected.  Without bigalloc
+support, bigalloc filesystems are rejected before journal recovery,
+including for read-only mounts.
+
+Max Kellermann (3):
+  ext4: make fast commit support optional
+  ext4: make bigalloc support optional
+  ext4: store creation time in separate seconds and nanoseconds
+
+ Documentation/filesystems/ext4/bigalloc.rst |  6 ++
+ Documentation/filesystems/ext4/journal.rst  |  7 ++
+ fs/ext4/Kconfig                             | 31 ++++++++
+ fs/ext4/Makefile                            |  3 +-
+ fs/ext4/ext4.h                              | 83 +++++++++++++++++++--
+ fs/ext4/extents_status.c                    | 44 ++++++++++-
+ fs/ext4/extents_status.h                    | 15 ++++
+ fs/ext4/ialloc.c                            |  3 +-
+ fs/ext4/inode.c                             |  8 +-
+ fs/ext4/super.c                             | 40 ++++++++--
+ fs/ext4/sysfs.c                             |  6 ++
+ include/trace/events/ext4.h                 |  3 +
+ 12 files changed, 227 insertions(+), 22 deletions(-)
 
 -- 
-Cheers,
+2.53.0
 
-David
