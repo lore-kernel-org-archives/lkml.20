@@ -1,55 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794439708;
-	b=y3IdibWGUQFKEnJi+jLwViKFnu9NtglEMzxIFlzAV8Yr899rXsN1LT2TBhYBiKMGhf2v
-	 N44W3/+SggZKj7DK4U0YTPE2NI0wt11WOUAnu/B+y8R62GtPDk4O1Z2OdDuruzy0y6L0h
-	 Nzya3+5/RMUr+deC1DsNtGsc+q52Wfz6EbXnj1TLY1Ei2RNkq6hRdOYaDgoRU1GresiVl
-	 hSl/dKB7X7enOcLGlUHW1Xh6wmlRGySBWyaCLW1NHwqLvqFTldo77nbvTKysxibEn4cdg
-	 yMitekJOUQarK2cqhp6peV0p3A913bhq4CZ/skePHAEOQnmHUUmHVZDV1BHGjK4y9tA==
+	t=1794439724;
+	b=z9Xxo66/9tCl1hsedyMED45WCFX59mYOlgXCJI+39P36tKCcG9tA8xlhtLl4WdqgcAL7
+	 gnDiDup3fn0jTuF6OJZOMxvwEJtf1sTSJI6sGd9yBM+BweWf8wPbrhnqy6NdU1ec6RMP7
+	 VMpBBsUET+3R8il2+0EjbJnpJxyt67fEYQkb1xGqxXgL/8ycADuoERtAcMm87ezkub7el
+	 wN35Yf6Fnf3oub5WKnu+1PPf6cVzMwpZYEjKBx1TKixZoBgwCWrAeCxFGaSWSGDMFAtsF
+	 rawwjLMtCU/9Nvpk344ci26CUZsqNyuP/IyfISapebO9UsLzeta9kfIkd3Tl8Gtxp9Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794439708;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=kjKsRt8cRszpgQ0Xyi6phaRtCt9rAnhHaLCwTH4eFiA=;
-	b=pmlk6tQAT+l4sTeGJ7Jeh3fC2UH+M8bm9QK4wRQwMIodxHyJFxSivIvmzsDjW+J6Slqb
-	 nMQmk4YPUm2UlNUDYtI2qHBm8uoNwnkdxi3Mjvp5ZwyDWNMV+IXmplwGC4z3TfCjw04+I
-	 k61cMWWml0hMWmKFsCblze9TOI5CMhy81SXExt4tS7pFnqMKHbS2CON80hO8I0KC90/8p
-	 JjI+mSAN+N6weuLhlSFQNjQsus6G3E0pmaxwE58YZfUjSeq61e1PkXRih0V8RnoRTK6oj
-	 oRbYMT/FZnhE1xGvN2FvFRdodhXcg/eI53A/hAHhOpAq98O22t+7NimQ+hWDuN1XFIA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794439724;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:Organization:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=IKsrCBoJXK+5BoP6HnPY8QEU5vTMg70Zu/Nh+kOhTzI=;
+	b=rqf4VNObulhDWuuZSrUd0A47gZBEQgOEevutcusANk4XPPrIhUHY1x8Hhch8VUsHI3Eo
+	 B1RW2Pjs1d6tE90wtqbFq148fDN/S50cJ15jLrKcEV78yjPl1G8pY2HnSJDOWGFTHdkWC
+	 +6TXd4HwNcMhkk4J1Pz5EYsv/dvd3ulxRRQnUxTS+Xe6/px6GGaSuWpSNpiADqNGr+oNV
+	 4WQrFjbUODVC2ZrTNUHh/W08HtbVlCowpgJ5dicCKypx+oX/d7rXaCnRgptuq53oM3zgp
+	 fIcS96EBDL0Nut4gqUjdgryDaTKKuYDjN+uLeDGDOZILiFWBZ7GlxunHCVztUjhcS/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iCm0D5T5;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mI+3Fden;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6FA8606A321
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 23:28:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 924BB606A897;
+	Wed, 11 Nov 2026 23:28:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iCm0D5T5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85B501F00A0F
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 23:28:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mI+3Fden
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7AC8D1F00A05;
+	Wed, 11 Nov 2026 23:28:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794439708;
-	bh=kjKsRt8cRszpgQ0Xyi6phaRtCt9rAnhHaLCwTH4eFiA=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=iCm0D5T5Ln0cjHZxEusV4a38FXqCDX92CgPRMWeJAdFstQL6vlxX7o/mQmrmbXGua
-	 cTmgFcbEBZlF0ot5TiqvAf2P9dWA2K04hDK6k5ZPM/DTo7iJVNETGw4IimsMC0Bkkq
-	 YRCKz6yr32I2uZ011ySUFEUGAo9VNCTdf9uFVegqFOo2Ok23SLqNDbpvOPEQCtZwIb
-	 aXFGcPMTneR7hf9Uo0S9cuNjMUZUROl85Q4txGD/w/2sHZdYLJQc76OTUUFgsWj9tr
-	 MS6san06x6XR8W8mT/HqPppkyEyWkkIyB7npDD34yjfnGPTZBR6kv7WebGa4LEJuYi
-	 qc41Vo6zrjXoQ==
-Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c5080ef9b31so21944966b.1
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 15:28:28 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErE+Y93dQ+I67a3Iy5SYG+PoR3J3gF/MQdC5qR80kie6XT0Waa6blqIz16hDG06F4OI6SIZrrdCteOPETW0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9tbgvgo4QkCITfzT/8A3rPkmaDBia+KWDfiO+gQvQBDBKB8Dae
-	9sGfPFsqmfu3BKniam1MYozBYj6yD8WnRZtGMQtm+tWMH5kr2eNBRHblSbiBXNW9zKm9hsvN4gc
-	tVNd772RqeGe0f97tEqv1OjyPDWcGTsk=
-X-Received: by 2002:a17:907:7ba2:b0:c46:ba33:1f0a with SMTP id
- a640c23a62f3a-c5066c957f9mr308104966b.31.1794439707397; Wed, 11 Nov 2026
- 15:28:27 -0800 (PST)
+	s=k20260515; t=1794439724;
+	bh=IKsrCBoJXK+5BoP6HnPY8QEU5vTMg70Zu/Nh+kOhTzI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=mI+3FdenraiaeiNHu/j2Q9YoZmOQJb+M/aJNZiifIJR4RWnqvpp5Eg1+YrJ3mGCoE
+	 r1neQvKFYSO7kpuxIEnYdAO2rP8CKQFWonZo71yDN1+J+EbCGBEAXIHo7bxM7fhpn6
+	 tPhClSs/y7EzKIxk2cytcQanr8AEVmPFfHw844oi4WBen1Ef6KYG0Hm1eOvOdGc1Tj
+	 o3m4n/yeVZqn4ioRpPmGuMo4rEJsT9VwX0qZ5D1fTp6n3Us6dlZHf6XQIMrb9TTVQy
+	 bvdQDwz0VBhTCAIWc1tkvJvX3tjjFHb+xH03ypLMhL/EqKKzjNrblooCswdyzCfmCg
+	 LsATA/xWk5nBA==
+Message-ID: <440db014-a58c-44e4-bc96-e950e69b6763@kernel.org>
+Date: Thu, 12 Nov 2026 08:28:41 +0900
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,34 +51,121 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261112-zswap-zero-limit-v1-1-19f33081b09e@perfloop.ai>
-In-Reply-To: <20261112-zswap-zero-limit-v1-1-19f33081b09e@perfloop.ai>
-From: Yosry Ahmed <yosry@kernel.org>
-Date: Wed, 11 Nov 2026 15:28:15 -0800
-X-Gmail-Original-Message-ID: <CAO9r8zP1o+L-akRDJx80bgGj8bf9rdN09t5upPfkduSmNKwpKQ@mail.gmail.com>
-X-Gm-Features: AclHuK_hFEguqcApzcHoN8gE28_RQtMAzD_ff31LFqIL3UJmzagtdSNw4U0_8qI
-Message-ID: <CAO9r8zP1o+L-akRDJx80bgGj8bf9rdN09t5upPfkduSmNKwpKQ@mail.gmail.com>
-Subject: Re: [PATCH] mm: zswap: honor zero cgroup limits after successful reclaim
-To: ts@perfloop.ai
-Cc: akpm@linux-foundation.org, hannes@cmpxchg.org, nphamcs@gmail.com, 
-	roman.gushchin@linux.dev, tj@kernel.org, chengming.zhou@linux.dev, 
-	mkoutny@suse.com, linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
-	mhocko@kernel.org, shakeel.butt@linux.dev, muchun.song@linux.dev, 
-	cerasuolodomenico@gmail.com, linux-kselftest@vger.kernel.org, 
-	shuah@kernel.org, cgroups@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/4] ata: libata-scsi: skip MULTIPLE_COUNT for 32-byte
+ passthru
+To: shao.mingyin@zte.com.cn, cassel@kernel.org, linux-ide@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261111223129430zClEJF8TDgu_h8ZYM843Q@zte.com.cn>
+Content-Language: en-US
+From: Damien Le Moal <dlemoal@kernel.org>
+Organization: Western Digital Research
+In-Reply-To: <20261111223129430zClEJF8TDgu_h8ZYM843Q@zte.com.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Nov 11, 2026 at 3:23=E2=80=AFPM Tom=C3=A1s Senart via B4 Relay
-<devnull+ts.perfloop.ai@kernel.org> wrote:
->
-> From: Tom=C3=A1s Senart <ts@perfloop.ai>
->
-> Commit a65b0e7607cc ("zswap: make shrinking memcg-aware") lets a store
-> proceed after a successful cgroup reclaim. That also lets a cgroup
-> whose memory.zswap.max was lowered to zero replace an old entry with a
-> newly compressed page, although zswap is disabled for that hierarchy.
+On 11/11/26 23:31, shao.mingyin@zte.com.cn wrote:
+> From: Shao Mingyin <shao.mingyin@zte.com.cn>
+> 
+> ATA PASS-THROUGH(32) has no MULTIPLE_COUNT field. Reading byte 1 as
+> that field instead interprets the variable-length CDB CONTROL byte,
+> which can reject a non-multiple command or cause a spurious count
+> mismatch warning for READ/WRITE MULTIPLE.
+> 
+> Skip the CDB count checks for the 32-byte form while retaining the
+> check that multiple mode is enabled on the device. Also report byte 10
+> for an invalid PROTOCOL, where that field resides in a 32-byte CDB.
+> The 12- and 16-byte MULTIPLE_COUNT checks remain unchanged.
+> 
+> Fixes: b1ffbf854e08 ("libata: Support for an ATA PASS-THROUGH(32) command.")
+> Suggested-by: Niklas Cassel <cassel@kernel.org>
+> Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
+> ---
+> Changes in v2 (Niklas Cassel):
+> - Skip the nonexistent MULTIPLE_COUNT field for the 32-byte CDB;
+>   preserve the device multiple-mode check and the short-CDB checks.
+> - Move the invalid-PROTOCOL field pointer fix here from patch 3.
+> - Regenerate with git format-patch; do not edit diff hunks or indexes.
+> - Do not carry the v1 Reviewed-by tag over the reworked code.
+> v1: https://lore.kernel.org/all/20261104220939917jqg8_alGN5sACGWq5M9D-@zte.com.cn/
+> 
+> Validation on x86-64 with GCC 13 and UBSAN: a userspace harness compiled
+> ata_scsi_pass_thru() verbatim with SCSI/device stubs. An invalid PROTOCOL
+> in a 32-byte CDB passed field pointer 1 to the invalid-field helper before
+> the fix and 10 afterwards. CONTROL-byte variations no longer caused
+> false rejection or multiple-count warnings. A device with multiple mode
+> disabled still rejected READ/WRITE MULTIPLE; short-CDB checks were kept.
+> 
+>  drivers/ata/libata-scsi.c | 23 ++++++++++++-----------
+>  1 file changed, 12 insertions(+), 11 deletions(-)
+> 
+> diff --git a/drivers/ata/libata-scsi.c b/drivers/ata/libata-scsi.c
+> index a61fb03312793ca94d81d8061a16c66e786c4cf3..227240514651ada8b5feb87a154833fb2cddf064 100644
+> --- a/drivers/ata/libata-scsi.c
+> +++ b/drivers/ata/libata-scsi.c
+> @@ -3388,7 +3388,7 @@ static unsigned int ata_scsi_pass_thru(struct ata_queued_cmd *qc)
+>  
+>  	tf->protocol = ata_scsi_map_proto(cdb[1 + cdb_offset]);
+>  	if (tf->protocol == ATA_PROT_UNKNOWN) {
+> -		fp = 1;
+> +		fp = 1 + cdb_offset;
+>  		goto invalid_fld;
+>  	}
+>  
+> @@ -3573,27 +3573,28 @@ static unsigned int ata_scsi_pass_thru(struct ata_queued_cmd *qc)
+>  		goto invalid_fld;
+>  	}
+>  
+> -	/* sanity check for pio multi commands */
+> -	if ((cdb[1] & 0xe0) && !is_multi_taskfile(tf)) {
+> +	/* The 32-byte CDB has no MULTIPLE_COUNT field. */
+> +	if (cdb[0] != VARIABLE_LENGTH_CMD &&
+> +	    (cdb[1] & 0xe0) && !is_multi_taskfile(tf)) {
 
-Why is that a problem? Setting memory.zswap.max to 0 while the cgroup
-has active swapping processes is naturally racy. The limit can be set
-to 0 right after we check it again anyway?
+Sinc ATA 32 defines these beets as reserved/obsolete, we should check that they
+are 0 and reject the command if they are not. So something like:
+
+	/* Sanity check for pio multi commands (not supported with ATA 32). */
+	if (cdb[0] == VARIABLE_LENGTH_CMD && (cdb[1] & 0xe0)) {
+		fp = 1;
+		goto invalid_fld;
+	}
+
+	if ((cdb[1] & 0xe0) && !is_multi_taskfile(tf)) {
+		...
+
+>  		fp = 1;
+>  		goto invalid_fld;
+>  	}
+>  
+>  	if (is_multi_taskfile(tf)) {
+> -		unsigned int multi_count = 1 << (cdb[1] >> 5);
+> -
+>  		if (!dev->multi_count) {
+>  			ata_scsi_set_sense(dev, scmd, ABORTED_COMMAND,
+>  					   NO_ADDITIONAL_SENSE_INFORMATION);
+>  			return 1;
+>  		}
+>  
+> -		/* compare the passed through multi_count
+> -		 * with the cached multi_count of libata
+> -		 */
+> -		if (multi_count != dev->multi_count)
+> -			ata_dev_warn(dev, "invalid multi_count %u ignored\n",
+> -				     multi_count);
+> +		if (cdb[0] != VARIABLE_LENGTH_CMD) {
+> +			unsigned int multi_count = 1 << (cdb[1] >> 5);
+> +
+> +			/* Compare with the cached multiple count of libata. */
+> +			if (multi_count != dev->multi_count)
+> +				ata_dev_warn(dev, "invalid multi_count %u ignored\n",
+> +					     multi_count);
+> +		}
+>  	}
+>  
+>  	/*
+
+
+-- 
+Damien Le Moal
+Western Digital Research
