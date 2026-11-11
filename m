@@ -1,72 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794423765;
-	b=qFfOZr67vWa19Ykz87X8XS6dpgy/2tw7w8MfW+cIS4Y5Bd/DFA+81x+yEh4oeH3pC6Gq
-	 L+V7sdGNgty3TRtjU+YHe2vIks1F7aVvHRe/QesWE3EFu+bgY3VewoQl1+7MXN70SNWyB
-	 qHg6S2er+YVjW9zu5CyHlMQ15k9JQVyY6QDine24DoG+GYDO/rA4cTlFNJlLI2MD6jau/
-	 vnfj9Li9khYqC+TQq0l5Rc3UK6/zKhroFtSKEM4uq5cT8ab3zs6VeVUhZHnQ/Sz80NjvF
-	 s0DilaMxkeiDJKtZed7vZfO8SqnGIAv0BuQmKnkyuMD98XLmveoY1ss0jRnEvOR4HuQ==
+	t=1794423859;
+	b=ZEdH4wr/pZa17lKd562agoZB+rb3PPmcFNjPvvo9T7WdpNrSgs9EFLwwLTU1NzAdSkai
+	 63mKqI37LFl25zY/ssrN93oxtlafQxz98LIi6gn0tKm4B4/S8NUhVmVJcOhJ87HjtQ/Z/
+	 U6DevLjq4hUzEjRPs5LILDIprp9WYdIcHSoTEj1lAYme76El1pOB07uYbppSfjwDy4eW2
+	 8RzV4bQlmKBnhbCcXs0XWzttnl4dD7lr4WoRo/xqkEz5YA3g900ROHjCoaowstdxsH8oP
+	 ejxRL9mExE/966RuCWYN2QRYq7FSHBsmSy3jShXPTxpV6Rv3Q7OElecHpkAh7m5sd3Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794423765;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Content-Type:User-Agent:MIME-Version:
-	 X-SRS-Rewrite;
-	bh=B7JVWzm8TIg1BmrHdH9nh1hnfWxucj97nPMlDDZduek=;
-	b=2cRw2dDUGseDbxg30cL6zeNmGUlCZXqA0vWWYlbTbvMmg14NeelxPWPk6mA6vngcX6sK
-	 NY7KjkNjZJaEJgnJlPP4cp0K2YxkTsyif1iLQC8oEd0q/YLcCHN67y/Umb6cw2pJJYZ0r
-	 A4WFCgDDUJMcYOB/nhW97KHkcFT3dtBdn3Fcd6wTOIYnfmrrLEF+1319x2uTP/2aXtN7L
-	 xR1Y8MfAvMzaX9uGDrVrtCJIok3Q3uCKblONef2dO0zwHk/Rgfk2bYWRSNgbzkZbZGTNq
-	 jX5hQe/owR2AMB+qht558Q9+NBZDKGDt/kAQ2cGo1Sg+LbVsYKxVwo/aN4FUtXtkWpQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794423859;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=6zc51yP1yyqwUTaBMuMnYvDSExq8ZCf3ml7XedQo+C0=;
+	b=A9zda7jEBHeUTyybH8sHUqXJ2bQckFAdEnq/9caYOhpnBvlY5wZKBm+PF2AjfPk1MYf2
+	 qJx4YaAQ0p2phNi1rl1G9rNTJJVK1TODFeEz17nfGbnr6i2F28s6aCZ1YYashUhApnhJ+
+	 e12XRrhsFccXxg+sgxIZY1FXt6/wH5eVrgVy70tx4toVwBSSUr+lauoWo7fXWCfq3XPqT
+	 KG0+Ikjy/EtAw7xFn7JY7wMJamjBKlQXwFXw9PMs4utAcpYIBNUaWVFDdvsXJ+xB/rDtg
+	 mP6zSmewUSmNwM9KIpPjxbakqfdvy9SdPBj/w22IJUy7IUIf5TvIeTPZnI6QE0cF9Gw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=none smtp.mailfrom=casper.srs.infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=LqQ2y3SC;
-	arc=none smtp.remote-ip=90.155.50.34
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cw3UQb+T;
+	arc=none smtp.remote-ip=209.85.216.52
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E3AD606A321;
-	Wed, 11 Nov 2026 19:02:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0E3AD606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=casper.srs.infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00A1B606A324
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 19:04:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00A1B606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=LqQ2y3SC
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
-	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=B7JVWzm8TIg1BmrHdH9nh1hnfWxucj97nPMlDDZduek=; b=LqQ2y3SCBbkU4YS58CE56/fpek
-	ITgdlN5Lfd+UR42FJHR5hvpYI27RbkT+3ctZUy5ft68PUg3WQGOpE4eKvhbURjt8a84nMes68V74b
-	ZuQGnnHy7UuJLRHitb6JlJ5zTimnrwrD/IT+90k5HbODChX7ROystYrQcwbAe8JfPyDijLC9oY4Y3
-	HZWIY4VM34wUaC8rz5r2LxzcWHvQp110iGPo9+1vD/bG43PN7+TphOLkFGI787LzxyGXsBK7gWSOM
-	9mC/qEFeetFI/lQ+qMHNAjivedtz7M5Az2wcgY/LrQ64btrHjAsos0oOjJIIkarRfXdUaDmbwFupX
-	05QRUSVQ==;
-Received: from [205.251.233.51] (helo=edge-lb-102.e-maa3.amazon.com)
-	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xRDai-0000000D1ES-0HqV;
-	Wed, 11 Nov 2026 19:02:40 +0000
-Message-ID: <50d177ddb1de4b84e9fd2cbd2ec5bdb7e32845d4.camel@infradead.org>
-Subject: Re: [PATCH v2 0/7] srcu: NMI-safe atomic SRCU readers, and their
- irqsave forms
-From: David Woodhouse <dwmw2@infradead.org>
-To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, "Paul E . McKenney"
-	 <paulmck@kernel.org>
-Cc: linux-kernel@vger.kernel.org, Frederic Weisbecker <frederic@kernel.org>,
-  Neeraj Upadhyay <neeraj.upadhyay@kernel.org>, Joel Fernandes
- <joelagnelf@nvidia.com>, Josh Triplett	 <josh@joshtriplett.org>, Boqun Feng
- <boqun@kernel.org>, Uladzislau Rezki	 <urezki@gmail.com>, Steven Rostedt
- <rostedt@goodmis.org>, Lai Jiangshan	 <jiangshanlai@gmail.com>, Zqiang
- <qiang.zhang@linux.dev>, Davidlohr Bueso	 <dave@stgolabs.net>, Kunwu Chan
- <kunwu.chan@gmail.com>, Puranjay Mohan	 <puranjay@kernel.org>,
- rcu@vger.kernel.org
-Date: Wed, 11 Nov 2026 11:02:33 -0800
-In-Reply-To: <20261111145949.70845-1-mathieu.desnoyers@efficios.com>
-References: <20261111145949.70845-1-mathieu.desnoyers@efficios.com>
-Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
-	boundary="=-EI6StJ/oQk+lTFoKSbAh"
-User-Agent: Evolution 3.62.0-0ubuntu1~ppa1~24.04 
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cw3UQb+T
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3b0e61a4decso2605000a91.2
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 11:04:18 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794423858; x=1795028658; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=6zc51yP1yyqwUTaBMuMnYvDSExq8ZCf3ml7XedQo+C0=;
+        b=cw3UQb+Td18Yt42LSfsmibmep9aQiJUcoH3dq0WgLgPBAzY6WnS99p2o0JLczQlS0J
+         zHX8wvqHnMDgBWZmaxHTVtXm0TSAd8xkt5yiqYc2diTvfw9gzgJ+uZVcWbcEOW3KWo82
+         HIAUWZTjj9nbTKfzlAKEGw4sUjtPqvx8VqdsDbkaqiITji/YYh4mZbZLh0Mti1oIw4bA
+         csAJ7IdE/5C7MP1+SPxTlzwHGD9jkBte1ASIRAyAYODuKOmefK1InKsJQzAIQNJDNWvX
+         pgB/bmIijTcWW8enNLiFS6qtlxAnGGOgv6bz29j3bAwZxsJOzZR5RSYibdr7aj9rwnY0
+         ktBw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794423858; x=1795028658;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=6zc51yP1yyqwUTaBMuMnYvDSExq8ZCf3ml7XedQo+C0=;
+        b=M7yk/nCvEqoX6UqlRyvYACXJOgvsxsTrgeigjB0NMZSfEzAbFcAc1LQqrg9SjKWQir
+         AroN/NszjN97w9WUaJU4zR+AXi4TlGiSQYbVH1a1zXrL8jd5fn7br1mCY0LYWRjo/3bI
+         trzdVuM0a4SInXJ3Al36ByOXMf5O+PXjDFbjTJKlU/Z2vWJOqS0E9n/pXJI+MR8bfb6u
+         LM3uXSisR4GhiVtmp8cE3+NJxwMjq24hmI/MGPZ9KXVA09MgUI7My6a/hJi86zNsrc+D
+         UvhNOwKxUWjUB3IVEoosUqT5zoSRxglAq6H3GxfA4GJ6jkxua84h9h7X9HAkWlNX+fun
+         QS6A==
+X-Forwarded-Encrypted: i=1; AL+hErE7K4hh7zgWX6UQjb/Cpzhpaqp0XyN/SWf+0srmO8cNvcomTRyGZVJXOV+t8cMQfznYTffiIj01qvca6+0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+sg3B7M+xF08hWQqjgZAvUabDWOKnxSP1QXHeFbpb5JE07fGm/
+	dZuDa0AwoWuuz5The6KuoaZcqPkIkT1Bgz2rkQybhAmZPvwK2nDwriTp
+X-Gm-Gg: AYBFou0QTvfYD+h2yZk2NQvTscibwsKmQbVyVJZoZmtlthvhMo9XBw54e2PnovX+tRr
+	FS/wJ70W0PC0oPxj9nvFb0wG8PSLC9QqhBFIxKRMxkvVBIYXtLHg5THTrTIaN2LGbDyk1UGV0tA
+	xiv9AbwSDgpi5+rBStuMcL/Qv23x1cM1jByhG6dgVfzyAvpBrpKj7aA8wo7lj7nmH10ljXIVvTG
+	iSzK1HQIi0yE4NquDIoAoyrC/+Wohw7cwK+GYMdAXdviHq89SWN+8BFpSUU8CoWfR3FPmTOLZvh
+	iR6UDGZU5gDjUt7J6VGM5q0bBuCkmCZPuDkMiY85qSxzSxikx9+SjAy9oaBiGxh7eAaNc8Mtp3X
+	7orf8LMAFnRkmOc4emK2tJ/iEFqK8r1Xxp8/xIiNXXXPJyzGU7jrEcKC0ogP4fRpaVnLUgcioFR
+	cMb9sucmCneaG0UxcC4yCUkjKXY+otuXtZTrj9yT13DH5Wb/UVc265D5OSxfz0tPRggAzGiy2XW
+	rLs2fUWhnWjKfzAKR/bZ9L4x/8Aez9/CwA4O84eC3o//GeyEIBc0JzX8ggFgIDQK9j9ck+Z3GIs
+	BZ8d5rvhOt69E5SSGFckqSlnIshMhFFfRw==
+X-Received: by 2002:a17:90a:e7d1:b0:3ad:b7d1:8631 with SMTP id 98e67ed59e1d1-3b182e9415emr3092987a91.17.1794423857979;
+        Wed, 11 Nov 2026 11:04:17 -0800 (PST)
+Received: from [127.0.1.1] ([67.159.246.222])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b181f8fd59sm2727366a91.1.2026.11.11.11.04.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 11:04:16 -0800 (PST)
+From: Leonardo Costa <leoreis.costa@gmail.com>
+Subject: [PATCH v2 0/7] ARM: dts: Add Apalis iMX6 overlays
+Date: Wed, 11 Nov 2026 16:03:56 -0300
+Message-Id: <20261111-b4-v2-apalis-imx6-overlays-v2-0-8129b21634c7@toradex.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,190 +92,90 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIABy89GoC/x3MOwqAMAwA0KtIZgO2SkGvIg5RUw34o4GiFO9uc
+ XzLS6AchBW6IkHgKCrnkWHLAqaVjoVR5mywlXXGVDWODUaLdNEmirLfDs/IYaNHkV0zeTKtm72
+ BHFyBvdx/3g/v+wFShYHwbAAAAA==
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, 
+ Francesco Dolcini <francesco.dolcini@toradex.com>
+Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ linux-bsp@toradex.com, Leonardo Costa <leonardo.costa@toradex.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794423849; l=3193;
+ i=leonardo.costa@toradex.com; s=20261001; h=from:subject:message-id;
+ bh=sVz8tk9YnISmAo/N9+CFSdVkyiddkfKtwMakiw1SLiQ=;
+ b=iPp0AI/CNJytJkCqQIgPV7xNs61v8TcBmtBWw+K1Uoo3T28/y54J1tqQNkUc+ZpeI1xvQtBp8
+ d7H6Vw5IRyyDwnIc7j+fwu4AJ77hmdeIA+mh1XJ2ufCJZOi1z3BW9NU
+X-Developer-Key: i=leonardo.costa@toradex.com; a=ed25519;
+ pk=4xvoVLDt+NxIz9D8BJHhT0fD43Ig6XgSDw4jRN/gHzk=
 
+This series adds device tree overlays for the Apalis iMX6 SoM. The
+overlays cover parallel and LVDS displays, audio configuration and
+OV5640 CSI camera modules.
 
---=-EI6StJ/oQk+lTFoKSbAh
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+The series adds support for:
 
-On Wed, 2026-11-11 at 09:59 -0500, Mathieu Desnoyers wrote:
->=20
-> On architectures without NMI-safe this_cpu_inc(), every atomic reader
-> now pays an atomic increment at lock and at unlock.=C2=A0 The update side=
- is
-> unchanged.=C2=A0 On architectures with NMI-safe this_cpu_inc(), such as x=
-86,
-> the readers use the same counter increments as before.=C2=A0=C2=A0
+- Toradex Capacitive Touch Display 10.1" LVDS
+- Toradex Capacitive and Resistive Touch 7" Parallel Displays
+- NAU8822 Bridge Tied Load configuration on the Apalis Evaluation Board V1.2
+- Toradex OV5640 CSI camera variants with 27 MHz and 24 MHz oscillators
 
-The latter claim is only true in __srcu_read_lock_fast()/_fast_updown()
-isn't it? Not in the atomic-SRCU. Unless we do something like this on
-top?
+The Makefile entries build the standalone overlays as DTBOs, and add
+ready-to-use composed DTBs for selected carrier boards and accessory
+combinations, for build-time coverage. Additionally, this series adds
+ready-to-use DTBs with HDMI enabled, combining the carrier board device
+trees with the common imx-hdmi.dtso.
 
-Signed-off-by: David Woodhouse <dwmw@amazon.co.uk> in case it actually
-makes sense and you use it as anything other than a hint.
+This series depends on another patch series and should be applied after it:
 
-diff --git a/include/linux/srcu.h b/include/linux/srcu.h
-index b6e6171b4cd4..a6db7bf55cde 100644
---- a/include/linux/srcu.h
-+++ b/include/linux/srcu.h
-@@ -342,7 +342,18 @@ static inline int __srcu_read_lock_atomic(struct srcu_=
-struct *ssp)
- 	if (in_task())
- 		non_block_start();
- 	srcu_check_read_flavor(ssp, SRCU_READ_FLAVOR_ATOMIC);
--	retval =3D __srcu_read_lock_nmisafe(ssp);
-+	/*
-+	 * Where this_cpu_inc() is NMI-safe, the this_cpu_inc() + smp_mb()
-+	 * of __srcu_read_lock() is NMI-safe too, and is exactly what this
-+	 * flavor's readers always paid. Only the architectures which
-+	 * genuinely need the atomic increments take them; the pairing
-+	 * with synchronize_srcu_atomic()'s counter scan is unchanged
-+	 * either way (full barrier after the increment in both forms).
-+	 */
-+	if (!IS_ENABLED(CONFIG_NEED_SRCU_NMI_SAFE))
-+		retval =3D __srcu_read_lock(ssp);
-+	else
-+		retval =3D __srcu_read_lock_nmisafe(ssp);
- 	/*
- 	 * An NMI may interrupt lockdep itself.  Annotate it as a trylock
- 	 * there, as srcu_read_lock_nmisafe() does.
-@@ -600,7 +611,10 @@ static inline void __srcu_read_unlock_atomic(struct sr=
-cu_struct *ssp, int idx)
- 	WARN_ON_ONCE(idx & ~0x1);
- 	srcu_check_read_flavor(ssp, SRCU_READ_FLAVOR_ATOMIC);
- 	srcu_lock_release(&ssp->dep_map);
--	__srcu_read_unlock_nmisafe(ssp, idx);
-+	if (!IS_ENABLED(CONFIG_NEED_SRCU_NMI_SAFE))
-+		__srcu_read_unlock(ssp, idx);
-+	else
-+		__srcu_read_unlock_nmisafe(ssp, idx);
- 	if (in_task())
- 		non_block_end();
- }
+    - https://lore.kernel.org/imx/20261110-colibri-imx6-overlays-v2-0-9776c186d953@toradex.com/T/#t
 
+    Adds the HDMI overlay common to i.MX SoCs, imx-hdmi.dtso. This is
+    necessary to add the HDMI-enabled ready-to-use DTBs, and for the
+    patches to apply cleanly.
 
+Changes in v2:
+  - Don't add the imx6q-apalis-hdmi.dtso overlay, and instead rely on
+    the recently proposed common imx-hdmi.dtso.
+  - Include 'tdx' in the display panel overlay names, to make it clear that
+    these are Toradex products. Add 'v1' in the Toradex Capacitive Touch
+    Display 10.1" LVDS display overlay, to make the product version explicit.
+  - Link to v1: https://lore.kernel.org/all/20261001155412.3177428-1-leoreis.costa@gmail.com/T/#u
 
-> David agreed to
-> the change, as long as synchronize_srcu_atomic() stays within the 4-16us
-> it was designed for [3].
+Signed-off-by: Leonardo Costa <leonardo.costa@toradex.com>
+---
+Leonardo Costa (7):
+      ARM: dts: imx6q-apalis: Add ready-to-use DTBs with HDMI enabled
+      ARM: dts: imx6q-apalis-ixora: Add 3.3V_SW power regulator
+      ARM: dts: imx6q-apalis: Add Toradex Capacitive Touch Display 10.1" LVDS
+      ARM: dts: imx6q-apalis: Add Toradex Capacitive Touch Display 7" Parallel
+      ARM: dts: imx6q-apalis: Add Toradex Resistive Touch Display 7" Parallel
+      ARM: dts: imx6q-apalis: Add NAU8822 Bridge Tied Load
+      ARM: dts: imx6q-apalis: Add Toradex OV5640 CSI Cameras
 
-I set a test running (*without* the above).=20
+ arch/arm/boot/dts/nxp/imx/Makefile                 | 86 ++++++++++++++++++++++
+ .../imx/imx6q-apalis-eval-v1.2-nau8822-btl.dtso    | 15 ++++
+ .../boot/dts/nxp/imx/imx6q-apalis-ixora-v1.2.dts   |  7 ++
+ arch/arm/boot/dts/nxp/imx/imx6q-apalis-ixora.dts   |  7 ++
+ .../dts/nxp/imx/imx6q-apalis-ov5640-24mhz.dtso     | 17 +++++
+ arch/arm/boot/dts/nxp/imx/imx6q-apalis-ov5640.dtsi | 68 +++++++++++++++++
+ arch/arm/boot/dts/nxp/imx/imx6q-apalis-ov5640.dtso | 18 +++++
+ ...-apalis-tdx-panel-cap-touch-10inch-lvds-v1.dtso | 53 +++++++++++++
+ ...-apalis-tdx-panel-cap-touch-7inch-parallel.dtso | 34 +++++++++
+ ...-apalis-tdx-panel-res-touch-7inch-parallel.dtso | 30 ++++++++
+ arch/arm/boot/dts/nxp/imx/imx6qdl-apalis.dtsi      | 86 ----------------------
+ 11 files changed, 335 insertions(+), 86 deletions(-)
+---
+base-commit: c260ba495ecd8dc5639be9a45a70cb56391078a6
+change-id: 20261103-b4-v2-apalis-imx6-overlays-e64cfa196df1
 
---=-EI6StJ/oQk+lTFoKSbAh
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Transfer-Encoding: base64
+Best regards,
+-- 
+Leonardo Costa <leonardo.costa@toradex.com>
 
-MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCE8Ew
-ggWvMIIEl6ADAgECAhANkOKMSmGXhF5eMl0rsRhvMA0GCSqGSIb3DQEBDAUAMGUxCzAJBgNVBAYT
-AlVTMRUwEwYDVQQKEwxEaWdpQ2VydCBJbmMxGTAXBgNVBAsTEHd3dy5kaWdpY2VydC5jb20xJDAi
-BgNVBAMTG0RpZ2lDZXJ0IEFzc3VyZWQgSUQgUm9vdCBHMjAeFw0yNDAzMTMwMDAwMDBaFw0zNDAz
-MTIyMzU5NTlaMGIxCzAJBgNVBAYTAlVTMRcwFQYDVQQKEw5EaWdpQ2VydCwgSW5jLjE6MDgGA1UE
-AxMxRGlnaUNlcnQgQXNzdXJlZCBHMiBTTUlNRSBSU0E0MDk2IFNIQTM4NCAyMDI0IENBMTCCAiIw
-DQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBAOfSIeC0vv1xPQ+dgSxbIIrkaru6skAWJYaGFzmv
-q4Kq+2wU2jxhcWlJg/JeP5jEkq/LM3pn5aaLao79j+XRmS7J1ZpJKUODJVoM4s9MQJhTMvo4qS5Z
-S64g6QR7Obkz3I1Lr3aWeSBmDDEyzue+NKtuWZ1Cxy3RdXo/w5HgRc3l2AercOM3Gt1XonTzEtTb
-Z/Hwc0Sn9Gz8RmGRK6Ka4hVDl8q/2l110KaV233Kh5etP0csXS8MIMdVRfRu3sc5hp13DG7lCKzK
-72a2GEpI8Wpl26G6I1/LMzz/98T+FqjTqxsdquk7Cj7m2vKGLW1BorpQH7WFGPdJQXJe1hfbfiZA
-CcVdCtl4nAacFacmsiArZBfX7AQGL7isvHUwwYFEtcApyGW4p2Lt+t8nvU0CANA6BHOpOz1xOP8W
-mAESbUriIjyuTUf3fJ9oDNCurVqhASMJCDaWI3lYX/QAoiAzt6akqbbZxo2ujW7mGGqc0KxqE2cs
-h2T79v7pC8aUtHBfwNrTR19GnZVxE0eQ7ViIQhR6mpSaUQFA9sG+cmD2G8TnCgYsLa0q8De6F61a
-CBevQGHNzrbZ3JAMneveYg/Jy1XxQHDRcvrMfWKe0jjcWbdKYlaGVPm5V1ILwYz7Yv5ewo3NUrxI
-GJiywe9qPhuJSDZs7VehTuI0FxGIsgKzVjgbAgMBAAGjggFcMIIBWDASBgNVHRMBAf8ECDAGAQH/
-AgEAMB0GA1UdDgQWBBT3m6JO05fF9DQPQw6Bhc6RkzKv+TAfBgNVHSMEGDAWgBTOw0q5mVXyuNtg
-v6l+vVa1lzan1jAOBgNVHQ8BAf8EBAMCAYYwHQYDVR0lBBYwFAYIKwYBBQUHAwQGCCsGAQUFBwMC
-MHkGCCsGAQUFBwEBBG0wazAkBggrBgEFBQcwAYYYaHR0cDovL29jc3AuZGlnaWNlcnQuY29tMEMG
-CCsGAQUFBzAChjdodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20vRGlnaUNlcnRBc3N1cmVkSURS
-b290RzIuY3J0MEUGA1UdHwQ+MDwwOqA4oDaGNGh0dHA6Ly9jcmwzLmRpZ2ljZXJ0LmNvbS9EaWdp
-Q2VydEFzc3VyZWRJRFJvb3RHMi5jcmwwEQYDVR0gBAowCDAGBgRVHSAAMA0GCSqGSIb3DQEBDAUA
-A4IBAQA+b8Uw53sDspdZgukU+qzLyyHkcjlxGGhHlP+zrmDLKm1wEFvCRS2pili3Hy67i8N4N5NU
-vw5Rg6kv3lxb9S9Rktxk43k+tvm68pl7OxQE55ZjVY87P0lUPGwEqOOwLLyH02ZQcsfq5p5LrOH9
-0JvmvZ1yy73HS+VpDAqOlytE0NSvTIRqFFkKQGQwfjvtql9YflujuNNvJztjBaHKYZsnNSg+J38o
-jYq4TP3pSg3UdVH0PncVjPQyqxC9xef5Xae92Kbkzol3x7Nel3A1bwAkalrDMspvTHvey6LfiBks
-FIqviTnoy7fgjaRAJgHS+RXx/cmuRd3rUAclSVVrYu8RMIIHAzCCBOugAwIBAgIQAzUotrsybJHx
-HTjKOIVdIDANBgkqhkiG9w0BAQsFADBiMQswCQYDVQQGEwJVUzEXMBUGA1UEChMORGlnaUNlcnQs
-IEluYy4xOjA4BgNVBAMTMURpZ2lDZXJ0IEFzc3VyZWQgRzIgU01JTUUgUlNBNDA5NiBTSEEzODQg
-MjAyNCBDQTEwHhcNMjYwNzE4MDAwMDAwWhcNMjgwMTA0MjM1OTU5WjAeMRwwGgYDVQQDDBNkd213
-MkBpbmZyYWRlYWQub3JnMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEA2pYux73kdbYX
-sWF8f1u6DJP91qcqaZetsyfPkZk0B+MmXmAEv0kVes5n15V2mbDThOnpoPFly0UugQO9JYqLfrtD
-tKD5yL58fgrDB9Dw+LQikgrHafl6YSCds5AvUu/8hw2J6noKrcOLJpKlKn9Fl/4IB9Q3JIdLx5aa
-EtTqMalIPqHFOlgrJ7s+aua8xbB8YQ9ahqYBXWRJNv3P/2b1DYtdrz1oqZPE3CcB8Pc6Gf2a1Tcm
-6TAgtEx7Cf1BFcrsrMz7TWHmGQITieNb2r9UYWSc2Gp+GtYFNJCgT0JJXKUBIauPMKBLteYrL8Fo
-ff/uY44dC/mDWjdCP/5x0qelPQjlBvWdHL5zvBTOj06rJ0m3HNI/hnIcDh0Qu2j9reb9rLVcdym6
-bWmBM4uDEB8Zv9Ph0KTBFSy1IosyakuD1j1Os30EzjGfbi0EUXIvnOcYbTBAbM5UAzrxEHMhBvoX
-Pvnx+OyvjJmc9tWxTX6AcSz+m40esbT17URBeZS18afgieiikm5TynlUYP1LciR3hSgGVzvGXnKO
-02VDFR5itGWdRKZ2W5wIShNfWfhSa0D0K5UdIDt5Qc7sjzwK1Yb1sY5Tu0uA5mhIS82q1ov83uxB
-sFkriNnhGv/M1NCDVLBiOMsHu73qUM+yKmgKLwF9Hfn9WI25glbAMI4S5r3hYzcCAwEAAaOCAfcw
-ggHzMB8GA1UdIwQYMBaAFPebok7Tl8X0NA9DDoGFzpGTMq/5MB0GA1UdDgQWBBRcYhqbcGzn1jrT
-JOZaB8O7qllDpzAwBgNVHREEKTAngRNkd213MkBpbmZyYWRlYWQub3JngRBkYXZpZEB3b29kaG91
-LnNlMBQGA1UdIAQNMAswCQYHZ4EMAQUBAjAOBgNVHQ8BAf8EBAMCBeAwHQYDVR0lBBYwFAYIKwYB
-BQUHAwIGCCsGAQUFBwMEMIGpBgNVHR8EgaEwgZ4wTaBLoEmGR2h0dHA6Ly9jcmwzLmRpZ2ljZXJ0
-LmNvbS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNBNDA5NlNIQTM4NDIwMjRDQTEuY3JsME2gS6BJ
-hkdodHRwOi8vY3JsNC5kaWdpY2VydC5jb20vRGlnaUNlcnRBc3N1cmVkRzJTTUlNRVJTQTQwOTZT
-SEEzODQyMDI0Q0ExLmNybDCBjQYIKwYBBQUHAQEEgYAwfjAkBggrBgEFBQcwAYYYaHR0cDovL29j
-c3AuZGlnaWNlcnQuY29tMFYGCCsGAQUFBzAChkpodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20v
-RGlnaUNlcnRBc3N1cmVkRzJTTUlNRVJTQTQwOTZTSEEzODQyMDI0Q0ExLmNydDANBgkqhkiG9w0B
-AQsFAAOCAgEAocabrh1cPd5s3vY5rnlBVQSTc7zs2ZWs67dAIltR+05WELrYClVzzUhMs/LOJPlr
-EUo45UDDomXq38DxFepaPd9+iNLjXfn33EX/IG44j04lU/oF/Rg9VeQILkYLbCZ/x9wOjNHZc4SN
-ydY7Dhvf/sT5aBz88u7D5+azZJ7Qf1U57wYseCH1Mt0nDrtr5y19IJ8D9xJJ33RFL6vfpHZBBAQ8
-+3RqkKNxLoV2aFvQhxdhjNLDqTv3LjUIdicwPraN7JkxEu7CV2Lka7eRqJgkWL7SK0YmBjGpRafs
-+icP/ON5RCCKTTb6VlX8eTG2sJJfsFhvJNCCt6xexbWzWtIrfP7NvPBvwBB737AyEGBZkS5aNizT
-McURJGTv9UKvBh1LF/+tNhYtLvPCN7oecGzhCHht9jcwSkygTo3Y6YlK3QgOu+ncmiBbfeuwlLZ1
-LxbYvG6hgNqXv7u6YyADbYajAQJXJ2OQen39pm3Q/AQSyLYG+B8lDglWsM8tYXPlEdrYJcksGK6F
-nqIX6Bumn43rBooLJdiZp4WmfWdL2pxe+LxRDjprmqu1WprixDxULSTOKJZoqTlugs6y3Bc+if+s
-gHnBBtz9WQ6MtPHkh7zONDAFIKcBmv8OqPQCx0F3Wv3OEybwMpXx0OsKgK8wLldaX1pXcMuyDgTL
-Sqs0AV0OHUgwggcDMIIE66ADAgECAhADNSi2uzJskfEdOMo4hV0gMA0GCSqGSIb3DQEBCwUAMGIx
-CzAJBgNVBAYTAlVTMRcwFQYDVQQKEw5EaWdpQ2VydCwgSW5jLjE6MDgGA1UEAxMxRGlnaUNlcnQg
-QXNzdXJlZCBHMiBTTUlNRSBSU0E0MDk2IFNIQTM4NCAyMDI0IENBMTAeFw0yNjA3MTgwMDAwMDBa
-Fw0yODAxMDQyMzU5NTlaMB4xHDAaBgNVBAMME2R3bXcyQGluZnJhZGVhZC5vcmcwggIiMA0GCSqG
-SIb3DQEBAQUAA4ICDwAwggIKAoICAQDali7HveR1thexYXx/W7oMk/3Wpyppl62zJ8+RmTQH4yZe
-YAS/SRV6zmfXlXaZsNOE6emg8WXLRS6BA70liot+u0O0oPnIvnx+CsMH0PD4tCKSCsdp+XphIJ2z
-kC9S7/yHDYnqegqtw4smkqUqf0WX/ggH1Dckh0vHlpoS1OoxqUg+ocU6WCsnuz5q5rzFsHxhD1qG
-pgFdZEk2/c//ZvUNi12vPWipk8TcJwHw9zoZ/ZrVNybpMCC0THsJ/UEVyuyszPtNYeYZAhOJ41va
-v1RhZJzYan4a1gU0kKBPQklcpQEhq48woEu15isvwWh9/+5jjh0L+YNaN0I//nHSp6U9COUG9Z0c
-vnO8FM6PTqsnSbcc0j+GchwOHRC7aP2t5v2stVx3KbptaYEzi4MQHxm/0+HQpMEVLLUiizJqS4PW
-PU6zfQTOMZ9uLQRRci+c5xhtMEBszlQDOvEQcyEG+hc++fH47K+MmZz21bFNfoBxLP6bjR6xtPXt
-REF5lLXxp+CJ6KKSblPKeVRg/UtyJHeFKAZXO8Zeco7TZUMVHmK0ZZ1EpnZbnAhKE19Z+FJrQPQr
-lR0gO3lBzuyPPArVhvWxjlO7S4DmaEhLzarWi/ze7EGwWSuI2eEa/8zU0INUsGI4ywe7vepQz7Iq
-aAovAX0d+f1YjbmCVsAwjhLmveFjNwIDAQABo4IB9zCCAfMwHwYDVR0jBBgwFoAU95uiTtOXxfQ0
-D0MOgYXOkZMyr/kwHQYDVR0OBBYEFFxiGptwbOfWOtMk5loHw7uqWUOnMDAGA1UdEQQpMCeBE2R3
-bXcyQGluZnJhZGVhZC5vcmeBEGRhdmlkQHdvb2Rob3Uuc2UwFAYDVR0gBA0wCzAJBgdngQwBBQEC
-MA4GA1UdDwEB/wQEAwIF4DAdBgNVHSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwgakGA1UdHwSB
-oTCBnjBNoEugSYZHaHR0cDovL2NybDMuZGlnaWNlcnQuY29tL0RpZ2lDZXJ0QXNzdXJlZEcyU01J
-TUVSU0E0MDk2U0hBMzg0MjAyNENBMS5jcmwwTaBLoEmGR2h0dHA6Ly9jcmw0LmRpZ2ljZXJ0LmNv
-bS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNBNDA5NlNIQTM4NDIwMjRDQTEuY3JsMIGNBggrBgEF
-BQcBAQSBgDB+MCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC5kaWdpY2VydC5jb20wVgYIKwYBBQUH
-MAKGSmh0dHA6Ly9jYWNlcnRzLmRpZ2ljZXJ0LmNvbS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNB
-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
-q5Rvr3D/4P7BaBZ7i0HJGDwAAAAAAAA=
-
-
---=-EI6StJ/oQk+lTFoKSbAh--
