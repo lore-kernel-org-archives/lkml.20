@@ -1,47 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794388104;
-	b=AUvJGzaU0V2BYxROXVDcBhr58oIxssaBAsXrES59SMMZExW+hIMoi+kUTWUVUxZYlRxk
-	 W4DLTwkGSFvNtsstZhl/klBw5Xm3Inb5FZO7S2PExUMMoNd+PdkWzdzES20ujw7nAjvxe
-	 F+N67aitQIwl4QyZ+YT6UYxyCePfR5O+4Io/untuc+2OxkwRcFWQRVhzCPgj9FcVWFhxt
-	 0/auYspOzRjXcRNAil1B+J9wbNCMT5pf275eCV5UKn3PJ98pBrOkbBj5x06+CzPlm3ysl
-	 Q/9ah2gINCYwjam8mSnZ+VYbLE7D2WClCZxGBW8EJyFWcEsmEHBM/arInS+zOmsvkMw==
+	t=1794388106;
+	b=tZyjdLMkFLsXSZZEfaukv0xm5S0fOkaizk6TNxtdftvHNp29XACef7T293CyB/7kB2Ou
+	 YPuEVS7MMGC/a4Gl1SnOGnQMPJrldf/UydE5umAii+evxzycA6WQa+76qH5MVTyrNBiGe
+	 HbmKDfy8D9QHNque/Pm3GDdGXS+vi9Bs28DP8G0kln0rE168abVBTaWfKQdaUfiX4met5
+	 AZR9R7ePQDX9A9tw5wfOMPxdXOYPSAlENFolsbmbkPjyuUhL/XTAy2RZbS9nV+05FuUtD
+	 8R6jwbF0Obvv3XDznmfXEWq3KCK+merDeKupnVRIC/dJN09LhyHDknTxu9VqtYPo71w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794388104;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=beCq0yEdS9NGRvXAH25NWBlijnEtfYCeuB+kkXj75ZA=;
-	b=KapckyqgJ6EiQxQK2tc0vaZdmx60bNVF38bw5x+wNtU7PX9I7814euiG3U3M+C0i8aHx
-	 dUjIH+KUxRXL+u3kPYSSXeYYQlo/Jabk37PgRQohBwY8m06AMcTGTbSRHCxIpC0swPWe5
-	 AxbqvpLK5ADngcCN6iVGlZAtyZuRXvstA/UyhIToUtsQ1Ci3nH62Ee0c2MFGXga1QU2Ir
-	 nyDGuaNFnCNqqxQ/TdoLgUCbusoN9/tcwbEfKYEy1OsWSWftu0/W1h0Os2UVHPB64BcHe
-	 dOsjJ2wHOAYlIK/Sg097M3uRUnVjb/j7EN4zjdqrlRSYwkswTm8lYbH5E4Hh7hphcDQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794388106;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=411x4IUu5f63wpL/igqSv/CLQ5Z6cNypZUlf1yFV00w=;
+	b=R65V0BvexTw5OCwzUQaxlJNBv4QeejMvAZu8w9WPcNzkUTdhS+s1aRGvkukUKo3qASQN
+	 3SmRt1SI3k3YWvEzQh2mqxbJ+2NPjkretOYdF4Ym7X2cQdmdPh3az1euaxYNk/ZyVGG/P
+	 Syc5zsmk8fPlcfTNgs1EodrrbSdMgb4qN20UgDhWC0Ai9TNYtrGeDfoGMQ/BIM1pf7pN0
+	 Pgh5MG/98mR4BDCcmpeibnlu2pxwWnD0c5VDRGeVByTtuwEanl+F3eFz0EzQoYYNxGx7v
+	 hhlBuiWBJToXs9/TFjSMd2BBrGLkxOpfTbAq1IKUEwEAFVuKLXNlIXIE0S0Ob41NPmw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BxHOTt66;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0D43606A33F;
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=HXqCwPK6;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A5BEB606A32D;
 	Wed, 11 Nov 2026 09:08:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5BEB606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BxHOTt66
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A9711F00A05;
-	Wed, 11 Nov 2026 09:08:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794388104;
-	bh=beCq0yEdS9NGRvXAH25NWBlijnEtfYCeuB+kkXj75ZA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=BxHOTt66uVPC3Wb/2B4DVOu6adBNeprM9i1Vl1vG0o5PiFeJDmWYYaxDhEY19Wxy+
-	 KY0/ARXkcgwR4OS+05SQGwgZg6n/7sN7/rRZmMihhYQ1vde1ajzknDX1E+hXHEO5hE
-	 RLm6yHt7lB5jAj2b3AI5iiKYWVeKyIWpzccl5gnBeekq6qW5w63uTgMxe2z8IrRoN/
-	 K98Tdyfx0qNhtpeebAOfy9GtApphmHtsQAydLSlOhhM+fmk+KnwkIaJigPbfdPR4Dd
-	 hjIM79US+3KYZMmH2oIOx788A1EOFYf1pLb2yaMlgfhRZpDPxGpgEhHdfwSwEdr7c6
-	 soz1f/4i/4JMw==
-Message-ID: <5445434f-078f-47d8-9851-dcc3712d18f1@kernel.org>
-Date: Wed, 11 Nov 2026 10:08:15 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=HXqCwPK6
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9BADC1576;
+	Wed, 11 Nov 2026 01:08:20 -0800 (PST)
+Received: from [10.0.128.239] (Suzukis-MBP.cambridge.arm.com [10.0.128.239])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7216E3F673;
+	Wed, 11 Nov 2026 01:08:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794388103; bh=nSaH8ajMJJME+6Ks3xnSitadsLP4ZRVuIcCsdKoA3qA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=HXqCwPK6XA6YFtPLkolK5F9poJFn8YqHan7BIIVpk9L0jQy1AAjBhpENzctGIYJWl
+	 tkA/irUhDCLtTR+BG9LjZF6RdW+xZP7x9b82BUD8Zbtes3/2hBiKngUrV++kNfZ3qa
+	 VeVNBW10FPqQgr98xdcciLotqwK5aP458TqJDa+E=
+Message-ID: <9dc56bf6-b417-4000-b49b-037bee250dba@arm.com>
+Date: Wed, 11 Nov 2026 09:08:19 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,115 +54,247 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/4] ksm: skip rmap_item allocation for non-zero pages
- under only_merge_zero_pages
-To: "Xu Xin (vivo)" <xu.xin@linux.dev>
-Cc: akpm@linux-foundation.org, chengming.zhou@linux.dev, corbet@lwn.net,
- link@vivo.com, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org, linux-mm@kvack.org, ljs@kernel.org,
- odys.yuan@gmail.com, rppt@kernel.org, surenb@google.com,
- tujinjiang@huawei.com, vbabka@kernel.org, xiao.wang@vivo.com
-References: <20261110074312.219847-1-xu.xin@linux.dev>
- <20261110074451.220524-1-xu.xin@linux.dev>
- <20261110074451.220524-2-xu.xin@linux.dev>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20261110074451.220524-2-xu.xin@linux.dev>
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: [PATCH 02/11] KVM: arm64: CCA: Introduce Realms
+To: Kohei Enju <enju.kohei@fujitsu.com>, Steven Price <steven.price@arm.com>
+Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev,
+ Catalin Marinas <catalin.marinas@arm.com>, Marc Zyngier <maz@kernel.org>,
+ Will Deacon <will@kernel.org>, James Morse <james.morse@arm.com>,
+ Oliver Upton <oliver.upton@linux.dev>, Zenghui Yu <yuzenghui@huawei.com>,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Joey Gouly <joey.gouly@arm.com>, Alexandru Elisei
+ <alexandru.elisei@arm.com>, Christoffer Dall <christoffer.dall@arm.com>,
+ Fuad Tabba <tabba@google.com>, linux-coco@lists.linux.dev,
+ Ganapatrao Kulkarni <gankulkarni@os.amperecomputing.com>,
+ Gavin Shan <gshan@redhat.com>, Shanker Donthineni <sdonthineni@nvidia.com>,
+ Alper Gun <alpergun@google.com>, "Aneesh Kumar K . V"
+ <aneesh.kumar@kernel.org>, Emi Kisanuki <fj0570is@fujitsu.com>,
+ Vishal Annapurve <vannapurve@google.com>, WeiLin.Chang@arm.com,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>
+References: <20261102141304.126883-1-steven.price@arm.com>
+ <20261102141304.126883-3-steven.price@arm.com>
+ <avL9kNR2mGmqmcA9@FCCLS0092175.localdomain>
+Content-Language: en-GB
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+In-Reply-To: <avL9kNR2mGmqmcA9@FCCLS0092175.localdomain>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 11/10/26 08:44, Xu Xin (vivo) wrote:
-> When only_merge_zero_pages is enabled, ksmd only ever merges empty
-> (zeroed) anonymous pages with the kernel zero page. A page that carries
-> data can never be merged, yet the current code still allocates an
-> rmap_item for it in scan_get_next_rmap_item() before cmp_and_merge_page()
-> decides to skip it.
+Hi Kohei
+
+On 10/11/2026 11:42, Kohei Enju wrote:
+> Hi Steve,
 > 
-> On workloads with a large amount of non-mergeable anonymous memory this
-> is a real cost: every scanned non-zero page pays for an rmap_item
-> allocation, and the rmap_items accumulate in the per-mm pending list.
-> For example, a MySQL instance with hundreds of gigabytes of anonymous
-> memory (mostly buffer pool pages that cannot be merged) ends up with
-> ksmd creating rmap_item metadata for each candidate page; the metadata
-> overhead can wipe out any gain from the zero-page merging and even turn
-> the net benefit negative.
+> On 11/02 14:12, Steven Price wrote:
+>> From: Suzuki K Poulose <suzuki.poulose@arm.com>
+>>
+>> Add foundational work for supporting Realms.
+>>   - Add a new VM flavor.
+>>   - At KVM init, check if the KVM can support Realms (though not functional
+>>     yet) and will be advertised by static key kvm_rmi_is_available. This
+>>     will be turned on in a later patch, once we have all the bits and
+>>     pieces ready. For now check if we are blessed with KVM_MODE_RMM.
+>>   - Add realm specific tracking in kvm_arch. Since Realm and protected pKVM
+>>     states are mutually exclusive, move them into a union.
+>>   - Also adjust the memslot preparation checks to reflect the changes.
+>>
+>> Please note that we cannot create Realm VMs yet. This requires further
+>> changes to the UABI and core RMI driver support, which will come later.
+>>
+>> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+>> Signed-off-by: Steven Price <steven.price@arm.com>
+>> ---
+>>   arch/arm64/include/asm/kvm_emulate.h   | 16 +++++++
+>>   arch/arm64/include/asm/kvm_host.h      | 57 +++++++++++++++++-------
+>>   arch/arm64/include/asm/kvm_rmi.h       | 61 ++++++++++++++++++++++++++
+>>   arch/arm64/include/asm/virt.h          |  1 +
+>>   arch/arm64/kvm/Makefile                |  2 +-
+>>   arch/arm64/kvm/arm.c                   | 24 ++++++++--
+>>   arch/arm64/kvm/hyp/include/nvhe/pkvm.h |  2 +-
+>>   arch/arm64/kvm/hyp/nvhe/switch.c       |  4 +-
+>>   arch/arm64/kvm/hyp/nvhe/timer-sr.c     |  2 +-
+>>   arch/arm64/kvm/mmu.c                   | 13 +++---
+>>   arch/arm64/kvm/rmi.c                   | 18 ++++++++
+>>   11 files changed, 169 insertions(+), 31 deletions(-)
+>>   create mode 100644 arch/arm64/include/asm/kvm_rmi.h
+>>   create mode 100644 arch/arm64/kvm/rmi.c
+>>
+>> diff --git a/arch/arm64/include/asm/kvm_emulate.h b/arch/arm64/include/asm/kvm_emulate.h
+>> index 334211b8b2ee..32021bdf2610 100644
+>> --- a/arch/arm64/include/asm/kvm_emulate.h
+>> +++ b/arch/arm64/include/asm/kvm_emulate.h
+>> @@ -831,4 +831,20 @@ static inline void kvm_reset_vcpu_psci(struct kvm_vcpu *vcpu,
+>>   	vcpu_set_reg(vcpu, 0, reset_state->r0);
+>>   }
+>>   
+>> +static inline enum realm_state kvm_realm_state(struct kvm *kvm)
+>> +{
+>> +	return READ_ONCE(kvm->arch.realm.state);
+>> +}
+>> +
+>> +static inline void kvm_set_realm_state(struct kvm *kvm,
+>> +				       enum realm_state new_state)
+>> +{
+>> +	WRITE_ONCE(kvm->arch.realm.state, new_state);
+>> +}
+>> +
+>> +static inline bool kvm_realm_is_created(struct kvm *kvm)
+>> +{
+>> +	return kvm_vm_is_realm(kvm) && kvm_realm_state(kvm) != REALM_STATE_NONE;
+>> +}
+>> +
+>>   #endif /* __ARM64_KVM_EMULATE_H__ */
+>> diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
+>> index ccd2dc8f73c3..7d0222047ca1 100644
+>> --- a/arch/arm64/include/asm/kvm_host.h
+>> +++ b/arch/arm64/include/asm/kvm_host.h
+>> @@ -29,6 +29,7 @@
+>>   #include <asm/kvm.h>
+>>   #include <asm/kvm_asm.h>
+>>   #include <asm/kvm_hcall.h>
+>> +#include <asm/kvm_rmi.h>
+>>   #include <asm/vncr_mapping.h>
+>>   
+>>   #define __KVM_HAVE_ARCH_INTC_INITIALIZED
+>> @@ -48,6 +49,13 @@
+>>   #define KVM_VCPU_MAX_FEATURES 10
+>>   #define KVM_VCPU_VALID_FEATURES	(BIT(KVM_VCPU_MAX_FEATURES) - 1)
+>>   
+>> +#define KVM_REALM_VCPU_VALID_FEATURES			\
+>> +	(BIT(KVM_ARM_VCPU_POWER_OFF)		|	\
+>> +	 BIT(KVM_ARM_VCPU_PSCI_0_2)		|	\
+>> +	 BIT(KVM_ARM_VCPU_PTRAUTH_ADDRESS)	|	\
+>> +	 BIT(KVM_ARM_VCPU_SVE)			|	\
+>> +	 BIT(KVM_ARM_VCPU_PTRAUTH_GENERIC))
+>> +
+>>   #define KVM_REQ_SLEEP \
+>>   	KVM_ARCH_REQ_FLAGS(0, KVM_REQUEST_WAIT | KVM_REQUEST_NO_WAKEUP)
+>>   #define KVM_REQ_IRQ_PENDING		KVM_ARCH_REQ(1)
+>> @@ -409,6 +417,7 @@ enum kvm_arm_vm_flavor {
+>>   	VM_PKVM,		/* Normal guests on pKVM */
+>>   	MARKER(__VM_PROTECTED),
+>>   	VM_PROTECTED_PKVM,	/* Protected VM */
+>> +	VM_REALM,		/* CCA */
+>>   	VM_FLAVOR_MAX
+>>   };
+>>   
+>> @@ -502,11 +511,14 @@ struct kvm_arch {
+>>   	/* Count the number of VNCR_EL2 TLBs */
+>>   	atomic_t vncr_tlb_count;
+>>   
+>> -	/*
+>> -	 * For an untrusted host VM, 'pkvm.handle' is used to lookup
+>> -	 * the associated pKVM instance in the hypervisor.
+>> -	 */
+>> -	struct kvm_protected_vm pkvm;
+>> +	union {
+>> +		/*
+>> +		 * For an untrusted host VM, 'pkvm.handle' is used to lookup
+>> +		 * the associated pKVM instance in the hypervisor.
+>> +		 */
+>> +		struct kvm_protected_vm pkvm;
+>> +		struct realm realm;
+>> +	};
+>>   
+>>   #ifdef CONFIG_PTDUMP_STAGE2_DEBUGFS
+>>   	/* Nested virtualization info */
+>> @@ -1572,30 +1584,43 @@ struct kvm *kvm_arch_alloc_vm(void);
+>>   
+>>   #define __KVM_HAVE_ARCH_FLUSH_REMOTE_TLBS_RANGE
+>>   
+>> -#ifdef __KVM_NVHE_HYPERVISOR__
+>> +#define kvm_vm_is_protected(kvm)	((kvm)->arch.vm_flavor >= __VM_PROTECTED)
+>>   
+>> -#define kvm_vm_is_protected(kvm)			\
+>> -	(is_protected_kvm_enabled() && ((kvm)->arch.vm_flavor == VM_PROTECTED_PKVM))
+>> +#ifdef __KVM_NVHE_HYPERVISOR__
+>>   /*
+>>    * Accessing vcpu->kvm from nVHE hyp stub is tricky, as we need to convert the
+>>    * pointer to the hyp VA. With pKVM, the nVHE code runs with the hyp_vcpu,
+>> - * which is populated correctly and is gated on is_protected_kvm_enabled().
+>> + * which is populated correctly. Always vcpu_is_protected_pkvm(), which is
+>> + * gated on is_protected_kvm_enabled().
+>> + */
+>> +#define vcpu_is_protected(vcpu)		BUILD_BUG_ON(1)
+>> +#else
+>> +#define vcpu_is_protected(vcpu)		kvm_vm_is_protected((vcpu)->kvm)
+>> +#endif
+>> +
+>> +#define kvm_vm_is_protected_pkvm(kvm)					\
+>> +	(is_protected_kvm_enabled() && ((kvm)->arch.vm_flavor == VM_PROTECTED_PKVM))
+>> +
+>> +/*
+>> + * Rely on is_protected_kvm_enabled() check in kvm_vm_is_protected_pkvm() to
+>> + * make sure the vcpu->kvm is always valid VA in the context
+>>    */
+>> -#define vcpu_is_protected(vcpu)						\
+>> +#define vcpu_is_protected_pkvm(vcpu)					\
+>>   	({								\
+>>   		struct kvm *__kvm = READ_ONCE((vcpu)->kvm);		\
+>>   									\
+>> -		(__kvm && kvm_vm_is_protected(__kvm));			\
+>> +		(__kvm && kvm_vm_is_protected_pkvm(__kvm));		\
+>>   	})
 > 
-> Add should_skip_non_zero_page(), called in scan_get_next_rmap_item() before
-> get_next_rmap_item(), which, when only_merge_zero_pages is enabled,
-> checks whether the candidate page is all zeros. A non-zero page is
-> skipped entirely: no rmap_item is allocated for it, and any stale
-> pending rmap_items below it are freed (as get_next_rmap_item() would).
-> The page is reported back to ksm_do_scan() as ERR_PTR(-EAGAIN), which
-> counts it as scanned and continues, so the pages_to_scan budget is
-> preserved.
+> I've tested the integration branch and found that the secondary CPU
+> bring-up fails:
+>      [    1.426502] smp: Bringing up secondary CPUs ...
+>      [    9.194442] CPU1: failed to come online
+>      [    9.194558] CPU1: failed in unknown state : 0x0
+>      [    9.197714] smp: Brought up 1 node, 1 CPU
+>      [    9.197775] SMP: Total of 1 processors activated.
+
+I can reproduce this and can confirm that your patch below fixes the
+problem. I need to check if we can make the same restrictions for
+Realms. The restrictions applied by the pKVM applies to the Realms
+too. i.e., A REC cannot be made active before the Guest issues a
+PSCI CPU_ON.
+
+
+Cheers
+Suzuki
+
 > 
-> The all-zero check (pages_identical() against the kernel zero page) reads
-> the whole page. For a non-zero page this is a net win: the extra page read
-> is cheaper than the rmap_item allocation and the stable/unstable tree
-> operations it would otherwise trigger.
+> It seems that this patch missed replacing a use of
+> vcpu_is_protected() introduced by the following commit:
 > 
-> A page that is zero now but is written before cmp_and_merge_page() runs
-> is still handled correctly, because the checksum-based decision in
-> cmp_and_merge_page() (added by the previous patch) is the authoritative
-> one.
+>      25d726dddc23 ("KVM: arm64: Reject host power-on of a vCPU that EL2 holds powered off")
+> 
+> The following diff fixes the issue for me. Also, though not included in
+> the diff, I think vcpu_is_protected() in __pkvm_create_hyp_vcpu() should
+> be replaced with vcpu_is_protected_pkvm() as well.
+> 
+> Thanks,
+> Kohei
+> 
+> ---8<---
+> diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
+> index 522a837637fe..be676c13e219 100644
+> --- a/arch/arm64/kvm/arm.c
+> +++ b/arch/arm64/kvm/arm.c
+> @@ -960,7 +960,8 @@ static void __kvm_arm_vcpu_power_off(struct kvm_vcpu *vcpu, u32 mp_state)
+>   /* The guest's own CPU_OFF: EL2 has already powered the vCPU off. */
+>   void kvm_arm_vcpu_power_off(struct kvm_vcpu *vcpu)
+>   {
+> -       u32 mp_state = vcpu_is_protected(vcpu) ? KVM_MP_STATE_UNINITIALIZED : KVM_MP_STATE_STOPPED;
+> +       u32 mp_state = vcpu_is_protected_pkvm(vcpu) ?
+> +                      KVM_MP_STATE_UNINITIALIZED : KVM_MP_STATE_STOPPED;
+> 
+>          spin_lock(&vcpu->arch.mp_state_lock);
+>          __kvm_arm_vcpu_power_off(vcpu, mp_state);
+> diff --git a/arch/arm64/kvm/psci.c b/arch/arm64/kvm/psci.c
+> index b01f8d44033f..6674e8d6ff4c 100644
+> --- a/arch/arm64/kvm/psci.c
+> +++ b/arch/arm64/kvm/psci.c
+> @@ -68,7 +68,7 @@ static unsigned long kvm_psci_vcpu_on(struct kvm_vcpu *source_vcpu)
+>           * STOPPED before that is the VMM's pause.
+>           */
+>          if (!kvm_arm_vcpu_stopped(vcpu) ||
+> -           (vcpu_is_protected(vcpu) && !kvm_pkvm_vcpu_is_powered_off(vcpu))) {
+> +           (vcpu_is_protected_pkvm(vcpu) && !kvm_pkvm_vcpu_is_powered_off(vcpu))) {
+>                  if (kvm_psci_version(source_vcpu) != KVM_ARM_PSCI_0_1)
+>                          ret = PSCI_RET_ALREADY_ON;
+>                  else
+> 
 
-I think we should get rid of any rmap items when merging the shared zeropage
-only. That might require more changes to the ksm code, but it really doesn't
-make any sense to have rmap items.
 
-Maybe we just want a separate KSM infrastrcture that only focuses on
-deduplciating shared zeropages in KSM: get a page, see if it is zero-filled. If
-so, try deduplciating with the shared zeropage. Done.
 
-Mangling this into the existing infrastructure might look easier but it just
-adds things like additional zero-page comparisons and (as Lorenzo points out)
-makes the code harder to understand + maintain.
-
--- 
-Cheers,
-
-David
