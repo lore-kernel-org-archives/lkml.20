@@ -1,47 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794387876;
-	b=ARMgYfrt9ayuexUyfNAv93tk+RKY50ZWvXP4/5Tg3cHhOsx68JhRsOzeA5Z1h8GoyVNe
-	 mBOI3yyrVfuplybz32d/Y/ycbifnX2yUZMlJ1RFmJyaDme8joX06oKl0IP1kys6b5H+Pb
-	 f9nTX6+30DX4aKCnfsot4xjmQQk+rIAiJjrCf3BF7Qx3/QOfzFjAyI+MekDyzrUq42k6S
-	 BSl2h55Tvox6FE/B/MEQATPNamOixPJHf6m1dQdedkbYBuxvEDQNAyPAmVoGHd05OWYFa
-	 6cYyUp7iWZ8w0e10goR1SDfC+RuO5fzrK4T5++VaFtT7eHO9dfyjOHiMPZE+rn0nN5w==
+	t=1794387879;
+	b=sZ19DtX88M7yo0hrU/tdlKQTGRk/LZcMAyLi5/pdDkse+RU89SqGVULxTHwKoi70eXKp
+	 iFrEyILkKQc1n7oQsid8OdfvTpgfBupLDxaxuec1zk7pexkZQZT3+ckDGisZlnKZ8eqfp
+	 bGFsSXIP0ApXr8e1wm5ktFUZ1K33taLgbMplBDyRzpky1Tuh4jFA/6cDxkALELnLK6iRv
+	 Che1iDGmFfR4AitAWQ4L8it6tzlFfxphOQM0irywRAsxTPwV/Kjjuzbw3gxqLYuuB/nFI
+	 HWWVGs9/oa5/vvoSy4/iy5MFJIunITQ4MJkGXxz7KpuwwUZ42VaNVjklakTyhZ/wkkQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794387876;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:Cc:
-	 Subject:To:References:Content-Language:From:In-Reply-To:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794387879;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=tw4MBR2nQ4JcguOEhZ8yHA2Hq3NkQmlLl/rKAtx4S0s=;
-	b=LLY4BMjBclB9cOML2jQXz6VGk9HWIeNLQbPzDPP5GX3lkpOo/tLvaqBz0KjDtb3GVMqP
-	 H6HMA0Dd0e9zsfzL0xpPSNB4Q/MQ5zuBVByMKUWV6/rFfFGlnbNTmnyYSlBpv4479CJnA
-	 rSFH2jG5636mQERPCfXNcWPX4osuJ7IgikmP3xYqNyF0sVWnysjeuuMeXrfjhzDHKVo9I
-	 m7yXyqzrt5TxeXqq/9MvKA6l4uWsUqUxAXxjiH2HgTYzDNoYdpaSK9s/djySHwWUok7Nj
-	 DLl+l3LXuwm5b705mbNHL4MjvbT7l/+kmGaT0hnf3puxJGNNmZsLH2hb7q/CSzLlBPA==
+	bh=4NSXIHHAlrlnWpquuqYJcuGA/ysXonzJiU11gCiOoV0=;
+	b=REPsXNfjMqm0pg1R0Tm6JQOSUrc7W63Bzd/CX8mdUbClgKAu/1XQxtRkhTtxOG1kEZcF
+	 bjzYkhWjl6IKQsCNmLuf5Whz8uIyGWQKO3CR4pLKcvaKoUIQOnhd5Bsut/fpU7iPLMxMA
+	 9CZoavXCy3h5QHS8A5aC5HUblG8LMXeC5YbDP2qHZ8tb57u3Q+ZS3I2m3qqNSE7/o6JYN
+	 pFgPTc71nxFJqrewXOz/s212SR3QsfK+t/sTMo3J4xGxZtSG46r+oV9UQy01zWP/iOdfh
+	 WY2u9zBXz2rcS2Np2pZtIhPSp4X/PO3JgXjtLvNZ5LM/xUoPpbOqr4sTtZ+X37DTBEw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iv03Gpb+;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IkIseqOq;
+	arc=none smtp.remote-ip=209.85.215.178
+Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com [209.85.215.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B445606A32E
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 09:04:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4099C60A260D
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 09:04:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4099C60A260D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iv03Gpb+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F9A01F00A05;
-	Wed, 11 Nov 2026 09:04:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794387876;
-	bh=tw4MBR2nQ4JcguOEhZ8yHA2Hq3NkQmlLl/rKAtx4S0s=;
-	h=Date:Cc:Subject:To:References:From:In-Reply-To;
-	b=iv03Gpb+7C2wrp/t27Vm3RLLSiGGsDKF3a4nqKWoODyAXYYjUodMgi7sdJ+XnKg2y
-	 ho69VqOHH+V1GoJro9Zng3pMAIopvTLx0Ex3O8csRNN6JnLgL274bpa5KiGZy+TKfy
-	 N3OEx+tntYllVgL31SjxZSdxJe41wllqq10PV/kgOfENQBVgBEVOR9nbx0BJLEF5NX
-	 VRu0Co3S/W7f4hI9jESyiFvFIVzDdiRSqgkk/YjvgjWaJVqOe8cfUlWze2qkhL7DNT
-	 XFUI7TNkttPp+A9w3ntbAuj7oNbN2OeZtBK2vO6feDnX9zJTWIscY8x9xxkaBnXUkU
-	 HUYMBRc1HM6KQ==
-Message-ID: <102da404-ab62-4ba6-b46a-1846ca64c72b@kernel.org>
-Date: Wed, 11 Nov 2026 17:04:33 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IkIseqOq
+Received: by mail-pg1-f178.google.com with SMTP id 41be03b00d2f7-cc4be0e5351so1426745a12.0
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 01:04:39 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794387878; x=1794992678; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4NSXIHHAlrlnWpquuqYJcuGA/ysXonzJiU11gCiOoV0=;
+        b=IkIseqOqTOh3WorZtKvcSXdkAWviUdNa/2w+WVJ0aaVWd47QTEgB69MkdRXndYImEz
+         66vLSOnif29aFvOTWsBI/c34lf9PalGndEq+FGKEM+L4gDWHtZmmbi0nusuxLCW4yEHx
+         P7/Xr9C1xxZyA2lxn3408YkpQOdglt3kQsgM1Zoi640LX2YSYJAQePy1PQaP2G7j5JU3
+         gRC4z16EpzgTMbFtwOOcEXB92pyJo9yhcx2O5WOLDCYCncOn9nBrgLySkc/RkZ9SedUk
+         Ia2Y5KWTIx+du+gNz03ZnEewCpoAIt5F3N5xqf5CI6WTo+QJs+d7OUrp2ODn9v1Zu9Ax
+         nzKg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794387878; x=1794992678;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4NSXIHHAlrlnWpquuqYJcuGA/ysXonzJiU11gCiOoV0=;
+        b=vD4pM1kXG2hXrTQ+jkksweE2I5fiXjZbDdJwfE5wq6vT0YHL3YvsFSB2UiWD1Ja58p
+         Dalf5dCi5meCEOgKnMoSXojMiPiKk7Z4OeYzGdYSLLfCa9k3Z5XGGHHdztMgEWK6+ImE
+         yupFl2F9f920bMwDNf0UNt+LXjoOE3CLXoYFRhVIJCiZyU7/OYNtcUJ+BNY2DSD0+mOF
+         uRwzDb5CYuVQzp/YrOoNKaGYfZf6kWf81lOksOAwJ44d1f1J21VfV44GrxpwHbEGzYfr
+         JJVTWD2mTaJnc8yrhPmBEtDXJwsA4N+kmku5ypeiPPAQ6wET9eHl0DUoVRpfpQfCKJ8v
+         ZXdQ==
+X-Forwarded-Encrypted: i=1; AL+hErHjNDU1evPLXcWOv9W6CoQSH7ZCAgzAsgni+H2ZrRrzLTzYiX5rBxA4ZpqQtu1bNXm4PZ+uFADgdPqIWmY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z92wWh4VpCV6lqNFyap31gDKCvst9J2A6ndMKYcdmbiS2iaODHP
+	rKhVYQ6s+KAU4CjhirwgiBbPjQG8fZ3wZuCuou0UJthsWSWLqlGI3OFTfIq+QmmK
+X-Gm-Gg: AYBFou0WJkDT3pYLAx0hIL5BXFxpqyKU60yd/YiaaR+vmmhL8bk1Oh55NQF81pKj+vE
+	IgasNnxHgsVqQ/f+izt/kSYiuZAs+Bzkb8AbkjaYu3o05mqIDNH2D2b13p0dzM3Q6UmAAS4q0WF
+	NaTEpGg2cTUH181fsIsT52Y+mt9hwnJg4kqZ0QHN38VCI2H28hWIO/Up3fWRGrEM76bQ1ft0ywr
+	u5HRVYfLJgACxRBj2YUGK07w0QOweMdW/uUvm8FNhwbX5t9AHpT6y9KglAWpUeqQeClVzWr2bxt
+	zT+U0of3e1A7NT8m3EHi2bEITcgoi6SkMfTS0p+nKhQnqeOSD13WJvo/3+BsIoqCeBGidapS5K5
+	ORPs4XsjFKKPNTmVLtoe7kVZGOx1MOXvv32/EKKzuBDaOyL7sePyfOucTYxBKsD13FGVKu4F5rZ
+	AuXjZCwXck6M949zej+4chCHSgae09R0PcYJpEkzqv8wP90LhpLiIszkiEcEz9xjiJ3E3J5gnlU
+	s0sqX130sZbFAgTFi6tZJjux4D4m0c9JE/W45iTgr01stE0C6E0pAMjRdeO7P4mhb8j4iZvpEf8
+	zuAU2olXKMxn6UYe17SRWdrqEZa5i+Q0oScsatrk+EBqBU9TsTtWZwhjCWk5WGoGVVrEdYOSUAf
+	00XWnodKnf0WNVBjkE0DYGTOEv3vVCd9O3f5j5wIDlck=
+X-Received: by 2002:a05:6a20:a106:b0:3d4:52bd:b89d with SMTP id adf61e73a8af0-3f2fc99fc04mr2159073637.23.1794387878436;
+        Wed, 11 Nov 2026 01:04:38 -0800 (PST)
+Received: from nugod-NUC15CRHU5.tail9f095a.ts.net ([218.237.104.87])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8baa7cede06sm1929924b3a.7.2026.11.11.01.04.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 01:04:37 -0800 (PST)
+From: HyeongJun An <sammiee5311@gmail.com>
+To: tiwai@suse.com
+Cc: perex@perex.cz,
+	ivan.orlov0322@gmail.com,
+	broonie@kernel.org,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	HyeongJun An <sammiee5311@gmail.com>
+Subject: [PATCH v2 0/2] ALSA: pcmtest: Add a volume control with event fault injection
+Date: Wed, 11 Nov 2026 18:04:27 +0900
+Message-ID: <cover.1794386073.git.sammiee5311@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,75 +99,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: chao@kernel.org, jaegeuk@kernel.org, yi.sun@unisoc.com,
- linux-f2fs-devel@lists.sourceforge.net, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] f2fs: skip further SIT updates for already invalidated
- blocks
-To: Seongjae Jeong <jsjlee1020@gmail.com>
-References: <20261004061007.7433-1-jsjlee1020@gmail.com>
- <f3f5fe2c-f0f5-4c23-a2f7-6cb5e09ced5a@kernel.org>
- <CAPHXVrzaWHYccYe+PWLeAf_N3md8ens0UsW7aH-047KGhM4BUg@mail.gmail.com>
-Content-Language: en-US
-From: Chao Yu <chao@kernel.org>
-In-Reply-To: <CAPHXVrzaWHYccYe+PWLeAf_N3md8ens0UsW7aH-047KGhM4BUg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 10/11/26 18:39, Seongjae Jeong wrote:
-> Hi Chao,
-> 
->> Cc stable.
->>
->>> Fixes: 81ffbd224e5f ("f2fs: update_sit_entry_for_release() supports consecutive blocks.")
+Hello Takashi,
 
-Hi Seongjae,
+This is the non-RFC version of [1], which Mark found reasonable [2].
 
-Oh, sorry, it seems original Fixes line is correct, my bad.
+Patch 1 fixes the places where pcmtest.rst does not match the driver.
+Patch 2 adds the volume control and its two fault parameters, and
+documents them.
 
-81ffbd224e5f ("f2fs: update_sit_entry_for_release() supports consecutive blocks."):
+mixer-test results on the new control, under qemu on sound/for-next:
 
--       if (unlikely(!exist)) {
--               f2fs_err(sbi, "Bitmap was wrongly cleared, blk:%u", blkaddr);
--               f2fs_bug_on(sbi, 1);
--               se->valid_blocks++;
--               del = 0;
+  no fault                    all 8 checks pass
+  inject_ctl_no_event=1       only event_missing fails
+  inject_ctl_spurious_event=1 only event_spurious fails
 
+The pcmtest selftest still passes all 10 tests.
 
-+               if (unlikely(!exist)) {
-+                       f2fs_err(sbi, "Bitmap was wrongly cleared, blk:%u", blkaddr + i);
-+                       f2fs_bug_on(sbi, 1);
-+                       se->valid_blocks++;
-+                       del += 1;
+Changes since the RFC:
+- document the new parameters
+- rename the control to "Test Playback Volume", which the OSS mixer
+  emulation does not map
+- add the documentation fix as patch 1
 
-The patch changed from "del = 0" to "del += 1" incorrectly.
+[1] https://lore.kernel.org/all/20261103011000.1012035-1-sammiee5311@gmail.com/
+[2] https://lore.kernel.org/all/61df01a7-10ee-407e-879f-d9c1085a5d43@sirena.org.uk/
 
--       if (!f2fs_test_bit(offset, se->ckpt_valid_map))
--               se->ckpt_valid_blocks += del;
-+               if (!f2fs_test_bit(offset + i, se->ckpt_valid_map))
-+                       se->ckpt_valid_blocks -= 1;
-+       }
+Prepared with Claude Code (Claude Opus 5.5). Tested on x86_64 under qemu.
 
-And from "se->ckpt_valid_blocks += del" to "se->ckpt_valid_blocks -= 1".
+Best regards,
+HyeongJun An
 
-Let me know if I missed anything. :)
+HyeongJun An (2):
+  ALSA: doc: pcmtest: Update to match the driver
+  ALSA: pcmtest: Add a volume control with event fault injection
 
-Thanks,
+ Documentation/sound/cards/pcmtest.rst | 25 ++++++++--
+ sound/drivers/pcmtest.c               | 68 +++++++++++++++++++++++++++
+ 2 files changed, 89 insertions(+), 4 deletions(-)
 
->>
->> This commit didn't change previous logic? IIUC.
-> 
-> The discard bitmap handling already existed before this commit. It was
-> introduced
-> by a66cdd985532 ("f2fs: introduce discard_map for f2fs_trim_fs").
-> 
-> However, 81ffbd224e5f did change the checkpoint accounting.
-> Previously, del was set to 0 when the cur_valid_map bit was already cleared,
-> so se->ckpt_valid_blocks += del left the counter unchanged.
-> That commit replaced this logic with se->ckpt_valid_blocks -= 1,
-> regardless of the del value.
-> Thus, the counter is incorrectly decremented.
-> 
-> Would it make sense to add a second Fixes tag for a66cdd985532 to cover
-> the discard bitmap handling?
+-- 
+2.43.0
 
