@@ -1,47 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794396981;
-	b=J/zegYTa1p7vIUXDB5tUvipoovPf26gG5IkcXc0mlDe8z4tx5ABuSPqWxHcDp9FmgKWW
-	 hIWrKRHiIkYTE+3irkdBAwgfSmbdThE1t14czyYHKpmaJ21jT5WZWVxa7GD9RqkLhz2IH
-	 5DIoJNZLicYjZ7A2TtS+Xu9lXrGiJLc/JGJiTfTk5bYIMhs+p/pYkWTkF3rHUynGOphNW
-	 7mfus6on01acjz+FWgMJv1kLTuQ5NFnaXh6qRu7JeuPRkeXdBT6e9QMV/3qk/wOf/eEPb
-	 97muxfTOxpyBPT917LU1td0qfTaj38sVIEqR2JGDKzjbvZdbkPOXgGL/dbz2ILQ+4eg==
+	t=1794397005;
+	b=47+iCM73KyC2t0ln/cJLe4YClDl9Xgv3B7bhcCsEqmd+QJ4O6sP29Nbcfog/sxgHQF27
+	 Go4Fc/cDkQzNFxt2cjk7maVjF5zUTRJ4zfacOLCsKyIjK+sgevyLew54GcsiGshgXUCJe
+	 aF2LZ71OA6ViX6WJx9gQqWPaQ6QHYonmRLFsZy0TAFIzd9e99Veew4axb6f4U3IJ7eedi
+	 zcK9Go6vMbA/ern2Wq0C6L78WnAgicRd4DEuIHMdmfns+XzZr87UdGA6gzSGCt4URMbl0
+	 neXa4bwZy3zBlO+SVeKCMKtj4JANLohHAiQOIrZMrFPvCvFbZFXu0lqV1H24NNZElYQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794396981;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:Cc:
-	 Subject:To:References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=6ef3BW3A5FVT5x/mpefs4145su/1qFLNbKYUDqCerLU=;
-	b=L/nvliVnDHYvfhaNoTH/h75qvK3rLkJViaNvZVcS6ZL5a5dZCU+/3dKjbmiFD0HswyQ8
-	 MOg+l00CZsfOpYGJkebCLNgsxvXnizNJqF7yZkhpeP8Wm6PDJ7kvs+GDv0xnx+Ku4ONtf
-	 UoMa2lPXHjfZ9GhEvD46626cem6LCJTxFp3lkcV5pdoTRwS7VRPZUFpmcGTP47IvsJlI1
-	 8KfF5uGvCypOeW0LA5MiwQBff02OqHjzpFiCPNVg0+uoGxf5L8Q4HHNyTiNlXMBkee4En
-	 RDv7vQH1kCIr14MxzAU1SmjV8FW4w8PxlbdOQa+teKNlpXkHFfI6yE2K8vsdAx5pxZQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794397005;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Rspamd-Queue-Id:
+	 X-Spam-Level:X-Rspamd-Server:X-Rspamd-Action:X-Spam-Flag:
+	 X-Spamd-Result:X-Spam-Score;
+	bh=mGfXAhsIkfsmQ61oEXFkoeqvWAbeNybqBLE5t2HP4g0=;
+	b=CrZThZqtjfRVn4+TlB6fnyaNkwZ1E/W9y9L2i+6hoVgxjuRsF7G6UX6gjjX85L/NDNtJ
+	 OF6X6tBjYm4SD8sUt51XtvJ2+QSU8bMhLODsn7y3DuMoVlyf5Phnc0WJsGWMmhFE2Nqdf
+	 Lp2eS7C0gLAyUOYiHo02zp2q1mghMtXqm4eHLPoCLAvnHgASjHsc7Ojm/HdaKajM9oboY
+	 Vvs9RDniz6xXE67wN1uWLZ4didpMr+95qYhlCBNNIxcjv+b4kebHuWS3GTkKxO9hm5xaG
+	 +axZDqtggjsSvnExWebMiWkkzE8LvwUPloTpfvoqeGvIar0iJDG7kokbi4dFHPK2rCg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mXNCcv7A;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=WST5EO3G;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=cUa96bAg;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=w9EvtxVz;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=EhssSEpv;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35D87606A326
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 11:36:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ADC4606A321
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 11:36:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2ADC4606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mXNCcv7A
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDE291F00A05;
-	Wed, 11 Nov 2026 11:36:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794396980;
-	bh=6ef3BW3A5FVT5x/mpefs4145su/1qFLNbKYUDqCerLU=;
-	h=Date:Cc:Subject:To:References:From:In-Reply-To;
-	b=mXNCcv7AXNopwNMQPTesiR1qQrAdv3fbAmc58SeIoRuUlniu3GMcK149CgUQ90txD
-	 XJuyrmzfEh1U+r4J7KnFuOkDkEsa2MGHAgxQN6L4s/7uGP9Si0geyi+LwXQpnSYGdX
-	 i1+syBY8hEyma1ohntJTd0yb86lKIP0i4jea5AOOEf+TCRXYCfuU0BYdad/+dyzXyx
-	 hDyKV8g7BF4VdO1cfrvjOD5Ru1zWjYa/RJFFCv9JNvVjIkTwWwOEuf48rMZveFWzQV
-	 +FEeyFpjxsi39MM0K1pVgb43DcRPSmyOUKboscRThZJzKK/XKIPeivshnWSfXXdMqS
-	 s624B+RcZyPsw==
-Message-ID: <f26ac11b-cf63-4627-9d12-e1216fc0135e@kernel.org>
-Date: Wed, 11 Nov 2026 19:36:18 +0800
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=WST5EO3G;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=cUa96bAg;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=w9EvtxVz;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=EhssSEpv
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 03D8B1F458;
+	Wed, 11 Nov 2026 11:36:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794397002; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=mGfXAhsIkfsmQ61oEXFkoeqvWAbeNybqBLE5t2HP4g0=;
+	b=WST5EO3GF7s1RbHj9+0H0BxrjbqxvsonqE3XiPeE1+oec7I4LQKMoT8zrX5BSExMVCNlf5
+	EbuMDxPSJXNCWlVHeyJI/CuaxtOWmmt0mrXDQ1ucG+hcYJDPYiuS8EMyhb7eoRtLeZuxxG
+	wcT9LYk605EGr3MZKc/2RCCxcvMo88I=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794397002;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=mGfXAhsIkfsmQ61oEXFkoeqvWAbeNybqBLE5t2HP4g0=;
+	b=cUa96bAgU2cVZ6EN3Vq3TVbrTjZmsAytTsXvj4pUqxys0z5gTYx/+8toByzfWz7WSIdmL+
+	nwAZeiT6TQ+cA3DA==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=w9EvtxVz;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=EhssSEpv
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794397001; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=mGfXAhsIkfsmQ61oEXFkoeqvWAbeNybqBLE5t2HP4g0=;
+	b=w9EvtxVzxGSJK1v+A/4s/adhtTH9ytMqoaYYXuws07BT2eBZUfv4I56tCnvbL38Sue/78x
+	C1t6Khxk86zfp8evLfJ+lRoDMyr/At678BDCFNFmqoSazibHLPZHMgDWeYOk5vFkoR+MeE
+	EBK319i+3nQVnElAEDhNezU+BeQ2uCI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794397001;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=mGfXAhsIkfsmQ61oEXFkoeqvWAbeNybqBLE5t2HP4g0=;
+	b=EhssSEpvZt2pVttFQzBkDd9m+xUejj3E/2EzBqKfa1kS7bwaw9t8nPnAlcaihWmmbG8uVE
+	ISNb3Y+Q8G91/kBg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A87841339F;
+	Wed, 11 Nov 2026 11:36:40 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 6oreF0hT9GrTWgAAD6G6ig
+	(envelope-from <tzimmermann@suse.de>); Wed, 11 Nov 2026 11:36:40 +0000
+Message-ID: <e16d5fb8-58bb-48dd-8f98-6777bd2fd2e3@suse.de>
+Date: Wed, 11 Nov 2026 12:36:39 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,114 +109,137 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Cc: chao@kernel.org, daehojeong@google.com,
- linux-f2fs-devel@lists.sourceforge.net, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] f2fs: require inode ownership for ioctls that change
- per-file state
-To: Hungyu Lin <dennylin0707@gmail.com>, jaegeuk@kernel.org
-References: <20261108045722.12091-1-dennylin0707@gmail.com>
+Subject: Re: [PATCH v2] drm/fbdev-shmem: don't warn on a transient dirty
+ callback failure
+To: Jiahao Xu <xujiahao@cmss.chinamobile.com>, dri-devel@lists.freedesktop.org
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org,
+ syzbot+369ee6a6e9d0bbf14b37@syzkaller.appspotmail.com
+References: <20261111124156.317053-1-xujiahao@cmss.chinamobile.com>
 Content-Language: en-US
-From: Chao Yu <chao@kernel.org>
-In-Reply-To: <20261108045722.12091-1-dennylin0707@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20261111124156.317053-1-xujiahao@cmss.chinamobile.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Queue-Id: 03D8B1F458
+X-Spam-Level: 
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-12.00 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	XM_UA_NO_VERSION(0.01)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	FREEMAIL_CC(0.00)[linux.intel.com,kernel.org,gmail.com,ffwll.ch,vger.kernel.org,syzkaller.appspotmail.com];
+	DKIM_TRACE(0.00)[suse.de:+];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[369ee6a6e9d0bbf14b37];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim,appspotmail.com:email,chinamobile.com:email,syzkaller.appspot.com:url,suse.com:url]
+X-Spam-Score: -12.00
 
-On 11/8/26 12:57, Hungyu Lin wrote:
-> F2FS_IOC_RELEASE_COMPRESS_BLOCKS, F2FS_IOC_RESERVE_COMPRESS_BLOCKS,
-> F2FS_IOC_SET_PIN_FILE and F2FS_IOC_IO_PRIO change the state of the inode
-> behind the file descriptor without checking who the caller is. Any user
-> who can open a file, even read-only, can:
 
-How about checking write permission instead of inode_owner_or_capable()?
 
-	if (inode_permission(file_mnt_idmap(filp), inode, MAY_WRITE))
-		return -EACCES;
+Am 11.11.26 um 05:41 schrieb Jiahao Xu:
+> The fbdev dirty callback (drm_atomic_helper_dirtyfb()) can fail with
+> -ENOMEM when the atomic commit allocation fails under memory pressure.
+> That is a transient runtime condition, not a driver bug: the damage is
+> only cosmetic and the frame is redrawn on the next flush.
 
-> 
->  - release its compressed blocks, after which writes to the file fail
->    with -EPERM until the blocks are reserved again or the file is
->    truncated to zero;
->  - reserve released blocks again, which consumes free space;
->  - pin it while it has no data blocks, after which writes that extend
->    the file fail with -EIO;
->  - unpin it, so that garbage collection may move blocks that a user of
->    F2FS_IOC_SET_PIN_FILE expects to stay in place;
->  - set its write I/O priority hint.
-> 
-> F2FS_IOC_SET_PIN_FILE checked inode_owner_or_capable() when it was
-> added. Commit aff7b628ac2d ("f2fs: set pin_file under CAP_SYS_ADMIN")
-> replaced that with a CAP_SYS_ADMIN check, and commit b13bdf03bb80
-> ("f2fs: allow all the users to pin a file") then removed the
-> CAP_SYS_ADMIN check, leaving the ioctl without any permission check.
-> 
-> The atomic write ioctls require both FMODE_WRITE and
-> inode_owner_or_capable(). Requiring FMODE_WRITE here would break
-> f2fs_io, which releases and reserves compressed blocks through a
+Cosmetic? Failing to allocate memory seems like a significant problem to me.
 
-I think we can fix f2fs_io.
-
-> read-only file descriptor, and Android, which releases them the same
-> way. Require only inode_owner_or_capable(), as F2FS_IOC_SET_PIN_FILE
-> originally did, so that only the owner or a caller with CAP_FOWNER can
-> change this state. Users can still pin their own files.
-> 
-> Fixes: b13bdf03bb80 ("f2fs: allow all the users to pin a file")
-> Fixes: ef8d563f184e ("f2fs: introduce F2FS_IOC_RELEASE_COMPRESS_BLOCKS")
-> Fixes: c75488fb4d82 ("f2fs: introduce F2FS_IOC_RESERVE_COMPRESS_BLOCKS")
-> Fixes: 5f95c1812a65 ("f2fs: add ioctl to get IO priority hint")
-
-IMO, we'd better to fix them in separated patches.
-
-Thanks,
-
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+>
+> drm_WARN_ONCE() turns this recoverable failure into a WARN splat (and a
+> panic with panic_on_warn), which syzbot keeps reporting:
+>
+>    virtio-pci 0000:00:01.0: [drm] Dirty helper failed: ret=-12
+>    WARNING: drivers/gpu/drm/drm_fbdev_shmem.c:118 at ...
+>
+> Keep the warning for other failures, but do not warn about -ENOMEM.  The
+> error is still propagated to the caller.
+>
+> Fixes: 150f431a0831 ("drm/fbdev: Add fbdev-shmem")
+> Reported-by: syzbot+369ee6a6e9d0bbf14b37@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=369ee6a6e9d0bbf14b37
+> Signed-off-by: Jiahao Xu <xujiahao@cmss.chinamobile.com>
 > ---
->  fs/f2fs/file.c | 12 ++++++++++++
->  1 file changed, 12 insertions(+)
-> 
-> diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
-> index e2c0f5083313..0730de36554a 100644
-> --- a/fs/f2fs/file.c
-> +++ b/fs/f2fs/file.c
-> @@ -3664,6 +3664,9 @@ static int f2fs_ioc_set_pin_file(struct file *filp, unsigned long arg)
->  	if (!pin && IS_DEVICE_ALIASING(inode))
->  		return -EOPNOTSUPP;
->  
-> +	if (!inode_owner_or_capable(file_mnt_idmap(filp), inode))
-> +		return -EACCES;
-> +
->  	ret = mnt_want_write_file(filp);
->  	if (ret)
->  		return ret;
-> @@ -3982,6 +3985,9 @@ static int f2fs_ioc_io_prio(struct file *filp, unsigned long arg)
->  	if (!S_ISREG(inode->i_mode) || level >= F2FS_IOPRIO_MAX)
->  		return -EINVAL;
->  
-> +	if (!inode_owner_or_capable(file_mnt_idmap(filp), inode))
-> +		return -EACCES;
-> +
->  	inode_lock(inode);
->  	F2FS_I(inode)->ioprio_hint = level;
->  	inode_unlock(inode);
-> @@ -4235,6 +4241,9 @@ static int f2fs_release_compress_blocks(struct file *filp, unsigned long arg)
->  	if (f2fs_readonly(sbi->sb))
->  		return -EROFS;
->  
-> +	if (!inode_owner_or_capable(file_mnt_idmap(filp), inode))
-> +		return -EACCES;
-> +
->  	ret = mnt_want_write_file(filp);
->  	if (ret)
->  		return ret;
-> @@ -4430,6 +4439,9 @@ static int f2fs_reserve_compress_blocks(struct file *filp, unsigned long arg)
->  	if (f2fs_readonly(sbi->sb))
->  		return -EROFS;
->  
-> +	if (!inode_owner_or_capable(file_mnt_idmap(filp), inode))
-> +		return -EACCES;
-> +
->  	ret = mnt_want_write_file(filp);
->  	if (ret)
->  		return ret;
+> v2:
+>   - Add the Fixes: tag reported by sashiko-bot.  No code change.
+> ---
+>   drivers/gpu/drm/drm_fbdev_shmem.c | 9 ++++++++-
+>   1 file changed, 8 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/drm_fbdev_shmem.c b/drivers/gpu/drm/drm_fbdev_shmem.c
+> index 8eb05fe9b..c3fa5a663 100644
+> --- a/drivers/gpu/drm/drm_fbdev_shmem.c
+> +++ b/drivers/gpu/drm/drm_fbdev_shmem.c
+> @@ -115,7 +115,14 @@ static int drm_fbdev_shmem_helper_fb_dirty(struct drm_fb_helper *helper,
+>   
+>   	if (helper->fb->funcs->dirty) {
+>   		ret = helper->fb->funcs->dirty(helper->fb, NULL, 0, 0, clip, 1);
+> -		if (drm_WARN_ONCE(dev, ret, "Dirty helper failed: ret=%d\n", ret))
+> +		/*
+> +		 * An allocation failure is a transient condition under memory
+> +		 * pressure, not a driver bug, so don't warn about it.  The
+> +		 * error itself is still propagated to the caller.
+> +		 */
+> +		drm_WARN_ONCE(dev, ret && ret != -ENOMEM,
+> +			      "Dirty helper failed: ret=%d\n", ret);
+> +		if (ret)
+>   			return ret;
+>   	}
+>   
+
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
+
 
