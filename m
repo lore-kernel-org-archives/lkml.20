@@ -1,79 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794414147;
-	b=HrUqHqK3BN8Dxq+CjO/X8ps1tl3SFYA//qRBBg6L9bHQJDsawYR3hmkjKHVCoH4DfI3I
-	 MqUhYCAWNL7X/JIksabnucJi80sFCB3YAcGn1qm29+ryStuqKbmBaCY7etc09zgegrmg/
-	 nZ82sAgeJ9yvi+4cZ0tslihFLSSdGKZ6JNGCktsYfBY+HBXbZh000Yxuhj3z/Up754J2u
-	 nMV8HXGX0dbOIu94M26CD7nfsc1GGPGOVIzu7Qu/WYQnSfA0zIkBNayWh2n1qJfZb2+fj
-	 ocRY0aSCAx4HGRILJ5sYJCLKtZuTqZXFRvsdb2YB8tC25pyv1Vrc3Yu+BZLN9i9rhWA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794414147;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=q8mOpRnf+Di73N3yU2eDEU0GPveFfttiuju/Wh/wS8w=;
-	b=pqI7wPpVJxSsaru6iQzV3+EXLTqw5a+wN4De7yH7Zr8yEtxgp+/Z9Av6mt8m93eu4Gi7
-	 Zh5LlN59c3/eWU0F1pi3Ywwa+NXyHZqn6jXADUC+pvO26G4KD15l1VB44MZ5HVwAWWdUX
-	 imgjZqgUpamT2g20aa57Rd6xHZjfFYtglL51CqlAmR+jQBNZV7VCHsyBdfBsLMiT1pgyK
-	 OfFnxr2GRNOt4RJX+crIq+LM9f0TV5gKuDChjhpEdlsfyRmp6+/OQN35LTcONvO8oZfyI
-	 eaAon/WUGsWRvHnHBQCsZUnk7R0vNIHAIC0rRP1JNSSEEaEpTvNqRW6QkpEcIyjjdbw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HukQX5kZ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A31E606A32A;
-	Wed, 11 Nov 2026 16:22:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HukQX5kZ
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794414147;
-	b=wYwlAyyARqfvEsVdiqYU2G+yd4Ntvwv/6F9gGI/la3liVvhwTEf3GveWBOJVvNn46x7g
-	 g544yRo1rkI4KKclBkvSRWzL8DQer8rKo7KIPgr4Ojpf3gS04OtiTfQwNp1a/+XR//6r1
-	 g+DhJ+5BXuxdhLQiASekkq3B6OFtv3orwvvbo3Oz4kK1EXDOLJE3S/xB3gDfuSfNh1GgX
-	 05m3Z5s0LLn+oS8kfyJ9a0PVgNeWAh2cV1CL5LEyDOGsgPik/+mBnwv4wD32e513JVM7K
-	 DbLQ2WtBf6ntR5cJqFSsLxZkaqA3J2tl8xa9e9TeGfAknjSy4i/RSWurCT8Gn5tTAWg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794414147;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
-	 Content-Transfer-Encoding;
-	bh=q8mOpRnf+Di73N3yU2eDEU0GPveFfttiuju/Wh/wS8w=;
-	b=wO5LFu6haaOahJAHlJAHjn1vQSKYcXNOTySl4kemQaLFzt4KV0Jr/p4u6qIvN3oixRll
-	 3EK0vkO+X2RVvprvsPUZi+SlnPSxr3nvM+z85BZfN4TnvwOhaNs1raybY5gYkp5dN6z75
-	 Jkez4A8uHZIkIfi8EFl9H5xWTg/ptmfPJMGlNTqiC7/QIQBbVATJ7w843bkZ9DDdNgfVT
-	 Uvyf+C353qjt4RAYlWqkIdyaj8XQSsjE1oVrWLLc3YOS0kpy2K/x6CWF+vJA9PvarbdVD
-	 NypQnptO0hpOEExRRwGT9dzSoTYlEgbrdAedNj5+5F1Mcz/86l+zOaDfoDYv5BZkxkQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794414155;
+	b=vEKji/6NI/UknE5ehcWIGPeobxeA0kioGQvqvphIq/scOwGU7e7j6rrZau9iuOIkv9da
+	 lQ7idiYpwcfYGFf6sAGLVvY/SA2znO4nWkAjirT6YqXw3/geZA+ToZOW09q3qLWpqLSze
+	 uJ4dov9CQqRM+62M1emX4bnRkJBwapYiJpeoJ/jy4fdLRXjXyfK9dCIs/G84FUdhegoeg
+	 WU55B9n1kcCrS84qrJQaoJrtuUw5yR4QcuQhjUZtuG97ScCCsQIZyShENbmVhB9CANW8r
+	 Y1Qg2uAhL0BpojFFkIHBlpDWhtYgfk8t+bzPBDfAgx/clG666lvS0qF0Vib41yq/NRQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794414155;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Scanned-By;
+	bh=nv6HzmQJ6ffBOeBC0ENaz/z3V2SP4tEu9Ud+hByKmro=;
+	b=IVtgtVse+dgfBgUhY/9DVpUEf0OlwNI9cED3vNigiHWhcoc8B18lyE0qE6A3E6xi4huw
+	 Id+hg8yk6trCeDh9Ml3OkdeHqUPiSYlHNjdhCdNcO2FkhGP8LG2QsslpvZPA3Cauc4RPG
+	 SqE3DhR/ExlPZ1i3nDvvuZjiycSGIYJki8rEx+WpUNXyagfcpfOYzTIGdqcXrWOeBfIfP
+	 IpI7M5SshdYg190cZV+kRG/q21S2V6XRwNvyb7rwR/p1AcFJ8pf6+ZqKqQs1EQpVBcVxd
+	 y+G7CxfN9WkYtztQZlAv4Kn12dKtB85xQOhyR3eU1J/rej/vGsBMfO7wsFdO+CUPOFA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=ik2DNhn4;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 9E1411F00A05;
-	Wed, 11 Nov 2026 16:22:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794414147;
-	bh=q8mOpRnf+Di73N3yU2eDEU0GPveFfttiuju/Wh/wS8w=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=HukQX5kZVzKv62Uw4vbqoKlv+mT0ZtoCTZW8Mrn9LU+fuONL2rgbvXY+KS8Fjp672
-	 hpvtNVPyAEc5XeMiGtHdM4O9pWk/e2mm/Uf4vUJNum0/Qiav8YOJ8vQZ+ze3ln1gO/
-	 YrrdnzvAkj+61G1WDjk/w02FLqq4MpcMV9ddecgJ7/E4JraZPC16t6X8ySszwjG5MD
-	 Z2BgOYi+uKohTM79INMyYGTwnkjBndmqujq8PdWIfRtJEHomb8wcKg+dlfwge+wc59
-	 xLsEYrT0ZRT0jreXOcucvqbXgAQtmfKwJLtYe3fYopliWXFWn/lSfA8REYNVVZr+Ut
-	 bq74+OqcPdPhA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id F269749025;
-	Wed, 11 Nov 2026 16:22:25 +0000 (UTC)
-From: Joas Antonio dos Santos via B4 Relay <devnull+joasantonio108.gmail.com@kernel.org>
-Date: Wed, 11 Nov 2026 16:22:26 +0000
-Subject: [PATCH net v2] net: usb: smsc75xx: reject frames without a full
- header and FCS
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19BB6606A88A
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 16:22:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 19BB6606A88A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=ik2DNhn4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1794414154;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=nv6HzmQJ6ffBOeBC0ENaz/z3V2SP4tEu9Ud+hByKmro=;
+	b=ik2DNhn4jAaRKyyB0KtdXyCqryirSD6ROlfZIodv9+MVapkKcoHP4HWKbOIbdY70l3+RZl
+	YyHC9dsVyHlDjjlV2jUZprrev67xQ7+U+moe/5hiE/7bKCflV/byeY+9IgN/C0WlCuOkU5
+	jntzjEuowiLGzmHURqwYXcvzhh+Q5fU=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-82-tlKkUhGdN9SfGZz4Z9S6Qw-1; Wed,
+ 11 Nov 2026 11:22:31 -0500
+X-MC-Unique: tlKkUhGdN9SfGZz4Z9S6Qw-1
+X-Mimecast-MFC-AGG-ID: tlKkUhGdN9SfGZz4Z9S6Qw_1794414150
+Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id D5BBF1977699;
+	Wed, 11 Nov 2026 16:22:29 +0000 (UTC)
+Received: from onestero-thinkpadp1gen7.tpbc.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id 73D161800546;
+	Wed, 11 Nov 2026 16:22:27 +0000 (UTC)
+Received: by onestero-thinkpadp1gen7.tpbc.csb (nbSMTP-1.00) for uid 13628
+	oleg@redhat.com; Wed, 11 Nov 2026 17:22:29 +0100 (CET)
+Date: Wed, 11 Nov 2026 17:22:26 +0100
+From: Oleg Nesterov <oleg@redhat.com>
+To: Zhu Jun <zhujun2@cmss.chinamobile.com>
+Cc: brauner@kernel.org, linux-kernel@vger.kernel.org,
+	syzbot+0f4d5234b6cb5e479e5d@syzkaller.appspotmail.com
+Subject: Re: [PATCH] signal: Preserve the ptrace stop code for SIGCHLD
+ notification
+Message-ID: <avSWQsTI1KZaHFIr@redhat.com>
+References: <20261111084310.81013-1-zhujun2@cmss.chinamobile.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,106 +79,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261111-smsc75xx-rx-fcs-v2-1-216a5f26842a@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAEGW9GoC/3WNvQ7CMBCDX6W6maBeKCUw8R6oQ0ku7Un0R7kqC
- qr67kTZGTx8tmzvIBSYBB7VDoEiCy9zBn2qwI79PJBilxl0rVtErJVMYm/XlFRIylvJ6u+tcR6
- dJcitNZDnVBZfMNMGXTZHlm0J3/ISsUR/ByMqVA3VjXl7q42/PIep58/ZLhN0x3H8AOCp+x+zA
- AAA
-To: steve.glendinning@shawell.net, andrew+netdev@lunn.ch, 
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, 
- pabeni@redhat.com, joasantonio108@gmail.com
-Cc: netdev@vger.kernel.org, linux-usb@vger.kernel.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794414145; l=3049;
- i=joasantonio108@gmail.com; s=20261031; h=from:subject:message-id;
- bh=UakfyXge5Z7dCorT5L2tCidbQJeCZJFs6IXcWJSAcH0=;
- b=X3LdGQ0gmxyYqtbCxoFYV/DavCK6B5PoaonNbH+/qj6xL6UcK7taMtAk6ZVCvgO6LnrJkQk1K
- DShzMr0btrABu3f+q47WR8v7Vh5Qo+iUn+I5TZWfi4bCr6YBhITayeo
-X-Developer-Key: i=joasantonio108@gmail.com; a=ed25519;
- pk=ZxAznJT/FcPPdzLrDDFJQm4LLjjHVGBBqDSG3TXS23w=
-X-Endpoint-Received: by B4 Relay for joasantonio108@gmail.com/20261031 with
- auth_id=1371
-X-Original-From: Joas Antonio dos Santos <joasantonio108@gmail.com>
-Reply-To: joasantonio108@gmail.com
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261111084310.81013-1-zhujun2@cmss.chinamobile.com>
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
 
-From: Joas Antonio dos Santos <joasantonio108@gmail.com>
+On 11/11, Zhu Jun wrote:
+>
+> After ptrace_stop() drops siglock, the tracer can consume the stop with
+> waitpid() and clear the tracee's exit_code. do_notify_parent_cldstop()
+> then rereads that field without siglock and can report CLD_TRAPPED with
+> a zero si_status instead of the stop signal.
+>
+> Pass the stop code saved in ptrace_stop() to the notification helper.
+> The other notification reasons continue to obtain their status from
+> the existing group-stop and continuation state.
 
-smsc75xx_rx_fixup() takes the frame length from the RX command word
-supplied by the device and strips the FCS by using "size - 4" for the
-allocation, skb_put() and memcpy() of each frame that is not the last
-one in the URB.  The length is only checked against an upper bound and
-against skb->len, so a device can report a length field of 2..5, which
-gives a size of 0..3 after RXW_PADDING is subtracted.
+But how the "correct" .si_status can actually help debugger if it has
+already consumed tsk->exit_code? Why do we want this change?
 
-size is a u32, so "size - 4" then wraps to 0xfffffffc..0xffffffff.
-__netdev_alloc_skb() adds NET_SKB_PAD to the unsigned length, which
-wraps back to a small value and the allocation succeeds.  skb_put()
-adds the length to the 32-bit skb->tail and skb->len, which also wrap,
-so the skb_over_panic() check does not fire.  The following memcpy()
-then tries to copy almost 4 GiB from the URB buffer into that small
-allocation and writes far beyond it.
+> Fixes: 1da177e4c3f41 ("Linux-2.6.12-rc2")
 
-A malicious or malfunctioning USB device can use this to corrupt
-kernel memory or crash the machine.
+Yes, this logic is very old. And unlikely useful.
 
-A frame that holds an FCS but less than an Ethernet header is not
-valid either.  usbnet drops it when it is the last frame in the URB,
-but the other frames go straight to usbnet_skb_return(), where
-eth_type_trans() reads an Ethernet header that was never copied into
-the new skb.
+I don't think userspace actually uses the siginfo which comes with SIGCHLD.
+If nothing else, SIGCHLD doesn't queue, so si_code/si_status is not necessary
+uptodate even if parent/debugger has a single child/tracee.
 
-Reject frames that are too short to hold an Ethernet header and an
-FCS, which covers both cases with one check.
+>  static void do_notify_parent_cldstop(struct task_struct *tsk,
+> -				     bool for_ptracer, int why)
+> +				     bool for_ptracer, int why, int exit_code)
+>  {
+>  	struct kernel_siginfo info;
+>  	unsigned long flags;
+> @@ -2394,7 +2395,7 @@ static void do_notify_parent_cldstop(struct task_struct *tsk,
+>   		info.si_status = tsk->signal->group_exit_code & 0x7f;
+>   		break;
+>   	case CLD_TRAPPED:
+> - 		info.si_status = tsk->exit_code & 0x7f;
+> +		info.si_status = exit_code & 0x7f;
 
-Found by LLM-assisted source review.
+Note that tsk->signal->group_exit_code can be cleared by waitpid() the same way,
+even if tsk is not traced, so this change is incomplete.
 
-Fixes: 1b3b2d9e772b ("net: usb: smsc75xx: stop lying about skb->truesize")
-Cc: stable@vger.kernel.org
-Signed-off-by: Joas Antonio dos Santos <joasantonio108@gmail.com>
----
-This issue was found with the help of an LLM-based code review tool
-(Claude).  I checked the code paths by hand against v7.4-rc3 and
-reviewed the fix myself.  It is build-tested only (W=1, arm64); I do
-not have the hardware to test it at runtime.
----
-Changes in v2:
-- Also reject frames too short for an Ethernet header, combined with
-  the FCS check into a single test (review feedback on v1).
-- Subject changed accordingly; it was "net: usb: smsc75xx: reject
-  frames shorter than the FCS".
-- Link to v1: https://lore.kernel.org/r/20261110-smsc75xx-rx-fcs-v1-1-4e048bfc28f3@gmail.com
----
- drivers/net/usb/smsc75xx.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+Again, I personally think we don't care.. Perhaps something like this patch makes
+sense just to make this code look more correct, but then please consider the
+CLD_STOPPED case as well.
 
-diff --git a/drivers/net/usb/smsc75xx.c b/drivers/net/usb/smsc75xx.c
-index 6f72a3f15907..893de273adef 100644
---- a/drivers/net/usb/smsc75xx.c
-+++ b/drivers/net/usb/smsc75xx.c
-@@ -2217,6 +2217,13 @@ static int smsc75xx_rx_fixup(struct usbnet *dev, struct sk_buff *skb)
- 				return 0;
- 			}
- 
-+			if (unlikely(size < ETH_HLEN + ETH_FCS_LEN)) {
-+				netif_dbg(dev, rx_err, dev->net,
-+					  "size err rx_cmd_a=0x%08x\n",
-+					  rx_cmd_a);
-+				return 0;
-+			}
-+
- 			/* last frame in this batch */
- 			if (skb->len == size) {
- 				smsc75xx_rx_csum_offload(dev, skb, rx_cmd_a,
-
----
-base-commit: b3dfbde62cf1981c4638939c159dfd087b7a72e9
-change-id: 20261110-smsc75xx-rx-fcs-fca968df1dce
-
-Best regards,
--- 
-Joas Antonio dos Santos <joasantonio108@gmail.com>
-
+Oleg.
 
