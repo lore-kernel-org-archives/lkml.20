@@ -1,68 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794484582;
-	b=jbf+///6iJNbmDsQOZF88QWvMR2Oa0P/QV6/95fH8BAShC73hSMsMceTxtCtrkF/MoeO
-	 vlGsurVo9YXmLmAwinQgy53gPIA4OH21AcUaAMFY1dzOynryMieklAAh5ubnoJpFjfVEe
-	 msmB0lmrG8z3IVtG49hy1dG0By/X43illYdI01VT3hnIfFBrDJPwRZv4TKPBXEI8exVzM
-	 UkLWex2ac7F1JfPbUwKWR0uOpfqRMFF+anGrcBIkaEPBtfCE7dxzxhupFJlwDJMkZeieA
-	 Y80J7KXqDkILN4eValSZGw4Q3qU1vt+8bTNKPZlQ6KTdZ+Ee4aA/buSXwv0g1vAPw9Q==
+	t=1794484588;
+	b=iyNV83oGwM7ha5Ypf3KhAJXOWNkE6Y4xo8vpQBtAzBygHk3aPOdLJOboYQgVrUZ/9AHC
+	 uv9KehWPD+gr8u/awxmaeEH5Ivxw14rGPJF28Kj3sex0HGqe3roOwgmtrMPhkICHOZfFL
+	 U52jHBzMGK8Re3E45Hh3tQS7p8sljSgJUmdYjVHutIaehnvzBcvRrMTPzpxuVljMJRk5L
+	 duFWNKCbkmUh+nJs+npag1wbPB74bPfzg97/NAP8MU7a+upxZX4vkKMnHhohzM5qvQEkN
+	 iVjajb8HcHDXECUV6f/ZikSo0oB5jZIzfUR4Ngb4FPgPGzcn3e49Q1Crrcfjt8UItEQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794484582;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
-	bh=1OPbJACaCWzcqg7qAKwMnw/GqAgbVeatHAwZUsalcW4=;
-	b=biaFXRcfGOEVsO0cPdB9FTkwZRkcZZhmsuPHEfoa7rRit5mZIJ72/TAP23shPAJALzMF
-	 Fsl5RHMRaW/9B0qhQJL3pQaWJ9Km8802CfmxafhR4mfirrklAPfZVjnAdJaVTEqHcJ5Mk
-	 71fznRT1oxtDfLTc2kDAzgOpmk2IF2px0Pj1Ae21S1sbB4zZkJLAzSxOtDQAHvheq+2RL
-	 Q0HMBfr0MsEPF7y/WcRdBwXYG+Uy42q29zKxCCnrOyRO8r7DBxqG9fKvFwTC0mPgxqTxk
-	 UO+2PfouWNk6EdI52+VXEWspXsCaBhIVbkDR/NfkZYtKpy+2gu/Z3Fsuc+2NcbcV+kg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794484588;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=zORW0zy/6f2KkJEEeedreEnTa7DjvJJaRLlb/K85tlc=;
+	b=XXf++9GurjYi5RXLAAJXzceiAMd6c2FX3toPD0KB3OJSFw043jakQVvB9F7vVQbnTD/m
+	 rzyJTDYtUodH7qITrUAWknXHTwCAwUFVkOYWVsIcHL73PAZkgNyoViB8ieDrZk2+icJaR
+	 l0Rc8/DlObSSN81ZiXnI5Xxzijn1CeKIfbhkMccUGKGhfJkOx8Wz8IugX2oSVfBejGGHd
+	 8TJYC2/Q9aCPeQAT/X6WzFPdKqy7eLGfunLIoFgDMzlTC8WjcekrP07NtFHRKHQFUJ4I1
+	 vO3o51ELeXCp4IkL+m7wViBSjx5RlFaUMs0S1nj54eGlWQmCqTGs8NPorf8u3JMIajw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=QJu4I9ui;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1E4A3606A321
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 11:56:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E4A3606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hOXynyB9;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22B49606A31C;
+	Thu, 12 Nov 2026 11:56:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=QJu4I9ui
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id F3CE8153B;
-	Thu, 12 Nov 2026 03:56:11 -0800 (PST)
-Received: from raptor (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id CF9343F632;
-	Thu, 12 Nov 2026 03:56:11 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794484575; bh=jLwZvor016x+TzfEywYXeOWteUmG2ue9bXaXatigxyg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=QJu4I9uiQFFvC3WPCjDRK/KwBHVWaMDKODaqCT5puw101H172umhqeXcWf8ceOhW/
-	 1DC/yi0K4CrY0pwYUNJGU3o9Ej8c61VepdlGN1xrZHlHb09BJS5/CjgaSjF6mKrdMP
-	 ReGobp5hWGzdQXEB3jNcrNOn8pypVnlWXrF8/obA=
-Date: Thu, 12 Nov 2026 11:56:08 +0000
-From: Alexandru Elisei <alexandru.elisei@arm.com>
-To: mpenttil@redhat.com
-Cc: linux-mm@kvack.org, dri-devel@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org, linux-kernel@vger.kernel.org,
-	David Hildenbrand <david@kernel.org>,
-	Jason Gunthorpe <jgg@nvidia.com>,
-	Leon Romanovsky <leonro@nvidia.com>,
-	Alistair Popple <apopple@nvidia.com>,
-	Balbir Singh <balbirs@nvidia.com>, Zi Yan <ziy@nvidia.com>,
-	Matthew Brost <matthew.brost@intel.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@suse.cz>, Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>, Lyude Paul <lyude@redhat.com>,
-	Danilo Krummrich <dakr@kernel.org>
-Subject: Re: [PATCH v17 00/12] migrate on fault for device pages
-Message-ID: <avWpWBl1nPcRVmpQ@raptor>
-References: <20261103061629.972669-1-mpenttil@redhat.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hOXynyB9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC5571F00A05;
+	Thu, 12 Nov 2026 11:56:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794484587;
+	bh=zORW0zy/6f2KkJEEeedreEnTa7DjvJJaRLlb/K85tlc=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=hOXynyB9rswLGs49u7LzuWHRSkwRNrjx9oanJP++eliN+EPwO3KGfoEMn15BR5cI5
+	 Uug+UAQMLAKjeoBgCYyWycsoIXBkyeJ/OXd0zQXj8kTndYAGqsdsh3kYLAVoBSJ59T
+	 3u8lfVA6cQyZmnH84TlSv51ugIf6PPuJ8n19TlcdM1vRJW/y0sgPWcpLxC7K67Ssh2
+	 FmDg00yfpR4pGKuEgIw64I9KqF7WACWNMDpJOD4kPnlr57AimlNV/4NawYpweaka+c
+	 xpBAi2xIDMO7f7riR6LSl54VoE0DM6HvQBB5umtylUixmrraks93qKtHQeD92S4zZk
+	 CY901hq6anc8w==
+From: Mark Brown <broonie@kernel.org>
+To: Richard Fitzgerald <rf@opensource.cirrus.com>
+Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ patches@opensource.cirrus.com
+In-Reply-To: <20261110164807.1671681-1-rf@opensource.cirrus.com>
+References: <20261110164807.1671681-1-rf@opensource.cirrus.com>
+Subject: Re: [PATCH 0/2] ASoC: cs35l56: Consider SDCA FunctionExtension
+ ID/Version for firmware name
+Message-Id: <179442156908.484483.14964992477486862696.b4-ty@b4>
+Date: Wed, 11 Nov 2026 18:26:09 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,225 +59,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261103061629.972669-1-mpenttil@redhat.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1701; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=vuNTv7AstuC3KqA85S1X+VbOgxcudhE5tjvF7b17pLQ=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLK+rsxcfl2a9b//+6/F/hIPX34KMs9JkduudkroQe6by
+ INPO5O6OkpZGMS4GGTFFFnisrhf1pe8XsN3cGEbzBxWJpAhDFycAjCR/uOMDOc138Rf+3a5Jd5f
+ dHaNy54Nl+qX7ipefI1Rfbb+HA0fEVFGhl7Wt8L8O2wDl5xXmnc+RuPwask4NrXER2HPU+/fONK
+ /jw0A
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-Hi Mika,
-
-I want to help getting this series merged, and I've been familiarizing myself
-with hmm and device migration, please bare with me if the questions I'm asking
-are obvious or downright silly.
-
-On Tue, Nov 03, 2026 at 08:16:17AM +0200, mpenttil@redhat.com wrote:
-> From: Mika Penttilä <mpenttil@redhat.com>
+On Tue, 10 Nov 2026 16:48:05 +0000, Richard Fitzgerald wrote:
+> ASoC: cs35l56: Consider SDCA FunctionExtension ID/Version for firmware name
 > 
-> Currently, the way device page faulting and migration works
-> is not optimal, if you want to do both fault handling and
-> migration at once.
+> This series is a change to the cs35l56 driver with corresponding KUnit
+> test code. It considers the SDCA FunctionExtension ID/Version as variant
+> identification when searching for a suitable firmware. The intepretation
+> of these values matches the way Windows interprets them for the same
+> available set of hardware identifiers, to ensure compatible firmware
+> identification.
 > 
-> Being able to migrate not present pages (or pages mapped with incorrect
-> permissions, eg. COW) to the GPU requires doing either of the
-> following sequences:
-> 
-> 1. hmm_range_fault() - fault in non-present pages with correct permissions, etc.
-> 2. migrate_vma_*() - migrate the pages
-> 
-> Or:
-> 
-> 1. migrate_vma_*() - migrate present pages
-> 2. If non-present pages detected by migrate_vma_*():
->    a) call hmm_range_fault() to fault pages in
->    b) call migrate_vma_*() again to migrate now present pages
+> [...]
 
-Regarding both sequences, I'm trying to get a better understanding of what
-the issue is. I assume the caller wants to fault in system memory, and then
-migrate it to the device. Is that correct?
+Applied to
 
-In my analysis I'm also not going to refer to THPs, since that would make
-things even more complicated than they are. I think we can come back to
-THPs later if we think it would be useful.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.5
 
-For the !pte_present() case:
+Thanks!
 
-Sequence 1: hmm_range_fault() -> .. -> hmm_vma_handle_pte() handles
-!pte_present() pages in two ways: faults in swap pages and device private
-pages belonging to a different device, and waits on migration entries. Then
-the migrate_vma_*() flow is used to migrate the range.
+[1/2] ASoC: cs35l56: Use Disco FEID and FEV to qualify firmware filenames
+      https://git.kernel.org/broonie/sound/c/e929ef622b87
+[2/2] ASoC: cs35l56: Add KUnit tests for FEID and FEV firmware names
+      https://git.kernel.org/broonie/sound/c/c8bb80feeed1
 
-Sequence 2: migrate_vma_setup() ignores !pte_present() page table entries
-After this, the caller follows the same steps as in sequence 1 -
-hmm_range_fault() faults in !pte_present() pages, and migrate_vma_*() is
-called again to migrate the pages that were faulted in/waited on by
-hmm_range_fault().
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-Now, for the CoW case that you mentioned, I'm going to assume that the
-caller wants write permissions otherwise nothing needs to be done:
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-Sequence 1: hmm_range_fault() -> hmm_vma_handle_pte() records a fault
-(hmm_pte_need_fault() returns HMM_NEED_FAULT | HMM_NEED_WRITE_FAULT),
-handle_mm_fault() -> .. -> do_wp_page() breaks CoW and maps an exclusive
-folio with write permissions, then the migrate_vma_* flow will take care of
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-Sequence 2, migrate_vma_setup() installs migration entries for the page,
-then migrate_vma_finalize() replaces the migration entries with device
-private entries.
-
-Looks to me that for CoW pages, all that's needed is migrate_vma_*(), and
-the subsequent calls to hmm_range_fault() and migrate_vma_*() are not
-necessary. Is that your conclusion too?
-
-> 
-> The problem with the first sequence is that you always have to do two
-> page walks even when most of the time the pages are present or zero page
-> mappings so the common case takes a performance hit.
-
-This is the first mention of the zero page. Is the caller specifying
-HMM_PFN_REQ_WRITE? That makes a difference, because it triggers fault
-handling for the zero page, and that's an extra walk. Can you give more
-details here?
-
-Let's count page table walks when a page is mapped with a valid entry, and
-with the required permissions. Let's say N is the number of mappings for
-the page (equivalent to the number of VMAs that map the page):
-
-hmm_range_fault() -> .. -> hmm_vma_handle_pte() does one page table walk,
-migrate_vma_setup() does N page tables walks, to replace all valid mappings
-of the page with migration entries, migrate_vma_finalize() does N page
-table walks, to replace the migration entries with device entries.
-
-In total 1 + 2*N walks. Best case scenario, N == 1 (PageAnonExclusive()),
-that's three walks.
-
-Do you have any data regarding how often the best case scenario happens?
-That's what you seem to be referring to in your comment.
-
-Now let's count the number of walks for a !pte_present() page mapped in P
-VMAs, where P != N: one from hmm_range_fault(), if the entry is not a
-migration entry, another walk in the fault handler, then 2*P walks from the
-migrate_vma_*() flow.
-
-If it's a migration entry, it requires 1 + 2*P walks, PLUS waiting on
-migration to complete, which cannot be skipped.
-
-If it's a swap entry, it requires 2 + 2*P walks, PLUS waiting on swap.
-
-If it's a device private entry belonging to a different device, it requires
-2 + 2*P walks, plus waiting on the device to sync the memory with the
-device in migrate_to_ram().
-
-To summarize:
-
-pte_present()	1 + 2*N walks
-migration entry	1 + 2*P walks + waiting on migration
-swap entry	2 + 2*P walks + waiting on swap
-device private	2 + 2*P walks + waiting on device->memory sync
-
-> 
-> The second sequence is better for the common case, but far worse if
-> pages aren't present because now you have to walk the page tables three
-> times (once to find the page is not present, once so hmm_range_fault()
-> can find a non-present page to fault in and once again to setup the
-> migration). It is also tricky to code correctly. One page table walk
-
-Valid entry, the page is mapped in N VMAs: migrate_vma_*() does 2*N walks,
-best case scenario (PageAnonExclusive) two walks.
-
-!pte_present, the page is mapped in P VMAs:
-
-migrate_vma_setup() -> migrate_vma_collect() will always do one page table
-walk, regardless of what it finds, valid or invalid entries.
-migrate_vma_collect() ignores !pte_present() entries, and they will not
-trigger new walks in the next steps in the migrate_vma_* flow. Worst case
-is that all the pages are !pte_present(), that's one walk to find them all
-which I would say it translates to zero extra walks for an individual page.
-
-For hmm_range_fault(), it's the same situation as above: 1 + 2*P or 2 + 2*P
-walks.
-
-To summarize:
-
-pte_present()	2*N walks
-migration_entry	1 + 2*P walks + waiting on migration
-swap entry	2 + 2*P walks + waiting on migration
-device private	2 + 2*P walks + waiting on device memory->memory sync
-
-I agree with you, this second sequence is better for the common case.
-
-I think it would interesting to know:
-
-1. Is there a relationship between N and P, and if there is, what is it?
-Are they equal, on average? I doubt it. Is a !pte_present() page likely to
-be mapped in more VMAs than a pte_present() page, or fewer?
-
-2. What is the likelyhood of P being equal to 1 (PageAnonExclusive)? That
-would be interesting to know because the larger P is, the contribution of
-that extra walk (or two walks) to the total time becomes less and less
-significant.
-
-3. How does the time to do the walk compare to the time spent waiting on
-migration, or waiting on swap, or waiting on device to memory sync? How
-often each of them happen? I have a hunch that these will tend to dominate
-the total time.
-
-> could costs over 1000 cpu cycles on X86-64, which is a significant hit.
-> 
-> We should be able to walk the page table once, faulting
-> pages in as required and replacing them with migration entries if
-> requested.
-> 
-> Add a new flag to HMM APIs, HMM_PFN_REQ_MIGRATE,
-> which tells to prepare for migration also during fault handling.
-> For the migrate_vma_setup() call paths, new flags, MIGRATE_VMA_FAULT,
-> and MIGRATE_VMA_WRITE are added to tell to add fault handling to migrate.
-> 
-> An extra benefit of migrating with hmm_range_fault() path
-> is the migrate_vma.vma gets populated, so no need to
-> retrieve that separataly.
-> 
-> This series avoids the problems in current collecting implementation,
-> where racing MADV_DONTNEED could make the collecting arrays overflow.
-
-Can you provide more details here? How does it happen?
-
-> This is achieved mainly by having a rollback mechanism and
-> populating the collecting array as the last step.
-> 
-> Tested in X86-64 VM with HMM test device, passing the selftests.
-
-Have you tested that this series doesn't regress other architectures?
-
-> The main goal of this patchset is to provide a new feature,
-> migrate efficiently on fault, and not directly improve performance
-> of current migrate_vma_setup() (which is now routed thru
-
-I'm a bit confused by what 'on fault' means in this context? Userspace
-accesses a device entry, access that causes a fault, or using
-hmm_range_fault()? I assume the latter, but it pays to make sure.
-
-Also, can you define efficiently? Usually that's related in some way to
-performance, but immediately you say that the series doesn't aim to improve
-performance.
-
-> hmm_range_fault()) callers. That said, the migrate throughput tests
-> from the selftests show that there is at least no regression for
-> current migrate_vma_setup() callers.
-
-If the premise of the series is to reduce the number of page table walks in
-the !pte_present() case, then I think benchmarks that show a performance
-improvement would make a compelling case for this approach.
-
-Some thoughts, if I may:
-
-- Perhaps the existing test is not the right test to highlight the
-  performance gains?
-
-- Perhaps there are other parts of the migration process that dominate the
-  walks? If so, maybe we should be focusing our attention on those?
-
-- Perhaps the series adds overhead that reduces or cancels the gains from
-  reducing the number of walks?
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
 Thanks,
-Alex
+Mark
+
