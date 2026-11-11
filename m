@@ -1,101 +1,123 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.172
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794416862;
-	b=p7LI6HNhjMaQkQpYpXtS1nQrKJX/MrYjdsI9GUuOWAcXUeMnc1Kg/PUWyGhcXZFEWArH
-	 28arrC+OQqVnX3DAgXUhR/WqmbZg9vRWrzPX83TW0ROxzhl1cE2JJr/0KeONnXcM9g9JB
-	 FLnXZn8Jvw0HaoxG6SV3musftQLA1CskhmhlQO2z7mm7zjf+iGGdX0BSC5EAxULh0GImf
-	 Lv95xd1kmB3TxWm1/Lh6vTi/hUGNOYpknCMXPXehdbUHZTQakdzc64hDIW6+XBB5VFDBs
-	 +imfPmtkPDd0pPBaqLSyqk15Mn7lsQWAouVQVX1HaibU1bO1EeQCFS04d0YADTK4cBQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794416862;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=m8C3iSuJZb/bfGc8EsYwKela7J4KFddbxGMaPc1LKNI=;
-	b=T6PCdAaaTCz5M3auAOH0e6fHZOPyKOl6BaZALOdczlMEir4f1LhuwJVDzSqYWZethrZa
-	 x5LWVE0cwgQRYg6blcycfETIOu352H4T5CLwdOJjHIB8RG50t/FtpxJ2GCAq+IQR3e2iV
-	 TSv9+LqAao7LWS3Ax993po5RvhBqkHFkvs2bHh2HN4D+W2T48K2DBXlCSO87qFe6RqZTA
-	 0Jjas9QqgVkD9p0rdIIsQAtigYUhzhZkXu2giXz9UCVYWq5jWka7jHYgHJWx2dyTwunOr
-	 PbbqY4xP3RwR6buwzony8YhKYGiXVAxmnzGWBpt35u6upmazRsyLELNH7HlrcKrS1PQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Yu0tahuo;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.172
-Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794416885;
+	b=a9TqxAZN4hYseXzylD7rNsukL0MyOsSTsMDZ5ytCDkERTDiSe0q+SZgvIb/CrtEyBUfU
+	 IwlfLTlqwrsoNEo4o3O0ZPTFEcqRbaX/9yphkX8CMEumkzJTUebRljAbEpCns1PJ+jdwI
+	 JfIxz4Q1MhNneCYlIvVGcqbsAp3BglVz4FJgqlh7YCIAY9UdC/urB4RyCDHEDq4Myi6vH
+	 Xn/SOdeXBwlXeSukRzZXyS8J8zIaJgWncWig79jmZWaJ3sYmccUq5lgSeSMxpVU2jpxPU
+	 x6efWiYqJQakc6jFxoHPL336W1wpXeu/oQ/kL54f6oysZ5z15V+gz0C4WRzhgRvr96Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794416885;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=SxOyryHUbNQ1cfTF9VQJXNM+vPgoGOT43gQa9xsLuaw=;
+	b=AUHRvshFLOrjfvoT2eQ8HGDP5N62kcMxmtvbNswPIYycPuvQ7+tvnUoEZbbUwz9tuNS5
+	 JmKzIg4+C+5xRirlLnUZJDPAo8Hfq2VBT0Tm2pSZt1R5XkFx+3q6CIM2Pk5eQrQaco7GR
+	 0rWiOho1ZIubrobRVQ7TvvxbPCk2ISeZrL54cBaOjeIM8k9uK5aW268AbHHXZUpvX595f
+	 VYW4/jvFoVg2fBTR4P8paRM8UF66G7qnZKBj6V94+veoQyu6fglXPEpYzmvXvDxFvxX3H
+	 3rGOlJHkRHKGJnjHooH1qBA/LkDgxinWUbqCKNscEryrqb/aWxy789NzKGWn5eQzqiQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=olqaZRkW;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Ed0k7dhz;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A15DB606A324
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 17:07:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A15DB606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA457606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 17:08:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BA457606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Yu0tahuo
-Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-372cba0ecf9so85464eec.2
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 09:07:41 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794416861; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Sk8WmxEFwFezTYseUJjRrZ+5aTljXK2DJ2/1DzxVZTRiMqpTmrT0nwTZovAEQ1G5Ac
-         eo3LQmZYoRbE4Nlm06U+l3CDweVTZtIguq7l/jzNYFxBMcmFdJw54Hcw7yJ8+GM6AcQO
-         HTBxR/EUK5iKX+H4CSyIltfyCYYkha0bjKwtT8TMcfZpQOZ9ZumMwGVzVzWFSCkKiVtA
-         b7qM1nxDKVlqQX6qFDK9c0E01bHf4ZJOVnu8jFsSNBbHxQAoEAaxutd8ZLwn9P7IS3eB
-         zK8RzMnZC3OGhtxNV3IKPvXXTCcbPGPfrr4rHlmChusxFZXiC4FvICbiCZHEV8LluLuH
-         0rJg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=m8C3iSuJZb/bfGc8EsYwKela7J4KFddbxGMaPc1LKNI=;
-        fh=ov6HcoEUjbtcHy4nV6aozD5vwkgFcdISk/t7CsO1B98=;
-        b=jQYY5/pnYYfpJorPbWZ9t8gY2JJaqRAgkBLs0odgvr7wqHU8Xg5VT3Y/0dzM3OD304
-         rGWo2KrtCSYS6WJcPLult43YsHmNMAIlR8Ui6E2jXlv019+YLFhgYW+q5+bzV4DPQ1ll
-         Sdn7JnDuf4rvVuh8OR6Lf70sH6jBwKUxMtPmcGHy7VHCq0N5ESrltQIodGTI5XTknCpC
-         UDOOstWEWpj6l7A+j9g5VAMRfDyMGWcitjytP4n/tLokqm7oXcV5UeXjVBuTZDUGpapw
-         r/UrII1zL21OIzNV0uaIirsMgya/8D9Ms8QDgvz4wY/3LcRNcJTfTXe545YfA1KyA4T2
-         wl3A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=olqaZRkW;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Ed0k7dhz
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ABF049C1665502
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 17:08:04 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=SxOyryHUbNQ1cfTF9VQJXNM+
+	vPgoGOT43gQa9xsLuaw=; b=olqaZRkWfFlPRoXowPqT2XFofvzN3neVvYgeoSBN
+	Lxo20Iy4WVfIsO2uFubngpftOURpdv5pxZlHZzZUWx17E+TtF987HAPafaDt5UYE
+	MqiSMwtvs04WOsgZFfpFisIvG5+yr0PEQF2xxc/OKv+zut9F3pmSG9PrqrDUL6sh
+	gPDguZ94O4EPkcpn6RbEpA8r5X3LF9y5lQccmacDKiTFnnXgWiITYxBwrsblsRiS
+	TLBORvlsAug49jzlqHMgQoXOigI7FFTxJOi2QxeraA3NEcB8FCnwOjHdhAswKkmX
+	E+0snCgosVKnMiWyC6bq9qgE04sUAKoGOIyTYrZiMKfH3g==
+Received: from mail-vk1-f199.google.com (mail-vk1-f199.google.com [209.85.221.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvk7ptbud-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 17:08:03 +0000 (GMT)
+Received: by mail-vk1-f199.google.com with SMTP id 71dfb90a1353d-5eac42e83e0so841568e0c.2
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 09:08:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794416861; x=1795021661; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=oss.qualcomm.com; s=google; t=1794416883; x=1795021683; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=m8C3iSuJZb/bfGc8EsYwKela7J4KFddbxGMaPc1LKNI=;
-        b=Yu0tahuocuESYqefq+y7fSQYzAxt4lPHSsg5PGKLsWgwc3nznCgyZoywvLPhsnWXaL
-         naTEK8iktIklEsNs6WGYObHqJmu/w/VY5IxwuHHnJU8DdKNH6RS+5MSDELQhLRfPbJN7
-         U6khKuJMZ6CmYJYj/TiGT50rf1I6yS2tca1y6tLxdM8jXW8R/+XwwtLonfE6zrMyXDeQ
-         54ScTlscyGh73yv9Gg2joc4Qqvrmb8Xf+b5cQ3d0XSzwYmmKneN9p2fbsDvPZA/sjCAK
-         +hmhfjJaSH21k1NVqzl5XRhA8F8l2/QZD2M7ssSNUHE1mC3vzZxMKc6gYcx6Q19DmKKR
-         mx0Q==
+        bh=SxOyryHUbNQ1cfTF9VQJXNM+vPgoGOT43gQa9xsLuaw=;
+        b=Ed0k7dhz88d6X9Td71sEFOEwEtaG1YQG2r8ZtVvt+i4raqRjDSrIcxzw465dJ8Fh2G
+         s8TOr/t9ktNRs0F2bV4n+EKTcjpp0h90A+bznV1z24hkPlOJVBm8t1mrH+nQUEnNe89O
+         ZAS5Hcu1CfbAtfoQE0K8sCU+REu828TnayQw4PvCPO8s+s6/KPa74Gv/arJ6eyHf4agi
+         He+pLevHOlCtGW+jBxWLdHtw7osEWoVD6SHcIZNaJSExyQz6RsyhMkhnxPNUfONpxh05
+         RufA2Fz1YJzqjzz+xewb4Q56A6yGVW8zO0g5ALlqq1bFwBI3pY14H1gMEJLjTSf3FkPm
+         ZeWA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794416861; x=1795021661;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1794416883; x=1795021683;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=m8C3iSuJZb/bfGc8EsYwKela7J4KFddbxGMaPc1LKNI=;
-        b=QJ8foOWyPcR3Uvp+9o4BIynqUN9iBufkGdqDGBneqDkdQRelnAHVjQZWP9QoQ4bpx1
-         RWYhSjB1KVoXNLsu0NraQqU0+UpkG+QAIH7scENwAxfZpOvV3cQbNNDMeEBDqyW2PkIc
-         pYm6h6ZO5YK4Ccd/BredFVsTozon6rxgFfcSHdhRTTuNGaQLl4Lf6x8U3st5RLF6selM
-         BQ3c1fZYVoU2VxcJdla4LB6/NCf28abinEGbQWVHbxfSqDllojJSKhWzGxA+lFhPeNlw
-         NrGnZsXfo+QhV0ooQw14BcnEVqzXT+W07PcQu/PAM6uFNxOMlhWDtDO9Ky1f18kdTww2
-         gQfw==
-X-Forwarded-Encrypted: i=1; AL+hErGzsVV4BsqBCdEAHCOahyUx5ktWz3fdW73UKiiQnef1JK7I//rm3QYyRYzm5vPBHBfSncWy3+AknpH9jgU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+52+p4VppuPKuGOKpI7SczCVzD0QYM6xqcMeCciUpjZVjD0vQz
-	7+fyKwGqmsG+Xx+z3pwM2HkK2Tv6Y7YHltd/XeawuA8oK9eDX3nkoEM7eHC8fXZe7pms9/RNbKQ
-	s1is08r9ah8WINQt3wdo7zxAHLafwbT5mIw==
-X-Gm-Gg: AYBFou39JdxIM4lqtR4TX+/X79A+9rby47dYrqk/Lqm1KVpoAMbbbm5gh/Y+PU0jlWR
-	+fiWUrTScO6qJQGnv74Hr7NEWbmpGhxze+qCRpnLR4aWI3F9ihkV18Q1IvOkpygdM7esQ9AvfVU
-	7XSIio7gltox6T+CHOLeIPD6oWHBfSYkheiGgXnZ/MyqISaLUEyj9kjpgn3NRbbcUvbzsj+OBop
-	H6xf/oXEJ7jqehlwADMNPQGOB82OHBjpOxsj3TDuulLOGF87lSvjMijHiIdgrWpIqu9kAotE7KC
-	YPwPSxWwhYFqwG4lmlV444J+x67XIZrLFdPw61cEQM6Noc0r8qiqZdi5m7lOryNCl0qucWwCLEQ
-	YwwCNqvEbzwJ7MEyDdsxyqGvlniv+0gqevBxpBRfBqTpR0WsHa31e849GQQ922hLbQHqwBvBMG2
-	zgZltRNBg2ur0rockfJX+3/iiSr1w7JatnltmsGbgyZoS50g0JK9FWFNNSVDw=
-X-Received: by 2002:a05:7022:3a86:b0:143:5c2a:e45f with SMTP id
- a92af1059eb24-1b3c01600d4mr4530976c88.0.1794416860548; Wed, 11 Nov 2026
- 09:07:40 -0800 (PST)
+        bh=SxOyryHUbNQ1cfTF9VQJXNM+vPgoGOT43gQa9xsLuaw=;
+        b=DuNZCdeG/h+MMo6J2cvf2Pk9fK9XWsDGgr9bNFcZl1OkvTO0UUgs8ie42t+ZycoJzk
+         v+Z0CWy1euODj9bgYtlih6K9TXBDuk8cjhdDcJ/KnBBS0DJViTRR/ebyYOsYAPbk+pCo
+         mlKN/z9nv6k1W5gnpQRAyv9qNgleYN1G6YVGrSs8kaPXC3FGubscwwZA1wqyOsu1wtu7
+         iH3y1A/+fbVOPSq0y4b4URoUVlUVzmjZCjJLZJxGu+bxkO0xCj50ExxbvSA5D5uvZtU5
+         yrt7WrV2IPSA0AcV2eJEL68VEePoG+jRLEHDCtIt5XppndNJSdd9YXNQ0u4lAV+J9HR8
+         7YqA==
+X-Forwarded-Encrypted: i=1; AL+hErFueWoMigzY0LufoGMsIbG5/FzniLfgZCmxjiZLuX/pIpviPiss0oMNxL04cOi+CHPiF/4xWbrlh+SzwyA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9biJf3/qJC8QnmFXr63lQ2NuLQr6Cey318yUiPOZ4O2cs6E2eZ
+	LbrHZlj0xUmj9zrHb9coIse2leciqt2YEg/rp5Rpcziq4oiBzm5b0fatvQ8rVmwXySeXoOYluiS
+	d5cHvwjCypugIfp1di+n1bK+pdhPooiSOR80oGUJtZmZRrSwq0TFpkz1EupNiW05cqAo=
+X-Gm-Gg: AYBFou2M/qmASZGWSFkLSIs6ADVj2KkKFk3tgHTuI9WM6lKaGARzTc67U00A9+d7nBJ
+	gYrOwXsL6L14kHJuZ0wgN50FpjGWaB9QbD5+RKsdRUH+/NjHjxmkuwqmw4C5pcZZwOxTDdgLcM6
+	r0f0aoX6CO2FP9YHI9RYh+F1cMtmDCF23ZnK+cDQyswCUuk9Fw4jfcy3Xgp+XvUDfuIIjgcEE2J
+	xJUDf3PS2AOkz6xIQCqpx8rmF3874twOubrKn4idkqEQJrZdZyFzPuwQYc0qxy+gTEdwElQjLsb
+	Q4J7JO93tQaFT9zxwrCITzlx0iH0ownQbSwZ4WlwKGnAhXRqGQb3N2Di7HoV5N8qLM8o3S/CjdA
+	ZCm7gQ/zdY77n2r1/GoCnBYNmnzTSrYSM1xnc9U8bRZ32WASqpNnkHYd+VkvimeK7/08EfqM23r
+	nBGSJWnCotXX14BNe/62G62e7ux2V4tb5VD6AvEuEtYxiKAtkhOtGFHKjJlbXaIg==
+X-Received: by 2002:a05:6122:17a9:b0:5e9:731b:84f3 with SMTP id 71dfb90a1353d-5ee1c3fa04dmr1120666e0c.12.1794416882333;
+        Wed, 11 Nov 2026 09:08:02 -0800 (PST)
+X-Received: by 2002:a05:6122:17a9:b0:5e9:731b:84f3 with SMTP id 71dfb90a1353d-5ee1c3fa04dmr1120632e0c.12.1794416881748;
+        Wed, 11 Nov 2026 09:08:01 -0800 (PST)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3ae09206aafsm12751441fa.9.2026.11.11.09.07.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 09:08:00 -0800 (PST)
+Date: Wed, 11 Nov 2026 19:07:57 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Vivek Kumar <vk092kumar@gmail.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Yongxing Mou <yongxing.mou@oss.qualcomm.com>,
+        Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+        freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4] drm/msm/dp: allow eDP sinks without DP_SINK_COUNT
+Message-ID: <wuuyudiqxomceind5f6yox53db5w6y75rcnbgscxujvv4cmnya@iq5522yhs7o3>
+References: <20261019051441.2835682-1-vk092kumar@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,110 +127,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261109155215.3946844-1-amisiurov@cloudlinux.com>
-In-Reply-To: <20261109155215.3946844-1-amisiurov@cloudlinux.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 11 Nov 2026 12:07:28 -0500
-X-Gm-Features: AclHuK-_9BWEPd6xXKjNjzph_kbOJc93rFAg-o-qHWWs0SN7OfCKCcfKPgpijZs
-Message-ID: <CADnq5_N=v=k0e=+aqwohNMoKEmoCbMj5PyEM38_fKa=h6O1Z=A@mail.gmail.com>
-Subject: Re: [PATCH] drm/radeon: Bound GPIO I2C table entry count from VBIOS
-To: Andrey Misiurov <amisiurov@cloudlinux.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, 
-	=?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
-	amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261019051441.2835682-1-vk092kumar@gmail.com>
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDA2OCBTYWx0ZWRfXxt227xR4rDC0
+ oNCt1A4G8XZpOj+BdhKslolZIhJeVp7grsMeu03uqEyLJO8AhIvkcnC1hmnxJLjhq2S6ycmMc+o
+ 3t13Xl4LN73l+gRUGh6g2BPAypzKXmc=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDA2OCBTYWx0ZWRfX5yFyW4AcsFnK
+ SB09c+q17Ls+DXMH+So54JrW3aCurKU0vm2JKVyYExJnAXDmXBS6gJkRSF0CvntXrOMYj6tNSwH
+ P/w0mFryzfSo9Gbd0x9Qcc5oF8AUTfOzqVf56jnCOnwNRNHL8pwqMmR1DvsWC9RcsGA1/lvkCwW
+ AqlJSR+TGaTtdMDSko/x3PPuqhipVmZ6xGXo7UOLa62OxA6cCTLU7HTDgVRQads0hj+5DqMbauR
+ SQcqySKyigE4oDUB2hag68zUqfi2ghLP66f95tR4aiySlmD2DS1KxE1hW9eM8ira+VjRS5DXFWk
+ dhWZyczFRHoWcLi7kXNH7U7bp5msXfmFaRJ5KfHLeniSpfcKKZpXGq7YcsrFP1wpnM9N/exiIBo
+ vhkxwBj0FidZVQps0pjybrNm5m7DpZ8wxD/1IRkbHaQhHPf9jC8uObaalm6ts+KIlXWQLXXO+0j
+ DRrFEsxAiIpmPvpAgbw==
+X-Proofpoint-GUID: CqgyUlMG6OH-Bt7HbsxcOs7ek_OwAfdp
+X-Proofpoint-ORIG-GUID: CqgyUlMG6OH-Bt7HbsxcOs7ek_OwAfdp
+X-Authority-Analysis: v=2.4 cv=BpcIUoX5 c=1 sm=1 tr=0 ts=6af4a0f3 cx=c_pps
+ a=+D9SDfe9YZWTjADjLiQY5g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=pGLkceISAAAA:8
+ a=QhjrP75uP0Re7qhQPTAA:9 a=CjuIK1q_8ugA:10 a=vmgOmaN-Xu0dpDh8OwbV:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-11_04,2026-11-11_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 clxscore=1015 spamscore=0 lowpriorityscore=0 adultscore=0
+ priorityscore=1501 phishscore=0 malwarescore=0 suspectscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611110068
 
-Reviewed and applied.  Thanks!
-
-On Tue, Nov 10, 2026 at 3:41=E2=80=AFAM Andrey Misiurov
-<amisiurov@cloudlinux.com> wrote:
->
-> radeon_atombios_i2c_init() derives the number of GPIO I2C entries from
-> the size field of the VBIOS GPIO_I2C_Info table and stores a bus for
-> every valid entry in rdev->i2c_bus[i], which has RADEON_MAX_I2C_BUS
-> (16) slots.  A table that claims more than 16 entries makes it write
-> past the end of the array into the rest of struct radeon_device.  A
-> size smaller than the common header wraps the subtraction and the loop
-> walks far past the table.  radeon_lookup_i2c_gpio() uses the same
-> calculation.
->
-> Reject undersized tables and cap the entry count at
-> RADEON_MAX_I2C_BUS.
->
-> Fixes: f376b94fbc0a ("drm/radeon/kms: unify i2c handling")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Andrey Misiurov <amisiurov@cloudlinux.com>
+On Mon, Oct 19, 2026 at 10:44:41AM +0530, Vivek Kumar wrote:
+> Some eDP sinks, especially fixed-format eDP-to-HDMI bridge chips with
+> no downstream AUX-capable panel behind them, do not report a non-zero
+> DP_SINK_COUNT even though they participate normally in DPCD capability
+> exchange and link training.
+> 
+> Treating sink_count == 0 as a permanent disconnect is valid for external
+> DisplayPort, but it breaks eDP probe/enable paths in
+> msm_dp_display_prepare_link().
+> 
+> Use drm_dp_read_sink_count_cap() in msm_dp_link_parse_sink_status_field()
+> and set link->sink_count to 1 when the capability is not available.
+> 
+> In dp_panel.c, msm_dp_panel_read_link_caps() still reads DP_SINK_COUNT
+> for branch devices. That read is left unchanged here: the sink on the
+> tested board reports DPCD 1.4 and does not advertise a downstream port,
+> so that path is not taken.
+> 
+> Signed-off-by: Vivek Kumar <vk092kumar@gmail.com>
+> Assisted-by : LLM
 > ---
-> Found by code inspection.  Not reproduced at runtime; it needs a VBIOS
-> with a malformed GPIO_I2C_Info table.
->
->  drivers/gpu/drm/radeon/radeon_atombios.c | 22 ++++++++++++++++++----
->  1 file changed, 18 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/gpu/drm/radeon/radeon_atombios.c b/drivers/gpu/drm/r=
-adeon/radeon_atombios.c
-> index 3dd9724..c4e1272 100644
-> --- a/drivers/gpu/drm/radeon/radeon_atombios.c
-> +++ b/drivers/gpu/drm/radeon/radeon_atombios.c
-> @@ -125,6 +125,22 @@ static struct radeon_i2c_bus_rec radeon_get_bus_rec_=
-for_i2c_gpio(ATOM_GPIO_I2C_A
->         return i2c;
->  }
->
-> +/*
-> + * The VBIOS table size is not checked against the image; cap the
-> + * entry count to RADEON_MAX_I2C_BUS, the size of rdev->i2c_bus[].
-> + */
-> +static int radeon_atombios_gpio_i2c_num_entries(uint16_t size)
-> +{
-> +       u32 bytes;
-> +
-> +       if (size < sizeof(ATOM_COMMON_TABLE_HEADER))
-> +               return 0;
-> +
-> +       bytes =3D size - sizeof(ATOM_COMMON_TABLE_HEADER);
-> +       return min_t(u32, bytes / sizeof(ATOM_GPIO_I2C_ASSIGMENT),
-> +                    RADEON_MAX_I2C_BUS);
-> +}
-> +
->  static struct radeon_i2c_bus_rec radeon_lookup_i2c_gpio(struct radeon_de=
-vice *rdev,
->                                                                uint8_t id=
-)
->  {
-> @@ -142,8 +158,7 @@ static struct radeon_i2c_bus_rec radeon_lookup_i2c_gp=
-io(struct radeon_device *rd
->         if (atom_parse_data_header(ctx, index, &size, NULL, NULL, &data_o=
-ffset)) {
->                 i2c_info =3D (struct _ATOM_GPIO_I2C_INFO *)(ctx->bios + d=
-ata_offset);
->
-> -               num_indices =3D (size - sizeof(ATOM_COMMON_TABLE_HEADER))=
- /
-> -                       sizeof(ATOM_GPIO_I2C_ASSIGMENT);
-> +               num_indices =3D radeon_atombios_gpio_i2c_num_entries(size=
-);
->
->                 gpio =3D &i2c_info->asGPIO_Info[0];
->                 for (i =3D 0; i < num_indices; i++) {
-> @@ -176,8 +191,7 @@ void radeon_atombios_i2c_init(struct radeon_device *r=
-dev)
->         if (atom_parse_data_header(ctx, index, &size, NULL, NULL, &data_o=
-ffset)) {
->                 i2c_info =3D (struct _ATOM_GPIO_I2C_INFO *)(ctx->bios + d=
-ata_offset);
->
-> -               num_indices =3D (size - sizeof(ATOM_COMMON_TABLE_HEADER))=
- /
-> -                       sizeof(ATOM_GPIO_I2C_ASSIGMENT);
-> +               num_indices =3D radeon_atombios_gpio_i2c_num_entries(size=
-);
->
->                 gpio =3D &i2c_info->asGPIO_Info[0];
->                 for (i =3D 0; i < num_indices; i++) {
-> --
-> 2.43.7
->
+>  drivers/gpu/drm/msm/dp/dp_display.c |  6 ++++--
+>  drivers/gpu/drm/msm/dp/dp_link.c    | 30 +++++++++++++++++++++--------
+>  drivers/gpu/drm/msm/dp/dp_link.h    |  5 ++++-
+>  drivers/gpu/drm/msm/dp/dp_panel.c   |  5 +++++
+>  drivers/gpu/drm/msm/dp/dp_panel.h   |  1 +
+>  5 files changed, 36 insertions(+), 11 deletions(-)
+
+
+Vivek please check the issues that Sashiko pointed out.
+-- 
+With best wishes
+Dmitry
