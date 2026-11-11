@@ -1,70 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=62.96.220.36
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794388178;
-	b=clNAL431+2Cg7Z8MaOoIyjW0kw4nW0Dc9AALqRFIgA8SiIAmjJ09+kkPyxMLDTAEMqpk
-	 XwWnw7UQ+uQ2towWrvSG76ieq7Xr4r1kfrkM4zl/9bHyimIV5rASLgqKORlo6zUQIb0qp
-	 e9iCHh0sJKzbGjHUfTG4/HoZ4MOSUARdjia0cA+pX/8Em0HI6HHLsEGdxcKCL2/7TSP/J
-	 GKDh+nFLUgi5rUy3v2zVlrS4CnC8mu/WuXvOWpJMFPwUbemuUGO7T2rIKsXkYbAbXv2PB
-	 st5KpWRcBBRiwSd9Uh3vGxYjVIk9WKqTDXfRTyZANwBsTm86gOBNUS5e9WrHt6kuRxA==
+	t=1794388181;
+	b=ISaI+cvEl6glPQ2ryf3xlWFDXIeWcYlMd9WUeuXZA85wpO+ldMKKRZFobCtbhJQeb6zV
+	 B2TpKagp6tT21XCP8N52BAna34dkRfQMS4lyVLsIPGq+o2KYqp+lKWufi2zdO5qOT8L9A
+	 6ltfqd8bcCT/0zGyGhiatqR3bYFrjJ3sYeNwd+hGYbStGDKC+ru6+V3TDqcufLlziiyV4
+	 WPvxgD+wHage8DsmOZsfN5siNtBECj5UHbF9GRQQA7aKvQFfTPKJbe3afRt5lNAKgtfou
+	 6mZl1ifHtbxQ8gBmEBQQaNB05jZyfMoNo3/5xs/eoKERW5tqon5/DqPv72yu+Wv5qdg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794388178;
-	h=Received:DKIM-Signature:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-SA-Exim-Connect-IP:X-SA-Exim-Rcpt-To:X-SA-Exim-Mail-From:
-	 X-SA-Exim-Scanned;
-	bh=htR73Z6NVxU0lkG220sIaALTFHPkl5m16dbexXoczJ0=;
-	b=gZRtcEnrmtSGc3PKIF0//f3v8L2coMimajOn7sb+pc7F2ZaknCXBbt+A5sEt4tH5aGFv
-	 1uXWBZ6kTS9G+hfrGQXCVWL+f4uM61j4ju0t8EOBfpPd/O7pzcPaNS8BQjpCPDE2X6iTj
-	 7X5t1KI1kTPaViZDne7bOVFSm9HM0LqaK+fMUkelzGFYfM+KvJ9P7buuG4tCuPKllf03L
-	 gnTRyMQJQjbt9n3/LTiGjtmjCZ3PffiwnuvxVL0fNdS2UfAgzkg1bs6hsYr2I7zTP0OiU
-	 uOKmo3bfzeDo3SFprfFeLJZlk8peNk5G+/BZC4AK/MCXT5MeOkp1tVqT3+5cNIKpYSg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794388181;
+	h=DMARC-Filter:Received:X-Virus-Scanned:Received:Received:DKIM-Filter:
+	 DKIM-Signature:Received:Received:Date:From:To:CC:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-ClientProxiedBy;
+	bh=JMnF4PCYPlIbkJ1oxYQongigJralZxvOfmyUW19HLtY=;
+	b=X2qI11mTjjrSqe7cO2cMz2WEdcdvZyAbPWSJ7V2o4x6cu7Zfbpj9lob+aa/A7cepKhbM
+	 j8mmg+fdO5NGYhaDT/iFidlRK7QyG0QF3IBZfjHiwtRmSd3wUyMT2Cl2768OcAiDfwTtW
+	 AnO5LvVCnQcDHtJH8PuVCYSnFp3vDPYWlDzJLC1AYegd40M/tjyKEcXIwaOK2tqKeI8SS
+	 HKu6wUuvamhAg6bflUiDt75BzE6Sn6sBzYmrXnV8KXQ5Xj0zrj9aWAgvkKpsGp3jpw548
+	 2FMmcBlMBkQ4tOdXRg8qcopUEVcK+zmdxjcj8EEflGqsQTzMIf81Di1KcSSoxDlY3Nw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FiDTk9HN;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=secunet.com;
+	spf=pass smtp.mailfrom=secunet.com;
+	dkim=pass header.d=secunet.com header.i=@secunet.com header.a=rsa-sha256 header.s=202301 header.b=np6JyC4g;
+	arc=none smtp.remote-ip=62.96.220.36
+Received: from mx1.secunet.com (mx1.secunet.com [62.96.220.36])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1365606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 09:09:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADA25606A334;
+	Wed, 11 Nov 2026 09:09:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ADA25606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=secunet.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=secunet.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FiDTk9HN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 825D31F00A05;
-	Wed, 11 Nov 2026 09:09:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794388177;
-	bh=htR73Z6NVxU0lkG220sIaALTFHPkl5m16dbexXoczJ0=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=FiDTk9HNHaNkX2ypeG3Omgun2J6T0+Ry4iViwS3mepi1nuRCo7SACBz5SN99gYFNj
-	 HauQ3qwNyKf6GiL7+xIpDQvB42fI6P6B0ESdm8HUPTaQlvv7obkPOydwo7h+WnwJB9
-	 fb65GIj4iVHHm/ZGShyjXfgPxehyGD/kE/c9d1a9fgnLyBHl0Yf7uMLdYLmy4RUMLD
-	 pwphhR639xg6/qsmD1Qd5QBhUACptY36zXITFA3P7Qd/RwT5RNcVagPWjR2qUCCAy+
-	 JKJ+eJkC+V9pqMVQkI7YVdw6af11rZiiLpRUUa86Usw0dJ8JDSryncBTLF1MrNvumo
-	 txEKZLdHgXiMQ==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1xR4Kl-0000000ECif-06Cb;
-	Wed, 11 Nov 2026 09:09:35 +0000
-Date: Wed, 11 Nov 2026 09:09:34 +0000
-Message-ID: <86se1720q9.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Fuad Tabba <fuad.tabba@linux.dev>
-Cc: Thomas Gleixner <tglx@kernel.org>,
-	Radu Rendec <radu@rendec.net>,
-	Steven Price <steven.price@arm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Fuad Tabba <tabba@google.com>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/3] irqchip/gic-v3-its: Fix the ITT pool's alignment, zeroing and growth
-In-Reply-To: <20261106092625.3977163-1-fuad.tabba@linux.dev>
-References: <20261106092625.3977163-1-fuad.tabba@linux.dev>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	dkim=pass (2048-bit key, unprotected) header.d=secunet.com header.i=@secunet.com header.a=rsa-sha256 header.s=202301 header.b=np6JyC4g
+Received: from localhost (localhost [127.0.0.1])
+	by mx1.secunet.com (Postfix) with ESMTP id 9CDC3207B2;
+	Wed, 11 Nov 2026 10:09:33 +0100 (CET)
+X-Virus-Scanned: by secunet
+Received: from mx1.secunet.com ([127.0.0.1])
+ by localhost (mx1.secunet.com [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id dTmcJfnknn3b; Wed, 11 Nov 2026 10:09:33 +0100 (CET)
+Received: from EXCH-01.secunet.de (rl1.secunet.de [10.32.0.231])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mx1.secunet.com (Postfix) with ESMTPS id 1C10C207AC;
+	Wed, 11 Nov 2026 10:09:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mx1.secunet.com 1C10C207AC
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=secunet.com;
+	s=202301; t=1794388173;
+	bh=JMnF4PCYPlIbkJ1oxYQongigJralZxvOfmyUW19HLtY=;
+	h=Date:From:To:CC:Subject:References:In-Reply-To:From;
+	b=np6JyC4gwPXiK0leSmE7U1RXD9ZKRE240QTweBOZiiPZYx1K6ItrrKYFw5dKYZIWA
+	 lwTSXlE99t5EX2MY+FkqPtSsJ8gSGtpStj2VurRwRxZ3Rb8onABufuFiNnln1zZSdI
+	 wLemyMvB73//2nRZVYcl59zCHRW1WQQqskosuls9/Y/+38lmwhbxx6ftT1QKUCoCt9
+	 rWhYho3U1asaMdU/XFoRLNpiCf1CPQHtz+R22XI30kPA9n7/HOHnJJwF+fMEPFSByI
+	 chsBTEhmWoz1M2n8gUkaQEUMlPnJs7iFJaF5r2f6yteOg0hlWkDDhjtjBzRQZrws8n
+	 ZGoYaOTr/1z3A==
+Received: from gauss4 (10.182.7.102) by EXCH-01.secunet.de (10.32.0.171) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 11 Nov
+ 2026 10:09:32 +0100
+Received: (nullmailer pid 1103798 invoked by uid 1000);
+	Wed, 11 Nov 2026 09:09:32 -0000
+Date: Wed, 11 Nov 2026 10:09:32 +0100
+From: Steffen Klassert <steffen.klassert@secunet.com>
+To: Cen Zhang <zzzccc427@gmail.com>
+CC: <herbert@gondor.apana.org.au>, <davem@davemloft.net>,
+	<edumazet@google.com>, <kuba@kernel.org>, <pabeni@redhat.com>,
+	<horms@kernel.org>, <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<baijiaju1990@gmail.com>, <jjzuming@gmail.com>
+Subject: Re: [PATCH ipsec 0/2] xfrm: fix state lifetimes in xfrm_migrate()
+Message-ID: <avQwzAEyN98FXtCP@gauss4>
+References: <pm-xfrm-core-objects-candidate-0027-v3-cb1e033bff1976f510c9-0@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,46 +80,33 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: fuad.tabba@linux.dev, tglx@kernel.org, radu@rendec.net, steven.price@arm.com, suzuki.poulose@arm.com, will@kernel.org, tabba@google.com, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <pm-xfrm-core-objects-candidate-0027-v3-cb1e033bff1976f510c9-0@gmail.com>
+X-ClientProxiedBy: EXCH-01.secunet.de (10.32.0.171) To EXCH-01.secunet.de
+ (10.32.0.171)
 
-On Fri, 06 Nov 2026 09:26:22 +0000,
-Fuad Tabba <fuad.tabba@linux.dev> wrote:
+On Sat, Oct 31, 2026 at 12:14:53PM +0800, Cen Zhang wrote:
+> xfrm_migrate() keeps the old states in x_cur[] and their successors in
+> x_new[], but it does not hold a reference to every state it later
+> deletes. An SA with a hard lifetime can expire and be freed by the timer
+> and the state GC in that window, and the following xfrm_state_delete()
+> takes the lock of freed memory:
 > 
-> Hi folks,
+>   1/2 The success path drops the lookup references of the old states
+>       before it deletes them. Delete them first.
 > 
-> Three fixes to the ITT pool that took over sub-page ITTs from
-> kzalloc_node(). It doesn't align them to 256 bytes, though MAPD now
-> relies on it to. It doesn't zero the ITTs it reuses either, and it
-> leaks pages when it fails to grow.
+>   2/2 xfrm_state_migrate() returns the published successor without a
+>       caller reference, so the rollback deletes states it does not
+>       hold. Take that reference before publishing and drop it after the
+>       migration commits or rolls back.
 > 
-> The first gives the pool a 256-byte granule. With its 1-byte granule,
-> ITTs stay aligned only while every size is a multiple of 256, which
-> holds for power-of-two ITE sizes but not for QEMU's 12-byte ones. On
-> QEMU, two devices with 32 MSI-X vectors each are enough to put the
-> second device's ITT at an address MAPD truncates into the first's.
+> Both windows date back to the initial migration support and are reached
+> by XFRM_MSG_MIGRATE and PF_KEY's SADB_X_MIGRATE.
 > 
-> The second zeroes an ITT reused from the pool, as MAPD requires. The
-> third frees the page when gen_pool_add() fails.
+> Cen Zhang (2):
+>   xfrm: keep old state references until migration deletion completes
+>   xfrm: hold migrated states through rollback
 
-How does it relate to the series you posted right after
-(20261106120221.347309-1-fuad.tabba@linux.dev)? They both deal with
-all sort of zeroing and allocation requirements. So why isn't this one
-single consistent series?
-
-The scatter-gun approach you keep using is really becoming
-counter-productive. I really appreciate the effort you are putting in
-fixing the code, but please realise that humans are reviewing this,
-not an AI. So please make it at least easy to track and keep related
-things together.
-
-Thanks,
-
-	M.
-
--- 
-Without deviation from the norm, progress is not possible.
+Series applied, thanks a lot!
