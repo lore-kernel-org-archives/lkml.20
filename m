@@ -1,56 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=150.107.74.76
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794394142;
-	b=SbyYkNq1VphX3ovDNk+GDxszihGu/+D2SQEHPdyf/0pVT29QbdrHU2/DQ8fkSfigdevL
-	 QqqqaZm3Ml2KgDmxOxP60aJrS1faBhegzSkI+XeLHcDqBrCmPxC9k0RzeHeBGkT4oT49N
-	 Vo/SjUFX89KM4RF94quN05gLHtNvUDEaz7qqrtiGGEFrm3C5p9E+77meUwNb0BcP6iWrT
-	 E7CDEYsnPikG7+mACclk+SPpUHXHRBtSpmbb37QyqX8WoPtX0c4xC99I8vNLC76HwxQR2
-	 q2FsCTYhkzmeyMRWTUrtt2dL/51sg8Uy2MdKKGLhUCWbHuKzipRXXa4BU5U7VUQ85Kw==
+	t=1794394154;
+	b=ZY5Nwd+Zu/OqxQ0ACAon5482N7PvoNC57lt8t0HO/zdNVB9mTDf4uHydSShbo4gtG+e2
+	 kYybR7tBp6DHLkpaWh+oAzUODbVG7NvotGTrQBh7/tqFs0BX9aG55iXjpUVghhqJBuAbX
+	 KyT6SzksZd7kb//Y6D5mSNEP77aIde1QwoQDHBdBlvPBMjpe6DrOfTAgbwNKNa6tzoxQZ
+	 2/+TDw1gZ05tg8+mVgzOP8Bt4yLT4uU/nwKcS2vU8KwkhuOla3Uypvji9nCJizjcE8+C1
+	 ZHxlZTLVBNjy7zKZ53Hx7PH5sTa6Y/YZnjDROz+DDXUwYsNOqrb5y3Iv2ZhYYZZeS4Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794394142;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:From:To:Cc:References:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=UcIU49IoMwkMcPqVgct5VcN4m8udnqO+yv6+Crgi7s8=;
-	b=wwMNrYwUyT1KqQUN1FeAB+wuLFcg4rG5cc1tstljq0MFmmAYBQgUZXWH+ehPGYPgGS9z
-	 WVt//TV+aivXxAa3NrubBcKumR5OfkGFBbl6wUOuBEFvRcJDdqyg8C06M6I/BWaFsnmMv
-	 JTJZ5zTtMlDyc/0m4GxUGL0wFA/Da81LUfiuGVdzRLGAjnqB1Flfa/FrDVglZB1EpXYuY
-	 QjCBiMUNRSQbPpTkTPTAsODIKnXjs7YYg/O3iYQmN/JSGdkFiERr8VjliY8Rsd8TRRxha
-	 oeqUQFFS5GYtfj88Xe0En20B4X9sZRTV9UN3FEwj0jm2uNABBTZ3Uenatm35GPSQwDQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794394154;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:X-Google-Original-From:Date:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=fkkdgBcWl/gXMWZL41R2xtfz4IY0JzduuuEbE0bKcow=;
+	b=ybEMI56IXiem8QUE7Q/BNKslsep5+UhyAfqehutz338RRYzDDXrUM04OBMNzKIA/M+Pm
+	 e/wYbH68zD0kfKsKxMQzj6fNqVzghrBnB232fYeiKDIf7KPUm3zzt/UIONTNeAEEaA16t
+	 3IWJAMkk5My33qagxZvSR6gdi1+momjwWscIJkJH8RRLdShvVSql9wTxfIOZ/clxjyfTW
+	 nvoPVSZBfLzUtY7it5rqfbrD/k6vSwmZ8kKM6NzMMChZGaqzrRAY8ZYURDfo8xQ6wQJHB
+	 d3j9qtKzjQ1pja+gbKyoOTzajH1sMG3zPXKXbsCDMkHgj4n2PJtwZSwPfmveHNcbxMw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ozlabs.org;
-	spf=pass smtp.mailfrom=ozlabs.org;
-	dkim=pass header.d=ozlabs.org header.i=@ozlabs.org header.a=rsa-sha256 header.s=201707 header.b=Wzpapjrr;
-	arc=none smtp.remote-ip=150.107.74.76
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oooZo4JY;
+	arc=none smtp.remote-ip=209.85.128.42
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31228606A32A;
-	Wed, 11 Nov 2026 10:49:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 31228606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ozlabs.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ozlabs.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 893A2606A89E
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 10:49:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 893A2606A89E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ozlabs.org header.i=@ozlabs.org header.a=rsa-sha256 header.s=201707 header.b=Wzpapjrr
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
-	s=201707; t=1794394138;
-	bh=UcIU49IoMwkMcPqVgct5VcN4m8udnqO+yv6+Crgi7s8=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
-	b=Wzpapjrrl5t3gWo9iDKn1jyk+NtYI3fWGuLAdCwwM44sKU9JbK4sXihTqucOVCMmC
-	 mQbeyBBAQffCtcG4/uX5Ernoz8F+8c1wcp4YZ8eK+Q83xlTCOYMnoj1LZpKci57MEc
-	 CaB2iUEZ7k/HBnRqh02BnwjwOlfFW0TRXj1b0u77E9vFWILuk+dZO7luBhYApBhchK
-	 N/UxzXMRqHfNaDWsmwfENCVcXqKrpCheglaAAxj9b1YJUyvPKncLXGmzMysGu9+49A
-	 NzwUNL9cSRrgLBNhlfGxiIUfojcjZ8MTe7XArRgtHAP7/ZiL4WRsbdCqpgMf/aVlBn
-	 73ZNIXg1s6sAg==
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	by mail.ozlabs.org (Postfix) with ESMTPSA id 4jPgHR2Zsdz4wKs;
-	Wed, 11 Nov 2026 21:48:50 +1100 (AEDT)
-Message-ID: <df301c78-2745-4c64-a331-c830efb74660@ozlabs.org>
-Date: Wed, 11 Nov 2026 10:48:47 +0000
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oooZo4JY
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a1b07c3c5fso29050965e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 02:49:14 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794394153; x=1794998953; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:date
+         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=fkkdgBcWl/gXMWZL41R2xtfz4IY0JzduuuEbE0bKcow=;
+        b=oooZo4JYlJ2CA1rNGsEhbm/Vh1zARDhdjXBHBkBQFL9enJyj+XofgSJLMeZ9+GKxbo
+         xok/3WGW+7zKaDcdDmW6AmGqsymXOQ6yiG/TEMbbbrEyTpuEH96hQdA2JsfLDtw41Eyr
+         Sq2XWmm/XXn4bmWMceYyGu6JBYckHG8RS4VEVfx00q48LCt7osTBKv7fub58aMqyjRoZ
+         nslXmn7Y+YxO6NwpCpCXO3PtFaKh9qhBufe4ceuiQ2H30+4TNUaM/4xKC0tBs6QDF1P7
+         vrmAAtrDs3bzYwahjECqPBoax5ttmw1jsuUmag3V4MtFo5Y25+V2ukVgT+hGMBD5uaJB
+         CsVQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794394153; x=1794998953;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:date
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=fkkdgBcWl/gXMWZL41R2xtfz4IY0JzduuuEbE0bKcow=;
+        b=t3XBDLhbrfA+1r3Q/PpAsqHIs1mprwCGlcYtp+MEJ4N4spvp3iHGiWlU8/HY9us5Pw
+         UMxvS5GYGUHMGtqPozKgbeDLLt5W+vBRRkN6AywuvHeCifbpG0SK2k3pMkGbsJ9EMZk5
+         ClYMGfMyv3aCn06qDjzhIaqmJxiJRuIm0kMR+4/O2aukarvp+Y+FT+pBrrWwWn2+UwRt
+         /UtezBiKfV2hUaSb/XoECnV4pEszTFmpW2slbTuJ9W0eSBllzuVdv3nO2HA/hM003DzX
+         pOkZk49wOEHN4qNx8KgC2XMfz948+JJpfQCdk+U7EqZhRrm179SgDxWzxKqwIZ8QOhOP
+         kscA==
+X-Forwarded-Encrypted: i=1; AL+hErEqSmIPI1tgGt0FSwpam4Yzy+PjSvEKXcrrSu5MxjiPzvi677fzgsrxaSwpcWYRiduyTLfrRUd8i1qA6C4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/UrbgESIODXQAqbXM/ETJbunfgw5Hvn536Te7CTEhV7aQ8uhuf
+	4tJ/m1ytOCRsFlcRvVQwcgP9HTIKRY3HXuBxMD+4C1d5OPOZXvwhLXd3
+X-Gm-Gg: AYBFou2qeIYkaiB/qTBZgvmtxwFZCnKKFCXuh+5/s6OF39+9hnTi2RWOA4hmNkDg0Fs
+	nDQBvZJqS6pI78vhvbNLBZpiIN++OuKreMn13AhJsCgxSE1y9CQeGXgKOSFHMRXl4TYEYYfGTc5
+	Trp6Rs+kbXlXQog1AExlzu8fKZwyb+lsZzbPJlEwxc//ajHbfTcCDqv6DwwW2T9JCuHGpRLDkI0
+	DOVN4rsqnkDKEwqLXm+mrxsSxx3NWToyTPhtdZR0f0HLQd9aFvedlVqnn7jCuEFxs9CCYXpcC1H
+	DPByD5WyCZtYA45QmMx4DVTOCxpualXI6q6Mhu2esSivY6/0UkvrecDvDtS/Wy0p2hsLXwhauDP
+	tpbJUQjlqlQ6uWwjcXMR80vYGpTkM0TxVII6fVoCq6AMtP+diJy5kQr6M7C1zFVK/lSqx8nDryu
+	x9i+5pnQVYosgTJy7bZaHWVpc+fcvRD976MxixZf/sag5ygpKlDBSP6Imt2yR3PLuO711pgNNyI
+	6xYSaUR63CVfBZ7dtI56ajH2icY0FHuGdBQEM2dZz53DHbc15az25dh4KrIHLw8393QwwHzWm7w
+	S9M=
+X-Received: by 2002:a05:600c:19d0:b0:4ac:aae6:6401 with SMTP id 5b1f17b1804b1-4ba09375031mr37014455e9.12.1794394152548;
+        Wed, 11 Nov 2026 02:49:12 -0800 (PST)
+Received: from krava ([2a02:8308:a00c:e200::25dc])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49835d2c05dsm10153242f8f.25.2026.11.11.02.49.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 02:49:12 -0800 (PST)
+From: Jiri Olsa <olsajiri@gmail.com>
+X-Google-Original-From: Jiri Olsa <jolsa@kernel.org>
+Date: Wed, 11 Nov 2026 11:49:10 +0100
+To: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+Cc: Jiri Olsa <olsajiri@gmail.com>, Naveen N Rao <naveen@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Josh Poimboeuf <jpoimboe@kernel.org>,
+	Jason Baron <jbaron@akamai.com>, Alice Ryhl <aliceryhl@google.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ard Biesheuvel <ardb@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>, Alan Maguire <almagui@kernel.org>,
+	x86@kernel.org, linux-trace-kernel@vger.kernel.org,
+	linux-kernel@vger.kernel.org, bpf@vger.kernel.org
+Subject: Re: [PATCH 04/13] kprobes: Maintain an rbtree of registered probes
+Message-ID: <avRIJuSolFTwT_Tk@krava>
+References: <20261109194916.1089703-1-jolsa@kernel.org>
+ <20261109195517.1090787-1-jolsa@kernel.org>
+ <undine-1794298339502831052-1b6960b8f9b38e7d@undined.local>
+ <avLz8k0gdZwYTeA5@krava>
+ <undine-1794325083765212173-9c2dd2a4d5c010fe@undined.local>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,157 +110,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 8/9] vfio/pci: Support mmap() of a VFIO DMABUF
-From: Matt Evans <matt@ozlabs.org>
-To: Alex Williamson <alex@shazbot.org>
-Cc: Alex Mastro <amastro@fb.com>, Leon Romanovsky <leon@kernel.org>,
- Jason Gunthorpe <jgg@nvidia.com>, =?UTF-8?Q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, Kevin Tian <kevin.tian@intel.com>,
- Pranjal Shrivastava <praan@google.com>, Longfang Liu
- <liulongfang@huawei.com>, Mahmoud Adam <mngyadam@amazon.de>,
- David Matlack <dmatlack@google.com>, =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?=
- <bjorn@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
- Ankit Agrawal <ankita@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
- linux-pci@vger.kernel.org
-References: <20261006193643.76330-1-matt@ozlabs.org>
- <20261006193643.76330-9-matt@ozlabs.org>
- <20261013171347.54e856c7@shazbot.org>
- <0bd00c26-4f53-4387-86be-99f0c37fa47c@ozlabs.org>
-Content-Language: en-GB
-In-Reply-To: <0bd00c26-4f53-4387-86be-99f0c37fa47c@ozlabs.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <undine-1794325083765212173-9c2dd2a4d5c010fe@undined.local>
 
-Hi Alex,
-
-On 14/10/2026 21:38, Matt Evans wrote:
-> Hi Alexes,
+On Wed, Nov 11, 2026 at 12:38:03AM +0900, Masami Hiramatsu (Google) wrote:
+> On Tue, 10 Nov 2026 11:37:38 +0100, Jiri Olsa <olsajiri@gmail.com> wrote:
+> > On Tue, Nov 10, 2026 at 08:12:19AM +0000, Masami Hiramatsu (Google) wrote:
+> > > On Mon,  9 Nov 2026 20:55:17 +0100, Jiri Olsa <jolsa@kernel.org> wrote:
+> > > > Add an address-ordered rbtree for registered probes. Keep it synchronized
+> > > > with the hash table when probes are added, removed, or replaced by
+> > > > aggregator probes.
+> > > 
+> > > Could you tell me why don't you use hlist (get_kprobe) instead?
+> > > I would NOT like 2 different lists which is basically doing the
+> > > same thing.
+> > 
+> > The speedup comes from finding the first relevant kprobe, then iterating
+> > over the remaining probes in address order. The hash table supports
+> > exact-address lookups, but it doesn’t provide that ordering.
+> > 
+> > I agree that maintaining both indexes is less convenient. What do you think
+> > about centralizing their updates as in the change below? untested
 > 
-> On 14/10/2026 00:13, Alex Williamson wrote:
->> On Tue,  6 Oct 2026 20:36:36 +0100
->> Matt Evans <matt@ozlabs.org> wrote:
->>
->>> A VFIO DMABUF can export a subset of a BAR to userspace by fd; add
->>> support for mmap() of this fd.  This provides another route for a
->>> process to map BARs, in which the process can only map a specific
->>> subset of a BAR represented by the exported DMABUF.
->>>
->>> mmap() support enables userspace drivers to safely delegate BAR
->>> sub-ranges to other processes by sharing a DMABUF fd, without having
->>> to share the (omnipotent) VFIO device fd with them.
->>>
->>> Since the main VFIO BAR mmap() is now DMABUF-aware, the new mmap() 
->>> reuses
->>> the existing vm_ops.
->>>
->>> The lifecycle of an exported DMABUF remains decoupled from that of the
->>> device fd it came from, i.e. the device fd could be closed with DMABUF
->>> VMAs present, meaning a fault on a VMA could happen concurrently with
->>> vfio_pci_dma_buf_cleanup().
->>>
->>> To deal with this scenario, the fault handler now temporarily takes a
->>> VFIO device registration to ensure the vdev remains valid, and then
->>> vdev locks can be taken.
->>
->> This sounds like potentially measurable overhead if something is
->> slamming the fault handler where huge-fault is not supported or active.
->> Have you considered a fast path for the internal dmabuf where the
->> lifecycle is constrained?
-> [snip]
+> If you can replace the hash table with other faster design, it is OK to me.
+> But I would like to avoid this simple-adding another lookup table for the
+> rare usage case (because of the maintenance cost, and duplicating a list
+> makes it difficult to handle cases where discrepancies arise between the
+> two lists.)
 > 
-> Hmm.  I'll hack up a test to try to measure the relative overhead of VMA 
-> faults before/after (modulo access to meaningful HW).
+> Can you change the size of the hashtable and measure how the performance
+> is changed? I need more options.
 
-Alex Mastro and I have put together some tests, and measured this 
-overhead on the v8 series.
+yep, I'll check on that
 
-https://github.com/evansm7/vfio-playground/tree/master/vfio-barmap-perf
-
-Alex also generated a similar test with a slightly different method:
-  https://github.com/opsound/vfio-tools/blob/main/vfio_bar_bench.c
-
-
-Test method:
-
-Time accesses to a VFIO mmap'd BAR immediately after the mmap, to 
-measure the 'cold' initial fault time.  Re-time a second pass for which 
-the pagetable should now be populated, and subtract.  This should 
-isolate the cost of the fault (uarch exception, generic pagefault 
-plumbing, VFIO fault handler) from common costs (the MMIO access itself, 
-TLB misses, the loop iterating across the BAR).  Maximise the number of 
-faults by disabling hugepages (per concern above).
-
-This is done both for a single-threaded case which just iterates across 
-a new BAR mapping, and a multi-threaded contended case.  Rather than 
-just pthreads, this test fork()s to try to avoid seeing contention on 
-per-mm locks (e.g. mmap_lock) and to focus on the VMA/VFIO locking.
-
-The default test mmaps before forking, meaning there's one shared 
-mapping/DMABUF accessed from both processes.  The fault handler should 
-then contend on dmabuf->resv, vdev->memory_lock, and vdev->dmabuf_lock.
-
-For comparison/curiosity, the --mt-map-late option mmaps _after_ 
-forking; this leads to a mapping/DMABUF in each process so I expect no 
-contention on dmabuf->resv (but still on memory_lock/dmabuf_lock).
-
-Alex's test instead runs threads in-process, and goes further with 
-supporting a larger number of threads (though with the caveat that they 
-may also be fighting over intra-process mm locks).  It also supports a 
-mode where threads can access per-thread VMAs (which is comparable to 
-the 'mt-map-late' option of my test).  Both are interesting approaches IMO.
-
-
-Findings:
-
-On the dusty AMD Ryzen 3950X under my desk (targeting a 256MB BAR) I 
-found the following averaged over 200 runs:
-
-  - A single-threaded/uncontended fault became 5.8% slower
-  - A two-process contended case became 8.7% slower
-   - 0.5% of this is the "early mmap" dmabuf->resv contention, i.e. using
-     mt-map-late (a mapping in each process) reduces by 0.5%.
-
-Alex's runs on fancier EPYC 9334 machines show a similar (slightly 
-lower) overhead in the 1-2 case, and go on to show fairly high overhead 
-when many threads are involved (baseline times in ns, relative series v8 
-behaviour in percentage change):
-
-   Threads    One shared mapping   Mapping per thread
-              7.3     v8            7.3     v8
-   --------------------------------------------
-      1       761   +4.5%           777   +2.7%
-      2       869   +6.6%           840   +5.6%
-      8      1465    +78%          1363    +47%
-     16      4152    +97%          4258    +19%
-     32      9927    +92%         10158    +12%
-
-
-Now.  The absolute timings of these sub-microsecond faults indicate a 
-realistic application won't see a human-visible change.  Small BARs 
-mapped with 4k pages are still fast to map;  it is reasonable to ask 
-that applications map huge (GBs/TBs) BARs using huge (MB/GB) pages!  Of 
-course, this is just a one-time cost of warming up the VMA, not ongoing.
-
-
-Alex, my preference is not to complicate the fault handler with a fast 
-path just yet.  It's easy to think of a contrived scenario where this 
-matters but in middle-of-the-road application behaviour it would be 
-surprising if this was noticeable.  What are your thoughts?
-
-(In the previous mail I suggested keying off priv->vfile (or a flag 
-thereof), and it seems ~straightforward to skip the extra 
-synchronisation.  If you feel strongly that the fault handler doesn't 
-have enough if() statements yet and needs more paths then we could bring 
-this into v9, but would prefer to follow up later. :)  A fastpath diff 
-appears small but the reasoning overhead is bigger.)
-
-
-Thanks,
-
-
-Matt
-
+jirka
