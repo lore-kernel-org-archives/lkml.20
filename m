@@ -1,64 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=57.103.88.23
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.59
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794439583;
-	b=UTd4FybPo1QrIf8E2Vl9MwrGb6M5rQrg+cxilfkbR+BIzZGc4zNG8ECBjG9vMRbgUVgB
-	 GtJsx9ibqEDnHWQywuV40wq55UB/wcGLJAOXZKp7XSePDsGKFkuicVfRTtHeq7LukAfgG
-	 ssj27zrQe1Aah89kB+h37AWD1ALPvgV4h0U+Lk2rhXsFPFPdd4jVaDuce7+Aj0jVNBWPe
-	 zffDiCXQx3ABCvANsmS86zc2U+YgdWF4EEQoZnXzaQjwb5PRMj2MgQ+TMgjDPLYlpqKu+
-	 F2jyR+zYuHbB/tJHD7G8B5023A8mCGnYhDnfCeBWxcbYDyUp6E5xEIuMPw7SHtf9b1A==
+	t=1794439589;
+	b=czIkyOvco8RwUWNGbejwL0KC0mVxFjMfg2JpOKUUPmiV855dSTLbKhUAO0I266NFKdkT
+	 QYOqYqcD1ycpgbf4EViEoBEJGZEjsLEP61d6DAEAgs6douAXqn8nsF92Cz8FwSKobyR7g
+	 mJ9KfCA/8C+xMhiv/r4pYTl1IXLNTNN2jRpbs56YtJtUGKSAAoz47gkAK+78092LOY1Bi
+	 DKUQqXboqKO6ZkohJvOH4X/+UzOMzmTz7qu26yJw8I8k1j2UASr6GKtT9+LujgCsozx86
+	 f/1s1yyFLTjTK7c+by3ipMVaSu4DHO519ASurvtt/pWLb/Zb/rQjXtlbfvfYsVgXqTg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794439583;
-	h=DMARC-Filter:Received:X-ICL-RepId:Dkim-Signature:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
-	 X-Authority-Info-Out:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-ORIG-GUID:X-JNJ:X-Apple-Category-Label;
-	bh=Q0nP5DdkcJ+oG5DRzHz/udyR2V/2gbvh0o/Ol8PCi/8=;
-	b=G0LqPuEU8Xj5YHRAdA1ycu0mXM8R3++ZDxx4hXjoquH7EdO2m4ogy1/ea76yS1dd2pwU
-	 w9pFQHnChxx5bZCq8tnwHOIWu0naUxQ4p0p9JQCbMYjYofXZjw+DOQA3kzf8JkszMIVlx
-	 qsVrDjAgJ+tB0cYWHKoTvVaTGyZ/TbR084jI6zWeLpIe3wMPvs0nWH4G8rrYhqvMLiEbc
-	 zC39d86aack7R7uh9ECL9dO3m0z9AuePfZM6gsnkGPpYZoyZs5GXv+ezWKfbui7oRGzO5
-	 mVX+Mzpe8bQL8oeUOW7dDy+tkV3fA6k5X14J2Nsg3OvpXM/T4AKStDDYwR38tA/0rIg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794439589;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Subject:X-Change-ID:To:Cc:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Date:Message-Id;
+	bh=t9kO9XGAegdg1V2vmzxAZZmN+Wm2FOyrI5Nk2f8kXVM=;
+	b=Xte/C7ujXpVi0mDIgzJEKtFn+Gjttgo33xAV85rN4pC0sAUUTDkdDRXwNEEl5lshGtOK
+	 HwJxD9R2jze0mIA56Y+PJOlUSOjYOua0+ZfRlMqg/cXwPZMhFGCX7oURbBMEVvs5YT5zW
+	 WhHTMg4DgGvpjL11JOKeFWuLx73ZKQqGDttu6y2aeuyISOlejnhnx8jr4TP2RBdqMWoSr
+	 Ol0ErCSK1s3KNwBOVmnBwXyQOI7D2EXeUrHRaeS6rof0H6SfKgmLbhn+KDlQMwnjACcYP
+	 n5exJ5qwmYTjE9/P6GpgqEZktMpgXO00MIdSv6PTakcjRpmznZNnN5/ARNBnFYR0LwQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=icloud.com;
-	spf=pass smtp.mailfrom=icloud.com;
-	dkim=pass header.d=icloud.com header.i=@icloud.com header.a=rsa-sha256 header.s=1a1hai header.b=ib0CQ+k4;
-	arc=none smtp.remote-ip=57.103.88.23
-Received: from outbound.ci.icloud.com (ci-2007b-snip4-11.eps.apple.com [57.103.88.23])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=cressey.dev;
+	spf=pass smtp.mailfrom=cressey.dev;
+	dkim=pass header.d=cressey.dev header.i=@cressey.dev header.a=rsa-sha256 header.s=key1 header.b=MOdWtvWo;
+	arc=none smtp.remote-ip=95.215.58.59
+Received: from mta1.migadu.com (out-59.mta1.migadu.com [95.215.58.59])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70A1C606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 23:26:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70A1C606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icloud.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F50F606A32E
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 23:26:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F50F606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cressey.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cressey.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=icloud.com header.i=@icloud.com header.a=rsa-sha256 header.s=1a1hai header.b=ib0CQ+k4
-Received: from outbound.ci.icloud.com (unknown [127.0.0.2])
-	by p00-icloudmta-asmtp-us-central-1k-60-percent-11 (Postfix) with ESMTPS id 96BC91800145;
-	Wed, 11 Nov 2026 23:26:19 +0000 (UTC)
-X-ICL-RepId: 01a1ccef-07a2-73d3-9a50-990d88191322
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai; t=1794439581; x=1825975581; bh=Q0nP5DdkcJ+oG5DRzHz/udyR2V/2gbvh0o/Ol8PCi/8=; h=From:To:Subject:Date:Message-ID:MIME-Version:x-icloud-hme; b=ib0CQ+k4xAG2nSIUnu/r7KgvGPV/S/3ELMpyvxKmisNx7471EF5pMZxsYL8kVRl4v3zox05fyOKE5J0tEDqjQbWKKH02IN8RKIm+3cp6ystpumbRL8PkWbftiHmpr1It88PjuxtvIP89otCs3lcZRGYaOjjoAZbRlg/dB7878o98T7FcaSkFLNSzIBj698ICjTNEmJYEy7IYz+Y2j34GrerlwzmnzVpXzHzlqOciFduAUjK6N9AoF1/7rVdbqST4AQEbzEPU+xp/J38xMVvxLpXN6PyYBSCVZdFPVS5SgOUZ+meRyqzfyvKFWvC0ak0k6dinrESkuP0vSpIcR2sNcQ==
-Received: from 252-PC-W (unknown [17.57.156.36])
-	by p00-icloudmta-asmtp-us-central-1k-60-percent-11 (Postfix) with ESMTPSA id 7F4C71800169;
-	Wed, 11 Nov 2026 23:26:18 +0000 (UTC)
-From: Finn Zeruhn <fzeruhn@icloud.com>
-To: dri-devel@lists.freedesktop.org
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Jani Nikula <jani.nikula@linux.intel.com>,
-	Coreforge <BC549b@gmail.com>,
-	linux-kernel@vger.kernel.org,
-	Finn Zeruhn <fzeruhn@icloud.com>,
-	Sefa Eyeoglu <contact@scrumplex.net>
-Subject: [PATCH v3] drm/edid: add non-desktop quirk for Pimax VR headsets
-Date: Wed, 11 Nov 2026 18:26:06 -0500
-Message-ID: <20261111232606.2986-1-fzeruhn@icloud.com>
-X-Mailer: git-send-email 2.54.0.windows.1
+	dkim=pass (2048-bit key, unprotected) header.d=cressey.dev header.i=@cressey.dev header.a=rsa-sha256 header.s=key1 header.b=MOdWtvWo
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=b/8lLMDlwRa4+gznMkDz96CHWdfImhJ5sxzvM1VsIDw=;
+ c=simple/simple; d=cressey.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794439585; v=1; x=1795044385;
+ b=MOdWtvWoXkBNJaA4bOpDVYlDcwCRHMWccYHPEbF14qgfh4c/hoMYub9Ykk3C6TU4x5jiOuyo
+ QtwZI1Kpx1hB0E/VWP32Df9LYBv63Id4NtJP7W12/dsZQpEW+zd454PRyEn3fj8rVm+xecFZfeU
+ 6dAsxcEO2SH7Khx3jWWXoWRUcTJv5tXsaJh4AmNCdLog3tU4ljPqfph6wDa39AF8U8NJivVZ1Dl
+ LNXOzq7NGhUfzDtRWXclH4mNedpphhvNyidaudP1JiBEiwA1SfAW+muNTi6OdEoNZHGkvXzM2A2
+ mzGDMFy5U1DxpaBp1CvBkOyOrkM8b2bLy3GCU7W7rWXcg==
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 4893caac69ce6e85;
+	Wed, 11 Nov 2026 23:26:25 +0000
+X-Mizu-Trace-ID: 4893caac69ce6e85
+X-Migadu-Flow: FLOW_OUT
+From: Ben Cressey <ben@cressey.dev>
+Subject: [PATCH v2 0/2] arm64: use typed entries into copied code for kCFI
+X-Change-ID: 20260924-arm64-kexec-nocfi-496e643578ce
+To: Catalin Marinas <catalin.marinas@arm.com>, 
+ Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Pasha Tatashin <pasha.tatashin@soleen.com>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, Pavel Machek <pavel@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ linux-pm@vger.kernel.org, Kees Cook <kees@kernel.org>, 
+ Sami Tolvanen <samitolvanen@google.com>, kexec@lists.infradead.org, 
+ llvm@lists.linux.dev, Nathan Chancellor <nathan@kernel.org>, 
+ Zhaoyang Huang <zhaoyang.huang@unisoc.com>, 
+ Jeson Gao <jeson.gao@unisoc.com>, stable@vger.kernel.org
+X-Mailer: b4 0.15.2
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,150 +71,64 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDA5MyBTYWx0ZWRfX69j5URkb1Xnx
- Ze2aVZmsRxZwOLNVMv4HNQRkfQpN9z3+hS9y2UU2wQirNKs3w3BmSdb49l7fC0z7kl1tzCptguW
- 46r+jGzE9r7uYylqg7WJo8Vl0QLhOrF/F15lUKQjnWNgJfeJodcMTEUXmeDQad/b1EIptXoXT4A
- mcYYVe3Ksw2nmzycx0c7kryVYYUYqF2CbXOr4ROr9poHBsAIPPKmKy42cPNxbsqqut7u0YetsZ4
- ikdcPmN9YdfHsiD3Kqj3j7zm/UO46ZMz3RVaPCcR+Bsjn7L89jc33JD0GbecW1JUYmg0roquqhv
- uDRhEo7xjTH+IXRTPrpxmIQbsQ8jaNYdI3e1N47JMdthff3aIVR+prgIOk3ICo=
-X-Authority-Info-Out: v=2.4 cv=a9WlZkSF c=1 sm=1 tr=0 ts=6af4f99c
- cx=c_apl:c_pps:t_out a=2G65uMN5HjSv0sBfM2Yj2w==:117
- a=2G65uMN5HjSv0sBfM2Yj2w==:17 a=zJRp6_cAMcgA:10 a=x7bEGLp0ZPQA:10
- a=UWokjQvqbcQA:10 a=VkNPw1HP01LnGYTKEx00:22 a=EYaFdmsEC1CjpenOt5ir:22
- a=jdzSJ-FtRUh52-zZQ77r:22 a=Tau1HEJIAAAA:20 a=NEAV23lmAAAA:8 a=e5mUnYsNAAAA:8
- a=VwQbUJbxAAAA:8 a=v3ZZPjhaAAAA:8 a=9LFCdArbAAAA:8 a=ougUob9Pha3KhaONunMA:9
- a=Vxmtnl_E_bksehYqCbjh:22 a=Qd14GjuWW7UXhWQsD3Mv:22 a=bA3UWDv6hWIuX7UZL3qL:22
-X-Proofpoint-GUID: f_Wrhe618QUMRDz3H3KWWya7RxS1vUhD
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDA5MyBTYWx0ZWRfX+HYEqv3Agppk
- Vy3oP8E+wyC9bDYcPc5x3KZkbo+gogmTTEtEckV0H8x78fWqqupWDWFQyayEOhFmg0RuDUPH4qE
- w+796sNg/ksYKtyvseCu0hSJugoIo1A=
-X-Proofpoint-ORIG-GUID: f_Wrhe618QUMRDz3H3KWWya7RxS1vUhD
-X-JNJ: AAAAAAABlabcNIdCLpoBHk62ipbZW7323196+AeXmCItgzddApsa2j6QHaba6YFRW7n/4s
- SpFP1xPMg1D+smgxDvKiMjq8BlVUcoukboYxOx7gJVDt309M4h5cvteH9h0KNPRgJkTsN4
- OvLegFkCleZsNFMUjNheHAm5Eba2at13EX/IwLMXh0neG3++ZYInIqoGHM94hPCFxIbpyc
- gIxMAQtZDoyY8lotLuBvWDBNzPbE+Sj9LAumEU0ntANkYrFWIijKcYt0SzpF7fvhAy/hqo
- nwzCiIt+KQCSJfXrmj/2jy+wyc6vIS48QEwprHbFodHe78V944unjGoaDTRiSAIi38TpeT
- w+4sUPIgdlf0REO7s29E1jUv3YVOhwYEpqWjtHMx0A3RROnIS+1mZgOIR3dZlspsoS4Oeq
- OPnQjR8xzdYXBWw2qlz5OLaOdgjqmafeeo34LFhY5q3+VyFmI78K7T6sSA9l/f7WqrBNev
- yrhUOp/pddeLrSwKMrpv8BIqXvb4fVqPs4zthRqrwXw2Qpeq2VSmx88ZsYOFHeGd6h2q48
- zRzUpWhIc6g0zyl9lsU4XDyty5c6jPl74yOfMYZpkoUPIgHhESs1+QTXHnIhaw7zQgZuHo
- 0BmaA1fiUdOxXXQbSjzMerkPFk9aYrCzmMnhMlJd5DEByVLDeJ0XUHkr4vybyy6SRfJYGu
- qSRsStf2I/si3a6hlowB3ifGHAQmdGrwuNyVl05kiWbn+h9+CfP96J51pa36eEfaNvQ9ZY
- 8U3WuLfd0VbMfJFTxu0jgRSyJvJX9YMGcv35/ds0aTcXCAd2QBs2iZQGzZHQHVZZBYl1QS
- B5VY3zpHQq4tswGlPS6cOaPfceWNcqeNQK0nB27Qmm1RhOPJTwfkW5/0HYImaBwPkF59xD
- 6c2gDJtYTCB3MMNnyLWrJpGWVGnDJ+2fftiIU9KNd+8c0pD6Huno07EUkjtxAUet2JLJTt
- Ogzy6Cpn36Vg1WtBGeVHMYHdAZTYgcwF3Ja09pEvXAfktUt2f2PNaoZoIIycQTKBFUmdrE
- 5t6Vnj2MU4dERDmJXm/vpyiLt8GObReL3/IA2XbQp8Ra48OH+wSJjoGZD6kohi6lA/JBtv
- caKmuxeUfAD3xkKmRAC014XN2ydSPDQSvzs7DzTHJo8PIpKMu4cHgtfMV2JlSW9Qz+HmJ+
- gfBBUj43aBgW6qFX1XfJ4JinDqBnKSTlTPYip1aJUEsHe58xRWf1xfXbNeITCyondNS4jR
- wkwMsLrpIFBk+Dgn4yAnCBd/0cz3zLsZp/Ptc6OL8SVWoQ7XJaA5HOkz3UGXnTtd77Tg3J
- Dc+nde7hga2+tN8JSKb3WiaX+9Jhsrgtlohsebp9jVgZjDSu8I6nye
-X-Apple-Category-Label: MTE1NzgzMjUxMzU6JGNhdGVnb3J5JF9QZXJzb25hbCw=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Date: Wed, 11 Nov 2026 15:26:03 -0800
+Message-Id: <20261111-arm64-kexec-nocfi-v2-0-ddf0c4aa326f@cressey.dev>
 
-Pimax headsets have no Microsoft HMD VSDB, and their DisplayID
-extension is version 1.2, while the kernel only checks the primary use
-on DisplayID 2.0. They are therefore exposed as desktop monitors and
-VR runtimes cannot lease them.
+An arm64 kernel built with CONFIG_CFI=y oopses after "Bye!" on every
+kexec that relocates the image. v1 [1] marked machine_kexec() __nocfi.
+This version types the copied relocation code instead, as Kees Cook
+suggested [2], and does the same for hibernate, as Mark Rutland asked
+[3], so that swsusp_arch_resume() loses its __nocfi. Only kexec faults
+today, and its fix does not depend on the hibernate patch. x86 follows
+as a separate patch.
 
-Add non-desktop quirks for the IDs confirmed by EDIDs:
+Kees, the kexec patch is your diff with two comments and the ASSERT
+message reworded. It had no sign-off, so it carries Suggested-by. Send
+one if you would rather be co-developer or author.
 
-  PVR 0x1019  Dream Air, Dream Air SE, Crystal Light,
-              Crystal Super Micro-OLED, P2 8K models
-  PVR 0x101a  P2 5K XR and 5K+
-  PVR 0x101b  P2 5K Super
-  PVR 0x101c  Crystal Super 50 PPD QLED
-  VRT 0x4c31  Crystal Super 57 PPD and Ultrawide QLED
+An LLM diagnosed the oops, did that rewording, wrote the hibernate
+patch, and drafted the changelogs and this letter.
 
-The 57 PPD and Ultrawide QLED report Varjo's vendor ID "VRT".
-The older Pimax P1 headsets report SVR 0x1019 [1], which is already
-covered by the OSVR entry: name them in its comment.
+Tested on v7.4-rc1 with clang. Under QEMU TCG, so functional only,
+kexec_file_load(2), kexec_load(2), crash kexec and hibernate/resume pass
+with CFI at EL1 and booted at EL2, and with CFI off at EL1. In KVM
+guests at EL1 on Graviton4 the three kexec cases pass, where v7.4-rc1
+alone oopses under the two load calls, and hibernate/resume passed one
+commit before v7.4-rc1. The KHO selftest passes under TCG, and oopses
+at v7.4-rc1. Bare metal, BTI at the typed entries on hardware, GCC's
+kCFI and LTO are untested.
 
-Tested on a Dream Air. sboys3 collected most of the EDIDs, namely those
-of the Crystal and Dream Air models [2]. The P2 EDIDs are in the linked
-issue #40.
+Changes in v2:
+- Type arm64_relocate_new_kernel() and enter its copy at the symbol's
+  offset, instead of marking machine_kexec() __nocfi (Kees Cook, Mark
+  Rutland).
+- Take back v1's statement that arm64_relocate_new_kernel "cannot be
+  given a type hash".
+- Add the hibernate patch (Mark Rutland).
+- Rebase onto v7.4-rc1.
+- Drop the Assisted-by tag. The cover letter now says how tools were
+  used.
 
-Dream Air EDID:
+[1] https://lore.kernel.org/20260924-arm64-kexec-nocfi-v1-1-bbae2e2eadc8@cressey.dev
+[2] https://lore.kernel.org/202609241804.BB23BF10@keescook
+[3] https://lore.kernel.org/arZSe8hNnRPM5FqY@J2N7QTR9R3.cambridge.arm.com
 
-  00 ff ff ff ff ff ff 00 42 d2 19 10 01 00 00 00
-  ff 23 01 04 a5 00 00 78 00 30 fd ae 50 3b b2 23
-  0c 47 4a 00 00 00 01 01 01 01 01 01 01 01 01 01
-  01 01 01 01 01 01 00 00 00 10 00 00 00 00 00 00
-  00 00 00 00 00 00 00 00 00 00 00 10 00 00 00 00
-  00 00 00 00 00 00 00 00 00 00 00 00 00 fc 00 50
-  69 6d 61 78 0a 20 20 20 20 20 20 20 00 00 00 fd
-  08 3c 64 e9 7b ff 01 0a 20 20 20 20 20 20 02 c2
-
-  02 03 0f c0 23 09 07 07 83 01 00 00 e2 00 4a 00
-  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 42
-
-  70 12 2b 00 00 03 01 28 43 08 04 88 bf 1b bf 01
-  c7 80 2f 00 ff 0e 2f 00 1c 80 00 00 cf 39 03 08
-  bf 1b bf 01 c7 80 2f 00 ff 0e 2f 00 1c 80 00 00
-  dd 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 90
-
-Link: https://github.com/linuxhw/EDID/blob/master/Digital/Sensics/SVR1019/302D58069F6B [1]
-Link: https://github.com/sboys3/DisplayInfo/tree/main/outputs-nv [2]
-Suggested-by: Sefa Eyeoglu <contact@scrumplex.net>
-Closes: https://gitlab.freedesktop.org/drm/misc/kernel/-/issues/40
-Signed-off-by: Finn Zeruhn <fzeruhn@icloud.com>
 ---
-An LLM helped prepare this patch.
+Ben Cressey (2):
+      arm64: kexec: use a typed entry to fix kCFI oops
+      arm64: hibernate: use a typed entry to drop __nocfi
 
-v3:
-- Add PVR 0x101a and 0x101b: EDIDs from a 5K XR, a 5K+ and a 5K Super
-  show them in use.
-- Drop the Assisted-by tag, which checkpatch rejects.
-v2: https://lore.kernel.org/dri-devel/20261016225621.37572-1-fzeruhn@icloud.com/
-- Add PVR 0x101c and VRT 0x4c31 for the Crystal Super QLED models.
-- Name the Pimax P1 in the comment of the existing SVR 0x1019 entry.
-- Leave out PVR 0x101a and 0x101b from the issue, they are only in
-  Pimax Play's device list with no EDID showing them in use.
-v1: https://lore.kernel.org/dri-devel/20261002013500.16903-1-fzeruhn@icloud.com/
-
- drivers/gpu/drm/drm_edid.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-index 314803874..9e1324454 100644
---- a/drivers/gpu/drm/drm_edid.c
-+++ b/drivers/gpu/drm/drm_edid.c
-@@ -278,6 +278,14 @@ static const struct edid_quirk {
- 	EDID_QUIRK('H', 'V', 'R', 0xaa01, BIT(EDID_QUIRK_NON_DESKTOP)),
- 	EDID_QUIRK('H', 'V', 'R', 0xaa02, BIT(EDID_QUIRK_NON_DESKTOP)),
- 
-+	/* Pimax VR Headsets */
-+	EDID_QUIRK('P', 'V', 'R', 0x1019, BIT(EDID_QUIRK_NON_DESKTOP)),
-+	EDID_QUIRK('P', 'V', 'R', 0x101a, BIT(EDID_QUIRK_NON_DESKTOP)),
-+	EDID_QUIRK('P', 'V', 'R', 0x101b, BIT(EDID_QUIRK_NON_DESKTOP)),
-+	EDID_QUIRK('P', 'V', 'R', 0x101c, BIT(EDID_QUIRK_NON_DESKTOP)),
-+	/* Pimax Crystal Super 57 PPD and Ultrawide QLED, uses Varjo's vendor ID */
-+	EDID_QUIRK('V', 'R', 'T', 0x4c31, BIT(EDID_QUIRK_NON_DESKTOP)),
-+
- 	/* Oculus Rift DK1, DK2, CV1 and Rift S VR Headsets */
- 	EDID_QUIRK('O', 'V', 'R', 0x0001, BIT(EDID_QUIRK_NON_DESKTOP)),
- 	EDID_QUIRK('O', 'V', 'R', 0x0003, BIT(EDID_QUIRK_NON_DESKTOP)),
-@@ -298,7 +306,7 @@ static const struct edid_quirk {
- 	/* Sensics VR Headsets */
- 	EDID_QUIRK('S', 'E', 'N', 0x1019, BIT(EDID_QUIRK_NON_DESKTOP)),
- 
--	/* OSVR HDK and HDK2 VR Headsets */
-+	/* OSVR HDK and HDK2, Pimax P1 VR Headsets */
- 	EDID_QUIRK('S', 'V', 'R', 0x1019, BIT(EDID_QUIRK_NON_DESKTOP)),
- 	EDID_QUIRK('A', 'U', 'O', 0x1111, BIT(EDID_QUIRK_NON_DESKTOP)),
- 
-
-base-commit: 3944ca3e6b7d25e545e8ef6498f69941e8e0c8ae
--- 
-2.54.0.windows.1
+ arch/arm64/include/asm/kexec.h      |  2 ++
+ arch/arm64/include/asm/suspend.h    |  5 +++++
+ arch/arm64/kernel/hibernate-asm.S   |  7 +++++--
+ arch/arm64/kernel/hibernate.c       | 14 +++++++++-----
+ arch/arm64/kernel/machine_kexec.c   |  7 +++++--
+ arch/arm64/kernel/relocate_kernel.S | 11 +++++++----
+ arch/arm64/kernel/vmlinux.lds.S     | 10 ++++++----
+ 7 files changed, 39 insertions(+), 17 deletions(-)
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20260924-arm64-kexec-nocfi-496e643578ce
 
