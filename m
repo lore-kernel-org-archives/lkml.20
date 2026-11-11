@@ -1,87 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.246.68.102
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.225.73
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794438093;
-	b=Or53pve2h04JLHPGwnZmWB2r/RvMfCFGpFNmUZTMmPUnv8A1DKWDGMC+v3BlxaskrPRn
-	 HZlw9KgE+7G6rhFVyuo4vKqs54HnrLS3+hsp2g6v6PFrkMFHhEP06Jw4s1cOWWzkcyysO
-	 FXyD1E0o1MVbvNED5XgalVmCDnjCyxPkFtQbHV8e0H+wv6E65rbH4UFpIbor0Ce6p6LNT
-	 g7ydvMuLhbMmOafCEZGlPxJKD8vR1cww91qSSN6GMvFiTx0nf9BvR6pdL4lgkba3fGU3H
-	 Pbdkz9M0m5ejcRGLiCo0yoqqfI5ltplXXk1XCfMDrEJaY2MY84dHsYWPIcr/sDcYZxA==
+	t=1794438103;
+	b=WLJVTdt/sZ4Lfgx7eecb+VVu+ayLyxMDK/OkuGy+rCmuU8pC0rc3xThhSkeU3CCNtGtW
+	 5GObU7+bCXk+0ib1O7pU6EY4PwhBMcLIJw7dXeCzJvlPpUKhTXZ197aZ6wxTstgQmrNjv
+	 0ATBBtv2/0MmiUjHtcWoAquv/5S59yWZ+4Nj9hqHB+ZOpy4YryknFSifXZG1TQOPw681+
+	 XUPuUVBzCBeeS6Nld99opNYryytDtsGhKECidINt7oRqu5CNeGZDVxQNlkLiGg09jFnYo
+	 38lIrhEXIfSqH51NPS6vxXOLLmZOJJ/chXu6xZNamTyf3fW1mI7ZyCdQNWmtaMh0Keg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794438093;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=GXtmYIrfPivQz7FmakInhnYFI+uktb0W76Paq4YTuo8=;
-	b=TYaQ0cIMkuvb/sO0gGEUrROJOQe+NAzMb4pMhcYoeXUc7VQQ/JZUzRiunR1yljS9rGI3
-	 Y+7f18OxjW9uaHXiABafeRMKpOLa6vGVzIch0UheG3SX9BEBysyWo2zltwC3dSkVq5V92
-	 lTYtbgKq8ALlzYUtPbkGZhRWhRufFylk3XhcchqVdB3uUMR4I5JxYrw7+SWStsML+m3NF
-	 5OXMwFw9/woYWLmdZ28o7hCu8ZZBabdIFjss5tSjhy0loplUBuL/8NA2uexQUZSImd4AN
-	 zG22UoFq2gN3oW0uyACqCuuFTownn7ftmsTdWX3OM0goYjnBwPZ08ZYEV93i40ad7dw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794438103;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=L/DNryozJcI+bS61jpTo9uGJwCePakmBfNnW7ssrmHM=;
+	b=gKJq2l0mMyIXkXqvumdmj2MvOkMcj6RMEWm5xr3/ZWFVziPjtk/9OTkn0O9tHKAvklEf
+	 wgrSvd2zUP7hUI+ZIiBTd2aPhMQJw+K9/TNUBeyB3cY6jfNGNpOOWCeOnHUYwpELzuWt1
+	 QPWPYsYCSr9P9BxHaqQ8WAa2SYpyr/s9BwsRMxRvwim6BaMR9uxT03pII6bdhvVszYYEn
+	 zAWBz7Ha1nc5emwbLGGQZA54lmuwKdjhCwhCJRYJ1xBylmMWqE3DaU3mkgIjyI8LnwA3E
+	 ZBA6JMnPRASx3RkWdRozekIf6DAcp/FJJoEKcF8lwZ0OHKDVPKpZvU/u2cqjGq2drvQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amazon.com;
-	spf=pass smtp.mailfrom=amazon.de;
-	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=ZC2GLXhD;
-	arc=none smtp.remote-ip=44.246.68.102
-Received: from pdx-out-003.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-003.esa.us-west-2.outbound.mail-perimeter.amazon.com [44.246.68.102])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HQMN+EXc;
+	arc=none smtp.remote-ip=74.125.225.73
+Received: from mail-wr2-f9.google.com (mail-wr2-f9.google.com [74.125.225.73])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEE9B606A336;
-	Wed, 11 Nov 2026 23:01:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EEE9B606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30829606A33C
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 23:01:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 30829606A33C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=ZC2GLXhD
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HQMN+EXc
+Received: by mail-wr2-f9.google.com with SMTP id ffacd0b85a97d-490ca655ba2so1676539f8f.1
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 15:01:42 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1794438091; x=1825974091;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=GXtmYIrfPivQz7FmakInhnYFI+uktb0W76Paq4YTuo8=;
-  b=ZC2GLXhD39pZz7ky4rU29OzRpx7AGY2loKWlZDDz0cRJFfwmkIMpfqco
-   Y0JWOmX3CocTsZXUbNB/lkRsJbmI9y0+epksMVNj9z8x+r+sz84UF1fiE
-   ar3NyphELm1VT5gEaWgtC13qbEN+tkgGjfSmyI02ernVqMcConnfgyW51
-   gwMnVfJ9FfSThU0ZekOemI9aEPCb0DR/WIcV7sCirlhbcplxO3wgyKEcS
-   UkQSCQCwIupu7e78ApcuieRgYExhBDz+GfbtpQnn8nNBmnMH40NJAQ10J
-   QlIukJwc6MWrXe7DLlcuAr+Y7yQr99BpO3/5n+yXBBg1HyR7+1OXVPXwy
-   w==;
-X-CSE-ConnectionGUID: 9drxTOTsQwyc1weMq2Ey1w==
-X-CSE-MsgGUID: n7+vjtjPQvevBFUbDMxJdQ==
-X-IronPort-AV: E=Sophos;i="6.27,208,1787011200"; 
-   d="scan'208";a="33678373"
-Received: from ip-10-5-9-48.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.9.48])
-  by internal-pdx-out-003.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 23:01:31 +0000
-Received: from EX19MTAUWC001.ant.amazon.com [205.251.233.53:5815]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.24.250:2525] with esmtp (Farcaster)
- id a1e45171-b7a8-43b1-a8a4-8be601ccfb00; Wed, 11 Nov 2026 23:01:31 +0000 (UTC)
-X-Farcaster-Flow-ID: a1e45171-b7a8-43b1-a8a4-8be601ccfb00
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWC001.ant.amazon.com (10.250.64.174) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Wed, 11 Nov 2026 23:01:30 +0000
-Received: from ip-10-253-83-51.amazon.com (172.19.99.218) by
- EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Wed, 11 Nov 2026 23:01:28 +0000
-From: Alexander Graf <graf@amazon.com>
-To: <linux-kernel@vger.kernel.org>, Greg Kroah-Hartman
-	<gregkh@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>
-CC: The AWS Nitro Enclaves Team <aws-nitro-enclaves-devel@amazon.com>, "Shuah
- Khan" <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>,
-	Marek Szyprowski <m.szyprowski@samsung.com>, Robin Murphy
-	<robin.murphy@arm.com>, <linux-doc@vger.kernel.org>, <iommu@lists.linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand
-	<david@kernel.org>, Mike Rapoport <rppt@kernel.org>,
-	<nh-open-source@amazon.com>, <linux-mm@kvack.org>, Jonathan Corbet
-	<corbet@lwn.net>
-Subject: [PATCH 18/40] nitro_enclaves: Donate memory for the slot pool
-Date: Wed, 11 Nov 2026 22:59:22 +0000
-Message-ID: <5ad724cf5ed725a38ee73d501ebe2d26d1d40d2c.1794393490.git.graf@amazon.com>
-X-Mailer: git-send-email 2.47.1
-In-Reply-To: <cover.1794300002.git.graf@amazon.com>
-References: <cover.1794300002.git.graf@amazon.com>
+        d=gmail.com; s=20260707; t=1794438101; x=1795042901; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=L/DNryozJcI+bS61jpTo9uGJwCePakmBfNnW7ssrmHM=;
+        b=HQMN+EXchlp4xbB8rF7Pnhq5g3JiXeEDSFSEP0fBPwP0YzTauuIlfszcErHxeIsqW3
+         MuKG422qmxlKr/spOL6wWrxqiB2S3Waay/nHqfQSCfYpQAF9JTo2IoJk+IfN6aGgFdLp
+         ql/vlnC1a69YhJWurBaDDynrC3hNOtdQ1yZrGpzI0/Lah3dINozucyAOMb0JkX6AOS1L
+         C0aU5/rl8dSG6oDzwjUNLuPBM8Oec2bA/GyksTjki9+nQXx0THaY351VKHkFz+kXbme2
+         Jadh3OnGIokbBQoMOm4vVgSC3aNuQj46gfUgIMBu7/8Mvk/BZ4ScOv09WVofy+Ci0eua
+         rtGg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794438101; x=1795042901;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=L/DNryozJcI+bS61jpTo9uGJwCePakmBfNnW7ssrmHM=;
+        b=rCapb+b/JDsC7TtriqZA5D3ndoFierjshoK9w6T7BeplWBWO0Bz5Mexj6DwuNLUFV+
+         o7hS5uP/CYi9TLMabgg/8UVNYl5eKnvWvK1KkOPyVpp/E0CdYPAy1VRLRrhBwk4bm8HM
+         MZppnltl4yHMZTf+1pdkLwFrG+CWG+OSESmJqwMmGZTODSQRJT5QpEYNaI/yNWpTfb3/
+         V2TVr+edswEAFulIwJFct/oJglnn2BNlpCjqXmarAzAOcQRAxggtuUTaEbT/MhENqGc/
+         2PP8phptT3qbxXBayq8vfyiYw5gMqTn1BghSQI9elEAbAOZbukJd6rOKz6tUzY6pRQpK
+         fJ9g==
+X-Forwarded-Encrypted: i=1; AL+hErGgYSUN2Ms5EJ1jRDTYL/3cs7RWM6ds3403vSSsGaoGIDmpJlE4WNo37101/f5SfYJ8FDxgLZ0V6nhKu18=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9f/tlUIrK/Y++OUCIwv29jW+xbeoFNdM/ztgYbn1cYQv0YS26I
+	KJH4KohcPsBBpEaxX1ZvYNz/1vEvBzMTd1vrBFsqUzAEvylIdD6hEECr
+X-Gm-Gg: AYBFou1F+cTOh47+kjU2oes1GyvbMyNvmTPG6+c+w8w0sfEngqmpeRl9MZ4Dtz0TI8T
+	iYp5RK8WWPO+FNfUDkOFKgel59GeRCDK8MQOCk9vUurrlwW5RvH968UUFEUNcq2TZyPvXLFKGB0
+	33Olc9S6pwF7MG7C6r2oejyvJqIbi7IDvs879il8e8tnVHGk2guiYoQM8tr8qFxAuWLL5WP1YoQ
+	HKx+Obr5TtVDLdiq4f3pRxBLbRmi1C//6C73YepcVyFWOOJyLjqjhfTdm/t/MlRyJatQt3DH77P
+	wFjvumkYaPs02Zktl98aFmynHlGPbYANS3NKiAvZuJjRJMxSUirkp9u3y2xF9G3PzDqyd3cjgop
+	ruMQgKei61LY1wqvNkUO2hX3d1Xlkkw8MB7w8eYpy06WMNMh28shwsBIMtifxDBjkC2rk5NcChC
+	hsQc9DOpa6ASuMpFtYK9DpZQmvrOZA5deDKP7yEqFG6o/TsKRnkBIbN/jB4PVBedCvj8hv3WTVO
+	ySah2WZjs/m58tazAnzqRT0ivfSWXiQch+htjlMaj9cH5ROSpauW0uS8rnSxCjTsUhT03c7+s5L
+	D+gF7Mpdsb1kulpQ7eQ8M9Kplhk6N3hdR4kp
+X-Received: by 2002:a05:600c:64c6:b0:4a1:e69d:90e8 with SMTP id 5b1f17b1804b1-4ba0937fedcmr69091665e9.22.1794438101294;
+        Wed, 11 Nov 2026 15:01:41 -0800 (PST)
+Received: from cachyos-x8664 ([105.98.136.70])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb4e265a0csm22047415e9.9.2026.11.11.15.01.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 15:01:40 -0800 (PST)
+From: Mohamed Anis Ben Azza <benazzaanis783@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Marc Dietrich <marvin24@gmx.de>
+Cc: linux-staging@lists.linux.dev,
+	linux-tegra@vger.kernel.org,
+	ac100@lists.launchpad.net,
+	linux-kernel@vger.kernel.org,
+	Mohamed Anis Ben Azza <benazzaanis783@gmail.com>
+Subject: [PATCH] staging: nvec: kbd: bound keycode table lookups
+Date: Thu, 12 Nov 2026 01:01:34 +0200
+Message-ID: <20261111230134.200561-1-benazzaanis783@gmail.com>
+X-Mailer: git-send-email 2.56.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,672 +99,81 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D031UWA004.ant.amazon.com (10.13.139.19) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-To launch the first Nitro Sandbox, the parent must donate memory to the
-device. So at probe, on a device whose vendor-specific PCI capability
-reports a slot pool, donate the base run and one donation of
-NE_SLOT_POOL_GRAN_SIZE bytes from ne_alloc_contig().
+nvec_keys_notifier() indexes code_tabs[_size][code] using values taken
+directly from the embedded controller's event message without checking
+them against the tables:
 
-The device holds a donated page until SLOT_POOL_SHUTDOWN, which it
-refuses while a slot is in use. So remove, shutdown and a probe that
-fails after donating first run ne_enclave_free_slot() on every enclave
-and then take the pool back, before any page goes to the allocator. That
-way the device stays usable after an unbind or a kexec with enclaves
-running. Like the two free commands, SLOT_POOL_SHUTDOWN waits for
-pci_dev_mutex even for a process that is being killed. This teardown
-runs on every device, and a slot the device confirms as free lets the
-driver release the memory and CPUs of a classic enclave too, once its
-file is closed. ENCLAVE_STOP now goes out in any state, because an
-enclave that exited may still be scrubbed, and the device answers a stop
-for a slot that never started as well.
+ - _size is a 2-bit field (0..3) from the message header, but code_tabs[]
+   only has entries for NVEC_2BYTES and NVEC_3BYTES. NVEC_VAR_SIZE is
+   rejected, but the reserved encoding 3 is not, so code_tabs[3] reads a
+   pointer past the end of the array and then dereferences it.
 
-An enclave whose slot was freed that way gives its CPUs back on close,
-so count the enclaves created from the CPU pool and refuse to replace
-the pool while the count is not zero. A donation that got no answer
-stays recorded as donated, because the device may take it.
+ - code is msg[1] & 0x7f (0..127), but code_tab_102us[] has only 126
+   entries and extcode_tab_us102[] only 110, so scancodes at or above
+   those sizes read past the end of the tables.
 
-Signed-off-by: Alexander Graf <graf@amazon.com>
+Reject any size encoding without a table and any scancode beyond the
+end of the selected table, dropping the event as is already done for
+the power button.
+
+This only matters for an EC that sends malformed or out-of-spec
+events, so it is a robustness fix rather than a security issue.
+
+The issue was found and the fix drafted with the help of an AI coding
+assistant (Claude). It was compile-tested with
+ARCH=arm LLVM=1 tegra_defconfig + MFD_NVEC/KEYBOARD_NVEC at W=1 with no
+new warnings, and the lookup logic was exercised in a userspace harness
+under AddressSanitizer for all 4 size encodings x 256 scancodes: the old
+code reports a global-buffer-overflow, the new code none. It has not
+been tested on real Tegra/AC100 hardware.
+
+Fixes: 32890b983086 ("Staging: initial version of the nvec driver")
+Signed-off-by: Mohamed Anis Ben Azza <benazzaanis783@gmail.com>
 ---
- drivers/virt/nitro_enclaves/ne_misc_dev.c |  53 +++-
- drivers/virt/nitro_enclaves/ne_misc_dev.h |   7 +
- drivers/virt/nitro_enclaves/ne_pci_dev.c  | 334 +++++++++++++++++++++-
- drivers/virt/nitro_enclaves/ne_pci_dev.h  |  25 ++
- 4 files changed, 401 insertions(+), 18 deletions(-)
+ drivers/staging/nvec/nvec_kbd.c | 15 +++++++++++++--
+ 1 file changed, 13 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/virt/nitro_enclaves/ne_misc_dev.c b/drivers/virt/nitro_enclaves/ne_misc_dev.c
-index 77b15eda8d120..2fae731acb977 100644
---- a/drivers/virt/nitro_enclaves/ne_misc_dev.c
-+++ b/drivers/virt/nitro_enclaves/ne_misc_dev.c
-@@ -201,6 +201,11 @@ static const struct kernel_param *ne_cpus_kp;
-  *				and leaves when the enclave is freed, in
-  *				the same two places that move the core out of
-  *				and back into @avail_threads_per_core.
-+ * @nr_enclaves:			How many enclaves were created from the pool and
-+ *				have not been freed yet, whether or not they are
-+ *				on the list of a device. The pool is not replaced
-+ *				while any is, so the cores an enclave gives back
-+ *				go back to the pool they came from.
-  */
- struct ne_cpu_pool {
- 	cpumask_var_t	*avail_threads_per_core;
-@@ -211,6 +216,7 @@ struct ne_cpu_pool {
- 	cpumask_var_t	*node_cpus;
- 	struct cpumask	total_cpus;
- 	struct cpumask	used_cpus;
-+	unsigned int	nr_enclaves;
- };
+diff --git a/drivers/staging/nvec/nvec_kbd.c b/drivers/staging/nvec/nvec_kbd.c
+index d2b91318f..9b976f0f5 100644
+--- a/drivers/staging/nvec/nvec_kbd.c
++++ b/drivers/staging/nvec/nvec_kbd.c
+@@ -28,6 +28,11 @@ enum kbd_subcmds {
+ static unsigned char keycodes[ARRAY_SIZE(code_tab_102us)
+ 			      + ARRAY_SIZE(extcode_tab_us102)];
  
- static struct ne_cpu_pool ne_cpu_pool = {
-@@ -931,6 +937,7 @@ static int ne_replace_cpu_pool(const char *val, const struct kernel_param *kp)
- 	cpumask_var_t cpu_pool;
- 	cpumask_var_t old_pool;
- 	struct ne_pci_dev *ne_pci_dev = NULL;
-+	unsigned int nr_enclaves = 0;
- 	int rc = -EINVAL;
- 
- 	if (!zalloc_cpumask_var(&cpu_pool, GFP_KERNEL))
-@@ -961,7 +968,11 @@ static int ne_replace_cpu_pool(const char *val, const struct kernel_param *kp)
- 			goto unlock_devs;
- 	}
- 
--	if (ne_pci_dev && !list_empty(&ne_pci_dev->enclaves_list)) {
-+	mutex_lock(&ne_cpu_pool.mutex);
-+	nr_enclaves = ne_cpu_pool.nr_enclaves;
-+	mutex_unlock(&ne_cpu_pool.mutex);
++static const unsigned int code_tab_sizes[] = {
++	ARRAY_SIZE(code_tab_102us),
++	ARRAY_SIZE(extcode_tab_us102),
++};
 +
-+	if (nr_enclaves) {
- 		pr_err("%s: The CPU pool is used by enclave(s)\n", ne_misc_dev.name);
+ struct nvec_keys {
+ 	struct input_dev *input;
+ 	struct notifier_block notifier;
+@@ -59,8 +64,11 @@ static int nvec_keys_notifier(struct notifier_block *nb,
+ 	if (event_type == NVEC_KB_EVT) {
+ 		int _size = (msg[0] & (3 << 5)) >> 5;
  
- 		rc = -EPERM;
-@@ -2293,6 +2304,8 @@ static void ne_enclave_remove_all_vcpu_id_entries(struct ne_enclave *ne_enclave)
- 	for (i = 0; i < ne_enclave->nr_parent_vm_cores; i++)
- 		free_cpumask_var(ne_enclave->threads_per_core[i]);
- 
-+	ne_cpu_pool.nr_enclaves--;
-+
- 	mutex_unlock(&ne_cpu_pool.mutex);
- 
- 	kfree(ne_enclave->threads_per_core);
-@@ -2337,8 +2350,8 @@ static void ne_pci_dev_remove_enclave_entry(struct ne_enclave *ne_enclave,
-  * * 0 once the device has freed the slot.
-  * * Negative return value on failure.
-  */
--static int ne_enclave_free_slot(struct ne_pci_dev *ne_pci_dev,
--				struct ne_enclave *ne_enclave)
-+int ne_enclave_free_slot(struct ne_pci_dev *ne_pci_dev,
-+			 struct ne_enclave *ne_enclave)
- {
- 	struct ne_pci_dev_cmd_reply cmd_reply = {};
- 	struct enclave_stop_req enclave_stop_request = {};
-@@ -2346,17 +2359,20 @@ static int ne_enclave_free_slot(struct ne_pci_dev *ne_pci_dev,
- 	struct pci_dev *pdev = ne_pci_dev->pdev;
- 	int rc;
- 
--	if (ne_enclave->state != NE_STATE_INIT && ne_enclave->state != NE_STATE_STOPPED) {
--		enclave_stop_request.slot_uid = ne_enclave->slot_uid;
-+	/*
-+	 * An enclave that exited may still be scrubbed, so the stop goes out
-+	 * whatever the state, and the device answers it once the slot is
-+	 * neither running nor being scrubbed.
-+	 */
-+	enclave_stop_request.slot_uid = ne_enclave->slot_uid;
- 
--		rc = ne_do_request(pdev, ENCLAVE_STOP,
--				   &enclave_stop_request, sizeof(enclave_stop_request),
--				   &cmd_reply, sizeof(cmd_reply));
--		if (rc < 0)
--			return rc;
-+	rc = ne_do_request(pdev, ENCLAVE_STOP,
-+			   &enclave_stop_request, sizeof(enclave_stop_request),
-+			   &cmd_reply, sizeof(cmd_reply));
-+	if (rc < 0)
-+		return rc;
- 
--		memset(&cmd_reply, 0, sizeof(cmd_reply));
--	}
-+	memset(&cmd_reply, 0, sizeof(cmd_reply));
- 
- 	slot_free_req.slot_uid = ne_enclave->slot_uid;
- 
-@@ -2416,10 +2432,13 @@ static int ne_enclave_release(struct inode *inode, struct file *file)
- 	/*
- 	 * The device the enclave was created on is gone, and with it the only
- 	 * party that can confirm that the slot no longer uses its memory and
--	 * its CPUs, so the enclave keeps both.
-+	 * its CPUs, so the enclave keeps both, unless the device freed the
-+	 * slot before it went away.
- 	 */
- 	if (ne_enclave->detached) {
--		rc = -ENODEV;
-+		rc = ne_enclave->slot_freed ? 0 : -ENODEV;
-+		if (!rc)
-+			ne_enclave_free(ne_enclave);
- 
- 		goto unlock_devs;
- 	}
-@@ -2525,7 +2544,7 @@ static int ne_create_vm_ioctl(struct ne_pci_dev *ne_pci_dev, u64 flags,
- 	 * capability. One without it takes no launch flags and would allocate a
- 	 * slot without the properties they ask for.
- 	 */
--	if (flags && !pci_find_capability(ne_pci_dev->pdev, PCI_CAP_ID_VNDR)) {
-+	if (flags && !ne_pci_dev->has_vendor_cap) {
- 		dev_err_ratelimited(ne_misc_dev.this_device,
- 				    "Device takes no launch flags\n");
- 
-@@ -2630,6 +2649,10 @@ static int ne_create_vm_ioctl(struct ne_pci_dev *ne_pci_dev, u64 flags,
- 
- 	list_add(&ne_enclave->enclave_list_entry, &ne_pci_dev->enclaves_list);
- 
-+	mutex_lock(&ne_cpu_pool.mutex);
-+	ne_cpu_pool.nr_enclaves++;
-+	mutex_unlock(&ne_cpu_pool.mutex);
-+
- 	if (copy_to_user(slot_uid, &ne_enclave->slot_uid, sizeof(ne_enclave->slot_uid))) {
- 		/*
- 		 * As we're holding the only reference to 'enclave_file', fput()
-diff --git a/drivers/virt/nitro_enclaves/ne_misc_dev.h b/drivers/virt/nitro_enclaves/ne_misc_dev.h
-index d0d1973bfbe9d..59374a35c3c7d 100644
---- a/drivers/virt/nitro_enclaves/ne_misc_dev.h
-+++ b/drivers/virt/nitro_enclaves/ne_misc_dev.h
-@@ -116,6 +116,9 @@ struct ne_mem_region {
-  * @enclave_info_mutex :	Mutex for accessing this internal state.
-  * @detached:			The NE PCI device the enclave was created on is
-  *				gone. Written with ne_devs.lock held for writing.
-+ * @slot_freed:			The device freed the slot of a detached enclave
-+ *				before it went away. Written with ne_devs.lock
-+ *				held for writing.
-  * @contig_regions_list:	List of %NE_ALLOC_MEMORY allocations given to the
-  *				enclave with %NE_ADD_MEMORY_REGION.
-  * @enclave_list_entry :	Entry in the list of created enclaves.
-@@ -157,6 +160,7 @@ struct ne_mem_region {
- struct ne_enclave {
- 	struct mutex		enclave_info_mutex;
- 	bool			detached;
-+	bool			slot_freed;
- 	struct list_head	contig_regions_list;
- 	struct list_head	enclave_list_entry;
- 	wait_queue_head_t	eventq;
-@@ -221,6 +225,9 @@ void ne_contig_free_run(struct cma *cma, struct page *page,
- /* Nitro Enclaves (NE) data structure for keeping refs to the NE misc and PCI devices. */
- extern struct ne_devs ne_devs;
- 
-+int ne_enclave_free_slot(struct ne_pci_dev *ne_pci_dev,
-+			 struct ne_enclave *ne_enclave);
-+
- int ne_cpu_pool_sysfs_init(void);
- void ne_cpu_pool_sysfs_exit(void);
- 
-diff --git a/drivers/virt/nitro_enclaves/ne_pci_dev.c b/drivers/virt/nitro_enclaves/ne_pci_dev.c
-index 8ed2349dea878..e42be1742a39c 100644
---- a/drivers/virt/nitro_enclaves/ne_pci_dev.c
-+++ b/drivers/virt/nitro_enclaves/ne_pci_dev.c
-@@ -7,14 +7,20 @@
-  * DOC: Nitro Enclaves (NE) PCI device driver.
-  */
- 
-+#include <linux/cma.h>
- #include <linux/delay.h>
- #include <linux/device.h>
-+#include <linux/err.h>
- #include <linux/iopoll.h>
-+#include <linux/jiffies.h>
- #include <linux/list.h>
-+#include <linux/minmax.h>
- #include <linux/module.h>
- #include <linux/mutex.h>
- #include <linux/nitro_enclaves.h>
- #include <linux/pci.h>
-+#include <linux/sizes.h>
-+#include <linux/sysfs.h>
- #include <linux/types.h>
- #include <linux/wait.h>
- 
-@@ -211,10 +217,11 @@ int ne_do_request(struct pci_dev *pdev, enum ne_pci_dev_cmd_type cmd_type,
- 	/*
- 	 * Use this mutex so that the PCI device handles one command request at
- 	 * a time. A slot being freed can hold it for minutes, so let a task
--	 * that waits for it be killed, unless the task frees a slot itself:
--	 * release has to do that for a process that is being killed too.
-+	 * that waits for it be killed, unless the task frees a slot or takes
-+	 * the slot pool back: release and unbind have to finish those for a
-+	 * process that is being killed too.
- 	 */
--	if (ne_cmd_frees_slot(cmd_type)) {
-+	if (ne_cmd_frees_slot(cmd_type) || cmd_type == SLOT_POOL_SHUTDOWN) {
- 		mutex_lock(&ne_pci_dev->pci_dev_mutex);
- 	} else {
- 		rc = mutex_lock_killable(&ne_pci_dev->pci_dev_mutex);
-@@ -609,6 +616,14 @@ static void ne_pci_dev_disable(struct pci_dev *pdev)
-  *				  goes away.
-  * @ne_pci_dev:	Private data associated with the PCI device.
-  *
-+ * A device with a slot pool refuses SLOT_POOL_SHUTDOWN while one of its slots
-+ * is in use, and the pages it was donated would stay with it. Each enclave is
-+ * therefore stopped and its slot freed here, before ne_slot_pool_release()
-+ * runs, the same way as on release. An enclave gives its memory and CPUs back
-+ * when its file is released, if the device freed its slot here. An enclave
-+ * whose file is already gone is one the device did not free on release, and
-+ * it keeps both.
-+ *
-  * Context: Process context. This function is called with ne_devs.lock held
-  *	    for writing.
-  */
-@@ -625,6 +640,7 @@ static void ne_pci_dev_detach_enclaves(struct ne_pci_dev *ne_pci_dev)
- 
- 		mutex_lock(&ne_enclave->enclave_info_mutex);
- 
-+		ne_enclave->slot_freed = !ne_enclave_free_slot(ne_pci_dev, ne_enclave);
- 		ne_enclave->detached = true;
- 		ne_enclave->has_event = true;
- 
-@@ -636,6 +652,281 @@ static void ne_pci_dev_detach_enclaves(struct ne_pci_dev *ne_pci_dev)
- 	mutex_unlock(&ne_pci_dev->enclaves_list_mutex);
- }
- 
-+/**
-+ * ne_slot_pool_read_geometry() - Read how much memory the slot pool wants.
-+ * @pdev:	PCI device to read the slot pool registers of.
-+ *
-+ * The slot pool registers only exist on a device that publishes a
-+ * vendor-specific capability, so a device without one keeps a zero ceiling and
-+ * reads no slot pool register at all. A device that stores its slot
-+ * descriptors itself reports a zero ceiling and the driver donates nothing to
-+ * it. A device that asks for parent memory is only usable if it asks in units
-+ * the driver can allocate, so a granularity other than 2 MiB leaves the
-+ * ceiling at zero as well.
-+ *
-+ * Context: Process context.
-+ */
-+static void ne_slot_pool_read_geometry(struct pci_dev *pdev)
-+{
-+	struct ne_pci_dev *ne_pci_dev = pci_get_drvdata(pdev);
-+	u32 size, align;
-+
-+	if (!ne_pci_dev->has_vendor_cap)
-+		return;
-+
-+	ne_pci_dev->slot_pool_max = ioread16(ne_pci_dev->iomem_base + NE_SLOT_POOL_MAX);
-+	if (!ne_pci_dev->slot_pool_max)
-+		return;
-+
-+	size = ioread32(ne_pci_dev->iomem_base + NE_SLOT_POOL_GRAN_SIZE);
-+	align = ioread32(ne_pci_dev->iomem_base + NE_SLOT_POOL_GRAN_ALIGN);
-+	if (size != SZ_2M || align != SZ_2M) {
-+		dev_dbg(&pdev->dev, "Slot pool granularity size=%u align=%u unusable\n",
-+			size, align);
-+
-+		ne_pci_dev->slot_pool_max = 0;
-+
-+		return;
-+	}
-+
-+	ne_pci_dev->slot_pool_gran = size;
-+}
-+
-+/**
-+ * ne_slot_pool_donate_base() - Donate the base run of the slot pool.
-+ * @pdev:	PCI device to donate to.
-+ *
-+ * The device turns down a donation to the slot pool until it has the base
-+ * run, so the base run is donated before any other donation. Donating a
-+ * second time is a no-op.
-+ *
-+ * A donation the device never answered was submitted with the run's physical
-+ * address in it, so the run is recorded as donated and left to
-+ * ne_slot_pool_release() rather than given back.
-+ *
-+ * Context: Process context. This function is called with the enclaves list
-+ *	    mutex held.
-+ * Return:
-+ * * 0 on success or if the base run has already been donated.
-+ * * Negative return value on failure.
-+ * * -ETIMEDOUT, or any other code ne_request_unanswered() names, if the
-+ *   request went unanswered, in which case the run stays recorded as donated
-+ *   because the driver cannot establish that the device refused it. A device
-+ *   that answers such a code itself lands here too and costs one held run.
-+ */
-+static int ne_slot_pool_donate_base(struct pci_dev *pdev)
-+{
-+	struct ne_pci_dev *ne_pci_dev = pci_get_drvdata(pdev);
-+	struct ne_pci_dev_cmd_reply cmd_reply = {};
-+	struct slot_pool_donate_req donate_req = {};
-+	struct cma *cma = NULL;
-+	unsigned long nr_pages;
-+	struct page *page;
-+	u32 size;
-+	int rc;
-+
-+	if (ne_pci_dev->slot_pool_base_page)
-+		return 0;
-+
-+	size = ioread32(ne_pci_dev->iomem_base + NE_SLOT_POOL_BASE_SIZE);
-+	if (!size || !IS_ALIGNED(size, PAGE_SIZE)) {
-+		dev_warn(&pdev->dev, "Slot pool base size=%u unusable\n", size);
-+
-+		return -EOPNOTSUPP;
-+	}
-+
-+	nr_pages = size >> PAGE_SHIFT;
-+
-+	page = ne_alloc_contig(nr_pages, numa_node_id(), &cma);
-+	if (IS_ERR_OR_NULL(page)) {
-+		rc = page ? PTR_ERR(page) : -ENOMEM;
-+
-+		dev_warn(&pdev->dev,
-+			 "Slot pool base size=%u not allocated on node %d [rc=%d]\n",
-+			 size, numa_node_id(), rc);
-+
-+		return rc;
-+	}
-+
-+	donate_req.paddr = page_to_phys(page);
-+
-+	rc = ne_do_request(pdev, SLOT_POOL_BASE_DONATE,
-+			   &donate_req, sizeof(donate_req),
-+			   &cmd_reply, sizeof(cmd_reply));
-+	if (rc < 0) {
-+		dev_err_ratelimited(&pdev->dev, "Error in slot pool base donate [rc=%d]\n",
-+				    rc);
-+
+-/* power on/off button */
+-		if (_size == NVEC_VAR_SIZE)
 +		/*
-+		 * A request the device never answered was submitted with the
-+		 * run's physical address in it, and there is nothing to cancel
-+		 * it with, so the device may take the run yet.
-+		 * ne_request_unanswered() picks out that case. Record the run as
-+		 * donated, so that ne_slot_pool_release() owns it from here the
-+		 * way it owns a donation the device accepted. The errors left
-+		 * over say the device answered to refuse the donation, or never
-+		 * saw it, and the run is the parent's again.
++		 * NVEC_VAR_SIZE is the power on/off button; the fourth
++		 * encoding is reserved. Neither has a keycode table.
 +		 */
-+		if (ne_request_unanswered(rc)) {
-+			ne_pci_dev->slot_pool_base_page = page;
-+			ne_pci_dev->slot_pool_base_cma = cma;
-+			ne_pci_dev->slot_pool_base_nr_pages = nr_pages;
-+		} else {
-+			ne_contig_free_run(cma, page, nr_pages);
-+		}
-+
-+		return rc;
-+	}
-+
-+	ne_pci_dev->slot_pool_base_page = page;
-+	ne_pci_dev->slot_pool_base_cma = cma;
-+	ne_pci_dev->slot_pool_base_nr_pages = nr_pages;
-+
-+	return 0;
-+}
-+
-+/**
-+ * ne_slot_pool_donate() - Donate one granularity of pages to the slot pool.
-+ * @pdev:	PCI device to donate to.
-+ *
-+ * A donation raises the number of slots the pool has room for, up to the
-+ * ceiling the device reports, and a pool that has reached that ceiling takes no
-+ * further donation.
-+ *
-+ * Context: Process context. This function is called with the enclaves list
-+ *	    mutex held.
-+ * Return:
-+ * * 0 on success.
-+ * * -ENOSPC if the pool has reached the ceiling the device reports.
-+ * * Negative return value on failure.
-+ * * -ETIMEDOUT, or any other code ne_request_unanswered() names, if the
-+ *   request went unanswered, in which case the run stays recorded as donated
-+ *   because the driver cannot establish that the device refused it. A device
-+ *   that answers such a code itself lands here too and costs one held run.
-+ */
-+static int ne_slot_pool_donate(struct pci_dev *pdev)
-+{
-+	struct ne_pci_dev *ne_pci_dev = pci_get_drvdata(pdev);
-+	struct ne_pci_dev_cmd_reply cmd_reply = {};
-+	struct slot_pool_donate_req donate_req = {};
-+	struct cma *cma = NULL;
-+	unsigned long nr_pages;
-+	struct page *page;
-+	int rc;
-+
-+	if (ne_pci_dev->slot_pool_page)
-+		return 0;
-+
-+	if (!ne_pci_dev->slot_pool_gran)
-+		return -EOPNOTSUPP;
-+
-+	if (ioread16(ne_pci_dev->iomem_base + NE_SLOT_POOL_LIMIT) >=
-+	    ne_pci_dev->slot_pool_max)
-+		return -ENOSPC;
-+
-+	nr_pages = ne_pci_dev->slot_pool_gran >> PAGE_SHIFT;
-+
-+	page = ne_alloc_contig(nr_pages, numa_node_id(), &cma);
-+	if (IS_ERR_OR_NULL(page)) {
-+		rc = page ? PTR_ERR(page) : -ENOMEM;
-+
-+		dev_warn(&pdev->dev,
-+			 "Slot pool granularity size=%u not allocated on node %d [rc=%d]\n",
-+			 ne_pci_dev->slot_pool_gran, numa_node_id(), rc);
-+
-+		return rc;
-+	}
-+
-+	donate_req.paddr = page_to_phys(page);
-+
-+	rc = ne_do_request(pdev, SLOT_POOL_DONATE,
-+			   &donate_req, sizeof(donate_req),
-+			   &cmd_reply, sizeof(cmd_reply));
-+	if (rc < 0) {
-+		dev_err_ratelimited(&pdev->dev, "Error in slot pool donate [rc=%d]\n", rc);
-+
-+		/*
-+		 * Record a run whose donation went unanswered as donated
-+		 * instead of giving it back, as ne_slot_pool_donate_base()
-+		 * does and for the same reason.
-+		 */
-+		if (ne_request_unanswered(rc)) {
-+			ne_pci_dev->slot_pool_page = page;
-+			ne_pci_dev->slot_pool_cma = cma;
-+		} else {
-+			ne_contig_free_run(cma, page, nr_pages);
-+		}
-+
-+		return rc;
-+	}
-+
-+	ne_pci_dev->slot_pool_page = page;
-+	ne_pci_dev->slot_pool_cma = cma;
-+
-+	return 0;
-+}
-+
-+/**
-+ * ne_slot_pool_release() - Take the whole slot pool back from the device.
-+ * @pdev:	PCI device to take the pool back from.
-+ *
-+ * The device keeps a slot's descriptor in a page the parent donated, and
-+ * SLOT_POOL_SHUTDOWN names no slot, so a pool taken back while the device still
-+ * has a slot is parent memory the device goes on writing after the allocator has
-+ * handed it to somebody else. ne_pci_dev_detach_enclaves() frees the slot of
-+ * every enclave before this runs, and the device refuses SLOT_POOL_SHUTDOWN
-+ * while a slot it would not free is still in use. A SLOT_POOL_SHUTDOWN that
-+ * fails leaves the pages with the device whatever the failure was: a refusal
-+ * means the device still has the pool, and an answer that never came means it
-+ * may still have it.
-+ *
-+ * A donation that was never answered is recorded as donated, and the pages stay
-+ * with the device: ne_do_request() sends no command after one that went
-+ * unanswered, so SLOT_POOL_SHUTDOWN fails as well.
-+ *
-+ * Context: Process context.
-+ */
-+static void ne_slot_pool_release(struct pci_dev *pdev)
-+{
-+	struct ne_pci_dev *ne_pci_dev = pci_get_drvdata(pdev);
-+	struct ne_pci_dev_cmd_reply cmd_reply = {};
-+	struct slot_pool_shutdown_req shutdown_req = {};
-+	int rc;
-+
-+	if (!ne_pci_dev->slot_pool_base_page)
-+		return;
-+
-+	mutex_lock(&ne_pci_dev->enclaves_list_mutex);
-+
-+	rc = ne_do_request(pdev, SLOT_POOL_SHUTDOWN,
-+			   &shutdown_req, sizeof(shutdown_req),
-+			   &cmd_reply, sizeof(cmd_reply));
-+	if (rc < 0) {
-+		dev_err(&pdev->dev, "Error in slot pool shutdown [rc=%d]\n", rc);
-+
-+		goto unlock_mutex;
-+	}
-+
-+	if (ne_pci_dev->slot_pool_page) {
-+		ne_contig_free_run(ne_pci_dev->slot_pool_cma,
-+				   ne_pci_dev->slot_pool_page,
-+				   ne_pci_dev->slot_pool_gran >> PAGE_SHIFT);
-+
-+		ne_pci_dev->slot_pool_page = NULL;
-+		ne_pci_dev->slot_pool_cma = NULL;
-+	}
-+
-+	ne_contig_free_run(ne_pci_dev->slot_pool_base_cma,
-+			   ne_pci_dev->slot_pool_base_page,
-+			   ne_pci_dev->slot_pool_base_nr_pages);
-+
-+	ne_pci_dev->slot_pool_base_page = NULL;
-+	ne_pci_dev->slot_pool_base_cma = NULL;
-+
-+unlock_mutex:
-+	mutex_unlock(&ne_pci_dev->enclaves_list_mutex);
-+}
-+
- /**
-  * ne_pci_probe() - Probe function for the NE PCI device.
-  * @pdev:	PCI device to match with the NE PCI driver.
-@@ -689,6 +980,15 @@ static int ne_pci_probe(struct pci_dev *pdev, const struct pci_device_id *id)
- 	mutex_init(&ne_pci_dev->pci_dev_mutex);
- 	ne_pci_dev->pdev = pdev;
++		if (_size >= ARRAY_SIZE(code_tabs))
+ 			return NOTIFY_STOP;
  
-+	/*
-+	 * The registers past the command interface only exist on a device that
-+	 * publishes a vendor-specific capability, and a read of a register the
-+	 * device does not implement has no defined value. The answer holds for
-+	 * the life of the device, so look it up once here.
-+	 */
-+	ne_pci_dev->has_vendor_cap =
-+		pci_find_capability(pdev, PCI_CAP_ID_VNDR) != 0;
-+
- 	rc = ne_setup_msix(pdev);
- 	if (rc < 0) {
- 		dev_err(&pdev->dev, "Error in pci dev msix setup [rc=%d]\n", rc);
-@@ -721,6 +1021,29 @@ static int ne_pci_probe(struct pci_dev *pdev, const struct pci_device_id *id)
+ 		if (_size == NVEC_3BYTES)
+@@ -69,6 +77,9 @@ static int nvec_keys_notifier(struct notifier_block *nb,
+ 		code = msg[1] & 0x7f;
+ 		state = msg[1] & 0x80;
  
- 	ne_devs.ne_pci_dev = ne_pci_dev;
- 
-+	ne_slot_pool_read_geometry(pdev);
++		if (code >= code_tab_sizes[_size])
++			return NOTIFY_STOP;
 +
-+	if (ne_pci_dev->slot_pool_max) {
-+		const char *stage;
-+
-+		mutex_lock(&ne_pci_dev->enclaves_list_mutex);
-+
-+		rc = ne_slot_pool_donate_base(pdev);
-+		if (rc < 0) {
-+			stage = "base";
-+		} else {
-+			rc = ne_slot_pool_donate(pdev);
-+			stage = "granularity";
-+		}
-+
-+		mutex_unlock(&ne_pci_dev->enclaves_list_mutex);
-+
-+		if (rc < 0)
-+			dev_warn(&pdev->dev,
-+				 "No slot donated to the slot pool [stage=%s rc=%d]\n",
-+				 stage, rc);
-+	}
-+
- 	rc = misc_register(ne_devs.ne_misc_dev);
- 	if (rc < 0) {
- 		dev_err(&pdev->dev, "Error in misc dev register [rc=%d]\n", rc);
-@@ -745,6 +1068,7 @@ static int ne_pci_probe(struct pci_dev *pdev, const struct pci_device_id *id)
- 	ne_pci_dev_detach_enclaves(ne_pci_dev);
- 	misc_deregister(ne_devs.ne_misc_dev);
- disable_ne_pci_dev:
-+	ne_slot_pool_release(pdev);
- 	ne_devs.ne_pci_dev = NULL;
- unlock_ne_devs:
- 	up_write(&ne_devs.lock);
-@@ -782,6 +1106,8 @@ static void ne_pci_remove(struct pci_dev *pdev)
+ 		if (code_tabs[_size][code] == KEY_CAPSLOCK && state)
+ 			nvec_kbd_toggle_led();
  
- 	misc_deregister(ne_devs.ne_misc_dev);
- 
-+	ne_slot_pool_release(pdev);
-+
- 	ne_devs.ne_pci_dev = NULL;
- 
- 	ne_pci_dev_disable(pdev);
-@@ -822,6 +1148,8 @@ static void ne_pci_shutdown(struct pci_dev *pdev)
- 
- 	misc_deregister(ne_devs.ne_misc_dev);
- 
-+	ne_slot_pool_release(pdev);
-+
- 	ne_devs.ne_pci_dev = NULL;
- 
- 	ne_pci_dev_disable(pdev);
-diff --git a/drivers/virt/nitro_enclaves/ne_pci_dev.h b/drivers/virt/nitro_enclaves/ne_pci_dev.h
-index e651e74ab656e..4e991c4b0e70f 100644
---- a/drivers/virt/nitro_enclaves/ne_pci_dev.h
-+++ b/drivers/virt/nitro_enclaves/ne_pci_dev.h
-@@ -433,10 +433,27 @@ static_assert(offsetof(struct ne_pci_dev_cmd_reply, info.state) == 64);
-  *				triggered by the Nitro Hypervisor which require
-  *				enclave state scanning and propagation to the
-  *				enclave process.
-+ * @has_vendor_cap:		Whether the PCI device publishes a vendor-specific
-+ *				capability, and with it the registers past the
-+ *				command interface.
-  * @iomem_base :		MMIO region of the PCI device.
-  * @notify_work:		Work item for every received out-of-band event.
-  * @pci_dev_mutex:		Mutex for accessing the PCI device MMIO space.
-  * @pdev:			PCI device data structure.
-+ * @slot_pool_max:		Highest number of slots the device lets the slot
-+ *				pool grow to, zero on a device that takes no
-+ *				donation.
-+ * @slot_pool_gran:		Size, in bytes, of one donation to the slot pool.
-+ *				Written once at probe, before any donation is
-+ *				made, so a later reader of it sees the size the
-+ *				donation was allocated with.
-+ * @slot_pool_base_page:	First page of the base donation, NULL until it
-+ *				has been made.
-+ * @slot_pool_base_cma:		CMA area the base donation came from.
-+ * @slot_pool_base_nr_pages:	Number of pages in the base donation.
-+ * @slot_pool_page:		First page of the donation to the slot pool, NULL
-+ *				until it has been made.
-+ * @slot_pool_cma:		CMA area the donation came from.
-  */
- struct ne_pci_dev {
- 	atomic_t		cmd_reply_avail;
-@@ -445,10 +462,18 @@ struct ne_pci_dev {
- 	struct list_head	enclaves_list;
- 	struct mutex		enclaves_list_mutex;
- 	struct workqueue_struct	*event_wq;
-+	bool			has_vendor_cap;
- 	void __iomem		*iomem_base;
- 	struct work_struct	notify_work;
- 	struct mutex		pci_dev_mutex;
- 	struct pci_dev		*pdev;
-+	u16			slot_pool_max;
-+	u32			slot_pool_gran;
-+	struct page		*slot_pool_base_page;
-+	struct cma		*slot_pool_base_cma;
-+	unsigned long		slot_pool_base_nr_pages;
-+	struct page		*slot_pool_page;
-+	struct cma		*slot_pool_cma;
- };
- 
- /* Whether a failure left a submitted request in flight. */
 -- 
-2.47.1
+2.56.0
 
