@@ -1,52 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794367381;
-	b=bpC9uEG8p5wNmjmGpCbHG/I2ektuSp3vbyful7Jp5OWIB4U/t/XNJqUsfOiqv8w8Mg2d
-	 VB75mKHnt0FaxNeWU4wWzjEMLOd1angObwcdYrbBxcKQlrozq3e1IcuAqIXScUgiipJPo
-	 rSaBGVBwrCE9FN7lxWKA1vtYVVZwJx22v6n7BH9GUxAq9p9nMyxNYOiICETqeVRVRYXkE
-	 7MO44hQiOY4A2aCjI1iYXjDm6JysDDRz7rbXIdQps1nqb6+Bx6b45unuUGuXnfa7u/3+2
-	 Bbty1u4T6g7NdL5XCURB8PksAcYR5I+OXLlezXKbbnYLMADaiOLrnXGf/ihgmwLCJJg==
+	t=1794367414;
+	b=3Lzj8cl1/cEA/hHwB6Le0ljjtEudUqnZ9aKZHKE9Jugazn/krZ9BOfvY7s5bw0TgeJ31
+	 3bhsab8kwbShkTZ9aQR0aBaqYw5dILBWWjSbTaspzdiMX544JaMLPGSJ0HRxOfXv3F6LT
+	 FCxhNxH6OWu78liYjdzE9IZKzMOhB1K87FMZQhbOugn/IKbgLrqHg9gkvLhejPirs7VzA
+	 oaxYhgouHyUZbdnDbypVd2lAQj5XlNWp6Nrq6/P9Tbl5/w1GA4nAPiEvKigCOQVczxcwD
+	 NaPyxnQxPh/fsppgxtD26F5wgLHSQlXfRgAVzATFXv3C8Y9tsKAfCRhd/nxoIIlUTQg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794367381;
-	h=DMARC-Filter:DKIM-Signature:User-Agent:X-Lms-Return-Path:To:Date:
-	 Mime-Version:Received:Content-Transfer-Encoding:Cc:From:Content-Type:
-	 Subject:Message-Id:X-Original-From:References:In-Reply-To;
-	bh=cwlQpXqaLUwHvZtTs8DVVBeTiYBaieNwyzTfHe3g38c=;
-	b=yEHQOy7qnYFpuMfPsAjOjmXdzRi/tX8r1O8/tSC2s+o5iPeoc6q+rFSN4s9oajpGDJYL
-	 hYIR3jwUVdV1voHf+xLTEnZrOM/iPNqJijNMjBjaZ8LUaCqgQ6R7yBKeZ6Kb+vYt4KFzG
-	 OKzqLJtCajOhVMFoPOCjq/Dki7y6uZOqFUHaPHBkURvo+6Tqb1KvTH3CFx6RwtoBBrEoC
-	 1rE5U61TO74tnMvZzDYQ0i3+f+HXvpKEXT8iCux9Hcp3ggh15+HrrfNUbdij7QNi51U/u
-	 1KMrp8G3es+gBRysyzAnOmj3Poo2ndNfLeMaDAOiee50P7h8P/88+1wiBe9fZJbXpaQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794367414;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=AnQTJxJsyON1/Fwj08spRDuNd9Ce/tmtwhBo1vhY0J0=;
+	b=FisTd3iFzZYbPkJYf1lTiOBcKXwcUw9FS3M9tiy1xz+jIb6KCX0CGW6f1GBHe0GVR8aC
+	 2s/bXjbggCGGyiJHE+R2O1RwblTlGPRNCsYulQcVy5ZIjOy4jIrxaK9JPsZl8fW0h1Vvi
+	 6KpjvDTjn4kkaYVUM8KMaHp+o+Mr5+Fyp+sZG3eMr2mz4EZubs+Wg0UUugDgIigWTqgCF
+	 e1NuahoKf7iwrpbETkJpvN25eNMPKwaX4d7nc8ENuyYGftGYynJBPiRrxIj0A5ZH1Vxwx
+	 OwTA9d2nYNhGuq/5bEnaAAbkgbscQLAIlkHaidwWSo9Ugp3R1mWBU0cdfvE2SA2R97Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.cipunited.com;
-	spf=pass smtp.mailfrom=oss.cipunited.com;
-	dkim=pass header.d=oss.cipunited.com header.i=@oss.cipunited.com header.a=rsa-sha256 header.s=feishu2303200042 header.b=QdU2PjN+;
-	arc=none smtp.remote-ip=209.127.231.51
-Received: from va-2-51.ptr.blmpb.com (va-2-51.ptr.blmpb.com [209.127.231.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=proton.me;
+	spf=pass smtp.mailfrom=proton.me;
+	dkim=pass header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b="y/Xa7m2B";
+	arc=none smtp.remote-ip=185.70.43.101
+Received: from mail-43101.protonmail.ch (mail-43101.protonmail.ch [185.70.43.101])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9BFE606A32A
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 03:22:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A9BFE606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cipunited.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cipunited.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0626606A320
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 03:23:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0626606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.cipunited.com header.i=@oss.cipunited.com header.a=rsa-sha256 header.s=feishu2303200042 header.b=QdU2PjN+
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=feishu2303200042; d=oss.cipunited.com; t=1794367374;
-  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
- reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=cwlQpXqaLUwHvZtTs8DVVBeTiYBaieNwyzTfHe3g38c=;
- b=QdU2PjN+S8MHyDoR8BoIIAvVmAtOsi8yx0EEPS4BkrbIqArHI0gSgae+o14zTNcsbmpG5H
- /Csdzuo+Izi/Verz7pp/S5R6kx6kzDGfOV6WaySoPq2zDWt3GVjltOq3CXwCj6Tsxkp0C6
- XsceqzKhlqwNXqfLD99X8mSwVaVQ6BiMDz8Q2bpGV3fl16+Quzlog6Kb79V2k1MlgMV98b
- sgI4dTeE0yVi6bDoxbnRpQm8+w9+6fZjbyRy1K4MYWzLvbtZPCYl1uZipL88OdzdkaIDVe
- 5irPPHFNWgpECodUkwmOuivz42dCQxJeXbUgFer3cWijbByB43QGc2AMHOUyzw==
-User-Agent: Evolution 3.62.1-3
-X-Lms-Return-Path: <lba+26af3df8c+79df59+vger.kernel.org+rongrong@oss.cipunited.com>
-To: "Conor Dooley" <conor@kernel.org>
-Date: Wed, 11 Nov 2026 11:17:48 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=y/Xa7m2B
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail2; t=1794367409; x=1794626609;
+	bh=AnQTJxJsyON1/Fwj08spRDuNd9Ce/tmtwhBo1vhY0J0=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=y/Xa7m2B+wNXpITqszqicbXrEPA5zE2ELQgvS8N6LNpxSTWasihv1+9eMSsb5yQ3r
+	 btvZmg0VTo4g3SxWNraEfa09zrPRB+r2jMpblL5xArYcy2Q0sjio+vfwqxHmJGTxJ4
+	 JD2t2uxlY7Cp0x1jvHFD0hseXNphKSkpFtuT6uGeNE57HB3eSGcZ90EouUDKaXzK0u
+	 XxAhsPGYNuhjN5xgPq2CEfjEfX9ltpRxFGID1IBsBn/BtVwO+e0eq62qNkBiKBiHZ4
+	 78rLNkf7hmXJrGVODy3n9jpJBh4Q4EN0lVNPDsZU4wA1//joug7In3fJ7NXaJRu8lk
+	 1QNtcTfhGoRXA==
+Date: Wed, 11 Nov 2026 03:23:25 +0000
+To: Vinod Koul <vkoul@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>
+From: Soheyb <soheyb_boulaa@proton.me>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, Peter Griffin <peter.griffin@linaro.org>, Alim Akhtar <alim.akhtar@samsung.com>, Ivaylo Ivanov <ivo.ivanov.ivanov1@gmail.com>, linux-phy@lists.infradead.org, linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org, Soheyb <soheyb_boulaa@proton.me>
+Subject: [PATCH v2 0/3] phy: exynos5-usbdrd: fix HS phy init count on Exynos2200
+Message-ID: <20261111032309.3365794-1-soheyb_boulaa@proton.me>
+Feedback-ID: 140697376:user:proton
+X-Pm-Message-ID: db6bc34dc5b1448ca86b8d1420ff9673299626ec
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,125 +60,50 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Received: from [192.168.8.156] ([1.192.71.23]) by smtp.feishu.cn with ESMTPS; Wed, 11 Nov 2026 11:22:51 +0800
-Content-Transfer-Encoding: 7bit
-Cc: "Rong Zhang" <i@rong.moe>, "Keguang Zhang" <keguang.zhang@gmail.com>, 
-	"Wim Van Sebroeck" <wim@linux-watchdog.org>, 
-	"Guenter Roeck" <linux@roeck-us.net>, "Rob Herring" <robh@kernel.org>, 
-	"Krzysztof Kozlowski" <krzk+dt@kernel.org>, 
-	"Conor Dooley" <conor+dt@kernel.org>, 
-	"Thomas Bogendoerfer" <tsbogend@alpha.franken.de>, 
-	"Yao Zi" <me@ziyao.cc>, "Icenowy Zheng" <uwu@icenowy.me>, 
-	"Jiaxun Yang" <jiaxun.yang@flygoat.com>, <linux-mips@vger.kernel.org>, 
-	<linux-watchdog@vger.kernel.org>, <devicetree@vger.kernel.org>, 
-	<linux-kernel@vger.kernel.org>
-From: "Rong Zhang" <rongrong@oss.cipunited.com>
-Content-Type: text/plain; charset=UTF-8
-Subject: Re: [PATCH 1/4] dt-bindings: watchdog: loongson,ls1x-wdt: Add ls7a-wdt compatible
-Message-Id: <227eb9a3dd5c1cb1af4cfbf2c94f30db1755a5d6.camel@oss.cipunited.com>
-X-Original-From: Rong Zhang <rongrong@oss.cipunited.com>
-References: <20261110-mips-ls7a-wdt-v1-0-968bb85122e6@oss.cipunited.com> <20261110-mips-ls7a-wdt-v1-1-968bb85122e6@oss.cipunited.com> <20261110-barterer-pandemic-e4c658cac7c4@spud>
-In-Reply-To: <20261110-barterer-pandemic-e4c658cac7c4@spud>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Hi Conor,
+The UTMI phy of Exynos2200 initializes the high-speed (eUSB2) phy but
+never exits it, so the high-speed phy is not set up again after it lost
+power in system sleep (patch 3, v1 [1]).
 
-Thanks for the review.
+Sashiko's review of v1 [2] found two error paths that v1 leaves wrong: a
+failed init of the high-speed phy is ignored, so the exit that follows
+takes its init count below zero; and the high-speed phy exits before
+the steps of the UTMI exit that can fail, so a failed exit leaves the
+UTMI phy initialized and the high-speed phy not. Patch 2 returns the
+init error, and patch 3 exits the high-speed phy last. Patch 1 undoes
+the UTMI init when it fails, which its clocks path already lacks and
+which patch 2 makes reachable from the high-speed phy.
 
-On Tue, 2026-11-10 at 18:58 +0000, Conor Dooley wrote:
-> On Tue, Nov 10, 2026 at 03:02:30PM +0800, Rong Zhang wrote:
-> > The Loongson-7A has a watchdog, which is similar to Loongson 2K0300,
-> > except that it has no clock controller.
-> 
-> I find this hard to believe, the device seems to be getting a clock from
-> somewhere that the clock-frequency property is providing the rate of.
+Changes in v2:
+- patch 1, new: undo the init on failure
+- patch 2, new: return the init error of the high-speed phy
+- patch 3: exit the high-speed phy last, once the rest of the exit has
+  succeeded; drop the comment (Ivaylo); his Acked-by of v1 is left
+  out, since the exit has moved
 
-I must be losing my mind when I wrote this. My thought was "software
-cannot control the clock" but my finger typed "no clock controller".
+Tested on a Google Pixel 9 (Tensor G4), an out-of-tree port on 7.3-rc7
+that uses the Exynos2200 phy ops and powers USB off in system sleep:
+USB comes back after each sleep, and with each error path forced by a
+test-only switch, both init counts stay balanced. Not tested on
+Exynos2200 hardware, nor built in linux-phy next as a whole.
 
-> 
-> Why is that clock not represented in devicetree?
+[1] https://lore.kernel.org/all/20261109221522.2796426-1-soheyb_boulaa@prot=
+on.me/
+[2] https://lore.kernel.org/linux-phy/sashiko-outbox-205724@kernel.org/
 
-I will add a fixed-clock node in v2.
+Soheyb (3):
+  phy: exynos5-usbdrd: power the Exynos2200 phy down when its init fails
+  phy: exynos5-usbdrd: return the Exynos2200 high-speed phy init error
+  phy: exynos5-usbdrd: fix HS phy init count imbalance on Exynos2200
 
-> 
-> Confused,
-> Conor.
+ drivers/phy/samsung/phy-exynos5-usbdrd.c | 28 +++++++++++++++++++-----
+ 1 file changed, 22 insertions(+), 6 deletions(-)
 
-Sorry for the confusion.
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
 
-Thanks,
-Rong
+--=20
+2.56.0
 
-> 
-> > 
-> > Add "loongson,ls7a-wdt" compatible as well as a conditionally required
-> > field clock-frequency.
-> > 
-> > Signed-off-by: Rong Zhang <rongrong@oss.cipunited.com>
-> > ---
-> >  .../bindings/watchdog/loongson,ls1x-wdt.yaml       | 31 +++++++++++++++++++++-
-> >  1 file changed, 30 insertions(+), 1 deletion(-)
-> > 
-> > diff --git a/Documentation/devicetree/bindings/watchdog/loongson,ls1x-wdt.yaml b/Documentation/devicetree/bindings/watchdog/loongson,ls1x-wdt.yaml
-> > index 50a9b468c4a3..cb93e9578f82 100644
-> > --- a/Documentation/devicetree/bindings/watchdog/loongson,ls1x-wdt.yaml
-> > +++ b/Documentation/devicetree/bindings/watchdog/loongson,ls1x-wdt.yaml
-> > @@ -18,6 +18,7 @@ properties:
-> >        - loongson,ls1b-wdt
-> >        - loongson,ls1c-wdt
-> >        - loongson,ls2k0300-wdt
-> > +      - loongson,ls7a-wdt
-> >  
-> >    reg:
-> >      maxItems: 1
-> > @@ -25,13 +26,34 @@ properties:
-> >    clocks:
-> >      maxItems: 1
-> >  
-> > +  clock-frequency:
-> > +    description: Frequency of clock in Hz
-> > +
-> >  required:
-> >    - compatible
-> >    - reg
-> > -  - clocks
-> >  
-> >  unevaluatedProperties: false
-> >  
-> > +if:
-> > +  properties:
-> > +    compatible:
-> > +      contains:
-> > +        enum:
-> > +          - loongson,ls7a-wdt
-> > +
-> > +then:
-> > +  properties:
-> > +    clocks: false
-> > +  required:
-> > +    - clock-frequency
-> > +
-> > +else:
-> > +  properties:
-> > +    clock-frequency: false
-> > +  required:
-> > +    - clocks
-> > +
-> >  examples:
-> >    - |
-> >      #include <dt-bindings/clock/loongson,ls1x-clk.h>
-> > @@ -41,3 +63,10 @@ examples:
-> >  
-> >          clocks = <&clkc LS1X_CLKID_APB>;
-> >      };
-> > +
-> > +  - |
-> > +    watchdog@100d0030 {
-> > +        compatible = "loongson,ls7a-wdt";
-> > +        reg = <0x100d0030 0xc>;
-> > +        clock-frequency = <50000000>;
-> > +    };
-> > 
-> > -- 
-> > 2.55.0
