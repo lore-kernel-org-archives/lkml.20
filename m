@@ -1,101 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794390938;
-	b=VWoQs6tW2WgkqEQjWXGoy4gMli9kOM4OfxFH7oBq1BIM9RiaQlB/OP1t5sDS6bPWi+Kl
-	 XOQp147luHuIBcvRA3KgavIbwJRwoYGP6TkGZvDuTo6T1s7XQ/V1aB0N/u0/7mNA45/rL
-	 KTdwbYwodiPUGfwmKK5nb7nFMHGvtwcxEjJ9h9QO50AlCVIBhdzQ5mYnDo/hP1i4CkJ8l
-	 ka6gel7+ofEv5yEQOuRlGtZP0KlKAGL7ficQClCthvVbyNwUXHrW2KY6KaQ7ekLl3D09i
-	 as/cQ6pbnR6mVonCXW72dyXGPPZmqd+AAZoEejhUnvEocpEs18M5U/gqeJ9s/RtiDIw==
+	t=1794390971;
+	b=IsMYjeoPKghFqO8hcUOamUgj9gjjgdKPr/hWWJsDsVrsD9Hj9Df4wQjcwc6qLGk/3kFq
+	 sNATVyqkhbF+jLJ92ZCNEf3X1dqEODCdShkSrWIRKeczwJJoTasZsYMIMhaHA7934syEd
+	 SsTE0UmukI8AvvGjf2pIcuTod08jQGAWYuUp/wzX6xxaJD6e+0GPU+tbuZhy9ZVGRc7H3
+	 5KDbYJyXyqojzmMwQ0D3hqsrpM72IMBXG8Q7NNvTMsluhWOCVXjoOUtAhfFIY9yCl64St
+	 psQzoqvI+vtDRywHr3LkU2C/MN6gXKfqBclD3CFohqGAk8EIqzBdxek0He5wEjyaw1w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794390938;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794390971;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=1oZ46qbfzK1kC56ugvfDKIKqDBjZaNHDclt7g8ZJTBk=;
-	b=ylkifrgsmFa8AkjXyYrwRNCZV7ZgQq4D/v/VHargeBSGNAQWGPBbQLzaA1ZyYWAwltU4
-	 iVQW43Ne46gwELO2j+McMxu5etUctKnb/NaQHxBo076yIZLHbFunie7elP4ZPLVNA1zPs
-	 ++TVrvz/7azYovK28MLHl0rGupHOJBS9TQfLXfQh6Bo18dcakM1vVE2WMw54IRtYym4DA
-	 TZPdN+QJZCrXAHnjiD4OVgzLatOsvv0mHKCOz0tOaVLELO9NGGn+YNIKFPU2hV1LF/m7p
-	 rwglj1pahdqo8ece1mYTrps7Qv+KqAajzUgE1jXde+JdgKuhsUGBk9PJ2X9Ekwr147g==
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=etMBeFFvTZ16JTCJaXFRCqu9zDzZcOqbu475oSnC7og=;
+	b=pb5p5UGZAAyEYojhH6dZDN9sO5+smX9NPNGfmf+kT4c1DU1l9IGvqVy12cK1ULoHY+SI
+	 6VVp9B5+eIK8Qc9znHaXsVK6YwRcfIpXNLCbXhfySwVzUdpZUyuj187HFZiMIx2sKGd1y
+	 NQ1RSR8rS7vRnO1SqsiFLPTvj6c3xFeEav1Y87Amdyr3T5UW++tgpeVv7haPJyb+ldkk1
+	 jsYLr3+yd9NifkN1naQH8Kb/VBE0UU5bMva3nMYHDpN4hoxqJ448co/a4bqA5P1UMuzl9
+	 Af28EKMS0AIcjMNHhNFZ3XQPQyDQoZj1Rwsqpt/4yT5UGGUTYYQvDcRdOhb5fatX4Fw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=ByvdQeCW;
-	arc=none smtp.remote-ip=209.85.128.53
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZJmfEAiC;
+	arc=none smtp.remote-ip=74.125.82.176
+Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE8F4606A321
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 09:55:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE8F4606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40F15606A321
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 09:56:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40F15606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=ByvdQeCW
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a549cd7fd2so26865625e9.0
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 01:55:37 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZJmfEAiC
+Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-37605faade6so42812eec.3
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 01:56:11 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1794390936; x=1794995736; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=1oZ46qbfzK1kC56ugvfDKIKqDBjZaNHDclt7g8ZJTBk=;
-        b=ByvdQeCW97xpSfcywMgPEu3DP4l6m75jFToER/s6KG1w+8ssAoQnPmSm57oSzHn5tI
-         ELjceSIB+TCPO8pi5TX0CIIVX7c6D8BbZlkwNDnfPDxq3LsBxF9HgJEEjTcFRraPDmV0
-         ZcJmKGSnRSQ+zjBi3rGryGI7LrkHAJq0J4PK/yab6XEqA+GM/LLi6jmIDYQOy+dA8I2g
-         kqzNwqz1o9UScfI18ESZ2XxEsQlZe9eIbXvVQdY5gVIGcyO7DOpa2aRA+tEUyidpzHuD
-         t8yuHY5e6B24caunJCU+D71G6P/moCeidVFRvkBAMGO1V37deG8+6CMKhtMyXsVOSteq
-         b7mg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794390936; x=1794995736;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20260707; t=1794390970; x=1794995770; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=1oZ46qbfzK1kC56ugvfDKIKqDBjZaNHDclt7g8ZJTBk=;
-        b=cboSKUG5eCcw0xtBsBCxWJUn46skn9+w63h0pOenRt7nIUdRCXJYp455gVtBEP4qeW
-         HCsoktb40J1WKN1g+p0T510p4kBysMIkDL7GmLsx4FCPVNovgJsZqoQCzid1j4UK6vNu
-         rxMXYnrsfGsS465c7K9L2QxBESeqrZYZiXdZaIutHsfOBg6z0nzaRn2E2R+PJaUgE5lW
-         dZ7gV7dbpbcrUCobCtuvyaA+ug6xBZo0aoXz+bZob6rD7WfLAIH0gb8Gi81/RCHhFMQw
-         dbes4tOeSUfjznkPk9Zb90naDSo5BaqpNz9cmoBj0wIIlCiAJLGpxjQPvDZ6O77tD/AZ
-         wgkw==
-X-Forwarded-Encrypted: i=1; AL+hErHv7pW3KVe4hMKTwXETJzaCFIVoxXLTqHrm4GzK+NyPE4HlT+d9bsP8LuKTG0NdEwzR/R1vhprVi6czCqA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9GAI1W6oz1PiR+ptS+nwljFzz4iVPB4ftzDnuusI0okoT9dc8g
-	bPkScMA4BoXq1myndL34GE2rJJLZYFPUo5yXnLck5fL8m2VL0BJBzz8caTfEM6YjfiU=
-X-Gm-Gg: AYBFou2p60oe3Da0L0vmWTHZmKkJJ8+jNuBqqF0RduWcTrmuvDaTEsWJ7ZNUGs/utKW
-	1kGO2NjLQ43N0xWwKbTjKqBeyrhvxwoH9OU+wPAQlCarokgMKX8ACZMafGF+Z2SSQNS7JVNmNDh
-	z6ZOKtiZTaywSn9T5gBq+ANUb54WW9Sxse3RHjMftfdCw7ueXQVCph63UCqeHzavzse02aShWMF
-	Sq5SYfk4MxmrkiwMwJxNtxxJi53MvJJ0fbBaoqRrsd6EMw744ai0ksJe3XyMUpl9xhkdWYjfmL9
-	poJp1hGbn3cJblIpu9xRGeyF+jqTg8J18IDTecvmq6tdcqV3ukCnurbIc8HxEUnRX2wv3hA9+lM
-	iVVycGd/EEd1is5QCEQxD6HTebBy5e4aq+km0N6CqGcCcF6FxnL+QW7iyA3e1MpP4rG5vrsPk1n
-	WRI1t9qjSDuBc/XR0VHdg3bxpzrj0SShBNQOeUap4W5iQlYwG6hONJcuXKp8rsjP8gDl2tUPK7w
-	TMAJTq7AsPWCiuJrLFd/xxqTzBSN4F4aWVTeSbJe5i8UU933RAvBj3dtf6k5GPOoScmmLCMT7rC
-	F8GFeFzRklHMWHKFTQzyJUGTIkUokSJXK5Z4ToRJV9LHZxV42Q5JtITDEoB1K9Dt22uCvh9VGkL
-	ZtSW2M6DoNZHIXw==
-X-Received: by 2002:a05:600c:8b83:b0:49e:65f2:db64 with SMTP id 5b1f17b1804b1-4ba0935bde1mr34105275e9.5.1794390936037;
-        Wed, 11 Nov 2026 01:55:36 -0800 (PST)
-Received: from localhost (p200300f65f19a90460510dd506fc51af.dip0.t-ipconnect.de. [2003:f6:5f19:a904:6051:dd5:6fc:51af])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4ba01fea9eesm204694395e9.11.2026.11.11.01.55.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 01:55:35 -0800 (PST)
-Date: Wed, 11 Nov 2026 10:55:34 +0100
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Lee Jones <lee@kernel.org>, David Rhodes <david.rhodes@cirrus.com>, 
-	Richard Fitzgerald <rf@opensource.cirrus.com>, Mika Westerberg <mika.westerberg@linux.intel.com>, 
-	Zha Qipeng <qipeng.zha@intel.com>, Qunqin Zhao <zhaoqunqin@loongson.cn>, 
-	Thomas Richard <thomas.richard@bootlin.com>, linux-sound@vger.kernel.org, patches@opensource.cirrus.com, 
-	mfd@lists.linux.dev, linux-kernel@vger.kernel.org, linux-crypto@vger.kernel.org, 
-	Charles Keepax <ckeepax@opensource.cirrus.com>, Linus Walleij <linusw@kernel.org>, 
-	Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
-Subject: Re: [PATCH v4 10/20] mfd: Use named initializers for acpi_device_id
- arrays
-Message-ID: <avQ19KBnQ2mnhZa-@monoceros>
-References: <cover.1794347059.git.u.kleine-koenig@baylibre.com>
- <39fc883cf1c7077bce8f16719cca59060a395b02.1794347059.git.u.kleine-koenig@baylibre.com>
- <avQrO4etMgpOhvwF@ashevche-desk.local>
+        bh=etMBeFFvTZ16JTCJaXFRCqu9zDzZcOqbu475oSnC7og=;
+        b=ZJmfEAiCphApfgbLZ4ZEnDNDjfl4nAm47bGuvagumN336f47UWyjVjCY2H/S8Mpm7V
+         LwjPdUDJ4SYAmDnFi3jImFbeOQQu72pJ9rZOpV2Pcod1qlsm8J/xWEiXNsKAb35nrIWT
+         mh5O1/Fy9B4QgwOhIydSzh/6aYNFCUAoR2o+3fRqIO6KEcp5ARNY9SuiSoMY59hjM0u7
+         lbUWlUQ6TxwkvTsakxfhaSMobQbegayLu+gCGfYrwdy9Zyzp68CSJbhcSpnVC4YZrASl
+         n6kv7FGEXxZEFpDuESdMhS30uWTUkItTQUyyaCBsn8QW+1GNtMM0di38tuaTlBUQ6ZxQ
+         gPgQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794390970; x=1794995770;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=etMBeFFvTZ16JTCJaXFRCqu9zDzZcOqbu475oSnC7og=;
+        b=AXybQBT662nrcNASMEVRWXeRUFhKn5XJlwSL4ZWd50rP/BKytCs/Z3A3R7KNdzXeNS
+         rG3qH1od5XxWkXqIKIqb5w8xA5Txt3Egp7951PoVT3YqDgegCcKoMHdDmspN2508Rqnc
+         WzCBma1Y4qFAWSlNawWZaq0IZogRZqvOQ9rLm2Mccs5wkYeVXAsVojhLE0hL6VWDFHls
+         OQ+P6Xb9sWEpbuIAiSzYykSBZ++MHKM2gckPZwdepq6z211DNfHCoDreSYBqiYm0cBJ9
+         MLvZhOGIqUCZjImi/BH8zQTt5ls/Fjlk2EJUrjsnaIiYzsdVgCxf6A3rO2h6wwrS2X/2
+         iUXg==
+X-Forwarded-Encrypted: i=1; AL+hErF8qEU+vrm+JXwA/Hf4ditKiki1eHMYFr4zF6oCrxK+eS+BlRklz5uJ/pK2hMTSVEb3xRCNdHduKoUx0NE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9Ntyw23gvpcnyYNJR6idyd5kgPjhXI34C26tfLkyWYRUr0IXC8
+	DWl9v6D8+LAdEm+r8FlKMXNGH19rY8ZWMk5IkqaDMNCki1bi8Hz5mVBg
+X-Gm-Gg: AYBFou1mVMjEpYTdQ2PxCKj6tN17Jpu01huMF95nBkGrWm39fnoB7qwgMsCR8zi/Uqj
+	j9tCiZNaQKn707O4nJ4zu+bVfnd8oNsMxBYygCLmMdSjdhmkbFkx0nUDrsbncmrENgClWYcz7A7
+	Oa9uc29aFBH6zStNkSqXWaRFsRiq0TbYtsOcmVFzw2ot4KFOtoxVY7Yi6OWiWoMb89TOZ+nMEjk
+	oxYYjiupWvb+mJPa2xpYnHjiV4u6iO8t1R+VbJuoosZqCYviV2eIDGwXuWEHb908XM4TVub9bIX
+	/iZObaKUqFWm58SayyuDBI7QohT5n7XjRjnogweJ1BM1TtjJDmweKi99nZfKHCdzrUmRHCYt9U8
+	qxvcVFk0CFrkWUmJYpaK0o7zcHxIfUBRfNks9FpHge1hurDku67wP4kY3cXAGFX11TL2hveabYe
+	lHkvPZcJMx1+0WRVRNEh+XMOnhoAwyiyR6o+gWrV+LvpVL0Lt8PtniBBLIIw0lbYCTW6uHdC1PP
+	N+HTIHELeYW0EU4kEwYNIY0HJuoUc8Rzpgn1++L3Lpz36p0MS+Jb3toJQFBSvFzA30Pyy5dF3EH
+	qn3zq8Onor+2rn/q4TXWY8SYYOmj4znIIbDfsBR5U9D82Vjx8lvDRKAoocl5zb+5z7+3X9A=
+X-Received: by 2002:a05:7300:5621:b0:36d:cd5d:d809 with SMTP id 5a478bee46e88-37684af683dmr3732846eec.1.1794390970156;
+        Wed, 11 Nov 2026 01:56:10 -0800 (PST)
+Received: from [192.168.1.205] (2607-8700-5500-a805-0000-0000-0000-0002.16clouds.com. [2607:8700:5500:a805::2])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37520bf3e18sm28141912eec.16.2026.11.11.01.56.04
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 11 Nov 2026 01:56:09 -0800 (PST)
+Message-ID: <72a2f21b-fd6b-427d-afa6-b15dc0729650@gmail.com>
+Date: Wed, 11 Nov 2026 17:56:00 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,83 +92,143 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="h4cbpzud5ptt3x2g"
-Content-Disposition: inline
-In-Reply-To: <avQrO4etMgpOhvwF@ashevche-desk.local>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6] drm/bridge: dw-hdmi-qp: serialize HDMI audio callbacks
+ with PHY enable/disable
+To: Tim Surber <me@timsurber.de>
+Cc: Igor Paunovic <royalnet026@gmail.com>, =?UTF-8?Q?Heiko_St=C3=BCbner?=
+ <heiko@sntech.de>, Andy Yan <andyshrk@163.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, Maxime Ripard
+ <mripard@kernel.org>, dri-devel@lists.freedesktop.org,
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20261110215535.2658927-1-me@timsurber.de>
+Content-Language: en-US
+From: Frank Zhang <rmxpzlb@gmail.com>
+In-Reply-To: <20261110215535.2658927-1-me@timsurber.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
+On 11/11/26 05:55, Tim Surber wrote:
+> Hi Frank,
+> 
+> On Tue, Sep 15, 2026 at 06:34:33PM +0800, Frank Zhang wrote:
+>> The crash occurs when HDMI audio callbacks access registers after DRM
+>> atomic framework disabled the PHY.
+> 
+> I reproduced this on a FriendlyElec CM3588 NAS (RK3588) and tested v6.
+> The bug can be hit in more situations than the reboot case in the
+> commit message. The details are below in case they help with the
+> commit message or with the stable backport.
+> 
+> Setup:
+> - rockchip for-next at c3baae5f1 (7.4.0-rc1), arm64 defconfig
+> - HDMI TX/RX audio DT enablement for CM3588 on top (HDMI-IN series)
+> - Debian forky, GNOME 50 / Mutter 50.5
+> - HDMI0 TX looped back into the RK3588 HDMI RX, so playback on HDMI0
+>    can be captured on the HDMI-IN card for a functional check
+> - netconsole to capture oopses
+> 
+> Without the patch:
+> 
+> 1) Display off, then open/close the PCM
+> 
+>     Mutter switches the outputs off (CRTC fully disabled):
+> 
+>       busctl --user set-property org.gnome.Mutter.DisplayConfig \
+>           /org/gnome/Mutter/DisplayConfig \
+>           org.gnome.Mutter.DisplayConfig PowerSaveMode i 3
+>       cat /sys/class/drm/card0-HDMI-A-1/enabled   # -> disabled
+>       speaker-test -D hw:HDMI0 -c2 -r 48000 -t sine -F S16_LE -l 1
+> 
+>     hw_params fails with -ENODEV (prepare sees tmds_char_rate == 0).
+>     The close that follows still reaches clear_audio_infoframe:
+> 
+>       Internal error: synchronous external abort: 0000000096000010 [#1] SMP
+>       pc : regmap_mmio_read32le+0xc/0x24
+>       Call trace:
+>        regmap_mmio_read32le+0xc/0x24 (P)
+>        _regmap_bus_reg_read+0x68/0xac
+>        _regmap_read+0x60/0xd8
+>        _regmap_update_bits+0xfc/0x14c
+>        regmap_update_bits_base+0x54/0x80
+>        dw_hdmi_qp_bridge_clear_audio_infoframe+0x30/0x40 [dw_hdmi_qp]
+>        drm_bridge_connector_clear_audio_infoframe+0x20/0x40 [drm_display_helper]
+>        clear_infoframe+0x50/0xf4 [drm_display_helper]
+>        drm_atomic_helper_connector_hdmi_clear_audio_infoframe+0x64/0xcc [drm_display_helper]
+>        dw_hdmi_qp_audio_disable+0x1c/0xa4 [dw_hdmi_qp]
+>        drm_bridge_connector_audio_shutdown+0x28/0x4c [drm_display_helper]
+>        drm_connector_hdmi_audio_shutdown+0x1c/0x30 [drm_display_helper]
+>        hdmi_codec_shutdown+0x58/0x7c [snd_soc_hdmi_codec]
+>        snd_soc_dai_shutdown+0x54/0x80 [snd_soc_core]
+>        soc_pcm_clean.isra.0+0x5c/0x1e0 [snd_soc_core]
+>        soc_pcm_close+0x34/0x60 [snd_soc_core]
+>        snd_pcm_release_substream.part.0+0x88/0xe0 [snd_pcm]
+>        snd_pcm_release+0x58/0xc8 [snd_pcm]
+>        __fput+0xd0/0x300
+>        ...
+>       note: speaker-test[1576] exited with irqs disabled
+>       note: speaker-test[1576] exited with preempt_count 1
+> 
+>     The task dies holding the ASoC PCM mutex. Afterwards the
+>     close_delayed_work kworker stays in D state in
+>     snd_soc_close_delayed_work(), so audio stays broken until reboot.
+>     One of my runs ended in an SError panic instead of the
+>     synchronous abort.
+> 
+> 2) Display turned off while a stream is running (the wider case)
+> 
+>     Start playback on hw:HDMI0 with the display on, switch the display
+>     off through Mutter as above, keep playing, then stop the stream.
+>     Playback keeps running normally (state RUNNING, hw_ptr advancing)
+>     and nothing is reported to user space. When the stream is closed,
+>     the board dies: SSH drops, nothing reaches netconsole, and it
+>     reboots only through kernel.panic. I reproduced this twice.
+> 
+>     No application error is needed for this. Playing audio over HDMI
+>     while the desktop blanks the screen, or while the sink is
+>     unplugged, and then stopping playback is enough. I suspect this is
+>     also what most users hit in practice, more than the reboot path.
+> 
+> 3) HDMI output never enabled (HDMI1, nothing connected)
+> 
+>     Opening and closing hw:HDMI1 repeatedly fails with -ENODEV and does
+>     not crash. The same holds for WirePlumber probing HDMI0 at boot,
+>     before the compositor enables it. The register accesses only fault
+>     after the PHY has been initialised once and then disabled, which
+>     matches your analysis.
+> 
+> With v6 applied:
+> 
+> - Case 1: the open now fails cleanly ("Playback open error: -95,
+>    Operation not supported" from the new startup check). No abort,
+>    and the system stays healthy.
+> - Case 2: playback continues after the display goes off, and the
+>    close completes cleanly. No hang.
+> - Case 3: unchanged, -ENODEV, no crash.
+> - Functional check: after re-enabling the display, a 440 Hz sine played
+>    on HDMI0 is captured correctly on the HDMI-IN card through the
+>    loopback, so the prepare/infoframe path still works.
+> - Stress test: for 2 minutes, HDMI0 was toggled on and off 114 times
+>    (atomic commits disabling/enabling the CRTC at random 0.1-0.9 s
+>    intervals), racing about 2950 open/play/close cycles on hw:HDMI0
+>    with random lifetimes. No oops, no hung tasks, nothing new in
+>    dmesg (lockdep was not enabled).
+> 
+> It may be worth adding the "stream open while the output is disabled"
+> case to the commit message. It is much easier to trigger than the
+> reboot race and makes a stronger case for the stable backport.
+> 
+> Tested-by: Tim Surber <me@timsurber.de> # FriendlyElec CM3588 NAS (RK3588)
+> 
+> Thanks,
+> Tim
 
---h4cbpzud5ptt3x2g
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v4 10/20] mfd: Use named initializers for acpi_device_id
- arrays
-MIME-Version: 1.0
+Hi Tim,
 
-[adding Pawel to Cc:]
+Thank you for the thorough testing and suggestion. I'll update the 
+commit message and send a new version as soon as possible.
 
-Hello Andy,
+Best regards,
+Frank
 
-On Wed, Nov 11, 2026 at 10:45:47AM +0200, Andy Shevchenko wrote:
-> On Tue, Nov 10, 2026 at 10:54:35PM +0100, Uwe Kleine-K=F6nig (The Capable=
- Hub) wrote:
-> > While being less compact, using named initializers allows to more easily
-> > see which members of the structs are assigned which value without having
-> > to lookup the declaration of the struct. And it's also more robust
-> > against changes to the struct definition.
-> >=20
-> > The mentioned robustness is relevant for a planned change to struct
-> > acpi_device_id that replaces .driver_data by an anonymous union.
-> >=20
-> > This patch doesn't modify the compiled arrays, only their representation
-> > in source form benefits.
->=20
-> I don't know who is the first, you, guys, collaborate together and come u=
-p with
-> a solution, but I have reviewed already this
-> https://lore.kernel.org/lkml/20261104-acpi-mfd-v2-0-64b9dee3baaf@thegoodp=
-enguin.co.uk/
-
-Oh, I wasn't aware that Pawel is still on that. Initially we had a list
-where Pawel indeed was assigned for acpi_device_id. Since then I went on
-to do these changes per subsystem for several *_device_id at once
-(instead of per *_device_id and subsystem) and stopped looking after the
-initial list. I might have mentioned that in our internal chat, but I
-take the blame on the lack of coordination.
-
-Looking through the differences I found:
-
- - different commit log
- - I have a cleanup to drivers/mfd/kempld-core.c which conflicts with
-   Pawel's series
-
-@Lee: If you take Pawel's series, I can rebase and resend. Most of my
-patches still apply just fine on top of Pawel's series, so you can
-preempt parts of my rebase using
-
-	b4 am -P 1,2,4-6,8,9,11-15,17-20 cover.1794347059.git.u.kleine-koenig@bayl=
-ibre.com
-
-Just give me a poke when you made up your mind how to proceed and sorry
-for missing that conflict.
-
-Best regards
-Uwe
-
---h4cbpzud5ptt3x2g
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmr0O5MACgkQj4D7WH0S
-/k5a3Af/bShGrqVRN2amCZ3YsA8JwcyDvTbN7ekxEzRPDe3bdsK6O+VNVq3fu6+A
-rXE/yf27jSePTzpLzVN5UjaJUtgdLpi8JIUz8tFpWvLxcQ7XJGC09ZljCzmR9D1+
-wCj7azL1dvdk+jjz7tZ+RnsUPK6bvSWhgvEV2mbVfggFIU/YqhySmIhYBhrc50mN
-1GRlU5cIuEyXVwwmIk9BRNv9drjXrFZfkJTd+H4hbRAFOfVq1QmIjHDUl6qi3Rbz
-ubQBpDM96XgUe5HUTXgG0Ho9KdASNlB+OVv+iwb32nfc2PZjPPmSKFjK7bKTV1Lh
-3u6/0xqIvwenZeWxe7CkONoCcve8kw==
-=t/3h
------END PGP SIGNATURE-----
-
---h4cbpzud5ptt3x2g--
