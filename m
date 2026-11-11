@@ -1,59 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=157.90.84.7
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794402735;
-	b=sntoKECroh/Z0cgbXGhob33uCkkXuBPXHljJW6qZzO+UScxaT1UHEfLmuT4hpCIKM8vg
-	 wVs0UFYH5NhDekXVmN3jvypgefj86u0jkR8fG+fB8tJNRH+yKUljWhcXpVOmCkTiplGhC
-	 PFHnDMe5n8CweUUFZ0VgHWuSMbpNmhl4HlRgqMt+NPt0K9q+XUgK2c08mnQhz0xfUheRz
-	 /WTndGMKPF5JSqnqqGrjD5NDn0z0ThxLBmixEuAqc8t4JhyDekngwFjPibDkSf4duQYlJ
-	 QTeDgWIziPdYDYQ47iHNTxaRFJsN6AT6xt4WfeeDuikXg26LfAigcB2oVOO5sj2eUTQ==
+	t=1794402803;
+	b=P7PlAKZ3LcAanjgsZ5FFLpsZD+bmSSfX50cfCrlrsEwJgjOOcIMqd8qZfjui19s1QYuB
+	 eq+bGwdVVVYWSwbkdVRNbM0rmkEvjiDIpCP2fZYC0e8Up08hRAEw6ucB8KS8u22Hqn3fX
+	 gMATFzrTJz5qSF8LT2VZCFdMLvE9OZBN3KbRMFqztaCpwHK3WULU1KAYDihbG3E1KIVFw
+	 jbAawRUbKmoJxdbUlXlaHe6/rxBIvHQ7dA9r0vtE30Xs2cRKfBAzJbBjQwrXuT3LjxNzG
+	 ib5JEkzfaso2xQiiWmV3l14uThe8tnIQQXlxZ/MHgQKuphlsTUH+8fJ3xhn3JpHWrIg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794402735;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Xirn7Dc5oy647ZCJttt6/JzcrWgzS0z+CjkgHSeTgmY=;
-	b=mniWmYpV1iRBMXyGveSaYLv9/SYylJcYZ4aTr2fnJMrjDF+MXQmPeIV8e9FxJ/k9+mex
-	 ehKHQWX2+CiOKrR9CGX3D/iwQkhkBiLWYkTGkK1+gEceMoEduH5/HIFtwJXrPhM44jbCV
-	 4/rSGkf8pLtQgfzKy+tBfy4+wLi9CLozQFN8OYlgGmCkl7QNaeDhjMZVpv5MKY5VQgGlY
-	 m1rpwuvqTUUEexRMMEQU1az+HjcT8d8E9SlDxt36thJT368cyUeOa0+N6HfwbSrs4sQrV
-	 29JrswZdvjGwvlCER4ihsZJLWku85ge0w5kzdlnI2oan/4cry6K2f+Z3qLcvzui0O1A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794402803;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=6IoNWvV5+bVMo3ahE4ClnQITD/NsY9lAdzPkvSmSQkg=;
+	b=Y5MhSgXXbj8TFgou8aT+woPmmEJPPmTTfdqPdRjNSH3cr182YuGOd8UKf9tfASugluXw
+	 ff9A+v54txNKVW4NN62L5uqgDZ3J+AUG6SZ7mqCKW6UEmIEn+Vz/Euu+mSsQWkrBf9lU5
+	 w80M9Fa/wnLpFJScx+QvuLzplIIStDVcRVppc7eGuIR498f+BQbfbO2DOM+7v7L9Z3TWe
+	 7uaOdADxFqNTiMIrlTOjpmN/n15waB3bjlRPzssS0WZ7Tmtw5WmS2zXTydPWJvt4NvO94
+	 MFhglsLzNvlpyvZ4Zik8jyN7eM0DmpLcXUazSyAGubuUsfYeCW5QSwVE2rCB68ND9pQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QPgnEKcE;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=tuxedocomputers.com;
+	spf=pass smtp.mailfrom=tuxedocomputers.com;
+	dkim=pass header.d=tuxedocomputers.com header.i=@tuxedocomputers.com header.a=rsa-sha256 header.s=default header.b=kXRoZAkT;
+	arc=none smtp.remote-ip=157.90.84.7
+Received: from mail.tuxedocomputers.com (mail.tuxedocomputers.com [157.90.84.7])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4508606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:12:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2C89606A31C;
+	Wed, 11 Nov 2026 13:13:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F2C89606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tuxedocomputers.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tuxedocomputers.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QPgnEKcE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4BC91F00A05;
-	Wed, 11 Nov 2026 13:12:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794402734;
-	bh=Xirn7Dc5oy647ZCJttt6/JzcrWgzS0z+CjkgHSeTgmY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=QPgnEKcEXcLAKi338Wys6RJD3/FYKNJ5CVrsbIAIhTXiYT33NsN2ikRZnDIQQ4svP
-	 l6Y4jnx2K+CzoYu1sSMeRd61PP0Si4EjMneociGmxStIgRH5G3FAZSZkSqT+KMgdYO
-	 yonn5y+0Bb34WiujcwmlpVszPm/t0E5s9d1B6erVXKjNVQZRIz78pAyI/ZguiFBSxv
-	 uEQVBZ6NTQRvAijUBWfST3on2FhgEDUQL8Lj1rwUMrxwRQsNFlPC8XweeVrklaVBhe
-	 HtDqEmKG2Nxi/LtZr/zzr0Tds5KMqAjl+y45p5rs2r9bausaqoTS+APpOEXacPgXhN
-	 l8YP5Le1qx/Kg==
-Date: Wed, 11 Nov 2026 13:12:06 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: Shivank Garg <shivankg@amd.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, Ankur Arora <ankur.a.arora@oracle.com>, 
-	Pedro Falcato <pfalcato@suse.de>, Borislav Petkov <bp@alien8.de>, Bharata B Rao <bharata@amd.com>, 
-	Hrushikesh Salunke <hsalunke@amd.com>, K Prateek Nayak <kprateek.nayak@amd.com>, x86@kernel.org, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] mm/memory: drop PROCESS_PAGES_NON_PREEMPT_BATCH
-Message-ID: <avRnJiDLdGcbSW5d@gremlin>
-References: <20261109-clear-pages-batch-v3-1-6693efe18dff@amd.com>
- <20261111124006.GI2668564@noisy.programming.kicks-ass.net>
+	dkim=pass (1024-bit key, unprotected) header.d=tuxedocomputers.com header.i=@tuxedocomputers.com header.a=rsa-sha256 header.s=default header.b=kXRoZAkT
+Received: from wsembach-tuxedo.fritz.box (business-024-134-105-141.24.134.pools.vodafone-ip.de [24.134.105.141])
+	(Authenticated sender: wse@tuxedocomputers.com)
+	by mail.tuxedocomputers.com (Postfix) with ESMTPA id E75F32FC007F;
+	Wed, 11 Nov 2026 14:13:18 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tuxedocomputers.com;
+	s=default; t=1794402799;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=6IoNWvV5+bVMo3ahE4ClnQITD/NsY9lAdzPkvSmSQkg=;
+	b=kXRoZAkTQRvKb1QOCCSSNrz7Wj6rmwWG7iWkaCKvj1I7+gwgYgfuxwot+4ju6XXX3L8rbp
+	KvhClRjBzeuOGK4ul7NXRQHnf2lZIPXWposXPITL3DgjaY4dlc587CDz2AeX1tbCqsqpHl
+	pZ1UJJpkOtOkBaa02RUIgvDJbicCJdE=
+Authentication-Results: mail.tuxedocomputers.com;
+	auth=pass smtp.auth=wse@tuxedocomputers.com smtp.mailfrom=wse@tuxedocomputers.com
+From: Werner Sembach <wse@tuxedocomputers.com>
+To: Armin Wolf <W_Armin@gmx.de>,
+	Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: Werner Sembach <wse@tuxedocomputers.com>,
+	platform-driver-x86@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] platform/x86: uniwill-laptop: Add TUXEDO Stellaris 16 - Gen8 - Intel
+Date: Wed, 11 Nov 2026 14:06:23 +0100
+Message-ID: <20261111131316.504815-1-wse@tuxedocomputers.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,20 +67,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261111124006.GI2668564@noisy.programming.kicks-ass.net>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 11, 2026 at 01:40:06PM +0100, Peter Zijlstra wrote:
-> FWIW one could do:
->
-> 	for (int i = 0; i < nr_pages; i++) {
->
-> and forgo the earlier variable declaration.
+This commit adds 2 new entries for new boardnames. It can reuses an
+existing device descriptor because the TUXEDO Stellaris 16 - Gen8 - Intel
+has the same featureset as its predecessor.
 
-I guess we all got used to the existing patterns and I for one only
-recently found out (doh) that this was legal in kernel style (because I saw
-it used in KVM)...
+Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
+---
+This commit was built on top of Armins latest series:
+https://lore.kernel.org/all/20261110165318.631010-1-W_Armin@gmx.de/
 
---
-Cheers, Lorenzo
+V2: Better changelog
+
+ drivers/platform/x86/uniwill/uniwill-acpi.c | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
+
+diff --git a/drivers/platform/x86/uniwill/uniwill-acpi.c b/drivers/platform/x86/uniwill/uniwill-acpi.c
+index dc99bf8a8568c..e2a6a704e942e 100644
+--- a/drivers/platform/x86/uniwill/uniwill-acpi.c
++++ b/drivers/platform/x86/uniwill/uniwill-acpi.c
+@@ -3629,6 +3629,22 @@ static const struct dmi_system_id uniwill_dmi_table[] __initconst = {
+ 		},
+ 		.driver_data = &gmxixxx_xxxx45xx_xxxx55xx_xxxx57xx_descriptor,
+ 	},
++	{
++		.ident = "TUXEDO Stellaris 16 - Gen8 - Intel",
++		.matches = {
++			DMI_MATCH(DMI_SYS_VENDOR, "TUXEDO"),
++			DMI_EXACT_MATCH(DMI_BOARD_NAME, "XxAF5xxx"),
++		},
++		.driver_data = &gmxixxx_xxxx45xx_xxxx55xx_xxxx57xx_descriptor,
++	},
++	{
++		.ident = "TUXEDO Stellaris 16 - Gen8 - Intel",
++		.matches = {
++			DMI_MATCH(DMI_SYS_VENDOR, "TUXEDO"),
++			DMI_EXACT_MATCH(DMI_BOARD_NAME, "XxAF5xxx_mLED"),
++		},
++		.driver_data = &gmxixxx_xxxx45xx_xxxx55xx_xxxx57xx_descriptor,
++	},
+ 	{
+ 		.ident = "TUXEDO Book BA15 Gen10 AMD",
+ 		.matches = {
+-- 
+2.43.0
+
