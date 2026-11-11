@@ -1,101 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.181
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794384251;
-	b=OJyJijVwUSUnJebJwTXWoziWlBODRngunJrOZ9ZMYjR3xYWKXH8Wd8Qa/pn0wnpaA8D5
-	 JTCyukz2wy2iN3sO8RyeHgf+m8tgAXbQxBpaH+4WBORWY6z0KRectaKywt8UIwpr8qlZD
-	 tJnInJH0lWx7GZ93sCVCU6V0eQQgmaShWxj8661ozfTBlMeybC0EJkbPCaQQFBES1GOkA
-	 EZ2b+zziibuE20P33VGfkZ3oilJCJQQEzXA7agQ0UiNq29cPsxS+5UUrBOA8s+oHmgtXb
-	 rquCPWV8OkCJhRermm8wo8WsQZTjj43hP9FgSOpSbO+YjvfZQuVB0+Oog2j4k5a6byw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794384251;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.46
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794384254;
+	b=ar5HZAvPtxn8YpPOWCNl5ZWkfgiIl6BiHJBlC9MxKhw6BlWcHQPwzHD42wN96pgMrQ3K
+	 HZCbH41uVlQCtg05r4DN6Ludivj69Co7CCmqDP8Cd5uwsGcbiK+UlmL4B1A1j1wz7+x6U
+	 8Qx/pmhocMtie6oQ78CWR6gadiDqD9Ji54bgOOppBN9Wx5mIm03fvqOVvxOnhnUmL/oTi
+	 NN1haSS69wdZqjTors2mxKI6UTCbyEWM0Q9zqq0a/ycFetqzBI8l/ArkkclqF5DB7uu2h
+	 o/abpBPHJ/dcEZB3i7WSQuafR3+iKzaEHpWO6LFgAf1ITUaTCqgERT9s8voXJZjBW7A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794384254;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=e02CISDat2rnFU5auy1swbmNQ1NAggjZWxzVKQlZOt0=;
-	b=2SK/G904DXI1RP4U9N0bSwUM4IEtHRt8rhMqtAcvBpjTxWthqpM0R+NysI+4t7ftg/oc
-	 Fjn9OUY14YA8nmrVy8isL6+z4M9gT5OBG/VCg7SWYMrIQnmFrCp7Rd+Pcmle0Sn8RpUnX
-	 IBa+jBNx+o8WkkLC9EuWFaH9RIcgRsCb4YGx1U/H7ppBRQM1nAmj75eq2ItRFRmd4BA5N
-	 0n+6dvbvZI2r7iUTdLKh2QWOi/H74nhFNf+yv1g5Vucweg8fKJgWGlIwYOq5f1QDy3vEd
-	 pH5MD5en+oEvNRjzL24hANa6HtscGLdOLftSXyLyhlLhgoo5c0s+V/myXdI4BK4/WPw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kzpLQfiw;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.181
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:Autocrypt:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=6ZX9xvQWpUVBtKirtXVOPyYer8VApveUOjqJsL69dxI=;
+	b=HZpIdPGCt4v54EuA6K8kHJ61XuVGgTD5xhR6D4LbUvH+oq3URE+hwtu+IQ7wiwiAMEzt
+	 YpU/dD2SRMJMpzNDIOvH0OXX6BQTOknbxv3OiEyaV7cjAir/Ld5Ab/M8IrvX9qHPx4xHf
+	 R1Xcvz4c7rLiGNtWQMdMC8ZjcV0JkATI0pOB+Xp6XAMvBuTld0KGLiyelBICl00YJRWwj
+	 IIPHXQRIls0xpcQFGQpgWzqL6Wp2o7TH1nEZR819VtB0/J6p07mIDI2iguOnU8390Ovr2
+	 DbDLlbbfeZRP5xyGaHCU6a/vGmvmQxu0n9vvOE9FhVQTLEbwRJzWatlbvQMnoXk6cHA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=Px4x2+Yw;
+	arc=none smtp.remote-ip=209.85.221.46
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5316606A320
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 08:04:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5316606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C178F606A33D
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 08:04:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C178F606A33D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kzpLQfiw
-Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-36f8cdd30beso4921622eec.1
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 00:04:10 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794384250; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ATwA8M7D0ggbUvCAIoGJ8mgdOCuqZ/mEXqGCH90A7LER+Q2QwXjrRLNcQD9FRifSC0
-         9Z1RYrT+UiA/BZcpXTKpc2g5j+60QFEtOrpdJXXCBy8BEm8bVCGa+LT0SN9yIWtv1h4q
-         6RCI1ltRlTQQeAiwO33p+iUP/3m9T+dffcOtwm2YhFE9YnYFBbKuVaW6ZnOtsiPhHuqF
-         RIauiho3+vYHw+qVu506CxCR6Dd1LQPJRpWybY8X8jUl+pQ7ijTCJJJKBN/U3Bou+9Ur
-         iyFsG/dAMNSw3M57nmf+Od+YyjNNeOSRCknnItuz3t+fvk1BGnrSdItk5RIYkCKUkNxp
-         ccBA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=e02CISDat2rnFU5auy1swbmNQ1NAggjZWxzVKQlZOt0=;
-        fh=Mb5cg/4d8SlW5gdS+Y6k9WxtM7CxP2bfdTCUqAhwy7Q=;
-        b=A31aqtvdO6UZxx1wFO0ywWXexns1C+FgW2qQEbpwlxRTcfDNOUYNvorW34779Cb9qi
-         FpmXX5owRFo6RJV5XP68qcLlK+dm5Hsmauf+MVNwC2VR8CkZvt8LEVDD60GZCAzYijWw
-         MAcUw2zc3ABVQhb4LNnVk4vJGxO8U6cN2KrLkeHuppp/TmBGKzoP8jHzBbSnQhr425Vo
-         hKNsfFyCml82CKCm4AGCqUiNOo6M4BZv+4k78Q5iWk5rqmFpiMH9jK24tvdnSJTYflDt
-         PXx8k5P/zx6rAFx3x2mh1X3aSn4jmmfqr5yHArCriWD5k5D2aWdWe8pRFl5bBVMO8/9q
-         3JPw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=Px4x2+Yw
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-4910b863b84so1847979f8f.0
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 00:04:13 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794384250; x=1794989050; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=e02CISDat2rnFU5auy1swbmNQ1NAggjZWxzVKQlZOt0=;
-        b=kzpLQfiwu0lF3hZg9xt82iPrgOdaOSV+6MVvCpKSxyopwjMFtTqsiojJJNFe72Iu9w
-         S0FlRWDuF4L0+fOBKFDZUYNij3m2zmKyuxxdhi56DKV3i1z9s9+Ff0XcnWuvkiMUOSkp
-         OOEV7WDrtpUE5dhjSELEiWfTns7p9uU+uFD3cndCvIMlMqfl76EhWstj8n/909tB4nPN
-         YBqKSQ72S9FJAjQXpfBZyASR99LDe+xmnBxCHLNVyGoSyu9E/YCw7s0loJKC1Dlkkiut
-         o0OzMR1VNT76qoDQLMkJeXMITaRo0JpCbbmSkR28fFObutvBytpPPfle58m2dri3z9Sk
-         nRlQ==
+        d=suse.com; s=google; t=1794384252; x=1794989052; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt
+         :content-language:from:references:cc:to:subject:user-agent
+         :mime-version:date:message-id:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=6ZX9xvQWpUVBtKirtXVOPyYer8VApveUOjqJsL69dxI=;
+        b=Px4x2+Ywcy3amd9LdOtw63ZJlSWOisueNkTEj0N0yNoUwmQpQk/jsSioABD5XsUALm
+         IxzKo6eRnGCaPe6Ug5pXQsFf3o+9PeiAbqrjDxky73Rbtf0731wMvNqzQHeBuZNzAMuk
+         u0OjGTEGe5Ys9PO+OUg9ijjh8DTS3VVXe5+1A6DOrUtXgheKc2KY72wlGKxtdrCc56qB
+         7OQ2B7OhhOe5B+E2Ub3O7btOwKGCruobDK8uF2JXlIRu8vxa6DkM555HwTi85Kyq3lKJ
+         iGktryJiZ84yvKZ6t40MGbN7abYCso8VmOZg9MXJcJNyQJc3I8EIk/mzVbfGLMpCAhRn
+         PhJw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794384250; x=1794989050;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=e02CISDat2rnFU5auy1swbmNQ1NAggjZWxzVKQlZOt0=;
-        b=SitputzE08h/+Ggu7XjOgjx+XZYMh4MP3wgu9/VkU8WVH5doch/6dQ6ytk9XExHW78
-         1udQpB8BONEi007rddBn+IlqY2kMWTxdHyuJqRyoYPC5l6g4VXQqdTWJxNJ8zrxmLg2i
-         r9RerX7BjJM0rLhbP7+nCdHAIrhCDLDn3XNwi+VgyCGWZXKg+bAlOGyLrx8kfQlUZshU
-         51Z55ISwqnBdQtLpV32sjkS4I+v1WmsEyxhfK5FCzHzXR/6o4ZqjBKWQrd5OUOPx2etw
-         oY88D+igTzutPjscdWI+j8IJOxp2rfOTJvFOEKEqgxf9Tr6bHgVKn/yJBYkTlMJnsNYA
-         YcFQ==
-X-Forwarded-Encrypted: i=1; AL+hErE12e4jUASNgHrVcxIpClwnNkDukkobJ8fzqNLKroPz7epnu+fI9cUiixVvN3kAtwXPlrcLb3Z4ZUUWcc4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+CBiQWk0h2Xw70FTct2PbJoNagA/VRMiAC9UuGeS+Km+DHVWgI
-	qmsJZ5QmFGX28+IXVxsPi7m+K6MvDoqbnMYJMAYepLGHRSrUb90ovEnbabZgzo7dBHlh6OOxHQS
-	hMnWPfnCogEkqx8V8xtxvv77Rxp8gm2o=
-X-Gm-Gg: AYBFou2Lf8czSuEOjK88DrdmCEyKe5cr8V3UIZ0xsj1ehhQjactjTb+EVuunwoRTBOb
-	agyneavGj/4MJY2dQz+blrEWwpK6YPeFFZXvQVBMCz3ayn/uWZV7l7CZkeHeWmuCkCPyZ3pZFLp
-	FesIvXmus+hUj0x6KkwGKHihtjebtPVMLv6Mks2ysM+AlOCGYOHtGw+U2yiST94BISDTdaIMfUY
-	4t+5K0BbDYJ4Y7hlcosatsvq9EplIM49roP6VcOkwaDE/d6c5qaajoE0JffxBwXlhiKIIJEs0dJ
-	kGFakmaJ4wpUY2hP/G3itx40oUTq4LUtnXc6GD1l1UmZODWWKanvavWuHNcwTYOU+oa5RV55g8Q
-	8bnVLQjn3XaX2ZcLLoJqFXRmvFhMARzb3MJ5Qx1fk3IoBCw6U+vOEKnhs1CmbEsa5jkBOk4odK6
-	b5NNLyAYjgnEatjg0K9qp4UUXx103+Fw==
-X-Received: by 2002:a05:7300:561c:b0:36e:2626:4ace with SMTP id
- 5a478bee46e88-3768366a866mr2441050eec.5.1794384249564; Wed, 11 Nov 2026
- 00:04:09 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794384252; x=1794989052;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt
+         :content-language:from:references:cc:to:subject:user-agent
+         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=6ZX9xvQWpUVBtKirtXVOPyYer8VApveUOjqJsL69dxI=;
+        b=B0Q0ESnR1S5CVJgqnpkveA7TDQGsoJfe+jv5SX7mI0AMHGjX4meZXOSvFalFt2nfgh
+         gCrPMn10+Os9jgSvmk4Spt00BB2sHUep2+d9WBeHZSHpaLxPSNuEIeKDQrWRRA1H8uYa
+         FfrTiDhlZIabUsb80MYlHUk0DsrV0lZU9r7xXgNxKFsXhYiTDRfS2pPume6zJNiGIQ6Z
+         YcerWj1W9gouBcQkVyBPfjzmlb0iGulC/pHrOOKQka23aOHfc4nI/bp8dNLQhMvpd83e
+         G3a/FvHbYOMe/r7xhq0ssGfzben41eJRmEhQPZyDbaYvb3AOW0V3VQd+wicIxhi2fD4u
+         JgzQ==
+X-Forwarded-Encrypted: i=1; AL+hErHLVWpaKD2JdnKTS5L+U3m/EFKJi8lQMtLY60AhH97QDtMtKnmnTfqWPXvoRPr22thqkOYjYNWRofbvdX4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/e3pVIpz/cLZxobuqfyWUvGlhV19zGBUi/pI0bY/cWHR/TXbSb
+	ne/aOGxeqESNfgAXzBrSDZE3s4933pMJDNAepguW+FRGclap2Up3iAmfIiikzGYrzig=
+X-Gm-Gg: AYBFou3Md3yrsxEKpm9S2TE1J26GCDMWGQsNqGwwQmq5G45mstAU2rNY0UfMXQPfcmz
+	VwOJcinUldwnc48oYPmOJP97vMQIzX6TNhfeCeIU0w2fS1ULsq7mwWbpPGY39EmmA3s1WygigxP
+	4EH/jxlQ9tpJMwEc0xtXBvK4LDlzJDz6kw3jIx6z1BaKQTcMZEtDZAESado1Lt0xFmIfIakaOrD
+	tye5twAnxNm0EAkU2ir6B96Wiv9k/f6ayGFBrs4wUUxpTLCt1aIcHrvvMeHfq0BoCoWSA2H6DsM
+	CNTrLhBrT+h46iCFFpkK0FAD3xJKI9YkSqgBJODYHY5Ppl4j+Sg4j6mco6oordIQMsjccLeZgp2
+	2xjEcKHCEFMAqeQWmbeo9HlYQm1YAcsf0JDWMNlbI2yjN2fyOf8D/AxBrnZlZAA6LfCWKGOpzk0
+	9prkP5ueE6C+r7JR1IWqSInlcYlnO0PQnpMsvMuP8aRqw/8cyGDQwyv2eHJBMJO4OWfBDXTjSRF
+	wkUzjMbiUlyIrL5yOqTTJesoxSBh3UBHVWViAeeYsHVq3GCYmj5NTVgwz/7kH/Le0M0WZgxsC9B
+	hdVRYTtVMGno2Dpikf85JV1V7PeSQLg8
+X-Received: by 2002:a05:600c:19d0:b0:4b5:d95c:2380 with SMTP id 5b1f17b1804b1-4ba09375b5amr24148075e9.11.1794384251894;
+        Wed, 11 Nov 2026 00:04:11 -0800 (PST)
+Received: from [192.168.0.20] ([212.21.133.162])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba01fea9eesm193932935e9.11.2026.11.11.00.04.10
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 11 Nov 2026 00:04:11 -0800 (PST)
+Message-ID: <03a36011-eddf-4d89-9d86-1cc3998f89c3@suse.com>
+Date: Wed, 11 Nov 2026 10:04:09 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,37 +92,506 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261108151348.204182-1-clamor95@gmail.com> <8f84154c-0296-4c82-a887-de76558df94d@sirena.org.uk>
-In-Reply-To: <8f84154c-0296-4c82-a887-de76558df94d@sirena.org.uk>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Wed, 11 Nov 2026 10:03:57 +0200
-X-Gm-Features: AclHuK8vaEcJ7SqWAmNPakfkNoxiPosAOmNdZbgEthELf7kS-7VilDYNl0DIvFg
-Message-ID: <CAPVz0n1LmYHJts91P4OU3WFiUBwcU6sA7Z9McOdLK6cLu6PzvQ@mail.gmail.com>
-Subject: Re: [PATCH v5 0/3] leds: Add driver for MAX8907 LED cell
-To: Mark Brown <broonie@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>, 
-	Pavel Machek <pavel@kernel.org>, Griffin Kroah-Hartman <griffin@kroah.com>, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-leds@vger.kernel.org, mfd@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 06/15] virt: tdx-guest: Support TDI bind and unbind
+ operations
+To: "Duan, Zhenzhong" <zhenzhong.duan@intel.com>,
+ "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>,
+ "Li, Xiaoyao" <xiaoyao.li@intel.com>,
+ "linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "x86@kernel.org" <x86@kernel.org>
+Cc: "Hansen, Dave" <dave.hansen@intel.com>,
+ "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
+ "kas@kernel.org" <kas@kernel.org>, "seanjc@google.com" <seanjc@google.com>,
+ "mingo@redhat.com" <mingo@redhat.com>, "Peng, Chao P"
+ <chao.p.peng@intel.com>, "pbonzini@redhat.com" <pbonzini@redhat.com>,
+ "Tian, Kevin" <kevin.tian@intel.com>, "jgg@nvidia.com" <jgg@nvidia.com>,
+ "aneesh.kumar@kernel.org" <aneesh.kumar@kernel.org>,
+ "Verma, Vishal L" <vishal.l.verma@intel.com>, "hpa@zytor.com"
+ <hpa@zytor.com>, "tglx@kernel.org" <tglx@kernel.org>,
+ "nicolinc@nvidia.com" <nicolinc@nvidia.com>, "Gao, Chao"
+ <chao.gao@intel.com>, "bp@alien8.de" <bp@alien8.de>,
+ "aik@amd.com" <aik@amd.com>,
+ "yilun.xu@linux.intel.com" <yilun.xu@linux.intel.com>
+References: <20260924041032.1096569-1-zhenzhong.duan@intel.com>
+ <20260924041032.1096569-7-zhenzhong.duan@intel.com>
+ <8c892695-7ec5-4d93-a74b-487fe535c3f4@suse.com>
+ <IA3PR11MB913605FFABBBC42C1FF341E192982@IA3PR11MB9136.namprd11.prod.outlook.com>
+ <03c80e1b-2a47-466a-a042-c736f640d3c7@intel.com>
+ <IA3PR11MB91368A7BCDAF146ECDC6A4CB92602@IA3PR11MB9136.namprd11.prod.outlook.com>
+ <IA3PR11MB9136FE2B23CA52EC68EF2139926E2@IA3PR11MB9136.namprd11.prod.outlook.com>
+ <bd0f63af98521d76e0d34ea31f18accc063d1d27.camel@intel.com>
+ <IA3PR11MB9136FEF30F06D8D5118B389292692@IA3PR11MB9136.namprd11.prod.outlook.com>
+ <a63e7dbdba277b5a551ec74d09144e97f55504dc.camel@intel.com>
+ <IA3PR11MB91369A1E95D047DBEDB53B7892722@IA3PR11MB9136.namprd11.prod.outlook.com>
+From: Nikolay Borisov <nik.borisov@suse.com>
+Content-Language: en-US
+Autocrypt: addr=nik.borisov@suse.com; keydata=
+ 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
+In-Reply-To: <IA3PR11MB91369A1E95D047DBEDB53B7892722@IA3PR11MB9136.namprd11.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-=D0=B2=D1=82, 10 =D0=BB=D0=B8=D1=81=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 21:0=
-3 Mark Brown <broonie@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> On Sun, Nov 08, 2026 at 05:13:45PM +0200, Svyatoslav Ryhel wrote:
-> > Add a small driver to control the LED cell provided by the MAX8907 PMIC=
-.
-> > The LED does not require any specific configuration and is folded into =
-the
-> > PMIC's node.
-> >
-> > Patch 1 of the series requires this patch:
-> > ("regulator: dt-bindings: maxim,max8907: Convert to DT schema")
-> > https://lore.kernel.org/lkml/20261027114634.79706-2-clamor95@gmail.com/
->
-> This doesn't apply against current code, please check and resend.
 
-It requires commit converting max8907 schema from text to yaml to be
-applied first. I assume you may just ack schema adjustment and it will
-be picked by Lee, but that is up to you to decide.
+
+On 10.11.26 г. 11:40 ч., Duan, Zhenzhong wrote:
+> 
+> 
+>> -----Original Message-----
+>> From: Edgecombe, Rick P <rick.p.edgecombe@intel.com>
+>> Subject: Re: [RFC PATCH 06/15] virt: tdx-guest: Support TDI bind and unbind
+>> operations
+>>
+>> On Tue, 2026-11-03 at 08:49 +0000, Duan, Zhenzhong wrote:
+>>>
+>>>> -----Original Message-----
+>>>> From: Edgecombe, Rick P <rick.p.edgecombe@intel.com>
+>>>> On Thu, 2026-10-29 at 03:26 +0000, Duan, Zhenzhong wrote:
+>>>>> I want to discuss this further.
+>>>>>
+>>>>> If the TSM driver successfully locks a device but later fails to
+>> unlock
+>>>> it,
+>>>>
+>>>> Can you explain some concrete scenarios where this would happen? We can
+>>>> think
+>>>> about whether it is required for an initial minimal set that does
+>> something
+>>>> useful.
+>>>
+>>> I can think of some rare cases: the TDCM hypercall may return an
+>> error(e.g., a messing VMM or TDI device firmware),
+>>>
+>>
+>> I'm not clear whose fault this is.
+>>
+>>>   or TDCM hypercall polling timeout(e.g., heavy load in host).
+>>
+>> Heavy load in the host leads to broken flag being set? This is pretty
+>> similar to
+>> the issues around the BUSY errors. You really need to think through how
+>> this is
+>> all going to work.
+> 
+> I found current implementation did not handle a polling timeout well,
+> so I reworked it following the GetQuote implementation. The shared buffer
+> is now allocated per device instead of per command. After a timeout,
+> further commands fail with -EBUSY until the VMM reports the pending
+> command complete, and the buffer is leaked only if that command is still
+> pending when the device is unlocked.
+> 
+> Below is the reworked patch that handles polling timeout, I'd like to seek
+> comments on this new implementation early, comments welcome!
+> 
+>      virt: tdx-guest: Add TDCM helper infrastructure
+> 
+>      Add internal helpers that send TDCM commands to the host and wait for
+>      them to complete, using a buffer shared with the VMM. The tdx-guest
+>      driver uses them to manage the TDI of an assigned TEE-IO device, for
+>      example to bind or unbind it.
+> 
+>      A TDCM VMCALL acknowledges command submission, but the command may
+>      remain pending after it returns. GHCI allows asynchronous completion and
+>      defines status polling and event notification as completion methods. A
+>      valid notification vector (32-255) enables event notification.
+
+Remove last sentence, this is an implementation detail of the vent 
+notification which is not even being used. It's sufficient to say there 
+are 2 methods and you've chosen polling and then say *WHY* you have 
+chosen it, which you do with the following paragraph.
+
+> 
+>      Use status polling instead of event notification. TDCM commands are only
+>      issued when a device is locked, unlocked or accepted, which are
+>      infrequent administrative operations, so polling adds little overhead
+>      and avoids setting up an interrupt vector and its completion handling.
+
+This can be simplified, just say that mechanism is only used during 
+setup which is a small part of the whole process and polling has been 
+chosen for simplicity, no need to go into detail about interrupt vector 
+setting up and what not.
+
+> 
+>      After the VMCALL returns, check the shared status and, while the command
+>      is still pending, poll it with a sleep of at most 1 ms until a 10-second
+>      timeout expires. Each DOE request-response exchange may take up to one
+>      second, the limit set by the PCIe specification and used by Linux's DOE
+>      code. In testing, BIND used the most exchanges of any TDCM command, at
+>      three, so 10 seconds leaves room for those exchanges and additional host
+>      processing. This is a guest-side timeout, not a GHCI completion
+>      guarantee, and does not bound the time spent in the VMCALL itself.
+
+I find this somewhat way too verbose with implementation detail which 
+can be derived from just looking at the code.
+
+> 
+>      Converting memory between private and shared is expensive and breaks up
+>      large direct-map and EPT mappings. Keep one shared buffer per TDI
+>      context: allocate it and convert it to shared when the device is
+>      locked, and convert it back and free it when the device is unlocked,
+>      rather than converting memory for every command. All TDCM commands for
+>      a device run under its device lock, which serializes use of the buffer.
+
+Again, way too many implementation detail. Just say the memory is 
+initialized at device lock and freed when you are finished.
+
+> 
+>      Only the command helper writes to the buffer. It takes the command data
+>      from the caller and copies it in once the VMM no longer owns the buffer.
+>      GHCI defines TDCM commands that carry command data, so the helper
+>      accepts it even though the commands used initially carry none.
+> 
+>      Treat the response as VMM-controlled: read its length once, require
+>      exactly the expected size for fixed-size responses or at most the
+>      caller's maximum otherwise, and leave reading or copying the data to
+>      the caller.
+
+Remove this paragraph, it simply restates what the code is doing. The 
+gist is that once the TDCM is sent we have to treat the contents of buf 
+as coming from an outside party.
+
+> 
+>      If a command is still pending at timeout, reject further commands with
+>      -EBUSY while the VMM still reports it as pending, as GetQuote does. The
+>      VMM may still complete such a command, so its effect is unknown to the
+>      guest. The operation that issued it fails, and userspace can retry it
+>      by writing the PCI TSM sysfs attribute again, which issues the command
+>      again.
+> 
+>      When the device is unlocked, or locking fails, convert the buffer back
+>      to private and free it. If a timed-out command is still pending at that
+>      point, leak the buffer instead: the VMM may still write the response,
+>      and freed pages can be reused.
+> 
+>      tdx_tdcm_run() is initially unused. A following patch uses it to
+>      execute the TEE-IO support check during device locking.
+
+Those sentence convey no useful information whatsoever, the 
+__mabybe_unused in the code, which even gets removed in a feature patch 
+already say this.
+
+> 
+>      Signed-off-by: Zhenzhong Duan <zhenzhong.duan@intel.com>
+> 
+>      ---
+>      rfcv2:
+>          - move TDCM specific declaration into connect.c (Nikolay)
+>          - Explain asynchronous completion and polling choice (Nikolay, Xiaoyao)
+>          - Use GHCI-style names for TDCM error constants (Xiaoyao)
+>          - Split TDCM helpers into a separate patch (Xiaoyao)
+>          - Replace cleanup attributes with explicit cleanup paths (Rick, Xiaoyao)
+>          - Keep one shared TDCM buffer per device, allocated at lock, and return
+>            -EBUSY while a timed-out command is pending; leak the buffer only if
+>            that command is still pending at unlock
+>          - Check command and response sizes against the buffer at build time
+> 
+> diff --git a/drivers/virt/coco/tdx-guest/connect.c b/drivers/virt/coco/tdx-guest/connect.c
+> index ead245c6b120..70bd68994259 100644
+> --- a/drivers/virt/coco/tdx-guest/connect.c
+> +++ b/drivers/virt/coco/tdx-guest/connect.c
+> @@ -7,15 +7,94 @@
+> 
+>   #define pr_fmt(fmt)            KBUILD_MODNAME ": tdx_connect: " fmt
+> 
+> +#include <linux/iopoll.h>
+>   #include <linux/pci.h>
+>   #include <linux/pci-tsm.h>
+> +#include <linux/set_memory.h>
+>   #include <linux/tsm.h>
+> +#include <linux/units.h>
+>   #include <asm/tdx.h>
+> 
+>   #include "tdx-guest.h"
+> 
+> +enum tdcm_operation {
+> +       TDCM_OP_CHECK_TEEIO_SUPP        = 1,
+> +       TDCM_OP_BIND                    = 2,
+> +       TDCM_OP_GET_DEV_INFO            = 3,
+> +       TDCM_OP_GET_TDI_REPORT          = 4,
+> +       TDCM_OP_START_TDI               = 5,
+> +       TDCM_OP_GET_TDI_STATE           = 6,
+> +       TDCM_OP_UNBIND                  = 7,
+> +};
+> +
+> +enum tdcm_status {
+> +       TDCM_STATUS_WAIT                = 0,
+> +       TDCM_STATUS_COMPLETED           = 1,
+> +       TDCM_STATUS_ERROR               = 2,
+> +};
+> +
+> +enum tdcm_error {
+> +       TDCM_TDX_MODULE_ERROR           = 10,
+> +       TDCM_TDXIO_DEVICE_ERROR         = 11,
+> +       TDCM_SPDM_MESSAGE_ERROR         = 12,
+> +       TDCM_IDE_KM_MESSAGE_ERROR       = 13,
+> +       TDCM_TDISP_MESSAGE_ERROR        = 14,
+> +       TDCM_INVALID_STATE              = 15,
+> +};
+> +
+> +struct tdvmcall_tdcm {
+> +       __u16 operation;  /* See enum tdcm_operation */
+> +       __u8  version;
+> +       __u8  rsvd0;
+> +       __u32 rsvd1;
+> +
+> +       __u8  status;     /* See enum tdcm_status */
+> +       __u8  error;      /* See enum tdcm_error */
+> +       __u16 rsvd2;
+> +       __u32 rsvd3;
+> +
+> +       __u32 data_length;
+> +
+> +       __u8  data[];
+> +} __packed;
+> +
+> +/*
+> + * Size of the shared TDCM buffer, header included. Commands in this driver
+> + * exchange at most a few bytes of data. Grow this if a command needs more,
+> + * e.g. for TDI reports.
+> + *
+> + * Every command and response size passed to tdx_tdcm_run() is a constant
+> + * that must fit in TDCM_MAX_DATA_SZ. Check each one with static_assert()
+> + * next to its caller.
+> + */
+> +#define TDCM_BUF_SIZE          PAGE_SIZE
+> +#define TDCM_MAX_DATA_SZ       (TDCM_BUF_SIZE - sizeof(struct tdvmcall_tdcm))
+> +
+> +/*
+> + * The DOE response timeout is one second per exchange. Expect that 10 seconds
+> + * is enough time for the host to complete a TDCM command.
+> + */
+> +#define TDCM_POLL_TIMEOUT_US   (10 * USEC_PER_SEC)
+> +#define TDCM_POLL_DELAY_US     1000
+> +
+> +/**
+> + * struct tdx_devsec - TDX Connect context for a locked TDI
+> + * @pci: PCI TSM devsec context
+> + * @tdcm_buf: Buffer shared with the VMM for TDCM commands, TDCM_BUF_SIZE
+> + *           bytes. Allocated at lock and freed at unlock, so memory is not
+> + *           converted between private and shared on every command. Only
+> + *           tdx_tdcm_run() writes to it. Callers may read response data
+> + *           after tdx_tdcm_run() returns 0.
+> + * @tdcm_in_flight: An earlier command timed out and the VMM may still own
+> + *                 @tdcm_buf. Cleared once the VMM reports its completion.
+> + *
+> + * All TDCM commands for a device run under its device lock, which serializes
+> + * use of @tdcm_buf and @tdcm_in_flight.
+> + */
+>   struct tdx_devsec {
+>          struct pci_tsm_devsec pci;
+> +       struct tdvmcall_tdcm *tdcm_buf;
+> +       bool tdcm_in_flight;
+>   };
+> 
+>   static struct tdx_devsec *to_tdx_devsec(struct pci_tsm *tsm)
+> @@ -23,6 +102,155 @@ static struct tdx_devsec *to_tdx_devsec(struct pci_tsm *tsm)
+>          return container_of(tsm, struct tdx_devsec, pci.base_tsm);
+>   }
+> 
+> +static struct pci_dev *tdx_devsec_pdev(struct tdx_devsec *tdevsec)
+> +{
+> +       return tdevsec->pci.base_tsm.pdev;
+> +}
+> +
+> +static int tdx_tdcm_buf_alloc(struct tdx_devsec *tdevsec)
+> +{
+> +       struct tdvmcall_tdcm *buf;
+> +
+> +       buf = alloc_pages_exact(TDCM_BUF_SIZE, GFP_KERNEL);
+> +       if (!buf)
+> +               return -ENOMEM;
+> +
+> +       if (set_memory_decrypted((unsigned long)buf, PHYS_PFN(TDCM_BUF_SIZE))) {
+> +               pci_err(tdx_devsec_pdev(tdevsec),
+> +                       "Failed to convert TDCM buffer to shared, leaking it\n");
+> +               return -EIO;
+> +       }
+> +
+> +       tdevsec->tdcm_buf = buf;
+> +       return 0;
+> +}
+> +
+> +static void tdx_tdcm_buf_free(struct tdx_devsec *tdevsec)
+> +{
+> +       struct tdvmcall_tdcm *buf = tdevsec->tdcm_buf;
+> +
+> +       if (!buf)
+> +               return;
+> +
+> +       tdevsec->tdcm_buf = NULL;
+> +
+> +       /*
+> +        * A timed-out command may still be pending in the VMM. Leak the
+> +        * buffer so a late response cannot land in the pages after they
+> +        * are reused.
+> +        */
+> +       if (tdevsec->tdcm_in_flight &&
+> +           READ_ONCE(buf->status) == TDCM_STATUS_WAIT) {
+
+Is the read_once even needed in here?
+
+> +               pci_warn(tdx_devsec_pdev(tdevsec),
+> +                        "TDCM command still pending, leaking TDCM buffer\n");
+> +               return;
+> +       }
+> +
+> +       if (set_memory_encrypted((unsigned long)buf, PHYS_PFN(TDCM_BUF_SIZE))) {
+> +               pci_err(tdx_devsec_pdev(tdevsec),
+> +                       "Failed to convert TDCM buffer to private, leaking it\n");
+> +               return;
+> +       }
+> +
+> +       free_pages_exact(buf, TDCM_BUF_SIZE);
+> +}
+> +
+> +/**
+> + * tdx_tdcm_run() - Execute a TDCM command and wait for its completion
+> + * @tdevsec: TDI context
+> + * @operation: TDCM operation, see enum tdcm_operation
+> + * @cmd_data: Command data to send, or NULL
+> + * @cmd_data_sz: Size of @cmd_data in bytes, 0 for none
+> + * @max_rsp_data_sz: Response data size, or the largest accepted if
+> + *                  @rsp_data_sz is given. 0 for no response data.
+> + * @rsp_data_sz: NULL for a fixed-size response, which must be exactly
+> + *              @max_rsp_data_sz bytes. Otherwise accept 1 to
+> + *              @max_rsp_data_sz bytes and return the size here.
+> + *
+> + * Copy @cmd_data into the shared buffer only once the VMM no longer owns it.
+> + * On success, response data is at tdevsec->tdcm_buf->data. It is VMM-written:
+> + * read it once or copy it out, before the next TDCM command reuses the buffer.
+> + *
+> + * Return: 0 on success, -EBUSY if an earlier timed-out command is still
+> + * pending in the VMM, or another negative errno on failure.
+> + */
+> +static int __maybe_unused tdx_tdcm_run(struct tdx_devsec *tdevsec,
+> +                                      u16 operation, const void *cmd_data,
+> +                                      u32 cmd_data_sz, u32 max_rsp_data_sz,
+> +                                      u32 *rsp_data_sz)
+> +{
+> +       struct pci_dev *pdev = tdx_devsec_pdev(tdevsec);
+> +       struct tdvmcall_tdcm *buf = tdevsec->tdcm_buf;
+> +       bool bad_len;
+> +       u32 data_len;
+> +       u8 status;
+> +       int ret;
+> +       u64 r;
+> +
+> +       /*
+> +        * After a timeout the VMM may still be processing the earlier command
+> +        * and writing its response. Don't touch the buffer until it is done,
+> +        * as GetQuote does.
+> +        */
+> +       if (tdevsec->tdcm_in_flight) {
+> +               if (READ_ONCE(buf->status) == TDCM_STATUS_WAIT)
+
+Is it even needed in here, you don't poll on it to assume adjacent reads 
+might be merged?
+
+> +                       return -EBUSY;
+> +               tdevsec->tdcm_in_flight = false;
+> +       }
+> +
+> +       /*
+> +        * Stale response data from an earlier command is VMM-written and never
+> +        * trusted, so only the header needs resetting.
+> +        */
+> +       memset(buf, 0, sizeof(*buf));
+> +       buf->operation = operation;
+> +       buf->status = TDCM_STATUS_WAIT;
+> +       buf->data_length = cmd_data_sz;
+> +       if (cmd_data_sz)
+> +               memcpy(buf->data, cmd_data, cmd_data_sz);
+> +
+> +       r = tdx_hcall_tdcm(pdev, virt_to_page(buf), TDCM_BUF_SIZE >> PAGE_SHIFT);
+> +       if (r) {
+> +               pci_err(pdev, "TDCM command %u submission failed: 0x%llx\n",
+> +                       operation, r);
+> +               return -EIO;
+> +       }
+> +
+> +       ret = read_poll_timeout(READ_ONCE, status, status != TDCM_STATUS_WAIT,
+Is it even needed in here as well, while you do poll it's in a fresh 
+function call?
+
+> +                               TDCM_POLL_DELAY_US, TDCM_POLL_TIMEOUT_US, false,
+> +                               buf->status);
+> +       if (ret) {
+> +               /* The next command fails with -EBUSY until the VMM is done */
+> +               tdevsec->tdcm_in_flight = true;
+> +               pci_err(pdev, "TDCM command %u timed out\n", operation);
+> +               return ret;
+> +       }
+> +
+> +       /* Ensure subsequent data reads are ordered after the status observation */
+> +       virt_rmb();
+> +
+> +       /* Read the VMM-controlled length once, then validate the cached copy */
+
+nit: Pointless comment, it's obvious from the code what's going on.
+
+> +       data_len = READ_ONCE(buf->data_length);
+> +
+> +       if (rsp_data_sz)
+> +               bad_len = !data_len || data_len > max_rsp_data_sz;
+> +       else
+> +               bad_len = data_len != max_rsp_data_sz;
+> +
+> +       if (status != TDCM_STATUS_COMPLETED || bad_len) {
+> +               pci_err(pdev,
+> +                       "TDCM command %u failed: status 0x%x, error 0x%x, max_rsp_data_sz 0x%x, returned 0x%x\n",
+> +                       operation, status, READ_ONCE(buf->error),
+> +                       max_rsp_data_sz, data_len);
+> +               return -EIO;
+> +       }
+> +
+> +       if (rsp_data_sz)
+> +               *rsp_data_sz = data_len;
+> +
+> +       return 0;
+> +}
+> +
+
+<snip>
+
