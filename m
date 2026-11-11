@@ -1,60 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794425577;
-	b=UgCRoDf/tYP3UdP+Z0u9svtYzn+hhdoJn5wyYuuAT3AeCZEkC/a3HxsigZ7zCsuGBFQe
-	 iygkIhR6rmxq7CSxRw2LixLuwJoPzvDv1DeIeJ0Uppmj9lSek91qXqtcwSqjN60lx9BWi
-	 w0ScknX84pYitLo32velS3PaRH/3EwqjW80avAkTes6KmXhfUlECDW/iDUKwqBzSq3HEl
-	 oGmGVh6WACwasy3VALqYQNq0M+NHG70Ym/nVLaLjhlgTNwRP3ITHfpZ/LKUUoRA3vzoaU
-	 HUl7SdcMKmpohd0dt2hD9dsqQOqemn9hc2WIho4kz/XdEMW1VD8QGavoG76WL/RSVDA==
+	t=1794425596;
+	b=BboVWl2rdl3jscMhoJQ/hfxGDtQCMzm8uZAYemZPSCXvVTqDs1qKmr0ns3kuI87AMMEa
+	 +SF5qonoQyT0JZDuM6x/vpBTkFYf7SvEkbAC3lFozuGwA0+IZ1CfVZ83D1tM15hGE3smf
+	 RGQyM4edzrZNUlTqlfYJUmYQOycmIMOX71LTTgeL5DdFp+fHQj/hz7yzDmb3ZoHRSK6nW
+	 QtOl1rfPJpii1IwfOxJsf0xeiZygZ3kce8BTFkMySFnyOaIddf/dNm8INR90wO0/ak+PN
+	 01wG8ioJoDISXeZwJZBY4IaZZBfSI6krRhQCTCLU4GWOUdJgZl1KEF1fHCIiWG+potQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794425577;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 Mail-Followup-To:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=Fes9FPtsLKfqHmPVcvpxVOfAN/gOdDJJxJ44rGZjokU=;
-	b=KR2LKCx8eujd7y8JioZoMUMW6jPFKkfKPDpyu9tykPX7tW+jjSRykd+4eLsboztG0xWQ
-	 h8vDSCGSbyMQCr0RoFQJjcPsmgjC3DU4+4pkUB3ZxAYfP+byE6iWi3gf+JsZuX2c8eWjo
-	 FCYhO1njjJd+sWpzNu4DPVdwEfoTQ6mxYoghttYbZkg+DCjcO9TfJUi+EpNxbuK9pJZTF
-	 wghZwuapWT/xCmnmhG0BvRHddaKZ1r4zho8dKPJJrBbnNCd9GGkYtGnSy/4mkPEC2u6DG
-	 qmb/ECSd8f8rD/So/Y6Y6xBE+FSQUsJOPO0b5svoR7iFluONA31opf4kDAZuLHB0ijg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794425596;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Spam-Status:
+	 X-Spam-Checker-Version;
+	bh=XkYzj1wDxfAIpCaHTXRvZeY0rPBL7U7tgJ6A5K+XKXc=;
+	b=mHuvR5+uPsttkqJnwpV0grAiobF23AaEifYaMI0lq6Y/EBrnblEH5jpQbLiQHyhs0LhP
+	 nxY2Ic/LXpm/5XEoIw3y+PsCUMrXrM6vmyCQA2I+a/3w/njp4GXxxOQ7baCs66hsn7zru
+	 12F7E+Enm8i01sv9BrkOvqd0mqYo0bndwdM2kGnd5P10qu+JBImcJV+5NhRSf97dRhnxX
+	 RFMjWuu859L8RjZR3B5pCMF7FMuPULeeVqzwFT6JgaunIjT78US2CtMm2bucqw0RtWB5N
+	 kJaljFTLQGc/OY290QhDgS0npf19I02py92nUpfaDlGqE15LF8RtipYPYiuQk/Q5CbQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PAwokv9u;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FD2B606A321
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 19:32:57 +0000 (UTC)
+	dmarc=pass header.from=linux.microsoft.com;
+	spf=pass smtp.mailfrom=linux.microsoft.com;
+	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=sdAuBVV1;
+	arc=none smtp.remote-ip=13.77.154.182
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2150B606A31C;
+	Wed, 11 Nov 2026 19:33:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2150B606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PAwokv9u
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C0D61F00A05;
-	Wed, 11 Nov 2026 19:32:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794425577;
-	bh=Fes9FPtsLKfqHmPVcvpxVOfAN/gOdDJJxJ44rGZjokU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=PAwokv9uNWTvsDzvS9gdrLQ2vPV7+rqM+JtOA9rCtUByaXsTVqZJFF/2lbpJaaG31
-	 R1pKFvXu5oaUVZtDdu0aMaPhW9CLe8egEoZrC2ANh+2DOch9r5Telq4OH4iQCk5iy8
-	 AP1cXtUS4RmMqDz51LL1OrT3yVzmWRhIl/v/jsH4OdVLF6QOPsZZLBBC3nKQiAH0GP
-	 AWlmC5JIC5Z0B/Md3DjRiNEqovl/5yJS2tdvRu9zANXZ5fkJOogMkFOAs/hfxymT9g
-	 vY5rGXMFuQiyDxj1r6XTPKmYwtuNKSM0b+YYk0ag1K/CQXhFTINqE6ar8jb7p79jn9
-	 /PWnpAJjl1mhg==
-Date: Wed, 11 Nov 2026 20:32:49 +0100
-From: Gao Xiang <xiang@kernel.org>
-To: Zhan Xusheng <zhanxusheng1024@gmail.com>
-Cc: xiang@kernel.org, chao@kernel.org, zbestahu@gmail.com, jefflexu@163.com,
-	dhavale@google.com, hongbohbli@tencent.com, guochunhai@vivo.com,
-	linux-erofs@lists.ozlabs.org, linux-kernel@vger.kernel.org,
-	zhanxusheng@xiaomi.com
-Subject: Re: [PATCH] erofs: reset buf->off in erofs_init_metabuf()
-Message-ID: <avTC4Q5Ps2xBxslw@MacBookPro.fritz.box>
-Mail-Followup-To: Zhan Xusheng <zhanxusheng1024@gmail.com>,
-	xiang@kernel.org, chao@kernel.org, zbestahu@gmail.com,
-	jefflexu@163.com, dhavale@google.com, hongbohbli@tencent.com,
-	guochunhai@vivo.com, linux-erofs@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org, zhanxusheng@xiaomi.com
-References: <20261111141529.719166-1-zhanxusheng1024@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=sdAuBVV1
+Received: from [10.4.158.9] (unknown [4.194.122.136])
+	by linux.microsoft.com (Postfix) with ESMTPSA id 5AE6F20B7166;
+	Wed, 11 Nov 2026 11:33:06 -0800 (PST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 5AE6F20B7166
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1794425592;
+	bh=XkYzj1wDxfAIpCaHTXRvZeY0rPBL7U7tgJ6A5K+XKXc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=sdAuBVV1iYh6ALVSvPbbuS3kbrw9KywjuIwbdoNJ4kCMluqCCr9IIpLf4ZHHsd+fk
+	 RZva/j1N6fubwMR+Za3nW+nlFP8Q2wV28gYJu7ByeOqCWqU0vZlxG6Y3VEfv+yvEkQ
+	 7xQ31zo5ASqixU32rt2PhC2x/T6EuAn9cAHue3bM=
+Message-ID: <4d5ff278-bd47-4304-967c-92313dbd4fd7@linux.microsoft.com>
+Date: Wed, 11 Nov 2026 11:33:07 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,31 +53,94 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261111141529.719166-1-zhanxusheng1024@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 6/6] arm64: hyperv: Implement
+ hv_is_isolation_supported() for CCA Realms
+To: Michael Kelley <mhklinux@outlook.com>,
+ "decui@microsoft.com" <decui@microsoft.com>,
+ "wei.liu@kernel.org" <wei.liu@kernel.org>
+Cc: "arnd@arndb.de" <arnd@arndb.de>,
+ "catalin.marinas@arm.com" <catalin.marinas@arm.com>,
+ "linux-arch@vger.kernel.org" <linux-arch@vger.kernel.org>,
+ "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>,
+ "linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "lpieralisi@kernel.org" <lpieralisi@kernel.org>,
+ "mark.rutland@arm.com" <mark.rutland@arm.com>,
+ "sudeep.holla@kernel.org" <sudeep.holla@kernel.org>,
+ "thuth@redhat.com" <thuth@redhat.com>, "will@kernel.org" <will@kernel.org>,
+ "haiyangz@microsoft.com" <haiyangz@microsoft.com>
+References: <20261031001412.4150488-1-kameroncarr@linux.microsoft.com>
+ <20261031001412.4150488-7-kameroncarr@linux.microsoft.com>
+ <MN2PR02MB6863D42CE499C3D423EDBC10D4712@MN2PR02MB6863.namprd02.prod.outlook.com>
+Content-Language: en-US
+From: Kameron Carr <kameroncarr@linux.microsoft.com>
+In-Reply-To: <MN2PR02MB6863D42CE499C3D423EDBC10D4712@MN2PR02MB6863.namprd02.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Nov 11, 2026 at 10:15:29PM +0800, Zhan Xusheng wrote:
-> From: Zhan Xusheng <zhanxusheng@xiaomi.com>
+On 11/11/2026 10:01 AM, Michael Kelley wrote:
+> From: Kameron Carr <kameroncarr@linux.microsoft.com> Sent: Friday, October 30, 2026 5:14 PM
+>>
+>> Provide an arm64 implementation of hv_is_isolation_supported() that
+>> overrides the __weak default in drivers/hv/hv_common.c.
+>>
+>> The implementation deliberately does not depend on
+>> hv_is_hyperv_initialized() because hv_common_init() consults
+>> hv_is_isolation_supported() before hyperv_initialized is set.
 > 
-> erofs_init_metabuf() sets buf->off only for the block device and keeps
-> the old value when it switches to the metabox or the managed cache.
-> erofs_bread() adds buf->off to every offset, so the result depends on
-> how the buffer was last initialized.
-> 
-> getxattr and listxattr init the same buffer twice, for the inline and
-> the shared xattrs, with in_metabox taken from different places.  On a
-> block device mount with fsoffset=, if the inode is outside the metabox
-> and COMPAT_SHARED_EA_IN_METABOX is set, the shared xattrs are read at
-> their metabox offset plus fsoffset.  The same image mounted file-backed
-> returns the right values.
-> 
-> Reset buf->off on every init.
-> 
-> Fixes: 414091322c63 ("erofs: implement metadata compression")
-> Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
+> Quibble: What's the genesis of this statement about
+> hv_is_hyperv_initialized()? On the x86 side, hv_is_isolation_supported()
+> doesn't depend on hv_is_hyperv_initialized(), so I don't think you
+> are making a distinction vs. what x86 does. The statement seems
+> like it might be a leftover from an early version of this patch set.
 
-Reviewed-by: Gao Xiang <xiang@kernel.org>
+From what I recall, I wrote this line after going down a long rabbit
+hole attempting to have functional parity with x86
+hv_is_isolation_supported(). I agree that is doesn't make sense without
+context.
 
-Thanks,
-Gao Xiang
+I couldn't find equivalent methods for checking if the Realm is running
+on Hyper-V. I initially considered using hv_is_hyperv_initialized(), but
+that ran into ordering issue described above. I eventually concluded
+that just returning is_realm_world() is sufficient, since
+hv_is_isolation_supported() is never used to determine whether the VM is
+running on Hyper-V.
+
+The comment would be more clear if it simply pointed out that
+hv_is_isolation_supported() functionally differs on ARM64 vs. x86
+because it does not check whether it is running on Hyper-V.
+
+I believe Wei already applied this series to hyperv-next, but perhaps he
+can remove this line from the commit message.
+
+-- 
+Regards,
+Kameron
+
+> Michael
+> 
+>>
+>> Reviewed-by: Michael Kelley <mhklinux@outlook.com>
+>> Signed-off-by: Kameron Carr <kameroncarr@linux.microsoft.com>
+>> ---
+>>  arch/arm64/hyperv/mshyperv.c | 5 +++++
+>>  1 file changed, 5 insertions(+)
+>>
+>> diff --git a/arch/arm64/hyperv/mshyperv.c b/arch/arm64/hyperv/mshyperv.c
+>> index da6c3aa0..8a2c446 100644
+>> --- a/arch/arm64/hyperv/mshyperv.c
+>> +++ b/arch/arm64/hyperv/mshyperv.c
+>> @@ -187,3 +187,8 @@ bool hv_isolation_type_cca(void)
+>>  {
+>>  	return is_realm_world();
+>>  }
+>> +
+>> +bool hv_is_isolation_supported(void)
+>> +{
+>> +	return is_realm_world();
+>> +}
+>> --
+>> 2.45.4
+>>
