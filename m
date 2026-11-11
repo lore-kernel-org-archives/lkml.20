@@ -1,49 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794358214;
-	b=39XQItAJ/ka/ZnAyCyIMp23FZPWeiRYjsZb/3BIm1qnutVkUCNdWrYx30Xwlgpz2+HaI
-	 +AWZ54Q7gWnPQ4YNjEKUs3roile7B127uoLECs9r3gN0EuBFbO3Zi8V8lt9P7cQwIFSFe
-	 rfSWOoPUOYovSki+sEdiZ92lJg1r6NECJC4Re2MBItFEsZhSAg0B1WeNWMC+mnvw9EO38
-	 of6aVxUTafCJ9bWZOtHdvM2uIs7Okm2XUNtJ53RYJhfqlSRVXozU4ajL3XlOuQAR2UuHA
-	 GkMKrl4sYoz07pgsIazou9BJPsdENou8G/sGQCsAM5nDgpDOo6zp3RHWpXmfEiZ69sw==
+	t=1794358366;
+	b=JZgSTGfmSGcZjRSmpWM/kixuek0vDZj4SHMg3dhvE5YXHRs/PzT2/yqJNOpSo4nNmSrz
+	 8Pj6WFL1Jpq4/bVZdsZJ+VHBL4Hv/4cxidkteq4O3ztmckTmWOF3rwiePyahhARE6JQJa
+	 NtTfLHtGZ6yEtGVAWYmoBH6nJmhtqgJupjf4d8IzlcLGshz4WM7Ds1Wc5p0PzgXmgGW5p
+	 bcIuNiL5egkA6gEC6VWZgi+9sumX3nahi4TlReOETw4NdSv26gkLyP6Bn4wVBA9PmMdiS
+	 dHEXWf5Pzx7phVbYqpfTfazQUE9O9Xink62QJZgZOdBxiLedX2VMJZPF5FeEkQb/Pzw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794358214;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=TXETTPPRVF+HNiL1JDfhK3+Odg9X5L0s6YqExft/M58=;
-	b=c9RifpvegEshkiqlfdzfZ8A5r5rUe1Rcis+ashOf/NZQjSJh/qBitt4Q3H7ciO1XFFLs
-	 4Dn6TWSeOtxZiFxD7men/5oNtWHPx3VB1IWZgQ4nvGCQ0dMYABS+cOjpQpLr+R3xShgIt
-	 dsghUM6Lqa18boaDQV82/5+utJ6RbDdZzdBcuP33nNNztr28rUq/85tO3iRup5U4c1ptK
-	 Tpai8+tw62D/falFDVMy3n1Y8m2Q01vyX93YP8JiWALFm3deTZYHDXDXS/xNfkZLG8EgV
-	 Ky2y4k7SrjsAaGEsbZl1A+/6iQezb4q8pxqgH/uoqFVCmUedY3MowjJQcDTodiSbayA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794358366;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 MIME-Version:Content-Type:Content-Disposition;
+	bh=YMyutFEugDgQRViMx4h+fLyzjQAiATXS7cL+gnKt9H0=;
+	b=KP464pIpbwsTmPPDqf6IDUYatJG2iYDzcZ5fVZi2u8zi636vJoZJdKuIJC7VM6DGB/la
+	 Xwkiv3qNJHd2ErQHOstJKVUflX3M5YJjkawRd2wfLSYt2TCiVPnqBQq/+cdLQmsnCVfHJ
+	 lnVKH01PkNiJ0ofCYeBI+uoMHlce63PYoJbvQ9IT92onBgvQ36DFCj1taJoqid0i5/oXZ
+	 VF3i/IRWq3CuX5wykRU/TMQ9SSVNfeKLDIV6lEawjyhOlwWGe2yuhmK6fjNvS0Jt4wDBh
+	 0W8tp1DF+rj1DWgVL2lvR6n8RzJpVKp0KFigs7ic/hlzAYlC6nwyzMpQB/HJF/MVhAw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="aLsL/HDI";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OPeETZni;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5618C606A33E;
-	Wed, 11 Nov 2026 00:50:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07338606A31C;
+	Wed, 11 Nov 2026 00:52:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aLsL/HDI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C3141F0093C;
-	Wed, 11 Nov 2026 00:50:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OPeETZni
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03DCE1F0089F;
+	Wed, 11 Nov 2026 00:52:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794358214;
-	bh=TXETTPPRVF+HNiL1JDfhK3+Odg9X5L0s6YqExft/M58=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=aLsL/HDIZvha5C4UASbyS/8/oVMaiH7y+qfKFJsCXtFfgjRBqu3k2mhnpw7CSVusn
-	 DTLKMNvUdumkNdWSdIPTi19z3ZAdWJn8gnmMxSSzO+4tuHGlP6VnlMU92IQYtu8Wz4
-	 o5PRmVcXER7KBkqzTmNj8ZMUgxv5RXbL6NFLEhj8IWyg3FaMA5gBMU6F4QhTFHkgpo
-	 du8WqP2QFNMfCCzPxMFSFja8O3s/U4IsCxTJ0xLjd9I2KvTdZKWCEy0maVEaYMhcw2
-	 AxESCG0UX5+WvHOh1Ms2i8fjr2djtyyLYDiu3SZ+XUG7dnTZfdUuVumad1sLn+jJwP
-	 wjZY5as0LwZrg==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 2108E39E8A55;
-	Wed, 11 Nov 2026 00:50:14 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	s=k20260515; t=1794358365;
+	bh=YMyutFEugDgQRViMx4h+fLyzjQAiATXS7cL+gnKt9H0=;
+	h=Date:From:To:Cc:Subject;
+	b=OPeETZniu5d6wPvMima8rknOenjAp7z+jKvR4Pdjjx7DjHMRKsXnVYz3AsGvJRk9/
+	 resH/YHJOygSaCg6+g4DF3muGs8W98rU8OYLZH7IXs3ROVmANbWhdj9J/925unCeEb
+	 8WswN4aaNPan3lBbW5oDNgKOzFWHI9ynhNWiLKbe754+FpM/oOSOVc3/upjdJOFqv2
+	 um4QFRee2YDs9bC7Ksx03F76qXv4VPP8Wpu0J3rmpR1ywQuk8Ce6ysFBjCm+XLcQjA
+	 z5ZXzUMaIAlVL4j0U2sua1DHbQWExKalNVXRLSq0bWwdaFjLkGy0shSsc3OaHQSsCs
+	 Ufs71HLR1Ho9Q==
+Date: Wed, 11 Nov 2026 00:52:41 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Hans de Goede <hansg@kernel.org>, Mark Gross <markgross@kernel.org>,
+	Muhammad Bilal <meatuni001@gmail.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Linux Next Mailing List <linux-next@vger.kernel.org>
+Subject: linux-next: build failure after merge of the drivers-x86 tree
+Message-ID: <avO8Wax_1SEQ3Yy5@sirena.org.uk>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,48 +58,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net-next] dt-bindings: net: add Realtek RTL8125 PCIe
- Ethernet
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179435821267.142717.8246984206000823163.git-patchwork-notify@kernel.org>
-Date: Wed, 11 Nov 2026 00:50:12 +0000
-References: 
- <20261109-dt-bindings-net-realtek-rtl8125-v1-1-cff4b8a8be66@pardini.net>
-In-Reply-To: 
- <20261109-dt-bindings-net-realtek-rtl8125-v1-1-cff4b8a8be66@pardini.net>
-To: Ricardo Pardini <ricardo@pardini.net>
-Cc: hkallweit1@gmail.com, nic_swsd@realtek.com, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, heiko@sntech.de,
- sebastian.reichel@collabora.com, netdev@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org
-
-Hello:
-
-This patch was applied to netdev/net-next.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
-
-On Mon, 09 Nov 2026 02:53:47 +0100 you wrote:
-> From: Ricardo Pardini <ricardo@pardini.net>
-> 
-> Add a binding for fixed/soldered Realtek RTL8125 PCIe Ethernet
-> controller. As a PCIe device, its "pci10ec,8125" compatible is the
-> Open Firmware spelling auto-derived from its PCI-SIG vendor/device IDs
-> and is already covered by the generic dtschema pci-device.yaml. The
-> compatible itself therefore needs no binding to be valid.
-> 
-> [...]
-
-Here is the summary with links:
-  - [net-next] dt-bindings: net: add Realtek RTL8125 PCIe Ethernet
-    https://git.kernel.org/netdev/net-next/c/711c458f6f34
-
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="apjTMldALHbD2LvJ"
+Content-Disposition: inline
 
 
+--apjTMldALHbD2LvJ
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+Hi all,
+
+After merging the drivers-x86 tree, today's linux-next build (x86_64
+allmodconfig) failed like this:
+
+ERROR: modpost: drivers/platform/x86/hp/hp-bioscfg/hp-bioscfg.ko: symbol 'strnchrnul' undefined!
+
+Caused by commit
+
+   e7cf4282a8694 (platform/x86: hp-bioscfg: fix heap OOB in hp_enforce_single_line_input())
+
+I have used the tree from next-20261109 instead.
+
+--apjTMldALHbD2LvJ
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrzvFgACgkQJNaLcl1U
+h9CKjwf/aH77X4uQaMn/aq70REgB08ZeZfCIlqDskJ1hqYSL8UHGkBfWA+dBKUHm
+cuwY3D35UjPlRcFjO34qgFPu509gPkLkRW24gt+RMBwDr+Fzkj7QYMF/Ax8CY3i5
+qwawOFj2UpEXpUNXDXvZVt7ua+/fm4U+DEQL9KDavArYHtuJK4hjPneiKhliMwaW
+OqvhQ+4kZFw8T78K7xWAgoJBS0HuvvE8Vgj7i2Md+nknjeBWvs7Ntsnp3irZixdI
+teZDr+NfHZmUfItVHCkEsRXN3S5b3c2xV8UQUD5CMOEWK5U/Ty8ZxwBPRH0IiAUW
+HwbxPv+F/BOFNS/dLROc5zvCo4TjnA==
+=nyqO
+-----END PGP SIGNATURE-----
+
+--apjTMldALHbD2LvJ--
