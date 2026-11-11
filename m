@@ -1,67 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.148
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.111.35.233
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794355767;
-	b=bmOa/u6aTyAVntQb4BEctzSxyz4CzD1LAgU3V5Wk6AaTiSOyd21RVoabBchUybSNOcJs
-	 QMqkeRGJWIeB7R4bqKH9L2R7TSswNbix27IAL2HxSOybzXtohfbZPgiMxaghcroLAsCOR
-	 ebGSBKMjwbgifuuVZd110MXjS+54JsA47b8zpWAdxox4A1697C/KwC1ooFR2d5Akp52Q0
-	 zSy5BgilHbR+YSlmwlgQnNVS73ZGRBRf7fRdvn7tiPDX5ugybgjT6ADA5bgA9UbPvjzBV
-	 xwIbYME9M59daLBmrU+tEt6wR14xTPNEHYlOX5tcepDO5fe9sRd+ieilKW6pqhCiwGA==
+	t=1794355874;
+	b=D5wCtDvb/PgEab4h3jMJtRs1L+1MIlDsGTd/TEl+cOmFQFrn+c1QN/5EYuf9s/nNoMJf
+	 143G7XyBnPeMj04onlRC7s4MXk13Omj3lAAgec9NNmsxllj0YVRxbuUfPu9fHXyoNsDLy
+	 h9oi6GLmDxIY63bR5SjAlkVNXNr2YBcsRPNWO+3jNkfchR0YQ6xK54FMLEj6aJwqQPnQS
+	 49SCEHX5Zq7hi9lqAiEWw+RHk1fJS3hpV9g2lPZdPLTmLrxsWcdK7FA/lQA10u1cvbVXm
+	 /Ge3SRWOxizqLhakxS6Bv915T5c4GInaTW8EauzhrZhPXAa/+vvyyy3VECX3qoYIs4w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794355767;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=Satpe2sJan3JJDVPpUeuek7THsNxkqrFm8p3OavbLMo=;
-	b=rMFXQweLrIAE4Kt3WPEt5Mw1LXgb2yNABWKATI4xXqtMI6jYfzu5UFSGwV/pya5FKpgD
-	 6dKSAKVr0u2RQkRyCNGI6iz+1NJi2pDEQmola64+DEkmwQYsJJeBg9OH0PgzzHQUgnyoL
-	 sGZgPYRaR5rMGJBQlW2GjcyrPlYMVsyPxUJOHBwgfKk/0JLipHePnkuTeOYtdIV0UlYMN
-	 RKghW0gFz+3hBnOHdv4tv98dEVz40JcC3zl78ACl9awRLqvVWgaj31pGGaMMUQbiwjq/5
-	 rlBzgr19VJrQ9h4J4qMu6KHsjTm3A2FJZw5GuLRqVqtzUIbctrwdjQug16VdBwKUCaQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794355874;
+	h=DMARC-Filter:X-Originating-IP:X-Works-Smtp-Source:Received:
+	 DKIM-Signature:X-Session-ID:MIME-Version:Message-ID:Date:From:
+	 In-Reply-To:References:Importance:To:Cc:Subject:X-Originating-IP:
+	 X-Works-Send-Opt:Content-Type:Content-Transfer-Encoding;
+	bh=66m7ZBHAd5MCUYL+NObH+dSeUwaoKEwcjZoMx+AWcMw=;
+	b=CLkDuIxJYmot59095DYcDOHN1iUI1HAK/eZ3Ez8jKdmNpUVywgac6CtyJte37iyOJw1n
+	 m3vFUr78TZa52/BiScvGx7GYEinOppGPGLhACxT74KPgeJu0Z0snqdANGEVgeu09CYuKv
+	 eLeoU2b7dH9mAGmLzPk6W7FoIGmKWgyRZcK1BJHmesAbJyMvllBzfDv11+K1qh2pZDGy2
+	 5B67ReeeVB2ZOHShXE6ANPInrJggjYgnRII7U41LfzD1Vz1ZGNZOdWe30umD8M4Z6lFaM
+	 VlsIimG8R7P8JS/kklPMp73G6RnR+irDYU5N9Y46g3LiPEvW08q1ljIKS5pSYzmoPgg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="BPpTG2/j";
-	arc=none smtp.remote-ip=95.215.58.148
-Received: from mta1.migadu.com (out-148.mta1.migadu.com [95.215.58.148])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=naver.com;
+	spf=pass smtp.mailfrom=naver.com;
+	dkim=pass header.d=naver.com header.i=@naver.com header.a=rsa-sha256 header.s=s20171208 header.b="wNuYm/Qn";
+	arc=none smtp.remote-ip=114.111.35.233
+Received: from cvsmtppost16.nm.naver.com (cvsmtppost16.nm.naver.com [114.111.35.233])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E300606A333
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 00:09:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E300606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB304606A31C;
+	Wed, 11 Nov 2026 00:11:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB304606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=naver.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=naver.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=BPpTG2/j
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=JGCe53txtCdD4ibzW3yg/dD5ngq8trn1hFKLU/CEDQs=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794355764; v=1; x=1794960564;
- b=BPpTG2/jWPIF4tZwVdE3aYt+28t/VLVsNNegjFk+KPbrE2MfOcUuQXwWm5qrGvxUo4LR5wrY
- FCzDUcvmkgiNk881NBde9JgBN33Q4wPogUb0z8CSjqs9QwsfkYJExP2wQYZXS85NQbakzRc3wgG
- End/fklScVR7zBDG59N1UoUg=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id e153a5c284ed39a7;
-	Wed, 11 Nov 2026 00:09:24 +0000
-X-Mizu-Trace-ID: e153a5c284ed39a7
-X-Migadu-Flow: FLOW_OUT
-From: Shakeel Butt <shakeel.butt@linux.dev>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Johannes Weiner <hannes@cmpxchg.org>,
-	David Hildenbrand <david@kernel.org>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	Kairui Song <kasong@tencent.com>,
-	Barry Song <baohua@kernel.org>,
-	Meta kernel team <kernel-team@meta.com>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	Noah Feldt <noah@feldt.systems>,
-	stable@vger.kernel.org
-Subject: [PATCH] mm: mglru: splice all generations when reparenting a memcg
-Date: Tue, 10 Nov 2026 16:09:13 -0800
-Message-ID: <20261111000913.22943-1-shakeel.butt@linux.dev>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=naver.com header.i=@naver.com header.a=rsa-sha256 header.s=s20171208 header.b=wNuYm/Qn
+X-Works-Smtp-Source: PrnZKqtlFqJCpNmrFotqWHF0
+Received: from nv1s-hmac-real-11 ([10.180.31.91])
+  by cvsmtppost16.nm.naver.com with ESMTP id A0PYaXLUSSyvyalMg1qzsQ
+  for <multiple recipients>;
+  Wed, 11 Nov 2026 00:11:06 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=naver.com; s=s20171208;
+	t=1794355866; bh=66m7ZBHAd5MCUYL+NObH+dSeUwaoKEwcjZoMx+AWcMw=;
+	h=Message-ID:Date:From:To:Subject:From:Subject:Feedback-ID:
+	 X-Works-Security;
+	b=wNuYm/QntdXDQqeWtI9A5azkmONYJ6wl+8OeH64gqDcTvpOojjkwNqCMNp1fbEPOF
+	 dEP3JkTIoYzie/exp1M483gDP5Fq6y/hrEmZyFxkFNEADYqdx2KYUQr4UyQx+jlABJ
+	 Sc7CD7mayItIGYGui8muwbtlQCRIte0pSt63nRE2RMcvEzIZ4BlpWo0azpQ5b7H3t2
+	 qsS6ggPXXkDGlu250S6DQ7E36RSl4d2eawp7AnbC8n91gGDVt3u8eGv0YUheViosg/
+	 ZYzw3BD7asvSq7bsdEOKcYaLIkfMNbK7iYk/Ll4ZMmDv9emNfvWsMEduyslcWAnedA
+	 IGOTrn2HE5dMA==
+X-Session-ID: 42f67c1586dde36270c192f6b2c1d0e2b43e502752c06cf0562d77cf14dd97c5
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,82 +59,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Message-ID: <f439b7997e31bf938812e27bb02a2762@cweb013.nm>
+Date: Wed, 11 Nov 2026 09:11:05 +0900
+From: =?utf-8?B?7J6E7ISx7ZiE?= <forfortuna@naver.com>
+In-Reply-To: <20261110122457-mutt-send-email-mst@kernel.org>
+References: <20261111-virtio-can-ready-v1-1-0b4dd020af0b@naver.com>
+	<20261110122457-mutt-send-email-mst@kernel.org>
+Importance: normal
+To: =?utf-8?B?TWljaGFlbCBTLiBUc2lya2lu?= <mst@redhat.com>
+Cc: =?utf-8?B?SGFyYWxkIE1vbW1lcg==?= <harald.mommer@oss.qualcomm.com>,
+	=?utf-8?B?TWF0aWFzIEV6ZXF1aWVsIFZhcmEgTGFyc2Vu?= <mvaralar@redhat.com>,
+	=?utf-8?B?TWFyYyBLbGVpbmUtQnVkZGU=?= <mkl@pengutronix.de>,
+	=?utf-8?B?VmluY2VudCBNYWlsaG9s?= <mailhol@kernel.org>,
+	=?utf-8?B?TWlraGFpbCBHb2x1YmV2LUNpdWNoZWE=?= <mikhail.golubev-ciuchea@oss.qualcomm.com>,
+	=?utf-8?B?RnJhbmNlc2NvIFZhbGxh?= <francesco@valla.it>,
+	<virtualization@lists.linux.dev>,
+	<linux-can@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>,
+	=?utf-8?B?SmFzb24gV2FuZw==?= <jasowangio@gmail.com>
+Subject: =?utf-8?B?UmU6IFtQQVRDSF0gY2FuOiB2aXJ0aW86IGZpeCB2aXJ0cXVldWUgdXNlIGJlZm9yZSBEUg==?=
+	=?utf-8?B?SVZFUl9PSw==?=
+X-Works-Send-Opt: 0r+4b4e4jHwYM6l9+HiTKHmwKBmwFovXFxEqaA2ZjJkaBd9YKBmm
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: base64
 
-Noah reported list_del corruption on single-node hosts running 7.2.11,
-which already has commit bf4ade7dbd76 ("memcg: keep folio's objcg same
-as its node"). The bad pointer is an MGLRU list head in a freed
-mem_cgroup_per_node:
-
-  slab mem_cgroup_per_node start ff31bfa36a3c9e00 pointer offset 528 size 1920
-  list_del corruption. next->prev should be ffacf881ccc70e08, but was ff31bfa36a3ca010. (next=ff31bfa36a3ca010)
-
-When a memcg goes offline, __lru_gen_reparent_memcg() moves its MGLRU
-lists to the parent. It moves only the generations (gens) from min_seq
-to max_seq, and it puts each list at the same index in the parent.
-
-A folio's gen in folio->flags can be ahead of the list it is on. In the
-parent, the same index can stand for an older gen, so the folio's gen
-can end up older than its list. Once the parent's min_seq passes that
-gen, sort_folio() puts the folio on the list for max_seq + 1, where it
-stays until the next aging.
-
-If the parent goes offline before that aging, the folio is not moved to
-the grandparent. It stays on the parent's list after the parent is
-freed, and the next list_del() on it touches freed memory. This needs
-two cgroups on one branch to go offline one after the other, such as a
-container and then its pod.
-
-The parent always has MAX_NR_GENS gens at this point, so every index is
-valid in it. Move all MAX_NR_GENS lists, not only the gens from min_seq
-to max_seq.
-
-A reproducer that drives these steps through the lru_gen debugfs file
-gets a KASAN use-after-free on the freed mem_cgroup_per_node without
-this patch, and no report with it.
-
-Fixes: f304652609ea ("mm: vmscan: prepare for reparenting MGLRU folios")
-Reported-by: Noah Feldt <noah@feldt.systems>
-Closes: https://lore.kernel.org/all/20261110132853.71228-1-noah@feldt.systems/
-Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: <stable@vger.kernel.org>
----
- mm/vmscan.c | 12 +++++++++---
- 1 file changed, 9 insertions(+), 3 deletions(-)
-
-diff --git a/mm/vmscan.c b/mm/vmscan.c
-index 6a1af9b92349..902616a3b755 100644
---- a/mm/vmscan.c
-+++ b/mm/vmscan.c
-@@ -4751,19 +4751,25 @@ void max_lru_gen_memcg(struct mem_cgroup *memcg, int nid)
-  * The same generation has different meanings in the parent and child memcg,
-  * so this compromise method will cause the LRU inversion problem. But as the
-  * system runs, this problem will be fixed automatically.
-+ *
-+ * Move all MAX_NR_GENS lists, not only the gens from min_seq to max_seq.
-+ * An earlier reparenting can leave a folio whose gen is older than the list
-+ * it is on. Once min_seq passes that gen, sort_folio() puts the folio on the
-+ * list for max_seq + 1, where it stays until the next aging. If that list
-+ * were skipped, the folio would stay behind on a memcg that is about to be
-+ * freed. The parent has MAX_NR_GENS gens here, so every index is valid in it.
-  */
- static void __lru_gen_reparent_memcg(struct lruvec *child_lruvec, struct lruvec *parent_lruvec,
- 				     int zone, int type)
- {
- 	struct lru_gen_folio *child_lrugen, *parent_lrugen;
- 	enum lru_list lru = type * LRU_INACTIVE_FILE;
--	int i;
-+	int gen;
- 
- 	child_lrugen = &child_lruvec->lrugen;
- 	parent_lrugen = &parent_lruvec->lrugen;
- 
--	for (i = 0; i < get_nr_gens(child_lruvec, type); i++) {
--		int gen = lru_gen_from_seq(child_lrugen->max_seq - i);
-+	for (gen = 0; gen < MAX_NR_GENS; gen++) {
- 		long nr_pages = child_lrugen->nr_pages[gen][type][zone];
- 		int child_lru_active = lru_gen_is_active(child_lruvec, gen) ? LRU_ACTIVE : 0;
- 		int parent_lru_active = lru_gen_is_active(parent_lruvec, gen) ? LRU_ACTIVE : 0;
--- 
-2.51.0
-
+T24gVHVlLCBOb3YgMTAsIDIwMjYgYXQgMTI6MjY6Li4uLCBNaWNoYWVsIFMuIFRzaXJraW4gd3Jv
+dGU6Cj4gaG93ZXZlciwgZGV2aWNlIHJlYWR5IG1lYW5zIHlvdSBjYW4gZ2V0IGNhbGxiYWNrczog
+Y29uZmlnCj4gYW5kIHZxLgo+Cj4gZGlkIHlvdSBhdWRpdCB0aGUgZHJpdmVyIHRvIG1ha2Ugc3Vy
+ZSB0aGlzIGlzIHNhZmUgd2hpbGUKPiBwcm9iZSBkaWQgbm90IHlldCBwb3B1bGF0ZSBhbmQgcmVn
+aXN0ZXIgdGhlIGRldmljZT8KClRoYW5rcyBmb3IgdGhlIHJldmlldy4KCkNvbmZpZyBjYWxsYmFj
+a3MgYXJlIGZpbmU6IGNvbmZpZ19jb3JlX2VuYWJsZWQgc3RheXMgZmFsc2UgdW50aWwKcHJvYmUv
+cmVzdG9yZSByZXR1cm5zLCBzbyBhIGNvbmZpZyBjaGFuZ2UgaXMgZGVmZXJyZWQgdW50aWwgdGhl
+bi4KCkZvciB2cSBjYWxsYmFja3MsIHRoZXJlIGlzIGEgcmVhbCBwcm9ibGVtLCBhbHNvIHJlcG9y
+dGVkIGJ5CnNhc2hpa28tYm90OiBhbiBSWC9UWCBpbnRlcnJ1cHQgdGhhdCBhcnJpdmVzIGJlZm9y
+ZQp2aXJ0aW9fY2FuX25hcGlfZW5hYmxlKCkgaW4gdmlydGlvX2Nhbl9vcGVuKCkgY2FsbHMKdmly
+dHF1ZXVlX2Rpc2FibGVfY2IoKSB3aGlsZSBOQVBJIGlzIHN0aWxsIGRpc2FibGVkLCBzbyB0aGUg
+cXVldWUKc3RhbGxzLiBUaGlzIGFscmVhZHkgZXhpc3RzIGluIHRoZSBvcGVuIHBhdGgsIGJ1dCB3
+aXRoIHRoaXMgcGF0Y2gKcmVzdG9yZSBjYW4gbm93IHJlYWNoIGl0LgoKSSB3aWxsIGZpeCB0aGF0
+IGZpcnN0IGluIGEgc2VwYXJhdGUgcGF0Y2ggYW5kIHNlbmQgdjIgYXMgYQp0d28tcGF0Y2ggc2Vy
+aWVzLgoKVGhhbmtzLApTZW9uZ2h5ZW9u
