@@ -1,60 +1,121 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794406452;
-	b=pkuDFMRr4V5cc7pCEN8z5tqBJO/i2/0E/X4hOwHLHMZHz0nSiDa1eZjamJxVhyAbXjMW
-	 5t21lVYfMhrTxPfFou0NC/Vq4IenwVjIa44k0YGhhPAg95VRcvdXruD8WRptwp+UfmF7g
-	 YtvH2kiFFEl4QOJ1T3H6IVOtjaC2RFeJKPqOgJ8o4NOdtFMJ73DB11UId8HkM5AEAvDcm
-	 fIKpoCexwatq/TmZZ4Y/fIBkIebbvnuRd/8pG3fUOwKWU7iQdCO6tSb/YQT0aeLRx8fbD
-	 Tey7YWlK5mcHoRe6mpu2c5u3ixZF4tNBR+405uE8FWd4jFNBgvM3SPrHm8mJlYAH8AA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794406452;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.133.124
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794406457;
+	b=t6yInFe0LNp9ttxtYwQqLOjyeCOQGwU5yMz2JsTnQzkpfrYcE2Gh5/1+HYSo3VcTXRJZ
+	 OC+D81e79vybuWtTnIZc9yNfJEzzg1zCCjc8GuHUeHrgd86hv45IL1QyezGFBbFPma6mS
+	 4qBboXZB3CuJv0zLAkbQLf6h2190k92UPuOlIASmru+Ysu5a2EQ5zeQ0JPEHq/r+w1gOL
+	 GGD0HH6ykvb+upoitsdY5zum3Ke1y28StUybWCdqi1yb28A69aoIqG2KkWnTI+435UBGq
+	 qpVB2/mZOfntn5iGfsmCX0V/DVGF2agVyBbhF9MHe5ZRS/Hcz7IYWlhM8bsgVXlOGxw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794406457;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:MIME-Version:References:In-Reply-To:From:Date:
+	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=trPIUdSSKjXgSUN1AJr3c8r0RrVvSESVFD0KpzTUtgg=;
-	b=hvuXxJQmmuZj8fXbrq9p3MtigQMqDQo+CSJdNOFVq8aTl5cfzHY1OZG4pONq/YRslIXL
-	 bxCoFRGi63IcEiEIYcBF3BwkAH/AOLms8vycBIayxP/EEBF0+m0GASzeiwfCcUN30V5C8
-	 tfmUZeFZDidoh6GAvsDVbTs5FtQ7QfPkNiawSSW4VysllgcGNqksojW/x0UIus4im++ZL
-	 ptb+kX9sdOmMzH59GMo4YVa2VhTYpKbf613HPhPm+VUNPt7soMLZhYgT3uouTVD5tDIEC
-	 fig1b3BWI9iWLteE/WIZK0V6V72OIGl9cI5pHoAXPkfCj4vbfDxfd9dQZHdiD/NWGcA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XpY3d5VD;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	bh=tJEwk0yeQZ5BY0HMxF5cN+S8qbdxO56EHI6uRg64h7U=;
+	b=r+lLfHaYCirBndOsuYc7wFUEUkhgjgPAQFNw8qO1RURAu5xI9Z4rdnuAyssp/SJjzkWA
+	 NhwgqFZ6u39346ugXBQhla8gUD5HEvrkwKJk0UUvKx0Up/mza9YIFnS2npMjYhtcX3tPj
+	 jxhrTKBr1KH8s0d9stxHBAvq7VNou9OHcMkybdpfqDM0GHOITarMaEAXVXBuzUc6ZsJsi
+	 gLKVGJ6ivndoR0g6244DqdUuA4o9TV+wj6KVHF5vaLXdy+UjNi6ExIpS2z6ipbkE22qZ3
+	 M0MTTjhAb83GbUFIHrJLL4Lrma+5doKac6xSsoarHeDHaFGV2lpblNeU6+wAhkGsisQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=L9DIM96a;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=O+Cibhiu;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA691606A330;
-	Wed, 11 Nov 2026 14:14:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F63B606A88D
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 14:14:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F63B606A88D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XpY3d5VD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB8521F00A06;
-	Wed, 11 Nov 2026 14:14:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794406452;
-	bh=trPIUdSSKjXgSUN1AJr3c8r0RrVvSESVFD0KpzTUtgg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XpY3d5VD5td8Eulw4MZ81BCSIWs127cjPh1EdZ6H2LncD4viLHnAFIDxBzVJofK2R
-	 VP9mP5wZJ4btyiwM5seJc3ub7V/VD0oxosuIfcLFSpRqnmBo6vZgGS+c2b211MJLiW
-	 za7fDpGcxwrmfWn6fm1jojCcYCbDzigC2u5h0dwvun+z/yGeyUJF7zPz/4uY0pwL7j
-	 DV2sTkylED1sNvDrVxD3X3Li4akwsmGNM7zXiERFqeBIcpKa/nxzyziakkjFyQyzDf
-	 yzJc+/pc8N45wVXc78fPglmol9D3170aecc+o+E8vui10ubyB9B6bXwiNU2805IisY
-	 wtvolFbxdtAfA==
-From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
-To: Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Naveen N Rao <naveen@kernel.org>,
-	"David S . Miller" <davem@davemloft.net>
-Cc: linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org,
-	Mani Tofigh <mt4022@columbia.edu>
-Subject: [PATCH v3 5/5] kprobes: Add KUnit test cases for kprobes regressions
-Date: Wed, 11 Nov 2026 23:14:08 +0900
-Message-ID: <179440644868.328088.1235522965655007009.stgit@devnote2>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <179440640176.328088.17106877243326801914.stgit@devnote2>
-References: <179440640176.328088.17106877243326801914.stgit@devnote2>
-User-Agent: StGit/0.19
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=L9DIM96a;
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=O+Cibhiu
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1794406456;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=tJEwk0yeQZ5BY0HMxF5cN+S8qbdxO56EHI6uRg64h7U=;
+	b=L9DIM96ag7eNSQenf9LvhuxDE8Y+okz+V5/UDdgvs0et6BG1+XFbQxh91+b4nbcG5Z7zro
+	S3MZw+eRa5CwXGN394jasjX27Ddizuc+bCh/bWIdcCZTQMZGVKWSc9L99LOxyoHfbk5KR0
+	XLKinpTkDaKOlVZnTY7RU1QqYKTc0l4=
+Received: from mail-ej1-f72.google.com (mail-ej1-f72.google.com
+ [209.85.218.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-628-FsJlDxxvPRm0tXWov_t9RQ-1; Wed, 11 Nov 2026 09:14:14 -0500
+X-MC-Unique: FsJlDxxvPRm0tXWov_t9RQ-1
+X-Mimecast-MFC-AGG-ID: FsJlDxxvPRm0tXWov_t9RQ_1794406453
+Received: by mail-ej1-f72.google.com with SMTP id a640c23a62f3a-c50547b4992so154058266b.3
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 06:14:14 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794406453; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ULK6uhuTvhxlZsI233jEKcFtNyZsIaGdN/XATm21wuRFVuOTTKpO/RDH5m6Ejhe7ce
+         23sPRx7+4UOs8XGK09TPzIoOauV1Mqmk2j5dAQReCRLIbxOmvol4RjjbN1mLxYYQLzBa
+         dHgIr+x5LZquAvI6OW5/hn0QXooczVuVeZ20LPbCG6wJZ+8whoLSb17wQwSa0QMuG2cJ
+         bG21u1lnS4SVLs1/fcXPJ6YZhqeXscwdSynNxoPXMINV6xXZbFSg5vntfnyN70UEPFAt
+         UmLLmPOkPvLlG5JDfMUtdRXJAyEm2rlnCIpAWzIsNdEg0lSNpYGtM0e3vgmT7WyjI9ps
+         PfDg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=tJEwk0yeQZ5BY0HMxF5cN+S8qbdxO56EHI6uRg64h7U=;
+        fh=FZ9tQL8rBqhHGLL5+yHFGSR+258IoZUFQu47k++QV9A=;
+        b=lf1DMN9rUZTGa4X0Jf+us+99BKBc5o00F8tyjDt10I+Y3zQeFFJ2jm4hiewT/4RMiS
+         v/nZn3pWkRGAbeHam2v1icNyiJr1Eqi29obKOXPN/M0xiAK+IUTRE4U+1htz2oXC6k+f
+         Kp2jTZCIv/3Bc2f0f0er9OnGDW58y2OHYdJgsBSXXr3NYM+KQrvs7khkHtKizDFcNVRj
+         GqwpTWujKJVU0s2/pZ+M4Xmr/+QQ78sP05C6Mc/hxNLVRrrC4+KLEh3OIEJJIm9eQqJU
+         OMcGkEWQt/kYiCaudh7Ag+QKslQNTGqr0Ta71DTvvuHDaK+lgvV8vta0IJcfpLisP9bg
+         +0hA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1794406453; x=1795011253; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=tJEwk0yeQZ5BY0HMxF5cN+S8qbdxO56EHI6uRg64h7U=;
+        b=O+CibhiuAUairrUxpqFZ59nnHHKKYUe4X/WfhOlj6LbLJYfuA1x6nPsSxBhYr+t6QM
+         tkmz5vsSWUYkGpZWr2xvI00arb3Kf0IJbcJW+gyDjpDgcmUVAzSg25m62Y821uAL9hDw
+         jd73R0O5nKUgiBMjAwqxk14gKmiaEqZtIrj/4eeEt9MV/Y+RbonPIzxMVrNfIoPZQQZG
+         quUaQItc2xzB51JJVKYOA7BjmvqHsoqzeFQNK0O6ym/1jXo5RuYtAKqWZCnsA4gIR8sg
+         w90roKWOP9Mh8342NPkyALH5Zf2TGF4yS+EGGbUJyx/YI8ZgW+2gs7mSHsRVfEubFNar
+         jRXQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794406453; x=1795011253;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tJEwk0yeQZ5BY0HMxF5cN+S8qbdxO56EHI6uRg64h7U=;
+        b=mjV9UpAIFrGw06SwrL5xnq8Y5VJwco+DveQpGE2AEBDhAYpd5YjxYfXZa/wnI/+92z
+         mduSavhDp5GhS+n+SKH/UETPFA6EHOgbblP+JuzKqILxK6CFEnAj4EJFl1+ZVeLLf3Zd
+         lL/m8VOIMq/0gPOWe4fDmZ8pSVsdOMBnHFPTonOK6DmHIQwduOoX9ej9upCgPJRyi8u9
+         Ip2YFQaDwQ7v8JVIYIUvtDaAtr43ynm2mYRBD6DOgRXAv2IQI+P5CqbZbAdbtC21eyaJ
+         ybDm+ORMCqvVa94XKQgYd/0HAyBw36sTcmDTAFT/bGbAv5Rm0e6g9xXtllnDm4rYS8fr
+         ZeFw==
+X-Forwarded-Encrypted: i=1; AL+hErEtwgce2HTZhEQ4/365hlpqnSo5en0vePjyImcWXJ+a6SuoBwxCM7uPlSb0oL/0U4WLDib/NLoSN8KiWzY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9HuI4wi7aBBFRpJlmWFh2F81SDNUArXhisk6LGu1i+eEdBWLP3
+	plMazHJVuwLah6i4cPKPf3CKrGa1bmn/xGyPT59xYtkEm7pYS3nHXGhbFZ4F2RITs9ugV098KEg
+	Bh7nnZ6Fc+vrxn3bgg/Y/Ok+24kOdCEc3Eaf3B8QI0wjWGQ1E+zQRmAa7syIFIu+P6f5LIe/f2p
+	ermSXmIampYgoFzLzZ++RTB1y8JjsPR/fDb+/HANjq
+X-Gm-Gg: AYBFou0X9E4hts7nJesHgBQ7Q8N+ahYSMKYcL/244lkIQi4BPLoPC2OSsCkMceX4MvX
+	rB44a+cGOsCZ3QkZVn7jMaK9uivkR1EQEjDNbghQ34xSKeDvAVh8xRyjkz9O3SRHPcVSqvkYFU8
+	g6A4n+XWL2WyO0VBTT/mRf11E8UY8zOeVPM1Vqk7AWgRibKfam/zCjlgTKi2F7K8bquQrelS5pf
+	8Jdrgp48ig9Z7bcqVBD2kHbNEYyeUVRQ0yyUoptEd0GkbRTcoknQ4IHgRoZDA/vlYtksKPQfGD1
+X-Received: by 2002:a17:906:9fd0:b0:c40:5ee3:8698 with SMTP id a640c23a62f3a-c5066b563cfmr215906066b.31.1794406453467;
+        Wed, 11 Nov 2026 06:14:13 -0800 (PST)
+X-Received: by 2002:a17:906:9fd0:b0:c40:5ee3:8698 with SMTP id
+ a640c23a62f3a-c5066b563cfmr215902966b.31.1794406453032; Wed, 11 Nov 2026
+ 06:14:13 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,222 +125,114 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+References: <20261015113738.435986-1-juhee.kang@redhat.com> <a626dba9-6aa2-4cf9-883d-8c6f94770d6c@oss.nxp.com>
+In-Reply-To: <a626dba9-6aa2-4cf9-883d-8c6f94770d6c@oss.nxp.com>
+From: Juhee Kang <juhee.kang@redhat.com>
+Date: Wed, 11 Nov 2026 23:14:01 +0900
+X-Gm-Features: AclHuK-LaKGJTHFBtUxEsdfkP6i27gB8i--xEgkyocEdovtvbwJs8a06wnvjStU
+Message-ID: <CANBgpCxKYVExEgpS-8PqWqHvXV1nkF+1CzekQKnHGsTJCq7WKA@mail.gmail.com>
+Subject: Re: [PATCH v2] clocksource/drivers/nxp-stm: Register sched_clock once
+To: Daniel Lezcano <daniel.lezcano@kernel.org>
+Cc: Thomas Gleixner <tglx@kernel.org>, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, NXP S32 Linux Team <s32@nxp.com>, 
+	Dustin Black <dblack@redhat.com>, stable@vger.kernel.org, 
+	Ghennadi Procopciuc <ghennadi.procopciuc@oss.nxp.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+Hi Daniel,
 
-Add KUnit test cases to lib/tests/test_kprobes.c to verify that the
-recent regressions in kprobes registration, ftrace ops switching, and
-optimization state transitions are resolved:
+Just following up on this v2. Ghennadi reviewed and tested the patch.
+Could you take a look when you have a chance and let me know
+if anything else is needed?
 
-1. test_kretprobe_unregistered_cleanup:
-   Verifies that unregistering an uninitialized or already-unregistered
-   kretprobe does not cause a NULL pointer dereference or double free.
+Thanks.
 
-2. test_kretprobe_rereg_by_symbol:
-   Verifies that attempting to re-register an active kretprobe by symbol
-   name fails with -EINVAL and does not destroy the active probe's
-   underlying rethook state.
-
-3. test_kprobe_ftrace_post_handler_switch:
-   Verifies that adding a second kprobe with a post_handler to a probe
-   point armed with kprobe_ftrace_ops correctly switches to
-   kprobe_ipmodify_ops and both probes cleanly unregister without
-   disarming errors (-ENOENT).
-
-4. test_optprobe_rearm_unoptimizing:
-   Verifies that disabling an optimized kprobe on a notrace target and
-   immediately re-enabling it before the optimizer thread runs works
-   cleanly without overwriting the jump instruction or crashing.
-
-Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
----
-Changes in v3:
- - Check that the jump opcode at *opt_kp.addr is preserved across
-   disable_kprobe() and enable_kprobe() in
-   test_optprobe_rearm_unoptimizing().
-Changes in v2:
- - Probe a notrace target function (kprobe_opt_target) in
-   test_optprobe_rearm_unoptimizing() so that jump optimization is tested
-   even when CONFIG_KPROBES_ON_FTRACE=y.
- - Guard test_optprobe_rearm_unoptimizing() with
-   !IS_MODULE(CONFIG_KPROBES_SANITY_TEST) since
-   wait_for_kprobe_optimizer() is not exported to modules.
- - Replace KUNIT_ASSERT_EQ() with KUNIT_EXPECT_EQ() while stack-allocated
-   probes are registered to prevent stack use-after-free on test failure.
----
- lib/tests/test_kprobes.c |  139 ++++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 139 insertions(+)
-
-diff --git a/lib/tests/test_kprobes.c b/lib/tests/test_kprobes.c
-index 06e729e4de05..df3f080b1852 100644
---- a/lib/tests/test_kprobes.c
-+++ b/lib/tests/test_kprobes.c
-@@ -358,8 +358,136 @@ static void test_stacktrace_on_nested_kretprobe(struct kunit *test)
- }
- #endif /* CONFIG_ARCH_CORRECT_STACKTRACE_ON_KRETPROBE */
- 
-+/* Test for: kprobes: Fix double free and NULL deref in unregister_kretprobes() */
-+static void test_kretprobe_unregistered_cleanup(struct kunit *test)
-+{
-+	struct kretprobe unreg_rp = {
-+		.kp.symbol_name = "kprobe_target",
-+	};
-+
-+	current_test = test;
-+
-+	/* Unregistering a probe that was never registered must return cleanly */
-+	unregister_kretprobe(&unreg_rp);
-+
-+	/* Double unregister of a valid registered probe */
-+	KUNIT_ASSERT_EQ(test, 0, register_kretprobe(&unreg_rp));
-+	unregister_kretprobe(&unreg_rp);
-+	/* Second unregister must not cause double-free or NULL pointer dereference */
-+	unregister_kretprobe(&unreg_rp);
-+}
-+
-+/* Test for: kprobes: Validate re-registration earlier in register_kretprobe() */
-+static void test_kretprobe_rereg_by_symbol(struct kunit *test)
-+{
-+	struct kretprobe test_rp = {
-+		.kp.symbol_name = "kprobe_target",
-+		.handler = return_handler,
-+		.entry_handler = entry_handler,
-+	};
-+
-+	current_test = test;
-+	KUNIT_ASSERT_EQ(test, 0, register_kretprobe(&test_rp));
-+
-+	/* Verify the probe is live and functional */
-+	krph_val = 0;
-+	target(rand1);
-+	KUNIT_EXPECT_EQ(test, krph_val, rand1);
-+
-+	/*
-+	 * Attempt re-registration with symbol_name (with kp.addr cleared).
-+	 * Must fail with -EINVAL and NOT destroy the live probe's rethook.
-+	 */
-+	test_rp.kp.addr = NULL;
-+	KUNIT_EXPECT_EQ(test, -EINVAL, register_kretprobe(&test_rp));
-+
-+	/* The original kretprobe must still be functional */
-+	krph_val = 0;
-+	target(rand1);
-+	KUNIT_EXPECT_EQ(test, krph_val, rand1);
-+
-+	unregister_kretprobe(&test_rp);
-+}
-+
- #endif /* CONFIG_KRETPROBES */
- 
-+#if defined(CONFIG_KPROBES_ON_FTRACE)
-+/* Test for: kprobes: Switch ftrace ops when adding probe with post_handler */
-+static void test_kprobe_ftrace_post_handler_switch(struct kunit *test)
-+{
-+	struct kprobe kp_entry = {
-+		.symbol_name = "kprobe_target",
-+		.pre_handler = kp_pre_handler,
-+	};
-+	struct kprobe kp_post = {
-+		.symbol_name = "kprobe_target",
-+		.post_handler = kp_post_handler,
-+	};
-+	int ret;
-+
-+	current_test = test;
-+
-+	/* 1. Register first probe without post_handler (armed with kprobe_ftrace_ops) */
-+	KUNIT_ASSERT_EQ(test, 0, register_kprobe(&kp_entry));
-+
-+	/* 2. Register second probe with post_handler at same IP (must switch ops) */
-+	ret = register_kprobe(&kp_post);
-+	KUNIT_EXPECT_EQ(test, 0, ret);
-+	if (!ret) {
-+		/* 3. Execute target function to trigger both */
-+		preh_val = 0;
-+		posth_val = 0;
-+		target(rand1);
-+		KUNIT_EXPECT_NE(test, 0, preh_val);
-+		KUNIT_EXPECT_NE(test, 0, posth_val);
-+
-+		/* 4. Unregistering must successfully disarm without -ENOENT */
-+		unregister_kprobe(&kp_post);
-+	}
-+	unregister_kprobe(&kp_entry);
-+}
-+#endif
-+
-+#if defined(CONFIG_OPTPROBES) && !IS_MODULE(CONFIG_KPROBES_SANITY_TEST)
-+static u32 (*opt_target)(u32 value);
-+
-+static noinline notrace u32 kprobe_opt_target(u32 value)
-+{
-+	return (value / div_factor) + 2;
-+}
-+
-+/* Test for: kprobes: Do not overwrite jump instruction when re-arming unoptimizing probe */
-+static void test_optprobe_rearm_unoptimizing(struct kunit *test)
-+{
-+	struct kprobe opt_kp = {
-+		.symbol_name = "kprobe_opt_target",
-+		.pre_handler = kp_pre_handler,
-+	};
-+	kprobe_opcode_t jmp_op;
-+
-+	current_test = test;
-+	KUNIT_ASSERT_EQ(test, 0, register_kprobe(&opt_kp));
-+
-+	/* Allow background optimizer thread to jump-optimize the probe */
-+	wait_for_kprobe_optimizer();
-+	jmp_op = READ_ONCE(*opt_kp.addr);
-+
-+	/* Temporarily disable probe (queues on unoptimizing_list, leaves jump) */
-+	KUNIT_EXPECT_EQ(test, 0, disable_kprobe(&opt_kp));
-+
-+	/* Immediately re-enable (re-arm) before optimizer thread unoptimizes */
-+	KUNIT_EXPECT_EQ(test, 0, enable_kprobe(&opt_kp));
-+
-+	/* Verify jump opcode was not overwritten by a breakpoint on re-arm */
-+	KUNIT_EXPECT_EQ(test, jmp_op, READ_ONCE(*opt_kp.addr));
-+	preh_val = 0;
-+	opt_target(rand1);
-+	KUNIT_EXPECT_NE(test, 0, preh_val);
-+
-+	unregister_kprobe(&opt_kp);
-+}
-+#endif
-+
- static int kprobes_test_init(struct kunit *test)
- {
- 	KP_CLEAR(kp);
-@@ -380,6 +508,9 @@ static int kprobes_test_init(struct kunit *test)
- 	stacktrace_target = kprobe_stacktrace_target;
- 	internal_target = kprobe_stacktrace_internal_target;
- 	stacktrace_driver = kprobe_stacktrace_driver;
-+#if defined(CONFIG_OPTPROBES) && !IS_MODULE(CONFIG_KPROBES_SANITY_TEST)
-+	opt_target = kprobe_opt_target;
-+#endif
- 	rand1 = get_random_u32_above(div_factor);
- 	return 0;
- }
-@@ -391,10 +522,18 @@ static struct kunit_case kprobes_testcases[] = {
- #ifdef CONFIG_KRETPROBES
- 	KUNIT_CASE(test_kretprobe),
- 	KUNIT_CASE(test_kretprobes),
-+	KUNIT_CASE(test_kretprobe_unregistered_cleanup),
-+	KUNIT_CASE(test_kretprobe_rereg_by_symbol),
- #ifdef CONFIG_ARCH_CORRECT_STACKTRACE_ON_KRETPROBE
- 	KUNIT_CASE(test_stacktrace_on_kretprobe),
- 	KUNIT_CASE(test_stacktrace_on_nested_kretprobe),
- #endif
-+#endif
-+#if defined(CONFIG_KPROBES_ON_FTRACE)
-+	KUNIT_CASE(test_kprobe_ftrace_post_handler_switch),
-+#endif
-+#if defined(CONFIG_OPTPROBES) && !IS_MODULE(CONFIG_KPROBES_SANITY_TEST)
-+	KUNIT_CASE(test_optprobe_rearm_unoptimizing),
- #endif
- 	{}
- };
+On Thu, Oct 15, 2026 at 8:40=E2=80=AFPM Ghennadi Procopciuc
+<ghennadi.procopciuc@oss.nxp.com> wrote:
+>
+> On 10/15/2026 2:37 PM, Juhee Kang wrote:
+> > [You don't often get email from juhee.kang@redhat.com. Learn why this i=
+s important at https://aka.ms/LearnAboutSenderIdentification ]
+> >
+> > Each probe updates stm_sched_clock before calling sched_clock_register(=
+)
+> > again. The call then subtracts the counter value saved during the
+> > previous registration from the new STM's counter. If the new counter is
+> > smaller, the subtraction wraps and the timestamp jumps forward.
+> > (e.g. from 0.4 to 32.9 seconds below)
+> >
+> >   [    0.403653] sched_clock: 32 bits at 132MHz, resolution 7ns, wraps =
+every 16243448316ns
+> >   [    0.404056] clocksource: timer@40120000: mask: 0xffffffff max_cycl=
+es: 0xffffffff, max_idle_ns: 14456668980 ns
+> >   [   32.890509] sched_clock: 32 bits at 132MHz, resolution 7ns, wraps =
+every 16243448316ns
+> >   [   32.890882] clocksource: timer@40124000: mask: 0xffffffff max_cycl=
+es: 0xffffffff, max_idle_ns: 14456668980 ns
+> >
+> > To fix this, register sched_clock once at the end of the first
+> > successful probe. Clocksource and per-CPU clockevent registration
+> > remain unchanged.
+> >
+> > Fixes: cec32ac75827 ("clocksource/drivers/nxp-timer: Add the System Tim=
+er Module for the s32gx platforms")
+> > Reported-by: Dustin Black <dblack@redhat.com>
+> > Signed-off-by: Juhee Kang <juhee.kang@redhat.com>
+> > Reviewed-by: Ghennadi Procopciuc <ghennadi.procopciuc@oss.nxp.com>
+> > ---
+> > Changes in v2:
+> >   - add the comment
+> > ---
+> >  drivers/clocksource/timer-nxp-stm.c | 13 +++++++++----
+> >  1 file changed, 9 insertions(+), 4 deletions(-)
+> >
+> > diff --git a/drivers/clocksource/timer-nxp-stm.c b/drivers/clocksource/=
+timer-nxp-stm.c
+> > index 6fe098a4a33f..23b2d44e4b78 100644
+> > --- a/drivers/clocksource/timer-nxp-stm.c
+> > +++ b/drivers/clocksource/timer-nxp-stm.c
+> > @@ -211,10 +211,6 @@ static int nxp_stm_clocksource_init(struct device =
+*dev, struct stm_timer *stm_ti
+> >         if (ret)
+> >                 return ret;
+> >
+> > -       stm_sched_clock =3D stm_timer;
+> > -
+> > -       sched_clock_register(nxp_stm_read_sched_clock, 32, stm_timer->r=
+ate);
+> > -
+> >         dev_dbg(dev, "Registered clocksource %s\n", name);
+> >
+> >         return 0;
+> > @@ -473,6 +469,15 @@ static int nxp_stm_timer_probe(struct platform_dev=
+ice *pdev)
+> >                         return ret;
+> >         }
+> >
+> > +       /*
+> > +        * STM counters run independently at the same rate. Use the fir=
+st
+> > +        * probed instance for sched_clock to avoid timestamp jumps.
+> > +        */
+> > +       if (!stm_sched_clock) {
+> > +               stm_sched_clock =3D stm_timer;
+> > +               sched_clock_register(nxp_stm_read_sched_clock, 32, stm_=
+timer->rate);
+> > +       }
+> > +
+> >         return 0;
+> >  }
+> >
+> > --
+> > 2.55.0
+>
+> Thank you for addressing this issue!
+>
+> Tested-by: Ghennadi Procopciuc <ghennadi.procopciuc@oss.nxp.com>
+>
+> --
+> Regards,
+> Ghennadi
+>
 
