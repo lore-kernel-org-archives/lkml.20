@@ -1,104 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.49
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794419282;
-	b=fnQWGSjXDcB+BWUErC2oz6Dz/iaRcr5iNnhWh674J+ju+ut+V1sgVYm2UffBkUhYZoer
-	 bBu5qo8fdnoyeqcY7AW33WslucQF8j+2Ao3H3JU85ca3W9BGc/o75Aw+qSdAkHgi9Vg4z
-	 /0I3APbE1mLfm+GDaa9mS0JmSvxitJ+Hr5xSU27f3aXGJOUuM8KsMGb3NNVZ23LcYTJeG
-	 fJnJNYFvW2jWuqAbSI6WQF73uMcFhFL8wufzFAoPK6lsLJjvocBAwOKeYCzodMtFz4dcN
-	 wmtrA4bksUrdQv0sQbSunQblzs9Xd1DGQNakrPImBbr7Az9HAGtUlwY/4CGpgCu6d5g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794419282;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.180
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794419371;
+	b=Q+VBr0oDTQUJjehh86RTAYegi3gcVlLsTD9yh3cYcP2JkejUUHxFFaIVBQBqQTjw05IK
+	 5q9C8216ezrX00bS30VualFgWZ7Zpn+N3BTap+ovbo50SISbJFAiwlefJBasvFhUtVDj1
+	 b+nA02CFtG690y908XxvlgUQxXI05LIzA94V8QXLFrWKfu13MGXVOiJyQ0gLu/myhveXG
+	 8jbBrXoQ1sGQ6ab81Bm03DkbfH2U5MgSuRkTzqHRfdiyIyOCTIbxjgh3Qj+BEGL0tyyK4
+	 ScqUa8N2j7e2h+wEpZ62CkWaC4nLwl3BsN7gYd1o7P3n/NRB84Pt7CJmWL0zEtcZ6ZA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794419371;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=iHEyEjx61i5+KpzynKjMkfGNsZoJzf5A43ccLavLZAI=;
-	b=ZHoB0NfbCXpJS32ZttDL4supgSCjiol9chOBL75I/Iag/PyyAnQQAl3eaV1LaKw1CYNR
-	 UJdGv1lmvbPSrSD6MKC3BH+8xhC3xFxsUF5+zZ4M6qMpuOsjAW/aejxYEOQ9Sv6w4751l
-	 TVjdz7MG9RyHCOwpxv3IH+/kOhROSRiHXxdvRRAN8twzwpCWGxf7sqhxHckY59RiaPOSO
-	 HLMjG87qmo5Icq6D9wX8xmKq7OvCsUMy832vj8AJqAoZ01UhYDnIbhG0aEUhgQZKa78T0
-	 uBOnZAYx0ybRRq6DLqwo4l8Lk9hEkskFk8Jjh/oD+Ae51jBDhw2MyIZBvb64B5ciGRg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=P0LlEVmtKbYkhBHowVJUvrAVEwB7x6mCjbop+wAsjGs=;
+	b=OWefaECE6BLVxOF1367fCm6Hp/NDvOnifNmKisZ48d9pizKKXto97aZCmLClAvHxQTRH
+	 XsrXXL3pXa8xug1KsIqMo/kuRoDW6AEjn8osABV6tW6ySXPcda+Lz0ozq0lWuu0GPzqJH
+	 Eds4hohj4UAQnYOLS12DbxGn4WW2el+Xr2hKHPU7hyMF8iOYyfqFxHO1PllASNoESpolQ
+	 Ph2Ri0I8juO6LURKF9hHhjZCfgrh7XWgU6Gb0bgolbBalm3mR9LZsmh7QtJSB1bz58s5g
+	 vJS9LSi1J+/pUhk82bZj+9RJpOkJR5J+qEh2Dhe29L5+lbI35axQGA08/ifhNJEWd3Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=D83WIRG3;
-	arc=none smtp.remote-ip=74.125.224.49
-Received: from mail-yx1-f49.google.com (mail-yx1-f49.google.com [74.125.224.49])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WmWdrLTA;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.180
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73D0A606A88B
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 17:48:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73D0A606A88B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DACAE606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 17:49:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DACAE606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=D83WIRG3
-Received: by mail-yx1-f49.google.com with SMTP id 956f58d0204a3-67c6a0abc2eso1181257d50.0
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 09:48:02 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WmWdrLTA
+Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-36f8cdd30beso6052478eec.1
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 09:49:30 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794419370; cv=none;
+        d=google.com; s=arc-20260327;
+        b=rxsKnEk7g9YuXY8v8zcHFMpYs7K5seYp1jXT7+FbnUvp9JA53RsTajmzKPp0ESI1tA
+         OLLht/LXsj3PMHb99NAGHi3VQuekBB9tyApzF7yN+MJkFROgEg1IV6CgetBIyQ74SXJc
+         k4MGAeTgeivREvm1BbcYU6b6vEbbuiFIOfZnrl9coA99kVaqI8dNbBCiehTX9itPT0zw
+         GnQyPxhaK8Auzj73OtF8o8CUKOEUwg0bjhe/8ZkSGGcBianRIh3tqApShy+4mplc+rH5
+         mCXEnf+zc9IldPpr/LOd14ydSwmTow5RyD023+epmt9whBAWnwhQQciiaKy+hPTV+VyN
+         DVRA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=P0LlEVmtKbYkhBHowVJUvrAVEwB7x6mCjbop+wAsjGs=;
+        fh=iLc3eUB0fI383nnTbxqcYILMAEcaLTnTK0IAn7UhHC0=;
+        b=VKU4eLQqgHASaqsBl8E0bGAJoL4BpqbFNeTCcnzJyQ9FyPqMOyOW0Cq8pyCKfHrIW7
+         oOBlRpR/wx6RS54jIOQQFnmf+6gXeec6XIV7kt394I6XJpl4L9ElCQ8WFPR6tAULoKSx
+         MxB+UM3U1zG5qc6+pFfG2VQBTnydvAnrTLnmPDFcLShqdUWHfnwWPa8QLk+i1kPx6Yx1
+         9JEFDAFjx11oC43T9IIhspo0MVUrmC/D5mfWT0piYDMx+Ld0n7aoVO2NkGQCO6LN0RZw
+         ipqAn9oUQWBA4iiZ0jlknFUsIRKQYumYcrH7pVIopz7U+HkWp2gEHFKGweH8+9U4hvzG
+         B3TA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794419281; x=1795024081; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=iHEyEjx61i5+KpzynKjMkfGNsZoJzf5A43ccLavLZAI=;
-        b=D83WIRG3J/Z+076mzvh/YssO+Jre6Z7MuWj0DlXDwtQsZ2wYkARYNwMoORfVP375VC
-         NWqe+5jVeq0bizthE1v7GvtERH2otTKWL6Zj+HaCaC+c6/Uba4hwn14MPXfjzennzNIe
-         Kk5I0WV6SBG98chNTcd07LAtSKLPedPvr/Glmq+52cS8ADs3jHk38vGrvzFKVBNDiyze
-         om/99G7o82pb2HD584tzROXFbuHLbnqzxE8+FvQ57SDQnl5ouuron6fOZgAls9BHjV2Y
-         cRjifjJ9CSYfdE1vaq99GHt0x9+I0j8eIQQdMKgGigGFDny5VCiZE9JAwB+0RxaQgp7f
-         cgAg==
+        d=gmail.com; s=20260707; t=1794419370; x=1795024170; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=P0LlEVmtKbYkhBHowVJUvrAVEwB7x6mCjbop+wAsjGs=;
+        b=WmWdrLTAMz51OJvfqBlkxREe8w5ZZlX9pq5Mjk5ePhW52XUz38wj54Wyp/6Cr+DzGx
+         JE+M3cZnUA7GzUAg9Mh11pxcBWfvK8CNRumwG+ZBobsrVgMVIhNFrioxpuuNf611MGW7
+         M/9qJ5zDbvTzNUbDPk5V4iaDpMjLnici/uUiv5ZleuEg0UHmdhIDV2GKxkU8+12wPyr5
+         E5xPiVS+YqxcGj9LWIPoOdIkVgnjzm4LBAupubZHdmjcSeDd6e4k4H00WJsHnKyUW8Qu
+         7L6pqAG2oymoUQuCLLlGG4XYXywN7E4TsjOwfyhs0yMcG1W1y9TlGPeW6JUpjOVrSddl
+         M79Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794419281; x=1795024081;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=iHEyEjx61i5+KpzynKjMkfGNsZoJzf5A43ccLavLZAI=;
-        b=Pnc5vA9PI99zJ0SMZGkEJQBrrqMrHTAjw/2AslM5j89r56reAi8MtaQ2Fsabqsbasi
-         +uKfoJeZ6G3pMwKRaRoOD2pvf2aM8rCfrHrHhUhh/3VHUW/aeGlP5wep4DWVwTBqa2qH
-         rkmq9oBTjfWStUWQ50jGoJEx4pkN98QO/kOa0bR0Z11xy/UeI/N2cwrevwTg040QXuy9
-         EstU2ZmjvijemVjzxcXKgvIkD+SqnUzD8RCnSZodoxykHglU69koPnA21OZvojYnuQ10
-         Q5K9DCs3eVK6sQ4LV/eRnCTfnMK/iquZmTM+68quUbSYp3vVg08d0lSzssrzG7wo8cHJ
-         b7sQ==
-X-Forwarded-Encrypted: i=1; AL+hErH8cf/J1REhqt1PgspUjAvA5zrEKxU433lN5vjRCeiXJgywDlDuVsb46UTxhoKUyL6ZmhWPBWszedrOt0M=@vger.kernel.org
-X-Gm-Message-State: APuU4Z91X/7GfdMGhjHB4Ili89UCk/Oc9t/gBGMd9AhUmEz7FinnvNbY
-	BrT0osxUYUnN8TBcQJ5mInrBoLrfynGgSoayRE36U8pAt4+G49fIGEwo
-X-Gm-Gg: AYBFou209N/aPLt7sbWSUXY+CI+pNu6fYANl+uDKYmjGymIIUfsf+xveac1wCVGnY9M
-	lggA/TKwNEu2OicmkV29GOzkhtdxh75F2UmmTmaetHLNgo0GQsdyiDcxFgJ1WzhEZrxi+rVzxYa
-	BmhhD1RqA7bUyOO77NS4SWIFgHntKT+o8xRkab1lUWPaKJwAI4eNfXTQReZ4hD+OmEtniDc8KGO
-	xZY01P5dsAFvlwy8zbABttRqkoKYaqCtGOpCADld7qGtt5QGC/l1d9aX3ra7h7yLdMIK6JZAtGl
-	/G6rNR4nxwf8X4++q+2F2KQI3Wbq+fSa9jHIWigyn00g6wLcVjwSKemKqm3WfFNUBBvw3aiizaR
-	iR55IX6fdlNim0f0VAZjw/+8hR2uhuM9e3Pl5aKeiSmiKlkn0c0DqznhriqfOSa1hHeZWpdzCY1
-	zXAsxrPbMZD1cKJ+sOZ0A1PbqSfiDELe5CF6TZDYdFG8zzo+fjVEAofZW9Ol2EHMVsj2z4HsGPH
-	OnwF65GAbtyqK7oqBdy+a+B64I0mUw31sswjUsmz1+uSQuq8UNQCt2TJ5OdWJHe7RwdNfcwbIGe
-	Isa26/R7bf6dU4/FjcgA3xvLrEYzoxAY4EVayJ0mq1SN02neh4BzbA==
-X-Received: by 2002:a53:bdc1:0:b0:679:a692:630d with SMTP id 956f58d0204a3-67c67ff79dcmr1390972d50.86.1794419281418;
-        Wed, 11 Nov 2026 09:48:01 -0800 (PST)
-Received: from VPN-156-197.vpn.usf.edu ([2607:fe50:0:f802::4046])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67c589c6f24sm5077708d50.12.2026.11.11.09.47.59
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 11 Nov 2026 09:48:00 -0800 (PST)
-From: Juan Agustin Niccolini <juanagusnicco@gmail.com>
-To: davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com
-Cc: horms@kernel.org,
-	ncardwell@google.com,
-	kuniyu@google.com,
-	josef@toxicpanda.com,
-	jbacik@fb.com,
-	shuah@kernel.org,
-	linux-kselftest@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Juan Agustin Niccolini <juanagusnicco@gmail.com>
-Subject: [PATCH net v2 2/2] selftests: net: Add SO_REUSEPORT bind cache test to bind_wildcard.c
-Date: Wed, 11 Nov 2026 12:47:04 -0500
-Message-ID: <20261111174704.24312-3-juanagusnicco@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261111174704.24312-1-juanagusnicco@gmail.com>
-References: <20261111174704.24312-1-juanagusnicco@gmail.com>
+        d=1e100.net; s=20260707; t=1794419370; x=1795024170;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=P0LlEVmtKbYkhBHowVJUvrAVEwB7x6mCjbop+wAsjGs=;
+        b=RRNTWglyIGzWJDvBeZ4zM9JUw9HiKgnDQCK486W6C9Rmnqj/R2GXVC88QYy/WkoBWh
+         Hi6OF9nGVFIoachgwTMK5BzBoeRCJ3x5aXaA/T8+Ue6DtX2OzIT0d+vNVCmiN9P6L7wS
+         90cCtm+ao7QocWIQMQetH3qExbi3aawauAyAeHnE3A8xseEYUawVIVd735w62uVRwFx6
+         xmSkP377Sqz12ZBVXSN4pVTDqqlcNimT8pMQQityDP6K0PHBlK7iwmaVhA6y5ogE1u8m
+         s/c9CO8As/rJ58pvpr86Qq8C8l3Erwd+SniqDl6XZ4izrS803ayyqJg+NpzGAZ+tEp4B
+         u0gg==
+X-Forwarded-Encrypted: i=1; AL+hErEIqdNHcDVkhIE+0P2m3giewOnoVd5tIjy0NxP7vNsDIn0bGB1/b286O5AFSIHbJfvdJQQa7Avyl8xZqdM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+NxiZ9O0BSye/dKq0Q3iwypumqNdb+hSuknchLFw53ZyVAwxby
+	LsZN1kp7zfVGrbGhLbY136sjXi5xhZSEVIKv20UweovvNMVpX+ZmtPzAeUQhn+N00S3XqGi6GfM
+	DKRuaBOdOFvKFL4zfuMoadzCRuYC8flc=
+X-Gm-Gg: AYBFou2NZ8nYlPfKVMkntzmbDAy4Phz5yjbmgNpoj06Hz+l47m33KPzqUzJH/J9iAOn
+	o4boDDg3BraleYpTRz6IqzTMNoTfO25o+Z7yTv+ZYk3Sly9GnatMZo67XlBl3OKCqL2+lamPUFh
+	qxiXt1dUfdYEAqwDkS+YUQbcfsAyIeGGjCwTls5oowJc9bpL++pxqVfr2vdbyl0SH7GSWfvwvyn
+	JbMK/Hv2HXenSb3gsXvB8GPlY6WDmn5YiJAJvQcBc8lF5aEGZT168znaAEyp78oGpe3jge8Wrqg
+	qAQwHv8r0g3r4zh/95k1hM570ulFQEYW98u5ojQNfCf48pIRWErxz9YxldLOlA2d6lclUznqSmv
+	Rl3LCk5x31uMA1ujhU2ebwYdVsfjrS7q/aqdl83HdZRb5ZJWqS05WX2i5VnYpkUp/b++KO5nkBW
+	2Z/JAu4VXl6Xti3/1PDf7R6ufKwA==
+X-Received: by 2002:a05:693c:65cf:b0:375:fb27:2c59 with SMTP id
+ 5a478bee46e88-376861744d2mr3628461eec.20.1794419369880; Wed, 11 Nov 2026
+ 09:49:29 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,95 +104,32 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261111-smsc75xx-rx-fcs-v2-1-216a5f26842a@gmail.com> <e4a20579-2576-4c2e-9120-b675a175a1da@lunn.ch>
+In-Reply-To: <e4a20579-2576-4c2e-9120-b675a175a1da@lunn.ch>
+From: Joas Antonio <joasantonio108@gmail.com>
+Date: Wed, 11 Nov 2026 14:49:17 -0300
+X-Gm-Features: AclHuK9J4PRZYynpn60Trwp0oScnHBsKAesx94T00Mrc6mS2wm4jqy4_tDb4sVM
+Message-ID: <CAOCBhwE84F8ZTAVXwxKEpZz06q3KvD12FkeXp6Nn+MXoUYOWfg@mail.gmail.com>
+Subject: Re: [PATCH net v2] net: usb: smsc75xx: reject frames without a full
+ header and FCS
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: steve.glendinning@shawell.net, andrew+netdev@lunn.ch, davem@davemloft.net, 
+	edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, 
+	netdev@vger.kernel.org, linux-usb@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Add a test for the bug fixed by "tcp: Fix the SO_REUSEPORT bind cache
-admitting a conflicting socket". With a 0.0.0.0 listener on the port, a
-v6only [::] SO_REUSEPORT socket fills the bind cache, and a dual-stack
-[::] SO_REUSEPORT socket must then fail to bind with EADDRINUSE.
+> What is the value of FLAG_RX_ASSEMBLE in flags?
 
-Without the fix:
+It is not set, smsc75xx_info has
 
-  #  RUN           global.reuseport_v6only_cache ...
-  # bind_wildcard.c:860:reuseport_v6only_cache:Expected ret (0) == -1 (-1)
-  # reuseport_v6only_cache: Test terminated by assertion
-  #          FAIL  global.reuseport_v6only_cache
-  not ok 1 global.reuseport_v6only_cache
+        .flags = FLAG_ETHER | FLAG_SEND_ZLP | FLAG_LINK_INTR,
 
-With it:
+so usbnet counts rx_errors when smsc75xx_rx_fixup() returns 0.
 
-  #  RUN           global.reuseport_v6only_cache ...
-  #            OK  global.reuseport_v6only_cache
-  ok 1 global.reuseport_v6only_cache
+> Should rx_length_errors also be incremented?
 
-Signed-off-by: Juan Agustin Niccolini <juanagusnicco@gmail.com>
----
- tools/testing/selftests/net/bind_wildcard.c | 54 +++++++++++++++++++++
- 1 file changed, 54 insertions(+)
+Yes, I will add that to the new check in v3.
 
-diff --git a/tools/testing/selftests/net/bind_wildcard.c b/tools/testing/selftests/net/bind_wildcard.c
-index be3298c791b2..334a0cf87edf 100644
---- a/tools/testing/selftests/net/bind_wildcard.c
-+++ b/tools/testing/selftests/net/bind_wildcard.c
-@@ -811,4 +811,58 @@ TEST_F(bind_wildcard, reuseport)
- 		bind_socket(_metadata, self, variant, i, SO_REUSEPORT);
- }
- 
-+/* The SO_REUSEPORT bind cache (tb->fast_*) filled by a v6only [::] socket
-+ * must not let a dual-stack [::] socket skip the conflict check against a
-+ * 0.0.0.0 listener.
-+ */
-+TEST(reuseport_v6only_cache)
-+{
-+	struct sockaddr_in6 addr6 = {
-+		.sin6_family = AF_INET6,
-+		.sin6_addr = in6addr_any,
-+	};
-+	struct sockaddr_in addr4 = {
-+		.sin_family = AF_INET,
-+		.sin_addr.s_addr = htonl(INADDR_ANY),
-+	};
-+	socklen_t addrlen;
-+	int fd[3], ret;
-+	int on = 1;
-+
-+	ASSERT_EQ(unshare(CLONE_NEWNET), 0);
-+
-+	/* bind(0.0.0.0:P), listen() */
-+	fd[0] = socket(AF_INET, SOCK_STREAM, 0);
-+	ASSERT_GT(fd[0], 0);
-+	ASSERT_EQ(bind(fd[0], (struct sockaddr *)&addr4, sizeof(addr4)), 0);
-+	ASSERT_EQ(listen(fd[0], 1), 0);
-+
-+	addrlen = sizeof(addr4);
-+	ASSERT_EQ(getsockname(fd[0], (struct sockaddr *)&addr4, &addrlen), 0);
-+	addr6.sin6_port = addr4.sin_port;
-+
-+	/* SO_REUSEPORT + IPV6_V6ONLY, bind([::]:P) fills the cache. */
-+	fd[1] = socket(AF_INET6, SOCK_STREAM, 0);
-+	ASSERT_GT(fd[1], 0);
-+	ret = setsockopt(fd[1], SOL_IPV6, IPV6_V6ONLY, &on, sizeof(on));
-+	ASSERT_EQ(ret, 0);
-+	ret = setsockopt(fd[1], SOL_SOCKET, SO_REUSEPORT, &on, sizeof(on));
-+	ASSERT_EQ(ret, 0);
-+	ASSERT_EQ(bind(fd[1], (struct sockaddr *)&addr6, sizeof(addr6)), 0);
-+
-+	/* SO_REUSEPORT, bind([::]:P) conflicts with 0.0.0.0:P. */
-+	fd[2] = socket(AF_INET6, SOCK_STREAM, 0);
-+	ASSERT_GT(fd[2], 0);
-+	ret = setsockopt(fd[2], SOL_SOCKET, SO_REUSEPORT, &on, sizeof(on));
-+	ASSERT_EQ(ret, 0);
-+
-+	ret = bind(fd[2], (struct sockaddr *)&addr6, sizeof(addr6));
-+	ASSERT_EQ(ret, -1);
-+	ASSERT_EQ(errno, EADDRINUSE);
-+
-+	close(fd[2]);
-+	close(fd[1]);
-+	close(fd[0]);
-+}
-+
- TEST_HARNESS_MAIN
--- 
-2.43.0
-
+Thanks for the review,
+Joas
