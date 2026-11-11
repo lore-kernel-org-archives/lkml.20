@@ -1,67 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.222
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794384810;
-	b=tD0ydmsmAyuYHTaAFtldH70jYK+b24fUccoITuX0uixFuQO+0wG5fGv7n5uq4fjKdz9t
-	 pOjsbwEoo77I78G6Zp6AHQ7yPGd6kmITwuccLaoq6vG8ycc3IvhV0QCm196spBmNopW1m
-	 LXwdEmdFFj0Zjk8p/nXj/yGGgnN+eI2yChPFdMppnNM8j+uveIR64L6SEaEm388bOvZ+D
-	 Cd7xweypWT2oSXYuZpwg2Ilo1NZfG9Nk+WBVHQtkN60xgkU5hqtALU3bAESeFuoZI/3Y2
-	 i3LXXtyOcSs68DQFLuJg1wf423E2lSoA80MsjjPrMYBwTJZMWMIZn88FL6XgXusuXWg==
+	t=1794384816;
+	b=08cpbeZ7DdozWjF1NqRYvG36gnFi4hwguP0DjtA4E1E1S121+rEhSUgrwV7+zthksXyN
+	 N+CuXOO99B50Z+J5G2H/Jp4r7QzAmoSeMid2m5Pollja4MG92TtNjlM/unGT4CuLIiLA9
+	 uAfpw90fTppgZI538/562DAN17RzdmP30MeGJC9tzOFLpcNkmp5qBxCXqtK6Jr8O4TF1Z
+	 T1/U45Aud8/myuTeJY346T68pvuejexoJEdZv5DelsA7sZsDBxyrWZq3E4GYG0V55J7VE
+	 wpdC2rYgE+vguHGFnlL+TkStC0VuUX0xOZY7EgerjsTXoWrk4abbLVWfMihPRGanfXg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794384810;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=b7Bi93YhuWG+RdmQ9GL/DTEVMY9ztDb7MNZFb7Aqgr4=;
-	b=bRLof16uU79s0719E6mJicAxeSOSMzjTeOqIVlbZRyNCF75VI5WY+WHiv5jO5+KPQXI8
-	 GyQZx8q7KqunIt0+60cfnHEi+oH8/is+af53Z/k7OxPGBCPeygdYlMPm6MlGtifYYv+UU
-	 UW4P8w3dyBvEz6flRPcVKPude/XDYNPlpzLYKKqmll3W1Ssy+v9J9Dm25mPCTPEJMbb/m
-	 Vfx37s52BeLtyfRfpruQENBR0mmInunQNesY2UoMQWGmelB9afpOnaiVXEVebRXTUgA5t
-	 +VJCIzfdq/Q571hnmBC40zTdAvUIK3cXze9dDN/rA0imbWEJINt2Kgb/68T6xqJrO8g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794384816;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=v86dxVgUxzIUK/FnZ5rEtwglLpcRFF0Ojqo0iOwkpRI=;
+	b=bdfaGh5N51HiUmnxJQzvOt+V+FVeyvrwjjM/rdFpgJW+GljWFMehjMYMkcZCo1N0dbRf
+	 ZXP/zvrHTssSITb3tpSPtOeJN6F3ri1UkeDzMtYaK+6mNqXRAiga2lUR3XLptRWJno8sV
+	 7EX8lGoCjORn/JNkuvkv/dxgHCEGaa4oK0leIa4berFsBI1YRpBRbV2FMv9GhHYMs4PSy
+	 omU7cysAfcPc07v3/y6FJStPnynXUb8LS20FQh/Cw+pjkc2HwtrIqkAVYKZNobc1F6yDn
+	 kl4TRy5r2sBMGUciAbLx645CZbDDt8AvHF8CJjQ2wdJfGfb82p1WSt9lIdJKEeo0Nyw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=bcNu4gDT;
-	arc=none smtp.remote-ip=111.22.67.139
-Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3A6E760A2612;
-	Wed, 11 Nov 2026 08:13:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A6E760A2612
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=O6HJbKrE;
+	arc=none smtp.remote-ip=113.46.200.222
+Received: from canpmsgout07.his.huawei.com (canpmsgout07.his.huawei.com [113.46.200.222])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 647F160A262D
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 08:13:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 647F160A262D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=bcNu4gDT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=bcNu4gDTwUMX5JYpPnRnqFEmxYRgeKiX4ZNot9IFs7nROyt/Ux3i0qiP26IOaelJSKeOGpKLYi19x
-	 oLWGXndg2615Lwu2qp/oZJJrxKN8lHAWQSyDeDPAtPG9/1R4xgflH3kor6luiBAeyOJRwoSf1IQ++i
-	 ps05gQDjjnTMddjc=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app09-12009 (RichMail) with SMTP id 2ee96af4239e7f0-dbb65;
-	Wed, 11 Nov 2026 16:13:18 +0800 (CST)
-X-RM-TRANSID:2ee96af4239e7f0-dbb65
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from  (unknown[223.108.79.97])
-	by rmsmtp-syy-appsvr04-12004 (RichMail) with SMTP id 2ee46af42399a3d-d4b4b;
-	Wed, 11 Nov 2026 16:13:18 +0800 (CST)
-X-RM-TRANSID:2ee46af42399a3d-d4b4b
-From: Shunbo Shi <shishunbo@cmss.chinamobile.com>
-To: nkapron@google.com,
-	gregkh@linuxfoundation.org
-Cc: linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 3/4] usb: gadget: f_hid: fix race between userspace report update and GET_REPORT response
-Date: Wed, 11 Nov 2026 08:13:12 +0000
-Message-ID: <20261111081313.16626-4-shishunbo@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261111081313.16626-1-shishunbo@cmss.chinamobile.com>
-References: <20261111021655.37851-1-shishunbo@cmss.chinamobile.com>
- <20261111081313.16626-1-shishunbo@cmss.chinamobile.com>
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=O6HJbKrE
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=v86dxVgUxzIUK/FnZ5rEtwglLpcRFF0Ojqo0iOwkpRI=;
+	b=O6HJbKrEJy7OFGqIBJV31ZUvs0Oy+ibOS7DroBLYWRbX83QYYLlSvytWDV4e9/df5T/v3p36T
+	lWbnUbWBRRLBe41vNmKAGZ4aawNQqUBYqX7EOJ9TSkfXrKbaMfaNf9XxH+wUeP+dowk5CxpqfQN
+	l1NML1l/BuWv5HH6NKQUPME=
+Received: from mail.maildlp.com (unknown [172.19.163.200])
+	by canpmsgout07.his.huawei.com (SkyGuard) with ESMTPS id 4jPbqw37GbzLlVY;
+	Wed, 11 Nov 2026 16:13:16 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id 998764055B;
+	Wed, 11 Nov 2026 16:13:31 +0800 (CST)
+Received: from huawei.com (10.90.53.73) by kwepemk200008.china.huawei.com
+ (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 11 Nov
+ 2026 16:13:30 +0800
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+To: <james.morse@arm.com>, <ben.horgan@arm.com>, <reinette.chatre@intel.com>,
+	<fenghuay@nvidia.com>, <zengheng4@huawei.com>, <gshan@redhat.com>,
+	<tan.shaopeng@jp.fujitsu.com>, <jic23@kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+CC: <ruanjinjie@huawei.com>
+Subject: [PATCH v4 3/3] arm_mpam: resctrl: Limit num_rmids to the CLOSIDs in use
+Date: Wed, 11 Nov 2026 16:13:16 +0800
+Message-ID: <20261111081316.3828283-4-ruanjinjie@huawei.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261111081316.3828283-1-ruanjinjie@huawei.com>
+References: <20261111081316.3828283-1-ruanjinjie@huawei.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,136 +73,117 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
-The GET_REPORT response is served by pointing get_req->buf at the
-data[] array of a report_list entry and calling usb_ep_queue().
-The request completes asynchronously, so the controller may still
-be reading the entry's buffer after get_report_workqueue_handler()
-drops get_report_spinlock.
+On MPAM an RMID is a PMG within a PARTID, so resctrl can only allocate
+the PMGs of the CLOSIDs it uses. info/L3_MON/num_rmids is instead set
+to the whole PARTID and PMG space when the monitors are initialised,
+and halved when CDP is enabled. It reports more RMIDs than resctrl can
+allocate in two cases:
 
-At the same time, userspace can update that same entry via the
-GADGET_HID_WRITE_GET_REPORT ioctl: f_hidg_get_report() copies new
-report data into the entry while holding the spinlock, but the
-transfer reading the entry is not serialized against that update
-(the lock was already released by the work handler).
+- With CDP each CLOSID takes two PARTIDs, and resctrl halves the
+  CLOSID count rounding down, while MPAM halves the whole RMID space.
+  With 5 PARTIDs and 2 PMGs resctrl has 2 CLOSIDs and 4 RMIDs, but
+  num_rmids reads 5. The count is too high whenever the number of
+  PARTIDs is odd and there is more than one PMG.
 
-The result is that the host can receive a GET_REPORT response that
-mixes bytes of the old and the new report (a torn write), with no
-memory-safety violation but corrupted report data on the wire.
+- On a monitor-only system there are no control groups and resctrl
+  only uses the default CLOSID, but num_rmids still covers every
+  PARTID. With 5 PARTIDs and 2 PMGs it reads 10 while only 2 RMIDs
+  can be allocated.
 
-Serve the response from a dedicated buffer allocated at bind time:
-the handler now copies the entry data into get_req_buf and zeroes
-the rest of the buffer before queueing the request, so userspace
-updates to the entry can no longer race with the asynchronous read
-of the previous response, and no uninitialized slab memory is
-exposed to the host.
+RMID allocation is limited to the CLOSIDs in use, so only the value
+reported to userspace is too high. Creating as many monitor groups as
+num_rmids allows fails with -ENOSPC before that number is reached.
 
-The buffer lives from bind() to unbind(); hidg_disable() must not
-free it, because hidg_set_alt() does not reallocate it and the next
-GET_REPORT after a USB reset would use freed memory.
+Count the CLOSIDs resctrl uses instead: every resource has
+mpam_partid_max + 1 CLOSIDs, halved and rounded down while CDP is
+enabled, and a system with no resource that can allocate uses only the
+default CLOSID. Report (pmg_max + 1) RMIDs for each of those CLOSIDs.
+Count at monitor initialisation and from resctrl_arch_set_cdp_enabled(),
+which resctrl calls whenever a mount or unmount enables or disables
+CDP.
 
-This also removes the now unused get_report member from struct
-f_hidg.
-
-Fixes: a139c98f760e ("USB: gadget: f_hid: Add GET_REPORT via userspace IOCTL")
-Signed-off-by: Shunbo Shi <shishunbo@cmss.chinamobile.com>
+Fixes: 264c285999fc ("arm_mpam: resctrl: Add monitor initialisation and domain boilerplate")
+Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+Cc: <stable@vger.kernel.org> # 7.1+
+Cc: James Morse <james.morse@arm.com>
+Cc: Ben Horgan <ben.horgan@arm.com>
+Cc: Reinette Chatre <reinette.chatre@intel.com>
+Cc: Fenghua Yu <fenghuay@nvidia.com>
 ---
- drivers/usb/gadget/function/f_hid.c | 36 +++++++++++++++++++++++++----
- 1 file changed, 32 insertions(+), 4 deletions(-)
+v4:
+- Simplify the fix with mpam_partid_max, cdp_enabled
+  and resctrl_arch_alloc_capable() as Ben suggested.
+v3:
+- Drop resctrl_arch_set_mon_rmid_count() and count the CLOSIDs in the
+  MPAM driver instead, as Ben suggested.
+- v2: https://lore.kernel.org/all/20261105123304.2281987-1-ruanjinjie@huawei.com/
+v2:
+- Also fix num_rmids on monitor-only systems, as Ben suggested.
+- Retitle from "arm_mpam: Round the CDP RMID count down to whole CLOSIDs".
+- v1: https://lore.kernel.org/all/20261104101622.563280-1-ruanjinjie@huawei.com/
+---
+ drivers/resctrl/mpam_resctrl.c | 30 +++++++++++++++++-------------
+ 1 file changed, 17 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/usb/gadget/function/f_hid.c b/drivers/usb/gadget/function/f_hid.c
-index d7ba30323414..426bc1743cbb 100644
---- a/drivers/usb/gadget/function/f_hid.c
-+++ b/drivers/usb/gadget/function/f_hid.c
-@@ -94,7 +94,7 @@ struct f_hidg {
- 
- 	/* get report */
- 	struct usb_request		*get_req;
--	struct usb_hidg_report		get_report;
-+	void				*get_req_buf;
- 	bool				get_report_returned;
- 	int				get_report_req_report_id;
- 	int				get_report_req_report_length;
-@@ -568,6 +568,7 @@ static void get_report_workqueue_handler(struct work_struct *work)
- 	struct usb_request		*req;
- 	struct report_entry *ptr;
- 	unsigned long	flags;
-+	unsigned int copied;
- 
- 	int status = 0;
- 
-@@ -587,7 +588,10 @@ static void get_report_workqueue_handler(struct work_struct *work)
- 	ptr = f_hidg_search_for_report(hidg, hidg->get_report_req_report_id);
- 	if (ptr && !ptr->report_data.userspace_req) {
- 		/* Report exists in list and it is to be used for immediate response */
--		req->buf = ptr->report_data.data;
-+		copied = min_t(unsigned int, req->length, ptr->report_data.length);
-+		memcpy(req->buf, ptr->report_data.data, copied);
-+		if (copied < MAX_REPORT_LENGTH)
-+			memset(req->buf + copied, 0x0, MAX_REPORT_LENGTH - copied);
- 		status = usb_ep_queue(cdev->gadget->ep0, req, GFP_ATOMIC);
- 		hidg->get_report_returned = true;
- 		spin_unlock_irqrestore(&hidg->get_report_spinlock, flags);
-@@ -622,10 +626,12 @@ static void get_report_workqueue_handler(struct work_struct *work)
- 			 * Either get an updated response just serviced by userspace
- 			 * or send the latest response in the list
- 			 */
--			req->buf = ptr->report_data.data;
-+			copied = min_t(unsigned int, req->length, ptr->report_data.length);
-+			memcpy(req->buf, ptr->report_data.data, copied);
-+			if (copied < MAX_REPORT_LENGTH)
-+				memset(req->buf + copied, 0x0, MAX_REPORT_LENGTH - copied);
- 		} else {
- 			/* If there are no prevoiusly sent reports send empty report */
--			req->buf = hidg->get_report.data;
- 			memset(req->buf, 0x0, req->length);
- 		}
- 
-@@ -1160,6 +1166,23 @@ static int hidg_bind(struct usb_configuration *c, struct usb_function *f)
- 	if (!hidg->get_req)
- 		return -ENOMEM;
- 
-+	/*
-+	 * The GET_REPORT response is served from a dedicated buffer, not
-+	 * from the report_list entries: userspace may update an entry
-+	 * (f_hidg_get_report()) while the controller is still reading the
-+	 * previous response, which would corrupt the data on the wire.
-+	 *
-+	 * The buffer lives from bind() to unbind(); hidg_disable() must
-+	 * not free it, because hidg_set_alt() does not reallocate it and
-+	 * the next GET_REPORT after a USB reset would use freed memory.
-+	 */
-+	hidg->get_req_buf = kmalloc(MAX_REPORT_LENGTH, GFP_KERNEL);
-+	if (!hidg->get_req_buf) {
-+		status = -ENOMEM;
-+		goto fail_free_request;
-+	}
-+	hidg->get_req->buf = hidg->get_req_buf;
-+
- 	hidg->get_req->zero = 0;
- 	hidg->get_req->complete = hidg_get_report_complete;
- 	hidg->get_req->context = hidg;
-@@ -1303,6 +1326,9 @@ static int hidg_bind(struct usb_configuration *c, struct usb_function *f)
- 	if (hidg->req != NULL)
- 		free_ep_req(hidg->in_ep, hidg->req);
- 
-+	kfree(hidg->get_req_buf);
-+	hidg->get_req_buf = NULL;
-+fail_free_request:
- 	usb_ep_free_request(c->cdev->gadget->ep0, hidg->get_req);
- 	hidg->get_req = NULL;
- 
-@@ -1593,6 +1619,8 @@ static void hidg_unbind(struct usb_configuration *c, struct usb_function *f)
- 
- 	cdev_device_del(hidg->cdev, &hidg->dev);
- 	destroy_workqueue(hidg->workqueue);
-+	kfree(hidg->get_req_buf);
-+	hidg->get_req_buf = NULL;
- 	usb_free_all_descriptors(f);
+diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/mpam_resctrl.c
+index afa3c084c475..fcd41ddffc74 100644
+--- a/drivers/resctrl/mpam_resctrl.c
++++ b/drivers/resctrl/mpam_resctrl.c
+@@ -200,6 +200,21 @@ static void mpam_resctrl_monitor_sync_abmc_vals(struct rdt_resource *l3)
+ 	 */
  }
  
++/* The RMID count follows the CLOSIDs resctrl uses. */
++static void mpam_resctrl_set_num_rmid(void)
++{
++	struct rdt_resource *l3 = &mpam_resctrl_controls[RDT_RESOURCE_L3].resctrl_res;
++	u32 num_closid = 1;
++
++	if (resctrl_arch_alloc_capable()) {
++		num_closid = mpam_partid_max + 1;
++		if (cdp_enabled)
++			num_closid /= 2;
++	}
++
++	l3->mon.num_rmid = (mpam_pmg_max + 1) * num_closid;
++}
++
+ int resctrl_arch_set_cdp_enabled(enum resctrl_res_level rid, bool enable)
+ {
+ 	u32 partid_i = RESCTRL_RESERVED_CLOSID, partid_d = RESCTRL_RESERVED_CLOSID;
+@@ -233,10 +248,7 @@ int resctrl_arch_set_cdp_enabled(enum resctrl_res_level rid, bool enable)
+ 	cdp_enabled = enable;
+ 	mpam_resctrl_controls[rid].cdp_enabled = enable;
+ 
+-	if (enable)
+-		l3->mon.num_rmid = resctrl_arch_system_num_rmid_idx() / 2;
+-	else
+-		l3->mon.num_rmid = resctrl_arch_system_num_rmid_idx();
++	mpam_resctrl_set_num_rmid();
+ 
+ 	/* The mbw_max feature can't hide cdp as it's a per-partid maximum. */
+ 	if (cdp_enabled && !mpam_resctrl_controls[RDT_RESOURCE_MBA].cdp_enabled)
+@@ -1357,15 +1369,7 @@ static int mpam_resctrl_monitor_init(struct mpam_resctrl_mon *mon,
+ 	l3->name = "L3";
+ 	l3->mon_scope = RESCTRL_L3_CACHE;
+ 
+-	/*
+-	 * num-rmid is the upper bound for the number of monitoring groups that
+-	 * can exist simultaneously, including the default monitoring group for
+-	 * each control group. Hence, advertise the whole rmid_idx space even
+-	 * though each control group has its own pmg/rmid space. Unfortunately,
+-	 * this does mean userspace needs to know the architecture to correctly
+-	 * interpret this value.
+-	 */
+-	l3->mon.num_rmid = resctrl_arch_system_num_rmid_idx();
++	mpam_resctrl_set_num_rmid();
+ 
+ 	if (type == QOS_L3_MBM_TOTAL_EVENT_ID) {
+ 		int err;
 -- 
-2.53.0
-
-
+2.34.1
 
