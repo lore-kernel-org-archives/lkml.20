@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794413918;
-	b=V/Nv1wPIRM/KgBX/1xyzDB7mM4DGd/VbxxlSJIgfe1lXqh8quFQphpLHHajCtEoUxOc0
-	 b7d3AuzWeOoThn2MgSI8UPyU8IC/4MxsLV4C8ao+Hgb8kEOez4MDNAYpPkHjtMEo39qke
-	 X0idl7Eg3+ff6A2dt5dSzlzfjfXupyoGlvOnrvcAfUhA9u5dCzlJh74CYeHCEC/7YnzcH
-	 uKiYE4gtzOORMjED7wfwgji+dqfQP0W0Qr9n8XPzRoHrNEHsy42MEVXhNhLQ4tEfhDPot
-	 f9bW/RwkqA/98LC3jmIUFA3ytBAfU4bF7dHjOufsXLsKshydDixfOPbbJ63rd9AswpA==
+	t=1794413919;
+	b=GO0AsCkCODqH11qIV2vjy53HHISkFudiKfQ0SKLM+kmnhxp0Lv5H+bO6pCqxMH4o1VM3
+	 t6RhdG1yRU8juVaDTiyyQb2ySW3Jj/A5Uy55YcCMZBzWQPzE5QS2VoK97ToxTEXOYTgYD
+	 OJ0XPqnxl0eYczcjMuK4ZHSCUtpLkJ3V6sNZADWRmnHeFb+pgSXZgIsZRGcwk78rH7GTw
+	 HEBfD+f6YmkdGEfjhZ7AJb9D+SuCTRfveYiqfXPf7nW+cZiCsmqYNrdjy1A36MClklDsW
+	 7O+Vlex7FFEZ20R7xnvitaCp/grRcRTZpxwxnmWbr9D4QD8V8v2hizPxGvJjtnMtweA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794413918;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794413919;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=th4q9b08lCLfMlfvam+Sv2PUGdwUZSEvcq1PM3dYcnM=;
-	b=dXV3Y/N0qB+QBv9xxB8RY8F9/YN0WWVJwunrL47qzwEZkn0DZ1B2fnpY1GFIvExZyrGT
-	 F5pXdnGzP/FBvSmAEqBsRIgzx1ZY7Uoy0RAK1ufoH4fJ4yfQqupg6Sy7K5K4kDSLYUgT3
-	 L7NW7vtmKRSZgoXHAylvmy8JaCwuWpHXszaPTiH5fFfvlqRbCefBVavTBJYVNVVAqjuMt
-	 kZLpa49BtS3NUlx/8ddVjAGjFp3B4pkIoV+ipqtZghTu9397vaOHJIDAvsH5M4pfWd90Q
-	 ff248eJp856bUfq/kbsfRNqLEhstP9AVNEac9e6D8pLVNu+x20betK1rpdNRnQj/xew==
+	bh=1GD4Df7Fux7pFJTIJwvNlT1oVwGjVEElYOnH6LUdavM=;
+	b=AGftCMOKfV3+K7HewwIeneZeffZecI7aryNKQnx19JZdKLS9Sli/mEh9boWlTFjkm62v
+	 yr67NhP0pLeZYIKi1Rw+Re963DBx0QtMZTV2nTmseCc7vqmlzhOZIF+TdbliaPf+FyYN0
+	 7PLjw9lzgcj6plcnWFl79QloaH8tHT3k865mpqKwdweFxCKHAVgDA69yYfvhVQhjZPULO
+	 U5dk+6yH+2/7HLDzp9zFLE1Rq5opcdPkKgALn5XJmL1n7VLHSy4UWr7MwQtSwLkfR1dXE
+	 1gq6dpNHuvhHQwG57EocOLMy017iMIEpOOg/fvOVxEnFAWOvSU4U71RkbKj/C42b5ww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=ionos.com;
 	spf=pass smtp.mailfrom=ionos.com;
-	dkim=pass header.d=ionos.com header.i=@ionos.com header.a=rsa-sha256 header.s=google header.b=RXGhKNJV;
-	arc=none smtp.remote-ip=209.85.221.45
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+	dkim=pass header.d=ionos.com header.i=@ionos.com header.a=rsa-sha256 header.s=google header.b=TzwoMaCz;
+	arc=none smtp.remote-ip=209.85.128.50
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB0C9606A889
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 16:18:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB0C9606A889
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2A1B606A8A5
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 16:18:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2A1B606A8A5
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ionos.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ionos.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ionos.com header.i=@ionos.com header.a=rsa-sha256 header.s=google header.b=RXGhKNJV
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-49465892f7bso2433513f8f.1
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 08:18:37 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=ionos.com header.i=@ionos.com header.a=rsa-sha256 header.s=google header.b=TzwoMaCz
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4afe2d546f9so41822165e9.3
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 08:18:38 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ionos.com; s=google; t=1794413916; x=1795018716; darn=vger.kernel.org;
+        d=ionos.com; s=google; t=1794413917; x=1795018717; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=th4q9b08lCLfMlfvam+Sv2PUGdwUZSEvcq1PM3dYcnM=;
-        b=RXGhKNJVl1lv5SHKHOJa/S6JDrV8Sp20C/S2L9eAEz/GwvO9FFqGvg+hqQeTBNImNv
-         9mCebGGOeLY4rMcUFsR+BUx7/yVL+ZuB96xAIjCLBvVU7/5YLJXZb9rWUBgFK1KBfh9T
-         XbVYvEH8+jwQUhVtF5nk/sd43TdWD9t73HlAanUJDzaBrfU7jzzDGaX5N8tMRgTch3I+
-         5PBXLDn94OFgCx8/kLnwt/jjsJng0zh2xGyt4Unc8jAZifcjPQGkLWvSe6Y/a/gtCyLa
-         unfkx/D1eHjK7NcoIgmwkXgrcdled0Aze/hMHK7GO97zGSEo/jTnnyPh39iq93B/cydT
-         MT6Q==
+        bh=1GD4Df7Fux7pFJTIJwvNlT1oVwGjVEElYOnH6LUdavM=;
+        b=TzwoMaCz9KlhroQfTJItRVBaooOxRed9KVWymwHFSAxMvTL3OfEZFzwDH5SFH9pu/2
+         pjJ7J05cK1yCD98UZ0GpRNK7YSqSkWVm5ybdDdD+OuGN8faTepKsNYC1KJCQmfRZslEQ
+         Q2q88uZN3KMiQcXYLlQ+piVHe6GE2UYMseYc3Z63fWJ2ZaRT0EnKVtH5GiucikqrwsSz
+         /Oya2PJfT1S6kvAQxO4n2zF6lDy3a6i2O/C2eP+Y9xATRQ4gTATcdVvRq+mMCNmFFazS
+         3EewfzxhEq6bu9QQ09jkGU2hzRoLQszfILnRTU8pPrYvyQ6sqNqNK0+CSwjWVYU1eILN
+         t2/g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794413916; x=1795018716;
+        d=1e100.net; s=20260707; t=1794413917; x=1795018717;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=th4q9b08lCLfMlfvam+Sv2PUGdwUZSEvcq1PM3dYcnM=;
-        b=okLpQx3fB2i4GmAmgRjVDSVx7S+TdfEggU8jnNirP62CgmgkCjiZwqwLIJMfJYSKDj
-         NllJh6YVpwd3BRz6xJ2qI5jP+kv0MX2xBUk4DHFUUvt4RkvNRo/Za+PwIVa4Eb7wLejs
-         dRrKkcikAHedBTG4pMBB0jC7zT8dP4HnA6qXZ1TKm6Ah9yxm9zB3qLPYSqptHTSG6yLC
-         26pCAfOp5A+wKfj98EAZMEPS33NZ8VISR2JvcFDqL/zF3Nd2Y45eHrHZNgdKNZiBFQu3
-         /c4n+dxcezcRCTbPa80yW+chVcA0vkjQ+MuzwB75NafMqz1r81jWENzj6x6AIVPU8IV7
-         5pCg==
-X-Forwarded-Encrypted: i=1; AL+hErGeJabxktI4gPokB6XpkOmW0cUaqAgNajnNrGoJSuTKiddeVzBFV/yZZPM8qrBV2td2jG4zhxOgFnAS0Uc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8Hsm/0dOz2Lo4adrpUlRKgaI4SOaEhI1Yp0ge23M2pDAWY6WaZ
-	ObEgdu9dM79URSG54hOniR8FGIr9jKPZg8IPX9grN1yY8RsPYFTg6DS8JSli1+FKpqs=
-X-Gm-Gg: AYBFou38Oh4Nh2Hg9r71LhoPAmL9emFZnuOt5xGdfScUrSJerD43X8zU9XiC2bt4PQM
-	4xEgOuRlLOc6KX9l+3KukIF7aSCbjo99ILAi9Qno+0y4qc4Na517WerDANOfPkA43FgXTw3ssSk
-	mj1rrDXXxZ5eCDqtVsI8dqoXvH77o8cse6oGA4tLL8IhQbJndyLwkx+FVK+KKQiF5dzoNX0RoIY
-	LliAeq4uroqDdoq5C+d4wMoDz2Rej3bXDIEQJ10xnGMFv3ns42gMBFlR7EwJLM5EqpdfLlIJi4U
-	A7jxGtb2QBRz1Xcv9MfHpx786Ch+JLxmHvXdOnSSTL3WBCxlyFrh9y3KzXdLVpqmKU1Coe2S5A6
-	NArjRQwALt8ubLQdKcQZp40L8BjjXUSWVqdYQZIV7nncxpRZuAgK4fnAJ/Zri/7DVS7dJlgbrBx
-	NinBpdDEJwsDwMbaUa614dmKwZbxw85di7n8BaN8XWsYDKA4fuVV12cjSmeUCLn2q6dOeEEJXQY
-	ZhQaz5Y8v00GUViSKcDkGwW448xdWsSXi2ySR+o87jMVqwjZNV7hyoMe8SwGFMXBL/JkyfRrjPc
-	eXwf7Mrq9NuaivZDcmunHKyKXTUFfsknXs62rcqh6CsFSJjqjdcupE88U+MnfsV4QhIDSrDbbXd
-	PGWykvRXoRenE6LKqjQmcGtgfAoy+NA==
-X-Received: by 2002:a5d:5d13:0:b0:48e:2108:4d28 with SMTP id ffacd0b85a97d-499c60275ebmr6470199f8f.13.1794413916177;
-        Wed, 11 Nov 2026 08:18:36 -0800 (PST)
+        bh=1GD4Df7Fux7pFJTIJwvNlT1oVwGjVEElYOnH6LUdavM=;
+        b=mjXDFYCq0+QTS/Yt3UOY/MTRmN52mwwEa/qa5U72c4Wv+bLBLEFlLch3FN2d3hMYrN
+         0ncpH4dp7tOFKuuIQO7Vv0ppWj+hTO4VIGPiXTKRNZjMS9wOhgOBPx+ZSm7hDIPjz2nN
+         LVQcgHrvLnqCb8noydooWXodFC3g2U/qu3kFPkS3F4Gm8H5noM3jVKC7YEyRrwxhpMV9
+         TnMS5yCt3L3hnXRWfsvTFjlT+LpcXaYLyg9Bl0j+qMfqdoGw63dHkhb4+PsBu3/mEMyM
+         ip6KOp8ef1nxtGrabz28UltFQRNmQoe6BX4xyU/weURcvNzPfJLUYtJ5mD1tWS/ymxes
+         cRAw==
+X-Forwarded-Encrypted: i=1; AL+hErEfqnXqEp7k7bwK4Ze0z1TaTgl42yvhMfh6q27oC+nJPCXyHekQhHKR9B8Vtz3hAr8fAGhCifnrtwInTbo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/UsKY+De9/DFopHm2zNrLvSQMwHWX0nBGjW+rvKqU81+WwJxGS
+	tjp/lyTnr3kAf1gEMceHlMK8hRwt04LWxOFtJWSOCRn0SXcgw9qBbQHL4SF5szZzmzY=
+X-Gm-Gg: AYBFou1+EQXU+coMTiKGgDLHB/dJH3lOwF9lmn6/Wd3m6JakIcCGM4FwAhbuikheUpR
+	RBO92L3HLigk3FxKv9oa0Psv/01J44IZVmgYGmTvVJyC+rU+zATn2Lax5ToMU9XoydE7rXFSyaK
+	y7QgrizG0En9D98ieI2ddFgrK1b04n7PqkYBjE5kjTrGvOzJi+Jt/lRmchDBB+9bajrgpHUxU5+
+	nvpKiceQmP0iqZTIaTbVMM80PkhgDZaHjHjMIj9zOo8kklCRAxtDG5v0SbkY+nsMJzDiIkZWQbA
+	dOg/Oc078LHvPUhN7rY4ftrrAuo8QKMWoGvIv6ePdMyFIUXn97oyBJ0oygVXJjCxAsP8BThVFY8
+	YFnezF9S9/LdCe04EwBFnxuQMv34ejdQ8vlLHKCANHIshISdfPVSVW5rqxZ1l3ejSzjuOD3ZZTh
+	ttkpNrGwnTluVpV0S716j+BghMNJz69KdDE2e+lZ/uPpFugjokGe87X5hVBfaJ2e7TfFosQB9FW
+	u0yBUMQmC5al9JcYkvX+tjAgxSFDoYhrKZEzdMf4WBbOcHpudnklxdM2IGsFv79Iv2MRIvWk/9o
+	R/qBWIxvpDoikSl+LSuH7Y6jNWdG2HqNwK8VukbjNXvmvb6liEBIaZmPpPNTmm5vHmAEyleLLo1
+	Q8xmf/jS9b5ioWyiihEO/+9f2nBsXBA==
+X-Received: by 2002:a05:600c:c167:b0:4a1:a6e0:4ce4 with SMTP id 5b1f17b1804b1-4ba093acf6dmr49528575e9.33.1794413917166;
+        Wed, 11 Nov 2026 08:18:37 -0800 (PST)
 Received: from raven.intern.cm-ag (p200300dc6f4cbe00023064fffe740809.dip0.t-ipconnect.de. [2003:dc:6f4c:be00:230:64ff:fe74:809])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4983600bd6esm12209506f8f.28.2026.11.11.08.18.35
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4983600bd6esm12209506f8f.28.2026.11.11.08.18.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 08:18:35 -0800 (PST)
+        Wed, 11 Nov 2026 08:18:36 -0800 (PST)
 From: Max Kellermann <max.kellermann@ionos.com>
 To: xiubli@redhat.com,
 	idryomov@gmail.com,
@@ -87,9 +87,9 @@ To: xiubli@redhat.com,
 	linux-kernel@vger.kernel.org
 Cc: Max Kellermann <max.kellermann@ionos.com>,
 	stable@vger.kernel.org
-Subject: [PATCH 2/9] ceph: fix mdsmap use-after-free in debugfs mdsmap_show()
-Date: Wed, 11 Nov 2026 17:18:23 +0100
-Message-ID: <20261111161830.1336485-3-max.kellermann@ionos.com>
+Subject: [PATCH 3/9] ceph: fix mdsmap use-after-free in __ceph_setxattr()
+Date: Wed, 11 Nov 2026 17:18:24 +0100
+Message-ID: <20261111161830.1336485-4-max.kellermann@ionos.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261111161830.1336485-1-max.kellermann@ionos.com>
 References: <20261111161830.1336485-1-max.kellermann@ionos.com>
@@ -104,53 +104,94 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-mdsmap_show() walks mdsc->mdsmap without holding mdsc->mutex, but
-ceph_mdsc_handle_mdsmap() replaces the mdsmap and frees the old one
-under that mutex.  Reading the debugfs "mdsmap" file while an MDS
-changes state can therefore access freed memory, including the m_info
-array.
+__ceph_setxattr() reads mdsc->mdsmap->m_max_xattr_size while holding
+only ci->i_ceph_lock, but ceph_mdsc_handle_mdsmap() replaces the
+mdsmap and frees the old one under mdsc->mutex.  A setxattr() racing
+with an mdsmap update can therefore read freed memory.
 
-Hold mdsc->mutex while printing the map.
+mdsc->mutex cannot be taken under i_ceph_lock, so keep a copy of the
+limit in struct ceph_mds_client, updated by ceph_mdsc_handle_mdsmap()
+under the mutex, and read that instead.
 
-Fixes: 76aa844d5b2f ("ceph: debugfs")
+Fixes: d93231a6bc8a ("ceph: prevent a client from exceeding the MDS maximum xattr size")
 Cc: stable@vger.kernel.org
 Signed-off-by: Max Kellermann <max.kellermann@ionos.com>
 ---
- fs/ceph/debugfs.c | 12 ++++++++++--
- 1 file changed, 10 insertions(+), 2 deletions(-)
+ fs/ceph/mds_client.c |  1 +
+ fs/ceph/mds_client.h |  7 +++++++
+ fs/ceph/xattr.c      | 10 ++++++----
+ 3 files changed, 14 insertions(+), 4 deletions(-)
 
-diff --git a/fs/ceph/debugfs.c b/fs/ceph/debugfs.c
-index 6a9a5551d9d7..01c9f1896aa1 100644
---- a/fs/ceph/debugfs.c
-+++ b/fs/ceph/debugfs.c
-@@ -59,11 +59,17 @@ static int mdsmap_show(struct seq_file *s, void *p)
- {
- 	int i;
- 	struct ceph_fs_client *fsc = s->private;
-+	struct ceph_mds_client *mdsc = fsc->mdsc;
- 	struct ceph_mdsmap *mdsmap;
- 
--	if (!fsc->mdsc || !fsc->mdsc->mdsmap)
-+	if (!mdsc)
- 		return 0;
--	mdsmap = fsc->mdsc->mdsmap;
-+
-+	/* ceph_mdsc_handle_mdsmap() replaces and frees the mdsmap */
-+	mutex_lock(&mdsc->mutex);
-+	mdsmap = mdsc->mdsmap;
-+	if (!mdsmap)
-+		goto out;
- 	seq_printf(s, "epoch %d\n", mdsmap->m_epoch);
- 	seq_printf(s, "root %d\n", mdsmap->m_root);
- 	seq_printf(s, "max_mds %d\n", mdsmap->m_max_mds);
-@@ -76,6 +82,8 @@ static int mdsmap_show(struct seq_file *s, void *p)
- 			       ceph_pr_addr(addr),
- 			       ceph_mds_state_name(state));
+diff --git a/fs/ceph/mds_client.c b/fs/ceph/mds_client.c
+index 15df9d22008d..da40f2cb80f2 100644
+--- a/fs/ceph/mds_client.c
++++ b/fs/ceph/mds_client.c
+@@ -7247,6 +7247,7 @@ void ceph_mdsc_handle_mdsmap(struct ceph_mds_client *mdsc, struct ceph_msg *msg)
+ 	} else {
+ 		mdsc->mdsmap = newmap;  /* first mds map */
  	}
-+out:
-+	mutex_unlock(&mdsc->mutex);
- 	return 0;
- }
++	WRITE_ONCE(mdsc->max_xattr_size, mdsc->mdsmap->m_max_xattr_size);
+ 	mdsc->fsc->max_file_size = min((loff_t)mdsc->mdsmap->m_max_file_size,
+ 					MAX_LFS_FILESIZE);
+ 
+diff --git a/fs/ceph/mds_client.h b/fs/ceph/mds_client.h
+index ff9ba09f3b59..bd97f73ede20 100644
+--- a/fs/ceph/mds_client.h
++++ b/fs/ceph/mds_client.h
+@@ -495,6 +495,13 @@ struct ceph_mds_client {
+ 	struct mutex            mutex;         /* all nested structures */
+ 
+ 	struct ceph_mdsmap      *mdsmap;
++
++	/*
++	 * Copy of mdsmap->m_max_xattr_size for readers that cannot take
++	 * the mutex; updated by ceph_mdsc_handle_mdsmap().
++	 */
++	u64			max_xattr_size;
++
+ 	struct completion       safe_umount_waiters;
+ 	wait_queue_head_t       session_close_wq;
+ 	struct list_head        waiting_for_map;
+diff --git a/fs/ceph/xattr.c b/fs/ceph/xattr.c
+index c6085191c29a..8f97b6448d7a 100644
+--- a/fs/ceph/xattr.c
++++ b/fs/ceph/xattr.c
+@@ -1211,6 +1211,7 @@ int __ceph_setxattr(struct inode *inode, const char *name,
+ 	struct ceph_mds_client *mdsc = fsc->mdsc;
+ 	struct ceph_cap_flush *prealloc_cf = NULL;
+ 	struct ceph_buffer *old_blob = NULL;
++	u64 max_xattr_size;
+ 	int issued;
+ 	int err;
+ 	int dirty = 0;
+@@ -1260,13 +1261,14 @@ int __ceph_setxattr(struct inode *inode, const char *name,
+ 
+ 	spin_lock(&ci->i_ceph_lock);
+ retry:
++	max_xattr_size = READ_ONCE(mdsc->max_xattr_size);
+ 	issued = __ceph_caps_issued(ci, NULL);
+ 	required_blob_size = __get_required_blob_size(ci, name_len, val_len);
+ 	if ((ci->i_xattrs.version == 0) || !(issued & CEPH_CAP_XATTR_EXCL) ||
+-	    (required_blob_size > mdsc->mdsmap->m_max_xattr_size)) {
++	    (required_blob_size > max_xattr_size)) {
+ 		boutc(cl, "sync version: %llu size: %d max: %llu\n",
+ 		      ci->i_xattrs.version, required_blob_size,
+-		      mdsc->mdsmap->m_max_xattr_size);
++		      max_xattr_size);
+ 		goto do_sync;
+ 	}
+ 
+@@ -1294,9 +1296,9 @@ int __ceph_setxattr(struct inode *inode, const char *name,
+ 	 * prealloc_blob size check below reflects the current tree state.
+ 	 */
+ 	required_blob_size = __get_required_blob_size(ci, name_len, val_len);
+-	if (required_blob_size > mdsc->mdsmap->m_max_xattr_size) {
++	if (required_blob_size > max_xattr_size) {
+ 		boutc(cl, "sync (size too large): %d > %llu\n",
+-		      required_blob_size, mdsc->mdsmap->m_max_xattr_size);
++		      required_blob_size, max_xattr_size);
+ 		goto do_sync;
+ 	}
  
 -- 
 2.53.0
