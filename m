@@ -1,65 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.119
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=96.67.55.147
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794362101;
-	b=X1kCagICBCcZeWazOGHbfg0WyfeBpUHJl4PoNiu/CFN1KqkPUXkWGR7fQv4vimQ4FzH/
-	 AGodd7nLHRz9vQ86hD/nMQEe7IkjkR4TdUakznncBrjzuImmYfwm+9awFnVaiKDH0ei6b
-	 54Ls4HYBpa5r6iYN0LW45HWgKbG5umE2J0UFFz0NMT1E0W1Z13y1QLL+IOs68ZBokXeTM
-	 FDWcwcr4vW4EFk8Db7MYE3HppEYlXguYgiCt8D6Dr9oGeaeix/bojVJqvXOTBtDxXfCrj
-	 jMiLjFy6Gm22GB4NbgCY2ETFDzcvnTJG2vh4V12VNs/uT6+volBjTmLdYW3u0mI+D2A==
+	t=1794362104;
+	b=AXt7CbM5C30HETUTLoAiVqInf5UTxDKEdEqLnTrOO1ZTCQW0d8STgc2kImmxYHdvVwkm
+	 xnV7NnernZei5VkbjumtrzK8QmcrIdNiIWvWBPryzpo+9TELR24yxlySjOAhts2ycpUHp
+	 Wh5K/XYl4/CvdPHN3Gxmh/GjtLruEBeHpjrI5txd86q2+lDJxqU3rNrczMW30f+331dct
+	 SczU9Q0G+tuEVlt/gRsRLnv7JeDtxuPY7kakinnWxeE6DLZS7RdeNeAZu5AengWAYvV68
+	 yrcDKQ10jWTRCAUGZXFl66BEWs8VKGbiwz4jq18HmaKaXAGg8b4G5OjZ/9bMr+3nBxA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794362101;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
-	 Subject:In-Reply-To:References:Date:Message-ID:User-Agent:
-	 MIME-Version:Content-Type;
-	bh=88xXlYyhRaZNXXS3X5RWnFnkAdm1161ZT112AKHXrTc=;
-	b=D57UTVdKz+WX3yS7qFkwYuslpi0Ixf3mRTiwm+JsIqEs6f8EKWMR2bG6txvU3CyPg0mC
-	 jWgpmNfm6eMMc4/RlFmPSkxGAt+cfZT0NZqs4xFt4y56Ws4RtQWXr2UiToBhRnXriOYHW
-	 lNxSrj0smyL3ivoGcx18dli8KRSJrg82oIIFidm3Gg9RvJpE6z/oncd8fyJpbdgxBvnoR
-	 pyaqZ1K6f2PF/E9kpM2k0g/IgILkeWKeF2VlvXZuyM/EyzhS3x7PdbHq/qi4FfXuDHALU
-	 08WCtg9MujCSMXSwqiSS6cNXy+RZ9vIltUh3HZ1iaE1NUh//r2QGlkqYrlxWAjv79QA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794362104;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=UfNGntUVC1qG4IJCoHGzHjxUnGyQMMUS3zvGev7BnlY=;
+	b=WeqBRqmFKgBScIpXXjX1pcakgx6Pe2pyNEpLf6geRblg7+BjP+XDOENXw/kYxWVlWMx0
+	 sbh9r9x0GBzTF09sWeY9nKqmCVXpLI8cDke3mt7kjX583Zv2wJBM+KpWaM00gOv/cMyd1
+	 sC9fu5fLGkNR7iA0c/+4tHIMK6cC+4gu8VZi6UJ5w+6b05yAH/Orkjn3lAT22qJAnm3gY
+	 2/+cWSsd4AY9Oq8Of/gi1GFTPVMbYl5HV9ND9bJD6ehesdyZ/X1YSgs8WtfZuOKdjefj3
+	 P/ITDgvHqENtXC+/U3Voto/SoQNkesNhW+8fFA+Uz85lbEs1IT1nWGx+K06k2ew+wMg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=C54bK2r7;
-	arc=none smtp.remote-ip=115.124.30.119
-Received: from out30-119.freemail.mail.aliyun.com (out30-119.freemail.mail.aliyun.com [115.124.30.119])
+	dmarc=pass header.from=surriel.com;
+	spf=pass smtp.mailfrom=surriel.com;
+	dkim=pass header.d=surriel.com header.i=@surriel.com header.a=rsa-sha256 header.s=mail header.b=LGIilWSy;
+	arc=none smtp.remote-ip=96.67.55.147
+Received: from shelob.surriel.com (shelob.surriel.com [96.67.55.147])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DD35606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 01:54:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4DD35606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7C14606A334
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 01:55:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A7C14606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=surriel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=C54bK2r7
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1794362091; h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type;
-	bh=88xXlYyhRaZNXXS3X5RWnFnkAdm1161ZT112AKHXrTc=;
-	b=C54bK2r7jNmzfBU9aZKJ1P+pFVOr6FkX3kNvl0sZCDnP3iR7U+/47s6HxQFXTUckeZnfiRml7cwcXcVU93eSv6/LX4y2eKbAK0smX79YNxM5cdMgZcVcTAJd4H328s7Kbj7jbExBaunLG23mQsACE3yUOxwOgU+Fen2N2prI4ms=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R721e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=ying.huang@linux.alibaba.com;NM=1;PH=DS;RN=21;SR=0;TI=SMTPD_---0XEX4t7B_1794362088;
-Received: from DESKTOP-5N7EMDA(mailfrom:ying.huang@linux.alibaba.com fp:SMTPD_---0XEX4t7B_1794362088 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Wed, 11 Nov 2026 09:54:49 +0800
-From: "Huang, Ying" <ying.huang@linux.alibaba.com>
-To: Yuanhe Shu <xiangzao@linux.alibaba.com>
-Cc: akpm@linux-foundation.org,  david@kernel.org,  "Kaitao Cheng"
- <kaitao.cheng@linux.dev>,  "Garg, Shivank" <shivankg@amd.com>,
-  vbabka@kernel.org,  ljs@kernel.org,  liam@infradead.org,
-  rppt@kernel.org,  surenb@google.com,  mhocko@suse.com,
-  linmiaohe@huawei.com,  nao.horiguchi@gmail.com,  ziy@nvidia.com,
-  wangkefeng.wang@huawei.com,  tujinjiang@huawei.com,
-  mgorman@techsingularity.net,  chengkaitao@kylinos.cn,
-  muchun.song@linux.dev,  linux-mm@kvack.org,  linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] mm/highmem: refuse to copy hwpoisoned folios in the
- !copy_mc fallbacks
-In-Reply-To: <20261110112641.1196786-1-xiangzao@linux.alibaba.com> (Yuanhe
-	Shu's message of "Tue, 10 Nov 2026 19:26:41 +0800")
-References: <20261110112641.1196786-1-xiangzao@linux.alibaba.com>
-Date: Wed, 11 Nov 2026 09:54:48 +0800
-Message-ID: <87jymkt9nb.fsf@DESKTOP-5N7EMDA>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (2048-bit key, unprotected) header.d=surriel.com header.i=@surriel.com header.a=rsa-sha256 header.s=mail header.b=LGIilWSy
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=surriel.com
+	; s=mail; h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+	Subject:Cc:To:From:Date:Sender:Reply-To:Content-ID:Content-Description:
+	Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+	In-Reply-To:References; bh=UfNGntUVC1qG4IJCoHGzHjxUnGyQMMUS3zvGev7BnlY=; b=LG
+	IilWSy8XJuBLjUd/vrD2ZcVJV74G/5skC+iHwHwQCfpqjyLJ1+Iy+10KEYlUT+aTrR1i7sd4JA9Lc
+	vEJgZRsmdb1L/HymWPXYAowg7Sbh0Sr1F6+0jbgJbxwww35v9E3DyFCABLzgASL1lgivA4krsdy3M
+	voT8EeRwwTQnFLsHuvczWToxVVRS8lfwXvf2AKQijTjHUsFIZnLSnQC8Obqye4NOQ1mvN0bO0nFOg
+	ZfKwKtgEZ23L/tR9L7EWkcSo0Nwg5AwNtmdYOWoBZ3cOskPwh4bk586/SR2ZEpgFyzhXCWIpmd6RE
+	DcKKrj69YSDLV/HzTq347Aao0Wf6MWqw==;
+Received: from [2601:18c:8100:a0e0:5a47:caff:fe78:8708] (helo=fangorn)
+	by shelob.surriel.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.99.5)
+	(envelope-from <riel@surriel.com>)
+	id 1xQxXx-00000003lCV-236Q;
+	Wed, 11 Nov 2026 01:54:45 +0000
+Date: Tue, 10 Nov 2026 20:54:44 -0500
+From: Rik van Riel <riel@surriel.com>
+To: Dave Hansen <dave.hansen@linux.intel.com>
+Cc: Andy Lutomirski <luto@kernel.org>, Peter Zijlstra
+ <peterz@infradead.org>, x86@kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] MAINTAINERS: x86/mm add myself as reviewer
+Message-ID: <20261110205444.39dc9c43@fangorn>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,38 +66,32 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ascii
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Yuanhe Shu <xiangzao@linux.alibaba.com> writes:
+arch/x86/mm is an area where the maintainers are spread
+pretty thin, which I care about, and know something
+about after various TLB flushing adventures.
 
-> The !copy_mc fallbacks of copy_mc_user_highpage() and
-> copy_mc_highpage() return 0 after a plain copy.  With PG_hwpoison
-> set while the data stays readable, there is no fault to recover
-> from: the copy completes, the destination folio carries no poison
-> marker, and the poison is consumed silently.
+I should probably help review things there.
 
-IIUC, this is just RAS debug behavior, not real-world behavior.  When
-poisoned memory is accessed, an MCE/SEA is triggered, and the kernel
-will panic without a proper copy_mc_* implementation.  This patch
-reduces the probability of a panic, which I think is its main value.
-
-> Check the source page with is_page_hwpoison() in both fallbacks,
-> before the copy, and return PAGE_SIZE, the not-copied-bytes
-> convention of the real copy_mc paths, so the callers take their
-> existing error paths.  On archs with copy_mc this code does not
-> compile.
->
-> Measured on arm64, where the fallback code compiles: a
-> kernel-space microbenchmark measures 90.00 ns per copy before the
-> patch and 90.71 ns after, 0.8% of the copy itself.
->
-> Suggested-by: "Huang, Ying" <ying.huang@linux.alibaba.com>
-> Suggested-by: Kaitao Cheng <kaitao.cheng@linux.dev>
-> Assisted-by: LLM
-> Signed-off-by: Yuanhe Shu <xiangzao@linux.alibaba.com>
-> Link: https://lore.kernel.org/r/877bjowf9i.fsf@DESKTOP-5N7EMDA/
-> ---
-
+Signed-off-by: Rik van Riel <riel@surriel.com>
 ---
-Best Regards,
-Huang, Ying
+ MAINTAINERS | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 222b7fc2c3aa..ef9d082cf1f4 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -30413,6 +30413,7 @@ X86 MM
+ M:	Dave Hansen <dave.hansen@linux.intel.com>
+ M:	Andy Lutomirski <luto@kernel.org>
+ M:	Peter Zijlstra <peterz@infradead.org>
++R:	Rik van Riel <riel@surriel.com>
+ L:	linux-kernel@vger.kernel.org
+ S:	Maintained
+ T:	git git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git x86/mm
+-- 
+2.56.0
+
