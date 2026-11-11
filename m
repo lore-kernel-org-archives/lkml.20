@@ -1,84 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794385727;
-	b=Fm/cJR14w+/Aqa1jWdd79aFRVcSVeIXDa5Op2hgYdNBkDlkH9HeikY5cCfO32VKhlxej
-	 jkyhUfP1pwQaYnan/dD9MCW9MWp5+VBdlewHTkXbmybG37KYBQ0St4SpmzqK40Bf1URDZ
-	 7pnoTZ/9Akx0NcD30YLZRRlF0qHBwthqbOZcNw5Os5JO/YgM7eXqz+9/szh7+77LSaz5x
-	 MoH1In+b/q4YmuKWfbzh3kpP+Z9qb3WvRC2w774gt8dJXj1kVJS67zLH8vO9jCFIy2SKI
-	 KrNjuI2VfWSp7GPK82ibq65qlR9240q0z6zv6PhzRxJIBD3eQLNnVJU8psejpqK7JmA==
+	t=1794385731;
+	b=AJnWuRiCR5Z+1llMaSmAFdincEGeeuc3LFOKaE7YZop84JPWtK9Glx+ma5vOkieBGGAD
+	 985IPQ2GA5U+97jmhe1s61l3BjYYYbFdxNQflS8c684gWxU/AGnmCxPi+UcQ2TjKO935q
+	 vKX31/zkJi1K8erTd21vAxMqCm44gLQ6cEDvICUZft8ZE+vXPNA+Ujksq6mG2HBVAH/+a
+	 o1JVuIrQskZDg0wPqS4IPqcjTE+QNoPDnR1W4XgLcn/MOL+tq3z8No5/vNqxoovgVPZgm
+	 nSNcc5jFcRmaKIasN+Zw8P5LoF4bxqVU2PSfCyJZGduM19b8H6msss3EmfACazD2MEw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794385727;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794385731;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=nLsYYt3mI/eDGnhUV9HkZE5A3HHR6uBsCx1xZC1MEv4=;
-	b=1cGt9ZfRvsaaRYA4EaDd652FxD2WS8NmjXsN/LV1ujZtaeAZ+wL/e7gWBhKPH9ijhEOu
-	 7Pl9NHnhAQtYCiAttmBabkLTQZiQmsSess9Kc9ODfAD7W0VXAsDb6qIb430YPAQYV/Zp4
-	 tSsEH/ye26LALtx3XPlXTtc86kwDYw7Xy+5w7Qc5LhPnhTCtwRPwauubSC+G3vH5kxMd0
-	 sFBAPw+/vfrdV/ek+w5kWN8Z+acNfpt4STxF4z13EUjuzH2DA/hPRV6oydMCiPsHRGXcu
-	 dxEuisXK7A4c6dNGd+2Jz/W5TQdJkswFK/CPBl7VlWf+YtebhJfgHDXic8AYyGeeyLw==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=agS3oe8L0hdPjr48miavd+nPT5T0r6hqPyAhGQquZQM=;
+	b=HAlH4pKJ7rxFE2VLLdxzcuWAvLdppD67eaFI+M+Gwd+2h1kpGyS12hpAkaO3eFRhYoEo
+	 qlzlh8y2BRoy2vtKzsTpY3F0NpZOOX/jH1D9/er1+C755EnkmO5lH8dMs9xFGbtRF1w62
+	 +6qNCUdrlsIKIF1f/UwlRMp1QzSzq/exXPHpsNV4i/GT+x5Zg6rNoyI553xdlr/nEYLVS
+	 ys6j9p/cIroeBtznqgrtKcMHjTnhXRmMSNuo2KFM8YjFyEc5e8G7KDr2ZFzo7QB/JguoQ
+	 LpwkCLFcIGQJdUn0m0uavTVMxXUDffh298MT5J4Y0N8NLkE19nFOpUsG4Y7duQ5rf2g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WzzTYXFL;
-	arc=none smtp.remote-ip=209.85.218.43
-Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zOqQL73s;
+	arc=none smtp.remote-ip=209.85.218.52
+Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 770BD606A339
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 08:28:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 770BD606A339
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0284B60A260F
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 08:28:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0284B60A260F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WzzTYXFL
-Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c4d28f75d62so395412566b.0
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 00:28:47 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zOqQL73s
+Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c4d28f75d62so395419766b.0
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 00:28:50 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794385726; x=1794990526; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=nLsYYt3mI/eDGnhUV9HkZE5A3HHR6uBsCx1xZC1MEv4=;
-        b=WzzTYXFLYguLfwGt0FKAR3H1jcizpt/6hddQEqesa8HRjEXY58T1Pr5zf1Mm1hGNuT
-         /oVatvs6tHltKygAbJS7W6mDqX3cPhsy44rSlrzBbmf+KfkxEnIXMfCJSdcgF13dYwgh
-         AwldHAMnJSnfgExfO63YtTo3bRqQJJNrg2RQmd0I9f4dZ7tMWaHXt3zMqLmhNHBNnESC
-         bRpbkXLQVU0A4TNEAN3BLm1mxjzWYrDQYfDyXtsmCc0+7/pEkBIcvRh2a/9pNxtAvoqg
-         J7bPRMgNUJIwR6L0V5S+awR5boMBgVNelxvlOVn1q9qEw7032esvZsov2YX7OGkd5sbV
-         w4GQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794385726; x=1794990526;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1794385729; x=1794990529; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=nLsYYt3mI/eDGnhUV9HkZE5A3HHR6uBsCx1xZC1MEv4=;
-        b=n8pJcD46XzmHGU/r2GFW6ORjCaxS1OfHtNozkcbSorExKfKSPBBkVs5anndbU/rfto
-         HYntm+b1KSWLXerhKXp3Tb3S11CBc8n3mvrN+67kd5EStx/CTgbfT0V/Biy2KoVwrCOU
-         L6zcA0oVtlPoguUMhot4zIn1a5BFpnmk/04pA2UBgnCuAw8GJbkqaDbWe/cKxFqzfzA1
-         JHtAt575hqIOmb8UwXlKSIts8mkisfhjJ71Rfygia8ISF72miI8esj87q3SQqx670UEJ
-         RrrJr/NujQNuKq639KN31057gf16lzJnX6BTWUagaWM0SBMhQfmowiLY6Vip9RlBd0fn
-         y/IQ==
-X-Forwarded-Encrypted: i=1; AL+hErFEIRodE6j61EEsS38WgTd8Zd7+hoMVss0853eVn1Zj7TDJ0Gtnvop88fee7zVoBRziXHdmVuslegqGqJo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/jvdpyM/TkvvuZBLob2ZwF7IZvLs1mTg2NVxoQFl/B/bySVTUZ
-	PKDioaE7yII/nJKy0oWozMyq/Dg8ZTCW88RfNkbrIojYH5Cn27YJEzzM
-X-Gm-Gg: AYBFou24swmXcIa8caGcQFxbrpibTjH4IVdUK6jVnAVediXwali38+nzIkHZWdIb9n1
-	DoJ1WrNrFSfTQmbAKdtv+TqxP5/C0WR6lqbHwuc5ifxqK4xFhF3Q9tDmBc/gqzU5eQiLrAsZWaZ
-	5yZ9pa5cCRMg4oSBFO/zpUKBriE76qAdaX/6HSYp7PqSD1EWwrF0MSYdPTnMPs29FwReUt81RpE
-	UknxXlXC1McriIVNvNaPAGt6cMMjUBHN2+23oCsFpNRVt53eVLScrQwiHTa8ZXdWYeqkWvV8D9t
-	JlUkrpuxuuMicZsnNWAfXYwNrymKStBQNSf0SHSL0dUTxz/F5kaHhMsvLi3W/e3Fz2sgaABGh0b
-	i3/MA9mWN3kj464XKH83S21Zn0h4q+5QlNbESET6h5euAlNd81zbd370oWrkJKiS+WywmEAANr9
-	s6d4GPKSOFROgs3QluL/a/j0fvMVREYE0D8XxJuqRrcTr2iNogOjw+HkKS8LB0arLg+5+jWeDTY
-	sUr6AypWSCD631BAgCRXTn4prGMasvkb/JHVJbDYXCrZ5LOwybLCe9DQ43aCvTrLUQa10NeWwCj
-	th6vNj8FLDa+cR8tjobtOQWWSsBM4geKzBStc2ps3KZevryc7SKan8A4rsGp3a8zfEk5R7Ig1xr
-	XBss/bynjpRql3GksZLVG08yOPWrWULum60ELUhSDnrwWibqh/08wOii5vbdWWeiYgeqf/tgeGu
-	PH2fKmvXVQjYVZd9fFVNrVWxWDctWXfxoaL7LRJEe8YrfNJODS31IXk1nmg/2kdD7OT9Y=
-X-Received: by 2002:a17:907:a909:b0:c41:1e13:4ba9 with SMTP id a640c23a62f3a-c506684dc60mr118230666b.6.1794385725683;
-        Wed, 11 Nov 2026 00:28:45 -0800 (PST)
+        bh=agS3oe8L0hdPjr48miavd+nPT5T0r6hqPyAhGQquZQM=;
+        b=zOqQL73shpSJwoZ/CtH2OwVaU2aUb2HCvMM+a/e6wu8s1Qlmi1Er4kcgvMvrrZ1d9u
+         eJhrdzdEY2RQYpNztDR0NH1OE51/3oTftK5e7KBAgqulisuvrjMKKBJcxUzOxnYor7C9
+         Y67PYyNZ/5PeFAiJXBdcYDuEMAgiiAU+E2DSCY/uMpxp0piIpSoH4xygJ/BjQgYJLDnG
+         39p4wMC5VpEqUauyaoPD9gvYLIbOxH07rvIXnm7aRjQryahsay5yymgO+dJQtSP112vF
+         bESzBiocfo+Ihj8s6grwL3R+7seqYz2PyumswtaFT3sARFoJ+w/oEE+jPQMgbU2wP8Mo
+         DQxQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794385729; x=1794990529;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=agS3oe8L0hdPjr48miavd+nPT5T0r6hqPyAhGQquZQM=;
+        b=19s5oTSut9BZlXpBAKlZfXuaLv9VxxRSMOltG27oYQ2sUwoULS0VpKSacsyJLJA1Bs
+         j/pseNS4QOy4oR99/e1HqXZkG8X8N+36DVqWBVz1Rr3qJnUmPRS+GVH1oS/9RAxqRPNX
+         jgFXRIRw08ru6vJiuCglAScrpLZf6QpkV1Q8uLdoXB3R5eKZu1vYRiaSMrc8PXtMSuhD
+         T0ZzdFE9td7KRwVFA/3vLxmBg41IwI5rqSoPiFgfUkcmA6uxGfUfMPQArk/oB9tFkdfr
+         jg2rRI9YhL7A06/HzoIYS8bFYNMXS/kIv6Gwvz4vd+R7BvEIc3FusJGSvxa2OXmap6El
+         HW+w==
+X-Forwarded-Encrypted: i=1; AL+hErGDbPVnTyfkUl392H4gTOyF72sAiq6SfFRw0R13O+QlnFgf0f/fYEgz2k4jnn4G586eAAv4cFArAtNfW5E=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+SK6OT1FO4hV+j7z8Uf0Vra1PSRYkQxUGPfHnlftgMZCW9cCHf
+	ecw7ZC565Z/ckAZuV+Z5hhdwB64qz0OE38o8U4QipufQ0H0Inpa4znUf
+X-Gm-Gg: AYBFou2/PuMln1IMOt+1cMkZfMGVq74jyiD3JXUXnFB/Jhsahy5ZtrIuos1Yg4dYLuY
+	0XZ3GW2rkr1Ww3W7Y/3uTalYdWhVAv3ccf4bIxDaWqr7dPHKlnNLf6MuoxdxfeWyG2Ws9m6s7bb
+	f0v1VLBG++CQHK6P4/U2JfaoCufIdf4O0H1VKYjwLp+eUCJsYUq75/t52LLmnZIk6Hb980EbgZ1
+	aSNjBp85NKMU7kssR/ezwbaKlcWt3omCmaNVwWE6lrXoeDVZBhMDKknYHYL6iq5eTENJEsuWzF6
+	WQKLDeCPQMjtoRH73gGK6YYXch2TItNlb4efoX3ZRpm8hXfONbSRHpiluEOPBDJ9C98kOavpRM4
+	Z8/sRkSeNCBi7+nUyCBuiobU10ZvB6ChisMdpgRXrSTUiIZwk6Vb8C39N+V2KLNCamRDS5XxZtk
+	iHIQ3TZ6ZOE6255i22lIHOd8m6eikGOWgKZnXN0LZGiMfKo8NZPLWHwSmOKgI/3CmUFiuHfNdYN
+	QWiOYfkYTicrJW8vqLwOt6+Mjob6rRnXh8NU+k+7vdZhX8W+ZmaefhYVD5a6nEqYEln2x7lgKKP
+	j+Mk6srjXee7DVuNLR3meq1CiY0wZzSzb5zVJ7VcXLYRlAngKlBhsnJifUXCnATKqImSNoW6Icf
+	SamCdFcOrEVLJWrUFs3TbWyE99uC5TgqPWmkdsUThPztYigOT5LxIoXHmZ9sxVpSpLmDOwcyxkP
+	+qyw3FVv6E9ax2sN+1/pc82p/gcMAOwh+PAwGAdQtVo0ttYQ==
+X-Received: by 2002:a17:906:794c:b0:c50:6345:e41b with SMTP id a640c23a62f3a-c5066d3d007mr110823166b.46.1794385729434;
+        Wed, 11 Nov 2026 00:28:49 -0800 (PST)
 Received: from fractal.tuxedo-gray.ts.net (c-78-82-25-228.bbcust.telenor.se. [78.82.25.228])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c504a56ffc7sm210135866b.17.2026.11.11.00.28.43
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c504a56ffc7sm210135866b.17.2026.11.11.00.28.48
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 00:28:45 -0800 (PST)
+        Wed, 11 Nov 2026 00:28:48 -0800 (PST)
 From: Johan Dahlin <jdahlin@gmail.com>
 To: Guenter Roeck <linux@roeck-us.net>
 Cc: linux-hwmon@vger.kernel.org,
@@ -87,10 +88,12 @@ Cc: linux-hwmon@vger.kernel.org,
 	Fabio Baltieri <fabio.baltieri@gmail.com>,
 	Hamza Mahfooz <someguy@effective-light.com>,
 	Johan Dahlin <jdahlin@gmail.com>
-Subject: [PATCH v2 0/7] hwmon: (nct6683) Fan control and sensor names for ASRock NCT6686D boards
-Date: Wed, 11 Nov 2026 09:28:31 +0100
-Message-ID: <20261111082838.1418051-1-jdahlin@gmail.com>
+Subject: [PATCH v2 2/7] hwmon: (nct6683) Restore automatic fan control on driver removal
+Date: Wed, 11 Nov 2026 09:28:33 +0100
+Message-ID: <20261111082838.1418051-3-jdahlin@gmail.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261111082838.1418051-1-jdahlin@gmail.com>
+References: <20261111082838.1418051-1-jdahlin@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,40 +105,77 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add the ASRock B850 Steel Legend WiFi (NCT6686D, customer ID 0x164a) to
-the nct6683 driver and enable fan control on it, reusing the NCT6687D-R
-fan control that landed in hwmon-next since v1.
+A fan switched to manual mode through pwmN_enable keeps its last duty
+cycle after the driver is unloaded, with nothing left to adjust it.
 
-Changes in v2:
-- Rebased on hwmon-next; use the NCT6687D-R fan control path and
-  have_fan_ctrl (Guenter)
-- Dropped the pwm_enable and pwm write retry patches, both in hwmon-next
-- Restore automatic mode on removal through the fan control path
-- Added the ASRock BC-250 (Fabio Baltieri), needs a re-test on the new path
-- Added sensor names, fan header names and +5V/+12V scaling as separate
-  patches; the M/B thermistor and the fan header order are inferred, and
-  the scaling patch can be dropped in favour of sensors.conf
-- The struct cast flagged by Sashiko was fixed in hwmon-next (c4a01c2a80b2)
-- Kept Alwyn Kik's Tested-by on the unchanged patch 1
-- Link to v1: https://lore.kernel.org/linux-hwmon/20260825092546.669450-1-jdahlin@gmail.com/
+Return the channels the driver switched to manual mode to automatic mode
+when the device is removed, using the bitmap kept for resume. Other
+channels are not touched.
 
-Johan Dahlin (7):
-  hwmon: (nct6683) Add customer ID for ASRock B850 Steel Legend WiFi
-  hwmon: (nct6683) Restore automatic fan control on driver removal
-  hwmon: (nct6683) Enable fan control on ASRock B850 Steel Legend WiFi
-  hwmon: (nct6683) Enable fan control on ASRock BC-250
-  hwmon: (nct6683) Name the sensors of the ASRock B850 Steel Legend WiFi
-  hwmon: (nct6683) Name the fan headers of the ASRock B850 Steel Legend
-    WiFi
-  hwmon: (nct6683) Scale the +5V and +12V inputs of the ASRock B850
-    Steel Legend WiFi
+Signed-off-by: Johan Dahlin <jdahlin@gmail.com>
+---
+ drivers/hwmon/nct6683.c | 34 ++++++++++++++++++++++++++++++++++
+ 1 file changed, 34 insertions(+)
 
- Documentation/hwmon/nct6683.rst |  10 +++
- drivers/hwmon/nct6683.c         | 140 ++++++++++++++++++++++++++++++--
- 2 files changed, 144 insertions(+), 6 deletions(-)
-
-
-base-commit: 44c8ceae2dd3ae536c5f4f956cedb24c157aac23
+diff --git a/drivers/hwmon/nct6683.c b/drivers/hwmon/nct6683.c
+index 0565ca9290eb..d43dcf90048b 100644
+--- a/drivers/hwmon/nct6683.c
++++ b/drivers/hwmon/nct6683.c
+@@ -1584,6 +1584,32 @@ static void nct6683_setup_sensors(struct nct6683_data *data)
+ 	}
+ }
+ 
++/*
++ * Hand the fans the driver switched to manual mode back to the EC, so that
++ * they do not stay at a fixed duty cycle once nobody is left to adjust it.
++ */
++static void nct6683_restore_fan_control(void *_dev)
++{
++	struct device *dev = _dev;
++	struct nct6683_data *data = dev_get_drvdata(dev);
++	unsigned long manual;
++	int ch, err;
++
++	mutex_lock(&data->update_lock);
++	manual = data->pwm_manual;
++	for_each_set_bit(ch, &manual, NCT6683_NUM_REG_FAN) {
++		err = nct6683_fan_ctrl_update(data, ch, false, -1);
++		if (err) {
++			dev_warn(dev, "Failed to restore automatic mode of pwm%d: %d\n",
++				 ch + 1, err);
++			/* The EC does not respond, skip the remaining channels */
++			if (err == -ETIMEDOUT)
++				break;
++		}
++	}
++	mutex_unlock(&data->update_lock);
++}
++
+ static int nct6683_probe(struct platform_device *pdev)
+ {
+ 	struct device *dev = &pdev->dev;
+@@ -1593,6 +1619,7 @@ static int nct6683_probe(struct platform_device *pdev)
+ 	struct device *hwmon_dev;
+ 	struct resource *res;
+ 	int groups = 0;
++	int err;
+ 	char build[16];
+ 
+ 	res = platform_get_resource(pdev, IORESOURCE_IO, 0);
+@@ -1710,6 +1737,13 @@ static int nct6683_probe(struct platform_device *pdev)
+ 		 nct6683_read(data, NCT6683_REG_VERSION_LO),
+ 		 build);
+ 
++	if (data->have_fan_ctrl) {
++		err = devm_add_action_or_reset(dev, nct6683_restore_fan_control,
++					       dev);
++		if (err)
++			return err;
++	}
++
+ 	hwmon_dev = devm_hwmon_device_register_with_groups(dev,
+ 			nct6683_device_names[data->kind], data, data->groups);
+ 	return PTR_ERR_OR_ZERO(hwmon_dev);
 -- 
 2.53.0
 
