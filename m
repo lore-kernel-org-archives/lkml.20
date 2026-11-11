@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794381582;
-	b=DRboKnMXzoJ7x7X9iyoRb+T1FY9hPjYQyi5WCyglQjeIO/uas3QyE3zNV+4IUCWZD2E7
-	 MI2DemXhCEXG0QSIab7VeTCxgUFXBYyIKs70Jbfx821GYRSPtZCOk1R03qXmTeMkxrpfd
-	 yH2JxomD6QqvoLyjqu7W3q62dzpoRuTC+Ydw67WOjIZLPF9r3nCP9IxmV8lCxFIgDDFEO
-	 5b+bcb0phUeNSRvkagpZrWy/7fx3Tp/x4gAnvgq+tQaBySSz9ebmghkRWoK1Wsq8TvUQZ
-	 1H4PXu1ZodqutsQP4xivzv+9eTXk0/2cgp+7JmDFxJxEwl4HgMmgtzUDX50mslHaoSQ==
+	t=1794381591;
+	b=IdlCQinT+dGb4RFmEcNTis+6odBTrSfdvVlUxdhGm9EbLvJMZe++4d3pcxMpY3gwkED1
+	 ejZe3QLMrT8gBGiCqwXGVfqXsDInppCUA8BLNxvCJvsenZjUsSjaPyHPVtAkEKpvHvcNx
+	 r/gq067QuB1kWiyCkimUJTO3Tw7DMru5jIefRV10RbWQxBPiaXlZCzEP/WxdPvwM05EyE
+	 oJOZAkaGrGMQ0EF/Mgw+8OX+ttG6H/s655wjHy+Y6l/Mll9KerNjUei8RmliSDfH52ttg
+	 mspOi9F9oAk4G9jozUiCxeItjbCzPi5fdBJBqkMVyV31u9ck6gI8Sv0tCtt+mTp4Alg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794381582;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794381591;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=83VQc+V/d7sVytOA37pnJFrWAXWZbo8taqD5cZTmQxw=;
-	b=xIGKlKXoWS1Oi17GKKh7KGTLnf9gLZkM1GdczwQfsE0vCFxXHqncb/kzhXe6WTANgUzN
-	 HHb5Kkj7cxC6LcyQwWV48jsZAsB1lcrBKI6xopIDSSlJcWbKSoKiprQFiC5wxwiWSicEJ
-	 twGse3mRX6ibfKoUlVXf9CkoRrqLGhyEHNW0YWZbwmjb2auJ2vrgoOeXgHocGJNdSPl4V
-	 6ZCZXmp9VndOgEQ9a3cxwAebmKTqbGBPtFzz11KeCsgxWwWSOzdyGqq19KW2F/LMCrTQm
-	 mGitbtTD14V/niXRQbzaJdXIy0YNYc4mgdAHdw1WnLkFDkHYsMjZ3p2IC11tWjutV4Q==
+	bh=NdEJkuBPhRTVAo2iRoe4ZVb+LkSD9A9KML9WLzan69c=;
+	b=CZ8oOwZorY2DCV+eLllpg7sa8EowvScFTKl2TIQKHPEQQ2SoN+kiW8OqUmJhieiC61rr
+	 0LD5G0BQRDcN5uKmPWX24TbRB0kiU5bOOE0Y8s2Os67Z3HFoihrqCghNX/nxwH1Bu56tG
+	 w16h55UXgxm7eHRxDmHCSwc7Trq4zlLilnUgyQbiz85Kiy1k+RaZUPI2pj9k3c1cgf+ox
+	 FtmE1aqlrIj2K4iR05ueDE+iXVdZyc1YLsrCcI5GSwhNorlwL5qQogDy8UjNKOhKAaDaz
+	 A2zK9jQfEvGlI+9IfQ/ztHXjpF81zxE45rifzexfGFVK3Ge6SOAUMXWU8ecw6DC06Pw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Eyu0Dzke;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A4k0IVxF;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7F22606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 07:19:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6139606A324;
+	Wed, 11 Nov 2026 07:19:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Eyu0Dzke
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A4k0IVxF
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794381582;
-	b=i7U5cy1IMGIYDIghRZr9xuLBHRB4nzNsOoC2ibO6rLnwpL5NTKxCBw/gSOAliUfBSLxu
-	 QLNysSAIJTzCeQ8VB5TuvtEPA9xWjTezIVuyigCKNzX3QQ+hE15ep/SBLriCEcLWOxkTD
-	 7/czv45VsCy5y9y+8K0OcMT2UmbswdsVOuD0C0adbJYjU7Qz/1RzXHYEEhlWStFkriDNv
-	 zzBPoC0k1/D3YTEUvuXz2rC95Engs3LDIJtkF2jYNlaWoytzFtvb0aceySlcYTsMX93Sr
-	 O6T7st24TZWR6hMEEmiHbj1xS1YG6xIsdttAqr7Qyu+x+sTOZKiyO0wtJy2CI6xeEsA==
+	t=1794381591;
+	b=SfGgWfi+OKqa2EqRUqoWilAv4maopIZNuPeyq3J0qRXe/LmhJ7I2yH25Dxi1vOCRRsVR
+	 0JSGL0pb1Az4KreRz1j1D73vjFWAq6E7vk0kXNhOsNhjoZYGDB6GpORStexqfp8HxmV7Z
+	 FKJPsk7+uXpeDFwYKmWjTpkzD8c/VXk42U+yPj2tpB5c5yLIH6Csv+RSPVV+D1jFhRlKD
+	 dr/dfXx0qFcvq1HkoNYdlvsLAnCrtXcnIwhpdUQI4LPq3BR3lxySntwl5R80BCfIlSDpl
+	 0fBvtJwXpmRYpOiX1BgARY3HYEyxH/3adOq8kRPzJlpIz2VJ5gnbb+R7LUJzbERvUTQ==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794381582;
+	c=relaxed/relaxed; t=1794381591;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=83VQc+V/d7sVytOA37pnJFrWAXWZbo8taqD5cZTmQxw=;
-	b=pcT6WQBWqhz0a6XcKSaqrYEz8OyAya2pYIXa5rQBhrLXL7YF2IRERVvmOJl7Jrv+9Bxx
-	 4GrOgxkGgUHOStj8eoa72/q6P/UIULgMp4IDwkQcygKdmcve2PkyRr2fmjvfy8OyHoK5y
-	 JdrVEs4+UCXjPTJmE7ogxwJfxYDvhDM0KYydFgUfsBq+CtjV4SkdJR5BP4elGs7kCcgdg
-	 ueTQNy/GYDeesEmNWPQdv8t6HT+ajgX93/rlBU/oyDZTx11H/Ik5khA3BVeX0/rc2ZMze
-	 2mTNRgioJid0fLcpQL/FuWn5whYEjDN7tBUQcHj1BpaQf6Xwi464lxq+AtoiNwsAUzQ==
+	bh=NdEJkuBPhRTVAo2iRoe4ZVb+LkSD9A9KML9WLzan69c=;
+	b=Pzi1SrucX7Dcs07XA2kWA8POdHwFV2Tg4UIQZdx6w5Mzkg0WL5Vd77kx3Xlkhh2xrMc8
+	 vmfyRb1HHZWYmdy8mYHncwJWEbZiHDcQ3Q3nqC5kbhMDaL9RUWlYul+d4asmkCp4pZse3
+	 Oe8o2hfIyHJbI37VvGC43+Q/+jjgL5D7EpCYZTMnPdOxgGTXgDNfOkkcWjL7ZLVDEoXUl
+	 BcftPLjN61n8Jgf7d7K83U3Qyn7p6v14oK3ypYg+y9d7SE/DBa4azYIcfrnOGlyrzN7dV
+	 7FJee7x45cxXMACyDV16oU0E2vo859AYrSLqNF9pd4pWeWCgnwg0Mij7AL2dXNfHZHQ==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id B67EC1F00A05;
-	Wed, 11 Nov 2026 07:19:41 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 429C61F00A0B;
+	Wed, 11 Nov 2026 07:19:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794381582;
-	bh=83VQc+V/d7sVytOA37pnJFrWAXWZbo8taqD5cZTmQxw=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=Eyu0Dzkecdtiey1ZynU2sG/qi8i1f/+P4YKS3y+4Gkn4K55QV95okpA0c1lVKHOWm
-	 KiFMD7wkdq1S3Rg+ZC6IlZPHxU9swHK5QmKhy4exCFC8e3XBTvmoKBij0IU1yqOcrq
-	 1ozdWXTVxpVoms7ba1pIoSbw6O9xYorL/H9RDcpd1KyOeWq2v+WKjvklneT0a+2fxY
-	 Kc5mix5TiO2kv3oUQ4SE9UQ2QiNQ/924t3X6E6kSZR4BQB1t+Rwol9LAkVsKc/ISwx
-	 o39+PsFVBixthzVfPMG7cEO8seAykS+6YQ3Gl7hE8tyOOMWu+k4cI/+gT2pygTlYbU
-	 Kippfj3w0atCg==
+	s=k20260515; t=1794381591;
+	bh=NdEJkuBPhRTVAo2iRoe4ZVb+LkSD9A9KML9WLzan69c=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=A4k0IVxFFKKeE64pwNmbmy6lkoxztmQrmxvKIDsNC4VXNteJjNtDB2Fm6K3GSUh2A
+	 rKp2o+6G87ch2kgNfL4nEOZgHmCuyWtT5RdXQeWiTPT207BuEZkeatAONlSLnCa/HQ
+	 t4tS5sB1fzI4hlgp8JJ6rFa5wzRLSo2Babn10Zq8Om3bCxjUDcv4YGenLNBP8xYwe7
+	 w7Epn0NLiJS1oagnEUmCWgxScNCKGJnrgBpQavnZHh88oI8+3owk3j4D/REf1OZmDr
+	 Uo2KOlz6OFosnvugrW+ohEIlEoNJ9jbKJOVMaX6kCAMT/kM0IFrYPRDRjGE0MGv7Ta
+	 MfI3c9LFChz/A==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 1654948E41;
-	Wed, 11 Nov 2026 07:19:41 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id C500648E4F;
+	Wed, 11 Nov 2026 07:19:49 +0000 (UTC)
 From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Wed, 11 Nov 2026 07:19:41 +0000
-Subject: [PATCH v2] drm/bridge: Fail an unsatisfiable bus format
- negotiation with -EINVAL
+Date: Wed, 11 Nov 2026 07:19:50 +0000
+Subject: [PATCH v2 2/3] arm64: dts: rockchip: add the SPI NOR flash supply
+ on Orange Pi 5
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,30 +84,20 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261111-drm-bridge-busfmt-einval-v2-1-fbb74905614b@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/42NTQ6CMBBGr0Jm7RimEKKuvIdhQdsBxlAwLTQaw
- t0teAGXL9/PWyGwFw5wy1bwHCXINCZQpwxM34wdo9jEoHJVEVGO1jvUXmxK9BJaNyPLGJsBlTE
- XXVjKy2sBaf7y3Mr7uH7UPw6LfrKZ97+90UuYJ/853JH23h+aSEhokqTUVhWqKu+da2Q4m8lBv
- W3bF9Z/s8LSAAAA
-X-Change-ID: 20261110-drm-bridge-busfmt-einval-2cc8b3d10493
-To: Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
- Boris Brezillon <boris.brezillon@collabora.com>, 
+Message-Id: <20261111-opi5-dts-v2-2-821f666418a6@gmail.com>
+References: <20261111-opi5-dts-v2-0-821f666418a6@gmail.com>
+In-Reply-To: <20261111-opi5-dts-v2-0-821f666418a6@gmail.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
  Arun Iyengar <aiyengar1990@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794381580; l=4655;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794381589; l=1541;
  i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=Ziyi2IZLgbKXw37gKHjsH70kDZh1z3mkpnBpz48qVjs=;
- b=CTIsg0OH7JUFZHae3BOEI0lTa03NHzsUj5+AJYyeUAkZXBYalcoBcTWtAguxGRZ2EpGL2Qucv
- 5Xtku29gr03C7dzC4uZ1Sz8P/z6KDmNLgM9vJDlwzeeE3DIKfNGMmX/
+ bh=9AwdsnGfZOnrDAgXOfqgNderVhk3/vp9FG3EwftKGrU=;
+ b=RhOdbp4OjjH909fs+0CrOvJW2bTfSGyvtpLiF19yu7WiUnQ8cYh+GNImj0oVekqQKA3GE9lUE
+ u4j/fgevyICCYYIA4NMuLetlWruPnqxKVWCo2WNbX4zeJH+ZiO5riG5
 X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
  pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
 X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
@@ -118,105 +108,44 @@ Content-Transfer-Encoding: 7bit
 
 From: Arun Iyengar <aiyengar1990@gmail.com>
 
-drm_atomic_bridge_chain_select_bus_fmts() reports that no chain of bus
-formats fits with -ENOTSUPP, and drm_atomic_bridge_chain_check() passes
-that straight back through drm_atomic_helper_check_modeset() to the
-atomic and legacy modeset ioctls. -ENOTSUPP (524) is a kernel-internal
-code that userspace does not know; for a configuration the hardware
-cannot do the atomic API returns -EINVAL. Since the connector "color
-format" property makes the negotiation fail for any requested format a
-bridge chain cannot output, userspace now hits this routinely: a DW DP
-connector asked for YCbCr 4:2:0 on a sink without 4:2:0 support gets
-here with no matching format and would fail the atomic commit with
-errno 524, where an HDMI connector asked for the same returns EINVAL
-from the HDMI state helper.
+The SPI NOR flash on the Orange Pi 5 has no vcc-supply, so spi-nor
+falls back to a dummy regulator:
 
-Return -EINVAL when the negotiation finds no chain, with a debug
-message naming the encoder, and make the drm_bridge KUnit test of a
-chain with no bus format path, drm_test_bridge_rgb_yuv_no_path(),
-expect -EINVAL from the atomic commit.
+  spi-nor spi5.0: supply vcc not found, using dummy regulator
 
-Fixes: f32df58acc68 ("drm/bridge: Add the necessary bits to support bus format negotiation")
+The flash reports JEDEC ID 20 41 18, an XMC XM25QU128C, which is a
+1.8 V part, and it is wired to FSPI M0, whose pins (GPIO2_A0,
+GPIO2_D0-D6) are in the 1.8 V eMMC I/O domain. That domain and the
+serial flash are fed from VCC_1V8_S3 (RK806 BUCK10), as in Rockchip's
+RK3588 reference design; it is also the rail other RK3588 boards with a
+1.8 V flash use (e.g. NanoPC-T6).
+
+Describe the supply on the flash node in rk3588s-orangepi-5.dtsi, where
+the node and the regulator are defined. The rail is always-on, so
+nothing changes functionally; the flash just gets its real supply
+instead of a dummy one. Only the Orange Pi 5 enables the flash: on the
+5B and 5 Pro the FSPI M0 pins are used by the eMMC and the controller
+stays disabled.
+
 Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
-Found while making the DW DP bridge honour the "color format" connector
-property on an Orange Pi 5 (RK3588S): once dw-dp only offers the bus
-formats of the requested colour format, a request the sink or the mode
-cannot take leaves the chain with no format, and the atomic check
-returns the kernel-internal -ENOTSUPP.
+ arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5.dtsi | 1 +
+ 1 file changed, 1 insertion(+)
 
-Tested on that board with this patch and that dw-dp change, with a
-DisplayPort monitor whose EDID has no YCbCr 4:2:0 support: all 74
-commits asking for YCbCr 4:2:0 over the monitor's modes and depths are
-refused with EINVAL, as the same request on the HDMI connector is; the
-296 RGB, YCbCr 4:4:4/4:2:2 and automatic cases still get their format,
-with the picture checked by a camera.
-
-This patch was developed with Claude (Anthropic) as a coding assistant:
-it wrote the code and the commit message, and I reviewed and tested it
-as described above.
----
-Changes in v2:
-- Make drm_test_bridge_rgb_yuv_no_path() expect -EINVAL instead of
-  -ENOTSUPP; v1 broke it, and I had not run the DRM KUnit tests. All
-  drivers/gpu/drm/tests suites pass with v2 (UML). Reported by Sashiko.
-  The colour format series added that check to record the value the
-  negotiation already returned; I found no review comment about the
-  error code on the test's postings (v6 to v17), and the atomic uAPI
-  reports a state the hardware cannot do with -EINVAL, as the HDMI state
-  helper does for the same colour format request.
-- Add the Fixes tag, for the commit that made the atomic check return
-  -ENOTSUPP. Suggested by Sashiko.
-- Cc Nicolas Frattaroli (author of the test) and Boris Brezillon
-  (author of the commit in Fixes).
-- Link to v1: https://patch.msgid.link/20261110-drm-bridge-busfmt-einval-v1-1-c0494bd23264@gmail.com
----
- drivers/gpu/drm/drm_bridge.c            | 11 +++++++++++
- drivers/gpu/drm/tests/drm_bridge_test.c |  2 +-
- 2 files changed, 12 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
-index 8ae2f9b1db44..6a97b579c604 100644
---- a/drivers/gpu/drm/drm_bridge.c
-+++ b/drivers/gpu/drm/drm_bridge.c
-@@ -1437,6 +1437,17 @@ int drm_atomic_bridge_chain_check(struct drm_bridge *bridge,
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5.dtsi b/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5.dtsi
+index 2db6ee95e504..c7d892e4f961 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5.dtsi
+@@ -302,6 +302,7 @@ flash@0 {
+ 		spi-max-frequency = <100000000>;
+ 		spi-rx-bus-width = <4>;
+ 		spi-tx-bus-width = <1>;
++		vcc-supply = <&vcc_1v8_s3>;
+ 	};
+ };
  
- 	ret = drm_atomic_bridge_chain_select_bus_fmts(bridge, crtc_state,
- 						      conn_state);
-+	/*
-+	 * -ENOTSUPP is the internal "no bus format chain" code of the
-+	 * negotiation. It is not a valid userspace error code; an atomic
-+	 * check that cannot be satisfied fails with -EINVAL.
-+	 */
-+	if (ret == -ENOTSUPP) {
-+		drm_dbg_atomic(bridge->dev,
-+			       "[ENCODER:%d:%s] no bus format chain found\n",
-+			       bridge->encoder->base.id, bridge->encoder->name);
-+		return -EINVAL;
-+	}
- 	if (ret)
- 		return ret;
- 
-diff --git a/drivers/gpu/drm/tests/drm_bridge_test.c b/drivers/gpu/drm/tests/drm_bridge_test.c
-index 15583ade8494..792dbd035501 100644
---- a/drivers/gpu/drm/tests/drm_bridge_test.c
-+++ b/drivers/gpu/drm/tests/drm_bridge_test.c
-@@ -1351,7 +1351,7 @@ static void drm_test_bridge_rgb_yuv_no_path(struct kunit *test)
- 		drm_modeset_backoff(&ctx);
- 		goto retry_commit;
- 	}
--	KUNIT_EXPECT_EQ(test, ret, -ENOTSUPP);
-+	KUNIT_EXPECT_EQ(test, ret, -EINVAL);
- 
- 	drm_modeset_drop_locks(&ctx);
- 	drm_modeset_acquire_fini(&ctx);
 
----
-base-commit: 8deaade4a5a4ff635df91e246e42139ab2b33f6d
-change-id: 20261110-drm-bridge-busfmt-einval-2cc8b3d10493
-
-Best regards,
---  
-Arun Iyengar <aiyengar1990@gmail.com>
+-- 
+2.55.0
 
 
