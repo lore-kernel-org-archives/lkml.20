@@ -1,111 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794416658;
-	b=UIUJidRDa6OXi/tEpHbDxvnFRaH/pfB7hLQRlj0n+3yYfVzkNXpUg/ItWZVX/iJXH2/C
-	 gKjLfaOMmUYgggUdflW8QWkm3v8uZIRBIev8BziDQX7I4prtx0892lEQ5llqtZXTU0bqD
-	 VnPHxG+iupymSn9yc+3ZHPZkpq6zEcT9NQgl7NhvUkPwklgtKUR8sTWLsLjbjX31KA1+w
-	 xOPoRO6w7cJFGNzSJdIn0auzf/o/E/teYbaun6utHuLEx3P5VF586LEsxwsw6saZprGkf
-	 B5EBdLJF2+uygXBmcLdjbh/Ug/VeqX7AIId4riWRzoZ8N9PaW9eqIs5gIsKfW+CqI4g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794416658;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=quFqhC3AFLCeVG613t358vO+Tbv3j9opYxwnp7KC0vo=;
-	b=WCdWMSrkU9/xeCGbsmQD5A8AxEjlTGgbdW3ym+2Ww7XWQPL+IZh/CCHFKdqp/RR0aUqn
-	 G7pa3/lnYq7D4WUtriZJVfWIZyg/RYLajfH6E2Yf/x4k34RRW+ykTUG+vKtgp7i/AyjWy
-	 W+otRFi8lbYwWMX2yxfc/j8+WZWWOXS0pQdKY7E1MayrrVouNmFrJpt+Ns2eh1AT8oDP5
-	 ek1ztAsPp9mMlJXtbFH7H3g3+vqemfCgDldVlfaKO4V4lBmmNRhGZQK11+pZY64cqvK1i
-	 /dZLqtdjCbKw1+1Wp1BCYXW+Q73myDBXVs7e72YZrI24WtrLGJ19hCdieSf2sboEy5A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=BSL+3uUU;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Orv4fv3x;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.174
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794416662;
+	b=YR1jDcjEGaDuNwqjYiZL9f9Zs14iw9vN+vqg6vxQ6T7dZHJoFjt9VYfNBJJMHoA6y5fJ
+	 M5RY1BwAeAkCSyThsfK96pe6zGDTKMOrGnum/pRvXecvCOF2QlXp0FCIM7f/bFuV3frey
+	 PB00bq1yRae6Lq53Dk5JLOqZB0zq2N+nTmcce2XJjQ7JtZxgsOhkGAAPHQ95rFD8HPoqC
+	 SYfCyzDtO7D7qUoEQorpyLRhPP3qRQzbQsBBibzBamqxdbkw7yQfH1oBrSpRjIMdw5tc3
+	 KK8jlvfC/S6PsLtN5GZDGlxLUEoYqIIACTGa6HcbIcTWH1nVf/x5OEBDmUelP1tQlFA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794416662;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=sz1fBEHUL8IGMULI0g/KGEQw0Ms9ofA5l42B+4Sj0Rc=;
+	b=zAUxq0iP5LsFkNN4GR1n2T2MIpRPMPcn4J47u4d14Y5lXtPTnFSzbAeM75AzxEUFhUsd
+	 GYJxa+zqx+J5mlfJqJDnSbHTjgMAGq++wznAqvt3ttPBJEQTKi4UItUBVBgxp68V4FW6s
+	 zh4Ix3vGMwcfbhsGxrSIhytltzk/fivqCjUznvQOQwomMjexN//hllxa2FK+pepDc7krC
+	 RISkXsRC0/kVsaRuiLV4ok9dlszpvSyaLyA2k9+chgn1J0MakmGG3Fy7bmZScjU2osXct
+	 yEtlxK4sOwYE1WI3VIS19mcFFWw4qCu77VgOs0Z8hF5O4uIf3tNPw2JCSXpf6sFYpQg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="DbiXO5/q";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.174
+Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 436C760A2604
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 17:04:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 436C760A2604
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFC9F60A2620
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 17:04:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CFC9F60A2620
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=BSL+3uUU;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Orv4fv3x
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ABF18FE2115606
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 17:04:17 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	quFqhC3AFLCeVG613t358vO+Tbv3j9opYxwnp7KC0vo=; b=BSL+3uUUU7PSjLUb
-	EIdXgPNwgNerp+danDrC0RSeTAei3ZG4Ww+w5q12weaGjSZAEJ/IbMCu4E2zCHaW
-	dIJBZXjy5qP27uq0VQ6Ppwl+6bJ0XGnJbyjsyfRXJFjaJJOwkCoJ+TDF3KhBsKYn
-	9GG9yQdOP2J5JiVbEaTkEZHqAJr7BBaSFGJNUAEtW/aoQXd8DboGAiZwX1mSlJBT
-	Cp6FV7mTLtQo5NMXXDg8VpccA7+E+qzTiEIXJt8nd54irE1smTaiJzLE+DN32ubG
-	7RBx2gsoqkWDGKd40qOLl4L6xCQkq0Zx04yj+zZJi+2k4aICKVjMqwvkr7Dj8XO2
-	A0Cfeg==
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvfawk664-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 17:04:17 +0000 (GMT)
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3b18165dc53so1427052a91.3
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 09:04:17 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DbiXO5/q
+Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-35159e0092aso77439eec.2
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 09:04:21 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794416661; cv=none;
+        d=google.com; s=arc-20260327;
+        b=NNnZY/Np/kNbcMSrG+un5wsdlg+4u7BzhIW0lUkh70EPKQqlTNx/XMyViJcFMBXJ9E
+         QZxjutX6fqsqaN4rzDS47PI/OcgxVQ13aMuscHQbDep98OuF8u0nDArfd17OEPFCvc4r
+         +RLaEWGuS4ITZcNVmWaLI6atG4zb1Ssryv4KoIDfkqjJSipXRdBzTfI8KJjWjVKf1v/M
+         1L8Q5R6qkeH7LHONAIwOyA9rW0DCEAHAo6ANLbLzvGGNwjWERGeJ8TvCzRJpRnLJXdLt
+         1xm+gYTdvlwpMFD13nFXPfYBYWGBxQABW/7jTAkumBIzG51L5qRwyk6QMuA5msCcZT/7
+         LGFg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=sz1fBEHUL8IGMULI0g/KGEQw0Ms9ofA5l42B+4Sj0Rc=;
+        fh=oBpdhUEnis8nhJT7qTYckKnZvv+e+GbumnjJYzLgIQ4=;
+        b=dK5coSH6X/sD2cd1dxkFzJN7Vrv6uBHD/PFGZvkQB30GYUqPfZX5ksRFTCK4JzNlNr
+         OlPVIhG8b05f5MfRv7OE8L2e0rYxqQaakaLQ/W2hYtU0QlUGoD79HWm440AcLLSZHz8v
+         PUFwq9Rf8rvRU5isia/t9ZokY8fkWNUNn1z1eR5dvy7Iucckn0rEMAmG/WdWPz8BPUdg
+         3Sp4pnBb/pc8/RQLNoqZTDrUAjtor1bwq8LGhzYCMTIgyLa1Sfh37RQ5Ls0X2adNDv3P
+         wEfIO96+LMc4YYafCEoG/ZduFMV6HMk1f5DfhUVxnuMXlJ9lz7j7vYXD/d0lpAx7s+e9
+         6z+g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794416657; x=1795021457; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=quFqhC3AFLCeVG613t358vO+Tbv3j9opYxwnp7KC0vo=;
-        b=Orv4fv3xLFlMnVP9lccYoYWWekDDjqK2/YSMb3mZKKUjJyhODIeJyJTbpfG3SKV15r
-         EVWb/vDU3yuIohOazhTaUoBvU4WDyVFaoOJeMarl9KD3bJ04lWrmiXA0FlNank/r/UMl
-         VmfwCUyRKA6K4r7Fs/GATyCPF81wRs03Us1b19eGv/8TIm5BvpkjQ32zOhFwPbinx825
-         R0l4GGnmBziEWj4h2TdUrBjOMbyDW5wpYoUv2ZSVKGKfOX92QIwl+vyQ/G1bzo38MUI+
-         gRN3tZpeZ7ye5oEelxu7YcY0KGIzDGPNJqzmFpFiA6f0a6jVYjOb4A75llsbMrY5vJ58
-         3SsA==
+        d=gmail.com; s=20260707; t=1794416661; x=1795021461; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=sz1fBEHUL8IGMULI0g/KGEQw0Ms9ofA5l42B+4Sj0Rc=;
+        b=DbiXO5/qKP5+obHII9O4C5HJTKGFJGcDU6JfqAXM8n9EjMmsFsXtgtHkyDj4n61YHZ
+         onMjS738COn4YbszdC9ZRBO4VgmvwPnKesJ93Trq7MDundSCM7HH83n+CVX8YZav+Oek
+         5zE9tGRUk3nE84Lp6XShTCI9elU5NB5tLGkMaSY1Grwx0p4smiz0uMapVDT5yOScpz5G
+         v4uZ7XksEYy7OkF+dqzwEKq3eA20VZzpsRFeNNAsX8NKMkHlFXUCoOSpGrIchQWffwRx
+         Yz5f/Rwmd3/wkz8r+AF5yOo4X8MzTdnC/5avQWHOtMDfyDr6Ms7xraM1/xCyGci+8P6U
+         kENg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794416657; x=1795021457;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1794416661; x=1795021461;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=quFqhC3AFLCeVG613t358vO+Tbv3j9opYxwnp7KC0vo=;
-        b=wPIRWCYmF3+uk85ZAaEZU6ElaV4s0B8Qk3jtKYzsBMmaiKQJh8304zA4VH6muf3FAj
-         i+cZEV16jtvG/SXeFu8WYwFuJGyeBlgB/hDrevrojB3BKBg0+iaAut3mrT+fpWW69Khz
-         ZqFMO4lGdrjvTb1myMeEwOREJ/gdI3ZIMY0zQwhl4m5TSlS2Zux6Iu6+dd3YV6F0EH6B
-         0Toc6zfdhWLtVwCvadzXbXFaT3uc8cv8fOi4DnGVjTXMoZvtH/WgHbpioqvbXtFrQUDG
-         pKa1DDENA8F1RGSdNu/Ou/cLAeV4GNCcaBknXEf0i0R+S8xnt6ZmeTJ/6SZvlS4HxhZW
-         OqGQ==
-X-Forwarded-Encrypted: i=1; AL+hErEoD3Pok8Du4LJg9NiD/mNEwHyuZ0KW911VQNBrP4J4FzQPLxppLTgE+DwaCFI+RYOw63bO5GEy48ZLw4o=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9HOVPAZBOOdqON9THJ2D6A7MwRjAFR46FSgDEkjRk9NMZyr5iM
-	xKNbhaN2C6/sVXF1kaaUt53KtEhsQKee1zNIwdw8xhE4yBqLkKtNB98KFZeGCStzUXRotgtmXPi
-	uBwbtBMffxs7Ws88pDSbyIvvA3/p5hZ+GwHDbUpFzrrap4DVsLlbnm4e3I/tkaI2UVIo=
-X-Gm-Gg: AYBFou0fETOw72cJ0hNsXTuM4V1RyoCGGRxHojBOTsZYfJSzJjxjpOgvf0jGjGIw/6f
-	sZAVUB6vy+LC4KuptRPb6XMwfgf6uHz59RAm6J0dfVHJ73/fjpvMciQk7wKyiAu4yFhi2E4a7aq
-	uHFxxKvB/SKMfttrQOs9barhqh4BT57ZfPtd7pBl4yQn04h65DKVAZ4KLrimVw8eycWPAYQVpmx
-	qw3RL7ILK8DLK2AcrW2WcRMb3Wrx1UaVPU6trSiEzgvgskjjrnC+POrZSxOZ39C562uWY4la0hp
-	EcMQGYgXNN5Bm6oZRSxovcppkDwkd+PInNtIbgmjmfR4GXPt/Qf1J7jjj6dgSvWicpzw37YpqY0
-	HRHvGMFpsX0xsAe9n7htRp9FXtNb36p4mTvOY045rf6rgmZw3tFES8ZSol9YjFiSr1vk=
-X-Received: by 2002:a17:90b:1e4a:b0:3b1:6f2:a188 with SMTP id 98e67ed59e1d1-3b182f14e11mr3059340a91.55.1794416656565;
-        Wed, 11 Nov 2026 09:04:16 -0800 (PST)
-X-Received: by 2002:a17:90b:1e4a:b0:3b1:6f2:a188 with SMTP id 98e67ed59e1d1-3b182f14e11mr3059287a91.55.1794416656080;
-        Wed, 11 Nov 2026 09:04:16 -0800 (PST)
-Received: from [10.213.109.130] ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b197d0f497sm84920a91.8.2026.11.11.09.04.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 09:04:15 -0800 (PST)
-From: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
-Date: Wed, 11 Nov 2026 22:32:56 +0530
-Subject: [PATCH v4 7/7] mfd: qcom-pm8008: Tolerate missing interrupt
+        bh=sz1fBEHUL8IGMULI0g/KGEQw0Ms9ofA5l42B+4Sj0Rc=;
+        b=Q4DwA67CVKuMo+0MIZElCRprm6xvo0NnUM0Hd1Y4lPKaHKhaHNrxdjEp98ZCTd7reL
+         dAOL0N7b0hEMsOFIBb3gLkrcO98NVbX5YDosi0FsKmVV6buuD8P0wrlcYf2TaCOwdofx
+         xYoZHNk+vFNxy6xU5A4s7+SQOwVmhf7r5wtTDwHKYSlxoQszgBQx6lH7MrnlXE9YqbID
+         8Fcfw4NMHJ1MCykSWXpG3URn9NwjXT9tvxwyIjqTiZxuW/tPukeJtggODrxS4PjIrs+Z
+         MGk7wvN2jO8BBsmhMQeDMQYWsDWhdaPzJFUXMtJoEovyVSyiqi1KEmlrqfJ4T+blRLvg
+         daSw==
+X-Forwarded-Encrypted: i=1; AL+hErH3rLluehrezW07HT2saVvUx1KzonaifhK8oQhJ0MGHPeCiEFOVHnB2dccMkT3ZsF6iDD707A5LP/04CHQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9xWWvnMDAeZWef9xgi+CyXsBNtQ//5u3D+qt4p7qiRdG22SoSl
+	0NFpefprEavFE21f/b6ZCVUAe+zKvZklWRNI4s3era5mihQN454cCXOMEgOAQFtjMQu13MOfnQ7
+	Mzrk2CPf/NWcf89kfFeBba+lKuBSSiD7usQ==
+X-Gm-Gg: AYBFou0RHHDfqDSCfQT65yrTIFUbzmb2cXxwAHDlXq2mNwYqXSoem3WmHa6WR0ekoNU
+	vJ5cQbRons8me3h3rR7wIVpNPrLfN8vbUhLDRcPnaAz8F+41GDR3QNsrCZgYEq7h5WphYaJYuik
+	ZOj8NkvuV/xQ4c5hxO1k0vr24lc8qlad22t8AgHKgf5WSSegZ2L0xN7tAVMWUZ4vRFQMj/yRgMX
+	yFAtIf96qteedWAuDbdyG0RT2hgnOXvKqpBpsVG9LzNA5EeB3c4nKv0dIH3Wt89/RfC/UY357la
+	psIZFLGF5eNbNMRoLvhEyQw8hJ3japZF73dRoSSwxAicNEoMnZqsKqmnr3p8tSQeZEYNllWT/Zp
+	vbNunba3KIrElwYL0fcA4V//jKAPy3Ng97CakIcif8RI+fi33wpV8YZ8kUTzy4cSiDPuGAKVJUa
+	xmlSe5q5sI4QQVfj2CEfJ75rQomziB6K0/Jhj2k005E0gkJ54rGhFmuNxqJ9o=
+X-Received: by 2002:a05:701b:450c:20b0:17f:641e:7f6b with SMTP id
+ a92af1059eb24-1b3c02cf135mr4314767c88.1.1794416660805; Wed, 11 Nov 2026
+ 09:04:20 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,204 +105,111 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261111-pm8010_i2c_support-v4-7-4549cab1c8e4@oss.qualcomm.com>
-References: <20261111-pm8010_i2c_support-v4-0-4549cab1c8e4@oss.qualcomm.com>
-In-Reply-To: <20261111-pm8010_i2c_support-v4-0-4549cab1c8e4@oss.qualcomm.com>
-To: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Guru Das Srinagesh <linux@gurudas.dev>,
-        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, mfd@lists.linux.dev,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Dhruvin Rajpura <drajpura@qti.qualcomm.com>,
-        Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
-        Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>,
-        Oleg Keri <okerixx@gmail.com>, Burke Cates <burke.cates@gmail.com>,
-        Christian Cortner <ccortner@gmail.com>,
-        Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794416603; l=4405;
- i=jishnu.prakash@oss.qualcomm.com; s=20251014; h=from:subject:message-id;
- bh=EfuTwFmhnLDuS09J9v0oeKJL4sbTdb1eqdg7aPMRmLk=;
- b=gAfkj0yBJYo8RtKBB6tTtIgSHIBH+pATCqy04DvBUvdVsOFkFPTE5snXDexCicsVmPPqqgcvL
- BSxhyPLjIUABQfXqeem4JwPFGg0C0WHQz4N+36b7NuLmakytymONriu
-X-Developer-Key: i=jishnu.prakash@oss.qualcomm.com; a=ed25519;
- pk=g89pXdLVwRjdTeQ+uX1QzvBO346E3hQAc1N7fcTXgmk=
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDA2NyBTYWx0ZWRfX5/7gCkD+H6bV
- vZkpzaaybuQlVm7tuhIMk1mG0SdwXEQ3SndDFgn8sGYkQ8VdkSpWjv/cjkTHasoMFyZsSJSFFEG
- 4qny/2wS7dJkKqZiiEC4FjlxYz2G5hk=
-X-Proofpoint-ORIG-GUID: pUJbf7kAayHeqXnM3ZzR_NP7jQOH6Vvy
-X-Proofpoint-GUID: pUJbf7kAayHeqXnM3ZzR_NP7jQOH6Vvy
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDA2NyBTYWx0ZWRfXwRjt4J/e1upb
- OqaxSKo5gzABAz6kE6Igg4h2MLzFXfHvkOLTnK2C8N9B+e672rgB85LeOzdaP350Q2Yt5wcbZLG
- JNAsHJiAs27G3H9bvkHxY+P6ZoQbEm3TXnTAKpn7BoxBcAEeR+f44Ol++QNS3kBj+fNi9qB62oo
- 8QqiJhcW20pMhSrEn+nn92qUCexPAxNTE/sMaCrgMBojkPS+dp8k81l6a2rE4u+wCoTPDXo7XPf
- wZZB4MiXjLXBsPUfHgSDYFUHA+7nBlotI0l/EoA3PMH2e0EQLJLj1NFICHlpQqxy2ObVrmytmnm
- w6tcj2Mdq0olGifXYLqk+Zw9hK2pccr0bf76ufrnUlZBZLZX3mCfh0GV16eMMXK4/rr97VNX1s8
- Db10eKADpSrbqwsQhamPM9sJwsQmMMILzCSYyETR7T0WLJBBm8DoYNr6Sc9uVnWEXlxrbPo3gLJ
- zkCxKhYnxc9dqDMcOAQ==
-X-Authority-Analysis: v=2.4 cv=CZadd7rl c=1 sm=1 tr=0 ts=6af4a011 cx=c_pps
- a=vVfyC5vLCtgYJKYeQD43oA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=pGLkceISAAAA:8 a=lbcZtXRpr0qBkvjFNboA:9 a=QEXdDO2ut3YA:10
- a=rl5im9kqc5Lf4LNbBjHf:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-11_04,2026-11-11_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 impostorscore=0 suspectscore=0 bulkscore=0 lowpriorityscore=0
- phishscore=0 adultscore=0 priorityscore=1501 malwarescore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611110067
+References: <20261109-smu8-sclk-fix-v1-1-47c6c0c8c2c9@etsu.edu>
+In-Reply-To: <20261109-smu8-sclk-fix-v1-1-47c6c0c8c2c9@etsu.edu>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 11 Nov 2026 12:04:09 -0500
+X-Gm-Features: AclHuK-qUsJmbGMoQgyzTNraWEn4fQl-1Spvcdq8IIpAnzBeguVmCP2_i5NrNHY
+Message-ID: <CADnq5_OQfN6fqdW8OzhPAE=iOmy7OtH9VV=6-dxfwT5=R39OPA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/pm: send smu8 sclk level indices, not the level mask
+To: hornejd@etsu.edu
+Cc: Kenneth Feng <kenneth.feng@amd.com>, Alex Deucher <alexander.deucher@amd.com>, 
+	=?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Eric Huang <JinHuiEric.Huang@amd.com>, amd-gfx@lists.freedesktop.org, 
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Reviewed and applied.  Thanks!
 
-PM8010 is often wired up with the interrupt pin tied to ground. Only
-register the IRQ infrastructure if we have a parent irq.
+Alex
 
-Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Co-developed-by: Dhruvin Rajpura <drajpura@qti.qualcomm.com>
-Signed-off-by: Dhruvin Rajpura <drajpura@qti.qualcomm.com>
-Tested-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com> # Glymur CRD
-Tested-by: Burke Cates <burke.cates@gmail.com> # ASUS Zenbook A16 (UX3607OA)
-Tested-by: Christian Cortner <ccortner@gmail.com> # Asus Zenbook A16 (UX3607OA)
-Co-developed-by: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
-Signed-off-by: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
----
- drivers/mfd/qcom-pm8008.c | 82 ++++++++++++++++++++++++++++++++++-------------
- 1 file changed, 60 insertions(+), 22 deletions(-)
-
-diff --git a/drivers/mfd/qcom-pm8008.c b/drivers/mfd/qcom-pm8008.c
-index 39fae8d48e46..9ebbecb90b0f 100644
---- a/drivers/mfd/qcom-pm8008.c
-+++ b/drivers/mfd/qcom-pm8008.c
-@@ -208,6 +208,14 @@ static const struct mfd_cell pm8010_cells[] = {
- 	MFD_CELL_RES("qpnp-temp-alarm", pm8008_temp_res),
- };
- 
-+static const struct mfd_cell pm8008_no_irq_cells[] = {
-+	MFD_CELL_NAME("pm8008-regulator"),
-+};
-+
-+static const struct mfd_cell pm8010_no_irq_cells[] = {
-+	MFD_CELL_NAME("pm8010-regulator"),
-+};
-+
- static void devm_irq_domain_fwnode_release(void *data)
- {
- 	struct fwnode_handle *fwnode = data;
-@@ -215,20 +223,51 @@ static void devm_irq_domain_fwnode_release(void *data)
- 	irq_domain_free_fwnode(fwnode);
- }
- 
-+static int pm8008_irq_config(struct device *dev, int irq, struct regmap *regmap,
-+			     const struct regmap_irq_chip *irq_chip_desc,
-+			     struct regmap_irq_chip_data **irq_data)
-+{
-+	struct fwnode_handle *fwnode;
-+	char *name;
-+	int ret;
-+
-+	name = devm_kasprintf(dev, GFP_KERNEL, "%pOF-internal", dev->of_node);
-+	if (!name)
-+		return -ENOMEM;
-+
-+	name = strreplace(name, '/', ':');
-+
-+	fwnode = irq_domain_alloc_named_fwnode(name);
-+	if (!fwnode)
-+		return -ENOMEM;
-+
-+	ret = devm_add_action_or_reset(dev, devm_irq_domain_fwnode_release, fwnode);
-+	if (ret)
-+		return ret;
-+
-+	ret = devm_regmap_add_irq_chip_fwnode(dev, fwnode, regmap, irq,
-+					      IRQF_SHARED, 0, irq_chip_desc,
-+					      irq_data);
-+	if (ret) {
-+		dev_err(dev, "failed to add IRQ chip: %d\n", ret);
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
- static int pm8008_probe(struct i2c_client *client)
- {
--	struct regmap_irq_chip_data *irq_data;
-+	struct regmap_irq_chip_data *irq_data = NULL;
- 	const struct regmap_irq_chip *irq_chip_desc;
- 	struct device *dev = &client->dev;
- 	const struct mfd_cell *mfd_cells;
- 	struct regmap *regmap, *regmap2;
--	struct fwnode_handle *fwnode;
- 	struct i2c_client *dummy;
- 	struct gpio_desc *reset;
- 	unsigned long pmic_type;
- 	const void *match_data;
- 	int num_mfd_cells;
--	char *name;
- 	int ret;
- 
- 	match_data = of_device_get_match_data(dev);
-@@ -255,6 +294,19 @@ static int pm8008_probe(struct i2c_client *client)
- 		return -EINVAL;
- 	}
- 
-+	if (!client->irq) {
-+		switch (pmic_type) {
-+		case TYPE_PM8008:
-+			mfd_cells = pm8008_no_irq_cells;
-+			num_mfd_cells = ARRAY_SIZE(pm8008_no_irq_cells);
-+			break;
-+		case TYPE_PM8010:
-+			mfd_cells = pm8010_no_irq_cells;
-+			num_mfd_cells = ARRAY_SIZE(pm8010_no_irq_cells);
-+			break;
-+		}
-+	}
-+
- 	dummy = devm_i2c_new_dummy_device(dev, client->adapter, client->addr + 1);
- 	if (IS_ERR(dummy)) {
- 		ret = PTR_ERR(dummy);
-@@ -285,25 +337,11 @@ static int pm8008_probe(struct i2c_client *client)
- 	 */
- 	usleep_range(1000, 2000);
- 
--	name = devm_kasprintf(dev, GFP_KERNEL, "%pOF-internal", dev->of_node);
--	if (!name)
--		return -ENOMEM;
--
--	name = strreplace(name, '/', ':');
--
--	fwnode = irq_domain_alloc_named_fwnode(name);
--	if (!fwnode)
--		return -ENOMEM;
--
--	ret = devm_add_action_or_reset(dev, devm_irq_domain_fwnode_release, fwnode);
--	if (ret)
--		return ret;
--
--	ret = devm_regmap_add_irq_chip_fwnode(dev, fwnode, regmap, client->irq,
--				IRQF_SHARED, 0, irq_chip_desc, &irq_data);
--	if (ret) {
--		dev_err(dev, "failed to add IRQ chip: %d\n", ret);
--		return ret;
-+	if (client->irq) {
-+		ret = pm8008_irq_config(dev, client->irq, regmap, irq_chip_desc,
-+					&irq_data);
-+		if (ret)
-+			return ret;
- 	}
- 
- 	return devm_mfd_add_devices(dev, PLATFORM_DEVID_AUTO, mfd_cells,
-
--- 
-2.43.0
-
+On Mon, Nov 9, 2026 at 9:21=E2=80=AFPM Joshua Horne via B4 Relay
+<devnull+hornejd.etsu.edu@kernel.org> wrote:
+>
+> From: Joshua Horne <hornejd@etsu.edu>
+>
+> smu8_force_clock_level() passes the pp_dpm_sclk level mask straight to
+> PPSMC_MSG_SetSclkSoftMin and PPSMC_MSG_SetSclkSoftMax, which take a
+> level index, as the other smu8 callers do through smu8_get_sclk_level().
+> In manual mode, "echo 0 > pp_dpm_sclk" thus selects level 1, "echo 2"
+> selects level 4, and masks above the highest level index are out of
+> range for the SMU, so e.g. "echo 3", "echo 7" or "echo 0 1 2 3 4 5 6 7"
+> do not select the requested levels. The original single level version
+> sent 1 << level and had the same problem.
+>
+> Send the lowest and highest level in the mask, as smu10 does, and reject
+> levels above those the SMU has enabled, as smu10 and vega20 do.
+>
+> Fixes: d7341ef66870 ("drm/amd/powerplay: add some hwmgr functions for sys=
+fs interface on Carrizo")
+> Signed-off-by: Joshua Horne <hornejd@etsu.edu>
+> ---
+> I found this while working on overdrive support for Carrizo/Stoney on my
+> laptop (ASUS X555DA, A10-8700P); that series will follow separately.
+>
+> Tested on that laptop, 7.3.1 with this patch applied to amdgpu. In manual
+> mode:
+> - "echo N > pp_dpm_sclk" for each N from 0 to 7 moves the current level
+>   marker to N
+> - under GPU load, "echo 2 3 4 5" keeps the clock between levels 2 and 5,
+>   and "echo 0 1 2 3 4 5 6 7" lets it reach level 7 again
+> - "echo 8" and "echo 0 8" fail with -EINVAL and leave the level unchanged
+> Without the patch, "echo 0" selected level 1, "echo 3" and "echo 7" did n=
+ot
+> select the requested level, and "echo 8" was accepted.
+> On amd-staging-drm-next the patch applies unchanged and builds without ne=
+w
+> warnings with W=3D1, sparse and smatch.
+>
+> I used an AI coding assistant (Claude Code) while working on this. It
+> found the bug, wrote the change and a draft of the changelog, and wrote
+> and ran the build checks and test scripts. I reviewed the change and the
+> changelog, ran the tests on my hardware, and I am responsible for the
+> patch.
+> ---
+>  drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c | 14 ++++++++++++--
+>  1 file changed, 12 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c b/driver=
+s/gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c
+> index 8f82d7c07e8c..5a3f697a37a2 100644
+> --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c
+> +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c
+> @@ -1483,15 +1483,25 @@ static int smu8_store_cc6_data(struct pp_hwmgr *h=
+wmgr, uint32_t separation_time,
+>  static int smu8_force_clock_level(struct pp_hwmgr *hwmgr,
+>                 enum pp_clock_type type, uint32_t mask)
+>  {
+> +       struct phm_clock_voltage_dependency_table *table =3D
+> +                               hwmgr->dyn_state.vddc_dependency_on_sclk;
+> +       uint32_t low, high;
+> +
+>         switch (type) {
+>         case PP_SCLK:
+> +               /* the SMU takes level indices, not a mask of levels */
+> +               low =3D mask ? (ffs(mask) - 1) : 0;
+> +               high =3D mask ? (fls(mask) - 1) : 0;
+> +               if (high >=3D min(table->count, smu8_get_max_sclk_level(h=
+wmgr)))
+> +                       return -EINVAL;
+> +
+>                 smum_send_msg_to_smc_with_parameter(hwmgr,
+>                                 PPSMC_MSG_SetSclkSoftMin,
+> -                               mask,
+> +                               low,
+>                                 NULL);
+>                 smum_send_msg_to_smc_with_parameter(hwmgr,
+>                                 PPSMC_MSG_SetSclkSoftMax,
+> -                               mask,
+> +                               high,
+>                                 NULL);
+>                 break;
+>         default:
+>
+> ---
+> base-commit: 47df73aa49d1988c8f684b7caf8be6570e966844
+> change-id: 20261109-smu8-sclk-fix-2eacba2cbfc0
+>
+>
