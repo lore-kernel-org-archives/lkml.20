@@ -1,123 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.168.131
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794395513;
-	b=XVum+tkWy36L/aER1wRUYQjZZa+qDPYxnK5EswTF+Nf/XARa4WlkzY8hyvdIQq1O/e7q
-	 mFD023N629MMGrGP8pYw/zRdBQNpBx/FBTbOYl9mb4NmNoSUAdmqboUF2GQNPSyM4+l8A
-	 sFwJGNbKUp/CdsQtdiWWSupz36KLIw5m/cWvJVZgvFCaMSfSXwEbWRwt6sUpRJWKYq9bV
-	 ZlUaZVojhltCYHrOnC47st7vrht/+5LpKO1QcibT9Za9AmgeJEwVppMALzNSzZj8ix5AD
-	 3TqqingIzLka3ulBrZQEcsKGukIJWBkM4OJUgKF2+uuVUCDLNmJ35Q6YZODR9Zx82WA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794395513;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
-	 References:In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
-	 Cc:Content-Type:Content-Transfer-Encoding:X-Authority-Analysis:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=sQA6vSgV9Z7FYXqSNB/QJltNWmeQcY/nmAVpGxD2qac=;
-	b=lcBB49g/RQUKWwnMDGWMWqn90m9e881KNIG2XTPomBgIMQgTOnEEaoF3QLvE2UinF0Og
-	 QoeJvWPIxxQYfGiH3Eh5OjPtVQtvqWiQJl3u1yCOi0fWgCZE2HAhu6AxZJ+SpAAGyBgwH
-	 7lodKl4Y8+7J0LKe1szCCVWkoBPKJ6lI7Fn+DM/pdTh5DP/RdC59IM9kQ7yprkipZZaM/
-	 E5fr9OYz2IRLUgWY4p2FIfeKGgpieLiIKriGdg4QN1dipUN0gFC5XXk2s2M/WVCCh37AF
-	 TguMmrTkG8NSs/+uPCVDU7QNrAhP42/kjzVxq8AIBNyWdXp4721h/u9cy9aJT6aF2Iw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="YgY/QIRr";
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=FQSfVKrk;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794395527;
+	b=4imVjJk7BJwUe0xI2+ylw3KkG3/Y27yUMNWpZ88OhwEigo5VzbbOZU9gGIbqE8B6N1sN
+	 Jbb/LBvAw34vaMc6RGEe4HHHybq7oD2LNG36cJbCvoEZxAwcns1Su85gEI8CBKOodK1f2
+	 OMkIetD/tCvmtq+wtEKg99Pt3MBMj1zPDxCmCKtvjodhpj+gnbGKLKDBU+117hr6n0bTg
+	 JsRNZpd7W+KQ6flUDrFBqTEVqMaJhPPk5R8s0Rqvq2fr+u7hzcSA/SC8r0YrynTRHKT/p
+	 x9LKcZbuDnCutHSvjo6AZqXljQ2RKbZAO/dolrqEUvlgLybIrv9dDx3Yy2QijEQ4FZw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794395527;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Spamd-Result:X-Rspamd-Server:X-Rspamd-Action:
+	 X-Spam-Flag:X-Spam-Score:X-Spam-Level:X-Rspamd-Queue-Id;
+	bh=EplsJOyJhXMqWC0WpcKkXMdEbiZRLy8DUQfPYhX4OPk=;
+	b=UBcjpryutcDQXiA1AGUlRWmvp1H9JLoj+IVeRpTG1W4izvHuTReQEYe6lib0ENOaelUE
+	 DVVPfReEFNE8prlQKloi0tzMJ4zFfrinz3EVPJd/y8zD7J1txngd7Ginc7pLSgUcsMcUc
+	 IxYSkXY5lHiDdgY2cXg2LDkby6DhCz6SSe6ITKrvOlV+3IRI6xkYAMXV/uda3FZxesV06
+	 Lu/7xeayJ2exhPRSHinn5LiMKi6tWwXhEL3PMDaPAu/prXfiWmCPMnxuLXEao9nl8FUZS
+	 sGuap3krLV0LEFfUkpZbRuK3GRKaG+x9BMEiGawTcHtFPJDXRID4vii4d5QDCwD8MSw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=suse.cz;
+	spf=pass smtp.mailfrom=suse.cz;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=t0YCTbF1;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=y7ILrEzc;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=t0YCTbF1;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=y7ILrEzc;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADA9B606A8A6
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 11:11:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ADA9B606A8A6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84B57606A31C;
+	Wed, 11 Nov 2026 11:12:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 84B57606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=YgY/QIRr;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=FQSfVKrk
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AB5KE4X1409027
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 11:11:52 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	sQA6vSgV9Z7FYXqSNB/QJltNWmeQcY/nmAVpGxD2qac=; b=YgY/QIRrZFMzbzmW
-	MzKRTG9aKYcVm16Ma5TDn+Ta48t7wuFi2vmti1OqRR6DR7hkq4zfPJUcw0fw94MC
-	ebcCqPhwbq7hgJm0MZaH5+PdVvd6Np6d1FqrDnkQjdnob+lA734qTAvaU7fVwmpf
-	0QPS4327Kij01XUc1v1JPkuD1lY1TnTsAM90K4iWsDc39alhUrdRzAU7m7ZYd7zN
-	+boJTezp1cDIv4rx1rhYkr0xIqRv3BUo9EtSQ5LuRv4fTc3zKLSNNhXDG93RUYIB
-	+DmPFdtXD16Np5+YY8AUEhIVakIJdQYicQ/RiXvTDRu8GFRbHDbqJk75MB2e8Z/Q
-	hsbMjw==
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvgjdhjgt-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 11:11:51 +0000 (GMT)
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3b167bc8e16so1741216a91.1
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 03:11:51 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794395511; cv=none;
-        d=google.com; s=arc-20260327;
-        b=HSQX61z4oAGzmVhHnCL6t8Xr16S7W8I7LIF6VPKrB1AHLcMlR0d2XH8/e1D9/r3cA+
-         IC2+qBpoT6bUhg73+OV2YoZ4wlfOIDz8MEpnjRGu63l8vPNre1mH256/n6lOVKiURaq6
-         n9f0cLrrmjdookkeE97pXuW6rdomztfs5XsSymtT+RhJgbT5CYOARRolu8S8bdSwASao
-         1N3YX3M5Sc7wkKvrZ0fuwDv6A4+aphWOaY/UqVruPFsgv4Scy7y4ms1iNnPKiXJ7iIeh
-         M36XsWKb3hOZnjYMadRlr3GZX+3vVyqx1zeyFqR+q4raCtKLxSbs+RNdC+laayFD6KTt
-         5uXQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=sQA6vSgV9Z7FYXqSNB/QJltNWmeQcY/nmAVpGxD2qac=;
-        fh=yBOIOyqCG+J6SmmWeZYzeQoQa6qCToXB8nAPFD7TEys=;
-        b=Vl3axrhoH5mO8KFSaUREhkgQmt/JW4n/WfFSosJF1OyLTH10GzUYLgHr2DtoYjRP1E
-         8CrX90//FZyzjM/mZXJvUJbQv1YmtrO0hUjOuBMZOpWqy2OuwdGItzbG+CqI53WuXt3c
-         6cV69bzr/uZNaqZtfykd3AR3JQKrv8pSQaxE4LJk63KEaoIk4JnlDb32COdKlRX+2GOf
-         PTQj9XE1vFI5P1HLAUUJS9A5jg9oXVlSSbVw+p6Wxlw0fUiyRqGQL6dfxggfCM9t/dpv
-         UHJzUhD47D0UHh2hbxqK8nMrNq7Sxi5PwbHGxO17tUiwvA4s2FS7wm5L1PxQr97GEIe5
-         mEWw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794395511; x=1795000311; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=sQA6vSgV9Z7FYXqSNB/QJltNWmeQcY/nmAVpGxD2qac=;
-        b=FQSfVKrkBzqBWzcY48erblgL88HpryEfy1NDvzWpxZUrAwOnIAhDXZUflLprhar/96
-         6KwtenxYYbcgnDA921zegLlb3fMQ8P1AP8mSNIws+1XuPjC8A6BYWVpVJ9SjCNRyQukz
-         W7jsJgQ5XqVpeW1jw+yudL0ZpFKlIv74+OxgmEqBNgS9U+4JZ+VjcZCLovH1ZdEtoQFE
-         OYxb8zSBcWRkvf1qjeRldBKrJTQ6PixrZcPa5QdQu8MT/mjr3EdvxyRirpT0zFbL6AEv
-         suX5dm9vOsi+XiKFT0/zDkkhFRspTKKDSVfVnDGNJCT2hQxFQUaXsORqLGFePz+VPtv3
-         7Vgw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794395511; x=1795000311;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=sQA6vSgV9Z7FYXqSNB/QJltNWmeQcY/nmAVpGxD2qac=;
-        b=y+PHdgMOFHekhfVCxprEGgQyQURv2vxr8a3xTyujh2ecIdpLdo3voG1YLs5+7YkSPG
-         HeUAGs+wxppIJXsbF+ppmX/mQgorneV/baEWiMeLvG5DS8Z0im6sk6Jf5tL6hiNegkNS
-         IDTIfFX5dtztWCasQT9Ezk9x+prQ1Ua5jp/WIB7RaNFxDkNDT60TEJKd7X8Esft1z3kL
-         F7l6tyDXZdoErcm9gRbsUBLVdNKWPURwAkH7eN49ZZ8HoOp7Kfs+h2P/n60v7X5Pttph
-         e14Kf1lBELY+8p+/qj3PNG55ZMAZc+PyIuw2SQRh0HQ+bBDSXbRTKIgNNQrkIVFoplOX
-         arDQ==
-X-Forwarded-Encrypted: i=1; AL+hErEv2x4shmZFd76/iIFqUHx7PN1xgDz07aLx4hCG1hlAq2VpSJlnzhLyfXjd46DST1EypYiCSil1o4coKss=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/55wIbaEmhPJ4qGocxhg7DQdv+QgNK2x2/ZJqcFHd1bQ01zI/i
-	wlIKZYxBOuDzore7xfYWf6gjESMABV0hcQ2Dq5zg6j2iMAXpVJfvdbQRzaYZ2e+/pSSoY6oc1TU
-	f9tSCz9u2zoAXbKOs5LT26U1zKqYiWX/1raRH6DUEtDRN7oQykTL6D08kWoV8a/vH94FjckvFaZ
-	bv3oKW0kwH8tdBx4PFlfKZUQ187xcm108dS0KNGCJlBg==
-X-Gm-Gg: AYBFou2jfp2432x4nj1w3DLEcBtzOku7Y5KJXfY9q0WNelDRiUknpwJD6/DD+5oHiRo
-	EFLOs+D/6ApYIXyzzWz7Hvm+EINEsV8dcPjyl+voYpLVhr4iiCHD2upyOpTkmZZGdlmDCBu5D4z
-	yBO34XcOeOWy86mQuNBsailgIR2iQPO91DhDXinO94oh6/elPC1EKcLG8TxQ==
-X-Received: by 2002:a17:90a:e7ca:b0:3b1:6e5b:c89d with SMTP id 98e67ed59e1d1-3b182fbf462mr2113808a91.53.1794395511068;
-        Wed, 11 Nov 2026 03:11:51 -0800 (PST)
-X-Received: by 2002:a17:90a:e7ca:b0:3b1:6e5b:c89d with SMTP id
- 98e67ed59e1d1-3b182fbf462mr2113784a91.53.1794395510596; Wed, 11 Nov 2026
- 03:11:50 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=t0YCTbF1;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=y7ILrEzc;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=t0YCTbF1;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=y7ILrEzc
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 0202721D9E;
+	Wed, 11 Nov 2026 11:11:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1794395519; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=EplsJOyJhXMqWC0WpcKkXMdEbiZRLy8DUQfPYhX4OPk=;
+	b=t0YCTbF1QZkTm57HjdhB17aPv6TIvKeN09DLy7LgujUYV7XraTykJar6M07G8Wy8d9D9nw
+	Rm2C2Sno2i+BJb2z7EosxjIqITn0YIU5mdJbhRodEKUf4Eg93Rsz4Hu5kzbYZ0HHIQQnpr
+	LzrMuN4Z0tuyQtsr6PMvmmgP8eXs6cY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1794395519;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=EplsJOyJhXMqWC0WpcKkXMdEbiZRLy8DUQfPYhX4OPk=;
+	b=y7ILrEzcOm3veR2gKCT284Ir/AZE+rD7bU1D40UTzUXXcc9Iuxjm8HqzSZh/NT3C0PanGe
+	JQ9/tqtZo4EmXdCg==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=t0YCTbF1;
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=y7ILrEzc
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1794395519; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=EplsJOyJhXMqWC0WpcKkXMdEbiZRLy8DUQfPYhX4OPk=;
+	b=t0YCTbF1QZkTm57HjdhB17aPv6TIvKeN09DLy7LgujUYV7XraTykJar6M07G8Wy8d9D9nw
+	Rm2C2Sno2i+BJb2z7EosxjIqITn0YIU5mdJbhRodEKUf4Eg93Rsz4Hu5kzbYZ0HHIQQnpr
+	LzrMuN4Z0tuyQtsr6PMvmmgP8eXs6cY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1794395519;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=EplsJOyJhXMqWC0WpcKkXMdEbiZRLy8DUQfPYhX4OPk=;
+	b=y7ILrEzcOm3veR2gKCT284Ir/AZE+rD7bU1D40UTzUXXcc9Iuxjm8HqzSZh/NT3C0PanGe
+	JQ9/tqtZo4EmXdCg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id CDB181339F;
+	Wed, 11 Nov 2026 11:11:58 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id CBMOKn5N9GrHQQAAD6G6ig
+	(envelope-from <jack@suse.cz>); Wed, 11 Nov 2026 11:11:58 +0000
+Received: by quack.suse.cz (Postfix, from userid 1000)
+	id 5DB77225DB; Wed, 11 Nov 2026 12:11:58 +0100 (CET)
+Date: Wed, 11 Nov 2026 12:11:58 +0100
+From: Jan Kara <jack@suse.cz>
+To: Alan <3164729207@qq.com>
+Cc: tytso@mit.edu, Andreas Dilger <adilger.kernel@dilger.ca>, 
+	Baokun Li <libaokun@linux.alibaba.com>, Jan Kara <jack@suse.cz>, Ojaswin Mujoo <ojaswin@linux.ibm.com>, 
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, Zhang Yi <yi.zhang@huawei.com>, linux-ext4@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] ext4: free the new extent block on failure to grow
+ the tree
+Message-ID: <ssjxx24dqhcimjd6w7xu4xgkmayzz3zygm3we324uxlxyaouhg@47xvodoxxlhl>
+References: <tencent_9EB8EBE910378E46C80E006C6A7DA918BA08@qq.com>
+ <tencent_DF25FDEF46DA68C4E18D6DB40F08E30BB705@qq.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -127,157 +115,139 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <CGME20261110192834eucas1p1e183345528f097cb64340f36a03e4b14@eucas1p1.samsung.com>
- <1791876245-190981-1-git-send-email-shawn.lin@rock-chips.com> <4a1867dc-7bcd-4c63-bdbd-a533043cd91e@samsung.com>
-In-Reply-To: <4a1867dc-7bcd-4c63-bdbd-a533043cd91e@samsung.com>
-From: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
-Date: Wed, 11 Nov 2026 12:11:39 +0100
-X-Gm-Features: AclHuK-Sms5exrjRwhrlsco56VGoUf7zoR2ZorVBgLiKAOV-koszXKzt-bUZ9ek
-Message-ID: <CAPx+jO-YxwhG3TpnvFBFTXmf9XCdoi4eqeHeWwqmAc9BL_v=tw@mail.gmail.com>
-Subject: Re: [PATCH] mmc: dw_mmc: enable MMC_CAP_DONE_COMPLETE
-To: Marek Szyprowski <m.szyprowski@samsung.com>
-Cc: Shawn Lin <shawn.lin@rock-chips.com>, Ulf Hansson <ulfh@kernel.org>,
-        Jaehoon Chung <jh80.chung@samsung.com>, linux-mmc@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Authority-Analysis: v=2.4 cv=E7tYNqdl c=1 sm=1 tr=0 ts=6af44d77 cx=c_pps
- a=0uOsjrqzRL749jD1oC5vDA==:117 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=Um2Pa8k9VHT-vaBCBUpS:22 a=hD80L64hAAAA:8 a=s8YR1HE3AAAA:8
- a=prSSRhHsvR2v3qUKyjIA:9 a=QEXdDO2ut3YA:10 a=mQ_c8vxmzFEMiUWkPHU9:22
- a=jGH_LyMDp9YhSvY-UuyI:22
-X-Proofpoint-ORIG-GUID: ZhcQFFIIZo65Gw735E4qsctUQWG5rY2y
-X-Proofpoint-GUID: ZhcQFFIIZo65Gw735E4qsctUQWG5rY2y
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDA0NCBTYWx0ZWRfX8Vmywd205QJe
- bRBdUoNT/V/qUG8/Y+kQuDvYIjLqM4cwe0lsVIoxy4Zjqryd1Bpf4mGA1G9IQ5ZtceeuLsYfwxb
- AHnaEK6dun3M7KcG0RXV4H9mE/UUCxYckA4oxEJ/VR1Jj2EZg1ywD1rMYEE1phCmtpa2Oxfhocd
- 01dJh1wGiWvDtH+3+0qcczrJQTZT9ODXdATsnth7VJ5/ARwjYo0s3uKSrGGKB7Eqf3AlrdrWyUx
- 2AeHowBH8dfqovJ3PTO9UlfXuwr78AAZtdUGYYlG7qABSa3wq2MVE2QZS+r4Rm4IFd4q3Ai03n2
- I247j8FxmRilPcguovJFJRuapCwcnqJckLxgcHH2G+he3w2ggN19+yo8+hUcQPP+oDEgJi6W8Sa
- kA8g3YCilQmqPpH+MnLt+2dF09C+7rmPUjGTN7Dk5AoAl2CWWoq/pN4WJOlwPOBmTrUJi8zoT/L
- OIQRjw9lvP0PqG25CIA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDA0NCBTYWx0ZWRfXz99TwBn72++p
- A7BHQhmJXokLQoCcAoMsIeP1poYcGQJA6nueY2m0hWhTXVAj/6IfL6BrpoMUVVhgLypS3q32KhS
- JWWjCKA7GXBmdbKHjAEx08CmSQ7zbs8=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-11_02,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 suspectscore=0 priorityscore=1501 impostorscore=0 adultscore=0
- malwarescore=0 clxscore=1015 bulkscore=0 spamscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611110044
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <tencent_DF25FDEF46DA68C4E18D6DB40F08E30BB705@qq.com>
+X-Spamd-Result: default: False [-11.51 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RCVD_TLS_LAST(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCVD_COUNT_THREE(0.00)[3];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	FREEMAIL_TO(0.00)[qq.com];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com,qq.com];
+	FREEMAIL_CC(0.00)[mit.edu,dilger.ca,linux.alibaba.com,suse.cz,linux.ibm.com,gmail.com,huawei.com,vger.kernel.org];
+	RCPT_COUNT_SEVEN(0.00)[11];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	DKIM_TRACE(0.00)[suse.cz:+];
+	MISSING_XM_UA(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.cz:email,suse.cz:dkim]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spam-Score: -11.51
+X-Spam-Level: 
+X-Rspamd-Queue-Id: 0202721D9E
 
-On Tue, Nov 10, 2026 at 8:28=E2=80=AFPM Marek Szyprowski
-<m.szyprowski@samsung.com> wrote:
->
-> On 13.10.2026 09:24, Shawn Lin wrote:
-> > All requests issued by dw_mmc are completed from dw_mci_work_func(),
-> > which runs from the system_bh_wq workqueue. It is therefore preemptible
-> > context and host->lock is dropped before the completion, see
-> > mmc_request_done() in dw_mci_request_end().
-> >
-> > The dw_mci_interrupt and the dw_mci_watchdog_fn never call mmc_request_=
-done()
-> > directly. So every request is completed from a sleepable context with n=
-o
-> > spinlock held.
-> >
-> > This is exactly the contract required by MMC_CAP_DONE_COMPLETE, which w=
-as
-> > introduced for hosts that can complete requests within mmc_request_done=
-()
-> > without deferring to the core's complete_work.
-> >
-> > Without the flag, the core records the finished request in
-> > mq->complete_req and queues mq->complete_work, i.e. a second workqueue
-> > dispatch plus an extra context switch per request. With the flag,
-> > mmc_blk_mq_req_done() completes the request directly via
-> > mmc_blk_mq_post_req() -> blk_mq_complete_request(), and a following
-> > request completes the previous one inline from mmc_blk_rw_wait().
-> >
-> > Measured on an RK3576 SD card (dw_mmc) with:
-> >
-> >   perf record -a -g -F 999 -- sleep 30
-> >   perf report --stdio -g graph,0.5,caller
-> >
-> > fio: 4k randread, ioengine=3Dlibaio
-> >
-> > Without the flag, the completion hot path is:
-> >
-> >   mmc_request_done -> mmc_blk_mq_req_done -> queue_work_on      (~4.3%)
-> >   ... -> mmc_blk_mq_complete_work            (kworker/5:1H-mm, ~18.4%)
-> >        -> mmc_blk_mq_complete_prev_req -> mmc_blk_mq_post_req
-> >
-> > with the flag the workqueue round trip disappears completely: there is =
-no
-> > queue_work_on and no mmc_blk_mq_complete_work in the profile anymore, a=
-nd
-> > the previous request is completed inline:
-> >
-> >   mmc_blk_mq_issue_rq -> mmc_blk_mq_post_req -> mmc_blk_mq_complete_rq
-> >                                                   -> __blk_mq_end_reque=
-st
-> >
-> > This can remove a redundant workqueue dispatch and context switch per c=
-ompleted
-> > request.
-> >
-> > Signed-off-by: Shawn Lin <shawn.lin@rock-chips.com>
->
->
-> This patch landed yesterday in linux-next as commit 80636b762eec ("mmc: d=
-w_mmc:
-> enable MMC_CAP_DONE_COMPLETE"). In my tests I found that it causes seriou=
-s
-> problems. I found that it is responsible for corrupting root filesystem a=
-nd/or
-> journal.
-> Reverting this on top of linux-next fixes the issue. Unfortunately I didn=
-'t find
-> what mmc access pattern causes the corruption, but running my tests and r=
-ebooting
-> boards 2 or 3 times usually ended in breaking it.
+On Wed 11-11-26 15:34:44, Alan wrote:
+> ext4_ext_grow_indepth() allocates and accounts a metadata block before
+> getting its buffer, obtaining journal create access and dirtying the
+> new extent block. If any of these operations fails, the new block has
+> not been linked into the extent tree. However, the error paths return
+> without freeing it, leaking the block and leaving i_blocks larger
+> than the number of blocks reachable from the inode.
+> 
+> Commit 8a83ac54940d ("ext4: call bdev_getblk() from sb_getblk_gfp()")
+> removed the implicit __GFP_NOFAIL from the buffer allocation, making
+> the allocation failure path reachable. The two journal error paths
+> already lacked cleanup before that commit and are fixed here as well.
+> 
+> Route all three failures through a common cleanup label to free the
+> unpublished metadata block and undo its inode accounting. Keep the
+> existing buffer unlock and release handling. Once the new block has
+> been linked by ext4_idx_store_pblock(), an ext4_mark_inode_dirty()
+> failure must not free it because the extent tree already references it.
+> 
+> Tested on Linux 6.12.1 by injecting NULL for buffer acquisition and
+> -EIO for each of the two metadata helper calls at their caller
+> boundaries. Each unfixed case leaves seven unreachable blocks and
+> i_blocks of 40 instead of 32 on a filesystem with 4 KiB blocks. With
+> the fix, all three cases retain i_blocks of 32, preserve the original
+> data and pass e2fsck -fn after a normal unmount. Retry, truncate and
+> uninjected growth also pass for each case.
+> 
+> Fixes: 8a83ac54940d ("ext4: call bdev_getblk() from sb_getblk_gfp()")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Alan <3164729207@qq.com>
 
-Okay, that's not good! I have reverted the patch on my next branch for
-now and added your reported-by tag for it.
+Looks good. Feel free to add:
 
->
->
-> There must some corner case missed in the analysis behind this patch.
+Reviewed-by: Jan Kara <jack@suse.cz>
 
-Yep, let's see if we can make it work. I assume the benefits should be wort=
-h it.
+								Honza
 
->
->
->
-> > ---
-> >
-> >  drivers/mmc/host/dw_mmc.c | 2 ++
-> >  1 file changed, 2 insertions(+)
-> >
-> > diff --git a/drivers/mmc/host/dw_mmc.c b/drivers/mmc/host/dw_mmc.c
-> > index ff0b25d..bec777b 100644
-> > --- a/drivers/mmc/host/dw_mmc.c
-> > +++ b/drivers/mmc/host/dw_mmc.c
-> > @@ -2945,6 +2945,8 @@ static int dw_mci_init_host_caps(struct dw_mci *h=
-ost)
-> >       if (mmc->caps & MMC_CAP_SDIO_IRQ)
-> >               mmc->caps2 |=3D MMC_CAP2_SDIO_IRQ_NOTHREAD;
-> >
-> > +     mmc->caps |=3D MMC_CAP_DONE_COMPLETE;
-> > +
-> >       return 0;
-> >  }
-> >
->
-> Best regards
-> --
-> Marek Szyprowski, PhD
-> Samsung R&D Institute Poland
->
-
-Kind regards
-Uffe
+> ---
+>  fs/ext4/extents.c | 16 ++++++++++++----
+>  1 file changed, 12 insertions(+), 4 deletions(-)
+> 
+> diff --git a/fs/ext4/extents.c b/fs/ext4/extents.c
+> index ad0d80e33f6090..f0b2852f8a9342 100644
+> --- a/fs/ext4/extents.c
+> +++ b/fs/ext4/extents.c
+> @@ -1333,15 +1333,17 @@ static int ext4_ext_grow_indepth(handle_t *handle, struct inode *inode,
+>  		return err;
+>  
+>  	bh = sb_getblk_gfp(inode->i_sb, newblock, __GFP_MOVABLE | GFP_NOFS);
+> -	if (unlikely(!bh))
+> -		return -ENOMEM;
+> +	if (unlikely(!bh)) {
+> +		err = -ENOMEM;
+> +		goto out_free;
+> +	}
+>  	lock_buffer(bh);
+>  
+>  	err = ext4_journal_get_create_access(handle, inode->i_sb, bh,
+>  					     EXT4_JTR_NONE);
+>  	if (err) {
+>  		unlock_buffer(bh);
+> -		goto out;
+> +		goto out_free;
+>  	}
+>  
+>  	ext_size = sizeof(EXT4_I(inode)->i_data);
+> @@ -1366,7 +1368,7 @@ static int ext4_ext_grow_indepth(handle_t *handle, struct inode *inode,
+>  
+>  	err = ext4_handle_dirty_metadata(handle, inode, bh);
+>  	if (err)
+> -		goto out;
+> +		goto out_free;
+>  
+>  	/* Update top-level index: num,max,pointer */
+>  	neh = ext_inode_hdr(inode);
+> @@ -1389,6 +1391,12 @@ static int ext4_ext_grow_indepth(handle_t *handle, struct inode *inode,
+>  	brelse(bh);
+>  
+>  	return err;
+> +
+> +out_free:
+> +	/* The new block has not been linked into the extent tree yet. */
+> +	ext4_free_blocks(handle, inode, NULL, newblock, 1,
+> +			 EXT4_FREE_BLOCKS_METADATA);
+> +	goto out;
+>  }
+>  
+>  /*
+> 
+> base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
+> -- 
+> 2.53.0
+> 
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
