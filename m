@@ -1,87 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.83.148.184
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794438844;
-	b=KXAZRQibJiBVEQsMn6qjuBDKgrjRZYfk6lnQDF2X58cypKxxGLNfhYfmFc7R/GTKDvgs
-	 zCULKGA2NEfG4yd2/iH69pFv78sHsR7zRi/r9cza7e0Hl+vzqFBPlizLD3xysLJsQY20a
-	 kYS7e4kd+ktGnuZ4Sy3SAlc8BsrKfJfl0FR2afCq4Zx4GP25ZC2nVqPYD63kvksVsCmAc
-	 pbh0wP5mpW6t1GsLM8SfldOneN2rWbjSCWcNkCQBu1Fs+4hsb4018ojEpYpP11m8w8f8G
-	 EPeuCFz/fC4fxhG7XdyFlEigWvdnxJzt0FHIcBJrpzfxInqqZ6FH2lE2zjeLK4Y6ofQ==
+	t=1794438868;
+	b=VdQWq0XwhT1AvbvhSqc1TkaSYN3DT1AeVDEIvUt6oYyJvo6l4hwN4B8ylYuwYnETfinS
+	 AgFO81qGasnMIGZ2IYTfln5D5b8dBSNQ15bJ2PuMIKSavZHEB3Fo6y7TxkiKgAyHfh44r
+	 LRPL3GzhqjGMgaLrndXDcgkEM+jDf508t4xe9BLU4ffyKwp4YSQ5wAqwb8SdqYrkWAb/I
+	 eh5Dtil6XZl4H23NfDweGeGSF3Mn5NhhaLOE0b5wkoGPuHHxWzZXxRHhn+/RjrH664EDJ
+	 lYLrxaBleU2DGJuqrFmQjTpRuCP7Ub/biJ9/7/jNMqLk9VdPJsLXweb339NGaBG4Gmw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794438844;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=YE3Omn29rE1S2bQW+kmuZewe1GXmkpcFPI6VWCg3I6U=;
-	b=hZIqC9OTtEpCbnKRI5cIbRpAC+smIF5waljSG/GJ9jlKKFfrq6tacvACfru958FdmOly
-	 e1sMYLXNW0NjP4JT1dNaeJLfD+akKhSWLwekpZtzCFqz+BXq1p8M5VzN7+3PAqLPetGgq
-	 QnHBX5PeY0Bgi8jKu9SB7cZAA+Rd6XtMTZn6dFcMThHTRL9FcmSqu5NS7XivYHXSxdx4f
-	 RQfyKfoK3Rsp3pp3DRghbxzOb983YsDCLR+TlTEptYCmTNBiTLymA/X7xZ8gJ6lSuxaiN
-	 Wrkm2TQWgjLRdmLGcIj/PxpmHwIvn7qeWv0ViAzd2WSecBnqKDU4LSrRBvW8ntoPIZg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794438868;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
+	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=DVdMMVnHovVouauLZSJMD6AHtT5aNNb/DqiljF977ik=;
+	b=auzyHhXrazK8xAA664BUVS5FkeI71NlSeoc0a6DWAXNEU7+S7bTcucXJ784zKFpYNfS0
+	 2olsj+2cJfhJ4Av6qsg+L4bgyrTs28JkSQFrXo9bjlnqncoCEi2wqHe4aOvhUSoGRw2Lw
+	 nWSfgH1utq1nihc2ucb8kZw//1T+rSRc5NqJH/wWcFDHVxWGijx1AvSpSOk6hIS+zNY4S
+	 3NtcxVBpJwoqBbZlDVUqB/ksS/R0uSMNTkS3gTqk04xnbZ+eGlQs7BWR+PjO16VGdGXgV
+	 UFG/IUUMxQPUdObVv4pvtBdXFgw5L8/QuFDKqm7fouedNdLhT/X4awe/sh3ZtB+7Vng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amazon.com;
-	spf=pass smtp.mailfrom=amazon.de;
-	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=fstaKG2y;
-	arc=none smtp.remote-ip=35.83.148.184
-Received: from pdx-out-014.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-014.esa.us-west-2.outbound.mail-perimeter.amazon.com [35.83.148.184])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=soleen.com;
+	spf=pass smtp.mailfrom=soleen.com;
+	dkim=pass header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=kvS0zyNs;
+	arc=none smtp.remote-ip=209.85.217.48
+Received: from mail-vs1-f48.google.com (mail-vs1-f48.google.com [209.85.217.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 576E1606A31C;
-	Wed, 11 Nov 2026 23:14:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 576E1606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21BC8606A326
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 23:14:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 21BC8606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=soleen.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=fstaKG2y
+	dkim=pass (2048-bit key) header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=kvS0zyNs
+Received: by mail-vs1-f48.google.com with SMTP id ada2fe7eead31-7777fa8f1ccso1319311137.3
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 15:14:26 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1794438843; x=1825974843;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=YE3Omn29rE1S2bQW+kmuZewe1GXmkpcFPI6VWCg3I6U=;
-  b=fstaKG2yd5+E/9l6ifoh1NT2ZroGMf1uuhClwCg/nA84a5skQK7ddPGh
-   OivzcojNYEvjjrsnbviHkpx+tYGPQ6zxPUD1zP8WHLN/1TxRwT5nL+xC3
-   Az4NKijK887p5DVOZqwr/Wjc7j3t3q4lHyNRdc+OIyCONrPHN6h35Pntt
-   ZzBRw5n8Klm6gKSZQHDbq/+AEv5HQ08eAF0uGD0G0ssGNUrb0qKhGCSnR
-   sOqNptxhTpDhDYclBilVebXbAtMvJxBTbvnwsj4YVBxtwkcrcNxkRGVOr
-   h9H0O4akpSztMaCGOvaBbrM9W5ABfYd17aptxydHKrK3LmiuqiOCp0tTd
-   g==;
-X-CSE-ConnectionGUID: U8t3y49qRK2yKOTtRsmNqQ==
-X-CSE-MsgGUID: qhRG+rLpT4ebH7E5UzMWWQ==
-X-IronPort-AV: E=Sophos;i="6.27,208,1787011200"; 
-   d="scan'208";a="33551552"
-Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
-  by internal-pdx-out-014.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 23:14:03 +0000
-Received: from EX19MTAUWB001.ant.amazon.com [205.251.233.104:22885]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.55.227:2525] with esmtp (Farcaster)
- id 5be80b4a-ae4c-4ed0-bacf-81eb9d64e629; Wed, 11 Nov 2026 23:14:02 +0000 (UTC)
-X-Farcaster-Flow-ID: 5be80b4a-ae4c-4ed0-bacf-81eb9d64e629
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWB001.ant.amazon.com (10.250.64.248) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Wed, 11 Nov 2026 23:14:02 +0000
-Received: from ip-10-253-83-51.amazon.com (172.19.99.218) by
- EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Wed, 11 Nov 2026 23:13:59 +0000
-From: Alexander Graf <graf@amazon.com>
-To: <linux-kernel@vger.kernel.org>, Greg Kroah-Hartman
-	<gregkh@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>
-CC: The AWS Nitro Enclaves Team <aws-nitro-enclaves-devel@amazon.com>, "Shuah
- Khan" <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>,
-	Marek Szyprowski <m.szyprowski@samsung.com>, Robin Murphy
-	<robin.murphy@arm.com>, <linux-doc@vger.kernel.org>, <iommu@lists.linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand
-	<david@kernel.org>, Mike Rapoport <rppt@kernel.org>,
-	<nh-open-source@amazon.com>, <linux-mm@kvack.org>, Jonathan Corbet
-	<corbet@lwn.net>
-Subject: [PATCH 40/40] nitro_enclaves: Document the driver side of Nitro Sandboxes
-Date: Wed, 11 Nov 2026 22:59:44 +0000
-Message-ID: <2d8e0949932082a4730fb094d15b8cf5f3cfc212.1794393491.git.graf@amazon.com>
-X-Mailer: git-send-email 2.47.1
-In-Reply-To: <cover.1794300002.git.graf@amazon.com>
-References: <cover.1794300002.git.graf@amazon.com>
+        d=soleen.com; s=google; t=1794438866; x=1795043666; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=DVdMMVnHovVouauLZSJMD6AHtT5aNNb/DqiljF977ik=;
+        b=kvS0zyNsproPmuwYK8MWJrWagwCI5gmQVIM8I77DyxzoKRCEVr74LTy06oE9xrvhQM
+         A7I34wabPoA7Sd4vcWNCcTzJjpKya+viMI7eHt7LdyJnWEfM+i4EKYCc+nOxM2kszh16
+         WXSUzesEiKPj/Vu86sC1ubMblHw7SICF0tA2j3PSrjUq7HLgsVnupJFDiurRnlwxBkFT
+         wrN8ayxpTXyKTRbxy7GkKNXyYYGrLQ62JIiZVr/6a6Vuy86vTJG3mjHrIJPZVvVrLK3J
+         7egRtcPqTRC4T+JK0YAPq22nJHpHXClMDwLxsK26QPbjJDlppFqm9L7tht8/eZ5V1ch7
+         cBoA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794438866; x=1795043666;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=DVdMMVnHovVouauLZSJMD6AHtT5aNNb/DqiljF977ik=;
+        b=vcNy84ahXBtF9TrumgvOqiocf512B5hltnHPtw89oIiTHtyrt683O8BnfdAml2galv
+         YCJcgdsZPFypv4uzbd9YP00U9NwpY/Vw6VZomt3Z/5MyLVNjpAGs6Ob467B7gNCM10tB
+         kkFijbDq+jSEtjoW7Wl+5w35UAy4ZgVtwyIMDpzUj3Iyh4SpVj+yepL4bWnOdN953MMT
+         ic3hkJrnVmgnHXUijdYE1zSDIX7Y6yfP8AaGXC8wVKLSnMReSnZi9WDF+EUBqkHINyJ1
+         5c6hTaFIglYqzsrrsJB/0W3fvz//O8MAf0Ji1rNke0UAgWx2rnV7aLqbthOSk+qsa9bx
+         gMDQ==
+X-Forwarded-Encrypted: i=1; AL+hErH79peUx5RuIMyWWu0l5tdT97yVILioO0RVQBpQuLtzfiJivGXtISXwmmAyShwEBKOx7X8emW1zsld5RH0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/OD/+onUwXmy/wT2WFzRu+wFM29+NXIQ4dg2ieXp150HmYc2a0
+	CtdEZtyp1cLmWwU95em6HF4OZdK3FNK+T2pHvJlc+FHMVX1QEDebwG07m+5D3bCUe0I=
+X-Gm-Gg: AYBFou2WMvoz2fii5IXjmdG62JNREGMzCcihttKf2NtP1GawOJABDitDaQ97XDTPkDY
+	WCmvfkjv8ZdaU3aRiT36YGRgpZ2mHa1JhB7mfVcxfamjlRRClYBArcXacgaJkGsszJZvgowPIQe
+	cryjhm9zHGSUtU9hLoYTrifnul/eCJfo3dN99ItLtoXe7gTdd3DyvQ25sohvazQOo6gnNA7uRyQ
+	hV7m/Wlxk4ssQzcbA4wn/1CUIUcBjF5f6PEhym9r/thSuX8hzGatLiAqItfVKDEip6eAkP0vquo
+	ukoJxs6GowWYBerwXPUrg4xqWgG9sdvPzM5Y9y2n17QjjLfekvGwAfHVL6RZbsrLM+bmic4ZTjj
+	UAIrhtWfpLkCE7hK1FLsM1Se//BZ8mj8olmgW3vbrgeptNHJnWXMu2h4K8YfvdiiUfe4DYKZxet
+	V1xQAnG78tFqHh2I/V2wdZHxTWYi4MY9wb0hH1/x+4lerTOSmcVQ6CWerE/rWJH/Mwxje0BtgsQ
+	A04ngbMgMktdVCah+xSUa1hlIZPOeUNsrtsPjGXOMaSazJh601hA6ooukcjEtGg0dLnOPiHo+SC
+	AnFiA8tIc3VyeDiAHeavr+iJ3WbRn4htDrBgtm8KFm6v5e0+l+9nYHnKTNVvlWqqP0Io0F++XXz
+	SnZ9E00iUdA4HhZUXP2eiZeadTFpVuI/2QVqMM0UQLPrC
+X-Received: by 2002:a05:6102:5126:b0:7d2:7377:32db with SMTP id ada2fe7eead31-7d5060a7703mr1403477137.24.1794438865829;
+        Wed, 11 Nov 2026 15:14:25 -0800 (PST)
+Received: from soleen.c.googlers.com (16.49.199.35.bc.googleusercontent.com. [35.199.49.16])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-99c22302403sm4344200241.10.2026.11.11.15.14.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 15:14:25 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,116 +90,167 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D031UWC003.ant.amazon.com (10.13.139.252) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH 2/9] kho: Make bootmem reservations visible to fleet
+ monitoring
+From: Pasha Tatashin <pasha.tatashin@soleen.com>
+To: Chris Down <chris@chrisdown.name>
+Cc: Pasha Tatashin <pasha.tatashin@soleen.com>, 
+ Mike Rapoport <rppt@kernel.org>, Pratyush Yadav <pratyush@kernel.org>, 
+ Alexander Graf <graf@amazon.com>, Baoquan He <baoquan.he@linux.dev>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+ kexec@lists.infradead.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ kernel-team@meta.com
+In-Reply-To: <c41c639fc5f453d60a265ba42a233f2ea5b48319.1794383544.git.chris@chrisdown.name>
+References: <cover.1794383544.git.chris@chrisdown.name>
+ <c41c639fc5f453d60a265ba42a233f2ea5b48319.1794383544.git.chris@chrisdown.name>
+Date: Wed, 11 Nov 2026 18:14:22 -0500
+Message-Id: <179443886218.2329176.10742245280418377061.b4-review@b4>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5034;
+ i=pasha.tatashin@soleen.com; h=from:subject:message-id;
+ bh=9scWIMT8bcH1hJE5tzuaZbvTMzuuUTRWsydhjCoHQQ8=;
+ b=owEBbQKS/ZANAwAKAbt3KEzbc3reAcsmYgBq9PbPj7WdaeKNG/W4QNGLva9/0FB58zcLhfiDz
+ D1uxgEKxc2JAjMEAAEKAB0WIQRBMaqT7LRvGvB/NmK7dyhM23N63gUCavT2zwAKCRC7dyhM23N6
+ 3lFzEACWzSLOLHD1CYufzDO7hpK/ihqAdc830DtEx9ApghbfTfc1chnrI57/Wp2D9h7buNVVH45
+ vnopS5ouz/fz6MCr1CLzZSlDrGgLZR5dCamAyBUTezBztIbRa8TcuC96hhwyPFxjLEdLW+NKjkp
+ /qgGjQVOh7kd1VSE0obnNl+tVRoNL6cznEf+LKlobs40aMr6EqkNL654Zl9rdx1w9jor1+dj6nU
+ SVEH/8uk2nvb6CFV70dA+aWyqVVWOJ2J6KtdOpTZPFofGAdDfeAhj7vyOPmcRUjvLjs/0rjq6yL
+ B1PRB/UrzDRXrEwBO3Tx1t/T2M+v1u5MME0yEVugXvjpvWPFMLdZoGZmv0M42/e9uS6gjD3/9kp
+ qwKDfUjqZpnelcj92WBqr5oycg1c9RqKoc+fqMyXJUcrZI1UAvnwEPzku4mXigZPnlq1RVnH66u
+ /hCOahaJCjJObbeQzwGGNF/jlZMU1LPHOn8hryQG2VdTv0LdwyGH3wAoFY7dwMotlsBN3fiiaq5
+ gLTvD+Ylxp9lmXxm7K1sivMmR5vGkUcohFKJ+kmiBYDPvL5R04L8owhQQiJuZe4i012L1tGFk99
+ 06tbJ14sWZItiw1bysAP3Gh/qrXB6ycrzrN45vbpceX0VcALyQPyEsYouSwcnWC/IZqDo6Cakcz
+ 8R+Ei1KWFz4evKA==
+X-Developer-Key: i=pasha.tatashin@soleen.com; a=openpgp;
+ fpr=CAAAB722DD22A081F0D49F35633A6A993D43B569
 
-Users of Nitro Sandboxes and authors of their parent tooling need one
-place that explains how the calls that Nitro Sandboxes add fit together.
+> We want to use live update at Meta to upgrade hypervisors whose VMs
+> can't be migrated away first. But this poses a problem: whether we can
 
-Document the driver functionality that Nitro Sandboxes add in
-ne_overview.rst: what NE_GET_CAPS reports, the launch flags
-NE_CREATE_VM2 takes, direct mode, why a slot needs its info page first,
-what NE_ADD_DEVICE names and returns, and the two directions an event
-travels. Link the public AWS documentation of Nitro Sandboxes for the
-user side.
+Awesome.
 
-Signed-off-by: Alexander Graf <graf@amazon.com>
----
- Documentation/virt/ne_overview.rst | 82 ++++++++++++++++++++++++++++++
- 1 file changed, 82 insertions(+)
+> enable KHO on a class of host depends on how much memory it leaves
+> available for unmovable allocations. In an early test, a 64 GiB host
+> with hugetlb_cma=6G set aside about 30 GiB of bootmem, which the running
+> kernel can only use for movable allocations.
+> 
+> The reservation varies with the kernel, memory size, NUMA layout and
+> command line. Our fleet collector needs the actual size from each host
+> so we can decide where to enable KHO and catch a kernel release that
+> takes those hosts over their bootmem budget.
 
-diff --git a/Documentation/virt/ne_overview.rst b/Documentation/virt/ne_overview.rst
-index 3aa33d3f06cf2..dbf9261d0391e 100644
---- a/Documentation/virt/ne_overview.rst
-+++ b/Documentation/virt/ne_overview.rst
-@@ -270,3 +270,85 @@ The device holds every donated page until it is told to let go, so the driver
- takes the whole pool back when a probe fails after donating, when it is unbound
- and when the machine shuts down, and the pages reach the allocator only after
- that has returned. Pages the device will not give back stay with it.
-+
-+Nitro Sandboxes
-+---------------
-+
-+Nitro Sandboxes [9] build on top of Nitro Enclaves technology. They provide
-+a sandbox VM with parent backed virtio devices on a PCIe bus, so it can have
-+block devices, network interfaces and a console like any other virtio guest,
-+and the parent provides them from an ordinary user space process. The driver
-+functionality that Nitro Sandboxes add is described here.
-+
-+NE_GET_CAPS reports what this kernel implements: NE_CAP_DEVICES covers
-+NE_SET_INFO_PAGE, NE_ADD_DEVICE, NE_SET_NOTIFY_EVENTFD, NE_SET_VRING_CALL and
-+NE_UPDATE_DEVICE_CONFIG. The argument carries its own length in struct_size and
-+the kernel writes back how many bytes it filled, so a caller built against a
-+header this kernel predates can tell a field this kernel never wrote from one it
-+wrote a zero into.
-+
-+NE_CREATE_VM2 takes a word of launch flags, and NE_CREATE_VM is the same call
-+with a zero one. NE_ENCLAVE_PCIE_MODE asks for a slot with a PCIe bus, and the
-+other launch flags shape that bus or the slot. The flags in
-+NE_ENCLAVE_FLAG_MATCHED_MASK are the ones the hypervisor enumerates, and two
-+fields answer for them. ne_caps.supported_matched_flags reports which of them
-+this kernel passes on, and is the same on every host.
-+ne_caps.hypervisor_matched_flags reports which of them the host behind the
-+device says it implements. A caller requires a flag in supported_matched_flags
-+always, and in hypervisor_matched_flags as well when that field is non-zero.
-+A zero hypervisor_matched_flags means that the host gave no answer, because it
-+reports no flag or because there is no device to ask, and NE_CREATE_VM2 is then
-+the only test. On a device that takes no launch flags at all, it fails with
-+EOPNOTSUPP. For the flags in NE_ENCLAVE_FLAG_UNMATCHED_MASK the answer comes
-+from allocating a slot with them. Bits outside the matched mask read zero in
-+both fields whatever the hypervisor does with them, so a caller masks its
-+request before comparing.
-+
-+Nitro Sandboxes introduce a mode called direct mode, selected with
-+NE_ENCLAVE_DIRECT_MODE, in which the parent keeps access to most of the memory
-+it donates to the sandbox. Direct mode disables attestation, but lets guest
-+kernels that do not place their virtqueues in device-provided memory run in a
-+sandbox. A slot in direct mode takes NE_MEMORY_SHARED allocations as memory
-+regions.
-+
-+A slot needs its info page before it can be given a device. The device reports
-+how the sandbox reaches each of its virtqueues by writing the info page, and
-+NE_ADD_DEVICE reads those entries back out of it, so NE_SET_INFO_PAGE comes
-+first; see `Memory pool`_.
-+
-+NE_ADD_DEVICE names the device with a type whose top 16 bits are the class, of
-+which NE_DEVICE_TYPE_VIRTIO is the only one, and whose low 16 bits carry the
-+virtio device id the sandbox sees. It carries the feature bits the parent offers
-+for the device and the opening bytes of the device's configuration space, and
-+names the NE_ALLOC_MEMORY allocations the device works out of. Each of those has
-+to be NE_MEMORY_SHARED, because the parent drives its end of the queues through
-+a mapping of one, and each is named with the id the sandbox knows that region
-+by. The driver puts that id in the top 8 bits of the size it reports for every
-+run of the allocation, which is how a device made of several regions tells them
-+apart; the parent and the sandbox agree on the numbering and the driver does not
-+read it. A device that works out of the sandbox's own memory regions says so
-+with NE_DEVICE_NO_SHM_REGIONS and names no region. An allocation is a device's
-+memory, an enclave's memory or an info page, never two of those, and the driver
-+holds it until the enclave is gone, so closing the descriptor does not take the
-+runs away from the device. The call returns the id the device was given and, for
-+each of its virtqueues, the interrupt vector, the notify index and the doorbell
-+offset. It takes a device on a running sandbox when the slot was allocated with
-+NE_ENCLAVE_PCIE_HOTPLUG_MODE.
-+
-+Notifications travel both ways. Towards the parent, the device signals through
-+an interrupt multiplexer built into the nitro_enclaves device: it raises one of
-+a pool of MSI-X vectors, and records in a bitmap page per vector, which the
-+driver donates, which notifications were raised. NE_SET_NOTIFY_EVENTFD binds an
-+eventfd to one of them, which is the kick of one of the sandbox's virtqueues or
-+the change of a device's entry in the info page. Towards the sandbox,
-+NE_SET_VRING_CALL binds an eventfd whose signal rings a virtqueue doorbell, so
-+the sandbox learns that the queue has data waiting for it. Either takes
-+NE_EVENTFD_UNBIND in place of a descriptor to release the binding, and binding
-+one the caller already holds replaces the eventfd on it.
-+
-+NE_UPDATE_DEVICE_CONFIG writes the configuration space of a device a sandbox
-+already has, naming it by the id NE_ADD_DEVICE returned.
-+ne_caps.max_config_update_size bounds how many bytes one call moves, not how far
-+into that space they reach.
-+
-+[9] https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/amazon-ec2-nitro-sandboxes.html
+HM, that works for cold boot not for live update :-)
+
+> 
+> Today the collector would have to sum kho/out/bootmem_len in debugfs,
+> which isn't a userspace ABI. In /proc/meminfo, free bootmem contributes
+> to CmaFree, but the reservation doesn't contribute to CmaTotal. The cma
+
+Is this a different bug?
+
+> count in /proc/zoneinfo includes bootmem after a cold boot but not after
+> a KHO kexec. On an 8 GiB QEMU guest booted with
+> kho_bootmem=32M,1536M,512M:
+> 
+>                 CmaTotal  CmaFree     zoneinfo cma (all zones)
+>     cold boot   0 kB      2127872 kB  2129920 kB
+>     KHO kexec   0 kB       881336 kB  0 kB
+> 
+> Even if bootmem becomes a CMA area, CmaTotal will still include other
+> areas such as hugetlb CMA, so inferring the bootmem size is still
+> error-prone.
+> 
+> Let's report the total bootmem reservation in bytes at
+> /sys/kernel/kexec/kho_bootmem_size.
+> 
+> Signed-off-by: Chris Down <chris@chrisdown.name>
+>
+> diff --git a/Documentation/ABI/testing/sysfs-kernel-kexec-kdump b/Documentation/ABI/testing/sysfs-kernel-kexec-kdump
+> index f59051b5d96d..80941a7d8a7c 100644
+> --- a/Documentation/ABI/testing/sysfs-kernel-kexec-kdump
+> +++ b/Documentation/ABI/testing/sysfs-kernel-kexec-kdump
+> @@ -59,3 +59,11 @@ Description:	read only
+>  		to the crash (kdump) kernel. It lists the start and end physical
+>  		addresses of CMA regions assigned for crashkernel use.
+>  User:		kdump service
+> +
+> +What:		/sys/kernel/kexec/kho_bootmem_size
+
+I have some concerns about exposing this as a stable API. What if we get 
+rid of bootmem or make it resizable? We only recently renamed it from 
+scratch to bootmem, and we have been exploring for way to optimize it.
+
+I would keep this exposed under /sys/kernel/debug/kho/bootmem_size for 
+now, and not worry about it being stable.
+
+> +Date:		Nov 2026
+> +Contact:	kexec@lists.infradead.org
+> +Description:	read only
+> +		Total size of the KHO bootmem regions in bytes. Returns 0
+> +		when KHO is disabled.
+> +User:		system monitoring
+> diff --git a/Documentation/admin-guide/mm/kho.rst b/Documentation/admin-guide/mm/kho.rst
+> index f9d2cc5999ee..c329d720bf25 100644
+> --- a/Documentation/admin-guide/mm/kho.rst
+> +++ b/Documentation/admin-guide/mm/kho.rst
+> @@ -81,6 +81,15 @@ At scale, correlating crashes to the previous kernel version enables
+>  faster root cause analysis when issues only occur in specific kernel
+>  transition scenarios.
+>  
+> +sysfs Interfaces
+> +================
+> +
+> +``/sys/kernel/kexec/kho_bootmem_size``
+> +    Total size of the KHO bootmem regions in bytes, or 0 when KHO is
+> +    disabled.
+> +
+> +See Documentation/ABI/testing/sysfs-kernel-kexec-kdump for the sysfs ABI.
+> +
+>  debugfs Interfaces
+>  ==================
+>  
+> diff --git a/include/linux/kexec_handover.h b/include/linux/kexec_handover.h
+> index ef2b188c8ed0..736d51e79fd2 100644
+> --- a/include/linux/kexec_handover.h
+> +++ b/include/linux/kexec_handover.h
+> @@ -40,6 +40,7 @@ void kho_populate(phys_addr_t fdt_phys, u64 fdt_len, phys_addr_t bootmem_phys,
+>  		  u64 bootmem_len);
+>  
+>  bool kho_bootmem_overlap(phys_addr_t phys, size_t size);
+> +phys_addr_t kho_bootmem_size(void);
+>  
+>  static inline enum migratetype kho_bootmem_migratetype(unsigned long pfn,
+>  						       enum migratetype mt)
+> diff --git a/kernel/kexec_core.c b/kernel/kexec_core.c
+> index f4a31565c447..ed105e6351eb 100644
+> --- a/kernel/kexec_core.c
+> +++ b/kernel/kexec_core.c
+> @@ -13,6 +13,7 @@
+>  #include <linux/slab.h>
+>  #include <linux/fs.h>
+>  #include <linux/kexec.h>
+> +#include <linux/kexec_handover.h>
+>  #include <linux/mutex.h>
+>  #include <linux/list.h>
+>  #include <linux/liveupdate.h>
+> @@ -1324,6 +1325,15 @@ static struct kobj_attribute crash_elfcorehdr_size_attr = __ATTR_RO(crash_elfcor
+>  #endif /* CONFIG_CRASH_HOTPLUG */
+>  #endif /* CONFIG_CRASH_DUMP */
+>  
+> +#ifdef CONFIG_KEXEC_HANDOVER
+> +static ssize_t kho_bootmem_size_show(struct kobject *kobj,
+> +				     struct kobj_attribute *attr, char *buf)
+> +{
+> +	return sysfs_emit(buf, "%llu\n", (unsigned long long)kho_bootmem_size());
+> +}
+> +static struct kobj_attribute kho_bootmem_size_attr = __ATTR_RO(kho_bootmem_size);
+> +#endif
+
+Keeping it together with the rest of KHO code would be better.
+
 -- 
-2.47.1
+Pasha
 
