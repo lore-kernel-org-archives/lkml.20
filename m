@@ -1,76 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794403475;
-	b=VWSyRTmSzoJgeLEcKLetrhv76tiTVVVXWZg6g6xPTL4rMZOyVJoq3vXV3l+Oj3poDeSW
-	 BB7PIWOqkj0l75PSFx3awKN0yz+cTsweodT8WSsqoB2Q2d69BuC3K7FgRwkSLdsTbn6WV
-	 pZjcnKQ3i4Y/lZvou1UFCiGmzuLOhcr2nr3bK2Y6332ayWSvlUi/VSOhBh7D01qhQvUry
-	 Uf09zgQl0gXNOAUuw5DRFHqRS3rco5221ed9EgjzSmlwdrFkvBXl9QRxp5CZ8fmsF85AI
-	 DHRYXcN2pPvd7KA0y4B19LCXbDcRIWH34ziRPZY93Ph2Pkf4YIYHno4Cp5AK9Wveniw==
+	t=1794403471;
+	b=GYR30pnZDssYqIk2N6eiFBo1uQuYFcB1TXtxJIqVugCCbW5eQStkOatOXH0ClBJeP6WG
+	 3Nn/C7ZU0xhTfrr/6+ZjlPDLaNiBZtiMRf3dAx7GYgxMNEFtYaSt7IUNCEjXJGiL9IsIM
+	 vUfLquLmHqhl/Ct9nvcoLP2n8Hle+OMeap2rIJrdxdEFAEj019IHXyzNgWGFrFa5FpVoK
+	 Vaif/E9erULrBSh7yLzFGb4q8RdRj9hhrV/pj8aaSgAY7qqMcO7hlCPd2fFDlSN9c2w4O
+	 Hmx3f11tWG3QBqlpwCITpoxdU4kdBgYamT20eFwAEyZyU2F0+ZsK2EUMF79YBsO1Riw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794403475;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=QdhZGoOS3qaZkdUk0ZzfVt9fX+1wOi32goX1UT0WCnw=;
-	b=MwKIV6OpkkwzVAa8KjKLMO6WLPR4jHKhHhaV8eDTe9+/+xiBkzD4NHF8rfebxhenVeQ6
-	 TguqxRwnuQTamJV139FWOko26MgttsfsN7vZeAPP09/Vfi+Qcw+8XYEcUlxprflKy60BT
-	 YxlbMLUcgGcJUrSoK40t+F9/fPp13N4beBNA+tr8mqax05SUcAJP+ghBRwh+qVtD3ODOQ
-	 UFY9RljjobZltA8n0zg2kChT1yLZvS8B/pbR7rlciRs76bXeWVuebtG2Jcn7NsDJ4QgEz
-	 flW/KnF3kcCodSsjjeoTbTVbeb2qqtEH408VBzRMG+S/QIIi99PgYrtIEd7LPulF+sQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794403471;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=uzBaz5jqtl18woVrXcDmQuaoa5Gf6nHDZaCA6adJaRY=;
+	b=iCBpJkfTNpZ8bBwizHs+JFix+4wr7G9KqVs88ZIHkONw6g/6yGGTtQ3G5NrqWUZEDH6F
+	 ZEChI59hLkiE6mZB2b4upC+daVdh39i/oTEo18qyS8kQVcEZso8RoUKCvqN5IAMotI27c
+	 IJhv+yIUob4lXj220r0kuasxGlBabda6r2i3AqBS4ScJK81YhnWAM5r59hkIoPfmSdMeU
+	 B19u3vA53ZFPRvBu4AAvHJObChsD0PJQhDzRZAn9OIM7UPXAE0pGXPjnODpCJE17GbvE8
+	 d5rNK7JAYnVN+p7zuhoZ2ecySNHXl1qXouV04SYa2yL8kwopQyWdyCTHwfBZV8dLn8w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=NSNzciiR;
-	arc=none smtp.remote-ip=91.218.175.52
-Received: from mta0.migadu.com (out-52.mta0.migadu.com [91.218.175.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="fr4/J+rb";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5B34606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:24:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5B34606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D47EC606A326;
+	Wed, 11 Nov 2026 13:24:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=NSNzciiR
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=apRcNPV/eAJ6CX9Q9DtjrLM8bFgnJ5Z52He1vhxJjy0=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794403472; v=1; x=1795008272;
- b=NSNzciiRrH1ZrJanImF+mHk4j5IdG8JlRwdity1+uzm8k0ohqLXAwHwG45+SRXgGkpVDV1YU
- FbTh+8yrQqfg10DPwlqr9Zvwm13GDK4okSPnqqq90Dy+s77ImjG55ytVadD3obB/fj4/jhIVU+y
- 4v7KWL0i7zCg9XKTMK/qh/e8=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 7e6ccbf188bf925f;
-	Wed, 11 Nov 2026 13:24:31 +0000
-X-Mizu-Trace-ID: 7e6ccbf188bf925f
-X-Migadu-Flow: FLOW_OUT
-From: Usama Arif <usama.arif@linux.dev>
-To: Borislav Petkov <bp@alien8.de>
-Cc: Usama Arif <usama.arif@linux.dev>,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	david.laight.linux@gmail.com,
-	dave.hansen@linux.intel.com,
-	dsterba@suse.com,
-	linux-kernel@vger.kernel.org,
-	mingo@redhat.com,
-	terrelln@fb.com,
-	tglx@kernel.org,
-	x86@kernel.org,
-	kas@kernel.org,
-	hannes@cmpxchg.org,
-	riel@surriel.com,
-	shakeel.butt@linux.dev,
-	kernel-team@meta.com
-Subject: Re: [PATCH v2] x86/lib: Use REP MOVSB for =?US-ASCII?Q?_large_memcpy=28=29_on_ERMS_CPUs_without_FSRM?=
-Date: Wed, 11 Nov 2026 05:24:27 -0800
-Message-ID: <20261111132428.3050403-1-usama.arif@linux.dev>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <09B273E6-9146-4489-BC46-E7455CD8CA16@alien8.de>
-References: 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fr4/J+rb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 990891F00A05;
+	Wed, 11 Nov 2026 13:24:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794403471;
+	bh=uzBaz5jqtl18woVrXcDmQuaoa5Gf6nHDZaCA6adJaRY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=fr4/J+rbVpzt6DQkkQiR6yzcftvRYJwzkFC/K0BNN1VTaQU+A0Q04os/ez+QhIduw
+	 bBnlfKh7kS9w73r/mlNHsjgUAuiz90TS99PGTqxa0FOzbGlq3m6qTTlOUwItArVBiz
+	 tZC+S3fsZd0pO2QSvH/gzfdJkA2nXxTp5KoWI0jUbsoItWliafGB4NymWjbLX4LDy6
+	 bcxqjr1uGyBC84g0UNd59CodBCcMfWBA9xa/K7ZaCwyh767lCEtookjhQLgJ3oppdU
+	 aG65hs+MQNO2QMpHMiRSgBYlcKjg0LBbhC6C95ldQdXDBswmopdRgpUypiZyS/9ink
+	 +8KUWrchviyvw==
+Date: Wed, 11 Nov 2026 15:24:26 +0200
+From: Leon Romanovsky <leon@kernel.org>
+To: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+Cc: Sagi Grimberg <sagi@grimberg.me>, Max Gurtovoy <mgurtovoy@nvidia.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	"Martin K . Petersen" <martin.petersen@oracle.com>,
+	Mike Christie <michael.christie@oracle.com>,
+	linux-rdma@vger.kernel.org, target-devel@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v8 0/6] IB/isert: fix the device removal use-after-free
+Message-ID: <20261111132426.GR8635@unreal>
+References: <20261104040318.1844865-1-yhlee@isslab.korea.ac.kr>
+ <20261104142043.GG478286@unreal>
+ <CAM+FBJen6v58uZPvSTfSG--9r9LzwAp1PBWbWK7RUFM89qmMJA@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,46 +62,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAM+FBJen6v58uZPvSTfSG--9r9LzwAp1PBWbWK7RUFM89qmMJA@mail.gmail.com>
 
-On Wed, 11 Nov 2026 01:16:37 +0000 Borislav Petkov <bp@alien8.de> wrote:
-
-> On November 10, 2026 8:59:02 PM UTC, Linus Torvalds <torvalds@linux-foundation.org> wrote:
-> >On Tue, 10 Nov 2026 at 12:18, H. Peter Anvin <hpa@zytor.com> wrote:
-> >>
-> >> On November 10, 2026 9:53:07 AM PST, Linus Torvalds <torvalds@linux-foundation.org> wrote:
-> >> >Let's not do that.
-> >> >
-> >> >Putting magic things like RET in alternatives is just a bad bad idea.
-> >> >
-> >> >               Linus
-> >>
-> >> Why is that, *given that it is in assembly*?
-> >
-> >It's assembly, but it's assembly that potentially gets rewritten.
-> >objtool already knows about __x86_return_thunk being special (although
-> >I think it's the _target_, not the call site, it cares about).
-> >
-> >I would like to not have magic in stuff that is in the alternatives
-> >section. We've had issues with relocations etc before.
-> >
-> >That said, grepping a bit for this, it turns out we already seem to be
-> >doing that in memmove_64.S, although it was hidden from my first grep:
-> >
-> >  #define CHECK_LEN     cmp $0x20, %rdx; jb 1f
-> >  #define MEMMOVE_BYTES movq %rdx, %rcx; rep movsb; RET
-> >  .Lmemmove_begin_forward:
-> >        ALTERNATIVE_2 __stringify(CHECK_LEN), \
-> >                      __stringify(CHECK_LEN; MEMMOVE_BYTES), X86_FEATURE_ERMS, \
-> >                      __stringify(MEMMOVE_BYTES), X86_FEATURE_FSRM
-> >
-> >which is pretty disgusting. But I guess that train has passed..
-> >
-> >           Linus
+On Fri, Nov 06, 2026 at 08:26:49PM +0900, Yehyeong Lee wrote:
+> Hi Leon,
 > 
-> Yah, I never liked this piece of gunk. Lemme give it a fresh look when things relax a bit...
+> Sorry for the flood of versions. I should have waited for review instead
+> of reposting every time the bot flagged something. I'll stop here and
+> won't send another version unless someone asks for one.
+> 
+> For what it's worth, each version was tested on soft-RoCE with KASAN,
+> racing device removal against connect, login and teardown. I don't have
+> iSER hardware, so none of it has run on a real HCA.
+> 
+> If it helps, I can send 1/6 and 2/6 on their own, without the stable
+> tag, and leave the rest until someone can test it on hardware. If you'd
+> rather drop the series, that's fine too.
 
+You should get Acked by from isert maintainers.
 
-I have sent v3 that doesnt put RET in an alternative [1]
-
-[1] https://lore.kernel.org/all/20261111132214.2979125-3-usama.arif@linux.dev/#t
+Thanks
