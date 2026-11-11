@@ -1,68 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.29.241.158
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794360202;
-	b=Hv2srKINBr9qzx/Xkya4LNammP9nCpnGgeiPAsQeVeO2BzRTchq/EyKbh+XipU811Uf7
-	 smb5eCyyFYquW8vW50rMjU6JfhxMLf9FNiOIqnNim/3FBrhQOxo2lg84PvMPWMLjnvCCd
-	 /h7DoOhy5nGx0mEZ2QZOklriv7wlsuWUlaPUa35HrYnAyLHmsmrOLr0ygsnk30HBrrape
-	 QTSb7COinB8Tk6tip5RBwGqMDjwA14Cg2HIzDcZv//4QpWWl/hsAA0vslqUnYXBYHP0CO
-	 /5RyFdyUjEV7UU0t6YhBtN1exymUqfZveBWs6gkt94yghoSwskwrIJZW0fDfYQDCWnw==
+	t=1794360229;
+	b=Txdvs8lMDEIbByCRFKE4nUz8ALPvjsJEjjglY+VYHaN4EDm65dJT+Xgp5X6RkijGn0JC
+	 P7fXw6iXWqVn4UmD0ZhDlE0l7T30Hp4g7f8aboIRMYBnb/TPFGv/8iON90g/tqz3JIFv+
+	 KWmq7fl9RtZZM++Nwm/beeo73QfMlaodxogIIhq/W0BC9MJE+u1idRRzdwck8J6VCtscI
+	 sZDmQZUXBKiNdhEy688Wi9xwiwQjo5sZceUAfFdcKRXUQTJavfqOSREY0jaMSv/mTR0nF
+	 rH9l4YGmu0LhTlg428XbOyg5yAYAEIiRzQG+MFMIK3nFndnuuF7hy/H8gcFkSkJP2LQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794360202;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version;
-	bh=me/uMZLei5JIMqJLLPA+JNTv7cc5G55ohXwpfueBK1Y=;
-	b=uNhsnwcn/guyhBmYCUt46oS2AVBe+G3oEXeDn90tgEvzTU42wBUGU7q9GTqrmggEwUKR
-	 Me/+Ws2c0/XhXoOJzepe0Z+3Vp+1DdTFXsiQ5dvVz0BwCmfrJoRM1iI+DUOhAzn2AQA3o
-	 gklqsoOjJorG4Ks0f8Ru7KhC/KiyZ75lpIiMRFfXCVPh1+koNaVl0Tn9xxL3q85dWA+XA
-	 7khpm01svwBgkuKH0K6Kcx2BLdbhg5CvBp+fmURxCq3Knf9SIxOPJKZfEb/XISWh3Pks9
-	 PKrUFl/2YL2AYFbo0cgbInliot3RG2wUBzhjO9KMDQbWfthk+Crkr2/9D5x+yLybWNw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794360229;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=B1lig7Anod9lgx4qxcaJK02qF6KZYVAP1p0ZWZvSXvA=;
+	b=eINVryU5RxINcT3QbJGzrnswI1NxkYfelObAC9LQ1k87hPwmjzbPCkL0ljogTD0CE0jn
+	 eBdU7vIX5T38nxii8YmgwUax96j+csCxyw3oAP91PpXprHyiaznxVf575mCZm9FjWeQwt
+	 EfCR3x7mWX7WHzZie366e68eXSxKhxWPIZuDWB3MsX4jNNPHbZogVI5mDda3o7K1TzWi2
+	 e2PaBCCPf71CTFIh79QlkDa74Wu7767F2ZFTCtz6F9mugtSx87CQxpNENvdfYINNk7MTU
+	 SoWY9ofUKnRJt/0/fp4oo9gBZ5yG1Ho/HEnQGlzykmct8ovA3+p43BQ1vmzb0ytQslg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=codeconstruct.com.au;
-	spf=pass smtp.mailfrom=codeconstruct.com.au;
-	dkim=pass header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=POJCMNyn;
-	arc=none smtp.remote-ip=203.29.241.158
-Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=rMW2z906;
+	arc=none smtp.remote-ip=198.137.202.133
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84E33606A320;
-	Wed, 11 Nov 2026 01:23:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 84E33606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codeconstruct.com.au
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B53FF606A324
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 01:23:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B53FF606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=POJCMNyn
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=codeconstruct.com.au; s=2022a; t=1794360199;
-	bh=me/uMZLei5JIMqJLLPA+JNTv7cc5G55ohXwpfueBK1Y=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=POJCMNyn6snlb4G0e2HDTHoPRzRUBxoRk8jFatnDEtPv1p2ZhwYVCI5L5Vp9rcBwr
-	 PkhiIN366ux6Ed1P4CIyu46MRmf7nbpmJjF9vEK1cAMwWyTYigfD6OnYaKyfb+uEuP
-	 jdqWh1ZQmmwWM084HKuZUwuLmqzF6oDJKHFCTmA4erFENMjLjtZ1SRd1hkpvl36M/4
-	 W4xI9Rh0DZSxbCFdMfUav/0Hof5XgXq7kXMRLCZCuQXgyUh+PJ2T3YCHXBCajW0/55
-	 U3xHPNdpJBZJ8L3tBNv97CHR+DOZAPcy4587TXhp9dNrmq6+e9TRSrbfKVp3ie3oaa
-	 U7G9f7qERxmiQ==
-Received: from [192.168.68.117] (unknown [180.150.112.139])
-	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id 2B90D64C3C;
-	Wed, 11 Nov 2026 09:23:19 +0800 (AWST)
-Message-ID: <8b78ad45a331231c0dc0d6b459d2bfada521b6f0.camel@codeconstruct.com.au>
-Subject: Re: [PATCH] ARM: dts: aspeed: anacapa: remove unused EEPROM
-From: Andrew Jeffery <andrew@codeconstruct.com.au>
-To: Carl Lee <carl.lee@amd.com>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Joel
- Stanley <joel@jms.id.au>,  Ryan Chen <ryan_chen@aspeedtech.com>, Billy Tsai
- <billy_tsai@aspeedtech.com>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
-	colin.huang2@amd.com
-Date: Wed, 11 Nov 2026 11:53:18 +1030
-In-Reply-To: <20261110-arm-dts-aspeed-anacapa-remove-unused-eeprom-v1-1-e3b5d9cc1a03@amd.com>
-References: 
-	<20261110-arm-dts-aspeed-anacapa-remove-unused-eeprom-v1-1-e3b5d9cc1a03@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=rMW2z906
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
+	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=B1lig7Anod9lgx4qxcaJK02qF6KZYVAP1p0ZWZvSXvA=; b=rMW2z906/5ueth+PvqcM41FDxI
+	rcVYiCU+KRHZllIijHjk+mirLP+V7kTCFKS/FUah33Uc/R6PNXhuYIvw5XkV0DpC6PcNVZR2CAWrU
+	vqoBPa+61LPRg9bFMccEXxSWzVN0pagYSkEuRjHlFYQqy8g3exYlA6nsJDBG/MgAAjPobRgbg0doz
+	zIPn1i9rYpn3eB77VgeMnxa14jiW2cAHPE02E61UfhYl1EZQ09pYKyqdzTAcSyiEy9KMAiSxgwLbF
+	b26h0A9nCFL/j5Q9ubC/XyHiUe6KSCjxFl5CABbKmR0V+TtUsuI+iI9to8roP0+7SKJ7c5BWfsxPQ
+	08siLNqg==;
+Received: from [38.23.173.23] (helo=localhost)
+	by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xQx3z-00000005N3K-2qQI;
+	Wed, 11 Nov 2026 01:23:47 +0000
+Date: Tue, 10 Nov 2026 20:23:45 -0500
+From: "Liam R. Howlett" <liam@infradead.org>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Vlastimil Babka <vbabka@kernel.org>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/3] mm: only assert mmap locks if CONFIG_DEBUG_VM or
+ lockdep is set
+Message-ID: <g2qikknwv37iierelgrbodhvvchef3z6nunhcti4dqvxwbob7y@easqjwlcj2ly>
+References: <20261110-tame-vma-asserts-v1-0-be293ff499a7@kernel.org>
+ <20261110-tame-vma-asserts-v1-1-be293ff499a7@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,20 +67,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261110-tame-vma-asserts-v1-1-be293ff499a7@kernel.org>
 
-Hi Carl,
+On 26/11/10 04:57PM, Lorenzo Stoakes (ARM) wrote:
+> For a long while we have asserted the mmap lock being held regardless of
+> whether or not the kernel is a debug build or not.
+> 
+> In general, given that these have been added as programmatic asserts that
+> nobody did something stupid, production kernels are simply wasting their
+> time checking for this.
+> 
+> It also means there is a two tier system - where some programmatic
+> asserts (e.g. VM_WARN_ON_ONCE()-checked conditions) are only checked for if
+> CONFIG_DEBUG_VM is enabled, whereas others are checked unconditionally.
+> 
+> If we genuinely want to unconditionally check for the mmap lock being held
+> at runtime, then that should be made clear in the code doing it.
+> 
+> Regardless, if CONFIG_LOCKDEP is enabled, ensure that the lockdep
+> assertions are performed.
+> 
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-On Tue, 2026-11-10 at 17:44 +0800, Carl Lee wrote:
-> Remove the unused HPM board ID FRU EEPROM (0x51) from
-> the I2C mux channel 4 device tree node.
+Reviewed-by: Liam R. Howlett (Google) <liam@infradead.org>
 
-This is evident from the patch so in my opinion can be removed.
+> ---
+>  include/linux/mmap_lock.h | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
+> 
+> diff --git a/include/linux/mmap_lock.h b/include/linux/mmap_lock.h
+> index 9c3a9c6525c1..9367430ee53c 100644
+> --- a/include/linux/mmap_lock.h
+> +++ b/include/linux/mmap_lock.h
+> @@ -75,12 +75,14 @@ static inline void __mmap_lock_trace_released(struct mm_struct *mm, bool write)
+>  
+>  static inline void mmap_assert_locked(const struct mm_struct *mm)
+>  {
+> -	rwsem_assert_held(&mm->mmap_lock);
+> +	if (IS_ENABLED(CONFIG_DEBUG_VM) || IS_ENABLED(CONFIG_LOCKDEP))
+> +		rwsem_assert_held(&mm->mmap_lock);
+>  }
+>  
+>  static inline void mmap_assert_write_locked(const struct mm_struct *mm)
+>  {
+> -	rwsem_assert_held_write(&mm->mmap_lock);
+> +	if (IS_ENABLED(CONFIG_DEBUG_VM) || IS_ENABLED(CONFIG_LOCKDEP))
+> +		rwsem_assert_held_write(&mm->mmap_lock);
+>  }
+>  
+>  #ifdef CONFIG_LOCKDEP
+> 
+> -- 
+> 2.56.0
+> 
 
->=20
-> The EEPROM is no longer needed in the Anacapa device tree.
-
-Can you please explain why that is in the commit message?
-
-Thanks,
-
-Andrew
