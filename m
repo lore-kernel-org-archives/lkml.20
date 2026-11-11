@@ -1,80 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.74
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794439598;
-	b=q3HhHcw9LTsDplkkKzQYgz6ICaNm9ju8s/QlaGhkCr43fDrNVFTaTU3wWYGZnoEdu9Jt
-	 f+IzhnLyvx3An9vZhrq107BkPbDSe2ESVnY4cimqo5jHeOXpbSrpxkpws7E/c3u1TQ1bP
-	 +04oBYmw4vrUYR2EwbFw09CK2/zFzVHB7zFR6sAgqgIfvYB9pC9o9tMW6FTVe3/1/QKMs
-	 FyQlrrjXgkn5m8oUiFGyJ+ijSdswq1eY7V80f1QiD7xQ1GtfekIyip0Xc4sLrgC8Ggxq+
-	 FAHDny9fSOPlo9o82FFcgMG+nVvKIw4r/GB0qpwMZGxb8UiUgC2BVoAyhVgW+XiqArA==
+	t=1794439601;
+	b=qGMTvT6BLjqVZVXbQmefo3d+RhvzNITIkT9jBM8j586cNif2RjJJpA8A0EbWbTqVnflS
+	 /pO7+oB3dovWEal2MPAxCDFPvX3GP6rnvnbzDV86Rg7gCaU7sbsw1BLEEbUwmX1PJPOk+
+	 8qVduublBoMxHXGaE0ntHlIJJJUGbdT7LE4vbR/bwLbnZZ5cIeIBCF7Q/MwJB8z87/bKx
+	 StRqQ96xR0M85vj6Rtq7EuJOPLo9Tq2gcyuxYKqADx7qJZLCqkRzCQzqwA/fR9NxF+J+P
+	 IjT/AoRN50d6M4Jz7CQeO6pBtTRe3yxFb3iR8HtvC2eOCup070U61IUNCoMqZ3qZJHQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794439598;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=s7XUwUomnVCDK9aa962ZIpgMQ6QHHvHVmOdhzPQ+ujw=;
-	b=voMfcpizF12DZTXRc7pjQ7cN0iH5k78W/KXhnnhKt/8tZl+S0IpZWruZ8BQzgA7wTUMV
-	 rs0R6f//6eLM0YLkpALZr8QedpWLUbGYq4vuq2iI8ICpYAqEzo7M/QjoRurVW0Ve/YRTc
-	 UQ/NcmmiwgC66uh9LDs8B08R2c1Z+x854acyt8HshKepxTNmrr9A8vJ84jk1SaZe7CuY4
-	 OVlgw+9i88eidDac14O1MeUvHRAy7ejjLjvSs6xO7R0D5fUzmAwxmupuZKyDQZ6OA1W/z
-	 0hQLxuPWSUUZ2ZVdv18OJmrKjB/V3A6BQcObbCbUkzxnIvInI1vgMbMhAbMD7e+uGpA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794439601;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Subject:To:Cc:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Date:Message-Id:
+	 In-Reply-To:References;
+	bh=WahUUMKEHUeaMrdXRtQv7EG1eIBXgpGshBhrE00jyNM=;
+	b=Hif03JOSYoXAZsA8bFKyC87VacM85L1ZEtkZI/m4rPX5qUo0CCbpdl8kZbcomIJ3aSbN
+	 MjRwlWytly1rnkBDPMxd4zPHyXIXAIVdMTej3Z7zXCpHJyErzDs9toGNa5OKmWAhkLrq9
+	 EQlafAFyI5YPXemD87/AHGSlZx9dCubIwpVHYuLJKSi7GAf6769dEJO9riZyoSjPzaDOD
+	 JNHP7YcpgnAVMOju0kO5BjTFoyCF2g/odJokLG+YJ4kpMA8yYuilveVt/B/WS0MMe2aOz
+	 HXN5Ws+XcJ1z1IqitxnTLR+t6jtdSOe2+RdIdHGOPX6bbWoDVnuEqNF3fbPt6h08gHg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WsllZv5n;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=cressey.dev;
+	spf=pass smtp.mailfrom=cressey.dev;
+	dkim=pass header.d=cressey.dev header.i=@cressey.dev header.a=rsa-sha256 header.s=key1 header.b=RigteQrK;
+	arc=none smtp.remote-ip=95.215.58.74
+Received: from mta1.migadu.com (out-74.mta1.migadu.com [95.215.58.74])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19254606A33D
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 23:26:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38A2B60A261B
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 23:26:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38A2B60A261B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cressey.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cressey.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WsllZv5n
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F0651F00A08;
-	Wed, 11 Nov 2026 23:26:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794439597;
-	bh=s7XUwUomnVCDK9aa962ZIpgMQ6QHHvHVmOdhzPQ+ujw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WsllZv5njedZwKJ59odVutAPlnA2JBfk1ja8Af6vB6OmwMExoSVmyla8TZHyRWMVb
-	 RfRogZSnw2H4NEJOp1jN5OYqtVaCD3P0MRdJ79rCIhhxwATWYZHMy8648AWiLKunre
-	 tRsuWlFSYNQYsRjxryXSsLGv5/aqho8DULqMpxk3P3SxWMZ3P//ZyoPSpXVIlObg8W
-	 BDdVW1/7XEYDyIDv76XwWUj6bVOOQpHVgujK30c1KSCf5TovDzGAprba1bihMRBzeV
-	 EdijAys2qvKgqImPwGAIAkFYZRSQ2eFQmIB/ORSGpv5a+TjYVapE6PweP7qqno3zi8
-	 YSiyeV7CiOVqg==
-From: "Barry Song (Xiaomi)" <baohua@kernel.org>
-To: akpm@linux-foundation.org
-Cc: axelrasmussen@google.com,
-	baolin.wang@linux.alibaba.com,
-	baoquan.he@linux.dev,
-	hannes@cmpxchg.org,
-	hui.zhu@linux.dev,
-	kasong@tencent.com,
-	kunwu.chan@gmail.com,
-	liam@infradead.org,
-	lianux.mm@gmail.com,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	liuxiang.277@bytedance.com,
-	lyugaofei@xiaomi.com,
-	mhocko@kernel.org,
-	mhocko@suse.com,
-	qi.zheng@linux.dev,
-	ridong.chen@linux.dev,
-	rppt@kernel.org,
-	ryncsn@gmail.com,
-	shakeel.butt@linux.dev,
-	surenb@google.com,
-	wangzicheng@honor.com,
-	weixugc@google.com,
-	yuanchu@google.com,
-	zhangbo56@xiaomi.com,
-	zhuhui@kylinos.cn,
-	sidchintamaneni@gmail.com,
-	Barry Song <baohua@kernel.org>
-Subject: [PATCH v7 05/16] mm/mglru: skip zones above reclaim_idx instead of rotating them
-Date: Thu, 12 Nov 2026 07:25:52 +0800
-Message-Id: <20261111232603.9934-6-baohua@kernel.org>
-X-Mailer: git-send-email 2.39.3 (Apple Git-146)
-In-Reply-To: <20261111232603.9934-1-baohua@kernel.org>
-References: <20261111232603.9934-1-baohua@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=cressey.dev header.i=@cressey.dev header.a=rsa-sha256 header.s=key1 header.b=RigteQrK
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=h5LWrU32M/8PYtvSz81JoK1EB8yX4lPH2icFhRh33Xs=;
+ c=simple/simple; d=cressey.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794439599; v=1; x=1795044399;
+ b=RigteQrK5VRm8azwDsH8qyHTX2/2fk3BXo9EfMKxRJv1QEwTDwnhCMbq20cGOs3XkiRJHWOg
+ 4h/MDlGgwCdOXRrzYU4Oyf1WHE6KFhE30qrAVgOAmfrwx1KgyeA/ubmUEFuhu8wb17Da+ofndQV
+ G7BZtRkHHD+vFY+2VNrUh4PKGn37HWM7XoqZ/ObCW4FEwKzVk21gq3XuAj/2har+9l2A4Fanh85
+ VQmj4YaaoVTASX6n1BYu7pr869enVe31ZfXMKkVkwwpoEc1KkwrgEuTgg5GWIhUNs5WwPMUNjPU
+ 3jCskbfZFJ0RBdhHY131FUdf1mcK46+gPa/05pVz8V+3w==
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 4d58726ca1813656;
+	Wed, 11 Nov 2026 23:26:39 +0000
+X-Mizu-Trace-ID: 4d58726ca1813656
+X-Migadu-Flow: FLOW_OUT
+From: Ben Cressey <ben@cressey.dev>
+Subject: [PATCH v2 2/2] arm64: hibernate: use a typed entry to drop __nocfi
+To: Catalin Marinas <catalin.marinas@arm.com>, 
+ Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Pasha Tatashin <pasha.tatashin@soleen.com>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, Pavel Machek <pavel@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ linux-pm@vger.kernel.org, Kees Cook <kees@kernel.org>, 
+ Sami Tolvanen <samitolvanen@google.com>, kexec@lists.infradead.org, 
+ llvm@lists.linux.dev, Nathan Chancellor <nathan@kernel.org>, 
+ Zhaoyang Huang <zhaoyang.huang@unisoc.com>, 
+ Jeson Gao <jeson.gao@unisoc.com>
+X-Mailer: b4 0.15.2
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,178 +71,154 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Date: Wed, 11 Nov 2026 15:26:05 -0800
+Message-Id: <20261111-arm64-kexec-nocfi-v2-2-ddf0c4aa326f@cressey.dev>
+In-Reply-To: <20261111-arm64-kexec-nocfi-v2-0-ddf0c4aa326f@cressey.dev>
+References: <20261111-arm64-kexec-nocfi-v2-0-ddf0c4aa326f@cressey.dev>
 
-From: Kairui Song <kasong@tencent.com>
+swsusp_arch_resume() calls the safe page's copy of
+swsusp_arch_suspend_exit() indirectly, without a kCFI check. The MMU is
+on at the call and TTBR0 maps only that page. The copy starts at the
+page's first byte, so the check's load of the type hash in front of it
+would fault. SYM_CODE_START() also gives the routine no hash.
+Commit e2f8216ca2d8 ("arm64: Set __nocfi on swsusp_arch_resume()")
+disabled the check "for now", since the entry had to be first
+in .hibernate_exit.text.
 
-scan_folios() used to visit every zone. Folios in zones above
-sc->reclaim_idx can never be isolated, so sort_folio() rotated them to
-a younger generation, the "ineligible" branch, or, when only one gen
-was left, skipped them. This wasted scan work on every pass, and the
-rotation kept the protected folios from aging.
+SYM_TYPED_FUNC_START() emits the hash inside that section, and
+create_safe_exec_page() already copies the whole section, at most 4 KiB,
+to the page's start, so the page holds both hash and entry. Relax the
+linker script's ASSERT, so the entry need only be in the section.
 
-Restrict both the scan and the gen selection to the eligible zones,
-like the legacy LRU, which only isolates folios in zones up to
-reclaim_idx:
+Fix by typing the routine, with a C prototype, entering the copy at the
+symbol's offset in the section, and dropping __nocfi.
 
-- lruvec_populated_min_seq() takes a zone_limit, so the oldest
-  populated gen is searched only among the zones the scan can
-  reclaim from. A gen populated only in protected zones no longer
-  stalls the scan.
-- scan_folios() iterates the eligible zones in the descending order
-  of the legacy zonelist walk, draining the zone at reclaim_idx
-  first.
-- The ineligible branch of sort_folio() is now dead and removed,
-  with a VM_WARN_ON_ONCE_FOLIO() guarding the new invariant.
-
-try_to_inc_min_seq() still considers all zones, so min_seq[type] is
-only bumped once the oldest gen is empty everywhere. At DEF_PRIORITY
-the search bound stays min_seq[type], so the scan still starts from
-the oldest gen regardless of whether it is populated.
-
-Signed-off-by: Kairui Song <kasong@tencent.com>
-Signed-off-by: Barry Song (Xiaomi) <baohua@kernel.org>
+Suggested-by: Mark Rutland <mark.rutland@arm.com>
+Link: https://lore.kernel.org/linux-arm-kernel/arZSe8hNnRPM5FqY@J2N7QTR9R3.cambridge.arm.com/
+Signed-off-by: Ben Cressey <ben@cressey.dev>
 ---
- mm/vmscan.c | 47 +++++++++++++++++++----------------------------
- 1 file changed, 19 insertions(+), 28 deletions(-)
+ arch/arm64/include/asm/suspend.h  |  5 +++++
+ arch/arm64/kernel/hibernate-asm.S |  7 +++++--
+ arch/arm64/kernel/hibernate.c     | 14 +++++++++-----
+ arch/arm64/kernel/vmlinux.lds.S   |  5 +++--
+ 4 files changed, 22 insertions(+), 9 deletions(-)
 
-diff --git a/mm/vmscan.c b/mm/vmscan.c
-index db0a8a3e8887..6b1670677974 100644
---- a/mm/vmscan.c
-+++ b/mm/vmscan.c
-@@ -3991,7 +3991,7 @@ static bool inc_min_seq(struct lruvec *lruvec, int type, int swappiness)
+diff --git a/arch/arm64/include/asm/suspend.h b/arch/arm64/include/asm/suspend.h
+index e9ce68d50ba4..e75aa3681414 100644
+--- a/arch/arm64/include/asm/suspend.h
++++ b/arch/arm64/include/asm/suspend.h
+@@ -45,6 +45,11 @@ void _cpu_resume(void);
  
- /* Similar to lruvec_evictable_size, return the oldest populated seq of the type */
- static unsigned long lruvec_populated_min_seq(struct lruvec *lruvec, int type,
--					      unsigned long max_seq)
-+					      int zone_limit, unsigned long max_seq)
+ int swsusp_arch_suspend(void);
+ int swsusp_arch_resume(void);
++void __noreturn swsusp_arch_suspend_exit(phys_addr_t tmp_pg_dir,
++					 phys_addr_t ttbr1_el1,
++					 void *reenter_kernel, void *pblist,
++					 phys_addr_t hyp_stub_vectors,
++					 phys_addr_t zero_page);
+ int arch_hibernation_header_save(void *addr, unsigned int max_size);
+ int arch_hibernation_header_restore(void *addr);
+ 
+diff --git a/arch/arm64/kernel/hibernate-asm.S b/arch/arm64/kernel/hibernate-asm.S
+index 2baefe7a82d3..ef8c0b926dcb 100644
+--- a/arch/arm64/kernel/hibernate-asm.S
++++ b/arch/arm64/kernel/hibernate-asm.S
+@@ -6,6 +6,7 @@
+  * Author:	James Morse <james.morse@arm.com>
+  */
+ #include <linux/linkage.h>
++#include <linux/cfi_types.h>
+ #include <linux/errno.h>
+ 
+ #include <asm/asm-offsets.h>
+@@ -31,6 +32,8 @@
+  * switches to a copy of the linear map in ttbr1, performs the restore, then
+  * switches ttbr1 to the original kernel's swapper_pg_dir.
+  *
++ * Called indirectly by swsusp_arch_resume(), this code needs a kCFI type hash.
++ *
+  * All of memory gets written to, including code. We need to clean the kernel
+  * text to the Point of Coherence (PoC) before secondary cores can be booted.
+  * Because the kernel modules and executable pages mapped to user space are
+@@ -45,7 +48,7 @@
+  * x5: physical address of a  zero page that remains zero after resume
+  */
+ .pushsection    ".hibernate_exit.text", "ax"
+-SYM_CODE_START(swsusp_arch_suspend_exit)
++SYM_TYPED_FUNC_START(swsusp_arch_suspend_exit)
+ 	/*
+ 	 * We execute from ttbr0, change ttbr1 to our copied linear map tables
+ 	 * with a break-before-make via the zero page
+@@ -93,5 +96,5 @@ alternative_insn "dc cvau, x4",  "dc civac, x4",  ARM64_WORKAROUND_CLEAN_CACHE
+ 	mov	x0, #HVC_SET_VECTORS
+ 	hvc	#0
+ 3:	ret
+-SYM_CODE_END(swsusp_arch_suspend_exit)
++SYM_FUNC_END(swsusp_arch_suspend_exit)
+ .popsection
+diff --git a/arch/arm64/kernel/hibernate.c b/arch/arm64/kernel/hibernate.c
+index 8c39863d2d63..d5a066ece8b2 100644
+--- a/arch/arm64/kernel/hibernate.c
++++ b/arch/arm64/kernel/hibernate.c
+@@ -418,15 +418,15 @@ int swsusp_arch_suspend(void)
+  * Memory allocated by get_safe_page() will be dealt with by the hibernate code,
+  * we don't need to free it here.
+  */
+-int __nocfi swsusp_arch_resume(void)
++int swsusp_arch_resume(void)
  {
- 	int gen, zone;
- 	unsigned long min_seq;
-@@ -4002,7 +4002,7 @@ static unsigned long lruvec_populated_min_seq(struct lruvec *lruvec, int type,
- 	min_seq = READ_ONCE(lrugen->min_seq[type]);
- 	while (min_seq <= max_seq) {
- 		gen = lru_gen_from_seq(min_seq);
--		for (zone = 0; zone < MAX_NR_ZONES; zone++) {
-+		for (zone = 0; zone < zone_limit; zone++) {
- 			if (!list_empty(&lrugen->folios[gen][type][zone]))
- 				return min_seq;
- 		}
-@@ -4025,7 +4025,7 @@ static void try_to_inc_min_seq(struct lruvec *lruvec, int swappiness)
- 	/* Requires at least MIN_NR_GENS gens for basic functionality */
- 	seq = lrugen->max_seq - MIN_NR_GENS;
- 	for_each_evictable_type(type, swappiness) {
--		min_seq[type] = lruvec_populated_min_seq(lruvec, type, seq + 1);
-+		min_seq[type] = lruvec_populated_min_seq(lruvec, type, MAX_NR_ZONES, seq + 1);
- 		if (min_seq[type] > lrugen->min_seq[type])
- 			seq_inc_flag = true;
- 	}
-@@ -4684,6 +4684,7 @@ static bool sort_folio(struct lruvec *lruvec, struct folio *folio, struct scan_c
- 	struct lru_gen_folio *lrugen = &lruvec->lrugen;
- 
- 	VM_WARN_ON_ONCE_FOLIO(gen >= MAX_NR_GENS, folio);
-+	VM_WARN_ON_ONCE_FOLIO(zone > sc->reclaim_idx, folio);
- 
- 	/* unevictable: let it through and the generic path will cull it */
- 	if (!folio_evictable(folio))
-@@ -4700,10 +4701,8 @@ static bool sort_folio(struct lruvec *lruvec, struct folio *folio, struct scan_c
- 	 * longer be promoted or protected, so just isolate them. The one
- 	 * exception is lru_gen_reparent_memcg(), which is handled above.
+ 	int rc;
+ 	void *zero_page;
+ 	size_t exit_size;
+ 	pgd_t *tmp_pg_dir;
+ 	phys_addr_t el2_vectors;
+-	void __noreturn (*hibernate_exit)(phys_addr_t, phys_addr_t, void *,
+-					  void *, phys_addr_t, phys_addr_t);
++	phys_addr_t exit_page;
++	typeof(swsusp_arch_suspend_exit) *hibernate_exit;
+ 	struct trans_pgd_info trans_info = {
+ 		.trans_alloc_page	= hibernate_page_alloc,
+ 		.trans_alloc_arg	= (__force void *)GFP_ATOMIC,
+@@ -463,14 +463,18 @@ int __nocfi swsusp_arch_resume(void)
+ 	exit_size = __hibernate_exit_text_end - __hibernate_exit_text_start;
+ 	/*
+ 	 * Copy swsusp_arch_suspend_exit() to a safe page. This will generate
+-	 * a new set of ttbr0 page tables and load them.
++	 * a new set of ttbr0 page tables and load them. The whole section is
++	 * copied: a kCFI hash may precede the entry point.
  	 */
--	if (min_gen == max_gen) {
--		VM_WARN_ON_ONCE(zone > sc->reclaim_idx);
-+	if (min_gen == max_gen)
- 		return false;
--	}
- 
- 	/* protected */
- 	if (tier > tier_idx || refs + workingset == BIT(LRU_REFS_WIDTH) + 1) {
-@@ -4720,13 +4719,6 @@ static bool sort_folio(struct lruvec *lruvec, struct folio *folio, struct scan_c
- 		return true;
+ 	rc = create_safe_exec_page(__hibernate_exit_text_start, exit_size,
+-				   (phys_addr_t *)&hibernate_exit);
++				   &exit_page);
+ 	if (rc) {
+ 		pr_err("Failed to create safe executable page for hibernate_exit code.\n");
+ 		return rc;
  	}
++	hibernate_exit = (void *)(exit_page +
++				  ((unsigned long)swsusp_arch_suspend_exit -
++				   (unsigned long)__hibernate_exit_text_start));
  
--	/* ineligible */
--	if (zone > sc->reclaim_idx) {
--		gen = folio_inc_gen(lruvec, folio, min_gen);
--		list_move_tail(&folio->lru, &lrugen->folios[gen][type][zone]);
--		return true;
--	}
--
- 	return false;
- }
- 
-@@ -4758,16 +4750,17 @@ static int scan_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
- 		       struct scan_control *sc, int type, int tier,
- 		       struct list_head *list, int *isolatedp)
- {
--	int i;
- 	enum node_stat_item item;
-+	int zone_idx;
- 	int sorted = 0;
- 	int scanned = 0;
- 	int isolated = 0;
- 	int skipped = 0;
- 	int gen, max_gen;
--	unsigned long min_seq;
-+	unsigned long seq;
- 	unsigned long remaining = nr_to_scan;
- 	struct lru_gen_folio *lrugen = &lruvec->lrugen;
-+	struct pglist_data *pgdat = lruvec_pgdat(lruvec);
- 	DEFINE_MAX_SEQ(lruvec);
- 
- 	VM_WARN_ON_ONCE(nr_to_scan > MAX_LRU_BATCH);
-@@ -4779,24 +4772,22 @@ static int scan_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
- 	 * when under pressure to respect swappiness more and reduce IO cost.
- 	 */
- 	if (sc->priority == DEF_PRIORITY)
--		min_seq = lrugen->min_seq[type];
-+		seq = lrugen->min_seq[type];
- 	else
--		min_seq = lruvec_populated_min_seq(lruvec, type, lrugen->max_seq);
-+		seq = lrugen->max_seq;
- 
--	gen = lru_gen_from_seq(min_seq);
-+	seq = lruvec_populated_min_seq(lruvec, type, sc->reclaim_idx + 1, seq);
-+	gen = lru_gen_from_seq(seq);
- 	max_gen = lru_gen_from_seq(max_seq);
- 
--	for (i = MAX_NR_ZONES; i > 0; i--) {
-+	/* Scan eligible zones in descending order. */
-+	for (zone_idx = sc->reclaim_idx; zone_idx >= 0; zone_idx--) {
- 		LIST_HEAD(moved);
- 		int skipped_zone = 0;
--		int zone = (sc->reclaim_idx + i) % MAX_NR_ZONES;
--		struct list_head *head = &lrugen->folios[gen][type][zone];
-+		struct zone *zone = &pgdat->node_zones[zone_idx];
-+		struct list_head *head = &lrugen->folios[gen][type][zone_idx];
- 
--		/*
--		 * If there is only one gen left, rotating the unreclaimable
--		 * zone become meaningless, just skip them.
--		 */
--		if (gen == max_gen && zone > sc->reclaim_idx)
-+		if (!managed_zone(zone))
- 			continue;
- 
- 		while (!list_empty(head)) {
-@@ -4806,7 +4797,7 @@ static int scan_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
- 			VM_WARN_ON_ONCE_FOLIO(folio_test_unevictable(folio), folio);
- 			VM_WARN_ON_ONCE_FOLIO(folio_test_active(folio), folio);
- 			VM_WARN_ON_ONCE_FOLIO(folio_is_file_lru(folio) != type, folio);
--			VM_WARN_ON_ONCE_FOLIO(folio_zonenum(folio) != zone, folio);
-+			VM_WARN_ON_ONCE_FOLIO(folio_zonenum(folio) != zone_idx, folio);
- 
- 			scanned += delta;
- 			if (sort_folio(lruvec, folio, sc, gen, max_gen, tier))
-@@ -4825,7 +4816,7 @@ static int scan_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
- 
- 		if (skipped_zone) {
- 			list_splice(&moved, head);
--			__count_zid_vm_events(PGSCAN_SKIP, zone, skipped_zone);
-+			__count_zid_vm_events(PGSCAN_SKIP, zone_idx, skipped_zone);
- 			skipped += skipped_zone;
- 		}
- 
+ 	/*
+ 	 * KASLR will cause the el2 vectors to be in a different location in
+diff --git a/arch/arm64/kernel/vmlinux.lds.S b/arch/arm64/kernel/vmlinux.lds.S
+index c95243a8b24e..641074a6e6ca 100644
+--- a/arch/arm64/kernel/vmlinux.lds.S
++++ b/arch/arm64/kernel/vmlinux.lds.S
+@@ -412,8 +412,9 @@ ASSERT(__idmap_text_end - (__idmap_text_start & ~(SZ_4K - 1)) <= SZ_4K,
+ #ifdef CONFIG_HIBERNATION
+ ASSERT(__hibernate_exit_text_end - __hibernate_exit_text_start <= SZ_4K,
+        "Hibernate exit text is bigger than 4 KiB")
+-ASSERT(__hibernate_exit_text_start == swsusp_arch_suspend_exit,
+-       "Hibernate exit text does not start with swsusp_arch_suspend_exit")
++ASSERT(swsusp_arch_suspend_exit >= __hibernate_exit_text_start &&
++       swsusp_arch_suspend_exit < __hibernate_exit_text_end,
++       "Hibernate exit text does not contain swsusp_arch_suspend_exit")
+ #endif
+ #ifdef CONFIG_UNMAP_KERNEL_AT_EL0
+ ASSERT((__entry_tramp_text_end - __entry_tramp_text_start) <= 3*PAGE_SIZE,
+
 -- 
-2.34.1
+2.56.0
 
