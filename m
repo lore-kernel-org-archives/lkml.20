@@ -1,77 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794435532;
-	b=NyrKvpodv2wTd3FVD0UNhuxi2E6T3XZc+pIbHV264ilhLqnoMwfuA47PS8shlGockw9l
-	 Y5a76a8gRIS63aT7PZYTYmHT26KwRyWe214ciAKAgsayMQM2vMixoacdvCPeOkf8cqN6b
-	 ouO0i2OD/cMNEBumCTX8IOCmAxdILVqOX0jxNS4Akk4c5Dh2e8Mi254w6WZAgQ81hWXyU
-	 Sz0ktnaRwQhVwSJ8/87nT5yWd28dhNVyzJtPVoSekH9MOF7X86B7QgXy2v5exwf2m4FWJ
-	 vrxU/noyrQIxYLxV7+plhjg4P0Ld3+E6DmEfEzuCVTptlz2WmTP4JytmyA5Uc6cRc2g==
+	t=1794435633;
+	b=cOnt2WUTjc4QsCejpAB5/jvyOVXDwHuRBsIKC5wYFad4MaRiDxXySIQ+pupExEOMA+Lj
+	 dIz1iQyeuhewErmm3pBYe+HqyvplUVk6OVrKIGHrGJVt7sHAmM9s+5btD6Mchkm2uDy98
+	 2ctgXe1wjsHeXDUQGL4fGoY1fAn/fNiDq+saRUA2et1Q7fADcaMdwqV8eYvOM6rhQnifK
+	 1X/bNrAzSTOLQvsh204ZxJ+8q5wU8bPMskiYEb1E8yedGq6ysu4/NQEhVX4SukJfcsY1o
+	 3ORF+/RzdcD4EN3EM/KW4s2VjHWVmTh1W/91UlmZwumniHw73HJEgzh3B1I8B5od6rg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794435532;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
-	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=YhV5+1cS0emO9WNIGDx6eBvv8/9J401vylAgxkfRXbk=;
-	b=FPuhrvHBMsPTWCtiJivd5KO/hUJpq8TqoD4EY/ptb8TB2t5fNqT+kdUvvn6H14TW9RW5
-	 0G0c4XM642UL2g3auYsf6CcRkQjIZw41mWrpxLvpea3DgKVLm+loW7OiQMJw58K6wKrO7
-	 5jCGZzHi07CG+RLuYFCj9P6wJw/GpdglW5OxdueNFbEBE+3gzfppKv4wVMCq1FJhH1OEX
-	 GKeX0LlabFzDoVyemLRDKUeokOL2ri3+2Ovun2Cx6ZQy4HelQdBCYAPXB61QxJcl7vVko
-	 Pi3UyVi8wkCL1fFfh/jm1gByXuBYi+g0d7uqeXGixCX7yXru+P8sV/Tw2igcoS5gFsA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794435633;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=K4KdjqORRmEBTUM7t1u578GKcdnKKYKwwNZ9QN2PlGg=;
+	b=t98C70ksipPFsDGk23E7qe/DV2oI0gJnBOsNFleOtOQqgcFGszijsGz9xTsKXQyJ7BTW
+	 xf1LXxF67NWKPDpHUzG6QyyyIS19/Bb4GrJVNizdFEZoKx1R4hBtYryhOKUGT70uz5EpO
+	 dforBb/GY9mv/QUj3bQ7tSjn6BYFZ7xUznAc28zNLTnPKxT2wz03st8qJQl9p1o/l5DcW
+	 +CCLeGLbxFdpUkFhHUI4mzPQvV7XlcEiXEAWmZk1a+0vmDZpc0hmqbhcPVMdjSNaFNmNW
+	 SDwSGopZl716vTOZqp0j9acdxLAr9ENRWkFHK7KlUMuwTpJmaHglk8oujlxRguKu3uQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=N9gTsIvA;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LlwaUFls;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25494606A31C;
-	Wed, 11 Nov 2026 22:18:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 3145D606A31C;
+	Wed, 11 Nov 2026 22:20:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=N9gTsIvA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 388ED1F00A05;
-	Wed, 11 Nov 2026 22:18:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1794435531;
-	bh=YhV5+1cS0emO9WNIGDx6eBvv8/9J401vylAgxkfRXbk=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=N9gTsIvABmWA9FG/AxHE9BOkDd+PvfjEmh/9xkTi4E6r7N/z2bxN7nq40VisAO49F
-	 IgUSAQYdoqkEMhROZYKhYAJjC/XC2ncIl2uqCE9C4Ngoz2nsfjoacmgz3/SUlnrv7j
-	 f2Mcda/BOS1gCJ4w3EOHrh9rdEh2rSgXT1W+3JxY=
-Date: Wed, 11 Nov 2026 14:18:48 -0800
-From: Andrew Morton <akpm@linux-foundation.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Kiryl Shutsemau <kas@kernel.org>, "Lorenzo Stoakes (ARM)"
- <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka
- <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan
- <surenb@google.com>, Michal Hocko <mhocko@suse.com>, David Rientjes
- <rientjes@google.com>, Shakeel Butt <shakeel.butt@linux.dev>, Jann Horn
- <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Nhat Pham <nphamcs@gmail.com>, Johannes Weiner <hannes@cmpxchg.org>, Zi Yan
- <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>, Joshua Hahn
- <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, Gregory Price
- <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, Alistair
- Popple <apopple@nvidia.com>, Usama Arif <usama.arif@linux.dev>, Kairui Song
- <kasong@tencent.com>, Balbir Singh <balbirs@nvidia.com>, =?ISO-8859-1?Q?J?=
- =?ISO-8859-1?Q?=E9r=F4me?= Glisse <jglisse@redhat.com>, Yu-cheng Yu
- <yu-cheng.yu@intel.com>, Dave Hansen <dave.hansen@linux.intel.com>, Dennis
- Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>, Christoph Lameter
- <cl@gentwo.org>, Peng Fan <peng.fan@nxp.com>, Josef Bacik <jbacik@fb.com>,
- Chris Mason <mason@kernel.org>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- "Borislav Petkov (AMD)" <bp@alien8.de>, Mark Brown <broonie@kernel.org>,
- "Dennis Zhou (Facebook)" <dennisszhou@gmail.com>, Rick Edgecombe
- <rick.p.edgecombe@intel.com>, Josef Bacik <josef@toxicpanda.com>,
- stable@vger.kernel.org
-Subject: Re: [PATCH 04/13] mm/migrate_device: allocate THP deferred split
- heads
-Message-Id: <20261111141848.11762f60e737c97c3a239fe1@linux-foundation.org>
-In-Reply-To: <95682ddd-d200-4827-a009-77ee59d14f86@kernel.org>
-References: <20261111-mason-migrate-et-al-fixes-v1-0-3d2454362e8d@kernel.org>
-	<20261111-mason-migrate-et-al-fixes-v1-4-3d2454362e8d@kernel.org>
-	<avTB6h61nXfvCXUS@thinkstation>
-	<95682ddd-d200-4827-a009-77ee59d14f86@kernel.org>
-X-Mailer: Sylpheed 3.7.0 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LlwaUFls
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 3944E1F00A05;
+	Wed, 11 Nov 2026 22:20:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794435632;
+	bh=K4KdjqORRmEBTUM7t1u578GKcdnKKYKwwNZ9QN2PlGg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=LlwaUFlsfzgkM6AuRKez9QzQX0TEEOJxmHs4kOCmH5iQ4veaMq20Wa6hNzuOffLGU
+	 /CEok1195hJxoq5ng6lcAX2NfMRl6Y7NtbD54nGZrSQjoaxja2xaIg2VNLgh19NZxw
+	 g4h8eufMAMmLaXCkGW3wtuyQjSsM35T58/E/NhPApSqE9Zi4Us+7FfQ5iEVVS7Beho
+	 ZyFj9YKTlYH1cSGmuYuKtXFVtgs80IeII4k8gN+O42gAxWmBAFUT+iE3lhdWkSbhFT
+	 GHMIdU0M9B7ZOb4EuA65QCTXT78ShyX6D0mQ28EN8kJVv//deO46Dy8zNL1L8P0MRt
+	 ZuBwc0lQ+ohyg==
+Date: Thu, 12 Nov 2026 00:20:28 +0200
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Breno Leitao <leitao@debian.org>
+Cc: Peter Huewe <peterhuewe@gmx.de>, Jason Gunthorpe <jgg@ziepe.ca>,
+	linux-integrity@vger.kernel.org, linux-kernel@vger.kernel.org,
+	surenkj@amazon.com, noodles@meta.com, kernel-team@meta.com
+Subject: Re: [PATCH 2/2] tpm: Disable a TPM whose hwrng reads keep failing
+Message-ID: <avTqLMLZwKOb-Q_j@kernel.org>
+References: <20261111-tpm_unresponsive-v1-0-42ac1b965eb9@debian.org>
+ <20261111-tpm_unresponsive-v1-2-42ac1b965eb9@debian.org>
+ <avTpOlKixInIBmE6@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,84 +58,22 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <avTpOlKixInIBmE6@kernel.org>
 
-On Wed, 11 Nov 2026 20:40:17 +0100 "David Hildenbrand (Arm)" <david@kernel.org> wrote:
+On Thu, Nov 12, 2026 at 12:16:30AM +0200, Jarkko Sakkinen wrote:
+> I'm thinking here that why not disable on first failure?
 
-> On 11/11/26 20:30, Kiryl Shutsemau wrote:
-> > On Wed, Nov 11, 2026 at 06:13:18PM +0000, Lorenzo Stoakes (ARM) wrote:
-> >> From: Josef Bacik <josef@toxicpanda.com>
-> >>
-> >> A THP that device migration maps into an empty PMD can end up on the wrong
-> >> deferred split list when it is later queued for a deferred split.
-> >>
-> >> This occurs if the memcg has no heads yet (resulting in a warning if
-> >> CONFIG_DEBUG_VM is set), where deferred_split_folio() will then queue the
-> >> folio on the parent's list.
-> >>
-> >> Once a later THP fault in the same memcg allocates the heads,
-> >> __folio_unqueue_deferred_split() and the split path resolve folio_memcg()
-> >> to the memcg's own, now existing, list and take its lock.  They then
-> >> list_del_init() a folio that is linked on the parent's list, racing with
-> >> anything holding the parent's lock, and both lists' nr_items counts go
-> >> wrong.
-> >>
-> >> Resolve the issue by calling folio_memcg_alloc_deferred() after the charge
-> >> in migrate_vma_insert_huge_pmd_page() and falling back like a failed charge
-> >> if that fails, as __do_huge_pmd_anonymous_page() does.
-> >>
-> >> This was originally discovered by code inspection.
-> >>
-> >> Fixes: fafaeceb89a5 ("mm: switch deferred split shrinker to list_lru")
-> >> Cc: <stable@vger.kernel.org>
-> >> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-> >> [ ljs: tweak commit message, remove unnecessary comment ]
-> >> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> > 
-> > mm-new already has this: "mm/migrate_device: allocate deferred split
-> > sublists for new huge folios", same Fixes: tag.
-> > 
-> > Hm?
-> 
-> I assume that's one from Andrew that he created after a security report (where I
-> was CCed and the reporter didn't follow up), but he never sent it out officially.
+It's a more intrusive change, yes, but then again having a count
+would require assumption that there is high odds e.g., for the
+following scenario:
 
-oops, that's supposed to be commented out.
+1. TPM hwrng fails.
+2. TPM hwrng succeeds.
 
-> So let's review this one here. It's supposed to go through my tree either way :)
+I don't this is very likely to ever happen... So thus I'd drill
+this even more than you did.
 
-Patches are identical.  So I can say
-
-Tested-by: Andrew Morton <akpm@linux-foundation.org>
-
-
-Based on Ada's supplied fix and reproducer. The report uses CONFIG_TEST_HMM
-and privileged guest setup; ordinary-user reachability through a production
-driver has not been established.
-
-Built matching pre-patch and patched 7.4.0-rc1 kernels and ran the same
-one-folio HMM migration test in each. The x86-64 KVM guest had 8 GiB RAM,
-one virtual NUMA node and four single-threaded vCPUs in one virtual socket.
-CONFIG_TEST_HMM, CONFIG_MEMCG, CONFIG_SHRINKER_DEBUG and CONFIG_DEBUG_LIST
-were enabled; KASAN was disabled.
-
-Both kernels migrated 512 pages to device memory and one huge folio back.
-After a partial unmap, normal THP allocation and freeing the migrated
-folio, the pre-patch kernel still reported one deferred-split entry on
-the root list. The patched kernel reported no entry. Both one-folio
-tests completed without a panic or warning.
-
-In two further bounded pre-patch guest runs, eight migrated folios were
-queued on the root deferred-split list. Both runs produced DEBUG_LIST
-"list_del corruption" warnings during folio release, with
-__folio_unqueue_deferred_split() in the trace. In the second run the
-warning occurred during a timed scan/removal trial. Neither run crashed
-or hung; no delay or fault injection was needed.
-
-The patched guest did not create misplaced root-list entries, so the
-concurrent scan test stopped at its setup check rather than running
-identical timed trials. These tests do not establish unprivileged
-production-driver reachability or privilege escalation.
-
+Br, Jarkko
