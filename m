@@ -1,49 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794392811;
-	b=R6wwxYAmPjvxXzbqPN9J2H8jKQk13/0ibJgQWpwlSjdN9i6fLp2C8zft5op1XPAEpeRN
-	 A8JDeNHMIt2bRTzDONDSl9UsOKnGh6JWkbBw0qd0Q2IYsWtoR5Jga6H1j5d+own8BaIND
-	 1a8Hc4zTzhIzan+1Q/sXSEaAVCBoAva0hG5aVbixrp4kvz3jt9COhAUxv6Mh6h4DLjimk
-	 Oge9V+uFFlzFmfw/u2oSWicvgzUk7Z15R0n0YgKoZVOquzmMafH3MSdr2e4fqxAvWxbPk
-	 7AJ3UkJxBsVCeOqbYfN5a7D2gZaoBQVpN7vG5bg6HiTKTDyOp6r8i8oRBXgjhhRV9YA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794392811;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=5V9jRlyh7Ihg0NTQ3+KjZaPOqstTGKiqiBozrCfwUxY=;
-	b=Q5c2d+X6k00h7Hh7GdEEJETPTRXDHIbyWhAy31zxSmDL5jkplkEJDDjRfY6o6q3FZP3M
-	 u37UXryNUGRm0RfKVCZn7EL5da0wtBexnVR/2m+xCFzH0Sy50l0BQj2VLlFwGeP6kxSCu
-	 Vwd+KjtYMiZ8xRT3aurA16emRbVz+lZ8XcQx/mlnuo2xXD5KZ979Mu+OKVXjWHLQEs8bf
-	 TW2h2An0BUPf+AOlp+s46cGvtmmq84WYU4cyMGvOAuk/d7+IdjSr0lKpvf0rQghIpuaDI
-	 qkZ5r6DtFNjxqZjxs6BEkDdAUAXKFIa8IXspPbEq5YLMM26XrnxhW2oKf8h/3RHKcDA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=MWmswE93;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E1D15606A31C;
-	Wed, 11 Nov 2026 10:26:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1D15606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.12
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794392835;
+	b=JyzHUTXzqO0lVJufEUHlhblAA3YYncTzqdf2Hjh8T0vzyWiQB0Fqizb0ppucEX68ZRmM
+	 0rN1RZKJaboJd4gMfAXo24UNjzmQfr9lzc+WUpy1hJKf1FwXwqsq+qYvRAAbEN7dcRMbu
+	 1vcxfrcCvitQ8oh3pWp5mYuuA08td8iRNedlLwCneSk8RYoDNP9F+DKvC1lq7lMWNNSU8
+	 isOAmPdAKpGXiPS6L/gIlGu4Ne+xTKN9Hbh5YMAw8vukfRSWMB5gBdSt75B/hwlYAnsvN
+	 Ug41yDNclS8w1y7VXJaxY5hZzmR+MJ19DkXf6nmBp0zuFP1bHL7vtDWHOuXb1JPUMOw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794392835;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Organization:Content-Type:
+	 Content-Transfer-Encoding:User-Agent:MIME-Version:X-ZohoMailClient;
+	bh=izBfG5NYxgsrXHkibSx3HWmcn07W3wT6ndQmqom6GNQ=;
+	b=gLwGHUmIdx4rsxdwpWsHCLUOuTPDFbdjVzEQBu/BcKbe8FBsCJZ7MNOgX+BAiJ/3SrEK
+	 eM7g1o+kCYKb/COglKFsxnoYqanOkJfG65IjjpZSXuGa2VhgZFQob5+K+Dems6AbTv50c
+	 8ZZx6E3bTBzfNjHjcO85fw0fhhzL3NIEuU9uK4QpQnqYsHFeXw8rZ61/7l8EFXsiMfd2q
+	 /OiDiAYDFcTf/bc9mrMiYD5bDQa1Fkpf7mVfShqgKyTZmeM1icPsfZklL9c6Hua/tOsbB
+	 cOPtkdrgfrYXON4YuLOgxJe9GS5Z/wERGEs3d7wtX/3gy+06tDY3kZMX+X8Z1CiUYgw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=icenowy.me;
+	spf=pass smtp.mailfrom=icenowy.me;
+	dkim=pass header.d=icenowy.me header.i=@icenowy.me header.a=rsa-sha256 header.s=zmail2 header.b=J9OSvhXi;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.12
+Received: from sender6-op-o12.zoho.com (sender6-op-o12.zoho.com [165.173.180.12])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FC1E606A31C;
+	Wed, 11 Nov 2026 10:27:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7FC1E606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=icenowy.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icenowy.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=MWmswE93
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2EBED2F;
-	Wed, 11 Nov 2026 02:26:47 -0800 (PST)
-Received: from [10.57.63.24] (unknown [10.57.63.24])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 9770F3F632;
-	Wed, 11 Nov 2026 02:26:42 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794392810; bh=5p/zP+v+C50UsZoAhPNAyBGrgi2Vxw0z5RAhgrPcN0k=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=MWmswE93spZbG2V0obRVIKBymfeULcFqEbj2cVnHxFaY5kyeW/5QiG+uLZDVflVGi
-	 2C77Gaqu/MzBzW/w8VmfSod584m9JMJoYwQ5iuh3UEd4+jjlIHFkwwezDCHM5pGV6p
-	 M+ch4d/6NeEOTwtoO+eqNyC1tAY1uTMp8qcFSlgM=
-Message-ID: <45b19233-741e-46c8-a6c1-28775c4d646d@arm.com>
-Date: Wed, 11 Nov 2026 11:26:39 +0100
+	dkim=pass (2048-bit key) header.d=icenowy.me header.i=@icenowy.me header.a=rsa-sha256 header.s=zmail2 header.b=J9OSvhXi
+ARC-Seal: i=1; a=rsa-sha256; t=1794392820; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=X/HX67F92GhFRj7qyinZmwx/H96yrqVKh3qzZ20sgUcU7Bq1EzlL4LwKbanj16DaHIeAsfl1B+qcOUKXcizeVDto7mVnyPeb9dgTMese2SySaXW1ka1t9lhlN5Y+3CSRxekdfQgYz+oHyMlLSu0jRqR//hXS8AZbXWHAvWjoI0M=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1794392820; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=izBfG5NYxgsrXHkibSx3HWmcn07W3wT6ndQmqom6GNQ=; 
+	b=fwDqvphywJ3uYhLeRoF5hlcNDhVwtmYKj+nvlJei0yPlkZDg9A4tiAZKXH69aS5hneBpcZfV9cMpkqr9nOp23zSTyrLLRrN8YEby+YjzvNa3APgIz0pqTH/UC1hjuQV87+GimXIrKW594bKrR5Vbi3pkoloHftpi0cIplmKMhfc=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=icenowy.me;
+	spf=pass  smtp.mailfrom=uwu@icenowy.me;
+	dmarc=pass header.from=<uwu@icenowy.me>
+DKIM-Signature: a=rsa-sha256; b=J9OSvhXiOr8lL3EQgkc/e/NNi3TnxQ3XlcIW5iQ8G8O4YIpzmpfsofd64NZF96sK6sewXhziyjoWP4mrKydKsJxgtjUpg2plbX4qatreUxLCiOELTmxBkVvc01H9QyYa6GM54yi/P/dU+zcWbFQIIN633UnCFgJ4GRxBmIgIc3mpxEXXdNxdsf74Nvk+CH7nUy6EL5EwtTsi9ih7WxFgsjBDvLUaN3jnfb+Vxy/NmmLDgKgqeJEk11+N8VYRGRJRlQMUh/809aREBoWNb3QBbvydxClqopz9L0FHDHbTFBwP/IGHUIFYf/LnxVdk2xdAxDAeih67xe8Q+Pa5XczMgw==; c=relaxed/relaxed; s=zmail2; d=icenowy.me; v=1; bh=izBfG5NYxgsrXHkibSx3HWmcn07W3wT6ndQmqom6GNQ=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1794392818762580.4241612026577;
+	Wed, 11 Nov 2026 02:26:58 -0800 (PST)
+Message-ID: <68b5a51d767248a71c050110d5faf6c50c964d50.camel@icenowy.me>
+Subject: Re: [PATCH v2 1/3] dt-bindings: display: panel: ilitek, ili9488:
+ make the port optional
+From: Icenowy Zheng <uwu@icenowy.me>
+To: Krzysztof Kozlowski <krzk@kernel.org>, Romain TISSERAND
+	 <romain.tisserand@gmail.com>
+Cc: Igor Reznichenko <igor@reznichenko.net>, Neil Armstrong	
+ <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann	 <tzimmermann@suse.de>, David
+ Airlie <airlied@gmail.com>, Simona Vetter	 <simona@ffwll.ch>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, 	dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, 	linux-kernel@vger.kernel.org,
+ sashiko-reviews@lists.linux.dev
+Date: Wed, 11 Nov 2026 18:26:51 +0800
+In-Reply-To: <20261110-comical-adder-from-saturn-8c8fbb@quoll>
+References: <20261109160706.2272332-1-romain.tisserand@gmail.com>
+	 <20261109160706.2272332-2-romain.tisserand@gmail.com>
+	 <20261110-comical-adder-from-saturn-8c8fbb@quoll>
+Organization: Anthon Open-Source Community
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,47 +80,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC v10 04/22] arm64: Implement asm/kpkeys.h using POE
-To: Mark Brown <broonie@kernel.org>
-Cc: linux-hardening@vger.kernel.org, Andrew Morton
- <akpm@linux-foundation.org>, Ard Biesheuvel <ardb+git@google.com>,
- Andy Lutomirski <luto@kernel.org>, Catalin Marinas
- <catalin.marinas@arm.com>, Dave Hansen <dave.hansen@linux.intel.com>,
- "David Hildenbrand (Arm)" <david@kernel.org>, Jann Horn <jannh@google.com>,
- Jeff Xu <jeffxu@chromium.org>, Joey Gouly <joey.gouly@arm.com>,
- Kees Cook <kees@kernel.org>, Linu Cherian <linu.cherian@arm.com>,
- Linus Walleij <linusw@kernel.org>, Marc Zyngier <maz@kernel.org>,
- Matthew Wilcox <willy@infradead.org>, Maxwell Bland <mbland@motorola.com>,
- "Mike Rapoport (IBM)" <rppt@kernel.org>,
- Peter Zijlstra <peterz@infradead.org>,
- Pierre Langlois <pierre.langlois@arm.com>,
- =?UTF-8?Q?Pierre-Cl=C3=A9ment_Tosi?= <ptosi@google.com>,
- Quentin Perret <qperret@google.com>,
- Rick Edgecombe <rick.p.edgecombe@intel.com>,
- Ryan Roberts <ryan.roberts@arm.com>, Vlastimil Babka <vbabka@kernel.org>,
- Will Deacon <will@kernel.org>, Yang Shi <yang@os.amperecomputing.com>,
- Yeoreum Yun <yeoreum.yun@arm.com>, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org, x86@kernel.org,
- Ira Weiny <iweiny@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Thomas Gleixner <tglx@kernel.org>
-References: <20261109-kpkeys-v10-0-aa6c4d9603bc@arm.com>
- <20261109-kpkeys-v10-4-aa6c4d9603bc@arm.com>
- <07b55bf9-e116-4731-9f84-49cd1b55fa50@sirena.org.uk>
-From: Kevin Brodsky <kevin.brodsky@arm.com>
-Content-Language: en-GB
-In-Reply-To: <07b55bf9-e116-4731-9f84-49cd1b55fa50@sirena.org.uk>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 
-On 10/11/2026 15:19, Mark Brown wrote:
-> On Mon, Nov 09, 2026 at 03:58:29PM +0000, Kevin Brodsky wrote:
->
->> +#define POR_EL1_INIT	POR_ELx_PERM_PREP(0, POE_RWX)
->> +
->> +#ifndef __ASSEMBLY__
-> Everything else in arch/arm64 was converted to __ASSEMBLER__.
+=E5=9C=A8 2026-11-10=E4=BA=8C=E7=9A=84 13:00 +0100=EF=BC=8CKrzysztof Kozlow=
+ski=E5=86=99=E9=81=93=EF=BC=9A
+> On Mon, Nov 09, 2026 at 05:07:04PM +0100, Romain TISSERAND wrote:
+> > The panel is a MIPI-DSI peripheral, a child node of its DSI host,
+> > and the
+> > driver does not use a graph port. A port is only needed when the
+> > host
+> > links its panel through the graph; other DSI hosts, such as the
+> > Allwinner
+> > sun6i-a31-mipi-dsi one, link the child node and have no output port
+> > to
+> > point at. The PinePhone panel is described that way on the same
+> > host,
+> > without a port.
+> >=20
+> > Keep the port allowed (panel-common) but no longer required, as for
+> > other
+> > DSI panels such as ilitek,ili9881c.
+>=20
+> ilitek,ili7807s and a few others have the same and it is confusing.
+> The
+> port should be required when this is connected over SPI or I2C, but
+> not
+> for MIPI DSI. I think that for MIPI DSI port is meaningless so
+> actually
+> incorrect.
 
-Good catch, copy/pasted the wrong one when I first wrote this!
+I found that the dw-mipi-dsi common code (e.g. on Rockchip SoCs with
+dw_mipi_dsi-rockchip) would expect the panel to be connected via a port
+even if it's the child node of the DSI controller.
 
-- Kevin
+Such an example is at arch/arm64/boot/dts/rockchip/rk3399-pinephone-
+pro.dts .
+
+Thanks,
+Icenowy
+
+>=20
+> Why was it added in the first place?
+>=20
+> >=20
+> > Reviewed-by: Igor Reznichenko <igor@reznichenko.net>
+> > Signed-off-by: Romain TISSERAND <romain.tisserand@gmail.com>
+> > ---
+> > =C2=A0.../devicetree/bindings/display/panel/ilitek,ili9488.yaml=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |
+> > 1 -
+> > =C2=A01 file changed, 1 deletion(-)
+>=20
+> Reviewed-by: Krzysztof Kozlowski
+> <krzysztof.kozlowski@oss.qualcomm.com>
+>=20
+> Best regards,
+> Krzysztof
