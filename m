@@ -1,105 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.19
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794404595;
-	b=H16EU5QcDvYOIA5TlEhoTv9sGFAhqKN+qiCQw1Rjb7omO6+WAOM/9xONKLT6Mu2zNU00
-	 32slKCv9ohCYWI7IVTH6/vqDdIv2VB2W+ArtZ30I8rBX2lu59pFqOg3/BBh74AN5Z3J6W
-	 AUBXatVRHd+PuLrSRJZKUWaN1AAfzHaDFx9xCBTqIlJt/CPI4TcGI0PvwTH/XSj9L+agR
-	 bx/ztKK3EJskQuRe2vQ10KG5Q8yX7IosBaYe1896DP1mNsUP8YyxpT07ETQSq5wTt4YZA
-	 DRGtudbE8keuni5JgToo0ZPjdIUgzsl3gUmuvTaeRCOWo2JNEFapEXKfRznCVbCnPkw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	b=alJTHWIjSh4KNzafVGX7wnyPdkID0C2H7PNasxYDYnQsu8UbS8Piu0Lwmt0n3se76Nah
+	 j4t59TLxpv+eksFEmXo8dGDvRV6ijqw6H3ygxKtxhIxAuy17lIcfK0v28vi4SRMmxyygk
+	 8mj6X3lkqX1unFM/Xp3f/5CfU7yrT0oNGd09rwq6x+13MroFw798qRNxUMaQz+LW22Cro
+	 9blKlLiAYAjfesmOvSerhn048nZIVdDb4UG/B7u37FfkwADrSwx0SoMrL4RUh/11nOeyV
+	 4MTLa5Ojqjm++mWtEP6WCfB12XjC7oSmPTkTkrWvUexwHJLbboaJyxyIEBjBbRyYDCQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794404595;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=0uRGnGYWtVsLx30X/f5FNKOnsr1AG3Qpo7q24CGjgzs=;
-	b=kEpaBRN3eUPIFd+Sbizhxt6Py1z/CmhWBUy+a/AA2OPgcNOqgjI2nYbwlqwd1GaiG23t
-	 rtaYxxuHAB8nSX6SeOq7u4gV+iziHIG2Vbvz84+PjEQU4LVGNHSD5faGFWj/it8JhI+Ig
-	 wF4273kps00EJPAD+p/J/3E1SoJbxRnY/mpJmc5MMW2OChxqecs1q8ammaUGp3ptFg8qx
-	 cPw55xh0Im6l8mJjrm7ErIfuTFGcFeeHmL0NKLoqmDb/NkYDokK6uO+BHjsEaJe6lbuGl
-	 KqYR5+joDl8JtAzfwwMtMa6ZNnGFZVxQ45er7AETPAdguPtl8pvcGNftnhtth/xLeNw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=YaRNaPiR;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.19
-Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011019.outbound.protection.outlook.com [52.101.65.19])
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Spamd-Result:
+	 X-Rspamd-Server:X-Rspamd-Action:X-Spam-Flag:X-Spam-Score:X-Spam-Level:
+	 X-Rspamd-Queue-Id;
+	bh=gBW4ewbMTG6RG9hWValIfTxQoON66XUwaxu1E612AK0=;
+	b=vtyFAN+LfvZj0HuXix02ARBgnlZHhoXTGeIy439gsLrRufU89++UP9q0Lk+gzEgsnpkz
+	 Pb4GXmxLVjKS4uDAj+MmNPTF4Y54IalpHnuEjiWwA9RsMyxd3RCoUjvRFFLfy00Z4ag8f
+	 y0JCfo3+/moWw7TGmleazfu/oCG9PRAqvUV6P2ILZn0rhPEo+z2ezD6VYDFUmkVujlzP+
+	 1harpO8fDFJcdhS3d+EBYxJGz5/ytqt8+83GhvBqF4xn3kLXHFTVQb135Su7rayTyqvu6
+	 LlF1atYmebRbcOHp+ccjgkngc24zVYjvg6imO+irCTuDsOxgVTxc+eyfW93KCIVTVDA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=nCJHLJSH;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=HltmtrYc;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b="ZqMFgX/Y";
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=kSurVkYJ;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46173606A89F;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 965A060A2619;
 	Wed, 11 Nov 2026 13:43:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46173606A89F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 965A060A2619
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=YaRNaPiR
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=S50GVTevGZ2Ecbf4rw1i8lTtqM47/UsP40aIwafLxdH7Qm2dHgU34SQZz6SOlejt40xP1fOab5aAW5W3WIxkueoecgvRM4SbsM4xewvX5PscjdzWcAGtvBqEbNB4QeFpULizvTp68qgf5dUniXKWYD62DagCjssZQICEUpw17Wc7re8aJa+U5B8xfSRQGAldhnHrThEa4ODeqISdhA7r0yOrWuhZFeerxv003rkrRilvnsIAcYw+3sUwu5+Gv1MgVE/bDIgAjj+qZHImyx6B5InNCu0nYEda5JPFBnzeprxxLVMr38iJmS7W7ooxH5WOE3L03/s2JYSp4pjRPyTwoQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0uRGnGYWtVsLx30X/f5FNKOnsr1AG3Qpo7q24CGjgzs=;
- b=BBMdaiKemYSTsebNjHUGQg8yQ1OAig+8hyG0Ht06qmQ1qo8KP/lrsjh5DaKKfHtoK+BZdQePPyjMBrqO2Wc+rfb+Qonsn+3fvsnWjbTvsQXrPYXZbEovQip2bC/2R+Gt/g1zBbUuCoiw3TkVyaC52pQEp9PGURF2UzAxgqZNGJqspBH64UXmIEtF3ys9goczG2AaOW5nI7HsXWkWfdNwrqX3OFUOc47QB80PBCOCjOUmY4ZO32+iSnUJ1VU2K/r1Ki4TM5RTDDowAWYx1JzP9xTlZ+M7a4COeeUhx0d1dd77lKw4RTyNAfi9F7bCijqv8LyxCb1cVHWe9N5jg5S9Ow==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0uRGnGYWtVsLx30X/f5FNKOnsr1AG3Qpo7q24CGjgzs=;
- b=YaRNaPiRW62oW9AHoDl2mbW+hi0bLMIr8WWRN6XgkEd1U74CUa3CmNHD3H/PdBDy7qzdqdoczJ4a6o/MpcB0dqCEGEGnB/J/mYKGwPIXQ9YMjnOAdcni8FWm7lo7EyAcwB8DxtbaejEA7z8yjCGFAq2np5Y/m5FQUjk2YE2XrClqlnhoITWX60GtVppvf5BfPzi7T4DM/yT3KEv5mEE47XdAGxpzOEXYIC54rCkiIYMMLBS/ibH0x5Mfq+epAiMB/7OeZ/7ZplmXeEYGNAAQl8tMFeM4XJs+eQG2zDRa/YUj0NMoOUr2WeFWn919p3XhxaorBqwQk+j9wLDlexGtQw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from AM8PR04MB7874.eurprd04.prod.outlook.com (2603:10a6:20b:24d::9)
- by CPHPR04MB721690.eurprd04.prod.outlook.com (2603:10a6:380:104::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.9; Wed, 11 Nov
- 2026 13:43:11 +0000
-Received: from AM8PR04MB7874.eurprd04.prod.outlook.com
- ([fe80::ac38:1699:6f18:c5d9]) by AM8PR04MB7874.eurprd04.prod.outlook.com
- ([fe80::ac38:1699:6f18:c5d9%5]) with mapi id 15.21.0615.007; Wed, 11 Nov 2026
- 13:43:11 +0000
-From: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-Date: Wed, 11 Nov 2026 21:47:34 +0800
-Subject: [PATCH v5 6/7] dmaengine: fsl-edma: support per-channel DT child
- nodes
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261111-edma-iommu-v3-v5-6-2537cebe6ca2@nxp.com>
-References: <20261111-edma-iommu-v3-v5-0-2537cebe6ca2@nxp.com>
-In-Reply-To: <20261111-edma-iommu-v3-v5-0-2537cebe6ca2@nxp.com>
-To: Frank Li <Frank.Li@nxp.com>, Vinod Koul <vkoul@kernel.org>, 
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
- Robin Murphy <robin.murphy@arm.com>, Laxman Dewangan <ldewangan@nvidia.com>, 
- Jon Hunter <jonathanh@nvidia.com>, 
- Thierry Reding <thierry.reding@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>
-Cc: Frank Li <Frank.Li@kernel.org>, 
- Larisa IIeana Grigore <larisa.grigore@nxp.com>, imx@lists.linux.dev, 
- dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org, 
- iommu@lists.linux.dev, linux-tegra@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- Peng Fan <peng.fan@nxp.com>
-X-Mailer: b4 0.16-dev-7bc12
-X-ClientProxiedBy: SI2PR01CA0015.apcprd01.prod.exchangelabs.com
- (2603:1096:4:191::15) To AM8PR04MB7874.eurprd04.prod.outlook.com
- (2603:10a6:20b:24d::9)
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=nCJHLJSH;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=HltmtrYc;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=ZqMFgX/Y;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=kSurVkYJ
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id C1A005CD45;
+	Wed, 11 Nov 2026 13:42:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794404578; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=gBW4ewbMTG6RG9hWValIfTxQoON66XUwaxu1E612AK0=;
+	b=nCJHLJSHmwetqnRekosDQH3pW0NXodCbj5AHXg2bajivqcMdFbHe3X+6Kjh4xwUS5C3riS
+	izaX5wyF4Mk8xdl+hnBkSZDsT6u1w61M4J5jG/80/dIkMQzLED0hAd4kPNsVIZAxb4XK0A
+	IOLwJYTgCtmax6j1TEYQFLDxXtzGpQU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794404578;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=gBW4ewbMTG6RG9hWValIfTxQoON66XUwaxu1E612AK0=;
+	b=HltmtrYcdBKzJla3QuYhHR3mK6Mfp6J1+2MNQ7gHSPMrZxiN6zGQTOCICr2XajaBlRP/aZ
+	EN0fc3nZkamHFzCg==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b="ZqMFgX/Y";
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=kSurVkYJ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794404577; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=gBW4ewbMTG6RG9hWValIfTxQoON66XUwaxu1E612AK0=;
+	b=ZqMFgX/Ycvj0V6D7whtErBY4t0j61F7Nu9eWp7O8VRLMjoEgydkBWkFvMHQvzjw0Wqlk8w
+	kYMOo09J0n6vu0HQHcCkbToT10nnIhepXA5p9ZXrkwUp3AaTKXwuHT7uE4r3Gi5sjeE03b
+	/QEh4F7EVGf2SgUnUL84Olt3dwsjnPc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794404577;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=gBW4ewbMTG6RG9hWValIfTxQoON66XUwaxu1E612AK0=;
+	b=kSurVkYJsIz/A7tx1thcSWtnZkSFgZO/pTOaWGQqDfgiBUI4kYwZkS7txD7cR/aYOQgrVn
+	brOagByGJ553hdDA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id F01331339F;
+	Wed, 11 Nov 2026 13:42:56 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id utsxMeBw9GpeXwAAD6G6ig
+	(envelope-from <tzimmermann@suse.de>); Wed, 11 Nov 2026 13:42:56 +0000
+Message-ID: <8eaf9955-485f-4908-bb65-1e0c3184fb36@suse.de>
+Date: Wed, 11 Nov 2026 14:42:56 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,495 +108,216 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM8PR04MB7874:EE_|CPHPR04MB721690:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4e141e43-323f-42bc-43a7-08df3ff9ba4e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|1800799024|366016|23010399003|19092799006|921020|10067099003|11063799006|261009223027099003|261022105027099003|261022075727099003|261021123027099003|261021121427099003|261102123227099003|56012099006|261026140227099003|261026121527099003|261028144727099003|22082099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	T9nxlE4uJcN8lmROgWQxoG1NS7KiHHTSD22FAcZCzkmbkDuEjf6KtQtaOnpYmc8QYgDF5/83HXLkjG7a34BjTnLMeFSTdmxwsDeAbShNmXoQxHRDu0KFRuACVQ619z2UIYz9dj/yfkYho3lrJcEOf9O1oVx3eTPGKR1zrsKzssZtLpGq8ZmRol2AoVvb+61qfY2aJT3Eqqq/ThXpSSInzYghTHgtQonzEpDNwhH6kQ7jERFNKCfS3pnsKrycqFWrOvjyL+PnF1+0Rfsj/JIU/yrPZgmzo8/iD7+6Bhmj5cExUnFdiHkt6Gip8CiA7U5NRPt0wwesfZRnczlnHl0Wklbs5AniybKCn2qLJ2/cDChpK6zBuPkFgyiaa0lFestaNLjAmXiWgmhCi3vbEpwAcNd50oTRSJscBCCtCm4rTYOoonhk0ZaySFw1Bn0l6KSQmLbxidCBunQUq3DFmIeCrJZx0d36C64C27ejhCWPDkAQMU6My+XAsYyCZ4pw34tm/rjW4RCBZGluhrg0nY7KxmImTwfN8VSb05LlYoLMAXY9huZyBIa0h/S73l7hV70eC5hYvfQcm8GvtDcLqkj8JYneU10SUjzB1auJQATa6AuKnDt3SwJzIZu6NiAaIM/CrgcC7G1TaO06/R/euqM4Hm4nbsecpncZN0wG3TqEQ5Abw5kHihlkFIHP+pQ/SUO2KiXFBe5s4FIYqLfMJS4RKw==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM8PR04MB7874.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(366016)(23010399003)(19092799006)(921020)(10067099003)(11063799006)(261009223027099003)(261022105027099003)(261022075727099003)(261021123027099003)(261021121427099003)(261102123227099003)(56012099006)(261026140227099003)(261026121527099003)(261028144727099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?dmgxNU5jS0RyeHRjOXlzWExHQVFqOWFTRWdNNCtRbTdLLy9PdXpYOStQVkNE?=
- =?utf-8?B?YVBDc2dORTk5SjVxcnhXYmM1WE1lcENzSUR4TWZTSEloWDlZMEY0ZWFnNmM2?=
- =?utf-8?B?MW1JUzVSUTFJUWZ5M2ZRWkYvRWw0bEczSWlkUUY5dlhLMVUxRnJCQmhRSlpV?=
- =?utf-8?B?ZGVncllhbCtZdGd2RFMrOE5MT1B6Rm5vKzEvZ1hQSC9leWVJdFdOdHJLU1FS?=
- =?utf-8?B?RjlqWFhPRVJkc0tlNWNvU3A2MitNMWNHc3l6cjZ3azBOak45TE1DSGUvS0hE?=
- =?utf-8?B?Q1pVQ21JeTNKN0NVamtZbS9ScmtaUm5QR0JraUl3QmoyeEFxczJlK3NDSk5K?=
- =?utf-8?B?cC96OHUrTEl0UUg3VXI0eCt0SHBDV21BMGgycjJ5Q0xGbDNCYzlDd1VKRm1G?=
- =?utf-8?B?SU83ZEdkTlYwWmJad0lhVHdTUHBUTW95NTBFaWhsbUxNSEtWRjlMQmppb1Fy?=
- =?utf-8?B?UnBsV29BMmxudWhmOTJTeVRkVEIxZkp5eGFrS09IcVRUL1h3UDd0d2xTN1Yz?=
- =?utf-8?B?SDhLMVhWa0hsdmIwV1V0MVR4Zy9XRklOZkdsSEQxSXdWNWpjckJEdis0dG1P?=
- =?utf-8?B?d29PVXZNdE40bkx5M3ViNUJmeEhNMWU2dUw1dlNiR1p3V2R4V214aEd3dXY1?=
- =?utf-8?B?WlJpY2Zha2c2ejVsUm1HbXhFY0NBeHlBazFaVHBGTkM1OGw5RmttR2txNEpU?=
- =?utf-8?B?RnlyVjlyaVNHTjRydUlCeEJYSUlQZ3Q1T2srR3FXMGxCdEFGYUxWcFdXMmZW?=
- =?utf-8?B?cGZXbVNVTXFub1pMaElWSG9lNS9NdldzTlZ5cDlQa2pyWHFBZUtoaDc5QUlX?=
- =?utf-8?B?aExaRE51YTA0YXBIUXYwaFV2aFB3ckRaeERVQjg2cEs4WUt6ZFRMRjVDZ1R4?=
- =?utf-8?B?UjZyVmtRRnhwcktqZXlMcitxdDlXRnJSUFQwckRnUzI2MXFBVmZlNU5LK3VV?=
- =?utf-8?B?SGZobDdJU3RpUDBDbG1vVGZRcjJJaGxXMk9KdURCSi96U2dXdExtU0xqczNw?=
- =?utf-8?B?ODNiM0RMOUVvbEZIdDVxbDNiV21SVitpdjlCa2lBeTFxb0pzTGJhWTUxR3g3?=
- =?utf-8?B?aE00bGlnZEZDMWltY2NmQ1U5M013TGVHd2xSTmZzOGdoTFdSdi9Pdk0rVlVE?=
- =?utf-8?B?WDVOeDRyQUVCSkhNd0lxc2tVb3YzcGxGUGNtR1JtVFFUZHZvejNtc0V0L29K?=
- =?utf-8?B?OTBFSGhHc0RqdTF3a21udkMrUGduNmVscTdDVU1ObUNCcElCUzNDWkpzWU9U?=
- =?utf-8?B?cmc3N3h0a1JQRGVxeGplaklkK0dGcGdYQjk0ZmZPYkNpRVFmOUpvMHRJeXRS?=
- =?utf-8?B?SzNLbkJWZW5KM0RtdTlhOERzcSs5SEVLL1o0N3V6YURuMkRCdFdZOU5GUmhz?=
- =?utf-8?B?TXYydllVNzBGejNIT3lxWXFqZEN1dFNnMU1kOUp3WkZOeHdqdmNGQTg5VHc1?=
- =?utf-8?B?RzllRVBEeW9sWjhuNWkzRWlCaVFhNWVQdFphSG0wWXdXd1N1dVhTbEJBd1h0?=
- =?utf-8?B?VldPTW1teVBkaUtpRUlzdmpNZmttRXlLUW9ybGlEZGZKZGZTbzhrUXhCT3BY?=
- =?utf-8?B?L21TU3d0QWhpMGRBeFFnZmxMZ2t4eWp2bXpnVXpYN0VMWUM2amp3ZEg1ay9k?=
- =?utf-8?B?UTBEZ0lXRFJ3MHp2YVFGd08xZTR6Tit6M2FBRnJNblZDcDByZC9SbnNDQ2pV?=
- =?utf-8?B?Q1hxM243Mzl6bHNlbWsrZ1RVbVgrL3FlRlZ1cnovcXhWVGpvSWgwZDgyLzhs?=
- =?utf-8?B?RlByOGJ0Vm5EdVp5QzdkWFVTNTl5eS9Lc2U3UkdnOHAzbU1JcGtRZDdMa0JK?=
- =?utf-8?B?TUtsZnRkamJoOEpmRWVvMTJUckNDVnZzWk93aDV3aFVTNFBDYVBVZGd2NERV?=
- =?utf-8?B?RFJpVDR2cVphZzN4V2tPWGhqU2tCdGE3dEVFaWVaVUhTYXVESnJDTWUyODRD?=
- =?utf-8?B?aHlwTGRHNUg2SHRrWm9iY0NEVTZXYjgvbXIwZnRYUEtCanRRYlZHa1M2QTFz?=
- =?utf-8?B?d2VJZmYwU2VFLzFlcURwbUtuS04vSTArdkUxSisyZG1HL1lCcTJKR2pSUzdQ?=
- =?utf-8?B?M2U2N3NSV21vcVE2cHhCVjBpRmtLbDR2U1VnREY5dGVJRU5NQzFsdlJ2WGlZ?=
- =?utf-8?B?bU1IRmh5NGVJUnF5WFd5cXdkakZheDhTK0MvamVoWkpJaSsyQW1INHc4QUV3?=
- =?utf-8?B?cnMvbUxhZ2Qydlg4WUZtT3psMkZwalNWTmU1NFIrTHZNUm1Ed1V5QnRJOVp3?=
- =?utf-8?B?OHJKdkhoaGlSWUNOU3JhTW1ncEgvcG43YU54WHUvUlg3SEUrOTZvRjFLKzRT?=
- =?utf-8?B?Qm1IcW9QNDhGU1dHVE9renI1M0ZrbDFnekt0eldqcXI0RXJURnh3ZElrd1ZE?=
- =?utf-8?Q?MKE4vdwQZhpNjXbJYu2qsrv6CmBfGet/+vykl?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4e141e43-323f-42bc-43a7-08df3ff9ba4e
-X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7874.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 13:43:11.6674
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: d8CkngmreVOIrUCiKSiEcwfCeqvDp5F3h7sj7zlKF6NQoXoOIYcKzo3YLRbdj/kYAoPFTXGB2j4U7IpvKcumtSdOutwFghSZzDinMzfow5DFmIZQM0C7Y9gU3SRo/0Am
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CPHPR04MB721690
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 08/15] drm/client: splash: pick the image source in one
+ place
+To: =?UTF-8?Q?M=C3=A0xim_Pedraza_Padilla?= <maximpedraza@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Ard Biesheuvel <ardb@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>, Helge Deller <deller@gmx.de>,
+ Peter Jones <pjones@redhat.com>
+Cc: Francesco Valla <francesco@valla.it>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Javier Martinez Canillas <javierm@redhat.com>,
+ Jocelyn Falempe <jfalempe@redhat.com>, Sam Ravnborg <sam@ravnborg.org>,
+ Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-efi@vger.kernel.org,
+ linux-fbdev@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-embedded@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261027135342.2003632-1-maximpedraza@gmail.com>
+ <20261027135342.2003632-9-maximpedraza@gmail.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20261027135342.2003632-9-maximpedraza@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-12.00 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	XM_UA_NO_VERSION(0.01)[];
+	MX_GOOD(-0.01)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com,gmx.de];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCPT_COUNT_TWELVE(0.00)[28];
+	FREEMAIL_TO(0.00)[gmail.com,linux.intel.com,kernel.org,ffwll.ch,lwn.net,gmx.de,redhat.com];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_TRACE(0.00)[suse.de:+];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	TAGGED_RCPT(0.00)[dt];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.com:url,suse.de:email,suse.de:dkim]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spam-Score: -12.00
+X-Spam-Level: 
+X-Rspamd-Queue-Id: C1A005CD45
 
-From: Peng Fan <peng.fan@nxp.com>
+Hi
 
-Add support for parsing per-channel child nodes from devicetree.
-Each child node can carry its own interrupts and iommus properties.
-Child power-domains are not handled here; power domains remain attached
-at the parent level.
+Am 27.10.26 um 14:53 schrieb Màxim Pedraza Padilla:
+> The client chooses between two sources with a boolean: the BGRT if the
+> firmware left one, otherwise the BMP loaded as firmware. A third one is
+> coming, and with it an order of preference that a boolean cannot hold.
+>
+> Name the source in use with an enum, picked once by
+> drm_splash_pick_source(), and have drm_splash_image_load() switch on
+> it. No functional change.
+>
+> Suggested-by: Thomas Zimmermann <tzimmermann@suse.de>
+> Assisted-by: Claude:claude-opus-5-5
+> Signed-off-by: Màxim Pedraza Padilla <maximpedraza@gmail.com>
+> ---
+>   drivers/gpu/drm/clients/drm_splash.c | 45 +++++++++++++++++++++++-----
+>   1 file changed, 38 insertions(+), 7 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/clients/drm_splash.c b/drivers/gpu/drm/clients/drm_splash.c
+> index 337c7160c4a1..911149b92a52 100644
+> --- a/drivers/gpu/drm/clients/drm_splash.c
+> +++ b/drivers/gpu/drm/clients/drm_splash.c
+> @@ -39,6 +39,16 @@
+>    * a static image.
+>    */
+>   
+> +/*
+> + * Where the image comes from. drm_splash_pick_source() sets the order of
+> + * preference; NONE is zero, so that a new splash starts without a source.
+> + */
+> +enum drm_splash_source {
+> +	DRM_SPLASH_SRC_NONE,
+> +	DRM_SPLASH_SRC_BGRT,
+> +	DRM_SPLASH_SRC_BMP,
 
-The implementation is split into three functions:
+I'd call this DRM_SPLASH_SRC_FW, because that's what you're loading 
+from.  Although the format is a BMP, BMP is also the format of BGRT.
 
-- fsl_edma_child_to_chan_id(): derives the channel index from the
-  child MMIO address relative to the parent base.  Validate that the
-  child resource is contained in the controller resource and aligned to
-  the channel register spacing, and use div_u64_rem() to compute
-  the quotient and alignment remainder together.
+Patch 4 already mixed this up. Renaming the BMP names there to FW seems 
+sensible.
 
-- fsl_edma_configure_chan_from_dt(): called before setup_irq() to
-  populate per-channel txirq from child interrupt properties.
-  fsl_edma3_irq_init() is updated to skip platform_get_irq() for
-  channels that already have an IRQ assigned from their child node.
+The rest of the patch looks good.
 
-- fsl_edma_configure_chan_iommu(): called after
-  dmaenginem_async_device_register() to configure per-channel IOMMU
-  by calling of_dma_configure() on each dma_chan_dev and setting
-  chan_dma_dev so dmaengine_get_dma_device() returns the per-channel
-  device.  Propagate the controller dma_parms to the per-channel device
-  so the DMA segment size limit is preserved.
-
-Child nodes beyond the configured dma-channels are ignored, which allows
-boards to reduce dma-channels without disabling every unused child node.
-If child nodes are present, every unmasked channel must have a child node
-with a valid interrupt; otherwise probe fails with an error asking for
-dma-channel-mask.  In child-node mode fsl_edma3_irq_init() does not fall
-back to the parent's flat interrupt array.
-
-The shared error IRQ remains a parent-node interrupt.  A child-node-only
-DTS without that entry simply has no shared error IRQ.
-
-Use BIT_ULL() for the 64-bit chan_masked bitmap, and use dev_err_probe()
-so -EPROBE_DEFER is not logged as an error.  Reject a channel whose iommus
-property did not result in an IOMMU mapping.
-
-Existing DTS without child nodes continues to work unchanged.
-
-Signed-off-by: Peng Fan <peng.fan@nxp.com>
----
- drivers/dma/fsl-edma-common.c |  10 +-
- drivers/dma/fsl-edma-common.h |   1 +
- drivers/dma/fsl-edma-main.c   | 229 +++++++++++++++++++++++++++++++++++++++---
- 3 files changed, 222 insertions(+), 18 deletions(-)
-
-diff --git a/drivers/dma/fsl-edma-common.c b/drivers/dma/fsl-edma-common.c
-index 513b0f4e5be2..62cd60179bc6 100644
---- a/drivers/dma/fsl-edma-common.c
-+++ b/drivers/dma/fsl-edma-common.c
-@@ -310,10 +310,10 @@ int fsl_edma_resume(struct dma_chan *chan)
- 
- static void fsl_edma_unprep_slave_dma(struct fsl_edma_chan *fsl_chan)
- {
-+	struct device *dev = dmaengine_get_dma_device(&fsl_chan->vchan.chan);
-+
- 	if (fsl_chan->dma_dir != DMA_NONE)
--		dma_unmap_resource(fsl_chan->vchan.chan.device->dev,
--				   fsl_chan->dma_dev_addr,
--				   fsl_chan->dma_dev_size,
-+		dma_unmap_resource(dev, fsl_chan->dma_dev_addr, fsl_chan->dma_dev_size,
- 				   fsl_chan->dma_dir, 0);
- 	fsl_chan->dma_dir = DMA_NONE;
- }
-@@ -321,7 +321,7 @@ static void fsl_edma_unprep_slave_dma(struct fsl_edma_chan *fsl_chan)
- static bool fsl_edma_prep_slave_dma(struct fsl_edma_chan *fsl_chan,
- 				    enum dma_transfer_direction dir)
- {
--	struct device *dev = fsl_chan->vchan.chan.device->dev;
-+	struct device *dev = dmaengine_get_dma_device(&fsl_chan->vchan.chan);
- 	enum dma_data_direction dma_dir;
- 	phys_addr_t addr = 0;
- 	u32 size = 0;
-@@ -1090,7 +1090,7 @@ int fsl_edma_alloc_chan_resources(struct dma_chan *chan)
- 	if (fsl_edma_drvflags(fsl_chan) & FSL_EDMA_DRV_HAS_CHCLK)
- 		clk_prepare_enable(fsl_chan->clk);
- 
--	fsl_chan->tcd_pool = dma_pool_create("tcd_pool", chan->device->dev,
-+	fsl_chan->tcd_pool = dma_pool_create("tcd_pool", dmaengine_get_dma_device(chan),
- 				fsl_edma_drvflags(fsl_chan) & FSL_EDMA_DRV_TCD64 ?
- 				sizeof(struct fsl_edma_hw_tcd64) : sizeof(struct fsl_edma_hw_tcd),
- 				32, 0);
-diff --git a/drivers/dma/fsl-edma-common.h b/drivers/dma/fsl-edma-common.h
-index cbb077e98f55..8843dd5661fb 100644
---- a/drivers/dma/fsl-edma-common.h
-+++ b/drivers/dma/fsl-edma-common.h
-@@ -271,6 +271,7 @@ struct fsl_edma_engine {
- 	int			txirq_16_31;
- 	int			errirq;
- 	bool			big_endian;
-+	bool			per_chan_irqs;
- 	struct edma_regs	regs;
- 	u64			chan_masked;
- 	struct fsl_edma_chan	chans[] __counted_by(n_chans);
-diff --git a/drivers/dma/fsl-edma-main.c b/drivers/dma/fsl-edma-main.c
-index 7f82dcb7831d..e9a7592ef076 100644
---- a/drivers/dma/fsl-edma-main.c
-+++ b/drivers/dma/fsl-edma-main.c
-@@ -12,11 +12,15 @@
- 
- #include <dt-bindings/dma/fsl-edma.h>
- #include <linux/bitfield.h>
-+#include <linux/math64.h>
- #include <linux/module.h>
- #include <linux/interrupt.h>
- #include <linux/clk.h>
- #include <linux/of.h>
-+#include <linux/of_address.h>
-+#include <linux/of_device.h>
- #include <linux/of_dma.h>
-+#include <linux/of_irq.h>
- #include <linux/dma-mapping.h>
- #include <linux/pm_runtime.h>
- #include <linux/pm_domain.h>
-@@ -123,7 +127,7 @@ static irqreturn_t fsl_edma3_err_handler_shared(int irq, void *dev_id)
- 	unsigned int ch;
- 
- 	for (ch = 0; ch < fsl_edma->n_chans; ch++) {
--		if (fsl_edma->chan_masked & BIT(ch))
-+		if (fsl_edma->chan_masked & BIT_ULL(ch))
- 			continue;
- 
- 		fsl_edma3_err_check(&fsl_edma->chans[ch]);
-@@ -397,15 +401,24 @@ static int fsl_edma3_irq_init(struct platform_device *pdev, struct fsl_edma_engi
- 
- 		struct fsl_edma_chan *fsl_chan = &fsl_edma->chans[i];
- 
--		if (fsl_edma->chan_masked & BIT(i))
-+		if (fsl_edma->chan_masked & BIT_ULL(i))
- 			continue;
- 
--		/* request channel irq */
--		fsl_chan->txirq = platform_get_irq(pdev, i);
--		if (fsl_chan->txirq < 0)
--			return  -EINVAL;
-+		if (fsl_chan->txirq <= 0) {
-+			/*
-+			 * In child-node mode, missing child nodes are rejected
-+			 * by fsl_edma_configure_chan_from_dt(); do not fall
-+			 * back to the parent's flat interrupt array.
-+			 */
-+			if (fsl_edma->per_chan_irqs)
-+				continue;
- 
--		fsl_chan->irq_handler = fsl_edma3_tx_handler;
-+			fsl_chan->txirq = platform_get_irq(pdev, i);
-+			if (fsl_chan->txirq < 0)
-+				return fsl_chan->txirq;
-+
-+			fsl_chan->irq_handler = fsl_edma3_tx_handler;
-+		}
- 
- 		if (!(fsl_edma->drvdata->flags & FSL_EDMA_DRV_ERRIRQ_SHARE)) {
- 			fsl_chan->errirq = fsl_chan->txirq;
-@@ -415,7 +428,11 @@ static int fsl_edma3_irq_init(struct platform_device *pdev, struct fsl_edma_engi
- 
- 	/* All channel err use one irq number */
- 	if (fsl_edma->drvdata->flags & FSL_EDMA_DRV_ERRIRQ_SHARE) {
--		/* last one is error irq */
-+		/*
-+		 * The shared error IRQ remains a parent-node interrupt at
-+		 * index n_chans.  A child-node-only DTS without that entry
-+		 * simply has no shared error IRQ.
-+		 */
- 		fsl_edma->errirq = platform_get_irq_optional(pdev, fsl_edma->n_chans);
- 		if (fsl_edma->errirq < 0)
- 			return 0; /* dts miss err irq, treat as no err irq case */
-@@ -641,7 +658,7 @@ static void fsl_edma3_detach_pd(struct fsl_edma_engine *fsl_edma)
- 	int i;
- 
- 	for (i = 0; i < fsl_edma->n_chans; i++) {
--		if (fsl_edma->chan_masked & BIT(i))
-+		if (fsl_edma->chan_masked & BIT_ULL(i))
- 			continue;
- 		fsl_chan = &fsl_edma->chans[i];
- 		if (fsl_chan->pd_dev_link)
-@@ -669,7 +686,7 @@ static int fsl_edma3_attach_pd(struct platform_device *pdev, struct fsl_edma_eng
- 	dev = &pdev->dev;
- 
- 	for (i = 0; i < fsl_edma->n_chans; i++) {
--		if (fsl_edma->chan_masked & BIT(i))
-+		if (fsl_edma->chan_masked & BIT_ULL(i))
- 			continue;
- 
- 		fsl_chan = &fsl_edma->chans[i];
-@@ -703,6 +720,184 @@ static int fsl_edma3_attach_pd(struct platform_device *pdev, struct fsl_edma_eng
- 	return -EINVAL;
- }
- 
-+static int fsl_edma_child_to_chan_id(struct fsl_edma_engine *fsl_edma,
-+				     struct device_node *child,
-+				     struct resource *parent_res)
-+{
-+	const struct fsl_edma_drvdata *drvdata = fsl_edma->drvdata;
-+	struct resource child_res;
-+	u64 offset, ch_id;
-+	u32 rem;
-+	int ret;
-+
-+	ret = of_address_to_resource(child, 0, &child_res);
-+	if (ret)
-+		return ret;
-+
-+	if (!resource_contains(parent_res, &child_res))
-+		return -EINVAL;
-+
-+	if (child_res.start < parent_res->start + drvdata->chreg_off)
-+		return -EINVAL;
-+
-+	offset = child_res.start - parent_res->start - drvdata->chreg_off;
-+	ch_id = div_u64_rem(offset, drvdata->chreg_space_sz, &rem);
-+	if (rem)
-+		return -EINVAL;
-+	if (ch_id > INT_MAX)
-+		return -EINVAL;
-+
-+	return ch_id;
-+}
-+
-+static int fsl_edma_configure_chan_from_dt(struct platform_device *pdev,
-+					   struct fsl_edma_engine *fsl_edma)
-+{
-+	struct device_node *np = pdev->dev.of_node;
-+	struct resource parent_res;
-+	struct device_node *child;
-+	u64 child_mask = 0;
-+	bool has_children = false;
-+	int i, ret;
-+
-+	ret = of_address_to_resource(np, 0, &parent_res);
-+	if (ret)
-+		return ret;
-+
-+	for_each_available_child_of_node(np, child) {
-+		struct fsl_edma_chan *fsl_chan;
-+		int ch_id, irq;
-+
-+		has_children = true;
-+
-+		ch_id = fsl_edma_child_to_chan_id(fsl_edma, child,
-+						  &parent_res);
-+		if (ch_id < 0) {
-+			dev_err(&pdev->dev, "invalid channel in %pOFn\n", child);
-+			of_node_put(child);
-+			return -EINVAL;
-+		}
-+
-+		if (ch_id >= fsl_edma->n_chans)
-+			continue;
-+
-+		if (fsl_edma->chan_masked & BIT_ULL(ch_id))
-+			continue;
-+
-+		child_mask |= BIT_ULL(ch_id);
-+
-+		fsl_chan = &fsl_edma->chans[ch_id];
-+
-+		irq = of_irq_get(child, 0);
-+		if (irq == -EPROBE_DEFER) {
-+			of_node_put(child);
-+			return -EPROBE_DEFER;
-+		}
-+		if (irq <= 0) {
-+			dev_err(&pdev->dev,
-+				"channel %d child node has no valid interrupt; add interrupts or disable it with dma-channel-mask\n",
-+				ch_id);
-+			of_node_put(child);
-+			return irq < 0 ? irq : -EINVAL;
-+		}
-+
-+		fsl_chan->txirq = irq;
-+		fsl_chan->irq_handler = fsl_edma3_tx_handler;
-+	}
-+
-+	if (!has_children)
-+		return 0;
-+
-+	fsl_edma->per_chan_irqs = true;
-+
-+	for (i = 0; i < fsl_edma->n_chans; i++) {
-+		if (fsl_edma->chan_masked & BIT_ULL(i))
-+			continue;
-+		if (child_mask & BIT_ULL(i))
-+			continue;
-+
-+		dev_err(&pdev->dev,
-+			"channel %d has no dma-channel child node; add one or disable it with dma-channel-mask\n",
-+			i);
-+		return -EINVAL;
-+	}
-+
-+	return 0;
-+}
-+
-+static int fsl_edma_configure_chan_iommu(struct platform_device *pdev,
-+					struct fsl_edma_engine *fsl_edma)
-+{
-+	struct device_node *np = pdev->dev.of_node;
-+	struct resource parent_res;
-+	struct device_node *child;
-+	struct dma_chan *chan;
-+	int ret;
-+
-+	ret = of_address_to_resource(np, 0, &parent_res);
-+	if (ret)
-+		return ret;
-+
-+	for_each_available_child_of_node(np, child) {
-+		struct fsl_edma_chan *fsl_chan;
-+		int ch_id;
-+
-+		if (!of_property_present(child, "iommus"))
-+			continue;
-+
-+		ch_id = fsl_edma_child_to_chan_id(fsl_edma, child,
-+						  &parent_res);
-+		if (ch_id < 0)
-+			continue;
-+
-+		if (ch_id >= fsl_edma->n_chans)
-+			continue;
-+
-+		if (fsl_edma->chan_masked & BIT_ULL(ch_id))
-+			continue;
-+
-+		fsl_chan = &fsl_edma->chans[ch_id];
-+
-+		list_for_each_entry(chan, &fsl_edma->dma_dev.channels,
-+				    device_node) {
-+			struct device *chdev;
-+
-+			if (to_fsl_edma_chan(chan) != fsl_chan)
-+				continue;
-+
-+			chdev = dmaengine_chan_dev(chan);
-+			chdev->dma_parms = pdev->dev.dma_parms;
-+			if (fsl_edma->drvdata->flags & FSL_EDMA_DRV_TCD64)
-+				dma_coerce_mask_and_coherent(chdev,
-+					DMA_BIT_MASK(64));
-+			else
-+				dma_coerce_mask_and_coherent(chdev,
-+					DMA_BIT_MASK(32));
-+			ret = of_dma_configure(chdev, child, true);
-+			if (ret) {
-+				dev_err_probe(&pdev->dev, ret,
-+					      "IOMMU config failed for channel %d\n",
-+					      ch_id);
-+				of_node_put(child);
-+				return ret;
-+			}
-+
-+			if (!device_iommu_mapped(chdev)) {
-+				dev_err_probe(&pdev->dev, -ENODEV,
-+					      "channel %d is not behind an IOMMU\n",
-+					      ch_id);
-+				of_node_put(child);
-+				return -ENODEV;
-+			}
-+
-+			chan->chan_dev->chan_dma_dev = true;
-+			break;
-+		}
-+	}
-+
-+	return 0;
-+}
-+
- static int fsl_edma_probe(struct platform_device *pdev)
- {
- 	struct device_node *np = pdev->dev.of_node;
-@@ -797,7 +992,7 @@ static int fsl_edma_probe(struct platform_device *pdev)
- 		struct fsl_edma_chan *fsl_chan = &fsl_edma->chans[i];
- 		int len;
- 
--		if (fsl_edma->chan_masked & BIT(i))
-+		if (fsl_edma->chan_masked & BIT_ULL(i))
- 			continue;
- 
- 		snprintf(fsl_chan->chan_name, sizeof(fsl_chan->chan_name), "%s-CH%02d",
-@@ -835,6 +1030,10 @@ static int fsl_edma_probe(struct platform_device *pdev)
- 			clk_disable_unprepare(fsl_chan->clk);
- 	}
- 
-+	ret = fsl_edma_configure_chan_from_dt(pdev, fsl_edma);
-+	if (ret)
-+		return ret;
-+
- 	ret = fsl_edma->drvdata->setup_irq(pdev, fsl_edma);
- 	if (ret)
- 		return ret;
-@@ -897,6 +1096,10 @@ static int fsl_edma_probe(struct platform_device *pdev)
- 		return dev_err_probe(&pdev->dev, ret,
- 				     "Can't register Freescale eDMA engine.\n");
- 
-+	ret = fsl_edma_configure_chan_iommu(pdev, fsl_edma);
-+	if (ret)
-+		return ret;
-+
- 	ret = devm_of_dma_controller_register(&pdev->dev, np,
- 			drvdata->dmamuxs ? fsl_edma_xlate : fsl_edma3_xlate,
- 			fsl_edma);
-@@ -927,7 +1130,7 @@ static int fsl_edma_suspend_late(struct device *dev)
- 
- 	for (i = 0; i < fsl_edma->n_chans; i++) {
- 		fsl_chan = &fsl_edma->chans[i];
--		if (fsl_edma->chan_masked & BIT(i))
-+		if (fsl_edma->chan_masked & BIT_ULL(i))
- 			continue;
- 		spin_lock_irqsave(&fsl_chan->vchan.lock, flags);
- 		/* Make sure chan is idle or will force disable. */
-@@ -953,7 +1156,7 @@ static int fsl_edma_resume_early(struct device *dev)
- 
- 	for (i = 0; i < fsl_edma->n_chans; i++) {
- 		fsl_chan = &fsl_edma->chans[i];
--		if (fsl_edma->chan_masked & BIT(i))
-+		if (fsl_edma->chan_masked & BIT_ULL(i))
- 			continue;
- 		fsl_chan->pm_state = RUNNING;
- 		edma_write_tcdreg(fsl_chan, 0, csr);
+> +};
+> +
+>   struct drm_splash_scanout {
+>   	int id;
+>   	/* Modesets scanning this buffer out, by position in the list */
+> @@ -87,7 +97,7 @@ struct drm_splash {
+>   	const struct firmware *fw;
+>   	void *map_data;
+>   
+> -	bool use_bgrt;
+> +	enum drm_splash_source src;
+>   };
+>   
+>   static struct drm_splash *client_to_drm_splash(struct drm_client_dev *client)
+> @@ -429,7 +439,7 @@ static int drm_splash_bmp_to_scanout(struct drm_splash *splash,
+>   		return -EINVAL;
+>   	}
+>   
+> -	if (splash->use_bgrt) {
+> +	if (splash->src == DRM_SPLASH_SRC_BGRT) {
+>   		x_pad = efi_bgrt_image_offset_x();
+>   		y_pad = efi_bgrt_image_offset_y();
+>   
+> @@ -498,10 +508,31 @@ static int drm_splash_bmp_to_scanout(struct drm_splash *splash,
+>   static int drm_splash_image_load(struct drm_splash *splash, const u8 **img_data,
+>   				 size_t *img_data_len)
+>   {
+> -	if (splash->use_bgrt)
+> +	switch (splash->src) {
+> +	case DRM_SPLASH_SRC_BGRT:
+>   		return drm_splash_bgrt_load(splash, img_data, img_data_len);
+> +	case DRM_SPLASH_SRC_BMP:
+> +		return drm_splash_fw_load(splash, img_data, img_data_len);
+> +	case DRM_SPLASH_SRC_NONE:
+> +		break;
+> +	}
+> +
+> +	return -ENOENT;
+> +}
+> +
+> +/*
+> + * Pick the one source the image will come from: the BGRT is whatever the
+> + * firmware shows, and the BMP loaded as firmware is the fallback. With
+> + * neither, only the background colour is drawn.
+> + */
+> +static enum drm_splash_source drm_splash_pick_source(struct drm_splash *splash)
+> +{
+> +	if (drm_splash_bgrt_available(splash))
+> +		return DRM_SPLASH_SRC_BGRT;
+> +	if (IS_ENABLED(CONFIG_DRM_CLIENT_SPLASH_SRC_BMP))
+> +		return DRM_SPLASH_SRC_BMP;
+>   
+> -	return drm_splash_fw_load(splash, img_data, img_data_len);
+> +	return DRM_SPLASH_SRC_NONE;
+>   }
+>   
+>   /* At unregister, once nothing else can use the image */
+> @@ -818,10 +849,10 @@ static int drm_splash_client_hotplug(struct drm_client_dev *client)
+>   
+>   	if (!splash->source_picked) {
+>   		splash->source_picked = true;
+> -		splash->use_bgrt = drm_splash_bgrt_available(splash);
+> +		splash->src = drm_splash_pick_source(splash);
+>   
+> -		/* If no other image has been loaded, try to load a BMP as firmware */
+> -		if (IS_ENABLED(CONFIG_DRM_CLIENT_SPLASH_SRC_BMP) && !splash->use_bgrt) {
+> +		/* The BMP loaded as firmware is the only source that arrives later */
+> +		if (splash->src == DRM_SPLASH_SRC_BMP) {
+>   			ret = drm_splash_fw_request_bmp(splash);
+>   			splash->fw_requested = !ret;
+>   			if (ret)
 
 -- 
-2.34.1
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
+
 
