@@ -1,99 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.170
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794394691;
-	b=TUzLge4cdyLvFNheyfwNLObPsPWztXwOF+2behHCoxXTDbr+yRilwSANNnWv4uQxznTw
-	 AFav3zf+nNdlV/Ql9maMJGtioqudcn1mHv21QP+sfZk+Q8u4DD7c6FzUHQTqXW22dRUPN
-	 3IHdvEMMyPV9RGdv8IPGFwvOWp9s1DcG/UL+o/lsGaCufaKWiUQnry3N3x2Kk1cxdw2NC
-	 ajmORjuBzikSMBDaPXb95zJUw4DvVNTBhbN8Qjs5yZnLWfv3eT2d+7fZ6tPo3AxqDaOD6
-	 rmDKQ/TlG1K3uWVlrMFTRtfYCg3LlAQNohqk0Qsindxt5e4te1WUlhQaDj0PuACtpQA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794394691;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=615FE0Yy7cA+8xh/VFmWU1n2MI6ldY7bFg+t+YyDgZw=;
-	b=X0a5f6OkaART0/wWOoaTCClRR5ZdCuQur+5VjR8MR5WZglVpUVnn+9EdsGVC0IMs/c/B
-	 6Q9w4/Grs0zt7WTDTEkbpqvMY7T3FCOwmJ1ibC31kLxqLcd1MFLl57UqzJ0JaA/hjtDwi
-	 XoRfUgyKkFFkgZydBPsX9RAPysl1F/I+x+nYVT+UbMvZ+09zyIV20dCqh/aMJUqrQnqjJ
-	 GxgdbqeszJZMuqbPf6AHlJUGET2VzxJzQNwXug3V2eTX9rtPfQtF57kGiQEv1Dv/DkaQv
-	 8Xya9DtGghl9ZSdK4OXjHcfk7JErrbI1sdkG8gP9ykeAR5fY2HhwkhTZAAg2Rch8LLw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=BEZKTX1I;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.170
-Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794394730;
+	b=j+YqU397amP8+CV4scy4l+7PfiImTMmC6w10NL8tcG9wVNKu/ZsgnyFPqQg5VeI/Y5jQ
+	 HZHRkvPPoR0EAIVL/zG+Lmlxkj0QmyKJRfdD7EwWkC56iePDkIdDydVukIRhD4Dbyqqj9
+	 p8TUrgXuEsIuHvR/1psQT/XU7SnwxozhpZkvhpJgmjK23Zo+RSd9XGRAvupywNTA+xzbN
+	 //0OnNxEGB8/blZWt2qAvLuq71wEL4mppThmSm/w73KMrzANkb0HwduqV62Zqdwe6Vfj5
+	 QtgvAqPVsGeaEBhsO/YHrkhsYwurF7YCeht4LJ7kq3JrUZLRSpKmOueSwz62mWvP/fg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794394730;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Scanned-By;
+	bh=Ihetc2DxDCVVTHEoFYuGdLd4AvFTx8i+2f03biFLNnc=;
+	b=bgaxKlNceuw0lmm1GV4fDDskQCzZLRio29BJk8FZfIsY4xAm7VZTfVc02/s4Wp4uA1ff
+	 hlrHg4OH2QOBNXgj45nHRoVl6a3UepBj2zxiUIEojo+1xtoc5jK+J83pAUsOXmmlznPt2
+	 SEoy5CcfGKVTjrHGe9hiE8KbukrqZyb877h5boaaCSjUvnpL3t4zE1iquTmyOT9845km1
+	 TzEDwrhZMlk+XAXbywhG2SJJWY35u+Chi9BRE8kV8lZQ1gNZ2gV0Wr0BmzuAm8XaCVWrM
+	 VJkcoUq7hHB1TQbgMxi9ZEbL4fSriNQGzcWhdG669kuKqKJxiSxDRC6C6XQ9Aiw+XNw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=d8dnlWCt;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8D9D606A321
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 10:58:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8D9D606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE9D7606A326
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 10:58:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE9D7606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=BEZKTX1I
-Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-37198ed3727so3766208eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 02:58:10 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794394690; cv=none;
-        d=google.com; s=arc-20260327;
-        b=LFPT/c3Jkw2dWHrYxhcnKhDURfPm2nQ6V7s2EpTqY+QsMXXIc1isBrqwW0SlK0YTiI
-         QR9vkHtAtYRCNTDjMLrFEkQ2Iifn+qDCq39TLNFQloxvVftDGGmT/Q3HS+0N8Wv4oCTW
-         V3FHsCrrV2jVhylCCspDTUyRrRLiw9c0vStRiUkaGnaJdv9TBbBTEN/0TajhJNvzxqk9
-         qMap5c38aSigy32HpMUzPLt19xTqASBMUWnqglGhmzNR1jOpQ44NUfhkuQyfoicE8a+t
-         sQZTE0/H3gbE28g6f2Dg60z5kMB0rauRjFn2b7BLyRAc5tRyrTGKzkzvDlvqNtFfqlpu
-         X1og==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=615FE0Yy7cA+8xh/VFmWU1n2MI6ldY7bFg+t+YyDgZw=;
-        fh=NI2Ls7LYAEC9Jzez9S+vQdupaBBoGbWGiW/DLOwsxtw=;
-        b=baM7k4mOzyrEXDB+4Ux55DrvhMGBrdO5+JaLKlCCATOcf1aJFHs9iF7cXLUODEW8sK
-         mpA+Ip4+NKYP6XBFwzfF6IUR+804BNymeAY0xMfBCm9sbioQq5If7k9LklWUeuCm+7rU
-         wMoW+kvWtLj07BYZYh73exH+GNVjFF0Aflw/x1vb2frGcRTSzHaj1hAsPURs8x+CmPU3
-         SR+5SmP3pCVZnj0b9hrasHIVHhGZDvI0G1A5UJXk6dD1BCwhF8kg9d9LaQi8PqBaE5lc
-         P126D+wRCbF01dm+7vW9/cXlh8ttxhwZ2lYoU3TC2tgicq23CjFxVNwKavNlVqQXBrs6
-         jVEQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794394690; x=1794999490; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=615FE0Yy7cA+8xh/VFmWU1n2MI6ldY7bFg+t+YyDgZw=;
-        b=BEZKTX1IIGOMPjsWHaXoJ3kp/OsyoYBWEjtBi4CHamphNSa+3Yryyi6n98XAWEV/Cg
-         rokF1ZUwWWGXFA9Oy7/UqX1rQqHBv/jiPK/SWHpI+qg0MNUBXeiq2XFznQAexFkIwCay
-         1ZyxA7s6frelLfdun6d+/fK4Mf1RD3UJZnZXCVy7FN+3ZeZFtvAIDqfYG3OwSh8eeHPQ
-         HpxIhO7n7QbAbuz7n/TO16Y+cQU8Lj1GXbE0RF8nPdN9BMgsSA/69cmX393Utex1fEPg
-         z4syHLwpeGJHGJpsp21bZn6aQvVu+SBIxIxg6Mr5CkR9/UUI/qxqSWxA6Fj0A6K5UMZW
-         baAA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794394690; x=1794999490;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=615FE0Yy7cA+8xh/VFmWU1n2MI6ldY7bFg+t+YyDgZw=;
-        b=t6L7+eWXZkWz4U3NvBNrkGLiwzSKBmUECzJGZ3QSBGzpRDALc8nkE0LRYnc46zr88I
-         743va65siRpQrgpIf/I8ntCtZGtmerrgYBlQlr+tWAloAmYP/ebTvJTtz92lISxkV3Yr
-         i/6GI9RPGyRI1+vGt8h6kIgPeMb6vZELR88A4oVdGt3oNo4TgU/2RgYGnLctC8dP8Due
-         wj1eyarPJUx1cAKPv7puAe89lC+uqWjCXXC7u4qF3YXDRaSglvYO/iCWa/RhQb0PgTlI
-         l85AzZcWxOKXpMfm9fPMT7Eh+82ctDhz7n/h7j8jxF4A9nue5H6g6IlLYpdV+4beS3JL
-         15Nw==
-X-Forwarded-Encrypted: i=1; AL+hErF+DIjE6WnoCvBdlAEFGQofVzpCMNJSt24S2F7/aB3wLqiTIO/DBUUrNASD36f6jXYCEJk+ec17C4fmhoQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8dUL6td7gWUWg2TrtxuxSjmj1c8LIw/qM3UXadKVCN+fQlT3jC
-	Idvb1F9ei8z2zFai7F1l4EquWoP/xqHZCcGFtTxwnMLbbEn8tRg+qho3LhJ2d8a7zv2zPuMLBQX
-	mt96YNd1ld0UEdJ8IY5LgslgPPXWW9c0CGWdxB74ZfAC4SCGvsXItoG45/Vo=
-X-Gm-Gg: AYBFou1BwQaCPMVEbcSEpomOM9NroRS13IJWJqDEYStxTbPcs9EB8/Voe3izvGeix2Q
-	+VePiJek3gyWe7P109GRQCbnoBr+2hjJVN0rakD6mYop8AH4icDaPo0Pn/TJE0dqxBWvT221Ibj
-	55IE94ZBDrVEkbdqyZHZvU9md3R5kB6zZjqqFPHrhAOU2mJzk+wOSI7Bka7jtzH/IyBPjkUzz0s
-	RG+TevV15XgpPvENjmQo4EPQB9lSIL37a9zrTWaiBpoDqosOKfG2ZCILqyDsvEyN65addIPRe2S
-	flBAfgDIhUnicqPOOarciJJeF/WdNF7d1/QuKxiPYJl7o9qpzfrlj12zXncz9KvU0kVNvxxGOYl
-	p9GSRZBixYkvL7VhDWcQtJFk4WoJyYxnmLYMnnHZNlx4UO0aZaz7mEIxnZS2ir3CbQ93E
-X-Received: by 2002:a05:7022:f519:b0:185:6c8c:d860 with SMTP id
- a92af1059eb24-1b3c03387damr1679768c88.5.1794394688877; Wed, 11 Nov 2026
- 02:58:08 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=d8dnlWCt
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1794394728;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Ihetc2DxDCVVTHEoFYuGdLd4AvFTx8i+2f03biFLNnc=;
+	b=d8dnlWCtsmXWFzSobKkj5jXct0X2mK7Hq2KnkRDOZl+UmlfbVcQmCIU+kKUSC2oKaAdsqB
+	1Di84e6g7dRhYmCrrieYvCx0bsWf6ZzHi0Mr/Oq7mOl0tmU50tQMDM3go11eSx78qBgqTb
+	QAw7014+ARoXI1hMHULqpL4TvQZXXB8=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-623-_cNDg14-MKmcaMnxWv85kg-1; Wed,
+ 11 Nov 2026 05:58:45 -0500
+X-MC-Unique: _cNDg14-MKmcaMnxWv85kg-1
+X-Mimecast-MFC-AGG-ID: _cNDg14-MKmcaMnxWv85kg_1794394722
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 398A51955F6D;
+	Wed, 11 Nov 2026 10:58:42 +0000 (UTC)
+Received: from [100.91.101.41] (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id BD9F718004FC;
+	Wed, 11 Nov 2026 10:58:35 +0000 (UTC)
+Message-ID: <38e49109-be77-4f81-a663-276c0e6301c0@redhat.com>
+Date: Wed, 11 Nov 2026 11:58:34 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,57 +71,75 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <cover.1794250850.git.bvanassche@acm.org> <30ea46a36f2985e32389067317977371e6776e27.1794250850.git.bvanassche@acm.org>
-In-Reply-To: <30ea46a36f2985e32389067317977371e6776e27.1794250850.git.bvanassche@acm.org>
-From: Marco Elver <elver@google.com>
-Date: Wed, 11 Nov 2026 11:57:32 +0100
-X-Gm-Features: AclHuK9bNroTt_qmwi0N0oU48nQI8S96SP606Bmq4NBUs9gdU1xkleGdPkOjq0Q
-Message-ID: <CANpmjNNxNpM0LY6Vo0RqZKKixBuay1YnphR2V4ap_z70iHwu1g@mail.gmail.com>
-Subject: Re: [PATCH v2 03/14] tracing: Disable branch profiling for
- COMPILE_TEST builds
-To: Bart Van Assche <bvanassche@acm.org>
-Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
-	Will Deacon <will@kernel.org>, Boqun Feng <boqun@kernel.org>, Waiman Long <longman@redhat.com>, 
-	linux-kernel@vger.kernel.org, "Paul E . McKenney" <paulmck@kernel.org>, 
-	Christoph Hellwig <hch@lst.de>, Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
-	Nathan Chancellor <nathan@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next 03/10] dpll: add domain object
+To: netdev-bot+sashiko@kernel.org
+Cc: netdev@vger.kernel.org, vadim.fedorenko@linux.dev,
+ arkadiusz.kubalewski@intel.com, jiri@resnulli.us, corbet@lwn.net,
+ skhan@linuxfoundation.org, rdunlap@infradead.org, min.li@microchip.com,
+ anthony.l.nguyen@intel.com, przemyslaw.kitszel@intel.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, richardcochran@gmail.com,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ intel-wired-lan@lists.osuosl.org, grzegorz.nitka@intel.com,
+ karol.kolacinski@intel.com, saeedm@nvidia.com, tariqt@nvidia.com,
+ poros@redhat.com
+References: <20261106121005.1327603-4-ivecera@redhat.com>
+ <179433320288.994134.11961533455589849486@kernel.org>
+Content-Language: en-US
+From: Ivan Vecera <ivecera@redhat.com>
+In-Reply-To: <179433320288.994134.11961533455589849486@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
-On Mon, 9 Nov 2026 at 20:14, Bart Van Assche <bvanassche@acm.org> wrote:
->
-> WARN_CONTEXT_ANALYSIS depends on !TRACE_BRANCH_PROFILING because branch
-> profiling instruments every if-condition and obscures control flow from
-> Clang's thread-safety analyzer. Make PROFILE_ANNOTATED_BRANCHES and
-> PROFILE_ALL_BRANCHES depend on !COMPILE_TEST so that allmodconfig and
-> allyesconfig builds do not enable TRACE_BRANCH_PROFILING and instead
-> enable WARN_CONTEXT_ANALYSIS_ALL.
+On 11/10/26 18:53, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found more severe
+> issue(s) in other patches of this series. This mail is only an FYI, in case
+> you want to address the nit picks below when you respin.
+> 
+> Low priority / nit picks for your consideration:
+> 
+> - [Low] The comment on `lock` in the new struct dpll_domain
+>    (drivers/dpll/dpll_core.h) says it "Serializes the driver callbacks of…
+> 
+> --
+> 
+> dpll: add domain object
+> 
+> This commit adds struct dpll_domain, which groups all dpll devices and
+> pins created with the same (module, clock_id) pair. Domains are
+> refcounted, stored in an xarray and freed along with their last object.
+> It prepares for serializing driver callbacks per driver instance instead
+> of under the global dpll_lock, and states no functional change.
+> 
+>> diff --git a/drivers/dpll/dpll_core.h b/drivers/dpll/dpll_core.h
+>> index da8a369556ed1..6705e81bc11de 100644
+>> --- a/drivers/dpll/dpll_core.h
+>> +++ b/drivers/dpll/dpll_core.h
+> 
+> [ ... ]
+> 
+>> +struct dpll_domain {
+>> +	u32 id;
+>> +	u64 clock_id;
+>> +	struct module *module;
+>> +	refcount_t refcount;
+>> +	/* Serializes the driver callbacks of all DPLL devices and pins
+>> +	 * that share one (module, clock_id) pair.
+>> +	 */
+>> +	struct mutex lock;
+> 
+> [Severity: Low]
+> This isn't a bug, but is this comment accurate at this point in the
+> series?
 
-WARN_CONTEXT_ANALYSIS_ALL depends on !COMPILE_TEST, so allmodconfig
-gets WARN_CONTEXT_ANALYSIS, not _ALL.
+[...]
+> Could the comment say the lock will serialize the callbacks, or could it
+> be added in the patch that starts taking the lock?
+Right, nothing takes it before patch 4. In v2 the lock will be added by the
+patch that starts taking it.
 
-> Signed-off-by: Bart Van Assche <bvanassche@acm.org>
-> ---
->  kernel/trace/Kconfig | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
->
-> diff --git a/kernel/trace/Kconfig b/kernel/trace/Kconfig
-> index 35d043b19332..afbf17099a68 100644
-> --- a/kernel/trace/Kconfig
-> +++ b/kernel/trace/Kconfig
-> @@ -687,6 +687,7 @@ config BRANCH_PROFILE_NONE
->
->  config PROFILE_ANNOTATED_BRANCHES
->         bool "Trace likely/unlikely profiler"
-> +       depends on !COMPILE_TEST
->         select TRACE_BRANCH_PROFILING
->         help
->           This tracer profiles all likely and unlikely macros
-> @@ -698,7 +699,7 @@ config PROFILE_ANNOTATED_BRANCHES
->           on if you need to profile the system's use of these macros.
->
->  config PROFILE_ALL_BRANCHES
-> -       bool "Profile all if conditionals" if !FORTIFY_SOURCE
-> +       bool "Profile all if conditionals" if !FORTIFY_SOURCE && !COMPILE_TEST
->         select TRACE_BRANCH_PROFILING
->         help
->           This tracer profiles all branch conditions. Every if ()
+Thanks,
+Ivan
+
