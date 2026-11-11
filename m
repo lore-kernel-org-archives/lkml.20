@@ -1,89 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794416053;
-	b=xgn8cNDdIUJvgmZDUfuD7QjaR6QOLe4J4MlVhilcyWOcFpZ92llW2Zk549ctKcs9qn8J
-	 TpUtegE5VILbqqTKSkBD8wSg/b3ofkytg9T6tb/F2fj+N6Z2Wed/fVEA/Q5vXiZ+PV+ZA
-	 zKpoZfc8Re13A/vbz5HP0GTZSZ95AykTwMFZ7EgrZDENLR85jLeoHZIuvr1kvMJS2fDp9
-	 9mp1s4vTN0J7IyTbaKBzlBtnwWm3RsQJSGgb98Wcfei94XbGCS3ZtPLhiMmsctIfhvers
-	 E/WFSbe3gLwHVJuCeFhSlhmAezyCLXTy2O97z2dJ+v0VO2RYON+eepftoW46sWvmN0g==
+	t=1794416058;
+	b=1owXf8rF0nC8yhJbkQaEKywaY1dRCxmYESvRZoLSQ8jXP8KOUs5Yg+INmSPZ6/dFkW9O
+	 ujN9Jqydq5VaZwwsY9pBKrBRes3TWeRt+Z6dfdVT6NJjiDnVcKzgk7UryNwOnUwVDlQwz
+	 KADk13WaoEqjRnW94L9TjmzTjY0MbGKJJQZDMXDJwMOZ5IFjV6koJ1MqUreAVn6/tnEET
+	 qy1yPBLqKwMdgW9z1yzXYOUiGz5tLwwLOoChRXLbxE/gphzoZ9xxE8Xb9OLanQEgT6wdk
+	 XWT8V3H9hYClX3YhIAx5yOcezrXlSmG0mGs4lmuWHc9s20RfvFT9/NRF/tL+uDk0T7Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794416053;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=5ZV0DCoX0z7OhXM84shwRnxOMC/GGm++gJpoqjH6j0k=;
-	b=K1ffDHB/8dEdrgdi9+SjYL4VVSHkhgXGvc8JO3pBt5uGEJ09YiAC458bMTXcJfxBb+sh
-	 nHYkOXq46FnrZRq4cM95wTbX2xGhJxH1rrz26bPf7ZQuKpxwmHG+AoJ5MO5BkY52OPsAO
-	 gi03chjZX3alI5AJEjE46KK9uTh1VQbD+vLiuIbtWPtJgcuUTr3WUYCpUvOGj+JwLsDC4
-	 yIs1iLklrztHw7jasrnE9sdcbodu0vk7wPUtUx6NEa2B3WPWGi5LLxLnt07Iu5Hm6Qr3p
-	 7+8puGtv21TUtH95W6AtYtJ0nYFa12W/3EYXbQJBzSomamIInTiQ80FgZObgzyyP5zw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794416058;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=AWueVVaXQOOVon9iyN4ebU/QYOn26L/TxhgwBah2R00=;
+	b=q9tzLLm+AwkAAKkhbf8ijavnzrqlaq3CUVX+OT3OYknDnGZ1CiWrNzPab1Bvlmm1wro4
+	 iVi6GgBUxFPlwPbzRUKVPLkSkCu0yGyg0JhvhOrARvpNJTVnMfvb+LnejboxOTQ5FPA2L
+	 linZUwTVvpy2quI92xX659EH+N/dUJJFiB7XVc1tRQLH2shptvCmnVoAJ99+Q2OIfJqPt
+	 bUs01NavCPO4EjjJY0K+YDAQaCEQ1NRQX/EJ5LM9oz9MJ26OrtIUSdPEQ2y8TF4n+Pxcc
+	 J1KEFNkZkKpNWBMebpLB1EsYTRtwa1Gh5cjwlZP5NaWX//kIziaxgM1f0itm5EptJfw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KZyYxBMQ;
-	arc=none smtp.remote-ip=209.85.128.49
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=qu0mGoUS;
+	arc=none smtp.remote-ip=198.137.202.133
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E843606A321
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 16:54:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E843606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2A63606A321;
+	Wed, 11 Nov 2026 16:54:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2A63606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KZyYxBMQ
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a60f9474c4so41071135e9.0
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 08:54:12 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794416051; x=1795020851; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5ZV0DCoX0z7OhXM84shwRnxOMC/GGm++gJpoqjH6j0k=;
-        b=KZyYxBMQhoqm1v9L3djyJSijLKbDor5uyNbASTNpYJbdkLtxD7qjcG3Zoi41yqp+uT
-         gInzPpEzF6WQkVj0PUHegzZUAKvysl9YQ+pJ5cCNEEB6eCzJ3ZFeUceaikXH8g9CX4H/
-         ha5nCvktdng6jAimL0rZlaX8ddSuKjVMaxT+hWoL4cHWjlnljjr9V519iI2FWtFpifsT
-         C553h8OJcn/ARvsEndJVVOtimgEx6dsn/x3xrGVPBlrwPkDLAANOFnYjiJZxg72tqcVs
-         1RRMnZwaqDrYm4nLb5gFiA9lKxapTcRok6FXNteOU5M1y4uyO2wn02OwmKS+aGqmJSvH
-         pKnw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794416051; x=1795020851;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=5ZV0DCoX0z7OhXM84shwRnxOMC/GGm++gJpoqjH6j0k=;
-        b=XAJQ07eVFdHZ3z5h9GanEZOW+W1VTzP0URvtjXRLyLW9GCs8pHPX42JZgAkjhHbqED
-         lZZBscZDBiMG3d3vEOFFWlFOHHtBDbDAmbdJrhGsvr+SeH01/wdDrXzIqK2OGGUdkSi9
-         1IWe9tLo3ErzjEDT4QDHMh4T0lhPDqM41cNNm6SpyL1yeuqZakxwdJtkjtAlCuqPI2P2
-         zl8HesZkKZNZUYZUSkLHSN5qKCF739NnLFtiRRqy/3c1SlhJbzwlMWu9Z6YNQ3CEbiR2
-         jv4VtJwL1h0595XK3QdyPcrqcCY/I4VDcdaJqKMBG0YDnUMYc3mApDDl+Vw1E0HRmzjH
-         KfqA==
-X-Forwarded-Encrypted: i=1; AL+hErGrdnjTnAgVY/9r6jGQPhuuNuDDv9HpO00qvvh5NK8TTXPmsSge6WaTUyteVKqVap3IgJQTvmfdM+PsYLQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z843Xf9gMTv2UPecF3iV8Marn/8ozBG/1CxIUNgVF9Sr+pEOFRI
-	YyS9aJ63DfiWBApbo5yZmR9FXxamkpV8S87mp2Lqs8v0JGMu65N1ltgb
-X-Gm-Gg: AYBFou29EtatYA4/krncJSbmMEph/5QErMdZQxVP1yZx4rBnSrK/bKKIQUPyY0POTV6
-	ps+g8gjcFkPEJxnqTVbEK1aK1MPlczmYD8kjuXm2gsLLMN1KORQpFFL1BTOh2FcLu0sVGahHSBR
-	SYtJrF3/vE17ha1A1ZrgBjqwDpfI2mkPeqOUywlZug7R7sG1iSK5yToSpqGY/TdKW2/Z+V5rkTs
-	r6w714ou3C6J053F+0ylr8IyDZQkqjjiFPUpenyYgbyojGW9K2sp/Phu/e76Ez/NCxaRuNX6s5/
-	P9pA3u7ndYZv22LAQkI6jjzJH7/+dc9TczZttbXb7cfvlmwmar5ZggJRmOys7CHOWcopy1ju8Ho
-	zUHH8cn25sAoQdBEPlT69vKViWfdLPnVv+cWS5COffghxJkbdcVAH1ZbIgQap1matm7J1DUR8VP
-	jqc98AbuwlaoXpk5BD6+mwaQvNFs6VJpKgm425VF/smIRuI99/RhsYwjGeOLq3IOjWzbDABdyzR
-	w7OgjBgpvazKQYf5Xc107Y7ZS60/fp1jDzNMArK0cG/z2Q1gJ3Q2iVtd/Wv2st3pdh4UOBzJzJx
-	P6AQVKFMZ0fNkkH/Nl6MsiP1B2xz6RmvM65JCYzqQCljQpwcop3K4+WiveTR1RoHNk9Y5r+TAsy
-	CwBS+e/cnQlLekQ==
-X-Received: by 2002:a05:600c:4e11:b0:4a2:1612:636e with SMTP id 5b1f17b1804b1-4ba0937797dmr51138865e9.5.1794416050686;
-        Wed, 11 Nov 2026 08:54:10 -0800 (PST)
-Received: from [172.31.15.113] (6.red-83-60-147.dynamicip.rima-tde.net. [83.60.147.6])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498363dffa1sm11523387f8f.39.2026.11.11.08.54.08
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 11 Nov 2026 08:54:10 -0800 (PST)
-Message-ID: <c1b4cd90-ed08-45e0-8e2d-51b52b16c4ca@gmail.com>
-Date: Wed, 11 Nov 2026 17:54:08 +0100
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=qu0mGoUS
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+	bh=AWueVVaXQOOVon9iyN4ebU/QYOn26L/TxhgwBah2R00=; b=qu0mGoUSRhzHrpda5PyD0v86SA
+	6+IoEZMyWsWwp90AqS6pw/xoqmoYO0UCpT80k6wtjponve3oRVnNd9AxvLn6ARRwF1s57ZTT+R7zl
+	Y3L/K3vqj5zWRPVLH9VzZTBdVXP2XFU607wVokPdDcQpX/zGFCaL5JQcK42o7qdenEBl/BsyOWrnd
+	XdA2zbLs0GSjVkGA+vEiaOXEd+AiYZR/I0qjNj9TU9qNdn7hu8bXMO2KKQeJnKD+LhTtbYUkYwFKB
+	CCT0uYDOk9qjEtCw+q9/ZNLmSUCx5MWcfVpa0gbebMtF8ldRnfdm4XrlOIPIaFM8qiPCGAQ6FqoD0
+	Ht6tPksQ==;
+Received: from [50.53.43.113] (helo=[192.168.254.34])
+	by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xRBaQ-00000007FmA-3zdj;
+	Wed, 11 Nov 2026 16:54:14 +0000
+Message-ID: <60e687ca-733d-471c-b8ad-bee092efd04b@infradead.org>
+Date: Wed, 11 Nov 2026 08:54:13 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,101 +59,74 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/4] mm: don't report OOM when a huge PMD race blocks a
- pfn insert
-To: Eliav Farber <farbere@amazon.com>,
- Andrew Morton <akpm@linux-foundation.org>
-Cc: David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Zi Yan <ziy@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
- Kiryl Shutsemau <kas@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>,
- x86@kernel.org, William Kucharski <william.kucharski@linux.dev>,
- Vishal Moola <vishal.moola@gmail.com>, Alex Williamson <alex@shazbot.org>,
- Peter Xu <peterx@redhat.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org
-References: <20261111140655.34281-1-farbere@amazon.com>
- <20261111140655.34281-3-farbere@amazon.com>
+Subject: Re: [PATCH v2 1/7] sched: Mark RT_GROUP_SCHED broken
+To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Cc: linux-kernel@vger.kernel.org, cgroups@vger.kernel.org,
+ rcu@vger.kernel.org, linux-doc@vger.kernel.org,
+ John Ogness <john.ogness@linutronix.de>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Ingo Molnar <mingo@redhat.com>,
+ Peter Zijlstra <peterz@infradead.org>, Juri Lelli <juri.lelli@redhat.com>,
+ Vincent Guittot <vincent.guittot@linaro.org>,
+ Dietmar Eggemann <dietmar.eggemann@arm.com>,
+ Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>,
+ Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>,
+ K Prateek Nayak <kprateek.nayak@amd.com>,
+ luca abeni <luca.abeni@santannapisa.it>,
+ Yuri Andriaccio <yurand2000@gmail.com>,
+ Yuri Andriaccio <yuri.andriaccio@santannapisa.it>,
+ "Paul E. McKenney" <paulmck@kernel.org>,
+ Frederic Weisbecker <frederic@kernel.org>,
+ Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
+ Joel Fernandes <joelagnelf@nvidia.com>, Josh Triplett
+ <josh@joshtriplett.org>, Boqun Feng <boqun@kernel.org>,
+ Uladzislau Rezki <urezki@gmail.com>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Lai Jiangshan <jiangshanlai@gmail.com>, Zqiang <qiang.zhang@linux.dev>,
+ Davidlohr Bueso <dave@stgolabs.net>, Tejun Heo <tj@kernel.org>,
+ Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
+ <mkoutny@suse.com>, Qais Yousef <qyousef@layalina.io>
+References: <20261110-sched_dl-v2-0-cc9399f7aeb1@linutronix.de>
+ <20261110-sched_dl-v2-1-cc9399f7aeb1@linutronix.de>
+ <1927ace7-86f4-463e-bdda-b3a5bc300eb2@infradead.org>
+ <20261111133728.6RfqZWwx@linutronix.de>
 Content-Language: en-US
-From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
-In-Reply-To: <20261111140655.34281-3-farbere@amazon.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <20261111133728.6RfqZWwx@linutronix.de>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 11/11/26 3:06 PM, Eliav Farber wrote:
-> insert_pfn() maps the PTE with get_locked_pte() and treats a NULL return
-> as an allocation failure. pte_offset_map_lock() also returns NULL when
-> the PMD is a leaf, which a VM_PFNMAP mapping with both ->fault and
-> ->huge_fault can hit: an order-0 fault that passed handle_pte_fault()'s
-> pmd_none() check can reach insert_pfn() after a concurrent huge fault
-> installed a PMD leaf over the same address. The task then takes a
-> VM_FAULT_OOM for a mapping that is perfectly healthy. Changing an mm's
-> THP policy while another thread faults the same PMD, for example with
-> prctl(PR_SET_THP_DISABLE), is enough to produce the mixed orders.
+
+
+On 11/11/26 5:37 AM, Sebastian Andrzej Siewior wrote:
+> On 2026-11-10 09:42:00 [-0800], Randy Dunlap wrote:
+>>> --- a/Documentation/scheduler/sched-rt-group.rst
+>>> +++ b/Documentation/scheduler/sched-rt-group.rst
+>>> @@ -18,6 +18,11 @@ Real-Time group scheduling
+>>>  0. WARNING
+>>>  ==========
+>>>  
+>>> + This document applies to RT group scheduling provided by CONFIG_RT_GROUP_SCHED.
+>>> + If you don't use, schedule real-time tasks and experience throttling issues
+>>
+>> -ENOPARSE.  Is that:
+>>     If you don't use or schedule real-time tasks and experience throttling issues,
+>>
+>>
+>>
+>>> + please look into Documentation/scheduler/sched-deadline.rst and there for the
+>>
+>>                                                                 for the
+>>
+>>> + fair_server.
 > 
-> Walk to the PMD first and tell the two cases apart: a failed PTE
-> allocation stays VM_FAULT_OOM, while a PMD leaf returns VM_FAULT_NOPAGE
-> so that the access refaults onto the huge entry.
+> Thank you. I have now:
 > 
-> Fixes: f9e54c3a2f5b ("vfio/pci: implement huge_fault support")
-> Signed-off-by: Eliav Farber <farbere@amazon.com>
-> ---
->   mm/memory.c | 19 +++++++++++++++++--
->   1 file changed, 17 insertions(+), 2 deletions(-)
-> 
-> diff --git a/mm/memory.c b/mm/memory.c
-> index 0f54ee0a6d88..b7b89d041f42 100644
-> --- a/mm/memory.c
-> +++ b/mm/memory.c
-> @@ -2866,10 +2866,25 @@ static vm_fault_t insert_pfn(struct vm_area_struct *vma, unsigned long addr,
->   	struct mm_struct *mm = vma->vm_mm;
->   	pte_t *pte, entry;
->   	spinlock_t *ptl;
-> +	pmd_t *pmd;
->   
-> -	pte = get_locked_pte(mm, addr, &ptl);
-> -	if (!pte)
-> +	pmd = walk_to_pmd(mm, addr);
-> +	if (!pmd)
-> +		return VM_FAULT_OOM;
-> +
-> +	pte = pte_alloc_map_lock(mm, pmd, addr, &ptl);
-> +	if (!pte) {
-> +		/*
-> +		 * A concurrent ->huge_fault may have installed a PMD leaf over
-> +		 * addr, which pte_offset_map_lock() refuses to walk. The
-> +		 * mapping is fine, so let the access refault instead of
-> +		 * reporting a failed allocation.
-> +		 */
-> +		if (pmd_trans_huge(pmdp_get_lockless(pmd)))
-> +			return VM_FAULT_NOPAGE;
+>   If you don't use RT-group scheduling, schedule real-time tasks and experience
+>   throttling issues please look into Documentation/scheduler/sched-deadline.rst
+>   for the fair_server.
 
-we should split the allocation from the map, which removes the re-read 
-and the leaf special case. something like:
-
-	if (pte_alloc(mm, pmd))
-                 return VM_FAULT_OOM;
-
-         pte = pte_offset_map_lock(mm, pmd, addr, &ptl);
-         if (!pte)
-                 return VM_FAULT_NOPAGE;
-
-maybe could work better :)
-
->   		return VM_FAULT_OOM;
-> +	}
-> +
->   	entry = ptep_get(pte);
->   	if (!pte_none(entry)) {
->   		if (mkwrite) {
-
+LGTM. Thanks.
 
 -- 
-cheers,
-jose a. p-a
+~Randy
+
