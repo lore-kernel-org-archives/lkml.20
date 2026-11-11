@@ -1,68 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794391628;
-	b=1HH9S7qVfuk+a0bsqwMF6T7jgfV6R6qhiz8uTCJ4hjVS4rwfDMosRHEtknhyYd6n/LbW
-	 x7CLKwSsenVnHC7B8jE+XCGKkJqRc3GIAtJyAzh46XAPJY3OyRmr1hYyVB3qqDOTCynZf
-	 5bEYr/JJYBhQoy0ey635xCbc8FWy/pHwilpWGbt2KoBQaqnRwHopc8E0whn4zt9Tc00x5
-	 OKochMPeLlLjz7gx+ipxX36uwMdIYvbLwUNtIxUPLoDKOC4BCm1OSHmsuNrJHeK6xXUJi
-	 mF5T+yyk+b+umLwkb1h8TSfNb3ACWcLe+bGfgSsqeigKocNQ0+Ne4R8sJfIhzklTiQQ==
+	t=1794391674;
+	b=X2oU9VAMQTdrKTGEMmzoY5wmWUYsLCql2PyIpxfxZY59s1wwfX+a0tcBRvI2pmJCKM5N
+	 /iGXCuEFYp8ZwXuICHhkfqc0Wg5miTpRIhQVgu4CsoR5GgXCWL6/97wBhflnETnuqnQJG
+	 enhNqS+Y93f2Z/lCmpYJ2t6S45NwXpkZ9JQMPdDA9SYXBWhS4z3/3q8KS9guW/e2KFQa1
+	 e4DhH+RNfJ8p2VY4+Yd291081W9BNOOnN134hFR1Um/x8DSQZPNtHCDG5pzeoR/KZJsCO
+	 NqSIIxp7Br6QeGv7Y0YZDXZKk/fZ4fk157ej3kiwg/DxygvGGIcnitrqJz5TSLrERXQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794391628;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:Date:
-	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=uxZnvepp6CMTyAQzCft/l3P80dC4U8HDCpbqhXxVogk=;
-	b=BKgRH2r8JhLGVTwXDo67YpuVSvQQ1qdfPpCzPo9mN7SxDkNJJJgcqGsOqiMjkSVP08aq
-	 AgEyOLdnr0b8ewdfS+kEIIl6uCcVTNYdhMfR29yLW0dYyADUzDsc3NcgvA718SWqoVZKc
-	 u8HgW/TnSOjHh6wauLRqczsCmC7QtBj/1vlVNtdJZPnEfXI1Rh6Bh/Gc8OWO4LPM0Pw2D
-	 7YMOtGD8sOaWQy15pnq/23MvDjkfc2FYiQJP4MrDKo1E9m2D2dUOEDo0qU1dELkTkODsz
-	 b9JQkiq5ue1CFLTma/n7LQBnWTrRDoOL8nkcvRiaTI77UiMFKXRQyVlHczkbYibDWQw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794391674;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=zFxZ30Yd6+cASw+ho8AgTjmy6X4iO+1Xfo3Xj4WmfaA=;
+	b=nAErsdFIrZe/XZJs2qAsI0BRMpGfUPK/wT5XYQFxrROxVe7cCnGEjV+nxJBgAzCabyec
+	 8Nz68EyU1TzmM09WNyj7Tg5e0iZXTbVR+nwztBrQQkaGcKEm2i7pzSKziYbDZDDiqseAF
+	 YA7h87V4Iujh5Ou3w26vhgQ2gZt9WKDu19wQeUs/JBtr47IsbcTLv5aeribI8ALpNDBxJ
+	 11v3DasfvcdmD9HqjwjAakAV19Y+xVMlObzgDE4vtnWjnEK+aV3sozqMzxJYW6Oo3tc4L
+	 Ap3jAyaJDS3M8MqUlDuUHA3bFweTRrB+n5r7Ffo3sAfHKjxDSND9Y1QO8qO04bXe5/Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=sang-engineering.com;
-	spf=pass smtp.mailfrom=sang-engineering.com;
-	dkim=pass header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=PkayZSoz;
-	arc=none smtp.remote-ip=194.117.254.33
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=iVe5YcxN;
+	arc=none smtp.remote-ip=185.246.84.56
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA1FC606A326
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 10:07:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA1FC606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D9FD606A321;
+	Wed, 11 Nov 2026 10:07:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0D9FD606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=PkayZSoz
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=uxZn
-	vepp6CMTyAQzCft/l3P80dC4U8HDCpbqhXxVogk=; b=PkayZSoz0Yfvrg8A4nVp
-	y2sD11cFcE+/jq2e41+na8Uosyr/Oc4uG8mR9M4oXsf2ztA5l4TLDGlUBZsz5kOS
-	NLhAQZOcr+JnL8b8XM4pWPYyczh+yorEIUjS+RA8JpBQ/Sr0dvWtE05mafQIOLdG
-	fmP/rnoa1g98NMJb1zAfbZnqNv1mdTl5R6D2+jY5s2rwRd/hlgBws9C/lQDn3X6P
-	qRH8OuH3Lxh75aBGQDb27642NWK2Ro3ALFxJmAwIn6z5LoYpxC5Tvey3ycUJb8zE
-	4aMW8WfuaEWAIkSO7/Sl1X/C2Eej0PzlKXc8wqdsxX31yLJi/sPTm2+2ulnYftB1
-	fQ==
-Received: (qmail 562499 invoked from network); 11 Nov 2026 11:07:04 +0100
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 11 Nov 2026 11:07:04 +0100
-X-UD-Smtp-Session: l3s3148p1@NOlfW/1fctEujnun
-Date: Wed, 11 Nov 2026 11:07:04 +0100
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: Biju Das <biju.das.au@gmail.com>
-Cc: Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>, linux-mmc@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org,
-	Biju Das <biju.das.jz@bp.renesas.com>
-Subject: Re: [PATCH v25 03/11] mmc: renesas_sdhi: Add clk_mask to support
- wider clock dividers
-Message-ID: <avQ-SIf0ZEsr51SB@shikoro>
-References: <20261028-rzg3l_sdhi-v25-0-57f16691c2ed@bp.renesas.com>
- <20261028-rzg3l_sdhi-v25-3-57f16691c2ed@bp.renesas.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=iVe5YcxN
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 78FB21A1609;
+	Wed, 11 Nov 2026 10:07:52 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 3F61B6017E;
+	Wed, 11 Nov 2026 10:07:52 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 6D00711BC126B;
+	Wed, 11 Nov 2026 11:07:50 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1794391671; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding; bh=zFxZ30Yd6+cASw+ho8AgTjmy6X4iO+1Xfo3Xj4WmfaA=;
+	b=iVe5YcxN6iMcNdy7ct5ge10LPW/BDSJLHEzidAyzNx+mVg4ZP0bpAGhYu/2b1yDeGePLHd
+	skMnkdvrs8K3lWj+U8df0uJQqbyX/5QxVohWtK/sCCy+5NzpC1Lf21gG7DaePyODqnHLig
+	fkVO86dEsndYrFRHVO3hCsIdgI/lDt9b4qzhbs7lBPEAokzzFFSR7SGTKIMKHV6SNINgnN
+	5nNcjabsKk1bxgtDZy5f5UNrJps/WmnE+bx5Ykk4Yl3LPEM14fhQDsB7drmHuSH/FIVAUa
+	rgqnrYXNvc4GBEMJVNzQm74AoCOBZwHzHx6Q5+yBOEWai/HUW3MyavZDQBrKgA==
+From: Paul Cercueil <paul.cercueil@bootlin.com>
+To: "Rafael J . Wysocki" <rafael@kernel.org>,
+	Len Brown <lenb@kernel.org>
+Cc: linux-acpi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	Paul Cercueil <paul.cercueil@bootlin.com>
+Subject: [PATCH v2] ACPI: platform: Add basic support for ACPI 6.5 fixed clock resources
+Date: Wed, 11 Nov 2026 11:07:36 +0100
+Message-ID: <20261111100736.98364-1-paul.cercueil@bootlin.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,60 +69,140 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="uChG5fgUX4xJiPFz"
-Content-Disposition: inline
-In-Reply-To: <20261028-rzg3l_sdhi-v25-3-57f16691c2ed@bp.renesas.com>
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
---uChG5fgUX4xJiPFz
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+ACPI 6.5 introduced a clock input resource descriptor, which allows to
+specify in the ACPI tables what clocks are connected to a given device.
 
-On Wed, Oct 28, 2026 at 12:51:20PM +0000, Biju Das wrote:
-> From: Biju Das <biju.das.jz@bp.renesas.com>
->=20
-> The clock divider on the RZ/G3L SoC is 11 bits wide, which needs a
-> clock mask of 0x200000200 in renesas_sdhi_set_clock() instead of the
-> hardcoded 0x80000080 used so far.
->=20
-> Add a u64 clk_mask field to struct renesas_sdhi_of_data and struct
-> tmio_mmc_data so SoC-specific match data can supply its own mask, and
-> widen the clk and clock variables in renesas_sdhi_set_clock() from
-> u32 to u64 to hold it.
->=20
-> While at it, clamp the initial clock value to a minimum of 1. If
-> actual_clock / 512 evaluates to 0, the loop condition
-> "new_clock + clk_margin >=3D (clock << 1)" is always true, and the
-> loop never terminates.
->=20
-> In probe, copy clk_mask from the OF data and fall back to
-> SDHI_CLK_MASK_DEFAULT when none is provided, so existing
-> SoCs keep their current behaviour.
->=20
-> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+This patch adds support for the most basic clock resource, which is the
+one that represents a fixed clock. The new code will then create a
+clk_hw for each fixed clock resource, which is then made available to
+the device drivers, that can obtain it through a regular call to
+clk_get(NULL).
 
-Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+Signed-off-by: Paul Cercueil <paul.cercueil@bootlin.com>
 
+---
 
---uChG5fgUX4xJiPFz
-Content-Type: application/pgp-signature; name=signature.asc
+Related:
+https://lore.kernel.org/linux-arm-kernel/20261103084915.8405-1-paul.cercueil@bootlin.com/T/
 
------BEGIN PGP SIGNATURE-----
+v2:
+- Use the calculated clock name in devm_clk_hw_register_fixed_rate()
+  instead of the device name
+- Make sure clkres->scale is <= 2. The field is 2 bits but the value
+  clkres->scale == 3 is not defined in the spec.
+- Compute the fraction numerator using 64-bit math, to make sure it
+  won't overflow on 32-bit systems.
+- Initialize clocks only when the device_type matches
+  ACPI_BUS_TYPE_DEVICE.
+- Use a shorter name for clocks as the hard limit is 16 characters
+  including the terminator.
+---
+ drivers/acpi/acpi_platform.c | 64 ++++++++++++++++++++++++++++++++++++
+ 1 file changed, 64 insertions(+)
 
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmr0PkgACgkQFA3kzBSg
-KbbQ9BAAr/nzYNQcsD9ViDt2WEyB8HC2BkiqBKr+lWZFEoMfXyN1XK1vdG+PajX5
-7Zd/EleQZMTitOfetXGFjLfNo/hfo0Nf4GoPmPVkiJmTZSSAMETQi2bQoAJFIoHH
-csuGrBpNyFJPolnw3O440kP3B1DdIq8GKboWhrN0QfP1x3UvtrNLUf0gCRsaGxuq
-8gd5fSCCx6RL3+5JvdWCbQq62tggRnANfQ8yaQ7lGH9tS6HZJ76qpk/W1a/RhSZW
-uymCHgnsA1JcAvFnaAohmKvRVP/XjS354sHn40uNoWGshcheyeGvPUhjHOYjzRrP
-0BYt35kJHapOxyEfNAvZS3LphSUouF6NSmRjmZKWx6dKp+6hJG+fONXWSoXWlyHZ
-dy2t5X0wmFxlX7CZXTMJgTG2aTn8pFDqHJiyvbW1nClJO73WTxpX3+QX4vq3Z/e1
-Mc6xNmSA6xgaO68t5Wp4cEA8Szqt9jA8f0yew8/e0h36ehjThi/u0/tihyo5Fjuz
-oIohntq3U3sBDoV/oyB3P1YGHwSjPSt8kNxHqecahSII7rMhFaOm+AxshCM7cfGT
-1EnRLrV+5McHsXpc93DUH9bqoFk1Yr8b+2/V3KLcSvEUgJQYc6W0fHCmcJdF/suX
-U902TD191MX6r+YFZtJCkxuNmR5LWlTVaCtI/vnq8z9wLqwrgAE=
-=1p21
------END PGP SIGNATURE-----
+diff --git a/drivers/acpi/acpi_platform.c b/drivers/acpi/acpi_platform.c
+index 80ea7121744d..71322cdcf0dd 100644
+--- a/drivers/acpi/acpi_platform.c
++++ b/drivers/acpi/acpi_platform.c
+@@ -10,17 +10,27 @@
+ 
+ #include <linux/acpi.h>
+ #include <linux/bits.h>
++#include <linux/clk-provider.h>
++#include <linux/clkdev.h>
+ #include <linux/device.h>
+ #include <linux/err.h>
+ #include <linux/ioport.h>
++#include <linux/kconfig.h>
+ #include <linux/kernel.h>
++#include <linux/list.h>
+ #include <linux/module.h>
+ #include <linux/dma-mapping.h>
+ #include <linux/pci.h>
+ #include <linux/platform_device.h>
++#include <linux/units.h>
+ 
+ #include "internal.h"
+ 
++struct acpi_clk_data {
++	struct device *dev;
++	unsigned int idx;
++};
++
+ /* Exclude devices that have no _CRS resources provided */
+ #define ACPI_ALLOW_WO_RESOURCES		BIT(0)
+ 
+@@ -130,6 +140,57 @@ static unsigned int acpi_platform_resource_count(struct acpi_resource *ares, voi
+ 	return AE_CTRL_TERMINATE;
+ }
+ 
++static int acpi_add_fixed_clock(struct acpi_resource *res, void *d)
++{
++	static const unsigned long clk_scale[] = { 1, HZ_PER_KHZ, HZ_PER_MHZ };
++	struct acpi_resource_clock_input *clkres;
++	struct acpi_clk_data *data = d;
++	struct device *dev = data->dev;
++	struct clk_hw *clk;
++	unsigned long rate;
++	char name[64];
++	int err;
++
++	if (res->type == ACPI_RESOURCE_TYPE_CLOCK_INPUT) {
++		clkres = &res->data.clock_input;
++
++		if (clkres->mode) {
++			dev_warn(dev, "Only fixed rate clocks supported for now.\n");
++			return 1; /* keep going */
++		}
++
++		if (clkres->frequency_divisor == 0 || clkres->scale > 2)
++			return -EINVAL;
++
++		rate = DIV_ROUND_UP_ULL((u64)clkres->frequency_numerator * clk_scale[clkres->scale],
++					clkres->frequency_divisor);
++
++		snprintf(name, sizeof(name), "%s-%u", dev_name(dev), data->idx++);
++
++		clk = devm_clk_hw_register_fixed_rate(dev, name, NULL, 0, rate);
++		if (IS_ERR(clk))
++			return PTR_ERR(clk);
++
++		err = devm_clk_hw_register_clkdev(dev, clk, name, dev_name(dev));
++		if (err)
++			return err;
++	}
++
++	return 1;
++}
++
++static void acpi_platform_init_clocks(struct acpi_device *adev)
++{
++	struct device *dev = &adev->dev;
++	struct acpi_clk_data data = { .dev = dev };
++	LIST_HEAD(list);
++	int ret;
++
++	ret = acpi_dev_get_resources(adev, &list, acpi_add_fixed_clock, &data);
++	if (ret < 0)
++		dev_err(dev, "Failed to add clock resources: %d\n", ret);
++}
++
+ /**
+  * acpi_create_platform_device - Create platform device for ACPI device node
+  * @adev: ACPI device node to create a platform device for.
+@@ -196,6 +257,9 @@ struct platform_device *acpi_create_platform_device(struct acpi_device *adev,
+ 			}
+ 			acpi_dev_free_resource_list(&resource_list);
+ 		}
++
++		if (IS_ENABLED(CONFIG_COMMON_CLK))
++			acpi_platform_init_clocks(adev);
+ 	}
+ 
+ 	memset(&pdevinfo, 0, sizeof(pdevinfo));
+-- 
+2.47.3
 
---uChG5fgUX4xJiPFz--
