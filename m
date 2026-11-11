@@ -1,92 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.228
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794408590;
-	b=f5uaB/Gym2EGcQlkb+vC6hdxltt2eagzXOvvLes9Ldm2yfQc5g6uG7kpQDeKGa4seSsZ
-	 RmvGbSXW9DYR8Yv0Vl86iTrx53HcwKUum8PXXol8HgWxqjsOlUOuzyt0RnOUJkdJRUGgu
-	 Ykum7U6C3TbTk4oLIzRzA3kbEYRPru3elwpZLV80dgGQCpVMFtm66RH1Y80nTZxtylnLQ
-	 7nfW8hE55JLS3aB9d/QRBGvzuax2+5ToMPaXB0RxvWF52BOBPmD2forFQwa9V+MCsTD8U
-	 +mxS8xLwXYlysogzEkX0vZTY0t/EjibBjhAlPFb2Cv4/J2DuLtXrO5DWKILxNMfNZkQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794408590;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
-	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Received:X-Received:MIME-Version:From:Date:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:X-DetectorID-Processed:Content-Type;
-	bh=Uo/glTcWxTu8IZvGaKXTUX3s/26XRTyZzbkTK0svdWc=;
-	b=wmOyU3BDJqjLkgsTAvew+fKjASc/OwgK6kaudqXZOEFF9+81RAX5LY6H/oCgYb67OYHi
-	 AoFa6dQBPjH71YavvNI2mr4qJ2eUssDT3eb302CS0js/tCy/vRMQS5sH8uWNy8T/mO16l
-	 UYeYXQ/sUzmfjOTck82EHZ4onxrbGiA+jK1dg8Spmtzt6FXGblqkjoeMkcVCM0LiGqZpn
-	 K8W8KjcVZ2Cz96b696naaYbwnucMjXYk3qkmKwHmSIbmyZ1e6GdYlwuueD7Sw1OxegYTy
-	 qOX8SutIOOTdZcgjWtVMueZ6MOE3zwt5pzWpzdyjCsBCh+S5odVltXr4faCwjDZA1+Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=broadcom.com;
-	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=FQ35gKp5;
-	arc=none smtp.remote-ip=209.85.214.228
-Received: from mail-pl1-f228.google.com (mail-pl1-f228.google.com [209.85.214.228])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.66
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794408605;
+	b=ClOe9sEQhZY/AfdHjTZ+HpB4sGSIujnmd9thT2e2JJtk8+RntdZ5XX6EeL/lxV1K+V1k
+	 //1gtIPElE1noscTEYOD5+pC9Gt7UGRrzQtnmvJEUdTu9cW0xboVc+LmWo3a4yMCnUnpD
+	 q12el4KU4dzn/Rdjq5ZKnnIBcTl9NpeHhoEGbeuV6CYwW1TU2zhYn5yvpZR5tpcs6xh7P
+	 Nb/xvY3Wkp8DF3seCM9yKmnQaA9esJ9d4EJSYF6B9LG7eeMMGkBriB5tSPspy8C+B70CO
+	 /qXKiZn5Xx2QK4dl0frGX+JvQk0XqflFP3kux3jOZ2RjufRnr1l5ANX+7Y9JEc2o9JQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794408605;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Cc:Subject:
+	 From:To:References:In-Reply-To:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:
+	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=EJNr2BGCPaFdH4NhXK9UHFWh2mv3xZdspGbt7V6zYks=;
+	b=mUUduQWHwWJ5MN1Il5At3+fXpdVSA33jO7LCTa7BgGK0xCxTGntiozuJ6B8+h6fn4CpH
+	 ZY6n7qhlZj41tWUBXOYsZbwuXh3Bbc1xwyyNjBW+yYnclAYEPPjyUS5FfmW5HGzsoebxF
+	 IjU0QafTnos+XS2I+G8mZBvTVUT3F/r9nw9KuA4cuBYWhjJ4LKEPJ7TR5zxCY+gFAgSjB
+	 WdaeOSN93LPOOKeOCDlOZrZ0M7fx57/ihxYbgynltKo3I6kuXhrbs0fBZhwy9+ec70Y56
+	 8BgP79ApMSnpSpgzPj2JZZmBp3TNT87edcWLZp3CqGvZuvBt66G7AdlrctZU0y3qdAA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=RZP2xNmH;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.66
+Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010066.outbound.protection.outlook.com [52.101.193.66])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 844E0606A321
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 14:49:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 844E0606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3922A606A324
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 14:50:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3922A606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=FQ35gKp5
-Received: by mail-pl1-f228.google.com with SMTP id d9443c01a7336-2e8da6ef7ddso19601025ad.3
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 06:49:50 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794408590; x=1795013390;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version
-         :dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Uo/glTcWxTu8IZvGaKXTUX3s/26XRTyZzbkTK0svdWc=;
-        b=EowTdz7R3Ms1ZGpVd564BMpbAHW/eNttcQZuCT/HqB3KvaMj228ekojSw9i2eOcdO/
-         PB1WrM2xmCldvZ5OyuaTdcyp0nxmkaeY/0/J+N7umyNpVN8usXMBJbYwXo9TSdsqiwEQ
-         +hezEOnGafPQkPZ3c/t3BhIbngUxk7ETReTsL5ZKay1ZJlDrRmLRu0SIsHfJF8DdpQzq
-         flGIv8j1XVSKn16IZED6d/wFuNQyXK4OT0zj9hSSGN7lTsPFjk6NzQgY4jyRL559ZfH6
-         kiWSQBcfKgkM+URUlf9dFuPvDCycoEo4cUnwopDtKekM20mjBS0xfKH9eJNMrRc687V9
-         mY7w==
-X-Forwarded-Encrypted: i=1; AL+hErGzV6lKuysO2dAb0zbLqB0P1LNNIQueV0MinDB6Yc9ipf+LtMcxaVaLH+ZbBPcCVXo9r276QLJwcGBnoDo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+ElflR2wLOdTPZdjFp0LDNMi86u+pi4774a5zyCbIy6vjYHtTY
-	v9wW9FJpFJe/qMJExodfzGTatJJ87yqWHPYunzyTSejwKaoVc/mjigbgv1lslJkbw4GbgcOTbwm
-	llW/r5b3LO+BjvB93SLidLpDdvh0vWbrflMeSCTokKBBrrvqPQg/FnMK9XSeufUofMLcr8zw7bj
-	NdmU2X/1r2gECdMkWj1qBVVj2WliB6cooVEO5Eb4KKTO/T0x8SjFesLTJjf4BwdSTGEeRW1ePVc
-	xniokQgKmLzJQ==
-X-Gm-Gg: AYBFou0Mifw7zDW4QYSu1lDtYdoAaaY3TzYFmmT3ixt8GAvDgcD/Z3XNZkIj9oiFVK3
-	Ir+N6zmKq9rHI/cFNhHRdZxTB1GVjwY4NN2AkVJRpxsTuDiKA2NeiW+zosQvwZDSNVxVS8Ah7AE
-	XUHLfxdV+xLeTG+9XkECJ80RXo1NLr10CsKQ07RuHC1vO4EbzwdEAXjwelCE4DYkDzFr6byAA3t
-	g5YjgzhTyUswBrxsOxohVPnf4hxjlNbTVdp4tS3kUe4KGvyOgw+A1fVkPqD9wnBozuzxBpaoaH3
-	uW6Wr/a/2EgIu3FiRzSuoeGU62eAq2nrQaPNhsKbEW4rsGjCP4mga5pN6Ym3wBhJmJbND4s/KIi
-	A7JAb5h2hzbpAZGXKNpXTSiDs6DM4sAJDzm8qDJeaFPL36KvXjKw/HbR80fhL0fe1xMlImILH16
-	MypURQUqd/Xs5kDJWvnb4+XfMwR2tscA==
-X-Received: by 2002:a17:90a:e7d0:b0:3ac:9176:e836 with SMTP id 98e67ed59e1d1-3b182ec1cfemr2575869a91.21.1794408589581;
-        Wed, 11 Nov 2026 06:49:49 -0800 (PST)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-22.dlp.protect.broadcom.com. [144.49.247.22])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b182deb0easm878784a91.3.2026.11.11.06.49.49
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Wed, 11 Nov 2026 06:49:49 -0800 (PST)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-yx1-f69.google.com with SMTP id 956f58d0204a3-67c2c2c4e0eso4061107d50.2
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 06:49:48 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1794408588; x=1795013388; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Uo/glTcWxTu8IZvGaKXTUX3s/26XRTyZzbkTK0svdWc=;
-        b=FQ35gKp5YlLdel+19zS0f5nP0iXsZpjMuLltAA3gGqjKaEVGwWNVBLFitzO1l+QhAu
-         jMT/w9TtcOvjVG342ds5T0sqO+0FmdXtaAeZZeKuX448cMPYxoX4vVz9RRbehdaKTXtm
-         8drS7zufNo8hSwg2nuWsrii2ywZ/XffsSh6eo=
-X-Forwarded-Encrypted: i=1; AL+hErFbUrVap2o27IjkRLq5Ttx8m1VH6KR9uAMQcvHI02t6rgEfZLsCcS2KjkFPsnxbML+zZ3mo1NOwP3k7pu8=@vger.kernel.org
-X-Received: by 2002:a05:690e:4803:b0:679:9971:e859 with SMTP id 956f58d0204a3-67c67f771b4mr1109171d50.50.1794408588192;
-        Wed, 11 Nov 2026 06:49:48 -0800 (PST)
-X-Received: by 2002:a05:690e:4803:b0:679:9971:e859 with SMTP id
- 956f58d0204a3-67c67f771b4mr1109161d50.50.1794408587777; Wed, 11 Nov 2026
- 06:49:47 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=RZP2xNmH
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=X/7VmqytUrar+xuZlqXhGhqS/3rEZOab9SknXVF/pLQHCKVRDmyiAjnBvRskG1y/jPtebF9/mWhUGjGhZMIoamACC0RZx/pUTFRaJ3tZrlFqDqshWqltEliKPxW9OKQMQCl2f6zpvNCeLFk7VX9edIuNal48ozt4DVN8DfxW8iEgUVr7zfLPU0aBx3n8gidIFLcftac2is3ICpE+Dqlr3vzZVr1a3WH6vYXZ38jv1UvfDKxpU/aDHIZzRaNkclptMpXIstZioZI1nD2aanALNRhplBYtId9pnUMPpVgEtTIC/O7xLN5GLwy0u2VBhjUOiawOdDzOZzv9YhSvPyHXtg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=EJNr2BGCPaFdH4NhXK9UHFWh2mv3xZdspGbt7V6zYks=;
+ b=mud9h02ZXthAM0PQdndEiTXxUEIDaV1Ud/DDEk83d79BUZAm3PXO6ufZuhqSvjpjx0uJ1FPpJAJcISe2cpdUEzCtIYzCK0smq+OtXNSTbbSBukRlvaE6p772ycGHRcofC090FmWPsomuJGyoap4SAOqwJyA73e39ZBvoWKP9uAPEckpPniKzdUMICkwL7aIRdioN2LvmQg7wNHNasITq5kVMHOE7JzOf8yx7hoawxNkbiN2T+sQ3vQdGeWnaakDloqyH1e3fO8o8kbiuzValplYaPLSudk/YDfGQSBIV9RcgLB6hb4mxpG7Ms9SYMdFFP0c5yZ26Sdm53Y/nJ3gsjQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=EJNr2BGCPaFdH4NhXK9UHFWh2mv3xZdspGbt7V6zYks=;
+ b=RZP2xNmHMbp1E//TPKhZidI+/dBkXD9NFci4PlvgZJWUmloT5ebRbM3mmGWpnU4sHO6oU2q5oIbKhMY+GmxoanKHYLW3YEW+fNnd/YQouhG4tl0VCIKAq/DmYch3MJmo0PnfelzX/NK19PEmldsCQyZRnZL6UzC7/uO2e0xtmZQYvc1GlOk28Zwz2z+QQCpm2/4vXPsyklZvcXBRczNp6dGP6yJzdCQvGMUZ+TIAXfBTtdbIbWZDFHadVl4AkRGVC6feuc4ZUHlirAEAz57f4yX/jidQSIIaxFJiZ14Qcqr3p5FoVZHAdDsGKO0WeDkZ44dU/PZ/MQIqGYNoe/W9JQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
+ by IA6PR12MB765073.namprd12.prod.outlook.com (2603:10b6:208:5fc::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.9; Wed, 11 Nov
+ 2026 14:50:00 +0000
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0592.010; Wed, 11 Nov 2026
+ 14:50:00 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 11 Nov 2026 23:49:57 +0900
+Message-Id: <DMSGRDMGTD4J.30PUSSFQMZ4YO@nvidia.com>
+Cc: "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
+ <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
+ <simona@ffwll.ch>, "John Hubbard" <jhubbard@nvidia.com>, "Alistair Popple"
+ <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 2/2] gpu: nova-core: gsp: cmdq: increase MSGQ_NUM_PAGES
+ to 64
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Eliot Courtney" <ecourtney@nvidia.com>
+References: <20261111-msgq-64-pages-v1-0-d8c56b6fdd6c@nvidia.com>
+ <20261111-msgq-64-pages-v1-2-d8c56b6fdd6c@nvidia.com>
+In-Reply-To: <20261111-msgq-64-pages-v1-2-d8c56b6fdd6c@nvidia.com>
+X-ClientProxiedBy: TYCP286CA0317.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:3b7::7) To MW4PR12MB6873.namprd12.prod.outlook.com
+ (2603:10b6:303:20c::17)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,179 +102,123 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-From: Paul Ely <paul.ely@broadcom.com>
-Date: Wed, 11 Nov 2026 09:49:35 -0500
-X-Gm-Features: AclHuK8aT4loQ4gE6XyUczqV8eRFxYLJ9yRejRstRCDc9t3n5AOPuCZuj2X5ySM
-Message-ID: <CAEQnVQ=uT+zMiF_mPD6j2g6qrpUL1Eufw=QNabJFEOz_wwLVRg@mail.gmail.com>
-Subject: [PATCH v3] scsi: lpfc: Fix race conditions in ELS retry handling
-To: Kyle Mahlkuch <kmahlkuc@linux.ibm.com>, linux-scsi@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Cc: msmurthy@linux.ibm.com, mkp@kernel.org, Hannes Reinecke <hare@suse.de>
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
-Content-Type: multipart/signed; protocol="application/pkcs7-signature"; micalg=sha-256;
-	boundary="0000000000008041930660014e08"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|IA6PR12MB765073:EE_
+X-MS-Office365-Filtering-Correlation-Id: 50a71177-f918-4be1-4e91-08df40030fe3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|10070799003|1800799024|366016|376014|261028144727099003|261026140227099003|261026121527099003|261102123227099003|261021121427099003|261022105027099003|261021135927099003|261021123027099003|11063799006|4143699003|56012099006|10067099003|22082099003|18002099003|261009223027099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	CAYsL4wGOV/MpG6XDjLgmIGX/5wtLFVYwx98fYO2e++MJJQjluXl+vRL8XKsknZoH0wDdvjS7jdktp27Uxx+BnnkNeeThmDvmgztiH57arjGPpQs30kgfhm45xVmwFBZtQt68D7xY00aXgWKUuOtSpSUy4GBXHJvd+4Ly6ZUDegnh6Dnut0Z0xuT2TJm8AXT0C/r6LRbRs8qUoTRMxZdNmjuv9nEIBH9dbecT5JTlCyAcLVAe+9SISGKaENgX8qtT0/r0WOFHoYw29tfSpY+knX8lXLfUpQQI2xt64Wqzv6nl0+6SmHUyEABhKovQPWvjboWfhZGF7qCBl6QxsOXfQg/AZ20Ku2j23hsvIa0Y0YXC1pX0IDElE8KuTPUufrCtne2At9VA9o8sOzFWAgVROikkF6ROsDmSbLJbM/uXr+iESKoo03P9kuThkSxnBl3RmByQIZ5zphhUKJHmPadkLr2gWaR5+vCsudDBHRxMB8Zx3W0of1SQNqBFF+yYPmaTpqxH0uoIJKkkykMr4BZ7jpjdLou8+hFy5z5C4xA+4/OeGInKIS6ngyaeuCwA2tveRadQF+DX8JKogAoEbm8WtoFwzYs29hza0thRK8GBdpQ4d8YrnNTSH4keCC/mEpPKjUZSv/PvNrG2EF/g7eF+1CplRY5HnCudjiFnMVpF/w=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(10070799003)(1800799024)(366016)(376014)(261028144727099003)(261026140227099003)(261026121527099003)(261102123227099003)(261021121427099003)(261022105027099003)(261021135927099003)(261021123027099003)(11063799006)(4143699003)(56012099006)(10067099003)(22082099003)(18002099003)(261009223027099003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?Y1k4Ti9BVTJqSm1RVTU0bURZU0Q2eXdnRkVxc1NDbG9aR2R1K1hVNDJvcXVV?=
+ =?utf-8?B?VW1iSDlTOTEzM3RyVWdzUFo5NFhZMnRoZnExTGRpWjZxN0xiVkNRQWlwRlVr?=
+ =?utf-8?B?bDMrWWF1emhYanRTUlN2cmMvcjlvcDliVDkyTklEeWdrNFBpUi9xaG9GRDJs?=
+ =?utf-8?B?NDBibGtYVGhxVGJ5S3BlSjFHcy9sN3dGQ1dtbHZrdVVYVkg1ZElER0tFOFda?=
+ =?utf-8?B?YkdPNGVEVGg5UTB2NkVPaFQyUVNMWG1rZ2Q5Q3RyY0FwMENCbXprQmxVV2I4?=
+ =?utf-8?B?aDA3ZjNab01tWDRINGhZdjBFTXB1NGdoMDNDck40NFZMT2FuWDI1QWMzS0pR?=
+ =?utf-8?B?ZFpZY0NkUlNQRjJCL2gxMVcrOGFEamRzTjI4VXVwc3ZYVmZ6OWVBdEdRZU5i?=
+ =?utf-8?B?TEh0c1YrNXJRMjJ4Y1RKVjdrTkd3UVhJa3NIaWhsVnFmM3c5aFJ4dktOQU8r?=
+ =?utf-8?B?cXlOQVY3b0hSRFI3OWU5cTNjb2FyUVZqNmt1Wnd3ZENaRkxXb1NqOHhFRDlq?=
+ =?utf-8?B?cnExVDFZUElmK0c2blZwRVBQa3hONStkaVFLYjNyNm5CRExsbit6NzhqOUt1?=
+ =?utf-8?B?K2FjWEt2V1JpNVVvcXdvSDliTFZHWEVoZmliblJTaWRtakVWRDJUNGZCRjBN?=
+ =?utf-8?B?WFJnMG1tRjNodHdDSUU0dFpJS25YUkNWRHlKaCtjTVEzdmdPbkpTdnkrUHFk?=
+ =?utf-8?B?K2lna0taZ3ZPL3lDd2NXOGVmS0kyMGhtWWNHckI2N3ZIN21ub1lscW54b3VL?=
+ =?utf-8?B?OWhiS1Y0OFIxSExJUVZYZFlOU2gzSUl3ZllJZEhYZXFZYytpUHJ0T29CK0pK?=
+ =?utf-8?B?eWp5VmlubmUvUWhraUN4NWNpTHUvdWJQdjZKbStZcG1WRVBwYXBBNUxGSVd1?=
+ =?utf-8?B?dHVWN1hzQ3ZiTzlvc2s2eVkvRG4wc2p1UWhiNzNxZWdzdHNSYW9kV0wxdUht?=
+ =?utf-8?B?ajBXV0JOSm5pN2tPenVhZUI3bkY1RmZNWmdNSWNzTXcrTHN5WlRSem54WVUv?=
+ =?utf-8?B?QWd3dlpLN3haMUF0TGQ5a05KOFM2K0xKWWcvQjZMZmp1UTMrYzZRYnpWZU1S?=
+ =?utf-8?B?dUxxWWtNd2l0N3RvNHUxUCtpb05SckRJY0d2a0toSmhYVHE5M2hsaHk2R0lT?=
+ =?utf-8?B?WDRxNXlYMURoMjl3ZTU1Wm9zNmp5REQzWHlnYU90aWhlZXErS3VYVitEekpV?=
+ =?utf-8?B?WnVQRlZNbVhQS08vcWtGR09Ja1Y3RnF6RHcxTUQyZTIrcnBxWm15aWI5azNw?=
+ =?utf-8?B?aUZ6RDViMWtHTU1USVpBSmpiU3NtZ1ViN0hNWTJFWWhEOFRLb1NEREZHY3Y5?=
+ =?utf-8?B?bDVXWEozR0o0NWZNWStTWDhpaEdRWVR0ZWtBQjRJa05OcUhxa2tIVkdQSTBE?=
+ =?utf-8?B?TVN5V2t5S2pRTU5tZEt5d1F3T280VHVQemZOdU9PanBKei83Tm5NZDNPSGFx?=
+ =?utf-8?B?L3BxakpPVWRodS9DaTI5TUxaa2lrTkVNR0gwYTVQRmJRUmpGbEFjQjhZTExp?=
+ =?utf-8?B?M1oxU1JaR2dXMU1yeFY2OVRQOEY1VDhmc0NyK1NTV2UzUHIyN2NkY3FuNHk2?=
+ =?utf-8?B?bDA5QllEeWFhRFpselM2NWRORTFMUEUvQUFXeFFnaWcxVmNJZEdBbGVmdTNY?=
+ =?utf-8?B?Z3lGcGdwWlc1d21JWFhCMHQ0aWlYMVcyV3pnRi8wWkRuY095bTE1QlpEWU5i?=
+ =?utf-8?B?VjE0bzlwSVUrVEZoZlhlVEJvQjlob0FKZ2tIaHNyM2g4eXpHWkQyQ0Z6MXB6?=
+ =?utf-8?B?NDRGN3NmYlJCNHdId2NnVVdJeHV0ZEhoTko4Q3BCMC8rRFZmUDlPQkRJRG5t?=
+ =?utf-8?B?ZnNwU1ludStuU2ZNaVRSM0o2VmhINGlrdnRnTFd2bDNxWmJzOEtrREVzYmRa?=
+ =?utf-8?B?ZTdkTU1IdGREMU1XWWlkeExZR1VXcDBKZmJQc1hjMkErK3dHNmxZK2ozN3pR?=
+ =?utf-8?B?eXJFRTc4QWVYV0tMMDdWNENKOXlwNWFNMCtxS0pab2FCZ01ncHRCVmJHSGxw?=
+ =?utf-8?B?b091WXgvUGs1ZHFRQkNpaUhUT1NFQ2JLdVl2OXFLREdoQXkwbmRaWWduYzJ1?=
+ =?utf-8?B?K0lpWXM1elpvMkxtMTZMWXYwblJlN29rR0NsZGRkS2dtSWNSdTRSZmNTMGlI?=
+ =?utf-8?B?OUxPK25jcXVpdEw3Q2JLVGVzYVdYYTVDUm1EcVdCUEZFb2xiTXpaa1VTQi90?=
+ =?utf-8?B?bUJ3ZkFRVnovaFBpaEpZTktTaVFLeFlzNFprejVtL0tUTUNYZDRFdytsUnFp?=
+ =?utf-8?B?bjAzVk1SUlNaK3l4ZURsREFPS1V3eGkvYmJ6Q3d4cmtZaEhiZHdmdkxkcU5Q?=
+ =?utf-8?B?b0dCdkh3alRRTUxpTjJNYjFtT3R3TE1aRXhvTEFsZjNZZG9haC9UbUUwc1dE?=
+ =?utf-8?Q?GtDWoyDpnho+GPlwf0CSAcnLOCHwGOFPCpYP6e0W/AN+2?=
+X-MS-Exchange-AntiSpam-MessageData-1: 5py74qPWhvMajA==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 50a71177-f918-4be1-4e91-08df40030fe3
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 14:50:00.6656
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ZKsG8i1wWlpZfO+N3YKErhLgptPNUE8Wbud0KxCFmfFF9q8lSDwJ0jtwaTdgLtEpD85ykngmmrhLvXW/JNEBTA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA6PR12MB765073
 
---0000000000008041930660014e08
-Content-Type: text/plain; charset="UTF-8"
+On Wed Nov 11, 2026 at 10:37 AM JST, Eliot Courtney wrote:
+> In the msgq v2 protocol, which the r000 firmware uses, the queue
+> pointers are kept in u32 registers and increase monotonically until they
+> wrap at 2^32.
+>
+> `MSGQ_NUM_PAGES` is currently 63 and does not divide 2^32. This means
+> that on msgq v2, the slot can jump backwards when the counters wrap.
+> For example:
+>
+>     (2^32 - 2) % 63 =3D=3D 2
+>     (2^32 - 1) % 63 =3D=3D 3
+>              0 % 63 =3D=3D 0    (slot 0 instead of slot 4)
+>
+> The writer can then overwrite slots before the reader has read them.
+>
+> Increase `MSGQ_NUM_PAGES` to 64 and check at compile time that
+> `MSGQ_NUM_PAGES` divides 2^32.
 
-From: Kyle Mahlkuch <kmahlkuc@linux.ibm.com>
-To: linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org, mkp@kernel.org
-Cc: Paul Ely <paul.ely@broadcom.com>, msmurthy@linux.ibm.com, hare@suse.de
-Subject: [PATCH v3] scsi: lpfc: Fix race conditions in ELS retry handling
-Date: Tue, 10 Nov 2026 14:16:38 -0600 [thread overview]
-Message-ID: <e893d431-79ef-4fae-bca4-38903fc8f49d@linux.ibm.com> (raw)
+Have we tested that this was also working on msgq v0?
 
-This patch addresses a race condition in the lpfc driver's ELS retry
-event handling that can lead to a use-after-free in the
-lpfc_cancel_retry_delay_tmo(), where the NLP_DELAY_TMO flag is cleared
-before acquiring the lock to check if the retry event is queued. This
-creates a window where the timer can be rescheduled and fire, causing
-both the cancel path and the worker thread to release the same reference,
-resulting in a double-put and use-after-free.
+>
+> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+> ---
+>  drivers/gpu/nova-core/gsp/cmdq.rs | 10 +++++++++-
+>  1 file changed, 9 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/gs=
+p/cmdq.rs
+> index 33074bb53e8c..240ab42db557 100644
+> --- a/drivers/gpu/nova-core/gsp/cmdq.rs
+> +++ b/drivers/gpu/nova-core/gsp/cmdq.rs
+> @@ -84,7 +84,15 @@ trait CommandElement {
+>  }
+> =20
+>  /// Number of GSP pages making the [`Msgq`].
+> -pub(crate) const MSGQ_NUM_PAGES: u32 =3D 0x3f;
+> +pub(crate) const MSGQ_NUM_PAGES: u32 =3D 64;
+> +
+> +// From version 2 of the msgq protocol, the queue pointers increase
+> +// monotonically in `u32` counters until they wrap. If `MSGQ_NUM_PAGES` =
+does not
+> +// divide `1 << 32`, then the slot, `counter % MSGQ_NUM_PAGES`, can jump
+> +// backwards when wrapping, which could overwrite slots that still need =
+to be
+> +// read. So, require that the last counter value, `u32::MAX`, maps to th=
+e last
+> +// slot.
 
-Moved capture ndlp and clear evt_arg1 under hbalock while dequeuing
-LPFC_EVT_ELS_RETRY in lpfc_work_list_done().
+That's a pretty convoluted way to say the number of slots must be a
+power of 2 representable as a u32. :)
 
-Signed-off-by: Kyle Mahlkuch <kmahlkuc@linux.ibm.com>
----
-Changes since v2:
-- Capture ndlp and clear evt_arg1 under hbalock while dequeuing
-   LPFC_EVT_ELS_RETRY in lpfc_work_list_done(). A requeue by
-   lpfc_els_retry_delay() could cause a NULL dereference in the worker.
-   (AI review)
-- Whitespace and line-wrapping cleanup.
+> +static_assert!(u32::MAX % MSGQ_NUM_PAGES =3D=3D MSGQ_NUM_PAGES - 1);
 
-Hello Kyle, the patch would not apply.  There is an extra space here
-in lpfc_els.c:
-
---- a/drivers/scsi/lpfc/lpfc_els.c
-+++ b/drivers/scsi/lpfc/lpfc_els.c
-@@ -4477,18 +4477,35 @@ lpfc_issue_els_edc(struct lpfc_vport *vport,
-uint8_t retry)
-  void
-  lpfc_cancel_retry_delay_tmo(struct lpfc_vport *vport, struct
-lpfc_nodelist *nlp)
-  {
-- struct lpfc_work_evt *evtp;
-+ struct lpfc_hba *phba = vport->phba;
-+ struct lpfc_work_evt *evtp = &nlp->els_retry_evt;
-+ struct lpfc_nodelist *arg_ndlp = NULL;
-+ unsigned long flags;
-  <=====  here
-  if (!test_and_clear_bit(NLP_DELAY_TMO, &nlp->nlp_flag))
-  return;
-
-lpfc_hbadisc.c also has a white-space issue as well.
---ignore-whitespace allows the hunk.  I looked quickly but didn't see
-it.
-
-The patch still looks good -
-
-Paul
-
-
-Paul
-
---0000000000008041930660014e08
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Description: S/MIME Cryptographic Signature
-
-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
-iId6lRoDnFAsEvnaOMvg29iSc9gZaFsMAV8NLrmVgatBLqETEHgQ4n1BrE2+pRoymE80Zf+Qe5W6
-GF5zYMjxe2smznZoexz/BISo+5QDZaKZKtmoZ3ApyLjKz1G5Q2hUhmZWHvMu/eGSXP59UaUUmelW
-ZlVs3E0h345YpaGuBNlquYm35nQ3ehYjm2jqaIh7F7K0+eF5TPjcMLpqnpak12xIx6BCxmFi8Oqu
-Gb9+KrrAD+KPgqzjyZZxdVcCAwEAAaOCAdkwggHVMA4GA1UdDwEB/wQEAwIFoDAMBgNVHRMBAf8E
-AjAAMIGTBggrBgEFBQcBAQSBhjCBgzBGBggrBgEFBQcwAoY6aHR0cDovL3NlY3VyZS5nbG9iYWxz
-aWduLmNvbS9jYWNlcnQvZ3NnY2NyNnNtaW1lY2EyMDIzLmNydDA5BggrBgEFBQcwAYYtaHR0cDov
-L29jc3AuZ2xvYmFsc2lnbi5jb20vZ3NnY2NyNnNtaW1lY2EyMDIzMGUGA1UdIAReMFwwCQYHZ4EM
-AQUDAzALBgkrBgEEAaAyASgwQgYKKwYBBAGgMgoDAjA0MDIGCCsGAQUFBwIBFiZodHRwczovL3d3
-dy5nbG9iYWxzaWduLmNvbS9yZXBvc2l0b3J5LzBBBgNVHR8EOjA4MDagNKAyhjBodHRwOi8vY3Js
-Lmdsb2JhbHNpZ24uY29tL2dzZ2NjcjZzbWltZWNhMjAyMy5jcmwwIAYDVR0RBBkwF4EVcGF1bC5l
-bHlAYnJvYWRjb20uY29tMBMGA1UdJQQMMAoGCCsGAQUFBwMEMB8GA1UdIwQYMBaAFAApNp5ceroP
-ry1QLdugI4UYsKCSMB0GA1UdDgQWBBTc34vK15RY7h33segpWeDeAloTGDANBgkqhkiG9w0BAQsF
-AAOCAgEAb0hABkNonbsXXPrDOwB9B9lRtVhdRszakaT0zWubTTtHAV/XTebY1b4caUC2iX9AJvr0
-XTJrFAiLtJ6eeP6yQOjD+rBprWauwPUzydJWEftECpX/lbPgZLBSHx22euCSnIm8HNj8o0bMi+Ii
-plCW6kU56G1krQY0jrqDJCFgH4Wmp1TrKi36iVTIXyYLDtPOcSXe9hLmeUlQuL4nAoB8EsI45w4a
-5Wi/xS7vGQLXzXAQ2SY6Yuseqhh+QcXvzeb0uVB54edC4HFrVX9DtFzHXoyB9s0C29MZm2zpFPNS
-DgwnsmTsvpPuLELuuaJvIKnSHHR9FKrmQZbmz/i6KyBt0enmjNk7I7vAKQa8IqZxSrjvR6tYExiq
-BP9ZuiXJnuqoPujFE7kphkUjmK76yv8904eZNflTvcEDpthD1boifOzT78iQ3fbuytR8LKx7tzGV
-Ga9+dcLBcR/eP85Vmc9NW1frtO3dRd26+DHs1lXX96Em5AAlvBgDw8b1GfyEvfimBkxTIWxR3mBB
-jAMkNKrfvV7NxS9AfcFu4fvxuBJc+t2FN1zBc8VyVyn9ZBeJ2DYS9uQ2x00QPXMHqVlAT5fBanmS
-n1fgcSTdHEy1fzVZIAtM1XMIWy03bJKNBwUebgxHKHSUCZ7VSMHE4jyERMCqkvTxU6h4JJ7YzRrU
-jhXYo8oxggJXMIICUwIBATBiMFIxCzAJBgNVBAYTAkJFMRkwFwYDVQQKExBHbG9iYWxTaWduIG52
-LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBSNiBTTUlNRSBDQSAyMDIzAgx9OiWw8dVRSIkn
-L+YwDQYJYIZIAWUDBAIBBQCggccwLwYJKoZIhvcNAQkEMSIEIPXy7urNe8lHUCEgcdzJ+Lnb0HK3
-9Sr78e7INL6+igfEMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEwHAYJKoZIhvcNAQkFMQ8XDTI2
-MTExMTE0NDk0OFowXAYJKoZIhvcNAQkPMU8wTTALBglghkgBZQMEASowCwYJYIZIAWUDBAEWMAsG
-CWCGSAFlAwQBAjAKBggqhkiG9w0DBzALBgkqhkiG9w0BAQcwCwYJYIZIAWUDBAIBMA0GCSqGSIb3
-DQEBAQUABIIBAL/12k3REvakv3ClMBXwCrXk2zG/CQRETbcnS/iv9/jEkvI7S9tD2dD4oUBQiVAT
-fKM9bepZti+U7wJEYTLca4dEqlz2UWhFIaQDss0WUvVKdwZF2f/MCxt/FMLlTzkhTy7eI6NQyoEw
-Xi34LarEEHcNmJS3PCAb6vl7Aa1jK3cba6pRElhRvSyS3DjRZY7OhqOAKT6UFU5Lg+2/SZuGwGf6
-AS6gmaVLiJjEtThJ+Xr19L4WYxBxptM3jQU3H5i7FZ9Tek4ZQQ5YG1aO3AN0ny/Ya0wjU8MWeUDZ
-V/2gZQlWjyIr9fr4i7NK+j8pZsp5Cf3SVq1t0IW5C6a8GVHlEj8=
---0000000000008041930660014e08--
+Same here, can't we use `MSGQ_NUM_PAGES.is_power_of_two()`?
