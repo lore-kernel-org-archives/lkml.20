@@ -1,18 +1,18 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=198.175.65.21
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1794421634;
-	b=u4R6qBuukg9gCkZ2EN97S/3oNQOORi7o9pVhi9c8X4l4D7R4bV38Uv6dxQ6bAFtoSdjr
-	 8ZeoBqsH1FHiw3rJzyuZ+mYrODDRZppoFs227GXoRbwlCwsGP9+7LSYRp2GXcxEh2uPVo
-	 Ixlt6sDGpxYuvL02y5hu+V1HWG6wo478MG71e3MkwEaVjklrDsFYP+/yvO9CEjaaARLWq
-	 723s0O3rDpiiEabB36gXr3WpNjuZC/9ZzW+oZLrq4Xu96VMXl0YHYxrvnFE2cA2GuLNw9
-	 1loHDB92VgOizo4pmajRopp5dn5BkgNUek+aYQPYTJSYCAwLtSuxJT1/KLj4Gq1lwvA==
+	t=1794421663;
+	b=Gy/x6QK7Kl0lkeGZaCi//46s6XAcoteGe0J7pDtbH2Bf23mfeFJ1Pe2CdMSrYd3yYKUO
+	 x+jcyKuZVWg3vO73CauUFg45MaZb3tnF79ErTVLWDyz33o7aJ2SZbIAxrMmT0oX3MSZhi
+	 hXgLrGMlss87oQJMGdKdGXjW+eQw9U1KEJiQNXEUlh7FLjBCFvx851EDh6ZwIa0ZsqrTw
+	 Ycjzd/4kCMXlxTB6p1Qob5i9LXB+R/8YH6kC26gB0T1iwpv6rubZ3kurRaEp6bXreXg0v
+	 6pN+cf+VkYymei3NZLM1+bY6lDgpZ2LznnuLf5jehf6Oct0LLUK7udsICgR4QN68Bqg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794421634;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794421663;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
 	 Received:Received:Received:Message-ID:Date:User-Agent:Subject:To:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
+	 References:From:Content-Language:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
 	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
 	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
@@ -27,92 +27,92 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
 	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
-	bh=BM5VdfkIV4kZI28XMaS1wzuCOVIPcUsjq2R2aWhwXtU=;
-	b=mLBi2h3lbyYCirBZfDDCpMBWkAu/2RhBz3WSib8TrC842YZKFgXr/ZYbm9RWTx2BcM/x
-	 K/FZW5d19CWV3sWU6anySzOosxe6KzeTuqlmtYiJzL/aq/vaNk91p8BE30tVx2rBv4OBp
-	 A/D8jx3EV6ZrR+gWX2D7auid5HpY2qOCsZVDYFv6AB1r+fEbmPiWFZu/H2Z4WYlo/tD8e
-	 rnjohLMrh/1GajbFD/JXQy5X4X9SSp2i/If37+RDZWs4OpTsYsScI3Uv+kdSEjK/Fbgmy
-	 45bdlY9ns/+nFR2ifzE9EaHe4fRoAy5tRQQG0UD4DHF5OUdbTg/RxvCe1iyQRZOKM8Q==
+	bh=WzKh9e2NtsRlWxuOrWzshgD0sSWT28WzCSHeEcE00K4=;
+	b=hikdz8+TAqdf0zApZat5+KV5w5WbgJ/gMWhpqIDBkGOvroZm7VjX8yAYFl0qDfWzssW4
+	 rriDQNDL+t7lf17TYYhB6Eq4BQhEXFp59cFCwXNkaFU8fmIO03YnSvg0TtGZS/z1YF+u+
+	 +3afHzACjmuBEwFSVZ0hAs7uf7Kt7GbRx75utw5iCqFsQXVeu2g4YXxF+QLq4HkZh/if8
+	 7+XDqB3iFFqhneGp31KLWguFKWBamVEVTt8MruxeSay1b5/yS0QbiQfUtZ+1tmCXFjlXI
+	 XOY3pyzKnVqKcSygH2xnW21cjYtzI1+m6DVMXdbfnSLk3FFjpfNrMMdY0ZoCPnPo5ag==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=intel.com;
 	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=C3w7NZzt;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=E1w36Dnz;
 	arc=fail smtp.remote-ip=198.175.65.21
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 652ED606A321;
-	Wed, 11 Nov 2026 18:27:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 652ED606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E347606A321;
+	Wed, 11 Nov 2026 18:27:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0E347606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=C3w7NZzt
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=E1w36Dnz
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794421633; x=1825957633;
+  t=1794421663; x=1825957663;
   h=message-id:date:subject:to:references:from:in-reply-to:
    content-transfer-encoding:mime-version;
-  bh=S5NcJpPWU6u42nhMrndDxA3ww8yKvVuqkIZN85dsgqM=;
-  b=C3w7NZztFp5y+5SviPL3Wfjb9ePAFXqR8ze+O2DmD/89NnuOtkMQFXkp
-   kF8TJ7FihYm/pMc7+lLec7PH31OSwKZnf8rDxVuJ6ru0nzLocMnPmt+hC
-   SgNfAuwUT8Z/URqSAwQAvdEP37pKLV7u8PCCCMGJcknqpHWZHQ/6OZdDW
-   Ndqj1Ca9fOa+GSghVxIklY/c7EhQg4ZxoZuv3KmiiXEBVeWvwtUsReLxR
-   ejSref9SXUAkxTuRT9eroP76SB7Gs2QrXizXPlSrveVcWtbuJwfBN4QE6
-   x3kvJwPuW4TU0DKL5X3jYTqOF7IzXrX5TwNgW4FCma6Je/si/j1eEZht6
-   g==;
-X-CSE-ConnectionGUID: XD7ScFQTRrS/26W5rcQEfQ==
-X-CSE-MsgGUID: dVRLtDX4Rx6XFOP33MUTWw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3282838"
+  bh=rLzbSOIuF00AcOh03F4GHiYlJmKevHM2ngKZ8FlDnck=;
+  b=E1w36DnzdzuF67HgeJzJ/ZiL30YGgdwrNNZCYcdXqwc2voUQMyJPDTcK
+   9MyMyuUXDC7CzuONGsMnpTR/6pj8Huh903VFjek3WPGC1xPQbQ8aRtMuU
+   uW/DVfgsoSsdP4bDpke5Ec1cTvW2Lo36oSNH100+C9HZ0Av9HofKgzPwO
+   dTSZLwzpbfF3snmVtPRUrYsO5MkKwyrsJCmtdQj/7wDoOlxdbr4nfDtrm
+   gupdpunneG91tt7biC5I9VgXzF8mhxifYZQpL0WNktm7o3PcFXLjBTW1J
+   i6mLa2Sff+s2ahOLDBtIdctV4366rg6W0AQnIUViN2Op2Q5L2PKVLcuIe
+   w==;
+X-CSE-ConnectionGUID: C4oxvfSMRSSxZ/I06DfJbg==
+X-CSE-MsgGUID: 1xOevVSvShCCbQckK999bA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3282902"
 X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
-   d="scan'208";a="3282838"
+   d="scan'208";a="3282902"
 Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 10:27:12 -0800
-X-CSE-ConnectionGUID: H/us+pcRTUSpCYtWROktIg==
-X-CSE-MsgGUID: 59cZzQBZT1SZsXtRikWxNQ==
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 10:27:42 -0800
+X-CSE-ConnectionGUID: 5PDxZa5XQ/+eyIvdjB+n7Q==
+X-CSE-MsgGUID: a3xvDLV+Ry6xHGzi6N6LsQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
-   d="scan'208";a="8566801"
-Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
-  by fmviesa005.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 10:27:12 -0800
+   d="scan'208";a="8566831"
+Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
+  by fmviesa005.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 10:27:42 -0800
 Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Wed, 11 Nov 2026 10:27:11 -0800
-Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
+ 15.2.2562.56; Wed, 11 Nov 2026 10:27:41 -0800
+Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
  ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56 via Frontend Transport; Wed, 11 Nov 2026 10:27:11 -0800
-Received: from CH4PR04CU002.outbound.protection.outlook.com (40.107.201.17) by
- edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
+ 15.2.2562.56 via Frontend Transport; Wed, 11 Nov 2026 10:27:41 -0800
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (52.101.43.31) by
+ edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Wed, 11 Nov 2026 10:27:11 -0800
+ 15.2.2562.56; Wed, 11 Nov 2026 10:27:41 -0800
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xUcaj7sgRIihE2/EHGerGvaDFruRAXXij+fDJTFKIxwU6aNfJh8pYrKhwzIQURcfDE5DkFkklEZNu2Dv+JBlpoSgoMSLOo1qT/UcjyawHVeXswOHTlrKvnO0Pe3i0PL1VAgwUVUywwZykR0yGG3gKcbhjKvzFtaRYAkH5zakHXSCCikH2Fqrf4xQxvpIc01H5u1ImXWSQS4Z6kfgAObg7iqGsnxMeh0CplfJPtyaU2+PEjKNieT6FMSOui7AKgkWCO3JVNGEgLUlfqWfFLhzT/iCPya1Gb/xk97vbfiT0o8g09KCTbZDPbaY+u/B9tekw8WcSP9Z5tEo3wNwVyxzxg==
+ b=sJM5Pefm84lxGBgFHy8/5qsB3RBK5KhvV8f51H9Dgk4N4zNgkW31j9u+Jwiv1NLEJHu1MCCZEmuoDuu6RV0VCiAWNKhAOkD0kQjdYm5KCwQNc56WqMj3i+cCzNlOBXZk42Ly4MSHqPVmU0m3ypZb3ncA5b3Ozf2YRPEIadEbZEnWd//lbZtfhqgs0L/LBBPu/8pcFCitmAr4QV4zaCdmnxgIFuM0mIp+gmIG30XnfsmfG4geeqILKEgdNw4IENZTApdvpvDUXEXCkZIqbhsMaqEes01qiLqvFHfRkNBX417wWB8CjE/KH8Nyk8+mGD2nHuCsQLVeM0L9A/0Al9rBjQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BM5VdfkIV4kZI28XMaS1wzuCOVIPcUsjq2R2aWhwXtU=;
- b=HX9YWkxeyKUOCPPQx8wTVuCZ2Lv+VwHnFx1e7WkskHRypul2LW9qIBhZiIA997YOalsiGdAnPVZYYiddkTcfzRLnje1FUDOmmBoExJRohFH04AG5sCg3RcKAy0TVz0lBE0hYT+PI+fYY0fM+WqX1pHCKiUY1BM/eLnkOSmYzzXdMQ4DS+6CprBjcbbxKN4QJ2pSD1YXgvqu4+LERQbVDJXPe6/ZjYM6R+ovrtiS+YEp6CY+YLRQPEk5Hl6sS9lM2BjwMOhdXNrNp8UC45xMUOO4xA+NoYSJndYoodLHnLryWDQ1KTUQ5ZgSQNZEmECxEE/T1WebboDbtJo1V1MEA/g==
+ bh=WzKh9e2NtsRlWxuOrWzshgD0sSWT28WzCSHeEcE00K4=;
+ b=LPyfer3g8nO3634GSdAQ37i6gayYD15MRxWxspjPHXvXkNBx40XzPkPhglx9wPtFZDDozJw70ERliWtpZy4PFlPhfQMlCA8GA6CcmFjgpg5Mg2pxaF1cB355q/wtxNQHYjqEUxo8F6cXMenN9S6L7vTeYV5/0DU1I2MYJG4bxi7JPdESjH824bNu4eyHO5clpLxbXd3bj3X7lqT11n/i8HPAMBe9tq1N5Tt70I8qwZGqSN19RMzajw15uIcdl6stioKFiKhNJiqF++7wv5cNah274BNl1pYgXT4kUUWZhrysovbxYKvUPuZ0FNWk7HIxR56IgQnCTimDK7jXd9DHHg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
  dkim=pass header.d=intel.com; arc=none
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=intel.com;
 Received: from IA0PR11MB8379.namprd11.prod.outlook.com (2603:10b6:208:488::20)
- by SA1PR11MB8447.namprd11.prod.outlook.com (2603:10b6:806:3ac::22) with
+ by CO1PR11MB4929.namprd11.prod.outlook.com (2603:10b6:303:6d::19) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Wed, 11 Nov
- 2026 18:27:08 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.9; Wed, 11 Nov
+ 2026 18:27:39 +0000
 Received: from IA0PR11MB8379.namprd11.prod.outlook.com
  ([fe80::549f:e4b3:e10d:aaa6]) by IA0PR11MB8379.namprd11.prod.outlook.com
  ([fe80::549f:e4b3:e10d:aaa6%6]) with mapi id 15.21.0615.007; Wed, 11 Nov 2026
- 18:27:04 +0000
-Message-ID: <54da1db7-95e2-4b8f-9d9d-cc2ba4bc6a59@intel.com>
-Date: Wed, 11 Nov 2026 10:26:59 -0800
+ 18:27:37 +0000
+Message-ID: <ad702ee1-ef91-412a-99ad-e425325e21a4@intel.com>
+Date: Wed, 11 Nov 2026 10:27:33 -0800
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 RESEND 4/7] fs/resctrl: Stop the limbo handler while
- resctrl is unmounted
+Subject: Re: [PATCH v5 RESEND 3/7] fs/resctrl: Clear the CDP state after the
+ cleanup
 To: Jinjie Ruan <ruanjinjie@huawei.com>, <tony.luck@intel.com>,
 	<Dave.Martin@arm.com>, <james.morse@arm.com>, <babu.moger@amd.com>,
 	<corbet@lwn.net>, <skhan@linuxfoundation.org>, <rdunlap@infradead.org>,
@@ -123,14 +123,14 @@ To: Jinjie Ruan <ruanjinjie@huawei.com>, <tony.luck@intel.com>,
 	<x86@kernel.org>, <linux-kernel@vger.kernel.org>,
 	<linux-doc@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>
 References: <20261110133938.3768632-1-ruanjinjie@huawei.com>
- <20261110133938.3768632-5-ruanjinjie@huawei.com>
-Content-Language: en-US
+ <20261110133938.3768632-4-ruanjinjie@huawei.com>
 From: Reinette Chatre <reinette.chatre@intel.com>
-In-Reply-To: <20261110133938.3768632-5-ruanjinjie@huawei.com>
+Content-Language: en-US
+In-Reply-To: <20261110133938.3768632-4-ruanjinjie@huawei.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MW4PR04CA0136.namprd04.prod.outlook.com
- (2603:10b6:303:84::21) To IA0PR11MB8379.namprd11.prod.outlook.com
+X-ClientProxiedBy: MW4PR04CA0144.namprd04.prod.outlook.com
+ (2603:10b6:303:84::29) To IA0PR11MB8379.namprd11.prod.outlook.com
  (2603:10b6:208:488::20)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -142,250 +142,143 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR11MB8379:EE_|SA1PR11MB8447:EE_
-X-MS-Office365-Filtering-Correlation-Id: d8f06654-10c3-41b8-6e76-08df402162ca
+X-MS-TrafficTypeDiagnostic: IA0PR11MB8379:EE_|CO1PR11MB4929:EE_
+X-MS-Office365-Filtering-Correlation-Id: c6cea4d0-4f46-4f03-def6-08df40217670
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|23010399003|1800799024|376014|7416014|4143699003|56012099006|5023799004|921020|22082099003|18002099003|11063799006|10067099003|261009223027099003|261026121527099003|261026140227099003|261021121427099003|261022075727099003|261022105027099003|261102123227099003|261021135927099003|261021123027099003|261028144727099003;
-X-Microsoft-Antispam-Message-Info: jb4NbtLO/xDLu/uDDzoSs1kNt0xrmJESh/Kf6irg+xG3OA37CvQbEL+rBQEMbHJfqAYC1uEjudmzffBm++wRvxUEcptx7WzmTTAJoZyu6k3sIA8Hp+wuCSio7ukpVl96hVfoHr3PxaCSjfISvwa2PaHyCrDdZSAy4VdyxqzRikX5wgoouLAOnWlek8CVxk4pUmTALLSaE0e2/3yjbYX29BbTmicPvD5nmYxOBmIfWiFg6262qSPVWb6Ab8D8//kUxXRyoYkOIkSz9pJ6pHOXZDAD8cHuJEE6Hy+OjtIKM+4TOlUCM9HWWvWckL/q9bOYpkGZ5ZHfImdijDC3JKRKeheze5/2roHWBIuAFUadTkr+P5IB4QeYoUr59YL0/irlsLdoTfUU1XFD8AZql6vy4LpiMg+wecOtMLB493Ktyi3TE4gR/A2R8wtAJnyduWuR3O0BGza5VOOzoSrlC77SjqUUSCYDWK9nWy3p2FAfdw7JCYq65ldo1x7z0Y7HeFiUaL2Q1gWriuEYs7RArDDybyjQiQkJuBPyfrPNuZVCwEei6uwd/Pw2Wtc/vdC8qVyqbrIkXKHWk47a6uVvlFBqsz6BWgMC/pnT4zDnmgAILc+YGgUMhpsowhUwnTgcfK7vqllR07f50wVlrNLdJy/xatLFckfR/dAG2E1qCsOFTh2Z07+tensORHreAY47VVJeFbxbx/VsKGoKM4NWW0si0g==
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR11MB8379.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(7416014)(4143699003)(56012099006)(5023799004)(921020)(22082099003)(18002099003)(11063799006)(10067099003)(261009223027099003)(261026121527099003)(261026140227099003)(261021121427099003)(261022075727099003)(261022105027099003)(261102123227099003)(261021135927099003)(261021123027099003)(261028144727099003);DIR:OUT;SFP:1101;
+X-Microsoft-Antispam: BCL:0;ARA:13230040|23010399003|366016|1800799024|376014|7416014|261028144727099003|261026121527099003|261026140227099003|261102123227099003|261021121427099003|261022105027099003|261022075727099003|921020|11063799006|4143699003|56012099006|10067099003|22082099003|261009223027099003|6133799003|18002099003|3023799007;
+X-Microsoft-Antispam-Message-Info: AFxm31WvI51fIO9Tfw7e01/T0bRNRrR05xXtUVFb83TvMdVWDX6t7WFvZ/pFeejxVxEcqtGxinudZ4sBVUU8D3uU54Es0gY+vvmhNaeVJMGov0YonO7pEaSQCCPo2YkLb007DMCC5I624k1y5l94AvIloC24jn989EElFMf7TrJWqrDx4JDzd8hbI89gdWACX9VTkEis8xPc7Ql7I2pBFnTSGKudiCQkEnh+9MZXveJjBxieNvAnTxX32qiBV3ZEypPCOoHxKFrbCM7XdRQQIA9Bx8X8Es1xgccVNvLAO6faO7faPyqtSzlhn22E0RECNqDGaIdIT4xuehGCS1sFRlH2Ndx3eWPgNpAuoJ5NT5tGqCkWg5GsTxC7EQvV7JrOjJKyp/znL7J8TkOuI2I4PryNLwBzJxeFvfTHEekTw948WgQvXnAmfK2s1BkLhLf/lMlCw6Ak7HdjyKhZQe6gGiK0xFxsDDnbhzyF3Qj4kmKah13Hgoc+KDoREYpAPgsqHaD6H61EnZSRVH3k4qoIhESeau/IV6wMxaQ20lKWyjqk8OFtHg+Ye4BuvCuY2ucgAJYfqKvj9CRLxxc1YH4B8P7FeMjBHnIATwSqC/w8PXqYIP9Jd6xty8Ec81J6es8iqQKnRU1aizp22hURI1lVYn0KilqX+TGZuy3+fNUl/GQzkOgXsjyDc8nBc7mJ5vEvUmL6Zw7EYYb4pz2roQ2jDA==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR11MB8379.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(7416014)(261028144727099003)(261026121527099003)(261026140227099003)(261102123227099003)(261021121427099003)(261022105027099003)(261022075727099003)(921020)(11063799006)(4143699003)(56012099006)(10067099003)(22082099003)(261009223027099003)(6133799003)(18002099003)(3023799007);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VGZIYlNleUZIMldBNTU1ZXFTTHphaVR5dFFJUW5MdS9LUHpFUkRqYnRSd1FJ?=
- =?utf-8?B?RlhLdTJ0anNXSElTNzk5Rk5ZSEVyMFg2Uk5wUTVrd04xVitjRUxRc1lGR3Rp?=
- =?utf-8?B?V0xBOFdvRnc5eFZHYUYzVmhMNE5GVVZTN01kd3dVcGJGeGgyajJzN3o2YVFP?=
- =?utf-8?B?UkhuTE54TXpmYWpqUFZ5cjhnenNIb21pVnFNLzNXYmtjQ0dFWXNtM3o0NVQw?=
- =?utf-8?B?L3V3aTJ1RG5KUms4NDVubmFyYlkxb09wNzl0QVFBcEFQY0VhQ2Y0alM0bTha?=
- =?utf-8?B?Vk4yblVPbUZXZUJHL0tUMHdlTGZXWXJZZjJCUUFXRFJ0OUV0M0pnSmZPU2Ni?=
- =?utf-8?B?cU12LzllTWEwUWRrZVNBVldqRFNiZ2RsdStOUVJEQS9seVhBR0QxU1FFYW5o?=
- =?utf-8?B?aWxWdkpWNCtuaCt1MC90MVFBU3pHTlBaNmk4THV0M0tQZEU1Ny90ZUJkYlJ1?=
- =?utf-8?B?bnZqdk5xR1gvSHFTVEdpRTVKbkNURzlCSktPeHcvM3FjSytKK0llSU5Gd281?=
- =?utf-8?B?MlR5SDRxWUwrWnpxTkwxUCs2dFk4empXUnpoOFB3TzdpUUltWUJJcnZlRFMz?=
- =?utf-8?B?bHUvWXBSZWxtS05ySE5ac0wvM084dDRGZnkwZVhIVjhHNWI5QnZpSitBa3J1?=
- =?utf-8?B?SElsaVVtdy9jb2FYa2NPVko0YTRqKzdXTGZycERiTzRPZFBZNS91QVhuYmlV?=
- =?utf-8?B?ck5BS3NPK1gxbFQ1RUdYVThEZFUrNDNtK2piNnorbVJnd2pEUHhYZDNZcmJ1?=
- =?utf-8?B?Nk5wNnhGdWw0Y2pmMHN5WWpkOC85RE9La3RVZWtOcEhjVkRZdzZvVHZna3JQ?=
- =?utf-8?B?SFBDWFVnTzJqc2Zxc1NYSEhRSFE2b2w5U08yYzY3OWlyY1VZVDU4Y0l3L1g4?=
- =?utf-8?B?UWVPTklvcStMK1d4aHZ4enlNWGttWVArWFI3RkFBdjBxUUw3YnlLZDJyR2sz?=
- =?utf-8?B?NDlPaFUyL085T1piRmp2NXphSm5DQXFFT2VEOXhGUTN4cjVrVFV2L0U1RFlF?=
- =?utf-8?B?UXpMVHI4Q0laNVVIWXhhK09xUHYwdEl0WlpYZFFLektLbnVLZUh3bzh1dWl5?=
- =?utf-8?B?czRwd0h4dGJkOU9BcjlKSVExaEVvWTV5cDVHaWZJdVRTa1ovUjFkRFJjWGIz?=
- =?utf-8?B?REJMTm9tRUNnT1lFYVlKZXdtL2xxRVBoU1p5eFlOUEdJS1VFZWFiaStNcmtP?=
- =?utf-8?B?aVZVZ0hwejdoeUFTcHF5cURtakNyUjRXSVJGVnNLSmpaanVNUVd0QTNMOTJC?=
- =?utf-8?B?TFUxU2doeEZwczZ4ODFiUjlwZVVNNTlncjZMdGNEdm9xREtOVE16TzNudldI?=
- =?utf-8?B?RW9pRHNhQ3FZUlBZdGpXVTlsUmNsYVMrZE95TFB3QzVnRUJaMW5Ia1dHcUJC?=
- =?utf-8?B?MmhIeDNkTHlKejVsL25POTF0b0tMM0hmRmZ2bk5vNFdTMGgxNVcyekpMMjRT?=
- =?utf-8?B?V0JlWE93Wm5QQzZONkVMSVI2ZHd1RkUxUmQvT0VqWHNoSDM5aXF1aHczek1Y?=
- =?utf-8?B?YmxYejVKTVBGanJqWkJMYnBCbGJqQWRzbmVkSVpKeWtxUU12THpBSGxDZzdR?=
- =?utf-8?B?dlUvNHNWbjAwb0ZsZTlKdFNrZldiN2lQWG5jeE1rMm5nY3ZObElFS0t0LzdT?=
- =?utf-8?B?VWMwc25acGJCSzIwOGxQZWdsY2VKWC81bGM3WXI4N2JObG45SzVnemNEMHU5?=
- =?utf-8?B?WERJc1V3U1AyRkNneHRMOGxPazNTaHpXcVFZRzdFRklaMFMzTEJxcG4wdzVL?=
- =?utf-8?B?R0N2NkhWWFg1L1g3akt0NlIwV0NISlloNzJsUlZtMHJXREsrRGhiM0d6aWZo?=
- =?utf-8?B?RHZTLzBSd0VUUElJTW1SOGk4eHMxdzB5NStXcTlhd1hqeDlIV3BqaFBkYll1?=
- =?utf-8?B?TDFPYVNDL2p1MUhzakZzUmdIbWFLY0djU25mZjg2eGJoRzVoN0hiRGgrU1J1?=
- =?utf-8?B?dFJZNENLbHRnYm9xMzhWOUYwQXM1eld2OW5xejNGRmR3azhUa0pRK0JLaXF6?=
- =?utf-8?B?NFhkQW8rMmd6b25wMXVISHJUZm9ZcjloL2NHNWlGdkNlOXFuMmRPK0tHeC9o?=
- =?utf-8?B?UHFoZk03cHBHYVZ4MDlncEtEeUpwYUhJbUQzZVg1RVFyQnZuTVBaTXRaNjBr?=
- =?utf-8?B?d0VWVG5td3ZTWHJiZnBIdVdheEo1VGM5ZkVIODFBYmg0cWg3bjVidFAwVnNa?=
- =?utf-8?B?eWdnL1c1dk1XLzdMWHh2Q3J2U1FJdmVRVXNtTyt1VDBHT21na2hUZm1HUXNx?=
- =?utf-8?B?dWp4cnBYUzJ5ZlpvbmorYVZDeE82aHFhQTkyTE4zams0S1hrM0J4ZUJza3JF?=
- =?utf-8?B?ZkgzSmQzdFJIQ1RqUzc1YjJIRGJQUU40Yi9wQUxURFNpd09FL2R4bmxNVzY2?=
- =?utf-8?Q?ifE5dBKveftaSlqk=3D?=
-X-Exchange-RoutingPolicyChecked: t0or+GoZeFbeJPNFoPU5pCNFnKpvCa220z3tcnDpNWZJ/RmRPMK3zSr4xndi7FbJhdY8UnE1St6GZNR/FSRq7SEWBNlE61hUIUHb4y1mpVAb1sgak7msIr+Bt69k7k+hE8okNz+QOn19nYWRLuS7tuBfouJsy0nAhdtDNRMk5njyOlktlDPuCWS3XHCTGWKAZo1i2BGeQcsXnzEnIwIqQao8zzUiouGHRKjE8zAbbCHpF9DrywRRsYtHB5wu+omSoYdiJEXHdLQG0lExmH6DyViJOZPsxXeBuZaSVK7c2zV2p/KyXJl1osBBpuUq7J4LJln8OU9I6g/haKcwNLvWDw==
-X-MS-Exchange-CrossTenant-Network-Message-Id: d8f06654-10c3-41b8-6e76-08df402162ca
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?K2VaUm5nUnVnMFBHN214NEdlS05TaWx4aFU2T25DWWd4NDlrY3JKR2FxeEpF?=
+ =?utf-8?B?QjdvQXE5SlNraWIzZGdCOVBsWEV5aGkvYVZGODRYMTVRYW1MSGdheU5TanVH?=
+ =?utf-8?B?cFdJcUZlYWdYTSt5R0lwR1lOcjJyelJZcEVEU3hHVnJoak1XUjFqT0xxdWw0?=
+ =?utf-8?B?UjZ5Q05tYXZrUVhrNlNzb3EraW1Wc1YrcE15N2JZV3NPTzJYYlVXZ0oydGE3?=
+ =?utf-8?B?SlBZaG95T1IrckhHblNRdzJpS3laZXNVNTZuRkl1Szc2dm5FK0g0S1l2emZk?=
+ =?utf-8?B?VmxJQm5iUkxXU2tlSE5PWGdmUWZxYXQ2MVVZSEpUeDFtbEREUUxlSCthM0hZ?=
+ =?utf-8?B?cXQzUjdiMVFicXIyRG96N2pqdHNrOURzZmFqRTUwM3Qrc25hQlZKNk9RUWUy?=
+ =?utf-8?B?ZjdoY3VGTk1TcHlIaWpqcXFpWWMxSXc3TmU0Uko0TW1oYzFUSjhUdFA3SGJo?=
+ =?utf-8?B?V1g5M043aW9BQ3RDR0lKZXl3SDlocmdsREpHQmIxdVZST1pVNk9WZ0xYYTdK?=
+ =?utf-8?B?Q0RkSXY4RlFJQVVETmx5VWlRSWdtQzRHZTFZK3VCN0NnSlBtcWVCQ0JDSXlv?=
+ =?utf-8?B?Q2FLTFFpcVBhVGxBNjFxTENxK3BTR1VxR2xoMStLR0NNUEpKTXlxd2taQ0cw?=
+ =?utf-8?B?ZXhmZ0JrVXdUTTZJdDZ0WXhxS0VHVTlIV0JQYnllakJBR0JSTmljRlVhR2lm?=
+ =?utf-8?B?bWdVMlRXeDkrUHNnL1BtMjlUaGNZenVrQ1JqL2xsSk44YmFqbTdCekZkNkpK?=
+ =?utf-8?B?VFNyNllLaXpzU3F1VUd4OFYvc1FvWWlGaEZCY0pzRE12M0NZZERuUXZMaXc5?=
+ =?utf-8?B?N3orOThVNHdMZG4rOU0zRzVwWjR2NU5QWUdkckc4OUdERllJSUtTbm9ROTdD?=
+ =?utf-8?B?N0dib2Z6TC9QY1BYbVRLUFA4a0ZJa3UzNlFBZzkzeWpsR3dJSnVqUTVaMHRE?=
+ =?utf-8?B?TTFYZU1PYjVzTWw1NU1Hdk0rZkV3L3lQTlpYbldTaVlOY1RJaHF2Vnc1R1hK?=
+ =?utf-8?B?WlB2U29WblRhR3pNSjVuS1F1QUgwMVdWRVZEWU8zQmR5TW1ueUxFbWpxUmRT?=
+ =?utf-8?B?Z09TdVNvNWtVQzFxY0VXWjc5U0tpdXFQVFZWQ00wUXZCQmJQYjdnRHY0NW5J?=
+ =?utf-8?B?Z3BlSFFRcVRzd1JNWDBKcU11dXJyMmRNYS9oeGVSd2dBbWRxTlowOTZZTUsr?=
+ =?utf-8?B?VnRGaVdVaEVyRVBvWFlkVGtrK3pNWDJQcUFkQWViRUFZd1hkOHJDMU91b1FY?=
+ =?utf-8?B?UDVyM1ZDYmF4dUlMZDRLR2M2enhYa2pCYy9FM1RPa3JzaHorVVFDcGgydzBm?=
+ =?utf-8?B?MGdLemxnZnpaQTQ0LzI4VDcxZituUjRjY3c3NGhiWGZuRWdNTHAyajIrcDZu?=
+ =?utf-8?B?TE5pQWF1UC9lYjdWcUE5UE1NTDBVbEJXTUo4N3VnNkh0bFgrckNhV1UzQWFR?=
+ =?utf-8?B?cmJ3cU5ZL2hWUXduMm8yZFpOQVlWOUtTbmJLTlpsVXl4UFExeHhmMVA4YmZE?=
+ =?utf-8?B?VDI0M0NNbEFtZGIxZXhpWEJnL2hMcGhIYkgzYWltaEFsenovM0lQeE91WGM4?=
+ =?utf-8?B?QVhhblpacmlvRFFxSG9LanRUWmlLZzFJOGhkZHlrK0R3VGZOOXgycjlOYmwr?=
+ =?utf-8?B?OUswcDVkYzJLZEliYzBBZnRyOXRyR1JhRWRwZDBpRS9jUC8vcXA4Wm1IVXZV?=
+ =?utf-8?B?eWhKQmdwQS9yVTFqdnpLakxxbjhrZ1U2MkJHbU9NZEJsc0NlR0ZFenVTOVo0?=
+ =?utf-8?B?d2Y0VUJOSGxRRlN2Z050bzI2MlozQU1HZWFBYlNpZHZhU3NnVklNL25URmhK?=
+ =?utf-8?B?KzB2NG9qNXpHZVYxWFYxb1FYUkdiMDZ0WWhKR1RQMTdjeTVIaUE5RTc1QXZK?=
+ =?utf-8?B?dXVkQnpUczVzaGNxc0xCVmZJV1pvYytuTXIrQzdkUnZORmtIUi9KWVZINk5y?=
+ =?utf-8?B?T1ZFQ2o0eENpMS83THpueW1lZnlwOVVQbDZqY2owTHJ6RlFPMFkxUVJ4S1pn?=
+ =?utf-8?B?KzAyUUpLUFJZT3Vtc2MrV2RZTW5Ia3kzYzJ0T1dPbTlRQUFjWWRqb2NLMHN0?=
+ =?utf-8?B?cmQxR0hLaENZWDQyNnZJbWdPRzRUZnVmemZzY1BLK091d0VpMTRQZVV4UTFn?=
+ =?utf-8?B?TU5VNWxLbmtWUlBIZklJRTdTcWZKQUlBVE9jYUc2UjdackV6MHFKRHZ4UHZ1?=
+ =?utf-8?B?enNST3BUS2xnaHV3R0pWVTdZR0J4dUczd1RIS3JaN0x6cUdFelVjY0JOdFFn?=
+ =?utf-8?B?VVViK2ZMRENxMmZ6aU9OVkNUZDFicVpqcmJWZHYvSGVIM2FzWnNCSjMrVUdO?=
+ =?utf-8?B?bExDWWhWdVRVVTRRcjdYUnFqQW04bXVYbDIxa0ZMSTN0WXdJRGZ1Y2hvc3RI?=
+ =?utf-8?Q?7nldpFqg1w58Eufw=3D?=
+X-Exchange-RoutingPolicyChecked: Hq3RSJtj4bBBIc1xQH6A8wRnyQE3JosoXjkc6qeTV72sX5CAvupD7hL1gjabc9lKiyaNZlwhA6yt1ss6xpSle6Vm9GX94XLn6uJpSS8QRHWz98VfS+TmTIFUX6aiGjIhv/g2fKp23lQh+q5au8RZJvQqMw4KGoNk7QCH0OT0qIkqbss5Kkc7Jcyj8uj3W2WtaE8QpY0gupvtbKteGmZtcQe9Hj9/1fB3yYhJiGynawCPF/5qfVDNQAU1vnQsHOJVw9lNvVxSUj5yfLtein3Guk4jQ2wGLnnEoKhZv/hs0fQ9e5Qxu61atm84+UNm0Kz6L3Iu16nQJ+zLKJme9VVqSA==
+X-MS-Exchange-CrossTenant-Network-Message-Id: c6cea4d0-4f46-4f03-def6-08df40217670
 X-MS-Exchange-CrossTenant-AuthSource: IA0PR11MB8379.namprd11.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 18:27:04.8395
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 18:27:37.6894
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 1B4me/OdC8v1ZD7PFvYwX4bekHa2KtGQNCQkqKY+I/YHGsQbcu7/2tayC6P20O8HvF94AS/xqck63rUYNyGDycqfRi+rP7//tLKDzpKKePM=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR11MB8447
+X-MS-Exchange-CrossTenant-UserPrincipalName: a9OW0GRguDYSaL45mf1iRf/wMs9PLO7BwdO0s1H086TWJ49YXcYlnCdxYNY6ncXOYyToQbizMQ6WNmz0Qwv/YRfNigv+GkP3iLz9EZoMrn8=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO1PR11MB4929
 X-OriginatorOrg: intel.com
 
 Hi Jinjie,
 
 On 11/10/26 5:39 AM, Jinjie Ruan wrote:
-> A group's RMID is not returned to the free list when the group is
-> removed. It stays in limbo until the cache lines tagged with it are
-> evicted, and the limbo handler reads its occupancy counter in the
+> On MPAM a CLOSID is translated into the PARTIDs that the hardware
+> configuration uses. Without CDP, CLOSID c is PARTID c; with CDP it is
+> PARTIDs 2c and 2c+1. resctrl_unmount() clears the CDP state with
+> rdt_disable_ctx() before resctrl_fs_teardown() removes the groups, so
+> the teardown translates the CLOSIDs differently from when the groups
+> were set up.
 
-hmmm ... technically all cache lines associated with an RMID need not
-be evicted but instead the number of cache lines tagged with the RMID
-needs to be below a threshold.
-
-> meantime. The limbo handler keeps running after resctrl is unmounted,
-> while the MBM overflow handler stops once resctrl_mounted is cleared.
-> 
-> Reading the RMIDs in limbo while resctrl is unmounted is not safe on
-> every architecture. On MPAM the counter of an RMID is selected by the
-> PARTIDs of the CLOSID that owned it, and the CLOSID to PARTID mapping
-> depends on the CDP state. The unmount clears the CDP state, so the
-> handler that keeps running reads the RMIDs freed under CDP through the
-> PARTIDs of the cleared state.
-
-Can the jumping between CLOSID and PARTID be avoided to reduce confusion?
-For example, could above paragraph be simplified to something like below:
-
-	Reading the RMIDs in limbo while resctrl is unmounted is not safe on
-	every architecture. On MPAM the counter of an RMID is selected by the
-	CLOSID that owns it, and the CLOSID depends on the CDP state. Unmount
-	clears the CDP state, so the limbo handler that keeps running reads
-	the RMIDs freed under CDP through the CLOSIDs of the cleared state.
+This behavior is not unique to MPAM. Above makes this sound like
+architecture specific behavior that makes one wonder why this needs
+to be fixed in resctrl filesystem
 
 > 
-> Stop the limbo handler while resctrl is unmounted, as the overflow
-> handler does, and restart it after a mount on every domain that still
-> has RMIDs in limbo. The worker can stay queued across the unmount, so
-> cancel it before queuing it again. This keeps the limbo handler
-> lifetime the same on every architecture.
+> For example, rdtgroup_unassign_cntrs() unassigns and resets the MBM
+> counters of each group through resctrl_arch_config_cntr(). On MPAM that
+> helper maps a counter to a monitor with the index
+> resctrl_get_config_index() returns for the CDP state. A counter assigned
+
+Please take care not to narrate the code. Instead just describe the flow
+on a high level to help understand the change without needing reader to
+refer to the code much.
+
+> while CDP was enabled is mapped to the monitor for PARTIDs 2c and 2c+1.
+> With CDP cleared, MPAM removes the mapping of PARTID c and resets the
+> monitor for PARTID c instead, so the mappings of PARTIDs 2c and 2c+1 are
+> left behind. The helper had an empty body on MPAM until the ABMC support
+> implemented it, which is when the teardown started to program the
+> mapping with the cleared state.
 > 
-> On x86 the RMIDs in limbo are no longer drained while resctrl is
-> unmounted. Nothing needs them until the mount that follows the
-> unmount, after which the handler frees them as before.
+> Clear the CDP state after resctrl_fs_teardown(), so the teardown runs
+> with the CDP state the configuration was created under.
+> 
+> x86 is not affected as its RMIDs and counters do not depend on the
+> CLOSID.
 
-Since this change impacts all architectures the motivation why this is
-ok should be stated prominently and not left as what seems like an
-addendum to the changelog. What do you think of dropping the above paragraph
-and instead add the following at the beginning of the changelog:
+I think x86 is lucky here to not have encountered this issue and this fix
+applies to it just as much, adding to motivation for this needing to be
+included in the filesystem. Below is an example of a changelog that aims
+to capture all the comments, you need not use verbatim and are welcome to
+improve (and please correct) it:
 
-	A monitoring group's RMID is not returned to the free list when the
-	group is removed. It stays in limbo until the cache occupancy still
-	counted	against it has dropped low enough for the RMID to be reused,
-	which the limbo handler checks once a second.
+	To support CDP, resctrl halves the number of CLOSIDs available to
+	resource groups and gives each remaining CLOSID two hardware
+	configurations instead of one, distinguished by index: 2 * CLOSID for
+	data and 2 * CLOSID + 1 for code. Without CDP a CLOSID has a single
+	configuration, at index CLOSID. Every architecture computes these
+	indices the same way.
 
-	The limbo handler keeps running after resctrl is unmounted, where
-	there is nothing for it to achieve. An RMID is only allocated when a
-	group is created, which needs resctrl to be mounted, so no RMID the
-	limbo handler returns to the free list can be used before the next mount,
-	and that mount can check them itself. The MBM overflow handler already
-	stops for this reason once resctrl_mounted is cleared.
+	Unmounting clears the CDP state before it undoes what the groups were
+	given, so the cleanup computes index CLOSID where the group was set up
+	with 2 * CLOSID and 2 * CLOSID + 1. The group's two configurations are
+	left in place and index CLOSID is cleared instead, which with CDP
+	enabled is a configuration of a different CLOSID. The architecture may
+	keep this state for as long as the resource exists.
 
-	Reading the RMIDs in limbo while resctrl is unmounted is not safe ...
+	Only MPAM can reach this today. Of everything the cleanup has to undo,
+	MPAM addresses only the MBM counter assignment by the translated CLOSID,
+	and it only began doing so when it implemented assignable counters. x86
+	addresses its counters by RMID alone.
 
-	Stop the limbo handler while resctrl is unmounted ...
+	Clear the CDP state after the cleanup, so that the cleanup runs with the
+	CDP state the groups were set up under.
 
 > 
-> Fixes: 6789fb99282c ("arm_mpam: resctrl: Add CDP emulation")
-> Suggested-by: Reinette Chatre <reinette.chatre@intel.com>
+> Fixes: 6e0e538a75ce ("arm_mpam: resctrl: Add resctrl_arch_config_cntr() for ABMC use")
 > Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
-> Cc: <stable@vger.kernel.org> # 7.1+
+> Cc: <stable@vger.kernel.org> # 7.3+
 
-Looks like 6789fb99282c landed in 7.1 so this stable constraint looks unnecessary?
+Looks like 6e0e538a75ce landed in 7.3 so the stable constraint looks unnecessary?
 
 > ---
->  fs/resctrl/internal.h |  1 +
->  fs/resctrl/monitor.c  | 43 +++++++++++++++++++++++++++++++++++++++++--
->  fs/resctrl/rdtgroup.c |  2 ++
->  3 files changed, 44 insertions(+), 2 deletions(-)
-> 
-> diff --git a/fs/resctrl/internal.h b/fs/resctrl/internal.h
-> index 1c85e06f09bf..c95fa6ce62e6 100644
-> --- a/fs/resctrl/internal.h
-> +++ b/fs/resctrl/internal.h
-> @@ -373,6 +373,7 @@ void closid_free(int closid);
->  int setup_rmid_lru_list(void);
->  
->  void free_rmid_lru_list(void);
-> +void resctrl_limbo_resume(void);
+Patch looks good to me.
 
-Could this new limbo handler helper please be placed with the other limbo
-handler related declarations and also match their naming? For example,
-resctrl already has "cqm_setup_limbo_handler()", so perhaps this can be
-"cqm_resume_limbo_handler()" to make it obvious that there is a connection
-between them?
-
->  
->  int alloc_rmid(u32 closid);
->  
-> diff --git a/fs/resctrl/monitor.c b/fs/resctrl/monitor.c
-> index ae9ddd380515..f56d0e32fd06 100644
-> --- a/fs/resctrl/monitor.c
-> +++ b/fs/resctrl/monitor.c
-> @@ -852,6 +852,13 @@ void cqm_handle_limbo(struct work_struct *work)
->  	 */
->  	mutex_lock(&rdtgroup_mutex);
->  
-> +	/*
-> +	 * If the filesystem has been unmounted this work no longer needs to
-> +	 * run. resctrl_limbo_resume() restarts it on the next mount.
-> +	 */
-> +	if (!resctrl_mounted)
-> +		goto out_unlock;
-> +
->  	/*
->  	 * Ensure the worker is dedicated to a CPU as intended and not
->  	 * relocated by workqueue subsystem as part of CPU going offline.
-> @@ -1001,8 +1008,8 @@ int setup_rmid_lru_list(void)
->  	/*
->  	 * Called on every mount, but the number of RMIDs cannot change
->  	 * after the first mount, so keep using the same set of rmid_ptrs[]
-> -	 * until resctrl_exit(). Note that the limbo handler continues to
-> -	 * access rmid_ptrs[] after resctrl is unmounted.
-> +	 * until resctrl_exit(). Note that the RMIDs in limbo stay in limbo
-> +	 * across an unmount and are checked again after the next mount.
->  	 */
->  	if (rmid_ptrs)
->  		return 0;
-> @@ -1033,6 +1040,38 @@ int setup_rmid_lru_list(void)
->  	return 0;
->  }
->  
-> +/**
-> + * resctrl_limbo_resume() - Restart the limbo handler after a mount.
-> + *
-> + * The limbo handler stops while resctrl is unmounted. Restart it on every
-> + * domain that still has RMIDs in limbo.
-> + */
-> +void resctrl_limbo_resume(void)
-> +{
-> +	struct rdt_l3_mon_domain *d;
-> +	struct rdt_resource *r;
-> +
-> +	lockdep_assert_cpus_held();
-> +	lockdep_assert_held(&rdtgroup_mutex);
-> +
-
-Could you also please gate this flow on rdt_resource::mon_capable? This matches
-the custom of capability check. resctrl filesystem does not enable the event and,
-for example, x86 sets monitoring capability after enabling the event. Having the
-monitoring capability consistently used as gate for monitoring flow supports
-a robust and consistent flow.
-
-> +	if (!resctrl_is_mon_event_enabled(QOS_L3_OCCUP_EVENT_ID))
-> +		return;
-> +
-> +	r = resctrl_arch_get_resource(RDT_RESOURCE_L3);
-> +	list_for_each_entry_rcu(d, &r->mon_domains, hdr.list,
-> +				lockdep_is_cpus_held()) {
-> +		if (!has_busy_rmid(d))
-> +			continue;
-> +
-> +		/*
-> +		 * The unmount may have left the worker queued. Cancel it so
-> +		 * it is queued again on a CPU picked now.
-> +		 */
-> +		cancel_delayed_work(&d->cqm_limbo);
-> +		cqm_setup_limbo_handler(d, 0, RESCTRL_PICK_ANY_CPU);
-> +	}
-> +}
-> +
->  void free_rmid_lru_list(void)
->  {
->  	if (!resctrl_arch_mon_capable())
-> diff --git a/fs/resctrl/rdtgroup.c b/fs/resctrl/rdtgroup.c
-> index 3312637fb514..b702fe6dbbec 100644
-> --- a/fs/resctrl/rdtgroup.c
-> +++ b/fs/resctrl/rdtgroup.c
-> @@ -3267,6 +3267,8 @@ static int rdt_get_tree(struct fs_context *fc)
->  						   RESCTRL_PICK_ANY_CPU);
->  	}
->  
-> +	resctrl_limbo_resume();
-> +
->  	/*
->  	 * Ensure root remains accessible after mutex is unlocked so that
->  	 * kernfs_kill_sb() can run safely if called by kernfs_get_tree()'s
+Thank you very much.
 
 Reinette
 
