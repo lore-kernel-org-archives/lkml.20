@@ -1,93 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794434346;
-	b=uxNuf0FbjqyyDTjasBNJpvvMDunKAK0yLa8AcnjWZcT1Tjp1NSf/ASno9wcrAyzmesaj
-	 4qMh7EfaMYAa8lZurf/Ok76rpndkO1mQxnj/MGDILcy26BsJrm6yWMsskafP0RP97fmCk
-	 WO/6nvWNjkrAvC/bgHfg0U5FJcTnFS1E65e5X9EZu6N/d0E+ATww7hUhjIs62JG7SVGud
-	 6aIl4jigvqNQUHrnjpGlId92uW9dJXjsTTLp4NG6wOz8RfTCkiE0YZphEHLfPMtWnVGiY
-	 EheNEPMnMniJjHYy0AUgTVSR7F5MCdES1e+66pW9slNQlHoJpD8COMrQKJXPIXPPQCA==
+	t=1794434387;
+	b=qQPgPbQrArzHO6K3l6jDG+Tn35jyTXunWyYtLWXMN4c2JvtXk5UqHhnZAsXyYcAJhrW7
+	 /9tgG+O8qoHMgIbIy4j/GaB1VrsyAeTqkCVxQ8bm+3OGZIJCQFOWTgYNJyVukImVt3p/r
+	 jZl9h0gQdwRX+cERISdyhApVzwnK2u2DGYQOMfuS+I5xC3eWq3Kk+NcSfk1oBcFJt1BmH
+	 jp5Vi9n7hCJBJSbvSPtEmRXvyxPCHXrQFLTYxOZl0MO+T21fBifZp7spQJpCGCGmCM4t9
+	 kTXJnJVWCPYcqweMmVJF6oBwqyHzmauV0qW2EYWL9us7zucgJlVxgeZlBvhi+FowTIQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794434346;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794434387;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=gp3JDzz6fGsFqJJBxPI2Vb3ErhAuZYiFu1m0q4pFhTw=;
-	b=cHsYmQnlxAPOi3+2/6sMSsU0Im/LjrIg6yktEBj8W2ZaDQ1oF3+7MvLSE+FdcbqkBuXM
-	 zfW4eSA4B50ZoPppvf5oWZ4sBMKxHnOBD1qmGOJ5WYJTrSomASs4e4IUIE5yfkepuzsQK
-	 BZcVhocwUPiikQnpu6ZjyD8oLDxKCTQViO/4F3Z+oYHouxdkrPu9+PJCb99Ygf3o2U//Y
-	 HlkIphXuKoCodvOV4JdUTLgLvbOeLAA5hAWeYyXv4ALEfWs8u+pc+ztEjRlpJpV0i+ODw
-	 93tDV0qg1QDlxkXlTJw/qdaPWT/0x0hJip4vkktwV4nC7ZOX/Satjeh0ci0p0xSm6ZQ==
+	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=BaTRt15ApUolDeSrcLBJmuIxxr7ecXkh8ZK/IMhuYFw=;
+	b=B13SDLhndCX92usMB9dJdJ6xenpa7ZbkqSpps1AqxC+dStMDCh+FNWOQLWlPR1e/gZVv
+	 TiVJHyGWCK8l3RboIJzbqiWKM1LEHcZI5Ue4fngDRHlI0yhkSHF+FJ6zmb9w2comteEhP
+	 gzmV1Q9/YZyxQEsprUrKipqPSrF2C+F9lnNeQYfNCN+Pu0AjSFK2hHeSWQYxyD0daPtln
+	 Azyqo47ge5Mjwyn1NJBhfAoJKu5GzY6kpkc7tYBZSwWltLFse3jEiPT2aVmUKy9NPlc7q
+	 ItvDUw6iNty5uIoDZGXp42hqUOP1DMZSAuP+khMkeENAKfIu+vDgy0sDJSqschY1BcA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ljWddJXX;
-	arc=none smtp.remote-ip=209.85.222.173
-Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com [209.85.222.173])
+	dmarc=pass header.from=linuxfoundation.org;
+	spf=pass smtp.mailfrom=linuxfoundation.org;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=google header.b=fuzguPad;
+	arc=none smtp.remote-ip=209.85.218.42
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D63160A3824
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 21:59:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6D63160A3824
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36FD3606A321
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 21:59:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 36FD3606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ljWddJXX
-Received: by mail-qk1-f173.google.com with SMTP id af79cd13be357-93f20c3aaa5so317162785a.2
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:59:06 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=google header.b=fuzguPad
+Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c4d58c50743so346395066b.1
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:59:45 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794434345; x=1795039145; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=gp3JDzz6fGsFqJJBxPI2Vb3ErhAuZYiFu1m0q4pFhTw=;
-        b=ljWddJXXf7IkHnl5xJb3WO0J4LpldKi3Xnh4EhXaxlUFHO2ERWKLBCSVk2p4hSy4CN
-         8/GQZ+pIcpeY83ng0rxo0eEqe0KAnkIrv4x7VrfJTo+0NG/lHAxSAAmRKzU0odKoMw+s
-         3CsRVGsjVbFDPTO7ueud44u2e5iagk9ozpsnMxCipcUWZj6jfegEtJvulQivOCjwYDWF
-         dp+4WDUTOb3VE+WpBxTUCjLjE28jqnahNM3v88Fx6L9ilMsz4MsbGR307JjXaweHGD/G
-         SCi5kIdhWoA5rMNZkkVXP13LIgmls8EeZIqX4+UWaPLTwHm659PZPsKvret0JlZFgvhk
-         kchQ==
+        d=linuxfoundation.org; s=google; t=1794434384; x=1795039184; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=BaTRt15ApUolDeSrcLBJmuIxxr7ecXkh8ZK/IMhuYFw=;
+        b=fuzguPad0YR2Wlc/2qkdh8ljovUpOTduzVPdtk10yuOOWE9jteHfaof9RaD32JEo6T
+         zn7l7EMToXhr2e0w/iQWxxxCztnSVB5sgeVKTSLkF+8LxJLS6RIIE8srMK9fTVdw4mrR
+         hrnsKjx4vVV1fRj0Ipbhxr5naPzESk4veJjHE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794434345; x=1795039145;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=gp3JDzz6fGsFqJJBxPI2Vb3ErhAuZYiFu1m0q4pFhTw=;
-        b=IeyFFMnedjHGpnZBYJq3O32REiLsQnWBPOFXP9BB7h8WT4dPcf/yPq/Q2XVu38Tiw5
-         IB8U3RbFHtukifKX9O+PTnbhOijzPlHM34eABt/PsrsIu31Fc8SXU/BSrOWYETEBTcY+
-         BQRK68K7ZDeumeXrjRqG+FgVhKtlWyuGMb/sQM0Beu3vhMXzxP4XiWCPQab3frFss6dR
-         cOnYMhv6r8vsH0LKtbWWAQO4hd+iVZtcv8BUdO7cvMSKhTQ5fR3jE5B9R3bSmdgSahQU
-         73EwIyR1RgDxscgKh6Qs+AQpp0CuSghXrCRqQ15wq33sT4biCW9Hllv3y0FUQG2Yersp
-         yN/w==
-X-Forwarded-Encrypted: i=1; AL+hErFLVWGLrl+E1GsL2swgHnIvOpcauNUybOBPexP+FIzZ+j9zQieDlu0OnC5YctEiwPbDc8WQZMhyChM9B7o=@vger.kernel.org
-X-Gm-Message-State: APuU4Z87ve1Gq8oJ8nPbCzUT8UQ0IHmQbZM3bcEd8EfHz5N4tnzFjNMe
-	z3/pAHxrDRG23Z5caUJSoZJ1lIj1qepsdSwIcRUEfvuzJ/nq7alnO543TbIuFw==
-X-Gm-Gg: AYBFou2Y63J+xdVmVmZlx8j8zGSVNa15gTmVgLzgwzaLeDqb2RZiWyfa+g/j1RuD37t
-	ZhgFPuhfoks/slF96GFaQSBFC/yAeC5BOQK2QTIN5Mu154mmVOOuuDw71AMo4soZnCYBlhkK1oj
-	XQBOFwF85l7X77SnzL7mDHXqmr2CBrBQyeLnHodTp8BlY12wxrvMJRm0VvStgUqYk8oh3PqCGdl
-	oePi7goNfISK2Oc3Ng9RcrwCKaJYoE6jhFTEdBpNxKRTPGYc5cJBgYNYAaLX0CTIBxWjQQc/gDx
-	sv8nkaD1CSY6mjIBF8BJjap2NQMRN54YMv7Bju5a6bk8BbQ6mSGlPRTO9ak51rx0JFWPvp7j/tP
-	XDT+YJa3+ileqjV22Kakfpv7gbSSndx0et99oInXlE8tBoDhpf1JBgKhsJEVj65cmNtUrqf39bG
-	j4GhBQekHkGfcljb30hp/pk2TBedxfHC7/nkoLeeP6oA5e4nq+FafRMpxSGhKSyo5d/Tq+Lvmfu
-	zGf3mYgao+GiWvD3GAlGkO4c6qXQ/82WcqQFore9VxgJ4i35h5oSQNCv6O186ZrxvzmuDGmEKsL
-	ZkrJo2twP3ToiM7u5k09DBuf42rEHMztquE=
-X-Received: by 2002:a05:620a:271b:b0:93e:60e8:c9ad with SMTP id af79cd13be357-947afcd62demr595319885a.12.1794434345467;
-        Wed, 11 Nov 2026 13:59:05 -0800 (PST)
-Received: from deb05.proceq.com ([213.160.61.66])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-947b035710bsm268231485a.42.2026.11.11.13.59.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 13:59:05 -0800 (PST)
-From: Mehmet Fide <mehmet.fide@gmail.com>
-To: =?UTF-8?q?Toke=20H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>
-Cc: "John W . Linville" <linville@tuxdriver.com>,
-	Sujith Manoharan <Sujith.Manoharan@atheros.com>,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	mehmet.fide@screeningeagle.com
-Subject: [PATCH ath-next] wifi: ath9k_htc: count a frame as queued before it is sent
-Date: Wed, 11 Nov 2026 22:59:02 +0100
-Message-ID: <20261111215902.574916-1-mehmet.fide@gmail.com>
-X-Mailer: git-send-email 2.56.0
+        d=1e100.net; s=20260707; t=1794434384; x=1795039184;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=BaTRt15ApUolDeSrcLBJmuIxxr7ecXkh8ZK/IMhuYFw=;
+        b=K9LBoGQacFA9J0tYdQjBLjTfmZ1T4UwIlW8UUq/i0tlw3ke7HRgEaMNAgRlNbNNelr
+         EkkJib98KMYIofQ1xbFEmDAnRwm3HQ+B+TpvyQGtlwbKocDQeYF/EKsUKnC5MiM5ijfU
+         OXKij1QxFXZwotJrz9ve7ZY9VCZ1UQ5a1Kpe7f+nfG2JCBWiYVLke/gGDjpMHqZFa+RG
+         CngYfgNwhbmn292aG/ihZHfQUghNALaRGmCeuwjz8PTrhnr9/JOUU8GHHAqrkSppQXwC
+         W2GLuuZzDlwAseCMw+syw0HNpYyJpkRfqeivLx8YCKEjATYUk7OIlEmkZWIBDQfJLx1b
+         YNqQ==
+X-Forwarded-Encrypted: i=1; AL+hErFIEt9El3ZS/YEgB7+RR49KoobI64f8Vx62Ng53uHeH/0uTblQ+tBx+VHzky3hLuPkXjTkTw3cd2CwQpME=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/v+udLw3Cf66gChwEKi6ER96/I/W38Rn/qQnkrMG+qaZSGAdcZ
+	ukzVPoZDgteQmJDx/UzV4J9te6VA46DTGCCJvys6MrecRVlF08p9LoLuBsDQv4aBC6MnDvJIV8x
+	xcNI/lH4IQg==
+X-Gm-Gg: AYBFou086VaU1Cq6VlJFxKEylUceO/+jhJfbhgtUcndrqnxRkDDrlUP3mIwX4ctazw4
+	lo6B+gw3vPrFAT9PTRDomoyosn6INz1y/KRq501HXN4oymXOyIfIE/zAZj7QloEazO5A1ge9VFH
+	Ow3wtqa2cDWLPRsOEGCvC1Kh3mkFGOX7Lxo3wMUw4w9eHb7JY29iSwW41YpVALeKcPHLwU32iK1
+	iKcm1Jw9iTVuWfmWqH7T76YGRnSUQP83O0k4aNFH6yX+AJ7/UHhkGGNoJU2WE8wOR+ZKNx2RSLz
+	hhpLQPkZsl3udZ+NnioPcsWjq3ugOuBnFqg5sBNZWJ29oL5otSJvQSOZmnbf/AlrO5fL7Imo1co
+	99uZn7r0GmG/AAvyoPJuJ8dTBMXBSjKcP6PV1gMJnymYlzuZy+BNDCIo5czQw0PJHA/6w8gQOAr
+	wihhGDXMSXNLNghEhxhPKQDUzQJQpGEc91h4aY2GHL7VaB1fvKWpci+2wKrdVT31TdyYB+AZmEe
+	MXx63i0JpwdrBLDNRD9ALR2ZKvegcpRAFmZHjwyRIdSKpfx3ULwG56sQiVNCRZttPdiXENLmFNy
+	SsFyAO26n0sFd5dHawO/ThSbJvY9n7zPUpZQWI6ImekK5C90n65u4/nD1e9foKUMwJu3BArUP7K
+	+wTM=
+X-Received: by 2002:a17:907:3d90:b0:c46:645f:cedc with SMTP id a640c23a62f3a-c5066d9855fmr321962466b.46.1794434384590;
+        Wed, 11 Nov 2026 13:59:44 -0800 (PST)
+Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com. [209.85.208.50])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c504a5704aasm271658266b.25.2026.11.11.13.59.43
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 11 Nov 2026 13:59:43 -0800 (PST)
+Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6b7221c0f2cso3353709a12.3
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:59:43 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErGl5EFP1kKJbHcyhujQfaJKRmyYji1ejVSgm7Tf26Rk1EhGHL56qsiftrddGB4B5O1bynulqOiERQzG0E8=@vger.kernel.org
+X-Received: by 2002:a05:6402:22d9:b0:6b5:962e:e017 with SMTP id
+ 4fb4d7f45d1cf-6b777702145mr2015975a12.23.1794434383079; Wed, 11 Nov 2026
+ 13:59:43 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,62 +94,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <606cae9e.bbec5.1a1c54f4f9f.Coremail.18670333770@163.com>
+ <60541e98-b1f0-4f92-a155-8a29c0bb17dc@kernel.org> <44abb8ef-7711-4ad0-be9f-ca47206892a3@columbia.edu>
+ <856cdf21-7982-475a-b244-a7ceff4eb6aa@kernel.org> <avS5QcRj85yAm9ll@thinkstation>
+ <71e24630-4c71-4518-a9b7-68cf3597ce80@kernel.org> <CAHk-=wh=cVrn+xs3fZiPW=kJbFQLwf_C+c-YBCR2K9s9aNE_1Q@mail.gmail.com>
+ <72f286d5-3f1d-4350-b463-09f7b320cacf@kernel.org>
+In-Reply-To: <72f286d5-3f1d-4350-b463-09f7b320cacf@kernel.org>
+From: Linus Torvalds <torvalds@linuxfoundation.org>
+Date: Wed, 11 Nov 2026 13:59:26 -0800
+X-Gmail-Original-Message-ID: <CAHk-=wirmEK8a9M+pGP=zdQFkw8zfZuswnZnC9zF6tjVSnqNLg@mail.gmail.com>
+X-Gm-Features: AclHuK_wv_2wxvj6t-2tq88pSMUsjoVj5lgIf450fMFrxt9uf1-VCJJrV8dZfLw
+Message-ID: <CAHk-=wirmEK8a9M+pGP=zdQFkw8zfZuswnZnC9zF6tjVSnqNLg@mail.gmail.com>
+Subject: Re: [SECURITY] mm: khugepaged collapse_file() drops RWP PTE markers
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Kiryl Shutsemau <kas@kernel.org>, Tal Zussman <tz2294@columbia.edu>, n3rd <18670333770@163.com>, 
+	"linux-mm@kvack.org" <linux-mm@kvack.org>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+	"akpm@linux-foundation.org" <akpm@linux-foundation.org>, "ljs@kernel.org" <ljs@kernel.org>, 
+	"ziy@nvidia.com" <ziy@nvidia.com>, Mike Rapoport <rppt@kernel.org>, 
+	"peterx@redhat.com" <peterx@redhat.com>, "security@kernel.org" <security@kernel.org>, 
+	"Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 
-From: Mehmet Fide <mehmet.fide@screeningeagle.com>
+On Wed, 11 Nov 2026 at 13:35, David Hildenbrand (Arm) <david@kernel.org> wrote:
+>
+> So yes, no new uffd features.
 
-ath9k_htc_tx() hands the frame to the device and counts it in
-tx.queued_cnt afterwards. The TX status of the frame is handled in the
-WMI event tasklet, which can run before the sender gets to the counter.
-ath9k_htc_tx_process() then takes the counter below zero, warns and
-sets it to zero, and the sender's increment leaves it one too high for
-good:
+The one uffd feature I'd actually like is "no kernel faults".
 
-WARNING: CPU: 0 PID: 348 at drivers/net/wireless/ath/ath9k/htc_drv_txrx.c:510 ath9k_htc_tx_process+0x400/0x558 [ath9k_htc]
-Call trace:
- ath9k_htc_tx_process+0x400/0x558 [ath9k_htc]
- ath9k_htc_txstatus+0x58/0x140 [ath9k_htc]
- ath9k_wmi_event_tasklet+0x16c/0x17c [ath9k_htc]
- tasklet_action_common+0x108/0x150
+Because damn it, that has been useful mostly yo people who want to
+open up arbitrary kernel timing channels across user accesses.
 
-Count the frame before it is sent and take it back if the send fails.
-
-Fixes: 8e86a54715c4 ("ath9k_htc: Fix TX queue management")
-Signed-off-by: Mehmet Fide <mehmet.fide@screeningeagle.com>
----
- drivers/net/wireless/ath/ath9k/htc_drv_main.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/net/wireless/ath/ath9k/htc_drv_main.c b/drivers/net/wireless/ath/ath9k/htc_drv_main.c
-index 0d6272ac0dac..ee87352d1241 100644
---- a/drivers/net/wireless/ath/ath9k/htc_drv_main.c
-+++ b/drivers/net/wireless/ath/ath9k/htc_drv_main.c
-@@ -888,17 +888,21 @@ static void ath9k_htc_tx(struct ieee80211_hw *hw,
- 		goto fail_tx;
- 	}
- 
-+	ath9k_htc_check_stop_queues(priv);
-+
- 	ret = ath9k_htc_tx_start(priv, control->sta, skb, slot, false);
- 	if (ret != 0) {
- 		ath_dbg(common, XMIT, "Tx failed\n");
- 		goto clear_slot;
- 	}
- 
--	ath9k_htc_check_stop_queues(priv);
--
- 	return;
- 
- clear_slot:
-+	spin_lock_bh(&priv->tx.tx_lock);
-+	priv->tx.queued_cnt--;
-+	spin_unlock_bh(&priv->tx.tx_lock);
-+	ath9k_htc_check_wake_queues(priv);
- 	ath9k_htc_tx_clear_slot(priv, slot);
- fail_tx:
- 	dev_kfree_skb_any(skb);
-
-base-commit: ff4c7359e310744a7abe53cf66d921fa2969eb19
--- 
-2.56.0
-
+            Linus
