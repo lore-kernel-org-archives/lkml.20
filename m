@@ -1,85 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794385736;
-	b=vmJpGcwBF5hqQqEnwMabd3fz+mn5dRmwDIk4k8xzq4TxDVMoAJgufwTWB2a4vljwjHFh
-	 aBEpqqzk19qCezUvNMEDYeKzEwpib5SkkB9eW+pJ+0gRRF64s3odaHnABTo5sMF+0ribu
-	 TgHMsj6u3w3NRDrLpF5wWHLO3ChPJV60+jp5tt4cCu0R9XRKVhP4mGOTsG+w/JkHVzdvy
-	 pJF/BID34vZA6NxVXERhUW1lzkh//vHMCENtfVTyayuBUuDljsR5xF5YInNPFOfgDH+JZ
-	 JBdPu4cIbIdLGIK+5zkfU+oA3FvFaCtnZtsXs5VUns0wBYFmND2CkyxsdhTz5PGZg3w==
+	t=1794385733;
+	b=IRIVTI1E34yNYfEMysMEv2e5kungUf8eiEv+0I3jGyweq3rTLFCNpeo/katgbIjAiUO/
+	 6cG6pzQSQo79+NjoVtnvhzLDO2H4MzffZ+Rz87OILQMA9KX77QB2+Etkb3T6Rig05vU3z
+	 mOsi1ZO79V61Jv6/kMvyzvixbqi7stok7n5jrKUl+szp0Aw29J7EubPm6xZvPQ6O2MWji
+	 vzkHvBNjKMVDCaCYE3TCgbIgU5veiPJ/rm+FQU+hopMX2lIpJ33AUVDo6HuKapLmguPKi
+	 jNn6tHJD3AAp6bxLnISaZRErG56krymo4tvuoxdo6emRhahco13i5Z3rYiQpOU/glHQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794385736;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794385733;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=k38d6anjSDhUfif+YA8JiZnUO/fighramhUwYa6uFhs=;
-	b=1Qm8GhiXgbYMZbz8NAOtHOLRSLsiDgqOsyVlitr+eeMcFUxSJWhl5m6B9t4fekNV3rSe
-	 44QMYLMaeQF7BHtg5WXJOS3pgdmnVZINgM8YS4+Ip6469BU1GtPcoQC1o56ivQIiVAze/
-	 QVvsM1FLoP9I+1c5JjdcEaR6S9TO7auaJe83Lg0axO2v16/CR7OcuBuOFJ9/1BX+ZW5dZ
-	 Qc/n70cM/ErY2lyhcdiBd9NKzeoDOegl8vCPdflQpJwVvmAFVawSWlChL4V65PpDZSAU/
-	 X4k3v/fZ/HLC5e6guSNtEQc5TfV/BfVgG2sh9z4sY2Q4EvyspKC0KqYFuETdwUvpk7Q==
+	bh=xkjrXuB4d4ljrfRsDmNsDtP89r5+rOTxD9wMLbDcgl0=;
+	b=0H2l4OxJWSkhVQkyOaQl+okr+RdrUL3SUd2M5YAIK82zfhwmBrTrHCHkKvWzJxiQDmvf
+	 GWCZn1P0Y+d2LwA7Re6CMiJq6yKYJiDl00iYrKGQKKWxDMEjUKDnlF6P+sAEm2LVmyFrk
+	 GGJJ8rHnG22+0ocpuV1QIZnY+F0OPfnhLLsvxyHqpEGkrmWP72jJ3eb2j0KWPMfplspHp
+	 BIzVL60A0dUXIqP5beayGswGwUvfiL2kZSpIEyvXC8LTJX6Giw3Q/ZwIH4pneRvDEyb9u
+	 /DkEHnJniu8X4UedJvZZ6wHFY1AVyJj/vjs5KRc2b6qLxdmg+BT0LjPcFY98t0uU7hA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jY5GeuBO;
-	arc=none smtp.remote-ip=209.85.218.49
-Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com [209.85.218.49])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DOWAkC6h;
+	arc=none smtp.remote-ip=209.85.218.47
+Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84FA060A3813
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 08:28:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 84FA060A3813
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E9CE60A262D
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 08:28:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E9CE60A262D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jY5GeuBO
-Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c4d427836e9so376650766b.1
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 00:28:56 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DOWAkC6h
+Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c4697404c2bso398160566b.2
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 00:28:53 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794385735; x=1794990535; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794385732; x=1794990532; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=k38d6anjSDhUfif+YA8JiZnUO/fighramhUwYa6uFhs=;
-        b=jY5GeuBOl8bHMfi0r7mnCkCG3Aso/9E7hAETup2M9paBvEolf2g1FrN8/p8zb/oLUf
-         Y71B5ThijYLK3uQuRWoAYNj3Itm0hmXDgMw9cgj2PZVJ8Bl7eyzPV5VnCbmdCyYCQsKL
-         GHAyvHijf7wtoGCrYQU3rB63hpYoN8K0Lbr/ozpjQSG1VmHYO/INdm/Dy8kmba9dwCbH
-         6ixusH/YZ9Q7aXmL5oI2EylKHtYm3MilEJThsvm03P0rhSIdaum6IaNhQjPLAo3ZC4zD
-         oGI1qqb0CXulyB/WcIEbG9OGRryB46/03V3H+ScVE23v1mAmYe2ajBXDz5eW2YTd9TcN
-         s3cA==
+        bh=xkjrXuB4d4ljrfRsDmNsDtP89r5+rOTxD9wMLbDcgl0=;
+        b=DOWAkC6hgpg1Li2Mi/aQy7d37STcbrFU4fyKJJrm6pxGdhkp2rd2QiWZbIgT1U/KJd
+         41OFuznqeDGdJ87PVMnvqZxo7+Ot/TTT8lK2Fyf+OqOSoVpxHTFbWJd49eGjDRM0E7O2
+         2mJNQgRyQfSb52el1kVNDXM9Qxuputc3B9i0UwaTIBiB+q9Fo4BrNc8CEI/ua0ZbGr9/
+         5BCvvgFdQZlnX9aZ84kYca9P39vjq10Cfi0sfFc2bupRb5zMmidrbL8fkdl5I5BAnqyz
+         gwEye5c8xpc0MYFgLyOX8Fa41NVUrhZmyecp7iVH2rzaHALupoqbDLRAz7JsaHQOQ2/T
+         IQTw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794385735; x=1794990535;
+        d=1e100.net; s=20260707; t=1794385732; x=1794990532;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=k38d6anjSDhUfif+YA8JiZnUO/fighramhUwYa6uFhs=;
-        b=kdTreBTRR12CaWwwMwdgAG1dIxH9U/AWGWuWelolkc+1DCaQtSrvLxCDvGfnUrK3FK
-         yNLMXAMjoez9GL7pnDUV4Oaj0qdY6vlW+paE2k4vN6F96kn9b4bNEpz65envOYpT+SZi
-         2Nfo86CMGjWsrTkSCZg4mKedimZUb4ozF32fngdGfbn5yKnEhdDLBjkjNFKVE74p9gcL
-         0VAmAuMMZ1tcljmemc05d1WvRvpGBjeA9tftuHNWs3ZfDnuJOUpIE6rRo6fzzrahciY7
-         K+dk7SmkuZpMS3UNbwKcw68rscF6XNbMfWfCZGGZq+/QnGn2JeadYAniciZo3lu3l9Ll
-         Bnig==
-X-Forwarded-Encrypted: i=1; AL+hErEPLP6TSKJU0Meu7CjnoWeodyBAgBXUngjTryE0A5kBD+kzRGB9wDAjIuu4wtMraDPWEiPX2T+DrurVAoM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+8PNbW2KrcMPC4cu7gjUL5nZiW84j+6xnWFYtb0SjOD+tK43AD
-	yrm6y6C0DxKRVMdIbQJOk46qegah0n7J9s3jkAqWeAzVAV1CA2aSxPD+
-X-Gm-Gg: AYBFou02g4QLqi9tKKKJ6L67GA2N7qQcC1cimmRh4N/lDmnUX+4WHSVHA/FsSSxC6rK
-	HDtOF2zL62ukrWMZjjA235ihZM4gp0AQL1njNtpc93XrFkdjqjCMyDB6A7pNReGf+/mBnsof4+L
-	M6wrdDXA8QBTc58ix43csy8JNeyNl9S7uvO8mCAzzIvYKJF7noSytuHyYgZyPbev/lhtas8JM5l
-	yznIcneRBmbVIMXUqKOr0RItr3b0nAseAA/6HjYKApMY4Tp4D1jqBHxB8dh7zdSACr0D0I662fm
-	LUCdCGZZkc2yyT88+bXtj8J6y0emKHSYI3nzrH/2ngFDY6R7jcsKn/QMVziUPQD6AOkevxViSb1
-	xSXtQWgVkXHRQlGi2V05hoWzyLN2Tasa8UjSRinmbl6Cj+n00E/DBn38MJFhs1ihKD/7DfPxT+r
-	TLYNfE0Stdib146EtgHWbGGsdm39LnE2E/resM8BH1cd3CGzDusAqrajdeiELPw9vn0ZjDevyGx
-	iRSEdg2ZMXrVtnf9t4D/JPaKg72eYAfZKharvJ2m+8k0OPZRGyiNXVPKe3fWjhMCRW6fgmyfnSG
-	ewkp360PKB8NGZvWuiHkmUuNAWLBOc6K9732MEXVshi4v/Sn8jW6WJTUZWvRtDqm1C5a5f2k4OS
-	SfLEjWDGx1enlpdTJoqBkqUH4LVe45VlycQCTrwSFDOdGllzJGlBDoZIkifjGk1BVwQtVt89PK4
-	wzEQYG/UmNIvv9GuaAKiK3hzrxXbTkiob0bPq7Gsu58LyB
-X-Received: by 2002:a17:907:1c98:b0:c41:b94c:4539 with SMTP id a640c23a62f3a-c506698cf92mr109978466b.6.1794385734830;
-        Wed, 11 Nov 2026 00:28:54 -0800 (PST)
+        bh=xkjrXuB4d4ljrfRsDmNsDtP89r5+rOTxD9wMLbDcgl0=;
+        b=aYSj/C/Hx1Y3lw0/9rQLKsOqr2QstkZktXora7AMKybD4rSChT/6XSOgyb1/oI6DpK
+         RyRAehAVZmh6Bwv2qK5oIDw+K+l8kx2tBeAKd2i9MVbAPzG950FZDT+Mgj4tZ48dyZ/P
+         WQQTqmUH3DrOXTOCjtKZXPng9Wf4NXwiT9P2jcfSpbdBzCktg4Xf4cZnxI10laRx4fHG
+         hZ7+/JEhgkcDPdQO2Ay+MrrY9jOHVqsU9PNhTh5oNtcv8Pzb7jCF2zKW5DHHO0iYG07Y
+         nd0c3ENefs7x46osZGbOuAfnHlUn2W45lutzN3u3pDGPWxHb7aEBOdPreDsBfGRCIgK8
+         oOxg==
+X-Forwarded-Encrypted: i=1; AL+hErGrceCtvQ/qwdTt8RMLc7q0ZEsxTmEqq+ouBA4ViTxg1HmXNyLVMfx96xwR5j6jD7x1EyiWyRRn01axRo0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9kMIXt0H81KsSNEAT9hVBVXfpgNewdVcgs3q1GBHWZIxJn3orl
+	HYtTF5GcyWQIUkVskMQd2Qjr4cZ9ZnV7KXEq9ygw0YOjm/9gXbzRDbW5
+X-Gm-Gg: AYBFou34bEgv+sQsaodBcJ0JlbvHa+JNEqBPnhRD6vjgemDJGctMy8Fl/SjCWFKPGZd
+	+omWWqsyy1I3NfatCja0jv9q8VUyFKtx86n5oXR22QOvv+Kuyao4Y/JUK7/HiQnSIjF+2nf8iIr
+	Bdg6UHWeZNF67FA8VnkHgYcbCP1SL31O2Qn3C/MfY8TgSSMTVnERyZjTROmr91ucFORjCFy6K/4
+	A46xOjJuhQupjrLLwIHQlIUxodHMRuGbrI0/NQKQQvxG1Rn0eQpfWIMXVLknyZS7cJkwYiC9eJl
+	4YM8LeyH6RAucyWihygA04VRBpN5u3d/1WUfXX/rzWNS/UVNq1JMsk4RSfM6iJ8AGkLiJDko+Tu
+	gt3p3QxbOEFSc1ho/GAt0AB8JcgQ9qub1h8xDX43Omh0yiFKXy2h5WRbTEhljH6Iih92E2eKZ03
+	eds/vgoJzJfNSU2RBwoticeFs19ZeobsR6FZehOSYWOQ5pNu9K4lQXTPxcCGoDneD1GWLk/OW8V
+	V6TSdXNIjCUpKiGg/6+wKMnjhSwOgP4LG6Ygp8FAQoD1WyQbXkPuJw4jxDuuxXxmeTfJtJV1O5o
+	NiwnU/iIu7AOV9bU8n0FC8qEIP4eVGgPM8Wop4c6xiUo5wma8n85xEYcdSsFuc4Z18fNEZqSjTY
+	zzxxZEIljjqJbbYR+AsoiDaX1b1Lu5sY809fqA4FXxT+gukK1yqeyE4ajesBdx0ANJkjIttvCn/
+	urVqy62rNNuzfrfLN0AwTtcaMH5K50RH367L7tYkIvM+ML
+X-Received: by 2002:a17:906:7955:b0:c41:53a9:c65c with SMTP id a640c23a62f3a-c5066b65a54mr108933766b.34.1794385731913;
+        Wed, 11 Nov 2026 00:28:51 -0800 (PST)
 Received: from fractal.tuxedo-gray.ts.net (c-78-82-25-228.bbcust.telenor.se. [78.82.25.228])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c504a56ffc7sm210135866b.17.2026.11.11.00.28.53
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c504a56ffc7sm210135866b.17.2026.11.11.00.28.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 00:28:53 -0800 (PST)
+        Wed, 11 Nov 2026 00:28:51 -0800 (PST)
 From: Johan Dahlin <jdahlin@gmail.com>
 To: Guenter Roeck <linux@roeck-us.net>
 Cc: linux-hwmon@vger.kernel.org,
@@ -88,9 +88,9 @@ Cc: linux-hwmon@vger.kernel.org,
 	Fabio Baltieri <fabio.baltieri@gmail.com>,
 	Hamza Mahfooz <someguy@effective-light.com>,
 	Johan Dahlin <jdahlin@gmail.com>
-Subject: [PATCH v2 6/7] hwmon: (nct6683) Name the fan headers of the ASRock B850 Steel Legend WiFi
-Date: Wed, 11 Nov 2026 09:28:37 +0100
-Message-ID: <20261111082838.1418051-7-jdahlin@gmail.com>
+Subject: [PATCH v2 4/7] hwmon: (nct6683) Enable fan control on ASRock BC-250
+Date: Wed, 11 Nov 2026 09:28:35 +0100
+Message-ID: <20261111082838.1418051-5-jdahlin@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261111082838.1418051-1-jdahlin@gmail.com>
 References: <20261111082838.1418051-1-jdahlin@gmail.com>
@@ -105,121 +105,46 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-With fan control available, users need to know which pwm channel drives
-which header. The driver has no fan labels.
+The ASRock BC-250 (customer ID 0x162b) has an NCT6686D with the same fan
+control registers as the B850 Steel Legend WiFi, and manual fan control
+was reported to work there.
 
-Add a fanN_label attribute, visible on boards with a name table, and name
-the channels of the ASRock B850 Steel Legend WiFi after the headers
-printed on the board: CPU_FAN1, CPU_FAN2, AIO_PUMP and CHA_FAN1 to
-CHA_FAN3. The order was inferred from the readings and the BIOS defaults.
+Enable fan control for channels 0 to 7 on this board as well.
 
+Suggested-by: Fabio Baltieri <fabio.baltieri@gmail.com>
 Signed-off-by: Johan Dahlin <jdahlin@gmail.com>
 ---
- Documentation/hwmon/nct6683.rst |  3 ++-
- drivers/hwmon/nct6683.c         | 32 ++++++++++++++++++++++++++++++--
- 2 files changed, 32 insertions(+), 3 deletions(-)
+ Documentation/hwmon/nct6683.rst | 2 +-
+ drivers/hwmon/nct6683.c         | 3 ++-
+ 2 files changed, 3 insertions(+), 2 deletions(-)
 
 diff --git a/Documentation/hwmon/nct6683.rst b/Documentation/hwmon/nct6683.rst
-index a9c53d6eab9c..c8b8ade3b95b 100644
+index 026515c35243..8e5cd1d7dcd2 100644
 --- a/Documentation/hwmon/nct6683.rst
 +++ b/Documentation/hwmon/nct6683.rst
-@@ -62,7 +62,8 @@ customer ID 0x164a), where pwm1 to pwm6 control the fan headers reported
- by fan1 to fan6, and on the ASRock BC-250 (NCT6686D, customer ID 0x162b).
+@@ -59,7 +59,7 @@ fan reported by fanN_input.
  
- On the ASRock B850 Steel Legend WiFi the temperature and voltage inputs
--are named after the H/W Monitor page of the BIOS setup.
-+are named after the H/W Monitor page of the BIOS setup, and fanN_label
-+names the fan header each channel is wired to.
+ It is also supported on the ASRock B850 Steel Legend WiFi (NCT6686D,
+ customer ID 0x164a), where pwm1 to pwm6 control the fan headers reported
+-by fan1 to fan6.
++by fan1 to fan6, and on the ASRock BC-250 (NCT6686D, customer ID 0x162b).
  
  pwmN_enable selects the fan control mode:
  
 diff --git a/drivers/hwmon/nct6683.c b/drivers/hwmon/nct6683.c
-index 4fcd0c74af44..dcad72d1ef97 100644
+index 29fbf438c04c..f656b84ee8ac 100644
 --- a/drivers/hwmon/nct6683.c
 +++ b/drivers/hwmon/nct6683.c
-@@ -354,6 +354,15 @@ static const struct nct6683_mon_desc asrock_b850sl_mon_desc[] = {
- 	{ }
- };
+@@ -1540,7 +1540,8 @@ nct6683_setup_fans(struct nct6683_data *data)
+ 		}
+ 	}
  
-+/*
-+ * Fan headers as printed on the board, see the ASRock B850 Steel Legend WiFi
-+ * User Manual, section 1.3 "Motherboard Layout", page 7, and section 2.12
-+ * "Onboard Headers and Connectors", pages 44 to 46.
-+ */
-+static const char * const asrock_b850sl_fan_label[] = {
-+	"CPU_FAN1", "CPU_FAN2", "AIO_PUMP", "CHA_FAN1", "CHA_FAN2", "CHA_FAN3",
-+};
-+
- /* ------------------------------------------------------- */
- 
- struct nct6683_data {
-@@ -375,6 +384,8 @@ struct nct6683_data {
- 
- 	/* Board specific sensor names, NULL if none */
- 	const struct nct6683_mon_desc *mon_desc;
-+	const char * const *fan_label;
-+	int num_fan_label;
- 
- 	struct mutex update_lock;	/* used to protect sensor updates */
- 	bool valid;			/* true if following fields are valid */
-@@ -822,17 +833,30 @@ show_fan_pulses(struct device *dev, struct device_attribute *attr, char *buf)
- 		       ((data->fanin_cfg[sattr->index] >> 5) & 0x03) + 1);
+-	if (data->customer_id == NCT6683_CUSTOMER_ID_ASROCK8)
++	if (data->customer_id == NCT6683_CUSTOMER_ID_ASROCK8 ||
++	    data->customer_id == NCT6683_CUSTOMER_ID_AMD)
+ 		data->have_fan_ctrl = data->have_pwm & GENMASK(7, 0);
  }
  
-+static ssize_t
-+show_fan_label(struct device *dev, struct device_attribute *attr, char *buf)
-+{
-+	struct sensor_device_attribute *sattr = to_sensor_dev_attr(attr);
-+	struct nct6683_data *data = dev_get_drvdata(dev);
-+
-+	return sysfs_emit(buf, "%s\n", data->fan_label[sattr->index]);
-+}
-+
- static umode_t nct6683_fan_is_visible(struct kobject *kobj,
- 				      struct attribute *attr, int index)
- {
- 	struct device *dev = kobj_to_dev(kobj);
- 	struct nct6683_data *data = dev_get_drvdata(dev);
--	int fan = index / 3;	/* fan index */
--	int nr = index % 3;	/* attribute index */
-+	int fan = index / 4;	/* fan index */
-+	int nr = index % 4;	/* attribute index */
- 
- 	if (!(data->have_fan & (1 << fan)))
- 		return 0;
- 
-+	/* Fan names are only known for some boards */
-+	if (nr == 3 && fan >= data->num_fan_label)
-+		return 0;
-+
- 	/*
- 	 * Intel may have minimum fan speed limits,
- 	 * but register location and encoding are unknown.
-@@ -846,6 +870,7 @@ static umode_t nct6683_fan_is_visible(struct kobject *kobj,
- SENSOR_TEMPLATE(fan_input, "fan%d_input", S_IRUGO, show_fan, NULL, 0);
- SENSOR_TEMPLATE(fan_pulses, "fan%d_pulses", S_IRUGO, show_fan_pulses, NULL, 0);
- SENSOR_TEMPLATE(fan_min, "fan%d_min", S_IRUGO, show_fan_min, NULL, 0);
-+SENSOR_TEMPLATE(fan_label, "fan%d_label", 0444, show_fan_label, NULL, 0);
- 
- /*
-  * nct6683_fan_is_visible uses the index into the following array
-@@ -856,6 +881,7 @@ static struct sensor_device_template *nct6683_attributes_fan_template[] = {
- 	&sensor_dev_template_fan_input,
- 	&sensor_dev_template_fan_pulses,
- 	&sensor_dev_template_fan_min,
-+	&sensor_dev_template_fan_label,
- 	NULL
- };
- 
-@@ -1722,6 +1748,8 @@ static int nct6683_probe(struct platform_device *pdev)
- 		break;
- 	case NCT6683_CUSTOMER_ID_ASROCK8:
- 		data->mon_desc = asrock_b850sl_mon_desc;
-+		data->fan_label = asrock_b850sl_fan_label;
-+		data->num_fan_label = ARRAY_SIZE(asrock_b850sl_fan_label);
- 		break;
- 	default:
- 		if (!force)
 -- 
 2.53.0
 
