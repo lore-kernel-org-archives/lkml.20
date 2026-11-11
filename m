@@ -1,98 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794409028;
-	b=XlwKJ2bijKswf3n5u27mn78YJ+TCu1gO319cDEhjXKqOyg/17TUr6RU98EoV24P3ISxh
-	 ZUiKyM1w5wc2WWs0dmcdOdXwJ8fA3lsaqQEhLRp5Zb1BJYlkFWDs6DNvTHjpKpwCb1N7p
-	 D0AZdLGkZ4yQZpiL4RhVTuAn6UBKYW6Y02So0HENULXIGGMk3OirU1LGGvfzejRMoIJJ0
-	 xv0A/wBTeJKHY7zNCJcalc07uAD4GEYI3GSfiDXN1tOHcIcXt6tyDuZ7e0JnEYK5M2jo7
-	 mLrIb4xFKm5phRyqS57UmwujeaNgiXDLxlgkh5UacEHEm7Qz0YUThdvUdiEQezDNnVQ==
+	t=1794409054;
+	b=mS5WGgifwHCBBoQxQM9ZC6NnInxGKthf81sJqQck6MCxEXq3xRCgvH8d6C1hHyWJf3Xw
+	 z57U+qirGXufvBXa+5dt/msNQFzTP0At9On1bAMikh9EwRfH7mg11ov8VuRnkwyR89KFu
+	 8rb9NW6jHfKaIkwop8t+vrvw6XFf4OImUnhYlLyJtflxx5orLw0X/70AY0IzyC5bgM3mW
+	 elhX1mXmlyX/OSn/zJOXPlVGkoz6NlcMq7o2Q9GH6E3qiQVdWv2aJsHih4HNv2bxMADAH
+	 wYfFoSOcK0q0LeYRRfCx9veHRZO/8StIcf0XsqU7YOLVmmKIMqAfa6Y2oom1z2f2h7g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794409028;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=ug9mwWVFwbnhzGL168EwFXRoMbjgNuP6wmRVD3M5jGk=;
-	b=UI8rrr7S2m2gjyZ2cTwRZ4JOygPHPdra+R4rKn8bnp0wGflVj8iVP15GkGz2MAP309W5
-	 XIWnPc5/aoeArpMIcwjnV0t1IpF2LJ3wUGWzy2ZCFavDUweEJfjVSUMLATNWtPK9KLVG4
-	 J6kLD1rgKG3eT9GTZbfEHNqkyXQxJJnjU29ulo2ciN9ne1khV1r52vs9xZdPbzH/K01zJ
-	 TO5yHWGsh0mfK2qGqrAfdIcmJy8gVrcrskLkNHmdG64jnxwc4uGFjvSXu18ir0+fxTBat
-	 VJOD99DIqj24YaxhOfyVBRln2LzlToTPCQT5b5sdKoIAPgvTKu1MyHRsRQx0r0LZj7Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794409054;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:Organization:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=/40jYrLAj6axvoSSA2in7aHxwy4Fp9/+iv1azORyUxc=;
+	b=IaMND+CbOpARRuUBR3FOspi2nkITaO4LD2eOPuYtEej4dmu/tbw+U3xtT+DTut9qK+2F
+	 WHTT1TkD45uxNTPGdnIsgu0XZlsE8MYJtOTz9M53cxpYolPV+kyhnOToaEGCg7dP0I1Fg
+	 xq2EnpDA24Cp65jIrGvfSejEIT9e5KTdIpNE52+17pOZCfHgjM3Rf15WXOXgyuvvl6PDI
+	 CDDZCNIcZgukH2XF+y45/YC0IyXmUlWxlxco8JK9T4DEJRw9GyGxHRRInnMpw195TAZrx
+	 YlH+Y933Pb97wkmtHgNhqFYjNUvPzC+MzO0GIn4tAt5oCgHrSZJAGp/kf3o1F4Md3Sw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="jnn1s/if";
-	arc=none smtp.remote-ip=209.85.128.43
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Yxjct9mH;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=RMhv9xAn;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B80DB606A32E
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 14:57:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B80DB606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BAEF606A324
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 14:57:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1BAEF606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jnn1s/if
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a78ec32fadso846335e9.3
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 06:57:07 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Yxjct9mH;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=RMhv9xAn
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ABEKWRR3510926
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 14:57:33 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	/40jYrLAj6axvoSSA2in7aHxwy4Fp9/+iv1azORyUxc=; b=Yxjct9mH/uBDFpsW
+	5lVZNAVbaSVTAAKCPuor/FOsWPX7t9k/A5CXTYka2RCr1DRvNcUyvRief2MFfdeq
+	23Yju/jkNnZiHiQ1yn8gKAX1TRvmvHAJyW5I4sOkgftY4FcQkqMWkNmRG8vMyTlQ
+	sUlMm0VeMNJKnGUdZTMFTOiy88G6xvlMx6tcYLN+D/wXmm8kF42ltsmzwGfAKqjQ
+	WbgxmiyzV2LCJYJqrpl82j1CRBBd4XfpunQUrPI61aGQxdhRmf652r6o2hO5tCtt
+	W/RepYf7o09qxLsa/Aj/quS6nX+6VFXcW+SUflhEDZIAeq4EdQc3ix+bKnLGyOE4
+	5Rvy8w==
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvt1u85ru-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 14:57:33 +0000 (GMT)
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-36f479b9819so5543513eec.1
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 06:57:33 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794409026; x=1795013826; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ug9mwWVFwbnhzGL168EwFXRoMbjgNuP6wmRVD3M5jGk=;
-        b=jnn1s/ifW/VfsoGU+9f/Vl1N/ELbTsf94NWl8f9wy7plMiC2GuLI2SSo6Y5f8kc1nr
-         bqilepJZlPgVgBFM3Cl532BVFs9FkBPvtuFBB1/fXnZ05jtJPiY3DJLWusJraOLlzMTb
-         QiylWPVUUPpEl7Abk5lQBJ/gpdH/WL81VAvZa2AqytLDn4NvO1wgoaD+MCLBbOkE3iwp
-         WLROH+SID+3ikLf6q6uIpQ6p4lxuDsmeDDqSL4XQ5y5CDfOuCHh+T2aepqPuhs1zOMwX
-         c1SyoG81XjPYn6PvcUBadRXw8853apnXRlWuO6hjZPFaymeSJmkQQo1NwfuGFeXWpsqR
-         5F2A==
+        d=oss.qualcomm.com; s=google; t=1794409053; x=1795013853; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :from:content-language:references:cc:to:subject:user-agent
+         :mime-version:date:message-id:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=/40jYrLAj6axvoSSA2in7aHxwy4Fp9/+iv1azORyUxc=;
+        b=RMhv9xAnu6fs5+HhVuiF3OfrAYfk/YRfuYmjaZDZswsI4UsgivwOHyxym69EHaX7bQ
+         /SatIFzxCNpQJRlqBpUKEmmlPRSxL6ZaGlySrOubWAfpHyuM/TwFs/1tPRul4RcjkYCn
+         fPEtKdn5xcReWWqpOdI3ZphPJukfUMlkatNu+HwBCbdCd8FExFJ2kIt49HJ9QBey6DcG
+         KtXXkgU8t4YDjMu42xdQVRpB33c+QPwuPH0YVM9N1mOnkUo3p4an/WIrGz6FcKyFuRtk
+         mohM4TsNLnF0OUe3s+2qkPu1cwgHAgeEz5SktO0m2J8eo3XcwkRYWz98UVC4E7JD4b7C
+         CIyQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794409026; x=1795013826;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ug9mwWVFwbnhzGL168EwFXRoMbjgNuP6wmRVD3M5jGk=;
-        b=UndIzS/eAwlpGRDrs1biO8N+r4v0A9X/aerV8PKswBMlLs7b7jJRG+RYHJsrjiZTiM
-         s1FniVS4vr33Eoim5Wuq+rNcEEq01LaLZeDzFU4EtZn9K1sIfpLcAgm8KSYKcyeLBsRA
-         7Pc+/BIiDUIwXgcOWNM3ExVDcG+Xd5aHIcghlZOA/f/EOAHjISN37juuSz1oEu0RSHD7
-         i8WZ4S6VJePwr/JPQJlr3qLHBw6EHACMMT/jaO3q/ptywcz9WHAVzFqKPZkWp064Y0o0
-         H559ZVoXNVfq+xrSxOhjkniWXT9CI/J6tm/QZBIwCJnOfT7pSb+kSsnAhTau3FGTsNdI
-         qjYw==
-X-Forwarded-Encrypted: i=1; AL+hErGa+BbgD7aSnkyOs+IRKjR46n8S6NF7wJgnzNRfgANxQMageEBSlkCFun1XoUyHOhXA5ukmBm4vCl+N8VM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+nC0gWMoIjVkVOxC/A2apZI/K98lHz5UluGdm2NgCV2GbXtH+M
-	QoeAf0jLiph+QNyF0MyCpe4eFsxRx7d1pSxh3AZnoq2WwetFOd4ywEGLMNYWCQ==
-X-Gm-Gg: AYBFou2qtR4aZ77uHBkOmeaP6becUfxjpmY/MaUg8asMR1LncVvSJCLlOG6BZVImW+7
-	f/IkR5nXfEO3o+bYe2089O8eFiDBWdNCX5bdNUrTX8vaPSwooosbrmiu4K7mmhBSci8+uUXQnYO
-	7VF/X2VVPeaqlla1q6wh9M177f9RZ/b47zKSye8W4d6BHTJyMVP7L62XOI3FExSzw3YIasheeLZ
-	mUtv53k5HEkgNkY1+H8crsaeDTvQm4IY3Cy4b4SRAiX8naH1ppctEGq3eWpYiKu5xeEOGvixP/t
-	lEwfLxihIMHzpv8B/rNvx8nWWGYqIy9o8LqP0oE7dDhDSZHCdohlTC3McYZlor39ydjWzV6JiMP
-	oQUYhMNL/xZJ5SiGhPSxfovrPs7NMSZwWQZhmPJ09Y10npS5Evv6nIpidHN87Qhz+23NUtNhJR2
-	bLg9h+eniWw5dUTSEe1+uWOwzo9Hy5LZcDV+mz2slfGWpGGS4XVyMlpTQCZuSD1Hv3g4lJv9fRl
-	T/GixEOFFE2scDt2hUejbdK8lJbvQsheY+v9GHc+5N6WAkqhUBH6bZKPtteRwP4srlEJzHd9fuj
-	zXtm/IlG/9Zq73c7XhZ2vDfcLwbvM71b+4XbPqKT809um8bnCp5ghKJz
-X-Received: by 2002:a05:600c:1c01:b0:4a0:1f9e:5f78 with SMTP id 5b1f17b1804b1-4ba091a9528mr60771345e9.0.1794409025757;
-        Wed, 11 Nov 2026 06:57:05 -0800 (PST)
-Received: from scheduler.schedules ([85.100.66.184])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb4c5553casm1683435e9.14.2026.11.11.06.57.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 06:57:05 -0800 (PST)
-Date: Wed, 11 Nov 2026 17:57:01 +0300
-From: Kayra Cizmeci <kayracizmeci@gmail.com>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: Tejun Heo <tj@kernel.org>, mingo@kernel.org, juri.lelli@redhat.com, 
-	vincent.guittot@linaro.org, dietmar.eggemann@arm.com, rostedt@goodmis.org, 
-	bsegall@google.com, mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com, 
-	linux-kernel@vger.kernel.org, ziqianlu@bytedance.com
-Subject: Re: [PATCH v2 12/12] sched: Remove sched_class::balance()
-Message-ID: <avRzGYNT-_p3KP9R@scheduler.schedules>
-References: <20261107115913.261163891@infradead.org>
- <20261107120208.153536827@infradead.org>
- <a98c40701cc874318e7fe475d90795c6@kernel.org>
- <20261111130512.GO2668200@noisy.programming.kicks-ass.net>
- <20261111131152.GD2669272@noisy.programming.kicks-ass.net>
+        d=1e100.net; s=20260707; t=1794409053; x=1795013853;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :from:content-language:references:cc:to:subject:user-agent
+         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=/40jYrLAj6axvoSSA2in7aHxwy4Fp9/+iv1azORyUxc=;
+        b=Vb2hjgoWzxElNSD2p3q4yHA84EP7D4HVuZEMuCd94ymmSHIXHhj25T9XoCVNo8E5Dp
+         Cr56h2cXr0pWD+lkFzGT9o5Hcp21Jnj9P/Nlqne+/TsUpf1VCyBPoXifPjOIM++TseXa
+         FXIu8G963LuT7r54WmWyGtRWPLTmRRKMIMkQVKqg7CM+kzEAwTNco5z0uUbVwqHd6Y2Z
+         cvieioFvPX8UHm31nJPIUq52IhDfGeSxyI+Fkb4vd8OANiLGDoAL/LSETRPD0J0CmTBJ
+         SnUnO8+ln3wN3DUeSKBkhJkuTDCnduNV482cIaW3o802786miV5pEIE/DZhiTut+U+7L
+         q9/w==
+X-Forwarded-Encrypted: i=1; AL+hErF7tTXoilWbT7MTgd+jaY9+zcSG/RQpdnQRCGWoC2BaRMHmJqF486QdlxtPmeKKnYbVbOXHIxB2ivy7Arg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/gt6hhmnfxCP0R6OdCPLfzAUQwcZdJHXzJgTqSFi7ptYBXys9l
+	vs84ZnLQ6TOudQiMRbddK3bz3c7OpU2+1s5caqrmLD1h/SDHF/Rf9fOegxWBJ4zeMy3XSshIfpd
+	XaZG6D4Zoy7ifn66wapz7G2me6wwwd8293jE+0CGLyLHPkafrd5DnabaRh1ebQ9g+zwE=
+X-Gm-Gg: AYBFou1e+dbXPI+Zmq3vgrmo5HJVz6zAV7VCqWoWEhkDSX4AZMijCHu+CeYC5Blb7Co
+	Mve224rD20C61bWj6jkUBQ8loXqxMgUKF8VMfMNccilJvAyaH8Lq94F61+pPMHG7BVF42AI5gKQ
+	HIlzfTAny5EQx8umW5KMHzEooOmN4K1KUWMaQMTG5UgvrSeJ2cuk1eYzS6q1y1T1qMkXLpds3qy
+	hcpDhcGHSV/j+4MBx1/XcE5wTwbRCWMFWY6Ewv11E+zMFWz70vkrHDvM42bso/m8cSQZnLIb7+H
+	B2e9Sr/IzeUKM0M01AeKhFQwiEbPCk1E+CZK8lPAMvKWr6S8od4CRuD3CUy/AHQ/t7fNVWVFDTd
+	ST/vh7bGZoamOkTnNAk0ZYhOygH0P27JsxoUzCUnxjjPlEc1konUHERReW3/wriF6At2KNwamP6
+	Z3A7g=
+X-Received: by 2002:a05:693c:87c1:20b0:36c:c483:7077 with SMTP id 5a478bee46e88-377abbd9353mr220894eec.14.1794409051644;
+        Wed, 11 Nov 2026 06:57:31 -0800 (PST)
+X-Received: by 2002:a05:693c:87c1:20b0:36c:c483:7077 with SMTP id 5a478bee46e88-377abbd9353mr220869eec.14.1794409050978;
+        Wed, 11 Nov 2026 06:57:30 -0800 (PST)
+Received: from [192.168.29.10] ([49.37.154.218])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3752060c4b6sm17298659eec.15.2026.11.11.06.57.24
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 11 Nov 2026 06:57:29 -0800 (PST)
+Message-ID: <197d7d58-9791-483f-9a7f-40747f44d1ee@oss.qualcomm.com>
+Date: Wed, 11 Nov 2026 20:27:22 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,191 +116,330 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261111131152.GD2669272@noisy.programming.kicks-ass.net>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 4/6] tee: optee: Register TEE devices on the platform
+ bus
+To: Eric Biggers <ebiggers@kernel.org>,
+        Bjorn Andersson
+ <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>,
+        Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
+        Neeraj Soni <neeraj.soni@oss.qualcomm.com>,
+        Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
+        Sumit Garg <sumit.garg@oss.qualcomm.com>,
+        Selvam Sathappan Periakaruppan <selvam.periakaruppan@oss.qualcomm.com>,
+        Jens Wiklander <jens.wiklander@oss.qualcomm.com>
+Cc: Basant Kumar <basantk@qti.qualcomm.com>, linux-kernel@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-crypto@vger.kernel.org,
+        op-tee@lists.trustedfirmware.org
+References: <20261111-ice-migrate-tee-svc-v2-0-29d19f6c92ab@oss.qualcomm.com>
+ <20261111-ice-migrate-tee-svc-v2-4-29d19f6c92ab@oss.qualcomm.com>
+Content-Language: en-US
+From: Harshal Dev <harshal.dev@oss.qualcomm.com>
+Organization: Qualcomm
+In-Reply-To: <20261111-ice-migrate-tee-svc-v2-4-29d19f6c92ab@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDA1OSBTYWx0ZWRfX4MTfng/lSKZP
+ 4nAKzw60DzfVofeu8UcrEUWidKmre5IEmW9VJ/VpC5HjaBqa2sdOOAp2K8KxnoYJjI7o6blrJrB
+ 4ZgvWwuAyKS17AtmDpqXU+y/dOF1uUU=
+X-Proofpoint-GUID: lk6DWffQpNKwEcZ_LwB0w0nNHhry2LLR
+X-Proofpoint-ORIG-GUID: lk6DWffQpNKwEcZ_LwB0w0nNHhry2LLR
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDA1OSBTYWx0ZWRfXw2BO2BNWWdbo
+ U6Hbj1L8gV7m9RjtIaIC6bnQfElIgLm6LZYnshnLMfJYAaSlUdnpVwJWBTf+RhV7NiskuhE8ZEU
+ X2q4EQVpDZBW0qzufHflQPGi8k1rSOHCBuY2wE7RQOxGqLIYxY2wyYQpPjWeVwe4U7H9nhdcd/r
+ bzGNlvlh6B42VYUhatu0y2A9F+qmRCE2yqcIWyDKncWWdXgRsSz5504MuroGVmgdJlGvB0ZQKCR
+ jHlarDvs3YTHaSt4j5/7iFWRQQ4NHoiYhgZlpk9pix0H+/yQIN/HYxdL3kpFvusL/lZqfhkTjZA
+ DDQ9G/VwRhw1og2eEYGJTCG8UZQDVqzjrv9bi0KxoT0gt7hm/EM4gcjzDailxEh5aKeX9G79JdJ
+ vkYLbRmjKN5lyVVLWPyf/b0hUuOVt5pzz0D6mNzgi30wQq/fL+XsL3lK1irkl4/LzyY8K0WTlFK
+ zE+OAQTJX5UnCotnnYQ==
+X-Authority-Analysis: v=2.4 cv=LvcHWXdc c=1 sm=1 tr=0 ts=6af4825d cx=c_pps
+ a=Uww141gWH0fZj/3QKPojxA==:117 a=KJEteu+P7FD/DYblE0u4eA==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=b45o4kL6AAAA:8 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=cVz09F1fK_0Ztju5R3sA:9
+ a=QEXdDO2ut3YA:10 a=PxkB5W3o20Ba91AHUih5:22 a=dhdsR-PFWuPJUldTnwXm:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-11_03,2026-11-11_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 phishscore=0 adultscore=0 suspectscore=0 impostorscore=0
+ malwarescore=0 lowpriorityscore=0 bulkscore=0 priorityscore=1501
+ clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
+ definitions=main-2611110059
 
-Hi Peter!
++ op-tee@lists.trustedfirmware.org, Jens Wiklander <jens.wiklander@oss.qualcomm.com>
 
-I was just going to sleep but I thought I'll finish reviewing this, then
-sleep or maybe don't sleep.
-
-Big mistake. Nevermind let me have a look...
-
-On Wed, Nov 11, 2026 at 02:11:52PM +0100, Peter Zijlstra wrote:
-> On Wed, Nov 11, 2026 at 02:05:12PM +0100, Peter Zijlstra wrote:
-> > On Wed, Nov 11, 2026 at 01:18:42AM -1000, Tejun Heo wrote:
-> > > Hello,
-> > > 
-> > > On Sat, Nov 07, 2026 at 12:59:25PM +0100, Peter Zijlstra wrote:
-> > > >  static struct task_struct *pick_task_rt(struct rq *rq, struct rq_flags *rf)
-> > > >  {
-> > > > -	struct task_struct *p;
-> > > > +	rq_modified_begin(rq, &rt_sched_class);
-> > > > +	balance_rt(rq, rf);
-> > > > +	if (rq_modified_above(rq, &rt_sched_class))
-> > > > +		return RETRY_TASK;
-> > > 
-> > > This exposes an underlying problem on the DL side. rq->next_class is
-> > > raised only by wakeup_preempt(), but dl_server_start(), dl_task_timer()
-> > > and dl_server_timer() enqueue a DL entity and open-code resched_curr()
-> > > without going through it. prev_balance() ran before any class was
-> > > picked, so it didn't matter. Now, pick_task_dl() has already returned
-> > > NULL when balance_rt() drops the lock, and rq_modified_above() is the
-> > > only thing which can notice a DL entity queued in the meantime:
-> > > 
-> > >   CPU0 RT task blocks, pick_task_dl() returns NULL
-> > >        pick_task_rt(), balance_rt() drops the rq lock
-> > >   CPU1 wakes a fair task onto CPU0, dl_server_start()
-> > >   CPU0 relocks, rq_modified_above() is false
-> > >        picks an RT task with the fair server queued
-> > 
-> > A very nice catch, but I'm not entirely convinced it wasn't a problem
-> > before.
-> > 
-> > Similar argument could be made for FAIR vs EXT, and picking a FAIR task
-> > while an EXT server is pickable.
-> > 
-> > > resched_curr() doesn't help as __schedule() clears it on prev after the
-> > > pick. I can trigger this with NO_RT_PUSH_IPI and a delay added in the
-> > > lock drop. With RT_PUSH_IPI, pull_rt_task() doesn't drop the lock.
-> > > 
-> > > Maybe the DL sites should raise rq->next_class where they enqueue and
-> > > resched, so that they behave the same as regular wakeups?
-> > 
-> > Yes, something like that. I think the below captures all enqueues,
-> > irrespective of rescheds. I'll add it as fix at the start of the series.
-> > 
-> > (although maybe I'll massage this a little more and create a helper,
-> > doing the same thing over and over like this is daft)
-> > 
-> > Thanks!
+On 11-11-2026 07:47 pm, Harshal Dev wrote:
+> The Qualcomm Inline Crypto Engine (ICE) driver is an independent platform
+> driver which polls on availability of a TEE interface (SCM driver) before
+> checking if the ICE secure service is supported by QTEE by querying the
+> qcom_scm_ice_available() API.
 > 
+> The TEE subsystem currently does not provide any way to notify regarding
+> the availability of a TEE interface, i.e. whether QCOMTEE or OPTEE have
+> probed. And so when migrating to the TEE subsystem via an ICE TEE client
+> driver, ICE needs to defer probe until the OPTEE ICE Pseudo TA becomes
+> available on the TEE bus. This means that for OPTEE builds without the
+> ICE PTA, the ICE driver would indefintely defer probe and the dependent
+> UFS/SDHC storage driver will fail to come online.
+> 
+> Add support for optionally registering the back-end TEE devices which
+> represent a particular TEE (say OPTEE) on the platform bus via the
+> tee_platform_device_register() API. This allows drivers which poll on
+> TEE secure interface availability to be notified even if the TEE service
+> itself is not supported.
+> 
+> Signed-off-by: Harshal Dev <harshal.dev@oss.qualcomm.com>
 > ---
-> --- a/kernel/sched/deadline.c
-> +++ b/kernel/sched/deadline.c
-> @@ -715,8 +715,7 @@ static struct rq *dl_task_offline_migrat
->  	return later_rq;
+>  MAINTAINERS                                |  1 +
+>  drivers/firmware/qcom/qcom_ice_tee.c       | 41 ++++++++++++++++++++++++++++++
+>  drivers/soc/qcom/Kconfig                   |  1 +
+>  drivers/soc/qcom/ice.c                     |  9 ++++++-
+>  drivers/tee/optee/ffa_abi.c                |  8 ++++++
+>  drivers/tee/optee/smc_abi.c                |  8 ++++++
+>  drivers/tee/tee_core.c                     | 21 +++++++++++++++
+>  include/linux/firmware/qcom/qcom_ice_tee.h | 10 ++++++++
+>  include/linux/tee_core.h                   |  9 +++++++
+>  9 files changed, 107 insertions(+), 1 deletion(-)
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 1132e456488b..06dba76996b8 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -23013,6 +23013,7 @@ L:	linux-arm-msm@vger.kernel.org
+>  L:	linux-crypto@vger.kernel.org
+>  S:	Maintained
+>  F:	drivers/firmware/qcom/qcom_ice_tee.c
+> +F:	include/linux/firmware/qcom/qcom_ice_tee.h
+>  
+>  QUALCOMM INTERCONNECT BWMON DRIVER
+>  M:	Krzysztof Kozlowski <krzk@kernel.org>
+> diff --git a/drivers/firmware/qcom/qcom_ice_tee.c b/drivers/firmware/qcom/qcom_ice_tee.c
+> index 694aa05847f0..39f7094439d9 100644
+> --- a/drivers/firmware/qcom/qcom_ice_tee.c
+> +++ b/drivers/firmware/qcom/qcom_ice_tee.c
+> @@ -5,6 +5,7 @@
+>  
+>  #include <linux/kernel.h>
+>  #include <linux/module.h>
+> +#include <linux/platform_device.h>
+>  #include <linux/slab.h>
+>  #include <linux/tee_drv.h>
+>  #include <linux/uuid.h>
+> @@ -22,6 +23,9 @@
+>  
+>  #define TEE_NUM_PARAMS				4
+>  
+> +/* This represents the back-end OPTEE device */
+> +static struct device *__teedev;
+> +
+>  struct qcom_ice_tee_private {
+>  	struct device *dev;
+>  	struct tee_context *ctx;
+> @@ -281,6 +285,18 @@ static int qcom_ice_tee_import_key(struct device *dev,
+>  					     lt_key, lt_key_size);
 >  }
 >  
-> -static void
-> -enqueue_dl_entity(struct sched_dl_entity *dl_se, int flags);
-> +static void enqueue_dl_entity(struct rq *rq, struct sched_dl_entity *dl_se, int flags);
->  static void enqueue_task_dl(struct rq *rq, struct task_struct *p, int flags);
->  static void dequeue_dl_entity(struct sched_dl_entity *dl_se, int flags);
->  static void wakeup_preempt_dl(struct rq *rq, struct task_struct *p, int flags);
-> @@ -1184,7 +1183,7 @@ static enum hrtimer_restart dl_server_ti
->  			dl_se->dl_defer_running = 1;
->  		}
->  
-> -		enqueue_dl_entity(dl_se, ENQUEUE_REPLENISH);
-> +		enqueue_dl_entity(rq, dl_se, ENQUEUE_REPLENISH);
->  
->  		if (!dl_task(dl_se->rq->curr) || dl_entity_preempt(dl_se, &dl_se->rq->curr->dl))
->  			resched_curr(rq);
-> @@ -1520,7 +1519,7 @@ static void update_curr_dl_se(struct rq
->  					replenish_dl_new_period(dl_se, rq);
->  					start_dl_timer(dl_se);
->  				} else {
-> -					enqueue_dl_entity(dl_se, ENQUEUE_REPLENISH);
-> +					enqueue_dl_entity(rq, dl_se, ENQUEUE_REPLENISH);
->  				}
->  			} else {
->  				enqueue_task_dl(rq, dl_task_of(dl_se), ENQUEUE_REPLENISH);
-> @@ -1812,7 +1811,7 @@ void dl_server_start(struct sched_dl_ent
->  
->  	trace_sched_dl_server_start_tp(dl_se, cpu_of(rq), dl_get_type(dl_se, rq));
->  	dl_se->dl_server_active = 1;
-> -	enqueue_dl_entity(dl_se, ENQUEUE_WAKEUP);
-> +	enqueue_dl_entity(rq, dl_se, ENQUEUE_WAKEUP);
->  	if (!dl_task(dl_se->rq->curr) || dl_entity_preempt(dl_se, &rq->curr->dl))
->  		resched_curr(dl_se->rq);
->  }
-> @@ -2379,8 +2378,8 @@ static void __dequeue_dl_entity(struct s
->  	dec_dl_tasks(dl_se, dl_rq);
->  }
->  
-> -static void
-> -enqueue_dl_entity(struct sched_dl_entity *dl_se, int flags)
-> +static bool
-> +_enqueue_dl_entity(struct sched_dl_entity *dl_se, int flags)
+> +bool qcom_ice_tee_is_available(void)
+> +{
+> +	/*
+> +	 * Paired with smp_load_acquire() in qcom_ice_plat_probe().
+> +	 *
+> +	 * This marks the availability of the OPTEE interface informing the
+> +	 * polling ICE driver that the platform supports a TEE.
+> +	 */
+> +	return !!smp_load_acquire(&__teedev);
+> +}
+> +EXPORT_SYMBOL_GPL(qcom_ice_tee_is_available);
+> +
+>  static bool qcom_ice_tee_has_wrapped_key_support(struct device *dev)
 >  {
->  	WARN_ON_ONCE(on_dl_rq(dl_se));
+>  	struct qcom_ice_tee_private *data = dev_get_drvdata(dev);
+> @@ -398,5 +414,30 @@ static struct tee_client_driver qcom_ice_tee_driver = {
 >  
-> @@ -2418,7 +2417,7 @@ enqueue_dl_entity(struct sched_dl_entity
->  		if (flags & ENQUEUE_WAKEUP)
->  			task_contending(dl_se, flags);
+>  module_tee_client_driver(qcom_ice_tee_driver);
 >  
-> -		return;
-> +		return false;
->  	}
->  
->  	/*
-> @@ -2442,7 +2441,7 @@ enqueue_dl_entity(struct sched_dl_entity
->  	 * deferred task and still got to wait, don't enqueue.
->  	 */
->  	if (dl_se->dl_throttled && start_dl_timer(dl_se))
-> -		return;
-> +		return false;
->  
->  	/*
->  	 * We're about to enqueue, make sure we're not ->dl_throttled!
-> @@ -2457,6 +2456,13 @@ enqueue_dl_entity(struct sched_dl_entity
->  	}
->  
->  	__enqueue_dl_entity(dl_se);
-> +	return true;
+> +static int qcom_ice_plat_probe(struct platform_device *pdev)
+> +{
+> +	/* Paired with smp_load_acquire() in qcom_ice_tee_is_available() */
+> +	smp_store_release(&__teedev, &pdev->dev);
+> +	return 0;
 > +}
 > +
-> +static void enqueue_dl_entity(struct rq *rq, struct sched_dl_entity *dl_se, int flags)
-> +{
-> +	if (_enqueue_dl_entity(dl_se, flags))
-> +		rq->next_class = &dl_sched_class;
+> +static const struct platform_device_id qcom_ice_plat_id_table[] = {
+> +	{
+> +		.name = "optee",
+> +	},
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(platform, qcom_ice_plat_id_table);
+> +
+> +static struct platform_driver qcom_ice_plat_driver = {
+> +	.probe = qcom_ice_plat_probe,
+> +	.id_table = qcom_ice_plat_id_table,
+> +	.driver = {
+> +		.name = "qcom-ice-plat",
+> +	},
+> +};
+> +
+> +module_platform_driver(qcom_ice_plat_driver);
+> +
+>  MODULE_LICENSE("GPL");
+>  MODULE_DESCRIPTION("Qualcomm ICE TEE driver");
+> diff --git a/drivers/soc/qcom/Kconfig b/drivers/soc/qcom/Kconfig
+> index 535c8619197b..8dc75c252f52 100644
+> --- a/drivers/soc/qcom/Kconfig
+> +++ b/drivers/soc/qcom/Kconfig
+> @@ -296,6 +296,7 @@ endif
+>  config QCOM_INLINE_CRYPTO_ENGINE
+>  	tristate
+>  	select QCOM_SCM
+> +	select QCOM_ICE_TEE
+>  
+>  config QCOM_KRYO_L2_ACCESSORS
+>  	bool
+> diff --git a/drivers/soc/qcom/ice.c b/drivers/soc/qcom/ice.c
+> index 452896b1858f..4844621b7497 100644
+> --- a/drivers/soc/qcom/ice.c
+> +++ b/drivers/soc/qcom/ice.c
+> @@ -18,6 +18,7 @@
+>  #include <linux/platform_device.h>
+>  #include <linux/xarray.h>
+>  
+> +#include <linux/firmware/qcom/qcom_ice_tee.h>
+>  #include <linux/firmware/qcom/qcom_scm.h>
+>  
+>  #include <soc/qcom/ice.h>
+> @@ -132,7 +133,13 @@ static bool qcom_ice_tz_ops_registered(void)
+>  
+>  static bool qcom_ice_tz_is_available(void)
+>  {
+> -	return qcom_scm_is_available();
+> +	/*
+> +	 * Both back-ends should be available before we check for
+> +	 * qcom_ice_tz_ops_registered(), otherwise we could pre-maturely
+> +	 * assume that TZ does not provide any ICE secure interface.
+> +	 */
+> +	return (qcom_scm_is_available() & qcom_ice_tee_is_available());
+> +
 >  }
 >  
->  static void dequeue_dl_entity(struct sched_dl_entity *dl_se, int flags)
-> @@ -2534,7 +2540,7 @@ static void enqueue_task_dl(struct rq *r
->  	if (task_on_rq_migrating(p))
->  		flags |= ENQUEUE_MIGRATING;
+>  static int qcom_ice_tz_invalidate_key(u32 index)
+> diff --git a/drivers/tee/optee/ffa_abi.c b/drivers/tee/optee/ffa_abi.c
+> index 702da7d98fbc..2c0065f3d9e4 100644
+> --- a/drivers/tee/optee/ffa_abi.c
+> +++ b/drivers/tee/optee/ffa_abi.c
+> @@ -1177,6 +1177,14 @@ static int optee_ffa_probe(struct ffa_device *ffa_dev)
+>  	if (rc)
+>  		goto err_unregister_devices;
 >  
-> -	enqueue_dl_entity(dl_se, flags);
-> +	enqueue_dl_entity(rq, dl_se, flags);
+> +	/*
+> +	 * Device should only be visible on the platform bus once the
+> +	 * child devices have already been enumerated on the TEE bus.
+> +	 */
+> +	rc = tee_platform_device_register(optee->teedev, "optee");
+> +	if (rc)
+> +		goto err_unregister_devices;
+> +
+>  	INIT_WORK(&optee->rpmb_scan_bus_work, optee_bus_scan_rpmb);
+>  	optee->rpmb_intf.notifier_call = optee_rpmb_intf_rdev;
+>  	blocking_notifier_chain_register(&optee_rpmb_intf_added,
+> diff --git a/drivers/tee/optee/smc_abi.c b/drivers/tee/optee/smc_abi.c
+> index 51624443359b..85ee76173982 100644
+> --- a/drivers/tee/optee/smc_abi.c
+> +++ b/drivers/tee/optee/smc_abi.c
+> @@ -1920,6 +1920,14 @@ static int optee_probe(struct platform_device *pdev)
+>  	if (rc)
+>  		goto err_disable_shm_cache;
 >  
->  	if (dl_server(dl_se))
->  		return;
+> +	/*
+> +	 * Device should only be visible on the platform bus once the
+> +	 * child devices have already been enumerated on the TEE bus.
+> +	 */
+> +	rc = tee_platform_device_register(optee->teedev, "optee");
+> +	if (rc)
+> +		goto err_disable_shm_cache;
+> +
+>  	INIT_WORK(&optee->rpmb_scan_bus_work, optee_bus_scan_rpmb);
+>  	optee->rpmb_intf.notifier_call = optee_rpmb_intf_rdev;
+>  	blocking_notifier_chain_register(&optee_rpmb_intf_added,
+> diff --git a/drivers/tee/tee_core.c b/drivers/tee/tee_core.c
+> index 1aac50c7c1de..0d3c266b29c7 100644
+> --- a/drivers/tee/tee_core.c
+> +++ b/drivers/tee/tee_core.c
+> @@ -10,6 +10,7 @@
+>  #include <linux/fs.h>
+>  #include <linux/idr.h>
+>  #include <linux/module.h>
+> +#include <linux/platform_device.h>
+>  #include <linux/overflow.h>
+>  #include <linux/slab.h>
+>  #include <linux/tee_core.h>
+> @@ -1225,6 +1226,26 @@ int tee_device_register(struct tee_device *teedev)
+>  }
+>  EXPORT_SYMBOL_GPL(tee_device_register);
+>  
+> +static void plat_tee_free(void *data)
+> +{
+> +	struct platform_device *plat_dev = data;
+> +
+> +	platform_device_unregister(plat_dev);
+> +}
+> +
+> +int tee_platform_device_register(struct tee_device *teedev, const char *teename)
+> +{
+> +	struct platform_device *plat_dev;
+> +
+> +	plat_dev = platform_device_register_data(&teedev->dev, teename,
+> +						 PLATFORM_DEVID_NONE, NULL, 0);
+> +	if (IS_ERR(plat_dev))
+> +		return PTR_ERR(plat_dev);
+> +
+> +	devm_add_action_or_reset(&teedev->dev, plat_tee_free, plat_dev);
+> +	return 0;
+> +}
+> +
+>  void tee_device_put(struct tee_device *teedev)
+>  {
+>  	mutex_lock(&teedev->mutex);
+> diff --git a/include/linux/firmware/qcom/qcom_ice_tee.h b/include/linux/firmware/qcom/qcom_ice_tee.h
+> new file mode 100644
+> index 000000000000..a5906c5d4e39
+> --- /dev/null
+> +++ b/include/linux/firmware/qcom/qcom_ice_tee.h
+> @@ -0,0 +1,10 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +/*
+> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> + */
+> +#ifndef __QCOM_ICE_TEE
+> +#define __QCOM_ICE_TEE
+> +
+> +bool qcom_ice_tee_is_available(void);
+> +
+> +#endif /* __QCOM_ICE_TEE */
+> diff --git a/include/linux/tee_core.h b/include/linux/tee_core.h
+> index f993d5118edd..d5310b404c1e 100644
+> --- a/include/linux/tee_core.h
+> +++ b/include/linux/tee_core.h
+> @@ -205,6 +205,15 @@ struct tee_device *tee_device_alloc(const struct tee_desc *teedesc,
+>   */
+>  int tee_device_register(struct tee_device *teedev);
+>  
+> +/**
+> + * tee_platform_device_register() - Registers a TEE platform device
+> + * @teedev:	Device to register
+> + * @teename:	Name of the TEE the device represents
+> + *
+> + * @returns: < 0 on failure
+> + */
+> +int tee_platform_device_register(struct tee_device *teedev, const char *teename);
+> +
+>  /**
+>   * tee_device_unregister() - Removes a TEE device
+>   * @teedev:	Device to unregister
+> 
 
-Let's say a fair task named TA is working in CPU1, a DL task named DA is
-waking up. We enter the normal wakeup path, and call enqueue_task_dl()
-and from there enqueue_dl_entity(). enqueue_dl_entity() sets next_class
-to dl_sched_class. Later enqueue, when we call wakeup_preempt TA does
-not gets preempted because:
-
-void wakeup_preempt(struct rq *rq, struct task_struct *p, int flags)
-{
-	struct task_struct *donor = rq->donor;
-
-	if (p->sched_class == rq->next_class) {
-		rq->next_class->wakeup_preempt(rq, p, flags);
-
-We already set next_class to DL, so we call wakeup_preempt_dl().
-
-And it just early returns.
-
-So, we have a fair task working while a new woken DL task just sits
-around...
-
-I also tested this:
-
-On hackery, the latency of DA was 12 us, with hackery + above diff it
-was 200 ms. On idle, it was 12 us to 3 seconds.
-
-I'm not sure what is the cleanest fix tho. So this time there is no
-diff.
-
-Hope I'm not missing something :-).
-
-
-
-Cheers,
-
-Kayra
