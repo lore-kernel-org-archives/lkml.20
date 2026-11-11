@@ -1,61 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794424171;
-	b=McNWqZRj2gDrQsTgAkcUHQbQ8onSTdP+o61rL7nDlwvzq2ezosGFVr1dcGY4n1YVXs58
-	 qeeAJWcjLbgN6xKV7kaITXKEWQqoWk+LHbwVp8sGFOkjNbEszurntY/WKuwyZy5A9WeGS
-	 rq2lkhOaJ7fiWMA5H2R+UcGqTC3NNBGREjwOFOMCq12NnAP69iagKv69O8xd6QstNdx9+
-	 fIT4k90l01EqE1rfn/gWH1xuoBOU92eDaSRtIVJnIFXhVBe9vfYwVlzIxw583j5U9pplh
-	 Qk1E0wTSz034r7Ct/lUvKeQb2lKPtLSlmnBHLc2P4optAq9+VL49bzUm50hX71qOs9w==
+	t=1794424176;
+	b=hpB0nBGHVrjRM8pl/UtU+/FCWDZhtE7BUBuHgviInFqhxkTctO7oNCRODBqVXuP3YN3b
+	 MDWmZ3Saqkid8eWzLKcwIlQoLLzPuMQuDQvsuvRaLKcYER23076ylAf8Gzl4n6l7X82hI
+	 0BJzkKisKVjhRN6KTRwoyWeVgfCggx8wQqFfaDuXlgqC9u/uQvOHlL/N/bamsZNuPYnbV
+	 61+5J4il42aNm/kTWMDgidxC1+L7UvyBiLzbyaORaoNfu/OMy19lYciyXWQFYU0nphzVz
+	 KXdAs8AMiUfyPo0d67+vBjEjImTXVOh9s/q+IRdmDZZIc7UGfHBe2dgCgHWnVLiGakw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794424171;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794424176;
 	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
 	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 X-Mailer;
-	bh=toNVohFME4CPzz3aQG8YWlAvJejHByTzrBnth7OtCCs=;
-	b=rGAfzSG6X4PWuIQvqdHX/2QOI802D2w2p7mSILIojyKgUhqxkEuh5NMu0Oiy/fJa0gxz
-	 sBoq6W7HnAEPkdAT7D7SkeowQLraOOIApQRsIYQqUmYwpNaVKVBYMIqU0EhGOaXp5uYkp
-	 uZBULnC6owFUm+6K9ceRs2tDZyzfZLKlraFnm6BWjQhv6z92i8nKtlfu84JA89tMwvSy+
-	 WTpmz4njzLtDscJJREmrhOiL5pl3pB2dbGw2jmdeTMxBfy2oy4XcsXZr16EgFRW8Kx4us
-	 YnYuV9o3CQhHcdVvkQROyHVgkGK9uJgdR2aFpoMIP2HZZ7eYBnJWke9OA7OQrp3tkhw==
+	bh=GjGQbeEWEMac+4rVX6cAmri8jzhw4jbYojbGu9dN4QE=;
+	b=oYvHMg78iP3KWDOGoB31E+FZoENXPVKIqYkmLtTiqbysAJsHuW5GY8gqzH0CCAjkyHdC
+	 W/KdMj4bFp1jI4b3/sr3PLEGAunBNW7E15nTCx41BrWuHDfr1h14IA1nv6qGwf6KsRg7p
+	 sVPmLuuUp98Sz3yJmSddWL3pKZu61ul30rJvzNXAvvgyQPRUGgiW+Sh23eUDPROGwpEjG
+	 YFSCX+V+XudvbfXT21tPNVtavNxoAN3sRuPHxm+k9V0e5mk3AjUWTDv8jnlX3B0RTcQt8
+	 KsQjTx+08J59OeX/T1EMifYfJJ/jiLVw2c23aZ8ETf4WnaeZQn8oQlq5IfhFIgyVqFw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JXjXfzY2;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dbXMqyZJ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69206606A327;
-	Wed, 11 Nov 2026 19:09:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 930C6606A331;
+	Wed, 11 Nov 2026 19:09:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JXjXfzY2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 541AA1F00A05;
-	Wed, 11 Nov 2026 19:09:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dbXMqyZJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3BFBF1F00A0B;
+	Wed, 11 Nov 2026 19:09:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794424171;
-	bh=toNVohFME4CPzz3aQG8YWlAvJejHByTzrBnth7OtCCs=;
+	s=k20260515; t=1794424176;
+	bh=GjGQbeEWEMac+4rVX6cAmri8jzhw4jbYojbGu9dN4QE=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=JXjXfzY28+cZcBXXiqBMUy+JhA9OwYvVTHDkaMOeSbc+w3UYbpgb+Pm4juBCNjHw5
-	 GEa4B6YWUi9y3KlrJpVJzxOcrDBEbk41lmwA5bNCbTrke8DcsfDM9rw5nNfJyJquYP
-	 tDV10VKz3u76oJ2Nx1C/SwzRUwO29nURwCcL7Gu/Llv0GJwd0uBpEbnmJl/mIzdEMn
-	 2Mkv6x8Zlq6Q2BVjplfpbwLkSMlAjKgnLyXOJG2CjxDypJZPdBXZk0HNL6k30Rvr49
-	 46QOs23TVV0hV6wID4ga9TTpUmawLn86Fwqp3oVgo8RgIRMwN7lw7VzJZTU3pwgJe/
-	 bs2BPPnSbn1Yg==
+	b=dbXMqyZJHwRIckzPmNUEliVS14wz8B0LmvLMCOEYCeNUcWjcAaeUow9L/lnWev5K7
+	 rkQUscc9WwYLfIcjNvA0CVpjSzqqYlthi6NCgeKBwyUL4N0S20JJ/eRqXRFC7pSYDB
+	 XfZUIhs5AmQ3VAXjFIAmiTVUEmZLy8txK/XJHts4UsT0ovO4iIzHgJeJahWZiRNB9h
+	 z5JrRKmWqrbOkJrJ1hOM6ZttWa8ASR8748/hFpczXWlWq+crx3Y1cQXedecqRWSXVy
+	 m4Aas9dKpX4CQMf1prDMjwH+dJ104IQ0d8DBiqE+NVZ51pTPBAfj27F4Z4+cdsqQsF
+	 FUOkMXoxfoaew==
 From: Namhyung Kim <namhyung@kernel.org>
-To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+To: linux-perf-users@vger.kernel.org, 
  Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Mark Rutland <mark.rutland@arm.com>, 
- Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
- Adrian Hunter <adrian.hunter@intel.com>, Jakub Brnak <jbrnak@redhat.com>, 
- Leo Yan <leo.yan@arm.com>, James Clark <james.clark@linaro.org>
-Cc: Arnaldo Carvalho de Melo <acme@redhat.com>, 
- linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261109-james-perf-test-fixes-v4-0-355ee6b81917@linaro.org>
-References: <20261109-james-perf-test-fixes-v4-0-355ee6b81917@linaro.org>
-Subject: Re: (subset) [PATCH v4 0/4] perf tools: LLVM dwarf and flaky test
- fixes
-Message-Id: <179442417019.676192.135153254035516738.b4-ty@b4>
-Date: Wed, 11 Nov 2026 11:09:30 -0800
+ TAKANO Mitsuhiro <takano32@gmail.com>
+Cc: Ian Rogers <irogers@google.com>, linux-kernel@vger.kernel.org, 
+ Sandipan Das <sandipan.das@amd.com>, Ravi Bangoria <ravi.bangoria@amd.com>
+In-Reply-To: <20261108184600.3810059-1-takano32@gmail.com>
+References: <20261108184600.3810059-1-takano32@gmail.com>
+Subject: Re: [PATCH] perf vendor events amd: Fix a misspelled JSON key
+Message-Id: <179442417609.676192.2090618697803320246.b4-ty@b4>
+Date: Wed, 11 Nov 2026 11:09:36 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,13 +64,15 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.15.2
 
-On Mon, 09 Nov 2026 13:48:07 +0000, James Clark wrote:
-> Running the tests on an LLVM build results in some dwarf issues that
-> need fixing. And there is an easy fix for some flakiness caused when
-> tests are run in parallel.
+On Sun, 08 Nov 2026 18:46:00 +0000, TAKANO Mitsuhiro wrote:
+> ls_inef_sw_pref.all is listed without a description on Zen 4, Zen 5 and
+> Zen 6.  Its three JSON entries spell BriefDescription as
+> "BriefDescript6ion", and jevents.py reads the keys it knows by name, so
+> the text is dropped and the generated table ends up with an empty
+> description field.
 > 
-> Assisted by Claude Opus 5.5
-> 
+> Spell the key correctly.  Only the key changes; the text, event names,
+> codes, umasks and expressions are untouched.
 > 
 > [...]
 
