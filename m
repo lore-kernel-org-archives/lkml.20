@@ -1,63 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794415239;
-	b=goPYYLUqbPWcvNeOYqvO+21qmM1w8VOJrpqHmltkDVfo9DpiFgPjhKmS3XVunKzpjbYI
-	 nxicMcA4nrVV7DjuytDpmAfvEYUF/2c2sA8liLQB7szA73Im6IukhgPLXoWbVdzhRkFvl
-	 6el6HztcG+oK9/ivJjpLdueDecdirZUO+w4lcZn+70W4IEI3HZoYr/76nGHGLF4tOw4Zf
-	 a3nmyL1ZaxvjMDe5h7LnCRayV4WF8R7N2QP+FldBDeRezPTpEjHAAzeVY3rFpCxOv8Uax
-	 WnjEW3JExz4ik4seQklx+4MLQzTV43+DyO/MdksKat1ABENNahnO8+Ekjf8lgUZCeXQ==
+	t=1794415246;
+	b=1V7FVmXk6IREf6Lky4dbn/iIIwDBWXAmj8/YipJMi8dAMVbyOaxz4bocELxCCAaJY/g+
+	 li89v+qvSf8qAyV2gIW5kN12XqWFrj+tp5h88fzsiah/KT9LbBiOROeLWFd4Jo1AmUD8o
+	 Lm+nuiO7Vvqo2R/RzMbsbRld8Vn4JBkxxnHRRFv9cNW7vhOjbYuOme9udI0467rf3Ka/f
+	 Wh01X9c3iV2gR8+FhvyDaK/FogZDJkBzviTdlgXeTCA+KO79WbK/7X5b/DNZERMh7ceUw
+	 SSrZG1/8Dyr4F+nonX2uguBSjDaefmXcfAoNuAYW3Gkii4a9vhTCykOTPahv2wWFi5g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794415239;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794415246;
 	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
 	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:MIME-Version:Content-Transfer-Encoding:X-Scanned-By;
-	bh=NShsA9MlHZ9FwmFpGhwUtm1mborr1aSrRmco7ok7QSA=;
-	b=2bCtcF2yfUqq6bbC5lgMwcujKKJ/1uQ43j/TEc5uwzdTCJ1SzCJ/ggFeKVRt6nJReq0T
-	 MhBOuFUSMU3g2Gy8lTo2RMaPNcZX0L+sKsythNxjvsPyFp/uCOdonP3KWJIZcsoR1HgK2
-	 yn78SWxvW6BfNPqZNs84dwKimM4UKJl3N+YasVsd8QVkTI4tiVzjfqNQQusCk3bNuceAP
-	 pJFHyk/ecUmBV5rUFicpenqhwUCVFzy9egJkrjEr1DE0sGA6V7Buf4XRpNDabimbXtDi9
-	 GxKEGrsQ723DLFXZi7mBWILVGoGLVdfrnTjYX5LL1Z5lfTMbN8zIIAxNXEcsnLLbruw==
+	 Message-ID:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Scanned-By;
+	bh=4UXdJhb2DeSA3nX65h3c9Ro7JbdiHIOP89nBTrO6qaY=;
+	b=npwxMA4sJaoX0x4Hoogn4AT7YwG6HZdDrukQkqQwLSwHsZs3xh4Rn3GBjkXjP19JwrJa
+	 RbZ6Xdx6KGjTcmyH2Mjg+76qvmDVvIfzHfSrCJ8vAx01Py0JPXa6W61h+d8F91K4gFmAj
+	 dWfKEvZUycHXUgRXZpsYqKuxaVU5yyZkIwU8G2CNAokJIr2hN8nIEjOCZ2WaD09OPQcK3
+	 PeD0HFGKQb6Vjp9ZoIFhM7RX2md9JFxZcs3qi9Tp6cbO1EZkE0WNh7JM+JoMnzdUobXCy
+	 Lx9kQB7sHid28rzChWh94RPhan1x785e3lQgrfhfxehKvX8AlpJHycbx66hxGF7ubyA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=redhat.com;
 	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=ADkSPwxG;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b="Q/WfYdTS";
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 692E3606A32D
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 16:40:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 692E3606A32D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97580606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 16:40:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 97580606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=ADkSPwxG
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Q/WfYdTS
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794415237;
+	s=mimecast20190719; t=1794415244;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=NShsA9MlHZ9FwmFpGhwUtm1mborr1aSrRmco7ok7QSA=;
-	b=ADkSPwxG2Um+rkzQaB3KyaK3m+qlrSZzqdY6RqDtih89dK9I2gZH9ouB2/cAesJLA5YgeM
-	D1DjoKfOXAo8iQ3eVeMMaIpEpMBWs/sGlSb4v4i73Z1jTSnQ2xRXY7V28OxIpexAh9/+Sq
-	rWADW5FHLaoHlHUZZ+B2zbe2GAllOgU=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=4UXdJhb2DeSA3nX65h3c9Ro7JbdiHIOP89nBTrO6qaY=;
+	b=Q/WfYdTS4bdVLnmjBMGy1O9Lfxw9eni8J+OxeqnuVT1I5MIa8yiLZcN6x7QsstCNRcViJG
+	UtEqhDh6NrblEs/JFndoEhmYRcMvx4StVaZoKXf+aN8il7BGDe6buWJ+Ik8ek3NmTkzSr/
+	SJugt4vwEYnoogDlebdp2dxBbA8RTZU=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-277-nIjXMsnDO9OwQ5BZKCeBBw-1; Wed,
- 11 Nov 2026 11:40:32 -0500
-X-MC-Unique: nIjXMsnDO9OwQ5BZKCeBBw-1
-X-Mimecast-MFC-AGG-ID: nIjXMsnDO9OwQ5BZKCeBBw_1794415229
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-202-8oyxtDaRMGC08USG0k2hVg-1; Wed,
+ 11 Nov 2026 11:40:38 -0500
+X-MC-Unique: 8oyxtDaRMGC08USG0k2hVg-1
+X-Mimecast-MFC-AGG-ID: 8oyxtDaRMGC08USG0k2hVg_1794415235
 Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id A797C1955BC4;
-	Wed, 11 Nov 2026 16:40:28 +0000 (UTC)
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 0ABF4180061D;
+	Wed, 11 Nov 2026 16:40:35 +0000 (UTC)
 Received: from ivecera-thinkpadp16vgen1.tpbc.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 40D41421;
-	Wed, 11 Nov 2026 16:40:22 +0000 (UTC)
+	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 15DB3410;
+	Wed, 11 Nov 2026 16:40:28 +0000 (UTC)
 From: Ivan Vecera <ivecera@redhat.com>
 To: netdev@vger.kernel.org
 Cc: Vadim Fedorenko <vadim.fedorenko@linux.dev>,
@@ -83,9 +85,11 @@ Cc: Vadim Fedorenko <vadim.fedorenko@linux.dev>,
 	Saeed Mahameed <saeedm@nvidia.com>,
 	Tariq Toukan <tariqt@nvidia.com>,
 	Petr Oros <poros@redhat.com>
-Subject: [PATCH net-next v2 0/9] dpll: do not serialize driver callbacks under global dpll_lock
-Date: Wed, 11 Nov 2026 17:40:11 +0100
-Message-ID: <20261111164021.273409-1-ivecera@redhat.com>
+Subject: [PATCH net-next v2 1/9] ice: dpll: notify TSPLL lock status from the periodic work only
+Date: Wed, 11 Nov 2026 17:40:12 +0100
+Message-ID: <20261111164021.273409-2-ivecera@redhat.com>
+In-Reply-To: <20261111164021.273409-1-ivecera@redhat.com>
+References: <20261111164021.273409-1-ivecera@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,93 +102,80 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
-dpll_lock protects topology and object lifetime, but it also serializes
-all driver callbacks in the system, so one slow device stalls every other
-DPLL device, whichever driver it belongs to. mlx5 callbacks issue firmware
-commands with a 60 s default timeout, and zl3073x callbacks can wait
-seconds on a driver lock held across ToD writes and phase steps.
+ice_dpll_tspll_state_on_dpll_set() notifies the TSPLL device from a
+callback of the TIME_REF pin. This pin belongs to an external DPLL and the
+DPLL core is going to run its callbacks under a lock of the pin's owner,
+which does not cover the TSPLL device.
 
-Make dpll_lock an rwsem for topology and lifetime and add a mutex per
-domain for callbacks. A domain is all objects created with one (module,
-clock_id), in practice one chip or card, so channels of one chip stay
-serialized as drivers expect, and they still block each other. Device
-callbacks run under the domain of the device, pin callbacks under the
-domain of the pin, whichever driver registered them. Only one domain lock
-is ever held, so domains have no lock order. A lock per device would not
-work, because pins are N:M with devices and callbacks notify sibling
-channels.
+Only update dpll_state in the callback, so a device get reports the new
+state right away, and leave prev_dpll_state to
+ice_dpll_periodic_work_e825(), which then sends the notification. It now
+arrives up to 500 ms later and after the reply to the request.
 
-The driver API does not change, but a callback can now notify only
-objects of its own domain. Patch 1 changes the one in-tree callback that
-does not follow this.
+Refresh dpll_state on every run of the work, as the state written by the
+callback can be transient and the lock status can return to
+prev_dpll_state before the next run. No notification is sent in this case.
 
-Registrations across domains exist in the tree only on E825, where ice
-registers fwnode pins of an external DPLL with its TXC and TSPLL DPLLs.
-These callbacks are no longer serialized with TXC and TSPLL, they rely on
-pf->dplls.lock, and requests about these pins wait while the external
-DPLL is busy. Intel folks, please check that this is fine.
-
-Each complex of a dual complex E825 has its own DSN and so its own
-domain, but both use the CGU of complex 0. The lock for the registers
-they share is in a fix sent to net [1], which this series needs. Without
-it a test lost updates of them.
-
-Patch 4 is the only patch that lets callbacks run concurrently. Patch 5
-adds KUnit tests. I also tested each commit with a mock driver and YNL in
-QEMU, with lockdep and KASAN, and the tip with lockdep on two systems:
-
-- A board with ZL30732A: every notification the driver sends from a
-  callback, concurrent traffic with PTP, driver reload and rebind.
-- GNR-D with dual complex E825 and zl3073x: callbacks of the pins shared
-  by both drivers, TX clock switches, RCLK pins of both complexes, a port
-  going down and up, and both drivers unloaded and loaded in either order
-  under load.
-
-mlx5 is build tested only.
-
-On GNR-D, with ToD writes running on the zl3073x and requests waiting for
-them, requests to an ice DPLL took 1448 ms in median and 3.9 s at most
-before this series, 0.2 ms and 0.3 ms with it, the same as when idle.
-Requests about the pins shared by both drivers still wait for the zl3073x.
-
+Reviewed-by: Petr Oros <poros@redhat.com>
+Signed-off-by: Ivan Vecera <ivecera@redhat.com>
+---
 Changes in v2:
-- Dropped "ice: dpll: serialize changes of the SyncE CGU registers", sent
-  to net with a fix of the SyncE divider [1]
-- Addressed the Sashiko review, see the patches for details
-- Added Reviewed-by tags from Petr
+- Merged the two comments in ice_dpll_tspll_state_on_dpll_set() (Sashiko)
+---
+ drivers/net/ethernet/intel/ice/ice_dpll.c | 20 ++++++--------------
+ 1 file changed, 6 insertions(+), 14 deletions(-)
 
-v1: https://lore.kernel.org/netdev/20261106121005.1327603-1-ivecera@redhat.com/
-
-[1] https://lore.kernel.org/netdev/20261110094350.184185-1-ivecera@redhat.com/
-
-Ivan Vecera (9):
-  ice: dpll: notify TSPLL lock status from the periodic work only
-  dpll: add domain object
-  dpll: take domain locks around driver callbacks
-  dpll: convert dpll_lock to rwsem
-  dpll: add KUnit tests for core locking
-  dpll: reject measured_freq_get for foreign and on-pin registrations
-  dpll: zl3073x: update locking comments
-  ice: dpll: update locking comments
-  dpll: document locking rules
-
- Documentation/driver-api/dpll.rst         |   48 +
- drivers/dpll/.kunitconfig                 |    5 +
- drivers/dpll/Kconfig                      |   13 +
- drivers/dpll/Makefile                     |    1 +
- drivers/dpll/dpll_core.c                  |  204 ++-
- drivers/dpll/dpll_core.h                  |   34 +-
- drivers/dpll/dpll_core_kunit.c            | 1580 +++++++++++++++++++++
- drivers/dpll/dpll_netlink.c               |  117 +-
- drivers/dpll/zl3073x/dpll.c               |    9 +-
- drivers/net/ethernet/intel/ice/ice_dpll.c |   24 +-
- drivers/net/ethernet/intel/ice/ice_dpll.h |    5 +
- 11 files changed, 1919 insertions(+), 121 deletions(-)
- create mode 100644 drivers/dpll/.kunitconfig
- create mode 100644 drivers/dpll/dpll_core_kunit.c
-
-
-base-commit: 368fbf5d82da9ebce309449c74fc0b128f7d0219
+diff --git a/drivers/net/ethernet/intel/ice/ice_dpll.c b/drivers/net/ethernet/intel/ice/ice_dpll.c
+index ade1fb3dd06743..0877827a6521cc 100644
+--- a/drivers/net/ethernet/intel/ice/ice_dpll.c
++++ b/drivers/net/ethernet/intel/ice/ice_dpll.c
+@@ -2914,7 +2914,6 @@ ice_dpll_tspll_state_on_dpll_set(const struct dpll_pin *pin, void *pin_priv,
+ 	struct ice_dpll_pin *p = pin_priv;
+ 	struct ice_pf *pf = p->pf;
+ 	enum ice_clk_src clk_src;
+-	bool changed = false;
+ 	struct ice_dpll *tp;
+ 	int ret;
+ 
+@@ -2939,23 +2938,16 @@ ice_dpll_tspll_state_on_dpll_set(const struct dpll_pin *pin, void *pin_priv,
+ 
+ 		new_state = ice_dpll_tspll_lock_status_get(pf, false);
+ 
+-		/* Sync the cached lock state to what we just observed from HW
+-		 * so ice_dpll_periodic_work_e825() (cached path) does not emit
+-		 * a spurious UNLOCKED notification between now and the next
+-		 * PTP monitor tick.
++		/* Sync the cached lock state to what we just observed from HW.
++		 * ice_dpll_periodic_work_e825() reads it (cached path),
++		 * compares it with prev_dpll_state and sends the notification.
++		 * dpll_state lets a device get report it right away.
+ 		 */
+ 		WRITE_ONCE(pf->ptp.tspll_locked,
+ 			   new_state == DPLL_LOCK_STATUS_LOCKED);
+-
+-		if (tp->prev_dpll_state != new_state) {
+-			tp->dpll_state = new_state;
+-			tp->prev_dpll_state = new_state;
+-			changed = true;
+-		}
++		tp->dpll_state = new_state;
+ 	}
+ 	mutex_unlock(&pf->dplls.lock);
+-	if (changed)
+-		__dpll_device_change_ntf(tp->dpll);
+ 	/* TSPLL reconfiguration may complete before lock is reacquired.
+ 	 * PTP periodic monitoring tracks and restores the final lock state.
+ 	 */
+@@ -3372,8 +3364,8 @@ static void ice_dpll_periodic_work_e825(struct ice_pf *pf)
+ 	mutex_lock(&pf->dplls.lock);
+ 	new_state = ice_dpll_tspll_lock_status_get(pf, true);
+ 
++	tp->dpll_state = new_state;
+ 	if (tp->prev_dpll_state != new_state) {
+-		tp->dpll_state = new_state;
+ 		tp->prev_dpll_state = new_state;
+ 		changed = true;
+ 	}
 -- 
 2.56.0
 
