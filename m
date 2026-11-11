@@ -1,105 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794384394;
-	b=0mY9dsY+U5WahbJ3sRSnFQ8onEAtZwK2h7Y62IiZUCOzV4itGZFdLbygDGIbumkRsMGA
-	 Nm0e0WC5v7iICOPR3EtxnHbAIddSwr5q85GDHDRjmN9np0YjvMcUqYKRRUJjxbml34jtY
-	 fcDUeSQwlvJDfwcTq+TDJ7ilLC2utEQ6UV47Jdv3pArd7g0LuFIGQIvVC0i++J1McIEUQ
-	 zaGFc1vlAKafjarMw5/Xbl+148ffAQAg/k6tHMH8/oOuMTBrJ5ZqkwlBcnTr6tEDLLuh/
-	 AwUqFYUcXY7CdgL1Zcov7AsRqcJ/qLY9J8ZLptdwTsaQrmPAqlBSUEHoVpCTxJLgjMg==
+	t=1794384395;
+	b=Og09AZok2nR6oL9r11kdrP9e7e1kuai7M//YGC0zxMGH/gfr6SXHrTWc2DPpJoW6wiMz
+	 gx00R8bkBIIsIPW7eRCj9UuUGb/0sBk+YlUhybwlN3s/930bfT0l/WyIqwPlZHH9dgMRV
+	 wO/JGCYG72r4+NLSJ9tPQSm+reZkAYsEiYTust5Ti5evL6iwMLWxDuuiDo2KaX1p0Skcp
+	 Mp8EtuDg18bn4tycwxfYbFmxo3Iz0odRCBXJRNEK555Xs+si3oSWsl1qKAwOAveqxA+Mc
+	 p/GDBON0fBnS2LojrT0dKAQvkPc6JoCOhANCfKnV+P3h1YrgijCqoN8PCn+bt8F+HPA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794384394;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794384395;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=yaoNnCGUQ/v4wUYqXN+PQtsNa51Yg0GHDR6Fpdr8qLY=;
-	b=vpNu8FaB9ZwmOlgPIsRatobmG5Iz2QG4gHrwKMt2HdhYp+7Cr1ZCVJ9OkLo8hv6nmhH2
-	 huRh7enOLmwK9PARoZ2ycslOQTA1qR5NsRz0SQ8ql1xzLkHzQaYHMUbgC2MTJXDmUrNLk
-	 B091zFp/gpxwUi290DB0TK61v98IH2YMfmY8vffGoHcfp4189BGCsUK/8kPSyCXG7NjxU
-	 IJVzvUC+r9Jz0thz9DCwyoLOo3gDc0vgurom1hiFogv+lfz9UHZpyLaursiZu4JQuPBM8
-	 ARj/pWHgqqEzyCicB5608J+EqPXwQQ6hslw5Va1BbGlFvAbR1LYbzdV9qGSPm+gq2YA==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=RY1xGf6xjx6c8K79NC9uGzboL+TnbiEN+yACYOIgnmc=;
+	b=pM2MoSc6wlIMkT7Mia+TMLgseEflLQFYpEhi3ZTV4JbYB2nOIrwFZ5DzsNBd/NTSxnQv
+	 nQAusoPfBd1hXq/w2UKYtjEu4LL6K8J7Mz8cagAkQeh48Na5DW52Hf1vnG7w4+djEC73A
+	 Ti2ksf+72fBKaAsu4EjRD1yoFgGiQ8WFc9/Vrynk1OKgfhr22eFv4oM7lGaor17qxQovp
+	 FQ46wUmDs+mzOTttnqafzGPvIqGiFJ4e2jUUBKOqpT6WJMW/w2omo5flTmQus4kJwDFRo
+	 wmjOpitovYRf3Pam3QxsSMDLkenxTtWat1k4a5HBpMjSZeq5F5AwKmei5IfPadda37A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=bairaktaris.de;
 	spf=pass smtp.mailfrom=bairaktaris.de;
-	dkim=pass header.d=bairaktaris.de header.i=@bairaktaris.de header.a=rsa-sha256 header.s=google header.b=bMMqwkz1;
-	arc=none smtp.remote-ip=209.85.208.43
-Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com [209.85.208.43])
+	dkim=pass header.d=bairaktaris.de header.i=@bairaktaris.de header.a=rsa-sha256 header.s=google header.b=Nk8QewPw;
+	arc=none smtp.remote-ip=209.85.218.50
+Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACEB660A382D
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 08:06:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ACEB660A382D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BD8060A5BC2
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 08:06:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2BD8060A5BC2
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bairaktaris.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bairaktaris.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bairaktaris.de header.i=@bairaktaris.de header.a=rsa-sha256 header.s=google header.b=bMMqwkz1
-Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-6b71b012e3cso1721315a12.1
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 00:06:33 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=bairaktaris.de header.i=@bairaktaris.de header.a=rsa-sha256 header.s=google header.b=Nk8QewPw
+Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c505186727fso208781466b.3
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 00:06:34 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bairaktaris.de; s=google; t=1794384392; x=1794989192; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=yaoNnCGUQ/v4wUYqXN+PQtsNa51Yg0GHDR6Fpdr8qLY=;
-        b=bMMqwkz15zAsCxFpsBJFK8CPiZ34UgVDGidaLnh1/POTCZVEOPzM1KZIFlcipqjLQ4
-         CVWJHKqlMv3I89aAIh+S4MIwrG2kjrztSuw2NStDAxQufH4CejuPqxndHwUSHEzJcT8t
-         yPwouLN6/mCABSWxNqbEbrnZxb+kuXoazui66u4gHIP15xw61h/0GHM1jHouqRIz88Ui
-         AU3YhpRHSvtnH4UA3xiP1a+FpJXRNUGyGrWgcBEpIDyn2IeWqJy9c4nlOR3h9GkGlTYU
-         v1/nW+B7Gx3q5d62y2JBHL1cjf8I9aX3Yz4cBFe8e+neGeQ4ehw11rKuhdNCicF2J3OA
-         TpDA==
+        d=bairaktaris.de; s=google; t=1794384393; x=1794989193; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=RY1xGf6xjx6c8K79NC9uGzboL+TnbiEN+yACYOIgnmc=;
+        b=Nk8QewPwJwIWwCBkJQkwqLqUH0F4hfEadYxImwylvX9zqSPh44IE7kbONs4f4Fpp5m
+         JI/W38VEG4J65NyhxM5i6PbvVHFzMJOb3NanD56JoJvDNBcnMWqddIRaiH+FHyB1PVtL
+         0F0AmnCpTaBuiMs3x2bDROMmqpc/MYRUaWKyZxPjYS7OJ1rQrqPlZ1EMxfwcqbbTfhKH
+         D9j/SwJU5UqJ47fWKWJofTmjLd7LIbkszXYv0YH7+fMaMWF1Pi474yOonq1R4YYvV2Nz
+         IaGhyl78AF/CcPTJd+q9rasm4R7lHQ5qS9CwTqNYY+udRdL0WB4A0Teg+gyI71vg3GqE
+         V2ag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794384392; x=1794989192;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yaoNnCGUQ/v4wUYqXN+PQtsNa51Yg0GHDR6Fpdr8qLY=;
-        b=p7ru08XmWXGba+JKlNQ8wCOAqc3BZOdijaqov/WIu1bW+filwFjyLzDSB5EF1EyZvv
-         fbXdtLGf0syev56WXimKQadhnh9TnRylM0yKJirtFrEG+svjzHKhwqDRnEtpu/3QpoZ5
-         2S2fbkF5QUjMOnwSJ/RbWx3KTqLNHap/4ohhE/CGG3Y39diWYmlqCVJQff+H+qOEdepd
-         OW9N10WpPbSsGSobzlKRL+13jgigq4kHEGBPZLS8Cf8GMSxpJuBXAcekXIeP/ux2Ldv8
-         A0YHx63FsHn6Q4byKFxJFtoBCoC/J+KNkqtQEUtMcZ76W8URF88YamKiwBHzFyhNZiwA
-         FMoA==
-X-Forwarded-Encrypted: i=1; AL+hErFuu/QL43YrIOzyMb5vyfor71lkS7FU0ZUTIj7CMgv+LhQ16HMWXjUCyg2sYK9eScNv5bKs/v7cVW+k/7Q=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/yjwRSo52qEsoK4nXSTS1+MprFdT+jtoHo+mybtABoKDlVfNU4
-	kjMWn3XgJnsZyFyCxmza1sSbRkG4zQwctJrkkKNmwh1qyBj8qAXAtMmlmpZq6ZJAig==
-X-Gm-Gg: AYBFou1xSNtHXBYjYQBtca/lcwBDenSeLSvsfNjar2P7X2Adb6DZnAOpcxg35U/txIx
-	0EJQxo8OnaLdjZgTMJNdft1GnHlh1Yjx1P6BEP/+EUZzEkLB9jFyQ6h3+NPhwRfgS3yNTbseZ/s
-	L4smtaNPA3BvsYU8YjAZkfkgSme+4qi/oRVR+6hzhe6FStiEifykKVYiZjr/Aniuz553hlAPV+U
-	CSSyfHwz3qhgUdeOcBcQQZl3R34dNaVKqudo+Fd5ykZFb945uTPFMgTHvfnSnmMscRsAlk01L5/
-	ggEzWvgdZVDZ/6Lrd4baLuL92h03lQb+KZu/mxNf5MY848HnZ2Xc0SebjLTgf5LjZ87QvWE3exz
-	BYx4TcVP40AAluD2IdMvICW/4x5b2Z6uZi7aJi/GitKmMfJcCt6NY8Bg1utwKVAIeRG5Q4DgfPD
-	SL8yQft7Yst3jPkmvpxbRRi3R4o9jUxhUdgh6aMLR9wQCHVlTwoff8YPVyOMIEskX+KK9qAoCFX
-	Tnr+g/N7vaRz4xnFwL/IhqpqfK+OXp1QRPoW/E//CMjCC14Bomprmltl8Pd6/8AZ6zZifqi0kUf
-	sSgZ236N0MPICILofA/94RxU1Jsch+sP7U6h+CTba4S9Leaj4hoMp/j8v2TwEgNqxi0JIr2IoKv
-	M6saeHmgV7xwocYXpALcmhO2mYUBeoM9kxwjmexZp8tDOgiWrJsXBk+AJgCTQNgebmjjueEy8uP
-	fvy+QWBYJqfZ/2IrtcoGX/Un/Eednphjy1TzDMimLaYDw4IyjLg4D9PnQCSRx1t/Ly6v9QkMYDx
-	Mf/xo8UkotK9J6mQwAmue6wQctKjeXwhywoLPfGUU6nfzF+oqpHTPzCuyoxI3kS72he44cuNUg9
-	b5ZUgyfX1J5t51UGLHM=
-X-Received: by 2002:a05:6402:440d:b0:6b5:76fb:98d6 with SMTP id 4fb4d7f45d1cf-6b7777011b3mr1253468a12.21.1794384392040;
-        Wed, 11 Nov 2026 00:06:32 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794384393; x=1794989193;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=RY1xGf6xjx6c8K79NC9uGzboL+TnbiEN+yACYOIgnmc=;
+        b=LzRzgPq77ezENZx3030eSg93ibQ+awxR5Iupy58B9YETeE16WUyjsJ9/wPZI6JWlVl
+         +Y644ZvWz4FKHf0OIltvXqQAZwI/G0JfdM2yOGp3jGqW5ygwr3m+bJoFTGa99cy+jA6k
+         utHFRn2gZ1MtwlaEz52F1mfgtkloHGyM18OciUonxAZendJhYLZoKK8Lrs++hoEj3BUB
+         /P3j+IfZAML/DZiQvtwLu3eBfIpn30tGPBD66TS9EDi+UN6d/UfuKhhbQ7mwBnkrf+on
+         bVFfa+3WDrx0QnL6N90kN8yenOySs7EYcOx+zXkSCMv0U5BpxWFmbNSRIZlDlanOHdof
+         mhMA==
+X-Forwarded-Encrypted: i=1; AL+hErGTxupgHR92i1HoIXdHT0mlAJhYtg5d25dHaU6dnfZjbUAhtDYClDYqtQynEvttAFSfOLGyr5uJV/F3QtU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/My/1bEeQKO71eo7O15NXcupW5nyS7U6wN84Vde9yCWAiQftJZ
+	y9+2+VbE35jSKf+Yb/dcOklIfDHqnSKtOMSQToI6fFyN6vQ1RjLhZRn8oDrhRdmjDQ==
+X-Gm-Gg: AYBFou397J2/LXYg2Z/HuVSjh3WUl2DgJOqMtl1A5hcBcnXwPJMYw0ttJAFNXa9aeY3
+	9yhuchQQ6RnTyiKbOKAL6Pjh0y/BCwTGG0kPeP79L/VPKO4NqsY8OEREca+BFfPsEJKc66vQEYC
+	0WWoPFBSu6yt/BeApV3wll+lQBOP6LI5NVkgT8X4l0HeQshDg225UQtwRyyY+vjDB7J0ucTKRJA
+	3d+artLHoayj0RwfezpCweovLjVKTwy5uDygm6wOH1oeLTNdPOd4DqvsmBbnSWb7WJclT4FlR5N
+	zisjDJ9fBotNj+Ttl7AEJ2MhI2m6d0J9/eH+mo7dO6GH+Z4XpXpoXaBGWpON/xm2u5956otqhG5
+	xLIS9fW48e+3M/DqYNz5IwG27DkqnsR182gmMDvnwir11w84seUIjThW0JaOzVIuAi5k4z8U4DP
+	ZOfuIme00vQcTlZI9ubb1Q8SNPPA0HqqVYd+ZcC1LrxVtNGoAmW3sXTVQtrDyUSVYEEjGYu4DGY
+	OBOYnhcLigbjx3Yo05AaZxhpvgnYfmEcu7azuXsK1rRk4INX0X6jQiQm1Brw1O/HjpCQfrr6IPd
+	9kscnwVKVP6ZU4o+9kxHdWZs04Lsjm0K2FRdaDklBPvru/9tidOnIP0z23/pdc3gLk5dm4MHaIp
+	EECnWndVpLJQkMsaAmksJjEKS5sqD7fZvukE+Mk/LqhXF+G/J+f/dq7MsuwC2hEeuBJci1/rGnZ
+	MDZcOd9I1+mVIap1A4QlbaZd/nDjun8k+Eog1i9lfBiy2+RvkyMZo6BxPG50+NuUeeBwNBE1t1X
+	pE6z5BrD1nwGpsqR1LQOk1PLnz2MMx2U6HHqEtT0zs4gqX+0c/9PkbL/SHqRXcPoa5Mpg4DSG4E
+	grDEeyuet/d5pqGiN/A=
+X-Received: by 2002:a17:906:f59c:b0:c44:16ad:c31d with SMTP id a640c23a62f3a-c50668b84bemr120721666b.4.1794384393506;
+        Wed, 11 Nov 2026 00:06:33 -0800 (PST)
 Received: from Desktop (p54aff574.dip0.t-ipconnect.de. [84.175.245.116])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b75775fcf0sm2287549a12.0.2026.11.11.00.06.30
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c504a6af519sm203722266b.87.2026.11.11.00.06.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 00:06:31 -0800 (PST)
+        Wed, 11 Nov 2026 00:06:32 -0800 (PST)
 From: Julius Bairaktaris <julius@bairaktaris.de>
-To: Srinivas Kandagatla <srini@kernel.org>,
-	Mark Brown <broonie@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Vinod Koul <vkoul@kernel.org>,
-	Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
-	linux-sound@vger.kernel.org,
+To: Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Jeff Johnson <jjohnson@kernel.org>
+Cc: Abel Vesa <abelvesa@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Chris Lew <christopher.lew@oss.qualcomm.com>,
+	Baochen Qiang <baochen.qiang@oss.qualcomm.com>,
+	Vasanthakumar Thiagarajan <vasanthakumar.thiagarajan@oss.qualcomm.com>,
+	Karthikeyan Periyasamy <karthikeyan.periyasamy@oss.qualcomm.com>,
+	Kalle Valo <kvalo@kernel.org>,
+	Sriram R <sriram.ramachandran@oss.qualcomm.com>,
 	linux-arm-msm@vger.kernel.org,
+	linux-wireless@vger.kernel.org,
+	ath11k@lists.infradead.org,
+	ath12k@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/2] ASoC: qcom: q6asm-dai: reject compress rings larger than the DMA buffer
-Date: Wed, 11 Nov 2026 09:06:24 +0100
-Message-ID: <20261111080624.244291-3-julius@bairaktaris.de>
+Subject: [PATCH 0/3] soc: qcom: qmi, ath11k, ath12k: take WLFW messages only from the firmware
+Date: Wed, 11 Nov 2026 09:06:27 +0100
+Message-ID: <20261111080630.244427-1-julius@bairaktaris.de>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261111080624.244291-1-julius@bairaktaris.de>
-References: <20261111080624.244291-1-julius@bairaktaris.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,39 +113,35 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-q6asm_dai_compr_open() allocates a fixed 8 MiB DMA buffer, but
-q6asm_dai_compr_set_params() takes the ring size from the fragment size
-and count that userspace passes to SNDRV_COMPRESS_SET_PARAMS without
-checking it against that buffer. The compress core checks the geometry
-against the runtime buffer only for drivers without a copy callback.
-q6asm_compr_copy() places each write() at the stream position modulo the
-ring size, so a ring larger than the DMA buffer lets write() copy user
-data past its end, and after SNDRV_COMPRESS_NEXT_TRACK the copy starts at
-the next multiple of the fragment size.
+Any local process can open an AF_QIPCRTR socket, send datagrams to the
+port of a kernel QMI client and publish a server through the QRTR name
+service. The QMI helpers hand responses and indications to a client's
+handlers whatever their sender, and ath11k and ath12k connect to any
+WLFW server that a lookup reports, including one on the local node.
+Both paths reach the REQUEST_MEM indication handlers, which free the DMA
+memory that the running firmware writes into.
 
-Reject a ring larger than the DMA buffer.
+Patch 1 makes the QMI helpers take responses and indications only from
+the servers a client looked up. Patches 2 and 3 make ath11k and ath12k
+ignore WLFW servers on the local node, as the firmware serves WLFW from
+its own node. Patch 1 does not depend on 2 and 3, which can go through
+the ath tree.
 
-Fixes: a08cd56a4524 ("ASoC: q6asm-dai: add support to copy callback")
-Cc: stable@vger.kernel.org
-Signed-off-by: Julius Bairaktaris <julius@bairaktaris.de>
----
- sound/soc/qcom/qdsp6/q6asm-dai.c | 3 +++
- 1 file changed, 3 insertions(+)
+I used Claude (Anthropic) to help write these patches.
 
-diff --git a/sound/soc/qcom/qdsp6/q6asm-dai.c b/sound/soc/qcom/qdsp6/q6asm-dai.c
-index 4261c3048c368..1cd99a1d5b516 100644
---- a/sound/soc/qcom/qdsp6/q6asm-dai.c
-+++ b/sound/soc/qcom/qdsp6/q6asm-dai.c
-@@ -897,6 +897,9 @@ static int q6asm_dai_compr_set_params(struct snd_soc_component *component,
- 		return -EINVAL;
- 	}
- 
-+	if (runtime->buffer_size > prtd->dma_buffer.bytes)
-+		return -EINVAL;
-+
- 	prtd->periods = runtime->fragments;
- 	prtd->pcm_count = runtime->fragment_size;
- 	prtd->pcm_size = runtime->fragments * runtime->fragment_size;
+Julius Bairaktaris (3):
+  soc: qcom: qmi: Take responses and indications only from looked-up
+    servers
+  wifi: ath11k: ignore WLFW servers on the local node
+  wifi: ath12k: ignore WLFW servers on the local node
+
+ drivers/net/wireless/ath/ath11k/qmi.c |  4 ++++
+ drivers/net/wireless/ath/ath12k/qmi.c |  4 ++++
+ drivers/soc/qcom/qmi_interface.c      | 18 ++++++++++++++++++
+ 3 files changed, 26 insertions(+)
+
+
+base-commit: 067c5c24cef23d913b67eaaf71ae67e7169a6620
 -- 
 2.53.0
 
