@@ -1,86 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794394974;
-	b=B5LHF6v3fr4ES4L76+qg0Eu+M4VOUEV/9L76MWW4PqFtI7U8epLsSzEOl8S1lnhD49TV
-	 7aCRU4kKMYlkXdKB+0/Xm9LeKrlfkuIs6H0AjW4qVPlzMH9lvHcDOZI8t+5wlmDGxYriF
-	 2/mIaOgHLPKge1dOcO5PJd2vgFq7JhgUiOCWuHOCuSyVN2KrErHMqR+sFXZOCg6TPyfcZ
-	 NEkcR5kP1P/F9/ENnNIPxBY1fSXiwRo8lp9psW0wNNra+a5EDXa7k/y2SLnhnbub1gqm3
-	 xBFRwToMhbkVuMR2x1eubjRlczekELPXYhyC/G2utHryh+0HFxjiXyq3oyFh0zamyvQ==
+	t=1794395014;
+	b=H4+ph6ieenebU+deyEImF/qAO4Ck5p0AsRP6ITsWPktWJ4U+BBrATb1idRpNxgOQ7Pwg
+	 LjcNnq6slY3C5B9A19vP5baBQK2N98D1eHfeXJjUFpYppnTrP72K2k1q3C3KhKpDl+LBl
+	 7KcAJqxPR1CHOfjdp7gbm9XVst266z0FOFl25QTRvzlQrR6D2nqE7QXwmTgQEwcP1MpDg
+	 cugu+H6lP/d4kd76l6AFuVtD8ZWcxVcQBAaQ1ESnwFgwgWzCvFymbhlUV5UjCEfXaAQWJ
+	 PaMw/vAan4oI6vFIYxc3WorpgJpLbEv/bkPn/yQRGeZmCI03/lzYBhPBDd+ZDk77hkw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794394974;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:X-Mailer:MIME-Version:From:To:Cc:Date:Subject:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=6DQ1y9vg8ORZJ/bwoXjkvQtXiUjN7fzHpLiBzLwJqSs=;
-	b=KILKNPD6dZCq21/jbCpKrSB/KzMJn7CiHE0Drc7TbMiO6W9lYGCeJZWWkG9xuuCzibL3
-	 DB+3K/6PTasJbVeG5+NTUzgxMxq9R5anD856uSAXMX9FrtKUBJ2RRo2afN2PljoE31gKg
-	 oupEgee3fTrLd3oL4WKr8rqr69kQedRSPtMjdKHJg+xPPY2x5a8HOG0WT7XiHLIcGN1yW
-	 N1oNS/H7Mf+paXqemSoIEtYYnv3tm0GsWrzr2TxtdL12CkQdA2zTm9tNlQu1RUJXq1fu/
-	 UE4CADi2M5E5ZGfxlrOurTOLBYoABJOJvxpjnC7Gc3T3mG1Q5xLzMQ8GpbY/I5fUeag==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794395014;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Scanned-By;
+	bh=9xCaKikxY5SCwLczpS9oMIGpBnm49BMiWeY8N1jcjvk=;
+	b=JxFIHqnsxMnp1Jc/ESVwIeFhJDRTGsqxX7j1b57GzlUwiFC4kcRZBEIXpwgYxjq0F6CR
+	 nyOfwgDTr4Z+obxRBobkXPrE3SBGZzZ4SXf/bN7u5S/PLJL1KbMpOtBuoyqhFDnO288ZB
+	 jbtW0eyxbJ/ScTHnSK+dl2joQumncGk7whf/AwWJJ7+u/4cRoEjySat7G8vCPn17l6aWZ
+	 m43CYS8JwCrnz3vp7bFDk5zDCKsZtVK7MN/8kMgfafppl2PIv8pfjdGu9CxmFmhFbLjiM
+	 ++hjTUHfKkUmM8wFPV3aJEgrrSHi/boK1jtywhE661coLRUT2QafHBcQ6nnE4Z0wLCg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="L/J7sxDT";
-	arc=none smtp.remote-ip=74.125.82.170
-Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=R++CgykO;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A090D606A321
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 11:02:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A090D606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B531D606A327
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 11:03:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B531D606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=L/J7sxDT
-Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-37600b0db49so1158017eec.1
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 03:02:53 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794394973; x=1794999773; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:subject:date:cc:to:from
-         :mime-version:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6DQ1y9vg8ORZJ/bwoXjkvQtXiUjN7fzHpLiBzLwJqSs=;
-        b=L/J7sxDT/XCJufsPd4aEDhSnaTLlDVWoiL529BZDSumU/aQ/mYA3iXEkNrpXVwPBoU
-         q50f97GVB0vrlQkxz+YQ3McVBXk6IUksdPIimKZVW3fbiVQmmJCxzwvMavzaQ82tjaQa
-         pdHG373MMWyh2wHSfUN9lJU3hWzM2BJUFG4Jd07p42866K55AYB/qdE/m3Hcye8CZ2dr
-         3CWbGnOzR9Kv/vfIVVuW5wqJrVkeXOYFDMr/ZcAOyQKBW73W4vdLW8rIZhlLRfilr4DM
-         OcyiCfJjfMgALs2pSDPWTCnawgN9aUugAx1doh53H0aliWkfvx2E0m/9O8Y+w3WEVUSQ
-         KlQg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794394973; x=1794999773;
-        h=content-transfer-encoding:content-type:subject:date:cc:to:from
-         :mime-version:message-id:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=6DQ1y9vg8ORZJ/bwoXjkvQtXiUjN7fzHpLiBzLwJqSs=;
-        b=fqTYUfOtyyoZcLElsBHdon5GJasu5t1Trl83M9JPbj0N8+adWCr/XA4el3z1mnlfDp
-         pMG79AuyaFGHmzyWQvexuokxdmjD8sRQw/2O4xE6ZmUpKSvuFrmSG3LwFGMYSTj6mBDv
-         L/n3dAixIDL5B7TD1nvxv3DWo+28t/RoC6iE0E7/PU1LZJ+5fk3flZPbfNxkgs7NSOBo
-         1bgCyxQUtnpJD00+BmTnkbExwo7ZIys+adj7VNwYrBc7J2UwFeHIeeFeixLU1nTD+CBe
-         vJs6wVOQwmr3XLYIvHTir/6uLv+gi6sWiao+U4cjCNr8B91GAnRuk595vQagxmHTrVMh
-         loXQ==
-X-Forwarded-Encrypted: i=1; AL+hErGHp6Ka3ODNEqHBtFL+5aXVNA+fZ9zUW2mR9rH470Y1Le8EawmLPcmMIG/v0wqbpoY+vXnKK8Z5nz98L+8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8WYno4HhWVITmwBkIVKthUnh08+TlEGNU13mGoVSv1zg/QvGjx
-	+Xt6kSMCdsL5WNedHV5aHZjTbFGuhVPjJ6D+2HMaa7KbQuUje7S21a66
-X-Gm-Gg: AYBFou3R1NN4EDT3jYJw8YjbcitQSGlNFd0w5UiSkgbIAydatlTfwkLZoJxj8PpqSuh
-	Yc5BlDyxaIu5UZdJz64IjTwkP+sRViTppFo7B4amg3TojsDbXGA0neIt8IrWo6hjfGYhLGWY0iV
-	UZroVRcQR5KmzHXYWoN/QH5zeP9XZLXcZR66nsuI0DNY8CCUuXQsHwy9jAI5K1XLBbzQzbFsCq/
-	9kG71RPRGc/BAobh99pSOArqf3lznVZCU9SbaLF+HeMWd0HZJI8Um4s9IAzWP1gKRvqIFKhgRbi
-	kSI4L+Q+FDJ4I0yVTH60gR/0jvUeL5ECekwCFJNauVzZNrUjxz5yY71AFHndfkPf++jw9hippZA
-	s7kPAP30JfLK2BNIrXnaCbMg2WeExjuaQ/u4ZpLzpUVLOQFSz8pdta5IrQmVtLBXZIkAGvbyw16
-	Q+iqugmwsQ2oXTX5dsl2yqa1zMQSOCr2TvT3NgtssKxVEbbDcuMR8p5D04t2cWFcljuuwHWgKN/
-	bHsNE9LXr/ypndLx7LFotx8uYnvVYTr5rvjMXsjBMgxiftHCsok0/IYkv/IQ2OBpnEVPy7K7RMD
-	E+JAwBvTH9jD9LI5RPOlk2Hvp4rhi6/NH1+vsF+vcuCFcpBmEUmNV3tUuSLXihqN/aAPY5Vi58M
-	Xv4eZaerV+H5xHvkHU6V6xrQFYsbGVpLXOA7b
-X-Received: by 2002:a05:7301:e22:b0:36a:37:1404 with SMTP id 5a478bee46e88-37686d2fcd4mr3499154eec.13.1794394972545;
-        Wed, 11 Nov 2026 03:02:52 -0800 (PST)
-Received: from manush ([2406:7400:94:5368:19d0:c01f:d33b:214b])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-375212e9e03sm30729052eec.23.2026.11.11.03.02.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 03:02:52 -0800 (PST)
-Message-ID: <6af44b5c.67914289.fe7ab.6559@mx.google.com>
-X-Mailer: git-send-email 2.46.2.windows.1
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=R++CgykO
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1794395012;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=9xCaKikxY5SCwLczpS9oMIGpBnm49BMiWeY8N1jcjvk=;
+	b=R++CgykOmkLCZzl3pxT1f3l0DUrQemxACw8vhyb3ZkShL1cttrx7J8q2cec0mMpORqt3Zb
+	TY5ZLj/40hzOr8Sa2dZwVwkIx0MekeQkkhtmSe5On70BSRby8IX+9oda7gtTHTU9OdJHEq
+	UBakyKL6j2b7BSefCm7e1FrDV/0ZCi8=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-607-N6vwd9lROFKYldtDPkqikQ-1; Wed,
+ 11 Nov 2026 06:03:27 -0500
+X-MC-Unique: N6vwd9lROFKYldtDPkqikQ-1
+X-Mimecast-MFC-AGG-ID: N6vwd9lROFKYldtDPkqikQ_1794395004
+Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id A14B818002C8;
+	Wed, 11 Nov 2026 11:03:24 +0000 (UTC)
+Received: from [100.91.101.41] (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 621521956087;
+	Wed, 11 Nov 2026 11:03:18 +0000 (UTC)
+Message-ID: <230b9191-ed71-47b2-8e64-456b6c60b480@redhat.com>
+Date: Wed, 11 Nov 2026 12:03:17 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,67 +71,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-From: "Manush Prajwal" <manushprajwal555@gmail.com>
-To: abelvesa@kernel.org, peng.fan@nxp.com, sboyd@kernel.org,
- mturquette@baylibre.com
-Cc: s.hauer@pengutronix.de, Frank.Li@nxp.com, linux-clk@vger.kernel.org,
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Date: 11 Nov 2026 16:32:50 +0530
-Subject: [PATCH] clk: imx: clk-imx95-blk-ctl: fix error unwinding in probe
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next 09/10] ice: dpll: update locking comments
+To: netdev-bot+sashiko@kernel.org
+Cc: netdev@vger.kernel.org, vadim.fedorenko@linux.dev,
+ arkadiusz.kubalewski@intel.com, jiri@resnulli.us, corbet@lwn.net,
+ skhan@linuxfoundation.org, rdunlap@infradead.org, min.li@microchip.com,
+ anthony.l.nguyen@intel.com, przemyslaw.kitszel@intel.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, richardcochran@gmail.com,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ intel-wired-lan@lists.osuosl.org, grzegorz.nitka@intel.com,
+ karol.kolacinski@intel.com, saeedm@nvidia.com, tariqt@nvidia.com,
+ poros@redhat.com
+References: <20261106121005.1327603-10-ivecera@redhat.com>
+ <179433320858.994134.3648996641880038315@kernel.org>
+Content-Language: en-US
+From: Ivan Vecera <ivecera@redhat.com>
+In-Reply-To: <179433320858.994134.3648996641880038315@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
-In imx95_bc_probe(), bc->clk_apb is enabled via clk_prepare_enabl=
-e().=0D=0AHowever, if subsequent operations fail:=0D=0A1. When !b=
-c->pdata, devm_of_platform_populate() failure returns directly=0D=0A=
-   without disabling bc->clk_apb.=0D=0A2. When clk_hw_data alloca=
-tion fails, probe returns -ENOMEM directly=0D=0A   without disabl=
-ing bc->clk_apb.=0D=0A3. The return values of devm_pm_runtime_ena=
-ble() and=0D=0A   pm_runtime_resume_and_get() are ignored, potent=
-ially proceeding with=0D=0A   an unresumed device or invalid runt=
-ime PM state.=0D=0A4. If clock registration, of_clk_add_hw_provid=
-er(), or child=0D=0A   devm_of_platform_populate() fails, executi=
-on jumps to cleanup:,=0D=0A   which unregisters registered clocks=
- but fails to drop the runtime PM=0D=0A   reference acquired by p=
-m_runtime_resume_and_get() and fails to call=0D=0A   clk_disable_=
-unprepare(bc->clk_apb).=0D=0A=0D=0AFix these issues by:=0D=0A- Ha=
-ndling devm_of_platform_populate() failure on !bc->pdata by jumpi=
-ng=0D=0A  to err_clk_disable.=0D=0A- Jumping to err_clk_disable i=
-f clk_hw_data allocation fails.=0D=0A- Checking the return values=
- of devm_pm_runtime_enable() and=0D=0A  pm_runtime_resume_and_get=
-() and jumping to err_clk_disable on error.=0D=0A- Calling pm_run=
-time_put_sync() in cleanup: if runtime PM is enabled.=0D=0A- Addi=
-ng err_clk_disable to call clk_disable_unprepare(bc->clk_apb).=0D=0A=
-=0D=0AFixes: 5224b189462f ("clk: imx: add i.MX95 BLK CTL clk driv=
-er")=0D=0AFixes: b08217a25721 ("clk: imx95-blk-ctl: Fix synchrono=
-us abort")=0D=0ASigned-off-by: Manush Prajwal <manushprajwal555@g=
-mail.com>=0D=0A---=0D=0A drivers/clk/imx/clk-imx95-blk-ctl.c | 30=
- +++++++++++++++++++++++------=0D=0A 1 file changed, 24 insertion=
-s(+), 6 deletions(-)=0D=0A=0D=0Adiff --git a/drivers/clk/imx/clk-=
-imx95-blk-ctl.c b/drivers/clk/imx/clk-imx95-blk-ctl.c=0D=0Aindex =
-bc6957299..ad386a48e 100644=0D=0A--- a/drivers/clk/imx/clk-imx95-=
-blk-ctl.c=0D=0A+++ b/drivers/clk/imx/clk-imx95-blk-ctl.c=0D=0A@@ =
--394,17 +394,29 @@ static int imx95_bc_probe(struct platform_devi=
-ce *pdev)=0D=0A 	}=0D=0A=0D=0A 	bc->pdata =3D of_device_get_match=
-_data(dev);=0D=0A-	if (!bc->pdata)=0D=0A-		return devm_of_platfor=
-m_populate(dev);=0D=0A+	if (!bc->pdata) {=0D=0A+		ret =3D devm_of=
-_platform_populate(dev);=0D=0A+		if (ret)=0D=0A+			goto err_clk_d=
-isable;=0D=0A+=0D=0A+		return 0;=0D=0A+	}=0D=0A=0D=0A 	clk_hw_dat=
-a =3D devm_kzalloc(dev, struct_size(clk_hw_data, hws, bc->pdata->=
-num_clks),=0D=0A 				   GFP_KERNEL);=0D=0A-	if (!clk_hw_data)=0D=0A=
--		return -ENOMEM;=0D=0A+	if (!clk_hw_data) {=0D=0A+		ret =3D -EN=
-OMEM;=0D=0A+		goto err_clk_disable;=0D=0A+	}=0D=0A=0D=0A 	if (bc-=
->pdata->rpm_enabled) {=0D=0A-		devm_pm_runtime_enable(&pdev->dev)=
-;=0D=0A-		pm_runtime_resume_and_get(&pdev->dev);=0D=0A+		ret =3D =
-devm_pm_runtime_enable(&pdev->dev);=0D=0A+		if (ret)=0D=0A+			got=
-o err_clk_disable;=0D=0A+=0D=0A+		ret =3D pm_runtime_resume_and_g=
-et(&pdev->dev);=0D=0A+		if (ret)=0D=0A+			goto err_clk_disable;=0D=0A=
- 	}=0D=0A=0D=0A 	clk_hw_data->num =3D bc->pdata->num_clks;=0D=0A@=
-@ -462,6 +474,12 @@ static int imx95_bc_probe(struct platform_dev=
-ice *pdev)=0D=0A 		clk_hw_unregister(hws[i]);=0D=0A 	}=0D=0A=0D=0A=
-+	if (pm_runtime_enabled(bc->dev))=0D=0A+		pm_runtime_put_sync(&p=
-dev->dev);=0D=0A+=0D=0A+err_clk_disable:=0D=0A+	clk_disable_unpre=
-pare(bc->clk_apb);=0D=0A+=0D=0A 	return ret;=0D=0A }=0D=0A=0D=0A-=
-- =0D=0A2.46.2.windows.1
+On 11/10/26 18:53, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found more severe
+> issue(s) in other patches of this series. This mail is only an FYI, in case
+> you want to address the nit picks below when you respin.
+> 
+> Low priority / nit picks for your consideration:
+> 
+> - [Low] The locking note this patch adds to the struct ice_dplls kernel-
+>    doc (drivers/net/ethernet/intel/ice/ice_dpll.h, lines 168-170) is…
+> 
+> --
+> 
+> ice: dpll: update locking comments
+> 
+> This commit updates the ice DPLL locking comments now that callbacks run
+> under the DPLL core domain locks instead of dpll_lock. It also adds a note
+> saying that callbacks of the external DPLL's pins run under that DPLL's
+> domain, so only pf->dplls.lock serializes them with the rest of the
+> driver.
+> 
+>> diff --git a/drivers/net/ethernet/intel/ice/ice_dpll.h b/drivers/net/ethernet/intel/ice/ice_dpll.h
+>> index 4ba76e2e2e0b0..39e041a30090d 100644
+>> --- a/drivers/net/ethernet/intel/ice/ice_dpll.h
+>> +++ b/drivers/net/ethernet/intel/ice/ice_dpll.h
+>> @@ -165,6 +165,9 @@ struct ice_dpll {
+>>    *     tx_refclks usage map), acquire pf->dplls.lock first, then
+>>    *     ctrl_pf->dplls.lock. Skip the second acquire when pf == ctrl_pf
+>>    *     to avoid recursive locking.
+>> + *   - Callbacks of the SYNCE and TIME_REF pins of an external DPLL run under
+>> + *     the DPLL core domain lock of that DPLL, not of the TXC and TSPLL DPLLs,
+>> + *     so only @lock serializes them with the callbacks of these DPLLs.
+> 
+> [Severity: Low]
+> Could this note be clearer that TXC and TSPLL are not in the same core
+> domain either?
+
+[...]
+> The new sentence is accurate per DPLL, and the first bullet still says
+> @lock serializes all DPLL state mutations. Since this patch exists to
+> document the domain-lock rules, though, would it make sense to say that
+> TXC, TSPLL and the DSN-domain objects are each in their own domain?
+Yes. v2 will say that the core serializes callbacks per (module, clock_id),
+that the TXC DPLL, the TSPLL DPLL and the other objects of a PF have a
+clock_id each, and that the SYNCE and TIME_REF pins of an external DPLL
+are one more such case. @lock serializes all of them.
+
+Thanks,
+Ivan
 
