@@ -1,63 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.163
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794411665;
-	b=D4C9i1/0a0nDlG6UmLsHkO7rEqwSLqETYG9jAp8qr9e1q71Jk8hI6h3Vc66GOcsbsWfM
-	 PCx85Rao4oEeexFArcmb+UfEUZ+cmSP59WA2FSZXg37qPxwPcEg+qZQPrShfsGKZb9uJn
-	 UAA62MJJ89KgSMDl+jDsmvjSu8Nsn0EloPiwKZcbTt5N4qCuOjbxA7+q6WBHyKSV2MN+J
-	 PZOLFxKRLqrQV908elo507erb5k/6ocrIv/K4DwAUzokiCTCc5uGFcO21dzmAju9CE+Y/
-	 9hjQFqPLebI7kJgbS2v3NY34IOsEzYeBPerxXuvrfhunaVUbQTBK8r67ZEOzHabbMrA==
+	t=1794411740;
+	b=KClaDRPp3n8mod9yrsh0cgx7imh9cr/5m240+OE7DFMmlzTehpwXGTluSFScc1kxJC+z
+	 gFM2FrWk0ZUqb4KL6eEii7V5dUL1l/JfWiy1h2VK+OyHSbenPxesKK9cDvHjnJDmjbIxH
+	 FG/M2BBhWMrzlGRBlWsgnpif5fuSfqCS5LeBlfhfsatwNjIoPkXdlwDGx9PhizY8EzaSL
+	 wiHP9CSpuKaCgEEix26Pz8UU3+EJgtku85QXyOxCoweK6szHJpb5dhKfHvzmIQATv0PIs
+	 EFfYTZyus1tCqYfjcAtHBY+Mb0ecLd5n68gPquKS9aEEbcUUN7RoZ5wOZSgjIt+vLTw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794411665;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:CC:Subject:In-Reply-To:
-	 References:Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=V2RK/PzuSKL2WWoPvMWzGQDcrRR0IyUh0nU/ByMaJ4Q=;
-	b=qtu8WoWNTeovavKEiHigHcvgn9Aicx+6lZww98EsV6QvCKhKwR7bnR595uqnuOxCQNbn
-	 fJnQkGQ5rruVAqwoC38QB+mKSpVc3GmD7VzaxlWUdy/4Noy+sijU5xIpWdy4liqkGzdZf
-	 do+qULB+MblVF0gvJI7AzEgVSaXUWRPINDCMPfRXgqRpkYBRi/h7ONQ1fZ1y9i5wxzzyL
-	 3qxl7y1/tg0MvQLhnq4s2N37P/WQVbwYjhhhGpHNZO2lz1XmRUp8//dZQfrun19Tdgky5
-	 wHEgIh7qlcKDfx8MEeOv89u+6aR0U+DjeFNA//+UN/zDvIh8JTAmr6ri73smr8+9dww==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794411740;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Cc:Content-Type;
+	bh=55523svmexvSY7ISojcfJAbEFh3XScXusXNa0tYPa+4=;
+	b=S+px8V4JHxfCpQ3t2m7/ryHIiSSP2vdFHtR3zbB0EKP17EQgejDC3ODnVZ5+kjB/yQ3s
+	 gXcdnD+bMPDinQNvH/MoaxtpXtQg7TRkeaCvxVgKm9V8GsuNmrWzruEG0q9FSgSile/sb
+	 VDcLQnZ3UZT6RXtd47+B8BrxY4e+TFs34KApblIu8jXaEpXXoqsAgFnfLOuMYIrcmYDSd
+	 6zbb7O/OMEvYpPTtK+t7T9p6V483sDPrHOpi9S1AsKY8meCBAd51lBazXatQBjMo1A45V
+	 8QtVR0IUbV4iu15JblKM7h5EfiCqym+JSH+WOC+oenQDYM9cltTbjTNRgVOfanMdtlg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=O4WjbTiC;
-	arc=none smtp.remote-ip=95.215.58.163
-Received: from mta1.migadu.com (out-163.mta1.migadu.com [95.215.58.163])
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.200
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81676606A324
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 15:41:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81676606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=O4WjbTiC
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Eu89BSEwRX3HTJBZoUqF/4O/mFGX7rsk8i5L0YqInwg=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794411661; v=1; x=1795016461;
- b=O4WjbTiCDcDDTMdSJmO9z6O9LneyWgZ7wTbeHGWbKKuIKNOs6rfmNleYSG+vuW3v8RyTnEak
- O6YENCmg/1/bgm7J7ogOmbEriJR6qGxGoQff97MRQxlRFymbc/LfsIl3ZGEEnU7zE5ekGAIspQ3
- mpWeT4TkDnsfoYbA/tmJTA1o=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id c6d4ac561fa4402f;
-	Wed, 11 Nov 2026 15:41:01 +0000
-X-Mizu-Trace-ID: c6d4ac561fa4402f
-X-Migadu-Flow: FLOW_OUT
-Date: Wed, 11 Nov 2026 15:40:57 +0000
-From: Bradley Morgan <bradley.morgan@linux.dev>
-To: Madhavan Srinivasan <maddy@linux.ibm.com>, ritesh.list@gmail.com
-CC: brads@mainlining.org, chleroy@kernel.org, linux-kernel@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, mpe@ellerman.id.au, npiggin@gmail.com,
- sshegde@linux.ibm.com
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH=5D_powerpc32/modules=3A_Reser?=
- =?US-ASCII?Q?ve_a_PLT_entry_for_ftrace=5Fregs=5Fcaller?=
-In-Reply-To: <371108c3-0314-4015-9ca4-d96a11f1e597@linux.ibm.com>
-References: <80D9FEB3-9FB3-4878-BC66-74C13761CC9A@linux.dev> <371108c3-0314-4015-9ca4-d96a11f1e597@linux.ibm.com>
-Message-ID: <23E9A6DC-579A-4B62-B35C-578A8E3389BD@linux.dev>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC667606A321
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 15:42:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC667606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4dc57e2a3f2so4586541b6e.0
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 07:42:19 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794411739; x=1795016539;
+        h=content-type:cc:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=55523svmexvSY7ISojcfJAbEFh3XScXusXNa0tYPa+4=;
+        b=Uq4eDpZlEynLeejvPkGC0bGK8lJc8VS/CH9gxlp9POJrqySTl/KMznXRQWkOG8nGYs
+         d/JAzSuJ8CJxxTLUkL+l3zy8CFKtHd2t70LXpZbb4IBZl5zJLJfA1Bao4k2RuEDB2Xvw
+         ebUiz6z6Pi1r9XdsY9nnlxKU/04r7HTsgyhFF1glKz/3Agv36gPdm6hRKJbSOg/upvHz
+         6/hLh6PFiMFsA6hnBChSfipTrLUGMDyIFEnf4RlnYNlDD1YiErA0PyOEcXNtCGW/wqTZ
+         QxwemJ8ibEOyXUhRMKE/PCza4hlRXgX3Gsp0hJu7Nxu/8dTb3TmBb7fbKp8BtyztN8pU
+         U/Qw==
+X-Forwarded-Encrypted: i=1; AL+hErENbGAl0ZnebNgZJXFJ0mMRZqGp5yXgignB6h/Yk+F4gkUEzSJrS6x69UgQXNp90UV+vTOdLBJfbX+an+c=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/dlXX3NFL4Q5BeRHawmmNnpOdGAdnuyydsB2Wk/xg/ryfrleeY
+	NgdOQOtUYvTmUafZDZN6okGGwwPELzwKb9U3awF3udPUYUzpEYCHcojotOD+ggdZFZE1EuQQM1T
+	LxThuRYrb2ZFg74LlV4Z4+QBjUTUJdt1g662yyyQiQt8/+LAM80vrRjuA9aY=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,58 +58,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6808:5390:b0:56a:bf02:e4aa with SMTP id
+ 5614622812f47-56b962afbd2mr1832944b6e.23.1794411738752; Wed, 11 Nov 2026
+ 07:42:18 -0800 (PST)
+Date: Wed, 11 Nov 2026 07:42:18 -0800
+In-Reply-To: <CAL7=yXUUqtzewFAhvwb5bBxZLGh4MaC18HnL5ie6Tc=u5YsNcw@mail.gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6af48cda.c8b90550.1efb23.0002.GAE@google.com>
+Subject: Re: [syzbot] [usb?] [input?] INFO: task hung in usb_set_configuration
+From: syzbot <syzbot+c22bb42560ec86726aba@syzkaller.appspotmail.com>
+To: gcloudvrptester@gmail.com
+Cc: gcloudvrptester@gmail.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On 11 November 2026 11:58:28 GMT, Madhavan Srinivasan <maddy@linux.ibm.com>
-wrote:
->
->On 11/11/26 12:58 PM, Bradley Morgan wrote:
->> On 11 November 2026 03:48:41 GMT, Ritesh Harjani <ritesh.list@gmail.com>
->> wrote:
->>> Bradley Morgan <brads@mainlining.org> writes:
->>> 
->>>> Commit 7dfbfb87c243 ("powerpc/ftrace: Activate
->>>> HAVE_DYNAMIC_FTRACE_WITH_REGS on PPC32") made count_relocs()
->>>> undercount the PLT entries the loader
->>>> consumes: module_finalize_ftrace() now creates two trampolines
->>>> (mod->arch.tramp for ftrace_caller() and mod->arch.tramp_regs for
->>>> ftrace_regs_caller()), while count_relocs() reserves only one entry
->>>> for ftrace.
->>>> 
->>>> So the core .plt ends up one ppc_plt_entry (16 bytes) short. The
->>>> walk in do_plt_call() scans for a free slot with
->>>> "while (entry->jump[0])" and has no bound check, so once the last
->>>> reserved slot is used up, the walk steps past the end of the section
->>>> and patch_instruction() writes the 4-instruction trampoline into
->>>> whatever module memory follows the .plt.
->>>> 
->>>> Count the second entry, mirroring what module_64.c does for the same
->>>> pair of stubs.
->>>> 
->>>> Signed-off-by: Bradley Morgan <brads@mainlining.org>
->>>> ---
->>>>   arch/powerpc/kernel/module_32.c | 3 +++
->>>>   1 file changed, 3 insertions(+)
->>>> 
->>> Do we also need fixes and stable tag here?
->>> 
->>> Fixes: 7dfbfb87c243 ("powerpc/ftrace: Activate
->HAVE_DYNAMIC_FTRACE_WITH_REGS on PPC32")
->>> Cc: stable@vger.kernel.org
->> Hmm.. could the merger add that? If anyone merges.. :(
->planned to be part of my fixes PR and will add it.
->Thanks for the fix.
+> #syz test:
 
-No worries, mind changing sob to this email?
+Patch testing via #syz test is temporarily disabled.
+See https://github.com/google/syzkaller/issues/8122 for details.
 
->
->Maddy
->>> 
->>> -ritesh
->>> 
->> --- Thanks!
->
-
---- Thanks!
+> https://storage.googleapis.com/vrp-syzbot-owned-fixture-811055272945-1108/bare-repo-gke-host-788b3a4c
+> b61851517d657b9231da00ffa062407f5fbbc62f
