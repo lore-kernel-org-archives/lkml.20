@@ -1,80 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794476507;
-	b=BP+s235s86xuiHxqou6sH9ZFvZoo4QU30wJaWQF+9Cp+qOYZmV24U9/cAvXGM05Uo6p6
-	 H3MV55cqrYpX5Dh8SGJGT0WvhTSeoDm9RjYamjM4Iy8rO/UBDUmT2LBrIo4BpDWmnNC8Q
-	 n+W1K+j5eF46RDVp5cS3sn+pa/fSbtzbBvJ8wFUGmriEGSNdLNMbzJGIno+UVShgbXLM7
-	 DxbSC/8PcFxDfzTw9tqJuaY8F6AUEKXBCjTfY9TLTqMeqyjDjxEUcCh9G41miFMtJgk8R
-	 nF1lihsmHwUBHMAT8eTpE7ak8XJnMscdCIFlWazsaGfmi9ZwczMSKv+YXF9jKbEo+Yw==
+	t=1794476535;
+	b=zYFsCgGPs2fO/xD1vZrkugyeUI+QWBh9nU5YmrdKBdsuKyRBDmjenqVcNwjr60BLVDue
+	 CGVPLWeQcClGiiR4MmkLVdMntLAdC+72tyTIsj6V1wrjaCgqwTn4LJHpVq7jARKRgCm4w
+	 lqIksGKgM5tcZ09UjnF6hSuLK5MWRr9X71/iSEoB927DZkePf0HFNr6k1BSM+DF8m5joy
+	 ibCGt9TlVWRPOPDPeZCQw4lorNArY3RuL/BV2Ko3DxiGwLnIrceJ5Px7lLvbRpkCIjgkY
+	 CrcT2oi7qYQ7slcJLP3Co31V0RGimN9Lzy4flvyw63MZNIfXV70Y+b1yrNlN1MxRq8A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794476507;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Last-TLS-Session-Version;
-	bh=059CCFFzEVHvGsNex5duvrj7Tz6Yz5B+WTMacZsba1M=;
-	b=S6t+cB5LTrn++cTkYP5M8bWUdWNoQynKghlUd1jAGOBtevXPhL0i8EthkKTMUr01pFSR
-	 ZGjfJ4+/vrIlFI1YJVwYHrnS2JBlS2pxM7AMQzMytAnHXxHMaPbkFTPp4RZy+A8ks/VHV
-	 usSuw5TXqCBFv1oeF37r7uCGbfYw/efCFXe/jn5jhWdUWM8M6GnIaj40LIrR8GG2ceQwI
-	 aRmG7kWG/xEgdsUpzZROXvXS6IQbbfxSJYkly/oy7Mg0jjzaDogAL2+Ba+LMMNCpKLRS8
-	 drxrmVhKgi5PzGFjGAQoGW0rw3U1X/DWpD7jJOLvuO7aO4F2iH2Dd2ZnHuKkZZ1LNyg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794476535;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=M5z4Z218iwFLIiE49jl2bv9SF37cp7wRUYRt0lwEz+g=;
+	b=TvHbINYeF8Oah3v89Cxu6OfGGO1riFnXzk7wnIiDBVz9yuUAk88rI9RSCW+CtohZD1Ie
+	 y3popL6/4Cuv6Gpnehu6WJq/CFwKiLjA7+fT7gO8itbRT80on/XBG1UFoKkLy+Xf0RQPL
+	 p7vKVroFE48DECwca/qtuLhUW3KuuThb0k5dA0FNPZ6Fm+yi5dArh33Sc1k5bFe074lVN
+	 pPxJ8QN/kfH5lSH2ZTAjnQ3JOEzEqdXRVKpRSOTYxRJQ3sJm6ouu8cTLy/76La2QrxZvm
+	 AzpBxQjf9TVYckVVuwbqAV4eVMRaFcHxwqdRKPLEtNvBdoHxOuy1wI0sIMOclhBB6pw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=o66uRwTK;
-	arc=none smtp.remote-ip=185.246.85.4
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Oghy3hZM;
+	arc=none smtp.remote-ip=74.125.82.182
+Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACEAB60A3822
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:41:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ACEAB60A3822
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2AE2606A887
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:42:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E2AE2606A887
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=o66uRwTK
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id C03114E4157E;
-	Thu, 12 Nov 2026 09:41:43 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 8B5EB5FF85;
-	Thu, 12 Nov 2026 09:41:43 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 87C5C11BC02FB;
-	Thu, 12 Nov 2026 10:41:38 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1794476502; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=059CCFFzEVHvGsNex5duvrj7Tz6Yz5B+WTMacZsba1M=;
-	b=o66uRwTKg5QwneU8X8Z8uChZl6txo+7p+yOjSrmsrV4IpG6sCeYvm7VGbULxQ2eBCeGnon
-	dwqGMSP8D0OZcko4gnRkbK5DBTpYkyKdQsP8vkJskU1uRDbdHGlixRBpbJe3++N+1uVSUV
-	+yB7wCShn0/GBHqe3C3TBYPsN8cDWXiDbRHenyE6yqK4C7jC7XXYqJqA7FIqfliclyLuQ2
-	HMLwJo9RN2ohn8h1PS5yPiAeyy/mz798oIKG8JnCMnfIP71uJ/n8hABltb2K+djhpoLmw5
-	MFyB/WnSwEnKFU0yNcRxG8Wt2VzNQTlLgk4s63QjlfX27Wuc/iwCzgKe68nnWA==
-Date: Thu, 12 Nov 2026 10:41:37 +0100
-From: Alexandre Belloni <alexandre.belloni@bootlin.com>
-To: Sam Agazaryan <samagazaryan@google.com>
-Cc: Andy Shevchenko <andriy.shevchenko@intel.com>,
-	Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	linux-i3c@lists.infradead.org, Frank Li <Frank.Li@nxp.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Meagan Lloyd <meaganlloyd@linux.microsoft.com>,
-	Vitor Soares <vitor.soares@toradex.com>,
-	Oleksandr Shulzhenko <oleksandr.shulzhenko.viktorovych@intel.com>,
-	Boris Brezillon <boris.brezillon@collabora.com>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 0/5] i3c: add i3cdev module to expose i3c dev in /dev
-Message-ID: <202611120941378508d6e0@mail.local>
-References: <arY6DfVf_9tZ_TCu@black.igk.intel.com>
- <arZTphXbVF5wagy2@shikoro>
- <CAHreonFzhYk6fDswn7OVZfL3ybUHU15G3_q9+1sDhe8h670r3A@mail.gmail.com>
- <as487H8-0Gc77mXI@ashevche-desk.local>
- <CAHreonHiesGbR4VB+3sRxoLDmNHXFFEB=6_o6TNedm-N6VksEQ@mail.gmail.com>
- <atXmovzepBLP8Mqo@ashevche-desk.local>
- <atXnS1ZKGVfHDNEK@ashevche-desk.local>
- <CAHreonFnUSKJMUpR0rmsnSMHEhcJ_W332_NTcGfTKiRkkPse_w@mail.gmail.com>
- <202610210957562f3f6511@mail.local>
- <CAHreonH0maC6iU1fkwv9VvWzZfh=W_ybB8R6CLbXQmKQL+x-=g@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Oghy3hZM
+Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-3720addb068so7255754eec.1
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 01:42:14 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794476534; x=1795081334; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=M5z4Z218iwFLIiE49jl2bv9SF37cp7wRUYRt0lwEz+g=;
+        b=Oghy3hZMUYng4sAKtcoxnPw6uGHj+5sCsfYUVf23LwU+ATEnKNflnRzEzIb67/xawB
+         tNco7RrfZzCS/s+2YDJ+nguv5RXPGLznG5Vw8B1HcZYHurdd3n44EcP7zvp8H8ez8uXy
+         1TjeMT5PT+koVkp+clFHn+eKrqXXRsrzqIJcvZB9mnAduvT3DZTN/nSR7FoJDjgDdvhg
+         i+PgyNIfLepNKm/wjuDniyaNJJ/zIaupctIRDTpCuKqLixyR3nzzuP0MQR4RTORtkFwq
+         HY18eFm6NjdVvfTBqadsTHC0VQNZNW9EN+u3T3JifzTv+MejzEhp4+DRhUgp5a1QDwV6
+         VU+Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794476534; x=1795081334;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=M5z4Z218iwFLIiE49jl2bv9SF37cp7wRUYRt0lwEz+g=;
+        b=J4pSiGEhdbmAkiEEr0I9VBip6XympmnXIiA049axFJgF0F7AdP3rb+CaiQRUnYkLmf
+         7JbynL0wHjMuveg2ktY7BLrui2yqc2etgswKLx3dRVqJHZ+fvhrT7QdjmXyotILAfuyn
+         3Lkobc+lDCnYP1g3lsb8Y9ygBS+kpOCRhi09uB4k4uKaFO8V8Vcj6xihkQV4UEvQP20H
+         UaPhhrmJxXEuCeN6Fgk4PcJ2qC0+Fsr08GKaQSTftdWGodQo8mHI9eLtqHDSt7gHGaVN
+         CkV8BTCIX20yDnoVNVplx1xvKCSfFhXzXE8JQ6uV+8MS5/cLgEOvoak4cBJ9Uh35viMO
+         RCiQ==
+X-Forwarded-Encrypted: i=1; AL+hErE90EiWIk3F8/kVx5ejpyy73yr76aXM8vAJurOSvnDNov1Cia4a/qDGJ5zZEyhDKxTKRWQVL+Szv4t7ZN4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+pJgkq7Tx6Aha+5ebw9aatfvhBzqDRx9oSFlPXuF+ax78gkaEi
+	0iponpwFQ5/+a46R7NhqWeAY3GPrlC5jo5hGd6ZbvSDCvI57SbQUBsjI
+X-Gm-Gg: AYBFou20P7O1eMTEBVKUB1uo2h3U3HCmvOitDKizxVPcZB0zBC0VXSbhrjHMZBFrfua
+	/I8Hc25tzoy5WlyXV11f1dqTagrDxtnmu9M75V8VLpXNCpxLk5IA02GsjBeOj938sm+0w6Zs/D5
+	hKMJQ8OPyxS/YYzqvNV5sarCrXd3/0IB9AWlc3lE/BKr8mSnzlPoIoij28F1gQBzZrv5HpmUqSt
+	9UdQatZTVGISBUvWNgApLWVsPt/tBNMNheOB+s+aPPoNSn2Yv2druJ6Uq7VJdRegkPJPNL3ceTZ
+	2M4V8MTTbeFLttaWiePeEE5j3FtNarDnRVotvFicoGiSon1q1j8zxfzO7fKObW11sra9xmyCBEa
+	+d4W31PKl6CIfzzmezGcNyltozALhUKqPRz9smoEgvF8TkgqzDF3W1bu+iBwknD0krJEqPbERuB
+	UpVbiAy9F1Kt/J55VWHOa0Jag8SWCopM0pf/znpldJF+D4cJxbE9bp7NSSMj6nBG9glOl5harQl
+	Kz1EhZHxIaT55ElLnDuP3mLLV2dAUC0/1e+1wBUGkE7VRRPeFEwhbIIozXBnRla2cAvcUJ5+8W2
+	rSq1REBJ/9FVAhcyAZDtWRA44AYtbKLWKiPDEgM/gIkIjZCkoVdHVPyJafYjFVMEf8RCQ1uAq0Y
+	tNXR4gaec8xqpmvJ9yyB6qbsDVOMJDyyM86FkalO1SwS57nz41DcBhz9Ns7omuu93a5dqT7WupR
+	w=
+X-Received: by 2002:a05:693c:42d1:b0:36e:c9e5:33aa with SMTP id 5a478bee46e88-376854ba4b9mr5548647eec.13.1794476533548;
+        Thu, 12 Nov 2026 01:42:13 -0800 (PST)
+Received: from ramen-dev-security-2.asia-south1-c.c.ramen-dev-345017.internal (90.156.200.35.bc.googleusercontent.com. [35.200.156.90])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3751fe306e3sm26300020eec.7.2026.11.12.01.42.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 01:42:12 -0800 (PST)
+From: Anil Kaushik <anilkaushikwireless@gmail.com>
+To: netdev@vger.kernel.org
+Cc: "David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Ido Schimmel <idosch@nvidia.com>,
+	Nicolas Dichtel <nicolas.dichtel@6wind.com>,
+	Jacob Keller <jacob.e.keller@intel.com>,
+	Jiri Pirko <jiri@resnulli.us>,
+	Florian Westphal <fw@strlen.de>,
+	Mat Martineau <martineau@kernel.org>,
+	XingWang Xiang <v3rdant.xiang@gmail.com>,
+	Alice Ryhl <aliceryhl@google.com>,
+	linux-kernel@vger.kernel.org,
+	Anil Kaushik <anilkaushikwireless@gmail.com>
+Subject: [PATCH net v6] genetlink: Reject joining multicast groups no family owns
+Date: Thu, 12 Nov 2026 09:42:05 +0000
+Message-Id: <20261112094205.1120090-1-anilkaushikwireless@gmail.com>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,67 +109,129 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAHreonH0maC6iU1fkwv9VvWzZfh=W_ybB8R6CLbXQmKQL+x-=g@mail.gmail.com>
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 
-On 22/10/2026 17:17:20-0700, Sam Agazaryan wrote:
-> > On my side, I believe i3cdev can be added to the kernel and that it is
-> > way safer than i2cdev but I agree that the ABI has to be properly
-> > designed, maybe we need to version it or have a way to probe for
-> > supported features so we can update safely later on. It is failry simple
-> > right now but I feel like we are going to see people with more needs
-> > than initiating transfers.
-> 
-> For feature probing and ABI extension, what do you think of:
-> 
-> 1. Adding an extensible I3C_IOC_GET_CAPS ioctl:
-> 
->    struct i3c_ioc_caps {
->        __u32 size; /* sizeof(struct i3c_ioc_caps) */
->        __u32 pad;  /* must be 0 */
->        __u64 caps; /* Bitmask of supported I3C_CAP_* features */
->    };
-> 
->    Today caps can report the transfer modes supported by the controller
->    and target (I3C_CAP_SDR, I3C_CAP_HDR_DDR, I3C_CAP_HDR_TSP,
->    I3C_CAP_HDR_TSL), and new bits in caps (or new fields appended to
->    the end of the struct) can advertise future capabilities beyond basic
->    transfers.
+genl_bind() checks the GENL_MCAST_CAP_* flags of a group only when a
+family owns it. For a group ID that no family owns, it returns 0, so any
+user can join it.
 
-This works but my point was also that we need to expose the i3cdev
-capabilities so userspace can discover what is available. I guess we can
-assume .read and .write are going to always be available and so this is
-fine for now.
+A family registered later can get that ID, and the socket stays a member:
+nothing checks it again. An unprivileged user can join the free IDs, load
+a family module with CTRL_CMD_GETFAMILY, which calls request_module(),
+and then receive the notifications of a group with
+GENL_MCAST_CAP_NET_ADMIN or GENL_MCAST_CAP_SYS_ADMIN. For example the
+drop_monitor "events" group always gets ID 1, and is free until the
+drop_monitor module is loaded.
 
-> 
-> 2. In struct i3c_ioc_xfer, we already have __u8 pad[2] at the end which
->    is strictly checked to be 0 (-EINVAL if non-zero), reserving 16 bits
->    for future per-transfer flags without changing the struct size.
-> 
-> > Also, I think this should not bind to any devices by default and make
-> > binding explicit.
-> 
-> This seems to be the consensus so far. I can convert i3cdev from a bus
-> notifier into a standard struct i3c_driver so it does not auto-attach
-> to all unbound targets on boot or on unbind while dropping patches 1
-> and 2.
-> 
-> Since Greg KH noted earlier [1] that driver_override / manual sysfs
-> bind is only for debugging and will taint the kernel in the near
-> future, what do you think of:
-> 
-> Matching explicit opt-in entries in i3cdev's i3c_device_id table (starting
-> with 0xBD for OCP Secure Firmware Recovery), and optionally
-> exposing a new_id sysfs attribute on the i3cdev driver for dynamically
-> adding target IDs at runtime? That also keeps everything self-contained
-> in i3cdev without needing cross-subsystem changes to hwmon/iio drivers.
-> 
+Fix by returning -ENOENT from genl_bind() when no family owns the group.
+There are no group flags to check before the family registers, so this
+applies to privileged callers too: a program that joins a fixed ID such
+as NET_DM_GRP_ALERT before the family is loaded no longer gets its
+messages. I don't know of a program that does this. One that resolves
+the family first still joins.
 
-We can add new_id later if necessary.
+bind() takes a mask of groups, and most IDs in it can have no owner. Such
+a mask used to work, so keep it working: netlink_bind() skips an ID when
+the bind callback returns -ENOENT, and joins the others. Only genl_bind()
+returns -ENOENT. A skipped ID is not joined, so it is no longer in the
+groups that getsockname() and NETLINK_LIST_MEMBERSHIPS report.
+setsockopt() returns the error, as it asks for one group.
 
+This does not cover a family that is unregistered between the check and
+the point where the membership bit is set.
+
+Found by the Sashiko review of the gtp multicast group fix. Tested as an
+unprivileged user who joins all free IDs, then loads gtp and
+drop_monitor:
+
+Before:
+  joins: ok=62 EPERM=2
+  gtp/gtp (ID 15): member
+  NET_DM/events (ID 1): member
+
+After:
+  joins: ok=19 ENOENT=43 EPERM=2
+  gtp/gtp (ID 15): not member
+  NET_DM/events (ID 1): not member
+  bind(), an owned group and free IDs: ok, member of the owned group only
+
+genl_bind() was added, with its first capability check, in the commit
+in the Fixes tag.
+
+Link: https://lore.kernel.org/netdev/179324692107.3134.14443689892607921337@kernel.org/
+Fixes: 4d54cc32112d ("mptcp: avoid lock_fast usage in accept path")
+Signed-off-by: Anil Kaushik <anilkaushikwireless@gmail.com>
+---
+v6:
+- Drop patch 2 of v5, as Jakub found it too ugly. A family unregistered
+  between the check and setting the membership bit is not covered.
+- Say that early joins to fixed IDs stop working, also for privileged
+  callers, and that NETLINK_LIST_MEMBERSHIPS changes.
+- Document the -ENOENT meaning on the bind member.
+- Rebase on net/main.
+
+v5: https://lore.kernel.org/netdev/20261104092125.211537-1-anilkaushikwireless@gmail.com/
+
+I used an LLM to help write and review the code, the tests and the
+commit message of this patch. I checked and tested every change myself.
+
+ include/linux/netlink.h  | 3 +++
+ net/netlink/af_netlink.c | 6 ++++++
+ net/netlink/genetlink.c  | 3 ++-
+ 3 files changed, 11 insertions(+), 1 deletion(-)
+
+diff --git a/include/linux/netlink.h b/include/linux/netlink.h
+index 882e9c1b6c1d..b4eb873850e7 100644
+--- a/include/linux/netlink.h
++++ b/include/linux/netlink.h
+@@ -48,6 +48,9 @@ struct netlink_kernel_cfg {
+ 	unsigned int	groups;
+ 	unsigned int	flags;
+ 	void		(*input)(struct sk_buff *skb);
++	/* -ENOENT means no one owns the group: bind() skips it and joins the
++	 * others, setsockopt() returns the error.
++	 */
+ 	int		(*bind)(struct net *net, int group);
+ 	void		(*unbind)(struct net *net, int group);
+ 	void            (*release) (struct sock *sk, unsigned long *groups);
+diff --git a/net/netlink/af_netlink.c b/net/netlink/af_netlink.c
+index 69bb951b5fb8..ee573ba6396d 100644
+--- a/net/netlink/af_netlink.c
++++ b/net/netlink/af_netlink.c
+@@ -1033,6 +1033,12 @@ static int netlink_bind(struct socket *sock, struct sockaddr_unsized *addr,
+ 			err = nlk->netlink_bind(net, group + 1);
+ 			if (!err)
+ 				continue;
++			/* no one owns this group, still join the others */
++			if (err == -ENOENT) {
++				__clear_bit(group, &groups);
++				err = 0;
++				continue;
++			}
+ 			netlink_undo_bind(group, groups, sk);
+ 			return err;
+ 		}
+diff --git a/net/netlink/genetlink.c b/net/netlink/genetlink.c
+index 5cc1037d4917..f038f04ef4ea 100644
+--- a/net/netlink/genetlink.c
++++ b/net/netlink/genetlink.c
+@@ -1825,7 +1825,7 @@ static int genl_bind(struct net *net, int group)
+ {
+ 	const struct genl_family *family;
+ 	unsigned int id;
+-	int ret = 0;
++	int ret = -ENOENT;
+ 
+ 	down_read(&cb_lock);
+ 
+@@ -1841,6 +1841,7 @@ static int genl_bind(struct net *net, int group)
+ 			continue;
+ 
+ 		grp = &family->mcgrps[i];
++		ret = 0;
+ 		if ((grp->flags & GENL_MCAST_CAP_NET_ADMIN) &&
+ 		    !ns_capable(net->user_ns, CAP_NET_ADMIN))
+ 			ret = -EPERM;
 -- 
-Alexandre Belloni, co-owner and COO, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+2.25.1
+
