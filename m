@@ -1,101 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794489554;
-	b=ivZUzegB9enq+SbXwcQxCSI/4ozEb0V3T1gSNPNOH5iUp+zlNwnSlxZKSsIRjRnAtKFP
-	 dzEm6U++FURf8HzKNuPhDO98zXG4+1GQr2/hmdA4gDcMY92Ah4sPLJll4niPmUoiKkWKH
-	 59LSSnO+wL6wF6ZiTJnAo8fJb21pSY5/AVTtoO8PtYglSjdxGzQvHnBkBPPWLVf1MW1eb
-	 EPHq1mJ2P7WcyWkXhUdPMq4+r52SQVwYe5kcIM8MX8hu6nTuDUBsp57x+OJ3WCVRtvNzY
-	 3WFXDXtUA5oBTbPEqxAe1vtaJe/XR/0BoyD6Ra3KM8eJEplPtmciiBsB2jNgMhuVigA==
+	t=1794489619;
+	b=0cMuNDwwi9d2AI+vWwCkp/sWagkpAJW4qpHIaP7zaUAxfD3Q3BDfztq7wYLfKT15o9/l
+	 vvEDU/X7eL2ezMAQZwBu+GzmxWFVeYZw2aB3uy9tprlgjAxWh8H/CHUhvoZaXwEtB5bhT
+	 L0xSAcJuT0NKMYNrb8VNQAdJcvmBQSf2MKRhLAuZIUEIojCcU8G5nZpKq1kSHPrfLq43g
+	 Xj35xFk+nEWtaVamoinYQBAt3xwDKVKx/iQ+bZhyH6HjCxOIF7sjohdbWzYEfWLWjCjGX
+	 ldKG87GGXxKa2Z+IwFELgzUcrmirCTqvM/+BHiBApsGz11bC4UbNhxBytWcriOoCs3w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794489554;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=julUOSEjDiDgpHclwVpxKxva8WelCXDy++4zkBQahkM=;
-	b=KxF9sHjXFHQtSLBgvahY6ugNwk4hp1F1SBSEVNHYLOyNighjcn3WSxEqUNl1Dm5wyCU+
-	 j4ZWkRObY6FwvaUmATIYJzaGMQR7yViNrLjbtUBe7nw7I1XPaGlZD+CwrSYRf8Fyk2spC
-	 BC/zdYQ5cEK3D5OdOA39dzB2ihM9WkMlIcixACFHJtVb6FHy21zQ2GdvQoe/gvJY53x23
-	 qoCqOMhwczz6PaTNDeC1IJ5PTjp+ng+yPcehWQm9HZlVdouEelpUcchFXtFKuO6Uvi/Cz
-	 7UR0YQ6txrzZFS+U0uc2Nctqg2D4pAwTsecTA6q1Xqak+jES6LUdK7gvkZMP59kCYvA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794489619;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:
+	 Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Details-Enc:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=Ud1KwhBJxzUmwkiA/rZSRNzFDb2bfZAFAs5A7HMP8WM=;
+	b=OwfOCtUc6HeB52+KQTgPJ1Mr705VQzWBZ+aVAObY6I/1LD70nw4ckv9/M2Q7TPgCoCLI
+	 QVta+HNYYRol5wLlB9oaVQoTGWEobeSd5L2MNVywge0peFuY4TU8XcaIDkl1Pq/tk4HFZ
+	 ASFHu/l92hmGi9UcjN2Q7Ki9uSmfCJOLc/iblkyJ+Hybkm5fhq1eHRcXGC4l3705CIi2S
+	 As9BWxUKYTgGyOFDVkR7pbJqY3sOlYlD9NJGbSRqEU/U/vbsiba9J+NeNlUCf7LLHbIo0
+	 LIa5/4kHuMcw0Y6zNLrkRP5CKkuwjvhAXR3tVoI6xYp4Gl65vMDB4nIX22vBb1ldGaA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="lZ/otIYg";
-	arc=none smtp.remote-ip=209.85.218.50
-Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Um4cZyH+;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=XxV0bB1a;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 732DA606A323
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 13:19:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 732DA606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88682606A323
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 13:20:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88682606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lZ/otIYg
-Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c4c9abc1824so600895066b.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 05:19:14 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Um4cZyH+;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=XxV0bB1a
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ACAUQaP1629024
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 13:20:17 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=Ud1KwhBJxzUmwkiA/rZSRN
+	zFDb2bfZAFAs5A7HMP8WM=; b=Um4cZyH+RcAapiMx6tk9QyN4VzQ3CLV9uH1s5e
+	q6OoZhun2/r+Nzu42OuwmUyH3sRAsD0siB6rlUhBJ+OKZ+sFqgGVuwZsOHYi5hDt
+	X13+Yj1O1RShqE9NWE2mEKEwBDvB0ObUp3pBgMoSJDpO2pxIEUU5dymWvxHSWKky
+	q4iXejZj2SkCbJWRXXDzCFuPriPgS+H8QIKcy0+95NauLnDr82Eu8VzDxqxJphQk
+	2UXC2BOBCGPdoyOy6MXKbXyg99t71MdEAkGUeV8g8Ef1eWFu1+dHw1E6zlruGQTk
+	DUMgT+JVVw2B+dVXXYiDhoqyDdJr3vd50j6C03BHyFnaKHlA==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hwbs00hxn-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 13:20:17 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-944101e6367so161580885a.1
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 05:20:17 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794489553; x=1795094353; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=julUOSEjDiDgpHclwVpxKxva8WelCXDy++4zkBQahkM=;
-        b=lZ/otIYgy8swYzUCNzfqXiyQGMS1Iq4ut93ebgQEOQ4zpt/EWBbolzUlT9Rv0HrHTC
-         VqeM/mt31B2MFwC8NIbsu2wkVp3h3Vs5kJ7a947VCVrZFA/6LWaPKw+9vJUrfPpGmK50
-         fztZzCQ5azFMSkUMsaiqxLC9ezJZMP9EjnLfyVCTMBCxPONxFfoCdD4KxKUv0hP5cLBb
-         5rK59OOYRy/mw9SF97n3ITUDZ0YB/Q2ZBBefGGIYvkA3EbJCWslWO+U/jkkonVinVgX4
-         EqwMPVjD4sz9xh5QGSVklVRYqnxkzPNgbZs6qq3whI+MefP+FZ+kry6CWYUKeXQlOhbN
-         2WSQ==
+        d=oss.qualcomm.com; s=google; t=1794489617; x=1795094417; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Ud1KwhBJxzUmwkiA/rZSRNzFDb2bfZAFAs5A7HMP8WM=;
+        b=XxV0bB1aEKrEx6Zxs4rrU3VaIIv3TYtFRBbCPLy4LtAebNlTxWTW/XO+OvePu8y76L
+         JifCYtG5MpQgwQ13uIE7nIfuYRiwf+QZsyYSb2DNqOJ2kksXs2HS0KoHqaGhvDxlzkVt
+         nWvOxc7GNRiDclmekbUh9Fr7Qe4FO39smOGiC7nsabU+2H5YhlZs6JWyFAsGDSpQhFRA
+         JTwoZdp7iXDJIFgC01j4pGK5mha4NH7TQt+R5yknAqlqaXjgH3waxUUTw+845KQdobbp
+         Px9wmJMonrYx/NiMa5dQeCj7xVpCuHV60sagA1wS5ZtmihESvjqBtGDIHP2oOzgrAbpQ
+         p/fQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794489553; x=1795094353;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=julUOSEjDiDgpHclwVpxKxva8WelCXDy++4zkBQahkM=;
-        b=XV+CuRznCrLu2hTPJXqBCieayg+ElJRavrSSH45FYCG06vZ0r3U1ene9JQzbpVJs1M
-         XWyWiL8LxspbjDVie2MWKp3eIe2V66fNRV7XkqK7CR/sEt3cQZzSwQ2ave1Ueofjscpp
-         ASORyJBRSKNZr7iv7pz5o72pWOKf11I6SRXTrvEbVdHe32qtS2pW5+XFGN1XPzwUu25l
-         2a5xbV5w8n/MgkAaXSeft//mgrHBRakBJL0Q6SrG9zCivBRHXSh1LCXGkm3fmzW+4XUB
-         pEojxZQaHLFhyXp2ouatbZqI4hBBGJvtyqgkkNxicS5dvoremgU7LCTRSgfB5vOijS7Y
-         z8Og==
-X-Forwarded-Encrypted: i=1; AL+hErG8Q488QttX8iSriZDZtzGYiPvha4xaiQppgcG2TdWeyu1sAe1CSc0C2AOiHFbzeqbxsgVWY4Al5/84mXQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/4nyHCGpJQq3bar5rEwXWVt8n7aD8cmEmfkdng9/CHnObHKjqo
-	8IS5peqbOxAtj7xRbZJoIDrzbWg9yUNtooRxX9HxsA4kgxyqiJbVxL/33JXVRYSG
-X-Gm-Gg: AYBFou0iPvCKyq1uUWcQRoEceRepcQ3HA6dyRmJ5GzOiljtEaxcThT6yClMH/ZawrKc
-	/hbdq2LxGbiS3quucbkULiEX5LAf31lvq6wnB2kF72fbTkGHzOa9bPvtci/nj9xPdzndvVtuZ8J
-	GgU59Aym2KS+setZXWCJprjh2BkqVmwq/8FDoChxs6BWuRGrFrKfjsmL5fMlweqDx7Wcq3ZORtL
-	gwWLgcwhE1451c6K4aARfIHESqyy0ctJ9c1CCSSpiLFkjLS+jIyD1n3kTnbv52CimQpChbZlopE
-	V0p++TEMYcZ4eIiKBX4xrZoq3Owg2QRXRmIj+V3SlpZE4IanchQE6181CWLsadPBoxr7DsguQHY
-	33Ye5UkOM3qyvO21vn5D6ii/BWvzyOF+uAzGYOYa//JkC2zUOGJnII5AvOpa/cHBkL40PHW0VW4
-	LzP57UlCXSP0Ntac8DC03I3Gk29v9QqOYFHj9YY5JBlUALK8t1uXNN0q4y5ehLK0biliKAGs3Nh
-	qtIwHHtyDzfRq8L/eIxuTIH5qa08IsDQzLRP2TWuHox5j5vK6Zap8qCP0U3c+95D6Mtfaw+gO56
-	U8A8471qfTGaXIFwl+HVo82xBdMT7hVNSTKTvye6Uf/NLXyW9qJ7KAA=
-X-Received: by 2002:a17:907:9811:b0:c46:8b51:c17c with SMTP id a640c23a62f3a-c5066a83305mr467351966b.17.1794489552581;
-        Thu, 12 Nov 2026 05:19:12 -0800 (PST)
-Received: from localhost.localdomain ([2a13:e746:396c:c600::31a])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c504a3a6dc3sm350140366b.6.2026.11.12.05.19.11
+        d=1e100.net; s=20260707; t=1794489617; x=1795094417;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Ud1KwhBJxzUmwkiA/rZSRNzFDb2bfZAFAs5A7HMP8WM=;
+        b=kqrEVk6KnbKR71QPp3PBcN6jECQDNYy/pT1jFI4CRsTAyC5OQGMIlxKItTEtq4UXfA
+         pf+8RvvT3B4wBIWFQIVgN1kLg5CNLb8/JMUooLtZc1cDcMaZUAsJiaRMAyDt/oOmVoTh
+         5zVNnIZ8qADoaoS6jqz5lGp3UioF9reM4gMeFEyLCFhyBeqqbNb9/kHNyzO3BEu2O0cA
+         3IaEi9nHLd290aX0rdouMXC3+xhdNwuf7urmquJOmew6XT9PJdBCok/0DNeqQloZi18S
+         8hStuT4L7Brp+z5u2+cxGg1zCnQwdxlPf75c+7hcsQRsW5jvvt14mibzeTeIeR96HX2D
+         S+CA==
+X-Forwarded-Encrypted: i=1; AL+hErFxMOt+AAdPJscY2w/u/1mkZLmcx6KZl3tm9gmtwxIhfpkvSIYbd+RDKB41xYNbZAvqoYEcnUtGFGAwRxg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/IY9XW8aupITVKUFlJgJ10UmkxYP7bfzTxaOUTAKOutwybY2O2
+	ymMUTTK6wbCIo1x++hWvaNMwcEJS+G5beJWF5Mgu5JXobwTlO5v+17elpGn0//FUSAE1d74zmkl
+	cZHQ3DpWe8Z8EsoVQYbf/zKyMkLmpSIHwmgenNCoStaLjv8fDUpYgFKaodHUEGQHBBRY=
+X-Gm-Gg: AYBFou2cCFPhjuA5UJy4/BAemuaQvDZOywl4iI94JsTEaYxDupOZCYAaNyby8BKe19j
+	3LjDqcFYNNkun0dzxttqRoXZ2fiBwl64+zQJkG6eImslDlr5LnglmCEqydJPfZKQBcRBwtuUXP0
+	/VGsPKMSQKvnEQgGubKTjoWwWbIav/uzM8yxqujkq7upWWjUSXyR7Hpk58k4vB4xSiySmb+qjCu
+	hiSKSzEGBIDbclIMlsC1gQJocBQJoGN62piUZBbJG9ZFpINnJFFsTL5x8ZREHQcfzK5etZI7fNE
+	Fmsjun5CBXs22VlZ9imPaoFeY048mwFgST17nlzdeDL/PunZMsnYF3e2KF8z3bSlb/jukLfKN8u
+	Nn1tw96H5qiSqCui0aJ5soFrvXInxxD4NDcu+wBI0KMH0mFhvnQO/G8ystBE2uc1swslhUURng6
+	JE+ICXUgtHiSE510fMiYCNLw8tlgkiWYnf8b6tMpWtgflfn6NbgYG5k6xvkVJM4yo=
+X-Received: by 2002:a05:620a:bca:b0:93a:1196:ce5 with SMTP id af79cd13be357-9493310729dmr464010385a.33.1794489616780;
+        Thu, 12 Nov 2026 05:20:16 -0800 (PST)
+X-Received: by 2002:a05:620a:bca:b0:93a:1196:ce5 with SMTP id af79cd13be357-9493310729dmr464006685a.33.1794489616340;
+        Thu, 12 Nov 2026 05:20:16 -0800 (PST)
+Received: from brgl-qcom.local (2a01cb1d00dc7e0089167b9b97a26c96.ipv6.abo.wanadoo.fr. [2a01:cb1d:dc:7e00:8916:7b9b:97a2:6c96])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498369a495csm16744366f8f.55.2026.11.12.05.20.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 05:19:12 -0800 (PST)
-From: "Kordian Chmielewski (mlody1212)" <kudzo51@gmail.com>
-To: dev@deq.rocks
-Cc: arend.vanspriel@broadcom.com,
-	asahi@lists.linux.dev,
-	brcm80211-dev-list.pdl@broadcom.com,
-	brcm80211@lists.linux.dev,
-	j@jannau.net,
-	linux-kernel@vger.kernel.org,
-	linux-wireless@vger.kernel.org,
-	marcan@marcan.st,
-	michael.reeves077@gmail.com,
-	sebastian.reichel@collabora.com
-Subject: Re: [PATCH wireless-next] wifi: brcmfmac: msgbuf: count tx status only for the current flowring
-Date: Thu, 12 Nov 2026 14:18:59 +0100
-Message-ID: <20261112131859.339060-1-kudzo51@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261111195559.160650-1-kudzo51@gmail.com>
-References: <20261111195559.160650-1-kudzo51@gmail.com>
+        Thu, 12 Nov 2026 05:20:11 -0800 (PST)
+From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Subject: [PATCH v12 0/2] crypto - qce: make algos optional and remove the
+ BROKEN label
+Date: Thu, 12 Nov 2026 14:20:07 +0100
+Message-Id: <20261112-qce-fixes-broken-label-v12-0-7b5b9c7083ed@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,33 +116,163 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAe99WoC/4WNzQqDMBCEX0Vy7kp+RLCnvkfxEOOmhqqpWZUW8
+ d27tYceexmYjxm+TRCmgCTO2SYSroFCHLkofcqE6+x4QwgtA6GlLpXUGiaH4MMTCZoU7zhCbxv
+ sAUtrfVXqwmMl+PxIeKz4e62/PeG0sGD+wS7QHNPrsK9KffBfEe9AgmyNcabwrXTmEonyabG9i
+ 8OQc4h63/c3Ic5wodsAAAA=
+X-Change-ID: 20261022-qce-fixes-broken-label-e6aaf9624fe9
+To: Bartosz Golaszewski <brgl@kernel.org>,
+        Herbert Xu <herbert@gondor.apana.org.au>,
+        "David S. Miller" <davem@davemloft.net>,
+        Russell King <linux@armlinux.org.uk>,
+        Eric Biggers <ebiggers@kernel.org>,
+        Demi Marie Obenour <demiobenour@gmail.com>,
+        Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
+        Pankaj Patil <pankaj.patil@oss.qualcomm.com>,
+        Birk Skyum <birk.skyum@pm.me>
+Cc: linux-crypto@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        stable@vger.kernel.org, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4173;
+ i=bartosz.golaszewski@oss.qualcomm.com; h=from:subject:message-id;
+ bh=EwDtYv9Buv4+7yibwtqLU5DD3WUd5mC4sm0SNiT2HWg=;
+ b=owEBbQKS/ZANAwAKAQWdLsv/NoTDAcsmYgBq9b0JnqM5wAUYNu2WkHJPkueCqCZKKegCm4TiV
+ W6zS6UcNbyJAjMEAAEKAB0WIQSR5RMt5bVGHXuiZfwFnS7L/zaEwwUCavW9CQAKCRAFnS7L/zaE
+ w3ZuD/4ht7rcv0iLK0QTLYcxmUGqmxhJXY9EYDH/fNilZxyaRCgNFYHRFVxO4K4IsEDJZqgioei
+ R+qc4Bbd0Yq4IKEeFWpKgtTQfxwQKgJM5wXB/RqXUgEkyo8RBZgdDIxOroehAxEcLySlsE5qedf
+ CL0XUdu1AYg9eF1VUMXcdRrV2GMG2mrOvSPUD2K7bw/YvJQUodnQMd5nKwZHUF5hPljq86nzGNu
+ +exO0BExbOkKWij1351zihPY1licNMnBVOnVD1iSmQsvbHCA2qoBVtAz9q+sgoXwxnwFTLQxK0R
+ ATNOvG/adpkO7ToRNCHTCVzjMoTRR/DLpXTqP2IHwiETIiGeLGbHWAtAqUHh0sYG+2Coz7DZNQ6
+ zntWc7Y0Bl3RiqKuVAbIm5UD7kd9+PP1AcYHveTiZiYu9ENRDq/7QkpQt0xrSncPODtTJ/bwFSI
+ B4n0jaJGeL4dzFf7DbHYcLdJQXaK1nHkr2ayPInBfGpGqpm3GDKy8iKcLTWfu8lJFbNdJm0LwM7
+ v1MHkXe9gZFz7rMzXAPt10/GCSTd5n4ZUijLlINCpQBLWpBtnIE+6rHBLCMm61exxG9eve5ON62
+ N2Thobas0cdhj5gvQzfgLEJJqPct9kudBc2Y95siP6AJDioB4brD2lBO+3tI0obTNNpiqpx8G9t
+ QREFz4PwpyNXc1A==
+X-Developer-Key: i=bartosz.golaszewski@oss.qualcomm.com; a=openpgp;
+ fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDA1MyBTYWx0ZWRfX89y65Hpv+zVS
+ BOlSwebI5w336I2mGpGuTYjwUxwrzYn0piHG5GZHkaK89pDVRfOuWyxJP3rVEKqZNBIFW8HzggB
+ 49L3UizLY72ykvcSE7cKmPvGeZ5cP87pTEptvVGf685sh9i1iyoy+qXVIqanFwAO0ymNzqd/nET
+ GBceYJLQIyvd3xGa7MPYMkhLJRlFmEReLppLLxdCA925zlm9HdKdlYy6DwokJ1R0qPG+80PpRz0
+ TJKQp7Nkv+PfwvCsnKH2WyWoR52eJYov/BLVscKCaVC6wPqNhA7DMhVZNGPRWYQ29ZLgr81klDA
+ gt9jxiMJq9g82cZsf21i8rteU1iBYLUzPnU2jp4Mz8xdY3zk30ykXEMtVFqAAE8DcGzJWPIy9M6
+ qRvrz+XJ97/ouC5BCeGP3ks8V1opub4T2wlF8++TMVq+PComp6dKWWiV/qEKFxeGfpEPtIA9WY4
+ KIRuNT+IYWZ4eCC5DVg==
+X-Authority-Analysis: v=2.4 cv=AsF7T+9P c=1 sm=1 tr=0 ts=6af5bd11 cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=bC-a23v3AAAA:8
+ a=EUspDBNiAAAA:8 a=RPm8042193-LcWM-IooA:9 a=QEXdDO2ut3YA:10
+ a=NFOGd7dJGGMPyQGDc5-O:22 a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDA1MyBTYWx0ZWRfX9DnTIqJePyJi
+ ds67mVbEzqGAWuOwPnso81CDiL2Q8gHe/enqDOO71UcPaQD2O1k4rU2hG/gQndqMPFIKGZDfTPr
+ Kobp+m583t+iTl779Q62k8PKNLUrlqw=
+X-Proofpoint-GUID: f3LULZB1pUGiVRgmRpPUdonuE4u7URzz
+X-Proofpoint-ORIG-GUID: f3LULZB1pUGiVRgmRpPUdonuE4u7URzz
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-12_01,2026-11-11_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 suspectscore=0 phishscore=0 impostorscore=0 bulkscore=0
+ adultscore=0 lowpriorityscore=0 spamscore=0 priorityscore=1501 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611120053
 
-Hi Andre,
+This is the follow-up to the three smaller series fixing crypto
+self-tests in the QCE driver. It makes the crypto algorithms opt-in via
+a module parameter and removes the BROKEN label so that the driver is
+built by default.
 
-I have now run it on a BCM43684 (firmware 17.10.188.75) as an access
-point, with the logic of your 4/4 and this patch ported to my tree (its
-tx status path is the BCA one, with the flowid and generation kept per
-pktid), plus counters for the test. The AP sent a client a 150 Mbit/s
-UDP stream while the client was deauthenticated 60 times.
+Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+---
+Changes in v12:
+- Add module description in patch 1/2
+- Drop dependencies from the series as they're all in linux-next now
+- Link to v11: https://patch.msgid.link/20261022-qce-fixes-broken-label-v11-0-0d33c34fd0c3@oss.qualcomm.com
 
-In 62 flowring deletes, 2130 frames were out when the delete request was
-sent. The tx status of every one of them came before the delete
-response, none came after it, and outstanding_tx never went below zero.
-Here too the host saw every status before the delete response, as in
-your BCM4377 trace, and the generation check did not trigger.
+Changes in v11:
+- Split out the patches making algorithms optional and removing the
+  BROKEN Kconfig label into their own series
+- Link to v10: https://patch.msgid.link/20261013-qce-fix-self-tests-v10-0-57162a38a554@oss.qualcomm.com
 
-To see the case itself, I then held back the tx status of a flowring
-being deleted for 3 s in the driver, so the host handled the delete
-response first and the new flowring of the reconnected client got the
-same flowid. With the generation check, all 531 such statuses came for
-a reused flowid and left its counter alone: at each of the 15 deletes it
-matched the frames still out. With the generation check turned off, the
-counter of the new flowring was wrong at 14 of 15 deletes, by 787 frames
-in total, and went below zero.
+Changes in v10:
+- don't pass a NULL buffer to sg_init_one()
+- fix byte order of the imported hash state on empty finalization
+- don't recompute the CTR counter in software for every request
+- reject skcipher requests with a too short scatterlist
+- check fragmentation for empty CCM decryption requests too
+- don't use a static loop iterator (duh...)
+- initialize the return value in qce_handle_queue()
+- Link to v9: https://patch.msgid.link/20260922-qce-fix-self-tests-v9-0-b1aa742e79af@oss.qualcomm.com
 
-One wording fix in the patch: "This happens whatever order the firmware
-sends the two messages in" is too strong, it should say "This can
-happen". Without holding a status back I have not seen it.
+Changes in v9:
+- Rebase on top of cryptodev/master
+- Rephrase Kconfig help text changes
+- Link to v8: https://patch.msgid.link/20260921-qce-fix-self-tests-v8-0-107537869a72@oss.qualcomm.com
 
-Kordian
+Changes in v8:
+- Add a patch making the crypto driver *not* register algos by default
+  but only if the user explicitly requests it with the provided module
+  parameter
+- Use the "offloader" name for the crypto IP instead of "accelerator"
+- Fix device module table issues
+- Make the core driver use a list (despite it only having a single
+  member now) of child auxiliary devices to register to make it clear we
+  have the intention of extending this once we start the work on secure
+  media playback
+- Link to v7: https://patch.msgid.link/20260910-qce-fix-self-tests-v7-0-cdbd2718af14@oss.qualcomm.com
+
+Changes in v7:
+- Add follow-up changes converting the QCE crypto driver to auxiliary
+  bus, adding the core QCE driver under drivers/soc/ registering the
+  auxiliary device and removing the BROKEN Kconfig label
+- Link to v6: https://patch.msgid.link/20260717-qce-fix-self-tests-v6-0-455775fe5f6c@oss.qualcomm.com
+
+Changes in v6:
+- Handle all zero-length HMAC finalizations (like imported state with
+  data already hashed), not only the genuinely empty message case
+- Add an additional patch addressing the fragmented skcipher payload
+  issue
+- Link to v5: https://patch.msgid.link/20260706-qce-fix-self-tests-v5-0-86f461ff1829@oss.qualcomm.com
+
+Changes in v5:
+- Dropped patch 1/8 that's already queued
+- Use the pre-allocated fallback ahash for HMAC transforms (Herbert)
+- Link to v4: https://patch.msgid.link/20260622-qce-fix-self-tests-v4-0-4f82ffa716c6@oss.qualcomm.com
+
+Changes in v4:
+- Remove remaining ECB and DES3 bits
+- Pick up tags
+- Link to v3: https://patch.msgid.link/20260617-qce-fix-self-tests-v3-0-ecc2b4dedcfd@oss.qualcomm.com
+
+Changes in v3:
+- Remove even more algorithms and dead code in patch 1/8
+- Link to v2: https://patch.msgid.link/20260615-qce-fix-self-tests-v2-0-dc911f1aad42@oss.qualcomm.com
+
+Changes in v2:
+- Add fixes for the full suite of crypto self-tests
+- Add Fixes and Cc tags
+- Link to v1: https://patch.msgid.link/20260610-qce_selftest_fix-v1-0-1b0504783a46@oss.qualcomm.com/
+
+---
+Bartosz Golaszewski (2):
+      crypto: qce - Only register algos if the user really wants it
+      Revert "crypto: qce - Mark QCE as BROKEN"
+
+ arch/arm/configs/multi_v7_defconfig |  1 +
+ arch/arm64/configs/defconfig        |  1 +
+ drivers/crypto/Kconfig              | 22 +++++++++++++---------
+ drivers/crypto/qce/core.c           | 13 ++++++++++---
+ 4 files changed, 25 insertions(+), 12 deletions(-)
+---
+base-commit: aaa2f954c21b205a0bcd0961e5b2be4e82e58455
+change-id: 20261022-qce-fixes-broken-label-e6aaf9624fe9
+
+Best regards,
+-- 
+Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+
