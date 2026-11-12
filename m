@@ -1,58 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794481556;
-	b=omjLhdF0ZAyomikERinOWQt6NKGt+3OjMPAn6iTfDojxPVaPsTGk6Wshm2i/Mll2of48
-	 hQxCXJ4K9uejjduz0L49VVByMF1giMBwMDPJvnpLkJKoPbWQj4opgf/Q9L3AI8ej1omH3
-	 L+R+9xJblmEbZtAmeSchiQMhFCX3GbDE3zSeBvy60q7u3W28+C4R1K8cqKYJrOgPq/eOS
-	 bYrjouGanIdi79SyvQ8kga88vIrK3e9RoKI1FSfkMZSfCFxSMlr62HCOWv3lPO9BqbwcR
-	 0zX4cwn/W91nXrkSpCe+a5twQa+1sMGNw6VapLzN27W8iYks8gBXeE2NkMqI9q0tf3Q==
+	t=1794481563;
+	b=S/i7jTSaPH3rNr7Ozn5SWpMkl1avk1OVhPOzQ1O8Jl2ccCHj3MKwbkcjSeY7/UfW44Xo
+	 gp3XEeIIPYwoWEvaAeeca+8H9Zxr8PH3cOV4C4WgW0TvDGlBifm3CECtPU8PZX34KE5j/
+	 Tj1wvS+/UNJQxTv0Sj9Yi9LWEKxwgVrWlk9KSxHzdD3t2Kej9R9mwRfraUvBmbxhBbTRh
+	 8XuSAwwttVLsBy0unj7ZuEfllfTaiUOv5B8C5IBz/TrXmqjBCUxQLE3ukhDz11rLGoqa7
+	 PF1eUyxDDrlluT2XOWbJvDAGLN/UP9oeX1lUnYT6hf0ARn06XsYP4PnXJ40rU9F52kQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794481556;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=mXTe+OT6mzHTMHVv+nfjup1kUqTXR5f3gseQxSoH7+o=;
-	b=AbjIcTr83TzM141Hpky8aUTahZRQupt42wPc/8FE14FImvotCk9LtXQqQZgYT3Lkz74I
-	 1VZ9QaRKyj1UX347hmr4F/Ccs4mqn5cWu7i2lAQG7SwDhSMdn49Mo7sS2Tx3K/lzXveCz
-	 fV5EhJJgn62M2RHcqApXWj2sloQFFBvN2z1o0+g0zqpr2wzw0XT8vsWsodOZFlJ2ax4du
-	 6TdccQJF8NDmlaZPF9F9y/CKU6GHaUnC28I05tFyhfeat32kDu59I4k6mue5GUAgJ0dgE
-	 8QSRAEgjEREhdEGrnA6TOBj8bRgg1G9dzTX5fldu6f7xqvG8xh4ElQq5r1ZmGMomSag==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794481563;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=fKrWjpYZqdQRIuPQ0j1cPkoi1b1sm7ely2cunlMR4gQ=;
+	b=b9bROs6CsgQGdx+XOuYTjzzmUtK7gya2Cd1OBeyZae49Eg6Zc9r/FwwqwvvXS/kjsFwQ
+	 pAZ9WdaUKLRqN7vYWfdBdp6YvAJbXimk/dOciMX/sZjGxhQsNMhXXIk1Vk9tuVZFCk+Aa
+	 q130GiXEOObltutqORId5nqNPbOR/AKbi1Zy+E3W205YNllpNQ5/nXczfMTnPvqZDntGa
+	 I4x2uAIINNgbA8e+Y234VI4jTFjecWVKS5+FwVuiRz0nl8ddGYS3USiWPgkUuMpWulYcl
+	 +/07yI4LN9sLyUWGvhcxBy0POnUTZePm0YBs0lxGObXzhN7okFrXcGCdRsnk1dJZQoQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ljR1QnRL;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KaPEPqDO;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA5F8606A321;
-	Thu, 12 Nov 2026 11:05:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA44F606A31C;
+	Thu, 12 Nov 2026 11:06:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ljR1QnRL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C33261F00A06;
-	Thu, 12 Nov 2026 11:05:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KaPEPqDO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58DAD1F00A09;
+	Thu, 12 Nov 2026 11:05:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794481556;
-	bh=mXTe+OT6mzHTMHVv+nfjup1kUqTXR5f3gseQxSoH7+o=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ljR1QnRLgzHSvEvMfu6/ddMKedwrVFT22MBaP7lJSG8fdrJ+5NK6I05rOFtaU+Wo2
-	 S2P4S0AJACJqphkjI2TpTcDxRcV/BVcr/4UjB7DKbCuExddYyH8BKUPR6yEgpBS2KU
-	 1VT9N0hcNWcu4wXfaceL/hOteLBOwfgWLAh++gi4+qLHeXKazE604RBkMeo6yOfTCc
-	 +DSOKDTk7sC1Y0Rqvftp/vqTdimKrCMP8BVDmONpyMNL0tfSDCzzN1kl12umaNPKGa
-	 7Ni19Kk77K3bCUh/ZID2MiDJdyHkSf00VwYj1WoIjHzToP+lpMuCxsjAKAklybfB+O
-	 0Xu2X4oKf8MRw==
-Date: Thu, 12 Nov 2026 12:05:53 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Michiel van Beers <michielvanbeers@gmail.com>
-Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
-	Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>, 
-	Griffin Kroah-Hartman <griffin@kroah.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Helge Deller <deller@gmx.de>, 
-	dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-fbdev@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: backlight: lm3630a: Add
- led-max-microamp
-Message-ID: <20261112-subtle-kraken-of-serenity-04ea8b@quoll>
-References: <20261111-lm3630a-led-max-microamp-v2-0-aff11756e7be@gmail.com>
- <20261111-lm3630a-led-max-microamp-v2-1-aff11756e7be@gmail.com>
+	s=k20260515; t=1794481562;
+	bh=fKrWjpYZqdQRIuPQ0j1cPkoi1b1sm7ely2cunlMR4gQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=KaPEPqDOixAktqc7+kPJeflmA/co+JGai7US59qP8P8BekbbO0ubFyTObSkNJ7Xep
+	 /L+uzpnK/+7ybHODD76TeulYnGFytmk+gLqm+KKPJKFn0eyah951nmtyx5hmvGhvMQ
+	 guN8gzKwCBVTz4aAGu0zk65/lH4ZAwbofBEY1mrOB930BuGkGJLMHxxCilZegxOhML
+	 33ilipQhJqh9YkPYfpqxAvDZgzZSQJdYafwzqTrOHYautS8HkQJ9k5WOGlr+We5Pd9
+	 bcHXGyqM7jz0qrtqzD6ScRjtAM7mRagHd1N134sEyA/VDCm78btTYy5zvuRvZkClvM
+	 UjCKNzyWrOlWQ==
+Message-ID: <e1b93076-f837-401f-895c-bee6bf3c9504@kernel.org>
+Date: Thu, 12 Nov 2026 11:05:57 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,28 +51,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261111-lm3630a-led-max-microamp-v2-1-aff11756e7be@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v14 4/9] media: uapi: Add CAMSS ISP configuration
+ definition
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Kees Cook <kees@kernel.org>,
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Bryan O'Donoghue <bod@kernel.org>,
+ Abel Vesa <abelvesa@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-hardening@vger.kernel.org,
+ Hans de Goede <johannes.goede@oss.qualcomm.com>
+References: <20261106-camss-isp-ope-v14-0-49c426cd2715@oss.qualcomm.com>
+ <20261106-camss-isp-ope-v14-4-49c426cd2715@oss.qualcomm.com>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-GB
+Autocrypt: addr=bod@kernel.org; keydata=
+ xsFNBGRJNSgBEADD7Vm2ZFa+v+JGJ2QYTJqQAkqis/uOHkhdFNXqpBarVBd47QU/DMNU5Rxg
+ jedMQEmHoeDbJ6UOpjbrUQ63c5sgG1JbroHJJctwsEI75OOlekMuebEbjIJBLfgENGwPBMHv
+ piv5TgCWr0VgYaXfp2eh2LINFywzqj823HiDPibQAXDrjzvF1ogksi/6cQZs8d4if8YQkLOr
+ YISFouG+eR0nN1I7mUfIddXOWu6lJeTyqbWVurv58k2ekIXKaOC9ixLHFbcfYV0hOgRaTwQC
+ B8CYF9nfqZla19iItfsN9QxN+ZdQjcRoYipp6HPCMfJlKH7GfaFcW93LKc4DKJ2lVL+pg/OQ
+ lythZbjRPY492NG9kZ65aYstCs90uhMUEVVPuGUw7wBEku+6IEwZfrbMVKeWzLlPyM4Hv9hM
+ 8ktxSmxWsPTPqpBC8eyeAQLalMELAyVcZlkaCtEcbj7w4l/JkYz+4l37obG8ZD+B34udBUUz
+ MsAJ8foDFrBh2MOFA3hxD6G90D23mmWsri7pnKA2tZs92aQX7Ee+FbCyg6g5ln62Sq83ZDbf
+ 53DdBs55EVpBadeInWmXhzCHPQx06H+CwTEjShTYIaMmBfrewvYUDKvFTC5iKQhAEUgt6i94
+ JsbG7NoeqcxkUMcBOEUQ3uCQG1D70ugspgXc0wd3Rimiq6535wARAQABzSFCcnlhbiBPJ0Rv
+ bm9naHVlIDxib2RAa2VybmVsLm9yZz7CwZEEEwEIADsWIQTmk/sqq6Nt4Rerb7QicTuzoY3I
+ OgUCZ+R+mwIbAwULCQgHAgIiAgYVCgkICwIEFgIDAQIeBwIXgAAKCRAicTuzoY3IOimUD/94
+ BwVEJX31JRe2sxbB/e1w2p8x1bxvTw5AeIzpV3ox7coJg1bSU2mnGuj1V4o0Yxf/3zmcJzCN
+ VfVjwRF8Ii3GnC7uUXk2t+87piQfKTyJAYQABhZUKgoVJbjJq/S+C3XCKIyBA+EiezoUsgsA
+ jTzwU+FzV7zVWIXFPJNtBERLwboE9w9U3KjAExOa1kSY8eLrsg6kOwlOHWy5UsQqYOjrS96M
+ mzm2xuc1+RCjrndAyYhCnrOKvJ67HsPnBeJCjw7ImGD/U1GchwYbX8o3DO3JNHm3qfC86ZqX
+ 2sCouENg4OzgPTtLKUrueM6xsu6KMM7gj17vxsiR3KQEoJnnMB8D1xtBofN3mFZE0wD9M24m
+ 8yGunZbtntMCUHzIrlJgAPwKWKuGOYtA8UgMTFkccnUJtQrg9KotKtEF/FuftG9zLG9XEkt4
+ 5ZdNgbSoLWgelu3T47mbOJ8LHhiLaCWP7yrovtVAvLUQ1BsiA42u8ECrFCFvQj9nrejE/ICv
+ kP+uqcKtdDvP9HrIGycF1WZyfZLp0RvopKW92FLvI4I1QFWJ+wenk6+LGyJ5bzlrWzevjxmf
+ nHcXE6sJBHrE7eijlbbImDAi3uLYN8Nd9Dm11IDAy4GAIQxSiQn0yblDhPiyGtchy80EVkCm
+ g9k17Wol+2E2mC4DKgVdCkyUtTRSLgsJCs7BTQRkSTUoARAAuTnmWHBS6izRcEE93ajpzI7h
+ dgQO4U3IRvOEsvIKR5NGcNEs0ngGebwsZ/lVULjN4vYU0LleqVhPBidNXUoZCN3A0F0Z2Ov8
+ NZdef+2EhQPBVWxFO7JBzhe8Z3ALj+wFtlg8akJjBzU56azW/iJzAobqHVrudzKoO2b1/CMg
+ VbiAQ+RXjgfN5kY/HqYDU7mw+hXuUV9PbtX1L8xqQQac95oM9rHzKHHpiVwxTeJnGQsa+THi
+ Kze+YET3rCoGHMvOQEJhdrucTv5FpAakKdkOFNel9FFckLRKEuWgCzhpFsjQ7xbirQgFUxG9
+ vlk1+q4hMRGNyEqoD6svYEeqbiUSd0oPUJeioiC3rNMRCNHLVrfZ2J6SCPkxfda08uzSdDQU
+ 1/YPjOh8ZtQDMu7WctZ3XO288Z1gyBR49V7fbFs2w4sQxG+h/enlxqP7fdw1mjUlZjU5huCJ
+ ielS0oEaIpmUpkugli7x4WhwLnhK2EbSoz7nLBC0y+ALUOdMlz/Y1l9xRt+bkDhpmf4O4IcI
+ MxgZ0QMLq8rHDkGaEbsgZZHQPS58T0XE3IP30Q9SNxsruCMXtd2hYtBssf/wohc6JVsTtMg2
+ VYTPDPIFNZFSXupEJB7jlqpDWJ8ooJfJRLBatbjT5+mVQaMYB7Hs/t+zWYWaJKHyc8O6WLEC
+ NUV5Tdt5EkkAEQEAAcLBdgQYAQoAIBYhBOaT+yqro23hF6tvtCJxO7Ohjcg6BQJkSTUoAhsM
+ AAoJECJxO7Ohjcg6LuIQALnXt36OUuK43wqw6UYt0cnN6EbUqJHApAF5eNFn0jCCB2XELjSz
+ JKJwuNAweowBdabiBniJ+501WIW+ewEsz1uby5fUQjZuCEsIkuaIluyfUFPb73qrQyAGuusd
+ 7teA4WT+/jUku9g7lX5sVoRCrKQPkd16f6Bzfztyqyjcn43/X5yQI+wlboQ6HuKe/3I3yiOx
+ OgmCHzOawpC9PvhEcKj79RLM3Zz5Ts5AuHpRX70Jz8Be76LwVFLp5Msx3S24ZTU1lBo2uiJ3
+ xSkay2lTpyVWRPx9vgcwzxGguOPJQJwsQeLb7wpoJMPpD3ERoaRii7Q7hvmxklpZjhKYWB3d
+ t6nQ497Ek9loCrp3MIjRCSDN5xEGffiHks9yTeGMUQwO4tX8RE04uOJPkUY7uCFzFqN6/qey
+ X3oFfPgkULMdiHofPAL1OskZSTzGPSfTYRE46NCJw8yoZBQ/oOyWeqaUQbK0wmW/g81wm8p7
+ LKSGEglMpiX07M1AotgvylN5C8fjbouoK+/RAMsXkk8jba6rPfuuXPaDjCyyKn6zSVHETnHW
+ 3AJbgVY50T8STpnxayBQvWbCvu+6NOEjXCbyaOJig+5l0zlGN9XHjdANXC5HnwmyaGRL9YDq
+ Jh2nVXVJDincOdQRdKcJjYLqaOAoWrYWSDi1iZGspHBTDrnOvfMQzzHY
+In-Reply-To: <20261106-camss-isp-ope-v14-4-49c426cd2715@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Wed, Nov 11, 2026 at 05:21:41PM +0100, Michiel van Beers wrote:
-> The LM3630A has a full-scale current setting per control bank, from
-> 5 mA to 28.25 mA in steps of 750 uA. Boards whose LED strings are rated
-> for less than the chip default of 28.25 mA have no way to describe that
-> limit.
-> 
-> Add the common led-max-microamp property to the led@0 and led@1 nodes,
-> and reference leds/common.yaml from them, where that property is
-> defined. The property is optional, so existing devicetrees remain
-> valid.
-> 
-> Signed-off-by: Michiel van Beers <michielvanbeers@gmail.com>
-> ---
->  .../devicetree/bindings/leds/backlight/lm3630a-backlight.yaml  | 10 ++++++++++
->  1 file changed, 10 insertions(+)
+On 06/11/2026 13:55, Loic Poulain wrote:
+> +struct camss_params_wb_gain {
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Per our discussion elsewhere documenting here, we've decided that these 
+names should follow the module version i.e. camss_params_wb_gain_1.1.1 - 
+with 1.1.1 as an example.
 
-Best regards,
-Krzysztof
+For many of these formats the module structure will be used again and 
+again but for some it will not.
 
+Example:
+
+OPE wb gains are 16 bit but on IFE generally these are 24 bits. The 
+pertinent information is the version of the format structure not the 
+fact that it comes from IFE, OPE or ICP/BPS/IPE.
+
+---
+bod
