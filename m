@@ -1,87 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794508422;
-	b=p/M/hauG+dkezfbEMwZTD1sB3DpAsNjpCahbwpjfG0RiKyRejPj3FNLsEk/8PG29U3yP
-	 wwQq65EWhf+1aJtcA/Eu1mdyc9hkJma/C0YvhfPr50fWSn+7kutfdfNkBUVb0NsUQ6D6a
-	 fbMIWrbLocxXHLMbB1bWcI6wFY7QhkIoTG255yvnjFscM0sRPcgFXetpGNHS0dxS43pFL
-	 YqqdUgfTbu/K0thhQePtxM9Qpz1DlaIp1fCFw2JGehcQKhj/zQqv3rPJ+FPLasDLgeOyJ
-	 n+JY9rCUWoupJgqD88mcmZIn5crbA+TMCi02PugVvRJ0VEDaHVtk1Rg2srFpU/mzPDQ==
+	t=1794508436;
+	b=MaHMF4u3gAz2CerLiBeHz1DgVw3C28Cy/EgMPJnGG3aIcX9gO9mHclDq+OJXLwv2LVi7
+	 IZryi5erQpr61gRodqjI85rNSDkjqaU8Zhw7OjcXxXw40oXnovIQ1p0wPMjdgOpnyMqe3
+	 GcyMngLW3J09zUF3yBVj0YOBDHRL5VgZzZQvsXmftOmIR28htIhX+uYVax7JCLQ2bNoM7
+	 tB4d0GcQHNEa0yf7sE4ejW0oq0Pq4lpnAw53Au46JjMQRZXOtBy0hwgCG43bSD3QKSRXw
+	 yoqvlxbwryi6YM4MmvtJwJiWPfozQHPM6lUzomzXDNaFRfejgJMdgWmObr8W3kwfDtw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794508422;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794508436;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:X-Google-Original-From:Date:To:Cc:Subject:Message-ID:References:
 	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=DNGGwn1SK0IengpfAdulGXi2EREsmRQVRNzPVdbrwBU=;
-	b=1g0KrKlFvopHd6yyAOeuMozyCEOceKciDKj2UTwD3o4cyoUmEzTY58N5te/VgkyQABw3
-	 lgwByp95NniQr+enLtg091WL6XQ4bXXfPqryqDotzA5T2X8KYShSWCa8DD4bEAH1DG9is
-	 IIjh3VMUkUYcb6oOu6t6BbJkKTgho6dt9+1D4e6AL3jMLNNjWvohRPTrk1kbNp50E3x/J
-	 JqyDN+vRuZLkJtW69loBJTEf6at60bLJomBBhnodwOkS4Jke5jUAmTqqNuiV4zphoAUoc
-	 T/cKRisd9OiWuX9wb822EUU4PSfV/0geHP/s7L37rumSSy3oQ2F1h9nqOWnTIfh5RDw==
+	bh=0T59pX0NBuc6eb0M//aPEdCc6M8d0Cv25oKr0gLdXm4=;
+	b=i1RZlRn18iY3RuCDBlqLxqqNSgnTy79LLsSygYVhPfcrViwGJoBUWLri2Xln2XS7Ct2m
+	 KN29H/wcqR1vylu1l/Gwl9jp8WWT9YCt+FuAZ301K/1OcU2a2simojERLA0jIyivJvf+9
+	 ASob4EhnmPXrTwS5/8ighz280rmcF/6Vu7wIrrZc48gapYA1wp7eUaYYvDzr1DrV4yFLX
+	 T6SG/lWE5DRCY8UYCXwVX0woWGJg8Em3hJ4oqEBR/ll7/gtThZ84PRiJNBrY5N20pwJ9P
+	 2Q5j3WPdYxukr4xp77qUrbKsZy50+RF7gJtUPDNuJpKz/sxh/1VXiBCo+vs+0N8CkvA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Lf1JKZNb;
-	arc=none smtp.remote-ip=209.85.218.47
-Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=imxi032c;
+	arc=none smtp.remote-ip=209.85.218.50
+Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 317B460A2638
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 18:33:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 317B460A2638
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A5EC606A893
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 18:33:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A5EC606A893
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Lf1JKZNb
-Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c4d473cfff6so7427766b.0
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 10:33:42 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=imxi032c
+Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c4c9abc1824so7157966b.1
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 10:33:55 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794508421; x=1795113221; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794508434; x=1795113234; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:date:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=DNGGwn1SK0IengpfAdulGXi2EREsmRQVRNzPVdbrwBU=;
-        b=Lf1JKZNbNbgUdMM2i2KIGIbtGN+MfqkwJ0BEbEAtwCtfxBUZOVH7reJ2S/aMnwpOHD
-         t6ZIFrykOHl7gg2biAw87iqG5ymmiq5LRXRC/yiMl7ci6ZyYM07zEiDrNLUPVybHx+G8
-         jR1P0st04yQMJU7CTIGAxQZYeJYA0Y8+IQjFUafrMgZ2Uz3+pXRVO78f3Nt1eSViDuCd
-         7Fi8zK2myMJvHtIwPXUG1lDcf+s3BohEwCwYiqmKk9B4YxLHgBv0zcwvJWieh4xupz8R
-         HxHCdtxbDr53eFZceqn4Qc4XXrpE9b7aTT8o3NfOxXwi1hyLhLcoBcoar/CocEGbaeMD
-         I1/g==
+        bh=0T59pX0NBuc6eb0M//aPEdCc6M8d0Cv25oKr0gLdXm4=;
+        b=imxi032cS0x76ZjKJFrnJjVcpa4j/RetctXMOzH/RAoNujK81/PGf3OD9XVYf06OD1
+         vMOvSOHUE1wes4tjT1uZAJSvdzXng96OWh7uXcoizRID5Qg974oCg9DJKqHlfSgvn0yB
+         HHIrjDSMWAnaoz6IMUo/apC7uFmgXX5uqLfubomxF6t6a6FERmpTCCxABUYjEawULXD8
+         klCWqBM5uZl2TzEOtDF8+awi/vDwXsGP9mrDUvkQ3x3dvy2DALPta8aXV3ALMPfppqQt
+         QWVUBf5h/qbYDOLqSp+D8Q1sgXktGZ452oL3iWWjvUjnOjMKtiaDUjnMGMQH8PY1ThWJ
+         yVMw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794508421; x=1795113221;
+        d=1e100.net; s=20260707; t=1794508434; x=1795113234;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=DNGGwn1SK0IengpfAdulGXi2EREsmRQVRNzPVdbrwBU=;
-        b=J2eHXVGYE1HXimb98T8Gea33OUvLuiCW+B9ZLfLFN1eLNwhbIWfXLkz/vt/BvrISKw
-         2cD0QMwl8E0ive1V6uAE4k/ZC59XahmTyjrT+TT+nE3eNOpHBiBwYBQTokvjrZQMd7Ck
-         N+aI/ltIeLbkbtoLteFrfbN5q61YWJg5vkohhOI2kyH7SkYwr0Nx6PeNs7MTwoS30TxZ
-         uvLn3eHldVmJmf3OTq5DoSSu/+fjXnR4mvsEDrU+/RaiERktmWRaQ0eC4KtNFQfOJUFU
-         GEA9i4WTPMCwhHtjFn/dpSWZmRKnnT/0FFYmoeFqW/ZB3FyqcuULMhDUjUekL6Q+jWp/
-         /8zg==
-X-Forwarded-Encrypted: i=1; AL+hErF+zITvZm96fGqJnxWstN/X8v4jaKT2xiCq7g/7oR4Yygz80/I1VvjMKNPy1hJliXNxGne0QCfZpVuR6uo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8By2b1pMr+BLJTvuJkokIEglTew8EL3i8TDBBUOogoQikFynIc
-	MSw15PERkHaqfhYntgd4Dn7ytjgcCoNwDu9F/VZfzTEk1j5zkRwYr2c4
-X-Gm-Gg: AYBFou0w3bUc0/5ObZ0ct66cFlH6PaaOU6+ab/jnthOI9pwGP/ZDaiyeyXTdYwgmz8y
-	JFZdgtu+Zm8j9+SEW/x48kz8WIvEZJAWNupN1ZBQ4WsrlkuPsOQ9D3gOeS04/uiyq1rRBWctYfl
-	3KKJedFpHd8/SRseyjxfyJS9iERSFmiEXtEPp1/JwrLC99gFkW79dth9pvKXZnMLh1zaSkF76oR
-	D+z2IoFo8hIXKVz3nUaFx5fyc4leIRyDIq3bTZ6ILj2zQpndXYovvV8u4EFwHNVhJYeLp6WhhOP
-	JRYCTmN5BxVQJsuYEWqXTL2TFQzjJ3C5c47xOfWFUUS5a40ImKVvNcfHDSvaW+rEtkPCgb5gvj8
-	gc1VEVWxSs31EIN5sswFkddDwDRuI/04TCC2CGEH69WsYNbHb47EecKG3KbYMeBnZiA9pSEOkW0
-	ESUeSrDYDQ3n2JAcgVfez/mvvaQTyCaaYLRL5eVHq4sXmmUV89pcW50nudZKzBgUUAkoGF5IQ//
-	7U95DZuV10zqJ+k30nuL7+xmNvEHpCb4aph6ysJmHuW6543SDf4fssAS5kiKCNvacrw/BP40CH9
-	uEpmrJbYHKaYmSSt
-X-Received: by 2002:a17:907:72c8:b0:c50:73bd:ed25 with SMTP id a640c23a62f3a-c50964287eemr9546666b.49.1794508420573;
-        Thu, 12 Nov 2026 10:33:40 -0800 (PST)
+        bh=0T59pX0NBuc6eb0M//aPEdCc6M8d0Cv25oKr0gLdXm4=;
+        b=TnGQnkTtT/x7HTE88vmeT/IXQU3P+ASzz/7R1XTqcVt/+xIAcH3Jt+UDBnQUihdgNw
+         NLZ+JAFEek8JFq+kutOlhC0DImZA86a8G9OW62yjxt+NJPOS44PgjOMf6xlkr6npxtP3
+         Qxahfd5YT1F8zii6rANRCXpgg2JD+gtQrDagEnJxhtajAU3BfJhhaLanA8wjtc2FjIt7
+         e6Z1CMwFVfaOvRPOuz3tU9aN+HLKKNCCVh801zIcqJNKMII4RdhMxlM6k0ybJfA5loQy
+         wencYq2TJP6WZ0nGZmX20W92azJhOxe5RzPOWbQufqRCJeO7U5zHWDTJGMq6/WkyyCty
+         Vcjw==
+X-Forwarded-Encrypted: i=1; AL+hErEB2ejh7ZkL0mm0kXjTzBQGDYkGLFPVsu0ENLjat5AJNXWGT1Ri1BxiWGMpdKbjMU7XDEkkH2xaVxpQ6Zs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9BMILk0DNQDRO68VJlhA1KXCAuI2iWQ/mAiwATg2K8TJBqwUw1
+	T90pvDKg3/V5b3DpnfunFwMwWhX7jRVq7eXSWC/5w2jq8dM2n5j1s1Is
+X-Gm-Gg: AYBFou2i6lp8Y9iO4wx0shSf2t3txbSyY/HF5Q+VnF7X64RytJvQ3fP2L0A2yalqUtw
+	XC684B1QcuD79EuWdSoRIaNCE9M7dCj49ySksVENXMz4gKUfyijM8JXxZwpHKRW39674VRYmlmT
+	Xw+Vk0GMcaKO1gSSv8vdJ71duab5a9KhivHUbMB826VT9IYFpFjb0NlC4XIHx5Wkey/y/XBBB1U
+	bOejbFfu6lORbm7QPkjA4kV8LeWToRZZOdyr9EptGfzImfPoXyJ/gYZsA4AYgMzSfv1RtuWPflp
+	582+oqV7T2yb67VLPwWhruUD2ebzZvCnlLez9UWs0l+pKfu65WNEL2356qDpIsJ6bOAHb7LrlZI
+	bc/dduc5Fzz0xN8Fp0GUiCurG7COpcLL59qN1HhshL+XEL2FTLf7na0OdjSSO33YV0aM9KD8IQg
+	RWsLqcFa29wkc2669KIm1EAfbGNPCJsvGC3RcGHy53F0dPgWCnrBB89PYiDHiIbJH9ycxSzwZ7v
+	0K0ABpGPQr4sXUQn+j9B1JEbCxoPJvvE2onXgcSnB7JEF9yyTjCvMQ2RudaCATIx3+IFuEn9Jd7
+	Stl6b1X+9YIN71MT
+X-Received: by 2002:a17:907:6d08:b0:c34:e9fe:82ed with SMTP id a640c23a62f3a-c50963d803amr9289866b.28.1794508434209;
+        Thu, 12 Nov 2026 10:33:54 -0800 (PST)
 Received: from krava ([173.38.220.46])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095b40918sm6171366b.39.2026.11.12.10.33.39
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095b236edsm6328666b.23.2026.11.12.10.33.53
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 10:33:39 -0800 (PST)
+        Thu, 12 Nov 2026 10:33:53 -0800 (PST)
 From: Jiri Olsa <olsajiri@gmail.com>
 X-Google-Original-From: Jiri Olsa <jolsa@kernel.org>
-Date: Thu, 12 Nov 2026 19:33:37 +0100
+Date: Thu, 12 Nov 2026 19:33:51 +0100
 To: Peter Zijlstra <peterz@infradead.org>
 Cc: Masami Hiramatsu <mhiramat@kernel.org>,
 	Naveen N Rao <naveen@kernel.org>,
@@ -93,11 +93,12 @@ Cc: Masami Hiramatsu <mhiramat@kernel.org>,
 	Ingo Molnar <mingo@redhat.com>, Alan Maguire <almagui@kernel.org>,
 	x86@kernel.org, linux-trace-kernel@vger.kernel.org,
 	linux-kernel@vger.kernel.org, bpf@vger.kernel.org
-Subject: Re: [PATCH 02/13] jump_label: Index text reservation lookups
-Message-ID: <avYGgU3bp5KEF0ql@krava>
+Subject: Re: [PATCH 03/13] jump_label/x86: Avoid decoding instructions for
+ jump entry size
+Message-ID: <avYGjyj9-g5jugTt@krava>
 References: <20261109194916.1089703-1-jolsa@kernel.org>
- <20261109194916.1089703-3-jolsa@kernel.org>
- <20261112083305.GD2668804@noisy.programming.kicks-ass.net>
+ <20261109194916.1089703-4-jolsa@kernel.org>
+ <20261112083945.GF2668804@noisy.programming.kicks-ass.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,27 +110,32 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261112083305.GD2668804@noisy.programming.kicks-ass.net>
+In-Reply-To: <20261112083945.GF2668804@noisy.programming.kicks-ass.net>
 
-On Thu, Nov 12, 2026 at 09:33:05AM +0100, Peter Zijlstra wrote:
-> On Mon, Nov 09, 2026 at 08:49:05PM +0100, Jiri Olsa wrote:
-> > Text reservation checks scan every jump entry. Build an index sorted by
-> > code address for core entries and use binary search to find the starting
-> > point near the requested range. Keep the original table sorted by
-> > static-key address for updates.
-> > 
-> > Module reservation checks continue to use a linear scan, avoiding
-> > per-module index allocation and teardown complexity.
-> > 
-> > Signed-off-by: Jiri Olsa <jolsa@kernel.org>
+On Thu, Nov 12, 2026 at 09:39:45AM +0100, Peter Zijlstra wrote:
+> On Mon, Nov 09, 2026 at 08:49:06PM +0100, Jiri Olsa wrote:
 > 
-> This is the *exact* same code as the last patch; seriously? You
-> couldn't share?
+> >  int arch_jump_entry_size(struct jump_entry *entry)
+> >  {
+> > +	const u8 *code = (void *)jump_entry_code(entry);
+> >  
+> > +	if (code[0] == JMP8_INSN_OPCODE ||
+> > +	    !memcmp(code, x86_nops[JMP8_INSN_SIZE], JMP8_INSN_SIZE))
+> > +		return JMP8_INSN_SIZE;
+> >  
+> > +	if (code[0] == JMP32_INSN_OPCODE ||
+> > +	    !memcmp(code, x86_nops[JMP32_INSN_SIZE], JMP32_INSN_SIZE))
+> > +		return JMP32_INSN_SIZE;
+> > +
+> > +	BUG();
+> >  }
+> 
+> Does this actually generate sane code and checks code[0] first for both
+> values before it goes and does memcmp() ? The naive translation would
+> suggest it does not.
+> 
 
-I think we could share the search for the lower bound,
-but then the overlap check is different
+nope.. you're right, I'll make it explicit
 
-perhaps if we keep the index generic we could share the
-allocation and setup, I'll check
-
+thanks,
 jirka
