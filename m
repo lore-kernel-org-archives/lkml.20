@@ -1,81 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794479838;
-	b=OcY3ec8s+R0wdTF3jgmIyE1Gli2TcoM1IlIhKFZSJmJyIM+ZsIV+wZ8vCm78+sLi6e6J
-	 L8oYr+ABgiIHMLNgqWNPaNrhyrbG+i/BjSeldl8b/1fgorLW9kgpNpj760w9/wnV1r0Z1
-	 4uaYXK4OfYcHvgx5K0ZO5JysiWNhrH+N00Cb6JxZYoay0Qp6nbGvrs8NCQSY6hau0Qyl0
-	 Jk48aLI7nOAUPdMp0QBd3qDfizF/Ged7aS2rKJiyOSw+1kNJEjUasUdF3gachU4qwPKVR
-	 yISxIn1bGjBeZL51D2B3bvffThtriwvghSzJvf8SVG3HH2USVM02varLs8MPSBZA7Rw==
+	t=1794479885;
+	b=AmolCigjykApgIPLbobRrcxIPJDKVeJV23BAV2v06BODI77L+78JKl+SzR+WePowX1dY
+	 zJOZWSGAYfaotfBwLl+SmQljWc+lK8P170442pjK/t5gxjtwdPFWk0rqkQSaTNj1ubtKR
+	 hvISNnWn7OsqMqF/Zgcw33IZKff2vUyTC9RobqD1ZNvNDIO4JzcaYuAhgSs5aSwReEdki
+	 IOpRf3CSyCuloksYgXBs2KSgMhe4/QCu7/2B/z4DxI25TexruMjU/89FGeZS9x/hD9USN
+	 bfjwDaiRkha28fxcJjvKO60fMLeujIVLzoHma7R8+yjdLCYvW6eCW6q7BmVdOVm1t8g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794479838;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=gxc0bY2Mev3IKBzfWXBLxoMe9HLI99Q+ENcxEL4JSZU=;
-	b=K6ohl6jeDRAlMU9llIXae7jPnpP/m3Zh/uFJrOKNuPsC9ipy0DZvM4dyDmAyiX0yPq5y
-	 bjc4fwq42rgnSseF4C2jBbYSQMKwrDc6uTpmGYCEN1wOgIKemPOSP+OrBuEmMOWkuqt6C
-	 ZweRinDQkn2bF0bA5RgfGi73QvQPvlMDkEfwO36Ib2zzRxrC9e1P33JF9hYDJh5HUHOWh
-	 Sa3f92QwEStbtrSuXW3Z5JOa6/DPKj4iQCq6Ru3tlGdjCgbjrHwf30Wn0btbgueH3kGf0
-	 W9+j3psr6vyaNqiwCTUxiewtuJvX0W6ov3KWVaCyN/WXDstfDQKgPURZCpVmZqXrBhA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794479885;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=e06tbvs21rVw27ehHokZ6i9Zda3pcWwEavvs9Rfyg4c=;
+	b=zaxRjKFlr+zbcY07OuwYRGVocKVDtLJBnzyw5ddDAmZjmJECHynLSS/vNSAlkeK3Xmbv
+	 INIbN6kjoUP3p1PB83t2w5SFgU8fehECV+mwH306TBr3iwycYLDiFRcw558c8nYrAtS7/
+	 MtxwnnScl3XbLcl1tZmh5dG/0AXQ8bi9maO7EdXyFYkBpf9fBl9DhwlCyXHF2NNRNhA31
+	 g64svb4EGPOiN/EWmTZ5GovN3mR5+3p2DxgO3GfZ65+L3ImLySwPBBOzojkFRYxrAFVE8
+	 imibQkbAHKBGlz7TRICfPSNuiA0weStj6XJn05tMOIdnLxG3gZSvu2igXKejs3Z/nJw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=pereq.eu;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.128.43
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=dbEZiFH6;
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78957606A32A
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 10:37:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78957606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=pereq.eu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a2000d5fb1so24113215e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 02:37:18 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794479837; x=1795084637;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=gxc0bY2Mev3IKBzfWXBLxoMe9HLI99Q+ENcxEL4JSZU=;
-        b=zhiDDGpcp7dfzejAAOzDJoUx9hW1nZLMWb9bRzvQZaHyTIH9SChpi0TQcDzG6tpefc
-         dH+oxmfNusNr5MrpyoEEHt10ycc8GOwKZLyoatgTMB6Su5yY3Uj2KIblRrWU1gWzhXou
-         qvXf57l30TD4BLjAaVte1Bq28KyjjeDNlhDY92/VEjaSfJAVICwLOyMb9ghWy/4AdYF2
-         SklZ4EHQwr28Rc/Q/pPagjLPOmEBcr/k/LN58DI742S9VjzG58fp7DsZgAy5zTXelzLJ
-         d+AUKpLMhFofd6Qe77SOBSPR4WiTd2crQxL8MbCszBLnLWDYCQoTS0miwouPX1Bp9ez9
-         EyXg==
-X-Forwarded-Encrypted: i=1; AL+hErFknEU2QLyI/5/1YWETTPTKEbYYqgG7/p+8UAJAoAT9Rh9rSmorXnS3lRntc0NlH90+N9w1IyNgrDa+0cA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8pSUQZzIP8TEIuTR8/J9R7rQtv8xC9UAHCrjc8IMNtzWzSxs7k
-	rxKleaX0q9mwYxWdeshkY1ZKi/3sa0/dgI7yCyagv5FMiZRoXUaeJqXj
-X-Gm-Gg: AYBFou2mbb61KDiF6zthJ0WJBfF7flULzX5pducnPY7j5Fp5c9rEijAt6n0p5AuAur0
-	AVhQIsos/uWix509STS65oIvJF2DWvY+Q8LbCFx8MnLPCpjTETv+ZvtUZ17Fbqt2KQys74H7fBb
-	ccy8DGQ9YMdVj/WkGk81vuvrPMFjVKJy6nE1iKKry9f6RHpS+Kjf+TlvwBEvR56/h/S577xXH4S
-	FW5Wp8KEENJRMD6mhn+m3BEa+H2wFO0vFI4kp5d/dNI0OyVqk+X5JEWSbuZjQi6GIrWlUpQvKrn
-	uCCddkYKziwnhxJ/GU/CkjetfFo+9b5pIImC/6Zoc+JuJGa+hE6459mD6qTYXH01UZ2f9AB0bgU
-	4vrV0SJZVy++Xpa89nwXvxEsUHY5ura95jzqU4M7jT7vcHepU0Jkvwgy7GNHo0aLAeEsUAstsMp
-	YEHhgj8PizfWdt1MyZ9LMD5HVFirIQEO7Yi9wL/evcUkWolNRpEcFntuKcTUBzK9H09053YdaI1
-	D1SjBRzbQndoYFmjBl9bSld5KfMgSFVpjAZJ7G80w5/hAjc7mUsAk89zIypwSNYlqPK6Ttu4liY
-	Xi6pSXDq9zHjgyxWNCkjJ0ufUEseju52A7NtW/ICRXl976XfbUv2X7ALxBRORslpMiP+fnA9TLe
-	aD0NApy7vNfxE06GLx9T/y0zdDD2n6S+ouLZ9nyggt3MhSaQjMzzji39bXsXW
-X-Received: by 2002:a05:600c:4f14:b0:4a6:44b:2593 with SMTP id 5b1f17b1804b1-4ba093b5ec4mr114306505e9.29.1794479836861;
-        Thu, 12 Nov 2026 02:37:16 -0800 (PST)
-Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba0950f3casm78894975e9.3.2026.11.12.02.37.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 02:37:16 -0800 (PST)
-Date: Thu, 12 Nov 2026 13:37:12 +0300
-From: Dan Carpenter <dan@pereq.eu>
-To: Shunbo Shi <shishunbo@cmss.chinamobile.com>
-Cc: johan@kernel.org, elder@kernel.org, gregkh@linuxfoundation.org,
-	greybus-dev@lists.linaro.org, linux-kernel@vger.kernel.org,
-	syzbot+0b456664585fa81a47f6@syzkaller.appspotmail.com
-Subject: Re: [PATCH v2] greybus: verify the received message size covers the
- message header
-Message-ID: <avWW2GyYe5_cUXDF@stanley.mountain>
-References: <20261112071228.33017-1-shishunbo@cmss.chinamobile.com>
- <20261112093823.37567-1-shishunbo@cmss.chinamobile.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CD8A606A31C;
+	Thu, 12 Nov 2026 10:38:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7CD8A606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=dbEZiFH6
+Received: from ideasonboard.com (unknown [93.65.100.155])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id AC891802;
+	Thu, 12 Nov 2026 11:35:38 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1794479738;
+	bh=7nQjJuFr0ochBeM1kaQF42ppaetfTxuGaeUnypUe75s=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=dbEZiFH6K/1x6Yv7CZ4MVM/E8003jhzL74x9U68HGoxvB/rkckqT0xxdQv4oEEq7K
+	 8J8rg21/TlTqboiXDYAgBga5v4b51wgz89eKw+ODAnAWW72w8eOg3fFiUHFlzN+60D
+	 hIWxotXA+btaPiNeNVKElsxcmAwc1zjnarMvOwqI=
+Date: Thu, 12 Nov 2026 11:37:58 +0100
+From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+To: Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
+Subject: Re: [PATCH 1/3] media: uapi: videodev2: Add 20-bit Bayer formats
+Message-ID: <avWWbro0mM0kW3vu@zed>
+References: <20260910-v4l2-add-raw-pix-v1-0-80a8e855b41b@ragnatech.se>
+ <20260910-v4l2-add-raw-pix-v1-1-80a8e855b41b@ragnatech.se>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,86 +61,183 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261112093823.37567-1-shishunbo@cmss.chinamobile.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260910-v4l2-add-raw-pix-v1-1-80a8e855b41b@ragnatech.se>
 
-On Thu, Nov 12, 2026 at 09:38:23AM +0000, Shunbo Shi wrote:
-> In gb_connection_recv(), the size of the received data is checked
-> against sizeof(struct gb_operation_msg_hdr) and against the message
-> size encoded in the header (msg_size), but msg_size itself is never
-> checked against the header size.
-> 
-> If a peer sends a message whose header claims a size smaller than
-> the header itself (e.g. header.size == 3), the two existing checks
-> both pass (size >= sizeof(header) and size >= msg_size), and the
-> message is dispatched with the undersized msg_size.
-> 
-> In gb_operation_create_incoming(), this leads to an unsigned
-> integer underflow in:
-> 
-> 	request_size = size - sizeof(struct gb_operation_msg_hdr);
-> 
-> The underflowed request_size then wraps back around in
-> gb_operation_message_alloc():
-> 
-> 	message_size = payload_size + sizeof(*header);
-> 
-> causing kzalloc() to allocate a buffer that is too small to hold
-> the message header.  When the response is later prepared in
-> gb_operation_response_alloc(), reading
-> request_header->operation_id reads past the end of the undersized
-> allocation, triggering a KASAN slab-out-of-bounds report.  When
-> header.size is zero, kzalloc(0) returns ZERO_SIZE_PTR and the
-> same read dereferences an invalid address.
+Hi Niklas
 
-Remove the last sentence.  0 is just another example of too small and
-not an interesting one.
-
-> 
-> Combine the two existing checks into one that also verifies
-> msg_size >= sizeof(header), so that the "Caller has made sure we
-> at least have a message header" assumption in
-> gb_operation_create_incoming() actually holds.
-
-This paragraph is unnecessary.  Trivial.  Also calling them "existing"
-is wrong.
-
-> 
-> Suggested-by: Dan Carpenter <dan@pereq.eu>
-
-No need for this when it's a response to review comments.  Only
-original suggestions count.
-
-> Link: https://lore.kernel.org/all/sashiko-outbox-210716@kernel.org/T/
-> Fixes: d90c25b0a279 ("greybus: let operation layer examine incoming data")
-> Reported-by: syzbot+0b456664585fa81a47f6@syzkaller.appspotmail.com
-> Closes: https://syzbot.org/bug?extid=0b456664585fa81a47f6
-> Signed-off-by: Shunbo Shi <shishunbo@cmss.chinamobile.com>
+On Thu, Sep 10, 2026 at 07:22:31PM +0200, Niklas Söderlund wrote:
+> Add 20-bit Bayer formats and documentation.
+>
+> Signed-off-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
 > ---
->  drivers/greybus/operation.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/greybus/operation.c b/drivers/greybus/operation.c
-> index 7e12ffb2dd60..dcb38dc29cff 100644
-> --- a/drivers/greybus/operation.c
-> +++ b/drivers/greybus/operation.c
-> @@ -1047,9 +1047,9 @@ void gb_connection_recv(struct gb_connection *connection,
->  	/* Use memcpy as data may be unaligned */
->  	memcpy(&header, data, sizeof(header));
->  	msg_size = le16_to_cpu(header.size);
-> -	if (size < msg_size) {
-> +	if (msg_size < sizeof(header) || msg_size > size) {
->  		dev_err_ratelimited(dev,
-> -				    "%s: incomplete message 0x%04x of type 0x%02x received (%zu < %zu)\n",
-> +				    "%s: incomplete or invalid message 0x%04x of type 0x%02x received (%zu < %zu)\n",
+>  .../userspace-api/media/v4l/pixfmt-bayer.rst       |   1 +
+>  .../userspace-api/media/v4l/pixfmt-srggb20.rst     | 102 +++++++++++++++++++++
+>  drivers/media/v4l2-core/v4l2-ioctl.c               |   4 +
+>  include/uapi/linux/videodev2.h                     |   4 +
+>  4 files changed, 111 insertions(+)
+>
+> diff --git a/Documentation/userspace-api/media/v4l/pixfmt-bayer.rst b/Documentation/userspace-api/media/v4l/pixfmt-bayer.rst
+> index 8b4e413177f5..b93e66d6a27e 100644
+> --- a/Documentation/userspace-api/media/v4l/pixfmt-bayer.rst
+> +++ b/Documentation/userspace-api/media/v4l/pixfmt-bayer.rst
+> @@ -33,3 +33,4 @@ orders. See also `the Wikipedia article on Bayer filter
+>      pixfmt-srggb14
+>      pixfmt-srggb14p
+>      pixfmt-srggb16
+> +    pixfmt-srggb20
+> diff --git a/Documentation/userspace-api/media/v4l/pixfmt-srggb20.rst b/Documentation/userspace-api/media/v4l/pixfmt-srggb20.rst
+> new file mode 100644
+> index 000000000000..cf911e93aa8d
+> --- /dev/null
+> +++ b/Documentation/userspace-api/media/v4l/pixfmt-srggb20.rst
+> @@ -0,0 +1,102 @@
+> +.. SPDX-License-Identifier: GFDL-1.1-no-invariants-or-later
+> +.. c:namespace:: V4L
+> +
+> +.. _V4L2-PIX-FMT-SRGGB20:
+> +.. _v4l2-pix-fmt-sbggr20:
+> +.. _v4l2-pix-fmt-sgbrg20:
+> +.. _v4l2-pix-fmt-sgrbg20:
+> +
+> +***************************************************************************************************************************
+> +V4L2_PIX_FMT_SBGGR20 ('BG20'), V4L2_PIX_FMT_SGBRG20 ('GB20'), V4L2_PIX_FMT_SGRBG20 ('GR20'), V4L2_PIX_FMT_SRGGB20 ('RG20'),
+> +***************************************************************************************************************************
+> +
+> +
+> +====================
+> +20-bit Bayer formats
+> +====================
+> +
+> +
+> +Description
+> +===========
+> +
+> +These four pixel formats are raw sRGB / Bayer formats with 20 bits per
+> +sample. Each sample is stored in a 32-bit word. Each n-pixel row contains
+> +n/2 green samples and n/2 blue or red samples, with alternating red and blue
+> +rows. Bytes are stored in memory in little endian order. They are
+> +conventionally described as GRGR... BGBG..., RGRG... GBGB..., etc. Below is
+> +an example of one sample.
+> +
+> +.. cssclass: longtable
+> +
+> +.. flat-table:: 20-bit Bayer Formats
+> +    :header-rows:  2
+> +    :stub-columns: 0
+> +
+> +    * -
+> +      - :cspan:`31` Sample organization
+> +    * - Bit
 
+One more question, the other RAW formats show a byte-organized table,
+where the R G and B components are shown as line-interleaved
+components (hope this is clear, have a look at the tables at
+Documentation/output/userspace-api/media/v4l/pixfmt-srggb16.html
+and compare it with
+Documentation/output/userspace-api/media/v4l/pixfmt-srggb20.html)
 
-incomplete is a subset of invalid.  Just say invalid.  Or leave it as
-incomplete if you want.
+Was this intentional ?
 
-Please wait 24 hours between resends.
-
-regards,
-dan carpenter
-
+> +      - 31
+> +      - 30
+> +      - 29
+> +      - 28
+> +      - 27
+> +      - 26
+> +      - 25
+> +      - 24
+> +      - 23
+> +      - 22
+> +      - 21
+> +      - 20
+> +      - 19
+> +      - 18
+> +      - 17
+> +      - 16
+> +      - 15
+> +      - 14
+> +      - 13
+> +      - 12
+> +      - 11
+> +      - 10
+> +      - 9
+> +      - 8
+> +      - 7
+> +      - 6
+> +      - 5
+> +      - 4
+> +      - 3
+> +      - 2
+> +      - 1
+> +      - 0
+> +    * -
+> +      - *
+> +      - *
+> +      - *
+> +      - *
+> +      - *
+> +      - *
+> +      - *
+> +      - *
+> +      - *
+> +      - *
+> +      - *
+> +      - *
+> +      - P\ :sub:`19`
+> +      - P\ :sub:`18`
+> +      - P\ :sub:`17`
+> +      - P\ :sub:`16`
+> +      - P\ :sub:`15`
+> +      - P\ :sub:`14`
+> +      - P\ :sub:`13`
+> +      - P\ :sub:`12`
+> +      - P\ :sub:`11`
+> +      - P\ :sub:`10`
+> +      - P\ :sub:`9`
+> +      - P\ :sub:`8`
+> +      - P\ :sub:`7`
+> +      - P\ :sub:`6`
+> +      - P\ :sub:`5`
+> +      - P\ :sub:`4`
+> +      - P\ :sub:`3`
+> +      - P\ :sub:`2`
+> +      - P\ :sub:`1`
+> +      - P\ :sub:`0`
+> diff --git a/drivers/media/v4l2-core/v4l2-ioctl.c b/drivers/media/v4l2-core/v4l2-ioctl.c
+> index 17ba1ae70735..14cb94591ea8 100644
+> --- a/drivers/media/v4l2-core/v4l2-ioctl.c
+> +++ b/drivers/media/v4l2-core/v4l2-ioctl.c
+> @@ -1434,6 +1434,10 @@ static void v4l_fill_fmtdesc(struct v4l2_fmtdesc *fmt)
+>  	case V4L2_PIX_FMT_SGBRG16:	descr = "16-bit Bayer GBGB/RGRG"; break;
+>  	case V4L2_PIX_FMT_SGRBG16:	descr = "16-bit Bayer GRGR/BGBG"; break;
+>  	case V4L2_PIX_FMT_SRGGB16:	descr = "16-bit Bayer RGRG/GBGB"; break;
+> +	case V4L2_PIX_FMT_SBGGR20:	descr = "20-bit Bayer BGBG/GRGR"; break;
+> +	case V4L2_PIX_FMT_SGBRG20:	descr = "20-bit Bayer GBGB/RGRG"; break;
+> +	case V4L2_PIX_FMT_SGRBG20:	descr = "20-bit Bayer GRGR/BGBG"; break;
+> +	case V4L2_PIX_FMT_SRGGB20:	descr = "20-bit Bayer RGRG/GBGB"; break;
+>  	case V4L2_PIX_FMT_RAW_CRU20:	descr = "14-bit Raw CRU Packed"; break;
+>  	case V4L2_PIX_FMT_SN9C20X_I420:	descr = "GSPCA SN9C20X I420"; break;
+>  	case V4L2_PIX_FMT_SPCA501:	descr = "GSPCA SPCA501"; break;
+> diff --git a/include/uapi/linux/videodev2.h b/include/uapi/linux/videodev2.h
+> index 5373dba640fa..85a32dee4e21 100644
+> --- a/include/uapi/linux/videodev2.h
+> +++ b/include/uapi/linux/videodev2.h
+> @@ -744,6 +744,10 @@ struct v4l2_pix_format {
+>  #define V4L2_PIX_FMT_SGBRG16 v4l2_fourcc('G', 'B', '1', '6') /* 16  GBGB.. RGRG.. */
+>  #define V4L2_PIX_FMT_SGRBG16 v4l2_fourcc('G', 'R', '1', '6') /* 16  GRGR.. BGBG.. */
+>  #define V4L2_PIX_FMT_SRGGB16 v4l2_fourcc('R', 'G', '1', '6') /* 16  RGRG.. GBGB.. */
+> +#define V4L2_PIX_FMT_SBGGR20 v4l2_fourcc('B', 'G', '2', '0') /* 20  BGBG.. GRGR.. */
+> +#define V4L2_PIX_FMT_SGBRG20 v4l2_fourcc('G', 'B', '2', '0') /* 20  GBGB.. RGRG.. */
+> +#define V4L2_PIX_FMT_SGRBG20 v4l2_fourcc('G', 'R', '2', '0') /* 20  GRGR.. BGBG.. */
+> +#define V4L2_PIX_FMT_SRGGB20 v4l2_fourcc('R', 'G', '2', '0') /* 20  RGRG.. GBGB.. */
+>
+>  /* HSV formats */
+>  #define V4L2_PIX_FMT_HSV24 v4l2_fourcc('H', 'S', 'V', '3')
+>
+> --
+> 2.55.0
+>
+>
