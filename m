@@ -1,72 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794506865;
-	b=MTS3OM55OiIW8GJIb26sEeSHsxsTV5I6FbQ7y8AMV7wyVuRoAhmdI2nVH1QJUnOZzsYr
-	 Q0ixS4XWA3rvTejz+juZKp2dXPWLfDugzBZpbyjGmqAanLDg9seniAofpBaRksS+l9jSS
-	 y5HxvNruGIbvW2mhv+vsQtyyWxh3u+5k4aO2+TKACzFz1N3lslZZnJjFHYpVjMO9OsdOn
-	 NHfWhxVnxtGEGQf1RIqD1zDVr3yJck+D7wa6yMzQeeCmZoaXxAeEckJ/bFqTq54tMa4NP
-	 +dV4WMl/ZneWhm+HmQoBsvJTWroa8XG17aLgphub56XRu1R/xH9mc3Lt+Q2Q5ZuHRSw==
+	t=1794506906;
+	b=2X1FmdE5s1gtqA9EpA4WZpO16nQ51ELoPNxFKK81cFZVp2QP41SNXxeO2eBkjedNWHG+
+	 359NwO8+IfDyNI7gGI/A8fXdyEJjHjtRAGERbjyR/y4WYY3x60yoXU2sKj+cS90K69YTe
+	 kTALBaDDCuoSNf5pSIFGd8a1kyq//L1C5Wb5fjoW/znZHO2z8uHl353pABrQng+HqiYd+
+	 IbsSGQsfRTGb1r3/rW9U38IFNAJF3hvqTFf79b50V+H0YwoWLqcbTys8yuvNQybLP0v8C
+	 EQrf4DIK8/x/vi6qGxHvgpns4fmXtw8iVJo1CFvumYE2+oSkacz4fKZcHkmBFCEVrRw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794506865;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=jsNR/pRYGWFaHDwqujtAOATNDQ1mgwcPOKFdvCgM3hE=;
-	b=YkbdWHDZLor+kT+CEzO9LrV+naaqKJnTet8B5lkVHWMbHAfvIgFr257dB31K7wyA77QP
-	 wR+U4XBi0XrTezwbkzcXTKKkMLwFuo2FAQ+EX2o9RWNRR4p28NpHiSw6k9nWvWR6wwX9t
-	 j7RiwOlH+dH5m5o/F5bNj5wVn2KRlL+qq09I3PRighgc60Qx36/2g63n0B+dM5UBHrgP7
-	 dd4pn8w/zd2qBUIB1nvB1qT/jk5WQBaFC06cFlmwarGNWHtqq+nBc0s18g2XWTZm3+far
-	 NvxvJsLDc5lSPlqzstk9vGxBl2q3LiLWNZoOcBDHG+o5yZe2VLsGWRQFipPnsRm+J7w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794506906;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=IuyY4VkDEyFSQSAJ/QGlhbXVklK5sj2QLVDu+lvSUaA=;
+	b=btiqRcePZzlhjJycS5jr9Lxh3kevYOSsbGV6jmXxARepGG980gpoH5IhdD7D8oFMXkkg
+	 zlX13WX8iLsvvd21WCKKy6+S/ODwKfCs+ipkaJhgEbfkEd0oT7OfGuUJx5MgPjJRS7gOq
+	 +tdIBF5/Q1eGnjcSnEWdqmVtM24Y10q+kIuF9nv5JJknkjTOYSSedrkHOWaNen8e01/7t
+	 BsUji8No9PzcTdbpB9kVffzx8zeuLXxAlmImlbdJb0ggHsMwiptPhdqdTjBoUcRYKk7kd
+	 mEv+71ikCtSfvxViytUdNMDzeDOqml92Z2euIOc0lBVCyweoO2l+duFeVYxhzQikcMw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Ri0Kd36/";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=cs.unc.edu;
+	spf=pass smtp.mailfrom=cs.unc.edu;
+	dkim=pass header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=KkbandDT;
+	arc=none smtp.remote-ip=209.85.128.177
+Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com [209.85.128.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6369A606A31C;
-	Thu, 12 Nov 2026 18:07:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0958606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 18:08:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0958606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ri0Kd36/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86D261F000C4;
-	Thu, 12 Nov 2026 18:07:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794506864;
-	bh=jsNR/pRYGWFaHDwqujtAOATNDQ1mgwcPOKFdvCgM3hE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Ri0Kd36/I0P3REBf7rp3tYJapb9ri00ThjWxr7bxZQXWTXK5k8HEIv1/xKsjeH8d8
-	 ML/Hfq1bBdz/Q3/TbVrGHRgdbaqpymB8cw3gTS9oB+smix1e+y6ZfRCVLseuZ+5Jbg
-	 iWqeaF5i7JnZfaMJkoxKtM27qLqhGxSrds4bzGhdm6L2LT2JUmPnXbUudgFR/dx6zj
-	 T39tFbntOyrWurf/pnumuiUevGgIA2qgqaRjnfNEkHXoel1UfyoS9emjlTldtPsizn
-	 YentbTKSKr2FMp5rkpFMe3fDXL28YUf17Z0ZkZFlAp0yIYFbOQHrwggE16P0isEVAC
-	 bQju1Bu9kDmdg==
-Date: Thu, 12 Nov 2026 18:07:32 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Tal Zussman <tz2294@columbia.edu>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Mike Rapoport <rppt@kernel.org>, Peter Xu <peterx@redhat.com>, 
-	James Houghton <jthoughton@google.com>, Andrea Arcangeli <aarcange@redhat.com>, 
-	Suren Baghdasaryan <surenb@google.com>, Balbir Singh <balbirs@nvidia.com>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
-	=?utf-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>, Andrei Vagin <avagin@gmail.com>, 
-	Stephen Rothwell <sfr@canb.auug.org.au>, Arnd Bergmann <arnd@arndb.de>, 
-	Muhammad Usama Anjum <usama.anjum@arm.com>, David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
-	Matthew Brost <matthew.brost@intel.com>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
-	Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
-	Ying Huang <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
-	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
-	Kiryl Shutsemau <kas@kernel.org>, Chris Down <chris@chrisdown.name>, 
-	Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
-	=?utf-8?Q?Miko=C5=82aj?= Lenczewski <miko.lenczewski@arm.com>, Michal Hocko <mhocko@suse.com>, 
-	Mike Kravetz <mike.kravetz@oracle.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 02/12] userfaultfd: refuse UFFDIO_MOVE into a non-present
- huge destination PMD
-Message-ID: <avYAMYr87pHQ29Zh@gremlin>
-References: <20261111-uffd-state-fixes-v1-0-00713d368976@columbia.edu>
- <20261111-uffd-state-fixes-v1-2-00713d368976@columbia.edu>
+	dkim=pass (2048-bit key) header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=KkbandDT
+Received: by mail-yw1-f177.google.com with SMTP id 00721157ae682-8b32bbd39d5so1615237b3.3
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 10:08:25 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cs.unc.edu; s=google; t=1794506905; x=1795111705; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=IuyY4VkDEyFSQSAJ/QGlhbXVklK5sj2QLVDu+lvSUaA=;
+        b=KkbandDTebPbtmvtFRJySdi9uHWjGVY+xCBEXoeqFT3otRqLqghjLLhESS2VmNbsZG
+         JW8/NU4Ji7lPnObb0Jpl8uVYwV85AQIN0rtovgkhk0Vm3brSPvgKjZIiwl/DcXianqnI
+         rm5Cn/ZGv1MQxLXrr0TYT6JOmjigo37X94D4tjnDu+6m6VAOu1yrgvSIOjZovdD2wKcn
+         LE1/nAxkIodnZMyyTcpWjSAOf28hhLFatREyMqb4SJH2+6oemej2YHpEtTmbc1M5LNXB
+         DY8LPlMWHs0PFfvZpR0riH+0FIox/j/k/5f8tLpHJlODXEacfuw7h4h37oG6pEq1W6JT
+         eErQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794506905; x=1795111705;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=IuyY4VkDEyFSQSAJ/QGlhbXVklK5sj2QLVDu+lvSUaA=;
+        b=l5+yhTGqQSKapLNWcXOSs/1I3W+c+FOhTHFFzxvlb8aU6Qxg9wc08OOtYFMB0NJo4S
+         4M3nWNCfnNrTGBBuOXS1gVQSFg6Cx0IYEKDZR0f5BEmKdvY4G4i7cVeenZyoPG50kCgU
+         nRKhFQ1DCUYMeeCSdptKSFIozkZTPYdpEVEbm/2RlhZnOspIcY/SrZXkpPL/8Zl+pPGM
+         yRMKTDwYDWSrYf3gLajSjO8C8x/MhKHktGQqMQnONak+KR8+xeJZjFREZtcFlfYJ0f82
+         +jf/8lW+X7Ai+yF2QPTiTqqOgXW2qPjwxmbrx2Avmgk4OV7z+JwK0XZutp9Xq60G47aj
+         VkOw==
+X-Forwarded-Encrypted: i=1; AL+hErE5O1utJBJmkF24JUg2lSi92z8+iWT21EoNdf+eganMpTvqE4sIQTpYQ1UOKBL4Nc6u2cTX+s2ueWS2VHQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+NLVdA9OdEnC8wgVGjNEXZG/mlZmv7YFM/G9VyaeJuGrSF06nC
+	mPfmI1ohxZ2mcgq43ybaTcKNlOlGqEQbOXD9ZfFM5ZRWHYwfbPQamXnvgl4vl74dGw==
+X-Gm-Gg: AYBFou0gkLUQmYtNA8v7WbPaQKXuUXBhKuUST132fuKuBies6P4BPq//dQu4PeHk2JO
+	PQmCjLLrx6nGr7h2q9Pe23UoVzxnjyBHcmgIcs3LiJaihQsPlM2IXmKXm6v8B4YvCdy6qkfsa3j
+	jH8o/OMUW0Ng9iP5SHoq2hqEZwsTd5BdipyRz1f9Me0H0+z4qsjFPGVtIyVt8YA5NfgZWhgFb+/
+	pgh+NysBxZISCwtpOxbIKG213YGJd20UKg5REMg5RFd1C/1NTcu/SCOP+VfMnBSsF1RfMBdczYE
+	20hP/IYid1TIKfkz3xpC6i/LHRHyaPlUqL3ZS9fc+1bfGrsHPXjlVblxBFt84k9IMavG/Tr8x8f
+	7vW5EeQHwc103qzGfmIbxHKrC2cS3fUdO1sCLnFKSjJULQ3RLt+eWgq22br7Cb928LNHyaKzDFX
+	jzJiJ6/2VqN5ZD85e784A5d1f0SuA9DjmYW4VX29K929MwecBIDbAsYHJFoZAJGvyOIcXXrmpmk
+	ews+BZwhrDBSSgpr/MgrDWYI41ywXb8j7h2nucz0Ewu5qLVU8bld6R5go7/0Vh/KJSyG6R8KAPQ
+	urCnJ6le8/hCOFpOzR4uUwcj6fKTajnskcwS7toA3gOMaoU2JVQi
+X-Received: by 2002:a05:690c:c6c3:b0:8b0:d9c9:3fc6 with SMTP id 00721157ae682-8b4aa2f2c28mr2160547b3.13.1794506904893;
+        Thu, 12 Nov 2026 10:08:24 -0800 (PST)
+Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b4aa933f04sm1743067b3.18.2026.11.12.10.08.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 10:08:24 -0800 (PST)
+From: Hengyu Liang <hengyul@cs.unc.edu>
+To: "David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: David Ahern <dsahern@kernel.org>,
+	Ido Schimmel <idosch@nvidia.com>,
+	Simon Horman <horms@kernel.org>,
+	Donald Hunter <donald.hunter@gmail.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net] ipv6: bring NLM_DONE out to a separate recv() in link and address dumps
+Date: Thu, 12 Nov 2026 13:08:08 -0500
+Message-ID: <20261112180808.1217483-1-hengyul@cs.unc.edu>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,75 +101,86 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261111-uffd-state-fixes-v1-2-00713d368976@columbia.edu>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 11, 2026 at 12:55:10PM -0500, Tal Zussman wrote:
-> move_pages() refuses to move into a destination PMD that already maps a
-> THP, but checks for that with pmd_trans_huge(), which is only true for a
-> present THP. A device-private THP or a THP under migration is a
-> non-present huge PMD leaf and is not refused.
+Commit ac14ad9755d4 ("ipv6: use xarray iterator to implement
+inet6_dump_ifinfo()") and commit 9cc4cc329d30 ("ipv6: use xa_array
+iterator to implement inet6_dump_addr()") made the IPv6 RTM_GETLINK and
+RTM_GETADDR dumps put NLM_DONE into the same recv() as the last
+objects.
 
-non-present huge PMD softleaf :)
+However, some applications expect NLM_DONE in a separate recv(). As of
+now, Kamailio waits for it when it looks for the IPv6 addresses of the
+host. It gives up after 4 seconds and listens on localhost only.
 
->
-> The destination PMD is then treated as if it pointed to a PTE table. It
-> is not empty, so pte_alloc() leaves it alone, and move_pages_ptes()
-> fails to map a PTE table from it and returns -EAGAIN. move_pages()
-> retries on -EAGAIN, with both VMA read locks held. If the source is a
-> THP, it is split first for nothing.
->
-> For a THP under migration, the loop ends once the migration finishes.
-> A device-private THP can remain in device memory indefinitely, so the
-> caller of UFFDIO_MOVE hangs until it receives a fatal signal, and
-> anything in the mm that needs to write-lock one of the VMAs blocks along
-> with it. This requires a driver that migrates THPs to device memory.
->
-> To fix it, check the destination with pmd_is_huge(), which is true for
-> any huge leaf, present or not. UFFDIO_MOVE now fails with -EEXIST in
-> these cases, as it already does for a present THP.
->
-> Fixes: adef440691ba ("userfaultfd: UFFDIO_MOVE uABI")
-> Fixes: a30b48bf1b24 ("mm/migrate_device: implement THP migration of zone device pages")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Tal Zussman <tz2294@columbia.edu>
+A similar issue happened before in the route dumps and in the IPv4
+address dump. It was fixed by commit 460b0d33cf10 ("inet: bring
+NLM_DONE out to a separate recv() again") and commit 5b4b62a169e1
+("rtnetlink: make the "split" NLM_DONE handling generic"). Perhaps
+these two dumps need the same.
 
-Looks sensible to me so:
+The issue can be reproduced with:
 
-Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+    python3 tools/net/ynl/pyynl/cli.py --dbg-small-recv 4096 --no-schema \
+        --spec Documentation/netlink/specs/rt-addr.yaml \
+        --dump getaddr --json '{"ifa-family": 10}' 2>&1 | grep Recv
 
-> ---
->  mm/userfaultfd.c | 11 ++++++-----
->  1 file changed, 6 insertions(+), 5 deletions(-)
->
-> diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
-> index 61a712e1f9f5..ad9d243dc64b 100644
-> --- a/mm/userfaultfd.c
-> +++ b/mm/userfaultfd.c
-> @@ -2021,12 +2021,13 @@ static ssize_t move_pages(struct userfaultfd_ctx *ctx, unsigned long dst_start,
->
->  		dst_pmdval = pmdp_get_lockless(dst_pmd);
->  		/*
-> -		 * If the dst_pmd is mapped as THP don't override it and just
-> -		 * be strict. If dst_pmd changes into TPH after this check, the
-> -		 * move_pages_huge_pmd() will detect the change and retry
-> -		 * while move_pages_pte() will detect the change and fail.
-> +		 * If the dst_pmd is a huge leaf, present or not, don't
-> +		 * override it and just be strict. If dst_pmd changes into a
-> +		 * leaf after this check, move_pages_huge_pmd() will detect the
-> +		 * change and retry while move_pages_ptes() will fail to map
-> +		 * the PTE table and the next iteration will see the leaf.
->  		 */
-> -		if (unlikely(pmd_trans_huge(dst_pmdval))) {
-> +		if (unlikely(pmd_is_huge(dst_pmdval))) {
->  			err = -EEXIST;
->  			break;
->  		}
->
-> --
-> 2.39.5
->
+Before commit 9cc4cc329d30 ("ipv6: use xa_array iterator to implement
+inet6_dump_addr()"), the result is:
 
---
-Cheers, Lorenzo
+    Recv: read 232 bytes, 3 messages
+    Recv: read 20 bytes, 1 messages
+
+After that commit, the result is:
+
+    Recv: read 252 bytes, 4 messages
+
+This patch will set RTNL_FLAG_DUMP_SPLIT_NLM_DONE for both dumps.
+
+Fixes: ac14ad9755d4 ("ipv6: use xarray iterator to implement inet6_dump_ifinfo()")
+Fixes: 9cc4cc329d30 ("ipv6: use xa_array iterator to implement inet6_dump_addr()")
+Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
+---
+Application impact (Ubuntu 26.04 user space): Kamailio 6.0.5 with
+"auto_bind_ipv6=1" added to the shipped kamailio.cfg, on a host with
+one IPv4 and one global IPv6 address. On v6.8, it listens on both
+addresses and on localhost. On v6.9 and on net, it logs "Could not get
+network interface list" and listens on 127.0.0.1 only.
+
+Kamailio looks only at the first message of each recv() for NLM_DONE
+(src/core/socket_info.c, same in its master branch).
+
+Tested on net: with this patch, Kamailio listens on all addresses again
+and starts without the 4 second wait.
+
+ net/ipv6/addrconf.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/net/ipv6/addrconf.c b/net/ipv6/addrconf.c
+index d9d13e78bf13..cbee883e8b01 100644
+--- a/net/ipv6/addrconf.c
++++ b/net/ipv6/addrconf.c
+@@ -7561,14 +7561,16 @@ static struct rtnl_af_ops inet6_ops __read_mostly = {
+ 
+ static const struct rtnl_msg_handler addrconf_rtnl_msg_handlers[] __initconst_or_module = {
+ 	{.owner = THIS_MODULE, .protocol = PF_INET6, .msgtype = RTM_GETLINK,
+-	 .dumpit = inet6_dump_ifinfo, .flags = RTNL_FLAG_DUMP_UNLOCKED},
++	 .dumpit = inet6_dump_ifinfo,
++	 .flags = RTNL_FLAG_DUMP_UNLOCKED | RTNL_FLAG_DUMP_SPLIT_NLM_DONE},
+ 	{.owner = THIS_MODULE, .protocol = PF_INET6, .msgtype = RTM_NEWADDR,
+ 	 .doit = inet6_rtm_newaddr, .flags = RTNL_FLAG_DOIT_PERNET},
+ 	{.owner = THIS_MODULE, .protocol = PF_INET6, .msgtype = RTM_DELADDR,
+ 	 .doit = inet6_rtm_deladdr, .flags = RTNL_FLAG_DOIT_PERNET},
+ 	{.owner = THIS_MODULE, .protocol = PF_INET6, .msgtype = RTM_GETADDR,
+ 	 .doit = inet6_rtm_getaddr, .dumpit = inet6_dump_ifaddr,
+-	 .flags = RTNL_FLAG_DOIT_UNLOCKED | RTNL_FLAG_DUMP_UNLOCKED},
++	 .flags = RTNL_FLAG_DOIT_UNLOCKED | RTNL_FLAG_DUMP_UNLOCKED |
++		  RTNL_FLAG_DUMP_SPLIT_NLM_DONE},
+ 	{.owner = THIS_MODULE, .protocol = PF_INET6, .msgtype = RTM_GETMULTICAST,
+ 	 .dumpit = inet6_dump_ifmcaddr,
+ 	 .flags = RTNL_FLAG_DUMP_UNLOCKED},
+
+base-commit: 19ec8416a76c08326fe5f814410a1b43046e63be
+-- 
+2.53.0
+
