@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794466246;
-	b=sT6LwePSrEZBXGWiclax12op5TXEYSbil1tJtY+cf6Jlt6a1+ATdABptJgtYZ6hqyGQG
-	 kZ+hhqGRBT31WDlYkMiJQhsvSp1GMoCrS+4NkAzImwohhgI/nBDvGvOleqU5cPKhUIXaW
-	 UsWJH0ODgeywgsNd/j0TOp34qt8/ZKUXxzgWKrTIRLBpsS2JW8BtirPrh9xFdMLBKde4u
-	 IhlDb9Kask8DE14oCFN3aPizi1P21cDgqE/KHJg/hQ/g/UVvJ3Jx6yDrGGWQd63WHYcNq
-	 IL5A1lOe0NV29twvuI4JhxUoiJoyvl+o4wchqZnndqT1w/eJ/edQIBeMKjrO3x46swg==
+	t=1794466248;
+	b=UJ5XgYeDY0pJqEQdy65Y30e1sefM5BDETEKYIRddnmP06e6huSjZqg+qvJbA5TokAlC2
+	 SPuMbJGsL8saCK3zc8RgGbFr2taXgFh/p/dwlx2OOP+JCjPNiLjchdeTOBFAfkbfCHP26
+	 5VGjIN8e5zhRGj6PLe47NTO2W3R0ldKHg5Q0/NI2nou2/TSgU6LHs0mKhc2B9ZP/LRIa4
+	 4aVH6WAmGXf/sy7pdxFYpor4elJ0MAzlPWAXv+GB5DbGQfmh4gnH+OI5qR5Xnyvt6asmj
+	 tLfWjkdJdNtxkUXzS5j4DcEsrWXxbIYUQSB1sa0KVh/xcFyVINMCW82U1ZP8IhR9nzQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794466246;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794466248;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=NT4jdGotJzxNuTLZO5N6SjybiH5BTjQ5c+C2HwxxXq4=;
-	b=YQvXEAXRittQv/fELOzzPnQ2x8dmq4srMlbXOatieJMtgXGWejMv2ml4iWJvW9kt8Qch
-	 Kxd+Y3C0USHrar3y8uJs9l00HUZ6tvKL7zRIcccC492+SdGOr11hy5rvnk8a0z9JoyjE2
-	 yaf17xBDVg9PnmdyQxX2R6iNZ3BjqQSb/IVfKwimw55NYvtULDPvQS9FkvuaXd58tSQrT
-	 GSBx6X9nU6u4sAu+75zWk3SXUnT+ZJcpsQ7GB61AvqxwaMi/bxt49TAeKq3IXA0g1m+bZ
-	 rW9anlRPplEcvTJOxPvLmlyNAje5KaKJcVbF1qiyF6IxJmPg0m0j0otdxM3bggh5Zow==
+	bh=Ty84CESWvo8NjcPtLcsMtVcww4VhobkmDUR8vEESdIc=;
+	b=fA3g6uFhKnrhBo1dAEszOFBgX+Z/O1Z4f5bts/K6r4bduvRfvLFfZKaJkA5R53mR0Evi
+	 51+J93Rb1J4769PGQ5kddceUemFJGcAJviDM+obq1Tw20uKCHf+MWH/kW5YP2LOLEW6wZ
+	 TgvKp6T8gJffEShUxDm+OlR/+GdzlFn7TAHiFDMaKxQRE7+R5cvf8pbm6d7QojyedRGZf
+	 yL35XDuh/HoF6tZS9BePsp96sXrYbUrVYu0WsX2jDs2PZO0mjVr/W6wc3K6XJj43zHF70
+	 suIzlsZzHXnWN+Fsla/oVH4i/V45A8AqNKJBeOfOZk/PiRmiCtqmltqEnGLhWc3m+zQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=T9w1Bdv7;
-	arc=none smtp.remote-ip=209.85.216.48
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wSQr6r+v;
+	arc=none smtp.remote-ip=209.85.216.52
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC5DA606DC94
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 06:50:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC5DA606DC94
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9BEA606DCAE
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 06:50:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9BEA606DCAE
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=T9w1Bdv7
-Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-3acb11973c3so3149264a91.3
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 22:50:45 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wSQr6r+v
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3b0b3754f57so2293679a91.0
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 22:50:47 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794466245; x=1795071045; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794466247; x=1795071047; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=NT4jdGotJzxNuTLZO5N6SjybiH5BTjQ5c+C2HwxxXq4=;
-        b=T9w1Bdv7HosVhLD3a83j84pnZVg5YS0p+0yDGBed/EdkNMQbcVElIpfp0Hrtv2m5TT
-         zGWpqDTJuiEXvcVnzJwxkw0rO29SGi5SR8y5sQDHNHczPkaLHK48V8qj+KWhwEMVk3CG
-         mtdgg4H7TiDipsZ+DnE/oKYmX9gEsFBTIcgqaOH9ptsL4YD8MszIxDdqo2XhNjJs+4dh
-         mU/Pbau9lStyaGhcErPKYoTvmHb+nDHd9STzPt73qF2DI07topNWjf4I3PwH6kx482cL
-         sArG/f3xb6mAHG5a+1Zk+AldIvcOXKcOOkh1Y8zqVEu6Mf7i1ev2R+EwHtaMVpUHFLss
-         x8Ew==
+        bh=Ty84CESWvo8NjcPtLcsMtVcww4VhobkmDUR8vEESdIc=;
+        b=wSQr6r+v80aDfugLlpy4UkDjWccjOHGrIYSk7Otjw2ySKu0BmjJNEE6CbpAjFYldax
+         gXOgfiOvTOkPo9X2b7yjneClaVhWMrad5bJ/6gNuCCpJWK7DfKnvmobQXtD0xiJ0QBdj
+         oNZahOWLcIInkjIn1RALHs8jfW+jDBgUjIXExwP2zLYF6vhoulzl75ZLUk5sf2SCloEp
+         emZNB/sH9MZFRtVXFnkeHw+PAm+zSuEHKEDcqhoj1bRIe8Fs62nx48fVTJGm/vgqfz2G
+         mJ0sp34xaO56xngcv6HJROEl4EuxxZ+ViTQlTHrmSpbWs4pZKYzu9b0lR7EKoRd2AU+j
+         BnPg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794466245; x=1795071045;
+        d=1e100.net; s=20260707; t=1794466247; x=1795071047;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NT4jdGotJzxNuTLZO5N6SjybiH5BTjQ5c+C2HwxxXq4=;
-        b=HpmmDeIOwedkc6X83s4y4mGtVUBk9IdNlLm2wr89UkXsqUnrtEoJrPCYCgtQtXgLiv
-         6z/Ys7dlvHD7DcAHMXaVCtXUDBSDfB2Xu1cZjMmmLMkOzFXyM8MB7jHR71XoAW0tOSa8
-         Ah6NyXxc+ywYVzyMMD8H/XL/I7cS6sF2QAF5uY9E7/MJqAtiUxKSFOmzBTP1884w3gZc
-         4JtU7+Dyrfzf5QUl/L1dJ6vRD+fi7ispqHvz94G+fTLW5nqWDYZ07rHg4sCKjqsnnNir
-         GBmYxpWbswwN8sIiiy+CcjBHx3yZ0pw3RH2jBnoAkSdt2MWvri41XWqK6cfMuyCm9TTh
-         JwgQ==
-X-Forwarded-Encrypted: i=1; AL+hErHFaW2HS7MaNSgcfIiE9ql3dLlDUN314jvtWD4J3BYDwCLIqLA+TGL0Cb/m2ORvJQl/1P7n/5enZ/d8VhA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/BUBt4X7Ebu/UdOGxl6EpSISaLWGC+8YRBKFt0koAJgPF7f4xk
-	yXV79+wOwaFHCJQcP2b5+zATeQx3Y9BRWoEweVsr6C2Way/9DO5oyRhk
-X-Gm-Gg: AYBFou3jOkDsaC7D+1sAbQzPynByqQX4XM8vtVuFBZ1Gv+iosExnRb1Y8XerWpV52Y8
-	a3BI+rgXxnpDfw5siRkN+x93Lz8/HRedw6BtVCp9vYM6LVpSrlH2OH3r17nLFTwv09rGbmmI3+1
-	Ff+xwfcZv/mxR1yh8Pf36W3ObQ7+Rw9eM/G8OY+kdNIMVkML3yQYt6IFDMNCfT37lgyz/vmr+Z6
-	NksiRSxmMrspuzu5fpju5NeuzmefTV2lWUiwf8QxXZGyndBDOfrIR+HWcCdxO5AINWWjZNOm560
-	nzQWvaPEkkG3SQIEKxVXFc/kzz0arxxuZJ3cqTQkPGwPUQ0YhEdMM3tkQIBEqR1SARjpYl9RI8M
-	xuL70Fj+biwPrgv3K7tHySKgv2Ws8N/BY7s4PpG/MeUxpawBG+zc1JdV1E/8zKcY3UIOZ5z6NxP
-	CtaOv9Wq2Srz+bEB99c8FAvwZMv/lcSAaZd4Y0f1y5wVRaVXEuhw9nSj7TbBoUH1s908ecnPUqX
-	DsEpYPB06Xrjo5f2x/fN7B5zkJzGBbhRZl6NrTVM7wyW8UqMWg8X3EL4OMd8RllpsWo5I/Ptxia
-	hR0ljkGFSBVN8LI3EIZzEsHWhWY+DRVlbVvzM63lyqsVg+XXKDxQt5WImJ73gyIlISVddkXrEY+
-	jj9HwyV6SiwD0bz/K
-X-Received: by 2002:a17:90b:224e:b0:3ae:5572:c4e2 with SMTP id 98e67ed59e1d1-3b182f198d0mr4826630a91.57.1794466245413;
-        Wed, 11 Nov 2026 22:50:45 -0800 (PST)
+        bh=Ty84CESWvo8NjcPtLcsMtVcww4VhobkmDUR8vEESdIc=;
+        b=kEgpYadDhhGbHqIZzpqSKRCh9N3XoyQihfMQbXq2qXvbfXWnYG9vNBmwaJ+M0eYVjy
+         9d/nvX9I6/7SvlzeTFhJlbjsenKO+OG/P0duP8l5aOBp26AzgyHQ1H/1YJLydoTF6IaU
+         aiPQ5XIpcpOBfP/NUC6+ByK3HFslsraN1jOUf4k9pp4Nc0ZfdWXpVYR+HHnCpQh7OtlP
+         GxHaeiA/WN50ctwGmn5s2/AOp8/Ujer0tMUXYnV//LhwuLM7ggOYQqduvhjoTQKkbUMk
+         AREFjwneRXx7vMvGyCHYPVw1t5lle3OzGXPZQsOxCD2tH4qxbk9oG6noEyeQuokLxNOz
+         Y3wg==
+X-Forwarded-Encrypted: i=1; AL+hErFoRl347gONq7mauOJWnB7dVNjmc46r5R0V2fWMvbxWy+/M0XGhstS6O+uh8a/xI8TS49k4F4kRdisTZ0o=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/aO6lsD5MKs1hUJCfCqCUbGaiutUIMPeIhG3Hnm7Q0PlJs67fZ
+	fvw3rnx0pQ732v56KPw63qnjJ5fouw0TP3fwr0giwkaxAXL8q9965eR5
+X-Gm-Gg: AYBFou3MiJ25t8UMO7fwrQsH2mzohg8RDTO728U26Mi/Frp3bVlr1DX/yDrvytA8/oy
+	6rBnIdeJ3u5LSzVmJMJq57DBrbmwQli6i4LWF9ft263BTKoI3Wg8Q2t8rqw11faGEshhKj48TjI
+	5NfoRqmYhIziYc837h/zUdJxp39kdqVYElW6Ntmm5u8cglNeSx6MF9Bf8YoZq/lbsee541yPfJA
+	Wcvh5+48bLQZ3xKv8hIepNavh98KgsgDYlbN4TYMXeyFRxgVBJRJMxDFHoopS0No2s3PDc6k6O3
+	g3m0LAm74+2OIghRJIJV7TTUV/82NblSvU2iOMnFrw/4cMpJeMciueG4f6NvhzKCvq55+Q8nsDs
+	mYnitupKzp8Me7qvxlPXzeofUFKFXWA3FuwrpDJSwXrisaV6DTsB1SZEucuUlDGmx9qEqn3hz6m
+	BivUhR/uPJ69BLEDjTH4NCveXB9YSzrg9EXM11bR/Q/dE8/hf1DGHScc2cfFAByaFqhgF8mf2Uu
+	IytQmuGoN+t2n2L3133nilynAaxrSZM6GH01iAwJtfCOtKRMs5SHC6l7es21ul9gpr7QyIFHCxA
+	8oHDveBxDp6A4OM4vFeYjVlB2tQvsXwztWNoP6hwKkzQvcMAesAIiQJNhrNWlT7ouXyba90rjfW
+	OE7yQSdDdloIU/tyI
+X-Received: by 2002:a17:90b:4a04:b0:3aa:6b5d:9fe4 with SMTP id 98e67ed59e1d1-3b182e6a137mr4118772a91.12.1794466247134;
+        Wed, 11 Nov 2026 22:50:47 -0800 (PST)
 Received: from dtor-ws.sjc.corp.google.com ([2a00:79e0:2ebe:8:182d:659:ffce:39a4])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b197c8aae8sm3073297a91.14.2026.11.11.22.50.43
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b197c8aae8sm3073297a91.14.2026.11.11.22.50.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 22:50:44 -0800 (PST)
+        Wed, 11 Nov 2026 22:50:46 -0800 (PST)
 From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 To: Svyatoslav Ryhel <clamor95@gmail.com>,
 	"H . Nikolaus Schaller" <hns@goldelico.com>,
@@ -94,9 +94,9 @@ Cc: Andy Shevchenko <andy.shevchenko@gmail.com>,
 	linux-input@vger.kernel.org,
 	linux-sh@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 3/5] Input: tsc2007 - fix minor coding style issues
-Date: Wed, 11 Nov 2026 22:50:35 -0800
-Message-ID: <20261112065037.1800467-4-dmitry.torokhov@gmail.com>
+Subject: [PATCH 4/5] Input: tsc2007 - do not register input device without IRQ
+Date: Wed, 11 Nov 2026 22:50:36 -0800
+Message-ID: <20261112065037.1800467-5-dmitry.torokhov@gmail.com>
 X-Mailer: git-send-email 2.56.0.567.gdb80ae8cd5-goog
 In-Reply-To: <20261112065037.1800467-1-dmitry.torokhov@gmail.com>
 References: <20261112065037.1800467-1-dmitry.torokhov@gmail.com>
@@ -111,50 +111,168 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Fix minor checkpatch warnings and checks across the tsc2007 driver:
-document the mutex used to serialize I2C transfers between interrupt
-handling and IIO reads, remove an unnecessary blank line following a
-loop opening brace, and drop extraneous spacing after a cast.
+The driver has no polled input mode and only reports touchscreen input
+events from its threaded interrupt handler. When no interrupt is wired,
+the device is used solely as an IIO ADC, so registering an input device
+serves no purpose and creates a non-functional input node.
+
+Only allocate, configure, and register the input device when an
+interrupt is present. This also allows removing the unnecessary
+ts->irq checks in the open and stop callbacks.
 
 Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 ---
- drivers/input/touchscreen/tsc2007.h      | 1 +
- drivers/input/touchscreen/tsc2007_core.c | 3 +--
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ drivers/input/touchscreen/tsc2007_core.c | 95 +++++++++++++-----------
+ 1 file changed, 51 insertions(+), 44 deletions(-)
 
-diff --git a/drivers/input/touchscreen/tsc2007.h b/drivers/input/touchscreen/tsc2007.h
-index f65186b8e709..e5153b420371 100644
---- a/drivers/input/touchscreen/tsc2007.h
-+++ b/drivers/input/touchscreen/tsc2007.h
-@@ -78,6 +78,7 @@ struct tsc2007 {
- 	wait_queue_head_t	wait;
- 	bool			stopped;
- 
-+	/* Serializes I2C transfers between the ISR and IIO reads */
- 	struct mutex		mlock;
- };
- 
 diff --git a/drivers/input/touchscreen/tsc2007_core.c b/drivers/input/touchscreen/tsc2007_core.c
-index 51e4d985afcc..8197ad91ed8b 100644
+index 8197ad91ed8b..1fb2c26189ba 100644
 --- a/drivers/input/touchscreen/tsc2007_core.c
 +++ b/drivers/input/touchscreen/tsc2007_core.c
-@@ -82,7 +82,7 @@ u32 tsc2007_calculate_resistance(struct tsc2007 *tsc, struct ts_event *tc)
+@@ -172,8 +172,7 @@ static void tsc2007_stop(struct tsc2007 *ts)
+ 	ts->stopped = true;
+ 	wake_up(&ts->wait);
  
- 	if (rt > U32_MAX)
- 		return U32_MAX;
--	return (u32) rt;
-+	return (u32)rt;
+-	if (ts->irq)
+-		disable_irq(ts->irq);
++	disable_irq(ts->irq);
  }
  
- bool tsc2007_is_pen_down(struct tsc2007 *ts)
-@@ -115,7 +115,6 @@ static irqreturn_t tsc2007_soft_irq(int irq, void *handle)
- 	u32 rt;
+ static int tsc2007_open(struct input_dev *input_dev)
+@@ -182,9 +181,7 @@ static int tsc2007_open(struct input_dev *input_dev)
+ 	int err;
  
- 	while (!ts->stopped && tsc2007_is_pen_down(ts)) {
+ 	ts->stopped = false;
 -
- 		/* pen is down, continue with the measurement */
+-	if (ts->irq)
+-		enable_irq(ts->irq);
++	enable_irq(ts->irq);
  
- 		/* Serialize access between the ISR and IIO reads. */
+ 	/* Prepare for touch readings - power down ADC and enable PENIRQ */
+ 	err = tsc2007_xfer(ts, PWRDOWN);
+@@ -243,37 +240,19 @@ static int tsc2007_probe_properties(struct device *dev, struct tsc2007 *ts)
+ 	return 0;
+ }
+ 
+-static int tsc2007_probe(struct i2c_client *client)
++static int tsc2007_input_configure(struct tsc2007 *ts)
+ {
+-	struct tsc2007 *ts;
++	struct device *dev = &ts->client->dev;
+ 	struct input_dev *input_dev;
+ 	int err;
+ 
+-	if (!i2c_check_functionality(client->adapter,
+-				     I2C_FUNC_SMBUS_READ_WORD_DATA))
+-		return -EIO;
+-
+-	ts = devm_kzalloc_obj(&client->dev, struct tsc2007);
+-	if (!ts)
+-		return -ENOMEM;
+-
+-	err = tsc2007_probe_properties(&client->dev, ts);
+-	if (err)
+-		return err;
+-
+-	input_dev = devm_input_allocate_device(&client->dev);
++	input_dev = devm_input_allocate_device(dev);
+ 	if (!input_dev)
+ 		return -ENOMEM;
+ 
+-	ts->client = client;
+-	ts->irq = client->irq;
+ 	ts->input = input_dev;
+ 
+-	init_waitqueue_head(&ts->wait);
+-	mutex_init(&ts->mlock);
+-
+-	snprintf(ts->phys, sizeof(ts->phys),
+-		 "%s/input0", dev_name(&client->dev));
++	snprintf(ts->phys, sizeof(ts->phys), "%s/input0", dev_name(dev));
+ 
+ 	input_dev->name = "TSC2007 Touchscreen";
+ 	input_dev->phys = ts->phys;
+@@ -291,20 +270,49 @@ static int tsc2007_probe(struct i2c_client *client)
+ 	input_set_abs_params(input_dev, ABS_PRESSURE, 0, MAX_12BIT,
+ 			     ts->fuzzz, 0);
+ 
+-	if (ts->irq) {
+-		err = devm_request_threaded_irq(&client->dev, ts->irq,
+-						NULL, tsc2007_soft_irq,
+-						IRQF_ONESHOT,
+-						client->dev.driver->name, ts);
+-		if (err) {
+-			dev_err(&client->dev, "Failed to request irq %d: %d\n",
+-				ts->irq, err);
+-			return err;
+-		}
++	err = devm_request_threaded_irq(dev, ts->irq,
++					NULL, tsc2007_soft_irq,
++					IRQF_ONESHOT,
++					dev->driver->name, ts);
++	if (err) {
++		dev_err(dev, "Failed to request irq %d: %d\n", ts->irq, err);
++		return err;
++	}
+ 
+-		tsc2007_stop(ts);
++	tsc2007_stop(ts);
++
++	err = input_register_device(input_dev);
++	if (err) {
++		dev_err(dev, "Failed to register input device: %d\n", err);
++		return err;
+ 	}
+ 
++	return 0;
++}
++
++static int tsc2007_probe(struct i2c_client *client)
++{
++	struct tsc2007 *ts;
++	int err;
++
++	if (!i2c_check_functionality(client->adapter,
++				     I2C_FUNC_SMBUS_READ_WORD_DATA))
++		return -EIO;
++
++	ts = devm_kzalloc_obj(&client->dev, struct tsc2007);
++	if (!ts)
++		return -ENOMEM;
++
++	ts->client = client;
++	ts->irq = client->irq;
++
++	init_waitqueue_head(&ts->wait);
++	mutex_init(&ts->mlock);
++
++	err = tsc2007_probe_properties(&client->dev, ts);
++	if (err)
++		return err;
++
+ 	/* power down the chip (TSC2007_SETUP does not ACK on I2C) */
+ 	err = tsc2007_xfer(ts, PWRDOWN);
+ 	if (err < 0) {
+@@ -313,14 +321,13 @@ static int tsc2007_probe(struct i2c_client *client)
+ 		return err;	/* chip does not respond */
+ 	}
+ 
+-	err = input_register_device(input_dev);
+-	if (err) {
+-		dev_err(&client->dev,
+-			"Failed to register input device: %d\n", err);
+-		return err;
++	if (ts->irq) {
++		err = tsc2007_input_configure(ts);
++		if (err)
++			return err;
+ 	}
+ 
+-	err =  tsc2007_iio_configure(ts);
++	err = tsc2007_iio_configure(ts);
+ 	if (err) {
+ 		dev_err(&client->dev,
+ 			"Failed to register with IIO: %d\n", err);
 -- 
 2.56.0.567.gdb80ae8cd5-goog
 
