@@ -1,68 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794477580;
-	b=44dGXDc5J6jBmIJkqTHuC3QfYe7kR7FglRqLRXVL136tMZCFdgVujIvNOXT0cDnv0j1P
-	 htFGVaKxbPxrw1NGNTOJT3gLvsLQKUMf9l6XoUdoXnUDL3rhdfRf5oROdNGtV3SjsRdZt
-	 G+pHmNAW97+JAmUhJZn1Ia6GiKhehBtFeNr7QUfPntsTehmw3yiXP47t3Ikjq6Xu6H/Y2
-	 6K/55jMcB99ILAz25cfOPtwhRoE38OIschnSakP0QS0T8TYln7AWUrqh2WWAGepgCdsim
-	 s8NVmwTwjkXu2IcLyu2L888bYVmIEd1iWh4E6vaw9QKDo6Hp1yd04yzTO0wuDXpD5Tw==
+	t=1794477606;
+	b=kGQG23ZM4ItB+z2vxjCFYp8fDeA/2wifPbtWvYCeRxeFF1XMil6iBO2YkkpKSofAP04K
+	 aPfv3Vuj/9t1cJhHe1uK7uSZ82NzTB2/1AN11kfhijkQSyAlD/atDbyMThaANxi1lONTL
+	 jan46FPMbjQ9aOtr8wVMNOnCfTkT8QRnXgfD1DN4/T13YR2xZ5fzQDP6fWxyUS54qR+K1
+	 yOuve9t9BSTVll3An3dXXE93JBkgiKSHCDHwcDl23gxKePLK7YCTOUqIJyl97H02ZdGI/
+	 CUGKulEBI1VTRdyIuBvQDWYJKNbXcpa3J6J1T4Q8b635AkZMp3YfpHHopq8sTMd5ssg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794477580;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=2E/Pd+eRpGBVsTZHlPb0fwZaxBzjHwZ9HH30lAHAHJQ=;
-	b=jInO8dAxNW+7EoyovU4h7qEfU/s1aegwmCxAqyQjgoex28r1lKtgLHuX849LzZNi8ie3
-	 qiLoGB2CSQy1WhwcUGbpdQZzO1jhRqrznQs7Vx9/I33vY6EuLfJcItnzmebBw1OkenDDQ
-	 oCNPeus2CmR17qcz/Z8CXlo5j3FRSLNPbwlZRJLBqtX73VD5lHWy9I0uh7ofcVSoWMGDP
-	 CI1SuiE0NMEcZIW/XT/OHAQ5624VeBD7rp6wcPPDw/E8IIzHCQlKGJvIqrwbPE5uVyiLI
-	 OO7R3pGsuZsnCvscHihP+lZABWJt8EFYwOYgkWN07YWsga5FvnCoq1/o70ZS+MBZFBQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794477606;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=fGRlGGYybYZD5rUwhWpmwOKxGOAAu67qlqBSQsnLu5k=;
+	b=yf0gYDo7mA8Ks9pZ78/pwWYe0dnJot77BaJDGfqzmwiv80CZQKGB/rOCxx0sNgDqrMV6
+	 bK5crwgUK+3XwvmtkXawsD84/I9CtbC17H1jiDlPc8H/Kxnw6DUQrSZg1ppbdwulwoX7l
+	 tGlg3kpfCk0Cb4EHwy4tj3RZvO8csqamUh38/6G7r3F/+WiPLtnqJ8M0+W5BQwiqGjZZB
+	 Og1dj1CuAKxWzp5Rp7S/rK39xGDS2axqwoO0SctfvdjSKJDkdvAry2IPGt7BqL2X3NQUK
+	 etkg9vrF8inZieBH+WsTDwv7q9m/R4zM1nv/WQ78U6TnQCvq56icUhOct7ndZI25epA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=XGGiy1bp;
-	arc=none smtp.remote-ip=192.198.163.10
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G7MBROYK;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C273F606A31C;
-	Thu, 12 Nov 2026 09:59:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C273F606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27B5D606A331;
+	Thu, 12 Nov 2026 10:00:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=XGGiy1bp
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794477579; x=1826013579;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=qDule4CxqfFN+2waxds8SOiRRp9p+9tYIgVSLDGdBfo=;
-  b=XGGiy1bp26JXi74cBmiQNum0JK5EbTJCO/FvsAIQC3xysw16wqFTNClk
-   FMi0a0DTbCHVFoLZPXPSKhRYaHL3voRQQv//736Q28Sm/74F1q4qwNeQa
-   NoZ47FHHjG6ad6wQnrVC/ltWuOlzYF2Pnxv5axvrspqC/JZgKrb1UnIfv
-   EujeQDTFeU78wBYHsWU4ffyuwR0OYxfsyVCcvd9USrV0vqjV6MjvzibpU
-   PKETtRFoB2yRDWrBwvrc/zaXJKV0cnpCPcFZwS0tKrnGm/xC4fOxh7Dpe
-   9sNkXbzDeoUPuHtROVxjoQESmRoRNaHD9Pi71V3a0uW0W8S0cY8932zGx
-   w==;
-X-CSE-ConnectionGUID: D2a60SZGSgys/4InDmVj9w==
-X-CSE-MsgGUID: xYM5J97VQNybr/Yf+r+9vA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3157926"
-X-IronPort-AV: E=Sophos;i="6.27,209,1787036400"; 
-   d="scan'208";a="3157926"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 01:59:39 -0800
-X-CSE-ConnectionGUID: kd8jmuNnQ16CVZxt1cNRrg==
-X-CSE-MsgGUID: bjpelCUYTvOrAS89RdBqiA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,209,1787036400"; 
-   d="scan'208";a="8445167"
-Received: from dapengmi-mobl1.ccr.corp.intel.com (HELO [10.124.241.239]) ([10.124.241.239])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 01:59:34 -0800
-Message-ID: <9464097b-a8e0-47d8-aa63-d56af1d30c84@linux.intel.com>
-Date: Thu, 12 Nov 2026 17:59:30 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G7MBROYK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA3BB1F00A05;
+	Thu, 12 Nov 2026 10:00:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794477605;
+	bh=fGRlGGYybYZD5rUwhWpmwOKxGOAAu67qlqBSQsnLu5k=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=G7MBROYKXgvSMmoShTZ1C6Pn102zMF34faIzzJPrmZjjaV6GEO8yMQYLDcwHNJ8zk
+	 GUI7nFdNn9dTFJ2R5IZgiZyM/nvSlRqisy2tBUGmZdZeYdsUkpqSvhi4joPSeTJiFr
+	 oe0RFvMkSm7BOu8goZBP8p5atkubU7y/w1jRNTQAS8uvSLb5IzaclVDtCFqXGwZKsM
+	 qivRlRUkldSRPc07QV0UoBDf3Ah7pvyg96iPXLZPcmBEKH67PgiIfJcOOaTwr4GOxI
+	 zS4yLfd+sqDNVmMIFxLPsUdniwK9DfS1YQYSyJVdmRn7YUJpOPT3RXNfgZdFk4i/g+
+	 lVRV6Iedo82GQ==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 9B16F3AA9A95;
+	Thu, 12 Nov 2026 10:00:05 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,63 +53,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [Patch v6 14/20] perf/x86/amd: Refresh LBR stack in PMI only when
- LBR users are active
-To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Ian Rogers <irogers@google.com>,
- Adrian Hunter <adrian.hunter@intel.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Andi Kleen <ak@linux.intel.com>, Eranian Stephane <eranian@google.com>,
- Sandipan Das <sandipan.das@amd.com>, Andrii Nakryiko <andrii@kernel.org>,
- Song Liu <song@kernel.org>, Ravi Bangoria <ravi.bangoria@amd.com>,
- Ananth Narayan <ananth.narayan@amd.com>
-Cc: linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
- bpf@vger.kernel.org, Dapeng Mi <dapeng1.mi@intel.com>,
- Zide Chen <zide.chen@intel.com>, Falcon Thomas <thomas.falcon@intel.com>,
- Xudong Hao <xudong.hao@intel.com>
-References: <20261106043257.842864-1-dapeng1.mi@linux.intel.com>
- <20261106043257.842864-15-dapeng1.mi@linux.intel.com>
-Content-Language: en-US
-From: "Mi, Dapeng" <dapeng1.mi@linux.intel.com>
-In-Reply-To: <20261106043257.842864-15-dapeng1.mi@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net-next] dt-bindings: net: Convert HiSilicon GMAC v1/2 to
+ DT
+ schema
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179447760442.1983710.9367740045427311229.git-patchwork-notify@kernel.org>
+Date: Thu, 12 Nov 2026 10:00:04 +0000
+References: <20261109191641.653847-3-robh@kernel.org>
+In-Reply-To: <20261109191641.653847-3-robh@kernel.org>
+To: Rob Herring (Arm) <robh@kernel.org>
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, krzk+dt@kernel.org, conor+dt@kernel.org,
+ shenjian15@huawei.com, shaojijie@huawei.com, hkallweit1@gmail.com,
+ linux@armlinux.org.uk, f.fainelli@gmail.com, andrew@lunn.ch,
+ netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
 
+Hello:
 
-On 11/6/2026 12:32 PM, Dapeng Mi wrote:
-> Refreshing the LBR stack in the PMI handler is unnecessary when no LBR
-> users are active. This adds avoidable overhead and hurts performance.
->
-> Limit the LBR stack refresh to the PMI path only when LBR users are
-> present.
->
-> Suggested-by: Peter Zijlstra <peterz@infradead.org>
-> Cc: "Sandipan Das <sandipan.das@amd.com>"
-> Signed-off-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
-> ---
->  arch/x86/events/amd/core.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
->
-> diff --git a/arch/x86/events/amd/core.c b/arch/x86/events/amd/core.c
-> index 160102a46b18..f0425e369837 100644
-> --- a/arch/x86/events/amd/core.c
-> +++ b/arch/x86/events/amd/core.c
-> @@ -988,7 +988,8 @@ static int amd_pmu_v2_handle_irq(struct pt_regs *regs)
->  
->  	/* Read branch records */
->  	if (x86_pmu.lbr_nr) {
-> -		amd_pmu_lbr_read();
-> +		if (cpuc->lbr_users > 0)
-> +			amd_pmu_lbr_read();
->  		status &= ~GLOBAL_STATUS_LBRS_FROZEN;
->  	}
->  
+This patch was applied to netdev/net-next.git (main)
+by Paolo Abeni <pabeni@redhat.com>:
 
-This patch is actually unnecessary since amd_pmu_lbr_read() internally
-checks cpuc->lbr_users and would early return if cpuc->lbr_users is 0. 
+On Mon,  9 Nov 2026 13:16:41 -0600 you wrote:
+> Convert the HiSilicon GMAC v1/2 binding to DT schema format.
+> 
+> As this binding also contains the MDIO bus directly rather than in an
+> 'mdio' child node, the MDIO node name schema needs to be relaxed.
+> 
+> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+> 
+> [...]
 
-Would drop this patch in next version. Thanks.
+Here is the summary with links:
+  - [net-next] dt-bindings: net: Convert HiSilicon GMAC v1/2 to DT schema
+    https://git.kernel.org/netdev/net-next/c/556e0ac6a771
+
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
 
