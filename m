@@ -1,95 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.143.172.20
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794499784;
-	b=ArwymTULZtzeYtgKMShkK7EaetvFQWPS8YbmT7dzJEYbEMDl57THJZDwxoO3Qb/V1sSM
-	 2J6hgWYuKX3UAsHCV0eTuzRu/lzRe4Xm7nvVVegFbz4AVIoyuuW7TkS3039vbncOLJ0Cx
-	 sk6wbTcG4ehuShJGvcRmZxDVcdt+vTfOVXpVqTJyuF1Z4SGKWcMsfGcbtrT0dWh8/arzc
-	 Lcsiw58OYvxFslCnvtZnWuY0trMK7gaLQ9l30C9b3DzwkBq2pmuYDtq6jSMlxCP/H4nAu
-	 gSFuGg8QoprlWsUX/A2FKO0k1Ai402ahPfU8eauj7cGcP8PGZberRTggKa4YhQ8WvFQ==
+	t=1794499822;
+	b=utsEjVHgl01RwmjyIvSfR5cS8c9irtvWW4Cpiwi995DPfLkudMrWb85CKXOQolkbiM3N
+	 dvyY/5W+eahNs35SYOYbaxabhdNngRMAcv9yN/R0GhbLkTYK+FGaFBNQIPOvgeRINujtu
+	 h4CvEll3c6JpF+adEuMtmXiSDNXJ9JErHijn8TzKxOX+V4tkK9v7wCoAWOnt3AHr8zl4O
+	 URvXYna9bdGlYj34gugLrdtpqLtuQtqteWzgt8QhteIT9pUMzDR0fzceYAGrwnyo98+NO
+	 Fwd8mRAGyh42lQdyCSIjBg3MGBMky/ey2wIAufxDC6mW/FPbXvX2IQnCghHqoaDsmkw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794499784;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=zdtkQJYBK1MhcTd4YCF2h5+7E/8dXhz0lllKlYRgzVE=;
-	b=U2Mn+gI9pINZ2/YJugwemqivHSse/XyEfPe51g06bdi8mXtub+jyJC8HBRvMuj0jrGnn
-	 Im/51YAAw+ZmqyoDmii9ZyKQJqs3jiNvJ5ZXz2WZ4/ClHouwPC3lqy/byeGCVjacW3Sgy
-	 NIWWPYVXT274rq00jad+sl6pZsFu/CnH4fhmWAP1drw6LiWPeIJhDfP7W/y6WkeGuAJ7G
-	 aSH3hb9tiF3CW1zXwp5fMsdggpN+FcGipNxt2GgzBKdr3rnfHJPYVGfA2QqSdFgzalqPc
-	 zhEakUmeuJ8sb4CYVF2+iZGVuQonQvQ1D8B69YXaesAYyxz/TQPz0OP2dak1b4OF8oA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794499822;
+	h=DMARC-Filter:Received:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Rspamd-Bar:X-Rspamd-Report:
+	 X-Rspamd-Score:DKIM-Signature;
+	bh=chOtkRmA9LqcH4xpz7Hul5fzkPX+9e1RBVUmRFQ4sbE=;
+	b=VdNZEFoGn+jUNNZDvDz41fkSJipLsmpJFjQQMXceVawB3kJGhqCId5iqbwz+XAe3wV6P
+	 mkqdF5k9Uzr07lAnHa+GfIoUup6CukDRJpGUXOFGa3gRuBLE+c/4ujea+ztLRttEVN5qh
+	 QF4tn0XPrPlCExZgJQtXtsbTxVAkFnECEPOQ9PZIBXoqSViUldvw0JqXX599wsSFAGz2G
+	 h9OH7DbGGsKSEo+SGp82x9vNz8z0AE+ZcJWAgKbMXDC0mNpNUnCgX2GdCKgZVulk2zJXC
+	 rcgxcsW5XZInlzLoEjaU5v2fd66Yo9EAw+S5omVWzZwmyXVrLB7y7laaJ2UDQHoH3gQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kqVc6QXz;
-	arc=none smtp.remote-ip=209.85.160.171
-Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com [209.85.160.171])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=lausen.nl;
+	spf=pass smtp.mailfrom=lausen.nl;
+	dkim=pass header.d=lausen.nl header.i=@lausen.nl header.a=rsa-sha256 header.s=uberspace header.b=f9LFcXvY;
+	arc=none smtp.remote-ip=95.143.172.20
+Received: from mailgate01.uberspace.is (mailgate01.uberspace.is [95.143.172.20])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 710D5606A886
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 16:09:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 710D5606A886
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DC2A606A33E
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 16:10:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1DC2A606A33E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lausen.nl
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lausen.nl
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kqVc6QXz
-Received: by mail-qt1-f171.google.com with SMTP id d75a77b69052e-533797e72e8so28449831cf.2
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 08:09:44 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794499783; x=1795104583; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zdtkQJYBK1MhcTd4YCF2h5+7E/8dXhz0lllKlYRgzVE=;
-        b=kqVc6QXzgemIPXmf3sUGyXwfEEKVcTxQIwTKzWLQCzXoQanQat8M4/5MUIoYRVgeCp
-         SbK+q44FWJizK1E0AgDm1bLJCUrVbOWnOC/HQLOGYINAMRVbRuoKwozbzqTpI3E7+WFu
-         AwkRdA1FXlVbUApBcg7Ori72R9hDGXqda9GptKaZCsi1wawpT+DlfniFYlWc5+qZkGkB
-         WyQKBIl+k0TF950olx4z2A2uRAjFo+OIiZ2WoM8oDMdGhDp5HHLHris3UdbjuCFYNY5f
-         +uFVyeIqTf0hNu+BmeCH10wbxB4B5WBsjxgS4votG+EaBuQjE2nKGxTcWCSy6W1BPyoX
-         SpPQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794499783; x=1795104583;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zdtkQJYBK1MhcTd4YCF2h5+7E/8dXhz0lllKlYRgzVE=;
-        b=b3ei6pTKJvnUqOiYi5DfpDOTZGdkK2puPf+f5PUf5MgjPjE5UTCP7g2MeSDJuVsP3C
-         AFXFwEEbeGJ+S+tpb9kw1dEUU0QG1pYjPbm/cdA4s3/MvsbgHTa/Z9wuv3DsHt29ocGe
-         WcRv965m6yhH/0AKFY9gxPErbaiY6982ddNjJO9/+cm9q+X4EPhhRKyhzJAsdDUSmFfh
-         4VwT9t1OD9xk/HhsHZMkfKcA1qIOHkBfqylX9k/VpVzaEjLRZQxOWrpn0cuftT9OfKR2
-         N+RsuSHOix+Llqhy6tJMJ/7Zg5Vm04Xk5HI4muAG58pbSRzdpSH4jaVBuH1yLCFCmoxU
-         1fmA==
-X-Forwarded-Encrypted: i=1; AL+hErEcwPC0andQ9zri+n9vjiPjQsvfq5XqJ7dhwqohlHXK9QWolXzSNQgWIrRK87w9mbBvTySz1z/VaRBQNZc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8Ls77btvSqKGbSjS/hv4KJRErSg42C2NkPTr8ZSGGGqV+rLrBe
-	IXHYigub6PhPWmGvyL04PG8SCNm9e3QbCb2IO3WdBFzeXTgqiBuTtK2R
-X-Gm-Gg: AYBFou3mCUEPAi6t6w5fK9454GBbQM8zcxJOh4huXnBT0XYk93M/OojvU93OZ2abKUP
-	zwIaMI0WBZmAiIc9ra3nc7ZaLj8FI1gYHsqpQA95onnmp4c4U1Pwg8q5Ar9WpAF791u1GVjzIsV
-	xDFn2zwGUY/G16nMIdJsqsfMJiILV6wDGWBwreRKLPu+aeEnDZWb8xiPdeUaf2ZOkN0pNcqPdLn
-	ovGF6Wsum9gIWsPVzqgm760MUattGtxxkFN1/TgRU8/QWJr4J316TXX4wEVM8uFbAlgUZHTu8ly
-	3wkv0npEJIrMMU/3fUzqL/HUjXlIkzsWjmoKUWuxjRqFAiez77ps14uMacFVtKegSMXG5iuWO9H
-	zow2UAmHkrfY+8S5yRJDCBJbZTgk+IJ5BvDODGxbAdKGEtNj0R7ulDFeeH3ZUqBZm9CSDauXr6S
-	q1WpP2byRgXbC4lTE+BqxpIiuUudZCySQlladjBBgLzLQ5NemCM2SqSTu2xEm7i/Uvq2b+1a0B4
-	aTtjvNoKipUJc0RwkiLRDJ2nP3ePwm3skdOLugVSMrXAvOzHyxvd80TtaEB5uy+fcrr8ZkNoBYF
-	mS7w2dmIV5eHCoUnjcGKB+ZmwsPktIo17MFQxw+1UngLI3Gn34aDXRfxPebl4gBYHXfr7aIM6yt
-	mDcAkofcC4RzD1yGdo8WoyOUaXS+tyzcY+0Wd8eEgtF5PIArnzyWL1pnR8aIonw2OTExkl3FVd1
-	J+rE7hHJoPO0DR/Pgw3d/obTjpC7969icu4mmRDJcA2VqQBqDIdgUKEqCy6Pl9nlatTH1w75uzN
-	ABOzKMpd5iZKXBken3DVsELCvXhDOnWnHzbi8LFxqvzu5VK+QtpKUuNy0R61SJ/bw==
-X-Received: by 2002:a05:620a:6cc1:b0:93f:ca9:3ee7 with SMTP id af79cd13be357-947b0003c1dmr1051411085a.57.1794499783220;
-        Thu, 12 Nov 2026 08:09:43 -0800 (PST)
-Received: from LRMS.tailf8556c.ts.net ([2600:4041:5024:4b00:81cc:bb20:fc5:ca2a])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9479e7d2b86sm760012185a.33.2026.11.12.08.09.42
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 12 Nov 2026 08:09:42 -0800 (PST)
-From: Jesse Casco <jesse.casco@gmail.com>
-To: Mark Brown <broonie@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>
-Cc: Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] regulator: qcom-rpmh: Don't overwrite the initial mode with the boot readback
-Date: Thu, 12 Nov 2026 11:09:42 -0500
-Message-ID: <20261112160942.27909-1-jesse.casco@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (4096-bit key) header.d=lausen.nl header.i=@lausen.nl header.a=rsa-sha256 header.s=uberspace header.b=f9LFcXvY
+Received: from devico.uberspace.de (devico.uberspace.de [185.26.156.185])
+	by mailgate01.uberspace.is (Postfix) with ESMTPS id E88E1608BB
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 17:10:12 +0100 (CET)
+Received: (qmail 9224 invoked by uid 990); 12 Nov 2026 16:10:12 -0000
+Authentication-Results: devico.uberspace.de;
+	auth=pass (plain)
+Received: from unknown (HELO unknown) (::1)
+	by devico.uberspace.de (Haraka/3.1.1) with ESMTPSA; Thu, 12 Nov 2026 17:10:12 +0100
+Message-ID: <13dd3297-f264-4cfb-b8ac-b05c53d3c820@lausen.nl>
+Date: Thu, 12 Nov 2026 17:10:06 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,44 +53,73 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] pmdomain: rockchip: Manage the RK3576 GPU domain
+ supply
+To: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
+Cc: ulfh@kernel.org, heiko@sntech.de, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, detlev.casanova@collabora.com,
+ finley.xiao@rock-chips.com, zhangqing@rock-chips.com, inindev@gmail.com,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-pm@vger.kernel.org, gahing@gahingwoo.com
+References: <20261019092417.391522-1-leonard@lausen.nl>
+ <20261019092417.391522-2-leonard@lausen.nl>
+ <CAPx+jO-9BqNgA1Nx2TiHX=BS6cJMmETepYsiujBCeeb3wPt1bQ@mail.gmail.com>
+Content-Language: en-US
+From: Leonard Lausen <leonard@lausen.nl>
+In-Reply-To: <CAPx+jO-9BqNgA1Nx2TiHX=BS6cJMmETepYsiujBCeeb3wPt1bQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Rspamd-Bar: -
+X-Rspamd-Report: SUSPICIOUS_RECIPS(1.5) BAYES_HAM(-2.999905) XM_UA_NO_VERSION(0.01) MIME_GOOD(-0.1)
+X-Rspamd-Score: -1.589905
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+	d=lausen.nl; s=uberspace;
+	h=from:to:cc:subject:date;
+	bh=6Bq9skfW1p6CvrhTcRQngnvs1JbfcWRTcyvjApbE79k=;
+	b=f9LFcXvYXYLJ6LKsYRYU0/74LbfOdjzkKFjcsco/PWpx9sJwNbRIduzRv26MuDj+gDOcgmh1R2
+	lA7YzyvTarn0W8RaqGzE4g0aB5D4K2Ojo0xZ85sk0fRLlME4IeP1Fs1OmwA1JYcUYNNsVnyWAEFN
+	sCmj+itYuCK8X7d4Yxc/GB2iw63A7/2Uc/ffpz6pfmfxWkpjBWshuNygy425mCMDTp1to9v1EpVA
+	9eXid+2WSfnXEwyB0y53bOX+nlY+QVUHrPCfKxaY0eiHhBnv3GCREEtB9lrLnbj5TKvoY844R91k
+	5pLR9f+2akWQxHG6HPUg+x8OL2eWydAIgF1fNYxqiQuQyF3BVl86flWYzFoAZseVKesV8/jWmwXl
+	wl0/lAdkYgGLKkzhHiTZActWAqK3flQQLliggPBZAAhqBvlQTcmVzWYXhbH/S+m0W9UFpqlob4hk
+	xKdXacopb/lN6944nO+CyTTKQinGvI/lnDqjaq6uSjeV/U32HAv+Z7Jly2mw8zTiVntDM900PHFd
+	3xGcix27TEuWKwX0ET6urawGSuGAxRONBshGOKBWN5YQEM6TDsd08pWBrPxPSRKakrX66XzXHUUo
+	/bXtrLZGxxsuHxQFL+Sdc9XlGHVu2YgeoZs2zrCMWQBpgtP8x3Uhlm/ZkapxN4Lr4EQeR1xLGHH7
+	Q=
 
-rpmh_regulator_init_vreg() registers the regulator, and
-set_machine_constraints() applies regulator-initial-mode (or the mode
-derived from regulator-system-load) through ->set_mode(), caching it in
-vreg->mode. Probe then calls rpmh_regulator_determine_initial_mode()
-unconditionally, which for an enabled regulator overwrites vreg->mode
-with the RPMh boot readback (mapping a raw mode of 0 to the lowest
-supported mode).
+Am 12.11.26 um 16:19 schrieb Ulf Hansson:
+> On Mon, Oct 19, 2026 at 11:24 AM Leonard Lausen <leonard@lausen.nl> wrote:
+>>
+>> On the NanoPi M5, boot hangs during Panfrost initialization. Before this
+>> fix, booting required blacklisting Panfrost on the kernel command line.
+>> Loading Panfrost after boot reports a GPU power-domain acknowledgment
+>> timeout:
+>>
+>>    failed to get ack on domain 'gpu', val=0x113ff
+>>
+>> Add regulator support to the RK3576 domain descriptors and mark the GPU
+>> domain as regulator-dependent. This lets the existing Rockchip
+>> power-domain regulator handling manage the GPU domain supply.
+>>
+>> A corresponding domain-supply property is needed in the board DT.
+>>
+>> The regulator-capable descriptors are based on the regulator support in
+>> Jiaxing Hu's pending RK3576 NPU enablement series, without its NPU settle
+>> delay changes.
+>>
+>> Link: https://lore.kernel.org/all/20260924102135.92217-10-gahing@gahingwoo.com/
+>> Fixes: cfee1b507758 ("pmdomain: rockchip: Add support for RK3576 SoC")
+>> Signed-off-by: Leonard Lausen <leonard@lausen.nl>
+> 
+> So this should be applied as a fix and tagged for stable kernels, right?
+Hi Uffe,
 
-Skip rpmh_regulator_determine_initial_mode() when registration has
-already set vreg->mode. Leaving vreg->bypassed clear also matches the
-non-bypass mode request that ->set_mode() just sent.
+No concerns on backporting from my side. I was previously running 6.19 
+and had to disable panfrost to avoid the boot hang fixed here. I 
+validated the fix only on 7.3 however. If you prefer only applying to 
+next, it also works for me.
 
-Fixes: 09d99ff7fc3c ("regulator: qcom-rpmh: readback voltage/bypass/mode set during bootup")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jesse Casco <jesse.casco@gmail.com>
----
- drivers/regulator/qcom-rpmh-regulator.c | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/drivers/regulator/qcom-rpmh-regulator.c b/drivers/regulator/qcom-rpmh-regulator.c
-index 08e39499be86..da4764ffa632 100644
---- a/drivers/regulator/qcom-rpmh-regulator.c
-+++ b/drivers/regulator/qcom-rpmh-regulator.c
-@@ -1961,6 +1961,10 @@ static int rpmh_regulator_probe(struct platform_device *pdev)
- 		if (ret < 0)
- 			return ret;
- 
-+		/* Keep a mode already applied by set_machine_constraints() */
-+		if (vreg->mode != REGULATOR_MODE_INVALID)
-+			continue;
-+
- 		ret = rpmh_regulator_determine_initial_mode(vreg);
- 		if (ret < 0)
- 			dev_err(dev, "failed to read initial mode for %s\n",
-
-base-commit: a2a6f6b0b394eda55bd3483ecafbdc8228819a98
--- 
-2.56.0
-
+Best regards
+Leonard
