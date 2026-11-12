@@ -1,124 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.168.131
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794490696;
-	b=iauqcJe1HZKv2sHztWUFeWReFbtmzDF4GbXEQYc7wOwSuWPfSEeBtFl3dB6TtPmhBn4Q
-	 5tTB8vy2ZsugZoVx+vl+TVuHmKhmcKjYbYMtkkMNi0V5x2gHpHL5fUYsOLwX+bgffrbx0
-	 sVErTWWFHO7lWGrEW1+s5MVYYSGxGYMtM24ZFuHt6JBSx5IFjoPO4X3vjqXeZe6lBQJDK
-	 iS+aCDSCOpsLKJmQ1H4h5Fn4/4HOb8rRkk+r2yCNt4dNaKyPZUKtyfQ+k/LboIz8CwFiJ
-	 xUHvQ2se0RUxn0XA2i8JCX83r+tFhkm97BhKpmM/e1JUgnUDVZOkvkQtCcMwIfgFkDg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794490696;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
-	 References:In-Reply-To:Reply-To:From:Date:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=uZMjiV5/PU+tMAzofbimEmP0pnjSzO4K3nywvn4aU+8=;
-	b=39BQ+YGCjl0XvO0gAchb9VgcLcC2XRHWPOomxUN+jdsI4YS0iCDFkPEON3cAiOL+oaB9
-	 HX1GRtx9svDxN9O72Zovo+/uwIaa0LNpsXK6/Abay4BHKxwNLDjQvXH+Gl2mOm/v4w58q
-	 ZgY/rHqJRQNJbAXHT9QkA+Twh/K7+5e1Z7grYHmGOnSUAm1SpUPpWCZywVm5yXenCRkjL
-	 cXmW9/WbVIS7+S/IOEti82iiEl7d4holrp03bd3LG04MBuJKaEOmXwQf9QN+DX54TTn3b
-	 J2p+LCLlESuqkXhCt7rX2SePrvs2hGUsJgzWb726h9TmXoun6sr6Be6Bxt+HDC/INzg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=MtUI6b7Q;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=LjSMJFt3;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794490743;
+	b=OYiJKtiN4jgL4L6wXXVrHRRV3Vnr99Ql1fDYf3w85YiqN4UJKfgvGgEocJzAaTD8RvsQ
+	 n6FMNz71iwSg6GM9kbmNDZmQp2GAf8T7MLJwdfBD+FlDdbpwzrP4tvTA7BdvDloar/nKV
+	 aEbjUkr/pNyx8elAOctCTZE7kQHcyBj6PPjQySGYNA6uEhmNy6LRqLpC/KDOon1NgWmyu
+	 /1b8HaGyHxjob8ga45gjjihrZN6N1SqOZ71Ehm3TYZpteE5PuSSdB3bNHkTNYfCBIKoN4
+	 55qczfRdWcTkK2co74JZDkDdT4uT3S64aag98It6m6obcke6jJ4l2+HkwS2mNliYzUg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794490743;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:From:
+	 Subject:To:Cc:References:Content-Language:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=5E96vR2/z7uzLsG+hU8CSVS3ZZYuTwlRc4mXU95aTIo=;
+	b=0F2ksjOuTvTc/35Cy+nkroVQ1yfbDwsHksK3yg0/qgERocNzdx9v7PopFLFxZvA+pdB9
+	 CIw4uJcrcU7K/m5s4ZxUgm0mjlIQR0aBS/09SlzBS7E4JgdVXaL5+wQWc7IXR983Lvc7t
+	 R1G4OLBMsOWjtALEPXiovaTj+OAkHlD3ieVOYA9wR1VJZ2Evf5qyaVtAjwTJlqpRgUx0M
+	 ovbbyE4DfEpwqwT4nBHSLoNimQ6hm18JBL19DU724s7lMfwqw3K5ZW80qkvLsRPH/6Pvc
+	 3lKIWVQkCenfgivHiKm57MfVfiTXzMrr0fTnIKm3KoOuVVUy8VqjkBOyPM6RBLnyLdA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WGzX0ky6;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F109606A333
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 13:38:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2F109606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7039A606A31C;
+	Thu, 12 Nov 2026 13:39:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=MtUI6b7Q;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=LjSMJFt3
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ACBDtK53893693
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 13:38:15 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:to; s=
-	qcppdkim1; bh=uZMjiV5/PU+tMAzofbimEmP0pnjSzO4K3nywvn4aU+8=; b=Mt
-	UI6b7QHyfXoOS6mthpt5UkYsrXFRFdOvk9PuS6cQY5NyGIuFYB86u/dqXUjXTtfl
-	49R7eTNlkbSLIk03IfdrR58QxSwGLTlLIVmM93s3jdH1l7OPOhK5uoavskG4BUj6
-	KTzGW+FkUKKyQvA5xiNbebNOtXwfnK8sRkGGwGmj41eb3wviOyl9nO8jEhr905kB
-	vcq7tuFStdabpWVFZlSJYVJMCxmfcTrwYLrF8sO06RJib2XNDlRBXYMMDXUNldy7
-	Z/f0DrYsWc0AnceZgHfq4VBvQ0XTAGQn5P5n2gVUygvbxl/htcC1uB9jOwaxUoKM
-	4yXJBz4za3xxVUA2rwYA==
-Received: from mail-ot1-f72.google.com (mail-ot1-f72.google.com [209.85.210.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hw6re1sxf-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 13:38:15 +0000 (GMT)
-Received: by mail-ot1-f72.google.com with SMTP id 46e09a7af769-8490253aeb6so3955644a34.0
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 05:38:15 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794490694; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ZRFKHzpe7fG0d0Mg2KWbopundlF+L3om+JhBBo6NOO7CPk72BOnbcuogJgBvTTcFou
-         9wUGiY8Gf6qHCFC7yUY3qICFc4XlYMZYK++9hPKVnG4GE7gHINleHzwATAY+TTQbmwfh
-         hBzqabdKrwTd3wrXWP1sU4lr978KYEGAFCt8ixTpmerHFU8xpFD0b4JzOgMPB5oMtpIy
-         SAwRPgwmR0+hkZQSZXsWqGDRGUCIN+cYsjLTfJ9+xvYq2jUAJlMv6b4MeNZ/oLpic5G0
-         MBDqVOpTbwXe5Ggy5ioGLotFCgB/cR/7X2bP8zETrIDSUmKCaerZ9b1CQ+O7BVFSKmF+
-         IzRw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :reply-to:in-reply-to:references:mime-version:dkim-signature;
-        bh=uZMjiV5/PU+tMAzofbimEmP0pnjSzO4K3nywvn4aU+8=;
-        fh=y/uJ/saatx7yHsWe1di4gX1irSQbJpRxr4HmaSPlZmg=;
-        b=NiAP9fvxxpOk7iKVltUzZP2dhVRlAJfrS4MI41mbmpWgoovNdDr/NbjQFwvkRCcct0
-         gz6/IfNzL10ohXb3i0zcuJ0YL0iLuQnfxjxZubu5yRUoOLMXgVZSnmzpPzaAlXxlmNoL
-         i8QVrhejOCAjUfPpsHGgY2cAsN7A8XhBw6kjZj/ccmO1YGTErIBJsnFVI0ZbFpEAMcOW
-         Z9PS4wPVSPDJTBwIaBpPgwH46LWZnOOt6vAsK7rjW6gdnpGwLhiA1Eajv+vz98UBBvX8
-         p9YKROXo5h+ErO6l2QKfzDl2GWHfDfbMpHqOI+M0+k8JgExcrvS6+Hboh/EjxHgKqUVq
-         eUnQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794490694; x=1795095494; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:reply-to:in-reply-to:references:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=uZMjiV5/PU+tMAzofbimEmP0pnjSzO4K3nywvn4aU+8=;
-        b=LjSMJFt3OQ9EeeS3lZE2lW4IdyF2K9by0rimSlDL0Qhhq8UUr+BaCZBLgas671tndI
-         4eoe7ZZQ40ZsQ2dsDMdpi8gu2I/VDJ0xxO+pj8/GWKbIJhxByCVvQtBSIwgKx5ahjmam
-         t0l6N+WUkfs/bKGYIGrIyrX7FDKg9porOCVrsCQElpzmNpyd6nb91FUZtBcwfNW1EiGU
-         xmDj7pqVMlchzvNTZ00eH56Vt+UK/7DmkYKwn6LpIkXd3zb7te1dYOsRlG5rBm2d9F+v
-         +I3Wj801494p+Px98eqk5t86nKnHoBxB5ZMl3gsREzokrLHE4yC0jePpw0SdES/TC9d0
-         VDiQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794490694; x=1795095494;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:reply-to:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=uZMjiV5/PU+tMAzofbimEmP0pnjSzO4K3nywvn4aU+8=;
-        b=tpsaNpaCe9atbZmZURKJzARRzh0YauP6Z6fct3B+ftiXU0PrwK5CY5vjvqIwNXQfbj
-         MrklolEsmu5y7QllN0aJnZYjNLX8AW4XVgQOc9p3rtcHvIse95aA6ypDJp+Mb7zHQ7uJ
-         HGdkAIqOV9+d8DofanvQDxqcfAo24faMHPcTSooBy5g8IxLqhRYLDUgJFX75nTdlDA1s
-         ZcXOmrVQ0u3fe0irIqGU5mJDMvankTrX8uIdtfXfiVRnA40bUAkYPTu5GONeqhyqjApX
-         PojtiWt2vyRcmS/KvpYJ5h27j0w0fsFXE0i+c4G/JjQjho9/SqdY2HHKmD9aI72JwVQo
-         XEYQ==
-X-Forwarded-Encrypted: i=1; AL+hErEGamIwMJDgvQw4fSmBRzFnJOpAgBzwrZ4GzRN2FxOWqF67zIPWmxjnUVQxnwHsgQm5hXL0GyunUi4p6AM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/NzWh7sDMBpCtmLmhPJnsF3LK/w6TZMEXGztkEkYYMWLlRR89V
-	nmp8I1/1514NoeRCHccVctBpjzy178biKdSPPD7gcFFWOjY2jn61pLQumJujEAeaKvNIScbolIN
-	4Uicle2Ru9gjWTjRWKhEZWNAqQW98SjlPd/w5dpk4BKqCMB0Kgjj/eBE4yQkTJRILN1FNPulB3M
-	aBjZjiE8W7WZPhuBHE55PyViX6vXj5p7X+qNc6bR858g==
-X-Gm-Gg: AYBFou3MMhgtM95oZZsPxv+0m9mVkW7nLaAr2qfo29T2QCmkJCTJDWxUHtzaHmdlfrm
-	izJdZoC1+8Y74WqzAiiKsQXnp/McLTHtXEzzozD+ZzCag8b58Hqr3WnE9OJiRm8LtfOUixFE6gK
-	y3PKwK6DhzOHtOCsw+q0ZNPJ9J7bYUi60v2zt8/vI1yQ/u3HORnVr25sEtgWRnzTW9dQ2Ws8paZ
-	+a+gQTfwoYKNGTUo2qFTQ==
-X-Received: by 2002:a05:6870:ac93:b0:479:47f9:27f1 with SMTP id 586e51a60fabf-4ae46c5620fmr4972456fac.36.1794490694460;
-        Thu, 12 Nov 2026 05:38:14 -0800 (PST)
-X-Received: by 2002:a05:6870:ac93:b0:479:47f9:27f1 with SMTP id
- 586e51a60fabf-4ae46c5620fmr4972438fac.36.1794490694085; Thu, 12 Nov 2026
- 05:38:14 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WGzX0ky6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43B961F00A05;
+	Thu, 12 Nov 2026 13:39:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794490743;
+	bh=5E96vR2/z7uzLsG+hU8CSVS3ZZYuTwlRc4mXU95aTIo=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To;
+	b=WGzX0ky64L6W96kDXj05vmDzkgcDb9HFsYnaWbcYfroEHci8pPPPkV/mvLJgAY/CN
+	 I8y8nC8e5SyTwNksN5wt+FWOu7ezt0vXp7XgL6vPHxp2le2lAd7r4RJAxW49Iwvtru
+	 wB+lcoqsju4q/DzG68Wpj+e/lWJSZE9pm3cCRFSTDLJF76Zd1/m09QGNKdfkk+pp0N
+	 rLoyhLvjf6xGVGNJDSzb8nW43ISA9+cV4RZGD/A6iMzDWV9Ri4Q/YVNP9p5QdXM8lH
+	 5OTqxnlMbRRhiG9pxmRyU/Ddw/rhIZyceNuYImcSCRwZVocpOrmGZq/w2a26V8uGNu
+	 D6fD3YsL2NBtQ==
+Message-ID: <1b63100c-673f-403c-aa37-4e9088a1a042@kernel.org>
+Date: Thu, 12 Nov 2026 14:39:00 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -128,64 +51,254 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261110204732.531432-1-robin.clark@oss.qualcomm.com> <141d09b6-8635-4e9b-ba50-3c5f352bf045@oss.qualcomm.com>
-In-Reply-To: <141d09b6-8635-4e9b-ba50-3c5f352bf045@oss.qualcomm.com>
-Reply-To: rob.clark@oss.qualcomm.com
-From: Rob Clark <rob.clark@oss.qualcomm.com>
-Date: Thu, 12 Nov 2026 05:38:03 -0800
-X-Gm-Features: AclHuK8IvmQSAh8MLCERgDgD1nk4EMGzjbERLsRckPKn8tpmXw-AAtPEd21ydVo
-Message-ID: <CACSVV033yjfbbpLMOMtWbSGe9y1XjbVmveRGMFDu7VzaKAAd3A@mail.gmail.com>
-Subject: Re: [PATCH] drm/msm/a8xx: More nonctx list updates
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
-        freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Akhil P Oommen <akhilpo@oss.qualcomm.com>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        open list <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-ORIG-GUID: KA580O2iy6XF2kCCO4HcYycX_OFMy0RV
-X-Proofpoint-GUID: KA580O2iy6XF2kCCO4HcYycX_OFMy0RV
-X-Authority-Analysis: v=2.4 cv=NJhAaE6g c=1 sm=1 tr=0 ts=6af5c147 cx=c_pps
- a=+3WqYijBVYhDct2f5Fivkw==:117 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=_K5XuSEh1TEqbUxoQ0s3:22 a=EUspDBNiAAAA:8 a=RUdMuCsKevVNhb-ASNUA:9
- a=QEXdDO2ut3YA:10 a=eYe2g0i6gJ5uXG_o6N4q:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDA1NCBTYWx0ZWRfX/opdGbTbdJlb
- 35jwCSkaVurKNIY1nSXcb9xth0fLeepdxWOwuG7ARywzKYtsWIP7OwUoFGyKwtAjogZFcPafMis
- 9JOjYVMZcb1Usk7QUcE5/TQqN6DRzyU=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDA1NCBTYWx0ZWRfX7DCOYk+vW63v
- 2MOOo6vksc2aBtdsPMsf20KaWls9qDktam9zxwiFDydSaW8zlb70lkRgwoaNPYKKFAudKDXwiqg
- RwAYUpLZJBuDWiinmCQRE5+35VyV97fHHn4IWElwhxT0yjlZGjR1MCvdFLWorL82lrHvwYR3AQf
- s/UUhmmF/LF2Nb+z58l09Wa4SRJyYrsWv8xtM9b4y6AdETSY0dtd+lZhTK0iTxVlVqvp5nspZzx
- aNyKSdksWHBCyOrgEi/eFIjF/1psrMV0RGi6sqsUK9AKkkVLiHb1YzcmWwdgmUYb7BE5Dl3kiXP
- hrNE7bboj56TYuhE9rBApyku5avuEuGLpgVgm/d9HZdDYF1PqvpS0GC28XHbHj70gSTillcltgV
- cBpIAqN8NI//SjB2PvQ3XncnAYuHZbdFjfspypYJuihuU1vIgYxxCTs/5bdPmZwKdg04vwIFLaZ
- ngqpXFSA+kXHWLke6cg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-12_01,2026-11-11_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 impostorscore=0 phishscore=0 spamscore=0 clxscore=1015
- malwarescore=0 adultscore=0 bulkscore=0 lowpriorityscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611120054
+User-Agent: Mozilla Thunderbird
+From: Hans Verkuil <hverkuil+cisco@kernel.org>
+Subject: Re: [PATCH] media: cx231xx: fix August VGB100 video and VBI capture
+To: =?UTF-8?B?U2luacWhYSBEb8WhZW4=?= <snsdosen@gmail.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261012103657.28574-1-snsdosen@gmail.com>
+Content-Language: en-US, nl
+In-Reply-To: <20261012103657.28574-1-snsdosen@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Thu, Nov 12, 2026 at 12:56=E2=80=AFAM Konrad Dybcio
-<konrad.dybcio@oss.qualcomm.com> wrote:
->
-> On 11/10/26 9:47 PM, Rob Clark wrote:
-> > Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
-> > ---
->
-> Any dependencies on mesa changes?
+Hi Siniša,
 
-There should not be
+On 12/10/2026 12:36, Siniša Došen wrote:
+> Devices sold as the August VGB100 exist in at least two hardware
+> revisions, although both use USB ID 1f4d:0102. The Windows driver INF
+> also contains separate entries for two VGB100 revisions. The unit tested
+> here reports bcdDevice 0x4002.
+> 
+> Linux support for this USB ID was originally added for the Geniatech
+> OTG102/EZGrabber2. A later patch fixed S-Video capture on an August
+> VGB100 by correcting the input routing from the VGB100 and OTG102
+> Windows INF files. That profile provides working video on an older
+> VGB100 unit, but it does not initialize the 0x4002 revision correctly.
+> The older unit also showed URB errors and could become unresponsive when
+> capturing raw VBI.
+> 
+> On the 0x4002 revision the generic profile leaves the analog front end
+> with the wrong reference tuning, so the decoder cannot lock reliably to
+> a PAL signal. Once that is corrected, cx25840 reports 720x572 while the
+> bridge delivers complete 720x576 frames, causing applications to reject
+> the captured buffers.
+> 
+> Raw VBI capture also exposes two bugs in the common cx231xx code. The
+> parser stops making progress after discarding a surplus VBI line, which
+> leaves readers waiting indefinitely despite continuing USB traffic. VBI
+> URBs can also remain active while their vb2 buffers are returned during
+> stream shutdown.
+> 
+> This change adds a board profile for bcdDevice 0x4002 while leaving the
+> existing OTG102 profile as the fallback for the older revision. It uses
+> the AFE reference tuning and frame geometry required by the new hardware,
+> corrects the raw VBI parser state, stops URBs before returning buffers,
+> and avoids reinitializing the analog path when userspace reselects the
+> active input.
+> 
+> The result was tested on the 0x4002 VGB100 with 720x576 YUYV video at
+> 25 fps and raw PAL VBI capture at 1440 samples over 36 lines per frame.
 
-BR,
--R
+This patch is mixing three things: adding a new board, and fixing two
+vbi bugs.
+
+Can you split this in three patches? That's much cleaner.
+
+Also, regarding the addition of cx231xx_uninit_vbi_isoc(): in the corresponding
+stop_streaming in cx231xx-video.c, nothing similar is happening. Instead this
+is done in cx231xx_close. It's not clear to me why cx231xx_uninit_vbi_isoc needs
+to be called in vbi_stop_streaming. When vbi_start_streaming is called, that in
+turn calls cx231xx_init_vbi_isoc which calls cx231xx_uninit_vbi_isoc in the very
+beginning. Which seems reasonable?
+
+Thank you!
+
+Regards,
+
+	Hans
+
+> 
+> Signed-off-by: Siniša Došen <snsdosen@gmail.com>
+> ---
+>  drivers/media/usb/cx231xx/cx231xx-avcore.c | 14 +++++++++++++
+>  drivers/media/usb/cx231xx/cx231xx-cards.c  | 24 ++++++++++++++++++++++
+>  drivers/media/usb/cx231xx/cx231xx-vbi.c    | 18 ++++++++++++----
+>  drivers/media/usb/cx231xx/cx231xx-video.c  | 12 +++++++++--
+>  drivers/media/usb/cx231xx/cx231xx.h        |  1 +
+>  5 files changed, 63 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/media/usb/cx231xx/cx231xx-avcore.c b/drivers/media/usb/cx231xx/cx231xx-avcore.c
+> index 0a5c635..fb71e39 100644
+> --- a/drivers/media/usb/cx231xx/cx231xx-avcore.c
+> +++ b/drivers/media/usb/cx231xx/cx231xx-avcore.c
+> @@ -348,6 +348,7 @@ int cx231xx_afe_update_power_control(struct cx231xx *dev,
+>  	case CX231XX_BOARD_HAUPPAUGE_USB2_FM_PAL:
+>  	case CX231XX_BOARD_HAUPPAUGE_USB2_FM_NTSC:
+>  	case CX231XX_BOARD_OTG102:
+> +	case CX231XX_BOARD_AUGUST_VGB100:
+>  		if (avmode == POLARIS_AVMODE_ANALOGT_TV) {
+>  			while (afe_power_status != (FLD_PWRDN_TUNING_BIAS |
+>  						FLD_PWRDN_ENABLE_PLL)) {
+> @@ -932,6 +933,18 @@ int cx231xx_set_decoder_video_input(struct cx231xx *dev,
+>  		status = vid_blk_write_word(dev, OUT_CTRL1, value);
+>  	}
+>  
+> +	/*
+> +	 * The generic setup derives TUNE1 from the reference clock and leaves
+> +	 * 0x42 here.  The VGB100 40.02 analogue front end requires 0xbe;
+> +	 * otherwise its decoder never acquires horizontal sync.
+> +	 */
+> +	if (dev->model == CX231XX_BOARD_AUGUST_VGB100 &&
+> +	    pin_type == CX231XX_VMUX_COMPOSITE1) {
+> +		status = afe_write_byte(dev, SUP_BLK_TUNE1, 0xbe);
+> +		if (status < 0)
+> +			return status;
+> +	}
+> +
+>  	return status;
+>  }
+>  
+> @@ -1729,6 +1742,7 @@ int cx231xx_dif_set_standard(struct cx231xx *dev, u32 standard)
+>  	case CX231XX_BOARD_CNXT_VIDEO_GRABBER:
+>  	case CX231XX_BOARD_HAUPPAUGE_EXETER:
+>  	case CX231XX_BOARD_OTG102:
+> +	case CX231XX_BOARD_AUGUST_VGB100:
+>  		func_mode = 0x03;
+>  		break;
+>  	case CX231XX_BOARD_CNXT_RDE_253S:
+> diff --git a/drivers/media/usb/cx231xx/cx231xx-cards.c b/drivers/media/usb/cx231xx/cx231xx-cards.c
+> index 69b2420..7ce160d 100644
+> --- a/drivers/media/usb/cx231xx/cx231xx-cards.c
+> +++ b/drivers/media/usb/cx231xx/cx231xx-cards.c
+> @@ -685,6 +685,28 @@ struct cx231xx_board cx231xx_boards[] = {
+>  			}
+>  		},
+>  	},
+> +	[CX231XX_BOARD_AUGUST_VGB100] = {
+> +		.name = "August VGB100",
+> +		.tuner_type = TUNER_ABSENT,
+> +		.decoder = CX231XX_AVDECODER,
+> +		.output_mode = OUT_MODE_VIP11,
+> +		.ctl_pin_status_mask = 0xFFFFFFC4,
+> +		.agc_analog_digital_select_gpio = 0x0c,
+> +		.gpio_pin_status_mask = 0x4001000,
+> +		.norm = V4L2_STD_PAL,
+> +		.no_alt_vanc = 1,
+> +		.external_av = 1,
+> +		.input = {{
+> +			.type = CX231XX_VMUX_COMPOSITE1,
+> +			.vmux = CX231XX_VIN_2_1,
+> +			.amux = CX231XX_AMUX_LINE_IN,
+> +		}, {
+> +			.type = CX231XX_VMUX_SVIDEO,
+> +			.vmux = CX231XX_VIN_1_1 |
+> +				(CX231XX_VIN_3_2 << 8),
+> +			.amux = CX231XX_AMUX_LINE_IN,
+> +		} },
+> +	},
+>  	[CX231XX_BOARD_HAUPPAUGE_930C_HD_1113xx] = {
+>  		.name = "Hauppauge WinTV 930C-HD (1113xx) / HVR-900H (111xxx) / PCTV QuatroStick 521e",
+>  		.tuner_type = TUNER_NXP_TDA18271,
+> @@ -1061,6 +1083,8 @@ struct usb_device_id cx231xx_id_table[] = {
+>  	 .driver_info = CX231XX_BOARD_ICONBIT_U100},
+>  	{USB_DEVICE(0x0fd9, 0x0037),
+>  	 .driver_info = CX231XX_BOARD_ELGATO_VIDEO_CAPTURE_V2},
+> +	{USB_DEVICE_VER(0x1f4d, 0x0102, 0x4002, 0x4002),
+> +	 .driver_info = CX231XX_BOARD_AUGUST_VGB100},
+>  	{USB_DEVICE(0x1f4d, 0x0102),
+>  	 .driver_info = CX231XX_BOARD_OTG102},
+>  	{USB_DEVICE(USB_VID_TERRATEC, 0x00a6),
+> diff --git a/drivers/media/usb/cx231xx/cx231xx-vbi.c b/drivers/media/usb/cx231xx/cx231xx-vbi.c
+> index 338e101..63db257 100644
+> --- a/drivers/media/usb/cx231xx/cx231xx-vbi.c
+> +++ b/drivers/media/usb/cx231xx/cx231xx-vbi.c
+> @@ -234,6 +234,8 @@ static void vbi_stop_streaming(struct vb2_queue *vq)
+>  {
+>  	struct cx231xx *dev = vb2_get_drv_priv(vq);
+>  
+> +	/* Stop URB callbacks before returning their destination buffers. */
+> +	cx231xx_uninit_vbi_isoc(dev);
+>  	return_all_buffers(dev, VB2_BUF_STATE_ERROR);
+>  }
+>  
+> @@ -499,8 +501,12 @@ u32 cx231xx_copy_vbi_line(struct cx231xx *dev, struct cx231xx_dmaqueue *dma_q,
+>  		cx231xx_reset_vbi_buffer(dev, dma_q);
+>  	}
+>  
+> -	if (dma_q->current_field != field_number)
+> +	if (dma_q->current_field != field_number) {
+> +		/* Drop any incomplete surplus line from the previous field. */
+>  		dma_q->lines_completed = 0;
+> +		dma_q->bytes_left_in_line = _line_size;
+> +		dma_q->is_partial_line = 0;
+> +	}
+>  
+>  	/* get the buffer pointer */
+>  	buf = dev->vbi_mode.bulk_ctl.buf;
+> @@ -514,9 +520,13 @@ u32 cx231xx_copy_vbi_line(struct cx231xx *dev, struct cx231xx_dmaqueue *dma_q,
+>  
+>  	if (dma_q->lines_completed >= dma_q->lines_per_field) {
+>  		dma_q->bytes_left_in_line -= bytes_to_copy;
+> -		dma_q->is_partial_line =
+> -		    (dma_q->bytes_left_in_line == 0) ? 0 : 1;
+> -		return 0;
+> +		if (dma_q->bytes_left_in_line == 0) {
+> +			dma_q->bytes_left_in_line = _line_size;
+> +			dma_q->is_partial_line = 0;
+> +		} else {
+> +			dma_q->is_partial_line = 1;
+> +		}
+> +		return bytes_to_copy;
+>  	}
+>  
+>  	dma_q->is_partial_line = 1;
+> diff --git a/drivers/media/usb/cx231xx/cx231xx-video.c b/drivers/media/usb/cx231xx/cx231xx-video.c
+> index 70aa99f..4fd31ab 100644
+> --- a/drivers/media/usb/cx231xx/cx231xx-video.c
+> +++ b/drivers/media/usb/cx231xx/cx231xx-video.c
+> @@ -912,6 +912,10 @@ static int vidioc_s_fmt_vid_cap(struct file *file, void *priv,
+>  	call_all(dev, pad, set_fmt, NULL, &format);
+>  	v4l2_fill_pix_format(&f->fmt.pix, &format.format);
+>  
+> +	/* The DMA engine keeps the requested 576-line PAL geometry. */
+> +	if (dev->model == CX231XX_BOARD_AUGUST_VGB100)
+> +		vidioc_g_fmt_vid_cap(file, priv, f);
+> +
+>  	return rc;
+>  }
+>  
+> @@ -1065,13 +1069,17 @@ int cx231xx_s_input(struct file *file, void *priv, unsigned int i)
+>  {
+>  	struct cx231xx *dev = video_drvdata(file);
+>  
+> -	dev->mode_tv = 0;
+> -
+>  	if (i >= MAX_CX231XX_INPUT)
+>  		return -EINVAL;
+>  	if (0 == INPUT(i)->type)
+>  		return -EINVAL;
+>  
+> +	/* Reapplying the vendor profile disturbs an active raw VBI stream. */
+> +	if (dev->model == CX231XX_BOARD_AUGUST_VGB100 &&
+> +	    i == dev->video_input)
+> +		return 0;
+> +
+> +	dev->mode_tv = 0;
+>  	video_mux(dev, i);
+>  
+>  	if (INPUT(i)->type == CX231XX_VMUX_TELEVISION ||
+> diff --git a/drivers/media/usb/cx231xx/cx231xx.h b/drivers/media/usb/cx231xx/cx231xx.h
+> index 19f5036..1cb08ec 100644
+> --- a/drivers/media/usb/cx231xx/cx231xx.h
+> +++ b/drivers/media/usb/cx231xx/cx231xx.h
+> @@ -70,6 +70,7 @@
+>  #define CX231XX_BOARD_THE_IMAGING_SOURCE_DFG_USB2_PRO 25
+>  #define CX231XX_BOARD_HAUPPAUGE_935C 26
+>  #define CX231XX_BOARD_HAUPPAUGE_975 27
+> +#define CX231XX_BOARD_AUGUST_VGB100 28
+>  
+>  /* Limits minimum and default number of buffers */
+>  #define CX231XX_MIN_BUF                 4
+
